@@ -7,7 +7,7 @@ void *AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
     if (v3 > result[40])
     {
       v5 = result;
-      result = AGX::DataBufferAllocator<44ul>::growNoInline(result + 3, 8, 1);
+      result = AGX::DataBufferAllocator<44ul>::growNoInline((result + 3), 8, 1);
       if (result)
       {
         v4 = v5[41] + v2;
@@ -30,35 +30,35 @@ void *AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
   return result;
 }
 
-void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::reserveDepthBiasSpace(void *a1)
+void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::reserveDepthBiasSpace(void *result)
 {
-  if (*(*(a1[234] + 848) + 6241))
+  if (*(*(result[234] + 848) + 6241))
   {
     return;
   }
 
-  v1 = a1[37];
+  v1 = result[37];
   if (!v1)
   {
-    v3 = a1;
-    if (!AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 3, 7, 0))
+    v3 = result;
+    if (!AGX::DataBufferAllocator<44ul>::growNoInline((result + 3), 7, 0))
     {
       goto LABEL_13;
     }
 
-    a1 = v3;
+    result = v3;
     v1 = v3[37];
   }
 
   v2 = v1 + 12;
-  if (v2 <= a1[36])
+  if (v2 <= result[36])
   {
-    a1[38] = v2;
+    result[38] = v2;
     return;
   }
 
-  v7 = a1;
-  v4 = AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 3, 7, 1);
+  v7 = result;
+  v4 = AGX::DataBufferAllocator<44ul>::growNoInline((result + 3), 7, 1);
   v5 = v7;
   if (v4)
   {
@@ -68,7 +68,7 @@ void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::
       v7[38] = v6 + 12;
       if (!v6)
       {
-        AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow((v7 + 3), 7u);
+        AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow((v7 + 3), 7);
         v5 = v7;
       }
 
@@ -214,7 +214,7 @@ LABEL_6:
       goto LABEL_10;
     }
 
-    v39 = AGX::DataBufferAllocator<44ul>::growNoInline(v23 + 3, 3, 0);
+    v39 = AGX::DataBufferAllocator<44ul>::growNoInline((v23 + 3), 3, 0);
     v21 = 8 * a2;
     if (!v39)
     {
@@ -309,7 +309,7 @@ uint64_t AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
   bzero(v2 + 48, 0x490uLL);
   v2[338] = 1;
   AGX::ContextSwitcherGen3<AGX::HAL300::Encoders,AGX::HAL300::Classes>::setupFastRenderCommand(*(a1 + 2088), (v2 + 48), a1 + 24);
-  AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::setupResolveCommand(a1 + 2120, v2 + 24, *(a1 + 1912), (a1 + 24), *(a1 + 2392));
+  AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::setupResolveCommand((a1 + 2120), v2 + 24, *(a1 + 1912), (a1 + 24), *(a1 + 2392));
   AGX::SpillInfoGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::SpillInfoGen4(&v48, *(*(a1 + 1872) + 848), *(*(*(a1 + 1872) + 848) + 7192));
   v12.i32[0] = *(a1 + 2368);
   v12.i32[1] = *(a1 + 2376);
@@ -429,7 +429,7 @@ LABEL_26:
   *(v3 + 1024) = *(a1 + 1932);
   AGX::Framebuffer<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::assignResolveRenderRegisters(*(a1 + 2392), v3);
   AGX::FramebufferGen3_2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::addAPIResources(*(a1 + 2392), *(a1 + 1896), *(a1 + 1904));
-  AGX::FramebufferGen3_2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::addGPUResources(*(a1 + 2392), v40, *(a1 + 1912), *(a1 + 2008), 63);
+  AGX::FramebufferGen3_2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::addGPUResources(*(a1 + 2392), *(a1 + 1912), *(a1 + 2008), 63, v40);
   *(v3 + 1008) = 0;
   if (!*(*(a1 + 1912) + 520))
   {
@@ -1861,7 +1861,7 @@ LABEL_214:
   }
 
 LABEL_277:
-  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(a2);
+  AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(a2, *(a1 + 1912));
   v324 = *(a1 + 7688);
   if (*(v324 + 790) == 1)
   {
@@ -2142,7 +2142,7 @@ void *AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,
   return result;
 }
 
-uint64_t std::unique_ptr<AGX::HAL300::Framebuffer,std::function<void ()(AGX::HAL300::Framebuffer*)>>::operator=[abi:nn200100](uint64_t *a1, uint64_t *a2)
+uint64_t *std::unique_ptr<AGX::HAL300::Framebuffer,std::function<void ()(AGX::HAL300::Framebuffer*)>>::operator=[abi:nn200100](uint64_t *a1, uint64_t *a2)
 {
   v4 = *a2;
   *a2 = 0;
@@ -2194,19 +2194,19 @@ LABEL_8:
     return a1;
   }
 
-  v11 = v5;
+  v12 = v5;
   v6 = a1[4];
   if (v6)
   {
-    (*(*v6 + 48))(v6, &v11);
+    (*(*v6 + 48))(v6, &v12);
     goto LABEL_4;
   }
 
   v10 = std::__throw_bad_function_call[abi:nn200100]();
-  return std::unique_ptr<AGX::HAL300::RenderContextB,std::function<void ()(AGX::HAL300::RenderContextB*)>>::operator=[abi:nn200100](v10);
+  return std::unique_ptr<AGX::HAL300::RenderContextB,std::function<void ()(AGX::HAL300::RenderContextB*)>>::operator=[abi:nn200100](v10, v11);
 }
 
-uint64_t std::unique_ptr<AGX::HAL300::RenderContextB,std::function<void ()(AGX::HAL300::RenderContextB*)>>::operator=[abi:nn200100](uint64_t *a1, uint64_t *a2)
+uint64_t *std::unique_ptr<AGX::HAL300::RenderContextB,std::function<void ()(AGX::HAL300::RenderContextB*)>>::operator=[abi:nn200100](uint64_t *a1, uint64_t *a2)
 {
   v4 = *a2;
   *a2 = 0;
@@ -2514,7 +2514,7 @@ void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,A
 {
   *(a2 + 384) |= 0x30uLL;
   *(a1 + 64) = 0;
-  AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeAndEmitMeshRenderState(a1, *(a1 + 32), *(a1 + 40), *(*(a1 + 8) + 7680), *(a1 + 1040), *(a1 + 2072), *(*(a1 + 8) + 9744), a8, 0, 0, 0, 0, 0, 0, a2, 1);
+  AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeAndEmitMeshRenderState(a1, *(a1 + 32), *(a1 + 40), *(*(a1 + 8) + 7680), *(a1 + 1040), *(a1 + 2072), *(*(a1 + 8) + 9744), a8, 0, 0, 0, 0, a2, 1);
   *(a1 + 64) = 0;
 }
 
@@ -3093,10 +3093,11 @@ LABEL_21:
   return result;
 }
 
-uint64_t AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setMeshProgramBuffers(uint64_t result, uint64_t *a2, uint64_t *a3, unsigned int a4, unsigned int a5)
+uint64_t AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setMeshProgramBuffers(uint64_t result, uint64_t *a2, uint64_t *a3, uint64_t a4, unsigned int a5)
 {
   if (a5)
   {
+    v5 = a4;
     v8 = result;
     v9 = a5;
     do
@@ -3104,7 +3105,7 @@ uint64_t AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Class
       v11 = *a2++;
       v10 = v11;
       v12 = *a3++;
-      result = AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setBuffer<AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::StageBindInfo<true>>(v8, v10, v12, a4++, v8 + 1376);
+      result = AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setBuffer<AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::StageBindInfo<true>>(v8, v10, v12, v5++, v8 + 1376);
       --v9;
     }
 
@@ -3851,10 +3852,11 @@ LABEL_21:
   return result;
 }
 
-uint64_t AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setObjectProgramBuffers(uint64_t result, uint64_t *a2, uint64_t *a3, unsigned int a4, unsigned int a5)
+uint64_t AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setObjectProgramBuffers(uint64_t result, uint64_t *a2, uint64_t *a3, uint64_t a4, unsigned int a5)
 {
   if (a5)
   {
+    v5 = a4;
     v8 = result;
     v9 = a5;
     do
@@ -3862,7 +3864,7 @@ uint64_t AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Class
       v11 = *a2++;
       v10 = v11;
       v12 = *a3++;
-      result = AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setBuffer<AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::StageBindInfo<false>>(v8, v10, v12, a4++, v8 + 72);
+      result = AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setBuffer<AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::StageBindInfo<false>>(v8, v10, v12, v5++, v8 + 72);
       --v9;
     }
 
@@ -4049,7 +4051,7 @@ LABEL_2:
 
   v20 = a2;
   v21 = a3;
-  v22 = AGX::DataBufferAllocator<44ul>::growNoInline(v7 + 3, 3, 0);
+  v22 = AGX::DataBufferAllocator<44ul>::growNoInline((v7 + 3), 3, 0);
   a2 = v20;
   a3 = v21;
   if (v22)
@@ -4245,7 +4247,7 @@ LABEL_5:
   }
 
   v24 = v6;
-  v25 = AGX::DataBufferAllocator<44ul>::growNoInline(v5 + 3, 3, 0);
+  v25 = AGX::DataBufferAllocator<44ul>::growNoInline((v5 + 3), 3, 0);
   v7 = 8 * a2;
   v6 = v24;
   if (v25)
@@ -4605,11 +4607,11 @@ LABEL_41:
   return AGX::SpillInfoGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::allocateUSCSpillBuffer(v63 + 7440, v64, 1);
 }
 
-void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::drawMeshThreadgroupsWithIndirectBuffer(void *a1, uint64_t a2, __int128 *a3, __int128 *a4)
+void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::drawMeshThreadgroupsWithIndirectBuffer(void *result, uint64_t a2, __int128 *a3, void *a4)
 {
-  if (*(a1[4] + 3946) == 1)
+  if (*(result[4] + 3946) == 1)
   {
-    v6 = *(a1[1] + 7688);
+    v6 = *(result[1] + 7688);
 LABEL_6:
     v8 = *(v6 + 32);
     if (v8)
@@ -4617,25 +4619,25 @@ LABEL_6:
       v8 = *(v8 + 4036);
     }
 
-    if (*(a4 + 1) * *a4 * *(a4 + 2) <= v8)
+    if (a4[1] * *a4 * a4[2] <= v8)
     {
       v14 = v4;
       v15 = v5;
-      v9 = a1[131];
+      v9 = result[131];
       *(v9 + 384) = 0;
       *(v9 + 72) = a2;
-      a1[136] = 0;
+      result[136] = 0;
       v12 = *a3;
       v13 = *(a3 + 2);
       v10 = *a4;
-      v11 = *(a4 + 2);
-      AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::drawMeshThreadgroupsWithIndirectBufferCommon(a1, a2, &v12, &v10);
+      v11 = a4[2];
+      AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::drawMeshThreadgroupsWithIndirectBufferCommon(result, a2, &v12, &v10);
     }
 
     return;
   }
 
-  v6 = *(a1[1] + 7688);
+  v6 = *(result[1] + 7688);
   v7 = *(v6 + 24);
   if (v7)
   {
@@ -4648,17 +4650,17 @@ LABEL_6:
   }
 }
 
-void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::drawMeshThreadgroupsWithIndirectBuffer(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, __int128 *a5)
+void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::drawMeshThreadgroupsWithIndirectBuffer(void *result, uint64_t a2, uint64_t a3, void *a4, void *a5)
 {
-  if (*(*(a1 + 32) + 3946) == 1)
+  if (*(result[4] + 3946) == 1)
   {
-    v8 = *(a1 + 8);
+    v8 = result[1];
     v9 = v8[961];
   }
 
   else
   {
-    v8 = *(a1 + 8);
+    v8 = result[1];
     v9 = v8[961];
     v10 = *(v9 + 24);
     if (v10)
@@ -4678,20 +4680,20 @@ void AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,A
     v11 = *(v11 + 4036);
   }
 
-  if (*(a5 + 1) * *a5 * *(a5 + 2) <= v11)
+  if (a5[1] * *a5 * a5[2] <= v11)
   {
-    if (*(*(a1 + 32) + 3946))
+    if (*(result[4] + 3946))
     {
       v12 = 0;
       a3 = a3;
 LABEL_30:
-      v31 = a1;
-      AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setBuffer<AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::StageBindInfo<false>>(a1, a2, a3, 0x23u, a1 + 72);
+      v31 = result;
+      AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setBuffer<AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::StageBindInfo<false>>(result, a2, a3, 0x23u, (result + 9));
       IOGPUResourceListAddResource();
       v40 = *a4;
       v41 = a4[2];
       v38 = *a5;
-      v39 = *(a5 + 2);
+      v39 = a5[2];
       AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::drawMeshThreadgroupsWithIndirectBufferCommon(v31, v12, &v40, &v38);
       return;
     }
@@ -4728,7 +4730,7 @@ LABEL_30:
           v27 = v26.u64[1];
           if (v26.i64[1])
           {
-            v28 = a1;
+            v28 = result;
             v29 = 3;
             goto LABEL_38;
           }
@@ -4736,13 +4738,13 @@ LABEL_30:
           v27 = v26.i64[0];
           if (v26.i64[0])
           {
-            v28 = a1;
+            v28 = result;
             v29 = 2;
             goto LABEL_38;
           }
 
           v32 = vandq_s8(v24, v19);
-          v28 = a1;
+          v28 = result;
           v27 = v32.u64[1];
           if (v32.i64[1])
           {
@@ -4777,12 +4779,12 @@ LABEL_38:
 
 LABEL_27:
           IOGPUResourceListAddResource();
-          a1 = v28;
+          result = v28;
           v30 = *(v28 + 8);
           if (*(v30 + 1896))
           {
             MTLResourceListAddResource();
-            a1 = v28;
+            result = v28;
             v30 = *(v28 + 8);
           }
 
@@ -4798,7 +4800,7 @@ LABEL_27:
       v21 = a3;
     }
 
-    v28 = a1;
+    v28 = result;
     goto LABEL_27;
   }
 }
@@ -5901,7 +5903,7 @@ LABEL_16:
   if ((v24 + 2) > v15[20])
   {
     v69 = v15;
-    v70 = AGX::DataBufferAllocator<44ul>::growNoInline(v15 + 3, 3, 0);
+    v70 = AGX::DataBufferAllocator<44ul>::growNoInline((v15 + 3), 3, 0);
     v15 = v69;
     v24 = v69[21];
     if (!v70)
@@ -6134,7 +6136,7 @@ uint64_t AGX::HWTessellationContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,A
   return result;
 }
 
-uint64_t AGX::HWTessellationContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setTessellationFactorBuffer(uint64_t result, uint64_t a2, uint64_t a3, int a4)
+void *AGX::HWTessellationContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setTessellationFactorBuffer(void *result, uint64_t a2, uint64_t a3, int a4)
 {
   v6 = result;
   if (a2)
@@ -6151,22 +6153,22 @@ uint64_t AGX::HWTessellationContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,A
     LODWORD(v10) = 0;
   }
 
-  if (*(result + 32) != v9 || *(result + 44) != a4)
+  if (result[4] != v9 || *(result + 11) != a4)
   {
-    *(result + 32) = v9;
-    *(result + 40) = v10;
-    result = AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setVertexProgramBuffer(*(result + 8), a2, a3, 0x23u);
-    *(v6 + 44) = a4;
-    if (*(v6 + 80) != a2)
+    result[4] = v9;
+    *(result + 10) = v10;
+    result = AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setVertexProgramBuffer(result[1], a2, a3, 0x23u);
+    *(v6 + 11) = a4;
+    if (v6[10] != a2)
     {
-      *(v6 + 80) = a2;
-      result = *(*(v6 + 8) + 1896);
+      v6[10] = a2;
+      result = *(v6[1] + 1896);
       if (result)
       {
         result = MTLResourceListAddResource();
       }
 
-      *(v6 + 112) |= 2u;
+      *(v6 + 28) |= 2u;
     }
   }
 
@@ -6468,6 +6470,13 @@ LABEL_5:
   *(v1 + 11480) = v6;
   operator delete(v6);
   goto LABEL_6;
+}
+
+void sub_29CEFBC34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63, ...)
+{
+  va_start(va, a63);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::appendSubEncoderToChain(uint64_t a1, uint64_t *a2)
@@ -6778,142 +6787,143 @@ void sub_29CEFD1F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AGX::SampledRenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::duplicateShaderAddresses(uint64_t result)
+void *AGX::SampledRenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::duplicateShaderAddresses(void *result)
 {
-  v1 = *(result + 48);
-  v2 = *(*(v1 + 1872) + 848);
-  v3 = *(*(result + 56) + 240);
-  v4 = *(*(result + 56) + 248);
-  v6 = *(*(result + 56) + 256);
-  v5 = *(*(result + 56) + 264);
-  v7 = *(*(result + 56) + 272);
-  *(v1 + 10472) |= 0x3BuLL;
+  v1 = result[6];
+  v2 = *(v1[234] + 848);
+  v3 = (result[7] + 240);
+  v4 = *v3;
+  v5 = *(result[7] + 248);
+  v7 = *(result[7] + 256);
+  v6 = *(result[7] + 264);
+  v8 = *(result[7] + 272);
+  v1[1309] |= 0x3BuLL;
   if (*(result + 65) == 1)
   {
-    AGX::cloneIFTs_impl<AGX::HAL300::ObjClasses,AGX::HAL300::Classes>();
-  }
-
-  if (v6)
-  {
-    v8 = *(v2 + 16624);
-    v9 = *(result + 24) + 24 * *(result + 36);
-    *v9 = 3;
-    v10 = *(*(result + 48) + 1924);
-    if (v8 == 1)
-    {
-      *(v9 + 4) = v10;
-      *v9 = (*(result + 40) << 8) | 3;
-    }
-
-    else
-    {
-      *v9 = (v10 << 8) | 3;
-      *(v9 + 4) = *(result + 40);
-    }
-
-    v11 = *(v6 + 1528);
-    *(v9 + 8) = v11;
-    *(v9 + 16) = *(v6 + 1824) + v11;
-    *(result + 36) = (*(result + 36) + 1) % *(result + 32);
-  }
-
-  if (v4)
-  {
-    v12 = *(v2 + 16624);
-    v13 = *(result + 24) + 24 * *(result + 36);
-    *v13 = 1;
-    v14 = *(*(result + 48) + 1924);
-    if (v12 == 1)
-    {
-      *(v13 + 4) = v14;
-      *v13 = (*(result + 40) << 8) | 1;
-    }
-
-    else
-    {
-      *v13 = (v14 << 8) | 1;
-      *(v13 + 4) = *(result + 40);
-    }
-
-    v15 = *(v4 + 1528);
-    *(v13 + 8) = v15;
-    *(v13 + 16) = *(v4 + 1824) + v15;
-    *(result + 36) = (*(result + 36) + 1) % *(result + 32);
-  }
-
-  if (v5)
-  {
-    v16 = *(v2 + 16624);
-    v17 = *(result + 24) + 24 * *(result + 36);
-    *v17 = 8;
-    v18 = *(*(result + 48) + 1924);
-    if (v16 == 1)
-    {
-      *(v17 + 4) = v18;
-      *v17 = (*(result + 40) << 8) | 8;
-    }
-
-    else
-    {
-      *v17 = (v18 << 8) | 8;
-      *(v17 + 4) = *(result + 40);
-    }
-
-    v19 = *(v5 + 1528);
-    *(v17 + 8) = v19;
-    *(v17 + 16) = *(v5 + 1824) + v19;
-    *(result + 36) = (*(result + 36) + 1) % *(result + 32);
+    AGX::cloneIFTs_impl<AGX::HAL300::ObjClasses,AGX::HAL300::Classes>(v3[128], v3[394], v1[265], v1[238], v1[239]);
   }
 
   if (v7)
   {
-    v20 = *(v2 + 16624);
-    v21 = *(result + 24) + 24 * *(result + 36);
-    *v21 = 7;
-    v22 = *(*(result + 48) + 1924);
-    if (v20 == 1)
+    v9 = *(v2 + 16624);
+    v10 = result[3] + 24 * *(result + 9);
+    *v10 = 3;
+    v11 = *(result[6] + 1924);
+    if (v9 == 1)
     {
-      *(v21 + 4) = v22;
-      *v21 = (*(result + 40) << 8) | 7;
+      *(v10 + 4) = v11;
+      *v10 = (*(result + 10) << 8) | 3;
     }
 
     else
     {
-      *v21 = (v22 << 8) | 7;
-      *(v21 + 4) = *(result + 40);
+      *v10 = (v11 << 8) | 3;
+      *(v10 + 4) = *(result + 10);
     }
 
-    v23 = *(v7 + 1528);
-    *(v21 + 8) = v23;
-    *(v21 + 16) = *(v7 + 1824) + v23;
-    *(result + 36) = (*(result + 36) + 1) % *(result + 32);
+    v12 = *(v7 + 1528);
+    *(v10 + 8) = v12;
+    *(v10 + 16) = *(v7 + 1824) + v12;
+    *(result + 9) = (*(result + 9) + 1) % *(result + 8);
   }
 
-  if (v3)
+  if (v5)
   {
-    v24 = *(v2 + 16624);
-    v25 = *(result + 24) + 24 * *(result + 36);
-    *v25 = 2;
-    v26 = *(*(result + 48) + 1924);
-    if (v24 == 1)
+    v13 = *(v2 + 16624);
+    v14 = result[3] + 24 * *(result + 9);
+    *v14 = 1;
+    v15 = *(result[6] + 1924);
+    if (v13 == 1)
     {
-      *(v25 + 4) = v26;
-      *v25 = (*(result + 40) << 8) | 2;
+      *(v14 + 4) = v15;
+      *v14 = (*(result + 10) << 8) | 1;
     }
 
     else
     {
-      *v25 = (v26 << 8) | 2;
-      *(v25 + 4) = *(result + 40);
+      *v14 = (v15 << 8) | 1;
+      *(v14 + 4) = *(result + 10);
     }
 
-    v27 = *(v3 + 1528);
-    *(v25 + 8) = v27;
-    *(v25 + 16) = *(v3 + 1824) + v27;
-    *(result + 36) = (*(result + 36) + 1) % *(result + 32);
+    v16 = *(v5 + 1528);
+    *(v14 + 8) = v16;
+    *(v14 + 16) = *(v5 + 1824) + v16;
+    *(result + 9) = (*(result + 9) + 1) % *(result + 8);
   }
 
-  ++*(result + 40);
+  if (v6)
+  {
+    v17 = *(v2 + 16624);
+    v18 = result[3] + 24 * *(result + 9);
+    *v18 = 8;
+    v19 = *(result[6] + 1924);
+    if (v17 == 1)
+    {
+      *(v18 + 4) = v19;
+      *v18 = (*(result + 10) << 8) | 8;
+    }
+
+    else
+    {
+      *v18 = (v19 << 8) | 8;
+      *(v18 + 4) = *(result + 10);
+    }
+
+    v20 = *(v6 + 1528);
+    *(v18 + 8) = v20;
+    *(v18 + 16) = *(v6 + 1824) + v20;
+    *(result + 9) = (*(result + 9) + 1) % *(result + 8);
+  }
+
+  if (v8)
+  {
+    v21 = *(v2 + 16624);
+    v22 = result[3] + 24 * *(result + 9);
+    *v22 = 7;
+    v23 = *(result[6] + 1924);
+    if (v21 == 1)
+    {
+      *(v22 + 4) = v23;
+      *v22 = (*(result + 10) << 8) | 7;
+    }
+
+    else
+    {
+      *v22 = (v23 << 8) | 7;
+      *(v22 + 4) = *(result + 10);
+    }
+
+    v24 = *(v8 + 1528);
+    *(v22 + 8) = v24;
+    *(v22 + 16) = *(v8 + 1824) + v24;
+    *(result + 9) = (*(result + 9) + 1) % *(result + 8);
+  }
+
+  if (v4)
+  {
+    v25 = *(v2 + 16624);
+    v26 = result[3] + 24 * *(result + 9);
+    *v26 = 2;
+    v27 = *(result[6] + 1924);
+    if (v25 == 1)
+    {
+      *(v26 + 4) = v27;
+      *v26 = (*(result + 10) << 8) | 2;
+    }
+
+    else
+    {
+      *v26 = (v27 << 8) | 2;
+      *(v26 + 4) = *(result + 10);
+    }
+
+    v28 = *(v4 + 1528);
+    *(v26 + 8) = v28;
+    *(v26 + 16) = *(v4 + 1824) + v28;
+    *(result + 9) = (*(result + 9) + 1) % *(result + 8);
+  }
+
+  ++*(result + 10);
   return result;
 }
 
@@ -7103,27 +7113,27 @@ void AGX::SampledRenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::H
   AGX::SampledRenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::duplicateShaderAddresses(a1);
   v8 = *(a1 + 48);
   v9 = *a2;
-  v17 = a2[1].i64[0];
+  v21 = a2[1].i64[0];
   v10 = a3[1];
-  v15[0] = *a3;
-  v15[1] = v10;
-  v15[2] = a3[2];
-  v16 = v9;
-  AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::dispatchWarpedThreads(v8, &v16, v15, a4);
+  v18[0] = *a3;
+  v18[1] = v10;
+  v19 = a3[2];
+  v20 = v9;
+  AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::dispatchWarpedThreads(v8, &v20, v18, a4, *v19.i64, *v10.i64, *v9.i32, v11, v12, v13);
   if (*(a1 + 64) == 1)
   {
-    v11 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
-    v12 = *(a1 + 48);
-    v13 = *(a1 + 16);
-    AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::appendProgramAddressTables(*(v12 + 7688), v11);
-    v14 = *(v12 + 2120);
-    if (v14)
+    v14 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
+    v15 = *(a1 + 48);
+    v16 = *(a1 + 16);
+    AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::appendProgramAddressTables(*(v15 + 7688), v14);
+    v17 = *(v15 + 2120);
+    if (v17)
     {
-      AGX::StateLoaderProgramsTracker<AGX::HAL300::Device>::appendProgramAddressTables(v14, v11, v13);
-      *(*(v12 + 2120) + 8) = 0;
+      AGX::StateLoaderProgramsTracker<AGX::HAL300::Device>::appendProgramAddressTables(v17, v14, v16);
+      *(*(v15 + 2120) + 8) = 0;
     }
 
-    [*(a1 + 8) addObject:v11];
+    [*(a1 + 8) addObject:v14];
   }
 }
 
@@ -7575,49 +7585,49 @@ void AGX::RenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::
   a2[1] = a1;
 }
 
-void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke(uint64_t a1)
+void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = &unk_2A23F9400;
-  v13 = 20;
-  v15 = 0;
+  v13 = &unk_2A23F9400;
+  v14 = 20;
   v16 = 0;
-  v14 = 0;
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 7160);
-  v5[0] = MEMORY[0x29EDCA5F8];
-  v5[1] = 3321888768;
-  v5[2] = ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke_2;
-  v5[3] = &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken20ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l;
-  v6 = &unk_2A23F9400;
-  LODWORD(v7) = 20;
+  v17 = 0;
+  v15 = 0;
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 7160);
+  v6[0] = MEMORY[0x29EDCA5F8];
+  v6[1] = 3321888768;
+  v6[2] = ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke_2;
+  v6[3] = &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken20ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l;
+  v7 = &unk_2A23F9400;
+  LODWORD(v8) = 20;
   __p = 0;
-  v9 = 0;
   v10 = 0;
-  v3 = *(v2 + 8);
-  v11 = v1;
-  v4 = objc_opt_new();
-  [v4 setSync:{1, v5[0], 3321888768, ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke_2, &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken20ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l, &unk_2A23F9400, v7}];
-  [v4 setPipelineCache:v3];
-  [v4 setBinaryArchives:0];
-  v17[0] = MEMORY[0x29EDCA5F8];
-  v17[1] = 3221225472;
-  v17[2] = ___ZN3AGX8Compiler14compileProgramI10ProgramKeyIL15_AGCStreamToken20ELNS_27DriverShaderCompilationModeE1EEEEvRKT_P7NSArrayIPU27objcproto16MTLBinaryArchive11objc_objectEU13block_pointerFvRK20AGCDeserializedReply16MTLCompilerErrorP8NSStringEb_block_invoke;
-  v17[3] = &unk_29F342280;
-  v17[4] = v5;
-  AGX::Compiler::compileProgram<ProgramKey<(_AGCStreamToken)20,(AGX::DriverShaderCompilationMode)1>,AGCDeserializedReply>(v2, &v12, v4, v17);
+  v11 = 0;
+  v4 = *(v3 + 8);
+  v12 = v2;
+  v5 = objc_opt_new();
+  [v5 setSync:{1, v6[0], 3321888768, ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke_2, &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken20ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l, &unk_2A23F9400, v8}];
+  [v5 setPipelineCache:v4];
+  [v5 setBinaryArchives:0];
+  v18[0] = MEMORY[0x29EDCA5F8];
+  v18[1] = 3221225472;
+  v18[2] = ___ZN3AGX8Compiler14compileProgramI10ProgramKeyIL15_AGCStreamToken20ELNS_27DriverShaderCompilationModeE1EEEEvRKT_P7NSArrayIPU27objcproto16MTLBinaryArchive11objc_objectEU13block_pointerFvRK20AGCDeserializedReply16MTLCompilerErrorP8NSStringEb_block_invoke;
+  v18[3] = &unk_29F342280;
+  v18[4] = v6;
+  AGX::Compiler::compileProgram<ProgramKey<(_AGCStreamToken)20,(AGX::DriverShaderCompilationMode)1>,AGCDeserializedReply>(v3, &v13, v5, v18);
 
-  v6 = &unk_2A23F9400;
+  v7 = &unk_2A23F9400;
   if (__p)
   {
-    v9 = __p;
+    v10 = __p;
     operator delete(__p);
   }
 
-  v12 = &unk_2A23F9400;
-  if (v14)
+  v13 = &unk_2A23F9400;
+  if (v15)
   {
-    v15 = v14;
-    operator delete(v14);
+    v16 = v15;
+    operator delete(v15);
   }
 }
 
@@ -7636,49 +7646,49 @@ void sub_29CEFF350(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke(uint64_t a1)
+void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = &unk_2A23F9440;
-  v13 = 21;
-  v15 = 0;
+  v13 = &unk_2A23F9440;
+  v14 = 21;
   v16 = 0;
-  v14 = 0;
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 7160);
-  v5[0] = MEMORY[0x29EDCA5F8];
-  v5[1] = 3321888768;
-  v5[2] = ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke_2;
-  v5[3] = &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken21ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l;
-  v6 = &unk_2A23F9440;
-  LODWORD(v7) = 21;
+  v17 = 0;
+  v15 = 0;
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 7160);
+  v6[0] = MEMORY[0x29EDCA5F8];
+  v6[1] = 3321888768;
+  v6[2] = ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke_2;
+  v6[3] = &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken21ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l;
+  v7 = &unk_2A23F9440;
+  LODWORD(v8) = 21;
   __p = 0;
-  v9 = 0;
   v10 = 0;
-  v3 = *(v2 + 8);
-  v11 = v1;
-  v4 = objc_opt_new();
-  [v4 setSync:{1, v5[0], 3321888768, ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke_2, &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken21ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l, &unk_2A23F9440, v7}];
-  [v4 setPipelineCache:v3];
-  [v4 setBinaryArchives:0];
-  v17[0] = MEMORY[0x29EDCA5F8];
-  v17[1] = 3221225472;
-  v17[2] = ___ZN3AGX8Compiler14compileProgramI10ProgramKeyIL15_AGCStreamToken21ELNS_27DriverShaderCompilationModeE1EEEEvRKT_P7NSArrayIPU27objcproto16MTLBinaryArchive11objc_objectEU13block_pointerFvRK20AGCDeserializedReply16MTLCompilerErrorP8NSStringEb_block_invoke;
-  v17[3] = &unk_29F342280;
-  v17[4] = v5;
-  AGX::Compiler::compileProgram<ProgramKey<(_AGCStreamToken)21,(AGX::DriverShaderCompilationMode)1>,AGCDeserializedReply>(v2, &v12, v4, v17);
+  v11 = 0;
+  v4 = *(v3 + 8);
+  v12 = v2;
+  v5 = objc_opt_new();
+  [v5 setSync:{1, v6[0], 3321888768, ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke_2, &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken21ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l, &unk_2A23F9440, v8}];
+  [v5 setPipelineCache:v4];
+  [v5 setBinaryArchives:0];
+  v18[0] = MEMORY[0x29EDCA5F8];
+  v18[1] = 3221225472;
+  v18[2] = ___ZN3AGX8Compiler14compileProgramI10ProgramKeyIL15_AGCStreamToken21ELNS_27DriverShaderCompilationModeE1EEEEvRKT_P7NSArrayIPU27objcproto16MTLBinaryArchive11objc_objectEU13block_pointerFvRK20AGCDeserializedReply16MTLCompilerErrorP8NSStringEb_block_invoke;
+  v18[3] = &unk_29F342280;
+  v18[4] = v6;
+  AGX::Compiler::compileProgram<ProgramKey<(_AGCStreamToken)21,(AGX::DriverShaderCompilationMode)1>,AGCDeserializedReply>(v3, &v13, v5, v18);
 
-  v6 = &unk_2A23F9440;
+  v7 = &unk_2A23F9440;
   if (__p)
   {
-    v9 = __p;
+    v10 = __p;
     operator delete(__p);
   }
 
-  v12 = &unk_2A23F9440;
-  if (v14)
+  v13 = &unk_2A23F9440;
+  if (v15)
   {
-    v15 = v14;
-    operator delete(v14);
+    v16 = v15;
+    operator delete(v15);
   }
 }
 
@@ -7697,7 +7707,7 @@ void sub_29CEFF52C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke_2(uint64_t a1, int8x8_t *a2, uint64_t a3, uint64_t a4)
 {
   if (!a3)
   {
@@ -7727,13 +7737,13 @@ void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7Clas
   }
 
   v8[0] = 0;
-  v9 = 0;
-  ProgramKey<(_AGCStreamToken)21,(AGX::DriverShaderCompilationMode)1>::serialize(a1 + 32, v8, &v9);
-  v8[7] = a4;
-  v8[8] = v6;
-  v8[9] = v9;
-  v8[10] = v8[0];
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  v10 = 0;
+  ProgramKey<(_AGCStreamToken)21,(AGX::DriverShaderCompilationMode)1>::serialize(a1 + 32, v8, &v10);
+  v9[0] = a4;
+  v9[1] = v6;
+  v9[2] = v10;
+  v9[3] = v8[0];
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v9);
 }
 
 uint64_t ___ZN3AGX8Compiler14compileProgramI10ProgramKeyIL15_AGCStreamToken21ELNS_27DriverShaderCompilationModeE1EEEEvRKT_P7NSArrayIPU27objcproto16MTLBinaryArchive11objc_objectEU13block_pointerFvRK20AGCDeserializedReply16MTLCompilerErrorP8NSStringEb_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -7931,9 +7941,9 @@ void ___ZN3AGX8Compiler14compileProgramI10ProgramKeyIL15_AGCStreamToken21ELNS_27
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CEFFE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CEFFE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
@@ -7949,13 +7959,13 @@ void __destroy_helper_block_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken21ELN3AGX
   }
 }
 
-uint64_t __copy_helper_block_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken21ELN3AGX27DriverShaderCompilationModeE1EE(uint64_t result, uint64_t a2)
+void *__copy_helper_block_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken21ELN3AGX27DriverShaderCompilationModeE1EE(void *result, uint64_t a2)
 {
-  *(result + 32) = &unk_2A23F9440;
-  *(result + 40) = *(a2 + 40);
-  *(result + 56) = 0;
-  *(result + 64) = 0;
-  *(result + 48) = 0;
+  result[4] = &unk_2A23F9440;
+  *(result + 10) = *(a2 + 40);
+  result[7] = 0;
+  result[8] = 0;
+  result[6] = 0;
   v3 = *(a2 + 48);
   v2 = *(a2 + 56);
   if (v2 != v3)
@@ -7984,7 +7994,7 @@ void ProgramKey<(_AGCStreamToken)21,(AGX::DriverShaderCompilationMode)1>::serial
   *a3 = v5[1] - v6;
 }
 
-void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_15CommandEncodingEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke_2(uint64_t a1, int8x8_t *a2, uint64_t a3, uint64_t a4)
 {
   if (!a3)
   {
@@ -8014,13 +8024,13 @@ void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7Clas
   }
 
   v8[0] = 0;
-  v9 = 0;
-  ProgramKey<(_AGCStreamToken)20,(AGX::DriverShaderCompilationMode)1>::serialize(a1 + 32, v8, &v9);
-  v8[7] = a4;
-  v8[8] = v6;
-  v8[9] = v9;
-  v8[10] = v8[0];
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  v10 = 0;
+  ProgramKey<(_AGCStreamToken)20,(AGX::DriverShaderCompilationMode)1>::serialize(a1 + 32, v8, &v10);
+  v9[0] = a4;
+  v9[1] = v6;
+  v9[2] = v10;
+  v9[3] = v8[0];
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v9);
 }
 
 uint64_t ___ZN3AGX8Compiler14compileProgramI10ProgramKeyIL15_AGCStreamToken20ELNS_27DriverShaderCompilationModeE1EEEEvRKT_P7NSArrayIPU27objcproto16MTLBinaryArchive11objc_objectEU13block_pointerFvRK20AGCDeserializedReply16MTLCompilerErrorP8NSStringEb_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -8218,9 +8228,9 @@ void ___ZN3AGX8Compiler14compileProgramI10ProgramKeyIL15_AGCStreamToken20ELNS_27
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CF008F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CF008F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
@@ -8236,13 +8246,13 @@ void __destroy_helper_block_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken20ELN3AGX
   }
 }
 
-uint64_t __copy_helper_block_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken20ELN3AGX27DriverShaderCompilationModeE1EE(uint64_t result, uint64_t a2)
+void *__copy_helper_block_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken20ELN3AGX27DriverShaderCompilationModeE1EE(void *result, uint64_t a2)
 {
-  *(result + 32) = &unk_2A23F9400;
-  *(result + 40) = *(a2 + 40);
-  *(result + 56) = 0;
-  *(result + 64) = 0;
-  *(result + 48) = 0;
+  result[4] = &unk_2A23F9400;
+  *(result + 10) = *(a2 + 40);
+  result[7] = 0;
+  result[8] = 0;
+  result[6] = 0;
   v3 = *(a2 + 48);
   v2 = *(a2 + 56);
   if (v2 != v3)
@@ -8318,49 +8328,49 @@ uint64_t AGX::RenderIndirectExecutionContextGen4<AGX::HAL300::Encoders,AGX::HAL3
   return result;
 }
 
-void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke(uint64_t a1)
+void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = &unk_2A23F9400;
-  v13 = 20;
-  v15 = 0;
+  v13 = &unk_2A23F9400;
+  v14 = 20;
   v16 = 0;
-  v14 = 0;
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 7160);
-  v5[0] = MEMORY[0x29EDCA5F8];
-  v5[1] = 3321888768;
-  v5[2] = ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke_2;
-  v5[3] = &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken20ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l;
-  v6 = &unk_2A23F9400;
-  LODWORD(v7) = 20;
+  v17 = 0;
+  v15 = 0;
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 7160);
+  v6[0] = MEMORY[0x29EDCA5F8];
+  v6[1] = 3321888768;
+  v6[2] = ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke_2;
+  v6[3] = &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken20ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l;
+  v7 = &unk_2A23F9400;
+  LODWORD(v8) = 20;
   __p = 0;
-  v9 = 0;
   v10 = 0;
-  v3 = *(v2 + 8);
-  v11 = v1;
-  v4 = objc_opt_new();
-  [v4 setSync:{1, v5[0], 3321888768, ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke_2, &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken20ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l, &unk_2A23F9400, v7}];
-  [v4 setPipelineCache:v3];
-  [v4 setBinaryArchives:0];
-  v17[0] = MEMORY[0x29EDCA5F8];
-  v17[1] = 3221225472;
-  v17[2] = ___ZN3AGX8Compiler14compileProgramI10ProgramKeyIL15_AGCStreamToken20ELNS_27DriverShaderCompilationModeE1EEEEvRKT_P7NSArrayIPU27objcproto16MTLBinaryArchive11objc_objectEU13block_pointerFvRK20AGCDeserializedReply16MTLCompilerErrorP8NSStringEb_block_invoke;
-  v17[3] = &unk_29F342280;
-  v17[4] = v5;
-  AGX::Compiler::compileProgram<ProgramKey<(_AGCStreamToken)20,(AGX::DriverShaderCompilationMode)1>,AGCDeserializedReply>(v2, &v12, v4, v17);
+  v11 = 0;
+  v4 = *(v3 + 8);
+  v12 = v2;
+  v5 = objc_opt_new();
+  [v5 setSync:{1, v6[0], 3321888768, ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke_2, &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken20ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l, &unk_2A23F9400, v8}];
+  [v5 setPipelineCache:v4];
+  [v5 setBinaryArchives:0];
+  v18[0] = MEMORY[0x29EDCA5F8];
+  v18[1] = 3221225472;
+  v18[2] = ___ZN3AGX8Compiler14compileProgramI10ProgramKeyIL15_AGCStreamToken20ELNS_27DriverShaderCompilationModeE1EEEEvRKT_P7NSArrayIPU27objcproto16MTLBinaryArchive11objc_objectEU13block_pointerFvRK20AGCDeserializedReply16MTLCompilerErrorP8NSStringEb_block_invoke;
+  v18[3] = &unk_29F342280;
+  v18[4] = v6;
+  AGX::Compiler::compileProgram<ProgramKey<(_AGCStreamToken)20,(AGX::DriverShaderCompilationMode)1>,AGCDeserializedReply>(v3, &v13, v5, v18);
 
-  v6 = &unk_2A23F9400;
+  v7 = &unk_2A23F9400;
   if (__p)
   {
-    v9 = __p;
+    v10 = __p;
     operator delete(__p);
   }
 
-  v12 = &unk_2A23F9400;
-  if (v14)
+  v13 = &unk_2A23F9400;
+  if (v15)
   {
-    v15 = v14;
-    operator delete(v14);
+    v16 = v15;
+    operator delete(v15);
   }
 }
 
@@ -8379,49 +8389,49 @@ void sub_29CF00D4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke(uint64_t a1)
+void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = &unk_2A23F9440;
-  v13 = 21;
-  v15 = 0;
+  v13 = &unk_2A23F9440;
+  v14 = 21;
   v16 = 0;
-  v14 = 0;
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 7160);
-  v5[0] = MEMORY[0x29EDCA5F8];
-  v5[1] = 3321888768;
-  v5[2] = ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke_2;
-  v5[3] = &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken21ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l;
-  v6 = &unk_2A23F9440;
-  LODWORD(v7) = 21;
+  v17 = 0;
+  v15 = 0;
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 7160);
+  v6[0] = MEMORY[0x29EDCA5F8];
+  v6[1] = 3321888768;
+  v6[2] = ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke_2;
+  v6[3] = &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken21ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l;
+  v7 = &unk_2A23F9440;
+  LODWORD(v8) = 21;
   __p = 0;
-  v9 = 0;
   v10 = 0;
-  v3 = *(v2 + 8);
-  v11 = v1;
-  v4 = objc_opt_new();
-  [v4 setSync:{1, v5[0], 3321888768, ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke_2, &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken21ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l, &unk_2A23F9440, v7}];
-  [v4 setPipelineCache:v3];
-  [v4 setBinaryArchives:0];
-  v17[0] = MEMORY[0x29EDCA5F8];
-  v17[1] = 3221225472;
-  v17[2] = ___ZN3AGX8Compiler14compileProgramI10ProgramKeyIL15_AGCStreamToken21ELNS_27DriverShaderCompilationModeE1EEEEvRKT_P7NSArrayIPU27objcproto16MTLBinaryArchive11objc_objectEU13block_pointerFvRK20AGCDeserializedReply16MTLCompilerErrorP8NSStringEb_block_invoke;
-  v17[3] = &unk_29F342280;
-  v17[4] = v5;
-  AGX::Compiler::compileProgram<ProgramKey<(_AGCStreamToken)21,(AGX::DriverShaderCompilationMode)1>,AGCDeserializedReply>(v2, &v12, v4, v17);
+  v11 = 0;
+  v4 = *(v3 + 8);
+  v12 = v2;
+  v5 = objc_opt_new();
+  [v5 setSync:{1, v6[0], 3321888768, ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke_2, &__block_descriptor_80_e8_32c77_ZTS10ProgramKeyIL15_AGCStreamToken21ELN3AGX27DriverShaderCompilationModeE1EE_e26_v32__0r_v8Q16__NSString_24l, &unk_2A23F9440, v8}];
+  [v5 setPipelineCache:v4];
+  [v5 setBinaryArchives:0];
+  v18[0] = MEMORY[0x29EDCA5F8];
+  v18[1] = 3221225472;
+  v18[2] = ___ZN3AGX8Compiler14compileProgramI10ProgramKeyIL15_AGCStreamToken21ELNS_27DriverShaderCompilationModeE1EEEEvRKT_P7NSArrayIPU27objcproto16MTLBinaryArchive11objc_objectEU13block_pointerFvRK20AGCDeserializedReply16MTLCompilerErrorP8NSStringEb_block_invoke;
+  v18[3] = &unk_29F342280;
+  v18[4] = v6;
+  AGX::Compiler::compileProgram<ProgramKey<(_AGCStreamToken)21,(AGX::DriverShaderCompilationMode)1>,AGCDeserializedReply>(v3, &v13, v5, v18);
 
-  v6 = &unk_2A23F9440;
+  v7 = &unk_2A23F9440;
   if (__p)
   {
-    v9 = __p;
+    v10 = __p;
     operator delete(__p);
   }
 
-  v12 = &unk_2A23F9440;
-  if (v14)
+  v13 = &unk_2A23F9440;
+  if (v15)
   {
-    v15 = v14;
-    operator delete(v14);
+    v16 = v15;
+    operator delete(v15);
   }
 }
 
@@ -8440,7 +8450,7 @@ void sub_29CF00F28(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE24getRangeExecutionVariantEPNS1_6DeviceE_block_invoke_2(uint64_t a1, int8x8_t *a2, uint64_t a3, uint64_t a4)
 {
   if (!a3)
   {
@@ -8470,16 +8480,16 @@ void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7Clas
   }
 
   v8[0] = 0;
-  v9 = 0;
-  ProgramKey<(_AGCStreamToken)21,(AGX::DriverShaderCompilationMode)1>::serialize(a1 + 32, v8, &v9);
-  v8[7] = a4;
-  v8[8] = v6;
-  v8[9] = v9;
-  v8[10] = v8[0];
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  v10 = 0;
+  ProgramKey<(_AGCStreamToken)21,(AGX::DriverShaderCompilationMode)1>::serialize(a1 + 32, v8, &v10);
+  v9[0] = a4;
+  v9[1] = v6;
+  v9[2] = v10;
+  v9[3] = v8[0];
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v9);
 }
 
-void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE20getVDMPatchUpVariantEPNS1_6DeviceE_block_invoke_2(uint64_t a1, int8x8_t *a2, uint64_t a3, uint64_t a4)
 {
   if (!a3)
   {
@@ -8509,13 +8519,13 @@ void ___ZN3AGX34RenderIndirectExecutionContextGen4INS_6HAL3008EncodersENS1_7Clas
   }
 
   v8[0] = 0;
-  v9 = 0;
-  ProgramKey<(_AGCStreamToken)20,(AGX::DriverShaderCompilationMode)1>::serialize(a1 + 32, v8, &v9);
-  v8[7] = a4;
-  v8[8] = v6;
-  v8[9] = v9;
-  v8[10] = v8[0];
-  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev();
+  v10 = 0;
+  ProgramKey<(_AGCStreamToken)20,(AGX::DriverShaderCompilationMode)1>::serialize(a1 + 32, v8, &v10);
+  v9[0] = a4;
+  v9[1] = v6;
+  v9[2] = v10;
+  v9[3] = v8[0];
+  _ZZZN3AGX6DeviceINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE30findOrCreateBlitProgramVariantERNS_20BlitVertexProgramKeyEEUb_ENKUlvE_clB14_AGX__Crashed_Ev(v9);
 }
 
 void AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::RenderPipeline(uint64_t a1)
@@ -8747,7 +8757,7 @@ void sub_29CF018C8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::unique_ptr<AGX::SpecializableRenderPipelineLinkerState<AGX::HAL300::Classes>>::~unique_ptr[abi:nn200100](void **a1)
+void *std::unique_ptr<AGX::SpecializableRenderPipelineLinkerState<AGX::HAL300::Classes>>::~unique_ptr[abi:nn200100](void *a1)
 {
   v1 = a1;
   v2 = *a1;
@@ -9774,7 +9784,7 @@ void sub_29CF030D4(_Unwind_Exception *a1)
   AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::RuntimeState::~RuntimeState((v1 + 1656));
   AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::RuntimeState::~RuntimeState((v1 + 1344));
   AGX::DynamicLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::RuntimeState::~RuntimeState((v1 + 1032));
-  AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::RangeAllocation::~RangeAllocation(v1 + 1000);
+  AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::RangeAllocation::~RangeAllocation((v1 + 1000));
   _Unwind_Resume(a1);
 }
 

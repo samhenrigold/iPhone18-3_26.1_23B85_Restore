@@ -385,19 +385,19 @@
 
 - (BOOL)CA_validateValue:(id)value forKey:(id)key
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (value && ([key isEqualToString:@"emitterCells"] || objc_msgSend(key, "isEqualToString:", @"emitterRects") || objc_msgSend(key, "isEqualToString:", @"emitterBehaviors")))
   {
-    objc_opt_class();
+    v7 = objc_opt_class();
 
-    return CAObject_validateArrayOfClass(value);
+    return CAObject_validateArrayOfClass(value, v7);
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = CAEmitterLayer;
-    return [(CALayer *)&v8 CA_validateValue:value forKey:key];
+    v9.receiver = self;
+    v9.super_class = CAEmitterLayer;
+    return [(CALayer *)&v9 CA_validateValue:value forKey:key];
   }
 }
 

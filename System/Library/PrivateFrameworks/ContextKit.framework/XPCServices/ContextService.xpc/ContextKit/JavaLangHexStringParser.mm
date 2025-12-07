@@ -20,7 +20,7 @@
 
 - (void)processNormalNumber
 {
-  sub_10022A798(self, self->MANTISSA_WIDTH_ + 2);
+  sub_10022A798(self, (self->MANTISSA_WIDTH_ + 2));
   sub_10022A884(self);
   self->mantissa_ &= self->MANTISSA_MASK_;
 }

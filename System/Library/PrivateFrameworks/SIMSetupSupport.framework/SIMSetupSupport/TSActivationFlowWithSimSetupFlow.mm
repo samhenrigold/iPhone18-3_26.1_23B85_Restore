@@ -92,7 +92,7 @@
 
 - (id)firstViewController
 {
-  v2 = _TSLogDomain();
+  v2 = _TSLogDomain(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [(TSActivationFlowWithSimSetupFlow *)v2 firstViewController:v3];
@@ -103,22 +103,22 @@
 
 - (void)_sendSIMSetupReadyNotification
 {
-  client = self->_client;
   if (objc_opt_respondsToSelector())
   {
-    v4 = self->_client;
+    client = self->_client;
 
-    [(CoreTelephonyClient *)v4 performSelector:sel_setUpeSIMLaunched_ withObject:&__block_literal_global_11];
+    [(CoreTelephonyClient *)client performSelector:sel_setUpeSIMLaunched_ withObject:&__block_literal_global_11];
   }
 }
 
 void __66__TSActivationFlowWithSimSetupFlow__sendSIMSetupReadyNotification__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _TSLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _TSLogDomain(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __66__TSActivationFlowWithSimSetupFlow__sendSIMSetupReadyNotification__block_invoke_cold_1();
     }
@@ -188,7 +188,7 @@ void __56__TSActivationFlowWithSimSetupFlow_firstViewController___block_invoke_2
 
   else
   {
-    v5 = _TSLogDomain();
+    v5 = _TSLogDomain(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __56__TSActivationFlowWithSimSetupFlow_firstViewController___block_invoke_2_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
@@ -220,7 +220,7 @@ void __56__TSActivationFlowWithSimSetupFlow_firstViewController___block_invoke_4
 
   else
   {
-    v7 = _TSLogDomain();
+    v7 = _TSLogDomain(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __56__TSActivationFlowWithSimSetupFlow_firstViewController___block_invoke_40_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
@@ -243,38 +243,39 @@ void __56__TSActivationFlowWithSimSetupFlow_firstViewController___block_invoke_4
 {
   controllerCopy = controller;
   callbackCopy = callback;
+  v8 = callbackCopy;
   if (controllerCopy)
   {
     [(TSSIMSetupFlow *)self setTopViewController:controllerCopy];
     objc_initWeak(&location, self);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __97__TSActivationFlowWithSimSetupFlow__maybePresentFirstViewController_firstViewControllerCallback___block_invoke;
-    v16[3] = &unk_279B451F8;
-    objc_copyWeak(&v19, &location);
-    v18 = callbackCopy;
-    v17 = controllerCopy;
-    [(TSSIMSetupFlow *)self maybePrepareNextDisplayViewController:v17 completion:v16];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __97__TSActivationFlowWithSimSetupFlow__maybePresentFirstViewController_firstViewControllerCallback___block_invoke;
+    v17[3] = &unk_279B451F8;
+    objc_copyWeak(&v20, &location);
+    v19 = v8;
+    v18 = controllerCopy;
+    [(TSSIMSetupFlow *)self maybePrepareNextDisplayViewController:v18 completion:v17];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v8 = _TSLogDomain();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _TSLogDomain(callbackCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(TSActivationFlowWithSimSetupFlow *)v8 _maybePresentFirstViewController:v9 firstViewControllerCallback:v10, v11, v12, v13, v14, v15];
+      [(TSActivationFlowWithSimSetupFlow *)v9 _maybePresentFirstViewController:v10 firstViewControllerCallback:v11, v12, v13, v14, v15, v16];
     }
 
-    (*(callbackCopy + 2))(callbackCopy, 0);
+    v8[2](v8, 0);
   }
 }
 
 void __97__TSActivationFlowWithSimSetupFlow__maybePresentFirstViewController_firstViewControllerCallback___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
@@ -282,16 +283,16 @@ void __97__TSActivationFlowWithSimSetupFlow__maybePresentFirstViewController_fir
   {
     if (v3)
     {
-      v6 = _TSLogDomain();
+      v6 = _TSLogDomain(WeakRetained);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138412802;
-        v22 = objc_opt_class();
-        v23 = 2048;
-        v24 = v3;
-        v25 = 2080;
-        v26 = "[TSActivationFlowWithSimSetupFlow _maybePresentFirstViewController:firstViewControllerCallback:]_block_invoke";
-        _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "present first view : %@(%p) @%s", &v21, 0x20u);
+        v20 = 138412802;
+        v21 = objc_opt_class();
+        v22 = 2048;
+        v23 = v3;
+        v24 = 2080;
+        v25 = "[TSActivationFlowWithSimSetupFlow _maybePresentFirstViewController:firstViewControllerCallback:]_block_invoke";
+        _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "present first view : %@(%p) @%s", &v20, 0x20u);
       }
 
       (*(*(a1 + 40) + 16))();
@@ -300,23 +301,22 @@ void __97__TSActivationFlowWithSimSetupFlow__maybePresentFirstViewController_fir
     else
     {
       v7 = [WeakRetained nextViewControllerFrom:*(a1 + 32)];
-      v8 = _TSLogDomain();
+      v8 = _TSLogDomain(v7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(a1 + 32);
-        v10 = objc_opt_class();
-        v11 = *(a1 + 32);
-        v21 = 138413314;
-        v22 = v10;
-        v23 = 2048;
-        v24 = v11;
-        v25 = 2112;
-        v26 = objc_opt_class();
-        v27 = 2048;
-        v28 = v7;
-        v29 = 2080;
-        v30 = "[TSActivationFlowWithSimSetupFlow _maybePresentFirstViewController:firstViewControllerCallback:]_block_invoke";
-        _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "cur : %@(%p), next: %@(%p) @%s", &v21, 0x34u);
+        v9 = objc_opt_class();
+        v10 = *(a1 + 32);
+        v20 = 138413314;
+        v21 = v9;
+        v22 = 2048;
+        v23 = v10;
+        v24 = 2112;
+        v25 = objc_opt_class();
+        v26 = 2048;
+        v27 = v7;
+        v28 = 2080;
+        v29 = "[TSActivationFlowWithSimSetupFlow _maybePresentFirstViewController:firstViewControllerCallback:]_block_invoke";
+        _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "cur : %@(%p), next: %@(%p) @%s", &v20, 0x34u);
       }
 
       if (v7)
@@ -326,7 +326,7 @@ void __97__TSActivationFlowWithSimSetupFlow__maybePresentFirstViewController_fir
 
       else
       {
-        v12 = _TSLogDomain();
+        v12 = _TSLogDomain(v11);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           __97__TSActivationFlowWithSimSetupFlow__maybePresentFirstViewController_firstViewControllerCallback___block_invoke_cold_1(v12, v13, v14, v15, v16, v17, v18, v19);
@@ -336,8 +336,6 @@ void __97__TSActivationFlowWithSimSetupFlow__maybePresentFirstViewController_fir
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)nextViewControllerFrom:(id)from
@@ -453,20 +451,20 @@ LABEL_58:
         confirmationCode = v105;
         if ([v103 count])
         {
-          v45 = [TSSubFlowViewController alloc];
+          v46 = [TSSubFlowViewController alloc];
           v134[0] = @"FlowTypeKey";
-          v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:10002];
+          v47 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:10002];
           v134[1] = @"IsClientKey";
-          v135[0] = v46;
+          v135[0] = v47;
           v135[1] = MEMORY[0x277CBEC28];
-          v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v135 forKeys:v134 count:2];
+          v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v135 forKeys:v134 count:2];
           navigationController3 = [(TSSIMSetupFlow *)self navigationController];
-          v8 = [(TSSubFlowViewController *)v45 initWithOptions:v47 navigationController:navigationController3 delegate:self];
+          v8 = [(TSSubFlowViewController *)v46 initWithOptions:v48 navigationController:navigationController3 delegate:self];
         }
 
         else
         {
-          v52 = _TSLogDomain();
+          v52 = _TSLogDomain(0);
           if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
           {
             [(TSActivationFlowWithSimSetupFlow *)v52 nextViewControllerFrom:v53, v54, v55, v56, v57, v58, v59];
@@ -530,7 +528,8 @@ LABEL_24:
     {
       if (([confirmationCode isSkipButtonTapped] & 1) == 0 && (!selectedPlan || objc_msgSend(selectedPlan, "transferCapability") != 8))
       {
-        if (![confirmationCode crossPlatformTransferPlanSelected])
+        crossPlatformTransferPlanSelected = [confirmationCode crossPlatformTransferPlanSelected];
+        if (!crossPlatformTransferPlanSelected)
         {
           self->_isPreinstallingViewControllerActive = 0;
           if ([confirmationCode showSIMSetup])
@@ -603,12 +602,12 @@ LABEL_24:
           goto LABEL_57;
         }
 
-        v39 = _TSLogDomain();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        v40 = _TSLogDomain(crossPlatformTransferPlanSelected);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
           v129 = "[TSActivationFlowWithSimSetupFlow nextViewControllerFrom:]";
-          _os_log_impl(&dword_262AA8000, v39, OS_LOG_TYPE_DEFAULT, "Cross platform transfer plan is selected! @%s", buf, 0xCu);
+          _os_log_impl(&dword_262AA8000, v40, OS_LOG_TYPE_DEFAULT, "Cross platform transfer plan is selected! @%s", buf, 0xCu);
         }
       }
 
@@ -746,19 +745,19 @@ LABEL_65:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v40 = [TSSubFlowViewController alloc];
+    v41 = [TSSubFlowViewController alloc];
     v120[0] = @"FlowTypeKey";
     v120[1] = @"SkipActivatingPane";
     v121[0] = &unk_287583AA8;
     v121[1] = MEMORY[0x277CBEC28];
-    v41 = MEMORY[0x277CBEAC0];
-    v42 = v121;
-    v43 = v120;
-    v44 = 2;
+    v42 = MEMORY[0x277CBEAC0];
+    v43 = v121;
+    v44 = v120;
+    v45 = 2;
 LABEL_52:
-    confirmationCode = [v41 dictionaryWithObjects:v42 forKeys:v43 count:v44];
+    confirmationCode = [v42 dictionaryWithObjects:v43 forKeys:v44 count:v45];
     selectedPlan = [(TSSIMSetupFlow *)self navigationController];
-    v27 = [(TSSubFlowViewController *)v40 initWithOptions:confirmationCode navigationController:selectedPlan delegate:self];
+    v27 = [(TSSubFlowViewController *)v41 initWithOptions:confirmationCode navigationController:selectedPlan delegate:self];
     goto LABEL_56;
   }
 
@@ -952,17 +951,17 @@ LABEL_40:
   {
     if ([fromCopy consentType] != 4 || (self->_userConsentType & 0xFFFFFFFFFFFFFFFELL) != 2)
     {
-      v40 = [TSSubFlowViewController alloc];
+      v41 = [TSSubFlowViewController alloc];
       v110[0] = @"FlowTypeKey";
       v110[1] = @"SkipActivatingPane";
       v111[0] = &unk_287583AA8;
       v111[1] = MEMORY[0x277CBEC38];
       v110[2] = @"PlanSetupTypeKey";
       v111[2] = &unk_287583B50;
-      v41 = MEMORY[0x277CBEAC0];
-      v42 = v111;
-      v43 = v110;
-      v44 = 3;
+      v42 = MEMORY[0x277CBEAC0];
+      v43 = v111;
+      v44 = v110;
+      v45 = 3;
       goto LABEL_52;
     }
 
@@ -1000,7 +999,6 @@ LABEL_150:
   }
 
 LABEL_59:
-  v49 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1069,16 +1067,16 @@ LABEL_7:
 
 - (void)planItemsUpdated:(id)updated planListError:(id)error
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   errorCopy = error;
   v8 = errorCopy;
   if (self->_planInstallError)
   {
-    topViewController = _TSLogDomain();
+    topViewController = _TSLogDomain(errorCopy);
     if (os_log_type_enabled(topViewController, OS_LOG_TYPE_ERROR))
     {
-      [TSActivationFlowWithSimSetupFlow planItemsUpdated:? planListError:?];
+      [TSActivationFlowWithSimSetupFlow planItemsUpdated:planListError:];
     }
 
     goto LABEL_4;
@@ -1086,8 +1084,8 @@ LABEL_7:
 
   if (errorCopy)
   {
-    v11 = _TSLogDomain();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = _TSLogDomain(errorCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [TSActivationFlowWithSimSetupFlow planItemsUpdated:planListError:];
     }
@@ -1112,29 +1110,29 @@ LABEL_7:
     if (![TSUtilities isRegulatoryRestrictionActive:v8])
     {
       topViewController = [TSUtilities getErrorTitleDetail:v8 forCarrier:self->_name];
-      v33 = MEMORY[0x277D75110];
-      v34 = [topViewController objectForKeyedSubscript:@"ErrorHeader"];
-      v35 = [topViewController objectForKeyedSubscript:@"ErrorDetail"];
-      v36 = [v33 alertControllerWithTitle:v34 message:v35 preferredStyle:1];
+      v34 = MEMORY[0x277D75110];
+      v35 = [topViewController objectForKeyedSubscript:@"ErrorHeader"];
+      v36 = [topViewController objectForKeyedSubscript:@"ErrorDetail"];
+      v37 = [v34 alertControllerWithTitle:v35 message:v36 preferredStyle:1];
 
-      v37 = MEMORY[0x277D750F8];
-      v38 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v39 = [v38 localizedStringForKey:@"ERROR_OK" value:&stru_28753DF48 table:@"Localizable"];
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = __67__TSActivationFlowWithSimSetupFlow_planItemsUpdated_planListError___block_invoke;
-      v53[3] = &unk_279B44B38;
-      v53[4] = self;
-      v40 = [v37 actionWithTitle:v39 style:1 handler:v53];
-      [v36 addAction:v40];
+      v38 = MEMORY[0x277D750F8];
+      v39 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v40 = [v39 localizedStringForKey:@"ERROR_OK" value:&stru_28753DF48 table:@"Localizable"];
+      v55[0] = MEMORY[0x277D85DD0];
+      v55[1] = 3221225472;
+      v55[2] = __67__TSActivationFlowWithSimSetupFlow_planItemsUpdated_planListError___block_invoke;
+      v55[3] = &unk_279B44B38;
+      v55[4] = self;
+      v41 = [v38 actionWithTitle:v40 style:1 handler:v55];
+      [v37 addAction:v41];
 
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __67__TSActivationFlowWithSimSetupFlow_planItemsUpdated_planListError___block_invoke_2;
       block[3] = &unk_279B44490;
       block[4] = self;
-      v52 = v36;
-      v41 = v36;
+      v54 = v37;
+      v42 = v37;
       dispatch_async(MEMORY[0x277D85CD0], block);
 
       goto LABEL_4;
@@ -1152,74 +1150,74 @@ LABEL_4:
   {
     if (self->_isPreinstallingViewControllerActive)
     {
+      v51 = 0u;
+      v52 = 0u;
       v49 = 0u;
       v50 = 0u;
-      v47 = 0u;
-      v48 = 0u;
-      v14 = [updatedCopy countByEnumeratingWithState:&v47 objects:v58 count:16];
-      if (v14)
+      v13 = [updatedCopy countByEnumeratingWithState:&v49 objects:v60 count:16];
+      if (v13)
       {
-        v15 = v14;
-        v45 = 208;
-        v46 = 0;
+        v14 = v13;
+        v47 = 208;
+        v48 = 0;
+        v15 = 0;
         v16 = 0;
-        v17 = 0;
-        v18 = *v48;
+        v17 = *v50;
         do
         {
-          for (i = 0; i != v15; ++i)
+          for (i = 0; i != v14; ++i)
           {
-            if (*v48 != v18)
+            if (*v50 != v17)
             {
               objc_enumerationMutation(updatedCopy);
             }
 
-            v20 = *(*(&v47 + 1) + 8 * i);
-            if ([v20 isInstalling])
+            v19 = *(*(&v49 + 1) + 8 * i);
+            if ([v19 isInstalling])
             {
-              plan = [v20 plan];
+              plan = [v19 plan];
               status = [plan status];
 
               if (status != 6)
               {
-                carrierName = [v20 carrierName];
-                v24 = [carrierName copy];
+                carrierName = [v19 carrierName];
+                v23 = [carrierName copy];
                 name = self->_name;
-                self->_name = v24;
+                self->_name = v23;
 
-                iccid = [v20 iccid];
-                v17 = [iccid length] != 0;
+                iccid = [v19 iccid];
+                v16 = [iccid length] != 0;
 
-                v27 = _TSLogDomain();
+                v27 = _TSLogDomain(v26);
                 if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
                 {
                   v28 = self->_name;
                   *buf = 138412546;
-                  v55 = v28;
-                  v56 = 2080;
-                  v57 = "[TSActivationFlowWithSimSetupFlow planItemsUpdated:planListError:]";
+                  v57 = v28;
+                  v58 = 2080;
+                  v59 = "[TSActivationFlowWithSimSetupFlow planItemsUpdated:planListError:]";
                   _os_log_impl(&dword_262AA8000, v27, OS_LOG_TYPE_DEFAULT, "installing [%@] @%s", buf, 0x16u);
                 }
               }
             }
 
-            if (([v20 isSelected] & 1) != 0 || objc_msgSend(v20, "isInstalling"))
+            if (([v19 isSelected] & 1) != 0 || objc_msgSend(v19, "isInstalling"))
             {
-              ++v16;
+              ++v15;
             }
           }
 
-          v15 = [updatedCopy countByEnumeratingWithState:&v47 objects:v58 count:16];
+          v14 = [updatedCopy countByEnumeratingWithState:&v49 objects:v60 count:16];
         }
 
-        while (v15);
-        if (v16 >= 2)
+        while (v14);
+        if (v15 >= 2)
         {
           self->_requireSetup = 1;
         }
 
-        v8 = v46;
-        if (v17)
+        v8 = v48;
+        if (v16)
         {
           v29 = +[TSCellularPlanManagerCache sharedInstance];
           v30 = [v29 calculateInstallConsentTextTypeFor:updatedCopy];
@@ -1236,41 +1234,41 @@ LABEL_4:
           {
             if (v30 == 1)
             {
-              v31 = _TSLogDomain();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+              v32 = _TSLogDomain(v31);
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315138;
-                v55 = "[TSActivationFlowWithSimSetupFlow planItemsUpdated:planListError:]";
-                _os_log_impl(&dword_262AA8000, v31, OS_LOG_TYPE_DEFAULT, "disable not allowed @%s", buf, 0xCu);
+                v57 = "[TSActivationFlowWithSimSetupFlow planItemsUpdated:planListError:]";
+                _os_log_impl(&dword_262AA8000, v32, OS_LOG_TYPE_DEFAULT, "disable not allowed @%s", buf, 0xCu);
               }
 
-              v32 = 3;
+              v33 = 3;
               goto LABEL_47;
             }
 
             if (v30 == 2)
             {
-              v31 = _TSLogDomain();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+              v32 = _TSLogDomain(v31);
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315138;
-                v55 = "[TSActivationFlowWithSimSetupFlow planItemsUpdated:planListError:]";
-                _os_log_impl(&dword_262AA8000, v31, OS_LOG_TYPE_DEFAULT, "delete not allowed @%s", buf, 0xCu);
+                v57 = "[TSActivationFlowWithSimSetupFlow planItemsUpdated:planListError:]";
+                _os_log_impl(&dword_262AA8000, v32, OS_LOG_TYPE_DEFAULT, "delete not allowed @%s", buf, 0xCu);
               }
 
-              v32 = 2;
+              v33 = 2;
 LABEL_47:
 
-              self->_userConsentType = v32;
+              self->_userConsentType = v33;
             }
 
 LABEL_48:
-            if (*(&self->super.super.isa + v45) != 1)
+            if (*(&self->super.super.isa + v47) != 1)
             {
               goto LABEL_5;
             }
 
-            *(&self->super.super.isa + v45) = 0;
+            *(&self->super.super.isa + v47) = 0;
             topViewController2 = [(TSSIMSetupFlow *)self topViewController];
             objc_opt_class();
             isKindOfClass = objc_opt_isKindOfClass();
@@ -1280,26 +1278,26 @@ LABEL_48:
               goto LABEL_41;
             }
 
-            v44 = _TSLogDomain();
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+            v46 = _TSLogDomain(v45);
+            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
-              v55 = "[TSActivationFlowWithSimSetupFlow planItemsUpdated:planListError:]";
-              _os_log_impl(&dword_262AA8000, v44, OS_LOG_TYPE_DEFAULT, "Ignore installing event for BuddyML @%s", buf, 0xCu);
+              v57 = "[TSActivationFlowWithSimSetupFlow planItemsUpdated:planListError:]";
+              _os_log_impl(&dword_262AA8000, v46, OS_LOG_TYPE_DEFAULT, "Ignore installing event for BuddyML @%s", buf, 0xCu);
             }
 
             goto LABEL_5;
           }
 
-          v31 = _TSLogDomain();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          v32 = _TSLogDomain(v31);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v55 = "[TSActivationFlowWithSimSetupFlow planItemsUpdated:planListError:]";
-            _os_log_impl(&dword_262AA8000, v31, OS_LOG_TYPE_DEFAULT, "Invalid consent @%s", buf, 0xCu);
+            v57 = "[TSActivationFlowWithSimSetupFlow planItemsUpdated:planListError:]";
+            _os_log_impl(&dword_262AA8000, v32, OS_LOG_TYPE_DEFAULT, "Invalid consent @%s", buf, 0xCu);
           }
 
-          v32 = 0;
+          v33 = 0;
           goto LABEL_47;
         }
       }
@@ -1307,8 +1305,6 @@ LABEL_48:
   }
 
 LABEL_5:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __67__TSActivationFlowWithSimSetupFlow_planItemsUpdated_planListError___block_invoke_2(uint64_t a1)
@@ -1323,18 +1319,19 @@ void __67__TSActivationFlowWithSimSetupFlow_planItemsUpdated_planListError___blo
   iccidCopy = iccid;
   pCopy = p;
   stateCopy = state;
+  v15 = stateCopy;
   if (eidCopy)
   {
-    v15 = +[TSCellularPlanManagerCache sharedInstance];
-    [v15 didPurchasePlanForEid:eidCopy iccid:iccidCopy smdpURL:pCopy state:stateCopy];
+    v16 = +[TSCellularPlanManagerCache sharedInstance];
+    [v16 didPurchasePlanForEid:eidCopy iccid:iccidCopy smdpURL:pCopy state:v15];
   }
 
   else
   {
-    v15 = _TSLogDomain();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _TSLogDomain(stateCopy);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(TSActivationFlowWithSimSetupFlow *)v15 didPurchasePlanSuccessfullyWithEid:v16 imei:v17 meid:v18 iccid:v19 alternateSDMP:v20 state:v21, v22];
+      [(TSActivationFlowWithSimSetupFlow *)v16 didPurchasePlanSuccessfullyWithEid:v17 imei:v18 meid:v19 iccid:v20 alternateSDMP:v21 state:v22, v23];
     }
   }
 }
@@ -1352,50 +1349,50 @@ void __67__TSActivationFlowWithSimSetupFlow_planItemsUpdated_planListError___blo
 
 - (void)accountCancelled
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]Not implemented @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow accountCancelled]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]Not implemented @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)accountPendingRelease
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]Not implemented @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow accountPendingRelease]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]Not implemented @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (id)_createFirstViewController:(id)controller
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   filteredPlansForTransferableBucket = [(NSMutableArray *)self->_transferPlans filteredPlansForTransferableBucket];
-  v53 = [filteredPlansForTransferableBucket filteredPlansForHiddenInCloudBucket:0];
-  v57 = [filteredPlansForTransferableBucket filteredPlansForHiddenInCloudBucket:1];
+  v52 = [filteredPlansForTransferableBucket filteredPlansForHiddenInCloudBucket:0];
+  v56 = [filteredPlansForTransferableBucket filteredPlansForHiddenInCloudBucket:1];
   filteredPlansForSoftwareUpdateBucket = [(NSMutableArray *)self->_transferPlans filteredPlansForSoftwareUpdateBucket];
   filteredPlansForQRCodeBucket = [(NSMutableArray *)self->_transferPlans filteredPlansForQRCodeBucket];
   filteredPlansForNonInstallableBucket = [(NSMutableArray *)self->_transferPlans filteredPlansForNonInstallableBucket];
   filteredPlansForVisitStoreBucket = [filteredPlansForTransferableBucket filteredPlansForVisitStoreBucket];
-  v59 = filteredPlansForSoftwareUpdateBucket;
+  v58 = filteredPlansForSoftwareUpdateBucket;
   filteredPlansForVisitStoreBucket2 = [filteredPlansForSoftwareUpdateBucket filteredPlansForVisitStoreBucket];
-  v6 = _TSLogDomain();
-  v56 = filteredPlansForTransferableBucket;
+  v6 = _TSLogDomain(filteredPlansForVisitStoreBucket2);
+  v55 = filteredPlansForTransferableBucket;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134219778;
-    v69 = [filteredPlansForTransferableBucket count];
-    v70 = 2048;
-    v71 = [filteredPlansForVisitStoreBucket count];
-    v72 = 2048;
-    v73 = [v57 count];
-    v74 = 2048;
-    v75 = [filteredPlansForSoftwareUpdateBucket count];
-    v76 = 2048;
-    v77 = [filteredPlansForVisitStoreBucket2 count];
-    v78 = 2048;
-    v79 = [filteredPlansForQRCodeBucket count];
-    v80 = 2048;
-    v81 = [filteredPlansForNonInstallableBucket count];
-    v82 = 2080;
-    v83 = "[TSActivationFlowWithSimSetupFlow _createFirstViewController:]";
+    v68 = [filteredPlansForTransferableBucket count];
+    v69 = 2048;
+    v70 = [filteredPlansForVisitStoreBucket count];
+    v71 = 2048;
+    v72 = [v56 count];
+    v73 = 2048;
+    v74 = [filteredPlansForSoftwareUpdateBucket count];
+    v75 = 2048;
+    v76 = [filteredPlansForVisitStoreBucket2 count];
+    v77 = 2048;
+    v78 = [filteredPlansForQRCodeBucket count];
+    v79 = 2048;
+    v80 = [filteredPlansForNonInstallableBucket count];
+    v81 = 2080;
+    v82 = "[TSActivationFlowWithSimSetupFlow _createFirstViewController:]";
     _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "transferable:%lu (store:%lu, hidden:%lu), software update:%lu (store:%lu), qrcode:%lu, non install:%lu @%s", buf, 0x52u);
   }
 
@@ -1405,33 +1402,33 @@ void __67__TSActivationFlowWithSimSetupFlow_planItemsUpdated_planListError___blo
   plans2 = [(CTDisplayPlanList *)self->_carrierSetupItems plans];
   v11 = [plans2 count];
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v12 = self->_transferPlans;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v61 objects:v67 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v60 objects:v66 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v62;
+    v15 = *v61;
     while (2)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v62 != v15)
+        if (*v61 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        if ([*(*(&v61 + 1) + 8 * i) transferCapability] == 20)
+        if ([*(*(&v60 + 1) + 8 * i) transferCapability] == 20)
         {
           v17 = 1;
           goto LABEL_13;
         }
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v61 objects:v67 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v60 objects:v66 count:16];
       if (v14)
       {
         continue;
@@ -1460,13 +1457,13 @@ LABEL_13:
 
       v22 = [TSSinglePlanTransferViewController alloc];
       v23 = [(NSMutableArray *)self->_transferItems objectAtIndexedSubscript:0];
-      LOBYTE(v52) = 0;
       LOBYTE(v51) = 0;
-      v24 = -[TSSinglePlanTransferViewController initWithTransferPlan:isPhysical:isIneligible:inBuddy:confirmCellularPlanTransfer:showOtherOptions:isStandaloneProximityFlow:transferBackPhoneNumber:isShowingFilteredPlans:](v22, "initWithTransferPlan:isPhysical:isIneligible:inBuddy:confirmCellularPlanTransfer:showOtherOptions:isStandaloneProximityFlow:transferBackPhoneNumber:isShowingFilteredPlans:", v23, [v21 isPhysical], objc_msgSend(v21, "isTransferIneligiblePlan"), 0, 1, 1, v51, self->_transferBackPlanPhoneNumber, v52);
+      LOBYTE(v50) = 0;
+      v24 = -[TSSinglePlanTransferViewController initWithTransferPlan:isPhysical:isIneligible:inBuddy:confirmCellularPlanTransfer:showOtherOptions:isStandaloneProximityFlow:transferBackPhoneNumber:isShowingFilteredPlans:](v22, "initWithTransferPlan:isPhysical:isIneligible:inBuddy:confirmCellularPlanTransfer:showOtherOptions:isStandaloneProximityFlow:transferBackPhoneNumber:isShowingFilteredPlans:", v23, [v21 isPhysical], objc_msgSend(v21, "isTransferIneligiblePlan"), 0, 1, 1, v50, self->_transferBackPlanPhoneNumber, v51);
 
 LABEL_23:
-      v31 = v56;
-      v26 = v53;
+      v31 = v55;
+      v26 = v52;
       goto LABEL_24;
     }
 
@@ -1479,33 +1476,33 @@ LABEL_22:
   v25 = v9 + v7 + v11;
   if (!v25)
   {
-    v34 = v18;
+    v33 = v18;
     plans3 = [(CTDisplayPlanList *)self->_crossPlatformTransferItems plans];
-    v36 = [plans3 count];
+    v35 = [plans3 count];
 
-    v26 = v53;
-    if (v36 == 1)
+    v26 = v52;
+    if (v35 == 1)
     {
-      v37 = [TSSinglePlanTransferViewController alloc];
+      v36 = [TSSinglePlanTransferViewController alloc];
       plans4 = [(CTDisplayPlanList *)self->_crossPlatformTransferItems plans];
-      v38 = [plans4 objectAtIndexedSubscript:0];
-      v39 = [(TSSinglePlanTransferViewController *)v37 initWithCrossPlatformTransferPlan:v38];
+      v37 = [plans4 objectAtIndexedSubscript:0];
+      v38 = [(TSSinglePlanTransferViewController *)v36 initWithCrossPlatformTransferPlan:v37];
 LABEL_40:
-      v24 = v39;
+      v24 = v38;
 
       goto LABEL_41;
     }
 
     if ([filteredPlansForQRCodeBucket count])
     {
-      v65[0] = @"FlowTypeKey";
-      v65[1] = @"IsFirstViewKey";
-      v66[0] = &unk_287583AC0;
-      v66[1] = MEMORY[0x277CBEC38];
-      v65[2] = @"Plans";
-      v66[2] = self->_transferPlans;
-      v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:3];
-      plans4 = [v42 mutableCopy];
+      v64[0] = @"FlowTypeKey";
+      v64[1] = @"IsFirstViewKey";
+      v65[0] = &unk_287583AC0;
+      v65[1] = MEMORY[0x277CBEC38];
+      v64[2] = @"Plans";
+      v65[2] = self->_transferPlans;
+      v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:3];
+      plans4 = [v41 mutableCopy];
 
       v24 = [[TSSubFlowViewController alloc] initWithOptions:plans4 navigationController:0 delegate:self];
       goto LABEL_41;
@@ -1513,29 +1510,29 @@ LABEL_40:
 
     if ([filteredPlansForSoftwareUpdateBucket count])
     {
-      v41 = [[TSNoPlanForTransferViewController alloc] initWithPlans:self->_transferPlans showOtherOptions:1];
+      v40 = [[TSNoPlanForTransferViewController alloc] initWithPlans:self->_transferPlans showOtherOptions:1];
     }
 
-    else if (v34 | !+[TSUtilities isPad])
+    else if (v33 | !+[TSUtilities isPad])
     {
-      v41 = [[TSCellularPlanIntroViewController alloc] initWithShowTransferOption:v34 requireDelayBluetoothConnection:0 showQrCodeOption:1 transferIneligiblePlans:0];
+      v40 = [[TSCellularPlanIntroViewController alloc] initWithShowTransferOption:v33 requireDelayBluetoothConnection:0 showQrCodeOption:1 transferIneligiblePlans:0];
     }
 
     else
     {
-      v41 = [[SSCellularPlanScanViewController alloc] initWithBackButton:0];
+      v40 = [[SSCellularPlanScanViewController alloc] initWithBackButton:0];
     }
 
 LABEL_50:
-    v24 = v41;
+    v24 = v40;
     goto LABEL_42;
   }
 
-  v26 = v53;
+  v26 = v52;
   if (![filteredPlansForQRCodeBucket count])
   {
-    v40 = [filteredPlansForNonInstallableBucket count] + v25;
-    if ((v40 + [filteredPlansForSoftwareUpdateBucket count]) >= 2)
+    v39 = [filteredPlansForNonInstallableBucket count] + v25;
+    if ((v39 + [filteredPlansForSoftwareUpdateBucket count]) >= 2)
     {
       if ([filteredPlansForVisitStoreBucket count] != v25)
       {
@@ -1546,54 +1543,54 @@ LABEL_50:
     }
 
     plans5 = [(CTDisplayPlanList *)self->_pendingInstallPlans plans];
-    v44 = [plans5 count];
+    v43 = [plans5 count];
 
-    if (v44 == 1)
+    if (v43 == 1)
     {
-      v45 = [TSSinglePlanTransferViewController alloc];
+      v44 = [TSSinglePlanTransferViewController alloc];
       plans4 = [(CTDisplayPlanList *)self->_pendingInstallPlans plans];
-      v38 = [plans4 objectAtIndexedSubscript:0];
-      v39 = [(TSSinglePlanTransferViewController *)v45 initWithPendingInstallPlan:v38];
+      v37 = [plans4 objectAtIndexedSubscript:0];
+      v38 = [(TSSinglePlanTransferViewController *)v44 initWithPendingInstallPlan:v37];
       goto LABEL_40;
     }
 
-    if ([v53 count] == 1)
+    if ([v52 count] == 1)
     {
-      v46 = [(NSMutableArray *)self->_transferItems objectAtIndexedSubscript:0];
-      plans4 = [v46 objectForKeyedSubscript:@"planItem"];
+      v45 = [(NSMutableArray *)self->_transferItems objectAtIndexedSubscript:0];
+      plans4 = [v45 objectForKeyedSubscript:@"planItem"];
 
-      v47 = [TSSinglePlanTransferViewController alloc];
-      v38 = [(NSMutableArray *)self->_transferItems objectAtIndexedSubscript:0];
-      LOBYTE(v51) = 0;
-      v39 = -[TSSinglePlanTransferViewController initWithTransferPlan:isPhysical:isIneligible:inBuddy:confirmCellularPlanTransfer:showOtherOptions:isShowingFilteredPlans:](v47, "initWithTransferPlan:isPhysical:isIneligible:inBuddy:confirmCellularPlanTransfer:showOtherOptions:isShowingFilteredPlans:", v38, [plans4 isPhysical], objc_msgSend(plans4, "isTransferIneligiblePlan"), 0, 1, 1, v51);
+      v46 = [TSSinglePlanTransferViewController alloc];
+      v37 = [(NSMutableArray *)self->_transferItems objectAtIndexedSubscript:0];
+      LOBYTE(v50) = 0;
+      v38 = -[TSSinglePlanTransferViewController initWithTransferPlan:isPhysical:isIneligible:inBuddy:confirmCellularPlanTransfer:showOtherOptions:isShowingFilteredPlans:](v46, "initWithTransferPlan:isPhysical:isIneligible:inBuddy:confirmCellularPlanTransfer:showOtherOptions:isShowingFilteredPlans:", v37, [plans4 isPhysical], objc_msgSend(plans4, "isTransferIneligiblePlan"), 0, 1, 1, v50);
       goto LABEL_40;
     }
 
     if ([filteredPlansForVisitStoreBucket count] == 1)
     {
 LABEL_31:
-      v41 = [[SSVisitStoreViewController alloc] initWithPlans:filteredPlansForVisitStoreBucket showOtherOption:1];
+      v40 = [[SSVisitStoreViewController alloc] initWithPlans:filteredPlansForVisitStoreBucket showOtherOption:1];
       goto LABEL_50;
     }
 
-    if ([v57 count] == 1)
+    if ([v56 count] == 1)
     {
       goto LABEL_20;
     }
 
     plans6 = [(CTDisplayPlanList *)self->_carrierSetupItems plans];
-    v49 = [plans6 count];
+    v48 = [plans6 count];
 
-    if (v49 != 1)
+    if (v48 != 1)
     {
       v24 = 0;
       goto LABEL_42;
     }
 
-    v50 = [TSTransferListViewController alloc];
-    BYTE2(v51) = !self->_isFlexPolicyOn;
-    LOWORD(v51) = 1;
-    v41 = [TSTransferListViewController initWithTransferPlans:v50 confirmCellularPlanTransfer:"initWithTransferPlans:confirmCellularPlanTransfer:isActivationPolicyMismatch:isDualeSIMCapabilityLoss:pendingInstallItems:carrierSetupItems:showOtherOptions:isStandaloneProximityFlow:allowsMultiSelection:" isActivationPolicyMismatch:self->_transferPlans isDualeSIMCapabilityLoss:1 pendingInstallItems:self->_isActivationPolicyMismatch carrierSetupItems:self->_isDualeSIMCapabilityLoss showOtherOptions:self->_pendingInstallPlans isStandaloneProximityFlow:self->_carrierSetupItems allowsMultiSelection:v51];
+    v49 = [TSTransferListViewController alloc];
+    BYTE2(v50) = !self->_isFlexPolicyOn;
+    LOWORD(v50) = 1;
+    v40 = [TSTransferListViewController initWithTransferPlans:v49 confirmCellularPlanTransfer:"initWithTransferPlans:confirmCellularPlanTransfer:isActivationPolicyMismatch:isDualeSIMCapabilityLoss:pendingInstallItems:carrierSetupItems:showOtherOptions:isStandaloneProximityFlow:allowsMultiSelection:" isActivationPolicyMismatch:self->_transferPlans isDualeSIMCapabilityLoss:1 pendingInstallItems:self->_isActivationPolicyMismatch carrierSetupItems:self->_isDualeSIMCapabilityLoss showOtherOptions:self->_pendingInstallPlans isStandaloneProximityFlow:self->_carrierSetupItems allowsMultiSelection:v50];
     goto LABEL_50;
   }
 
@@ -1602,15 +1599,13 @@ LABEL_20:
   plans4 = [(CTDisplayPlanList *)self->_pendingInstallPlans plans];
   transferPlans = self->_transferPlans;
   plans7 = [(CTDisplayPlanList *)self->_carrierSetupItems plans];
-  LOWORD(v51) = 0;
-  v24 = [(TSMultiPlanIntermediateViewController *)v27 initWithPendingInstallPlans:plans4 transferPlans:transferPlans carrierSetupPlans:plans7 showQRCodeOption:1 showOtherOptions:1 isShowingFilteredPlans:0 isStandaloneProximityFlow:v51 isHiddenPlanSelectable:?];
+  LOWORD(v50) = 0;
+  v24 = [(TSMultiPlanIntermediateViewController *)v27 initWithPendingInstallPlans:plans4 transferPlans:transferPlans carrierSetupPlans:plans7 showQRCodeOption:1 showOtherOptions:1 isShowingFilteredPlans:0 isStandaloneProximityFlow:v50 isHiddenPlanSelectable:?];
 
 LABEL_41:
 LABEL_42:
-  v31 = v56;
+  v31 = v55;
 LABEL_24:
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -1639,13 +1634,13 @@ LABEL_24:
   }
 }
 
-uint64_t __90__TSActivationFlowWithSimSetupFlow__maybeShowPreinstallConsentOnViewController_planItems___block_invoke(uint64_t result, uint64_t a2)
+void *__90__TSActivationFlowWithSimSetupFlow__maybeShowPreinstallConsentOnViewController_planItems___block_invoke(void *result, uint64_t a2)
 {
   if (a2 > 1)
   {
     if (a2 == 2)
     {
-      v2 = *(result + 32);
+      v2 = *(result + 4);
       v3 = 2;
     }
 
@@ -1656,23 +1651,23 @@ uint64_t __90__TSActivationFlowWithSimSetupFlow__maybeShowPreinstallConsentOnVie
         return result;
       }
 
-      v2 = *(result + 32);
+      v2 = *(result + 4);
       v3 = 1;
     }
 
     *(v2 + 192) = v3;
-    return [*(result + 40) didChangeValueForKey:@"userConsentAllowed"];
+    return [*(result + 5) didChangeValueForKey:@"userConsentAllowed"];
   }
 
   if (!a2)
   {
-    *(*(result + 32) + 192) = 0;
-    return [*(result + 40) didChangeValueForKey:@"userConsentAllowed"];
+    *(*(result + 4) + 192) = 0;
+    return [*(result + 5) didChangeValueForKey:@"userConsentAllowed"];
   }
 
   if (a2 == 1)
   {
-    return [*(result + 32) userDidTapCancel];
+    return [*(result + 4) userDidTapCancel];
   }
 
   return result;
@@ -1753,7 +1748,7 @@ uint64_t __90__TSActivationFlowWithSimSetupFlow__maybeShowPreinstallConsentOnVie
 
   else
   {
-    v10 = _TSLogDomain();
+    v10 = _TSLogDomain(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(TSActivationFlowWithSimSetupFlow *)v10 _requestPlansWithCompletion:v11, v12, v13, v14, v15, v16, v17];
@@ -1772,7 +1767,7 @@ void __64__TSActivationFlowWithSimSetupFlow__requestPlansWithCompletion___block_
 
   else
   {
-    v3 = _TSLogDomain();
+    v3 = _TSLogDomain(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __64__TSActivationFlowWithSimSetupFlow__requestPlansWithCompletion___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
@@ -1791,7 +1786,7 @@ void __64__TSActivationFlowWithSimSetupFlow__requestPlansWithCompletion___block_
 
   else
   {
-    v3 = _TSLogDomain();
+    v3 = _TSLogDomain(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __64__TSActivationFlowWithSimSetupFlow__requestPlansWithCompletion___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
@@ -1810,7 +1805,7 @@ void __64__TSActivationFlowWithSimSetupFlow__requestPlansWithCompletion___block_
 
   else
   {
-    v3 = _TSLogDomain();
+    v3 = _TSLogDomain(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __64__TSActivationFlowWithSimSetupFlow__requestPlansWithCompletion___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
@@ -1829,7 +1824,7 @@ void __64__TSActivationFlowWithSimSetupFlow__requestPlansWithCompletion___block_
 
   else
   {
-    v3 = _TSLogDomain();
+    v3 = _TSLogDomain(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __64__TSActivationFlowWithSimSetupFlow__requestPlansWithCompletion___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
@@ -1860,7 +1855,7 @@ void __64__TSActivationFlowWithSimSetupFlow__requestPlansWithCompletion___block_
 
   else
   {
-    v8 = _TSLogDomain();
+    v8 = _TSLogDomain(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(TSActivationFlowWithSimSetupFlow *)v8 _requestTransferPlanListWithCompletion:v9, v10, v11, v12, v13, v14, v15];
@@ -1871,10 +1866,11 @@ void __64__TSActivationFlowWithSimSetupFlow__requestPlansWithCompletion___block_
 void __75__TSActivationFlowWithSimSetupFlow__requestTransferPlanListWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _TSLogDomain();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _TSLogDomain(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __75__TSActivationFlowWithSimSetupFlow__requestTransferPlanListWithCompletion___block_invoke_cold_1();
     }
@@ -1884,37 +1880,37 @@ void __75__TSActivationFlowWithSimSetupFlow__requestTransferPlanListWithCompleti
 
   else
   {
-    v5 = +[TSCoreTelephonyClientCache sharedInstance];
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __75__TSActivationFlowWithSimSetupFlow__requestTransferPlanListWithCompletion___block_invoke_108;
-    v6[3] = &unk_279B45248;
-    objc_copyWeak(&v8, (a1 + 40));
-    v7 = *(a1 + 32);
-    [v5 transferPlanListWithCompletion:v6];
+    v6 = +[TSCoreTelephonyClientCache sharedInstance];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __75__TSActivationFlowWithSimSetupFlow__requestTransferPlanListWithCompletion___block_invoke_108;
+    v7[3] = &unk_279B45248;
+    objc_copyWeak(&v9, (a1 + 40));
+    v8 = *(a1 + 32);
+    [v6 transferPlanListWithCompletion:v7];
 
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v9);
   }
 }
 
 void __75__TSActivationFlowWithSimSetupFlow__requestTransferPlanListWithCompletion___block_invoke_108(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a5;
-  v39 = a1;
+  v41 = a1;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v11 = WeakRetained;
-  v40 = v9;
+  v42 = v9;
   if (!v9)
   {
     if (!v8)
     {
-      v12 = _TSLogDomain();
+      v12 = _TSLogDomain(WeakRetained);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        *v55 = "[TSActivationFlowWithSimSetupFlow _requestTransferPlanListWithCompletion:]_block_invoke";
+        *v57 = "[TSActivationFlowWithSimSetupFlow _requestTransferPlanListWithCompletion:]_block_invoke";
         _os_log_impl(&dword_262AA8000, v12, OS_LOG_TYPE_DEFAULT, "empty transfer plans @%s", buf, 0xCu);
       }
 
@@ -1928,84 +1924,86 @@ void __75__TSActivationFlowWithSimSetupFlow__requestTransferPlanListWithCompleti
 
     [WeakRetained setIsFlexPolicyOn:a4];
     [v11[29] removeAllObjects];
-    v14 = [v11 transferPlans];
-    [v14 removeAllObjects];
+    v13 = [v11 transferPlans];
+    [v13 removeAllObjects];
 
+    v54 = 0u;
+    v55 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v37 = v8;
+    v39 = v8;
     obj = [v8 devices];
-    v38 = 1;
-    v44 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
-    if (!v44)
+    v40 = 1;
+    v46 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
+    if (!v46)
     {
 LABEL_38:
 
-      if (!+[TSUtilities isPad]&& (v38 & 1) == 0)
+      v34 = +[TSUtilities isPad];
+      if ((v34 & 1) == 0 && (v40 & 1) == 0)
       {
-        v33 = +[TSCoreTelephonyClientCache sharedInstance];
-        v34 = [v33 deviceSupportsHydra];
+        v35 = +[TSCoreTelephonyClientCache sharedInstance];
+        v36 = [v35 deviceSupportsHydra];
 
-        if ((v34 & 1) == 0)
+        if ((v36 & 1) == 0)
         {
           *(v11 + 99) = 1;
         }
       }
 
-      v12 = _TSLogDomain();
+      v12 = _TSLogDomain(v34);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v35 = *(v11 + 98);
-        v36 = v11[29];
+        v37 = *(v11 + 98);
+        v38 = v11[29];
         *buf = 67109634;
-        *v55 = v35;
-        *&v55[4] = 2112;
-        *&v55[6] = v36;
-        *&v55[14] = 2080;
-        *&v55[16] = "[TSActivationFlowWithSimSetupFlow _requestTransferPlanListWithCompletion:]_block_invoke";
+        *v57 = v37;
+        *&v57[4] = 2112;
+        *&v57[6] = v38;
+        *&v57[14] = 2080;
+        *&v57[16] = "[TSActivationFlowWithSimSetupFlow _requestTransferPlanListWithCompletion:]_block_invoke";
         _os_log_impl(&dword_262AA8000, v12, OS_LOG_TYPE_DEFAULT, "isActivationPolicyMismatch: %d, transfer plans: %@ @%s", buf, 0x1Cu);
       }
 
-      v8 = v37;
+      v8 = v39;
       goto LABEL_4;
     }
 
-    v41 = 0;
-    v43 = *v51;
+    v43 = 0;
+    v45 = *v53;
 LABEL_10:
-    v15 = 0;
+    v14 = 0;
     while (1)
     {
-      if (*v51 != v43)
+      if (*v53 != v45)
       {
         objc_enumerationMutation(obj);
       }
 
-      v45 = v15;
-      v16 = *(*(&v50 + 1) + 8 * v15);
+      v47 = v14;
+      v15 = *(*(&v52 + 1) + 8 * v14);
       if (objc_opt_respondsToSelector())
       {
-        v41 = [v16 performSelector:sel_isMultiESimEnabled] != 0;
-        v17 = _TSLogDomain();
+        v16 = [v15 performSelector:sel_isMultiESimEnabled];
+        v43 = v16 != 0;
+        v17 = _TSLogDomain(v16);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = [v16 deviceName];
+          v18 = [v15 deviceName];
           *buf = 138412546;
-          *v55 = v18;
-          *&v55[8] = 2080;
-          *&v55[10] = "[TSActivationFlowWithSimSetupFlow _requestTransferPlanListWithCompletion:]_block_invoke";
+          *v57 = v18;
+          *&v57[8] = 2080;
+          *&v57[10] = "[TSActivationFlowWithSimSetupFlow _requestTransferPlanListWithCompletion:]_block_invoke";
           _os_log_impl(&dword_262AA8000, v17, OS_LOG_TYPE_DEFAULT, "remote device:%@ use dual eSIM config @%s", buf, 0x16u);
         }
       }
 
+      v50 = 0u;
+      v51 = 0u;
       v48 = 0u;
       v49 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v19 = [v16 remoteDisplayPlans];
-      v20 = [v19 countByEnumeratingWithState:&v46 objects:v58 count:16];
+      v19 = [v15 remoteDisplayPlans];
+      v20 = [v19 countByEnumeratingWithState:&v48 objects:v60 count:16];
       if (v20)
       {
         break;
@@ -2013,13 +2011,13 @@ LABEL_10:
 
 LABEL_35:
 
-      v15 = v45 + 1;
-      if (v45 + 1 == v44)
+      v14 = v47 + 1;
+      if (v47 + 1 == v46)
       {
-        v44 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
-        if (!v44)
+        v46 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
+        if (!v46)
         {
-          v38 = !v41;
+          v40 = !v43;
           goto LABEL_38;
         }
 
@@ -2028,17 +2026,17 @@ LABEL_35:
     }
 
     v21 = v20;
-    v22 = *v47;
+    v22 = *v49;
 LABEL_19:
     v23 = 0;
     while (1)
     {
-      if (*v47 != v22)
+      if (*v49 != v22)
       {
         objc_enumerationMutation(v19);
       }
 
-      v24 = *(*(&v46 + 1) + 8 * v23);
+      v24 = *(*(&v48 + 1) + 8 * v23);
       v25 = [v11 transferBackPlan];
 
       if (!v25)
@@ -2061,7 +2059,7 @@ LABEL_19:
 LABEL_33:
       if (v21 == ++v23)
       {
-        v21 = [v19 countByEnumeratingWithState:&v46 objects:v58 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v48 objects:v60 count:16];
         if (!v21)
         {
           goto LABEL_35;
@@ -2071,35 +2069,35 @@ LABEL_33:
       }
     }
 
-    v29 = _TSLogDomain();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v30 = _TSLogDomain(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = [v11 transferBackPlanPhoneNumber];
+      v31 = [v11 transferBackPlanPhoneNumber];
       *buf = 138412546;
-      *v55 = v30;
-      *&v55[8] = 2080;
-      *&v55[10] = "[TSActivationFlowWithSimSetupFlow _requestTransferPlanListWithCompletion:]_block_invoke";
-      _os_log_impl(&dword_262AA8000, v29, OS_LOG_TYPE_DEFAULT, "find plan with same phone number : %@ @%s", buf, 0x16u);
+      *v57 = v31;
+      *&v57[8] = 2080;
+      *&v57[10] = "[TSActivationFlowWithSimSetupFlow _requestTransferPlanListWithCompletion:]_block_invoke";
+      _os_log_impl(&dword_262AA8000, v30, OS_LOG_TYPE_DEFAULT, "find plan with same phone number : %@ @%s", buf, 0x16u);
     }
 
 LABEL_28:
-    v31 = [v11 transferPlans];
-    [v31 addObject:v24];
+    v32 = [v11 transferPlans];
+    [v32 addObject:v24];
 
     if ([v24 isPlanHiddenRequiredForCloudFlow])
     {
-      v32 = [v11 transferIneligibleViaCloudItems];
-      [v32 addObject:v24];
+      v33 = [v11 transferIneligibleViaCloudItems];
+      [v33 addObject:v24];
     }
 
     else
     {
-      v56[0] = @"planItem";
-      v56[1] = @"deviceInfo";
-      v57[0] = v24;
-      v57[1] = v16;
-      v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
-      [v11[29] addObject:v32];
+      v58[0] = @"planItem";
+      v58[1] = @"deviceInfo";
+      v59[0] = v24;
+      v59[1] = v15;
+      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:2];
+      [v11[29] addObject:v33];
       if ([v24 isNotEligibleActivationPolicyMismatchPlan])
       {
         *(v11 + 98) = 1;
@@ -2109,7 +2107,7 @@ LABEL_28:
     goto LABEL_33;
   }
 
-  v12 = _TSLogDomain();
+  v12 = _TSLogDomain(WeakRetained);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     __75__TSActivationFlowWithSimSetupFlow__requestTransferPlanListWithCompletion___block_invoke_108_cold_1();
@@ -2118,9 +2116,7 @@ LABEL_28:
 LABEL_4:
 
 LABEL_5:
-  (*(*(v39 + 32) + 16))();
-
-  v13 = *MEMORY[0x277D85DE8];
+  (*(*(v41 + 32) + 16))();
 }
 
 - (void)_requestCrossPlatformTransferPlanListWithCompletion:(id)completion
@@ -2147,7 +2143,7 @@ LABEL_5:
 
   else
   {
-    v9 = _TSLogDomain();
+    v9 = _TSLogDomain(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(TSActivationFlowWithSimSetupFlow *)v9 _requestCrossPlatformTransferPlanListWithCompletion:v10, v11, v12, v13, v14, v15, v16];
@@ -2161,43 +2157,43 @@ void __88__TSActivationFlowWithSimSetupFlow__requestCrossPlatformTransferPlanLis
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
-      v8 = _TSLogDomain();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _TSLogDomain(WeakRetained);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __88__TSActivationFlowWithSimSetupFlow__requestCrossPlatformTransferPlanListWithCompletion___block_invoke_cold_1();
       }
     }
 
-    v9 = _TSLogDomain();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _TSLogDomain(WeakRetained);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v20 = 138412546;
       v21 = v5;
       v22 = 2080;
       v23 = "[TSActivationFlowWithSimSetupFlow _requestCrossPlatformTransferPlanListWithCompletion:]_block_invoke";
-      _os_log_impl(&dword_262AA8000, v9, OS_LOG_TYPE_DEFAULT, "Cross platform transfer items %@ @%s", &v20, 0x16u);
+      _os_log_impl(&dword_262AA8000, v10, OS_LOG_TYPE_DEFAULT, "Cross platform transfer items %@ @%s", &v20, 0x16u);
     }
 
-    v10 = v5;
-    v11 = WeakRetained[17];
-    WeakRetained[17] = v10;
+    v11 = v5;
+    v12 = v8[17];
+    v8[17] = v11;
   }
 
   else
   {
-    v11 = _TSLogDomain();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _TSLogDomain(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __88__TSActivationFlowWithSimSetupFlow__requestCrossPlatformTransferPlanListWithCompletion___block_invoke_cold_2(v11, v12, v13, v14, v15, v16, v17, v18);
+      __88__TSActivationFlowWithSimSetupFlow__requestCrossPlatformTransferPlanListWithCompletion___block_invoke_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestPendingInstallItemsWithCompletion:(id)completion
@@ -2223,7 +2219,7 @@ void __88__TSActivationFlowWithSimSetupFlow__requestCrossPlatformTransferPlanLis
 
   else
   {
-    v8 = _TSLogDomain();
+    v8 = _TSLogDomain(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(TSActivationFlowWithSimSetupFlow *)v8 _requestPendingInstallItemsWithCompletion:v9, v10, v11, v12, v13, v14, v15];
@@ -2268,7 +2264,7 @@ void __78__TSActivationFlowWithSimSetupFlow__requestPendingInstallItemsWithCompl
 
   else
   {
-    v8 = _TSLogDomain();
+    v8 = _TSLogDomain(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(TSActivationFlowWithSimSetupFlow *)v8 _requestCarrierSetupsWithCompletion:v9, v10, v11, v12, v13, v14, v15];
@@ -2278,30 +2274,30 @@ void __78__TSActivationFlowWithSimSetupFlow__requestPendingInstallItemsWithCompl
 
 void __72__TSActivationFlowWithSimSetupFlow__requestCarrierSetupsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v6 = _TSLogDomain();
+  v6 = _TSLogDomain(WeakRetained);
   v7 = v6;
   if (WeakRetained)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v20 = v4;
-      v21 = 2080;
-      v22 = "[TSActivationFlowWithSimSetupFlow _requestCarrierSetupsWithCompletion:]_block_invoke";
+      v19 = v4;
+      v20 = 2080;
+      v21 = "[TSActivationFlowWithSimSetupFlow _requestCarrierSetupsWithCompletion:]_block_invoke";
       _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "Carrier setup %@ @%s", buf, 0x16u);
     }
 
     objc_storeStrong(WeakRetained + 16, a2);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __72__TSActivationFlowWithSimSetupFlow__requestCarrierSetupsWithCompletion___block_invoke_114;
-    v17[3] = &unk_279B44938;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __72__TSActivationFlowWithSimSetupFlow__requestCarrierSetupsWithCompletion___block_invoke_114;
+    v16[3] = &unk_279B44938;
     v8 = *(a1 + 32);
-    v18 = *(a1 + 40);
-    [v8 getWebsheetInfo:v4 completion:v17];
+    v17 = *(a1 + 40);
+    [v8 getWebsheetInfo:v4 completion:v16];
   }
 
   else
@@ -2313,8 +2309,6 @@ void __72__TSActivationFlowWithSimSetupFlow__requestCarrierSetupsWithCompletion_
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getWebsheetInfo:(id)info completion:(id)completion
@@ -2322,39 +2316,40 @@ void __72__TSActivationFlowWithSimSetupFlow__requestCarrierSetupsWithCompletion_
   location[3] = *MEMORY[0x277D85DE8];
   infoCopy = info;
   completionCopy = completion;
+  v8 = completionCopy;
   if (infoCopy)
   {
     objc_initWeak(location, self);
     plans = [(CTDisplayPlanList *)self->_carrierSetupItems plans];
-    v9 = [plans count] > 1;
+    v10 = [plans count] > 1;
 
-    if (v9)
+    if (v10)
     {
-      v10 = _TSLogDomain();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = _TSLogDomain(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [(TSActivationFlowWithSimSetupFlow *)v10 getWebsheetInfo:v11 completion:v12, v13, v14, v15, v16, v17];
+        [(TSActivationFlowWithSimSetupFlow *)v12 getWebsheetInfo:v13 completion:v14, v15, v16, v17, v18, v19];
       }
     }
 
     plans2 = [(CTDisplayPlanList *)self->_carrierSetupItems plans];
-    v19 = [plans2 count] == 0;
+    v21 = [plans2 count] == 0;
 
-    if (!v19)
+    if (!v21)
     {
-      v20 = +[TSCoreTelephonyClientCache sharedInstance];
+      v22 = +[TSCoreTelephonyClientCache sharedInstance];
       plans3 = [(CTDisplayPlanList *)self->_carrierSetupItems plans];
-      v22 = [plans3 objectAtIndexedSubscript:0];
-      plan = [v22 plan];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __63__TSActivationFlowWithSimSetupFlow_getWebsheetInfo_completion___block_invoke;
-      v26[3] = &unk_279B45310;
-      objc_copyWeak(&v28, location);
-      v27 = completionCopy;
-      [v20 getWebsheetInfoForPlan:plan inBuddy:0 completion:v26];
+      v24 = [plans3 objectAtIndexedSubscript:0];
+      plan = [v24 plan];
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __63__TSActivationFlowWithSimSetupFlow_getWebsheetInfo_completion___block_invoke;
+      v27[3] = &unk_279B45310;
+      objc_copyWeak(&v29, location);
+      v28 = v8;
+      [v22 getWebsheetInfoForPlan:plan inBuddy:0 completion:v27];
 
-      objc_destroyWeak(&v28);
+      objc_destroyWeak(&v29);
     }
 
     objc_destroyWeak(location);
@@ -2362,18 +2357,16 @@ void __72__TSActivationFlowWithSimSetupFlow__requestCarrierSetupsWithCompletion_
 
   else
   {
-    v24 = _TSLogDomain();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v26 = _TSLogDomain(completionCopy);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(location[0]) = 136315138;
       *(location + 4) = "[TSActivationFlowWithSimSetupFlow getWebsheetInfo:completion:]";
-      _os_log_impl(&dword_262AA8000, v24, OS_LOG_TYPE_DEFAULT, "No carrier setup items @%s", location, 0xCu);
+      _os_log_impl(&dword_262AA8000, v26, OS_LOG_TYPE_DEFAULT, "No carrier setup items @%s", location, 0xCu);
     }
 
-    completionCopy[2](completionCopy);
+    v8[2](v8);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __63__TSActivationFlowWithSimSetupFlow_getWebsheetInfo_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2390,7 +2383,7 @@ void __63__TSActivationFlowWithSimSetupFlow_getWebsheetInfo_completion___block_i
 
   else
   {
-    v10 = _TSLogDomain();
+    v10 = _TSLogDomain(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __63__TSActivationFlowWithSimSetupFlow_getWebsheetInfo_completion___block_invoke_cold_1(v10, v11, v12, v13, v14, v15, v16, v17);
@@ -2402,7 +2395,7 @@ void __63__TSActivationFlowWithSimSetupFlow_getWebsheetInfo_completion___block_i
 
 - (void)_filterCarrierSetupItems:(id)items
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   plans = [itemsCopy plans];
   v7 = [plans count];
@@ -2423,52 +2416,50 @@ void __63__TSActivationFlowWithSimSetupFlow_getWebsheetInfo_completion___block_i
     else
     {
       objc_storeStrong(&self->_carrierSetupItems, items);
-      v21 = v8;
+      v20 = v8;
       v12 = [TSFlowHelper sortIndexesInDescending:v8];
+      v21 = 0u;
       v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
-      v13 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v23;
+        v15 = *v22;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v23 != v15)
+            if (*v22 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            unsignedIntegerValue = [*(*(&v22 + 1) + 8 * i) unsignedIntegerValue];
-            v18 = _TSLogDomain();
+            unsignedIntegerValue = [*(*(&v21 + 1) + 8 * i) unsignedIntegerValue];
+            v18 = _TSLogDomain(unsignedIntegerValue);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
               v19 = [(NSMutableArray *)self->_transferItems objectAtIndex:unsignedIntegerValue];
               *buf = 138412546;
-              v27 = v19;
-              v28 = 2080;
-              v29 = "[TSActivationFlowWithSimSetupFlow _filterCarrierSetupItems:]";
+              v26 = v19;
+              v27 = 2080;
+              v28 = "[TSActivationFlowWithSimSetupFlow _filterCarrierSetupItems:]";
               _os_log_impl(&dword_262AA8000, v18, OS_LOG_TYPE_DEFAULT, "Plan %@ will be removed from transfer list @%s", buf, 0x16u);
             }
 
             [(NSMutableArray *)self->_transferItems removeObjectAtIndex:unsignedIntegerValue];
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
         }
 
         while (v14);
       }
 
-      v8 = v21;
+      v8 = v20;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_userDidTapCancel
@@ -2533,175 +2524,156 @@ LABEL_6:
 
 - (void)firstViewController
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E](UIViewController *)firstViewController is deprecated, please use (void)firstViewController:(void (^)(UIViewController *))completion @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow firstViewController]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E](UIViewController *)firstViewController is deprecated, please use (void)firstViewController:(void (^)(UIViewController *))completion @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __66__TSActivationFlowWithSimSetupFlow__sendSIMSetupReadyNotification__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __56__TSActivationFlowWithSimSetupFlow_firstViewController___block_invoke_2_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid self @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow firstViewController:]_block_invoke_2";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid self @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __56__TSActivationFlowWithSimSetupFlow_firstViewController___block_invoke_40_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid self @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow firstViewController:]_block_invoke";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid self @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_maybePresentFirstViewController:(uint64_t)a3 firstViewControllerCallback:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]nothing to present @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow _maybePresentFirstViewController:firstViewControllerCallback:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]nothing to present @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __97__TSActivationFlowWithSimSetupFlow__maybePresentFirstViewController_firstViewControllerCallback___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]nothing to present!!! @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow _maybePresentFirstViewController:firstViewControllerCallback:]_block_invoke";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]nothing to present!!! @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)nextViewControllerFrom:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]unexpected @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)planItemsUpdated:(uint64_t *)a1 planListError:.cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow nextViewControllerFrom:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]unexpected @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)planItemsUpdated:planListError:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didPurchasePlanSuccessfullyWithEid:(uint64_t)a3 imei:(uint64_t)a4 meid:(uint64_t)a5 iccid:(uint64_t)a6 alternateSDMP:(uint64_t)a7 state:(uint64_t)a8 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]No EID, not implemented @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow didPurchasePlanSuccessfullyWithEid:imei:meid:iccid:alternateSDMP:state:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]No EID, not implemented @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_requestPlansWithCompletion:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid completion @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow _requestPlansWithCompletion:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid completion @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __64__TSActivationFlowWithSimSetupFlow__requestPlansWithCompletion___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid self @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow _requestPlansWithCompletion:]_block_invoke";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid self @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_requestTransferPlanListWithCompletion:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid completion @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow _requestTransferPlanListWithCompletion:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid completion @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __75__TSActivationFlowWithSimSetupFlow__requestTransferPlanListWithCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __75__TSActivationFlowWithSimSetupFlow__requestTransferPlanListWithCompletion___block_invoke_108_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestCrossPlatformTransferPlanListWithCompletion:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Invalid completion @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow _requestCrossPlatformTransferPlanListWithCompletion:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Invalid completion @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __88__TSActivationFlowWithSimSetupFlow__requestCrossPlatformTransferPlanListWithCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __88__TSActivationFlowWithSimSetupFlow__requestCrossPlatformTransferPlanListWithCompletion___block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Self doesnt exist @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow _requestCrossPlatformTransferPlanListWithCompletion:]_block_invoke";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Self doesnt exist @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_requestPendingInstallItemsWithCompletion:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid completion @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow _requestPendingInstallItemsWithCompletion:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]invalid completion @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_requestCarrierSetupsWithCompletion:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Invalid completion @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow _requestCarrierSetupsWithCompletion:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Invalid completion @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __72__TSActivationFlowWithSimSetupFlow__requestCarrierSetupsWithCompletion___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Self doesnt exist @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow _requestCarrierSetupsWithCompletion:]_block_invoke";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Self doesnt exist @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)getWebsheetInfo:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Wrong number of carrier setup items on server @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow getWebsheetInfo:completion:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Wrong number of carrier setup items on server @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __63__TSActivationFlowWithSimSetupFlow_getWebsheetInfo_completion___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Self doesnt exist @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSActivationFlowWithSimSetupFlow getWebsheetInfo:completion:]_block_invoke";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Self doesnt exist @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

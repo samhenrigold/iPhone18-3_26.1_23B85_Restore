@@ -1,5 +1,6 @@
 @interface VSSiriInlineTTSStreamTask
 - (BOOL)waitForNewData:(double)data;
+- (VSSiriInlineTTSStreamTask)init;
 - (VSSiriInlineTTSStreamTask)initWithRequest:(id)request withStreamID:(id)d;
 - (VSSpeechServiceDelegate)delegate;
 - (id)audioPowerProvider;
@@ -37,7 +38,7 @@
 {
   infoCopy = info;
   finalTimingInfo = [(VSSiriInlineTTSStreamTask *)self finalTimingInfo];
-  [finalTimingInfo addObjectsFromArray:infoCopy];
+  [finalTimingInfo addObjectsFromArray:?];
 }
 
 - (void)synthesisCore:(id)core didReceiveProcessingWordTimingInfo:(id)info
@@ -51,12 +52,9 @@
   {
     objc_initWeak(&location, self);
     playbackServices = [(VSSiriInlineTTSStreamTask *)self playbackServices];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __78__VSSiriInlineTTSStreamTask_synthesisCore_didReceiveProcessingWordTimingInfo___block_invoke;
-    v11[3] = &unk_279E4B9C0;
+    v11 = MEMORY[0x277D85DD0];
     objc_copyWeak(&v12, &location);
-    [playbackServices setBoundaryTimeObserverForTimingInfos:infoCopy usingBlock:v11];
+    [playbackServices setBoundaryTimeObserverForTimingInfos:v11 usingBlock:{3221225472, __78__VSSiriInlineTTSStreamTask_synthesisCore_didReceiveProcessingWordTimingInfo___block_invoke, &unk_279E4B9C0}];
 
     objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
@@ -65,21 +63,21 @@
 
 void __78__VSSiriInlineTTSStreamTask_synthesisCore_didReceiveProcessingWordTimingInfo___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = a2;
+  v7 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
   if (WeakRetained)
   {
     v5 = [WeakRetained delegate];
     v6 = [v4 request];
-    v7 = [v9 textRange];
-    [v5 speechRequest:v6 didStartWithMark:1 forRange:{v7, v8}];
+    [v7 textRange];
+    [v5 speechRequest:? didStartWithMark:? forRange:?];
   }
 }
 
 - (void)synthesisCore:(id)core didReceiveAudio:(id)audio
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   audioCopy = audio;
   error = [(VSSiriInlineTTSStreamTask *)self error];
 
@@ -92,63 +90,63 @@ void __78__VSSiriInlineTTSStreamTask_synthesisCore_didReceiveProcessingWordTimin
       v8 = VSGetLogDefault();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v40) = 0;
-        _os_log_impl(&dword_2727E4000, v8, OS_LOG_TYPE_DEFAULT, "Initializing fallback playback service", &v40, 2u);
+        LOWORD(v31) = 0;
+        _os_log_impl(&dword_2727E4000, v8, OS_LOG_TYPE_DEFAULT, "Initializing fallback playback service", &v31, 2u);
       }
 
       v9 = [VSAudioPlaybackService alloc];
       request = [(VSSiriInlineTTSStreamTask *)self request];
-      audioSessionID = [request audioSessionID];
+      [request audioSessionID];
       if (audioCopy)
       {
-        [audioCopy asbd];
+        [&v31 asbd];
       }
 
       else
       {
-        v42 = 0;
-        v40 = 0u;
-        v41 = 0u;
+        v33 = 0;
+        v31 = 0u;
+        v32 = 0u;
       }
 
-      v12 = [(VSSiriInlineTTSStreamTask *)self request:v40];
-      accessoryID = [v12 accessoryID];
-      v14 = [(VSAudioPlaybackService *)v9 initWithAudioSessionID:audioSessionID asbd:&v40 useAVSBAR:accessoryID != 0];
-      [(VSSiriInlineTTSStreamTask *)self setPlaybackServices:v14];
+      v11 = [(VSSiriInlineTTSStreamTask *)self request:v31];
+      accessoryID = [v11 accessoryID];
+      v13 = [VSAudioPlaybackService initWithAudioSessionID:v9 asbd:"initWithAudioSessionID:asbd:useAVSBAR:" useAVSBAR:?];
+      [(VSSiriInlineTTSStreamTask *)self setPlaybackServices:?];
 
       playbackServices2 = [(VSSiriInlineTTSStreamTask *)self playbackServices];
       outputRouteInfo = [playbackServices2 outputRouteInfo];
       audioRouteName = [outputRouteInfo audioRouteName];
       instrumentMetrics = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-      [instrumentMetrics setAudioOutputRoute:audioRouteName];
+      [instrumentMetrics setAudioOutputRoute:?];
 
       playbackServices3 = [(VSSiriInlineTTSStreamTask *)self playbackServices];
 
       if (!playbackServices3)
       {
-        v38 = MEMORY[0x277CCA9B8];
-        v43 = *MEMORY[0x277CCA450];
-        v44[0] = @"Unable to create playback service";
-        instrumentMetrics5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
-        v39 = [v38 errorWithDomain:@"VoiceServicesErrorDomain" code:450 userInfo:instrumentMetrics5];
-        [(VSSiriInlineTTSStreamTask *)self setError:v39];
+        v29 = MEMORY[0x277CCA9B8];
+        v34 = *MEMORY[0x277CCA450];
+        v35 = @"Unable to create playback service";
+        instrumentMetrics5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+        v30 = [v29 errorWithDomain:? code:? userInfo:?];
+        [(VSSiriInlineTTSStreamTask *)self setError:?];
 
 LABEL_15:
         goto LABEL_16;
       }
 
-      v20 = mach_absolute_time();
+      mach_absolute_time();
       playbackServices4 = [(VSSiriInlineTTSStreamTask *)self playbackServices];
       start = [playbackServices4 start];
 
       if (start)
       {
-        [(VSSiriInlineTTSStreamTask *)self setError:start];
+        [(VSSiriInlineTTSStreamTask *)self setError:?];
       }
 
-      v23 = mach_absolute_time() - v20;
+      mach_absolute_time();
       instrumentMetrics2 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-      [instrumentMetrics2 setAudioStartTimestampDiffs:v23];
+      [instrumentMetrics2 setAudioStartTimestampDiffs:?];
     }
 
     instrumentMetrics3 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
@@ -156,30 +154,27 @@ LABEL_15:
 
     if (!speechBeginTimestamp)
     {
-      v27 = mach_absolute_time();
+      mach_absolute_time();
       instrumentMetrics4 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-      [instrumentMetrics4 setSpeechBeginTimestamp:v27];
+      [instrumentMetrics4 setSpeechBeginTimestamp:?];
 
       [(VSSiriInlineTTSStreamTask *)self reportSpeechStart];
     }
 
     playbackServices5 = [(VSSiriInlineTTSStreamTask *)self playbackServices];
     audioData = [audioCopy audioData];
-    packetCount = [audioCopy packetCount];
+    [audioCopy packetCount];
     packetDescriptions = [audioCopy packetDescriptions];
-    [playbackServices5 enqueue:audioData packetCount:packetCount packetDescriptions:packetDescriptions];
+    [playbackServices5 enqueue:? packetCount:? packetDescriptions:?];
 
     instrumentMetrics5 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
     [audioCopy duration];
-    v35 = v34;
     [instrumentMetrics5 audioDuration];
-    [instrumentMetrics5 setAudioDuration:v35 + v36];
+    [instrumentMetrics5 setAudioDuration:?];
     goto LABEL_15;
   }
 
 LABEL_16:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)audioPowerProvider
@@ -192,11 +187,11 @@ LABEL_16:
 
 - (void)reportInstrumentMetrics
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   delegate = [(VSSiriInlineTTSStreamTask *)self delegate];
   request = [(VSSiriInlineTTSStreamTask *)self request];
   instrumentMetrics = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  [delegate speechRequest:request didReportInstrumentMetrics:instrumentMetrics];
+  [delegate speechRequest:? didReportInstrumentMetrics:?];
 
   v6 = VSGetLogDefault();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -204,20 +199,19 @@ LABEL_16:
     instrumentMetrics2 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
     requestCreatedTimestamp = [instrumentMetrics2 requestCreatedTimestamp];
     instrumentMetrics3 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-    v15 = 134218242;
-    v16 = requestCreatedTimestamp;
-    v17 = 2112;
-    v18 = instrumentMetrics3;
-    _os_log_impl(&dword_2727E4000, v6, OS_LOG_TYPE_DEFAULT, "Stream task %llu: Instrument metric: %@", &v15, 0x16u);
+    v14 = 134218242;
+    v15 = requestCreatedTimestamp;
+    v16 = 2112;
+    v17 = instrumentMetrics3;
+    _os_log_impl(&dword_2727E4000, v6, OS_LOG_TYPE_DEFAULT, "Stream task %llu: Instrument metric: %@", &v14, 0x16u);
   }
 
   v10 = +[VSDiagnosticService defaultService];
   instrumentMetrics4 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
   dictionaryMetrics = [instrumentMetrics4 dictionaryMetrics];
   instrumentMetrics5 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  [v10 dumpInstrumentMetrics:dictionaryMetrics withTimestamp:{objc_msgSend(instrumentMetrics5, "requestCreatedTimestamp")}];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [instrumentMetrics5 requestCreatedTimestamp];
+  [v10 dumpInstrumentMetrics:? withTimestamp:?];
 }
 
 - (void)reportTimingInfo
@@ -225,17 +219,17 @@ LABEL_16:
   delegate = [(VSSiriInlineTTSStreamTask *)self delegate];
   request = [(VSSiriInlineTTSStreamTask *)self request];
   finalTimingInfo = [(VSSiriInlineTTSStreamTask *)self finalTimingInfo];
-  [delegate speechRequest:request didReceiveTimingInfo:finalTimingInfo];
+  [delegate speechRequest:? didReceiveTimingInfo:?];
 }
 
 - (void)reportFinish
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   delegate = [(VSSiriInlineTTSStreamTask *)self delegate];
   request = [(VSSiriInlineTTSStreamTask *)self request];
-  isCancelled = [(VSSiriInlineTTSStreamTask *)self isCancelled];
+  [(VSSiriInlineTTSStreamTask *)self isCancelled];
   error = [(VSSiriInlineTTSStreamTask *)self error];
-  [delegate speechRequest:request didStopWithSuccess:isCancelled ^ 1u phonemesSpoken:&stru_2881CBD18 error:error];
+  [delegate speechRequest:? didStopWithSuccess:? phonemesSpoken:? error:?];
 
   error2 = [(VSSiriInlineTTSStreamTask *)self error];
   if (!error2)
@@ -243,73 +237,48 @@ LABEL_16:
     goto LABEL_5;
   }
 
-  v8 = error2;
+  v7 = error2;
   error3 = [(VSSiriInlineTTSStreamTask *)self error];
   if ([error3 code] == 400)
   {
 
 LABEL_5:
     voiceKey = [(VSSiriInlineTTSStreamTask *)self voiceKey];
-    v13 = VSGetLogDefault();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v12 = VSGetLogDefault();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       instrumentMetrics = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
       requestCreatedTimestamp = [instrumentMetrics requestCreatedTimestamp];
       if ([(VSSiriInlineTTSStreamTask *)self isCancelled])
       {
-        v15 = @"Cancelled";
+        v14 = @"Cancelled";
       }
 
       else
       {
-        v15 = @"Finished";
+        v14 = @"Finished";
       }
 
       request2 = [(VSSiriInlineTTSStreamTask *)self request];
       logText = [request2 logText];
-      if (voiceKey)
-      {
-        v18 = voiceKey;
-      }
-
-      else
-      {
-        v18 = @"(null)";
-      }
-
-      v50[0] = @"voice";
-      v50[1] = @"voice_resource";
-      v51[0] = v18;
       instrumentMetrics2 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
       voiceResourceAssetKey = [instrumentMetrics2 voiceResourceAssetKey];
-      v21 = voiceResourceAssetKey;
-      if (voiceResourceAssetKey)
-      {
-        v22 = voiceResourceAssetKey;
-      }
-
-      else
-      {
-        v22 = @"(null)";
-      }
-
-      v51[1] = v22;
-      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:2];
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
       *buf = 134218754;
-      v53 = requestCreatedTimestamp;
-      v54 = 2112;
-      v55 = v15;
-      v56 = 2112;
-      v57 = logText;
-      v58 = 2114;
-      v59 = v23;
-      _os_log_impl(&dword_2727E4000, v13, OS_LOG_TYPE_DEFAULT, "Stream task %llu: %@ speaking text: '%@', %{public}@", buf, 0x2Au);
+      v39 = requestCreatedTimestamp;
+      v40 = 2112;
+      v41 = v14;
+      v42 = 2112;
+      v43 = logText;
+      v44 = 2114;
+      v45 = v19;
+      _os_log_impl(&dword_2727E4000, v12, OS_LOG_TYPE_DEFAULT, "Stream task %llu: %@ speaking text: '%@', %{public}@", buf, 0x2Au);
     }
 
-    isCancelled2 = [(VSSiriInlineTTSStreamTask *)self isCancelled];
+    isCancelled = [(VSSiriInlineTTSStreamTask *)self isCancelled];
     siriInstrumentation = [(VSSiriInlineTTSStreamTask *)self siriInstrumentation];
-    v26 = siriInstrumentation;
-    if (isCancelled2)
+    v22 = siriInstrumentation;
+    if (isCancelled)
     {
       [siriInstrumentation instrumentSpeechCancelled];
     }
@@ -318,23 +287,21 @@ LABEL_5:
     {
       instrumentMetrics3 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
       [instrumentMetrics3 audioDuration];
-      v29 = v28;
       instrumentMetrics4 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
       [instrumentMetrics4 ttsSynthesisLatency];
-      v32 = v31;
       instrumentMetrics5 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
       [instrumentMetrics5 cappedRealTimeFactor];
-      v35 = v34;
       instrumentMetrics6 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-      promptCount = [instrumentMetrics6 promptCount];
+      [instrumentMetrics6 promptCount];
       instrumentMetrics7 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-      [v26 instrumentSpeechEndedWithAudioDuration:promptCount synthesisLatency:objc_msgSend(instrumentMetrics7 realTimeFactor:"errorCode") promptCount:v29 errorCode:{v32, v35}];
+      [instrumentMetrics7 errorCode];
+      [v22 instrumentSpeechEndedWithAudioDuration:? synthesisLatency:? realTimeFactor:? promptCount:? errorCode:?];
     }
 
-    v39 = MEMORY[0x277D79918];
+    v28 = MEMORY[0x277D79918];
     instrumentMetrics8 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-    [v39 reportInstrumentMetrics:instrumentMetrics8];
-    goto LABEL_20;
+    [v28 reportInstrumentMetrics:?];
+    goto LABEL_14;
   }
 
   error4 = [(VSSiriInlineTTSStreamTask *)self error];
@@ -345,29 +312,29 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v42 = VSGetLogDefault();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+  v30 = VSGetLogDefault();
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     instrumentMetrics9 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
     requestCreatedTimestamp2 = [instrumentMetrics9 requestCreatedTimestamp];
     error5 = [(VSSiriInlineTTSStreamTask *)self error];
     *buf = 134218242;
-    v53 = requestCreatedTimestamp2;
-    v54 = 2112;
-    v55 = error5;
-    _os_log_error_impl(&dword_2727E4000, v42, OS_LOG_TYPE_ERROR, "Error in stream task %llu, error: %@", buf, 0x16u);
+    v39 = requestCreatedTimestamp2;
+    v40 = 2112;
+    v41 = error5;
+    _os_log_error_impl(&dword_2727E4000, v30, OS_LOG_TYPE_ERROR, "Error in stream task %llu, error: %@", buf, 0x16u);
   }
 
   voiceKey = [(VSSiriInlineTTSStreamTask *)self siriInstrumentation];
-  v43 = MEMORY[0x277CCABB0];
+  v31 = MEMORY[0x277CCABB0];
   instrumentMetrics8 = [(VSSiriInlineTTSStreamTask *)self error];
-  v44 = [v43 numberWithInteger:{objc_msgSend(instrumentMetrics8, "code")}];
-  v60[0] = v44;
-  v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:1];
-  [(__CFString *)voiceKey instrumentSpeechFailedWithErrorCodes:v45];
+  [instrumentMetrics8 code];
+  v32 = [v31 numberWithInteger:?];
+  v46 = v32;
+  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  [voiceKey instrumentSpeechFailedWithErrorCodes:?];
 
-LABEL_20:
-  v41 = *MEMORY[0x277D85DE8];
+LABEL_14:
 }
 
 - (id)voiceKey
@@ -394,10 +361,10 @@ LABEL_20:
 
 - (void)reportSpeechStart
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   delegate = [(VSSiriInlineTTSStreamTask *)self delegate];
   request = [(VSSiriInlineTTSStreamTask *)self request];
-  [delegate speechRequestDidStart:request];
+  [delegate speechRequestDidStart:?];
 
   v5 = VSGetLogDefault();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -410,29 +377,27 @@ LABEL_20:
 
   siriInstrumentation = [(VSSiriInlineTTSStreamTask *)self siriInstrumentation];
   instrumentMetrics2 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  sourceOfTTS = [instrumentMetrics2 sourceOfTTS];
+  [instrumentMetrics2 sourceOfTTS];
   instrumentMetrics3 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
   [instrumentMetrics3 timeToSpeakLatency];
-  v10 = v9;
   playbackServices = [(VSSiriInlineTTSStreamTask *)self playbackServices];
   outputRouteInfo = [playbackServices outputRouteInfo];
-  v11 = MEMORY[0x277D799C8];
+  v8 = MEMORY[0x277D799C8];
   streamingVoice = [(VSSiriInlineTTSStreamTask *)self streamingVoice];
   type = [streamingVoice type];
-  v23 = [v11 typeFromString:type];
-  v12 = MEMORY[0x277D799C8];
+  [v8 typeFromString:?];
+  v9 = MEMORY[0x277D799C8];
   streamingVoice2 = [(VSSiriInlineTTSStreamTask *)self streamingVoice];
   quality = [streamingVoice2 quality];
-  v15 = [v12 footprintFromString:quality];
+  [v9 footprintFromString:?];
   streamingVoice3 = [(VSSiriInlineTTSStreamTask *)self streamingVoice];
   contentVersion = [streamingVoice3 contentVersion];
-  integerValue = [contentVersion integerValue];
+  [contentVersion integerValue];
   streamingResource = [(VSSiriInlineTTSStreamTask *)self streamingResource];
   resourceVersion = [streamingResource resourceVersion];
-  LOBYTE(v22) = 0;
-  [siriInstrumentation instrumentSpeechStartedWithSource:sourceOfTTS customerPerceivedLatency:outputRouteInfo audioOutputRoute:v23 voiceType:v15 voiceFootprint:integerValue voiceVersion:objc_msgSend(resourceVersion resourceVersion:"integerValue") isWhisper:{v10, v22}];
-
-  v21 = *MEMORY[0x277D85DE8];
+  [resourceVersion integerValue];
+  LOBYTE(v16) = 0;
+  [siriInstrumentation instrumentSpeechStartedWithSource:v16 customerPerceivedLatency:? audioOutputRoute:? voiceType:? voiceFootprint:? voiceVersion:? resourceVersion:? isWhisper:?];
 }
 
 - (void)suspend
@@ -449,8 +414,8 @@ LABEL_20:
 
 - (void)cancel
 {
-  v3 = [MEMORY[0x277CCA9B8] errorWithDomain:@"VoiceServicesErrorDomain" code:400 userInfo:0];
-  [(VSSiriInlineTTSStreamTask *)self setError:v3];
+  v3 = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+  [(VSSiriInlineTTSStreamTask *)self setError:?];
 
   if (([(VSSiriInlineTTSStreamTask *)self isExecuting]& 1) != 0 || ([(VSSiriInlineTTSStreamTask *)self isCancelled]& 1) != 0 || ([(VSSiriInlineTTSStreamTask *)self isFinished]& 1) != 0)
   {
@@ -470,36 +435,36 @@ LABEL_20:
   playbackServices = [(VSSiriInlineTTSStreamTask *)self playbackServices];
   [playbackServices stop];
 
-  v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ServerTTSErrorDomain" code:400 userInfo:MEMORY[0x277CBEC10]];
-  [(VSSiriInlineTTSStreamTask *)self signalNewDataWithError:v5];
+  v5 = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+  [(VSSiriInlineTTSStreamTask *)self signalNewDataWithError:?];
 }
 
 - (void)main
 {
-  v109[1] = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   kdebug_trace();
-  v3 = mach_absolute_time();
+  mach_absolute_time();
   instrumentMetrics = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  [instrumentMetrics setSynthesisBeginTimestamp:v3];
+  [instrumentMetrics setSynthesisBeginTimestamp:?];
 
-  v5 = +[VSSiriServerConfiguration defaultConfig];
-  experimentIdentifier = [v5 experimentIdentifier];
+  v4 = +[VSSiriServerConfiguration defaultConfig];
+  experimentIdentifier = [v4 experimentIdentifier];
   instrumentMetrics2 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  [instrumentMetrics2 setExperimentIdentifier:experimentIdentifier];
+  [instrumentMetrics2 setExperimentIdentifier:?];
 
   kdebug_trace();
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   streamID = [(VSSiriInlineTTSStreamTask *)self streamID];
-  [defaultCenter addObserver:self selector:sel_handleStreamNotification_ name:streamID object:0];
+  [defaultCenter addObserver:? selector:? name:? object:?];
 
-  v10 = +[VSInlineStreamService sharedService];
+  v9 = +[VSInlineStreamService sharedService];
   streamID2 = [(VSSiriInlineTTSStreamTask *)self streamID];
-  [v10 startStreamingWithId:streamID2];
+  [v9 startStreamingWithId:?];
 
   do
   {
     [(VSSiriInlineTTSStreamTask *)self timeoutValue];
-    v12 = [(VSSiriInlineTTSStreamTask *)self waitForNewData:?];
+    v11 = [(VSSiriInlineTTSStreamTask *)self waitForNewData:?];
     error = [(VSSiriInlineTTSStreamTask *)self error];
 
     if (error)
@@ -507,7 +472,7 @@ LABEL_20:
       break;
     }
 
-    if (!v12)
+    if ((v11 & 1) == 0)
     {
       instrumentMetrics3 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
       synthesisEndTimestamp = [instrumentMetrics3 synthesisEndTimestamp];
@@ -517,44 +482,37 @@ LABEL_20:
         instrumentMetrics4 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
         speechBeginTimestamp = [instrumentMetrics4 speechBeginTimestamp];
 
-        v20 = VSGetLogDefault();
-        v21 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+        v19 = VSGetLogDefault();
+        v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
         if (speechBeginTimestamp)
         {
-          if (v21)
+          if (v20)
           {
             *buf = 0;
-            _os_log_error_impl(&dword_2727E4000, v20, OS_LOG_TYPE_ERROR, "Stream TTS network stall.", buf, 2u);
+            _os_log_error_impl(&dword_2727E4000, v19, OS_LOG_TYPE_ERROR, "Stream TTS network stall.", buf, 2u);
           }
-
-          v22 = 701;
         }
 
-        else
+        else if (v20)
         {
-          if (v21)
-          {
-            *buf = 0;
-            _os_log_error_impl(&dword_2727E4000, v20, OS_LOG_TYPE_ERROR, "Inline streaming TTS timeout.", buf, 2u);
-          }
-
-          v22 = 702;
+          *buf = 0;
+          _os_log_error_impl(&dword_2727E4000, v19, OS_LOG_TYPE_ERROR, "Inline streaming TTS timeout.", buf, 2u);
         }
 
-        v23 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ServerTTSErrorDomain" code:v22 userInfo:MEMORY[0x277CBEC10]];
-        [(VSSiriInlineTTSStreamTask *)self setError:v23];
+        v21 = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+        [(VSSiriInlineTTSStreamTask *)self setError:?];
 
         error2 = [(VSSiriInlineTTSStreamTask *)self error];
-        code = [error2 code];
+        [error2 code];
         instrumentMetrics5 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-        [instrumentMetrics5 setErrorCode:code];
+        [instrumentMetrics5 setErrorCode:?];
 
         instrumentMetrics6 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-        [instrumentMetrics6 setIsServerTimeout:1];
+        [instrumentMetrics6 setIsServerTimeout:?];
 
-        v28 = mach_absolute_time();
+        mach_absolute_time();
         instrumentMetrics7 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-        [instrumentMetrics7 setSynthesisEndTimestamp:v28];
+        [instrumentMetrics7 setSynthesisEndTimestamp:?];
 
         kdebug_trace();
         notify_post([*MEMORY[0x277D79A18] UTF8String]);
@@ -568,7 +526,7 @@ LABEL_20:
 
   while (!synthesisEndTimestamp2);
   defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter2 removeObserver:self];
+  [defaultCenter2 removeObserver:?];
 
   if (([(VSSiriInlineTTSStreamTask *)self isCancelled]& 1) != 0)
   {
@@ -590,11 +548,11 @@ LABEL_20:
     }
   }
 
-  if (([(VSSiriInlineTTSStreamTask *)self isCancelled]& 1) != 0 || ([(VSSiriInlineTTSStreamTask *)self error], v34 = objc_claimAutoreleasedReturnValue(), v34, !v34))
+  if (([(VSSiriInlineTTSStreamTask *)self isCancelled]& 1) != 0 || ([(VSSiriInlineTTSStreamTask *)self error], v30 = objc_claimAutoreleasedReturnValue(), v30, !v30))
   {
     if (!retryDeviceOnNetworkStall)
     {
-      goto LABEL_36;
+      goto LABEL_35;
     }
   }
 
@@ -603,81 +561,80 @@ LABEL_20:
     deviceTTSCore = [(VSSiriInlineTTSStreamTask *)self deviceTTSCore];
     request2 = [deviceTTSCore request];
     utterance = [request2 utterance];
-    v38 = [utterance length];
+    v34 = [utterance length];
 
-    if (!v38)
+    if (!v34)
     {
-      v39 = MEMORY[0x277CCA9B8];
-      v108 = *MEMORY[0x277CCA450];
-      v109[0] = @"Missing utterance in the request (preprocessing missing?). Can't fallback to device TTS.";
-      v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v109 forKeys:&v108 count:1];
-      v41 = [v39 errorWithDomain:@"VoiceServicesErrorDomain" code:100 userInfo:v40];
-      [(VSSiriInlineTTSStreamTask *)self setError:v41];
+      v35 = MEMORY[0x277CCA9B8];
+      v100 = *MEMORY[0x277CCA450];
+      v101 = @"Missing utterance in the request (preprocessing missing?). Can't fallback to device TTS.";
+      v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+      v37 = [v35 errorWithDomain:? code:? userInfo:?];
+      [(VSSiriInlineTTSStreamTask *)self setError:?];
 
       if ((retryDeviceOnNetworkStall & 1) == 0)
       {
-        goto LABEL_36;
+        goto LABEL_35;
       }
     }
   }
 
-  v42 = VSGetLogDefault();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+  v38 = VSGetLogDefault();
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
   {
     error3 = [(VSSiriInlineTTSStreamTask *)self error];
     instrumentMetrics10 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
     errorCode = [instrumentMetrics10 errorCode];
     *buf = 138412546;
-    v105 = error3;
-    v106 = 1024;
-    v107 = errorCode;
-    _os_log_error_impl(&dword_2727E4000, v42, OS_LOG_TYPE_ERROR, "Streaming error: %@, error_code: %d", buf, 0x12u);
+    v97 = error3;
+    v98 = 1024;
+    v99 = errorCode;
+    _os_log_error_impl(&dword_2727E4000, v38, OS_LOG_TYPE_ERROR, "Streaming error: %@, error_code: %d", buf, 0x12u);
   }
 
-  [(VSSiriInlineTTSStreamTask *)self setServerAudio:0];
+  [(VSSiriInlineTTSStreamTask *)self setServerAudio:?];
   finalTimingInfo = [(VSSiriInlineTTSStreamTask *)self finalTimingInfo];
   [finalTimingInfo removeAllObjects];
 
-  [(VSSiriInlineTTSStreamTask *)self setError:0];
+  [(VSSiriInlineTTSStreamTask *)self setError:?];
   playbackServices = [(VSSiriInlineTTSStreamTask *)self playbackServices];
   [playbackServices stop];
 
-  [(VSSiriInlineTTSStreamTask *)self setPlaybackServices:0];
-  if ((retryDeviceOnNetworkStall & 1) != 0 || (-[VSSiriInlineTTSStreamTask instrumentMetrics](self, "instrumentMetrics"), v45 = objc_claimAutoreleasedReturnValue(), v46 = [v45 speechBeginTimestamp], v45, v46))
+  [(VSSiriInlineTTSStreamTask *)self setPlaybackServices:?];
+  if ((retryDeviceOnNetworkStall & 1) != 0 || (-[VSSiriInlineTTSStreamTask instrumentMetrics](self, "instrumentMetrics"), v41 = objc_claimAutoreleasedReturnValue(), v42 = [v41 speechBeginTimestamp], v41, v42))
   {
-    v47 = MEMORY[0x277D79940];
-    v48 = *MEMORY[0x277D79A10];
+    v43 = MEMORY[0x277D79940];
     request3 = [(VSSiriInlineTTSStreamTask *)self request];
     languageCode = [request3 languageCode];
-    v51 = [v47 localizedInterstitialStringForKey:v48 language:languageCode];
+    v46 = [v43 localizedInterstitialStringForKey:? language:?];
 
-    v52 = MEMORY[0x277CCACA8];
-    if (v51)
+    v47 = MEMORY[0x277CCACA8];
+    if (v46)
     {
-      v53 = v51;
+      v48 = v46;
     }
 
     else
     {
-      v53 = &stru_2881CBD18;
+      v48 = &stru_2881CBD18;
     }
 
     deviceTTSCore2 = [(VSSiriInlineTTSStreamTask *)self deviceTTSCore];
     request4 = [deviceTTSCore2 request];
     utterance2 = [request4 utterance];
-    v57 = [v52 stringWithFormat:@"%@ %@", v53, utterance2];
+    v52 = [v47 stringWithFormat:v48, utterance2];
     deviceTTSCore3 = [(VSSiriInlineTTSStreamTask *)self deviceTTSCore];
     request5 = [deviceTTSCore3 request];
-    [request5 setUtterance:v57];
+    [request5 setUtterance:?];
 
-    v60 = MEMORY[0x277CCACA8];
+    v55 = MEMORY[0x277CCACA8];
     deviceTTSCore4 = [(VSSiriInlineTTSStreamTask *)self deviceTTSCore];
     request6 = [deviceTTSCore4 request];
     text = [request6 text];
-    v64 = [v60 stringWithFormat:@"%@ %@", v53, text];
+    v59 = [v55 stringWithFormat:v48, text];
     deviceTTSCore5 = [(VSSiriInlineTTSStreamTask *)self deviceTTSCore];
     request7 = [deviceTTSCore5 request];
-    [request7 setText:v64];
+    [request7 setText:?];
   }
 
   deviceTTSCore6 = [(VSSiriInlineTTSStreamTask *)self deviceTTSCore];
@@ -685,41 +642,41 @@ LABEL_20:
 
   deviceTTSCore7 = [(VSSiriInlineTTSStreamTask *)self deviceTTSCore];
   error4 = [deviceTTSCore7 error];
-  [(VSSiriInlineTTSStreamTask *)self setError:error4];
+  [(VSSiriInlineTTSStreamTask *)self setError:?];
 
   instrumentMetrics11 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  [instrumentMetrics11 setIsServerStreamTTS:0];
+  [instrumentMetrics11 setIsServerStreamTTS:?];
 
   instrumentMetrics12 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  [instrumentMetrics12 setIsServerTTS:0];
+  [instrumentMetrics12 setIsServerTTS:?];
 
   instrumentMetrics13 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  [instrumentMetrics13 setIsServerTimeout:1];
+  [instrumentMetrics13 setIsServerTimeout:?];
 
   instrumentMetrics14 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  [instrumentMetrics14 setSourceOfTTS:1];
+  [instrumentMetrics14 setSourceOfTTS:?];
 
   deviceTTSCore8 = [(VSSiriInlineTTSStreamTask *)self deviceTTSCore];
   selectedVoice = [deviceTTSCore8 selectedVoice];
-  v76 = [selectedVoice key];
+  v71 = [selectedVoice key];
   instrumentMetrics15 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  [instrumentMetrics15 setVoiceAssetKey:v76];
+  [instrumentMetrics15 setVoiceAssetKey:?];
 
   deviceTTSCore9 = [(VSSiriInlineTTSStreamTask *)self deviceTTSCore];
   selectedVoiceResource = [deviceTTSCore9 selectedVoiceResource];
-  v80 = [selectedVoiceResource key];
+  v75 = [selectedVoiceResource key];
   instrumentMetrics16 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  [instrumentMetrics16 setVoiceResourceAssetKey:v80];
+  [instrumentMetrics16 setVoiceResourceAssetKey:?];
 
-LABEL_36:
+LABEL_35:
   error5 = [(VSSiriInlineTTSStreamTask *)self error];
 
   if (error5)
   {
     error6 = [(VSSiriInlineTTSStreamTask *)self error];
-    code2 = [error6 code];
+    [error6 code];
     instrumentMetrics17 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-    [instrumentMetrics17 setErrorCode:code2];
+    [instrumentMetrics17 setErrorCode:?];
   }
 
   else
@@ -729,12 +686,12 @@ LABEL_36:
 
     error6 = [(VSSiriInlineTTSStreamTask *)self playbackServices];
     instrumentMetrics17 = [error6 error];
-    [(VSSiriInlineTTSStreamTask *)self setError:instrumentMetrics17];
+    [(VSSiriInlineTTSStreamTask *)self setError:?];
   }
 
-  v87 = mach_absolute_time();
+  mach_absolute_time();
   instrumentMetrics18 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  [instrumentMetrics18 setSpeechEndTimestamp:v87];
+  [instrumentMetrics18 setSpeechEndTimestamp:?];
 
   error7 = [(VSSiriInlineTTSStreamTask *)self error];
 
@@ -747,13 +704,13 @@ LABEL_36:
 
     if (sourceOfTTS == 3)
     {
-      v92 = +[VSDiagnosticService defaultService];
+      v85 = +[VSDiagnosticService defaultService];
       serverAudio = [(VSSiriInlineTTSStreamTask *)self serverAudio];
       request8 = [(VSSiriInlineTTSStreamTask *)self request];
-      [v92 dumpCompressedAudio:serverAudio forRequest:request8];
-LABEL_47:
+      [v85 dumpCompressedAudio:? forRequest:?];
+LABEL_46:
 
-      goto LABEL_48;
+      goto LABEL_47;
     }
 
     deviceTTSCore10 = [(VSSiriInlineTTSStreamTask *)self deviceTTSCore];
@@ -761,14 +718,14 @@ LABEL_47:
 
     if (streamAudio)
     {
-      v92 = +[VSDiagnosticService defaultService];
+      v85 = +[VSDiagnosticService defaultService];
       serverAudio = [(VSSiriInlineTTSStreamTask *)self deviceTTSCore];
       request8 = [serverAudio streamAudio];
       request9 = [(VSSiriInlineTTSStreamTask *)self request];
-      [v92 dumpStreamAudio:request8 forRequest:request9];
-LABEL_46:
+      [v85 dumpStreamAudio:? forRequest:?];
+LABEL_45:
 
-      goto LABEL_47;
+      goto LABEL_46;
     }
 
     deviceTTSCore11 = [(VSSiriInlineTTSStreamTask *)self deviceTTSCore];
@@ -776,19 +733,18 @@ LABEL_46:
 
     if (compressedAudio)
     {
-      v92 = +[VSDiagnosticService defaultService];
+      v85 = +[VSDiagnosticService defaultService];
       serverAudio = [(VSSiriInlineTTSStreamTask *)self deviceTTSCore];
       request8 = [serverAudio compressedAudio];
       request9 = [(VSSiriInlineTTSStreamTask *)self request];
-      [v92 dumpCompressedAudio:request8 forRequest:request9];
-      goto LABEL_46;
+      [v85 dumpCompressedAudio:? forRequest:?];
+      goto LABEL_45;
     }
   }
 
-LABEL_48:
+LABEL_47:
   [(VSSiriInlineTTSStreamTask *)self reportFinish];
   kdebug_trace();
-  v100 = *MEMORY[0x277D85DE8];
 }
 
 - (void)signalNewDataWithError:(id)error
@@ -801,7 +757,7 @@ LABEL_48:
 
   if (!error)
   {
-    [(VSSiriInlineTTSStreamTask *)self setError:errorCopy];
+    [(VSSiriInlineTTSStreamTask *)self setError:?];
   }
 
   refreshTimeoutCondition2 = [(VSSiriInlineTTSStreamTask *)self refreshTimeoutCondition];
@@ -817,35 +773,35 @@ LABEL_48:
   [refreshTimeoutCondition lock];
 
   refreshTimeoutCondition2 = [(VSSiriInlineTTSStreamTask *)self refreshTimeoutCondition];
-  v7 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:data];
-  v8 = [refreshTimeoutCondition2 waitUntilDate:v7];
+  v6 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:?];
+  v7 = [refreshTimeoutCondition2 waitUntilDate:?];
 
   refreshTimeoutCondition3 = [(VSSiriInlineTTSStreamTask *)self refreshTimeoutCondition];
   [refreshTimeoutCondition3 unlock];
 
-  return v8;
+  return v7;
 }
 
 - (void)startPlayback
 {
-  v3 = mach_absolute_time();
+  mach_absolute_time();
   playbackServices = [(VSSiriInlineTTSStreamTask *)self playbackServices];
   start = [playbackServices start];
 
-  v5 = mach_absolute_time() - v3;
+  mach_absolute_time();
   instrumentMetrics = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  [instrumentMetrics setAudioStartTimestampDiffs:v5];
+  [instrumentMetrics setAudioStartTimestampDiffs:?];
 
   if (start)
   {
-    [(VSSiriInlineTTSStreamTask *)self signalNewDataWithError:start];
+    [(VSSiriInlineTTSStreamTask *)self signalNewDataWithError:?];
   }
 
   else
   {
-    v7 = mach_absolute_time();
+    mach_absolute_time();
     instrumentMetrics2 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-    [instrumentMetrics2 setSpeechBeginTimestamp:v7];
+    [instrumentMetrics2 setSpeechBeginTimestamp:?];
 
     [(VSSiriInlineTTSStreamTask *)self reportSpeechStart];
   }
@@ -853,17 +809,19 @@ LABEL_48:
 
 - (void)handleEnd:(id)end
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   endCopy = end;
   v5 = VSGetLogDefault();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     streamId = [endCopy streamId];
-    v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(endCopy, "count")}];
+    v7 = MEMORY[0x277CCABB0];
+    [endCopy count];
+    v8 = [v7 numberWithInteger:?];
     *buf = 138412546;
-    v29 = streamId;
-    v30 = 2112;
-    v31 = v7;
+    v26 = streamId;
+    v27 = 2112;
+    v28 = v8;
     _os_log_impl(&dword_2727E4000, v5, OS_LOG_TYPE_INFO, "Handle stream end with streamId: %@, count: %@", buf, 0x16u);
   }
 
@@ -872,9 +830,9 @@ LABEL_48:
 
   if (!synthesisEndTimestamp)
   {
-    v10 = mach_absolute_time();
+    mach_absolute_time();
     instrumentMetrics2 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-    [instrumentMetrics2 setSynthesisEndTimestamp:v10];
+    [instrumentMetrics2 setSynthesisEndTimestamp:?];
 
     kdebug_trace();
   }
@@ -882,16 +840,14 @@ LABEL_48:
   if ([endCopy errorCode] && objc_msgSend(endCopy, "errorCode") != 200)
   {
     v13 = MEMORY[0x277CCA9B8];
-    v26 = *MEMORY[0x277CCA450];
     v14 = MEMORY[0x277CCACA8];
     errorCode = [endCopy errorCode];
     errorMessage = [endCopy errorMessage];
-    v17 = [v14 stringWithFormat:@"Unknown inline streaming error %d, %@", errorCode, errorMessage];
-    v27 = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-    v19 = [v13 errorWithDomain:@"ServerTTSErrorDomain" code:700 userInfo:v18];
+    v24 = [v14 stringWithFormat:errorCode, errorMessage];
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v18 = [v13 errorWithDomain:? code:? userInfo:?];
 
-    [(VSSiriInlineTTSStreamTask *)self signalNewDataWithError:v19];
+    [(VSSiriInlineTTSStreamTask *)self signalNewDataWithError:?];
   }
 
   else
@@ -905,25 +861,23 @@ LABEL_48:
     {
       instrumentMetrics4 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
       [instrumentMetrics4 audioDuration];
-      v22 = v21;
+      v21 = v20;
       [(VSSiriInlineTTSStreamTask *)self bufferDurationLimit];
-      v24 = v23;
+      v23 = v22;
 
-      if (v22 < v24)
+      if (v21 < v23)
       {
         [(VSSiriInlineTTSStreamTask *)self startPlayback];
       }
     }
 
-    [(VSSiriInlineTTSStreamTask *)self signalNewDataWithError:0];
+    [(VSSiriInlineTTSStreamTask *)self signalNewDataWithError:?];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleChunk:(id)chunk
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   chunkCopy = chunk;
   v5 = VSGetLogDefault();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -939,84 +893,105 @@ LABEL_48:
 
   if (!serverFirstPacketTimestamp)
   {
-    v9 = mach_absolute_time();
+    mach_absolute_time();
     instrumentMetrics2 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-    [instrumentMetrics2 setServerFirstPacketTimestamp:v9];
+    [instrumentMetrics2 setServerFirstPacketTimestamp:?];
   }
 
-  v11 = mach_absolute_time();
+  mach_absolute_time();
   instrumentMetrics3 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  [instrumentMetrics3 setServerLastPacketTimestamp:v11];
+  [instrumentMetrics3 setServerLastPacketTimestamp:?];
 
-  v13 = objc_alloc_init(MEMORY[0x277D79920]);
+  v11 = objc_alloc_init(MEMORY[0x277D79920]);
   playbackServices = [(VSSiriInlineTTSStreamTask *)self playbackServices];
-  if (playbackServices && (v15 = playbackServices, [playbackServices asbd], v15, v59 == 1819304813))
+  if (playbackServices)
   {
-    audioData = [chunkCopy audioData];
-    [v13 populateWithPCMData:audioData];
+    v13 = playbackServices;
+    [v48 asbd];
+    v14 = DWORD2(v48[0]);
+
+    if (v14 == 1819304813)
+    {
+      audioData = [chunkCopy audioData];
+      [v11 populateWithPCMData:?];
+      goto LABEL_12;
+    }
   }
 
   else
   {
-    playbackServices2 = [(VSSiriInlineTTSStreamTask *)self playbackServices];
-    if (!playbackServices2 || (v18 = playbackServices2, [playbackServices2 asbd], v18, v58 != 1869641075))
-    {
-      serverAudio = [MEMORY[0x277CCA9B8] errorWithDomain:@"ServerTTSErrorDomain" code:451 userInfo:MEMORY[0x277CBEC10]];
-      [(VSSiriInlineTTSStreamTask *)self signalNewDataWithError:serverAudio];
-LABEL_25:
-
-      goto LABEL_26;
-    }
-
-    audioData = [chunkCopy audioData];
-    [v13 populateWithOpusData:audioData];
+    v49 = 0;
+    memset(v48, 0, sizeof(v48));
   }
+
+  playbackServices2 = [(VSSiriInlineTTSStreamTask *)self playbackServices];
+  if (!playbackServices2)
+  {
+    v47 = 0;
+    memset(v46, 0, sizeof(v46));
+    goto LABEL_15;
+  }
+
+  v17 = playbackServices2;
+  [v46 asbd];
+  v18 = DWORD2(v46[0]);
+
+  if (v18 != 1869641075)
+  {
+LABEL_15:
+    serverAudio = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+    [(VSSiriInlineTTSStreamTask *)self signalNewDataWithError:?];
+LABEL_27:
+
+    goto LABEL_28;
+  }
+
+  audioData = [chunkCopy audioData];
+  [v11 populateWithOpusData:?];
+LABEL_12:
 
   playbackServices3 = [(VSSiriInlineTTSStreamTask *)self playbackServices];
-  v20 = playbackServices3;
   if (playbackServices3)
   {
-    [playbackServices3 asbd];
+    [&v43 asbd];
   }
 
   else
   {
-    v57 = 0;
-    v55 = 0u;
-    v56 = 0u;
+    v45 = 0;
+    v43 = 0u;
+    v44 = 0u;
   }
 
-  *buf = v55;
-  v61 = v56;
-  v62 = v57;
-  [v13 setAsbd:{buf, v55, v56, v57}];
+  *buf = v43;
+  v51 = v44;
+  v52 = v45;
+  [v11 setAsbd:{v43, v44, v45}];
 
   playbackServices4 = [(VSSiriInlineTTSStreamTask *)self playbackServices];
-  audioData2 = [v13 audioData];
-  packetCount = [v13 packetCount];
-  packetDescriptions = [v13 packetDescriptions];
-  [playbackServices4 enqueue:audioData2 packetCount:packetCount packetDescriptions:packetDescriptions];
+  audioData2 = [v11 audioData];
+  [v11 packetCount];
+  packetDescriptions = [v11 packetDescriptions];
+  [playbackServices4 enqueue:? packetCount:? packetDescriptions:?];
 
   instrumentMetrics4 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  [v13 duration];
-  v28 = v27;
+  [v11 duration];
   [instrumentMetrics4 audioDuration];
-  [instrumentMetrics4 setAudioDuration:v28 + v29];
+  [instrumentMetrics4 setAudioDuration:?];
 
   instrumentMetrics5 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
   [instrumentMetrics5 audioDuration];
-  v32 = v31;
   instrumentMetrics6 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-  [instrumentMetrics6 setServerStreamedAudioDuration:v32];
+  [instrumentMetrics6 setServerStreamedAudioDuration:?];
 
   instrumentMetrics7 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
   [instrumentMetrics7 audioDuration];
-  v36 = v35;
+  v29 = v28;
   [(VSSiriInlineTTSStreamTask *)self bufferDurationLimit];
-  if (v36 < v37)
+  if (v29 < v30)
   {
 
-    goto LABEL_18;
+    goto LABEL_20;
   }
 
   instrumentMetrics8 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
@@ -1024,7 +999,7 @@ LABEL_25:
 
   if (speechBeginTimestamp)
   {
-LABEL_18:
+LABEL_20:
     instrumentMetrics9 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
     speechBeginTimestamp2 = [instrumentMetrics9 speechBeginTimestamp];
 
@@ -1032,67 +1007,63 @@ LABEL_18:
     {
       date = [MEMORY[0x277CBEAA8] date];
       playbackBeginDate = [(VSSiriInlineTTSStreamTask *)self playbackBeginDate];
-      [date timeIntervalSinceDate:playbackBeginDate];
-      v45 = v44;
+      [date timeIntervalSinceDate:?];
 
       instrumentMetrics10 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
       [instrumentMetrics10 audioDuration];
-      v48 = v47 - v45;
 
-      [(VSSiriInlineTTSStreamTask *)self setTimeoutValue:v48];
+      [(VSSiriInlineTTSStreamTask *)self setTimeoutValue:?];
     }
 
-    goto LABEL_23;
+    goto LABEL_25;
   }
 
-  v49 = VSGetLogDefault();
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+  v38 = VSGetLogDefault();
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_2727E4000, v49, OS_LOG_TYPE_INFO, "Reached buffer threshold. Start playing audio.", buf, 2u);
+    _os_log_impl(&dword_2727E4000, v38, OS_LOG_TYPE_INFO, "Reached buffer threshold. Start playing audio.", buf, 2u);
   }
 
   [(VSSiriInlineTTSStreamTask *)self startPlayback];
   date2 = [MEMORY[0x277CBEAA8] date];
-  [(VSSiriInlineTTSStreamTask *)self setPlaybackBeginDate:date2];
+  [(VSSiriInlineTTSStreamTask *)self setPlaybackBeginDate:?];
 
   instrumentMetrics11 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
   [instrumentMetrics11 audioDuration];
   [(VSSiriInlineTTSStreamTask *)self setTimeoutValue:?];
 
-LABEL_23:
-  [(VSSiriInlineTTSStreamTask *)self signalNewDataWithError:0];
+LABEL_25:
+  [(VSSiriInlineTTSStreamTask *)self signalNewDataWithError:?];
   standardInstance = [MEMORY[0x277D79998] standardInstance];
   enableAudioDump = [standardInstance enableAudioDump];
 
   if (enableAudioDump)
   {
     serverAudio = [(VSSiriInlineTTSStreamTask *)self serverAudio];
-    [serverAudio concatenateWithAudio:v13];
-    goto LABEL_25;
+    [serverAudio concatenateWithAudio:?];
+    goto LABEL_27;
   }
 
-LABEL_26:
-
-  v54 = *MEMORY[0x277D85DE8];
+LABEL_28:
 }
 
 - (void)handleBegin:(id)begin
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   beginCopy = begin;
   speechSynthesisVoice = [beginCopy speechSynthesisVoice];
-  [(VSSiriInlineTTSStreamTask *)self setStreamingVoice:speechSynthesisVoice];
+  [(VSSiriInlineTTSStreamTask *)self setStreamingVoice:?];
 
   speechSynthesisResource = [beginCopy speechSynthesisResource];
-  [(VSSiriInlineTTSStreamTask *)self setStreamingResource:speechSynthesisResource];
+  [(VSSiriInlineTTSStreamTask *)self setStreamingResource:?];
 
   v7 = VSGetLogDefault();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     streamId = [beginCopy streamId];
     text = [beginCopy text];
-    decoderStreamDescription = [beginCopy decoderStreamDescription];
+    decoderStreamDescription = [v10 decoderStreamDescription];
     vsDescription = [decoderStreamDescription vsDescription];
     *buf = 138412802;
     *&buf[4] = streamId;
@@ -1105,44 +1076,42 @@ LABEL_26:
 
   standardInstance = [MEMORY[0x277D79998] standardInstance];
   [standardInstance streamBufferDuration];
-  if (v13 == 0.0)
+  if (v14 == 0.0)
   {
     [beginCopy streamingPlaybackBufferSize];
   }
 
-  [(VSSiriInlineTTSStreamTask *)self setBufferDurationLimit:v13];
+  [(VSSiriInlineTTSStreamTask *)self setBufferDurationLimit:?];
 
-  v14 = objc_alloc_init(MEMORY[0x277D79920]);
-  [(VSSiriInlineTTSStreamTask *)self setServerAudio:v14];
+  v15 = objc_alloc_init(MEMORY[0x277D79920]);
+  [(VSSiriInlineTTSStreamTask *)self setServerAudio:?];
 
-  v15 = MEMORY[0x277D79920];
-  decoderStreamDescription2 = [beginCopy decoderStreamDescription];
-  [v15 asbdFromDescription:decoderStreamDescription2];
+  decoderStreamDescription2 = [v16 decoderStreamDescription];
+  [v47 asbdFromDescription:?];
   serverAudio = [(VSSiriInlineTTSStreamTask *)self serverAudio];
-  *buf = v49;
-  *&buf[16] = v50;
-  v55 = v51;
-  [serverAudio setAsbd:buf];
+  *buf = v47[0];
+  *&buf[16] = v47[1];
+  v52 = v48;
+  [serverAudio setAsbd:?];
 
-  v18 = [VSAudioPlaybackService alloc];
+  v19 = [VSAudioPlaybackService alloc];
   request = [(VSSiriInlineTTSStreamTask *)self request];
-  audioSessionID = [request audioSessionID];
+  [request audioSessionID];
   serverAudio2 = [(VSSiriInlineTTSStreamTask *)self serverAudio];
-  v22 = serverAudio2;
   if (serverAudio2)
   {
-    [serverAudio2 asbd];
+    [(uint8_t *)buf asbd];
   }
 
   else
   {
-    v55 = 0;
+    v52 = 0;
     memset(buf, 0, sizeof(buf));
   }
 
   request2 = [(VSSiriInlineTTSStreamTask *)self request];
   accessoryID = [request2 accessoryID];
-  v25 = [(VSAudioPlaybackService *)v18 initWithAudioSessionID:audioSessionID asbd:buf useAVSBAR:accessoryID != 0];
+  v24 = [VSAudioPlaybackService initWithAudioSessionID:v19 asbd:"initWithAudioSessionID:asbd:useAVSBAR:" useAVSBAR:?];
 
   error = [(VSSiriInlineTTSStreamTask *)self error];
   if (error)
@@ -1156,26 +1125,26 @@ LABEL_26:
 
     if (!errorCode)
     {
-      [(VSSiriInlineTTSStreamTask *)self setPlaybackServices:v25];
+      [(VSSiriInlineTTSStreamTask *)self setPlaybackServices:?];
       text2 = [beginCopy text];
       instrumentMetrics2 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-      [instrumentMetrics2 setUtterance:text2];
+      [instrumentMetrics2 setUtterance:?];
 
       speechSynthesisVoice2 = [beginCopy speechSynthesisVoice];
       vsDescription2 = [speechSynthesisVoice2 vsDescription];
       instrumentMetrics3 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-      [instrumentMetrics3 setVoiceAssetKey:vsDescription2];
+      [instrumentMetrics3 setVoiceAssetKey:?];
 
       speechSynthesisResource2 = [beginCopy speechSynthesisResource];
       vsDescription3 = [speechSynthesisResource2 vsDescription];
       instrumentMetrics4 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-      [instrumentMetrics4 setVoiceResourceAssetKey:vsDescription3];
+      [instrumentMetrics4 setVoiceResourceAssetKey:?];
 
       playbackServices = [(VSSiriInlineTTSStreamTask *)self playbackServices];
       outputRouteInfo = [playbackServices outputRouteInfo];
       audioRouteName = [outputRouteInfo audioRouteName];
       instrumentMetrics5 = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
-      [instrumentMetrics5 setAudioOutputRoute:audioRouteName];
+      [instrumentMetrics5 setAudioOutputRoute:?];
 
       playbackServices2 = [(VSSiriInlineTTSStreamTask *)self playbackServices];
 
@@ -1184,18 +1153,18 @@ LABEL_26:
         goto LABEL_13;
       }
 
-      v44 = MEMORY[0x277CCA9B8];
-      v52 = *MEMORY[0x277CCA450];
-      v53 = @"Unable to create playback service";
-      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-      error2 = [v44 errorWithDomain:@"VoiceServicesErrorDomain" code:450 userInfo:v29];
-      [(VSSiriInlineTTSStreamTask *)self signalNewDataWithError:error2];
+      v42 = MEMORY[0x277CCA9B8];
+      v49 = *MEMORY[0x277CCA450];
+      v50 = @"Unable to create playback service";
+      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+      error2 = [v42 errorWithDomain:? code:? userInfo:?];
+      [(VSSiriInlineTTSStreamTask *)self signalNewDataWithError:?];
       goto LABEL_19;
     }
   }
 
-  v29 = VSGetLogDefault();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v28 = VSGetLogDefault();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     error2 = [(VSSiriInlineTTSStreamTask *)self error];
     code = [error2 code];
@@ -1203,7 +1172,7 @@ LABEL_26:
     {
       *buf = 134217984;
       *&buf[4] = code;
-      _os_log_error_impl(&dword_2727E4000, v29, OS_LOG_TYPE_ERROR, "Ignoring stream begin: error already occurred: %ld", buf, 0xCu);
+      _os_log_error_impl(&dword_2727E4000, v28, OS_LOG_TYPE_ERROR, "Ignoring stream begin: error already occurred: %ld", buf, 0xCu);
     }
 
     else
@@ -1212,19 +1181,18 @@ LABEL_26:
       errorCode2 = [instrumentMetrics6 errorCode];
       *buf = 134217984;
       *&buf[4] = errorCode2;
-      _os_log_error_impl(&dword_2727E4000, v29, OS_LOG_TYPE_ERROR, "Ignoring stream begin: error already occurred: %ld", buf, 0xCu);
+      _os_log_error_impl(&dword_2727E4000, v28, OS_LOG_TYPE_ERROR, "Ignoring stream begin: error already occurred: %ld", buf, 0xCu);
     }
 
 LABEL_19:
   }
 
 LABEL_13:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleStreamNotification:(id)notification
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   instrumentMetrics = [(VSSiriInlineTTSStreamTask *)self instrumentMetrics];
   [instrumentMetrics audioDuration];
@@ -1248,9 +1216,9 @@ LABEL_15:
       }
 
       object = [notificationCopy object];
-      v17 = 138412290;
-      v18 = object;
-      _os_log_impl(&dword_2727E4000, v9, OS_LOG_TYPE_INFO, "Simulate network stall is on, ignore object %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = object;
+      _os_log_impl(&dword_2727E4000, v9, OS_LOG_TYPE_INFO, "Simulate network stall is on, ignore object %@", &v16, 0xCu);
 LABEL_5:
 
       goto LABEL_15;
@@ -1264,7 +1232,7 @@ LABEL_5:
   object3 = [notificationCopy object];
   if (isKindOfClass)
   {
-    [(VSSiriInlineTTSStreamTask *)self handleBegin:object3];
+    [(VSSiriInlineTTSStreamTask *)self handleBegin:?];
   }
 
   else
@@ -1275,7 +1243,7 @@ LABEL_5:
     object3 = [notificationCopy object];
     if (v14)
     {
-      [(VSSiriInlineTTSStreamTask *)self handleChunk:object3];
+      [(VSSiriInlineTTSStreamTask *)self handleChunk:?];
     }
 
     else
@@ -1292,29 +1260,28 @@ LABEL_5:
         }
 
         object = [notificationCopy object];
-        v17 = 138412290;
-        v18 = object;
-        _os_log_error_impl(&dword_2727E4000, v9, OS_LOG_TYPE_ERROR, "Unknown streaming object: %@", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = object;
+        _os_log_error_impl(&dword_2727E4000, v9, OS_LOG_TYPE_ERROR, "Unknown streaming object: %@", &v16, 0xCu);
         goto LABEL_5;
       }
 
       object3 = [notificationCopy object];
-      [(VSSiriInlineTTSStreamTask *)self handleEnd:object3];
+      [(VSSiriInlineTTSStreamTask *)self handleEnd:?];
     }
   }
 
 LABEL_16:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
   v3 = +[VSInlineStreamService sharedService];
   streamID = [(VSSiriInlineTTSStreamTask *)self streamID];
-  [v3 removeStreamId:streamID];
+  [v3 removeStreamId:?];
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter removeObserver:self];
+  [defaultCenter removeObserver:?];
 
   v6.receiver = self;
   v6.super_class = VSSiriInlineTTSStreamTask;
@@ -1323,12 +1290,12 @@ LABEL_16:
 
 - (VSSiriInlineTTSStreamTask)initWithRequest:(id)request withStreamID:(id)d
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   dCopy = d;
-  v33.receiver = self;
-  v33.super_class = VSSiriInlineTTSStreamTask;
-  v9 = [(VSSiriInlineTTSStreamTask *)&v33 init];
+  v31.receiver = self;
+  v31.super_class = VSSiriInlineTTSStreamTask;
+  v9 = [(VSSiriInlineTTSStreamTask *)&v31 init];
   v10 = v9;
   if (v9)
   {
@@ -1340,76 +1307,82 @@ LABEL_16:
 
     if ([requestCopy requestCreatedTimestamp])
     {
-      requestCreatedTimestamp = [requestCopy requestCreatedTimestamp];
+      [requestCopy requestCreatedTimestamp];
     }
 
     else
     {
-      v14 = VSGetLogDefault();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = VSGetLogDefault();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_2727E4000, v14, OS_LOG_TYPE_ERROR, "Using timestamp inside voiced for Stream task", buf, 2u);
+        _os_log_error_impl(&dword_2727E4000, v13, OS_LOG_TYPE_ERROR, "Using timestamp inside voiced for Stream task", buf, 2u);
       }
 
-      requestCreatedTimestamp = mach_absolute_time();
+      mach_absolute_time();
     }
 
-    [(VSInstrumentMetrics *)v10->_instrumentMetrics setRequestCreatedTimestamp:requestCreatedTimestamp];
-    v15 = VSGetLogDefault();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    [(VSInstrumentMetrics *)v10->_instrumentMetrics setRequestCreatedTimestamp:?];
+    v14 = VSGetLogDefault();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       instrumentMetrics = [(VSSiriInlineTTSStreamTask *)v10 instrumentMetrics];
-      requestCreatedTimestamp2 = [instrumentMetrics requestCreatedTimestamp];
+      requestCreatedTimestamp = [instrumentMetrics requestCreatedTimestamp];
       streamID = v10->_streamID;
       *buf = 134218242;
-      v35 = requestCreatedTimestamp2;
-      v36 = 2112;
-      v37 = streamID;
-      _os_log_impl(&dword_2727E4000, v15, OS_LOG_TYPE_INFO, "Created Stream task %llu: streamID %@", buf, 0x16u);
+      v33 = requestCreatedTimestamp;
+      v34 = 2112;
+      v35 = streamID;
+      _os_log_impl(&dword_2727E4000, v14, OS_LOG_TYPE_INFO, "Created Stream task %llu: streamID %@", buf, 0x16u);
     }
 
     array = [MEMORY[0x277CBEB18] array];
     finalTimingInfo = v10->_finalTimingInfo;
     v10->_finalTimingInfo = array;
 
-    v21 = objc_alloc_init(MEMORY[0x277CCA928]);
+    v20 = objc_alloc_init(MEMORY[0x277CCA928]);
     refreshTimeoutCondition = v10->_refreshTimeoutCondition;
-    v10->_refreshTimeoutCondition = v21;
+    v10->_refreshTimeoutCondition = v20;
 
     standardInstance = [MEMORY[0x277D79998] standardInstance];
     [standardInstance serverTTSTimeout];
-    if (v24 == 0.0)
+    if (v23 == 0.0)
     {
-      v25 = +[VSSiriServerConfiguration defaultConfig];
+      v24 = +[VSSiriServerConfiguration defaultConfig];
       clientBundleIdentifier = [requestCopy clientBundleIdentifier];
-      [v25 timeoutForAppId:clientBundleIdentifier];
-      v10->_timeoutValue = v27;
+      [v24 timeoutForAppId:?];
+      v10->_timeoutValue = v26;
     }
 
     else
     {
-      v10->_timeoutValue = v24;
+      v10->_timeoutValue = v23;
     }
 
-    -[VSInstrumentMetrics setCanUseServerTTS:](v10->_instrumentMetrics, "setCanUseServerTTS:", [requestCopy canUseServerTTS]);
-    [(VSInstrumentMetrics *)v10->_instrumentMetrics setIsServerStreamTTS:1];
-    [(VSInstrumentMetrics *)v10->_instrumentMetrics setIsServerTTS:1];
-    [(VSInstrumentMetrics *)v10->_instrumentMetrics setIsSpeechRequest:1];
-    [(VSInstrumentMetrics *)v10->_instrumentMetrics setSourceOfTTS:3];
+    [requestCopy canUseServerTTS];
+    [(VSInstrumentMetrics *)v10->_instrumentMetrics setCanUseServerTTS:?];
+    [(VSInstrumentMetrics *)v10->_instrumentMetrics setIsServerStreamTTS:?];
+    [(VSInstrumentMetrics *)v10->_instrumentMetrics setIsServerTTS:?];
+    [(VSInstrumentMetrics *)v10->_instrumentMetrics setIsSpeechRequest:?];
+    [(VSInstrumentMetrics *)v10->_instrumentMetrics setSourceOfTTS:?];
     clientBundleIdentifier2 = [requestCopy clientBundleIdentifier];
-    [(VSInstrumentMetrics *)v10->_instrumentMetrics setClientBundleIdentifier:clientBundleIdentifier2];
+    [(VSInstrumentMetrics *)v10->_instrumentMetrics setClientBundleIdentifier:?];
 
-    v29 = [[VSDeviceTTSCore alloc] initWithRequest:requestCopy];
+    v28 = [[VSDeviceTTSCore alloc] initWithRequest:?];
     deviceTTSCore = v10->_deviceTTSCore;
-    v10->_deviceTTSCore = v29;
+    v10->_deviceTTSCore = v28;
 
-    [(VSDeviceTTSCore *)v10->_deviceTTSCore setDelegate:v10];
-    [(VSDeviceTTSCore *)v10->_deviceTTSCore setInstrumentMetrics:v10->_instrumentMetrics];
+    [(VSDeviceTTSCore *)v10->_deviceTTSCore setDelegate:?];
+    [(VSDeviceTTSCore *)v10->_deviceTTSCore setInstrumentMetrics:?];
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v10;
+}
+
+- (VSSiriInlineTTSStreamTask)init
+{
+  v2 = [MEMORY[0x277CBEAD8] exceptionWithName:? reason:? userInfo:?];
+  objc_exception_throw(v2);
 }
 
 @end

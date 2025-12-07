@@ -12,16 +12,14 @@
 - (ParentalControlsProtocol)parentalControls
 {
   swift_beginAccess();
-  parentalControls = self->parentalControls;
-  v4 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v4;
+  return v2;
 }
 
 - (void)setParentalControls:(id)controls
 {
   swift_beginAccess();
-  parentalControls = self->parentalControls;
   self->parentalControls = controls;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -45,7 +43,6 @@
 
 - (void)notifyClientsNewSetupInfoAvailableWithRequiredCapabilities:(unint64_t)capabilities
 {
-  v3 = *&self->connectionManager[32];
   sub_10003526C(self->connectionManager, *&self->connectionManager[24]);
 
   sub_100053F04();

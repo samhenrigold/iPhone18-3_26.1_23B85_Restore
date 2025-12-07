@@ -52,7 +52,7 @@
 
 - (STCallingStatusDomainCallDescriptor)initWithCallType:(unint64_t)type callState:(unint64_t)state copresenceActivityType:(unint64_t)activityType
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v9 = type - 1;
   if (type > 1)
   {
@@ -120,35 +120,35 @@ LABEL_15:
   {
     if (state - 1 > 5)
     {
-      v18 = @"active";
+      v17 = @"active";
     }
 
     else
     {
-      v18 = off_1E85DE378[state - 1];
+      v17 = off_1E85DE378[state - 1];
     }
 
     if (v9 > 2)
     {
-      v19 = @"audio";
+      v18 = @"audio";
     }
 
     else
     {
-      v19 = off_1E85DE360[v9];
+      v18 = off_1E85DE360[v9];
     }
 
     *buf = 138543618;
-    v22 = v18;
-    v23 = 2114;
-    v24 = v19;
+    v21 = v17;
+    v22 = 2114;
+    v23 = v18;
     _os_log_error_impl(&dword_1DA9C2000, v12, OS_LOG_TYPE_ERROR, "state %{public}@ is not valid for call type %{public}@, behavior is undefined", buf, 0x16u);
   }
 
 LABEL_17:
-  v20.receiver = self;
-  v20.super_class = STCallingStatusDomainCallDescriptor;
-  v13 = [(STCallingStatusDomainCallDescriptor *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = STCallingStatusDomainCallDescriptor;
+  v13 = [(STCallingStatusDomainCallDescriptor *)&v19 init];
   v14 = v13;
   if (v13)
   {
@@ -159,7 +159,6 @@ LABEL_17:
     v13->_callProviderAttribution = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

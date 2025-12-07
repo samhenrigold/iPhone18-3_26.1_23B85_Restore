@@ -895,7 +895,7 @@ LABEL_61:
   self->projectionMemoryBlock = SignatureBuffers;
   if (SignatureBuffers)
   {
-    FastRegistration_computeSignatures(v6, 0, 0, &self->projectionSignature);
+    FastRegistration_computeSignatures(v6, 0, 0, &self->projectionSignature.piRow);
   }
 }
 

@@ -50,14 +50,14 @@
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v9, 0, sizeof(v9));
     selfCopy2 = self;
   }
 
-  v6 = LayoutDirectionTraitConfiguration.isEqual(_:)(v8);
+  v7 = LayoutDirectionTraitConfiguration.isEqual(_:)(v9, v5);
 
-  sub_19A612E20(v8);
-  return v6;
+  sub_19A612E20(v9);
+  return v7;
 }
 
 - (_TtC10StickerKit33LayoutDirectionTraitConfiguration)init

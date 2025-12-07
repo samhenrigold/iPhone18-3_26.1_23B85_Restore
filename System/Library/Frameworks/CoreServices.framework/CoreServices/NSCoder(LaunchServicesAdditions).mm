@@ -25,31 +25,32 @@
   v6 = a3;
   v7 = a4;
   v8 = objc_autoreleasePoolPush();
-  if (_LSClassListContainsBundleRecord(v6))
+  v9 = _LSClassListContainsBundleRecord(v6);
+  if (v9)
   {
-    v9 = _LSDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = _LSDefaultLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [NSCoder(LaunchServicesAdditions) ls_decodeObjectOfClasses:v9 forKey:?];
+      [NSCoder(LaunchServicesAdditions) ls_decodeObjectOfClasses:v10 forKey:?];
     }
 
-    v10 = [v6 setByAddingObject:objc_opt_class()];
+    v11 = [v6 setByAddingObject:objc_opt_class()];
 
-    v6 = v10;
+    v6 = v11;
   }
 
-  v11 = [self decodeObjectOfClasses:v6 forKey:v7];
+  v12 = [self decodeObjectOfClasses:v6 forKey:v7];
   objc_autoreleasePoolPop(v8);
-  if (v11 && (_LSIsKindOfClasses(v11, v6) & 1) == 0)
+  if (v12 && (_LSIsKindOfClasses(v12, v6) & 1) == 0)
   {
 
-    v12 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A250], 4864, 0, "[NSCoder(LaunchServicesAdditions) ls_decodeObjectOfClasses:forKey:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/NSCoder+LaunchServicesAdditions.m", 197);
-    [self failWithError:v12];
+    v13 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A250], 4864, 0, "[NSCoder(LaunchServicesAdditions) ls_decodeObjectOfClasses:forKey:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/NSCoder+LaunchServicesAdditions.m", 197);
+    [self failWithError:v13];
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)ls_decodeArrayWithValuesOfClass:()LaunchServicesAdditions forKey:
@@ -108,12 +109,12 @@
 
 - (id)ls_decodeDictionaryWithKeysOfClass:()LaunchServicesAdditions valuesOfClasses:forKey:
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   v8 = a4;
   v9 = a5;
-  v18[0] = objc_opt_class();
-  v18[1] = a3;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[0] = objc_opt_class();
+  v17[1] = a3;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
   v11 = [v8 setByAddingObjectsFromArray:v10];
 
   v12 = [self ls_decodeObjectOfClasses:v11 forKey:v9];
@@ -145,8 +146,6 @@ LABEL_4:
   }
 
 LABEL_5:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

@@ -49,7 +49,7 @@ uint64_t __31__CLKClockTimer_sharedInstance__block_invoke()
 
 + (id)now
 {
-  v2 = CLKForcedTime();
+  v2 = CLKForcedTime(self, a2);
   v3 = v2;
   if (v2)
   {

@@ -80,27 +80,28 @@ LABEL_9:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v9 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_blending(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      [(ATXProactiveSuggestionGroupedUIFeedbackResult *)self initWithProto:protoCopy, v9];
+      [(ATXProactiveSuggestionGroupedUIFeedbackResult *)self initWithProto:protoCopy, v10];
     }
 
     goto LABEL_9;
   }
 
-  v11.receiver = self;
-  v11.super_class = ATXShortcutsEditorGroupedUIFeedbackResult;
-  v6 = [(ATXProactiveSuggestionGroupedUIFeedbackResult *)&v11 init];
-  v7 = v6;
-  if (v6)
+  v12.receiver = self;
+  v12.super_class = ATXShortcutsEditorGroupedUIFeedbackResult;
+  v7 = [(ATXProactiveSuggestionGroupedUIFeedbackResult *)&v12 init];
+  v8 = v7;
+  if (v7)
   {
-    objc_storeStrong(&v6->_proto, proto);
+    objc_storeStrong(&v7->_proto, proto);
   }
 
-  self = v7;
+  self = v8;
   selfCopy = self;
 LABEL_10:
 

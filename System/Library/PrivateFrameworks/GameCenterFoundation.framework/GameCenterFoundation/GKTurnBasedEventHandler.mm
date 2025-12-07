@@ -2,6 +2,7 @@
 + (GKTurnBasedEventHandler)sharedTurnBasedEventHandler;
 - (GKTurnBasedEventHandler)init;
 - (NSObject)delegate;
+- (void)callTurnEventForMatch:(id)match userTapped:(BOOL)tapped;
 - (void)lookForEvent;
 @end
 
@@ -21,9 +22,11 @@
 
 uint64_t __54__GKTurnBasedEventHandler_sharedTurnBasedEventHandler__block_invoke()
 {
-  sharedTurnBasedEventHandler_sSharedTurnBasedEventHandler = objc_alloc_init(GKTurnBasedEventHandler);
+  v0 = objc_alloc_init(GKTurnBasedEventHandler);
+  v1 = sharedTurnBasedEventHandler_sSharedTurnBasedEventHandler;
+  sharedTurnBasedEventHandler_sSharedTurnBasedEventHandler = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (GKTurnBasedEventHandler)init
@@ -40,6 +43,25 @@ uint64_t __54__GKTurnBasedEventHandler_sharedTurnBasedEventHandler__block_invoke
   }
 
   return v2;
+}
+
+- (void)callTurnEventForMatch:(id)match userTapped:(BOOL)tapped
+{
+  tappedCopy = tapped;
+  matchCopy = match;
+  delegate = [(GKTurnBasedEventHandler *)self delegate];
+  if (delegate)
+  {
+    if (objc_opt_respondsToSelector())
+    {
+      [delegate handleTurnEventForMatch:matchCopy didBecomeActive:tappedCopy];
+    }
+
+    else if (objc_opt_respondsToSelector())
+    {
+      [delegate handleTurnEventForMatch:matchCopy];
+    }
+  }
 }
 
 - (void)lookForEvent
@@ -591,15 +613,14 @@ uint64_t __39__GKTurnBasedEventHandler_lookForEvent__block_invoke_200(uint64_t a
   v2 = [*(a1 + 32) eventEmitter];
   [v2 player:*(a1 + 32) matchEnded:*(a1 + 40)];
 
-  v3 = *(a1 + 48);
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 48) handleMatchEnded:*(a1 + 40)];
   }
 
-  v4 = *(a1 + 56);
+  v3 = *(a1 + 56);
 
-  return [v4 lookForEvent];
+  return [v3 lookForEvent];
 }
 
 void __39__GKTurnBasedEventHandler_lookForEvent__block_invoke_203(uint64_t a1)
@@ -697,17 +718,16 @@ void __39__GKTurnBasedEventHandler_lookForEvent__block_invoke_2_208(uint64_t a1,
 
 void __39__GKTurnBasedEventHandler_lookForEvent__block_invoke_209(id *a1)
 {
-  v4 = [a1[4] eventEmitter];
-  if ([v4 listenerRegisteredForSelector:sel_player_didRequestMatchWithOtherPlayers_])
+  v3 = [a1[4] eventEmitter];
+  if ([v3 listenerRegisteredForSelector:sel_player_didRequestMatchWithOtherPlayers_])
   {
-    [v4 player:a1[4] didRequestMatchWithOtherPlayers:a1[5]];
+    [v3 player:a1[4] didRequestMatchWithOtherPlayers:a1[5]];
   }
 
   else
   {
     v2 = [a1[5] _gkPlayersIDsFromPlayers];
-    [v4 player:a1[4] didRequestMatchWithPlayers:v2];
-    v3 = a1[6];
+    [v3 player:a1[4] didRequestMatchWithPlayers:v2];
     if (objc_opt_respondsToSelector())
     {
       [a1[6] handleInviteFromGameCenter:v2];
@@ -720,30 +740,6 @@ void __39__GKTurnBasedEventHandler_lookForEvent__block_invoke_209(id *a1)
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-void __39__GKTurnBasedEventHandler_lookForEvent__block_invoke_4_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_227904000, v0, v1, "lookForEvent:Get Next Turn Based Event Failed.Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __39__GKTurnBasedEventHandler_lookForEvent__block_invoke_2_193_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_227904000, v0, v1, "lookForEvent:Load Turn Based Match with Details failed.Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __39__GKTurnBasedEventHandler_lookForEvent__block_invoke_2_208_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_227904000, v0, v1, "lookForEvent:Failed to get players to invite.Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

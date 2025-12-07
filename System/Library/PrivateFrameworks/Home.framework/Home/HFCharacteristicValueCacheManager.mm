@@ -962,7 +962,7 @@ BOOL __90__HFCharacteristicValueCacheManager__transaction_isWritingCharacteristi
   [itemsCopy removeObjectsAtIndexes:{v9, v11, v12, v13, v14}];
 }
 
-uint64_t __86__HFCharacteristicValueCacheManager__enumerateTransactionsRemovingFailingItems_block___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__86__HFCharacteristicValueCacheManager__enumerateTransactionsRemovingFailingItems_block___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)

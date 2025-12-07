@@ -41,71 +41,71 @@
 
   else
   {
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __85__WBSSpotlightReindexingBackgroundSystemTaskManager_registerAndSubmitRequestForTask___block_invoke;
-    v22[3] = &unk_1E7FC9118;
-    v23 = taskCopy;
-    v7 = MEMORY[0x1BFB13CE0](v22);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __85__WBSSpotlightReindexingBackgroundSystemTaskManager_registerAndSubmitRequestForTask___block_invoke;
+    v28[3] = &unk_1E7FC9118;
+    v29 = taskCopy;
+    v7 = MEMORY[0x1BFB13CE0](v28);
     mEMORY[0x1E698E4B8] = [MEMORY[0x1E698E4B8] sharedScheduler];
     v9 = [mEMORY[0x1E698E4B8] registerForTaskWithIdentifier:@"com.apple.SafariShared.SpotlightReindexing" usingQueue:self->_internalQueue launchHandler:v7];
 
-    v10 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+    v12 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v10, v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
     if (v9)
     {
-      if (v11)
+      if (v13)
       {
         *buf = 0;
-        _os_log_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_INFO, "Successfully registered background system task to reindex all items to Spotlight.", buf, 2u);
+        _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Successfully registered background system task to reindex all items to Spotlight.", buf, 2u);
       }
 
       mEMORY[0x1E698E4B8]2 = [MEMORY[0x1E698E4B8] sharedScheduler];
-      v13 = [mEMORY[0x1E698E4B8]2 taskRequestForIdentifier:@"com.apple.SafariShared.SpotlightReindexing"];
+      v15 = [mEMORY[0x1E698E4B8]2 taskRequestForIdentifier:@"com.apple.SafariShared.SpotlightReindexing"];
 
-      if (v13)
+      if (v15)
       {
-        v14 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        v18 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v16, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1BB6F3000, v14, OS_LOG_TYPE_INFO, "Not submitting background system task to reindex all items to Spotlight due to an existing pending task request.", buf, 2u);
+          _os_log_impl(&dword_1BB6F3000, v18, OS_LOG_TYPE_INFO, "Not submitting background system task to reindex all items to Spotlight due to an existing pending task request.", buf, 2u);
         }
       }
 
       else
       {
-        v13 = [objc_alloc(MEMORY[0x1E698E478]) initWithIdentifier:@"com.apple.SafariShared.SpotlightReindexing"];
-        [v13 setPriority:2];
-        [v13 setRequiresExternalPower:1];
-        [v13 setResourceIntensive:1];
+        v15 = [objc_alloc(MEMORY[0x1E698E478]) initWithIdentifier:@"com.apple.SafariShared.SpotlightReindexing"];
+        [v15 setPriority:2];
+        [v15 setRequiresExternalPower:1];
+        [v15 setResourceIntensive:1];
         mEMORY[0x1E698E4B8]3 = [MEMORY[0x1E698E4B8] sharedScheduler];
-        v20 = 0;
-        v16 = [mEMORY[0x1E698E4B8]3 submitTaskRequest:v13 error:&v20];
-        v17 = v20;
+        v26 = 0;
+        v20 = [mEMORY[0x1E698E4B8]3 submitTaskRequest:v15 error:&v26];
+        v21 = v26;
 
-        v18 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-        v19 = v18;
-        if (v16)
+        v24 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v22, v23);
+        v25 = v24;
+        if (v20)
         {
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_1BB6F3000, v19, OS_LOG_TYPE_INFO, "Submitted background system task request to reindex all items to Spotlight.", buf, 2u);
+            _os_log_impl(&dword_1BB6F3000, v25, OS_LOG_TYPE_INFO, "Submitted background system task request to reindex all items to Spotlight.", buf, 2u);
           }
         }
 
-        else if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          [(WBSSpotlightReindexingBackgroundSystemTaskManager *)v17 registerAndSubmitRequestForTask:v19];
+          [(WBSSpotlightReindexingBackgroundSystemTaskManager *)v21 registerAndSubmitRequestForTask:v25];
         }
       }
     }
 
-    else if (v11)
+    else if (v13)
     {
       *buf = 0;
-      _os_log_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_INFO, "Failed to register background system task to reindex all items to Spotlight.", buf, 2u);
+      _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Failed to register background system task to reindex all items to Spotlight.", buf, 2u);
     }
   }
 }
@@ -113,27 +113,28 @@
 void __85__WBSSpotlightReindexingBackgroundSystemTaskManager_registerAndSubmitRequestForTask___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3020000000;
-  v14 = 0;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __85__WBSSpotlightReindexingBackgroundSystemTaskManager_registerAndSubmitRequestForTask___block_invoke_2;
-  v10[3] = &unk_1E7FB6EC8;
-  v10[4] = &v11;
-  [v3 setExpirationHandler:v10];
-  if (*(v12 + 40) == 1)
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3020000000;
+  v18 = 0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __85__WBSSpotlightReindexingBackgroundSystemTaskManager_registerAndSubmitRequestForTask___block_invoke_2;
+  v14[3] = &unk_1E7FB6EC8;
+  v14[4] = &v15;
+  v4 = [v3 setExpirationHandler:v14];
+  if (*(v16 + 40) == 1)
   {
-    v9 = 0;
-    v4 = [v3 setTaskExpiredWithRetryAfter:&v9 error:0.0];
-    v5 = v9;
-    if ((v4 & 1) == 0)
+    v13 = 0;
+    v6 = [v3 setTaskExpiredWithRetryAfter:&v13 error:0.0];
+    v7 = v13;
+    v9 = v7;
+    if ((v6 & 1) == 0)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v10 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v7, v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        __85__WBSSpotlightReindexingBackgroundSystemTaskManager_registerAndSubmitRequestForTask___block_invoke_cold_1(v5, v6);
+        __85__WBSSpotlightReindexingBackgroundSystemTaskManager_registerAndSubmitRequestForTask___block_invoke_cold_1(v9, v10);
       }
 
       [v3 setTaskCompleted];
@@ -142,27 +143,27 @@ void __85__WBSSpotlightReindexingBackgroundSystemTaskManager_registerAndSubmitRe
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v11 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v4, v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Background system task to reindex all items to Spotlight is running.", v8, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, "Background system task to reindex all items to Spotlight is running.", v12, 2u);
     }
 
     (*(*(a1 + 32) + 16))();
     [v3 setTaskCompleted];
   }
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v15, 8);
 }
 
-void __85__WBSSpotlightReindexingBackgroundSystemTaskManager_registerAndSubmitRequestForTask___block_invoke_2(uint64_t a1)
+void __85__WBSSpotlightReindexingBackgroundSystemTaskManager_registerAndSubmitRequestForTask___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_1BB6F3000, v2, OS_LOG_TYPE_INFO, "Background system task to reindex all items to Spotlight is expiring.", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_1BB6F3000, v3, OS_LOG_TYPE_INFO, "Background system task to reindex all items to Spotlight is expiring.", v4, 2u);
   }
 
   *(*(*(a1 + 32) + 8) + 40) = 1;

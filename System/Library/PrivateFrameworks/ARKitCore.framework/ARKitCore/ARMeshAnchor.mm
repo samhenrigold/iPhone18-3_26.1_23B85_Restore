@@ -4,15 +4,15 @@
 - (ARMeshAnchor)initWithGeometry:(double)geometry atTimestamp:(double)timestamp identifier:(double)identifier transform:(double)transform;
 - (ARMeshAnchor)initWithGeometry:(double)geometry atTimestamp:(double)timestamp identifier:(double)identifier transform:(double)transform voxelSize:(double)size;
 - (ARMeshAnchor)initWithGeometry:(id)geometry atTimestamp:(double)timestamp identifier:(id)identifier;
-- (__n128)initWithGeometry:(simd_float4)geometry atTimestamp:(simd_float4)timestamp identifier:(simd_float4)identifier visionTransform:(simd_float4)transform referenceOriginTransform:(uint64_t)originTransform;
+- (__n128)initWithGeometry:(__n128)geometry atTimestamp:(__n128)timestamp identifier:(__n128)identifier visionTransform:(__n128)transform referenceOriginTransform:(uint64_t)originTransform;
 - (id)description;
-- (uint64_t)initWithGeometry:(__n128)geometry atTimestamp:(__n128)timestamp identifier:(__n128)identifier referenceOriginTransform:(__n128)transform;
 - (void)encodeWithCoder:(id)coder;
+- (void)initWithGeometry:(__n128)geometry atTimestamp:(__n128)timestamp identifier:(__n128)identifier referenceOriginTransform:(__n128)transform;
 @end
 
 @implementation ARMeshAnchor
 
-- (uint64_t)initWithGeometry:(__n128)geometry atTimestamp:(__n128)timestamp identifier:(__n128)identifier referenceOriginTransform:(__n128)transform
+- (void)initWithGeometry:(__n128)geometry atTimestamp:(__n128)timestamp identifier:(__n128)identifier referenceOriginTransform:(__n128)transform
 {
   v12 = a9;
   v13 = a8;
@@ -25,7 +25,7 @@
   return v19;
 }
 
-- (__n128)initWithGeometry:(simd_float4)geometry atTimestamp:(simd_float4)timestamp identifier:(simd_float4)identifier visionTransform:(simd_float4)transform referenceOriginTransform:(uint64_t)originTransform
+- (__n128)initWithGeometry:(__n128)geometry atTimestamp:(__n128)timestamp identifier:(__n128)identifier visionTransform:(__n128)transform referenceOriginTransform:(uint64_t)originTransform
 {
   v20 = a8;
   v21 = a9;
@@ -41,7 +41,7 @@
   v57 = 0u;
   do
   {
-    *(&v54 + v26) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v22, COERCE_FLOAT(*(&geometryCopy + v26))), v23, *&geometryCopy.f32[v26 / 4], 1), v24, *(&geometryCopy + v26), 2), v25, *(&geometryCopy + v26), 3);
+    *(&v54 + v26) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v22, COERCE_FLOAT(*(&geometryCopy + v26))), v23, geometryCopy.n128_u64[v26 / 8], 1), v24, *(&geometryCopy + v26), 2), v25, *(&geometryCopy + v26), 3);
     v26 += 16;
   }
 
@@ -50,7 +50,7 @@
   v41 = v54;
   v38 = v57;
   v39 = v56;
-  *v27.i64 = ARRenderingToVisionCoordinateTransform();
+  v27.n128_f64[0] = ARRenderingToVisionCoordinateTransform();
   v28 = 0;
   geometryCopy = v27;
   timestampCopy = v29;
@@ -62,7 +62,7 @@
   v57 = 0u;
   do
   {
-    *(&v54 + v28) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v41, COERCE_FLOAT(*(&geometryCopy + v28))), v40, *&geometryCopy.f32[v28 / 4], 1), v39, *(&geometryCopy + v28), 2), v38, *(&geometryCopy + v28), 3);
+    *(&v54 + v28) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v41, COERCE_FLOAT(*(&geometryCopy + v28))), v40, geometryCopy.n128_u64[v28 / 8], 1), v39, *(&geometryCopy + v28), 2), v38, *(&geometryCopy + v28), 3);
     v28 += 16;
   }
 
@@ -78,7 +78,7 @@
   v57 = 0u;
   do
   {
-    *(&v54 + v32) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a14, COERCE_FLOAT(*(&geometryCopy + v32))), a15, *&geometryCopy.f32[v32 / 4], 1), a16, *(&geometryCopy + v32), 2), a17, *(&geometryCopy + v32), 3);
+    *(&v54 + v32) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a17, COERCE_FLOAT(*(&geometryCopy + v32))), v58, geometryCopy.n128_u64[v32 / 8], 1), v59, *(&geometryCopy + v32), 2), v60, *(&geometryCopy + v32), 3);
     v32 += 16;
   }
 
@@ -217,7 +217,7 @@
     geometry = v5->_geometry;
     v5->_geometry = geometry;
 
-    [anchorCopy timestamp];
+    objc_msgSend_timestamp(anchorCopy);
     v5->_timestamp = v8;
     [anchorCopy extent];
     *v5->_extent = v9;
@@ -300,14 +300,14 @@
   geometry = [(ARMeshAnchor *)self geometry];
   [v6 appendFormat:@" geometry=%@", geometry];
 
-  [(ARAnchor *)self transform];
+  objc_msgSend_transform(self);
   v15 = ARMatrix4x4Description(0, v11, v12, v13, v14);
   [v6 appendFormat:@" transform=%@", v15];
 
-  if (ARInternalOSBuild())
+  if (ARInternalOSBuild(v16, v17))
   {
-    [(ARMeshAnchor *)self timestamp];
-    [v6 appendFormat:@" timestamp=%f", v16];
+    objc_msgSend_timestamp(self);
+    [v6 appendFormat:@" timestamp=%f", v18];
   }
 
   [v6 appendString:@">"];

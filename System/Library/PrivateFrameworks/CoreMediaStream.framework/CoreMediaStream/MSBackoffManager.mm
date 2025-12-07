@@ -102,17 +102,15 @@
 
 - (void)_complainAboutMissingKeyInArchive:(id)archive
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543618;
+    v5 = 138543618;
     selfCopy = self;
-    v8 = 2114;
+    v7 = 2114;
     archiveCopy = archive;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Missing key in archive: “%{public}@”.", &v6, 0x16u);
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Missing key in archive: “%{public}@”.", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyParameters
@@ -189,16 +187,8 @@
       v5 = equalCopy;
       initialInterval = self->_initialInterval;
       [(MSBackoffManager *)v5 initialInterval];
-      if (vabdd_f64(initialInterval, v7) >= 2.22044605e-16)
+      if (vabdd_f64(initialInterval, v7) >= 2.22044605e-16 || (backoffFactor = self->_backoffFactor, [(MSBackoffManager *)v5 backoffFactor], vabdd_f64(backoffFactor, v9) >= 2.22044605e-16) || (randomizeFactor = self->_randomizeFactor, [(MSBackoffManager *)v5 randomizeFactor], vabdd_f64(randomizeFactor, v11) >= 2.22044605e-16) || (maxBackoffInterval = self->_maxBackoffInterval, [(MSBackoffManager *)v5 maxBackoffInterval], vabdd_f64(maxBackoffInterval, v13) >= 2.22044605e-16) || (currentInterval = self->_currentInterval, [(MSBackoffManager *)v5 currentInterval], vabdd_f64(currentInterval, v15) >= 2.22044605e-16))
       {
-        goto LABEL_11;
-      }
-
-      backoffFactor = self->_backoffFactor;
-      [(MSBackoffManager *)v5 backoffFactor];
-      if (vabdd_f64(backoffFactor, v9) >= 2.22044605e-16 || (randomizeFactor = self->_randomizeFactor, [(MSBackoffManager *)v5 randomizeFactor], vabdd_f64(randomizeFactor, v11) >= 2.22044605e-16) || (maxBackoffInterval = self->_maxBackoffInterval, [(MSBackoffManager *)v5 maxBackoffInterval], vabdd_f64(maxBackoffInterval, v13) >= 2.22044605e-16) || (currentInterval = self->_currentInterval, [(MSBackoffManager *)v5 currentInterval], vabdd_f64(currentInterval, v15) >= 2.22044605e-16))
-      {
-LABEL_11:
         v18 = 0;
       }
 
@@ -223,7 +213,7 @@ LABEL_11:
 
 - (void)backoff
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   currentInterval = self->_currentInterval;
   if (currentInterval <= 0.0)
   {
@@ -251,20 +241,18 @@ LABEL_11:
   [(MSBackoffManager *)self setNextExpiryDate:v8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v10 = self->_currentInterval;
-    v11 = 134218498;
-    v12 = v10;
-    v13 = 2048;
-    v14 = maxBackoffInterval;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Backing off. Old interval: %0.3lf sec, new interval: %0.3lf. Next fire date: %{public}@", &v11, 0x20u);
+    v9 = self->_currentInterval;
+    v10 = 134218498;
+    v11 = v9;
+    v12 = 2048;
+    v13 = maxBackoffInterval;
+    v14 = 2114;
+    v15 = v8;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Backing off. Old interval: %0.3lf sec, new interval: %0.3lf. Next fire date: %{public}@", &v10, 0x20u);
   }
 
   self->_currentInterval = maxBackoffInterval;
   [(MSBackoffManagerDelegate *)self->_delegate MSBackoffManagerDidUpdateNextExpiryDate:self];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reset
@@ -283,7 +271,7 @@ LABEL_11:
 
 - (void)didReceiveRetryAfterDate:(id)date
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   retryAfterDate = [(MSBackoffManager *)self retryAfterDate];
   v6 = retryAfterDate;
@@ -293,11 +281,11 @@ LABEL_11:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 138543618;
-        v9 = dateCopy;
-        v10 = 2114;
-        v11 = v6;
-        _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Not resetting retry-after date, because the new date %{public}@ is not later than the existing date %{public}@", &v8, 0x16u);
+        v7 = 138543618;
+        v8 = dateCopy;
+        v9 = 2114;
+        v10 = v6;
+        _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Not resetting retry-after date, because the new date %{public}@ is not later than the existing date %{public}@", &v7, 0x16u);
       }
     }
 
@@ -305,11 +293,11 @@ LABEL_11:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 138543618;
-        v9 = dateCopy;
-        v10 = 2114;
-        v11 = v6;
-        _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Setting retry-after date to %{public}@. Old retry-after date was %{public}@", &v8, 0x16u);
+        v7 = 138543618;
+        v8 = dateCopy;
+        v9 = 2114;
+        v10 = v6;
+        _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Setting retry-after date to %{public}@. Old retry-after date was %{public}@", &v7, 0x16u);
       }
 
       [(MSBackoffManager *)self setRetryAfterDate:dateCopy];
@@ -318,13 +306,11 @@ LABEL_11:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v8) = 0;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Not setting retry-after date because the new date is nil.", &v8, 2u);
+    LOWORD(v7) = 0;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Not setting retry-after date because the new date is nil.", &v7, 2u);
   }
 
   [(MSBackoffManagerDelegate *)self->_delegate MSBackoffManagerDidUpdateNextExpiryDate:self];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDate)nextExpiryDate

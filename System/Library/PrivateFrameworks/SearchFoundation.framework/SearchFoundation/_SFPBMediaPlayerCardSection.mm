@@ -22,7 +22,7 @@
 
 - (_SFPBMediaPlayerCardSection)initWithFacade:(id)facade
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBMediaPlayerCardSection *)self init];
   if (v5)
@@ -38,33 +38,33 @@
       v7 = 0;
     }
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     punchoutOptions2 = [facadeCopy punchoutOptions];
-    v9 = [punchoutOptions2 countByEnumeratingWithState:&v43 objects:v48 count:16];
+    v9 = [punchoutOptions2 countByEnumeratingWithState:&v42 objects:v47 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v44;
+      v11 = *v43;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v44 != v11)
+          if (*v43 != v11)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          v13 = [[_SFPBPunchout alloc] initWithFacade:*(*(&v43 + 1) + 8 * i)];
+          v13 = [[_SFPBPunchout alloc] initWithFacade:*(*(&v42 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [punchoutOptions2 countByEnumeratingWithState:&v43 objects:v48 count:16];
+        v10 = [punchoutOptions2 countByEnumeratingWithState:&v42 objects:v47 count:16];
       }
 
       while (v10);
@@ -152,33 +152,33 @@
       v29 = 0;
     }
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     mediaItems2 = [facadeCopy mediaItems];
-    v31 = [mediaItems2 countByEnumeratingWithState:&v39 objects:v47 count:16];
+    v31 = [mediaItems2 countByEnumeratingWithState:&v38 objects:v46 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v40;
+      v33 = *v39;
       do
       {
         for (j = 0; j != v32; ++j)
         {
-          if (*v40 != v33)
+          if (*v39 != v33)
           {
             objc_enumerationMutation(mediaItems2);
           }
 
-          v35 = [[_SFPBMediaItem alloc] initWithFacade:*(*(&v39 + 1) + 8 * j)];
+          v35 = [[_SFPBMediaItem alloc] initWithFacade:*(*(&v38 + 1) + 8 * j)];
           if (v35)
           {
             [v29 addObject:v35];
           }
         }
 
-        v32 = [mediaItems2 countByEnumeratingWithState:&v39 objects:v47 count:16];
+        v32 = [mediaItems2 countByEnumeratingWithState:&v38 objects:v46 count:16];
       }
 
       while (v32);
@@ -188,43 +188,42 @@
     v36 = v5;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBMediaPlayerCardSection)initWithDictionary:(id)dictionary
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v63.receiver = self;
-  v63.super_class = _SFPBMediaPlayerCardSection;
-  v5 = [(_SFPBMediaPlayerCardSection *)&v63 init];
+  v62.receiver = self;
+  v62.super_class = _SFPBMediaPlayerCardSection;
+  v5 = [(_SFPBMediaPlayerCardSection *)&v62 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"punchoutOptions"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
       v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v59 objects:v65 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v58 objects:v64 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v60;
+        v10 = *v59;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v60 != v10)
+            if (*v59 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v59 + 1) + 8 * i);
+            v12 = *(*(&v58 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -233,7 +232,7 @@
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v59 objects:v65 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v58 objects:v64 count:16];
         }
 
         while (v9);
@@ -242,7 +241,7 @@
 
     v14 = [dictionaryCopy objectForKeyedSubscript:@"punchoutPickerTitle"];
     objc_opt_class();
-    v54 = v14;
+    v53 = v14;
     if (objc_opt_isKindOfClass())
     {
       v15 = [v14 copy];
@@ -259,7 +258,7 @@
 
     v18 = [dictionaryCopy objectForKeyedSubscript:@"canBeHidden"];
     objc_opt_class();
-    v53 = v18;
+    v52 = v18;
     if (objc_opt_isKindOfClass())
     {
       -[_SFPBMediaPlayerCardSection setCanBeHidden:](v5, "setCanBeHidden:", [v18 BOOLValue]);
@@ -267,7 +266,7 @@
 
     v19 = [dictionaryCopy objectForKeyedSubscript:@"hasTopPadding"];
     objc_opt_class();
-    v52 = v19;
+    v51 = v19;
     if (objc_opt_isKindOfClass())
     {
       -[_SFPBMediaPlayerCardSection setHasTopPadding:](v5, "setHasTopPadding:", [v19 BOOLValue]);
@@ -275,7 +274,7 @@
 
     v20 = [dictionaryCopy objectForKeyedSubscript:@"hasBottomPadding"];
     objc_opt_class();
-    v51 = v20;
+    v50 = v20;
     if (objc_opt_isKindOfClass())
     {
       -[_SFPBMediaPlayerCardSection setHasBottomPadding:](v5, "setHasBottomPadding:", [v20 BOOLValue]);
@@ -283,7 +282,7 @@
 
     v21 = [dictionaryCopy objectForKeyedSubscript:@"type"];
     objc_opt_class();
-    v50 = v21;
+    v49 = v21;
     if (objc_opt_isKindOfClass())
     {
       v22 = [v21 copy];
@@ -299,7 +298,7 @@
 
     v24 = [dictionaryCopy objectForKeyedSubscript:@"backgroundColor"];
     objc_opt_class();
-    v49 = v24;
+    v48 = v24;
     if (objc_opt_isKindOfClass())
     {
       v25 = [[_SFPBColor alloc] initWithDictionary:v24];
@@ -324,7 +323,7 @@
 
     v32 = [dictionaryCopy objectForKeyedSubscript:@"subtitle"];
     objc_opt_class();
-    v48 = v32;
+    v47 = v32;
     if (objc_opt_isKindOfClass())
     {
       v33 = [v32 copy];
@@ -335,29 +334,29 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v45 = v23;
-      v46 = v16;
-      v47 = v6;
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
+      v44 = v23;
+      v45 = v16;
+      v46 = v6;
       v56 = 0u;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
       v35 = v34;
-      v36 = [v35 countByEnumeratingWithState:&v55 objects:v64 count:16];
+      v36 = [v35 countByEnumeratingWithState:&v54 objects:v63 count:16];
       if (v36)
       {
         v37 = v36;
-        v38 = *v56;
+        v38 = *v55;
         do
         {
           for (j = 0; j != v37; ++j)
           {
-            if (*v56 != v38)
+            if (*v55 != v38)
             {
               objc_enumerationMutation(v35);
             }
 
-            v40 = *(*(&v55 + 1) + 8 * j);
+            v40 = *(*(&v54 + 1) + 8 * j);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -366,21 +365,20 @@
             }
           }
 
-          v37 = [v35 countByEnumeratingWithState:&v55 objects:v64 count:16];
+          v37 = [v35 countByEnumeratingWithState:&v54 objects:v63 count:16];
         }
 
         while (v37);
       }
 
-      v16 = v46;
-      v6 = v47;
-      v23 = v45;
+      v16 = v45;
+      v6 = v46;
+      v23 = v44;
     }
 
     v42 = v5;
   }
 
-  v43 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -420,7 +418,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_backgroundColor)
   {
@@ -459,26 +457,26 @@
   if ([(NSArray *)self->_mediaItems count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
     v11 = self->_mediaItems;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v44 objects:v49 count:16];
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v43 objects:v48 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v45;
+      v14 = *v44;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v45 != v14)
+          if (*v44 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation2 = [*(*(&v44 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v43 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation2)
           {
             [array addObject:dictionaryRepresentation2];
@@ -491,7 +489,7 @@
           }
         }
 
-        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v44 objects:v49 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v43 objects:v48 count:16];
       }
 
       while (v13);
@@ -503,26 +501,26 @@
   if ([(NSArray *)self->_punchoutOptions count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v19 = self->_punchoutOptions;
-    v20 = [(NSArray *)v19 countByEnumeratingWithState:&v40 objects:v48 count:16];
+    v20 = [(NSArray *)v19 countByEnumeratingWithState:&v39 objects:v47 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v41;
+      v22 = *v40;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v41 != v22)
+          if (*v40 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          dictionaryRepresentation3 = [*(*(&v40 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v39 + 1) + 8 * j) dictionaryRepresentation];
           if (dictionaryRepresentation3)
           {
             [array2 addObject:dictionaryRepresentation3];
@@ -535,7 +533,7 @@
           }
         }
 
-        v21 = [(NSArray *)v19 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v21 = [(NSArray *)v19 countByEnumeratingWithState:&v39 objects:v47 count:16];
       }
 
       while (v21);
@@ -594,8 +592,6 @@
     v37 = [type copy];
     [dictionary setObject:v37 forKeyedSubscript:@"type"];
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -886,35 +882,34 @@ LABEL_47:
 
 - (void)writeTo:(id)to
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   toCopy = to;
   punchoutOptions = [(_SFPBMediaPlayerCardSection *)self punchoutOptions];
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v6 = [punchoutOptions countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v6 = [punchoutOptions countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v26;
     do
     {
       v9 = 0;
       do
       {
-        if (*v29 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(punchoutOptions);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [punchoutOptions countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v7 = [punchoutOptions countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v7);
@@ -977,38 +972,35 @@ LABEL_47:
   }
 
   mediaItems = [(_SFPBMediaPlayerCardSection *)self mediaItems];
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v18 = [mediaItems countByEnumeratingWithState:&v24 objects:v32 count:16];
-  if (v18)
+  v17 = [mediaItems countByEnumeratingWithState:&v21 objects:v29 count:16];
+  if (v17)
   {
-    v19 = v18;
-    v20 = *v25;
+    v18 = v17;
+    v19 = *v22;
     do
     {
-      v21 = 0;
+      v20 = 0;
       do
       {
-        if (*v25 != v20)
+        if (*v22 != v19)
         {
           objc_enumerationMutation(mediaItems);
         }
 
-        v22 = *(*(&v24 + 1) + 8 * v21);
         PBDataWriterWriteSubmessage();
-        ++v21;
+        ++v20;
       }
 
-      while (v19 != v21);
-      v19 = [mediaItems countByEnumeratingWithState:&v24 objects:v32 count:16];
+      while (v18 != v20);
+      v18 = [mediaItems countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
-    while (v19);
+    while (v18);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addMediaItems:(id)items
@@ -1031,54 +1023,42 @@ LABEL_47:
 
 - (void)setMediaItems:(id)items
 {
-  v4 = [items copy];
-  mediaItems = self->_mediaItems;
-  self->_mediaItems = v4;
+  self->_mediaItems = [items copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setSubtitle:(id)subtitle
 {
-  v4 = [subtitle copy];
-  subtitle = self->_subtitle;
-  self->_subtitle = v4;
+  self->_subtitle = [subtitle copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTitle:(id)title
 {
-  v4 = [title copy];
-  title = self->_title;
-  self->_title = v4;
+  self->_title = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setType:(id)type
 {
-  v4 = [type copy];
-  type = self->_type;
-  self->_type = v4;
+  self->_type = [type copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPunchoutPickerDismissText:(id)text
 {
-  v4 = [text copy];
-  punchoutPickerDismissText = self->_punchoutPickerDismissText;
-  self->_punchoutPickerDismissText = v4;
+  self->_punchoutPickerDismissText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPunchoutPickerTitle:(id)title
 {
-  v4 = [title copy];
-  punchoutPickerTitle = self->_punchoutPickerTitle;
-  self->_punchoutPickerTitle = v4;
+  self->_punchoutPickerTitle = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -1103,9 +1083,7 @@ LABEL_47:
 
 - (void)setPunchoutOptions:(id)options
 {
-  v4 = [options copy];
-  punchoutOptions = self->_punchoutOptions;
-  self->_punchoutOptions = v4;
+  self->_punchoutOptions = [options copy];
 
   MEMORY[0x1EEE66BB8]();
 }

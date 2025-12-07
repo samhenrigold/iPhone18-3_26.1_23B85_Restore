@@ -29,9 +29,11 @@
 
 uint64_t __38__PencilSettings_sharedPencilSettings__block_invoke()
 {
-  sharedPencilSettings___sharedPencilSettings = objc_alloc_init(PencilSettings);
+  v0 = objc_alloc_init(PencilSettings);
+  v1 = sharedPencilSettings___sharedPencilSettings;
+  sharedPencilSettings___sharedPencilSettings = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)pencilUserDefaults
@@ -48,9 +50,11 @@ uint64_t __38__PencilSettings_sharedPencilSettings__block_invoke()
 
 uint64_t __36__PencilSettings_pencilUserDefaults__block_invoke()
 {
-  pencilUserDefaults___pencilUserDefaults = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.UIKit"];
+  v0 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.UIKit"];
+  v1 = pencilUserDefaults___pencilUserDefaults;
+  pencilUserDefaults___pencilUserDefaults = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (PencilSettings)init
@@ -298,9 +302,11 @@ uint64_t __59__PencilSettings__dispatchWithErrorHandler_successHandler___block_i
 
 uint64_t __29__PencilSettings_daemonQueue__block_invoke()
 {
-  daemonQueue_sQueue = dispatch_queue_create("com.apple.PencilKit.settingsDaemon", 0);
+  v0 = dispatch_queue_create("com.apple.PencilKit.settingsDaemon", 0);
+  v1 = daemonQueue_sQueue;
+  daemonQueue_sQueue = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void __39__PencilSettings_setAutoRefineEnabled___block_invoke_cold_1(uint64_t a1, NSObject *a2)

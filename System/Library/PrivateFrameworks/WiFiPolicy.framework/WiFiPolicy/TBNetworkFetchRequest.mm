@@ -1,5 +1,6 @@
 @interface TBNetworkFetchRequest
 + (id)fetchRequestWithDescriptor:(id)descriptor sourcePolicy:(unint64_t)policy;
++ (id)fetchRequestWithDescriptor:(id)descriptor sourcePolicy:(unint64_t)policy cacheable:(BOOL)cacheable;
 - (TBNetworkFetchRequest)initWithDescriptor:(id)descriptor sourcePolicy:(unint64_t)policy cacheable:(BOOL)cacheable;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)handleResponse:(id)response;
@@ -13,6 +14,15 @@
   v7 = [[self alloc] initWithDescriptor:descriptorCopy sourcePolicy:policy cacheable:0];
 
   return v7;
+}
+
++ (id)fetchRequestWithDescriptor:(id)descriptor sourcePolicy:(unint64_t)policy cacheable:(BOOL)cacheable
+{
+  cacheableCopy = cacheable;
+  descriptorCopy = descriptor;
+  v9 = [[self alloc] initWithDescriptor:descriptorCopy sourcePolicy:policy cacheable:cacheableCopy];
+
+  return v9;
 }
 
 - (TBNetworkFetchRequest)initWithDescriptor:(id)descriptor sourcePolicy:(unint64_t)policy cacheable:(BOOL)cacheable

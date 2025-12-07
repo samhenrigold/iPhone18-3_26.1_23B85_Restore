@@ -11,22 +11,20 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[10] = *MEMORY[0x277D85DE8];
+  v6[10] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"AssociatedDomains";
-  v7[1] = @"AssociatedDomainsEnableDirectDownloads";
-  v7[2] = @"CellularSliceUUID";
-  v7[3] = @"ContentFilterUUID";
-  v7[4] = @"DNSProxyUUID";
-  v7[5] = @"Hideable";
-  v7[6] = @"Lockable";
-  v7[7] = @"RelayUUID";
-  v7[8] = @"TapToPayScreenLock";
-  v7[9] = @"VPNUUID";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:10];
+  v6[0] = @"AssociatedDomains";
+  v6[1] = @"AssociatedDomainsEnableDirectDownloads";
+  v6[2] = @"CellularSliceUUID";
+  v6[3] = @"ContentFilterUUID";
+  v6[4] = @"DNSProxyUUID";
+  v6[5] = @"Hideable";
+  v6[6] = @"Lockable";
+  v6[7] = @"RelayUUID";
+  v6[8] = @"TapToPayScreenLock";
+  v6[9] = @"VPNUUID";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:10];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -55,7 +55,8 @@
   {
     equalCopy = equal;
     v5 = objc_opt_class();
-    if (![v5 isEqual:objc_opt_class()])
+    objc_opt_class();
+    if (!objc_msgSend_isEqual_(v5))
     {
       goto LABEL_26;
     }
@@ -81,9 +82,9 @@
         goto LABEL_18;
       }
 
-      v11 = [(BKSHIDEventDeferringEnvironment *)v8 isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(v8);
 
-      if (!v11)
+      if (!isEqual)
       {
         goto LABEL_26;
       }
@@ -112,7 +113,7 @@ LABEL_27:
 
     if (v8 && v14)
     {
-      v15 = [(BKSHIDEventDeferringEnvironment *)v8 isEqual:v14];
+      v15 = objc_msgSend_isEqual_(v8);
 
       if (!v15)
       {

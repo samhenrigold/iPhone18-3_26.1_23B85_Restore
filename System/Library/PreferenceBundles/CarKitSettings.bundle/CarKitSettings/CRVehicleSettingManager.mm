@@ -1,5 +1,6 @@
 @interface CRVehicleSettingManager
 - (BOOL)_disablesCarPlayFeatures:(unint64_t)features;
+- (BOOL)_setCarPlayFeatures:(unint64_t)features disabled:(BOOL)disabled;
 - (BOOL)isCarPlayUltraEnabled;
 - (BOOL)isCarPlayUltraSupported;
 - (BOOL)setCarPlayUltraEnabled:(BOOL)enabled;
@@ -71,6 +72,18 @@
   LOBYTE(features) = [featureAvailability disablesCarPlayFeatures:features forVehicleIdentifier:identifier];
 
   return features;
+}
+
+- (BOOL)_setCarPlayFeatures:(unint64_t)features disabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  vehicle = [(CRVehicleSettingManager *)self vehicle];
+  identifier = [vehicle identifier];
+
+  featureAvailability = [(CRVehicleSettingManager *)self featureAvailability];
+  LOBYTE(disabledCopy) = [featureAvailability setCarPlayFeatures:features disabled:disabledCopy forVehicleIdentifier:identifier];
+
+  return disabledCopy;
 }
 
 - (BOOL)isCarPlayUltraSupported

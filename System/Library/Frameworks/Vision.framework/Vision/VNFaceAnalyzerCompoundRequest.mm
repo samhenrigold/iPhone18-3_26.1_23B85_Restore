@@ -413,7 +413,7 @@ LABEL_30:
             resolvedRevision = [v50[5] resolvedRevision];
             if (resolvedRevision - 3737841664) < 7 && ((0x6Du >> resolvedRevision))
             {
-              v19 = v17[2](v17, *(&unk_1A6039B18 + resolvedRevision - 3737841664), v50[5], error);
+              v19 = v17[2](v17, qword_1A6039B18[resolvedRevision - 3737841664], v50[5], error);
             }
 
             else

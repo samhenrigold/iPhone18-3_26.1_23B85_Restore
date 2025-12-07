@@ -5,53 +5,49 @@
 
 void __115___PXCuratedLibraryLayoutZoomLevelChangeAnimationHelper__adjustGeometries_styles_infos_spriteIndexRange_appearing___block_invoke(uint64_t a1@<X0>, _OWORD *a2@<X1>, _OWORD *a3@<X8>)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a2[1];
   *a3 = *a2;
   a3[1] = v4;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   v5 = [*(*(a1 + 32) + 56) reverseObjectEnumerator];
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         if (v10)
         {
-          v11 = a3[1];
-          v13[0] = *a3;
-          v13[1] = v11;
-          [v10 indexPathAfterRevertingChangesFromIndexPath:v13 hasIncrementalChanges:0 objectChanged:0];
+          objc_msgSend_indexPathAfterRevertingChangesFromIndexPath_hasIncrementalChanges_objectChanged_(v10, *a3, *(a3 + 1), *(a3 + 2), *(a3 + 3));
         }
 
         else
         {
-          v14 = 0u;
-          v15 = 0u;
+          v11 = 0u;
+          v12 = 0u;
         }
 
-        v12 = v15;
-        *a3 = v14;
+        *a3 = v11;
         a3[1] = v12;
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -63,7 +59,7 @@ void *__115___PXCuratedLibraryLayoutZoomLevelChangeAnimationHelper__adjustGeomet
   result = *(*(a1 + 32) + 64);
   if (result)
   {
-    return [result visualPositionAfterRevertingChangesFromIndex:a2];
+    return objc_msgSend_visualPositionAfterRevertingChangesFromIndex_(result, a2, a2);
   }
 
   *a3 = 0;
@@ -74,53 +70,49 @@ void *__115___PXCuratedLibraryLayoutZoomLevelChangeAnimationHelper__adjustGeomet
 
 void __115___PXCuratedLibraryLayoutZoomLevelChangeAnimationHelper__adjustGeometries_styles_infos_spriteIndexRange_appearing___block_invoke_3(uint64_t a1@<X0>, _OWORD *a2@<X1>, _OWORD *a3@<X8>)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a2[1];
   *a3 = *a2;
   a3[1] = v4;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   v5 = *(*(a1 + 32) + 56);
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         if (v10)
         {
-          v11 = a3[1];
-          v13[0] = *a3;
-          v13[1] = v11;
-          [v10 indexPathAfterApplyingChangesToIndexPath:v13 hasIncrementalChanges:0 objectChanged:0];
+          objc_msgSend_indexPathAfterApplyingChangesToIndexPath_hasIncrementalChanges_objectChanged_(v10, *a3, *(a3 + 1), *(a3 + 2), *(a3 + 3));
         }
 
         else
         {
-          v14 = 0u;
-          v15 = 0u;
+          v11 = 0u;
+          v12 = 0u;
         }
 
-        v12 = v15;
-        *a3 = v14;
+        *a3 = v11;
         a3[1] = v12;
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -132,7 +124,7 @@ void *__115___PXCuratedLibraryLayoutZoomLevelChangeAnimationHelper__adjustGeomet
   result = *(*(a1 + 32) + 64);
   if (result)
   {
-    return [result visualPositionAfterApplyingChangesToIndex:a2];
+    return objc_msgSend_visualPositionAfterApplyingChangesToIndex_(result, a2, a2);
   }
 
   *a3 = 0;
@@ -144,13 +136,13 @@ void *__115___PXCuratedLibraryLayoutZoomLevelChangeAnimationHelper__adjustGeomet
 void __115___PXCuratedLibraryLayoutZoomLevelChangeAnimationHelper__adjustGeometries_styles_infos_spriteIndexRange_appearing___block_invoke_5(uint64_t a1)
 {
   [*(a1 + 32) headerRect];
-  CGRectGetMinY(v2);
+  MinY = CGRectGetMinY(v3);
   [*(a1 + 32) sectionRect];
-  CGRectGetMinY(v3);
-  PXFloatApproximatelyEqualToFloat();
+  CGRectGetMinY(v4);
+  PXFloatApproximatelyEqualToFloat(MinY);
 }
 
-uint64_t __115___PXCuratedLibraryLayoutZoomLevelChangeAnimationHelper__adjustGeometries_styles_infos_spriteIndexRange_appearing___block_invoke_6(uint64_t a1, unint64_t a2)
+unint64_t __115___PXCuratedLibraryLayoutZoomLevelChangeAnimationHelper__adjustGeometries_styles_infos_spriteIndexRange_appearing___block_invoke_6(uint64_t a1, unint64_t a2)
 {
   if (*(*(a1 + 32) + 32) == 1 && ((a2 ^ (a2 >> 2) & 1) & 1) != 0)
   {

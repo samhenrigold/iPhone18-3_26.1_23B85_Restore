@@ -41,19 +41,19 @@ void __43__EDRemoveUnusedSchemaTableUpgradeStep_log__block_invoke(uint64_t a1)
 
 + (int)_createTempMessagesTable:(id)table
 {
-  v16[4] = *MEMORY[0x1E69E9840];
+  v15[4] = *MEMORY[0x1E69E9840];
   tableCopy = table;
   sqlConnection = [tableCopy sqlConnection];
-  v16[0] = 0;
-  v5 = [sqlConnection executeStatementString:@"CREATE TABLE IF NOT EXISTS messages_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{message_id INTEGER NOT NULL DEFAULT 0, remote_id INTEGER, document_id TEXT COLLATE BINARY, sender INTEGER, subject_prefix TEXT COLLATE BINARY, subject INTEGER NOT NULL, summary INTEGER, date_sent INTEGER, date_received INTEGER, mailbox INTEGER NOT NULL, remote_mailbox INTEGER, flags INTEGER NOT NULL DEFAULT 0, read INTEGER NOT NULL DEFAULT 0, flagged INTEGER NOT NULL DEFAULT 0, deleted INTEGER NOT NULL DEFAULT 0, size INTEGER NOT NULL DEFAULT 0, conversation_id INTEGER NOT NULL DEFAULT 0, date_last_viewed INTEGER, original_mailbox INTEGER, visible INTEGER, sender_vip INTEGER, encoding INTEGER, content_type INTEGER, sequence_identifier INTEGER DEFAULT 0, external_id TEXT COLLATE BINARY, unique_id INTEGER, content_index_transaction_id INTEGER, list_id_hash INTEGER, journaled INTEGER, flag_color INTEGER);", v16}];
-  v6 = v16[0];
+  v15[0] = 0;
+  v5 = [sqlConnection executeStatementString:@"CREATE TABLE IF NOT EXISTS messages_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{message_id INTEGER NOT NULL DEFAULT 0, remote_id INTEGER, document_id TEXT COLLATE BINARY, sender INTEGER, subject_prefix TEXT COLLATE BINARY, subject INTEGER NOT NULL, summary INTEGER, date_sent INTEGER, date_received INTEGER, mailbox INTEGER NOT NULL, remote_mailbox INTEGER, flags INTEGER NOT NULL DEFAULT 0, read INTEGER NOT NULL DEFAULT 0, flagged INTEGER NOT NULL DEFAULT 0, deleted INTEGER NOT NULL DEFAULT 0, size INTEGER NOT NULL DEFAULT 0, conversation_id INTEGER NOT NULL DEFAULT 0, date_last_viewed INTEGER, original_mailbox INTEGER, visible INTEGER, sender_vip INTEGER, encoding INTEGER, content_type INTEGER, sequence_identifier INTEGER DEFAULT 0, external_id TEXT COLLATE BINARY, unique_id INTEGER, content_index_transaction_id INTEGER, list_id_hash INTEGER, journaled INTEGER, flag_color INTEGER);", v15}];
+  v6 = v15[0];
 
   if (v5)
   {
     sqlConnection2 = [tableCopy sqlConnection];
-    v15 = v6;
-    v8 = [sqlConnection2 executeStatementString:@"ALTER TABLE messages RENAME TO messages_old" error:&v15];
-    v9 = v15;
+    v14 = v6;
+    v8 = [sqlConnection2 executeStatementString:@"ALTER TABLE messages RENAME TO messages_old" error:&v14];
+    v9 = v14;
 
     if (v8)
     {
@@ -89,42 +89,41 @@ void __43__EDRemoveUnusedSchemaTableUpgradeStep_log__block_invoke(uint64_t a1)
     code = [v6 code];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return code;
 }
 
 + (int)_recreateMessagesIndices:(id)indices
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   indicesCopy = indices;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   allKeys = [&unk_1F45E70E0 allKeys];
   obj = allKeys;
   v4 = 0;
-  v5 = [allKeys countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v5)
   {
-    v6 = *v28;
+    v6 = *v27;
     do
     {
       v7 = 0;
       v8 = v4;
       do
       {
-        if (*v28 != v6)
+        if (*v27 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * v7);
+        v9 = *(*(&v26 + 1) + 8 * v7);
         v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"DROP INDEX IF EXISTS %@", v9];;
         sqlConnection = [indicesCopy sqlConnection];
-        v26 = v8;
-        v12 = [sqlConnection executeStatementString:v10 error:&v26];
-        v4 = v26;
+        v25 = v8;
+        v12 = [sqlConnection executeStatementString:v10 error:&v25];
+        v4 = v25;
 
         if ((v12 & 1) == 0)
         {
@@ -146,7 +145,7 @@ void __43__EDRemoveUnusedSchemaTableUpgradeStep_log__block_invoke(uint64_t a1)
 
       while (v5 != v7);
       allKeys = obj;
-      v5 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v5 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v5);
@@ -155,17 +154,17 @@ void __43__EDRemoveUnusedSchemaTableUpgradeStep_log__block_invoke(uint64_t a1)
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v32 = 1;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __65__EDRemoveUnusedSchemaTableUpgradeStep__recreateMessagesIndices___block_invoke;
-  v22[3] = &unk_1E8256710;
-  v25 = buf;
+  v31 = 1;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __65__EDRemoveUnusedSchemaTableUpgradeStep__recreateMessagesIndices___block_invoke;
+  v21[3] = &unk_1E8256710;
+  v24 = buf;
   v15 = indicesCopy;
-  v23 = v15;
+  v22 = v15;
   v16 = v4;
-  v24 = v16;
-  [&unk_1F45E70E0 enumerateKeysAndObjectsUsingBlock:v22];
+  v23 = v16;
+  [&unk_1F45E70E0 enumerateKeysAndObjectsUsingBlock:v21];
   if (*(*&buf[8] + 24))
   {
     code = 0;
@@ -177,20 +176,19 @@ void __43__EDRemoveUnusedSchemaTableUpgradeStep_log__block_invoke(uint64_t a1)
   }
 
   _Block_object_dispose(buf, 8);
-  v18 = *MEMORY[0x1E69E9840];
   return code;
 }
 
 void __65__EDRemoveUnusedSchemaTableUpgradeStep__recreateMessagesIndices___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = [MEMORY[0x1E696AEC0] stringWithFormat:v8, v7];
   v10 = [*(a1 + 32) sqlConnection];
-  v15[0] = 0;
-  v11 = [v10 executeStatementString:v9 error:v15];
-  v12 = v15[0];
+  v14[0] = 0;
+  v11 = [v10 executeStatementString:v9 error:v14];
+  v12 = v14[0];
   *(*(*(a1 + 48) + 8) + 24) = v11;
 
   if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0)
@@ -205,20 +203,18 @@ void __65__EDRemoveUnusedSchemaTableUpgradeStep__recreateMessagesIndices___block
 
     *a4 = 1;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (int)_copyMessagesData:(id)data
 {
-  v13[4] = *MEMORY[0x1E69E9840];
+  v12[4] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v4 = [&unk_1F45E6F58 componentsJoinedByString:{@", "}];
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"INSERT INTO messages_new (%@) SELECT %@ FROM messages_old", v4, v4];
   sqlConnection = [dataCopy sqlConnection];
-  v13[0] = 0;
-  v7 = [sqlConnection executeStatementString:v5 error:v13];
-  v8 = v13[0];
+  v12[0] = 0;
+  v7 = [sqlConnection executeStatementString:v5 error:v12];
+  v8 = v12[0];
 
   if (v7)
   {
@@ -238,21 +234,20 @@ void __65__EDRemoveUnusedSchemaTableUpgradeStep__recreateMessagesIndices___block
     code = [v8 code];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return code;
 }
 
 + (int)_swapMessagesTables:(id)tables
 {
-  v12[4] = *MEMORY[0x1E69E9840];
+  v11[4] = *MEMORY[0x1E69E9840];
   tablesCopy = tables;
   code = [self _dropTable:@"messages_old" connection:tablesCopy];
   if (!code)
   {
     sqlConnection = [tablesCopy sqlConnection];
-    v12[0] = 0;
-    v7 = [sqlConnection executeStatementString:@"ALTER TABLE messages_new RENAME TO messages" error:v12];
-    v8 = v12[0];
+    v11[0] = 0;
+    v7 = [sqlConnection executeStatementString:@"ALTER TABLE messages_new RENAME TO messages" error:v11];
+    v8 = v11[0];
 
     if (v7)
     {
@@ -273,18 +268,17 @@ void __65__EDRemoveUnusedSchemaTableUpgradeStep__recreateMessagesIndices___block
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return code;
 }
 
 + (int)_recreateThreadsTable:(id)table
 {
-  v11[4] = *MEMORY[0x1E69E9840];
+  v10[4] = *MEMORY[0x1E69E9840];
   tableCopy = table;
   sqlConnection = [tableCopy sqlConnection];
-  v11[0] = 0;
-  v5 = [sqlConnection executeStatementString:@"CREATE TABLE IF NOT EXISTS threads (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{scope INTEGER NOT NULL REFERENCES thread_scopes(ROWID) ON DELETE CASCADE, conversation INTEGER NOT NULL REFERENCES conversations(conversation_id) ON DELETE CASCADE, newest_read_message INTEGER REFERENCES messages(ROWID) ON DELETE SET NULL, display_message INTEGER REFERENCES messages(ROWID) ON DELETE SET NULL, date INTEGER NOT NULL, read INTEGER NOT NULL DEFAULT 0, deleted INTEGER NOT NULL DEFAULT 0, flagged INTEGER NOT NULL DEFAULT 0, has_red_flag INTEGER NOT NULL DEFAULT 0, has_orange_flag INTEGER NOT NULL DEFAULT 0, has_yellow_flag INTEGER NOT NULL DEFAULT 0, has_green_flag INTEGER NOT NULL DEFAULT 0, has_blue_flag INTEGER NOT NULL DEFAULT 0, has_purple_flag INTEGER NOT NULL DEFAULT 0, has_gray_flag INTEGER NOT NULL DEFAULT 0, draft INTEGER NOT NULL DEFAULT 0, replied INTEGER NOT NULL DEFAULT 0, forwarded INTEGER NOT NULL DEFAULT 0, redirected INTEGER NOT NULL DEFAULT 0, junk_level_set_by_user INTEGER NOT NULL DEFAULT 0, junk_level INTEGER NOT NULL DEFAULT 0, has_unflagged INTEGER NOT NULL DEFAULT 0, has_attachments INTEGER NOT NULL DEFAULT 0, count INTEGER NOT NULL, journaled INTEGER NOT NULL DEFAULT 0, UNIQUE(scope, conversation) ON CONFLICT ABORT);", v11}];
-  v6 = v11[0];
+  v10[0] = 0;
+  v5 = [sqlConnection executeStatementString:@"CREATE TABLE IF NOT EXISTS threads (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{scope INTEGER NOT NULL REFERENCES thread_scopes(ROWID) ON DELETE CASCADE, conversation INTEGER NOT NULL REFERENCES conversations(conversation_id) ON DELETE CASCADE, newest_read_message INTEGER REFERENCES messages(ROWID) ON DELETE SET NULL, display_message INTEGER REFERENCES messages(ROWID) ON DELETE SET NULL, date INTEGER NOT NULL, read INTEGER NOT NULL DEFAULT 0, deleted INTEGER NOT NULL DEFAULT 0, flagged INTEGER NOT NULL DEFAULT 0, has_red_flag INTEGER NOT NULL DEFAULT 0, has_orange_flag INTEGER NOT NULL DEFAULT 0, has_yellow_flag INTEGER NOT NULL DEFAULT 0, has_green_flag INTEGER NOT NULL DEFAULT 0, has_blue_flag INTEGER NOT NULL DEFAULT 0, has_purple_flag INTEGER NOT NULL DEFAULT 0, has_gray_flag INTEGER NOT NULL DEFAULT 0, draft INTEGER NOT NULL DEFAULT 0, replied INTEGER NOT NULL DEFAULT 0, forwarded INTEGER NOT NULL DEFAULT 0, redirected INTEGER NOT NULL DEFAULT 0, junk_level_set_by_user INTEGER NOT NULL DEFAULT 0, junk_level INTEGER NOT NULL DEFAULT 0, has_unflagged INTEGER NOT NULL DEFAULT 0, has_attachments INTEGER NOT NULL DEFAULT 0, count INTEGER NOT NULL, journaled INTEGER NOT NULL DEFAULT 0, UNIQUE(scope, conversation) ON CONFLICT ABORT);", v10}];
+  v6 = v10[0];
 
   if (v5)
   {
@@ -304,42 +298,41 @@ void __65__EDRemoveUnusedSchemaTableUpgradeStep__recreateMessagesIndices___block
     code = [v6 code];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return code;
 }
 
 + (int)_recreateThreadsIndices:(id)indices
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   indicesCopy = indices;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   allKeys = [&unk_1F45E7108 allKeys];
   obj = allKeys;
   v4 = 0;
-  v5 = [allKeys countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v5)
   {
-    v6 = *v28;
+    v6 = *v27;
     do
     {
       v7 = 0;
       v8 = v4;
       do
       {
-        if (*v28 != v6)
+        if (*v27 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * v7);
+        v9 = *(*(&v26 + 1) + 8 * v7);
         v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"DROP INDEX IF EXISTS %@", v9];;
         sqlConnection = [indicesCopy sqlConnection];
-        v26 = v8;
-        v12 = [sqlConnection executeStatementString:v10 error:&v26];
-        v4 = v26;
+        v25 = v8;
+        v12 = [sqlConnection executeStatementString:v10 error:&v25];
+        v4 = v25;
 
         if ((v12 & 1) == 0)
         {
@@ -361,7 +354,7 @@ void __65__EDRemoveUnusedSchemaTableUpgradeStep__recreateMessagesIndices___block
 
       while (v5 != v7);
       allKeys = obj;
-      v5 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v5 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v5);
@@ -370,17 +363,17 @@ void __65__EDRemoveUnusedSchemaTableUpgradeStep__recreateMessagesIndices___block
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v32 = 1;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __64__EDRemoveUnusedSchemaTableUpgradeStep__recreateThreadsIndices___block_invoke;
-  v22[3] = &unk_1E8256710;
-  v25 = buf;
+  v31 = 1;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __64__EDRemoveUnusedSchemaTableUpgradeStep__recreateThreadsIndices___block_invoke;
+  v21[3] = &unk_1E8256710;
+  v24 = buf;
   v15 = indicesCopy;
-  v23 = v15;
+  v22 = v15;
   v16 = v4;
-  v24 = v16;
-  [&unk_1F45E7108 enumerateKeysAndObjectsUsingBlock:v22];
+  v23 = v16;
+  [&unk_1F45E7108 enumerateKeysAndObjectsUsingBlock:v21];
   if (*(*&buf[8] + 24))
   {
     code = 0;
@@ -392,20 +385,19 @@ void __65__EDRemoveUnusedSchemaTableUpgradeStep__recreateMessagesIndices___block
   }
 
   _Block_object_dispose(buf, 8);
-  v18 = *MEMORY[0x1E69E9840];
   return code;
 }
 
 void __64__EDRemoveUnusedSchemaTableUpgradeStep__recreateThreadsIndices___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = [MEMORY[0x1E696AEC0] stringWithFormat:v8, v7];
   v10 = [*(a1 + 32) sqlConnection];
-  v15[0] = 0;
-  v11 = [v10 executeStatementString:v9 error:v15];
-  v12 = v15[0];
+  v14[0] = 0;
+  v11 = [v10 executeStatementString:v9 error:v14];
+  v12 = v14[0];
   *(*(*(a1 + 48) + 8) + 24) = v11;
 
   if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0)
@@ -420,20 +412,18 @@ void __64__EDRemoveUnusedSchemaTableUpgradeStep__recreateThreadsIndices___block_
 
     *a4 = 1;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (int)_dropTable:(id)table connection:(id)connection
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   tableCopy = table;
   connectionCopy = connection;
   tableCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"DROP TABLE IF EXISTS %@", tableCopy];
   sqlConnection = [connectionCopy sqlConnection];
-  v15[0] = 0;
-  v9 = [sqlConnection executeStatementString:tableCopy error:v15];
-  v10 = v15[0];
+  v14[0] = 0;
+  v9 = [sqlConnection executeStatementString:tableCopy error:v14];
+  v10 = v14[0];
 
   if (v9)
   {
@@ -453,20 +443,19 @@ void __64__EDRemoveUnusedSchemaTableUpgradeStep__recreateThreadsIndices___block_
     code = [v10 code];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return code;
 }
 
 + (int)_truncateTable:(id)table connection:(id)connection
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   tableCopy = table;
   connectionCopy = connection;
   tableCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"DELETE FROM %@", tableCopy];
   sqlConnection = [connectionCopy sqlConnection];
-  v15[0] = 0;
-  v9 = [sqlConnection executeStatementString:tableCopy error:v15];
-  v10 = v15[0];
+  v14[0] = 0;
+  v9 = [sqlConnection executeStatementString:tableCopy error:v14];
+  v10 = v14[0];
 
   if (v9)
   {
@@ -486,18 +475,17 @@ void __64__EDRemoveUnusedSchemaTableUpgradeStep__recreateThreadsIndices___block_
     code = [v10 code];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return code;
 }
 
 + (int)_dropThreadCategoriesIndex:(id)index
 {
-  v11[4] = *MEMORY[0x1E69E9840];
+  v10[4] = *MEMORY[0x1E69E9840];
   indexCopy = index;
   sqlConnection = [indexCopy sqlConnection];
-  v11[0] = 0;
-  v5 = [sqlConnection executeStatementString:@"DROP INDEX IF EXISTS thread_categories_type_active_user_override_thread_index;" error:v11];
-  v6 = v11[0];
+  v10[0] = 0;
+  v5 = [sqlConnection executeStatementString:@"DROP INDEX IF EXISTS thread_categories_type_active_user_override_thread_index;" error:v10];
+  v6 = v10[0];
 
   if (v5)
   {
@@ -517,7 +505,6 @@ void __64__EDRemoveUnusedSchemaTableUpgradeStep__recreateThreadsIndices___block_
     code = [v6 code];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return code;
 }
 

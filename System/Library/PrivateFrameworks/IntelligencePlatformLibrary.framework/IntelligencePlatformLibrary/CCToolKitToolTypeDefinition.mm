@@ -117,7 +117,6 @@ LABEL_18:
     {
       v20 = objc_opt_class();
       v21 = NSStringFromClass(v20);
-      v22 = *&v5[*v8];
       v9 = CCSkipFieldErrorForMessage();
     }
   }
@@ -133,22 +132,21 @@ LABEL_18:
 LABEL_24:
     if (!*&v5[*v8])
     {
-      v26 = 1;
+      v24 = 1;
       goto LABEL_28;
     }
 
 LABEL_25:
-    v23 = objc_opt_class();
-    v9 = NSStringFromClass(v23);
-    v24 = *&v5[*v8];
-    v25 = CCInvalidBufferErrorForMessage();
+    v22 = objc_opt_class();
+    v9 = NSStringFromClass(v22);
+    v23 = CCInvalidBufferErrorForMessage();
     CCSetError();
   }
 
-  v26 = 0;
+  v24 = 0;
 LABEL_28:
 
-  return v26;
+  return v24;
 }
 
 - (CCToolKitToolTypeDefinition)initWithError:(id *)error

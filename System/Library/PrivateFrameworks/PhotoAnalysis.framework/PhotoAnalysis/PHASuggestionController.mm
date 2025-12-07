@@ -1351,7 +1351,7 @@ LABEL_26:
   return v48;
 }
 
-uint64_t __103__PHASuggestionController_commitSuggestions_retiringSuggestions_deletingSuggestions_withOptions_error___block_invoke(uint64_t a1)
+void *__103__PHASuggestionController_commitSuggestions_retiringSuggestions_deletingSuggestions_withOptions_error___block_invoke(uint64_t a1)
 {
   v1 = a1;
   v107 = *MEMORY[0x277D85DE8];

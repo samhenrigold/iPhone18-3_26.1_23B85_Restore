@@ -26,7 +26,7 @@
 
 - (BOOL)openFileWithName:(id)name error:(id *)error
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (self->_fileHandle)
   {
@@ -34,9 +34,9 @@
   }
 
   v7 = [MEMORY[0x1E695DFF8] fileURLWithPath:nameCopy];
-  v17 = 0;
-  v8 = [MEMORY[0x1E696AC00] fileHandleForReadingFromURL:v7 error:&v17];
-  v9 = v17;
+  v16 = 0;
+  v8 = [MEMORY[0x1E696AC00] fileHandleForReadingFromURL:v7 error:&v16];
+  v9 = v16;
   fileHandle = self->_fileHandle;
   self->_fileHandle = v8;
 
@@ -50,47 +50,46 @@
   {
     if (v9)
     {
-      v14 = v9;
+      v13 = v9;
       *error = v9;
     }
 
     else
     {
-      v15 = MEMORY[0x1E696ABC0];
-      v18 = *MEMORY[0x1E696A578];
-      v19[0] = @"Unable to open file";
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-      *error = [v15 errorWithDomain:@"PCProtobufReader" code:2 userInfo:v16];
+      v14 = MEMORY[0x1E696ABC0];
+      v17 = *MEMORY[0x1E696A578];
+      v18[0] = @"Unable to open file";
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      *error = [v14 errorWithDomain:@"PCProtobufReader" code:2 userInfo:v15];
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11 != 0;
 }
 
 - (BOOL)readRecord:(id *)record error:(id *)error
 {
-  v52[1] = *MEMORY[0x1E69E9840];
+  v51[1] = *MEMORY[0x1E69E9840];
   if (!self->_fileHandle)
   {
     if (error)
     {
       v8 = MEMORY[0x1E696ABC0];
-      v51 = *MEMORY[0x1E696A578];
-      v52[0] = @"File not opened";
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+      v50 = *MEMORY[0x1E696A578];
+      v51[0] = @"File not opened";
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
       *error = [v8 errorWithDomain:@"PCProtobufReader" code:3 userInfo:v9];
     }
 
     if (!record)
     {
-      goto LABEL_4;
+      return 0;
     }
 
 LABEL_8:
     v7 = 0;
     *record = 0;
-    goto LABEL_49;
+    return v7;
   }
 
   if (!self->_eofReached)
@@ -103,15 +102,15 @@ LABEL_8:
       {
         v12 = readUntilNextMessageStart;
         v13 = [(PCProtobufReader *)self unescapeMessage:readUntilNextMessageStart];
-        v40 = 0;
         v39 = 0;
-        if (PCDecodeVarintFromData(v13, &v39, &v40))
+        v38 = 0;
+        if (PCDecodeVarintFromData(v13, &v38, &v39))
         {
-          v14 = v40 + v39 + 4;
+          v14 = &v39[v38 + 4];
           if (v14 == [v13 length])
           {
-            v15 = [v13 subdataWithRange:{v40, v39}];
-            v16 = [v13 subdataWithRange:{v40 + v39, 4}];
+            v15 = [v13 subdataWithRange:{v39, v38}];
+            v16 = [v13 subdataWithRange:{&v39[v38], 4}];
             v17 = PCDecodeLittleEndianUInt32(v16);
             bytes = [v15 bytes];
             v19 = [v15 length];
@@ -141,9 +140,9 @@ LABEL_8:
               if (error)
               {
                 v33 = MEMORY[0x1E696ABC0];
-                v43 = *MEMORY[0x1E696A578];
-                v44 = @"Checksum verification failed";
-                v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+                v42 = *MEMORY[0x1E696A578];
+                v43 = @"Checksum verification failed";
+                v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
                 *error = [v33 errorWithDomain:@"PCProtobufReader" code:7 userInfo:v34];
               }
 
@@ -176,11 +175,11 @@ LABEL_46:
             {
               if (error)
               {
-                v38 = MEMORY[0x1E696ABC0];
-                v41 = *MEMORY[0x1E696A578];
-                v42 = @"Failed to parse protobuf";
-                v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-                *error = [v38 errorWithDomain:@"PCProtobufReader" code:8 userInfo:v35];
+                v37 = MEMORY[0x1E696ABC0];
+                v40 = *MEMORY[0x1E696A578];
+                v41 = @"Failed to parse protobuf";
+                v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+                *error = [v37 errorWithDomain:@"PCProtobufReader" code:8 userInfo:v35];
               }
 
               if (!record)
@@ -196,9 +195,9 @@ LABEL_46:
           if (error)
           {
             v26 = MEMORY[0x1E696ABC0];
-            v45 = *MEMORY[0x1E696A578];
-            v46 = @"Size mismatch in message";
-            v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+            v44 = *MEMORY[0x1E696A578];
+            v45 = @"Size mismatch in message";
+            v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
             *error = [v26 errorWithDomain:@"PCProtobufReader" code:6 userInfo:v27];
           }
 
@@ -213,9 +212,9 @@ LABEL_46:
           if (error)
           {
             v24 = MEMORY[0x1E696ABC0];
-            v47 = *MEMORY[0x1E696A578];
-            v48 = @"Failed to decode length varint";
-            v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+            v46 = *MEMORY[0x1E696A578];
+            v47 = @"Failed to decode length varint";
+            v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
             *error = [v24 errorWithDomain:@"PCProtobufReader" code:5 userInfo:v25];
           }
 
@@ -237,9 +236,9 @@ LABEL_47:
       if (error)
       {
         v28 = MEMORY[0x1E696ABC0];
-        v49 = *MEMORY[0x1E696A578];
-        v50 = @"No data after message start";
-        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+        v48 = *MEMORY[0x1E696A578];
+        v49 = @"No data after message start";
+        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
         *error = [v28 errorWithDomain:@"PCProtobufReader" code:4 userInfo:v29];
       }
 
@@ -264,7 +263,7 @@ LABEL_31:
     *record = 0;
 LABEL_48:
 
-    goto LABEL_49;
+    return v7;
   }
 
   if (record)
@@ -272,11 +271,7 @@ LABEL_48:
     goto LABEL_8;
   }
 
-LABEL_4:
-  v7 = 0;
-LABEL_49:
-  v36 = *MEMORY[0x1E69E9840];
-  return v7;
+  return 0;
 }
 
 - (BOOL)closeFile

@@ -1,9 +1,9 @@
-void sub_23F185A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23F185A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  if (a4)
+  va_start(va, a9);
+  if (a8)
   {
-    (*(*a4 + 8))(a4);
+    (*(*a8 + 8))(a8, a2, a3, a4, a5);
   }
 
   sub_23F08B948(va);
@@ -4801,12 +4801,12 @@ LABEL_506:
   }
 }
 
-void sub_23F18C814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23F18C814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  if (a4)
+  va_start(va, a9);
+  if (a8)
   {
-    (*(*a4 + 8))(a4);
+    (*(*a8 + 8))(a8, a2, a3, a4, a5);
   }
 
   sub_23F08B948(va);

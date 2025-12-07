@@ -24,11 +24,11 @@ uint64_t __45___UITabBarTVTransitioner_animateTransition___block_invoke_3(uint64
   return [v8 setFrame:{v9, v10, v11, v12}];
 }
 
-uint64_t __45___UITabBarTVTransitioner_animateTransition___block_invoke_4(uint64_t result, uint64_t a2)
+id *__45___UITabBarTVTransitioner_animateTransition___block_invoke_4(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) finishTransition];
+    return [result[4] finishTransition];
   }
 
   return result;

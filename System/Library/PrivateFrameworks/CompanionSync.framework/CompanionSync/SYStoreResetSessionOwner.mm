@@ -25,19 +25,19 @@
 
 - (unsigned)_sendBufferedChanges:(id)changes
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = self->_buffer;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v20;
+    v9 = *v19;
     while (2)
     {
       v10 = 0;
@@ -45,12 +45,12 @@
       v8 += v7;
       do
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        if (!changesCopy[2](changesCopy, *(*(&v19 + 1) + 8 * v10)))
+        if (!changesCopy[2](changesCopy, *(*(&v18 + 1) + 8 * v10)))
         {
           v8 = v11;
           goto LABEL_12;
@@ -61,7 +61,7 @@
       }
 
       while (v7 != v10);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v7)
       {
         continue;
@@ -103,13 +103,12 @@ LABEL_12:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return bufferedState;
 }
 
 - (unsigned)syncSession:(id)session enqueueChanges:(id)changes error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   if ([(NSMutableArray *)self->_buffer count])
   {
@@ -137,27 +136,27 @@ LABEL_12:
 LABEL_11:
     if ([v8 count])
     {
-      v22 = v10;
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
+      v21 = v10;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       obj = v8;
-      v11 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v25;
+        v13 = *v24;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v25 != v13)
+            if (*v24 != v13)
             {
               objc_enumerationMutation(obj);
             }
 
-            v15 = *(*(&v24 + 1) + 8 * i);
+            v15 = *(*(&v23 + 1) + 8 * i);
             store = [(SYStoreSessionOwner *)self store];
             v17 = [SYChange changeWithObject:v15 updateType:0 store:store];
 
@@ -167,13 +166,13 @@ LABEL_11:
             }
           }
 
-          v12 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v12 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
         while (v12);
       }
 
-      v10 = v22;
+      v10 = v21;
     }
 
     goto LABEL_23;
@@ -206,7 +205,6 @@ LABEL_23:
   }
 
 LABEL_27:
-  v20 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

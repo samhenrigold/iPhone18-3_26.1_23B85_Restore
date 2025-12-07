@@ -105,16 +105,16 @@
 
 - (AVAssetWriterInput)initWithMediaType:(AVMediaType)mediaType outputSettings:(NSDictionary *)outputSettings sourceFormatHint:(CMFormatDescriptionRef)sourceFormatHint
 {
-  v59.receiver = self;
-  v59.super_class = AVAssetWriterInput;
-  v9 = [(AVAssetWriterInput *)&v59 init];
+  v60.receiver = self;
+  v60.super_class = AVAssetWriterInput;
+  v9 = [(AVAssetWriterInput *)&v60 init];
   v10 = v9;
   if (!mediaType)
   {
-    v37 = v9;
+    v38 = v9;
     v24 = MEMORY[0x1E695DF30];
     v25 = *MEMORY[0x1E695D940];
-    v56 = "mediaType != nil";
+    v57 = "mediaType != nil";
     v26 = @"invalid parameter not satisfying: %s";
     goto LABEL_25;
   }
@@ -132,17 +132,17 @@
     if (sourceFormatHint)
     {
       v12 = CMFormatDescriptionGetMediaType(sourceFormatHint);
-      if (([AVMediaTypeFromCMMediaType() isEqualToString:mediaType] & 1) == 0)
+      if (([AVMediaTypeFromCMMediaType(v12) isEqualToString:mediaType] & 1) == 0)
       {
-        v41 = v10;
-        v42 = MEMORY[0x1E695DF30];
-        v43 = *MEMORY[0x1E695D940];
-        v44 = objc_opt_class();
-        v38 = AVMethodExceptionReasonWithClassAndSelector(v44, a2, @"The media type of sourceFormatHint must match mediaType", v45, v46, v47, v48, v49, v56);
-        v39 = v42;
+        v42 = v10;
+        v43 = MEMORY[0x1E695DF30];
+        v44 = *MEMORY[0x1E695D940];
+        v45 = objc_opt_class();
+        v39 = AVMethodExceptionReasonWithClassAndSelector(v45, a2, @"The media type of sourceFormatHint must match mediaType", v46, v47, v48, v49, v50, v57);
         v40 = v43;
+        v41 = v44;
 LABEL_26:
-        objc_exception_throw([v39 exceptionWithName:v40 reason:v38 userInfo:0]);
+        objc_exception_throw([v40 exceptionWithName:v41 reason:v39 userInfo:0]);
       }
 
       if (v12 == 1986618469)
@@ -150,7 +150,7 @@ LABEL_26:
         Dimensions = CMVideoFormatDescriptionGetDimensions(sourceFormatHint);
         if (Dimensions.width < 1 || Dimensions.height <= 0)
         {
-          v55 = v10;
+          v56 = v10;
           v24 = MEMORY[0x1E695DF30];
           v25 = *MEMORY[0x1E695D940];
           v26 = @"Width and height of video format hint must be positive";
@@ -161,42 +161,42 @@ LABEL_26:
 
     if (outputSettings)
     {
-      v58 = 0;
-      v14 = [AVOutputSettings _outputSettingsWithOutputSettingsDictionary:outputSettings mediaType:mediaType exceptionReason:&v58];
+      v59 = 0;
+      v14 = [AVOutputSettings _outputSettingsWithOutputSettingsDictionary:outputSettings mediaType:mediaType exceptionReason:&v59];
       if (!v14)
       {
-        v50 = v10;
+        v51 = v10;
         v24 = MEMORY[0x1E695DF30];
         v25 = *MEMORY[0x1E695D940];
-        v26 = v58;
+        v26 = v59;
         goto LABEL_25;
       }
 
       v15 = v14;
       if (([objc_msgSend(v14 "compatibleMediaTypes")] & 1) == 0)
       {
-        v51 = v10;
+        v52 = v10;
         v24 = MEMORY[0x1E695DF30];
         v25 = *MEMORY[0x1E695D940];
         v26 = @"Output settings must match supplied media type";
         goto LABEL_25;
       }
 
-      v57 = 0;
-      v16 = [v15 canFullySpecifyOutputFormatReturningReason:&v57];
+      v58 = 0;
+      v16 = [v15 canFullySpecifyOutputFormatReturningReason:&v58];
       if (!sourceFormatHint && (v16 & 1) == 0)
       {
-        v52 = v10;
+        v53 = v10;
         v24 = MEMORY[0x1E695DF30];
         v25 = *MEMORY[0x1E695D940];
-        v26 = v57;
+        v26 = v58;
         goto LABEL_25;
       }
 
       v17 = [(NSDictionary *)outputSettings objectForKey:@"AVVideoScalingModeKey"];
       if (v17 && [v17 isEqualToString:@"AVVideoScalingModeFit"])
       {
-        v54 = v10;
+        v55 = v10;
         v24 = MEMORY[0x1E695DF30];
         v25 = *MEMORY[0x1E695D940];
         v26 = @"AVAssetWriterInput does not currently support AVVideoScalingModeFit";
@@ -205,7 +205,7 @@ LABEL_26:
 
       if ([(NSDictionary *)outputSettings objectForKey:*MEMORY[0x1E6958338]])
       {
-        v53 = v10;
+        v54 = v10;
         v24 = MEMORY[0x1E695DF30];
         v25 = *MEMORY[0x1E695D940];
         v26 = @"AVAssetWriterInput does not support AVSampleRateConverterAudioQualityKey";
@@ -219,9 +219,9 @@ LABEL_26:
         v25 = *MEMORY[0x1E695D940];
         v26 = @"AVAssetWriterInput does not support AVVideoDecompressionPropertiesKey";
 LABEL_25:
-        v38 = AVMethodExceptionReasonWithObjectAndSelector(v10, a2, v26, v19, v20, v21, v22, v23, v56);
-        v39 = v24;
-        v40 = v25;
+        v39 = AVMethodExceptionReasonWithObjectAndSelector(v10, a2, v26, v19, v20, v21, v22, v23, v57);
+        v40 = v24;
+        v41 = v25;
         goto LABEL_26;
       }
     }
@@ -243,7 +243,7 @@ LABEL_25:
     v31 = MEMORY[0x1E696AEC0];
     v32 = objc_opt_class();
     v33 = [objc_msgSend(v31 stringWithFormat:@"<%@: %p> number of append failures read/write queue", NSStringFromClass(v32), v10), "UTF8String"];
-    v10->_internal->appendFailureReadWriteQueue = av_readwrite_dispatch_queue_create(v33);
+    v10->_internal->appendFailureReadWriteQueue = av_readwrite_dispatch_queue_create(v33, v34);
     v10->_internal->helper = [[AVAssetWriterInputUnknownHelper alloc] initWithMediaType:mediaType outputSettings:v15 sourceFormatHint:sourceFormatHint];
     internal = v10->_internal;
     helper = internal->helper;
@@ -442,7 +442,7 @@ void *__33__AVAssetWriterInput__setHelper___block_invoke(uint64_t a1)
   if (result)
   {
 
-    return [(CGAffineTransform *)result transform];
+    return objc_msgSend_transform(result);
   }
 
   else
@@ -632,7 +632,7 @@ void *__33__AVAssetWriterInput__setHelper___block_invoke(uint64_t a1)
   if (result)
   {
 
-    return [(CMTime *)result preferredMediaChunkDuration];
+    return objc_msgSend_preferredMediaChunkDuration(result);
   }
 
   else

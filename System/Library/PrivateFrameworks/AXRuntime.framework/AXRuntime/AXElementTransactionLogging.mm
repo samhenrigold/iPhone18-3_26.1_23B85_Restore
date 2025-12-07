@@ -179,7 +179,7 @@ void __49__AXElementTransactionLogging_failedTransaction___block_invoke(uint64_t
       Length = CFStringGetLength(value);
     }
 
-    else if (AXIsAXAttributedString())
+    else if (AXIsAXAttributedString(value))
     {
       Length = AXGetCFAttributedStringFromAXAttributedString(value);
       if (Length)

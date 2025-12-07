@@ -152,7 +152,7 @@
 
 - (id)_handleFromPerson:(id)person withHandleValidationBlock:(id)block
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   personCopy = person;
   blockCopy = block;
   personHandle = [personCopy personHandle];
@@ -169,27 +169,27 @@
     value2 = 0;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   aliases = [personCopy aliases];
-  v14 = [aliases countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v14 = [aliases countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v23;
+    v16 = *v22;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v23 != v16)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(aliases);
         }
 
-        v18 = *(*(&v22 + 1) + 8 * i);
-        if (!blockCopy || blockCopy[2](blockCopy, *(*(&v22 + 1) + 8 * i)))
+        v18 = *(*(&v21 + 1) + 8 * i);
+        if (!blockCopy || blockCopy[2](blockCopy, *(*(&v21 + 1) + 8 * i)))
         {
           value3 = [v18 value];
 
@@ -197,13 +197,11 @@
         }
       }
 
-      v15 = [aliases countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v15 = [aliases countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v15);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return value2;
 }

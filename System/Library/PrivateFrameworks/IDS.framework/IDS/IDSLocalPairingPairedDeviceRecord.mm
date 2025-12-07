@@ -1,6 +1,7 @@
 @interface IDSLocalPairingPairedDeviceRecord
 - (IDSLocalPairingPairedDeviceRecord)initWithCBUUID:(id)d publicIdentityDataClassA:(id)a classC:(id)c classD:(id)classD;
 - (IDSLocalPairingPairedDeviceRecord)initWithCoder:(id)coder;
+- (id)_publicIdenityForDataProtectionClass:(unsigned int)class error:(id *)error;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -65,6 +66,29 @@
   v13 = [v9 stringWithFormat:@"<%@: %p cbuuid: %@ classA: %@, errorClassA: %@, classC: %@, errorClassC: %@, classD: %@, errorClassD: %@>", v11, self, cbuuid, v3, v4, v5, v6, v7, v8];
 
   return v13;
+}
+
+- (id)_publicIdenityForDataProtectionClass:(unsigned int)class error:(id *)error
+{
+  v5 = *&class;
+  v6 = [IDSLocalPairingRecord identityDataForDataProtectionClass:"identityDataForDataProtectionClass:error:" error:?];
+  if (v6)
+  {
+    v7 = [MEMORY[0x1E69A5318] identityWithData:v6 error:error];
+  }
+
+  else
+  {
+    nRPairing = [MEMORY[0x1E69A6138] NRPairing];
+    if (os_log_type_enabled(nRPairing, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B32FE4(v5);
+    }
+
+    v7 = 0;
+  }
+
+  return v7;
 }
 
 @end

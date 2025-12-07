@@ -246,30 +246,30 @@ void __42__FCFDBConnection_selectFeedItemsWithIDs___block_invoke(uint64_t a1, vo
 
 - (void)insertFeeds:(id)feeds
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   feedsCopy = feeds;
   pStmt = 0;
   FCFDBInvokePrepare(self->_db, @"INSERT OR REPLACE INTO feed (feed_id, lookup_id, refreshed_from_order, refreshed_to_order, fetched_ranges) VALUES (?, ?, ?, ?, ?);", &pStmt);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = feedsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = pStmt;
         feedID = [v10 feedID];
         sqlite3_bind_text(v11, 1, [feedID cStringUsingEncoding:4], -1, 0);
@@ -283,59 +283,58 @@ void __42__FCFDBConnection_selectFeedItemsWithIDs___block_invoke(uint64_t a1, vo
         sqlite3_reset(pStmt);
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   FCFDBInvokeFinalize(self->_db, pStmt);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertFeedItems:(id)items knownFeedsByID:(id)d
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   dCopy = d;
   pStmt = 0;
   FCFDBInvokePrepare(self->_db, @"INSERT OR IGNORE INTO feed_item (id, encoded) VALUES (?, ?);", &pStmt);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v8 = itemsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v36 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v35 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v24;
+    v12 = *v23;
     *&v10 = 136315906;
-    v22 = v10;
+    v21 = v10;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * i);
+        v14 = *(*(&v22 + 1) + 8 * i);
         feedID = [v14 feedID];
         v16 = [dCopy objectForKey:feedID];
 
         if (!v16 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"attempting to save feed items for a feed that hasn't been faulted in"];
-          *buf = v22;
-          v29 = "[FCFDBConnection insertFeedItems:knownFeedsByID:]";
-          v30 = 2080;
-          v31 = "FCFDBConnection.m";
-          v32 = 1024;
-          v33 = 232;
-          v34 = 2114;
-          v35 = v20;
+          *buf = v21;
+          v28 = "[FCFDBConnection insertFeedItems:knownFeedsByID:]";
+          v29 = 2080;
+          v30 = "FCFDBConnection.m";
+          v31 = 1024;
+          v32 = 232;
+          v33 = 2114;
+          v34 = v20;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
 
@@ -348,60 +347,59 @@ void __42__FCFDBConnection_selectFeedItemsWithIDs___block_invoke(uint64_t a1, vo
         sqlite3_reset(pStmt);
       }
 
-      v11 = [v8 countByEnumeratingWithState:&v23 objects:v36 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v22 objects:v35 count:16];
     }
 
     while (v11);
   }
 
   FCFDBInvokeFinalize(self->_db, pStmt);
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertIndexesForFeedItems:(id)items knownFeedsByID:(id)d
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   dCopy = d;
   pStmt = 0;
   FCFDBInvokePrepare(self->_db, @"INSERT OR IGNORE INTO feed_item_lookup (feed_lookup_id, feed_item_order, feature) VALUES (?, ?, 0);", &pStmt);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v8 = itemsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v34 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v33 count:16];
   if (v9)
   {
     v11 = v9;
     v12 = MEMORY[0x1E69E9C10];
-    v13 = *v22;
+    v13 = *v21;
     *&v10 = 136315906;
-    v20 = v10;
+    v19 = v10;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
+        v15 = *(*(&v20 + 1) + 8 * i);
         feedID = [v15 feedID];
         v17 = [dCopy objectForKey:feedID];
 
         if (!v17 && os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"attempting to save feed items for a feed that hasn't been faulted in"];
-          *buf = v20;
-          v27 = "[FCFDBConnection insertIndexesForFeedItems:knownFeedsByID:]";
-          v28 = 2080;
-          v29 = "FCFDBConnection.m";
-          v30 = 1024;
-          v31 = 255;
-          v32 = 2114;
-          v33 = v18;
+          *buf = v19;
+          v26 = "[FCFDBConnection insertIndexesForFeedItems:knownFeedsByID:]";
+          v27 = 2080;
+          v28 = "FCFDBConnection.m";
+          v29 = 1024;
+          v30 = 255;
+          v31 = 2114;
+          v32 = v18;
           _os_log_error_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
 
@@ -411,14 +409,13 @@ void __42__FCFDBConnection_selectFeedItemsWithIDs___block_invoke(uint64_t a1, vo
         sqlite3_reset(pStmt);
       }
 
-      v11 = [v8 countByEnumeratingWithState:&v21 objects:v34 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v20 objects:v33 count:16];
     }
 
     while (v11);
   }
 
   FCFDBInvokeFinalize(self->_db, pStmt);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertFeatureIndexesForFeedItems:(id)items knownFeedsByID:(id)d
@@ -443,7 +440,7 @@ void __42__FCFDBConnection_selectFeedItemsWithIDs___block_invoke(uint64_t a1, vo
 
 void __67__FCFDBConnection_insertFeatureIndexesForFeedItems_knownFeedsByID___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [v3 feedID];
@@ -451,30 +448,28 @@ void __67__FCFDBConnection_insertFeatureIndexesForFeedItems_knownFeedsByID___blo
 
   if (!v6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"attempting to index features for a feed that hasn't been faulted in"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"attempting to index features for a feed that hasn't been faulted in"];
     *buf = 136315906;
-    v16 = "[FCFDBConnection insertFeatureIndexesForFeedItems:knownFeedsByID:]_block_invoke";
-    v17 = 2080;
-    v18 = "FCFDBConnection.m";
-    v19 = 1024;
-    v20 = 275;
-    v21 = 2114;
-    v22 = v10;
+    v15 = "[FCFDBConnection insertFeatureIndexesForFeedItems:knownFeedsByID:]_block_invoke";
+    v16 = 2080;
+    v17 = "FCFDBConnection.m";
+    v18 = 1024;
+    v19 = 275;
+    v20 = 2114;
+    v21 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __67__FCFDBConnection_insertFeatureIndexesForFeedItems_knownFeedsByID___block_invoke_54;
-  v11[3] = &unk_1E7C38A58;
-  v12 = v6;
-  v13 = v3;
-  v14 = *(a1 + 40);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __67__FCFDBConnection_insertFeatureIndexesForFeedItems_knownFeedsByID___block_invoke_54;
+  v10[3] = &unk_1E7C38A58;
+  v11 = v6;
+  v12 = v3;
+  v13 = *(a1 + 40);
   v7 = v3;
   v8 = v6;
-  [v7 enumerateFeaturesWithBlock:v11];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [v7 enumerateFeaturesWithBlock:v10];
 }
 
 uint64_t __67__FCFDBConnection_insertFeatureIndexesForFeedItems_knownFeedsByID___block_invoke_54(uint64_t a1, void *a2)

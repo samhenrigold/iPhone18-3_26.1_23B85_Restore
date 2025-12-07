@@ -67,7 +67,7 @@
     v6 = [v5 textBodyRectAtIndex:0];
     if (v5)
     {
-      [v5 geometryCoordSpace];
+      objc_msgSend_geometryCoordSpace(v5);
     }
 
     else

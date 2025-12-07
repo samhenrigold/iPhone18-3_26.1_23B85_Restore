@@ -80,7 +80,7 @@
 
 - (void)stopMonitoring:(id)monitoring
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   queue = [(ULEventMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -95,12 +95,10 @@
   {
     v6 = v5;
     v7 = +[(ULEvent *)ULDisplayMonitorEventDisplayState_OSX];
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)latestEventAfterAddingObserverForEventName:(id)name

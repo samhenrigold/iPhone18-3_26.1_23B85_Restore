@@ -42,7 +42,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -63,16 +63,16 @@
           connection2 = [(Client *)self connection];
           *buf = 134219266;
           selfCopy2 = self;
-          v32 = 1024;
-          v33 = processIdentifier;
-          v34 = 2112;
-          v35 = pathCopy;
-          v36 = 2112;
-          v37 = v13;
-          v38 = 1024;
+          v31 = 1024;
+          v32 = processIdentifier;
+          v33 = 2112;
+          v34 = pathCopy;
+          v35 = 2112;
+          v36 = v13;
+          v37 = 1024;
           processIdentifier2 = [connection2 processIdentifier];
-          v40 = 2112;
-          v41 = changeCopy;
+          v39 = 2112;
+          v40 = changeCopy;
           _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "NOICLIENT <%p:%d> observed %@ of object %@, partial update to pid: %d, change: %@", buf, 0x36u);
         }
       }
@@ -93,13 +93,13 @@
         connection5 = [(Client *)self connection];
         *buf = 134219010;
         selfCopy2 = self;
-        v32 = 1024;
-        v33 = processIdentifier3;
-        v34 = 2112;
-        v35 = pathCopy;
-        v36 = 2112;
-        v37 = objectCopy;
-        v38 = 1024;
+        v31 = 1024;
+        v32 = processIdentifier3;
+        v33 = 2112;
+        v34 = pathCopy;
+        v35 = 2112;
+        v36 = objectCopy;
+        v37 = 1024;
         processIdentifier2 = [connection5 processIdentifier];
         _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "NOICLIENT <%p:%d> observed %@ of object %@, full update to pid: %d", buf, 0x2Cu);
       }
@@ -113,23 +113,21 @@
 
     [(Client *)self _incrementMessageCounter:1];
     objc_initWeak(buf, self);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __57__Client_observeValueForKeyPath_ofObject_change_context___block_invoke;
-    v28[3] = &unk_27898BA88;
-    objc_copyWeak(&v29, buf);
-    v28[4] = self;
-    [(Client *)self _sendBarrierIfNecessaryWithBlock:v28];
-    objc_destroyWeak(&v29);
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __57__Client_observeValueForKeyPath_ofObject_change_context___block_invoke;
+    v27[3] = &unk_27898BA88;
+    objc_copyWeak(&v28, buf);
+    v27[4] = self;
+    [(Client *)self _sendBarrierIfNecessaryWithBlock:v27];
+    objc_destroyWeak(&v28);
     objc_destroyWeak(buf);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __57__Client_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = noiLogHandle;
   if (os_log_type_enabled(noiLogHandle, OS_LOG_TYPE_INFO))
@@ -137,11 +135,11 @@ void __57__Client_observeValueForKeyPath_ofObject_change_context___block_invoke(
     v4 = *(a1 + 32);
     v5 = v3;
     v6 = [v4 connection];
-    v22 = 134218240;
-    v23 = WeakRetained;
-    v24 = 1024;
-    v25 = [v6 processIdentifier];
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "NOICLIENT <%p:%d> Consuming barrier block", &v22, 0x12u);
+    v21 = 134218240;
+    v22 = WeakRetained;
+    v23 = 1024;
+    v24 = [v6 processIdentifier];
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "NOICLIENT <%p:%d> Consuming barrier block", &v21, 0x12u);
   }
 
   if (WeakRetained)
@@ -164,11 +162,11 @@ void __57__Client_observeValueForKeyPath_ofObject_change_context___block_invoke(
         {
           v19 = [v7 connection];
           v20 = [v19 processIdentifier];
-          v22 = 134218240;
-          v23 = v7;
-          v24 = 1024;
-          v25 = v20;
-          _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_INFO, "NOICLIENT <%p:%d> Client has no subscribed NOIs. Skipping subscribed NOI refresh", &v22, 0x12u);
+          v21 = 134218240;
+          v22 = v7;
+          v23 = 1024;
+          v24 = v20;
+          _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_INFO, "NOICLIENT <%p:%d> Client has no subscribed NOIs. Skipping subscribed NOI refresh", &v21, 0x12u);
         }
       }
 
@@ -178,11 +176,11 @@ void __57__Client_observeValueForKeyPath_ofObject_change_context___block_invoke(
         {
           v13 = [v7 connection];
           v14 = [v13 processIdentifier];
-          v22 = 134218240;
-          v23 = v7;
-          v24 = 1024;
-          v25 = v14;
-          _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "NOICLIENT <%p:%d> Client resumed. Sending refresh updates for subscribed NOIs", &v22, 0x12u);
+          v21 = 134218240;
+          v22 = v7;
+          v23 = 1024;
+          v24 = v14;
+          _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "NOICLIENT <%p:%d> Client resumed. Sending refresh updates for subscribed NOIs", &v21, 0x12u);
         }
 
         v15 = objc_alloc(MEMORY[0x277CBEB98]);
@@ -197,13 +195,11 @@ void __57__Client_observeValueForKeyPath_ofObject_change_context___block_invoke(
 
     objc_sync_exit(v7);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldSendMessages
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   activeMessageCount = selfCopy->_activeMessageCount;
@@ -218,15 +214,15 @@ void __57__Client_observeValueForKeyPath_ofObject_change_context___block_invoke(
         connection = [(Client *)selfCopy connection];
         processIdentifier = [connection processIdentifier];
         v7 = selfCopy->_activeMessageCount;
-        v20 = 134218752;
-        v21 = selfCopy;
-        v22 = 1024;
-        v23 = processIdentifier;
-        v24 = 2048;
-        v25 = v7;
-        v26 = 1024;
-        v27 = 16;
-        _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "NOICLIENT <%p:%d> Current message count (%ld) is above sent XPC message limit (%d). Suspending NOI updates", &v20, 0x22u);
+        v19 = 134218752;
+        v20 = selfCopy;
+        v21 = 1024;
+        v22 = processIdentifier;
+        v23 = 2048;
+        v24 = v7;
+        v25 = 1024;
+        v26 = 16;
+        _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "NOICLIENT <%p:%d> Current message count (%ld) is above sent XPC message limit (%d). Suspending NOI updates", &v19, 0x22u);
       }
 
       goto LABEL_13;
@@ -252,15 +248,15 @@ LABEL_14:
         connection2 = [(Client *)selfCopy connection];
         processIdentifier2 = [connection2 processIdentifier];
         v16 = selfCopy->_activeMessageCount;
-        v20 = 134218752;
-        v21 = selfCopy;
-        v22 = 1024;
-        v23 = processIdentifier2;
-        v24 = 2048;
-        v25 = v16;
-        v26 = 1024;
-        v27 = 8;
-        _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "NOICLIENT <%p:%d> Current message count (%ld) is still above XPC message resume limit (%d). NOI updates are still suspended (dropping message)", &v20, 0x22u);
+        v19 = 134218752;
+        v20 = selfCopy;
+        v21 = 1024;
+        v22 = processIdentifier2;
+        v23 = 2048;
+        v24 = v16;
+        v25 = 1024;
+        v26 = 8;
+        _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "NOICLIENT <%p:%d> Current message count (%ld) is still above XPC message resume limit (%d). NOI updates are still suspended (dropping message)", &v19, 0x22u);
       }
 
 LABEL_13:
@@ -277,17 +273,17 @@ LABEL_13:
       processIdentifier3 = [connection3 processIdentifier];
       v11 = selfCopy->_activeMessageCount;
       v12 = selfCopy->_droppedMessageCount;
-      v20 = 134219008;
-      v21 = selfCopy;
-      v22 = 1024;
-      v23 = processIdentifier3;
-      v24 = 2048;
-      v25 = v11;
-      v26 = 1024;
-      v27 = 8;
-      v28 = 2048;
-      v29 = v12;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "NOICLIENT <%p:%d> Current message count (%ld) is below XPC message resume limit (%d). Resuming NOI updates (%ld dropped messages)", &v20, 0x2Cu);
+      v19 = 134219008;
+      v20 = selfCopy;
+      v21 = 1024;
+      v22 = processIdentifier3;
+      v23 = 2048;
+      v24 = v11;
+      v25 = 1024;
+      v26 = 8;
+      v27 = 2048;
+      v28 = v12;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "NOICLIENT <%p:%d> Current message count (%ld) is below XPC message resume limit (%d). Resuming NOI updates (%ld dropped messages)", &v19, 0x2Cu);
     }
 
     selfCopy->_droppedMessageCount = 0;
@@ -297,13 +293,12 @@ LABEL_15:
   shouldSendMessages = selfCopy->_shouldSendMessages;
   objc_sync_exit(selfCopy);
 
-  v18 = *MEMORY[0x277D85DE8];
   return shouldSendMessages;
 }
 
 - (void)_sendBarrierIfNecessaryWithBlock:(id)block
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -313,11 +308,11 @@ LABEL_15:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       connection = [(Client *)selfCopy connection];
-      v14 = 134218240;
-      v15 = selfCopy;
-      v16 = 1024;
+      v13 = 134218240;
+      v14 = selfCopy;
+      v15 = 1024;
       processIdentifier = [connection processIdentifier];
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "NOICLIENT <%p:%d> Sending barrier block", &v14, 0x12u);
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "NOICLIENT <%p:%d> Sending barrier block", &v13, 0x12u);
     }
 
     [(NSXPCConnection *)selfCopy->_connection addBarrierBlock:blockCopy];
@@ -329,26 +324,24 @@ LABEL_15:
       processIdentifier2 = [connection2 processIdentifier];
       activeMessageCount = selfCopy->_activeMessageCount;
       barrierMessageCount = selfCopy->_barrierMessageCount;
-      v14 = 134218752;
-      v15 = selfCopy;
-      v16 = 1024;
+      v13 = 134218752;
+      v14 = selfCopy;
+      v15 = 1024;
       processIdentifier = processIdentifier2;
-      v18 = 2048;
-      v19 = barrierMessageCount;
-      v20 = 2048;
-      v21 = activeMessageCount;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "NOICLIENT <%p:%d> Reset barrier send counter (%ld); message count (%ld)", &v14, 0x26u);
+      v17 = 2048;
+      v18 = barrierMessageCount;
+      v19 = 2048;
+      v20 = activeMessageCount;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "NOICLIENT <%p:%d> Reset barrier send counter (%ld); message count (%ld)", &v13, 0x26u);
     }
   }
 
   objc_sync_exit(selfCopy);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_incrementMessageCounter:(int64_t)counter
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   *&selfCopy->_activeMessageCount = vaddq_s64(*&selfCopy->_activeMessageCount, vdupq_n_s64(counter));
@@ -359,24 +352,23 @@ LABEL_15:
     processIdentifier = [connection processIdentifier];
     activeMessageCount = selfCopy->_activeMessageCount;
     barrierMessageCount = selfCopy->_barrierMessageCount;
-    v11 = 134218752;
-    v12 = selfCopy;
-    v13 = 1024;
-    v14 = processIdentifier;
-    v15 = 2048;
-    v16 = activeMessageCount;
-    v17 = 2048;
-    v18 = barrierMessageCount;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "NOICLIENT <%p:%d> Incremented message count (%ld); barrier send counter (%ld)", &v11, 0x26u);
+    v10 = 134218752;
+    v11 = selfCopy;
+    v12 = 1024;
+    v13 = processIdentifier;
+    v14 = 2048;
+    v15 = activeMessageCount;
+    v16 = 2048;
+    v17 = barrierMessageCount;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "NOICLIENT <%p:%d> Incremented message count (%ld); barrier send counter (%ld)", &v10, 0x26u);
   }
 
   objc_sync_exit(selfCopy);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_decrementMessageCounter:(int64_t)counter
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v5 = selfCopy->_activeMessageCount - counter;
@@ -389,15 +381,15 @@ LABEL_15:
       connection = [(Client *)selfCopy connection];
       processIdentifier = [connection processIdentifier];
       activeMessageCount = selfCopy->_activeMessageCount;
-      v16 = 134218752;
-      v17 = selfCopy;
-      v18 = 1024;
-      v19 = processIdentifier;
-      v20 = 2048;
-      v21 = activeMessageCount;
-      v22 = 2048;
+      v15 = 134218752;
+      v16 = selfCopy;
+      v17 = 1024;
+      v18 = processIdentifier;
+      v19 = 2048;
+      v20 = activeMessageCount;
+      v21 = 2048;
       counterCopy = counter;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "NOICLIENT <%p:%d> Message count underflow! (%ld, decremented by %ld) Resetting to 0", &v16, 0x26u);
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "NOICLIENT <%p:%d> Message count underflow! (%ld, decremented by %ld) Resetting to 0", &v15, 0x26u);
     }
 
     selfCopy->_activeMessageCount = 0;
@@ -410,19 +402,18 @@ LABEL_15:
     processIdentifier2 = [connection2 processIdentifier];
     v13 = selfCopy->_activeMessageCount;
     barrierMessageCount = selfCopy->_barrierMessageCount;
-    v16 = 134218752;
-    v17 = selfCopy;
-    v18 = 1024;
-    v19 = processIdentifier2;
-    v20 = 2048;
-    v21 = v13;
-    v22 = 2048;
+    v15 = 134218752;
+    v16 = selfCopy;
+    v17 = 1024;
+    v18 = processIdentifier2;
+    v19 = 2048;
+    v20 = v13;
+    v21 = 2048;
     counterCopy = barrierMessageCount;
-    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "NOICLIENT <%p:%d> Decremented message count (%ld); barrier send counter (%ld)", &v16, 0x26u);
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "NOICLIENT <%p:%d> Decremented message count (%ld); barrier send counter (%ld)", &v15, 0x26u);
   }
 
   objc_sync_exit(selfCopy);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

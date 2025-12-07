@@ -88,10 +88,10 @@ LABEL_8:
 
 - (CoreThemeDefinitionMigrator)initWithURL:(id)l oldVersion:(int64_t)version newVersion:(int64_t)newVersion
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = CoreThemeDefinitionMigrator;
-  v8 = [(CoreThemeDefinitionMigrator *)&v20 init];
+  v21 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = CoreThemeDefinitionMigrator;
+  v8 = [(CoreThemeDefinitionMigrator *)&v19 init];
   v9 = v8;
   if (v8)
   {
@@ -119,8 +119,7 @@ LABEL_8:
       {
 LABEL_9:
 
-        v9 = 0;
-        goto LABEL_10;
+        return 0;
       }
     }
 
@@ -139,8 +138,6 @@ LABEL_9:
     -[CoreThemeDefinitionMigrator setTemporaryMigrationPath:](v9, "setTemporaryMigrationPath:", [objc_msgSend(objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")]);
   }
 
-LABEL_10:
-  v18 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -154,7 +151,7 @@ LABEL_10:
 
 - (id)mappingModelForMigrationWithError:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CBE458] inferredMappingModelForSourceModel:-[NSMigrationManager sourceModel](self->_migrationManager destinationModel:"sourceModel") error:{-[NSMigrationManager destinationModel](self->_migrationManager, "destinationModel"), error}];
   v5 = [(NSDictionary *)[(NSManagedObjectModel *)[(NSMigrationManager *)self->_migrationManager sourceModel] entitiesByName] objectForKey:@"SimpleArtworkRenditionSpec"];
   v6 = [(NSDictionary *)[(NSManagedObjectModel *)[(NSMigrationManager *)self->_migrationManager sourceModel] entitiesByName] objectForKey:@"SimpleArtworkElementProduction"];
@@ -162,28 +159,28 @@ LABEL_10:
   oldVersion = self->_oldVersion;
   if (oldVersion <= 21)
   {
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     obj = [v4 entityMappings];
-    v9 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v9 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
       v12 = 0;
-      v13 = *v35;
+      v13 = *v34;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v35 != v13)
+          if (*v34 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v34 + 1) + 8 * i);
+          v15 = *(*(&v33 + 1) + 8 * i);
           if ([objc_msgSend(v15 "destinationEntityName")])
           {
             v12 = v15;
@@ -209,7 +206,7 @@ LABEL_10:
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v10 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v10);
@@ -230,31 +227,31 @@ LABEL_10:
 LABEL_33:
     v4 = objc_alloc_init(MEMORY[0x277CBE458]);
     [v4 setEntityMappings:obj];
-    goto LABEL_34;
+    return v4;
   }
 
   if (oldVersion == 22)
   {
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     obj = [v4 entityMappings];
-    v18 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v18 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v31;
+      v20 = *v30;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v31 != v20)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v30 + 1) + 8 * j);
+          v22 = *(*(&v29 + 1) + 8 * j);
           if ([(NSEntityDescription *)[(NSMigrationManager *)self->_migrationManager sourceEntityForEntityMapping:v22] isKindOfEntity:v6])
           {
             v23 = objc_opt_class();
@@ -270,7 +267,7 @@ LABEL_33:
           }
         }
 
-        v19 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v19 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v19);
@@ -279,8 +276,6 @@ LABEL_33:
     goto LABEL_33;
   }
 
-LABEL_34:
-  v27 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

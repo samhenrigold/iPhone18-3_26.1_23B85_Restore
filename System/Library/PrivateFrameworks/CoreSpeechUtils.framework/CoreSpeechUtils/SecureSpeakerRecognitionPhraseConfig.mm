@@ -8,12 +8,10 @@
 
 - (NSString)name
 {
-  v2 = *(self + OBJC_IVAR___SecureSpeakerRecognitionPhraseConfig_name);
-  v3 = *(self + OBJC_IVAR___SecureSpeakerRecognitionPhraseConfig_name + 8);
 
-  v4 = sub_247994E74();
+  v2 = sub_247994E74();
 
-  return v4;
+  return v2;
 }
 
 - (SecureSpeakerRecognitionPhraseConfig)initWithName:(id)name satThreshold:(float)threshold satStrongAcceptThreshold:(float)acceptThreshold satStrongRejectThreshold:(float)rejectThreshold multiUserLowScoreThreshold:(int64_t)scoreThreshold multiUserHighScoreThreshold:(int64_t)highScoreThreshold multiUserConfidentScoreThreshold:(int64_t)confidentScoreThreshold multiUserDeltaScoreThreshold:(int64_t)self0

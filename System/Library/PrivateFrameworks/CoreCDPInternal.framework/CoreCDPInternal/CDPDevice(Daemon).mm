@@ -1,8 +1,8 @@
 @interface CDPDevice(Daemon)
+- (_BYTE)initWithEscrowRecord:()Daemon;
+- (_BYTE)initWithEscrowRecordMetadata:()Daemon;
+- (_BYTE)initWithSecureBackupMetadataInfo:()Daemon;
 - (_BYTE)initWithSecureBackupRecordInfo:()Daemon;
-- (id)initWithEscrowRecord:()Daemon;
-- (uint64_t)initWithEscrowRecordMetadata:()Daemon;
-- (uint64_t)initWithSecureBackupMetadataInfo:()Daemon;
 @end
 
 @implementation CDPDevice(Daemon)
@@ -52,7 +52,7 @@
   return v8;
 }
 
-- (id)initWithEscrowRecord:()Daemon
+- (_BYTE)initWithEscrowRecord:()Daemon
 {
   v5 = a3;
   v6 = v5;
@@ -104,7 +104,7 @@
   return selfCopy;
 }
 
-- (uint64_t)initWithSecureBackupMetadataInfo:()Daemon
+- (_BYTE)initWithSecureBackupMetadataInfo:()Daemon
 {
   v4 = a3;
   v5 = [self init];
@@ -206,7 +206,7 @@
   return v5;
 }
 
-- (uint64_t)initWithEscrowRecordMetadata:()Daemon
+- (_BYTE)initWithEscrowRecordMetadata:()Daemon
 {
   v4 = a3;
   v5 = [self init];

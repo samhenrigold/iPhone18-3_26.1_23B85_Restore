@@ -88,11 +88,14 @@
 - (NSString)userVisibleDescription;
 - (unsigned)audioContentBadge;
 - (unsigned)playbackState;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)_controlDidUpdate:(id)update;
 - (void)beginSeekBackwardWithCompletion:(id)completion;
 - (void)beginSeekForwardWithCompletion:(id)completion;
 - (void)changeMediaSourceWithIdentifier:(id)identifier completion:(id)completion;
 - (void)endSeekWithCompletion:(id)completion;
+- (void)jumpBackwardWithJumpInterval:(unsigned __int16)interval completion:(id)completion;
+- (void)jumpForwardWithJumpInterval:(unsigned __int16)interval completion:(id)completion;
 - (void)nextItemWithCompletion:(id)completion;
 - (void)pauseWithCompletion:(id)completion;
 - (void)playWithCompletion:(id)completion;
@@ -100,6 +103,7 @@
 - (void)registerObserver:(id)observer;
 - (void)setArtistSongNotificationWithCompletion:(id)completion;
 - (void)stopWithCompletion:(id)completion;
+- (void)tuneToFrequency:(unsigned int)frequency sourceIdentifier:(id)identifier completion:(id)completion;
 - (void)tuneToIdentifier:(id)identifier sourceIdentifier:(id)sourceIdentifier completion:(id)completion;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -1072,6 +1076,29 @@ void __39__CAFNowPlaying_endSeekWithCompletion___block_invoke(uint64_t a1)
   return v4;
 }
 
+- (void)jumpForwardWithJumpInterval:(unsigned __int16)interval completion:(id)completion
+{
+  intervalCopy = interval;
+  completionCopy = completion;
+  jumpForwardControl = [(CAFNowPlaying *)self jumpForwardControl];
+  v8 = jumpForwardControl;
+  if (jumpForwardControl)
+  {
+    [jumpForwardControl jumpForwardWithJumpInterval:intervalCopy completion:completionCopy];
+  }
+
+  else if (completionCopy)
+  {
+    v9 = dispatch_get_global_queue(33, 0);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __56__CAFNowPlaying_jumpForwardWithJumpInterval_completion___block_invoke;
+    block[3] = &unk_27890D5E8;
+    v11 = completionCopy;
+    dispatch_async(v9, block);
+  }
+}
+
 void __56__CAFNowPlaying_jumpForwardWithJumpInterval_completion___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
@@ -1110,6 +1137,29 @@ void __56__CAFNowPlaying_jumpForwardWithJumpInterval_completion___block_invoke(u
   }
 
   return v4;
+}
+
+- (void)jumpBackwardWithJumpInterval:(unsigned __int16)interval completion:(id)completion
+{
+  intervalCopy = interval;
+  completionCopy = completion;
+  jumpBackwardControl = [(CAFNowPlaying *)self jumpBackwardControl];
+  v8 = jumpBackwardControl;
+  if (jumpBackwardControl)
+  {
+    [jumpBackwardControl jumpBackwardWithJumpInterval:intervalCopy completion:completionCopy];
+  }
+
+  else if (completionCopy)
+  {
+    v9 = dispatch_get_global_queue(33, 0);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __57__CAFNowPlaying_jumpBackwardWithJumpInterval_completion___block_invoke;
+    block[3] = &unk_27890D5E8;
+    v11 = completionCopy;
+    dispatch_async(v9, block);
+  }
 }
 
 void __57__CAFNowPlaying_jumpBackwardWithJumpInterval_completion___block_invoke(uint64_t a1)
@@ -1198,6 +1248,30 @@ void __62__CAFNowPlaying_tuneToIdentifier_sourceIdentifier_completion___block_in
   }
 
   return v4;
+}
+
+- (void)tuneToFrequency:(unsigned int)frequency sourceIdentifier:(id)identifier completion:(id)completion
+{
+  v6 = *&frequency;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  tuneToFrequencyControl = [(CAFNowPlaying *)self tuneToFrequencyControl];
+  v11 = tuneToFrequencyControl;
+  if (tuneToFrequencyControl)
+  {
+    [tuneToFrequencyControl tuneToFrequency:v6 sourceIdentifier:identifierCopy completion:completionCopy];
+  }
+
+  else if (completionCopy)
+  {
+    v12 = dispatch_get_global_queue(33, 0);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __61__CAFNowPlaying_tuneToFrequency_sourceIdentifier_completion___block_invoke;
+    block[3] = &unk_27890D5E8;
+    v14 = completionCopy;
+    dispatch_async(v12, block);
+  }
 }
 
 void __61__CAFNowPlaying_tuneToFrequency_sourceIdentifier_completion___block_invoke(uint64_t a1)
@@ -1314,6 +1388,225 @@ void __57__CAFNowPlaying_setArtistSongNotificationWithCompletion___block_invoke(
   isDisabled = [setArtistSongNotificationControl isDisabled];
 
   return isDisabled;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000032000023"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    currentMediaSourceIdentifierCharacteristic = [(CAFNowPlaying *)self currentMediaSourceIdentifierCharacteristic];
+    uniqueIdentifier2 = [currentMediaSourceIdentifierCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      currentMediaSourceIdentifier = [(CAFNowPlaying *)self currentMediaSourceIdentifier];
+      [observers nowPlayingService:self didUpdateCurrentMediaSourceIdentifier:currentMediaSourceIdentifier];
+LABEL_32:
+
+      goto LABEL_33;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000032000003"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    titleCharacteristic = [(CAFNowPlaying *)self titleCharacteristic];
+    uniqueIdentifier4 = [titleCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      currentMediaSourceIdentifier = [(CAFNowPlaying *)self title];
+      [observers nowPlayingService:self didUpdateTitle:currentMediaSourceIdentifier];
+      goto LABEL_32;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000032000004"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    artistCharacteristic = [(CAFNowPlaying *)self artistCharacteristic];
+    uniqueIdentifier6 = [artistCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      currentMediaSourceIdentifier = [(CAFNowPlaying *)self artist];
+      [observers nowPlayingService:self didUpdateArtist:currentMediaSourceIdentifier];
+      goto LABEL_32;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000032000005"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    albumCharacteristic = [(CAFNowPlaying *)self albumCharacteristic];
+    uniqueIdentifier8 = [albumCharacteristic uniqueIdentifier];
+    v28 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v28)
+    {
+      observers = [(CAFService *)self observers];
+      currentMediaSourceIdentifier = [(CAFNowPlaying *)self album];
+      [observers nowPlayingService:self didUpdateAlbum:currentMediaSourceIdentifier];
+      goto LABEL_32;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType5 = [updateCopy characteristicType];
+  if ([characteristicType5 isEqual:@"0x0000000030000005"])
+  {
+    uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+    userVisibleDescriptionCharacteristic = [(CAFNowPlaying *)self userVisibleDescriptionCharacteristic];
+    uniqueIdentifier10 = [userVisibleDescriptionCharacteristic uniqueIdentifier];
+    v33 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+    if (v33)
+    {
+      observers = [(CAFService *)self observers];
+      currentMediaSourceIdentifier = [(CAFNowPlaying *)self userVisibleDescription];
+      [observers nowPlayingService:self didUpdateUserVisibleDescription:currentMediaSourceIdentifier];
+      goto LABEL_32;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType6 = [updateCopy characteristicType];
+  if ([characteristicType6 isEqual:@"0x0000000032000020"])
+  {
+    uniqueIdentifier11 = [updateCopy uniqueIdentifier];
+    artworkCharacteristic = [(CAFNowPlaying *)self artworkCharacteristic];
+    uniqueIdentifier12 = [artworkCharacteristic uniqueIdentifier];
+    v38 = [uniqueIdentifier11 isEqual:uniqueIdentifier12];
+
+    if (v38)
+    {
+      observers = [(CAFService *)self observers];
+      currentMediaSourceIdentifier = [(CAFNowPlaying *)self artwork];
+      [observers nowPlayingService:self didUpdateArtwork:currentMediaSourceIdentifier];
+      goto LABEL_32;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType7 = [updateCopy characteristicType];
+  if ([characteristicType7 isEqual:@"0x0000000032000032"])
+  {
+    uniqueIdentifier13 = [updateCopy uniqueIdentifier];
+    jumpBackwardIntervalCharacteristic = [(CAFNowPlaying *)self jumpBackwardIntervalCharacteristic];
+    uniqueIdentifier14 = [jumpBackwardIntervalCharacteristic uniqueIdentifier];
+    v43 = [uniqueIdentifier13 isEqual:uniqueIdentifier14];
+
+    if (v43)
+    {
+      observers = [(CAFService *)self observers];
+      currentMediaSourceIdentifier = [(CAFNowPlaying *)self jumpBackwardInterval];
+      [observers nowPlayingService:self didUpdateJumpBackwardInterval:currentMediaSourceIdentifier];
+      goto LABEL_32;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType8 = [updateCopy characteristicType];
+  if ([characteristicType8 isEqual:@"0x0000000032000033"])
+  {
+    uniqueIdentifier15 = [updateCopy uniqueIdentifier];
+    jumpForwardIntervalCharacteristic = [(CAFNowPlaying *)self jumpForwardIntervalCharacteristic];
+    uniqueIdentifier16 = [jumpForwardIntervalCharacteristic uniqueIdentifier];
+    v48 = [uniqueIdentifier15 isEqual:uniqueIdentifier16];
+
+    if (v48)
+    {
+      observers = [(CAFService *)self observers];
+      currentMediaSourceIdentifier = [(CAFNowPlaying *)self jumpForwardInterval];
+      [observers nowPlayingService:self didUpdateJumpForwardInterval:currentMediaSourceIdentifier];
+      goto LABEL_32;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType9 = [updateCopy characteristicType];
+  if ([characteristicType9 isEqual:@"0x0000000032000034"])
+  {
+    uniqueIdentifier17 = [updateCopy uniqueIdentifier];
+    playbackStateCharacteristic = [(CAFNowPlaying *)self playbackStateCharacteristic];
+    uniqueIdentifier18 = [playbackStateCharacteristic uniqueIdentifier];
+    v53 = [uniqueIdentifier17 isEqual:uniqueIdentifier18];
+
+    if (v53)
+    {
+      observers = [(CAFService *)self observers];
+      [observers nowPlayingService:self didUpdatePlaybackState:{-[CAFNowPlaying playbackState](self, "playbackState")}];
+      goto LABEL_33;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if ([observers isEqual:@"0x0000000032000035"])
+  {
+    uniqueIdentifier19 = [updateCopy uniqueIdentifier];
+    audioContentBadgeCharacteristic = [(CAFNowPlaying *)self audioContentBadgeCharacteristic];
+    uniqueIdentifier20 = [audioContentBadgeCharacteristic uniqueIdentifier];
+    v57 = [uniqueIdentifier19 isEqual:uniqueIdentifier20];
+
+    if (!v57)
+    {
+      goto LABEL_34;
+    }
+
+    observers = [(CAFService *)self observers];
+    [observers nowPlayingService:self didUpdateAudioContentBadge:{-[CAFNowPlaying audioContentBadge](self, "audioContentBadge")}];
+  }
+
+LABEL_33:
+
+LABEL_34:
+  v58.receiver = self;
+  v58.super_class = CAFNowPlaying;
+  [(CAFService *)&v58 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (void)_controlDidUpdate:(id)update

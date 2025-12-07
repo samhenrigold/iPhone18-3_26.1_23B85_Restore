@@ -21,18 +21,17 @@
 
 - (id)forwardingTargetForSelector:(SEL)selector
 {
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    v5 = self->_delegate;
+    delegate = self->_delegate;
   }
 
   else
   {
-    v5 = 0;
+    delegate = 0;
   }
 
-  return v5;
+  return delegate;
 }
 
 - (id)_derivedExtensionAuxiliaryHostProtocol
@@ -114,15 +113,13 @@ void __57__AUHostExtensionContext__extensionAuxiliaryHostProtocol__block_invoke(
 
 + (id)_allowedItemPayloadClasses
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
+  v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
-  v9 = objc_opt_class();
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:3];
-  v4 = [v2 setWithArray:{v3, v7, v8}];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:3];
+  v4 = [v2 setWithArray:{v3, v6, v7}];
 
   return v4;
 }

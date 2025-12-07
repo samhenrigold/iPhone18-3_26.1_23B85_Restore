@@ -10,20 +10,17 @@
 
 - (OS_nw_agent_client)client
 {
-  v2 = *(self + OBJC_IVAR____TtC16DaemoniOSLibrary20SDAirDropAgentClient_client);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (NSString)bundleID
 {
-  v2 = *(self + OBJC_IVAR____TtC16DaemoniOSLibrary20SDAirDropAgentClient_bundleID);
-  v3 = *(self + OBJC_IVAR____TtC16DaemoniOSLibrary20SDAirDropAgentClient_bundleID + 8);
 
-  v4 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 - (id)browseResponse

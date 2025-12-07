@@ -84,7 +84,7 @@
 
 + (id)localRelativePathForLocalAbsoluteURL:(id)l localBaseURL:(id)rL
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   v8 = [self resolveSymlinksInURLThatMayNotFullyExist:lCopy];
@@ -122,13 +122,13 @@
     v15 = +[CalFoundationLogSubsystem defaultCategory];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v20 = 134218498;
-      v21 = v14;
-      v22 = 2112;
-      v23 = path;
-      v24 = 2112;
-      v25 = path2;
-      _os_log_error_impl(&dword_1B990D000, v15, OS_LOG_TYPE_ERROR, "Could not get location of base path substring at start of local absolute path. local base path range = %lu, local absolute path = %@, local base path = %@", &v20, 0x20u);
+      v19 = 134218498;
+      v20 = v14;
+      v21 = 2112;
+      v22 = path;
+      v23 = 2112;
+      v24 = path2;
+      _os_log_error_impl(&dword_1B990D000, v15, OS_LOG_TYPE_ERROR, "Could not get location of base path substring at start of local absolute path. local base path range = %lu, local absolute path = %@, local base path = %@", &v19, 0x20u);
     }
 
 LABEL_10:
@@ -138,20 +138,18 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v19 = v13 + ([path2 hasSuffix:@"/"]^ 1);
-  if (v19 >= [path length])
+  v18 = v13 + ([path2 hasSuffix:@"/"]^ 1);
+  if (v18 >= [path length])
   {
     v16 = &stru_1F379FFA8;
   }
 
   else
   {
-    v16 = [path substringFromIndex:v19];
+    v16 = [path substringFromIndex:v18];
   }
 
 LABEL_12:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -287,26 +285,9 @@ LABEL_12:
 
 + (void)getFileSizeForPath:fileManager:error:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_debug_impl(&dword_1B990D000, v0, OS_LOG_TYPE_DEBUG, "Could not read attributes of file. error = %@, path = %@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)localRelativePathForLocalAbsoluteURL:localBaseURL:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_1B990D000, v0, v1, "Could not get local base path. local absolute url = %@, local base url = %@");
   v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)localRelativePathForLocalAbsoluteURL:localBaseURL:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_1B990D000, v0, v1, "Could not get local absolute path. local absolute url = %@, local base url = %@");
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B990D000, v0, OS_LOG_TYPE_DEBUG, "Could not read attributes of file. error = %@, path = %@", v1, 0x16u);
 }
 
 @end

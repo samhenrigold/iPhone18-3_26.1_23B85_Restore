@@ -7,7 +7,7 @@
 
 - (ICMoveDataSource)initWithCollectionView:(id)view sourceObjectIds:(id)ids
 {
-  sub_1000054A4(0, &qword_1006BFEC0);
+  sub_1000054A4(0, &qword_1006BFEC0, NSManagedObjectID_ptr);
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   return sub_1003A1A68(view, v5);
 }

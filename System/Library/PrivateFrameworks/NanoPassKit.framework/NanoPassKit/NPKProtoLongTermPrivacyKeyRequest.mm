@@ -50,11 +50,10 @@
     [NPKProtoLongTermPrivacyKeyRequest writeTo:];
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteStringField();
   if (*&self->_has)
   {
-    reuseExisting = self->_reuseExisting;
     PBDataWriterWriteBOOLField();
   }
 }

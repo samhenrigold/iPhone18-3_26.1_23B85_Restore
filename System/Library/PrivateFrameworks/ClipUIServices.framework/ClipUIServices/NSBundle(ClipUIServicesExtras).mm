@@ -11,9 +11,9 @@
     +[NSBundle(ClipUIServicesExtras) cps_clipUIServicesBundle];
   }
 
-  v1 = cps_clipUIServicesBundle_bundle;
+  v2 = cps_clipUIServicesBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 @end

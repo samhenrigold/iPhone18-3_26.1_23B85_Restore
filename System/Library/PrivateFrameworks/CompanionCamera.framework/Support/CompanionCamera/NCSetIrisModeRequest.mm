@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)irisModeAsString:(int)string;
 - (int)StringAsIrisMode:(id)mode;
 - (int)irisMode;
 - (unint64_t)hash;
@@ -24,6 +25,21 @@
   {
     return 0;
   }
+}
+
+- (id)irisModeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100035120 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsIrisMode:(id)mode
@@ -89,7 +105,6 @@
 {
   if (*&self->_has)
   {
-    irisMode = self->_irisMode;
     PBDataWriterWriteInt32Field();
   }
 }

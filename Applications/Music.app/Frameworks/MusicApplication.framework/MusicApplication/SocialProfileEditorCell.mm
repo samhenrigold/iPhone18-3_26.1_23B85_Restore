@@ -14,7 +14,8 @@
   fieldCopy = field;
   stringCopy = string;
   selfCopy = self;
-  LOBYTE(length) = sub_4E8590(fieldCopy, location, length, v10, v12);
+  sub_4E8590(fieldCopy, location, length, v10, v12);
+  LOBYTE(length) = v16;
 
   return length & 1;
 }
@@ -22,7 +23,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_4E8C24();
+  sub_4E8C24(v2);
 }
 
 @end

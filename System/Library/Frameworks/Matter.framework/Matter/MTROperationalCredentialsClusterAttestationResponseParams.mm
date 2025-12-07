@@ -60,26 +60,26 @@
 
 - (MTROperationalCredentialsClusterAttestationResponseParams)initWithResponseValue:(NSDictionary *)responseValue error:(NSError *)error
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v6 = responseValue;
-  v52.receiver = self;
-  v52.super_class = MTROperationalCredentialsClusterAttestationResponseParams;
-  v7 = [(MTROperationalCredentialsClusterAttestationResponseParams *)&v52 init];
+  v51.receiver = self;
+  v51.super_class = MTROperationalCredentialsClusterAttestationResponseParams;
+  v7 = [(MTROperationalCredentialsClusterAttestationResponseParams *)&v51 init];
   if (v7)
   {
-    [MTRBaseDevice _responseDataForCommand:v6 clusterID:62 commandID:1 error:error];
-    if (!v51)
+    objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
+    if (!v50)
     {
 LABEL_33:
       v13 = 0;
 LABEL_34:
-      sub_238EA1758(&v51);
+      sub_238EA1758(&v50);
       goto LABEL_35;
     }
 
-    sub_2393C5AAC(v50);
-    sub_2393C5ADC(v50, *(v51 + 1), *(v51 + 3));
-    v8 = sub_2393C6FD0(v50, 256);
+    sub_2393C5AAC(v49);
+    sub_2393C5ADC(v49, *(v50 + 8), *(v50 + 24));
+    v8 = sub_2393C6FD0(v49, 256);
     v10 = v8;
     if (v8)
     {
@@ -89,8 +89,8 @@ LABEL_34:
 
     else
     {
-      memset(v49, 0, sizeof(v49));
-      v14 = sub_238F21A7C(v49, v50);
+      memset(v48, 0, sizeof(v48));
+      v14 = sub_238F21A7C(v48, v49);
       if (v14)
       {
         v11 = v15;
@@ -100,7 +100,7 @@ LABEL_34:
 
       else
       {
-        v16 = [(MTROperationalCredentialsClusterAttestationResponseParams *)v7 _setFieldsFromDecodableStruct:v49];
+        v16 = [(MTROperationalCredentialsClusterAttestationResponseParams *)v7 _setFieldsFromDecodableStruct:v48];
         v18 = v17;
         v12 = HIDWORD(v16);
         if (v16)
@@ -111,15 +111,15 @@ LABEL_34:
 
         else
         {
-          v44 = [(NSDictionary *)v6 objectForKeyedSubscript:@"data"];
+          v43 = [(NSDictionary *)v6 objectForKeyedSubscript:@"data"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v19 = v44;
+            v19 = v43;
             v20 = [v19 objectForKeyedSubscript:?];
             if (v20)
             {
-              v43 = v19;
+              v42 = v19;
               v21 = [v19 objectForKeyedSubscript:@"type"];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
@@ -127,35 +127,35 @@ LABEL_34:
                 v22 = [v19 objectForKeyedSubscript:@"type"];
                 v23 = [v22 isEqualToString:@"Structure"];
 
-                v19 = v43;
+                v19 = v42;
                 if (v23)
                 {
-                  v24 = [v43 objectForKeyedSubscript:@"value"];
-                  v40 = v24;
+                  v24 = [v42 objectForKeyedSubscript:@"value"];
+                  v39 = v24;
                   if (v24 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                   {
+                    v44 = 0u;
                     v45 = 0u;
                     v46 = 0u;
                     v47 = 0u;
-                    v48 = 0u;
                     obj = v24;
-                    v25 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+                    v25 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
                     if (v25)
                     {
-                      v34 = v25;
-                      v38 = *v46;
+                      v33 = v25;
+                      v37 = *v45;
                       v11 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-                      v33 = 8660;
+                      v32 = 8660;
 LABEL_18:
                       v26 = 0;
                       while (1)
                       {
-                        if (*v46 != v38)
+                        if (*v45 != v37)
                         {
                           objc_enumerationMutation(obj);
                         }
 
-                        v27 = *(*(&v45 + 1) + 8 * v26);
+                        v27 = *(*(&v44 + 1) + 8 * v26);
                         objc_opt_class();
                         if ((objc_opt_isKindOfClass() & 1) == 0)
                         {
@@ -164,8 +164,8 @@ LABEL_18:
                           goto LABEL_54;
                         }
 
-                        v41 = v27;
-                        v28 = [v41 objectForKeyedSubscript:@"contextTag"];
+                        v40 = v27;
+                        v28 = [v40 objectForKeyedSubscript:@"contextTag"];
                         if (!v28)
                         {
                           break;
@@ -180,24 +180,24 @@ LABEL_18:
                         v29 = v28;
                         if ([v29 isEqualToNumber:&unk_284C3E4E0])
                         {
-                          v32 = [v41 objectForKeyedSubscript:@"data"];
-                          if (v32 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+                          v31 = [v40 objectForKeyedSubscript:@"data"];
+                          if (v31 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                           {
-                            v36 = v32;
-                            v42 = [v36 objectForKeyedSubscript:@"type"];
-                            v39 = [v36 objectForKeyedSubscript:@"value"];
+                            v35 = v31;
+                            v41 = [v35 objectForKeyedSubscript:@"type"];
+                            v38 = [v35 objectForKeyedSubscript:@"value"];
                             v10 = 47;
                             v11 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-                            v33 = 8680;
-                            if (v42 && v39)
+                            v32 = 8680;
+                            if (v41 && v38)
                             {
                               objc_opt_class();
                               if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
                               {
-                                v35 = v42;
-                                if ([v35 isEqualToString:@"OctetString"])
+                                v34 = v41;
+                                if ([v34 isEqualToString:@"OctetString"])
                                 {
-                                  [(MTROperationalCredentialsClusterAttestationResponseParams *)v7 setAttestationChallenge:v39];
+                                  [(MTROperationalCredentialsClusterAttestationResponseParams *)v7 setAttestationChallenge:v38];
                                   v10 = 0;
                                   v11 = v18;
                                 }
@@ -208,13 +208,13 @@ LABEL_18:
                                   v12 = 8686;
                                 }
 
-                                v33 = v12;
+                                v32 = v12;
                               }
 
                               else
                               {
                                 v10 = 47;
-                                v33 = 8680;
+                                v32 = 8680;
                               }
                             }
                           }
@@ -223,17 +223,17 @@ LABEL_18:
                           {
                             v10 = 47;
                             v11 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-                            v33 = 8672;
+                            v32 = 8672;
                           }
 
                           v28 = v29;
                           goto LABEL_53;
                         }
 
-                        if (v34 == ++v26)
+                        if (v33 == ++v26)
                         {
-                          v34 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
-                          if (v34)
+                          v33 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+                          if (v33)
                           {
                             goto LABEL_18;
                           }
@@ -245,7 +245,7 @@ LABEL_18:
                       v10 = 47;
 LABEL_53:
 
-                      v12 = v33;
+                      v12 = v32;
                       goto LABEL_54;
                     }
 
@@ -299,7 +299,6 @@ LABEL_32:
   v13 = 0;
 LABEL_35:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

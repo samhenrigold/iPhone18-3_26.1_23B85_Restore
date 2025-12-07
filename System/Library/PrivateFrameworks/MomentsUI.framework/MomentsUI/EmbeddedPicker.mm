@@ -23,7 +23,7 @@
 
 - (EmbeddedPicker)initWithCoder:(id)coder
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd, &_s7Combine9PublishedVySbGMR);
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = &v10[-v6];
@@ -46,7 +46,7 @@
 
 - (void)setupSceneHostingWithConnectionUUID:(id)d
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v11 - v6;
   if (d)
@@ -65,12 +65,12 @@
   selfCopy = self;
   EmbeddedPicker.setupSceneHosting(connectionUUID:)(v7);
 
-  outlined destroy of UTType?(v7, &_s10Foundation4UUIDVSgMd);
+  outlined destroy of UTType?(v7, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
 }
 
 - (void)clientIsReady
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v12 - v4;
   v6 = type metadata accessor for TaskPriority();

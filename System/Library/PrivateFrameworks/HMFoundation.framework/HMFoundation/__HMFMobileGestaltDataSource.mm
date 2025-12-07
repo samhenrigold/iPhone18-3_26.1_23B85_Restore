@@ -11,10 +11,10 @@
 
 - (__HMFMobileGestaltDataSource)init
 {
-  v116[5] = *MEMORY[0x277D85DE8];
-  v107.receiver = self;
-  v107.super_class = __HMFMobileGestaltDataSource;
-  v2 = [(__HMFMobileGestaltDataSource *)&v107 init];
+  v115[5] = *MEMORY[0x277D85DE8];
+  v106.receiver = self;
+  v106.super_class = __HMFMobileGestaltDataSource;
+  v2 = [(__HMFMobileGestaltDataSource *)&v106 init];
   v3 = v2;
   if (v2)
   {
@@ -25,32 +25,32 @@
     v3->_queue = v6;
 
     v8 = v3;
-    v109 = @"UserAssignedDeviceName";
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v109 count:1];
+    v108 = @"UserAssignedDeviceName";
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v108 count:1];
     objc_initWeak(&location, v8);
     queue = [(__HMFMobileGestaltDataSource *)v8 queue];
-    v112 = MEMORY[0x277D85DD0];
-    v113 = 3221225472;
-    v114 = ____registerForUpdates_block_invoke;
-    v115 = &unk_2786E78B0;
-    objc_copyWeak(v116, &location);
+    v111 = MEMORY[0x277D85DD0];
+    v112 = 3221225472;
+    v113 = ____registerForUpdates_block_invoke;
+    v114 = &unk_2786E78B0;
+    objc_copyWeak(v115, &location);
     v8->_notificationToken = MGRegisterForUpdates();
 
-    objc_destroyWeak(v116);
+    objc_destroyWeak(v115);
     objc_destroyWeak(&location);
 
     v11 = v8;
     v12 = MEMORY[0x277CBEB18];
-    v112 = @"ProductType";
-    v113 = @"ModelNumber";
-    v114 = @"RegionInfo";
-    v115 = @"ProductName";
-    v116[0] = @"DeviceClass";
-    v116[1] = @"ReleaseType";
-    v116[2] = @"BuildVersion";
-    v116[3] = @"bluetooth-le";
-    v116[4] = @"DeviceColor";
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v112 count:9];
+    v111 = @"ProductType";
+    v112 = @"ModelNumber";
+    v113 = @"RegionInfo";
+    v114 = @"ProductName";
+    v115[0] = @"DeviceClass";
+    v115[1] = @"ReleaseType";
+    v115[2] = @"BuildVersion";
+    v115[3] = @"bluetooth-le";
+    v115[4] = @"DeviceColor";
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v111 count:9];
     v14 = [v12 arrayWithArray:v13];
 
     shouldFetchUserAssignedDeviceName = [(__HMFMobileGestaltDataSource *)v11 shouldFetchUserAssignedDeviceName];
@@ -399,27 +399,27 @@
       v79 = 0;
     }
 
+    v108 = 0;
     v109 = 0;
     v110 = 0;
-    v111 = 0;
     v80 = MEMORY[0x277CCAC38];
     v81 = v79;
     processInfo = [v80 processInfo];
     v83 = processInfo;
     if (processInfo)
     {
-      [processInfo operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(processInfo);
     }
 
     else
     {
+      v108 = 0;
       v109 = 0;
       v110 = 0;
-      v111 = 0;
     }
 
     v84 = [HMFSoftwareVersion alloc];
-    v85 = [(HMFSoftwareVersion *)v84 initWithMajorVersion:v109 minorVersion:v110 updateVersion:v111 buildVersion:v81];
+    v85 = [(HMFSoftwareVersion *)v84 initWithMajorVersion:v108 minorVersion:v109 updateVersion:v110 buildVersion:v81];
 
     if (v85)
     {
@@ -508,7 +508,7 @@ LABEL_114:
       CFRelease(v19);
 
 LABEL_115:
-      goto LABEL_116;
+      return v3;
     }
 
 LABEL_103:
@@ -545,8 +545,6 @@ LABEL_103:
     goto LABEL_114;
   }
 
-LABEL_116:
-  v105 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

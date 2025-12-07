@@ -17,7 +17,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   processIdentifier = [connectionCopy processIdentifier];
   v7 = _ATLogCategoryXPC();
@@ -25,8 +25,8 @@
   {
     *buf = 138543618;
     selfCopy = self;
-    v26 = 1024;
-    v27 = processIdentifier;
+    v25 = 1024;
+    v26 = processIdentifier;
     _os_log_impl(&dword_22392A000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ got connection from pid %i", buf, 0x12u);
   }
 
@@ -37,70 +37,65 @@
   [connectionCopy setRemoteObjectInterface:v10];
   v11 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2836FDFF0];
   [connectionCopy setExportedInterface:v11];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __61__ATServiceProxyListener_listener_shouldAcceptNewConnection___block_invoke;
-  v22[3] = &__block_descriptor_36_e5_v8__0l;
-  v23 = processIdentifier;
-  [connectionCopy setInterruptionHandler:v22];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __61__ATServiceProxyListener_listener_shouldAcceptNewConnection___block_invoke_54;
-  v18 = &unk_2784E90E0;
-  v21 = processIdentifier;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __61__ATServiceProxyListener_listener_shouldAcceptNewConnection___block_invoke;
+  v21[3] = &__block_descriptor_36_e5_v8__0l;
+  v22 = processIdentifier;
+  [connectionCopy setInterruptionHandler:v21];
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __61__ATServiceProxyListener_listener_shouldAcceptNewConnection___block_invoke_54;
+  v17 = &unk_2784E90E0;
+  v20 = processIdentifier;
   selfCopy2 = self;
-  v20 = v9;
+  v19 = v9;
   v12 = v9;
-  [connectionCopy setInvalidationHandler:&v15];
-  [WeakRetained addObserver:{v12, v15, v16, v17, v18, selfCopy2}];
+  [connectionCopy setInvalidationHandler:&v14];
+  [WeakRetained addObserver:{v12, v14, v15, v16, v17, selfCopy2}];
   [connectionCopy resume];
 
-  v13 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void __61__ATServiceProxyListener_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = _ATLogCategoryFramework();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5[0] = 67109120;
-    v5[1] = v3;
-    _os_log_impl(&dword_22392A000, v2, OS_LOG_TYPE_DEFAULT, "connection interrupted from pid: %i", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = v3;
+    _os_log_impl(&dword_22392A000, v2, OS_LOG_TYPE_DEFAULT, "connection interrupted from pid: %i", v4, 8u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __61__ATServiceProxyListener_listener_shouldAcceptNewConnection___block_invoke_54(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = _ATLogCategoryFramework();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 48);
-    v6[0] = 67109120;
-    v6[1] = v3;
-    _os_log_impl(&dword_22392A000, v2, OS_LOG_TYPE_DEFAULT, "connection invalidated from pid: %i", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v3;
+    _os_log_impl(&dword_22392A000, v2, OS_LOG_TYPE_DEFAULT, "connection invalidated from pid: %i", v5, 8u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
   [WeakRetained removeObserver:*(a1 + 40)];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = _ATLogCategoryFramework();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_22392A000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ stopping", &v7, 0xCu);
+    _os_log_impl(&dword_22392A000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ stopping", &v6, 0xCu);
   }
 
   listener = self->_listener;
@@ -111,19 +106,17 @@ void __61__ATServiceProxyListener_listener_shouldAcceptNewConnection___block_inv
     v5 = self->_listener;
     self->_listener = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = _ATLogCategoryFramework();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_22392A000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ starting", &v8, 0xCu);
+    _os_log_impl(&dword_22392A000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ starting", &v7, 0xCu);
   }
 
   v4 = objc_alloc(MEMORY[0x277CCAE98]);
@@ -133,7 +126,6 @@ void __61__ATServiceProxyListener_listener_shouldAcceptNewConnection___block_inv
 
   [(NSXPCListener *)self->_listener setDelegate:self];
   [(NSXPCListener *)self->_listener resume];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (ATServiceProxyListener)initWithService:(id)service

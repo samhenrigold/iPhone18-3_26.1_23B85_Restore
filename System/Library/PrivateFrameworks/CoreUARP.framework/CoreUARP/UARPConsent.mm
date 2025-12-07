@@ -227,11 +227,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  assetVersion = self->_assetVersion;
-  installerProgressDescription = self->_installerProgressDescription;
-  v8 = [v3 stringWithFormat:@"<%@: _accessoryName=%@, _appleModelNumber=%@, _assetVersion=%@, _consentDescription=%@ _warning=%@ _needsPostLogoutMode=%d, _installerProgressDescription=%@, _installerOverallProgress=%@>", v5, self->_accessoryName, self->_appleModelNumber, assetVersion, self->_consentDescription, self->_warning, self->_needsPostLogoutMode, installerProgressDescription, self->_installerOverallProgress];
+  v6 = [v3 stringWithFormat:@"<%@: _accessoryName=%@, _appleModelNumber=%@, _assetVersion=%@, _consentDescription=%@ _warning=%@ _needsPostLogoutMode=%d, _installerProgressDescription=%@, _installerOverallProgress=%@>", v5, self->_accessoryName, self->_appleModelNumber, self->_assetVersion, self->_consentDescription, self->_warning, self->_needsPostLogoutMode, self->_installerProgressDescription, self->_installerOverallProgress];
 
-  return v8;
+  return v6;
 }
 
 @end

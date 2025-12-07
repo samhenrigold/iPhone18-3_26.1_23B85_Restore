@@ -35,18 +35,18 @@
     v11 = 0;
     do
     {
-      v12 = *resources++;
+      ++resources;
       if (objc_opt_respondsToSelector())
       {
-        v13 = 2;
+        v12 = 2;
       }
 
       else
       {
-        v13 = 1;
+        v12 = 1;
       }
 
-      v11 |= v13;
+      v11 |= v12;
       --countCopy;
     }
 
@@ -81,12 +81,12 @@
 {
   length = range.length;
   location = range.location;
-  v14[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (([(MTLDevice *)[(_MTLCommandEncoder *)self device] requiresRaytracingEmulation]& 1) != 0)
   {
     if (length)
     {
-      v9 = (v14 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
+      v9 = (v12 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
       v10 = length;
       do
       {
@@ -98,13 +98,11 @@
       while (v10);
     }
 
-    [(IOGPUMetalRenderCommandEncoder *)self setVertexVisibleFunctionTables:v14 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0) withBufferRange:location, length];
-    v12 = *MEMORY[0x1E69E9840];
+    [(IOGPUMetalRenderCommandEncoder *)self setVertexVisibleFunctionTables:v12 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0) withBufferRange:location, length];
   }
 
   else
   {
-    v13 = *MEMORY[0x1E69E9840];
 
     [(IOGPUMetalRenderCommandEncoder *)self doesNotRecognizeSelector:a2];
   }
@@ -130,12 +128,12 @@
 {
   length = range.length;
   location = range.location;
-  v14[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (([(MTLDevice *)[(_MTLCommandEncoder *)self device] requiresRaytracingEmulation]& 1) != 0)
   {
     if (length)
     {
-      v9 = (v14 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
+      v9 = (v12 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
       v10 = length;
       do
       {
@@ -147,13 +145,11 @@
       while (v10);
     }
 
-    [(IOGPUMetalRenderCommandEncoder *)self setFragmentVisibleFunctionTables:v14 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0) withBufferRange:location, length];
-    v12 = *MEMORY[0x1E69E9840];
+    [(IOGPUMetalRenderCommandEncoder *)self setFragmentVisibleFunctionTables:v12 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0) withBufferRange:location, length];
   }
 
   else
   {
-    v13 = *MEMORY[0x1E69E9840];
 
     [(IOGPUMetalRenderCommandEncoder *)self doesNotRecognizeSelector:a2];
   }
@@ -179,12 +175,12 @@
 {
   length = range.length;
   location = range.location;
-  v14[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (([(MTLDevice *)[(_MTLCommandEncoder *)self device] requiresRaytracingEmulation]& 1) != 0)
   {
     if (length)
     {
-      v9 = (v14 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
+      v9 = (v12 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
       v10 = length;
       do
       {
@@ -196,13 +192,11 @@
       while (v10);
     }
 
-    [(IOGPUMetalRenderCommandEncoder *)self setTileVisibleFunctionTables:v14 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0) withBufferRange:location, length];
-    v12 = *MEMORY[0x1E69E9840];
+    [(IOGPUMetalRenderCommandEncoder *)self setTileVisibleFunctionTables:v12 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0) withBufferRange:location, length];
   }
 
   else
   {
-    v13 = *MEMORY[0x1E69E9840];
 
     [(IOGPUMetalRenderCommandEncoder *)self doesNotRecognizeSelector:a2];
   }
@@ -228,12 +222,12 @@
 {
   length = range.length;
   location = range.location;
-  v14[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (([(MTLDevice *)[(_MTLCommandEncoder *)self device] requiresRaytracingEmulation]& 1) != 0)
   {
     if (length)
     {
-      v9 = (v14 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
+      v9 = (v12 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
       v10 = length;
       do
       {
@@ -245,13 +239,11 @@
       while (v10);
     }
 
-    [(_MTLCommandEncoder *)self setObjectVisibleFunctionTables:v14 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0) withBufferRange:location, length];
-    v12 = *MEMORY[0x1E69E9840];
+    [(_MTLCommandEncoder *)self setObjectVisibleFunctionTables:v12 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0) withBufferRange:location, length];
   }
 
   else
   {
-    v13 = *MEMORY[0x1E69E9840];
 
     [(IOGPUMetalRenderCommandEncoder *)self doesNotRecognizeSelector:a2];
   }
@@ -277,12 +269,12 @@
 {
   length = range.length;
   location = range.location;
-  v14[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (([(MTLDevice *)[(_MTLCommandEncoder *)self device] requiresRaytracingEmulation]& 1) != 0)
   {
     if (length)
     {
-      v9 = (v14 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
+      v9 = (v12 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
       v10 = length;
       do
       {
@@ -294,13 +286,11 @@
       while (v10);
     }
 
-    [(_MTLCommandEncoder *)self setMeshVisibleFunctionTables:v14 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0) withBufferRange:location, length];
-    v12 = *MEMORY[0x1E69E9840];
+    [(_MTLCommandEncoder *)self setMeshVisibleFunctionTables:v12 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0) withBufferRange:location, length];
   }
 
   else
   {
-    v13 = *MEMORY[0x1E69E9840];
 
     [(IOGPUMetalRenderCommandEncoder *)self doesNotRecognizeSelector:a2];
   }

@@ -190,7 +190,7 @@ LABEL_7:
 
 - (void)_showActivitySpinnerInNavigationBar
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!self->_spinnerView)
   {
     v3 = [objc_alloc(MEMORY[0x1E69DC638]) initWithActivityIndicatorStyle:100];
@@ -208,12 +208,12 @@ LABEL_7:
 
     if (navigationItemShowingSpinner != navigationItem)
     {
-      v8 = _AAUILogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = _AAUILogSystem(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v16 = objc_opt_class();
-        _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "%@ changed navigation item for spinner!", buf, 0xCu);
+        v17 = objc_opt_class();
+        _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "%@ changed navigation item for spinner!", buf, 0xCu);
       }
     }
   }
@@ -221,17 +221,17 @@ LABEL_7:
   else
   {
     [(UIActivityIndicatorView *)self->_spinnerView startAnimating];
-    v14 = [objc_alloc(MEMORY[0x1E69DC708]) initWithCustomView:self->_spinnerView];
+    v15 = [objc_alloc(MEMORY[0x1E69DC708]) initWithCustomView:self->_spinnerView];
     topViewController2 = [(AAUIFamilySetupViewController *)self topViewController];
     navigationItem2 = [topViewController2 navigationItem];
-    v11 = self->_navigationItemShowingSpinner;
+    v12 = self->_navigationItemShowingSpinner;
     self->_navigationItemShowingSpinner = navigationItem2;
 
     rightBarButtonItems = [(UINavigationItem *)self->_navigationItemShowingSpinner rightBarButtonItems];
     originalRightBarButtonItems = self->_originalRightBarButtonItems;
     self->_originalRightBarButtonItems = rightBarButtonItems;
 
-    [(UINavigationItem *)self->_navigationItemShowingSpinner setRightBarButtonItem:v14];
+    [(UINavigationItem *)self->_navigationItemShowingSpinner setRightBarButtonItem:v15];
     self->_isShowingSpinner = 1;
   }
 }
@@ -257,7 +257,7 @@ LABEL_7:
 
   else
   {
-    v6 = _AAUILogSystem();
+    v6 = _AAUILogSystem(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 136315138;
@@ -269,48 +269,48 @@ LABEL_7:
 
 - (void)_loadRemoteUIPages
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   [(AAUIFamilySetupViewController *)self _showActivitySpinnerInNavigationBar];
   ams_sharedAccountStore = [MEMORY[0x1E6959A48] ams_sharedAccountStore];
   ams_activeiTunesAccount = [ams_sharedAccountStore ams_activeiTunesAccount];
 
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2050000000;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2050000000;
   v5 = getFAFamilySetupBuddyMLRequestClass_softClass;
-  v18 = getFAFamilySetupBuddyMLRequestClass_softClass;
+  v19 = getFAFamilySetupBuddyMLRequestClass_softClass;
   if (!getFAFamilySetupBuddyMLRequestClass_softClass)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v20 = __getFAFamilySetupBuddyMLRequestClass_block_invoke;
-    v21 = &unk_1E820BE08;
-    v22 = &v15;
+    v21 = __getFAFamilySetupBuddyMLRequestClass_block_invoke;
+    v22 = &unk_1E820BE08;
+    v23 = &v16;
     __getFAFamilySetupBuddyMLRequestClass_block_invoke(&buf);
-    v5 = v16[3];
+    v5 = v17[3];
   }
 
   v6 = v5;
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
   v7 = [v5 alloc];
-  v8 = [v7 initWithGrandSlamSigner:{self->_grandSlamSigner, v15}];
+  v8 = [v7 initWithGrandSlamSigner:{self->_grandSlamSigner, v16}];
   [v8 setiTunesAccount:ams_activeiTunesAccount];
   urlRequest = [v8 urlRequest];
   v10 = [urlRequest mutableCopy];
   startRemoteUIRequest = self->_startRemoteUIRequest;
   self->_startRemoteUIRequest = v10;
 
-  v12 = _AAUILogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = _AAUILogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = v8;
-    _os_log_impl(&dword_1C5355000, v12, OS_LOG_TYPE_DEFAULT, "Will load Family Setup remote UI using request: %@", &buf, 0xCu);
+    _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "Will load Family Setup remote UI using request: %@", &buf, 0xCu);
   }
 
-  v13 = objc_alloc_init(MEMORY[0x1E69C7048]);
+  v14 = objc_alloc_init(MEMORY[0x1E69C7048]);
   remoteUIController = self->_remoteUIController;
-  self->_remoteUIController = v13;
+  self->_remoteUIController = v14;
 
   [(RemoteUIController *)self->_remoteUIController setDelegate:self];
   [(RemoteUIController *)self->_remoteUIController setNavigationController:self];
@@ -319,16 +319,17 @@ LABEL_7:
 
 void __51__AAUIFamilySetupViewController__loadRemoteUIPages__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v5 = v4;
   if ((a2 & 1) == 0)
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AAUILogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Failed to load Family Setup remote UI: %@", &v6, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Failed to load Family Setup remote UI: %@", &v7, 0xCu);
     }
   }
 }
@@ -411,26 +412,30 @@ LABEL_9:
   dispatch_async(MEMORY[0x1E69E96A0], block);
   if ([responseCopy statusCode] == 401)
   {
-    v6 = _AAUILogSystem();
+    v6 = _AAUILogSystem(401);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "BML request returned 401. We need to re-auth...", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "BML request returned 401. We need to re-auth...", v9, 2u);
     }
 
     [(ACAccountStore *)self->_accountStore renewCredentialsForAccount:self->_account force:1 reason:0 completion:&__block_literal_global_93];
   }
 
-  else if ([(NSMutableURLRequest *)self->_currentRemoteUIRequest aa_addDeviceProvisioningInfoHeadersWithDSIDFromReponse:responseCopy])
+  else
   {
-    v7 = _AAUILogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = [(NSMutableURLRequest *)self->_currentRemoteUIRequest aa_addDeviceProvisioningInfoHeadersWithDSIDFromReponse:responseCopy];
+    if (v7)
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Device is provisioned... Reissuing request...", v8, 2u);
-    }
+      v8 = _AAUILogSystem(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        *v9 = 0;
+        _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Device is provisioned... Reissuing request...", v9, 2u);
+      }
 
-    [(RemoteUIController *)self->_remoteUIController loadRequest:self->_currentRemoteUIRequest completion:&__block_literal_global_96];
+      [(RemoteUIController *)self->_remoteUIController loadRequest:self->_currentRemoteUIRequest completion:&__block_literal_global_96];
+    }
   }
 }
 
@@ -438,7 +443,7 @@ void __75__AAUIFamilySetupViewController_remoteUIController_didReceiveHTTPRespon
 {
   v10 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 134218242;
@@ -451,16 +456,17 @@ void __75__AAUIFamilySetupViewController_remoteUIController_didReceiveHTTPRespon
 
 void __75__AAUIFamilySetupViewController_remoteUIController_didReceiveHTTPResponse___block_invoke_94(uint64_t a1, char a2, void *a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v5 = v4;
   if ((a2 & 1) == 0)
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AAUILogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Failed to load Family Setup remote UI: %@", &v6, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Failed to load Family Setup remote UI: %@", &v7, 0xCu);
     }
   }
 }

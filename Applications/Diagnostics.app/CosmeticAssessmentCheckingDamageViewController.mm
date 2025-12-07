@@ -38,7 +38,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000CFFCC();
+  sub_1000CFFCC(selfCopy, v2);
 }
 
 - (_TtC11Diagnostics46CosmeticAssessmentCheckingDamageViewController)initWithSpinnerText:(id)text

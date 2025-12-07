@@ -38,46 +38,43 @@ id sub_100001694()
 char *sub_1000016B4()
 {
   ObjectType = swift_getObjectType();
-  v18 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v1 = sub_100003070(v18);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v1);
+  v14 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  sub_100003070();
+  v2 = v1;
+  __chkstk_darwin(v3);
   sub_100003084();
-  v8 = v7 - v6;
-  v9 = type metadata accessor for OS_dispatch_queue.Attributes();
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9);
+  v6 = v5 - v4;
+  v7 = type metadata accessor for OS_dispatch_queue.Attributes();
+  __chkstk_darwin(v7);
   sub_100003084();
-  v11 = type metadata accessor for DispatchQoS();
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
+  v8 = type metadata accessor for DispatchQoS();
+  __chkstk_darwin(v8 - 8);
   sub_100003084();
   *&v0[OBJC_IVAR____TtC13SystemActions6Server_listener] = 0;
   sub_100002F58(0, &qword_10000C5C0, OS_dispatch_queue_ptr);
   static DispatchQoS.unspecified.getter();
-  v23 = &_swiftEmptyArrayStorage;
-  sub_100002E64(&qword_10000C5C8, &type metadata accessor for OS_dispatch_queue.Attributes);
+  v19 = &_swiftEmptyArrayStorage;
+  sub_100002E64(&qword_10000C5C8, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
   sub_100002504(&qword_10000C5D0, &unk_1000037C0);
   sub_100002EAC();
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v3 + 104))(v8, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v18);
+  (*(v2 + 104))(v6, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v14);
   *&v0[OBJC_IVAR____TtC13SystemActions6Server_serviceQueue] = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
   *&v0[OBJC_IVAR____TtC13SystemActions6Server_runners] = &_swiftEmptyDictionarySingleton;
-  v22.receiver = v0;
-  v22.super_class = ObjectType;
-  v13 = objc_msgSendSuper2(&v22, "init");
+  v18.receiver = v0;
+  v18.super_class = ObjectType;
+  v9 = objc_msgSendSuper2(&v18, "init");
   sub_100002F58(0, &qword_10000C5E0, BSServiceConnectionListener_ptr);
-  v21 = v13;
-  v14 = v13;
-  v15 = sub_100001988(sub_100002F98, v20);
-  v16 = *&v14[OBJC_IVAR____TtC13SystemActions6Server_listener];
-  *&v14[OBJC_IVAR____TtC13SystemActions6Server_listener] = v15;
+  v17 = v9;
+  v10 = v9;
+  v11 = sub_100001988(sub_100002F98, v16);
+  v12 = *&v10[OBJC_IVAR____TtC13SystemActions6Server_listener];
+  *&v10[OBJC_IVAR____TtC13SystemActions6Server_listener] = v11;
 
-  return v14;
+  return v10;
 }
 
-uint64_t sub_100001988(uint64_t a1, uint64_t a2)
+id sub_100001988(uint64_t a1, uint64_t a2)
 {
   v4 = swift_allocObject();
   *(v4 + 16) = a1;
@@ -115,119 +112,116 @@ id sub_100001ADC()
 id sub_100001B94(uint64_t a1, void *a2)
 {
   v3 = v2;
-  v5 = type metadata accessor for Logger();
-  v6 = sub_100003070(v5);
-  v61 = v7;
-  v62 = v6;
-  v9 = *(v8 + 64);
-  v10 = __chkstk_darwin(v6);
-  v12 = &v56 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v58 = &v56 - v13;
-  v14 = type metadata accessor for UUID();
-  v15 = sub_100003070(v14);
-  v59 = v16;
-  v60 = v15;
-  v18 = *(v17 + 64);
-  v19 = __chkstk_darwin(v15);
-  v20 = &v56 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v19);
-  v22 = &v56 - v21;
-  v23 = sub_100002504(&qword_10000C530, &qword_1000037A0);
-  v24 = *(*(v23 - 8) + 64);
-  __chkstk_darwin(v23 - 8);
-  v26 = &v56 - v25;
-  v27 = a2;
+  type metadata accessor for Logger();
+  sub_100003070();
+  v55 = v6;
+  v56 = v5;
+  v7 = __chkstk_darwin(v5);
+  v9 = &v50 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v52 = &v50 - v10;
+  type metadata accessor for UUID();
+  sub_100003070();
+  v53 = v12;
+  v54 = v11;
+  v14 = *(v13 + 64);
+  v15 = __chkstk_darwin(v11);
+  v16 = &v50 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v15);
+  v18 = &v50 - v17;
+  v19 = sub_100002504(&qword_10000C530, &qword_1000037A0);
+  __chkstk_darwin(v19 - 8);
+  v21 = &v50 - v20;
+  v22 = a2;
   RunnerConnection.Policy.Client.init(client:)();
-  v28 = type metadata accessor for RunnerConnection.Policy.Client();
-  v29 = sub_10000254C(v26, 1, v28);
-  sub_100002574(v26, &qword_10000C530, &qword_1000037A0);
-  if (v29 == 1)
+  v23 = type metadata accessor for RunnerConnection.Policy.Client();
+  v24 = sub_10000254C(v21, 1, v23);
+  sub_100002574(v21, &qword_10000C530, &qword_1000037A0);
+  if (v24 == 1)
   {
     static WFLog.subscript.getter();
-    v30 = v27;
-    v31 = Logger.logObject.getter();
-    v32 = static os_log_type_t.error.getter();
+    v25 = v22;
+    v26 = Logger.logObject.getter();
+    v27 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v31, v32))
+    if (os_log_type_enabled(v26, v27))
     {
-      v33 = swift_slowAlloc();
-      v34 = swift_slowAlloc();
-      *v33 = 138412290;
-      *(v33 + 4) = v30;
-      *v34 = v30;
-      v35 = v30;
-      _os_log_impl(&_mh_execute_header, v31, v32, "Client is not entitled as a trusted client: %@", v33, 0xCu);
-      sub_100002574(v34, &qword_10000C538, &unk_1000037A8);
+      v28 = swift_slowAlloc();
+      v29 = swift_slowAlloc();
+      *v28 = 138412290;
+      *(v28 + 4) = v25;
+      *v29 = v25;
+      v30 = v25;
+      _os_log_impl(&_mh_execute_header, v26, v27, "Client is not entitled as a trusted client: %@", v28, 0xCu);
+      sub_100002574(v29, &qword_10000C538, &unk_1000037A8);
     }
 
-    (*(v61 + 8))(v12, v62);
-    return [v30 invalidate];
+    (*(v55 + 8))(v9, v56);
+    return [v25 invalidate];
   }
 
   else
   {
     UUID.init()();
-    v37 = [objc_allocWithZone(WFBackgroundShortcutRunner) initWithProcessPolicy:1];
-    v38 = OBJC_IVAR____TtC13SystemActions6Server_runners;
+    v32 = [objc_allocWithZone(WFBackgroundShortcutRunner) initWithProcessPolicy:1];
+    v33 = OBJC_IVAR____TtC13SystemActions6Server_runners;
     swift_beginAccess();
-    v39 = v37;
-    v40 = *&v3[v38];
+    v34 = v32;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v64 = *&v3[v38];
-    sub_10000266C(v39, v22, isUniquelyReferenced_nonNull_native);
-    *&v3[v38] = v64;
+    v58 = *&v3[v33];
+    sub_10000266C(v34, v18, isUniquelyReferenced_nonNull_native);
+    *&v3[v33] = v58;
     swift_endAccess();
-    v42 = v59;
-    v43 = *(v59 + 16);
-    v57 = v22;
-    v44 = v22;
-    v45 = v60;
-    v43(v20, v44, v60);
-    v46 = (*(v42 + 80) + 32) & ~*(v42 + 80);
-    v47 = swift_allocObject();
-    *(v47 + 16) = v3;
-    *(v47 + 24) = v39;
-    (*(v42 + 32))(v47 + v46, v20, v45);
-    v48 = swift_allocObject();
-    *(v48 + 16) = sub_1000028EC;
-    *(v48 + 24) = v47;
+    v36 = v53;
+    v37 = *(v53 + 16);
+    v51 = v18;
+    v38 = v18;
+    v39 = v54;
+    v37(v16, v38, v54);
+    v40 = (*(v36 + 80) + 32) & ~*(v36 + 80);
+    v41 = swift_allocObject();
+    *(v41 + 16) = v3;
+    *(v41 + 24) = v34;
+    (*(v36 + 32))(v41 + v40, v16, v39);
+    v42 = swift_allocObject();
+    *(v42 + 16) = sub_1000028EC;
+    *(v42 + 24) = v41;
     aBlock[4] = sub_100002960;
-    aBlock[5] = v48;
+    aBlock[5] = v42;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = sub_100003068;
     aBlock[3] = &unk_100008428;
-    v49 = _Block_copy(aBlock);
-    v50 = v39;
-    v51 = v3;
+    v43 = _Block_copy(aBlock);
+    v44 = v34;
+    v45 = v3;
 
-    [v27 configureConnection:v49];
-    _Block_release(v49);
-    LOBYTE(v49) = swift_isEscapingClosureAtFileLocation();
+    [v22 configureConnection:v43];
+    _Block_release(v43);
+    LOBYTE(v43) = swift_isEscapingClosureAtFileLocation();
 
-    if (v49)
+    if (v43)
     {
       __break(1u);
     }
 
     else
     {
-      [v27 activate];
-      v52 = v58;
+      [v22 activate];
+      v46 = v52;
       static WFLog.subscript.getter();
-      v53 = Logger.logObject.getter();
-      v54 = static os_log_type_t.debug.getter();
-      if (os_log_type_enabled(v53, v54))
+      v47 = Logger.logObject.getter();
+      v48 = static os_log_type_t.debug.getter();
+      if (os_log_type_enabled(v47, v48))
       {
-        v55 = swift_slowAlloc();
-        *v55 = 134217984;
-        *(v55 + 4) = CACurrentMediaTime();
-        _os_log_impl(&_mh_execute_header, v53, v54, "[Performance] Connection came in: %f", v55, 0xCu);
+        v49 = swift_slowAlloc();
+        *v49 = 134217984;
+        *(v49 + 4) = CACurrentMediaTime();
+        _os_log_impl(&_mh_execute_header, v47, v48, "[Performance] Connection came in: %f", v49, 0xCu);
       }
 
-      (*(v61 + 8))(v52, v62);
-      (*(v42 + 8))(v57, v45);
+      (*(v55 + 8))(v46, v56);
+      (*(v36 + 8))(v51, v39);
     }
   }
 
@@ -237,10 +231,10 @@ id sub_100001B94(uint64_t a1, void *a2)
 void sub_100002168(void *a1, char *a2, uint64_t a3, uint64_t a4)
 {
   v8 = type metadata accessor for UUID();
-  v9 = sub_100003070(v8);
-  v11 = v10;
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v9);
+  sub_100003070();
+  v10 = v9;
+  v12 = *(v11 + 64);
+  __chkstk_darwin(v13);
   [a1 setTargetQueue:*&a2[OBJC_IVAR____TtC13SystemActions6Server_serviceQueue]];
   v14 = [objc_opt_self() userInitiated];
   [a1 setServiceQuality:v14];
@@ -250,11 +244,11 @@ void sub_100002168(void *a1, char *a2, uint64_t a3, uint64_t a4)
   [a1 setInterface:v15];
 
   [a1 setInterfaceTarget:a3];
-  (*(v11 + 16))(aBlock - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), a4, v8);
-  v16 = (*(v11 + 80) + 24) & ~*(v11 + 80);
+  (*(v10 + 16))(aBlock - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), a4, v8);
+  v16 = (*(v10 + 80) + 24) & ~*(v10 + 80);
   v17 = swift_allocObject();
   *(v17 + 16) = a2;
-  (*(v11 + 32))(v17 + v16, aBlock - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), v8);
+  (*(v10 + 32))(v17 + v16, aBlock - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), v8);
   aBlock[4] = sub_100002A58;
   aBlock[5] = v17;
   aBlock[0] = _NSConcreteStackBlock;
@@ -270,19 +264,17 @@ void sub_100002168(void *a1, char *a2, uint64_t a3, uint64_t a4)
 
 void sub_1000023B4(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4();
+  v4 = a2;
+  v3();
 }
 
 uint64_t sub_100002420(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
   swift_unknownObjectRetain();
-  v4(a2);
+  v3(a2);
 
   return swift_unknownObjectRelease();
 }
@@ -292,7 +284,6 @@ uint64_t sub_100002504(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -309,13 +300,11 @@ uint64_t sub_100002574(uint64_t a1, uint64_t *a2, uint64_t *a3)
 
 unint64_t sub_1000025D4(uint64_t a1)
 {
-  v2 = v1;
-  v4 = *(v2 + 40);
   type metadata accessor for UUID();
-  sub_100002E64(&qword_10000C5B0, &type metadata accessor for UUID);
-  v5 = dispatch thunk of Hashable._rawHashValue(seed:)();
+  sub_100002E64(&qword_10000C5B0, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
+  v2 = dispatch thunk of Hashable._rawHashValue(seed:)();
 
-  return sub_100002CA8(a1, v5);
+  return sub_100002CA8(a1, v2);
 }
 
 void sub_10000266C(uint64_t a1, uint64_t a2, char a3)
@@ -323,31 +312,29 @@ void sub_10000266C(uint64_t a1, uint64_t a2, char a3)
   v4 = v3;
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v27 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = *v3;
-  v14 = sub_1000025D4(a2);
-  v16 = *(v13 + 16);
-  v17 = (v15 & 1) == 0;
-  v18 = v16 + v17;
-  if (__OFADD__(v16, v17))
+  v11 = &v25 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = *v3;
+  v13 = sub_1000025D4(a2);
+  v15 = v12[2];
+  v16 = (v14 & 1) == 0;
+  v17 = v15 + v16;
+  if (__OFADD__(v15, v16))
   {
     __break(1u);
     goto LABEL_11;
   }
 
+  v18 = v13;
   v19 = v14;
-  v20 = v15;
   sub_100002504(&qword_10000C5A0, &qword_1000037B8);
-  if (!_NativeDictionary.ensureUnique(isUnique:capacity:)(a3 & 1, v18))
+  if (!_NativeDictionary.ensureUnique(isUnique:capacity:)(a3 & 1, v17))
   {
     goto LABEL_5;
   }
 
-  v21 = *v4;
-  v22 = sub_1000025D4(a2);
-  if ((v20 & 1) != (v23 & 1))
+  v20 = sub_1000025D4(a2);
+  if ((v19 & 1) != (v21 & 1))
   {
 LABEL_11:
     KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
@@ -355,27 +342,27 @@ LABEL_11:
     return;
   }
 
-  v19 = v22;
+  v18 = v20;
 LABEL_5:
-  v24 = *v4;
-  if (v20)
+  v22 = *v4;
+  if (v19)
   {
-    v25 = v24[7];
-    v26 = *(v25 + 8 * v19);
-    *(v25 + 8 * v19) = a1;
+    v23 = v22[7];
+    v24 = *(v23 + 8 * v18);
+    *(v23 + 8 * v18) = a1;
   }
 
   else
   {
-    (*(v9 + 16))(v12, a2, v8);
-    sub_100002BF0(v19, v12, a1, v24);
+    (*(v9 + 16))(v11, a2, v8);
+    sub_100002BF0(v18, v11, a1, v22);
   }
 }
 
 uint64_t sub_10000282C()
 {
   v1 = type metadata accessor for UUID();
-  sub_100003070(v1);
+  sub_100003070();
   v3 = v2;
   v4 = *(v2 + 80);
   v5 = (v4 + 32) & ~v4;
@@ -396,13 +383,6 @@ void sub_1000028EC(void *a1)
   sub_100002168(a1, v4, v5, v6);
 }
 
-uint64_t sub_100002960()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
-}
-
 uint64_t sub_100002988(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
@@ -413,7 +393,7 @@ uint64_t sub_100002988(uint64_t a1, uint64_t a2)
 uint64_t sub_1000029A0()
 {
   v1 = type metadata accessor for UUID();
-  sub_100003070(v1);
+  sub_100003070();
   v3 = v2;
   v4 = *(v2 + 80);
   v5 = (v4 + 24) & ~v4;
@@ -432,24 +412,21 @@ uint64_t sub_100002A58()
   v4 = *(v0 + 16);
   v5 = OBJC_IVAR____TtC13SystemActions6Server_runners;
   swift_beginAccess();
-  v6 = v0 + v3;
-  v7 = *(v4 + v5);
-  v8 = sub_1000025D4(v6);
-  if (v9)
+  v6 = sub_1000025D4(v0 + v3);
+  if (v7)
   {
-    v10 = v8;
-    v11 = *(v4 + v5);
+    v8 = v6;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v16 = *(v4 + v5);
-    v13 = v16[3];
+    v13 = *(v4 + v5);
+    v10 = v13[3];
     sub_100002504(&qword_10000C5A0, &qword_1000037B8);
-    _NativeDictionary.ensureUnique(isUnique:capacity:)(isUniquelyReferenced_nonNull_native, v13);
-    (*(v2 + 8))(v16[6] + *(v2 + 72) * v10, v1);
-    v14 = *(v16[7] + 8 * v10);
+    _NativeDictionary.ensureUnique(isUnique:capacity:)(isUniquelyReferenced_nonNull_native, v10);
+    (*(v2 + 8))(v13[6] + *(v2 + 72) * v8, v1);
+    v11 = *(v13[7] + 8 * v8);
     sub_100002F58(0, &qword_10000C5A8, WFBackgroundShortcutRunner_ptr);
-    sub_100002E64(&qword_10000C5B0, &type metadata accessor for UUID);
+    sub_100002E64(&qword_10000C5B0, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
     _NativeDictionary._delete(at:)();
-    *(v4 + v5) = v16;
+    *(v4 + v5) = v13;
   }
 
   return swift_endAccess();
@@ -480,21 +457,20 @@ uint64_t sub_100002BF0(unint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 
 unint64_t sub_100002CA8(uint64_t a1, uint64_t a2)
 {
-  v14 = a1;
+  v13 = a1;
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = v2 + 64;
-  v13 = ~(-1 << *(v2 + 32));
-  for (i = a2 & v13; ((1 << i) & *(v15 + ((i >> 3) & 0x1FFFFFFFFFFFFFF8))) != 0; i = (i + 1) & v13)
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = v2 + 64;
+  v12 = ~(-1 << *(v2 + 32));
+  for (i = a2 & v12; ((1 << i) & *(v14 + ((i >> 3) & 0x1FFFFFFFFFFFFFF8))) != 0; i = (i + 1) & v12)
   {
-    (*(v5 + 16))(v8, *(v2 + 48) + *(v5 + 72) * i, v4);
-    sub_100002E64(&qword_10000C5B8, &type metadata accessor for UUID);
-    v10 = dispatch thunk of static Equatable.== infix(_:_:)();
-    (*(v5 + 8))(v8, v4);
-    if (v10)
+    (*(v5 + 16))(v7, *(v2 + 48) + *(v5 + 72) * i, v4);
+    sub_100002E64(&qword_10000C5B8, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
+    v9 = dispatch thunk of static Equatable.== infix(_:_:)();
+    (*(v5 + 8))(v7, v4);
+    if (v9)
     {
       break;
     }
@@ -503,7 +479,7 @@ unint64_t sub_100002CA8(uint64_t a1, uint64_t a2)
   return i;
 }
 
-uint64_t sub_100002E64(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100002E64(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -534,7 +510,6 @@ uint64_t sub_100002F10(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -542,12 +517,11 @@ uint64_t sub_100002F10(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_100002F58(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_100002F58(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);

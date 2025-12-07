@@ -71,7 +71,7 @@
   else
   {
     selfCopy = self;
-    v21 = sub_10007FAA0();
+    v21 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v22 = sub_10007FAFC(selfCopy);
@@ -239,18 +239,17 @@
     if (!PairingSessionCreate())
     {
       selfCopy = self;
-      v13 = sub_10007FAA0();
+      v13 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         v14 = sub_10007FAFC(selfCopy);
         *buf = 138543618;
-        v17 = v14;
-        v18 = 2048;
+        v16 = v14;
+        v17 = 2048;
         sessionCopy = session;
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%{public}@Created pairing session with resumeSessionID: %llu", buf, 0x16u);
       }
 
-      pairingSession = self->_pairingSession;
       PairingSessionSetResumeInfo();
       selfCopy2 = selfCopy;
       goto LABEL_11;
@@ -270,13 +269,13 @@ LABEL_11:
 
   v6 = v5;
   selfCopy3 = self;
-  v8 = sub_10007FAA0();
+  v8 = sub_10007FAA0(selfCopy3);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     v9 = sub_10007FAFC(selfCopy3);
     *buf = 138543618;
-    v17 = v9;
-    v18 = 2048;
+    v16 = v9;
+    v17 = 2048;
     sessionCopy = v6;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to create pairing session with error: %ld", buf, 0x16u);
   }
@@ -287,7 +286,7 @@ LABEL_11:
 - (id)_handleLocalPairingIdentityRequestWithStatus:(int *)status
 {
   selfCopy = self;
-  v5 = sub_10007FAA0();
+  v5 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = sub_10007FAFC(selfCopy);
@@ -306,7 +305,7 @@ LABEL_11:
     if (!v9)
     {
       v11 = selfCopy;
-      v12 = sub_10007FAA0();
+      v12 = sub_10007FAA0(v11);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = sub_10007FAFC(v11);
@@ -329,7 +328,7 @@ LABEL_11:
   else
   {
     v14 = selfCopy;
-    v15 = sub_10007FAA0();
+    v15 = sub_10007FAA0(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = sub_10007FAFC(v14);
@@ -354,7 +353,7 @@ LABEL_11:
 {
   identifierCopy = identifier;
   selfCopy = self;
-  v8 = sub_10007FAA0();
+  v8 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = sub_10007FAFC(selfCopy);
@@ -375,7 +374,7 @@ LABEL_11:
     if (!v12)
     {
       v14 = selfCopy;
-      v15 = sub_10007FAA0();
+      v15 = sub_10007FAA0(v14);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         v16 = sub_10007FAFC(v14);
@@ -398,7 +397,7 @@ LABEL_11:
   else
   {
     v17 = selfCopy;
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(v17);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = sub_10007FAFC(v17);
@@ -422,7 +421,7 @@ LABEL_11:
 - (void)_initiateClientSessionSetupExchange
 {
   selfCopy = self;
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(selfCopy);
@@ -524,7 +523,7 @@ LABEL_6:
 - (void)_handleSetupExchangeComplete
 {
   selfCopy = self;
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(selfCopy);
@@ -543,7 +542,7 @@ LABEL_6:
   {
     _outputInfo = [NSError errorWithDomain:@"HAPErrorDomain" code:v6 userInfo:0];
     v8 = selfCopy;
-    v9 = sub_10007FAA0();
+    v9 = sub_10007FAA0(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = sub_10007FAFC(v8);
@@ -569,7 +568,7 @@ LABEL_6:
     {
       _broadcastInfo = [NSError errorWithDomain:@"HAPErrorDomain" code:v11 userInfo:0];
       v13 = selfCopy;
-      v14 = sub_10007FAA0();
+      v14 = sub_10007FAA0(v13);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         v15 = sub_10007FAFC(v13);
@@ -590,7 +589,7 @@ LABEL_6:
       if (!PairingSessionGetResumeInfo())
       {
         v16 = selfCopy;
-        v17 = sub_10007FAA0();
+        v17 = sub_10007FAA0(v16);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           v18 = sub_10007FAFC(v16);
@@ -686,7 +685,7 @@ LABEL_19:
   if ([(HAPSecuritySession *)self state])
   {
     selfCopy = self;
-    v4 = sub_10007FAA0();
+    v4 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = sub_10007FAFC(selfCopy);
@@ -886,7 +885,7 @@ LABEL_19:
     }
 
     selfCopy = self;
-    v11 = sub_10007FAA0();
+    v11 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = sub_10007FAFC(selfCopy);

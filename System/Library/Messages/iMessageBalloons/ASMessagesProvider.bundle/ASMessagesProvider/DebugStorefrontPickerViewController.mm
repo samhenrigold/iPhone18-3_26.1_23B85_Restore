@@ -23,13 +23,13 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_4B83F0();
+  sub_4B83F0(selfCopy);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_4B89C4();
+  sub_4B89C4(selfCopy);
 }
 
 - (void)setStorefront
@@ -52,7 +52,7 @@
 {
   viewCopy = view;
   selfCopy = self;
-  v7 = sub_4B944C();
+  v7 = sub_4B944C(viewCopy);
 
   return v7;
 }
@@ -64,7 +64,7 @@
   if (view)
   {
     v7 = view;
-    sub_BE70(0, &qword_93E550);
+    sub_BE70(0, &qword_93E550, UIView_ptr);
     sub_75D650();
     v9 = v8;
     v11 = v10;
@@ -92,27 +92,27 @@
 {
   viewCopy = view;
   selfCopy = self;
-  sub_4B94F0();
-  v9 = v8;
+  sub_4B94F0(viewCopy, row);
+  v10 = v9;
 
-  if (v9)
+  if (v10)
   {
-    v10 = sub_769210();
+    v11 = sub_769210();
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)pickerView:(id)view didSelectRow:(int64_t)row inComponent:(int64_t)component
 {
   viewCopy = view;
   selfCopy = self;
-  sub_4B95AC();
+  sub_4B95AC(viewCopy, row);
 }
 
 - (_TtC18ASMessagesProvider35DebugStorefrontPickerViewController)initWithNibName:(id)name bundle:(id)bundle

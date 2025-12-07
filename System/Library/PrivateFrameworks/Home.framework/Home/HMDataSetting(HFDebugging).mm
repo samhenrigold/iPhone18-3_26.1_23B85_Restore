@@ -7,7 +7,6 @@
 
 - (__CFString)hf_debugValueForData:()HFDebugging
 {
-  v12 = *MEMORY[0x277D85DE8];
   value = [self value];
   v5 = [MEMORY[0x277CCAC58] propertyListWithData:value options:0 format:a3 error:0];
   v6 = [v5 description];
@@ -19,8 +18,6 @@
   }
 
   v9 = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

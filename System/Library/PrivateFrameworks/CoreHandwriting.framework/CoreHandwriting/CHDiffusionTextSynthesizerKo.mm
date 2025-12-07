@@ -90,7 +90,7 @@
   ptr = self->_pipeline.__ptr_;
   if (ptr)
   {
-    self = sub_1838A290C(v2, *(ptr + 1));
+    sub_1838A290C(v2, *(ptr + 1));
   }
 
   else

@@ -33,7 +33,7 @@
 
 - (void)finishWithError:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (![(DADisableableObject *)self isDisabled]&& ![(DADClientDelegate *)self finished])
   {
@@ -42,12 +42,12 @@
     v6 = *(MEMORY[0x277D03988] + 6);
     if (os_log_type_enabled(v5, v6))
     {
-      *v18 = 138412546;
-      *&v18[4] = objc_opt_class();
-      *&v18[12] = 2112;
-      *&v18[14] = errorCopy;
-      v7 = *&v18[4];
-      _os_log_impl(&dword_248524000, v5, v6, "[%@] finished with error %@", v18, 0x16u);
+      *v17 = 138412546;
+      *&v17[4] = objc_opt_class();
+      *&v17[12] = 2112;
+      *&v17[14] = errorCopy;
+      v7 = *&v17[4];
+      _os_log_impl(&dword_248524000, v5, v6, "[%@] finished with error %@", v17, 0x16u);
     }
 
     client = [(DADClientDelegate *)self client];
@@ -76,17 +76,15 @@
       xpc_connection_send_message(rawConnection, v14);
     }
 
-    v15 = [(DADClientDelegate *)self client:*v18];
+    v15 = [(DADClientDelegate *)self client:*v17];
     delegateID2 = [(DADClientDelegate *)self delegateID];
     [v15 delegateWithIDIsGoingAway:delegateID2];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performRequest
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (![(DADisableableObject *)self isDisabled])
   {
     v3 = +[DADAgentManager sharedManager];
@@ -105,17 +103,15 @@
       if (os_log_type_enabled(v6, v7))
       {
         accountID2 = [(DADClientDelegate *)self accountID];
-        v11 = 138543362;
-        v12 = accountID2;
-        _os_log_impl(&dword_248524000, v6, v7, "Could not get an account with the ID [%{public}@]", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = accountID2;
+        _os_log_impl(&dword_248524000, v6, v7, "Could not get an account with the ID [%{public}@]", &v10, 0xCu);
       }
 
       v9 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D038E0] code:55 userInfo:0];
       [(DADClientGroupExpansionResponseDelegate *)self finishWithError:v9];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)groupExpansionFinishedWithResults:(id)results error:(id)error

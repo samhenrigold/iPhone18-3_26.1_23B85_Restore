@@ -26,7 +26,7 @@
 {
   titleCopy = title;
   title = [(SUUIProductPageTableHeaderView *)self title];
-  if (title != titleCopy && ([title isEqualToString:titleCopy] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(title) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)

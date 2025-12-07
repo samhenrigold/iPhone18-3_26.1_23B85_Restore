@@ -50,7 +50,7 @@
   *(swift_allocObject() + 16) = v4;
   selfCopy = self;
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD88E28);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD88E28, &qword_21B4DBDE8);
   sub_21B4C61B8();
 
   return 0;
@@ -60,7 +60,7 @@
 {
   selfCopy = self;
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD88E28);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD88E28, &qword_21B4DBDE8);
   sub_21B4C61B8();
 }
 

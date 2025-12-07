@@ -128,7 +128,6 @@ LABEL_8:
 
   if (name)
   {
-    name = self->_name;
     PBDataWriterWriteStringField();
   }
 }

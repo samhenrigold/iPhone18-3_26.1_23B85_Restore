@@ -20,11 +20,11 @@
 
 - (BOOL)_activate:(unint64_t)_activate completionHandler:(id)handler
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v46.receiver = self;
-  v46.super_class = HMDCharacteristicEventBase;
-  v7 = [(HMDEvent *)&v46 _activate:_activate completionHandler:0];
+  v45.receiver = self;
+  v45.super_class = HMDCharacteristicEventBase;
+  v7 = [(HMDEvent *)&v45 _activate:_activate completionHandler:0];
   characteristic = [(HMDCharacteristicEventBase *)self characteristic];
 
   if (characteristic)
@@ -45,9 +45,9 @@
           v28 = HMFGetLogIdentifier();
           v29 = HMFEnabledStatusToString();
           *buf = 138543618;
-          v49 = v28;
-          v50 = 2112;
-          v51 = v29;
+          v48 = v28;
+          v49 = 2112;
+          v50 = v29;
           _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Changing characteristic notification state to %@", buf, 0x16u);
         }
 
@@ -60,8 +60,8 @@
         characteristic3 = [(HMDCharacteristicEventBase *)selfCopy characteristic];
         accessory = [characteristic3 accessory];
         characteristic4 = [(HMDCharacteristicEventBase *)selfCopy characteristic];
-        v47 = characteristic4;
-        v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+        v46 = characteristic4;
+        v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
         [accessory setNotificationsEnabled:isActive forCharacteristics:v36 clientIdentifier:v16];
 
         v37 = _Block_copy(handlerCopy);
@@ -83,7 +83,7 @@
         {
           v42 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v49 = v42;
+          v48 = v42;
           _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_INFO, "%{public}@Not changing characteristic notification state because activation type has not changed", buf, 0xCu);
         }
 
@@ -109,9 +109,9 @@
         v14 = HMFGetLogIdentifier();
         characteristic5 = [(HMDCharacteristicEventBase *)selfCopy3 characteristic];
         *buf = 138543618;
-        v49 = v14;
-        v50 = 2112;
-        v51 = characteristic5;
+        v48 = v14;
+        v49 = 2112;
+        v50 = characteristic5;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Trigger contains a characteristic event (%@) which does not support notification, cannot enable the event trigger", buf, 0x16u);
       }
 
@@ -137,7 +137,7 @@ LABEL_11:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v49 = v22;
+      v48 = v22;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Characteristic is not yet available yet due to lack of PV or Resident sync, cannot enable the event trigger", buf, 0xCu);
     }
 
@@ -151,7 +151,6 @@ LABEL_11:
     }
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -239,7 +238,7 @@ LABEL_6:
 
 - (void)fixCharacteristicInHome:(id)home
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   characteristic = self->_characteristic;
   if (characteristic)
@@ -264,8 +263,8 @@ LABEL_6:
     accessoryUUID = [(HMDCharacteristicEventBase *)self accessoryUUID];
     serviceID = [(HMDCharacteristicEventBase *)self serviceID];
     characteristicInstanceID = [(HMDCharacteristicEventBase *)self characteristicInstanceID];
-    LOBYTE(v26) = 0;
-    v17 = [HMDCharacteristicEventBase lookForCharacteristicByAccessoryUUID:accessoryUUID serviceID:serviceID characteristicID:characteristicInstanceID inHome:homeCopy checkForSupport:0 outError:0 shouldLog:v26];
+    LOBYTE(v25) = 0;
+    v17 = [HMDCharacteristicEventBase lookForCharacteristicByAccessoryUUID:accessoryUUID serviceID:serviceID characteristicID:characteristicInstanceID inHome:homeCopy checkForSupport:0 outError:0 shouldLog:v25];
     v18 = self->_characteristic;
     self->_characteristic = v17;
 
@@ -279,9 +278,9 @@ LABEL_6:
         v22 = HMFGetLogIdentifier();
         v23 = self->_characteristic;
         *buf = 138543618;
-        v28 = v22;
-        v29 = 2112;
-        v30 = v23;
+        v27 = v22;
+        v28 = 2112;
+        v29 = v23;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Found characteristic, re-evaluating the event trigger %@", buf, 0x16u);
       }
 
@@ -290,8 +289,6 @@ LABEL_6:
       [eventTrigger reEvaluate:2];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCharacteristic)characteristic
@@ -327,7 +324,7 @@ LABEL_6:
   characteristicInstanceID = [(HMDCharacteristicEventBase *)self characteristicInstanceID];
   [v5 setObject:characteristicInstanceID forKeyedSubscript:*MEMORY[0x277CD2140]];
 
-  v10 = [v5 copy];
+  v10 = objc_msgSend_copy(v5);
 
   return v10;
 }
@@ -355,39 +352,39 @@ void __71__HMDCharacteristicEventBase_handleCharacteristicsChangedNotification__
 
 - (void)__handleCharacteristicsChangedPayload:(id)payload
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   v5 = [payloadCopy hmf_arrayForKey:@"kModifiedCharacteristicsKey"];
   if (v5)
   {
-    v38 = payloadCopy;
+    v37 = payloadCopy;
     eventTrigger = [(HMDEvent *)self eventTrigger];
     home = [eventTrigger home];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v37 = v5;
+    v36 = v5;
     obj = v5;
-    v6 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
+    v6 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
     if (!v6)
     {
       goto LABEL_26;
     }
 
     v7 = v6;
-    v42 = *v44;
-    v39 = *MEMORY[0x277CD2188];
+    v41 = *v43;
+    v38 = *MEMORY[0x277CD2188];
     while (1)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v44 != v42)
+        if (*v43 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v43 + 1) + 8 * i);
+        v9 = *(*(&v42 + 1) + 8 * i);
         characteristicInstanceID = [(HMDCharacteristicEventBase *)self characteristicInstanceID];
         instanceID = [v9 instanceID];
         if (![characteristicInstanceID isEqual:instanceID])
@@ -412,9 +409,9 @@ void __71__HMDCharacteristicEventBase_handleCharacteristicsChangedNotification__
         {
           v19 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v48 = v19;
-          v49 = 2112;
-          v50 = v9;
+          v47 = v19;
+          v48 = 2112;
+          v49 = v9;
           _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Received notification that characteristic changed state, evaluating if trigger needs to be executed, %@", buf, 0x16u);
         }
 
@@ -432,7 +429,7 @@ void __71__HMDCharacteristicEventBase_handleCharacteristicsChangedNotification__
           value2 = [v9 value];
           [(HMDCharacteristicEventBase *)selfCopy setPreviousValue:value2];
 
-          [home saveToCurrentAccountWithReason:v39];
+          [home saveToCurrentAccountWithReason:v38];
         }
 
         if (v21)
@@ -452,17 +449,17 @@ void __71__HMDCharacteristicEventBase_handleCharacteristicsChangedNotification__
               v32 = "Firing";
             }
 
-            v48 = v30;
+            v47 = v30;
             v33 = "is not";
             if (isActive)
             {
               v33 = "is";
             }
 
-            v49 = 2080;
-            v50 = v32;
-            v51 = 2080;
-            v52 = v33;
+            v48 = 2080;
+            v49 = v32;
+            v50 = 2080;
+            v51 = v33;
             _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@%s event because it %s active", buf, 0x20u);
           }
 
@@ -476,19 +473,17 @@ LABEL_22:
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
+      v7 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
       if (!v7)
       {
 LABEL_26:
 
-        v5 = v37;
-        payloadCopy = v38;
+        v5 = v36;
+        payloadCopy = v37;
         break;
       }
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForMessages
@@ -568,7 +563,7 @@ LABEL_26:
 + (id)lookForCharacteristicByAccessoryUUID:(id)d serviceID:(id)iD characteristicID:(id)characteristicID inHome:(id)home checkForSupport:(BOOL)support outError:(id *)error shouldLog:(BOOL)log
 {
   supportCopy = support;
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   characteristicIDCopy = characteristicID;
@@ -601,14 +596,14 @@ LABEL_26:
         if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v38 = v50 = v35;
+          v38 = v49 = v35;
           *buf = 138543618;
-          v53 = v38;
-          v54 = 2112;
-          v55 = characteristicIDCopy;
+          v52 = v38;
+          v53 = 2112;
+          v54 = characteristicIDCopy;
           _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@Cannot find the given characteristic ID %@ in accessory", buf, 0x16u);
 
-          v35 = v50;
+          v35 = v49;
         }
 
         objc_autoreleasePoolPop(v35);
@@ -636,14 +631,14 @@ LABEL_40:
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v27 = v49 = v24;
+          v27 = v48 = v24;
           *buf = 138543618;
-          v53 = v27;
-          v54 = 2112;
-          v55 = v23;
+          v52 = v27;
+          v53 = 2112;
+          v54 = v23;
           _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Given characteristic %@ does not support notification", buf, 0x16u);
 
-          v24 = v49;
+          v24 = v48;
         }
 
         objc_autoreleasePoolPop(v24);
@@ -690,12 +685,12 @@ LABEL_44:
             if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
               HMFGetLogIdentifier();
-              v43 = v48 = v40;
+              v43 = v47 = v40;
               *buf = 138543362;
-              v53 = v43;
+              v52 = v43;
               _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_ERROR, "%{public}@The given characteristic is of type programmable switch and input event, but resident is not available", buf, 0xCu);
 
-              v40 = v48;
+              v40 = v47;
             }
 
             objc_autoreleasePoolPop(v40);
@@ -726,13 +721,13 @@ LABEL_43:
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v53 = v33;
-      v54 = 2112;
-      v55 = v21;
-      v56 = 2112;
-      v57 = iDCopy;
-      v58 = 2112;
-      v59 = characteristicIDCopy;
+      v52 = v33;
+      v53 = 2112;
+      v54 = v21;
+      v55 = 2112;
+      v56 = iDCopy;
+      v57 = 2112;
+      v58 = characteristicIDCopy;
       _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Associated accessory %@, service ID %@ or characteristic ID %@ is invalid", buf, 0x2Au);
     }
 
@@ -751,8 +746,6 @@ LABEL_43:
   }
 
 LABEL_46:
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return v34;
 }
@@ -787,10 +780,9 @@ LABEL_46:
 
 void __41__HMDCharacteristicEventBase_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_194006;
-  logCategory__hmf_once_v1_194006 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_194006;
+  logCategory__hmf_once_v1_194006 = v0;
 }
 
 @end

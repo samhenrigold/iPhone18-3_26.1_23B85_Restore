@@ -454,7 +454,7 @@ LABEL_9:
   return inCallControlAlignment_alignment;
 }
 
-uint64_t __43__PHUIConfiguration_inCallControlAlignment__block_invoke(uint64_t a1)
+char *__43__PHUIConfiguration_inCallControlAlignment__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) screenSize];
   if ((result - 1) > 0xE)
@@ -464,7 +464,7 @@ uint64_t __43__PHUIConfiguration_inCallControlAlignment__block_invoke(uint64_t a
 
   else
   {
-    v2 = qword_25E509D50[result - 1];
+    v2 = qword_25E509D50[(result - 1)];
   }
 
   inCallControlAlignment_alignment = v2;
@@ -535,7 +535,7 @@ unint64_t __43__PHUIConfiguration_inCallBottomBarSpacing__block_invoke(uint64_t 
   return inCallBottomBarLowerOffset_spacing;
 }
 
-uint64_t __47__PHUIConfiguration_inCallBottomBarLowerOffset__block_invoke(uint64_t a1)
+char *__47__PHUIConfiguration_inCallBottomBarLowerOffset__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) screenSize];
   if ((result - 1) > 7)
@@ -545,14 +545,14 @@ uint64_t __47__PHUIConfiguration_inCallBottomBarLowerOffset__block_invoke(uint64
 
   else
   {
-    v2 = qword_25E509EC0[result - 1];
+    v2 = qword_25E509EC0[(result - 1)];
   }
 
   inCallBottomBarLowerOffset_spacing = v2;
   return result;
 }
 
-uint64_t __48__PHUIConfiguration_inCallBottomBarMaxTitleSize__block_invoke(uint64_t a1)
+void *__48__PHUIConfiguration_inCallBottomBarMaxTitleSize__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) screenSize];
   inCallBottomBarMaxTitleSize_size = result == 0;
@@ -574,7 +574,7 @@ uint64_t __48__PHUIConfiguration_inCallBottomBarMaxTitleSize__block_invoke(uint6
   return inCallControlSize_size;
 }
 
-uint64_t __38__PHUIConfiguration_inCallControlSize__block_invoke(uint64_t a1)
+char *__38__PHUIConfiguration_inCallControlSize__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) screenSize];
   if ((result - 5) > 9)
@@ -584,7 +584,7 @@ uint64_t __38__PHUIConfiguration_inCallControlSize__block_invoke(uint64_t a1)
 
   else
   {
-    v2 = qword_25E509F00[result - 5];
+    v2 = qword_25E509F00[(result - 5)];
   }
 
   inCallControlSize_size = v2;
@@ -798,7 +798,7 @@ unint64_t __41__PHUIConfiguration_handsetDialerSpacing__block_invoke(uint64_t a1
   return handsetDialerSize_size;
 }
 
-uint64_t __38__PHUIConfiguration_handsetDialerSize__block_invoke(uint64_t a1)
+char *__38__PHUIConfiguration_handsetDialerSize__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) screenSize];
   if ((result - 1) > 0xE)
@@ -808,7 +808,7 @@ uint64_t __38__PHUIConfiguration_handsetDialerSize__block_invoke(uint64_t a1)
 
   else
   {
-    v2 = qword_25E509FF8[result - 1];
+    v2 = qword_25E509FF8[(result - 1)];
   }
 
   handsetDialerSize_size = v2;
@@ -938,7 +938,7 @@ unint64_t __57__PHUIConfiguration_yParticipantsViewAdjustmentForKeypad__block_in
   return contentViewSizeForFaceTime_size;
 }
 
-uint64_t __47__PHUIConfiguration_contentViewSizeForFaceTime__block_invoke(uint64_t a1)
+void *__47__PHUIConfiguration_contentViewSizeForFaceTime__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) screenSize];
   v2 = 1;
@@ -1003,13 +1003,13 @@ unint64_t __29__PHUIConfiguration_pipWidth__block_invoke(uint64_t a1)
   return *&pipWallInset_inset;
 }
 
-uint64_t __33__PHUIConfiguration_pipWallInset__block_invoke(uint64_t a1)
+char *__33__PHUIConfiguration_pipWallInset__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) screenSize];
   v2 = 13.0;
   if ((result - 4) <= 0xA)
   {
-    v2 = dbl_25E50A128[result - 4];
+    v2 = dbl_25E50A128[(result - 4)];
   }
 
   pipWallInset_inset = *&v2;
@@ -1031,7 +1031,7 @@ uint64_t __33__PHUIConfiguration_pipWallInset__block_invoke(uint64_t a1)
   return *&pipPartialHomeOffset_offset;
 }
 
-uint64_t __41__PHUIConfiguration_pipPartialHomeOffset__block_invoke(uint64_t a1)
+void *__41__PHUIConfiguration_pipPartialHomeOffset__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) screenSize];
   v2 = result == 9 || result == 4;
@@ -1060,7 +1060,7 @@ uint64_t __41__PHUIConfiguration_pipPartialHomeOffset__block_invoke(uint64_t a1)
   return *&pipRadius_radius;
 }
 
-uint64_t __30__PHUIConfiguration_pipRadius__block_invoke(uint64_t a1)
+void *__30__PHUIConfiguration_pipRadius__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) screenSize];
   v2 = 4.0;
@@ -1088,13 +1088,13 @@ uint64_t __30__PHUIConfiguration_pipRadius__block_invoke(uint64_t a1)
   return *&pipStatusBarPadding_padding;
 }
 
-uint64_t __40__PHUIConfiguration_pipStatusBarPadding__block_invoke(uint64_t a1)
+char *__40__PHUIConfiguration_pipStatusBarPadding__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) screenSize];
   v2 = 1.0;
   if ((result - 1) <= 0xE)
   {
-    v2 = dbl_25E50A180[result - 1];
+    v2 = dbl_25E50A180[(result - 1)];
   }
 
   pipStatusBarPadding_padding = *&v2;
@@ -1154,7 +1154,7 @@ unint64_t __48__PHUIConfiguration_inCallFaceTimeOverlayUISize__block_invoke(uint
   }
 }
 
-uint64_t __49__PHUIConfiguration_tableViewCellVerticalSpacing__block_invoke(uint64_t a1)
+void *__49__PHUIConfiguration_tableViewCellVerticalSpacing__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) screenSize];
   tableViewCellVerticalSpacing_spacing = result == 7;
@@ -1184,7 +1184,7 @@ uint64_t __49__PHUIConfiguration_tableViewCellVerticalSpacing__block_invoke(uint
   }
 }
 
-uint64_t __43__PHUIConfiguration_voicemailLayoutSpacing__block_invoke(uint64_t a1)
+void *__43__PHUIConfiguration_voicemailLayoutSpacing__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) screenSize];
   voicemailLayoutSpacing_size = result == 6;
@@ -1206,7 +1206,7 @@ uint64_t __43__PHUIConfiguration_voicemailLayoutSpacing__block_invoke(uint64_t a
   return preferShorterStrings_preferShortStrings;
 }
 
-uint64_t __41__PHUIConfiguration_preferShorterStrings__block_invoke(uint64_t a1)
+void *__41__PHUIConfiguration_preferShorterStrings__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) screenSize];
   preferShorterStrings_preferShortStrings = result == 0;

@@ -9,6 +9,7 @@
 - (id)_complicationColorForEditMode:(int64_t)mode;
 - (id)_complicationFontForTypeface:(unint64_t)typeface;
 - (id)_complicationFontForTypeface:(unint64_t)typeface complicationType:(unint64_t)type;
+- (id)_complicationFontForTypeface:(unint64_t)typeface fontSize:(double)size fontWeight:(double)weight useNumeralsFont:(BOOL)font;
 - (id)_dialComplicationView;
 - (id)_swatchImageForEditOption:(id)option mode:(int64_t)mode withSelectedOptions:(id)options;
 - (id)createFaceColorPalette;
@@ -26,6 +27,7 @@
 - (void)_loadContentViews;
 - (void)_loadCurrentComplicationFont;
 - (void)_loadSnapshotContentViews;
+- (void)_prepareForStatusChange:(BOOL)change;
 - (void)_unloadContentViews;
 - (void)_unloadSnapshotContentViews;
 - (void)_updateComplicationCenterOffsetForStyle:(unint64_t)style;
@@ -371,6 +373,74 @@ LABEL_8:
   return [(NTKGreyhoundFaceView *)self _complicationFontForTypeface:typeface fontSize:v9 fontWeight:v10 useNumeralsFont:v11];
 }
 
+- (id)_complicationFontForTypeface:(unint64_t)typeface fontSize:(double)size fontWeight:(double)weight useNumeralsFont:(BOOL)font
+{
+  fontCopy = font;
+  if (qword_1B6F8 != -1)
+  {
+    sub_C848();
+  }
+
+  v10 = [NSNumber numberWithBool:fontCopy];
+  v11 = [NSString stringWithFormat:@"%lu-%f-%f-%@", typeface, *&size, *&weight, v10];
+
+  v12 = [qword_1B700 objectForKey:v11];
+  if (!v12)
+  {
+    if (typeface == 2)
+    {
+      v14 = &CLKRoundedFontDesignName;
+    }
+
+    else
+    {
+      if (typeface == 1)
+      {
+        if (fontCopy)
+        {
+          v15 = +[NTKGreyhoundFontLoader sfNumeralsHeavyFontDescriptor];
+          v12 = [CLKFont fontWithDescriptor:v15 size:size];
+
+          if (v12)
+          {
+            goto LABEL_17;
+          }
+        }
+
+        v16 = [CLKFont compactSoftFontOfSize:size weight:weight];
+        goto LABEL_15;
+      }
+
+      if (typeface)
+      {
+        v12 = 0;
+        goto LABEL_17;
+      }
+
+      if (fontCopy)
+      {
+        v13 = +[NTKGreyhoundFontLoader nyNumeralsHeavyFontDescriptor];
+        v12 = [CLKFont fontWithDescriptor:v13 size:size];
+
+        if (v12)
+        {
+          goto LABEL_17;
+        }
+      }
+
+      v14 = &UIFontDescriptorSystemDesignSerif;
+    }
+
+    v16 = [CLKFont systemFontOfSize:*v14 weight:size design:weight];
+LABEL_15:
+    v12 = v16;
+LABEL_17:
+    [qword_1B700 setObject:v12 forKey:v11];
+  }
+
+  return v12;
+}
+
 - (void)_updateComplicationCenterOffsetForStyle:(unint64_t)style
 {
   v11 = 0;
@@ -403,6 +473,43 @@ LABEL_8:
   isBlackBackground = [palette isBlackBackground];
 
   return isBlackBackground ^ 1;
+}
+
+- (void)_prepareForStatusChange:(BOOL)change
+{
+  changeCopy = change;
+  v5 = 0.95;
+  if (change)
+  {
+    v5 = 1.0;
+  }
+
+  [(NTKGreyhoundFaceView *)self setTritiumScale:v5];
+  if (([(NTKGreyhoundFaceView *)self editing]& 1) == 0)
+  {
+    [(NTKGreyhoundFaceView *)self _contentsScaleForDensity:self->_density statusBar:changeCopy];
+    memset(&v10, 0, sizeof(v10));
+    if (v6 == 1.0)
+    {
+      v7 = *&CGAffineTransformIdentity.c;
+      *&v10.a = *&CGAffineTransformIdentity.a;
+      *&v10.c = v7;
+      *&v10.tx = *&CGAffineTransformIdentity.tx;
+    }
+
+    else
+    {
+      CGAffineTransformMakeScale(&v10, v6, v6);
+    }
+
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v9 = v10;
+    v8[2] = sub_B204;
+    v8[3] = &unk_146A0;
+    v8[4] = self;
+    [UIView animateWithDuration:v8 animations:0.3];
+  }
 }
 
 - (double)_contentsScaleForDensity:(unint64_t)density statusBar:(BOOL)bar
@@ -792,29 +899,26 @@ LABEL_26:
 
 - (void)_applyBreathingAndRubberbandingScale
 {
-  breathingFraction = self->_breathingFraction;
   NTKLargeElementScaleForBreathingFraction();
-  v5 = v4;
-  rubberbandingFraction = self->_rubberbandingFraction;
+  v4 = v3;
   NTKScaleForRubberBandingFraction();
-  memset(&v12, 0, sizeof(v12));
-  CGAffineTransformMakeScale(&v12, v5 * v7, v5 * v7);
+  memset(&v10, 0, sizeof(v10));
+  CGAffineTransformMakeScale(&v10, v4 * v5, v4 * v5);
   contentView = [(NTKGreyhoundFaceView *)self contentView];
-  v11 = v12;
-  [contentView setTransform:&v11];
+  v9 = v10;
+  [contentView setTransform:&v9];
 
   timeView = [(NTKGreyhoundFaceView *)self timeView];
-  v11 = v12;
-  [timeView setTransform:&v11];
+  v9 = v10;
+  [timeView setTransform:&v9];
 
   complicationContainerView = [(NTKGreyhoundFaceView *)self complicationContainerView];
-  v11 = v12;
-  [complicationContainerView setTransform:&v11];
+  v9 = v10;
+  [complicationContainerView setTransform:&v9];
 }
 
 - (void)_applyRubberbandingAlpha
 {
-  rubberbandingFraction = self->_rubberbandingFraction;
   NTKAlphaForRubberBandingFraction();
 
   [(NTKGreyhoundFaceView *)self setAlpha:?];

@@ -49,22 +49,21 @@
 
 - (void)removeNotificationWithIdentifier:(id)identifier
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = TPSUserNotificationController;
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = TPSUserNotificationController;
   identifierCopy = identifier;
-  [(TPSLocalNotificationController *)&v8 removeNotificationWithIdentifier:identifierCopy];
-  v5 = [(TPSUserNotificationController *)self userNotificationCenter:v8.receiver];
-  v9[0] = identifierCopy;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  [(TPSLocalNotificationController *)&v7 removeNotificationWithIdentifier:identifierCopy];
+  v5 = [(TPSUserNotificationController *)self userNotificationCenter:v7.receiver];
+  v8[0] = identifierCopy;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   [v5 removeDeliveredNotificationsWithIdentifiers:v6];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendNotificationWithIdentifier:(id)identifier collectionID:(id)d correlationID:(id)iD title:(id)title text:(id)text attachmentURL:(id)l extensionPayload:(id)payload
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dCopy = d;
   lCopy = l;
@@ -73,12 +72,12 @@
   titleCopy = title;
   iDCopy = iD;
   v21 = [v17 dictionaryWithDictionary:payload];
-  v34 = lCopy;
+  v33 = lCopy;
   if ([dCopy length])
   {
     if (lCopy)
     {
-      v32 = iDCopy;
+      v31 = iDCopy;
       if (payload)
       {
         v22 = 0;
@@ -86,27 +85,27 @@
 
       else
       {
-        v37 = *MEMORY[0x277CE20C8];
-        v38[0] = MEMORY[0x277CBEC38];
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+        v36 = *MEMORY[0x277CE20C8];
+        v37[0] = MEMORY[0x277CBEC38];
+        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
       }
 
-      v31 = v22;
+      v30 = v22;
       v23 = MEMORY[0x277CE1F90];
       uUID = [MEMORY[0x277CCAD78] UUID];
       uUIDString = [uUID UUIDString];
-      v35 = 0;
-      v26 = [v23 attachmentWithIdentifier:uUIDString URL:v34 options:v22 error:&v35];
-      v27 = v35;
+      v34 = 0;
+      v26 = [v23 attachmentWithIdentifier:uUIDString URL:v33 options:v22 error:&v34];
+      v27 = v34;
 
       lCopy = 0;
       if (!v27)
       {
-        v36 = v26;
-        lCopy = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+        v35 = v26;
+        lCopy = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
       }
 
-      iDCopy = v32;
+      iDCopy = v31;
     }
 
     [v21 setObject:dCopy forKeyedSubscript:@"collectionId"];
@@ -137,8 +136,6 @@
 
   [v28 setInterruptionLevel:0];
   [(TPSUserNotificationController *)self sendNotificationWithIdentifier:identifierCopy collectionID:dCopy correlationID:iDCopy content:v28];
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendNotificationWithIdentifier:(id)identifier collectionID:(id)d correlationID:(id)iD content:(id)content

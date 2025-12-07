@@ -2467,7 +2467,7 @@ LABEL_20:
 
 - (CHNeuralNetwork)newRecognitionEngine
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   if ((objc_msgSend_shouldRunNextGenRecognizer(self, a2, v2, v3, v4, v5) & 1) == 0)
   {
     v12 = 0;
@@ -2480,37 +2480,41 @@ LABEL_50:
       return v11;
     }
 
+    v15 = *MEMORY[0x1E695F050];
+    v14 = *(MEMORY[0x1E695F050] + 8);
+    v17 = *(MEMORY[0x1E695F050] + 16);
+    v16 = *(MEMORY[0x1E695F050] + 24);
     if (((1 << mode) & 0x76) == 0)
     {
       v11 = 0;
       if (mode == 3)
       {
-        v46 = objc_msgSend_stringByAppendingPathExtension_(@"is", v7, @"bundle", v8, v9, v10);
-        v47 = v46;
-        v53 = objc_msgSend_UTF8String(v47, v48, v49, v50, v51, v52);
-        sub_1837A3290(v53, 0, __s);
+        v50 = objc_msgSend_stringByAppendingPathExtension_(@"is", v7, @"bundle", v8, v9, v10);
+        v51 = v50;
+        v57 = objc_msgSend_UTF8String(v51, v52, v53, v54, v55, v56);
+        sub_1837A3290(v57, 0, __s);
 
-        v54 = strlen(__s);
-        if (v54 > 0x7FFFFFFFFFFFFFF7)
+        v58 = strlen(__s);
+        if (v58 > 0x7FFFFFFFFFFFFFF7)
         {
           sub_183688FF0();
         }
 
-        v58 = v54;
-        if (v54 >= 0x17)
+        v62 = v58;
+        if (v58 >= 0x17)
         {
           operator new();
         }
 
-        v70 = v54;
-        if (v54)
+        v74 = v58;
+        if (v58)
         {
-          memcpy(&__p, __s, v54);
+          memcpy(&__p, __s, v58);
         }
 
-        *(&__p + v58) = 0;
-        v11 = sub_1836AAB60(&__p, 0, 1u, v55, v56, v57);
-        if (v70 < 0)
+        *(&__p + v62) = 0;
+        v11 = sub_1836AAB60(&__p, 0, 1u, v15, v14, v17, v16, v59, v60, v61);
+        if (v74 < 0)
         {
           operator delete(__p);
         }
@@ -2525,39 +2529,39 @@ LABEL_50:
     if (language - 19 <= 1)
     {
       v12 = objc_msgSend_stringByAppendingPathExtension_(@"zh", v7, @"bundle", v8, v9, v10);
-      v20 = objc_msgSend_UTF8String(v12, v15, v16, v17, v18, v19);
-      if (!sub_1837A3290(v20, 0, __s))
+      v24 = objc_msgSend_UTF8String(v12, v19, v20, v21, v22, v23);
+      if (!sub_1837A3290(v24, 0, __s))
       {
-        v25 = objc_msgSend_stringByAppendingPathExtension_(@"zh_compact", v21, @"bundle", v22, v23, v24);
+        v29 = objc_msgSend_stringByAppendingPathExtension_(@"zh_compact", v25, @"bundle", v26, v27, v28);
 
-        v26 = v25;
-        v32 = objc_msgSend_UTF8String(v25, v27, v28, v29, v30, v31);
-        if (sub_1837A3290(v32, 0, __s))
+        v30 = v29;
+        v36 = objc_msgSend_UTF8String(v29, v31, v32, v33, v34, v35);
+        if (sub_1837A3290(v36, 0, __s))
         {
-          v33 = 1;
-          v12 = v25;
-          v34 = strlen(__s);
-          if (v34 > 0x7FFFFFFFFFFFFFF7)
+          v37 = 1;
+          v12 = v29;
+          v38 = strlen(__s);
+          if (v38 > 0x7FFFFFFFFFFFFFF7)
           {
             goto LABEL_9;
           }
 
 LABEL_35:
-          v65 = v34;
-          if (v34 >= 0x17)
+          v69 = v38;
+          if (v38 >= 0x17)
           {
             operator new();
           }
 
-          v72 = v34;
-          if (v34)
+          v76 = v38;
+          if (v38)
           {
-            memcpy(&__dst, __s, v34);
+            memcpy(&__dst, __s, v38);
           }
 
-          *(&__dst + v65) = 0;
-          v11 = sub_1836AAB60(&__dst, v33, 1u, v35, v36, v37);
-          if (v72 < 0)
+          *(&__dst + v69) = 0;
+          v11 = sub_1836AAB60(&__dst, v37, 1u, v15, v14, v17, v16, v39, v40, v41);
+          if (v76 < 0)
           {
             operator delete(__dst);
           }
@@ -2565,25 +2569,25 @@ LABEL_35:
           goto LABEL_50;
         }
 
-        v12 = v25;
+        v12 = v29;
 LABEL_38:
         if (qword_1EA84DC48 != -1)
         {
           dispatch_once(&qword_1EA84DC48, &unk_1EF1BC930);
         }
 
-        v66 = qword_1EA84DC50[0];
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        v70 = qword_1EA84DC50[0];
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v74 = v12;
-          _os_log_impl(&dword_18366B000, v66, OS_LOG_TYPE_ERROR, "Error loading model resource from path=%@", buf, 0xCu);
+          v78 = v12;
+          _os_log_impl(&dword_18366B000, v70, OS_LOG_TYPE_ERROR, "Error loading model resource from path=%@", buf, 0xCu);
         }
 
         if (qword_1EA84DC48 == -1)
         {
-          v67 = qword_1EA84DC50[0];
-          if (!os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
+          v71 = qword_1EA84DC50[0];
+          if (!os_log_type_enabled(v71, OS_LOG_TYPE_FAULT))
           {
 LABEL_45:
 
@@ -2595,23 +2599,23 @@ LABEL_45:
         else
         {
           dispatch_once(&qword_1EA84DC48, &unk_1EF1BC930);
-          v67 = qword_1EA84DC50[0];
-          if (!os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
+          v71 = qword_1EA84DC50[0];
+          if (!os_log_type_enabled(v71, OS_LOG_TYPE_FAULT))
           {
             goto LABEL_45;
           }
         }
 
         *buf = 138412290;
-        v74 = v12;
-        _os_log_impl(&dword_18366B000, v67, OS_LOG_TYPE_FAULT, "Error loading model resource from path=%@", buf, 0xCu);
+        v78 = v12;
+        _os_log_impl(&dword_18366B000, v71, OS_LOG_TYPE_FAULT, "Error loading model resource from path=%@", buf, 0xCu);
         goto LABEL_45;
       }
 
 LABEL_34:
-      v33 = 0;
-      v34 = strlen(__s);
-      if (v34 > 0x7FFFFFFFFFFFFFF7)
+      v37 = 0;
+      v38 = strlen(__s);
+      if (v38 > 0x7FFFFFFFFFFFFFF7)
       {
 LABEL_9:
         sub_183688FF0();
@@ -2622,20 +2626,24 @@ LABEL_9:
 
     if (self->_script == 1)
     {
+      v15 = *MEMORY[0x1E695F058];
+      v14 = *(MEMORY[0x1E695F058] + 8);
+      v17 = *(MEMORY[0x1E695F058] + 16);
+      v16 = *(MEMORY[0x1E695F058] + 24);
       if (mode == 1)
       {
         v12 = objc_msgSend_stringByAppendingPathExtension_(@"vo_en_compact", v7, @"bundle", v8, v9, v10);
-        v64 = objc_msgSend_UTF8String(v12, v59, v60, v61, v62, v63);
-        v45 = sub_1837A3290(v64, 0, __s);
+        v68 = objc_msgSend_UTF8String(v12, v63, v64, v65, v66, v67);
+        v49 = sub_1837A3290(v68, 0, __s);
         goto LABEL_33;
       }
 
       if (mode == 5)
       {
-        v38 = @"vo_other";
+        v42 = @"vo_other";
         if (language == 5)
         {
-          v38 = @"vo_de";
+          v42 = @"vo_de";
         }
 
         if (language == 1)
@@ -2645,13 +2653,13 @@ LABEL_9:
 
         else
         {
-          objc_msgSend_stringByAppendingPathExtension_(v38, v7, @"bundle", v8, v9, v10);
+          objc_msgSend_stringByAppendingPathExtension_(v42, v7, @"bundle", v8, v9, v10);
         }
         v12 = ;
-        v44 = objc_msgSend_UTF8String(v12, v39, v40, v41, v42, v43);
-        v45 = sub_1837A3290(v44, 0, __s);
+        v48 = objc_msgSend_UTF8String(v12, v43, v44, v45, v46, v47);
+        v49 = sub_1837A3290(v48, 0, __s);
 LABEL_33:
-        if (!v45)
+        if (!v49)
         {
           goto LABEL_38;
         }
@@ -3532,7 +3540,7 @@ LABEL_53:
   }
 
   *(&__p + v17) = 0;
-  result = sub_1836AAB60(&__p, 0, 1u, v14, v15, v16);
+  result = sub_1836AAB60(&__p, 0, 1u, *MEMORY[0x1E695F050], *(MEMORY[0x1E695F050] + 8), *(MEMORY[0x1E695F050] + 16), *(MEMORY[0x1E695F050] + 24), v14, v15, v16);
   if (v21 < 0)
   {
     v19 = result;

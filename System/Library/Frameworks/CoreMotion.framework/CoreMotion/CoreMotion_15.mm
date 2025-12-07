@@ -4,7 +4,6 @@ uint64_t sub_19B4C17C0(uint64_t result, PB::Writer *this)
   v4 = *(result + 96);
   if ((v4 & 0x1000) != 0)
   {
-    v5 = *(result + 88);
     result = PB::Writer::writeVarInt(this);
     v4 = *(v3 + 96);
     if ((v4 & 0x800) == 0)
@@ -24,7 +23,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(v3 + 84);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 96);
   if ((v4 & 0x100) == 0)
@@ -53,7 +51,6 @@ LABEL_5:
   }
 
 LABEL_21:
-  v7 = *(v3 + 64);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 96);
   if ((v4 & 0x8000) == 0)
@@ -68,7 +65,6 @@ LABEL_6:
   }
 
 LABEL_22:
-  v8 = *(v3 + 94);
   result = PB::Writer::write(this);
   v4 = *(v3 + 96);
   if ((v4 & 0x4000) == 0)
@@ -83,7 +79,6 @@ LABEL_7:
   }
 
 LABEL_23:
-  v9 = *(v3 + 93);
   result = PB::Writer::write(this);
   v4 = *(v3 + 96);
   if ((v4 & 0x2000) == 0)
@@ -98,7 +93,6 @@ LABEL_8:
   }
 
 LABEL_24:
-  v10 = *(v3 + 92);
   result = PB::Writer::write(this);
   v4 = *(v3 + 96);
   if ((v4 & 2) == 0)
@@ -113,7 +107,6 @@ LABEL_9:
   }
 
 LABEL_25:
-  v11 = *(v3 + 16);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 96);
   if ((v4 & 8) == 0)
@@ -128,7 +121,6 @@ LABEL_10:
   }
 
 LABEL_26:
-  v12 = *(v3 + 32);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 96);
   if ((v4 & 0x10) == 0)
@@ -143,7 +135,6 @@ LABEL_11:
   }
 
 LABEL_27:
-  v13 = *(v3 + 40);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 96);
   if ((v4 & 0x20) == 0)
@@ -158,7 +149,6 @@ LABEL_12:
   }
 
 LABEL_28:
-  v14 = *(v3 + 48);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 96);
   if ((v4 & 0x40) == 0)
@@ -173,7 +163,6 @@ LABEL_13:
   }
 
 LABEL_29:
-  v15 = *(v3 + 56);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 96);
   if ((v4 & 1) == 0)
@@ -188,7 +177,6 @@ LABEL_14:
   }
 
 LABEL_30:
-  v16 = *(v3 + 8);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 96);
   if ((v4 & 0x400) == 0)
@@ -200,7 +188,6 @@ LABEL_15:
     }
 
 LABEL_32:
-    v18 = *(v3 + 76);
     result = PB::Writer::writeVarInt(this);
     if ((*(v3 + 96) & 4) == 0)
     {
@@ -211,7 +198,6 @@ LABEL_32:
   }
 
 LABEL_31:
-  v17 = *(v3 + 80);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 96);
   if ((v4 & 0x200) != 0)
@@ -226,7 +212,6 @@ LABEL_16:
   }
 
 LABEL_33:
-  v19 = *(v3 + 24);
 
   return PB::Writer::writeVarInt(this);
 }
@@ -322,7 +307,6 @@ LABEL_5:
   v9 = *(a1 + 120);
   if ((v9 & 0x80) != 0)
   {
-    v19 = *(a1 + 116);
     PB::TextFormatter::format(this, "isMounted");
     v9 = *(a1 + 120);
     if ((v9 & 0x100) == 0)
@@ -342,7 +326,6 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v20 = *(a1 + 117);
   PB::TextFormatter::format(this, "isSimulated");
   v9 = *(a1 + 120);
   if ((v9 & 0x10) == 0)
@@ -357,42 +340,39 @@ LABEL_10:
   }
 
 LABEL_28:
-  v21 = *(a1 + 104);
   PB::TextFormatter::format(this, "nAccelGap");
   if ((*(a1 + 120) & 0x20) != 0)
   {
 LABEL_11:
-    v10 = *(a1 + 108);
     PB::TextFormatter::format(this, "numResets");
   }
 
 LABEL_12:
-  v11 = *(a1 + 32);
-  v12 = *(a1 + 40);
-  while (v11 != v12)
+  v10 = *(a1 + 32);
+  v11 = *(a1 + 40);
+  while (v10 != v11)
   {
-    v13 = *v11++;
-    PB::TextFormatter::format(this, "prevQ", v13);
+    v12 = *v10++;
+    PB::TextFormatter::format(this, "prevQ", v12);
   }
 
-  v14 = *(a1 + 56);
-  v15 = *(a1 + 64);
-  while (v14 != v15)
+  v13 = *(a1 + 56);
+  v14 = *(a1 + 64);
+  while (v13 != v14)
   {
-    v16 = *v14++;
-    PB::TextFormatter::format(this, "rawClampedAccel", v16);
+    v15 = *v13++;
+    PB::TextFormatter::format(this, "rawClampedAccel", v15);
   }
 
-  v17 = *(a1 + 120);
-  if ((v17 & 0x200) != 0)
+  v16 = *(a1 + 120);
+  if ((v16 & 0x200) != 0)
   {
-    v22 = *(a1 + 118);
     PB::TextFormatter::format(this, "shouldTrigger");
-    v17 = *(a1 + 120);
-    if ((v17 & 2) == 0)
+    v16 = *(a1 + 120);
+    if ((v16 & 2) == 0)
     {
 LABEL_18:
-      if ((v17 & 0x40) == 0)
+      if ((v16 & 0x40) == 0)
       {
         goto LABEL_20;
       }
@@ -401,17 +381,15 @@ LABEL_18:
     }
   }
 
-  else if ((v17 & 2) == 0)
+  else if ((v16 & 2) == 0)
   {
     goto LABEL_18;
   }
 
-  v23 = *(a1 + 88);
   PB::TextFormatter::format(this, "timestamp");
   if ((*(a1 + 120) & 0x40) != 0)
   {
 LABEL_19:
-    v18 = *(a1 + 112);
     PB::TextFormatter::format(this, "triggerPathBitmap");
   }
 
@@ -1438,7 +1416,6 @@ uint64_t sub_19B4C2940(uint64_t result, PB::Writer *this)
     }
 
 LABEL_23:
-    v16 = *(v3 + 118);
     result = PB::Writer::write(this);
     if ((*(v3 + 120) & 1) == 0)
     {
@@ -1448,7 +1425,6 @@ LABEL_23:
     goto LABEL_4;
   }
 
-  v15 = *(result + 88);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 120);
   if ((v4 & 0x200) != 0)
@@ -1491,7 +1467,6 @@ LABEL_5:
   v14 = *(v3 + 120);
   if ((v14 & 0x80) != 0)
   {
-    v17 = *(v3 + 116);
     result = PB::Writer::write(this);
     v14 = *(v3 + 120);
     if ((v14 & 0x100) == 0)
@@ -1511,7 +1486,6 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v18 = *(v3 + 117);
   result = PB::Writer::write(this);
   v14 = *(v3 + 120);
   if ((v14 & 4) == 0)
@@ -1551,7 +1525,6 @@ LABEL_19:
     }
 
 LABEL_30:
-    v20 = *(v3 + 108);
     result = PB::Writer::writeVarInt(this);
     if ((*(v3 + 120) & 0x10) == 0)
     {
@@ -1562,7 +1535,6 @@ LABEL_30:
   }
 
 LABEL_29:
-  v19 = *(v3 + 112);
   result = PB::Writer::writeVarInt(this);
   v14 = *(v3 + 120);
   if ((v14 & 0x20) != 0)
@@ -1577,7 +1549,6 @@ LABEL_20:
   }
 
 LABEL_31:
-  v21 = *(v3 + 104);
 
   return PB::Writer::writeVarInt(this);
 }
@@ -1601,7 +1572,6 @@ uint64_t sub_19B4C2B5C(uint64_t a1, PB::TextFormatter *this, char *a3)
   PB::TextFormatter::beginObject(this, a3);
   if (*(a1 + 16))
   {
-    v5 = *(a1 + 8);
     PB::TextFormatter::format(this, "timestamp");
   }
 
@@ -1822,7 +1792,6 @@ uint64_t sub_19B4C2E30(uint64_t result, PB::Writer *this)
 {
   if (*(result + 16))
   {
-    v2 = *(result + 8);
     return PB::Writer::writeVarInt(this);
   }
 
@@ -1868,7 +1837,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v7 = *(a1 + 60);
   PB::TextFormatter::format(this, "configHardware");
   v5 = *(a1 + 164);
   if ((v5 & 0x100) == 0)
@@ -1981,7 +1949,6 @@ LABEL_11:
   }
 
 LABEL_47:
-  v8 = *(a1 + 92);
   PB::TextFormatter::format(this, "debugCountOfAccelDataDrop");
   v5 = *(a1 + 164);
   if ((v5 & 0x10000) == 0)
@@ -1996,7 +1963,6 @@ LABEL_12:
   }
 
 LABEL_48:
-  v9 = *(a1 + 96);
   PB::TextFormatter::format(this, "debugCountOfDmDataDrop");
   v5 = *(a1 + 164);
   if ((v5 & 0x20000) == 0)
@@ -2039,7 +2005,6 @@ LABEL_15:
   }
 
 LABEL_51:
-  v10 = *(a1 + 8);
   PB::TextFormatter::format(this, "epochFirstTimestamp");
   v5 = *(a1 + 164);
   if ((v5 & 2) == 0)
@@ -2054,7 +2019,6 @@ LABEL_16:
   }
 
 LABEL_52:
-  v11 = *(a1 + 16);
   PB::TextFormatter::format(this, "epochLastTimestamp");
   v5 = *(a1 + 164);
   if ((v5 & 0x100000000) == 0)
@@ -2069,7 +2033,6 @@ LABEL_17:
   }
 
 LABEL_53:
-  v12 = *(a1 + 160);
   PB::TextFormatter::format(this, "freefallTpQualifier");
   v5 = *(a1 + 164);
   if ((v5 & 0x80000) == 0)
@@ -2084,7 +2047,6 @@ LABEL_18:
   }
 
 LABEL_54:
-  v13 = *(a1 + 108);
   PB::TextFormatter::format(this, "metaCountOfFreefallImpactPassed");
   v5 = *(a1 + 164);
   if ((v5 & 0x100000) == 0)
@@ -2099,7 +2061,6 @@ LABEL_19:
   }
 
 LABEL_55:
-  v14 = *(a1 + 112);
   PB::TextFormatter::format(this, "metaCountOfFreefallTimePassed");
   v5 = *(a1 + 164);
   if ((v5 & 0x200000) == 0)
@@ -2114,7 +2075,6 @@ LABEL_20:
   }
 
 LABEL_56:
-  v15 = *(a1 + 116);
   PB::TextFormatter::format(this, "metaCountOfSigImpact");
   v5 = *(a1 + 164);
   if ((v5 & 0x400000) == 0)
@@ -2129,7 +2089,6 @@ LABEL_21:
   }
 
 LABEL_57:
-  v16 = *(a1 + 120);
   PB::TextFormatter::format(this, "metaCountOfZgSegment");
   v5 = *(a1 + 164);
   if ((v5 & 0x800000) == 0)
@@ -2144,7 +2103,6 @@ LABEL_22:
   }
 
 LABEL_58:
-  v17 = *(a1 + 124);
   PB::TextFormatter::format(this, "metaCrossingCount");
   v5 = *(a1 + 164);
   if ((v5 & 4) == 0)
@@ -2159,7 +2117,6 @@ LABEL_23:
   }
 
 LABEL_59:
-  v18 = *(a1 + 24);
   PB::TextFormatter::format(this, "metaDtBwFirstAndLastFreeFall");
   v5 = *(a1 + 164);
   if ((v5 & 8) == 0)
@@ -2174,7 +2131,6 @@ LABEL_24:
   }
 
 LABEL_60:
-  v19 = *(a1 + 32);
   PB::TextFormatter::format(this, "metaDtBwFirstFreeFall");
   v5 = *(a1 + 164);
   if ((v5 & 0x10) == 0)
@@ -2189,7 +2145,6 @@ LABEL_25:
   }
 
 LABEL_61:
-  v20 = *(a1 + 40);
   PB::TextFormatter::format(this, "metaDtBwFirstSigImpact");
   v5 = *(a1 + 164);
   if ((v5 & 0x1000000) == 0)
@@ -2306,7 +2261,6 @@ LABEL_69:
   if ((*(a1 + 164) & 0x20) != 0)
   {
 LABEL_34:
-    v6 = *(a1 + 48);
     PB::TextFormatter::format(this, "timestamp");
   }
 
@@ -3840,7 +3794,6 @@ uint64_t sub_19B4C4658(uint64_t result, PB::Writer *this)
   v4 = *(result + 164);
   if ((v4 & 0x100000000) != 0)
   {
-    v5 = *(result + 160);
     result = PB::Writer::write(this);
     v4 = *(v3 + 164);
     if ((v4 & 0x100000) == 0)
@@ -3860,7 +3813,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(v3 + 112);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 164);
   if ((v4 & 0x80000) == 0)
@@ -3875,7 +3827,6 @@ LABEL_4:
   }
 
 LABEL_37:
-  v7 = *(v3 + 108);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 164);
   if ((v4 & 0x1000000) == 0)
@@ -3960,7 +3911,6 @@ LABEL_10:
   }
 
 LABEL_43:
-  v8 = *(v3 + 116);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 164);
   if ((v4 & 0x400000) == 0)
@@ -3975,7 +3925,6 @@ LABEL_11:
   }
 
 LABEL_44:
-  v9 = *(v3 + 120);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 164);
   if ((v4 & 0x10) == 0)
@@ -3990,7 +3939,6 @@ LABEL_12:
   }
 
 LABEL_45:
-  v10 = *(v3 + 40);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 164);
   if ((v4 & 8) == 0)
@@ -4005,7 +3953,6 @@ LABEL_13:
   }
 
 LABEL_46:
-  v11 = *(v3 + 32);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 164);
   if ((v4 & 4) == 0)
@@ -4020,7 +3967,6 @@ LABEL_14:
   }
 
 LABEL_47:
-  v12 = *(v3 + 24);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 164);
   if ((v4 & 0x8000) == 0)
@@ -4035,7 +3981,6 @@ LABEL_15:
   }
 
 LABEL_48:
-  v13 = *(v3 + 92);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 164);
   if ((v4 & 0x20000) == 0)
@@ -4064,7 +4009,6 @@ LABEL_17:
   }
 
 LABEL_50:
-  v14 = *(v3 + 96);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 164);
   if ((v4 & 0x40000) == 0)
@@ -4121,7 +4065,6 @@ LABEL_21:
   }
 
 LABEL_54:
-  v15 = *(v3 + 60);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 164);
   if ((v4 & 0x800) == 0)
@@ -4234,7 +4177,6 @@ LABEL_29:
   }
 
 LABEL_62:
-  v16 = *(v3 + 124);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 164);
   if ((v4 & 0x20) == 0)
@@ -4249,7 +4191,6 @@ LABEL_30:
   }
 
 LABEL_63:
-  v17 = *(v3 + 48);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 164);
   if ((v4 & 0x2000000) == 0)
@@ -4275,7 +4216,6 @@ LABEL_32:
     }
 
 LABEL_66:
-    v18 = *(v3 + 8);
     result = PB::Writer::writeVarInt(this);
     if ((*(v3 + 164) & 2) == 0)
     {
@@ -4300,7 +4240,6 @@ LABEL_33:
   }
 
 LABEL_67:
-  v19 = *(v3 + 16);
 
   return PB::Writer::writeVarInt(this);
 }
@@ -4325,7 +4264,6 @@ uint64_t sub_19B4C4A8C(uint64_t a1, PB::TextFormatter *this, char *a3)
   v5 = *(a1 + 20);
   if ((v5 & 2) != 0)
   {
-    v6 = *(a1 + 16);
     PB::TextFormatter::format(this, "attached");
     v5 = *(a1 + 20);
   }
@@ -4504,7 +4442,6 @@ uint64_t sub_19B4C4D14(uint64_t result, PB::Writer *this)
 
   if ((v4 & 2) != 0)
   {
-    v5 = *(v3 + 16);
 
     return PB::Writer::write(this);
   }
@@ -4544,7 +4481,7 @@ void *sub_19B4C4DD4(void *result)
   return result;
 }
 
-void *sub_19B4C4E40(void *result, char *__src, char *a3, unint64_t a4)
+void **sub_19B4C4E40(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -4619,7 +4556,7 @@ void *sub_19B4C4E40(void *result, char *__src, char *a3, unint64_t a4)
   return result;
 }
 
-void sub_19B4C4F6C(uint64_t a1, unint64_t a2)
+void sub_19B4C4F6C(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -4660,7 +4597,7 @@ void sub_19B4C5080()
   __cxa_throw(v1, MEMORY[0x1E69E5420], MEMORY[0x1E69E52A8]);
 }
 
-void sub_19B4C50B4(uint64_t a1, unint64_t a2)
+void sub_19B4C50B4(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -4771,23 +4708,25 @@ void *sub_19B4C5330(void *result, void *a2)
   return result;
 }
 
-id sub_19B4C53A4()
+id sub_19B4C53A4(uint64_t a1)
 {
   if (qword_1EAFE3890 != -1)
   {
     sub_19B7A35A8();
   }
 
-  v1 = qword_1EAFE3AA8;
+  v2 = qword_1EAFE3AA8;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_19B4C53E8()
 {
-  qword_1EAFE3AA8 = dispatch_queue_create("com.apple.Msl.DefaultsQueue", 0);
+  v0 = dispatch_queue_create("com.apple.Msl.DefaultsQueue", 0);
+  v1 = qword_1EAFE3AA8;
+  qword_1EAFE3AA8 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void sub_19B4C5428(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -4885,7 +4824,7 @@ void sub_19B4C5788(uint64_t a1, void *a2, void *a3)
   {
     *a1 = 1;
     v10 = dispatch_time(0, 10000000000);
-    v11 = sub_19B4C53A4();
+    v11 = sub_19B4C53A4(v10);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_19B4C5894;
@@ -4895,28 +4834,22 @@ void sub_19B4C5788(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_19B4C5894(uint64_t a1)
+void sub_19B4C5968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  v1 = *(a1 + 32);
-  std::mutex::lock((*(v1 + 8) + 24));
-  v2 = *(v1 + 8);
-  operator new();
-}
-
-void sub_19B4C5968(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   sub_19B4C5734(va);
-  MEMORY[0x19EAE76F0](v2, 0x1032C4044EE41C5);
-  std::mutex::unlock((v3 + 24));
+  MEMORY[0x19EAE76F0](v3, 0x1032C4044EE41C5);
+  std::mutex::unlock((v4 + 24));
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_19B4C5AE8()
 {
-  qword_1EAFE3898 = os_log_create("com.apple.MotionSensorLogging", "MSL");
+  v0 = os_log_create("com.apple.MotionSensorLogging", "MSL");
+  v1 = qword_1EAFE3898;
+  qword_1EAFE3898 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t sub_19B4C5B2C(uint64_t *a1, uint64_t a2)
@@ -4925,7 +4858,7 @@ uint64_t sub_19B4C5B2C(uint64_t *a1, uint64_t a2)
   *a1 = a2;
   if (result)
   {
-    sub_19B50A22C();
+    sub_19B50A22C(result);
 
     JUMPOUT(0x19EAE76F0);
   }
@@ -4972,7 +4905,7 @@ uint64_t sub_19B4C5C50(uint64_t a1, PB::TextFormatter *this, char *a3)
   return MEMORY[0x1EEE30A90](this);
 }
 
-uint64_t sub_19B4C5CCC(int a1, PB::Reader *this)
+uint64_t sub_19B4C5CCC(uint64_t a1, PB::Reader *this)
 {
   v2 = *(this + 1);
   v3 = *(this + 2);
@@ -5150,7 +5083,7 @@ uint64_t sub_19B4C6034(uint64_t a1, PB::TextFormatter *this, char *a3)
   return MEMORY[0x1EEE30A90](this);
 }
 
-uint64_t sub_19B4C60B0(int a1, PB::Reader *this)
+uint64_t sub_19B4C60B0(uint64_t a1, PB::Reader *this)
 {
   v2 = *(this + 1);
   v3 = *(this + 2);
@@ -5482,7 +5415,6 @@ uint64_t sub_19B4C662C(uint64_t a1, PB::TextFormatter *this, char *a3)
 
   if (v5)
   {
-    v6 = *(a1 + 8);
     PB::TextFormatter::format(this, "timestamp");
   }
 
@@ -5720,16 +5652,15 @@ uint64_t sub_19B4C6974(uint64_t result, PB::Writer *this)
   v4 = *(result + 20);
   if (v4)
   {
-    v5 = *(result + 8);
     result = PB::Writer::writeVarInt(this);
     v4 = *(v3 + 20);
   }
 
   if ((v4 & 2) != 0)
   {
-    v6 = *(v3 + 16);
+    v5 = *(v3 + 16);
 
-    return PB::Writer::write(this, v6);
+    return PB::Writer::write(this, v5);
   }
 
   return result;
@@ -5881,7 +5812,7 @@ uint64_t sub_19B4C6C64(uint64_t a1, PB::TextFormatter *this, char *a3)
   return MEMORY[0x1EEE30A90](this);
 }
 
-uint64_t sub_19B4C6CC0(int a1, PB::Reader *this)
+uint64_t sub_19B4C6CC0(uint64_t a1, PB::Reader *this)
 {
   v2 = *(this + 1);
   v3 = *(this + 2);
@@ -5999,7 +5930,7 @@ LABEL_29:
   return v21 & 1;
 }
 
-uint64_t sub_19B4C6E94(uint64_t result)
+uint64_t sub_19B4C6E94(uint64_t result, uint64_t a2)
 {
   if (*(result + 8))
   {
@@ -6054,7 +5985,6 @@ uint64_t sub_19B4C6F78(uint64_t a1, PB::TextFormatter *this, char *a3)
   v8 = *(a1 + 56);
   if ((v8 & 2) != 0)
   {
-    v9 = *(a1 + 40);
     PB::TextFormatter::format(this, "status");
     v8 = *(a1 + 56);
     if ((v8 & 1) == 0)
@@ -6595,7 +6525,6 @@ LABEL_6:
 
   if ((*(v3 + 56) & 2) != 0)
   {
-    v8 = *(v3 + 40);
 
     return PB::Writer::writeVarInt(this);
   }
@@ -6622,7 +6551,6 @@ uint64_t sub_19B4C7778(uint64_t a1, PB::TextFormatter *this, char *a3)
   PB::TextFormatter::beginObject(this, a3);
   if (*(a1 + 12))
   {
-    v5 = *(a1 + 8);
     PB::TextFormatter::format(this, "state");
   }
 
@@ -6843,7 +6771,6 @@ uint64_t sub_19B4C7A4C(uint64_t result, PB::Writer *this)
 {
   if (*(result + 12))
   {
-    v2 = *(result + 8);
     return PB::Writer::writeVarInt(this);
   }
 
@@ -6870,7 +6797,6 @@ uint64_t sub_19B4C7ACC(uint64_t a1, PB::TextFormatter *this, char *a3)
   v5 = *(a1 + 32);
   if ((v5 & 2) != 0)
   {
-    v6 = *(a1 + 16);
     PB::TextFormatter::format(this, "location");
     v5 = *(a1 + 32);
     if ((v5 & 1) == 0)
@@ -7257,7 +7183,6 @@ LABEL_5:
   }
 
 LABEL_11:
-  v5 = *(v3 + 16);
 
   return PB::Writer::writeVarInt(this);
 }
@@ -7301,7 +7226,7 @@ uint64_t sub_19B4C80E8(uint64_t a1, PB::TextFormatter *this, char *a3)
   return MEMORY[0x1EEE30A90](this);
 }
 
-uint64_t sub_19B4C8164(int a1, PB::Reader *this)
+uint64_t sub_19B4C8164(uint64_t a1, PB::Reader *this)
 {
   v2 = *(this + 1);
   v3 = *(this + 2);
@@ -7450,7 +7375,6 @@ uint64_t sub_19B4C8418(uint64_t a1, PB::TextFormatter *this, char *a3)
   v5 = *(a1 + 32);
   if ((v5 & 2) != 0)
   {
-    v6 = *(a1 + 16);
     PB::TextFormatter::format(this, "batch");
     v5 = *(a1 + 32);
     if ((v5 & 1) == 0)
@@ -7837,7 +7761,6 @@ LABEL_5:
   }
 
 LABEL_11:
-  v5 = *(v3 + 16);
 
   return PB::Writer::writeVarInt(this);
 }
@@ -7902,7 +7825,6 @@ uint64_t sub_19B4C8A3C(uint64_t a1, PB::TextFormatter *this, char *a3)
   v11 = *(a1 + 80);
   if ((v11 & 8) != 0)
   {
-    v12 = *(a1 + 76);
     PB::TextFormatter::format(this, "isCandidate");
     v11 = *(a1 + 80);
     if ((v11 & 4) == 0)
@@ -7922,7 +7844,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v13 = *(a1 + 72);
   PB::TextFormatter::format(this, "numSamplesInAverage");
   v11 = *(a1 + 80);
   if ((v11 & 1) == 0)
@@ -8544,7 +8465,6 @@ uint64_t sub_19B4C9270(uint64_t result, PB::Writer *this)
     }
 
 LABEL_14:
-    v12 = *(v3 + 72);
     result = PB::Writer::writeVarInt(this);
     if ((*(v3 + 80) & 1) == 0)
     {
@@ -8554,7 +8474,6 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v11 = *(v3 + 76);
   result = PB::Writer::write(this);
   v10 = *(v3 + 80);
   if ((v10 & 4) != 0)
@@ -8569,9 +8488,9 @@ LABEL_11:
   }
 
 LABEL_15:
-  v13 = *(v3 + 56);
+  v11 = *(v3 + 56);
 
-  return PB::Writer::write(this, v13);
+  return PB::Writer::write(this, v11);
 }
 
 void *sub_19B4C9360(void *result)
@@ -8613,7 +8532,7 @@ uint64_t sub_19B4C9438(uint64_t a1, PB::TextFormatter *this, char *a3)
   return MEMORY[0x1EEE30A90](this);
 }
 
-uint64_t sub_19B4C94B4(int a1, PB::Reader *this)
+uint64_t sub_19B4C94B4(uint64_t a1, PB::Reader *this)
 {
   v2 = *(this + 1);
   v3 = *(this + 2);
@@ -9077,7 +8996,7 @@ uint64_t sub_19B4C9C3C(uint64_t a1, PB::TextFormatter *this, char *a3)
   return MEMORY[0x1EEE30A90](this);
 }
 
-uint64_t sub_19B4C9CB8(int a1, PB::Reader *this)
+uint64_t sub_19B4C9CB8(uint64_t a1, PB::Reader *this)
 {
   v2 = *(this + 1);
   v3 = *(this + 2);
@@ -9302,7 +9221,6 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v15 = *(a1 + 112);
   PB::TextFormatter::format(this, "isValid");
   v14 = *(a1 + 116);
   if ((v14 & 2) == 0)

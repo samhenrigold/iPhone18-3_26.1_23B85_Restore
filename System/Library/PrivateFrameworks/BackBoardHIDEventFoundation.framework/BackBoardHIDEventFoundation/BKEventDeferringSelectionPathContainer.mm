@@ -4,7 +4,7 @@
 - (id)constraintsForNode:(uint64_t)node;
 - (id)initWithPathIdentifier:(id *)identifier;
 - (id)modalitiesForNode:(uint64_t)node;
-- (uint64_t)containsNode:(uint64_t)result;
+- (void)containsNode:(void *)result;
 @end
 
 @implementation BKEventDeferringSelectionPathContainer
@@ -80,11 +80,11 @@
   return identifier;
 }
 
-- (uint64_t)containsNode:(uint64_t)result
+- (void)containsNode:(void *)result
 {
   if (result)
   {
-    v2 = *(result + 16);
+    v2 = result[2];
     if (a2)
     {
       v3 = *(a2 + 16);

@@ -1,5 +1,7 @@
 @interface RxHist
 - (BOOL)isEqual:(id)equal;
+- (id)agcModeAsString:(int)string;
+- (id)antennaAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -39,6 +41,21 @@
   {
     return 0;
   }
+}
+
+- (id)agcModeAsString:(int)string
+{
+  if (string < 0x10 && ((0x807Fu >> string) & 1) != 0)
+  {
+    v4 = *(&off_100318300 + string);
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAgcMode:(id)mode
@@ -118,6 +135,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)antennaAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318380 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsAntenna:(id)antenna
@@ -267,7 +299,6 @@
   has = self->_has;
   if (has)
   {
-    agcMode = self->_agcMode;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -287,7 +318,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  antenna = self->_antenna;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -302,12 +332,10 @@ LABEL_4:
   }
 
 LABEL_14:
-  workMode = self->_workMode;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_5:
-    minRxLevel = self->_minRxLevel;
     PBDataWriterWriteSint32Field();
   }
 
@@ -318,15 +346,14 @@ LABEL_6:
     PBDataWriterPlaceMark();
     if (p_numRxLevels->count)
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        v9 = p_numRxLevels->list[v8];
         PBDataWriterWriteUint32Field();
-        ++v8;
+        ++v7;
       }
 
-      while (v8 < p_numRxLevels->count);
+      while (v7 < p_numRxLevels->count);
     }
 
     PBDataWriterRecallMark();
@@ -464,7 +491,6 @@ LABEL_6:
     goto LABEL_23;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_agcMode != *(equalCopy + 8))

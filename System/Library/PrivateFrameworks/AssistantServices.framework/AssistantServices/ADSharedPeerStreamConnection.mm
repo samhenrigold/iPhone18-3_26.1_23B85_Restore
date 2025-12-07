@@ -770,7 +770,7 @@ LABEL_11:
 {
   metricsCopy = metrics;
   identifierCopy = identifier;
-  v7 = [(NSMutableDictionary *)self->_metricsResponses objectForKey:identifierCopy];
+  v7 = objc_msgSend_objectForKey_(self->_metricsResponses);
   v8 = v7;
   if (v7)
   {

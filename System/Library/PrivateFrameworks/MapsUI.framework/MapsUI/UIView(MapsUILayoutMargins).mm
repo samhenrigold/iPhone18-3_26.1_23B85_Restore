@@ -2,40 +2,40 @@
 - (id)_mapsui_layoutMarginsDescription;
 - (id)_mapsui_preservedLayoutMarginsDescription;
 - (id)_mapsui_recursiveLayoutMarginsDescription;
-- (uint64_t)_mapsui_resetLayoutMarginsWithPreservesSuperview:()MapsUILayoutMargins insetsFromSafeArea:;
+- (void)_mapsui_resetLayoutMarginsWithPreservesSuperview:()MapsUILayoutMargins insetsFromSafeArea:;
 @end
 
 @implementation UIView(MapsUILayoutMargins)
 
 - (id)_mapsui_recursiveLayoutMarginsDescription
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   _mapsui_layoutMarginsDescription = [self _mapsui_layoutMarginsDescription];
   v4 = [v2 stringWithFormat:@"%@\n%@", self, _mapsui_layoutMarginsDescription];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   obj = [self subviews];
-  v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       v8 = 0;
       v9 = v4;
       do
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * v8);
+        v10 = *(*(&v20 + 1) + 8 * v8);
         preservesSuperviewLayoutMargins = [v10 preservesSuperviewLayoutMargins];
         v12 = @"|";
         if (preservesSuperviewLayoutMargins)
@@ -55,13 +55,11 @@
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v6);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -170,7 +168,7 @@ LABEL_7:
   return v9;
 }
 
-- (uint64_t)_mapsui_resetLayoutMarginsWithPreservesSuperview:()MapsUILayoutMargins insetsFromSafeArea:
+- (void)_mapsui_resetLayoutMarginsWithPreservesSuperview:()MapsUILayoutMargins insetsFromSafeArea:
 {
   [self setLayoutMargins:{*MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24)}];
   if ([self preservesSuperviewLayoutMargins] != a3)

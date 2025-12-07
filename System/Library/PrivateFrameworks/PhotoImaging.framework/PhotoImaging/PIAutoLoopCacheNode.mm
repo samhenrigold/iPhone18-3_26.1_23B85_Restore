@@ -45,7 +45,7 @@
         [v5 setObject:v11 forKeyedSubscript:*MEMORY[0x1E6987D20]];
         scaledSize = [v7 scaledSize];
         v17 = (scaledSize * v16) * 1.5;
-        [(PIAutoLoopCacheNode *)self frameDuration];
+        objc_msgSend_frameDuration(self);
         v18 = 1.0 / CMTimeGetSeconds(&v26);
         v28[0] = *MEMORY[0x1E6987C60];
         v19 = [MEMORY[0x1E696AD98] numberWithDouble:v18 * (v17 * 8.0) * 0.05];

@@ -10,7 +10,7 @@
 - (void)layoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for PreferredMusicGenreCell();
+  v5.super_class = type metadata accessor for PreferredMusicGenreCell(0);
   v2 = v5.receiver;
   [(PreferredMusicGenreCell *)&v5 layoutSubviews];
   layer = [*&v2[OBJC_IVAR____TtC9SeymourUI23PreferredMusicGenreCell_platter] layer];
@@ -20,15 +20,15 @@
 
 - (void)prepareForReuse
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C762550);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C762550, &unk_20C1505A0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v10 - v4;
-  v6 = type metadata accessor for PreferredMusicGenreCell();
+  v6 = type metadata accessor for PreferredMusicGenreCell(0);
   v11.receiver = self;
   v11.super_class = v6;
   selfCopy = self;
   [(PreferredMusicGenreCell *)&v11 prepareForReuse];
-  v8 = type metadata accessor for ShelfCellItemInfo();
+  v8 = type metadata accessor for ShelfCellItemInfo(0);
   (*(*(v8 - 8) + 56))(v5, 1, 1, v8);
   v9 = OBJC_IVAR____TtC9SeymourUI23PreferredMusicGenreCell_itemInfo;
   swift_beginAccess();

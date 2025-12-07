@@ -621,7 +621,9 @@ LABEL_17:
 - (void)paperDidChange
 {
   ic_loggingIdentifier = [self ic_loggingIdentifier];
-  OUTLINED_FUNCTION_0_2(&dword_1D4171000, v2, v3, "Received debounced paperDidChange for drawing %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = ic_loggingIdentifier;
+  OUTLINED_FUNCTION_0_2(&dword_1D4171000, v2, v3, "Received debounced paperDidChange for drawing %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 uint64_t __45__ICSystemPaperTextAttachment_paperDidChange__block_invoke(uint64_t a1)

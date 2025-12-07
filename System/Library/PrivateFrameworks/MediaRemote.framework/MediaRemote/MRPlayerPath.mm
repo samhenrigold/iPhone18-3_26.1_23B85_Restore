@@ -226,7 +226,6 @@
 
 - (unint64_t)hash
 {
-  v74 = *MEMORY[0x1E69E9840];
   v3 = MSVHasherSharedSeed();
   v5 = v4;
   v6 = v3 ^ 0x736F6D6570736575;
@@ -239,40 +238,40 @@
   v13 = (v8 + v10) ^ __ROR8__(v10, 48);
   v14 = v13 + __ROR8__(v6 + v7, 32);
   v15 = v12 + v11;
-  v67 = __ROR8__(v15, 32);
-  v70 = v14 ^ __ROR8__(v13, 43);
-  v61 = v14 ^ v9;
-  v64 = v15 ^ __ROR8__(v11, 47);
+  v66 = __ROR8__(v15, 32);
+  v69 = v14 ^ __ROR8__(v13, 43);
+  v60 = v14 ^ v9;
+  v63 = v15 ^ __ROR8__(v11, 47);
   v16 = self->_client;
   data = [(MRClient *)v16 hash];
-  v17 = (v61 + v64) ^ __ROR8__(v64, 51);
-  v18 = v67 + (v70 ^ data);
-  v19 = __ROR8__(v70 ^ data, 48);
-  v20 = (v18 ^ v19) + __ROR8__(v61 + v64, 32);
+  v17 = (v60 + v63) ^ __ROR8__(v63, 51);
+  v18 = v66 + (v69 ^ data);
+  v19 = __ROR8__(v69 ^ data, 48);
+  v20 = (v18 ^ v19) + __ROR8__(v60 + v63, 32);
   v21 = v20 ^ __ROR8__(v18 ^ v19, 43);
   v22 = v18 + v17;
-  v68 = __ROR8__(v22, 32);
-  v71 = v21;
-  v62 = v20 ^ data;
-  v65 = v22 ^ __ROR8__(v17, 47);
+  v67 = __ROR8__(v22, 32);
+  v70 = v21;
+  v61 = v20 ^ data;
+  v64 = v22 ^ __ROR8__(v17, 47);
 
   v23 = self->_player;
   v24 = [(MRPlayer *)v23 hash];
-  v25 = (v62 + v65) ^ __ROR8__(v65, 51);
-  v26 = v68 + (v71 ^ v24);
-  v27 = __ROR8__(v71 ^ v24, 48);
-  v28 = (v26 ^ v27) + __ROR8__(v62 + v65, 32);
+  v25 = (v61 + v64) ^ __ROR8__(v64, 51);
+  v26 = v67 + (v70 ^ v24);
+  v27 = __ROR8__(v70 ^ v24, 48);
+  v28 = (v26 ^ v27) + __ROR8__(v61 + v64, 32);
   v29 = v28 ^ __ROR8__(v26 ^ v27, 43);
   v30 = v26 + v25;
-  v69 = __ROR8__(v30, 32);
-  v72 = v29;
-  v63 = v28 ^ v24;
-  v66 = v30 ^ __ROR8__(v25, 47);
+  v68 = __ROR8__(v30, 32);
+  v71 = v29;
+  v62 = v28 ^ v24;
+  v65 = v30 ^ __ROR8__(v25, 47);
 
-  v31 = (v63 + v66) ^ __ROR8__(v66, 51);
-  v32 = v69 + (v72 ^ 0x1800000000000000);
-  v33 = __ROR8__(v72 ^ 0x1800000000000000, 48);
-  v34 = (v32 ^ v33) + __ROR8__(v63 + v66, 32);
+  v31 = (v62 + v65) ^ __ROR8__(v65, 51);
+  v32 = v68 + (v71 ^ 0x1800000000000000);
+  v33 = __ROR8__(v71 ^ 0x1800000000000000, 48);
+  v34 = (v32 ^ v33) + __ROR8__(v62 + v65, 32);
   v35 = v34 ^ __ROR8__(v32 ^ v33, 43);
   v36 = v32 + v31;
   v37 = v36 ^ __ROR8__(v31, 47);
@@ -297,7 +296,6 @@
   v56 = __ROR8__(v52, 32) + v51;
   v57 = __ROR8__(v51, 48);
   v58 = __ROR8__(v54, 32) + (v56 ^ v57);
-  v59 = *MEMORY[0x1E69E9840];
   return (v55 + v56) ^ __ROR8__(v55, 47) ^ v58 ^ __ROR8__(v55 + v56, 32) ^ v58 ^ __ROR8__(v56 ^ v57, 43);
 }
 
@@ -447,14 +445,14 @@ void __31__MRPlayerPath_localPlayerPath__block_invoke()
 
   if (originCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
-    [MRPlayerPath initWithOrigin:client:player:];
+    [MRPlayerPath initWithOrigin:originCopy client:? player:?];
     if (clientCopy)
     {
 LABEL_5:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        [MRPlayerPath initWithOrigin:client:player:];
+        [MRPlayerPath initWithOrigin:clientCopy client:? player:?];
       }
     }
   }
@@ -469,7 +467,7 @@ LABEL_5:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [MRPlayerPath initWithOrigin:client:player:];
+      [MRPlayerPath initWithOrigin:playerCopy client:? player:?];
     }
   }
 
@@ -555,7 +553,7 @@ LABEL_14:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [MRPlayerPath setOrigin:];
+      [MRPlayerPath setOrigin:originCopy];
     }
   }
 
@@ -572,7 +570,7 @@ LABEL_14:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [MRPlayerPath setClient:];
+      [MRPlayerPath setClient:clientCopy];
     }
   }
 
@@ -589,7 +587,7 @@ LABEL_14:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [MRPlayerPath setPlayer:];
+      [MRPlayerPath setPlayer:playerCopy];
     }
   }
 
@@ -632,13 +630,13 @@ LABEL_14:
 {
   client = [(MRPlayerPath *)self client];
   bundleIdentifier = [client bundleIdentifier];
-  v5 = [bundleIdentifier isEqualToString:@"com.apple.HomePodCannedDemo"];
+  isEqualToString = objc_msgSend_isEqualToString_(bundleIdentifier);
 
   client2 = [(MRPlayerPath *)self client];
   bundleIdentifier2 = [client2 bundleIdentifier];
-  LOBYTE(bundleIdentifier) = [bundleIdentifier2 isEqualToString:@"com.apple.ChannelDemoCap"];
+  LOBYTE(bundleIdentifier) = objc_msgSend_isEqualToString_(bundleIdentifier2);
 
-  return (v5 | bundleIdentifier) & 1;
+  return (isEqualToString | bundleIdentifier) & 1;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -857,58 +855,58 @@ LABEL_14:
   return localResolvedPlayerPath;
 }
 
-- (void)initWithOrigin:client:player:.cold.1()
+- (void)initWithOrigin:(uint64_t)a1 client:player:.cold.1(uint64_t a1)
 {
-  v0 = [MEMORY[0x1E696AAA8] currentHandler];
-  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MRPlayerPath initWithOrigin:client:player:]"];
+  v1 = [MEMORY[0x1E696AAA8] currentHandler];
+  v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MRPlayerPath initWithOrigin:client:player:]"];
   objc_opt_class();
   objc_opt_class();
   [OUTLINED_FUNCTION_1_11() handleFailureInFunction:? file:? lineNumber:? description:?];
 }
 
-- (void)initWithOrigin:client:player:.cold.2()
+- (void)initWithOrigin:(uint64_t)a1 client:player:.cold.2(uint64_t a1)
 {
-  v0 = [MEMORY[0x1E696AAA8] currentHandler];
-  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MRPlayerPath initWithOrigin:client:player:]"];
+  v1 = [MEMORY[0x1E696AAA8] currentHandler];
+  v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MRPlayerPath initWithOrigin:client:player:]"];
   objc_opt_class();
   objc_opt_class();
   [OUTLINED_FUNCTION_1_11() handleFailureInFunction:? file:? lineNumber:? description:?];
 }
 
-- (void)initWithOrigin:client:player:.cold.3()
+- (void)initWithOrigin:(uint64_t)a1 client:player:.cold.3(uint64_t a1)
 {
-  v0 = [MEMORY[0x1E696AAA8] currentHandler];
-  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MRPlayerPath initWithOrigin:client:player:]"];
+  v1 = [MEMORY[0x1E696AAA8] currentHandler];
+  v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MRPlayerPath initWithOrigin:client:player:]"];
   objc_opt_class();
   objc_opt_class();
   [OUTLINED_FUNCTION_1_11() handleFailureInFunction:? file:? lineNumber:? description:?];
 }
 
-- (void)setOrigin:.cold.1()
+- (void)setOrigin:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = [MEMORY[0x1E696AAA8] currentHandler];
-  v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MRPlayerPath setOrigin:]"];
+  v11 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MRPlayerPath setOrigin:]"];
   objc_opt_class();
-  v1 = objc_opt_class();
-  [OUTLINED_FUNCTION_0_1(v1 v2];
+  v2 = objc_opt_class();
+  [OUTLINED_FUNCTION_0_1(v2 v3];
 }
 
-- (void)setClient:.cold.1()
+- (void)setClient:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = [MEMORY[0x1E696AAA8] currentHandler];
-  v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MRPlayerPath setClient:]"];
+  v11 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MRPlayerPath setClient:]"];
   objc_opt_class();
-  v1 = objc_opt_class();
-  [OUTLINED_FUNCTION_0_1(v1 v2];
+  v2 = objc_opt_class();
+  [OUTLINED_FUNCTION_0_1(v2 v3];
 }
 
-- (void)setPlayer:.cold.1()
+- (void)setPlayer:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = [MEMORY[0x1E696AAA8] currentHandler];
-  v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MRPlayerPath setPlayer:]"];
+  v11 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MRPlayerPath setPlayer:]"];
   objc_opt_class();
-  v1 = objc_opt_class();
-  [OUTLINED_FUNCTION_0_1(v1 v2];
+  v2 = objc_opt_class();
+  [OUTLINED_FUNCTION_0_1(v2 v3];
 }
 
 - (void)playerPathByRedirectingToOrigin:.cold.1()

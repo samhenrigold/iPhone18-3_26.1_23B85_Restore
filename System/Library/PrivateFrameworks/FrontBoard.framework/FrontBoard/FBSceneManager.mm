@@ -43,7 +43,7 @@
 
 + (void)setKeyboardScene:(id)scene
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   sceneCopy = scene;
   if (__fbKeyboardScene)
   {
@@ -53,7 +53,7 @@
   v7 = sceneCopy;
   if (!sceneCopy)
   {
-    [FBSceneManager(Keyboard) setKeyboardScene:a2];
+    [(FBSceneManager(Keyboard) *)a2 setKeyboardScene:self];
   }
 
   BSDispatchQueueAssertMain();
@@ -65,37 +65,35 @@
     v9 = __availabilityObserverMap;
     __availabilityObserverMap = 0;
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     keyEnumerator = [v8 keyEnumerator];
-    v11 = [keyEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v11 = [keyEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v18;
+      v13 = *v17;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v18 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(keyEnumerator);
           }
 
-          v15 = [v8 objectForKey:*(*(&v17 + 1) + 8 * i)];
+          v15 = [v8 objectForKey:*(*(&v16 + 1) + 8 * i)];
           v15[2](v15, __fbKeyboardScene);
         }
 
-        v12 = [keyEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v12 = [keyEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v12);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (id)observeKeyboardSceneAvailability:(id)availability
@@ -103,34 +101,34 @@
   availabilityCopy = availability;
   if (!availabilityCopy)
   {
-    [FBSceneManager(Keyboard) observeKeyboardSceneAvailability:a2];
+    [(FBSceneManager(Keyboard) *)a2 observeKeyboardSceneAvailability:self];
   }
 
-  v5 = availabilityCopy;
+  v6 = availabilityCopy;
   BSDispatchQueueAssertMain();
   if (__fbKeyboardScene)
   {
-    v5[2](v5);
-    v6 = 0;
+    v6[2](v6);
+    v7 = 0;
   }
 
   else
   {
     if (!__availabilityObserverMap)
     {
-      v7 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:512 valueOptions:0 capacity:1];
-      v8 = __availabilityObserverMap;
-      __availabilityObserverMap = v7;
+      v8 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:512 valueOptions:0 capacity:1];
+      v9 = __availabilityObserverMap;
+      __availabilityObserverMap = v8;
     }
 
-    v9 = objc_alloc(MEMORY[0x1E698E778]);
-    v6 = [v9 initWithIdentifier:@"keyboardAvailableObserverToken" forReason:@"observation" queue:MEMORY[0x1E69E96A0] invalidationBlock:&__block_literal_global_3];
-    v10 = __availabilityObserverMap;
-    v11 = MEMORY[0x1AC572E40](v5);
-    [v10 setObject:v11 forKey:v6];
+    v10 = objc_alloc(MEMORY[0x1E698E778]);
+    v7 = [v10 initWithIdentifier:@"keyboardAvailableObserverToken" forReason:@"observation" queue:MEMORY[0x1E69E96A0] invalidationBlock:&__block_literal_global_3];
+    v11 = __availabilityObserverMap;
+    v12 = MEMORY[0x1AC572E40](v6);
+    [v11 setObject:v12 forKey:v7];
   }
 
-  return v6;
+  return v7;
 }
 
 - (FBSceneManager)init
@@ -181,38 +179,38 @@
 
 - (void)enumerateScenesWithBlock:(id)block
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   blockCopy = block;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allScenes = [(FBSceneWorkspace *)self->_workspace allScenes];
-  v6 = [allScenes countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [allScenes countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v14 != v8)
+      if (*v13 != v8)
       {
         objc_enumerationMutation(allScenes);
       }
 
-      v10 = *(*(&v13 + 1) + 8 * v9);
-      v12 = 0;
-      blockCopy[2](blockCopy, v10, &v12);
-      if (v12)
+      v10 = *(*(&v12 + 1) + 8 * v9);
+      v11 = 0;
+      blockCopy[2](blockCopy, v10, &v11);
+      if (v11)
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = [allScenes countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [allScenes countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -222,8 +220,6 @@ LABEL_3:
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)scenesPassingTest:(id)test
@@ -319,21 +315,21 @@ void __61__FBSceneManager_sceneFromIdentityTokenStringRepresentation___block_inv
   {
     settings = [parametersCopy settings];
     clientSettings = [parametersCopy clientSettings];
-    v17 = [(FBSceneManager *)self _createSceneWithDefinition:definitionCopy settings:settings initialClientSettings:clientSettings transitionContext:0 fromRemnant:0 usingClientProvider:syncLocalSceneClientProvider completion:0];
+    v18 = [(FBSceneManager *)self _createSceneWithDefinition:definitionCopy settings:settings initialClientSettings:clientSettings transitionContext:0 fromRemnant:0 usingClientProvider:syncLocalSceneClientProvider completion:0];
   }
 
   else
   {
-    v18 = FBLogScene();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = FBLogScene(v15);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [(FBSceneManager *)definitionCopy createSceneWithDefinition:clientIdentity initialParameters:v18];
+      [(FBSceneManager *)definitionCopy createSceneWithDefinition:clientIdentity initialParameters:v19];
     }
 
-    v17 = 0;
+    v18 = 0;
   }
 
-  return v17;
+  return v18;
 }
 
 - (id)createSceneWithIdentifier:(id)identifier parameters:(id)parameters clientProvider:(id)provider transitionContext:(id)context
@@ -469,8 +465,7 @@ LABEL_9:
 
 - (void)sceneFromIdentityTokenStringRepresentation:(char *)a1 .cold.1(char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"tokenString"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -478,7 +473,7 @@ LABEL_9:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"tokenString", v11, v12);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -489,21 +484,19 @@ LABEL_9:
 
 - (void)createSceneWithDefinition:(NSObject *)a3 initialParameters:.cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = [a1 identity];
   v6 = [a2 processIdentity];
-  v8 = 138543618;
-  v9 = v5;
-  v10 = 2114;
-  v11 = v6;
-  _os_log_error_impl(&dword_1A89DD000, a3, OS_LOG_TYPE_ERROR, "scene %{public}@ cannot be created because there is no running process for %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138543618;
+  v8 = v5;
+  v9 = 2114;
+  v10 = v6;
+  _os_log_error_impl(&dword_1A89DD000, a3, OS_LOG_TYPE_ERROR, "scene %{public}@ cannot be created because there is no running process for %{public}@", &v7, 0x16u);
 }
 
 - (void)createSceneWithIdentifier:(char *)a1 parameters:clientProvider:transitionContext:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(FBSceneClientProvider)]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -511,7 +504,7 @@ LABEL_9:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(FBSceneClientProvider)]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -521,7 +514,7 @@ LABEL_9:
 
 - (void)createSceneWithIdentifier:(char *)a1 parameters:clientProvider:transitionContext:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -529,7 +522,7 @@ LABEL_9:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -539,7 +532,7 @@ LABEL_9:
 
 - (void)createLegacySceneFromRemnant:(char *)a1 withSettings:transitionContext:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSceneRemnantClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -547,7 +540,7 @@ LABEL_9:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSceneRemnantClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -580,7 +573,7 @@ LABEL_9:
 
 - (void)createLegacySceneFromRemnant:(char *)a1 withSettings:transitionContext:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -588,7 +581,7 @@ LABEL_9:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -598,7 +591,7 @@ LABEL_9:
 
 - (void)destroyScene:(char *)a1 withTransitionContext:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[scene _isLegacy]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -606,7 +599,7 @@ LABEL_9:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[scene _isLegacy]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -616,7 +609,7 @@ LABEL_9:
 
 - (void)destroyScene:(char *)a1 withTransitionContext:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"sceneIdentifier"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -624,7 +617,7 @@ LABEL_9:
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"sceneIdentifier", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

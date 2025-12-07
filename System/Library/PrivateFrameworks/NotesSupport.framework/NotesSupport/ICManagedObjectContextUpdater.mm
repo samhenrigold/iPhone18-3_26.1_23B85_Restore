@@ -98,7 +98,7 @@
 {
   context = [self context];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1D4576000, v2, v3, "Stopping listening to store changes for %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_2(&dword_1D4576000, v2, v3, "Stopping listening to store changes for %@", v4, v5, v6, v7);
 }
 
 - (void)requestUpdate
@@ -614,7 +614,7 @@ void __79__ICManagedObjectContextUpdater_handlePersistentStoreRemoteChangeNotifi
 {
   [*a1 numberOfCoalescedNotifications];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1D4576000, v1, v2, "Received distributed save notification. numberOfCoalescedNotifications=%ld", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_2(&dword_1D4576000, v1, v2, "Received distributed save notification. numberOfCoalescedNotifications=%ld", v3, v4, v5, v6);
 }
 
 void __51__ICManagedObjectContextUpdater_fetchChangeHistory__block_invoke_cold_1(uint64_t a1, NSObject *a2)
@@ -638,14 +638,14 @@ void __51__ICManagedObjectContextUpdater_fetchChangeHistory__block_invoke_cold_2
 {
   v1 = [*a1 previousHistoryToken];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1D4576000, v2, v3, "Previous persistent history token: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_2(&dword_1D4576000, v2, v3, "Previous persistent history token: %@", v4, v5, v6, v7);
 }
 
 + (void)contextSaveNotificationFromPersistentHistoryResult:(void *)a1 ignoringContextName:fromTransactionAuthor:latestToken:latestTimestamp:.cold.1(void *a1)
 {
   [a1 count];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1D4576000, v1, v2, "Received a persistent history result with %ld subresults", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_2(&dword_1D4576000, v1, v2, "Received a persistent history result with %ld subresults", v3, v4, v5, v6);
 }
 
 @end

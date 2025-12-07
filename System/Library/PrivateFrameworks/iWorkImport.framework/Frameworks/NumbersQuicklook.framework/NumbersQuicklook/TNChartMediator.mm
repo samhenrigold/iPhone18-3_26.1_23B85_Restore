@@ -415,10 +415,10 @@
   objc_msgSend_boundingCellRange(v12, v13, v14);
 
   v322 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
-  v323[0] = v322;
+  v323 = v322;
   v321 = v322;
   v15 = __C();
-  BodyRange_headerColumnRange_headerRowRange = objc_msgSend_findChartableRangesFromTableRange_getBodyRange_headerColumnRange_headerRowRange_(tableCopy, v16, v15, v16, v323, &v322, &v321);
+  BodyRange_headerColumnRange_headerRowRange = objc_msgSend_findChartableRangesFromTableRange_getBodyRange_headerColumnRange_headerRowRange_(tableCopy, v16, v15, v16, &v323, &v322, &v321);
   isCategorized = objc_msgSend_isCategorized(tableCopy, v18, v19);
   if (isCategorized)
   {
@@ -1182,10 +1182,10 @@ LABEL_199:
   objc_msgSend_boundingCellRange(v13, v14, v15);
 
   v118 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
-  v119[0] = v118;
+  v119 = v118;
   v117 = v118;
   v16 = __C();
-  if ((objc_msgSend_findChartableRangesFromTableRange_getBodyRange_headerColumnRange_headerRowRange_(tableCopy, v17, v16, v17, v119, &v118, &v117) & 1) == 0)
+  if ((objc_msgSend_findChartableRangesFromTableRange_getBodyRange_headerColumnRange_headerRowRange_(tableCopy, v17, v16, v17, &v119, &v118, &v117) & 1) == 0)
   {
     v38 = objc_alloc_init(TNChartFormulaStorage);
 LABEL_13:
@@ -2929,7 +2929,7 @@ LABEL_30:
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    sub_275F070E8(&selfCopy->_formulasToRecalculate.__table_.__bucket_list_.__ptr_, &v14);
+    sub_275F070E8(&selfCopy->_formulasToRecalculate, &v14, &v14);
     objc_msgSend_clearCachesForCalculationEngine_(selfCopy->_formulaStorage, v10, engineCopy);
     cleanFormulaStorage = selfCopy->_cleanFormulaStorage;
     selfCopy->_cleanFormulaStorage = 0;
@@ -2950,7 +2950,7 @@ LABEL_30:
     selfCopy = self;
     objc_sync_enter(selfCopy);
     v14 = 0xFF00000000;
-    sub_275F07588(&selfCopy->_formulasToRecalculate.__table_.__bucket_list_.__ptr_, &v14);
+    sub_275F07588(&selfCopy->_formulasToRecalculate.__table_.__bucket_list_.__ptr_, &v14, &v14);
     objc_msgSend_clearCachesForCalculationEngine_(selfCopy->_formulaStorage, v10, engineCopy);
     cleanFormulaStorage = selfCopy->_cleanFormulaStorage;
     selfCopy->_cleanFormulaStorage = 0;
@@ -7379,7 +7379,7 @@ LABEL_56:
 
                     v130 = *v129;
                     memset(&v271, 0, sizeof(v271));
-                    sub_275F07ABC(&v271, v130[6], v130[7], (v130[7] - v130[6]) >> 3);
+                    sub_275F07ABC(&v271, *(v130 + 6), *(v130 + 7), (*(v130 + 7) - *(v130 + 6)) >> 3);
                     if (v241 == 1)
                     {
                       v131 = &__p[1];
@@ -7394,7 +7394,7 @@ LABEL_56:
                     v244 = 0;
                     v245 = 0;
                     v243 = 0;
-                    sub_275F07ABC(&v243, v132[6], v132[7], (v132[7] - v132[6]) >> 3);
+                    sub_275F07ABC(&v243, *(v132 + 6), *(v132 + 7), (*(v132 + 7) - *(v132 + 6)) >> 3);
                     var0 = v271.var0;
                     lower = v271.var1._lower;
                     while (var0 != lower)

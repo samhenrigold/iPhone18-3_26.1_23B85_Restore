@@ -9,7 +9,7 @@
 {
   type metadata accessor for TileContextDetailsTableViewEntry(0);
   sub_1BE052744();
-  v3 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD5AFC0));
+  v3 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD5AFC0, &qword_1BE10B590));
   v4 = sub_1BE04EAC4();
 
   return v4;

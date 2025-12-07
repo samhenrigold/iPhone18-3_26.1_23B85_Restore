@@ -87,13 +87,12 @@ void __65__WFContentItemViewController_tableView_didSelectRowAtIndexPath___block
 
 void __65__WFContentItemViewController_tableView_didSelectRowAtIndexPath___block_invoke_4(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   if (!*(a1 + 32))
   {
-    v2 = *(a1 + 40);
-    v20 = WFUserInterfaceFromViewController();
-    v3 = [MEMORY[0x277CFC218] alertWithError:*(a1 + 48)];
-    [v20 presentAlert:v3];
+    v15 = WFUserInterfaceFromViewController();
+    v2 = [MEMORY[0x277CFC218] alertWithError:*(a1 + 48)];
+    [v15 presentAlert:v2];
 LABEL_7:
 
     goto LABEL_8;
@@ -102,74 +101,69 @@ LABEL_7:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v20 = [MEMORY[0x277CFC248] sharedContext];
-    [v20 openURL:*(a1 + 32)];
+    v15 = [MEMORY[0x277CFC248] sharedContext];
+    [v15 openURL:*(a1 + 32)];
     goto LABEL_8;
   }
 
-  v4 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v20 = objc_alloc_init(MEMORY[0x277D75D28]);
-    v5 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:*(a1 + 32)];
-    [v20 setView:v5];
+    v15 = objc_alloc_init(MEMORY[0x277D75D28]);
+    v3 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:*(a1 + 32)];
+    [v15 setView:v3];
 
-    v6 = [*(a1 + 56) typeDescription];
-    [v20 setTitle:v6];
+    v4 = [*(a1 + 56) typeDescription];
+    [v15 setTitle:v4];
 
-    v3 = [*(a1 + 40) navigationController];
-    [v3 pushViewController:v20 animated:1];
+    v2 = [*(a1 + 40) navigationController];
+    [v2 pushViewController:v15 animated:1];
     goto LABEL_7;
   }
 
-  v8 = *(a1 + 32);
   objc_opt_class();
-  LOBYTE(v8) = objc_opt_isKindOfClass();
-  v20 = objc_alloc_init(MEMORY[0x277D75D28]);
-  if (v8)
+  isKindOfClass = objc_opt_isKindOfClass();
+  v15 = objc_alloc_init(MEMORY[0x277D75D28]);
+  if (isKindOfClass)
   {
-    v9 = objc_alloc_init(MEMORY[0x277CD4EC8]);
-    v10 = [objc_alloc(MEMORY[0x277CD4F00]) initWithPlacemark:*(a1 + 32)];
-    [v9 addAnnotation:v10];
-    v21[0] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
-    [v9 showAnnotations:v11 animated:0];
+    v6 = objc_alloc_init(MEMORY[0x277CD4EC8]);
+    v7 = [objc_alloc(MEMORY[0x277CD4F00]) initWithPlacemark:*(a1 + 32)];
+    [v6 addAnnotation:v7];
+    v16[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    [v6 showAnnotations:v8 animated:0];
 
-    [v20 setView:v9];
-    v12 = [*(a1 + 56) typeDescription];
-    [v20 setTitle:v12];
+    [v15 setView:v6];
+    v9 = [*(a1 + 56) typeDescription];
+    [v15 setTitle:v9];
 
-    v13 = [*(a1 + 40) navigationController];
-    [v13 pushViewController:v20 animated:1];
+    v10 = [*(a1 + 40) navigationController];
+    [v10 pushViewController:v15 animated:1];
 
-    v14 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  v15 = objc_alloc_init(MEMORY[0x277D75C40]);
-  v16 = *(a1 + 32);
+  v11 = objc_alloc_init(MEMORY[0x277D75C40]);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v15 setAttributedText:*(a1 + 32)];
+    [v11 setAttributedText:*(a1 + 32)];
   }
 
   else
   {
-    v17 = [*(a1 + 32) description];
-    [v15 setText:v17];
+    v12 = [*(a1 + 32) description];
+    [v11 setText:v12];
   }
 
-  [v20 setView:v15];
-  v18 = [*(a1 + 56) typeDescription];
-  [v20 setTitle:v18];
+  [v15 setView:v11];
+  v13 = [*(a1 + 56) typeDescription];
+  [v15 setTitle:v13];
 
-  v19 = [*(a1 + 40) navigationController];
-  [v19 pushViewController:v20 animated:1];
+  v14 = [*(a1 + 40) navigationController];
+  [v14 pushViewController:v15 animated:1];
 
 LABEL_8:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __65__WFContentItemViewController_tableView_didSelectRowAtIndexPath___block_invoke_2(uint64_t a1)
@@ -183,24 +177,24 @@ void __65__WFContentItemViewController_tableView_didSelectRowAtIndexPath___block
     if (v2)
     {
       v4 = objc_alloc_init(MEMORY[0x277D75D28]);
-      v21 = 0;
-      v22 = &v21;
-      v23 = 0x2050000000;
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x2050000000;
       v5 = getWKWebViewClass_softClass_5067;
-      v24 = getWKWebViewClass_softClass_5067;
+      v23 = getWKWebViewClass_softClass_5067;
       if (!getWKWebViewClass_softClass_5067)
       {
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __getWKWebViewClass_block_invoke_5068;
-        v20[3] = &unk_278C37610;
-        v20[4] = &v21;
-        __getWKWebViewClass_block_invoke_5068(v20);
-        v5 = v22[3];
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __getWKWebViewClass_block_invoke_5068;
+        v19[3] = &unk_278C37610;
+        v19[4] = &v20;
+        __getWKWebViewClass_block_invoke_5068(v19);
+        v5 = v21[3];
       }
 
       v6 = v5;
-      _Block_object_dispose(&v21, 8);
+      _Block_object_dispose(&v20, 8);
       v7 = objc_alloc_init(v5);
       [v4 setView:v7];
       v8 = [*(a1 + 56) typeDescription];
@@ -217,23 +211,22 @@ void __65__WFContentItemViewController_tableView_didSelectRowAtIndexPath___block
       return;
     }
 
-    v16 = MEMORY[0x277D546E8];
-    v17 = [*(a1 + 32) fileURL];
-    v19 = [v16 interactionControllerWithURL:v17];
+    v15 = MEMORY[0x277D546E8];
+    v16 = [*(a1 + 32) fileURL];
+    v18 = [v15 interactionControllerWithURL:v16];
 
-    v18 = [*(a1 + 56) typeDescription];
-    [v19 setName:v18];
+    v17 = [*(a1 + 56) typeDescription];
+    [v18 setName:v17];
 
-    [v19 setDelegate:*(a1 + 40)];
-    [v19 presentPreviewAnimated:1];
+    [v18 setDelegate:*(a1 + 40)];
+    [v18 presentPreviewAnimated:1];
   }
 
   else
   {
-    v14 = *(a1 + 40);
-    v19 = WFUserInterfaceFromViewController();
-    v15 = [MEMORY[0x277CFC218] alertWithError:*(a1 + 48)];
-    [v19 presentAlert:v15];
+    v18 = WFUserInterfaceFromViewController();
+    v14 = [MEMORY[0x277CFC218] alertWithError:*(a1 + 48)];
+    [v18 presentAlert:v14];
   }
 }
 

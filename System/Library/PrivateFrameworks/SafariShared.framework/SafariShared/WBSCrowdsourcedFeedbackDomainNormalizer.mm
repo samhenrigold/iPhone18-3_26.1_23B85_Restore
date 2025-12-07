@@ -12,7 +12,7 @@
   v2 = [(WBSCrowdsourcedFeedbackDomainNormalizer *)&v7 init];
   if (v2)
   {
-    v3 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"."];
+    v3 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x1E696AB08]);
     dotCharacterSet = v2->_dotCharacterSet;
     v2->_dotCharacterSet = v3;
 

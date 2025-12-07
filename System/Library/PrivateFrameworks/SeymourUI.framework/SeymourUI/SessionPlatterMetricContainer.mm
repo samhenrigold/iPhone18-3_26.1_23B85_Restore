@@ -15,16 +15,16 @@
 
 - (void)layoutSubviews
 {
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for SessionPlatterMetricContainer();
-  v2 = v6.receiver;
-  [(SessionPlatterMetricContainer *)&v6 layoutSubviews];
-  sub_20BD825A8();
-  v3 = OBJC_IVAR____TtC9SeymourUI29SessionPlatterMetricContainer_contentView;
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for SessionPlatterMetricContainer();
+  v2 = v7.receiver;
+  [(SessionPlatterMetricContainer *)&v7 layoutSubviews];
+  v3 = sub_20BD825A8();
+  v4 = OBJC_IVAR____TtC9SeymourUI29SessionPlatterMetricContainer_contentView;
   layer = [*&v2[OBJC_IVAR____TtC9SeymourUI29SessionPlatterMetricContainer_contentView] layer];
   [layer setAnchorPoint_];
 
-  layer2 = [*&v2[v3] layer];
+  layer2 = [*&v2[v4] layer];
   [layer2 setPosition_];
 }
 

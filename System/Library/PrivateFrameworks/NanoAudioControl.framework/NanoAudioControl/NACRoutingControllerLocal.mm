@@ -4,7 +4,6 @@
 - (NACRoutingControllerLocal)initWithAudioCategory:(id)category;
 - (NSArray)availableAudioRoutes;
 - (void)beginObservingRoutes;
-- (void)endObservingRoutes;
 - (void)pickAudioRoute:(id)route;
 - (void)routingController:(id)controller didFailToPickRouteWithError:(id)error;
 - (void)routingControllerAvailableRoutesDidChange:(id)change;
@@ -40,53 +39,46 @@
   [(MPAVRoutingController *)v5 setDelegate:self];
 }
 
-- (void)endObservingRoutes
-{
-  routingController = self->_routingController;
-  self->_routingController = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (void)pickAudioRoute:(id)route
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   routeCopy = route;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   availableRoutes = [(MPAVRoutingController *)self->_routingController availableRoutes];
-  v6 = [availableRoutes countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [availableRoutes countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(availableRoutes);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [NACAudioRoute audioRouteWithMPAVRoute:v10];
         if ([routeCopy isEqualToAudioRoute:v11])
         {
           routingController = self->_routingController;
-          v14[0] = MEMORY[0x277D85DD0];
-          v14[1] = 3221225472;
-          v14[2] = __44__NACRoutingControllerLocal_pickAudioRoute___block_invoke;
-          v14[3] = &unk_27992B430;
-          v14[4] = v10;
-          [(MPAVRoutingController *)routingController selectRoute:v10 operation:0 completion:v14];
+          v13[0] = MEMORY[0x277D85DD0];
+          v13[1] = 3221225472;
+          v13[2] = __44__NACRoutingControllerLocal_pickAudioRoute___block_invoke;
+          v13[3] = &unk_27992B430;
+          v13[4] = v10;
+          [(MPAVRoutingController *)routingController selectRoute:v10 operation:0 completion:v13];
 
           goto LABEL_11;
         }
       }
 
-      v7 = [availableRoutes countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [availableRoutes countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -97,8 +89,6 @@
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NACRoutingControllerLocal_pickAudioRoute___block_invoke(uint64_t a1, void *a2)
@@ -124,38 +114,36 @@ void __44__NACRoutingControllerLocal_pickAudioRoute___block_invoke(uint64_t a1, 
 
 - (NSArray)availableAudioRoutes
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   availableRoutes = [(MPAVRoutingController *)self->_routingController availableRoutes];
-  v5 = [availableRoutes countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [availableRoutes countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(availableRoutes);
         }
 
-        v9 = [NACAudioRoute audioRouteWithMPAVRoute:*(*(&v12 + 1) + 8 * i)];
+        v9 = [NACAudioRoute audioRouteWithMPAVRoute:*(*(&v11 + 1) + 8 * i)];
         [v3 addObject:v9];
       }
 
-      v6 = [availableRoutes countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [availableRoutes countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -187,14 +175,13 @@ void __44__NACRoutingControllerLocal_pickAudioRoute___block_invoke(uint64_t a1, 
 
 void __44__NACRoutingControllerLocal_pickAudioRoute___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_25AEBF000, log, OS_LOG_TYPE_ERROR, "Failed to pick route: %@ due to %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_25AEBF000, log, OS_LOG_TYPE_ERROR, "Failed to pick route: %@ due to %@", &v4, 0x16u);
 }
 
 @end

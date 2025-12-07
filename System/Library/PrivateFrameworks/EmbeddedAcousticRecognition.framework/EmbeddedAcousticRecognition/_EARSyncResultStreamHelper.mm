@@ -176,7 +176,7 @@ LABEL_22:
     v9 = v8;
     if (v8)
     {
-      [v8 quasarToken];
+      objc_msgSend_quasarToken(v8);
     }
 
     else

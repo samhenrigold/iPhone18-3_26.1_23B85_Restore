@@ -1,9 +1,11 @@
 @interface HMDSyncOperation
 + (id)cancelOperationWithBlock:(id)block;
++ (id)cloudFetchSyncOperationWithCloudConflict:(BOOL)conflict block:(id)block;
 + (id)cloudForcePushSyncOperationWithBlock:(id)block;
 + (id)cloudOperation:(id)operation withBlock:(id)block completion:(id)completion;
 + (id)cloudPushSyncOperationWithBlock:(id)block;
 + (id)cloudVerifyAccountSyncOperationWithBlock:(id)block;
++ (id)cloudZoneFetchSyncOperation:(id)operation cloudConflict:(BOOL)conflict block:(id)block completion:(id)completion;
 + (id)cloudZonePushSyncOperation:(id)operation block:(id)block;
 + (id)postFetchOperationWithBlock:(id)block;
 + (id)queryDatabaseOperationWithBlock:(id)block;
@@ -37,7 +39,7 @@
 - (NSArray)operationCompletions
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSMutableArray *)self->_operationCompletions copy];
+  v3 = objc_msgSend_copy(self->_operationCompletions);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -128,6 +130,19 @@
   return v10;
 }
 
++ (id)cloudZoneFetchSyncOperation:(id)operation cloudConflict:(BOOL)conflict block:(id)block completion:(id)completion
+{
+  conflictCopy = conflict;
+  completionCopy = completion;
+  blockCopy = block;
+  operationCopy = operation;
+  v12 = [[HMDSyncOperationOptions alloc] initWithOperationType:6 zoneName:operationCopy cloudConflict:conflictCopy delayRespected:0];
+
+  v13 = [[HMDSyncOperation alloc] _initWithOptions:v12 syncBlock:blockCopy completion:completionCopy];
+
+  return v13;
+}
+
 + (id)cloudZonePushSyncOperation:(id)operation block:(id)block
 {
   blockCopy = block;
@@ -137,6 +152,16 @@
   v8 = [[HMDSyncOperation alloc] _initWithOptions:v7 syncBlock:blockCopy completion:0];
 
   return v8;
+}
+
++ (id)cloudFetchSyncOperationWithCloudConflict:(BOOL)conflict block:(id)block
+{
+  conflictCopy = conflict;
+  blockCopy = block;
+  v6 = [[HMDSyncOperationOptions alloc] initWithOperationType:4 zoneName:@"HomeDataBlobZone" cloudConflict:conflictCopy delayRespected:0];
+  v7 = [[HMDSyncOperation alloc] _initWithOptions:v6 syncBlock:blockCopy completion:0];
+
+  return v7;
 }
 
 + (id)cloudVerifyAccountSyncOperationWithBlock:(id)block

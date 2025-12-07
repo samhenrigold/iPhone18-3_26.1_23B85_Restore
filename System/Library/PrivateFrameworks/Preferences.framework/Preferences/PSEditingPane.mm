@@ -58,17 +58,18 @@
 - (BOOL)shouldInsetContent
 {
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
-  if ([currentDevice sf_isiPad])
+  sf_isiPad = [currentDevice sf_isiPad];
+  if (sf_isiPad)
   {
-    v3 = PSIsRunningInAssistant() ^ 1;
+    v5 = PSIsRunningInAssistant(sf_isiPad, v4) ^ 1;
   }
 
   else
   {
-    LOBYTE(v3) = 0;
+    LOBYTE(v5) = 0;
   }
 
-  return v3;
+  return v5;
 }
 
 - (void)insetContent

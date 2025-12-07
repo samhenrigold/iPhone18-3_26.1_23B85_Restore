@@ -10,14 +10,20 @@
   v6 = _Block_copy(handler);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_24E212180;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   playerCopy = player;
   selfCopy = self;
   sub_24E211718(playerCopy);
-  sub_24DE73FA0(v6);
+  sub_24DE73FA0(v6, v7);
 }
 
 - (void)authenticationShowSignInUIForLocalPlayer:(id)player origin:(unint64_t)origin dismiss:(id)dismiss
@@ -38,7 +44,7 @@
   playerCopy = player;
   selfCopy = self;
   sub_24E211900(playerCopy, origin, v8, v9);
-  sub_24DE73FA0(v8);
+  sub_24DE73FA0(v8, v9);
 }
 
 @end

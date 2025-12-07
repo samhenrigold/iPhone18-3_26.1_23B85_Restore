@@ -8,10 +8,10 @@
 
 - (void)tintColorDidChange
 {
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for TintColorObservingView();
-  v2 = v7.receiver;
-  [(TintColorObservingView *)&v7 tintColorDidChange];
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for TintColorObservingView();
+  v2 = v8.receiver;
+  [(TintColorObservingView *)&v8 tintColorDidChange];
   v3 = &v2[OBJC_IVAR____TtC16MusicApplication22TintColorObservingView_tintColorDidChangeCallback];
   swift_beginAccess();
   v4 = *v3;
@@ -20,13 +20,15 @@
     goto LABEL_4;
   }
 
+  v5 = *(v3 + 1);
+
   tintColor = [v2 tintColor];
   if (tintColor)
   {
-    v6 = tintColor;
+    v7 = tintColor;
     v4();
 
-    sub_17654(v4);
+    sub_17654(v4, v5);
 LABEL_4:
 
     return;

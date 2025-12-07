@@ -28,7 +28,7 @@
 
 - (ATXTimelineRelevanceMetricHarvester)init
 {
-  v3 = __atxlog_handle_timeline();
+  v3 = __atxlog_handle_timeline(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -86,30 +86,30 @@
 
 - (id)widgetsForDataCollection:(id)collection
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   v5 = objc_opt_new();
   v6 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = collectionCopy;
-  v7 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v29;
+    v9 = *v28;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v29 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
+        v11 = *(*(&v27 + 1) + 8 * i);
         extensionIdentity = [v11 extensionIdentity];
         extensionBundleIdentifier = [extensionIdentity extensionBundleIdentifier];
         v14 = [(ATXTimelineRelevanceMetricHarvester *)self isFirstParty:extensionBundleIdentifier];
@@ -127,7 +127,7 @@
         [v15 addObject:v11];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v8);
@@ -151,21 +151,19 @@
   v23 = [v17 subarrayWithRange:{v18, objc_msgSend(v17, "count") - v18}];
   v24 = [v22 arrayByAddingObjectsFromArray:v23];
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v24;
 }
 
 - (void)harvestWithActivity:(id)activity
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
-  v5 = __atxlog_handle_timeline();
+  v5 = __atxlog_handle_timeline(activityCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     loggingStartDate = self->_loggingStartDate;
     *buf = 138412290;
-    v68 = loggingStartDate;
+    v70 = loggingStartDate;
     _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_INFO, "ATXTimelineRelevanceMetricHarvester: fetching Timeline Relevance donations since last metric submission date: %@", buf, 0xCu);
   }
 
@@ -173,102 +171,103 @@
   v8 = [(ATXInformationStore *)self->_informationStore fetchDistinctWidgetsIgnoringIntentSinceDate:self->_loggingStartDate];
   v9 = [(ATXTimelineRelevanceMetricHarvester *)self widgetsForDataCollection:v8];
   didDefer = [activityCopy didDefer];
-  v11 = __atxlog_handle_timeline();
-  v12 = v11;
-  if (didDefer)
+  v11 = didDefer;
+  v12 = __atxlog_handle_timeline(didDefer);
+  v13 = v12;
+  if (v11)
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "ATXTimelineRelevanceMetricHarvester: Deferring harvesting activity", buf, 2u);
+      _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "ATXTimelineRelevanceMetricHarvester: Deferring harvesting activity", buf, 2u);
     }
   }
 
   else
   {
-    v54 = v7;
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v56 = v7;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v13 = [v8 count];
+      v14 = [v8 count];
       *buf = 134217984;
-      v68 = v13;
-      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_INFO, "ATXTimelineRelevanceMetricHarvester: Logging metrics for %ld widget(s)", buf, 0xCu);
+      v70 = v14;
+      _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_INFO, "ATXTimelineRelevanceMetricHarvester: Logging metrics for %ld widget(s)", buf, 0xCu);
     }
 
-    v53 = v8;
+    v55 = v8;
 
+    v66 = 0u;
+    v67 = 0u;
     v64 = 0u;
     v65 = 0u;
-    v62 = 0u;
-    v63 = 0u;
-    v52 = v9;
-    v12 = v9;
-    v59 = [v12 countByEnumeratingWithState:&v62 objects:v66 count:16];
-    if (v59)
+    v54 = v9;
+    v13 = v9;
+    v61 = [v13 countByEnumeratingWithState:&v64 objects:v68 count:16];
+    if (v61)
     {
-      v14 = 0;
-      v57 = *v63;
-      v55 = activityCopy;
-      v56 = v12;
+      v15 = 0;
+      v59 = *v65;
+      v57 = activityCopy;
+      v58 = v13;
       selfCopy = self;
       while (2)
       {
-        for (i = 0; i != v59; ++i)
+        for (i = 0; i != v61; ++i)
         {
-          if (*v63 != v57)
+          if (*v65 != v59)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v16 = *(*(&v62 + 1) + 8 * i);
-          v61 = objc_autoreleasePoolPush();
-          v17 = objc_opt_new();
-          extensionIdentity = [v16 extensionIdentity];
+          v17 = *(*(&v64 + 1) + 8 * i);
+          v63 = objc_autoreleasePoolPush();
+          v18 = objc_opt_new();
+          extensionIdentity = [v17 extensionIdentity];
           extensionBundleIdentifier = [extensionIdentity extensionBundleIdentifier];
-          [v17 setWidgetBundleId:extensionBundleIdentifier];
+          [v18 setWidgetBundleId:extensionBundleIdentifier];
 
-          kind = [v16 kind];
-          [v17 setWidgetKind:kind];
+          kind = [v17 kind];
+          [v18 setWidgetKind:kind];
 
-          extensionIdentity2 = [v16 extensionIdentity];
+          extensionIdentity2 = [v17 extensionIdentity];
           containerBundleIdentifier = [extensionIdentity2 containerBundleIdentifier];
-          v23 = containerBundleIdentifier;
+          v24 = containerBundleIdentifier;
           if (containerBundleIdentifier)
           {
-            v24 = containerBundleIdentifier;
+            v25 = containerBundleIdentifier;
           }
 
           else
           {
-            v24 = &stru_2839A6058;
+            v25 = &stru_2839A6058;
           }
 
-          [v17 setContainerBundleIdentifier:{v24, v52}];
+          [v18 setContainerBundleIdentifier:{v25, v54}];
 
-          [v17 setWidgetFamily:{objc_msgSend(objc_opt_class(), "PBWidgetFamilyFromCHSWidgetFamily:", objc_msgSend(v16, "family"))}];
-          [v17 setTimelineDonationNilCount:0];
-          [v17 setAtLeastOnePositiveTimelineRelevanceScore:0];
+          [v18 setWidgetFamily:{objc_msgSend(objc_opt_class(), "PBWidgetFamilyFromCHSWidgetFamily:", objc_msgSend(v17, "family"))}];
+          [v18 setTimelineDonationNilCount:0];
+          [v18 setAtLeastOnePositiveTimelineRelevanceScore:0];
           timelineRelevanceABGroup = [(ATXTimelineAbuseControlConfig *)self->_abuseControlConfig timelineRelevanceABGroup];
-          [v17 setAbGroup:timelineRelevanceABGroup];
+          [v18 setAbGroup:timelineRelevanceABGroup];
 
-          v26 = [MEMORY[0x277CBEAA8] now];
-          v27 = [v26 dateByAddingTimeInterval:-604800.0];
-          [v27 timeIntervalSinceReferenceDate];
-          v29 = v28;
+          v27 = [MEMORY[0x277CBEAA8] now];
+          v28 = [v27 dateByAddingTimeInterval:-604800.0];
+          [v28 timeIntervalSinceReferenceDate];
+          v30 = v29;
 
-          v30 = objc_opt_new();
-          if ([(ATXTimelineRelevanceMetricHarvester *)self addTimelineRelevanceScoresToTimelineRelevanceContainer:v17 forWidget:v16 withDistributionsLogged:v14 updatingDictionary:v30 anonymizeTimestampsRelativeTo:v29])
+          v31 = objc_opt_new();
+          if ([(ATXTimelineRelevanceMetricHarvester *)self addTimelineRelevanceScoresToTimelineRelevanceContainer:v18 forWidget:v17 withDistributionsLogged:v15 updatingDictionary:v31 anonymizeTimestampsRelativeTo:v30])
           {
-            v60 = v14;
-            extensionIdentity3 = [v16 extensionIdentity];
+            v62 = v15;
+            extensionIdentity3 = [v17 extensionIdentity];
             extensionBundleIdentifier2 = [extensionIdentity3 extensionBundleIdentifier];
-            extensionIdentity4 = [v16 extensionIdentity];
+            extensionIdentity4 = [v17 extensionIdentity];
             [extensionIdentity4 containerBundleIdentifier];
-            v35 = v34 = self;
-            kind2 = [v16 kind];
-            v37 = -[ATXTimelineRelevanceMetricHarvester fetchStackConfigSummaryForWidgetBundleId:appBundleId:widgetKind:widgetSize:withPBTimelineRelevanceContainer:anonymizeTimestampsRelativeTo:](v34, "fetchStackConfigSummaryForWidgetBundleId:appBundleId:widgetKind:widgetSize:withPBTimelineRelevanceContainer:anonymizeTimestampsRelativeTo:", extensionBundleIdentifier2, v35, kind2, [v16 family], v17, v29);
+            v36 = v35 = self;
+            kind2 = [v17 kind];
+            v38 = -[ATXTimelineRelevanceMetricHarvester fetchStackConfigSummaryForWidgetBundleId:appBundleId:widgetKind:widgetSize:withPBTimelineRelevanceContainer:anonymizeTimestampsRelativeTo:](v35, "fetchStackConfigSummaryForWidgetBundleId:appBundleId:widgetKind:widgetSize:withPBTimelineRelevanceContainer:anonymizeTimestampsRelativeTo:", extensionBundleIdentifier2, v36, kind2, [v17 family], v18, v30);
 
-            lastObject = [v37 lastObject];
+            lastObject = [v38 lastObject];
             if ([lastObject hasSmartStacksWithWidget])
             {
               hasNonSmartStacksWithWidget = 1;
@@ -276,65 +275,66 @@
 
             else
             {
-              lastObject2 = [v37 lastObject];
+              lastObject2 = [v38 lastObject];
               hasNonSmartStacksWithWidget = [lastObject2 hasNonSmartStacksWithWidget];
             }
 
             self = selfCopy;
-            v12 = v56;
-            v14 = v60;
-            if (hasNonSmartStacksWithWidget && v60 <= 4)
+            v13 = v58;
+            v15 = v62;
+            if (hasNonSmartStacksWithWidget && v62 <= 4)
             {
               [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-              [v17 setTimestamp:(v41 - v29)];
-              [(ATXTimelineRelevanceMetricHarvester *)selfCopy addTimelineRelevanceSuggestionsToContainer:v17 withTimelineEntries:v30 anonymizeTimestampsRelativeTo:v29];
-              extensionIdentity5 = [v16 extensionIdentity];
+              [v18 setTimestamp:(v42 - v30)];
+              [(ATXTimelineRelevanceMetricHarvester *)selfCopy addTimelineRelevanceSuggestionsToContainer:v18 withTimelineEntries:v31 anonymizeTimestampsRelativeTo:v30];
+              extensionIdentity5 = [v17 extensionIdentity];
               extensionBundleIdentifier3 = [extensionIdentity5 extensionBundleIdentifier];
-              extensionIdentity6 = [v16 extensionIdentity];
+              extensionIdentity6 = [v17 extensionIdentity];
               containerBundleIdentifier2 = [extensionIdentity6 containerBundleIdentifier];
-              kind3 = [v16 kind];
-              -[ATXTimelineRelevanceMetricHarvester _addRotationHistoryForWidgetBundleId:appBundleId:widgetKind:widgetSize:withPBTimelineRelevanceContainer:anonymizeTimestampsRelativeTo:](selfCopy, "_addRotationHistoryForWidgetBundleId:appBundleId:widgetKind:widgetSize:withPBTimelineRelevanceContainer:anonymizeTimestampsRelativeTo:", extensionBundleIdentifier3, containerBundleIdentifier2, kind3, [v16 family], v17, v29);
+              kind3 = [v17 kind];
+              -[ATXTimelineRelevanceMetricHarvester _addRotationHistoryForWidgetBundleId:appBundleId:widgetKind:widgetSize:withPBTimelineRelevanceContainer:anonymizeTimestampsRelativeTo:](selfCopy, "_addRotationHistoryForWidgetBundleId:appBundleId:widgetKind:widgetSize:withPBTimelineRelevanceContainer:anonymizeTimestampsRelativeTo:", extensionBundleIdentifier3, containerBundleIdentifier2, kind3, [v17 family], v18, v30);
 
-              v12 = v56;
+              v13 = v58;
               self = selfCopy;
 
-              [(ATXTimelineRelevanceMetricHarvester *)selfCopy addStackConfigSummaryToTimelineRelevanceContainer:v17 withStackConfigSummary:v37];
-              [(ATXTimelineRelevanceMetricHarvester *)selfCopy addFeatureVectorToTimelineRelevanceContainer:v17];
-              v14 = v60 + 1;
+              [(ATXTimelineRelevanceMetricHarvester *)selfCopy addStackConfigSummaryToTimelineRelevanceContainer:v18 withStackConfigSummary:v38];
+              [(ATXTimelineRelevanceMetricHarvester *)selfCopy addFeatureVectorToTimelineRelevanceContainer:v18];
+              v15 = v62 + 1;
             }
 
-            activityCopy = v55;
+            activityCopy = v57;
           }
 
           else
           {
-            v37 = 0;
+            v38 = 0;
           }
 
           mEMORY[0x277D41DA8] = [MEMORY[0x277D41DA8] sharedInstance];
-          [mEMORY[0x277D41DA8] logMessage:v17];
+          [mEMORY[0x277D41DA8] logMessage:v18];
 
-          if ([activityCopy didDefer])
+          didDefer2 = [activityCopy didDefer];
+          if (didDefer2)
           {
-            v50 = __atxlog_handle_timeline();
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+            v53 = __atxlog_handle_timeline(didDefer2);
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_2263AA000, v50, OS_LOG_TYPE_INFO, "ATXTimelineRelevanceMetricHarvester: Asked to defer activity", buf, 2u);
+              _os_log_impl(&dword_2263AA000, v53, OS_LOG_TYPE_INFO, "ATXTimelineRelevanceMetricHarvester: Asked to defer activity", buf, 2u);
             }
 
-            v7 = v54;
-            [(ATXTimelineRelevanceMetricHarvester *)self _updateMetricsSubmissionDateTo:v54];
+            v7 = v56;
+            [(ATXTimelineRelevanceMetricHarvester *)self _updateMetricsSubmissionDateTo:v56];
 
-            objc_autoreleasePoolPop(v61);
+            objc_autoreleasePoolPop(v63);
             goto LABEL_33;
           }
 
-          objc_autoreleasePoolPop(v61);
+          objc_autoreleasePoolPop(v63);
         }
 
-        v59 = [v12 countByEnumeratingWithState:&v62 objects:v66 count:16];
-        if (v59)
+        v61 = [v13 countByEnumeratingWithState:&v64 objects:v68 count:16];
+        if (v61)
         {
           continue;
         }
@@ -343,58 +343,56 @@
       }
     }
 
-    v7 = v54;
-    [(ATXTimelineRelevanceMetricHarvester *)self _updateMetricsSubmissionDateTo:v54];
+    v7 = v56;
+    [(ATXTimelineRelevanceMetricHarvester *)self _updateMetricsSubmissionDateTo:v56];
     [(ATXInformationStore *)self->_informationStore clearOldAbuseControlOutcomeData];
     [(ATXInformationStore *)self->_informationStore deleteExpiredProactiveStackRotations];
     informationStore = self->_informationStore;
     startDateOfDismissHistoryConsidered = [MEMORY[0x277CEB9C0] startDateOfDismissHistoryConsidered];
     [(ATXInformationStore *)informationStore clearWidgetRemovalHistoryOlderThan:startDateOfDismissHistoryConsidered];
 
-    v12 = __atxlog_handle_timeline();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = __atxlog_handle_timeline(v52);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_INFO, "ATXTimelineRelevanceMetricHarvester: Finished logging Timeline Relevance metrics.", buf, 2u);
+      _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_INFO, "ATXTimelineRelevanceMetricHarvester: Finished logging Timeline Relevance metrics.", buf, 2u);
     }
 
 LABEL_33:
-    v9 = v52;
-    v8 = v53;
+    v9 = v54;
+    v8 = v55;
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)addTimelineRelevanceScoresToTimelineRelevanceContainer:(id)container forWidget:(id)widget withDistributionsLogged:(unint64_t)logged updatingDictionary:(id)dictionary anonymizeTimestampsRelativeTo:(double)to
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   widgetCopy = widget;
   selfCopy = self;
   dictionaryCopy = dictionary;
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v39 = widgetCopy;
+  v38 = widgetCopy;
   obj = [(ATXInformationStore *)self->_informationStore fetchTimelineEntriesForWidget:widgetCopy sinceDate:self->_loggingStartDate];
-  v14 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+  v14 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
   if (v14)
   {
     v15 = v14;
-    v42 = 0;
-    v16 = *v45;
+    v41 = 0;
+    v16 = *v44;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v45 != v16)
+        if (*v44 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v44 + 1) + 8 * i);
+        v18 = *(*(&v43 + 1) + 8 * i);
         v19 = objc_autoreleasePoolPush();
         timelineEntry = [v18 timelineEntry];
         relevance = [timelineEntry relevance];
@@ -441,7 +439,7 @@ LABEL_33:
               [(ATXTimelineRelevanceMetricHarvester *)selfCopy _updateTimelineEntriesDictionaryWithEntries:dictionaryCopy withKey:suggestionId2 withScoreEntry:v22];
             }
 
-            v42 = 1;
+            v41 = 1;
           }
         }
 
@@ -453,7 +451,7 @@ LABEL_33:
         objc_autoreleasePoolPop(v19);
       }
 
-      v15 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v15 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
     }
 
     while (v15);
@@ -461,104 +459,101 @@ LABEL_33:
 
   else
   {
-    v42 = 0;
+    v41 = 0;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
-  return v42 & 1;
+  return v41 & 1;
 }
 
 - (void)addStackConfigSummaryToTimelineRelevanceContainer:(id)container withStackConfigSummary:(id)summary
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   summaryCopy = summary;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v7 = [summaryCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [summaryCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(summaryCopy);
         }
 
-        [containerCopy addStackConfigSummary:*(*(&v12 + 1) + 8 * v10++)];
+        [containerCopy addStackConfigSummary:*(*(&v11 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [summaryCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [summaryCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addTimelineRelevanceSuggestionsToContainer:(id)container withTimelineEntries:(id)entries anonymizeTimestampsRelativeTo:(double)to
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   entriesCopy = entries;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = [entriesCopy allKeys];
-  v8 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v8 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v29;
+    v10 = *v28;
     do
     {
       v11 = 0;
       do
       {
-        if (*v29 != v10)
+        if (*v28 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v28 + 1) + 8 * v11);
+        v12 = *(*(&v27 + 1) + 8 * v11);
         v13 = objc_autoreleasePoolPush();
         v14 = objc_opt_new();
         [(ATXTimelineRelevanceMetricHarvester *)self _addAbuseControlOutcomesForSuggestionId:v12 withPBTimelineRelevanceSuggestion:v14 anonymizeTimestampsRelativeTo:to];
-        v26 = 0u;
-        v27 = 0u;
-        v24 = 0u;
         v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
         v15 = [entriesCopy objectForKeyedSubscript:v12];
-        v16 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v25;
+          v18 = *v24;
           do
           {
             v19 = 0;
             do
             {
-              if (*v25 != v18)
+              if (*v24 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              [v14 addTimelineRelevanceScoreEntry:*(*(&v24 + 1) + 8 * v19++)];
+              [v14 addTimelineRelevanceScoreEntry:*(*(&v23 + 1) + 8 * v19++)];
             }
 
             while (v17 != v19);
-            v17 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
           }
 
           while (v17);
@@ -570,40 +565,38 @@ LABEL_33:
       }
 
       while (v11 != v9);
-      v9 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v9 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v9);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addAbuseControlOutcomesForSuggestionId:(id)id withPBTimelineRelevanceSuggestion:(id)suggestion anonymizeTimestampsRelativeTo:(double)to
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   idCopy = id;
   suggestionCopy = suggestion;
   [(ATXInformationStore *)self->_informationStore fetchAbuseControlOutcomesForSuggestion:idCopy sinceDate:self->_loggingStartDate];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v10 = v24 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = v23 = 0u;
+  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v22;
+    v13 = *v21;
 LABEL_3:
     v14 = 0;
     while (1)
     {
-      if (*v22 != v13)
+      if (*v21 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v21 + 1) + 8 * v14);
+      v15 = *(*(&v20 + 1) + 8 * v14);
       v16 = objc_autoreleasePoolPush();
       v17 = objc_opt_new();
       [v15 timestamp];
@@ -620,7 +613,7 @@ LABEL_3:
 
       if (v12 == ++v14)
       {
-        v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v12)
         {
           goto LABEL_3;
@@ -630,43 +623,41 @@ LABEL_3:
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFeatureVectorToTimelineRelevanceContainer:(id)container
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   v4 = objc_opt_new();
   widgetBundleId = [containerCopy widgetBundleId];
   widgetKind = [containerCopy widgetKind];
-  v21 = containerCopy;
+  v20 = containerCopy;
   containerBundleIdentifier = [containerCopy containerBundleIdentifier];
-  v20 = v4;
+  v19 = v4;
   v8 = [v4 featurizeTimelineWithWidgetBundleId:widgetBundleId widgetKind:widgetKind appBundleIdentifier:containerBundleIdentifier];
 
   v9 = objc_opt_new();
   dictionaryRepresentation = [v8 dictionaryRepresentation];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v11 = [dictionaryRepresentation countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [dictionaryRepresentation countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v23;
+    v13 = *v22;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(dictionaryRepresentation);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
+        v15 = *(*(&v21 + 1) + 8 * i);
         NSSelectorFromString(v15);
         if (objc_opt_respondsToSelector())
         {
@@ -679,15 +670,13 @@ LABEL_3:
         }
       }
 
-      v12 = [dictionaryRepresentation countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [dictionaryRepresentation countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v12);
   }
 
-  [v21 setFeatureVector:v9];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [v20 setFeatureVector:v9];
 }
 
 - (void)_updateTimelineEntriesDictionaryWithEntries:(id)entries withKey:(id)key withScoreEntry:(id)entry
@@ -783,10 +772,10 @@ uint64_t __84__ATXTimelineRelevanceMetricHarvester__timeBasedMergePublisher_with
   v23 = [v20 sinkWithCompletion:v55 receiveInput:v51];
 
   v24 = v63[3];
-  [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  if (v24 >= v25)
+  timeIntervalSinceReferenceDate = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+  if (v24 >= v26)
   {
-    removeAndReturnCompletedSessions = __atxlog_handle_home_screen();
+    removeAndReturnCompletedSessions = __atxlog_handle_home_screen(timeIntervalSinceReferenceDate);
     if (os_log_type_enabled(removeAndReturnCompletedSessions, OS_LOG_TYPE_ERROR))
     {
       [ATXTimelineRelevanceMetricHarvester _addRotationHistoryForWidgetBundleId:appBundleId:widgetKind:widgetSize:withPBTimelineRelevanceContainer:anonymizeTimestampsRelativeTo:];
@@ -795,8 +784,8 @@ uint64_t __84__ATXTimelineRelevanceMetricHarvester__timeBasedMergePublisher_with
 
   else
   {
-    v26 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v27 = __atxlog_handle_home_screen(timeIntervalSinceReferenceDate);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
       [ATXTimelineRelevanceMetricHarvester _addRotationHistoryForWidgetBundleId:appBundleId:widgetKind:widgetSize:withPBTimelineRelevanceContainer:anonymizeTimestampsRelativeTo:];
     }
@@ -806,49 +795,49 @@ uint64_t __84__ATXTimelineRelevanceMetricHarvester__timeBasedMergePublisher_with
     v47 = 0u;
     v48 = 0u;
     removeAndReturnCompletedSessions = [v40 removeAndReturnCompletedSessions];
-    v28 = [removeAndReturnCompletedSessions countByEnumeratingWithState:&v47 objects:v66 count:16];
-    if (v28)
+    v29 = [removeAndReturnCompletedSessions countByEnumeratingWithState:&v47 objects:v66 count:16];
+    if (v29)
     {
-      v29 = *v48;
+      v30 = *v48;
 LABEL_6:
-      v30 = 0;
+      v31 = 0;
       while (1)
       {
-        if (*v48 != v29)
+        if (*v48 != v30)
         {
           objc_enumerationMutation(removeAndReturnCompletedSessions);
         }
 
-        v31 = *(*(&v47 + 1) + 8 * v30);
-        sessionEndDate = [v31 sessionEndDate];
+        v32 = *(*(&v47 + 1) + 8 * v31);
+        sessionEndDate = [v32 sessionEndDate];
         [sessionEndDate timeIntervalSinceReferenceDate];
-        v34 = v33;
+        v35 = v34;
         [(NSDate *)self->_loggingStartDate timeIntervalSinceReferenceDate];
-        v36 = v34 < v35;
+        v37 = v35 < v36;
 
-        if (v36)
+        if (v37)
         {
           break;
         }
 
-        startingStackChangeEvent = [v31 startingStackChangeEvent];
-        v38 = [(ATXTimelineRelevanceMetricHarvester *)self _shouldLogHomeScreenEvent:startingStackChangeEvent widgetBundleId:v44 appBundleId:v21 widgetKind:v22 widgetFamily:size];
+        startingStackChangeEvent = [v32 startingStackChangeEvent];
+        v39 = [(ATXTimelineRelevanceMetricHarvester *)self _shouldLogHomeScreenEvent:startingStackChangeEvent widgetBundleId:v44 appBundleId:v21 widgetKind:v22 widgetFamily:size];
 
-        if (!v38)
+        if (!v39)
         {
           break;
         }
 
-        [(ATXTimelineRelevanceMetricHarvester *)self addRotationsToContainer:containerCopy withStackRotationSesssion:v31 anonymizeTimestampsRelativeTo:to];
+        [(ATXTimelineRelevanceMetricHarvester *)self addRotationsToContainer:containerCopy withStackRotationSesssion:v32 anonymizeTimestampsRelativeTo:to];
         if ([containerCopy rotationsCount] > 0x1F3)
         {
           break;
         }
 
-        if (v28 == ++v30)
+        if (v29 == ++v31)
         {
-          v28 = [removeAndReturnCompletedSessions countByEnumeratingWithState:&v47 objects:v66 count:16];
-          if (v28)
+          v29 = [removeAndReturnCompletedSessions countByEnumeratingWithState:&v47 objects:v66 count:16];
+          if (v29)
           {
             goto LABEL_6;
           }
@@ -862,8 +851,6 @@ LABEL_6:
   objc_destroyWeak(&v54);
   objc_destroyWeak(&location);
   _Block_object_dispose(&v62, 8);
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __173__ATXTimelineRelevanceMetricHarvester__addRotationHistoryForWidgetBundleId_appBundleId_widgetKind_widgetSize_withPBTimelineRelevanceContainer_anonymizeTimestampsRelativeTo___block_invoke(uint64_t a1, void *a2)
@@ -873,46 +860,46 @@ uint64_t __173__ATXTimelineRelevanceMetricHarvester__addRotationHistoryForWidget
 
   if (v4)
   {
-    v5 = [v3 eventBody];
+    v6 = [v3 eventBody];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if (isKindOfClass)
     {
-      v7 = *(a1 + 32);
-      v8 = [v3 eventBody];
-      v9 = [v7 _shouldProcessEvent:v8];
+      v8 = *(a1 + 32);
+      v9 = [v3 eventBody];
+      v10 = [v8 _shouldProcessEvent:v9];
     }
 
     else
     {
-      v11 = [v3 eventBody];
-      v12 = [v11 conformsToProtocol:&unk_283B11C28];
+      v12 = [v3 eventBody];
+      v13 = [v12 conformsToProtocol:&unk_283B11C28];
 
-      v9 = v12 ^ 1u;
+      v10 = v13 ^ 1u;
     }
   }
 
   else
   {
-    v10 = __atxlog_handle_timeline();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_timeline(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __173__ATXTimelineRelevanceMetricHarvester__addRotationHistoryForWidgetBundleId_appBundleId_widgetKind_widgetSize_withPBTimelineRelevanceContainer_anonymizeTimestampsRelativeTo___block_invoke_cold_1();
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 void __173__ATXTimelineRelevanceMetricHarvester__addRotationHistoryForWidgetBundleId_appBundleId_widgetKind_widgetSize_withPBTimelineRelevanceContainer_anonymizeTimestampsRelativeTo___block_invoke_143(void *a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 state];
-  v5 = __atxlog_handle_timeline();
+  v5 = __atxlog_handle_timeline(v4);
   v6 = v5;
   if (v4)
   {
@@ -926,21 +913,18 @@ void __173__ATXTimelineRelevanceMetricHarvester__addRotationHistoryForWidgetBund
   {
     v7 = a1[4];
     v8 = a1[5];
-    v10 = a1[6];
-    v9 = a1[7];
-    v11 = NSStringFromWidgetFamily();
-    v13 = 138413058;
-    v14 = v7;
+    v9 = a1[6];
+    v10 = NSStringFromWidgetFamily();
+    v11 = 138413058;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
     v15 = 2112;
-    v16 = v8;
+    v16 = v9;
     v17 = 2112;
     v18 = v10;
-    v19 = 2112;
-    v20 = v11;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "ATXTimelineRelevanceMetricHarvester: Successfully fetched rotation events from Biome for widgetBundleId: %@, appBundleId: %@, widgetKind: %@, widgetFamily: %@", &v13, 0x2Au);
+    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "ATXTimelineRelevanceMetricHarvester: Successfully fetched rotation events from Biome for widgetBundleId: %@, appBundleId: %@, widgetKind: %@, widgetFamily: %@", &v11, 0x2Au);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __173__ATXTimelineRelevanceMetricHarvester__addRotationHistoryForWidgetBundleId_appBundleId_widgetKind_widgetSize_withPBTimelineRelevanceContainer_anonymizeTimestampsRelativeTo___block_invoke_145(uint64_t a1, void *a2)
@@ -1103,32 +1087,32 @@ LABEL_17:
 
 - (id)fetchStackConfigSummaryForWidgetBundleId:(id)id appBundleId:(id)bundleId widgetKind:(id)kind widgetSize:(int64_t)size withPBTimelineRelevanceContainer:(id)container anonymizeTimestampsRelativeTo:(double)to
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   idCopy = id;
   bundleIdCopy = bundleId;
   kindCopy = kind;
   v16 = objc_opt_new();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v28 = bundleIdCopy;
+  v27 = bundleIdCopy;
   v17 = [(ATXInformationStore *)self->_informationStore fetchStackConfigStatisticsForWidgetBundleId:idCopy widgetKind:kindCopy containerBundleIdentifier:bundleIdCopy widgetFamily:size];
-  v18 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v30;
+    v20 = *v29;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v30 != v20)
+        if (*v29 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v29 + 1) + 8 * i);
+        v22 = *(*(&v28 + 1) + 8 * i);
         v23 = objc_opt_new();
         timestamp = [v22 timestamp];
         [timestamp timeIntervalSinceReferenceDate];
@@ -1157,13 +1141,11 @@ LABEL_17:
         [v16 addObject:v23];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v19);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -1183,29 +1165,30 @@ LABEL_17:
 + (double)roundNumber:(id)number toSignificantFigures:(unint64_t)figures
 {
   numberCopy = number;
-  v6 = 0.0;
-  if (([numberCopy isEqualToNumber:&unk_283A574A0] & 1) == 0)
+  v6 = [numberCopy isEqualToNumber:&unk_283A574A0];
+  v7 = 0.0;
+  if ((v6 & 1) == 0)
   {
     if (figures)
     {
       [numberCopy doubleValue];
-      v8 = log10(v7);
-      v9 = __exp10(figures - ceil(v8));
+      v9 = log10(v8);
+      v10 = __exp10(figures - ceil(v9));
       [numberCopy doubleValue];
-      v6 = round(v10 * v9) / v9;
+      v7 = round(v11 * v10) / v10;
     }
 
     else
     {
-      v11 = __atxlog_handle_timeline();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = __atxlog_handle_timeline(v6);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         +[ATXTimelineRelevanceMetricHarvester roundNumber:toSignificantFigures:];
       }
     }
   }
 
-  return v6;
+  return v7;
 }
 
 + (int)PBClientModelFromString:(id)string
@@ -1376,26 +1359,23 @@ LABEL_17:
 
 void __173__ATXTimelineRelevanceMetricHarvester__addRotationHistoryForWidgetBundleId_appBundleId_widgetKind_widgetSize_withPBTimelineRelevanceContainer_anonymizeTimestampsRelativeTo___block_invoke_143_cold_1(void *a1, void *a2, NSObject *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a1[4];
   v6 = a1[5];
-  v8 = a1[6];
-  v7 = a1[7];
-  v9 = NSStringFromWidgetFamily();
-  v10 = [a2 error];
-  v12 = 138413314;
-  v13 = v5;
+  v7 = a1[6];
+  v8 = NSStringFromWidgetFamily();
+  v9 = [a2 error];
+  v10 = 138413314;
+  v11 = v5;
+  v12 = 2112;
+  v13 = v6;
   v14 = 2112;
-  v15 = v6;
+  v15 = v7;
   v16 = 2112;
   v17 = v8;
   v18 = 2112;
   v19 = v9;
-  v20 = 2112;
-  v21 = v10;
-  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "ATXTimelineRelevanceMetricHarvester: Error encountered while fetching rotation events from Biome for widgetBundleId: %@, appBundleId: %@, widgetKind: %@, widgetFamily:%@: %@", &v12, 0x34u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "ATXTimelineRelevanceMetricHarvester: Error encountered while fetching rotation events from Biome for widgetBundleId: %@, appBundleId: %@, widgetKind: %@, widgetFamily:%@: %@", &v10, 0x34u);
 }
 
 @end

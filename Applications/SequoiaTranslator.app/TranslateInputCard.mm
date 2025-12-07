@@ -22,14 +22,14 @@
 
 - (NSArray)keyCommands
 {
-  sub_100005AD4(&unk_1003AFCC0);
+  sub_100005AD4(&unk_1003AFCC0, &unk_1002D54E0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1002D95A0;
   v4 = objc_opt_self();
   selfCopy = self;
   *(v3 + 32) = [v4 keyCommandWithInput:UIKeyInputEscape modifierFlags:0 action:"closeButtonPressed"];
 
-  sub_10000A2CC(0, &qword_1003BB710);
+  sub_10000A2CC(0, &qword_1003BB710, UIKeyCommand_ptr);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;

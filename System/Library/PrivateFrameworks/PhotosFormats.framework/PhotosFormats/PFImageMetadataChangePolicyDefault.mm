@@ -57,7 +57,7 @@
   if (v17)
   {
     v18 = v17;
-    v19 = [v17 mutableCopy];
+    v19 = objc_msgSend_mutableCopy(v17);
 
     [v19 removeObjectForKey:*MEMORY[0x1E696DDC8]];
     [v8 setObject:v19 forKey:v16];
@@ -68,7 +68,7 @@
   if (v21)
   {
     v22 = v21;
-    v23 = [v21 mutableCopy];
+    v23 = objc_msgSend_mutableCopy(v21);
 
     [v23 removeObjectForKey:*MEMORY[0x1E696DF58]];
     [v8 setObject:v23 forKey:v20];
@@ -164,9 +164,11 @@
 
 uint64_t __52__PFImageMetadataChangePolicyDefault_standardPolicy__block_invoke()
 {
-  standardPolicy_standardPolicy_41 = objc_alloc_init(PFImageMetadataChangePolicyDefault);
+  v0 = objc_alloc_init(PFImageMetadataChangePolicyDefault);
+  v1 = standardPolicy_standardPolicy_41;
+  standardPolicy_standardPolicy_41 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

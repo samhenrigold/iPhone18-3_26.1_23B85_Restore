@@ -1,5 +1,6 @@
 @interface TRIRotateSubjectIdTask
 + (id)parseFromData:(id)data;
++ (id)taskWithDeviceId:(id)id nextRotationDate:(id)date forceUpdate:(BOOL)update;
 - (BOOL)isEqual:(id)equal;
 - (TRIRotateSubjectIdTask)initWithCoder:(id)coder;
 - (TRIRotateSubjectIdTask)initWithDeviceId:(id)id nextRotationDate:(id)date forceUpdate:(BOOL)update;
@@ -36,9 +37,19 @@
   return v13;
 }
 
++ (id)taskWithDeviceId:(id)id nextRotationDate:(id)date forceUpdate:(BOOL)update
+{
+  updateCopy = update;
+  dateCopy = date;
+  idCopy = id;
+  v10 = [[self alloc] initWithDeviceId:idCopy nextRotationDate:dateCopy forceUpdate:updateCopy];
+
+  return v10;
+}
+
 - (id)runTaskUsingContext:(id)context
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = MEMORY[0x277D737E8];
   paths = [contextCopy paths];
@@ -163,8 +174,8 @@ LABEL_35:
       client3 = [contextCopy client];
       logger = [client3 logger];
       v37 = [MEMORY[0x277D73B40] metricWithName:@"SubjectIdEnd"];
-      v47 = v37;
-      v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+      v46 = v37;
+      v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
       [logger logWithTrackingId:date metrics:v38 dimensions:0 trialSystemTelemetry:0];
     }
 
@@ -179,14 +190,12 @@ LABEL_24:
   {
     nextRotationDate3 = [v7 nextRotationDate];
     *buf = 138412290;
-    v49 = nextRotationDate3;
+    v48 = nextRotationDate3;
     _os_log_debug_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEBUG, "Not yet rotating subject id.  Next rotation date is %@", buf, 0xCu);
   }
 
   v14 = [TRITaskRunResult resultWithRunStatus:2 reportResultToServer:0 nextTasks:MEMORY[0x277CBEBF8] earliestRetryDate:0];
 LABEL_31:
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -320,17 +329,17 @@ LABEL_18:
 
 + (id)parseFromData:(id)data
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v4 = [(TRIPBMessage *)TRIRotateSubjectIdPersistedTask parseFromData:data error:&v16];
-  v5 = v16;
+  v18 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v4 = [(TRIPBMessage *)TRIRotateSubjectIdPersistedTask parseFromData:data error:&v15];
+  v5 = v15;
   if (!v4)
   {
     v7 = TRILogCategory_Server();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v5;
+      v17 = v5;
       _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "Unable to parse buffer as TRIRotateSubjectIdPersistedTask: %{public}@", buf, 0xCu);
     }
 
@@ -342,10 +351,10 @@ LABEL_18:
     v7 = TRILogCategory_Server();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       *buf = 138412290;
-      v18 = v15;
+      v17 = v14;
       _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "Cannot decode message of type %@ with missing field: forceUpdate", buf, 0xCu);
     }
 
@@ -391,7 +400,7 @@ LABEL_15:
   if (os_log_type_enabled(self, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v18 = v7;
+    v17 = v7;
     _os_log_error_impl(&dword_26F567000, self, OS_LOG_TYPE_ERROR, "TRIRotateSubjectIdPersistedTask contains unreasonably short deviceId: %@", buf, 0xCu);
   }
 
@@ -399,7 +408,6 @@ LABEL_15:
 LABEL_20:
 
 LABEL_21:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

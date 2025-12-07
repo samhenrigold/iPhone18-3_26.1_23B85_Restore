@@ -56,54 +56,54 @@
   v5 = encodingCopy;
   if (encodingCopy && MEMORY[0x1DA6E0380](encodingCopy) == MEMORY[0x1E69E9E80])
   {
-    v25.receiver = self;
-    v25.super_class = SSVDirectUpload;
-    v6 = [(SSVDirectUpload *)&v25 init];
+    v31.receiver = self;
+    v31.super_class = SSVDirectUpload;
+    v6 = [(SSVDirectUpload *)&v31 init];
     if (v6)
     {
-      objc_opt_class();
-      v8 = SSXPCDictionaryCopyCFObjectWithClass(v5, "2");
+      v8 = objc_opt_class();
+      v9 = SSXPCDictionaryCopyCFObjectWithClass(v5, "2", v8);
       categoryName = v6->_categoryName;
-      v6->_categoryName = v8;
+      v6->_categoryName = v9;
 
       v6->_countOfBytesExpectedToSend = xpc_dictionary_get_int64(v5, "0");
       v6->_countOfBytesSent = xpc_dictionary_get_int64(v5, "1");
-      v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v11 = xpc_dictionary_get_value(v5, "3");
-      v12 = [v10 initWithXPCEncoding:v11];
+      v11 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v12 = xpc_dictionary_get_value(v5, "3");
+      v13 = [v11 initWithXPCEncoding:v12];
       error = v6->_error;
-      v6->_error = v12;
+      v6->_error = v13;
 
       v6->_explicitContent = xpc_dictionary_get_BOOL(v5, "4");
       v6->_persistentIdentifier = xpc_dictionary_get_int64(v5, "5");
       v6->_state = xpc_dictionary_get_int64(v5, "6");
-      objc_opt_class();
-      v14 = SSXPCDictionaryCopyCFObjectWithClass(v5, "7");
+      v15 = objc_opt_class();
+      v16 = SSXPCDictionaryCopyCFObjectWithClass(v5, "7", v15);
       subtitle = v6->_subtitle;
-      v6->_subtitle = v14;
+      v6->_subtitle = v16;
 
-      objc_opt_class();
-      v16 = SSXPCDictionaryCopyCFObjectWithClass(v5, "9");
+      v18 = objc_opt_class();
+      v19 = SSXPCDictionaryCopyCFObjectWithClass(v5, "9", v18);
       title = v6->_title;
-      v6->_title = v16;
+      v6->_title = v19;
 
-      objc_opt_class();
-      v18 = SSXPCDictionaryCopyCFObjectWithClass(v5, "A");
+      v21 = objc_opt_class();
+      v22 = SSXPCDictionaryCopyCFObjectWithClass(v5, "A", v21);
       uploadKind = v6->_uploadKind;
-      v6->_uploadKind = v18;
+      v6->_uploadKind = v22;
 
-      objc_opt_class();
-      v20 = SSXPCDictionaryCopyCFObjectWithClass(v5, "B");
+      v24 = objc_opt_class();
+      v25 = SSXPCDictionaryCopyCFObjectWithClass(v5, "B", v24);
       uti = v6->_uti;
-      v6->_uti = v20;
+      v6->_uti = v25;
 
-      objc_opt_class();
-      v22 = SSXPCDictionaryCopyCFObjectWithClass(v5, "8");
-      if (v22)
+      v27 = objc_opt_class();
+      v28 = SSXPCDictionaryCopyCFObjectWithClass(v5, "8", v27);
+      if (v28)
       {
-        v23 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:v22];
+        v29 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:v28];
         thumbnailImageURL = v6->_thumbnailImageURL;
-        v6->_thumbnailImageURL = v23;
+        v6->_thumbnailImageURL = v29;
       }
     }
   }

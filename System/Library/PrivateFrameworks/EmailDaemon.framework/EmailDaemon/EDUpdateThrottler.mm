@@ -27,40 +27,38 @@
 
 - (void)_reset
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_updatesLock);
   v3 = [(NSMutableArray *)self->_unacknowledgedUpdates copy];
   os_unfair_lock_unlock(&self->_updatesLock);
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) invoke];
+        [*(*(&v8 + 1) + 8 * v7++) invoke];
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __38__EDUpdateThrottler_resetAllInstances__block_invoke(uint64_t a1, void *a2)
@@ -74,52 +72,51 @@ void __38__EDUpdateThrottler_resetAllInstances__block_invoke(uint64_t a1, void *
 
 + (void)resetAllInstances
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__52;
-  v17 = __Block_byref_object_dispose__52;
-  v18 = 0;
+  v19 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__52;
+  v16 = __Block_byref_object_dispose__52;
+  v17 = 0;
   instances = [self instances];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __38__EDUpdateThrottler_resetAllInstances__block_invoke;
-  v12[3] = &unk_1E8259000;
-  v12[4] = &v13;
-  [instances performWhileLocked:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __38__EDUpdateThrottler_resetAllInstances__block_invoke;
+  v11[3] = &unk_1E8259000;
+  v11[4] = &v12;
+  [instances performWhileLocked:v11];
 
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
   v9 = 0u;
-  v3 = v14[5];
-  v4 = [v3 countByEnumeratingWithState:&v8 objects:v19 count:16];
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v3 = v13[5];
+  v4 = [v3 countByEnumeratingWithState:&v7 objects:v18 count:16];
   if (v4)
   {
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) _reset];
+        [*(*(&v7 + 1) + 8 * v6++) _reset];
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v8 objects:v19 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v7 objects:v18 count:16];
     }
 
     while (v4);
   }
 
-  _Block_object_dispose(&v13, 8);
-  v7 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v12, 8);
 }
 
 - (void)dealloc
@@ -235,7 +232,7 @@ void __30__EDUpdateThrottler_instances__block_invoke()
 
 - (id)updateWithBlock:(id)block unacknowledgedUpdatesCount:(unint64_t *)count
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   os_unfair_lock_lock(&self->_updatesLock);
   v7 = [(NSMutableArray *)self->_unacknowledgedUpdates count];
@@ -291,9 +288,9 @@ void __30__EDUpdateThrottler_instances__block_invoke()
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v34 = v13;
-      v35 = 2048;
-      v36 = v9;
+      v33 = v13;
+      v34 = 2048;
+      v35 = v9;
       _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Time since the last update %f has not exceeded the current delay %f", buf, 0x16u);
     }
 
@@ -304,26 +301,24 @@ void __30__EDUpdateThrottler_instances__block_invoke()
   os_unfair_lock_unlock(&self->_updatesLock);
   objc_initWeak(buf, self);
   objc_initWeak(&location, v15);
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __64__EDUpdateThrottler_updateWithBlock_unacknowledgedUpdatesCount___block_invoke;
-  v28[3] = &unk_1E8259028;
-  objc_copyWeak(&v30, buf);
-  objc_copyWeak(&v31, &location);
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __64__EDUpdateThrottler_updateWithBlock_unacknowledgedUpdatesCount___block_invoke;
+  v27[3] = &unk_1E8259028;
+  objc_copyWeak(&v29, buf);
+  objc_copyWeak(&v30, &location);
   v25 = blockCopy;
-  v29 = v25;
-  [v15 addInvocationBlock:v28];
+  v28 = v25;
+  [v15 addInvocationBlock:v27];
   if (count)
   {
     *count = v7;
   }
 
-  objc_destroyWeak(&v31);
   objc_destroyWeak(&v30);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(&location);
   objc_destroyWeak(buf);
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

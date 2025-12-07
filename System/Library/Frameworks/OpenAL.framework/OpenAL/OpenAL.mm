@@ -107,7 +107,7 @@ uint64_t OALBuffer::IsPurgable(OALBuffer *this)
 
 uint64_t OALBuffer::AddAudioDataStatic(OALBuffer *this, char *a2, int a3, unsigned int a4, unsigned int a5)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v10 = (this + 144);
   v11 = (*(*(this + 18) + 16))(this + 144);
   if (((*(v10[25] + 8) - *v10[25]) & 0xFFFFFFFF0) != 0)
@@ -124,13 +124,13 @@ uint64_t OALBuffer::AddAudioDataStatic(OALBuffer *this, char *a2, int a3, unsign
 LABEL_11:
       v14 = *this;
       *buf = 136315906;
-      v18 = "oalBuffer.cpp";
-      v19 = 1024;
-      v20 = 166;
-      v21 = 2048;
-      v22 = v14;
-      v23 = 1024;
-      v24 = v12;
+      v17 = "oalBuffer.cpp";
+      v18 = 1024;
+      v19 = 166;
+      v20 = 2048;
+      v21 = v14;
+      v22 = 1024;
+      v23 = v12;
       _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d OALBuffer::AddAudioDataStatic Failed - OALBuffer = %ld, err = %d\n", buf, 0x22u);
       goto LABEL_12;
     }
@@ -169,7 +169,6 @@ LABEL_12:
     (*(*v10 + 24))(v10);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -193,7 +192,7 @@ void CAGuard::Locker::~Locker(CAGuard::Locker *this)
 
 uint64_t OALBuffer::AddAudioData(OALBuffer *this, char *a2, unsigned int a3, unsigned int a4, unsigned int a5)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v10 = (this + 144);
   v11 = (*(*(this + 18) + 16))(this + 144);
   if (((*(v10[25] + 8) - *v10[25]) & 0xFFFFFFFF0) == 0 || (WaitOneRenderCycle(), ((*(*(this + 43) + 8) - **(this + 43)) & 0xFFFFFFFF0) == 0))
@@ -218,18 +217,18 @@ uint64_t OALBuffer::AddAudioData(OALBuffer *this, char *a2, unsigned int a3, uns
 
     else
     {
-      v15 = *(this + 36);
-      if (v15)
+      v14 = *(this + 36);
+      if (v14)
       {
         if (*(this + 75) == a3)
         {
           goto LABEL_18;
         }
 
-        v16 = malloc_type_realloc(v15, a3, 0x10A7C11CuLL);
+        v15 = malloc_type_realloc(v14, a3, 0x10A7C11CuLL);
 LABEL_17:
-        *(this + 36) = v16;
-        if (!v16)
+        *(this + 36) = v15;
+        if (!v15)
         {
           goto LABEL_3;
         }
@@ -241,14 +240,14 @@ LABEL_18:
         v12 = 0;
         if (!v11)
         {
-          goto LABEL_12;
+          return v12;
         }
 
         goto LABEL_11;
       }
     }
 
-    v16 = malloc_type_malloc(a3, 0x100004077774924uLL);
+    v15 = malloc_type_malloc(a3, 0x100004077774924uLL);
     goto LABEL_17;
   }
 
@@ -258,11 +257,11 @@ LABEL_3:
   {
 LABEL_9:
     *buf = 136315650;
-    v18 = "oalBuffer.cpp";
-    v19 = 1024;
-    v20 = 232;
-    v21 = 1024;
-    v22 = v12;
+    v17 = "oalBuffer.cpp";
+    v18 = 1024;
+    v19 = 232;
+    v20 = 1024;
+    v21 = v12;
     _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d OALBuffer::AddAudioData Failed - err = %d\n", buf, 0x18u);
   }
 
@@ -273,8 +272,6 @@ LABEL_11:
     (*(*v10 + 24))(v10);
   }
 
-LABEL_12:
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -635,14 +632,14 @@ void sub_23A0136F4(_Unwind_Exception *a1)
 
 uint64_t OALContext::InitializeMixer(OALContext *this, unsigned int a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   LODWORD(ioDataSize) = 0;
-  v19 = 0;
+  v18 = 0;
   memset(inData, 0, sizeof(inData));
   inDescription.componentFlagsMask = 0;
   *&inDescription.componentType = xmmword_23A03A380;
-  v16 = 0;
-  memset(v15, 0, sizeof(v15));
+  v15 = 0;
+  memset(v14, 0, sizeof(v14));
   Property = AUGraphAddNode(*(*(this + 2) + 16), &inDescription, this + 6);
   if (Property)
   {
@@ -666,7 +663,7 @@ uint64_t OALContext::InitializeMixer(OALContext *this, unsigned int a2)
   *(inData + 8) = xmmword_23A03A390;
   DWORD2(inData[1]) = 4;
   HIDWORD(inData[1]) = DesiredRenderChannelCount;
-  v19 = 32;
+  v18 = 32;
   *&inData[0] = *(this + 56);
   Property = AudioUnitSetProperty(*(this + 4), 8u, 2u, 0, inData, 0x28u);
   if (Property)
@@ -674,13 +671,13 @@ uint64_t OALContext::InitializeMixer(OALContext *this, unsigned int a2)
     goto LABEL_27;
   }
 
-  v13 = 4;
-  v14 = 0;
-  AudioUnitGetProperty(*(this + 4), 0xEu, 0, 0, &v14, &v13);
-  if (v14 < *(*(this + 2) + 72))
+  v12 = 4;
+  v13 = 0;
+  AudioUnitGetProperty(*(this + 4), 0xEu, 0, 0, &v13, &v12);
+  if (v13 < *(*(this + 2) + 72))
   {
-    v14 = *(*(this + 2) + 72);
-    Property = AudioUnitSetProperty(*(this + 4), 0xEu, 0, 0, &v14, 4u);
+    v13 = *(*(this + 2) + 72);
+    Property = AudioUnitSetProperty(*(this + 4), 0xEu, 0, 0, &v13, 4u);
     if (Property)
     {
       goto LABEL_27;
@@ -707,10 +704,10 @@ uint64_t OALContext::InitializeMixer(OALContext *this, unsigned int a2)
     }
   }
 
-  *&v15[0] = *(this + 56);
-  DWORD2(v15[1]) = 2;
-  LODWORD(v16) = 16;
-  *(v15 + 8) = xmmword_23A03A3A0;
+  *&v14[0] = *(this + 56);
+  DWORD2(v14[1]) = 2;
+  LODWORD(v15) = 16;
+  *(v14 + 8) = xmmword_23A03A3A0;
   if (*(this + 108))
   {
     v6 = 0;
@@ -718,14 +715,14 @@ uint64_t OALContext::InitializeMixer(OALContext *this, unsigned int a2)
     while (1)
     {
       v8 = v7 >= a2 ? 1 : 2;
-      HIDWORD(v15[1]) = v8;
-      if (AudioUnitSetProperty(*(this + 4), 8u, 1u, v7, v15, 0x28u))
+      HIDWORD(v14[1]) = v8;
+      if (AudioUnitSetProperty(*(this + 4), 8u, 1u, v7, v14, 0x28u))
       {
         break;
       }
 
       v9 = *(this + 59) + v6;
-      *(v9 + 8) = HIDWORD(v15[1]);
+      *(v9 + 8) = HIDWORD(v14[1]);
       *v9 = -1;
       *(v9 + 4) = 0;
       ++v7;
@@ -751,17 +748,16 @@ LABEL_27:
       v10 = *this;
       DWORD1(ioDataSize) = 136315906;
       *(&ioDataSize + 1) = "oalContext.cpp";
-      v21 = 1024;
-      v22 = 372;
-      v23 = 2048;
-      v24 = v10;
-      v25 = 2048;
-      v26 = Property;
+      v20 = 1024;
+      v21 = 372;
+      v22 = 2048;
+      v23 = v10;
+      v24 = 2048;
+      v25 = Property;
       _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALContext::InitializeMixer FAILED - OALContext = %ld : result = %ld", &ioDataSize + 4, 0x26u);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return Property;
 }
 
@@ -1047,15 +1043,15 @@ uint64_t OALContext::CleanUpDeadSourceList(uint64_t this)
 
 uint64_t OALContext::InitRenderQualityOnBusses(OALContext *this)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   ioDataSize = 0;
-  v16 = 0;
+  v14 = 0;
   outData = 0u;
-  v15 = 0u;
+  v13 = 0u;
   if (OALDevice::GetDesiredRenderChannelCount(*(this + 2)) <= 2)
   {
-    v11 = *(this + 106);
-    switch(v11)
+    v10 = *(this + 106);
+    switch(v10)
     {
       case 1751412840:
         v2 = 1;
@@ -1070,7 +1066,7 @@ uint64_t OALContext::InitRenderQualityOnBusses(OALContext *this)
         v9 = 0xFFFFFFFFLL;
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
-          goto LABEL_16;
+          return v9;
         }
 
         goto LABEL_15;
@@ -1083,88 +1079,82 @@ uint64_t OALContext::InitRenderQualityOnBusses(OALContext *this)
   }
 
   *(this + 107) = v2;
-  if (*(this + 108))
+  if (!*(this + 108))
   {
-    v3 = 0;
-    v4 = MEMORY[0x277D86220];
-    do
-    {
-      ioDataSize = 40;
-      result = AudioUnitGetProperty(*(this + 4), 8u, 1u, v3, &outData, &ioDataSize);
-      if (!result)
-      {
-        if (HIDWORD(v15) == 2)
-        {
-          v6 = 5;
-        }
+    return 0;
+  }
 
-        else
-        {
-          v6 = *(this + 107);
-        }
-
-        inData = v6;
-        result = AudioUnitSetProperty(*(this + 4), 0xBB8u, 1u, v3, &inData, 4u);
-        if (result)
-        {
-          v7 = result;
-          v8 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
-          result = v7;
-          if (v8)
-          {
-            *buf = 136315906;
-            v19 = "oalContext.cpp";
-            v20 = 1024;
-            v21 = 998;
-            v22 = 1024;
-            v23 = v3;
-            v24 = 1024;
-            v25 = v7;
-            _os_log_impl(&dword_23A012000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d OALContext::InitRenderQualityOnBusses() - Error setting kAudioUnitProperty_SpatializationAlgorithm: bus = %d, err= %d", buf, 0x1Eu);
-            result = v7;
-          }
-        }
-      }
-
-      ++v3;
-    }
-
-    while (v3 < *(this + 108));
+  v3 = 0;
+  v4 = MEMORY[0x277D86220];
+  do
+  {
+    ioDataSize = 40;
+    result = AudioUnitGetProperty(*(this + 4), 8u, 1u, v3, &outData, &ioDataSize);
     if (!result)
     {
-      goto LABEL_17;
+      if (HIDWORD(v13) == 2)
+      {
+        v6 = 5;
+      }
+
+      else
+      {
+        v6 = *(this + 107);
+      }
+
+      inData = v6;
+      result = AudioUnitSetProperty(*(this + 4), 0xBB8u, 1u, v3, &inData, 4u);
+      if (result)
+      {
+        v7 = result;
+        v8 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+        result = v7;
+        if (v8)
+        {
+          *buf = 136315906;
+          v17 = "oalContext.cpp";
+          v18 = 1024;
+          v19 = 998;
+          v20 = 1024;
+          v21 = v3;
+          v22 = 1024;
+          v23 = v7;
+          _os_log_impl(&dword_23A012000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d OALContext::InitRenderQualityOnBusses() - Error setting kAudioUnitProperty_SpatializationAlgorithm: bus = %d, err= %d", buf, 0x1Eu);
+          result = v7;
+        }
+      }
     }
 
+    ++v3;
+  }
+
+  while (v3 < *(this + 108));
+  if (result)
+  {
     v9 = result;
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-LABEL_16:
-      result = v9;
-LABEL_17:
-      v10 = *MEMORY[0x277D85DE8];
-      return result;
+      return v9;
     }
 
 LABEL_15:
     *buf = 136315650;
-    v19 = "oalContext.cpp";
+    v17 = "oalContext.cpp";
+    v18 = 1024;
+    v19 = 1004;
     v20 = 1024;
-    v21 = 1004;
-    v22 = 1024;
-    v23 = v9;
+    v21 = v9;
     _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d OALContext::InitRenderQualityOnBusses() - Error setting kAudioUnitProperty_SpatializationAlgorithm: err= %d", buf, 0x18u);
-    goto LABEL_16;
+    return v9;
   }
 
-  result = 0;
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t OALContext::ConfigureMixerFormat(AudioUnit *this)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v10 = 0;
+  v18 = *MEMORY[0x277D85DE8];
+  v9 = 0;
   memset(outData, 0, sizeof(outData));
   ioDataSize = 40;
   v2 = this + 4;
@@ -1173,7 +1163,7 @@ uint64_t OALContext::ConfigureMixerFormat(AudioUnit *this)
   *(outData + 8) = xmmword_23A03A390;
   DWORD2(outData[1]) = 4;
   HIDWORD(outData[1]) = DesiredRenderChannelCount;
-  v10 = 32;
+  v9 = 32;
   *&outData[0] = this[56];
   inited = AudioUnitSetProperty(*v2, 8u, 2u, 0, outData, 0x28u);
   if (inited || (inited = OALContext::InitRenderQualityOnBusses(this), inited))
@@ -1182,24 +1172,23 @@ uint64_t OALContext::ConfigureMixerFormat(AudioUnit *this)
     {
       v5 = *this;
       *buf = 136315906;
-      v12 = "oalContext.cpp";
-      v13 = 1024;
-      v14 = 405;
-      v15 = 2048;
-      v16 = v5;
-      v17 = 2048;
-      v18 = inited;
+      v11 = "oalContext.cpp";
+      v12 = 1024;
+      v13 = 405;
+      v14 = 2048;
+      v15 = v5;
+      v16 = 2048;
+      v17 = inited;
       _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALContext::ConfigureMixerFormat FAILED - OALContext = %ld : result = %ld", buf, 0x26u);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return inited;
 }
 
-void sub_23A014488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23A014488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CAGuard::Locker::~Locker(va);
   _Unwind_Resume(a1);
 }
@@ -1278,84 +1267,100 @@ uint64_t OALContext::RemoveSource(uint64_t this, unsigned int a2)
     }
 
     while (v4);
-    if (v6 != v3 && *(v6 + 32) <= a2 && *(v6 + 40))
+    if (v6 != v3 && *(v6 + 32) <= a2)
     {
-      v10 = this;
-      OALSource::SetUpDeconstruction(*(v6 + 40));
-      v12 = v10;
-      v14 = *(v10 + 48);
-      v13 = v10 + 48;
-      v15 = (*(v14 + 16))(v13);
-      v16 = *(v13 - 8);
-      v17 = v16[1];
-      if (v17)
+      v10 = *(v6 + 40);
+      if (v10)
       {
-        v18 = v16 + 1;
-        v19 = v16[1];
-        do
+        v11 = this;
+        OALSource::SetUpDeconstruction(*(v6 + 40));
+        v13 = v11;
+        v15 = *(v11 + 48);
+        v14 = v11 + 48;
+        v16 = (*(v15 + 16))(v14);
+        v17 = *(v14 - 8);
+        v18 = v17[1];
+        if (v18)
         {
-          v20 = *(v19 + 32);
-          v8 = v20 >= a2;
-          v21 = v20 < a2;
-          if (v8)
+          v19 = v17 + 1;
+          v20 = v17[1];
+          do
           {
-            v18 = v19;
-          }
-
-          v19 = *(v19 + 8 * v21);
-        }
-
-        while (v19);
-        if (v18 != v16 + 1 && *(v18 + 8) <= a2)
-        {
-          v22 = v18[1];
-          if (v22)
-          {
-            do
+            v21 = *(v20 + 32);
+            v8 = v21 >= a2;
+            v22 = v21 < a2;
+            if (v8)
             {
-              v23 = v22;
-              v22 = *v22;
+              v19 = v20;
             }
 
-            while (v22);
+            v20 = *(v20 + 8 * v22);
           }
 
-          else
+          while (v20);
+          if (v19 != v17 + 1 && *(v19 + 8) <= a2)
           {
-            v24 = v18;
-            do
+            v23 = v19[1];
+            if (v23)
             {
-              v23 = v24[2];
-              v25 = *v23 == v24;
-              v24 = v23;
+              do
+              {
+                v24 = v23;
+                v23 = *v23;
+              }
+
+              while (v23);
             }
 
-            while (!v25);
-          }
+            else
+            {
+              v25 = v19;
+              do
+              {
+                v24 = v25[2];
+                v26 = *v24 == v25;
+                v25 = v24;
+              }
 
-          v26 = v15;
-          if (*v16 == v18)
-          {
-            *v16 = v23;
-          }
+              while (!v26);
+            }
 
-          --v16[2];
-          std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v17, v18);
-          operator delete(v18);
-          v15 = v26;
+            v27 = v16;
+            if (*v17 == v19)
+            {
+              *v17 = v24;
+            }
+
+            --v17[2];
+            std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v18, v19);
+            operator delete(v19);
+            v16 = v27;
+          }
         }
-      }
 
-      if (v15)
-      {
-        (*(*v13 + 24))(v13);
-      }
+        if (v16)
+        {
+          (*(*v14 + 24))(v14);
+        }
 
-      (*(*(v12 + 192) + 16))(v12 + 192);
-        ;
-      }
+        (*(*(v13 + 192) + 16))(v13 + 192);
+        v28 = *(v13 + 184);
+        v29 = (v28 + 8);
+        for (i = *(v28 + 8); i; i = *(i + 8 * v33))
+        {
+          v31 = *(i + 32);
+          v32 = v31 > a2;
+          v33 = v31 <= a2;
+          if (v32)
+          {
+            v29 = i;
+          }
+        }
 
-      std::__tree<std::__value_type<unsigned int,OALSource *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OALSource *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OALSource *>>>::__emplace_hint_multi<std::pair<unsigned int const,OALSource *>>();
+        LODWORD(v34) = a2;
+        *(&v34 + 1) = v10;
+        std::__tree<std::__value_type<unsigned int,OALSource *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OALSource *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OALSource *>>>::__emplace_hint_multi<std::pair<unsigned int const,OALSource *>>(v28, v29, &v34);
+      }
     }
   }
 
@@ -1364,7 +1369,7 @@ uint64_t OALContext::RemoveSource(uint64_t this, unsigned int a2)
 
 uint64_t OALContext::ConnectMixerToDevice(OALDevice **this)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = OALDevice::ConnectContext(this[2], this);
   if (v2)
   {
@@ -1376,26 +1381,24 @@ uint64_t OALContext::ConnectMixerToDevice(OALDevice **this)
     v3 = AUGraphAddRenderNotify(*(this[2] + 2), OALContext::ContextNotificationProc, this);
     if (!v3)
     {
-      goto LABEL_6;
+      return v3;
     }
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     v4 = *this;
-    v7 = 136315906;
-    v8 = "oalContext.cpp";
-    v9 = 1024;
-    v10 = 573;
-    v11 = 2048;
-    v12 = v4;
-    v13 = 2048;
-    v14 = v3;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALContext::ConnectMixerToDevice FAILED - OALContext = %ld : result = %ld", &v7, 0x26u);
+    v6 = 136315906;
+    v7 = "oalContext.cpp";
+    v8 = 1024;
+    v9 = 573;
+    v10 = 2048;
+    v11 = v4;
+    v12 = 2048;
+    v13 = v3;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALContext::ConnectMixerToDevice FAILED - OALContext = %ld : result = %ld", &v6, 0x26u);
   }
 
-LABEL_6:
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1418,21 +1421,20 @@ uint64_t OALContext::ContextNotificationProc(OALContext *this, _DWORD *a2, unsig
   }
 }
 
-uint64_t OALContext::DisconnectMixerFromDevice(OALContext *this)
+uint64_t OALContext::DisconnectMixerFromDevice(OALDevice **this)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OALDevice::DisconnectContext(*(this + 2), this);
-  v2 = AUGraphRemoveRenderNotify(*(*(this + 2) + 16), OALContext::ContextNotificationProc, this);
+  v8 = *MEMORY[0x277D85DE8];
+  OALDevice::DisconnectContext(this[2], this);
+  v2 = AUGraphRemoveRenderNotify(*(this[2] + 2), OALContext::ContextNotificationProc, this);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315394;
-    v6 = "oalContext.cpp";
-    v7 = 1024;
-    v8 = 584;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d OALContext::DisconnectMixerFromDevice : Disconnecting now", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "oalContext.cpp";
+    v6 = 1024;
+    v7 = 584;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d OALContext::DisconnectMixerFromDevice : Disconnecting now", &v4, 0x12u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -1558,9 +1560,9 @@ uint64_t OALContext::SetDistanceModel(uint64_t this, int a2)
   return this;
 }
 
-void sub_23A014C64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A014C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CAGuard::Locker::~Locker(va);
   _Unwind_Resume(a1);
 }
@@ -1989,31 +1991,26 @@ uint64_t OALContext::InitRenderQualityOnSources(OALContext *this)
   return 0;
 }
 
-OALContext *OALContext::SetRenderQuality(OALContext *this, unsigned int a2)
+OALContext *OALContext::SetRenderQuality(OALContext *this, int a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (*(this + 106) == a2)
+  v14 = *MEMORY[0x277D85DE8];
+  if (*(this + 106) != a2)
   {
-    v2 = *MEMORY[0x277D85DE8];
-  }
-
-  else
-  {
-    v4 = this;
-    if (!IsValidRenderQuality(a2))
+    v3 = this;
+    if ((IsValidRenderQuality(a2) & 1) == 0)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        v6 = *v4;
-        v8 = 136315906;
-        v9 = "oalContext.cpp";
-        v10 = 1024;
-        v11 = 1040;
+        v4 = *v3;
+        v6 = 136315906;
+        v7 = "oalContext.cpp";
+        v8 = 1024;
+        v9 = 1040;
+        v10 = 2048;
+        v11 = v4;
         v12 = 2048;
-        v13 = v6;
-        v14 = 2048;
-        v15 = a2;
-        _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d OALContext::SetRenderQuality() - Error: Invalid Render Quality Requested - OALContext:inRenderQuality = %ld:%ld", &v8, 0x26u);
+        v13 = a2;
+        _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d OALContext::SetRenderQuality() - Error: Invalid Render Quality Requested - OALContext:inRenderQuality = %ld:%ld", &v6, 0x26u);
       }
 
       exception = __cxa_allocate_exception(4uLL);
@@ -2021,11 +2018,10 @@ OALContext *OALContext::SetRenderQuality(OALContext *this, unsigned int a2)
       __cxa_throw(exception, MEMORY[0x277D827C0], 0);
     }
 
-    *(v4 + 106) = a2;
-    OALContext::InitRenderQualityOnBusses(v4);
-    v5 = *MEMORY[0x277D85DE8];
+    *(v3 + 106) = a2;
+    OALContext::InitRenderQualityOnBusses(v3);
 
-    return OALContext::InitRenderQualityOnSources(v4);
+    return OALContext::InitRenderQualityOnSources(v3);
   }
 
   return this;
@@ -2033,51 +2029,51 @@ OALContext *OALContext::SetRenderQuality(OALContext *this, unsigned int a2)
 
 uint64_t OALContext::SetSourceDesiredRenderQualityOnBus(AudioUnit *this, int a2, AudioUnitElement a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (OALDevice::GetDesiredRenderChannelCount(this[2]) <= 2)
   {
     inData = -1;
-    v16 = 0;
+    v15 = 0;
     outData = 0u;
-    v15 = 0u;
+    v14 = 0u;
     ioDataSize = 40;
     if (IsValidRenderQuality(a2))
     {
       switch(a2)
       {
         case 1751412840:
-          v10 = 1;
+          v9 = 1;
           break;
         case 1920034921:
-          v10 = 2;
+          v9 = 2;
           break;
         case 1919183983:
           inData = 0;
           goto LABEL_14;
         default:
 LABEL_10:
-          v9 = -50;
+          v8 = -50;
           goto LABEL_16;
       }
 
-      inData = v10;
+      inData = v9;
 LABEL_14:
       Property = AudioUnitGetProperty(this[4], 8u, 1u, a3, &outData, &ioDataSize);
       if (!Property)
       {
-        if (HIDWORD(v15) != 1)
+        if (HIDWORD(v14) != 1)
         {
-          goto LABEL_2;
+          return 0;
         }
 
         Property = AudioUnitSetProperty(this[4], 0xBB8u, 1u, a3, &inData, 4u);
         if (!Property)
         {
-          goto LABEL_2;
+          return 0;
         }
       }
 
-      v9 = Property;
+      v8 = Property;
 LABEL_16:
       for (i = MEMORY[0x277D86220]; ; _os_log_impl(&dword_23A012000, i, OS_LOG_TYPE_DEBUG, "%25s:%-5d OALContext::SetSourceDesiredRenderQualityOnBus() - Error setting kAudioUnitProperty_SpatializationAlgorithm: bus = %d, err = %d", buf, 0x1Eu))
       {
@@ -2085,43 +2081,41 @@ LABEL_16:
         }
 
         *buf = 136315906;
-        v19 = "oalContext.cpp";
-        v20 = 1024;
-        v21 = 1110;
-        v22 = 1024;
-        v23 = a3;
-        v24 = 1024;
-        v25 = v9;
+        v18 = "oalContext.cpp";
+        v19 = 1024;
+        v20 = 1110;
+        v21 = 1024;
+        v22 = a3;
+        v23 = 1024;
+        v24 = v8;
       }
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v8 = *this;
+      v7 = *this;
       *buf = 136316162;
-      v19 = "oalContext.cpp";
-      v20 = 1024;
-      v21 = 1070;
-      v22 = 1024;
-      v23 = v8;
-      v24 = 1024;
-      v25 = a2;
-      v26 = 1024;
-      v27 = a3;
+      v18 = "oalContext.cpp";
+      v19 = 1024;
+      v20 = 1070;
+      v21 = 1024;
+      v22 = v7;
+      v23 = 1024;
+      v24 = a2;
+      v25 = 1024;
+      v26 = a3;
       _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d OALContext::SetSourceDesiredRenderQualityOnBus() - Error: Invalid Render Quality Requested - OALContext:inRenderQuality:inBus = %d:%d:%d", buf, 0x24u);
     }
 
     goto LABEL_10;
   }
 
-LABEL_2:
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t OALContext::GetAvailableMonoBus(OALContext *this, int a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(this + 108);
   if (v2)
   {
@@ -2135,7 +2129,6 @@ uint64_t OALContext::GetAvailableMonoBus(OALContext *this, int a2)
         v5 = *(this + 4);
 LABEL_17:
         AudioUnitSetParameter(v5, 5u, 1u, v3, 1.0, 0);
-        v12 = *MEMORY[0x277D85DE8];
         return v3;
       }
 
@@ -2161,16 +2154,16 @@ LABEL_17:
       }
     }
 
-    v16 = 0;
+    v14 = 0;
     *buf = *(this + 56);
     *&buf[8] = xmmword_23A03A3B0;
-    v15 = 0x100000002;
-    LODWORD(v16) = 16;
+    v13 = 0x100000002;
+    LODWORD(v14) = 16;
     if (!AudioUnitSetProperty(*(this + 4), 8u, 1u, v3, buf, 0x28u))
     {
-      v11 = (*(this + 59) + v6);
-      *v11 = a2;
-      v11[2] = 1;
+      v10 = (*(this + 59) + v6);
+      *v10 = a2;
+      v10[2] = 1;
       AudioUnitSetProperty(*(this + 4), 0xBB8u, 1u, v3, this + 428, 4u);
       inData = 4;
       AudioUnitSetProperty(*(this + 4), 0xBBBu, 1u, v3, &inData, 4u);
@@ -2192,14 +2185,12 @@ LABEL_11:
     }
   }
 
-  v3 = 0xFFFFFFFFLL;
-  v7 = *MEMORY[0x277D85DE8];
-  return v3;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t OALContext::GetAvailableStereoBus(OALContext *this, int a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(this + 108);
   if (v2)
   {
@@ -2213,7 +2204,6 @@ uint64_t OALContext::GetAvailableStereoBus(OALContext *this, int a2)
         v5 = *(this + 4);
 LABEL_17:
         AudioUnitSetParameter(v5, 5u, 1u, v3, 1.0, 0);
-        v12 = *MEMORY[0x277D85DE8];
         return v3;
       }
 
@@ -2239,16 +2229,16 @@ LABEL_17:
       }
     }
 
-    v16 = 0;
+    v14 = 0;
     *buf = *(this + 56);
     *&buf[8] = xmmword_23A03A3A0;
-    v15 = 0x200000002;
-    LODWORD(v16) = 16;
+    v13 = 0x200000002;
+    LODWORD(v14) = 16;
     if (!AudioUnitSetProperty(*(this + 4), 8u, 1u, v3, buf, 0x28u))
     {
-      v11 = (*(this + 59) + v6);
-      *v11 = a2;
-      v11[2] = 2;
+      v10 = (*(this + 59) + v6);
+      *v10 = a2;
+      v10[2] = 2;
       inData = 5;
       AudioUnitSetProperty(*(this + 4), 0xBB8u, 1u, v3, &inData, 4u);
       v5 = *(this + 4);
@@ -2269,9 +2259,7 @@ LABEL_11:
     }
   }
 
-  v3 = 0xFFFFFFFFLL;
-  v7 = *MEMORY[0x277D85DE8];
-  return v3;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t OALContext::SetBusAsAvailable(uint64_t this, unsigned int a2)
@@ -2444,7 +2432,7 @@ LABEL_29:
   if (v26)
   {
     OALSource::ClearMessageQueue(v26);
-    OALSource::AddPlaybackMessage(v26, 9u, 0);
+    OALSource::AddPlaybackMessage(v26, 9, 0, 0);
   }
 
   return 0;
@@ -2488,7 +2476,7 @@ uint64_t OALContext::SetReverbLevel(uint64_t this, AudioUnitParameterValue a2)
 
 void OALContext::SetReverbState(OALContext *this, int a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*(this + 123) != a2)
   {
     v3 = (this + 492);
@@ -2496,9 +2484,9 @@ void OALContext::SetReverbState(OALContext *this, int a2)
     v4 = AudioUnitSetProperty(*(this + 4), 0x3EDu, 0, 0, this + 492, 4u);
     if (v4)
     {
-      v8 = v4;
+      v7 = v4;
       exception = __cxa_allocate_exception(4uLL);
-      *exception = v8;
+      *exception = v7;
       __cxa_throw(exception, MEMORY[0x277D827C0], 0);
     }
 
@@ -2512,18 +2500,16 @@ void OALContext::SetReverbState(OALContext *this, int a2)
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315650;
-          v12 = "oalContext.cpp";
-          v13 = 1024;
-          v14 = 1521;
-          v15 = 1024;
-          v16 = v6;
+          v11 = "oalContext.cpp";
+          v12 = 1024;
+          v13 = 1521;
+          v14 = 1024;
+          v15 = v6;
           _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d Could not enable old 3D mixer reverb behavior, %d", buf, 0x18u);
         }
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t OALContext::SetReverbEQGain(uint64_t this, AudioUnitParameterValue a2)
@@ -2619,15 +2605,15 @@ float OALContext::GetReverbEQFrequency(OALContext *this)
   return result;
 }
 
-void OALContext::OutputCapturerCreate(OALContext *this, double a2)
+void OALContext::OutputCapturerCreate(OALContext *this, double a2, unsigned int a3, unsigned int a4)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = *(this + 65);
-  if (v3)
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = *(this + 65);
+  if (v5)
   {
-    if (!*(v3 + 20))
+    if (!*(v5 + 20))
     {
-      OALCaptureMixer::~OALCaptureMixer(v3);
+      OALCaptureMixer::~OALCaptureMixer(v5);
       MEMORY[0x23EE824D0]();
       *(this + 65) = 0;
       operator new();
@@ -2635,11 +2621,11 @@ void OALContext::OutputCapturerCreate(OALContext *this, double a2)
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v5 = 136315394;
-      v6 = "oalContext.cpp";
-      v7 = 1024;
-      v8 = 1672;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALContext::OutputCapturerCreate FAILED - output capturer is currently capturing!", &v5, 0x12u);
+      v7 = 136315394;
+      v8 = "oalContext.cpp";
+      v9 = 1024;
+      v10 = 1672;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALContext::OutputCapturerCreate FAILED - output capturer is currently capturing!", &v7, 0x12u);
     }
 
     exception = __cxa_allocate_exception(4uLL);
@@ -2655,24 +2641,23 @@ void sub_23A0167A8(_Unwind_Exception *exception_object, int a2)
   if (a2)
   {
     MEMORY[0x23EE824D0](v3, 0x1020C4037481C38);
-    v6 = __cxa_begin_catch(exception_object);
+    __cxa_begin_catch(exception_object);
     if (a2 == 2)
     {
-      v7 = *v6;
-      v8 = *(v2 + 520);
-      if (v8)
+      v6 = *(v2 + 520);
+      if (v6)
       {
-        OALCaptureMixer::~OALCaptureMixer(v8);
+        OALCaptureMixer::~OALCaptureMixer(v6);
         MEMORY[0x23EE824D0]();
       }
     }
 
     else
     {
-      v9 = *(v2 + 520);
-      if (v9)
+      v7 = *(v2 + 520);
+      if (v7)
       {
-        OALCaptureMixer::~OALCaptureMixer(v9);
+        OALCaptureMixer::~OALCaptureMixer(v7);
         MEMORY[0x23EE824D0]();
       }
     }
@@ -2754,7 +2739,7 @@ uint64_t **std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(uin
       }
 
 LABEL_6:
-      v6[1] = v2;
+      *(v6 + 8) = v2;
       v8 = *(v3 + 24);
       if (v3 == a2)
       {
@@ -2836,7 +2821,7 @@ LABEL_10:
 
   else
   {
-    v7 = v6[1];
+    v7 = *(v6 + 8);
     v8 = *(v3 + 24);
     if (v3 != a2)
     {
@@ -2866,7 +2851,6 @@ LABEL_21:
   {
     v14 = v7[2];
     v15 = *v14;
-    v16 = *(v7 + 24);
     if (*v14 == v7)
     {
       break;
@@ -2876,19 +2860,19 @@ LABEL_21:
     {
       *(v7 + 24) = 1;
       *(v14 + 24) = 0;
-      v17 = v14[1];
-      v18 = *v17;
-      v14[1] = *v17;
-      if (v18)
+      v16 = *(v14 + 8);
+      v17 = *v16;
+      *(v14 + 8) = *v16;
+      if (v17)
       {
-        *(v18 + 16) = v14;
+        *(v17 + 16) = v14;
       }
 
-      v19 = v14[2];
-      v17[2] = v19;
-      v19[*v19 != v14] = v17;
-      *v17 = v14;
-      v14[2] = v17;
+      v18 = *(v14 + 16);
+      v16[2] = v18;
+      v18[*v18 != v14] = v16;
+      *v16 = v14;
+      *(v14 + 16) = v16;
       if (result == *v7)
       {
         result = v7;
@@ -2897,63 +2881,63 @@ LABEL_21:
       v7 = *(*v7 + 8);
     }
 
-    v20 = *v7;
-    if (*v7 && *(v20 + 24) != 1)
+    v19 = *v7;
+    if (*v7 && *(v19 + 24) != 1)
     {
-      v21 = v7[1];
-      if (!v21)
+      v20 = v7[1];
+      if (!v20)
       {
         goto LABEL_62;
       }
 
 LABEL_61:
-      if (*(v21 + 24) == 1)
+      if (*(v20 + 24) == 1)
       {
 LABEL_62:
-        *(v20 + 24) = 1;
+        *(v19 + 24) = 1;
         *(v7 + 24) = 0;
-        v29 = v20[1];
-        *v7 = v29;
-        if (v29)
+        v28 = v19[1];
+        *v7 = v28;
+        if (v28)
         {
-          *(v29 + 16) = v7;
+          *(v28 + 16) = v7;
         }
 
-        v30 = v7[2];
-        v30[*v30 != v7] = v20;
-        v20[1] = v7;
-        v20[2] = v30;
-        v7[2] = v20;
-        v21 = v7;
+        v29 = v7[2];
+        v29[*v29 != v7] = v19;
+        v19[1] = v7;
+        v19[2] = v29;
+        v7[2] = v19;
+        v20 = v7;
       }
 
       else
       {
-        v20 = v7;
+        v19 = v7;
       }
 
-      v31 = v20[2];
-      *(v20 + 24) = *(v31 + 24);
-      *(v31 + 24) = 1;
-      *(v21 + 24) = 1;
-      v32 = *(v31 + 8);
-      v33 = *v32;
-      *(v31 + 8) = *v32;
-      if (v33)
+      v30 = v19[2];
+      *(v19 + 24) = *(v30 + 24);
+      *(v30 + 24) = 1;
+      *(v20 + 24) = 1;
+      v31 = *(v30 + 8);
+      v32 = *v31;
+      *(v30 + 8) = *v31;
+      if (v32)
       {
-        *(v33 + 16) = v31;
+        *(v32 + 16) = v30;
       }
 
-      v34 = *(v31 + 16);
-      v32[2] = v34;
-      v34[*v34 != v31] = v32;
-      *v32 = v31;
-      *(v31 + 16) = v32;
+      v33 = *(v30 + 16);
+      v31[2] = v33;
+      v33[*v33 != v30] = v31;
+      *v31 = v30;
+      *(v30 + 16) = v31;
       return result;
     }
 
-    v21 = v7[1];
-    if (v21 && *(v21 + 24) != 1)
+    v20 = v7[1];
+    if (v20 && *(v20 + 24) != 1)
     {
       goto LABEL_61;
     }
@@ -2973,35 +2957,35 @@ LABEL_28:
   {
     *(v7 + 24) = 1;
     *(v14 + 24) = 0;
-    v22 = v15[1];
-    *v14 = v22;
-    if (v22)
+    v21 = v15[1];
+    *v14 = v21;
+    if (v21)
     {
-      v22[2] = v14;
+      *(v21 + 16) = v14;
     }
 
-    v23 = v14[2];
-    v23[*v23 != v14] = v15;
+    v22 = *(v14 + 16);
+    v22[*v22 != v14] = v15;
     v15[1] = v14;
-    v15[2] = v23;
-    v14[2] = v15;
-    v24 = v7[1];
-    if (result == v24)
+    v15[2] = v22;
+    *(v14 + 16) = v15;
+    v23 = v7[1];
+    if (result == v23)
     {
       result = v7;
     }
 
-    v7 = *v24;
+    v7 = *v23;
   }
 
-  v25 = *v7;
-  if (*v7 && *(v25 + 24) != 1)
+  v24 = *v7;
+  if (*v7 && *(v24 + 24) != 1)
   {
     goto LABEL_69;
   }
 
-  v26 = v7[1];
-  if (!v26 || *(v26 + 24) == 1)
+  v25 = v7[1];
+  if (!v25 || *(v25 + 24) == 1)
   {
     *(v7 + 24) = 0;
     v12 = v7[2];
@@ -3015,48 +2999,48 @@ LABEL_59:
     goto LABEL_28;
   }
 
-  if (v25 && (v25[3] & 1) == 0)
+  if (v24 && (v24[3] & 1) == 0)
   {
 LABEL_69:
-    v26 = v7;
+    v25 = v7;
   }
 
   else
   {
-    *(v26 + 24) = 1;
+    *(v25 + 24) = 1;
     *(v7 + 24) = 0;
-    v27 = *v26;
-    v7[1] = *v26;
-    if (v27)
+    v26 = *v25;
+    v7[1] = *v25;
+    if (v26)
     {
-      *(v27 + 16) = v7;
+      *(v26 + 16) = v7;
     }
 
-    v28 = v7[2];
-    v26[2] = v28;
-    v28[*v28 != v7] = v26;
-    *v26 = v7;
-    v7[2] = v26;
-    v25 = v7;
+    v27 = v7[2];
+    v25[2] = v27;
+    v27[*v27 != v7] = v25;
+    *v25 = v7;
+    v7[2] = v25;
+    v24 = v7;
   }
 
-  v35 = v26[2];
-  *(v26 + 24) = *(v35 + 24);
-  *(v35 + 24) = 1;
-  *(v25 + 24) = 1;
-  v36 = *v35;
-  v37 = *(*v35 + 8);
-  *v35 = v37;
-  if (v37)
+  v34 = v25[2];
+  *(v25 + 24) = *(v34 + 24);
+  *(v34 + 24) = 1;
+  *(v24 + 24) = 1;
+  v35 = *v34;
+  v36 = *(*v34 + 8);
+  *v34 = v36;
+  if (v36)
   {
-    *(v37 + 16) = v35;
+    *(v36 + 16) = v34;
   }
 
-  v38 = v35[2];
-  v38[*v38 != v35] = v36;
-  *(v36 + 8) = v35;
-  *(v36 + 16) = v38;
-  v35[2] = v36;
+  v37 = *(v34 + 16);
+  v37[*v37 != v34] = v35;
+  *(v35 + 8) = v34;
+  *(v35 + 16) = v37;
+  *(v34 + 16) = v35;
   return result;
 }
 
@@ -3082,12 +3066,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   while (1)
   {
     v2 = a2[2];
-    if (v2[3])
+    if (*(v2 + 24))
     {
       return result;
     }
 
-    v3 = v2[2];
+    v3 = *(v2 + 16);
     v4 = *v3;
     if (*v3 != v2)
     {
@@ -3099,10 +3083,9 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     {
       if (*v2 == a2)
       {
-        v20 = a2[2];
         *(v2 + 24) = 1;
         *(v3 + 24) = 0;
-        v13 = v4[1];
+        v13 = *(v4 + 8);
         *v3 = v13;
         if (v13)
         {
@@ -3112,26 +3095,26 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
       else
       {
-        v10 = v2[1];
+        v10 = *(v2 + 8);
         v11 = *v10;
-        v2[1] = *v10;
+        *(v2 + 8) = *v10;
         v12 = v2;
         if (v11)
         {
-          v11[2] = v2;
-          v3 = v2[2];
+          *(v11 + 16) = v2;
+          v3 = *(v2 + 16);
           v12 = *v3;
         }
 
-        v10[2] = v3;
+        *(v10 + 16) = v3;
         v3[v12 != v2] = v10;
         *v10 = v2;
-        v2[2] = v10;
-        v3 = v10[2];
+        *(v2 + 16) = v10;
+        v3 = *(v10 + 16);
         v4 = *v3;
         *(v10 + 24) = 1;
         *(v3 + 24) = 0;
-        v13 = v4[1];
+        v13 = *(v4 + 8);
         *v3 = v13;
         if (v13)
         {
@@ -3142,8 +3125,8 @@ LABEL_15:
 
       v14 = v3[2];
       v14[*v14 != v3] = v4;
-      v4[1] = v3;
-      v4[2] = v14;
+      *(v4 + 8) = v3;
+      *(v4 + 16) = v14;
       v3[2] = v4;
       return result;
     }
@@ -3162,7 +3145,7 @@ LABEL_3:
   if (v4)
   {
     v6 = *(v4 + 24);
-    v5 = v4 + 3;
+    v5 = (v4 + 24);
     if (v6 != 1)
     {
       v7 = v5;
@@ -3173,19 +3156,19 @@ LABEL_3:
   v15 = *v2;
   if (*v2 == a2)
   {
-    v16 = *(v15 + 8);
+    v16 = v15[1];
     *v2 = v16;
     if (v16)
     {
       *(v16 + 16) = v2;
-      v3 = v2[2];
+      v3 = *(v2 + 16);
     }
 
     v3[*v3 != v2] = v15;
-    *(v15 + 8) = v2;
-    *(v15 + 16) = v3;
-    v2[2] = v15;
-    v3 = *(v15 + 16);
+    v15[1] = v2;
+    v15[2] = v3;
+    *(v2 + 16) = v15;
+    v3 = v15[2];
   }
 
   else
@@ -3213,88 +3196,83 @@ LABEL_3:
 
 uint64_t OALDevice::InitializeGraph(AUGraph *outGraph, const char *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = outGraph + 2;
   if (outGraph[2])
   {
-    v3 = 1768843636;
+    return 1768843636;
+  }
+
+  v11 = 0;
+  memset(outData, 0, sizeof(outData));
+  ioDataSize = 40;
+  Property = NewAUGraph(outGraph + 2);
+  if (Property)
+  {
+    goto LABEL_12;
+  }
+
+  v8.componentFlagsMask = 0;
+  *&v8.componentType = xmmword_23A03A3D0;
+  Property = AUGraphAddNode(outGraph[2], &v8, outGraph + 6);
+  if (Property)
+  {
+    goto LABEL_12;
+  }
+
+  Property = AUGraphOpen(*v2);
+  if (Property)
+  {
+    goto LABEL_12;
+  }
+
+  Property = AUGraphNodeInfo(outGraph[2], *(outGraph + 6), 0, outGraph + 4);
+  if (Property)
+  {
+    goto LABEL_12;
+  }
+
+  Property = AudioUnitGetProperty(outGraph[4], 8u, 2u, 0, outData, &ioDataSize);
+  if (Property)
+  {
+    goto LABEL_12;
+  }
+
+  if (*outData == 0.0)
+  {
+    *&outData[0] = 0x40E5888000000000;
+  }
+
+  Property = AudioUnitSetProperty(outGraph[4], 8u, 1u, 0, outData, ioDataSize);
+  if (Property || (Property = AudioUnitInitialize(outGraph[4]), Property))
+  {
+LABEL_12:
+    v3 = Property;
   }
 
   else
   {
-    v12 = 0;
-    memset(outData, 0, sizeof(outData));
-    ioDataSize = 40;
-    Property = NewAUGraph(outGraph + 2);
-    if (Property)
+    v3 = AudioUnitAddPropertyListener(outGraph[4], 8u, OALDevice::GraphFormatPropertyListener, outGraph);
+    if (!v3)
     {
-      goto LABEL_12;
-    }
-
-    v9.componentFlagsMask = 0;
-    *&v9.componentType = xmmword_23A03A3D0;
-    Property = AUGraphAddNode(outGraph[2], &v9, outGraph + 6);
-    if (Property)
-    {
-      goto LABEL_12;
-    }
-
-    Property = AUGraphOpen(*v2);
-    if (Property)
-    {
-      goto LABEL_12;
-    }
-
-    Property = AUGraphNodeInfo(outGraph[2], *(outGraph + 6), 0, outGraph + 4);
-    if (Property)
-    {
-      goto LABEL_12;
-    }
-
-    Property = AudioUnitGetProperty(outGraph[4], 8u, 2u, 0, outData, &ioDataSize);
-    if (Property)
-    {
-      goto LABEL_12;
-    }
-
-    if (*outData == 0.0)
-    {
-      *&outData[0] = 0x40E5888000000000;
-    }
-
-    Property = AudioUnitSetProperty(outGraph[4], 8u, 1u, 0, outData, ioDataSize);
-    if (Property || (Property = AudioUnitInitialize(outGraph[4]), Property))
-    {
-LABEL_12:
-      v3 = Property;
-    }
-
-    else
-    {
-      v3 = AudioUnitAddPropertyListener(outGraph[4], 8u, OALDevice::GraphFormatPropertyListener, outGraph);
-      if (!v3)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
-    {
-      v6 = *outGraph;
-      *buf = 136315906;
-      v14 = "oalDevice.cpp";
-      v15 = 1024;
-      v16 = 338;
-      v17 = 2048;
-      v18 = v6;
-      v19 = 2048;
-      v20 = v3;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALDevice::InitializeGraph FAILED - OALDevice = %ld : result = %ld", buf, 0x26u);
+      return v3;
     }
   }
 
-LABEL_15:
-  v7 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  {
+    v6 = *outGraph;
+    *buf = 136315906;
+    v13 = "oalDevice.cpp";
+    v14 = 1024;
+    v15 = 338;
+    v16 = 2048;
+    v17 = v6;
+    v18 = 2048;
+    v19 = v3;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALDevice::InitializeGraph FAILED - OALDevice = %ld : result = %ld", buf, 0x26u);
+  }
+
   return v3;
 }
 
@@ -3361,19 +3339,18 @@ uint64_t OALDevice::StopGraph(AUGraph *this)
 
 uint64_t OALDevice::ResetRenderChannelSettings(OALDevice *this)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   DesiredRenderChannelCount = OALDevice::GetDesiredRenderChannelCount(this);
   if (*(this + 16) == DesiredRenderChannelCount)
   {
-    Property = 0;
-    goto LABEL_16;
+    return 0;
   }
 
   *(this + 16) = DesiredRenderChannelCount;
   v4 = *(this + 11);
-  v16 = this + 88;
+  v15 = this + 88;
   v5 = (*(v4 + 16))(this + 88);
-  v17 = v5;
+  v16 = v5;
   outIsRunning[0] = 0;
   AUGraphIsRunning(*(this + 2), outIsRunning);
   v6 = outIsRunning[0];
@@ -3404,11 +3381,11 @@ uint64_t OALDevice::ResetRenderChannelSettings(OALDevice *this)
       Property = AudioUnitSetProperty(*(this + 4), 8u, 1u, 0, outIsRunning, 0x28u);
       if (!Property)
       {
-        if (*(this + 16) < 3u || (v11 = *(this + 11), v14 = 0, inData = v11, Property = AudioUnitSetProperty(*(this + 4), 0x13u, 1u, 0, &inData, 0x20u), !Property))
+        if (*(this + 16) < 3u || (v10 = *(this + 11), v13 = 0, inData = v10, Property = AudioUnitSetProperty(*(this + 4), 0x13u, 1u, 0, &inData, 0x20u), !Property))
         {
           ReconfigureContextsOfThisDevice(*this);
-          v12 = *(this + 10);
-          if (!v12)
+          v11 = *(this + 10);
+          if (!v11)
           {
             goto LABEL_28;
           }
@@ -3422,10 +3399,10 @@ uint64_t OALDevice::ResetRenderChannelSettings(OALDevice *this)
             }
 
             *(this + 12) = 0;
-            v12 = *(this + 10);
+            v11 = *(this + 10);
           }
 
-          Property = AUGraphConnectNodeInput(*(this + 2), v12, 0, *(this + 6), 0);
+          Property = AUGraphConnectNodeInput(*(this + 2), v11, 0, *(this + 6), 0);
           if (Property)
           {
             goto LABEL_11;
@@ -3479,21 +3456,19 @@ LABEL_11:
     _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALDevice::ResetRenderChannelSettings FAILED - OALDevice = %lu : result = %d", outIsRunning, 0x22u);
   }
 
-LABEL_16:
-  v9 = *MEMORY[0x277D85DE8];
   return Property;
 }
 
-void sub_23A017698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A017698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   CAGuard::Locker::~Locker(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t OALDevice::GetDesiredRenderChannelCount(OALDevice *this)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   outDataSize = 0;
   if (*(this + 17) == 1919120244)
   {
@@ -3511,13 +3486,13 @@ uint64_t OALDevice::GetDesiredRenderChannelCount(OALDevice *this)
     {
       v6 = *this;
       *buf = 136315906;
-      v19 = "oalDevice.cpp";
-      v20 = 1024;
-      v21 = 434;
-      v22 = 2048;
-      v23 = v6;
-      v24 = 2048;
-      v25 = v5;
+      v18 = "oalDevice.cpp";
+      v19 = 1024;
+      v20 = 434;
+      v21 = 2048;
+      v22 = v6;
+      v23 = 2048;
+      v24 = v5;
       _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALDevice::GetDesiredRenderChannelCount: Cannot get audio channel layout -> defaulting to stereo: OALDevice = %ld : result = %ld", buf, 0x26u);
     }
 
@@ -3532,24 +3507,24 @@ uint64_t OALDevice::GetDesiredRenderChannelCount(OALDevice *this)
   }
 
   v2 = 2;
-  v9 = v1;
+  v8 = v1;
   if (AudioUnitGetProperty(*(this + 4), 0x13u, 2u, 0, v1, &outDataSize))
   {
-    v1 = v9;
+    v1 = v8;
     goto LABEL_7;
   }
 
-  v1 = v9;
-  v10 = *v9;
-  if (*v9)
+  v1 = v8;
+  v9 = *v8;
+  if (*v8)
   {
-    *(this + 11) = v10;
-    if (v10 <= 8192006)
+    *(this + 11) = v9;
+    if (v9 <= 8192006)
     {
-      if (v10 > 7733252)
+      if (v9 > 7733252)
       {
         v2 = 5;
-        if (v10 == 7733253 || v10 == 7929862)
+        if (v9 == 7733253 || v9 == 7929862)
         {
           goto LABEL_7;
         }
@@ -3557,13 +3532,13 @@ uint64_t OALDevice::GetDesiredRenderChannelCount(OALDevice *this)
 
       else
       {
-        if (v10 == 7077892)
+        if (v9 == 7077892)
         {
           v2 = 4;
           goto LABEL_7;
         }
 
-        if (v10 == 7274504)
+        if (v9 == 7274504)
         {
           v2 = 8;
           goto LABEL_7;
@@ -3573,11 +3548,11 @@ uint64_t OALDevice::GetDesiredRenderChannelCount(OALDevice *this)
 
     else
     {
-      if (v10 > 9109509)
+      if (v9 > 9109509)
       {
-        if (v10 != 9699335 && v10 != 9175047)
+        if (v9 != 9699335 && v9 != 9175047)
         {
-          if (v10 != 9109510)
+          if (v9 != 9109510)
           {
             goto LABEL_38;
           }
@@ -3590,12 +3565,12 @@ LABEL_39:
         goto LABEL_37;
       }
 
-      if (v10 == 8192007)
+      if (v9 == 8192007)
       {
         goto LABEL_39;
       }
 
-      if (v10 == 8388616)
+      if (v9 == 8388616)
       {
 LABEL_37:
         v2 = 7;
@@ -3608,17 +3583,17 @@ LABEL_38:
     goto LABEL_7;
   }
 
-  v11 = v9[2];
-  if (v11 >= 3)
+  v10 = v8[2];
+  if (v10 >= 3)
   {
     LODWORD(v2) = 0;
-    v12 = (v9 + 3);
+    v11 = (v8 + 3);
     do
     {
-      v14 = *v12;
-      v12 += 5;
-      v13 = v14;
-      if (v14 == -1 || v13 == 4)
+      v13 = *v11;
+      v11 += 5;
+      v12 = v13;
+      if (v13 == -1 || v12 == 4)
       {
         v2 = v2;
       }
@@ -3628,18 +3603,17 @@ LABEL_38:
         v2 = (v2 + 1);
       }
 
-      --v11;
+      --v10;
     }
 
-    while (v11);
+    while (v10);
   }
 
-  LayoutTagForLayout = OALDevice::GetLayoutTagForLayout(v9, v9, v2);
-  v1 = v9;
+  LayoutTagForLayout = OALDevice::GetLayoutTagForLayout(v8, v8, v2);
+  v1 = v8;
   *(this + 11) = LayoutTagForLayout;
 LABEL_7:
   free(v1);
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -3752,16 +3726,16 @@ uint64_t OALDevice::GetLayoutTagForLayout(OALDevice *this, AudioChannelLayout *a
 uint64_t OALDevice::ConnectContext(OALDevice *this, OALContext *a2)
 {
   Property = 0;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    goto LABEL_17;
+    return Property;
   }
 
   v5 = *(this + 6);
   if (v5 == a2)
   {
-    goto LABEL_17;
+    return Property;
   }
 
   DesiredRenderChannelCount = OALDevice::GetDesiredRenderChannelCount(this);
@@ -3773,9 +3747,9 @@ uint64_t OALDevice::ConnectContext(OALDevice *this, OALContext *a2)
   }
 
   v9 = *(this + 11);
-  v21 = this + 88;
+  v20 = this + 88;
   v10 = (*(v9 + 16))(this + 88);
-  v22 = v10;
+  v21 = v10;
   if (*(this + 6) && *(a2 + 6) != *(this + 10))
   {
     Property = AUGraphDisconnectNodeInput(*(this + 2), *(this + 6), 0);
@@ -3817,9 +3791,9 @@ uint64_t OALDevice::ConnectContext(OALDevice *this, OALContext *a2)
 
   if (*(this + 16) >= 3u)
   {
-    v15 = *(this + 11);
-    v19 = 0;
-    inData = v15;
+    v14 = *(this + 11);
+    v18 = 0;
+    inData = v14;
     Property = AudioUnitSetProperty(*(this + 4), 0x13u, 1u, 0, &inData, 0x20u);
     if (Property)
     {
@@ -3838,16 +3812,16 @@ uint64_t OALDevice::ConnectContext(OALDevice *this, OALContext *a2)
     *(this + 12) = 0;
   }
 
-  v16 = *(a2 + 6);
-  *(this + 10) = v16;
-  Property = AUGraphConnectNodeInput(*(this + 2), v16, 0, *(this + 6), 0);
+  v15 = *(a2 + 6);
+  *(this + 10) = v15;
+  Property = AUGraphConnectNodeInput(*(this + 2), v15, 0, *(this + 6), 0);
   if (!Property)
   {
     *(this + 6) = a2;
-    v17 = *(this + 2);
+    v16 = *(this + 2);
     if (*(this + 12))
     {
-      Property = AUGraphUpdate(v17, 0);
+      Property = AUGraphUpdate(v16, 0);
       if (!Property)
       {
         goto LABEL_29;
@@ -3856,7 +3830,7 @@ uint64_t OALDevice::ConnectContext(OALDevice *this, OALContext *a2)
 
     else
     {
-      Property = AUGraphInitialize(v17);
+      Property = AUGraphInitialize(v16);
       if (!Property)
       {
         *(this + 12) = 1;
@@ -3895,14 +3869,12 @@ LABEL_12:
     }
   }
 
-LABEL_17:
-  v13 = *MEMORY[0x277D85DE8];
   return Property;
 }
 
-void sub_23A017E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A017E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   CAGuard::Locker::~Locker(va);
   _Unwind_Resume(a1);
 }
@@ -3981,20 +3953,20 @@ uint64_t WaitOneRenderCycle(void)
 
 void ErrorKeyInitializer(void)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v0 = pthread_key_create(&gALErrorKey, 0);
   if (v0)
   {
     v1 = v0;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v5 = 136315650;
-      v6 = "oalImp.cpp";
-      v7 = 1024;
-      v8 = 240;
-      v9 = 1024;
-      v10 = v1;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d pthread_key_create FAILED for gALErrorKey with result %d\n", &v5, 0x18u);
+      v4 = 136315650;
+      v5 = "oalImp.cpp";
+      v6 = 1024;
+      v7 = 240;
+      v8 = 1024;
+      v9 = v1;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d pthread_key_create FAILED for gALErrorKey with result %d\n", &v4, 0x18u);
     }
   }
 
@@ -4004,17 +3976,15 @@ void ErrorKeyInitializer(void)
     v3 = v2;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v5 = 136315650;
-      v6 = "oalImp.cpp";
-      v7 = 1024;
-      v8 = 244;
-      v9 = 1024;
-      v10 = v3;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d pthread_key_create FAILED for gALCErrorKey with result %d\n", &v5, 0x18u);
+      v4 = 136315650;
+      v5 = "oalImp.cpp";
+      v6 = 1024;
+      v7 = 244;
+      v8 = 1024;
+      v9 = v3;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d pthread_key_create FAILED for gALCErrorKey with result %d\n", &v4, 0x18u);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void *alSetError(int a1)
@@ -4458,92 +4428,92 @@ LABEL_39:
 
 ALCBOOLean alcMakeContextCurrent(ALCcontext *context)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v32 = 136315650;
-    v33 = "oalImp.cpp";
-    v34 = 1024;
-    v35 = 840;
-    v36 = 2048;
-    v37 = context;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcMakeContextCurrent--> context = %ld", &v32, 0x1Cu);
+    v30 = 136315650;
+    v31 = "oalImp.cpp";
+    v32 = 1024;
+    v33 = 840;
+    v34 = 2048;
+    v35 = context;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcMakeContextCurrent--> context = %ld", &v30, 0x1Cu);
   }
 
   v2 = gCurrentContext;
   if (gCurrentContext == context)
   {
-    goto LABEL_4;
+    return 1;
   }
 
   if (gOALContextMap)
   {
-    v5 = gOALDeviceMap == 0;
+    v4 = gOALDeviceMap == 0;
   }
 
   else
   {
-    v5 = 1;
+    v4 = 1;
   }
 
-  if (!v5)
+  if (!v4)
   {
     if (gCurrentContext)
     {
-      v7 = gContextMapLock;
-      v8 = (*(*gContextMapLock + 16))(gContextMapLock);
-      v9 = *(gOALContextMap + 8);
-      if (!v9)
+      v6 = gContextMapLock;
+      v7 = (*(*gContextMapLock + 16))(gContextMapLock);
+      v8 = *(gOALContextMap + 8);
+      if (!v8)
       {
         goto LABEL_20;
       }
 
-      v10 = gOALContextMap + 8;
+      v9 = gOALContextMap + 8;
       do
       {
-        v11 = *(v9 + 32);
-        v12 = v11 >= v2;
-        v13 = v11 < v2;
-        if (v12)
+        v10 = *(v8 + 32);
+        v11 = v10 >= v2;
+        v12 = v10 < v2;
+        if (v11)
         {
-          v10 = v9;
+          v9 = v8;
         }
 
-        v9 = *(v9 + 8 * v13);
+        v8 = *(v8 + 8 * v12);
       }
 
-      while (v9);
-      if (v10 != gOALContextMap + 8 && *(v10 + 32) <= v2)
+      while (v8);
+      if (v9 != gOALContextMap + 8 && *(v9 + 32) <= v2)
       {
-        v14 = *(v10 + 40);
-        if (v14)
+        v13 = *(v9 + 40);
+        if (v13)
         {
-          atomic_fetch_add(v14 + 110, 1u);
+          atomic_fetch_add((v13 + 440), 1u);
         }
       }
 
       else
       {
 LABEL_20:
-        v14 = 0;
+        v13 = 0;
       }
 
-      if (v8)
+      if (v7)
       {
-        (*(*v7 + 24))(v7);
+        (*(*v6 + 24))(v6);
       }
 
       if (!context)
       {
         gCurrentDevice = 0;
         gCurrentContext = 0;
-        if (!v14)
+        if (!v13)
         {
-          goto LABEL_4;
+          return 1;
         }
 
-        v6 = OALContext::DisconnectMixerFromDevice(v14);
-        v15 = 0;
+        v5 = OALContext::DisconnectMixerFromDevice(v13);
+        v14 = 0;
         goto LABEL_43;
       }
     }
@@ -4554,87 +4524,87 @@ LABEL_20:
       {
         gCurrentDevice = 0;
         gCurrentContext = 0;
-        goto LABEL_4;
+        return 1;
       }
 
-      v14 = 0;
+      v13 = 0;
     }
 
-    v16 = gContextMapLock;
-    v17 = (*(*gContextMapLock + 16))(gContextMapLock);
-    v18 = gOALContextMap + 8;
-    v19 = *(gOALContextMap + 8);
-    if (!v19)
+    v15 = gContextMapLock;
+    v16 = (*(*gContextMapLock + 16))(gContextMapLock);
+    v17 = gOALContextMap + 8;
+    v18 = *(gOALContextMap + 8);
+    if (!v18)
     {
       goto LABEL_36;
     }
 
-    v20 = gOALContextMap + 8;
-    v21 = *(gOALContextMap + 8);
+    v19 = gOALContextMap + 8;
+    v20 = *(gOALContextMap + 8);
     do
     {
-      v22 = *(v21 + 32);
-      v12 = v22 >= context;
-      v23 = v22 < context;
-      if (v12)
+      v21 = *(v20 + 32);
+      v11 = v21 >= context;
+      v22 = v21 < context;
+      if (v11)
       {
-        v20 = v21;
+        v19 = v20;
       }
 
-      v21 = *(v21 + 8 * v23);
+      v20 = *(v20 + 8 * v22);
     }
 
-    while (v21);
-    if (v20 != v18 && *(v20 + 32) <= context)
+    while (v20);
+    if (v19 != v17 && *(v19 + 32) <= context)
     {
-      v15 = *(v20 + 40);
-      if (v15)
+      v14 = *(v19 + 40);
+      if (v14)
       {
-        v28 = gOALContextMap + 8;
+        v26 = gOALContextMap + 8;
         do
         {
-          v29 = *(v19 + 32);
-          v12 = v29 >= context;
-          v30 = v29 < context;
-          if (v12)
+          v27 = *(v18 + 32);
+          v11 = v27 >= context;
+          v28 = v27 < context;
+          if (v11)
           {
-            v28 = v19;
+            v26 = v18;
           }
 
-          v19 = *(v19 + 8 * v30);
+          v18 = *(v18 + 8 * v28);
         }
 
-        while (v19);
-        if (v28 == v18 || *(v28 + 32) > context || (v31 = *(v28 + 40)) == 0)
+        while (v18);
+        if (v26 == v17 || *(v26 + 32) > context || (v29 = *(v26 + 40)) == 0)
         {
-          v25 = 0;
           v24 = 0;
-          v6 = 0;
+          v23 = 0;
+          v5 = 0;
         }
 
         else
         {
-          v25 = 0;
-          v6 = 0;
-          v24 = **(v31 + 16);
+          v24 = 0;
+          v5 = 0;
+          v23 = **(v29 + 16);
         }
 
 LABEL_38:
-        if (v17)
+        if (v16)
         {
-          (*(*v16 + 24))(v16);
+          (*(*v15 + 24))(v15);
         }
 
-        if ((v25 & 1) == 0)
+        if ((v24 & 1) == 0)
         {
-          gCurrentDevice = v24;
+          gCurrentDevice = v23;
           gCurrentContext = context;
-          v6 = OALContext::ConnectMixerToDevice(v15);
+          v5 = OALContext::ConnectMixerToDevice(v14);
         }
 
-        if (!v14)
+        if (!v13)
         {
-          if (!v15)
+          if (!v14)
           {
             goto LABEL_47;
           }
@@ -4643,23 +4613,20 @@ LABEL_38:
         }
 
 LABEL_43:
-        atomic_fetch_add(v14 + 110, 0xFFFFFFFF);
-        if (!v15)
+        atomic_fetch_add((v13 + 440), 0xFFFFFFFF);
+        if (!v14)
         {
 LABEL_47:
-          if (v6)
+          if (v5)
           {
             goto LABEL_48;
           }
 
-LABEL_4:
-          result = 1;
-          v4 = *MEMORY[0x277D85DE8];
-          return result;
+          return 1;
         }
 
 LABEL_46:
-        atomic_fetch_add((v15 + 440), 0xFFFFFFFF);
+        atomic_fetch_add((v14 + 440), 0xFFFFFFFF);
         goto LABEL_47;
       }
     }
@@ -4667,38 +4634,36 @@ LABEL_46:
     else
     {
 LABEL_36:
-      v15 = 0;
+      v14 = 0;
     }
 
-    v24 = 0;
-    v6 = 40962;
-    v25 = 1;
+    v23 = 0;
+    v5 = 40962;
+    v24 = 1;
     goto LABEL_38;
   }
 
-  v6 = 40964;
+  v5 = 40964;
 LABEL_48:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    String = alcGetString(0, v6);
-    v32 = 136315650;
-    v33 = "oalImp.cpp";
-    v34 = 1024;
-    v35 = 894;
-    v36 = 2080;
-    v37 = String;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcMakeContextCurrent FAILED = %s\n", &v32, 0x1Cu);
+    String = alcGetString(0, v5);
+    v30 = 136315650;
+    v31 = "oalImp.cpp";
+    v32 = 1024;
+    v33 = 894;
+    v34 = 2080;
+    v35 = String;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcMakeContextCurrent FAILED = %s\n", &v30, 0x1Cu);
   }
 
   pthread_once(&gErrorOnce, ErrorKeyInitializer);
   if (!pthread_getspecific(gALCErrorKey))
   {
-    pthread_setspecific(gALCErrorKey, v6);
+    pthread_setspecific(gALCErrorKey, v5);
   }
 
-  result = 0;
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void sub_23A018E20(_Unwind_Exception *a1, int a2)
@@ -4796,7 +4761,7 @@ uint64_t ReconfigureContextsOfThisDevice(uint64_t result)
 
 ALCdevice *__cdecl alcCaptureOpenDevice(const ALCchar *devicename, ALCuint frequency, ALCenum format, ALCsizei buffersize)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     if ((format - 4352) > 3)
@@ -4811,14 +4776,14 @@ ALCdevice *__cdecl alcCaptureOpenDevice(const ALCchar *devicename, ALCuint frequ
 
     buf[0] = 136316162;
     *&buf[1] = "oalImp.cpp";
-    v12 = 1024;
-    v13 = 510;
-    v14 = 2080;
-    v15 = v7;
-    v16 = 2048;
-    v17 = frequency;
-    v18 = 2048;
-    v19 = buffersize;
+    v11 = 1024;
+    v12 = 510;
+    v13 = 2080;
+    v14 = v7;
+    v15 = 2048;
+    v16 = frequency;
+    v17 = 2048;
+    v18 = buffersize;
     _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcCaptureOpenDevice: format %s : sample rate = %ld : buffer size = %ld", buf, 0x30u);
   }
 
@@ -4840,14 +4805,13 @@ ALCdevice *__cdecl alcCaptureOpenDevice(const ALCchar *devicename, ALCuint frequ
     String = alcGetString(0, 40963);
     buf[0] = 136315650;
     *&buf[1] = "oalImp.cpp";
-    v12 = 1024;
-    v13 = 538;
-    v14 = 2080;
-    v15 = String;
+    v11 = 1024;
+    v12 = 538;
+    v13 = 2080;
+    v14 = String;
     _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcCaptureOpenDevice FAILED = %s\n", buf, 0x1Cu);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -4863,7 +4827,7 @@ void sub_23A0192E4(_Unwind_Exception *exception_object, int a2)
 
 const ALCchar *__cdecl alcGetString(ALCdevice *device, ALCenum param)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     if (param > 4101)
@@ -4928,13 +4892,13 @@ const ALCchar *__cdecl alcGetString(ALCdevice *device, ALCenum param)
         case 4101:
           v4 = "ALC_DEVICE_SPECIFIER";
 LABEL_26:
-          v17 = 136315650;
-          v18 = "oalImp.cpp";
-          v19 = 1024;
-          v20 = 1019;
-          v21 = 2080;
-          v22 = v4;
-          _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcGetString-->  %s", &v17, 0x1Cu);
+          v16 = 136315650;
+          v17 = "oalImp.cpp";
+          v18 = 1024;
+          v19 = 1019;
+          v20 = 2080;
+          v21 = v4;
+          _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcGetString-->  %s", &v16, 0x1Cu);
           goto LABEL_27;
       }
     }
@@ -4945,63 +4909,30 @@ LABEL_26:
 
 LABEL_27:
   v5 = 40964;
-  if (param > 4101)
+  if (param <= 4101)
   {
-    if (param <= 40961)
+    if (param <= 784)
     {
-      if (param == 4102)
+      if (!param)
       {
+        return "No Error";
+      }
+
+      if (param == 784)
+      {
+        result = gDefaultInputDeviceName;
+        strcpy(gDefaultInputDeviceName, "Default Audio Device");
         if (device)
         {
-          result = alcExtensions;
-          if (!alcExtensions)
-          {
-            v9 = malloc_type_malloc(0x34uLL, 0x100004077774924uLL);
-            alcExtensions = v9;
-            strcpy(v9, "ALC_EXT_CAPTURE ALC_ENUMERATION_EXT ALC_EXT_MAC_OSX");
-            v10 = strlen(v9);
-            v11 = malloc_type_realloc(v9, v10 + 37, 0x100004077774924uLL);
-            alcExtensions = v11;
-            strcat(v11, " ALC_EXT_ASA");
-            v12 = strlen(v11);
-            result = v11;
-            strcpy(&v11[v12], " ALC_EXT_OUTPUT_CAPTURER");
-          }
-
-          goto LABEL_64;
+          return result;
         }
 
-        v5 = 40961;
+        goto LABEL_42;
       }
 
-      else if (param == 40961)
-      {
-        result = "ALC Invalid Device";
-        goto LABEL_64;
-      }
+      goto LABEL_56;
     }
 
-    else
-    {
-      switch(param)
-      {
-        case 40962:
-          result = "ALC Invalid Context";
-          goto LABEL_64;
-        case 40963:
-          result = "Invalid Enum";
-          goto LABEL_64;
-        case 40964:
-          result = "Invalid Value";
-          goto LABEL_64;
-      }
-    }
-
-    goto LABEL_56;
-  }
-
-  if (param > 784)
-  {
     switch(param)
     {
       case 785:
@@ -5015,90 +4946,116 @@ LABEL_27:
       case 4101:
         result = gDefaultOutputDeviceName;
         strcpy(gDefaultOutputDeviceName, "Default Audio Device");
-        if (!device)
+        if (device)
         {
-          goto LABEL_42;
+          return result;
         }
 
-        goto LABEL_64;
+LABEL_42:
+        v7 = result;
+        v8 = strlen(result);
+        result = v7;
+        v7[v8 + 1] = 0;
+        return result;
       default:
-LABEL_56:
-        pthread_once(&gErrorOnce, ErrorKeyInitializer);
-        if (!pthread_getspecific(gALErrorKey))
-        {
-          pthread_setspecific(gALErrorKey, v5);
-        }
-
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
-        {
-          if (param == 4102)
-          {
-            v14 = "ALC_EXTENSIONS";
-          }
-
-          else
-          {
-            v14 = "UNKNOWN ATTRIBUTE - WARNING WARNING WARNING";
-          }
-
-          String = alcGetString(0, v5);
-          v17 = 136315906;
-          v18 = "oalImp.cpp";
-          v19 = 1024;
-          v20 = 1097;
-          v21 = 2080;
-          v22 = v14;
-          v23 = 2080;
-          v24 = String;
-          _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcGetString FAILED - attribute = %s error = %s\n", &v17, 0x26u);
-        }
-
-        result = 0;
-        goto LABEL_64;
+        goto LABEL_56;
     }
 
     *result = v13;
     strcpy(result + 13, " Device");
-    goto LABEL_64;
+    return result;
   }
 
-  if (!param)
+  if (param > 40961)
   {
-    result = "No Error";
-    goto LABEL_64;
-  }
+    switch(param)
+    {
+      case 40962:
+        return "ALC Invalid Context";
+      case 40963:
+        return "Invalid Enum";
+      case 40964:
+        return "Invalid Value";
+    }
 
-  if (param != 784)
-  {
     goto LABEL_56;
   }
 
-  result = gDefaultInputDeviceName;
-  strcpy(gDefaultInputDeviceName, "Default Audio Device");
-  if (!device)
+  if (param != 4102)
   {
-LABEL_42:
-    v7 = result;
-    v8 = strlen(result);
-    result = v7;
-    v7[v8 + 1] = 0;
+    if (param == 40961)
+    {
+      return "ALC Invalid Device";
+    }
+
+    goto LABEL_56;
   }
 
-LABEL_64:
-  v16 = *MEMORY[0x277D85DE8];
+  if (!device)
+  {
+    v5 = 40961;
+LABEL_56:
+    pthread_once(&gErrorOnce, ErrorKeyInitializer);
+    if (!pthread_getspecific(gALErrorKey))
+    {
+      pthread_setspecific(gALErrorKey, v5);
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+    {
+      if (param == 4102)
+      {
+        v14 = "ALC_EXTENSIONS";
+      }
+
+      else
+      {
+        v14 = "UNKNOWN ATTRIBUTE - WARNING WARNING WARNING";
+      }
+
+      String = alcGetString(0, v5);
+      v16 = 136315906;
+      v17 = "oalImp.cpp";
+      v18 = 1024;
+      v19 = 1097;
+      v20 = 2080;
+      v21 = v14;
+      v22 = 2080;
+      v23 = String;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcGetString FAILED - attribute = %s error = %s\n", &v16, 0x26u);
+    }
+
+    return 0;
+  }
+
+  result = alcExtensions;
+  if (!alcExtensions)
+  {
+    v9 = malloc_type_malloc(0x34uLL, 0x100004077774924uLL);
+    alcExtensions = v9;
+    strcpy(v9, "ALC_EXT_CAPTURE ALC_ENUMERATION_EXT ALC_EXT_MAC_OSX");
+    v10 = strlen(v9);
+    v11 = malloc_type_realloc(v9, v10 + 37, 0x100004077774924uLL);
+    alcExtensions = v11;
+    strcat(v11, " ALC_EXT_ASA");
+    v12 = strlen(v11);
+    result = v11;
+    strcpy(&v11[v12], " ALC_EXT_OUTPUT_CAPTURER");
+  }
+
   return result;
 }
 
 ALCBOOLean alcCaptureCloseDevice(ALCdevice *device)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    *v27 = 136315394;
-    *&v27[4] = "oalImp.cpp";
-    v28 = 1024;
-    v29 = 553;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcCaptureCloseDevice", v27, 0x12u);
+    *v26 = 136315394;
+    *&v26[4] = "oalImp.cpp";
+    v27 = 1024;
+    v28 = 553;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcCaptureCloseDevice", v26, 0x12u);
   }
 
   if (!gOALCaptureDeviceMap || !*(gOALCaptureDeviceMap + 16))
@@ -5108,9 +5065,9 @@ ALCBOOLean alcCaptureCloseDevice(ALCdevice *device)
   }
 
   v2 = gCaptureDeviceMapLock;
-  *v27 = gCaptureDeviceMapLock;
+  *v26 = gCaptureDeviceMapLock;
   v3 = (*(*gCaptureDeviceMapLock + 16))(gCaptureDeviceMapLock);
-  v27[8] = v3;
+  v26[8] = v3;
   v4 = gOALCaptureDeviceMap;
   v6 = gOALCaptureDeviceMap + 8;
   v5 = *(gOALCaptureDeviceMap + 8);
@@ -5155,57 +5112,57 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v17 = (gOALCaptureDeviceMap + 8);
-  v18 = *(gOALCaptureDeviceMap + 8);
+  v16 = (gOALCaptureDeviceMap + 8);
+  v17 = *(gOALCaptureDeviceMap + 8);
   do
   {
-    v19 = *(v18 + 32);
-    v10 = v19 >= device;
-    v20 = v19 < device;
+    v18 = *(v17 + 32);
+    v10 = v18 >= device;
+    v19 = v18 < device;
     if (v10)
     {
-      v17 = v18;
+      v16 = v17;
     }
 
-    v18 = *(v18 + 8 * v20);
+    v17 = *(v17 + 8 * v19);
   }
 
-  while (v18);
-  if (v17 != v6 && v17[4] <= device)
+  while (v17);
+  if (v16 != v6 && v16[4] <= device)
   {
-    v21 = v17[1];
-    if (v21)
+    v20 = v16[1];
+    if (v20)
     {
       do
       {
-        v22 = v21;
-        v21 = *v21;
+        v21 = v20;
+        v20 = *v20;
       }
 
-      while (v21);
+      while (v20);
     }
 
     else
     {
-      v23 = v17;
+      v22 = v16;
       do
       {
-        v22 = v23[2];
-        v24 = *v22 == v23;
-        v23 = v22;
+        v21 = v22[2];
+        v23 = *v21 == v22;
+        v22 = v21;
       }
 
-      while (!v24);
+      while (!v23);
     }
 
-    if (*gOALCaptureDeviceMap == v17)
+    if (*gOALCaptureDeviceMap == v16)
     {
-      *gOALCaptureDeviceMap = v22;
+      *gOALCaptureDeviceMap = v21;
     }
 
     --*(v4 + 16);
-    std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v5, v17);
-    operator delete(v17);
+    std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v5, v16);
+    operator delete(v16);
   }
 
   while (*(v12 + 30))
@@ -5215,7 +5172,7 @@ LABEL_14:
 
   OALCaptureDevice::~OALCaptureDevice(v12);
   MEMORY[0x23EE824D0]();
-  v25 = gOALCaptureDeviceMap;
+  v24 = gOALCaptureDeviceMap;
   if (*(gOALCaptureDeviceMap + 16))
   {
     v13 = 0;
@@ -5230,7 +5187,7 @@ LABEL_15:
   else
   {
     std::__tree<std::__value_type<unsigned int,OALSource *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OALSource *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OALSource *>>>::destroy(gOALCaptureDeviceMap, *(gOALCaptureDeviceMap + 8));
-    MEMORY[0x23EE824D0](v25, 0x1020C4062D53EE8);
+    MEMORY[0x23EE824D0](v24, 0x1020C4062D53EE8);
     v13 = 0;
     gOALCaptureDeviceMap = 0;
     LOBYTE(v12) = 1;
@@ -5244,7 +5201,7 @@ LABEL_16:
   if (v12)
   {
     LOBYTE(v14) = 1;
-    goto LABEL_21;
+    return v14;
   }
 
 LABEL_19:
@@ -5252,18 +5209,16 @@ LABEL_19:
   if (v14)
   {
     String = alcGetString(0, v13);
-    *v27 = 136315650;
-    *&v27[4] = "oalImp.cpp";
-    v28 = 1024;
-    v29 = 585;
-    v30 = 2080;
-    v31 = String;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcCaptureCloseDevice FAILED = %s", v27, 0x1Cu);
+    *v26 = 136315650;
+    *&v26[4] = "oalImp.cpp";
+    v27 = 1024;
+    v28 = 585;
+    v29 = 2080;
+    v30 = String;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcCaptureCloseDevice FAILED = %s", v26, 0x1Cu);
     LOBYTE(v14) = 0;
   }
 
-LABEL_21:
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -5279,14 +5234,14 @@ void sub_23A019C1C(_Unwind_Exception *exception_object, int a2)
 
 void alcCaptureStart(ALCdevice *device)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v12 = 136315394;
-    v13 = "oalImp.cpp";
-    v14 = 1024;
-    v15 = 599;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcCaptureStart", &v12, 0x12u);
+    v11 = 136315394;
+    v12 = "oalImp.cpp";
+    v13 = 1024;
+    v14 = 599;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcCaptureStart", &v11, 0x12u);
   }
 
   if (!gOALCaptureDeviceMap)
@@ -5349,13 +5304,13 @@ LABEL_26:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       String = alcGetString(0, 40964);
-      v12 = 136315650;
-      v13 = "oalImp.cpp";
-      v14 = 1024;
-      v15 = 611;
-      v16 = 2080;
-      v17 = String;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcCaptureStart FAILED = %s", &v12, 0x1Cu);
+      v11 = 136315650;
+      v12 = "oalImp.cpp";
+      v13 = 1024;
+      v14 = 611;
+      v15 = 2080;
+      v16 = String;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcCaptureStart FAILED = %s", &v11, 0x1Cu);
     }
 
     pthread_once(&gErrorOnce, ErrorKeyInitializer);
@@ -5364,8 +5319,6 @@ LABEL_26:
       pthread_setspecific(gALCErrorKey, 0xA004);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23A019E9C(_Unwind_Exception *a1, int a2)
@@ -5380,14 +5333,14 @@ void sub_23A019E9C(_Unwind_Exception *a1, int a2)
 
 void alcCaptureStop(ALCdevice *device)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v12 = 136315394;
-    v13 = "oalImp.cpp";
-    v14 = 1024;
-    v15 = 622;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcCaptureStop", &v12, 0x12u);
+    v11 = 136315394;
+    v12 = "oalImp.cpp";
+    v13 = 1024;
+    v14 = 622;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcCaptureStop", &v11, 0x12u);
   }
 
   if (!gOALCaptureDeviceMap)
@@ -5450,13 +5403,13 @@ LABEL_26:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       String = alcGetString(0, 40964);
-      v12 = 136315650;
-      v13 = "oalImp.cpp";
-      v14 = 1024;
-      v15 = 634;
-      v16 = 2080;
-      v17 = String;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcCaptureStop FAILED = %s", &v12, 0x1Cu);
+      v11 = 136315650;
+      v12 = "oalImp.cpp";
+      v13 = 1024;
+      v14 = 634;
+      v15 = 2080;
+      v16 = String;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcCaptureStop FAILED = %s", &v11, 0x1Cu);
     }
 
     pthread_once(&gErrorOnce, ErrorKeyInitializer);
@@ -5465,8 +5418,6 @@ LABEL_26:
       pthread_setspecific(gALCErrorKey, 0xA004);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23A01A0F8(_Unwind_Exception *a1, int a2)
@@ -5481,7 +5432,7 @@ void sub_23A01A0F8(_Unwind_Exception *a1, int a2)
 
 void alcCaptureSamples(ALCdevice *device, ALCvoid *buffer, ALCsizei samples)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (!gOALCaptureDeviceMap)
   {
     goto LABEL_24;
@@ -5541,13 +5492,13 @@ LABEL_10:
 LABEL_24:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v17 = 136315650;
-      v18 = "oalImp.cpp";
-      v19 = 1024;
-      v20 = 657;
-      v21 = 2080;
+      v16 = 136315650;
+      v17 = "oalImp.cpp";
+      v18 = 1024;
+      v19 = 657;
+      v20 = 2080;
       String = alcGetString(0, 40964);
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcCaptureSamples FAILED = %s\n", &v17, 0x1Cu);
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcCaptureSamples FAILED = %s\n", &v16, 0x1Cu);
     }
 
     pthread_once(&gErrorOnce, ErrorKeyInitializer);
@@ -5556,8 +5507,6 @@ LABEL_24:
       pthread_setspecific(gALCErrorKey, 0xA004);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23A01A308(_Unwind_Exception *a1, int a2)
@@ -5572,13 +5521,13 @@ void sub_23A01A308(_Unwind_Exception *a1, int a2)
 
 ALCdevice *__cdecl alcOpenDevice(const ALCchar *devicename)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     buf[0] = 136315394;
     *&buf[1] = "oalImp.cpp";
-    v4 = 1024;
-    v5 = 674;
+    v3 = 1024;
+    v4 = 674;
     _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcOpenDevice", buf, 0x12u);
   }
 
@@ -5595,7 +5544,6 @@ ALCdevice *__cdecl alcOpenDevice(const ALCchar *devicename)
     operator new();
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -5611,14 +5559,14 @@ void sub_23A01A618(_Unwind_Exception *exception_object, int a2)
 
 ALCBOOLean alcCloseDevice(ALCdevice *device)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    *v25 = 136315394;
-    *&v25[4] = "oalImp.cpp";
-    v26 = 1024;
-    v27 = 712;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcCloseDevice", v25, 0x12u);
+    *v23 = 136315394;
+    *&v23[4] = "oalImp.cpp";
+    v24 = 1024;
+    v25 = 712;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcCloseDevice", v23, 0x12u);
   }
 
   if (!gOALDeviceMap)
@@ -5650,9 +5598,9 @@ ALCBOOLean alcCloseDevice(ALCdevice *device)
   if (v3 != gOALDeviceMap + 8 && *(v3 + 32) <= device && (v7 = *(v3 + 40)) != 0)
   {
     v8 = gDeviceMapLock;
-    *v25 = gDeviceMapLock;
+    *v23 = gDeviceMapLock;
     v9 = (*(*gDeviceMapLock + 16))(gDeviceMapLock);
-    v25[8] = v9;
+    v23[8] = v9;
     v10 = gOALDeviceMap;
     v11 = *(gOALDeviceMap + 8);
     if (v11)
@@ -5689,15 +5637,15 @@ ALCBOOLean alcCloseDevice(ALCdevice *device)
 
         else
         {
-          v22 = v12;
+          v21 = v12;
           do
           {
-            v17 = v22[2];
-            v23 = *v17 == v22;
-            v22 = v17;
+            v17 = v21[2];
+            v22 = *v17 == v21;
+            v21 = v17;
           }
 
-          while (!v23);
+          while (!v22);
         }
 
         if (*gOALDeviceMap == v12)
@@ -5725,9 +5673,7 @@ ALCBOOLean alcCloseDevice(ALCdevice *device)
 
     if (!v18)
     {
-      result = 1;
-      v24 = *MEMORY[0x277D85DE8];
-      return result;
+      return 1;
     }
   }
 
@@ -5740,13 +5686,13 @@ LABEL_24:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     String = alcGetString(0, v18);
-    *v25 = 136315650;
-    *&v25[4] = "oalImp.cpp";
-    v26 = 1024;
-    v27 = 738;
-    v28 = 2080;
-    v29 = String;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcCloseDevice FAILED = %s\n", v25, 0x1Cu);
+    *v23 = 136315650;
+    *&v23[4] = "oalImp.cpp";
+    v24 = 1024;
+    v25 = 738;
+    v26 = 2080;
+    v27 = String;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcCloseDevice FAILED = %s\n", v23, 0x1Cu);
   }
 
   pthread_once(&gErrorOnce, ErrorKeyInitializer);
@@ -5755,9 +5701,7 @@ LABEL_24:
     pthread_setspecific(gALCErrorKey, v18);
   }
 
-  result = 0;
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void sub_23A01A9A0(_Unwind_Exception *exception_object, int a2)
@@ -5784,15 +5728,15 @@ ALCenum alcGetError(ALCdevice *device)
 
 ALCcontext *__cdecl alcCreateContext(ALCdevice *device, const ALCint *attrlist)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     buf[0] = 136315650;
     *&buf[1] = "oalImp.cpp";
-    v21 = 1024;
-    v22 = 787;
-    v23 = 2048;
-    v24 = device;
+    v17 = 1024;
+    v18 = 787;
+    v19 = 2048;
+    v20 = device;
     _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcCreateContext--> device = %ld", buf, 0x1Cu);
   }
 
@@ -5818,7 +5762,6 @@ ALCcontext *__cdecl alcCreateContext(ALCdevice *device, const ALCint *attrlist)
       do
       {
 LABEL_7:
-        v6 = *v4;
         v4 += 2;
         v5 = *(v4 - 1);
       }
@@ -5829,7 +5772,6 @@ LABEL_7:
 LABEL_8:
         while (v5 == 4113)
         {
-          v7 = *v4;
           v4 += 2;
           v5 = *(v4 - 1);
           if (v5 == 4112)
@@ -5854,56 +5796,51 @@ LABEL_8:
 LABEL_14:
   if (gOALDeviceMap)
   {
-    v8 = gDeviceMapLock;
-    v9 = (*(*gDeviceMapLock + 16))(gDeviceMapLock);
-    v10 = *(gOALDeviceMap + 8);
-    if (!v10)
+    v6 = gDeviceMapLock;
+    v7 = (*(*gDeviceMapLock + 16))(gDeviceMapLock);
+    v8 = *(gOALDeviceMap + 8);
+    if (!v8)
     {
       goto LABEL_23;
     }
 
-    v11 = gOALDeviceMap + 8;
+    v9 = gOALDeviceMap + 8;
     do
     {
-      v12 = *(v10 + 32);
-      v13 = v12 >= device;
-      v14 = v12 < device;
-      if (v13)
+      v10 = *(v8 + 32);
+      v11 = v10 >= device;
+      v12 = v10 < device;
+      if (v11)
       {
-        v11 = v10;
+        v9 = v8;
       }
 
-      v10 = *(v10 + 8 * v14);
+      v8 = *(v8 + 8 * v12);
     }
 
-    while (v10);
-    if (v11 != gOALDeviceMap + 8 && *(v11 + 32) <= device)
+    while (v8);
+    if (v9 != gOALDeviceMap + 8 && *(v9 + 32) <= device)
     {
-      v15 = *(v11 + 40);
-      if (v15)
+      v13 = *(v9 + 40);
+      if (v13)
       {
-        atomic_fetch_add((v15 + 76), 1u);
+        atomic_fetch_add((v13 + 76), 1u);
       }
     }
 
     else
     {
 LABEL_23:
-      v15 = 0;
+      v13 = 0;
     }
 
-    if (v9)
+    if (v7)
     {
-      (*(*v8 + 24))(v8);
+      (*(*v6 + 24))(v6);
     }
 
-    if (v15)
+    if (v13)
     {
-      if (*&gUsersMixerOutputRate <= 0.0)
-      {
-        v16 = *(v15 + 56);
-      }
-
       operator new();
     }
   }
@@ -5913,10 +5850,10 @@ LABEL_23:
     String = alcGetString(0, 40964);
     buf[0] = 136315650;
     *&buf[1] = "oalImp.cpp";
-    v21 = 1024;
-    v22 = 828;
-    v23 = 2080;
-    v24 = String;
+    v17 = 1024;
+    v18 = 828;
+    v19 = 2080;
+    v20 = String;
     _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcCreateContext FAILED = %s\n", buf, 0x1Cu);
   }
 
@@ -5926,7 +5863,6 @@ LABEL_23:
     pthread_setspecific(gALCErrorKey, 0xA004);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -5942,50 +5878,46 @@ void sub_23A01AEC8(_Unwind_Exception *exception_object, int a2)
 
 void alcProcessContext(ALCcontext *context)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v3 = 136315650;
-    v4 = "oalImp.cpp";
-    v5 = 1024;
-    v6 = 906;
-    v7 = 2048;
-    v8 = context;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcProcessContext--> context = %ld", &v3, 0x1Cu);
+    v2 = 136315650;
+    v3 = "oalImp.cpp";
+    v4 = 1024;
+    v5 = 906;
+    v6 = 2048;
+    v7 = context;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcProcessContext--> context = %ld", &v2, 0x1Cu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 ALCcontext *alcGetCurrentContext(void)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v2 = 136315394;
-    v3 = "oalImp.cpp";
-    v4 = 1024;
-    v5 = 914;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcGetCurrentContext", &v2, 0x12u);
+    v1 = 136315394;
+    v2 = "oalImp.cpp";
+    v3 = 1024;
+    v4 = 914;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcGetCurrentContext", &v1, 0x12u);
   }
 
-  result = gCurrentContext;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return gCurrentContext;
 }
 
 ALCdevice *__cdecl alcGetContextsDevice(ALCcontext *context)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v13 = 136315650;
-    v14 = "oalImp.cpp";
-    v15 = 1024;
-    v16 = 923;
-    v17 = 2048;
-    v18 = context;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcGetContextsDevice--> context = %ld", &v13, 0x1Cu);
+    v12 = 136315650;
+    v13 = "oalImp.cpp";
+    v14 = 1024;
+    v15 = 923;
+    v16 = 2048;
+    v17 = context;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcGetContextsDevice--> context = %ld", &v12, 0x1Cu);
   }
 
   if (gOALContextMap)
@@ -6018,7 +5950,7 @@ ALCdevice *__cdecl alcGetContextsDevice(ALCcontext *context)
           v10 = **(v9 + 16);
           if (!v3)
           {
-            goto LABEL_22;
+            return v10;
           }
 
           goto LABEL_16;
@@ -6038,11 +5970,11 @@ LABEL_16:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v13 = 136315394;
-      v14 = "oalImp.cpp";
-      v15 = 1024;
-      v16 = 938;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcGetContextsDevice FAILED", &v13, 0x12u);
+      v12 = 136315394;
+      v13 = "oalImp.cpp";
+      v14 = 1024;
+      v15 = 938;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcGetContextsDevice FAILED", &v12, 0x12u);
     }
 
     pthread_once(&gErrorOnce, ErrorKeyInitializer);
@@ -6051,11 +5983,9 @@ LABEL_16:
       pthread_setspecific(gALCErrorKey, 0xA004);
     }
 
-    v10 = 0;
+    return 0;
   }
 
-LABEL_22:
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -6071,33 +6001,31 @@ void sub_23A01B2D8(_Unwind_Exception *a1, int a2)
 
 void alcSuspendContext(ALCcontext *context)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v3 = 136315650;
-    v4 = "oalImp.cpp";
-    v5 = 1024;
-    v6 = 946;
-    v7 = 2048;
-    v8 = context;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcSuspendContext--> context = %ld", &v3, 0x1Cu);
+    v2 = 136315650;
+    v3 = "oalImp.cpp";
+    v4 = 1024;
+    v5 = 946;
+    v6 = 2048;
+    v7 = context;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcSuspendContext--> context = %ld", &v2, 0x1Cu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void alcDestroyContext(ALCcontext *context)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v43 = 136315650;
-    v44 = "oalImp.cpp";
-    v45 = 1024;
-    v46 = 954;
-    v47 = 2048;
-    v48 = context;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcDestroyContext--> context = %ld", &v43, 0x1Cu);
+    v41 = 136315650;
+    v42 = "oalImp.cpp";
+    v43 = 1024;
+    v44 = 954;
+    v45 = 2048;
+    v46 = context;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcDestroyContext--> context = %ld", &v41, 0x1Cu);
   }
 
   v2 = gCurrentContext == context || gOALContextMap == 0;
@@ -6108,13 +6036,13 @@ LABEL_49:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       String = alcGetString(0, v3);
-      v43 = 136315650;
-      v44 = "oalImp.cpp";
-      v45 = 1024;
-      v46 = 1004;
-      v47 = 2080;
-      v48 = String;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcDestroyContext FAILED = %s\n", &v43, 0x1Cu);
+      v41 = 136315650;
+      v42 = "oalImp.cpp";
+      v43 = 1024;
+      v44 = 1004;
+      v45 = 2080;
+      v46 = String;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcDestroyContext FAILED = %s\n", &v41, 0x1Cu);
     }
 
     pthread_once(&gErrorOnce, ErrorKeyInitializer);
@@ -6123,7 +6051,7 @@ LABEL_49:
       pthread_setspecific(gALCErrorKey, v3);
     }
 
-    goto LABEL_53;
+    return;
   }
 
   v4 = gContextMapLock;
@@ -6189,35 +6117,35 @@ LABEL_28:
     goto LABEL_27;
   }
 
-  v31 = v9[1];
-  if (v31)
+  v30 = v9[1];
+  if (v30)
   {
     do
     {
-      v32 = v31;
-      v31 = *v31;
+      v31 = v30;
+      v30 = *v30;
     }
 
-    while (v31);
+    while (v30);
   }
 
   else
   {
-    v33 = v9;
+    v32 = v9;
     do
     {
-      v32 = v33[2];
-      v2 = *v32 == v33;
-      v33 = v32;
+      v31 = v32[2];
+      v2 = *v31 == v32;
+      v32 = v31;
     }
 
     while (!v2);
   }
 
-  v34 = v5;
+  v33 = v5;
   if (*gOALContextMap == v9)
   {
-    *gOALContextMap = v32;
+    *gOALContextMap = v31;
   }
 
   --*(v6 + 16);
@@ -6225,54 +6153,53 @@ LABEL_28:
   operator delete(v9);
   if (*(gOALContextMap + 16))
   {
-    v35 = 0;
-    v36 = *gOALContextMap;
-    v5 = v34;
+    v34 = 0;
+    v5 = v33;
     do
     {
-      v37 = *gOALContextMap;
-      if (v35)
+      v35 = *gOALContextMap;
+      if (v34)
       {
-        v38 = v35;
-        v39 = *gOALContextMap;
+        v36 = v34;
+        v37 = *gOALContextMap;
         do
         {
-          v41 = v39[1];
-          if (v41)
+          v39 = v37[1];
+          if (v39)
           {
             do
             {
-              v37 = v41;
-              v41 = *v41;
+              v35 = v39;
+              v39 = *v39;
             }
 
-            while (v41);
+            while (v39);
           }
 
           else
           {
             do
             {
-              v37 = v39[2];
-              v2 = *v37 == v39;
-              v39 = v37;
+              v35 = v37[2];
+              v2 = *v35 == v37;
+              v37 = v35;
             }
 
             while (!v2);
           }
 
-          v39 = v37;
+          v37 = v35;
         }
 
-        while (v38-- > 1);
+        while (v36-- > 1);
       }
 
-      if (v37 != (gOALContextMap + 8))
+      if (v35 != (gOALContextMap + 8))
       {
-        v42 = v37[5];
-        if (v42)
+        v40 = v35[5];
+        if (v40)
         {
-          if (**(v42 + 16) == **(v15 + 2))
+          if (**(v40 + 16) == **(v15 + 2))
           {
             v20 = 0;
             v3 = 0;
@@ -6282,10 +6209,10 @@ LABEL_28:
         }
       }
 
-      ++v35;
+      ++v34;
     }
 
-    while (v35 != *(gOALContextMap + 16));
+    while (v34 != *(gOALContextMap + 16));
     v3 = 0;
     v19 = 1;
     goto LABEL_28;
@@ -6294,7 +6221,7 @@ LABEL_28:
   v3 = 0;
   v19 = 1;
   v20 = 1;
-  v5 = v34;
+  v5 = v33;
 LABEL_29:
   if (v5)
   {
@@ -6313,7 +6240,7 @@ LABEL_29:
 LABEL_48:
       OALContext::~OALContext(v15);
       MEMORY[0x23EE824D0]();
-      goto LABEL_53;
+      return;
     }
 
     v21 = **(v15 + 2);
@@ -6371,9 +6298,6 @@ LABEL_42:
   {
     goto LABEL_48;
   }
-
-LABEL_53:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23A01B888(_Unwind_Exception *a1, int a2)
@@ -6448,16 +6372,16 @@ const char *GetALCAttributeString(int a1)
 
 ALCBOOLean alcIsExtensionPresent(ALCdevice *device, const ALCchar *extname)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v16 = 136315650;
-    v17 = "oalImp.cpp";
-    v18 = 1024;
-    v19 = 1106;
-    v20 = 2080;
-    v21 = extname;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcIsExtensionPresent-->  extension = %s", &v16, 0x1Cu);
+    v14 = 136315650;
+    v15 = "oalImp.cpp";
+    v16 = 1024;
+    v17 = 1106;
+    v18 = 2080;
+    v19 = extname;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcIsExtensionPresent-->  extension = %s", &v14, 0x1Cu);
   }
 
   if (extname)
@@ -6494,7 +6418,6 @@ ALCBOOLean alcIsExtensionPresent(ALCdevice *device, const ALCchar *extname)
 
     v12 = strstr(v7, v4) != 0;
     free(v4);
-    v13 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -6505,8 +6428,7 @@ ALCBOOLean alcIsExtensionPresent(ALCdevice *device, const ALCchar *extname)
       pthread_setspecific(gALCErrorKey, 0xA004);
     }
 
-    v12 = 0;
-    v15 = *MEMORY[0x277D85DE8];
+    return 0;
   }
 
   return v12;
@@ -6514,35 +6436,33 @@ ALCBOOLean alcIsExtensionPresent(ALCdevice *device, const ALCchar *extname)
 
 void *__cdecl alcGetProcAddress(ALCdevice *device, const ALCchar *funcname)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315650;
-    v6 = "oalImp.cpp";
-    v7 = 1024;
-    v8 = 1135;
-    v9 = 2080;
-    v10 = funcname;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcGetProcAddress--> function name = %s", &v5, 0x1Cu);
+    v4 = 136315650;
+    v5 = "oalImp.cpp";
+    v6 = 1024;
+    v7 = 1135;
+    v8 = 2080;
+    v9 = funcname;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcGetProcAddress--> function name = %s", &v4, 0x1Cu);
   }
 
-  result = alGetProcAddress(funcname);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return alGetProcAddress(funcname);
 }
 
 void *__cdecl alGetProcAddress(const ALchar *fname)
 {
-  v128 = *MEMORY[0x277D85DE8];
+  v127 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v122 = 136315650;
-    v123 = "oalImp.cpp";
-    v124 = 1024;
-    v125 = 3778;
-    v126 = 2080;
-    v127 = fname;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alGetProcAddress function name = %s", &v122, 0x1Cu);
+    v121 = 136315650;
+    v122 = "oalImp.cpp";
+    v123 = 1024;
+    v124 = 3778;
+    v125 = 2080;
+    v126 = fname;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alGetProcAddress function name = %s", &v121, 0x1Cu);
   }
 
   if (!fname)
@@ -6553,7 +6473,7 @@ void *__cdecl alGetProcAddress(const ALchar *fname)
       pthread_setspecific(gALCErrorKey, 0xA004);
     }
 
-    goto LABEL_124;
+    return 0;
   }
 
   v2 = strcmp("alcOpenDevice", fname);
@@ -7024,8 +6944,7 @@ void *__cdecl alGetProcAddress(const ALchar *fname)
                                                                                                                                                                                                                                           v3 = alcOutputCapturerSamples;
                                                                                                                                                                                                                                           if (v119)
                                                                                                                                                                                                                                           {
-LABEL_124:
-                                                                                                                                                                                                                                            v3 = 0;
+                                                                                                                                                                                                                                            return 0;
                                                                                                                                                                                                                                           }
                                                                                                                                                                                                                                         }
                                                                                                                                                                                                                                       }
@@ -7144,30 +7063,10 @@ LABEL_124:
     }
   }
 
-  v120 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 ALCenum alcGetEnumValue(ALCdevice *device, const ALCchar *enumname)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
-  {
-    v5 = 136315650;
-    v6 = "oalImp.cpp";
-    v7 = 1024;
-    v8 = 1143;
-    v9 = 2080;
-    v10 = enumname;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcGetEnumValue--> enum name = %s", &v5, 0x1Cu);
-  }
-
-  result = alGetEnumValue(enumname);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-ALenum alGetEnumValue(const ALchar *ename)
 {
   v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
@@ -7175,16 +7074,32 @@ ALenum alGetEnumValue(const ALchar *ename)
     v4 = 136315650;
     v5 = "oalImp.cpp";
     v6 = 1024;
-    v7 = 3433;
+    v7 = 1143;
     v8 = 2080;
-    v9 = ename;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alGetEnumValue: %s", &v4, 0x1Cu);
+    v9 = enumname;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcGetEnumValue--> enum name = %s", &v4, 0x1Cu);
+  }
+
+  return alGetEnumValue(enumname);
+}
+
+ALenum alGetEnumValue(const ALchar *ename)
+{
+  v9 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  {
+    v3 = 136315650;
+    v4 = "oalImp.cpp";
+    v5 = 1024;
+    v6 = 3433;
+    v7 = 2080;
+    v8 = ename;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alGetEnumValue: %s", &v3, 0x1Cu);
   }
 
   if (!strcmp("AL_INVALID", ename))
   {
-    result = -1;
-    goto LABEL_110;
+    return -1;
   }
 
   result = strcmp("AL_NONE", ename);
@@ -7195,195 +7110,172 @@ ALenum alGetEnumValue(const ALchar *ename)
     {
       if (!strcmp("AL_TRUE", ename))
       {
-        goto LABEL_111;
+        return 1;
       }
 
       if (!strcmp("AL_SOURCE_RELATIVE", ename))
       {
-        result = 514;
-        goto LABEL_110;
+        return 514;
       }
 
       if (!strcmp("AL_CONE_INNER_ANGLE", ename))
       {
-        goto LABEL_113;
+        return 4097;
       }
 
       if (!strcmp("AL_CONE_OUTER_ANGLE", ename))
       {
-        goto LABEL_114;
+        return 4098;
       }
 
       if (!strcmp("AL_CONE_OUTER_GAIN", ename))
       {
-        result = 4130;
-        goto LABEL_110;
+        return 4130;
       }
 
       if (!strcmp("AL_PITCH", ename))
       {
-        goto LABEL_116;
+        return 4099;
       }
 
       if (!strcmp("AL_POSITION", ename))
       {
-        goto LABEL_117;
+        return 4100;
       }
 
       if (!strcmp("AL_DIRECTION", ename))
       {
-        goto LABEL_118;
+        return 4101;
       }
 
       if (!strcmp("AL_VELOCITY", ename))
       {
-        goto LABEL_119;
+        return 4102;
       }
 
       if (!strcmp("AL_LOOPING", ename))
       {
-        goto LABEL_120;
+        return 4103;
       }
 
       if (!strcmp("AL_BUFFER", ename))
       {
-        goto LABEL_121;
+        return 4105;
       }
 
       if (!strcmp("AL_GAIN", ename))
       {
-        result = 4106;
-        goto LABEL_110;
+        return 4106;
       }
 
       if (!strcmp("AL_MIN_GAIN", ename))
       {
-        result = 4109;
-        goto LABEL_110;
+        return 4109;
       }
 
       if (!strcmp("AL_MAX_GAIN", ename))
       {
-        result = 4110;
-        goto LABEL_110;
+        return 4110;
       }
 
       if (!strcmp("AL_ORIENTATION", ename))
       {
-        result = 4111;
-        goto LABEL_110;
+        return 4111;
       }
 
       if (!strcmp("AL_REFERENCE_DISTANCE", ename))
       {
-        result = 4128;
-        goto LABEL_110;
+        return 4128;
       }
 
       if (!strcmp("AL_ROLLOFF_FACTOR", ename))
       {
-        result = 4129;
-        goto LABEL_110;
+        return 4129;
       }
 
       if (!strcmp("AL_MAX_DISTANCE", ename))
       {
-        result = 4131;
-        goto LABEL_110;
+        return 4131;
       }
 
       if (!strcmp("AL_SOURCE_STATE", ename))
       {
-        goto LABEL_129;
+        return 4112;
       }
 
       if (!strcmp("AL_INITIAL", ename))
       {
-        goto LABEL_130;
+        return 4113;
       }
 
       if (!strcmp("AL_PLAYING", ename))
       {
-        result = 4114;
-        goto LABEL_110;
+        return 4114;
       }
 
       if (!strcmp("AL_PAUSED", ename))
       {
-        result = 4115;
-        goto LABEL_110;
+        return 4115;
       }
 
       if (!strcmp("AL_STOPPED", ename))
       {
-        result = 4116;
-        goto LABEL_110;
+        return 4116;
       }
 
       if (!strcmp("AL_BUFFERS_QUEUED", ename))
       {
-        result = 4117;
-        goto LABEL_110;
+        return 4117;
       }
 
       if (!strcmp("AL_BUFFERS_PROCESSED", ename))
       {
-        result = 4118;
-        goto LABEL_110;
+        return 4118;
       }
 
       if (!strcmp("AL_FORMAT_MONO8", ename))
       {
-        result = 4352;
-        goto LABEL_110;
+        return 4352;
       }
 
       if (!strcmp("AL_FORMAT_MONO16", ename))
       {
-        result = 4353;
-        goto LABEL_110;
+        return 4353;
       }
 
       if (!strcmp("AL_FORMAT_STEREO8", ename))
       {
-        result = 4354;
-        goto LABEL_110;
+        return 4354;
       }
 
       if (!strcmp("AL_FORMAT_STEREO16", ename))
       {
-        result = 4355;
-        goto LABEL_110;
+        return 4355;
       }
 
       if (!strcmp("AL_FREQUENCY", ename))
       {
-        result = 8193;
-        goto LABEL_110;
+        return 8193;
       }
 
       if (!strcmp("AL_SIZE", ename))
       {
-        result = 8196;
-        goto LABEL_110;
+        return 8196;
       }
 
       if (!strcmp("AL_UNUSED", ename))
       {
-        result = 8208;
-        goto LABEL_110;
+        return 8208;
       }
 
       if (!strcmp("AL_PENDING", ename))
       {
-        result = 8209;
-        goto LABEL_110;
+        return 8209;
       }
 
       if (!strcmp("AL_PROCESSED", ename))
       {
-        result = 8210;
-        goto LABEL_110;
+        return 8210;
       }
 
       result = strcmp("AL_NO_ERROR", ename);
@@ -7391,117 +7283,102 @@ ALenum alGetEnumValue(const ALchar *ename)
       {
         if (!strcmp("AL_INVALID_NAME", ename))
         {
-          goto LABEL_145;
+          return 40961;
         }
 
         if (!strcmp("AL_INVALID_ENUM", ename))
         {
-          goto LABEL_146;
+          return 40962;
         }
 
         if (!strcmp("AL_INVALID_VALUE", ename))
         {
-          goto LABEL_147;
+          return 40963;
         }
 
         if (!strcmp("AL_INVALID_OPERATION", ename))
         {
-          goto LABEL_148;
+          return 40964;
         }
 
         if (!strcmp("AL_OUT_OF_MEMORY", ename))
         {
-          goto LABEL_149;
+          return 40965;
         }
 
         if (!strcmp("AL_VENDOR", ename))
         {
-          result = 45057;
-          goto LABEL_110;
+          return 45057;
         }
 
         if (!strcmp("AL_VERSION", ename))
         {
-          result = 45058;
-          goto LABEL_110;
+          return 45058;
         }
 
         if (!strcmp("AL_RENDERER", ename))
         {
-          result = 45059;
-          goto LABEL_110;
+          return 45059;
         }
 
         if (!strcmp("AL_EXTENSIONS", ename))
         {
-          result = 45060;
-          goto LABEL_110;
+          return 45060;
         }
 
         if (!strcmp("AL_DOPPLER_FACTOR", ename))
         {
-          result = 49152;
-          goto LABEL_110;
+          return 49152;
         }
 
         if (!strcmp("AL_DOPPLER_VELOCITY", ename))
         {
-          result = 49153;
-          goto LABEL_110;
+          return 49153;
         }
 
         if (!strcmp("AL_DISTANCE_MODEL", ename))
         {
-          result = 53248;
-          goto LABEL_110;
+          return 53248;
         }
 
         if (!strcmp("AL_INVERSE_DISTANCE", ename))
         {
-          result = 53249;
-          goto LABEL_110;
+          return 53249;
         }
 
         if (!strcmp("AL_INVERSE_DISTANCE_CLAMPED", ename))
         {
-          result = 53250;
-          goto LABEL_110;
+          return 53250;
         }
 
         if (!strcmp("AL_LINEAR_DISTANCE", ename))
         {
-          result = 53251;
-          goto LABEL_110;
+          return 53251;
         }
 
         if (!strcmp("AL_LINEAR_DISTANCE_CLAMPED", ename))
         {
-          result = 53252;
-          goto LABEL_110;
+          return 53252;
         }
 
         if (!strcmp("AL_EXPONENT_DISTANCE", ename))
         {
-          result = 53253;
-          goto LABEL_110;
+          return 53253;
         }
 
         if (!strcmp("AL_EXPONENT_DISTANCE_CLAMPED", ename))
         {
-          result = 53254;
-          goto LABEL_110;
+          return 53254;
         }
 
         if (!strcmp("AL_SPEED_OF_SOUND", ename))
         {
-          result = 49155;
-          goto LABEL_110;
+          return 49155;
         }
 
         if (!strcmp("AL_SOURCE_TYPE", ename))
         {
-          result = 4135;
-          goto LABEL_110;
+          return 4135;
         }
 
         result = strcmp("ALC_INVALID", ename);
@@ -7514,8 +7391,7 @@ ALenum alGetEnumValue(const ALchar *ename)
             {
               if (!strcmp("ALC_MAJOR_VERSION", ename))
               {
-                result = 4096;
-                goto LABEL_110;
+                return 4096;
               }
 
               if (strcmp("ALC_MINOR_VERSION", ename))
@@ -7534,8 +7410,7 @@ ALenum alGetEnumValue(const ALchar *ename)
                           {
                             if (!strcmp("ALC_REFRESH", ename))
                             {
-                              result = 4104;
-                              goto LABEL_110;
+                              return 4104;
                             }
 
                             if (strcmp("ALC_SYNC", ename))
@@ -7543,7 +7418,7 @@ ALenum alGetEnumValue(const ALchar *ename)
                               result = strcmp("ALC_NO_ERROR", ename);
                               if (!result)
                               {
-                                goto LABEL_110;
+                                return result;
                               }
 
                               if (strcmp("ALC_INVALID_DEVICE", ename))
@@ -7562,228 +7437,190 @@ ALenum alGetEnumValue(const ALchar *ename)
                                           {
                                             if (!strcmp("AL_SEC_OFFSET", ename))
                                             {
-                                              result = 4132;
+                                              return 4132;
                                             }
 
-                                            else if (!strcmp("AL_SAMPLE_OFFSET", ename))
+                                            if (!strcmp("AL_SAMPLE_OFFSET", ename))
                                             {
-                                              result = 4133;
+                                              return 4133;
                                             }
 
-                                            else if (!strcmp("AL_BYTE_OFFSET", ename))
+                                            if (!strcmp("AL_BYTE_OFFSET", ename))
                                             {
-                                              result = 4134;
+                                              return 4134;
                                             }
 
-                                            else if (!strcmp("ALC_CAPTURE_DEVICE_SPECIFIER", ename))
+                                            if (!strcmp("ALC_CAPTURE_DEVICE_SPECIFIER", ename))
                                             {
-                                              result = 784;
+                                              return 784;
                                             }
 
-                                            else if (!strcmp("ALC_CAPTURE_DEFAULT_DEVICE_SPECIFIER", ename))
+                                            if (!strcmp("ALC_CAPTURE_DEFAULT_DEVICE_SPECIFIER", ename))
                                             {
-                                              result = 785;
+                                              return 785;
                                             }
 
-                                            else if (!strcmp("ALC_CAPTURE_SAMPLES", ename))
+                                            if (!strcmp("ALC_CAPTURE_SAMPLES", ename))
                                             {
-                                              result = 786;
+                                              return 786;
                                             }
 
-                                            else if (!strcmp("ALC_SPATIAL_RENDERING_QUALITY", ename))
+                                            if (!strcmp("ALC_SPATIAL_RENDERING_QUALITY", ename))
                                             {
-                                              result = 61442;
+                                              return 61442;
                                             }
 
-                                            else if (!strcmp("ALC_MIXER_OUTPUT_RATE", ename))
+                                            if (!strcmp("ALC_MIXER_OUTPUT_RATE", ename))
                                             {
-                                              result = 61443;
+                                              return 61443;
                                             }
 
-                                            else if (!strcmp("ALC_MIXER_MAXIMUM_BUSSES", ename))
+                                            if (!strcmp("ALC_MIXER_MAXIMUM_BUSSES", ename))
                                             {
-                                              result = 61444;
+                                              return 61444;
                                             }
 
-                                            else if (!strcmp("ALC_RENDER_CHANNEL_COUNT", ename))
+                                            if (!strcmp("ALC_RENDER_CHANNEL_COUNT", ename))
                                             {
-                                              result = 61445;
+                                              return 61445;
                                             }
 
-                                            else if (!strcmp("ALC_MAC_OSX_SPATIAL_RENDERING_QUALITY_HIGH", ename))
+                                            if (!strcmp("ALC_MAC_OSX_SPATIAL_RENDERING_QUALITY_HIGH", ename))
                                             {
-                                              result = 1920034921;
+                                              return 1920034921;
                                             }
 
-                                            else if (!strcmp("ALC_MAC_OSX_SPATIAL_RENDERING_QUALITY_LOW", ename))
+                                            if (!strcmp("ALC_MAC_OSX_SPATIAL_RENDERING_QUALITY_LOW", ename))
                                             {
-                                              result = 1919183983;
+                                              return 1919183983;
                                             }
 
-                                            else if (!strcmp("ALC_IPHONE_SPATIAL_RENDERING_QUALITY_HEADPHONES", ename))
+                                            if (!strcmp("ALC_IPHONE_SPATIAL_RENDERING_QUALITY_HEADPHONES", ename))
                                             {
-                                              result = 1751412840;
+                                              return 1751412840;
                                             }
 
-                                            else if (!strcmp("ALC_MAC_OSX_RENDER_CHANNEL_COUNT_STEREO", ename))
+                                            if (!strcmp("ALC_MAC_OSX_RENDER_CHANNEL_COUNT_STEREO", ename))
                                             {
-                                              result = 1919120244;
+                                              return 1919120244;
                                             }
 
-                                            else if (!strcmp("ALC_MAC_OSX_RENDER_CHANNEL_COUNT_MULTICHANNEL", ename))
+                                            if (!strcmp("ALC_MAC_OSX_RENDER_CHANNEL_COUNT_MULTICHANNEL", ename))
                                             {
-                                              result = 1919118691;
+                                              return 1919118691;
                                             }
 
-                                            else if (!strcmp("AL_GAMEKIT", ename))
+                                            if (!strcmp("AL_GAMEKIT", ename))
                                             {
-                                              result = 1735095154;
+                                              return 1735095154;
                                             }
 
-                                            else if (!strcmp("ALC_ASA_REVERB_ON", ename))
+                                            if (!strcmp("ALC_ASA_REVERB_ON", ename))
                                             {
-                                              result = 1920364398;
+                                              return 1920364398;
                                             }
 
-                                            else if (!strcmp("ALC_ASA_REVERB_EQ_GAIN", ename))
+                                            if (!strcmp("ALC_ASA_REVERB_EQ_GAIN", ename))
                                             {
-                                              result = 1920361831;
+                                              return 1920361831;
                                             }
 
-                                            else if (!strcmp("ALC_ASA_REVERB_EQ_BANDWITH", ename))
+                                            if (!strcmp("ALC_ASA_REVERB_EQ_BANDWITH", ename))
                                             {
-                                              result = 1920361826;
+                                              return 1920361826;
                                             }
 
-                                            else if (!strcmp("ALC_ASA_REVERB_EQ_FREQ", ename))
+                                            if (!strcmp("ALC_ASA_REVERB_EQ_FREQ", ename))
                                             {
-                                              result = 1920361830;
+                                              return 1920361830;
                                             }
 
-                                            else if (!strcmp("ALC_ASA_REVERB_ROOM_TYPE", ename))
+                                            if (!strcmp("ALC_ASA_REVERB_ROOM_TYPE", ename))
                                             {
-                                              result = 1920365172;
+                                              return 1920365172;
                                             }
 
-                                            else if (!strcmp("ALC_ASA_REVERB_SEND_LEVEL", ename))
+                                            if (!strcmp("ALC_ASA_REVERB_SEND_LEVEL", ename))
                                             {
-                                              result = 1920365420;
+                                              return 1920365420;
                                             }
 
-                                            else if (!strcmp("ALC_ASA_REVERB_GLOBAL_LEVEL", ename))
+                                            if (!strcmp("ALC_ASA_REVERB_GLOBAL_LEVEL", ename))
                                             {
-                                              result = 1920362348;
+                                              return 1920362348;
                                             }
 
-                                            else if (!strcmp("ALC_ASA_OCCLUSION", ename))
+                                            if (!strcmp("ALC_ASA_OCCLUSION", ename))
                                             {
-                                              result = 1868784492;
+                                              return 1868784492;
                                             }
 
-                                            else if (!strcmp("ALC_ASA_OBSTRUCTION", ename))
+                                            if (!strcmp("ALC_ASA_OBSTRUCTION", ename))
                                             {
-                                              result = 1868723060;
+                                              return 1868723060;
                                             }
 
-                                            else
-                                            {
-                                              result = -1;
-                                            }
-
-                                            goto LABEL_110;
+                                            return -1;
                                           }
 
-LABEL_130:
-                                          result = 4113;
-                                          goto LABEL_110;
+                                          return 4113;
                                         }
 
-LABEL_129:
-                                        result = 4112;
-                                        goto LABEL_110;
+                                        return 4112;
                                       }
 
-LABEL_149:
-                                      result = 40965;
-                                      goto LABEL_110;
+                                      return 40965;
                                     }
 
-LABEL_148:
-                                    result = 40964;
-                                    goto LABEL_110;
+                                    return 40964;
                                   }
 
-LABEL_147:
-                                  result = 40963;
-                                  goto LABEL_110;
+                                  return 40963;
                                 }
 
-LABEL_146:
-                                result = 40962;
-                                goto LABEL_110;
+                                return 40962;
                               }
 
-LABEL_145:
-                              result = 40961;
-                              goto LABEL_110;
+                              return 40961;
                             }
 
-LABEL_121:
-                            result = 4105;
-                            goto LABEL_110;
+                            return 4105;
                           }
 
-LABEL_120:
-                          result = 4103;
-                          goto LABEL_110;
+                          return 4103;
                         }
 
-LABEL_119:
-                        result = 4102;
-                        goto LABEL_110;
+                        return 4102;
                       }
 
-LABEL_118:
-                      result = 4101;
-                      goto LABEL_110;
+                      return 4101;
                     }
 
-LABEL_117:
-                    result = 4100;
-                    goto LABEL_110;
+                    return 4100;
                   }
 
-LABEL_116:
-                  result = 4099;
-                  goto LABEL_110;
+                  return 4099;
                 }
 
-LABEL_114:
-                result = 4098;
-                goto LABEL_110;
+                return 4098;
               }
 
-LABEL_113:
-              result = 4097;
-              goto LABEL_110;
+              return 4097;
             }
 
-LABEL_111:
-            result = 1;
+            return 1;
           }
         }
       }
     }
   }
 
-LABEL_110:
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t alcGetInteger(ALCdevice_struct *a1, int a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     if (a2 > 4101)
@@ -7848,15 +7685,15 @@ uint64_t alcGetInteger(ALCdevice_struct *a1, int a2)
         case 4101:
           v6 = "ALC_DEVICE_SPECIFIER";
 LABEL_26:
-          v35 = 136315906;
-          v36 = "oalImp.cpp";
-          v37 = 1024;
-          v38 = 1151;
-          v39 = 2048;
-          v40 = a1;
-          v41 = 2080;
-          v42 = v6;
-          _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcGetInteger--> device = %ld attribute name = %s", &v35, 0x26u);
+          v34 = 136315906;
+          v35 = "oalImp.cpp";
+          v36 = 1024;
+          v37 = 1151;
+          v38 = 2048;
+          v39 = a1;
+          v40 = 2080;
+          v41 = v6;
+          _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcGetInteger--> device = %ld attribute name = %s", &v34, 0x26u);
           goto LABEL_27;
       }
     }
@@ -8154,17 +7991,17 @@ LABEL_69:
             v25 = "ALC_DEVICE_SPECIFIER";
 LABEL_114:
             String = alcGetString(0, v22);
-            v35 = 136316162;
-            v36 = "oalImp.cpp";
-            v37 = 1024;
-            v38 = 1221;
-            v39 = 2048;
-            v40 = a1;
-            v41 = 2080;
-            v42 = v25;
-            v43 = 2080;
-            v44 = String;
-            _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcGetInteger FAILED: device = %ld attribute name = %s error = %s", &v35, 0x30u);
+            v34 = 136316162;
+            v35 = "oalImp.cpp";
+            v36 = 1024;
+            v37 = 1221;
+            v38 = 2048;
+            v39 = a1;
+            v40 = 2080;
+            v41 = v25;
+            v42 = 2080;
+            v43 = String;
+            _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcGetInteger FAILED: device = %ld attribute name = %s error = %s", &v34, 0x30u);
             result = 0;
 LABEL_115:
             v23 = 0;
@@ -8209,7 +8046,6 @@ LABEL_117:
     atomic_fetch_add((v23 + 440), 0xFFFFFFFF);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8225,7 +8061,7 @@ void sub_23A01E03C(_Unwind_Exception *a1, int a2)
 
 void alcGetIntegerv(ALCdevice *device, ALCenum param, ALCsizei size, ALCint *data)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     if (param > 4101)
@@ -8290,15 +8126,15 @@ void alcGetIntegerv(ALCdevice *device, ALCenum param, ALCsizei size, ALCint *dat
         case 4101:
           v10 = "ALC_DEVICE_SPECIFIER";
 LABEL_26:
-          v34 = 136315906;
-          v35 = "oalImp.cpp";
-          v36 = 1024;
-          v37 = 1234;
-          v38 = 2048;
-          v39 = device;
-          v40 = 2080;
-          v41 = v10;
-          _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcGetIntegerv--> device = %ld attribute name = %s", &v34, 0x26u);
+          v33 = 136315906;
+          v34 = "oalImp.cpp";
+          v35 = 1024;
+          v36 = 1234;
+          v37 = 2048;
+          v38 = device;
+          v39 = 2080;
+          v40 = v10;
+          _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alcGetIntegerv--> device = %ld attribute name = %s", &v33, 0x26u);
           goto LABEL_27;
       }
     }
@@ -8528,17 +8364,17 @@ LABEL_85:
             v28 = "ALC_DEVICE_SPECIFIER";
 LABEL_110:
             String = alcGetString(0, v26);
-            v34 = 136316162;
-            v35 = "oalImp.cpp";
-            v36 = 1024;
-            v37 = 1301;
-            v38 = 2048;
-            v39 = device;
-            v40 = 2080;
-            v41 = v28;
-            v42 = 2080;
-            v43 = String;
-            _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcGetInteger FAILED: device = %ld attribute name = %s error = %s", &v34, 0x30u);
+            v33 = 136316162;
+            v34 = "oalImp.cpp";
+            v35 = 1024;
+            v36 = 1301;
+            v37 = 2048;
+            v38 = device;
+            v39 = 2080;
+            v40 = v28;
+            v41 = 2080;
+            v42 = String;
+            _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alcGetInteger FAILED: device = %ld attribute name = %s error = %s", &v33, 0x30u);
 LABEL_111:
             v27 = 0;
             v30 = 0;
@@ -8572,13 +8408,13 @@ LABEL_67:
     {
       if (alcGetContextsDevice(gCurrentContext) == device)
       {
-        v32 = ProtectContextObject(gCurrentContext);
-        v33 = v32;
-        if (v32 && *(v32 + 396) <= size)
+        v31 = ProtectContextObject(gCurrentContext);
+        v32 = v31;
+        if (v31 && *(v31 + 396) <= size)
         {
-          OALContext::CopyAttributeList(v32, data);
+          OALContext::CopyAttributeList(v31, data);
           v27 = 0;
-          atomic_fetch_add((v33 + 440), 0xFFFFFFFF);
+          atomic_fetch_add((v32 + 440), 0xFFFFFFFF);
           goto LABEL_112;
         }
 
@@ -8632,8 +8468,6 @@ LABEL_113:
   {
     atomic_fetch_add((v30 + 440), 0xFFFFFFFF);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23A01E738(_Unwind_Exception *a1, int a2)
@@ -8660,15 +8494,15 @@ ALenum alGetError(void)
 
 void alGenBuffers(ALsizei n, ALuint *buffers)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v10 = "oalImp.cpp";
-    v11 = 1024;
-    v12 = 1348;
-    v13 = 2048;
-    *v14 = n;
+    v9 = "oalImp.cpp";
+    v10 = 1024;
+    v11 = 1348;
+    v12 = 2048;
+    *v13 = n;
     _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alGenBuffers--> requested buffers = %ld", buf, 0x1Cu);
   }
 
@@ -8694,13 +8528,13 @@ void alGenBuffers(ALsizei n, ALuint *buffers)
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v10 = "oalImp.cpp";
-      v11 = 1024;
-      v12 = 1363;
-      v13 = 1024;
-      *v14 = n;
-      *&v14[4] = 1024;
-      *&v14[6] = v5;
+      v9 = "oalImp.cpp";
+      v10 = 1024;
+      v11 = 1363;
+      v12 = 1024;
+      *v13 = n;
+      *&v13[4] = 1024;
+      *&v13[6] = v5;
       _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alGenBuffers ERROR --> requested buffers:gOALBufferMap->Size() = %d:%d", buf, 0x1Eu);
     }
 
@@ -8734,13 +8568,13 @@ LABEL_17:
     {
       String = alGetString(v6);
       *buf = 136315906;
-      v10 = "oalImp.cpp";
-      v11 = 1024;
-      v12 = 1383;
-      v13 = 2048;
-      *v14 = n;
-      *&v14[8] = 2080;
-      v15 = String;
+      v9 = "oalImp.cpp";
+      v10 = 1024;
+      v11 = 1383;
+      v12 = 2048;
+      *v13 = n;
+      *&v13[8] = 2080;
+      v14 = String;
       _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alGenBuffers FAILED: requested buffers = %ld error %s", buf, 0x26u);
     }
 
@@ -8750,8 +8584,6 @@ LABEL_17:
       pthread_setspecific(gALErrorKey, v6);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23A01EB3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
@@ -8764,33 +8596,33 @@ void sub_23A01EB3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23A01EB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23A01EB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  MEMORY[0x23EE824D0](v3, 0x10F0C403FF1FE8BLL);
+  va_start(va, a5);
+  MEMORY[0x23EE824D0](v5, 0x10F0C403FF1FE8BLL, a3);
   CAGuard::Locker::~Locker(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23A01EB98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23A01EB98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CAGuard::Locker::~Locker(va);
   _Unwind_Resume(a1);
 }
 
 const ALchar *__cdecl alGetString(ALenum param)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v4 = 136315650;
-    v5 = "oalImp.cpp";
-    v6 = 1024;
-    v7 = 3397;
-    v8 = 2080;
+    v3 = 136315650;
+    v4 = "oalImp.cpp";
+    v5 = 1024;
+    v6 = 3397;
+    v7 = 2080;
     ALAttributeString = GetALAttributeString(param);
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alGetString = %s", &v4, 0x1Cu);
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alGetString = %s", &v3, 0x1Cu);
   }
 
   if (param <= 40963)
@@ -8799,32 +8631,25 @@ const ALchar *__cdecl alGetString(ALenum param)
     {
       if (param == 40961)
       {
-        result = "Invalid Name";
+        return "Invalid Name";
       }
 
-      else if (param == 40962)
+      if (param == 40962)
       {
-        result = "Invalid Enum";
+        return "Invalid Enum";
       }
 
-      else
-      {
-        result = "Invalid Value";
-      }
-
-      goto LABEL_31;
+      return "Invalid Value";
     }
 
     if (param == -1)
     {
-      result = "Unknown Internal Error";
-      goto LABEL_31;
+      return "Unknown Internal Error";
     }
 
     if (!param)
     {
-      result = "No Error";
-      goto LABEL_31;
+      return "No Error";
     }
 
     goto LABEL_28;
@@ -8835,14 +8660,11 @@ const ALchar *__cdecl alGetString(ALenum param)
     switch(param)
     {
       case 40964:
-        result = "Invalid Operation";
-        goto LABEL_31;
+        return "Invalid Operation";
       case 40965:
-        result = "Out of Memory";
-        goto LABEL_31;
+        return "Out of Memory";
       case 45057:
-        result = "Apple Inc.";
-        goto LABEL_31;
+        return "Apple Inc.";
     }
 
     goto LABEL_28;
@@ -8852,14 +8674,12 @@ const ALchar *__cdecl alGetString(ALenum param)
   {
     if (param == 45059)
     {
-      result = "Software";
-      goto LABEL_31;
+      return "Software";
     }
 
     if (param == 45058)
     {
-      result = "1.1";
-      goto LABEL_31;
+      return "1.1";
     }
 
 LABEL_28:
@@ -8869,8 +8689,7 @@ LABEL_28:
       pthread_setspecific(gALErrorKey, 0xA002);
     }
 
-    result = 0;
-    goto LABEL_31;
+    return 0;
   }
 
   result = alExtensions;
@@ -8881,17 +8700,15 @@ LABEL_28:
     strcpy(result, "AL_EXT_OFFSET AL_EXT_LINEAR_DISTANCE AL_EXT_EXPONENT_DISTANCE AL_EXT_STATIC_BUFFER AL_EXT_SOURCE_NOTIFICATIONS AL_EXT_SOURCE_SPATIALIZATION");
   }
 
-LABEL_31:
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void alDeleteBuffers(ALsizei n, const ALuint *buffers)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if (!n)
   {
-    goto LABEL_30;
+    return;
   }
 
   v4 = 40963;
@@ -8901,7 +8718,7 @@ void alDeleteBuffers(ALsizei n, const ALuint *buffers)
   }
 
   v5 = gBufferMapLock;
-  v37 = (*(*gBufferMapLock + 16))(gBufferMapLock);
+  v41 = (*(*gBufferMapLock + 16))(gBufferMapLock);
   CleanUpDeadBufferList();
   v6 = 0;
   v7 = 1;
@@ -8919,124 +8736,134 @@ LABEL_5:
     {
       v4 = 0;
 LABEL_32:
-      v18 = 0;
+      v17 = 0;
       do
       {
-        v19 = buffers[v18];
-        if (v19)
+        v18 = buffers[v17];
+        if (v18)
         {
-          v20 = *(gOALBufferMap + 8);
-          if (!v20)
+          v19 = *(gOALBufferMap + 8);
+          if (!v19)
           {
             goto LABEL_43;
           }
 
-          v21 = gOALBufferMap + 8;
+          v20 = gOALBufferMap + 8;
           do
           {
-            v22 = *(v20 + 32);
-            v12 = v22 >= v19;
-            v23 = v22 < v19;
+            v21 = *(v19 + 32);
+            v12 = v21 >= v18;
+            v22 = v21 < v18;
             if (v12)
             {
-              v21 = v20;
+              v20 = v19;
             }
 
-            v20 = *(v20 + 8 * v23);
+            v19 = *(v19 + 8 * v22);
           }
 
-          while (v20);
-          if (v21 != gOALBufferMap + 8 && *(v21 + 32) <= v19)
+          while (v19);
+          if (v20 != gOALBufferMap + 8 && *(v20 + 32) <= v18)
           {
-            v24 = *(v21 + 40);
+            v23 = *(v20 + 40);
           }
 
           else
           {
 LABEL_43:
-            v24 = 0;
+            v23 = 0;
           }
 
-          if (!OALBuffer::IsPurgable(v24))
+          if (!OALBuffer::IsPurgable(v23))
           {
-              ;
+            v35 = *v23;
+            v36 = (gDeadOALBufferMap + 8);
+            for (i = *(gDeadOALBufferMap + 8); i; i = *(i + 8 * v40))
+            {
+              v38 = *(i + 32);
+              v39 = v38 > v35;
+              v40 = v38 <= v35;
+              if (v39)
+              {
+                v36 = i;
+              }
             }
 
-            *buf = *v24;
-            *&v39[4] = v24;
-            std::__tree<std::__value_type<unsigned int,OALSource *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OALSource *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OALSource *>>>::__emplace_hint_multi<std::pair<unsigned int const,OALSource *>>();
+            *buf = *v23;
+            *&v43[4] = v23;
+            std::__tree<std::__value_type<unsigned int,OALSource *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OALSource *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OALSource *>>>::__emplace_hint_multi<std::pair<unsigned int const,OALSource *>>(gDeadOALBufferMap, v36, buf);
           }
 
-          v25 = gOALBufferMap;
-          v26 = *(gOALBufferMap + 8);
-          if (v26)
+          v24 = gOALBufferMap;
+          v25 = *(gOALBufferMap + 8);
+          if (v25)
           {
-            v27 = buffers[v18];
-            v28 = gOALBufferMap + 8;
-            v29 = *(gOALBufferMap + 8);
+            v26 = buffers[v17];
+            v27 = gOALBufferMap + 8;
+            v28 = *(gOALBufferMap + 8);
             do
             {
-              v30 = *(v29 + 32);
-              v12 = v30 >= v27;
-              v31 = v30 < v27;
+              v29 = *(v28 + 32);
+              v12 = v29 >= v26;
+              v30 = v29 < v26;
               if (v12)
               {
-                v28 = v29;
+                v27 = v28;
               }
 
-              v29 = *(v29 + 8 * v31);
+              v28 = *(v28 + 8 * v30);
             }
 
-            while (v29);
-            if (v28 != gOALBufferMap + 8 && *(v28 + 32) <= v27)
+            while (v28);
+            if (v27 != gOALBufferMap + 8 && *(v27 + 32) <= v26)
             {
-              v32 = *(v28 + 8);
-              v33 = v28;
-              if (v32)
+              v31 = *(v27 + 8);
+              v32 = v27;
+              if (v31)
               {
                 do
                 {
-                  v34 = v32;
-                  v32 = *v32;
+                  v33 = v31;
+                  v31 = *v31;
                 }
 
-                while (v32);
+                while (v31);
               }
 
               else
               {
                 do
                 {
-                  v34 = v33[2];
-                  v35 = *v34 == v33;
-                  v33 = v34;
+                  v33 = v32[2];
+                  v34 = *v33 == v32;
+                  v32 = v33;
                 }
 
-                while (!v35);
+                while (!v34);
               }
 
-              if (*gOALBufferMap == v28)
+              if (*gOALBufferMap == v27)
               {
-                *gOALBufferMap = v34;
+                *gOALBufferMap = v33;
               }
 
-              --*(v25 + 16);
-              std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v26, v28);
-              operator delete(v28);
+              --*(v24 + 16);
+              std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v25, v27);
+              operator delete(v27);
             }
           }
 
-          if (v24)
+          if (v23)
           {
-            OALBuffer::~OALBuffer(v24);
+            OALBuffer::~OALBuffer(v23);
             MEMORY[0x23EE824D0]();
           }
         }
 
-        ++v18;
+        ++v17;
       }
 
-      while (v18 != n);
+      while (v17 != n);
       goto LABEL_23;
     }
   }
@@ -9070,11 +8897,11 @@ LABEL_43:
           {
             v15 = buffers[v6];
             *buf = 136315650;
-            *v39 = "oalImp.cpp";
-            *&v39[8] = 1024;
-            *&v39[10] = 1436;
-            v40 = 2048;
-            v41 = v15;
+            *v43 = "oalImp.cpp";
+            *&v43[8] = 1024;
+            *&v43[10] = 1436;
+            v44 = 2048;
+            v45 = v15;
             _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alDeleteBuffers: oalBuffer cannot currently be removed, a source is still attached, bid = %ld", buf, 0x1Cu);
             v4 = 40964;
             if (v7)
@@ -9103,11 +8930,11 @@ LABEL_43:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    *v39 = "oalImp.cpp";
-    *&v39[8] = 1024;
-    *&v39[10] = 1431;
-    v40 = 2048;
-    v41 = v8;
+    *v43 = "oalImp.cpp";
+    *&v43[8] = 1024;
+    *&v43[10] = 1431;
+    v44 = 2048;
+    v45 = v8;
     _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alDeleteBuffers: oalBuffer == NULL, bid = %ld", buf, 0x1Cu);
   }
 
@@ -9118,7 +8945,7 @@ LABEL_43:
   }
 
 LABEL_23:
-  if (v37)
+  if (v41)
   {
     (*(*v5 + 24))(v5);
   }
@@ -9130,11 +8957,11 @@ LABEL_25:
     {
       String = alGetString(v4);
       *buf = 136315650;
-      *v39 = "oalImp.cpp";
-      *&v39[8] = 1024;
-      *&v39[10] = 1472;
-      v40 = 2080;
-      v41 = String;
+      *v43 = "oalImp.cpp";
+      *&v43[8] = 1024;
+      *&v43[10] = 1472;
+      v44 = 2080;
+      v45 = String;
       _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alDeleteBuffers FAILED = %s", buf, 0x1Cu);
     }
 
@@ -9144,9 +8971,6 @@ LABEL_25:
       pthread_setspecific(gALErrorKey, v4);
     }
   }
-
-LABEL_30:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23A01F380(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
@@ -9159,77 +8983,80 @@ void sub_23A01F380(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23A01F3C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23A01F3C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CAGuard::Locker::~Locker(va);
   _Unwind_Resume(a1);
 }
 
 ALBOOLean alIsBuffer(ALuint bid)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    *v13 = 136315650;
-    *&v13[4] = "oalImp.cpp";
-    v14 = 1024;
-    v15 = 1480;
-    v16 = 2048;
-    v17 = bid;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alIsBuffer--> buffer %ld", v13, 0x1Cu);
+    *v12 = 136315650;
+    *&v12[4] = "oalImp.cpp";
+    v13 = 1024;
+    v14 = 1480;
+    v15 = 2048;
+    v16 = bid;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alIsBuffer--> buffer %ld", v12, 0x1Cu);
   }
 
   if (!bid)
   {
-    result = 1;
-    goto LABEL_21;
+    return 1;
   }
 
   if (gOALBufferMap)
   {
     v2 = gBufferMapLock;
-    *v13 = gBufferMapLock;
+    *v12 = gBufferMapLock;
     v3 = (*(*gBufferMapLock + 16))(gBufferMapLock);
-    v13[8] = v3;
+    v12[8] = v3;
     CleanUpDeadBufferList();
     v4 = *(gOALBufferMap + 8);
-    if (v4)
+    if (!v4)
     {
-      v5 = gOALBufferMap + 8;
-      do
-      {
-        v6 = *(v4 + 32);
-        v7 = v6 >= bid;
-        v8 = v6 < bid;
-        if (v7)
-        {
-          v5 = v4;
-        }
+      goto LABEL_13;
+    }
 
-        v4 = *(v4 + 8 * v8);
+    v5 = gOALBufferMap + 8;
+    do
+    {
+      v6 = *(v4 + 32);
+      v7 = v6 >= bid;
+      v8 = v6 < bid;
+      if (v7)
+      {
+        v5 = v4;
       }
 
-      while (v4);
-      if (v5 != gOALBufferMap + 8 && *(v5 + 32) <= bid)
-      {
-        result = *(v5 + 40) != 0;
-        if (!v3)
-        {
-          goto LABEL_21;
-        }
+      v4 = *(v4 + 8 * v8);
+    }
 
+    while (v4);
+    if (v5 != gOALBufferMap + 8 && *(v5 + 32) <= bid)
+    {
+      result = *(v5 + 40) != 0;
+      if (v3)
+      {
         goto LABEL_14;
       }
     }
 
-    result = 0;
-    if (v3)
+    else
     {
+LABEL_13:
+      result = 0;
+      if (v3)
+      {
 LABEL_14:
-      v10 = result;
-      (*(*v2 + 24))(v2);
-      result = v10;
+        v10 = result;
+        (*(*v2 + 24))(v2);
+        return v10;
+      }
     }
   }
 
@@ -9238,15 +9065,15 @@ LABEL_14:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       String = alGetString(40964);
-      *v13 = 136315906;
-      *&v13[4] = "oalImp.cpp";
-      v14 = 1024;
-      v15 = 1504;
-      v16 = 2048;
-      v17 = bid;
-      v18 = 2080;
-      v19 = String;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alIsBuffer FAILED: buffer = %ld error = %s", v13, 0x26u);
+      *v12 = 136315906;
+      *&v12[4] = "oalImp.cpp";
+      v13 = 1024;
+      v14 = 1504;
+      v15 = 2048;
+      v16 = bid;
+      v17 = 2080;
+      v18 = String;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alIsBuffer FAILED: buffer = %ld error = %s", v12, 0x26u);
     }
 
     pthread_once(&gErrorOnce, ErrorKeyInitializer);
@@ -9255,11 +9082,9 @@ LABEL_14:
       pthread_setspecific(gALErrorKey, 0xA004);
     }
 
-    result = 0;
+    return 0;
   }
 
-LABEL_21:
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9275,7 +9100,7 @@ void sub_23A01F654(_Unwind_Exception *exception_object, int a2)
 
 void alBufferData(ALuint bid, ALenum format, const ALvoid *data, ALsizei size, ALsizei freq)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (gOALBufferMap)
   {
     CleanUpDeadBufferList();
@@ -9306,7 +9131,7 @@ void alBufferData(ALuint bid, ALenum format, const ALvoid *data, ALsizei size, A
           atomic_fetch_add((v16 + 280), 0xFFFFFFFF);
           if (!v15)
           {
-            goto LABEL_26;
+            return;
           }
         }
 
@@ -9337,21 +9162,21 @@ LABEL_20:
           v17 = off_278B468A8[format - 4352];
         }
 
-        v19 = 136316674;
-        v20 = "oalImp.cpp";
-        v21 = 1024;
-        v22 = 1540;
-        v23 = 2048;
-        v24 = bid;
-        v25 = 2080;
-        v26 = v17;
-        v27 = 2048;
-        v28 = size;
-        v29 = 2048;
-        v30 = freq;
-        v31 = 2080;
+        v18 = 136316674;
+        v19 = "oalImp.cpp";
+        v20 = 1024;
+        v21 = 1540;
+        v22 = 2048;
+        v23 = bid;
+        v24 = 2080;
+        v25 = v17;
+        v26 = 2048;
+        v27 = size;
+        v28 = 2048;
+        v29 = freq;
+        v30 = 2080;
         String = alGetString(v15);
-        _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alBufferData FAILED: buffer %ld : %s : %ld bytes : %ldHz error = %s", &v19, 0x44u);
+        _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alBufferData FAILED: buffer %ld : %s : %ld bytes : %ldHz error = %s", &v18, 0x44u);
         goto LABEL_24;
       }
     }
@@ -9370,21 +9195,18 @@ LABEL_24:
   {
     pthread_setspecific(gALErrorKey, v15);
   }
-
-LABEL_26:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void alBufferf(ALuint bid, ALenum param, ALfloat value)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v4 = 136315394;
-    v5 = "oalImp.cpp";
-    v6 = 1024;
-    v7 = 1548;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alBufferf--> there are currently no valid enums for this API", &v4, 0x12u);
+    v3 = 136315394;
+    v4 = "oalImp.cpp";
+    v5 = 1024;
+    v6 = 1548;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alBufferf--> there are currently no valid enums for this API", &v3, 0x12u);
   }
 
   pthread_once(&gErrorOnce, ErrorKeyInitializer);
@@ -9392,20 +9214,18 @@ void alBufferf(ALuint bid, ALenum param, ALfloat value)
   {
     pthread_setspecific(gALErrorKey, 0xA002);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void alBuffer3f(ALuint bid, ALenum param, ALfloat value1, ALfloat value2, ALfloat value3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315394;
-    v7 = "oalImp.cpp";
-    v8 = 1024;
-    v9 = 1557;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alBuffer3f--> there are currently no valid enums for this API", &v6, 0x12u);
+    v5 = 136315394;
+    v6 = "oalImp.cpp";
+    v7 = 1024;
+    v8 = 1557;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alBuffer3f--> there are currently no valid enums for this API", &v5, 0x12u);
   }
 
   pthread_once(&gErrorOnce, ErrorKeyInitializer);
@@ -9413,20 +9233,18 @@ void alBuffer3f(ALuint bid, ALenum param, ALfloat value1, ALfloat value2, ALfloa
   {
     pthread_setspecific(gALErrorKey, 0xA002);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void alBufferfv(ALuint bid, ALenum param, const ALfloat *values)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v4 = 136315394;
-    v5 = "oalImp.cpp";
-    v6 = 1024;
-    v7 = 1566;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alBufferfv--> there are currently no valid enums for this API", &v4, 0x12u);
+    v3 = 136315394;
+    v4 = "oalImp.cpp";
+    v5 = 1024;
+    v6 = 1566;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alBufferfv--> there are currently no valid enums for this API", &v3, 0x12u);
   }
 
   pthread_once(&gErrorOnce, ErrorKeyInitializer);
@@ -9434,20 +9252,18 @@ void alBufferfv(ALuint bid, ALenum param, const ALfloat *values)
   {
     pthread_setspecific(gALErrorKey, 0xA002);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void alBufferi(ALuint bid, ALenum param, ALint value)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v4 = 136315394;
-    v5 = "oalImp.cpp";
-    v6 = 1024;
-    v7 = 1575;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alBufferi--> there are currently no valid enums for this API", &v4, 0x12u);
+    v3 = 136315394;
+    v4 = "oalImp.cpp";
+    v5 = 1024;
+    v6 = 1575;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alBufferi--> there are currently no valid enums for this API", &v3, 0x12u);
   }
 
   pthread_once(&gErrorOnce, ErrorKeyInitializer);
@@ -9455,20 +9271,18 @@ void alBufferi(ALuint bid, ALenum param, ALint value)
   {
     pthread_setspecific(gALErrorKey, 0xA002);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void alBuffer3i(ALuint bid, ALenum param, ALint value1, ALint value2, ALint value3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315394;
-    v7 = "oalImp.cpp";
-    v8 = 1024;
-    v9 = 1584;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alBuffer3i--> there are currently no valid enums for this API", &v6, 0x12u);
+    v5 = 136315394;
+    v6 = "oalImp.cpp";
+    v7 = 1024;
+    v8 = 1584;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alBuffer3i--> there are currently no valid enums for this API", &v5, 0x12u);
   }
 
   pthread_once(&gErrorOnce, ErrorKeyInitializer);
@@ -9476,20 +9290,18 @@ void alBuffer3i(ALuint bid, ALenum param, ALint value1, ALint value2, ALint valu
   {
     pthread_setspecific(gALErrorKey, 0xA002);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void alBufferiv(ALuint bid, ALenum param, const ALint *values)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v4 = 136315394;
-    v5 = "oalImp.cpp";
-    v6 = 1024;
-    v7 = 1593;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alBufferiv--> there are currently no valid enums for this API", &v4, 0x12u);
+    v3 = 136315394;
+    v4 = "oalImp.cpp";
+    v5 = 1024;
+    v6 = 1593;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alBufferiv--> there are currently no valid enums for this API", &v3, 0x12u);
   }
 
   pthread_once(&gErrorOnce, ErrorKeyInitializer);
@@ -9497,24 +9309,22 @@ void alBufferiv(ALuint bid, ALenum param, const ALint *values)
   {
     pthread_setspecific(gALErrorKey, 0xA002);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void alGetBufferf(ALuint bid, ALenum param, ALfloat *value)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v18 = 136315906;
-    v19 = "oalImp.cpp";
-    v20 = 1024;
-    v21 = 1602;
-    v22 = 2048;
-    v23 = bid;
-    v24 = 2080;
+    v17 = 136315906;
+    v18 = "oalImp.cpp";
+    v19 = 1024;
+    v20 = 1602;
+    v21 = 2048;
+    v22 = bid;
+    v23 = 2080;
     ALAttributeString = GetALAttributeString(param);
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alGetBufferf--> buffer %ld : property = %s", &v18, 0x26u);
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alGetBufferf--> buffer %ld : property = %s", &v17, 0x26u);
   }
 
   if (gOALBufferMap)
@@ -9543,7 +9353,7 @@ LABEL_17:
 LABEL_23:
         if (!v14)
         {
-          goto LABEL_28;
+          return;
         }
 
         goto LABEL_24;
@@ -9561,7 +9371,7 @@ LABEL_19:
       atomic_fetch_add((v11 + 280), 0xFFFFFFFF);
       if ((v14 & 1) == 0)
       {
-        goto LABEL_28;
+        return;
       }
 
       goto LABEL_24;
@@ -9603,7 +9413,7 @@ LABEL_14:
           v12 = *(v11 + 304);
           *value = v12;
           atomic_fetch_add((v11 + 280), 0xFFFFFFFF);
-          goto LABEL_28;
+          return;
         }
 
         goto LABEL_17;
@@ -9626,17 +9436,17 @@ LABEL_24:
   {
     v15 = GetALAttributeString(param);
     String = alGetString(v13);
-    v18 = 136316162;
-    v19 = "oalImp.cpp";
-    v20 = 1024;
-    v21 = 1624;
-    v22 = 2048;
-    v23 = bid;
-    v24 = 2080;
+    v17 = 136316162;
+    v18 = "oalImp.cpp";
+    v19 = 1024;
+    v20 = 1624;
+    v21 = 2048;
+    v22 = bid;
+    v23 = 2080;
     ALAttributeString = v15;
-    v26 = 2080;
-    v27 = String;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alGetBufferf FAILED: buffer %ld : property = %s error = %s", &v18, 0x30u);
+    v25 = 2080;
+    v26 = String;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alGetBufferf FAILED: buffer %ld : property = %s error = %s", &v17, 0x30u);
   }
 
   pthread_once(&gErrorOnce, ErrorKeyInitializer);
@@ -9644,9 +9454,6 @@ LABEL_24:
   {
     pthread_setspecific(gALErrorKey, v13);
   }
-
-LABEL_28:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 const char *GetALAttributeString(int a1)
@@ -9780,4 +9587,164 @@ const char *GetALAttributeString(int a1)
   }
 
   return result;
+}
+
+void alGetBuffer3f(ALuint bid, ALenum param, ALfloat *value1, ALfloat *value2, ALfloat *value3)
+{
+  v15 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  {
+    v7 = 136315906;
+    v8 = "oalImp.cpp";
+    v9 = 1024;
+    v10 = 1632;
+    v11 = 2048;
+    v12 = bid;
+    v13 = 2080;
+    ALAttributeString = GetALAttributeString(param);
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alGetBuffer3f--> buffer %ld : property = %s", &v7, 0x26u);
+  }
+
+  pthread_once(&gErrorOnce, ErrorKeyInitializer);
+  if (!pthread_getspecific(gALErrorKey))
+  {
+    pthread_setspecific(gALErrorKey, 0xA002);
+  }
+}
+
+void alGetBufferfv(ALuint bid, ALenum param, ALfloat *values)
+{
+  v13 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  {
+    v5 = 136315906;
+    v6 = "oalImp.cpp";
+    v7 = 1024;
+    v8 = 1641;
+    v9 = 2048;
+    v10 = bid;
+    v11 = 2080;
+    ALAttributeString = GetALAttributeString(param);
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alGetBufferfv--> buffer %ld : property = %s", &v5, 0x26u);
+  }
+
+  pthread_once(&gErrorOnce, ErrorKeyInitializer);
+  if (!pthread_getspecific(gALErrorKey))
+  {
+    pthread_setspecific(gALErrorKey, 0xA002);
+  }
+}
+
+void alGetBufferi(ALuint bid, ALenum param, ALint *value)
+{
+  v25 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  {
+    v15 = 136315906;
+    v16 = "oalImp.cpp";
+    v17 = 1024;
+    v18 = 1650;
+    v19 = 2048;
+    v20 = bid;
+    v21 = 2080;
+    ALAttributeString = GetALAttributeString(param);
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d alGetBufferi--> buffer %ld : property = %s", &v15, 0x26u);
+  }
+
+  if (gOALBufferMap)
+  {
+    CleanUpDeadBufferList();
+    v6 = *(gOALBufferMap + 8);
+    if (v6)
+    {
+      v7 = gOALBufferMap + 8;
+      do
+      {
+        v8 = *(v6 + 32);
+        v9 = v8 >= bid;
+        v10 = v8 < bid;
+        if (v9)
+        {
+          v7 = v6;
+        }
+
+        v6 = *(v6 + 8 * v10);
+      }
+
+      while (v6);
+      if (v7 != gOALBufferMap + 8 && *(v7 + 32) <= bid)
+      {
+        v11 = *(v7 + 40);
+        if (v11)
+        {
+          if (param > 8194)
+          {
+            if (param == 8195)
+            {
+              v12 = *(v11 + 332);
+              goto LABEL_29;
+            }
+
+            if (param == 8196)
+            {
+              v12 = *(v11 + 300);
+              goto LABEL_29;
+            }
+          }
+
+          else
+          {
+            if (param == 8193)
+            {
+              v12 = *(v11 + 304);
+              goto LABEL_29;
+            }
+
+            if (param == 8194)
+            {
+              v12 = *(v11 + 336);
+LABEL_29:
+              *value = v12;
+LABEL_30:
+              atomic_fetch_add((v11 + 280), 0xFFFFFFFF);
+              return;
+            }
+          }
+
+          *value = 0;
+          pthread_once(&gErrorOnce, ErrorKeyInitializer);
+          if (!pthread_getspecific(gALErrorKey))
+          {
+            pthread_setspecific(gALErrorKey, 0xA002);
+          }
+
+          goto LABEL_30;
+        }
+      }
+    }
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  {
+    v13 = GetALAttributeString(param);
+    String = alGetString(40963);
+    v15 = 136316162;
+    v16 = "oalImp.cpp";
+    v17 = 1024;
+    v18 = 1682;
+    v19 = 2048;
+    v20 = bid;
+    v21 = 2080;
+    ALAttributeString = v13;
+    v23 = 2080;
+    v24 = String;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: alGetBufferi FAILED: buffer = %ld property = %s error = %s", &v15, 0x30u);
+  }
+
+  *value = 0;
+  pthread_once(&gErrorOnce, ErrorKeyInitializer);
+  if (!pthread_getspecific(gALErrorKey))
+  {
+    pthread_setspecific(gALErrorKey, 0xA003);
+  }
 }

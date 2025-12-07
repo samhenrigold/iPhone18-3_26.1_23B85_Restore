@@ -116,7 +116,7 @@ void __31__SDAppUninstallMonitor_unlock__block_invoke(uint64_t a1)
       *(v4 + 17) = 0;
 LABEL_9:
       [*(a1 + 32) _deleteItemsForUninstalledAppsFromIndex];
-      goto LABEL_11;
+      return;
     }
 
     if (!*(v4 + 32) && [*(v4 + 40) count])
@@ -132,18 +132,18 @@ LABEL_9:
     v6 = [v5 migrationComplete];
 
     *(*(a1 + 32) + 16) = 1;
-    v7 = SPLogForSPLogCategoryDefault();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SPLogForSPLogCategoryDefault(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = "";
+      v9 = "";
       if (v6)
       {
-        v8 = " (purge)";
+        v9 = " (purge)";
       }
 
       v10 = 136315138;
-      v11 = v8;
-      _os_log_impl(&dword_1C81BF000, v7, OS_LOG_TYPE_DEFAULT, "### Uninstall monitor unlock%s", &v10, 0xCu);
+      v11 = v9;
+      _os_log_impl(&dword_1C81BF000, v8, OS_LOG_TYPE_DEFAULT, "### Uninstall monitor unlock%s", &v10, 0xCu);
     }
 
     if (v6)
@@ -151,9 +151,6 @@ LABEL_9:
       goto LABEL_9;
     }
   }
-
-LABEL_11:
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerHandlerWithEventMonitor:(id)monitor
@@ -176,60 +173,59 @@ LABEL_11:
 
 void __57__SDAppUninstallMonitor_registerHandlerWithEventMonitor___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
   v10 = a5;
+  v11 = v10;
   if (v10)
   {
-    v11 = SPLogForSPLogCategoryDefault();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = SPLogForSPLogCategoryDefault(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v24 = v8;
-      v25 = 2112;
-      v26 = v9;
-      v27 = 2112;
-      v28 = v10;
-      _os_log_error_impl(&dword_1C81BF000, v11, OS_LOG_TYPE_ERROR, "Error in event monitor for name:%@, userInfo:%@, error:%@", buf, 0x20u);
+      v25 = v8;
+      v26 = 2112;
+      v27 = v9;
+      v28 = 2112;
+      v29 = v11;
+      _os_log_error_impl(&dword_1C81BF000, v12, OS_LOG_TYPE_ERROR, "Error in event monitor for name:%@, userInfo:%@, error:%@", buf, 0x20u);
     }
   }
 
   else
   {
-    v12 = [v9 objectForKeyedSubscript:@"bundleIDs"];
-    v13 = [v9 objectForKeyedSubscript:@"isPlaceholder"];
-    [v13 BOOLValue];
+    v13 = [v9 objectForKeyedSubscript:@"bundleIDs"];
+    v14 = [v9 objectForKeyedSubscript:@"isPlaceholder"];
+    [v14 BOOLValue];
 
-    v14 = SPLogForSPLogCategoryDefault();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = SPLogForSPLogCategoryDefault(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v24 = v8;
-      v25 = 2112;
-      v26 = v9;
-      v27 = 2112;
-      v28 = v12;
-      _os_log_impl(&dword_1C81BF000, v14, OS_LOG_TYPE_DEFAULT, "Received a notification for name:%@, userInfo:%@, bundleIDs:%@", buf, 0x20u);
+      v25 = v8;
+      v26 = 2112;
+      v27 = v9;
+      v28 = 2112;
+      v29 = v13;
+      _os_log_impl(&dword_1C81BF000, v16, OS_LOG_TYPE_DEFAULT, "Received a notification for name:%@, userInfo:%@, bundleIDs:%@", buf, 0x20u);
     }
 
     SPBuildApplications(0);
-    v15 = SPTransactionCreate(&unk_1F47DBE10);
-    v16 = *(a1 + 32);
-    v17 = *(v16 + 24);
+    v17 = SPTransactionCreate(&unk_1F47DBE10);
+    v18 = *(a1 + 32);
+    v19 = *(v18 + 24);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __57__SDAppUninstallMonitor_registerHandlerWithEventMonitor___block_invoke_123;
     block[3] = &unk_1E82F9018;
-    block[4] = v16;
-    v21 = v12;
-    v22 = v15;
-    v18 = v15;
-    v11 = v12;
-    dispatch_async(v17, block);
+    block[4] = v18;
+    v22 = v13;
+    v23 = v17;
+    v20 = v17;
+    v12 = v13;
+    dispatch_async(v19, block);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __57__SDAppUninstallMonitor_registerHandlerWithEventMonitor___block_invoke_123(uint64_t a1)
@@ -250,15 +246,15 @@ void __57__SDAppUninstallMonitor_registerHandlerWithEventMonitor___block_invoke_
 
 void __57__SDAppUninstallMonitor_registerHandlerWithEventMonitor___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = SPLogForSPLogCategoryDefault();
+  v4 = SPLogForSPLogCategoryDefault(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v10 = 138412290;
-    v11 = v5;
-    _os_log_impl(&dword_1C81BF000, v4, OS_LOG_TYPE_DEFAULT, "_deleteAllItemsForBundleIDs:%@", &v10, 0xCu);
+    v8 = 138412290;
+    v9 = v5;
+    _os_log_impl(&dword_1C81BF000, v4, OS_LOG_TYPE_DEFAULT, "_deleteAllItemsForBundleIDs:%@", &v8, 0xCu);
   }
 
   v6 = [*(a1 + 40) _allInstalledApplicationsIdentifiers];
@@ -270,167 +266,163 @@ void __57__SDAppUninstallMonitor_registerHandlerWithEventMonitor___block_invoke_
     v6 = v7;
   }
 
-  v8 = *(a1 + 40);
   [objc_opt_class() _writeAppsListToDisk:v6];
   SPTransactionDone(*(a1 + 48));
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deleteItemsForUninstalledAppsFromIndex
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
-  v3 = SPLogForSPLogCategoryDefault();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = SPLogForSPLogCategoryDefault(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C81BF000, v3, OS_LOG_TYPE_DEFAULT, "_deleteItemsForUninstalledAppsFromIndex", buf, 2u);
+    _os_log_impl(&dword_1C81BF000, v4, OS_LOG_TYPE_DEFAULT, "_deleteItemsForUninstalledAppsFromIndex", buf, 2u);
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   _allInstalledApplicationsIdentifiers = [(SDAppUninstallMonitor *)self _allInstalledApplicationsIdentifiers];
-  v6 = [_allInstalledApplicationsIdentifiers mutableCopy];
+  v7 = [_allInstalledApplicationsIdentifiers mutableCopy];
 
-  v7 = SPLogForSPLogCategoryDefault();
-  v8 = v7;
+  v9 = SPLogForSPLogCategoryDefault(v8);
+  v10 = v9;
   if (gSPLogDebugAsDefault)
   {
-    v9 = OS_LOG_TYPE_DEFAULT;
+    v11 = OS_LOG_TYPE_DEFAULT;
   }
 
   else
   {
-    v9 = OS_LOG_TYPE_DEBUG;
+    v11 = OS_LOG_TYPE_DEBUG;
   }
 
-  if (os_log_type_enabled(v7, v9))
+  if (os_log_type_enabled(v9, v11))
   {
     *buf = 138412290;
-    v31 = v6;
-    _os_log_impl(&dword_1C81BF000, v8, v9, "installedApps: %@", buf, 0xCu);
+    v35 = v7;
+    _os_log_impl(&dword_1C81BF000, v10, v11, "installedApps: %@", buf, 0xCu);
   }
 
-  if ([v6 count])
+  if ([v7 count])
   {
     _installedAppsBundleIDsListFilePath = [objc_opt_class() _installedAppsBundleIDsListFilePath];
-    if ([defaultManager fileExistsAtPath:_installedAppsBundleIDsListFilePath])
+    v13 = [defaultManager fileExistsAtPath:_installedAppsBundleIDsListFilePath];
+    if (v13)
     {
       _installedAppsListFromDisk = [objc_opt_class() _installedAppsListFromDisk];
-      v12 = SPLogForSPLogCategoryDefault();
-      v13 = v12;
+      v15 = SPLogForSPLogCategoryDefault(_installedAppsListFromDisk);
+      v16 = v15;
       if (gSPLogDebugAsDefault)
       {
-        v14 = OS_LOG_TYPE_DEFAULT;
+        v17 = OS_LOG_TYPE_DEFAULT;
       }
 
       else
       {
-        v14 = OS_LOG_TYPE_DEBUG;
+        v17 = OS_LOG_TYPE_DEBUG;
       }
 
-      if (os_log_type_enabled(v12, v14))
+      if (os_log_type_enabled(v15, v17))
       {
         *buf = 138412290;
-        v31 = _installedAppsListFromDisk;
-        _os_log_impl(&dword_1C81BF000, v13, v14, "previouslyInstalledApps: %@", buf, 0xCu);
+        v35 = _installedAppsListFromDisk;
+        _os_log_impl(&dword_1C81BF000, v16, v17, "previouslyInstalledApps: %@", buf, 0xCu);
       }
 
       if (_installedAppsListFromDisk)
       {
-        v15 = [MEMORY[0x1E695DFA8] setWithArray:_installedAppsListFromDisk];
-        v16 = [MEMORY[0x1E695DFD8] setWithArray:v6];
-        [v15 minusSet:v16];
+        v18 = [MEMORY[0x1E695DFA8] setWithArray:_installedAppsListFromDisk];
+        v19 = [MEMORY[0x1E695DFD8] setWithArray:v7];
+        [v18 minusSet:v19];
 
-        v17 = SPLogForSPLogCategoryDefault();
-        v18 = v17;
+        v21 = SPLogForSPLogCategoryDefault(v20);
+        v22 = v21;
         if (gSPLogDebugAsDefault)
         {
-          v19 = OS_LOG_TYPE_DEFAULT;
+          v23 = OS_LOG_TYPE_DEFAULT;
         }
 
         else
         {
-          v19 = OS_LOG_TYPE_DEBUG;
+          v23 = OS_LOG_TYPE_DEBUG;
         }
 
-        if (os_log_type_enabled(v17, v19))
+        if (os_log_type_enabled(v21, v23))
         {
           *buf = 138412290;
-          v31 = v15;
-          _os_log_impl(&dword_1C81BF000, v18, v19, "uninstalledApps: %@", buf, 0xCu);
+          v35 = v18;
+          _os_log_impl(&dword_1C81BF000, v22, v23, "uninstalledApps: %@", buf, 0xCu);
         }
 
-        if ([v15 count])
+        v24 = [v18 count];
+        if (v24)
         {
-          v20 = SPLogForSPLogCategoryDefault();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v25 = SPLogForSPLogCategoryDefault(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
-            allObjects = [v15 allObjects];
+            allObjects = [v18 allObjects];
             *buf = 138412290;
-            v31 = allObjects;
-            _os_log_impl(&dword_1C81BF000, v20, OS_LOG_TYPE_DEFAULT, "_deleteItemsForUninstalledAppsFromIndex: %@", buf, 0xCu);
+            v35 = allObjects;
+            _os_log_impl(&dword_1C81BF000, v25, OS_LOG_TYPE_DEFAULT, "_deleteItemsForUninstalledAppsFromIndex: %@", buf, 0xCu);
           }
 
-          allObjects2 = [v15 allObjects];
-          v27[0] = MEMORY[0x1E69E9820];
-          v27[1] = 3221225472;
-          v27[2] = __64__SDAppUninstallMonitor__deleteItemsForUninstalledAppsFromIndex__block_invoke;
-          v27[3] = &unk_1E82F8CE0;
-          v28 = v6;
+          allObjects2 = [v18 allObjects];
+          v31[0] = MEMORY[0x1E69E9820];
+          v31[1] = 3221225472;
+          v31[2] = __64__SDAppUninstallMonitor__deleteItemsForUninstalledAppsFromIndex__block_invoke;
+          v31[3] = &unk_1E82F8CE0;
+          v32 = v7;
           selfCopy = self;
-          [(SDAppUninstallMonitor *)self _deleteAllItemsForBundleIDs:allObjects2 reason:2 completionBlock:v27];
+          [(SDAppUninstallMonitor *)self _deleteAllItemsForBundleIDs:allObjects2 reason:2 completionBlock:v31];
         }
       }
     }
 
     else
     {
-      v23 = SPLogForSPLogCategoryDefault();
-      v24 = v23;
+      v28 = SPLogForSPLogCategoryDefault(v13);
+      v29 = v28;
       if (gSPLogDebugAsDefault)
       {
-        v25 = OS_LOG_TYPE_DEFAULT;
+        v30 = OS_LOG_TYPE_DEFAULT;
       }
 
       else
       {
-        v25 = OS_LOG_TYPE_DEBUG;
+        v30 = OS_LOG_TYPE_DEBUG;
       }
 
-      if (os_log_type_enabled(v23, v25))
+      if (os_log_type_enabled(v28, v30))
       {
         *buf = 138412290;
-        v31 = v6;
-        _os_log_impl(&dword_1C81BF000, v24, v25, "Writing %@ to disk for the first time", buf, 0xCu);
+        v35 = v7;
+        _os_log_impl(&dword_1C81BF000, v29, v30, "Writing %@ to disk for the first time", buf, 0xCu);
       }
 
-      [objc_opt_class() _writeAppsListToDisk:v6];
+      [objc_opt_class() _writeAppsListToDisk:v7];
     }
   }
 
   else
   {
-    _installedAppsBundleIDsListFilePath = SPLogForSPLogCategoryDefault();
+    _installedAppsBundleIDsListFilePath = SPLogForSPLogCategoryDefault(0);
     if (os_log_type_enabled(_installedAppsBundleIDsListFilePath, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_1C81BF000, _installedAppsBundleIDsListFilePath, OS_LOG_TYPE_DEFAULT, "Skipping _deleteItemsForUninstalledAppsFromIndex; no installed apps", buf, 2u);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __64__SDAppUninstallMonitor__deleteItemsForUninstalledAppsFromIndex__block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  if ([v4 count])
+  v3 = a2;
+  if ([v3 count])
   {
-    [*(a1 + 32) addObjectsFromArray:v4];
+    [*(a1 + 32) addObjectsFromArray:v3];
   }
 
-  v3 = *(a1 + 40);
   [objc_opt_class() _writeAppsListToDisk:*(a1 + 32)];
 }
 
@@ -439,85 +431,83 @@ void __64__SDAppUninstallMonitor__deleteItemsForUninstalledAppsFromIndex__block_
   v39 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dispatch_assert_queue_V2(self->_queue);
-  v6 = SPLogForSPLogCategoryDefault();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SPLogForSPLogCategoryDefault(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v38 = dCopy;
-    _os_log_impl(&dword_1C81BF000, v6, OS_LOG_TYPE_DEFAULT, "Deleting all items for bundleID:%@", buf, 0xCu);
+    _os_log_impl(&dword_1C81BF000, v7, OS_LOG_TYPE_DEFAULT, "Deleting all items for bundleID:%@", buf, 0xCu);
   }
 
   allProtectionClasses = [MEMORY[0x1E69D3DC0] allProtectionClasses];
   v25 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(allProtectionClasses, "count")}];
-  v8 = objc_alloc_init(MEMORY[0x1E69D3DA8]);
+  v9 = objc_alloc_init(MEMORY[0x1E69D3DA8]);
   mEMORY[0x1E69D3DC0] = [MEMORY[0x1E69D3DC0] sharedInstance];
-  [v8 setIndexer:mEMORY[0x1E69D3DC0]];
+  [v9 setIndexer:mEMORY[0x1E69D3DC0]];
 
-  [v8 setClientBundleID:dCopy];
-  [v8 setIsInternal:1];
+  [v9 setClientBundleID:dCopy];
+  [v9 setIsInternal:1];
   v34 = 0u;
   v35 = 0u;
   v32 = 0u;
   v33 = 0u;
   obj = allProtectionClasses;
-  v10 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
-  if (v10)
+  v11 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v33;
+    v12 = v11;
+    v13 = *v33;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v33 != v12)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v32 + 1) + 8 * i);
-        v15 = dispatch_group_create();
-        dispatch_group_enter(v15);
+        v15 = *(*(&v32 + 1) + 8 * i);
+        v16 = dispatch_group_create();
+        dispatch_group_enter(v16);
         v26[0] = MEMORY[0x1E69E9820];
         v26[1] = 3221225472;
         v26[2] = __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invoke;
         v26[3] = &unk_1E82F9090;
-        v16 = dCopy;
         v17 = dCopy;
-        v27 = v17;
-        v28 = v14;
+        v18 = dCopy;
+        v27 = v18;
+        v28 = v15;
         v29 = v25;
-        v18 = v8;
-        v30 = v18;
-        v31 = v15;
-        v19 = v15;
-        v20 = v17;
-        dCopy = v16;
-        [v18 deleteAllSearchableItemsWithBundleID:v20 protectionClass:v14 shouldGC:0 deleteAllReason:reason completionHandler:v26];
-        dispatch_group_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
+        v19 = v9;
+        v30 = v19;
+        v31 = v16;
+        v20 = v16;
+        v21 = v18;
+        dCopy = v17;
+        [v19 deleteAllSearchableItemsWithBundleID:v21 protectionClass:v15 shouldGC:0 deleteAllReason:reason completionHandler:v26];
+        dispatch_group_wait(v20, 0xFFFFFFFFFFFFFFFFLL);
       }
 
-      v11 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v12 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
 
 void __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = SPLogForSPLogCategoryDefault();
+  v4 = SPLogForSPLogCategoryDefault(v3);
   v5 = v4;
   if (v3)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invoke_cold_1(a1);
+      __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invoke_cold_1();
     }
   }
 
@@ -526,9 +516,9 @@ void __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invok
     v6 = *(a1 + 32);
     v7 = *(a1 + 40);
     *buf = 138412546;
-    v20 = v6;
-    v21 = 2112;
-    v22 = v7;
+    v19 = v6;
+    v20 = 2112;
+    v21 = v7;
     _os_log_impl(&dword_1C81BF000, v5, OS_LOG_TYPE_DEFAULT, "Deleted all items for bundleID:%@, protectionClass:%@", buf, 0x16u);
   }
 
@@ -538,29 +528,28 @@ void __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invok
   v9 = *(a1 + 56);
   v10 = *(a1 + 32);
   v11 = *(a1 + 40);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invoke_131;
-  v15[3] = &unk_1E82F9068;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invoke_131;
+  v14[3] = &unk_1E82F9068;
   v12 = v10;
   v13 = *(a1 + 40);
-  v16 = v12;
-  v17 = v13;
-  v18 = *(a1 + 64);
-  [v9 deleteAllInteractionsWithBundleID:v12 protectionClass:v11 options:0 completionHandler:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = v12;
+  v16 = v13;
+  v17 = *(a1 + 64);
+  [v9 deleteAllInteractionsWithBundleID:v12 protectionClass:v11 options:0 completionHandler:v14];
 }
 
 void __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invoke_131(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = SPLogForSPLogCategoryDefault();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SPLogForSPLogCategoryDefault(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invoke_131_cold_1(a1);
+      __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invoke_131_cold_1();
     }
   }
 
@@ -572,78 +561,77 @@ void __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invok
   v30 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dispatch_assert_queue_V2(self->_queue);
-  v5 = SPLogForSPLogCategoryDefault();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = SPLogForSPLogCategoryDefault(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v29 = dCopy;
-    _os_log_impl(&dword_1C81BF000, v5, OS_LOG_TYPE_DEFAULT, "Deleting all interactions for bundleID:%@", buf, 0xCu);
+    _os_log_impl(&dword_1C81BF000, v6, OS_LOG_TYPE_DEFAULT, "Deleting all interactions for bundleID:%@", buf, 0xCu);
   }
 
   allProtectionClasses = [MEMORY[0x1E69D3DC0] allProtectionClasses];
-  v7 = objc_alloc_init(MEMORY[0x1E69D3DA8]);
+  v8 = objc_alloc_init(MEMORY[0x1E69D3DA8]);
   mEMORY[0x1E69D3DC0] = [MEMORY[0x1E69D3DC0] sharedInstance];
-  [v7 setIndexer:mEMORY[0x1E69D3DC0]];
+  [v8 setIndexer:mEMORY[0x1E69D3DC0]];
 
-  [v7 setClientBundleID:dCopy];
-  [v7 setIsInternal:1];
+  [v8 setClientBundleID:dCopy];
+  [v8 setIsInternal:1];
   v25 = 0u;
   v26 = 0u;
   v23 = 0u;
   v24 = 0u;
   obj = allProtectionClasses;
-  v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v9)
+  v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = *v24;
+    v11 = v10;
+    v12 = *v24;
     do
     {
-      v12 = 0;
+      v13 = 0;
       do
       {
-        if (*v24 != v11)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * v12);
-        v14 = dispatch_group_create();
-        dispatch_group_enter(v14);
+        v14 = *(*(&v23 + 1) + 8 * v13);
+        v15 = dispatch_group_create();
+        dispatch_group_enter(v15);
         v19[0] = MEMORY[0x1E69E9820];
         v19[1] = 3221225472;
         v19[2] = __59__SDAppUninstallMonitor__deleteAllInteractionsForBundleID___block_invoke;
         v19[3] = &unk_1E82F9068;
-        v15 = dCopy;
-        v20 = v15;
-        v21 = v13;
-        v22 = v14;
-        v16 = v14;
-        [v7 deleteAllInteractionsWithBundleID:v15 protectionClass:v13 options:0 completionHandler:v19];
-        dispatch_group_wait(v16, 0xFFFFFFFFFFFFFFFFLL);
+        v16 = dCopy;
+        v20 = v16;
+        v21 = v14;
+        v22 = v15;
+        v17 = v15;
+        [v8 deleteAllInteractionsWithBundleID:v16 protectionClass:v14 options:0 completionHandler:v19];
+        dispatch_group_wait(v17, 0xFFFFFFFFFFFFFFFFLL);
 
-        ++v12;
+        ++v13;
       }
 
-      while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      while (v11 != v13);
+      v11 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __59__SDAppUninstallMonitor__deleteAllInteractionsForBundleID___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = SPLogForSPLogCategoryDefault();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SPLogForSPLogCategoryDefault(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invoke_131_cold_1(a1);
+      __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invoke_131_cold_1();
     }
   }
 
@@ -679,17 +667,17 @@ void __59__SDAppUninstallMonitor__deleteAllInteractionsForBundleID___block_invok
 
         v13 = *(*(&v29 + 1) + 8 * i);
         dispatch_group_enter(v8);
-        v14 = SPLogForSPLogCategoryIndex();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = SPLogForSPLogCategoryIndex(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           v35 = v13;
-          _os_log_impl(&dword_1C81BF000, v14, OS_LOG_TYPE_DEFAULT, "Merging the index for dataclass:%@", buf, 0xCu);
+          _os_log_impl(&dword_1C81BF000, v15, OS_LOG_TYPE_DEFAULT, "Merging the index for dataclass:%@", buf, 0xCu);
         }
 
         mEMORY[0x1E69D3DC0] = [MEMORY[0x1E69D3DC0] sharedInstance];
         v33 = v13;
-        v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+        v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
         v26[0] = MEMORY[0x1E69E9820];
         v26[1] = 3221225472;
         v26[2] = __64__SDAppUninstallMonitor__purgeWithProtectionClasses_completion___block_invoke;
@@ -697,7 +685,7 @@ void __59__SDAppUninstallMonitor__deleteAllInteractionsForBundleID___block_invok
         v26[4] = v13;
         v27 = v7;
         v28 = v8;
-        [mEMORY[0x1E69D3DC0] mergeWithProtectionClasses:v16 completionHandler:v26];
+        [mEMORY[0x1E69D3DC0] mergeWithProtectionClasses:v17 completionHandler:v26];
       }
 
       v10 = [obj countByEnumeratingWithState:&v29 objects:v36 count:16];
@@ -713,68 +701,64 @@ void __59__SDAppUninstallMonitor__deleteAllInteractionsForBundleID___block_invok
   block[3] = &unk_1E82F8F50;
   v24 = v7;
   v25 = completionCopy;
-  v18 = v7;
-  v19 = completionCopy;
+  v19 = v7;
+  v20 = completionCopy;
   dispatch_group_notify(v8, queue, block);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __64__SDAppUninstallMonitor__purgeWithProtectionClasses_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = [a2 objectForKeyedSubscript:*(a1 + 32)];
   v4 = [v3 BOOLValue];
 
-  v5 = SPLogForSPLogCategoryIndex();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = SPLogForSPLogCategoryIndex(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = "NO";
-    v7 = *(a1 + 32);
+    v7 = "NO";
+    v8 = *(a1 + 32);
     if (v4)
     {
-      v6 = "YES";
+      v7 = "YES";
     }
 
     *buf = 138412546;
-    v19 = v7;
-    v20 = 2080;
-    v21 = v6;
-    _os_log_impl(&dword_1C81BF000, v5, OS_LOG_TYPE_DEFAULT, "Finished merging the index for dataclass:%@, merged:%s", buf, 0x16u);
+    v20 = v8;
+    v21 = 2080;
+    v22 = v7;
+    _os_log_impl(&dword_1C81BF000, v6, OS_LOG_TYPE_DEFAULT, "Finished merging the index for dataclass:%@, merged:%s", buf, 0x16u);
   }
 
-  [*(a1 + 40) setObject:MEMORY[0x1E695E110] forKeyedSubscript:*(a1 + 32)];
+  v9 = [*(a1 + 40) setObject:MEMORY[0x1E695E110] forKeyedSubscript:*(a1 + 32)];
   if (v4)
   {
-    v8 = SPLogForSPLogCategoryIndex();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = SPLogForSPLogCategoryIndex(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
+      v11 = *(a1 + 32);
       *buf = 138412290;
-      v19 = v9;
-      _os_log_impl(&dword_1C81BF000, v8, OS_LOG_TYPE_DEFAULT, "Cleaning up the index for dataclass:%@", buf, 0xCu);
+      v20 = v11;
+      _os_log_impl(&dword_1C81BF000, v10, OS_LOG_TYPE_DEFAULT, "Cleaning up the index for dataclass:%@", buf, 0xCu);
     }
 
-    v10 = [MEMORY[0x1E69D3DC0] sharedInstance];
-    v17 = *(a1 + 32);
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __64__SDAppUninstallMonitor__purgeWithProtectionClasses_completion___block_invoke_136;
-    v14[3] = &unk_1E82F90B8;
-    v12 = *(a1 + 40);
-    v14[4] = *(a1 + 32);
-    v15 = v12;
-    v16 = *(a1 + 48);
-    [v10 cleanupStringsWithProtectionClasses:v11 completionHandler:v14];
+    v12 = [MEMORY[0x1E69D3DC0] sharedInstance];
+    v18 = *(a1 + 32);
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __64__SDAppUninstallMonitor__purgeWithProtectionClasses_completion___block_invoke_136;
+    v15[3] = &unk_1E82F90B8;
+    v14 = *(a1 + 40);
+    v15[4] = *(a1 + 32);
+    v16 = v14;
+    v17 = *(a1 + 48);
+    [v12 cleanupStringsWithProtectionClasses:v13 completionHandler:v15];
   }
 
   else
   {
     dispatch_group_leave(*(a1 + 48));
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __64__SDAppUninstallMonitor__purgeWithProtectionClasses_completion___block_invoke_136(uint64_t a1, void *a2)
@@ -783,28 +767,27 @@ void __64__SDAppUninstallMonitor__purgeWithProtectionClasses_completion___block_
   v3 = [a2 objectForKeyedSubscript:*(a1 + 32)];
   v4 = [v3 BOOLValue];
 
-  v5 = SPLogForSPLogCategoryIndex();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = SPLogForSPLogCategoryIndex(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = "NO";
-    v7 = *(a1 + 32);
+    v7 = "NO";
+    v8 = *(a1 + 32);
     if (v4)
     {
-      v6 = "YES";
+      v7 = "YES";
     }
 
     v10 = 138412546;
-    v11 = v7;
+    v11 = v8;
     v12 = 2080;
-    v13 = v6;
-    _os_log_impl(&dword_1C81BF000, v5, OS_LOG_TYPE_DEFAULT, "Finished cleaning up strings for dataclass:%@, done:%s", &v10, 0x16u);
+    v13 = v7;
+    _os_log_impl(&dword_1C81BF000, v6, OS_LOG_TYPE_DEFAULT, "Finished cleaning up strings for dataclass:%@, done:%s", &v10, 0x16u);
   }
 
-  v8 = [MEMORY[0x1E696AD98] numberWithBool:v4];
-  [*(a1 + 40) setObject:v8 forKeyedSubscript:*(a1 + 32)];
+  v9 = [MEMORY[0x1E696AD98] numberWithBool:v4];
+  [*(a1 + 40) setObject:v9 forKeyedSubscript:*(a1 + 32)];
 
   dispatch_group_leave(*(a1 + 48));
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_pendingPurgesFilePath
@@ -818,7 +801,7 @@ void __64__SDAppUninstallMonitor__purgeWithProtectionClasses_completion___block_
 
 + (id)_pendingPurgesFromDisk
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   _pendingPurgesFilePath = [self _pendingPurgesFilePath];
   if (!_pendingPurgesFilePath)
@@ -840,12 +823,13 @@ void __64__SDAppUninstallMonitor__purgeWithProtectionClasses_completion___block_
     goto LABEL_24;
   }
 
-  v23 = 0;
-  v7 = [MEMORY[0x1E696AE40] propertyListWithData:v6 options:0 format:0 error:&v23];
-  v18 = v23;
+  v24 = 0;
+  v7 = [MEMORY[0x1E696AE40] propertyListWithData:v6 options:0 format:0 error:&v24];
+  v8 = v24;
+  v19 = v8;
   if (!v7)
   {
-    v7 = SPLogForSPLogCategoryDefault();
+    v7 = SPLogForSPLogCategoryDefault(v8);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       +[SDAppUninstallMonitor _pendingPurgesFromDisk];
@@ -855,12 +839,13 @@ void __64__SDAppUninstallMonitor__purgeWithProtectionClasses_completion___block_
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v8 = SPLogForSPLogCategoryDefault();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = SPLogForSPLogCategoryDefault(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      +[SDAppUninstallMonitor _pendingPurgesFromDisk];
+      +[(SDAppUninstallMonitor *)v7];
     }
 
 LABEL_12:
@@ -868,48 +853,47 @@ LABEL_12:
   }
 
   allProtectionClasses = [MEMORY[0x1E69D3DC0] allProtectionClasses];
-  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v10 = v7;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
-  if (v11)
+  v23 = 0u;
+  v12 = v7;
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v13)
   {
-    v12 = v11;
-    v13 = *v20;
+    v14 = v13;
+    v15 = *v21;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v20 != v13)
+        if (*v21 != v15)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v12);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
+        v17 = *(*(&v20 + 1) + 8 * i);
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && [allProtectionClasses containsObject:v15])
+        if ((objc_opt_isKindOfClass() & 1) != 0 && [allProtectionClasses containsObject:v17])
         {
-          [v3 addObject:v15];
+          [v3 addObject:v17];
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
-    while (v12);
+    while (v14);
   }
 
 LABEL_24:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 + (BOOL)_writePendingPurgesToDisk:(id)disk
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   diskCopy = disk;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   _trackingInfoDir = [self _trackingInfoDir];
@@ -922,26 +906,26 @@ LABEL_24:
       goto LABEL_6;
     }
 
-    v24 = 0;
-    v10 = [defaultManager createDirectoryAtPath:_trackingInfoDir withIntermediateDirectories:1 attributes:0 error:&v24];
-    v11 = v24;
+    v26 = 0;
+    v10 = [defaultManager createDirectoryAtPath:_trackingInfoDir withIntermediateDirectories:1 attributes:0 error:&v26];
+    v11 = v26;
     v8 = v11;
     if (v10)
     {
 LABEL_6:
       v12 = MEMORY[0x1E696AE40];
       allObjects = [diskCopy allObjects];
-      v23 = 0;
-      v14 = [v12 dataWithPropertyList:allObjects format:200 options:0 error:&v23];
-      v15 = v23;
+      v25 = 0;
+      v14 = [v12 dataWithPropertyList:allObjects format:200 options:0 error:&v25];
+      v15 = v25;
 
       if (v14)
       {
-        v22 = v15;
-        v16 = [v14 writeToFile:_pendingPurgesFilePath options:1073741825 error:&v22];
-        v8 = v22;
+        v24 = v15;
+        v17 = [v14 writeToFile:_pendingPurgesFilePath options:1073741825 error:&v24];
+        v8 = v24;
 
-        if (v16)
+        if (v17)
         {
           v9 = 1;
 LABEL_22:
@@ -949,16 +933,16 @@ LABEL_22:
           goto LABEL_23;
         }
 
-        v17 = SPLogForSPLogCategoryDefault();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v19 = SPLogForSPLogCategoryDefault(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412802;
-          v26 = v14;
-          v27 = 2112;
-          v28 = _pendingPurgesFilePath;
+          v28 = v14;
           v29 = 2112;
-          v30 = v8;
-          _os_log_error_impl(&dword_1C81BF000, v17, OS_LOG_TYPE_ERROR, "Failed writing data %@ to path %@: %@", buf, 0x20u);
+          v30 = _pendingPurgesFilePath;
+          v31 = 2112;
+          v32 = v8;
+          _os_log_error_impl(&dword_1C81BF000, v19, OS_LOG_TYPE_ERROR, "Failed writing data %@ to path %@: %@", buf, 0x20u);
         }
 
         v15 = v8;
@@ -966,10 +950,10 @@ LABEL_22:
 
       else
       {
-        v17 = SPLogForSPLogCategoryDefault();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v19 = SPLogForSPLogCategoryDefault(v16);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          [(SDAppUninstallMonitor *)v15 _writePendingPurgesToDisk:v17];
+          [(SDAppUninstallMonitor *)v15 _writePendingPurgesToDisk:v19];
         }
       }
 
@@ -993,7 +977,7 @@ LABEL_22:
     {
     }
 
-    v14 = SPLogForSPLogCategoryDefault();
+    v14 = SPLogForSPLogCategoryDefault(v22);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       +[SDAppUninstallMonitor _writePendingPurgesToDisk:];
@@ -1007,207 +991,216 @@ LABEL_22:
   v9 = 1;
 LABEL_23:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)_deleteAllItemsForBundleIDs:(id)ds reason:(int64_t)reason completionBlock:(id)block
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   blockCopy = block;
   dispatch_assert_queue_V2(self->_queue);
-  v40 = blockCopy;
+  v42 = blockCopy;
   if (!blockCopy)
   {
     [SDAppUninstallMonitor _deleteAllItemsForBundleIDs:reason:completionBlock:];
   }
 
   selfCopy = self;
-  v8 = SPLogForSPLogCategoryDefault();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = SPLogForSPLogCategoryDefault(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     pcsForPendingPurges = self->_pcsForPendingPurges;
     *buf = 138412546;
     *&buf[4] = dsCopy;
     *&buf[12] = 2112;
     *&buf[14] = pcsForPendingPurges;
-    _os_log_impl(&dword_1C81BF000, v8, OS_LOG_TYPE_DEFAULT, "Deleting all the items for bundleIDs:%@, pcs:%@", buf, 0x16u);
+    _os_log_impl(&dword_1C81BF000, v9, OS_LOG_TYPE_DEFAULT, "Deleting all the items for bundleIDs:%@, pcs:%@", buf, 0x16u);
   }
 
-  v39 = SPTransactionCreate(&unk_1F47DBE28);
-  v41 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v41 = SPTransactionCreate(&unk_1F47DBE28);
+  v43 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   applicationsExcludedFromUninstall = [objc_opt_class() applicationsExcludedFromUninstall];
-  v46 = objc_opt_new();
+  v48 = objc_opt_new();
   if (dsCopy)
   {
-    v11 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:dsCopy];
+    v12 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:dsCopy];
   }
 
   else
   {
-    v11 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v12 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   }
 
-  v12 = v11;
-  [v11 minusSet:applicationsExcludedFromUninstall];
-  SPRemoveAppsFromDisabledLists(v12);
+  v13 = v12;
+  [v12 minusSet:applicationsExcludedFromUninstall];
+  SPRemoveAppsFromDisabledLists(v13);
+  v60 = 0u;
+  v61 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
   obj = applicationsExcludedFromUninstall;
-  v13 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
-  if (v13)
+  v14 = [obj countByEnumeratingWithState:&v58 objects:v67 count:16];
+  if (v14)
   {
-    v14 = *v57;
+    v15 = *v59;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v57 != v14)
+        if (*v59 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v56 + 1) + 8 * i);
-        if ([dsCopy containsObject:v16])
+        v17 = *(*(&v58 + 1) + 8 * i);
+        v18 = [dsCopy containsObject:v17];
+        if (v18)
         {
-          v17 = SPLogForSPLogCategoryDefault();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v19 = SPLogForSPLogCategoryDefault(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *&buf[4] = v16;
-            _os_log_impl(&dword_1C81BF000, v17, OS_LOG_TYPE_DEFAULT, "Special case bundleID:%@ since it's excluded from uninstall", buf, 0xCu);
+            *&buf[4] = v17;
+            _os_log_impl(&dword_1C81BF000, v19, OS_LOG_TYPE_DEFAULT, "Special case bundleID:%@ since it's excluded from uninstall", buf, 0xCu);
           }
 
-          [(SDAppUninstallMonitor *)self _deleteAllInteractionsForBundleID:v16];
+          [(SDAppUninstallMonitor *)self _deleteAllInteractionsForBundleID:v17];
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
+      v14 = [obj countByEnumeratingWithState:&v58 objects:v67 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 
+  v57 = 0u;
   v55 = 0u;
-  v53 = 0u;
+  v56 = 0u;
   v54 = 0u;
-  v52 = 0u;
-  v42 = v12;
-  v18 = [v42 countByEnumeratingWithState:&v52 objects:v64 count:16];
-  if (v18)
+  v44 = v13;
+  v20 = [v44 countByEnumeratingWithState:&v54 objects:v66 count:16];
+  if (v20)
   {
-    v19 = *v53;
-    v20 = MEMORY[0x1E69E9820];
+    v21 = *v55;
+    v22 = MEMORY[0x1E69E9820];
     do
     {
-      for (j = 0; j != v18; ++j)
+      for (j = 0; j != v20; ++j)
       {
-        if (*v53 != v19)
+        if (*v55 != v21)
         {
-          objc_enumerationMutation(v42);
+          objc_enumerationMutation(v44);
         }
 
-        v22 = *(*(&v52 + 1) + 8 * j);
-        v23 = [(SDAppUninstallMonitor *)selfCopy _deleteAllItemsForBundleID:v22 reason:reason];
+        v24 = *(*(&v54 + 1) + 8 * j);
+        v25 = [(SDAppUninstallMonitor *)selfCopy _deleteAllItemsForBundleID:v24 reason:reason];
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
-        LOBYTE(v61) = 0;
-        v49[0] = v20;
-        v49[1] = 3221225472;
-        v49[2] = __76__SDAppUninstallMonitor__deleteAllItemsForBundleIDs_reason_completionBlock___block_invoke;
-        v49[3] = &unk_1E82F90E0;
-        v50 = v46;
-        v51 = buf;
-        [v23 enumerateKeysAndObjectsUsingBlock:v49];
+        LOBYTE(v63) = 0;
+        v51[0] = v22;
+        v51[1] = 3221225472;
+        v51[2] = __76__SDAppUninstallMonitor__deleteAllItemsForBundleIDs_reason_completionBlock___block_invoke;
+        v51[3] = &unk_1E82F90E0;
+        v52 = v48;
+        v53 = buf;
+        [v25 enumerateKeysAndObjectsUsingBlock:v51];
         if (*(*&buf[8] + 24) == 1)
         {
-          [v41 addObject:v22];
+          [v43 addObject:v24];
         }
 
         _Block_object_dispose(buf, 8);
       }
 
-      v18 = [v42 countByEnumeratingWithState:&v52 objects:v64 count:16];
+      v20 = [v44 countByEnumeratingWithState:&v54 objects:v66 count:16];
     }
 
-    while (v18);
+    while (v20);
   }
 
-  v24 = [v41 count] != 0;
-  v25 = selfCopy->_pcsForPendingPurges;
-  selfCopy->_hasFailedDeletes = v24;
-  [v46 unionSet:v25];
+  v26 = [v43 count] != 0;
+  v27 = selfCopy->_pcsForPendingPurges;
+  selfCopy->_hasFailedDeletes = v26;
+  [v48 unionSet:v27];
   _pendingPurgesFromDisk = [objc_opt_class() _pendingPurgesFromDisk];
-  [v46 unionSet:_pendingPurgesFromDisk];
-  objc_storeStrong(&selfCopy->_pcsForPendingPurges, v46);
-  v27 = (([v46 isEqualToSet:_pendingPurgesFromDisk] & 1) != 0 || objc_msgSend(objc_opt_class(), "_writePendingPurgesToDisk:", v46)) && objc_msgSend(v46, "count") != 0;
-  v28 = SPLogForSPLogCategoryDefault();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  [v48 unionSet:_pendingPurgesFromDisk];
+  objc_storeStrong(&selfCopy->_pcsForPendingPurges, v48);
+  if (([v48 isEqualToSet:_pendingPurgesFromDisk] & 1) != 0 || (v29 = objc_msgSend(objc_opt_class(), "_writePendingPurgesToDisk:", v48), v29))
   {
-    v29 = "NO";
-    v30 = selfCopy->_pcsForPendingPurges;
+    v29 = [v48 count];
+    v30 = v29 != 0;
+  }
+
+  else
+  {
+    v30 = 0;
+  }
+
+  v31 = SPLogForSPLogCategoryDefault(v29);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  {
+    v32 = "NO";
+    v33 = selfCopy->_pcsForPendingPurges;
     if (selfCopy->_hasFailedDeletes)
     {
-      v31 = "YES";
+      v34 = "YES";
     }
 
     else
     {
-      v31 = "NO";
+      v34 = "NO";
     }
 
     *buf = 138413058;
-    if (v27)
+    if (v30)
     {
-      v29 = "YES";
+      v32 = "YES";
     }
 
     *&buf[4] = dsCopy;
     *&buf[12] = 2080;
-    *&buf[14] = v31;
+    *&buf[14] = v34;
     *&buf[22] = 2080;
-    v61 = v29;
-    v62 = 2112;
-    v63 = v30;
-    _os_log_impl(&dword_1C81BF000, v28, OS_LOG_TYPE_DEFAULT, "Finished deleting all items for bundleIDs:%@, hasFailedDeletes:%s, purge:%s, pcs:%@", buf, 0x2Au);
+    v63 = v32;
+    v64 = 2112;
+    v65 = v33;
+    _os_log_impl(&dword_1C81BF000, v31, OS_LOG_TYPE_DEFAULT, "Finished deleting all items for bundleIDs:%@, hasFailedDeletes:%s, purge:%s, pcs:%@", buf, 0x2Au);
   }
 
-  if (v27)
+  if (v30)
   {
-    v32 = dispatch_time(0, 10000000000);
+    v35 = dispatch_time(0, 10000000000);
     timer = selfCopy->_timer;
     if (timer)
     {
-      dispatch_source_set_timer(timer, v32, 0xFFFFFFFFFFFFFFFFLL, 0);
+      dispatch_source_set_timer(timer, v35, 0xFFFFFFFFFFFFFFFFLL, 0);
     }
 
     else
     {
-      v34 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, selfCopy->_queue);
-      v35 = selfCopy->_timer;
-      selfCopy->_timer = v34;
+      v37 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, selfCopy->_queue);
+      v38 = selfCopy->_timer;
+      selfCopy->_timer = v37;
 
-      v36 = selfCopy->_timer;
+      v39 = selfCopy->_timer;
       handler[0] = MEMORY[0x1E69E9820];
       handler[1] = 3221225472;
       handler[2] = __76__SDAppUninstallMonitor__deleteAllItemsForBundleIDs_reason_completionBlock___block_invoke_153;
       handler[3] = &unk_1E82F8F28;
       handler[4] = selfCopy;
-      dispatch_source_set_event_handler(v36, handler);
-      dispatch_source_set_timer(selfCopy->_timer, v32, 0xFFFFFFFFFFFFFFFFLL, 0);
+      dispatch_source_set_event_handler(v39, handler);
+      dispatch_source_set_timer(selfCopy->_timer, v35, 0xFFFFFFFFFFFFFFFFLL, 0);
       dispatch_resume(selfCopy->_timer);
     }
   }
 
-  allObjects = [v41 allObjects];
-  (v40)[2](v40, allObjects);
+  allObjects = [v43 allObjects];
+  (v42)[2](v42, allObjects);
 
-  SPTransactionDone(v39);
-  v38 = *MEMORY[0x1E69E9840];
+  SPTransactionDone(v41);
 }
 
 void __76__SDAppUninstallMonitor__deleteAllItemsForBundleIDs_reason_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1226,62 +1219,57 @@ void __76__SDAppUninstallMonitor__deleteAllItemsForBundleIDs_reason_completionBl
 
 void __76__SDAppUninstallMonitor__deleteAllItemsForBundleIDs_reason_completionBlock___block_invoke_153(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 40);
-  v3 = SPLogForSPLogCategoryDefault();
+  v3 = SPLogForSPLogCategoryDefault(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = v2;
+    v12 = v2;
     _os_log_impl(&dword_1C81BF000, v3, OS_LOG_TYPE_DEFAULT, "Purging, pcs:%@", buf, 0xCu);
   }
 
   v4 = *(a1 + 32);
   v5 = [v2 allObjects];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __76__SDAppUninstallMonitor__deleteAllItemsForBundleIDs_reason_completionBlock___block_invoke_154;
-  v9[3] = &unk_1E82F9130;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __76__SDAppUninstallMonitor__deleteAllItemsForBundleIDs_reason_completionBlock___block_invoke_154;
+  v8[3] = &unk_1E82F9130;
   v6 = *(a1 + 32);
-  v10 = v2;
-  v11 = v6;
+  v9 = v2;
+  v10 = v6;
   v7 = v2;
-  [v4 _purgeWithProtectionClasses:v5 completion:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [v4 _purgeWithProtectionClasses:v5 completion:v8];
 }
 
 void __76__SDAppUninstallMonitor__deleteAllItemsForBundleIDs_reason_completionBlock___block_invoke_154(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __76__SDAppUninstallMonitor__deleteAllItemsForBundleIDs_reason_completionBlock___block_invoke_2;
-  v11[3] = &unk_1E82F9108;
-  v12 = *(a1 + 32);
-  [a2 enumerateKeysAndObjectsUsingBlock:v11];
-  v4 = *(a1 + 40);
+  v13 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __76__SDAppUninstallMonitor__deleteAllItemsForBundleIDs_reason_completionBlock___block_invoke_2;
+  v9[3] = &unk_1E82F9108;
+  v10 = *(a1 + 32);
+  [a2 enumerateKeysAndObjectsUsingBlock:v9];
   [objc_opt_class() _writePendingPurgesToDisk:*(a1 + 32)];
   objc_storeStrong((*(a1 + 40) + 40), *(a1 + 32));
-  v5 = *(*(a1 + 40) + 32);
-  if (v5)
+  v4 = *(*(a1 + 40) + 32);
+  if (v4)
   {
-    dispatch_source_cancel(v5);
-    v6 = *(a1 + 40);
-    v7 = *(v6 + 32);
-    *(v6 + 32) = 0;
+    dispatch_source_cancel(v4);
+    v5 = *(a1 + 40);
+    v6 = *(v5 + 32);
+    *(v5 + 32) = 0;
   }
 
-  v8 = SPLogForSPLogCategoryDefault();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v7 = SPLogForSPLogCategoryDefault(v4);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(a1 + 32);
+    v8 = *(a1 + 32);
     *buf = 138412290;
-    v14 = v9;
-    _os_log_impl(&dword_1C81BF000, v8, OS_LOG_TYPE_DEFAULT, "Finished purging, pcs:%@", buf, 0xCu);
+    v12 = v8;
+    _os_log_impl(&dword_1C81BF000, v7, OS_LOG_TYPE_DEFAULT, "Finished purging, pcs:%@", buf, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __76__SDAppUninstallMonitor__deleteAllItemsForBundleIDs_reason_completionBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1346,12 +1334,13 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v11 = 0;
-  v5 = [MEMORY[0x1E696AE40] propertyListWithData:v4 options:0 format:0 error:&v11];
-  v6 = v11;
+  v13 = 0;
+  v5 = [MEMORY[0x1E696AE40] propertyListWithData:v4 options:0 format:0 error:&v13];
+  v6 = v13;
+  v7 = v6;
   if (!v5)
   {
-    v5 = SPLogForSPLogCategoryDefault();
+    v5 = SPLogForSPLogCategoryDefault(v6);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       +[SDAppUninstallMonitor _installedAppsListFromDisk];
@@ -1361,21 +1350,22 @@ LABEL_10:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v7 = SPLogForSPLogCategoryDefault();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = SPLogForSPLogCategoryDefault(isKindOfClass);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      +[SDAppUninstallMonitor _installedAppsListFromDisk];
+      +[(SDAppUninstallMonitor *)v5];
     }
 
 LABEL_16:
     v5 = 0;
   }
 
-  v10 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  _sanitizePlistData(v5, v10);
-  allObjects = [v10 allObjects];
+  v12 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  _sanitizePlistData(v5, v12);
+  allObjects = [v12 allObjects];
 
 LABEL_11:
 
@@ -1384,9 +1374,9 @@ LABEL_11:
 
 + (void)_writeAppsListToDisk:(id)disk
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   diskCopy = disk;
-  v5 = SPLogForSPLogCategoryDefault();
+  v5 = SPLogForSPLogCategoryDefault(diskCopy);
   v6 = v5;
   if (gSPLogDebugAsDefault)
   {
@@ -1401,80 +1391,81 @@ LABEL_11:
   if (os_log_type_enabled(v5, v7))
   {
     *buf = 138412290;
-    v29 = diskCopy;
+    v31 = diskCopy;
     _os_log_impl(&dword_1C81BF000, v6, v7, "Will write %@ to disk", buf, 0xCu);
   }
 
   _trackingInfoDir = [self _trackingInfoDir];
   _installedAppsBundleIDsListFilePath = [self _installedAppsBundleIDsListFilePath];
-  v27 = 0;
-  v10 = [MEMORY[0x1E696AE40] dataWithPropertyList:diskCopy format:200 options:0 error:&v27];
-  v11 = v27;
+  v29 = 0;
+  v10 = [MEMORY[0x1E696AE40] dataWithPropertyList:diskCopy format:200 options:0 error:&v29];
+  v11 = v29;
+  v12 = v11;
   if (v10)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v13 = [defaultManager fileExistsAtPath:_trackingInfoDir];
+    v14 = [defaultManager fileExistsAtPath:_trackingInfoDir];
 
-    if (v13)
+    if (v14)
     {
       goto LABEL_10;
     }
 
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v26 = v11;
-    v15 = [defaultManager2 createDirectoryAtPath:_trackingInfoDir withIntermediateDirectories:1 attributes:0 error:&v26];
-    v16 = v26;
+    v28 = v12;
+    v16 = [defaultManager2 createDirectoryAtPath:_trackingInfoDir withIntermediateDirectories:1 attributes:0 error:&v28];
+    v17 = v28;
 
-    if (v15)
+    if (v16)
     {
 LABEL_9:
-      v11 = v16;
+      v12 = v17;
 LABEL_10:
-      v17 = v11;
-      v25 = v11;
-      v18 = [v10 writeToFile:_installedAppsBundleIDsListFilePath options:1 error:&v25];
-      v11 = v25;
+      v18 = v12;
+      v27 = v12;
+      v19 = [v10 writeToFile:_installedAppsBundleIDsListFilePath options:1 error:&v27];
+      v12 = v27;
 
-      v19 = SPLogForSPLogCategoryDefault();
-      v20 = v19;
-      if (v18)
+      v21 = SPLogForSPLogCategoryDefault(v20);
+      v22 = v21;
+      if (v19)
       {
         if (gSPLogDebugAsDefault)
         {
-          v21 = OS_LOG_TYPE_DEFAULT;
+          v23 = OS_LOG_TYPE_DEFAULT;
         }
 
         else
         {
-          v21 = OS_LOG_TYPE_DEBUG;
+          v23 = OS_LOG_TYPE_DEBUG;
         }
 
-        if (os_log_type_enabled(v19, v21))
+        if (os_log_type_enabled(v21, v23))
         {
           *buf = 138412290;
-          v29 = diskCopy;
-          _os_log_impl(&dword_1C81BF000, v20, v21, "Succesfully wrote %@ to disk", buf, 0xCu);
+          v31 = diskCopy;
+          _os_log_impl(&dword_1C81BF000, v22, v23, "Succesfully wrote %@ to disk", buf, 0xCu);
         }
       }
 
-      else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v29 = v10;
-        v30 = 2112;
-        v31 = _installedAppsBundleIDsListFilePath;
+        v31 = v10;
         v32 = 2112;
-        v33 = v11;
-        _os_log_error_impl(&dword_1C81BF000, v20, OS_LOG_TYPE_ERROR, "Error writing data %@ to path %@: %@", buf, 0x20u);
+        v33 = _installedAppsBundleIDsListFilePath;
+        v34 = 2112;
+        v35 = v12;
+        _os_log_error_impl(&dword_1C81BF000, v22, OS_LOG_TYPE_ERROR, "Error writing data %@ to path %@: %@", buf, 0x20u);
       }
 
       goto LABEL_27;
     }
 
-    domain = [v16 domain];
+    domain = [v17 domain];
     if ([domain isEqualToString:*MEMORY[0x1E696A250]])
     {
-      code = [v16 code];
+      code = [v17 code];
 
       if (code == 516)
       {
@@ -1486,33 +1477,31 @@ LABEL_10:
     {
     }
 
-    v20 = SPLogForSPLogCategoryDefault();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = SPLogForSPLogCategoryDefault(v26);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       +[SDAppUninstallMonitor _writeAppsListToDisk:];
     }
 
-    v11 = v16;
+    v12 = v17;
   }
 
   else
   {
-    v20 = SPLogForSPLogCategoryDefault();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = SPLogForSPLogCategoryDefault(v11);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [(SDAppUninstallMonitor *)v11 _writeAppsListToDisk:v20];
+      [(SDAppUninstallMonitor *)v12 _writeAppsListToDisk:v22];
     }
   }
 
 LABEL_27:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_allInstalledApplicationsIdentifiers
 {
   v16 = *MEMORY[0x1E69E9840];
-  v3 = SPLogForSPLogCategoryDefault();
+  v3 = SPLogForSPLogCategoryDefault(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v14) = 0;
@@ -1526,98 +1515,78 @@ LABEL_27:
   allAppSet = self->_allAppSet;
   self->_allAppSet = v7;
 
-  v9 = SPLogForSPLogCategoryDefault();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = SPLogForSPLogCategoryDefault(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = self->_allAppSet;
+    v11 = self->_allAppSet;
     v14 = 138412290;
-    v15 = v10;
-    _os_log_impl(&dword_1C81BF000, v9, OS_LOG_TYPE_DEFAULT, "_allInstalledApplicationsIdentifiers: %@", &v14, 0xCu);
+    v15 = v11;
+    _os_log_impl(&dword_1C81BF000, v10, OS_LOG_TYPE_DEFAULT, "_allInstalledApplicationsIdentifiers: %@", &v14, 0xCu);
   }
 
   allObjects = [(NSSet *)self->_allAppSet allObjects];
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return allObjects;
 }
 
-void __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invoke_cold_1(uint64_t a1)
+void __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invoke_131_cold_1(uint64_t a1)
+void __59__SDAppUninstallMonitor__deleteAllItemsForBundleID_reason___block_invoke_131_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 + (void)_pendingPurgesFromDisk
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_writePendingPurgesToDisk:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_writePendingPurgesToDisk:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 138412546;
-  v4 = @"PendingPurges";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_1C81BF000, a2, OS_LOG_TYPE_ERROR, "Failed serializing %@ property list, error:%@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 138412546;
+  v3 = @"PendingPurges";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_1C81BF000, a2, OS_LOG_TYPE_ERROR, "Failed serializing %@ property list, error:%@", &v2, 0x16u);
 }
 
 + (void)_installedAppsListFromDisk
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_writeAppsListToDisk:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_writeAppsListToDisk:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C81BF000, a2, OS_LOG_TYPE_ERROR, "Error serializing installedAppsBundleIDs property list: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C81BF000, a2, OS_LOG_TYPE_ERROR, "Error serializing installedAppsBundleIDs property list: %@", &v2, 0xCu);
 }
 
 @end

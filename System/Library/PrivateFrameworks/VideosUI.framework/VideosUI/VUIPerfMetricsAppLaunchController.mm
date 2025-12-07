@@ -33,39 +33,40 @@ void __51__VUIPerfMetricsAppLaunchController_sharedInstance__block_invoke(uint64
 
 - (VUIPerfMetricsAppLaunchController)init
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = VUIPerfMetricsAppLaunchController;
-  v2 = [(VUIPerfMetricsAppLaunchController *)&v10 init];
+  v18 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = VUIPerfMetricsAppLaunchController;
+  v2 = [(VUIPerfMetricsAppLaunchController *)&v11 init];
   if (v2)
   {
-    *v14 = 0xE00000001;
-    v15 = 1;
-    v16 = getpid();
-    memset(v13, 0, 512);
-    v9 = 648;
-    if (sysctl(v14, 4u, v13, &v9, 0, 0))
+    *v15 = 0xE00000001;
+    v16 = 1;
+    v17 = getpid();
+    memset(v14, 0, 512);
+    v10 = 648;
+    v3 = sysctl(v15, 4u, v14, &v10, 0, 0);
+    if (v3)
     {
-      v3 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      v4 = VUIDefaultLogObject(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_1E323F000, v3, OS_LOG_TYPE_INFO, "Could not read processStartTime", v8, 2u);
+        *v9 = 0;
+        _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_INFO, "Could not read processStartTime", v9, 2u);
       }
 
-      v4 = 0;
+      v5 = 0;
     }
 
     else
     {
-      v4 = ((SDWORD2(v13[0]) / 1000000.0 + *&v13[0]) * 1000.0);
+      v5 = ((SDWORD2(v14[0]) / 1000000.0 + *&v14[0]) * 1000.0);
     }
 
-    v11 = @"processStartTime";
-    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v4];
-    v12 = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-    [(VUIPerfMetricsAppLaunchController *)v2 _setAppLaunchFieldWithData:v6];
+    v12 = @"processStartTime";
+    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v5];
+    v13 = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    [(VUIPerfMetricsAppLaunchController *)v2 _setAppLaunchFieldWithData:v7];
   }
 
   return v2;

@@ -31,16 +31,16 @@
   if (previousItem)
   {
     itemCopy = item;
-    v7 = objc_msgSend_time(previousItem, v5, v6);
-    v10 = objc_msgSend_time(itemCopy, v8, v9);
+    time = [previousItem time];
+    time2 = [itemCopy time];
 
     LOBYTE(itemCopy) = 1;
-    if (v7 && v10)
+    if (time && time2)
     {
-      v14 = objc_msgSend_currentCalendar(MEMORY[0x1E695DEE8], v11, v12);
-      v16 = objc_msgSend_components_fromDate_(v14, v15, 30, v7);
-      v18 = objc_msgSend_components_fromDate_(v14, v17, 30, v10);
-      LODWORD(itemCopy) = objc_msgSend_isEqual_(v16, v19, v18) ^ 1;
+      currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
+      v9 = [currentCalendar components:30 fromDate:time];
+      v10 = [currentCalendar components:30 fromDate:time2];
+      LODWORD(itemCopy) = [v9 isEqual:v10] ^ 1;
     }
   }
 

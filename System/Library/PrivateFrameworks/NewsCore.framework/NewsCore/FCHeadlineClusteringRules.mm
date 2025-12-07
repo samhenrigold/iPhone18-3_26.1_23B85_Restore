@@ -1,5 +1,7 @@
 @interface FCHeadlineClusteringRules
 + (id)rulesWithTreatment:(id)treatment configurationSet:(int64_t)set deviceIsiPad:(BOOL)pad limitUnpaidArticles:(BOOL)articles enforcePublisherCap:(BOOL)cap minClusterSizeiPhone:(int64_t)phone maxClusterSizeiPhone:(int64_t)sizeiPhone minClusterSizeiPad:(int64_t)self0 maxClusterSizeiPad:(int64_t)self1 todayFeedEnabled:(BOOL)self2;
++ (id)rulesWithTreatment:(id)treatment configurationSet:(int64_t)set deviceIsiPad:(BOOL)pad limitUnpaidArticles:(BOOL)articles enforcePublisherCap:(BOOL)cap todayFeedEnabled:(BOOL)enabled;
++ (id)rulesWithTreatment:(id)treatment deviceIsiPad:(BOOL)pad limitUnpaidArticles:(BOOL)articles enforcePublisherCap:(BOOL)cap todayFeedEnabled:(BOOL)enabled;
 - (FCHeadlineClusteringRules)init;
 - (FCHeadlineClusteringRules)initWithMinClusterSize:(unint64_t)size maxClusterSize:(unint64_t)clusterSize minIdealClusterSize:(unint64_t)idealClusterSize maxIdealClusterSize:(unint64_t)maxIdealClusterSize minClusterSizeAutoFavorite:(unint64_t)favorite maxClusterSizeAutoFavorite:(unint64_t)autoFavorite minIdealClusterSizeAutoFavorite:(unint64_t)sizeAutoFavorite maxIdealClusterSizeAutoFavorite:(unint64_t)self0 maxPublisherOccurrences:(unint64_t)self1 enforcePublisherCap:(BOOL)self2 maxUnpaidArticles:(unint64_t)self3 maxEvergreenArticles:(unint64_t)self4 topicDiversityThreshold:(double)self5 maxNativeAdCount:(unint64_t)self6 thumbnailMinHammingDistance:(unint64_t)self7;
 - (unint64_t)maxClusterSizeAutoFavorite;
@@ -9,6 +11,64 @@
 @end
 
 @implementation FCHeadlineClusteringRules
+
++ (id)rulesWithTreatment:(id)treatment deviceIsiPad:(BOOL)pad limitUnpaidArticles:(BOOL)articles enforcePublisherCap:(BOOL)cap todayFeedEnabled:(BOOL)enabled
+{
+  capCopy = cap;
+  articlesCopy = articles;
+  padCopy = pad;
+  treatmentCopy = treatment;
+  v13 = treatmentCopy;
+  if (treatmentCopy)
+  {
+    minClusterSizeIPhone = [treatmentCopy minClusterSizeIPhone];
+    maxClusterSizeIPhone = [v13 maxClusterSizeIPhone];
+    minClusterSizeIPad = [v13 minClusterSizeIPad];
+    maxClusterSizeIPad = [v13 maxClusterSizeIPad];
+  }
+
+  else
+  {
+    maxClusterSizeIPhone = 30;
+    minClusterSizeIPad = 3;
+    minClusterSizeIPhone = 3;
+    maxClusterSizeIPad = 30;
+  }
+
+  LOBYTE(v20) = enabled;
+  v18 = [self rulesWithTreatment:v13 configurationSet:0 deviceIsiPad:padCopy limitUnpaidArticles:articlesCopy enforcePublisherCap:capCopy minClusterSizeiPhone:minClusterSizeIPhone maxClusterSizeiPhone:maxClusterSizeIPhone minClusterSizeiPad:minClusterSizeIPad maxClusterSizeiPad:maxClusterSizeIPad todayFeedEnabled:v20];
+
+  return v18;
+}
+
++ (id)rulesWithTreatment:(id)treatment configurationSet:(int64_t)set deviceIsiPad:(BOOL)pad limitUnpaidArticles:(BOOL)articles enforcePublisherCap:(BOOL)cap todayFeedEnabled:(BOOL)enabled
+{
+  capCopy = cap;
+  articlesCopy = articles;
+  padCopy = pad;
+  treatmentCopy = treatment;
+  v15 = treatmentCopy;
+  if (treatmentCopy)
+  {
+    minClusterSizeIPhone = [treatmentCopy minClusterSizeIPhone];
+    maxClusterSizeIPhone = [v15 maxClusterSizeIPhone];
+    minClusterSizeIPad = [v15 minClusterSizeIPad];
+    maxClusterSizeIPad = [v15 maxClusterSizeIPad];
+  }
+
+  else
+  {
+    maxClusterSizeIPhone = 30;
+    minClusterSizeIPad = 3;
+    minClusterSizeIPhone = 3;
+    maxClusterSizeIPad = 30;
+  }
+
+  LOBYTE(v22) = enabled;
+  v20 = [self rulesWithTreatment:v15 configurationSet:set deviceIsiPad:padCopy limitUnpaidArticles:articlesCopy enforcePublisherCap:capCopy minClusterSizeiPhone:minClusterSizeIPhone maxClusterSizeiPhone:maxClusterSizeIPhone minClusterSizeiPad:minClusterSizeIPad maxClusterSizeiPad:maxClusterSizeIPad todayFeedEnabled:v22];
+
+  return v20;
+}
 
 + (id)rulesWithTreatment:(id)treatment configurationSet:(int64_t)set deviceIsiPad:(BOOL)pad limitUnpaidArticles:(BOOL)articles enforcePublisherCap:(BOOL)cap minClusterSizeiPhone:(int64_t)phone maxClusterSizeiPhone:(int64_t)sizeiPhone minClusterSizeiPad:(int64_t)self0 maxClusterSizeiPad:(int64_t)self1 todayFeedEnabled:(BOOL)self2
 {

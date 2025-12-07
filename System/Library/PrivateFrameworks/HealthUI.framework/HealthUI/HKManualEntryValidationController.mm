@@ -11,31 +11,31 @@
 - (unint64_t)validateWorkoutDistance:(id)distance
 {
   distanceCopy = distance;
-  v5 = _workoutValidationRanges();
+  v5 = _workoutValidationRanges(distanceCopy);
   v6 = [v5 objectForKeyedSubscript:@"_HKManualEntryWorkoutDistanceKey"];
   v7 = [v6 objectForKeyedSubscript:@"_HKManualEntryAbsoluteRangeKey"];
 
-  v8 = _workoutValidationRanges();
-  v9 = [v8 objectForKeyedSubscript:@"_HKManualEntryWorkoutDistanceKey"];
-  v10 = [v9 objectForKeyedSubscript:@"_HKManualEntryConfirmRangeKey"];
+  v9 = _workoutValidationRanges(v8);
+  v10 = [v9 objectForKeyedSubscript:@"_HKManualEntryWorkoutDistanceKey"];
+  v11 = [v10 objectForKeyedSubscript:@"_HKManualEntryConfirmRangeKey"];
 
-  v11 = [(HKManualEntryValidationController *)self _validateQuantity:distanceCopy withAbsoluteRange:v7 confirmRange:v10];
-  return v11;
+  v12 = [(HKManualEntryValidationController *)self _validateQuantity:distanceCopy withAbsoluteRange:v7 confirmRange:v11];
+  return v12;
 }
 
 - (unint64_t)validateWorkoutEnergyBurned:(id)burned
 {
   burnedCopy = burned;
-  v5 = _workoutValidationRanges();
+  v5 = _workoutValidationRanges(burnedCopy);
   v6 = [v5 objectForKeyedSubscript:@"_HKManualEntryWorkoutEnergyBurnedKey"];
   v7 = [v6 objectForKeyedSubscript:@"_HKManualEntryAbsoluteRangeKey"];
 
-  v8 = _workoutValidationRanges();
-  v9 = [v8 objectForKeyedSubscript:@"_HKManualEntryWorkoutEnergyBurnedKey"];
-  v10 = [v9 objectForKeyedSubscript:@"_HKManualEntryConfirmRangeKey"];
+  v9 = _workoutValidationRanges(v8);
+  v10 = [v9 objectForKeyedSubscript:@"_HKManualEntryWorkoutEnergyBurnedKey"];
+  v11 = [v10 objectForKeyedSubscript:@"_HKManualEntryConfirmRangeKey"];
 
-  v11 = [(HKManualEntryValidationController *)self _validateQuantity:burnedCopy withAbsoluteRange:v7 confirmRange:v10];
-  return v11;
+  v12 = [(HKManualEntryValidationController *)self _validateQuantity:burnedCopy withAbsoluteRange:v7 confirmRange:v11];
+  return v12;
 }
 
 - (unint64_t)validateMaximumAllowedDuration:(double)duration ofType:(id)type

@@ -82,17 +82,17 @@ uint64_t __90__VideoConferenceControlCenterModuleEffectControlAccessibility_acce
   return 1;
 }
 
-void __90__VideoConferenceControlCenterModuleEffectControlAccessibility_accessibilityCustomActions__block_invoke_2(uint64_t a1)
+void __90__VideoConferenceControlCenterModuleEffectControlAccessibility_accessibilityCustomActions__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = [WeakRetained safeSwiftValueForKey:@"expandChevron"];
-  v4 = __UIAccessibilityCastAsClass();
+  v4 = [WeakRetained safeSwiftValueForKey:@"expandChevron"];
+  v5 = __UIAccessibilityCastAsClass();
 
-  [v4 sendActionsForControlEvents:64];
+  [v5 sendActionsForControlEvents:64];
   LODWORD(WeakRetained) = *MEMORY[0x29EDC7F10];
-  v5 = objc_loadWeakRetained((a1 + 32));
-  UIAccessibilityPostNotification(WeakRetained, v5);
+  v6 = objc_loadWeakRetained((a1 + 32));
+  UIAccessibilityPostNotification(WeakRetained, v6);
 }
 
 @end

@@ -11,29 +11,29 @@
 - (GCXboxGamepad)initWithController:(id)controller
 {
   controllerCopy = controller;
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v23 = 0u;
-  memset(v22, 0, sizeof(v22));
-  GCExtendedGamepadInitInfoMake(v22);
+  memset(v28, 0, sizeof(v28));
+  GCExtendedGamepadInitInfoMake(v28);
   for (i = 9; i != 1161; i += 72)
   {
-    *(v22 + i) = 1;
+    *(v28 + i) = 1;
   }
 
-  BYTE1(v23) = 0;
-  BYTE9(v27) = 0;
-  v32 = 0;
-  v33 = 0;
-  v21.receiver = self;
-  v21.super_class = GCXboxGamepad;
-  v6 = [(GCExtendedGamepad *)&v21 initWithController:controllerCopy initInfo:v22];
+  BYTE1(v29) = 0;
+  BYTE9(v33) = 0;
+  v38 = 0;
+  v39 = 0;
+  v27.receiver = self;
+  v27.super_class = GCXboxGamepad;
+  v6 = [(GCExtendedGamepad *)&v27 initWithController:controllerCopy initInfo:v28];
   v7 = v6;
   if (v6)
   {
@@ -43,64 +43,68 @@
     v11 = [firstObject numberPropertyForKey:@"ProductID"];
     unsignedIntValue = [v11 unsignedIntValue];
 
-    v13 = unsignedIntValue - 2;
+    v15 = unsignedIntValue - 2;
     if ((unsignedIntValue - 2818) <= 0x3A)
     {
-      if (((1 << v13) & 0x400000100000009) != 0)
+      if (((1 << v15) & 0x400000100000009) != 0)
       {
-        if (gc_isInternalBuild())
+        isInternalBuild = gc_isInternalBuild(v13, v14);
+        if (isInternalBuild)
         {
-          v17 = getGCLogger();
-          [GCXboxGamepad initWithController:v17];
+          v23 = getGCLogger(isInternalBuild);
+          [GCXboxGamepad initWithController:v23];
         }
 
-        v14 = 1;
+        v17 = 1;
         goto LABEL_20;
       }
 
-      if (((1 << v13) & 0x200030000) != 0)
+      if (((1 << v15) & 0x200030000) != 0)
       {
-        if (gc_isInternalBuild())
+        v16 = gc_isInternalBuild(v13, v14);
+        if (v16)
         {
-          v18 = getGCLogger();
-          [GCXboxGamepad initWithController:v18];
+          v24 = getGCLogger(v16);
+          [GCXboxGamepad initWithController:v24];
         }
 
-        v34 = 1;
-        v14 = 3;
+        v40 = 1;
+        v17 = 3;
 LABEL_20:
-        v7->_type = v14;
+        v7->_type = v17;
         [(GCXboxGamepad *)v7 initializeExtraControllerElements];
         goto LABEL_21;
       }
 
-      if (((1 << v13) & 0x80000400) != 0)
+      if (((1 << v15) & 0x80000400) != 0)
       {
-        if (gc_isInternalBuild())
+        v19 = gc_isInternalBuild(v13, v14);
+        if (v19)
         {
-          v19 = getGCLogger();
-          [GCXboxGamepad initWithController:v19];
+          v25 = getGCLogger(v19);
+          [GCXboxGamepad initWithController:v25];
         }
 
-        v14 = 2;
+        v17 = 2;
         goto LABEL_20;
       }
     }
 
-    if (gc_isInternalBuild())
+    v20 = gc_isInternalBuild(v13, v14);
+    if (v20)
     {
-      v20 = getGCLogger();
-      [GCXboxGamepad initWithController:v20];
+      v26 = getGCLogger(v20);
+      [GCXboxGamepad initWithController:v26];
     }
 
-    v14 = 0;
+    v17 = 0;
     goto LABEL_20;
   }
 
 LABEL_21:
   for (j = 0; j != 1584; j += 72)
   {
-    __destructor_8_s0_s48_s56_s64(v22 + j);
+    __destructor_8_s0_s48_s56_s64(v28 + j);
   }
 
   return v7;
@@ -281,7 +285,8 @@ LABEL_21:
 {
   if (OUTLINED_FUNCTION_4_5(a1))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1D2CD5000, v2, v3, "recognized series X controller", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_1(&dword_1D2CD5000, v2, v3, "recognized series X controller", v4, v5, v6, v7, v8);
   }
 }
 
@@ -289,7 +294,8 @@ LABEL_21:
 {
   if (OUTLINED_FUNCTION_4_5(a1))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1D2CD5000, v2, v3, "recognized adaptive controller", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_1(&dword_1D2CD5000, v2, v3, "recognized adaptive controller", v4, v5, v6, v7, v8);
   }
 }
 
@@ -297,7 +303,8 @@ LABEL_21:
 {
   if (OUTLINED_FUNCTION_4_5(a1))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1D2CD5000, v2, v3, "recognized elite controller", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_1(&dword_1D2CD5000, v2, v3, "recognized elite controller", v4, v5, v6, v7, v8);
   }
 }
 
@@ -305,7 +312,8 @@ LABEL_21:
 {
   if (OUTLINED_FUNCTION_4_5(a1))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1D2CD5000, v2, v3, "recognized standard controller", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_1(&dword_1D2CD5000, v2, v3, "recognized standard controller", v4, v5, v6, v7, v8);
   }
 }
 

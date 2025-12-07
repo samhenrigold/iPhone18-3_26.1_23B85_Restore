@@ -60,7 +60,7 @@
   *&range.duration.timescale = *&self->_timeRange.duration.timescale;
   if (segmentCopy)
   {
-    [segmentCopy timeRange];
+    objc_msgSend_timeRange(segmentCopy);
   }
 
   else

@@ -16,6 +16,7 @@
 + (void)disableVoiceTrigger;
 + (void)disableVoiceTriggerAndSiriEnrollmentForCurrentLanguage;
 + (void)enableVoiceTrigger;
++ (void)setQuickTypeGestureEnabled:(BOOL)enabled;
 @end
 
 @implementation AssistantUtilities
@@ -266,6 +267,13 @@ uint64_t __37__AssistantUtilities_numberFormatter__block_invoke()
   }
 
   return activeEnabled;
+}
+
++ (void)setQuickTypeGestureEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
+  [mEMORY[0x277CEF368] setQuickTypeGestureEnabled:enabledCopy];
 }
 
 @end

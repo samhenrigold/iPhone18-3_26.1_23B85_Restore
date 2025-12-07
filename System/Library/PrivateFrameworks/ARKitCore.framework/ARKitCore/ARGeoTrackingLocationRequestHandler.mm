@@ -40,7 +40,7 @@
   v18 = *MEMORY[0x1E69E9840];
   locationsCopy = locations;
   managerCopy = manager;
-  v8 = _ARLogGeneral_24();
+  v8 = _ARLogGeneral_24(managerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = objc_opt_class();
@@ -66,60 +66,61 @@
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   errorCopy = error;
+  v8 = errorCopy;
   if (ARShouldUseLogTypeError_onceToken_33 != -1)
   {
     [ARGeoTrackingLocationRequestHandler locationManager:didFailWithError:];
   }
 
-  v8 = ARShouldUseLogTypeError_internalOSVersion_33;
-  v9 = _ARLogGeneral_24();
-  v10 = v9;
-  if (v8 == 1)
+  v9 = ARShouldUseLogTypeError_internalOSVersion_33;
+  v10 = _ARLogGeneral_24(errorCopy);
+  v11 = v10;
+  if (v9 == 1)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v19 = 138543874;
-      v20 = v12;
-      v21 = 2048;
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
+      v20 = 138543874;
+      v21 = v13;
+      v22 = 2048;
       selfCopy2 = self;
-      v23 = 2112;
-      v24 = errorCopy;
-      v13 = "%{public}@ <%p>: Location request handler failed: %@";
-      v14 = v10;
-      v15 = OS_LOG_TYPE_ERROR;
+      v24 = 2112;
+      v25 = v8;
+      v14 = "%{public}@ <%p>: Location request handler failed: %@";
+      v15 = v11;
+      v16 = OS_LOG_TYPE_ERROR;
 LABEL_8:
-      _os_log_impl(&dword_1C241C000, v14, v15, v13, &v19, 0x20u);
+      _os_log_impl(&dword_1C241C000, v15, v16, v14, &v20, 0x20u);
     }
   }
 
-  else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v16 = objc_opt_class();
-    v12 = NSStringFromClass(v16);
-    v19 = 138543874;
-    v20 = v12;
-    v21 = 2048;
+    v17 = objc_opt_class();
+    v13 = NSStringFromClass(v17);
+    v20 = 138543874;
+    v21 = v13;
+    v22 = 2048;
     selfCopy2 = self;
-    v23 = 2112;
-    v24 = errorCopy;
-    v13 = "Error: %{public}@ <%p>: Location request handler failed: %@";
-    v14 = v10;
-    v15 = OS_LOG_TYPE_INFO;
+    v24 = 2112;
+    v25 = v8;
+    v14 = "Error: %{public}@ <%p>: Location request handler failed: %@";
+    v15 = v11;
+    v16 = OS_LOG_TYPE_INFO;
     goto LABEL_8;
   }
 
-  if ([errorCopy code])
+  if ([v8 code])
   {
     locationCompletionHandler = self->_locationCompletionHandler;
     if (locationCompletionHandler)
     {
-      locationCompletionHandler[2](locationCompletionHandler, 0, errorCopy);
-      v18 = self->_locationCompletionHandler;
+      locationCompletionHandler[2](locationCompletionHandler, 0, v8);
+      v19 = self->_locationCompletionHandler;
       self->_locationCompletionHandler = 0;
     }
   }
@@ -135,8 +136,7 @@ LABEL_8:
 
   self->_authorizationStatus = authorizationStatus;
   [(NSCondition *)self->_authorizationCondition broadcast];
-  [(NSCondition *)self->_authorizationCondition unlock];
-  v7 = _ARLogGeneral_24();
+  v7 = _ARLogGeneral_24([(NSCondition *)self->_authorizationCondition unlock]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = objc_opt_class();
@@ -154,7 +154,7 @@ LABEL_8:
 - (int)waitForAuthorizationStatus
 {
   v12 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogGeneral_24();
+  v3 = _ARLogGeneral_24(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
@@ -186,7 +186,7 @@ LABEL_8:
 {
   v13 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v5 = _ARLogGeneral_24();
+  v5 = _ARLogGeneral_24(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = objc_opt_class();

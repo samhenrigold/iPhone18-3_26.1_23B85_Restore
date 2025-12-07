@@ -32,7 +32,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_11E14();
+  sub_11E14(selfCopy);
 }
 
 - (CGSize)systemLayoutSizeFittingSize:(CGSize)size withHorizontalFittingPriority:(float)priority verticalFittingPriority:(float)fittingPriority
@@ -54,7 +54,7 @@
   viewCopy = view;
   changeCopy = change;
   selfCopy = self;
-  sub_1350C();
+  sub_1350C(selfCopy, changeCopy);
 }
 
 - (id)metricsActivityForLockupView:(id)view toPerformActionOfOffer:(id)offer

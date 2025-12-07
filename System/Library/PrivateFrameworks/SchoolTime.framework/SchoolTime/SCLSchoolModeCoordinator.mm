@@ -1,5 +1,6 @@
 @interface SCLSchoolModeCoordinator
 - (BOOL)applySchedule:(id)schedule forInitialSync:(BOOL)sync error:(id *)error;
+- (BOOL)setActive:(BOOL)active options:(unint64_t)options error:(id *)error;
 - (SCLScheduleSettings)scheduleSettings;
 - (SCLSchoolModeCoordinator)initWithConfiguration:(id)configuration;
 - (os_state_data_s)stateDataWithHints:(os_state_hints_s *)hints;
@@ -12,6 +13,7 @@
 - (void)_persistSettings:(id)settings;
 - (void)_registerForFirstUnlockIfNeeded;
 - (void)_requestRemoteScheduleSettingsIfNeeded;
+- (void)_updateClientsWithSchedule:(id)schedule notify:(BOOL)notify;
 - (void)activateSettingsSyncCoordinatorWithSettings:(id)settings;
 - (void)addClient:(id)client;
 - (void)addUnlockHistoryItem:(id)item completion:(id)completion;
@@ -21,6 +23,7 @@
 - (void)purgeOldHistoryItems;
 - (void)removeClient:(id)client;
 - (void)server:(id)server didUpdateState:(id)state fromState:(id)fromState;
+- (void)transportController:(id)controller didReceiveSchedule:(id)schedule forInitialSync:(BOOL)sync;
 - (void)transportController:(id)controller didReceiveUnlockHistoryItem:(id)item;
 @end
 
@@ -168,26 +171,159 @@ void __47__SCLSchoolModeCoordinator_stateDataWithHints___block_invoke(uint64_t a
 
 - (void)_createSchoolTimeDirectoryIfNeeded
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_264829000, v0, OS_LOG_TYPE_DEBUG, "Directory at %@ already existed: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_264829000, v0, OS_LOG_TYPE_DEBUG, "Directory at %@ already existed: %@", v1, 0x16u);
 }
 
 - (void)_lock_loadPersistentSchedule
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_264829000, v0, v1, "Persistent schedule data doesn't exist: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  configuration = [(SCLSchoolModeCoordinator *)self configuration];
+  targetQueue = [configuration targetQueue];
+  dispatch_assert_queue_V2(targetQueue);
+
+  scheduleURL = [(SCLSchoolModeCoordinator *)self scheduleURL];
+  v26 = 0;
+  v6 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:scheduleURL options:0 error:&v26];
+  v7 = v26;
+  v8 = v7;
+  if (!v6)
+  {
+    domain = [v7 domain];
+    if ([domain isEqualToString:*MEMORY[0x277CCA050]])
+    {
+      code = [v8 code];
+
+      if (code == 260)
+      {
+        v20 = scl_persistence_log(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        {
+          [SCLSchoolModeCoordinator _lock_loadPersistentSchedule];
+        }
+
+        configuration2 = [(SCLSchoolModeCoordinator *)self configuration];
+        sendsRemoteScheduleSettings = [configuration2 sendsRemoteScheduleSettings];
+
+        if (sendsRemoteScheduleSettings)
+        {
+          [(SCLSchoolModeCoordinator *)self _requestRemoteScheduleSettingsIfNeeded];
+        }
+
+LABEL_22:
+        v13 = v8;
+LABEL_24:
+        v16 = objc_alloc_init(SCLPersistentSettings);
+        goto LABEL_25;
+      }
+    }
+
+    else
+    {
+    }
+
+    v23 = scl_persistence_log(v19);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      [SCLSchoolModeCoordinator _lock_loadPersistentSchedule];
+    }
+
+    goto LABEL_22;
+  }
+
+  v9 = MEMORY[0x277CBEB98];
+  v10 = objc_opt_class();
+  v11 = [v9 setWithObjects:{v10, objc_opt_class(), 0}];
+  v25 = v8;
+  v12 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v11 fromData:v6 error:&v25];
+  v13 = v25;
+
+  if (v13)
+  {
+    v15 = scl_persistence_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      [SCLSchoolModeCoordinator _lock_loadPersistentSchedule];
+    }
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v16 = objc_alloc_init(SCLPersistentSettings);
+    [(SCLPersistentSettings *)v16 setScheduleSettings:v12];
+    goto LABEL_16;
+  }
+
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+
+    goto LABEL_24;
+  }
+
+  v16 = v12;
+LABEL_16:
+
+  if (!v16)
+  {
+    goto LABEL_24;
+  }
+
+LABEL_25:
+  persistentSettings = self->_persistentSettings;
+  self->_persistentSettings = v16;
 }
 
 - (void)_requestRemoteScheduleSettingsIfNeeded
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_264829000, v0, v1, "Already requested schedule settings for pairingID %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  directoryURL = [(SCLSchoolModeCoordinator *)self directoryURL];
+  path = [directoryURL path];
+
+  configuration = [(SCLSchoolModeCoordinator *)self configuration];
+  nRDevice = [configuration NRDevice];
+  pairingID = [nRDevice pairingID];
+
+  v8 = _CFPreferencesCopyValueWithContainer();
+  if (v8)
+  {
+    v9 = v8;
+    v10 = CFGetTypeID(v8);
+    if (v10 == CFBooleanGetTypeID())
+    {
+      Value = CFBooleanGetValue(v9);
+      CFRelease(v9);
+      if (Value)
+      {
+        transportController = scl_framework_log(v8);
+        if (os_log_type_enabled(transportController, OS_LOG_TYPE_DEBUG))
+        {
+          [SCLSchoolModeCoordinator _requestRemoteScheduleSettingsIfNeeded];
+        }
+
+        goto LABEL_10;
+      }
+    }
+
+    else
+    {
+      CFRelease(v9);
+    }
+  }
+
+  v13 = scl_framework_log(v8);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = 138412290;
+    v15 = pairingID;
+    _os_log_impl(&dword_264829000, v13, OS_LOG_TYPE_DEFAULT, "Requesting remote settings for pairingID %@", &v14, 0xCu);
+  }
+
+  _CFPreferencesSetValueWithContainer();
+  transportController = [(SCLSchoolModeCoordinator *)self transportController];
+  [transportController requestRemoteSettings];
+LABEL_10:
 }
 
 - (void)_classCDataIsAvailable
@@ -196,11 +332,11 @@ void __47__SCLSchoolModeCoordinator_stateDataWithHints___block_invoke(uint64_t a
   targetQueue = [configuration targetQueue];
   dispatch_assert_queue_V2(targetQueue);
 
-  v5 = scl_framework_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = scl_framework_log(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v15 = 0;
-    _os_log_impl(&dword_264829000, v5, OS_LOG_TYPE_INFO, "Class C Data is available", v15, 2u);
+    *v16 = 0;
+    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_INFO, "Class C Data is available", v16, 2u);
   }
 
   self->_hasReceivedFirstUnlock = 1;
@@ -269,9 +405,9 @@ void __47__SCLSchoolModeCoordinator_stateDataWithHints___block_invoke(uint64_t a
   if (!self->_hasReceivedFirstUnlock)
   {
     v5 = MKBDeviceUnlockedSinceBoot();
-    if (v5 < 0)
+    if ((v5 & 0x80000000) != 0)
     {
-      v9 = scl_framework_log();
+      v9 = scl_framework_log(v5);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [(SCLSchoolModeCoordinator *)v9 _checkIfClassCDataIsAvailable];
@@ -281,7 +417,7 @@ void __47__SCLSchoolModeCoordinator_stateDataWithHints___block_invoke(uint64_t a
     else
     {
       v6 = v5;
-      v7 = scl_framework_log();
+      v7 = scl_framework_log(v5);
       v8 = v7;
       if (v6)
       {
@@ -314,15 +450,15 @@ void __47__SCLSchoolModeCoordinator_stateDataWithHints___block_invoke(uint64_t a
 
 void __59__SCLSchoolModeCoordinator__registerForFirstUnlockIfNeeded__block_invoke(uint64_t a1)
 {
-  v2 = scl_framework_log();
+  v2 = scl_framework_log(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = scl_framework_log();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = scl_framework_log(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_264829000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "SchoolTimeMobileKeybagUnlock", &unk_26485B361, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_264829000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "SchoolTimeMobileKeybagUnlock", &unk_26485B361, buf, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -330,39 +466,38 @@ void __59__SCLSchoolModeCoordinator__registerForFirstUnlockIfNeeded__block_invok
   block[1] = 3221225472;
   block[2] = __59__SCLSchoolModeCoordinator__registerForFirstUnlockIfNeeded__block_invoke_41;
   block[3] = &unk_279B6C568;
-  v7 = WeakRetained;
-  v12 = v7;
-  v8 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INTERACTIVE, 0, block);
-  dispatch_async(*(a1 + 32), v8);
-  v9 = scl_framework_log();
-  v10 = v9;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v8 = WeakRetained;
+  v14 = v8;
+  v9 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INTERACTIVE, 0, block);
+  dispatch_async(*(a1 + 32), v9);
+  v11 = scl_framework_log(v10);
+  v12 = v11;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_264829000, v10, OS_SIGNPOST_INTERVAL_END, v3, "SchoolTimeMobileKeybagUnlock", &unk_26485B361, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_264829000, v12, OS_SIGNPOST_INTERVAL_END, v3, "SchoolTimeMobileKeybagUnlock", &unk_26485B361, buf, 2u);
   }
 }
 
 void __59__SCLSchoolModeCoordinator__registerForFirstUnlockIfNeeded__block_invoke_41(uint64_t a1)
 {
-  v2 = scl_framework_log();
+  v2 = scl_framework_log(a1);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = scl_framework_log();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = scl_framework_log(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_264829000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "SchoolTimeClassCAvailable", &unk_26485B361, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_264829000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "SchoolTimeClassCAvailable", &unk_26485B361, buf, 2u);
   }
 
-  [*(a1 + 32) _classCDataIsAvailable];
-  v6 = scl_framework_log();
-  v7 = v6;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = scl_framework_log([*(a1 + 32) _classCDataIsAvailable]);
+  v8 = v7;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    *v8 = 0;
-    _os_signpost_emit_with_name_impl(&dword_264829000, v7, OS_SIGNPOST_INTERVAL_END, v3, "SchoolTimeClassCAvailable", &unk_26485B361, v8, 2u);
+    *v9 = 0;
+    _os_signpost_emit_with_name_impl(&dword_264829000, v8, OS_SIGNPOST_INTERVAL_END, v3, "SchoolTimeClassCAvailable", &unk_26485B361, v9, 2u);
   }
 }
 
@@ -407,12 +542,12 @@ void __59__SCLSchoolModeCoordinator__registerForFirstUnlockIfNeeded__block_invok
     {
       if (error)
       {
-        v29 = MEMORY[0x277CCA9B8];
+        v30 = MEMORY[0x277CCA9B8];
         v39 = *MEMORY[0x277CCA450];
         v40 = @"Cannot overwrite existing schedule for initial sync.";
-        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-        v26 = v29;
-        v27 = 7;
+        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+        v27 = v30;
+        v28 = 7;
         goto LABEL_17;
       }
     }
@@ -424,8 +559,8 @@ void __59__SCLSchoolModeCoordinator__registerForFirstUnlockIfNeeded__block_invok
 
       if (isValid)
       {
-        v17 = scl_persistence_log();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v18 = scl_persistence_log(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           [SCLSchoolModeCoordinator applySchedule:forInitialSync:error:];
         }
@@ -434,11 +569,11 @@ void __59__SCLSchoolModeCoordinator__registerForFirstUnlockIfNeeded__block_invok
         v33 = 3221225472;
         v34 = __63__SCLSchoolModeCoordinator_applySchedule_forInitialSync_error___block_invoke;
         v35 = &unk_279B6C810;
-        v18 = v11;
-        v36 = v18;
+        v19 = v11;
+        v36 = v19;
         [(SCLSchoolModeCoordinator *)self _lock_updatePersistentSettingsWithBlock:&v32];
-        v19 = [(SCLSchoolModeCoordinator *)self server:v32];
-        [v19 applySchedule:v18];
+        v20 = [(SCLSchoolModeCoordinator *)self server:v32];
+        [v20 applySchedule:v19];
 
         configuration2 = [(SCLSchoolModeCoordinator *)self configuration];
         sendsRemoteScheduleSettings = [configuration2 sendsRemoteScheduleSettings];
@@ -446,29 +581,29 @@ void __59__SCLSchoolModeCoordinator__registerForFirstUnlockIfNeeded__block_invok
         if (sendsRemoteScheduleSettings && !syncCopy)
         {
           settingsSyncCoordinator = [(SCLSchoolModeCoordinator *)self settingsSyncCoordinator];
-          [settingsSyncCoordinator applySchedule:v18];
+          [settingsSyncCoordinator applySchedule:v19];
         }
 
-        v23 = 1;
-        [(SCLSchoolModeCoordinator *)self _updateClientsWithSchedule:v18 notify:1];
-        v24 = v36;
+        v24 = 1;
+        [(SCLSchoolModeCoordinator *)self _updateClientsWithSchedule:v19 notify:1];
+        v25 = v36;
         goto LABEL_18;
       }
 
       if (error)
       {
-        v28 = MEMORY[0x277CCA9B8];
+        v29 = MEMORY[0x277CCA9B8];
         v37 = *MEMORY[0x277CCA450];
         v38 = @"The schedule is invalid";
-        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-        v26 = v28;
-        v27 = 3;
+        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+        v27 = v29;
+        v28 = 3;
         goto LABEL_17;
       }
     }
 
 LABEL_19:
-    v23 = 0;
+    v24 = 0;
     goto LABEL_20;
   }
 
@@ -477,20 +612,62 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v25 = MEMORY[0x277CCA9B8];
+  v26 = MEMORY[0x277CCA9B8];
   v41 = *MEMORY[0x277CCA450];
   v42[0] = @"Schedule cannot be set before first unlock.";
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
-  v26 = v25;
-  v27 = 6;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+  v27 = v26;
+  v28 = 6;
 LABEL_17:
-  [v26 errorWithDomain:@"com.apple.schooltime" code:v27 userInfo:v24];
-  *error = v23 = 0;
+  [v27 errorWithDomain:@"com.apple.schooltime" code:v28 userInfo:v25];
+  *error = v24 = 0;
 LABEL_18:
 
 LABEL_20:
-  v30 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v24;
+}
+
+- (void)_updateClientsWithSchedule:(id)schedule notify:(BOOL)notify
+{
+  notifyCopy = notify;
+  v21 = *MEMORY[0x277D85DE8];
+  scheduleCopy = schedule;
+  configuration = [(SCLSchoolModeCoordinator *)self configuration];
+  targetQueue = [configuration targetQueue];
+  dispatch_assert_queue_V2(targetQueue);
+
+  clients = [(SCLSchoolModeCoordinator *)self clients];
+  v10 = [clients copy];
+
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v11 = v10;
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v17;
+    do
+    {
+      v15 = 0;
+      do
+      {
+        if (*v17 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        [*(*(&v16 + 1) + 8 * v15++) didUpdateScheduleSettings:scheduleCopy notify:{notifyCopy, v16}];
+      }
+
+      while (v13 != v15);
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v13);
+  }
 }
 
 - (void)addUnlockHistoryItem:(id)item completion:(id)completion
@@ -540,20 +717,66 @@ LABEL_20:
   completionCopy[2](completionCopy);
 }
 
+- (BOOL)setActive:(BOOL)active options:(unint64_t)options error:(id *)error
+{
+  optionsCopy = options;
+  activeCopy = active;
+  v20[1] = *MEMORY[0x277D85DE8];
+  configuration = [(SCLSchoolModeCoordinator *)self configuration];
+  targetQueue = [configuration targetQueue];
+  dispatch_assert_queue_V2(targetQueue);
+
+  server = [(SCLSchoolModeCoordinator *)self server];
+  currentState = [server currentState];
+
+  if ((optionsCopy & 1) != 0 && activeCopy && ([currentState isInSchedule] & 1) == 0)
+  {
+    if (!error)
+    {
+      v16 = 0;
+      goto LABEL_12;
+    }
+
+    v19 = *MEMORY[0x277CCA450];
+    v20[0] = @"Activation was rejected because Schooltime is no longer in schedule.";
+    nRDevice = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.schooltime" code:8 userInfo:nRDevice];
+    *error = v16 = 0;
+  }
+
+  else
+  {
+    server2 = [(SCLSchoolModeCoordinator *)self server];
+    [server2 setActive:activeCopy];
+
+    configuration2 = [(SCLSchoolModeCoordinator *)self configuration];
+    nRDevice = [configuration2 NRDevice];
+
+    v16 = 1;
+    if (activeCopy && nRDevice && ![currentState activeState] && (objc_msgSend(currentState, "isInSchedule") & 1) == 0)
+    {
+      nRDevice = nRDevice;
+      v18 = currentState;
+      AnalyticsSendEventLazy();
+    }
+  }
+
+LABEL_12:
+  return v16;
+}
+
 id __52__SCLSchoolModeCoordinator_setActive_options_error___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"isAltAccount";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"isAltAccount";
   v2 = MEMORY[0x277CCABB0];
   v3 = [*(a1 + 32) valueForProperty:*MEMORY[0x277D2BB28]];
   v4 = [v2 numberWithBool:{objc_msgSend(v3, "BOOLValue")}];
-  v9[1] = @"scheduleEnabled";
-  v10[0] = v4;
+  v8[1] = @"scheduleEnabled";
+  v9[0] = v4;
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 40), "isScheduleEnabled")}];
-  v10[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
@@ -586,43 +809,41 @@ id __52__SCLSchoolModeCoordinator_setActive_options_error___block_invoke(uint64_
 
 - (void)_noteHistoryDidUpdate
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   configuration = [(SCLSchoolModeCoordinator *)self configuration];
   targetQueue = [configuration targetQueue];
   dispatch_assert_queue_V2(targetQueue);
 
   v5 = [(NSMutableSet *)self->_clients copy];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) unlockHistoryDidChange];
+        [*(*(&v11 + 1) + 8 * v10++) unlockHistoryDidChange];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lock_updatePersistentSettingsWithBlock:(id)block
@@ -651,10 +872,10 @@ id __52__SCLSchoolModeCoordinator_setActive_options_error___block_invoke(uint64_
 - (void)_persistSettings:(id)settings
 {
   settingsCopy = settings;
-  v13 = 0;
-  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:settingsCopy requiringSecureCoding:1 error:&v13];
-  v6 = v13;
-  v7 = scl_persistence_log();
+  v15 = 0;
+  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:settingsCopy requiringSecureCoding:1 error:&v15];
+  v6 = v15;
+  v7 = scl_persistence_log(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [(SCLSchoolModeCoordinator *)settingsCopy _persistSettings:v7];
@@ -662,25 +883,25 @@ id __52__SCLSchoolModeCoordinator_setActive_options_error___block_invoke(uint64_
 
   if (!v5)
   {
-    v11 = scl_persistence_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = scl_persistence_log(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [SCLSchoolModeCoordinator _persistSettings:];
     }
 
-    v10 = v6;
+    v11 = v6;
     goto LABEL_10;
   }
 
   scheduleURL = self->_scheduleURL;
-  v12 = v6;
-  v9 = [v5 writeToURL:scheduleURL options:1073741825 error:&v12];
-  v10 = v12;
+  v14 = v6;
+  v10 = [v5 writeToURL:scheduleURL options:1073741825 error:&v14];
+  v11 = v14;
 
-  if ((v9 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
-    v11 = scl_persistence_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = scl_persistence_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [SCLSchoolModeCoordinator _persistSettings:];
     }
@@ -691,7 +912,7 @@ LABEL_10:
 
 - (void)server:(id)server didUpdateState:(id)state fromState:(id)fromState
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   fromStateCopy = fromState;
   configuration = [(SCLSchoolModeCoordinator *)self configuration];
@@ -720,14 +941,14 @@ LABEL_10:
       startTime = [timeInterval startTime];
 
       [v19 timeInterval];
-      v22 = v66 = scheduleSettings;
+      v22 = v65 = scheduleSettings;
       endTime = [v22 endTime];
 
       v24 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:date duration:0.0];
       [MEMORY[0x277CBEBB0] localTimeZone];
-      v25 = v64 = date;
+      v25 = v63 = date;
       v26 = [SCLUnlockHistoryItem alloc];
-      v63 = v19;
+      v62 = v19;
       v27 = startTime;
       v28 = startTime;
       v29 = endTime;
@@ -737,33 +958,33 @@ LABEL_10:
       [(SCLSchoolModeCoordinator *)self setPendingUnlockItem:v30];
 
       currentCalendar = v31;
-      date = v64;
+      date = v63;
 
-      scheduleSettings = v66;
-      v19 = v63;
+      scheduleSettings = v65;
+      v19 = v62;
     }
 
     else
     {
-      v50 = scl_framework_log();
+      v50 = scl_framework_log(0);
       if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
       {
         [scheduleSettings schedule];
-        v60 = v59 = date;
-        [v60 recurrences];
-        v68 = scheduleSettings;
-        v62 = v61 = currentCalendar;
+        v59 = v58 = date;
+        [v59 recurrences];
+        v67 = scheduleSettings;
+        v61 = v60 = currentCalendar;
         *buf = 138412802;
-        v78 = v59;
-        v79 = 2112;
-        v80 = v61;
-        v81 = 2112;
-        v82 = v62;
+        v77 = v58;
+        v78 = 2112;
+        v79 = v60;
+        v80 = 2112;
+        v81 = v61;
         _os_log_fault_impl(&dword_264829000, v50, OS_LOG_TYPE_FAULT, "Failed to find active schedule recurrence for unlock period at date %@ in calendar %@: %@", buf, 0x20u);
 
-        date = v59;
-        currentCalendar = v61;
-        scheduleSettings = v68;
+        date = v58;
+        currentCalendar = v60;
+        scheduleSettings = v67;
       }
     }
 
@@ -800,7 +1021,7 @@ LABEL_15:
   v41 = objc_alloc(MEMORY[0x277CCA970]);
   unlockedInterval2 = [pendingUnlockItem3 unlockedInterval];
   startDate2 = [unlockedInterval2 startDate];
-  v67 = [v41 initWithStartDate:startDate2 duration:v40];
+  v66 = [v41 initWithStartDate:startDate2 duration:v40];
 
   v44 = [SCLUnlockHistoryItem alloc];
   calendar = [pendingUnlockItem3 calendar];
@@ -809,43 +1030,43 @@ LABEL_15:
   [pendingUnlockItem3 scheduleEndTime];
   v47 = stateCopy;
   v49 = v48 = v13;
-  pendingUnlockItem2 = [(SCLUnlockHistoryItem *)v44 initWithInterval:v67 calendar:calendar timeZone:timeZone startTime:scheduleStartTime endTime:v49];
+  pendingUnlockItem2 = [(SCLUnlockHistoryItem *)v44 initWithInterval:v66 calendar:calendar timeZone:timeZone startTime:scheduleStartTime endTime:v49];
 
   v13 = v48;
   stateCopy = v47;
 
   [(SCLSchoolModeCoordinator *)self setPendingUnlockItem:0];
 LABEL_16:
-  v74[0] = MEMORY[0x277D85DD0];
-  v74[1] = 3221225472;
-  v74[2] = __60__SCLSchoolModeCoordinator_server_didUpdateState_fromState___block_invoke;
-  v74[3] = &unk_279B6C810;
+  v73[0] = MEMORY[0x277D85DD0];
+  v73[1] = 3221225472;
+  v73[2] = __60__SCLSchoolModeCoordinator_server_didUpdateState_fromState___block_invoke;
+  v73[3] = &unk_279B6C810;
   v51 = stateCopy;
-  v75 = v51;
-  [(SCLSchoolModeCoordinator *)self _lock_updatePersistentSettingsWithBlock:v74];
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
+  v74 = v51;
+  [(SCLSchoolModeCoordinator *)self _lock_updatePersistentSettingsWithBlock:v73];
   v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   v52 = v13;
-  v53 = [v52 countByEnumeratingWithState:&v70 objects:v76 count:16];
+  v53 = [v52 countByEnumeratingWithState:&v69 objects:v75 count:16];
   if (v53)
   {
     v54 = v53;
-    v55 = *v71;
+    v55 = *v70;
     do
     {
       for (i = 0; i != v54; ++i)
       {
-        if (*v71 != v55)
+        if (*v70 != v55)
         {
           objc_enumerationMutation(v52);
         }
 
-        [*(*(&v70 + 1) + 8 * i) didUpdateState:v51 fromState:fromStateCopy];
+        [*(*(&v69 + 1) + 8 * i) didUpdateState:v51 fromState:fromStateCopy];
       }
 
-      v54 = [v52 countByEnumeratingWithState:&v70 objects:v76 count:16];
+      v54 = [v52 countByEnumeratingWithState:&v69 objects:v75 count:16];
     }
 
     while (v54);
@@ -854,14 +1075,12 @@ LABEL_16:
   if (pendingUnlockItem2)
   {
     [(SCLSchoolModeCoordinator *)self addUnlockHistoryItem:pendingUnlockItem2 completion:&__block_literal_global_7];
-    v69 = pendingUnlockItem2;
+    v68 = pendingUnlockItem2;
     AnalyticsSendEventLazy();
   }
 
   activeDurationAnalyticsSource = [(SCLSchoolModeCoordinator *)self activeDurationAnalyticsSource];
   [activeDurationAnalyticsSource setCurrentState:v51];
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 void __60__SCLSchoolModeCoordinator_server_didUpdateState_fromState___block_invoke(uint64_t a1, void *a2)
@@ -882,18 +1101,16 @@ void __60__SCLSchoolModeCoordinator_server_didUpdateState_fromState___block_invo
 
 id __60__SCLSchoolModeCoordinator_server_didUpdateState_fromState___block_invoke_3(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8 = @"UnlockDuration";
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = @"UnlockDuration";
   v1 = MEMORY[0x277CCABB0];
   v2 = [*(a1 + 32) unlockedInterval];
   [v2 duration];
   *&v3 = v3;
   *&v3 = roundf(*&v3);
   v4 = [v1 numberWithFloat:v3];
-  v9[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v5;
 }
@@ -908,6 +1125,33 @@ id __60__SCLSchoolModeCoordinator_server_didUpdateState_fromState___block_invoke
   v6 = [scheduleSettings copy];
 
   return v6;
+}
+
+- (void)transportController:(id)controller didReceiveSchedule:(id)schedule forInitialSync:(BOOL)sync
+{
+  syncCopy = sync;
+  scheduleCopy = schedule;
+  configuration = [(SCLSchoolModeCoordinator *)self configuration];
+  targetQueue = [configuration targetQueue];
+  dispatch_assert_queue_V2(targetQueue);
+
+  v13 = 0;
+  LOBYTE(configuration) = [(SCLSchoolModeCoordinator *)self applySchedule:scheduleCopy forInitialSync:syncCopy error:&v13];
+  v10 = v13;
+  v11 = scl_transport_log(v10);
+  v12 = v11;
+  if (configuration)
+  {
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      [SCLSchoolModeCoordinator transportController:didReceiveSchedule:forInitialSync:];
+    }
+  }
+
+  else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  {
+    [SCLSchoolModeCoordinator transportController:didReceiveSchedule:forInitialSync:];
+  }
 }
 
 - (void)transportController:(id)controller didReceiveUnlockHistoryItem:(id)item
@@ -929,7 +1173,7 @@ id __60__SCLSchoolModeCoordinator_server_didUpdateState_fromState___block_invoke
 void __76__SCLSchoolModeCoordinator_transportController_didReceiveUnlockHistoryItem___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = scl_transport_log();
+  v5 = scl_transport_log(v4);
   v6 = v5;
   if (v4)
   {
@@ -945,74 +1189,23 @@ void __76__SCLSchoolModeCoordinator_transportController_didReceiveUnlockHistoryI
   }
 }
 
-- (void)applySchedule:forInitialSync:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_264829000, v0, v1, "Apply schedule: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_persistSettings:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = [a1 isManualSchoolModeEnabled];
   v5 = [a1 scheduleSettings];
-  v7[0] = 67109378;
-  v7[1] = v4;
-  v8 = 2112;
-  v9 = v5;
-  _os_log_debug_impl(&dword_264829000, a2, OS_LOG_TYPE_DEBUG, "Persist settings - manualSchoolModeEnabled: %{BOOL}u; schedule: %@", v7, 0x12u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_persistSettings:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_264829000, v0, v1, "Failed to write data for schedule: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_persistSettings:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_264829000, v0, v1, "Failed to create data for settings: %@ %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)transportController:didReceiveSchedule:forInitialSync:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_264829000, v0, v1, "Failed to apply schedule %@ from remote source with error: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)transportController:didReceiveSchedule:forInitialSync:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_264829000, v0, v1, "Applied remote schedule: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __76__SCLSchoolModeCoordinator_transportController_didReceiveUnlockHistoryItem___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_264829000, v0, v1, "Failed to add incoming remote history item: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = 67109378;
+  v6[1] = v4;
+  v7 = 2112;
+  v8 = v5;
+  _os_log_debug_impl(&dword_264829000, a2, OS_LOG_TYPE_DEBUG, "Persist settings - manualSchoolModeEnabled: %{BOOL}u; schedule: %@", v6, 0x12u);
 }
 
 void __76__SCLSchoolModeCoordinator_transportController_didReceiveUnlockHistoryItem___block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_2(&dword_264829000, a2, a3, "Added remote history item: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_2(&dword_264829000, a2, a3, "Added remote history item: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

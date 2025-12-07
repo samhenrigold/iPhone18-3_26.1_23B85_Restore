@@ -941,7 +941,7 @@ void __22__ControlManager_init__block_invoke_1260(uint64_t a1)
 
 - (void)registerForCacheDeleteMigration
 {
-  if (usingCentralizedCachedelete() && (!&_os_variant_uses_ephemeral_storage || (os_variant_uses_ephemeral_storage() & 1) == 0))
+  if (usingCentralizedCachedelete(self, a2) && (!&_os_variant_uses_ephemeral_storage || (os_variant_uses_ephemeral_storage() & 1) == 0))
   {
     v3 = +[BGSystemTaskScheduler sharedScheduler];
     cachedeleteQueue = [(ControlManager *)self cachedeleteQueue];
@@ -3142,7 +3142,7 @@ LABEL_13:
 
   v16 = [NSData dataWithBytesNoCopy:data length:length freeWhenDone:0];
   v17 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v16 error:0];
-  v18 = queryDecodeClasses();
+  v18 = queryDecodeClasses(v17);
   v19 = [v17 decodeObjectOfClasses:v18 forKey:NSKeyedArchiveRootObjectKey];
 
   objc_opt_class();
@@ -3209,7 +3209,7 @@ void __65__ControlManager_handlePmvRequest_clientName_connection_message___block
   v17 = xpc_dictionary_get_BOOL(messageCopy, "doNotBlockOnNetworkStatus");
   if (uint64 == 3)
   {
-    v37 = 0;
+    v38 = 0;
     v18 = @"will not block on network";
   }
 
@@ -3227,7 +3227,7 @@ void __65__ControlManager_handlePmvRequest_clientName_connection_message___block
 
     if ((beforeFirstUnlock & v16 | v17))
     {
-      v37 = 0;
+      v38 = 0;
     }
 
     else
@@ -3248,7 +3248,7 @@ void __65__ControlManager_handlePmvRequest_clientName_connection_message___block
         v18 = v19;
       }
 
-      v37 = 1;
+      v38 = 1;
     }
   }
 
@@ -3258,15 +3258,15 @@ void __65__ControlManager_handlePmvRequest_clientName_connection_message___block
   {
     v21 = stringForMAQueryReturnTypes(uint64);
     *buf = 138544386;
-    v54 = nameCopy;
-    v55 = 2114;
-    v56 = requestCopy;
-    v57 = 2048;
-    v58 = uint64;
-    v59 = 2114;
-    v60 = v21;
-    v61 = 2114;
-    v62 = v18;
+    v55 = nameCopy;
+    v56 = 2114;
+    v57 = requestCopy;
+    v58 = 2048;
+    v59 = uint64;
+    v60 = 2114;
+    v61 = v21;
+    v62 = 2114;
+    v63 = v18;
     _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ queried for: %{public}@ with returnType of: %lld (%{public}@) - %{public}@", buf, 0x34u);
   }
 
@@ -3279,40 +3279,40 @@ void __65__ControlManager_handlePmvRequest_clientName_connection_message___block
     {
       v25 = [NSData dataWithBytesNoCopy:data length:length freeWhenDone:0];
       v26 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v25 error:0];
-      v27 = queryDecodeClasses();
-      v36 = v26;
+      v27 = queryDecodeClasses(v26);
+      v37 = v26;
       v28 = [v26 decodeObjectOfClasses:v27 forKey:NSKeyedArchiveRootObjectKey];
 
       v29 = v28;
       if (v28 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
-        v34 = objc_opt_new();
-        LOWORD(v35) = 1;
-        [(ControlManager *)self sendQueryResults:v34 assetType:requestCopy purpose:v23 catalogInfo:0 returnTypes:uint64 postedDate:0 lastFetchedDate:0 result:8 isFiltered:v35 requireSpecificAsset:connectionCopy connection:messageCopy message:nameCopy clientName:?];
+        v35 = objc_opt_new();
+        LOWORD(v36) = 1;
+        [(ControlManager *)self sendQueryResults:v35 assetType:requestCopy purpose:v23 catalogInfo:0 returnTypes:uint64 postedDate:0 lastFetchedDate:0 result:8 isFiltered:v36 requireSpecificAsset:connectionCopy connection:messageCopy message:nameCopy clientName:?];
 
         v29 = v28;
       }
 
       else
       {
-        [v36 finishDecoding];
-        if (v37)
+        finishDecoding = [v37 finishDecoding];
+        if (v38)
         {
-          v30 = getDownloadManager();
-          v38[0] = _NSConcreteStackBlock;
-          v38[1] = 3221225472;
-          v38[2] = __67__ControlManager_handleQueryRequest_clientName_connection_message___block_invoke_2;
-          v38[3] = &unk_4B5308;
-          v38[4] = self;
-          v39 = requestCopy;
-          v40 = nameCopy;
-          v41 = connectionCopy;
-          v42 = messageCopy;
-          v44 = uint64;
-          v43 = v29;
-          [v30 allDownloading:v38];
+          v31 = getDownloadManager(finishDecoding);
+          v39[0] = _NSConcreteStackBlock;
+          v39[1] = 3221225472;
+          v39[2] = __67__ControlManager_handleQueryRequest_clientName_connection_message___block_invoke_2;
+          v39[3] = &unk_4B5308;
+          v39[4] = self;
+          v40 = requestCopy;
+          v41 = nameCopy;
+          v42 = connectionCopy;
+          v43 = messageCopy;
+          v45 = uint64;
+          v44 = v29;
+          [v31 allDownloading:v39];
 
-          v31 = v39;
+          v32 = v40;
         }
 
         else
@@ -3323,17 +3323,17 @@ void __65__ControlManager_handlePmvRequest_clientName_connection_message___block
           block[2] = __67__ControlManager_handleQueryRequest_clientName_connection_message___block_invoke;
           block[3] = &unk_4B3328;
           block[4] = self;
-          v46 = requestCopy;
-          v47 = nameCopy;
-          v48 = connectionCopy;
-          v49 = messageCopy;
-          v51 = uint64;
-          v50 = v28;
-          v33 = assetQueue;
+          v47 = requestCopy;
+          v48 = nameCopy;
+          v49 = connectionCopy;
+          v50 = messageCopy;
+          v52 = uint64;
+          v51 = v28;
+          v34 = assetQueue;
           v29 = v28;
-          dispatch_async(v33, block);
+          dispatch_async(v34, block);
 
-          v31 = v46;
+          v32 = v47;
         }
       }
     }
@@ -3341,16 +3341,16 @@ void __65__ControlManager_handlePmvRequest_clientName_connection_message___block
     else
     {
       v25 = objc_opt_new();
-      LOWORD(v35) = 0;
-      [(ControlManager *)self sendQueryResults:v25 assetType:requestCopy purpose:v23 catalogInfo:0 returnTypes:uint64 postedDate:0 lastFetchedDate:0 result:8 isFiltered:v35 requireSpecificAsset:connectionCopy connection:messageCopy message:nameCopy clientName:?];
+      LOWORD(v36) = 0;
+      [(ControlManager *)self sendQueryResults:v25 assetType:requestCopy purpose:v23 catalogInfo:0 returnTypes:uint64 postedDate:0 lastFetchedDate:0 result:8 isFiltered:v36 requireSpecificAsset:connectionCopy connection:messageCopy message:nameCopy clientName:?];
     }
   }
 
   else
   {
     v25 = objc_opt_new();
-    LOWORD(v35) = 0;
-    [(ControlManager *)self sendQueryResults:v25 assetType:requestCopy purpose:@"<invalid>" catalogInfo:0 returnTypes:uint64 postedDate:0 lastFetchedDate:0 result:8 isFiltered:v35 requireSpecificAsset:connectionCopy connection:messageCopy message:nameCopy clientName:?];
+    LOWORD(v36) = 0;
+    [(ControlManager *)self sendQueryResults:v25 assetType:requestCopy purpose:@"<invalid>" catalogInfo:0 returnTypes:uint64 postedDate:0 lastFetchedDate:0 result:8 isFiltered:v36 requireSpecificAsset:connectionCopy connection:messageCopy message:nameCopy clientName:?];
   }
 }
 
@@ -3521,7 +3521,7 @@ LABEL_38:
   os_activity_scope_enter(v14, &state);
 
   v15 = objc_opt_class();
-  v16 = loadDecodeClasses();
+  v16 = loadDecodeClasses(v15);
   v43 = 0;
   v17 = [(ControlManager *)self decodeXpcObject:messageCopy ofClass:v15 dataKey:@"loadAssetId" lengthKey:@"loadAssetIdLength" decodeClasses:v16 error:&v43];
   v18 = v43;
@@ -3566,7 +3566,7 @@ LABEL_38:
     {
 LABEL_7:
       v20 = objc_opt_class();
-      v21 = loadDecodeClasses();
+      v21 = loadDecodeClasses(v20);
       v42 = 0;
       v22 = [(ControlManager *)self decodeXpcObject:messageCopy ofClass:v20 dataKey:@"allowedDifferences" lengthKey:@"allowedDifferencesLength" decodeClasses:v21 error:&v42];
       v18 = v42;
@@ -4341,7 +4341,7 @@ LABEL_16:
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v2 = getSoftwareUpdateTypes();
+  v2 = getSoftwareUpdateTypes(self);
   v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
@@ -4402,12 +4402,12 @@ LABEL_16:
   v6 = +[NSDate date];
   v5 = [v6 dateByAddingTimeInterval:-691200.0];
 
-  v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
+  v18 = 0u;
   v7 = allRepositoryPathsForPurging(0);
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (!v8)
   {
 LABEL_17:
@@ -4417,17 +4417,17 @@ LABEL_17:
 
   v9 = v8;
   v10 = 0;
-  v11 = *v17;
+  v11 = *v18;
   do
   {
     for (i = 0; i != v9; i = i + 1)
     {
-      if (*v17 != v11)
+      if (*v18 != v11)
       {
         objc_enumerationMutation(v7);
       }
 
-      v13 = *(*(&v16 + 1) + 8 * i);
+      v13 = *(*(&v17 + 1) + 8 * i);
       v14 = getRepositoryStagingUrl(v13, 0);
       v15 = getRepositoryDownloadsUrl(v13, 0);
       if (v14)
@@ -4441,14 +4441,14 @@ LABEL_17:
       }
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
   }
 
   while (v9);
 
   if (v10)
   {
-    v7 = getDownloadManager();
+    v7 = getDownloadManager(v16);
     [v7 queryNSUrlSessiondAndUpdateState];
     goto LABEL_17;
   }
@@ -4595,57 +4595,57 @@ void __53__ControlManager_getStateOfAsset_incoming_assetType___block_invoke(uint
   }
 
   *buf = 0;
-  v26 = buf;
-  v27 = 0x2020000000;
-  v28 = 0;
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = __53__ControlManager_getStateOfAsset_incoming_assetType___block_invoke_1538;
-  v21[3] = &unk_4B5330;
+  v27 = buf;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = __53__ControlManager_getStateOfAsset_incoming_assetType___block_invoke_1538;
+  v22[3] = &unk_4B5330;
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v24 = buf;
-  v21[4] = v3;
-  v22 = v4;
-  v23 = *(a1 + 48);
-  v5 = objc_retainBlock(v21);
+  v25 = buf;
+  v22[4] = v3;
+  v23 = v4;
+  v24 = *(a1 + 48);
+  v5 = objc_retainBlock(v22);
   v6 = [NSString stringWithUTF8String:xpc_dictionary_get_string(*(a1 + 48), "AssetId")];
   v7 = v6;
   if (!*(a1 + 56))
   {
-    v14 = _MADLog(@"V2");
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _MADLog(@"V2");
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_16;
     }
 
-    *v20 = 0;
-    v15 = "getStateOfAsset, attempting to get state on nil asset type";
+    *v21 = 0;
+    v16 = "getStateOfAsset, attempting to get state on nil asset type";
 LABEL_15:
-    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, v15, v20, 2u);
+    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, v16, v21, 2u);
     goto LABEL_16;
   }
 
   if (!v6)
   {
-    v14 = _MADLog(@"V2");
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _MADLog(@"V2");
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_16;
     }
 
-    *v20 = 0;
-    v15 = "getStateOfAsset, attempting to get state on nil asset ID";
+    *v21 = 0;
+    v16 = "getStateOfAsset, attempting to get state on nil asset ID";
     goto LABEL_15;
   }
 
   if (!isWellFormedAssetId(v6))
   {
-    v14 = _MADLog(@"V2");
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _MADLog(@"V2");
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      *v20 = 0;
-      v15 = "getStateOfAsset, attempting to get state on asset ID that isn't well formed";
+      *v21 = 0;
+      v16 = "getStateOfAsset, attempting to get state on asset ID that isn't well formed";
       goto LABEL_15;
     }
 
@@ -4659,53 +4659,53 @@ LABEL_16:
   if (isWellFormedPurpose(v9))
   {
     v10 = [*(a1 + 32) getStateOfAssetInCatalog:*(a1 + 56) assetId:v7 withPurpose:v9];
-    *(v26 + 3) = v10;
+    *(v27 + 3) = v10;
     if (v10 < 2)
     {
       v11 = normalizedAssetType(*(a1 + 56));
       v12 = assembleTaskDescriptorWithPurpose(v11, v7, v9);
 
-      v13 = getDownloadManager();
-      [v13 isDownloading:v12 then:v5];
+      v14 = getDownloadManager(v13);
+      [v14 isDownloading:v12 then:v5];
 
       goto LABEL_18;
     }
 
-    v14 = _MADLog(@"V2Control");
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = _MADLog(@"V2Control");
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      v17 = "getStateOfAsset, don't need to check downloading status";
-      v18 = v14;
-      v19 = OS_LOG_TYPE_DEFAULT;
+      *v21 = 0;
+      v18 = "getStateOfAsset, don't need to check downloading status";
+      v19 = v15;
+      v20 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_25;
     }
   }
 
   else
   {
-    v14 = _MADLog(@"V2");
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _MADLog(@"V2");
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      *v20 = 0;
-      v17 = "getStateOfAsset, attempting to get state for a purpose that isn't well formed";
-      v18 = v14;
-      v19 = OS_LOG_TYPE_ERROR;
+      *v21 = 0;
+      v18 = "getStateOfAsset, attempting to get state for a purpose that isn't well formed";
+      v19 = v15;
+      v20 = OS_LOG_TYPE_ERROR;
 LABEL_25:
-      _os_log_impl(&dword_0, v18, v19, v17, v20, 2u);
+      _os_log_impl(&dword_0, v19, v20, v18, v21, 2u);
     }
   }
 
 LABEL_17:
 
-  [*(a1 + 32) sendStateOfAssetReply:*(a1 + 40) incoming:*(a1 + 48) with:*(v26 + 3)];
+  [*(a1 + 32) sendStateOfAssetReply:*(a1 + 40) incoming:*(a1 + 48) with:*(v27 + 3)];
   v12 = 0;
 LABEL_18:
-  v16 = _MADLog(@"V2Control");
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = _MADLog(@"V2Control");
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    *v20 = 0;
-    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "[CONTROL_MANAGER_ASSET_QUEUE] {getStateOfAsset} ...validating and getting asset state", v20, 2u);
+    *v21 = 0;
+    _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "[CONTROL_MANAGER_ASSET_QUEUE] {getStateOfAsset} ...validating and getting asset state", v21, 2u);
   }
 
   _Block_object_dispose(buf, 8);
@@ -4784,8 +4784,8 @@ LABEL_25:
   }
 
   v22 = v21;
-  v61 = v20;
-  v60 = [v21 objectForKey:@"__BaseURL"];
+  v62 = v20;
+  v61 = [v21 objectForKey:@"__BaseURL"];
   v23 = [v22 objectForKey:@"__RelativePath"];
   if (!v23 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
@@ -4801,33 +4801,33 @@ LABEL_25:
     goto LABEL_30;
   }
 
-  v57 = v23;
+  v58 = v23;
   uint64 = xpc_dictionary_get_uint64(messageCopy, "notificationInterval");
   v24 = [v22 objectForKey:@"_StartOfDataRange"];
   [v22 objectForKey:@"_LengthOfDataRange"];
-  v59 = v58 = v19;
-  v20 = v61;
-  if (v24 | v59)
+  v60 = v59 = v19;
+  v20 = v62;
+  if (v24 | v60)
   {
-    if (v24 && v59)
+    if (v24 && v60)
     {
       if ([v24 longLongValue] > 0)
       {
-        if ([v59 longLongValue] > 0)
+        if ([v60 longLongValue] > 0)
         {
           goto LABEL_12;
         }
 
-        v42 = v24;
-        v43 = v22;
-        v44 = _MADLog(@"V2Control");
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        v43 = v24;
+        v44 = v22;
+        v45 = _MADLog(@"V2Control");
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v65 = v42;
-          v66 = 2114;
-          v67 = v59;
-          v45 = "Invalid range request: zero length %{public}@ %{public}@";
+          v66 = v43;
+          v67 = 2114;
+          v68 = v60;
+          v46 = "Invalid range request: zero length %{public}@ %{public}@";
           goto LABEL_51;
         }
 
@@ -4840,45 +4840,45 @@ LABEL_59:
         goto LABEL_26;
       }
 
-      v42 = v24;
-      v43 = v22;
-      v44 = _MADLog(@"V2Control");
-      if (!os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      v43 = v24;
+      v44 = v22;
+      v45 = _MADLog(@"V2Control");
+      if (!os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_52;
       }
 
       *buf = 138543618;
-      v65 = v42;
-      v66 = 2114;
-      v67 = v59;
-      v45 = "Invalid range request: negative start %{public}@ %{public}@";
+      v66 = v43;
+      v67 = 2114;
+      v68 = v60;
+      v46 = "Invalid range request: negative start %{public}@ %{public}@";
     }
 
     else
     {
-      v42 = v24;
-      v43 = v22;
-      v44 = _MADLog(@"V2Control");
-      if (!os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      v43 = v24;
+      v44 = v22;
+      v45 = _MADLog(@"V2Control");
+      if (!os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_52;
       }
 
       *buf = 138543618;
-      v65 = v42;
-      v66 = 2114;
-      v67 = v59;
-      v45 = "Invalid range request: incomplete %{public}@ %{public}@";
+      v66 = v43;
+      v67 = 2114;
+      v68 = v60;
+      v46 = "Invalid range request: incomplete %{public}@ %{public}@";
     }
 
 LABEL_51:
-    _os_log_impl(&dword_0, v44, OS_LOG_TYPE_DEFAULT, v45, buf, 0x16u);
+    _os_log_impl(&dword_0, v45, OS_LOG_TYPE_DEFAULT, v46, buf, 0x16u);
     goto LABEL_52;
   }
 
 LABEL_12:
-  v56 = v22;
+  v57 = v22;
   v25 = xpc_dictionary_get_value(messageCopy, "stExtractorLength");
 
   if (!v25)
@@ -4895,11 +4895,11 @@ LABEL_12:
   data = xpc_dictionary_get_data(messageCopy, "stExtractor", &length);
   if (!data)
   {
-    v47 = _MADLog(@"V2Control");
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v48 = _MADLog(@"V2Control");
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v47, OS_LOG_TYPE_DEFAULT, "Failed to read extractor", buf, 2u);
+      _os_log_impl(&dword_0, v48, OS_LOG_TYPE_DEFAULT, "Failed to read extractor", buf, 2u);
     }
 
     sendClientResponse(connectionCopy, messageCopy, 11);
@@ -4917,20 +4917,20 @@ LABEL_12:
       _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "extractor exists attempting to create", buf, 2u);
     }
 
-    v62 = 0;
-    v50 = v28;
-    v30 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v28 error:&v62];
-    v51 = v30;
-    v52 = v62;
-    if (v52 || !v30)
+    v63 = 0;
+    v51 = v28;
+    v30 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v28 error:&v63];
+    v52 = v30;
+    v53 = v63;
+    if (v53 || !v30)
     {
       [v30 finishDecoding];
 LABEL_54:
-      v48 = _MADLog(@"V2Control");
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+      v49 = _MADLog(@"V2Control");
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v48, OS_LOG_TYPE_DEFAULT, "Failed to create extractor", buf, 2u);
+        _os_log_impl(&dword_0, v49, OS_LOG_TYPE_DEFAULT, "Failed to create extractor", buf, 2u);
       }
 
       sendClientResponse(connectionCopy, messageCopy, 11);
@@ -4939,11 +4939,11 @@ LABEL_57:
       goto LABEL_58;
     }
 
-    v31 = extractorDecodeClasses();
-    v32 = [v51 decodeObjectOfClasses:v31 forKey:NSKeyedArchiveRootObjectKey];
+    v31 = extractorDecodeClasses(0);
+    v32 = [v52 decodeObjectOfClasses:v31 forKey:NSKeyedArchiveRootObjectKey];
 
-    [v51 finishDecoding];
-    v54 = v32;
+    [v52 finishDecoding];
+    v55 = v32;
     if (!v32)
     {
       goto LABEL_54;
@@ -4953,28 +4953,28 @@ LABEL_57:
   else
   {
 LABEL_34:
-    v50 = 0;
     v51 = 0;
-    v54 = 0;
+    v52 = 0;
+    v55 = 0;
   }
 
-  v53 = v24;
-  v36 = getLocalUrlFromTypeAndIdWithPurpose(typeCopy, v17, 0, v58);
+  v54 = v24;
+  v36 = getLocalUrlFromTypeAndIdWithPurpose(typeCopy, v17, 0, v59);
   v37 = _MADLog(@"V2Control");
   if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544642;
-    v65 = nameCopy;
-    v66 = 2114;
-    v67 = typeCopy;
-    v68 = 2114;
-    v69 = v17;
-    v70 = 2114;
-    v71 = v60;
-    v72 = 2114;
-    v73 = v57;
-    v74 = 2114;
-    v75 = v36;
+    v66 = nameCopy;
+    v67 = 2114;
+    v68 = typeCopy;
+    v69 = 2114;
+    v70 = v17;
+    v71 = 2114;
+    v72 = v61;
+    v73 = 2114;
+    v74 = v58;
+    v75 = 2114;
+    v76 = v36;
     _os_log_impl(&dword_0, v37, OS_LOG_TYPE_DEFAULT, "%{public}@ issued download asset command: %{public}@, %{public}@, %{public}@, %{public}@ to local url '%{public}@'", buf, 0x3Eu);
   }
 
@@ -4984,19 +4984,19 @@ LABEL_34:
 
   if (!v40)
   {
-    v46 = getDownloadManager();
-    LOBYTE(v49) = !extractor;
-    [v46 registerAssetDownloadJob:typeCopy forThis:v17 withBase:v60 relativeTo:v57 startingAt:v53 withLength:v59 extractWith:v54 allocateExtractorIfNecessary:v49 connection:connectionCopy message:messageCopy clientName:nameCopy notify:uint64 withCatalogMetadata:v56 withSpaceCheckedUUID:0];
+    v47 = getDownloadManager(v41);
+    LOBYTE(v50) = !extractor;
+    [v47 registerAssetDownloadJob:typeCopy forThis:v17 withBase:v61 relativeTo:v58 startingAt:v54 withLength:v60 extractWith:v55 allocateExtractorIfNecessary:v50 connection:connectionCopy message:messageCopy clientName:nameCopy notify:uint64 withCatalogMetadata:v57 withSpaceCheckedUUID:0];
 
 LABEL_30:
     goto LABEL_26;
   }
 
-  v41 = _MADLog(@"V2Control");
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  v42 = _MADLog(@"V2Control");
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "asset already exists, cannot download", buf, 2u);
+    _os_log_impl(&dword_0, v42, OS_LOG_TYPE_DEFAULT, "asset already exists, cannot download", buf, 2u);
   }
 
   sendClientResponse(connectionCopy, messageCopy, 10);
@@ -5027,9 +5027,9 @@ LABEL_26:
   extractorCopy = extractor;
   optionsCopy = options;
   dCopy = d;
-  v138 = [extractorCopy objectForKeyedSubscript:@"AssetType"];
+  v140 = [extractorCopy objectForKeyedSubscript:@"AssetType"];
   v11 = [extractorCopy objectForKeyedSubscript:@"AssetFormat"];
-  v12 = repositoryPath(v138);
+  v12 = repositoryPath(v140);
   v13 = repositoryDownloadsAreRestricted();
 
   state.opaque[0] = 0;
@@ -5062,13 +5062,13 @@ LABEL_26:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v38 = MAErrorForDownloadResultWithUnderlying(16, 0, @"Asset metadata is malformed. %@ is present but is not of type NSData.", v18, v19, v20, v21, v22, @"_Measurement");
+        v38 = MAErrorForDownloadResultWithUnderlying(0x10uLL, 0, @"Asset metadata is malformed. %@ is present but is not of type NSData.", v18, v19, v20, v21, v22, @"_Measurement");
         v23 = _MADLog(@"V2Control");
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           localizedDescription = [v38 localizedDescription];
           *buf = 138412290;
-          v143 = localizedDescription;
+          v145 = localizedDescription;
           _os_log_impl(&dword_0, v23, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
         }
 
@@ -5082,13 +5082,13 @@ LABEL_26:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v38 = MAErrorForDownloadResultWithUnderlying(16, 0, @"Asset metadata is malformed. %@ is present but is not of type NSData.", v24, v25, v26, v27, v28, @"_Measurement-SHA256");
+        v38 = MAErrorForDownloadResultWithUnderlying(0x10uLL, 0, @"Asset metadata is malformed. %@ is present but is not of type NSData.", v24, v25, v26, v27, v28, @"_Measurement-SHA256");
         v75 = _MADLog(@"V2Control");
         if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
         {
           localizedDescription2 = [v38 localizedDescription];
           *buf = 138412290;
-          v143 = localizedDescription2;
+          v145 = localizedDescription2;
           _os_log_impl(&dword_0, v75, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
         }
 
@@ -5103,13 +5103,13 @@ LABEL_26:
     v37 = [extractorCopy objectForKey:@"_LengthOfDataRange"];
     if (v31 | v37)
     {
-      v38 = MAErrorForDownloadResultWithUnderlying(16, 0, @"Asset metadata specifies a range for download but extractor not set up for it", v32, v33, v34, v35, v36, v134);
+      v38 = MAErrorForDownloadResultWithUnderlying(0x10uLL, 0, @"Asset metadata specifies a range for download but extractor not set up for it", v32, v33, v34, v35, v36, v136);
       v39 = _MADLog(@"V2Control");
       if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         localizedDescription3 = [v38 localizedDescription];
         *buf = 138412290;
-        v143 = localizedDescription3;
+        v145 = localizedDescription3;
         _os_log_impl(&dword_0, v39, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
       }
 
@@ -5120,21 +5120,21 @@ LABEL_26:
     {
       v72 = SZExtractorHashTypeSHA256;
       v73 = [(ControlManager *)self hashToString:v23];
-      v153 = v73;
-      v74 = [NSArray arrayWithObjects:&v153 count:1];
+      v155 = v73;
+      v74 = [NSArray arrayWithObjects:&v155 count:1];
     }
 
     else
     {
       if (!v17)
       {
-        v38 = MAErrorForDownloadResultWithUnderlying(16, 0, @"Asset metadata lacks a valid measurement to perform streaming extraction", v32, v33, v34, v35, v36, v134);
+        v38 = MAErrorForDownloadResultWithUnderlying(0x10uLL, 0, @"Asset metadata lacks a valid measurement to perform streaming extraction", v32, v33, v34, v35, v36, v136);
         v82 = _MADLog(@"V2Control");
         if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
         {
           localizedDescription4 = [v38 localizedDescription];
           *buf = 138412290;
-          v143 = localizedDescription4;
+          v145 = localizedDescription4;
           _os_log_impl(&dword_0, v82, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
         }
 
@@ -5144,22 +5144,22 @@ LABEL_26:
 
       v72 = SZExtractorHashTypeSHA1;
       v73 = [(ControlManager *)self hashToString:v17];
-      v152 = v73;
-      v74 = [NSArray arrayWithObjects:&v152 count:1];
+      v154 = v73;
+      v74 = [NSArray arrayWithObjects:&v154 count:1];
     }
 
     v77 = v74;
 
-    v150[0] = SZExtractorOptionsHashType;
-    v150[1] = SZExtractorOptionsHashesArray;
-    v151[0] = v72;
-    v151[1] = v77;
-    v151[2] = &__kCFBooleanTrue;
-    v150[2] = SZExtractorOptionsDenyInvalidSymlinks;
-    v150[3] = SZExtractorOptionsHashedChunkSize;
+    v152[0] = SZExtractorOptionsHashType;
+    v152[1] = SZExtractorOptionsHashesArray;
+    v153[0] = v72;
+    v153[1] = v77;
+    v153[2] = &__kCFBooleanTrue;
+    v152[2] = SZExtractorOptionsDenyInvalidSymlinks;
+    v152[3] = SZExtractorOptionsHashedChunkSize;
     v78 = [NSNumber numberWithLongLong:unsignedLongLongValue];
-    v151[3] = v78;
-    v79 = [NSDictionary dictionaryWithObjects:v151 forKeys:v150 count:4];
+    v153[3] = v78;
+    v79 = [NSDictionary dictionaryWithObjects:v153 forKeys:v152 count:4];
 
     v80 = [[SZExtractor alloc] initWithOptions:v79];
     v81 = v80;
@@ -5184,11 +5184,11 @@ LABEL_105:
     if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v143 = v15;
+      v145 = v15;
       _os_log_impl(&dword_0, v65, OS_LOG_TYPE_ERROR, "Unknown asset format:%{public}@", buf, 0xCu);
     }
 
-    v64 = MAErrorForDownloadResultWithUnderlying(16, 0, @"[%s:%d] [%s] Unknown asset format:%@", v66, v67, v68, v69, v70, "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m");
+    v64 = MAErrorForDownloadResultWithUnderlying(0x10uLL, 0, @"[%s:%d] [%s] Unknown asset format:%@", v66, v67, v68, v69, v70, "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m");
     goto LABEL_53;
   }
 
@@ -5235,13 +5235,13 @@ LABEL_105:
 
   [v17 setPrivileged:1];
 LABEL_29:
-  if (__isPlatformVersionAtLeast(2, 19, 0, 0) && _os_feature_enabled_impl() && isPreallocateSpaceAllowedType(v138))
+  if (__isPlatformVersionAtLeast(2, 19, 0, 0) && _os_feature_enabled_impl() && isPreallocateSpaceAllowedType(v140))
   {
     v47 = _MADLog(@"V2Control");
     if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v143 = v138;
+      v145 = v140;
       _os_log_impl(&dword_0, v47, OS_LOG_TYPE_DEFAULT, "Asset type is allow listed for entitled reserve space: %{public}@", buf, 0xCu);
     }
 
@@ -5266,65 +5266,66 @@ LABEL_29:
 LABEL_84:
 
       v87 = objc_autoreleasePoolPush();
-      v88 = getDownloadManager();
+      v88 = getDownloadManager(v87);
       keyManager = [v88 keyManager];
 
-      v90 = [DownloadManager pathToCatalogLookupServer:v138 usingDownloadOptions:optionsCopy];
-      if (getIsKnoxSupportedFromPallasURL(v90))
+      v90 = [DownloadManager pathToCatalogLookupServer:v140 usingDownloadOptions:optionsCopy];
+      IsKnoxSupportedFromPallasURL = getIsKnoxSupportedFromPallasURL(v90);
+      if (IsKnoxSupportedFromPallasURL)
       {
         IsInternalAllowed = 1;
       }
 
       else
       {
-        IsInternalAllowed = _MAPreferencesIsInternalAllowed();
+        IsInternalAllowed = _MAPreferencesIsInternalAllowed(IsKnoxSupportedFromPallasURL, v92);
       }
 
-      v139 = 0;
-      v23 = [keyManager getDecryptionKey:extractorCopy downloadOptions:optionsCopy apTicket:0 skipKnoxLookup:IsInternalAllowed ^ 1u disableUI:objc_msgSend(keyManager error:{"shouldDisableUIForUsage:assetAttributes:downloadOptions:", @"key retrieval", extractorCopy, optionsCopy), &v139}];
-      v92 = v139;
-      v135 = v92;
-      if (v23 && !v92)
+      v141 = 0;
+      v23 = [keyManager getDecryptionKey:extractorCopy downloadOptions:optionsCopy apTicket:0 skipKnoxLookup:IsInternalAllowed ^ 1u disableUI:objc_msgSend(keyManager error:{"shouldDisableUIForUsage:assetAttributes:downloadOptions:", @"key retrieval", extractorCopy, optionsCopy), &v141}];
+      v94 = v141;
+      v137 = v94;
+      if (v23 && !v94)
       {
         goto LABEL_97;
       }
 
-      v93 = _MADLog(@"V2");
-      if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
+      v95 = _MADLog(@"V2");
+      if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
       {
-        if (v135)
+        if (v137)
         {
-          v94 = [v135 description];
+          v96 = [v137 description];
         }
 
         else
         {
-          v94 = @"None";
+          v96 = @"None";
         }
 
         *buf = 138543362;
-        v143 = v94;
-        _os_log_impl(&dword_0, v93, OS_LOG_TYPE_ERROR, "Unable to obtain decryption key: error: %{public}@", buf, 0xCu);
-        if (v135)
+        v145 = v96;
+        _os_log_impl(&dword_0, v95, OS_LOG_TYPE_ERROR, "Unable to obtain decryption key: error: %{public}@", buf, 0xCu);
+        if (v137)
         {
         }
       }
 
       if ([(__CFString *)v15 isEqualToString:@"AppleEncryptedArchive"])
       {
-        v38 = MAErrorForDownloadResultWithUnderlying(84, v135, @"Failed to obtain decryption key", v95, v96, v97, v98, v99, v134);
-        v100 = 0;
+        v38 = MAErrorForDownloadResultWithUnderlying(0x54uLL, v137, @"Failed to obtain decryption key", v97, v98, v99, v100, v101, v136);
+        v102 = 0;
       }
 
       else
       {
 LABEL_97:
         v38 = 0;
-        v100 = 1;
+        v102 = 1;
       }
 
       objc_autoreleasePoolPop(v87);
-      if (!v100)
+      if (!v102)
       {
 
 LABEL_104:
@@ -5337,17 +5338,17 @@ LABEL_104:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v101 = [[NSData alloc] initWithBase64EncodedString:v23 options:0];
+          v103 = [[NSData alloc] initWithBase64EncodedString:v23 options:0];
 
-          v23 = v101;
-          if (!v101)
+          v23 = v103;
+          if (!v103)
           {
-            v107 = MAErrorForDownloadResultWithUnderlying(23, 0, @"[%s:%d] [%s] unable to base64 decode string decryption key", v102, v103, v104, v105, v106, "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m");
+            v109 = MAErrorForDownloadResultWithUnderlying(0x17uLL, 0, @"[%s:%d] [%s] unable to base64 decode string decryption key", v104, v105, v106, v107, v108, "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m");
 
             v23 = 0;
 LABEL_130:
             v71 = 0;
-            v38 = v107;
+            v38 = v109;
             goto LABEL_131;
           }
         }
@@ -5358,7 +5359,7 @@ LABEL_130:
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             object_getClassName(v23);
-            v107 = MAErrorForDownloadResultWithUnderlying(23, 0, @"[%s:%d] [%s] decryption key is not an NSString or NSData: %s", v117, v118, v119, v120, v121, "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m");
+            v109 = MAErrorForDownloadResultWithUnderlying(0x17uLL, 0, @"[%s:%d] [%s] decryption key is not an NSString or NSData: %s", v119, v120, v121, v122, v123, "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m");
 
             goto LABEL_130;
           }
@@ -5373,23 +5374,23 @@ LABEL_130:
         {
           if ([v23 length]!= &stru_20)
           {
-            v122 = _MADLog(@"V2");
-            if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+            v124 = _MADLog(@"V2");
+            if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
             {
-              v123 = [v23 length];
+              v125 = [v23 length];
               *buf = 136446978;
-              v143 = "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m";
-              v144 = 1024;
-              v145 = 4321;
-              v146 = 2082;
-              v147 = "[ControlManager newExtractor:downloadOptions:sessionID:error:]";
-              v148 = 2048;
-              v149 = v123;
-              _os_log_impl(&dword_0, v122, OS_LOG_TYPE_ERROR, "[%{public}s:%d] [%{public}s] invalid decryption key length: %lu (should be 32 or 97 bytes)", buf, 0x26u);
+              v145 = "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m";
+              v146 = 1024;
+              v147 = 4321;
+              v148 = 2082;
+              v149 = "[ControlManager newExtractor:downloadOptions:sessionID:error:]";
+              v150 = 2048;
+              v151 = v125;
+              _os_log_impl(&dword_0, v124, OS_LOG_TYPE_ERROR, "[%{public}s:%d] [%{public}s] invalid decryption key length: %lu (should be 32 or 97 bytes)", buf, 0x26u);
             }
 
             [v23 length];
-            v107 = MAErrorForDownloadResultWithUnderlying(23, 0, @"[%s:%d] [%s] invalid decryption key length: %lu (should be 32 or 97 bytes)", v124, v125, v126, v127, v128, "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m");
+            v109 = MAErrorForDownloadResultWithUnderlying(0x17uLL, 0, @"[%s:%d] [%s] invalid decryption key length: %lu (should be 32 or 97 bytes)", v126, v127, v128, v129, v130, "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m");
 
             goto LABEL_130;
           }
@@ -5400,18 +5401,18 @@ LABEL_130:
 
       if (extractorCopy)
       {
-        v110 = [extractorCopy objectForKeyedSubscript:@"ArchiveID"];
-        if (v110)
+        v112 = [extractorCopy objectForKeyedSubscript:@"ArchiveID"];
+        if (v112)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v111 = [[NSData alloc] initWithBase64EncodedString:v110 options:0];
+            v113 = [[NSData alloc] initWithBase64EncodedString:v112 options:0];
 
-            v110 = v111;
-            if (!v111)
+            v112 = v113;
+            if (!v113)
             {
-              v107 = MAErrorForDownloadResultWithUnderlying(23, 0, @"[%s:%d] [%s] unable to base64 decode string archive ID", v112, v113, v114, v115, v116, "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m");
+              v109 = MAErrorForDownloadResultWithUnderlying(0x17uLL, 0, @"[%s:%d] [%s] unable to base64 decode string archive ID", v114, v115, v116, v117, v118, "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m");
 LABEL_129:
 
               goto LABEL_130;
@@ -5424,14 +5425,14 @@ LABEL_129:
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
               object_getClassName(v23);
-              v107 = MAErrorForDownloadResultWithUnderlying(23, 0, @"[%s:%d] [%s] archive ID is not an NSString or NSData: %s", v129, v130, v131, v132, v133, "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m");
+              v109 = MAErrorForDownloadResultWithUnderlying(0x17uLL, 0, @"[%s:%d] [%s] archive ID is not an NSString or NSData: %s", v131, v132, v133, v134, v135, "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m");
 
-              v38 = v110;
+              v38 = v112;
               goto LABEL_129;
             }
           }
 
-          [v17 setArchiveID:v110];
+          [v17 setArchiveID:v112];
         }
       }
 
@@ -5453,13 +5454,13 @@ LABEL_131:
         graftPath2 = [bundle graftPath];
         v52 = [graftPath2 stringByAppendingPathComponent:@"/System/Library/StreamingExtractorPlugins"];
 
-        v140 = 0;
+        v142 = 0;
         v53 = +[NSFileManager defaultManager];
-        v54 = [v53 fileExistsAtPath:v52 isDirectory:&v140];
+        v54 = [v53 fileExistsAtPath:v52 isDirectory:&v142];
 
         if (v54)
         {
-          if (v140 == 1)
+          if (v142 == 1)
           {
             if ([(ControlManager *)self allowSTExtractorPluginLoadFromDownloadedMABrain])
             {
@@ -5546,22 +5547,22 @@ LABEL_83:
   if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446722;
-    v143 = "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m";
-    v144 = 1024;
-    v145 = 4244;
-    v146 = 2082;
-    v147 = "[ControlManager newExtractor:downloadOptions:sessionID:error:]";
+    v145 = "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m";
+    v146 = 1024;
+    v147 = 4244;
+    v148 = 2082;
+    v149 = "[ControlManager newExtractor:downloadOptions:sessionID:error:]";
     _os_log_impl(&dword_0, v58, OS_LOG_TYPE_ERROR, "[%{public}s:%d] [%{public}s] Failed to allocate AEAExtractor/STRemoteExtractor", buf, 0x1Cu);
   }
 
-  v64 = MAErrorForDownloadResultWithUnderlying(16, 0, @"[%s:%d] [%s] failed to allocate AEAExtractor/STRemoteExtractor", v59, v60, v61, v62, v63, "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m");
+  v64 = MAErrorForDownloadResultWithUnderlying(0x10uLL, 0, @"[%s:%d] [%s] failed to allocate AEAExtractor/STRemoteExtractor", v59, v60, v61, v62, v63, "/Library/Caches/com.apple.xbs/Sources/MobileAssetBrain/ControlManager.m");
 LABEL_53:
   v38 = v64;
   v71 = 0;
 LABEL_106:
   if (error && v38)
   {
-    v108 = v38;
+    v110 = v38;
     *error = v38;
   }
 
@@ -5585,41 +5586,41 @@ LABEL_106:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544130;
-    v37 = forCopy;
-    v38 = 2114;
-    v39 = typeCopy;
-    v40 = 2114;
-    v41 = extensionCopy;
-    v42 = 2114;
-    v43 = v20;
+    v38 = forCopy;
+    v39 = 2114;
+    v40 = typeCopy;
+    v41 = 2114;
+    v42 = extensionCopy;
+    v43 = 2114;
+    v44 = v20;
     _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ is attempting to cancel %{public}@ %{public}@ (%{public}@)", buf, 0x2Au);
   }
 
-  v22 = getDownloadManager();
-  v29[0] = _NSConcreteStackBlock;
-  v29[1] = 3221225472;
-  v29[2] = __75__ControlManager_cancelDownload_using_for_assetType_purpose_withExtension___block_invoke;
-  v29[3] = &unk_4B5380;
-  v30 = v20;
-  v31 = forCopy;
-  v32 = typeCopy;
-  v33 = extensionCopy;
-  v34 = usingCopy;
-  v35 = downloadCopy;
-  v23 = downloadCopy;
-  v24 = usingCopy;
-  v25 = extensionCopy;
-  v26 = typeCopy;
-  v27 = forCopy;
-  v28 = v20;
-  [v22 isDownloading:v28 then:v29];
+  v23 = getDownloadManager(v22);
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = __75__ControlManager_cancelDownload_using_for_assetType_purpose_withExtension___block_invoke;
+  v30[3] = &unk_4B5380;
+  v31 = v20;
+  v32 = forCopy;
+  v33 = typeCopy;
+  v34 = extensionCopy;
+  v35 = usingCopy;
+  v36 = downloadCopy;
+  v24 = downloadCopy;
+  v25 = usingCopy;
+  v26 = extensionCopy;
+  v27 = typeCopy;
+  v28 = forCopy;
+  v29 = v20;
+  [v23 isDownloading:v29 then:v30];
 }
 
 void __75__ControlManager_cancelDownload_using_for_assetType_purpose_withExtension___block_invoke(id *a1, int a2)
 {
   if (a2)
   {
-    v3 = getDownloadManager();
+    v3 = getDownloadManager(a1);
     v12[0] = _NSConcreteStackBlock;
     v12[1] = 3221225472;
     v12[2] = __75__ControlManager_cancelDownload_using_for_assetType_purpose_withExtension___block_invoke_2;
@@ -5648,7 +5649,7 @@ void __75__ControlManager_cancelDownload_using_for_assetType_purpose_withExtensi
   }
 }
 
-void __75__ControlManager_cancelDownload_using_for_assetType_purpose_withExtension___block_invoke_2(uint64_t a1, void *a2)
+void __75__ControlManager_cancelDownload_using_for_assetType_purpose_withExtension___block_invoke_2(void *a1, void *a2)
 {
   v18 = 0u;
   v19 = 0u;
@@ -5671,7 +5672,7 @@ void __75__ControlManager_cancelDownload_using_for_assetType_purpose_withExtensi
         }
 
         v9 = *(*(&v18 + 1) + 8 * i);
-        v10 = *(a1 + 32);
+        v10 = a1[4];
         v11 = [v9 taskDescription];
         LODWORD(v10) = [v10 isEqualToString:v11];
 
@@ -5703,11 +5704,11 @@ LABEL_12:
   v12 = _MADLog(@"V2Control");
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = *(a1 + 40);
-    v14 = *(a1 + 48);
-    v15 = *(a1 + 56);
+    v13 = a1[5];
+    v14 = a1[6];
+    v15 = a1[7];
     v16 = stringForMACancelDownloadResult(v7);
-    v17 = *(a1 + 32);
+    v17 = a1[4];
     *buf = 138544642;
     v23 = v13;
     v24 = 2114;
@@ -5723,7 +5724,7 @@ LABEL_12:
     _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ cancel result for %{public}@ %{public}@ is: %ld (%{public}@ %{public}@)", buf, 0x3Eu);
   }
 
-  sendClientResponse(*(a1 + 64), *(a1 + 72), v7);
+  sendClientResponse(a1[8], a1[9], v7);
 }
 
 - (int64_t)removeDirectoryAtPath:(id)path firstRenamingWithExtension:(id)extension
@@ -5866,7 +5867,7 @@ void __60__ControlManager_removeAssetDir_assetType_clientName_using___block_invo
   else
   {
     v25 = assembleTaskDescriptorWithPurpose(v9, v3, v57);
-    getDownloadManager();
+    getDownloadManager(v25);
     v26 = v55 = v18;
     v58[0] = _NSConcreteStackBlock;
     v58[1] = 3221225472;
@@ -8137,7 +8138,7 @@ LABEL_16:
   resultsCopy = results;
   volumeCopy = volume;
   thenCopy = then;
-  if (usingCentralizedCachedelete())
+  if (usingCentralizedCachedelete(thenCopy, v17))
   {
     if (thenCopy)
     {
@@ -8149,73 +8150,73 @@ LABEL_16:
   {
     state.opaque[0] = 0;
     state.opaque[1] = 0;
-    v17 = _os_activity_create(&dword_0, "ControlManager:respondToCacheDelete", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v17, &state);
+    v18 = _os_activity_create(&dword_0, "ControlManager:respondToCacheDelete", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v18, &state);
 
     [(ControlManager *)self setPreciousNumberOfSeconds:-1.0];
     [(ControlManager *)self setDefaultNumberOfSeconds:-1.0];
-    [(ControlManager *)self setDeltaToCurrentTimeSeconds:-1.0];
-    if (_MAPreferencesIsInternalAllowed())
+    v19 = [(ControlManager *)self setDeltaToCurrentTimeSeconds:-1.0];
+    if (_MAPreferencesIsInternalAllowed(v19, v20))
     {
-      v39 = 0;
-      AppIntegerValue = _MAPreferencesGetAppIntegerValue(@"preciousNumberOfSecsGC", &v39);
-      v28 = v39 != 0;
-      if (v39)
+      v42 = 0;
+      AppIntegerValue = _MAPreferencesGetAppIntegerValue(@"preciousNumberOfSecsGC", &v42);
+      v31 = v42 != 0;
+      if (v42)
       {
         [(ControlManager *)self setPreciousNumberOfSeconds:AppIntegerValue];
       }
 
-      v19 = _MAPreferencesGetAppIntegerValue(@"defaultNumberOfSecsGC", &v39);
-      v20 = v39 != 0;
-      if (v39)
+      v22 = _MAPreferencesGetAppIntegerValue(@"defaultNumberOfSecsGC", &v42);
+      v23 = v42 != 0;
+      if (v42)
       {
-        [(ControlManager *)self setDefaultNumberOfSeconds:v19];
+        [(ControlManager *)self setDefaultNumberOfSeconds:v22];
       }
 
-      v21 = _MAPreferencesGetAppIntegerValue(@"GarbageCollectionCurrentTimeDeltaSecs", &v39);
-      if (v39)
+      v24 = _MAPreferencesGetAppIntegerValue(@"GarbageCollectionCurrentTimeDeltaSecs", &v42);
+      if (v42)
       {
-        [(ControlManager *)self setDeltaToCurrentTimeSeconds:v21];
+        [(ControlManager *)self setDeltaToCurrentTimeSeconds:v24];
       }
 
-      v22 = _MAPreferencesCopyNSStringValue(@"GarbageCollectionAlterAssetType");
-      if (v22)
+      v25 = _MAPreferencesCopyNSStringValue(@"GarbageCollectionAlterAssetType");
+      if (v25)
       {
-        [(ControlManager *)self setGarbageCollectionAlterAssetType:v22];
-        v23 = _MAPreferencesCopyNSStringValue(@"GarbageCollectionAlterBehavior");
+        [(ControlManager *)self setGarbageCollectionAlterAssetType:v25];
+        v26 = _MAPreferencesCopyNSStringValue(@"GarbageCollectionAlterBehavior");
 
-        if (v23)
+        if (v26)
         {
-          [(ControlManager *)self setGarbageCollectionAlterBehavior:v23];
+          [(ControlManager *)self setGarbageCollectionAlterBehavior:v26];
         }
       }
 
       else
       {
-        v23 = 0;
+        v26 = 0;
       }
     }
 
     else
     {
-      v28 = 0;
-      v20 = 0;
+      v31 = 0;
+      v23 = 0;
     }
 
     [(ControlManager *)self preciousNumberOfSeconds];
-    if (v24 == -1.0)
+    if (v27 == -1.0)
     {
       [(ControlManager *)self setPreciousNumberOfSeconds:2678400.0];
     }
 
     [(ControlManager *)self defaultNumberOfSeconds];
-    if (v25 == -1.0)
+    if (v28 == -1.0)
     {
       [(ControlManager *)self setDefaultNumberOfSeconds:1296000.0];
     }
 
     [(ControlManager *)self deltaToCurrentTimeSeconds];
-    if (v26 == -1.0)
+    if (v29 == -1.0)
     {
       [(ControlManager *)self setDeltaToCurrentTimeSeconds:0.0];
     }
@@ -8226,14 +8227,14 @@ LABEL_16:
     block[2] = __106__ControlManager_respondToCacheDelete_targetingPurgeAmount_cacheDeleteResults_withUrgency_forVolume_then___block_invoke;
     block[3] = &unk_4B53F8;
     urgencyCopy = urgency;
-    v30 = volumeCopy;
+    v33 = volumeCopy;
     selfCopy = self;
     deleteCopy = delete;
     amountCopy = amount;
-    v37 = v28;
-    v38 = v20;
-    v32 = resultsCopy;
-    v33 = thenCopy;
+    v40 = v31;
+    v41 = v23;
+    v35 = resultsCopy;
+    v36 = thenCopy;
     dispatch_async(cachedeleteQueue, block);
 
     os_activity_scope_leave(&state);
@@ -8357,23 +8358,23 @@ uint64_t __106__ControlManager_respondToCacheDelete_targetingPurgeAmount_cacheDe
     if (oslog && [oslog count])
     {
       v33 = [*(a1 + 40) reclaimSpace];
+      v238 = 0;
+      v237 = 0;
+      v236 = 0;
       v235 = 0;
       v234 = 0;
-      v233 = 0;
-      v232 = 0;
-      v231 = 0;
-      [MADAutoAssetControlManager copyCurrentDownloadedDescriptors:v33 unlockedUnreferencedDescriptors:&v235 unlockedReferencedDescriptors:&v234 lockedOverridableDescriptors:&v233 lockedNeverRemoveDescriptors:&v232 stagedDescriptors:&v231];
-      v34 = v235;
-      v189 = v234;
-      v187 = v233;
-      v186 = v232;
-      v188 = v231;
-      v175 = v34;
+      [MADAutoAssetControlManager copyCurrentDownloadedDescriptors:v33 unlockedUnreferencedDescriptors:&v238 unlockedReferencedDescriptors:&v237 lockedOverridableDescriptors:&v236 lockedNeverRemoveDescriptors:&v235 stagedDescriptors:&v234];
+      v34 = v238;
+      v192 = v237;
+      v190 = v236;
+      v189 = v235;
+      v191 = v234;
+      v178 = v34;
       [*(a1 + 40) setUnlockedUnreferencedDescriptors:v34];
-      [*(a1 + 40) setUnlockedReferencedDescriptors:v189];
-      [*(a1 + 40) setLockedOverridableAutoAssetDescriptors:v187];
-      [*(a1 + 40) setLockedNeverRemoveAutoAssetDescriptors:v186];
-      [*(a1 + 40) setStagedAutoAssetDescriptors:v188];
+      [*(a1 + 40) setUnlockedReferencedDescriptors:v192];
+      [*(a1 + 40) setLockedOverridableAutoAssetDescriptors:v190];
+      [*(a1 + 40) setLockedNeverRemoveAutoAssetDescriptors:v189];
+      [*(a1 + 40) setStagedAutoAssetDescriptors:v191];
       v35 = [*(a1 + 40) unlockedUnreferencedDescriptors];
       v36 = [MADAutoAssetDescriptor totalFilesystemSpaceForAutoAssetDescriptors:v35];
 
@@ -8387,15 +8388,15 @@ uint64_t __106__ControlManager_respondToCacheDelete_targetingPurgeAmount_cacheDe
       objc = [MADAutoAssetDescriptor totalFilesystemSpaceForAutoAssetDescriptors:v41];
 
       v42 = [*(a1 + 40) stagedAutoAssetDescriptors];
-      v184 = [MADAutoAssetDescriptor totalFilesystemSpaceForAutoAssetDescriptors:v42];
+      v187 = [MADAutoAssetDescriptor totalFilesystemSpaceForAutoAssetDescriptors:v42];
 
-      v181 = [NSString alloc];
+      v184 = [NSString alloc];
       v43 = [*(a1 + 40) unlockedUnreferencedDescriptors];
-      v178 = [v43 count];
-      v200 = allocStringForBytes(v36);
+      v181 = [v43 count];
+      v203 = allocStringForBytes(v36);
       contextd = [*(a1 + 40) unlockedReferencedDescriptors];
-      v176 = [contextd count];
-      v195 = allocStringForBytes(v38);
+      v179 = [contextd count];
+      v198 = allocStringForBytes(v38);
       v44 = [*(a1 + 40) lockedOverridableAutoAssetDescriptors];
       v45 = [v44 count];
       v46 = allocStringForBytes(v40);
@@ -8404,16 +8405,16 @@ uint64_t __106__ControlManager_respondToCacheDelete_targetingPurgeAmount_cacheDe
       v49 = allocStringForBytes(objc);
       v50 = [*(a1 + 40) stagedAutoAssetDescriptors];
       v51 = [v50 count];
-      v52 = allocStringForBytes(v184);
-      v185 = [v181 initWithFormat:@"(downloadedAutoAssets) unlocked[unreferenced]:%ld(%@), unlocked[referenced]:%ld(%@), lockedOverridable:%ld(%@), lockedNeverRemove:%ld(%@), staged:%ld(%@)", v178, v200, v176, v195, v45, v46, v48, v49, v51, v52];
+      v52 = allocStringForBytes(v187);
+      v188 = [v184 initWithFormat:@"(downloadedAutoAssets) unlocked[unreferenced]:%ld(%@), unlocked[referenced]:%ld(%@), lockedOverridable:%ld(%@), lockedNeverRemove:%ld(%@), staged:%ld(%@)", v181, v203, v179, v198, v45, v46, v48, v49, v51, v52];
 
       v53 = _MADLog(@"CacheDelete");
       if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
       {
         v54 = (a1 + 40);
         context = [*(a1 + 40) cacheDeleteOperationName];
-        v201 = [*(a1 + 40) targetingAmountString];
-        v196 = [*(a1 + 40) reclaimUrgency];
+        v204 = [*(a1 + 40) targetingAmountString];
+        v199 = [*(a1 + 40) reclaimUrgency];
         v55 = [*(a1 + 40) reclaimUrgencyName];
         v56 = [*(a1 + 40) reclaimVolume];
         obj = [oslog count];
@@ -8459,145 +8460,145 @@ uint64_t __106__ControlManager_respondToCacheDelete_targetingPurgeAmount_cacheDe
         *buf = 138546178;
         *&buf[4] = context;
         *&buf[12] = 2114;
-        *&buf[14] = v201;
+        *&buf[14] = v204;
         *&buf[22] = 1026;
-        *&buf[24] = v196;
+        *&buf[24] = v199;
         *&buf[28] = 2114;
         *&buf[30] = v55;
         *&buf[38] = 2114;
         *&buf[40] = v56;
-        v244 = 2050;
-        v245 = obj;
-        v246 = 2114;
-        v247 = v58;
-        v248 = 2114;
-        v249 = v59;
-        v250 = 2114;
-        v251 = v61;
-        v252 = 2114;
-        v253 = v62;
-        v254 = 2114;
-        v255 = v67;
-        v256 = 2114;
-        v257 = v185;
+        v247 = 2050;
+        v248 = obj;
+        v249 = 2114;
+        v250 = v58;
+        v251 = 2114;
+        v252 = v59;
+        v253 = 2114;
+        v254 = v61;
+        v255 = 2114;
+        v256 = v62;
+        v257 = 2114;
+        v258 = v67;
+        v259 = 2114;
+        v260 = v188;
         _os_log_impl(&dword_0, v53, OS_LOG_TYPE_DEFAULT, "{respondToCacheDelete} %{public}@... | targetingPurgeAmount:%{public}@ | urgency:%{public}d(%{public}@) | volume:%{public}@ | assetTypeDirs:%{public}ld | preciousInterval:%{public}@%{public}@, defaultInterval:%{public}@%{public}@%{public}@ | autoAssetStatus:%{public}@", buf, 0x76u);
         if (v64 > 0.0)
         {
         }
       }
 
-      [*(a1 + 40) setAssetTypesForReclaimStats:0];
-      if (_MAPreferencesIsInternalAllowed())
+      v77 = [*(a1 + 40) setAssetTypesForReclaimStats:0];
+      if (_MAPreferencesIsInternalAllowed(v77, v78))
       {
-        v77 = _MAPreferencesCopyNSStringValue(@"ReclaimStatOnlyForAssetTypes");
-        v78 = v77;
-        if (v77)
+        v79 = _MAPreferencesCopyNSStringValue(@"ReclaimStatOnlyForAssetTypes");
+        v80 = v79;
+        if (v79)
         {
-          v79 = [v77 componentsSeparatedByString:{@", "}];
-          v80 = v79;
-          if (v79 && [v79 count])
+          v81 = [v79 componentsSeparatedByString:{@", "}];
+          v82 = v81;
+          if (v81 && [v81 count])
           {
-            v81 = [[NSSet alloc] initWithArray:v80];
-            [*(a1 + 40) setAssetTypesForReclaimStats:v81];
+            v83 = [[NSSet alloc] initWithArray:v82];
+            [*(a1 + 40) setAssetTypesForReclaimStats:v83];
 
-            v82 = _MADLog(@"CacheDelete");
-            if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
+            v84 = _MADLog(@"CacheDelete");
+            if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
             {
-              v83 = [*(a1 + 40) assetTypesForReclaimStats];
+              v85 = [*(a1 + 40) assetTypesForReclaimStats];
               *buf = 138543618;
               *&buf[4] = @"ReclaimStatOnlyForAssetTypes";
               *&buf[12] = 2114;
-              *&buf[14] = v83;
-              _os_log_impl(&dword_0, v82, OS_LOG_TYPE_DEFAULT, "{respondToCacheDelete} | %{public}@ default is specified.  Created set with values %{public}@", buf, 0x16u);
+              *&buf[14] = v85;
+              _os_log_impl(&dword_0, v84, OS_LOG_TYPE_DEFAULT, "{respondToCacheDelete} | %{public}@ default is specified.  Created set with values %{public}@", buf, 0x16u);
             }
           }
         }
 
         else
         {
-          v80 = 0;
+          v82 = 0;
         }
       }
 
-      v229 = 0u;
+      v232 = 0u;
+      v233 = 0u;
       v230 = 0u;
-      v227 = 0u;
-      v228 = 0u;
+      v231 = 0u;
       obja = oslog;
-      v202 = [obja countByEnumeratingWithState:&v227 objects:v261 count:16];
-      if (v202)
+      v205 = [obja countByEnumeratingWithState:&v230 objects:v264 count:16];
+      if (v205)
       {
-        v84 = 0;
+        v86 = 0;
         v75 = 0;
-        v197 = *v228;
-        v85 = 0.0;
+        v200 = *v231;
+        v87 = 0.0;
         while (2)
         {
-          v86 = 0;
-          v87 = v84;
+          v88 = 0;
+          v89 = v86;
           do
           {
-            if (*v228 != v197)
+            if (*v231 != v200)
             {
               objc_enumerationMutation(obja);
             }
 
-            v88 = *(*(&v227 + 1) + 8 * v86);
+            v90 = *(*(&v230 + 1) + 8 * v88);
             contexta = objc_autoreleasePoolPush();
             *buf = 0;
-            v89 = [*(a1 + 40) performCacheDeleteForGroup:@"assetTypeDir" forAssetTypeDir:v88 timeTaken:buf cacheDeleteResults:*(a1 + 48)];
-            v85 = v85 + *buf;
-            if (v89 >= 1)
+            v91 = [*(a1 + 40) performCacheDeleteForGroup:@"assetTypeDir" forAssetTypeDir:v90 timeTaken:buf cacheDeleteResults:*(a1 + 48)];
+            v87 = v87 + *buf;
+            if (v91 >= 1)
             {
-              v75 += v89;
+              v75 += v91;
               if ([*(a1 + 40) freedUpEnoughSpace:v75])
               {
                 objc_autoreleasePoolPop(contexta);
-                v84 = v87;
+                v86 = v89;
                 goto LABEL_84;
               }
             }
 
-            v84 = getPurposeDirectoriesAtPath(v88);
+            v86 = getPurposeDirectoriesAtPath(v90);
 
-            if (v84)
+            if (v86)
             {
-              v225 = 0u;
+              v228 = 0u;
+              v229 = 0u;
               v226 = 0u;
-              v223 = 0u;
-              v224 = 0u;
-              v90 = v84;
-              v91 = [v90 countByEnumeratingWithState:&v223 objects:v260 count:16];
-              if (v91)
+              v227 = 0u;
+              v92 = v86;
+              v93 = [v92 countByEnumeratingWithState:&v226 objects:v263 count:16];
+              if (v93)
               {
-                v92 = *v224;
+                v94 = *v227;
 LABEL_71:
-                v93 = 0;
+                v95 = 0;
                 while (1)
                 {
-                  if (*v224 != v92)
+                  if (*v227 != v94)
                   {
-                    objc_enumerationMutation(v90);
+                    objc_enumerationMutation(v92);
                   }
 
-                  v94 = *(*(&v223 + 1) + 8 * v93);
-                  v95 = objc_autoreleasePoolPush();
-                  *v236 = 0;
-                  v96 = [*(a1 + 40) performCacheDeleteForGroup:@"_purposeDir_" forAssetTypeDir:v94 timeTaken:v236 cacheDeleteResults:*(a1 + 48)];
-                  v97 = *v236;
-                  v75 += v96;
-                  LOBYTE(v94) = [*(a1 + 40) freedUpEnoughSpace:v75];
-                  objc_autoreleasePoolPop(v95);
-                  v85 = v85 + v97;
-                  if (v94)
+                  v96 = *(*(&v226 + 1) + 8 * v95);
+                  v97 = objc_autoreleasePoolPush();
+                  *v239 = 0;
+                  v98 = [*(a1 + 40) performCacheDeleteForGroup:@"_purposeDir_" forAssetTypeDir:v96 timeTaken:v239 cacheDeleteResults:*(a1 + 48)];
+                  v99 = *v239;
+                  v75 += v98;
+                  LOBYTE(v96) = [*(a1 + 40) freedUpEnoughSpace:v75];
+                  objc_autoreleasePoolPop(v97);
+                  v87 = v87 + v99;
+                  if (v96)
                   {
                     break;
                   }
 
-                  if (v91 == ++v93)
+                  if (v93 == ++v95)
                   {
-                    v91 = [v90 countByEnumeratingWithState:&v223 objects:v260 count:16];
-                    if (v91)
+                    v93 = [v92 countByEnumeratingWithState:&v226 objects:v263 count:16];
+                    if (v93)
                     {
                       goto LABEL_71;
                     }
@@ -8608,20 +8609,20 @@ LABEL_71:
               }
             }
 
-            v98 = [*(a1 + 40) freedUpEnoughSpace:v75];
+            v100 = [*(a1 + 40) freedUpEnoughSpace:v75];
             objc_autoreleasePoolPop(contexta);
-            if (v98)
+            if (v100)
             {
               goto LABEL_84;
             }
 
-            v86 = v86 + 1;
-            v87 = v84;
+            v88 = v88 + 1;
+            v89 = v86;
           }
 
-          while (v86 != v202);
-          v202 = [obja countByEnumeratingWithState:&v227 objects:v261 count:16];
-          if (v202)
+          while (v88 != v205);
+          v205 = [obja countByEnumeratingWithState:&v230 objects:v264 count:16];
+          if (v205)
           {
             continue;
           }
@@ -8632,115 +8633,115 @@ LABEL_71:
 
       else
       {
-        v84 = 0;
+        v86 = 0;
         v75 = 0;
-        v85 = 0.0;
+        v87 = 0.0;
       }
 
 LABEL_84:
-      v172 = v84;
+      v175 = v86;
 
-      v198 = [NSString alloc];
-      v182 = [*(a1 + 48) reclaimV2AssetCount];
-      v99 = allocStringForBytes([*(a1 + 48) reclaimV2AssetSpace]);
-      v179 = [*(a1 + 48) reclaimUnlockedUnreferencedAutoAssetCount];
+      v201 = [NSString alloc];
+      v185 = [*(a1 + 48) reclaimV2AssetCount];
+      v101 = allocStringForBytes([*(a1 + 48) reclaimV2AssetSpace]);
+      v182 = [*(a1 + 48) reclaimUnlockedUnreferencedAutoAssetCount];
       contextb = allocStringForBytes([*(a1 + 48) reclaimUnlockedUnreferencedAutoAssetSpace]);
-      v177 = [*(a1 + 48) reclaimUnlockedReferencedAutoAssetCount];
-      v203 = allocStringForBytes([*(a1 + 48) reclaimUnlockedReferencedAutoAssetSpace]);
-      v174 = [*(a1 + 48) reclaimLockedOverridableAutoAssetCount];
-      v100 = allocStringForBytes([*(a1 + 48) reclaimLockedOverridableAutoAssetSpace]);
-      v173 = [*(a1 + 48) reclaimLockedNeverRemoveAutoAssetCount];
-      v101 = allocStringForBytes([*(a1 + 48) reclaimLockedNeverRemoveAutoAssetSpace]);
-      v102 = [*(a1 + 48) reclaimStagedAutoAssetCount];
-      v103 = allocStringForBytes([*(a1 + 48) reclaimStagedAutoAssetSpace]);
-      v104 = [*(a1 + 48) reclaimMetadataBlockedCount];
-      v105 = allocStringForBytes([*(a1 + 48) reclaimMetadataBlockedSpace]);
+      v180 = [*(a1 + 48) reclaimUnlockedReferencedAutoAssetCount];
+      v206 = allocStringForBytes([*(a1 + 48) reclaimUnlockedReferencedAutoAssetSpace]);
+      v177 = [*(a1 + 48) reclaimLockedOverridableAutoAssetCount];
+      v102 = allocStringForBytes([*(a1 + 48) reclaimLockedOverridableAutoAssetSpace]);
+      v176 = [*(a1 + 48) reclaimLockedNeverRemoveAutoAssetCount];
+      v103 = allocStringForBytes([*(a1 + 48) reclaimLockedNeverRemoveAutoAssetSpace]);
+      v104 = [*(a1 + 48) reclaimStagedAutoAssetCount];
+      v105 = allocStringForBytes([*(a1 + 48) reclaimStagedAutoAssetSpace]);
+      v106 = [*(a1 + 48) reclaimMetadataBlockedCount];
+      v107 = allocStringForBytes([*(a1 + 48) reclaimMetadataBlockedSpace]);
       if (*(a1 + 76))
       {
-        v106 = @"reclaimed";
+        v108 = @"reclaimed";
       }
 
       else
       {
-        v106 = @"reclaimable";
+        v108 = @"reclaimable";
       }
 
-      v107 = allocStringForBytes(v75);
-      v199 = [v198 initWithFormat:@"(reclaimAssets) v2Assets:%ld(%@), unlocked[unreferenced]:%ld(%@), unlocked[referenced]:%ld(%@), lockedOverridable:%ld(%@), lockedNeverRemove:%ld(%@), staged:%ld(%@), metadataBlocked:%ld(%@) | totalAmount(%@):%@", v182, v99, v179, contextb, v177, v203, v174, v100, v173, v101, v102, v103, v104, v105, v106, v107];
+      v109 = allocStringForBytes(v75);
+      v202 = [v201 initWithFormat:@"(reclaimAssets) v2Assets:%ld(%@), unlocked[unreferenced]:%ld(%@), unlocked[referenced]:%ld(%@), lockedOverridable:%ld(%@), lockedNeverRemove:%ld(%@), staged:%ld(%@), metadataBlocked:%ld(%@) | totalAmount(%@):%@", v185, v101, v182, contextb, v180, v206, v177, v102, v176, v103, v104, v105, v106, v107, v108, v109];
 
-      v108 = _MADLog(@"CacheDelete");
-      if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
+      v110 = _MADLog(@"CacheDelete");
+      if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
       {
-        v109 = (a1 + 40);
+        v111 = (a1 + 40);
         contextc = [*(a1 + 40) cacheDeleteOperationName];
-        v204 = [*(a1 + 40) targetingAmountString];
-        v180 = [*(a1 + 40) reclaimUrgency];
-        v183 = [*(a1 + 40) reclaimUrgencyName];
-        v110 = [*(a1 + 40) reclaimVolume];
+        v207 = [*(a1 + 40) targetingAmountString];
+        v183 = [*(a1 + 40) reclaimUrgency];
+        v186 = [*(a1 + 40) reclaimUrgencyName];
+        v112 = [*(a1 + 40) reclaimVolume];
         objb = [obja count];
         [*(a1 + 40) preciousNumberOfSeconds];
-        v112 = [MADAutoAssetControlManager allocIntervalString:v111];
-        v113 = @"(from preference)";
+        v114 = [MADAutoAssetControlManager allocIntervalString:v113];
+        v115 = @"(from preference)";
         if (*(a1 + 77))
         {
-          v114 = @"(from preference)";
+          v116 = @"(from preference)";
         }
 
         else
         {
-          v114 = &stru_4BD3F0;
+          v116 = &stru_4BD3F0;
         }
 
-        [*v109 defaultNumberOfSeconds];
-        v116 = [MADAutoAssetControlManager allocIntervalString:v115];
+        [*v111 defaultNumberOfSeconds];
+        v118 = [MADAutoAssetControlManager allocIntervalString:v117];
         if (!*(a1 + 78))
         {
-          v113 = &stru_4BD3F0;
+          v115 = &stru_4BD3F0;
         }
 
-        [*v109 deltaToCurrentTimeSeconds];
-        v118 = v117;
-        if (v117 <= 0.0)
+        [*v111 deltaToCurrentTimeSeconds];
+        v120 = v119;
+        if (v119 <= 0.0)
         {
-          v121 = &stru_4BD3F0;
+          v123 = &stru_4BD3F0;
         }
 
         else
         {
-          v119 = [NSString alloc];
+          v121 = [NSString alloc];
           [*(a1 + 40) deltaToCurrentTimeSeconds];
-          v104 = [MADAutoAssetControlManager allocIntervalString:v120];
-          v121 = [v119 initWithFormat:@", deltaToCurrentTime:%@", v104];
+          v106 = [MADAutoAssetControlManager allocIntervalString:v122];
+          v123 = [v121 initWithFormat:@", deltaToCurrentTime:%@", v106];
         }
 
         *buf = 138546434;
         *&buf[4] = contextc;
         *&buf[12] = 2114;
-        *&buf[14] = v204;
+        *&buf[14] = v207;
         *&buf[22] = 1026;
-        *&buf[24] = v180;
+        *&buf[24] = v183;
         *&buf[28] = 2114;
-        *&buf[30] = v183;
+        *&buf[30] = v186;
         *&buf[38] = 2114;
-        *&buf[40] = v110;
-        v244 = 2050;
-        v245 = objb;
-        v246 = 2114;
-        v247 = v112;
-        v248 = 2114;
-        v249 = v114;
-        v250 = 2114;
-        v251 = v116;
-        v252 = 2114;
-        v253 = v113;
-        v254 = 2114;
-        v255 = v121;
-        v256 = 2114;
-        v257 = v185;
-        v258 = 2114;
-        v259 = v199;
-        _os_log_impl(&dword_0, v108, OS_LOG_TYPE_DEFAULT, "{respondToCacheDelete} ...%{public}@ | targetingPurgeAmount:%{public}@ | urgency:%{public}d(%{public}@) | volume:%{public}@ | assetTypeDirs:%{public}ld | preciousInterval:%{public}@%{public}@, defaultInterval:%{public}@%{public}@%{public}@ | autoAssetStatus:%{public}@ | %{public}@ | MA_MILESTONE", buf, 0x80u);
-        if (v118 > 0.0)
+        *&buf[40] = v112;
+        v247 = 2050;
+        v248 = objb;
+        v249 = 2114;
+        v250 = v114;
+        v251 = 2114;
+        v252 = v116;
+        v253 = 2114;
+        v254 = v118;
+        v255 = 2114;
+        v256 = v115;
+        v257 = 2114;
+        v258 = v123;
+        v259 = 2114;
+        v260 = v188;
+        v261 = 2114;
+        v262 = v202;
+        _os_log_impl(&dword_0, v110, OS_LOG_TYPE_DEFAULT, "{respondToCacheDelete} ...%{public}@ | targetingPurgeAmount:%{public}@ | urgency:%{public}d(%{public}@) | volume:%{public}@ | assetTypeDirs:%{public}ld | preciousInterval:%{public}@%{public}@, defaultInterval:%{public}@%{public}@%{public}@ | autoAssetStatus:%{public}@ | %{public}@ | MA_MILESTONE", buf, 0x80u);
+        if (v120 > 0.0)
         {
         }
       }
@@ -8751,60 +8752,60 @@ LABEL_84:
       *&buf[24] = __Block_byref_object_copy__16;
       *&buf[32] = __Block_byref_object_dispose__16;
       *&buf[40] = [*(a1 + 48) copy];
-      v122 = a1;
-      if (_MAPreferencesIsVerboseLoggingEnabled())
+      v125 = a1;
+      if (_MAPreferencesIsVerboseLoggingEnabled(*&buf[40], v124))
       {
-        v123 = _MADLog(@"CacheDelete");
-        if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
+        v126 = _MADLog(@"CacheDelete");
+        if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
         {
-          v124 = *(a1 + 32);
-          v125 = [*(a1 + 40) reclaimUrgency];
-          v126 = [*(a1 + 40) reclaimSpace];
-          v127 = [*(a1 + 40) analytics];
-          v128 = stringForAnalyticsReportingLevel([v127 reportingLevel]);
-          *v236 = 138544130;
-          *&v236[4] = v124;
-          v237 = 1026;
-          v238 = v125;
-          v239 = 1026;
-          v240 = v126;
-          v241 = 2114;
-          v242 = v128;
-          _os_log_impl(&dword_0, v123, OS_LOG_TYPE_DEFAULT, "{respondToCacheDelete} Volume: %{public}@ | Urgency: %{public}d | Operation: %{public}d | reportingLevel %{public}@", v236, 0x22u);
+          v127 = *(a1 + 32);
+          v128 = [*(a1 + 40) reclaimUrgency];
+          v129 = [*(a1 + 40) reclaimSpace];
+          v130 = [*(a1 + 40) analytics];
+          v131 = stringForAnalyticsReportingLevel([v130 reportingLevel]);
+          *v239 = 138544130;
+          *&v239[4] = v127;
+          v240 = 1026;
+          v241 = v128;
+          v242 = 1026;
+          v243 = v129;
+          v244 = 2114;
+          v245 = v131;
+          _os_log_impl(&dword_0, v126, OS_LOG_TYPE_DEFAULT, "{respondToCacheDelete} Volume: %{public}@ | Urgency: %{public}d | Operation: %{public}d | reportingLevel %{public}@", v239, 0x22u);
         }
 
-        v129 = _MADLog(@"CacheDelete");
-        if (os_log_type_enabled(v129, OS_LOG_TYPE_DEFAULT))
+        v132 = _MADLog(@"CacheDelete");
+        if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
         {
-          v130 = [*(*&buf[8] + 40) description];
-          *v236 = 138543362;
-          *&v236[4] = v130;
-          _os_log_impl(&dword_0, v129, OS_LOG_TYPE_DEFAULT, "{respondToCacheDelete} Using Cache Delete Results: %{public}@", v236, 0xCu);
+          v133 = [*(*&buf[8] + 40) description];
+          *v239 = 138543362;
+          *&v239[4] = v133;
+          _os_log_impl(&dword_0, v132, OS_LOG_TYPE_DEFAULT, "{respondToCacheDelete} Using Cache Delete Results: %{public}@", v239, 0xCu);
         }
 
-        v122 = a1;
+        v125 = a1;
       }
 
-      v131 = *(v122 + 32);
-      v132 = *(v122 + 40);
-      v133 = *(v132 + 56);
+      v134 = *(v125 + 32);
+      v135 = *(v125 + 40);
+      v136 = *(v135 + 56);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = __106__ControlManager_respondToCacheDelete_targetingPurgeAmount_cacheDeleteResults_withUrgency_forVolume_then___block_invoke_1791;
       block[3] = &unk_4B53D0;
-      v222 = v85;
-      block[4] = v132;
-      v220 = buf;
-      v221 = v75;
-      v219 = v131;
-      dispatch_async(v133, block);
-      v134 = [*(v122 + 40) reclaimSpace];
-      v135 = [*(v122 + 40) unlockedUnreferencedDescriptors];
-      v136 = [*(v122 + 40) unlockedReferencedDescriptors];
-      v137 = [*(v122 + 40) lockedOverridableAutoAssetDescriptors];
-      v138 = [*(v122 + 40) lockedNeverRemoveAutoAssetDescriptors];
-      v139 = [*(v122 + 40) stagedAutoAssetDescriptors];
-      [MADAutoAssetControlManager garbageCollectionOperationComplete:v134 originalUnlockedUnreferencedDescriptors:v135 originalUnlockedReferencedDescriptors:v136 originalLockedOverridableDescriptors:v137 originalLockedNeverRemoveDescriptors:v138 originalStagedDescriptors:v139 totalReclaimedSpace:v75 results:*(v122 + 48)];
+      v225 = v87;
+      block[4] = v135;
+      v223 = buf;
+      v224 = v75;
+      v222 = v134;
+      dispatch_async(v136, block);
+      v137 = [*(v125 + 40) reclaimSpace];
+      v138 = [*(v125 + 40) unlockedUnreferencedDescriptors];
+      v139 = [*(v125 + 40) unlockedReferencedDescriptors];
+      v140 = [*(v125 + 40) lockedOverridableAutoAssetDescriptors];
+      v141 = [*(v125 + 40) lockedNeverRemoveAutoAssetDescriptors];
+      v142 = [*(v125 + 40) stagedAutoAssetDescriptors];
+      [MADAutoAssetControlManager garbageCollectionOperationComplete:v137 originalUnlockedUnreferencedDescriptors:v138 originalUnlockedReferencedDescriptors:v139 originalLockedOverridableDescriptors:v140 originalLockedNeverRemoveDescriptors:v141 originalStagedDescriptors:v142 totalReclaimedSpace:v75 results:*(v125 + 48)];
 
       [*(a1 + 40) setUnlockedUnreferencedDescriptors:0];
       [*(a1 + 40) setUnlockedReferencedDescriptors:0];
@@ -8813,7 +8814,7 @@ LABEL_84:
       [*(a1 + 40) setStagedAutoAssetDescriptors:0];
 
       _Block_object_dispose(buf, 8);
-      v69 = v172;
+      v69 = v175;
     }
 
     else
@@ -8890,8 +8891,8 @@ LABEL_84:
       *&buf[30] = v31;
       *&buf[38] = 2050;
       *&buf[40] = v76;
-      v244 = 2050;
-      v245 = 31536000;
+      v247 = 2050;
+      v248 = 31536000;
       _os_log_impl(&dword_0, oslog, OS_LOG_TYPE_ERROR, "{respondToCacheDelete} skipping garbage collection | targetingPurgeAmount:%{public}@ | urgency:%d(%{public}@) | volume:%{public}@ | current time is not valid | currentTimeInSeconds:%{public}f, numberOfSecondsInAYear:%{public}llu", buf, 0x3Au);
       if (v30)
       {
@@ -8908,99 +8909,99 @@ LABEL_84:
 
   else if (__isPlatformVersionAtLeast(2, 17, 0, 0))
   {
-    v140 = [*(a1 + 40) registerWithSpaceAttributionArray];
-    if (v140)
+    v143 = [*(a1 + 40) registerWithSpaceAttributionArray];
+    if (v143)
     {
-      v141 = [*(a1 + 40) unregisterWithSpaceAttributionArray];
-      v142 = v141 == 0;
+      v144 = [*(a1 + 40) unregisterWithSpaceAttributionArray];
+      v145 = v144 == 0;
 
-      if (!v142)
+      if (!v145)
       {
-        v143 = [[NSString alloc] initWithFormat:@"{respondToCacheDelete} (determining space) for volume %@", *(a1 + 32)];
-        v144 = [*(a1 + 40) registerWithSpaceAttributionArray];
-        v145 = [v144 count] == 0;
+        v146 = [[NSString alloc] initWithFormat:@"{respondToCacheDelete} (determining space) for volume %@", *(a1 + 32)];
+        v147 = [*(a1 + 40) registerWithSpaceAttributionArray];
+        v148 = [v147 count] == 0;
 
-        v146 = _MADLog(@"V2");
-        v147 = os_log_type_enabled(v146, OS_LOG_TYPE_DEFAULT);
-        if (v145)
+        v149 = _MADLog(@"V2");
+        v150 = os_log_type_enabled(v149, OS_LOG_TYPE_DEFAULT);
+        if (v148)
         {
-          if (v147)
+          if (v150)
           {
             *buf = 138543362;
-            *&buf[4] = v143;
-            _os_log_impl(&dword_0, v146, OS_LOG_TYPE_DEFAULT, "%{public}@: Did not find any asset paths to bulk register with space attribution.", buf, 0xCu);
+            *&buf[4] = v146;
+            _os_log_impl(&dword_0, v149, OS_LOG_TYPE_DEFAULT, "%{public}@: Did not find any asset paths to bulk register with space attribution.", buf, 0xCu);
           }
         }
 
         else
         {
-          if (v147)
+          if (v150)
           {
-            v148 = [*(a1 + 40) registerWithSpaceAttributionArray];
-            v149 = [v148 count];
+            v151 = [*(a1 + 40) registerWithSpaceAttributionArray];
+            v152 = [v151 count];
             *buf = 138543618;
-            *&buf[4] = v143;
+            *&buf[4] = v146;
             *&buf[12] = 2048;
-            *&buf[14] = v149;
-            _os_log_impl(&dword_0, v146, OS_LOG_TYPE_DEFAULT, "%{public}@: Bulk registering %lu assets with space attribution.", buf, 0x16u);
+            *&buf[14] = v152;
+            _os_log_impl(&dword_0, v149, OS_LOG_TYPE_DEFAULT, "%{public}@: Bulk registering %lu assets with space attribution.", buf, 0x16u);
           }
 
-          v150 = +[SAPathManager defaultManager];
-          v151 = [*(a1 + 40) registerWithSpaceAttributionArray];
+          v153 = +[SAPathManager defaultManager];
+          v154 = [*(a1 + 40) registerWithSpaceAttributionArray];
+          v218[0] = _NSConcreteStackBlock;
+          v218[1] = 3221225472;
+          v218[2] = __106__ControlManager_respondToCacheDelete_targetingPurgeAmount_cacheDeleteResults_withUrgency_forVolume_then___block_invoke_1798;
+          v218[3] = &unk_4B5268;
+          v155 = v146;
+          v156 = *(a1 + 40);
+          v219 = v155;
+          v220 = v156;
+          [v153 registerPaths:v154 completionHandler:v218];
+
+          v149 = v219;
+        }
+
+        v157 = [*(a1 + 40) unregisterWithSpaceAttributionArray];
+        v158 = [v157 count] == 0;
+
+        v159 = _MADLog(@"V2");
+        v160 = os_log_type_enabled(v159, OS_LOG_TYPE_DEFAULT);
+        if (v158)
+        {
+          if (v160)
+          {
+            *buf = 138543362;
+            *&buf[4] = v146;
+            _os_log_impl(&dword_0, v159, OS_LOG_TYPE_DEFAULT, "%{public}@: Did not find any asset paths to bulk unregister with space attribution.", buf, 0xCu);
+          }
+        }
+
+        else
+        {
+          if (v160)
+          {
+            v161 = [*(a1 + 40) unregisterWithSpaceAttributionArray];
+            v162 = [v161 count];
+            *buf = 138543618;
+            *&buf[4] = v146;
+            *&buf[12] = 2050;
+            *&buf[14] = v162;
+            _os_log_impl(&dword_0, v159, OS_LOG_TYPE_DEFAULT, "%{public}@: Bulk unregistering %{public}lu assets with space attribution.", buf, 0x16u);
+          }
+
+          v163 = +[SAPathManager defaultManager];
+          v164 = [*(a1 + 40) unregisterWithSpaceAttributionArray];
           v215[0] = _NSConcreteStackBlock;
           v215[1] = 3221225472;
-          v215[2] = __106__ControlManager_respondToCacheDelete_targetingPurgeAmount_cacheDeleteResults_withUrgency_forVolume_then___block_invoke_1798;
+          v215[2] = __106__ControlManager_respondToCacheDelete_targetingPurgeAmount_cacheDeleteResults_withUrgency_forVolume_then___block_invoke_1799;
           v215[3] = &unk_4B5268;
-          v152 = v143;
-          v153 = *(a1 + 40);
-          v216 = v152;
-          v217 = v153;
-          [v150 registerPaths:v151 completionHandler:v215];
+          v165 = v146;
+          v166 = *(a1 + 40);
+          v216 = v165;
+          v217 = v166;
+          [v163 unregisterPaths:v164 completionHandler:v215];
 
-          v146 = v216;
-        }
-
-        v154 = [*(a1 + 40) unregisterWithSpaceAttributionArray];
-        v155 = [v154 count] == 0;
-
-        v156 = _MADLog(@"V2");
-        v157 = os_log_type_enabled(v156, OS_LOG_TYPE_DEFAULT);
-        if (v155)
-        {
-          if (v157)
-          {
-            *buf = 138543362;
-            *&buf[4] = v143;
-            _os_log_impl(&dword_0, v156, OS_LOG_TYPE_DEFAULT, "%{public}@: Did not find any asset paths to bulk unregister with space attribution.", buf, 0xCu);
-          }
-        }
-
-        else
-        {
-          if (v157)
-          {
-            v158 = [*(a1 + 40) unregisterWithSpaceAttributionArray];
-            v159 = [v158 count];
-            *buf = 138543618;
-            *&buf[4] = v143;
-            *&buf[12] = 2050;
-            *&buf[14] = v159;
-            _os_log_impl(&dword_0, v156, OS_LOG_TYPE_DEFAULT, "%{public}@: Bulk unregistering %{public}lu assets with space attribution.", buf, 0x16u);
-          }
-
-          v160 = +[SAPathManager defaultManager];
-          v161 = [*(a1 + 40) unregisterWithSpaceAttributionArray];
-          v212[0] = _NSConcreteStackBlock;
-          v212[1] = 3221225472;
-          v212[2] = __106__ControlManager_respondToCacheDelete_targetingPurgeAmount_cacheDeleteResults_withUrgency_forVolume_then___block_invoke_1799;
-          v212[3] = &unk_4B5268;
-          v162 = v143;
-          v163 = *(a1 + 40);
-          v213 = v162;
-          v214 = v163;
-          [v160 unregisterPaths:v161 completionHandler:v212];
-
-          v156 = v213;
+          v159 = v216;
         }
       }
     }
@@ -9008,24 +9009,24 @@ LABEL_84:
 
   if ([*(a1 + 40) reclaimSpace])
   {
-    v164 = _MADLog(@"V2Control");
-    v165 = v164;
-    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v164))
+    v167 = _MADLog(@"V2Control");
+    v168 = v167;
+    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v167))
     {
-      v166 = mach_continuous_time();
-      v167 = [*(a1 + 40) reclaimUrgency];
-      v168 = [*(a1 + 40) reclaimVolume];
-      v169 = v168;
-      v170 = [v168 UTF8String];
+      v169 = mach_continuous_time();
+      v170 = [*(a1 + 40) reclaimUrgency];
+      v171 = [*(a1 + 40) reclaimVolume];
+      v172 = v171;
+      v173 = [v171 UTF8String];
       *buf = 134349826;
-      *&buf[4] = v166;
+      *&buf[4] = v169;
       *&buf[12] = 2050;
-      *&buf[14] = v167;
+      *&buf[14] = v170;
       *&buf[22] = 2050;
       *&buf[24] = v75;
       *&buf[32] = 2082;
-      *&buf[34] = v170;
-      _os_signpost_emit_with_name_impl(&dword_0, v165, OS_SIGNPOST_INTERVAL_END, spid, "GarbageCollection", "%{public, signpost.description:end_time}llu Urgency=%{public, signpost.telemetry:number1,name=Urgency}lld Bytes=%{public, signpost.telemetry:number2,name=Bytes}lldVolume=%{public, signpost.telemetry:string1,name=Volume}s enableTelemetry=YES ", buf, 0x2Au);
+      *&buf[34] = v173;
+      _os_signpost_emit_with_name_impl(&dword_0, v168, OS_SIGNPOST_INTERVAL_END, spid, "GarbageCollection", "%{public, signpost.description:end_time}llu Urgency=%{public, signpost.telemetry:number1,name=Urgency}lld Bytes=%{public, signpost.telemetry:number2,name=Bytes}lldVolume=%{public, signpost.telemetry:string1,name=Volume}s enableTelemetry=YES ", buf, 0x2Au);
     }
   }
 
@@ -9600,15 +9601,15 @@ void __60__ControlManager_purgeCatalogOfType_clientName_withPurpose___block_invo
   v13 = _MADLog(@"V2Control");
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543618;
-    v16 = nameCopy;
-    v17 = 2114;
-    v18 = typeCopy;
-    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ issued PMV download command %{public}@", &v15, 0x16u);
+    v16 = 138543618;
+    v17 = nameCopy;
+    v18 = 2114;
+    v19 = typeCopy;
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ issued PMV download command %{public}@", &v16, 0x16u);
   }
 
-  v14 = getDownloadManager();
-  [v14 registerPmvDownloadJob:typeCopy using:versionsCopy with:andCopy clientName:nameCopy];
+  v15 = getDownloadManager(v14);
+  [v15 registerPmvDownloadJob:typeCopy using:versionsCopy with:andCopy clientName:nameCopy];
 }
 
 - (void)purgeCatalogs:(id)catalogs and:(id)and assetTypesList:(id)list clientName:(id)name
@@ -9651,7 +9652,7 @@ void __60__ControlManager_purgeCatalogOfType_clientName_withPurpose___block_invo
       }
 
       v20 = [NSMutableSet setWithArray:listCopy];
-      v21 = getDownloadManager();
+      v21 = getDownloadManager(v20);
       v22[0] = _NSConcreteStackBlock;
       v22[1] = 3221225472;
       v22[2] = __62__ControlManager_purgeCatalogs_and_assetTypesList_clientName___block_invoke;
@@ -9809,7 +9810,7 @@ LABEL_18:
 {
   valuesCopy = values;
   nameCopy = name;
-  v11 = preservedIdsDecodeClasses();
+  v11 = preservedIdsDecodeClasses(nameCopy);
   v12 = getObjectFromMessageLogIfDesired(valuesCopy, lengthKey, key, v11, 0);
 
   if (v12)
@@ -9991,7 +9992,7 @@ LABEL_33:
 - (id)dictionaryWithArrayOfStringValues:(id)values forXpcKey:(const char *)key andLengthKey:(const char *)lengthKey failureReason:(id *)reason
 {
   valuesCopy = values;
-  v10 = preservedIdsDecodeClasses();
+  v10 = preservedIdsDecodeClasses(valuesCopy);
   v11 = getObjectFromMessageLogIfDesired(valuesCopy, lengthKey, key, v10, 0);
 
   if (!v11)
@@ -10184,63 +10185,63 @@ LABEL_42:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v90 = nameCopy;
-    v91 = 2048;
-    v92 = [listCopy count];
-    v93 = 2114;
-    v94 = listCopy;
+    v91 = nameCopy;
+    v92 = 2048;
+    v93 = [listCopy count];
+    v94 = 2114;
+    v95 = listCopy;
     _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "{purgeAll} %{public}@ requested purge-all | asset-types:%ld\n%{public}@", buf, 0x20u);
   }
 
   v16 = [NSMutableSet setWithArray:listCopy];
   selfCopy = self;
   v17 = [(ControlManager *)self dictionaryWithArrayOfStringValues:andCopy forXpcKey:"purgeAssetTypePreservingList" andLengthKey:"purgeAssetTypePreservingListLength" clientName:nameCopy];
-  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
+  v86 = 0u;
   v18 = v16;
-  v19 = [v18 countByEnumeratingWithState:&v82 objects:v88 count:16];
-  v66 = nameCopy;
+  v19 = [v18 countByEnumeratingWithState:&v83 objects:v89 count:16];
+  v67 = nameCopy;
   if (v19)
   {
     v20 = v19;
     context = beforeFirstUnlock;
-    v62 = v17;
-    v64 = allCopy;
+    v63 = v17;
+    v65 = allCopy;
     v21 = listCopy;
     v22 = andCopy;
     v23 = 0;
     v24 = 0;
-    v25 = *v83;
+    v25 = *v84;
     while (2)
     {
       for (i = 0; i != v20; i = i + 1)
       {
-        if (*v83 != v25)
+        if (*v84 != v25)
         {
           objc_enumerationMutation(v18);
         }
 
-        v27 = *(*(&v82 + 1) + 8 * i);
+        v27 = *(*(&v83 + 1) + 8 * i);
         v28 = objc_autoreleasePoolPush();
         if (!isWellFormedAssetType(v27))
         {
           v32 = _MADLog(@"V2");
-          nameCopy = v66;
+          nameCopy = v67;
           if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v90 = v66;
-            v91 = 2114;
-            v92 = v27;
+            v91 = v67;
+            v92 = 2114;
+            v93 = v27;
             _os_log_impl(&dword_0, v32, OS_LOG_TYPE_ERROR, "{purgeAll} %{public}@ requested purge-all with an asset-type that is not well formed | assetType:%{public}@", buf, 0x16u);
           }
 
           andCopy = v22;
-          sendClientResponse(v64, v22, 5);
+          sendClientResponse(v65, v22, 5);
           v33 = v28;
-          allCopy = v64;
+          allCopy = v65;
           objc_autoreleasePoolPop(v33);
 
           listCopy = v21;
@@ -10268,7 +10269,7 @@ LABEL_42:
         objc_autoreleasePoolPop(v28);
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v82 objects:v88 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v83 objects:v89 count:16];
       if (v20)
       {
         continue;
@@ -10282,28 +10283,28 @@ LABEL_42:
       v31 = _MADLog(@"V2");
       andCopy = v22;
       listCopy = v21;
-      allCopy = v64;
-      nameCopy = v66;
+      allCopy = v65;
+      nameCopy = v67;
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v90 = v66;
-        v91 = 2114;
-        v92 = v23;
+        v91 = v67;
+        v92 = 2114;
+        v93 = v23;
         _os_log_impl(&dword_0, v31, OS_LOG_TYPE_ERROR, "{purgeAll} %{public}@ requested purge-all that cannot occur before first unlock | assetType:%{public}@", buf, 0x16u);
       }
 
-      sendClientResponse(v64, v22, 11);
+      sendClientResponse(v65, v22, 11);
 LABEL_23:
-      v17 = v62;
+      v17 = v63;
       goto LABEL_55;
     }
 
     andCopy = v22;
     listCopy = v21;
-    allCopy = v64;
-    nameCopy = v66;
-    v17 = v62;
+    allCopy = v65;
+    nameCopy = v67;
+    v17 = v63;
   }
 
   else
@@ -10312,104 +10313,104 @@ LABEL_23:
     v23 = 0;
   }
 
-  v80 = 0u;
   v81 = 0u;
-  v78 = 0u;
+  v82 = 0u;
   v79 = 0u;
+  v80 = 0u;
   allKeys = [v17 allKeys];
-  v35 = [allKeys countByEnumeratingWithState:&v78 objects:v87 count:16];
+  v35 = [allKeys countByEnumeratingWithState:&v79 objects:v88 count:16];
   if (v35)
   {
-    v36 = *v79;
-    v63 = v17;
-    v65 = allCopy;
-    v56 = andCopy;
-    v57 = allKeys;
-    v58 = listCopy;
-    v54 = *v79;
+    v36 = *v80;
+    v64 = v17;
+    v66 = allCopy;
+    v57 = andCopy;
+    v58 = allKeys;
+    v59 = listCopy;
+    v55 = *v80;
     while (2)
     {
       v37 = 0;
-      v55 = v35;
+      v56 = v35;
       do
       {
-        if (*v79 != v36)
+        if (*v80 != v36)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v38 = *(*(&v78 + 1) + 8 * v37);
+        v38 = *(*(&v79 + 1) + 8 * v37);
         contexta = objc_autoreleasePoolPush();
         if (!isWellFormedAssetType(v38))
         {
-          v53 = _MADLog(@"V2");
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+          v54 = _MADLog(@"V2");
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v90 = nameCopy;
-            v91 = 2114;
-            v92 = v38;
-            _os_log_impl(&dword_0, v53, OS_LOG_TYPE_ERROR, "{purgeAll} %{public}@ requested purge-all with preserved asset type is not well formed | assetType:%{public}@", buf, 0x16u);
+            v91 = nameCopy;
+            v92 = 2114;
+            v93 = v38;
+            _os_log_impl(&dword_0, v54, OS_LOG_TYPE_ERROR, "{purgeAll} %{public}@ requested purge-all with preserved asset type is not well formed | assetType:%{public}@", buf, 0x16u);
           }
 
-          andCopy = v56;
-          sendClientResponse(allCopy, v56, 5);
+          andCopy = v57;
+          sendClientResponse(allCopy, v57, 5);
 LABEL_48:
           objc_autoreleasePoolPop(contexta);
           goto LABEL_54;
         }
 
+        v78 = 0u;
+        v76 = 0u;
         v77 = 0u;
         v75 = 0u;
-        v76 = 0u;
-        v74 = 0u;
         v39 = [v17 objectForKey:v38];
-        v40 = [v39 countByEnumeratingWithState:&v74 objects:v86 count:16];
+        v40 = [v39 countByEnumeratingWithState:&v75 objects:v87 count:16];
         if (v40)
         {
           v41 = v40;
-          v42 = *v75;
+          v42 = *v76;
           while (2)
           {
             for (j = 0; j != v41; j = j + 1)
             {
-              if (*v75 != v42)
+              if (*v76 != v42)
               {
                 objc_enumerationMutation(v39);
               }
 
-              v44 = *(*(&v74 + 1) + 8 * j);
+              v44 = *(*(&v75 + 1) + 8 * j);
               v45 = objc_autoreleasePoolPush();
               if (!isWellFormedAssetId(v44))
               {
-                v51 = _MADLog(@"V2");
-                if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+                v52 = _MADLog(@"V2");
+                if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543874;
-                  v90 = v66;
-                  v91 = 2114;
-                  v92 = v38;
-                  v93 = 2114;
-                  v94 = v44;
-                  _os_log_impl(&dword_0, v51, OS_LOG_TYPE_ERROR, "{purgeAll} %{public}@ requested purge-all with preserved asset ID that is not well formed | assetType:%{public}@ | assetID:%{public}@", buf, 0x20u);
+                  v91 = v67;
+                  v92 = 2114;
+                  v93 = v38;
+                  v94 = 2114;
+                  v95 = v44;
+                  _os_log_impl(&dword_0, v52, OS_LOG_TYPE_ERROR, "{purgeAll} %{public}@ requested purge-all with preserved asset ID that is not well formed | assetType:%{public}@ | assetID:%{public}@", buf, 0x20u);
                 }
 
-                andCopy = v56;
-                sendClientResponse(v65, v56, 5);
+                andCopy = v57;
+                sendClientResponse(v66, v57, 5);
                 objc_autoreleasePoolPop(v45);
 
-                allCopy = v65;
-                allKeys = v57;
-                listCopy = v58;
-                nameCopy = v66;
-                v17 = v63;
+                allCopy = v66;
+                allKeys = v58;
+                listCopy = v59;
+                nameCopy = v67;
+                v17 = v64;
                 goto LABEL_48;
               }
 
               objc_autoreleasePoolPop(v45);
             }
 
-            v41 = [v39 countByEnumeratingWithState:&v74 objects:v86 count:16];
+            v41 = [v39 countByEnumeratingWithState:&v75 objects:v87 count:16];
             if (v41)
             {
               continue;
@@ -10421,17 +10422,17 @@ LABEL_48:
 
         objc_autoreleasePoolPop(contexta);
         v37 = v37 + 1;
-        v36 = v54;
-        allCopy = v65;
-        nameCopy = v66;
-        allKeys = v57;
-        listCopy = v58;
-        v17 = v63;
+        v36 = v55;
+        allCopy = v66;
+        nameCopy = v67;
+        allKeys = v58;
+        listCopy = v59;
+        v17 = v64;
       }
 
-      while (v37 != v55);
-      v35 = [v57 countByEnumeratingWithState:&v78 objects:v87 count:16];
-      andCopy = v56;
+      while (v37 != v56);
+      v35 = [v58 countByEnumeratingWithState:&v79 objects:v88 count:16];
+      andCopy = v57;
       if (v35)
       {
         continue;
@@ -10445,51 +10446,52 @@ LABEL_48:
   allKeys = normalizePurposeFromUtf8(string);
   if (isWellFormedPurpose(allKeys))
   {
-    if (![SUCore stringIsEqual:allKeys to:@"auto"])
+    v47 = [SUCore stringIsEqual:allKeys to:@"auto"];
+    if (!v47)
     {
-      v52 = getDownloadManager();
-      v67[0] = _NSConcreteStackBlock;
-      v67[1] = 3221225472;
-      v67[2] = __57__ControlManager_purgeAll_and_assetTypesList_clientName___block_invoke;
-      v67[3] = &unk_4B5470;
-      v67[4] = selfCopy;
-      v68 = listCopy;
-      v69 = v17;
-      v70 = allKeys;
-      v71 = nameCopy;
-      v72 = allCopy;
-      v73 = andCopy;
-      nameCopy = v66;
-      [v52 cancelAllDownloading:v18 withPurpose:v70 includingAssets:1 includingCatalog:0 includingOther:1 clientName:v71 then:v67];
+      v53 = getDownloadManager(v47);
+      v68[0] = _NSConcreteStackBlock;
+      v68[1] = 3221225472;
+      v68[2] = __57__ControlManager_purgeAll_and_assetTypesList_clientName___block_invoke;
+      v68[3] = &unk_4B5470;
+      v68[4] = selfCopy;
+      v69 = listCopy;
+      v70 = v17;
+      v71 = allKeys;
+      v72 = nameCopy;
+      v73 = allCopy;
+      v74 = andCopy;
+      nameCopy = v67;
+      [v53 cancelAllDownloading:v18 withPurpose:v71 includingAssets:1 includingCatalog:0 includingOther:1 clientName:v72 then:v68];
 
       goto LABEL_54;
     }
 
-    v47 = _MADLog(@"V2");
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v48 = _MADLog(@"V2");
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v90 = nameCopy;
-      v91 = 2114;
-      v92 = allKeys;
-      v48 = "{purgeAll} %{public}@ requested purge-all for purpose that does not support purge-all | purpose:%{public}@";
-      v49 = v47;
-      v50 = 22;
+      v91 = nameCopy;
+      v92 = 2114;
+      v93 = allKeys;
+      v49 = "{purgeAll} %{public}@ requested purge-all for purpose that does not support purge-all | purpose:%{public}@";
+      v50 = v48;
+      v51 = 22;
 LABEL_51:
-      _os_log_impl(&dword_0, v49, OS_LOG_TYPE_ERROR, v48, buf, v50);
+      _os_log_impl(&dword_0, v50, OS_LOG_TYPE_ERROR, v49, buf, v51);
     }
   }
 
   else
   {
-    v47 = _MADLog(@"V2");
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v48 = _MADLog(@"V2");
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v90 = nameCopy;
-      v48 = "{purgeAll} %{public}@ requested purge-all for purpose that is not well formed";
-      v49 = v47;
-      v50 = 12;
+      v91 = nameCopy;
+      v49 = "{purgeAll} %{public}@ requested purge-all for purpose that is not well formed";
+      v50 = v48;
+      v51 = 12;
       goto LABEL_51;
     }
   }
@@ -11289,7 +11291,7 @@ LABEL_62:
   dispatch_async(assetQueue, block);
 }
 
-void __55__ControlManager_handleMigrateAssetsRequest_using_and___block_invoke(uint64_t a1)
+void __55__ControlManager_handleMigrateAssetsRequest_using_and___block_invoke(uint64_t *a1)
 {
   v2 = _MADLog(@"V2Control");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -11298,7 +11300,7 @@ void __55__ControlManager_handleMigrateAssetsRequest_using_and___block_invoke(ui
     _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "[CONTROL_MANAGER_ASSET_QUEUE] {handleMigrateAssetsRequest} migrating assets...", buf, 2u);
   }
 
-  if (!*(a1 + 32))
+  if (!a1[4])
   {
     v4 = _MADLog(@"V2Control");
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -11339,7 +11341,7 @@ LABEL_16:
   }
 
   v4 = v3;
-  v5 = normalizedAssetType(*(a1 + 32));
+  v5 = normalizedAssetType(a1[4]);
   if (!v5)
   {
     v19 = _MADLog(@"V2Control");
@@ -11356,7 +11358,7 @@ LABEL_16:
   v7 = getRepositoryPath(@"/private/var/MobileAsset/Assets");
   v8 = [v7 stringByAppendingPathComponent:v6];
 
-  v9 = repositoryPath(*(a1 + 32));
+  v9 = repositoryPath(a1[4]);
   v10 = [v9 stringByAppendingPathComponent:v6];
 
   v11 = +[NSFileManager defaultManager];
@@ -11536,7 +11538,7 @@ LABEL_50:
 
 LABEL_51:
 
-  sendClientResponse(*(a1 + 40), *(a1 + 48), v15);
+  sendClientResponse(a1[5], a1[6], v15);
   v39 = _MADLog(@"V2Control");
   if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
@@ -11671,7 +11673,7 @@ void __44__ControlManager_handleClientConnection_on___block_invoke(uint64_t a1, 
 
     v11 = _MADLog(@"V2Control");
     v12 = v11;
-    v173 = spid - 1;
+    v181 = spid - 1;
     if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
       *buf = 134349056;
@@ -11690,12 +11692,13 @@ void __44__ControlManager_handleClientConnection_on___block_invoke(uint64_t a1, 
       v14 = 0;
     }
 
-    if ([*(a1 + 32) isCommandRequiringForcedSoftwareUpdateType:?])
+    v15 = [*(a1 + 32) isCommandRequiringForcedSoftwareUpdateType:?];
+    if (v15)
     {
       if (v14 && ([(__CFString *)v14 isEqualToString:@"com.apple.MobileAsset.SoftwareUpdate"]& 1) == 0)
       {
-        v15 = _MADLog(@"V2");
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = _MADLog(@"V2");
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543874;
           *&buf[4] = v7;
@@ -11703,7 +11706,7 @@ void __44__ControlManager_handleClientConnection_on___block_invoke(uint64_t a1, 
           *&buf[14] = v14;
           *&buf[22] = 2114;
           *&buf[24] = @"com.apple.MobileAsset.SoftwareUpdate";
-          _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "%{public}@ provided asset type %{public}@ when %{public}@ was required", buf, 0x20u);
+          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "%{public}@ provided asset type %{public}@ when %{public}@ was required", buf, 0x20u);
         }
       }
 
@@ -11712,167 +11715,167 @@ void __44__ControlManager_handleClientConnection_on___block_invoke(uint64_t a1, 
 
     if ((uint64 & 0xFFFFFFFD) == 0x18)
     {
-      v16 = extractorDecodeClasses();
-      v187 = getObjectFromMessageLogIfDesired(v2, "purgeAssetTypeListLength", "purgeAssetTypeList", v16, 0);
+      v17 = extractorDecodeClasses(v15);
+      v195 = getObjectFromMessageLogIfDesired(v2, "purgeAssetTypeListLength", "purgeAssetTypeList", v17, 0);
 
-      if (v187)
+      if (v195)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v17 = _MADLog(@"V2Control");
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 138543362;
-            *&buf[4] = v187;
-            _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "purging all asset types in list: %{public}@", buf, 0xCu);
-          }
-
           v18 = _MADLog(@"V2Control");
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = stringWithoutNewlines(v187);
-            v20 = stringForMAXpcCommand(uint64);
+            *buf = 138543362;
+            *&buf[4] = v195;
+            _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "purging all asset types in list: %{public}@", buf, 0xCu);
+          }
+
+          v19 = _MADLog(@"V2Control");
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          {
+            v20 = stringWithoutNewlines(v195);
+            v21 = stringForMAXpcCommand(uint64);
             *buf = 138544130;
-            *&buf[4] = v19;
+            *&buf[4] = v20;
             *&buf[12] = 2114;
             *&buf[14] = v7;
             *&buf[22] = 2048;
             *&buf[24] = uint64;
-            v215 = 2114;
-            v216 = v20;
-            _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "assetTypes: %{public}@ client: %{public}@, command: %lld (%{public}@)", buf, 0x2Au);
+            v223 = 2114;
+            v224 = v21;
+            _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "assetTypes: %{public}@ client: %{public}@, command: %lld (%{public}@)", buf, 0x2Au);
           }
 
-          v21 = 0;
+          v22 = 0;
           goto LABEL_43;
         }
       }
 
-      v22 = _MADLog(@"V2Control");
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = _MADLog(@"V2Control");
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "purging all asset types", buf, 2u);
+        _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "purging all asset types", buf, 2u);
       }
     }
 
-    v18 = _MADLog(@"V2Control");
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = _MADLog(@"V2Control");
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = stringWithoutNewlines(v14);
-      v24 = stringForMAXpcCommand(uint64);
+      v24 = stringWithoutNewlines(v14);
+      v25 = stringForMAXpcCommand(uint64);
       *buf = 138544130;
-      *&buf[4] = v23;
+      *&buf[4] = v24;
       *&buf[12] = 2114;
       *&buf[14] = v7;
       *&buf[22] = 2048;
       *&buf[24] = uint64;
-      v215 = 2114;
-      v216 = v24;
-      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "assetType: %{public}@ client: %{public}@, command: %lld (%{public}@)", buf, 0x2Au);
+      v223 = 2114;
+      v224 = v25;
+      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "assetType: %{public}@ client: %{public}@, command: %lld (%{public}@)", buf, 0x2Au);
     }
 
-    v187 = 0;
-    v21 = 1;
+    v195 = 0;
+    v22 = 1;
 LABEL_43:
 
-    IsInternalAllowed = _MAPreferencesIsInternalAllowed();
-    v210 = 0;
-    v211 = &v210;
-    v212 = 0x2020000000;
-    v213 = 0;
-    v206 = 0;
-    v207 = &v206;
-    v208 = 0x2020000000;
-    v209 = 0;
-    v204 = &v210;
+    IsInternalAllowed = _MAPreferencesIsInternalAllowed(v26, v27);
+    v218 = 0;
+    v219 = &v218;
+    v220 = 0x2020000000;
+    v221 = 0;
+    v214 = 0;
+    v215 = &v214;
+    v216 = 0x2020000000;
+    v217 = 0;
+    v212 = &v218;
     length = 0;
-    v201[0] = _NSConcreteStackBlock;
-    v201[1] = 3221225472;
-    v201[2] = __44__ControlManager_handleClientConnection_on___block_invoke_1848;
-    v201[3] = &unk_4B54C0;
-    v202 = *(a1 + 40);
-    v26 = v2;
-    v203 = v26;
-    v183 = objc_retainBlock(v201);
-    v195[0] = _NSConcreteStackBlock;
-    v195[1] = 3221225472;
-    v195[2] = __44__ControlManager_handleClientConnection_on___block_invoke_1849;
-    v195[3] = &unk_4B2F38;
-    v195[4] = *(a1 + 32);
-    v189 = v14;
-    v196 = v189;
-    original = v26;
-    v197 = original;
-    v185 = v7;
-    v198 = v185;
-    v199 = *(a1 + 40);
-    v200 = &v206;
-    block = objc_retainBlock(v195);
-    v27 = *(a1 + 32);
-    v28 = *(a1 + 40);
-    if (v21)
+    v209[0] = _NSConcreteStackBlock;
+    v209[1] = 3221225472;
+    v209[2] = __44__ControlManager_handleClientConnection_on___block_invoke_1848;
+    v209[3] = &unk_4B54C0;
+    v210 = *(a1 + 40);
+    v29 = v2;
+    v211 = v29;
+    v191 = objc_retainBlock(v209);
+    v203[0] = _NSConcreteStackBlock;
+    v203[1] = 3221225472;
+    v203[2] = __44__ControlManager_handleClientConnection_on___block_invoke_1849;
+    v203[3] = &unk_4B2F38;
+    v203[4] = *(a1 + 32);
+    v197 = v14;
+    v204 = v197;
+    original = v29;
+    v205 = original;
+    v193 = v7;
+    v206 = v193;
+    v207 = *(a1 + 40);
+    v208 = &v214;
+    block = objc_retainBlock(v203);
+    v30 = *(a1 + 32);
+    v31 = *(a1 + 40);
+    if (v22)
     {
-      v29 = v189;
-      if (([v27 checkEntitlementAndRespondIfErrorForConnection:v28 usingMessage:original forAssetType:v189 withCommand:uint64] & 1) == 0)
+      v32 = v197;
+      if (([v30 checkEntitlementAndRespondIfErrorForConnection:v31 usingMessage:original forAssetType:v197 withCommand:uint64] & 1) == 0)
       {
         goto LABEL_49;
       }
     }
 
-    else if (([v27 checkEntitlementAndRespondIfErrorForConnection:v28 usingMessage:original forAssetTypes:v187 withCommand:uint64] & 1) == 0)
+    else if (([v30 checkEntitlementAndRespondIfErrorForConnection:v31 usingMessage:original forAssetTypes:v195 withCommand:uint64] & 1) == 0)
     {
 
-      v29 = 0;
+      v32 = 0;
 LABEL_49:
-      v189 = v29;
+      v197 = v32;
       switch(uint64)
       {
         case 1u:
           state.opaque[0] = 0;
           state.opaque[1] = 0;
-          v36 = _os_activity_create(&dword_0, "ControlManager:QueryAssetType", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v36, &state);
+          v39 = _os_activity_create(&dword_0, "ControlManager:QueryAssetType", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v39, &state);
 
-          v37 = _MADLog(@"V2Control");
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+          v40 = _MADLog(@"V2Control");
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            *&buf[4] = v185;
+            *&buf[4] = v193;
             *&buf[12] = 2114;
-            *&buf[14] = v29;
-            _os_log_impl(&dword_0, v37, OS_LOG_TYPE_DEFAULT, "%{public}@ issued query command for %{public}@", buf, 0x16u);
+            *&buf[14] = v32;
+            _os_log_impl(&dword_0, v40, OS_LOG_TYPE_DEFAULT, "%{public}@ issued query command for %{public}@", buf, 0x16u);
           }
 
-          [*(a1 + 32) handleQueryRequest:v29 clientName:v185 connection:*(a1 + 40) message:original];
+          [*(a1 + 32) handleQueryRequest:v32 clientName:v193 connection:*(a1 + 40) message:original];
           goto LABEL_80;
         case 2u:
           *buf = 0;
           *&buf[8] = 0;
-          v67 = _os_activity_create(&dword_0, "ControlManager:DownloadCatalog", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v67, buf);
+          v70 = _os_activity_create(&dword_0, "ControlManager:DownloadCatalog", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v70, buf);
 
-          if (!v29)
+          if (!v32)
           {
             goto LABEL_202;
           }
 
-          v68 = getDownloadManager();
-          [v68 registerXmlDownloadJob:v29 using:*(a1 + 40) with:original clientName:v185];
+          v72 = getDownloadManager(v71);
+          [v72 registerXmlDownloadJob:v32 using:*(a1 + 40) with:original clientName:v193];
 
           goto LABEL_203;
         case 3u:
           *buf = 0;
           *&buf[8] = 0;
-          v62 = _os_activity_create(&dword_0, "ControlManager:DownloadAsset", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v62, buf);
+          v65 = _os_activity_create(&dword_0, "ControlManager:DownloadAsset", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v65, buf);
 
-          if (v29)
+          if (v32)
           {
-            if (isSystemAppType(v29) && ([*(a1 + 32) isAllowlistedForCommand:uint64] & 1) == 0)
+            if (isSystemAppType(v32) && ([*(a1 + 32) isAllowlistedForCommand:uint64] & 1) == 0)
             {
-              *(v207 + 24) = 1;
+              *(v215 + 24) = 1;
             }
 
             dispatch_async(*(*(a1 + 32) + 40), block);
@@ -11886,105 +11889,105 @@ LABEL_202:
 
           goto LABEL_203;
         case 4u:
-          v64 = _MADLog(@"V2Control");
-          if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+          v67 = _MADLog(@"V2Control");
+          if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_0, v64, OS_LOG_TYPE_DEFAULT, "Query for existing NSURL tasks", buf, 2u);
+            _os_log_impl(&dword_0, v67, OS_LOG_TYPE_DEFAULT, "Query for existing NSURL tasks", buf, 2u);
           }
 
-          v65 = xpc_dictionary_get_BOOL(original, "NSUrlState");
-          *(v211 + 24) = v65;
-          v66 = getDownloadManager();
-          [v66 getCurrentInflightDownloads:v183];
+          v68 = xpc_dictionary_get_BOOL(original, "NSUrlState");
+          *(v219 + 24) = v68;
+          v69 = getDownloadManager(v68);
+          [v69 getCurrentInflightDownloads:v191];
 
           goto LABEL_251;
         case 5u:
           *buf = 0;
           *&buf[8] = 0;
-          v57 = _os_activity_create(&dword_0, "ControlManager:PurgeAsset", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v57, buf);
+          v60 = _os_activity_create(&dword_0, "ControlManager:PurgeAsset", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v60, buf);
 
-          [*(a1 + 32) removeAssetDir:original assetType:v29 clientName:v185 using:*(a1 + 40)];
+          [*(a1 + 32) removeAssetDir:original assetType:v32 clientName:v193 using:*(a1 + 40)];
           goto LABEL_203;
         case 6u:
           state.opaque[0] = 0;
           state.opaque[1] = 0;
-          v80 = _os_activity_create(&dword_0, "ControlManager:CancelDownload", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v80, &state);
+          v85 = _os_activity_create(&dword_0, "ControlManager:CancelDownload", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v85, &state);
 
-          v81 = xpc_dictionary_get_string(original, "AssetId");
-          v82 = xpc_dictionary_get_string(original, "Purpose");
-          if (v81)
+          v86 = xpc_dictionary_get_string(original, "AssetId");
+          v87 = xpc_dictionary_get_string(original, "Purpose");
+          if (v86)
           {
-            v81 = [NSString stringWithUTF8String:v81];
+            v86 = [NSString stringWithUTF8String:v86];
           }
 
-          if (v82)
+          if (v87)
           {
-            v180 = [NSString stringWithUTF8String:v82];
+            v188 = [NSString stringWithUTF8String:v87];
           }
 
           else
           {
-            v180 = 0;
+            v188 = 0;
           }
 
-          v174 = v81;
-          if (!v81)
+          v182 = v86;
+          if (!v86)
           {
-            v130 = _MADLog(@"V2");
-            if (!os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
+            v138 = _MADLog(@"V2");
+            if (!os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_307;
             }
 
             *buf = 138543874;
-            *&buf[4] = v185;
+            *&buf[4] = v193;
             *&buf[12] = 2114;
-            *&buf[14] = v29;
+            *&buf[14] = v32;
             *&buf[22] = 2114;
             *&buf[24] = 0;
-            v131 = "Cancel for: %{public}@ of %{public}@ id: %{public}@ failed due to nil asset ID";
+            v139 = "Cancel for: %{public}@ of %{public}@ id: %{public}@ failed due to nil asset ID";
             goto LABEL_306;
           }
 
-          if (!isWellFormedAssetId(v81))
+          if (!isWellFormedAssetId(v86))
           {
-            v130 = _MADLog(@"V2");
-            if (!os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
+            v138 = _MADLog(@"V2");
+            if (!os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_307;
             }
 
             *buf = 138543874;
-            *&buf[4] = v185;
+            *&buf[4] = v193;
             *&buf[12] = 2114;
-            *&buf[14] = v29;
+            *&buf[14] = v32;
             *&buf[22] = 2114;
-            *&buf[24] = v81;
-            v131 = "Cancel for: %{public}@ of %{public}@ id: %{public}@ failed due to asset ID that is not well formed";
+            *&buf[24] = v86;
+            v139 = "Cancel for: %{public}@ of %{public}@ id: %{public}@ failed due to asset ID that is not well formed";
             goto LABEL_306;
           }
 
-          if (isWellFormedPurpose(v180))
+          if (isWellFormedPurpose(v188))
           {
-            [*(a1 + 32) cancelDownload:original using:*(a1 + 40) for:v185 assetType:v29 purpose:v180 withExtension:v81];
+            [*(a1 + 32) cancelDownload:original using:*(a1 + 40) for:v193 assetType:v32 purpose:v188 withExtension:v86];
             goto LABEL_308;
           }
 
-          v130 = _MADLog(@"V2");
-          if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
+          v138 = _MADLog(@"V2");
+          if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543874;
-            *&buf[4] = v185;
+            *&buf[4] = v193;
             *&buf[12] = 2114;
-            *&buf[14] = v29;
+            *&buf[14] = v32;
             *&buf[22] = 2114;
-            *&buf[24] = v81;
-            v131 = "Cancel for: %{public}@ of %{public}@ id: %{public}@ failed due to purpose that is not well formed";
+            *&buf[24] = v86;
+            v139 = "Cancel for: %{public}@ of %{public}@ id: %{public}@ failed due to purpose that is not well formed";
 LABEL_306:
-            _os_log_impl(&dword_0, v130, OS_LOG_TYPE_ERROR, v131, buf, 0x20u);
+            _os_log_impl(&dword_0, v138, OS_LOG_TYPE_ERROR, v139, buf, 0x20u);
           }
 
 LABEL_307:
@@ -11992,241 +11995,241 @@ LABEL_307:
           sendClientResponse(*(a1 + 40), original, 4);
 LABEL_308:
           os_activity_scope_leave(&state);
-          v181 = 0;
-          v178 = 0;
-          v179 = 0;
-          v176 = 0;
-          v177 = 0;
-          v175 = 0;
-          v30 = 0;
-          v31 = 0;
+          v189 = 0;
+          v186 = 0;
+          v187 = 0;
+          v184 = 0;
+          v185 = 0;
+          v183 = 0;
+          v33 = 0;
+          v34 = 0;
           goto LABEL_208;
         case 7u:
-          createExtension(*(a1 + 40), original, v29);
+          createExtension(*(a1 + 40), original, v32);
           goto LABEL_251;
         case 8u:
-          [*(a1 + 32) getStateOfAsset:*(a1 + 40) incoming:original assetType:v29];
+          [*(a1 + 32) getStateOfAsset:*(a1 + 40) incoming:original assetType:v32];
           goto LABEL_251;
         case 9u:
-          v89 = xpc_dictionary_get_string(original, "pallasUrl");
+          v96 = xpc_dictionary_get_string(original, "pallasUrl");
           if (xpc_dictionary_get_BOOL(original, "serverOverrideClear"))
           {
-            v90 = _MADLog(@"V2Control");
-            if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+            v97 = _MADLog(@"V2Control");
+            if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543618;
-              *&buf[4] = v185;
+              *&buf[4] = v193;
               *&buf[12] = 2114;
-              *&buf[14] = v29;
-              _os_log_impl(&dword_0, v90, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting pallas url to nil for asset type '%{public}@'", buf, 0x16u);
+              *&buf[14] = v32;
+              _os_log_impl(&dword_0, v97, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting pallas url to nil for asset type '%{public}@'", buf, 0x16u);
             }
 
-            v32 = 0;
+            v35 = 0;
 LABEL_140:
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v91 = @"PallasUrlOverrideV2";
-              if (([(__CFString *)v29 isEqualToString:&stru_4BD3F0]& 1) == 0)
+              v98 = @"PallasUrlOverrideV2";
+              if (([(__CFString *)v32 isEqualToString:&stru_4BD3F0]& 1) == 0)
               {
-                v91 = [NSString stringWithFormat:@"%@-%@", @"PallasUrlOverrideV2", v29];
+                v98 = [NSString stringWithFormat:@"%@-%@", @"PallasUrlOverrideV2", v32];
               }
             }
 
             else
             {
-              v91 = @"PallasUrlOverrideV2";
+              v98 = @"PallasUrlOverrideV2";
             }
 
-            [*(a1 + 32) setPreferenceKeyAsync:v91 andValue:v32 allowNilToClear:1 replyUsing:*(a1 + 40) and:original];
+            [*(a1 + 32) setPreferenceKeyAsync:v98 andValue:v35 allowNilToClear:1 replyUsing:*(a1 + 40) and:original];
 
-            v180 = 0;
-            v181 = 0;
-            v178 = 0;
-            v179 = 0;
-            v176 = 0;
-            v177 = 0;
-            v174 = 0;
-            v175 = 0;
-            v30 = 0;
-            v31 = 0;
+            v188 = 0;
+            v189 = 0;
+            v186 = 0;
+            v187 = 0;
+            v184 = 0;
+            v185 = 0;
+            v182 = 0;
+            v183 = 0;
+            v33 = 0;
+            v34 = 0;
             goto LABEL_252;
           }
 
-          if (v89)
+          if (v96)
           {
-            v32 = [NSString stringWithUTF8String:v89];
-            if (v32)
+            v35 = [NSString stringWithUTF8String:v96];
+            if (v35)
             {
-              v90 = _MADLog(@"V2Control");
-              if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+              v97 = _MADLog(@"V2Control");
+              if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543874;
-                *&buf[4] = v185;
+                *&buf[4] = v193;
                 *&buf[12] = 2114;
-                *&buf[14] = v32;
+                *&buf[14] = v35;
                 *&buf[22] = 2114;
-                *&buf[24] = v29;
-                _os_log_impl(&dword_0, v90, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting pallas V2 url to '%{public}@' for asset type '%{public}@'", buf, 0x20u);
+                *&buf[24] = v32;
+                _os_log_impl(&dword_0, v97, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting pallas V2 url to '%{public}@' for asset type '%{public}@'", buf, 0x20u);
               }
 
               goto LABEL_140;
             }
 
-            v158 = _MADLog(@"V2");
-            if (os_log_type_enabled(v158, OS_LOG_TYPE_ERROR))
+            v166 = _MADLog(@"V2");
+            if (os_log_type_enabled(v166, OS_LOG_TYPE_ERROR))
             {
-              v164 = *v89;
+              v172 = *v96;
               *buf = 138543874;
-              *&buf[4] = v185;
+              *&buf[4] = v193;
               *&buf[12] = 1024;
-              *&buf[14] = v164;
+              *&buf[14] = v172;
               *&buf[18] = 2114;
-              *&buf[20] = v29;
-              v159 = "%{public}@ Setting pallas V2 url to %0x for asset type '%{public}@' failed as the url cannot convert to string";
-              v160 = v158;
-              v161 = 28;
+              *&buf[20] = v32;
+              v167 = "%{public}@ Setting pallas V2 url to %0x for asset type '%{public}@' failed as the url cannot convert to string";
+              v168 = v166;
+              v169 = 28;
               goto LABEL_319;
             }
           }
 
           else
           {
-            v158 = _MADLog(@"V2");
-            if (os_log_type_enabled(v158, OS_LOG_TYPE_ERROR))
+            v166 = _MADLog(@"V2");
+            if (os_log_type_enabled(v166, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              *&buf[4] = v185;
+              *&buf[4] = v193;
               *&buf[12] = 2114;
-              *&buf[14] = v29;
-              v159 = "%{public}@ Setting pallas V2 url to nil failed for asset type '%{public}@' as it must be cleared explicitly by the framework";
-              v160 = v158;
-              v161 = 22;
+              *&buf[14] = v32;
+              v167 = "%{public}@ Setting pallas V2 url to nil failed for asset type '%{public}@' as it must be cleared explicitly by the framework";
+              v168 = v166;
+              v169 = 22;
 LABEL_319:
-              _os_log_impl(&dword_0, v160, OS_LOG_TYPE_ERROR, v159, buf, v161);
+              _os_log_impl(&dword_0, v168, OS_LOG_TYPE_ERROR, v167, buf, v169);
             }
           }
 
           sendClientResponse(*(a1 + 40), original, 2);
           goto LABEL_251;
         case 0xAu:
-          v59 = xpc_dictionary_get_string(original, "pallasAudience");
-          if (v59)
+          v62 = xpc_dictionary_get_string(original, "pallasAudience");
+          if (v62)
           {
-            v34 = [NSString stringWithUTF8String:v59];
-            if (!v34)
+            v37 = [NSString stringWithUTF8String:v62];
+            if (!v37)
             {
-              v147 = _MADLog(@"V2");
-              if (os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
+              v155 = _MADLog(@"V2");
+              if (os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
               {
-                v148 = *v59;
+                v156 = *v62;
                 *buf = 138543618;
-                *&buf[4] = v185;
+                *&buf[4] = v193;
                 *&buf[12] = 1024;
-                *&buf[14] = v148;
-                _os_log_impl(&dword_0, v147, OS_LOG_TYPE_ERROR, "%{public}@ Setting pallas audience to %0x... cannot convert to string.", buf, 0x12u);
+                *&buf[14] = v156;
+                _os_log_impl(&dword_0, v155, OS_LOG_TYPE_ERROR, "%{public}@ Setting pallas audience to %0x... cannot convert to string.", buf, 0x12u);
               }
 
               sendClientResponse(*(a1 + 40), original, 2);
-              v172 = 0;
               v180 = 0;
-              v181 = 0;
-              v178 = 0;
-              v179 = 0;
-              v176 = 0;
-              v177 = 0;
-              v174 = 0;
-              v175 = 0;
-              v30 = 0;
-              v31 = 0;
-              v32 = 0;
+              v188 = 0;
+              v189 = 0;
+              v186 = 0;
+              v187 = 0;
+              v184 = 0;
+              v185 = 0;
+              v182 = 0;
+              v183 = 0;
               v33 = 0;
               v34 = 0;
+              v35 = 0;
+              v36 = 0;
+              v37 = 0;
               reply = 0;
               goto LABEL_255;
             }
 
-            v60 = _MADLog(@"V2Control");
-            if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+            v63 = _MADLog(@"V2Control");
+            if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543874;
-              *&buf[4] = v185;
+              *&buf[4] = v193;
               *&buf[12] = 2114;
-              *&buf[14] = v34;
+              *&buf[14] = v37;
               *&buf[22] = 2114;
-              *&buf[24] = v29;
-              _os_log_impl(&dword_0, v60, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting Pallas audience to '%{public}@' for asset type '%{public}@'", buf, 0x20u);
+              *&buf[24] = v32;
+              _os_log_impl(&dword_0, v63, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting Pallas audience to '%{public}@' for asset type '%{public}@'", buf, 0x20u);
             }
           }
 
           else
           {
-            v60 = _MADLog(@"V2Control");
-            if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+            v63 = _MADLog(@"V2Control");
+            if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543618;
-              *&buf[4] = v185;
+              *&buf[4] = v193;
               *&buf[12] = 2114;
-              *&buf[14] = v29;
-              _os_log_impl(&dword_0, v60, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting Pallas audience to (null) for asset type '%{public}@'", buf, 0x16u);
+              *&buf[14] = v32;
+              _os_log_impl(&dword_0, v63, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting Pallas audience to (null) for asset type '%{public}@'", buf, 0x16u);
             }
 
-            v34 = 0;
+            v37 = 0;
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v123 = @"MobileAssetAssetAudience";
-            if (([(__CFString *)v29 isEqualToString:&stru_4BD3F0]& 1) == 0)
+            v131 = @"MobileAssetAssetAudience";
+            if (([(__CFString *)v32 isEqualToString:&stru_4BD3F0]& 1) == 0)
             {
-              v123 = [NSString stringWithFormat:@"%@-%@", @"MobileAssetAssetAudience", v29];
+              v131 = [NSString stringWithFormat:@"%@-%@", @"MobileAssetAssetAudience", v32];
             }
           }
 
           else
           {
-            v123 = @"MobileAssetAssetAudience";
+            v131 = @"MobileAssetAssetAudience";
           }
 
-          [*(a1 + 32) setPreferenceKeyAsync:v123 andValue:v34 allowNilToClear:1 replyUsing:*(a1 + 40) and:original];
+          [*(a1 + 32) setPreferenceKeyAsync:v131 andValue:v37 allowNilToClear:1 replyUsing:*(a1 + 40) and:original];
 
-          v180 = 0;
-          v181 = 0;
-          v178 = 0;
-          v179 = 0;
-          v176 = 0;
-          v177 = 0;
-          v174 = 0;
-          v175 = 0;
-          v30 = 0;
-          v31 = 0;
-          v32 = 0;
+          v188 = 0;
+          v189 = 0;
+          v186 = 0;
+          v187 = 0;
+          v184 = 0;
+          v185 = 0;
+          v182 = 0;
+          v183 = 0;
           v33 = 0;
+          v34 = 0;
+          v35 = 0;
+          v36 = 0;
           goto LABEL_254;
         case 0xBu:
-          v56 = _MADLog(@"V2");
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+          v59 = _MADLog(@"V2");
+          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
           {
-            v88 = stringForMAXpcCommand(0xBu);
+            v95 = stringForMAXpcCommand(0xBu);
             *buf = 138543874;
-            *&buf[4] = v185;
+            *&buf[4] = v193;
             *&buf[12] = 2048;
             *&buf[14] = uint64;
             *&buf[22] = 2114;
-            *&buf[24] = v88;
-            _os_log_impl(&dword_0, v56, OS_LOG_TYPE_ERROR, "received command from client %{public}@ that should be handled by MA XPC layer: %lld (%{public}@)", buf, 0x20u);
+            *&buf[24] = v95;
+            _os_log_impl(&dword_0, v59, OS_LOG_TYPE_ERROR, "received command from client %{public}@ that should be handled by MA XPC layer: %lld (%{public}@)", buf, 0x20u);
           }
 
           goto LABEL_135;
         case 0xCu:
-          v56 = _MADLog(@"V2");
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+          v59 = _MADLog(@"V2");
+          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            *&buf[4] = v185;
-            _os_log_impl(&dword_0, v56, OS_LOG_TYPE_ERROR, "received MA_DUMP_CODE_COVERAGE [deprecated] from client %{public}@", buf, 0xCu);
+            *&buf[4] = v193;
+            _os_log_impl(&dword_0, v59, OS_LOG_TYPE_ERROR, "received MA_DUMP_CODE_COVERAGE [deprecated] from client %{public}@", buf, 0xCu);
           }
 
 LABEL_135:
@@ -12234,435 +12237,436 @@ LABEL_135:
           sendClientResponse(*(a1 + 40), original, 5);
           goto LABEL_251;
         case 0xDu:
-          [*(a1 + 32) handleServerUrlOverride:v29 message:original client:*(a1 + 40) clientName:v185];
+          [*(a1 + 32) handleServerUrlOverride:v32 message:original client:*(a1 + 40) clientName:v193];
           goto LABEL_251;
         case 0xEu:
           *buf = 0;
           *&buf[8] = 0;
-          v83 = _os_activity_create(&dword_0, "ControlManager:RepairState", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v83, buf);
+          v88 = _os_activity_create(&dword_0, "ControlManager:RepairState", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v88, buf);
 
-          if ([*(a1 + 32) beforeFirstUnlock])
+          v89 = [*(a1 + 32) beforeFirstUnlock];
+          if (v89)
           {
-            v84 = _MADLog(@"V2Control");
-            if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+            v90 = _MADLog(@"V2Control");
+            if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
             {
               LOWORD(state.opaque[0]) = 0;
-              v85 = 2;
-              _os_log_impl(&dword_0, v84, OS_LOG_TYPE_DEFAULT, "{handleClientConnection} [MA_REPAIR_STATE] Not able to attempt to repair NSURLSession state since device is before first-unlock", &state, 2u);
+              v91 = 2;
+              _os_log_impl(&dword_0, v90, OS_LOG_TYPE_DEFAULT, "{handleClientConnection} [MA_REPAIR_STATE] Not able to attempt to repair NSURLSession state since device is before first-unlock", &state, 2u);
             }
 
             else
             {
-              v85 = 2;
+              v91 = 2;
             }
           }
 
           else
           {
-            v84 = getDownloadManager();
-            [v84 queryNSUrlSessiondAndUpdateState];
-            v85 = 0;
+            v90 = getDownloadManager(v89);
+            [v90 queryNSUrlSessiondAndUpdateState];
+            v91 = 0;
           }
 
-          sendClientResponse(*(a1 + 40), original, v85);
+          sendClientResponse(*(a1 + 40), original, v91);
           goto LABEL_250;
         case 0xFu:
           state.opaque[0] = 0;
           state.opaque[1] = 0;
-          v49 = _os_activity_create(&dword_0, "ControlManager:MigrateAssets", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v49, &state);
+          v52 = _os_activity_create(&dword_0, "ControlManager:MigrateAssets", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v52, &state);
 
-          v50 = _MADLog(@"V2Control");
-          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+          v53 = _MADLog(@"V2Control");
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            *&buf[4] = v29;
+            *&buf[4] = v32;
             *&buf[12] = 2114;
-            *&buf[14] = v185;
-            _os_log_impl(&dword_0, v50, OS_LOG_TYPE_DEFAULT, "Migrating assets for %{public}@ and %{public}@", buf, 0x16u);
+            *&buf[14] = v193;
+            _os_log_impl(&dword_0, v53, OS_LOG_TYPE_DEFAULT, "Migrating assets for %{public}@ and %{public}@", buf, 0x16u);
           }
 
-          [*(a1 + 32) handleMigrateAssetsRequest:v29 using:*(a1 + 40) and:original];
+          [*(a1 + 32) handleMigrateAssetsRequest:v32 using:*(a1 + 40) and:original];
 LABEL_80:
           p_state = &state;
           goto LABEL_204;
         case 0x10u:
-          v63 = _MADLog(@"V2Control");
-          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+          v66 = _MADLog(@"V2Control");
+          if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            *&buf[4] = v185;
+            *&buf[4] = v193;
             *&buf[12] = 2114;
-            *&buf[14] = v29;
-            _os_log_impl(&dword_0, v63, OS_LOG_TYPE_DEFAULT, "%{public}@ issued clean v1 for %{public}@", buf, 0x16u);
+            *&buf[14] = v32;
+            _os_log_impl(&dword_0, v66, OS_LOG_TYPE_DEFAULT, "%{public}@ issued clean v1 for %{public}@", buf, 0x16u);
           }
 
-          cleanV1Assets(*(a1 + 40), original, v29);
+          cleanV1Assets(*(a1 + 40), original, v32);
           goto LABEL_251;
         case 0x11u:
-          v47 = _MADLog(@"V2Control");
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          v50 = _MADLog(@"V2Control");
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            *&buf[4] = v185;
-            _os_log_impl(&dword_0, v47, OS_LOG_TYPE_DEFAULT, "%{public}@ issued space check", buf, 0xCu);
+            *&buf[4] = v193;
+            _os_log_impl(&dword_0, v50, OS_LOG_TYPE_DEFAULT, "%{public}@ issued space check", buf, 0xCu);
           }
 
           checkSpaceForDownload(*(a1 + 40), original);
           goto LABEL_251;
         case 0x12u:
-          v74 = _MADLog(@"V2Control");
-          if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+          v79 = _MADLog(@"V2Control");
+          if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            *&buf[4] = v185;
+            *&buf[4] = v193;
             *&buf[12] = 2114;
-            *&buf[14] = v29;
-            _os_log_impl(&dword_0, v74, OS_LOG_TYPE_DEFAULT, "%{public}@ issued query for installed asset ids for %{public}@", buf, 0x16u);
+            *&buf[14] = v32;
+            _os_log_impl(&dword_0, v79, OS_LOG_TYPE_DEFAULT, "%{public}@ issued query for installed asset ids for %{public}@", buf, 0x16u);
           }
 
-          handleGetInstalledAssetIds(v29, v185, *(a1 + 40), original);
+          handleGetInstalledAssetIds(v32, v193, *(a1 + 40), original);
           goto LABEL_251;
         case 0x13u:
           *buf = 0;
           *&buf[8] = 0;
-          v86 = _os_activity_create(&dword_0, "ControlManager:ConfigDownload", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v86, buf);
+          v92 = _os_activity_create(&dword_0, "ControlManager:ConfigDownload", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v92, buf);
 
-          v87 = getDownloadManager();
-          [v87 configDownload:v29 clientName:v185 using:*(a1 + 40) with:original];
+          v94 = getDownloadManager(v93);
+          [v94 configDownload:v32 clientName:v193 using:*(a1 + 40) with:original];
 
           goto LABEL_250;
         case 0x14u:
-          v105 = _MADLog(@"V2Control");
-          if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
+          v112 = _MADLog(@"V2Control");
+          if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            *&buf[4] = v185;
+            *&buf[4] = v193;
             *&buf[12] = 2114;
-            *&buf[14] = v29;
-            _os_log_impl(&dword_0, v105, OS_LOG_TYPE_DEFAULT, "%{public}@ request asset audience for asset type %{public}@", buf, 0x16u);
+            *&buf[14] = v32;
+            _os_log_impl(&dword_0, v112, OS_LOG_TYPE_DEFAULT, "%{public}@ request asset audience for asset type %{public}@", buf, 0x16u);
           }
 
           reply = xpc_dictionary_create_reply(original);
-          _MAPreferencesSync(@"handleClientConnection", @"MA_GET_PALLAS_AUDIENCE");
-          v106 = getDownloadManager();
-          v194 = 0;
-          v31 = [v106 newAssetAudience:IsInternalAllowed assetType:v29 logMessage:&v194];
-          v181 = v194;
+          v113 = _MAPreferencesSync(@"handleClientConnection", @"MA_GET_PALLAS_AUDIENCE");
+          v114 = getDownloadManager(v113);
+          v202 = 0;
+          v34 = [v114 newAssetAudience:IsInternalAllowed assetType:v32 logMessage:&v202];
+          v189 = v202;
 
-          if (v31)
+          if (v34)
           {
-            v107 = v31;
-            xpc_dictionary_set_string(reply, "pallasAudience", [v31 UTF8String]);
-            v108 = 0;
+            v115 = v34;
+            xpc_dictionary_set_string(reply, "pallasAudience", [v34 UTF8String]);
+            v116 = 0;
           }
 
           else
           {
-            v108 = 2;
+            v116 = 2;
           }
 
-          v134 = _MADLog(@"V2Control");
-          v171 = v108;
-          if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
+          v142 = _MADLog(@"V2Control");
+          v179 = v116;
+          if (os_log_type_enabled(v142, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138544130;
-            *&buf[4] = v185;
+            *&buf[4] = v193;
             *&buf[12] = 2114;
-            *&buf[14] = v31;
+            *&buf[14] = v34;
             *&buf[22] = 2114;
-            *&buf[24] = v29;
-            v215 = 2114;
-            v216 = v181;
-            _os_log_impl(&dword_0, v134, OS_LOG_TYPE_DEFAULT, "%{public}@ found Pallas asset audience %{public}@ for asset type %{public}@\n%{public}@", buf, 0x2Au);
+            *&buf[24] = v32;
+            v223 = 2114;
+            v224 = v189;
+            _os_log_impl(&dword_0, v142, OS_LOG_TYPE_DEFAULT, "%{public}@ found Pallas asset audience %{public}@ for asset type %{public}@\n%{public}@", buf, 0x2Au);
           }
 
-          sendReply(*(a1 + 40), reply, v108);
-          v178 = 0;
-          v179 = 0;
-          v176 = 0;
-          v177 = 0;
-          v175 = 0;
-          v30 = 0;
+          sendReply(*(a1 + 40), reply, v116);
+          v186 = 0;
+          v187 = 0;
+          v184 = 0;
+          v185 = 0;
+          v183 = 0;
+          v33 = 0;
           goto LABEL_243;
         case 0x15u:
-          [*(a1 + 32) handleUpdateClientUsage:v29 using:*(a1 + 40) and:original clientName:v185];
+          [*(a1 + 32) handleUpdateClientUsage:v32 using:*(a1 + 40) and:original clientName:v193];
           goto LABEL_251;
         case 0x16u:
-          [*(a1 + 32) dumpClientUsage:v29 using:*(a1 + 40) and:original clientName:v185];
+          [*(a1 + 32) dumpClientUsage:v32 using:*(a1 + 40) and:original clientName:v193];
           goto LABEL_251;
         case 0x17u:
           *buf = 0;
           *&buf[8] = 0;
-          v104 = _os_activity_create(&dword_0, "ControlManager:GarbageCollect", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v104, buf);
+          v111 = _os_activity_create(&dword_0, "ControlManager:GarbageCollect", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v111, buf);
 
           [*(a1 + 32) handleGarbageCollect:*(a1 + 40) and:original];
           goto LABEL_250;
         case 0x18u:
           *buf = 0;
           *&buf[8] = 0;
-          v111 = _os_activity_create(&dword_0, "ControlManager:PurgeAll", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v111, buf);
+          v119 = _os_activity_create(&dword_0, "ControlManager:PurgeAll", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v119, buf);
 
-          [*(a1 + 32) purgeAll:*(a1 + 40) and:original assetTypesList:v187 clientName:v185];
+          [*(a1 + 32) purgeAll:*(a1 + 40) and:original assetTypesList:v195 clientName:v193];
           goto LABEL_250;
         case 0x19u:
-          [*(a1 + 32) overrideGCValue:v29 using:*(a1 + 40) and:original clientName:v185];
+          [*(a1 + 32) overrideGCValue:v32 using:*(a1 + 40) and:original clientName:v193];
           goto LABEL_251;
         case 0x1Au:
           *buf = 0;
           *&buf[8] = 0;
-          v61 = _os_activity_create(&dword_0, "ControlManager:PurgeCatalogs", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v61, buf);
+          v64 = _os_activity_create(&dword_0, "ControlManager:PurgeCatalogs", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v64, buf);
 
-          [*(a1 + 32) purgeCatalogs:*(a1 + 40) and:original assetTypesList:v187 clientName:v185];
+          [*(a1 + 32) purgeCatalogs:*(a1 + 40) and:original assetTypesList:v195 clientName:v193];
           goto LABEL_250;
         case 0x1Bu:
-          v114 = _MADLog(@"V2Control");
-          if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
+          v122 = _MADLog(@"V2Control");
+          if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            *&buf[4] = v185;
+            *&buf[4] = v193;
             *&buf[12] = 2114;
-            *&buf[14] = v29;
-            _os_log_impl(&dword_0, v114, OS_LOG_TYPE_DEFAULT, "%{public}@ issued load command for %{public}@", buf, 0x16u);
+            *&buf[14] = v32;
+            _os_log_impl(&dword_0, v122, OS_LOG_TYPE_DEFAULT, "%{public}@ issued load command for %{public}@", buf, 0x16u);
           }
 
-          [*(a1 + 32) handleLoadRequest:v29 clientName:v185 connection:*(a1 + 40) message:original];
+          [*(a1 + 32) handleLoadRequest:v32 clientName:v193 connection:*(a1 + 40) message:original];
           goto LABEL_251;
         case 0x1Cu:
           state.opaque[0] = 0;
           state.opaque[1] = 0;
-          v44 = _os_activity_create(&dword_0, "ControlManager:CancelCatalogDownload", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v44, &state);
+          v47 = _os_activity_create(&dword_0, "ControlManager:CancelCatalogDownload", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v47, &state);
 
-          v45 = xpc_dictionary_get_string(original, "Purpose");
-          if (v45)
+          v48 = xpc_dictionary_get_string(original, "Purpose");
+          if (v48)
           {
-            v46 = [NSString stringWithUTF8String:v45];
+            v49 = [NSString stringWithUTF8String:v48];
           }
 
           else
           {
-            v46 = 0;
+            v49 = 0;
           }
 
-          if (isWellFormedPurpose(v46))
+          if (isWellFormedPurpose(v49))
           {
-            [*(a1 + 32) cancelDownload:original using:*(a1 + 40) for:v185 assetType:v29 purpose:v46 withExtension:@"xml"];
+            [*(a1 + 32) cancelDownload:original using:*(a1 + 40) for:v193 assetType:v32 purpose:v49 withExtension:@"xml"];
           }
 
           else
           {
-            v125 = _MADLog(@"V2");
-            if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
+            v133 = _MADLog(@"V2");
+            if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              *&buf[4] = v185;
+              *&buf[4] = v193;
               *&buf[12] = 2114;
-              *&buf[14] = v29;
-              _os_log_impl(&dword_0, v125, OS_LOG_TYPE_ERROR, "Cancel for: %{public}@ of %{public}@ catalog failed due to purpose that is not well formed", buf, 0x16u);
+              *&buf[14] = v32;
+              _os_log_impl(&dword_0, v133, OS_LOG_TYPE_ERROR, "Cancel for: %{public}@ of %{public}@ catalog failed due to purpose that is not well formed", buf, 0x16u);
             }
 
             sendClientResponse(*(a1 + 40), original, 4);
           }
 
-          v180 = v46;
+          v188 = v49;
           os_activity_scope_leave(&state);
-          v181 = 0;
-          v178 = 0;
-          v179 = 0;
-          v176 = 0;
-          v177 = 0;
-          v175 = 0;
-          v30 = 0;
-          v31 = 0;
+          v189 = 0;
+          v186 = 0;
+          v187 = 0;
+          v184 = 0;
+          v185 = 0;
+          v183 = 0;
+          v33 = 0;
+          v34 = 0;
           goto LABEL_207;
         case 0x1Du:
           *buf = 0;
           *&buf[8] = 0;
-          v112 = _os_activity_create(&dword_0, "ControlManager:CancelPMVDownload", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v112, buf);
+          v120 = _os_activity_create(&dword_0, "ControlManager:CancelPMVDownload", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v120, buf);
 
-          [*(a1 + 32) cancelDownload:original using:*(a1 + 40) for:v185 assetType:v29 purpose:0 withExtension:@"pmv"];
+          [*(a1 + 32) cancelDownload:original using:*(a1 + 40) for:v193 assetType:v32 purpose:0 withExtension:@"pmv"];
           goto LABEL_203;
         case 0x1Eu:
           *buf = 0;
           *&buf[8] = 0;
-          v113 = _os_activity_create(&dword_0, "ControlManager:DownloadPMV", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v113, buf);
+          v121 = _os_activity_create(&dword_0, "ControlManager:DownloadPMV", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v121, buf);
 
-          [*(a1 + 32) getProductMarketingVersions:*(a1 + 40) and:original clientName:v185 assetType:v29];
+          [*(a1 + 32) getProductMarketingVersions:*(a1 + 40) and:original clientName:v193 assetType:v32];
           goto LABEL_203;
         case 0x1Fu:
           *buf = 0;
           *&buf[8] = 0;
-          v92 = _os_activity_create(&dword_0, "ControlManager:QueryPMV", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v92, buf);
+          v99 = _os_activity_create(&dword_0, "ControlManager:QueryPMV", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v99, buf);
 
-          [*(a1 + 32) handlePmvRequest:v29 clientName:v185 connection:*(a1 + 40) message:original];
+          [*(a1 + 32) handlePmvRequest:v32 clientName:v193 connection:*(a1 + 40) message:original];
 LABEL_203:
           p_state = buf;
 LABEL_204:
           os_activity_scope_leave(p_state);
-          v181 = 0;
-          v178 = 0;
-          v179 = 0;
-          v176 = 0;
-          v177 = 0;
+          v189 = 0;
+          v186 = 0;
+          v187 = 0;
+          v184 = 0;
+          v185 = 0;
           goto LABEL_205;
         case 0x20u:
-          v69 = _MADLog(@"V2Control");
-          if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+          v73 = _MADLog(@"V2Control");
+          if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            *&buf[4] = v185;
+            *&buf[4] = v193;
             *&buf[12] = 2114;
-            *&buf[14] = v29;
-            _os_log_impl(&dword_0, v69, OS_LOG_TYPE_DEFAULT, "%{public}@ requested if Pallas is enabled for asset type %{public}@", buf, 0x16u);
+            *&buf[14] = v32;
+            _os_log_impl(&dword_0, v73, OS_LOG_TYPE_DEFAULT, "%{public}@ requested if Pallas is enabled for asset type %{public}@", buf, 0x16u);
           }
 
-          _MAPreferencesSync(@"handleClientConnection", @"MA_GET_PALLAS_ENABLED");
-          v70 = getDownloadManager();
-          v71 = [v70 getPallasEnabledForAssetType:v29];
+          v74 = _MAPreferencesSync(@"handleClientConnection", @"MA_GET_PALLAS_ENABLED");
+          v75 = getDownloadManager(v74);
+          v76 = [v75 getPallasEnabledForAssetType:v32];
 
-          v72 = xpc_dictionary_create_reply(original);
-          reply = v72;
-          if (v72)
+          v77 = xpc_dictionary_create_reply(original);
+          reply = v77;
+          if (v77)
           {
-            xpc_dictionary_set_BOOL(v72, "pallasEnabled", v71);
-            v73 = 0;
+            xpc_dictionary_set_BOOL(v77, "pallasEnabled", v76);
+            v78 = 0;
           }
 
           else
           {
-            v73 = 2;
+            v78 = 2;
           }
 
-          v132 = _MADLog(@"V2Control");
-          v171 = v73;
-          if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
+          v140 = _MADLog(@"V2Control");
+          v179 = v78;
+          if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
           {
-            v133 = @"NO";
+            v141 = @"NO";
             *buf = 138543874;
-            *&buf[4] = v185;
+            *&buf[4] = v193;
             *&buf[12] = 2114;
-            if (v71)
+            if (v76)
             {
-              v133 = @"YES";
+              v141 = @"YES";
             }
 
-            *&buf[14] = v133;
+            *&buf[14] = v141;
             *&buf[22] = 2114;
-            *&buf[24] = v29;
-            _os_log_impl(&dword_0, v132, OS_LOG_TYPE_DEFAULT, "%{public}@ found Pallas enabled %{public}@ for asset type %{public}@", buf, 0x20u);
+            *&buf[24] = v32;
+            _os_log_impl(&dword_0, v140, OS_LOG_TYPE_DEFAULT, "%{public}@ found Pallas enabled %{public}@ for asset type %{public}@", buf, 0x20u);
           }
 
-          sendReply(*(a1 + 40), reply, v73);
-          v180 = 0;
-          v181 = 0;
-          v178 = 0;
-          v179 = 0;
-          v176 = 0;
-          v177 = 0;
-          v174 = 0;
-          v175 = 0;
-          v30 = 0;
-          v31 = 0;
-          v32 = 0;
+          sendReply(*(a1 + 40), reply, v78);
+          v188 = 0;
+          v189 = 0;
+          v186 = 0;
+          v187 = 0;
+          v184 = 0;
+          v185 = 0;
+          v182 = 0;
+          v183 = 0;
           v33 = 0;
           v34 = 0;
+          v35 = 0;
+          v36 = 0;
+          v37 = 0;
           goto LABEL_300;
         case 0x21u:
-          v93 = xpc_dictionary_get_BOOL(original, "pallasEnabled");
-          v94 = @"off";
-          if (v93)
+          v100 = xpc_dictionary_get_BOOL(original, "pallasEnabled");
+          v101 = @"off";
+          if (v100)
           {
-            v94 = @"on";
+            v101 = @"on";
           }
 
-          v33 = v94;
-          v95 = _MADLog(@"V2Control");
-          if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+          v36 = v101;
+          v102 = _MADLog(@"V2Control");
+          if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543874;
-            *&buf[4] = v185;
+            *&buf[4] = v193;
             *&buf[12] = 2114;
-            *&buf[14] = v33;
+            *&buf[14] = v36;
             *&buf[22] = 2114;
-            *&buf[24] = v29;
-            _os_log_impl(&dword_0, v95, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting Pallas enabled to %{public}@ for asset type %{public}@", buf, 0x20u);
+            *&buf[24] = v32;
+            _os_log_impl(&dword_0, v102, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting Pallas enabled to %{public}@ for asset type %{public}@", buf, 0x20u);
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v96 = @"EnableLiveAssetServerV2";
-            if (([(__CFString *)v29 isEqualToString:&stru_4BD3F0]& 1) == 0)
+            v103 = @"EnableLiveAssetServerV2";
+            if (([(__CFString *)v32 isEqualToString:&stru_4BD3F0]& 1) == 0)
             {
-              v96 = [NSString stringWithFormat:@"%@-%@", @"EnableLiveAssetServerV2", v29];
+              v103 = [NSString stringWithFormat:@"%@-%@", @"EnableLiveAssetServerV2", v32];
             }
           }
 
           else
           {
-            v96 = @"EnableLiveAssetServerV2";
+            v103 = @"EnableLiveAssetServerV2";
           }
 
-          [*(a1 + 32) setPreferenceKeyAsync:v96 andValue:v33 allowNilToClear:0 replyUsing:*(a1 + 40) and:original];
+          [*(a1 + 32) setPreferenceKeyAsync:v103 andValue:v36 allowNilToClear:0 replyUsing:*(a1 + 40) and:original];
 
-          v180 = 0;
-          v181 = 0;
-          v178 = 0;
-          v179 = 0;
-          v176 = 0;
-          v177 = 0;
-          v174 = 0;
-          v175 = 0;
-          v30 = 0;
-          v31 = 0;
-          v32 = 0;
+          v188 = 0;
+          v189 = 0;
+          v186 = 0;
+          v187 = 0;
+          v184 = 0;
+          v185 = 0;
+          v182 = 0;
+          v183 = 0;
+          v33 = 0;
+          v34 = 0;
+          v35 = 0;
           goto LABEL_253;
         case 0x22u:
-          v52 = xpc_dictionary_get_string(original, "tokenPath");
-          if (v52)
+          v55 = xpc_dictionary_get_string(original, "tokenPath");
+          if (v55)
           {
-            v53 = [NSString stringWithUTF8String:v52];
-            v54 = v53;
-            if (v53)
+            v56 = [NSString stringWithUTF8String:v55];
+            v57 = v56;
+            if (v56)
             {
-              if (isWellFormedTokenFileName(v53))
+              if (isWellFormedTokenFileName(v56))
               {
-                v55 = _MADLog(@"V2Control");
-                if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+                v58 = _MADLog(@"V2Control");
+                if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
-                  *&buf[4] = v54;
-                  _os_log_impl(&dword_0, v55, OS_LOG_TYPE_DEFAULT, "Attempting to set tokenPath to %{public}@", buf, 0xCu);
+                  *&buf[4] = v57;
+                  _os_log_impl(&dword_0, v58, OS_LOG_TYPE_DEFAULT, "Attempting to set tokenPath to %{public}@", buf, 0xCu);
                 }
 
 LABEL_191:
 
-                [*(a1 + 32) setPreferenceKeyAsync:@"MobileAssetTokenFile" andValue:v54 allowNilToClear:1 replyUsing:*(a1 + 40) and:original];
-                v122 = _MADLog(@"V2Control");
-                if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
+                [*(a1 + 32) setPreferenceKeyAsync:@"MobileAssetTokenFile" andValue:v57 allowNilToClear:1 replyUsing:*(a1 + 40) and:original];
+                v130 = _MADLog(@"V2Control");
+                if (os_log_type_enabled(v130, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_0, v122, OS_LOG_TYPE_DEFAULT, "Done setting tokenPath", buf, 2u);
+                  _os_log_impl(&dword_0, v130, OS_LOG_TYPE_DEFAULT, "Done setting tokenPath", buf, 2u);
                 }
 
                 goto LABEL_294;
               }
 
-              v156 = _MADLog(@"V2");
-              if (os_log_type_enabled(v156, OS_LOG_TYPE_ERROR))
+              v164 = _MADLog(@"V2");
+              if (os_log_type_enabled(v164, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                *&buf[4] = v185;
-                _os_log_impl(&dword_0, v156, OS_LOG_TYPE_ERROR, "%{public}@ Token file name is not well formed and cannot be set", buf, 0xCu);
+                *&buf[4] = v193;
+                _os_log_impl(&dword_0, v164, OS_LOG_TYPE_ERROR, "%{public}@ Token file name is not well formed and cannot be set", buf, 0xCu);
               }
 
               sendClientResponse(*(a1 + 40), original, 5);
@@ -12670,43 +12674,43 @@ LABEL_191:
 
             else
             {
-              v146 = _MADLog(@"V2");
-              if (os_log_type_enabled(v146, OS_LOG_TYPE_ERROR))
+              v154 = _MADLog(@"V2");
+              if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                *&buf[4] = v185;
-                _os_log_impl(&dword_0, v146, OS_LOG_TYPE_ERROR, "%{public}@ Attempting to set tokenPath, but cannot convert argument to string", buf, 0xCu);
+                *&buf[4] = v193;
+                _os_log_impl(&dword_0, v154, OS_LOG_TYPE_ERROR, "%{public}@ Attempting to set tokenPath, but cannot convert argument to string", buf, 0xCu);
               }
 
               sendClientResponse(*(a1 + 40), original, 2);
-              v54 = 0;
+              v57 = 0;
             }
 
 LABEL_294:
 
 LABEL_251:
-            v180 = 0;
-            v181 = 0;
-            v178 = 0;
-            v179 = 0;
-            v176 = 0;
-            v177 = 0;
-            v174 = 0;
-            v175 = 0;
-            v30 = 0;
-            v31 = 0;
-            v32 = 0;
-LABEL_252:
+            v188 = 0;
+            v189 = 0;
+            v186 = 0;
+            v187 = 0;
+            v184 = 0;
+            v185 = 0;
+            v182 = 0;
+            v183 = 0;
             v33 = 0;
-LABEL_253:
             v34 = 0;
+            v35 = 0;
+LABEL_252:
+            v36 = 0;
+LABEL_253:
+            v37 = 0;
 LABEL_254:
             reply = 0;
-            v172 = 1;
+            v180 = 1;
 LABEL_255:
-            v171 = 4;
+            v179 = 4;
 LABEL_256:
-            if (v29)
+            if (v32)
             {
               goto LABEL_257;
             }
@@ -12714,138 +12718,138 @@ LABEL_256:
             goto LABEL_281;
           }
 
-          v55 = _MADLog(@"V2Control");
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+          v58 = _MADLog(@"V2Control");
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_0, v55, OS_LOG_TYPE_DEFAULT, "Attempting to clear previously set tokenPath", buf, 2u);
+            _os_log_impl(&dword_0, v58, OS_LOG_TYPE_DEFAULT, "Attempting to clear previously set tokenPath", buf, 2u);
           }
 
-          v54 = 0;
+          v57 = 0;
           goto LABEL_191;
         case 0x23u:
-          [*(a1 + 32) handleReportingRequest:*(a1 + 40) message:original clientName:v185];
+          [*(a1 + 32) handleReportingRequest:*(a1 + 40) message:original clientName:v193];
           goto LABEL_251;
         case 0x24u:
-          [*(a1 + 32) handleGetServerUrl:v29 message:original client:*(a1 + 40) clientName:v185];
+          [*(a1 + 32) handleGetServerUrl:v32 message:original client:*(a1 + 40) clientName:v193];
           goto LABEL_251;
         case 0x25u:
-          [*(a1 + 32) handleGetAllowNonUserInitiated:*(a1 + 40) message:original clientName:v185];
+          [*(a1 + 32) handleGetAllowNonUserInitiated:*(a1 + 40) message:original clientName:v193];
           goto LABEL_251;
         case 0x26u:
-          [*(a1 + 32) handleEnsureDataVault:v29 message:original client:*(a1 + 40) clientName:v185];
+          [*(a1 + 32) handleEnsureDataVault:v32 message:original client:*(a1 + 40) clientName:v193];
           goto LABEL_251;
         case 0x27u:
-          [*(a1 + 32) handleDataMigrator:*(a1 + 40) message:original clientName:v185];
+          [*(a1 + 32) handleDataMigrator:*(a1 + 40) message:original clientName:v193];
           goto LABEL_251;
         case 0x28u:
-          [*(a1 + 32) handleGetMABrainInfo:*(a1 + 40) message:original clientName:v185];
+          [*(a1 + 32) handleGetMABrainInfo:*(a1 + 40) message:original clientName:v193];
           goto LABEL_251;
         case 0x29u:
           *buf = 0;
           *&buf[8] = 0;
-          v58 = _os_activity_create(&dword_0, "ControlManager:UpdateMABrain", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v58, buf);
+          v61 = _os_activity_create(&dword_0, "ControlManager:UpdateMABrain", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v61, buf);
 
-          [*(a1 + 32) handleUpdateMABrain:*(a1 + 40) message:original clientName:v185];
+          [*(a1 + 32) handleUpdateMABrain:*(a1 + 40) message:original clientName:v193];
           goto LABEL_250;
         case 0x2Au:
           *buf = 0;
           *&buf[8] = 0;
-          v75 = _os_activity_create(&dword_0, "ControlManager:InstallAsset", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v75, buf);
+          v80 = _os_activity_create(&dword_0, "ControlManager:InstallAsset", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v80, buf);
 
-          v76 = xpc_dictionary_get_string(original, "MobileAssetInstallAssetPath");
-          if (v76)
+          v81 = xpc_dictionary_get_string(original, "MobileAssetInstallAssetPath");
+          if (v81)
           {
-            v77 = [NSString stringWithUTF8String:v76];
-            if (v77)
+            v82 = [NSString stringWithUTF8String:v81];
+            if (v82)
             {
-              v78 = +[NSFileManager defaultManager];
-              v79 = [v78 fileExistsAtPath:v77];
+              v83 = +[NSFileManager defaultManager];
+              v84 = [v83 fileExistsAtPath:v82];
 
-              if (v79)
+              if (v84)
               {
-                v30 = v77;
+                v33 = v82;
 LABEL_221:
-                v126 = [*(a1 + 32) handleInstallAsset:v30 forType:v29];
-                sendClientResponse(*(a1 + 40), original, v126);
+                v134 = [*(a1 + 32) handleInstallAsset:v33 forType:v32];
+                sendClientResponse(*(a1 + 40), original, v134);
                 goto LABEL_299;
               }
 
-              v157 = _MADLog(@"V2");
-              if (os_log_type_enabled(v157, OS_LOG_TYPE_ERROR))
+              v165 = _MADLog(@"V2");
+              if (os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
               {
                 LODWORD(state.opaque[0]) = 138543362;
-                *(state.opaque + 4) = v77;
-                _os_log_impl(&dword_0, v157, OS_LOG_TYPE_ERROR, "Unable to locate directory: %{public}@", &state, 0xCu);
+                *(state.opaque + 4) = v82;
+                _os_log_impl(&dword_0, v165, OS_LOG_TYPE_ERROR, "Unable to locate directory: %{public}@", &state, 0xCu);
               }
 
               sendClientResponse(*(a1 + 40), original, 5);
-              v30 = v77;
+              v33 = v82;
             }
 
             else
             {
-              v149 = _MADLog(@"V2");
-              if (os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
+              v157 = _MADLog(@"V2");
+              if (os_log_type_enabled(v157, OS_LOG_TYPE_ERROR))
               {
                 LODWORD(state.opaque[0]) = 136446210;
-                *(state.opaque + 4) = v76;
-                _os_log_impl(&dword_0, v149, OS_LOG_TYPE_ERROR, "Failed to read directory path: %{public}s", &state, 0xCu);
+                *(state.opaque + 4) = v81;
+                _os_log_impl(&dword_0, v157, OS_LOG_TYPE_ERROR, "Failed to read directory path: %{public}s", &state, 0xCu);
               }
 
               sendClientResponse(*(a1 + 40), original, 2);
-              v30 = 0;
+              v33 = 0;
             }
 
-            v126 = &dword_4;
+            v134 = &dword_4;
 LABEL_299:
-            v171 = v126;
+            v179 = v134;
             os_activity_scope_leave(buf);
-            v180 = 0;
-            v181 = 0;
-            v178 = 0;
-            v179 = 0;
-            v176 = 0;
-            v177 = 0;
-            v174 = 0;
-            v175 = 0;
-            v31 = 0;
-            v32 = 0;
-            v33 = 0;
+            v188 = 0;
+            v189 = 0;
+            v186 = 0;
+            v187 = 0;
+            v184 = 0;
+            v185 = 0;
+            v182 = 0;
+            v183 = 0;
             v34 = 0;
+            v35 = 0;
+            v36 = 0;
+            v37 = 0;
             reply = 0;
 LABEL_300:
-            v172 = 1;
-            if (v29)
+            v180 = 1;
+            if (v32)
             {
 LABEL_257:
-              v135 = _MADLog(@"V2Control");
-              v136 = v135;
-              if (v173 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v135))
+              v143 = _MADLog(@"V2Control");
+              v144 = v143;
+              if (v181 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v143))
               {
-                v137 = mach_continuous_time();
-                v138 = v29;
-                v139 = [(__CFString *)v29 UTF8String];
-                v140 = v185;
-                v141 = [v185 UTF8String];
+                v145 = mach_continuous_time();
+                v146 = v32;
+                v147 = [(__CFString *)v32 UTF8String];
+                v148 = v193;
+                v149 = [v193 UTF8String];
                 *buf = 134350082;
-                *&buf[4] = v137;
+                *&buf[4] = v145;
                 *&buf[12] = 2050;
-                *&buf[14] = v171;
+                *&buf[14] = v179;
                 *&buf[22] = 2050;
                 *&buf[24] = uint64;
-                v215 = 2082;
-                v216 = v139;
-                v217 = 2082;
-                v218 = v141;
-                v142 = "%{public, signpost.description:end_time}llu Result=%{public, signpost.telemetry:number1,name=Result}lld Request=%{public, signpost.telemetry:number2,name=Request}lldAssetType=%{public, signpost.telemetry:string1,name=AssetType}sClient=%{public, signpost.telemetry:string2,name=Client}s enableTelemetry=YES ";
-                v143 = v136;
-                v144 = spid;
-                v145 = 52;
+                v223 = 2082;
+                v224 = v147;
+                v225 = 2082;
+                v226 = v149;
+                v150 = "%{public, signpost.description:end_time}llu Result=%{public, signpost.telemetry:number1,name=Result}lld Request=%{public, signpost.telemetry:number2,name=Request}lldAssetType=%{public, signpost.telemetry:string1,name=AssetType}sClient=%{public, signpost.telemetry:string2,name=Client}s enableTelemetry=YES ";
+                v151 = v144;
+                v152 = spid;
+                v153 = 52;
 LABEL_284:
-                _os_signpost_emit_with_name_impl(&dword_0, v143, OS_SIGNPOST_INTERVAL_END, v144, "ClientRequest", v142, buf, v145);
+                _os_signpost_emit_with_name_impl(&dword_0, v151, OS_SIGNPOST_INTERVAL_END, v152, "ClientRequest", v150, buf, v153);
                 goto LABEL_285;
               }
 
@@ -12853,43 +12857,43 @@ LABEL_284:
             }
 
 LABEL_281:
-            v150 = _MADLog(@"V2Control");
-            v136 = v150;
-            if (v173 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v150))
+            v158 = _MADLog(@"V2Control");
+            v144 = v158;
+            if (v181 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v158))
             {
-              v151 = mach_continuous_time();
-              v152 = v185;
-              v153 = [v185 UTF8String];
+              v159 = mach_continuous_time();
+              v160 = v193;
+              v161 = [v193 UTF8String];
               *buf = 134349826;
-              *&buf[4] = v151;
+              *&buf[4] = v159;
               *&buf[12] = 2050;
-              *&buf[14] = v171;
+              *&buf[14] = v179;
               *&buf[22] = 2050;
               *&buf[24] = uint64;
-              v215 = 2082;
-              v216 = v153;
-              v142 = "%{public, signpost.description:end_time}llu Result=%{public, signpost.telemetry:number1,name=Result}lld Request=%{public, signpost.telemetry:number2,name=Request}lldClient=%{public, signpost.telemetry:string1,name=Client}s enableTelemetry=YES ";
-              v143 = v136;
-              v144 = spid;
-              v145 = 42;
+              v223 = 2082;
+              v224 = v161;
+              v150 = "%{public, signpost.description:end_time}llu Result=%{public, signpost.telemetry:number1,name=Result}lld Request=%{public, signpost.telemetry:number2,name=Request}lldClient=%{public, signpost.telemetry:string1,name=Client}s enableTelemetry=YES ";
+              v151 = v144;
+              v152 = spid;
+              v153 = 42;
               goto LABEL_284;
             }
 
 LABEL_285:
 
-            if ((v172 & 1) == 0)
+            if ((v180 & 1) == 0)
             {
-              v154 = _MADLog(@"V2");
-              if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
+              v162 = _MADLog(@"V2");
+              if (os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
               {
-                v155 = stringForMAXpcCommand(uint64);
+                v163 = stringForMAXpcCommand(uint64);
                 *buf = 134218498;
                 *&buf[4] = uint64;
                 *&buf[12] = 2114;
-                *&buf[14] = v155;
+                *&buf[14] = v163;
                 *&buf[22] = 2114;
-                *&buf[24] = v185;
-                _os_log_impl(&dword_0, v154, OS_LOG_TYPE_ERROR, "Unknown Command: %lld (%{public}@) from client: %{public}@", buf, 0x20u);
+                *&buf[24] = v193;
+                _os_log_impl(&dword_0, v162, OS_LOG_TYPE_ERROR, "Unknown Command: %lld (%{public}@) from client: %{public}@", buf, 0x20u);
               }
 
               sendClientResponse(*(a1 + 40), original, 5);
@@ -12898,89 +12902,89 @@ LABEL_285:
             goto LABEL_289;
           }
 
-          v30 = 0;
+          v33 = 0;
           goto LABEL_221;
         case 0x2Bu:
-          v109 = xpc_dictionary_get_string(original, "tokenValue");
-          if (v109)
+          v117 = xpc_dictionary_get_string(original, "tokenValue");
+          if (v117)
           {
-            v110 = [NSString stringWithUTF8String:v109];
+            v118 = [NSString stringWithUTF8String:v117];
           }
 
           else
           {
-            v110 = 0;
+            v118 = 0;
           }
 
-          [*(a1 + 32) setPreferenceKeyAsync:@"MobileAssetTokenOverride" andValue:v110 allowNilToClear:1 replyUsing:*(a1 + 40) and:original];
-          v124 = _MADLog(@"V2Control");
-          if (os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT))
+          [*(a1 + 32) setPreferenceKeyAsync:@"MobileAssetTokenOverride" andValue:v118 allowNilToClear:1 replyUsing:*(a1 + 40) and:original];
+          v132 = _MADLog(@"V2Control");
+          if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_0, v124, OS_LOG_TYPE_DEFAULT, "Done setting tokenValue", buf, 2u);
+            _os_log_impl(&dword_0, v132, OS_LOG_TYPE_DEFAULT, "Done setting tokenValue", buf, 2u);
           }
 
           goto LABEL_251;
         case 0x2Cu:
-          v38 = _MADLog(@"V2Control");
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v41 = _MADLog(@"V2Control");
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            *&buf[4] = v185;
+            *&buf[4] = v193;
             *&buf[12] = 2114;
-            *&buf[14] = v29;
-            _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, "%{public}@ requested Pallas URL for asset type %{public}@", buf, 0x16u);
+            *&buf[14] = v32;
+            _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "%{public}@ requested Pallas URL for asset type %{public}@", buf, 0x16u);
           }
 
-          v39 = [DownloadManager getPallasUrl:IsInternalAllowed assetType:v29];
+          v42 = [DownloadManager getPallasUrl:IsInternalAllowed assetType:v32];
           reply = xpc_dictionary_create_reply(original);
-          v40 = 2;
-          if (reply && v39)
+          v43 = 2;
+          if (reply && v42)
           {
-            v41 = [v39 absoluteString];
-            v42 = v41;
-            xpc_dictionary_set_string(reply, "pallasUrl", [v41 UTF8String]);
+            v44 = [v42 absoluteString];
+            v45 = v44;
+            xpc_dictionary_set_string(reply, "pallasUrl", [v44 UTF8String]);
 
-            v40 = 0;
+            v43 = 0;
           }
 
-          v43 = _MADLog(@"V2Control");
-          v171 = v40;
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+          v46 = _MADLog(@"V2Control");
+          v179 = v43;
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543874;
-            *&buf[4] = v185;
+            *&buf[4] = v193;
             *&buf[12] = 2114;
-            *&buf[14] = v39;
+            *&buf[14] = v42;
             *&buf[22] = 2114;
-            *&buf[24] = v29;
-            _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "%{public}@ found Pallas URL %{public}@ for asset type %{public}@", buf, 0x20u);
+            *&buf[24] = v32;
+            _os_log_impl(&dword_0, v46, OS_LOG_TYPE_DEFAULT, "%{public}@ found Pallas URL %{public}@ for asset type %{public}@", buf, 0x20u);
           }
 
-          sendReply(*(a1 + 40), reply, v40);
-          v181 = 0;
-          v178 = 0;
-          v179 = 0;
-          v176 = 0;
-          v177 = 0;
-          v175 = 0;
-          v30 = 0;
-          v31 = 0;
-LABEL_243:
-          v180 = 0;
-          v174 = 0;
-          v32 = 0;
+          sendReply(*(a1 + 40), reply, v43);
+          v189 = 0;
+          v186 = 0;
+          v187 = 0;
+          v184 = 0;
+          v185 = 0;
+          v183 = 0;
           v33 = 0;
           v34 = 0;
-          v172 = 1;
+LABEL_243:
+          v188 = 0;
+          v182 = 0;
+          v35 = 0;
+          v36 = 0;
+          v37 = 0;
+          v180 = 1;
           goto LABEL_256;
         case 0x2Du:
           *buf = 0;
           *&buf[8] = 0;
-          v48 = _os_activity_create(&dword_0, "ControlManager:SecureMABundle", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v48, buf);
+          v51 = _os_activity_create(&dword_0, "ControlManager:SecureMABundle", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v51, buf);
 
-          [*(a1 + 32) handleSecureMABundleCommand:*(a1 + 40) message:original clientName:v185];
+          [*(a1 + 32) handleSecureMABundleCommand:*(a1 + 40) message:original clientName:v193];
 LABEL_250:
           os_activity_scope_leave(buf);
           goto LABEL_251;
@@ -12988,125 +12992,125 @@ LABEL_250:
           data = xpc_dictionary_get_data(original, [@"MAPreferences" UTF8String], &length);
           if (data)
           {
-            v98 = [NSData dataWithBytesNoCopy:data length:length freeWhenDone:0];
-            if (v98)
+            v105 = [NSData dataWithBytesNoCopy:data length:length freeWhenDone:0];
+            if (v105)
             {
-              v193 = 0;
-              v99 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v98 error:&v193];
-              v100 = v193;
-              v177 = v98;
-              v178 = v99;
-              if (v100)
+              v201 = 0;
+              v106 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v105 error:&v201];
+              v107 = v201;
+              v185 = v105;
+              v186 = v106;
+              if (v107)
               {
-                v101 = v100;
-                v102 = _MADLog(@"V2");
-                v179 = v101;
-                if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+                v108 = v107;
+                v109 = _MADLog(@"V2");
+                v187 = v108;
+                if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
                 {
-                  v103 = [v101 description];
+                  v110 = [v108 description];
                   *buf = 138543362;
-                  *&buf[4] = v103;
-                  _os_log_impl(&dword_0, v102, OS_LOG_TYPE_ERROR, "Unable to initialize keyed unarchiver, error: %{public}@", buf, 0xCu);
+                  *&buf[4] = v110;
+                  _os_log_impl(&dword_0, v109, OS_LOG_TYPE_ERROR, "Unable to initialize keyed unarchiver, error: %{public}@", buf, 0xCu);
                 }
 
                 sendClientResponse(*(a1 + 40), original, 2);
 LABEL_178:
-                v172 = 0;
-                v181 = 0;
+                v180 = 0;
+                v189 = 0;
 LABEL_179:
-                v176 = 0;
+                v184 = 0;
 LABEL_180:
-                v175 = 0;
+                v183 = 0;
                 goto LABEL_279;
               }
 
-              if (!v99)
+              if (!v106)
               {
-                v165 = _MADLog(@"V2");
-                if (os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
+                v173 = _MADLog(@"V2");
+                if (os_log_type_enabled(v173, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_0, v165, OS_LOG_TYPE_ERROR, "Keyed archive is nil, skipping.", buf, 2u);
+                  _os_log_impl(&dword_0, v173, OS_LOG_TYPE_ERROR, "Keyed archive is nil, skipping.", buf, 2u);
                 }
 
                 sendClientResponse(*(a1 + 40), original, 2);
 LABEL_327:
-                v172 = 0;
-                v181 = 0;
-                v179 = 0;
+                v180 = 0;
+                v189 = 0;
+                v187 = 0;
 LABEL_278:
-                v175 = 0;
-                v176 = 0;
-                v178 = 0;
+                v183 = 0;
+                v184 = 0;
+                v186 = 0;
                 goto LABEL_279;
               }
 
-              v162 = [v99 decodePropertyListForKey:NSKeyedArchiveRootObjectKey];
-              [v99 finishDecoding];
-              if (!v162)
+              v170 = [v106 decodePropertyListForKey:NSKeyedArchiveRootObjectKey];
+              [v106 finishDecoding];
+              if (!v170)
               {
-                v167 = _MADLog(@"V2Control");
-                if (os_log_type_enabled(v167, OS_LOG_TYPE_DEFAULT))
+                v175 = _MADLog(@"V2Control");
+                if (os_log_type_enabled(v175, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_0, v167, OS_LOG_TYPE_DEFAULT, "maPreferences is nil, skipping", buf, 2u);
+                  _os_log_impl(&dword_0, v175, OS_LOG_TYPE_DEFAULT, "maPreferences is nil, skipping", buf, 2u);
                 }
 
                 sendClientResponse(*(a1 + 40), original, 2);
 LABEL_334:
-                v172 = 0;
-                v181 = 0;
-                v179 = 0;
+                v180 = 0;
+                v189 = 0;
+                v187 = 0;
                 goto LABEL_179;
               }
 
               objc_opt_class();
-              v175 = v162;
+              v183 = v170;
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
-                v169 = _MADLog(@"V2Control");
-                if (os_log_type_enabled(v169, OS_LOG_TYPE_DEFAULT))
+                v177 = _MADLog(@"V2Control");
+                if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_0, v169, OS_LOG_TYPE_DEFAULT, "maPreferences is not a dictionary, skipping", buf, 2u);
+                  _os_log_impl(&dword_0, v177, OS_LOG_TYPE_DEFAULT, "maPreferences is not a dictionary, skipping", buf, 2u);
                 }
 
                 sendClientResponse(*(a1 + 40), original, 2);
-                v172 = 0;
-                v181 = 0;
-                v179 = 0;
-                v176 = 0;
-LABEL_279:
-                v30 = 0;
-                v31 = 0;
                 v180 = 0;
-                v174 = 0;
-                v32 = 0;
+                v189 = 0;
+                v187 = 0;
+                v184 = 0;
+LABEL_279:
                 v33 = 0;
                 v34 = 0;
+                v188 = 0;
+                v182 = 0;
+                v35 = 0;
+                v36 = 0;
+                v37 = 0;
                 reply = 0;
                 goto LABEL_280;
               }
 
-              [*(a1 + 32) setPreferences:v162 replyUsing:*(a1 + 40) and:original];
-              v181 = 0;
-              v179 = 0;
-              v176 = 0;
+              [*(a1 + 32) setPreferences:v170 replyUsing:*(a1 + 40) and:original];
+              v189 = 0;
+              v187 = 0;
+              v184 = 0;
 LABEL_206:
-              v30 = 0;
-              v31 = 0;
-              v180 = 0;
-LABEL_207:
-              v174 = 0;
-LABEL_208:
-              v32 = 0;
               v33 = 0;
               v34 = 0;
+              v188 = 0;
+LABEL_207:
+              v182 = 0;
+LABEL_208:
+              v35 = 0;
+              v36 = 0;
+              v37 = 0;
               reply = 0;
-              v172 = 1;
+              v180 = 1;
 LABEL_280:
-              v171 = 4;
-              if (v29)
+              v179 = 4;
+              if (v32)
               {
                 goto LABEL_257;
               }
@@ -13114,81 +13118,81 @@ LABEL_280:
               goto LABEL_281;
             }
 
-            v127 = _MADLog(@"V2Control");
-            if (!os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+            v135 = _MADLog(@"V2Control");
+            if (!os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_276;
             }
 
             *buf = 0;
-            v128 = "data is nil, skipping";
+            v136 = "data is nil, skipping";
           }
 
           else
           {
-            v127 = _MADLog(@"V2Control");
-            if (!os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+            v135 = _MADLog(@"V2Control");
+            if (!os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_276;
             }
 
             *buf = 0;
-            v128 = "rawData is null skipping";
+            v136 = "rawData is null skipping";
           }
 
-          _os_log_impl(&dword_0, v127, OS_LOG_TYPE_DEFAULT, v128, buf, 2u);
+          _os_log_impl(&dword_0, v135, OS_LOG_TYPE_DEFAULT, v136, buf, 2u);
           goto LABEL_276;
         case 0x2Fu:
-          v115 = xpc_dictionary_get_data(original, [@"MAPreferences" UTF8String], &length);
-          if (v115)
+          v123 = xpc_dictionary_get_data(original, [@"MAPreferences" UTF8String], &length);
+          if (v123)
           {
-            v116 = [NSData dataWithBytesNoCopy:v115 length:length freeWhenDone:0];
-            if (v116)
+            v124 = [NSData dataWithBytesNoCopy:v123 length:length freeWhenDone:0];
+            if (v124)
             {
-              v192 = 0;
-              v117 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v116 error:&v192];
-              v118 = v192;
-              v177 = v116;
-              v178 = v117;
-              if (v118)
+              v200 = 0;
+              v125 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v124 error:&v200];
+              v126 = v200;
+              v185 = v124;
+              v186 = v125;
+              if (v126)
               {
-                v119 = v118;
-                v120 = _MADLog(@"V2");
-                v179 = v119;
-                if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
+                v127 = v126;
+                v128 = _MADLog(@"V2");
+                v187 = v127;
+                if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
                 {
-                  v121 = [v119 description];
+                  v129 = [v127 description];
                   *buf = 138543362;
-                  *&buf[4] = v121;
-                  _os_log_impl(&dword_0, v120, OS_LOG_TYPE_ERROR, "Unable to initialize keyed unarchiver, error: %{public}@", buf, 0xCu);
+                  *&buf[4] = v129;
+                  _os_log_impl(&dword_0, v128, OS_LOG_TYPE_ERROR, "Unable to initialize keyed unarchiver, error: %{public}@", buf, 0xCu);
                 }
 
                 sendClientResponse(*(a1 + 40), original, 2);
                 goto LABEL_178;
               }
 
-              if (!v117)
+              if (!v125)
               {
-                v166 = _MADLog(@"V2");
-                if (os_log_type_enabled(v166, OS_LOG_TYPE_ERROR))
+                v174 = _MADLog(@"V2");
+                if (os_log_type_enabled(v174, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_0, v166, OS_LOG_TYPE_ERROR, "Keyed archive is nil, skipping.", buf, 2u);
+                  _os_log_impl(&dword_0, v174, OS_LOG_TYPE_ERROR, "Keyed archive is nil, skipping.", buf, 2u);
                 }
 
                 sendClientResponse(*(a1 + 40), original, 2);
                 goto LABEL_327;
               }
 
-              v163 = [v117 decodePropertyListForKey:NSKeyedArchiveRootObjectKey];
-              [v117 finishDecoding];
-              if (!v163)
+              v171 = [v125 decodePropertyListForKey:NSKeyedArchiveRootObjectKey];
+              [v125 finishDecoding];
+              if (!v171)
               {
-                v168 = _MADLog(@"V2Control");
-                if (os_log_type_enabled(v168, OS_LOG_TYPE_DEFAULT))
+                v176 = _MADLog(@"V2Control");
+                if (os_log_type_enabled(v176, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_0, v168, OS_LOG_TYPE_DEFAULT, "maPreferencesToClear is nil, skipping", buf, 2u);
+                  _os_log_impl(&dword_0, v176, OS_LOG_TYPE_DEFAULT, "maPreferencesToClear is nil, skipping", buf, 2u);
                 }
 
                 sendClientResponse(*(a1 + 40), original, 2);
@@ -13196,86 +13200,86 @@ LABEL_280:
               }
 
               objc_opt_class();
-              v176 = v163;
+              v184 = v171;
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
-                v170 = _MADLog(@"V2Control");
-                if (os_log_type_enabled(v170, OS_LOG_TYPE_DEFAULT))
+                v178 = _MADLog(@"V2Control");
+                if (os_log_type_enabled(v178, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_0, v170, OS_LOG_TYPE_DEFAULT, "maPreferencesToClear is not a array, skipping", buf, 2u);
+                  _os_log_impl(&dword_0, v178, OS_LOG_TYPE_DEFAULT, "maPreferencesToClear is not a array, skipping", buf, 2u);
                 }
 
                 sendClientResponse(*(a1 + 40), original, 2);
-                v172 = 0;
-                v181 = 0;
-                v179 = 0;
+                v180 = 0;
+                v189 = 0;
+                v187 = 0;
                 goto LABEL_180;
               }
 
-              [*(a1 + 32) clearPreferences:v163 replyUsing:*(a1 + 40) and:original];
-              v181 = 0;
-              v179 = 0;
+              [*(a1 + 32) clearPreferences:v171 replyUsing:*(a1 + 40) and:original];
+              v189 = 0;
+              v187 = 0;
 LABEL_205:
-              v175 = 0;
+              v183 = 0;
               goto LABEL_206;
             }
 
-            v127 = _MADLog(@"V2Control");
-            if (!os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+            v135 = _MADLog(@"V2Control");
+            if (!os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
             {
 LABEL_276:
 
               sendClientResponse(*(a1 + 40), original, 2);
 LABEL_277:
-              v172 = 0;
-              v181 = 0;
-              v179 = 0;
-              v177 = 0;
+              v180 = 0;
+              v189 = 0;
+              v187 = 0;
+              v185 = 0;
               goto LABEL_278;
             }
 
             *buf = 0;
-            v129 = "data is nil, skipping";
+            v137 = "data is nil, skipping";
           }
 
           else
           {
-            v127 = _MADLog(@"V2Control");
-            if (!os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+            v135 = _MADLog(@"V2Control");
+            if (!os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_276;
             }
 
             *buf = 0;
-            v129 = "rawData is null skipping";
+            v137 = "rawData is null skipping";
           }
 
-          _os_log_impl(&dword_0, v127, OS_LOG_TYPE_DEFAULT, v129, buf, 2u);
+          _os_log_impl(&dword_0, v135, OS_LOG_TYPE_DEFAULT, v137, buf, 2u);
           goto LABEL_276;
         default:
           goto LABEL_277;
       }
     }
 
-    v180 = 0;
-    v181 = 0;
-    v178 = 0;
-    v179 = 0;
-    v176 = 0;
-    v177 = 0;
-    v174 = 0;
-    v175 = 0;
-    v30 = 0;
-    v31 = 0;
-    v32 = 0;
+    v188 = 0;
+    v189 = 0;
+    v186 = 0;
+    v187 = 0;
+    v184 = 0;
+    v185 = 0;
+    v182 = 0;
+    v183 = 0;
     v33 = 0;
     v34 = 0;
+    v35 = 0;
+    v36 = 0;
+    v37 = 0;
     reply = 0;
 LABEL_289:
 
-    _Block_object_dispose(&v206, 8);
-    _Block_object_dispose(&v210, 8);
+    _Block_object_dispose(&v214, 8);
+    _Block_object_dispose(&v218, 8);
 
     goto LABEL_290;
   }
@@ -13335,7 +13339,7 @@ LABEL_290:
   objc_autoreleasePoolPop(context);
 }
 
-void __44__ControlManager_handleClientConnection_on___block_invoke_1848(uint64_t a1, void *a2)
+void __44__ControlManager_handleClientConnection_on___block_invoke_1848(void *a1, void *a2)
 {
   v3 = a2;
   v4 = _MADLog(@"V2Control");
@@ -13378,7 +13382,7 @@ void __44__ControlManager_handleClientConnection_on___block_invoke_1848(uint64_t
           _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "The task descriptor is: %{public}@, %ld", buf, 0x16u);
         }
 
-        if (*(*(*(a1 + 48) + 8) + 24) == 1)
+        if (*(*(a1[6] + 8) + 24) == 1)
         {
           [v10 cancel];
         }
@@ -13390,7 +13394,7 @@ void __44__ControlManager_handleClientConnection_on___block_invoke_1848(uint64_t
     while (v7);
   }
 
-  sendClientResponse(*(a1 + 32), *(a1 + 40), 0);
+  sendClientResponse(a1[4], a1[5], 0);
 }
 
 void __44__ControlManager_handleClientConnection_on___block_invoke_1849(uint64_t a1)
@@ -13507,40 +13511,41 @@ LABEL_17:
   requestCopy = request;
   commandRequestCopy = commandRequest;
   trackerCopy = tracker;
-  v13 = 0;
+  v13 = trackerCopy;
+  v14 = 0;
   length = 0;
   if ((fields & 0x100) != 0)
   {
-    v13 = [ControlManager getStringFromXpcMessage:requestCopy forKey:"AssetType"];
-    if (v13)
+    v14 = [ControlManager getStringFromXpcMessage:requestCopy forKey:"AssetType"];
+    if (v14)
     {
-      if ([(ControlManager *)self commandRequiresForcedSoftwareUpdateType:trackerCopy]&& ([(__CFString *)v13 isEqualToString:@"com.apple.MobileAsset.SoftwareUpdate"]& 1) == 0)
+      if ([(ControlManager *)self commandRequiresForcedSoftwareUpdateType:v13]&& ([(__CFString *)v14 isEqualToString:@"com.apple.MobileAsset.SoftwareUpdate"]& 1) == 0)
       {
-        v15 = [[NSString alloc] initWithFormat:@"provided asset type %@ when %@ was required - replaced", v13, @"com.apple.MobileAsset.SoftwareUpdate"];
-        [MADActivityManager warningForActivity:trackerCopy fromMethod:@"associateRequiredFields" leaderNote:@"forcedSUAssetType" warning:v15];
+        v16 = [[NSString alloc] initWithFormat:@"provided asset type %@ when %@ was required - replaced", v14, @"com.apple.MobileAsset.SoftwareUpdate"];
+        [MADActivityManager warningForActivity:v13 fromMethod:@"associateRequiredFields" leaderNote:@"forcedSUAssetType" warning:v16];
 
-        v13 = @"com.apple.MobileAsset.SoftwareUpdate";
+        v14 = @"com.apple.MobileAsset.SoftwareUpdate";
       }
 
-      v16 = [(ControlManager *)self checkEntitlement:trackerCopy forAssetType:v13];
-      if (v16)
+      v17 = [(ControlManager *)self checkEntitlement:v13 forAssetType:v14];
+      if (v17)
       {
-        uint64 = v16;
+        v18 = v17;
         goto LABEL_21;
       }
 
-      [commandRequestCopy associateAssetType:v13];
+      [commandRequestCopy associateAssetType:v14];
       assetType = [commandRequestCopy assetType];
-      [trackerCopy extendLogLeader:@"AssetType" withValue:assetType];
+      [v13 extendLogLeader:@"AssetType" withValue:assetType];
     }
 
     else
     {
-      v24 = [[NSString alloc] initWithFormat:@"Client request missing key:%@", @"AssetType"];
-      if (v24)
+      trackerCopy = [[NSString alloc] initWithFormat:@"Client request missing key:%@", @"AssetType"];
+      if (trackerCopy)
       {
-        uint64 = v24;
-        v14 = 0;
+        v18 = trackerCopy;
+        v15 = 0;
         goto LABEL_175;
       }
     }
@@ -13552,89 +13557,89 @@ LABEL_17:
   }
 
   fieldsCopy = fields;
-  v19 = extractorDecodeClasses();
-  v125 = 0;
-  v20 = getObjectFromMessageWithFailureReason(requestCopy, "purgeAssetTypeListLength", "purgeAssetTypeList", v19, &v125);
-  uint64 = v125;
+  v20 = extractorDecodeClasses(trackerCopy);
+  v121 = 0;
+  v21 = getObjectFromMessageWithFailureReason(requestCopy, "purgeAssetTypeListLength", "purgeAssetTypeList", v20, &v121);
+  v18 = v121;
 
-  if (!v20)
+  if (!v21)
   {
     fields = fieldsCopy;
-    if (!uint64)
+    if (!v18)
     {
       goto LABEL_3;
     }
 
 LABEL_21:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_175;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v14 = 0;
-    v21 = @"Invalid asset type list provided";
+    v15 = 0;
+    v22 = @"Invalid asset type list provided";
     goto LABEL_24;
   }
 
-  if (v13)
+  if (v14)
   {
-    v14 = 0;
-    v21 = @"Client request cannot specify both assetType and assetTypesList";
+    v15 = 0;
+    v22 = @"Client request cannot specify both assetType and assetTypesList";
 LABEL_24:
 
 LABEL_25:
-    uint64 = v21;
+    v18 = v22;
     goto LABEL_175;
   }
 
-  [(ControlManager *)self checkEntitlement:trackerCopy forAssetTypes:v20];
-  v21 = v39 = self;
+  [(ControlManager *)self checkEntitlement:v13 forAssetTypes:v21];
+  v22 = v38 = self;
 
-  if (v21)
+  if (v22)
   {
-    v14 = 0;
+    v15 = 0;
     goto LABEL_25;
   }
 
-  [commandRequestCopy associateAssetTypesList:v20];
+  [commandRequestCopy associateAssetTypesList:v21];
   [commandRequestCopy assetTypesList];
-  v60 = self = v39;
-  v61 = stringWithoutNewlines(v60);
-  [trackerCopy extendLogLeader:@"purgeAssetTypeList" withValue:v61];
+  v56 = self = v38;
+  v57 = stringWithoutNewlines(v56);
+  [v13 extendLogLeader:@"purgeAssetTypeList" withValue:v57];
 
   fields = fieldsCopy;
 LABEL_3:
   if ((fields & 0x10) == 0)
   {
-    v14 = 0;
+    v15 = 0;
     goto LABEL_29;
   }
 
-  v22 = [ControlManager getStringFromXpcMessage:requestCopy forKey:"AssetId"];
-  v14 = v22;
-  if (v22)
+  v23 = [ControlManager getStringFromXpcMessage:requestCopy forKey:"AssetId"];
+  v15 = v23;
+  if (v23)
   {
-    if (isWellFormedAssetId(v22))
+    if (isWellFormedAssetId(v23))
     {
-      [commandRequestCopy associateAssetId:v14];
+      [commandRequestCopy associateAssetId:v15];
       assetId = [commandRequestCopy assetId];
-      [trackerCopy extendLogLeader:@"AssetId" withValue:assetId];
+      [v13 extendLogLeader:@"AssetId" withValue:assetId];
 
       goto LABEL_29;
     }
 
-    v100 = [[NSString alloc] initWithFormat:@"Client request with %@:%@ (which is not well formed)", @"AssetId", v14];
+    trackerCopy = [[NSString alloc] initWithFormat:@"Client request with %@:%@ (which is not well formed)", @"AssetId", v15];
   }
 
   else
   {
-    v100 = [[NSString alloc] initWithFormat:@"Client request missing key:%@", @"AssetId", v100];
+    trackerCopy = [[NSString alloc] initWithFormat:@"Client request missing key:%@", @"AssetId", v96];
   }
 
-  uint64 = v100;
-  if (v100)
+  v18 = trackerCopy;
+  if (trackerCopy)
   {
     goto LABEL_175;
   }
@@ -13645,7 +13650,8 @@ LABEL_29:
     uint64 = xpc_dictionary_get_uint64(requestCopy, "returnAssetTypes");
     if (uint64 > 6)
     {
-      uint64 = [[NSString alloc] initWithFormat:@"Unknown return types [%llu] provided by client", uint64];
+      trackerCopy = [[NSString alloc] initWithFormat:@"Unknown return types [%llu] provided by client", uint64];
+      v18 = trackerCopy;
       if ((fields & 0x20000000000) == 0)
       {
         goto LABEL_41;
@@ -13655,56 +13661,64 @@ LABEL_29:
     }
 
     [commandRequestCopy associateReturnTypes:uint64];
-    v28 = stringForMAQueryReturnTypes([commandRequestCopy returnTypes]);
-    [trackerCopy extendLogLeader:@"returnAssetTypes" withValue:v28];
+    v27 = stringForMAQueryReturnTypes([commandRequestCopy returnTypes]);
+    [v13 extendLogLeader:@"returnAssetTypes" withValue:v27];
   }
 
-  uint64 = 0;
+  v18 = 0;
   if ((fields & 0x20000000000) == 0)
   {
     goto LABEL_41;
   }
 
 LABEL_35:
-  if (!uint64 && xpc_dictionary_get_BOOL(requestCopy, "doNotBlockBeforeFirstUnlock"))
+  if (!v18)
   {
-    [commandRequestCopy associateDoNotBlockBeforeFirstUnlock:1];
-    if ([commandRequestCopy doNotBlockBeforeFirstUnlock])
+    trackerCopy = xpc_dictionary_get_BOOL(requestCopy, "doNotBlockBeforeFirstUnlock");
+    if (trackerCopy)
     {
-      v29 = @"YES";
-    }
+      [commandRequestCopy associateDoNotBlockBeforeFirstUnlock:1];
+      if ([commandRequestCopy doNotBlockBeforeFirstUnlock])
+      {
+        v28 = @"YES";
+      }
 
-    else
-    {
-      v29 = @"NO";
-    }
+      else
+      {
+        v28 = @"NO";
+      }
 
-    [trackerCopy extendLogLeader:@"doNotBlockBeforeFirstUnlock" withValue:v29];
+      trackerCopy = [v13 extendLogLeader:@"doNotBlockBeforeFirstUnlock" withValue:v28];
+    }
   }
 
 LABEL_41:
-  if ((fields & 0x40000000000) == 0 || uint64)
+  if ((fields & 0x40000000000) == 0 || v18)
   {
-    if (uint64)
+    if (v18)
     {
       goto LABEL_58;
     }
   }
 
-  else if (xpc_dictionary_get_BOOL(requestCopy, "doNotBlockOnNetworkStatus"))
+  else
   {
-    [commandRequestCopy associateDoNotBlockOnNetworkStatus:1];
-    if ([commandRequestCopy doNotBlockOnNetworkStatus])
+    trackerCopy = xpc_dictionary_get_BOOL(requestCopy, "doNotBlockOnNetworkStatus");
+    if (trackerCopy)
     {
-      v30 = @"YES";
-    }
+      [commandRequestCopy associateDoNotBlockOnNetworkStatus:1];
+      if ([commandRequestCopy doNotBlockOnNetworkStatus])
+      {
+        v29 = @"YES";
+      }
 
-    else
-    {
-      v30 = @"NO";
-    }
+      else
+      {
+        v29 = @"NO";
+      }
 
-    [trackerCopy extendLogLeader:@"doNotBlockOnNetworkStatus" withValue:v30];
+      trackerCopy = [v13 extendLogLeader:@"doNotBlockOnNetworkStatus" withValue:v29];
+    }
   }
 
   if ((fields & 0x10000000000000) == 0)
@@ -13716,44 +13730,45 @@ LABEL_41:
   if (data)
   {
     selfCopy = self;
-    v111 = v14;
+    v107 = v15;
     fieldsCopy2 = fields;
-    v32 = trackerCopy;
-    v33 = [NSData dataWithBytesNoCopy:data length:length freeWhenDone:0];
-    v34 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v33 error:0];
-    v35 = queryDecodeClasses();
-    v36 = [v34 decodeObjectOfClasses:v35 forKey:NSKeyedArchiveRootObjectKey];
+    v31 = v13;
+    v32 = [NSData dataWithBytesNoCopy:data length:length freeWhenDone:0];
+    v33 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v32 error:0];
+    v34 = queryDecodeClasses(v33);
+    v35 = [v33 decodeObjectOfClasses:v34 forKey:NSKeyedArchiveRootObjectKey];
 
-    [v34 finishDecoding];
+    [v33 finishDecoding];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [commandRequestCopy associateQueryParams:v36];
+      [commandRequestCopy associateQueryParams:v35];
       queryParams = [commandRequestCopy queryParams];
-      v38 = stringWithoutNewlines(queryParams);
-      [v32 extendLogLeader:@"QueryParams" withValue:v38];
+      v37 = stringWithoutNewlines(queryParams);
+      [v31 extendLogLeader:@"QueryParams" withValue:v37];
 
-      uint64 = 0;
+      v18 = 0;
     }
 
     else
     {
-      uint64 = @"Invalid query parameters class provided by client (expecting dictionary)";
+      v18 = @"Invalid query parameters class provided by client (expecting dictionary)";
     }
 
-    trackerCopy = v32;
+    v13 = v31;
     self = selfCopy;
-    v14 = v111;
+    v15 = v107;
     fields = fieldsCopy2;
   }
 
   else
   {
-    uint64 = [[NSString alloc] initWithFormat:@"Client request missing key:%@", @"QueryParams"];
+    trackerCopy = [[NSString alloc] initWithFormat:@"Client request missing key:%@", @"QueryParams"];
+    v18 = trackerCopy;
   }
 
 LABEL_58:
-  if (uint64)
+  if (v18)
   {
     goto LABEL_175;
   }
@@ -13762,22 +13777,22 @@ LABEL_59:
   if ((fields & 4) != 0)
   {
     fieldsCopy3 = fields;
-    v41 = [ControlManager getStringFromXpcMessage:requestCopy forKey:"RelativeUrlKey"];
+    v40 = [ControlManager getStringFromXpcMessage:requestCopy forKey:"RelativeUrlKey"];
 
-    if (v41)
+    if (v40)
     {
-      [commandRequestCopy associateRelativeUrl:v41];
+      [commandRequestCopy associateRelativeUrl:v40];
       relativeUrl = [commandRequestCopy relativeUrl];
-      [trackerCopy extendLogLeader:@"RelativeUrlKey" withValue:relativeUrl];
+      [v13 extendLogLeader:@"RelativeUrlKey" withValue:relativeUrl];
 
-      v14 = v41;
+      v15 = v40;
     }
 
     else
     {
-      v49 = [[NSString alloc] initWithFormat:@"Client request missing key:%@", @"RelativeUrlKey"];
-      v14 = 0;
-      if (v49)
+      trackerCopy = [[NSString alloc] initWithFormat:@"Client request missing key:%@", @"RelativeUrlKey"];
+      v15 = 0;
+      if (trackerCopy)
       {
         goto LABEL_100;
       }
@@ -13787,68 +13802,68 @@ LABEL_59:
   }
 
   selfCopy2 = self;
-  v112 = v14;
+  v108 = v15;
   if ((fields & 0x200000) != 0)
   {
     fieldsCopy4 = fields;
-    v45 = getDownloadManager();
-    downloadManagerDecodeClasses = [v45 downloadManagerDecodeClasses];
-    v124 = 0;
-    v47 = getObjectFromMessageWithFailureReason(requestCopy, "downloadOptionsLength", "downloadOptions", downloadManagerDecodeClasses, &v124);
-    uint64 = v124;
+    v44 = getDownloadManager(trackerCopy);
+    downloadManagerDecodeClasses = [v44 downloadManagerDecodeClasses];
+    v120 = 0;
+    v46 = getObjectFromMessageWithFailureReason(requestCopy, "downloadOptionsLength", "downloadOptions", downloadManagerDecodeClasses, &v120);
+    v18 = v120;
 
-    if (v47)
+    if (v46)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        [commandRequestCopy associateDownloadOptions:v47];
-        v48 = [v47 tightSummaryIncludingAdditional:0];
-        [trackerCopy extendLogLeader:@"downloadOptions" withValue:v48];
+        [commandRequestCopy associateDownloadOptions:v46];
+        v47 = [v46 tightSummaryIncludingAdditional:0];
+        [v13 extendLogLeader:@"downloadOptions" withValue:v47];
       }
 
       else
       {
-        v48 = uint64;
-        uint64 = @"Invalid download options class provided by client";
+        v47 = v18;
+        v18 = @"Invalid download options class provided by client";
       }
 
-      v43 = v13;
+      v42 = v14;
     }
 
     else
     {
-      v43 = v13;
+      v42 = v14;
     }
 
     fields = fieldsCopy4;
-    v14 = v112;
+    v15 = v108;
   }
 
   else
   {
-    v43 = v13;
-    uint64 = 0;
+    v42 = v14;
+    v18 = 0;
   }
 
-  v50 = uint64 == 0;
-  if ((fields & 0x200000000000) != 0 && !uint64)
+  v48 = v18 == 0;
+  if ((fields & 0x200000000000) != 0 && !v18)
   {
-    v51 = xpc_dictionary_get_uint64(requestCopy, "downloadSize");
-    if (v51)
+    trackerCopy = xpc_dictionary_get_uint64(requestCopy, "downloadSize");
+    if (trackerCopy)
     {
-      [commandRequestCopy associateDownloadSize:v51];
-      v52 = [[NSString alloc] initWithFormat:@"%llu", objc_msgSend(commandRequestCopy, "downloadSize")];
-      [trackerCopy extendLogLeader:@"downloadSize" withValue:v52];
+      [commandRequestCopy associateDownloadSize:trackerCopy];
+      v49 = [[NSString alloc] initWithFormat:@"%llu", objc_msgSend(commandRequestCopy, "downloadSize")];
+      [v13 extendLogLeader:@"downloadSize" withValue:v49];
     }
 
-    v50 = 1;
+    v48 = 1;
   }
 
-  if ((fields & 0x1000) == 0 || uint64)
+  if ((fields & 0x1000) == 0 || v18)
   {
 LABEL_85:
-    if (!v50)
+    if (!v48)
     {
       goto LABEL_94;
     }
@@ -13856,20 +13871,20 @@ LABEL_85:
     goto LABEL_86;
   }
 
-  v53 = xpc_dictionary_get_uint64(requestCopy, "notificationInterval");
-  if (!v53)
+  trackerCopy = xpc_dictionary_get_uint64(requestCopy, "notificationInterval");
+  if (!trackerCopy)
   {
-    uint64 = 0;
+    v18 = 0;
     goto LABEL_85;
   }
 
-  [commandRequestCopy associateNotificationInterval:v53];
-  v54 = [[NSString alloc] initWithFormat:@"%llu", objc_msgSend(commandRequestCopy, "notificationInterval")];
-  [trackerCopy extendLogLeader:@"notificationInterval" withValue:v54];
+  [commandRequestCopy associateNotificationInterval:trackerCopy];
+  v50 = [[NSString alloc] initWithFormat:@"%llu", objc_msgSend(commandRequestCopy, "notificationInterval")];
+  [v13 extendLogLeader:@"notificationInterval" withValue:v50];
 
-  if (!v50)
+  if (!v48)
   {
-    uint64 = 0;
+    v18 = 0;
     goto LABEL_94;
   }
 
@@ -13880,140 +13895,140 @@ LABEL_86:
   }
 
   fieldsCopy5 = fields;
-  v56 = getDownloadManager();
-  downloadManagerDecodeClasses2 = [v56 downloadManagerDecodeClasses];
-  v123 = 0;
-  v58 = getObjectFromMessageWithFailureReason(requestCopy, "downloadConfigLength", "downloadConfig", downloadManagerDecodeClasses2, &v123);
-  uint64 = v123;
+  v52 = getDownloadManager(trackerCopy);
+  downloadManagerDecodeClasses2 = [v52 downloadManagerDecodeClasses];
+  v119 = 0;
+  v54 = getObjectFromMessageWithFailureReason(requestCopy, "downloadConfigLength", "downloadConfig", downloadManagerDecodeClasses2, &v119);
+  v18 = v119;
 
-  if (v58)
+  if (v54)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [commandRequestCopy associateDownloadConfig:v58];
-      summary = [v58 summary];
-      [trackerCopy extendLogLeader:@"downloadConfig" withValue:summary];
+      [commandRequestCopy associateDownloadConfig:v54];
+      summary = [v54 summary];
+      [v13 extendLogLeader:@"downloadConfig" withValue:summary];
     }
 
     else
     {
-      summary = uint64;
-      uint64 = @"Invalid download config class provided by client";
+      summary = v18;
+      v18 = @"Invalid download config class provided by client";
     }
   }
 
   fields = fieldsCopy5;
 LABEL_94:
-  if (uint64)
+  if (v18)
   {
-    v13 = v43;
+    v14 = v42;
     goto LABEL_175;
   }
 
 LABEL_96:
-  v13 = v43;
-  v62 = selfCopy2;
+  v14 = v42;
+  v58 = selfCopy2;
   if ((fields & 0x400000000000) == 0)
   {
     goto LABEL_101;
   }
 
-  v63 = xpc_dictionary_get_uint64(requestCopy, "assetState");
-  if (v63 <= 6)
+  v59 = xpc_dictionary_get_uint64(requestCopy, "assetState");
+  if (v59 <= 6)
   {
-    [commandRequestCopy associateAssetState:v63];
-    v64 = stringForMAAssetState([commandRequestCopy assetState]);
-    [trackerCopy extendLogLeader:@"assetState" withValue:v64];
+    [commandRequestCopy associateAssetState:v59];
+    v60 = stringForMAAssetState([commandRequestCopy assetState]);
+    [v13 extendLogLeader:@"assetState" withValue:v60];
 
     goto LABEL_101;
   }
 
-  v49 = [[NSString alloc] initWithFormat:@"Unknown current state [%llu] provided by client", v63];
-  if (v49)
+  trackerCopy = [[NSString alloc] initWithFormat:@"Unknown current state [%llu] provided by client", v59];
+  if (trackerCopy)
   {
 LABEL_100:
-    uint64 = v49;
+    v18 = trackerCopy;
     goto LABEL_175;
   }
 
 LABEL_101:
   if ((fields & 0x8000000) != 0)
   {
-    v122 = 0;
-    v65 = [(ControlManager *)selfCopy2 dictionaryWithArrayOfStringValues:requestCopy forXpcKey:"purgeAssetTypePreservingList" andLengthKey:"purgeAssetTypePreservingListLength" failureReason:&v122];
-    uint64 = v122;
-    if (v65)
+    v118 = 0;
+    v61 = [(ControlManager *)selfCopy2 dictionaryWithArrayOfStringValues:requestCopy forXpcKey:"purgeAssetTypePreservingList" andLengthKey:"purgeAssetTypePreservingListLength" failureReason:&v118];
+    v18 = v118;
+    if (v61)
     {
-      v104 = requestCopy;
+      v100 = requestCopy;
       fieldsCopy6 = fields;
-      v101 = v13;
-      v102 = trackerCopy;
-      v103 = commandRequestCopy;
-      v120 = 0u;
-      v121 = 0u;
-      v118 = 0u;
-      v119 = 0u;
-      allKeys = [v65 allKeys];
-      v67 = [allKeys countByEnumeratingWithState:&v118 objects:v128 count:16];
-      v108 = v65;
-      if (v67)
+      v97 = v14;
+      v98 = v13;
+      v99 = commandRequestCopy;
+      v116 = 0u;
+      v117 = 0u;
+      v114 = 0u;
+      v115 = 0u;
+      allKeys = [v61 allKeys];
+      v63 = [allKeys countByEnumeratingWithState:&v114 objects:v124 count:16];
+      v104 = v61;
+      if (v63)
       {
-        v68 = v67;
-        v69 = *v119;
-        v107 = allKeys;
+        v64 = v63;
+        v65 = *v115;
+        v103 = allKeys;
         while (2)
         {
-          for (i = 0; i != v68; i = i + 1)
+          for (i = 0; i != v64; i = i + 1)
           {
-            if (*v119 != v69)
+            if (*v115 != v65)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v71 = *(*(&v118 + 1) + 8 * i);
-            v72 = objc_autoreleasePoolPush();
-            if (!uint64)
+            v67 = *(*(&v114 + 1) + 8 * i);
+            v68 = objc_autoreleasePoolPush();
+            if (!v18)
             {
-              if (!isWellFormedAssetType(v71))
+              if (!isWellFormedAssetType(v67))
               {
-                uint64 = [[NSString alloc] initWithFormat:@"Asset identifiers to ignore included assetType:%@ that is not well formed", v71];
-                objc_autoreleasePoolPop(v72);
+                v18 = [[NSString alloc] initWithFormat:@"Asset identifiers to ignore included assetType:%@ that is not well formed", v67];
+                objc_autoreleasePoolPop(v68);
                 goto LABEL_127;
               }
 
-              v116 = 0u;
-              v117 = 0u;
-              v114 = 0u;
-              v115 = 0u;
-              v73 = [v65 objectForKey:v71];
-              uint64 = [v73 countByEnumeratingWithState:&v114 objects:v127 count:16];
-              if (uint64)
+              v112 = 0u;
+              v113 = 0u;
+              v110 = 0u;
+              v111 = 0u;
+              v69 = [v61 objectForKey:v67];
+              v18 = [v69 countByEnumeratingWithState:&v110 objects:v123 count:16];
+              if (v18)
               {
-                v74 = *v115;
+                v70 = *v111;
                 while (2)
                 {
-                  for (j = 0; j != uint64; j = (j + 1))
+                  for (j = 0; j != v18; j = (j + 1))
                   {
-                    if (*v115 != v74)
+                    if (*v111 != v70)
                     {
-                      objc_enumerationMutation(v73);
+                      objc_enumerationMutation(v69);
                     }
 
-                    v76 = *(*(&v114 + 1) + 8 * j);
-                    v77 = objc_autoreleasePoolPush();
-                    if (!isWellFormedAssetId(v76))
+                    v72 = *(*(&v110 + 1) + 8 * j);
+                    v73 = objc_autoreleasePoolPush();
+                    if (!isWellFormedAssetId(v72))
                     {
-                      uint64 = [[NSString alloc] initWithFormat:@"Asset identifiers to ignore included assetId:%@ that is not well formed", v76];
-                      objc_autoreleasePoolPop(v77);
+                      v18 = [[NSString alloc] initWithFormat:@"Asset identifiers to ignore included assetId:%@ that is not well formed", v72];
+                      objc_autoreleasePoolPop(v73);
                       goto LABEL_121;
                     }
 
-                    objc_autoreleasePoolPop(v77);
+                    objc_autoreleasePoolPop(v73);
                   }
 
-                  uint64 = [v73 countByEnumeratingWithState:&v114 objects:v127 count:16];
-                  if (uint64)
+                  v18 = [v69 countByEnumeratingWithState:&v110 objects:v123 count:16];
+                  if (v18)
                   {
                     continue;
                   }
@@ -14022,17 +14037,17 @@ LABEL_101:
                 }
 
 LABEL_121:
-                v14 = v112;
-                allKeys = v107;
-                v65 = v108;
+                v15 = v108;
+                allKeys = v103;
+                v61 = v104;
               }
             }
 
-            objc_autoreleasePoolPop(v72);
+            objc_autoreleasePoolPop(v68);
           }
 
-          v68 = [allKeys countByEnumeratingWithState:&v118 objects:v128 count:16];
-          if (v68)
+          v64 = [allKeys countByEnumeratingWithState:&v114 objects:v124 count:16];
+          if (v64)
           {
             continue;
           }
@@ -14043,36 +14058,36 @@ LABEL_121:
 
 LABEL_127:
 
-      commandRequestCopy = v103;
-      if (!uint64)
+      commandRequestCopy = v99;
+      if (!v18)
       {
-        [v103 associateAssetIdsToPreserve:v65];
+        [v99 associateAssetIdsToPreserve:v61];
       }
 
-      v78 = [NSString alloc];
-      assetIdsToPreserve = [v103 assetIdsToPreserve];
-      v80 = stringWithoutNewlines(assetIdsToPreserve);
-      v81 = [v78 initWithFormat:@"Preserving asset types / identifiers: %@", v80];
-      v65 = v108;
-      trackerCopy = v102;
-      [MADActivityManager noticeForActivity:v102 reason:v81];
+      v74 = [NSString alloc];
+      assetIdsToPreserve = [v99 assetIdsToPreserve];
+      v76 = stringWithoutNewlines(assetIdsToPreserve);
+      v77 = [v74 initWithFormat:@"Preserving asset types / identifiers: %@", v76];
+      v61 = v104;
+      v13 = v98;
+      [MADActivityManager noticeForActivity:v98 reason:v77];
 
-      [v102 extendLogLeader:@"preserving" withValue:@"YES"];
-      requestCopy = v104;
+      [v98 extendLogLeader:@"preserving" withValue:@"YES"];
+      requestCopy = v100;
       fields = fieldsCopy6;
-      v13 = v101;
-      v62 = selfCopy2;
+      v14 = v97;
+      v58 = selfCopy2;
     }
   }
 
   else
   {
-    uint64 = 0;
+    v18 = 0;
   }
 
-  if ((fields & 0x4000000000) == 0 || uint64)
+  if ((fields & 0x4000000000) == 0 || v18)
   {
-    if (uint64)
+    if (v18)
     {
       goto LABEL_145;
     }
@@ -14083,36 +14098,36 @@ LABEL_127:
     [commandRequestCopy associatePallasEnabled:1];
     if ([commandRequestCopy pallasEnabled])
     {
-      v82 = @"YES";
+      v78 = @"YES";
     }
 
     else
     {
-      v82 = @"NO";
+      v78 = @"NO";
     }
 
-    [trackerCopy extendLogLeader:@"pallasEnabled" withValue:v82];
+    [v13 extendLogLeader:@"pallasEnabled" withValue:v78];
   }
 
   if ((fields & 0x100000000000) != 0)
   {
     fieldsCopy7 = fields;
-    v84 = [ControlManager getStringFromXpcMessage:requestCopy forKey:"serverUrlOverride"];
+    v80 = [ControlManager getStringFromXpcMessage:requestCopy forKey:"serverUrlOverride"];
 
-    if (v84)
+    if (v80)
     {
-      [commandRequestCopy associateServerUrl:v84];
+      [commandRequestCopy associateServerUrl:v80];
       serverUrl = [commandRequestCopy serverUrl];
-      [trackerCopy extendLogLeader:@"serverUrlOverride" withValue:serverUrl];
+      [v13 extendLogLeader:@"serverUrlOverride" withValue:serverUrl];
 
-      uint64 = 0;
-      v14 = v84;
+      v18 = 0;
+      v15 = v80;
     }
 
     else
     {
-      uint64 = [[NSString alloc] initWithFormat:@"Client request missing key:%@", @"serverUrlOverride"];
-      v14 = 0;
+      v18 = [[NSString alloc] initWithFormat:@"Client request missing key:%@", @"serverUrlOverride"];
+      v15 = 0;
     }
 
     fields = fieldsCopy7;
@@ -14120,70 +14135,70 @@ LABEL_127:
 
   else
   {
-    uint64 = 0;
+    v18 = 0;
   }
 
 LABEL_145:
-  if ((fields & 0x8000000000000) != 0 && !uint64)
+  if ((fields & 0x8000000000000) != 0 && !v18)
   {
-    v86 = xpc_dictionary_get_uint64(requestCopy, [@"_UnarchivedSize" UTF8String]);
-    if (v86)
+    v82 = xpc_dictionary_get_uint64(requestCopy, [@"_UnarchivedSize" UTF8String]);
+    if (v82)
     {
-      [commandRequestCopy associateUnarchiveSize:v86];
-      v87 = [[NSString alloc] initWithFormat:@"%lld", objc_msgSend(commandRequestCopy, "unarchiveSize")];
-      [trackerCopy extendLogLeader:@"_UnarchivedSize" withValue:v87];
+      [commandRequestCopy associateUnarchiveSize:v82];
+      v83 = [[NSString alloc] initWithFormat:@"%lld", objc_msgSend(commandRequestCopy, "unarchiveSize")];
+      [v13 extendLogLeader:@"_UnarchivedSize" withValue:v83];
     }
   }
 
-  if ((fields & 0x1000000000000) != 0 && !uint64)
+  if ((fields & 0x1000000000000) != 0 && !v18)
   {
-    v88 = xpc_dictionary_get_uint64(requestCopy, "GCOverrideDays");
-    if (v88)
+    v84 = xpc_dictionary_get_uint64(requestCopy, "GCOverrideDays");
+    if (v84)
     {
-      [commandRequestCopy associateReturnTypes:v88];
-      v89 = [[NSString alloc] initWithFormat:@"%llu", objc_msgSend(commandRequestCopy, "returnTypes")];
-      [trackerCopy extendLogLeader:@"GCOverrideDays" withValue:v89];
+      [commandRequestCopy associateReturnTypes:v84];
+      v85 = [[NSString alloc] initWithFormat:@"%llu", objc_msgSend(commandRequestCopy, "returnTypes")];
+      [v13 extendLogLeader:@"GCOverrideDays" withValue:v85];
     }
   }
 
-  if ((fields & 8) != 0 && !uint64 && xpc_dictionary_get_BOOL(requestCopy, "NSUrlState"))
+  if ((fields & 8) != 0 && !v18 && xpc_dictionary_get_BOOL(requestCopy, "NSUrlState"))
   {
     [commandRequestCopy associateCleanupInFlightDownloads:1];
     if ([commandRequestCopy cleanupInFlightDownloads])
     {
-      v90 = @"YES";
+      v86 = @"YES";
     }
 
     else
     {
-      v90 = @"NO";
+      v86 = @"NO";
     }
 
-    [trackerCopy extendLogLeader:@"NSUrlState" withValue:v90];
+    [v13 extendLogLeader:@"NSUrlState" withValue:v86];
   }
 
-  if ((fields & 0x2000000000) != 0 && !uint64)
+  if ((fields & 0x2000000000) != 0 && !v18)
   {
-    v91 = [ControlManager getStringFromXpcMessage:requestCopy forKey:"pallasUrl"];
+    v87 = [ControlManager getStringFromXpcMessage:requestCopy forKey:"pallasUrl"];
 
-    if (v91)
+    if (v87)
     {
-      v14 = v91;
+      v15 = v87;
     }
 
     else
     {
-      v14 = &stru_4BD3F0;
+      v15 = &stru_4BD3F0;
     }
 
-    [commandRequestCopy associatePallasUrl:v14];
+    [commandRequestCopy associatePallasUrl:v15];
     pallasUrl = [commandRequestCopy pallasUrl];
-    [trackerCopy extendLogLeader:@"pallasUrl" withValue:pallasUrl];
+    [v13 extendLogLeader:@"pallasUrl" withValue:pallasUrl];
   }
 
-  if ((fields & 0x4000000000) == 0 || uint64)
+  if ((fields & 0x4000000000) == 0 || v18)
   {
-    if (uint64)
+    if (v18)
     {
       goto LABEL_175;
     }
@@ -14191,58 +14206,58 @@ LABEL_145:
 
   else
   {
-    v93 = [ControlManager getStringFromXpcMessage:requestCopy forKey:"pallasAudience"];
+    v89 = [ControlManager getStringFromXpcMessage:requestCopy forKey:"pallasAudience"];
 
-    if (v93)
+    if (v89)
     {
-      v14 = v93;
+      v15 = v89;
     }
 
     else
     {
-      v14 = &stru_4BD3F0;
+      v15 = &stru_4BD3F0;
     }
 
-    [commandRequestCopy associatePallasAudience:v14];
+    [commandRequestCopy associatePallasAudience:v15];
     pallasAudience = [commandRequestCopy pallasAudience];
-    [trackerCopy extendLogLeader:@"pallasAudience" withValue:pallasAudience];
+    [v13 extendLogLeader:@"pallasAudience" withValue:pallasAudience];
   }
 
   if ((fields & 0x20000000) != 0)
   {
-    v97 = objc_opt_class();
-    v98 = loadDecodeClasses();
-    v113 = 0;
-    uint64 = [(ControlManager *)v62 decodeXpcObject:requestCopy ofClass:v97 dataKey:@"loadAssetId" lengthKey:@"loadAssetIdLength" decodeClasses:v98 error:&v113];
-    v20 = v113;
+    v93 = objc_opt_class();
+    v94 = loadDecodeClasses(v93);
+    v109 = 0;
+    v18 = [(ControlManager *)v58 decodeXpcObject:requestCopy ofClass:v93 dataKey:@"loadAssetId" lengthKey:@"loadAssetIdLength" decodeClasses:v94 error:&v109];
+    v21 = v109;
 
-    if (v20)
+    if (v21)
     {
-      v21 = [[NSString alloc] initWithFormat:@"Failed to decode absolute asset identifier with error:%@", v20];
+      v22 = [[NSString alloc] initWithFormat:@"Failed to decode absolute asset identifier with error:%@", v21];
     }
 
-    else if (uint64)
+    else if (v18)
     {
-      [commandRequestCopy associateAbsoluteId:uint64];
-      summary2 = [(__CFString *)uint64 summary];
-      [trackerCopy extendLogLeader:@"loadAssetId" withValue:summary2];
+      [commandRequestCopy associateAbsoluteId:v18];
+      summary2 = [(__CFString *)v18 summary];
+      [v13 extendLogLeader:@"loadAssetId" withValue:summary2];
 
-      v21 = 0;
+      v22 = 0;
     }
 
     else
     {
-      v21 = @"Failed to decode absolute asset identifier";
+      v22 = @"Failed to decode absolute asset identifier";
     }
 
     goto LABEL_24;
   }
 
-  uint64 = 0;
+  v18 = 0;
 LABEL_175:
-  v95 = uint64;
+  v91 = v18;
 
-  return v95;
+  return v91;
 }
 
 - (id)associateOptionalFields:(int64_t)fields fromRequest:(id)request toCommandRequest:(id)commandRequest forCommandTracker:(id)tracker
@@ -14321,7 +14336,7 @@ LABEL_33:
     if (fieldsCopy < 0)
     {
       v27 = objc_opt_class();
-      v28 = loadDecodeClasses();
+      v28 = loadDecodeClasses(v27);
       v34 = 0;
       v29 = [(ControlManager *)self decodeXpcObject:requestCopy ofClass:v27 dataKey:@"allowedDifferences" lengthKey:@"allowedDifferencesLength" decodeClasses:v28 error:&v34];
       v30 = v34;
@@ -14397,7 +14412,7 @@ LABEL_18:
 
   else
   {
-    v24 = extractorDecodeClasses();
+    v24 = extractorDecodeClasses(0);
     v25 = [v22 decodeObjectOfClasses:v24 forKey:NSKeyedArchiveRootObjectKey];
 
     [v22 finishDecoding];
@@ -14585,9 +14600,9 @@ void __67__ControlManager_updateLastFetchedDate_assetType_withPurpose_with___blo
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         v7 = *(a1 + 32);
-        v9 = 138543362;
-        v10 = v7;
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "{updateLastFetchedDate} failed to update lastFetchedDate in xml | targetLocation:%{public}@", &v9, 0xCu);
+        v10 = 138543362;
+        v11 = v7;
+        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "{updateLastFetchedDate} failed to update lastFetchedDate in xml | targetLocation:%{public}@", &v10, 0xCu);
       }
     }
   }
@@ -14597,13 +14612,13 @@ void __67__ControlManager_updateLastFetchedDate_assetType_withPurpose_with___blo
     v4 = _MADLog(@"V2Control");
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Attempting to update lastFetchedDate with no xml present", &v9, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Attempting to update lastFetchedDate with no xml present", &v10, 2u);
     }
   }
 
-  v8 = getDownloadManager();
-  [v8 taskFinishedUpdateState:*(a1 + 40) with:14 fromLocation:@"updateLastFetchedDate"];
+  v9 = getDownloadManager(v8);
+  [v9 taskFinishedUpdateState:*(a1 + 40) with:14 fromLocation:@"updateLastFetchedDate"];
 }
 
 - (void)writeDictionaryToFile:(id)file to:(id)to with:(id)with
@@ -14639,7 +14654,7 @@ void __48__ControlManager_writeDictionaryToFile_to_with___block_invoke(id *a1)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v32 = v6;
+      v33 = v6;
       _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "{writeDictionaryToFile} Failed to write dictionary to file, asset type was not well formed: %{public}@", buf, 0xCu);
     }
 
@@ -14649,9 +14664,9 @@ void __48__ControlManager_writeDictionaryToFile_to_with___block_invoke(id *a1)
 
   if ([v2 fileExistsAtPath:v3])
   {
-    v30 = 0;
-    v7 = [v2 removeItemAtPath:v3 error:&v30];
-    v8 = v30;
+    v31 = 0;
+    v7 = [v2 removeItemAtPath:v3 error:&v31];
+    v8 = v31;
     if ((v7 & 1) == 0)
     {
       v9 = _MADLog(@"V2");
@@ -14659,11 +14674,11 @@ void __48__ControlManager_writeDictionaryToFile_to_with___block_invoke(id *a1)
       {
         v10 = [v8 checkedSummary];
         *buf = 138543874;
-        v32 = v3;
-        v33 = 2114;
-        v34 = v10;
-        v35 = 2114;
-        v36 = v8;
+        v33 = v3;
+        v34 = 2114;
+        v35 = v10;
+        v36 = 2114;
+        v37 = v8;
         _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "{writeDictionaryToFile} could not remove prior archive file (will continue) | archivePath:%{public}@ | error:%{public}@\n%{public}@", buf, 0x20u);
       }
 
@@ -14682,9 +14697,9 @@ void __48__ControlManager_writeDictionaryToFile_to_with___block_invoke(id *a1)
     if (v3)
     {
       v13 = a1[4];
-      v29 = 0;
-      v14 = [v2 moveItemAtPath:v13 toPath:v3 error:&v29];
-      v8 = v29;
+      v30 = 0;
+      v14 = [v2 moveItemAtPath:v13 toPath:v3 error:&v30];
+      v8 = v30;
       if (v14)
       {
         v15 = _MADLog(@"V2Control");
@@ -14697,9 +14712,9 @@ LABEL_22:
 
         v16 = a1[4];
         *buf = 138543618;
-        v32 = v16;
-        v33 = 2114;
-        v34 = v3;
+        v33 = v16;
+        v34 = 2114;
+        v35 = v3;
         v17 = "{writeDictionaryToFile} moved existing file | targetLocation:%{public}@ to archivePath:%{public}@";
         v18 = v15;
         v19 = 22;
@@ -14715,22 +14730,22 @@ LABEL_21:
     }
 
     v20 = a1[4];
-    v28 = 0;
-    v21 = [v2 removeItemAtPath:v20 error:&v28];
-    v8 = v28;
+    v29 = 0;
+    v21 = [v2 removeItemAtPath:v20 error:&v29];
+    v8 = v29;
     if ((v21 & 1) == 0)
     {
       v11 = _MADLog(@"V2");
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v26 = a1[4];
-        v27 = [v8 checkedSummary];
+        v27 = a1[4];
+        v28 = [v8 checkedSummary];
         *buf = 138543874;
-        v32 = v26;
-        v33 = 2114;
-        v34 = v27;
-        v35 = 2114;
-        v36 = v8;
+        v33 = v27;
+        v34 = 2114;
+        v35 = v28;
+        v36 = 2114;
+        v37 = v8;
         _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "{writeDictionaryToFile} could not remove file | targetLocation:%{public}@ | error:%{public}@\n%{public}@", buf, 0x20u);
       }
 
@@ -14745,7 +14760,7 @@ LABEL_21:
 
     v22 = a1[4];
     *buf = 138543362;
-    v32 = v22;
+    v33 = v22;
     v17 = "{writeDictionaryToFile} removed existing file | targetLocation:%{public}@";
     v18 = v15;
     v19 = 12;
@@ -14758,9 +14773,9 @@ LABEL_23:
     v11 = _MADLog(@"V2");
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v25 = a1[4];
+      v26 = a1[4];
       *buf = 138543362;
-      v32 = v25;
+      v33 = v26;
       _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "{writeDictionaryToFile} failed to write XML | targetLocation:%{public}@", buf, 0xCu);
     }
 
@@ -14774,15 +14789,15 @@ LABEL_10:
   {
     v23 = a1[5];
     *buf = 138543362;
-    v32 = v23;
+    v33 = v23;
     _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "{writeDictionaryToFile} succeeded | taskDescriptor:%{public}@", buf, 0xCu);
   }
 
   v12 = 0;
 LABEL_27:
 
-  v24 = getDownloadManager();
-  [v24 taskFinishedUpdateState:a1[5] with:v12 fromLocation:@"writeDictionaryToFile"];
+  v25 = getDownloadManager(v24);
+  [v25 taskFinishedUpdateState:a1[5] with:v12 fromLocation:@"writeDictionaryToFile"];
 }
 
 - (void)writeJsonDictionaryToFile:(id)file to:(id)to with:(id)with
@@ -14820,9 +14835,9 @@ LABEL_8:
     if (v3)
     {
       v8 = *(a1 + 32);
-      v73 = v5;
-      v9 = [v2 moveItemAtPath:v8 toPath:v3 error:&v73];
-      v10 = v73;
+      v74 = v5;
+      v9 = [v2 moveItemAtPath:v8 toPath:v3 error:&v74];
+      v10 = v74;
 
       if (v9)
       {
@@ -14838,11 +14853,11 @@ LABEL_20:
         v13 = *(a1 + 32);
         v12 = *(a1 + 40);
         *buf = 138543874;
-        v78 = v12;
-        v79 = 2114;
-        v80 = v13;
-        v81 = 2114;
-        v82 = v3;
+        v79 = v12;
+        v80 = 2114;
+        v81 = v13;
+        v82 = 2114;
+        v83 = v3;
         v14 = "writeJsonDictionaryToFile %{public}@ moved existing file: %{public}@ to: %{public}@";
 LABEL_19:
         _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, v14, buf, 0x20u);
@@ -14859,20 +14874,20 @@ LABEL_14:
       v17 = *(a1 + 32);
       v16 = *(a1 + 40);
       *buf = 138544130;
-      v78 = v16;
-      v79 = 2114;
-      v80 = v17;
-      v81 = 2114;
-      v82 = v3;
-      v83 = 2114;
-      v84 = v5;
+      v79 = v16;
+      v80 = 2114;
+      v81 = v17;
+      v82 = 2114;
+      v83 = v3;
+      v84 = 2114;
+      v85 = v5;
       _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "writeJsonDictionaryToFile %{public}@ could not move old file: %{public}@ to: %{public}@ error: %{public}@", buf, 0x2Au);
     }
 
     v18 = *(a1 + 32);
-    v72 = 0;
-    v19 = [v2 removeItemAtPath:v18 error:&v72];
-    v10 = v72;
+    v73 = 0;
+    v19 = [v2 removeItemAtPath:v18 error:&v73];
+    v10 = v73;
     if ((v19 & 1) == 0)
     {
       v32 = _MADLog(@"V2");
@@ -14881,13 +14896,13 @@ LABEL_14:
         v39 = *(a1 + 32);
         v38 = *(a1 + 40);
         *buf = 138544130;
-        v78 = v38;
-        v79 = 2114;
-        v80 = v39;
-        v81 = 2114;
-        v82 = v3;
-        v83 = 2114;
-        v84 = v10;
+        v79 = v38;
+        v80 = 2114;
+        v81 = v39;
+        v82 = 2114;
+        v83 = v3;
+        v84 = 2114;
+        v85 = v10;
         v35 = "writeJsonDictionaryToFile %{public}@ could not remove file: %{public}@ (after initial error moving it to: %{public}@) with removal error: %{public}@";
         v36 = v32;
         v37 = 42;
@@ -14910,18 +14925,18 @@ LABEL_36:
     v21 = *(a1 + 32);
     v20 = *(a1 + 40);
     *buf = 138543874;
-    v78 = v20;
-    v79 = 2114;
-    v80 = v21;
-    v81 = 2114;
-    v82 = v3;
+    v79 = v20;
+    v80 = 2114;
+    v81 = v21;
+    v82 = 2114;
+    v83 = v3;
     v14 = "writeJsonDictionaryToFile %{public}@ removed existing file: %{public}@ (after initial error moving it to: %{public}@)";
     goto LABEL_19;
   }
 
-  v74 = 0;
-  v4 = [v2 removeItemAtPath:v3 error:&v74];
-  v5 = v74;
+  v75 = 0;
+  v4 = [v2 removeItemAtPath:v3 error:&v75];
+  v5 = v75;
   if (v4)
   {
     goto LABEL_8;
@@ -14932,11 +14947,11 @@ LABEL_36:
   {
     v7 = *(a1 + 40);
     *buf = 138543874;
-    v78 = v7;
-    v79 = 2114;
-    v80 = v3;
-    v81 = 2114;
-    v82 = v5;
+    v79 = v7;
+    v80 = 2114;
+    v81 = v3;
+    v82 = 2114;
+    v83 = v5;
     _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "writeJsonDictionaryToFile %{public}@ could not remove prior archive file: %{public}@ (will continue) error: %{public}@", buf, 0x20u);
   }
 
@@ -14951,9 +14966,9 @@ LABEL_21:
   {
 
     v22 = *(a1 + 32);
-    v71 = 0;
-    v23 = [v2 removeItemAtPath:v22 error:&v71];
-    v10 = v71;
+    v72 = 0;
+    v23 = [v2 removeItemAtPath:v22 error:&v72];
+    v10 = v72;
     if (v23)
     {
       v24 = _MADLog(@"V2Control");
@@ -14962,9 +14977,9 @@ LABEL_21:
         v26 = *(a1 + 32);
         v25 = *(a1 + 40);
         *buf = 138543618;
-        v78 = v25;
-        v79 = 2114;
-        v80 = v26;
+        v79 = v25;
+        v80 = 2114;
+        v81 = v26;
         _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "writeJsonDictionaryToFile %{public}@ removed existing file: %{public}@", buf, 0x16u);
       }
 
@@ -14977,11 +14992,11 @@ LABEL_21:
       v34 = *(a1 + 32);
       v33 = *(a1 + 40);
       *buf = 138543874;
-      v78 = v33;
-      v79 = 2114;
-      v80 = v34;
-      v81 = 2114;
-      v82 = v10;
+      v79 = v33;
+      v80 = 2114;
+      v81 = v34;
+      v82 = 2114;
+      v83 = v10;
       v35 = "writeJsonDictionaryToFile %{public}@ could not remove file: %{public}@ error: %{public}@";
       v36 = v32;
       v37 = 32;
@@ -14996,18 +15011,18 @@ LABEL_35:
   v10 = v5;
 LABEL_27:
   v27 = [*(a1 + 32) stringByAppendingString:@".new.purged"];
-  if ([v2 fileExistsAtPath:v27] && (v10, v70 = 0, v28 = objc_msgSend(v2, "removeItemAtPath:error:", v27, &v70), v10 = v70, (v28 & 1) == 0))
+  if ([v2 fileExistsAtPath:v27] && (v10, v71 = 0, v28 = objc_msgSend(v2, "removeItemAtPath:error:", v27, &v71), v10 = v71, (v28 & 1) == 0))
   {
     v40 = _MADLog(@"V2Control");
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       v41 = *(a1 + 40);
       *buf = 138543874;
-      v78 = v41;
-      v79 = 2114;
-      v80 = v27;
-      v81 = 2114;
-      v82 = v10;
+      v79 = v41;
+      v80 = 2114;
+      v81 = v27;
+      v82 = 2114;
+      v83 = v10;
       _os_log_impl(&dword_0, v40, OS_LOG_TYPE_DEFAULT, "writeJsonDictionaryToFile %{public}@ could not remove prior temp file: %{public}@ (will fall back to directly writing) error: %{public}@", buf, 0x20u);
     }
   }
@@ -15028,9 +15043,9 @@ LABEL_27:
   {
     v43 = *(a1 + 40);
     *buf = 138543618;
-    v78 = v43;
-    v79 = 2114;
-    v80 = v27;
+    v79 = v43;
+    v80 = 2114;
+    v81 = v27;
     _os_log_impl(&dword_0, v42, OS_LOG_TYPE_DEFAULT, "writeJsonDictionaryToFile %{public}@ failed to create json stream: %{public}@", buf, 0x16u);
   }
 
@@ -15043,9 +15058,9 @@ LABEL_44:
 
     [v30 open];
     v45 = *(a1 + 48);
-    v69 = 0;
-    [NSJSONSerialization writeJSONObject:v45 toStream:v30 options:1 error:&v69];
-    v46 = v69;
+    v70 = 0;
+    [NSJSONSerialization writeJSONObject:v45 toStream:v30 options:1 error:&v70];
+    v46 = v70;
     if (v46)
     {
       v10 = v46;
@@ -15068,11 +15083,11 @@ LABEL_63:
       }
 
       *buf = 138543874;
-      v78 = v48;
-      v79 = 2114;
-      v80 = v49;
-      v81 = 2114;
-      v82 = v10;
+      v79 = v48;
+      v80 = 2114;
+      v81 = v49;
+      v82 = 2114;
+      v83 = v10;
       v50 = "writeJsonDictionaryToFile %{public}@ failed to write json to: %{public}@ error: %{public}@";
       v51 = v47;
       v52 = OS_LOG_TYPE_DEFAULT;
@@ -15085,9 +15100,9 @@ LABEL_49:
     if (v31)
     {
       v55 = *(a1 + 32);
-      v68 = 0;
-      v56 = [v2 moveItemAtPath:v27 toPath:v55 error:&v68];
-      v10 = v68;
+      v69 = 0;
+      v56 = [v2 moveItemAtPath:v27 toPath:v55 error:&v69];
+      v10 = v69;
       if ((v56 & 1) == 0)
       {
         v47 = _MADLog(@"V2");
@@ -15099,13 +15114,13 @@ LABEL_49:
         v58 = *(a1 + 32);
         v57 = *(a1 + 40);
         *buf = 138544130;
-        v78 = v57;
-        v79 = 2114;
-        v80 = v27;
-        v81 = 2114;
-        v82 = v58;
-        v83 = 2114;
-        v84 = v10;
+        v79 = v57;
+        v80 = 2114;
+        v81 = v27;
+        v82 = 2114;
+        v83 = v58;
+        v84 = 2114;
+        v85 = v10;
         v50 = "writeJsonDictionaryToFile %{public}@ could not move json from: %{public}@ to: %{public}@ error: %{public}@";
         v51 = v47;
         v52 = OS_LOG_TYPE_ERROR;
@@ -15124,7 +15139,7 @@ LABEL_49:
     {
       v62 = *(a1 + 40);
       *buf = 138543362;
-      v78 = v62;
+      v79 = v62;
       _os_log_impl(&dword_0, v47, OS_LOG_TYPE_DEFAULT, "writeJsonDictionaryToFile %{public}@ succeeded", buf, 0xCu);
     }
 
@@ -15138,9 +15153,9 @@ LABEL_49:
     v61 = *(a1 + 32);
     v60 = *(a1 + 40);
     *buf = 138543618;
-    v78 = v60;
-    v79 = 2114;
-    v80 = v61;
+    v79 = v60;
+    v80 = 2114;
+    v81 = v61;
     _os_log_impl(&dword_0, v59, OS_LOG_TYPE_DEFAULT, "writeJsonDictionaryToFile %{public}@ failed to create json stream: %{public}@", buf, 0x16u);
   }
 
@@ -15151,9 +15166,9 @@ LABEL_64:
   if (*(a1 + 48) && !isDownloadResultFailure(v54))
   {
     v64 = *(a1 + 48);
-    v75 = @"productMarketingVersions";
-    v76 = v64;
-    v63 = [NSDictionary dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+    v76 = @"productMarketingVersions";
+    v77 = v64;
+    v63 = [NSDictionary dictionaryWithObjects:&v77 forKeys:&v76 count:1];
   }
 
   else
@@ -15166,12 +15181,12 @@ LABEL_64:
   {
     v66 = *(a1 + 40);
     *buf = 138543362;
-    v78 = v66;
+    v79 = v66;
     _os_log_impl(&dword_0, v65, OS_LOG_TYPE_DEFAULT, "writeJsonDictionaryToFile %{public}@ notifying download manager move complete", buf, 0xCu);
   }
 
-  v67 = getDownloadManager();
-  [v67 taskFinishedUpdateState:*(a1 + 40) with:v54 extraInfo:v63 fromLocation:@"writeDictionaryToFile"];
+  v68 = getDownloadManager(v67);
+  [v68 taskFinishedUpdateState:*(a1 + 40) with:v54 extraInfo:v63 fromLocation:@"writeDictionaryToFile"];
 }
 
 - (void)moveAssetIntoRepo:(id)repo forType:(id)type forAsset:(id)asset cleanUp:(id)up with:(id)with
@@ -15181,20 +15196,20 @@ LABEL_64:
   assetCopy = asset;
   upCopy = up;
   withCopy = with;
-  v46 = 0;
+  v49 = 0;
   v17 = +[NSFileManager defaultManager];
   path = [repoCopy path];
-  [v17 fileExistsAtPath:path isDirectory:&v46];
+  [v17 fileExistsAtPath:path isDirectory:&v49];
 
-  if (v46)
+  if (v49)
   {
-    v36 = upCopy;
-    v37 = assetCopy;
+    v39 = upCopy;
+    v40 = assetCopy;
     v19 = getAssetDirectoryName(assetCopy);
     v20 = assetTypeFromNormalized(typeCopy);
-    v34 = disassembleTaskDescriptor(withCopy);
-    v21 = [v34 objectForKey:@"Purpose"];
-    v35 = v20;
+    v37 = disassembleTaskDescriptor(withCopy);
+    v21 = [v37 objectForKey:@"Purpose"];
+    v38 = v20;
     v22 = repositoryPath(v20);
     v23 = ensureTargetDirectory(v22, typeCopy);
     v24 = [v22 stringByAppendingPathComponent:typeCopy];
@@ -15203,72 +15218,72 @@ LABEL_64:
     {
       if (v21)
       {
-        v25 = purposeDirectoryName(v21);
-        v26 = ensureTargetDirectory(v24, v25);
-        v27 = [v23 URLByAppendingPathComponent:v25];
+        v27 = purposeDirectoryName(v21);
+        v28 = ensureTargetDirectory(v24, v27);
+        v29 = [v23 URLByAppendingPathComponent:v27];
 
-        v23 = v27;
+        v23 = v29;
       }
 
-      v28 = [v23 URLByAppendingPathComponent:v19];
+      v30 = [v23 URLByAppendingPathComponent:v19];
     }
 
     else
     {
-      v28 = 0;
+      v30 = 0;
     }
 
-    if (usingCentralizedCachedelete() && !isDirStatsEnabledForDirectory(v24))
+    if (usingCentralizedCachedelete(v25, v26) && !isDirStatsEnabledForDirectory(v24))
     {
       enableDirStatsForDirectory(v24);
     }
 
-    v31 = _MADLog(@"V2Control");
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v34 = _MADLog(@"V2Control");
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v48 = v28;
-      _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "Moving asset to target directory: %{public}@", buf, 0xCu);
+      v51 = v30;
+      _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "Moving asset to target directory: %{public}@", buf, 0xCu);
     }
 
     assetQueue = self->_assetQueue;
-    v38[0] = _NSConcreteStackBlock;
-    v38[1] = 3221225472;
-    v38[2] = __66__ControlManager_moveAssetIntoRepo_forType_forAsset_cleanUp_with___block_invoke_2046;
-    v38[3] = &unk_4B42C0;
-    v39 = repoCopy;
-    v40 = v28;
+    v41[0] = _NSConcreteStackBlock;
+    v41[1] = 3221225472;
+    v41[2] = __66__ControlManager_moveAssetIntoRepo_forType_forAsset_cleanUp_with___block_invoke_2046;
+    v41[3] = &unk_4B42C0;
+    v42 = repoCopy;
+    v43 = v30;
     selfCopy = self;
-    upCopy = v36;
-    v42 = v36;
-    v43 = withCopy;
-    v33 = v28;
-    dispatch_async(assetQueue, v38);
+    upCopy = v39;
+    v45 = v39;
+    v46 = withCopy;
+    v36 = v30;
+    dispatch_async(assetQueue, v41);
 
-    assetCopy = v37;
+    assetCopy = v40;
   }
 
   else
   {
-    v29 = _MADLog(@"V2Control");
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v31 = _MADLog(@"V2Control");
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "Completed download did not result in a directory, skipping", buf, 2u);
+      _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "Completed download did not result in a directory, skipping", buf, 2u);
     }
 
     if (upCopy)
     {
-      v30 = self->_assetQueue;
+      v33 = self->_assetQueue;
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = __66__ControlManager_moveAssetIntoRepo_forType_forAsset_cleanUp_with___block_invoke;
       block[3] = &unk_4B2AA0;
-      v45 = upCopy;
-      dispatch_async(v30, block);
+      v48 = upCopy;
+      dispatch_async(v33, block);
     }
 
-    v19 = getDownloadManager();
+    v19 = getDownloadManager(v32);
     [v19 taskFinishedUpdateState:withCopy with:7 fromLocation:@"moveAssetIntoRepo"];
   }
 }
@@ -15312,29 +15327,29 @@ void __66__ControlManager_moveAssetIntoRepo_forType_forAsset_cleanUp_with___bloc
     _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "[CONTROL_MANAGER_ASSET_QUEUE] {moveAssetIntoRepo} moving to path...", buf, 2u);
   }
 
-  v3 = moveTargetToDirectory(*(a1 + 32), *(a1 + 40));
-  if (!v3)
+  v4 = moveTargetToDirectory(*(a1 + 32), *(a1 + 40));
+  if (!v4)
   {
-    if (usingCentralizedCachedelete())
+    if (usingCentralizedCachedelete(0, v3))
     {
-      v4 = [*(a1 + 40) path];
-      markAssetPurgeable(v4);
+      v5 = [*(a1 + 40) path];
+      markAssetPurgeable(v5);
     }
 
-    v5 = [*(a1 + 48) getSAFRegistrationBundleID:*(a1 + 40)];
-    [*(a1 + 48) updateSpaceAttributionForBundleID:v5 assetPath:*(a1 + 40) doRegistration:1];
+    v6 = [*(a1 + 48) getSAFRegistrationBundleID:*(a1 + 40)];
+    [*(a1 + 48) updateSpaceAttributionForBundleID:v6 assetPath:*(a1 + 40) doRegistration:1];
   }
 
   removeItem(*(a1 + 56));
-  updateClientUsageDate(*(a1 + 40));
-  v6 = getDownloadManager();
-  [v6 taskFinishedUpdateState:*(a1 + 64) with:v3 fromLocation:@"moveAssetIntoRepo"];
+  updated = updateClientUsageDate(*(a1 + 40));
+  v8 = getDownloadManager(updated);
+  [v8 taskFinishedUpdateState:*(a1 + 64) with:v4 fromLocation:@"moveAssetIntoRepo"];
 
-  v7 = _MADLog(@"V2Control");
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9 = _MADLog(@"V2Control");
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "[CONTROL_MANAGER_ASSET_QUEUE] {moveAssetIntoRepo} ...moving to path", v8, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "[CONTROL_MANAGER_ASSET_QUEUE] {moveAssetIntoRepo} ...moving to path", v10, 2u);
   }
 }
 
@@ -15623,16 +15638,16 @@ LABEL_11:
     path = [v11 path];
     v14 = [NSDictionary dictionaryWithContentsOfFile:path];
 
-    if (v14 && (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v15 = objc_claimAutoreleasedReturnValue(), [v12 path], v90 = v12, v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "fileExistsAtPath:", v16), v16, v12 = v90, v15, (v17 & 1) != 0))
+    if (v14 && (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v15 = objc_claimAutoreleasedReturnValue(), [v12 path], v96 = v12, v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "fileExistsAtPath:", v16), v16, v12 = v96, v15, (v17 & 1) != 0))
     {
       v18 = [v14 objectForKey:@"MobileAssetProperties"];
       if (v18)
       {
         v19 = v18;
         v20 = getAssetIdFromDict(typeCopy, v18);
-        v94 = 0;
-        AppBooleanValue = _MAPreferencesGetAppBooleanValue(@"BypassAssetIDChecks", &v94);
-        if (v94)
+        v100 = 0;
+        AppBooleanValue = _MAPreferencesGetAppBooleanValue(@"BypassAssetIDChecks", &v100);
+        if (v100)
         {
           v22 = AppBooleanValue == 0;
         }
@@ -15643,10 +15658,10 @@ LABEL_11:
         }
 
         v23 = !v22;
-        v94 = v23;
-        v88 = v20;
-        v89 = v19;
-        v87 = v11;
+        v100 = v23;
+        v94 = v20;
+        v95 = v19;
+        v93 = v11;
         if (v20)
         {
           if ([v20 isEqual:stringByDeletingPathExtension])
@@ -15658,29 +15673,29 @@ LABEL_11:
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543874;
-            v96 = stringByDeletingPathExtension;
-            v97 = 2114;
-            v98 = v8;
-            v99 = 2114;
-            v100 = v20;
+            v102 = stringByDeletingPathExtension;
+            v103 = 2114;
+            v104 = v8;
+            v105 = 2114;
+            v106 = v20;
             _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "Asset that is being installed has different asset ID when looking at its Info.plist: %{public}@ in %{public}@ generates ID %{public}@ when looking at its Info.plist.", buf, 0x20u);
           }
 
-          IsInternalAllowed = _MAPreferencesIsInternalAllowed();
-          v26 = 0;
-          v27 = 2;
+          IsInternalAllowed = _MAPreferencesIsInternalAllowed(v25, v26);
+          v28 = 0;
+          v29 = 2;
           if (IsInternalAllowed)
           {
-            v28 = 0;
-            v29 = 0;
-            if (v94)
+            v30 = 0;
+            v31 = 0;
+            if (v100)
             {
-              v30 = _MADLog(@"V2Control");
-              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+              v32 = _MADLog(@"V2Control");
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
 LABEL_34:
-                _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEFAULT, "Internal build detected, not enforcing Asset ID checks.", buf, 2u);
+                _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, "Internal build detected, not enforcing Asset ID checks.", buf, 2u);
                 goto LABEL_35;
               }
 
@@ -15693,27 +15708,27 @@ LABEL_34:
 
         else
         {
-          v36 = _MADLog(@"V2Control");
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+          v38 = _MADLog(@"V2Control");
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            v96 = stringByDeletingPathExtension;
-            v97 = 2114;
-            v98 = v8;
-            _os_log_impl(&dword_0, v36, OS_LOG_TYPE_DEFAULT, "Asset that could not determine an asset ID from Info.plist: %{public}@ in %{public}@", buf, 0x16u);
+            v102 = stringByDeletingPathExtension;
+            v103 = 2114;
+            v104 = v8;
+            _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, "Asset that could not determine an asset ID from Info.plist: %{public}@ in %{public}@", buf, 0x16u);
           }
 
-          v37 = _MAPreferencesIsInternalAllowed();
-          v26 = 0;
-          v27 = 2;
-          if (v37)
+          v41 = _MAPreferencesIsInternalAllowed(v39, v40);
+          v28 = 0;
+          v29 = 2;
+          if (v41)
           {
-            v28 = 0;
-            v29 = 0;
-            if (v94)
+            v30 = 0;
+            v31 = 0;
+            if (v100)
             {
-              v30 = _MADLog(@"V2Control");
-              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+              v32 = _MADLog(@"V2Control");
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
                 goto LABEL_34;
@@ -15721,173 +15736,173 @@ LABEL_34:
 
 LABEL_35:
 
-              v19 = v89;
+              v19 = v95;
 LABEL_36:
               if (typeCopy)
               {
-                v93 = 0;
-                v38 = [[MADAutoAssetDescriptor alloc] initForAssetType:typeCopy fromMetadata:v19 invalidReasons:&v93];
-                v39 = v93;
-                if (v38 && !v39)
+                v99 = 0;
+                v42 = [[MADAutoAssetDescriptor alloc] initForAssetType:typeCopy fromMetadata:v19 invalidReasons:&v99];
+                v43 = v99;
+                if (v42 && !v43)
                 {
-                  v85 = v38;
-                  v40 = repositoryPath(typeCopy);
-                  v41 = getAutoLocalUrlFromTypeGivenDefaultRepoWithPurpose(typeCopy, 1, v40, @"auto");
+                  v91 = v42;
+                  v44 = repositoryPath(typeCopy);
+                  v45 = getAutoLocalUrlFromTypeGivenDefaultRepoWithPurpose(typeCopy, 1, v44, @"auto");
 
-                  path2 = [v41 path];
-                  v43 = ensureDirectory(path2);
+                  path2 = [v45 path];
+                  v47 = ensureDirectory(path2);
 
                   lastPathComponent2 = [v8 lastPathComponent];
-                  v45 = [v41 URLByAppendingPathComponent:lastPathComponent2];
+                  v49 = [v45 URLByAppendingPathComponent:lastPathComponent2];
 
-                  v46 = +[NSFileManager defaultManager];
+                  v50 = +[NSFileManager defaultManager];
                   path3 = [v8 path];
-                  v83 = v45;
-                  path4 = [v45 path];
-                  v91 = 0;
-                  [v46 moveItemAtPath:path3 toPath:path4 error:&v91];
-                  v49 = v91;
+                  v89 = v49;
+                  path4 = [v49 path];
+                  v97 = 0;
+                  [v50 moveItemAtPath:path3 toPath:path4 error:&v97];
+                  v53 = v97;
 
-                  if (v49)
+                  if (v53)
                   {
-                    v50 = _MADLog(@"V2Control");
-                    v51 = v49;
-                    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+                    v56 = _MADLog(@"V2Control");
+                    v57 = v53;
+                    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
                     {
                       path5 = [v8 path];
-                      path6 = [v83 path];
-                      v54 = [v49 description];
-                      v55 = __error();
-                      v56 = strerror(*v55);
+                      path6 = [v89 path];
+                      v60 = [v53 description];
+                      v61 = __error();
+                      v62 = strerror(*v61);
                       *buf = 138544130;
-                      v96 = path5;
-                      v97 = 2114;
-                      v98 = path6;
-                      v99 = 2114;
-                      v100 = v54;
-                      v101 = 2082;
-                      v102 = v56;
-                      _os_log_impl(&dword_0, v50, OS_LOG_TYPE_DEFAULT, "Unable to move directory from %{public}@ to %{public}@ with error: %{public}@ | Errno: %{public}s", buf, 0x2Au);
+                      v102 = path5;
+                      v103 = 2114;
+                      v104 = path6;
+                      v105 = 2114;
+                      v106 = v60;
+                      v107 = 2082;
+                      v108 = v62;
+                      _os_log_impl(&dword_0, v56, OS_LOG_TYPE_DEFAULT, "Unable to move directory from %{public}@ to %{public}@ with error: %{public}@ | Errno: %{public}s", buf, 0x2Au);
 
-                      v51 = v49;
+                      v57 = v53;
                     }
 
-                    v57 = +[NSFileManager defaultManager];
-                    path7 = [v83 path];
-                    [v57 removeItemAtPath:path7 error:0];
+                    v63 = +[NSFileManager defaultManager];
+                    path7 = [v89 path];
+                    [v63 removeItemAtPath:path7 error:0];
 
-                    v28 = 0;
-                    v27 = 2;
-                    v12 = v90;
-                    v26 = v83;
-                    v29 = v85;
+                    v30 = 0;
+                    v29 = 2;
+                    v12 = v96;
+                    v28 = v89;
+                    v31 = v91;
                   }
 
                   else
                   {
-                    if (_MAPreferencesIsInternalAllowed())
+                    if (_MAPreferencesIsInternalAllowed(v54, v55))
                     {
-                      v29 = v85;
-                      [MADAutoAssetControlManager installAutoAssetWithDescriptor:v85];
-                      v28 = 0;
-                      v27 = 0;
-                      v12 = v90;
+                      v31 = v91;
+                      [MADAutoAssetControlManager installAutoAssetWithDescriptor:v91];
+                      v30 = 0;
+                      v29 = 0;
+                      v12 = v96;
                     }
 
                     else
                     {
-                      v28 = 0;
-                      v27 = 0;
-                      v12 = v90;
-                      v29 = v85;
+                      v30 = 0;
+                      v29 = 0;
+                      v12 = v96;
+                      v31 = v91;
                     }
 
-                    v26 = v83;
+                    v28 = v89;
                   }
 
                   goto LABEL_54;
                 }
 
-                v82 = v39;
+                v88 = v43;
               }
 
               else
               {
-                v38 = 0;
-                v82 = 0;
+                v42 = 0;
+                v88 = 0;
               }
 
-              v86 = v38;
-              v59 = _MADLog(@"V2Control");
-              if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+              v92 = v42;
+              v65 = _MADLog(@"V2Control");
+              if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v96 = v82;
-                _os_log_impl(&dword_0, v59, OS_LOG_TYPE_DEFAULT, "Unable to create auto asset descriptor from asset with reason: %{public}@ | Assuming V2 Asset.", buf, 0xCu);
+                v102 = v88;
+                _os_log_impl(&dword_0, v65, OS_LOG_TYPE_DEFAULT, "Unable to create auto asset descriptor from asset with reason: %{public}@ | Assuming V2 Asset.", buf, 0xCu);
               }
 
-              v60 = [NSURL alloc];
-              v61 = repositoryPath(typeCopy);
-              v62 = [v60 initWithString:v61];
-              v63 = normalizedAssetType(typeCopy);
-              v64 = [v62 URLByAppendingPathComponent:v63];
+              v66 = [NSURL alloc];
+              v67 = repositoryPath(typeCopy);
+              v68 = [v66 initWithString:v67];
+              v69 = normalizedAssetType(typeCopy);
+              v70 = [v68 URLByAppendingPathComponent:v69];
 
-              path8 = [v64 path];
-              v66 = ensureDirectory(path8);
+              path8 = [v70 path];
+              v72 = ensureDirectory(path8);
 
               lastPathComponent3 = [v8 lastPathComponent];
-              v68 = [v64 URLByAppendingPathComponent:lastPathComponent3];
+              v74 = [v70 URLByAppendingPathComponent:lastPathComponent3];
 
-              v69 = +[NSFileManager defaultManager];
+              v75 = +[NSFileManager defaultManager];
               path9 = [v8 path];
-              v84 = v68;
-              path10 = [v68 path];
-              v92 = 0;
-              [v69 moveItemAtPath:path9 toPath:path10 error:&v92];
-              v72 = v92;
+              v90 = v74;
+              path10 = [v74 path];
+              v98 = 0;
+              [v75 moveItemAtPath:path9 toPath:path10 error:&v98];
+              v78 = v98;
 
-              if (v72)
+              if (v78)
               {
-                v73 = _MADLog(@"V2Control");
-                v74 = v72;
-                if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+                v79 = _MADLog(@"V2Control");
+                v80 = v78;
+                if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
                 {
                   path11 = [v8 path];
-                  path12 = [v84 path];
-                  v77 = [v72 description];
-                  v78 = __error();
-                  v79 = strerror(*v78);
+                  path12 = [v90 path];
+                  v83 = [v78 description];
+                  v84 = __error();
+                  v85 = strerror(*v84);
                   *buf = 138544130;
-                  v96 = path11;
-                  v97 = 2114;
-                  v98 = path12;
-                  v99 = 2114;
-                  v100 = v77;
-                  v101 = 2082;
-                  v102 = v79;
-                  _os_log_impl(&dword_0, v73, OS_LOG_TYPE_DEFAULT, "Unable to move directory from %{public}@ to %{public}@ with error: %{public}@ | Errno: %{public}s", buf, 0x2Au);
+                  v102 = path11;
+                  v103 = 2114;
+                  v104 = path12;
+                  v105 = 2114;
+                  v106 = v83;
+                  v107 = 2082;
+                  v108 = v85;
+                  _os_log_impl(&dword_0, v79, OS_LOG_TYPE_DEFAULT, "Unable to move directory from %{public}@ to %{public}@ with error: %{public}@ | Errno: %{public}s", buf, 0x2Au);
 
-                  v74 = v72;
+                  v80 = v78;
                 }
 
-                v80 = +[NSFileManager defaultManager];
-                path13 = [v84 path];
-                [v80 removeItemAtPath:path13 error:0];
+                v86 = +[NSFileManager defaultManager];
+                path13 = [v90 path];
+                [v86 removeItemAtPath:path13 error:0];
 
-                v27 = 2;
-                v12 = v90;
-                v26 = v84;
+                v29 = 2;
+                v12 = v96;
+                v28 = v90;
               }
 
               else
               {
-                v27 = 0;
-                v12 = v90;
-                v26 = v84;
+                v29 = 0;
+                v12 = v96;
+                v28 = v90;
               }
 
-              v29 = v86;
-              v28 = v82;
+              v31 = v92;
+              v30 = v88;
             }
 
 LABEL_54:
@@ -15896,38 +15911,38 @@ LABEL_54:
           }
         }
 
-        v28 = 0;
-        v29 = 0;
+        v30 = 0;
+        v31 = 0;
         goto LABEL_54;
       }
 
-      v31 = _MADLog(@"V2Control");
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v33 = _MADLog(@"V2Control");
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "Got malformed asset attributes when reading info plist", buf, 2u);
+        _os_log_impl(&dword_0, v33, OS_LOG_TYPE_DEFAULT, "Got malformed asset attributes when reading info plist", buf, 2u);
       }
     }
 
     else
     {
-      v31 = _MADLog(@"V2Control");
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v33 = _MADLog(@"V2Control");
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         [v11 path];
-        v33 = v32 = v12;
-        path14 = [v32 path];
+        v35 = v34 = v12;
+        path14 = [v34 path];
         *buf = 138544130;
-        v96 = v8;
-        v97 = 2114;
-        v98 = v14;
-        v99 = 2114;
-        v100 = v33;
-        v101 = 2114;
-        v102 = path14;
-        _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "Got a malformed asset when reading %{public}@, cleaning up. plist: %{public}@, infoPlistPath: %{public}@, assetDataPath: %{public}@", buf, 0x2Au);
+        v102 = v8;
+        v103 = 2114;
+        v104 = v14;
+        v105 = 2114;
+        v106 = v35;
+        v107 = 2114;
+        v108 = path14;
+        _os_log_impl(&dword_0, v33, OS_LOG_TYPE_DEFAULT, "Got a malformed asset when reading %{public}@, cleaning up. plist: %{public}@, infoPlistPath: %{public}@, assetDataPath: %{public}@", buf, 0x2Au);
 
-        v12 = v32;
+        v12 = v34;
       }
     }
   }
@@ -15938,15 +15953,15 @@ LABEL_54:
     if (os_log_type_enabled(stringByDeletingPathExtension, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v96 = assetCopy;
+      v102 = assetCopy;
       _os_log_impl(&dword_0, stringByDeletingPathExtension, OS_LOG_TYPE_DEFAULT, "unable to create NSURL from path: %{public}@", buf, 0xCu);
     }
   }
 
-  v27 = 2;
+  v29 = 2;
 LABEL_25:
 
-  return v27;
+  return v29;
 }
 
 - (void)handleSecureMABundleCommand:(id)command message:(id)message clientName:(id)name

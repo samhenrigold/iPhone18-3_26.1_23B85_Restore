@@ -12,6 +12,7 @@
 - (void)_setTransitTurnAlertsEnabled:(id)enabled specifier:(id)specifier;
 - (void)_setTurnAlertsEnabled:(id)enabled forKey:(id)key;
 - (void)_setWalkingTurnAlertsEnabled:(id)enabled specifier:(id)specifier;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NanoMapsSettingsController
@@ -42,6 +43,24 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = NanoMapsSettingsController;
+  [(NanoMapsSettingsController *)&v12 viewWillAppear:appear];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"Maps [Bridge]" table:@"Localizable" locale:v5 bundleURL:bundleURL];
+
+  bundleIdentifier = [v3 bundleIdentifier];
+  bundleIdentifier2 = [v3 bundleIdentifier];
+  v10 = [NSString stringWithFormat:@"bridge:root=%@", bundleIdentifier2];
+  v11 = [NSURL URLWithString:v10];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v7 localizedNavigationComponents:&__NSArray0__struct deepLink:v11];
 }
 
 - (void)_createSpecifiers
@@ -173,7 +192,7 @@
 {
   enabledCopy = enabled;
   keyCopy = key;
-  v7 = MAPSGetTurnAlertsLog();
+  v7 = MAPSGetTurnAlertsLog(keyCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = 138412546;

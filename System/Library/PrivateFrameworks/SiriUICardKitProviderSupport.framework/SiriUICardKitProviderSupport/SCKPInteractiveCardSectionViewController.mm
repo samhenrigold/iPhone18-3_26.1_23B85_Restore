@@ -17,11 +17,13 @@
   return v3;
 }
 
-uint64_t __62__SCKPInteractiveCardSectionViewController_cardSectionClasses__block_invoke()
+uint64_t __62__SCKPInteractiveCardSectionViewController_cardSectionClasses__block_invoke(uint64_t a1, uint64_t a2)
 {
-  cardSectionClasses_cardSectionClasses = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
+  v2 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
+  v3 = cardSectionClasses_cardSectionClasses;
+  cardSectionClasses_cardSectionClasses = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (void)_loadCardSectionView

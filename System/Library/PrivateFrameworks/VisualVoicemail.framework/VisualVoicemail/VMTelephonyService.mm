@@ -13,36 +13,37 @@
 {
   clientCopy = client;
   telephonyClientCopy = telephonyClient;
-  v13.receiver = self;
-  v13.super_class = VMTelephonyService;
-  v8 = [(VMTelephonyService *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = VMTelephonyService;
+  v8 = [(VMTelephonyService *)&v14 init];
+  v9 = v8;
   if (v8)
   {
-    v9 = sub_100002784();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100002784(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = objc_opt_class();
+      v11 = objc_opt_class();
       *buf = 136315650;
-      v15 = "";
-      v16 = 2080;
-      v17 = "";
-      v18 = 2112;
-      v19 = v10;
-      v11 = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ init", buf, 0x20u);
+      v16 = "";
+      v17 = 2080;
+      v18 = "";
+      v19 = 2112;
+      v20 = v11;
+      v12 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ init", buf, 0x20u);
     }
 
-    [(VMTelephonyService *)v8 setQueue:clientCopy];
-    [(VMTelephonyService *)v8 setTelephonyClient:telephonyClientCopy];
-    [telephonyClientCopy addDelegate:v8 queue:clientCopy];
+    [(VMTelephonyService *)v9 setQueue:clientCopy];
+    [(VMTelephonyService *)v9 setTelephonyClient:telephonyClientCopy];
+    [telephonyClientCopy addDelegate:v9 queue:clientCopy];
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)dealloc
 {
-  v3 = sub_100002784();
+  v3 = sub_100002784(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -67,7 +68,7 @@
 {
   notificationCopy = notification;
   infoCopy = info;
-  v7 = sub_100002784();
+  v7 = sub_100002784(infoCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136316162;
@@ -91,7 +92,7 @@
   v12 = 0;
   v4 = [backupCopy setResourceValue:&__kCFBooleanTrue forKey:NSURLIsExcludedFromBackupKey error:&v12];
   v5 = v12;
-  v6 = sub_100002784();
+  v6 = sub_100002784(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v4)
   {
@@ -134,134 +135,134 @@ LABEL_6:
 {
   notificationCopy = notification;
   infoCopy = info;
-  v8 = sub_100002784();
+  v8 = sub_100002784(infoCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v42 = "";
-    v43 = 2080;
-    v44 = "";
-    v45 = 2112;
-    v46 = notificationCopy;
-    v47 = 2112;
-    v48 = infoCopy;
+    v47 = "";
+    v48 = 2080;
+    v49 = "";
+    v50 = 2112;
+    v51 = notificationCopy;
+    v52 = 2112;
+    v53 = infoCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%sSaving notification for subscription %@ with info %@", buf, 0x2Au);
   }
 
-  v9 = sub_100085730();
-  v10 = +[NSFileManager defaultManager];
-  path = [v9 path];
-  v12 = [v10 fileExistsAtPath:path];
+  v10 = sub_100085730(v9);
+  v11 = +[NSFileManager defaultManager];
+  path = [v10 path];
+  v13 = [v11 fileExistsAtPath:path];
 
-  if ((v12 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
-    v13 = sub_100002784();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100002784(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      path2 = [v9 path];
+      path2 = [v10 path];
       *buf = 136315650;
-      v42 = "";
-      v43 = 2080;
-      v44 = "";
-      v45 = 2112;
-      v46 = path2;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#I %s%sCreating notification directory %@", buf, 0x20u);
+      v47 = "";
+      v48 = 2080;
+      v49 = "";
+      v50 = 2112;
+      v51 = path2;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%sCreating notification directory %@", buf, 0x20u);
     }
 
-    v15 = +[NSFileManager defaultManager];
-    path3 = [v9 path];
-    v40 = 0;
-    v17 = [v15 createDirectoryAtPath:path3 withIntermediateDirectories:1 attributes:0 error:&v40];
-    v18 = v40;
+    v17 = +[NSFileManager defaultManager];
+    path3 = [v10 path];
+    v45 = 0;
+    v19 = [v17 createDirectoryAtPath:path3 withIntermediateDirectories:1 attributes:0 error:&v45];
+    v20 = v45;
 
-    if ((v17 & 1) == 0)
+    if ((v19 & 1) == 0)
     {
-      v19 = sub_100002784();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v22 = sub_100002784(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        path4 = [v9 path];
+        path4 = [v10 path];
         *buf = 136315906;
-        v42 = "";
-        v43 = 2080;
-        v44 = "";
-        v45 = 2112;
-        v46 = path4;
-        v47 = 2112;
-        v48 = v18;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#W %s%sError while creating notification directory at path: %@ error: %@", buf, 0x2Au);
+        v47 = "";
+        v48 = 2080;
+        v49 = "";
+        v50 = 2112;
+        v51 = path4;
+        v52 = 2112;
+        v53 = v20;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#W %s%sError while creating notification directory at path: %@ error: %@", buf, 0x2Au);
       }
     }
   }
 
   accountID = [notificationCopy accountID];
-  v22 = sub_1000857D4(accountID);
+  v25 = sub_1000857D4(accountID);
 
-  v39 = 0;
-  v23 = [NSKeyedArchiver archivedDataWithRootObject:infoCopy requiringSecureCoding:1 error:&v39];
-  v24 = v39;
-  if (v24)
+  v44 = 0;
+  v26 = [NSKeyedArchiver archivedDataWithRootObject:infoCopy requiringSecureCoding:1 error:&v44];
+  v27 = v44;
+  v28 = v27;
+  if (v27)
   {
-    v25 = sub_100002784();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v29 = sub_100002784(v27);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v42 = "";
-      v43 = 2080;
-      v44 = "";
-      v45 = 2112;
-      v46 = v24;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "#W %s%sError encoding data notification: %@", buf, 0x20u);
+      v47 = "";
+      v48 = 2080;
+      v49 = "";
+      v50 = 2112;
+      v51 = v28;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "#W %s%sError encoding data notification: %@", buf, 0x20u);
     }
   }
 
   else
   {
     selfCopy = self;
-    v25 = objc_opt_new();
-    v26 = objc_opt_class();
+    v29 = objc_opt_new();
+    v30 = objc_opt_class();
     accountID2 = [notificationCopy accountID];
-    v28 = [v26 hashedUUID:accountID2];
-    uUIDString = [v28 UUIDString];
+    v32 = [v30 hashedUUID:accountID2];
+    uUIDString = [v32 UUIDString];
 
-    v36 = uUIDString;
-    [v25 setObject:uUIDString forKey:@"Account"];
-    [v25 setObject:v23 forKey:@"Info"];
-    v30 = sub_100002784();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v41 = uUIDString;
+    [v29 setObject:uUIDString forKey:@"Account"];
+    v34 = sub_100002784([v29 setObject:v26 forKey:@"Info"]);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v42 = "";
-      v43 = 2080;
-      v44 = "";
-      v45 = 2112;
-      v46 = v25;
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "#I %s%s=== notificationsDictionary to save %@", buf, 0x20u);
+      v47 = "";
+      v48 = 2080;
+      v49 = "";
+      v50 = 2112;
+      v51 = v29;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "#I %s%s=== notificationsDictionary to save %@", buf, 0x20u);
     }
 
-    path5 = [v22 path];
-    v38 = 0;
-    v32 = [v25 writeToFile:path5 options:805306369 error:&v38];
-    v33 = v38;
+    path5 = [v25 path];
+    v43 = 0;
+    v36 = [v29 writeToFile:path5 options:805306369 error:&v43];
+    v37 = v43;
 
-    if ((v32 & 1) == 0)
+    if ((v36 & 1) == 0)
     {
-      v34 = sub_100002784();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v39 = sub_100002784(v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
-        path6 = [v22 path];
+        path6 = [v25 path];
         *buf = 136315906;
-        v42 = "";
-        v43 = 2080;
-        v44 = "";
-        v45 = 2112;
-        v46 = path6;
-        v47 = 2112;
-        v48 = v33;
-        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "#W %s%sCould not save notification file at path %@ due to error %@", buf, 0x2Au);
+        v47 = "";
+        v48 = 2080;
+        v49 = "";
+        v50 = 2112;
+        v51 = path6;
+        v52 = 2112;
+        v53 = v37;
+        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "#W %s%sCould not save notification file at path %@ due to error %@", buf, 0x2Au);
       }
     }
 
-    [(VMTelephonyService *)selfCopy excludeNotificationFromBackup:v22];
+    [(VMTelephonyService *)selfCopy excludeNotificationFromBackup:v25];
   }
 }
 
@@ -269,20 +270,20 @@ LABEL_6:
 {
   nameCopy = name;
   infoCopy = info;
-  v8 = sub_100002784();
+  v8 = sub_100002784(infoCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316162;
-    v38 = "";
-    v39 = 2080;
     v40 = "";
-    v41 = 2112;
-    v42 = objc_opt_class();
+    v41 = 2080;
+    v42 = "";
     v43 = 2112;
-    v44 = nameCopy;
+    v44 = objc_opt_class();
     v45 = 2112;
-    v46 = infoCopy;
-    v9 = v42;
+    v46 = nameCopy;
+    v47 = 2112;
+    v48 = infoCopy;
+    v9 = v44;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is handling notification %@ with user info %@", buf, 0x34u);
   }
 
@@ -290,83 +291,84 @@ LABEL_6:
   if (infoCopy && v10)
   {
     v11 = [CTVoicemailInfoType voicemailInfoTypeForDictionaryRepresentation:infoCopy];
-    if ([v11 isVoiceMailMWI])
+    isVoiceMailMWI = [v11 isVoiceMailMWI];
+    if (isVoiceMailMWI)
     {
-      v12 = sub_100002784();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100002784(isVoiceMailMWI);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = objc_opt_class();
+        v14 = objc_opt_class();
         *buf = 136315650;
-        v38 = "";
-        v39 = 2080;
         v40 = "";
-        v41 = 2112;
-        v42 = v13;
-        v14 = v13;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is ignoring MWI notification", buf, 0x20u);
+        v41 = 2080;
+        v42 = "";
+        v43 = 2112;
+        v44 = v14;
+        v15 = v14;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is ignoring MWI notification", buf, 0x20u);
       }
     }
 
     else
     {
-      v12 = [infoCopy objectForKeyedSubscript:kCTIndicatorVoiceMailSubInstance];
-      if (v12)
+      v13 = [infoCopy objectForKeyedSubscript:kCTIndicatorVoiceMailSubInstance];
+      if (v13)
       {
-        v15 = [[NSUUID alloc] initWithUUIDString:v12];
-        if (v15)
+        v16 = [[NSUUID alloc] initWithUUIDString:v13];
+        if (v16)
         {
-          v16 = v15;
-          v30 = v12;
-          v31 = v11;
+          v17 = v16;
+          v32 = v13;
+          v33 = v11;
           selfCopy = self;
           telephonyClient = [(VMTelephonyService *)self telephonyClient];
           contexts = [telephonyClient contexts];
           subscriptions = [contexts subscriptions];
 
+          v36 = 0u;
+          v37 = 0u;
           v34 = 0u;
           v35 = 0u;
-          v32 = 0u;
-          v33 = 0u;
-          v20 = subscriptions;
-          v21 = [v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
-          if (v21)
+          v21 = subscriptions;
+          v22 = [v21 countByEnumeratingWithState:&v34 objects:v38 count:16];
+          if (v22)
           {
-            v22 = v21;
-            v23 = *v33;
+            v23 = v22;
+            v24 = *v35;
             while (2)
             {
-              for (i = 0; i != v22; i = i + 1)
+              for (i = 0; i != v23; i = i + 1)
               {
-                if (*v33 != v23)
+                if (*v35 != v24)
                 {
-                  objc_enumerationMutation(v20);
+                  objc_enumerationMutation(v21);
                 }
 
-                v25 = *(*(&v32 + 1) + 8 * i);
-                uuid = [v25 uuid];
-                v27 = [uuid isEqual:v16];
+                v26 = *(*(&v34 + 1) + 8 * i);
+                uuid = [v26 uuid];
+                v28 = [uuid isEqual:v17];
 
-                if (v27)
+                if (v28)
                 {
-                  v28 = sub_100002784();
-                  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+                  v30 = sub_100002784(v29);
+                  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136315650;
-                    v38 = "";
-                    v39 = 2080;
                     v40 = "";
-                    v41 = 2112;
-                    v42 = v25;
-                    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "#I %s%sAdding notification for subscription %@", buf, 0x20u);
+                    v41 = 2080;
+                    v42 = "";
+                    v43 = 2112;
+                    v44 = v26;
+                    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "#I %s%sAdding notification for subscription %@", buf, 0x20u);
                   }
 
-                  [(VMTelephonyService *)selfCopy saveNotification:v25 info:infoCopy];
+                  [(VMTelephonyService *)selfCopy saveNotification:v26 info:infoCopy];
                   goto LABEL_22;
                 }
               }
 
-              v22 = [v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
-              if (v22)
+              v23 = [v21 countByEnumeratingWithState:&v34 objects:v38 count:16];
+              if (v23)
               {
                 continue;
               }
@@ -377,8 +379,8 @@ LABEL_6:
 
 LABEL_22:
 
-          v12 = v30;
-          v11 = v31;
+          v13 = v32;
+          v11 = v33;
         }
       }
     }

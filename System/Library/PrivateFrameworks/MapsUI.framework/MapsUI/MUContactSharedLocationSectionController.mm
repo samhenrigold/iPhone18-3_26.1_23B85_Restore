@@ -43,7 +43,7 @@
 
 - (id)_loadPlaceInfoAddress:(id)address contact:(id)contact
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   addressCopy = address;
   contactCopy = contact;
   v8 = MUGetPlaceCardLog();
@@ -51,9 +51,9 @@
   {
     identifier = [addressCopy identifier];
     *buf = 138412546;
-    v33 = identifier;
-    v34 = 2112;
-    v35 = contactCopy;
+    v32 = identifier;
+    v33 = 2112;
+    v34 = contactCopy;
     _os_log_impl(&dword_1C5620000, v8, OS_LOG_TYPE_DEBUG, "Building section view for address: %@, contact: %@", buf, 0x16u);
   }
 
@@ -63,21 +63,21 @@
   aBlock[2] = __74__MUContactSharedLocationSectionController__loadPlaceInfoAddress_contact___block_invoke;
   aBlock[3] = &unk_1E821A330;
   v11 = v10;
-  v31 = v11;
+  v30 = v11;
   v12 = _Block_copy(aBlock);
   v13 = [(MUContactsViewModelGenerator *)self->_contactViewModelGenerator viewModelForAddress:addressCopy];
   objc_initWeak(buf, self);
-  v23 = MEMORY[0x1E69E9820];
-  v24 = 3221225472;
-  v25 = __74__MUContactSharedLocationSectionController__loadPlaceInfoAddress_contact___block_invoke_2;
-  v26 = &unk_1E821A358;
-  objc_copyWeak(&v29, buf);
+  v22 = MEMORY[0x1E69E9820];
+  v23 = 3221225472;
+  v24 = __74__MUContactSharedLocationSectionController__loadPlaceInfoAddress_contact___block_invoke_2;
+  v25 = &unk_1E821A358;
+  objc_copyWeak(&v28, buf);
   v14 = addressCopy;
-  v27 = v14;
+  v26 = v14;
   v15 = contactCopy;
-  v28 = v15;
-  v12[2](v12, v13, &v23);
-  v16 = [(MUContactSharedLocationSectionController *)self mapItemCoordinateViewModel:v23];
+  v27 = v15;
+  v12[2](v12, v13, &v22);
+  v16 = [(MUContactSharedLocationSectionController *)self mapItemCoordinateViewModel:v22];
   v12[2](v12, v16, 0);
 
   v17 = [MUPlaceInfoSectionView alloc];
@@ -89,10 +89,8 @@
   [(MUPlaceInfoSectionView *)v19 setViewModels:v20];
 
   [(NSMutableArray *)self->_sectionStackViews addObject:v19];
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(buf);
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

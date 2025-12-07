@@ -921,37 +921,41 @@ void __60__SKAccountPageViewController__presentBridgedViewController__block_invo
   shouldLog = [sharedConfig shouldLog];
   if ([sharedConfig shouldLogToDisk])
   {
-    v13 = shouldLog | 2;
+    LODWORD(v13) = shouldLog | 2;
   }
 
   else
   {
-    v13 = shouldLog;
+    LODWORD(v13) = shouldLog;
   }
 
   oSLogObject = [sharedConfig OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
 
   if (!v13)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  LODWORD(v18) = 138543362;
-  *(&v18 + 4) = objc_opt_class();
-  v15 = *(&v18 + 4);
-  LODWORD(v17) = 12;
-  v16 = _os_log_send_and_compose_impl();
+  v17 = 138543362;
+  v18 = objc_opt_class();
+  v15 = v18;
+  v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1B23EF000, oSLogObject, 0, "%{public}@: Performing redeem in remote process", &v17, 12);
 
   if (v16)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, &v18, v17, v18}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
     free(v16);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   [(SKUIServiceAccountPageViewController *)self->_serviceProxy performRedeemOperationWithCode:codeCopy cameraRecognized:recognizedCopy completion:completionCopy];
@@ -1248,7 +1252,7 @@ LABEL_13:
 
 void __54__SKAccountPageViewController__setupWebViewController__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a3;
   v4 = [MEMORY[0x1E69D4938] sharedConfig];
   v5 = [v4 shouldLog];
@@ -1278,14 +1282,13 @@ void __54__SKAccountPageViewController__setupWebViewController__block_invoke(uin
     goto LABEL_10;
   }
 
-  v11 = 138412290;
-  v12 = v3;
-  LODWORD(v10) = 12;
-  v9 = _os_log_send_and_compose_impl();
+  v10 = 138412290;
+  v11 = v3;
+  v9 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1B23EF000, v7, 0, "Embedded web container loaded, %@", &v10, 12);
 
   if (v9)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v11, v10}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
 LABEL_10:
@@ -1570,30 +1573,29 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  v14[0] = 0;
-  LODWORD(v11) = 2;
-  v8 = _os_log_send_and_compose_impl();
+  v13[0] = 0;
+  v8 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1B23EF000, oSLogObject, 0, "Requesting remote view controller", v13, 2);
 
   if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, v14, v11}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
     free(v8);
     SSFileLog();
 LABEL_10:
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __59__SKAccountPageViewController__requestRemoteViewController__block_invoke;
-  v13[3] = &unk_1E7B27A78;
-  v13[4] = self;
-  [(SKAccountPageViewController *)self _beginDelayingPresentation:v13 cancellationHandler:10.0];
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
-  v12[2] = __59__SKAccountPageViewController__requestRemoteViewController__block_invoke_2;
-  v12[3] = &unk_1E7B27C90;
+  v12[2] = __59__SKAccountPageViewController__requestRemoteViewController__block_invoke;
+  v12[3] = &unk_1E7B27A78;
   v12[4] = self;
-  v9 = [SKRemoteAccountPageViewController requestViewController:@"ServiceAccountPageViewController" fromServiceWithBundleIdentifier:@"com.apple.ios.StoreKitUIService" connectionHandler:v12];
+  [(SKAccountPageViewController *)self _beginDelayingPresentation:v12 cancellationHandler:10.0];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __59__SKAccountPageViewController__requestRemoteViewController__block_invoke_2;
+  v11[3] = &unk_1E7B27C90;
+  v11[4] = self;
+  v9 = [SKRemoteAccountPageViewController requestViewController:@"ServiceAccountPageViewController" fromServiceWithBundleIdentifier:@"com.apple.ios.StoreKitUIService" connectionHandler:v11];
   cancelRequest = self->_cancelRequest;
   self->_cancelRequest = v9;
 }

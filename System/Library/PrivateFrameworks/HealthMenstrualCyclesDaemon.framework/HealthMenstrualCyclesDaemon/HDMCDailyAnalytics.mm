@@ -32,29 +32,29 @@
   featureStatusCopy = featureStatus;
   inputFeatureStatusCopy = inputFeatureStatus;
   calendarCopy = calendar;
-  v53 = 0;
-  v18 = [domainCopy hdmc_legacyOnboardingVersionCompletedWithError:&v53];
-  v19 = v53;
-  v20 = v19;
-  if (v18 || !v19)
+  v54 = 0;
+  v19 = [domainCopy hdmc_legacyOnboardingVersionCompletedWithError:&v54];
+  v20 = v54;
+  v21 = v20;
+  if (v19 || !v20)
   {
-    v49 = statusCopy;
-    v24 = [MEMORY[0x277CCABB0] numberWithInt:v18 != 0];
-    [metricCopy setOnboardingCompleted:v24];
+    v50 = statusCopy;
+    v25 = [MEMORY[0x277CCABB0] numberWithInt:v19 != 0];
+    [metricCopy setOnboardingCompleted:v25];
 
-    [metricCopy setOnboardedVersion:v18];
-    v52 = v20;
-    v25 = [domainCopy hdmc_legacyOnboardingFirstCompletedDateWithError:&v52];
-    v26 = v52;
+    [metricCopy setOnboardedVersion:v19];
+    v53 = v21;
+    v26 = [domainCopy hdmc_legacyOnboardingFirstCompletedDateWithError:&v53];
+    v27 = v53;
 
-    if (v25 || !v26)
+    if (v26 || !v27)
     {
-      if (v25)
+      if (v26)
       {
-        v30 = MEMORY[0x277CCABB0];
+        v31 = MEMORY[0x277CCABB0];
         date = [MEMORY[0x277CBEAA8] date];
-        v32 = [v30 _weeksBetweenStartDate:v25 endDate:date calendar:calendarCopy];
-        [metricCopy setWeeksSinceOnboarded:v32];
+        v33 = [v31 _weeksBetweenStartDate:v26 endDate:date calendar:calendarCopy];
+        [metricCopy setWeeksSinceOnboarded:v33];
       }
 
       mEMORY[0x277D2BCF8] = [MEMORY[0x277D2BCF8] sharedInstance];
@@ -62,90 +62,90 @@
 
       if (getActivePairedDevice)
       {
-        v35 = MEMORY[0x277CCABB0];
-        v36 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"02979F49-FAFA-49CC-8478-C2562BC81FB6"];
-        v37 = [v35 numberWithBool:{objc_msgSend(getActivePairedDevice, "supportsCapability:", v36)}];
-        [metricCopy setHasCompatiblePairedAppleWatch:v37];
+        v36 = MEMORY[0x277CCABB0];
+        v37 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"02979F49-FAFA-49CC-8478-C2562BC81FB6"];
+        v38 = [v36 numberWithBool:{objc_msgSend(getActivePairedDevice, "supportsCapability:", v37)}];
+        [metricCopy setHasCompatiblePairedAppleWatch:v38];
 
-        v38 = MEMORY[0x277CCABB0];
-        v39 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"CBC78224-8F5E-4D43-8666-69ADBE2A6277"];
-        v40 = [v38 numberWithBool:{objc_msgSend(getActivePairedDevice, "supportsCapability:", v39)}];
-        [metricCopy setHasWristTemperatureCompatiblePairedWatch:v40];
+        v39 = MEMORY[0x277CCABB0];
+        v40 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"CBC78224-8F5E-4D43-8666-69ADBE2A6277"];
+        v41 = [v39 numberWithBool:{objc_msgSend(getActivePairedDevice, "supportsCapability:", v40)}];
+        [metricCopy setHasWristTemperatureCompatiblePairedWatch:v41];
 
-        v41 = [MEMORY[0x277CCABB0] numberWithBool:HKMCIsAlgorithmsVersionSameOnPairedDevice()];
-        [metricCopy setHasSameAlgorithmVersionOnPairedWatch:v41];
+        v42 = [MEMORY[0x277CCABB0] numberWithBool:HKMCIsAlgorithmsVersionSameOnPairedDevice()];
+        [metricCopy setHasSameAlgorithmVersionOnPairedWatch:v42];
       }
 
-      isOnboardingRecordPresent = [v49 isOnboardingRecordPresent];
-      v43 = [MEMORY[0x277CCABB0] numberWithBool:isOnboardingRecordPresent];
-      [metricCopy setWasHeartRateInputDelivered:v43];
+      isOnboardingRecordPresent = [v50 isOnboardingRecordPresent];
+      v44 = [MEMORY[0x277CCABB0] numberWithBool:isOnboardingRecordPresent];
+      [metricCopy setWasHeartRateInputDelivered:v44];
 
       isOnboardingRecordPresent2 = [featureStatusCopy isOnboardingRecordPresent];
-      v45 = [MEMORY[0x277CCABB0] numberWithBool:isOnboardingRecordPresent2];
-      [metricCopy setWasDeviationDetectionDelivered:v45];
+      v46 = [MEMORY[0x277CCABB0] numberWithBool:isOnboardingRecordPresent2];
+      [metricCopy setWasDeviationDetectionDelivered:v46];
 
-      v28 = inputFeatureStatusCopy;
+      v29 = inputFeatureStatusCopy;
       isOnboardingRecordPresent3 = [inputFeatureStatusCopy isOnboardingRecordPresent];
-      v47 = [MEMORY[0x277CCABB0] numberWithBool:isOnboardingRecordPresent3];
-      [metricCopy setWasWristTemperatureInputDelivered:v47];
+      v48 = [MEMORY[0x277CCABB0] numberWithBool:isOnboardingRecordPresent3];
+      [metricCopy setWasWristTemperatureInputDelivered:v48];
 
-      v23 = metricCopy;
+      v24 = metricCopy;
     }
 
     else
     {
       _HKInitializeLogging();
-      v27 = *MEMORY[0x277CCC2E8];
-      v28 = inputFeatureStatusCopy;
+      v28 = *MEMORY[0x277CCC2E8];
+      v29 = inputFeatureStatusCopy;
       if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
       {
-        [HDMCDailyAnalytics(Onboarding) _setDiagnosticOnboardingFieldsInMetric:v27 keyValueDomain:? heartRateInputFeatureStatus:? deviationDetectionFeatureStatus:? wristTemperatureInputFeatureStatus:? gregorianCalendar:? error:?];
+        [HDMCDailyAnalytics(Onboarding) _setDiagnosticOnboardingFieldsInMetric:v28 keyValueDomain:self heartRateInputFeatureStatus:? deviationDetectionFeatureStatus:? wristTemperatureInputFeatureStatus:? gregorianCalendar:? error:?];
       }
 
       if (error)
       {
-        v29 = v26;
-        v23 = 0;
-        *error = v26;
+        v30 = v27;
+        v24 = 0;
+        *error = v27;
       }
 
       else
       {
         _HKLogDroppedError();
-        v23 = 0;
+        v24 = 0;
       }
     }
 
-    statusCopy = v49;
+    statusCopy = v50;
   }
 
   else
   {
     _HKInitializeLogging();
-    v21 = *MEMORY[0x277CCC2E8];
+    v22 = *MEMORY[0x277CCC2E8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
     {
-      [HDMCDailyAnalytics(Onboarding) _setDiagnosticOnboardingFieldsInMetric:v21 keyValueDomain:? heartRateInputFeatureStatus:? deviationDetectionFeatureStatus:? wristTemperatureInputFeatureStatus:? gregorianCalendar:? error:?];
+      [HDMCDailyAnalytics(Onboarding) _setDiagnosticOnboardingFieldsInMetric:v22 keyValueDomain:self heartRateInputFeatureStatus:? deviationDetectionFeatureStatus:? wristTemperatureInputFeatureStatus:? gregorianCalendar:? error:?];
     }
 
     if (error)
     {
-      v22 = v20;
-      v23 = 0;
-      *error = v20;
+      v23 = v21;
+      v24 = 0;
+      *error = v21;
     }
 
     else
     {
       _HKLogDroppedError();
-      v23 = 0;
+      v24 = 0;
     }
 
-    v26 = v20;
-    v28 = inputFeatureStatusCopy;
+    v27 = v21;
+    v29 = inputFeatureStatusCopy;
   }
 
-  return v23;
+  return v24;
 }
 
 + (id)_setDeviationSampleFieldsInMetric:(id)metric profile:(id)profile userCalendar:(id)calendar error:(id *)error
@@ -361,43 +361,43 @@
 
 + (id)_countDeviationSamplesInPastYearOfType:(int64_t)type profile:(id)profile calendar:(id)calendar error:(id *)error
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   calendarCopy = calendar;
   v12 = HKCategoryTypeFromDeviationType();
   date = [MEMORY[0x277CBEAA8] date];
-  v33[0] = v12;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v32[0] = v12;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
   v15 = [calendarCopy hd_predicateForSamplesWithTypes:v14 endingAfterDate:date minusDays:365];
 
-  v28 = 0;
-  v16 = [MEMORY[0x277D10848] countOfSamplesWithType:v12 profile:profileCopy matchingPredicate:v15 withError:&v28];
-  v17 = v28;
+  v27 = 0;
+  v16 = [MEMORY[0x277D10848] countOfSamplesWithType:v12 profile:profileCopy matchingPredicate:v15 withError:&v27];
+  v17 = v27;
   if (!v17)
   {
     if (v16 < 1)
     {
-      v29[0] = @"countPastYear";
+      v28[0] = @"countPastYear";
       v18 = [MEMORY[0x277CCABB0] numberWithInteger:v16];
-      v29[1] = @"hasConfirmedInThePastMonth";
-      v30[0] = v18;
-      v30[1] = &unk_283CC3120;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+      v28[1] = @"hasConfirmedInThePastMonth";
+      v29[0] = v18;
+      v29[1] = &unk_283CC3120;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
       goto LABEL_15;
     }
 
-    v27 = 0;
-    v21 = [self _hasConfirmedDeviationInPastMonthOfType:type profile:profileCopy calendar:calendarCopy error:&v27];
-    v22 = v27;
+    v26 = 0;
+    v21 = [self _hasConfirmedDeviationInPastMonthOfType:type profile:profileCopy calendar:calendarCopy error:&v26];
+    v22 = v26;
     v18 = v22;
     if (v21)
     {
-      v31[0] = @"countPastYear";
+      v30[0] = @"countPastYear";
       v23 = [MEMORY[0x277CCABB0] numberWithInteger:v16];
-      v31[1] = @"hasConfirmedInThePastMonth";
-      v32[0] = v23;
-      v32[1] = v21;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+      v30[1] = @"hasConfirmedInThePastMonth";
+      v31[0] = v23;
+      v31[1] = v21;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
 LABEL_14:
 
       goto LABEL_15;
@@ -436,8 +436,6 @@ LABEL_14:
   }
 
 LABEL_15:
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -706,31 +704,31 @@ LABEL_15:
 
 + (id)_getDeviationDetectedCountForDeviationType:(int64_t)type gregorianCalendar:(id)calendar domain:(id)domain error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   calendarCopy = calendar;
   domainCopy = domain;
   v10 = HKMCDeviationDetectionAnalyticsKeyFromDeviationType();
-  v27 = 0;
-  v11 = [domainCopy propertyListValueForKey:v10 error:&v27];
+  v26 = 0;
+  v11 = [domainCopy propertyListValueForKey:v10 error:&v26];
 
-  v12 = v27;
+  v12 = v26;
   v13 = v12;
   if (v11 || !v12)
   {
     v17 = HKMCTodayIndex();
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __107__HDMCDailyAnalytics_Deviation___getDeviationDetectedCountForDeviationType_gregorianCalendar_domain_error___block_invoke;
-    v26[3] = &__block_descriptor_40_e18_B16__0__NSNumber_8l;
-    v26[4] = v17 - 30;
-    v18 = [v11 hk_filter:v26];
-    v28[0] = @"countPastYear";
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __107__HDMCDailyAnalytics_Deviation___getDeviationDetectedCountForDeviationType_gregorianCalendar_domain_error___block_invoke;
+    v25[3] = &__block_descriptor_40_e18_B16__0__NSNumber_8l;
+    v25[4] = v17 - 30;
+    v18 = [v11 hk_filter:v25];
+    v27[0] = @"countPastYear";
     v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v11, "count")}];
-    v28[1] = @"countPastMonth";
-    v29[0] = v19;
+    v27[1] = @"countPastMonth";
+    v28[0] = v19;
     v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v18, "count")}];
-    v29[1] = v20;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+    v28[1] = v20;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
   }
 
   else
@@ -739,16 +737,16 @@ LABEL_15:
     v14 = *MEMORY[0x277CCC2E8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
     {
-      v23 = v14;
-      v24 = objc_opt_class();
+      v22 = v14;
+      v23 = objc_opt_class();
       *buf = 138543874;
-      v31 = v24;
-      v32 = 2114;
-      v33 = v10;
-      v34 = 2114;
-      v35 = v13;
-      v25 = v24;
-      _os_log_error_impl(&dword_2293D1000, v23, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving %{public}@: %{public}@", buf, 0x20u);
+      v30 = v23;
+      v31 = 2114;
+      v32 = v10;
+      v33 = 2114;
+      v34 = v13;
+      v24 = v23;
+      _os_log_error_impl(&dword_2293D1000, v22, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving %{public}@: %{public}@", buf, 0x20u);
     }
 
     if (error)
@@ -765,38 +763,36 @@ LABEL_15:
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 + (id)_setCycleFactorRelatedFieldsInMetric:(id)metric analysis:(id)analysis appProtectedKeyValueDomain:(id)domain error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   domainCopy = domain;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   ongoingCycleFactors = [analysis ongoingCycleFactors];
-  v12 = [ongoingCycleFactors countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v12 = [ongoingCycleFactors countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v31;
+    v14 = *v30;
     v15 = MEMORY[0x277CBEC38];
     do
     {
       v16 = 0;
       do
       {
-        if (*v31 != v14)
+        if (*v30 != v14)
         {
           objc_enumerationMutation(ongoingCycleFactors);
         }
 
-        hkmc_cycleFactor = [*(*(&v30 + 1) + 8 * v16) hkmc_cycleFactor];
+        hkmc_cycleFactor = [*(*(&v29 + 1) + 8 * v16) hkmc_cycleFactor];
         if ((hkmc_cycleFactor - 3) >= 7)
         {
           if (hkmc_cycleFactor == 2)
@@ -819,7 +815,7 @@ LABEL_15:
       }
 
       while (v13 != v16);
-      v18 = [ongoingCycleFactors countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v18 = [ongoingCycleFactors countByEnumeratingWithState:&v29 objects:v33 count:16];
       v13 = v18;
     }
 
@@ -827,9 +823,9 @@ LABEL_15:
   }
 
   v19 = *MEMORY[0x277D11818];
-  v29 = 0;
-  v20 = [domainCopy numberForKey:v19 error:&v29];
-  v21 = v29;
+  v28 = 0;
+  v20 = [domainCopy numberForKey:v19 error:&v28];
+  v21 = v28;
   v22 = v21;
   if (v20)
   {
@@ -868,8 +864,6 @@ LABEL_15:
       v24 = 0;
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -1009,20 +1003,8 @@ LABEL_43:
       v21 = v19 != 0;
       if (v19)
       {
-        if (![(HDMCDailyAnalytics *)self _collectDiagnosticFieldsForMetric:v35 settingsManager:v17 heartRateInputFeatureStatus:v12 deviationDetectionFeatureStatus:v15 wristTemperatureInputFeatureStatus:v19 gregorianCalendar:v34 error:error])
+        if (!-[HDMCDailyAnalytics _collectDiagnosticFieldsForMetric:settingsManager:heartRateInputFeatureStatus:deviationDetectionFeatureStatus:wristTemperatureInputFeatureStatus:gregorianCalendar:error:](self, "_collectDiagnosticFieldsForMetric:settingsManager:heartRateInputFeatureStatus:deviationDetectionFeatureStatus:wristTemperatureInputFeatureStatus:gregorianCalendar:error:", v35, v17, v12, v15, v19, v34, error) || ([v15 onboardingRecord], v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v33, "featureSettings"), v22 = objc_claimAutoreleasedReturnValue(), v23 = self, v24 = v22, v25 = -[HDMCDailyAnalytics _collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:](v23, "_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:", v35, v17, v9, v12, v22, v19, v34, error), v24, v33, !v25))
         {
-          goto LABEL_23;
-        }
-
-        onboardingRecord = [v15 onboardingRecord];
-        featureSettings = [onboardingRecord featureSettings];
-        selfCopy = self;
-        v24 = featureSettings;
-        v25 = [(HDMCDailyAnalytics *)selfCopy _collectSensitiveFieldsForMetric:v35 settingsManager:v17 menstrualCyclesSettings:v9 heartRateInputFeatureStatus:v12 deviationDetectionSettings:featureSettings wristTemperatureInputFeatureStatus:v19 gregorianCalendar:v34 error:error];
-
-        if (!v25)
-        {
-LABEL_23:
           v21 = 0;
 LABEL_40:
 
@@ -1121,7 +1103,7 @@ LABEL_44:
 
 - (BOOL)_collectDiagnosticFieldsForMetric:(id)metric settingsManager:(id)manager heartRateInputFeatureStatus:(id)status deviationDetectionFeatureStatus:(id)featureStatus wristTemperatureInputFeatureStatus:(id)inputFeatureStatus gregorianCalendar:(id)calendar error:(id *)error
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   managerCopy = manager;
   statusCopy = status;
@@ -1129,16 +1111,16 @@ LABEL_44:
   inputFeatureStatusCopy = inputFeatureStatus;
   calendarCopy = calendar;
   keyValueDomain = self->_keyValueDomain;
-  v96 = 0;
-  v77 = statusCopy;
-  v78 = calendarCopy;
-  v73 = featureStatusCopy;
-  v74 = inputFeatureStatusCopy;
-  v79 = [HDMCDailyAnalytics _setDiagnosticOnboardingFieldsInMetric:metricCopy keyValueDomain:keyValueDomain heartRateInputFeatureStatus:statusCopy deviationDetectionFeatureStatus:featureStatusCopy wristTemperatureInputFeatureStatus:inputFeatureStatusCopy gregorianCalendar:&v96 error:?];
-  v21 = v96;
-  if (v79)
+  v95 = 0;
+  v76 = statusCopy;
+  v77 = calendarCopy;
+  v72 = featureStatusCopy;
+  v73 = inputFeatureStatusCopy;
+  v78 = [HDMCDailyAnalytics _setDiagnosticOnboardingFieldsInMetric:metricCopy keyValueDomain:keyValueDomain heartRateInputFeatureStatus:statusCopy deviationDetectionFeatureStatus:featureStatusCopy wristTemperatureInputFeatureStatus:inputFeatureStatusCopy gregorianCalendar:&v95 error:?];
+  v21 = v95;
+  if (v78)
   {
-    v22 = v79;
+    v22 = v78;
 
     if ([statusCopy isOnboardingRecordPresent])
     {
@@ -1149,9 +1131,9 @@ LABEL_44:
     }
 
     sleepStore = self->_sleepStore;
-    v95 = v21;
-    v27 = [(HKSPSleepStore *)sleepStore currentSleepEventRecordWithError:&v95];
-    v28 = v95;
+    v94 = v21;
+    v27 = [(HKSPSleepStore *)sleepStore currentSleepEventRecordWithError:&v94];
+    v28 = v94;
 
     sleepCoachingOnboardingFirstCompletedDate = [v27 sleepCoachingOnboardingFirstCompletedDate];
     sleepTrackingOnboardingFirstCompletedDate = [v27 sleepTrackingOnboardingFirstCompletedDate];
@@ -1164,39 +1146,39 @@ LABEL_44:
     v30 = [MEMORY[0x277CCABB0] numberWithBool:hasSleepFocusMode];
     [v22 setIsSleepConfiguredToAllowWristTemperatureMeasurements:v30];
 
-    v71 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBAB8]];
+    v70 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBAB8]];
     date = [MEMORY[0x277CBEAA8] date];
-    v32 = [date hk_morningIndexWithCalendar:v78];
+    v32 = [date hk_morningIndexWithCalendar:v77];
 
-    v75 = objc_alloc_init(MEMORY[0x277CCD0A0]);
-    LOBYTE(v68) = 1;
-    v33 = [[HDMCDaySummaryEnumerator alloc] initWithProfile:self->_profile calendarCache:v75 dayIndexRange:v32 - 45 ascending:45 includeFactors:1 includeWristTemperature:0, v68];
-    v91 = 0;
-    v92 = &v91;
-    v93 = 0x2020000000;
-    v94 = 0;
-    v85 = 0;
-    v86 = &v85;
-    v87 = 0x3032000000;
-    v88 = __Block_byref_object_copy__2;
-    v89 = __Block_byref_object_dispose__2;
-    v90 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v83[5] = &v85;
-    v84 = v28;
-    v83[0] = MEMORY[0x277D85DD0];
-    v83[1] = 3221225472;
-    v83[2] = __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager_heartRateInputFeatureStatus_deviationDetectionFeatureStatus_wristTemperatureInputFeatureStatus_gregorianCalendar_error___block_invoke;
-    v83[3] = &unk_27865A970;
-    v83[4] = &v91;
-    LOBYTE(v32) = [(HDMCDaySummaryEnumerator *)v33 enumerateWithError:&v84 handler:v83];
-    v34 = v84;
+    v74 = objc_alloc_init(MEMORY[0x277CCD0A0]);
+    LOBYTE(v67) = 1;
+    v33 = [[HDMCDaySummaryEnumerator alloc] initWithProfile:self->_profile calendarCache:v74 dayIndexRange:v32 - 45 ascending:45 includeFactors:1 includeWristTemperature:0, v67];
+    v90 = 0;
+    v91 = &v90;
+    v92 = 0x2020000000;
+    v93 = 0;
+    v84 = 0;
+    v85 = &v84;
+    v86 = 0x3032000000;
+    v87 = __Block_byref_object_copy__2;
+    v88 = __Block_byref_object_dispose__2;
+    v89 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v82[5] = &v84;
+    v83 = v28;
+    v82[0] = MEMORY[0x277D85DD0];
+    v82[1] = 3221225472;
+    v82[2] = __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager_heartRateInputFeatureStatus_deviationDetectionFeatureStatus_wristTemperatureInputFeatureStatus_gregorianCalendar_error___block_invoke;
+    v82[3] = &unk_27865A970;
+    v82[4] = &v90;
+    LOBYTE(v32) = [(HDMCDaySummaryEnumerator *)v33 enumerateWithError:&v83 handler:v82];
+    v34 = v83;
 
     if (v32)
     {
-      v35 = [MEMORY[0x277CCABB0] numberWithInteger:v92[3]];
+      v35 = [MEMORY[0x277CCABB0] numberWithInteger:v91[3]];
       [v22 setDaysWithWristTempInPast45Days:v35];
 
-      v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v86[5], "count")}];
+      v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v85[5], "count")}];
       [v22 setCountWatchesWithWristTempMeasurementDataInLast45Days:v36];
     }
 
@@ -1207,20 +1189,20 @@ LABEL_44:
       if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         v40 = objc_opt_class();
-        [HDMCDailyAnalytics _collectDiagnosticFieldsForMetric:v40 settingsManager:v34 heartRateInputFeatureStatus:v98 deviationDetectionFeatureStatus:? wristTemperatureInputFeatureStatus:? gregorianCalendar:? error:?];
+        [HDMCDailyAnalytics _collectDiagnosticFieldsForMetric:v40 settingsManager:v34 heartRateInputFeatureStatus:v97 deviationDetectionFeatureStatus:? wristTemperatureInputFeatureStatus:? gregorianCalendar:? error:?];
       }
     }
 
     v41 = MEMORY[0x277D10848];
     profile = self->_profile;
-    v43 = [(HDMCDailyAnalytics *)self _predicateForSleepDataFromPast45DaysWithCalendar:v78];
-    v82 = v34;
-    v44 = [v41 samplesWithType:v71 profile:profile encodingOptions:MEMORY[0x277CBEC10] predicate:v43 limit:0 anchor:0 error:&v82];
-    v45 = v82;
+    v43 = [(HDMCDailyAnalytics *)self _predicateForSleepDataFromPast45DaysWithCalendar:v77];
+    v81 = v34;
+    v44 = [v41 samplesWithType:v70 profile:profile encodingOptions:MEMORY[0x277CBEC10] predicate:v43 limit:0 anchor:0 error:&v81];
+    v45 = v81;
 
     if ([v44 count])
     {
-      v46 = [(HDMCDailyAnalytics *)self _daysWithSleepSamples:v44 calendar:v78];
+      v46 = [(HDMCDailyAnalytics *)self _daysWithSleepSamples:v44 calendar:v77];
       v47 = [MEMORY[0x277CCABB0] numberWithInteger:v46];
       [v22 setDaysWornWatchToSleepInLast45Days:v47];
     }
@@ -1252,22 +1234,22 @@ LABEL_44:
         v56 = v54 + allDays - 45;
       }
 
-      LOBYTE(v69) = 1;
-      v57 = [(HDMCDaySummaryEnumerator *)v55 initWithProfile:self->_profile calendarCache:v75 dayIndexRange:v56 ascending:45 includeFactors:1 includeWristTemperature:0, v69];
+      LOBYTE(v68) = 1;
+      v57 = [(HDMCDaySummaryEnumerator *)v55 initWithProfile:self->_profile calendarCache:v74 dayIndexRange:v56 ascending:45 includeFactors:1 includeWristTemperature:0, v68];
 
-      v92[3] = 0;
-      v80[0] = MEMORY[0x277D85DD0];
-      v80[1] = 3221225472;
-      v80[2] = __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager_heartRateInputFeatureStatus_deviationDetectionFeatureStatus_wristTemperatureInputFeatureStatus_gregorianCalendar_error___block_invoke_312;
-      v80[3] = &unk_27865A998;
-      v80[4] = &v91;
-      v81 = v45;
-      v58 = [(HDMCDaySummaryEnumerator *)v57 enumerateWithError:&v81 handler:v80];
-      v59 = v81;
+      v91[3] = 0;
+      v79[0] = MEMORY[0x277D85DD0];
+      v79[1] = 3221225472;
+      v79[2] = __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager_heartRateInputFeatureStatus_deviationDetectionFeatureStatus_wristTemperatureInputFeatureStatus_gregorianCalendar_error___block_invoke_312;
+      v79[3] = &unk_27865A998;
+      v79[4] = &v90;
+      v80 = v45;
+      v58 = [(HDMCDaySummaryEnumerator *)v57 enumerateWithError:&v80 handler:v79];
+      v59 = v80;
 
       if (v58)
       {
-        v60 = [MEMORY[0x277CCABB0] numberWithInteger:v92[3]];
+        v60 = [MEMORY[0x277CCABB0] numberWithInteger:v91[3]];
         [v22 setDaysWithWristTempIn45DaysBeforeFertileWindowEnd:v60];
       }
 
@@ -1278,7 +1260,7 @@ LABEL_44:
         if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
         {
           v61 = objc_opt_class();
-          [HDMCDailyAnalytics _collectDiagnosticFieldsForMetric:v61 settingsManager:v59 heartRateInputFeatureStatus:v97 deviationDetectionFeatureStatus:? wristTemperatureInputFeatureStatus:? gregorianCalendar:? error:?];
+          [HDMCDailyAnalytics _collectDiagnosticFieldsForMetric:v61 settingsManager:v59 heartRateInputFeatureStatus:v96 deviationDetectionFeatureStatus:? wristTemperatureInputFeatureStatus:? gregorianCalendar:? error:?];
         }
       }
     }
@@ -1291,8 +1273,8 @@ LABEL_44:
     v65 = [v63 numberWithBool:{objc_msgSend(notificationManager, "areHealthNotificationsAuthorized")}];
     [v22 setAreHealthNotificationsAuthorized:v65];
 
-    _Block_object_dispose(&v85, 8);
-    _Block_object_dispose(&v91, 8);
+    _Block_object_dispose(&v84, 8);
+    _Block_object_dispose(&v90, 8);
 
     metricCopy = v22;
   }
@@ -1325,8 +1307,7 @@ LABEL_44:
     v59 = v27;
   }
 
-  v66 = *MEMORY[0x277D85DE8];
-  return v79 != 0;
+  return v78 != 0;
 }
 
 void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager_heartRateInputFeatureStatus_deviationDetectionFeatureStatus_wristTemperatureInputFeatureStatus_gregorianCalendar_error___block_invoke(uint64_t a1, void *a2)
@@ -1356,7 +1337,7 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
 
 - (BOOL)_collectSensitiveFieldsForMetric:(id)metric settingsManager:(id)manager menstrualCyclesSettings:(id)settings heartRateInputFeatureStatus:(id)status deviationDetectionSettings:(id)detectionSettings wristTemperatureInputFeatureStatus:(id)featureStatus gregorianCalendar:(id)calendar error:(id *)self0
 {
-  v299 = *MEMORY[0x277D85DE8];
+  v298 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   managerCopy = manager;
   settingsCopy = settings;
@@ -1366,17 +1347,17 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
   calendarCopy = calendar;
   if ([metricCopy isImproveHealthAndActivityAllowed])
   {
-    v272 = featureStatusCopy;
+    v271 = featureStatusCopy;
     v22 = calendarCopy;
-    v261 = HKMCTodayIndex();
+    v260 = HKMCTodayIndex();
     date = [MEMORY[0x277CBEAA8] date];
     deviceContextManager = [(HDProfile *)self->_profile deviceContextManager];
-    v293 = 0;
-    v24 = [deviceContextManager numberOfDeviceContextsPerDeviceType:&v293];
-    v25 = v293;
+    v292 = 0;
+    v24 = [deviceContextManager numberOfDeviceContextsPerDeviceType:&v292];
+    v25 = v292;
 
-    v270 = v24;
-    v271 = detectionSettingsCopy;
+    v269 = v24;
+    v270 = detectionSettingsCopy;
     selfCopy = self;
     if (v24)
     {
@@ -1405,7 +1386,7 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
       }
 
       v39 = [v24 objectForKeyedSubscript:&unk_283CC3198];
-      v265 = v22;
+      v264 = v22;
       if (v39)
       {
         v40 = [v24 objectForKeyedSubscript:&unk_283CC3198];
@@ -1420,7 +1401,7 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
       v32 = managerCopy;
 
       v41 = [v24 objectForKeyedSubscript:&unk_283CC31B0];
-      v264 = statusCopy;
+      v263 = statusCopy;
       v34 = settingsCopy;
       if (v41)
       {
@@ -1435,12 +1416,12 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
 
       v43 = [MEMORY[0x277CCD720] characteristicTypeForIdentifier:*MEMORY[0x277CCBB18]];
       userCharacteristicsManager = [(HDProfile *)selfCopy->_profile userCharacteristicsManager];
-      v292 = v25;
-      v263 = v43;
-      v45 = [userCharacteristicsManager userCharacteristicForType:v43 error:&v292];
-      v46 = v292;
+      v291 = v25;
+      v262 = v43;
+      v45 = [userCharacteristicsManager userCharacteristicForType:v43 error:&v291];
+      v46 = v291;
 
-      v266 = v45;
+      v265 = v45;
       if (v45 || !v46)
       {
         v48 = selfCopy;
@@ -1448,7 +1429,7 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
         {
           v49 = MEMORY[0x277CCABB0];
           date2 = [MEMORY[0x277CBEAA8] date];
-          v51 = [v49 _yearsBetweenStartDateComponents:v45 endDate:date2 calendar:v265];
+          v51 = [v49 _yearsBetweenStartDateComponents:v45 endDate:date2 calendar:v264];
 
           if (!v51)
           {
@@ -1456,7 +1437,7 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
             v52 = *MEMORY[0x277CCC2E8];
             if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
             {
-              [HDMCDailyAnalytics _collectSensitiveFieldsForMetric:v52 settingsManager:? menstrualCyclesSettings:? heartRateInputFeatureStatus:? deviationDetectionSettings:? wristTemperatureInputFeatureStatus:? gregorianCalendar:? error:?];
+              [HDMCDailyAnalytics _collectSensitiveFieldsForMetric:v52 settingsManager:selfCopy menstrualCyclesSettings:? heartRateInputFeatureStatus:? deviationDetectionSettings:? wristTemperatureInputFeatureStatus:? gregorianCalendar:? error:?];
             }
           }
 
@@ -1465,39 +1446,39 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
 
         v53 = [MEMORY[0x277CCD720] characteristicTypeForIdentifier:*MEMORY[0x277CCBB08]];
         userCharacteristicsManager2 = [(HDProfile *)selfCopy->_profile userCharacteristicsManager];
-        v291 = v46;
-        v260 = v53;
-        v55 = [userCharacteristicsManager2 userCharacteristicForType:v53 error:&v291];
-        v56 = v291;
+        v290 = v46;
+        v259 = v53;
+        v55 = [userCharacteristicsManager2 userCharacteristicForType:v53 error:&v290];
+        v56 = v290;
 
-        v259 = v55;
+        v258 = v55;
         if (v55 || !v56)
         {
-          v257 = v32;
+          v256 = v32;
           [metricCopy setBiologicalSex:v55];
           v58 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBAB8]];
           v59 = MEMORY[0x277D10848];
           profile = selfCopy->_profile;
-          v61 = [(HDMCDailyAnalytics *)selfCopy _predicateForSleepDataFromPast48HoursWithCalendar:v265];
-          v290 = v56;
-          v62 = [v59 samplesWithType:v58 profile:profile encodingOptions:MEMORY[0x277CBEC10] predicate:v61 limit:0 anchor:0 error:&v290];
-          v63 = v290;
+          v61 = [(HDMCDailyAnalytics *)selfCopy _predicateForSleepDataFromPast48HoursWithCalendar:v264];
+          v289 = v56;
+          v62 = [v59 samplesWithType:v58 profile:profile encodingOptions:MEMORY[0x277CBEC10] predicate:v61 limit:0 anchor:0 error:&v289];
+          v63 = v289;
 
           if (v62)
           {
-            v255 = v62;
+            v254 = v62;
             v64 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v62, "count") != 0}];
             [metricCopy setHasSleepSamplesPast48Hours:v64];
 
             v65 = MEMORY[0x277D10848];
             v66 = selfCopy->_profile;
-            v67 = [(HDMCDailyAnalytics *)selfCopy _predicateForFirstPartySleepDataFromPast48HoursWithCalendar:v265];
-            v289 = v63;
-            v256 = v58;
-            v68 = [v65 samplesWithType:v58 profile:v66 encodingOptions:MEMORY[0x277CBEC10] predicate:v67 limit:0 anchor:0 error:&v289];
-            v69 = v289;
+            v67 = [(HDMCDailyAnalytics *)selfCopy _predicateForFirstPartySleepDataFromPast48HoursWithCalendar:v264];
+            v288 = v63;
+            v255 = v58;
+            v68 = [v65 samplesWithType:v58 profile:v66 encodingOptions:MEMORY[0x277CBEC10] predicate:v67 limit:0 anchor:0 error:&v288];
+            v69 = v288;
 
-            v254 = v68;
+            v253 = v68;
             if (v68)
             {
               v70 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v68, "count") != 0}];
@@ -1506,12 +1487,12 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
               analysis = selfCopy->_analysis;
               keyValueDomain = selfCopy->_keyValueDomain;
               fertileWindowNotificationKeyValueDomain = selfCopy->_fertileWindowNotificationKeyValueDomain;
-              v288 = v69;
-              v74 = [HDMCDailyAnalytics _setCycleStatisticsFieldsInMetric:metricCopy analysis:analysis keyValueDomain:keyValueDomain fertileWindowNotificationKeyValueDomain:fertileWindowNotificationKeyValueDomain todayDayIndex:v261 todayAsDate:date gregorianCalendar:v265 error:&v288];
-              v75 = v288;
+              v287 = v69;
+              v74 = [HDMCDailyAnalytics _setCycleStatisticsFieldsInMetric:metricCopy analysis:analysis keyValueDomain:keyValueDomain fertileWindowNotificationKeyValueDomain:fertileWindowNotificationKeyValueDomain todayDayIndex:v260 todayAsDate:date gregorianCalendar:v264 error:&v287];
+              v75 = v287;
 
-              v33 = v264;
-              v253 = v74;
+              v33 = v263;
+              v252 = v74;
               if (v74)
               {
                 v76 = v74;
@@ -1528,26 +1509,26 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                 v80 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v32, "fertileWindowNotificationsEnabled")}];
                 [v76 setFertilityNotificationEnabled:v80];
 
-                onboardingRecord = [v264 onboardingRecord];
+                onboardingRecord = [v263 onboardingRecord];
                 featureSettings = [onboardingRecord featureSettings];
                 v83 = *MEMORY[0x277CCC120];
                 [featureSettings numberForKey:*MEMORY[0x277CCC120]];
-                v84 = v250 = v75;
+                v84 = v249 = v75;
                 [v76 setSensorBasedPredictionEnabled:v84];
 
-                v85 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v271, "deviationDetectionEnabledForType:", 1)}];
+                v85 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v270, "deviationDetectionEnabledForType:", 1)}];
                 [v76 setDeviationDetectionSpottingEnabled:v85];
 
-                v86 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v271, "deviationDetectionEnabledForType:", 2)}];
+                v86 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v270, "deviationDetectionEnabledForType:", 2)}];
                 [v76 setDeviationDetectionIrregularEnabled:v86];
 
-                v87 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v271, "deviationDetectionEnabledForType:", 3)}];
+                v87 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v270, "deviationDetectionEnabledForType:", 3)}];
                 [v76 setDeviationDetectionInfrequentEnabled:v87];
 
-                v88 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v271, "deviationDetectionEnabledForType:", 0)}];
+                v88 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v270, "deviationDetectionEnabledForType:", 0)}];
                 [v76 setDeviationDetectionProlongedEnabled:v88];
 
-                onboardingRecord2 = [v272 onboardingRecord];
+                onboardingRecord2 = [v271 onboardingRecord];
                 featureSettings2 = [onboardingRecord2 featureSettings];
                 v91 = [featureSettings2 numberForKey:v83];
                 [v76 setWristTemperatureBasedPredictionEnabled:v91];
@@ -1581,10 +1562,10 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
 
                 currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
                 v102 = selfCopy->_profile;
-                v287[1] = v250;
-                v249 = currentCalendar;
+                v286[1] = v249;
+                v248 = currentCalendar;
                 v103 = [HDMCDailyAnalytics _setDeviationSampleFieldsInMetric:"_setDeviationSampleFieldsInMetric:profile:userCalendar:error:" profile:v76 userCalendar:v102 error:?];
-                v104 = v250;
+                v104 = v249;
 
                 if (v103)
                 {
@@ -1592,48 +1573,48 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                   v106 = v103;
 
                   deviationDetectionAnalyticsKeyValueDomain = selfCopy->_deviationDetectionAnalyticsKeyValueDomain;
-                  v287[0] = v104;
-                  v108 = [HDMCDailyAnalytics _setDetectedDeviationFieldsInMetric:v106 gregorianCalendar:v265 deviationDetectionAnalyticsKeyValueDomain:deviationDetectionAnalyticsKeyValueDomain todayDayIndex:v261 error:v287];
-                  v109 = v287[0];
+                  v286[0] = v104;
+                  v108 = [HDMCDailyAnalytics _setDetectedDeviationFieldsInMetric:v106 gregorianCalendar:v264 deviationDetectionAnalyticsKeyValueDomain:deviationDetectionAnalyticsKeyValueDomain todayDayIndex:v260 error:v286];
+                  v109 = v286[0];
 
-                  v248 = v108;
+                  v247 = v108;
                   if (v108)
                   {
                     v110 = v108;
 
                     v111 = selfCopy->_analysis;
                     appProtectedKeyValueDomain = selfCopy->_appProtectedKeyValueDomain;
-                    v286 = v109;
-                    v113 = [HDMCDailyAnalytics _setCycleFactorRelatedFieldsInMetric:v110 analysis:v111 appProtectedKeyValueDomain:appProtectedKeyValueDomain error:&v286];
-                    v114 = v286;
+                    v285 = v109;
+                    v113 = [HDMCDailyAnalytics _setCycleFactorRelatedFieldsInMetric:v110 analysis:v111 appProtectedKeyValueDomain:appProtectedKeyValueDomain error:&v285];
+                    v114 = v285;
 
                     if (v113)
                     {
-                      v247 = v113;
+                      v246 = v113;
 
                       sleepStore = selfCopy->_sleepStore;
-                      v285 = v114;
-                      v116 = [(HKSPSleepStore *)sleepStore currentSleepEventRecordWithError:&v285];
-                      v117 = v285;
+                      v284 = v114;
+                      v116 = [(HKSPSleepStore *)sleepStore currentSleepEventRecordWithError:&v284];
+                      v117 = v284;
 
                       v103 = v105;
                       if (v116)
                       {
-                        v242 = v105;
-                        v243 = v113;
+                        v241 = v105;
+                        v242 = v113;
                         sleepCoachingOnboardingFirstCompletedDate = [v116 sleepCoachingOnboardingFirstCompletedDate];
                         sleepTrackingOnboardingFirstCompletedDate = [v116 sleepTrackingOnboardingFirstCompletedDate];
                         v118 = selfCopy->_sleepStore;
-                        v284 = v117;
-                        v119 = [(HKSPSleepStore *)v118 currentSleepSettingsWithError:&v284];
-                        v120 = v284;
+                        v283 = v117;
+                        v119 = [(HKSPSleepStore *)v118 currentSleepSettingsWithError:&v283];
+                        v120 = v283;
 
-                        v33 = v264;
-                        v241 = v119;
+                        v33 = v263;
+                        v240 = v119;
                         if (v119)
                         {
                           v121 = [MEMORY[0x277CCABB0] numberWithInt:{(objc_msgSend(v119, "sleepModeOptions") >> 14) & 1}];
-                          [v247 setIsSleepScreenEnabled:v121];
+                          [v246 setIsSleepScreenEnabled:v121];
                         }
 
                         else
@@ -1644,18 +1625,18 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                             [HDMCDailyAnalytics _collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:];
                           }
 
-                          [v247 setIsSleepScreenEnabled:*MEMORY[0x277CCB798]];
+                          [v246 setIsSleepScreenEnabled:*MEMORY[0x277CCB798]];
                         }
 
                         v133 = selfCopy->_sleepStore;
-                        v283 = v120;
-                        v134 = [(HKSPSleepStore *)v133 currentSleepScheduleWithError:&v283];
-                        v135 = v283;
+                        v282 = v120;
+                        v134 = [(HKSPSleepStore *)v133 currentSleepScheduleWithError:&v282];
+                        v135 = v282;
 
                         if (v134)
                         {
                           v136 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v134, "isEnabled")}];
-                          [v247 setIsSleepScheduleEnabled:v136];
+                          [v246 setIsSleepScheduleEnabled:v136];
                         }
 
                         else
@@ -1666,30 +1647,30 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                             [HDMCDailyAnalytics _collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:];
                           }
 
-                          [v247 setIsSleepScheduleEnabled:*MEMORY[0x277CCB798]];
+                          [v246 setIsSleepScheduleEnabled:*MEMORY[0x277CCB798]];
                         }
 
                         [(HDProfile *)selfCopy->_profile featureAvailabilityProvidingForFeatureIdentifier:*MEMORY[0x277CCC0F8]];
-                        v240 = v282 = v135;
-                        v137 = [v240 featureOnboardingRecordWithError:&v282];
-                        v138 = v282;
+                        v239 = v281 = v135;
+                        v137 = [v239 featureOnboardingRecordWithError:&v281];
+                        v138 = v281;
 
                         v139 = 0x278659000;
-                        v244 = v137;
+                        v243 = v137;
                         if (v137)
                         {
-                          isOnboardingRecordPresent = [v272 isOnboardingRecordPresent];
-                          v239 = v134;
+                          isOnboardingRecordPresent = [v271 isOnboardingRecordPresent];
+                          v238 = v134;
                           if (isOnboardingRecordPresent)
                           {
-                            onboardingRecord3 = [v272 onboardingRecord];
+                            onboardingRecord3 = [v271 onboardingRecord];
                             onboardingCompletion = [onboardingRecord3 onboardingCompletion];
                             [onboardingCompletion countryCode];
                             v144 = v143 = v116;
-                            [v247 setWristTemperatureInputDeliveryCountryCode:v144];
+                            [v246 setWristTemperatureInputDeliveryCountryCode:v144];
 
                             v116 = v143;
-                            v33 = v264;
+                            v33 = v263;
                           }
 
                           if (sleepCoachingOnboardingFirstCompletedDate)
@@ -1698,11 +1679,11 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                             {
                               if ((isOnboardingRecordPresent & [(HKSPSleepStore *)selfCopy->_sleepStore hasSleepFocusMode]) == 1)
                               {
-                                onboardingCompletion2 = [v244 onboardingCompletion];
+                                onboardingCompletion2 = [v243 onboardingCompletion];
 
                                 if (onboardingCompletion2)
                                 {
-                                  onboardingCompletion3 = [v244 onboardingCompletion];
+                                  onboardingCompletion3 = [v243 onboardingCompletion];
                                   completionDate = [onboardingCompletion3 completionDate];
 
                                   if ([completionDate compare:sleepTrackingOnboardingFirstCompletedDate] == -1)
@@ -1718,9 +1699,9 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                                   v149 = v148;
                                   v150 = MEMORY[0x277CCABB0];
                                   date3 = [MEMORY[0x277CBEAA8] date];
-                                  v152 = v265;
-                                  v153 = [v150 _weeksBetweenStartDate:v149 endDate:date3 calendar:v265];
-                                  [v247 setWeeksSinceOnboardedWristTemperatureOvulationPrediction:v153];
+                                  v152 = v264;
+                                  v153 = [v150 _weeksBetweenStartDate:v149 endDate:date3 calendar:v264];
+                                  [v246 setWeeksSinceOnboardedWristTemperatureOvulationPrediction:v153];
 
                                   cycles = [(HKMCAnalysis *)selfCopy->_analysis cycles];
                                   v155 = [cycles count];
@@ -1729,7 +1710,7 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                                   {
                                     _HKInitializeLogging();
                                     v156 = *MEMORY[0x277CCC2E8];
-                                    v236 = v149;
+                                    v235 = v149;
                                     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
                                     {
                                       v157 = v156;
@@ -1737,33 +1718,33 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                                       v159 = v116;
                                       v160 = MEMORY[0x277CCABB0];
                                       v161 = selfCopy->_analysis;
-                                      v251 = v158;
+                                      v250 = v158;
                                       cycles2 = [(HKMCAnalysis *)v161 cycles];
                                       v163 = [v160 numberWithUnsignedInteger:{objc_msgSend(cycles2, "count")}];
                                       *buf = 138543618;
-                                      v296 = v158;
-                                      v297 = 2112;
-                                      v298 = v163;
+                                      v295 = v158;
+                                      v296 = 2112;
+                                      v297 = v163;
                                       _os_log_impl(&dword_2293D1000, v157, OS_LOG_TYPE_DEFAULT, "[%{public}@] Number of historical cycles: %@", buf, 0x16u);
 
                                       v116 = v159;
-                                      v149 = v236;
+                                      v149 = v235;
 
-                                      v152 = v265;
+                                      v152 = v264;
                                     }
 
                                     v164 = -[HDMCDailyAnalytics _eligibleCyclesStartPastDayIndex:](selfCopy, "_eligibleCyclesStartPastDayIndex:", [v149 hk_dayIndexWithCalendar:v152]);
                                     if ([v164 count])
                                     {
-                                      v234 = v164;
-                                      v235 = completionDate;
-                                      v237 = v116;
-                                      v280 = 0u;
-                                      v281 = 0u;
-                                      v278 = 0u;
+                                      v233 = v164;
+                                      v234 = completionDate;
+                                      v236 = v116;
                                       v279 = 0u;
+                                      v280 = 0u;
+                                      v277 = 0u;
+                                      v278 = 0u;
                                       v165 = v164;
-                                      v166 = [v165 countByEnumeratingWithState:&v278 objects:v294 count:16];
+                                      v166 = [v165 countByEnumeratingWithState:&v277 objects:v293 count:16];
                                       if (v166)
                                       {
                                         v167 = v166;
@@ -1772,17 +1753,17 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                                         v170 = 0;
                                         v171 = 0;
                                         v172 = 0;
-                                        v252 = *v279;
+                                        v251 = *v278;
                                         do
                                         {
                                           for (i = 0; i != v167; ++i)
                                           {
-                                            if (*v279 != v252)
+                                            if (*v278 != v251)
                                             {
                                               objc_enumerationMutation(v165);
                                             }
 
-                                            v174 = *(*(&v278 + 1) + 8 * i);
+                                            v174 = *(*(&v277 + 1) + 8 * i);
                                             ovulationConfirmationType = [v174 ovulationConfirmationType];
                                             if (ovulationConfirmationType == 1)
                                             {
@@ -1819,7 +1800,7 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                                             }
                                           }
 
-                                          v167 = [v165 countByEnumeratingWithState:&v278 objects:v294 count:16];
+                                          v167 = [v165 countByEnumeratingWithState:&v277 objects:v293 count:16];
                                         }
 
                                         while (v167);
@@ -1845,7 +1826,7 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                                       }
 
                                       v182 = [MEMORY[0x277CCABB0] numberWithInteger:v181];
-                                      [v247 setCountWristTempEligibleHistoricalCycles_ConfirmedWristTemp:v182];
+                                      [v246 setCountWristTempEligibleHistoricalCycles_ConfirmedWristTemp:v182];
 
                                       if (v172 >= 15)
                                       {
@@ -1858,7 +1839,7 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                                       }
 
                                       v184 = [MEMORY[0x277CCABB0] numberWithInteger:v183];
-                                      [v247 setCountWristTempEligibleHistoricalCycles_ConfirmedOPK:v184];
+                                      [v246 setCountWristTempEligibleHistoricalCycles_ConfirmedOPK:v184];
 
                                       if (v170 >= 15)
                                       {
@@ -1871,7 +1852,7 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                                       }
 
                                       v186 = [MEMORY[0x277CCABB0] numberWithInteger:v185];
-                                      [v247 setCountWristTempEligibleHistoricalCycles_FailedAvailability:v186];
+                                      [v246 setCountWristTempEligibleHistoricalCycles_FailedAvailability:v186];
 
                                       if (v169 >= 15)
                                       {
@@ -1884,7 +1865,7 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                                       }
 
                                       v188 = [MEMORY[0x277CCABB0] numberWithInteger:v187];
-                                      [v247 setCountWristTempEligibleHistoricalCycles_FailedNoise:v188];
+                                      [v246 setCountWristTempEligibleHistoricalCycles_FailedNoise:v188];
 
                                       if (v168 >= 15)
                                       {
@@ -1897,7 +1878,7 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                                       }
 
                                       v190 = [MEMORY[0x277CCABB0] numberWithInteger:v189];
-                                      [v247 setCountWristTempEligibleHistoricalCycles_FailedOther:v190];
+                                      [v246 setCountWristTempEligibleHistoricalCycles_FailedOther:v190];
 
                                       v191 = MEMORY[0x277CCABB0];
                                       v192 = [v165 count];
@@ -1912,20 +1893,20 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                                       }
 
                                       v194 = [v191 numberWithUnsignedInteger:v193];
-                                      [v247 setCountWristTempEligibleHistoricalCycles:v194];
+                                      [v246 setCountWristTempEligibleHistoricalCycles:v194];
 
-                                      v32 = v257;
+                                      v32 = v256;
                                       v139 = 0x278659000uLL;
-                                      v116 = v237;
-                                      v164 = v234;
-                                      completionDate = v235;
+                                      v116 = v236;
+                                      v164 = v233;
+                                      completionDate = v234;
                                     }
 
                                     v48 = selfCopy;
-                                    v149 = v236;
+                                    v149 = v235;
                                   }
 
-                                  v33 = v264;
+                                  v33 = v263;
                                 }
                               }
                             }
@@ -1934,21 +1915,21 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                           v195 = *(v139 + 2672);
                           v197 = v48->_profile;
                           v196 = v48->_analysis;
-                          v277 = v138;
-                          v198 = [v195 _setFertileWindowFieldsInMetric:v247 analysis:v196 profile:v197 todayDayIndex:v261 error:&v277];
-                          v199 = v277;
+                          v276 = v138;
+                          v198 = [v195 _setFertileWindowFieldsInMetric:v246 analysis:v196 profile:v197 todayDayIndex:v260 error:&v276];
+                          v199 = v276;
 
                           v179 = v198;
-                          v269 = v198 != 0;
+                          v268 = v198 != 0;
                           if (v198)
                           {
-                            v267 = v198;
+                            v266 = v198;
                             v200 = v198;
 
                             menstruationProjections = [(HKMCAnalysis *)v48->_analysis menstruationProjections];
                             v202 = [menstruationProjections count];
 
-                            v113 = v243;
+                            v113 = v242;
                             if (v202)
                             {
                               menstruationProjections2 = [(HKMCAnalysis *)v48->_analysis menstruationProjections];
@@ -1968,7 +1949,7 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                                 }
                               }
 
-                              v209 = [firstObject mostLikelyDays] - v261;
+                              v209 = [firstObject mostLikelyDays] - v260;
                               daysOffsetFromCalendarMethod = [firstObject daysOffsetFromCalendarMethod];
                               v211 = [MEMORY[0x277CCABB0] numberWithInteger:v209];
                               [v200 setDaysBeforeMostLikelyPeriodPredictionStart:v211];
@@ -1983,10 +1964,10 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                               v214 = NSStringFromPredictionPrimarySource();
                               [v200 setPredictionPrimarySourceTypeFirstPeriodPrediction:v214];
 
-                              v113 = v243;
+                              v113 = v242;
                             }
 
-                            v238 = v116;
+                            v237 = v116;
                             cycles3 = [(HKMCAnalysis *)v48->_analysis cycles];
                             v216 = [cycles3 count];
 
@@ -2008,13 +1989,13 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                             [v200 setActiveWatchProductType:v223];
 
                             pregnancyManager = v48->_pregnancyManager;
-                            v276 = 0;
-                            v225 = [HDMCDailyAnalytics _setPregnancyPropertiesInMetric:v200 manager:pregnancyManager todayAsDate:date gregorianCalendar:v265 error:&v276];
+                            v275 = 0;
+                            v225 = [HDMCDailyAnalytics _setPregnancyPropertiesInMetric:v200 manager:pregnancyManager todayAsDate:date gregorianCalendar:v264 error:&v275];
 
                             medicalIDDataManager = [(HDProfile *)v48->_profile medicalIDDataManager];
-                            v275 = 0;
-                            v227 = [medicalIDDataManager fetchMedicalIDIfSetUpWithError:&v275];
-                            v56 = v275;
+                            v274 = 0;
+                            v227 = [medicalIDDataManager fetchMedicalIDIfSetUpWithError:&v274];
+                            v56 = v274;
 
                             if (v227)
                             {
@@ -2037,21 +2018,21 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                               [v225 setHasPregnancyInMedicalID:MEMORY[0x277CBEC28]];
                             }
 
-                            v33 = v264;
-                            v103 = v242;
+                            v33 = v263;
+                            v103 = v241;
 
-                            v247 = v225;
+                            v246 = v225;
                             v230 = mEMORY[0x277D2BCF8];
-                            v35 = v263;
-                            v116 = v238;
-                            v179 = v267;
+                            v35 = v262;
+                            v116 = v237;
+                            v179 = v266;
                           }
 
                           else
                           {
                             _HKInitializeLogging();
-                            v103 = v242;
-                            v113 = v243;
+                            v103 = v241;
+                            v113 = v242;
                             if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
                             {
                               [HDMCDailyAnalytics _collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:];
@@ -2060,7 +2041,7 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                             v230 = v199;
                             if (v230)
                             {
-                              v35 = v263;
+                              v35 = v262;
                               if (error)
                               {
                                 v231 = v230;
@@ -2078,11 +2059,11 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                             else
                             {
                               v56 = 0;
-                              v35 = v263;
+                              v35 = v262;
                             }
                           }
 
-                          v134 = v239;
+                          v134 = v238;
                         }
 
                         else
@@ -2095,22 +2076,22 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
 
                           v178 = v138;
                           v179 = v178;
-                          v103 = v242;
-                          v113 = v243;
+                          v103 = v241;
+                          v113 = v242;
                           if (v178)
                           {
-                            v35 = v263;
+                            v35 = v262;
                             if (error)
                             {
                               v180 = v178;
-                              v269 = 0;
+                              v268 = 0;
                               *error = v179;
                             }
 
                             else
                             {
                               _HKLogDroppedError();
-                              v269 = 0;
+                              v268 = 0;
                             }
 
                             v56 = v179;
@@ -2118,9 +2099,9 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
 
                           else
                           {
-                            v269 = 0;
+                            v268 = 0;
                             v56 = 0;
-                            v35 = v263;
+                            v35 = v262;
                           }
                         }
 
@@ -2130,7 +2111,7 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                       else
                       {
                         _HKInitializeLogging();
-                        v33 = v264;
+                        v33 = v263;
                         if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
                         {
                           [HDMCDailyAnalytics _collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:];
@@ -2139,11 +2120,11 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                         v132 = v117;
                         if (v132)
                         {
-                          v35 = v263;
+                          v35 = v262;
                           if (error)
                           {
                             v132 = v132;
-                            v269 = 0;
+                            v268 = 0;
                             *error = v132;
                             v56 = v132;
                           }
@@ -2153,25 +2134,25 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                             v56 = v132;
                             _HKLogDroppedError();
                             v132 = v56;
-                            v269 = 0;
+                            v268 = 0;
                           }
                         }
 
                         else
                         {
-                          v269 = 0;
+                          v268 = 0;
                           v56 = 0;
-                          v35 = v263;
+                          v35 = v262;
                         }
                       }
 
-                      v110 = v247;
+                      v110 = v246;
                     }
 
                     else
                     {
                       _HKInitializeLogging();
-                      v33 = v264;
+                      v33 = v263;
                       v103 = v105;
                       if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
                       {
@@ -2182,18 +2163,18 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                       v116 = v130;
                       if (v130)
                       {
-                        v35 = v263;
+                        v35 = v262;
                         if (error)
                         {
                           v131 = v130;
-                          v269 = 0;
+                          v268 = 0;
                           *error = v116;
                         }
 
                         else
                         {
                           _HKLogDroppedError();
-                          v269 = 0;
+                          v268 = 0;
                         }
 
                         v56 = v116;
@@ -2201,9 +2182,9 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
 
                       else
                       {
-                        v269 = 0;
+                        v268 = 0;
                         v56 = 0;
-                        v35 = v263;
+                        v35 = v262;
                       }
                     }
 
@@ -2220,22 +2201,22 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
 
                     v128 = v109;
                     v113 = v128;
-                    v33 = v264;
+                    v33 = v263;
                     v103 = v105;
                     if (v128)
                     {
-                      v35 = v263;
+                      v35 = v262;
                       if (error)
                       {
                         v129 = v128;
-                        v269 = 0;
+                        v268 = 0;
                         *error = v113;
                       }
 
                       else
                       {
                         _HKLogDroppedError();
-                        v269 = 0;
+                        v268 = 0;
                       }
 
                       v56 = v113;
@@ -2243,14 +2224,14 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
 
                     else
                     {
-                      v269 = 0;
+                      v268 = 0;
                       v56 = 0;
-                      v35 = v263;
+                      v35 = v262;
                     }
                   }
 
                   v76 = v106;
-                  v126 = v248;
+                  v126 = v247;
                 }
 
                 else
@@ -2263,21 +2244,21 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
 
                   v125 = v104;
                   v126 = v125;
-                  v33 = v264;
+                  v33 = v263;
                   if (v125)
                   {
-                    v35 = v263;
+                    v35 = v262;
                     if (error)
                     {
                       v127 = v125;
-                      v269 = 0;
+                      v268 = 0;
                       *error = v126;
                     }
 
                     else
                     {
                       _HKLogDroppedError();
-                      v269 = 0;
+                      v268 = 0;
                     }
 
                     v56 = v126;
@@ -2285,16 +2266,16 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
 
                   else
                   {
-                    v269 = 0;
+                    v268 = 0;
                     v56 = 0;
-                    v35 = v263;
+                    v35 = v262;
                   }
                 }
 
                 metricCopy = v76;
-                v62 = v255;
-                v58 = v256;
-                v124 = v249;
+                v62 = v254;
+                v58 = v255;
+                v124 = v248;
               }
 
               else
@@ -2306,15 +2287,15 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                 }
 
                 v124 = v75;
-                v62 = v255;
-                v58 = v256;
+                v62 = v254;
+                v58 = v255;
                 if (v124)
                 {
-                  v35 = v263;
+                  v35 = v262;
                   if (error)
                   {
                     v124 = v124;
-                    v269 = 0;
+                    v268 = 0;
                     *error = v124;
                     v56 = v124;
                   }
@@ -2324,40 +2305,40 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                     v56 = v124;
                     _HKLogDroppedError();
                     v124 = v56;
-                    v269 = 0;
+                    v268 = 0;
                   }
                 }
 
                 else
                 {
-                  v269 = 0;
+                  v268 = 0;
                   v56 = 0;
-                  v35 = v263;
+                  v35 = v262;
                 }
               }
 
-              v123 = v253;
+              v123 = v252;
             }
 
             else
             {
               _HKInitializeLogging();
-              v33 = v264;
+              v33 = v263;
               if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
               {
                 [HDMCDailyAnalytics _collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:];
               }
 
               v123 = v69;
-              v62 = v255;
-              v58 = v256;
+              v62 = v254;
+              v58 = v255;
               if (v123)
               {
-                v35 = v263;
+                v35 = v262;
                 if (error)
                 {
                   v123 = v123;
-                  v269 = 0;
+                  v268 = 0;
                   *error = v123;
                   v56 = v123;
                 }
@@ -2367,19 +2348,19 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                   v56 = v123;
                   _HKLogDroppedError();
                   v123 = v56;
-                  v269 = 0;
+                  v268 = 0;
                 }
               }
 
               else
               {
-                v269 = 0;
+                v268 = 0;
                 v56 = 0;
-                v35 = v263;
+                v35 = v262;
               }
             }
 
-            v122 = v254;
+            v122 = v253;
           }
 
           else
@@ -2391,14 +2372,14 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
             }
 
             v122 = v63;
-            v33 = v264;
+            v33 = v263;
             if (v122)
             {
-              v35 = v263;
+              v35 = v262;
               if (error)
               {
                 v122 = v122;
-                v269 = 0;
+                v268 = 0;
                 *error = v122;
                 v56 = v122;
               }
@@ -2408,15 +2389,15 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
                 v56 = v122;
                 _HKLogDroppedError();
                 v122 = v56;
-                v269 = 0;
+                v268 = 0;
               }
             }
 
             else
             {
-              v269 = 0;
+              v268 = 0;
               v56 = 0;
-              v35 = v263;
+              v35 = v262;
             }
           }
 
@@ -2431,26 +2412,26 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
             [HDMCDailyAnalytics _collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:];
           }
 
-          v33 = v264;
+          v33 = v263;
           if (error)
           {
             v57 = v56;
-            v269 = 0;
+            v268 = 0;
             *error = v56;
           }
 
           else
           {
             _HKLogDroppedError();
-            v269 = 0;
+            v268 = 0;
           }
 
-          v35 = v263;
+          v35 = v262;
         }
 
         v46 = v56;
-        calendarCopy = v265;
-        errorCopy2 = v269;
+        calendarCopy = v264;
+        errorCopy2 = v268;
       }
 
       else
@@ -2474,9 +2455,9 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
           _HKLogDroppedError();
         }
 
-        v35 = v263;
+        v35 = v262;
         calendarCopy = v22;
-        v33 = v264;
+        v33 = v263;
       }
     }
 
@@ -2521,8 +2502,8 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
       v34 = settingsCopy;
     }
 
-    detectionSettingsCopy = v271;
-    featureStatusCopy = v272;
+    detectionSettingsCopy = v270;
+    featureStatusCopy = v271;
   }
 
   else
@@ -2533,8 +2514,8 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
     {
       v29 = v28;
       *buf = 138543362;
-      v296 = objc_opt_class();
-      v30 = v296;
+      v295 = objc_opt_class();
+      v30 = v295;
       _os_log_impl(&dword_2293D1000, v29, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping collecting metrics due to IH&A not allowed", buf, 0xCu);
     }
 
@@ -2544,7 +2525,6 @@ void __191__HDMCDailyAnalytics__collectDiagnosticFieldsForMetric_settingsManager
     v34 = settingsCopy;
   }
 
-  v232 = *MEMORY[0x277D85DE8];
   return errorCopy2;
 }
 
@@ -2600,31 +2580,31 @@ LABEL_6:
 
 - (int64_t)_daysWithSleepSamples:(id)samples calendar:(id)calendar
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   samplesCopy = samples;
   calendarCopy = calendar;
   v7 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = samplesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       v12 = 0;
       do
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        startDate = [*(*(&v19 + 1) + 8 * v12) startDate];
+        startDate = [*(*(&v18 + 1) + 8 * v12) startDate];
         v14 = [startDate hk_morningIndexWithCalendar:calendarCopy];
 
         v15 = [MEMORY[0x277CCABB0] numberWithInteger:v14];
@@ -2634,20 +2614,19 @@ LABEL_6:
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
 
   v16 = [v7 count];
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (id)_predicateForSleepDataFromPast45DaysWithCalendar:(id)calendar
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCD0C0];
   v4 = *MEMORY[0x277CCBAB8];
   calendarCopy = calendar;
@@ -2665,21 +2644,19 @@ LABEL_6:
   v14 = HDCategorySampleEntityPredicateEqualToValues();
 
   v15 = MEMORY[0x277D10B20];
-  v21[0] = v12;
+  v20[0] = v12;
   v16 = HDDataEntityPredicateForObjectsFromAppleWatchSources();
-  v21[1] = v16;
-  v21[2] = v14;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
-  v18 = [v15 predicateMatchingAllPredicates:{v17, v21[0]}];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v20[1] = v16;
+  v20[2] = v14;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+  v18 = [v15 predicateMatchingAllPredicates:{v17, v20[0]}];
 
   return v18;
 }
 
 - (id)_predicateForSleepDataFromPast48HoursWithCalendar:(id)calendar
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBAB8]];
   date = [MEMORY[0x277CBEAA8] date];
   v5 = [date dateByAddingTimeInterval:-172800.0];
@@ -2690,28 +2667,24 @@ LABEL_6:
   v9 = HDCategorySampleEntityPredicateEqualToValues();
 
   v10 = MEMORY[0x277D10B20];
-  v15[0] = v7;
-  v15[1] = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[0] = v7;
+  v14[1] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v12 = [v10 predicateMatchingAllPredicates:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (id)_predicateForFirstPartySleepDataFromPast48HoursWithCalendar:(id)calendar
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v3 = [(HDMCDailyAnalytics *)self _predicateForSleepDataFromPast48HoursWithCalendar:calendar];
   v4 = MEMORY[0x277D10B20];
-  v10[0] = v3;
+  v9[0] = v3;
   v5 = HDDataEntityPredicateForObjectsFromAppleWatchSources();
-  v10[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   v7 = [v4 predicateMatchingAllPredicates:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -3129,7 +3102,7 @@ LABEL_23:
 
 + (id)_setPregnancyPropertiesInMetric:(id)metric manager:(id)manager todayAsDate:(id)date gregorianCalendar:(id)calendar error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   dateCopy = date;
   calendarCopy = calendar;
@@ -3178,16 +3151,14 @@ LABEL_23:
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
     {
       v31 = v30;
-      *v35 = 138543362;
-      *&v35[4] = objc_opt_class();
-      v32 = *&v35[4];
-      _os_log_impl(&dword_2293D1000, v31, OS_LOG_TYPE_DEFAULT, "[%{public}@] PregnancyProvider could not return a pregnancyModel", v35, 0xCu);
+      *v34 = 138543362;
+      *&v34[4] = objc_opt_class();
+      v32 = *&v34[4];
+      _os_log_impl(&dword_2293D1000, v31, OS_LOG_TYPE_DEFAULT, "[%{public}@] PregnancyProvider could not return a pregnancyModel", v34, 0xCu);
     }
 
-    [metricCopy setHasOnboardedPregnancyMode:{MEMORY[0x277CBEC28], *v35}];
+    [metricCopy setHasOnboardedPregnancyMode:{MEMORY[0x277CBEC28], *v34, *&v34[8]}];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return metricCopy;
 }
@@ -3257,66 +3228,52 @@ void __108__HDMCDailyAnalytics_Analysis___daysWithWristTemperatureSamplesInDayIn
 - (void)submitMetricWithError:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving feature status for wrist temperature input: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving feature status for wrist temperature input: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)submitMetricWithError:.cold.2()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving feature status for deviation detection: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving feature status for deviation detection: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)submitMetricWithError:.cold.3()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving feature status for prediction improvements: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving feature status for prediction improvements: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)submitMetricWithError:.cold.4()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving feature settings for menstrual cycles: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving feature settings for menstrual cycles: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_collectDiagnosticFieldsForMetric:(uint64_t)a3 settingsManager:heartRateInputFeatureStatus:deviationDetectionFeatureStatus:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a1;
   objc_opt_class();
   OUTLINED_FUNCTION_0_1();
-  v9 = a3;
+  v8 = a3;
   v6 = v5;
-  _os_log_error_impl(&dword_2293D1000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving diagnostic onboarding metrics: %{public}@", v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2293D1000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving diagnostic onboarding metrics: %{public}@", v7, 0x16u);
 }
 
 - (void)_collectDiagnosticFieldsForMetric:(uint64_t)a3 settingsManager:heartRateInputFeatureStatus:deviationDetectionFeatureStatus:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.2(void *a1, uint64_t a2, uint64_t a3)
@@ -3331,207 +3288,162 @@ void __108__HDMCDailyAnalytics_Analysis___daysWithWristTemperatureSamplesInDayIn
   OUTLINED_FUNCTION_1_1(&dword_2293D1000, v4, v5, "[%{public}@] Error computing days with wrist temperature samples 45 days before fertile window end: %{public}@");
 }
 
-- (void)_collectSensitiveFieldsForMetric:(void *)a1 settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.1(void *a1)
+- (void)_collectSensitiveFieldsForMetric:(void *)a1 settingsManager:(uint64_t)a2 menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.1(void *a1, uint64_t a2)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v1 = a1;
+  v2 = a1;
   v4 = 138543362;
   v5 = objc_opt_class();
-  v2 = v5;
-  _os_log_error_impl(&dword_2293D1000, v1, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to convert date of birth to a date", &v4, 0xCu);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = v5;
+  _os_log_error_impl(&dword_2293D1000, v2, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to convert date of birth to a date", &v4, 0xCu);
 }
 
 - (void)_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.2()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving current sleep settings: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving current sleep settings: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.3()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving sleep screen enabled status: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving sleep screen enabled status: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.4()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error setting fertile window fields in metric: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error setting fertile window fields in metric: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.5()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving medical ID data: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving medical ID data: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.6()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving feature status for sleeping wrist temperature: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving feature status for sleeping wrist temperature: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.7()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving sleep event record: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving sleep event record: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.8()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error setting cycle factor reminder metrics: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error setting cycle factor reminder metrics: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.9()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving deviation detected metrics: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving deviation detected metrics: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.10()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving deviation sample metrics: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving deviation sample metrics: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.11()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Failed to set statistics and Heart Rate fields with error: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Failed to set statistics and Heart Rate fields with error: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.12()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Failed to read firstPartySleepSamplesPast48Hours with error: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Failed to read firstPartySleepSamplesPast48Hours with error: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.13()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Failed to read anySleepSamplesPast48Hours with error: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Failed to read anySleepSamplesPast48Hours with error: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.14()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Failed to read biological sex with error: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Failed to read biological sex with error: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.15()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   v4 = v3;
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Failed to read date of birth with error: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Failed to read date of birth with error: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_collectSensitiveFieldsForMetric:settingsManager:menstrualCyclesSettings:heartRateInputFeatureStatus:deviationDetectionSettings:wristTemperatureInputFeatureStatus:gregorianCalendar:error:.cold.16()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  v4 = v0;
-  _os_log_error_impl(&dword_2293D1000, v1, OS_LOG_TYPE_ERROR, "%{public}@: Failed to get device contexts dictionary for HealthMenstrualCycles daily analytics: %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_2293D1000, v1, OS_LOG_TYPE_ERROR, "%{public}@: Failed to get device contexts dictionary for HealthMenstrualCycles daily analytics: %{public}@", v2, 0x16u);
 }
 
 @end

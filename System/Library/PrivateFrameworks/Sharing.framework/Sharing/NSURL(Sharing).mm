@@ -11,10 +11,11 @@
 
 - (id)issueSandboxExtensionData
 {
-  v11 = *MEMORY[0x1E69E9840];
-  if (([self isFileURL] & 1) == 0)
+  v10 = *MEMORY[0x1E69E9840];
+  isFileURL = [self isFileURL];
+  if ((isFileURL & 1) == 0)
   {
-    v5 = utilities_log();
+    v5 = utilities_log(isFileURL);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(NSURL(Sharing) *)self issueSandboxExtensionData];
@@ -23,10 +24,9 @@
     goto LABEL_10;
   }
 
-  v2 = *MEMORY[0x1E69E9BA8];
   [self fileSystemRepresentation];
   v3 = sandbox_extension_issue_file();
-  v4 = utilities_log();
+  v4 = utilities_log(v3);
   v5 = v4;
   if (!v3)
   {
@@ -43,32 +43,30 @@ LABEL_10:
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138477827;
+    v8 = 138477827;
     selfCopy = self;
-    _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "sandbox extension issued successfully for URL:%{private}@", &v9, 0xCu);
+    _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "sandbox extension issued successfully for URL:%{private}@", &v8, 0xCu);
   }
 
   v6 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v3 length:strlen(v3) + 1 freeWhenDone:1];
 LABEL_11:
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (void)issueSandboxExtensionData
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = *__error();
   v5 = __error();
   v6 = strerror(*v5);
-  v8 = 138412802;
+  v7 = 138412802;
   selfCopy = self;
-  v10 = 1024;
-  v11 = v4;
-  v12 = 2080;
-  v13 = v6;
-  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "Failed to create sandbox extension token for the file URL %@ with error %d (%s)", &v8, 0x1Cu);
-  v7 = *MEMORY[0x1E69E9840];
+  v9 = 1024;
+  v10 = v4;
+  v11 = 2080;
+  v12 = v6;
+  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "Failed to create sandbox extension token for the file URL %@ with error %d (%s)", &v7, 0x1Cu);
 }
 
 - (uint64_t)isiWorkDocument
@@ -105,28 +103,28 @@ LABEL_11:
 
 - (id)valueForQueryKey:()Sharing
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [MEMORY[0x1E696AF20] componentsWithURL:self resolvingAgainstBaseURL:0];
   [v5 queryItems];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v6 = v18 = 0u;
-  value = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = v17 = 0u;
+  value = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (value)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != value; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         name = [v10 name];
         v12 = [name isEqualToString:v4];
 
@@ -137,7 +135,7 @@ LABEL_11:
         }
       }
 
-      value = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      value = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (value)
       {
         continue;
@@ -148,8 +146,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return value;
 }

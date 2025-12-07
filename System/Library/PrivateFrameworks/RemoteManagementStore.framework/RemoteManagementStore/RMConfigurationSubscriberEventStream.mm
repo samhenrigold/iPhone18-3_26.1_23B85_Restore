@@ -141,13 +141,10 @@ uint64_t __79__RMConfigurationSubscriberEventStream__configuredConfigurationType
 
 - (void)start
 {
-  v8 = *MEMORY[0x277D85DE8];
   configurationTypes = [self configurationTypes];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupEventHandler
@@ -186,14 +183,14 @@ void __58__RMConfigurationSubscriberEventStream__setupEventHandler__block_invoke
 
 - (void)_handleEvent:(id)event
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = _CFXPCCreateCFObjectFromXPCObject();
   configurationSubscriberEventStream = [MEMORY[0x277D45F58] configurationSubscriberEventStream];
   if (os_log_type_enabled(configurationSubscriberEventStream, OS_LOG_TYPE_INFO))
   {
-    v19 = 138543362;
-    v20 = v4;
-    _os_log_impl(&dword_261E36000, configurationSubscriberEventStream, OS_LOG_TYPE_INFO, "Received event stream message: %{public}@", &v19, 0xCu);
+    v18 = 138543362;
+    v19 = v4;
+    _os_log_impl(&dword_261E36000, configurationSubscriberEventStream, OS_LOG_TYPE_INFO, "Received event stream message: %{public}@", &v18, 0xCu);
   }
 
   objc_opt_class();
@@ -266,8 +263,6 @@ LABEL_21:
   }
 
 LABEL_22:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchConfigurations:(id)configurations
@@ -336,7 +331,7 @@ void __68__RMConfigurationSubscriberEventStream__setupEventHandlerWithScope___bl
 
 void __68__RMConfigurationSubscriberEventStream__setupEventHandlerWithScope___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAB98];
   v4 = a2;
   v5 = [v3 defaultCenter];
@@ -350,77 +345,36 @@ void __68__RMConfigurationSubscriberEventStream__setupEventHandlerWithScope___bl
     v6 = @"com.apple.remotemanagement.configs.agent";
   }
 
-  v11 = @"Event";
-  v12[0] = v4;
+  v10 = @"Event";
+  v11[0] = v4;
   v7 = MEMORY[0x277CBEAC0];
   v8 = v6;
-  v9 = [v7 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v9 = [v7 dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
   [v5 postNotificationName:v8 object:0 userInfo:v9];
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleEvent:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, v0, v1, "Ignoring event stream message, payload is unexpected type: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleEvent:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, v0, v1, "Ignoring event stream message, configuration types is unexpected type: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleEvent:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, v0, v1, "Ignoring unsupported types: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleEvent:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, v0, v1, "Ignoring event stream message, notified about unsupported types: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleEvent:.cold.5()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(&dword_261E36000, v0, OS_LOG_TYPE_DEBUG, "Fetch of configurations with types: %{public}@...", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_261E36000, v0, OS_LOG_TYPE_DEBUG, "Fetch of configurations with types: %{public}@...", v1, 0xCu);
 }
 
 - (void)_fetchConfigurations:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCACA8] rms_stringWithScope:{objc_msgSend(a1, "scope")}];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __61__RMConfigurationSubscriberEventStream__fetchConfigurations___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] rms_stringWithScope:{objc_msgSend(*(a1 + 32), "scope")}];
-  v3 = *(a1 + 40);
+  v1 = [MEMORY[0x277CCACA8] rms_stringWithScope:{objc_msgSend(*(a1 + 32), "scope")}];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 @end

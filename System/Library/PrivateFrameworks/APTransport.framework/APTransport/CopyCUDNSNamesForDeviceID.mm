@@ -5,15 +5,15 @@
 
 void __browser_CopyCUDNSNamesForDeviceID_block_invoke(void *a1)
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   v1 = a1[5];
   v2 = a1[7];
   valuePtr = a1[6];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v4 = *(DerivedStorage + 64);
-  v22[0] = @"RAOPBonjourInfo";
-  v22[1] = v4;
-  v22[2] = @"AirPlayP2PBonjourInfo";
+  v21[0] = @"RAOPBonjourInfo";
+  v21[1] = v4;
+  v21[2] = @"AirPlayP2PBonjourInfo";
   if (!v2)
   {
     APSLogErrorAt();
@@ -66,7 +66,7 @@ LABEL_20:
   v14 = *MEMORY[0x277CBECF0];
   do
   {
-    if (CFDictionaryGetValue(v12, v22[v13]))
+    if (CFDictionaryGetValue(v12, v21[v13]))
     {
       v15 = BonjourDevice_CopyDNSNames();
       if (v15)
@@ -92,7 +92,6 @@ LABEL_13:
 LABEL_14:
   OUTLINED_FUNCTION_8_1();
   *(v19 + 24) = v18;
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

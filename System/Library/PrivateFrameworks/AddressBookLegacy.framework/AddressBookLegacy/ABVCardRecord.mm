@@ -1449,7 +1449,7 @@ LABEL_35:
   return data;
 }
 
-uint64_t __38__ABVCardRecord_dataForSoundProperty___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__38__ABVCardRecord_dataForSoundProperty___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 count];
   if (result)

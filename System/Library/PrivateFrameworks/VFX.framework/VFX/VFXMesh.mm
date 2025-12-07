@@ -28,6 +28,7 @@
 - (id)meshSourcesForSemantic:(id)semantic;
 - (int64_t)meshElementCount;
 - (int64_t)primitiveType;
+- (uint64_t)setBoundingBox:(uint64_t)box;
 - (void)_discardOriginalTopology;
 - (void)_rebuildMeshElementsFromPresentation;
 - (void)_rebuildMeshSourcesFromPresentation;
@@ -40,7 +41,6 @@
 - (void)encodeWithCoder:(id)coder;
 - (void)makeUniqueID;
 - (void)removeWorldReference:(id)reference;
-- (void)setBoundingBox:;
 - (void)setIdentifier:(id)identifier;
 - (void)setMeshRef:(__CFXMesh *)ref;
 - (void)setName:(id)name;
@@ -55,27 +55,28 @@
   v11.receiver = self;
   v11.super_class = VFXMesh;
   v2 = [(VFXMesh *)&v11 init];
+  v4 = v2;
   if (v2)
   {
-    v3 = sub_1AF1A2E00();
-    v2->_mesh = v3;
-    if (v3)
+    v5 = sub_1AF1A2E00(v2, v3);
+    v4->_mesh = v5;
+    if (v5)
     {
-      sub_1AF16CDFC(v3, v2);
+      sub_1AF16CDFC(v5, v4);
     }
 
-    objc_msgSend__updateModelFromPresentation(v2, v4, v5, v6);
-    objc_msgSend_makeUniqueID(v2, v7, v8, v9);
+    objc_msgSend__updateModelFromPresentation(v4, v6, v7);
+    objc_msgSend_makeUniqueID(v4, v8, v9);
   }
 
-  return v2;
+  return v4;
 }
 
 - (VFXMesh)initWithMeshRef:(__CFXMesh *)ref
 {
-  v13.receiver = self;
-  v13.super_class = VFXMesh;
-  v4 = [(VFXMesh *)&v13 init];
+  v11.receiver = self;
+  v11.super_class = VFXMesh;
+  v4 = [(VFXMesh *)&v11 init];
   if (v4)
   {
     v5 = CFRetain(ref);
@@ -85,8 +86,8 @@
       sub_1AF16CDFC(v5, v4);
     }
 
-    objc_msgSend__updateModelFromPresentation(v4, v6, v7, v8);
-    objc_msgSend_makeUniqueID(v4, v9, v10, v11);
+    objc_msgSend__updateModelFromPresentation(v4, v6, v7);
+    objc_msgSend_makeUniqueID(v4, v8, v9);
   }
 
   return v4;
@@ -98,9 +99,9 @@
   if (!result)
   {
     v6 = [self alloc];
-    v9 = objc_msgSend_initWithMeshRef_(v6, v7, ref, v8);
+    v8 = objc_msgSend_initWithMeshRef_(v6, v7, ref);
 
-    return v9;
+    return v8;
   }
 
   return result;
@@ -119,12 +120,12 @@
   if (mesh)
   {
     sub_1AF16CDFC(mesh, 0);
-    objc_msgSend_postReleaseCommandWithCFXObject_(VFXTransaction, v4, self->_mesh, v5);
+    objc_msgSend_postReleaseCommandWithCFXObject_(VFXTransaction, v4, self->_mesh);
   }
 
-  v6.receiver = self;
-  v6.super_class = VFXMesh;
-  [(VFXMesh *)&v6 dealloc];
+  v5.receiver = self;
+  v5.super_class = VFXMesh;
+  [(VFXMesh *)&v5 dealloc];
 }
 
 - (void)addWorldReference:(id)reference
@@ -132,7 +133,7 @@
   world = self->_world;
   if (world == reference)
   {
-    v6 = self->_worldReferenceCounter + 1;
+    v5 = self->_worldReferenceCounter + 1;
   }
 
   else
@@ -142,11 +143,11 @@
       self->_worldReferenceCounter = 0;
     }
 
-    objc_msgSend_setWorld_(self, a2, reference, v3);
-    v6 = 1;
+    objc_msgSend_setWorld_(self, a2, reference);
+    v5 = 1;
   }
 
-  self->_worldReferenceCounter = v6;
+  self->_worldReferenceCounter = v5;
 }
 
 - (void)removeWorldReference:(id)reference
@@ -157,21 +158,21 @@
     worldReferenceCounter = self->_worldReferenceCounter;
     if (worldReferenceCounter)
     {
-      v7 = worldReferenceCounter - 1;
-      self->_worldReferenceCounter = v7;
-      if (!v7)
+      v6 = worldReferenceCounter - 1;
+      self->_worldReferenceCounter = v6;
+      if (!v6)
       {
 
-        objc_msgSend_setWorld_(self, a2, 0, v3);
+        objc_msgSend_setWorld_(self, a2, 0);
       }
     }
 
     else
     {
-      v8 = sub_1AF0D5194();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v7 = sub_1AF0D5194(self, a2);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_1AFDF4930(self, p_world, v8);
+        sub_1AFDF4930(self, p_world, v7);
       }
     }
   }
@@ -214,7 +215,7 @@
     return self->_world;
   }
 
-  result = objc_msgSend_worldRef(self, a2, v2, v3);
+  result = objc_msgSend_worldRef(self, a2, v2);
   if (result)
   {
 
@@ -226,9 +227,9 @@
 
 - (__CFXWorld)worldRef
 {
-  v4 = objc_msgSend___CFObject(self, a2, v2, v3);
+  v3 = objc_msgSend___CFObject(self, a2, v2);
 
-  return sub_1AF1C3FAC(v4);
+  return sub_1AF1C3FAC(v3, v4);
 }
 
 - (void)setName:(id)name
@@ -236,17 +237,17 @@
   name = self->_name;
   if (name | name)
   {
-    if ((objc_msgSend_isEqual_(name, a2, name, v3) & 1) == 0)
+    if ((objc_msgSend_isEqual_(name, a2, name) & 1) == 0)
     {
 
-      self->_name = objc_msgSend_copy(name, v7, v8, v9);
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = sub_1AF2E1F24;
-      v11[3] = &unk_1E7A7E220;
-      v11[4] = self;
-      v11[5] = name;
-      objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v10, self, v11);
+      self->_name = objc_msgSend_copy(name, v6, v7);
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3221225472;
+      v9[2] = sub_1AF2E1F24;
+      v9[3] = &unk_1E7A7E220;
+      v9[4] = self;
+      v9[5] = name;
+      objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v8, self, v9);
     }
   }
 }
@@ -258,59 +259,59 @@
     return self->_name;
   }
 
-  v6 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v10 = v6;
-  if (v6)
+  v5 = objc_msgSend_worldRef(self, a2, v2);
+  v8 = v5;
+  if (v5)
   {
-    sub_1AF1CEA20(v6);
+    sub_1AF1CEA20(v5, v6);
   }
 
-  v11 = objc_msgSend___CFObject(self, v7, v8, v9);
-  v5 = sub_1AF16CBEC(v11);
-  if (v10)
+  v9 = objc_msgSend___CFObject(self, v6, v7);
+  v4 = sub_1AF16CBEC(v9, v10);
+  if (v8)
   {
-    sub_1AF1CEA9C(v10);
+    sub_1AF1CEA9C(v8, v11);
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)setIdentifier:(id)identifier
 {
-  v5 = objc_msgSend___CFObject(self, a2, identifier, v3);
+  v4 = objc_msgSend___CFObject(self, a2, identifier);
 
-  sub_1AF16CD6C(v5, identifier);
+  sub_1AF16CD6C(v4, identifier);
 }
 
 - (id)identifier
 {
-  v4 = objc_msgSend___CFObject(self, a2, v2, v3);
+  v3 = objc_msgSend___CFObject(self, a2, v2);
 
-  return sub_1AF16CD08(v4, v5, v6, v7);
+  return sub_1AF16CD08(v3, v4, v5);
 }
 
 - (void)_updateEntityModelFromPresentation
 {
-  v5 = objc_msgSend___CFObject(self, a2, v2, v3);
+  v4 = objc_msgSend___CFObject(self, a2, v2);
 
-  self->_name = sub_1AF16CBEC(v5);
+  self->_name = sub_1AF16CBEC(v4, v5);
 }
 
 - (void)_updateEntityPresentationFromModel
 {
-  v5 = objc_msgSend___CFObject(self, a2, v2, v3);
+  v4 = objc_msgSend___CFObject(self, a2, v2);
   name = self->_name;
 
-  sub_1AF16CC34(v5, name);
+  sub_1AF16CC34(v4, name);
 }
 
 - (void)makeUniqueID
 {
-  v4 = objc_msgSend___CFObject(self, a2, v2, v3);
-  v8 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v5, v6, v7);
-  v12 = objc_msgSend_UUIDString(v8, v9, v10, v11);
+  v3 = objc_msgSend___CFObject(self, a2, v2);
+  v6 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v4, v5);
+  v9 = objc_msgSend_UUIDString(v6, v7, v8);
 
-  sub_1AF16CD6C(v4, v12);
+  sub_1AF16CD6C(v3, v9);
 }
 
 - (void)_updatePresentationFromModel
@@ -325,37 +326,37 @@
 
 - (id)meshDescription
 {
-  v5 = objc_msgSend_string(MEMORY[0x1E696AD60], a2, v2, v3);
-  v9 = objc_msgSend_name(self, v6, v7, v8);
-  v13 = objc_msgSend_length(v9, v10, v11, v12);
-  v14 = objc_opt_class();
-  v15 = NSStringFromClass(v14);
-  v19 = v15;
-  if (v13)
+  v4 = objc_msgSend_string(MEMORY[0x1E696AD60], a2, v2);
+  v7 = objc_msgSend_name(self, v5, v6);
+  v10 = objc_msgSend_length(v7, v8, v9);
+  v11 = objc_opt_class();
+  v12 = NSStringFromClass(v11);
+  v15 = v12;
+  if (v10)
   {
-    v32 = objc_msgSend_name(self, v16, v17, v18);
-    objc_msgSend_appendFormat_(v5, v20, @"%@: %p '%@'", v21, v19, self, v32);
+    v24 = objc_msgSend_name(self, v13, v14);
+    objc_msgSend_appendFormat_(v4, v16, @"%@: %p '%@'", v15, self, v24);
   }
 
   else
   {
-    objc_msgSend_appendFormat_(v5, v16, @"%@: %p", v18, v15, self);
+    objc_msgSend_appendFormat_(v4, v13, @"%@: %p", v12, self);
   }
 
-  if (objc_msgSend_meshElementCount(self, v22, v23, v24) >= 2)
+  if (objc_msgSend_meshElementCount(self, v17, v18) >= 2)
   {
-    v28 = objc_msgSend_meshElementCount(self, v25, v26, v27);
-    objc_msgSend_appendFormat_(v5, v29, @" | %d elements", v30, v28);
+    v21 = objc_msgSend_meshElementCount(self, v19, v20);
+    objc_msgSend_appendFormat_(v4, v22, @" | %d elements", v21);
   }
 
-  return v5;
+  return v4;
 }
 
 - (NSString)description
 {
-  v4 = MEMORY[0x1E696AEC0];
-  v5 = objc_msgSend_meshDescription(self, a2, v2, v3);
-  return objc_msgSend_stringWithFormat_(v4, v6, @"<%@>", v7, v5);
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = objc_msgSend_meshDescription(self, a2, v2);
+  return objc_msgSend_stringWithFormat_(v3, v5, @"<%@>", v4);
 }
 
 - (void)setMeshRef:(__CFXMesh *)ref
@@ -410,93 +411,93 @@ LABEL_11:
 + (id)meshWithSources:(id)sources elements:(id)elements sourceChannels:(id)channels
 {
   selfCopy = self;
-  v67 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v8 = *MEMORY[0x1E695E480];
-  v9 = objc_msgSend_count(sources, a2, sources, elements);
+  v9 = objc_msgSend_count(sources, a2, sources);
   v10 = MEMORY[0x1E695E9C0];
   Mutable = CFArrayCreateMutable(v8, v9, MEMORY[0x1E695E9C0]);
-  v15 = objc_msgSend_count(elements, v12, v13, v14);
-  v16 = CFArrayCreateMutable(v8, v15, v10);
-  v61 = 0u;
-  v62 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(sources, v17, &v61, v66, 16);
-  if (v18)
+  v14 = objc_msgSend_count(elements, v12, v13);
+  v15 = CFArrayCreateMutable(v8, v14, v10);
+  v53 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(sources, v16, &v53, v58, 16);
+  if (v17)
   {
-    v22 = v18;
-    v23 = *v62;
+    v20 = v17;
+    v21 = *v54;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v62 != v23)
+        if (*v54 != v21)
         {
           objc_enumerationMutation(sources);
         }
 
-        v25 = *(*(&v61 + 1) + 8 * i);
-        objc_msgSend__clearCFXCache(v25, v19, v20, v21);
-        v29 = objc_msgSend_meshSource(v25, v26, v27, v28);
-        CFArrayAppendValue(Mutable, v29);
+        v23 = *(*(&v53 + 1) + 8 * i);
+        objc_msgSend__clearCFXCache(v23, v18, v19);
+        v26 = objc_msgSend_meshSource(v23, v24, v25);
+        CFArrayAppendValue(Mutable, v26);
       }
 
-      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(sources, v19, &v61, v66, 16);
+      v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(sources, v18, &v53, v58, 16);
     }
 
-    while (v22);
+    while (v20);
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(elements, v19, &v57, v65, 16);
-  if (v30)
+  v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(elements, v18, &v49, v57, 16);
+  if (v27)
   {
-    v34 = v30;
-    v35 = *v58;
+    v30 = v27;
+    v31 = *v50;
     do
     {
-      for (j = 0; j != v34; ++j)
+      for (j = 0; j != v30; ++j)
       {
-        if (*v58 != v35)
+        if (*v50 != v31)
         {
           objc_enumerationMutation(elements);
         }
 
-        v37 = objc_msgSend_meshElement(*(*(&v57 + 1) + 8 * j), v31, v32, v33);
-        CFArrayAppendValue(v16, v37);
+        v33 = objc_msgSend_meshElement(*(*(&v49 + 1) + 8 * j), v28, v29);
+        CFArrayAppendValue(v15, v33);
       }
 
-      v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(elements, v31, &v57, v65, 16);
+      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(elements, v28, &v49, v57, 16);
     }
 
-    while (v34);
+    while (v30);
   }
 
-  v38 = objc_msgSend_count(sources, v31, v32, v33);
-  v39 = &v55 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1AF2E25E0(channels, v38, elements, v39);
-  v40 = sub_1AF27B22C(Mutable, v16, v39);
-  v41 = [selfCopy alloc];
-  v44 = objc_msgSend_initWithMeshRef_(v41, v42, v40, v43);
-  v44[5] = objc_msgSend_copy(sources, v45, v46, v47);
-  v44[6] = objc_msgSend_copy(elements, v48, v49, v50);
-  v44[7] = objc_msgSend_copy(channels, v51, v52, v53);
+  v34 = objc_msgSend_count(sources, v28, v29);
+  v35 = &v47 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1AF2E25E0(channels, v34, elements, v35);
+  v36 = sub_1AF27B22C(Mutable, v15, v35);
+  v37 = [selfCopy alloc];
+  v39 = objc_msgSend_initWithMeshRef_(v37, v38, v36);
+  v39[5] = objc_msgSend_copy(sources, v40, v41);
+  v39[6] = objc_msgSend_copy(elements, v42, v43);
+  v39[7] = objc_msgSend_copy(channels, v44, v45);
   CFRelease(Mutable);
-  CFRelease(v16);
-  CFRelease(v40);
-  return v44;
+  CFRelease(v15);
+  CFRelease(v36);
+  return v39;
 }
 
 - (void)_rebuildMeshSourcesFromPresentation
 {
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v6 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v6 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
   v7 = self->_sources;
@@ -505,9 +506,9 @@ LABEL_11:
   mesh = self->_mesh;
   if (mesh)
   {
-    v37 = -1;
-    v9 = sub_1AF1A4BA0(mesh, &v37);
-    if (v37)
+    v31 = -1;
+    v9 = sub_1AF1A4BA0(mesh, &v31);
+    if (v31)
     {
       v10 = 0;
     }
@@ -517,7 +518,7 @@ LABEL_11:
       v10 = v9;
     }
 
-    v36 = v7;
+    v30 = v7;
     if (v10)
     {
       v11 = 0;
@@ -529,25 +530,25 @@ LABEL_11:
     }
 
     v12 = sub_1AF1A4CF8(mesh, 0);
-    v16 = objc_msgSend_count(v12, v13, v14, v15);
-    if (v16)
+    v15 = objc_msgSend_count(v12, v13, v14);
+    if (v15)
     {
-      v19 = v16;
-      for (i = 0; i != v19; ++i)
+      v17 = v15;
+      for (i = 0; i != v17; ++i)
       {
-        v21 = objc_msgSend_objectAtIndexedSubscript_(v12, v17, i, v18, v36);
-        v24 = objc_msgSend_meshSourceWithMeshSourceRef_(VFXMeshSource, v22, v21, v23);
-        objc_msgSend_addObject_(self->_sources, v25, v24, v26);
+        v19 = objc_msgSend_objectAtIndexedSubscript_(v12, v16, i, v30);
+        v21 = objc_msgSend_meshSourceWithMeshSourceRef_(VFXMeshSource, v20, v19);
+        objc_msgSend_addObject_(self->_sources, v22, v21);
         if ((v10 & 1) == 0)
         {
-          v27 = sub_1AF1A4C10(mesh, i);
-          v30 = objc_msgSend_numberWithLong_(MEMORY[0x1E696AD98], v28, v27, v29);
-          objc_msgSend_addObject_(v11, v31, v30, v32);
+          v23 = sub_1AF1A4C10(mesh, i);
+          v25 = objc_msgSend_numberWithLong_(MEMORY[0x1E696AD98], v24, v23);
+          objc_msgSend_addObject_(v11, v26, v25);
         }
       }
     }
 
-    v7 = v36;
+    v7 = v30;
   }
 
   else
@@ -555,20 +556,20 @@ LABEL_11:
     v11 = 0;
   }
 
-  self->_sourceChannels = objc_msgSend_copy(v11, v33, v34, v35);
+  self->_sourceChannels = objc_msgSend_copy(v11, v27, v28);
   if (v6)
   {
-    sub_1AF1CEA9C(v6);
+    sub_1AF1CEA9C(v6, v29);
   }
 }
 
 - (void)_rebuildMeshElementsFromPresentation
 {
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v6 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v6 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
   mesh = self->_mesh;
@@ -576,16 +577,16 @@ LABEL_11:
   {
     v8 = self->_elements;
     self->_elements = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v9 = sub_1AF1A3CCC(mesh);
-    if (v9 >= 1)
+    v10 = sub_1AF1A3CCC(mesh, v9);
+    if (v10 >= 1)
     {
-      v10 = v9;
-      for (i = 0; i != v10; ++i)
+      v11 = v10;
+      for (i = 0; i != v11; ++i)
       {
-        v12 = sub_1AF1A3D1C(mesh, i, 0);
+        v13 = sub_1AF1A3D1C(mesh, i, 0);
         elements = self->_elements;
-        v16 = objc_msgSend_meshElementWithMeshElementRef_(VFXMeshElement, v14, v12, v15);
-        objc_msgSend_addObject_(elements, v17, v16, v18);
+        v16 = objc_msgSend_meshElementWithMeshElementRef_(VFXMeshElement, v15, v13);
+        objc_msgSend_addObject_(elements, v17, v16);
       }
     }
   }
@@ -593,7 +594,7 @@ LABEL_11:
   if (v6)
   {
 
-    sub_1AF1CEA9C(v6);
+    sub_1AF1CEA9C(v6, v5);
   }
 }
 
@@ -602,7 +603,7 @@ LABEL_11:
   result = &self->_sources->super;
   if (!result)
   {
-    objc_msgSend__rebuildMeshSourcesFromPresentation(self, a2, v2, v3);
+    objc_msgSend__rebuildMeshSourcesFromPresentation(self, a2, v2);
     return &self->_sources->super;
   }
 
@@ -611,44 +612,44 @@ LABEL_11:
 
 - (id)meshSourcesForSemantic:(id)semantic
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v5 = objc_msgSend_meshSources(self, a2, semantic, v3);
-  v8 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v6, 1, v7);
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v9, &v22, v26, 16);
-  if (v10)
+  v23 = *MEMORY[0x1E69E9840];
+  v4 = objc_msgSend_meshSources(self, a2, semantic);
+  v6 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v5, 1);
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v18, v22, 16);
+  if (v8)
   {
-    v14 = v10;
-    v15 = *v23;
+    v11 = v8;
+    v12 = *v19;
     do
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v15)
+        if (*v19 != v12)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v4);
         }
 
-        v17 = *(*(&v22 + 1) + 8 * i);
-        v18 = objc_msgSend_semantic(v17, v11, v12, v13);
-        if (objc_msgSend_isEqualToString_(v18, v19, semantic, v20))
+        v14 = *(*(&v18 + 1) + 8 * i);
+        v15 = objc_msgSend_semantic(v14, v9, v10);
+        if (objc_msgSend_isEqualToString_(v15, v16, semantic))
         {
-          objc_msgSend_addObject_(v8, v11, v17, v13);
+          objc_msgSend_addObject_(v6, v9, v14);
         }
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v11, &v22, v26, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v9, &v18, v22, 16);
     }
 
-    while (v14);
+    while (v11);
   }
 
-  if (objc_msgSend_count(v8, v11, v12, v13))
+  if (objc_msgSend_count(v6, v9, v10))
   {
-    return v8;
+    return v6;
   }
 
   else
@@ -662,7 +663,7 @@ LABEL_11:
   result = &self->_elements->super;
   if (!result)
   {
-    objc_msgSend__rebuildMeshElementsFromPresentation(self, a2, v2, v3);
+    objc_msgSend__rebuildMeshElementsFromPresentation(self, a2, v2);
     return &self->_elements->super;
   }
 
@@ -671,77 +672,77 @@ LABEL_11:
 
 - (int64_t)meshElementCount
 {
-  v4 = objc_msgSend_meshElements(self, a2, v2, v3);
+  v3 = objc_msgSend_meshElements(self, a2, v2);
 
-  return objc_msgSend_count(v4, v5, v6, v7);
+  return objc_msgSend_count(v3, v4, v5);
 }
 
 - (id)meshElementAtIndex:(int64_t)index
 {
-  v5 = objc_msgSend_meshElements(self, a2, index, v3);
-  if (objc_msgSend_count(v5, v6, v7, v8) <= index)
+  v4 = objc_msgSend_meshElements(self, a2, index);
+  if (objc_msgSend_count(v4, v5, v6) <= index)
   {
     return 0;
   }
 
-  return objc_msgSend_objectAtIndexedSubscript_(v5, v9, index, v10);
+  return objc_msgSend_objectAtIndexedSubscript_(v4, v7, index);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = objc_msgSend_meshRef(self, a2, zone, v3);
-  v5 = sub_1AF1A2EDC(v4);
+  v3 = objc_msgSend_meshRef(self, a2, zone);
+  v5 = sub_1AF1A2EDC(v3, v4);
   v6 = objc_alloc(objc_opt_class());
-  v9 = objc_msgSend_initWithMeshRef_(v6, v7, v5, v8);
+  v8 = objc_msgSend_initWithMeshRef_(v6, v7, v5);
   if (v5)
   {
     CFRelease(v5);
   }
 
-  return v9;
+  return v8;
 }
 
 - (id)interleavedCopy
 {
-  v4 = objc_msgSend_meshRef(self, a2, v2, v3);
-  v5 = sub_1AF27E144(v4);
-  v6 = objc_alloc(objc_opt_class());
-  v9 = objc_msgSend_initWithMeshRef_(v6, v7, v5, v8);
-  if (v5)
+  v3 = objc_msgSend_meshRef(self, a2, v2);
+  v4 = sub_1AF27E144(v3);
+  v5 = objc_alloc(objc_opt_class());
+  v7 = objc_msgSend_initWithMeshRef_(v5, v6, v4);
+  if (v4)
   {
-    CFRelease(v5);
+    CFRelease(v4);
   }
 
-  return v9;
+  return v7;
 }
 
 - (id)_renderableCopy
 {
-  v4 = objc_msgSend_meshRef(self, a2, v2, v3);
-  v5 = sub_1AF1A3150(v4);
+  v3 = objc_msgSend_meshRef(self, a2, v2);
+  v5 = sub_1AF1A3150(v3, v4);
   v6 = objc_alloc(objc_opt_class());
-  v9 = objc_msgSend_initWithMeshRef_(v6, v7, v5, v8);
+  v8 = objc_msgSend_initWithMeshRef_(v6, v7, v5);
   if (v5)
   {
     CFRelease(v5);
   }
 
-  return v9;
+  return v8;
 }
 
 - (int64_t)primitiveType
 {
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v6 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v6 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
   mesh = self->_mesh;
   if (mesh)
   {
-    if (sub_1AF1A3CCC(mesh) < 1)
+    if (sub_1AF1A3CCC(mesh, v5) < 1)
     {
       mesh = 0;
       if (!v6)
@@ -753,13 +754,13 @@ LABEL_11:
     }
 
     v8 = sub_1AF1A3D1C(mesh, 0, 0);
-    mesh = sub_1AF1A7034(v8);
+    mesh = sub_1AF1A7034(v8, v9);
   }
 
   if (v6)
   {
 LABEL_7:
-    sub_1AF1CEA9C(v6);
+    sub_1AF1CEA9C(v6, v5);
   }
 
   return mesh;
@@ -768,19 +769,19 @@ LABEL_7:
 - (void)setPrimitiveType:(int64_t)type
 {
   typeCopy = type;
-  v6 = objc_msgSend_worldRef(self, a2, type, v3);
-  v7 = v6;
-  if (v6)
+  v5 = objc_msgSend_worldRef(self, a2, type);
+  v7 = v5;
+  if (v5)
   {
-    sub_1AF1CEA20(v6);
+    sub_1AF1CEA20(v5, v6);
   }
 
   mesh = self->_mesh;
   if (mesh)
   {
-    if (sub_1AF1A3CCC(mesh) >= 1)
+    if (sub_1AF1A3CCC(mesh, v6) >= 1)
     {
-      v9 = sub_1AF1A3CCC(mesh);
+      v9 = sub_1AF1A3CCC(mesh, v6);
       if (v9 >= 1)
       {
         v10 = v9;
@@ -796,67 +797,70 @@ LABEL_7:
   if (v7)
   {
 
-    sub_1AF1CEA9C(v7);
+    sub_1AF1CEA9C(v7, v6);
   }
 }
 
 - (double)boundingBox
 {
-  v12 = VFXNullBoundingBox;
-  v13 = *algn_1AFE47750;
-  v5 = objc_msgSend_worldRef(self, a2, a3, a4);
-  v9 = v5;
-  if (v5)
+  v11 = VFXNullBoundingBox;
+  v12 = *algn_1AFE47750;
+  v4 = objc_msgSend_worldRef(self, v1, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_meshRef(self, v6, v7, v8);
-  if (v10)
+  v8 = objc_msgSend_meshRef(self, v5, v6);
+  if (v8)
   {
-    sub_1AF1A3234(v10, &v12, &v13);
+    sub_1AF1A3234(v8, &v11, &v12);
   }
 
-  if (v9)
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v9);
   }
 
-  return *&v12;
+  return *&v11;
 }
 
-- (void)setBoundingBox:
+- (uint64_t)setBoundingBox:(uint64_t)box
 {
-  v0 = sub_1AF0D5194();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = sub_1AF0D5194(box, a2);
+  result = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
+  if (result)
   {
-    sub_1AFDF602C(v0);
+    sub_1AFDF602C(v2);
   }
+
+  return result;
 }
 
 - (BOOL)getBoundingSphereCenter:(VFXMesh *)self radius:(SEL)radius
 {
   v4 = v3;
   v5 = v2;
-  v7 = objc_msgSend_worldRef(self, radius, v2, v3);
-  v11 = v7;
+  v7 = objc_msgSend_worldRef(self, radius, v2);
+  v10 = v7;
   if (v7)
   {
-    sub_1AF1CEA20(v7);
+    sub_1AF1CEA20(v7, v8);
   }
 
-  v12 = objc_msgSend_meshRef(self, v8, v9, v10);
+  v11 = objc_msgSend_meshRef(self, v8, v9);
   v15 = 0uLL;
-  if (!v12 || !sub_1AF1C39FC(v12, 0, &v15))
+  if (!v11 || !sub_1AF1C39FC(v11, 0, &v15))
   {
     v13 = 0;
-    if (!v11)
+    if (!v10)
     {
       return v13;
     }
 
 LABEL_12:
-    sub_1AF1CEA9C(v11);
+    sub_1AF1CEA9C(v10, v12);
     return v13;
   }
 
@@ -871,7 +875,7 @@ LABEL_12:
   }
 
   v13 = 1;
-  if (v11)
+  if (v10)
   {
     goto LABEL_12;
   }
@@ -881,182 +885,183 @@ LABEL_12:
 
 - (void)decodeMeshWithCoder:(id)coder
 {
-  v81 = *MEMORY[0x1E69E9840];
-  v5 = sub_1AF1A2D3C();
-  if (v5 == CFGetTypeID(self->_mesh))
+  selfCopy = self;
+  v74 = *MEMORY[0x1E69E9840];
+  v5 = sub_1AF1A2D3C(self, a2);
+  if (v5 == CFGetTypeID(selfCopy->_mesh))
   {
-    selfCopy = self;
+    v58 = selfCopy;
     v6 = objc_opt_class();
-    v64 = objc_msgSend_vfx_decodeArrayOfObjectsOfClass_forKey_(coder, v7, v6, @"elements");
-    v11 = objc_msgSend_array(MEMORY[0x1E695DF70], v8, v9, v10);
-    v12 = objc_opt_class();
-    v14 = sub_1AF2E4D88(v12, v13);
-    v74 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v77 = 0u;
-    v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v74, v80, 16);
-    if (v16)
-    {
-      v20 = v16;
-      v21 = *v75;
-      do
-      {
-        v22 = 0;
-        do
-        {
-          if (*v75 != v21)
-          {
-            objc_enumerationMutation(v14);
-          }
-
-          v23 = *(*(&v74 + 1) + 8 * v22);
-          v24 = objc_msgSend_vfx_decodeArrayOfObjectsOfClass_forKey_(coder, v17, v12, v23);
-          if (v24 || v23 == @"kGeometrySourceSemanticPosition" && (v24 = objc_msgSend_vfx_decodeArrayOfObjectsOfClass_forKey_(coder, v17, v12, @"kGeometrySourceSemanticVertex")) != 0)
-          {
-            objc_msgSend_addObjectsFromArray_(v11, v17, v24, v25);
-          }
-
-          ++v22;
-        }
-
-        while (v20 != v22);
-        v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v74, v80, 16);
-        v20 = v26;
-      }
-
-      while (v26);
-    }
-
-    v27 = *MEMORY[0x1E695E480];
-    v28 = objc_msgSend_count(v11, v17, v18, v19);
-    v29 = MEMORY[0x1E695E9C0];
-    Mutable = CFArrayCreateMutable(v27, v28, MEMORY[0x1E695E9C0]);
-    v31 = v64;
-    v35 = objc_msgSend_count(v64, v32, v33, v34);
-    v36 = CFArrayCreateMutable(v27, v35, v29);
-    v70 = 0u;
-    v71 = 0u;
-    v72 = 0u;
-    v73 = 0u;
-    v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v37, &v70, v79, 16);
-    if (v38)
-    {
-      v42 = v38;
-      v43 = *v71;
-      do
-      {
-        for (i = 0; i != v42; ++i)
-        {
-          if (*v71 != v43)
-          {
-            objc_enumerationMutation(v11);
-          }
-
-          v45 = objc_msgSend_meshSource(*(*(&v70 + 1) + 8 * i), v39, v40, v41);
-          CFArrayAppendValue(Mutable, v45);
-        }
-
-        v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v39, &v70, v79, 16);
-      }
-
-      while (v42);
-    }
-
+    v57 = objc_msgSend_vfx_decodeArrayOfObjectsOfClass_forKey_(coder, v7, v6, @"elements");
+    v10 = objc_msgSend_array(MEMORY[0x1E695DF70], v8, v9);
+    v11 = objc_opt_class();
+    v13 = sub_1AF2E4D88(v11, v12);
+    v67 = 0u;
     v68 = 0u;
     v69 = 0u;
-    v66 = 0u;
-    v67 = 0u;
-    v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(v64, v39, &v66, v78, 16);
-    if (v46)
+    v70 = 0u;
+    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v67, v73, 16);
+    if (v15)
     {
-      v50 = v46;
-      v51 = *v67;
+      v18 = v15;
+      v19 = *v68;
       do
       {
-        for (j = 0; j != v50; ++j)
+        v20 = 0;
+        do
         {
-          if (*v67 != v51)
+          if (*v68 != v19)
           {
-            objc_enumerationMutation(v64);
+            objc_enumerationMutation(v13);
           }
 
-          v53 = objc_msgSend_meshElement(*(*(&v66 + 1) + 8 * j), v47, v48, v49);
-          CFArrayAppendValue(v36, v53);
+          v21 = *(*(&v67 + 1) + 8 * v20);
+          v22 = objc_msgSend_vfx_decodeArrayOfObjectsOfClass_forKey_(coder, v16, v11, v21);
+          if (v22 || v21 == @"kGeometrySourceSemanticPosition" && (v22 = objc_msgSend_vfx_decodeArrayOfObjectsOfClass_forKey_(coder, v16, v11, @"kGeometrySourceSemanticVertex")) != 0)
+          {
+            objc_msgSend_addObjectsFromArray_(v10, v16, v22);
+          }
+
+          ++v20;
         }
 
-        v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v64, v47, &v66, v78, 16);
+        while (v18 != v20);
+        v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v67, v73, 16);
+        v18 = v23;
       }
 
-      while (v50);
+      while (v23);
     }
 
-    v54 = objc_opt_class();
-    self = selfCopy;
-    selfCopy->_sourceChannels = objc_msgSend_vfx_decodeArrayOfObjectsOfClass_forKey_(coder, v55, v54, @"sourceChannels");
-    v59 = objc_msgSend_count(v11, v56, v57, v58);
-    v60 = &v64 - ((v59 + 15) & 0xFFFFFFFFFFFFFFF0);
-    sub_1AF2E25E0(self->_sourceChannels, v59, v31, v60);
-    mesh = self->_mesh;
+    v24 = *MEMORY[0x1E695E480];
+    v25 = objc_msgSend_count(v10, v16, v17);
+    v26 = MEMORY[0x1E695E9C0];
+    Mutable = CFArrayCreateMutable(v24, v25, MEMORY[0x1E695E9C0]);
+    v28 = v57;
+    v31 = objc_msgSend_count(v57, v29, v30);
+    v32 = CFArrayCreateMutable(v24, v31, v26);
+    v63 = 0u;
+    v64 = 0u;
+    v65 = 0u;
+    v66 = 0u;
+    v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v33, &v63, v72, 16);
+    if (v34)
+    {
+      v37 = v34;
+      v38 = *v64;
+      do
+      {
+        for (i = 0; i != v37; ++i)
+        {
+          if (*v64 != v38)
+          {
+            objc_enumerationMutation(v10);
+          }
+
+          v40 = objc_msgSend_meshSource(*(*(&v63 + 1) + 8 * i), v35, v36);
+          CFArrayAppendValue(Mutable, v40);
+        }
+
+        v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v35, &v63, v72, 16);
+      }
+
+      while (v37);
+    }
+
+    v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(v57, v35, &v59, v71, 16);
+    if (v41)
+    {
+      v44 = v41;
+      v45 = *v60;
+      do
+      {
+        for (j = 0; j != v44; ++j)
+        {
+          if (*v60 != v45)
+          {
+            objc_enumerationMutation(v57);
+          }
+
+          v47 = objc_msgSend_meshElement(*(*(&v59 + 1) + 8 * j), v42, v43);
+          CFArrayAppendValue(v32, v47);
+        }
+
+        v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v57, v42, &v59, v71, 16);
+      }
+
+      while (v44);
+    }
+
+    v48 = objc_opt_class();
+    selfCopy = v58;
+    v58->_sourceChannels = objc_msgSend_vfx_decodeArrayOfObjectsOfClass_forKey_(coder, v49, v48, @"sourceChannels");
+    v52 = objc_msgSend_count(v10, v50, v51);
+    v53 = &v57 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0);
+    sub_1AF2E25E0(selfCopy->_sourceChannels, v52, v28, v53);
+    mesh = selfCopy->_mesh;
     if (mesh)
     {
       CFRelease(mesh);
-      self->_mesh = 0;
+      selfCopy->_mesh = 0;
     }
 
-    self->_mesh = sub_1AF27B22C(Mutable, v36, v60);
+    selfCopy->_mesh = sub_1AF27B22C(Mutable, v32, v53);
     CFRelease(Mutable);
-    CFRelease(v36);
+    CFRelease(v32);
   }
 
-  v62 = objc_opt_class();
-  self->_name = objc_msgSend_decodeObjectOfClass_forKey_(coder, v63, v62, @"name");
+  v55 = objc_opt_class();
+  selfCopy->_name = objc_msgSend_decodeObjectOfClass_forKey_(coder, v56, v55, @"name");
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v5 = sub_1AF1A2D3C();
+  v28 = *MEMORY[0x1E69E9840];
+  v5 = sub_1AF1A2D3C(self, a2);
   v6 = CFGetTypeID(self->_mesh);
   if (v5 == v6)
   {
-    v9 = sub_1AF2E4D88(v6, v7);
+    v8 = sub_1AF2E4D88(v6, v7);
+    v23 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v26, v30, 16);
-    if (v11)
+    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v23, v27, 16);
+    if (v10)
     {
-      v15 = v11;
-      v16 = *v27;
+      v13 = v10;
+      v14 = *v24;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v27 != v16)
+          if (*v24 != v14)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v8);
           }
 
-          v18 = *(*(&v26 + 1) + 8 * i);
-          v19 = objc_msgSend_meshSourcesForSemantic_(self, v12, v18, v14);
-          if (v19)
+          v16 = *(*(&v23 + 1) + 8 * i);
+          v17 = objc_msgSend_meshSourcesForSemantic_(self, v11, v16);
+          if (v17)
           {
-            objc_msgSend_encodeObject_forKey_(coder, v12, v19, v18);
+            objc_msgSend_encodeObject_forKey_(coder, v11, v17, v16);
           }
         }
 
-        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v26, v30, 16);
+        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v23, v27, 16);
       }
 
-      while (v15);
+      while (v13);
     }
 
-    v20 = objc_msgSend_meshElements(self, v12, v13, v14);
-    if (objc_msgSend_count(v20, v21, v22, v23))
+    v18 = objc_msgSend_meshElements(self, v11, v12);
+    if (objc_msgSend_count(v18, v19, v20))
     {
-      objc_msgSend_encodeObject_forKey_(coder, v7, v20, @"elements");
+      objc_msgSend_encodeObject_forKey_(coder, v7, v18, @"elements");
     }
 
     sourceChannels = self->_sourceChannels;
@@ -1072,583 +1077,596 @@ LABEL_12:
     objc_msgSend_encodeObject_forKey_(coder, v7, name, @"name");
   }
 
-  sub_1AF372440(coder, self, name, v8);
+  sub_1AF372440(coder, self, name);
 }
 
 - (VFXMesh)initWithCoder:(id)coder
 {
-  v20.receiver = self;
-  v20.super_class = VFXMesh;
-  v7 = [(VFXMesh *)&v20 init];
-  if (v7)
+  v17.receiver = self;
+  v17.super_class = VFXMesh;
+  v6 = [(VFXMesh *)&v17 init];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    v11 = sub_1AF1A2E00();
-    v7->_mesh = v11;
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    v9 = objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    v11 = sub_1AF1A2E00(v9, v10);
+    v6->_mesh = v11;
     if (v11)
     {
-      sub_1AF16CDFC(v11, v7);
+      sub_1AF16CDFC(v11, v6);
     }
 
-    objc_msgSend__updateModelFromPresentation(v7, v12, v13, v14);
-    objc_msgSend_decodeMeshWithCoder_(v7, v15, coder, v16);
-    sub_1AF37249C(coder, v7);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v17, v8, v18);
+    objc_msgSend__updateModelFromPresentation(v6, v12, v13);
+    objc_msgSend_decodeMeshWithCoder_(v6, v14, coder);
+    sub_1AF37249C(coder, v6);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v15, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 - (id)_meshByRebuildingNormals
 {
-  v4 = objc_msgSend_copy(self, a2, v2, v3);
-  v8 = objc_msgSend_meshRef(v4, v5, v6, v7);
-  if (v8)
+  v3 = objc_msgSend_copy(self, a2, v2);
+  v6 = objc_msgSend_meshRef(v3, v4, v5);
+  if (v6)
   {
-    v9 = sub_1AF1A2EDC(v8);
-    if (sub_1AF1A4CE8(v9, 0))
+    v8 = sub_1AF1A2EDC(v6, v7);
+    if (sub_1AF1A4CE8(v8, 0))
     {
-      v12 = sub_1AF27D340(v9, 0, 0);
-      if (v12)
+      v10 = sub_1AF27D340(v8, 0, 0);
+      if (v10)
       {
-        v13 = v12;
-        v14 = sub_1AF1A4C6C(v9, 0, 0);
-        sub_1AF1A44D4(v9, v13, 0, v14);
-        CFRelease(v13);
+        v11 = v10;
+        v12 = sub_1AF1A4C6C(v8, 0, 0);
+        sub_1AF1A44D4(v8, v11, 0, v12);
+        CFRelease(v11);
       }
     }
 
-    v15 = objc_msgSend_meshWithMeshRef_(VFXMesh, v10, v9, v11);
-    if (v9)
+    v13 = objc_msgSend_meshWithMeshRef_(VFXMesh, v9, v8);
+    if (v8)
     {
-      CFRelease(v9);
+      CFRelease(v8);
     }
   }
 
   else
   {
-    v15 = 0;
+    v13 = 0;
   }
 
-  return v15;
+  return v13;
 }
 
 - (id)_meshByRemovingSkinnerSources
 {
-  v5 = objc_msgSend_meshRef(self, a2, v2, v3);
-  v6 = sub_1AF1A2EDC(v5);
+  v4 = objc_msgSend_meshRef(self, a2, v2);
+  v6 = sub_1AF1A2EDC(v4, v5);
   sub_1AF1A4930(v6, 5);
   sub_1AF1A4930(v6, 6);
-  v12 = objc_msgSend_meshWithMeshRef_(VFXMesh, v7, v6, v8);
+  v10 = objc_msgSend_meshWithMeshRef_(VFXMesh, v7, v6);
   if (v6)
   {
     CFRelease(v6);
   }
 
-  v13 = objc_msgSend_name(self, v9, v10, v11);
-  objc_msgSend_setName_(v12, v14, v13, v15);
-  return v12;
+  v11 = objc_msgSend_name(self, v8, v9);
+  objc_msgSend_setName_(v10, v12, v11);
+  return v10;
 }
 
 - (void)_discardOriginalTopology
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v5 = objc_msgSend_meshRef(self, a2, v2, v3);
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v9 = objc_msgSend_meshSources(self, v6, v7, v8);
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v36, v41, 16);
-  if (v11)
-  {
-    v15 = v11;
-    v16 = *v37;
-    do
-    {
-      v17 = 0;
-      do
-      {
-        if (*v37 != v16)
-        {
-          objc_enumerationMutation(v9);
-        }
-
-        v18 = objc_msgSend_meshSource(*(*(&v36 + 1) + 8 * v17), v12, v13, v14);
-        if (v18)
-        {
-          sub_1AF16CDFC(v18, 0);
-        }
-
-        ++v17;
-      }
-
-      while (v15 != v17);
-      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v36, v41, 16);
-    }
-
-    while (v15);
-  }
-
-  v34 = 0u;
-  v35 = 0u;
+  v37 = *MEMORY[0x1E69E9840];
+  v4 = objc_msgSend_meshRef(self, a2, v2);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v19 = objc_msgSend_meshElements(self, v12, v13, v14, 0);
-  v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v32, v40, 16);
-  if (v21)
+  v34 = 0u;
+  v7 = objc_msgSend_meshSources(self, v5, v6);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v31, v36, 16);
+  if (v9)
   {
-    v25 = v21;
-    v26 = *v33;
+    v12 = v9;
+    v13 = *v32;
     do
     {
-      v27 = 0;
+      v14 = 0;
       do
       {
-        if (*v33 != v26)
+        if (*v32 != v13)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v7);
         }
 
-        v28 = objc_msgSend_meshElement(*(*(&v32 + 1) + 8 * v27), v22, v23, v24);
-        if (v28)
+        v15 = objc_msgSend_meshSource(*(*(&v31 + 1) + 8 * v14), v10, v11);
+        if (v15)
         {
-          sub_1AF16CDFC(v28, 0);
+          sub_1AF16CDFC(v15, 0);
         }
 
-        ++v27;
+        ++v14;
       }
 
-      while (v25 != v27);
-      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v22, &v32, v40, 16);
+      while (v12 != v14);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v31, v36, 16);
     }
 
-    while (v25);
+    while (v12);
   }
 
-  sub_1AF1AFDA8(v5, 0);
-  objc_msgSend__releaseCachedSourcesAndElements(self, v29, v30, v31);
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v16 = objc_msgSend_meshElements(self, v10, v11, 0);
+  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v27, v35, 16);
+  if (v18)
+  {
+    v21 = v18;
+    v22 = *v28;
+    do
+    {
+      v23 = 0;
+      do
+      {
+        if (*v28 != v22)
+        {
+          objc_enumerationMutation(v16);
+        }
+
+        v24 = objc_msgSend_meshElement(*(*(&v27 + 1) + 8 * v23), v19, v20);
+        if (v24)
+        {
+          sub_1AF16CDFC(v24, 0);
+        }
+
+        ++v23;
+      }
+
+      while (v21 != v23);
+      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v27, v35, 16);
+    }
+
+    while (v21);
+  }
+
+  sub_1AF1AFDA8(v4, 0);
+  objc_msgSend__releaseCachedSourcesAndElements(self, v25, v26);
 }
 
 - (id)_meshByWeldingVerticesWithThreshold:(float)threshold normalThreshold:(float)normalThreshold
 {
   selfCopy = self;
-  v275 = *MEMORY[0x1E69E9840];
-  v8 = objc_msgSend_meshSourcesForSemantic_(self, a2, @"kGeometrySourceSemanticPosition", v4);
-  Object = objc_msgSend_firstObject(v8, v9, v10, v11);
-  v15 = objc_msgSend_meshSourcesForSemantic_(selfCopy, v13, @"kGeometrySourceSemanticNormal", v14);
-  v19 = objc_msgSend_firstObject(v15, v16, v17, v18);
-  objc_msgSend_meshSourcesForSemantic_(selfCopy, v20, @"kGeometrySourceSemanticTexcoord", v21);
-  v25 = objc_msgSend_vectorCount(Object, v22, v23, v24);
-  v26 = malloc_type_malloc(8 * v25, 0x100004000313F17uLL);
-  v27 = malloc_type_malloc(8 * v25, 0x100004000313F17uLL);
-  v31 = v27;
-  if (v25)
+  v230 = *MEMORY[0x1E69E9840];
+  v7 = objc_msgSend_meshSourcesForSemantic_(self, a2, @"kGeometrySourceSemanticPosition");
+  Object = objc_msgSend_firstObject(v7, v8, v9);
+  v12 = objc_msgSend_meshSourcesForSemantic_(selfCopy, v11, @"kGeometrySourceSemanticNormal");
+  v15 = objc_msgSend_firstObject(v12, v13, v14);
+  objc_msgSend_meshSourcesForSemantic_(selfCopy, v16, @"kGeometrySourceSemanticTexcoord");
+  v19 = objc_msgSend_vectorCount(Object, v17, v18);
+  v20 = malloc_type_malloc(8 * v19, 0x100004000313F17uLL);
+  v21 = malloc_type_malloc(8 * v19, 0x100004000313F17uLL);
+  v24 = v21;
+  if (v19)
   {
-    for (i = 0; i != v25; ++i)
+    for (i = 0; i != v19; ++i)
     {
-      v26[i] = i;
-      v27[i] = i;
+      v20[i] = i;
+      v21[i] = i;
     }
   }
 
-  v33 = objc_msgSend_data(Object, v28, v29, v30);
-  v256 = objc_msgSend_bytes(v33, v34, v35, v36);
-  v257 = objc_msgSend_dataOffset(Object, v37, v38, v39);
-  v258 = objc_msgSend_dataStride(Object, v40, v41, v42);
-  qsort_r(v26, v25, 8uLL, &v256, sub_1AF37610C);
-  if (v25)
+  v26 = objc_msgSend_data(Object, v22, v23);
+  v211 = objc_msgSend_bytes(v26, v27, v28);
+  v212 = objc_msgSend_dataOffset(Object, v29, v30);
+  v213 = objc_msgSend_dataStride(Object, v31, v32);
+  qsort_r(v20, v19, 8uLL, &v211, sub_1AF37610C);
+  if (v19)
   {
-    v246 = 0;
-    v47 = 0;
-    v48 = normalThreshold + normalThreshold;
-    v49 = v26;
-    v232 = v26;
+    v201 = 0;
+    v36 = 0;
+    v37 = normalThreshold + normalThreshold;
+    v38 = v20;
+    v187 = v20;
     do
     {
-      v50 = v49[v47];
-      if (v31[v50] == v50)
+      v39 = v38[v36];
+      if (v24[v39] == v39)
       {
-        v51 = v256 + v257 + v258 * v50;
-        v46.i64[0] = *v51;
-        LODWORD(v243) = *v51;
-        v46.i32[2] = *(v51 + 8);
-        v240 = v46;
-        v52 = objc_msgSend_data(v19, v43, v44, v45);
-        v56 = objc_msgSend_bytes(v52, v53, v54, v55);
-        v60 = objc_msgSend_dataOffset(v19, v57, v58, v59);
-        v64 = objc_msgSend_dataStride(v19, v61, v62, v63);
-        if (v19)
+        v40 = v211 + v212 + v213 * v39;
+        v35.i64[0] = *v40;
+        LODWORD(v198) = *v40;
+        v35.i32[2] = *(v40 + 8);
+        v195 = v35;
+        v41 = objc_msgSend_data(v15, v33, v34);
+        v44 = objc_msgSend_bytes(v41, v42, v43);
+        v47 = objc_msgSend_dataOffset(v15, v45, v46);
+        v50 = objc_msgSend_dataStride(v15, v48, v49);
+        if (v15)
         {
-          v66 = v56 + v60 + v64 * v50;
-          v46.i64[0] = *v66;
-          v46.i32[2] = *(v66 + 8);
+          v52 = v44 + v47 + v50 * v39;
+          v35.i64[0] = *v52;
+          v35.i32[2] = *(v52 + 8);
         }
 
         else
         {
-          v46 = 0uLL;
+          v35 = 0uLL;
         }
 
-        v68 = v47 + 1;
-        if (v47 + 1 >= v25)
+        v54 = v36 + 1;
+        if (v36 + 1 >= v19)
         {
-          v67 = 0;
+          v53 = 0;
         }
 
         else
         {
-          LODWORD(v67) = 0;
-          v69 = v256;
-          v70 = v25 - 1 - v47;
-          v71 = &v26[v47 + 1];
+          LODWORD(v53) = 0;
+          v55 = v211;
+          v56 = v19 - 1 - v36;
+          v57 = &v20[v36 + 1];
           do
           {
-            v73 = *v71++;
-            v72 = v73;
-            if (v31[v73] == v73)
+            v59 = *v57++;
+            v58 = v59;
+            if (v24[v59] == v59)
             {
-              v74 = v69 + v257 + v258 * v72;
-              if (vabds_f32(v243, *v74) > threshold)
+              v60 = v55 + v212 + v213 * v58;
+              if (vabds_f32(v198, *v60) > threshold)
               {
                 break;
               }
 
-              v65.i32[1] = *(v74 + 4);
-              v65.i32[2] = *(v74 + 8);
-              v65.i32[0] = *v74;
-              v75 = vsubq_f32(v240, v65);
-              v65 = vmulq_f32(v75, v75);
-              if (sqrtf(v65.f32[2] + vaddv_f32(*v65.f32)) <= threshold)
+              v51.i32[1] = *(v60 + 4);
+              v51.i32[2] = *(v60 + 8);
+              v51.i32[0] = *v60;
+              v61 = vsubq_f32(v195, v51);
+              v51 = vmulq_f32(v61, v61);
+              if (sqrtf(v51.f32[2] + vaddv_f32(*v51.f32)) <= threshold)
               {
-                if (!v19 || (v65.i64[0] = *(v56 + v60 + v72 * v64), v65.i32[2] = *(v56 + v60 + 8 + v72 * v64), v65 = vmulq_f32(v46, v65), (1.0 - (v65.f32[2] + vaddv_f32(*v65.f32))) <= v48))
+                if (!v15 || (v51.i64[0] = *(v44 + v47 + v58 * v50), v51.i32[2] = *(v44 + v47 + 8 + v58 * v50), v51 = vmulq_f32(v35, v51), (1.0 - (v51.f32[2] + vaddv_f32(*v51.f32))) <= v37))
                 {
-                  v31[v72] = v50;
-                  LODWORD(v67) = v67 + 1;
+                  v24[v58] = v39;
+                  LODWORD(v53) = v53 + 1;
                 }
               }
             }
 
-            --v70;
+            --v56;
           }
 
-          while (v70);
-          v67 = v67;
+          while (v56);
+          v53 = v53;
         }
 
-        v49 = v26;
+        v38 = v20;
       }
 
       else
       {
-        v67 = 0;
-        v68 = v47 + 1;
+        v53 = 0;
+        v54 = v36 + 1;
       }
 
-      v246 += v67;
-      v47 = v68;
+      v201 += v53;
+      v36 = v54;
     }
 
-    while (v68 != v25);
-    if (v246)
+    while (v54 != v19);
+    if (v201)
     {
-      v76 = objc_msgSend_meshSources(selfCopy, v43, v44, v45);
-      v80 = objc_msgSend_meshElements(selfCopy, v77, v78, v79);
-      v81 = MEMORY[0x1E695DF70];
-      obj = v76;
-      v85 = objc_msgSend_count(v76, v82, v83, v84);
-      v238 = objc_msgSend_arrayWithCapacity_(v81, v86, v85, v87);
-      v88 = MEMORY[0x1E695DF70];
-      v234 = v80;
-      v92 = objc_msgSend_count(v80, v89, v90, v91);
-      v237 = objc_msgSend_arrayWithCapacity_(v88, v93, v92, v94);
-      for (j = 0; j != v25; ++j)
+      v62 = objc_msgSend_meshSources(selfCopy, v33, v34);
+      v65 = objc_msgSend_meshElements(selfCopy, v63, v64);
+      v66 = MEMORY[0x1E695DF70];
+      obj = v62;
+      v69 = objc_msgSend_count(v62, v67, v68);
+      v193 = objc_msgSend_arrayWithCapacity_(v66, v70, v69);
+      v71 = MEMORY[0x1E695DF70];
+      v189 = v65;
+      v74 = objc_msgSend_count(v65, v72, v73);
+      v192 = objc_msgSend_arrayWithCapacity_(v71, v75, v74);
+      for (j = 0; j != v19; ++j)
       {
-        v97 = v31[j];
+        v78 = v24[j];
         do
         {
-          v98 = v97;
-          v97 = v31[v97];
+          v79 = v78;
+          v78 = v24[v78];
         }
 
-        while (v98 > v97);
-        v31[j] = v98;
-        if (v98 > j && v31[v98] == v98)
+        while (v79 > v78);
+        v24[j] = v79;
+        if (v79 > j && v24[v79] == v79)
         {
-          v31[v98] = j;
-          v31[j] = j;
+          v24[v79] = j;
+          v24[j] = j;
         }
       }
 
-      v231 = selfCopy;
-      v254 = 0u;
-      v255 = 0u;
-      v252 = 0u;
-      v253 = 0u;
-      v241 = objc_msgSend_countByEnumeratingWithState_objects_count_(v76, v95, &v252, v274, 16);
-      if (v241)
+      v186 = selfCopy;
+      v209 = 0u;
+      v210 = 0u;
+      v207 = 0u;
+      v208 = 0u;
+      v80 = objc_msgSend_countByEnumeratingWithState_objects_count_(v62, v76, &v207, v229, 16);
+      v196 = v80;
+      if (v80)
       {
-        v235 = *v253;
+        v190 = *v208;
         do
         {
-          for (k = 0; k != v241; ++k)
+          v83 = 0;
+          do
           {
-            if (*v253 != v235)
+            if (*v208 != v190)
             {
               objc_enumerationMutation(obj);
             }
 
-            v103 = *(*(&v252 + 1) + 8 * k);
-            v104 = objc_msgSend_bytesPerComponent(v103, v99, v100, v101);
-            v108 = objc_msgSend_componentsPerVector(v103, v105, v106, v107) * v104;
-            v244 = (objc_msgSend_vectorCount(v103, v109, v110, v111) - v246) * v108;
-            v112 = malloc_type_malloc(v244, 0x72F5C6EEuLL);
-            v116 = objc_msgSend_data(v103, v113, v114, v115);
-            v120 = objc_msgSend_bytes(v116, v117, v118, v119);
-            objc_msgSend_vectorCount(v103, v121, v122, v123);
-            v127 = objc_msgSend_dataStride(v103, v124, v125, v126);
-            v131 = 0;
-            v133 = (v120 + objc_msgSend_dataOffset(v103, v128, v129, v130));
-            v134 = v112;
+            v84 = *(*(&v207 + 1) + 8 * v83);
+            v85 = objc_msgSend_bytesPerComponent(v84, v81, v82);
+            v88 = objc_msgSend_componentsPerVector(v84, v86, v87) * v85;
+            v199 = (objc_msgSend_vectorCount(v84, v89, v90) - v201) * v88;
+            v91 = malloc_type_malloc(v199, 0x72F5C6EEuLL);
+            v94 = objc_msgSend_data(v84, v92, v93);
+            v97 = objc_msgSend_bytes(v94, v95, v96);
+            objc_msgSend_vectorCount(v84, v98, v99);
+            v102 = objc_msgSend_dataStride(v84, v100, v101);
+            v105 = 0;
+            v107 = (v97 + objc_msgSend_dataOffset(v84, v103, v104));
+            v108 = v91;
             do
             {
-              if (v131 == v31[v131])
+              if (v105 == v24[v105])
               {
-                memcpy(v134, v133, v108);
-                v134 += v108;
+                memcpy(v108, v107, v88);
+                v108 += v88;
               }
 
-              v133 += v127;
-              ++v131;
+              v107 += v102;
+              ++v105;
             }
 
-            while (v25 != v131);
-            v135 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x1E695DEF0], v132, v112, v244, 1);
-            v139 = objc_msgSend_semantic(v103, v136, v137, v138);
-            v143 = objc_msgSend_vectorCount(v103, v140, v141, v142) - v246;
-            v147 = objc_msgSend__componentType(v103, v144, v145, v146);
-            v151 = objc_msgSend_componentsPerVector(v103, v148, v149, v150);
-            v153 = objc_msgSend__meshSourceWithData_semantic_vectorCount_componentType_componentCount_dataOffset_dataStride_(VFXMeshSource, v152, v135, v139, v143, v147, v151, 0, 0);
-            v157 = objc_msgSend_semantic(v103, v154, v155, v156);
-            objc_msgSend_isEqualToString_(v157, v158, @"kGeometrySourceSemanticPosition", v159);
-            objc_msgSend_addObject_(v238, v160, v153, v161);
+            while (v19 != v105);
+            v109 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x1E695DEF0], v106, v91, v199, 1);
+            v112 = objc_msgSend_semantic(v84, v110, v111);
+            v115 = objc_msgSend_vectorCount(v84, v113, v114) - v201;
+            v118 = objc_msgSend__componentType(v84, v116, v117);
+            v121 = objc_msgSend_componentsPerVector(v84, v119, v120);
+            v123 = objc_msgSend__meshSourceWithData_semantic_vectorCount_componentType_componentCount_dataOffset_dataStride_(VFXMeshSource, v122, v109, v112, v115, v118, v121, 0, 0);
+            v126 = objc_msgSend_semantic(v84, v124, v125);
+            objc_msgSend_isEqualToString_(v126, v127, @"kGeometrySourceSemanticPosition");
+            objc_msgSend_addObject_(v193, v128, v123);
+            ++v83;
           }
 
-          v241 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v99, &v252, v274, 16);
+          while (v83 != v196);
+          v80 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v81, &v207, v229, 16);
+          v196 = v80;
         }
 
-        while (v241);
+        while (v80);
       }
 
-      v162 = 0;
-      v163 = 0;
-      v164 = v25 - v246;
+      v129 = 0;
+      v130 = 0;
+      v131 = v19 - v201;
       do
       {
-        if (v31[v163] > v163)
+        if (v24[v130] > v130)
         {
-          v165 = sub_1AF0D5194();
-          if (os_log_type_enabled(v165, OS_LOG_TYPE_FAULT))
+          v132 = sub_1AF0D5194(v80, v81);
+          v80 = os_log_type_enabled(v132, OS_LOG_TYPE_FAULT);
+          if (v80)
           {
-            sub_1AFDFB1FC(v272, &v273, v165);
+            sub_1AFDFB1FC(v227, &v228, v132);
           }
         }
 
-        if (v163 != v31[v163])
+        if (v130 != v24[v130])
         {
-          ++v162;
-          if (!v163)
+          ++v129;
+          if (!v130)
           {
-            v166 = sub_1AF0D5194();
-            if (os_log_type_enabled(v166, OS_LOG_TYPE_FAULT))
+            v133 = sub_1AF0D5194(v80, v81);
+            v80 = os_log_type_enabled(v133, OS_LOG_TYPE_FAULT);
+            if (v80)
             {
-              sub_1AFDFB240(v270, &v271, v166);
+              sub_1AFDFB240(v225, &v226, v133);
             }
           }
         }
 
-        if (v31[v163] > v163)
+        if (v24[v130] > v130)
         {
-          v167 = sub_1AF0D5194();
-          if (os_log_type_enabled(v167, OS_LOG_TYPE_FAULT))
+          v134 = sub_1AF0D5194(v80, v81);
+          v80 = os_log_type_enabled(v134, OS_LOG_TYPE_FAULT);
+          if (v80)
           {
-            sub_1AFDFB284(v268, &v269, v167);
+            sub_1AFDFB284(v223, &v224, v134);
           }
         }
 
-        v232[v163] = v163 - v162;
-        v31[v163] = v232[v31[v163]];
-        if (v232[v163] >= v164)
+        v187[v130] = v130 - v129;
+        v24[v130] = v187[v24[v130]];
+        if (v187[v130] >= v131)
         {
-          v168 = sub_1AF0D5194();
-          if (os_log_type_enabled(v168, OS_LOG_TYPE_FAULT))
+          v135 = sub_1AF0D5194(v80, v81);
+          v80 = os_log_type_enabled(v135, OS_LOG_TYPE_FAULT);
+          if (v80)
           {
-            sub_1AFDFB2C8(v266, &v267, v168);
+            sub_1AFDFB2C8(v221, &v222, v135);
           }
         }
 
-        ++v163;
+        ++v130;
       }
 
-      while (v25 != v163);
-      if (v162 != v246)
+      while (v19 != v130);
+      if (v129 != v201)
       {
-        v169 = sub_1AF0D5194();
-        if (os_log_type_enabled(v169, OS_LOG_TYPE_FAULT))
+        v136 = sub_1AF0D5194(v80, v81);
+        if (os_log_type_enabled(v136, OS_LOG_TYPE_FAULT))
         {
-          sub_1AFDFB30C(v169);
+          sub_1AFDFB30C(v136);
         }
       }
 
-      v250 = 0u;
-      v251 = 0u;
-      v248 = 0u;
-      v249 = 0u;
-      v239 = objc_msgSend_countByEnumeratingWithState_objects_count_(v234, v99, &v248, v265, 16);
-      if (v239)
+      v205 = 0u;
+      v206 = 0u;
+      v203 = 0u;
+      v204 = 0u;
+      v194 = objc_msgSend_countByEnumeratingWithState_objects_count_(v189, v81, &v203, v220, 16);
+      if (v194)
       {
-        v236 = *v249;
+        v191 = *v204;
         do
         {
-          for (m = 0; m != v239; ++m)
+          for (k = 0; k != v194; ++k)
           {
-            if (*v249 != v236)
+            if (*v204 != v191)
             {
-              objc_enumerationMutation(v234);
+              objc_enumerationMutation(v189);
             }
 
-            v174 = *(*(&v248 + 1) + 8 * m);
-            v175 = objc_msgSend_bytesPerIndex(v174, v170, v171, v172);
-            v179 = objc_msgSend_data(v174, v176, v177, v178);
-            v183 = objc_msgSend_bytes(v179, v180, v181, v182);
-            v187 = objc_msgSend_indexCount(v174, v184, v185, v186);
-            if (objc_msgSend_primitiveType(v174, v188, v189, v190) == 4)
+            v140 = *(*(&v203 + 1) + 8 * k);
+            v141 = objc_msgSend_bytesPerIndex(v140, v137, v138);
+            v144 = objc_msgSend_data(v140, v142, v143);
+            v147 = objc_msgSend_bytes(v144, v145, v146);
+            v150 = objc_msgSend_indexCount(v140, v148, v149);
+            if (objc_msgSend_primitiveType(v140, v151, v152) == 4)
             {
-              v194 = objc_msgSend_primitiveCount(v174, v191, v192, v193) * v175;
+              v155 = objc_msgSend_primitiveCount(v140, v153, v154) * v141;
             }
 
             else
             {
-              v194 = 0;
+              v155 = 0;
             }
 
-            v247 = v194;
-            v242 = v194 + v187 * v175;
-            v245 = malloc_type_malloc(v242, 0x100004077774924uLL);
-            if (v187)
+            v202 = v155;
+            v197 = v155 + v150 * v141;
+            v156 = malloc_type_malloc(v197, 0x100004077774924uLL);
+            v200 = v156;
+            if (v150)
             {
-              v198 = 0;
-              v199 = &v245[v247];
+              v159 = 0;
+              v160 = v156 + v202;
               do
               {
-                switch(v175)
+                switch(v141)
                 {
                   case 4:
-                    v204 = v31[*(v183 + 4 * v198)];
-                    *&v199[4 * v198] = v204;
-                    if (v164 <= v204)
+                    v165 = v24[*(v147 + 4 * v159)];
+                    *(v160 + 4 * v159) = v165;
+                    if (v131 <= v165)
                     {
-                      v205 = sub_1AF0D5194();
-                      if (os_log_type_enabled(v205, OS_LOG_TYPE_FAULT))
+                      v166 = sub_1AF0D5194(v156, v157);
+                      v156 = os_log_type_enabled(v166, OS_LOG_TYPE_FAULT);
+                      if (v156)
                       {
-                        sub_1AFDFB390(v259, &v260, v205);
+                        sub_1AFDFB390(v214, &v215, v166);
                       }
                     }
 
                     break;
                   case 2:
-                    v202 = v31[*(v183 + 2 * v198)];
-                    *&v199[2 * v198] = v202;
-                    if (v164 <= v202)
+                    v163 = v24[*(v147 + 2 * v159)];
+                    *(v160 + 2 * v159) = v163;
+                    if (v131 <= v163)
                     {
-                      v203 = sub_1AF0D5194();
-                      if (os_log_type_enabled(v203, OS_LOG_TYPE_FAULT))
+                      v164 = sub_1AF0D5194(v156, v157);
+                      v156 = os_log_type_enabled(v164, OS_LOG_TYPE_FAULT);
+                      if (v156)
                       {
-                        sub_1AFDFB3D4(v261, &v262, v203);
+                        sub_1AFDFB3D4(v216, &v217, v164);
                       }
                     }
 
                     break;
                   case 1:
-                    v200 = v31[*(v183 + v198)];
-                    v199[v198] = v200;
-                    if (v164 <= v200)
+                    v161 = v24[*(v147 + v159)];
+                    *(v160 + v159) = v161;
+                    if (v131 <= v161)
                     {
-                      v201 = sub_1AF0D5194();
-                      if (os_log_type_enabled(v201, OS_LOG_TYPE_FAULT))
+                      v162 = sub_1AF0D5194(v156, v157);
+                      v156 = os_log_type_enabled(v162, OS_LOG_TYPE_FAULT);
+                      if (v156)
                       {
-                        sub_1AFDFB418(v263, &v264, v201);
+                        sub_1AFDFB418(v218, &v219, v162);
                       }
                     }
 
                     break;
                 }
 
-                ++v198;
+                ++v159;
               }
 
-              while (v187 != v198);
+              while (v150 != v159);
             }
 
-            if (v247)
+            if (v202)
             {
-              v206 = objc_msgSend_data(v174, v195, v196, v197);
-              v210 = objc_msgSend_bytes(v206, v207, v208, v209);
-              memcpy(v245, v210, v247);
+              v167 = objc_msgSend_data(v140, v157, v158);
+              v170 = objc_msgSend_bytes(v167, v168, v169);
+              memcpy(v200, v170, v202);
             }
 
-            v211 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x1E695DEF0], v195, v245, v242, 1);
-            v215 = objc_msgSend_primitiveType(v174, v212, v213, v214);
-            v219 = objc_msgSend_primitiveCount(v174, v216, v217, v218);
-            v221 = objc_msgSend_meshElementWithData_primitiveType_primitiveCount_bytesPerIndex_(VFXMeshElement, v220, v211, v215, v219, v175);
-            objc_msgSend_addObject_(v237, v222, v221, v223);
+            v171 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x1E695DEF0], v157, v200, v197, 1);
+            v174 = objc_msgSend_primitiveType(v140, v172, v173);
+            v177 = objc_msgSend_primitiveCount(v140, v175, v176);
+            v179 = objc_msgSend_meshElementWithData_primitiveType_primitiveCount_bytesPerIndex_(VFXMeshElement, v178, v171, v174, v177, v141);
+            objc_msgSend_addObject_(v192, v180, v179);
           }
 
-          v239 = objc_msgSend_countByEnumeratingWithState_objects_count_(v234, v170, &v248, v265, 16);
+          v194 = objc_msgSend_countByEnumeratingWithState_objects_count_(v189, v137, &v203, v220, 16);
         }
 
-        while (v239);
+        while (v194);
       }
 
-      selfCopy = objc_msgSend_meshWithSources_elements_(VFXMesh, v170, v238, v237);
-      v227 = objc_msgSend_name(v231, v224, v225, v226);
-      objc_msgSend_setName_(selfCopy, v228, v227, v229);
-      v49 = v232;
+      selfCopy = objc_msgSend_meshWithSources_elements_(VFXMesh, v137, v193, v192);
+      v183 = objc_msgSend_name(v186, v181, v182);
+      objc_msgSend_setName_(selfCopy, v184, v183);
+      v38 = v187;
     }
   }
 
   else
   {
-    v49 = v26;
+    v38 = v20;
   }
 
-  free(v49);
-  free(v31);
+  free(v38);
+  free(v24);
   return selfCopy;
 }
 
 - (id)debugQuickLookObjectWithWorld:(id)world
 {
-  v5 = objc_msgSend_copy(self, a2, world, v3);
-  v8 = objc_msgSend_modelWithMesh_(VFXModel, v6, v5, v7);
-  v11 = objc_msgSend_nodeWithModel_(VFXNode, v9, v8, v10);
+  v4 = objc_msgSend_copy(self, a2, world);
+  v6 = objc_msgSend_modelWithMesh_(VFXModel, v5, v4);
+  v8 = objc_msgSend_nodeWithModel_(VFXNode, v7, v6);
 
-  return MEMORY[0x1EEE66B58](v11, sel_debugQuickLookObjectWithWorld_, world, v12);
+  return MEMORY[0x1EEE66B58](v8, sel_debugQuickLookObjectWithWorld_, world);
 }
 
 - (id)debugQuickLookObject
 {
-  v5 = objc_msgSend_world(self, a2, v2, v3);
+  v4 = objc_msgSend_world(self, a2, v2);
 
-  return MEMORY[0x1EEE66B58](self, sel_debugQuickLookObjectWithWorld_, v5, v6);
+  return MEMORY[0x1EEE66B58](self, sel_debugQuickLookObjectWithWorld_, v4);
 }
 
 - (id)debugQuickLookData
 {
-  v4 = objc_msgSend_debugQuickLookObject(self, a2, v2, v3);
+  v3 = objc_msgSend_debugQuickLookObject(self, a2, v2);
 
-  return UIImagePNGRepresentation(v4);
+  return UIImagePNGRepresentation(v3);
 }
 
 @end

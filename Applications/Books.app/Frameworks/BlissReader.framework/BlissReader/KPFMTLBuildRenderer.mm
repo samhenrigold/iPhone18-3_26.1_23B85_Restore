@@ -62,7 +62,7 @@
   }
 
   [(KNAnimationPluginContext *)mPluginContext setRendererType:10];
-  [(KNAnimatedBuild *)[(KPFMTLBuildRenderer *)self animatedBuild] duration];
+  objc_msgSend_duration([(KPFMTLBuildRenderer *)self animatedBuild]);
   [(KNAnimationPluginContext *)mPluginContext setDuration:?];
   [(KNAnimationPluginContext *)mPluginContext setDirection:self->mDirection];
   [(KNAnimationPluginContext *)mPluginContext setAnimatedBuild:[(KPFMTLBuildRenderer *)self animatedBuild]];
@@ -470,7 +470,7 @@ LABEL_16:
     mPluginContext = self->mPluginContext;
   }
 
-  [(KNAnimationPluginContext *)mPluginContext duration];
+  objc_msgSend_duration(mPluginContext);
   TSUClamp();
   v14 = v13;
   self->mAnimationRanToCompletion = v13 >= 1.0;

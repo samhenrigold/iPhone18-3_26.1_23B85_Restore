@@ -87,15 +87,15 @@
   }
 }
 
-uint64_t __72__MPNowPlayingInfoCenter__onQueue_clearPlaybackQueueDataSourceCallbacks__block_invoke(uint64_t a1, void *a2)
+uint64_t __72__MPNowPlayingInfoCenter__onQueue_clearPlaybackQueueDataSourceCallbacks__block_invoke(uint64_t result, void *a2)
 {
   if (*a2)
   {
-    result = MRMediaRemotePlaybackQueueDataSourceRemoveCallbackForPlayer();
+    v3 = MRMediaRemotePlaybackQueueDataSourceRemoveCallbackForPlayer();
     *a2 = 0;
   }
 
-  return result;
+  return v3;
 }
 
 + (OS_dispatch_queue)serviceQueue
@@ -1884,17 +1884,17 @@ void __95__MPNowPlayingInfoCenter__getTransportablePlaybackSessionRepresentation
   }
 }
 
-void __95__MPNowPlayingInfoCenter__getTransportablePlaybackSessionRepresentationWithRequest_completion___block_invoke_2(void *a1)
+void __95__MPNowPlayingInfoCenter__getTransportablePlaybackSessionRepresentationWithRequest_completion___block_invoke_2(void *a1, uint64_t a2)
 {
   if (MSVDeviceOSIsInternalInstall())
   {
-    v3 = [MEMORY[0x1E696AAA8] currentHandler];
-    [v3 handleFailureInMethod:a1[6] object:a1[4] file:@"MPNowPlayingInfoCenter.m" lineNumber:644 description:@"MPNowPlayingPlaybackQueueDataSource getTransportablePlaybackSessionRepresentationWithCompletion completion was released without being called."];
+    v4 = [MEMORY[0x1E696AAA8] currentHandler];
+    [v4 handleFailureInMethod:a1[6] object:a1[4] file:@"MPNowPlayingInfoCenter.m" lineNumber:644 description:@"MPNowPlayingPlaybackQueueDataSource getTransportablePlaybackSessionRepresentationWithCompletion completion was released without being called."];
   }
 
-  v2 = a1[5];
+  v3 = a1[5];
   Error = MRMediaRemoteCreateError();
-  (*(v2 + 16))(v2, 0, Error);
+  (*(v3 + 16))(v3, 0, Error);
 }
 
 void __95__MPNowPlayingInfoCenter__getTransportablePlaybackSessionRepresentationWithRequest_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -2680,115 +2680,115 @@ void __76__MPNowPlayingInfoCenter__onQueue_registerPlaybackQueueDataSourceCallba
   [WeakRetained _getTransportablePlaybackSessionRepresentationWithRequest:v6 completion:v9];
 }
 
-id __76__MPNowPlayingInfoCenter__onQueue_registerPlaybackQueueDataSourceCallbacks___block_invoke_7(uint64_t a1)
+id __76__MPNowPlayingInfoCenter__onQueue_registerPlaybackQueueDataSourceCallbacks___block_invoke_7(uint64_t a1, uint64_t a2)
 {
   aBlock[16] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v24[0] = 0;
-    v24[1] = 0;
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy__54662;
-    v37 = __Block_byref_object_dispose__54663;
-    v38 = 0;
-    v32[0] = 0;
-    v32[1] = v32;
-    v32[2] = 0x3010000000;
-    v32[3] = "";
-    v32[4] = MRPlaybackQueueRequestGetRange();
-    v32[5] = v2;
+    v25[0] = 0;
+    v25[1] = 0;
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x3032000000;
+    v37 = __Block_byref_object_copy__54662;
+    v38 = __Block_byref_object_dispose__54663;
+    v39 = 0;
+    v33[0] = 0;
+    v33[1] = v33;
+    v33[2] = 0x3010000000;
+    v33[3] = "";
+    v33[4] = MRPlaybackQueueRequestGetRange();
+    v33[5] = v3;
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __60__MPNowPlayingInfoCenter__contentItemIDsInRange_itemsRange___block_invoke;
     aBlock[3] = &unk_1E7681290;
     aBlock[4] = WeakRetained;
-    aBlock[5] = v32;
-    aBlock[6] = &v33;
-    aBlock[7] = v24;
-    v3 = _Block_copy(aBlock);
+    aBlock[5] = v33;
+    aBlock[6] = &v34;
+    aBlock[7] = v25;
+    v4 = _Block_copy(aBlock);
     msv_dispatch_sync_on_queue();
-    v4 = v34[5];
-    if (!v4)
+    v5 = v35[5];
+    if (!v5)
     {
-      *&v20 = MEMORY[0x1E69E9820];
-      *(&v20 + 1) = 3221225472;
-      *&v21 = __60__MPNowPlayingInfoCenter__contentItemIDsInRange_itemsRange___block_invoke_2;
-      *(&v21 + 1) = &unk_1E76812B8;
-      *&v22 = WeakRetained;
-      *(&v22 + 1) = v32;
-      *&v23 = sel__contentItemIDsInRange_itemsRange_;
-      v5 = _Block_copy(&v20);
-      v25 = MEMORY[0x1E69E9820];
-      v26 = 3221225472;
-      v27 = __60__MPNowPlayingInfoCenter__contentItemIDsInRange_itemsRange___block_invoke_3;
-      v28 = &unk_1E7681308;
-      v29 = WeakRetained;
-      v31 = v32;
-      v6 = v5;
-      v30 = v6;
+      *&v21 = MEMORY[0x1E69E9820];
+      *(&v21 + 1) = 3221225472;
+      *&v22 = __60__MPNowPlayingInfoCenter__contentItemIDsInRange_itemsRange___block_invoke_2;
+      *(&v22 + 1) = &unk_1E76812B8;
+      *&v23 = WeakRetained;
+      *(&v23 + 1) = v33;
+      *&v24 = sel__contentItemIDsInRange_itemsRange_;
+      v6 = _Block_copy(&v21);
+      v26 = MEMORY[0x1E69E9820];
+      v27 = 3221225472;
+      v28 = __60__MPNowPlayingInfoCenter__contentItemIDsInRange_itemsRange___block_invoke_3;
+      v29 = &unk_1E7681308;
+      v30 = WeakRetained;
+      v32 = v33;
+      v7 = v6;
+      v31 = v7;
       msv_dispatch_sync_on_queue();
       msv_dispatch_sync_on_queue();
 
-      v4 = v34[5];
+      v5 = v35[5];
     }
 
-    v7 = v4;
+    v8 = v5;
 
-    _Block_object_dispose(v32, 8);
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(v33, 8);
+    _Block_object_dispose(&v34, 8);
 
-    v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v22 = 0u;
+    v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v23 = 0u;
-    v20 = 0u;
+    v24 = 0u;
     v21 = 0u;
-    v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:aBlock count:16];
-    if (v10)
+    v22 = 0u;
+    v10 = v8;
+    v11 = [v10 countByEnumeratingWithState:&v21 objects:aBlock count:16];
+    if (v11)
     {
-      v11 = *v21;
+      v12 = *v22;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v11)
+          if (*v22 != v12)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v13 = MRContentItemCreate();
-          [v8 addObject:v13];
+          v14 = MRContentItemCreate();
+          [v9 addObject:v14];
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v20 objects:aBlock count:16];
+        v11 = [v10 countByEnumeratingWithState:&v21 objects:aBlock count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
-    v14 = objc_alloc(MEMORY[0x1E69B0AA8]);
-    v15 = [v14 initWithContentItems:v8 location:v24[0]];
-    v25 = MEMORY[0x1E69E9820];
-    v26 = 3221225472;
-    v27 = __57__MPNowPlayingInfoCenter__createPlaybackQueueForRequest___block_invoke;
-    v28 = &unk_1E76823C0;
-    v29 = WeakRetained;
-    v16 = v15;
-    v30 = v16;
+    v15 = objc_alloc(MEMORY[0x1E69B0AA8]);
+    v16 = [v15 initWithContentItems:v9 location:v25[0]];
+    v26 = MEMORY[0x1E69E9820];
+    v27 = 3221225472;
+    v28 = __57__MPNowPlayingInfoCenter__createPlaybackQueueForRequest___block_invoke;
+    v29 = &unk_1E76823C0;
+    v30 = WeakRetained;
+    v17 = v16;
+    v31 = v17;
     msv_dispatch_sync_on_queue();
-    v17 = v30;
-    v18 = v16;
+    v18 = v31;
+    v19 = v17;
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
-  return v18;
+  return v19;
 }
 
 uint64_t __76__MPNowPlayingInfoCenter__onQueue_registerPlaybackQueueDataSourceCallbacks___block_invoke_8(uint64_t a1, void *a2)
@@ -2813,22 +2813,22 @@ uint64_t __76__MPNowPlayingInfoCenter__onQueue_registerPlaybackQueueDataSourceCa
   return SkeletonFrom;
 }
 
-uint64_t __76__MPNowPlayingInfoCenter__onQueue_registerPlaybackQueueDataSourceCallbacks___block_invoke_10(uint64_t a1)
+uint64_t __76__MPNowPlayingInfoCenter__onQueue_registerPlaybackQueueDataSourceCallbacks___block_invoke_10(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   Identifier = MRContentItemGetIdentifier();
-  v3 = [(MPNowPlayingInfoCenter *)WeakRetained _contentItemForIdentifier:?];
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = 0;
-  v6 = WeakRetained;
-  v7 = v3;
+  v5 = [(MPNowPlayingInfoCenter *)WeakRetained _contentItemForIdentifier:?];
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v13 = 0;
+  v8 = WeakRetained;
+  v9 = v5;
   msv_dispatch_sync_on_queue();
-  v4 = v9[3];
+  v6 = v11[3];
 
-  _Block_object_dispose(&v8, 8);
-  return v4;
+  _Block_object_dispose(&v10, 8);
+  return v6;
 }
 
 void __76__MPNowPlayingInfoCenter__onQueue_registerPlaybackQueueDataSourceCallbacks___block_invoke_13(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -3683,46 +3683,46 @@ void __60__MPNowPlayingInfoCenter__contentItemIDsInRange_itemsRange___block_invo
   }
 }
 
-void __60__MPNowPlayingInfoCenter__contentItemIDsInRange_itemsRange___block_invoke_2(uint64_t a1, void *a2)
+void __60__MPNowPlayingInfoCenter__contentItemIDsInRange_itemsRange___block_invoke_2(uint64_t *a1, void *a2, uint64_t a3)
 {
-  v23 = a2;
-  dispatch_assert_queue_V2(*(*(a1 + 32) + 40));
-  [(MPNowPlayingInfoCenter *)*(a1 + 32) _onQueue_ensureContentItemStorageInitialized];
-  v3 = [v23 count];
-  v4 = *(a1 + 32);
-  if (v3)
+  v24 = a2;
+  dispatch_assert_queue_V2(*(a1[4] + 40));
+  [(MPNowPlayingInfoCenter *)a1[4] _onQueue_ensureContentItemStorageInitialized];
+  v4 = [v24 count];
+  v5 = a1[4];
+  if (v4)
   {
-    v5 = [*(v4 + 112) count];
-    v6 = MSVReplacementRangeForRanges();
-    v8 = v7;
-    [*(*(a1 + 32) + 112) replaceObjectsInRange:v6 withObjectsFromArray:{v7, v23}];
-    v9 = *(a1 + 32);
-    *(v9 + 80) = MSVSignedUnionRange();
-    *(v9 + 88) = v10;
-    v11 = [*(*(a1 + 32) + 112) count];
-    v4 = *(a1 + 32);
-    if (v11 != *(v4 + 88))
+    v6 = [*(v5 + 112) count];
+    v7 = MSVReplacementRangeForRanges();
+    v9 = v8;
+    [*(a1[4] + 112) replaceObjectsInRange:v7 withObjectsFromArray:{v8, v24}];
+    v10 = a1[4];
+    *(v10 + 80) = MSVSignedUnionRange();
+    *(v10 + 88) = v11;
+    v12 = [*(a1[4] + 112) count];
+    v5 = a1[4];
+    if (v12 != *(v5 + 88))
     {
-      v21 = [MEMORY[0x1E696AAA8] currentHandler];
-      v22 = *(a1 + 48);
-      v13 = *(a1 + 32);
-      v14 = [*(v13 + 112) count];
-      v19 = *(*(a1 + 32) + 88);
-      v20 = v14;
-      v15 = [v23 count];
-      v16 = NSStringFromMSVSignedRange();
+      v22 = [MEMORY[0x1E696AAA8] currentHandler];
+      v23 = a1[6];
+      v14 = a1[4];
+      v15 = [*(v14 + 112) count];
+      v20 = *(a1[4] + 88);
+      v21 = v15;
+      v16 = [v24 count];
       v17 = NSStringFromMSVSignedRange();
-      v25.location = v6;
-      v25.length = v8;
-      v18 = NSStringFromRange(v25);
-      [v21 handleFailureInMethod:v22 object:v13 file:@"MPNowPlayingInfoCenter.m" lineNumber:518 description:{@"CIIR: Mismatch in contentItemIdentifiers=%ld, loadedContentItemsRange=%ld, previousContentItemIDCount=%ld, dataSourceContentItemIDs=%ld, replacementRange: [(_loaded) %@ : (loaded) %@] => (replacement) %@", v20, v19, v5, v15, v16, v17, v18}];
+      v18 = NSStringFromMSVSignedRange();
+      v26.location = v7;
+      v26.length = v9;
+      v19 = NSStringFromRange(v26);
+      [v22 handleFailureInMethod:v23 object:v14 file:@"MPNowPlayingInfoCenter.m" lineNumber:518 description:{@"CIIR: Mismatch in contentItemIdentifiers=%ld, loadedContentItemsRange=%ld, previousContentItemIDCount=%ld, dataSourceContentItemIDs=%ld, replacementRange: [(_loaded) %@ : (loaded) %@] => (replacement) %@", v21, v20, v6, v16, v17, v18, v19}];
 
-      v4 = *(a1 + 32);
+      v5 = a1[4];
     }
   }
 
-  *(v4 + 96) = MSVSignedUnionRange();
-  *(v4 + 104) = v12;
+  *(v5 + 96) = MSVSignedUnionRange();
+  *(v5 + 104) = v13;
 }
 
 void __60__MPNowPlayingInfoCenter__contentItemIDsInRange_itemsRange___block_invoke_3(uint64_t a1)
@@ -3925,58 +3925,58 @@ void __52__MPNowPlayingInfoCenter_becomeActiveSystemFallback__block_invoke(uint6
   dispatch_async(accessQueue, v4);
 }
 
-void __43__MPNowPlayingInfoCenter_setPlaybackState___block_invoke(uint64_t a1)
+void __43__MPNowPlayingInfoCenter_setPlaybackState___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  if ((*(v1 + 288) & 1) == 0)
+  v2 = *(a1 + 32);
+  if ((*(v2 + 288) & 1) == 0)
   {
-    v3 = *(a1 + 40);
-    if (*(v1 + 144) != v3)
+    v4 = *(a1 + 40);
+    if (*(v2 + 144) != v4)
     {
-      *(v1 + 144) = v3;
-      v4 = *(a1 + 40);
-      if (v4 <= 2)
+      *(v2 + 144) = v4;
+      v5 = *(a1 + 40);
+      if (v5 <= 2)
       {
-        if (v4 == 1)
+        if (v5 == 1)
         {
-          v5 = 1;
+          v6 = 1;
           goto LABEL_15;
         }
 
-        if (v4 == 2)
+        if (v5 == 2)
         {
-          v5 = 2;
+          v6 = 2;
           goto LABEL_15;
         }
       }
 
       else
       {
-        switch(v4)
+        switch(v5)
         {
           case 3:
-            v5 = 3;
+            v6 = 3;
             goto LABEL_15;
           case 4:
-            v5 = 4;
+            v6 = 4;
             goto LABEL_15;
           case 1000:
-            v5 = 5;
+            v6 = 5;
 LABEL_15:
-            v6 = [objc_opt_class() serviceQueue];
-            v7[0] = MEMORY[0x1E69E9820];
-            v7[1] = 3221225472;
-            v7[2] = __43__MPNowPlayingInfoCenter_setPlaybackState___block_invoke_2;
-            v7[3] = &unk_1E76811D8;
-            v7[4] = *(a1 + 32);
-            v8 = v5;
-            dispatch_async(v6, v7);
+            v7 = [objc_opt_class() serviceQueue];
+            v8[0] = MEMORY[0x1E69E9820];
+            v8[1] = 3221225472;
+            v8[2] = __43__MPNowPlayingInfoCenter_setPlaybackState___block_invoke_2;
+            v8[3] = &unk_1E76811D8;
+            v8[4] = *(a1 + 32);
+            v9 = v6;
+            dispatch_async(v7, v8);
 
             return;
         }
       }
 
-      v5 = 0;
+      v6 = 0;
       goto LABEL_15;
     }
   }
@@ -4120,13 +4120,13 @@ LABEL_8:
   return v7;
 }
 
-void __45__MPNowPlayingInfoCenter_initWithPlayerPath___block_invoke()
+void __45__MPNowPlayingInfoCenter_initWithPlayerPath___block_invoke(uint64_t a1, uint64_t a2)
 {
   obj = objc_opt_class();
   objc_sync_enter(obj);
-  v0 = [MEMORY[0x1E696AD18] strongToWeakObjectsMapTable];
-  v1 = __infoCenterMap;
-  __infoCenterMap = v0;
+  v2 = [MEMORY[0x1E696AD18] strongToWeakObjectsMapTable];
+  v3 = __infoCenterMap;
+  __infoCenterMap = v2;
 
   objc_sync_exit(obj);
 }

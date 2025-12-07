@@ -116,58 +116,55 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_identifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_username)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_dSID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    authenticated = self->_authenticated;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_altDSID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_type)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    aaPrimaryAccount = self->_aaPrimaryAccount;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    aaIsManaged = self->_aaIsManaged;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -307,7 +304,6 @@
     }
   }
 
-  v8 = *(equalCopy + 52);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 52) & 4) == 0)
@@ -315,7 +311,6 @@
       goto LABEL_22;
     }
 
-    v13 = *(equalCopy + 50);
     if (self->_authenticated)
     {
       if ((*(equalCopy + 50) & 1) == 0)
@@ -358,7 +353,7 @@
     }
 
 LABEL_22:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_23;
   }
 
@@ -367,7 +362,6 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v14 = *(equalCopy + 49);
   if (self->_aaPrimaryAccount)
   {
     if ((*(equalCopy + 49) & 1) == 0)
@@ -382,7 +376,7 @@ LABEL_22:
   }
 
 LABEL_16:
-  v11 = (*(equalCopy + 52) & 1) == 0;
+  v10 = (*(equalCopy + 52) & 1) == 0;
   if (*&self->_has)
   {
     if (*(equalCopy + 52))
@@ -398,7 +392,7 @@ LABEL_16:
       else if (!*(equalCopy + 48))
       {
 LABEL_36:
-        v11 = 1;
+        v10 = 1;
         goto LABEL_23;
       }
     }
@@ -408,7 +402,7 @@ LABEL_36:
 
 LABEL_23:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash

@@ -179,82 +179,82 @@ void __29__AVTAvatarLibraryModel_load__block_invoke(uint64_t a1, void *a2, uint6
     indexCopy = index;
     avatarRecord = [itemCopy avatarRecord];
     v9 = [MEMORY[0x1E69DC650] alertControllerWithTitle:0 message:0 preferredStyle:0];
-    v10 = AVTAvatarUIBundle();
+    v10 = AVTAvatarUIBundle(v9);
     v11 = [v10 localizedStringForKey:@"EDIT" value:&stru_1F39618F0 table:@"Localized"];
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __65__AVTAvatarLibraryModel_presentActionSheetForRecordItem_atIndex___block_invoke;
-    v47[3] = &unk_1E7F3B7F8;
+    v51[0] = MEMORY[0x1E69E9820];
+    v51[1] = 3221225472;
+    v51[2] = __65__AVTAvatarLibraryModel_presentActionSheetForRecordItem_atIndex___block_invoke;
+    v51[3] = &unk_1E7F3B7F8;
     v12 = avatarRecord;
-    v48 = v12;
+    v52 = v12;
     selfCopy = self;
-    v13 = [AVTComponentFactory alertActionWithTitle:v11 style:0 handler:v47];
+    v13 = [AVTComponentFactory alertActionWithTitle:v11 style:0 handler:v51];
     [v9 addAction:v13];
 
-    v14 = AVTAvatarUIBundle();
-    v15 = [v14 localizedStringForKey:@"SHARE" value:&stru_1F39618F0 table:@"Localized"];
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __65__AVTAvatarLibraryModel_presentActionSheetForRecordItem_atIndex___block_invoke_2;
-    v44[3] = &unk_1E7F3B820;
-    v44[4] = self;
-    v16 = v12;
-    v45 = v16;
-    v17 = v7;
-    v46 = v17;
-    v18 = [AVTComponentFactory alertActionWithTitle:v15 style:0 handler:v44];
-    [v9 addAction:v18];
+    v15 = AVTAvatarUIBundle(v14);
+    v16 = [v15 localizedStringForKey:@"SHARE" value:&stru_1F39618F0 table:@"Localized"];
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = __65__AVTAvatarLibraryModel_presentActionSheetForRecordItem_atIndex___block_invoke_2;
+    v48[3] = &unk_1E7F3B820;
+    v48[4] = self;
+    v17 = v12;
+    v49 = v17;
+    v18 = v7;
+    v50 = v18;
+    v19 = [AVTComponentFactory alertActionWithTitle:v16 style:0 handler:v48];
+    [v9 addAction:v19];
 
-    v19 = AVTAvatarUIBundle();
-    v20 = [v19 localizedStringForKey:@"SHARE ALL" value:&stru_1F39618F0 table:@"Localized"];
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __65__AVTAvatarLibraryModel_presentActionSheetForRecordItem_atIndex___block_invoke_3;
-    v42[3] = &unk_1E7F3B7F8;
-    v42[4] = self;
-    v34 = v17;
-    v43 = v34;
-    v21 = [AVTComponentFactory alertActionWithTitle:v20 style:0 handler:v42];
-    [v9 addAction:v21];
+    v21 = AVTAvatarUIBundle(v20);
+    v22 = [v21 localizedStringForKey:@"SHARE ALL" value:&stru_1F39618F0 table:@"Localized"];
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __65__AVTAvatarLibraryModel_presentActionSheetForRecordItem_atIndex___block_invoke_3;
+    v46[3] = &unk_1E7F3B7F8;
+    v46[4] = self;
+    v38 = v18;
+    v47 = v38;
+    v23 = [AVTComponentFactory alertActionWithTitle:v22 style:0 handler:v46];
+    [v9 addAction:v23];
 
     avatarStore = [(AVTAvatarLibraryModel *)self avatarStore];
-    LODWORD(v20) = [avatarStore canCreateAvatarWithError:0];
+    LODWORD(v22) = [avatarStore canCreateAvatarWithError:0];
 
-    if (v20)
+    if (v22)
     {
-      v23 = AVTAvatarUIBundle();
-      v24 = [v23 localizedStringForKey:@"DUPLICATE" value:&stru_1F39618F0 table:@"Localized"];
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __65__AVTAvatarLibraryModel_presentActionSheetForRecordItem_atIndex___block_invoke_4;
-      v39[3] = &unk_1E7F3B898;
-      v39[4] = self;
-      v40 = v16;
-      v41 = indexCopy;
-      v25 = [AVTComponentFactory alertActionWithTitle:v24 style:0 handler:v39];
-      [v9 addAction:v25];
+      v26 = AVTAvatarUIBundle(v25);
+      v27 = [v26 localizedStringForKey:@"DUPLICATE" value:&stru_1F39618F0 table:@"Localized"];
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = __65__AVTAvatarLibraryModel_presentActionSheetForRecordItem_atIndex___block_invoke_4;
+      v43[3] = &unk_1E7F3B898;
+      v43[4] = self;
+      v44 = v17;
+      v45 = indexCopy;
+      v28 = [AVTComponentFactory alertActionWithTitle:v27 style:0 handler:v43];
+      [v9 addAction:v28];
     }
 
-    v26 = AVTAvatarUIBundle();
-    v27 = [v26 localizedStringForKey:@"DELETE" value:&stru_1F39618F0 table:@"Localized"];
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __65__AVTAvatarLibraryModel_presentActionSheetForRecordItem_atIndex___block_invoke_7;
-    v36[3] = &unk_1E7F3B898;
-    v36[4] = self;
-    v37 = v16;
-    v38 = indexCopy;
-    v28 = v16;
-    v29 = [AVTComponentFactory alertActionWithTitle:v27 style:0 handler:v36];
-    [v9 addAction:v29];
-
-    v30 = AVTAvatarUIBundle();
-    v31 = [v30 localizedStringForKey:@"CANCEL" value:&stru_1F39618F0 table:@"Localized"];
-    v32 = [AVTComponentFactory alertActionWithTitle:v31 style:1 handler:0];
+    v29 = AVTAvatarUIBundle(v25);
+    v30 = [v29 localizedStringForKey:@"DELETE" value:&stru_1F39618F0 table:@"Localized"];
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __65__AVTAvatarLibraryModel_presentActionSheetForRecordItem_atIndex___block_invoke_7;
+    v40[3] = &unk_1E7F3B898;
+    v40[4] = self;
+    v41 = v17;
+    v42 = indexCopy;
+    v31 = v17;
+    v32 = [AVTComponentFactory alertActionWithTitle:v30 style:0 handler:v40];
     [v9 addAction:v32];
 
+    v34 = AVTAvatarUIBundle(v33);
+    v35 = [v34 localizedStringForKey:@"CANCEL" value:&stru_1F39618F0 table:@"Localized"];
+    v36 = [AVTComponentFactory alertActionWithTitle:v35 style:1 handler:0];
+    [v9 addAction:v36];
+
     delegate = [(AVTAvatarLibraryModel *)self delegate];
-    [delegate presentUIViewController:v9 forItem:v34];
+    [delegate presentUIViewController:v9 forItem:v38];
   }
 }
 

@@ -4614,7 +4614,7 @@ BOOL GTFenum_isMIOCommandBufferRelated(int a1)
   return 0;
 }
 
-uint64_t GTFenum_isFrameBoundary(int a1)
+BOOL GTFenum_isFrameBoundary(int a1)
 {
   isPresent = GTFenum_isPresent(a1);
   v4 = a1 == -10168 || a1 == -16341;
@@ -4715,7 +4715,7 @@ uint64_t GTFenum_getTargetType(int a1)
   return result;
 }
 
-uint64_t GTFenum_isArgumentTableSnapshotCall(int a1)
+BOOL GTFenum_isArgumentTableSnapshotCall(unsigned int a1)
 {
   if (GTFenum_isDrawCall(a1) & 1) != 0 || (GTFenum_isComputeCall(a1))
   {
@@ -5302,9 +5302,7 @@ uint64_t GTTraceMemHeader_data(uint64_t result)
 {
   if (result)
   {
-    v1 = result;
     result += 16;
-    v2 = *(v1 + 12);
   }
 
   return result;
@@ -5601,7 +5599,7 @@ LABEL_32:
 
 uint64_t Fbuf_ReturnValue(_DWORD *a1)
 {
-  v1 = (a1 + 9);
+  v1 = a1 + 9;
   v2 = (*a1 - 36);
   v4 = 0;
   FBDecoder_DecodeArguments(&v4, (a1 + 9), v2, v5, 0x10uLL);
@@ -5635,18 +5633,19 @@ uint64_t GTTraceFuncArgs_getMtl4Commits(uint64_t a1, uint64_t a2, char **a3)
   return *(v9 + 1);
 }
 
-void ***MakeDYMTLRenderPassSampleBufferAttachmentDescriptor(void ***result, void *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
+uint64_t *MakeDYMTLRenderPassSampleBufferAttachmentDescriptor(uint64_t *result, void *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
 {
   v7 = *result;
-  v8 = *(*result)++;
+  v8 = **result;
+  *result += 8;
   v9 = v7[1];
-  *result = v7 + 2;
+  *result = (v7 + 2);
   v10 = v7[2];
-  *result = v7 + 3;
+  *result = (v7 + 3);
   v11 = v7[3];
-  *result = v7 + 4;
+  *result = (v7 + 4);
   v12 = v7[4];
-  *result = v7 + 5;
+  *result = (v7 + 5);
   if (a5)
   {
     if (a6)
@@ -5813,8 +5812,6 @@ uint64_t DecodeDYMTLTextureDescriptor(uint64_t result, uint64_t a2, uint64_t *a3
             *(v4 + 42) = *(v7 + 72);
             if (v5 >= 0x23)
             {
-              v11 = *(v7 + 88);
-              v12 = *(v7 + 96);
               *(v4 + 16) = *(v7 + 80) | (*(v7 + 88) << 8) | (*(v7 + 96) << 16) | (*(v7 + 104) << 24);
               if (v5 >= 0x27)
               {
@@ -6619,7 +6616,7 @@ LABEL_74:
   return result;
 }
 
-uint64_t SaveDYMTLLinkedFunctions(uint64_t *a1, uint64_t a2, uint64_t a3)
+void *SaveDYMTLLinkedFunctions(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a2 + 24);
   v7 = a1[1];
@@ -8113,7 +8110,7 @@ size_t MakeDYMTLFunctionConstant(const char **a1, uint64_t a2, uint64_t a3, uint
   *a1 = v11;
   result = strlen(v11);
   *a1 = &v11[(result & 0xFFFFFFFFFFFFFFF8) + 8];
-  if (v9[8])
+  if (*(v9 + 8))
   {
     result = strlen(v11);
     v15 = (a3 + 592);
@@ -8145,10 +8142,10 @@ LABEL_6:
   v17 = *a1;
   v18 = **a1;
   *a1 += 8;
-  v19 = *(v17 + 1);
-  *a1 = v17 + 16;
-  v20 = *(v17 + 2);
-  v21 = v17 + 24;
+  v19 = v17[1];
+  *a1 = (v17 + 2);
+  v20 = v17[2];
+  v21 = v17 + 3;
   *a1 = v21 + ((v20 + 7) & 0xFFFFFFFFFFFFFFF8);
   v22 = *(a3 + 592);
   *(a3 + 592) = &v22[v20];
@@ -8187,18 +8184,18 @@ LABEL_6:
   return result;
 }
 
-void SaveDYMTLFunctionConstant(void *a1, uint64_t a2)
+void SaveDYMTLFunctionConstant(void *a1, const void **a2)
 {
   v4 = a1[1];
   v5 = v4 + 8;
   if ((v4 + 8) <= a1[2])
   {
-    *(*a1 + v4) = *(a2 + 24);
+    *(*a1 + v4) = *(a2 + 12);
     v5 = a1[1] + 8;
   }
 
   a1[1] = v5;
-  WriteDynamicBufferString(a1, *(a2 + 16));
+  WriteDynamicBufferString(a1, a2[2]);
   v7 = a1[1];
   v6 = a1[2];
   v8 = v7 + 8;
@@ -8219,7 +8216,7 @@ void SaveDYMTLFunctionConstant(void *a1, uint64_t a2)
 
   a1[1] = v9;
   v10 = *a2;
-  v11 = *(a2 + 8);
+  v11 = a2[1];
 
   WriteGTData(a1, v10, v11);
 }
@@ -8498,7 +8495,7 @@ void SaveDYMTLRasterizationRateLayerDescriptor(void *a1, uint64_t a2)
   }
 }
 
-size_t DecodeDYMTLFunctionDescriptor(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
+uint64_t DecodeDYMTLFunctionDescriptor(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
 {
   v9 = (a1 + 16);
   v38 = *(a1 + 8);
@@ -8703,7 +8700,7 @@ const char *DecodeDYMTLFunctionConstantValues(uint64_t a1, const char *a2, uint6
   return result;
 }
 
-unint64_t EncodeDYMTLFunctionDescriptor(void **a1, void *a2, unint64_t a3, uint64_t a4)
+unint64_t EncodeDYMTLFunctionDescriptor(void *a1, void *a2, unint64_t a3, uint64_t a4)
 {
   v21 = a2;
   v23 = a3;
@@ -8766,7 +8763,7 @@ unint64_t EncodeDYMTLFunctionDescriptor(void **a1, void *a2, unint64_t a3, uint6
   v14 = 0;
   do
   {
-    v20 = a1[2][v14];
+    v20 = *(a1[2] + 8 * v14);
     entry = find_entry(a4, &v20, 8uLL, 0);
     if (*entry && (v16 = *(*entry + 32)) != 0)
     {
@@ -8813,7 +8810,7 @@ uint64_t EncodeDYMTLFunctionConstantValues(void *a1, void *a2, unint64_t a3)
     v6 = 0;
     do
     {
-      SaveDYMTLFunctionConstant(&v8, *a1 + v5);
+      SaveDYMTLFunctionConstant(&v8, (*a1 + v5));
       ++v6;
       v5 += 32;
     }
@@ -8834,7 +8831,7 @@ uint64_t EncodeDYMTLFunctionConstantValues(void *a1, void *a2, unint64_t a3)
 
 void *MakeDYMTLCompileOptions(size_t **a1, uint64_t a2, uint64_t a3, unsigned int a4, int a5, uint64_t a6)
 {
-  v12 = (*a1 + 1);
+  v12 = *a1 + 1;
   v13 = **a1;
   *a1 = (v12 + ((v13 + 7) & 0xFFFFFFFFFFFFFFF8));
   if (v13)
@@ -8989,7 +8986,7 @@ LABEL_23:
     goto LABEL_34;
   }
 
-  v39 = (*a1 + 1);
+  v39 = *a1 + 1;
   v54 = **a1;
   *a1 = v39;
   if (a4 < 0x30)
@@ -9009,7 +9006,7 @@ LABEL_23:
   }
 
   v53 = result;
-  *a1 = &v39[(strlen(v39) & 0xFFFFFFFFFFFFFFF8) + 8];
+  *a1 = (v39 + (strlen(v39) & 0xFFFFFFFFFFFFFFF8) + 8);
   if (*v39)
   {
     v40 = v39;

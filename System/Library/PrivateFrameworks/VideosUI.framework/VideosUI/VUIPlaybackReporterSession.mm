@@ -196,7 +196,7 @@ LABEL_24:
     }
   }
 
-  v11 = VUIDefaultLogObject();
+  v11 = VUIDefaultLogObject(integerValue);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138413058;
@@ -295,7 +295,7 @@ LABEL_17:
     }
   }
 
-  v11 = VUIDefaultLogObject();
+  v11 = VUIDefaultLogObject(integerValue);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138413058;

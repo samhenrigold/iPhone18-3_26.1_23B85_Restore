@@ -317,12 +317,11 @@ LABEL_55:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    index = self->_index;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -341,15 +340,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  count = self->_count;
   PBDataWriterWriteInt64Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    ttl = self->_ttl;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

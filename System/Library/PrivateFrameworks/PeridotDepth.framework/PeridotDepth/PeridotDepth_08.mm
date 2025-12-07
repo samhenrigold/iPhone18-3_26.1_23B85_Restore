@@ -537,14 +537,14 @@ void peridot::PeridotDXP::PeridotDXP(peridot::PeridotDXP *this)
   operator new[]();
 }
 
-void sub_22473FAB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, peridot::PeridotDxpMacro *a11, peridot::PeridotDXPPreProcessor *a12, peridot::PeridotDxpMacro *a13, void **a14)
+void sub_22473FAB0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _Unwind_Exception *exception_object, peridot::PeridotDxpMacro *a11, peridot::PeridotDXPPreProcessor *a12, peridot::PeridotDxpMacro *a13, void **a14)
 {
   v31 = v17;
   *v16 = off_283809F88;
   v23 = v16[1];
   if (v23)
   {
-    MEMORY[0x22AA53170](v23, 0x1000C8052888210);
+    MEMORY[0x22AA53170](v23, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   v16[2] = 0;
@@ -559,7 +559,7 @@ void sub_22473FAB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       v28 = *(v26 + v21 - 16);
       if (v28)
       {
-        MEMORY[0x22AA53170](v28, 0x1000C8052888210);
+        MEMORY[0x22AA53170](v28, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
       }
 
       *(v27 - 8) = 0;
@@ -567,7 +567,7 @@ void sub_22473FAB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       v29 = *(v27 - 40);
       if (v29)
       {
-        MEMORY[0x22AA53170](v29, 0x1000C8052888210);
+        MEMORY[0x22AA53170](v29, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
       }
 
       *(v26 + v21 - 32) = 0;
@@ -1552,13 +1552,13 @@ LABEL_121:
   return result;
 }
 
-uint64_t peridot::PeridotDXP::macroProcess(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4, char a5, float *a6, float *a7, float *a8, float a9, float a10, double a11, _BYTE *a12, uint64_t a13)
+uint64_t peridot::PeridotDXP::macroProcess(uint64_t a1, float a2, float a3, double a4, uint64_t *a5, uint64_t *a6, uint64_t a7, char a8, float *a9, float *a10, float *a11, _BYTE *a12, uint64_t a13)
 {
-  v17 = *&a11;
-  v18 = a10;
+  v17 = *&a4;
+  v18 = a3;
   v20 = *(a1 + 3512);
-  LOBYTE(a10) = *(a1 + 22);
-  v21 = LODWORD(a10);
+  LOBYTE(a3) = *(a1 + 22);
+  v21 = LODWORD(a3);
   v22 = *(a1 + 21);
   if (!*(a1 + 21))
   {
@@ -1566,7 +1566,7 @@ uint64_t peridot::PeridotDXP::macroProcess(uint64_t a1, uint64_t *a2, uint64_t *
     goto LABEL_18;
   }
 
-  *&a11 = *(a1 + 20);
+  *&a4 = *(a1 + 20);
   if (v22 <= 7)
   {
     v23 = 0;
@@ -1577,7 +1577,7 @@ LABEL_8:
     do
     {
       v35 = *v34++;
-      v24 = v24 + (v35 * *&a11);
+      v24 = v24 + (v35 * *&a4);
       --v33;
     }
 
@@ -1587,7 +1587,7 @@ LABEL_8:
 
   v25 = (a1 + 3464);
   v23 = v22 & 0xF8;
-  v26 = vdupq_lane_s32(*&a11, 0);
+  v26 = vdupq_lane_s32(*&a4, 0);
   v27 = 0uLL;
   v28 = v23;
   v29 = 0uLL;
@@ -1613,10 +1613,10 @@ LABEL_10:
   if (*(a1 + 20))
   {
     v36 = 0;
-    *&a11 = 1.0 / v24;
+    *&a4 = 1.0 / v24;
     v37 = *(a1 + 168672);
-    v38 = vdupq_lane_s32(*&a11, 0);
-    v39 = *a3 + 640 * a4;
+    v38 = vdupq_lane_s32(*&a4, 0);
+    v39 = *a6 + 640 * a7;
     v40 = 9280 * *(a1 + 20);
     do
     {
@@ -1677,38 +1677,38 @@ LABEL_10:
         {
           v44 = *_X17[40].i8;
           v45 = *_X17[42].i8;
-          *v42 = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v44.i8)), *&a11);
-          v42[1] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v44)), *&a11);
-          v42[2] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v45.i8)), *&a11);
-          v42[3] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v45)), *&a11);
+          *v42 = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v44.i8)), *&a4);
+          v42[1] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v44)), *&a4);
+          v42[2] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v45.i8)), *&a4);
+          v42[3] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v45)), *&a4);
           v46 = *_X17[44].i8;
           v47 = *_X17[46].i8;
-          v42[4] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v46.i8)), *&a11);
-          v42[5] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v46)), *&a11);
-          v42[6] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v47.i8)), *&a11);
-          v42[7] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v47)), *&a11);
+          v42[4] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v46.i8)), *&a4);
+          v42[5] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v46)), *&a4);
+          v42[6] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v47.i8)), *&a4);
+          v42[7] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v47)), *&a4);
           v48 = *_X17[48].i8;
           v49 = *_X17[50].i8;
-          v42[8] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v48.i8)), *&a11);
-          v42[9] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v48)), *&a11);
-          v42[10] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v49.i8)), *&a11);
-          v42[11] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v49)), *&a11);
+          v42[8] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v48.i8)), *&a4);
+          v42[9] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v48)), *&a4);
+          v42[10] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v49.i8)), *&a4);
+          v42[11] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v49)), *&a4);
           v50 = *_X17[52].i8;
           v51 = *_X17[54].i8;
-          v42[12] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v50.i8)), *&a11);
-          v42[13] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v50)), *&a11);
-          v42[14] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v51.i8)), *&a11);
-          v42[15] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v51)), *&a11);
+          v42[12] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v50.i8)), *&a4);
+          v42[13] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v50)), *&a4);
+          v42[14] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v51.i8)), *&a4);
+          v42[15] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v51)), *&a4);
           v52 = *_X17[56].i8;
           v53 = *_X17[58].i8;
-          v42[16] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v52.i8)), *&a11);
-          v42[17] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v52)), *&a11);
-          v42[18] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v53.i8)), *&a11);
-          v42[19] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v53)), *&a11);
-          v54 = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(_X17[61])), *&a11);
-          v42[20] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(_X17[60])), *&a11);
+          v42[16] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v52.i8)), *&a4);
+          v42[17] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v52)), *&a4);
+          v42[18] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(*v53.i8)), *&a4);
+          v42[19] = vmulq_n_f32(vcvtq_f32_u32(vmovl_high_u16(v53)), *&a4);
+          v54 = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(_X17[61])), *&a4);
+          v42[20] = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(_X17[60])), *&a4);
           v42[21] = v54;
-          v43 = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(_X17[62])), *&a11);
+          v43 = vmulq_n_f32(vcvtq_f32_u32(vmovl_u16(_X17[62])), *&a4);
         }
 
         v41 += 9280;
@@ -1725,14 +1725,14 @@ LABEL_10:
 
 LABEL_18:
   v76 = v20 * v21;
-  v77 = a3[1];
+  v77 = a6[1];
   v90 = 92;
   v88 = 92;
   if (*(a1 + 16) != 2)
   {
     if ((*(a1 + 1) & 1) == 0)
     {
-      return peridot::PeridotDXP::macroProcessInner(a1, a2, a1 + 168672, v89, v87, v86, a4, v24, v76, a9, v18, v17, 0, a6, a7, a8, a12, a13 + 192 * a4);
+      return peridot::PeridotDXP::macroProcessInner(a1, a5, a1 + 168672, v89, v87, v86, a7, v24, v76, a2, v18, v17, 0, a9, a10, a11, a12, a13 + 192 * a7);
     }
 
     goto LABEL_27;
@@ -1742,8 +1742,8 @@ LABEL_18:
   {
     v78 = 1.0 / v76;
     v79 = 0;
-    v80 = (v77 + 640 * a4);
-    if (a5)
+    v80 = (v77 + 640 * a7);
+    if (a8)
     {
       v81 = v80 + 40;
       do
@@ -1772,13 +1772,13 @@ LABEL_18:
 
 LABEL_27:
     v83 = a1;
-    v84 = a2;
-    peridot::PeridotDXP::initMacroSpecs(a1, *a3, v77, a3[2], a4, v86, a9);
+    v84 = a5;
+    peridot::PeridotDXP::initMacroSpecs(a1, *a6, v77, a6[2], a7, v86, a2);
     a1 = v83;
-    a2 = v84;
+    a5 = v84;
   }
 
-  return peridot::PeridotDXP::macroProcessInner(a1, a2, a1 + 168672, v89, v87, v86, a4, v24, v76, a9, v18, v17, 0, a6, a7, a8, a12, a13 + 192 * a4);
+  return peridot::PeridotDXP::macroProcessInner(a1, a5, a1 + 168672, v89, v87, v86, a7, v24, v76, a2, v18, v17, 0, a9, a10, a11, a12, a13 + 192 * a7);
 }
 
 uint64_t peridot::PeridotDXP::initMacroSpecs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, float a7)
@@ -1976,12 +1976,12 @@ LABEL_9:
         while (v66);
         if (v34 != v37)
         {
-          v68 = 6 * v58;
+          v68 = 24 * v58;
           v69 = v34 - v37;
           do
           {
-            v63[v68] = *&v62[v68 * 4];
-            v68 += 3;
+            *(v63 + v68) = *&v62[v68];
+            v68 += 12;
             --v69;
           }
 
@@ -1989,7 +1989,7 @@ LABEL_9:
         }
 
         ++v61;
-        ++v63;
+        v63 += 4;
         v62 += 4;
       }
 
@@ -2347,8 +2347,8 @@ uint64_t peridot::PeridotDXP::macroProcessInner(uint64_t a1, uint64_t *a2, uint6
 
         v67 = v79 | 1;
 LABEL_26:
-        v68 = *(*(v64[v67] + 8) + 4 * v62) * v66;
-        *(v149 + v62) = *(*(v63[v67] + 8) + 4 * v62) * v66;
+        v68 = *(*(*(v64 + 8 * v67) + 8) + 4 * v62) * v66;
+        *(v149 + v62) = *(*(*(v63 + 8 * v67) + 8) + 4 * v62) * v66;
         *(&v140 + v62) = v68;
 LABEL_27:
         if (++v62 == 92)
@@ -2413,14 +2413,14 @@ LABEL_42:
   **(a1 + 168744) = a3;
   **(a1 + 168792) = a1 + 168696;
   v87 = *(a18 + 88);
-  v88 = peridot::PeridotDxpMacro::runN(a1 + 105536, (a1 + 168744), (a1 + 168792), v87, 0, v149);
+  v88 = peridot::PeridotDxpMacro::runN(a1 + 105536, (a1 + 168744), (a1 + 168792), v87, a8, a11, 0, v149);
   if (!v88)
   {
     if (*(a1 + 1) == 1)
     {
       **(a1 + 168768) = *(a1 + 168648);
       **(a1 + 168816) = *(a1 + 168720);
-      v90 = peridot::PeridotDxpMacro::runN(a1 + 136984, (a1 + 168768), (a1 + 168816), v87, 0, &v140);
+      v90 = peridot::PeridotDxpMacro::runN(a1 + 136984, (a1 + 168768), (a1 + 168816), v87, a9, a12, 0, &v140);
       if (v90)
       {
         v89 = v90;
@@ -2922,60 +2922,60 @@ void std::vector<peridot::PeridotDepthSpotEcho>::__append(uint64_t a1, unint64_t
   }
 }
 
-void peridot::PeridotDXP::macroProcess_MPDC(uint64_t a1, double a2)
+void peridot::PeridotDXP::macroProcess_MPDC(uint64_t a1, uint64_t *a2, uint64_t *a3, double a4, float a5, float a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, _BYTE *a16, uint64_t a17)
 {
-  v2 = *(a1 + 21);
+  v17 = *(a1 + 21);
   if (*(a1 + 21))
   {
-    LOBYTE(a2) = *(a1 + 20);
-    *&a2 = LODWORD(a2);
-    if (v2 <= 7)
+    LOBYTE(a4) = *(a1 + 20);
+    *&a4 = LODWORD(a4);
+    if (v17 <= 7)
     {
-      v3 = 0;
-      v4 = 0.0;
+      v18 = 0;
+      v19 = 0.0;
 LABEL_8:
-      v13 = v2 - v3;
-      v14 = (a1 + 4 * v3 + 3464);
+      v28 = v17 - v18;
+      v29 = (a1 + 4 * v18 + 3464);
       do
       {
-        v15 = *v14++;
-        v4 = v4 + (v15 * *&a2);
-        --v13;
+        v30 = *v29++;
+        v19 = v19 + (v30 * *&a4);
+        --v28;
       }
 
-      while (v13);
+      while (v28);
       goto LABEL_10;
     }
 
-    v5 = (a1 + 3464);
-    v3 = v2 & 0xF8;
-    v6 = vdupq_lane_s32(*&a2, 0);
-    v7 = 0uLL;
-    v8 = v3;
-    v9 = 0uLL;
+    v20 = (a1 + 3464);
+    v18 = v17 & 0xF8;
+    v21 = vdupq_lane_s32(*&a4, 0);
+    v22 = 0uLL;
+    v23 = v18;
+    v24 = 0uLL;
     do
     {
-      v10 = *v5;
-      v11 = v5[1];
-      v5 += 2;
-      v7 = vmlaq_f32(v7, v6, v10);
-      v9 = vmlaq_f32(v9, v6, v11);
-      v8 -= 8;
+      v25 = *v20;
+      v26 = v20[1];
+      v20 += 2;
+      v22 = vmlaq_f32(v22, v21, v25);
+      v24 = vmlaq_f32(v24, v21, v26);
+      v23 -= 8;
     }
 
-    while (v8);
-    v12 = vaddq_f32(v9, v7);
-    v4 = vaddv_f32(*&vpaddq_f32(v12, v12));
-    if (v3 != v2)
+    while (v23);
+    v27 = vaddq_f32(v24, v22);
+    v19 = vaddv_f32(*&vpaddq_f32(v27, v27));
+    if (v18 != v17)
     {
       goto LABEL_8;
     }
   }
 
 LABEL_10:
-  memset(v18, 0, sizeof(v18));
-  v16 = v18;
-  v17 = 0;
+  memset(v33, 0, sizeof(v33));
+  v31 = v33;
+  v32 = 0;
   operator new();
 }
 
@@ -2993,16 +2993,16 @@ void sub_224743290(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::vector<peridot::ImgHistogram>::__append(void *result, unint64_t a2)
+void std::vector<peridot::ImgHistogram>::__append(void **a1, unint64_t a2)
 {
-  v3 = result[1];
-  v2 = result[2];
+  v3 = a1[1];
+  v2 = a1[2];
   if (0xAAAAAAAAAAAAAAABLL * ((v2 - v3) >> 3) < a2)
   {
-    v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *result) >> 3) + a2;
+    v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 3) + a2;
     if (v4 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v5 = 0xAAAAAAAAAAAAAAABLL * ((v2 - *result) >> 3);
+      v5 = 0xAAAAAAAAAAAAAAABLL * ((v2 - *a1) >> 3);
       if (2 * v5 > v4)
       {
         v4 = 2 * v5;
@@ -3028,7 +3028,7 @@ void *std::vector<peridot::ImgHistogram>::__append(void *result, unint64_t a2)
         std::__throw_bad_array_new_length[abi:ne200100]();
       }
 
-      v7 = (8 * ((v3 - *result) >> 3));
+      v7 = (8 * ((v3 - *a1) >> 3));
       *v7 = off_283809F88;
       v7[2] = 92;
       operator new[]();
@@ -3040,15 +3040,14 @@ void *std::vector<peridot::ImgHistogram>::__append(void *result, unint64_t a2)
   if (a2)
   {
     *v3 = off_283809F88;
-    v3[2] = 92;
+    *(v3 + 2) = 92;
     operator new[]();
   }
 
-  result[1] = v3;
-  return result;
+  a1[1] = v3;
 }
 
-void **std::vector<peridot::ImgHistogram>::~vector[abi:ne200100](void **a1)
+char **std::vector<peridot::ImgHistogram>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -3059,11 +3058,11 @@ void **std::vector<peridot::ImgHistogram>::~vector[abi:ne200100](void **a1)
     {
       v5 = v3 - 24;
       v6 = v3 - 24;
-      v7 = v3 - 24;
+      v7 = (v3 - 24);
       do
       {
         v8 = *v7;
-        v7 -= 24;
+        v7 -= 3;
         (*v8)(v6);
         v5 -= 24;
         v9 = v6 == v2;
@@ -3099,90 +3098,95 @@ uint64_t std::__split_buffer<peridot::ImgHistogram>::~__split_buffer(uint64_t a1
   return a1;
 }
 
-void peridot::PeridotDXP::refPixelDetectorEstimator_MPDC(uint64_t a1, uint64_t **a2, uint64_t a3, uint64_t a4, int a5)
+void peridot::PeridotDXP::refPixelDetectorEstimator_MPDC(float32x4_t *a1, uint64_t **a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7, _DWORD *a8, uint64_t a9)
 {
-  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v15, *(a1 + 20) * *(a1 + 21));
-  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v14, *(a1 + 20) * *(a1 + 21));
-  peridot::PeridotDXP::equalizer_ref_MPDC(a1, a2, *(a1 + 3542), 1, 0, *(a1 + 21), *(a1 + 20), &v15, *(a1 + 3464), &v14);
-  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v13, *(a1 + 22) * *(a1 + 23));
-  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v12, *(a1 + 22) * *(a1 + 23));
-  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v11, *(a1 + 24) * *(a1 + 25));
-  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&__p, *(a1 + 24) * *(a1 + 25));
+  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v23, a1[1].u8[4] * a1[1].u8[5]);
+  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v22, a1[1].u8[4] * a1[1].u8[5]);
+  peridot::PeridotDXP::equalizer_ref_MPDC(a1, a2, a1[221].u8[6], 1, 0, a1[1].u8[5], a1[1].u8[4], &v23, a1[216].f32[2], &v22);
+  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v21, a1[1].u8[6] * a1[1].u8[7]);
+  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v20, a1[1].u8[6] * a1[1].u8[7]);
+  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v19, a1[1].u8[8] * a1[1].u8[9]);
+  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&__p, a1[1].u8[8] * a1[1].u8[9]);
   if ((a5 - 1) <= 1)
   {
     operator new();
   }
 
-  peridot::PeridotDXP::refPixelDetectorEstimator_inner(a1, v9, v8, &v14);
+  peridot::PeridotDXP::refPixelDetectorEstimator_inner(a1, v17, v15, &v22, v16, &v20, &__p, a5, a6, a7, a8, a9);
 }
 
-void sub_224743E18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_224743E18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va4, a5);
-  va_start(va3, a5);
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7 = va_arg(va1, void *);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va4, a9);
+  va_start(va3, a9);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11 = va_arg(va1, char *);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   va_copy(va2, va1);
-  v11 = va_arg(va2, void *);
-  v13 = va_arg(va2, void);
-  v14 = va_arg(va2, void);
+  v15 = va_arg(va2, char *);
+  v17 = va_arg(va2, void);
+  v18 = va_arg(va2, void);
   va_copy(va3, va2);
-  v15 = va_arg(va3, void *);
-  v17 = va_arg(va3, void);
-  v18 = va_arg(va3, void);
+  v19 = va_arg(va3, char *);
+  v21 = va_arg(va3, void);
+  v22 = va_arg(va3, void);
   va_copy(va4, va3);
-  v19 = va_arg(va4, void *);
-  v21 = va_arg(va4, void);
-  v22 = va_arg(va4, void);
+  v23 = va_arg(va4, char *);
+  v25 = va_arg(va4, void);
+  v26 = va_arg(va4, void);
   std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](va);
   std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](va1);
   std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](va2);
   std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](va3);
   std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](va4);
-  std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100]((v5 - 104));
+  std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100]((v9 - 104));
   _Unwind_Resume(a1);
 }
 
-void *std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
-uint64_t peridot::PeridotDXP::equalizer_ref_MPDC(uint64_t a1, uint64_t **a2, unsigned int a3, int a4, unsigned int a5, unsigned int a6, unsigned int a7, uint64_t *a8, float a9, uint64_t *a10)
+BOOL peridot::PeridotDXP::equalizer_ref_MPDC(uint64_t a1, uint64_t **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8, float a9, uint64_t *a10)
 {
   if (!a3)
   {
-    peridot_depth_log("PeridotDXP::equalizer_ref (pixelsNum <= 0) not implemented");
+    peridot_depth_log("PeridotDXP::equalizer_ref (pixelsNum <= 0) not implemented", a2, a3, a4, a5, a6, a7, a8);
     return 1;
   }
 
+  v11 = a7;
+  v12 = a6;
+  v13 = a5;
+  v14 = a4;
+  v16 = a3;
   v19 = a7 * a6;
   std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v58, v19);
   std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&__p, v19);
-  if (a6 && a7)
+  if (v12 && v11)
   {
     v20 = 0;
     v21 = v58;
     v22 = __p;
     v23 = **a2;
     v24 = (*a2)[3];
-    v25 = 1.0 / (a3 * a9);
+    v25 = 1.0 / (v16 * a9);
     do
     {
       v26 = 0;
-      v27 = v20 * a7;
+      v27 = v20 * v11;
       do
       {
         v28 = 0;
@@ -3215,14 +3219,14 @@ uint64_t peridot::PeridotDXP::equalizer_ref_MPDC(uint64_t a1, uint64_t **a2, uns
         ++v26;
       }
 
-      while (v26 != a7);
+      while (v26 != v11);
       ++v20;
     }
 
-    while (v20 != a6);
+    while (v20 != v12);
   }
 
-  if (a4 != 1)
+  if (v14 != 1)
   {
     peridot_depth_log("PeridotDXP::equalizer_ref (nBuf != 1) not implemented");
     v43 = __p;
@@ -3268,13 +3272,13 @@ LABEL_16:
     v44 = v58;
     if (!v58)
     {
-      return a4 != 1;
+      return v14 != 1;
     }
 
     goto LABEL_25;
   }
 
-  peridot::PeridotDXP::equalizer_ref_inner(a1, &v58, &__p, a6, a7, a8, a10, a9, a5 / (a3 * a9));
+  peridot::PeridotDXP::equalizer_ref_inner(a1, &v58, &__p, v12, v11, a8, a10, a9, v13 / (v16 * a9));
   v43 = __p;
   if (__p)
   {
@@ -3321,222 +3325,223 @@ LABEL_25:
     operator delete(v52);
   }
 
-  return a4 != 1;
+  return v14 != 1;
 }
 
-void sub_2247443DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, void *a12)
+void sub_2247443DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](&a9);
-  std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](&a12);
+  std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void peridot::PeridotDXP::refPixelDetectorEstimator_inner(uint64_t a1, double a2, uint64_t a3, uint64_t *a4)
+void peridot::PeridotDXP::refPixelDetectorEstimator_inner(float32x4_t *a1, double a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t *a6, uint64_t a7, int a8, uint64_t a9, uint64_t a10, _DWORD *a11, uint64_t a12)
 {
-  v86 = a1 + 168504;
-  v4 = *(a1 + 21);
-  if (!*(a1 + 21) || (v5 = *(a1 + 20), !*(a1 + 20)))
+  v94 = &a1[10531].i8[8];
+  v12 = a1[1].u8[5];
+  if (!a1[1].i8[5] || (v13 = a1[1].u8[4], !a1[1].i8[4]))
   {
 LABEL_46:
     operator new();
   }
 
-  v6 = 0;
-  v7 = *a4;
-  *&a2 = 1.0 / v5;
-  v8 = vdupq_lane_s32(*&a2, 0);
+  v14 = 0;
+  v15 = *a4;
+  *&a2 = 1.0 / v13;
+  v16 = vdupq_lane_s32(*&a2, 0);
 LABEL_5:
-  v9 = 0;
-  v10 = v86 + 48 * v6;
-  v11 = *(v10 + 8);
-  v12 = *(v10 + 32);
-  v13 = v11 + 256;
-  v14 = v12 + 256;
-  v16 = v11 < v12 + 256 && v12 < v13;
+  v17 = 0;
+  v18 = &v94[48 * v14];
+  v19 = *(v18 + 1);
+  v20 = *(v18 + 4);
+  v21 = v19 + 256;
+  v22 = v20 + 256;
+  v24 = v19 < v20 + 256 && v20 < v21;
   while (1)
   {
-    v51 = v7 + 48 * v6 * v5 + 48 * v9;
-    v52 = *(v51 + 8);
-    v53 = *(v51 + 32);
-    v54 = &v53[16];
-    v56 = v11 < &v52[16] && v52 < v13 || v16;
-    if (v11 < v54 && v53 < v13)
+    v59 = v15 + 48 * v14 * v13 + 48 * v17;
+    v60 = *(v59 + 8);
+    v61 = *(v59 + 32);
+    v62 = &v61[16];
+    v64 = v19 < &v60[16] && v60 < v21 || v24;
+    if (v19 < v62 && v61 < v21)
     {
-      v56 = 1;
+      v64 = 1;
     }
 
-    if (v12 >= &v52[16] || v52 >= v14)
+    if (v20 >= &v60[16] || v60 >= v22)
     {
-      v59 = v56;
+      v67 = v64;
     }
 
     else
     {
-      v59 = 1;
+      v67 = 1;
     }
 
-    if (v12 < v54 && v53 < v14)
+    if (v20 < v62 && v61 < v22)
     {
-      v59 = 1;
+      v67 = 1;
     }
 
-    if (v9)
+    if (v17)
     {
-      if (v59)
+      if (v67)
       {
         for (i = 0; i != 64; ++i)
         {
-          *(v11 + i * 4) = *(v11 + i * 4) + (v52->f32[i] * *&a2);
-          *(v12 + i * 4) = *(v12 + i * 4) + (v53->f32[i] * *&a2);
+          *(v19 + i * 4) = *(v19 + i * 4) + (v60->f32[i] * *&a2);
+          *(v20 + i * 4) = *(v20 + i * 4) + (v61->f32[i] * *&a2);
         }
 
         goto LABEL_13;
       }
 
-      v17 = v53[1];
-      v18 = *(v12 + 16);
-      v19 = vmlaq_f32(*v12, v8, *v53);
-      v20 = vmlaq_f32(*(v11 + 16), v8, v52[1]);
-      *v11 = vmlaq_f32(*v11, v8, *v52);
-      *(v11 + 16) = v20;
-      *v12 = v19;
-      *(v12 + 16) = vmlaq_f32(v18, v8, v17);
-      v21 = v53[3];
-      v22 = *(v12 + 48);
-      v23 = vmlaq_f32(*(v12 + 32), v8, v53[2]);
-      v24 = vmlaq_f32(*(v11 + 48), v8, v52[3]);
-      *(v11 + 32) = vmlaq_f32(*(v11 + 32), v8, v52[2]);
-      *(v11 + 48) = v24;
-      *(v12 + 32) = v23;
-      *(v12 + 48) = vmlaq_f32(v22, v8, v21);
-      v25 = v53[5];
-      v26 = *(v12 + 80);
-      v27 = vmlaq_f32(*(v12 + 64), v8, v53[4]);
-      v28 = vmlaq_f32(*(v11 + 80), v8, v52[5]);
-      *(v11 + 64) = vmlaq_f32(*(v11 + 64), v8, v52[4]);
-      *(v11 + 80) = v28;
-      *(v12 + 64) = v27;
-      *(v12 + 80) = vmlaq_f32(v26, v8, v25);
-      v29 = v53[7];
-      v30 = *(v12 + 112);
-      v31 = vmlaq_f32(*(v12 + 96), v8, v53[6]);
-      v32 = vmlaq_f32(*(v11 + 112), v8, v52[7]);
-      *(v11 + 96) = vmlaq_f32(*(v11 + 96), v8, v52[6]);
-      *(v11 + 112) = v32;
-      *(v12 + 96) = v31;
-      *(v12 + 112) = vmlaq_f32(v30, v8, v29);
-      v33 = v53[9];
-      v34 = *(v12 + 144);
-      v35 = vmlaq_f32(*(v12 + 128), v8, v53[8]);
-      v36 = vmlaq_f32(*(v11 + 144), v8, v52[9]);
-      *(v11 + 128) = vmlaq_f32(*(v11 + 128), v8, v52[8]);
-      *(v11 + 144) = v36;
-      *(v12 + 128) = v35;
-      *(v12 + 144) = vmlaq_f32(v34, v8, v33);
-      v37 = v53[11];
-      v38 = *(v12 + 176);
-      v39 = vmlaq_f32(*(v12 + 160), v8, v53[10]);
-      v40 = vmlaq_f32(*(v11 + 176), v8, v52[11]);
-      *(v11 + 160) = vmlaq_f32(*(v11 + 160), v8, v52[10]);
-      *(v11 + 176) = v40;
-      *(v12 + 160) = v39;
-      *(v12 + 176) = vmlaq_f32(v38, v8, v37);
-      v41 = v53[13];
-      v42 = *(v12 + 208);
-      v43 = vmlaq_f32(*(v12 + 192), v8, v53[12]);
-      v44 = vmlaq_f32(*(v11 + 208), v8, v52[13]);
-      *(v11 + 192) = vmlaq_f32(*(v11 + 192), v8, v52[12]);
-      *(v11 + 208) = v44;
-      *(v12 + 192) = v43;
-      *(v12 + 208) = vmlaq_f32(v42, v8, v41);
-      v45 = v52[15];
-      v46 = *(v11 + 240);
-      v47 = vmlaq_f32(*(v11 + 224), v8, v52[14]);
-      v48 = v53[15];
-      v49 = *(v12 + 240);
-      *(v12 + 224) = vmlaq_f32(*(v12 + 224), v8, v53[14]);
-      v50 = vmlaq_f32(v49, v8, v48);
-      *(v11 + 224) = v47;
-      *(v11 + 240) = vmlaq_f32(v46, v8, v45);
+      v25 = v61[1];
+      v26 = *(v20 + 16);
+      v27 = vmlaq_f32(*v20, v16, *v61);
+      v28 = vmlaq_f32(*(v19 + 16), v16, v60[1]);
+      *v19 = vmlaq_f32(*v19, v16, *v60);
+      *(v19 + 16) = v28;
+      *v20 = v27;
+      *(v20 + 16) = vmlaq_f32(v26, v16, v25);
+      v29 = v61[3];
+      v30 = *(v20 + 48);
+      v31 = vmlaq_f32(*(v20 + 32), v16, v61[2]);
+      v32 = vmlaq_f32(*(v19 + 48), v16, v60[3]);
+      *(v19 + 32) = vmlaq_f32(*(v19 + 32), v16, v60[2]);
+      *(v19 + 48) = v32;
+      *(v20 + 32) = v31;
+      *(v20 + 48) = vmlaq_f32(v30, v16, v29);
+      v33 = v61[5];
+      v34 = *(v20 + 80);
+      v35 = vmlaq_f32(*(v20 + 64), v16, v61[4]);
+      v36 = vmlaq_f32(*(v19 + 80), v16, v60[5]);
+      *(v19 + 64) = vmlaq_f32(*(v19 + 64), v16, v60[4]);
+      *(v19 + 80) = v36;
+      *(v20 + 64) = v35;
+      *(v20 + 80) = vmlaq_f32(v34, v16, v33);
+      v37 = v61[7];
+      v38 = *(v20 + 112);
+      v39 = vmlaq_f32(*(v20 + 96), v16, v61[6]);
+      v40 = vmlaq_f32(*(v19 + 112), v16, v60[7]);
+      *(v19 + 96) = vmlaq_f32(*(v19 + 96), v16, v60[6]);
+      *(v19 + 112) = v40;
+      *(v20 + 96) = v39;
+      *(v20 + 112) = vmlaq_f32(v38, v16, v37);
+      v41 = v61[9];
+      v42 = *(v20 + 144);
+      v43 = vmlaq_f32(*(v20 + 128), v16, v61[8]);
+      v44 = vmlaq_f32(*(v19 + 144), v16, v60[9]);
+      *(v19 + 128) = vmlaq_f32(*(v19 + 128), v16, v60[8]);
+      *(v19 + 144) = v44;
+      *(v20 + 128) = v43;
+      *(v20 + 144) = vmlaq_f32(v42, v16, v41);
+      v45 = v61[11];
+      v46 = *(v20 + 176);
+      v47 = vmlaq_f32(*(v20 + 160), v16, v61[10]);
+      v48 = vmlaq_f32(*(v19 + 176), v16, v60[11]);
+      *(v19 + 160) = vmlaq_f32(*(v19 + 160), v16, v60[10]);
+      *(v19 + 176) = v48;
+      *(v20 + 160) = v47;
+      *(v20 + 176) = vmlaq_f32(v46, v16, v45);
+      v49 = v61[13];
+      v50 = *(v20 + 208);
+      v51 = vmlaq_f32(*(v20 + 192), v16, v61[12]);
+      v52 = vmlaq_f32(*(v19 + 208), v16, v60[13]);
+      *(v19 + 192) = vmlaq_f32(*(v19 + 192), v16, v60[12]);
+      *(v19 + 208) = v52;
+      *(v20 + 192) = v51;
+      *(v20 + 208) = vmlaq_f32(v50, v16, v49);
+      v53 = v60[15];
+      v54 = *(v19 + 240);
+      v55 = vmlaq_f32(*(v19 + 224), v16, v60[14]);
+      v56 = v61[15];
+      v57 = *(v20 + 240);
+      *(v20 + 224) = vmlaq_f32(*(v20 + 224), v16, v61[14]);
+      v58 = vmlaq_f32(v57, v16, v56);
+      *(v19 + 224) = v55;
+      *(v19 + 240) = vmlaq_f32(v54, v16, v53);
     }
 
     else
     {
-      if (v59)
+      if (v67)
       {
         for (j = 0; j != 256; j += 4)
         {
-          *(v11 + j) = 0;
-          *(v12 + j) = 0;
-          *(v11 + j) = *(v11 + j) + (v52->f32[j / 4] * *&a2);
-          *(v12 + j) = *(v12 + j) + (v53->f32[j / 4] * *&a2);
+          *(v19 + j) = 0;
+          *(v20 + j) = 0;
+          *(v19 + j) = *(v19 + j) + (v60->f32[j / 4] * *&a2);
+          *(v20 + j) = *(v20 + j) + (v61->f32[j / 4] * *&a2);
         }
 
         goto LABEL_13;
       }
 
-      v63 = v53[1];
-      v64 = vmulq_n_f32(*v53, *&a2);
-      v65 = vmulq_n_f32(v52[1], *&a2);
-      *v11 = vmulq_n_f32(*v52, *&a2);
-      *(v11 + 16) = v65;
-      *v12 = v64;
-      *(v12 + 16) = vmulq_n_f32(v63, *&a2);
-      v66 = v53[3];
-      v67 = vmulq_n_f32(v53[2], *&a2);
-      v68 = vmulq_n_f32(v52[3], *&a2);
-      *(v11 + 32) = vmulq_n_f32(v52[2], *&a2);
-      *(v11 + 48) = v68;
-      *(v12 + 32) = v67;
-      *(v12 + 48) = vmulq_n_f32(v66, *&a2);
-      v69 = v53[5];
-      v70 = vmulq_n_f32(v53[4], *&a2);
-      v71 = vmulq_n_f32(v52[5], *&a2);
-      *(v11 + 64) = vmulq_n_f32(v52[4], *&a2);
-      *(v11 + 80) = v71;
-      *(v12 + 64) = v70;
-      *(v12 + 80) = vmulq_n_f32(v69, *&a2);
-      v72 = v53[7];
-      v73 = vmulq_n_f32(v53[6], *&a2);
-      v74 = vmulq_n_f32(v52[7], *&a2);
-      *(v11 + 96) = vmulq_n_f32(v52[6], *&a2);
-      *(v11 + 112) = v74;
-      *(v12 + 96) = v73;
-      *(v12 + 112) = vmulq_n_f32(v72, *&a2);
-      v75 = v53[9];
-      v76 = vmulq_n_f32(v53[8], *&a2);
-      v77 = vmulq_n_f32(v52[9], *&a2);
-      *(v11 + 128) = vmulq_n_f32(v52[8], *&a2);
-      *(v11 + 144) = v77;
-      *(v12 + 128) = v76;
-      *(v12 + 144) = vmulq_n_f32(v75, *&a2);
-      v78 = v53[11];
-      v79 = vmulq_n_f32(v53[10], *&a2);
-      v80 = vmulq_n_f32(v52[11], *&a2);
-      *(v11 + 160) = vmulq_n_f32(v52[10], *&a2);
-      *(v11 + 176) = v80;
-      *(v12 + 160) = v79;
-      *(v12 + 176) = vmulq_n_f32(v78, *&a2);
-      v81 = v53[13];
-      v82 = vmulq_n_f32(v53[12], *&a2);
-      v83 = vmulq_n_f32(v52[13], *&a2);
-      *(v11 + 192) = vmulq_n_f32(v52[12], *&a2);
-      *(v11 + 208) = v83;
-      *(v12 + 192) = v82;
-      *(v12 + 208) = vmulq_n_f32(v81, *&a2);
-      v84 = v53[15];
-      *(v12 + 224) = vmulq_n_f32(v53[14], *&a2);
-      v85 = vmulq_n_f32(v52[15], *&a2);
-      *(v11 + 224) = vmulq_n_f32(v52[14], *&a2);
-      *(v11 + 240) = v85;
-      v50 = vmulq_n_f32(v84, *&a2);
+      v71 = v61[1];
+      v72 = vmulq_n_f32(*v61, *&a2);
+      v73 = vmulq_n_f32(v60[1], *&a2);
+      *v19 = vmulq_n_f32(*v60, *&a2);
+      *(v19 + 16) = v73;
+      *v20 = v72;
+      *(v20 + 16) = vmulq_n_f32(v71, *&a2);
+      v74 = v61[3];
+      v75 = vmulq_n_f32(v61[2], *&a2);
+      v76 = vmulq_n_f32(v60[3], *&a2);
+      *(v19 + 32) = vmulq_n_f32(v60[2], *&a2);
+      *(v19 + 48) = v76;
+      *(v20 + 32) = v75;
+      *(v20 + 48) = vmulq_n_f32(v74, *&a2);
+      v77 = v61[5];
+      v78 = vmulq_n_f32(v61[4], *&a2);
+      v79 = vmulq_n_f32(v60[5], *&a2);
+      *(v19 + 64) = vmulq_n_f32(v60[4], *&a2);
+      *(v19 + 80) = v79;
+      *(v20 + 64) = v78;
+      *(v20 + 80) = vmulq_n_f32(v77, *&a2);
+      v80 = v61[7];
+      v81 = vmulq_n_f32(v61[6], *&a2);
+      v82 = vmulq_n_f32(v60[7], *&a2);
+      *(v19 + 96) = vmulq_n_f32(v60[6], *&a2);
+      *(v19 + 112) = v82;
+      *(v20 + 96) = v81;
+      *(v20 + 112) = vmulq_n_f32(v80, *&a2);
+      v83 = v61[9];
+      v84 = vmulq_n_f32(v61[8], *&a2);
+      v85 = vmulq_n_f32(v60[9], *&a2);
+      *(v19 + 128) = vmulq_n_f32(v60[8], *&a2);
+      *(v19 + 144) = v85;
+      *(v20 + 128) = v84;
+      *(v20 + 144) = vmulq_n_f32(v83, *&a2);
+      v86 = v61[11];
+      v87 = vmulq_n_f32(v61[10], *&a2);
+      v88 = vmulq_n_f32(v60[11], *&a2);
+      *(v19 + 160) = vmulq_n_f32(v60[10], *&a2);
+      *(v19 + 176) = v88;
+      *(v20 + 160) = v87;
+      *(v20 + 176) = vmulq_n_f32(v86, *&a2);
+      v89 = v61[13];
+      v90 = vmulq_n_f32(v61[12], *&a2);
+      v91 = vmulq_n_f32(v60[13], *&a2);
+      *(v19 + 192) = vmulq_n_f32(v60[12], *&a2);
+      *(v19 + 208) = v91;
+      *(v20 + 192) = v90;
+      *(v20 + 208) = vmulq_n_f32(v89, *&a2);
+      v92 = v61[15];
+      *(v20 + 224) = vmulq_n_f32(v61[14], *&a2);
+      v93 = vmulq_n_f32(v60[15], *&a2);
+      *(v19 + 224) = vmulq_n_f32(v60[14], *&a2);
+      *(v19 + 240) = v93;
+      v58 = vmulq_n_f32(v92, *&a2);
     }
 
-    *(v12 + 240) = v50;
+    *(v20 + 240) = v58;
 LABEL_13:
-    if (++v9 == v5)
+    if (++v17 == v13)
     {
-      if (++v6 == v4)
+      if (++v14 == v12)
       {
         goto LABEL_46;
       }
@@ -3559,7 +3564,7 @@ void sub_22474606C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void **std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](void **a1)
+char **std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -3602,48 +3607,48 @@ void **std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](void **
   return a1;
 }
 
-void peridot::PeridotDXP::getStrayRisingEdge(uint64_t a1, uint64_t a2, const float *a3, uint64_t a4)
+void peridot::PeridotDXP::getStrayRisingEdge(uint64_t a1, uint64_t a2, const float *a3, unint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a4)
   {
     if (a4 == 1)
     {
-      v4 = 0;
+      v6 = 0;
 LABEL_7:
-      v8 = a4 - v4;
-      v9 = &a3[2 * v4 + 1];
-      v10 = &v12[v4];
+      v10 = a4 - v6;
+      v11 = &a3[2 * v6 + 1];
+      v12 = &v14[v6];
       do
       {
-        v11 = *v9;
-        *v10 = vcvtas_u32_f32(*(v9 - 1));
-        v10[3] = vcvtas_u32_f32(v11);
-        v9 += 2;
-        ++v10;
-        --v8;
+        v13 = *v11;
+        *v12 = vcvtas_u32_f32(*(v11 - 1));
+        v12[3] = vcvtas_u32_f32(v13);
+        v11 += 2;
+        ++v12;
+        --v10;
       }
 
-      while (v8);
+      while (v10);
       goto LABEL_9;
     }
 
-    v4 = a4 & 0xFFFFFFFFFFFFFFFELL;
-    v5 = v12;
-    v6 = a3;
-    v7 = a4 & 0xFFFFFFFFFFFFFFFELL;
+    v6 = a4 & 0xFFFFFFFFFFFFFFFELL;
+    v7 = v14;
+    v8 = a3;
+    v9 = a4 & 0xFFFFFFFFFFFFFFFELL;
     do
     {
-      v14 = vld2_f32(v6);
-      v6 += 4;
-      *v5 = vcvt_u32_f32(vrnda_f32(v14.val[0]));
-      *(v5 + 3) = vcvt_u32_f32(vrnda_f32(v14.val[1]));
-      v5 += 2;
-      v7 -= 2;
+      v16 = vld2_f32(v8);
+      v8 += 4;
+      *v7 = vcvt_u32_f32(vrnda_f32(v16.val[0]));
+      *(v7 + 3) = vcvt_u32_f32(vrnda_f32(v16.val[1]));
+      v7 += 2;
+      v9 -= 2;
     }
 
-    while (v7);
-    if (v4 != a4)
+    while (v9);
+    if (v6 != a4)
     {
       goto LABEL_7;
     }
@@ -3863,71 +3868,76 @@ void ***std::__exception_guard_exceptions<std::vector<peridot::RefHistogramAllSp
   return a1;
 }
 
-void peridot::PeridotDXP::refPixelDetectorEstimator(uint64_t a1, uint64_t *a2, int a3)
+void peridot::PeridotDXP::refPixelDetectorEstimator(float32x4_t *a1, uint64_t *a2, int a3, uint64_t a4, uint64_t a5, _DWORD *a6, uint64_t a7)
 {
-  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v13, *(a1 + 20) * *(a1 + 21));
-  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v12, *(a1 + 20) * *(a1 + 21));
-  peridot::PeridotDXP::equalizer_ref(a1, *a2, *(a1 + 3542), 1, 0, *(a1 + 21), *(a1 + 20), &v13, *(a1 + 3464), &v12);
-  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v11, *(a1 + 22) * *(a1 + 23));
-  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v10, *(a1 + 22) * *(a1 + 23));
-  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v9, *(a1 + 24) * *(a1 + 25));
-  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&__p, *(a1 + 24) * *(a1 + 25));
+  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v22, a1[1].u8[4] * a1[1].u8[5]);
+  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v21, a1[1].u8[4] * a1[1].u8[5]);
+  peridot::PeridotDXP::equalizer_ref(a1, *a2, a1[221].u8[6], 1, 0, a1[1].u8[5], a1[1].u8[4], &v22, a1[216].f32[2], &v21);
+  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v20, a1[1].u8[6] * a1[1].u8[7]);
+  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v19, a1[1].u8[6] * a1[1].u8[7]);
+  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v18, a1[1].u8[8] * a1[1].u8[9]);
+  std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&__p, a1[1].u8[8] * a1[1].u8[9]);
   if ((a3 - 1) <= 1)
   {
     operator new();
   }
 
-  peridot::PeridotDXP::refPixelDetectorEstimator_inner(a1, v7, v6, &v12);
+  peridot::PeridotDXP::refPixelDetectorEstimator_inner(a1, v16, v14, &v21, v15, &v19, &__p, a3, a4, a5, a6, a7);
 }
 
-void sub_224747654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_224747654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va4, a5);
-  va_start(va3, a5);
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7 = va_arg(va1, void *);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va4, a9);
+  va_start(va3, a9);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11 = va_arg(va1, char *);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   va_copy(va2, va1);
-  v11 = va_arg(va2, void *);
-  v13 = va_arg(va2, void);
-  v14 = va_arg(va2, void);
+  v15 = va_arg(va2, char *);
+  v17 = va_arg(va2, void);
+  v18 = va_arg(va2, void);
   va_copy(va3, va2);
-  v15 = va_arg(va3, void *);
-  v17 = va_arg(va3, void);
-  v18 = va_arg(va3, void);
+  v19 = va_arg(va3, char *);
+  v21 = va_arg(va3, void);
+  v22 = va_arg(va3, void);
   va_copy(va4, va3);
-  v19 = va_arg(va4, void *);
-  v21 = va_arg(va4, void);
-  v22 = va_arg(va4, void);
+  v23 = va_arg(va4, char *);
+  v25 = va_arg(va4, void);
+  v26 = va_arg(va4, void);
   std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](va);
   std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](va1);
   std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](va2);
   std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](va3);
   std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100](va4);
-  std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100]((v5 - 104));
+  std::vector<peridot::RefHistogramAllSpots>::~vector[abi:ne200100]((v9 - 104));
   _Unwind_Resume(a1);
 }
 
-uint64_t peridot::PeridotDXP::equalizer_ref(uint64_t a1, uint64_t a2, unsigned int a3, int a4, unsigned int a5, unsigned int a6, unsigned int a7, uint64_t *a8, float a9, uint64_t *a10)
+BOOL peridot::PeridotDXP::equalizer_ref(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8, float a9, uint64_t *a10)
 {
   if (!a3)
   {
-    peridot_depth_log("PeridotDXP::equalizer_ref (pixelsNum <= 0) not implemented");
+    peridot_depth_log("PeridotDXP::equalizer_ref (pixelsNum <= 0) not implemented", a2, a3, a4, a5, a6, a7, a8);
     return 1;
   }
 
+  v11 = a7;
+  v12 = a6;
+  v13 = a5;
+  v14 = a4;
+  v16 = a3;
   v19 = a7 * a6;
   std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&v55, v19);
   std::vector<peridot::RefHistogramAllSpots>::vector[abi:ne200100](&__p, v19);
-  if (a6 && a7)
+  if (v12 && v11)
   {
     v21 = 0;
     v22 = v55;
     v23 = __p;
-    v24 = 1.0 / (a3 * a9);
+    v24 = 1.0 / (v16 * a9);
     v25 = (a2 + 192);
     do
     {
@@ -3936,7 +3946,7 @@ uint64_t peridot::PeridotDXP::equalizer_ref(uint64_t a1, uint64_t a2, unsigned i
       do
       {
         v28 = 0;
-        v29 = 48 * (v26 + v21 * a7);
+        v29 = 48 * (v26 + v21 * v11);
         v30 = &v22[v29];
         v31 = *&v22[v29 + 8];
         v32 = &v23[v29];
@@ -3967,15 +3977,15 @@ uint64_t peridot::PeridotDXP::equalizer_ref(uint64_t a1, uint64_t a2, unsigned i
         v27 += 4640;
       }
 
-      while (v26 != a7);
+      while (v26 != v11);
       ++v21;
-      v25 += 4640 * a7;
+      v25 += 4640 * v11;
     }
 
-    while (v21 != a6);
+    while (v21 != v12);
   }
 
-  if (a4 != 1)
+  if (v14 != 1)
   {
     peridot_depth_log("PeridotDXP::equalizer_ref (nBuf != 1) not implemented");
     v40 = __p;
@@ -4021,13 +4031,13 @@ LABEL_16:
     v41 = v55;
     if (!v55)
     {
-      return a4 != 1;
+      return v14 != 1;
     }
 
     goto LABEL_25;
   }
 
-  peridot::PeridotDXP::equalizer_ref_inner(a1, &v55, &__p, a6, a7, a8, a10, a9, a5 / (a3 * a9));
+  peridot::PeridotDXP::equalizer_ref_inner(a1, &v55, &__p, v12, v11, a8, a10, a9, v13 / (v16 * a9));
   v40 = __p;
   if (__p)
   {
@@ -4074,7 +4084,7 @@ LABEL_25:
     operator delete(v49);
   }
 
-  return a4 != 1;
+  return v14 != 1;
 }
 
 void sub_224747A24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, void *a12)
@@ -4130,13 +4140,13 @@ uint64_t peridot::PeridotDXP::strayPeakUpdate(float32x2_t *a1, uint64_t a2)
   return 0;
 }
 
-void peridot::PeridotDXP::init(uint64_t a1, const _PeridotCalib *a2, void *a3, uint64_t a4, int a5)
+void peridot::PeridotDXP::init(unsigned __int16 *a1, const _PeridotCalib *a2, void *a3, uint64_t a4, int a5)
 {
   v9 = a3;
-  *(a1 + 168496) = a4;
+  *(a1 + 21062) = a4;
   *a1 = a5;
   *(a1 + 2) = BYTE2(a5);
-  peridot::PeridotDXPCalib::init((a1 + 16), a2, a4, v10);
+  peridot::PeridotDXPCalib::init((a1 + 8), a2, a4);
 }
 
 void std::vector<std::vector<peridot::ImgHistogram>>::__append(uint64_t a1, unint64_t a2)
@@ -4289,7 +4299,7 @@ uint64_t peridot::PeridotDXP::setRunMode(uint64_t result, int a2)
   return result;
 }
 
-void peridot::PeridotDXP::configure(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, _BYTE *a6)
+void peridot::PeridotDXP::configure(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6)
 {
   v8 = *(*(a2 + 16) + 9280 * *(a2 + 8 * a5 + 3952) + 52);
   v9 = v8 >> 4;
@@ -4315,7 +4325,7 @@ void peridot::PeridotDXP::configure(uint64_t a1, uint64_t a2, int a3, uint64_t a
         v15 = a3;
         isChanged = peridot::PeridotDXPCalib::InputConfig::isChanged(a1 + 32, a2, a3, *(a2 + 8 * a5 + 3952), v9, v13);
         a2 = v14;
-        a3 = v15;
+        LODWORD(a3) = v15;
         if (!isChanged)
         {
           *a6 = 0;
@@ -4328,44 +4338,48 @@ void peridot::PeridotDXP::configure(uint64_t a1, uint64_t a2, int a3, uint64_t a
     v18 = a2;
     peridot_depth_log("DXPCalib::configure: operation mode/ pri num/ phase num/frame config changed");
     a2 = v18;
-    a3 = v17;
+    LODWORD(a3) = v17;
     a5 = v12;
     a4 = v11;
   }
 
   *a6 = 1;
   peridot::PeridotDXPCalib::configure(a1 + 16, a2, a3, a4, a5);
-  if (!v19 && !peridot::PeridotDXPPreProcessor::configure((a1 + 42464), (a1 + 16)) && !peridot::PeridotDxpDetector::configure((a1 + 80224), (a1 + 16)))
+  if (!v19)
   {
-    *(a1 + 105364) = *(a1 + 16);
-    *(a1 + 105372) = *(a1 + 3440);
-    *(a1 + 105380) = *(a1 + 3448);
-    *(a1 + 105384) = *(a1 + 3452);
-    *(a1 + 105392) = *(a1 + 3460);
-    v20 = *(a1 + 3480);
-    *(a1 + 105416) = *(a1 + 3496);
-    v21 = *(a1 + 21);
-    *(a1 + 105368) = v21;
-    *(a1 + 105400) = v20;
-    *(a1 + 105424) = *(a1 + 3464);
-    v22 = *(a1 + 3792);
-    v23 = *(a1 + 3760);
-    *(a1 + 105456) = *(a1 + 3776);
-    *(a1 + 105472) = v22;
-    *(a1 + 105440) = v23;
-    *(a1 + 105344) = 4;
-    *(a1 + 105352) = 1;
-    *(a1 + 105353) = v21;
-    LODWORD(v20) = *(a1 + 3440);
-    *(a1 + 136968) = v20;
-    v24 = *(a1 + 3960);
-    *(a1 + 136976) = v24;
-    *(a1 + 168416) = v20;
-    *(a1 + 168424) = v24;
-    *(a1 + 168458) = *(a1 + 4046);
-    *(a1 + 168452) = *(a1 + 4040);
-    *(a1 + 168466) = *(a1 + 4054);
-    *(a1 + 168472) = *(a1 + 4060);
+    peridot::PeridotDXPPreProcessor::configure((a1 + 42464), (a1 + 16));
+    if (!v20 && !peridot::PeridotDxpDetector::configure((a1 + 80224), (a1 + 16)))
+    {
+      *(a1 + 105364) = *(a1 + 16);
+      *(a1 + 105372) = *(a1 + 3440);
+      *(a1 + 105380) = *(a1 + 3448);
+      *(a1 + 105384) = *(a1 + 3452);
+      *(a1 + 105392) = *(a1 + 3460);
+      v21 = *(a1 + 3480);
+      *(a1 + 105416) = *(a1 + 3496);
+      v22 = *(a1 + 21);
+      *(a1 + 105368) = v22;
+      *(a1 + 105400) = v21;
+      *(a1 + 105424) = *(a1 + 3464);
+      v23 = *(a1 + 3792);
+      v24 = *(a1 + 3760);
+      *(a1 + 105456) = *(a1 + 3776);
+      *(a1 + 105472) = v23;
+      *(a1 + 105440) = v24;
+      *(a1 + 105344) = 4;
+      *(a1 + 105352) = 1;
+      *(a1 + 105353) = v22;
+      LODWORD(v21) = *(a1 + 3440);
+      *(a1 + 136968) = v21;
+      v25 = *(a1 + 3960);
+      *(a1 + 136976) = v25;
+      *(a1 + 168416) = v21;
+      *(a1 + 168424) = v25;
+      *(a1 + 168458) = *(a1 + 4046);
+      *(a1 + 168452) = *(a1 + 4040);
+      *(a1 + 168466) = *(a1 + 4054);
+      *(a1 + 168472) = *(a1 + 4060);
+    }
   }
 }
 
@@ -4835,56 +4849,57 @@ void peridot::PeridotDxpMacro::~PeridotDxpMacro(peridot::PeridotDxpMacro *this)
   }
 }
 
-void peridot::PeridotDxpMacro::init(uint64_t a1, void *a2, void *a3, float a4, float a5, float a6)
+void peridot::PeridotDxpMacro::init(uint64_t a1, __int128 **a2, __int128 **a3, float a4, float a5, float a6)
 {
   *(a1 + 168) = a6;
   *(a1 + 172) = 1056964608;
-  v20 = 0;
+  v22 = 0;
   *(a1 + 31432) = a4;
   v10 = 0.0;
   do
   {
-    std::vector<float>::push_back[abi:ne200100](a1 + 176, &v20);
+    std::vector<float>::push_back[abi:ne200100](a1 + 176, &v22);
     v10 = v10 + 1.0;
-    v20 = LODWORD(v10);
+    v22 = LODWORD(v10);
   }
 
   while (v10 <= 45.0);
-  v20 = 1077936128;
-  for (i = 3.0; i <= a5; v20 = LODWORD(i))
+  v22 = 1077936128;
+  for (i = 3.0; i <= a5; v22 = LODWORD(i))
   {
-    std::vector<float>::push_back[abi:ne200100](a1 + 200, &v20);
+    std::vector<float>::push_back[abi:ne200100](a1 + 200, &v22);
     i = i + *(a1 + 172);
   }
 
-  v20 = -1049624576;
+  v22 = -1049624576;
   v12 = -15.0;
   do
   {
-    std::vector<float>::push_back[abi:ne200100](a1 + 248, &v20);
+    std::vector<float>::push_back[abi:ne200100](a1 + 248, &v22);
     v12 = v12 + 1.0;
-    v20 = LODWORD(v12);
+    v22 = LODWORD(v12);
   }
 
   while (v12 <= 15.0);
-  v20 = 0;
+  v22 = 0;
   v13 = 0.0;
   do
   {
-    std::vector<float>::push_back[abi:ne200100](a1 + 224, &v20);
+    std::vector<float>::push_back[abi:ne200100](a1 + 224, &v22);
     v13 = v13 + 0.2;
-    v20 = LODWORD(v13);
+    v22 = LODWORD(v13);
   }
 
   while (v13 <= 0.9);
-  peridot::PeridotDxpMacro::initializePulses(v14, a2, 0, (a1 + 24), (a1 + 48));
-  peridot::PeridotDxpMacro::initializePulses(v15, a3, &peridot::gCOMP_LEVEL, (a1 + 96), (a1 + 120));
-  v17 = (*(a1 + 184) - *(a1 + 176)) >> 2;
-  memset(&v19, 0, sizeof(v19));
-  v18 = v17 - 1;
-  if (v18)
+  v15.n128_f64[0] = v13;
+  peridot::PeridotDxpMacro::initializePulses(v15, v14, a2, 0, (a1 + 24), (a1 + 48), (a1 + 72));
+  peridot::PeridotDxpMacro::initializePulses(v17, v16, a3, peridot::gCOMP_LEVEL, (a1 + 96), (a1 + 120), (a1 + 144));
+  v19 = (*(a1 + 184) - *(a1 + 176)) >> 2;
+  memset(&v21, 0, sizeof(v21));
+  v20 = v19 - 1;
+  if (v20)
   {
-    if (!(v18 >> 62))
+    if (!(v20 >> 62))
     {
       operator new();
     }
@@ -4892,7 +4907,7 @@ void peridot::PeridotDxpMacro::init(uint64_t a1, void *a2, void *a3, float a4, f
     std::vector<std::string>::__throw_length_error[abi:ne200100]();
   }
 
-  peridot::PeridotDxpMacro::getPulseShape(v16, a1 + 72, (a1 + 48), (a1 + 176), 0, &v19);
+  peridot::PeridotDxpMacro::getPulseShape(v18, (a1 + 72), (a1 + 48), (a1 + 176), 0, &v21);
 }
 
 void sub_2247492F4(_Unwind_Exception *exception_object)
@@ -4977,148 +4992,148 @@ void std::vector<float>::push_back[abi:ne200100](uint64_t a1, _DWORD *a2)
   *(a1 + 8) = v5;
 }
 
-void peridot::PeridotDxpMacro::initializePulses(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5)
+void peridot::PeridotDxpMacro::initializePulses(__n128 a1, uint64_t a2, __int128 **a3, int *a4, uint64_t *a5, uint64_t *a6, std::vector<unsigned int> *a7)
 {
-  v5 = a2[1];
-  if (v5 - *a2 == 256)
+  v7 = a3[1];
+  if (v7 - *a3 == 256)
   {
-    v8 = 6;
-    if (!a3)
+    v10 = 6;
+    if (!a4)
     {
-      v8 = 1;
+      v10 = 1;
     }
 
-    v33 = v8;
-    if (v5 != *a2)
+    v35 = v10;
+    if (v7 != *a3)
     {
       operator new();
     }
 
-    v9 = 0.0;
-    v10 = 0;
+    v11 = 0.0;
+    v12 = 0;
     do
     {
-      v11 = *v10++;
-      v9 = v11 + v9;
+      v13 = *v12++;
+      v11 = v13 + v11;
     }
 
-    while (v10 != 4);
-    v12 = 2;
-    v13 = 0;
-    v14 = 1.0 / v9;
+    while (v12 != 4);
+    v14 = 2;
+    v15 = 0;
+    v16 = 1.0 / v11;
     do
     {
-      *v13 = *v13 * v14;
-      ++v13;
-      --v12;
+      *v15 = *v15 * v16;
+      ++v15;
+      --v14;
     }
 
-    while (v12);
-    v15 = a4[1];
-    v16 = 0xAAAAAAAAAAAAAAABLL * ((v15 - *a4) >> 3);
-    if (v33 <= v16)
+    while (v14);
+    v17 = a5[1];
+    v18 = 0xAAAAAAAAAAAAAAABLL * ((v17 - *a5) >> 3);
+    if (v35 <= v18)
     {
-      if (v33 < v16)
+      if (v35 < v18)
       {
-        v17 = *a4 + 24 * v33;
-        if (v15 != v17)
+        v19 = *a5 + 24 * v35;
+        if (v17 != v19)
         {
-          v18 = a4[1];
+          v20 = a5[1];
           do
           {
-            v20 = *(v18 - 24);
-            v18 -= 24;
-            v19 = v20;
-            if (v20)
+            v22 = *(v20 - 24);
+            v20 -= 24;
+            v21 = v22;
+            if (v22)
             {
-              *(v15 - 16) = v19;
-              operator delete(v19);
+              *(v17 - 16) = v21;
+              operator delete(v21);
             }
 
-            v15 = v18;
+            v17 = v20;
           }
 
-          while (v18 != v17);
+          while (v20 != v19);
         }
 
-        a4[1] = v17;
+        a5[1] = v19;
       }
     }
 
     else
     {
-      std::vector<std::vector<float>>::__append(a4, v33 - v16);
+      std::vector<std::vector<float>>::__append(a5, v35 - v18);
     }
 
-    v21 = a5[1];
-    v22 = 0xAAAAAAAAAAAAAAABLL * ((v21 - *a5) >> 3);
-    if (v33 <= v22)
+    v23 = a6[1];
+    v24 = 0xAAAAAAAAAAAAAAABLL * ((v23 - *a6) >> 3);
+    if (v35 <= v24)
     {
-      if (v33 < v22)
+      if (v35 < v24)
       {
-        v23 = *a5 + 24 * v33;
-        if (v21 != v23)
+        v25 = *a6 + 24 * v35;
+        if (v23 != v25)
         {
-          v24 = a5[1];
+          v26 = a6[1];
           do
           {
-            v26 = *(v24 - 24);
-            v24 -= 24;
-            v25 = v26;
-            if (v26)
+            v28 = *(v26 - 24);
+            v26 -= 24;
+            v27 = v28;
+            if (v28)
             {
-              *(v21 - 16) = v25;
-              operator delete(v25);
+              *(v23 - 16) = v27;
+              operator delete(v27);
             }
 
-            v21 = v24;
+            v23 = v26;
           }
 
-          while (v24 != v23);
+          while (v26 != v25);
         }
 
-        a5[1] = v23;
+        a6[1] = v25;
       }
     }
 
     else
     {
-      std::vector<std::vector<float>>::__append(a5, v33 - v22);
+      std::vector<std::vector<float>>::__append(a6, v35 - v24);
     }
 
-    v27 = 0;
-    v28 = v33;
+    v29 = 0;
+    v30 = v35;
     while (1)
     {
-      v29 = (*a4 + v27);
-      v30 = v29->__end_ - v29->__begin_;
-      if (v30 >= 2)
+      v31 = (*a5 + v29);
+      v32 = v31->__end_ - v31->__begin_;
+      if (v32 >= 2)
       {
-        if (v30 > 2)
+        if (v32 > 2)
         {
-          v29->__end_ = v29->__begin_ + 2;
+          v31->__end_ = v31->__begin_ + 2;
         }
       }
 
       else
       {
-        std::vector<float>::__append(v29, 2 - v30);
-      }
-
-      v31 = (*a5 + v27);
-      v32 = v31->__end_ - v31->__begin_;
-      if (v32 < 2)
-      {
         std::vector<float>::__append(v31, 2 - v32);
       }
 
-      else if (v32 > 2)
+      v33 = (*a6 + v29);
+      v34 = v33->__end_ - v33->__begin_;
+      if (v34 < 2)
       {
-        v31->__end_ = v31->__begin_ + 2;
+        std::vector<float>::__append(v33, 2 - v34);
       }
 
-      v27 += 24;
-      if (!--v28)
+      else if (v34 > 2)
+      {
+        v33->__end_ = v33->__begin_ + 2;
+      }
+
+      v29 += 24;
+      if (!--v30)
       {
         operator new();
       }
@@ -5139,7 +5154,7 @@ void sub_22474A030(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void peridot::PeridotDxpMacro::getPulseShape(int a1, int a2, void *a3, void *a4, uint64_t a5, std::vector<unsigned int> *this)
+void peridot::PeridotDxpMacro::getPulseShape(int a1, uint64_t *a2, void *a3, float **a4, uint64_t a5, std::vector<unsigned int> *this)
 {
   v8 = a4[1] - *a4;
   v9 = this->__end_ - this->__begin_;
@@ -5170,9 +5185,9 @@ void peridot::PeridotDxpMacro::getPulseShape(int a1, int a2, void *a3, void *a4,
   operator new();
 }
 
-void sub_22474A6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_22474A6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   MatrixNxPts<1u,float>::~MatrixNxPts(va);
   _Unwind_Resume(a1);
 }
@@ -5581,9 +5596,9 @@ void Matrix<float>::MultAxBToC(uint64_t a1, uint64_t a2, uint64_t a3)
   vDSPMmul<float>(*(a1 + 8), 1, *(a2 + 8), 1, *(a3 + 8), 1, *(a1 + 16), *(a3 + 20), v7);
 }
 
-void sub_22474CFEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22474CFEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -5841,29 +5856,29 @@ LABEL_13:
   return result;
 }
 
-void sub_22474D59C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22474D59C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v10 = va_arg(va2, void);
   v12 = va_arg(va2, void);
   v13 = va_arg(va2, void);
   v14 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   va_copy(va3, va2);
-  v15 = va_arg(va3, void);
-  v17 = va_arg(va3, void);
+  v16 = va_arg(va3, void);
   v18 = va_arg(va3, void);
   v19 = va_arg(va3, void);
   v20 = va_arg(va3, void);
+  v21 = va_arg(va3, void);
   MatrixNxPts<1u,float>::~MatrixNxPts(va);
   MatrixNxPts<1u,float>::~MatrixNxPts(va1);
   MatrixNxPts<1u,float>::~MatrixNxPts(va2);
@@ -5871,11 +5886,11 @@ void sub_22474D59C(_Unwind_Exception *a1, uint64_t a2, ...)
   _Unwind_Resume(a1);
 }
 
-uint64_t peridot::PeridotDxpMacro::getPMF(uint64_t this, float a2, const float *a3, uint64_t a4, float *a5, float *a6)
+void peridot::PeridotDxpMacro::getPMF(peridot::PeridotDxpMacro *this, float a2, const float *a3, uint64_t a4, float *a5, float *a6)
 {
   if (a2 != 0.0 && a4 != 0)
   {
-    v7 = roundf(a2 / *(this + 31432));
+    v7 = roundf(a2 / *(this + 7858));
     if (v7 >= 1.0)
     {
       v8 = (v7 + -1.0);
@@ -5920,7 +5935,6 @@ uint64_t peridot::PeridotDxpMacro::getPMF(uint64_t this, float a2, const float *
 
   *a5 = 0.0;
   *a6 = 0.0;
-  return this;
 }
 
 void sub_22474DA98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p)
@@ -5934,90 +5948,89 @@ void sub_22474DA98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t peridot::PeridotDxpMacro::runN(uint64_t a1, void *a2, void *a3, float a4, uint64_t a5, void *a6)
+uint64_t peridot::PeridotDxpMacro::runN(uint64_t a1, void *a2, void *a3, float a4, float a5, float a6, uint64_t a7, void *a8)
 {
-  v6 = a6;
-  *&v28[380] = *MEMORY[0x277D85DE8];
-  v7 = a2[1] - *a2;
-  v8 = v7 >> 3;
-  if (v7)
+  v8 = a8;
+  *&v29[380] = *MEMORY[0x277D85DE8];
+  v9 = a2[1] - *a2;
+  v10 = v9 >> 3;
+  if (v9)
   {
-    v13 = 0;
-    if (v8 <= 1)
+    v14 = 0;
+    if (v10 <= 1)
     {
-      v14 = 1;
+      v15 = 1;
     }
 
     else
     {
-      v14 = v7 >> 3;
+      v15 = v9 >> 3;
     }
 
-    v15 = &v27;
+    v16 = &v28;
     do
     {
-      v16 = peridot::PeridotDxpMacro::ML_estimation(a1, *(*a2 + 8 * v13), *(*a3 + 8 * v13), a4);
-      if (v16)
+      v17 = peridot::PeridotDxpMacro::ML_estimation(a1, *(*a2 + 8 * v14), *(*a3 + 8 * v14));
+      if (v17)
       {
-        v25 = v16;
-        peridot_depth_log_error("runN: ML_estimation failed for histogram %zu with error %d", v13, v16);
-        return v25;
+        v26 = v17;
+        peridot_depth_log_error("runN: ML_estimation failed for histogram %zu with error %d", v14, v17);
+        return v26;
       }
 
-      *v15 = 0u;
-      *(v15 + 1) = 0u;
-      *(v15 + 4) = 0;
-      ++v13;
-      v15 += 40;
+      *v16 = 0u;
+      *(v16 + 1) = 0u;
+      *(v16 + 4) = 0;
+      ++v14;
+      v16 += 40;
     }
 
-    while (v14 != v13);
-    v17 = 0;
-    v6[24] = v8;
-    v18 = v6 + 27;
-    v19 = v28;
+    while (v15 != v14);
+    v18 = 0;
+    v8[24] = v10;
+    v19 = v8 + 27;
+    v20 = v29;
     do
     {
-      v20 = *(v19 - 4);
-      *(v18 - 21) = *(v19 - 5);
-      v21 = *(v19 - 1);
-      *(v18 - 6) = *v19;
-      *(v18 - 18) = v20;
-      v22 = *(v19 - 2);
-      *(v18 - 15) = *(v19 - 3);
-      v23 = *(v19 + 1);
-      v18[3] = v19[2];
-      *v6++ = v17;
-      *v18 = v23;
-      *(v18 - 9) = v21;
-      *(v18 - 12) = v22;
-      v24 = *(v19 + 4);
-      v18[15] = v19[3];
-      ++v17;
-      v19 += 10;
-      *(v18++ + 18) = v24;
-      --v14;
+      v21 = *(v20 - 4);
+      *(v19 - 21) = *(v20 - 5);
+      v22 = *(v20 - 1);
+      *(v19 - 6) = *v20;
+      *(v19 - 18) = v21;
+      v23 = *(v20 - 2);
+      *(v19 - 15) = *(v20 - 3);
+      v24 = *(v20 + 1);
+      v19[3] = v20[2];
+      *v8++ = v18;
+      *v19 = v24;
+      *(v19 - 9) = v22;
+      *(v19 - 12) = v23;
+      v25 = *(v20 + 4);
+      v19[15] = v20[3];
+      ++v18;
+      v20 += 10;
+      *(v19++ + 18) = v25;
+      --v15;
     }
 
-    while (v14);
+    while (v15);
     return 0;
   }
 
   else
   {
-    v25 = 0;
-    a6[24] = v8;
+    v26 = 0;
+    a8[24] = v10;
   }
 
-  return v25;
+  return v26;
 }
 
-uint64_t peridot::PeridotDxpMacro::ML_estimation(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
+uint64_t peridot::PeridotDxpMacro::ML_estimation(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = MEMORY[0x28223BE20](a1, a2, a3, a4);
-  v28 = *MEMORY[0x277D85DE8];
-  v27 = 0;
-  v26 = 0u;
+  v3 = MEMORY[0x28223BE20](a1, a2, a3);
+  v27 = *MEMORY[0x277D85DE8];
+  v26 = 0;
   v25 = 0u;
   v24 = 0u;
   v23 = 0u;
@@ -6026,27 +6039,28 @@ uint64_t peridot::PeridotDxpMacro::ML_estimation(uint64_t a1, uint64_t a2, uint6
   v20 = 0u;
   v19 = 0u;
   v18 = 0u;
-  v5.i32[0] = *(v4 + 272);
-  v6.i32[0] = *(v4 + 320);
-  v7.i32[0] = *(v4 + 316);
-  *v9.i32 = v8 / *(v4 + 31432);
-  v10 = vdupq_lane_s32(v7, 0);
-  v11 = vdupq_lane_s32(v9, 0);
-  v12 = vdupq_lane_s32(v6, 0);
-  v13 = vdupq_lane_s32(v5, 0);
   v17 = 0u;
-  v15[0] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v13, xmmword_2247A4C40), v12), v11), v10);
-  v15[1] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v13, xmmword_2247A4C50), v12), v11), v10);
-  v15[2] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v13, xmmword_2247A4C60), v12), v11), v10);
-  v15[3] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v13, xmmword_2247A4C70), v12), v11), v10);
-  v15[4] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v13, xmmword_2247A4C80), v12), v11), v10);
-  v15[5] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v13, xmmword_2247A4C90), v12), v11), v10);
-  v15[6] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v13, xmmword_2247A4CA0), v12), v11), v10);
-  v15[7] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v13, xmmword_2247A4CB0), v12), v11), v10);
-  v15[8] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v13, xmmword_2247A4CC0), v12), v11), v10);
-  v15[9] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v13, xmmword_2247A4CD0), v12), v11), v10);
-  v16 = (((*v5.i32 + 40.0) + *v6.i32) - *v9.i32) + *v7.i32;
-  if (!peridot::PeridotDxpMacro::getPulseShapeOptimized(v4, (v4 + 144), (v4 + 120), v15, 41, 0, &v17) && ((*&v17 - *&v17) > 0.001 || (*(&v17 + 1) - *&v17) > 0.001 || (*(&v17 + 2) - *&v17) > 0.001 || (*(&v17 + 3) - *&v17) > 0.001 || (*&v18 - *&v17) > 0.001 || (*(&v18 + 1) - *&v17) > 0.001 || (*(&v18 + 2) - *&v17) > 0.001 || (*(&v18 + 3) - *&v17) > 0.001 || (*&v19 - *&v17) > 0.001 || (*(&v19 + 1) - *&v17) > 0.001 || (*(&v19 + 2) - *&v17) > 0.001 || (*(&v19 + 3) - *&v17) > 0.001 || (*&v20 - *&v17) > 0.001 || (*(&v20 + 1) - *&v17) > 0.001 || (*(&v20 + 2) - *&v17) > 0.001 || (*(&v20 + 3) - *&v17) > 0.001 || (*&v21 - *&v17) > 0.001 || (*(&v21 + 1) - *&v17) > 0.001 || (*(&v21 + 2) - *&v17) > 0.001 || (*(&v21 + 3) - *&v17) > 0.001 || (*&v22 - *&v17) > 0.001 || (*(&v22 + 1) - *&v17) > 0.001 || (*(&v22 + 2) - *&v17) > 0.001 || (*(&v22 + 3) - *&v17) > 0.001 || (*&v23 - *&v17) > 0.001 || (*(&v23 + 1) - *&v17) > 0.001 || (*(&v23 + 2) - *&v17) > 0.001 || (*(&v23 + 3) - *&v17) > 0.001 || (*&v24 - *&v17) > 0.001 || (*(&v24 + 1) - *&v17) > 0.001 || (*(&v24 + 2) - *&v17) > 0.001))
+  v4.i32[0] = *(v3 + 272);
+  v5.i32[0] = *(v3 + 320);
+  v6.i32[0] = *(v3 + 316);
+  *v8.i32 = v7 / *(v3 + 31432);
+  v9 = vdupq_lane_s32(v6, 0);
+  v10 = vdupq_lane_s32(v8, 0);
+  v11 = vdupq_lane_s32(v5, 0);
+  v12 = vdupq_lane_s32(v4, 0);
+  v16 = 0u;
+  v14[0] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v12, xmmword_2247A4C40), v11), v10), v9);
+  v14[1] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v12, xmmword_2247A4C50), v11), v10), v9);
+  v14[2] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v12, xmmword_2247A4C60), v11), v10), v9);
+  v14[3] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v12, xmmword_2247A4C70), v11), v10), v9);
+  v14[4] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v12, xmmword_2247A4C80), v11), v10), v9);
+  v14[5] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v12, xmmword_2247A4C90), v11), v10), v9);
+  v14[6] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v12, xmmword_2247A4CA0), v11), v10), v9);
+  v14[7] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v12, xmmword_2247A4CB0), v11), v10), v9);
+  v14[8] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v12, xmmword_2247A4CC0), v11), v10), v9);
+  v14[9] = vaddq_f32(vsubq_f32(vaddq_f32(vaddq_f32(v12, xmmword_2247A4CD0), v11), v10), v9);
+  v15 = (((*v4.i32 + 40.0) + *v5.i32) - *v8.i32) + *v6.i32;
+  if (!peridot::PeridotDxpMacro::getPulseShapeOptimized(v3, (v3 + 144), (v3 + 120), v14, 41, 0, &v16) && ((*&v16 - *&v16) > 0.001 || (*(&v16 + 1) - *&v16) > 0.001 || (*(&v16 + 2) - *&v16) > 0.001 || (*(&v16 + 3) - *&v16) > 0.001 || (*&v17 - *&v16) > 0.001 || (*(&v17 + 1) - *&v16) > 0.001 || (*(&v17 + 2) - *&v16) > 0.001 || (*(&v17 + 3) - *&v16) > 0.001 || (*&v18 - *&v16) > 0.001 || (*(&v18 + 1) - *&v16) > 0.001 || (*(&v18 + 2) - *&v16) > 0.001 || (*(&v18 + 3) - *&v16) > 0.001 || (*&v19 - *&v16) > 0.001 || (*(&v19 + 1) - *&v16) > 0.001 || (*(&v19 + 2) - *&v16) > 0.001 || (*(&v19 + 3) - *&v16) > 0.001 || (*&v20 - *&v16) > 0.001 || (*(&v20 + 1) - *&v16) > 0.001 || (*(&v20 + 2) - *&v16) > 0.001 || (*(&v20 + 3) - *&v16) > 0.001 || (*&v21 - *&v16) > 0.001 || (*(&v21 + 1) - *&v16) > 0.001 || (*(&v21 + 2) - *&v16) > 0.001 || (*(&v21 + 3) - *&v16) > 0.001 || (*&v22 - *&v16) > 0.001 || (*(&v22 + 1) - *&v16) > 0.001 || (*(&v22 + 2) - *&v16) > 0.001 || (*(&v22 + 3) - *&v16) > 0.001 || (*&v23 - *&v16) > 0.001 || (*(&v23 + 1) - *&v16) > 0.001 || (*(&v23 + 2) - *&v16) > 0.001))
   {
     operator new[]();
   }
@@ -6054,11 +6068,11 @@ uint64_t peridot::PeridotDxpMacro::ML_estimation(uint64_t a1, uint64_t a2, uint6
   return 1;
 }
 
-void sub_22474F718(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37)
+void sub_22474F718(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37)
 {
   if (a37)
   {
-    MEMORY[0x22AA53170](a37, 0x1000C8052888210);
+    MEMORY[0x22AA53170](a37, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -6338,17 +6352,24 @@ LABEL_54:
   }
 }
 
-uint64_t peridot::PeridotDxpMacro::ML_detectionEq(void *a1, int a2, void *a3, int a4, unint64_t a5, uint64_t a6, uint64_t a7, char a8, BOOL *a9, uint64_t a10, float *a11, unint64_t *a12, void *a13, void *a14)
+void sub_22474FE28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, uint64_t a19, ...)
+{
+  va_start(va, a19);
+  std::vector<std::vector<float>>::~vector[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t peridot::PeridotDxpMacro::ML_detectionEq(float *a1, float *a2, void *a3, int a4, unint64_t a5, uint64_t a6, uint64_t a7, char a8, BOOL *a9, uint64_t a10, float *a11, unint64_t *a12, void *a13, void *a14)
 {
   v14 = *a3;
   v15 = *(*a3 + 16);
   if (!v15)
   {
-    peridot_depth_log("DXPMacro: wrong bins num in eqHists");
+    peridot_depth_log("DXPMacro: wrong bins num in eqHists", a2);
     return 1;
   }
 
-  v219[182] = *(*a3 + 16);
+  v215[182] = *(*a3 + 16);
   v16 = a3[1];
   v17 = v16 - v14;
   if (v16 != v14)
@@ -6365,71 +6386,71 @@ uint64_t peridot::PeridotDxpMacro::ML_detectionEq(void *a1, int a2, void *a3, in
     {
       if (!v18)
       {
-        v33 = 0;
-        v34 = *(v14 + 8);
+        v31 = 0;
+        a2 = *(v14 + 8);
         if (v15 < 8)
         {
           goto LABEL_27;
         }
 
-        if (v218 - v34 < 0x20)
+        if ((v214 - a2) < 0x20)
         {
           goto LABEL_27;
         }
 
-        v35 = (v34 + 16);
-        v36 = v219;
-        v37 = v15 & 0xFFFFFFFFFFFFFFF8;
+        v32 = (a2 + 4);
+        v33 = v215;
+        v34 = v15 & 0xFFFFFFFFFFFFFFF8;
         do
         {
-          v38 = *v35;
-          *(v36 - 1) = *(v35 - 1);
-          *v36 = v38;
-          v36 += 2;
-          v35 += 2;
-          v37 -= 8;
+          v35 = *v32;
+          *(v33 - 1) = *(v32 - 1);
+          *v33 = v35;
+          v33 += 2;
+          v32 += 2;
+          v34 -= 8;
         }
 
-        while (v37);
-        v33 = v15 & 0xFFFFFFFFFFFFFFF8;
+        while (v34);
+        v31 = v15 & 0xFFFFFFFFFFFFFFF8;
         if (v15 != v20)
         {
 LABEL_27:
-          v39 = v15 - v33;
-          v40 = 4 * v33;
-          v41 = &v218[v33];
-          v42 = (v34 + v40);
+          v36 = v15 - v31;
+          v37 = 4 * v31;
+          v38 = &v214[v31];
+          a2 = (a2 + v37);
           do
           {
-            v43 = *v42++;
-            *v41++ = v43;
-            --v39;
+            v39 = *a2++;
+            *v38++ = v39;
+            --v36;
           }
 
-          while (v39);
+          while (v36);
         }
 
         goto LABEL_6;
       }
 
-      v21 = *(v14 + 24 * v18 + 8);
-      if (v15 > 7 && (v218 < &v21->i32[v15] ? (v22 = v21 >= &v218[v15]) : (v22 = 1), v22))
+      a2 = *(v14 + 24 * v18 + 8);
+      if (v15 > 7 && (v214 < &a2[v15] ? (v21 = a2 >= &v214[v15]) : (v21 = 1), v21))
       {
-        v23 = v21 + 1;
-        v24 = v219;
-        v25 = v15 & 0xFFFFFFFFFFFFFFF8;
+        v22 = (a2 + 4);
+        v23 = v215;
+        v24 = v15 & 0xFFFFFFFFFFFFFFF8;
         do
         {
-          v26 = vaddq_f32(*v24, *v23);
-          v24[-1] = vaddq_f32(v24[-1], v23[-1]);
-          *v24 = v26;
-          v24 += 2;
+          v25 = vaddq_f32(*v23, *v22);
+          v23[-1] = vaddq_f32(v23[-1], v22[-1]);
+          *v23 = v25;
           v23 += 2;
-          v25 -= 8;
+          v22 += 2;
+          v24 -= 8;
         }
 
-        while (v25);
-        v27 = v15 & 0xFFFFFFFFFFFFFFF8;
+        while (v24);
+        v26 = v15 & 0xFFFFFFFFFFFFFFF8;
         if (v15 == v20)
         {
           goto LABEL_6;
@@ -6438,22 +6459,22 @@ LABEL_27:
 
       else
       {
-        v27 = 0;
+        v26 = 0;
       }
 
-      v28 = v15 - v27;
-      v29 = v27;
-      v30 = &v218[v27];
-      v31 = &v21->f32[v29];
+      v27 = v15 - v26;
+      v28 = 4 * v26;
+      v29 = &v214[v26];
+      a2 = (a2 + v28);
       do
       {
-        v32 = *v31++;
-        *v30 = *v30 + v32;
-        ++v30;
-        --v28;
+        v30 = *a2++;
+        *v29 = *v29 + v30;
+        ++v29;
+        --v27;
       }
 
-      while (v28);
+      while (v27);
 LABEL_6:
       ++v18;
     }
@@ -6461,227 +6482,227 @@ LABEL_6:
     while (v18 != v19);
   }
 
-  v44 = a5 + ((a1[23] - a1[22]) >> 2) - 1;
-  v45 = ((a1[23] - a1[22]) >> 2) - 1;
-  if (v44 < a5)
+  v40 = a5 + ((*(a1 + 23) - *(a1 + 22)) >> 2) - 1;
+  v41 = ((*(a1 + 23) - *(a1 + 22)) >> 2) - 1;
+  if (v40 < a5)
   {
     return 1;
   }
 
-  *a12 = v45;
-  if (v45 > 0x5B)
+  *a12 = v41;
+  if (v41 > 0x5B)
   {
     goto LABEL_32;
   }
 
-  v47 = a1[590];
-  if (a1[591] - v47 != 368)
+  v43 = *(a1 + 590);
+  if (*(a1 + 591) - v43 != 368)
   {
-    peridot_depth_log("DXPMacro: wrong _hist_eq size");
+    peridot_depth_log("DXPMacro: wrong _hist_eq size", a2);
     return 1;
   }
 
-  if (v44 >= v15)
+  if (v40 >= v15)
   {
 LABEL_32:
-    peridot_depth_log("DXPMacro: wrong histSize");
+    peridot_depth_log("DXPMacro: wrong histSize", a2);
     return 1;
   }
 
-  if (v44 != a5)
+  if (v40 != a5)
   {
-    if (v45 <= 1)
+    if (v41 <= 1)
     {
-      v48 = 1;
+      v44 = 1;
     }
 
     else
     {
-      v48 = v45;
+      v44 = v41;
     }
 
-    if (v45 <= 7 || (v49 = &v218[a5], v47 - v49 < 0x20))
+    if (v41 <= 7 || (v45 = &v214[a5], v43 - v45 < 0x20))
     {
-      v50 = 0;
+      v46 = 0;
 LABEL_45:
-      v51 = v48 - v50;
-      v52 = (v47 + 4 * v50);
-      v53 = &v218[v50 + a5];
+      v47 = v44 - v46;
+      v48 = (v43 + 4 * v46);
+      v49 = &v214[v46 + a5];
       do
       {
-        v54 = *v53++;
-        *v52++ = v54;
-        --v51;
+        v50 = *v49++;
+        *v48++ = v50;
+        --v47;
       }
 
-      while (v51);
+      while (v47);
       goto LABEL_47;
     }
 
-    v50 = v48 & 0x78;
-    v192 = (v47 + 16);
-    v193 = (v49 + 4);
-    v194 = v50;
+    v46 = v44 & 0x78;
+    v188 = (v43 + 16);
+    v189 = (v45 + 4);
+    v190 = v46;
     do
     {
-      v195 = *v193;
-      *(v192 - 1) = *(v193 - 1);
-      *v192 = v195;
-      v192 += 2;
-      v193 += 2;
-      v194 -= 8;
+      v191 = *v189;
+      *(v188 - 1) = *(v189 - 1);
+      *v188 = v191;
+      v188 += 2;
+      v189 += 2;
+      v190 -= 8;
     }
 
-    while (v194);
-    if (v45 != v50)
+    while (v190);
+    if (v41 != v46)
     {
       goto LABEL_45;
     }
   }
 
 LABEL_47:
-  v55 = a5 + 1;
-  v56 = 1;
+  v51 = a5 + 1;
+  v52 = 1;
   if (a5 + 1 > 1)
   {
-    v56 = a5 + 1;
+    v52 = a5 + 1;
   }
 
-  if (v55 <= 7)
+  if (v51 <= 7)
   {
-    v57 = 0;
-    v58 = 0;
+    v53 = 0;
+    v54 = 0;
 LABEL_55:
-    v64 = v56 - v57;
-    v65 = &v218[v57];
+    v60 = v52 - v53;
+    v61 = &v214[v53];
     do
     {
-      v66 = *v65++;
-      v58.f32[0] = v58.f32[0] + v66;
-      --v64;
+      v62 = *v61++;
+      v54.f32[0] = v54.f32[0] + v62;
+      --v60;
     }
 
-    while (v64);
+    while (v60);
     goto LABEL_57;
   }
 
-  v57 = v56 & 0xFFFFFFFFFFFFFFF8;
-  v59 = v219;
-  v60 = 0uLL;
-  v61 = v56 & 0xFFFFFFFFFFFFFFF8;
-  v62 = 0uLL;
+  v53 = v52 & 0xFFFFFFFFFFFFFFF8;
+  v55 = v215;
+  v56 = 0uLL;
+  v57 = v52 & 0xFFFFFFFFFFFFFFF8;
+  v58 = 0uLL;
   do
   {
-    v60 = vaddq_f32(v60, v59[-1]);
-    v62 = vaddq_f32(v62, *v59);
-    v59 += 2;
-    v61 -= 8;
+    v56 = vaddq_f32(v56, v55[-1]);
+    v58 = vaddq_f32(v58, *v55);
+    v55 += 2;
+    v57 -= 8;
   }
 
-  while (v61);
-  v63 = vaddq_f32(v62, v60);
-  v58 = vpaddq_f32(v63, v63).u64[0];
-  v58.f32[0] = vaddv_f32(v58);
-  if (v55 != v57)
+  while (v57);
+  v59 = vaddq_f32(v58, v56);
+  v54 = vpaddq_f32(v59, v59).u64[0];
+  v54.f32[0] = vaddv_f32(v54);
+  if (v51 != v53)
   {
     goto LABEL_55;
   }
 
 LABEL_57:
-  v58.f32[0] = v58.f32[0] / v56;
-  *a11 = v58.f32[0];
-  if (v44 == a5)
+  v54.f32[0] = v54.f32[0] / v52;
+  *a11 = v54.f32[0];
+  if (v40 == a5)
   {
-    v67 = a8;
-    if (v58.f32[0] <= 0.005)
+    v63 = a8;
+    if (v54.f32[0] <= 0.005)
     {
-      v76 = a6;
-      v68 = a1;
-      v69 = a7;
+      v72 = a6;
+      v64 = a1;
+      v65 = a7;
       *a9 = 0;
       goto LABEL_83;
     }
 
-    v68 = a1;
-    v69 = a7;
-    v70 = 3.4028e38;
+    v64 = a1;
+    v65 = a7;
+    v66 = 3.4028e38;
 LABEL_70:
-    v75 = (v58.f32[0] / v70) > 3.0;
+    v71 = (v54.f32[0] / v66) > 3.0;
     goto LABEL_73;
   }
 
-  if (v45 <= 1)
+  if (v41 <= 1)
   {
-    v71 = 1;
+    v67 = 1;
   }
 
   else
   {
-    v71 = v45;
+    v67 = v41;
   }
 
-  v70 = 3.4028e38;
-  v72 = v47;
+  v66 = 3.4028e38;
+  v68 = v43;
   do
   {
-    v73 = *v72++;
-    v74 = v73;
-    if (v73 < v70)
+    v69 = *v68++;
+    v70 = v69;
+    if (v69 < v66)
     {
-      v70 = v74;
+      v66 = v70;
     }
 
-    --v71;
+    --v67;
   }
 
-  while (v71);
-  v67 = a8;
-  v68 = a1;
-  v69 = a7;
-  if (v58.f32[0] > 0.005)
+  while (v67);
+  v63 = a8;
+  v64 = a1;
+  v65 = a7;
+  if (v54.f32[0] > 0.005)
   {
-    if (v70 == 0.0)
+    if (v66 == 0.0)
     {
-      v75 = 1;
+      v71 = 1;
       goto LABEL_73;
     }
 
     goto LABEL_70;
   }
 
-  v75 = 0;
+  v71 = 0;
 LABEL_73:
-  v76 = a6;
-  *a9 = v75;
-  if (v44 != a5)
+  v72 = a6;
+  *a9 = v71;
+  if (v40 != a5)
   {
-    if (v45 <= 1)
+    if (v41 <= 1)
     {
-      v77 = 1;
+      v73 = 1;
     }
 
     else
     {
-      v77 = v45;
+      v73 = v41;
     }
 
-    if (v45 > 7 && (v47 >= (a11 + 1) || v47 + 4 * v77 <= a11))
+    if (v41 > 7 && (v43 >= (a11 + 1) || v43 + 4 * v73 <= a11))
     {
-      v78 = v77 & 0x78;
-      v196 = vdupq_lane_s32(v58, 0);
-      v197 = (v47 + 16);
-      v198 = v78;
+      v74 = v73 & 0x78;
+      v192 = vdupq_lane_s32(v54, 0);
+      v193 = (v43 + 16);
+      v194 = v74;
       do
       {
-        v199 = vmaxnmq_f32(vsubq_f32(*v197, v196), 0);
-        v197[-1] = vmaxnmq_f32(vsubq_f32(v197[-1], v196), 0);
-        *v197 = v199;
-        v197 += 2;
-        v198 -= 8;
+        v195 = vmaxnmq_f32(vsubq_f32(*v193, v192), 0);
+        v193[-1] = vmaxnmq_f32(vsubq_f32(v193[-1], v192), 0);
+        *v193 = v195;
+        v193 += 2;
+        v194 -= 8;
       }
 
-      while (v198);
-      if (v45 == v78)
+      while (v194);
+      if (v41 == v74)
       {
         goto LABEL_83;
       }
@@ -6689,127 +6710,127 @@ LABEL_73:
 
     else
     {
-      v78 = 0;
+      v74 = 0;
     }
 
-    v79 = v77 - v78;
-    v80 = (v47 + 4 * v78);
+    v75 = v73 - v74;
+    v76 = (v43 + 4 * v74);
     do
     {
-      *v80 = fmaxf(*v80 - *a11, 0.0);
-      ++v80;
-      --v79;
+      *v76 = fmaxf(*v76 - *a11, 0.0);
+      ++v76;
+      --v75;
     }
 
-    while (v79);
+    while (v75);
   }
 
 LABEL_83:
   if (a4)
   {
-    v81 = a4;
-    v82 = v68 + 324;
+    v77 = a4;
+    v78 = (v64 + 81);
     do
     {
-      bzero(v82, 4 * v69);
-      v82 += 244;
-      --v81;
+      bzero(v78, 4 * v65);
+      v78 += 244;
+      --v77;
     }
 
-    while (v81);
+    while (v77);
   }
 
-  if (!v69)
+  if (!v65)
   {
     return 0;
   }
 
-  v83 = v68[590];
-  v84 = *v68[3911];
-  v85 = *v68[3920];
-  v86 = *v68[3914];
-  v87 = 0;
-  if (v67)
+  v79 = *(v64 + 590);
+  v80 = **(v64 + 3911);
+  v81 = **(v64 + 3920);
+  v82 = **(v64 + 3914);
+  v83 = 0;
+  if (v63)
   {
-    v88 = (v85 + (v76 << 9) + 4);
-    v89 = 11008 * v76;
-    v202 = 3.4028e38;
-    v90 = 224;
+    v84 = (v81 + (v72 << 9) + 4);
+    v85 = 11008 * v72;
+    v198 = 3.4028e38;
+    v86 = 448;
     while (*a12 == 45)
     {
-      v93 = *(v83 + 128);
-      v92 = *(v83 + 144);
-      v94 = *(v83 + 96);
-      v95 = *(v83 + 112);
-      v204 = *(v84 + v89 + 144);
-      v206 = *(v84 + v89 + 112);
-      v208 = *(v84 + v89 + 128);
-      v210 = *(v84 + v89 + 96);
-      v96 = *(v83 + 64);
-      v97 = *(v83 + 80);
-      v98 = *(v84 + v89 + 80);
-      v99 = *(v83 + 32);
-      v100 = *(v83 + 48);
-      v101 = *(v84 + v89 + 48);
-      v212 = *(v84 + v89 + 64);
-      v214 = *(v84 + v89 + 32);
-      v102 = *(v83 + 16);
-      v103 = *(v84 + v89 + 16);
-      v216 = *(v84 + 11008 * v76);
-      v104 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(*v83, v216), v214, v99), v212, v96), v210, v94), v208, v93), v103, v102), v101, v100), v98, v97), v206, v95), v204, v92);
-      v105 = *(v86 + v89 + 128);
-      v106 = *(v86 + v89 + 96);
-      v107 = *(v86 + v89 + 48);
-      v108 = *(v86 + v89 + 64);
-      v110 = *(v86 + v89 + 16);
-      v109 = *(v86 + v89 + 32);
-      v111 = *(v86 + 11008 * v76);
-      v112 = *(v83 + 160);
-      v113 = *(v83 + 164);
-      v114 = *(v84 + v89 + 164);
-      v115 = vmulq_f32(v113, v114);
-      v116 = (vaddv_f32(*&vpaddq_f32(v104, v104)) + (v112 * *(v84 + v89 + 160))) + vaddv_f32(*&vpaddq_f32(v115, v115));
-      v117 = *(v86 + v89 + 80);
-      v118 = *(v86 + v89 + 112);
-      v119 = *(v86 + v89 + 144);
-      v120 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v111, *v83), v99, v109), v96, v108), v94, v106), v93, v105), v102, v110), v100, v107), v97, v117), v95, v118), v92, v119);
-      v115.i32[0] = *(v86 + v89 + 160);
-      v121 = vaddv_f32(*&vpaddq_f32(v120, v120)) + (v115.f32[0] * v112);
-      v122 = *(v86 + v89 + 164);
-      v123 = vmulq_f32(v122, v113);
-      v124 = (*(v88 - 1) * v116) + (*v88 * (v121 + vaddv_f32(*&vpaddq_f32(v123, v123))));
-      v125 = vsubq_f32(v92, vmlaq_f32(vmulq_n_f32(v119, v124), 0, v204));
-      v126 = vsubq_f32(v95, vmlaq_f32(vmulq_n_f32(v118, v124), 0, v206));
-      v127 = vsubq_f32(v97, vmlaq_f32(vmulq_n_f32(v117, v124), 0, v98));
-      v128 = vsubq_f32(v100, vmlaq_f32(vmulq_n_f32(v107, v124), 0, v101));
-      v129 = vsubq_f32(v102, vmlaq_f32(vmulq_n_f32(v110, v124), 0, v103));
-      v130 = vsubq_f32(v93, vmlaq_f32(vmulq_n_f32(v105, v124), 0, v208));
-      v131 = vsubq_f32(v94, vmlaq_f32(vmulq_n_f32(v106, v124), 0, v210));
-      v132 = vsubq_f32(v96, vmlaq_f32(vmulq_n_f32(v108, v124), 0, v212));
-      v133 = vsubq_f32(v99, vmlaq_f32(vmulq_n_f32(v109, v124), 0, v214));
-      v134 = vsubq_f32(*v83, vmlaq_f32(vmulq_n_f32(v111, v124), 0, v216));
-      v135 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v134, v134), v133, v133), v132, v132), v131, v131), v130, v130), v129, v129), v128, v128), v127, v127), v126, v126), v125, v125);
-      v136 = vsubq_f32(v113, vmlaq_f32(vmulq_n_f32(v122, v124), 0, v114));
-      v137 = vmulq_f32(v136, v136);
-      v138 = (vaddv_f32(*&vpaddq_f32(v135, v135)) + ((v112 - (v124 * v115.f32[0])) * (v112 - (v124 * v115.f32[0])))) + vaddv_f32(*&vpaddq_f32(v137, v137));
-      if (v138 < v202)
+      v89 = *(v79 + 128);
+      v88 = *(v79 + 144);
+      v90 = *(v79 + 96);
+      v91 = *(v79 + 112);
+      v200 = *(v80 + v85 + 144);
+      v202 = *(v80 + v85 + 112);
+      v204 = *(v80 + v85 + 128);
+      v206 = *(v80 + v85 + 96);
+      v92 = *(v79 + 64);
+      v93 = *(v79 + 80);
+      v94 = *(v80 + v85 + 80);
+      v95 = *(v79 + 32);
+      v96 = *(v79 + 48);
+      v97 = *(v80 + v85 + 48);
+      v208 = *(v80 + v85 + 64);
+      v210 = *(v80 + v85 + 32);
+      v98 = *(v79 + 16);
+      v99 = *(v80 + v85 + 16);
+      v212 = *(v80 + 11008 * v72);
+      v100 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(*v79, v212), v210, v95), v208, v92), v206, v90), v204, v89), v99, v98), v97, v96), v94, v93), v202, v91), v200, v88);
+      v101 = *(v82 + v85 + 128);
+      v102 = *(v82 + v85 + 96);
+      v103 = *(v82 + v85 + 48);
+      v104 = *(v82 + v85 + 64);
+      v106 = *(v82 + v85 + 16);
+      v105 = *(v82 + v85 + 32);
+      v107 = *(v82 + 11008 * v72);
+      v108 = *(v79 + 160);
+      v109 = *(v79 + 164);
+      v110 = *(v80 + v85 + 164);
+      v111 = vmulq_f32(v109, v110);
+      v112 = (vaddv_f32(*&vpaddq_f32(v100, v100)) + (v108 * *(v80 + v85 + 160))) + vaddv_f32(*&vpaddq_f32(v111, v111));
+      v113 = *(v82 + v85 + 80);
+      v114 = *(v82 + v85 + 112);
+      v115 = *(v82 + v85 + 144);
+      v116 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v107, *v79), v95, v105), v92, v104), v90, v102), v89, v101), v98, v106), v96, v103), v93, v113), v91, v114), v88, v115);
+      v111.i32[0] = *(v82 + v85 + 160);
+      v117 = vaddv_f32(*&vpaddq_f32(v116, v116)) + (v111.f32[0] * v108);
+      v118 = *(v82 + v85 + 164);
+      v119 = vmulq_f32(v118, v109);
+      v120 = (*(v84 - 1) * v112) + (*v84 * (v117 + vaddv_f32(*&vpaddq_f32(v119, v119))));
+      v121 = vsubq_f32(v88, vmlaq_f32(vmulq_n_f32(v115, v120), 0, v200));
+      v122 = vsubq_f32(v91, vmlaq_f32(vmulq_n_f32(v114, v120), 0, v202));
+      v123 = vsubq_f32(v93, vmlaq_f32(vmulq_n_f32(v113, v120), 0, v94));
+      v124 = vsubq_f32(v96, vmlaq_f32(vmulq_n_f32(v103, v120), 0, v97));
+      v125 = vsubq_f32(v98, vmlaq_f32(vmulq_n_f32(v106, v120), 0, v99));
+      v126 = vsubq_f32(v89, vmlaq_f32(vmulq_n_f32(v101, v120), 0, v204));
+      v127 = vsubq_f32(v90, vmlaq_f32(vmulq_n_f32(v102, v120), 0, v206));
+      v128 = vsubq_f32(v92, vmlaq_f32(vmulq_n_f32(v104, v120), 0, v208));
+      v129 = vsubq_f32(v95, vmlaq_f32(vmulq_n_f32(v105, v120), 0, v210));
+      v130 = vsubq_f32(*v79, vmlaq_f32(vmulq_n_f32(v107, v120), 0, v212));
+      v131 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v130, v130), v129, v129), v128, v128), v127, v127), v126, v126), v125, v125), v124, v124), v123, v123), v122, v122), v121, v121);
+      v132 = vsubq_f32(v109, vmlaq_f32(vmulq_n_f32(v118, v120), 0, v110));
+      v133 = vmulq_f32(v132, v132);
+      v134 = (vaddv_f32(*&vpaddq_f32(v131, v131)) + ((v108 - (v120 * v111.f32[0])) * (v108 - (v120 * v111.f32[0])))) + vaddv_f32(*&vpaddq_f32(v133, v133));
+      if (v134 < v198)
       {
-        *a13 = v87;
+        *a13 = v83;
         *a14 = 0;
-        v202 = v138;
+        v198 = v134;
       }
 
       result = 0;
-      *(v68 + v87 + 81) = v138;
-      v91 = &v68[v90];
-      *(v91 - 1) = 0.0;
-      ++v87;
-      *v91 = v124;
-      v88 += 2;
-      v86 += 180;
-      v84 += 180;
-      ++v90;
-      if (v69 == v87)
+      v64[v83 + 81] = v134;
+      v87 = &v64[v86];
+      *(v87 - 1) = 0.0;
+      ++v83;
+      *v87 = v120;
+      v84 += 2;
+      v82 += 180;
+      v80 += 180;
+      v86 += 2;
+      if (v65 == v83)
       {
         return result;
       }
@@ -6818,90 +6839,90 @@ LABEL_83:
 
   else
   {
-    v139 = (v76 << 9) | 4;
-    v140 = (*v68[3917] + v139);
-    v141 = (v85 + v139);
-    v142 = 11008 * v76;
-    v200 = 3.4028e38;
-    v143 = 224;
+    v135 = (v72 << 9) | 4;
+    v136 = (**(v64 + 3917) + v135);
+    v137 = (v81 + v135);
+    v138 = 11008 * v72;
+    v196 = 3.4028e38;
+    v139 = 448;
     while (*a12 == 45)
     {
-      v146 = *(v83 + 128);
-      v145 = *(v83 + 144);
-      v148 = *(v83 + 96);
-      v147 = *(v83 + 112);
-      v201 = *(v84 + v142 + 144);
-      v203 = *(v84 + v142 + 112);
-      v209 = *(v84 + v142 + 128);
-      v211 = *(v84 + v142 + 96);
-      v150 = *(v83 + 64);
-      v149 = *(v83 + 80);
-      v151 = *(v83 + 32);
-      v152 = *(v83 + 48);
-      v205 = *(v84 + v142 + 80);
-      v207 = *(v84 + v142 + 48);
-      v213 = *(v84 + v142 + 64);
-      v215 = *(v84 + v142 + 32);
-      v153 = *(v83 + 16);
-      v154 = *(v84 + v142 + 16);
-      v217 = *(v84 + 11008 * v76);
-      v155 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(*v83, v217), v215, v151), v213, v150), v211, v148), v209, v146), v154, v153), v207, v152), v205, v149), v203, v147), v201, v145);
-      v156 = *(v86 + v142 + 128);
-      v157 = *(v86 + v142 + 96);
-      v158 = *(v86 + v142 + 64);
-      v160 = *(v86 + v142 + 16);
-      v159 = *(v86 + v142 + 32);
-      v161 = *(v86 + 11008 * v76);
-      v162 = *(v84 + v142 + 160);
-      v163 = *(v83 + 160);
-      v164 = *(v83 + 164);
-      v165 = *(v84 + v142 + 164);
-      v166 = vmulq_f32(v164, v165);
-      v167 = (vaddv_f32(*&vpaddq_f32(v155, v155)) + (v163 * v162)) + vaddv_f32(*&vpaddq_f32(v166, v166));
-      v168 = *(v86 + v142 + 48);
-      v169 = *(v86 + v142 + 80);
-      v170 = *(v86 + v142 + 112);
-      v171 = *(v86 + v142 + 144);
-      v172 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v161, *v83), v151, v159), v150, v158), v148, v157), v146, v156), v153, v160), v152, v168), v149, v169), v147, v170), v145, v171);
-      v173 = *(v86 + v142 + 160);
-      v174 = *(v86 + v142 + 164);
-      v175 = vmulq_f32(v174, v164);
-      v175.f32[0] = (vaddv_f32(*&vpaddq_f32(v172, v172)) + (v173 * v163)) + vaddv_f32(*&vpaddq_f32(v175, v175));
-      v176 = (*(v140 - 1) * v167) + (*v140 * v175.f32[0]);
-      v177 = (*(v141 - 1) * v167) + (*v141 * v175.f32[0]);
-      v178 = vsubq_f32(v145, vmlaq_n_f32(vmulq_n_f32(v171, v177), v201, v176));
-      v179 = vsubq_f32(v147, vmlaq_n_f32(vmulq_n_f32(v170, v177), v203, v176));
-      v180 = vsubq_f32(v149, vmlaq_n_f32(vmulq_n_f32(v169, v177), v205, v176));
-      v181 = vsubq_f32(v152, vmlaq_n_f32(vmulq_n_f32(v168, v177), v207, v176));
-      v182 = vsubq_f32(v153, vmlaq_n_f32(vmulq_n_f32(v160, v177), v154, v176));
-      v183 = vsubq_f32(v146, vmlaq_n_f32(vmulq_n_f32(v156, v177), v209, v176));
-      v184 = vsubq_f32(v148, vmlaq_n_f32(vmulq_n_f32(v157, v177), v211, v176));
-      v185 = vsubq_f32(v150, vmlaq_n_f32(vmulq_n_f32(v158, v177), v213, v176));
-      v186 = vsubq_f32(v151, vmlaq_n_f32(vmulq_n_f32(v159, v177), v215, v176));
-      v187 = vsubq_f32(*v83, vmlaq_n_f32(vmulq_n_f32(v161, v177), v217, v176));
-      v188 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v187, v187), v186, v186), v185, v185), v184, v184), v183, v183), v182, v182), v181, v181), v180, v180), v179, v179), v178, v178);
-      v189 = vsubq_f32(v164, vmlaq_n_f32(vmulq_n_f32(v174, v177), v165, v176));
-      v190 = vmulq_f32(v189, v189);
-      v191 = (vaddv_f32(*&vpaddq_f32(v188, v188)) + ((v163 - ((v177 * v173) + (v162 * v176))) * (v163 - ((v177 * v173) + (v162 * v176))))) + vaddv_f32(*&vpaddq_f32(v190, v190));
-      if (v191 < v200)
+      v142 = *(v79 + 128);
+      v141 = *(v79 + 144);
+      v144 = *(v79 + 96);
+      v143 = *(v79 + 112);
+      v197 = *(v80 + v138 + 144);
+      v199 = *(v80 + v138 + 112);
+      v205 = *(v80 + v138 + 128);
+      v207 = *(v80 + v138 + 96);
+      v146 = *(v79 + 64);
+      v145 = *(v79 + 80);
+      v147 = *(v79 + 32);
+      v148 = *(v79 + 48);
+      v201 = *(v80 + v138 + 80);
+      v203 = *(v80 + v138 + 48);
+      v209 = *(v80 + v138 + 64);
+      v211 = *(v80 + v138 + 32);
+      v149 = *(v79 + 16);
+      v150 = *(v80 + v138 + 16);
+      v213 = *(v80 + 11008 * v72);
+      v151 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(*v79, v213), v211, v147), v209, v146), v207, v144), v205, v142), v150, v149), v203, v148), v201, v145), v199, v143), v197, v141);
+      v152 = *(v82 + v138 + 128);
+      v153 = *(v82 + v138 + 96);
+      v154 = *(v82 + v138 + 64);
+      v156 = *(v82 + v138 + 16);
+      v155 = *(v82 + v138 + 32);
+      v157 = *(v82 + 11008 * v72);
+      v158 = *(v80 + v138 + 160);
+      v159 = *(v79 + 160);
+      v160 = *(v79 + 164);
+      v161 = *(v80 + v138 + 164);
+      v162 = vmulq_f32(v160, v161);
+      v163 = (vaddv_f32(*&vpaddq_f32(v151, v151)) + (v159 * v158)) + vaddv_f32(*&vpaddq_f32(v162, v162));
+      v164 = *(v82 + v138 + 48);
+      v165 = *(v82 + v138 + 80);
+      v166 = *(v82 + v138 + 112);
+      v167 = *(v82 + v138 + 144);
+      v168 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v157, *v79), v147, v155), v146, v154), v144, v153), v142, v152), v149, v156), v148, v164), v145, v165), v143, v166), v141, v167);
+      v169 = *(v82 + v138 + 160);
+      v170 = *(v82 + v138 + 164);
+      v171 = vmulq_f32(v170, v160);
+      v171.f32[0] = (vaddv_f32(*&vpaddq_f32(v168, v168)) + (v169 * v159)) + vaddv_f32(*&vpaddq_f32(v171, v171));
+      v172 = (*(v136 - 1) * v163) + (*v136 * v171.f32[0]);
+      v173 = (*(v137 - 1) * v163) + (*v137 * v171.f32[0]);
+      v174 = vsubq_f32(v141, vmlaq_n_f32(vmulq_n_f32(v167, v173), v197, v172));
+      v175 = vsubq_f32(v143, vmlaq_n_f32(vmulq_n_f32(v166, v173), v199, v172));
+      v176 = vsubq_f32(v145, vmlaq_n_f32(vmulq_n_f32(v165, v173), v201, v172));
+      v177 = vsubq_f32(v148, vmlaq_n_f32(vmulq_n_f32(v164, v173), v203, v172));
+      v178 = vsubq_f32(v149, vmlaq_n_f32(vmulq_n_f32(v156, v173), v150, v172));
+      v179 = vsubq_f32(v142, vmlaq_n_f32(vmulq_n_f32(v152, v173), v205, v172));
+      v180 = vsubq_f32(v144, vmlaq_n_f32(vmulq_n_f32(v153, v173), v207, v172));
+      v181 = vsubq_f32(v146, vmlaq_n_f32(vmulq_n_f32(v154, v173), v209, v172));
+      v182 = vsubq_f32(v147, vmlaq_n_f32(vmulq_n_f32(v155, v173), v211, v172));
+      v183 = vsubq_f32(*v79, vmlaq_n_f32(vmulq_n_f32(v157, v173), v213, v172));
+      v184 = vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v183, v183), v182, v182), v181, v181), v180, v180), v179, v179), v178, v178), v177, v177), v176, v176), v175, v175), v174, v174);
+      v185 = vsubq_f32(v160, vmlaq_n_f32(vmulq_n_f32(v170, v173), v161, v172));
+      v186 = vmulq_f32(v185, v185);
+      v187 = (vaddv_f32(*&vpaddq_f32(v184, v184)) + ((v159 - ((v173 * v169) + (v158 * v172))) * (v159 - ((v173 * v169) + (v158 * v172))))) + vaddv_f32(*&vpaddq_f32(v186, v186));
+      if (v187 < v196)
       {
-        *a13 = v87;
+        *a13 = v83;
         *a14 = 0;
-        v200 = v191;
+        v196 = v187;
       }
 
       result = 0;
-      *(v68 + v87 + 81) = v191;
-      v144 = &v68[v143];
-      *(v144 - 1) = v176;
-      *v144 = v177;
-      ++v87;
-      v140 += 2;
-      v141 += 2;
-      v86 += 180;
-      v84 += 180;
-      ++v143;
-      if (v69 == v87)
+      v64[v83 + 81] = v187;
+      v140 = &v64[v139];
+      *(v140 - 1) = v172;
+      *v140 = v173;
+      ++v83;
+      v136 += 2;
+      v137 += 2;
+      v82 += 180;
+      v80 += 180;
+      v139 += 2;
+      if (v65 == v83)
       {
         return result;
       }
@@ -7618,7 +7639,7 @@ LABEL_63:
   v88 = a4 - 1;
   v89 = (a6 << 9) | 4;
   v90 = a1 + 285;
-  v91 = (a1 + 71);
+  v91 = a1 + 71;
   v92 = 11008 * a6;
   for (i = 1; ; ++i)
   {
@@ -7687,7 +7708,7 @@ LABEL_63:
         v133.f32[0] = *(v79 + 168) - (v123.f32[0] * *(v96 + v92 + 168));
         v132.f32[0] = (v132.f32[0] + (v133.f32[0] * v133.f32[0])) + ((*(v79 + 172) - (v123.f32[0] * *(v96 + v92 + 172))) * (*(v79 + 172) - (v123.f32[0] * *(v96 + v92 + 172))));
         v133.f32[0] = *(v79 + 176) - (v123.f32[0] * *(v96 + v92 + 176));
-        v91[v97] = v132.f32[0] + (v133.f32[0] * v133.f32[0]);
+        *(v91 + v97) = v132.f32[0] + (v133.f32[0] * v133.f32[0]);
         *v99 = v123.i32[0];
         ++v97;
         v94 += 180;
@@ -7792,14 +7813,14 @@ LABEL_63:
     v86 = (v81 + 24 * v191);
     v85 = (v82 + 24 * v191);
     v84 = (v83 + 24 * v191);
-    v90 += 122;
-    v91 += 61;
+    v90 += 61;
+    v91 = (v91 + 244);
   }
 
   return v191 < v73;
 }
 
-void **std::vector<std::vector<float>>::~vector[abi:ne200100](void **a1)
+char **std::vector<std::vector<float>>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -7928,21 +7949,28 @@ void peridot_depth_log_debug(const char *__format, ...)
   }
 }
 
-void sub_224753734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
+void sub_224753734(_Unwind_Exception *a1)
 {
-  Matrix<double>::~Matrix(&a26);
-  Matrix<double>::~Matrix(&a21);
-  Matrix<double>::~Matrix(&a16);
-  Matrix<double>::~Matrix(&a36);
-  Matrix<double>::~Matrix(&a41);
-  Matrix<double>::~Matrix(&a46);
-  Matrix<double>::~Matrix(&a51);
-  Matrix<double>::~Matrix(&a56);
-  Matrix<double>::~Matrix(&a61);
-  Matrix<double>::~Matrix(v61 - 232);
-  Matrix<double>::~Matrix(v61 - 192);
-  Matrix<double>::~Matrix(v61 - 152);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
   _Unwind_Resume(a1);
+}
+
+void sub_224753974(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, ...)
+{
+  va_start(va, a60);
+  MatrixNxPts<1u,double>::~MatrixNxPts(va);
+  JUMPOUT(0x2247538F4);
 }
 
 void GmoE::rotationMatrixToAngles(uint64_t a1, uint64_t a2)
@@ -7985,9 +8013,9 @@ uint64_t PDPeridotCalibGetMpcUUIDFromCalibrationBlob(CFDataRef theData, uint64_t
   {
     if (a2)
     {
-      v7[1] = CFDataGetLength(theData);
-      v7[0] = CFDataGetBytePtr(theData);
-      peridot::CalibManager::readMpcUUID(v7, a2, v5, v6);
+      v6[1] = CFDataGetLength(theData);
+      v6[0] = CFDataGetBytePtr(theData);
+      peridot::CalibManager::readMpcUUID(v6, a2, v5);
     }
   }
 
@@ -8073,19 +8101,19 @@ uint64_t PDPeridotCalibCalibrationBlobsFromNVM(peridot::CalibManager *a1, const 
 {
   v4 = MGGetStringAnswer();
   v5 = [v4 UTF8String];
-  v8 = peridot::CalibManager::blobsFromNVM(a1, a2, v5, v6, v7);
+  v7 = peridot::CalibManager::blobsFromNVM(a1, a2, v5, v6);
 
   CFRelease(v4);
-  return v8;
+  return v7;
 }
 
 uint64_t PDPeridotCalibCalibrationBlobsFromNVMForDevice(peridot::CalibManager *a1, const __CFData *a2, void *a3)
 {
   v5 = a3;
   v6 = [v5 UTF8String];
-  v9 = peridot::CalibManager::blobsFromNVM(a1, a2, v6, v7, v8);
+  v8 = peridot::CalibManager::blobsFromNVM(a1, a2, v6, v7);
 
-  return v9;
+  return v8;
 }
 
 peridot::PeridotDXPCalib *peridot::PeridotDXPCalib::PeridotDXPCalib(peridot::PeridotDXPCalib *this)
@@ -8517,19 +8545,19 @@ void peridot::PeridotDXPCalib::~PeridotDXPCalib(peridot::PeridotDXPCalib *this)
   }
 }
 
-void peridot::PeridotDXPCalib::init(peridot::PeridotDXPCalib *this, const _PeridotCalib *a2, uint64_t a3, float a4)
+void peridot::PeridotDXPCalib::init(peridot::PeridotDXPCalib *this, const _PeridotCalib *a2, uint64_t a3)
 {
-  v4 = MEMORY[0x28223BE20](this, a2, a3, a4);
-  *(v4 + 6) = 16843009;
-  *(v4 + 3516) = 8;
-  *(v4 + 3508) = 0x900000001;
-  *(v4 + 41028) = 0;
-  *(v4 + 42424) = 0;
-  *(v4 + 42432) = 0;
-  *(v4 + 42429) = 1;
-  if (v5)
+  v3 = MEMORY[0x28223BE20](this, a2, a3);
+  *(v3 + 6) = 16843009;
+  *(v3 + 3516) = 8;
+  *(v3 + 3508) = 0x900000001;
+  *(v3 + 41028) = 0;
+  *(v3 + 42424) = 0;
+  *(v3 + 42432) = 0;
+  *(v3 + 42429) = 1;
+  if (v4)
   {
-    *(v4 + 41028) = *(v5 + 402524);
+    *(v3 + 41028) = *(v4 + 402524);
     operator new();
   }
 
@@ -8558,24 +8586,24 @@ LABEL_6:
   _Unwind_Resume(a1);
 }
 
-void peridot::PeridotDXPCalib::getMF(uint64_t a1, float **a2)
+void peridot::PeridotDXPCalib::getMF(void x0_0, float **a1)
 {
-  v2 = a2[1];
-  if (*a2 != v2 && *a2 + 1 != v2)
+  v3 = a1[1];
+  if (*a1 != v3 && *a1 + 1 != v3)
   {
-    v4 = **a2;
-    v5 = *a2 + 1;
+    v5 = **a1;
+    v6 = *a1 + 1;
     do
     {
-      v6 = *v5++;
-      v7 = v6;
-      if (v4 < v6)
+      v7 = *v6++;
+      v8 = v7;
+      if (v5 < v7)
       {
-        v4 = v7;
+        v5 = v8;
       }
     }
 
-    while (v5 != v2);
+    while (v6 != v3);
   }
 
   operator new();
@@ -8785,7 +8813,7 @@ LABEL_51:
   *(this + 501) = v34 - (v26 - v23);
 }
 
-void peridot::PeridotDXPCalib::getDTM(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+void peridot::PeridotDXPCalib::getDTM(uint64_t a1@<X0>, float **a2@<X1>, float **a3@<X8>)
 {
   v4 = a1 + 4 * *(a1 + 3864);
   v5 = *(v4 + 3840);
@@ -8904,40 +8932,40 @@ void sub_2247580A8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void peridot::PeridotDXPCalib::InputConfig::init(uint64_t a1, uint64_t a2, int a3, uint64_t a4, unint64_t a5)
+void peridot::PeridotDXPCalib::InputConfig::init(uint64_t a1, uint64_t a2, int a3, uint64_t a4, unint64_t a5, uint64_t a6)
 {
-  v42 = a2 + 8 * a4;
-  v7 = *(v42 + 3952);
+  v43 = a2 + 8 * a4;
+  v8 = *(v43 + 3952);
   *a1 = a3;
-  v8 = *(a2 + 920 + 8 * v7);
-  *(a1 + 5) = v8[70];
-  *(a1 + 6) = v8[69];
-  v9 = a2 + 1816;
-  v10 = *(a2 + 1816 + 8 * v7);
-  *(a1 + 7) = v8[71];
-  *(a1 + 64) = *(v10 + 16);
-  v11 = a2 + 3616;
-  *(a1 + 4) = *(a2 + 3616 + v7);
-  v12 = *(a2 + 24 + 8 * v7);
-  v13 = *(v12 + 60);
-  v14 = *(v12 + 76);
-  v15 = *(v12 + 92);
-  *(a1 + 120) = *(v12 + 108);
-  *(a1 + 104) = v15;
-  *(a1 + 88) = v14;
-  *(a1 + 72) = v13;
-  v16 = *(a2 + 920 + 8 * v7);
-  v17 = *(v16 + 8);
-  v18 = *(v16 + 24);
-  v19 = *(v16 + 40);
-  *(a1 + 56) = *(v16 + 56);
-  *(a1 + 40) = v19;
-  *(a1 + 24) = v18;
-  *(a1 + 8) = v17;
-  *(a1 + 128) = *(*(a2 + 24 + 8 * v7) + 120);
-  v43 = a2 + 920;
-  *(a1 + 3364) = *(*(a2 + 920 + 8 * v7) + 5);
-  v45 = a2 + 24;
+  v9 = *(a2 + 920 + 8 * v8);
+  *(a1 + 5) = v9[70];
+  *(a1 + 6) = v9[69];
+  v10 = a2 + 1816;
+  v11 = *(a2 + 1816 + 8 * v8);
+  *(a1 + 7) = v9[71];
+  *(a1 + 64) = *(v11 + 16);
+  v12 = a2 + 3616;
+  *(a1 + 4) = *(a2 + 3616 + v8);
+  v13 = *(a2 + 24 + 8 * v8);
+  v14 = *(v13 + 60);
+  v15 = *(v13 + 76);
+  v16 = *(v13 + 92);
+  *(a1 + 120) = *(v13 + 108);
+  *(a1 + 104) = v16;
+  *(a1 + 88) = v15;
+  *(a1 + 72) = v14;
+  v17 = *(a2 + 920 + 8 * v8);
+  v18 = *(v17 + 8);
+  v19 = *(v17 + 24);
+  v20 = *(v17 + 40);
+  *(a1 + 56) = *(v17 + 56);
+  *(a1 + 40) = v20;
+  *(a1 + 24) = v19;
+  *(a1 + 8) = v18;
+  *(a1 + 128) = *(*(a2 + 24 + 8 * v8) + 120);
+  v44 = a2 + 920;
+  *(a1 + 3364) = *(*(a2 + 920 + 8 * v8) + 5);
+  v46 = a2 + 24;
   if (a5)
   {
     if (!(a5 >> 60))
@@ -8948,11 +8976,11 @@ void peridot::PeridotDXPCalib::InputConfig::init(uint64_t a1, uint64_t a2, int a
     std::vector<std::string>::__throw_length_error[abi:ne200100]();
   }
 
-  v41 = *(a1 + 256);
-  if (v41)
+  v42 = *(a1 + 256);
+  if (v42)
   {
-    *(a1 + 264) = v41;
-    operator delete(v41);
+    *(a1 + 264) = v42;
+    operator delete(v42);
   }
 
   *(a1 + 256) = 0;
@@ -8960,60 +8988,60 @@ void peridot::PeridotDXPCalib::InputConfig::init(uint64_t a1, uint64_t a2, int a
   *(a1 + 272) = 0;
   if ((a3 - 1) < 2)
   {
-    v20 = *(v42 + 4176);
-    v21 = *(v42 + 4400);
-    v22 = *(v43 + 8 * v20);
-    *(a1 + 130) = v22[70];
-    *(a1 + 131) = v22[69];
-    *(a1 + 132) = v22[71];
-    *(a1 + 190) = *(*(v9 + 8 * v20) + 16);
-    *(a1 + 129) = *(v11 + v20);
-    v23 = *(v45 + 8 * v20);
-    v24 = *(v23 + 60);
-    v25 = *(v23 + 76);
-    v26 = *(v23 + 92);
-    *(a1 + 246) = *(v23 + 108);
-    *(a1 + 230) = v26;
-    *(a1 + 214) = v25;
-    *(a1 + 198) = v24;
-    v27 = *(v43 + 8 * v20);
-    v28 = *(v27 + 8);
-    v29 = *(v27 + 24);
-    v30 = *(v27 + 40);
-    *(a1 + 181) = *(v27 + 56);
-    *(a1 + 165) = v30;
-    *(a1 + 149) = v29;
-    *(a1 + 133) = v28;
-    *(a1 + 254) = *(*(v45 + 8 * v20) + 120);
-    v31 = *(v9 + 8 * v20);
-    v32 = *(v31 + 2);
-    *(a1 + 284) = *(v31 + 6);
-    *(a1 + 280) = v32;
-    *(a1 + 288) = *(*(v9 + 8 * v20) + 36);
-    *(a1 + 292) = *(v11 + v20);
-    v33 = *(v9 + 8 * v21);
-    v34 = *(v33 + 2);
-    *(a1 + 300) = *(v33 + 6);
-    *(a1 + 296) = v34;
-    *(a1 + 304) = *(*(v9 + 8 * v21) + 36);
-    *(a1 + 308) = *(v11 + v21);
-    v35 = *(v43 + 8 * v20);
-    *(a1 + 3366) = *(v35 + 5);
-    *(a1 + 3367) = *(v35 + 6);
-    v36 = *(v43 + 8 * v21);
-    *(a1 + 3368) = *(v36 + 5);
-    *(a1 + 3369) = *(v36 + 6);
+    v21 = *(v43 + 4176);
+    v22 = *(v43 + 4400);
+    v23 = *(v44 + 8 * v21);
+    *(a1 + 130) = v23[70];
+    *(a1 + 131) = v23[69];
+    *(a1 + 132) = v23[71];
+    *(a1 + 190) = *(*(v10 + 8 * v21) + 16);
+    *(a1 + 129) = *(v12 + v21);
+    v24 = *(v46 + 8 * v21);
+    v25 = *(v24 + 60);
+    v26 = *(v24 + 76);
+    v27 = *(v24 + 92);
+    *(a1 + 246) = *(v24 + 108);
+    *(a1 + 230) = v27;
+    *(a1 + 214) = v26;
+    *(a1 + 198) = v25;
+    v28 = *(v44 + 8 * v21);
+    v29 = *(v28 + 8);
+    v30 = *(v28 + 24);
+    v31 = *(v28 + 40);
+    *(a1 + 181) = *(v28 + 56);
+    *(a1 + 165) = v31;
+    *(a1 + 149) = v30;
+    *(a1 + 133) = v29;
+    *(a1 + 254) = *(*(v46 + 8 * v21) + 120);
+    v32 = *(v10 + 8 * v21);
+    v33 = *(v32 + 2);
+    *(a1 + 284) = *(v32 + 6);
+    *(a1 + 280) = v33;
+    *(a1 + 288) = *(*(v10 + 8 * v21) + 36);
+    *(a1 + 292) = *(v12 + v21);
+    v34 = *(v10 + 8 * v22);
+    v35 = *(v34 + 2);
+    *(a1 + 300) = *(v34 + 6);
+    *(a1 + 296) = v35;
+    *(a1 + 304) = *(*(v10 + 8 * v22) + 36);
+    *(a1 + 308) = *(v12 + v22);
+    v36 = *(v44 + 8 * v21);
+    *(a1 + 3366) = *(v36 + 5);
+    *(a1 + 3367) = *(v36 + 6);
+    v37 = *(v44 + 8 * v22);
+    *(a1 + 3368) = *(v37 + 5);
+    *(a1 + 3369) = *(v37 + 6);
   }
 
-  v37 = *(v45 + 8 * v7);
-  v38 = *(v37 + 4);
-  *(a1 + 3342) = *(v37 + 10);
-  *(a1 + 3336) = v38;
-  v39 = *(v45 + 8 * v7);
-  v40 = *(v39 + 32);
-  *(a1 + 3356) = *(v39 + 38);
-  *(a1 + 3350) = v40;
-  *(a1 + 3370) = *(*(a2 + 8 * v7 + 2712) + 22);
+  v38 = *(v46 + 8 * v8);
+  v39 = *(v38 + 4);
+  *(a1 + 3342) = *(v38 + 10);
+  *(a1 + 3336) = v39;
+  v40 = *(v46 + 8 * v8);
+  v41 = *(v40 + 32);
+  *(a1 + 3356) = *(v40 + 38);
+  *(a1 + 3350) = v41;
+  *(a1 + 3370) = *(*(a2 + 8 * v8 + 2712) + 22);
 }
 
 uint64_t peridot::PeridotDXPCalib::InputConfig::isChanged(uint64_t a1, uint64_t a2, int a3, unsigned int a4, unint64_t a5, uint64_t a6)
@@ -9024,12 +9052,7 @@ uint64_t peridot::PeridotDXPCalib::InputConfig::isChanged(uint64_t a1, uint64_t 
   }
 
   v6 = *(a2 + 8 * a4 + 920);
-  if (*(a1 + 5) != *(v6 + 70))
-  {
-    return 1;
-  }
-
-  if (*(a1 + 6) != *(v6 + 69))
+  if (__PAIR64__(*(a1 + 5), *(a1 + 6)) != __PAIR64__(*(v6 + 70), *(v6 + 69)))
   {
     return 1;
   }
@@ -9040,12 +9063,7 @@ uint64_t peridot::PeridotDXPCalib::InputConfig::isChanged(uint64_t a1, uint64_t 
   }
 
   v7 = *(a2 + 1816 + 8 * a4);
-  if (*(a1 + 64) != v7[8])
-  {
-    return 1;
-  }
-
-  if (*(a1 + 66) != v7[9])
+  if (__PAIR64__(*(a1 + 66), *(a1 + 64)) != __PAIR64__(v7[9], v7[8]))
   {
     return 1;
   }
@@ -9066,7 +9084,7 @@ uint64_t peridot::PeridotDXPCalib::InputConfig::isChanged(uint64_t a1, uint64_t 
   }
 
   v8 = *(a2 + 8 * a4 + 24);
-  if (*(a1 + 72) != *(v8 + 60) || *(a1 + 74) != *(v8 + 62) || *(a1 + 76) != *(v8 + 64) || *(a1 + 78) != *(v8 + 66) || *(a1 + 80) != *(v8 + 68) || *(a1 + 82) != *(v8 + 70) || *(a1 + 84) != *(v8 + 72) || *(a1 + 86) != *(v8 + 74) || *(a1 + 88) != *(v8 + 76) || *(a1 + 90) != *(v8 + 78) || *(a1 + 92) != *(v8 + 80) || *(a1 + 94) != *(v8 + 82) || *(a1 + 96) != *(v8 + 84) || *(a1 + 98) != *(v8 + 86) || *(a1 + 100) != *(v8 + 88) || *(a1 + 102) != *(v8 + 90) || *(a1 + 104) != *(v8 + 92) || *(a1 + 106) != *(v8 + 94) || *(a1 + 108) != *(v8 + 96) || *(a1 + 110) != *(v8 + 98) || *(a1 + 112) != *(v8 + 100) || *(a1 + 114) != *(v8 + 102) || *(a1 + 116) != *(v8 + 104) || *(a1 + 118) != *(v8 + 106) || *(a1 + 120) != *(v8 + 108) || *(a1 + 122) != *(v8 + 110) || *(a1 + 124) != *(v8 + 112) || *(a1 + 126) != *(v8 + 114) || *(a1 + 8) != *(v6 + 8) || *(a1 + 12) != *(v6 + 12) || *(a1 + 16) != *(v6 + 16) || *(a1 + 20) != *(v6 + 20) || *(a1 + 24) != *(v6 + 24) || *(a1 + 28) != *(v6 + 28) || *(a1 + 32) != *(v6 + 32) || *(a1 + 36) != *(v6 + 36) || *(a1 + 40) != *(v6 + 40) || *(a1 + 44) != *(v6 + 44) || *(a1 + 48) != *(v6 + 48) || *(a1 + 52) != *(v6 + 52) || *(a1 + 56) != *(v6 + 56) || *(a1 + 60) != *(v6 + 60) || *(a1 + 3336) != *(v8 + 4) || *(a1 + 3337) != *(v8 + 5) || *(a1 + 3338) != *(v8 + 6) || *(a1 + 3339) != *(v8 + 7) || *(a1 + 3340) != *(v8 + 8) || *(a1 + 3341) != *(v8 + 9) || *(a1 + 3342) != *(v8 + 10) || *(a1 + 3343) != *(v8 + 11) || *(a1 + 3344) != *(v8 + 12) || *(a1 + 3345) != *(v8 + 13) || *(a1 + 3346) != *(v8 + 14) || *(a1 + 3347) != *(v8 + 15) || *(a1 + 3348) != *(v8 + 16) || *(a1 + 3349) != *(v8 + 17) || *(a1 + 3350) != *(v8 + 32) || *(a1 + 3351) != *(v8 + 33) || *(a1 + 3352) != *(v8 + 34) || *(a1 + 3353) != *(v8 + 35) || *(a1 + 3354) != *(v8 + 36) || *(a1 + 3355) != *(v8 + 37) || *(a1 + 3356) != *(v8 + 38) || *(a1 + 3357) != *(v8 + 39) || *(a1 + 3358) != *(v8 + 40) || *(a1 + 3359) != *(v8 + 41) || *(a1 + 3360) != *(v8 + 42) || *(a1 + 3361) != *(v8 + 43) || *(a1 + 3362) != *(v8 + 44) || *(a1 + 3363) != *(v8 + 45) || *(a1 + 128) != *(v8 + 120) || *(a1 + 3364) != *(v6 + 5) || *(a1 + 3365) != *(v6 + 6))
+  if (__PAIR64__(*(a1 + 74), *(a1 + 72)) != __PAIR64__(*(v8 + 62), *(v8 + 60)) || *(a1 + 76) != *(v8 + 64) || *(a1 + 78) != *(v8 + 66) || *(a1 + 80) != *(v8 + 68) || *(a1 + 82) != *(v8 + 70) || *(a1 + 84) != *(v8 + 72) || *(a1 + 86) != *(v8 + 74) || *(a1 + 88) != *(v8 + 76) || *(a1 + 90) != *(v8 + 78) || *(a1 + 92) != *(v8 + 80) || *(a1 + 94) != *(v8 + 82) || *(a1 + 96) != *(v8 + 84) || *(a1 + 98) != *(v8 + 86) || *(a1 + 100) != *(v8 + 88) || *(a1 + 102) != *(v8 + 90) || *(a1 + 104) != *(v8 + 92) || *(a1 + 106) != *(v8 + 94) || *(a1 + 108) != *(v8 + 96) || *(a1 + 110) != *(v8 + 98) || *(a1 + 112) != *(v8 + 100) || *(a1 + 114) != *(v8 + 102) || *(a1 + 116) != *(v8 + 104) || *(a1 + 118) != *(v8 + 106) || *(a1 + 120) != *(v8 + 108) || *(a1 + 122) != *(v8 + 110) || *(a1 + 124) != *(v8 + 112) || *(a1 + 126) != *(v8 + 114) || *(a1 + 8) != *(v6 + 8) || *(a1 + 12) != *(v6 + 12) || *(a1 + 16) != *(v6 + 16) || *(a1 + 20) != *(v6 + 20) || *(a1 + 24) != *(v6 + 24) || *(a1 + 28) != *(v6 + 28) || *(a1 + 32) != *(v6 + 32) || *(a1 + 36) != *(v6 + 36) || *(a1 + 40) != *(v6 + 40) || *(a1 + 44) != *(v6 + 44) || *(a1 + 48) != *(v6 + 48) || *(a1 + 52) != *(v6 + 52) || *(a1 + 56) != *(v6 + 56) || *(a1 + 60) != *(v6 + 60) || *(a1 + 3336) != *(v8 + 4) || *(a1 + 3337) != *(v8 + 5) || *(a1 + 3338) != *(v8 + 6) || *(a1 + 3339) != *(v8 + 7) || *(a1 + 3340) != *(v8 + 8) || *(a1 + 3341) != *(v8 + 9) || *(a1 + 3342) != *(v8 + 10) || *(a1 + 3343) != *(v8 + 11) || *(a1 + 3344) != *(v8 + 12) || *(a1 + 3345) != *(v8 + 13) || *(a1 + 3346) != *(v8 + 14) || *(a1 + 3347) != *(v8 + 15) || *(a1 + 3348) != *(v8 + 16) || *(a1 + 3349) != *(v8 + 17) || *(a1 + 3350) != *(v8 + 32) || *(a1 + 3351) != *(v8 + 33) || *(a1 + 3352) != *(v8 + 34) || *(a1 + 3353) != *(v8 + 35) || *(a1 + 3354) != *(v8 + 36) || *(a1 + 3355) != *(v8 + 37) || *(a1 + 3356) != *(v8 + 38) || *(a1 + 3357) != *(v8 + 39) || *(a1 + 3358) != *(v8 + 40) || *(a1 + 3359) != *(v8 + 41) || *(a1 + 3360) != *(v8 + 42) || *(a1 + 3361) != *(v8 + 43) || *(a1 + 3362) != *(v8 + 44) || *(a1 + 3363) != *(v8 + 45) || *(a1 + 128) != *(v8 + 120) || *(a1 + 3364) != *(v6 + 5) || *(a1 + 3365) != *(v6 + 6))
   {
     return 1;
   }
@@ -9136,7 +9154,7 @@ uint64_t peridot::PeridotDXPCalib::isConfigChanged(uint64_t a1, uint64_t a2, int
 void peridot::PeridotDXPCalib::configure(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
 {
   v18[61] = *MEMORY[0x277D85DE8];
-  peridot::PeridotDXPCalib::InputConfig::init(a1 + 16, a2, a3, a5, *(a1 + 5));
+  peridot::PeridotDXPCalib::InputConfig::init(a1 + 16, a2, a3, a5, *(a1 + 5), *(a1 + 4));
   v8 = *(a1 + 5);
   if (*(a1 + 5))
   {
@@ -9181,7 +9199,7 @@ void sub_224759F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void peridot::PeridotDXPCalib::modeConfigGetPixelsNum(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4, _BYTE *a5, _BYTE *a6)
+void peridot::PeridotDXPCalib::modeConfigGetPixelsNum(uint64_t a1, _WORD *a2, uint64_t a3, _BYTE *a4, _BYTE *a5, _BYTE *a6, uint64_t a7)
 {
   *a4 = 0;
   *a5 = 0;

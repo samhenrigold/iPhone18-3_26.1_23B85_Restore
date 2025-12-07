@@ -92,16 +92,16 @@
 
 - (void)layoutInsertAtIndex:(unint64_t)index
 {
-  model = [(TUILayoutContainer *)self model];
-  [model estimatedWidth];
+  v5 = objc_msgSend_model(self, a2);
+  [v5 estimatedWidth];
   v11.n128_u64[0] = v6;
 
-  model2 = [(TUILayoutContainer *)self model];
-  [model2 estimatedHeight];
+  v7 = objc_msgSend_model(self);
+  [v7 estimatedHeight];
   v11.n128_u64[1] = v8;
 
-  model3 = [(TUILayoutContainer *)self model];
-  [model3 estimatedHeightAbovePivot];
+  v9 = objc_msgSend_model(self);
+  [v9 estimatedHeightAbovePivot];
   v12 = v10;
 
   sub_16C560(&self->_summaries.__begin_, &self->_summaries.__begin_[index], &v11);

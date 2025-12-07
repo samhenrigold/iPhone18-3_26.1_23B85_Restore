@@ -73,15 +73,15 @@
 
       if (resurrectionTimer3)
       {
-        v17 = +[NSRunLoop mainRunLoop];
+        v18 = +[NSRunLoop mainRunLoop];
         resurrectionTimer4 = [(NPUserEventAgent *)self resurrectionTimer];
-        [v17 addTimer:resurrectionTimer4 forMode:NSDefaultRunLoopMode];
+        [v18 addTimer:resurrectionTimer4 forMode:NSDefaultRunLoopMode];
       }
 
       else
       {
-        v16 = nplog_obj();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = nplog_obj(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_AD90();
         }
@@ -128,15 +128,15 @@
 
       if (configurationFetchTimer3)
       {
-        v17 = +[NSRunLoop mainRunLoop];
+        v18 = +[NSRunLoop mainRunLoop];
         configurationFetchTimer4 = [(NPUserEventAgent *)self configurationFetchTimer];
-        [v17 addTimer:configurationFetchTimer4 forMode:NSDefaultRunLoopMode];
+        [v18 addTimer:configurationFetchTimer4 forMode:NSDefaultRunLoopMode];
       }
 
       else
       {
-        v16 = nplog_obj();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = nplog_obj(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_ADC4();
         }
@@ -183,15 +183,15 @@
 
       if (tokenFetchTimer3)
       {
-        v17 = +[NSRunLoop mainRunLoop];
+        v18 = +[NSRunLoop mainRunLoop];
         tokenFetchTimer4 = [(NPUserEventAgent *)self tokenFetchTimer];
-        [v17 addTimer:tokenFetchTimer4 forMode:NSDefaultRunLoopMode];
+        [v18 addTimer:tokenFetchTimer4 forMode:NSDefaultRunLoopMode];
       }
 
       else
       {
-        v16 = nplog_obj();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = nplog_obj(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_ADF8();
         }
@@ -238,15 +238,15 @@
 
       if (tokenIssuanceRestrictedUntilTimer3)
       {
-        v17 = +[NSRunLoop mainRunLoop];
+        v18 = +[NSRunLoop mainRunLoop];
         tokenIssuanceRestrictedUntilTimer4 = [(NPUserEventAgent *)self tokenIssuanceRestrictedUntilTimer];
-        [v17 addTimer:tokenIssuanceRestrictedUntilTimer4 forMode:NSDefaultRunLoopMode];
+        [v18 addTimer:tokenIssuanceRestrictedUntilTimer4 forMode:NSDefaultRunLoopMode];
       }
 
       else
       {
-        v16 = nplog_obj();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = nplog_obj(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_AE2C();
         }
@@ -293,15 +293,15 @@
 
       if (subscriptionCheckTimer3)
       {
-        v17 = +[NSRunLoop mainRunLoop];
+        v18 = +[NSRunLoop mainRunLoop];
         subscriptionCheckTimer4 = [(NPUserEventAgent *)self subscriptionCheckTimer];
-        [v17 addTimer:subscriptionCheckTimer4 forMode:NSDefaultRunLoopMode];
+        [v18 addTimer:subscriptionCheckTimer4 forMode:NSDefaultRunLoopMode];
       }
 
       else
       {
-        v16 = nplog_obj();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = nplog_obj(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_AE60();
         }
@@ -348,15 +348,15 @@
 
       if (proxyRestoreTimer3)
       {
-        v17 = +[NSRunLoop mainRunLoop];
+        v18 = +[NSRunLoop mainRunLoop];
         proxyRestoreTimer4 = [(NPUserEventAgent *)self proxyRestoreTimer];
-        [v17 addTimer:proxyRestoreTimer4 forMode:NSDefaultRunLoopMode];
+        [v18 addTimer:proxyRestoreTimer4 forMode:NSDefaultRunLoopMode];
       }
 
       else
       {
-        v16 = nplog_obj();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = nplog_obj(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_AE94();
         }
@@ -403,15 +403,15 @@
 
       if (odohRestoreTimer3)
       {
-        v17 = +[NSRunLoop mainRunLoop];
+        v18 = +[NSRunLoop mainRunLoop];
         odohRestoreTimer4 = [(NPUserEventAgent *)self odohRestoreTimer];
-        [v17 addTimer:odohRestoreTimer4 forMode:NSDefaultRunLoopMode];
+        [v18 addTimer:odohRestoreTimer4 forMode:NSDefaultRunLoopMode];
       }
 
       else
       {
-        v16 = nplog_obj();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = nplog_obj(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_AEC8();
         }
@@ -458,15 +458,15 @@
 
       if (odohAuthOutageRestoreTimer3)
       {
-        v17 = +[NSRunLoop mainRunLoop];
+        v18 = +[NSRunLoop mainRunLoop];
         odohAuthOutageRestoreTimer4 = [(NPUserEventAgent *)self odohAuthOutageRestoreTimer];
-        [v17 addTimer:odohAuthOutageRestoreTimer4 forMode:NSDefaultRunLoopMode];
+        [v18 addTimer:odohAuthOutageRestoreTimer4 forMode:NSDefaultRunLoopMode];
       }
 
       else
       {
-        v16 = nplog_obj();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = nplog_obj(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_AEFC();
         }
@@ -513,15 +513,15 @@
 
       if (proxyPathProbeTimer3)
       {
-        v17 = +[NSRunLoop mainRunLoop];
+        v18 = +[NSRunLoop mainRunLoop];
         proxyPathProbeTimer4 = [(NPUserEventAgent *)self proxyPathProbeTimer];
-        [v17 addTimer:proxyPathProbeTimer4 forMode:NSDefaultRunLoopMode];
+        [v18 addTimer:proxyPathProbeTimer4 forMode:NSDefaultRunLoopMode];
       }
 
       else
       {
-        v16 = nplog_obj();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = nplog_obj(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_AF30();
         }
@@ -568,15 +568,15 @@
 
       if (directPathProbeTimer3)
       {
-        v17 = +[NSRunLoop mainRunLoop];
+        v18 = +[NSRunLoop mainRunLoop];
         directPathProbeTimer4 = [(NPUserEventAgent *)self directPathProbeTimer];
-        [v17 addTimer:directPathProbeTimer4 forMode:NSDefaultRunLoopMode];
+        [v18 addTimer:directPathProbeTimer4 forMode:NSDefaultRunLoopMode];
       }
 
       else
       {
-        v16 = nplog_obj();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = nplog_obj(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_AF64();
         }
@@ -599,27 +599,27 @@
 
   if (interval >= 300.0)
   {
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_8C0C;
-    v11[3] = &unk_14B98;
-    v11[4] = self;
-    v7 = [NSTimer timerWithTimeInterval:0 repeats:v11 block:interval];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_8C0C;
+    v12[3] = &unk_14B98;
+    v12[4] = self;
+    v7 = [NSTimer timerWithTimeInterval:0 repeats:v12 block:interval];
     [(NPUserEventAgent *)self setLocationMonitorTimer:v7];
 
     locationMonitorTimer3 = [(NPUserEventAgent *)self locationMonitorTimer];
 
     if (locationMonitorTimer3)
     {
-      v9 = +[NSRunLoop mainRunLoop];
+      v10 = +[NSRunLoop mainRunLoop];
       locationMonitorTimer4 = [(NPUserEventAgent *)self locationMonitorTimer];
-      [v9 addTimer:locationMonitorTimer4 forMode:NSDefaultRunLoopMode];
+      [v10 addTimer:locationMonitorTimer4 forMode:NSDefaultRunLoopMode];
     }
 
     else
     {
-      v9 = nplog_obj();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = nplog_obj(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_AF98();
       }
@@ -693,14 +693,15 @@
 
       if (dynamicStore)
       {
-        v5 = SCDynamicStoreKeyCreateNetworkServiceEntity(kCFAllocatorDefault, kSCDynamicStoreDomainState, kSCCompAnyRegex, kSCEntNetPvD);
-        v6 = SCDynamicStoreKeyCreateNetworkInterfaceEntity(kCFAllocatorDefault, kSCDynamicStoreDomainSetup, kSCCompAnyRegex, 0);
-        v8[0] = v6;
-        v8[1] = v5;
-        if (!SCDynamicStoreSetNotificationKeys([(NPUserEventAgent *)self dynamicStore], 0, [NSArray arrayWithObjects:v8 count:2]))
+        v6 = SCDynamicStoreKeyCreateNetworkServiceEntity(kCFAllocatorDefault, kSCDynamicStoreDomainState, kSCCompAnyRegex, kSCEntNetPvD);
+        v7 = SCDynamicStoreKeyCreateNetworkInterfaceEntity(kCFAllocatorDefault, kSCDynamicStoreDomainSetup, kSCCompAnyRegex, 0);
+        v10[0] = v7;
+        v10[1] = v6;
+        v8 = SCDynamicStoreSetNotificationKeys([(NPUserEventAgent *)self dynamicStore], 0, [NSArray arrayWithObjects:v10 count:2]);
+        if (!v8)
         {
-          v7 = nplog_obj();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+          v9 = nplog_obj(v8);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
             sub_B088();
           }
@@ -709,8 +710,8 @@
 
       else
       {
-        v5 = nplog_obj();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        v6 = nplog_obj(v5);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           sub_B108();
         }
@@ -719,8 +720,8 @@
 
     else
     {
-      v5 = nplog_obj();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = nplog_obj(0);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_B188();
       }
@@ -737,18 +738,19 @@
   {
     [(NPUserEventAgent *)selfCopy setEventToken:token];
     int64 = xpc_dictionary_get_int64(eventCopy, "PID");
+    v11 = int64;
     if (int64)
     {
-      v11 = nplog_obj();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = nplog_obj(int64);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        LODWORD(v35) = 67109120;
-        DWORD1(v35) = int64;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Got pid %d", &v35, 8u);
+        LODWORD(v43) = 67109120;
+        DWORD1(v43) = v11;
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Got pid %d", &v43, 8u);
       }
 
-      v12 = +[NSPUserEventAgentFileHandleMaintainer sharedEventAgentMaintainer];
-      [v12 launchOwner];
+      v13 = +[NSPUserEventAgentFileHandleMaintainer sharedEventAgentMaintainer];
+      [v13 launchOwner];
     }
 
     if (xpc_dictionary_get_int64(eventCopy, "ResurrectionDate"))
@@ -826,33 +828,34 @@ LABEL_69:
                 goto LABEL_77;
               }
 
-              v28 = xpc_dictionary_get_int64(eventCopy, "CaptiveOutage");
-              if (v28 == 1)
+              v34 = xpc_dictionary_get_int64(eventCopy, "CaptiveOutage");
+              v35 = v34;
+              if (v34 == 1)
               {
-                v29 = nplog_obj();
-                if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+                v36 = nplog_obj(1);
+                if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
                 {
-                  LODWORD(v35) = 136315138;
-                  *(&v35 + 4) = "CaptiveOutage";
-                  v30 = "[%s] changed to true";
+                  LODWORD(v43) = 136315138;
+                  *(&v43 + 4) = "CaptiveOutage";
+                  v37 = "[%s] changed to true";
 LABEL_75:
-                  _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, v30, &v35, 0xCu);
+                  _os_log_impl(&dword_0, v36, OS_LOG_TYPE_DEFAULT, v37, &v43, 0xCu);
                 }
               }
 
               else
               {
-                v29 = nplog_obj();
-                if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+                v36 = nplog_obj(v34);
+                if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
                 {
-                  LODWORD(v35) = 136315138;
-                  *(&v35 + 4) = "CaptiveOutage";
-                  v30 = "[%s] changed to false";
+                  LODWORD(v43) = 136315138;
+                  *(&v43 + 4) = "CaptiveOutage";
+                  v37 = "[%s] changed to false";
                   goto LABEL_75;
                 }
               }
 
-              [(NPUserEventAgent *)selfCopy setCaptiveOutage:v28 == 1];
+              [(NPUserEventAgent *)selfCopy setCaptiveOutage:v35 == 1];
 LABEL_77:
               if (!xpc_dictionary_get_int64(eventCopy, "CaptiveOutageWaitingForUserActivity"))
               {
@@ -860,179 +863,185 @@ LABEL_85:
                 [(NPUserEventAgent *)selfCopy registerForCaptivePluginListChangedNotification];
                 [(NPUserEventAgent *)selfCopy registerForDynamicStoreChanges];
                 [(NPUserEventAgent *)selfCopy registerForUserActivityNotifications];
-                v34 = +[NSPUserEventAgentFileHandleMaintainer sharedEventAgentMaintainer];
-                [v34 setReceivedEventToken:1];
+                v42 = +[NSPUserEventAgentFileHandleMaintainer sharedEventAgentMaintainer];
+                [v42 setReceivedEventToken:1];
 
                 goto LABEL_86;
               }
 
-              v31 = xpc_dictionary_get_int64(eventCopy, "CaptiveOutageWaitingForUserActivity");
-              if (v31 == 1)
+              v38 = xpc_dictionary_get_int64(eventCopy, "CaptiveOutageWaitingForUserActivity");
+              v39 = v38;
+              if (v38 == 1)
               {
-                v32 = nplog_obj();
-                if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+                v40 = nplog_obj(1);
+                if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
                 {
-                  LODWORD(v35) = 136315138;
-                  *(&v35 + 4) = "CaptiveOutageWaitingForUserActivity";
-                  v33 = "[%s] changed to true";
+                  LODWORD(v43) = 136315138;
+                  *(&v43 + 4) = "CaptiveOutageWaitingForUserActivity";
+                  v41 = "[%s] changed to true";
 LABEL_83:
-                  _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, v33, &v35, 0xCu);
+                  _os_log_impl(&dword_0, v40, OS_LOG_TYPE_DEFAULT, v41, &v43, 0xCu);
                 }
               }
 
               else
               {
-                v32 = nplog_obj();
-                if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+                v40 = nplog_obj(v38);
+                if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
                 {
-                  LODWORD(v35) = 136315138;
-                  *(&v35 + 4) = "CaptiveOutageWaitingForUserActivity";
-                  v33 = "[%s] changed to false";
+                  LODWORD(v43) = 136315138;
+                  *(&v43 + 4) = "CaptiveOutageWaitingForUserActivity";
+                  v41 = "[%s] changed to false";
                   goto LABEL_83;
                 }
               }
 
-              [(NPUserEventAgent *)selfCopy setCaptiveOutageWaitingForUserActivity:v31 == 1];
+              [(NPUserEventAgent *)selfCopy setCaptiveOutageWaitingForUserActivity:v39 == 1];
               goto LABEL_85;
             }
 
-            v25 = xpc_dictionary_get_int64(eventCopy, "DirectPathProbeOnNetworkChange");
-            if (v25 == 1)
+            v30 = xpc_dictionary_get_int64(eventCopy, "DirectPathProbeOnNetworkChange");
+            v31 = v30;
+            if (v30 == 1)
             {
-              v26 = nplog_obj();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+              v32 = nplog_obj(1);
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
               {
-                LOWORD(v35) = 0;
-                v27 = "Got direct path probe on network change";
+                LOWORD(v43) = 0;
+                v33 = "Got direct path probe on network change";
 LABEL_67:
-                _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, v27, &v35, 2u);
+                _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, v33, &v43, 2u);
               }
             }
 
             else
             {
-              v26 = nplog_obj();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+              v32 = nplog_obj(v30);
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
               {
-                LOWORD(v35) = 0;
-                v27 = "Reset direct path on network change";
+                LOWORD(v43) = 0;
+                v33 = "Reset direct path on network change";
                 goto LABEL_67;
               }
             }
 
-            [(NPUserEventAgent *)selfCopy setDirectPathProbeOnNetworkChange:v25 == 1];
+            [(NPUserEventAgent *)selfCopy setDirectPathProbeOnNetworkChange:v31 == 1];
             goto LABEL_69;
           }
 
-          v22 = xpc_dictionary_get_int64(eventCopy, "ProxyPathProbeOnNetworkChange");
-          if (v22 == 1)
+          v26 = xpc_dictionary_get_int64(eventCopy, "ProxyPathProbeOnNetworkChange");
+          v27 = v26;
+          if (v26 == 1)
           {
-            v23 = nplog_obj();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+            v28 = nplog_obj(1);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
-              LOWORD(v35) = 0;
-              v24 = "Got proxy path probe on network change";
+              LOWORD(v43) = 0;
+              v29 = "Got proxy path probe on network change";
 LABEL_57:
-              _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, v24, &v35, 2u);
+              _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, v29, &v43, 2u);
             }
           }
 
           else
           {
-            v23 = nplog_obj();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+            v28 = nplog_obj(v26);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
-              LOWORD(v35) = 0;
-              v24 = "Reset proxy path probe on network change";
+              LOWORD(v43) = 0;
+              v29 = "Reset proxy path probe on network change";
               goto LABEL_57;
             }
           }
 
-          [(NPUserEventAgent *)selfCopy setProxyPathProbeOnNetworkChange:v22 == 1];
+          [(NPUserEventAgent *)selfCopy setProxyPathProbeOnNetworkChange:v27 == 1];
           goto LABEL_59;
         }
 
-        v19 = xpc_dictionary_get_int64(eventCopy, "SubscriptionCheckOnNetworkChange");
-        if (v19 == 1)
+        v22 = xpc_dictionary_get_int64(eventCopy, "SubscriptionCheckOnNetworkChange");
+        v23 = v22;
+        if (v22 == 1)
         {
-          v20 = nplog_obj();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v24 = nplog_obj(1);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v35) = 0;
-            v21 = "Got subscription check on network change";
+            LOWORD(v43) = 0;
+            v25 = "Got subscription check on network change";
 LABEL_39:
-            _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, v21, &v35, 2u);
+            _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, v25, &v43, 2u);
           }
         }
 
         else
         {
-          v20 = nplog_obj();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v24 = nplog_obj(v22);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v35) = 0;
-            v21 = "Reset token fetch on network change";
+            LOWORD(v43) = 0;
+            v25 = "Reset token fetch on network change";
             goto LABEL_39;
           }
         }
 
-        [(NPUserEventAgent *)selfCopy setSubscriptionCheckOnNetworkChange:v19 == 1];
+        [(NPUserEventAgent *)selfCopy setSubscriptionCheckOnNetworkChange:v23 == 1];
         goto LABEL_41;
       }
 
-      v16 = xpc_dictionary_get_int64(eventCopy, "TokenFetchOnNetworkChange");
-      if (v16 == 1)
+      v18 = xpc_dictionary_get_int64(eventCopy, "TokenFetchOnNetworkChange");
+      v19 = v18;
+      if (v18 == 1)
       {
-        v17 = nplog_obj();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v20 = nplog_obj(1);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v35) = 0;
-          v18 = "Got token fetch on network change";
+          LOWORD(v43) = 0;
+          v21 = "Got token fetch on network change";
 LABEL_29:
-          _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, v18, &v35, 2u);
+          _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, v21, &v43, 2u);
         }
       }
 
       else
       {
-        v17 = nplog_obj();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v20 = nplog_obj(v18);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v35) = 0;
-          v18 = "Reset token fetch on network change";
+          LOWORD(v43) = 0;
+          v21 = "Reset token fetch on network change";
           goto LABEL_29;
         }
       }
 
-      [(NPUserEventAgent *)selfCopy setTokenFetchOnNetworkChange:v16 == 1];
+      [(NPUserEventAgent *)selfCopy setTokenFetchOnNetworkChange:v19 == 1];
       goto LABEL_31;
     }
 
-    v13 = xpc_dictionary_get_int64(eventCopy, "ConfigFetchOnNetworkChange");
-    if (v13 == 1)
+    v14 = xpc_dictionary_get_int64(eventCopy, "ConfigFetchOnNetworkChange");
+    v15 = v14;
+    if (v14 == 1)
     {
-      v14 = nplog_obj();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = nplog_obj(1);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v35) = 0;
-        v15 = "Got config fetch on network change";
+        LOWORD(v43) = 0;
+        v17 = "Got config fetch on network change";
 LABEL_17:
-        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, v15, &v35, 2u);
+        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, v17, &v43, 2u);
       }
     }
 
     else
     {
-      v14 = nplog_obj();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = nplog_obj(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v35) = 0;
-        v15 = "Reset config fetch on network change";
+        LOWORD(v43) = 0;
+        v17 = "Reset config fetch on network change";
         goto LABEL_17;
       }
     }
 
-    [(NPUserEventAgent *)selfCopy setConfigFetchOnNetworkChange:v13 == 1];
+    [(NPUserEventAgent *)selfCopy setConfigFetchOnNetworkChange:v15 == 1];
     goto LABEL_19;
   }
 
@@ -1045,7 +1054,7 @@ LABEL_86:
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
-  v56 = objectCopy;
+  v62 = objectCopy;
   if ([pathCopy isEqualToString:@"path"])
   {
     selfCopy = self;
@@ -1056,85 +1065,88 @@ LABEL_86:
 
     if (status != &dword_0 + 1)
     {
-      [(NPUserEventAgent *)selfCopy setWifiNetworkSignature:0];
+      objc_msgSend_setWifiNetworkSignature_(selfCopy);
 LABEL_47:
       objc_sync_exit(selfCopy);
 
       goto LABEL_48;
     }
 
-    if ([(NPUserEventAgent *)selfCopy configFetchOnNetworkChange])
+    configFetchOnNetworkChange = [(NPUserEventAgent *)selfCopy configFetchOnNetworkChange];
+    if (configFetchOnNetworkChange)
     {
-      v17 = nplog_obj();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = nplog_obj(configFetchOnNetworkChange);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "Triggering configuration fetch on network change", buf, 2u);
+        _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Triggering configuration fetch on network change", buf, 2u);
       }
 
       [(NPUserEventAgent *)selfCopy setConfigFetchOnNetworkChange:0];
-      v18 = +[NSPUserEventAgentFileHandleMaintainer sharedEventAgentMaintainer];
-      [v18 launchOwner];
+      v19 = +[NSPUserEventAgentFileHandleMaintainer sharedEventAgentMaintainer];
+      [v19 launchOwner];
     }
 
-    if ([(NPUserEventAgent *)selfCopy tokenFetchOnNetworkChange])
+    tokenFetchOnNetworkChange = [(NPUserEventAgent *)selfCopy tokenFetchOnNetworkChange];
+    if (tokenFetchOnNetworkChange)
     {
-      v19 = nplog_obj();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Triggering token fetch on network change", buf, 2u);
-      }
-
-      [(NPUserEventAgent *)selfCopy setTokenFetchOnNetworkChange:0];
-      v20 = +[NSPUserEventAgentFileHandleMaintainer sharedEventAgentMaintainer];
-      [v20 launchOwner];
-    }
-
-    if ([(NPUserEventAgent *)selfCopy subscriptionCheckOnNetworkChange])
-    {
-      v21 = nplog_obj();
+      v21 = nplog_obj(tokenFetchOnNetworkChange);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Triggering subscription check on network change", buf, 2u);
+        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Triggering token fetch on network change", buf, 2u);
       }
 
-      [(NPUserEventAgent *)selfCopy setSubscriptionCheckOnNetworkChange:0];
+      [(NPUserEventAgent *)selfCopy setTokenFetchOnNetworkChange:0];
       v22 = +[NSPUserEventAgentFileHandleMaintainer sharedEventAgentMaintainer];
       [v22 launchOwner];
     }
 
-    v23 = +[NWPathEvaluator sharedDefaultEvaluator];
-    path2 = [v23 path];
-    interface = [path2 interface];
-    v26 = [interface type] == &dword_0 + 1;
-
-    if (v26)
+    subscriptionCheckOnNetworkChange = [(NPUserEventAgent *)selfCopy subscriptionCheckOnNetworkChange];
+    if (subscriptionCheckOnNetworkChange)
     {
-      v27 = +[NWPathEvaluator sharedDefaultEvaluator];
-      path3 = [v27 path];
-      v29 = [NPUtilities copyCurrentNetworkCharacteristicsForPath:path3];
+      v24 = nplog_obj(subscriptionCheckOnNetworkChange);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "Triggering subscription check on network change", buf, 2u);
+      }
 
-      v30 = [v29 objectForKeyedSubscript:@"Signature"];
+      [(NPUserEventAgent *)selfCopy setSubscriptionCheckOnNetworkChange:0];
+      v25 = +[NSPUserEventAgentFileHandleMaintainer sharedEventAgentMaintainer];
+      [v25 launchOwner];
+    }
+
+    v26 = +[NWPathEvaluator sharedDefaultEvaluator];
+    path2 = [v26 path];
+    interface = [path2 interface];
+    v29 = [interface type] == &dword_0 + 1;
+
+    if (v29)
+    {
+      v30 = +[NWPathEvaluator sharedDefaultEvaluator];
+      path3 = [v30 path];
+      v32 = [NPUtilities copyCurrentNetworkCharacteristicsForPath:path3];
+
+      v33 = [v32 objectForKeyedSubscript:@"Signature"];
       wifiNetworkSignature = [(NPUserEventAgent *)selfCopy wifiNetworkSignature];
-      v32 = v30;
-      v33 = v32;
-      if (!(v32 | wifiNetworkSignature) || v32 && wifiNetworkSignature && [wifiNetworkSignature isEqual:v32])
+      v35 = v33;
+      v36 = v35;
+      if (!(v35 | wifiNetworkSignature) || v35 && wifiNetworkSignature && [wifiNetworkSignature isEqual:v35])
       {
       }
 
       else
       {
 
-        v34 = nplog_obj();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v38 = nplog_obj(v37);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "WiFi signature changed", buf, 2u);
+          _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, "WiFi signature changed", buf, 2u);
         }
 
-        [(NPUserEventAgent *)selfCopy setWifiNetworkSignature:v33];
+        objc_msgSend_setWifiNetworkSignature_(selfCopy);
         wifiNetworkSignature = +[NSPUserEventAgentFileHandleMaintainer sharedEventAgentMaintainer];
         [wifiNetworkSignature launchOwner];
       }
@@ -1142,11 +1154,11 @@ LABEL_47:
 
     else
     {
-      [(NPUserEventAgent *)selfCopy setWifiNetworkSignature:0];
+      objc_msgSend_setWifiNetworkSignature_(selfCopy);
     }
 
-    v35 = +[NWPathEvaluator sharedDefaultEvaluator];
-    path4 = [v35 path];
+    v39 = +[NWPathEvaluator sharedDefaultEvaluator];
+    path4 = [v39 path];
     interface2 = [path4 interface];
     if ([interface2 type] == &dword_0 + 2)
     {
@@ -1154,63 +1166,64 @@ LABEL_47:
 
     else
     {
-      v38 = +[NWPathEvaluator sharedDefaultEvaluator];
-      path5 = [v38 path];
+      v42 = +[NWPathEvaluator sharedDefaultEvaluator];
+      path5 = [v42 path];
       interface3 = [path5 interface];
-      v41 = [interface3 type] == &dword_0 + 3;
+      v45 = [interface3 type] == &dword_0 + 3;
 
-      if (!v41)
+      if (!v45)
       {
         [(NPUserEventAgent *)selfCopy setNonwifiNetworkSignature:0];
         goto LABEL_47;
       }
     }
 
-    v42 = +[NWPathEvaluator sharedDefaultEvaluator];
-    path6 = [v42 path];
-    v44 = [NPUtilities copyCurrentNetworkCharacteristicsForPath:path6];
+    v46 = +[NWPathEvaluator sharedDefaultEvaluator];
+    path6 = [v46 path];
+    v48 = [NPUtilities copyCurrentNetworkCharacteristicsForPath:path6];
 
-    v45 = [v44 objectForKeyedSubscript:@"Signature"];
+    v49 = [v48 objectForKeyedSubscript:@"Signature"];
     nonwifiNetworkSignature = [(NPUserEventAgent *)selfCopy nonwifiNetworkSignature];
-    v47 = v45;
-    v48 = v47;
-    if (!(v47 | nonwifiNetworkSignature) || v47 && nonwifiNetworkSignature && [nonwifiNetworkSignature isEqual:v47])
+    v51 = v49;
+    v52 = v51;
+    if (!(v51 | nonwifiNetworkSignature) || v51 && nonwifiNetworkSignature && [nonwifiNetworkSignature isEqual:v51])
     {
     }
 
     else
     {
 
-      v49 = +[NWPathEvaluator sharedDefaultEvaluator];
-      path7 = [v49 path];
+      v53 = +[NWPathEvaluator sharedDefaultEvaluator];
+      path7 = [v53 path];
       interface4 = [path7 interface];
       type = [interface4 type];
 
-      v53 = nplog_obj();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      v58 = nplog_obj(v57);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
-        v54 = "Ethernet";
+        v59 = "Ethernet";
         if (type == &dword_0 + 2)
         {
-          v54 = "Cellular";
+          v59 = "Cellular";
         }
 
         *buf = 136315138;
-        v59 = v54;
-        _os_log_impl(&dword_0, v53, OS_LOG_TYPE_DEFAULT, "%s signature changed", buf, 0xCu);
+        v65 = v59;
+        _os_log_impl(&dword_0, v58, OS_LOG_TYPE_DEFAULT, "%s signature changed", buf, 0xCu);
       }
 
-      [(NPUserEventAgent *)selfCopy setNonwifiNetworkSignature:v48];
-      if (![(NPUserEventAgent *)selfCopy captiveOutage])
+      [(NPUserEventAgent *)selfCopy setNonwifiNetworkSignature:v52];
+      captiveOutage = [(NPUserEventAgent *)selfCopy captiveOutage];
+      if (!captiveOutage)
       {
         goto LABEL_45;
       }
 
-      v55 = nplog_obj();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      v61 = nplog_obj(captiveOutage);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v55, OS_LOG_TYPE_DEFAULT, "captive outage is true, launching NSP", buf, 2u);
+        _os_log_impl(&dword_0, v61, OS_LOG_TYPE_DEFAULT, "captive outage is true, launching NSP", buf, 2u);
       }
 
       nonwifiNetworkSignature = +[NSPUserEventAgentFileHandleMaintainer sharedEventAgentMaintainer];
@@ -1221,9 +1234,9 @@ LABEL_45:
     goto LABEL_47;
   }
 
-  v57.receiver = self;
-  v57.super_class = NPUserEventAgent;
-  [(NPUserEventAgent *)&v57 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+  v63.receiver = self;
+  v63.super_class = NPUserEventAgent;
+  [(NPUserEventAgent *)&v63 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
 LABEL_48:
 }
 

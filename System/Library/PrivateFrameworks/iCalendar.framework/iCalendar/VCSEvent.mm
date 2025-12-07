@@ -44,28 +44,28 @@
 
 - (void)ensureDurationAlarms
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   alarms = [(VCSEntity *)self alarms];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [alarms countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [alarms countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(alarms);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
+        v8 = *(*(&v10 + 1) + 8 * v7);
         startDate = [(VCSEvent *)self startDate];
         [v8 ensureRelativeAlarmWithStartDate:startDate];
 
@@ -73,13 +73,11 @@
       }
 
       while (v5 != v7);
-      v5 = [alarms countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [alarms countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

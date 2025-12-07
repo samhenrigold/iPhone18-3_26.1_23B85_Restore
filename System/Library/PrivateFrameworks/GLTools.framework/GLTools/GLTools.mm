@@ -29,16 +29,16 @@ void sub_24C0EB2F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_24C0EBF44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_24C0EBF44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::unique_ptr<GPUTools::VMBuffer>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_24C0EBF8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_24C0EBF8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::unique_ptr<GPUTools::VMBuffer>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -158,58 +158,58 @@ LABEL_17:
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>(float *a1, unint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_23;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_23:
     operator new();
   }
 
-  if (v4.u32[0] < 2uLL)
+  if (v6.u32[0] < 2uLL)
   {
     while (1)
     {
-      v9 = v7[1];
-      if (v9 == v2)
+      v11 = v9[1];
+      if (v11 == v4)
       {
-        if (v7[2] == v2)
+        if (v9[2] == v4)
         {
-          return v7;
+          return v9;
         }
       }
 
-      else if ((v9 & (*&v3 - 1)) != v5)
+      else if ((v11 & (*&v5 - 1)) != v7)
       {
         goto LABEL_23;
       }
 
-      v7 = *v7;
-      if (!v7)
+      v9 = *v9;
+      if (!v9)
       {
         goto LABEL_23;
       }
@@ -218,41 +218,41 @@ LABEL_23:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v8 >= *&v3)
+    if (v10 >= *&v5)
     {
-      v8 %= *&v3;
+      v10 %= *&v5;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_23;
     }
 
 LABEL_12:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_23;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_12;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_24C0EC620(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24C0EC620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -423,19 +423,19 @@ LABEL_19:
   return result;
 }
 
-void *std::deque<std::unique_ptr<GPUTools::VMBuffer>>::__add_back_capacity(void *a1)
+void std::deque<std::unique_ptr<GPUTools::VMBuffer>>::__add_back_capacity(void **a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v7 = a1[2];
-    v6 = a1[3];
-    v8 = v6 - *a1;
-    if (v7 - a1[1] < v8)
+    v6 = a1[2];
+    v5 = a1[3];
+    v7 = v5 - *a1;
+    if (v6 - a1[1] < v7)
     {
-      if (v6 != v7)
+      if (v5 != v6)
       {
         operator new();
       }
@@ -443,18 +443,18 @@ void *std::deque<std::unique_ptr<GPUTools::VMBuffer>>::__add_back_capacity(void 
       operator new();
     }
 
-    v9 = v8 >> 2;
-    if (v6 == *a1)
+    v8 = v7 >> 2;
+    if (v5 == *a1)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9;
+      v9 = v8;
     }
 
-    if (!(v10 >> 61))
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -464,9 +464,9 @@ void *std::deque<std::unique_ptr<GPUTools::VMBuffer>>::__add_back_capacity(void 
 
   a1[4] = v3;
   v4 = a1[1];
-  v11 = *v4;
+  v10 = *v4;
   a1[1] = v4 + 1;
-  return std::__split_buffer<std::unique_ptr<GPUTools::VMBuffer> *,std::allocator<std::unique_ptr<GPUTools::VMBuffer> *>>::emplace_back<std::unique_ptr<GPUTools::VMBuffer> *&>(a1, &v11);
+  std::__split_buffer<std::unique_ptr<GPUTools::VMBuffer> *,std::allocator<std::unique_ptr<GPUTools::VMBuffer> *>>::emplace_back<std::unique_ptr<GPUTools::VMBuffer> *&>(a1, &v10);
 }
 
 void sub_24C0ECD24(_Unwind_Exception *a1)
@@ -476,18 +476,17 @@ void sub_24C0ECD24(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<std::unique_ptr<GPUTools::VMBuffer> *,std::allocator<std::unique_ptr<GPUTools::VMBuffer> *>>::emplace_back<std::unique_ptr<GPUTools::VMBuffer> *&>(void *result, void *a2)
+void std::__split_buffer<std::unique_ptr<GPUTools::VMBuffer> *,std::allocator<std::unique_ptr<GPUTools::VMBuffer> *>>::emplace_back<std::unique_ptr<GPUTools::VMBuffer> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      v11 = &v4[-*result] >> 2;
-      if (v4 == *result)
+      v11 = &v4[-*a1] >> 2;
+      if (v4 == *a1)
       {
         v11 = 1;
       }
@@ -506,27 +505,25 @@ void *std::__split_buffer<std::unique_ptr<GPUTools::VMBuffer> *,std::allocator<s
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v7], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v7], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v8];
+    a1[1] = &v5[8 * v8];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 8;
-  return result;
+  a1[2] = (v4 + 8);
 }
 
-const void **std::__split_buffer<std::unique_ptr<GPUTools::VMBuffer> *,std::allocator<std::unique_ptr<GPUTools::VMBuffer> *>>::emplace_front<std::unique_ptr<GPUTools::VMBuffer> *>(const void **result, void *a2)
+void std::__split_buffer<std::unique_ptr<GPUTools::VMBuffer> *,std::allocator<std::unique_ptr<GPUTools::VMBuffer> *>>::emplace_front<std::unique_ptr<GPUTools::VMBuffer> *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       v9 = (v7 - v4) >> 2;
@@ -547,21 +544,20 @@ const void **std::__split_buffer<std::unique_ptr<GPUTools::VMBuffer> *,std::allo
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[2] = &v6[8 * v8];
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v5 - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = (v5 - 8);
 }
 
 void std::deque<std::unique_ptr<GPUTools::VMBuffer>>::shrink_to_fit(void *a1)
@@ -731,8 +727,8 @@ uint64_t GPUTools::GL::WireframeRenderer::IsBadDrawCall(GPUTools::GL::WireframeR
   {
     if (this)
     {
-      v5 = dy_abort();
-      return GPUTools::GL::WireframeRenderer::CreateLineListFromIndexedTriList(v5, v6, v7, v8, v9, v10);
+      v5 = dy_abort("Invalid or unknown primitive mode: 0x%04x", this);
+      return GPUTools::GL::WireframeRenderer::CreateLineListFromIndexedTriList(v5, v6, v7, v8, v9);
     }
 
     return a2 < 1;
@@ -744,26 +740,27 @@ uint64_t GPUTools::GL::WireframeRenderer::IsBadDrawCall(GPUTools::GL::WireframeR
   }
 }
 
-uint64_t GPUTools::GL::WireframeRenderer::CreateLineListFromIndexedTriList(GPUTools::GL::WireframeRenderer *this, void *a2, void **a3, int a4, int a5)
+uint64_t GPUTools::GL::WireframeRenderer::CreateLineListFromIndexedTriList(GPUTools::GL::WireframeRenderer *this, void *a2, void **a3, int a4, uint64_t a5)
 {
+  v5 = a5;
   v7 = a3;
   v10 = malloc_type_malloc(6 * a3 / 3 * a4, 0xDAD33C09uLL);
   *a2 = v10;
   switch(a4)
   {
     case 4:
-      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned int>(v7, v10, this, a5, &__block_literal_global_13);
+      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned int>(v7, v10, this, v5, &__block_literal_global_13);
       return (2 * v11);
     case 2:
-      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned short>(v7, v10, this, a5, &__block_literal_global_10);
+      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned short>(v7, v10, this, v5, &__block_literal_global_10);
       return (2 * v11);
     case 1:
-      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned char>(v7, v10, this, a5, &__block_literal_global);
+      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned char>(v7, v10, this, v5, &__block_literal_global);
       return (2 * v11);
   }
 
-  v13 = dy_abort();
-  return GPUTools::GL::WireframeRenderer::CreateLineListFromTriList(v13, v14, v15, v16, v17);
+  v13 = dy_abort("Unsupported indices size for indexed triangles: %u", a4);
+  return GPUTools::GL::WireframeRenderer::CreateLineListFromTriList(v13, v14, v15, v16);
 }
 
 uint64_t GPUTools::GL::WireframeRenderer::CreateLineListFromTriList(GPUTools::GL::WireframeRenderer *this, void **a2, unsigned int a3, int a4)
@@ -780,10 +777,10 @@ uint64_t GPUTools::GL::WireframeRenderer::CreateLineListFromTriList(GPUTools::GL
       {
         do
         {
-          v20.val[0] = vadd_s32(vdup_n_s32(v6), 0x200000001);
-          v20.val[1] = v20.val[0];
+          v19.val[0] = vadd_s32(vdup_n_s32(v6), 0x200000001);
+          v19.val[1] = v19.val[0];
           v12 = (v10 + 4);
-          vst2_f32(v12, v20);
+          vst2_f32(v12, v19);
           *v10 = v6;
           *(v10 + 5) = v6;
           v10 += 24;
@@ -835,30 +832,31 @@ uint64_t GPUTools::GL::WireframeRenderer::CreateLineListFromTriList(GPUTools::GL
       return v9;
   }
 
-  v14 = dy_abort();
-  return GPUTools::GL::WireframeRenderer::CreateLineListFromIndexedTriStrip(v14, v15, v16, v17, v18, v19);
+  v14 = dy_abort("Unsupported indices size for triangles: %u", a4);
+  return GPUTools::GL::WireframeRenderer::CreateLineListFromIndexedTriStrip(v14, v15, v16, v17, v18);
 }
 
-uint64_t GPUTools::GL::WireframeRenderer::CreateLineListFromIndexedTriStrip(GPUTools::GL::WireframeRenderer *this, void *a2, void **a3, int a4, int a5)
+uint64_t GPUTools::GL::WireframeRenderer::CreateLineListFromIndexedTriStrip(GPUTools::GL::WireframeRenderer *this, void *a2, void **a3, int a4, uint64_t a5)
 {
+  v5 = a5;
   v7 = a3;
   v10 = malloc_type_malloc(((6 * a3 - 12) * a4), 0x9140CBBAuLL);
   *a2 = v10;
   switch(a4)
   {
     case 4:
-      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned int>(v7, v10, this, a5, &__block_literal_global_19);
+      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned int>(v7, v10, this, v5, &__block_literal_global_19);
       return (2 * v11);
     case 2:
-      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned short>(v7, v10, this, a5, &__block_literal_global_17);
+      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned short>(v7, v10, this, v5, &__block_literal_global_17);
       return (2 * v11);
     case 1:
-      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned char>(v7, v10, this, a5, &__block_literal_global_15);
+      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned char>(v7, v10, this, v5, &__block_literal_global_15);
       return (2 * v11);
   }
 
-  v13 = dy_abort();
-  return GPUTools::GL::WireframeRenderer::CreateLineListFromTriStrip(v13, v14, v15, v16, v17);
+  v13 = dy_abort("Unsupported indices size for indexed triangle strip: %u", a4);
+  return GPUTools::GL::WireframeRenderer::CreateLineListFromTriStrip(v13, v14, v15, v16);
 }
 
 uint64_t GPUTools::GL::WireframeRenderer::CreateLineListFromTriStrip(GPUTools::GL::WireframeRenderer *this, void **a2, int a3, int a4)
@@ -875,12 +873,12 @@ uint64_t GPUTools::GL::WireframeRenderer::CreateLineListFromTriStrip(GPUTools::G
       {
         *v9 = v5;
         *(v9 + 5) = v5;
-        v21.val[0] = vadd_s32(vdup_n_s32(v5), 0x200000001);
-        v21.val[1] = v21.val[0];
+        v20.val[0] = vadd_s32(vdup_n_s32(v5), 0x200000001);
+        v20.val[1] = v20.val[0];
         v13 = (v9 + 4);
-        vst2_f32(v13, v21);
+        vst2_f32(v13, v20);
         v9 += 24;
-        v5 = v21.val[0].i32[0];
+        v5 = v20.val[0].i32[0];
       }
 
       return v8;
@@ -913,30 +911,31 @@ uint64_t GPUTools::GL::WireframeRenderer::CreateLineListFromTriStrip(GPUTools::G
       return v8;
   }
 
-  v15 = dy_abort();
-  return GPUTools::GL::WireframeRenderer::CreateLineListFromIndexedTriFan(v15, v16, v17, v18, v19, v20);
+  v15 = dy_abort("Unsupported indices size for triangle strip: %u", a4);
+  return GPUTools::GL::WireframeRenderer::CreateLineListFromIndexedTriFan(v15, v16, v17, v18, v19);
 }
 
-uint64_t GPUTools::GL::WireframeRenderer::CreateLineListFromIndexedTriFan(GPUTools::GL::WireframeRenderer *this, void *a2, void **a3, int a4, int a5)
+uint64_t GPUTools::GL::WireframeRenderer::CreateLineListFromIndexedTriFan(GPUTools::GL::WireframeRenderer *this, void *a2, void **a3, int a4, uint64_t a5)
 {
+  v5 = a5;
   v7 = a3;
   v10 = malloc_type_malloc(((6 * a3 - 12) * a4), 0x64D3FE91uLL);
   *a2 = v10;
   switch(a4)
   {
     case 4:
-      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned int>(v7, v10, this, a5, &__block_literal_global_25);
+      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned int>(v7, v10, this, v5, &__block_literal_global_25);
       return (2 * v11);
     case 2:
-      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned short>(v7, v10, this, a5, &__block_literal_global_23);
+      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned short>(v7, v10, this, v5, &__block_literal_global_23);
       return (2 * v11);
     case 1:
-      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned char>(v7, v10, this, a5, &__block_literal_global_21);
+      v11 = GPUTools::GL::CopyTriIndicesToLineList<unsigned char>(v7, v10, this, v5, &__block_literal_global_21);
       return (2 * v11);
   }
 
-  v13 = dy_abort();
-  return GPUTools::GL::WireframeRenderer::CreateLineListFromTriFan(v13, v14, v15, v16, v17);
+  v13 = dy_abort("Unsupported indices size for indexed triangle fan: %u", a4);
+  return GPUTools::GL::WireframeRenderer::CreateLineListFromTriFan(v13, v14, v15, v16);
 }
 
 uint64_t GPUTools::GL::WireframeRenderer::CreateLineListFromTriFan(GPUTools::GL::WireframeRenderer *this, void **a2, int a3, int a4)
@@ -1012,7 +1011,7 @@ uint64_t GPUTools::GL::WireframeRenderer::CreateLineListFromTriFan(GPUTools::GL:
       return v8;
   }
 
-  v18 = dy_abort();
+  v18 = dy_abort("Unsupported indices size for triangle fan: %u", a4);
   return GPUTools::GL::CopyTriIndicesToLineList<unsigned char>(v18, v19, v20, v21, v22);
 }
 
@@ -1122,60 +1121,55 @@ uint64_t GPUTools::GL::CopyTriIndicesToLineList<unsigned short>(unsigned int a1,
 
 uint64_t GPUTools::GL::CopyTriIndicesToLineList<unsigned int>(unsigned int a1, _DWORD *a2, int *a3, int a4, uint64_t a5)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v20 = 0;
-  if (a1)
+  v23 = *MEMORY[0x277D85DE8];
+  v19 = 0;
+  if (!a1)
   {
-    v9 = 0;
-    v10 = 4 * a1;
-    do
+    return 0;
+  }
+
+  v9 = 0;
+  v10 = 4 * a1;
+  do
+  {
+    v12 = *a3++;
+    v11 = v12;
+    v13 = v19;
+    *(&v20 + v19) = v12;
+    if (a4 && v11 == -1)
     {
-      v12 = *a3++;
-      v11 = v12;
-      v13 = v20;
-      *(&v21 + v20) = v12;
-      if (a4 && v11 == -1)
-      {
-        v20 = 0;
-      }
-
-      else if (v13 == 2)
-      {
-        if (v21 != v22 && v21 != v23 && v22 != v23)
-        {
-          *a2 = v21;
-          v16 = v21;
-          v15 = v22;
-          a2[1] = v22;
-          a2[2] = v15;
-          v17 = v23;
-          a2[3] = v23;
-          a2[4] = v17;
-          a2[5] = v16;
-          a2 += 6;
-          v9 = (v9 + 3);
-        }
-
-        (*(a5 + 16))(a5, &v21, &v20);
-      }
-
-      else
-      {
-        v20 = v13 + 1;
-      }
-
-      v10 -= 4;
+      v19 = 0;
     }
 
-    while (v10);
+    else if (v13 == 2)
+    {
+      if (v20 != v21 && v20 != v22 && v21 != v22)
+      {
+        *a2 = v20;
+        v16 = v20;
+        v15 = v21;
+        a2[1] = v21;
+        a2[2] = v15;
+        v17 = v22;
+        a2[3] = v22;
+        a2[4] = v17;
+        a2[5] = v16;
+        a2 += 6;
+        v9 = (v9 + 3);
+      }
+
+      (*(a5 + 16))(a5, &v20, &v19);
+    }
+
+    else
+    {
+      v19 = v13 + 1;
+    }
+
+    v10 -= 4;
   }
 
-  else
-  {
-    v9 = 0;
-  }
-
-  v18 = *MEMORY[0x277D85DE8];
+  while (v10);
   return v9;
 }
 

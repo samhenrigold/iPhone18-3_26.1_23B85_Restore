@@ -26,142 +26,23 @@
 
 + (id)entryEventPointDefinitions
 {
-  v20[1] = *MEMORY[0x277D85DE8];
-  v19 = @"Button";
-  v17[0] = *MEMORY[0x277D3F4E8];
-  v2 = *MEMORY[0x277D3F4F8];
-  v15[0] = *MEMORY[0x277D3F568];
-  v15[1] = v2;
-  v16[0] = &unk_282C1C608;
-  v16[1] = MEMORY[0x277CBEC28];
-  v15[2] = *MEMORY[0x277D3F550];
-  v16[2] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-  v18[0] = v3;
-  v17[1] = *MEMORY[0x277D3F540];
-  v13[0] = @"ButtonType";
-  mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
-  commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v13[1] = @"EventType";
-  v14[0] = commonTypeDict_IntegerFormat;
-  mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
-  commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v14[1] = commonTypeDict_IntegerFormat2;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-  v18[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-  v20[0] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v10;
-}
-
-+ (id)entryEventForwardDefinitionActionButtonInteraction
-{
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277D3F4E8];
-  v11 = *MEMORY[0x277D3F568];
-  v12 = &unk_282C1C618;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v2;
-  v13[1] = *MEMORY[0x277D3F540];
-  v9 = @"type";
-  mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
-  commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v10 = commonTypeDict_IntegerFormat;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-  v14[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
-
-  return v6;
-}
-
-+ (id)entryEventForwardDefinitionActionButtonSelection
-{
-  v16[2] = *MEMORY[0x277D85DE8];
-  v15[0] = *MEMORY[0x277D3F4E8];
-  v13 = *MEMORY[0x277D3F568];
-  v14 = &unk_282C1C628;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v16[0] = v2;
-  v15[1] = *MEMORY[0x277D3F540];
-  v11[0] = @"action";
-  mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
-  commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v11[1] = @"sub-action";
-  v12[0] = commonTypeDict_StringFormat;
-  mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
-  commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v12[1] = commonTypeDict_StringFormat2;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v16[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
-}
-
-+ (id)entryEventForwardDefinitions
-{
-  v23[3] = *MEMORY[0x277D85DE8];
-  v22[0] = @"CoverState";
-  v20[0] = *MEMORY[0x277D3F4E8];
-  v3 = *MEMORY[0x277D3F4F8];
-  v18[0] = *MEMORY[0x277D3F568];
-  v18[1] = v3;
-  v19[0] = &unk_282C1C618;
-  v19[1] = MEMORY[0x277CBEC28];
-  v18[2] = *MEMORY[0x277D3F550];
-  v19[2] = MEMORY[0x277CBEC28];
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
-  v21[0] = v15;
-  v20[1] = *MEMORY[0x277D3F540];
-  v16[0] = @"Side";
-  mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
-  commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v16[1] = @"State";
-  v17[0] = commonTypeDict_BoolFormat;
-  mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
-  commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_BoolFormat];
-  v17[1] = commonTypeDict_BoolFormat2;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-  v21[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v23[0] = v9;
-  v22[1] = @"ActionButtonSelection";
-  entryEventForwardDefinitionActionButtonSelection = [self entryEventForwardDefinitionActionButtonSelection];
-  v23[1] = entryEventForwardDefinitionActionButtonSelection;
-  v22[2] = @"ActionButtonInteraction";
-  entryEventForwardDefinitionActionButtonInteraction = [self entryEventForwardDefinitionActionButtonInteraction];
-  v23[2] = entryEventForwardDefinitionActionButtonInteraction;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v12;
-}
-
-+ (id)entryEventBackwardDefinitionTrackpadPowerState
-{
-  v17[2] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
+  v18 = @"Button";
   v16[0] = *MEMORY[0x277D3F4E8];
-  v2 = *MEMORY[0x277D3F550];
+  v2 = *MEMORY[0x277D3F4F8];
   v14[0] = *MEMORY[0x277D3F568];
   v14[1] = v2;
-  v15[0] = &unk_282C1C618;
+  v15[0] = &unk_282C1C608;
   v15[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v14[2] = *MEMORY[0x277D3F550];
+  v15[2] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
   v17[0] = v3;
   v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"ActiveDurationMs";
+  v12[0] = @"ButtonType";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v12[1] = @"ReadyDurationMs";
+  v12[1] = @"EventType";
   v13[0] = commonTypeDict_IntegerFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
@@ -169,8 +50,117 @@
   v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   v17[1] = v8;
   v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v19[0] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
 
-  v10 = *MEMORY[0x277D85DE8];
+  return v10;
+}
+
++ (id)entryEventForwardDefinitionActionButtonInteraction
+{
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277D3F4E8];
+  v10 = *MEMORY[0x277D3F568];
+  v11 = &unk_282C1C618;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v2;
+  v12[1] = *MEMORY[0x277D3F540];
+  v8 = @"type";
+  mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
+  commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
+  v9 = commonTypeDict_IntegerFormat;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v13[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+
+  return v6;
+}
+
++ (id)entryEventForwardDefinitionActionButtonSelection
+{
+  v15[2] = *MEMORY[0x277D85DE8];
+  v14[0] = *MEMORY[0x277D3F4E8];
+  v12 = *MEMORY[0x277D3F568];
+  v13 = &unk_282C1C628;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v15[0] = v2;
+  v14[1] = *MEMORY[0x277D3F540];
+  v10[0] = @"action";
+  mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
+  commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
+  v10[1] = @"sub-action";
+  v11[0] = commonTypeDict_StringFormat;
+  mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
+  commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
+  v11[1] = commonTypeDict_StringFormat2;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v15[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+
+  return v8;
+}
+
++ (id)entryEventForwardDefinitions
+{
+  v22[3] = *MEMORY[0x277D85DE8];
+  v21[0] = @"CoverState";
+  v19[0] = *MEMORY[0x277D3F4E8];
+  v3 = *MEMORY[0x277D3F4F8];
+  v17[0] = *MEMORY[0x277D3F568];
+  v17[1] = v3;
+  v18[0] = &unk_282C1C618;
+  v18[1] = MEMORY[0x277CBEC28];
+  v17[2] = *MEMORY[0x277D3F550];
+  v18[2] = MEMORY[0x277CBEC28];
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v20[0] = v14;
+  v19[1] = *MEMORY[0x277D3F540];
+  v15[0] = @"Side";
+  mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
+  commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
+  v15[1] = @"State";
+  v16[0] = commonTypeDict_BoolFormat;
+  mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
+  commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_BoolFormat];
+  v16[1] = commonTypeDict_BoolFormat2;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v20[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v22[0] = v9;
+  v21[1] = @"ActionButtonSelection";
+  entryEventForwardDefinitionActionButtonSelection = [self entryEventForwardDefinitionActionButtonSelection];
+  v22[1] = entryEventForwardDefinitionActionButtonSelection;
+  v21[2] = @"ActionButtonInteraction";
+  entryEventForwardDefinitionActionButtonInteraction = [self entryEventForwardDefinitionActionButtonInteraction];
+  v22[2] = entryEventForwardDefinitionActionButtonInteraction;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+
+  return v12;
+}
+
++ (id)entryEventBackwardDefinitionTrackpadPowerState
+{
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
+  v2 = *MEMORY[0x277D3F550];
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_282C1C618;
+  v14[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"ActiveDurationMs";
+  mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
+  commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
+  v11[1] = @"ReadyDurationMs";
+  v12[0] = commonTypeDict_IntegerFormat;
+  mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
+  commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
+  v12[1] = commonTypeDict_IntegerFormat2;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
@@ -255,66 +245,62 @@
 
 void __41__PLButtonAgent_initOperatorDependancies__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Button action payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Button action payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventBackwardCaptureButtonAction:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __41__PLButtonAgent_initOperatorDependancies__block_invoke_101(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogButton();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "ActionButtonSelectionChanged payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "ActionButtonSelectionChanged payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardActionButtonSelection:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __41__PLButtonAgent_initOperatorDependancies__block_invoke_106(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogButton();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "ActionButtonSelection Daily payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "ActionButtonSelection Daily payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardActionButtonSelection:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __41__PLButtonAgent_initOperatorDependancies__block_invoke_111(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogButton();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "ActionButtonInteraction payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "ActionButtonInteraction payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardActionButtonInteraction:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __41__PLButtonAgent_initOperatorDependancies__block_invoke_113(uint64_t a1, uint64_t a2)
@@ -327,7 +313,7 @@ uint64_t __41__PLButtonAgent_initOperatorDependancies__block_invoke_113(uint64_t
 
 - (void)logEventPointButton:(__IOHIDEvent *)button
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (IOHIDEventGetType() == 3 && IOHIDEventGetIntegerValue() == 12)
   {
     v4 = [(PLOperator *)PLButtonAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"Button"];
@@ -344,9 +330,9 @@ uint64_t __41__PLButtonAgent_initOperatorDependancies__block_invoke_113(uint64_t
     v15 = PLLogButton();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v19 = 134217984;
-      v20 = IntegerValue;
-      _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "Button event: State %llu", &v19, 0xCu);
+      v18 = 134217984;
+      v19 = IntegerValue;
+      _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "Button event: State %llu", &v18, 0xCu);
     }
 
     v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:IntegerValue];
@@ -357,8 +343,6 @@ uint64_t __41__PLButtonAgent_initOperatorDependancies__block_invoke_113(uint64_t
 
     [(PLOperator *)self logEntry:v14];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEventForwardActionButtonInteraction:(id)interaction
@@ -406,7 +390,7 @@ uint64_t __41__PLButtonAgent_initOperatorDependancies__block_invoke_113(uint64_t
 
 - (void)logEventForwardSmartCover:(__IOHIDEvent *)cover
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (IOHIDEventGetType() == 3 && IOHIDEventGetIntegerValue() == 65289)
   {
     v4 = [(PLOperator *)PLButtonAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"CoverState"];
@@ -414,9 +398,9 @@ uint64_t __41__PLButtonAgent_initOperatorDependancies__block_invoke_113(uint64_t
     v6 = PLLogButton();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v19 = 134217984;
-      v20 = IntegerValue;
-      _os_log_debug_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEBUG, "SmartCover event: State %llu", &v19, 0xCu);
+      v18 = 134217984;
+      v19 = IntegerValue;
+      _os_log_debug_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEBUG, "SmartCover event: State %llu", &v18, 0xCu);
     }
 
     TimeStamp = IOHIDEventGetTimeStamp();
@@ -439,7 +423,7 @@ uint64_t __41__PLButtonAgent_initOperatorDependancies__block_invoke_113(uint64_t
       {
 LABEL_10:
 
-        goto LABEL_11;
+        return;
       }
 
       v16 = &unk_282C11BF8;
@@ -452,14 +436,11 @@ LABEL_10:
     [(PLOperator *)self logEntry:v14];
     goto LABEL_10;
   }
-
-LABEL_11:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEventBackwardCaptureButtonAction:(id)action
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   v5 = objc_opt_new();
   v6 = [actionCopy objectForKeyedSubscript:&unk_282C11BE0];
@@ -483,13 +464,12 @@ LABEL_11:
   v14 = PLLogCommon();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v16 = 138412290;
-    v17 = v5;
-    _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "Button action updated payload: %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = v5;
+    _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "Button action updated payload: %@", &v15, 0xCu);
   }
 
   [(PLOperator *)self logForSubsystem:@"Button" category:@"CaptureButtonAction" data:v5];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)interactionTypeStringToEnum:(id)enum

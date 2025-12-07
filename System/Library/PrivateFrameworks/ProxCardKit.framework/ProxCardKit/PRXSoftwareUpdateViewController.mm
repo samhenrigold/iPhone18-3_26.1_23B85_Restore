@@ -266,11 +266,11 @@ LABEL_10:
   [v51 activateConstraints:v28];
 }
 
-uint64_t __46__PRXSoftwareUpdateViewController_viewDidLoad__block_invoke_2_cold_1()
+void __46__PRXSoftwareUpdateViewController_viewDidLoad__block_invoke_2_cold_1()
 {
-  dlerror();
-  abort_report_np();
-  return __getLSApplicationWorkspaceClass_block_invoke_cold_1();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  __getLSApplicationWorkspaceClass_block_invoke_cold_1();
 }
 
 @end

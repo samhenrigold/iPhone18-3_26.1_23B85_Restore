@@ -76,34 +76,31 @@
 
 - (id)description
 {
-  horizontalAngle = self->_horizontalAngle;
-  verticalAngle = self->_verticalAngle;
-  distanceMeters = self->_distanceMeters;
-  identifier = self->_identifier;
-  NSAppendPrintF_safe();
-  v3 = 0;
+  v15 = 0;
+  NSAppendPrintF_safe(&v15, "ID %@, D %.3f m, H %.3f, V %.3f", self->_identifier, *&self->_distanceMeters, *&self->_horizontalAngle, *&self->_verticalAngle);
+  v3 = v15;
   if (self->_flags)
   {
-    v18 = v3;
+    v14 = v3;
     v4 = v3;
-    v12 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v5 = v18;
+    v5 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v14, ", %@", v5);
+    v6 = v14;
 
-    v3 = v5;
+    v3 = v6;
   }
 
   error = self->_error;
   if (error)
   {
-    v17 = v3;
-    v7 = v3;
-    v8 = error;
-    v13 = CUPrintNSError();
-    NSAppendPrintF_safe();
-    v9 = v17;
+    v13 = v3;
+    v8 = v3;
+    v9 = error;
+    v10 = CUPrintNSError();
+    NSAppendPrintF_safe(&v13, ", %@", v10);
+    v11 = v13;
 
-    v3 = v9;
+    v3 = v11;
   }
 
   return v3;
@@ -117,15 +114,15 @@
   {
     if (error)
     {
-      v20 = "init failed";
+      v25 = "init failed";
 LABEL_25:
-      CBErrorF(-6756, v20, v7, v8, v9, v10, v11, v12, v21);
-      *error = v18 = 0;
+      CBErrorF(-6756, v25, v7, v8, v9, v10, v11, v12, v26);
+      *error = v23 = 0;
       goto LABEL_19;
     }
 
 LABEL_26:
-    v18 = 0;
+    v23 = 0;
     goto LABEL_19;
   }
 
@@ -133,7 +130,7 @@ LABEL_26:
   {
     if (error)
     {
-      v20 = "XPC non-dict";
+      v25 = "XPC non-dict";
       goto LABEL_25;
     }
 
@@ -160,14 +157,14 @@ LABEL_26:
   }
 
   objc_storeStrong(&v13->_error, 0);
-  OUTLINED_FUNCTION_0();
-  v16 = OUTLINED_FUNCTION_5();
-  if (v16 == 6)
+  v16 = OUTLINED_FUNCTION_0();
+  v21 = OUTLINED_FUNCTION_5(v16, v17, v18, v19, v20);
+  if (v21 == 6)
   {
     v13->_flags = 0;
   }
 
-  else if (v16 == 5)
+  else if (v21 == 5)
   {
     goto LABEL_20;
   }
@@ -203,26 +200,26 @@ LABEL_26:
   }
 
   OUTLINED_FUNCTION_0();
-  v17 = CUXPCDecodeUInt64RangedEx();
-  if (v17 != 6)
+  v22 = CUXPCDecodeUInt64RangedEx();
+  if (v22 != 6)
   {
-    if (v17 != 5)
+    if (v22 != 5)
     {
       goto LABEL_17;
     }
 
 LABEL_20:
-    v18 = 0;
+    v23 = 0;
     goto LABEL_18;
   }
 
   v13->_timestampTicks = 0;
 LABEL_17:
-  v18 = v13;
+  v23 = v13;
 LABEL_18:
 
 LABEL_19:
-  return v18;
+  return v23;
 }
 
 @end

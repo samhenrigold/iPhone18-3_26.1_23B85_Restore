@@ -24,24 +24,24 @@
 
 - (id)_dictionaryRepresentation
 {
-  v21[5] = *MEMORY[0x1E69E9840];
-  v20[0] = @"code";
+  v20[5] = *MEMORY[0x1E69E9840];
+  v19[0] = @"code";
   code = [(INSearchForNotebookItemsIntentResponse *)self code];
   v4 = code;
   if (code < (INSearchForNotebookItemsIntentResponseCodeFailure|INSearchForNotebookItemsIntentResponseCodeInProgress))
   {
     null = off_1E7280570[code];
-    v18 = null;
+    v17 = null;
   }
 
   else
   {
     null = [MEMORY[0x1E695DFB0] null];
-    v18 = 0;
+    v17 = 0;
   }
 
-  v21[0] = null;
-  v20[1] = @"notes";
+  v20[0] = null;
+  v19[1] = @"notes";
   notes = [(INSearchForNotebookItemsIntentResponse *)self notes];
   null2 = notes;
   if (!notes)
@@ -49,8 +49,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21[1] = null2;
-  v20[2] = @"taskLists";
+  v20[1] = null2;
+  v19[2] = @"taskLists";
   taskLists = [(INSearchForNotebookItemsIntentResponse *)self taskLists];
   null3 = taskLists;
   if (!taskLists)
@@ -58,8 +58,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21[2] = null3;
-  v20[3] = @"tasks";
+  v20[2] = null3;
+  v19[3] = @"tasks";
   tasks = [(INSearchForNotebookItemsIntentResponse *)self tasks];
   null4 = tasks;
   if (!tasks)
@@ -67,8 +67,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21[3] = null4;
-  v20[4] = @"sortType";
+  v20[3] = null4;
+  v19[4] = @"sortType";
   sortType = [(INSearchForNotebookItemsIntentResponse *)self sortType];
   v13 = @"unknown";
   if (sortType == INSortTypeByDate)
@@ -82,8 +82,8 @@
   }
 
   v14 = v13;
-  v21[4] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:5];
+  v20[4] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:5];
 
   if (!tasks)
   {
@@ -100,8 +100,6 @@
   if (v4 >= 6)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -322,7 +320,7 @@
 
 - (INSearchForNotebookItemsIntentResponse)initWithCode:(INSearchForNotebookItemsIntentResponseCode)code userActivity:(NSUserActivity *)userActivity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = userActivity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -340,21 +338,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INSearchForNotebookItemsIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
-    v18 = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v6;
+    v15 = "[INSearchForNotebookItemsIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
+    v17 = code;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v6;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INSearchForNotebookItemsIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:v6];
+  v13.receiver = self;
+  v13.super_class = INSearchForNotebookItemsIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:v6];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

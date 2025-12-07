@@ -71,15 +71,13 @@ LABEL_7:
 
 - (id)invalidAudioBufferError
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCA9B8];
-  v8 = *MEMORY[0x277CCA450];
+  v7 = *MEMORY[0x277CCA450];
   v3 = WFLocalizedString(@"Unable to Make Spoken Audio from Text");
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v2 errorWithDomain:@"WFSpeechSynthesizerErrorDomain" code:0 userInfo:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -579,7 +577,7 @@ LABEL_17:
 
 - (void)speakUtteranceIntoFile:(id)file usingVoice:(id)voice rate:(double)rate pitch:(double)pitch
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   voiceCopy = voice;
   if (!fileCopy)
@@ -592,15 +590,15 @@ LABEL_17:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 136316162;
-    v25 = "[WFSpeechSynthesizer speakUtteranceIntoFile:usingVoice:rate:pitch:]";
-    v26 = 2112;
-    v27 = fileCopy;
-    v28 = 2048;
+    v24 = "[WFSpeechSynthesizer speakUtteranceIntoFile:usingVoice:rate:pitch:]";
+    v25 = 2112;
+    v26 = fileCopy;
+    v27 = 2048;
     rateCopy = rate;
-    v30 = 2048;
+    v29 = 2048;
     pitchCopy = pitch;
-    v32 = 2112;
-    v33 = voiceCopy;
+    v31 = 2112;
+    v32 = voiceCopy;
     _os_log_impl(&dword_23DE30000, v13, OS_LOG_TYPE_INFO, "%s Asked to synthesize '%@' into file at rate %f, pitch %f using voice %@", buf, 0x34u);
   }
 
@@ -610,15 +608,13 @@ LABEL_17:
   block[2] = __68__WFSpeechSynthesizer_speakUtteranceIntoFile_usingVoice_rate_pitch___block_invoke;
   block[3] = &unk_278C1B988;
   block[4] = self;
-  v20 = voiceCopy;
-  v21 = fileCopy;
+  v19 = voiceCopy;
+  v20 = fileCopy;
   rateCopy2 = rate;
   pitchCopy2 = pitch;
   v15 = fileCopy;
   v16 = voiceCopy;
   dispatch_async(queue, block);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __68__WFSpeechSynthesizer_speakUtteranceIntoFile_usingVoice_rate_pitch___block_invoke(uint64_t a1)
@@ -630,120 +626,119 @@ void __68__WFSpeechSynthesizer_speakUtteranceIntoFile_usingVoice_rate_pitch___bl
 
   if (![v5 count])
   {
-    v6 = *(a1 + 32);
-    v7 = [objc_opt_class() defaultAudioFileSettings];
-    v8 = [v7 mutableCopy];
+    v6 = [objc_opt_class() defaultAudioFileSettings];
+    v7 = [v6 mutableCopy];
 
-    v5 = v8;
+    v5 = v7;
   }
 
-  v9 = [*(a1 + 32) outputFileURLForUtterance:*(a1 + 48)];
-  v10 = [*(a1 + 32) avUtteranceOutputTable];
-  [v10 setObject:v9 forKey:v2];
+  v8 = [*(a1 + 32) outputFileURLForUtterance:*(a1 + 48)];
+  v9 = [*(a1 + 32) avUtteranceOutputTable];
+  [v9 setObject:v8 forKey:v2];
 
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
-  v11 = getAVAudioFileTypeKeySymbolLoc_ptr;
-  v38 = getAVAudioFileTypeKeySymbolLoc_ptr;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v10 = getAVAudioFileTypeKeySymbolLoc_ptr;
+  v37 = getAVAudioFileTypeKeySymbolLoc_ptr;
   if (!getAVAudioFileTypeKeySymbolLoc_ptr)
   {
     location = MEMORY[0x277D85DD0];
-    v31 = 3221225472;
-    v32 = __getAVAudioFileTypeKeySymbolLoc_block_invoke;
-    v33 = &unk_278C222B8;
-    v34 = &v35;
-    v12 = AVFoundationLibrary();
-    v36[3] = dlsym(v12, "AVAudioFileTypeKey");
-    getAVAudioFileTypeKeySymbolLoc_ptr = *(v34[1] + 24);
-    v11 = v36[3];
+    v30 = 3221225472;
+    v31 = __getAVAudioFileTypeKeySymbolLoc_block_invoke;
+    v32 = &unk_278C222B8;
+    v33 = &v34;
+    v11 = AVFoundationLibrary();
+    v35[3] = dlsym(v11, "AVAudioFileTypeKey");
+    getAVAudioFileTypeKeySymbolLoc_ptr = *(v33[1] + 24);
+    v10 = v35[3];
   }
 
-  _Block_object_dispose(&v35, 8);
-  if (!v11)
+  _Block_object_dispose(&v34, 8);
+  if (!v10)
   {
-    v23 = [MEMORY[0x277CCA890] currentHandler];
-    v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getAVAudioFileTypeKey(void)"];
-    [v23 handleFailureInFunction:v24 file:@"WFSpeechSynthesizer.m" lineNumber:39 description:{@"%s", dlerror()}];
+    v22 = [MEMORY[0x277CCA890] currentHandler];
+    v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getAVAudioFileTypeKey(void)"];
+    [v22 handleFailureInFunction:v23 file:@"WFSpeechSynthesizer.m" lineNumber:39 description:{@"%s", dlerror()}];
 LABEL_17:
 
     __break(1u);
     return;
   }
 
-  [v5 setObject:&unk_28509BA20 forKey:*v11];
-  v13 = [*(a1 + 32) audioFormatForSettings:v5];
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
-  v14 = getAVLinearPCMIsNonInterleavedSymbolLoc_ptr;
-  v38 = getAVLinearPCMIsNonInterleavedSymbolLoc_ptr;
+  [v5 setObject:&unk_28509BA20 forKey:*v10];
+  v12 = [*(a1 + 32) audioFormatForSettings:v5];
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v13 = getAVLinearPCMIsNonInterleavedSymbolLoc_ptr;
+  v37 = getAVLinearPCMIsNonInterleavedSymbolLoc_ptr;
   if (!getAVLinearPCMIsNonInterleavedSymbolLoc_ptr)
   {
     location = MEMORY[0x277D85DD0];
-    v31 = 3221225472;
-    v32 = __getAVLinearPCMIsNonInterleavedSymbolLoc_block_invoke;
-    v33 = &unk_278C222B8;
-    v34 = &v35;
-    v15 = AVFoundationLibrary();
-    v36[3] = dlsym(v15, "AVLinearPCMIsNonInterleaved");
-    getAVLinearPCMIsNonInterleavedSymbolLoc_ptr = *(v34[1] + 24);
-    v14 = v36[3];
+    v30 = 3221225472;
+    v31 = __getAVLinearPCMIsNonInterleavedSymbolLoc_block_invoke;
+    v32 = &unk_278C222B8;
+    v33 = &v34;
+    v14 = AVFoundationLibrary();
+    v35[3] = dlsym(v14, "AVLinearPCMIsNonInterleaved");
+    getAVLinearPCMIsNonInterleavedSymbolLoc_ptr = *(v33[1] + 24);
+    v13 = v35[3];
   }
 
-  _Block_object_dispose(&v35, 8);
-  if (!v14)
+  _Block_object_dispose(&v34, 8);
+  if (!v13)
   {
-    v23 = [MEMORY[0x277CCA890] currentHandler];
-    v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getAVLinearPCMIsNonInterleaved(void)"];
-    [v23 handleFailureInFunction:v24 file:@"WFSpeechSynthesizer.m" lineNumber:45 description:{@"%s", dlerror()}];
+    v22 = [MEMORY[0x277CCA890] currentHandler];
+    v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getAVLinearPCMIsNonInterleaved(void)"];
+    [v22 handleFailureInFunction:v23 file:@"WFSpeechSynthesizer.m" lineNumber:45 description:{@"%s", dlerror()}];
     goto LABEL_17;
   }
 
-  v16 = [v5 objectForKey:*v14];
-  v17 = [v16 BOOLValue];
+  v15 = [v5 objectForKey:*v13];
+  v16 = [v15 BOOLValue];
 
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2050000000;
-  v18 = getAVAudioFileClass_softClass;
-  v38 = getAVAudioFileClass_softClass;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2050000000;
+  v17 = getAVAudioFileClass_softClass;
+  v37 = getAVAudioFileClass_softClass;
   if (!getAVAudioFileClass_softClass)
   {
     location = MEMORY[0x277D85DD0];
-    v31 = 3221225472;
-    v32 = __getAVAudioFileClass_block_invoke;
-    v33 = &unk_278C222B8;
-    v34 = &v35;
+    v30 = 3221225472;
+    v31 = __getAVAudioFileClass_block_invoke;
+    v32 = &unk_278C222B8;
+    v33 = &v34;
     __getAVAudioFileClass_block_invoke(&location);
-    v18 = v36[3];
+    v17 = v35[3];
   }
 
-  v19 = v18;
-  _Block_object_dispose(&v35, 8);
-  v29 = 0;
-  v20 = [[v18 alloc] initForWriting:v9 settings:v5 commonFormat:v13 interleaved:v17 ^ 1u error:&v29];
-  v21 = v29;
-  if (v20)
+  v18 = v17;
+  _Block_object_dispose(&v34, 8);
+  v28 = 0;
+  v19 = [[v17 alloc] initForWriting:v8 settings:v5 commonFormat:v12 interleaved:v16 ^ 1u error:&v28];
+  v20 = v28;
+  if (v19)
   {
     objc_initWeak(&location, *(a1 + 32));
-    v22 = [*(a1 + 32) avSynthesizer];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __68__WFSpeechSynthesizer_speakUtteranceIntoFile_usingVoice_rate_pitch___block_invoke_184;
-    v25[3] = &unk_278C1B9B0;
-    objc_copyWeak(&v28, &location);
-    v26 = v2;
-    v27 = v20;
-    [v22 writeUtterance:v26 toBufferCallback:v25];
+    v21 = [*(a1 + 32) avSynthesizer];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __68__WFSpeechSynthesizer_speakUtteranceIntoFile_usingVoice_rate_pitch___block_invoke_184;
+    v24[3] = &unk_278C1B9B0;
+    objc_copyWeak(&v27, &location);
+    v25 = v2;
+    v26 = v19;
+    [v21 writeUtterance:v25 toBufferCallback:v24];
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    [*(a1 + 32) failSpeakingAVUtterance:v2 withError:v21];
+    [*(a1 + 32) failSpeakingAVUtterance:v2 withError:v20];
   }
 }
 
@@ -794,7 +789,7 @@ LABEL_8:
 
 - (void)speakUtterance:(id)utterance usingVoice:(id)voice rate:(double)rate pitch:(double)pitch
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   utteranceCopy = utterance;
   voiceCopy = voice;
   if (!utteranceCopy)
@@ -807,15 +802,15 @@ LABEL_8:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 136316162;
-    v26 = "[WFSpeechSynthesizer speakUtterance:usingVoice:rate:pitch:]";
-    v27 = 2112;
-    v28 = utteranceCopy;
-    v29 = 2048;
+    v25 = "[WFSpeechSynthesizer speakUtterance:usingVoice:rate:pitch:]";
+    v26 = 2112;
+    v27 = utteranceCopy;
+    v28 = 2048;
     rateCopy = rate;
-    v31 = 2048;
+    v30 = 2048;
     pitchCopy = pitch;
-    v33 = 2112;
-    v34 = voiceCopy;
+    v32 = 2112;
+    v33 = voiceCopy;
     _os_log_impl(&dword_23DE30000, v13, OS_LOG_TYPE_INFO, "%s Asked to synthesize '%@' at rate %f, pitch %f using voice %@", buf, 0x34u);
   }
 
@@ -824,21 +819,19 @@ LABEL_8:
   block[1] = 3221225472;
   block[2] = __60__WFSpeechSynthesizer_speakUtterance_usingVoice_rate_pitch___block_invoke;
   block[3] = &unk_278C1B988;
-  v20 = voiceCopy;
+  v19 = voiceCopy;
   selfCopy = self;
-  v22 = utteranceCopy;
+  v21 = utteranceCopy;
   rateCopy2 = rate;
   pitchCopy2 = pitch;
   v15 = utteranceCopy;
   v16 = voiceCopy;
   dispatch_async(queue, block);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __60__WFSpeechSynthesizer_speakUtterance_usingVoice_rate_pitch___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) isSiriVoice];
   v4 = *(a1 + 32);
   v3 = *(a1 + 40);
@@ -852,36 +845,32 @@ void __60__WFSpeechSynthesizer_speakUtterance_usingVoice_rate_pitch___block_invo
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v20 = "[WFSpeechSynthesizer speakUtterance:usingVoice:rate:pitch:]_block_invoke";
-      v21 = 2112;
-      v22 = v8;
+      v18 = "[WFSpeechSynthesizer speakUtterance:usingVoice:rate:pitch:]_block_invoke";
+      v19 = 2112;
+      v20 = v8;
       _os_log_impl(&dword_23DE30000, v9, OS_LOG_TYPE_INFO, "%s We are using a Siri voice - let's use it. Assembled STS request %@", buf, 0x16u);
     }
 
     objc_initWeak(buf, *(a1 + 40));
     v10 = [*(a1 + 40) stsSynthesizer];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __60__WFSpeechSynthesizer_speakUtterance_usingVoice_rate_pitch___block_invoke_179;
-    v16[3] = &unk_278C1B960;
-    objc_copyWeak(&v18, buf);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __60__WFSpeechSynthesizer_speakUtterance_usingVoice_rate_pitch___block_invoke_179;
+    v14[3] = &unk_278C1B960;
+    objc_copyWeak(&v16, buf);
     v11 = v8;
-    v17 = v11;
-    [v10 speakWithSpeechRequest:v11 didFinish:v16];
+    v15 = v11;
+    [v10 speakWithSpeechRequest:v11 didFinish:v14];
 
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(buf);
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v15 = [v3 avSpeechUtteranceForVoice:v4 utterance:v5 rate:v6 pitch:v7];
-    v13 = [*(a1 + 40) avSynthesizer];
-    [v13 speakUtterance:v15];
-
-    v14 = *MEMORY[0x277D85DE8];
+    v13 = [v3 avSpeechUtteranceForVoice:v4 utterance:v5 rate:v6 pitch:v7];
+    v12 = [*(a1 + 40) avSynthesizer];
+    [v12 speakUtterance:v13];
   }
 }
 

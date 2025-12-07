@@ -56,7 +56,7 @@
 
 void __61__CESRDictationOnDeviceSampling__updateDictationSampledPlist__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CEF290] createSamplingDirectory];
   if (v2)
   {
@@ -65,9 +65,9 @@ void __61__CESRDictationOnDeviceSampling__updateDictationSampledPlist__block_inv
 
     v5 = *(a1 + 32);
     v6 = [MEMORY[0x277CBEBC0] fileURLWithPath:v4];
-    v15 = 0;
-    v7 = [v5 writeToURL:v6 error:&v15];
-    v8 = v15;
+    v14 = 0;
+    v7 = [v5 writeToURL:v6 error:&v14];
+    v8 = v14;
 
     v9 = *MEMORY[0x277CEF0E8];
     v10 = *MEMORY[0x277CEF0E8];
@@ -76,24 +76,24 @@ void __61__CESRDictationOnDeviceSampling__updateDictationSampledPlist__block_inv
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v17 = "[CESRDictationOnDeviceSampling _updateDictationSampledPlist]_block_invoke";
-        v18 = 2112;
-        v19 = v4;
+        v16 = "[CESRDictationOnDeviceSampling _updateDictationSampledPlist]_block_invoke";
+        v17 = 2112;
+        v18 = v4;
         _os_log_impl(&dword_225EEB000, v9, OS_LOG_TYPE_INFO, "%s Dictation Sampling: Wrote updated sampling variables to plist: %@", buf, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = v9;
-      v14 = [v8 description];
+      v12 = v9;
+      v13 = [v8 description];
       *buf = 136315650;
-      v17 = "[CESRDictationOnDeviceSampling _updateDictationSampledPlist]_block_invoke";
-      v18 = 2112;
-      v19 = v4;
-      v20 = 2112;
-      v21 = v14;
-      _os_log_error_impl(&dword_225EEB000, v13, OS_LOG_TYPE_ERROR, "%s Dictation Sampling: Failed to write sampling variables to plist: %@, error: %@", buf, 0x20u);
+      v16 = "[CESRDictationOnDeviceSampling _updateDictationSampledPlist]_block_invoke";
+      v17 = 2112;
+      v18 = v4;
+      v19 = 2112;
+      v20 = v13;
+      _os_log_error_impl(&dword_225EEB000, v12, OS_LOG_TYPE_ERROR, "%s Dictation Sampling: Failed to write sampling variables to plist: %@, error: %@", buf, 0x20u);
     }
   }
 
@@ -103,20 +103,18 @@ void __61__CESRDictationOnDeviceSampling__updateDictationSampledPlist__block_inv
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v17 = "[CESRDictationOnDeviceSampling _updateDictationSampledPlist]_block_invoke";
+      v16 = "[CESRDictationOnDeviceSampling _updateDictationSampledPlist]_block_invoke";
       _os_log_error_impl(&dword_225EEB000, v11, OS_LOG_TYPE_ERROR, "%s Dictation Sampling: Failed to create the sampling directory.", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isRequestSelectedForSamplingFromConfigForLanguage:(id)language
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (!+[CESRDictationOnDeviceSampling _isSamplingAllowed])
   {
-    goto LABEL_26;
+    return 0;
   }
 
   if (language && (!self->_numberOfRequestsTillNow || ![(CESRDictationOnDeviceSampling *)self _isSamplingDateCurrent]))
@@ -129,11 +127,11 @@ void __61__CESRDictationOnDeviceSampling__updateDictationSampledPlist__block_inv
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       isDeviceSampledFromConfig = self->_isDeviceSampledFromConfig;
-      v19 = 136315394;
-      v20 = "[CESRDictationOnDeviceSampling isRequestSelectedForSamplingFromConfigForLanguage:]";
-      v21 = 1024;
-      v22 = isDeviceSampledFromConfig;
-      _os_log_impl(&dword_225EEB000, v6, OS_LOG_TYPE_INFO, "%s Dictation Sampling: isDeviceSampledFromConfig = %d", &v19, 0x12u);
+      v18 = 136315394;
+      v19 = "[CESRDictationOnDeviceSampling isRequestSelectedForSamplingFromConfigForLanguage:]";
+      v20 = 1024;
+      v21 = isDeviceSampledFromConfig;
+      _os_log_impl(&dword_225EEB000, v6, OS_LOG_TYPE_INFO, "%s Dictation Sampling: isDeviceSampledFromConfig = %d", &v18, 0x12u);
     }
   }
 
@@ -142,17 +140,15 @@ void __61__CESRDictationOnDeviceSampling__updateDictationSampledPlist__block_inv
     v14 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v19 = 136315138;
-      v20 = "[CESRDictationOnDeviceSampling isRequestSelectedForSamplingFromConfigForLanguage:]";
+      v18 = 136315138;
+      v19 = "[CESRDictationOnDeviceSampling isRequestSelectedForSamplingFromConfigForLanguage:]";
       v15 = "%s Dictation Sampling: Device is not participating in sampling today.";
       v16 = v14;
 LABEL_25:
-      _os_log_impl(&dword_225EEB000, v16, OS_LOG_TYPE_INFO, v15, &v19, 0xCu);
+      _os_log_impl(&dword_225EEB000, v16, OS_LOG_TYPE_INFO, v15, &v18, 0xCu);
     }
 
-LABEL_26:
-    v9 = 0;
-    goto LABEL_27;
+    return 0;
   }
 
   if (![(CESRDictationOnDeviceSampling *)self _isSamplingDateCurrent])
@@ -167,15 +163,15 @@ LABEL_26:
     v9 = 1;
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v19 = 136315138;
-      v20 = "[CESRDictationOnDeviceSampling isRequestSelectedForSamplingFromConfigForLanguage:]";
+      v18 = 136315138;
+      v19 = "[CESRDictationOnDeviceSampling isRequestSelectedForSamplingFromConfigForLanguage:]";
       v10 = "%s Dictation Sampling: Selected for sampling. Sampling from an internal install.";
 LABEL_22:
-      _os_log_impl(&dword_225EEB000, v8, OS_LOG_TYPE_INFO, v10, &v19, 0xCu);
-      goto LABEL_27;
+      _os_log_impl(&dword_225EEB000, v8, OS_LOG_TYPE_INFO, v10, &v18, 0xCu);
+      return v9;
     }
 
-    goto LABEL_27;
+    return v9;
   }
 
   numberOfRequestsTillNow = self->_numberOfRequestsTillNow;
@@ -188,12 +184,11 @@ LABEL_22:
     {
       if (!v13)
       {
-        v9 = 1;
-        goto LABEL_27;
+        return 1;
       }
 
-      v19 = 136315138;
-      v20 = "[CESRDictationOnDeviceSampling isRequestSelectedForSamplingFromConfigForLanguage:]";
+      v18 = 136315138;
+      v19 = "[CESRDictationOnDeviceSampling isRequestSelectedForSamplingFromConfigForLanguage:]";
       v10 = "%s Dictation Sampling: Selected for sampling.";
       v9 = 1;
       goto LABEL_22;
@@ -201,46 +196,42 @@ LABEL_22:
 
     if (v13)
     {
-      v19 = 136315138;
-      v20 = "[CESRDictationOnDeviceSampling isRequestSelectedForSamplingFromConfigForLanguage:]";
+      v18 = 136315138;
+      v19 = "[CESRDictationOnDeviceSampling isRequestSelectedForSamplingFromConfigForLanguage:]";
       v15 = "%s Dictation Sampling: Not selected for sampling.";
       v16 = v8;
       goto LABEL_25;
     }
 
-    goto LABEL_26;
+    return 0;
   }
 
   v8 = *MEMORY[0x277CEF0E8];
   v9 = 1;
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v19 = 136315138;
-    v20 = "[CESRDictationOnDeviceSampling isRequestSelectedForSamplingFromConfigForLanguage:]";
+    v18 = 136315138;
+    v19 = "[CESRDictationOnDeviceSampling isRequestSelectedForSamplingFromConfigForLanguage:]";
     v10 = "%s Dictation Sampling: Selected for sampling. The count of sampled requests was 0.";
     goto LABEL_22;
   }
 
-LABEL_27:
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)incrementSampledRequestCount
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   ++self->_numberOfRequestsTillNow;
   [(CESRDictationOnDeviceSampling *)self _setRequestCount:?];
   [(CESRDictationOnDeviceSampling *)self _updateDictationSampledPlist];
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[CESRDictationOnDeviceSampling incrementSampledRequestCount]";
-    _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s Dictation Sampling: Incremented the count of sampled requests by 1.", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CESRDictationOnDeviceSampling incrementSampledRequestCount]";
+    _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s Dictation Sampling: Incremented the count of sampled requests by 1.", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (CESRDictationOnDeviceSampling)init
@@ -298,16 +289,16 @@ LABEL_27:
 
 + (id)_readDictationSampledPlist
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   sampledLibraryDirectoryPath = [MEMORY[0x277CEF290] sampledLibraryDirectoryPath];
   sampledPlistFileName = [MEMORY[0x277CEF290] sampledPlistFileName];
   v4 = [sampledLibraryDirectoryPath stringByAppendingPathComponent:sampledPlistFileName];
 
   v5 = MEMORY[0x277CBEB38];
   v6 = [MEMORY[0x277CBEBC0] fileURLWithPath:v4];
-  v14 = 0;
-  v7 = [v5 dictionaryWithContentsOfURL:v6 error:&v14];
-  v8 = v14;
+  v13 = 0;
+  v7 = [v5 dictionaryWithContentsOfURL:v6 error:&v13];
+  v8 = v13;
 
   if (v8)
   {
@@ -315,11 +306,11 @@ LABEL_27:
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v16 = "+[CESRDictationOnDeviceSampling _readDictationSampledPlist]";
-      v17 = 2112;
-      v18 = v4;
-      v19 = 2112;
-      v20 = v8;
+      v15 = "+[CESRDictationOnDeviceSampling _readDictationSampledPlist]";
+      v16 = 2112;
+      v17 = v4;
+      v18 = 2112;
+      v19 = v8;
       _os_log_error_impl(&dword_225EEB000, v9, OS_LOG_TYPE_ERROR, "%s Dictation Sampling: Failed to read plist at path: %@, error: %@", buf, 0x20u);
     }
 
@@ -333,25 +324,23 @@ LABEL_27:
 
   v11 = dictionary;
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 + (BOOL)_isSamplingAllowed
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
   if ([mEMORY[0x277CEF368] isDictationOnDeviceSamplingDisabled])
   {
     v3 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v8 = 136315138;
-      v9 = "+[CESRDictationOnDeviceSampling _isSamplingAllowed]";
+      v7 = 136315138;
+      v8 = "+[CESRDictationOnDeviceSampling _isSamplingAllowed]";
       v4 = "%s Dictation Sampling: Not sampling. Sampling is explicitly disabled.";
 LABEL_11:
-      _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, v4, &v8, 0xCu);
+      _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, v4, &v7, 0xCu);
       goto LABEL_12;
     }
 
@@ -363,8 +352,8 @@ LABEL_11:
     v3 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v8 = 136315138;
-      v9 = "+[CESRDictationOnDeviceSampling _isSamplingAllowed]";
+      v7 = 136315138;
+      v8 = "+[CESRDictationOnDeviceSampling _isSamplingAllowed]";
       v4 = "%s Dictation Sampling: Not sampling. Request is HIPAA compliant.";
       goto LABEL_11;
     }
@@ -379,8 +368,8 @@ LABEL_12:
     v3 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v8 = 136315138;
-      v9 = "+[CESRDictationOnDeviceSampling _isSamplingAllowed]";
+      v7 = 136315138;
+      v8 = "+[CESRDictationOnDeviceSampling _isSamplingAllowed]";
       v4 = "%s Dictation Sampling: Not sampling. User is not opted-in.";
       goto LABEL_11;
     }
@@ -391,7 +380,6 @@ LABEL_12:
   v5 = 1;
 LABEL_13:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -426,9 +414,11 @@ uint64_t __51__CESRDictationOnDeviceSampling__isInternalInstall__block_invoke()
 
 uint64_t __46__CESRDictationOnDeviceSampling_sharedManager__block_invoke()
 {
-  sharedManager_sharedMyManager_731 = objc_alloc_init(CESRDictationOnDeviceSampling);
+  v0 = objc_alloc_init(CESRDictationOnDeviceSampling);
+  v1 = sharedManager_sharedMyManager_731;
+  sharedManager_sharedMyManager_731 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

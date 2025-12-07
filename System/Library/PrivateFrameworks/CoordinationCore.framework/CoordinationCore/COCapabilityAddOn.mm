@@ -176,7 +176,7 @@ void __44__COCapabilityAddOn_didAddToMeshController___block_invoke_3(uint64_t a1
 
 - (void)didChangeNodesForMeshController:(id)controller
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   meshController = [(COMeshAddOn *)self meshController];
   v6 = [meshController me];
@@ -193,34 +193,34 @@ void __44__COCapabilityAddOn_didAddToMeshController___block_invoke_3(uint64_t a1
     meshController3 = [(COMeshAddOn *)self meshController];
     nodes = [meshController3 nodes];
 
-    v45 = 0u;
-    v46 = 0u;
     v44 = 0u;
+    v45 = 0u;
     v43 = 0u;
+    v42 = 0u;
     v14 = nodes;
-    v15 = [v14 countByEnumeratingWithState:&v43 objects:v50 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v42 objects:v49 count:16];
     if (v15)
     {
       v16 = v15;
       v17 = 0;
-      v18 = *v44;
+      v18 = *v43;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v44 != v18)
+          if (*v43 != v18)
           {
             objc_enumerationMutation(v14);
           }
 
-          remote = [*(*(&v43 + 1) + 8 * i) remote];
+          remote = [*(*(&v42 + 1) + 8 * i) remote];
           v21 = [v11 objectForKey:remote];
           v22 = v21 == 0;
 
           v17 |= v22;
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v43 objects:v50 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v42 objects:v49 count:16];
       }
 
       while (v16);
@@ -232,7 +232,7 @@ void __44__COCapabilityAddOn_didAddToMeshController___block_invoke_3(uint64_t a1
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v49 = selfCopy;
+          v48 = selfCopy;
           _os_log_impl(&dword_244378000, v23, OS_LOG_TYPE_DEFAULT, "%p node added, need to perform update", buf, 0xCu);
         }
 
@@ -247,34 +247,34 @@ LABEL_27:
     {
     }
 
-    v34 = controllerCopy;
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
+    v33 = controllerCopy;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     obj = [v11 allKeys];
-    v24 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+    v24 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
     self = selfCopy;
     if (v24)
     {
       v25 = v24;
-      v26 = *v40;
+      v26 = *v39;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v40 != v26)
+          if (*v39 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v39 + 1) + 8 * j);
-          v38[0] = MEMORY[0x277D85DD0];
-          v38[1] = 3221225472;
-          v38[2] = __53__COCapabilityAddOn_didChangeNodesForMeshController___block_invoke;
-          v38[3] = &unk_278E16020;
-          v38[4] = v28;
-          if ([v14 indexOfObjectPassingTest:v38] == 0x7FFFFFFFFFFFFFFFLL)
+          v28 = *(*(&v38 + 1) + 8 * j);
+          v37[0] = MEMORY[0x277D85DD0];
+          v37[1] = 3221225472;
+          v37[2] = __53__COCapabilityAddOn_didChangeNodesForMeshController___block_invoke;
+          v37[3] = &unk_278E16020;
+          v37[4] = v28;
+          if ([v14 indexOfObjectPassingTest:v37] == 0x7FFFFFFFFFFFFFFFLL)
           {
             meshController4 = [(COMeshAddOn *)self meshController];
             v30 = [meshController4 me];
@@ -287,7 +287,7 @@ LABEL_27:
               if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 134217984;
-                v49 = selfCopy;
+                v48 = selfCopy;
                 _os_log_impl(&dword_244378000, v32, OS_LOG_TYPE_DEFAULT, "%p node removed, dropping gathered Capabilities", buf, 0xCu);
               }
 
@@ -296,23 +296,21 @@ LABEL_27:
           }
         }
 
-        v25 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+        v25 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
       }
 
       while (v25);
     }
 
     [(COCapabilityAddOn *)self setGatheredCapabilities:v11];
-    controllerCopy = v34;
+    controllerCopy = v33;
     goto LABEL_27;
   }
 
 LABEL_28:
-  v37.receiver = self;
-  v37.super_class = COCapabilityAddOn;
-  [(COMeshAddOn *)&v37 didChangeNodesForMeshController:controllerCopy];
-
-  v33 = *MEMORY[0x277D85DE8];
+  v36.receiver = self;
+  v36.super_class = COCapabilityAddOn;
+  [(COMeshAddOn *)&v36 didChangeNodesForMeshController:controllerCopy];
 }
 
 uint64_t __53__COCapabilityAddOn_didChangeNodesForMeshController___block_invoke(uint64_t a1, void *a2)
@@ -351,12 +349,12 @@ uint64_t __42__COCapabilityAddOn_supportedCapabilities__block_invoke(uint64_t a1
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setSupportedCapabilities:(id)capabilities
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   capabilitiesCopy = capabilities;
   pairLegacyShim = [(COCapabilityAddOn *)self pairLegacyShim];
 
@@ -375,16 +373,14 @@ uint64_t __42__COCapabilityAddOn_supportedCapabilities__block_invoke(uint64_t a1
     capabilitiesCopy = v7;
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __46__COCapabilityAddOn_setSupportedCapabilities___block_invoke;
-  v10[3] = &unk_278E156B0;
-  v11 = capabilitiesCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __46__COCapabilityAddOn_setSupportedCapabilities___block_invoke;
+  v9[3] = &unk_278E156B0;
+  v10 = capabilitiesCopy;
   selfCopy2 = self;
   v8 = capabilitiesCopy;
-  [(COCapabilityAddOn *)self _withLock:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(COCapabilityAddOn *)self _withLock:v9];
 }
 
 void __46__COCapabilityAddOn_setSupportedCapabilities___block_invoke(uint64_t a1)
@@ -456,7 +452,7 @@ uint64_t __42__COCapabilityAddOn_availableCapabilities__block_invoke(uint64_t a1
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setAvailableCapabilities:(id)capabilities
@@ -500,7 +496,7 @@ uint64_t __41__COCapabilityAddOn_gatheredCapabilities__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setGatheredCapabilities:(id)capabilities
@@ -577,7 +573,7 @@ uint64_t __29__COCapabilityAddOn_delegate__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = WeakRetained;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v4);
 }
 
 - (void)setDelegate:(id)delegate
@@ -679,7 +675,7 @@ LABEL_7:
 
 - (void)_setAvailableCapabilities_Unsafe:(id)unsafe
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   unsafeCopy = unsafe;
   pairLegacyShim = [(COCapabilityAddOn *)self pairLegacyShim];
 
@@ -695,10 +691,10 @@ LABEL_7:
       {
         *buf = 134218498;
         selfCopy = self;
-        v72 = 2112;
-        v73 = unsafeCopy;
-        v74 = 2112;
-        v75 = availableCapabilities;
+        v71 = 2112;
+        v72 = unsafeCopy;
+        v73 = 2112;
+        v74 = availableCapabilities;
         _os_log_impl(&dword_244378000, v7, OS_LOG_TYPE_DEFAULT, "%p overriding available Capabilities(%@) with Legacy Shim Capabilities(%@)", buf, 0x20u);
       }
     }
@@ -736,15 +732,15 @@ LABEL_41:
     uniqueIdentifier = [v12 uniqueIdentifier];
     if ([MEMORY[0x277CFD0B8] isGlobalMessagingEnabled])
     {
-      v66 = 0u;
-      v67 = 0u;
-      v64 = 0u;
       v65 = 0u;
+      v66 = 0u;
+      v63 = 0u;
+      v64 = 0u;
       meshController2 = [(COMeshAddOn *)self meshController];
       nodes = [meshController2 nodes];
 
       obj = nodes;
-      v16 = [nodes countByEnumeratingWithState:&v64 objects:v69 count:16];
+      v16 = [nodes countByEnumeratingWithState:&v63 objects:v68 count:16];
       if (!v16)
       {
 LABEL_40:
@@ -753,22 +749,22 @@ LABEL_40:
       }
 
       v17 = v16;
-      v52 = v13;
-      v53 = v11;
-      v54 = currentAccessory;
-      v55 = v9;
+      v51 = v13;
+      v52 = v11;
+      v53 = currentAccessory;
+      v54 = v9;
       selfCopy3 = self;
-      v18 = *v65;
+      v18 = *v64;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v65 != v18)
+          if (*v64 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v64 + 1) + 8 * i);
+          v20 = *(*(&v63 + 1) + 8 * i);
           nodeManager = [meshController nodeManager];
           remote = [v20 remote];
           v23 = [nodeManager nodeControllerForConstituent:remote];
@@ -794,8 +790,8 @@ LABEL_40:
               {
                 *buf = 134218242;
                 selfCopy = selfCopy3;
-                v72 = 2112;
-                v73 = availableCapabilities;
+                v71 = 2112;
+                v72 = availableCapabilities;
                 _os_log_impl(&dword_244378000, v32, OS_LOG_TYPE_DEFAULT, "%p overriding available Capabilities(%@) due to legacy peer in pair", buf, 0x16u);
               }
 
@@ -810,7 +806,7 @@ LABEL_40:
           }
         }
 
-        v17 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
+        v17 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
       }
 
       while (v17);
@@ -818,33 +814,33 @@ LABEL_40:
 
     else
     {
-      v52 = v13;
-      v53 = v11;
-      v54 = currentAccessory;
-      v55 = v9;
+      v51 = v13;
+      v52 = v11;
+      v53 = currentAccessory;
+      v54 = v9;
       selfCopy3 = self;
       [meshController listener];
+      v59 = 0u;
       v60 = 0u;
       v61 = 0u;
-      v62 = 0u;
-      obj = v63 = 0u;
+      obj = v62 = 0u;
       nodes3 = [obj nodes];
-      v35 = [nodes3 countByEnumeratingWithState:&v60 objects:v68 count:16];
+      v35 = [nodes3 countByEnumeratingWithState:&v59 objects:v67 count:16];
       if (v35)
       {
         v36 = v35;
-        v37 = *v61;
+        v37 = *v60;
         do
         {
           v38 = meshController;
           for (j = 0; j != v36; ++j)
           {
-            if (*v61 != v37)
+            if (*v60 != v37)
             {
               objc_enumerationMutation(nodes3);
             }
 
-            v40 = *(*(&v60 + 1) + 8 * j);
+            v40 = *(*(&v59 + 1) + 8 * j);
             client2 = [v40 client];
             destinationDevice2 = [client2 destinationDevice];
 
@@ -863,8 +859,8 @@ LABEL_40:
                 {
                   *buf = 134218242;
                   selfCopy = selfCopy3;
-                  v72 = 2112;
-                  v73 = availableCapabilities;
+                  v71 = 2112;
+                  v72 = availableCapabilities;
                   _os_log_impl(&dword_244378000, v47, OS_LOG_TYPE_DEFAULT, "%p overriding available Capabilities(%@) due to legacy peer in pair", buf, 0x16u);
                 }
 
@@ -874,7 +870,7 @@ LABEL_40:
             }
           }
 
-          v36 = [nodes3 countByEnumeratingWithState:&v60 objects:v68 count:16];
+          v36 = [nodes3 countByEnumeratingWithState:&v59 objects:v67 count:16];
           meshController = v38;
         }
 
@@ -883,10 +879,10 @@ LABEL_40:
     }
 
     self = selfCopy3;
-    currentAccessory = v54;
-    v9 = v55;
-    v13 = v52;
-    v11 = v53;
+    currentAccessory = v53;
+    v9 = v54;
+    v13 = v51;
+    v11 = v52;
     goto LABEL_40;
   }
 
@@ -899,17 +895,14 @@ LABEL_42:
 
     [(COCapabilityAddOn *)self _notifyDelegateCapabilitiesChanged];
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performCapabilitiesUpdate
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
   selfCopy = self;
-  _os_log_debug_impl(&dword_244378000, a2, OS_LOG_TYPE_DEBUG, "%p performing Capabilities update", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_244378000, a2, OS_LOG_TYPE_DEBUG, "%p performing Capabilities update", &v2, 0xCu);
 }
 
 void __46__COCapabilityAddOn_performCapabilitiesUpdate__block_invoke(uint64_t a1, void *a2)
@@ -952,7 +945,7 @@ void __46__COCapabilityAddOn_performCapabilitiesUpdate__block_invoke(uint64_t a1
 
 void __46__COCapabilityAddOn_performCapabilitiesUpdate__block_invoke_30(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   v10 = a5;
@@ -1004,8 +997,8 @@ LABEL_11:
   v18 = [v17 mutableCopy];
 
   v19 = [v8 remote];
-  v33 = v8;
-  v32 = v16;
+  v32 = v8;
+  v31 = v16;
   if (v16)
   {
     [v18 setObject:v16 forKey:v19];
@@ -1019,38 +1012,38 @@ LABEL_11:
   v20 = [WeakRetained meshController];
   v21 = [v20 nodes];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v22 = [v18 allKeys];
-  v23 = [v22 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v36;
+    v25 = *v35;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v36 != v25)
+        if (*v35 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = *(*(&v35 + 1) + 8 * i);
-        v34[0] = MEMORY[0x277D85DD0];
-        v34[1] = 3221225472;
-        v34[2] = __46__COCapabilityAddOn_performCapabilitiesUpdate__block_invoke_2;
-        v34[3] = &unk_278E16020;
-        v34[4] = v27;
-        if ([v21 indexOfObjectPassingTest:v34] == 0x7FFFFFFFFFFFFFFFLL)
+        v27 = *(*(&v34 + 1) + 8 * i);
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 3221225472;
+        v33[2] = __46__COCapabilityAddOn_performCapabilitiesUpdate__block_invoke_2;
+        v33[3] = &unk_278E16020;
+        v33[4] = v27;
+        if ([v21 indexOfObjectPassingTest:v33] == 0x7FFFFFFFFFFFFFFFLL)
         {
           [v18 removeObjectForKey:v27];
         }
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v24);
@@ -1061,15 +1054,13 @@ LABEL_11:
 
   if (v29)
   {
-    [v18 setObject:*(*(*(v31 + 32) + 8) + 40) forKey:v29];
+    [v18 setObject:*(*(*(v30 + 32) + 8) + 40) forKey:v29];
   }
 
   [WeakRetained setGatheredCapabilities:v18];
 
-  v8 = v33;
+  v8 = v32;
 LABEL_26:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__COCapabilityAddOn_performCapabilitiesUpdate__block_invoke_2(uint64_t a1, void *a2)
@@ -1113,7 +1104,7 @@ uint64_t __48__COCapabilityAddOn__enableForPairLegacySupport__block_invoke(uint6
   v4 = *(v3 + 64);
   *(v3 + 64) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)legacyShim:(id)shim availableCapabilitiesChanged:(id)changed
@@ -1175,30 +1166,28 @@ void __61__COCapabilityAddOn_legacyShim_availableCapabilitiesChanged___block_inv
 
 void __46__COCapabilityAddOn_setSupportedCapabilities___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 134218242;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_244378000, log, OS_LOG_TYPE_ERROR, "%p failed to force update capabilities (%@)", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_244378000, log, OS_LOG_TYPE_ERROR, "%p failed to force update capabilities (%@)", &v4, 0x16u);
 }
 
 void __46__COCapabilityAddOn_performCapabilitiesUpdate__block_invoke_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5 = 134218240;
-  v6 = a1;
-  v7 = 2048;
-  v8 = [a2 count];
-  _os_log_debug_impl(&dword_244378000, a3, OS_LOG_TYPE_DEBUG, "%p update request sent to %lu recipients", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = a1;
+  v6 = 2048;
+  v7 = [a2 count];
+  _os_log_debug_impl(&dword_244378000, a3, OS_LOG_TYPE_DEBUG, "%p update request sent to %lu recipients", &v4, 0x16u);
 }
 
 - (void)_legacyShimOverridesAvailableCapabilities:(os_log_t)log .cold.1(uint64_t a1, char a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = 89;
@@ -1209,12 +1198,11 @@ void __46__COCapabilityAddOn_performCapabilitiesUpdate__block_invoke_cold_1(uint
     v3 = 78;
   }
 
-  v5 = 134218240;
-  v6 = a1;
-  v7 = 1024;
-  v8 = v3;
-  _os_log_debug_impl(&dword_244378000, log, OS_LOG_TYPE_DEBUG, "%p allowing Legacy Shim override: %c", &v5, 0x12u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = a1;
+  v6 = 1024;
+  v7 = v3;
+  _os_log_debug_impl(&dword_244378000, log, OS_LOG_TYPE_DEBUG, "%p allowing Legacy Shim override: %c", &v4, 0x12u);
 }
 
 @end

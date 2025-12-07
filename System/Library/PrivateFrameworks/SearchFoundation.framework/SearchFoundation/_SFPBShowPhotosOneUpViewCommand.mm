@@ -17,7 +17,7 @@
 
 - (_SFPBShowPhotosOneUpViewCommand)initWithFacade:(id)facade
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBShowPhotosOneUpViewCommand *)self init];
   if (v5)
@@ -53,33 +53,33 @@
       v15 = 0;
     }
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     matchedScenes2 = [facadeCopy matchedScenes];
-    v17 = [matchedScenes2 countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v17 = [matchedScenes2 countByEnumeratingWithState:&v40 objects:v45 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v42;
+      v19 = *v41;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v42 != v19)
+          if (*v41 != v19)
           {
             objc_enumerationMutation(matchedScenes2);
           }
 
-          v21 = [[_SFPBScene alloc] initWithFacade:*(*(&v41 + 1) + 8 * i)];
+          v21 = [[_SFPBScene alloc] initWithFacade:*(*(&v40 + 1) + 8 * i)];
           if (v21)
           {
             [v15 addObject:v21];
           }
         }
 
-        v18 = [matchedScenes2 countByEnumeratingWithState:&v41 objects:v46 count:16];
+        v18 = [matchedScenes2 countByEnumeratingWithState:&v40 objects:v45 count:16];
       }
 
       while (v18);
@@ -97,33 +97,33 @@
       v23 = 0;
     }
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     matchedPeople2 = [facadeCopy matchedPeople];
-    v25 = [matchedPeople2 countByEnumeratingWithState:&v37 objects:v45 count:16];
+    v25 = [matchedPeople2 countByEnumeratingWithState:&v36 objects:v44 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v38;
+      v27 = *v37;
       do
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v38 != v27)
+          if (*v37 != v27)
           {
             objc_enumerationMutation(matchedPeople2);
           }
 
-          v29 = [[_SFPBPerson alloc] initWithFacade:*(*(&v37 + 1) + 8 * j)];
+          v29 = [[_SFPBPerson alloc] initWithFacade:*(*(&v36 + 1) + 8 * j)];
           if (v29)
           {
             [v23 addObject:v29];
           }
         }
 
-        v26 = [matchedPeople2 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v26 = [matchedPeople2 countByEnumeratingWithState:&v36 objects:v44 count:16];
       }
 
       while (v26);
@@ -143,17 +143,16 @@
     v34 = v5;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBShowPhotosOneUpViewCommand)initWithDictionary:(id)dictionary
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v42.receiver = self;
-  v42.super_class = _SFPBShowPhotosOneUpViewCommand;
-  v5 = [(_SFPBShowPhotosOneUpViewCommand *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = _SFPBShowPhotosOneUpViewCommand;
+  v5 = [(_SFPBShowPhotosOneUpViewCommand *)&v41 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"photosLibraryImage"];
@@ -174,30 +173,30 @@
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"matchedScenes"];
     objc_opt_class();
-    v33 = v6;
+    v32 = v6;
     if (objc_opt_isKindOfClass())
     {
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       v11 = v10;
       v12 = v10;
-      v13 = [v12 countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v37 objects:v43 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v39;
+        v15 = *v38;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v39 != v15)
+            if (*v38 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v38 + 1) + 8 * i);
+            v17 = *(*(&v37 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -206,13 +205,13 @@
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v38 objects:v44 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v37 objects:v43 count:16];
         }
 
         while (v14);
       }
 
-      v6 = v33;
+      v6 = v32;
       v10 = v11;
     }
 
@@ -220,27 +219,27 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v32 = v10;
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
+      v31 = v10;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       v20 = v19;
-      v21 = [v20 countByEnumeratingWithState:&v34 objects:v43 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v33 objects:v42 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v35;
+        v23 = *v34;
         do
         {
           for (j = 0; j != v22; ++j)
           {
-            if (*v35 != v23)
+            if (*v34 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            v25 = *(*(&v34 + 1) + 8 * j);
+            v25 = *(*(&v33 + 1) + 8 * j);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -249,14 +248,14 @@
             }
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v34 objects:v43 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v33 objects:v42 count:16];
         }
 
         while (v22);
       }
 
-      v6 = v33;
-      v10 = v32;
+      v6 = v32;
+      v10 = v31;
     }
 
     v27 = [dictionaryCopy objectForKeyedSubscript:@"photoFilePunchout"];
@@ -270,7 +269,6 @@
     v29 = v5;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -310,31 +308,31 @@
 
 - (id)dictionaryRepresentation
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_matchedPeoples count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v5 = self->_matchedPeoples;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v36;
+      v8 = *v35;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v36 != v8)
+          if (*v35 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v35 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v34 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -347,7 +345,7 @@
           }
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v7);
@@ -375,26 +373,26 @@
   if ([(NSArray *)self->_matchedScenes count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v16 = self->_matchedScenes;
-    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v32;
+      v19 = *v31;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v32 != v19)
+          if (*v31 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          dictionaryRepresentation3 = [*(*(&v31 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v30 + 1) + 8 * j) dictionaryRepresentation];
           if (dictionaryRepresentation3)
           {
             [array2 addObject:dictionaryRepresentation3];
@@ -407,7 +405,7 @@
           }
         }
 
-        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
       while (v18);
@@ -447,8 +445,6 @@
       [dictionary setObject:null5 forKeyedSubscript:@"photosLibraryImage"];
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -608,7 +604,7 @@ LABEL_28:
 
 - (void)writeTo:(id)to
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   toCopy = to;
   photosLibraryImage = [(_SFPBShowPhotosOneUpViewCommand *)self photosLibraryImage];
   if (photosLibraryImage)
@@ -623,67 +619,65 @@ LABEL_28:
   }
 
   matchedScenes = [(_SFPBShowPhotosOneUpViewCommand *)self matchedScenes];
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v8 = [matchedScenes countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v8 = [matchedScenes countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v23;
     do
     {
       v11 = 0;
       do
       {
-        if (*v26 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(matchedScenes);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [matchedScenes countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v9 = [matchedScenes countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v9);
   }
 
   matchedPeoples = [(_SFPBShowPhotosOneUpViewCommand *)self matchedPeoples];
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v14 = [matchedPeoples countByEnumeratingWithState:&v21 objects:v29 count:16];
-  if (v14)
+  v13 = [matchedPeoples countByEnumeratingWithState:&v18 objects:v26 count:16];
+  if (v13)
   {
-    v15 = v14;
-    v16 = *v22;
+    v14 = v13;
+    v15 = *v19;
     do
     {
-      v17 = 0;
+      v16 = 0;
       do
       {
-        if (*v22 != v16)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(matchedPeoples);
         }
 
-        v18 = *(*(&v21 + 1) + 8 * v17);
         PBDataWriterWriteSubmessage();
-        ++v17;
+        ++v16;
       }
 
-      while (v15 != v17);
-      v15 = [matchedPeoples countByEnumeratingWithState:&v21 objects:v29 count:16];
+      while (v14 != v16);
+      v14 = [matchedPeoples countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
-    while (v15);
+    while (v14);
   }
 
   photoFilePunchout = [(_SFPBShowPhotosOneUpViewCommand *)self photoFilePunchout];
@@ -691,8 +685,6 @@ LABEL_28:
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addMatchedPeople:(id)people
@@ -715,9 +707,7 @@ LABEL_28:
 
 - (void)setMatchedPeople:(id)people
 {
-  v4 = [people copy];
-  matchedPeoples = self->_matchedPeoples;
-  self->_matchedPeoples = v4;
+  self->_matchedPeoples = [people copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -742,9 +732,7 @@ LABEL_28:
 
 - (void)setMatchedScenes:(id)scenes
 {
-  v4 = [scenes copy];
-  matchedScenes = self->_matchedScenes;
-  self->_matchedScenes = v4;
+  self->_matchedScenes = [scenes copy];
 
   MEMORY[0x1EEE66BB8]();
 }

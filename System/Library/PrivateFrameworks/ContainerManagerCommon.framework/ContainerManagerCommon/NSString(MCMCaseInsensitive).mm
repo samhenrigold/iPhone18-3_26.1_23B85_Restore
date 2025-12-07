@@ -1,27 +1,17 @@
 @interface NSString(MCMCaseInsensitive)
-- (uint64_t)MCM_isEqualToString:()MCMCaseInsensitive caseSensitive:;
+- (unint64_t)MCM_isEqualToString:()MCMCaseInsensitive caseSensitive:;
 @end
 
 @implementation NSString(MCMCaseInsensitive)
 
-- (uint64_t)MCM_isEqualToString:()MCMCaseInsensitive caseSensitive:
+- (unint64_t)MCM_isEqualToString:()MCMCaseInsensitive caseSensitive:
 {
-  v8 = *MEMORY[0x1E69E9840];
-  if (a4)
+  if (!a4)
   {
-    v4 = *MEMORY[0x1E69E9840];
-    v5 = *MEMORY[0x1E69E9840];
-
-    return [self isEqualToString:?];
+    return [self compare:a3 options:1] == 0;
   }
 
-  else
-  {
-    result = [self compare:a3 options:1] == 0;
-    v7 = *MEMORY[0x1E69E9840];
-  }
-
-  return result;
+  return [self isEqualToString:a3];
 }
 
 @end

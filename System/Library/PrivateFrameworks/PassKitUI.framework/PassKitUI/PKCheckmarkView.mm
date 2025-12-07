@@ -69,11 +69,23 @@
 - (void)layoutSubviews
 {
   [(PKCheckmarkView *)self bounds];
+  v4 = v3;
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
   [(UIImage *)self->_iconImage size];
+  v12 = v11;
+  v14 = v13;
   [(PKCheckmarkView *)self _shouldReverseLayoutDirection];
-  PKContentAlignmentMake();
+  v15 = PKContentAlignmentMake();
   imageView = self->_imageView;
-  PKSizeAlignedInRect();
+  v17.n128_u64[0] = v12;
+  v18.n128_u64[0] = v14;
+  v19.n128_u64[0] = v4;
+  v20.n128_u64[0] = v6;
+  v21.n128_u64[0] = v8;
+  v22.n128_u64[0] = v10;
+  PKSizeAlignedInRect(v15, v17, v18, v19, v20, v21, v22, v23);
 
   [(UIImageView *)imageView setFrame:?];
 }

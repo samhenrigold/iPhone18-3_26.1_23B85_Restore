@@ -239,9 +239,9 @@
   }
 
   v9 = self->_nodes.__begin_[v8].var1 + 1;
-  v17 = index + 1;
-  countCopy = count;
-  v19 = v9;
+  *&v17 = index + 1;
+  *(&v17 + 1) = count;
+  v18 = v9;
   if ([(_UITreeDataSourceSnapshotter *)self _shouldSplitNodeAtInsertionIndex:index])
   {
     [(_UITreeDataSourceSnapshotter *)self _splitNodeAtInsertionIndex:index];
@@ -263,9 +263,9 @@
 LABEL_12:
   [(_UITreeDataSourceSnapshotter *)self setCount:[(_UITreeDataSourceSnapshotter *)self count]+ count];
   [(_UITreeDataSourceSnapshotter *)self _recomputeRangeOffsetForGlobalIndex:index];
-  [(_UITreeDataSourceSnapshotter *)self _recomputeExpandedIndexesForInsertedRange:v17, countCopy];
+  [(_UITreeDataSourceSnapshotter *)self _recomputeExpandedIndexesForInsertedRange:v17];
+  v13 = *(&v17 + 1);
   v12 = v17;
-  v13 = countCopy;
   result.length = v13;
   result.location = v12;
   return result;
@@ -629,10 +629,10 @@ LABEL_12:
     {
       v16 = *(v11 + 8);
       v17 = v13 + *(v11 + 16);
-      v24[0] = v15;
-      v24[1] = v16;
-      v24[2] = v17;
-      std::vector<_UIOutlineNode>::insert(&self->_nodes, self->_nodes.__begin_ + v14, v24);
+      *&v24 = v15;
+      *(&v24 + 1) = v16;
+      v25 = v17;
+      std::vector<_UIOutlineNode>::insert(&self->_nodes, self->_nodes.__begin_ + v14, &v24);
       v15 += v16;
       v11 += 24;
       v14 += 24;
@@ -853,7 +853,7 @@ LABEL_12:
   {
     if (self == equalCopy)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
@@ -862,38 +862,30 @@ LABEL_12:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) != 0 && (count = self->_count, count == [(_UITreeDataSourceSnapshotter *)v6 count]) && [(NSMutableIndexSet *)self->_expandedIndexes isEqualToIndexSet:v6->_expandedIndexes])
       {
-        v18 = 0;
-        v19 = 0;
         do
         {
-          v8 = v19 == 0x7FFFFFFFFFFFFFFFLL || v18 == 0x7FFFFFFFFFFFFFFFLL;
-          v9 = v8;
-          if (v8)
-          {
-            break;
-          }
-
-          [(_UITreeDataSourceSnapshotter *)self _nextNodeForNodeIndex:&v19];
-          [(_UITreeDataSourceSnapshotter *)v6 _nextNodeForNodeIndex:&v18];
-          v10 = v15 == v12 && v16 == v13;
+          v8 = 0;
+          objc_msgSend__nextNodeForNodeIndex_(self);
+          objc_msgSend__nextNodeForNodeIndex_(v6);
+          v9 = v14 == v11 && v15 == v12;
         }
 
-        while (v10 && v17 == v14);
+        while (v9 && v16 == v13);
       }
 
       else
       {
-        v9 = 0;
+        v8 = 0;
       }
     }
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (id)_childrenForParent:(int64_t)parent

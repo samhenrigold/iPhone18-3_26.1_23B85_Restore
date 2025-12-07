@@ -34,11 +34,12 @@
   v2 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension31RibbonBarItemCollectionViewCell_tapAction);
   if (v2)
   {
+    v3 = *&self->titleLabel[OBJC_IVAR____TtC22SubscribePageExtension31RibbonBarItemCollectionViewCell_tapAction];
     selfCopy = self;
-    v4 = sub_10001B5AC(v2);
-    v2(v4);
+    v5 = sub_10001B5AC(v2, v3);
+    v2(v5);
 
-    sub_1000164A8(v2);
+    sub_1000164A8(v2, v3);
   }
 }
 
@@ -47,7 +48,7 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   sub_1001C0F00(v20);
-  sub_10000C888(v20, v20[3]);
+  sub_10000C888(v20, v21);
   traitCollection = [in traitCollection];
   sub_100751254();
   v9 = v8;

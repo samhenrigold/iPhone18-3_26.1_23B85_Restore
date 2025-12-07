@@ -6,6 +6,7 @@
 - (id)dumpStatus;
 - (id)loadModule:(int64_t)module error:(id *)error;
 - (void)_logClass:(Class)class tag:(id)tag;
+- (void)_logClass:(Class)class tag:(id)tag level:(int)level;
 - (void)addContext:(id)context;
 - (void)addContextProxy:(id)proxy;
 @end
@@ -116,6 +117,71 @@ LABEL_6:
     }
 
     while (v7);
+  }
+}
+
+- (void)_logClass:(Class)class tag:(id)tag level:(int)level
+{
+  v5 = *&level;
+  tagCopy = tag;
+  v8 = LALogForCategory();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  {
+    if (v5)
+    {
+      v15 = [NSString stringWithFormat:@"superclass[%d]", v5];
+    }
+
+    else
+    {
+      v15 = @"class";
+    }
+
+    *buf = 138544642;
+    *v18 = tagCopy;
+    *&v18[8] = 2114;
+    *&v18[10] = v15;
+    v19 = 2114;
+    classCopy = class;
+    v21 = 2048;
+    classCopy2 = class;
+    v23 = 1024;
+    Version = class_getVersion(class);
+    v25 = 2082;
+    ImageName = class_getImageName(class);
+    _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "[%{public}@:%{public}@] %{public}@ (%p), version: %d, image: %{public}s", buf, 0x3Au);
+    if (v5)
+    {
+    }
+  }
+
+  if (([(objc_class *)class isEqual:objc_opt_class()]& 1) == 0)
+  {
+    outCount = 0;
+    v9 = class_copyMethodList(class, &outCount);
+    if (v9)
+    {
+      v10 = v9;
+      if (outCount)
+      {
+        for (i = 0; i < outCount; ++i)
+        {
+          v12 = LALogForCategory();
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          {
+            Name = method_getName(v10[i]);
+            v14 = sel_getName(Name);
+            *buf = 67109378;
+            *v18 = i;
+            *&v18[4] = 2082;
+            *&v18[6] = v14;
+            _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "    method[%d]: %{public}s", buf, 0x12u);
+          }
+        }
+      }
+
+      free(v10);
+    }
   }
 }
 

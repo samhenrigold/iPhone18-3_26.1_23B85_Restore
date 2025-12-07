@@ -27,30 +27,8 @@
         if (parameterIdentifiers != parameterIdentifiers2)
         {
           parameterIdentifiers3 = [(LNActionPrediction *)self parameterIdentifiers];
-          if (!parameterIdentifiers3)
+          if (!parameterIdentifiers3 || (v10 = parameterIdentifiers3, -[LNActionPrediction parameterIdentifiers](v6, "parameterIdentifiers"), v11 = objc_claimAutoreleasedReturnValue(), v11, v10, !v11) || (v12 = MEMORY[0x1E695DFD8], -[LNActionPrediction parameterIdentifiers](self, "parameterIdentifiers"), v13 = objc_claimAutoreleasedReturnValue(), [v12 setWithArray:v13], v14 = objc_claimAutoreleasedReturnValue(), v15 = MEMORY[0x1E695DFD8], -[LNActionPrediction parameterIdentifiers](v6, "parameterIdentifiers"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "setWithArray:", v16), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v14, "isEqualToSet:", v17), v17, v16, v14, v13, !v18))
           {
-            goto LABEL_15;
-          }
-
-          v10 = parameterIdentifiers3;
-          parameterIdentifiers4 = [(LNActionPrediction *)v6 parameterIdentifiers];
-
-          if (!parameterIdentifiers4)
-          {
-            goto LABEL_15;
-          }
-
-          v12 = MEMORY[0x1E695DFD8];
-          parameterIdentifiers5 = [(LNActionPrediction *)self parameterIdentifiers];
-          v14 = [v12 setWithArray:parameterIdentifiers5];
-          v15 = MEMORY[0x1E695DFD8];
-          parameterIdentifiers6 = [(LNActionPrediction *)v6 parameterIdentifiers];
-          v17 = [v15 setWithArray:parameterIdentifiers6];
-          v18 = [v14 isEqualToSet:v17];
-
-          if (!v18)
-          {
-LABEL_15:
             v24 = 0;
 LABEL_19:
 

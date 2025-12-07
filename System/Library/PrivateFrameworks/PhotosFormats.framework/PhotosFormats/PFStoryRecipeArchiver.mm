@@ -109,7 +109,7 @@
   v25[2] = @"minimumDuration";
   if (clipCopy)
   {
-    [clipCopy minimumDuration];
+    objc_msgSend_minimumDuration(clipCopy);
   }
 
   else
@@ -124,7 +124,7 @@
   v25[3] = @"idealDuration";
   if (clipCopy)
   {
-    [clipCopy idealDuration];
+    objc_msgSend_idealDuration(clipCopy);
   }
 
   else
@@ -139,7 +139,7 @@
   v25[4] = @"maximumDuration";
   if (clipCopy)
   {
-    [clipCopy maximumDuration];
+    objc_msgSend_maximumDuration(clipCopy);
   }
 
   else
@@ -154,7 +154,7 @@
   v25[5] = @"videoCueOffset";
   if (clipCopy)
   {
-    [clipCopy videoCueOffset];
+    objc_msgSend_videoCueOffset(clipCopy);
   }
 
   else
@@ -277,7 +277,7 @@
   absoluteString = [v8 absoluteString];
   v31[2] = absoluteString;
   v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:3];
-  v11 = [v10 mutableCopy];
+  v11 = objc_msgSend_mutableCopy(v10);
 
   kind = [assetCopy kind];
   if (kind != 2)
@@ -383,7 +383,7 @@ LABEL_8:
   v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
   v60[1] = v13;
   v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:v59 count:2];
-  v37 = [v14 mutableCopy];
+  v37 = objc_msgSend_mutableCopy(v14);
 
   v48 = 0;
   v49 = &v48;
@@ -405,10 +405,10 @@ LABEL_8:
 
   if (v15)
   {
-    [v15 overallDurationInfo];
+    objc_msgSend_overallDurationInfo(v15);
     if (v43[0])
     {
-      [v15 overallDurationInfo];
+      objc_msgSend_overallDurationInfo(v15);
       v17 = [(PFStoryRecipeArchiver *)self _archivedJSONObjectWithOverallDurationInfo:v43];
       [v37 setObject:v17 forKeyedSubscript:@"overallDuration"];
     }

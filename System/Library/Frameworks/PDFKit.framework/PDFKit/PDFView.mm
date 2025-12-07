@@ -675,8 +675,9 @@ LABEL_13:
     v11 = v10;
     [(PDFScrollView *)self->_private->scrollView contentInset];
     v16 = PDFEdgeInsetsInsetRect(v5, v7, v9, v11, v12, v13, v14, v15);
-    MaxY = PDFRectGetMaxY(v16, v17, v18, v19);
-    v21 = PDFPointMake(0.0, MaxY);
+    PDFRectGetMaxY(v16, v17, v18, v19);
+    PDFPointMake();
+    v21 = v20;
     v23 = v22;
     v24 = [(PDFView *)self pageForPoint:1 nearest:?];
     [(PDFView *)self convertPoint:v24 toPage:v21, v23];
@@ -741,32 +742,29 @@ LABEL_13:
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v17 = page;
+  v15 = page;
   if (![(PDFView *)self isRectVisible:x onPage:y, width, height])
   {
     v9 = *MEMORY[0x1E695EFF8];
     v10 = *(MEMORY[0x1E695EFF8] + 8);
-    rotation = [(PDFPage *)v17 rotation];
+    rotation = [(PDFPage *)v15 rotation];
     if (rotation > 179)
     {
       if (rotation == 180)
       {
-        MaxX = PDFRectGetMaxX(x, y, width);
-        goto LABEL_11;
+        PDFRectGetMaxX(x, y, width);
       }
 
-      if (rotation != 270)
+      else
       {
-LABEL_13:
-        v16 = [[PDFDestination alloc] initWithPage:v17 atPoint:v9, v10];
-        [(PDFView *)self goToDestination:v16];
+        if (rotation != 270)
+        {
+          goto LABEL_12;
+        }
 
-        goto LABEL_14;
+        PDFRectGetMaxX(x, y, width);
+        PDFRectGetMaxY(x, y, width, height);
       }
-
-      v13 = PDFRectGetMaxX(x, y, width);
-      MaxY = PDFRectGetMaxY(x, y, width, height);
-      MaxX = v13;
     }
 
     else
@@ -775,26 +773,27 @@ LABEL_13:
       {
         if (rotation == 90)
         {
-          MaxX = x;
-LABEL_11:
-          MaxY = y;
-          goto LABEL_12;
+          goto LABEL_11;
         }
+
+LABEL_12:
+        v14 = [[PDFDestination alloc] initWithPage:v15 atPoint:v9, v10];
+        [(PDFView *)self goToDestination:v14];
 
         goto LABEL_13;
       }
 
-      MaxY = PDFRectGetMaxY(x, y, width, height);
-      MaxX = x;
+      PDFRectGetMaxY(x, y, width, height);
     }
 
-LABEL_12:
-    v9 = PDFPointMake(MaxX, MaxY);
-    v10 = v15;
-    goto LABEL_13;
+LABEL_11:
+    PDFPointMake();
+    v9 = v12;
+    v10 = v13;
+    goto LABEL_12;
   }
 
-LABEL_14:
+LABEL_13:
 }
 
 - (void)setDisplayMode:(PDFDisplayMode)displayMode
@@ -1561,7 +1560,7 @@ LABEL_33:
 
     else
     {
-      PDFPointToCGPoint(v9, v11);
+      PDFPointToCGPoint();
       AreaOfInterestAtPoint = CGPDFPageLayoutGetAreaOfInterestAtPoint();
       if ((AreaOfInterestAtPoint & 4) != 0)
       {
@@ -1799,7 +1798,7 @@ uint64_t __25__PDFView_performAction___block_invoke(void *a1)
 - (void)setCurrentSelection:(id)selection updateTextInput:(BOOL)input
 {
   inputCopy = input;
-  v54[2] = *MEMORY[0x1E69E9840];
+  v48[2] = *MEMORY[0x1E69E9840];
   selectionCopy = selection;
   v8 = selectionCopy;
   if (selectionCopy && ![selectionCopy isEmpty])
@@ -1874,33 +1873,35 @@ LABEL_9:
     {
       firstPage = [(PDFSelection *)self->_private->currentSelection firstPage];
       [(PDFSelection *)self->_private->currentSelection firstSpanBoundsForPage:firstPage];
-      [(PDFView *)self convertPoint:firstPage fromPage:PDFPointMake(v28, v26 + v27)];
-      v30 = v29;
-      v32 = v31;
+      PDFPointMake();
+      [(PDFView *)self convertPoint:firstPage fromPage:?];
+      v27 = v26;
+      v29 = v28;
       lastPage = [(PDFSelection *)self->_private->currentSelection lastPage];
 
-      v50 = lastPage;
+      v44 = lastPage;
       [(PDFSelection *)self->_private->currentSelection lastSpanBoundsForPage:lastPage];
-      [(PDFView *)self convertPoint:lastPage fromPage:PDFPointMake(v34 + v35, v36)];
-      v38 = v37;
-      v40 = v39;
+      PDFPointMake();
+      [(PDFView *)self convertPoint:lastPage fromPage:?];
+      v32 = v31;
+      v34 = v33;
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-      v53[0] = @"topLeftSelectionPoint";
-      v42 = [MEMORY[0x1E696AD98] numberWithDouble:v30];
-      v52[0] = v42;
-      v43 = [MEMORY[0x1E696AD98] numberWithDouble:v32];
-      v52[1] = v43;
-      v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:2];
-      v53[1] = @"bottomRightSelectionPoint";
-      v54[0] = v44;
-      v45 = [MEMORY[0x1E696AD98] numberWithDouble:v38];
-      v51[0] = v45;
-      v46 = [MEMORY[0x1E696AD98] numberWithDouble:v40];
-      v51[1] = v46;
-      v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:2];
-      v54[1] = v47;
-      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:v53 count:2];
-      [defaultCenter postNotificationName:@"PDFTextSelectionDidChangeTextSelectionPoints" object:self userInfo:v48];
+      v47[0] = @"topLeftSelectionPoint";
+      v36 = [MEMORY[0x1E696AD98] numberWithDouble:v27];
+      v46[0] = v36;
+      v37 = [MEMORY[0x1E696AD98] numberWithDouble:v29];
+      v46[1] = v37;
+      v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
+      v47[1] = @"bottomRightSelectionPoint";
+      v48[0] = v38;
+      v39 = [MEMORY[0x1E696AD98] numberWithDouble:v32];
+      v45[0] = v39;
+      v40 = [MEMORY[0x1E696AD98] numberWithDouble:v34];
+      v45[1] = v40;
+      v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
+      v48[1] = v41;
+      v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2];
+      [defaultCenter postNotificationName:@"PDFTextSelectionDidChangeTextSelectionPoints" object:self userInfo:v42];
     }
   }
 
@@ -1989,7 +1990,7 @@ LABEL_9:
       if (parentViewController)
       {
         string = [(PDFSelection *)self->_private->currentSelection string];
-        v8 = [objc_alloc(DDParsecCollectionViewControllerClass()) initWithString:string range:{0, objc_msgSend(string, "length")}];
+        v8 = [objc_alloc(DDParsecCollectionViewControllerClass(string)) initWithString:string range:{0, objc_msgSend(string, "length")}];
         v9 = self->_private->currentSelection;
         firstPage = [(PDFSelection *)v9 firstPage];
         [(PDFSelection *)v9 boundsForPage:firstPage];
@@ -2350,19 +2351,20 @@ LABEL_26:
     }
 
     [(PDFView *)self convertPoint:v14 toPage:x, y];
+    [v14 boundsForBox:{-[PDFView displayBox](self, "displayBox")}];
+    PDFRectToCGRect();
     v29 = v28;
     v31 = v30;
-    v32 = PDFRectToCGRect([v14 boundsForBox:{-[PDFView displayBox](self, "displayBox")}]);
-    v34 = v33;
-    v36 = v35;
-    v38 = v37;
-    v41.x = PDFPointToCGPoint(v29, v31);
-    v41.y = v39;
-    v42.origin.x = v32;
-    v42.origin.y = v34;
-    v42.size.width = v36;
-    v42.size.height = v38;
-    if (CGRectContainsPoint(v42, v41))
+    v33 = v32;
+    v35 = v34;
+    PDFPointToCGPoint();
+    v39.x = v36;
+    v39.y = v37;
+    v40.origin.x = v29;
+    v40.origin.y = v31;
+    v40.size.width = v33;
+    v40.size.height = v35;
+    if (CGRectContainsPoint(v40, v39))
     {
       goto LABEL_6;
     }
@@ -2429,16 +2431,17 @@ LABEL_7:
   [(PDFView *)self convertPoint:v9 toPage:x, y];
   v11 = v10;
   v13 = v12;
-  MaxX = PDFRectGetMaxX(x, y, width);
-  MaxY = PDFRectGetMaxY(x, y, width, height);
-  [(PDFView *)self convertPoint:v9 toPage:PDFPointMake(MaxX, MaxY)];
-  v17 = v16;
+  PDFRectGetMaxX(x, y, width);
+  PDFRectGetMaxY(x, y, width, height);
+  PDFPointMake();
+  [(PDFView *)self convertPoint:v9 toPage:?];
+  v15 = v14;
 
-  v18 = PDFRectFromPDFPoints(v11, v13, v17);
-  result.size.height = v21;
-  result.size.width = v20;
-  result.origin.y = v19;
-  result.origin.x = v18;
+  v16 = PDFRectFromPDFPoints(v11, v13, v15);
+  result.size.height = v19;
+  result.size.width = v18;
+  result.origin.y = v17;
+  result.origin.x = v16;
   return result;
 }
 
@@ -2495,21 +2498,23 @@ LABEL_6:
   y = rect.origin.y;
   x = rect.origin.x;
   v9 = page;
-  MinX = PDFRectGetMinX(x, y, width);
-  MinY = PDFRectGetMinY(x, y, width, height);
-  [(PDFView *)self convertPoint:v9 fromPage:PDFPointMake(MinX, MinY)];
+  PDFRectGetMinX(x, y, width);
+  PDFRectGetMinY(x, y, width, height);
+  PDFPointMake();
+  [(PDFView *)self convertPoint:v9 fromPage:?];
+  v11 = v10;
   v13 = v12;
+  PDFRectGetMaxX(x, y, width);
+  PDFRectGetMaxY(x, y, width, height);
+  PDFPointMake();
+  [(PDFView *)self convertPoint:v9 fromPage:?];
   v15 = v14;
-  MaxX = PDFRectGetMaxX(x, y, width);
-  MaxY = PDFRectGetMaxY(x, y, width, height);
-  [(PDFView *)self convertPoint:v9 fromPage:PDFPointMake(MaxX, MaxY)];
-  v19 = v18;
 
-  v20 = PDFRectFromPDFPoints(v13, v15, v19);
-  result.size.height = v23;
-  result.size.width = v22;
-  result.origin.y = v21;
-  result.origin.x = v20;
+  v16 = PDFRectFromPDFPoints(v11, v13, v15);
+  result.size.height = v19;
+  result.size.width = v18;
+  result.origin.y = v17;
+  result.origin.x = v16;
   return result;
 }
 
@@ -3472,60 +3477,64 @@ void __22__PDFView__commonInit__block_invoke(uint64_t a1, void *a2)
 - (CGAffineTransform)_transformFromPageToPageView:(SEL)view
 {
   v6 = a4;
-  v7 = PDFRectToCGRect([v6 boundsForBox:0]);
-  v9 = v8;
-  v39 = v10;
-  v12 = v11;
-  rect = v11;
-  v13 = PDFRectToCGRect([v6 boundsForBox:{-[PDFView displayBox](self, "displayBox")}]);
+  [v6 boundsForBox:0];
+  PDFRectToCGRect();
+  v8 = v7;
+  v10 = v9;
+  v41 = v11;
+  v13 = v12;
+  rect = v12;
+  [v6 boundsForBox:{-[PDFView displayBox](self, "displayBox")}];
+  PDFRectToCGRect();
   v15 = v14;
   v17 = v16;
   v19 = v18;
+  v21 = v20;
   rotation = [v6 rotation];
 
-  v44.origin.x = v7;
-  v44.origin.y = v9;
-  v44.size.width = v39;
-  v44.size.height = v12;
-  MinX = CGRectGetMinX(v44);
-  v45.origin.x = v13;
-  v45.origin.y = v15;
-  v45.size.width = v17;
-  v45.size.height = v19;
-  v22 = MinX - CGRectGetMinX(v45);
-  v46.origin.x = v7;
-  v46.origin.y = v9;
-  v46.size.width = v39;
-  v46.size.height = rect;
-  MinY = CGRectGetMinY(v46);
-  v47.origin.x = v13;
-  v47.origin.y = v15;
-  v47.size.width = v17;
-  v47.size.height = v19;
-  v24 = CGRectGetMinY(v47);
-  v25 = MEMORY[0x1E695EFD0];
+  v46.origin.x = v8;
+  v46.origin.y = v10;
+  v46.size.width = v41;
+  v46.size.height = v13;
+  MinX = CGRectGetMinX(v46);
+  v47.origin.x = v15;
+  v47.origin.y = v17;
+  v47.size.width = v19;
+  v47.size.height = v21;
+  v24 = MinX - CGRectGetMinX(v47);
+  v48.origin.x = v8;
+  v48.origin.y = v10;
+  v48.size.width = v41;
+  v48.size.height = rect;
+  MinY = CGRectGetMinY(v48);
+  v49.origin.x = v15;
+  v49.origin.y = v17;
+  v49.size.width = v19;
+  v49.size.height = v21;
+  v26 = CGRectGetMinY(v49);
+  v27 = MEMORY[0x1E695EFD0];
   recta = *(MEMORY[0x1E695EFD0] + 16);
-  v40 = *MEMORY[0x1E695EFD0];
+  v42 = *MEMORY[0x1E695EFD0];
   *&retstr->a = *MEMORY[0x1E695EFD0];
   *&retstr->c = recta;
-  v36 = *(v25 + 32);
-  *&retstr->tx = v36;
-  CGAffineTransformMakeTranslation(&t2, v22, MinY - v24);
-  *&t1.a = v40;
+  v38 = *(v27 + 32);
+  *&retstr->tx = v38;
+  CGAffineTransformMakeTranslation(&t2, v24, MinY - v26);
+  *&t1.a = v42;
   *&t1.c = recta;
-  *&t1.tx = v36;
+  *&t1.tx = v38;
   CGAffineTransformConcat(retstr, &t1, &t2);
   Width = 0.0;
   if (rotation > 179)
   {
     if (rotation == 180)
     {
-      v28 = PDFDegToRad(180.0);
-      v51.origin.x = v13;
-      v51.origin.y = v15;
-      v51.size.width = v17;
-      v51.size.height = v19;
-      Width = CGRectGetWidth(v51);
+      v30 = PDFDegToRad(180.0);
+      v53.origin.x = v15;
+      v53.origin.y = v17;
+      v53.size.width = v19;
+      v53.size.height = v21;
+      Width = CGRectGetWidth(v53);
       Height = 0.0;
     }
 
@@ -3537,17 +3546,17 @@ void __22__PDFView__commonInit__block_invoke(uint64_t a1, void *a2)
         goto LABEL_12;
       }
 
-      v28 = PDFDegToRad(-90.0);
-      v48.origin.x = v13;
-      v48.origin.y = v15;
-      v48.size.width = v17;
-      v48.size.height = v19;
-      Width = CGRectGetHeight(v48);
-      v49.origin.x = v13;
-      v49.origin.y = v15;
-      v49.size.width = v17;
-      v49.size.height = v19;
-      Height = CGRectGetWidth(v49);
+      v30 = PDFDegToRad(-90.0);
+      v50.origin.x = v15;
+      v50.origin.y = v17;
+      v50.size.width = v19;
+      v50.size.height = v21;
+      Width = CGRectGetHeight(v50);
+      v51.origin.x = v15;
+      v51.origin.y = v17;
+      v51.size.width = v19;
+      v51.size.height = v21;
+      Height = CGRectGetWidth(v51);
     }
 
     goto LABEL_10;
@@ -3555,56 +3564,56 @@ void __22__PDFView__commonInit__block_invoke(uint64_t a1, void *a2)
 
   if (!rotation)
   {
-    v50.origin.x = v13;
-    v50.origin.y = v15;
-    v50.size.width = v17;
-    v50.size.height = v19;
-    Height = CGRectGetHeight(v50);
+    v52.origin.x = v15;
+    v52.origin.y = v17;
+    v52.size.width = v19;
+    v52.size.height = v21;
+    Height = CGRectGetHeight(v52);
     goto LABEL_12;
   }
 
   Height = 0.0;
   if (rotation == 90)
   {
-    v28 = PDFDegToRad(90.0);
+    v30 = PDFDegToRad(90.0);
 LABEL_10:
-    if (v28 != 0.0)
+    if (v30 != 0.0)
     {
-      CGAffineTransformMakeRotation(&t1, -v28);
-      v29 = *&retstr->c;
-      *&v41.a = *&retstr->a;
-      *&v41.c = v29;
-      *&v41.tx = *&retstr->tx;
-      CGAffineTransformConcat(&t2, &v41, &t1);
-      v30 = *&t2.c;
+      CGAffineTransformMakeRotation(&t1, -v30);
+      v31 = *&retstr->c;
+      *&v43.a = *&retstr->a;
+      *&v43.c = v31;
+      *&v43.tx = *&retstr->tx;
+      CGAffineTransformConcat(&t2, &v43, &t1);
+      v32 = *&t2.c;
       *&retstr->a = *&t2.a;
-      *&retstr->c = v30;
+      *&retstr->c = v32;
       *&retstr->tx = *&t2.tx;
     }
   }
 
 LABEL_12:
   CGAffineTransformMakeScale(&t1, 1.0, -1.0);
-  v31 = *&retstr->c;
-  *&v41.a = *&retstr->a;
-  *&v41.c = v31;
-  *&v41.tx = *&retstr->tx;
-  result = CGAffineTransformConcat(&t2, &v41, &t1);
-  v33 = *&t2.c;
+  v33 = *&retstr->c;
+  *&v43.a = *&retstr->a;
+  *&v43.c = v33;
+  *&v43.tx = *&retstr->tx;
+  result = CGAffineTransformConcat(&t2, &v43, &t1);
+  v35 = *&t2.c;
   *&retstr->a = *&t2.a;
-  *&retstr->c = v33;
+  *&retstr->c = v35;
   *&retstr->tx = *&t2.tx;
   if (Width != 0.0 || Height != 0.0)
   {
     CGAffineTransformMakeTranslation(&t1, Width, Height);
-    v34 = *&retstr->c;
-    *&v41.a = *&retstr->a;
-    *&v41.c = v34;
-    *&v41.tx = *&retstr->tx;
-    result = CGAffineTransformConcat(&t2, &v41, &t1);
-    v35 = *&t2.c;
+    v36 = *&retstr->c;
+    *&v43.a = *&retstr->a;
+    *&v43.c = v36;
+    *&v43.tx = *&retstr->tx;
+    result = CGAffineTransformConcat(&t2, &v43, &t1);
+    v37 = *&t2.c;
     *&retstr->a = *&t2.a;
-    *&retstr->c = v35;
+    *&retstr->c = v37;
     *&retstr->tx = *&t2.tx;
   }
 
@@ -3614,7 +3623,7 @@ LABEL_12:
 - (CGAffineTransform)_transformFromPageViewToPage:(SEL)page
 {
   memset(&v6[1], 0, sizeof(CGAffineTransform));
-  [(PDFView *)self _transformFromPageToPageView:a4];
+  objc_msgSend__transformFromPageToPageView_(self, page, a4);
   v6[0] = v6[1];
   return CGAffineTransformInvert(retstr, v6);
 }
@@ -4514,14 +4523,14 @@ uint64_t __57__PDFView_dragInteraction_previewForLiftingItem_session___block_inv
   [boundsCopy boundsForBox:{-[PDFView displayBox](self, "displayBox")}];
   v6 = v5;
   v8 = v7;
-  v9 = PDFPointMake(0.0, 0.0);
-  v11 = v10;
+  PDFPointMake();
+  v10 = v9;
+  v12 = v11;
   if (![boundsCopy pageRef])
   {
-    v12.n128_u64[0] = 0;
-    v13.n128_u64[0] = 0;
-    v9 = PDFRectMake(v12, v13, 306.0, 396.0);
-    v11 = v14;
+    PDFRectMake();
+    v10 = v13;
+    v12 = v14;
     v6 = v15;
     v8 = v16;
   }
@@ -4538,8 +4547,8 @@ uint64_t __57__PDFView_dragInteraction_previewForLiftingItem_session___block_inv
     v8 = v6;
   }
 
-  v19 = v9;
-  v20 = v11;
+  v19 = v10;
+  v20 = v12;
   v21 = v8;
   v22 = v18;
   result.size.height = v22;
@@ -4661,11 +4670,9 @@ uint64_t __57__PDFView_dragInteraction_previewForLiftingItem_session___block_inv
 
     else
     {
-      v33.n128_u64[0] = 0;
-      v34.n128_u64[0] = 0;
-      v35 = PDFRectMake(v33, v34, width, height);
+      PDFRectMake();
 
-      return PDFScaleRectToRect(v35, v36, v37, v38, v21, v23, v24, v25);
+      return PDFScaleRectToRect(v33, v34, v35, v36, v21, v23, v24, v25);
     }
   }
 
@@ -4716,22 +4723,34 @@ uint64_t __57__PDFView_dragInteraction_previewForLiftingItem_session___block_inv
     [(PDFView *)self setMinScaleFactor:fmin(v15, v16)];
     [(PDFView *)self setScaleFactor:v13];
     [(PDFView *)self convertRect:documentView toView:v4, v6, v8, v10];
-    [documentView convertPoint:self->_private->scrollView toView:{PDFPointMake(self->_private->documentViewCenterBeforeRotation.x - v17 * 0.5, self->_private->documentViewCenterBeforeRotation.y - v18 * 0.5)}];
+    PDFPointMake();
+    [documentView convertPoint:self->_private->scrollView toView:?];
+    v18 = v17;
     v20 = v19;
-    v22 = v21;
-    v23 = self->_private->scrollView;
-    [(PDFScrollView *)v23 bounds];
+    v21 = self->_private->scrollView;
+    [(PDFScrollView *)v21 bounds];
+    v23 = v22;
     v25 = v24;
+    [(PDFScrollView *)v21 contentSize];
     v27 = v26;
-    [(PDFScrollView *)v23 contentSize];
     v29 = v28;
+    [(PDFScrollView *)v21 contentInset];
     v31 = v30;
-    [(PDFScrollView *)v23 contentInset];
     v33 = v32;
-    v35 = v34;
-    if (v29 - v25 >= 0.0)
+    if (v27 - v23 >= 0.0)
     {
-      v36 = v29 - v25;
+      v34 = v27 - v23;
+    }
+
+    else
+    {
+      v34 = 0.0;
+    }
+
+    v35 = CGFloatClamp(v18, 0.0, v34);
+    if (v29 - v25 + v33 >= 0.0)
+    {
+      v36 = v29 - v25 + v33;
     }
 
     else
@@ -4739,18 +4758,7 @@ uint64_t __57__PDFView_dragInteraction_previewForLiftingItem_session___block_inv
       v36 = 0.0;
     }
 
-    v37 = CGFloatClamp(v20, 0.0, v36);
-    if (v31 - v27 + v35 >= 0.0)
-    {
-      v38 = v31 - v27 + v35;
-    }
-
-    else
-    {
-      v38 = 0.0;
-    }
-
-    [(PDFScrollView *)v23 setContentOffset:v37, CGFloatClamp(v22, -v33, v38)];
+    [(PDFScrollView *)v21 setContentOffset:v35, CGFloatClamp(v20, -v31, v36)];
   }
 }
 
@@ -4788,9 +4796,9 @@ uint64_t __57__PDFView_dragInteraction_previewForLiftingItem_session___block_inv
   if (v7 <= 0.0)
   {
     [(PDFScrollView *)self->_private->scrollView contentOffset];
-    v11 = v10;
     [(PDFScrollView *)self->_private->scrollView contentInset];
-    [(PDFScrollView *)self->_private->scrollView setContentOffset:PDFPointMake(v11, -v12)];
+    PDFPointMake();
+    [(PDFScrollView *)self->_private->scrollView setContentOffset:?];
   }
 
   self->_private->autoScale = autoScale;
@@ -5016,9 +5024,9 @@ LABEL_6:
   if (functionalDisplayMode)
   {
     [(PDFView *)self bounds];
-    v7 = v6;
     [(PDFView *)self bounds];
-    [(PDFView *)self pageForPoint:1 nearest:PDFPointMake(0.0, (v7 + v8) * 0.5)];
+    PDFPointMake();
+    [(PDFView *)self pageForPoint:1 nearest:?];
   }
 
   else
@@ -5071,54 +5079,57 @@ LABEL_6:
 
 - (void)_updateCurrentPageUsingViewCenter
 {
-  v3 = PDFRectToCGRect([(PDFView *)self bounds]);
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
+  [(PDFView *)self bounds];
+  PDFRectToCGRect();
+  v4 = v3;
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
   if ([(PDFRenderingProperties *)self->_private->renderingProperties isUsingPDFExtensionView])
   {
     [(PDFView *)self extensionViewBoundsInDocument];
-    v3 = v10;
-    v5 = v11;
-    v7 = v12;
-    v9 = v13;
+    v4 = v11;
+    v6 = v12;
+    v8 = v13;
+    v10 = v14;
   }
 
-  v22.origin.x = v3;
-  v22.origin.y = v5;
-  v22.size.width = v7;
-  v22.size.height = v9;
-  MidX = CGRectGetMidX(v22);
-  v23.origin.x = v3;
-  v23.origin.y = v5;
-  v23.size.width = v7;
-  v23.size.height = v9;
-  MidY = CGRectGetMidY(v23);
+  v21.origin.x = v4;
+  v21.origin.y = v6;
+  v21.size.width = v8;
+  v21.size.height = v10;
+  CGRectGetMidX(v21);
+  v22.origin.x = v4;
+  v22.origin.y = v6;
+  v22.size.width = v8;
+  v22.size.height = v10;
+  CGRectGetMidY(v22);
   toPage = self->_private->toPage;
   if (toPage)
   {
-    v17 = toPage;
+    v16 = toPage;
   }
 
   else
   {
-    v17 = [(PDFView *)self pageForPoint:1 nearest:PDFPointFromCGPoint(MidX * 0.99, MidY)];
-    if (!v17)
+    PDFPointFromCGPoint();
+    v16 = [(PDFView *)self pageForPoint:1 nearest:?];
+    if (!v16)
     {
       goto LABEL_9;
     }
   }
 
-  v20 = v17;
+  v19 = v16;
   document = [(PDFView *)self document];
-  v19 = [document indexForPage:v20];
+  v18 = [document indexForPage:v19];
 
-  if (self->_currentPageIndex != v19)
+  if (self->_currentPageIndex != v18)
   {
-    [(PDFView *)self setCurrentPageIndex:v19 withNotification:1];
+    [(PDFView *)self setCurrentPageIndex:v18 withNotification:1];
   }
 
-  v17 = v20;
+  v16 = v19;
 LABEL_9:
 }
 
@@ -5150,14 +5161,15 @@ LABEL_9:
 
   else
   {
-    v7 = PDFSizeMake(0, 0.0, 0.0);
-    v9 = v15;
+    PDFSizeMake();
+    v7 = v15;
+    v9 = v16;
   }
 
-  v16 = v7;
-  v17 = v9;
-  result.height = v17;
-  result.width = v16;
+  v17 = v7;
+  v18 = v9;
+  result.height = v18;
+  result.width = v17;
   return result;
 }
 
@@ -5371,7 +5383,7 @@ LABEL_29:
 {
   y = point.y;
   x = point.x;
-  v88[1] = *MEMORY[0x1E69E9840];
+  v85[1] = *MEMORY[0x1E69E9840];
   [(PDFView *)self autoScaleFactor];
   v7 = v6;
   [(PDFView *)self scaleFactor];
@@ -5390,7 +5402,7 @@ LABEL_14:
       return v12;
     }
 
-    v86 = y;
+    v83 = y;
     [(PDFView *)self convertPoint:v13 toPage:x, y];
     [v13 columnFrameAtPoint:?];
     v15 = v14;
@@ -5402,11 +5414,11 @@ LABEL_14:
     v24 = v23;
     v26 = v25;
     v28 = v27;
-    v89.origin.x = v15;
-    v89.origin.y = v17;
-    v89.size.width = v19;
-    v89.size.height = v21;
-    if (PDFRectEqualToRect(v89, *MEMORY[0x1E695F058]))
+    v86.origin.x = v15;
+    v86.origin.y = v17;
+    v86.size.width = v19;
+    v86.size.height = v21;
+    if (PDFRectEqualToRect(v86, *MEMORY[0x1E695F058]))
     {
       if (isUsingPDFExtensionView)
       {
@@ -5423,12 +5435,11 @@ LABEL_14:
       }
 
       PDFRectScale(v30, v31, width, height, 0.5);
-      v59.n128_f64[0] = x - v58 * 0.5;
-      v61.n128_f64[0] = v86 - v60 * 0.5;
-      v37 = PDFRectMake(v59, v61, v58, v60);
-      v36 = v62;
-      v35 = v63;
-      v34 = v64;
+      PDFRectMake();
+      v37 = v58;
+      v36 = v59;
+      v35 = v60;
+      v34 = v61;
       if (isUsingPDFExtensionView)
       {
         goto LABEL_12;
@@ -5445,21 +5456,21 @@ LABEL_14:
       {
 LABEL_12:
         [(PDFView *)self documentMargins];
-        v66 = v65;
-        v68 = v67;
-        v70 = v69;
-        v72 = v71;
+        v63 = v62;
+        v65 = v64;
+        v67 = v66;
+        v69 = v68;
         [(PDFView *)self pageBreakMargins];
-        v74 = v37 - (v68 + v73);
-        v76 = v36 - (v66 + v75);
-        v78 = v35 + v68 + v72 + v73 + v77;
-        v80 = v34 + v66 + v70 + v75 + v79;
+        v71 = v37 - (v65 + v70);
+        v73 = v36 - (v63 + v72);
+        v75 = v35 + v65 + v69 + v70 + v74;
+        v77 = v34 + v63 + v67 + v72 + v76;
         defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-        v87 = @"rect";
-        v81 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v74, v76, v78, v80}];
-        v88[0] = v81;
-        v82 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v88 forKeys:&v87 count:1];
-        [defaultCenter postNotificationName:@"PDFExtensionViewZoomToRect" object:self userInfo:v82];
+        v84 = @"rect";
+        v78 = [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{v71, v73, v75, v77}];
+        v85[0] = v78;
+        v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v85 forKeys:&v84 count:1];
+        [defaultCenter postNotificationName:@"PDFExtensionViewZoomToRect" object:self userInfo:v79];
 
         goto LABEL_13;
       }
@@ -5477,21 +5488,21 @@ LABEL_12:
     v48 = v35;
     v51 = v49 + v50;
     [(PDFView *)self bounds];
-    v52 = (CGRectGetWidth(v90) - v51) * 0.85;
-    v91.origin.x = v40;
-    v91.origin.y = v42;
-    v91.size.width = v44;
-    v91.size.height = v47;
-    v53 = v52 / CGRectGetWidth(v91);
+    v52 = (CGRectGetWidth(v87) - v51) * 0.85;
+    v88.origin.x = v40;
+    v88.origin.y = v42;
+    v88.size.width = v44;
+    v88.size.height = v47;
+    v53 = v52 / CGRectGetWidth(v88);
     [(PDFView *)self minScaleFactor];
     v55 = v54;
     [(PDFView *)self maxScaleFactor];
     v57 = CGFloatClamp(v53, v55, v56);
-    v92.origin.x = v37;
-    v92.origin.y = v45;
-    v92.size.width = v48;
-    v92.size.height = recta;
-    [(PDFView *)self setScaleFactor:v57 anchorPoint:CGRectGetMidX(v92), v86];
+    v89.origin.x = v37;
+    v89.origin.y = v45;
+    v89.size.width = v48;
+    v89.size.height = recta;
+    [(PDFView *)self setScaleFactor:v57 anchorPoint:CGRectGetMidX(v89), v83];
 LABEL_13:
 
     goto LABEL_14;
@@ -5537,23 +5548,21 @@ LABEL_13:
 
 - (void)constrainedScrollToPoint:(CGPoint)point
 {
-  y = point.y;
-  x = point.x;
   documentView = [(PDFView *)self documentView];
   [documentView bounds];
-  v8 = v7 - y;
 
   [(PDFScrollView *)self->_private->scrollView bounds];
-  v10 = v9;
-  v12 = v11;
+  v6 = v5;
+  v8 = v7;
   pdfDocumentView = [(PDFScrollView *)self->_private->scrollView pdfDocumentView];
-  [pdfDocumentView convertPoint:self->_private->scrollView toView:{PDFPointToCGPoint(x, v8)}];
-  v15 = v14;
-  v17 = v16;
+  PDFPointToCGPoint();
+  [pdfDocumentView convertPoint:self->_private->scrollView toView:?];
+  v11 = v10;
+  v13 = v12;
 
   scrollView = self->_private->scrollView;
 
-  [(PDFScrollView *)scrollView scrollRectToVisible:0 animated:v15, v17, v10, v12];
+  [(PDFScrollView *)scrollView scrollRectToVisible:0 animated:v11, v13, v6, v8];
 }
 
 - (void)_scrollVerticalBy:(double)by
@@ -5563,8 +5572,8 @@ LABEL_13:
   determineCurrentPage = [(PDFView *)self determineCurrentPage];
   [(PDFScrollView *)self->_private->scrollView contentOffset];
   v8 = v7;
-  v10 = v9;
-  [(PDFView *)self constrainedScrollToPoint:PDFPointMake(v7, round(v6 + v9))];
+  PDFPointMake();
+  [(PDFView *)self constrainedScrollToPoint:?];
   pDFLayout = [(PDFView *)self PDFLayout];
   functionalDisplayMode = [pDFLayout functionalDisplayMode];
 
@@ -5582,8 +5591,8 @@ LABEL_13:
   }
 
   pDFKitDocumentVisibleRectIncludingContentInsets = [(UIScrollView *)self->_private->scrollView PDFKitDocumentVisibleRectIncludingContentInsets];
-  v14 = determineCurrentPage;
-  if (v15 != v10)
+  v12 = determineCurrentPage;
+  if (v13 != v8)
   {
     goto LABEL_10;
   }
@@ -5591,13 +5600,14 @@ LABEL_13:
   if (v6 < 0.0)
   {
     pDFKitDocumentVisibleRectIncludingContentInsets = [(PDFView *)self canGoToNextPage];
-    v14 = determineCurrentPage;
+    v12 = determineCurrentPage;
     if (pDFKitDocumentVisibleRectIncludingContentInsets)
     {
-      [(PDFView *)self constrainedScrollToPoint:PDFPointMake(v8, 0.0)];
+      PDFPointMake();
+      [(PDFView *)self constrainedScrollToPoint:?];
       pDFKitDocumentVisibleRectIncludingContentInsets = [(PDFView *)self goToNextPage:self];
 LABEL_9:
-      v14 = determineCurrentPage;
+      v12 = determineCurrentPage;
       goto LABEL_10;
     }
   }
@@ -5605,11 +5615,12 @@ LABEL_9:
   if (v6 > 0.0)
   {
     pDFKitDocumentVisibleRectIncludingContentInsets = [(PDFView *)self canGoToPreviousPage];
-    v14 = determineCurrentPage;
+    v12 = determineCurrentPage;
     if (pDFKitDocumentVisibleRectIncludingContentInsets)
     {
       [(UIScrollView *)self->_private->scrollView PDFKitDocumentVisibleRectIncludingContentInsets];
-      [(PDFView *)self constrainedScrollToPoint:PDFPointMake(v8, v17)];
+      PDFPointMake();
+      [(PDFView *)self constrainedScrollToPoint:?];
       pDFKitDocumentVisibleRectIncludingContentInsets = [(PDFView *)self goToPreviousPage:self];
       goto LABEL_9;
     }
@@ -5617,17 +5628,16 @@ LABEL_9:
 
 LABEL_10:
 
-  MEMORY[0x1EEE66BB8](pDFKitDocumentVisibleRectIncludingContentInsets, v14);
+  MEMORY[0x1EEE66BB8](pDFKitDocumentVisibleRectIncludingContentInsets, v12);
 }
 
 - (void)_scrollHorizontalBy:(double)by
 {
   [(PDFView *)self scaleFactor];
-  v6 = by / v5;
   [(UIScrollView *)self->_private->scrollView PDFKitDocumentVisibleRectIncludingContentInsets];
-  v9 = PDFPointMake(round(v6 + v7), v8);
+  PDFPointMake();
 
-  [(PDFView *)self constrainedScrollToPoint:v9];
+  [(PDFView *)self constrainedScrollToPoint:?];
 }
 
 - (void)_scrollByPage:(BOOL)page
@@ -5687,42 +5697,43 @@ LABEL_13:
 - (CGPoint)_scrollOriginForPageTopLeft:(id)left
 {
   leftCopy = left;
-  v5 = PDFPointMake(0.0, 0.0);
-  v7 = v6;
+  PDFPointMake();
+  v6 = v5;
+  v8 = v7;
   if (leftCopy)
   {
     [leftCopy boundsForBox:{-[PDFView displayBox](self, "displayBox")}];
-    v9 = v8;
-    v11 = v10;
-    v13 = v12;
-    v15 = v14;
+    v10 = v9;
+    v12 = v11;
     [(PDFView *)self pageBreakMargins];
-    v17 = v16;
-    v19 = v18;
+    v14 = v13;
+    v16 = v15;
     rotation = [leftCopy rotation];
     if (rotation > 179)
     {
       if (rotation == 180)
       {
-        v5 = v17 + PDFPointMake(v13, 0.0);
+        PDFPointMake();
+        v6 = v14 + v23;
         goto LABEL_12;
       }
 
       if (rotation != 270)
       {
 LABEL_13:
-        [(PDFView *)self convertPoint:leftCopy fromPage:v9 + v5, v11 + v7];
-        v24 = v23;
-        v26 = v25;
+        [(PDFView *)self convertPoint:leftCopy fromPage:v10 + v6, v12 + v8];
+        v25 = v24;
+        v27 = v26;
         documentView = [(PDFView *)self documentView];
-        [documentView convertPoint:self fromView:{v24, v26}];
-        v5 = v28;
-        v7 = v29;
+        [documentView convertPoint:self fromView:{v25, v27}];
+        v6 = v29;
+        v8 = v30;
 
         goto LABEL_14;
       }
 
-      v5 = v17 + PDFPointMake(v13, v15);
+      PDFPointMake();
+      v6 = v14 + v21;
     }
 
     else
@@ -5731,28 +5742,30 @@ LABEL_13:
       {
         if (rotation == 90)
         {
-          v5 = PDFPointMake(0.0, 0.0) - v17;
+          PDFPointMake();
+          v6 = v19 - v14;
 LABEL_12:
-          v7 = v21 - v19;
+          v8 = v18 - v16;
           goto LABEL_13;
         }
 
         goto LABEL_13;
       }
 
-      v5 = PDFPointMake(0.0, v15) - v17;
+      PDFPointMake();
+      v6 = v22 - v14;
     }
 
-    v7 = v19 + v22;
+    v8 = v16 + v20;
     goto LABEL_13;
   }
 
 LABEL_14:
 
-  v30 = v5;
-  v31 = v7;
-  result.y = v31;
-  result.x = v30;
+  v31 = v6;
+  v32 = v8;
+  result.y = v32;
+  result.x = v31;
   return result;
 }
 
@@ -6305,7 +6318,7 @@ void __34__PDFView__showFormFillingButton___block_invoke_2(uint64_t a1)
   v7 = [v2 akController];
 
   v3 = [v7 signaturesController];
-  v4 = objc_alloc_init(AKSignaturesPresentationContextClass());
+  v4 = objc_alloc_init(AKSignaturesPresentationContextClass(v3));
   v5 = [*(a1 + 32) window];
   v6 = [v5 rootViewController];
   [v4 setPresentingViewController:v6];
@@ -6605,7 +6618,7 @@ LABEL_15:
 
 - (void)goToDestinationNoPush:(id)push
 {
-  v42[2] = *MEMORY[0x1E69E9840];
+  v40[2] = *MEMORY[0x1E69E9840];
   pushCopy = push;
   v5 = pushCopy;
   if (!pushCopy)
@@ -6671,13 +6684,13 @@ LABEL_15:
         v30 = [(PDFDocument *)self->_private->document indexForPage:page];
         [(PDFView *)self setCurrentPageIndex:v30 withNotification:0];
         defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-        v41[0] = @"pageIndex";
+        v39[0] = @"pageIndex";
         v32 = [MEMORY[0x1E696AD98] numberWithInteger:v30];
-        v41[1] = @"point";
-        v42[0] = v32;
+        v39[1] = @"point";
+        v40[0] = v32;
         v33 = [MEMORY[0x1E696B098] PDFKitValueWithPDFPoint:{v27, v29}];
-        v42[1] = v33;
-        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:2];
+        v40[1] = v33;
+        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:2];
         [defaultCenter postNotificationName:@"PDFExtensionViewGoToDestination" object:self userInfo:v34];
       }
 
@@ -6685,14 +6698,14 @@ LABEL_15:
       {
         documentView2 = [(PDFView *)self documentView];
         [documentView2 bounds];
-        v37 = v36 - v29;
 
-        [(PDFView *)self constrainedScrollToPoint:PDFPointMake(v27, v37)];
+        PDFPointMake();
+        [(PDFView *)self constrainedScrollToPoint:?];
         document = [(PDFView *)self document];
-        v39 = [document indexForPage:page];
+        v37 = [document indexForPage:page];
         currentPageIndex = self->_currentPageIndex;
 
-        if (v39 != currentPageIndex)
+        if (v37 != currentPageIndex)
         {
           self->_private->inhibitAutoScroll = 1;
           [(PDFView *)self goToPageNoPush:page];
@@ -6763,47 +6776,50 @@ LABEL_18:
   if ([visiblePages containsObject:pageCopy])
   {
     [(PDFView *)self convertRect:pageCopy fromPage:x, y, width, height];
-    v11 = PDFRectToCGRect([(PDFView *)self bounds]);
-    v13 = v12;
-    v15 = v14;
-    v17 = v16;
+    [(PDFView *)self bounds];
+    PDFRectToCGRect();
+    v12 = v11;
+    v14 = v13;
+    v16 = v15;
+    v18 = v17;
     [(PDFView *)self safeAreaInsets];
-    MaxInsets = v18;
-    v21 = v20;
-    v23 = v22;
-    v25 = v24;
+    MaxInsets = v19;
+    v22 = v21;
+    v24 = v23;
+    v26 = v25;
     WeakRetained = objc_loadWeakRetained(&self->_private->delegate);
     if (objc_opt_respondsToSelector())
     {
       [WeakRetained pdfViewContentInset];
-      MaxInsets = PDFEdgeInsetsGetMaxInsets(MaxInsets, v21, v23, v25, v27);
-      v21 = v28;
-      v23 = v29;
-      v25 = v30;
+      MaxInsets = PDFEdgeInsetsGetMaxInsets(MaxInsets, v22, v24, v26, v28);
+      v22 = v29;
+      v24 = v30;
+      v26 = v31;
     }
 
-    v31 = PDFEdgeInsetsInsetRect(v11, v13, v15, v17, MaxInsets, v21, v23, v25);
-    v33 = v32;
-    v35 = v34;
-    v37 = v36;
+    v32 = PDFEdgeInsetsInsetRect(v12, v14, v16, v18, MaxInsets, v22, v24, v26);
+    v34 = v33;
+    v36 = v35;
+    v38 = v37;
 
-    v45.origin.x = PDFRectToCGRect(v38);
-    v45.origin.y = v39;
-    v45.size.width = v40;
-    v45.size.height = v41;
-    v44.origin.x = v31;
-    v44.origin.y = v33;
-    v44.size.width = v35;
-    v44.size.height = v37;
-    v42 = CGRectContainsRect(v44, v45);
+    PDFRectToCGRect();
+    v46.origin.x = v39;
+    v46.origin.y = v40;
+    v46.size.width = v41;
+    v46.size.height = v42;
+    v45.origin.x = v32;
+    v45.origin.y = v34;
+    v45.size.width = v36;
+    v45.size.height = v38;
+    v43 = CGRectContainsRect(v45, v46);
   }
 
   else
   {
-    v42 = 0;
+    v43 = 0;
   }
 
-  return v42;
+  return v43;
 }
 
 - (double)autoScaleFactor

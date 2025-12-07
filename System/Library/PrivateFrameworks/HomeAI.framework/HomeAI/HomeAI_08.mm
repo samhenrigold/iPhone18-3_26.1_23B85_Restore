@@ -10,7 +10,7 @@ void sub_22D241890(_Unwind_Exception *a1, int a2)
 
 const cv::Mat **cv::mixChannels(cv *this, const cv::Mat *a2, unint64_t a3, cv::Mat *a4, unint64_t a5, const int *a6)
 {
-  result = MEMORY[0x28223BE20](this, a2);
+  result = MEMORY[0x28223BE20](this);
   v70 = v7;
   v82[514] = *MEMORY[0x277D85DE8];
   if (v11)
@@ -20,9 +20,9 @@ const cv::Mat **cv::mixChannels(cv *this, const cv::Mat *a2, unint64_t a3, cv::M
     if (!result || !v7 || !v8 || !v9 || !v10)
     {
       std::string::basic_string[abi:ne200100]<0>(v75, "src && nsrcs > 0 && dst && ndsts > 0 && fromTo && npairs > 0");
-      std::string::basic_string[abi:ne200100]<0>(v78, "mixChannels");
-      std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/convert.cpp");
-      cv::Exception::Exception(&v79, 4294967081, v75, v78, __p, 460);
+      std::string::basic_string[abi:ne200100]<0>(&v78, "mixChannels");
+      std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/convert.cpp");
+      cv::Exception::Exception(&v79, -215, v75, &v78, &__p, 460);
       cv::error(&v79, v13);
     }
 
@@ -59,12 +59,12 @@ const cv::Mat **cv::mixChannels(cv *this, const cv::Mat *a2, unint64_t a3, cv::M
 
       if (v27.i8[4])
       {
-        *v24 = v26 + 96;
+        *v24 = v26 + 12;
       }
 
       v23 = vaddq_s64(v23, v25);
       v24 += 2;
-      v26 += 192;
+      v26 += 24;
       v21 -= 2;
     }
 
@@ -138,10 +138,10 @@ const cv::Mat **cv::mixChannels(cv *this, const cv::Mat *a2, unint64_t a3, cv::M
         if ((v43 & 7) != v65)
         {
 LABEL_30:
-          std::string::basic_string[abi:ne200100]<0>(v78, "j < nsrcs && src[j].depth() == depth");
-          std::string::basic_string[abi:ne200100]<0>(__p, "mixChannels");
-          std::string::basic_string[abi:ne200100]<0>(v74, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/convert.cpp");
-          cv::Exception::Exception(v75, 4294967081, v78, __p, v74, 487);
+          std::string::basic_string[abi:ne200100]<0>(&v78, "j < nsrcs && src[j].depth() == depth");
+          std::string::basic_string[abi:ne200100]<0>(&__p, "mixChannels");
+          std::string::basic_string[abi:ne200100]<0>(&v74, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/convert.cpp");
+          cv::Exception::Exception(v75, -215, &v78, &__p, &v74, 487);
           cv::error(v75, v47);
         }
 
@@ -175,10 +175,10 @@ LABEL_30:
       if (v39 < 0 || (v50 & 7) != v65)
       {
 LABEL_38:
-        std::string::basic_string[abi:ne200100]<0>(v78, "i1 >= 0 && j < ndsts && dst[j].depth() == depth");
-        std::string::basic_string[abi:ne200100]<0>(__p, "mixChannels");
-        std::string::basic_string[abi:ne200100]<0>(v74, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/convert.cpp");
-        cv::Exception::Exception(v75, 4294967081, v78, __p, v74, 500);
+        std::string::basic_string[abi:ne200100]<0>(&v78, "i1 >= 0 && j < ndsts && dst[j].depth() == depth");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "mixChannels");
+        std::string::basic_string[abi:ne200100]<0>(&v74, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/convert.cpp");
+        cv::Exception::Exception(v75, -215, &v78, &__p, &v74, 500);
         cv::error(v75, v53);
       }
 
@@ -7274,7 +7274,7 @@ uint64_t cv::cvtScale64f(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4
 
 void cv::Mat::convertTo(cv::Mat *this, const cv::_OutputArray *a2, int a3, double a4, double a5)
 {
-  v67[2] = *MEMORY[0x277D85DE8];
+  v65[2] = *MEMORY[0x277D85DE8];
   v9 = fabs(a4 + -1.0) >= 2.22044605e-16;
   v10 = fabs(a5) >= 2.22044605e-16 || v9;
   if (a3 < 0)
@@ -7313,21 +7313,21 @@ void cv::Mat::convertTo(cv::Mat *this, const cv::_OutputArray *a2, int a3, doubl
   if (v15)
   {
     v16 = *(this + 4);
-    v55 = v16;
+    v54 = v16;
     v17 = *(this + 3);
-    v54 = v11;
-    v56 = v17;
+    v53 = v11;
+    v55 = v17;
     v18 = *(this + 2);
     v19 = *(this + 24);
-    v58 = v19;
-    v59 = *(this + 40);
+    v57 = v19;
+    v58 = *(this + 40);
     v20 = *(this + 7);
-    v57 = v18;
-    v60 = v20;
-    v61 = &v55 + 4;
-    v62 = v63;
-    v63[0] = 0;
-    v63[1] = 0;
+    v56 = v18;
+    v59 = v20;
+    v60 = &v54 + 4;
+    v61 = v62;
+    v62[0] = 0;
+    v62[1] = 0;
     if (v19)
     {
       atomic_fetch_add(v19, 1u);
@@ -7341,15 +7341,15 @@ void cv::Mat::convertTo(cv::Mat *this, const cv::_OutputArray *a2, int a3, doubl
 
     if (v21 > 2)
     {
-      LODWORD(v55) = 0;
-      cv::Mat::copySize(&v54, this);
+      LODWORD(v54) = 0;
+      cv::Mat::copySize(&v53, this);
     }
 
     else
     {
       v22 = *(this + 9);
-      v23 = v62;
-      *v62 = *v22;
+      v23 = v61;
+      *v61 = *v22;
       v23[1] = v22[1];
     }
 
@@ -7360,110 +7360,109 @@ void cv::Mat::convertTo(cv::Mat *this, const cv::_OutputArray *a2, int a3, doubl
     }
 
     v25 = *(&v24[8 * v14] + v13);
-    *v67 = a4;
-    *&v67[1] = a5;
+    *v65 = a4;
+    *&v65[1] = a5;
     if (!v25)
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "func != 0");
-      std::string::basic_string[abi:ne200100]<0>(v66, "convertTo");
-      std::string::basic_string[abi:ne200100]<0>(&v64, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/convert.cpp");
-      cv::Exception::Exception(&v45, 4294967081, __p, v66, &v64, 1115);
-      cv::error(&v45, v26);
+      std::string::basic_string[abi:ne200100]<0>(v64, "convertTo");
+      std::string::basic_string[abi:ne200100]<0>(v63, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/convert.cpp");
+      cv::Exception::Exception(&v44, -215, __p, v64, v63, 1115);
+      cv::error(&v44, v26);
     }
 
     v27 = ((*this >> 3) & 0x1FF) + 1;
     if (*(this + 1) > 2)
     {
       (*(*a2 + 144))(a2);
-      (**a2)(&v45, a2, 0xFFFFFFFFLL);
-      v66[0] = &v54;
-      v66[1] = &v45;
-      v66[2] = 0;
-      v64 = 0;
-      v65 = 0;
-      cv::NAryMatIterator::NAryMatIterator(__p, v66, &v64, -1);
-      v30 = v27 * v44;
+      (**a2)(&v44, a2, 0xFFFFFFFFLL);
+      v64[0] = &v53;
+      v64[1] = &v44;
+      v64[2] = 0;
+      v63[0] = 0;
+      v63[1] = 0;
+      cv::NAryMatIterator::NAryMatIterator(__p, v64, v63, -1);
+      v30 = v27 * v43;
       v31 = -1;
-      while (++v31 < v43)
+      while (++v31 < __p[4])
       {
         v41[0] = v30;
         v41[1] = 1;
-        v25(v64, 0, 0, 0, v65, 0, v41, v67);
+        v25(v63[0], 0, 0, 0, v63[1], 0, v41, v65);
         cv::NAryMatIterator::operator++(__p);
       }
 
-      if (v47 && atomic_fetch_add(v47, 0xFFFFFFFF) == 1)
+      if (v46 && atomic_fetch_add(v46, 0xFFFFFFFF) == 1)
       {
-        cv::Mat::deallocate(&v45);
+        cv::Mat::deallocate(&v44);
       }
 
-      v46 = 0;
+      v45 = 0;
+      v47 = 0;
       v48 = 0;
       v49 = 0;
-      v50 = 0;
-      if (v45.i32[1] >= 1)
+      if (v44.i32[1] >= 1)
       {
         v32 = 0;
-        v33 = v51;
+        v33 = v50;
         do
         {
           *(v33 + 4 * v32++) = 0;
         }
 
-        while (v32 < v45.i32[1]);
+        while (v32 < v44.i32[1]);
       }
 
-      v47 = 0;
-      v34 = v52;
+      v46 = 0;
+      v34 = v51;
     }
 
     else
     {
-      v45 = vrev64_s32(**(this + 8));
-      (*(*a2 + 128))(a2, &v45, v12, 0xFFFFFFFFLL, 0, 0);
-      (**a2)(&v45, a2, 0xFFFFFFFFLL);
-      v28 = HIDWORD(v55);
-      if ((v54 & v45.i32[0] & 0x4000) != 0 && (v29 = v56 * v27 * SHIDWORD(v55), v29 == v29))
+      v44 = vrev64_s32(**(this + 8));
+      (*(*a2 + 128))(a2, &v44, v12, 0xFFFFFFFFLL, 0, 0);
+      (**a2)(&v44, a2, 0xFFFFFFFFLL);
+      v28 = HIDWORD(v54);
+      if ((v53 & v44.i32[0] & 0x4000) != 0 && (v29 = v55 * v27 * SHIDWORD(v54), v29 == v29))
       {
         v28 = 1;
       }
 
       else
       {
-        LODWORD(v29) = v56 * v27;
+        LODWORD(v29) = v55 * v27;
       }
 
-      __p[0] = v29;
-      __p[1] = v28;
-      v25(v57, v63[0], 0, 0, v46, v53, __p, v67);
-      if (v47 && atomic_fetch_add(v47, 0xFFFFFFFF) == 1)
+      __p[0] = __PAIR64__(v28, v29);
+      v25(v56, v62[0], 0, 0, v45, v52, __p, v65);
+      if (v46 && atomic_fetch_add(v46, 0xFFFFFFFF) == 1)
       {
-        cv::Mat::deallocate(&v45);
+        cv::Mat::deallocate(&v44);
       }
 
-      v46 = 0;
+      v45 = 0;
+      v47 = 0;
       v48 = 0;
       v49 = 0;
-      v50 = 0;
-      if (v45.i32[1] >= 1)
+      if (v44.i32[1] >= 1)
       {
         v35 = 0;
-        v36 = v51;
+        v36 = v50;
         do
         {
           *(v36 + 4 * v35++) = 0;
         }
 
-        while (v35 < v45.i32[1]);
+        while (v35 < v44.i32[1]);
       }
 
-      v47 = 0;
-      v34 = v52;
+      v46 = 0;
+      v34 = v51;
     }
 
     if (v34)
     {
-      v37 = v34 == &v53;
+      v37 = v34 == &v52;
     }
 
     else
@@ -7476,30 +7475,30 @@ void cv::Mat::convertTo(cv::Mat *this, const cv::_OutputArray *a2, int a3, doubl
       free(v34);
     }
 
-    if (v58 && atomic_fetch_add(v58, 0xFFFFFFFF) == 1)
+    if (v57 && atomic_fetch_add(v57, 0xFFFFFFFF) == 1)
     {
-      cv::Mat::deallocate(&v54);
+      cv::Mat::deallocate(&v53);
     }
 
-    v57 = 0;
-    v59 = 0uLL;
-    *(&v58 + 1) = 0;
-    if (v55 >= 1)
+    v56 = 0;
+    v58 = 0uLL;
+    *(&v57 + 1) = 0;
+    if (v54 >= 1)
     {
       v38 = 0;
-      v39 = v61;
+      v39 = v60;
       do
       {
         *&v39[4 * v38++] = 0;
       }
 
-      while (v38 < v55);
+      while (v38 < v54);
     }
 
-    *&v58 = 0;
-    if (v62)
+    *&v57 = 0;
+    if (v61)
     {
-      v40 = v62 == v63;
+      v40 = v61 == v62;
     }
 
     else
@@ -7509,7 +7508,7 @@ void cv::Mat::convertTo(cv::Mat *this, const cv::_OutputArray *a2, int a3, doubl
 
     if (!v40)
     {
-      free(v62);
+      free(v61);
     }
   }
 
@@ -7848,70 +7847,70 @@ uint64_t cv::mixChannels64s(uint64_t this, const uint64_t **a2, const int *a3, u
 
 void cv::gemm(cv *this, const cv::_InputArray *a2, const cv::_InputArray *a3, double a4, const cv::_InputArray *a5, double a6, const cv::_OutputArray *a7)
 {
-  v7 = MEMORY[0x28223BE20](this, a2);
+  v7 = MEMORY[0x28223BE20](this);
   v9 = v8;
   v11 = v10;
   v13 = v12;
   v15 = v14;
   v17 = v16;
   v19 = v18;
-  v434[515] = *MEMORY[0x277D85DE8];
-  (**v7)(v423);
-  (**v19)(&v412, v19, 0xFFFFFFFFLL);
+  v431[515] = *MEMORY[0x277D85DE8];
+  (**v7)(v420);
+  (**v19)(&v409, v19, 0xFFFFFFFFLL);
   if (v13 == 0.0)
   {
-    v409 = v408 + 8;
-    v410 = v411;
-    v411[1] = 0;
-    v411[0] = 0;
-    LODWORD(v408[0]) = 1124007936;
-    memset(v408 + 4, 0, 48);
-    v408[3] = 0u;
+    v406 = v405 + 8;
+    v407 = v408;
+    v408[1] = 0;
+    v408[0] = 0;
+    LODWORD(v405[0]) = 1124007936;
+    memset(v405 + 4, 0, 48);
+    v405[3] = 0u;
   }
 
   else
   {
-    (**v15)(v408, v15, 0xFFFFFFFFLL);
+    (**v15)(v405, v15, 0xFFFFFFFFLL);
   }
 
-  v21 = *v429;
-  v20 = v429[1];
-  v22 = v423[0];
-  v23 = v423[0] & 0xFFF;
-  if (v23 != (v412 & 0xFFF) || (v423[0] & 0xFF7) - 5 >= 2)
+  v21 = *v426;
+  v20 = v426[1];
+  v22 = v420[0];
+  v23 = v420[0] & 0xFFF;
+  if (v23 != (v409 & 0xFFF) || (v420[0] & 0xFF7) - 5 >= 2)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v384, "type == B.type() && (type == CV_32FC1 || type == CV_64FC1 || type == CV_32FC2 || type == CV_64FC2)");
-    std::string::basic_string[abi:ne200100]<0>(v399, "gemm");
+    std::string::basic_string[abi:ne200100]<0>(&v383, "type == B.type() && (type == CV_32FC1 || type == CV_64FC1 || type == CV_32FC2 || type == CV_64FC2)");
+    std::string::basic_string[abi:ne200100]<0>(&v396, "gemm");
     std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/matmul.cpp");
-    cv::Exception::Exception(&v432, 4294967081, &v384, v399, __p, 711);
-    cv::error(&v432, v24);
+    cv::Exception::Exception(&v429, -215, &v383, &v396, __p, 711);
+    cv::error(&v429, v24);
   }
 
   if ((v9 & 3u) > 1)
   {
     if ((v9 & 3) == 2)
     {
-      v25 = v413;
-      if (v20 != v414)
+      v25 = v410;
+      if (v20 != v411)
       {
-        std::string::basic_string[abi:ne200100]<0>(&v384, "a_size.width == len");
-        std::string::basic_string[abi:ne200100]<0>(v399, "gemm");
+        std::string::basic_string[abi:ne200100]<0>(&v383, "a_size.width == len");
+        std::string::basic_string[abi:ne200100]<0>(&v396, "gemm");
         std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/matmul.cpp");
-        cv::Exception::Exception(&v432, 4294967081, &v384, v399, __p, 728);
-        cv::error(&v432, v29);
+        cv::Exception::Exception(&v429, -215, &v383, &v396, __p, 728);
+        cv::error(&v429, v29);
       }
 
       goto LABEL_13;
     }
 
-    v25 = v413;
-    if (v21 != v414)
+    v25 = v410;
+    if (v21 != v411)
     {
-      std::string::basic_string[abi:ne200100]<0>(&v384, "a_size.height == len");
-      std::string::basic_string[abi:ne200100]<0>(v399, "gemm");
+      std::string::basic_string[abi:ne200100]<0>(&v383, "a_size.height == len");
+      std::string::basic_string[abi:ne200100]<0>(&v396, "gemm");
       std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/matmul.cpp");
-      cv::Exception::Exception(&v432, 4294967081, &v384, v399, __p, 733);
-      cv::error(&v432, v31);
+      cv::Exception::Exception(&v429, -215, &v383, &v396, __p, 733);
+      cv::error(&v429, v31);
     }
   }
 
@@ -7919,79 +7918,79 @@ void cv::gemm(cv *this, const cv::_InputArray *a2, const cv::_InputArray *a3, do
   {
     if ((v9 & 3) == 0)
     {
-      v25 = v414;
-      if (v20 != v413)
+      v25 = v411;
+      if (v20 != v410)
       {
-        std::string::basic_string[abi:ne200100]<0>(&v384, "a_size.width == len");
-        std::string::basic_string[abi:ne200100]<0>(v399, "gemm");
+        std::string::basic_string[abi:ne200100]<0>(&v383, "a_size.width == len");
+        std::string::basic_string[abi:ne200100]<0>(&v396, "gemm");
         std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/matmul.cpp");
-        cv::Exception::Exception(&v432, 4294967081, &v384, v399, __p, 718);
-        cv::error(&v432, v26);
+        cv::Exception::Exception(&v429, -215, &v383, &v396, __p, 718);
+        cv::error(&v429, v26);
       }
 
 LABEL_13:
-      v27 = v429[1];
-      v30 = *v429;
+      v27 = v426[1];
+      v30 = *v426;
       goto LABEL_20;
     }
 
-    v25 = v414;
-    if (v21 != v413)
+    v25 = v411;
+    if (v21 != v410)
     {
-      std::string::basic_string[abi:ne200100]<0>(&v384, "a_size.height == len");
-      std::string::basic_string[abi:ne200100]<0>(v399, "gemm");
+      std::string::basic_string[abi:ne200100]<0>(&v383, "a_size.height == len");
+      std::string::basic_string[abi:ne200100]<0>(&v396, "gemm");
       std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/matmul.cpp");
-      cv::Exception::Exception(&v432, 4294967081, &v384, v399, __p, 723);
-      cv::error(&v432, v28);
+      cv::Exception::Exception(&v429, -215, &v383, &v396, __p, 723);
+      cv::error(&v429, v28);
     }
   }
 
-  v27 = *v429;
-  v30 = v429[1];
+  v27 = *v426;
+  v30 = v426[1];
 LABEL_20:
-  if (!*&v408[1])
+  if (!*&v405[1])
   {
     goto LABEL_27;
   }
 
-  if ((v408[0] & 0xFFF) != v23)
+  if ((v405[0] & 0xFFF) != v23)
   {
     goto LABEL_26;
   }
 
   if ((v9 & 4) != 0)
   {
-    if (*(&v408[0] + 1) == __PAIR64__(v30, v25))
+    if (*(&v405[0] + 1) == __PAIR64__(v30, v25))
     {
       goto LABEL_27;
     }
 
 LABEL_26:
-    std::string::basic_string[abi:ne200100]<0>(&v384, "C.type() == type && (((flags&GEMM_3_T) == 0 && C.rows == d_size.height && C.cols == d_size.width) || ((flags&GEMM_3_T) != 0 && C.rows == d_size.width && C.cols == d_size.height))");
-    std::string::basic_string[abi:ne200100]<0>(v399, "gemm");
+    std::string::basic_string[abi:ne200100]<0>(&v383, "C.type() == type && (((flags&GEMM_3_T) == 0 && C.rows == d_size.height && C.cols == d_size.width) || ((flags&GEMM_3_T) != 0 && C.rows == d_size.width && C.cols == d_size.height))");
+    std::string::basic_string[abi:ne200100]<0>(&v396, "gemm");
     std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/matmul.cpp");
-    cv::Exception::Exception(&v432, 4294967081, &v384, v399, __p, 741);
-    cv::error(&v432, v32);
+    cv::Exception::Exception(&v429, -215, &v383, &v396, __p, 741);
+    cv::error(&v429, v32);
   }
 
-  if (*(&v408[0] + 1) != __PAIR64__(v25, v30))
+  if (*(&v405[0] + 1) != __PAIR64__(v25, v30))
   {
     goto LABEL_26;
   }
 
 LABEL_27:
   (*(*v11 + 136))(v11, v30, v25, v23, 0xFFFFFFFFLL, 0, 0);
-  (**v11)(v399, v11, 0xFFFFFFFFLL);
+  (**v11)(&v396, v11, 0xFFFFFFFFLL);
   if ((v9 & 4) != 0)
   {
-    if (*&v408[1] != v400)
+    if (*&v405[1] != v397)
     {
       goto LABEL_136;
     }
 
-    cv::_InputArray::_InputArray(&v432, v408);
-    cv::_OutputArray::_OutputArray(&v384, v408);
-    cv::transpose(&v432, &v384, v33);
+    cv::_InputArray::_InputArray(&v429, v405);
+    cv::_OutputArray::_OutputArray(&v383, v405);
+    cv::transpose(&v429, &v383, v33);
     v9 &= ~4u;
   }
 
@@ -8007,16 +8006,16 @@ LABEL_27:
 
   if (v23 == 6)
   {
-    v59 = v400;
-    v60 = v407 >> 3;
-    v61 = v424;
-    v62 = v431 >> 3;
-    v63 = v415;
-    v64 = v422 >> 3;
-    v65 = *&v408[1];
-    if (*&v408[1])
+    v59 = v397;
+    v60 = v404 >> 3;
+    v61 = v421;
+    v62 = v428 >> 3;
+    v63 = v412;
+    v64 = v419 >> 3;
+    v65 = *&v405[1];
+    if (*&v405[1])
     {
-      v66 = v411[0] >> 3;
+      v66 = v408[0] >> 3;
     }
 
     else
@@ -8024,7 +8023,7 @@ LABEL_27:
       v66 = 0;
     }
 
-    if (!*&v408[1])
+    if (!*&v405[1])
     {
       v65 = &cv::gemm(cv::_InputArray const&,cv::_InputArray const&,double,cv::_InputArray const&,double,cv::_OutputArray const&,int)::zero;
     }
@@ -8033,9 +8032,9 @@ LABEL_27:
     {
       if (v27 == 3)
       {
-        if (v25 != 3 || v415 == v400)
+        if (v25 != 3 || v412 == v397)
         {
-          if (v424 == v400)
+          if (v421 == v397)
           {
             goto LABEL_135;
           }
@@ -8053,14 +8052,14 @@ LABEL_27:
           if (v25 >= 1)
           {
             v163 = 0;
-            v164 = &v424[v62];
-            v165 = &v424[2 * v62];
+            v164 = &v421[v62];
+            v165 = &v421[2 * v62];
             v166 = (2 * v62) | 1;
-            v167 = v400 + 8 * v60;
-            v168 = v400 + 16 * v60;
-            v169 = &v415[v64];
+            v167 = v397 + 8 * v60;
+            v168 = v397 + 16 * v60;
+            v169 = &v412[v64];
             v170 = 8 * (v65 != &cv::gemm(cv::_InputArray const&,cv::_InputArray const&,double,cv::_InputArray const&,double,cv::_OutputArray const&,int)::zero);
-            v171 = &v415[2 * v64];
+            v171 = &v412[2 * v64];
             do
             {
               v172 = v63[v163];
@@ -8081,13 +8080,13 @@ LABEL_27:
 
         else if (v30 >= 1)
         {
-          v67 = &v415[v64];
-          v68 = &v415[2 * v64];
+          v67 = &v412[v64];
+          v68 = &v412[2 * v64];
           v69 = v65 + 2;
           v70 = 8 * v66;
-          v71 = v424 + 2;
+          v71 = v421 + 2;
           v72 = 8 * v62;
-          v73 = (v400 + 16);
+          v73 = (v397 + 16);
           v74 = 8 * v60;
           v75 = (2 * v64) | 1;
           do
@@ -8110,9 +8109,9 @@ LABEL_27:
         }
       }
 
-      else if (v25 != 2 || v415 == v400)
+      else if (v25 != 2 || v412 == v397)
       {
-        if (v424 == v400)
+        if (v421 == v397)
         {
           goto LABEL_135;
         }
@@ -8130,7 +8129,7 @@ LABEL_27:
         if (v25 >= 1)
         {
           v234 = 8 * (v65 != &cv::gemm(cv::_InputArray const&,cv::_InputArray const&,double,cv::_InputArray const&,double,cv::_OutputArray const&,int)::zero);
-          v235 = &v424[v62];
+          v235 = &v421[v62];
           do
           {
             v236 = v63[v64];
@@ -8150,11 +8149,11 @@ LABEL_27:
       else if (v30 >= 1)
       {
         v134 = 8 * v60;
-        v135 = (v400 + 8);
-        v136 = v424 + 1;
+        v135 = (v397 + 8);
+        v136 = v421 + 1;
         v137 = 8 * v62;
         v138 = v65 + 1;
-        v139 = &v415[v64];
+        v139 = &v412[v64];
         do
         {
           v140 = *(v136 - 1);
@@ -8174,18 +8173,18 @@ LABEL_27:
       goto LABEL_239;
     }
 
-    if (v25 == 4 && v415 != v400)
+    if (v25 == 4 && v412 != v397)
     {
       if (v30 >= 1)
       {
-        v104 = &v415[v64];
-        v105 = &v415[3 * v64];
+        v104 = &v412[v64];
+        v105 = &v412[3 * v64];
         v106 = 8 * v66;
         v107 = 8 * v62;
         v108 = v65 + 2;
-        v109 = v424 + 2;
-        v110 = (v400 + 16);
-        v111 = &v415[2 * v64];
+        v109 = v421 + 2;
+        v110 = (v397 + 16);
+        v111 = &v412[2 * v64];
         v112 = 8 * v60;
         v113 = (2 * v64) | 1;
         do
@@ -8216,7 +8215,7 @@ LABEL_27:
     }
 
     LOBYTE(v9) = 0;
-    if (v25 <= 16 && v424 != v400)
+    if (v25 <= 16 && v421 != v397)
     {
       if (v65 == &cv::gemm(cv::_InputArray const&,cv::_InputArray const&,double,cv::_InputArray const&,double,cv::_OutputArray const&,int)::zero)
       {
@@ -8231,18 +8230,18 @@ LABEL_27:
       if (v25 >= 1)
       {
         v205 = 0;
-        v206 = &v424[v62];
-        v207 = &v424[2 * v62];
+        v206 = &v421[v62];
+        v207 = &v421[2 * v62];
         v208 = (2 * v62) | 1;
-        v209 = &v424[3 * v62];
+        v209 = &v421[3 * v62];
         v210 = v25;
-        v211 = v400 + 8 * v60;
-        v212 = v400 + 16 * v60;
-        v213 = v400 + 24 * v60;
-        v214 = &v415[v64];
-        v215 = &v415[3 * v64];
+        v211 = v397 + 8 * v60;
+        v212 = v397 + 16 * v60;
+        v213 = v397 + 24 * v60;
+        v214 = &v412[v64];
+        v215 = &v412[3 * v64];
         v216 = 8 * (v65 != &cv::gemm(cv::_InputArray const&,cv::_InputArray const&,double,cv::_InputArray const&,double,cv::_OutputArray const&,int)::zero);
-        v217 = &v415[2 * v64];
+        v217 = &v412[2 * v64];
         do
         {
           v218 = v63[v205];
@@ -8267,40 +8266,40 @@ LABEL_27:
     }
 
 LABEL_136:
-    v238 = v422;
-    v396 = &__p[8];
-    v397 = v398;
-    v398[1] = 0;
-    v398[0] = 0;
+    v238 = v419;
+    v393 = &__p[8];
+    v394 = v395;
+    v395[1] = 0;
+    v395[0] = 0;
     *__p = 1124007936;
     memset(&__p[4], 0, 48);
-    v239 = v411[0];
-    v345 = *&v408[1];
-    if (!*&v408[1])
+    v239 = v408[0];
+    v345 = *&v405[1];
+    if (!*&v405[1])
     {
       v239 = 0;
     }
 
     v363 = v239;
-    v432 = v434;
-    v433 = 4104;
+    v429 = v431;
+    v430 = 4104;
     v240 = v23 - 5;
     *&__p[48] = 0uLL;
     if ((v23 - 5) >= 0xA || ((0x303u >> v240) & 1) == 0)
     {
-      std::string::basic_string[abi:ne200100]<0>(&v382, "type == CV_64FC2");
-      std::string::basic_string[abi:ne200100]<0>(v381, "gemm");
-      std::string::basic_string[abi:ne200100]<0>(v380, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/matmul.cpp");
-      cv::Exception::Exception(&v384, 4294967081, &v382, v381, v380, 1041);
-      cv::error(&v384, v241);
+      std::string::basic_string[abi:ne200100]<0>(v382, "type == CV_64FC2");
+      std::string::basic_string[abi:ne200100]<0>(&v381, "gemm");
+      std::string::basic_string[abi:ne200100]<0>(&v380, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/matmul.cpp");
+      cv::Exception::Exception(&v383, -215, v382, &v381, &v380, 1041);
+      cv::error(&v383, v241);
     }
 
     v360 = off_2840565C8[v240];
     v361 = off_284056578[v240];
     v347 = off_284056618[v240];
-    if (v400 == v424 || v400 == v415)
+    if (v397 == v421 || v397 == v412)
     {
-      v355 = &v397;
+      v355 = &v394;
       v242 = (((v23 >> 3) + 1) << ((0xFA50u >> (2 * (v23 & 7))) & 3)) * v30 * v25;
       v243 = __p;
     }
@@ -8308,14 +8307,14 @@ LABEL_136:
     else
     {
       v242 = 0;
-      v355 = &v406;
-      v243 = v399;
+      v355 = &v403;
+      v243 = &v396;
     }
 
     v357 = v243;
     v377 = v25;
     v244 = v25 == 1 || v27 == 1;
-    if (v244 && (v9 & 2) == 0 && (v412 & 0x4000) != 0)
+    if (v244 && (v9 & 2) == 0 && (v409 & 0x4000) != 0)
     {
       if (v25 == 1)
       {
@@ -8336,19 +8335,17 @@ LABEL_136:
       if (!v242)
       {
 LABEL_222:
-        v384 = v20;
-        v385 = v21;
-        v382 = v25;
-        v383 = v30;
+        *&v383 = __PAIR64__(v21, v20);
+        v382[0] = __PAIR64__(v30, v25);
         v361(v17, v13);
 LABEL_223:
-        if (v357 != v399)
+        if (v357 != &v396)
         {
-          cv::_OutputArray::_OutputArray(&v384, v399);
-          cv::Mat::copyTo(v357, &v384);
+          cv::_OutputArray::_OutputArray(&v383, &v396);
+          cv::Mat::copyTo(v357, &v383);
         }
 
-        if (v432 != v434 && v432)
+        if (v429 != v431 && v429)
         {
           MEMORY[0x2318CB180]();
         }
@@ -8363,7 +8360,7 @@ LABEL_223:
         if (*&__p[4] >= 1)
         {
           v264 = 0;
-          v265 = v396;
+          v265 = v393;
           do
           {
             *&v265[4 * v264++] = 0;
@@ -8373,9 +8370,9 @@ LABEL_223:
         }
 
         *&__p[24] = 0;
-        if (v397)
+        if (v394)
         {
-          v266 = v397 == v398;
+          v266 = v394 == v395;
         }
 
         else
@@ -8385,46 +8382,46 @@ LABEL_223:
 
         if (!v266)
         {
-          free(v397);
+          free(v394);
         }
 
         goto LABEL_239;
       }
 
-      v248 = v432;
-      if (v433 < v242)
+      v248 = v429;
+      if (v430 < v242)
       {
-        if (v432 != v434)
+        if (v429 != v431)
         {
-          if (v432)
+          if (v429)
           {
-            MEMORY[0x2318CB180](v432, 0x1000C8077774924, v415);
+            MEMORY[0x2318CB180](v429, 0x1000C8077774924, v412);
           }
 
-          v248 = v434;
-          v432 = v434;
+          v248 = v431;
+          v429 = v431;
         }
 
-        v433 = v242;
+        v430 = v242;
         if (v242 >= 0x1009)
         {
           operator new[]();
         }
       }
 
-      v386 = __PAIR64__(v25, v30);
-      v387 = v248;
-      *&v388 = 0;
-      v391 = &v386;
-      v392 = &v393;
-      v385 = 2;
-      v384 = v23 | 0x42FF4000;
-      v393 = (((v23 >> 3) + 1) << ((0xFA50u >> (2 * (v23 & 7))) & 3)) * v25;
-      v394 = ((v23 >> 3) + 1) << ((0xFA50u >> (2 * (v23 & 7))) & 3);
-      *(&v389 + 1) = v248 + v393 * v30;
-      v390 = 0;
-      *(&v388 + 1) = v248;
-      *&v389 = *(&v389 + 1);
+      *(&v383 + 1) = __PAIR64__(v25, v30);
+      v384 = v248;
+      *&v385 = 0;
+      v388 = &v383 + 8;
+      v389 = &v390;
+      DWORD1(v383) = 2;
+      LODWORD(v383) = v23 | 0x42FF4000;
+      v390 = (((v23 >> 3) + 1) << ((0xFA50u >> (2 * (v23 & 7))) & 3)) * v25;
+      v391 = ((v23 >> 3) + 1) << ((0xFA50u >> (2 * (v23 & 7))) & 3);
+      *(&v386 + 1) = v248 + v390 * v30;
+      v387 = 0;
+      *(&v385 + 1) = v248;
+      *&v386 = *(&v386 + 1);
       if (*&__p[24] && atomic_fetch_add(*&__p[24], 0xFFFFFFFF) == 1)
       {
         cv::Mat::deallocate(__p);
@@ -8435,13 +8432,13 @@ LABEL_223:
       if (*__p <= 0)
       {
         *&__p[24] = 0;
-        *__p = v384;
+        *__p = v383;
       }
 
       else
       {
         v249 = 0;
-        v250 = v396;
+        v250 = v393;
         do
         {
           *&v250[4 * v249++] = 0;
@@ -8449,55 +8446,55 @@ LABEL_223:
 
         while (v249 < *&__p[4]);
         *&__p[24] = 0;
-        *__p = v384;
+        *__p = v383;
         if (*&__p[4] > 2)
         {
           goto LABEL_210;
         }
       }
 
-      if (v385 <= 2)
+      if (SDWORD1(v383) <= 2)
       {
-        *&__p[4] = v385;
-        *&__p[8] = v386;
-        v259 = v392;
-        v260 = v397;
-        *v397 = *v392;
+        *&__p[4] = DWORD1(v383);
+        *&__p[8] = *(&v383 + 1);
+        v259 = v389;
+        v260 = v394;
+        *v394 = *v389;
         v260[1] = v259[1];
         goto LABEL_211;
       }
 
 LABEL_210:
-      cv::Mat::copySize(__p, &v384);
+      cv::Mat::copySize(__p, &v383);
 LABEL_211:
-      *&__p[40] = v389;
-      *&__p[24] = v388;
-      *&__p[16] = v387;
-      *&__p[56] = v390;
-      if (v388 && atomic_fetch_add(v388, 0xFFFFFFFF) == 1)
+      *&__p[40] = v386;
+      *&__p[24] = v385;
+      *&__p[16] = v384;
+      *&__p[56] = v387;
+      if (v385 && atomic_fetch_add(v385, 0xFFFFFFFF) == 1)
       {
-        cv::Mat::deallocate(&v384);
+        cv::Mat::deallocate(&v383);
       }
 
-      v387 = 0;
-      v389 = 0uLL;
-      *(&v388 + 1) = 0;
-      if (v385 >= 1)
+      v384 = 0;
+      v386 = 0uLL;
+      *(&v385 + 1) = 0;
+      if (SDWORD1(v383) >= 1)
       {
         v261 = 0;
-        v262 = v391;
+        v262 = v388;
         do
         {
-          *(v262 + v261++) = 0;
+          *&v262[4 * v261++] = 0;
         }
 
-        while (v261 < v385);
+        while (v261 < SDWORD1(v383));
       }
 
-      *&v388 = 0;
-      if (v392)
+      *&v385 = 0;
+      if (v389)
       {
-        v263 = v392 == &v393;
+        v263 = v389 == &v390;
       }
 
       else
@@ -8507,7 +8504,7 @@ LABEL_211:
 
       if (!v263)
       {
-        free(v392);
+        free(v389);
       }
 
       goto LABEL_222;
@@ -8522,13 +8519,13 @@ LABEL_211:
 
     else
     {
-      v253 = v431;
+      v253 = v428;
     }
 
     v342 = v253;
     if (v9)
     {
-      v254 = v431;
+      v254 = v428;
     }
 
     else
@@ -8561,9 +8558,9 @@ LABEL_211:
     v350 = v256;
     v379 = v9;
     v369 = (v23 >> 3) + 1;
-    if (*&v408[1])
+    if (*&v405[1])
     {
-      v257 = v411[0];
+      v257 = v408[0];
       if ((v9 & 4) != 0)
       {
         v258 = v251 << ((0xFA50u >> (2 * (v22 & 7))) & 3);
@@ -8571,7 +8568,7 @@ LABEL_211:
 
       else
       {
-        v258 = v411[0];
+        v258 = v408[0];
       }
 
       v341 = v258;
@@ -8660,21 +8657,21 @@ LABEL_211:
     }
 
     v288 = v285 + v242 + v286 + v287;
-    v289 = v432;
-    if (v433 < v288)
+    v289 = v429;
+    if (v430 < v288)
     {
-      if (v432 != v434)
+      if (v429 != v431)
       {
-        if (v432)
+        if (v429)
         {
-          MEMORY[0x2318CB180](v432, 0x1000C8077774924, v415);
+          MEMORY[0x2318CB180](v429, 0x1000C8077774924, v412);
         }
 
-        v432 = v434;
-        v289 = v434;
+        v429 = v431;
+        v289 = v431;
       }
 
-      v433 = v285 + v242 + v286 + v287;
+      v430 = v285 + v242 + v286 + v287;
       if (v288 >= 0x1009)
       {
         operator new[]();
@@ -8747,10 +8744,10 @@ LABEL_337:
                     v309 = v27 - v306;
                   }
 
-                  v310 = v431;
+                  v310 = v428;
                   v311 = v375 * v306;
-                  v312 = v424 + v304 + v311;
-                  v313 = v415;
+                  v312 = v421 + v304 + v311;
+                  v313 = v412;
                   v314 = (v379 & 1) != 0 ? v309 : v302;
                   v315 = (v379 & 1) != 0 ? v302 : v309;
                   if (v378)
@@ -8771,7 +8768,7 @@ LABEL_337:
                       }
 
                       v317 = 0;
-                      v318 = v424 + v304 + v311 + 8;
+                      v318 = v421 + v304 + v311 + 8;
                       v319 = v359;
                       v320 = v371;
                       do
@@ -8846,7 +8843,7 @@ LABEL_337:
                   else
                   {
                     v329 = v314;
-                    v316 = v431;
+                    v316 = v428;
                   }
 
                   v330 = v313 + v374 * v306 + v307;
@@ -8933,11 +8930,9 @@ LABEL_337:
                     break;
                   }
 
-                  v384 = v315;
-                  v385 = v329;
-                  v382 = v305;
-                  v383 = v302;
-                  (v361)(v312, v316, v330, v333, v370, v363, v364, v366, v17, v13, &v384, &v382, v308);
+                  *&v383 = __PAIR64__(v329, v315);
+                  v382[0] = __PAIR64__(v302, v305);
+                  (v361)(v312, v316, v330, v333, v370, v363, v364, v366, v17, v13, &v383, v382, v308);
                   v306 += v309;
                   v308 = v352 | 0x10;
                   if (v306 >= v27)
@@ -8946,11 +8941,9 @@ LABEL_337:
                   }
                 }
 
-                v384 = v315;
-                v385 = v329;
-                v382 = v305;
-                v383 = v302;
-                v360(v312, v316, v330, v333, v362, v368, &v384, &v382, v308);
+                *&v383 = __PAIR64__(v329, v315);
+                v382[0] = __PAIR64__(v302, v305);
+                v360(v312, v316, v330, v333, v362, v368, &v383, v382, v308);
                 v306 += v309;
                 v308 = v352 | 0x10;
               }
@@ -8958,8 +8951,7 @@ LABEL_337:
               while (v306 < v27);
               v339 = *(v357 + 2);
               v340 = v355[1];
-              v384 = v305;
-              v385 = v302;
+              *&v383 = __PAIR64__(v302, v305);
               (v347)(v370, v363, v362, v368, v339 + v340 * v356 + v354, v17, v13);
 LABEL_402:
               v303 = v305 + v358;
@@ -8981,19 +8973,19 @@ LABEL_402:
       goto LABEL_223;
     }
 
-    v386 = __PAIR64__(v377, v344);
-    v387 = &v371[v287];
-    *&v388 = 0;
-    v391 = &v386;
-    v392 = &v393;
-    v385 = 2;
-    v384 = v23 | 0x42FF4000;
-    v393 = (v369 << ((0xFA50u >> (2 * (v23 & 7))) & 3)) * v377;
-    v394 = v369 << ((0xFA50u >> (2 * (v23 & 7))) & 3);
-    *(&v389 + 1) = &v371[v287 + v393 * v344];
-    v390 = 0;
-    *(&v388 + 1) = &v371[v287];
-    *&v389 = *(&v389 + 1);
+    *(&v383 + 1) = __PAIR64__(v377, v344);
+    v384 = &v371[v287];
+    *&v385 = 0;
+    v388 = &v383 + 8;
+    v389 = &v390;
+    DWORD1(v383) = 2;
+    LODWORD(v383) = v23 | 0x42FF4000;
+    v390 = (v369 << ((0xFA50u >> (2 * (v23 & 7))) & 3)) * v377;
+    v391 = v369 << ((0xFA50u >> (2 * (v23 & 7))) & 3);
+    *(&v386 + 1) = &v371[v287 + v390 * v344];
+    v387 = 0;
+    *(&v385 + 1) = &v371[v287];
+    *&v386 = *(&v386 + 1);
     if (*&__p[24] && atomic_fetch_add(*&__p[24], 0xFFFFFFFF) == 1)
     {
       cv::Mat::deallocate(__p);
@@ -9004,13 +8996,13 @@ LABEL_402:
     if (*__p <= 0)
     {
       *&__p[24] = 0;
-      *__p = v384;
+      *__p = v383;
     }
 
     else
     {
       v292 = 0;
-      v293 = v396;
+      v293 = v393;
       do
       {
         *&v293[4 * v292++] = 0;
@@ -9018,55 +9010,55 @@ LABEL_402:
 
       while (v292 < *&__p[4]);
       *&__p[24] = 0;
-      *__p = v384;
+      *__p = v383;
       if (*&__p[4] > 2)
       {
         goto LABEL_325;
       }
     }
 
-    if (v385 <= 2)
+    if (SDWORD1(v383) <= 2)
     {
-      *&__p[4] = v385;
-      *&__p[8] = v386;
-      v294 = v392;
-      v295 = v397;
-      *v397 = *v392;
+      *&__p[4] = DWORD1(v383);
+      *&__p[8] = *(&v383 + 1);
+      v294 = v389;
+      v295 = v394;
+      *v394 = *v389;
       v295[1] = v294[1];
       goto LABEL_326;
     }
 
 LABEL_325:
-    cv::Mat::copySize(__p, &v384);
+    cv::Mat::copySize(__p, &v383);
 LABEL_326:
-    *&__p[40] = v389;
-    *&__p[24] = v388;
-    *&__p[16] = v387;
-    *&__p[56] = v390;
-    if (v388 && atomic_fetch_add(v388, 0xFFFFFFFF) == 1)
+    *&__p[40] = v386;
+    *&__p[24] = v385;
+    *&__p[16] = v384;
+    *&__p[56] = v387;
+    if (v385 && atomic_fetch_add(v385, 0xFFFFFFFF) == 1)
     {
-      cv::Mat::deallocate(&v384);
+      cv::Mat::deallocate(&v383);
     }
 
-    v387 = 0;
-    v389 = 0uLL;
-    *(&v388 + 1) = 0;
-    if (v385 >= 1)
+    v384 = 0;
+    v386 = 0uLL;
+    *(&v385 + 1) = 0;
+    if (SDWORD1(v383) >= 1)
     {
       v296 = 0;
-      v297 = v391;
+      v297 = v388;
       do
       {
-        *(v297 + v296++) = 0;
+        *&v297[4 * v296++] = 0;
       }
 
-      while (v296 < v385);
+      while (v296 < SDWORD1(v383));
     }
 
-    *&v388 = 0;
-    if (v392)
+    *&v385 = 0;
+    if (v389)
     {
-      v298 = v392 == &v393;
+      v298 = v389 == &v390;
     }
 
     else
@@ -9076,7 +9068,7 @@ LABEL_326:
 
     if (!v298)
     {
-      free(v392);
+      free(v389);
     }
 
     goto LABEL_337;
@@ -9087,16 +9079,16 @@ LABEL_326:
     goto LABEL_135;
   }
 
-  v34 = v400;
-  v35 = v407 >> 2;
-  v36 = v424;
-  v37 = v431 >> 2;
-  v38 = v415;
-  v39 = v422 >> 2;
-  v40 = *&v408[1];
-  if (*&v408[1])
+  v34 = v397;
+  v35 = v404 >> 2;
+  v36 = v421;
+  v37 = v428 >> 2;
+  v38 = v412;
+  v39 = v419 >> 2;
+  v40 = *&v405[1];
+  if (*&v405[1])
   {
-    v41 = v411[0] >> 2;
+    v41 = v408[0] >> 2;
   }
 
   else
@@ -9104,7 +9096,7 @@ LABEL_326:
     v41 = 0;
   }
 
-  if (!*&v408[1])
+  if (!*&v405[1])
   {
     v40 = &cv::gemm(cv::_InputArray const&,cv::_InputArray const&,double,cv::_InputArray const&,double,cv::_OutputArray const&,int)::zerof;
   }
@@ -9113,17 +9105,17 @@ LABEL_326:
   {
     if (v27 == 3)
     {
-      if (v25 == 3 && v415 != v400)
+      if (v25 == 3 && v412 != v397)
       {
         if (v30 >= 1)
         {
-          v42 = v415 + v39;
-          v43 = &v415[v39];
+          v42 = v412 + v39;
+          v43 = &v412[v39];
           v44 = v40 + 2;
           v45 = 4 * v41;
-          v46 = (v424 + 1);
+          v46 = (v421 + 1);
           v47 = 4 * v37;
-          v48 = (v400 + 8);
+          v48 = (v397 + 8);
           v49 = 4 * v35;
           v50 = (2 * v39) | 1;
           do
@@ -9151,7 +9143,7 @@ LABEL_326:
         goto LABEL_239;
       }
 
-      if (v424 != v400)
+      if (v421 != v397)
       {
         if (v40 == &cv::gemm(cv::_InputArray const&,cv::_InputArray const&,double,cv::_InputArray const&,double,cv::_OutputArray const&,int)::zerof)
         {
@@ -9166,14 +9158,14 @@ LABEL_326:
         if (v25 >= 1)
         {
           v144 = 0;
-          v145 = v424 + v37;
-          v146 = &v424[v37];
+          v145 = v421 + v37;
+          v146 = &v421[v37];
           v147 = (2 * v37) | 1;
-          v148 = v400 + 4 * v35;
-          v149 = v400 + 8 * v35;
-          v150 = v415 + 4 * v39;
+          v148 = v397 + 4 * v35;
+          v149 = v397 + 8 * v35;
+          v150 = v412 + 4 * v39;
           v151 = 4 * (v40 != &cv::gemm(cv::_InputArray const&,cv::_InputArray const&,double,cv::_InputArray const&,double,cv::_OutputArray const&,int)::zerof);
-          v152 = &v415[v39];
+          v152 = &v412[v39];
           do
           {
             v153 = v38[v144];
@@ -9200,16 +9192,16 @@ LABEL_326:
       goto LABEL_135;
     }
 
-    if (v25 == 2 && v415 != v400)
+    if (v25 == 2 && v412 != v397)
     {
       if (v30 >= 1)
       {
         v123 = 4 * v35;
-        v124 = (v400 + 4);
-        v125 = v424 + 1;
+        v124 = (v397 + 4);
+        v125 = v421 + 1;
         v126 = 4 * v37;
         v127 = v40 + 1;
-        v128 = v415 + v39;
+        v128 = v412 + v39;
         do
         {
           v129 = *(v125 - 1);
@@ -9231,7 +9223,7 @@ LABEL_326:
       goto LABEL_239;
     }
 
-    if (v424 != v400)
+    if (v421 != v397)
     {
       if (v40 == &cv::gemm(cv::_InputArray const&,cv::_InputArray const&,double,cv::_InputArray const&,double,cv::_OutputArray const&,int)::zerof)
       {
@@ -9246,7 +9238,7 @@ LABEL_326:
       if (v25 >= 1)
       {
         v227 = 4 * (v40 != &cv::gemm(cv::_InputArray const&,cv::_InputArray const&,double,cv::_InputArray const&,double,cv::_OutputArray const&,int)::zerof);
-        v228 = v424 + v37;
+        v228 = v421 + v37;
         do
         {
           v229 = v38[v39];
@@ -9272,9 +9264,9 @@ LABEL_135:
     goto LABEL_136;
   }
 
-  if (v25 != 4 || v415 == v400)
+  if (v25 != 4 || v412 == v397)
   {
-    if (v424 == v400)
+    if (v421 == v397)
     {
       goto LABEL_135;
     }
@@ -9292,18 +9284,18 @@ LABEL_135:
     if (v25 >= 1)
     {
       v179 = 0;
-      v180 = v424 + v37;
-      v181 = &v424[v37];
+      v180 = v421 + v37;
+      v181 = &v421[v37];
       v182 = (2 * v37) | 1;
-      v183 = v424 + 3 * v37;
+      v183 = v421 + 3 * v37;
       v184 = v25;
-      v185 = v400 + 4 * v35;
-      v186 = v400 + 8 * v35;
-      v187 = v400 + 12 * v35;
-      v188 = v415 + 4 * v39;
-      v189 = v415 + 12 * v39;
+      v185 = v397 + 4 * v35;
+      v186 = v397 + 8 * v35;
+      v187 = v397 + 12 * v35;
+      v188 = v412 + 4 * v39;
+      v189 = v412 + 12 * v39;
       v190 = 4 * (v40 != &cv::gemm(cv::_InputArray const&,cv::_InputArray const&,double,cv::_InputArray const&,double,cv::_OutputArray const&,int)::zerof);
-      v191 = &v415[v39];
+      v191 = &v412[v39];
       do
       {
         v192 = v38[v179];
@@ -9331,14 +9323,14 @@ LABEL_135:
 
   else if (v30 >= 1)
   {
-    v81 = v415 + v39;
-    v82 = v415 + 3 * v39;
+    v81 = v412 + v39;
+    v82 = v412 + 3 * v39;
     v83 = 4 * v41;
     v84 = 4 * v37;
     v85 = v40 + 2;
-    v86 = (v424 + 1);
-    v87 = (v400 + 8);
-    v88 = &v415[v39];
+    v86 = (v421 + 1);
+    v87 = (v397 + 8);
+    v88 = &v412[v39];
     v89 = 4 * v35;
     v90 = (2 * v39) | 1;
     do
@@ -9370,31 +9362,31 @@ LABEL_135:
   }
 
 LABEL_239:
-  if (v401 && atomic_fetch_add(v401, 0xFFFFFFFF) == 1)
+  if (v398 && atomic_fetch_add(v398, 0xFFFFFFFF) == 1)
   {
-    cv::Mat::deallocate(v399);
+    cv::Mat::deallocate(&v396);
   }
 
+  v397 = 0;
+  v399 = 0;
+  v401 = 0;
   v400 = 0;
-  v402 = 0;
-  v404 = 0;
-  v403 = 0;
-  if (SHIDWORD(v399[0]) >= 1)
+  if (SDWORD1(v396) >= 1)
   {
     v267 = 0;
-    v268 = v405;
+    v268 = v402;
     do
     {
       *(v268 + 4 * v267++) = 0;
     }
 
-    while (v267 < SHIDWORD(v399[0]));
+    while (v267 < SDWORD1(v396));
   }
 
-  v401 = 0;
-  if (v406)
+  v398 = 0;
+  if (v403)
   {
-    v269 = v406 == &v407;
+    v269 = v403 == &v404;
   }
 
   else
@@ -9404,32 +9396,32 @@ LABEL_239:
 
   if (!v269)
   {
-    free(v406);
+    free(v403);
   }
 
-  if (*(&v408[1] + 1) && atomic_fetch_add(*(&v408[1] + 1), 0xFFFFFFFF) == 1)
+  if (*(&v405[1] + 1) && atomic_fetch_add(*(&v405[1] + 1), 0xFFFFFFFF) == 1)
   {
-    cv::Mat::deallocate(v408);
+    cv::Mat::deallocate(v405);
   }
 
-  *&v408[1] = 0;
-  memset(&v408[2], 0, 24);
-  if (SDWORD1(v408[0]) >= 1)
+  *&v405[1] = 0;
+  memset(&v405[2], 0, 24);
+  if (SDWORD1(v405[0]) >= 1)
   {
     v270 = 0;
-    v271 = v409;
+    v271 = v406;
     do
     {
       *&v271[4 * v270++] = 0;
     }
 
-    while (v270 < SDWORD1(v408[0]));
+    while (v270 < SDWORD1(v405[0]));
   }
 
-  *(&v408[1] + 1) = 0;
-  if (v410)
+  *(&v405[1] + 1) = 0;
+  if (v407)
   {
-    v272 = v410 == v411;
+    v272 = v407 == v408;
   }
 
   else
@@ -9439,34 +9431,34 @@ LABEL_239:
 
   if (!v272)
   {
-    free(v410);
+    free(v407);
   }
 
-  if (v416 && atomic_fetch_add(v416, 0xFFFFFFFF) == 1)
+  if (v413 && atomic_fetch_add(v413, 0xFFFFFFFF) == 1)
   {
-    cv::Mat::deallocate(&v412);
+    cv::Mat::deallocate(&v409);
   }
 
+  v412 = 0;
+  v414 = 0;
+  v416 = 0;
   v415 = 0;
-  v417 = 0;
-  v419 = 0;
-  v418 = 0;
-  if (SHIDWORD(v412) >= 1)
+  if (SHIDWORD(v409) >= 1)
   {
     v273 = 0;
-    v274 = v420;
+    v274 = v417;
     do
     {
       *(v274 + 4 * v273++) = 0;
     }
 
-    while (v273 < SHIDWORD(v412));
+    while (v273 < SHIDWORD(v409));
   }
 
-  v416 = 0;
-  if (v421)
+  v413 = 0;
+  if (v418)
   {
-    v275 = v421 == &v422;
+    v275 = v418 == &v419;
   }
 
   else
@@ -9476,34 +9468,34 @@ LABEL_239:
 
   if (!v275)
   {
-    free(v421);
+    free(v418);
   }
 
-  if (v425 && atomic_fetch_add(v425, 0xFFFFFFFF) == 1)
+  if (v422 && atomic_fetch_add(v422, 0xFFFFFFFF) == 1)
   {
-    cv::Mat::deallocate(v423);
+    cv::Mat::deallocate(v420);
   }
 
+  v421 = 0;
+  v423 = 0;
+  v425 = 0;
   v424 = 0;
-  v426 = 0;
-  v428 = 0;
-  v427 = 0;
-  if (SHIDWORD(v423[0]) >= 1)
+  if (SHIDWORD(v420[0]) >= 1)
   {
     v276 = 0;
-    v277 = v429;
+    v277 = v426;
     do
     {
       v277[v276++] = 0;
     }
 
-    while (v276 < SHIDWORD(v423[0]));
+    while (v276 < SHIDWORD(v420[0]));
   }
 
-  v425 = 0;
-  if (v430)
+  v422 = 0;
+  if (v427)
   {
-    v278 = v430 == &v431;
+    v278 = v427 == &v428;
   }
 
   else
@@ -9513,7 +9505,7 @@ LABEL_239:
 
   if (!v278)
   {
-    free(v430);
+    free(v427);
   }
 }
 
@@ -9527,9 +9519,9 @@ void sub_22D24A0D0(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t cv::GEMMSingleMul_32f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int *a9, int *a10, char a11)
+_BYTE *cv::GEMMSingleMul_32f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int *a9, unsigned int *a10, char a11)
 {
-  v11 = MEMORY[0x28223BE20](a1, a2);
+  v11 = MEMORY[0x28223BE20](a1);
   v19 = v18;
   v20 = v14;
   v22 = v21;

@@ -3,6 +3,8 @@
 - (BOOL)isInsightEnabled:(id)enabled;
 - (HUDUserClientInsightsWindow)initWithFrame:(CGRect)frame;
 - (id)addInsightGroup:(id)group;
+- (void)addInsight:(HUDInsightDescriptor *)insight isPrototype:(BOOL)prototype;
+- (void)enableInsight:(id)insight enabled:(BOOL)enabled;
 @end
 
 @implementation HUDUserClientInsightsWindow
@@ -48,42 +50,119 @@
   return v5;
 }
 
+- (void)addInsight:(HUDInsightDescriptor *)insight isPrototype:(BOOL)prototype
+{
+  prototypeCopy = prototype;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v7 = [(NSMutableDictionary *)selfCopy->_insightMap objectForKeyedSubscript:insight->identifier];
+  v8 = v7;
+  if (!v7 || prototypeCopy)
+  {
+    v27 = [(NSMutableDictionary *)selfCopy->_insightMap objectForKeyedSubscript:insight->identifier];
+
+    if (!v27)
+    {
+      category = insight->category;
+      if (!category)
+      {
+        category = @"Other Insights";
+      }
+
+      v29 = category;
+      v30 = [(HUDUserClientInsightsWindow *)selfCopy addInsightGroup:v29];
+      v31 = [HUDUserClientInsight alloc];
+      prototypeCopy = [(HUDUserClientInsight *)v31 initWithDescriptor:insight timeOut:(*(HUDGetGlobalConfig(v31 isPrototype:v32) + 30) * 1000000000.0), prototypeCopy];
+      insights = [v30 insights];
+      [insights addObject:prototypeCopy];
+
+      [(NSMutableDictionary *)selfCopy->_insightMap setObject:prototypeCopy forKeyedSubscript:insight->identifier];
+    }
+  }
+
+  else
+  {
+    v9 = [v7 update:insight];
+    if ((insight->options & 2) == 0 || MTLHudIsInternalInstall(v9, v10))
+    {
+      v11 = +[_CADeveloperHUDProperties instance];
+      frameMarker = [v11 frameMarker];
+
+      v14 = HUDSignpostGetOSLog(1, v13);
+      v15 = os_signpost_enabled(v14);
+
+      if (v15)
+      {
+        v17 = HUDSignpostGetOSLog(1, v16);
+        if (os_signpost_enabled(v17))
+        {
+          v18 = HUDCurrentTimeInNs();
+          v20 = [NSString stringWithFormat:@"+%.2fs", (v18 - *(HUDGetGlobalConfig(v18, v19) + 19)) / 1000000000.0];
+          GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v20, v21);
+          CurrentFrame = HUDGPUTimeTrackerGetCurrentFrame(GlobalInstance);
+          identifier = insight->identifier;
+          message = insight->message;
+          v26 = @"none";
+          if (frameMarker)
+          {
+            v26 = frameMarker;
+          }
+
+          *buf = 138544386;
+          v36 = v20;
+          v37 = 2050;
+          v38 = CurrentFrame;
+          v39 = 2114;
+          v40 = identifier;
+          v41 = 2114;
+          v42 = message;
+          v43 = 2114;
+          v44 = v26;
+          _os_signpost_emit_with_name_impl(&dword_0, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NewInsight", "time: %{public, name=time}@\nframe: %{public, name=frame}zu\nidentifier: %{public, name=identifier}@\nmessage: %{public, name=message}@\nmarker: %{public, name=marker}@", buf, 0x34u);
+        }
+      }
+    }
+  }
+
+  objc_sync_exit(selfCopy);
+}
+
 - (BOOL)draw:(HUDMTLLayerState *)draw drawableState:(HUDMTLLayerDrawableState *)state fontSize:(int)size frame:(id)frame width:(float *)width height:(float *)height
 {
   heightCopy = height;
-  GlobalOverlay = HUDMTLOverlayGetGlobalOverlay();
-  v61 = 0;
-  HUDUIFrameGetSizeInPoints(frame.var0, &v61 + 1, &v61);
+  GlobalOverlay = HUDMTLOverlayGetGlobalOverlay(self, a2);
+  v59 = 0;
+  HUDUIFrameGetSizeInPoints(frame.var0, &v59 + 1, &v59);
   v10 = objc_opt_new();
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v55 = 0u;
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
-  v60 = 0u;
   v12 = selfCopy->_insightGroups;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v57 objects:v62 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v55 objects:v60 count:16];
   if (v13)
   {
-    v14 = *v58;
+    v14 = *v56;
     do
     {
       v15 = 0;
       do
       {
-        if (*v58 != v14)
+        if (*v56 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        insights = [*(*(&v57 + 1) + 8 * v15) insights];
+        insights = [*(*(&v55 + 1) + 8 * v15) insights];
         [v10 addObjectsFromArray:insights];
 
         v15 = v15 + 1;
       }
 
       while (v13 != v15);
-      v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v57 objects:v62 count:16];
+      v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v55 objects:v60 count:16];
     }
 
     while (v13);
@@ -92,63 +171,61 @@
   objc_sync_exit(selfCopy);
   if ([v10 count])
   {
-    *&v17 = HIDWORD(v61);
-    LODWORD(v18) = 1333788672;
-    LODWORD(v19) = HUDUIRectMake(0.0, 0.0, v17, v18).n128_u32[0];
-    v55 = HUDUIInvalidString;
-    v56 = qword_784F8;
-    HUDUIFrameBeginWindow(frame.var0, &v55, -1291845632, 1, v19, v20, v21, v22, 15.0);
-    v23 = HUDCurrentTimeInNs();
+    HUDUIRectMake();
+    v53 = HUDUIInvalidString;
+    v54 = qword_784F8;
+    HUDUIFrameBeginWindow(frame.var0, &v53, 3003121664, 1, v17, v18, v19, v20, 15.0);
+    v21 = HUDCurrentTimeInNs();
     reverseObjectEnumerator = [v10 reverseObjectEnumerator];
     [reverseObjectEnumerator nextObject];
-    v26 = v25 = 0;
-    if (v26)
+    v24 = v23 = 0;
+    if (v24)
     {
       do
       {
-        v27 = v23 - [v26 timeUpdated];
-        if (v27 < [v26 timeOut] && objc_msgSend(v26, "enabled") && objc_msgSend(*(objc_msgSend(v26, "descriptor") + 2), "length"))
+        v25 = v21 - [v24 timeUpdated];
+        if (v25 < [v24 timeOut] && objc_msgSend(v24, "enabled") && objc_msgSend(*(objc_msgSend(v24, "descriptor") + 2), "length"))
         {
-          v55 = 0uLL;
-          v56 = 0;
-          HUDUIWrappedTemporaryString([*(objc_msgSend(v26 "descriptor") + 2)], frame.var0, size, &v55, (HIDWORD(v61) - 30), 99.0);
-          v52 = v55;
-          v53 = v56;
+          v53 = 0uLL;
           v54 = 0;
-          HUDUIWindowGetLabelSize(frame.var0, &v52, &v54 + 1, &v54);
-          v28 = HUDUIWindowBeginRow(frame.var0, *&v54);
-          v29 = *&v28;
+          HUDUIWrappedTemporaryString([*(objc_msgSend(v24 "descriptor") + 2)], frame.var0, size, &v53, (HIDWORD(v59) - 30), 99.0);
+          v50 = v53;
+          v51 = v54;
+          v52 = 0;
+          HUDUIWindowGetLabelSize(frame.var0, &v50, &v52 + 1, &v52);
+          v26 = HUDUIWindowBeginRow(frame.var0);
+          v27 = *&v26;
+          v29 = v28;
           v31 = v30;
           v33 = v32;
-          v35 = v34;
-          *width = fmaxf(*(&v54 + 1), *width);
-          if (v27 >= ((([v26 timeOut] * 0xCCCCCCCCCCCCCCCDLL) >> 64) & 0xFFFFFFFFFFFFFFFCLL))
+          *width = fmaxf(*(&v52 + 1), *width);
+          if (v25 >= ((([v24 timeOut] * 0xCCCCCCCCCCCCCCCDLL) >> 64) & 0xFFFFFFFFFFFFFFFCLL))
           {
-            timeOut = [v26 timeOut];
-            v38 = (v27 - (((timeOut * 0xCCCCCCCCCCCCCCCDLL) >> 64) & 0xFFFFFFFFFFFFFFFCLL)) / ([v26 timeOut] / 5);
-            v39 = fmax(1.0 - (v38 * v38), 0.0);
-            v36 = ((v39 * 255.0) << 24) | 0xFFFFFF;
+            timeOut = [v24 timeOut];
+            v36 = (v25 - (((timeOut * 0xCCCCCCCCCCCCCCCDLL) >> 64) & 0xFFFFFFFFFFFFFFFCLL)) / ([v24 timeOut] / 5);
+            v37 = fmax(1.0 - (v36 * v36), 0.0);
+            v34 = ((v37 * 255.0) << 24) | 0xFFFFFF;
           }
 
           else
           {
-            v36 = -1;
+            v34 = -1;
           }
 
-          HUDUIAllocUnicodeString(GlobalOverlay, size, @"⚠️", &v52);
-          v50 = v55;
-          v51 = v56;
-          v48 = HUDUIInvalidString;
-          v49 = qword_784F8;
-          LODWORD(v40) = v35;
-          HUDUIWindowAddLabelKeyValuePair2LA(frame.var0, &v52, v36, &v50, v36, &v48, v36, v29, v31, v33, v40);
+          HUDUIAllocUnicodeString(GlobalOverlay, size, @"⚠️", &v50);
+          v48 = v53;
+          v49 = v54;
+          v46 = HUDUIInvalidString;
+          v47 = qword_784F8;
+          LODWORD(v38) = v33;
+          HUDUIWindowAddLabelKeyValuePair2LA(frame.var0, &v50, v34, &v48, v34, &v46, v34, v27, v29, v31, v38);
           HUDUIWindowEmptyRow(frame.var0, 6.0);
-          v25 = 1;
+          v23 = 1;
         }
 
         nextObject = [reverseObjectEnumerator nextObject];
 
-        v26 = nextObject;
+        v24 = nextObject;
       }
 
       while (nextObject);
@@ -167,10 +244,22 @@
 
   else
   {
-    v25 = 0;
+    v23 = 0;
   }
 
-  return v25 & 1;
+  return v23 & 1;
+}
+
+- (void)enableInsight:(id)insight enabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = [(NSMutableDictionary *)self->_insightMap objectForKeyedSubscript:insight];
+  if (v5)
+  {
+    v6 = v5;
+    [v5 setEnabled:enabledCopy];
+    v5 = v6;
+  }
 }
 
 - (BOOL)isInsightEnabled:(id)enabled

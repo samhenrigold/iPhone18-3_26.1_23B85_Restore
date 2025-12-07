@@ -1,5 +1,8 @@
 @interface OrgXmlSaxHelpersParserAdapter_AttributeListAdapter
+- (id)getQNameWithInt:(int)int;
+- (id)getTypeWithInt:(int)int;
 - (id)getTypeWithNSString:(id)string;
+- (id)getValueWithInt:(int)int;
 - (id)getValueWithNSString:(id)string;
 - (int)getIndexWithNSString:(id)string;
 - (int)getLength;
@@ -18,6 +21,39 @@
   }
 
   return [(OrgXmlSaxAttributeList *)qAtts getLength];
+}
+
+- (id)getQNameWithInt:(int)int
+{
+  qAtts = self->qAtts_;
+  if (!qAtts || (v4 = [(OrgXmlSaxAttributeList *)qAtts getNameWithInt:*&int]) == 0)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [v4 intern];
+}
+
+- (id)getTypeWithInt:(int)int
+{
+  qAtts = self->qAtts_;
+  if (!qAtts || (v4 = [(OrgXmlSaxAttributeList *)qAtts getTypeWithInt:*&int]) == 0)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [v4 intern];
+}
+
+- (id)getValueWithInt:(int)int
+{
+  qAtts = self->qAtts_;
+  if (!qAtts)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgXmlSaxAttributeList *)qAtts getValueWithInt:*&int];
 }
 
 - (int)getIndexWithNSString:(id)string

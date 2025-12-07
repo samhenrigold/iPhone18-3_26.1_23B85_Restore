@@ -418,12 +418,12 @@ void __captureDeferredPhotoProcessor_ProcessPhoto_block_invoke(uint64_t a1)
   _Block_object_dispose(&v91, 8);
 }
 
-uint64_t __captureDeferredPhotoProcessor_ProcessPhoto_block_invoke_189(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__captureDeferredPhotoProcessor_ProcessPhoto_block_invoke_189(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  result = [objc_msgSend(a2 "captureRequestIdentifier")];
+  result = objc_msgSend_isEqualToString_([a2 captureRequestIdentifier]);
   if (result)
   {
-    result = [objc_msgSend(a2 "photoIdentifier")];
+    result = objc_msgSend_isEqualToString_([a2 photoIdentifier]);
     if (result)
     {
       *(*(a1[4] + 8) + 24) = a3;

@@ -174,31 +174,31 @@
 
     if (v6 | v8)
     {
-      v17.receiver = self;
-      v17.super_class = RBSHereditaryGrant;
-      v11 = [(RBSAttribute *)&v17 initWithRBSXPCCoder:coderCopy];
-      v12 = v11;
-      if (v11)
+      v18.receiver = self;
+      v18.super_class = RBSHereditaryGrant;
+      v12 = [(RBSAttribute *)&v18 initWithRBSXPCCoder:coderCopy];
+      v13 = v12;
+      if (v12)
       {
-        objc_storeStrong(&v11->_endowmentNamespace, v5);
-        objc_storeStrong(&v12->_sourceEnvironment, v6);
-        objc_storeStrong(&v12->_encodedEndowment, v8);
-        v13 = objc_opt_class();
-        v14 = [coderCopy decodeCollectionOfClass:v13 containingClass:objc_opt_class() forKey:@"_attributes"];
-        attributes = v12->_attributes;
-        v12->_attributes = v14;
+        objc_storeStrong(&v12->_endowmentNamespace, v5);
+        objc_storeStrong(&v13->_sourceEnvironment, v6);
+        objc_storeStrong(&v13->_encodedEndowment, v8);
+        v14 = objc_opt_class();
+        v15 = [coderCopy decodeCollectionOfClass:v14 containingClass:objc_opt_class() forKey:@"_attributes"];
+        attributes = v13->_attributes;
+        v13->_attributes = v15;
       }
 
-      self = v12;
+      self = v13;
       selfCopy = self;
     }
 
     else
     {
-      v9 = rbs_assertion_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = rbs_assertion_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [(RBSHereditaryGrant *)self initWithRBSXPCCoder:v9];
+        [(RBSHereditaryGrant *)self initWithRBSXPCCoder:v10];
       }
 
       selfCopy = 0;
@@ -207,7 +207,7 @@
 
   else
   {
-    v6 = rbs_assertion_log();
+    v6 = rbs_assertion_log(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(RBSHereditaryGrant *)self initWithRBSXPCCoder:v6];
@@ -292,20 +292,18 @@
 
 - (void)initWithRBSXPCCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_ERROR, "RBSHereditaryGrant is missing both source environment and endowment: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_ERROR, "RBSHereditaryGrant is missing both source environment and endowment: %@", &v2, 0xCu);
 }
 
 - (void)initWithRBSXPCCoder:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_ERROR, "RBSHereditaryGrant has no namespace: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_ERROR, "RBSHereditaryGrant has no namespace: %@", &v2, 0xCu);
 }
 
 @end

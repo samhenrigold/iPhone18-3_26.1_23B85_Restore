@@ -45,7 +45,7 @@ id __66__SSSDittoRootViewControllerAccessibility_dittoDismissTimerFired___block_
   return objc_msgSendSuper2(&v3, sel_dittoDismissTimerFired_, v1);
 }
 
-uint64_t __66__SSSDittoRootViewControllerAccessibility_dittoDismissTimerFired___block_invoke_2(uint64_t a1)
+void *__66__SSSDittoRootViewControllerAccessibility_dittoDismissTimerFired___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) safeIntegerForKey:@"state"];
   if (!result)

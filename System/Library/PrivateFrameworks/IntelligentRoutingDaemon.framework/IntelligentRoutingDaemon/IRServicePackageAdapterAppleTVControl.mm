@@ -157,7 +157,7 @@ uint64_t __179__IRServicePackageAdapterAppleTVControl_generateClassificationsWit
 
 - (id)_rules
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = [[IRRuleCandidate alloc] initWithAttributeKey:@"kIRRuleCandidateActiveRouteKey" requireAllNodes:0];
   [v2 setObject:v3 forKeyedSubscript:@"AppleTVControl_Active_route"];
@@ -170,8 +170,8 @@ uint64_t __179__IRServicePackageAdapterAppleTVControl_generateClassificationsWit
   [(IRRuleHistoryPattern *)v5 setEventsToWatch:v6];
 
   v7 = MEMORY[0x277CBEB98];
-  v41[0] = @"kIRRuleHistoryPatternFilterIsSameMilo";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
+  v40[0] = @"kIRRuleHistoryPatternFilterIsSameMilo";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
   v9 = [v7 setWithArray:v8];
   [(IRRuleHistoryPattern *)v5 setFilters:v9];
 
@@ -191,8 +191,8 @@ uint64_t __179__IRServicePackageAdapterAppleTVControl_generateClassificationsWit
   [(IRRuleHistoryPattern *)v12 setEventsToWatch:v13];
 
   v14 = MEMORY[0x277CBEB98];
-  v40 = @"kIRRuleHistoryPatternFilterIsSameMilo";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+  v39 = @"kIRRuleHistoryPatternFilterIsSameMilo";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
   v16 = [v14 setWithArray:v15];
   [(IRRuleHistoryPattern *)v12 setFilters:v16];
 
@@ -221,8 +221,8 @@ uint64_t __179__IRServicePackageAdapterAppleTVControl_generateClassificationsWit
   [(IRRuleHistoryPattern *)v20 setEventsToWatch:v21];
 
   v22 = MEMORY[0x277CBEB98];
-  v39 = @"kIRRuleHistoryPatternFilterIsSameLoi";
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
+  v38 = @"kIRRuleHistoryPatternFilterIsSameLoi";
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
   v24 = [v22 setWithArray:v23];
   [(IRRuleHistoryPattern *)v20 setFilters:v24];
 
@@ -235,14 +235,14 @@ uint64_t __179__IRServicePackageAdapterAppleTVControl_generateClassificationsWit
 
   v26 = MEMORY[0x277CBEB98];
   v27 = [IREventDO eventDOWithAppleTVControlType:5];
-  v38 = v27;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+  v37 = v27;
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
   v29 = [v26 setWithArray:v28];
   [(IRRuleHistoryPattern *)v25 setEventsToWatch:v29];
 
   v30 = MEMORY[0x277CBEB98];
-  v37 = @"kIRRuleHistoryPatternFilterIsSameDay";
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+  v36 = @"kIRRuleHistoryPatternFilterIsSameDay";
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
   v32 = [v30 setWithArray:v31];
   [(IRRuleHistoryPattern *)v25 setFilters:v32];
 
@@ -256,7 +256,6 @@ uint64_t __179__IRServicePackageAdapterAppleTVControl_generateClassificationsWit
   [v2 setObject:v33 forKeyedSubscript:@"AppleTVControl_Candidate_was_rejected_in_last_day_no_picker"];
 
   v34 = [v2 copy];
-  v35 = *MEMORY[0x277D85DE8];
 
   return v34;
 }
@@ -454,25 +453,12 @@ LABEL_7:
   evaluation = [v9 evaluation];
   hasBoolean = [evaluation hasBoolean];
 
-  if (hasBoolean)
+  if ((hasBoolean & 1) != 0 || (v7 = @"AppleTVControl_Long_term_pattern", [candidateCopy logOrderOfExecution:evaluated withRuleKey:@"AppleTVControl_Long_term_pattern" ruleType:@"Positive"], objc_msgSend(candidateCopy, "ruleInspections"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "objectForKeyedSubscript:", @"AppleTVControl_Long_term_pattern"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "evaluation"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "hasBoolean"), v14, v13, v12, v15))
   {
-    goto LABEL_3;
-  }
-
-  v7 = @"AppleTVControl_Long_term_pattern";
-  [candidateCopy logOrderOfExecution:evaluated withRuleKey:@"AppleTVControl_Long_term_pattern" ruleType:@"Positive"];
-  ruleInspections2 = [candidateCopy ruleInspections];
-  v13 = [ruleInspections2 objectForKeyedSubscript:@"AppleTVControl_Long_term_pattern"];
-  evaluation2 = [v13 evaluation];
-  hasBoolean2 = [evaluation2 hasBoolean];
-
-  if (hasBoolean2)
-  {
-LABEL_3:
-    ruleInspections3 = [candidateCopy ruleInspections];
-    v17 = [ruleInspections3 objectForKeyedSubscript:v7];
-    evaluation3 = [v17 evaluation];
-    -[IRServicePackageAdapterClassification setIsValid:](v6, "setIsValid:", [evaluation3 BOOLean]);
+    ruleInspections2 = [candidateCopy ruleInspections];
+    v17 = [ruleInspections2 objectForKeyedSubscript:v7];
+    evaluation2 = [v17 evaluation];
+    -[IRServicePackageAdapterClassification setIsValid:](v6, "setIsValid:", [evaluation2 BOOLean]);
 
     [(IRServicePackageAdapterClassification *)v6 setDetailedDesc:v7];
   }
@@ -549,20 +535,8 @@ LABEL_9:
   evaluation = [v9 evaluation];
   bOOLean = [evaluation BOOLean];
 
-  if (bOOLean)
+  if (bOOLean || ([candidateCopy logOrderOfExecution:evaluated withRuleKey:@"AppleTVControl_Candidate_was_rejected_in_last_day_no_picker" ruleType:@"Negative"], objc_msgSend(candidateCopy, "ruleInspections"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "objectForKeyedSubscript:", @"AppleTVControl_Candidate_was_rejected_in_last_day_no_picker"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "evaluation"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "BOOLean"), v14, v13, v12, v15))
   {
-    goto LABEL_3;
-  }
-
-  [candidateCopy logOrderOfExecution:evaluated withRuleKey:@"AppleTVControl_Candidate_was_rejected_in_last_day_no_picker" ruleType:@"Negative"];
-  ruleInspections2 = [candidateCopy ruleInspections];
-  v13 = [ruleInspections2 objectForKeyedSubscript:@"AppleTVControl_Candidate_was_rejected_in_last_day_no_picker"];
-  evaluation2 = [v13 evaluation];
-  bOOLean2 = [evaluation2 BOOLean];
-
-  if (bOOLean2)
-  {
-LABEL_3:
     v16 = v7;
   }
 
@@ -649,17 +623,17 @@ LABEL_3:
 
 - (id)filterHistory:(id)history withCandidatesContainer:(id)container
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   historyCopy = history;
   v5 = MEMORY[0x277CBEB18];
-  v44 = historyCopy;
+  v43 = historyCopy;
   historyEvents = [historyCopy historyEvents];
   v7 = [v5 arrayWithArray:historyEvents];
 
   v8 = +[IREventDO atvUserInteractionEvents];
-  v46 = [v8 compactMap:&__block_literal_global_96];
+  v45 = [v8 compactMap:&__block_literal_global_96];
 
-  v45 = objc_opt_new();
+  v44 = objc_opt_new();
   if ([v7 count])
   {
     v9 = 0;
@@ -670,7 +644,7 @@ LABEL_3:
       v12 = [v7 objectAtIndexedSubscript:v9];
       event = [v12 event];
       v14 = [v11 numberWithLongLong:{objc_msgSend(event, "eventType")}];
-      v15 = [v46 containsObject:v14];
+      v15 = [v45 containsObject:v14];
 
       if (v15)
       {
@@ -697,12 +671,12 @@ LABEL_3:
           v28 = [v7 objectAtIndexedSubscript:v16];
           event2 = [v28 event];
           v30 = [v27 numberWithLongLong:{objc_msgSend(event2, "eventType")}];
-          v31 = [v46 containsObject:v30];
+          v31 = [v45 containsObject:v30];
 
           ++v16;
           if (v31)
           {
-            [v45 addIndex:v9];
+            [v44 addIndex:v9];
             break;
           }
         }
@@ -715,32 +689,30 @@ LABEL_3:
     while (v9 < [v7 count]);
   }
 
-  [v7 removeObjectsAtIndexes:v45];
+  [v7 removeObjectsAtIndexes:v44];
   v32 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v33 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
     v34 = MEMORY[0x277CCABB0];
     v35 = v33;
-    historyEvents2 = [v44 historyEvents];
+    historyEvents2 = [v43 historyEvents];
     v37 = [v34 numberWithUnsignedInteger:{objc_msgSend(historyEvents2, "count")}];
     v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v7, "count")}];
     *buf = 136315906;
-    v48 = "#service-package-adapter-apple-tv-control, ";
-    v49 = 2112;
-    v50 = v32;
-    v51 = 2112;
-    v52 = v37;
-    v53 = 2112;
-    v54 = v38;
+    v47 = "#service-package-adapter-apple-tv-control, ";
+    v48 = 2112;
+    v49 = v32;
+    v50 = 2112;
+    v51 = v37;
+    v52 = 2112;
+    v53 = v38;
     _os_log_impl(&dword_25543D000, v35, OS_LOG_TYPE_INFO, "%s[%@], Number of history events before filtering = %@, after filtering = %@", buf, 0x2Au);
   }
 
   v39 = [IRHistoryEventsContainerDO alloc];
   v40 = [v7 copy];
   v41 = [(IRHistoryEventsContainerDO *)v39 initWithHistoryEvents:v40];
-
-  v42 = *MEMORY[0x277D85DE8];
 
   return v41;
 }
@@ -837,7 +809,7 @@ uint64_t __85__IRServicePackageAdapterAppleTVControl_shouldAskForLowLatencyMiLo_
 
 - (id)uiAnalyticsWithEvent:(id)event forCandidateIdentifier:(id)identifier systemStateManager:(id)manager candidatesContainer:(id)container inspections:(id)inspections statisticsManager:(id)statisticsManager service:(id)service historyEventsContainer:(id)self0
 {
-  v121[21] = *MEMORY[0x277D85DE8];
+  v120[21] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   identifierCopy = identifier;
   managerCopy = manager;
@@ -846,21 +818,21 @@ uint64_t __85__IRServicePackageAdapterAppleTVControl_shouldAskForLowLatencyMiLo_
   statisticsManagerCopy = statisticsManager;
   serviceCopy = service;
   eventsContainerCopy = eventsContainer;
-  v58 = inspectionsCopy;
-  v78 = [inspectionsCopy objectForKeyedSubscript:*MEMORY[0x277D21240]];
-  clientIdentifier = [serviceCopy clientIdentifier];
-  if (clientIdentifier)
+  v57 = inspectionsCopy;
+  v77 = [inspectionsCopy objectForKeyedSubscript:*MEMORY[0x277D21240]];
+  v17 = objc_msgSend_clientIdentifier(serviceCopy);
+  if (v17)
   {
-    clientIdentifier2 = [serviceCopy clientIdentifier];
+    v75 = objc_msgSend_clientIdentifier(serviceCopy);
   }
 
   else
   {
-    clientIdentifier2 = &stru_286755D18;
+    v75 = &stru_286755D18;
   }
 
   [eventCopy eventType];
-  v77 = IRAppleTVControlEventTypeToString();
+  v76 = IRAppleTVControlEventTypeToString();
   miloProviderLslPredictionResults = [managerCopy miloProviderLslPredictionResults];
   canUse = [miloProviderLslPredictionResults canUse];
 
@@ -872,7 +844,7 @@ uint64_t __85__IRServicePackageAdapterAppleTVControl_shouldAskForLowLatencyMiLo_
 
   miloProviderLslPredictionResults4 = [managerCopy miloProviderLslPredictionResults];
   scores = [miloProviderLslPredictionResults4 scores];
-  v66 = [scores count];
+  v65 = [scores count];
 
   miloProviderLslPredictionResults5 = [managerCopy miloProviderLslPredictionResults];
   isMapValid = [miloProviderLslPredictionResults5 isMapValid];
@@ -883,53 +855,53 @@ uint64_t __85__IRServicePackageAdapterAppleTVControl_shouldAskForLowLatencyMiLo_
   v28 = v27;
 
   candidates = [containerCopy candidates];
-  v61 = [candidates count];
+  v60 = [candidates count];
 
-  v116 = 0;
-  v117 = &v116;
-  v118 = 0x2020000000;
-  v119 = 0;
-  v112 = 0;
-  v113 = &v112;
-  v114 = 0x2020000000;
   v115 = 0;
-  v108 = 0;
-  v109 = &v108;
-  v110 = 0x2020000000;
+  v116 = &v115;
+  v117 = 0x2020000000;
+  v118 = 0;
   v111 = 0;
-  v104 = 0;
-  v105 = &v104;
-  v106 = 0x2020000000;
+  v112 = &v111;
+  v113 = 0x2020000000;
+  v114 = 0;
   v107 = 0;
-  v98 = 0;
-  v99 = &v98;
-  v100 = 0x3032000000;
-  v101 = __Block_byref_object_copy__7;
-  v102 = __Block_byref_object_dispose__7;
-  v103 = &stru_286755D18;
-  v92 = 0;
-  v93 = &v92;
-  v94 = 0x3032000000;
-  v95 = __Block_byref_object_copy__7;
-  v96 = __Block_byref_object_dispose__7;
-  v97 = &stru_286755D18;
-  candidates2 = [v78 candidates];
-  v84[0] = MEMORY[0x277D85DD0];
-  v84[1] = 3221225472;
-  v84[2] = __198__IRServicePackageAdapterAppleTVControl_IRAnalytics__uiAnalyticsWithEvent_forCandidateIdentifier_systemStateManager_candidatesContainer_inspections_statisticsManager_service_historyEventsContainer___block_invoke;
-  v84[3] = &unk_2797E1A50;
-  v86 = &v116;
-  v87 = &v112;
-  v88 = &v108;
-  v89 = &v104;
-  v75 = identifierCopy;
-  v85 = v75;
-  v90 = &v98;
-  v91 = &v92;
-  [candidates2 enumerateObjectsUsingBlock:v84];
+  v108 = &v107;
+  v109 = 0x2020000000;
+  v110 = 0;
+  v103 = 0;
+  v104 = &v103;
+  v105 = 0x2020000000;
+  v106 = 0;
+  v97 = 0;
+  v98 = &v97;
+  v99 = 0x3032000000;
+  v100 = __Block_byref_object_copy__7;
+  v101 = __Block_byref_object_dispose__7;
+  v102 = &stru_286755D18;
+  v91 = 0;
+  v92 = &v91;
+  v93 = 0x3032000000;
+  v94 = __Block_byref_object_copy__7;
+  v95 = __Block_byref_object_dispose__7;
+  v96 = &stru_286755D18;
+  candidates2 = [v77 candidates];
+  v83[0] = MEMORY[0x277D85DD0];
+  v83[1] = 3221225472;
+  v83[2] = __198__IRServicePackageAdapterAppleTVControl_IRAnalytics__uiAnalyticsWithEvent_forCandidateIdentifier_systemStateManager_candidatesContainer_inspections_statisticsManager_service_historyEventsContainer___block_invoke;
+  v83[3] = &unk_2797E1A50;
+  v85 = &v115;
+  v86 = &v111;
+  v87 = &v107;
+  v88 = &v103;
+  v74 = identifierCopy;
+  v84 = v74;
+  v89 = &v97;
+  v90 = &v91;
+  [candidates2 enumerateObjectsUsingBlock:v83];
 
-  v63 = [containerCopy candidateForCandidateIdentifier:v75];
-  nodes = [v63 nodes];
+  v62 = [containerCopy candidateForCandidateIdentifier:v74];
+  nodes = [v62 nodes];
   LOBYTE(candidates2) = [nodes count] > 1;
 
   if (candidates2)
@@ -939,18 +911,18 @@ uint64_t __85__IRServicePackageAdapterAppleTVControl_shouldAskForLowLatencyMiLo_
 
   else
   {
-    nodes2 = [v63 nodes];
+    nodes2 = [v62 nodes];
     allObjects = [nodes2 allObjects];
     firstObject = [allObjects firstObject];
     avOutputDevice = [firstObject avOutputDevice];
 
     if (avOutputDevice)
     {
-      nodes3 = [v63 nodes];
+      nodes3 = [v62 nodes];
       allObjects2 = [nodes3 allObjects];
       firstObject2 = [allObjects2 firstObject];
       avOutputDevice2 = [firstObject2 avOutputDevice];
-      v65 = IRAVOutputDeviceTypeToString([avOutputDevice2 deviceType]);
+      v64 = IRAVOutputDeviceTypeToString([avOutputDevice2 deviceType]);
 
       goto LABEL_10;
     }
@@ -958,7 +930,7 @@ uint64_t __85__IRServicePackageAdapterAppleTVControl_shouldAskForLowLatencyMiLo_
     v32 = &stru_286755D18;
   }
 
-  v65 = v32;
+  v64 = v32;
 LABEL_10:
   timeToBannerInMilliSeconds = [statisticsManagerCopy timeToBannerInMilliSeconds];
   if (timeToBannerInMilliSeconds)
@@ -985,77 +957,75 @@ LABEL_10:
     v45 = &stru_286755D18;
   }
 
-  v64 = v45;
-  v120[0] = @"UI_Event_Client_Identifier";
-  v120[1] = @"UI_Event_Type";
-  v121[0] = clientIdentifier2;
-  v121[1] = v77;
-  v120[2] = @"UI_Event_Count";
-  v74 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
-  v121[2] = v74;
-  v120[3] = @"UI_Event_MiLo_Available";
-  v73 = [MEMORY[0x277CCABB0] numberWithBool:canUse];
-  v121[3] = v73;
-  v120[4] = @"UI_Event_MiLo_Confidence";
-  v71 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:isPredictionValid];
-  v121[4] = v71;
-  v120[5] = @"UI_Event_Milo_Confidence_Reason";
-  v69 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:isMotionDetected];
-  v121[5] = v69;
-  v120[6] = @"UI_Event_Milo_N_LSL_Items";
-  v67 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v66];
-  v121[6] = v67;
-  v120[7] = @"UI_Event_Milo_Quality";
+  v63 = v45;
+  v119[0] = @"UI_Event_Client_Identifier";
+  v119[1] = @"UI_Event_Type";
+  v120[0] = v75;
+  v120[1] = v76;
+  v119[2] = @"UI_Event_Count";
+  v73 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
+  v120[2] = v73;
+  v119[3] = @"UI_Event_MiLo_Available";
+  v72 = [MEMORY[0x277CCABB0] numberWithBool:canUse];
+  v120[3] = v72;
+  v119[4] = @"UI_Event_MiLo_Confidence";
+  v70 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:isPredictionValid];
+  v120[4] = v70;
+  v119[5] = @"UI_Event_Milo_Confidence_Reason";
+  v68 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:isMotionDetected];
+  v120[5] = v68;
+  v119[6] = @"UI_Event_Milo_N_LSL_Items";
+  v66 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v65];
+  v120[6] = v66;
+  v119[7] = @"UI_Event_Milo_Quality";
   v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:isMapValid];
-  v121[7] = v46;
-  v120[8] = @"UI_Event_Milo_Quality_Reason";
+  v120[7] = v46;
+  v119[8] = @"UI_Event_Milo_Quality_Reason";
   v47 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
-  v121[8] = v47;
-  v120[9] = @"UI_Event_Milo_Time_Since_Prediction";
+  v120[8] = v47;
+  v119[9] = @"UI_Event_Milo_Time_Since_Prediction";
   v48 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:fabs(v28)];
-  v121[9] = v48;
-  v120[10] = @"UI_Event_N_MiLo_Models";
+  v120[9] = v48;
+  v119[10] = @"UI_Event_N_MiLo_Models";
   v49 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
-  v121[10] = v49;
-  v120[11] = @"UI_Event_N_Candidates";
-  v50 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v61];
-  v121[11] = v50;
-  v120[12] = @"UI_Event_N_Candidates_Classified_AutoRoute";
-  v51 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v117[3]];
-  v121[12] = v51;
-  v120[13] = @"UI_Event_N_Candidates_Classified_OneTap";
-  v52 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v113[3]];
-  v121[13] = v52;
-  v120[14] = @"UI_Event_N_Candidates_Classified_TopOfList";
-  v53 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v109[3]];
-  v121[14] = v53;
-  v120[15] = @"UI_Event_N_Candidates_Classified_Filter";
-  v54 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v105[3]];
-  v121[15] = v54;
-  v120[16] = @"UI_Event_Selected_Candidate_Classification";
-  v121[16] = v99[5];
-  v120[17] = @"UI_Event_Selected_Candidate_Rule_Reason";
-  v121[17] = v93[5];
-  v121[18] = v65;
-  v120[18] = @"UI_Event_Selected_Candidate_Type";
-  v120[19] = @"UI_Event_Time_To_Banner_Milli_Seconds";
+  v120[10] = v49;
+  v119[11] = @"UI_Event_N_Candidates";
+  v50 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v60];
+  v120[11] = v50;
+  v119[12] = @"UI_Event_N_Candidates_Classified_AutoRoute";
+  v51 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v116[3]];
+  v120[12] = v51;
+  v119[13] = @"UI_Event_N_Candidates_Classified_OneTap";
+  v52 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v112[3]];
+  v120[13] = v52;
+  v119[14] = @"UI_Event_N_Candidates_Classified_TopOfList";
+  v53 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v108[3]];
+  v120[14] = v53;
+  v119[15] = @"UI_Event_N_Candidates_Classified_Filter";
+  v54 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v104[3]];
+  v120[15] = v54;
+  v119[16] = @"UI_Event_Selected_Candidate_Classification";
+  v120[16] = v98[5];
+  v119[17] = @"UI_Event_Selected_Candidate_Rule_Reason";
+  v120[17] = v92[5];
+  v120[18] = v64;
+  v119[18] = @"UI_Event_Selected_Candidate_Type";
+  v119[19] = @"UI_Event_Time_To_Banner_Milli_Seconds";
   v55 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
-  v120[20] = @"UI_Event_Mobile_Asset_Version";
-  v121[19] = v55;
-  v121[20] = v64;
-  v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v121 forKeys:v120 count:21];
+  v119[20] = @"UI_Event_Mobile_Asset_Version";
+  v120[19] = v55;
+  v120[20] = v63;
+  v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v120 forKeys:v119 count:21];
 
-  _Block_object_dispose(&v92, 8);
-  _Block_object_dispose(&v98, 8);
+  _Block_object_dispose(&v91, 8);
+  _Block_object_dispose(&v97, 8);
 
-  _Block_object_dispose(&v104, 8);
-  _Block_object_dispose(&v108, 8);
-  _Block_object_dispose(&v112, 8);
-  _Block_object_dispose(&v116, 8);
+  _Block_object_dispose(&v103, 8);
+  _Block_object_dispose(&v107, 8);
+  _Block_object_dispose(&v111, 8);
+  _Block_object_dispose(&v115, 8);
 
-  v56 = *MEMORY[0x277D85DE8];
-
-  return v62;
+  return v61;
 }
 
 void __198__IRServicePackageAdapterAppleTVControl_IRAnalytics__uiAnalyticsWithEvent_forCandidateIdentifier_systemStateManager_candidatesContainer_inspections_statisticsManager_service_historyEventsContainer___block_invoke(void *a1, void *a2)

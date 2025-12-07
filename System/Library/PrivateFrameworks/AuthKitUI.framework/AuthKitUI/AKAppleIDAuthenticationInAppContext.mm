@@ -157,7 +157,6 @@
     objc_storeStrong(v19, 0);
   }
 
-  *MEMORY[0x277D85DE8];
   cdpUiProvider = selfCopy->_cdpUiProvider;
 
   return cdpUiProvider;
@@ -266,11 +265,10 @@ void __73__AKAppleIDAuthenticationInAppContext_presentBasicLoginUIWithCompletion
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v6 = 0;
-  objc_storeStrong(&v6, a3);
-  v3 = a1[4];
+  v5 = 0;
+  objc_storeStrong(&v5, a3);
   (*(a1[5] + 16))();
-  objc_storeStrong(&v6, 0);
+  objc_storeStrong(&v5, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -534,55 +532,55 @@ void __91__AKAppleIDAuthenticationInAppContext_presentServerProvidedUIWithConfig
   objc_storeStrong(&v10, 0);
 }
 
-void __91__AKAppleIDAuthenticationInAppContext_presentServerProvidedUIWithConfiguration_completion___block_invoke_3(uint64_t a1)
+double __91__AKAppleIDAuthenticationInAppContext_presentServerProvidedUIWithConfiguration_completion___block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   location[2] = a1;
   location[1] = a1;
-  v8 = [*(a1 + 32) requestType];
-  if (v8)
+  v9 = [*(a1 + 32) requestType];
+  if (v9)
   {
-    if (v8 == 1)
+    if (v9 == 1)
     {
-      v9 = _AKLogSystem();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = _AKLogSystem();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v3 = [*(a1 + 32) request];
-        v2 = [v3 URL];
-        __os_log_helper_16_2_1_8_64(v12, v2);
-        _os_log_impl(&dword_222379000, v9, OS_LOG_TYPE_DEFAULT, "Presenting IDP flow at url: %@", v12, 0xCu);
-        MEMORY[0x277D82BD8](v2);
+        v4 = [*(a1 + 32) request];
+        v3 = [v4 URL];
+        __os_log_helper_16_2_1_8_64(v13, v3);
+        _os_log_impl(&dword_222379000, v10, OS_LOG_TYPE_DEFAULT, "Presenting IDP flow at url: %@", v13, 0xCu);
         MEMORY[0x277D82BD8](v3);
+        MEMORY[0x277D82BD8](v4);
       }
 
-      objc_storeStrong(&v9, 0);
-      v1 = [*(a1 + 40) inAppAuthUIProvider];
-      [v1 presentIDPProvidedUIWithConfiguration:*(a1 + 32) completion:*(a1 + 48)];
-      MEMORY[0x277D82BD8](v1);
+      objc_storeStrong(&v10, 0);
+      v2 = [*(a1 + 40) inAppAuthUIProvider];
+      [v2 presentIDPProvidedUIWithConfiguration:*(a1 + 32) completion:*(a1 + 48)];
+      *&result = MEMORY[0x277D82BD8](v2).n128_u64[0];
     }
   }
 
   else
   {
     location[0] = _AKLogSystem();
-    v10 = OS_LOG_TYPE_DEFAULT;
+    v11 = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(location[0], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [*(a1 + 32) request];
-      v5 = [v6 URL];
-      __os_log_helper_16_2_1_8_64(v13, v5);
-      _os_log_impl(&dword_222379000, location[0], v10, "Presenting RUI flow at url: %@", v13, 0xCu);
-      MEMORY[0x277D82BD8](v5);
+      v7 = [*(a1 + 32) request];
+      v6 = [v7 URL];
+      __os_log_helper_16_2_1_8_64(v14, v6);
+      _os_log_impl(&dword_222379000, location[0], v11, "Presenting RUI flow at url: %@", v14, 0xCu);
       MEMORY[0x277D82BD8](v6);
+      MEMORY[0x277D82BD8](v7);
     }
 
     objc_storeStrong(location, 0);
-    v4 = [*(a1 + 40) inAppAuthUIProvider];
-    [v4 presentServerProvidedUIWithConfiguration:*(a1 + 32) completion:*(a1 + 48)];
-    MEMORY[0x277D82BD8](v4);
+    v5 = [*(a1 + 40) inAppAuthUIProvider];
+    [v5 presentServerProvidedUIWithConfiguration:*(a1 + 32) completion:*(a1 + 48)];
+    *&result = MEMORY[0x277D82BD8](v5).n128_u64[0];
   }
 
-  *MEMORY[0x277D85DE8];
+  return result;
 }
 
 - (void)_dismissServerProvidedUIWithCompletion:(id)completion
@@ -845,9 +843,7 @@ uint64_t __85__AKAppleIDAuthenticationInAppContext_presentNativeRecoveryUIWithCo
   *v2 = v1;
   MEMORY[0x277D82BD8](v3);
   MEMORY[0x277D82BD8](v7);
-  result = [*(*(a1 + 40) + 688) presentNativeRecoveryUIWithCompletion:{*(a1 + 48), MEMORY[0x277D82BD8](v8).n128_f64[0]}];
-  *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 40) + 688) presentNativeRecoveryUIWithCompletion:{*(a1 + 48), MEMORY[0x277D82BD8](v8).n128_f64[0]}];
 }
 
 - (void)dismissNativeRecoveryUIWithCompletion:(id)completion
@@ -1208,21 +1204,19 @@ void __77__AKAppleIDAuthenticationInAppContext_dismissServerProvidedUIWithComple
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, i);
-  v10 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0350] error:0];
-  v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  [MEMORY[0x277CE44D8] encodedElementNameWithDomainPrefix:@"com.apple.remoteui" element:location[0] activeElements:v9];
-  aaf_arrayAsCommaSeperatedString = [v9 aaf_arrayAsCommaSeperatedString];
-  v3 = *MEMORY[0x277CF0328];
-  [v10 setObject:? forKeyedSubscript:?];
-  *&v4 = MEMORY[0x277D82BD8](aaf_arrayAsCommaSeperatedString).n128_u64[0];
+  v8 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0350] error:0];
+  v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  [MEMORY[0x277CE44D8] encodedElementNameWithDomainPrefix:@"com.apple.remoteui" element:location[0] activeElements:v7];
+  aaf_arrayAsCommaSeperatedString = [v7 aaf_arrayAsCommaSeperatedString];
+  [v8 setObject:? forKeyedSubscript:?];
+  *&v3 = MEMORY[0x277D82BD8](aaf_arrayAsCommaSeperatedString).n128_u64[0];
   telemetryFlowID = [(AKAppleIDAuthenticationInAppContext *)selfCopy telemetryFlowID];
-  v5 = *MEMORY[0x277CE45B8];
-  [v10 setObject:? forKeyedSubscript:?];
+  [v8 setObject:? forKeyedSubscript:?];
   rtcAnalyticsReporter = [MEMORY[0x277CF0158] rtcAnalyticsReporter];
-  [rtcAnalyticsReporter sendEvent:v10];
+  [rtcAnalyticsReporter sendEvent:v8];
   MEMORY[0x277D82BD8](rtcAnalyticsReporter);
-  objc_storeStrong(&v9, 0);
-  objc_storeStrong(&v10, 0);
+  objc_storeStrong(&v7, 0);
+  objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1232,14 +1226,13 @@ void __77__AKAppleIDAuthenticationInAppContext_dismissServerProvidedUIWithComple
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, element);
-  v6 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0330] error:0];
+  v5 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0330] error:0];
   telemetryFlowID = [(AKAppleIDAuthenticationInAppContext *)selfCopy telemetryFlowID];
-  v3 = *MEMORY[0x277CE45B8];
-  [v6 setObject:? forKeyedSubscript:?];
+  [v5 setObject:? forKeyedSubscript:?];
   rtcAnalyticsReporter = [MEMORY[0x277CF0158] rtcAnalyticsReporter];
-  [rtcAnalyticsReporter sendEvent:v6];
+  [rtcAnalyticsReporter sendEvent:v5];
   MEMORY[0x277D82BD8](rtcAnalyticsReporter);
-  objc_storeStrong(&v6, 0);
+  objc_storeStrong(&v5, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1249,14 +1242,13 @@ void __77__AKAppleIDAuthenticationInAppContext_dismissServerProvidedUIWithComple
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, l);
-  v6 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0338] error:0];
+  v5 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0338] error:0];
   telemetryFlowID = [(AKAppleIDAuthenticationInAppContext *)selfCopy telemetryFlowID];
-  v3 = *MEMORY[0x277CE45B8];
-  [v6 setObject:? forKeyedSubscript:?];
+  [v5 setObject:? forKeyedSubscript:?];
   rtcAnalyticsReporter = [MEMORY[0x277CF0158] rtcAnalyticsReporter];
-  [rtcAnalyticsReporter sendEvent:v6];
+  [rtcAnalyticsReporter sendEvent:v5];
   MEMORY[0x277D82BD8](rtcAnalyticsReporter);
-  objc_storeStrong(&v6, 0);
+  objc_storeStrong(&v5, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1266,17 +1258,16 @@ void __77__AKAppleIDAuthenticationInAppContext_dismissServerProvidedUIWithComple
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, l);
-  v9 = 0;
-  objc_storeStrong(&v9, error);
-  v8 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0340] error:v9];
+  v8 = 0;
+  objc_storeStrong(&v8, error);
+  v7 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0340] error:v8];
   telemetryFlowID = [(AKAppleIDAuthenticationInAppContext *)selfCopy telemetryFlowID];
-  v4 = *MEMORY[0x277CE45B8];
-  [v8 setObject:? forKeyedSubscript:?];
+  [v7 setObject:? forKeyedSubscript:?];
   rtcAnalyticsReporter = [MEMORY[0x277CF0158] rtcAnalyticsReporter];
-  [rtcAnalyticsReporter sendEvent:v8];
+  [rtcAnalyticsReporter sendEvent:v7];
   MEMORY[0x277D82BD8](rtcAnalyticsReporter);
+  objc_storeStrong(&v7, 0);
   objc_storeStrong(&v8, 0);
-  objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1286,20 +1277,18 @@ void __77__AKAppleIDAuthenticationInAppContext_dismissServerProvidedUIWithComple
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, hook);
-  v10 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0348] error:0];
+  v8 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0348] error:0];
   telemetryFlowID = [(AKAppleIDAuthenticationInAppContext *)selfCopy telemetryFlowID];
-  v3 = *MEMORY[0x277CE45B8];
-  [v10 setObject:? forKeyedSubscript:?];
-  *&v4 = MEMORY[0x277D82BD8](telemetryFlowID).n128_u64[0];
+  [v8 setObject:? forKeyedSubscript:?];
+  *&v3 = MEMORY[0x277D82BD8](telemetryFlowID).n128_u64[0];
   attributes = [location[0] attributes];
-  v7 = [attributes objectForKeyedSubscript:@"name"];
-  v5 = *MEMORY[0x277CF0370];
-  [v10 setObject:? forKeyedSubscript:?];
-  MEMORY[0x277D82BD8](v7);
+  v5 = [attributes objectForKeyedSubscript:@"name"];
+  [v8 setObject:? forKeyedSubscript:?];
+  MEMORY[0x277D82BD8](v5);
   rtcAnalyticsReporter = [MEMORY[0x277CF0158] rtcAnalyticsReporter];
-  [rtcAnalyticsReporter sendEvent:v10];
+  [rtcAnalyticsReporter sendEvent:v8];
   MEMORY[0x277D82BD8](rtcAnalyticsReporter);
-  objc_storeStrong(&v10, 0);
+  objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1309,27 +1298,26 @@ void __77__AKAppleIDAuthenticationInAppContext_dismissServerProvidedUIWithComple
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, error);
-  v10 = 0;
-  objc_storeStrong(&v10, element);
+  v9 = 0;
+  objc_storeStrong(&v9, element);
   if (location[0])
   {
-    v8 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:v10 eventName:*MEMORY[0x277CF0358] error:location[0]];
+    v7 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:v9 eventName:*MEMORY[0x277CF0358] error:location[0]];
     telemetryFlowID = [(AKAppleIDAuthenticationInAppContext *)selfCopy telemetryFlowID];
-    v4 = *MEMORY[0x277CE45B8];
-    [v8 setObject:? forKeyedSubscript:?];
+    [v7 setObject:? forKeyedSubscript:?];
     rtcAnalyticsReporter = [MEMORY[0x277CF0158] rtcAnalyticsReporter];
-    [rtcAnalyticsReporter sendEvent:v8];
+    [rtcAnalyticsReporter sendEvent:v7];
     MEMORY[0x277D82BD8](rtcAnalyticsReporter);
-    objc_storeStrong(&v8, 0);
-    v9 = 0;
+    objc_storeStrong(&v7, 0);
+    v8 = 0;
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
-  objc_storeStrong(&v10, 0);
+  objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
 }
 

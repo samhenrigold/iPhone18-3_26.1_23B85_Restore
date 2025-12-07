@@ -21,11 +21,11 @@
 
 - (void)extractFeaturesFrom:(id)from completionHandler:(id)handler
 {
-  v45[2] = *MEMORY[0x277D85DE8];
+  v44[2] = *MEMORY[0x277D85DE8];
   fromCopy = from;
   handlerCopy = handler;
   v7 = objc_alloc(MEMORY[0x277CE2D50]);
-  v37 = fromCopy;
+  v36 = fromCopy;
   v8 = [v7 initWithCIImage:fromCopy options:MEMORY[0x277CBEC10]];
   v9 = objc_alloc_init(MEMORY[0x277CE2DB0]);
   [v9 setMaximumCandidateCount:1];
@@ -33,18 +33,18 @@
   [v9 setRecognitionLanguages:&unk_2863C5970];
   v10 = objc_alloc_init(MEMORY[0x277CE2C58]);
   v11 = *MEMORY[0x277CE2E90];
-  v45[0] = *MEMORY[0x277CE2E98];
-  v45[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+  v44[0] = *MEMORY[0x277CE2E98];
+  v44[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
   [v10 setSymbologies:v12];
 
-  v44[0] = v9;
-  v44[1] = v10;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
-  v42 = 0;
-  v35 = v8;
-  [v8 performRequests:v13 error:&v42];
-  v34 = v42;
+  v43[0] = v9;
+  v43[1] = v10;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+  v41 = 0;
+  v34 = v8;
+  [v8 performRequests:v13 error:&v41];
+  v33 = v41;
 
   v14 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v15 = objc_alloc_init(MEMORY[0x277CBEB58]);
@@ -69,43 +69,41 @@
     }
   }
 
-  v33 = v15;
+  v32 = v15;
   v24 = v14;
   results2 = [v10 results];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v26 = [results2 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v26 = [results2 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v39;
+    v28 = *v38;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v39 != v28)
+        if (*v38 != v28)
         {
           objc_enumerationMutation(results2);
         }
 
-        v30 = [HKMedicationsBarcodeNDCParser parsedNDCCodeFromBarcodeObservation:*(*(&v38 + 1) + 8 * i)];
+        v30 = [HKMedicationsBarcodeNDCParser parsedNDCCodeFromBarcodeObservation:*(*(&v37 + 1) + 8 * i)];
         if ([v30 length])
         {
           [v16 addObject:v30];
         }
       }
 
-      v27 = [results2 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v27 = [results2 countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v27);
   }
 
-  handlerCopy[2](handlerCopy, v24, v33, v16, v34);
-
-  v31 = *MEMORY[0x277D85DE8];
+  handlerCopy[2](handlerCopy, v24, v32, v16, v33);
 }
 
 @end

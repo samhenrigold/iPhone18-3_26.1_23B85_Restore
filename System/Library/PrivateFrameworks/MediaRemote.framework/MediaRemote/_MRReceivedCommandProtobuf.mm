@@ -1,5 +1,6 @@
 @interface _MRReceivedCommandProtobuf
 - (BOOL)isEqual:(id)equal;
+- (id)commandAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -43,335 +44,612 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)commandAsString:(int)string
+{
+  v4 = @"Unknown";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_198;
+    case 1:
+      v4 = @"Play";
+
+      break;
+    case 2:
+      v4 = @"Pause";
+
+      break;
+    case 3:
+      v4 = @"TogglePlayPause";
+
+      break;
+    case 4:
+      v4 = @"Stop";
+
+      break;
+    case 5:
+      v4 = @"NextTrack";
+
+      break;
+    case 6:
+      v4 = @"PreviousTrack";
+
+      break;
+    case 7:
+      v4 = @"AdvanceShuffleMode";
+
+      break;
+    case 8:
+      v4 = @"AdvanceRepeatMode";
+
+      break;
+    case 9:
+      v4 = @"BeginFastForward";
+
+      break;
+    case 10:
+      v4 = @"EndFastForward";
+
+      break;
+    case 11:
+      v4 = @"BeginRewind";
+
+      break;
+    case 12:
+      v4 = @"EndRewind";
+
+      break;
+    case 13:
+      v4 = @"Rewind15Seconds";
+
+      break;
+    case 14:
+      v4 = @"FastForward15Seconds";
+
+      break;
+    case 15:
+      v4 = @"Rewind30Seconds";
+
+      break;
+    case 16:
+      v4 = @"FastForward30Seconds";
+
+      break;
+    case 18:
+      v4 = @"SkipForward";
+
+      break;
+    case 19:
+      v4 = @"SkipBackward";
+
+      break;
+    case 20:
+      v4 = @"ChangePlaybackRate";
+
+      break;
+    case 21:
+      v4 = @"RateTrack";
+
+      break;
+    case 22:
+      v4 = @"LikeTrack";
+
+      break;
+    case 23:
+      v4 = @"DislikeTrack";
+
+      break;
+    case 24:
+      v4 = @"BookmarkTrack";
+
+      break;
+    case 25:
+      v4 = @"NextChapter";
+
+      break;
+    case 26:
+      v4 = @"PreviousChapter";
+
+      break;
+    case 27:
+      v4 = @"NextAlbum";
+
+      break;
+    case 28:
+      v4 = @"PreviousAlbum";
+
+      break;
+    case 29:
+      v4 = @"NextPlaylist";
+
+      break;
+    case 30:
+      v4 = @"PreviousPlaylist";
+
+      break;
+    case 31:
+      v4 = @"BanTrack";
+
+      break;
+    case 32:
+      v4 = @"AddTrackToWishList";
+
+      break;
+    case 33:
+      v4 = @"RemoveTrackFromWishList";
+
+      break;
+    case 34:
+      v4 = @"NextInContext";
+
+      break;
+    case 35:
+      v4 = @"PreviousInContext";
+
+      break;
+    case 41:
+      v4 = @"ResetPlaybackTimeout";
+
+      break;
+    case 45:
+      v4 = @"SeekToPlaybackPosition";
+
+      break;
+    case 46:
+      v4 = @"ChangeRepeatMode";
+
+      break;
+    case 47:
+      v4 = @"ChangeShuffleMode";
+
+      break;
+    case 48:
+      v4 = @"SetPlaybackQueue";
+
+      break;
+    case 49:
+      v4 = @"AddNowPlayingItemToLibrary";
+
+      break;
+    case 50:
+      v4 = @"CreateRadioStation";
+
+      break;
+    case 51:
+      v4 = @"AddItemToLibrary";
+
+      break;
+    case 52:
+      v4 = @"InsertIntoPlaybackQueue";
+
+      break;
+    case 53:
+      v4 = @"EnableLanguageOption";
+
+      break;
+    case 54:
+      v4 = @"DisableLanguageOption";
+
+      break;
+    case 55:
+      v4 = @"ReorderPlaybackQueue";
+
+      break;
+    case 56:
+      v4 = @"RemoveFromPlaybackQueue";
+
+      break;
+    case 57:
+      v4 = @"PlayItemInPlaybackQueue";
+
+      break;
+    case 58:
+      v4 = @"PrepareForSetQueue";
+
+      break;
+    case 59:
+      v4 = @"SetPlaybackSession";
+
+      break;
+    case 60:
+      v4 = @"PreloadPlaybackSession";
+
+      break;
+    case 61:
+      v4 = @"SetPriorityForPlaybackSession";
+
+      break;
+    case 62:
+      v4 = @"DiscardPlaybackSession";
+
+      break;
+    case 63:
+      v4 = @"Reshuffle";
+
+      break;
+    case 64:
+      v4 = @"LeaveSharedPlaybackSession";
+
+      break;
+    case 65:
+      v4 = @"PostEventNotice";
+
+      break;
+    case 124:
+      v4 = @"SetSleepTimer";
+
+      break;
+    case 135:
+      v4 = @"ChangeQueueEndAction";
+
+      break;
+    case 142:
+      v4 = @"VocalsControl";
+
+      break;
+    case 143:
+      v4 = @"PrepareVocalsControl";
+
+      break;
+    case 144:
+      v4 = @"ClearUpNextQueue";
+
+      break;
+    case 145:
+      v4 = @"PerformDialogAction";
+
+      break;
+    case 146:
+      v4 = @"DelegateAccount";
+
+      break;
+    case 147:
+      v4 = @"EnhanceDialogue";
+
+      break;
+    case 149:
+      v4 = @"ToggleTransitions";
+
+      break;
+    default:
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_198:
+
+      break;
+  }
+
+  return v4;
+}
+
 - (int)StringAsCommand:(id)command
 {
   commandCopy = command;
-  if ([commandCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 0;
   }
 
-  else if ([commandCopy isEqualToString:@"Play"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 1;
   }
 
-  else if ([commandCopy isEqualToString:@"Pause"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 2;
   }
 
-  else if ([commandCopy isEqualToString:@"TogglePlayPause"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 3;
   }
 
-  else if ([commandCopy isEqualToString:@"Stop"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 4;
   }
 
-  else if ([commandCopy isEqualToString:@"NextTrack"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 5;
   }
 
-  else if ([commandCopy isEqualToString:@"PreviousTrack"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 6;
   }
 
-  else if ([commandCopy isEqualToString:@"AdvanceShuffleMode"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 7;
   }
 
-  else if ([commandCopy isEqualToString:@"AdvanceRepeatMode"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 8;
   }
 
-  else if ([commandCopy isEqualToString:@"BeginFastForward"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 9;
   }
 
-  else if ([commandCopy isEqualToString:@"EndFastForward"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 10;
   }
 
-  else if ([commandCopy isEqualToString:@"BeginRewind"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 11;
   }
 
-  else if ([commandCopy isEqualToString:@"EndRewind"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 12;
   }
 
-  else if ([commandCopy isEqualToString:@"Rewind15Seconds"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 13;
   }
 
-  else if ([commandCopy isEqualToString:@"FastForward15Seconds"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 14;
   }
 
-  else if ([commandCopy isEqualToString:@"Rewind30Seconds"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 15;
   }
 
-  else if ([commandCopy isEqualToString:@"FastForward30Seconds"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 16;
   }
 
-  else if ([commandCopy isEqualToString:@"SkipForward"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 18;
   }
 
-  else if ([commandCopy isEqualToString:@"SkipBackward"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 19;
   }
 
-  else if ([commandCopy isEqualToString:@"ChangePlaybackRate"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 20;
   }
 
-  else if ([commandCopy isEqualToString:@"RateTrack"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 21;
   }
 
-  else if ([commandCopy isEqualToString:@"LikeTrack"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 22;
   }
 
-  else if ([commandCopy isEqualToString:@"DislikeTrack"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 23;
   }
 
-  else if ([commandCopy isEqualToString:@"BookmarkTrack"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 24;
   }
 
-  else if ([commandCopy isEqualToString:@"SeekToPlaybackPosition"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 45;
   }
 
-  else if ([commandCopy isEqualToString:@"ChangeRepeatMode"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 46;
   }
 
-  else if ([commandCopy isEqualToString:@"ChangeShuffleMode"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 47;
   }
 
-  else if ([commandCopy isEqualToString:@"EnableLanguageOption"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 53;
   }
 
-  else if ([commandCopy isEqualToString:@"DisableLanguageOption"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 54;
   }
 
-  else if ([commandCopy isEqualToString:@"NextChapter"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 25;
   }
 
-  else if ([commandCopy isEqualToString:@"PreviousChapter"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 26;
   }
 
-  else if ([commandCopy isEqualToString:@"NextAlbum"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 27;
   }
 
-  else if ([commandCopy isEqualToString:@"PreviousAlbum"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 28;
   }
 
-  else if ([commandCopy isEqualToString:@"NextPlaylist"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 29;
   }
 
-  else if ([commandCopy isEqualToString:@"PreviousPlaylist"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 30;
   }
 
-  else if ([commandCopy isEqualToString:@"BanTrack"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 31;
   }
 
-  else if ([commandCopy isEqualToString:@"AddTrackToWishList"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 32;
   }
 
-  else if ([commandCopy isEqualToString:@"RemoveTrackFromWishList"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 33;
   }
 
-  else if ([commandCopy isEqualToString:@"NextInContext"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 34;
   }
 
-  else if ([commandCopy isEqualToString:@"PreviousInContext"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 35;
   }
 
-  else if ([commandCopy isEqualToString:@"ResetPlaybackTimeout"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 41;
   }
 
-  else if ([commandCopy isEqualToString:@"SetPlaybackQueue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 48;
   }
 
-  else if ([commandCopy isEqualToString:@"AddNowPlayingItemToLibrary"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 49;
   }
 
-  else if ([commandCopy isEqualToString:@"CreateRadioStation"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 50;
   }
 
-  else if ([commandCopy isEqualToString:@"AddItemToLibrary"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 51;
   }
 
-  else if ([commandCopy isEqualToString:@"InsertIntoPlaybackQueue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 52;
   }
 
-  else if ([commandCopy isEqualToString:@"ReorderPlaybackQueue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 55;
   }
 
-  else if ([commandCopy isEqualToString:@"RemoveFromPlaybackQueue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 56;
   }
 
-  else if ([commandCopy isEqualToString:@"PlayItemInPlaybackQueue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 57;
   }
 
-  else if ([commandCopy isEqualToString:@"PrepareForSetQueue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 58;
   }
 
-  else if ([commandCopy isEqualToString:@"SetPlaybackSession"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 59;
   }
 
-  else if ([commandCopy isEqualToString:@"PreloadPlaybackSession"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 60;
   }
 
-  else if ([commandCopy isEqualToString:@"SetPriorityForPlaybackSession"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 61;
   }
 
-  else if ([commandCopy isEqualToString:@"DiscardPlaybackSession"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 62;
   }
 
-  else if ([commandCopy isEqualToString:@"Reshuffle"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 63;
   }
 
-  else if ([commandCopy isEqualToString:@"LeaveSharedPlaybackSession"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 64;
   }
 
-  else if ([commandCopy isEqualToString:@"PostEventNotice"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 65;
   }
 
-  else if ([commandCopy isEqualToString:@"SetSleepTimer"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 124;
   }
 
-  else if ([commandCopy isEqualToString:@"ChangeQueueEndAction"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 135;
   }
 
-  else if ([commandCopy isEqualToString:@"VocalsControl"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 142;
   }
 
-  else if ([commandCopy isEqualToString:@"PrepareVocalsControl"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 143;
   }
 
-  else if ([commandCopy isEqualToString:@"ClearUpNextQueue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 144;
   }
 
-  else if ([commandCopy isEqualToString:@"PerformDialogAction"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 145;
   }
 
-  else if ([commandCopy isEqualToString:@"DelegateAccount"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 146;
   }
 
-  else if ([commandCopy isEqualToString:@"EnhanceDialogue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 147;
   }
 
-  else if ([commandCopy isEqualToString:@"ToggleTransitions"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 149;
   }
@@ -681,62 +959,59 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    command = self->_command;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_options)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    originUID = self->_originUID;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_senderAppDisplayID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_destinationAppDisplayID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    destinationAppProcessID = self->_destinationAppProcessID;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_remoteControlInterfaceID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_appOptions)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_playerPath)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v5;
   }
 }
 
@@ -857,7 +1132,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 80);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 80) & 2) == 0 || self->_command != *(equalCopy + 6))
@@ -877,14 +1151,13 @@
     if (![(_MRCommandOptionsProtobuf *)options isEqual:?])
     {
 LABEL_30:
-      v15 = 0;
+      v12 = 0;
       goto LABEL_31;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 80);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 80) & 4) == 0 || self->_originUID != *(equalCopy + 12))
@@ -913,7 +1186,6 @@ LABEL_30:
     }
   }
 
-  v11 = *(equalCopy + 80);
   if (*&self->_has)
   {
     if ((*(equalCopy + 80) & 1) == 0 || self->_destinationAppProcessID != *(equalCopy + 1))
@@ -945,17 +1217,17 @@ LABEL_30:
   playerPath = self->_playerPath;
   if (playerPath | *(equalCopy + 7))
   {
-    v15 = [(_MRNowPlayingPlayerPathProtobuf *)playerPath isEqual:?];
+    v12 = [(_MRNowPlayingPlayerPathProtobuf *)playerPath isEqual:?];
   }
 
   else
   {
-    v15 = 1;
+    v12 = 1;
   }
 
 LABEL_31:
 
-  return v15;
+  return v12;
 }
 
 - (unint64_t)hash

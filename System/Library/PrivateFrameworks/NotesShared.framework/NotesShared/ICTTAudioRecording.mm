@@ -9,20 +9,20 @@
 {
   v5 = sub_2150A3A00();
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20](v5);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5, v7);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2150A39C0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA427F0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA427F0, &qword_2150C38A8);
   sub_2150A4920();
-  v9 = sub_2150A39A0();
-  v10 = sub_2150A4910();
+  v10 = sub_2150A39A0();
+  v11 = sub_2150A4910();
 
-  v13.receiver = self;
-  v13.super_class = ICTTAudioRecording;
-  v11 = [(ICCRObject *)&v13 initWithIdentity:v9 fields:v10];
+  v14.receiver = self;
+  v14.super_class = ICTTAudioRecording;
+  v12 = [(ICCRObject *)&v14 initWithIdentity:v10 fields:v11];
 
-  (*(v6 + 8))(v8, v5);
-  return v11;
+  (*(v6 + 8))(v9, v5);
+  return v12;
 }
 
 - (ICTTAudioRecording)initWithICCRCoder:(id)coder

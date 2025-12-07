@@ -1,3 +1,81 @@
+void sub_1001D5F50(id a1)
+{
+  v1 = +[ADExternalNotificationRequestHandler sharedNotificationRequestHandler];
+  [v1 notifySpeechDetectedIsUndirected];
+}
+
+void sub_1001D60E4(void *a1)
+{
+  v2 = a1[4];
+  v3 = a1[5];
+  v5 = [v3 refId];
+  v4 = [v2 _rootExecutionContextForRequestID:v5];
+  [v2 _sasSpeechRecognized:v3 executionContext:v4 completion:a1[6]];
+}
+
+void *sub_1001D6654(void *result)
+{
+  if (result[4])
+  {
+    return [*(result[5] + 512) removeObject:?];
+  }
+
+  return result;
+}
+
+id sub_1001D67A4(uint64_t a1)
+{
+  v2 = *(*(a1 + 32) + 512);
+  if (!v2)
+  {
+    v3 = objc_alloc_init(NSMutableSet);
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 512);
+    *(v4 + 512) = v3;
+
+    v2 = *(*(a1 + 32) + 512);
+  }
+
+  v6 = *(a1 + 40);
+
+  return [v2 addObject:v6];
+}
+
+void sub_1001D6934(uint64_t a1)
+{
+  v2 = [*(a1 + 32) _speechManager];
+  [v2 updateSpeechSynthesisRecord:*(a1 + 40)];
+}
+
+void sub_1001D6C24(uint64_t a1)
+{
+  v2 = AFSiriLogContextDaemon;
+  if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315138;
+    v8 = "[ADCommandCenter prepareForShutdown]_block_invoke";
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "%s Canceling session for shutdown", buf, 0xCu);
+  }
+
+  v3 = *(a1 + 32);
+  if (*(v3 + 592))
+  {
+    dispatch_group_enter(*(a1 + 40));
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = sub_1001D6D60;
+    v5[3] = &unk_10051DFE8;
+    v4 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    [v4 _stopObservingCallStateWithCompletion:v5];
+
+    v3 = *(a1 + 32);
+  }
+
+  [*(v3 + 96) cancelSynchronously];
+  dispatch_suspend(*(*(a1 + 32) + 8));
+}
+
 void sub_1001D6E10(uint64_t a1)
 {
   v2 = [*(a1 + 32) _speechManager];
@@ -1551,18 +1629,18 @@ void sub_1001E1BCC(id a1)
   [v3 invalidate];
 }
 
-void sub_1001E1E3C(void *a1)
+void sub_1001E1E3C(void *a1, int a2)
 {
-  v1 = a1;
-  v2 = AFSiriLogContextDaemon;
+  v2 = a1;
+  v3 = AFSiriLogContextDaemon;
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v5 = "_AnalyticsSendOnDeviceDeletionEventWithError";
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "%s #RPI sending event kCoreAnalyticsDeletionTelemetryKey", buf, 0xCu);
+    v6 = "_AnalyticsSendOnDeviceDeletionEventWithError";
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%s #RPI sending event kCoreAnalyticsDeletionTelemetryKey", buf, 0xCu);
   }
 
-  v3 = v1;
+  v4 = v2;
   AnalyticsSendEventLazy();
 }
 
@@ -1679,7 +1757,7 @@ void sub_1001E2544(uint64_t a1, void *a2)
 
   if (v8)
   {
-    sub_1001E1E3C(v3);
+    sub_1001E1E3C(v3, 2);
   }
 }
 
@@ -1882,14 +1960,14 @@ void sub_1001E3560(uint64_t a1, void *a2, void *a3)
       v29 = *v40;
       do
       {
-        for (k = 0; k != v28; k = k + 1)
+        for (k = 0; k != v28; ++k)
         {
           if (*v40 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          v31 = [v10 objectForKey:*(*(&v39 + 1) + 8 * k)];
+          v31 = objc_msgSend_objectForKey_(v10);
           if (v31)
           {
             [v25 addObject:v31];
@@ -1976,292 +2054,292 @@ void sub_1001E3E54(uint64_t a1)
   [v1 makeObjectsPerformSelector:"clearDomainObjects"];
 }
 
-void sub_1001E45A0(uint64_t a1)
+void sub_1001E45A0(uint64_t a1, uint64_t a2)
 {
-  v92 = 0;
-  v93 = &v92;
-  v94 = 0x3032000000;
-  v95 = sub_1001D9498;
-  v96 = sub_1001D94A8;
-  v97 = 0;
+  v93 = 0;
+  v94 = &v93;
+  v95 = 0x3032000000;
+  v96 = sub_1001D9498;
+  v97 = sub_1001D94A8;
+  v98 = 0;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v3 = *(a1 + 32);
+  v4 = *(a1 + 32);
   if (isKindOfClass)
   {
-    v4 = [v3 commands];
+    v5 = [v4 commands];
   }
 
   else
   {
-    if (!v3)
+    if (!v4)
     {
-      v5 = 0;
+      v6 = 0;
       goto LABEL_6;
     }
 
-    v105 = *(a1 + 32);
-    v4 = [NSArray arrayWithObjects:&v105 count:1];
+    v106 = *(a1 + 32);
+    v5 = [NSArray arrayWithObjects:&v106 count:1];
   }
 
-  v5 = v4;
+  v6 = v5;
 LABEL_6:
   if (*(a1 + 40))
   {
     if (AFIsInternalInstall())
     {
-      v6 = +[NSDate date];
-      [v6 timeIntervalSinceDate:*(a1 + 40)];
-      v8 = v7;
+      v7 = +[NSDate date];
+      [v7 timeIntervalSinceDate:*(a1 + 40)];
+      v9 = v8;
 
-      v9 = (v8 / 60.0);
-      if (v9 >= 6)
+      v10 = (v9 / 60.0);
+      if (v10 >= 6)
       {
-        v10 = @"greater_than_15_min";
-        if (v9 < 0xF)
+        v11 = @"greater_than_15_min";
+        if (v10 < 0xF)
         {
-          v10 = @"less_than_15_min";
+          v11 = @"less_than_15_min";
         }
 
-        v11 = v10;
-        v12 = AFSiriLogContextDaemon;
+        v12 = v11;
+        v13 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
         {
-          v60 = *(a1 + 32);
+          v61 = *(a1 + 32);
           *buf = 136315650;
-          v99 = "[ADCommandCenter _handleAceCommand:afterCurrentRequest:waitForResponse:withDelegate:completion:]_block_invoke";
-          v100 = 2112;
-          v101 = v60;
-          v102 = 1024;
-          LODWORD(v103) = (v8 / 60.0);
-          _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%s Commands %@ weren't ran for %d minutes", buf, 0x1Cu);
+          v100 = "[ADCommandCenter _handleAceCommand:afterCurrentRequest:waitForResponse:withDelegate:completion:]_block_invoke";
+          v101 = 2112;
+          v102 = v61;
+          v103 = 1024;
+          LODWORD(v104) = (v9 / 60.0);
+          _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%s Commands %@ weren't ran for %d minutes", buf, 0x1Cu);
         }
 
-        v13 = +[SiriCoreSymptomsReporter sharedInstance];
-        v14 = +[NSProcessInfo processInfo];
-        v15 = [v14 processIdentifier];
-        [v13 reportIssueForType:@"command_stuck_in_group" subType:v11 context:0 processIdentifier:v15 walkboutStatus:byte_100590548];
+        v14 = +[SiriCoreSymptomsReporter sharedInstance];
+        v15 = +[NSProcessInfo processInfo];
+        v16 = [v15 processIdentifier];
+        [v14 reportIssueForType:@"command_stuck_in_group" subType:v12 context:0 processIdentifier:v16 walkboutStatus:byte_100590548];
       }
     }
   }
 
-  v16 = AFSiriLogContextDaemon;
+  v17 = AFSiriLogContextDaemon;
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
   {
-    v17 = *(a1 + 72);
+    v18 = *(a1 + 72);
     *buf = 136315650;
-    v99 = "[ADCommandCenter _handleAceCommand:afterCurrentRequest:waitForResponse:withDelegate:completion:]_block_invoke";
-    v100 = 2112;
-    v101 = v5;
-    v102 = 1024;
-    LODWORD(v103) = v17;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%s Performing commands %@ after request %d", buf, 0x1Cu);
+    v100 = "[ADCommandCenter _handleAceCommand:afterCurrentRequest:waitForResponse:withDelegate:completion:]_block_invoke";
+    v101 = 2112;
+    v102 = v6;
+    v103 = 1024;
+    LODWORD(v104) = v18;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "%s Performing commands %@ after request %d", buf, 0x1Cu);
   }
 
-  v18 = dispatch_group_create();
-  v88 = 0u;
+  v19 = dispatch_group_create();
   v89 = 0u;
   v90 = 0u;
   v91 = 0u;
-  obj = v5;
-  v19 = [obj countByEnumeratingWithState:&v88 objects:v104 count:16];
-  if (v19)
+  v92 = 0u;
+  obj = v6;
+  v20 = [obj countByEnumeratingWithState:&v89 objects:v105 count:16];
+  if (v20)
   {
-    v62 = *v89;
+    v63 = *v90;
     do
     {
-      for (i = 0; i != v19; i = i + 1)
+      for (i = 0; i != v20; i = i + 1)
       {
-        if (*v89 != v62)
+        if (*v90 != v63)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v88 + 1) + 8 * i);
+        v22 = *(*(&v89 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          dispatch_group_enter(v18);
-          v22 = [[ADUIService alloc] initWithRequestDelegate:*(a1 + 48)];
-          v23 = [*(a1 + 56) _serviceManager];
-          [v23 addService:v22];
-          v24 = [v21 aceId];
-          v25 = v24 == 0;
+          dispatch_group_enter(v19);
+          v23 = [[ADUIService alloc] initWithRequestDelegate:*(a1 + 48)];
+          v24 = [*(a1 + 56) _serviceManager];
+          [v24 addService:v23];
+          v25 = [v22 aceId];
+          v26 = v25 == 0;
 
-          if (v25)
+          if (v26)
           {
-            v26 = SiriCoreUUIDStringCreate();
-            [v21 setAceId:v26];
+            v27 = SiriCoreUUIDStringCreate();
+            [v22 setAceId:v27];
           }
 
-          v27 = *(a1 + 56);
-          v28 = [v21 aceId];
-          [v27 _setFirstChanceService:v22 forAceId:v28];
+          v28 = *(a1 + 56);
+          v29 = [v22 aceId];
+          [v28 _setFirstChanceService:v23 forAceId:v29];
 
-          v30 = *(a1 + 48);
-          v29 = *(a1 + 56);
-          v83[0] = _NSConcreteStackBlock;
-          v83[1] = 3221225472;
-          v83[2] = sub_1001E5018;
-          v83[3] = &unk_100516538;
-          v31 = v23;
-          v84 = v31;
-          v32 = v22;
+          v31 = *(a1 + 48);
+          v30 = *(a1 + 56);
+          v84[0] = _NSConcreteStackBlock;
+          v84[1] = 3221225472;
+          v84[2] = sub_1001E5018;
+          v84[3] = &unk_100516538;
+          v32 = v24;
           v85 = v32;
-          v87 = &v92;
-          v86 = v18;
-          [v29 _startNonSpeechRequest:v21 forDelegate:v30 withInfo:0 options:0 suppressAlert:0 completion:v83];
+          v33 = v23;
+          v86 = v33;
+          v88 = &v93;
+          v87 = v19;
+          [v30 _startNonSpeechRequest:v22 forDelegate:v31 withInfo:0 options:0 suppressAlert:0 completion:v84];
           if ((*(a1 + 73) & 1) == 0)
           {
-            v33 = AFSiriLogContextDaemon;
+            v34 = AFSiriLogContextDaemon;
             if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
             {
               *buf = 136315138;
-              v99 = "[ADCommandCenter _handleAceCommand:afterCurrentRequest:waitForResponse:withDelegate:completion:]_block_invoke_2";
-              _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "%s Ignoring early return flag for non interrupting request", buf, 0xCu);
+              v100 = "[ADCommandCenter _handleAceCommand:afterCurrentRequest:waitForResponse:withDelegate:completion:]_block_invoke_2";
+              _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "%s Ignoring early return flag for non interrupting request", buf, 0xCu);
             }
           }
         }
 
         else
         {
-          v34 = [*(a1 + 56) _isServerBoundCommand:*(a1 + 32)];
-          v35 = *(a1 + 56);
-          if (v34)
+          v35 = [*(a1 + 56) _isServerBoundCommand:*(a1 + 32)];
+          v36 = *(a1 + 56);
+          if (v35)
           {
-            v36 = [v35 _sessionManager];
-            v37 = [[NSString alloc] initWithFormat:@"Executing one-off server-bound command %@ from client %@.", *(a1 + 32), *(a1 + 48)];
-            v38 = [v36 acquireAssertionForReason:v37];
+            v37 = [v36 _sessionManager];
+            v38 = [[NSString alloc] initWithFormat:@"Executing one-off server-bound command %@ from client %@.", *(a1 + 32), *(a1 + 48)];
+            v39 = [v37 acquireAssertionForReason:v38];
 
-            v39 = [*(a1 + 32) refId];
-            LODWORD(v37) = v39 == 0;
+            v40 = [*(a1 + 32) refId];
+            LODWORD(v38) = v40 == 0;
 
-            if (v37)
+            if (v38)
             {
-              v40 = sub_1001E5088(*(a1 + 32));
-              v46 = AFSiriLogContextDaemon;
+              v41 = sub_1001E5088(*(a1 + 32));
+              v47 = AFSiriLogContextDaemon;
               if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
               {
-                v47 = *(a1 + 32);
+                v48 = *(a1 + 32);
                 *buf = 136315650;
-                v99 = "[ADCommandCenter _handleAceCommand:afterCurrentRequest:waitForResponse:withDelegate:completion:]_block_invoke";
-                v100 = 2112;
-                v101 = v40;
-                v102 = 2112;
-                v103 = v47;
-                _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_INFO, "%s Create a transient root execution context %@ for locally submitted server-bound command %@.", buf, 0x20u);
+                v100 = "[ADCommandCenter _handleAceCommand:afterCurrentRequest:waitForResponse:withDelegate:completion:]_block_invoke";
+                v101 = 2112;
+                v102 = v41;
+                v103 = 2112;
+                v104 = v48;
+                _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_INFO, "%s Create a transient root execution context %@ for locally submitted server-bound command %@.", buf, 0x20u);
               }
 
-              [*(a1 + 56) _createRootExecutionContextForRequestID:v40];
+              [*(a1 + 56) _createRootExecutionContextForRequestID:v41];
             }
 
             else
             {
-              v40 = 0;
+              v41 = 0;
             }
 
-            dispatch_group_enter(v18);
-            v48 = [AFSafetyBlock alloc];
-            v76[0] = _NSConcreteStackBlock;
-            v76[1] = 3221225472;
-            v76[2] = sub_1001E50EC;
-            v76[3] = &unk_100516560;
-            v77 = v18;
-            v49 = v40;
-            v78 = v49;
-            v50 = *(a1 + 32);
-            v51 = *(a1 + 56);
+            dispatch_group_enter(v19);
+            v49 = [AFSafetyBlock alloc];
+            v77[0] = _NSConcreteStackBlock;
+            v77[1] = 3221225472;
+            v77[2] = sub_1001E50EC;
+            v77[3] = &unk_100516560;
+            v78 = v19;
+            v50 = v41;
             v79 = v50;
+            v51 = *(a1 + 32);
+            v52 = *(a1 + 56);
             v80 = v51;
-            v32 = v36;
-            v81 = v32;
-            v52 = v38;
-            v82 = v52;
-            v53 = [v48 initWithBlock:v76];
-            v54 = *(a1 + 56);
+            v81 = v52;
+            v33 = v37;
+            v82 = v33;
+            v53 = v39;
+            v83 = v53;
+            v54 = [v49 initWithBlock:v77];
+            v55 = *(a1 + 56);
             if (*(a1 + 73) == 1)
             {
-              v72[0] = _NSConcreteStackBlock;
-              v72[1] = 3221225472;
-              v72[2] = sub_1001E51F8;
-              v72[3] = &unk_100516588;
-              v55 = *(a1 + 48);
-              v75 = &v92;
-              v56 = *(a1 + 56);
-              v73[0] = v55;
-              v73[1] = v56;
-              v74 = v53;
-              [v54 _sendCommandToServer:v21 opportunistically:0 completion:v72];
+              v73[0] = _NSConcreteStackBlock;
+              v73[1] = 3221225472;
+              v73[2] = sub_1001E51F8;
+              v73[3] = &unk_100516588;
+              v56 = *(a1 + 48);
+              v76 = &v93;
+              v57 = *(a1 + 56);
+              v74[0] = v56;
+              v74[1] = v57;
+              v75 = v54;
+              [v55 _sendCommandToServer:v22 opportunistically:0 completion:v73];
 
-              v57 = v73;
+              v58 = v74;
             }
 
             else
             {
-              [*(a1 + 56) _sendCommandToServer:v21 opportunistically:0];
-              v58 = [*(a1 + 56) _sessionManager];
-              v70[0] = _NSConcreteStackBlock;
-              v70[1] = 3221225472;
-              v70[2] = sub_1001E531C;
-              v70[3] = &unk_100519220;
-              v71[1] = &v92;
-              v71[0] = v53;
-              [v58 barrier:v70];
+              [*(a1 + 56) _sendCommandToServer:v22 opportunistically:0];
+              v59 = [*(a1 + 56) _sessionManager];
+              v71[0] = _NSConcreteStackBlock;
+              v71[1] = 3221225472;
+              v71[2] = sub_1001E531C;
+              v71[3] = &unk_100519220;
+              v72[1] = &v93;
+              v72[0] = v54;
+              [v59 barrier:v71];
 
-              v57 = v71;
+              v58 = v72;
             }
           }
 
-          else if ([v35 _isClientBoundCommand:*(a1 + 32)])
+          else if ([v36 _isClientBoundCommand:*(a1 + 32)])
           {
-            dispatch_group_enter(v18);
-            v32 = *(a1 + 32);
-            [*(a1 + 56) _preheatCallbacksForCommand:v32];
-            v41 = *(a1 + 56);
-            v42 = [*(a1 + 32) refId];
-            v43 = [v41 _rootExecutionContextForRequestID:v42];
+            dispatch_group_enter(v19);
+            v33 = *(a1 + 32);
+            [*(a1 + 56) _preheatCallbacksForCommand:v33];
+            v42 = *(a1 + 56);
+            v43 = [*(a1 + 32) refId];
+            v44 = [v42 _rootExecutionContextForRequestID:v43];
 
-            v66[0] = _NSConcreteStackBlock;
-            v66[1] = 3221225472;
-            v66[2] = sub_1001E537C;
-            v66[3] = &unk_1005165B0;
-            v44 = *(a1 + 56);
-            v67 = *(a1 + 48);
-            v69 = &v92;
-            v68 = v18;
-            [v44 _handleServiceCommand:v32 executionContext:v43 completion:v66];
+            v67[0] = _NSConcreteStackBlock;
+            v67[1] = 3221225472;
+            v67[2] = sub_1001E537C;
+            v67[3] = &unk_1005165B0;
+            v45 = *(a1 + 56);
+            v68 = *(a1 + 48);
+            v70 = &v93;
+            v69 = v19;
+            [v45 _handleServiceCommand:v33 executionContext:v44 completion:v67];
           }
 
           else
           {
-            if (v93[5])
+            if (v94[5])
             {
               continue;
             }
 
-            v45 = [AFError errorWithCode:500];
-            v32 = v93[5];
-            v93[5] = v45;
+            v46 = [AFError errorWithCode:500];
+            v33 = v94[5];
+            v94[5] = v46;
           }
         }
       }
 
-      v19 = [obj countByEnumeratingWithState:&v88 objects:v104 count:16];
+      v20 = [obj countByEnumeratingWithState:&v89 objects:v105 count:16];
     }
 
-    while (v19);
+    while (v20);
   }
 
-  v59 = *(*(a1 + 56) + 8);
+  v60 = *(*(a1 + 56) + 8);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1001E5400;
   block[3] = &unk_10051C8E0;
-  v64 = *(a1 + 64);
-  v65 = &v92;
-  dispatch_group_notify(v18, v59, block);
+  v65 = *(a1 + 64);
+  v66 = &v93;
+  dispatch_group_notify(v19, v60, block);
 
-  _Block_object_dispose(&v92, 8);
+  _Block_object_dispose(&v93, 8);
 }
 
 void sub_1001E5018(uint64_t a1, uint64_t a2, void *a3)
@@ -2681,10 +2759,11 @@ void sub_1001E7ED8(uint64_t a1)
   dispatch_group_leave(*(a1 + 32));
 }
 
-void sub_1001E847C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_1001E847C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
-  _Block_object_dispose(&a38, 8);
-  _Block_object_dispose((v38 - 232), 8);
+  va_start(va, a37);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v37 - 232), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3377,9 +3456,9 @@ id *sub_1001EDAC4(id *result, int a2)
   return result;
 }
 
-void sub_1001EE4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1001EE4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3587,10 +3666,11 @@ void sub_1001EEAEC(uint64_t a1)
   }
 }
 
-void sub_1001EFA84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1001EFA84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 192), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 192), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3643,7 +3723,7 @@ void sub_1001EFAB8(uint64_t a1, void *a2)
         }
 
         v18 = *(*(&v39 + 1) + 8 * i);
-        v19 = [*(*(*(a1 + 80) + 8) + 40) objectForKey:{v18, v36}];
+        v19 = objc_msgSend_objectForKey_(*(*(*(a1 + 80) + 8) + 40), v36);
         v20 = v19;
         if (!*(*(*(a1 + 88) + 8) + 40) || [v19 integerValue] > v15)
         {
@@ -4290,7 +4370,7 @@ LABEL_21:
 
 LABEL_16:
     *(*(a1 + 48) + 378) = 0;
-    [*(a1 + 48) _endSpeechRequestForCommand:0 withError:*(a1 + 56) suppressAlert:1 secureOfflineOnlyDictation:{*(a1 + 64), *v14, *&v14[16]}];
+    [*(a1 + 48) _endSpeechRequestForCommand:0 withError:*(a1 + 56) suppressAlert:1 secureOfflineOnlyDictation:{*(a1 + 64), *v14, *&v14[8]}];
     goto LABEL_17;
   }
 
@@ -4844,16 +4924,16 @@ void sub_1001F42E0(uint64_t a1)
   }
 }
 
-void sub_1001F4584(uint64_t a1)
+void sub_1001F4584(uint64_t a1, uint64_t a2)
 {
   if ((*(*(a1 + 32) + 382) & 1) == 0 && AFIsInternalInstall() && AFIsHorseman())
   {
-    v2 = +[ADMultiUserTestSupport sharedService];
-    v3 = [v2 getDebugVoiceIdScores];
+    v3 = +[ADMultiUserTestSupport sharedService];
+    v4 = [v3 getDebugVoiceIdScores];
 
-    if (v3)
+    if (v4)
     {
-      v4 = [*(a1 + 32) _handleConfidenceScores:&__NSDictionary0__struct classification:3 classifiedUser:kCSSpeakerIdentificationVTInvocationScoreThresholdingType unknownUserScore:&stru_10051F508 duration:? version:? thresholdingType:? assetVersion:?];
+      v5 = [*(a1 + 32) _handleConfidenceScores:&__NSDictionary0__struct classification:3 classifiedUser:kCSSpeakerIdentificationVTInvocationScoreThresholdingType unknownUserScore:&stru_10051F508 duration:? version:? thresholdingType:? assetVersion:?];
     }
   }
 }
@@ -5680,7 +5760,7 @@ void sub_1001FB190(uint64_t a1, void *a2)
 
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
-  v7 = [*(a1 + 48) objectForKey:v3];
+  v7 = objc_msgSend_objectForKey_(*(a1 + 48));
   [v5 _postUpdatePersonalRequestSettingsNotification:v6 forLocalizationKey:v7 executionContext:*(a1 + 56) completion:*(a1 + 64)];
 }
 
@@ -6491,23 +6571,23 @@ id sub_1002021C8(uint64_t a1)
   return result;
 }
 
-uint64_t sub_100202604()
+uint64_t sub_100202604(uint64_t a1)
 {
   if (AFSupportsSCDAFramework())
   {
-    v0 = SCDAPreferencesChangedNotifyStatePublisher();
-    v1 = qword_1005904F8;
-    qword_1005904F8 = v0;
+    v1 = SCDAPreferencesChangedNotifyStatePublisher();
+    v2 = qword_1005904F8;
+    qword_1005904F8 = v1;
   }
 
   else
   {
-    v0 = AFMyriadPreferencesChangedNotifyStatePublisher();
-    v1 = qword_1005904F0;
-    qword_1005904F0 = v0;
+    v1 = AFMyriadPreferencesChangedNotifyStatePublisher();
+    v2 = qword_1005904F0;
+    qword_1005904F0 = v1;
   }
 
-  return _objc_release_x1(v0, v1);
+  return _objc_release_x1(v1, v2);
 }
 
 void sub_100202D9C(uint64_t a1, void *a2)
@@ -8327,13 +8407,13 @@ void sub_100214B1C(id a1)
   _objc_release_x1(v1, v2);
 }
 
-id sub_100214B58()
+id sub_100214B58(uint64_t a1)
 {
-  v0 = SiriCoreUUIDStringCreate();
-  v1 = [[NSString alloc] initWithFormat:@"amos://%@", v0];
-  v2 = [[NSURL alloc] initWithString:v1];
+  v1 = SiriCoreUUIDStringCreate();
+  v2 = [[NSString alloc] initWithFormat:@"amos://%@", v1];
+  v3 = [[NSURL alloc] initWithString:v2];
 
-  return v2;
+  return v3;
 }
 
 void sub_100214C38(id a1)
@@ -8365,7 +8445,7 @@ id sub_100214CD0(void *a1)
   return v2;
 }
 
-uint64_t sub_100214D74()
+uint64_t sub_100214D74(uint64_t a1)
 {
   if (AFIsNano())
   {
@@ -8375,24 +8455,24 @@ uint64_t sub_100214D74()
 
   else
   {
-    v1 = AFIsHorseman();
-    v2 = +[MCProfileConnection sharedConnection];
-    v3 = v2;
-    if (v1)
+    v2 = AFIsHorseman();
+    v3 = +[MCProfileConnection sharedConnection];
+    v4 = v3;
+    if (v2)
     {
-      v4 = [v2 effectiveRestrictedBoolValueForSetting:MCFeatureExplicitContentAllowed] != 1;
+      v5 = [v3 effectiveRestrictedBoolValueForSetting:MCFeatureExplicitContentAllowed] != 1;
     }
 
     else
     {
-      v4 = [v2 effectiveBoolValueForSetting:MCFeatureAssistantProfanityFilterForced] == 1;
+      v5 = [v3 effectiveBoolValueForSetting:MCFeatureAssistantProfanityFilterForced] == 1;
     }
 
-    return v4;
+    return v5;
   }
 }
 
-uint64_t sub_100214E18()
+uint64_t sub_100214E18(uint64_t a1, uint64_t a2)
 {
   if (AFIsHorseman() & 1) != 0 || (AFIsATV())
   {
@@ -8423,15 +8503,16 @@ uint64_t sub_100214E4C(void *a1)
     v7 = *v14;
     do
     {
-      for (i = 0; i != v6; ++i)
+      v8 = 0;
+      do
       {
         if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        v10 = [v4 objectForKey:v9];
+        v9 = *(*(&v13 + 1) + 8 * v8);
+        v10 = objc_msgSend_objectForKey_(v4);
         if ([v10 BOOLValue])
         {
           v11 = [v3 containsObject:v9];
@@ -8446,8 +8527,11 @@ uint64_t sub_100214E4C(void *a1)
         else
         {
         }
+
+        ++v8;
       }
 
+      while (v6 != v8);
       v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
@@ -8484,7 +8568,7 @@ void sub_100215068(uint64_t a1, void *a2)
   v9 = v3;
   if (v4)
   {
-    v5 = [v4 objectForKey:v3];
+    v5 = objc_msgSend_objectForKey_(v4);
     v6 = [v5 BOOLValue];
 
     v3 = v9;
@@ -8542,20 +8626,20 @@ void sub_1002152CC(id a1)
   _objc_release_x1(v1, v2);
 }
 
-id sub_10021532C()
+id sub_10021532C(uint64_t a1)
 {
-  memset(&v3, 0, sizeof(v3));
-  pthread_attr_init(&v3);
-  v2 = 0;
-  pthread_attr_getschedparam(&v3, &v2);
-  v2.sched_priority = 46;
-  pthread_attr_setschedpolicy(&v3, 2);
-  pthread_attr_setschedparam(&v3, &v2);
-  pthread_attr_setinheritsched(&v3, 2);
-  v0 = dispatch_pthread_root_queue_create();
-  pthread_attr_destroy(&v3);
+  memset(&v4, 0, sizeof(v4));
+  pthread_attr_init(&v4);
+  v3 = 0;
+  pthread_attr_getschedparam(&v4, &v3);
+  v3.sched_priority = 46;
+  pthread_attr_setschedpolicy(&v4, 2);
+  pthread_attr_setschedparam(&v4, &v3);
+  pthread_attr_setinheritsched(&v4, 2);
+  v1 = dispatch_pthread_root_queue_create();
+  pthread_attr_destroy(&v4);
 
-  return v0;
+  return v1;
 }
 
 void sub_100215408(id a1)
@@ -8974,8 +9058,8 @@ id sub_100216380(uint64_t a1)
           }
 
           v8 = *(*(&v14 + 1) + 8 * i);
-          v9 = [v8 objectForKey:{kTCCInfoService, cf}];
-          v10 = [v8 objectForKey:kTCCInfoGranted];
+          v9 = objc_msgSend_objectForKey_(v8, cf);
+          v10 = objc_msgSend_objectForKey_(v8);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -9011,77 +9095,4 @@ LABEL_16:
   }
 
   return v11;
-}
-
-void sub_1002166C8(uint64_t a1)
-{
-  v1 = [*(a1 + 32) _homeManager];
-  v2 = [v1 currentHome];
-  v3 = [v2 uniqueIdentifier];
-
-  if (v3)
-  {
-    v4 = objc_alloc_init(HOMESchemaHOMEClientEventMetadata);
-    v5 = [SISchemaUUID alloc];
-    v6 = +[NSUUID UUID];
-    v7 = [v5 initWithNSUUID:v6];
-    [v4 setHomeComponentId:v7];
-
-    v8 = [@"com.apple.assistant.homemetric.seed.value" dataUsingEncoding:4];
-    v9 = [NSUUID hmf_UUIDWithNamespace:v3 data:v8];
-
-    v10 = [[SISchemaUUID alloc] initWithNSUUID:v9];
-    v11 = objc_alloc_init(HOMESchemaHOMEAssistantInfoReported);
-    [v11 setHashedHomeId:v10];
-    v12 = objc_alloc_init(HOMESchemaHOMEClientEvent);
-    [v12 setEventMetadata:v4];
-    [v12 setAssistantInfoReported:v11];
-    v13 = +[AssistantSiriAnalytics sharedAnalytics];
-    v14 = [v13 defaultMessageStream];
-    v15 = +[NSUUID UUID];
-    [v14 emitMessage:v12 isolatedStreamUUID:v15];
-  }
-
-  else
-  {
-    v16 = AFSiriLogContextDaemon;
-    if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
-    {
-      v17 = 136315138;
-      v18 = "[ADHomeInfoManager emitHomeMetricInvocationEvent]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%s Current Home UUID is nil, so not emitting home metric SELF event", &v17, 0xCu);
-    }
-  }
-}
-
-void sub_100216E2C(uint64_t a1)
-{
-  v2 = [*(a1 + 32) _getAccessoryCategoryForExecutionInfo:*(a1 + 40)];
-  v4 = [v2 categoryType];
-
-  if ([v4 isEqualToString:HMAccessoryCategoryTypeHomePod])
-  {
-    v3 = *(*(a1 + 48) + 16);
-LABEL_5:
-    v3();
-    goto LABEL_7;
-  }
-
-  if ([v4 isEqualToString:HMAccessoryCategoryTypeSpeaker])
-  {
-    v3 = *(*(a1 + 48) + 16);
-    goto LABEL_5;
-  }
-
-  [v4 isEqualToString:HMAccessoryCategoryTypeAudioReceiver];
-  (*(*(a1 + 48) + 16))();
-LABEL_7:
-}
-
-void sub_100216FF8(uint64_t a1)
-{
-  v1 = *(a1 + 48);
-  v3 = [*(a1 + 32) _getAccessoryCategoryForExecutionInfo:*(a1 + 40)];
-  v2 = [v3 localizedDescription];
-  (*(v1 + 16))(v1, v2);
 }

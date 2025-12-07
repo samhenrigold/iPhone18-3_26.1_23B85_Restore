@@ -14,36 +14,23 @@
   x = frame.origin.x;
   settingsCopy = settings;
   BSDispatchQueueAssertMain();
-  v18.receiver = self;
-  v18.super_class = MTPillView;
-  height = [(MTPillView *)&v18 initWithFrame:x, y, width, height];
+  v16.receiver = self;
+  v16.super_class = MTPillView;
+  height = [(MTPillView *)&v16 initWithFrame:x, y, width, height];
   if (height)
   {
-    v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    cornerMask = [settingsCopy cornerMask];
-    v13 = @"lumaDodgePillCorners-thin";
-    if (cornerMask != 1)
-    {
-      v13 = 0;
-    }
-
-    if (cornerMask)
-    {
-      v14 = v13;
-    }
-
-    else
-    {
-      v14 = @"lumaDodgePillCorners";
-    }
-
-    v15 = [MEMORY[0x277D755B8] imageNamed:v14 inBundle:v11];
+    v11 = MEMORY[0x277CCA8D8];
+    objc_opt_class();
+    v12 = [v11 bundleForClass:?];
+    [settingsCopy cornerMask];
+    v13 = [MEMORY[0x277D755B8] imageNamed:? inBundle:?];
     layer = [(MTPillView *)height layer];
-    [layer setCornerContents:{objc_msgSend(v15, "CGImage")}];
-    [layer setCornerContentsCenter:{0.5, 0.5, 0.0, 0.0}];
+    [v13 CGImage];
+    [layer setCornerContents:?];
+    [layer setCornerContentsCenter:?];
     [settingsCopy cornerRadius];
     [layer setCornerRadius:?];
-    [layer setMasksToBounds:1];
+    [layer setMasksToBounds:?];
   }
 
   return height;
@@ -51,25 +38,20 @@
 
 - (MTPillView)initWithFrame:(CGRect)frame
 {
-  height = frame.size.height;
-  width = frame.size.width;
-  y = frame.origin.y;
-  x = frame.origin.x;
-  v8 = +[MTLumaDodgePillDomain rootSettings];
-  height = [(MTPillView *)self initWithFrame:v8 settings:x, y, width, height];
+  v4 = +[MTLumaDodgePillDomain rootSettings];
+  v5 = [MTPillView initWithFrame:"initWithFrame:settings:" settings:?];
 
-  return height;
+  return v5;
 }
 
 - (MTPillView)init
 {
   v3 = +[MTLumaDodgePillDomain rootSettings];
   [v3 minWidth];
-  v5 = v4;
   [v3 height];
-  v7 = [(MTPillView *)self initWithFrame:v3 settings:0.0, 0.0, v5, v6];
+  v4 = [MTPillView initWithFrame:"initWithFrame:settings:" settings:?];
 
-  return v7;
+  return v4;
 }
 
 @end

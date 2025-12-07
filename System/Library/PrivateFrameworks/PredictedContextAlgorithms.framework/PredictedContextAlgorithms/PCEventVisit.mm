@@ -82,10 +82,9 @@
 {
   v3 = MEMORY[0x1E696AEC0];
   v4 = [(PCEventVisit *)self description];
-  placeName = self->_placeName;
-  v6 = [v3 stringWithFormat:@"%@ <placeName:%@, location:%@>", v4, placeName, self->_location];
+  v5 = [v3 stringWithFormat:@"%@ <placeName:%@, location:%@>", v4, self->_placeName, self->_location];
 
-  return v6;
+  return v5;
 }
 
 @end

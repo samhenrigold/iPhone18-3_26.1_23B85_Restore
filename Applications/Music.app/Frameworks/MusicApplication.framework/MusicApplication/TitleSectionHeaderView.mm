@@ -61,7 +61,7 @@
 - (void)music_inheritedLayoutInsetsDidChange
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for TitleSectionHeaderView();
+  v3.super_class = type metadata accessor for TitleSectionHeaderView(0);
   v2 = v3.receiver;
   [(TitleSectionHeaderView *)&v3 music_inheritedLayoutInsetsDidChange];
   [v2 setNeedsLayout];
@@ -77,7 +77,7 @@
 - (UIColor)backgroundColor
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for TitleSectionHeaderView();
+  v4.super_class = type metadata accessor for TitleSectionHeaderView(0);
   backgroundColor = [(TitleSectionHeaderView *)&v4 backgroundColor];
 
   return backgroundColor;
@@ -86,7 +86,7 @@
 - (void)setBackgroundColor:(id)color
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for TitleSectionHeaderView();
+  v7.super_class = type metadata accessor for TitleSectionHeaderView(0);
   colorCopy = color;
   v5 = v7.receiver;
   [(TitleSectionHeaderView *)&v7 setBackgroundColor:colorCopy];

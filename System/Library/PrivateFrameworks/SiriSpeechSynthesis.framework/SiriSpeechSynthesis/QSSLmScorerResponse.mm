@@ -41,7 +41,7 @@ flatbuffers::DetachedBuffer *__35__QSSLmScorerResponse_flatbuffData__block_invok
 
 - (Offset<siri::speech::schema_fb::LmScorerResponse>)addObjectToBuffer:(void *)buffer
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   return_code = [(QSSLmScorerResponse *)self return_code];
   selfCopy = self;
   return_str = [(QSSLmScorerResponse *)self return_str];
@@ -67,16 +67,11 @@ flatbuffers::DetachedBuffer *__35__QSSLmScorerResponse_flatbuffData__block_invok
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
+  memset(v23, 0, sizeof(v23));
   obj = [(QSSLmScorerResponse *)selfCopy tokens];
-  if ([obj countByEnumeratingWithState:&v25 objects:v29 count:16])
+  if ([obj countByEnumeratingWithState:v23 objects:v24 count:16])
   {
-    *v26;
-    *v26;
-    [**(&v25 + 1) addObjectToBuffer:buffer];
+    [**(&v23[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -98,9 +93,7 @@ flatbuffers::DetachedBuffer *__35__QSSLmScorerResponse_flatbuffData__block_invok
   }
 
   flatbuffers::FlatBufferBuilder::AddElement<double>(buffer, 10, v13);
-  v18.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v14 - v15 + v16);
-  v19 = *MEMORY[0x277D85DE8];
-  return v18;
+  return flatbuffers::FlatBufferBuilder::EndTable(buffer, v14 - v15 + v16);
 }
 
 - (double)ppl

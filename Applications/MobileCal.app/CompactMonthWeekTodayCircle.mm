@@ -514,15 +514,14 @@ LABEL_8:
 
     else
     {
-      EKUIScaleFactor();
-      v15 = 1.0 / v14;
-      v18.origin.x = v7;
-      v18.origin.y = v9;
-      v18.size.width = v11;
-      v18.size.height = v13;
-      v19 = CGRectInset(v18, v15, v15);
+      v14 = 1.0 / EKUIScaleFactor();
+      v17.origin.x = v7;
+      v17.origin.y = v9;
+      v17.size.width = v11;
+      v17.size.height = v13;
+      v18 = CGRectInset(v17, v14, v14);
 
-      CGContextFillEllipseInRect(CurrentContext, v19);
+      CGContextFillEllipseInRect(CurrentContext, v18);
     }
   }
 }

@@ -237,36 +237,34 @@ WBSSavedAccountAdditionalSite *__80__WBSSavedAccountSidecar_initWithUser_protect
 
   prefixedSharableData = [sidecarCopy prefixedSharableData];
   v22 = [prefixedSharableData count];
-  v23 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v24 = WBS_LOG_CHANNEL_PREFIXPasswords(v22, v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     if (v22 == 1)
     {
-      v24 = "";
+      v25 = "";
     }
 
     else
     {
-      v24 = "s";
+      v25 = "s";
     }
 
-    v25 = v23;
+    v26 = v24;
     allKeys = [prefixedSharableData allKeys];
-    v27 = [allKeys componentsJoinedByString:{@", "}];
+    v28 = [allKeys componentsJoinedByString:{@", "}];
     v31 = 134218498;
     v32 = v22;
     v33 = 2080;
-    v34 = v24;
+    v34 = v25;
     v35 = 2112;
-    v36 = v27;
-    _os_log_impl(&dword_1B8447000, v25, OS_LOG_TYPE_DEFAULT, "Migrating %ld unknown key%s from shared sidecar to personal sidecar: %@", &v31, 0x20u);
+    v36 = v28;
+    _os_log_impl(&dword_1B8447000, v26, OS_LOG_TYPE_DEFAULT, "Migrating %ld unknown key%s from shared sidecar to personal sidecar: %@", &v31, 0x20u);
   }
 
-  v28 = [(NSDictionary *)self->_originalKeychainDictionary safari_setValuesFromDictionary:prefixedSharableData];
-  v29 = self->_originalKeychainDictionary;
-  self->_originalKeychainDictionary = v28;
-
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = [(NSDictionary *)self->_originalKeychainDictionary safari_setValuesFromDictionary:prefixedSharableData];
+  v30 = self->_originalKeychainDictionary;
+  self->_originalKeychainDictionary = v29;
 }
 
 - (void)removeSharableData

@@ -32,7 +32,7 @@
   v9 = [mailPresenter canComposeMail] ^ 1;
 
   v10 = [SXBlockActionActivity alloc];
-  v11 = SXBundle();
+  v11 = SXBundle(v10);
   v12 = [v11 localizedStringForKey:@"New Message" value:&stru_1F532F6C0 table:0];
   v22 = MEMORY[0x1E69E9820];
   v23 = 3221225472;
@@ -45,7 +45,7 @@
   [(SXActionActivityGroup *)v7 addActivity:v14, v22, v23, v24, v25, selfCopy];
 
   v15 = [SXPasteboardActionActivity alloc];
-  v16 = SXBundle();
+  v16 = SXBundle(v15);
   v17 = [v16 localizedStringForKey:@"Copy" value:&stru_1F532F6C0 table:0];
   generalPasteboard = [MEMORY[0x1E69DCD50] generalPasteboard];
   recipient2 = [v13 recipient];

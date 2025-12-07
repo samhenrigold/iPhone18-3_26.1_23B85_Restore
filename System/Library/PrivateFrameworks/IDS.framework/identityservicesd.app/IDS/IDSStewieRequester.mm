@@ -305,10 +305,11 @@
   requestCopy = request;
   sub_1004D5F60();
   sub_1004D5FB8();
-  v7 = v5;
-  sub_1004D5F9C(v5);
-  v6 = +[IDSStewieProvisioningEventTracing sharedInstance];
-  [v6 trackProvisioningChangesWithEventType:1];
+  v9 = v5;
+  v6 = v5;
+  sub_1004D5F9C(v6, v7);
+  v8 = +[IDSStewieProvisioningEventTracing sharedInstance];
+  [v8 trackProvisioningChangesWithEventType:1];
 }
 
 - (void)addSMSConfig:(id)config
@@ -316,10 +317,11 @@
   configCopy = config;
   sub_1004D5F60();
   sub_1004D5FB8();
-  v7 = v5;
-  sub_1004D5F9C(v5);
-  v6 = +[IDSStewieProvisioningEventTracing sharedInstance];
-  [v6 trackProvisioningChangesWithEventType:0];
+  v9 = v5;
+  v6 = v5;
+  sub_1004D5F9C(v6, v7);
+  v8 = +[IDSStewieProvisioningEventTracing sharedInstance];
+  [v8 trackProvisioningChangesWithEventType:0];
 }
 
 - (void)addPhoneNumbersRequest:(id)request
@@ -327,10 +329,11 @@
   requestCopy = request;
   sub_1004D5F60();
   sub_1004D5FB8();
-  v7 = v5;
-  sub_1004D5F9C(v5);
-  v6 = +[IDSStewieProvisioningEventTracing sharedInstance];
-  [v6 trackProvisioningChangesWithEventType:2];
+  v9 = v5;
+  v6 = v5;
+  sub_1004D5F9C(v6, v7);
+  v8 = +[IDSStewieProvisioningEventTracing sharedInstance];
+  [v8 trackProvisioningChangesWithEventType:2];
 }
 
 - (void)addSessionKeyRequest:(id)request
@@ -338,10 +341,11 @@
   requestCopy = request;
   sub_1004D5F60();
   sub_1004D5FB8();
-  v7 = v5;
-  sub_1004D5F9C(v5);
-  v6 = +[IDSStewieProvisioningEventTracing sharedInstance];
-  [v6 trackProvisioningChangesWithEventType:3];
+  v9 = v5;
+  v6 = v5;
+  sub_1004D5F9C(v6, v7);
+  v8 = +[IDSStewieProvisioningEventTracing sharedInstance];
+  [v8 trackProvisioningChangesWithEventType:3];
 }
 
 - (void)addClearRequest:(id)request
@@ -349,8 +353,9 @@
   requestCopy = request;
   sub_1004D5F60();
   sub_1004D5FB8();
+  v8 = v5;
   v6 = v5;
-  sub_1004D5F9C(v5);
+  sub_1004D5F9C(v6, v7);
 }
 
 - (void)addCompanionPhoneNumbersRequest:(id)request
@@ -358,10 +363,11 @@
   requestCopy = request;
   sub_1004D5F60();
   sub_1004D5FB8();
-  v7 = v5;
-  sub_1004D5F9C(v5);
-  v6 = +[IDSStewieProvisioningEventTracing sharedInstance];
-  [v6 trackProvisioningChangesWithEventType:4];
+  v9 = v5;
+  v6 = v5;
+  sub_1004D5F9C(v6, v7);
+  v8 = +[IDSStewieProvisioningEventTracing sharedInstance];
+  [v8 trackProvisioningChangesWithEventType:4];
 }
 
 - (void)addCompanionDeviceUDIDsRequest:(id)request
@@ -369,10 +375,11 @@
   requestCopy = request;
   sub_1004D5F60();
   sub_1004D5FB8();
-  v7 = v5;
-  sub_1004D5F9C(v5);
-  v6 = +[IDSStewieProvisioningEventTracing sharedInstance];
-  [v6 trackProvisioningChangesWithEventType:5];
+  v9 = v5;
+  v6 = v5;
+  sub_1004D5F9C(v6, v7);
+  v8 = +[IDSStewieProvisioningEventTracing sharedInstance];
+  [v8 trackProvisioningChangesWithEventType:5];
 }
 
 @end

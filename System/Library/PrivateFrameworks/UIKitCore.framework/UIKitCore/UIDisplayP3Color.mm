@@ -285,9 +285,9 @@ LABEL_20:
     else
     {
       colorSpaceName2 = [(UIDisplayP3Color *)self colorSpaceName];
-      v9 = [colorSpaceName isEqualToString:colorSpaceName2];
+      isEqualToString = objc_msgSend_isEqualToString_(colorSpaceName);
 
-      if (v9 || ([colorSpaceName isEqualToString:@"UIExtendedSRGBColorSpace"] & 1) != 0 || objc_msgSend(colorSpaceName, "isEqualToString:", @"UIDeviceRGBColorSpace"))
+      if (isEqualToString || (objc_msgSend_isEqualToString_(colorSpaceName) & 1) != 0 || objc_msgSend_isEqualToString_(colorSpaceName))
       {
         v13 = 0.0;
         v14 = 0.0;

@@ -149,15 +149,15 @@
     v10 = _contextId;
     WTF::RunLoop::mainSingleton(_contextId);
     CFRetain(event);
-    v11 = WTF::fastMalloc(0x18);
-    *v11 = &unk_1F10FBDE8;
-    *(v11 + 8) = event;
-    *(v11 + 16) = v10;
-    v13 = v11;
+    v12 = WTF::fastMalloc(v11, 0x18);
+    *v12 = &unk_1F10FBDE8;
+    v12[1] = event;
+    *(v12 + 4) = v10;
+    v14 = v12;
     WTF::RunLoop::dispatch();
-    if (v13)
+    if (v14)
     {
-      (*(*v13 + 8))(v13);
+      (*(*v14 + 8))(v14);
     }
   }
 
@@ -166,8 +166,8 @@
 
 - (BOOL)_sendMarkerHIDEventInWindow:(id)window completionBlock:(id)block
 {
-  v14 = +[_WKTouchEventGenerator nextEventCallbackID];
-  -[NSMutableDictionary setObject:forKey:](self->_eventCallbacks, "setObject:forKey:", _Block_copy(block), [MEMORY[0x1E696AD98] numberWithLong:v14]);
+  v15 = +[_WKTouchEventGenerator nextEventCallbackID];
+  -[NSMutableDictionary setObject:forKey:](self->_eventCallbacks, "setObject:forKey:", _Block_copy(block), [MEMORY[0x1E696AD98] numberWithLong:v15]);
   mach_absolute_time();
   VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
   if (VendorDefinedEvent)
@@ -176,15 +176,15 @@
     _contextId = [window _contextId];
     v10 = _contextId;
     WTF::RunLoop::mainSingleton(_contextId);
-    v11 = WTF::fastMalloc(0x18);
-    *v11 = &unk_1F10FBE10;
-    *(v11 + 8) = v8;
-    *(v11 + 16) = v10;
-    v13 = v11;
+    v12 = WTF::fastMalloc(v11, 0x18);
+    *v12 = &unk_1F10FBE10;
+    v12[1] = v8;
+    *(v12 + 4) = v10;
+    v14 = v12;
     WTF::RunLoop::dispatch();
-    if (v13)
+    if (v14)
     {
-      (*(*v13 + 8))(v13);
+      (*(*v14 + 8))(v14);
     }
   }
 

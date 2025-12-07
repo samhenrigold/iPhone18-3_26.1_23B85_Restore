@@ -66,7 +66,7 @@
   {
   }
 
-  __swift_destroy_boxed_opaque_existential_0(&v6);
+  __swift_destroy_boxed_opaque_existential_0(v6);
 }
 
 - (void)doneTapped:(id)tapped
@@ -80,7 +80,7 @@
     [(AIAudiogramFrequencySelectionViewController *)selfCopy dismissViewControllerAnimated:1 completion:0];
   }
 
-  __swift_destroy_boxed_opaque_existential_0(&v5);
+  __swift_destroy_boxed_opaque_existential_0(v5);
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
@@ -135,7 +135,7 @@
   swift_unknownObjectRelease();
   sub_2417D0B38();
 
-  __swift_destroy_boxed_opaque_existential_0(&v5);
+  __swift_destroy_boxed_opaque_existential_0(v5);
 }
 
 - (AIAudiogramFrequencySelectionViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name

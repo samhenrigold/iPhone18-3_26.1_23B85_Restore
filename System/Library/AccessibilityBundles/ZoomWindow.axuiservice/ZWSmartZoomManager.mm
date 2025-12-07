@@ -452,10 +452,10 @@ LABEL_22:
   accessibilityRuntimeObserver = self->_accessibilityRuntimeObserver;
   if (!accessibilityRuntimeObserver)
   {
-    if (AXObserverCreate(pid, _handleAccessibilityRuntimeEvent, &self->_accessibilityRuntimeObserver))
+    v10 = AXObserverCreate(pid, _handleAccessibilityRuntimeEvent, &self->_accessibilityRuntimeObserver);
+    if (v10)
     {
-      LOBYTE(v11) = 1;
-      v12 = @"Failed to create an accessibility event observer: %ld";
+      _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Failed to create an accessibility event observer: %ld", v10);
       goto LABEL_7;
     }
 
@@ -471,79 +471,68 @@ LABEL_22:
     return;
   }
 
-  v12 = @"Failed to get the observer run loop source";
-  LOBYTE(v11) = 1;
+  _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Failed to get the observer run loop source", v12);
 LABEL_7:
-  _AXLogWithFacility();
-  v10 = objc_autoreleasePoolPush();
-  [(ZWSmartZoomManager *)self _accessibilitySystemServerDied:v11];
-  objc_autoreleasePoolPop(v10);
+  v11 = objc_autoreleasePoolPush();
+  [(ZWSmartZoomManager *)self _accessibilitySystemServerDied];
+  objc_autoreleasePoolPop(v11);
 }
 
 - (void)_registerForAccessibilityRuntimeNotifications
 {
-  LOBYTE(v16) = 1;
-  _AXLogWithFacility();
-  v3 = [AXElement systemWideElement:v16];
+  _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Zoom will register for ax runtime notifications now", v15);
+  v3 = +[AXElement systemWideElement];
   uiElement = [v3 uiElement];
   axElement = [uiElement axElement];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   _accessibilityRuntimeNotifications = [(ZWSmartZoomManager *)self _accessibilityRuntimeNotifications];
-  v7 = [_accessibilityRuntimeNotifications countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [_accessibilityRuntimeNotifications countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v23;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v23 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(_accessibilityRuntimeNotifications);
         }
 
-        intValue = [*(*(&v22 + 1) + 8 * i) intValue];
+        intValue = [*(*(&v17 + 1) + 8 * i) intValue];
         v13 = intValue;
-        v14 = AXObserverAddNotification(self->_accessibilityRuntimeObserver, axElement, intValue, self);
-        if (v14)
+        if (AXObserverAddNotification(self->_accessibilityRuntimeObserver, axElement, intValue, self))
         {
-          v18 = @"Zoom could not register for notification:%ld. Error:%ld";
-          v19 = v13;
           v9 = 1;
-          LOBYTE(v17) = 1;
-          v20 = v14;
+          _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Zoom could not register for notification:%ld. Error:%ld", v13);
         }
 
         else
         {
-          v18 = @"Zoom did register for ax notification: %ld";
-          v19 = v13;
-          LOBYTE(v17) = 1;
+          _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Zoom did register for ax notification: %ld", v13);
         }
-
-        _AXLogWithFacility();
       }
 
-      v8 = [_accessibilityRuntimeNotifications countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [_accessibilityRuntimeNotifications countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
 
     if (v9)
     {
-      v15 = dispatch_time(0, 1000000000);
+      v14 = dispatch_time(0, 1000000000);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = __67__ZWSmartZoomManager__registerForAccessibilityRuntimeNotifications__block_invoke;
       block[3] = &unk_78D00;
       block[4] = self;
-      dispatch_after(v15, &_dispatch_main_q, block);
+      dispatch_after(v14, &_dispatch_main_q, block);
     }
   }
 
@@ -554,53 +543,49 @@ LABEL_7:
 
 - (void)_unregisterForAccessibilityRuntimeNotifications
 {
-  LOBYTE(v16) = 1;
-  _AXLogWithFacility();
-  v3 = [AXElement systemWideElement:v16];
+  _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Zoom will unregister for ax runtime notifications now", v16);
+  v3 = +[AXElement systemWideElement];
   uiElement = [v3 uiElement];
   axElement = [uiElement axElement];
 
   v6 = +[AXElement systemWideElement];
   [v6 setPassivelyListeningForEvents:1];
 
-  v23 = 0u;
-  v24 = 0u;
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   _accessibilityRuntimeNotifications = [(ZWSmartZoomManager *)self _accessibilityRuntimeNotifications];
-  v8 = [_accessibilityRuntimeNotifications countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [_accessibilityRuntimeNotifications countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v19;
     do
     {
       v11 = 0;
       do
       {
-        if (*v22 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(_accessibilityRuntimeNotifications);
         }
 
-        intValue = [*(*(&v21 + 1) + 8 * v11) intValue];
+        intValue = [*(*(&v18 + 1) + 8 * v11) intValue];
         v13 = AXObserverRemoveNotification(self->_accessibilityRuntimeObserver, axElement, intValue);
         if (v13)
         {
           v14 = v13;
           v15 = [NSNumber numberWithInt:intValue];
-          [NSNumber numberWithInt:v14];
-          v20 = v19 = v15;
-          v18 = @"Zoom could not unregister for notification:%@. Error:%@";
-          LOBYTE(v17) = 1;
-          _AXLogWithFacility();
+          v17 = [NSNumber numberWithInt:v14];
+          _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Zoom could not unregister for notification:%@. Error:%@", v15);
         }
 
         v11 = v11 + 1;
       }
 
       while (v9 != v11);
-      v9 = [_accessibilityRuntimeNotifications countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [_accessibilityRuntimeNotifications countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
@@ -609,11 +594,10 @@ LABEL_7:
 
 - (void)_accessibilitySystemServerDied
 {
-  LOBYTE(v3) = 1;
-  _AXLogWithFacility();
+  _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Zoom notified that system server died. unregistering ax", v3);
   if (self->_accessibilityRuntimeObserver)
   {
-    [(ZWSmartZoomManager *)self _unregisterForAccessibilityRuntimeNotifications:v3];
+    [(ZWSmartZoomManager *)self _unregisterForAccessibilityRuntimeNotifications];
     CFRelease(self->_accessibilityRuntimeObserver);
     self->_accessibilityRuntimeObserver = 0;
   }

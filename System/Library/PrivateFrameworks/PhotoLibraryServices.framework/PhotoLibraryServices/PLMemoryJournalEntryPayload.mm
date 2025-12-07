@@ -34,9 +34,9 @@
   {
     if ([propertyCopy isEqualToKey:@"keyAsset"])
     {
-      v13 = [dictionaryValueCopy isEqualToString:valueCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(dictionaryValueCopy);
 LABEL_6:
-      v12 = v13;
+      v12 = isEqualToString;
       goto LABEL_17;
     }
 
@@ -52,7 +52,7 @@ LABEL_6:
       {
         v17.receiver = self;
         v17.super_class = PLMemoryJournalEntryPayload;
-        v13 = [(PLManagedObjectJournalEntryPayload *)&v17 comparePayloadValue:valueCopy toObjectDictionaryValue:dictionaryValueCopy forPayloadProperty:propertyCopy];
+        isEqualToString = [(PLManagedObjectJournalEntryPayload *)&v17 comparePayloadValue:valueCopy toObjectDictionaryValue:dictionaryValueCopy forPayloadProperty:propertyCopy];
         goto LABEL_6;
       }
 
@@ -68,8 +68,8 @@ LABEL_6:
   v21 = 0;
   v22 = &v21;
   v23 = 0x2020000000;
-  v11 = [dictionaryValueCopy count];
-  v24 = v11 == [valueCopy count];
+  v11 = objc_msgSend_count(dictionaryValueCopy);
+  v24 = v11 == objc_msgSend_count(valueCopy);
   if (*(v22 + 24) == 1)
   {
     v18[0] = MEMORY[0x1E69E9820];
@@ -131,9 +131,9 @@ void __94__PLMemoryJournalEntryPayload_comparePayloadValue_toObjectDictionaryVal
   {
     v13 = objectCopy;
     v14 = [propertyCopy key];
-    v15 = [v14 isEqualToString:@"movieAssetState"];
+    isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-    if (v15)
+    if (isEqualToString)
     {
       payloadAttributes = self->super._payloadAttributes;
       v17 = [propertyCopy key];
@@ -208,7 +208,7 @@ void __94__PLMemoryJournalEntryPayload_comparePayloadValue_toObjectDictionaryVal
   else
   {
     v19 = [propertyCopy key];
-    v20 = [v19 isEqualToString:@"viewCount"];
+    v20 = objc_msgSend_isEqualToString_(v19);
 
     if (v20)
     {
@@ -275,7 +275,7 @@ LABEL_11:
   keyCopy = key;
   valueCopy = value;
   builderCopy = builder;
-  if ([keyCopy isEqualToString:@"keyAsset"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v11 = [(PLManagedObjectJournalEntryPayload *)self UUIDStringForData:valueCopy];
     v15.receiver = self;
@@ -283,7 +283,7 @@ LABEL_11:
     [(PLManagedObjectJournalEntryPayload *)&v15 appendAttributeKey:keyCopy value:v11 toDescriptionBuilder:builderCopy];
   }
 
-  else if (([keyCopy isEqualToString:@"curatedAssets"] & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"extendedCuratedAssets") & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"movieCuratedAssets") & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"userCuratedAssets") & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"userRemovedAssets") & 1) != 0 || objc_msgSend(keyCopy, "isEqualToString:", @"representativeAssets"))
+  else if ((objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || objc_msgSend_isEqualToString_(keyCopy))
   {
     v11 = [(PLManagedObjectJournalEntryPayload *)self setForUUIDEncodedData:valueCopy];
     v14.receiver = self;
@@ -293,7 +293,7 @@ LABEL_11:
 
   else
   {
-    if (![keyCopy isEqualToString:@"customUserAssets"])
+    if (!objc_msgSend_isEqualToString_(keyCopy))
     {
       v12.receiver = self;
       v12.super_class = PLMemoryJournalEntryPayload;
@@ -517,7 +517,7 @@ LABEL_18:
     }
   }
 
-  v22 = v19 == [v8 count];
+  v22 = v19 == objc_msgSend_count(v8);
 
   return v22;
 }
@@ -568,8 +568,8 @@ LABEL_18:
   v64 = v16;
   v19 = [PLManagedAsset assetsWithUUIDs:allObjects options:v16 inManagedObjectContext:managedObjectContext];
 
-  v20 = [v19 count];
-  v66 = v20 == [v7 count];
+  v20 = objc_msgSend_count(v19);
+  v66 = v20 == objc_msgSend_count(v7);
   v21 = MEMORY[0x1E696AE18];
   curatedAssetUUIDs2 = [(PLMemoryJournalEntryPayload *)self curatedAssetUUIDs];
   v23 = [v21 predicateWithFormat:@"%K in %@", @"uuid", curatedAssetUUIDs2];
@@ -669,9 +669,9 @@ uint64_t __79__PLMemoryJournalEntryPayload_updateAssetsInMemory_includePendingAs
 {
   v3 = [a2 uuid];
   v4 = [*(a1 + 32) keyAssetUUID];
-  v5 = [v3 isEqualToString:v4];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  return v5;
+  return isEqualToString;
 }
 
 id __79__PLMemoryJournalEntryPayload_updateAssetsInMemory_includePendingAssetChanges___block_invoke_2(uint64_t a1)

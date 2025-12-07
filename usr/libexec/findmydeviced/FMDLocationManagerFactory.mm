@@ -39,29 +39,29 @@
 
 - (id)_newCLLocationManager
 {
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = sub_10000A964;
-  v14 = sub_100002A7C;
-  v15 = 0;
-  v3 = sub_100002880();
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = sub_10000A964;
+  v15 = sub_100002A7C;
+  v16 = 0;
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "FMDLocationManagerFactory creating location manager", buf, 2u);
   }
 
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_10000EDF8;
-  v9[3] = &unk_1002CD260;
-  v9[4] = self;
-  v9[5] = &v10;
-  v4 = objc_retainBlock(v9);
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_10000EDF8;
+  v10[3] = &unk_1002CD260;
+  v10[4] = self;
+  v10[5] = &v11;
+  v4 = objc_retainBlock(v10);
   if (+[NSThread isMainThread])
   {
-    (v4[2])(v4);
+    v5 = (v4[2])(v4);
   }
 
   else
@@ -69,19 +69,19 @@
     dispatch_sync(&_dispatch_main_q, v4);
   }
 
-  v5 = sub_100002880();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100002880(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v11[5];
+    v7 = v12[5];
     *buf = 138412290;
-    v17 = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "FMDLocationManagerFactory created %@", buf, 0xCu);
+    v18 = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FMDLocationManagerFactory created %@", buf, 0xCu);
   }
 
-  v7 = v11[5];
-  _Block_object_dispose(&v10, 8);
+  v8 = v12[5];
+  _Block_object_dispose(&v11, 8);
 
-  return v7;
+  return v8;
 }
 
 - (FMDLocationManagerFactory)init

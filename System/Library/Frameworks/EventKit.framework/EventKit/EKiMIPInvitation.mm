@@ -46,7 +46,7 @@
 - (id)emailSubject
 {
   v3 = MEMORY[0x1E696AEC0];
-  v4 = EKBundle();
+  v4 = EKBundle(self);
   v5 = [v4 localizedStringForKey:@"Event invitation: %@" value:&stru_1F1B49D68 table:@"iTIP"];
   event = [(EKiMIPHandler *)self event];
   title = [event title];
@@ -74,7 +74,7 @@
     localizedShortTime = [startDate2 localizedShortTime];
   }
 
-  v41 = localizedShortTime;
+  v43 = localizedShortTime;
 
   v9 = MEMORY[0x1E6992F68];
   event4 = [(EKiMIPHandler *)self event];
@@ -86,7 +86,7 @@
   myEmailAddress = [defaultProvider myEmailAddress];
   v16 = [v14 URLForMail:myEmailAddress];
 
-  v40 = v16;
+  v42 = v16;
   v17 = [objc_alloc(MEMORY[0x1E69E3D10]) initWithURL:v16];
   myShortDisplayName = [defaultProvider myShortDisplayName];
   [v17 setCn:myShortDisplayName];
@@ -96,15 +96,15 @@
 
   if (isAllDay)
   {
-    v21 = MEMORY[0x1E696AEC0];
-    v22 = EKBundle();
-    v23 = [v22 localizedStringForKey:@"%@ has invited you to the event: %@ value:scheduled for %@. To accept or decline this invitation table:{click the link below.\n", &stru_1F1B49D68, @"iTIP"}];
+    v22 = MEMORY[0x1E696AEC0];
+    v23 = EKBundle(v21);
+    v24 = [v23 localizedStringForKey:@"%@ has invited you to the event: %@ value:scheduled for %@. To accept or decline this invitation table:{click the link below.\n", &stru_1F1B49D68, @"iTIP"}];
     displayName = [v17 displayName];
     event6 = [(EKiMIPHandler *)self event];
     title = [event6 title];
-    v27 = localizedLongDate;
-    v28 = [v21 localizedStringWithFormat:v23, displayName, title, localizedLongDate];
-    v29 = v41;
+    v28 = localizedLongDate;
+    v29 = [v22 localizedStringWithFormat:v24, displayName, title, localizedLongDate];
+    v30 = v43;
   }
 
   else
@@ -112,65 +112,65 @@
     event7 = [(EKiMIPHandler *)self event];
     isFloating = [event7 isFloating];
 
-    v39 = MEMORY[0x1E696AEC0];
-    v32 = EKBundle();
-    v22 = v32;
-    v27 = localizedLongDate;
+    v41 = MEMORY[0x1E696AEC0];
+    v34 = EKBundle(v33);
+    v23 = v34;
+    v28 = localizedLongDate;
     if (isFloating)
     {
       if (v12)
       {
-        v33 = @"itip invitation singular";
+        v35 = @"itip invitation singular";
       }
 
       else
       {
-        v33 = @"itip invitation plural";
+        v35 = @"itip invitation plural";
       }
 
-      v23 = [v32 localizedStringForKey:v33 value:@"%@ has invited you to the event: %@ table:{scheduled for %@ at %@. To accept or decline this invitation, click the link below.\n", @"iTIP"}];
+      v24 = [v34 localizedStringForKey:v35 value:@"%@ has invited you to the event: %@ table:{scheduled for %@ at %@. To accept or decline this invitation, click the link below.\n", @"iTIP"}];
       displayName = [v17 displayName];
       event6 = [(EKiMIPHandler *)self event];
       title = [event6 title];
-      v29 = v41;
-      v28 = [v39 localizedStringWithFormat:v23, displayName, title, localizedLongDate, v41];
+      v30 = v43;
+      v29 = [v41 localizedStringWithFormat:v24, displayName, title, localizedLongDate, v43];
     }
 
     else
     {
-      v38 = v32;
+      v40 = v34;
       if (v12)
       {
-        v23 = [v32 localizedStringForKey:@"itip invitation with timezone singular" value:@"%@ has invited you to the event: %@ table:{scheduled for %@ at %@ (%@). To accept or decline this invitation, click the link below.\n", @"iTIP"}];
+        v24 = [v34 localizedStringForKey:@"itip invitation with timezone singular" value:@"%@ has invited you to the event: %@ table:{scheduled for %@ at %@ (%@). To accept or decline this invitation, click the link below.\n", @"iTIP"}];
         displayName = [v17 displayName];
         event6 = [(EKiMIPHandler *)self event];
         title = [event6 title];
         event8 = [(EKiMIPHandler *)self event];
         timeZone = [event8 timeZone];
-        v29 = v41;
-        v27 = localizedLongDate;
-        v28 = [v39 localizedStringWithFormat:v23, displayName, title, localizedLongDate, v41, timeZone];
+        v30 = v43;
+        v28 = localizedLongDate;
+        v29 = [v41 localizedStringWithFormat:v24, displayName, title, localizedLongDate, v43, timeZone];
       }
 
       else
       {
-        v23 = [v32 localizedStringForKey:@"itip invitation with timezone plural" value:@"%@ has invited you to the event: %@ table:{scheduled for %@ at %@ (%@). To accept or decline this invitation, click the link below.\n", @"iTIP"}];
+        v24 = [v34 localizedStringForKey:@"itip invitation with timezone plural" value:@"%@ has invited you to the event: %@ table:{scheduled for %@ at %@ (%@). To accept or decline this invitation, click the link below.\n", @"iTIP"}];
         displayName = [v17 displayName];
         event6 = [(EKiMIPHandler *)self event];
         title = [event6 title];
         event8 = [(EKiMIPHandler *)self event];
         timeZone2 = [event8 timeZone];
-        v27 = localizedLongDate;
-        v28 = [v39 localizedStringWithFormat:v23, displayName, title, localizedLongDate, v41, timeZone2];
+        v28 = localizedLongDate;
+        v29 = [v41 localizedStringWithFormat:v24, displayName, title, localizedLongDate, v43, timeZone2];
 
-        v29 = v41;
+        v30 = v43;
       }
 
-      v22 = v38;
+      v23 = v40;
     }
   }
 
-  return v28;
+  return v29;
 }
 
 @end

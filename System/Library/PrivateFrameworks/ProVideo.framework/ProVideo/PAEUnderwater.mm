@@ -105,7 +105,7 @@
   {
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input, v44);
     }
 
     else
@@ -131,8 +131,8 @@
     result = 0;
     if (v14 && imageType == 3)
     {
-      [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
-      [(PAESharedDefaultBase *)self getInversePixelTransformForImage:input];
+      objc_msgSend_getPixelTransformForImage_(self);
+      objc_msgSend_getInversePixelTransformForImage_(self);
       v43 = 0.0;
       [v9 getFloatValue:&v43 fromParm:1 atFxTime:info->var0.var1];
       v43 = v43 * 0.1;

@@ -34,22 +34,20 @@
 
 - (id)runAction
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = AMSUIWebVerifyPrivacyAcknowledgementAction;
-  runAction = [(AMSUIWebAction *)&v12 runAction];
+  v13[1] = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = AMSUIWebVerifyPrivacyAcknowledgementAction;
+  runAction = [(AMSUIWebAction *)&v11 runAction];
   v4 = MEMORY[0x1E698C790];
   privacyIdentifier = [(AMSUIWebVerifyPrivacyAcknowledgementAction *)self privacyIdentifier];
   LODWORD(v4) = [v4 acknowledgementNeededForPrivacyIdentifier:privacyIdentifier];
 
   v6 = MEMORY[0x1E698CAD0];
-  v13 = @"acknowledged";
+  v12 = @"acknowledged";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:v4 ^ 1];
-  v14[0] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v9 = [v6 promiseWithResult:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

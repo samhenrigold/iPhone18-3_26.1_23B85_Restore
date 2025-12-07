@@ -10,6 +10,7 @@
 - (void)bestHandleForContact:(id)contact service:(id)service callback:(id)callback;
 - (void)birthdaysWithCallback:(id)callback;
 - (void)calendarEventsFromStartDate:(id)date toEndDate:(id)endDate callback:(id)callback;
+- (void)callNewerThan:(double)than showIncoming:(BOOL)incoming showOutgoing:(BOOL)outgoing missedOnly:(BOOL)only callback:(id)callback;
 - (void)contactsWithEmail:(id)email callback:(id)callback;
 - (void)contactsWithIdentifiers:(id)identifiers callback:(id)callback;
 - (void)contactsWithName:(id)name callback:(id)callback;
@@ -34,6 +35,7 @@
 - (void)preferredAppForIntentName:(id)name andParameterCombination:(id)combination callback:(id)callback;
 - (void)scheduledBedTimeWithCallback:(id)callback;
 - (void)timeIntervalSinceUserWakeupWithCallback:(id)callback;
+- (void)travelTimeInfoForEventID:(id)d location:(id)location expectedArrivalDate:(id)date transportType:(id)type localOnlyAfterFirstUpdate:(BOOL)update callback:(id)callback;
 - (void)unreadMessagesWithLimit:(int64_t)limit callback:(id)callback;
 - (void)vipsWithCallback:(id)callback;
 - (void)visibleCalendarsWithCallback:(id)callback;
@@ -94,7 +96,7 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = ATXHeuristicDataSourcesInterface();
+  v6 = ATXHeuristicDataSourcesInterface(connectionCopy);
   [connectionCopy setExportedInterface:v6];
 
   [connectionCopy setExportedObject:self];
@@ -190,6 +192,21 @@
   objc_autoreleasePoolPop(v4);
 }
 
+- (void)travelTimeInfoForEventID:(id)d location:(id)location expectedArrivalDate:(id)date transportType:(id)type localOnlyAfterFirstUpdate:(BOOL)update callback:(id)callback
+{
+  updateCopy = update;
+  dCopy = d;
+  locationCopy = location;
+  dateCopy = date;
+  typeCopy = type;
+  callbackCopy = callback;
+  v18 = objc_autoreleasePoolPush();
+  v19 = [[ATXEventTravelTimeDataSource alloc] initWithDevice:self->_device];
+  [(ATXEventTravelTimeDataSource *)v19 travelTimeInfoForEventID:dCopy location:locationCopy expectedArrivalDate:dateCopy transportType:typeCopy localOnlyAfterFirstUpdate:updateCopy callback:callbackCopy];
+
+  objc_autoreleasePoolPop(v18);
+}
+
 - (void)preferredAppForIntentName:(id)name andParameterCombination:(id)combination callback:(id)callback
 {
   nameCopy = name;
@@ -220,6 +237,19 @@
   [(ATXVIPsDataSource *)v5 vipsWithCallback:callbackCopy];
 
   objc_autoreleasePoolPop(v4);
+}
+
+- (void)callNewerThan:(double)than showIncoming:(BOOL)incoming showOutgoing:(BOOL)outgoing missedOnly:(BOOL)only callback:(id)callback
+{
+  onlyCopy = only;
+  outgoingCopy = outgoing;
+  incomingCopy = incoming;
+  callbackCopy = callback;
+  v12 = objc_autoreleasePoolPush();
+  v13 = [[ATXCallHistoryDataSource alloc] initWithDevice:self->_device];
+  [(ATXCallHistoryDataSource *)v13 callNewerThan:incomingCopy showIncoming:outgoingCopy showOutgoing:onlyCopy missedOnly:callbackCopy callback:than];
+
+  objc_autoreleasePoolPop(v12);
 }
 
 - (void)nlEventsWithCallback:(id)callback

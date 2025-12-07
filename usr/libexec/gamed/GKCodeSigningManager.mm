@@ -17,7 +17,7 @@
 
 - (BOOL)isDevSignedWithBundleID:(id)d executableURL:(id)l
 {
-  v6 = sub_1001A6C04(&qword_1003B5800);
+  v6 = sub_1001A6C04(&qword_1003B5800, &qword_1002C40D0);
   __chkstk_darwin(v6 - 8);
   v8 = &v17 - v7;
   v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -39,7 +39,7 @@
   selfCopy = self;
   v15 = sub_1001A8688(v9, v11, v8);
 
-  sub_1001A974C(v8, &qword_1003B5800);
+  sub_1001A974C(v8, &qword_1003B5800, &qword_1002C40D0);
   return v15 & 1;
 }
 

@@ -16,7 +16,7 @@
 
 + (id)recordWithAttachment:(id)attachment fileHandle:(id)handle zoneID:(id)d error:(id *)error
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handleCopy = handle;
   attachmentCopy = attachment;
@@ -73,9 +73,9 @@
 
       else
       {
-        v42 = 0;
-        v32 = [v14 readDataToEndOfFileAndReturnError:&v42];
-        v33 = v42;
+        v41 = 0;
+        v32 = [v14 readDataToEndOfFileAndReturnError:&v41];
+        v33 = v41;
         v34 = v33;
         if (!v32 && v33)
         {
@@ -84,9 +84,9 @@
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v44 = v24;
-            v45 = 2114;
-            v46 = v34;
+            v43 = v24;
+            v44 = 2114;
+            v45 = v34;
             _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "%{public}@ Failed to read data from file handle to set asset data, %{public}@", buf, 0x16u);
           }
 
@@ -117,8 +117,6 @@ LABEL_15:
 
   v38 = 0;
 LABEL_16:
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v38;
 }
@@ -241,7 +239,7 @@ LABEL_10:
 
 - (HDAttachment)attachment
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   encryptionKey = [(HDCloudSyncCodableAttachment *)self->_underlyingAttachment encryptionKey];
 
   if (encryptionKey)
@@ -249,9 +247,9 @@ LABEL_10:
     v4 = MEMORY[0x277CCAAC8];
     v5 = objc_opt_class();
     encryptionKey2 = [(HDCloudSyncCodableAttachment *)self->_underlyingAttachment encryptionKey];
-    v25 = 0;
-    v7 = [v4 unarchivedObjectOfClass:v5 fromData:encryptionKey2 error:&v25];
-    v8 = v25;
+    v24 = 0;
+    v7 = [v4 unarchivedObjectOfClass:v5 fromData:encryptionKey2 error:&v24];
+    v8 = v24;
 
     if (!v7)
     {
@@ -261,21 +259,21 @@ LABEL_10:
       {
         *buf = 138543618;
         selfCopy = self;
-        v28 = 2114;
-        v29 = v8;
+        v27 = 2114;
+        v28 = v8;
         _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "%{public}@: Unable to decode encryption key: %{public}@", buf, 0x16u);
       }
     }
 
-    v24 = v7;
+    v23 = v7;
   }
 
   else
   {
-    v24 = 0;
+    v23 = 0;
   }
 
-  v22 = [HDAttachment alloc];
+  v21 = [HDAttachment alloc];
   v10 = objc_alloc(MEMORY[0x277CCAD78]);
   attachmentIdentifier = [(HDCloudSyncAttachmentRecord *)self attachmentIdentifier];
   v11 = [v10 initWithUUIDString:attachmentIdentifier];
@@ -287,9 +285,7 @@ LABEL_10:
   v16 = HDDecodeDateForValue();
   metadata = [(HDCloudSyncCodableAttachment *)self->_underlyingAttachment metadata];
   v18 = [HDCodableMetadataDictionary decodeMetadataFromData:metadata];
-  v19 = [(HDAttachment *)v22 initWithIdentifier:v11 name:fileName type:mimeType hash:fileHash size:fileSize creationDate:v16 metadata:v18 encryptionKey:v24];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = [(HDAttachment *)v21 initWithIdentifier:v11 name:fileName type:mimeType hash:fileHash size:fileSize creationDate:v16 metadata:v18 encryptionKey:v23];
 
   return v19;
 }

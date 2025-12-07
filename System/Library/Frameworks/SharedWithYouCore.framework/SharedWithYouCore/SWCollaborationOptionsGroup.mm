@@ -67,7 +67,7 @@
 
 - (id)description
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   title = [(SWCollaborationOptionsGroup *)self title];
   if (title)
   {
@@ -80,26 +80,26 @@
     v5 = objc_opt_new();
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   options = [(SWCollaborationOptionsGroup *)self options];
-  v7 = [options countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [options countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(options);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         if ([v5 length])
         {
           [v5 appendString:@"\n"];
@@ -119,7 +119,7 @@
         [v5 appendFormat:@"- %@: %@", title3, v13];
       }
 
-      v8 = [options countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [options countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
@@ -132,8 +132,6 @@
     footer2 = [(SWCollaborationOptionsGroup *)self footer];
     [v5 appendString:footer2];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

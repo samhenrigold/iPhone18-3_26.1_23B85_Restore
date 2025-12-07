@@ -73,19 +73,18 @@
 {
   v5 = sub_1B112194C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v15 - v11;
+  v7 = MEMORY[0x1EEE9AC00](v5);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v11 = &v14 - v10;
   sub_1B112192C();
   sub_1B112192C();
   selfCopy = self;
   sub_1B10A0964();
 
-  v14 = *(v6 + 8);
-  v14(v10, v5);
-  v14(v12, v5);
+  v13 = *(v6 + 8);
+  v13(v9, v5);
+  v13(v11, v5);
 }
 
 - (void)clearEngagementsWith:(id)with type:(id)type

@@ -1,6 +1,6 @@
 @interface _HDActivityGoalScheduleEntityEncoder
 - (BOOL)applyPropertiesToObject:(id)object persistentID:(int64_t)d row:(HDSQLiteRow *)row error:(id *)error;
-- (id)_quantityForRow:(uint64_t)row unit:(uint64_t)unit columnName:(void *)name;
+- (id)_quantityForRow:(void *)row unit:(uint64_t)unit columnName:;
 - (id)codableRepresentationForPersistentID:(int64_t)d row:(HDSQLiteRow *)row error:(id *)error;
 - (id)createBareObjectWithRow:(HDSQLiteRow *)row;
 - (id)orderedProperties;
@@ -10,22 +10,20 @@
 
 - (id)orderedProperties
 {
-  v9[9] = *MEMORY[0x277D85DE8];
-  v9[0] = @"goal_type";
-  v9[1] = @"unit_string";
-  v9[2] = @"monday_goal";
-  v9[3] = @"tuesday_goal";
-  v9[4] = @"wednesday_goal";
-  v9[5] = @"thursday_goal";
-  v9[6] = @"friday_goal";
-  v9[7] = @"saturday_goal";
-  v9[8] = @"sunday_goal";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:9];
+  v8[9] = *MEMORY[0x277D85DE8];
+  v8[0] = @"goal_type";
+  v8[1] = @"unit_string";
+  v8[2] = @"monday_goal";
+  v8[3] = @"tuesday_goal";
+  v8[4] = @"wednesday_goal";
+  v8[5] = @"thursday_goal";
+  v8[6] = @"friday_goal";
+  v8[7] = @"saturday_goal";
+  v8[8] = @"sunday_goal";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:9];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -84,40 +82,40 @@
     [objectCopy setGoalType:HDSQLiteColumnWithNameAsInt64()];
     v22 = HDSQLiteColumnWithNameAsString();
     v13 = [MEMORY[0x277CCDAB0] unitFromString:v22];
-    v21 = [_HDActivityGoalScheduleEntityEncoder _quantityForRow:row unit:v13 columnName:?];
+    v21 = [(_HDActivityGoalScheduleEntityEncoder *)self _quantityForRow:row unit:v13 columnName:@"monday_goal"];
     [objectCopy setMondayGoal:v21];
-    v14 = [_HDActivityGoalScheduleEntityEncoder _quantityForRow:row unit:v13 columnName:?];
+    v14 = [(_HDActivityGoalScheduleEntityEncoder *)self _quantityForRow:row unit:v13 columnName:@"tuesday_goal"];
     [objectCopy setTuesdayGoal:v14];
-    v15 = [_HDActivityGoalScheduleEntityEncoder _quantityForRow:row unit:v13 columnName:?];
+    v15 = [(_HDActivityGoalScheduleEntityEncoder *)self _quantityForRow:row unit:v13 columnName:@"wednesday_goal"];
     [objectCopy setWednesdayGoal:v15];
-    v16 = [_HDActivityGoalScheduleEntityEncoder _quantityForRow:row unit:v13 columnName:?];
+    v16 = [(_HDActivityGoalScheduleEntityEncoder *)self _quantityForRow:row unit:v13 columnName:@"thursday_goal"];
     [objectCopy setThursdayGoal:v16];
-    v17 = [_HDActivityGoalScheduleEntityEncoder _quantityForRow:row unit:v13 columnName:?];
+    v17 = [(_HDActivityGoalScheduleEntityEncoder *)self _quantityForRow:row unit:v13 columnName:@"friday_goal"];
     [objectCopy setFridayGoal:v17];
-    v18 = [_HDActivityGoalScheduleEntityEncoder _quantityForRow:row unit:v13 columnName:?];
+    v18 = [(_HDActivityGoalScheduleEntityEncoder *)self _quantityForRow:row unit:v13 columnName:@"saturday_goal"];
     [objectCopy setSaturdayGoal:v18];
-    v19 = [_HDActivityGoalScheduleEntityEncoder _quantityForRow:row unit:v13 columnName:?];
+    v19 = [(_HDActivityGoalScheduleEntityEncoder *)self _quantityForRow:row unit:v13 columnName:@"sunday_goal"];
     [objectCopy setSundayGoal:v19];
   }
 
   return v12;
 }
 
-- (id)_quantityForRow:(uint64_t)row unit:(uint64_t)unit columnName:(void *)name
+- (id)_quantityForRow:(void *)row unit:(uint64_t)unit columnName:
 {
-  if (row)
+  if (self)
   {
-    nameCopy = name;
+    rowCopy = row;
     HDSQLiteColumnWithNameAsDouble();
-    v4 = [MEMORY[0x277CCD7E8] quantityWithUnit:nameCopy doubleValue:?];
+    v5 = [MEMORY[0x277CCD7E8] quantityWithUnit:rowCopy doubleValue:?];
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 @end

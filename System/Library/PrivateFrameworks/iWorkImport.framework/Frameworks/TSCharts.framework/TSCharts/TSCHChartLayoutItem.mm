@@ -142,9 +142,9 @@
     v13 = objc_msgSend_parent(self, v9, v10, v11, v12);
     if (v13)
     {
-      v34 = v13;
-      objc_msgSend_layoutSettings(v13, v14, v15, v16, v17);
-      v13 = v34;
+      v33 = v13;
+      objc_msgSend_layoutSettings(v13, v14, v15, v16);
+      v13 = v33;
     }
 
     else
@@ -157,12 +157,12 @@
 
   else
   {
-    v18 = MEMORY[0x277D81150];
-    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, "[TSCHChartLayoutItem layoutSettings]");
-    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, v21, v22, v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartLayoutItem.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v25, v26, v27, v28, v19, v24, 94, 0, "Returning default settings; You want to override this in the root object of the graph.");
+    v17 = MEMORY[0x277D81150];
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, "[TSCHChartLayoutItem layoutSettings]");
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, v20, v21, v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartLayoutItem.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v24, v25, v26, v27, v18, v23, 94, 0, "Returning default settings; You want to override this in the root object of the graph.");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31, v32);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30, v31);
     *&retstr->var0 = 0;
     retstr->var8 = 0;
     retstr->var9 = 0;

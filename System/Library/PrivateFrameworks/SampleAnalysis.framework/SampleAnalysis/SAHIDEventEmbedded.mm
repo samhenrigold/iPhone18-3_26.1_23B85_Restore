@@ -56,11 +56,9 @@ void __51__SAHIDEventEmbedded_parseKTrace_findingHIDEvents___block_invoke(uint64
       v5 = *(a2 + 16);
       if (v5)
       {
-        v6 = *(a1 + 40);
-        v9 = [SATimestamp timestampWithMachAbsTime:v4 fromKtraceSession:?];
-        v7 = [SAHIDEventEmbedded hidEventWithHIDEventType:v5 atTimestamp:v9];
-        v8 = *(a1 + 40);
-        [SAHIDEvent addKTraceEvent:v7 fromSession:a2];
+        v7 = [SATimestamp timestampWithMachAbsTime:v4 fromKtraceSession:*(a1 + 40)];
+        v6 = [SAHIDEventEmbedded hidEventWithHIDEventType:v5 atTimestamp:v7];
+        [(SAHIDEvent *)v6 addKTraceEvent:a2 fromSession:*(a1 + 40)];
         (*(*(a1 + 32) + 16))();
       }
     }

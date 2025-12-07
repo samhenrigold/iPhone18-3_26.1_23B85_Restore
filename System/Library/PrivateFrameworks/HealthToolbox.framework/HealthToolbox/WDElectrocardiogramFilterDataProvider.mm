@@ -30,12 +30,12 @@
 
 - (WDElectrocardiogramFilterDataProvider)initWithProfile:(id)profile delegate:(id)delegate
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   delegateCopy = delegate;
-  v30.receiver = self;
-  v30.super_class = WDElectrocardiogramFilterDataProvider;
-  v8 = [(WDElectrocardiogramFilterDataProvider *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = WDElectrocardiogramFilterDataProvider;
+  v8 = [(WDElectrocardiogramFilterDataProvider *)&v29 init];
   v9 = v8;
   if (!v8)
   {
@@ -48,9 +48,9 @@ LABEL_6:
   objc_storeWeak(&v9->_delegate, delegateCopy);
   v10 = MEMORY[0x277CCD380];
   healthStore = [profileCopy healthStore];
-  v29 = 0;
-  v12 = [v10 versionWithHealthStore:healthStore error:&v29];
-  v13 = v29;
+  v28 = 0;
+  v12 = [v10 versionWithHealthStore:healthStore error:&v28];
+  v13 = v28;
 
   if (v12)
   {
@@ -78,9 +78,9 @@ LABEL_6:
     {
       activeAlgorithmVersion = v9->_activeAlgorithmVersion;
       *buf = 138543618;
-      v32 = v9;
-      v33 = 1024;
-      v34 = activeAlgorithmVersion;
+      v31 = v9;
+      v32 = 1024;
+      v33 = activeAlgorithmVersion;
       _os_log_impl(&dword_251E85000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Initialized with alg ver: %i.", buf, 0x12u);
     }
 
@@ -97,7 +97,6 @@ LABEL_6:
   v25 = 0;
 LABEL_10:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -111,7 +110,7 @@ LABEL_10:
 
 - (void)start
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   [(WDElectrocardiogramFilterDataProvider *)self stop];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [(WDElectrocardiogramFilterDataProvider *)self setCounts:v3];
@@ -125,27 +124,27 @@ LABEL_10:
   v8 = [(WDElectrocardiogramFilterDataProvider *)self _countQueriesForFilterTypes:filterTypes];
   [(WDElectrocardiogramFilterDataProvider *)self setCountQueries:v8];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   countQueries = [(WDElectrocardiogramFilterDataProvider *)self countQueries];
-  v10 = [countQueries countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [countQueries countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       v13 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(countQueries);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * v13);
+        v14 = *(*(&v17 + 1) + 8 * v13);
         profile2 = [(WDElectrocardiogramFilterDataProvider *)self profile];
         healthStore = [profile2 healthStore];
         [healthStore executeQuery:v14];
@@ -154,13 +153,11 @@ LABEL_10:
       }
 
       while (v11 != v13);
-      v11 = [countQueries countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [countQueries countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -194,7 +191,7 @@ LABEL_10:
   return v6;
 }
 
-uint64_t __54__WDElectrocardiogramFilterDataProvider_countForType___block_invoke(uint64_t a1)
+void *__54__WDElectrocardiogramFilterDataProvider_countForType___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _rQueue_countForType:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -402,39 +399,37 @@ uint64_t __94__WDElectrocardiogramFilterDataProvider__atrialFibrillationClassifi
 
 - (id)_countQueriesForFilterTypes:(id)types
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = typesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = -[WDElectrocardiogramFilterDataProvider _countQueryForType:](self, "_countQueryForType:", [*(*(&v14 + 1) + 8 * i) integerValue]);
+        v11 = -[WDElectrocardiogramFilterDataProvider _countQueryForType:](self, "_countQueryForType:", [*(*(&v13 + 1) + 8 * i) integerValue]);
         [array addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -503,38 +498,36 @@ uint64_t __60__WDElectrocardiogramFilterDataProvider__countQueryForType___block_
 
 - (void)_stopQueries
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   countQueries = [(WDElectrocardiogramFilterDataProvider *)self countQueries];
-  v4 = [countQueries countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [countQueries countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(countQueries);
         }
 
-        [(WDElectrocardiogramFilterDataProvider *)self _safelyStopQuery:*(*(&v9 + 1) + 8 * v7++)];
+        [(WDElectrocardiogramFilterDataProvider *)self _safelyStopQuery:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [countQueries countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [countQueries countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_safelyStopQuery:(id)query
@@ -620,23 +613,21 @@ void __85__WDElectrocardiogramFilterDataProvider__rQueue_notifyDelegateDidUpdate
 
 - (void)initWithProfile:(uint64_t)a1 delegate:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch active algorithm version with error: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch active algorithm version with error: %{public}@", &v2, 0xCu);
 }
 
 void __60__WDElectrocardiogramFilterDataProvider__countQueryForType___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 48);
-  v5 = 134349314;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_251E85000, log, OS_LOG_TYPE_ERROR, "Failed to fetch count for type: %{public}ld, error: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134349314;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_251E85000, log, OS_LOG_TYPE_ERROR, "Failed to fetch count for type: %{public}ld, error: %{public}@", &v4, 0x16u);
 }
 
 @end

@@ -68,21 +68,22 @@
           {
             CFRelease(v26);
           }
-
-          return;
         }
 
-        fig_log_get_emitter();
-        OUTLINED_FUNCTION_1_11();
+        else
+        {
+          fig_log_get_emitter();
+          OUTLINED_FUNCTION_1_11();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+        }
       }
 
       else
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_1_11();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       }
-
-      FigDebugAssert3();
     }
   }
 }
@@ -91,43 +92,43 @@
 {
   if (buffer)
   {
-    v3 = [CMGetAttachment(target *off_1E798A3C8];
-    if (v3)
+    v4 = [CMGetAttachment(target *off_1E798A3C8];
+    if (v4)
     {
-      bytes = [v3 bytes];
+      bytes = [v4 bytes];
       if (*bytes == 256)
       {
         if (*(buffer + 124) == 1)
         {
-          v5 = 0;
-          v6 = bytes + 2;
+          v6 = 0;
+          v7 = bytes + 2;
           do
           {
-            *&v30[v5] = *v6 + *(v6 - 1);
-            v5 += 4;
-            v6 += 2;
+            *&v38[v6] = *v7 + *(v7 - 1);
+            v6 += 4;
+            v7 += 2;
           }
 
-          while (v5 != 512);
-          v7 = MEMORY[0x1E695DEF0];
-          v8 = v30;
-          v9 = 512;
+          while (v6 != 512);
+          v8 = MEMORY[0x1E695DEF0];
+          v9 = v38;
+          v10 = 512;
         }
 
         else
         {
-          v8 = bytes + 1;
-          v7 = MEMORY[0x1E695DEF0];
-          v9 = 1024;
+          v9 = bytes + 1;
+          v8 = MEMORY[0x1E695DEF0];
+          v10 = 1024;
         }
 
-        v10 = [v7 dataWithBytes:v8 length:v9];
+        v11 = [v8 dataWithBytes:v9 length:v10];
         targeta = 0;
-        OUTLINED_FUNCTION_2_106(v10, v11, v12, v13, v14, v15, v16, v17, v18, v20, v22, v24, v26, v27, v28);
-        OUTLINED_FUNCTION_1_116(*MEMORY[0x1E695E480], &targeta, v19, v21, v23, v25);
+        OUTLINED_FUNCTION_2_106(v11, v12, v13, v14, v15, v16, v17, v18, v19, v22, v24, v27, v30, v33, v36);
+        OUTLINED_FUNCTION_1_116(*MEMORY[0x1E695E480], &targeta, v20, v23, v25, v28);
         if (targeta)
         {
-          CMSetAttachment(targeta, *off_1E798A528, v10, 1u);
+          CMSetAttachment(targeta, *off_1E798A528, v11, 1u);
           [*(buffer + 16) emitSampleBuffer:targeta];
           if (targeta)
           {
@@ -138,7 +139,8 @@
         else
         {
           fig_log_get_emitter();
-          FigDebugAssert3();
+          LODWORD(v21) = 0;
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v21, v2, v26, v29, v31, v32, v34, v35);
         }
       }
     }

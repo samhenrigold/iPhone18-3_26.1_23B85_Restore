@@ -175,8 +175,8 @@
 
 void __61__MONotificationCustomScheduleDaySelectorView_setUpStackView__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = a2;
-  if ([v11 isSelected])
+  v9 = a2;
+  if ([v9 isSelected])
   {
     +[UIButtonConfiguration tintedButtonConfiguration];
   }
@@ -189,7 +189,7 @@ void __61__MONotificationCustomScheduleDaySelectorView_setUpStackView__block_inv
   v4 = [*(a1 + 32) objectAtIndexedSubscript:*(a1 + 48)];
   [v3 setTitle:v4];
 
-  if ([v11 isSelected])
+  if ([v9 isSelected])
   {
     +[UIColor systemBlueColor];
   }
@@ -201,7 +201,7 @@ void __61__MONotificationCustomScheduleDaySelectorView_setUpStackView__block_inv
   v5 = ;
   [v3 setBaseBackgroundColor:v5];
 
-  if ([v11 isSelected])
+  if ([v9 isSelected])
   {
     [v3 setBaseForegroundColor:0];
   }
@@ -214,21 +214,19 @@ void __61__MONotificationCustomScheduleDaySelectorView_setUpStackView__block_inv
 
   [v3 setContentInsets:{2.0, 2.0, 2.0, 2.0}];
   [v3 setCornerStyle:4];
-  [v11 setConfiguration:v3];
-  v7 = [v11 isSelected];
-  v8 = *(a1 + 40);
-  if (v7)
+  [v9 setConfiguration:v3];
+  if ([v9 isSelected])
   {
-    v9 = @"on";
+    v7 = @"on";
   }
 
   else
   {
-    v9 = @"off";
+    v7 = @"off";
   }
 
-  v10 = [*(a1 + 40) localizedStringForKey:v9 value:&stru_C5D8 table:0];
-  [v11 setAccessibilityValue:v10];
+  v8 = [*(a1 + 40) localizedStringForKey:v7 value:&stru_C5D8 table:0];
+  [v9 setAccessibilityValue:v8];
 }
 
 - (void)setSelectedDays:(id)days

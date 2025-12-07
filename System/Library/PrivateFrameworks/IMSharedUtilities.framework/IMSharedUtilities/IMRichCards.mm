@@ -32,7 +32,7 @@
 
 - (IMRichCards)initWithCardArray:(id)array
 {
-  sub_1A870CCE0(&unk_1EB3091D0);
+  sub_1A870CCE0(&unk_1EB3091D0, &qword_1A88EAC10);
   v3 = sub_1A88C85F8();
   return sub_1A88B8C74(v3);
 }
@@ -92,7 +92,7 @@
 
   v6 = IMRichCards.isEqual(_:)(v8);
 
-  sub_1A85EF638(v8, &qword_1EB3057B0);
+  sub_1A85EF638(v8, &qword_1EB3057B0, &unk_1A88E27B0);
   return v6 & 1;
 }
 

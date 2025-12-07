@@ -15,7 +15,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100036958(self, v3);
@@ -39,7 +39,7 @@
   v2 = qword_1000700F8;
   if (!qword_1000700F8)
   {
-    v3 = sub_100002830();
+    v3 = sub_100002830(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -54,7 +54,7 @@
 
 - (ServiceProviderMgr)init
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100036A48(v3);
@@ -107,24 +107,24 @@
   v5 = +[AccountManager sharedInstance];
   accounts = [v5 accounts];
 
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_1000082AC;
-  v11[3] = &unk_10005D320;
-  v11[4] = self;
-  [accounts enumerateObjectsUsingBlock:v11];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_1000082AC;
+  v12[3] = &unk_10005D320;
+  v12[4] = self;
+  [accounts enumerateObjectsUsingBlock:v12];
   [(ServiceProviderMgr *)self startGlobalManagers];
   accountUUIDToServiceProvider = [(ServiceProviderMgr *)self accountUUIDToServiceProvider];
   [accountUUIDToServiceProvider enumerateKeysAndObjectsUsingBlock:&stru_10005D360];
 
-  v8 = sub_100002830();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = sub_100002830(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     accountUUIDToServiceProvider2 = [(ServiceProviderMgr *)self accountUUIDToServiceProvider];
-    v10 = [accountUUIDToServiceProvider2 count];
+    v11 = [accountUUIDToServiceProvider2 count];
     *buf = 134217984;
-    v13 = v10;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Total %ld service providers at startup", buf, 0xCu);
+    v14 = v11;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Total %ld service providers at startup", buf, 0xCu);
   }
 
   [v3 addObserver:self selector:"accountListDidChange" name:@"AccountListDidChangeNotification" object:0];
@@ -160,7 +160,7 @@
 
 - (void)accountListDidChange
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -186,8 +186,7 @@
   v12[2] = sub_100008930;
   v12[3] = &unk_10005D3D0;
   v12[4] = self;
-  [v8 enumerateKeysAndObjectsUsingBlock:v12];
-  v9 = sub_100002830();
+  v9 = sub_100002830([v8 enumerateKeysAndObjectsUsingBlock:v12]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     accountUUIDToServiceProvider2 = [(ServiceProviderMgr *)self accountUUIDToServiceProvider];

@@ -27,7 +27,7 @@
     v16->_labels = 0;
 
     objc_storeStrong(&v16->_labelFilePath, path);
-    sub_1AC08B318(&v16->_visibleLabels.__begin_, visibleCount);
+    sub_1AC08B318(&v16->_visibleLabels, visibleCount);
     v18 = v16;
   }
 
@@ -36,13 +36,12 @@
 
 - (NSArray)labels
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   labels = self->_labels;
   if (labels)
   {
 LABEL_17:
     v29 = labels;
-    v30 = *MEMORY[0x1E69E9840];
     goto LABEL_18;
   }
 
@@ -55,33 +54,34 @@ LABEL_17:
   v15 = self->_labels;
   if (v15)
   {
-    v46 = 0;
+    v43 = 0;
+    v38 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v44 = 0u;
     v16 = v15;
-    v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v41, v47, 16);
+    v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v38, v44, 16);
     if (v22)
     {
-      v23 = *v42;
+      v23 = *v39;
       do
       {
-        for (i = 0; i != v22; ++i)
+        v24 = 0;
+        do
         {
-          if (*v42 != v23)
+          if (*v39 != v23)
           {
             objc_enumerationMutation(v16);
           }
 
-          v45 = *(*(&v41 + 1) + 8 * i);
-          if (objc_msgSend_length(v45, v18, v19, v20, v21) && (objc_msgSend_hasPrefix_(v45, v18, @"CVML_UNKNOWN", v20, v21) & 1) == 0)
+          v42 = *(*(&v38 + 1) + 8 * v24);
+          if (objc_msgSend_length(v42, v18, v19, v20, v21) && (objc_msgSend_hasPrefix_(v42, v18, @"CVML_UNKNOWN", v20, v21) & 1) == 0)
           {
             end = self->_visibleLabels.__end_;
             if (end < self->_visibleLabels.__cap_)
             {
-              v25 = v45;
-              v26 = v46;
+              v25 = v42;
+              v26 = v43;
               *end = v25;
               end[1] = v26;
               v27 = end + 2;
@@ -89,16 +89,18 @@ LABEL_17:
 
             else
             {
-              v27 = sub_1AC08CDC0(&self->_visibleLabels, &v45, &v46);
+              v27 = sub_1AC08CDC0(&self->_visibleLabels, &v42, &v43);
             }
 
             self->_visibleLabels.__end_ = v27;
           }
 
-          ++v46;
+          ++v43;
+          ++v24;
         }
 
-        v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v18, &v41, v47, 16);
+        while (v22 != v24);
+        v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v18, &v38, v44, 16);
       }
 
       while (v22);
@@ -108,13 +110,11 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  name = self->_name;
-  v33 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v12, @"Failed to load labels for vocabulary %@ from file at %@", v13, v14, name, self->_labelFilePath);
-  v36 = objc_msgSend_errorWithCode_message_(CSUError, v34, 2, v33, v35);
-  objc_msgSend_logInternalError_(CSUError, v37, v36, v38, v39);
+  v31 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v12, @"Failed to load labels for vocabulary %@ from file at %@", v13, v14, self->_name, self->_labelFilePath);
+  v34 = objc_msgSend_errorWithCode_message_(CSUError, v32, 2, v31, v33);
+  objc_msgSend_logInternalError_(CSUError, v35, v34, v36, v37);
 
   v29 = 0;
-  v40 = *MEMORY[0x1E69E9840];
 LABEL_18:
 
   return v29;

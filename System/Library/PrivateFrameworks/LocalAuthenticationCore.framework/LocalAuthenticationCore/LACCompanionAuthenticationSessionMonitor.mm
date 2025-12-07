@@ -16,7 +16,7 @@
 - (BOOL)isSessionActive
 {
   selfCopy = self;
-  v3 = LACCompanionAuthenticationSessionMonitor.isSessionActive.getter();
+  v3 = LACCompanionAuthenticationSessionMonitor.isSessionActive.getter(selfCopy);
 
   return v3 & 1;
 }
@@ -93,7 +93,7 @@
   __swift_project_boxed_opaque_existential_0(v9, v10);
   (*(v8 + 32))(v4, v5, v7, v8);
 
-  _sxRi_zRi0_zlyytIsegHr_SgWOe(v4);
+  _sxRi_zRi0_zlyytIsegHr_SgWOe(v4, v5);
   __swift_destroy_boxed_opaque_existential_0(v9);
 }
 

@@ -43,27 +43,25 @@
 
 - (id)attributeDescriptions
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   v4 = [(HMFHTTPRequest *)self URL];
   absoluteString = [v4 absoluteString];
   v6 = [(HMFAttributeDescription *)v3 initWithName:@"URL" value:absoluteString];
-  v19[0] = v6;
+  v18[0] = v6;
   v7 = [HMFAttributeDescription alloc];
   method = [(HMFHTTPRequest *)self method];
   v9 = [(HMFAttributeDescription *)v7 initWithName:@"Method" value:method];
-  v19[1] = v9;
+  v18[1] = v9;
   v10 = [HMFAttributeDescription alloc];
   headerFields = [(HMFHTTPRequest *)self headerFields];
   v12 = [(HMFAttributeDescription *)v10 initWithName:@"Headers" value:headerFields];
-  v19[2] = v12;
+  v18[2] = v12;
   v13 = [HMFAttributeDescription alloc];
   body = [(HMFHTTPRequest *)self body];
   v15 = [(HMFAttributeDescription *)v13 initWithName:@"Body" value:body options:1 formatter:0];
-  v19[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v18[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
 
   return v16;
 }

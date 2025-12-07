@@ -18,7 +18,7 @@
   v7 = [(_TUIStyledBoxStyler *)&v34 init];
   if (v7)
   {
-    v8 = [layoutCopy box];
+    v8 = objc_msgSend_box(layoutCopy);
     [layoutCopy computedBounds];
     v7->_bounds.origin.x = v9;
     v7->_bounds.origin.y = v10;
@@ -161,7 +161,7 @@
         blendMode = self->_blendMode;
         if (blendMode != v8->_blendMode)
         {
-          v12 = [(NSString *)blendMode isEqualToString:?];
+          v12 = objc_msgSend_isEqualToString_(blendMode);
           goto LABEL_29;
         }
 

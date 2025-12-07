@@ -255,7 +255,7 @@ void __53__PowerUIBatteryData_batteryLevelByTimeSlot_dayType___block_invoke(uint
 
 void __53__PowerUIBatteryData_batteryLevelByTimeSlot_dayType___block_invoke_10(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [v4 eventBody];
   [v5 batteryPercentage];
@@ -293,7 +293,7 @@ LABEL_8:
 
       if (*(*(*(a1 + 40) + 8) + 40))
       {
-        v46 = v13;
+        v45 = v13;
         if (*(*(*(a1 + 56) + 8) + 24) != v15)
         {
           v17 = *(*(*(a1 + 64) + 8) + 40);
@@ -339,7 +339,7 @@ LABEL_8:
             {
               v32 = (v7 - v29) / v26;
               *&v30 = 134218240;
-              v45 = v30;
+              v44 = v30;
               do
               {
                 v33 = v31 % *(a1 + 96);
@@ -355,17 +355,17 @@ LABEL_8:
                   }
                 }
 
-                v37 = [*(*(*(a1 + 64) + 8) + 40) objectAtIndexedSubscript:{v33, v45}];
+                v37 = [*(*(*(a1 + 64) + 8) + 40) objectAtIndexedSubscript:{v33, v44}];
                 v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v29];
                 [v37 addObject:v38];
 
                 v39 = [*(a1 + 72) log];
                 if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
                 {
-                  *buf = v45;
-                  v48 = v15;
-                  v49 = 2048;
-                  v50 = v7;
+                  *buf = v44;
+                  v47 = v15;
+                  v48 = 2048;
+                  v49 = v7;
                   _os_log_debug_impl(&dword_21B766000, v39, OS_LOG_TYPE_DEBUG, "Added Slot %ld, battery level %ld", buf, 0x16u);
                 }
 
@@ -384,7 +384,7 @@ LABEL_8:
         v41 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
         [v40 addObject:v41];
 
-        v13 = v46;
+        v13 = v45;
       }
 
       else
@@ -407,44 +407,23 @@ LABEL_8:
       __53__PowerUIBatteryData_batteryLevelByTimeSlot_dayType___block_invoke_10_cold_3(v7);
     }
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __53__PowerUIBatteryData_batteryLevelByTimeSlot_dayType___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   v2 = [v1 description];
-  [v2 UTF8String];
-  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Error getting battery stream in batteryLevelDurations: %s", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void __53__PowerUIBatteryData_batteryLevelByTimeSlot_dayType___block_invoke_10_cold_1()
-{
-  v5 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_0(&dword_21B766000, v0, v1, "Slot %ld, battery level %ld", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __53__PowerUIBatteryData_batteryLevelByTimeSlot_dayType___block_invoke_10_cold_2()
-{
-  v5 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_0(&dword_21B766000, v0, v1, "Added Slot %ld, battery level %ld", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
+  LODWORD(v9) = 136315138;
+  *(&v9 + 4) = [v2 UTF8String];
+  OUTLINED_FUNCTION_0_1(&dword_21B766000, v3, v4, "Error getting battery stream in batteryLevelDurations: %s", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 void __53__PowerUIBatteryData_batteryLevelByTimeSlot_dayType___block_invoke_10_cold_3(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
-  OUTLINED_FUNCTION_0_1(&dword_21B766000, v2, v3, "Skipping battery level %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_1(&dword_21B766000, v2, v3, "Skipping battery level %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

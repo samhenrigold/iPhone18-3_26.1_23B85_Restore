@@ -7,7 +7,7 @@
 
 - (void)addDatum:(id)datum toAccumulatedData:(id)data
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   datumCopy = datum;
   dataCopy = data;
   lastObject = [dataCopy lastObject];
@@ -19,54 +19,31 @@
     [quantity doubleValueForUnit:canonicalUnit];
     v13 = v12;
 
-    if (v13 >= 80.0)
+    if (v13 < 80.0 && ([lastObject quantity], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(quantityType, "canonicalUnit"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "doubleValueForUnit:", v15), v17 = v16, v15, v14, v17 < 80.0) && (objc_msgSend(datumCopy, "dateInterval"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "endDate"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(lastObject, "dateInterval"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "startDate"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "timeIntervalSinceDate:", v21), v23 = v22, v21, v20, v19, v18, v23 <= 30.0))
     {
-      goto LABEL_5;
-    }
+      v28[0] = lastObject;
+      v28[1] = datumCopy;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+      v25 = HDMergedQuantitySensorData(v24, quantityType);
 
-    quantity2 = [lastObject quantity];
-    canonicalUnit2 = [quantityType canonicalUnit];
-    [quantity2 doubleValueForUnit:canonicalUnit2];
-    v17 = v16;
-
-    if (v17 >= 80.0)
-    {
-      goto LABEL_5;
-    }
-
-    dateInterval = [datumCopy dateInterval];
-    endDate = [dateInterval endDate];
-    dateInterval2 = [lastObject dateInterval];
-    startDate = [dateInterval2 startDate];
-    [endDate timeIntervalSinceDate:startDate];
-    v23 = v22;
-
-    if (v23 <= 30.0)
-    {
-      v29[0] = lastObject;
-      v29[1] = datumCopy;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
-      v26 = HDMergedQuantitySensorData(v25, quantityType);
-
-      v27 = dataCopy;
-      if (v26)
+      v26 = dataCopy;
+      if (v25)
       {
         [dataCopy removeLastObject];
-        v27 = dataCopy;
-        v28 = v26;
+        v26 = dataCopy;
+        v27 = v25;
       }
 
       else
       {
-        v28 = datumCopy;
+        v27 = datumCopy;
       }
 
-      [v27 addObject:v28];
+      [v26 addObject:v27];
     }
 
     else
     {
-LABEL_5:
       [dataCopy addObject:datumCopy];
     }
   }
@@ -75,8 +52,6 @@ LABEL_5:
   {
     [dataCopy addObject:datumCopy];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldFreezeCurrentSeries:(id)series lastDatum:(id)datum seriesLength:(int64_t)length configuration:(id)configuration aggregationInterval:(double)interval

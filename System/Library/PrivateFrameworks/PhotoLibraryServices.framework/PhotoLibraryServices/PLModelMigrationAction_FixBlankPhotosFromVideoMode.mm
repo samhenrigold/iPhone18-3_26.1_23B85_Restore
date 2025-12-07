@@ -21,39 +21,39 @@
 
 - (int64_t)performActionWithManagedObjectContext:(id)context error:(id *)error
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   buildFetchRequest = [(PLModelMigrationAction_FixBlankPhotosFromVideoMode *)self buildFetchRequest];
   v7 = objc_opt_class();
   v8 = NSStringFromClass(v7);
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy__43771;
-  v53 = __Block_byref_object_dispose__43772;
-  v54 = 0;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__43771;
+  v55 = __Block_byref_object_dispose__43772;
+  v56 = 0;
   v9 = [PLEnumerateAndSaveController alloc];
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __98__PLModelMigrationAction_FixBlankPhotosFromVideoMode_performActionWithManagedObjectContext_error___block_invoke;
+  v49[3] = &unk_1E7575B30;
+  v10 = contextCopy;
+  v50 = v10;
+  v47[4] = &v51;
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __98__PLModelMigrationAction_FixBlankPhotosFromVideoMode_performActionWithManagedObjectContext_error___block_invoke_2;
+  v48[3] = &unk_1E7572E50;
+  v48[4] = self;
+  v48[5] = &v51;
   v47[0] = MEMORY[0x1E69E9820];
   v47[1] = 3221225472;
-  v47[2] = __98__PLModelMigrationAction_FixBlankPhotosFromVideoMode_performActionWithManagedObjectContext_error___block_invoke;
-  v47[3] = &unk_1E7575B30;
-  v10 = contextCopy;
-  v48 = v10;
-  v45[4] = &v49;
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __98__PLModelMigrationAction_FixBlankPhotosFromVideoMode_performActionWithManagedObjectContext_error___block_invoke_2;
-  v46[3] = &unk_1E7572E50;
-  v46[4] = self;
-  v46[5] = &v49;
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __98__PLModelMigrationAction_FixBlankPhotosFromVideoMode_performActionWithManagedObjectContext_error___block_invoke_3;
-  v45[3] = &unk_1E756C620;
-  v11 = [(PLEnumerateAndSaveController *)v9 initWithName:v8 fetchRequest:buildFetchRequest context:v10 options:4 generateContextBlock:v47 didFetchObjectIDsBlock:v46 processResultBlock:v45];
-  v44 = 0;
-  v12 = [(PLEnumerateAndSaveController *)v11 processObjectsWithError:&v44];
-  v42 = v44;
+  v47[2] = __98__PLModelMigrationAction_FixBlankPhotosFromVideoMode_performActionWithManagedObjectContext_error___block_invoke_3;
+  v47[3] = &unk_1E756C620;
+  v11 = [(PLEnumerateAndSaveController *)v9 initWithName:v8 fetchRequest:buildFetchRequest context:v10 options:4 generateContextBlock:v49 didFetchObjectIDsBlock:v48 processResultBlock:v47];
+  v46 = 0;
+  v12 = [(PLEnumerateAndSaveController *)v11 processObjectsWithError:&v46];
+  v44 = v46;
   if (v12)
   {
     v13 = PLMigrationGetLog();
@@ -66,18 +66,20 @@
 
       if (v16)
       {
-        v30 = PLMigrationGetLog();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        v33 = PLMigrationGetLog();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
         {
-          completedUnitCount = [v50[5] completedUnitCount];
+          completedUnitCount = [v52[5] completedUnitCount];
           *buf = 134217984;
           *&buf[4] = completedUnitCount;
-          _os_log_impl(&dword_19BF1F000, v30, OS_LOG_TYPE_INFO, "Completed photo recovery on %lu assets", buf, 0xCu);
+          _os_log_impl(&dword_19BF1F000, v33, OS_LOG_TYPE_INFO, "Completed photo recovery on %lu assets", buf, 0xCu);
         }
       }
 
       else
       {
+        v90 = 0u;
+        v91 = 0u;
         v88 = 0u;
         v89 = 0u;
         v86 = 0u;
@@ -106,57 +108,66 @@
         v65 = 0u;
         v62 = 0u;
         v63 = 0u;
-        v60 = 0u;
-        v61 = 0u;
         memset(buf, 0, sizeof(buf));
         v17 = PLMigrationGetLog();
-        os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
-        completedUnitCount2 = [v50[5] completedUnitCount];
-        v55 = 134217984;
-        v56 = completedUnitCount2;
-        LODWORD(v41) = 12;
-        v19 = _os_log_send_and_compose_impl();
-
-        v20 = [(PLModelMigrationActionCore *)self logger:&v55];
-        [v20 logWithMessage:v19 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1421, 1}];
-
-        if (v19 != buf)
+        v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
+        completedUnitCount2 = [v52[5] completedUnitCount];
+        if (v18)
         {
-          free(v19);
+          v20 = 3;
+        }
+
+        else
+        {
+          v20 = 2;
+        }
+
+        v57 = 134217984;
+        v58 = completedUnitCount2;
+        v21 = _os_log_send_and_compose_impl(v20, 0, buf, 512, &dword_19BF1F000, v17, 1, "Completed photo recovery on %lu assets", &v57);
+
+        logger2 = [(PLModelMigrationActionCore *)self logger];
+        [logger2 logWithMessage:v21 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1421, 1}];
+
+        if (v21 != buf)
+        {
+          free(v21);
         }
       }
     }
 
-    v32 = 1;
+    v35 = 1;
   }
 
   else
   {
-    v21 = PLMigrationGetLog();
-    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+    v23 = PLMigrationGetLog();
+    v24 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
 
-    if (v22)
+    if (v24)
     {
-      logger2 = [(PLModelMigrationActionCore *)self logger];
-      v24 = logger2 == 0;
+      logger3 = [(PLModelMigrationActionCore *)self logger];
+      v26 = logger3 == 0;
 
-      if (v24)
+      if (v26)
       {
-        v33 = PLMigrationGetLog();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v36 = PLMigrationGetLog();
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
-          v34 = objc_opt_class();
-          v35 = NSStringFromClass(v34);
+          v37 = objc_opt_class();
+          v38 = NSStringFromClass(v37);
           *buf = 138543618;
-          *&buf[4] = v35;
+          *&buf[4] = v38;
           *&buf[12] = 2114;
-          *&buf[14] = v42;
-          _os_log_impl(&dword_19BF1F000, v33, OS_LOG_TYPE_ERROR, "Failed to process %{public}@. Error: %{public}@", buf, 0x16u);
+          *&buf[14] = v44;
+          _os_log_impl(&dword_19BF1F000, v36, OS_LOG_TYPE_ERROR, "Failed to process %{public}@. Error: %{public}@", buf, 0x16u);
         }
       }
 
       else
       {
+        v90 = 0u;
+        v91 = 0u;
         v88 = 0u;
         v89 = 0u;
         v86 = 0u;
@@ -185,54 +196,60 @@
         v65 = 0u;
         v62 = 0u;
         v63 = 0u;
-        v60 = 0u;
-        v61 = 0u;
         memset(buf, 0, sizeof(buf));
-        v25 = PLMigrationGetLog();
-        os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
-        v26 = objc_opt_class();
-        v27 = NSStringFromClass(v26);
-        v55 = 138543618;
-        v56 = v27;
-        v57 = 2114;
-        v58 = v42;
-        LODWORD(v41) = 22;
-        v28 = _os_log_send_and_compose_impl();
-
-        v29 = [(PLModelMigrationActionCore *)self logger:&v55];
-        [v29 logWithMessage:v28 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1424, 16}];
-
-        if (v28 != buf)
+        v27 = PLMigrationGetLog();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          free(v28);
+          v28 = 3;
+        }
+
+        else
+        {
+          v28 = 2;
+        }
+
+        v29 = objc_opt_class();
+        v30 = NSStringFromClass(v29);
+        v57 = 138543618;
+        v58 = v30;
+        v59 = 2114;
+        v60 = v44;
+        v31 = _os_log_send_and_compose_impl(v28, 0, buf, 512, &dword_19BF1F000, v27, 16, "Failed to process %{public}@. Error: %{public}@", &v57, 22);
+
+        logger4 = [(PLModelMigrationActionCore *)self logger];
+        [logger4 logWithMessage:v31 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1424, 16}];
+
+        if (v31 != buf)
+        {
+          free(v31);
         }
       }
     }
 
-    v32 = 3;
+    v35 = 3;
   }
 
   [(PLModelMigrationActionCore *)self finalizeProgress];
-  v36 = v42;
-  v37 = v36;
+  v39 = v44;
+  v40 = v39;
   if (error)
   {
-    v38 = v12;
+    v41 = v12;
   }
 
   else
   {
-    v38 = 1;
+    v41 = 1;
   }
 
-  if ((v38 & 1) == 0)
+  if ((v41 & 1) == 0)
   {
-    v39 = v36;
-    *error = v37;
+    v42 = v39;
+    *error = v40;
   }
 
-  _Block_object_dispose(&v49, 8);
-  return v32;
+  _Block_object_dispose(&v51, 8);
+  return v35;
 }
 
 - (id)buildFetchRequest

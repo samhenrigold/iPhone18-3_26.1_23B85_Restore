@@ -43,18 +43,17 @@
   v14 = v12;
   v15 = [_connection remoteObjectProxyWithErrorHandler:&v18];
 
-  v16 = WLKPlaybackTrackingLogObject();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = WLKPlaybackTrackingLogObject(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     v26 = dCopy;
     v27 = 2112;
     v28 = playbackCopy;
-    _os_log_impl(&dword_272A0F000, v16, OS_LOG_TYPE_DEFAULT, "WLKPlaybackReporter - Requesting playback report [%@] %@", buf, 0x16u);
+    _os_log_impl(&dword_272A0F000, v17, OS_LOG_TYPE_DEFAULT, "WLKPlaybackReporter - Requesting playback report [%@] %@", buf, 0x16u);
   }
 
   [v15 reportPlayback:playbackCopy sessionID:dCopy completion:{v14, v18, v19, v20, v21}];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __59__WLKPlaybackReporter_reportPlayback_sessionID_completion___block_invoke(uint64_t a1)
@@ -70,18 +69,17 @@ uint64_t __59__WLKPlaybackReporter_reportPlayback_sessionID_completion___block_i
 
 void __59__WLKPlaybackReporter_reportPlayback_sessionID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = WLKPlaybackTrackingLogObject();
+  v4 = WLKPlaybackTrackingLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKPlaybackReporter - Error: Unable to communicate with the remote object proxy (%@)", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKPlaybackReporter - Error: Unable to communicate with the remote object proxy (%@)", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endPlaybackSession:(id)session
@@ -91,31 +89,28 @@ void __59__WLKPlaybackReporter_reportPlayback_sessionID_completion___block_invok
   _connection = [(WLKPlaybackReporter *)self _connection];
   v6 = [_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_30];
 
-  v7 = WLKPlaybackTrackingLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = WLKPlaybackTrackingLogObject(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
     v10 = sessionCopy;
-    _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKPlaybackReporter - Requesting endPlaybackSession [%@]", &v9, 0xCu);
+    _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKPlaybackReporter - Requesting endPlaybackSession [%@]", &v9, 0xCu);
   }
 
   [v6 endPlaybackSession:sessionCopy];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __42__WLKPlaybackReporter_endPlaybackSession___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = WLKPlaybackTrackingLogObject();
+  v3 = WLKPlaybackTrackingLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKPlaybackReporter - Error: Unable to communicate with the remote object proxy (%@)", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKPlaybackReporter - Error: Unable to communicate with the remote object proxy (%@)", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_connection
@@ -156,13 +151,13 @@ void __42__WLKPlaybackReporter_endPlaybackSession___block_invoke(uint64_t a1, vo
   return v10;
 }
 
-void __34__WLKPlaybackReporter__connection__block_invoke()
+void __34__WLKPlaybackReporter__connection__block_invoke(uint64_t a1)
 {
-  v0 = WLKPlaybackTrackingLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = WLKPlaybackTrackingLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_272A0F000, v0, OS_LOG_TYPE_DEFAULT, "WLKPlaybackReporter - Connection interrupted.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_272A0F000, v1, OS_LOG_TYPE_DEFAULT, "WLKPlaybackReporter - Connection interrupted.", v2, 2u);
   }
 }
 
@@ -174,7 +169,7 @@ void __34__WLKPlaybackReporter__connection__block_invoke_6(uint64_t a1)
 
 - (void)_invalidationHandler
 {
-  v3 = WLKPlaybackTrackingLogObject();
+  v3 = WLKPlaybackTrackingLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

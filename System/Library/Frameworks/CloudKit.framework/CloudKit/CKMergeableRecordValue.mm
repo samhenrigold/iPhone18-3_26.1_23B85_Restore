@@ -198,22 +198,8 @@
   objc_msgSend_encodeBool_forKey_(coderCopy, v9, isValueIDKnownToServer, v8);
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || (deltasToSave = self->_deltasToSave, NSStringFromSelector(sel_deltasToSave), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend_encodeObject_forKey_(coderCopy, v12, deltasToSave, v11), v11, pendingReplacementRequests = self->_pendingReplacementRequests, NSStringFromSelector(sel_pendingReplacementRequests), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend_encodeObject_forKey_(coderCopy, v15, pendingReplacementRequests, v14), v14, (byte_1EA90C538 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  deltasToSave = self->_deltasToSave;
-  v11 = NSStringFromSelector(sel_deltasToSave);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v12, deltasToSave, v11);
-
-  pendingReplacementRequests = self->_pendingReplacementRequests;
-  v14 = NSStringFromSelector(sel_pendingReplacementRequests);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v15, pendingReplacementRequests, v14);
-
-  if ((byte_1EA90C538 & 1) == 0)
-  {
-LABEL_3:
     unmergedDeltas = self->_unmergedDeltas;
     v17 = NSStringFromSelector(sel_unmergedDeltas);
     objc_msgSend_encodeObject_forKey_(coderCopy, v18, unmergedDeltas, v17);
@@ -238,7 +224,7 @@ LABEL_3:
 
 - (CKMultiValueMergeableDeltaRegister)multiValueRegister
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if ((byte_1EA90C538 & 1) == 0)
   {
     if (ck_log_initialization_predicate != -1)
@@ -270,9 +256,9 @@ LABEL_3:
       v11 = objc_msgSend_vector(v6, v9, v10);
       v14 = objc_msgSend_CKVeryShortDescription(self, v12, v13);
       *buf = 138412546;
-      v36 = v11;
-      v37 = 2112;
-      v38 = v14;
+      v35 = v11;
+      v36 = 2112;
+      v37 = v14;
       _os_log_debug_impl(&dword_1883EA000, v8, OS_LOG_TYPE_DEBUG, "Loading multi-value register state with vector %@ for mergeable record value %@", buf, 0x16u);
     }
   }
@@ -287,11 +273,11 @@ LABEL_3:
     v15 = ck_log_facility_distributed_sync;
     if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_DEBUG))
     {
-      v30 = v15;
-      v33 = objc_msgSend_CKVeryShortDescription(self, v31, v32);
+      v29 = v15;
+      v32 = objc_msgSend_CKVeryShortDescription(self, v30, v31);
       *buf = 138412290;
-      v36 = v33;
-      _os_log_debug_impl(&dword_1883EA000, v30, OS_LOG_TYPE_DEBUG, "Creating multi-value register state for mergeable record value %@", buf, 0xCu);
+      v35 = v32;
+      _os_log_debug_impl(&dword_1883EA000, v29, OS_LOG_TYPE_DEBUG, "Creating multi-value register state for mergeable record value %@", buf, 0xCu);
     }
 
     v6 = objc_opt_new();
@@ -299,9 +285,9 @@ LABEL_3:
   }
 
   v17 = [CKMultiValueMergeableDeltaRegister alloc];
-  v34 = 0;
-  v19 = objc_msgSend_initWithPersistedState_contents_error_(v17, v18, v6, 0, &v34);
-  v20 = v34;
+  v33 = 0;
+  v19 = objc_msgSend_initWithPersistedState_contents_error_(v17, v18, v6, 0, &v33);
+  v20 = v33;
   v23 = v20;
   if (!v19)
   {
@@ -310,8 +296,6 @@ LABEL_3:
     v26 = objc_msgSend_description(v20, v21, v22);
     objc_msgSend_raise_format_(v24, v27, v25, @"Failed to initialize CKMultiValueMergeableDeltaRegister: %@", v26);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -330,7 +314,7 @@ LABEL_3:
 
 - (BOOL)mergeIntoMergeable:(id)mergeable error:(id *)error
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   mergeableCopy = mergeable;
   if (!objc_msgSend_conformsToProtocol_(mergeableCopy, v7, &unk_1EFA8BBD8))
   {
@@ -374,9 +358,9 @@ LABEL_3:
 
     if (objc_msgSend_count(v24, v37, v38))
     {
-      v68 = 0;
-      v40 = objc_msgSend_mergeDeltas_error_(v18, v39, v24, &v68);
-      v41 = v68;
+      v67 = 0;
+      v40 = objc_msgSend_mergeDeltas_error_(v18, v39, v24, &v67);
+      v41 = v67;
       if (v40)
       {
         if (ck_log_initialization_predicate != -1)
@@ -387,20 +371,20 @@ LABEL_3:
         v42 = ck_log_facility_distributed_sync;
         if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_DEBUG))
         {
-          v63 = v42;
-          v66 = objc_msgSend_count(v24, v64, v65);
+          v62 = v42;
+          v65 = objc_msgSend_count(v24, v63, v64);
           *buf = 134218242;
-          selfCopy4 = v66;
-          v72 = 2112;
-          v73 = v18;
-          _os_log_debug_impl(&dword_1883EA000, v63, OS_LOG_TYPE_DEBUG, "Merged %lu deltas into multi-value register %@", buf, 0x16u);
+          selfCopy4 = v65;
+          v71 = 2112;
+          v72 = v18;
+          _os_log_debug_impl(&dword_1883EA000, v62, OS_LOG_TYPE_DEBUG, "Merged %lu deltas into multi-value register %@", buf, 0x16u);
         }
 
         v45 = objc_msgSend_contents(v18, v43, v44);
-        v67 = v41;
+        v66 = v41;
         v46 = v15;
-        v48 = objc_msgSend_mergeDeltas_error_(v15, v47, v45, &v67);
-        v29 = v67;
+        v48 = objc_msgSend_mergeDeltas_error_(v15, v47, v45, &v66);
+        v29 = v66;
 
         if (v48)
         {
@@ -449,8 +433,8 @@ LABEL_3:
         {
           *buf = 138412546;
           selfCopy4 = v18;
-          v72 = 2112;
-          v73 = v41;
+          v71 = 2112;
+          v72 = v41;
           _os_log_error_impl(&dword_1883EA000, v57, OS_LOG_TYPE_ERROR, "Error merging deltas into multi-value register %@: %@", buf, 0x16u);
         }
 
@@ -526,9 +510,9 @@ LABEL_37:
     goto LABEL_61;
   }
 
-  v69 = 0;
-  v28 = objc_msgSend_mergeDeltas_error_(v10, v27, v24, &v69);
-  v29 = v69;
+  v68 = 0;
+  v28 = objc_msgSend_mergeDeltas_error_(v10, v27, v24, &v68);
+  v29 = v68;
 
   if (v28)
   {
@@ -546,8 +530,8 @@ LABEL_55:
   {
     *buf = 138412546;
     selfCopy4 = self;
-    v72 = 2112;
-    v73 = v29;
+    v71 = 2112;
+    v72 = v29;
     _os_log_error_impl(&dword_1883EA000, v59, OS_LOG_TYPE_ERROR, "Error merging record value %@: %@", buf, 0x16u);
   }
 
@@ -561,13 +545,12 @@ LABEL_60:
 
 LABEL_61:
 
-  v61 = *MEMORY[0x1E69E9840];
   return v56;
 }
 
 - (BOOL)mergeRecordValue:(id)value error:(id *)error
 {
-  v228 = *MEMORY[0x1E69E9840];
+  v227 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   if (self != valueCopy)
   {
@@ -581,7 +564,7 @@ LABEL_61:
     {
       *buf = 138412546;
       selfCopy2 = valueCopy;
-      v220 = 2112;
+      v219 = 2112;
       selfCopy = self;
       _os_log_debug_impl(&dword_1883EA000, v7, OS_LOG_TYPE_DEBUG, "Merging record value %@ into %@", buf, 0x16u);
     }
@@ -647,11 +630,11 @@ LABEL_61:
       v23 = ck_log_facility_distributed_sync;
       if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_DEBUG))
       {
-        v199 = v23;
-        v202 = objc_msgSend_valueID(valueCopy, v200, v201);
+        v198 = v23;
+        v201 = objc_msgSend_valueID(valueCopy, v199, v200);
         *buf = 138412290;
-        selfCopy2 = v202;
-        _os_log_debug_impl(&dword_1883EA000, v199, OS_LOG_TYPE_DEBUG, "Assigning value ID from other value %@", buf, 0xCu);
+        selfCopy2 = v201;
+        _os_log_debug_impl(&dword_1883EA000, v198, OS_LOG_TYPE_DEBUG, "Assigning value ID from other value %@", buf, 0xCu);
       }
 
       v26 = objc_msgSend_valueID(valueCopy, v24, v25);
@@ -718,32 +701,32 @@ LABEL_61:
       objc_msgSend_setServerDeltaMetadatas_(self, v83, v82);
     }
 
-    v209 = valueCopy;
+    v208 = valueCopy;
     v84 = objc_opt_new();
+    v213 = 0u;
     v214 = 0u;
     v215 = 0u;
     v216 = 0u;
-    v217 = 0u;
     v87 = objc_msgSend_serverDeltaMetadatas(self, v85, v86);
-    v89 = objc_msgSend_countByEnumeratingWithState_objects_count_(v87, v88, &v214, v227, 16);
+    v89 = objc_msgSend_countByEnumeratingWithState_objects_count_(v87, v88, &v213, v226, 16);
     if (v89)
     {
       v92 = v89;
-      v93 = *v215;
+      v93 = *v214;
       do
       {
         for (i = 0; i != v92; ++i)
         {
-          if (*v215 != v93)
+          if (*v214 != v93)
           {
             objc_enumerationMutation(v87);
           }
 
-          v95 = objc_msgSend_replacedDeltaIdentifiers(*(*(&v214 + 1) + 8 * i), v90, v91);
+          v95 = objc_msgSend_replacedDeltaIdentifiers(*(*(&v213 + 1) + 8 * i), v90, v91);
           objc_msgSend_unionSet_(v84, v96, v95);
         }
 
-        v92 = objc_msgSend_countByEnumeratingWithState_objects_count_(v87, v90, &v214, v227, 16);
+        v92 = objc_msgSend_countByEnumeratingWithState_objects_count_(v87, v90, &v213, v226, 16);
       }
 
       while (v92);
@@ -752,26 +735,26 @@ LABEL_61:
     if (objc_msgSend_count(v84, v97, v98))
     {
       v101 = objc_opt_new();
+      v209 = 0u;
       v210 = 0u;
       v211 = 0u;
       v212 = 0u;
-      v213 = 0u;
       v104 = objc_msgSend_serverDeltaMetadatas(self, v102, v103);
-      v106 = objc_msgSend_countByEnumeratingWithState_objects_count_(v104, v105, &v210, v226, 16);
+      v106 = objc_msgSend_countByEnumeratingWithState_objects_count_(v104, v105, &v209, v225, 16);
       if (v106)
       {
         v109 = v106;
-        v110 = *v211;
+        v110 = *v210;
         do
         {
           for (j = 0; j != v109; ++j)
           {
-            if (*v211 != v110)
+            if (*v210 != v110)
             {
               objc_enumerationMutation(v104);
             }
 
-            v112 = *(*(&v210 + 1) + 8 * j);
+            v112 = *(*(&v209 + 1) + 8 * j);
             v113 = objc_msgSend_identifier(v112, v107, v108);
             v115 = objc_msgSend_containsObject_(v84, v114, v113);
 
@@ -781,7 +764,7 @@ LABEL_61:
             }
           }
 
-          v109 = objc_msgSend_countByEnumeratingWithState_objects_count_(v104, v107, &v210, v226, 16);
+          v109 = objc_msgSend_countByEnumeratingWithState_objects_count_(v104, v107, &v209, v225, 16);
         }
 
         while (v109);
@@ -799,21 +782,21 @@ LABEL_61:
     }
 
     v129 = objc_msgSend_multiValueRegisterState(self, v99, v100);
-    valueCopy = v209;
+    valueCopy = v208;
     if (v129)
     {
       v132 = v129;
-      v133 = objc_msgSend_multiValueRegisterState(v209, v130, v131);
+      v133 = objc_msgSend_multiValueRegisterState(v208, v130, v131);
       if (v133)
       {
         v136 = v133;
         v137 = objc_msgSend_multiValueRegisterState(self, v134, v135);
         v140 = objc_msgSend_identifier(v137, v138, v139);
-        v143 = objc_msgSend_multiValueRegisterState(v209, v141, v142);
+        v143 = objc_msgSend_multiValueRegisterState(v208, v141, v142);
         v146 = objc_msgSend_identifier(v143, v144, v145);
-        v207 = objc_msgSend_isEqual_(v140, v147, v146);
+        v206 = objc_msgSend_isEqual_(v140, v147, v146);
 
-        if ((v207 & 1) == 0)
+        if ((v206 & 1) == 0)
         {
           if (ck_log_initialization_predicate != -1)
           {
@@ -852,12 +835,12 @@ LABEL_88:
           v157 = NSStringFromClass(v156);
           *buf = 138413058;
           selfCopy2 = v151;
-          v220 = 2112;
+          v219 = 2112;
           selfCopy = v153;
-          v222 = 2112;
-          v223 = v155;
-          v224 = 2112;
-          v225 = v157;
+          v221 = 2112;
+          v222 = v155;
+          v223 = 2112;
+          v224 = v157;
           _os_log_fault_impl(&dword_1883EA000, v149, OS_LOG_TYPE_FAULT, "BUG IN CLIENT OF CLOUDKIT: Usage of %@ may be causing unbounded metadata growth on upload. When saving mergeable changes to CloudKit, you must set only your locally persisted %@ on a CKRecord. If a %@ is fetched from the server, it must be merged into your locally persisted %@ and not directly used for saving new mergeable changes, unless it's the initial fetch.", buf, 0x2Au);
 
 LABEL_86:
@@ -870,7 +853,7 @@ LABEL_86:
       }
     }
 
-    v158 = objc_msgSend_multiValueRegisterState(v209, v130, v131);
+    v158 = objc_msgSend_multiValueRegisterState(v208, v130, v131);
 
     if (!v158)
     {
@@ -897,7 +880,7 @@ LABEL_86:
       v169 = objc_msgSend_CKVeryShortDescription(self, v167, v168);
       *buf = 138412546;
       selfCopy2 = v166;
-      v220 = 2112;
+      v219 = 2112;
       selfCopy = v169;
       _os_log_debug_impl(&dword_1883EA000, v163, OS_LOG_TYPE_DEBUG, "Loading multi-value register state with vector %@ for mergeable record value %@", buf, 0x16u);
     }
@@ -912,11 +895,11 @@ LABEL_86:
       v170 = ck_log_facility_distributed_sync;
       if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_DEBUG))
       {
-        v203 = v170;
-        v206 = objc_msgSend_CKVeryShortDescription(self, v204, v205);
+        v202 = v170;
+        v205 = objc_msgSend_CKVeryShortDescription(self, v203, v204);
         *buf = 138412290;
-        selfCopy2 = v206;
-        _os_log_debug_impl(&dword_1883EA000, v203, OS_LOG_TYPE_DEBUG, "Creating multi-value register state for mergeable record value %@", buf, 0xCu);
+        selfCopy2 = v205;
+        _os_log_debug_impl(&dword_1883EA000, v202, OS_LOG_TYPE_DEBUG, "Creating multi-value register state for mergeable record value %@", buf, 0xCu);
       }
 
       v149 = objc_opt_new();
@@ -932,20 +915,20 @@ LABEL_83:
     v172 = ck_log_facility_distributed_sync;
     if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_DEBUG))
     {
-      v189 = v172;
-      v192 = objc_msgSend_multiValueRegisterState(v209, v190, v191);
-      v195 = objc_msgSend_vector(v192, v193, v194);
-      v198 = objc_msgSend_vector(v149, v196, v197);
+      v188 = v172;
+      v191 = objc_msgSend_multiValueRegisterState(v208, v189, v190);
+      v194 = objc_msgSend_vector(v191, v192, v193);
+      v197 = objc_msgSend_vector(v149, v195, v196);
       *buf = 138412546;
-      selfCopy2 = v195;
-      v220 = 2112;
-      selfCopy = v198;
-      _os_log_debug_impl(&dword_1883EA000, v189, OS_LOG_TYPE_DEBUG, "Merging remote multi-value register with vector %@ into local multi-value register with vector %@ during mergeable record value merge", buf, 0x16u);
+      selfCopy2 = v194;
+      v219 = 2112;
+      selfCopy = v197;
+      _os_log_debug_impl(&dword_1883EA000, v188, OS_LOG_TYPE_DEBUG, "Merging remote multi-value register with vector %@ into local multi-value register with vector %@ during mergeable record value merge", buf, 0x16u);
     }
 
     v175 = objc_msgSend_multiValueRegisterState(self, v173, v174);
     v178 = objc_msgSend_vector(v175, v176, v177);
-    v181 = objc_msgSend_multiValueRegisterState(v209, v179, v180);
+    v181 = objc_msgSend_multiValueRegisterState(v208, v179, v180);
     v184 = objc_msgSend_vector(v181, v182, v183);
     objc_msgSend_unionStateVector_(v178, v185, v184);
 
@@ -968,40 +951,39 @@ LABEL_83:
   v57 = 1;
 LABEL_90:
 
-  v187 = *MEMORY[0x1E69E9840];
   return v57;
 }
 
 - (id)deliverableDeltasWithCurrentStateVector:(id)vector usingDeliveryRequirements:(unint64_t)requirements
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   vectorCopy = vector;
   v9 = objc_msgSend_strongToStrongObjectsMapTable(MEMORY[0x1E696AD18], v7, v8);
+  v69 = 0u;
   v70 = 0u;
   v71 = 0u;
   v72 = 0u;
-  v73 = 0u;
   v12 = objc_msgSend_unmergedDeltas(self, v10, v11);
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v70, v82, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v69, v81, 16);
   if (v14)
   {
     v17 = v14;
-    v18 = *v71;
+    v18 = *v70;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v71 != v18)
+        if (*v70 != v18)
         {
           objc_enumerationMutation(v12);
         }
 
-        v20 = *(*(&v70 + 1) + 8 * i);
+        v20 = *(*(&v69 + 1) + 8 * i);
         v21 = objc_msgSend_metadata(v20, v15, v16);
         objc_msgSend_setObject_forKey_(v9, v22, v20, v21);
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v70, v82, 16);
+      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v69, v81, 16);
     }
 
     while (v17);
@@ -1012,13 +994,13 @@ LABEL_90:
   v26 = objc_msgSend_setWithArray_(v23, v25, v24);
   v28 = objc_msgSend_deliverableDeltaMetadatasInDeltaSet_withMergeableValueCurrentStateVector_deliveryRequirements_(CKMergeableDeltaMetadata, v27, v26, vectorCopy, requirements);
 
-  v68[0] = MEMORY[0x1E69E9820];
-  v68[1] = 3221225472;
-  v68[2] = sub_188574758;
-  v68[3] = &unk_1E70BDD70;
+  v67[0] = MEMORY[0x1E69E9820];
+  v67[1] = 3221225472;
+  v67[2] = sub_188574758;
+  v67[3] = &unk_1E70BDD70;
   v29 = v9;
-  v69 = v29;
-  v31 = objc_msgSend_CKMap_(v28, v30, v68);
+  v68 = v29;
+  v31 = objc_msgSend_CKMap_(v28, v30, v67);
   if (ck_log_initialization_predicate != -1)
   {
     dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
@@ -1028,19 +1010,19 @@ LABEL_90:
   if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_DEBUG))
   {
     log = v32;
-    v65 = objc_msgSend_count(v31, v45, v46);
-    v66 = objc_msgSend_unmergedDeltas(self, v47, v48);
-    v51 = objc_msgSend_count(v66, v49, v50);
-    v54 = objc_msgSend_CKVeryShortDescription(self, v52, v53);
+    v64 = objc_msgSend_count(v31, v44, v45);
+    v65 = objc_msgSend_unmergedDeltas(self, v46, v47);
+    v50 = objc_msgSend_count(v65, v48, v49);
+    v53 = objc_msgSend_CKVeryShortDescription(self, v51, v52);
     *buf = 134218754;
-    v75 = v65;
-    v76 = 2048;
-    v77 = v51;
-    v78 = 2048;
+    v74 = v64;
+    v75 = 2048;
+    v76 = v50;
+    v77 = 2048;
     requirementsCopy = requirements;
-    v80 = 2112;
-    v81 = v54;
-    v55 = v54;
+    v79 = 2112;
+    v80 = v53;
+    v54 = v53;
     _os_log_debug_impl(&dword_1883EA000, log, OS_LOG_TYPE_DEBUG, "Found %ld deliverable deltas out of %ld unmerged deltas with delivery requirements %llu from %@", buf, 0x2Au);
   }
 
@@ -1058,29 +1040,27 @@ LABEL_90:
     v42 = ck_log_facility_distributed_sync;
     if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_DEBUG))
     {
-      v56 = v42;
-      v57 = NSAllMapTableKeys(v29);
-      v59 = objc_msgSend_mergeableDeltaMetadataByCombiningMetadatas_(CKMergeableDeltaMetadata, v58, v57);
-      v62 = objc_msgSend_allObjects(v28, v60, v61);
-      v64 = objc_msgSend_mergeableDeltaMetadataByCombiningMetadatas_(CKMergeableDeltaMetadata, v63, v62);
+      v55 = v42;
+      v56 = NSAllMapTableKeys(v29);
+      v58 = objc_msgSend_mergeableDeltaMetadataByCombiningMetadatas_(CKMergeableDeltaMetadata, v57, v56);
+      v61 = objc_msgSend_allObjects(v28, v59, v60);
+      v63 = objc_msgSend_mergeableDeltaMetadataByCombiningMetadatas_(CKMergeableDeltaMetadata, v62, v61);
       *buf = 138412802;
-      v75 = v59;
-      v76 = 2112;
-      v77 = v64;
-      v78 = 2112;
+      v74 = v58;
+      v75 = 2112;
+      v76 = v63;
+      v77 = 2112;
       requirementsCopy = vectorCopy;
-      _os_log_debug_impl(&dword_1883EA000, v56, OS_LOG_TYPE_DEBUG, "Combined delta directory: %@, combined deliverable deltas: %@, local state vector: %@", buf, 0x20u);
+      _os_log_debug_impl(&dword_1883EA000, v55, OS_LOG_TYPE_DEBUG, "Combined delta directory: %@, combined deliverable deltas: %@, local state vector: %@", buf, 0x20u);
     }
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 
   return v31;
 }
 
 - (void)addUnmergedDeltas:(id)deltas
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   deltasCopy = deltas;
   if (ck_log_initialization_predicate != -1)
   {
@@ -1090,12 +1070,12 @@ LABEL_90:
   v5 = ck_log_facility_distributed_sync;
   if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_DEBUG))
   {
-    v18 = v5;
-    v21 = 134218242;
-    v22 = objc_msgSend_count(deltasCopy, v19, v20);
-    v23 = 2112;
+    v17 = v5;
+    v20 = 134218242;
+    v21 = objc_msgSend_count(deltasCopy, v18, v19);
+    v22 = 2112;
     selfCopy = self;
-    _os_log_debug_impl(&dword_1883EA000, v18, OS_LOG_TYPE_DEBUG, "Adding %ld unmerged deltas to %@", &v21, 0x16u);
+    _os_log_debug_impl(&dword_1883EA000, v17, OS_LOG_TYPE_DEBUG, "Adding %ld unmerged deltas to %@", &v20, 0x16u);
   }
 
   v8 = objc_msgSend_unmergedDeltas(self, v6, v7);
@@ -1104,13 +1084,11 @@ LABEL_90:
   objc_msgSend_addObjectsFromArray_(v11, v12, deltasCopy);
   v15 = objc_msgSend_copy(v11, v13, v14);
   objc_msgSend_setUnmergedDeltas_(self, v16, v15);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didMergeDeltas:(id)deltas
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   deltasCopy = deltas;
   if (ck_log_initialization_predicate != -1)
   {
@@ -1120,14 +1098,14 @@ LABEL_90:
   v5 = ck_log_facility_distributed_sync;
   if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_DEBUG))
   {
-    v37 = v5;
-    v40 = objc_msgSend_count(deltasCopy, v38, v39);
-    v43 = objc_msgSend_CKVeryShortDescription(self, v41, v42);
+    v36 = v5;
+    v39 = objc_msgSend_count(deltasCopy, v37, v38);
+    v42 = objc_msgSend_CKVeryShortDescription(self, v40, v41);
     *buf = 134218242;
-    v52 = v40;
-    v53 = 2112;
-    v54 = v43;
-    _os_log_debug_impl(&dword_1883EA000, v37, OS_LOG_TYPE_DEBUG, "Did merge %ld deltas into %@", buf, 0x16u);
+    v51 = v39;
+    v52 = 2112;
+    v53 = v42;
+    _os_log_debug_impl(&dword_1883EA000, v36, OS_LOG_TYPE_DEBUG, "Did merge %ld deltas into %@", buf, 0x16u);
   }
 
   objc_msgSend_sanityCheckDeltas_(self, v6, deltasCopy);
@@ -1137,37 +1115,37 @@ LABEL_90:
   v14 = objc_msgSend_setWithArray_(MEMORY[0x1E695DFD8], v13, deltasCopy);
   objc_msgSend_minusSet_(v12, v15, v14);
 
-  v44 = v12;
+  v43 = v12;
   v18 = objc_msgSend_copy(v12, v16, v17);
   objc_msgSend_setUnmergedDeltas_(self, v19, v18);
 
   v22 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v20, v21);
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v23 = deltasCopy;
-  v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v46, v50, 16);
+  v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v45, v49, 16);
   if (v25)
   {
     v28 = v25;
-    v29 = *v47;
+    v29 = *v46;
     do
     {
       v30 = 0;
       do
       {
-        if (*v47 != v29)
+        if (*v46 != v29)
         {
           objc_enumerationMutation(v23);
         }
 
-        v32 = objc_msgSend_fileURL(*(*(&v46 + 1) + 8 * v30), v26, v27);
+        v32 = objc_msgSend_fileURL(*(*(&v45 + 1) + 8 * v30), v26, v27);
         if (v32)
         {
-          v45 = 0;
-          v33 = objc_msgSend_removeItemAtURL_error_(v22, v31, v32, &v45);
-          v34 = v45;
+          v44 = 0;
+          v33 = objc_msgSend_removeItemAtURL_error_(v22, v31, v32, &v44);
+          v34 = v44;
           if ((v33 & 1) == 0)
           {
             if (ck_log_initialization_predicate != -1)
@@ -1179,7 +1157,7 @@ LABEL_90:
             if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412290;
-              v52 = v34;
+              v51 = v34;
               _os_log_fault_impl(&dword_1883EA000, v35, OS_LOG_TYPE_FAULT, "BUG IN CLOUDKIT: Failed to remove mergeable delta file after merging: %@", buf, 0xCu);
             }
           }
@@ -1189,18 +1167,16 @@ LABEL_90:
       }
 
       while (v28 != v30);
-      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v26, &v46, v50, 16);
+      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v26, &v45, v49, 16);
     }
 
     while (v28);
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didSaveDeltas:(id)deltas replacementRequests:(id)requests
 {
-  v119 = *MEMORY[0x1E69E9840];
+  v118 = *MEMORY[0x1E69E9840];
   deltasCopy = deltas;
   requestsCopy = requests;
   v8 = objc_opt_new();
@@ -1220,14 +1196,14 @@ LABEL_90:
   v18 = ck_log_facility_distributed_sync;
   if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_DEBUG))
   {
-    v91 = v18;
-    v94 = objc_msgSend_count(deltasCopy, v92, v93);
-    v97 = objc_msgSend_count(v8, v95, v96);
+    v90 = v18;
+    v93 = objc_msgSend_count(deltasCopy, v91, v92);
+    v96 = objc_msgSend_count(v8, v94, v95);
     *buf = 134218240;
-    v116 = v94;
-    v117 = 2048;
-    v118 = v97 - objc_msgSend_count(deltasCopy, v98, v99);
-    _os_log_debug_impl(&dword_1883EA000, v91, OS_LOG_TYPE_DEBUG, "Did save %ld deltas and %ld replacement deltas to server", buf, 0x16u);
+    v115 = v93;
+    v116 = 2048;
+    v117 = v96 - objc_msgSend_count(deltasCopy, v97, v98);
+    _os_log_debug_impl(&dword_1883EA000, v90, OS_LOG_TYPE_DEBUG, "Did save %ld deltas and %ld replacement deltas to server", buf, 0x16u);
   }
 
   objc_msgSend_sanityCheckDeltas_(self, v19, v8);
@@ -1243,71 +1219,71 @@ LABEL_90:
       dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
     }
 
-    v102 = v8;
-    v104 = deltasCopy;
+    v101 = v8;
+    v103 = deltasCopy;
     v32 = ck_log_facility_distributed_sync;
     if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v116 = requestsCopy;
+      v115 = requestsCopy;
       _os_log_debug_impl(&dword_1883EA000, v32, OS_LOG_TYPE_DEBUG, "Will remove server metadatas for replacement requests: %@", buf, 0xCu);
     }
 
-    v100 = v26;
+    v99 = v26;
     v33 = objc_opt_new();
+    v108 = 0u;
     v109 = 0u;
     v110 = 0u;
     v111 = 0u;
-    v112 = 0u;
-    v103 = requestsCopy;
+    v102 = requestsCopy;
     v34 = requestsCopy;
-    v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v35, &v109, v114, 16);
+    v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v35, &v108, v113, 16);
     if (v36)
     {
       v39 = v36;
-      v40 = *v110;
+      v40 = *v109;
       do
       {
         for (i = 0; i != v39; ++i)
         {
-          if (*v110 != v40)
+          if (*v109 != v40)
           {
             objc_enumerationMutation(v34);
           }
 
-          v42 = objc_msgSend_deltaIdentifiersToReplace(*(*(&v109 + 1) + 8 * i), v37, v38);
+          v42 = objc_msgSend_deltaIdentifiersToReplace(*(*(&v108 + 1) + 8 * i), v37, v38);
           objc_msgSend_addObjectsFromArray_(v33, v43, v42);
         }
 
-        v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v37, &v109, v114, 16);
+        v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v37, &v108, v113, 16);
       }
 
       while (v39);
     }
 
-    v101 = v17;
+    v100 = v17;
 
     v44 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v104 = 0u;
     v105 = 0u;
     v106 = 0u;
     v107 = 0u;
-    v108 = 0u;
     v47 = objc_msgSend_serverDeltaMetadatas(self, v45, v46);
-    v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v48, &v105, v113, 16);
+    v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v48, &v104, v112, 16);
     if (v49)
     {
       v52 = v49;
-      v53 = *v106;
+      v53 = *v105;
       do
       {
         for (j = 0; j != v52; ++j)
         {
-          if (*v106 != v53)
+          if (*v105 != v53)
           {
             objc_enumerationMutation(v47);
           }
 
-          v55 = *(*(&v105 + 1) + 8 * j);
+          v55 = *(*(&v104 + 1) + 8 * j);
           v56 = objc_msgSend_identifier(v55, v50, v51);
           v58 = objc_msgSend_containsObject_(v33, v57, v56);
 
@@ -1317,7 +1293,7 @@ LABEL_90:
           }
         }
 
-        v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v50, &v105, v113, 16);
+        v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v50, &v104, v112, 16);
       }
 
       while (v52);
@@ -1328,21 +1304,21 @@ LABEL_90:
       dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
     }
 
-    v26 = v100;
-    v17 = v101;
+    v26 = v99;
+    v17 = v100;
     v59 = ck_log_facility_distributed_sync;
     if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v116 = v44;
+      v115 = v44;
       _os_log_debug_impl(&dword_1883EA000, v59, OS_LOG_TYPE_DEBUG, "Removing known server metadatas: %@", buf, 0xCu);
     }
 
-    objc_msgSend_minusSet_(v100, v60, v44);
+    objc_msgSend_minusSet_(v99, v60, v44);
 
-    requestsCopy = v103;
-    deltasCopy = v104;
-    v8 = v102;
+    requestsCopy = v102;
+    deltasCopy = v103;
+    v8 = v101;
   }
 
   v61 = objc_msgSend_copy(v26, v30, v31);
@@ -1368,33 +1344,32 @@ LABEL_90:
   objc_msgSend_setPendingReplacementRequests_(self, v88, v87);
 
   objc_msgSend_setSavedDeltaMetadatas_(self, v89, v17);
-  v90 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sanityCheckDeltas:(id)deltas
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
+  v77 = 0u;
   v78 = 0u;
   v79 = 0u;
   v80 = 0u;
-  v81 = 0u;
   obj = deltas;
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v78, v82, 16);
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v77, v81, 16);
   if (v5)
   {
     v6 = v5;
-    v7 = *v79;
+    v7 = *v78;
     do
     {
       v8 = 0;
       do
       {
-        if (*v79 != v7)
+        if (*v78 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v78 + 1) + 8 * v8);
+        v9 = *(*(&v77 + 1) + 8 * v8);
         v10 = objc_opt_new();
         v13 = objc_msgSend_metadata(v9, v11, v12);
 
@@ -1434,35 +1409,35 @@ LABEL_90:
               goto LABEL_15;
             }
 
-            v75[0] = MEMORY[0x1E69E9820];
-            v75[1] = 3221225472;
-            v75[2] = sub_188575794;
-            v75[3] = &unk_1E70BC388;
-            v75[4] = self;
-            v68 = v75;
+            v74[0] = MEMORY[0x1E69E9820];
+            v74[1] = 3221225472;
+            v74[2] = sub_188575794;
+            v74[3] = &unk_1E70BC388;
+            v74[4] = self;
+            v68 = v74;
             v69 = @"CKMergeableRecordValueSiteIdentifierLowLimitExceededFault";
           }
 
           else
           {
-            v76[0] = MEMORY[0x1E69E9820];
-            v76[1] = 3221225472;
-            v76[2] = sub_188575688;
-            v76[3] = &unk_1E70BC388;
-            v76[4] = self;
-            v68 = v76;
+            v75[0] = MEMORY[0x1E69E9820];
+            v75[1] = 3221225472;
+            v75[2] = sub_188575688;
+            v75[3] = &unk_1E70BC388;
+            v75[4] = self;
+            v68 = v75;
             v69 = @"CKMergeableRecordValueSiteIdentifierMediumLimitExceededFault";
           }
         }
 
         else
         {
-          v77[0] = MEMORY[0x1E69E9820];
-          v77[1] = 3221225472;
-          v77[2] = sub_18857557C;
-          v77[3] = &unk_1E70BC388;
-          v77[4] = self;
-          v68 = v77;
+          v76[0] = MEMORY[0x1E69E9820];
+          v76[1] = 3221225472;
+          v76[2] = sub_18857557C;
+          v76[3] = &unk_1E70BC388;
+          v76[4] = self;
+          v68 = v76;
           v69 = @"CKMergeableRecordValueSiteIdentifierHighLimitExceededFault";
         }
 
@@ -1473,13 +1448,11 @@ LABEL_15:
       }
 
       while (v6 != v8);
-      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v72, &v78, v82, 16);
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v72, &v77, v81, 16);
     }
 
     while (v6);
   }
-
-  v73 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addServerDeltaMetadatas:(id)metadatas
@@ -1493,7 +1466,7 @@ LABEL_15:
 
 - (void)mergeLastKnownServerTimestampVector:(id)vector
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   vectorCopy = vector;
   v7 = objc_msgSend_lastKnownServerTimestampVector(self, v5, v6);
 
@@ -1513,25 +1486,23 @@ LABEL_15:
     v12 = ck_log_facility_distributed_sync;
     if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_DEBUG))
     {
-      v18 = v12;
-      v20 = objc_msgSend_CKShortDescriptionRedact_(self, v19, 0);
-      v21 = 138412546;
-      v22 = vectorCopy;
-      v23 = 2112;
-      v24 = v20;
-      _os_log_debug_impl(&dword_1883EA000, v18, OS_LOG_TYPE_DEBUG, "Merging last known timestamp %@ into %@", &v21, 0x16u);
+      v17 = v12;
+      v19 = objc_msgSend_CKShortDescriptionRedact_(self, v18, 0);
+      v20 = 138412546;
+      v21 = vectorCopy;
+      v22 = 2112;
+      v23 = v19;
+      _os_log_debug_impl(&dword_1883EA000, v17, OS_LOG_TYPE_DEBUG, "Merging last known timestamp %@ into %@", &v20, 0x16u);
     }
 
     v15 = objc_msgSend_lastKnownServerTimestampVector(self, v13, v14);
     objc_msgSend_unionStateVector_(v15, v16, vectorCopy);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mergeLastKnownServerTimestampVectorFromDeltas:(id)deltas
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   deltasCopy = deltas;
   if (ck_log_initialization_predicate != -1)
   {
@@ -1541,35 +1512,35 @@ LABEL_15:
   v5 = ck_log_facility_distributed_sync;
   if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_DEBUG))
   {
-    v34 = v5;
+    v33 = v5;
     *buf = 134218242;
-    v43 = objc_msgSend_count(deltasCopy, v35, v36);
-    v44 = 2112;
+    v42 = objc_msgSend_count(deltasCopy, v34, v35);
+    v43 = 2112;
     selfCopy = self;
-    _os_log_debug_impl(&dword_1883EA000, v34, OS_LOG_TYPE_DEBUG, "Merging %lu deltas into %@", buf, 0x16u);
+    _os_log_debug_impl(&dword_1883EA000, v33, OS_LOG_TYPE_DEBUG, "Merging %lu deltas into %@", buf, 0x16u);
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v6 = deltasCopy;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v37, v41, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v36, v40, 16);
   if (v8)
   {
     v11 = v8;
-    v12 = *v38;
+    v12 = *v37;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v38 != v12)
+        if (*v37 != v12)
         {
           objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v37 + 1) + 8 * i);
-        v15 = objc_msgSend_metadata(v14, v9, v10, v37);
+        v14 = *(*(&v36 + 1) + 8 * i);
+        v15 = objc_msgSend_metadata(v14, v9, v10, v36);
         v18 = objc_msgSend_vectors(v15, v16, v17);
         v21 = objc_msgSend_contents(v18, v19, v20);
         objc_msgSend_mergeLastKnownServerTimestampVector_(self, v22, v21);
@@ -1580,28 +1551,26 @@ LABEL_15:
         objc_msgSend_mergeLastKnownServerTimestampVector_(self, v32, v31);
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v37, v41, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v36, v40, 16);
     }
 
     while (v11);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)addDeltasToSaveFromMergeable:(id)mergeable error:(id *)error
 {
-  v391 = *MEMORY[0x1E69E9840];
-  v373 = 0;
-  v374 = &v373;
-  v375 = 0x3032000000;
-  v376 = sub_1883ED8B0;
-  v377 = sub_1883EF5AC;
-  v378 = 0;
-  v369 = 0;
-  v370 = &v369;
-  v371 = 0x2020000000;
-  v372 = 1;
+  v390 = *MEMORY[0x1E69E9840];
+  v372 = 0;
+  v373 = &v372;
+  v374 = 0x3032000000;
+  v375 = sub_1883ED8B0;
+  v376 = sub_1883EF5AC;
+  v377 = 0;
+  v368 = 0;
+  v369 = &v368;
+  v370 = 0x2020000000;
+  v371 = 1;
   mergeableCopy = mergeable;
   if (objc_msgSend_conformsToProtocol_(mergeableCopy, v6, &unk_1EFA8BBD8))
   {
@@ -1634,8 +1603,8 @@ LABEL_15:
   {
     v14 = v11;
     v15 = v11;
-    v16 = v374 + 5;
-    obj = v374[5];
+    v16 = v373 + 5;
+    obj = v373[5];
     v18 = objc_msgSend_mergeableDeltasForMetadata_error_(mergeableCopy, v17, 0, &obj);
     objc_storeStrong(v16, obj);
     if (v18)
@@ -1644,39 +1613,39 @@ LABEL_15:
       {
         if (objc_msgSend_count(v18, v21, v22) < 2)
         {
-          v366 = 0u;
-          v367 = 0u;
-          v364 = 0u;
           v365 = 0u;
+          v366 = 0u;
+          v363 = 0u;
+          v364 = 0u;
           v24 = v18;
-          v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v34, &v364, v390, 16);
+          v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v34, &v363, v389, 16);
           if (v37)
           {
-            v38 = *v365;
+            v38 = *v364;
             while (2)
             {
               for (i = 0; i != v37; ++i)
               {
-                if (*v365 != v38)
+                if (*v364 != v38)
                 {
                   objc_enumerationMutation(v24);
                 }
 
-                v40 = objc_msgSend_metadata(*(*(&v364 + 1) + 8 * i), v35, v36);
+                v40 = objc_msgSend_metadata(*(*(&v363 + 1) + 8 * i), v35, v36);
                 v41 = v40 == 0;
 
                 if (!v41)
                 {
                   v33 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v35, @"CKInternalErrorDomain", 1017, @"Delta for non-versioned mergeable has non-nil metadata");
                   v53 = objc_msgSend_CKClientSuitableError(v33, v51, v52);
-                  v54 = v374[5];
-                  v374[5] = v53;
+                  v54 = v373[5];
+                  v373[5] = v53;
 
                   goto LABEL_32;
                 }
               }
 
-              v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v35, &v364, v390, 16);
+              v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v35, &v363, v389, 16);
               if (v37)
               {
                 continue;
@@ -1686,7 +1655,7 @@ LABEL_15:
             }
           }
 
-          *(v370 + 24) = 1;
+          *(v369 + 24) = 1;
           v42 = ck_log_initialization_block;
           if (ck_log_initialization_predicate != -1)
           {
@@ -1732,12 +1701,12 @@ LABEL_15:
         v27 = objc_msgSend_CKClientSuitableError(v24, v31, v32);
       }
 
-      v33 = v374[5];
-      v374[5] = v27;
+      v33 = v373[5];
+      v373[5] = v27;
 LABEL_32:
     }
 
-    *(v370 + 24) = 0;
+    *(v369 + 24) = 0;
     v55 = ck_log_initialization_block;
     if (ck_log_initialization_predicate != -1)
     {
@@ -1747,11 +1716,11 @@ LABEL_32:
     v24 = ck_log_facility_distributed_sync;
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v304 = v374[5];
+      v304 = v373[5];
       *buf = 138412546;
       selfCopy4 = v15;
-      v385 = 2112;
-      v386 = v304;
+      v384 = 2112;
+      v385 = v304;
       _os_log_error_impl(&dword_1883EA000, v24, OS_LOG_TYPE_ERROR, "Failed to generate mergeable deltas for multi-value register %@: %@", buf, 0x16u);
     }
 
@@ -1761,10 +1730,10 @@ LABEL_37:
     error = errorCopy;
   }
 
-  if (v370[3])
+  if (v369[3])
   {
     v56 = ck_log_initialization_block;
-    v327 = v11;
+    v326 = v11;
     if (ck_log_initialization_predicate != -1)
     {
       dispatch_once(&ck_log_initialization_predicate, v56);
@@ -1782,59 +1751,59 @@ LABEL_37:
     v61 = v60;
     if (v60)
     {
-      v330 = v60;
+      v329 = v60;
     }
 
     else
     {
-      v330 = objc_opt_new();
+      v329 = objc_opt_new();
     }
 
     v66 = objc_msgSend_stateVector(v11, v64, v65);
-    v332 = objc_msgSend_copy(v66, v67, v68);
+    v331 = objc_msgSend_copy(v66, v67, v68);
 
     v69 = objc_opt_new();
-    v362 = 0u;
-    v363 = 0u;
-    v360 = 0u;
     v361 = 0u;
+    v362 = 0u;
+    v359 = 0u;
+    v360 = 0u;
     v72 = objc_msgSend_unmergedDeltas(self, v70, v71);
-    v76 = objc_msgSend_countByEnumeratingWithState_objects_count_(v72, v73, &v360, v389, 16);
+    v76 = objc_msgSend_countByEnumeratingWithState_objects_count_(v72, v73, &v359, v388, 16);
     if (v76)
     {
-      v77 = *v361;
+      v77 = *v360;
       do
       {
         for (j = 0; j != v76; ++j)
         {
-          if (*v361 != v77)
+          if (*v360 != v77)
           {
             objc_enumerationMutation(v72);
           }
 
-          v79 = objc_msgSend_metadata(*(*(&v360 + 1) + 8 * j), v74, v75);
+          v79 = objc_msgSend_metadata(*(*(&v359 + 1) + 8 * j), v74, v75);
           v82 = objc_msgSend_vectors(v79, v80, v81);
           v85 = objc_msgSend_contents(v82, v83, v84);
           objc_msgSend_unionStateVector_(v69, v86, v85);
         }
 
-        v76 = objc_msgSend_countByEnumeratingWithState_objects_count_(v72, v74, &v360, v389, 16);
+        v76 = objc_msgSend_countByEnumeratingWithState_objects_count_(v72, v74, &v359, v388, 16);
       }
 
       while (v76);
     }
 
-    v89 = objc_msgSend_clockVector(v332, v87, v88);
+    v89 = objc_msgSend_clockVector(v331, v87, v88);
     objc_msgSend_minusVector_(v69, v90, v89);
 
-    v93 = objc_msgSend_clockVector(v330, v91, v92);
-    v329 = objc_msgSend_mutableCopy(v93, v94, v95);
+    v93 = objc_msgSend_clockVector(v329, v91, v92);
+    v328 = objc_msgSend_mutableCopy(v93, v94, v95);
 
     v98 = objc_msgSend_clockVector(v69, v96, v97);
-    objc_msgSend_minusVector_(v329, v99, v98);
+    objc_msgSend_minusVector_(v328, v99, v98);
 
-    v102 = objc_msgSend_clockVector(v332, v100, v101);
-    LOBYTE(v93) = objc_msgSend_isGreaterThanOrEqualToVector_(v102, v103, v329);
+    v102 = objc_msgSend_clockVector(v331, v100, v101);
+    LOBYTE(v93) = objc_msgSend_isGreaterThanOrEqualToVector_(v102, v103, v328);
 
     if (v93)
     {
@@ -1850,14 +1819,14 @@ LABEL_37:
     v107 = ck_log_facility_distributed_sync;
     if (os_log_type_enabled(v107, OS_LOG_TYPE_FAULT))
     {
-      v315 = objc_msgSend_valueID(self, v108, v109);
-      v318 = objc_msgSend_clockVector(v332, v316, v317);
+      v314 = objc_msgSend_valueID(self, v108, v109);
+      v317 = objc_msgSend_clockVector(v331, v315, v316);
       *buf = 138412802;
-      selfCopy4 = v315;
-      v385 = 2112;
-      v386 = v318;
-      v387 = 2112;
-      v388 = v329;
+      selfCopy4 = v314;
+      v384 = 2112;
+      v385 = v317;
+      v386 = 2112;
+      v387 = v328;
       _os_log_fault_impl(&dword_1883EA000, v107, OS_LOG_TYPE_FAULT, "Mergeable %@ regressed with current vector %@, server vector %@", buf, 0x20u);
     }
 
@@ -1868,16 +1837,16 @@ LABEL_37:
         v63 = 0;
 LABEL_178:
 
-        v11 = v327;
+        v11 = v326;
         goto LABEL_179;
       }
 
       v295 = objc_msgSend_valueID(self, v104, v105);
-      v328 = objc_msgSend_clockVector(v332, v296, v297);
-      v299 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v298, @"CKInternalErrorDomain", 1017, @"Mergeable %@ regressed with current vector %@, server vector %@", v295, v328, v329);
+      v327 = objc_msgSend_clockVector(v331, v296, v297);
+      v299 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v298, @"CKInternalErrorDomain", 1017, @"Mergeable %@ regressed with current vector %@, server vector %@", v295, v327, v328);
       objc_msgSend_CKClientSuitableError(v299, v300, v301);
-      v325 = v299;
-      v294 = v326 = v295;
+      v324 = v299;
+      v294 = v325 = v295;
     }
 
     else
@@ -1885,7 +1854,7 @@ LABEL_178:
 LABEL_64:
       if (v13)
       {
-        v112 = v330;
+        v112 = v329;
       }
 
       else
@@ -1895,48 +1864,48 @@ LABEL_64:
         v112 = v113;
       }
 
-      v330 = v112;
+      v329 = v112;
       v114 = objc_msgSend_mutableCopy(v112, v104, v105);
-      v117 = objc_msgSend_clockVector(v332, v115, v116);
+      v117 = objc_msgSend_clockVector(v331, v115, v116);
       objc_msgSend_intersectVector_(v114, v118, v117);
-      v326 = v114;
+      v325 = v114;
 
       v119 = [CKMergeableDeltaMetadata alloc];
       v120 = [CKMergeableDeltaVectors alloc];
-      v123 = objc_msgSend_mutableCopy(v332, v121, v122);
+      v123 = objc_msgSend_mutableCopy(v331, v121, v122);
       v125 = objc_msgSend_initWithPreviousStateVector_currentStateVector_(v120, v124, v114, v123);
-      v328 = objc_msgSend_initWithVectors_(v119, v126, v125);
+      v327 = objc_msgSend_initWithVectors_(v119, v126, v125);
 
-      v129 = objc_msgSend_vectors(v328, v127, v128);
+      v129 = objc_msgSend_vectors(v327, v127, v128);
       v132 = objc_msgSend_contents(v129, v130, v131);
       if (objc_msgSend_timestampCount(v132, v133, v134))
       {
 
 LABEL_69:
-        v325 = objc_opt_new();
+        v324 = objc_opt_new();
         if (!objc_msgSend_inlineReplacementEnabled(self, v137, v138) || (objc_msgSend_serverDeltaMetadatas(self, v139, v140), v141 = objc_claimAutoreleasedReturnValue(), v144 = objc_msgSend_count(v141, v142, v143) == 0, v141, v144))
         {
-          v333 = 0;
+          v332 = 0;
         }
 
         else
         {
           v145 = objc_msgSend_enabledFaultErrors(self, v139, v140);
           v148 = objc_msgSend_serverDeltaMetadatas(self, v146, v147);
-          v152 = objc_msgSend_mutableCopy(v332, v149, v150);
-          v153 = v374;
+          v152 = objc_msgSend_mutableCopy(v331, v149, v150);
+          v153 = v373;
           if ((v145 & 2) != 0)
           {
-            v359 = v374[5];
+            v358 = v373[5];
           }
 
-          v333 = objc_msgSend_replacementDeltaMetadatasForDeltaDirectory_withNextDeltaMetadata_currentStateVector_deltaDirectoryDeliveryRequirements_error_(CKMergeableDeltaMetadata, v151, v148, v328, v152, -1, &v359 & (v145 << 62 >> 63));
+          v332 = objc_msgSend_replacementDeltaMetadatasForDeltaDirectory_withNextDeltaMetadata_currentStateVector_deltaDirectoryDeliveryRequirements_error_(CKMergeableDeltaMetadata, v151, v148, v327, v152, -1, &v358 & (v145 << 62 >> 63));
           if ((v145 & 2) != 0)
           {
-            objc_storeStrong(v153 + 5, v359);
+            objc_storeStrong(v153 + 5, v358);
           }
 
-          if (v374[5])
+          if (v373[5])
           {
             v156 = ck_log_initialization_block;
             if (ck_log_initialization_predicate != -1)
@@ -1947,19 +1916,19 @@ LABEL_69:
             v157 = ck_log_facility_distributed_sync;
             if (os_log_type_enabled(v157, OS_LOG_TYPE_ERROR))
             {
-              v320 = objc_msgSend_valueID(self, v158, v159);
-              v321 = v374[5];
+              v319 = objc_msgSend_valueID(self, v158, v159);
+              v320 = v373[5];
               *buf = 138412546;
-              selfCopy4 = v320;
-              v385 = 2112;
-              v386 = v321;
+              selfCopy4 = v319;
+              v384 = 2112;
+              v385 = v320;
               _os_log_error_impl(&dword_1883EA000, v157, OS_LOG_TYPE_ERROR, "Error calculating replacement deltas for %@: %@", buf, 0x16u);
             }
 
-            *(v370 + 24) = 0;
+            *(v369 + 24) = 0;
           }
 
-          v160 = objc_msgSend_replacementDeltaMetadatas(v333, v154, v155);
+          v160 = objc_msgSend_replacementDeltaMetadatas(v332, v154, v155);
           v163 = objc_msgSend_count(v160, v161, v162) == 0;
 
           if (!v163)
@@ -1974,25 +1943,25 @@ LABEL_69:
             if (os_log_type_enabled(v167, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              selfCopy4 = v333;
+              selfCopy4 = v332;
               _os_log_debug_impl(&dword_1883EA000, v167, OS_LOG_TYPE_DEBUG, "Found deltas to replace: %@", buf, 0xCu);
             }
 
-            v170 = objc_msgSend_replacementDeltaMetadatas(v333, v168, v169);
-            v352[0] = MEMORY[0x1E69E9820];
-            v352[1] = 3221225472;
-            v352[2] = sub_1885776D8;
-            v352[3] = &unk_1E70BDDD8;
-            v353 = v333;
-            v354 = v327;
+            v170 = objc_msgSend_replacementDeltaMetadatas(v332, v168, v169);
+            v351[0] = MEMORY[0x1E69E9820];
+            v351[1] = 3221225472;
+            v351[2] = sub_1885776D8;
+            v351[3] = &unk_1E70BDDD8;
+            v352 = v332;
+            v353 = v326;
             selfCopy2 = self;
-            v357 = &v373;
-            v358 = &v369;
-            v356 = v325;
-            objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v170, v171, v352);
+            v356 = &v372;
+            v357 = &v368;
+            v355 = v324;
+            objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v170, v171, v351);
           }
 
-          v172 = objc_msgSend_updatedNextDeltaMetadata(v333, v164, v165);
+          v172 = objc_msgSend_updatedNextDeltaMetadata(v332, v164, v165);
 
           if (v172)
           {
@@ -2005,21 +1974,21 @@ LABEL_69:
             v174 = ck_log_facility_distributed_sync;
             if (os_log_type_enabled(v174, OS_LOG_TYPE_DEBUG))
             {
-              v322 = objc_msgSend_updatedNextDeltaMetadata(v333, v175, v176);
+              v321 = objc_msgSend_updatedNextDeltaMetadata(v332, v175, v176);
               *buf = 138412290;
-              selfCopy4 = v322;
+              selfCopy4 = v321;
               _os_log_debug_impl(&dword_1883EA000, v174, OS_LOG_TYPE_DEBUG, "Will use updated delta metadata: %@", buf, 0xCu);
             }
 
-            v179 = objc_msgSend_updatedNextDeltaMetadata(v333, v177, v178);
+            v179 = objc_msgSend_updatedNextDeltaMetadata(v332, v177, v178);
 
-            v328 = v179;
+            v327 = v179;
           }
         }
 
-        if (v370[3])
+        if (v369[3])
         {
-          v180 = objc_msgSend_vectors(v328, v139, v140);
+          v180 = objc_msgSend_vectors(v327, v139, v140);
           v183 = objc_msgSend_contents(v180, v181, v182);
           v186 = objc_msgSend_timestampCount(v183, v184, v185) == 0;
 
@@ -2051,51 +2020,51 @@ LABEL_69:
           if (os_log_type_enabled(v188, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            selfCopy4 = v328;
+            selfCopy4 = v327;
             _os_log_debug_impl(&dword_1883EA000, v188, OS_LOG_TYPE_DEBUG, "Will generate deltas for metadata: %@", buf, 0xCu);
           }
 
-          v189 = v374 + 5;
-          v351 = v374[5];
-          v191 = objc_msgSend_mergeableDeltasForMetadata_error_(v327, v190, v328, &v351);
-          objc_storeStrong(v189, v351);
+          v189 = v373 + 5;
+          v350 = v373[5];
+          v191 = objc_msgSend_mergeableDeltasForMetadata_error_(v326, v190, v327, &v350);
+          objc_storeStrong(v189, v350);
           if (v191)
           {
             if (objc_msgSend_count(v191, v192, v193))
             {
-              v349 = 0u;
-              v350 = 0u;
-              v347 = 0u;
               v348 = 0u;
-              v324 = v191;
-              v198 = objc_msgSend_countByEnumeratingWithState_objects_count_(v324, v195, &v347, v382, 16);
+              v349 = 0u;
+              v346 = 0u;
+              v347 = 0u;
+              v323 = v191;
+              v198 = objc_msgSend_countByEnumeratingWithState_objects_count_(v323, v195, &v346, v381, 16);
               if (v198)
               {
-                v199 = *v348;
+                v199 = *v347;
                 while (2)
                 {
                   for (k = 0; k != v198; ++k)
                   {
-                    if (*v348 != v199)
+                    if (*v347 != v199)
                     {
-                      objc_enumerationMutation(v324);
+                      objc_enumerationMutation(v323);
                     }
 
-                    v201 = objc_msgSend_metadata(*(*(&v347 + 1) + 8 * k), v196, v197);
+                    v201 = objc_msgSend_metadata(*(*(&v346 + 1) + 8 * k), v196, v197);
                     v202 = v201 == 0;
 
                     if (v202)
                     {
                       v305 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v196, @"CKInternalErrorDomain", 1017, @"Delta for versioned mergeable has nil metadata");
                       v308 = objc_msgSend_CKClientSuitableError(v305, v306, v307);
-                      v309 = v374[5];
-                      v374[5] = v308;
+                      v309 = v373[5];
+                      v373[5] = v308;
 
                       goto LABEL_169;
                     }
                   }
 
-                  v198 = objc_msgSend_countByEnumeratingWithState_objects_count_(v324, v196, &v347, v382, 16);
+                  v198 = objc_msgSend_countByEnumeratingWithState_objects_count_(v323, v196, &v346, v381, 16);
                   if (v198)
                   {
                     continue;
@@ -2105,8 +2074,8 @@ LABEL_69:
                 }
               }
 
-              *(v370 + 24) = 1;
-              v205 = objc_msgSend_removableDeltaMetadatas(v333, v203, v204);
+              *(v369 + 24) = 1;
+              v205 = objc_msgSend_removableDeltaMetadatas(v332, v203, v204);
               v208 = objc_msgSend_count(v205, v206, v207) == 0;
 
               if (!v208)
@@ -2124,31 +2093,31 @@ LABEL_69:
                   _os_log_debug_impl(&dword_1883EA000, v212, OS_LOG_TYPE_DEBUG, "Will fold empty deltas into new delta", buf, 2u);
                 }
 
-                v345 = 0u;
-                v346 = 0u;
-                v343 = 0u;
                 v344 = 0u;
-                v213 = v324;
-                v217 = objc_msgSend_countByEnumeratingWithState_objects_count_(v213, v214, &v343, v381, 16);
+                v345 = 0u;
+                v342 = 0u;
+                v343 = 0u;
+                v213 = v323;
+                v217 = objc_msgSend_countByEnumeratingWithState_objects_count_(v213, v214, &v342, v380, 16);
                 if (v217)
                 {
-                  v218 = *v344;
+                  v218 = *v343;
                   do
                   {
                     for (m = 0; m != v217; ++m)
                     {
-                      if (*v344 != v218)
+                      if (*v343 != v218)
                       {
                         objc_enumerationMutation(v213);
                       }
 
-                      v220 = *(*(&v343 + 1) + 8 * m);
-                      v221 = objc_msgSend_removableDeltaMetadatas(v333, v215, v216);
+                      v220 = *(*(&v342 + 1) + 8 * m);
+                      v221 = objc_msgSend_removableDeltaMetadatas(v332, v215, v216);
                       v224 = objc_msgSend_metadata(v220, v222, v223);
                       objc_msgSend_setReplacedDeltaIdentifiers_(v224, v225, v221);
                     }
 
-                    v217 = objc_msgSend_countByEnumeratingWithState_objects_count_(v213, v215, &v343, v381, 16);
+                    v217 = objc_msgSend_countByEnumeratingWithState_objects_count_(v213, v215, &v342, v380, 16);
                   }
 
                   while (v217);
@@ -2156,63 +2125,63 @@ LABEL_69:
 
                 v226 = [CKReplaceDeltasRequest alloc];
                 v229 = objc_msgSend_valueID(self, v227, v228);
-                v232 = objc_msgSend_removableDeltaMetadatas(v333, v230, v231);
+                v232 = objc_msgSend_removableDeltaMetadatas(v332, v230, v231);
                 v235 = objc_msgSend_allObjects(v232, v233, v234);
                 v237 = objc_msgSend_initWithValueID_deltaIdentifiersToReplace_replacementDeltas_replacementDeltasContainNewData_(v226, v236, v229, v235, v213, 1);
 
-                objc_msgSend_insertObject_atIndex_(v325, v238, v237, 0);
-                v324 = MEMORY[0x1E695E0F0];
+                objc_msgSend_insertObject_atIndex_(v324, v238, v237, 0);
+                v323 = MEMORY[0x1E695E0F0];
               }
 
               v239 = objc_msgSend_maxInlineDeltaSize(CKMergeableDelta, v209, v210);
-              v242 = objc_msgSend_mutableCopy(v324, v240, v241);
-              v341 = 0u;
-              v342 = 0u;
-              v339 = 0u;
+              v242 = objc_msgSend_mutableCopy(v323, v240, v241);
               v340 = 0u;
-              v243 = v325;
-              v247 = objc_msgSend_countByEnumeratingWithState_objects_count_(v243, v244, &v339, v380, 16);
+              v341 = 0u;
+              v338 = 0u;
+              v339 = 0u;
+              v243 = v324;
+              v247 = objc_msgSend_countByEnumeratingWithState_objects_count_(v243, v244, &v338, v379, 16);
               if (v247)
               {
-                v248 = *v340;
+                v248 = *v339;
                 do
                 {
                   for (n = 0; n != v247; ++n)
                   {
-                    if (*v340 != v248)
+                    if (*v339 != v248)
                     {
                       objc_enumerationMutation(v243);
                     }
 
-                    v250 = objc_msgSend_replacementDeltas(*(*(&v339 + 1) + 8 * n), v245, v246);
+                    v250 = objc_msgSend_replacementDeltas(*(*(&v338 + 1) + 8 * n), v245, v246);
                     objc_msgSend_addObjectsFromArray_(v242, v251, v250);
                   }
 
-                  v247 = objc_msgSend_countByEnumeratingWithState_objects_count_(v243, v245, &v339, v380, 16);
+                  v247 = objc_msgSend_countByEnumeratingWithState_objects_count_(v243, v245, &v338, v379, 16);
                 }
 
                 while (v247);
               }
 
-              v337 = 0u;
-              v338 = 0u;
-              v335 = 0u;
               v336 = 0u;
+              v337 = 0u;
+              v334 = 0u;
+              v335 = 0u;
               v252 = v242;
-              v256 = objc_msgSend_countByEnumeratingWithState_objects_count_(v252, v253, &v335, v379, 16);
+              v256 = objc_msgSend_countByEnumeratingWithState_objects_count_(v252, v253, &v334, v378, 16);
               if (v256)
               {
-                v257 = *v336;
+                v257 = *v335;
                 do
                 {
                   for (ii = 0; ii != v256; ++ii)
                   {
-                    if (*v336 != v257)
+                    if (*v335 != v257)
                     {
                       objc_enumerationMutation(v252);
                     }
 
-                    v259 = *(*(&v335 + 1) + 8 * ii);
+                    v259 = *(*(&v334 + 1) + 8 * ii);
                     v260 = objc_msgSend_valueID(self, v254, v255);
                     objc_msgSend_setValueID_(v259, v261, v260);
 
@@ -2221,13 +2190,13 @@ LABEL_69:
                     objc_msgSend_populateAssetIfNecessaryWithMaxInlineSize_(v259, v266, v239);
                   }
 
-                  v256 = objc_msgSend_countByEnumeratingWithState_objects_count_(v252, v254, &v335, v379, 16);
+                  v256 = objc_msgSend_countByEnumeratingWithState_objects_count_(v252, v254, &v334, v378, 16);
                 }
 
                 while (v256);
               }
 
-              v268 = objc_msgSend_setWithArray_(MEMORY[0x1E695DFD8], v267, v324);
+              v268 = objc_msgSend_setWithArray_(MEMORY[0x1E695DFD8], v267, v323);
               objc_msgSend_setDeltasToSave_(self, v269, v268);
 
               v272 = objc_msgSend_copy(v243, v270, v271);
@@ -2251,25 +2220,25 @@ LABEL_69:
               v276 = ck_log_facility_distributed_sync;
               if (os_log_type_enabled(v276, OS_LOG_TYPE_DEBUG))
               {
-                v323 = objc_msgSend_deltasToSave(self, v277, v278);
+                v322 = objc_msgSend_deltasToSave(self, v277, v278);
                 *buf = 138412546;
                 selfCopy4 = self;
-                v385 = 2112;
-                v386 = v323;
+                v384 = 2112;
+                v385 = v322;
                 _os_log_debug_impl(&dword_1883EA000, v276, OS_LOG_TYPE_DEBUG, "Generated deltas for mergeable %@: %@", buf, 0x16u);
               }
 
               goto LABEL_173;
             }
 
-            v324 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v194, @"CKInternalErrorDomain", 1017, @"Mergeable did not return any deltas");
-            v312 = objc_msgSend_CKClientSuitableError(v324, v310, v311);
-            v305 = v374[5];
-            v374[5] = v312;
+            v323 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v194, @"CKInternalErrorDomain", 1017, @"Mergeable did not return any deltas");
+            v312 = objc_msgSend_CKClientSuitableError(v323, v310, v311);
+            v305 = v373[5];
+            v373[5] = v312;
 LABEL_169:
           }
 
-          *(v370 + 24) = 0;
+          *(v369 + 24) = 0;
           if (ck_log_initialization_predicate != -1)
           {
             dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
@@ -2281,17 +2250,17 @@ LABEL_169:
 LABEL_173:
             if (errorCopy)
             {
-              *errorCopy = v374[5];
+              *errorCopy = v373[5];
             }
 
-            v63 = *(v370 + 24);
+            v63 = *(v369 + 24);
 
             goto LABEL_176;
           }
 
-          v319 = v374[5];
+          v318 = v373[5];
           *buf = 138412290;
-          selfCopy4 = v319;
+          selfCopy4 = v318;
           v281 = "Error generating deltas: %@";
         }
 
@@ -2308,7 +2277,7 @@ LABEL_173:
             goto LABEL_173;
           }
 
-          v280 = v374[5];
+          v280 = v373[5];
           *buf = 138412290;
           selfCopy4 = v280;
           v281 = "Not generating deltas due to previous error: %@";
@@ -2318,7 +2287,7 @@ LABEL_173:
         goto LABEL_173;
       }
 
-      v282 = objc_msgSend_vectors(v328, v135, v136);
+      v282 = objc_msgSend_vectors(v327, v135, v136);
       v285 = objc_msgSend_removals(v282, v283, v284);
       v288 = objc_msgSend_timestampCount(v285, v286, v287) == 0;
 
@@ -2336,9 +2305,9 @@ LABEL_173:
       if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        selfCopy4 = v332;
-        v385 = 2112;
-        v386 = v330;
+        selfCopy4 = v331;
+        v384 = 2112;
+        v385 = v329;
         _os_log_error_impl(&dword_1883EA000, v289, OS_LOG_TYPE_ERROR, "Mergeable has a new removal without a corresponding change to the version vector, with current vector %@, server vector %@", buf, 0x16u);
       }
 
@@ -2350,9 +2319,9 @@ LABEL_177:
         goto LABEL_178;
       }
 
-      v291 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v290, @"CKInternalErrorDomain", 1017, @"Mergeable has a new removal without a corresponding change to the version vector, with current vector %@, server vector %@", v332, v330);
+      v291 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v290, @"CKInternalErrorDomain", 1017, @"Mergeable has a new removal without a corresponding change to the version vector, with current vector %@, server vector %@", v331, v329);
       objc_msgSend_CKClientSuitableError(v291, v292, v293);
-      v294 = v325 = v291;
+      v294 = v324 = v291;
     }
 
     v63 = 0;
@@ -2370,7 +2339,7 @@ LABEL_176:
   v62 = ck_log_facility_distributed_sync;
   if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_ERROR))
   {
-    v303 = v374[5];
+    v303 = v373[5];
     *buf = 138412290;
     selfCopy4 = v303;
     _os_log_error_impl(&dword_1883EA000, v62, OS_LOG_TYPE_ERROR, "Error preparing mergeable for upload: %@", buf, 0xCu);
@@ -2391,64 +2360,63 @@ LABEL_166:
 
 LABEL_49:
   v63 = 0;
-  *error = v374[5];
+  *error = v373[5];
 LABEL_179:
 
-  _Block_object_dispose(&v369, 8);
-  _Block_object_dispose(&v373, 8);
+  _Block_object_dispose(&v368, 8);
+  _Block_object_dispose(&v372, 8);
 
-  v313 = *MEMORY[0x1E69E9840];
   return v63 & 1;
 }
 
 - (BOOL)hasAssetBackedDeltas
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   v4 = objc_msgSend_deltasToSave(self, a2, v2);
-  v64[0] = v4;
+  v63[0] = v4;
   v7 = objc_msgSend_unmergedDeltas(self, v5, v6);
-  v64[1] = v7;
-  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v64, 2);
+  v63[1] = v7;
+  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v63, 2);
 
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v57, v65, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v56, v64, 16);
   if (v11)
   {
     v12 = v11;
-    v13 = *v58;
+    v13 = *v57;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v58 != v13)
+        if (*v57 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v57 + 1) + 8 * i);
+        v15 = *(*(&v56 + 1) + 8 * i);
+        v52 = 0u;
         v53 = 0u;
         v54 = 0u;
         v55 = 0u;
-        v56 = 0u;
         v16 = v15;
-        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v53, v63, 16);
+        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v52, v62, 16);
         if (v18)
         {
           v21 = v18;
-          v22 = *v54;
+          v22 = *v53;
           while (2)
           {
             for (j = 0; j != v21; ++j)
             {
-              if (*v54 != v22)
+              if (*v53 != v22)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v24 = objc_msgSend_asset(*(*(&v53 + 1) + 8 * j), v19, v20);
+              v24 = objc_msgSend_asset(*(*(&v52 + 1) + 8 * j), v19, v20);
 
               if (v24)
               {
@@ -2459,7 +2427,7 @@ LABEL_32:
               }
             }
 
-            v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v53, v63, 16);
+            v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v52, v62, 16);
             if (v21)
             {
               continue;
@@ -2470,51 +2438,51 @@ LABEL_32:
         }
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v25, &v57, v65, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v25, &v56, v64, 16);
     }
 
     while (v12);
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v9 = objc_msgSend_pendingReplacementRequests(self, v26, v27);
-  v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v28, &v49, v62, 16);
+  v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v28, &v48, v61, 16);
   if (v31)
   {
-    v32 = *v50;
+    v32 = *v49;
     while (2)
     {
       for (k = 0; k != v31; ++k)
       {
-        if (*v50 != v32)
+        if (*v49 != v32)
         {
           objc_enumerationMutation(v9);
         }
 
-        v34 = *(*(&v49 + 1) + 8 * k);
+        v34 = *(*(&v48 + 1) + 8 * k);
+        v44 = 0u;
         v45 = 0u;
         v46 = 0u;
         v47 = 0u;
-        v48 = 0u;
         v16 = objc_msgSend_replacementDeltas(v34, v29, v30, 0);
-        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v35, &v45, v61, 16);
+        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v35, &v44, v60, 16);
         if (v36)
         {
           v39 = v36;
-          v40 = *v46;
+          v40 = *v45;
 LABEL_23:
           v41 = 0;
           while (1)
           {
-            if (*v46 != v40)
+            if (*v45 != v40)
             {
               objc_enumerationMutation(v16);
             }
 
-            v42 = objc_msgSend_asset(*(*(&v45 + 1) + 8 * v41), v37, v38);
+            v42 = objc_msgSend_asset(*(*(&v44 + 1) + 8 * v41), v37, v38);
 
             if (v42)
             {
@@ -2523,7 +2491,7 @@ LABEL_23:
 
             if (v39 == ++v41)
             {
-              v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v37, &v45, v61, 16);
+              v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v37, &v44, v60, 16);
               if (v39)
               {
                 goto LABEL_23;
@@ -2535,7 +2503,7 @@ LABEL_23:
         }
       }
 
-      v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v29, &v49, v62, 16);
+      v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v29, &v48, v61, 16);
       if (v31)
       {
         continue;
@@ -2547,7 +2515,6 @@ LABEL_23:
 
 LABEL_33:
 
-  v43 = *MEMORY[0x1E69E9840];
   return v31;
 }
 

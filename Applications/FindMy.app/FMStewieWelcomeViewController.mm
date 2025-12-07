@@ -31,8 +31,8 @@
 
 - (double)_contentViewHeight
 {
-  v11 = &type metadata for SolariumFeatureFlag;
-  v12 = sub_10000BD04();
+  v10[3] = &type metadata for SolariumFeatureFlag;
+  v10[4] = sub_10000BD04();
   selfCopy = self;
   v4 = isFeatureEnabled(_:)();
   sub_100006060(v10);
@@ -65,7 +65,7 @@
 - (void)cancelActionWithSender:(id)sender
 {
   selfCopy = self;
-  v4 = sub_100426ACC();
+  v4 = sub_100426ACC(v8);
   v6 = v5;
   updated = type metadata accessor for FMFSatelliteLocationUpdateEvent();
   if (!(*(*(updated - 8) + 48))(v6, 1, updated))
@@ -73,7 +73,7 @@
     FMFSatelliteLocationUpdateEvent.updateFlowCanceled.setter();
   }
 
-  (v4)(&v8, 0);
+  (v4)(v8, 0);
   [(FMStewieWelcomeViewController *)selfCopy dismissViewControllerAnimated:1 completion:0];
 }
 

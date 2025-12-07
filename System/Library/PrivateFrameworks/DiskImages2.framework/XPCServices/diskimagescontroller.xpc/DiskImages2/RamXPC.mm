@@ -23,9 +23,9 @@
 
 - (void)createRamBackend
 {
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self, a2);
   v5 = (*(*v6 + 40))(v6);
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   v7 = (*(*v4 + 168))(v4);
   v8 = v3;
   sub_1000DEE48();
@@ -53,7 +53,7 @@
   v8.receiver = self;
   v8.super_class = RamXPC;
   [(BackendXPC *)&v8 encodeWithCoder:coderCopy];
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   [coderCopy encodeInt64:(*(*v6 + 40))() forKey:@"size"];
   if (v7)
   {
@@ -69,7 +69,7 @@
   v8.receiver = self;
   v8.super_class = RamXPC;
   v3 = [(BackendXPC *)&v8 description];
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   v4 = [NSString stringWithFormat:@"%@[ramsize=%llu]", v3, (*(*v6 + 40))()];
   if (v7)
   {

@@ -26,19 +26,19 @@
   v14 = [(_HDUserDomainConceptObserverRecordSummary *)&v24 init];
   if (v14)
   {
-    v15 = [conceptsCopy copy];
+    v15 = objc_msgSend_copy(conceptsCopy);
     journaledConcepts = v14->_journaledConcepts;
     v14->_journaledConcepts = v15;
 
-    v17 = [addedConceptsCopy copy];
+    v17 = objc_msgSend_copy(addedConceptsCopy);
     addedConcepts = v14->_addedConcepts;
     v14->_addedConcepts = v17;
 
-    v19 = [updatedConceptsCopy copy];
+    v19 = objc_msgSend_copy(updatedConceptsCopy);
     updatedConcepts = v14->_updatedConcepts;
     v14->_updatedConcepts = v19;
 
-    v21 = [removedConceptsCopy copy];
+    v21 = objc_msgSend_copy(removedConceptsCopy);
     removedConcepts = v14->_removedConcepts;
     v14->_removedConcepts = v21;
   }

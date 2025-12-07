@@ -94,7 +94,7 @@ void __79___DASBMMinimumSpanConfiguration_deriveSpansWithMinimumDurationOnStream
 
 void __79___DASBMMinimumSpanConfiguration_deriveSpansWithMinimumDurationOnStream_array___block_invoke_11(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 count];
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:2 * v4];
@@ -102,26 +102,26 @@ void __79___DASBMMinimumSpanConfiguration_deriveSpansWithMinimumDurationOnStream
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v8 = v3;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         v14 = *(*(*(a1 + 32) + 8) + 40);
         v15 = [v13 first];
         [v14 addObject:v15];
@@ -131,13 +131,11 @@ void __79___DASBMMinimumSpanConfiguration_deriveSpansWithMinimumDurationOnStream
         [v16 addObject:v17];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __79___DASBMMinimumSpanConfiguration_deriveSpansWithMinimumDurationOnStream_array___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -171,7 +169,7 @@ void __78___DASBMMinimumSpanConfiguration_deriveSpansWithMinimumDurationOnStream
 
 void __78___DASBMMinimumSpanConfiguration_deriveSpansWithMinimumDurationOnStream_heap___block_invoke_16(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 count];
   if ((v4 & 0x4000000000000000) != 0)
@@ -198,26 +196,26 @@ void __78___DASBMMinimumSpanConfiguration_deriveSpansWithMinimumDurationOnStream
     *(*(*(a1 + 40) + 8) + 24) = CFBinaryHeapCreate(*MEMORY[0x1E695E480], v5, &_DASBinaryHeapBiomeStoreEventCallbacks, 0);
     if (*(*(*(a1 + 40) + 8) + 24))
     {
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       v6 = v3;
-      v7 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v32;
+        v9 = *v31;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v32 != v9)
+            if (*v31 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v11 = *(*(&v31 + 1) + 8 * i);
+            v11 = *(*(&v30 + 1) + 8 * i);
             v12 = *(*(*(a1 + 40) + 8) + 24);
             v13 = [v11 first];
             CFBinaryHeapAddValue(v12, v13);
@@ -227,7 +225,7 @@ void __78___DASBMMinimumSpanConfiguration_deriveSpansWithMinimumDurationOnStream
             CFBinaryHeapAddValue(v14, v15);
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v30 objects:v34 count:16];
         }
 
         while (v8);
@@ -243,8 +241,6 @@ void __78___DASBMMinimumSpanConfiguration_deriveSpansWithMinimumDurationOnStream
       }
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __78___DASBMMinimumSpanConfiguration_deriveSpanTuplesWithMinimumDurationOnStream___block_invoke(uint64_t a1, void *a2)
@@ -262,10 +258,7 @@ void __78___DASBMMinimumSpanConfiguration_deriveSpanTuplesWithMinimumDurationOnS
 
 uint64_t __78___DASBMMinimumSpanConfiguration_deriveSpanTuplesWithMinimumDurationOnStream___block_invoke_17(uint64_t a1, void *a2)
 {
-  v3 = [a2 mutableCopy];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 mutableCopy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -290,21 +283,17 @@ uint64_t __78___DASBMMinimumSpanConfiguration_deriveSpanTuplesWithMinimumDuratio
 
 void __75___DASBMMinimumSpanConfiguration_publisherWithSpansMeetingMinimumDuration___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B6E2F000, a2, OS_LOG_TYPE_ERROR, "nil key returned for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B6E2F000, a2, OS_LOG_TYPE_ERROR, "nil key returned for %@", &v2, 0xCu);
 }
 
 void __79___DASBMMinimumSpanConfiguration_deriveSpansWithMinimumDurationOnStream_array___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_2_0(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_2_0(a1 a2)];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1B6E2F000, v4, v5, "Failed to open sink for %@: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B6E2F000, v3, v4, "Failed to open sink for %@: %@", v5, v6, v7, v8);
 }
 
 @end

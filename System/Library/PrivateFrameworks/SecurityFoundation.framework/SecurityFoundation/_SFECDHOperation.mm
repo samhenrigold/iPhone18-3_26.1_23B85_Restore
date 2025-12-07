@@ -57,7 +57,7 @@
 
 - (id)deriveKeyWithSpecifier:(id)specifier fromKeySource:(id)source error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   sourceCopy = source;
   objc_opt_class();
@@ -76,10 +76,10 @@
     }
 
     v13 = *v12;
-    v25 = *MEMORY[0x277CDC3F8];
+    v24 = *MEMORY[0x277CDC3F8];
     v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:keyLengthInBytes];
-    v26[0] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v25[0] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
 
     localKeyPair = [v10 localKeyPair];
     _secKey = [localKeyPair _secKey];
@@ -109,8 +109,6 @@
   {
     v20 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

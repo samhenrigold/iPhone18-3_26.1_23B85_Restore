@@ -1,4 +1,6 @@
 @interface SGOrigin
++ (SGOrigin)originWithType:(unint64_t)type sourceKey:(id)key externalKey:(id)externalKey bundleId:(id)id fromForwardedMessage:(BOOL)message;
++ (SGOrigin)originWithType:(unint64_t)type sourceKey:(id)key externalKey:(id)externalKey fromForwardedMessage:(BOOL)message;
 + (id)originForMailSearchableItem:(id)item;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToOrigin:(id)origin;
@@ -551,16 +553,16 @@ LABEL_10:
 
 void __27__SGOrigin__resolveAppName__block_invoke_2(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:*(*(a1 + 32) + 72)];
   if (!v4)
   {
     v5 = objc_autoreleasePoolPush();
     v6 = *(*(a1 + 32) + 72);
-    v20 = 0;
-    v7 = [MEMORY[0x1E69635F8] bundleRecordWithBundleIdentifier:v6 allowPlaceholder:0 error:&v20];
-    v8 = v20;
+    v19 = 0;
+    v7 = [MEMORY[0x1E69635F8] bundleRecordWithBundleIdentifier:v6 allowPlaceholder:0 error:&v19];
+    v8 = v19;
     if (v7)
     {
       if ([v3 count] >= 5)
@@ -582,7 +584,7 @@ void __27__SGOrigin__resolveAppName__block_invoke_2(uint64_t a1, void *a2)
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v22 = v8;
+        v21 = v8;
         _os_log_impl(&dword_1BA729000, v12, OS_LOG_TYPE_DEFAULT, "SGOrigin: no bundle record found %@", buf, 0xCu);
       }
 
@@ -601,8 +603,6 @@ void __27__SGOrigin__resolveAppName__block_invoke_2(uint64_t a1, void *a2)
   v17 = *(a1 + 32);
   v18 = *(v17 + 144);
   *(v17 + 144) = v16;
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __27__SGOrigin__resolveAppName__block_invoke()
@@ -710,30 +710,30 @@ LABEL_17:
 
 + (id)originForMailSearchableItem:(id)item
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   itemCopy = item;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   attributeSet = [itemCopy attributeSet];
   emailHeaders = [attributeSet emailHeaders];
 
-  v6 = [emailHeaders countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v6 = [emailHeaders countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v22 != v8)
+      if (*v21 != v8)
       {
         objc_enumerationMutation(emailHeaders);
       }
 
-      v10 = *(*(&v21 + 1) + 8 * v9);
+      v10 = *(*(&v20 + 1) + 8 * v9);
       if (![@"message-id" caseInsensitiveCompare:v10])
       {
         break;
@@ -741,7 +741,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [emailHeaders countByEnumeratingWithState:&v21 objects:v27 count:16];
+        v7 = [emailHeaders countByEnumeratingWithState:&v20 objects:v26 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -776,16 +776,35 @@ LABEL_12:
     {
       uniqueIdentifier = [itemCopy uniqueIdentifier];
       *buf = 138543362;
-      v26 = uniqueIdentifier;
+      v25 = uniqueIdentifier;
       _os_log_error_impl(&dword_1BA729000, firstObject, OS_LOG_TYPE_ERROR, "SGOrigin: Unable to construct origin from searchableItem: %{public}@", buf, 0xCu);
     }
 
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v17;
+}
+
++ (SGOrigin)originWithType:(unint64_t)type sourceKey:(id)key externalKey:(id)externalKey fromForwardedMessage:(BOOL)message
+{
+  messageCopy = message;
+  externalKeyCopy = externalKey;
+  keyCopy = key;
+  v11 = [[SGOrigin alloc] initWithType:type sourceKey:keyCopy externalKey:externalKeyCopy bundleId:0 fromForwardedMessage:messageCopy];
+
+  return v11;
+}
+
++ (SGOrigin)originWithType:(unint64_t)type sourceKey:(id)key externalKey:(id)externalKey bundleId:(id)id fromForwardedMessage:(BOOL)message
+{
+  messageCopy = message;
+  idCopy = id;
+  externalKeyCopy = externalKey;
+  keyCopy = key;
+  v14 = [[SGOrigin alloc] initWithType:type sourceKey:keyCopy externalKey:externalKeyCopy bundleId:idCopy fromForwardedMessage:messageCopy];
+
+  return v14;
 }
 
 @end

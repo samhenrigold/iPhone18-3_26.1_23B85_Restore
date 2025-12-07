@@ -3704,8 +3704,7 @@ void OUTLINED_FUNCTION_662(__int16 a1@<W8>)
 
 int64x2_t OUTLINED_FUNCTION_663@<Q0>(int64x2_t *a1@<X8>)
 {
-  a1->i64[0] = 0;
-  a1->i64[1] = 0;
+  *a1 = 0uLL;
   result = vdupq_n_s64(0x546000000000uLL);
   a1[1] = result;
   return result;
@@ -4230,7 +4229,7 @@ double EshBackgroundPropertiesImpl::setBWMode(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x304u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 772, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4238,7 +4237,7 @@ double non-virtual thunk toEshBackgroundPropertiesImpl::setBWMode(uint64_t a1, u
 {
   v2 = *(a1 - 8);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x304u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 772, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4246,7 +4245,7 @@ double EshBackgroundPropertiesImpl::setBWPure(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x305u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 773, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4254,7 +4253,7 @@ double non-virtual thunk toEshBackgroundPropertiesImpl::setBWPure(uint64_t a1, u
 {
   v2 = *(a1 - 8);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x305u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 773, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4262,7 +4261,7 @@ double EshBackgroundPropertiesImpl::setBWNormal(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x306u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 774, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4270,7 +4269,7 @@ double non-virtual thunk toEshBackgroundPropertiesImpl::setBWNormal(uint64_t a1,
 {
   v2 = *(a1 - 8);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x306u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 774, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4503,7 +4502,7 @@ double EshPath::setLimoX(EshPath *this, unsigned int a2)
 {
   var2 = this->var2;
   v4 = a2;
-  *&result = EshOpt::setProperty(var2, 0x153u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2, 339, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4511,23 +4510,23 @@ double EshPath::setLimoY(EshPath *this, unsigned int a2)
 {
   var2 = this->var2;
   v4 = a2;
-  *&result = EshOpt::setProperty(var2, 0x154u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2, 340, 2, &v4).n128_u64[0];
   return result;
 }
 
-void std::vector<EshHeader *,ChAllocator<EshHeader *>>::resize(void *a1, unsigned int a2)
+void std::vector<EshHeader *,ChAllocator<EshHeader *>>::resize(void *result, unsigned int a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<EshHeader *,ChAllocator<EshHeader *>>::__append(a1, v4);
+    std::vector<EshHeader *,ChAllocator<EshHeader *>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 8 * a2;
+    result[1] = *result + 8 * a2;
   }
 }
 
@@ -4628,17 +4627,17 @@ void non-virtual thunk toEshShape::~EshShape(EshShape *this)
   JUMPOUT(0x25F897000);
 }
 
-uint64_t EshShapeDefaultsPropertiesImpl::reset(uint64_t **this)
+uint64_t EshShapeDefaultsPropertiesImpl::reset(EshShapeDefaultsPropertiesImpl *this)
 {
-  EshOpt::deleteProperty(this[2], 772);
-  EshOpt::deleteProperty(this[2], 773);
-  EshOpt::deleteProperty(this[2], 774);
-  EshOpt::deleteProperty(this[2], 923);
-  EshOpt::deleteProperty(this[2], 924);
-  EshOpt::deleteProperty(this[2], 925);
-  v2 = this[2];
+  EshOpt::deleteProperty(*(this + 2), 0x304u);
+  EshOpt::deleteProperty(*(this + 2), 0x305u);
+  EshOpt::deleteProperty(*(this + 2), 0x306u);
+  EshOpt::deleteProperty(*(this + 2), 0x39Bu);
+  EshOpt::deleteProperty(*(this + 2), 0x39Cu);
+  EshOpt::deleteProperty(*(this + 2), 0x39Du);
+  v2 = *(this + 2);
 
-  return EshOpt::deleteProperty(v2, 926);
+  return EshOpt::deleteProperty(v2, 0x39Eu);
 }
 
 uint64_t non-virtual thunk toEshShapeDefaultsPropertiesImpl::isBWModeSet(EshShapeDefaultsPropertiesImpl *this)
@@ -4652,18 +4651,18 @@ uint64_t non-virtual thunk toEshShapeDefaultsPropertiesImpl::isBWModeSet(EshShap
 
 uint64_t non-virtual thunk toEshShapeDefaultsPropertiesImpl::getBWMode(EshShapeDefaultsPropertiesImpl *this)
 {
-  return *EshOpt::getProperty(*(this - 1), 0x304u);
+  return *EshOpt::getProperty(*(this - 1), 772);
 }
 
 {
-  return *EshOpt::getProperty(*(this - 2), 0x304u);
+  return *EshOpt::getProperty(*(this - 2), 772);
 }
 
 double EshShapeDefaultsPropertiesImpl::setBWMode(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x304u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 772, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4671,14 +4670,14 @@ double non-virtual thunk toEshShapeDefaultsPropertiesImpl::setBWMode(uint64_t a1
 {
   v2 = *(a1 - 8);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x304u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 772, 2, &v4).n128_u64[0];
   return result;
 }
 
 {
   v2 = *(a1 - 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x304u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 772, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4693,18 +4692,18 @@ uint64_t non-virtual thunk toEshShapeDefaultsPropertiesImpl::isBWPureSet(EshShap
 
 uint64_t non-virtual thunk toEshShapeDefaultsPropertiesImpl::getBWPure(EshShapeDefaultsPropertiesImpl *this)
 {
-  return *EshOpt::getProperty(*(this - 1), 0x305u);
+  return *EshOpt::getProperty(*(this - 1), 773);
 }
 
 {
-  return *EshOpt::getProperty(*(this - 2), 0x305u);
+  return *EshOpt::getProperty(*(this - 2), 773);
 }
 
 double EshShapeDefaultsPropertiesImpl::setBWPure(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x305u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 773, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4712,14 +4711,14 @@ double non-virtual thunk toEshShapeDefaultsPropertiesImpl::setBWPure(uint64_t a1
 {
   v2 = *(a1 - 8);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x305u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 773, 2, &v4).n128_u64[0];
   return result;
 }
 
 {
   v2 = *(a1 - 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x305u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 773, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4734,18 +4733,18 @@ uint64_t non-virtual thunk toEshShapeDefaultsPropertiesImpl::isBWNormalSet(EshSh
 
 uint64_t non-virtual thunk toEshShapeDefaultsPropertiesImpl::getBWNormal(EshShapeDefaultsPropertiesImpl *this)
 {
-  return *EshOpt::getProperty(*(this - 1), 0x306u);
+  return *EshOpt::getProperty(*(this - 1), 774);
 }
 
 {
-  return *EshOpt::getProperty(*(this - 2), 0x306u);
+  return *EshOpt::getProperty(*(this - 2), 774);
 }
 
 double EshShapeDefaultsPropertiesImpl::setBWNormal(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x306u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 774, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4753,14 +4752,14 @@ double non-virtual thunk toEshShapeDefaultsPropertiesImpl::setBWNormal(uint64_t 
 {
   v2 = *(a1 - 8);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x306u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 774, 2, &v4).n128_u64[0];
   return result;
 }
 
 {
   v2 = *(a1 - 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x306u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 774, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4768,7 +4767,7 @@ double EshShapeDefaultsPropertiesImpl::setBorderTopColor(EshShapeDefaultsPropert
 {
   v2 = *(this + 2);
   v4 = *a2;
-  *&result = EshOpt::setProperty(v2, 0x39Bu, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 923, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4776,7 +4775,7 @@ double non-virtual thunk toEshShapeDefaultsPropertiesImpl::setBorderTopColor(Esh
 {
   v2 = *(this - 2);
   v4 = *a2;
-  *&result = EshOpt::setProperty(v2, 0x39Bu, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 923, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4784,7 +4783,7 @@ double EshShapeDefaultsPropertiesImpl::setBorderLeftColor(EshShapeDefaultsProper
 {
   v2 = *(this + 2);
   v4 = *a2;
-  *&result = EshOpt::setProperty(v2, 0x39Cu, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 924, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4792,7 +4791,7 @@ double non-virtual thunk toEshShapeDefaultsPropertiesImpl::setBorderLeftColor(Es
 {
   v2 = *(this - 2);
   v4 = *a2;
-  *&result = EshOpt::setProperty(v2, 0x39Cu, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 924, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4800,7 +4799,7 @@ double EshShapeDefaultsPropertiesImpl::setBorderBottomColor(EshShapeDefaultsProp
 {
   v2 = *(this + 2);
   v4 = *a2;
-  *&result = EshOpt::setProperty(v2, 0x39Du, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 925, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4808,7 +4807,7 @@ double non-virtual thunk toEshShapeDefaultsPropertiesImpl::setBorderBottomColor(
 {
   v2 = *(this - 2);
   v4 = *a2;
-  *&result = EshOpt::setProperty(v2, 0x39Du, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 925, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4816,7 +4815,7 @@ double EshShapeDefaultsPropertiesImpl::setBorderRightColor(EshShapeDefaultsPrope
 {
   v2 = *(this + 2);
   v4 = *a2;
-  *&result = EshOpt::setProperty(v2, 0x39Eu, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 926, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4824,7 +4823,7 @@ double non-virtual thunk toEshShapeDefaultsPropertiesImpl::setBorderRightColor(E
 {
   v2 = *(this - 2);
   v4 = *a2;
-  *&result = EshOpt::setProperty(v2, 0x39Eu, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 926, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4839,22 +4838,22 @@ void non-virtual thunk toEshShapeDefaultsPropertiesImpl::~EshShapeDefaultsProper
 
 uint64_t EshShapeProperties::reset(EshShapeProperties *this)
 {
-  EshOpt::deleteProperty(this->var2, 772);
-  EshOpt::deleteProperty(this->var2, 773);
-  EshOpt::deleteProperty(this->var2, 774);
-  EshOpt::deleteProperty(this->var2, 923);
-  EshOpt::deleteProperty(this->var2, 924);
-  EshOpt::deleteProperty(this->var2, 925);
+  EshOpt::deleteProperty(this->var2, 0x304u);
+  EshOpt::deleteProperty(this->var2, 0x305u);
+  EshOpt::deleteProperty(this->var2, 0x306u);
+  EshOpt::deleteProperty(this->var2, 0x39Bu);
+  EshOpt::deleteProperty(this->var2, 0x39Cu);
+  EshOpt::deleteProperty(this->var2, 0x39Du);
   var2 = this->var2;
 
-  return EshOpt::deleteProperty(var2, 926);
+  return EshOpt::deleteProperty(var2, 0x39Eu);
 }
 
 double EshShapeProperties::setBWMode(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x304u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 772, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4862,7 +4861,7 @@ double non-virtual thunk toEshShapeProperties::setBWMode(uint64_t a1, unsigned i
 {
   v2 = *(a1 - 8);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x304u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 772, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4870,7 +4869,7 @@ double EshShapeProperties::setBWPure(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x305u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 773, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4878,7 +4877,7 @@ double non-virtual thunk toEshShapeProperties::setBWPure(uint64_t a1, unsigned i
 {
   v2 = *(a1 - 8);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x305u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 773, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4886,7 +4885,7 @@ double EshShapeProperties::setBWNormal(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x306u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 774, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4894,7 +4893,7 @@ double non-virtual thunk toEshShapeProperties::setBWNormal(uint64_t a1, unsigned
 {
   v2 = *(a1 - 8);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x306u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 774, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4902,7 +4901,7 @@ double EshShapeProperties::setBorderTopColor(EshShapeProperties *this, const Esh
 {
   var2 = this->var2;
   v4 = *a2;
-  *&result = EshOpt::setProperty(var2, 0x39Bu, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2, 923, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4910,7 +4909,7 @@ double non-virtual thunk toEshShapeProperties::setBorderTopColor(EshShapePropert
 {
   var3 = this[-1].var3;
   v4 = *a2;
-  *&result = EshOpt::setProperty(var3, 0x39Bu, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var3, 923, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4918,7 +4917,7 @@ double EshShapeProperties::setBorderLeftColor(EshShapeProperties *this, const Es
 {
   var2 = this->var2;
   v4 = *a2;
-  *&result = EshOpt::setProperty(var2, 0x39Cu, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2, 924, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4926,7 +4925,7 @@ double non-virtual thunk toEshShapeProperties::setBorderLeftColor(EshShapeProper
 {
   var3 = this[-1].var3;
   v4 = *a2;
-  *&result = EshOpt::setProperty(var3, 0x39Cu, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var3, 924, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4934,7 +4933,7 @@ double EshShapeProperties::setBorderBottomColor(EshShapeProperties *this, const 
 {
   var2 = this->var2;
   v4 = *a2;
-  *&result = EshOpt::setProperty(var2, 0x39Du, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2, 925, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4942,7 +4941,7 @@ double non-virtual thunk toEshShapeProperties::setBorderBottomColor(EshShapeProp
 {
   var3 = this[-1].var3;
   v4 = *a2;
-  *&result = EshOpt::setProperty(var3, 0x39Du, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var3, 925, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4950,7 +4949,7 @@ double EshShapeProperties::setBorderRightColor(EshShapeProperties *this, const E
 {
   var2 = this->var2;
   v4 = *a2;
-  *&result = EshOpt::setProperty(var2, 0x39Eu, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2, 926, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4958,7 +4957,7 @@ double non-virtual thunk toEshShapeProperties::setBorderRightColor(EshShapePrope
 {
   var3 = this[-1].var3;
   v4 = *a2;
-  *&result = EshOpt::setProperty(var3, 0x39Eu, 4, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var3, 926, 4, &v4).n128_u64[0];
   return result;
 }
 
@@ -4966,7 +4965,7 @@ double EshShapeProperties::setHidden(EshShapeProperties *this, unsigned __int8 a
 {
   var2 = this->var2;
   v4 = a2;
-  *&result = EshOpt::setProperty(var2, 0x3BEu, 1, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2, 958, 1, &v4).n128_u64[0];
   return result;
 }
 
@@ -4974,7 +4973,7 @@ double EshStroke::setPredefDashStyle(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x1CEu, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 462, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4982,7 +4981,7 @@ double EshTextBox::setWrapStyle(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x85u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 133, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4990,7 +4989,7 @@ double EshTextBox::setAnchor(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x87u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 135, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -4998,7 +4997,7 @@ double EshTextBox::setFlow(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x88u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 136, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -5006,7 +5005,7 @@ double EshTextBox::setRotate(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x89u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 137, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -5014,7 +5013,7 @@ double EshTextBox::setDirection(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 16);
   v4 = a2;
-  *&result = EshOpt::setProperty(v2, 0x8Bu, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(v2, 139, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -5022,7 +5021,7 @@ double EshTextBox::setColumnCount(EshTextBox *this, unsigned int a2)
 {
   var2 = this->var2;
   v4 = a2;
-  *&result = EshOpt::setProperty(var2 + 128, 0x8Cu, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2 + 128, 140, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -5030,7 +5029,7 @@ double EshTextBox::setColumnMargin(EshTextBox *this, unsigned int a2)
 {
   var2 = this->var2;
   v4 = a2;
-  *&result = EshOpt::setProperty(var2 + 128, 0x8Du, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2 + 128, 141, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -5038,7 +5037,7 @@ double EshTextBox::setAutoInset(EshTextBox *this, unsigned __int8 a2)
 {
   var2 = this->var2;
   v4 = a2;
-  *&result = EshOpt::setProperty(var2, 0xBCu, 1, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2, 188, 1, &v4).n128_u64[0];
   return result;
 }
 
@@ -5046,7 +5045,7 @@ double EshTextBox::setFitShapeToText(EshTextBox *this, unsigned __int8 a2)
 {
   var2 = this->var2;
   v4 = a2;
-  *&result = EshOpt::setProperty(var2, 0xBEu, 1, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2, 190, 1, &v4).n128_u64[0];
   return result;
 }
 
@@ -5054,7 +5053,7 @@ double EshTextBox::setFitTextToShape(EshTextBox *this, unsigned __int8 a2)
 {
   var2 = this->var2;
   v4 = a2;
-  *&result = EshOpt::setProperty(var2, 0xBFu, 1, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2, 191, 1, &v4).n128_u64[0];
   return result;
 }
 
@@ -5124,7 +5123,7 @@ uint64_t EshParserVisitor::visit(EshParserVisitor *this, EshDeletedPspl *a2)
   return 1;
 }
 
-uint64_t EshParserVisitor::visit(EshParserVisitor *this, EshRegroupItems *a2)
+uint64_t EshParserVisitor::visit(EshParserVisitor *this, int **a2)
 {
   v4 = *(this + 3);
   Offset = EshRecord::getOffset(a2);
@@ -5147,19 +5146,19 @@ uint64_t EshParserVisitor::visit(EshParserVisitor *this, EshRegroupItems *a2)
       v11 = (*(**(this + 3) + 80))(*(this + 3));
       LOWORD(v16) = v10;
       HIWORD(v16) = v11;
-      v12 = *(a2 + 5);
-      if (v12 >= *(a2 + 6))
+      v12 = a2[5];
+      if (v12 >= a2[6])
       {
-        v13 = std::vector<EshRegroupItems::Item,ChAllocator<EshRegroupItems::Item>>::__emplace_back_slow_path<EshRegroupItems::Item>(a2 + 32, &v16);
+        v13 = std::vector<EshRegroupItems::Item,ChAllocator<EshRegroupItems::Item>>::__emplace_back_slow_path<EshRegroupItems::Item>(a2 + 4, &v16);
       }
 
       else
       {
         *v12 = v16;
-        v13 = (v12 + 1);
+        v13 = v12 + 1;
       }
 
-      *(a2 + 5) = v13;
+      a2[5] = v13;
       ++v9;
     }
 
@@ -5279,7 +5278,7 @@ void sub_25D496558(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<EshColor,ChAllocator<EshColor>>::push_back[abi:ne200100](uint64_t a1, const EshColor *a2)
+const EshColor *std::vector<EshColor,ChAllocator<EshColor>>::push_back[abi:ne200100](uint64_t a1, const EshColor *a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -5290,18 +5289,18 @@ uint64_t std::vector<EshColor,ChAllocator<EshColor>>::push_back[abi:ne200100](ui
   else
   {
     EshColor::EshColor(*(a1 + 8), a2);
-    result = v3 + 8;
-    *(a1 + 8) = v3 + 8;
+    result = v3 + 1;
+    *(a1 + 8) = v3 + 1;
   }
 
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t std::vector<EshColor,ChAllocator<EshColor>>::__emplace_back_slow_path<EshColor const&>(uint64_t a1, const EshColor *a2)
+const EshColor *std::vector<EshColor,ChAllocator<EshColor>>::__emplace_back_slow_path<EshColor const&>(const EshColor **a1, const EshColor *a2)
 {
-  v4 = *(a1 + 8) - *a1;
-  v5 = (*(a1 + 16) - *a1) >> 3;
+  v4 = a1[1] - *a1;
+  v5 = (a1[2] - *a1) >> 3;
   if (2 * v5 <= (v4 >> 3) + 1)
   {
     v6 = (v4 >> 3) + 1;
@@ -5334,7 +5333,7 @@ uint64_t std::vector<EshColor,ChAllocator<EshColor>>::__emplace_back_slow_path<E
   EshColor::EshColor((v4 & 0x7FFFFFFF8), a2);
   v12 = (v4 & 0x7FFFFFFF8) + 8;
   std::vector<EshColor,ChAllocator<EshColor>>::__swap_out_circular_buffer(a1, &__p);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   if (v12 != v11)
   {
     v12 += (v11 - v12 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -5358,7 +5357,7 @@ void sub_25D4966D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-EshColor *std::vector<EshColor,ChAllocator<EshColor>>::__swap_out_circular_buffer(EshColor *result, void *a2)
+const EshColor **std::vector<EshColor,ChAllocator<EshColor>>::__swap_out_circular_buffer(const EshColor **result, void *a2)
 {
   v3 = result;
   v4 = a2[1];
@@ -5370,8 +5369,8 @@ EshColor *std::vector<EshColor,ChAllocator<EshColor>>::__swap_out_circular_buffe
     result = (v4 + *result - v6);
     do
     {
-      v8 = EshColor::EshColor(result, v5++);
-      result = v8 + 1;
+      EshColor::EshColor(result, v5++);
+      result = (v8 + 8);
     }
 
     while (v5 != v6);
@@ -5462,10 +5461,10 @@ void sub_25D4968E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<EshRegroupItems::Item,ChAllocator<EshRegroupItems::Item>>::__emplace_back_slow_path<EshRegroupItems::Item>(uint64_t a1, _DWORD *a2)
+int *std::vector<EshRegroupItems::Item,ChAllocator<EshRegroupItems::Item>>::__emplace_back_slow_path<EshRegroupItems::Item>(int **a1, _DWORD *a2)
 {
-  v4 = *(a1 + 8) - *a1;
-  v5 = (*(a1 + 16) - *a1) >> 2;
+  v4 = a1[1] - *a1;
+  v5 = (a1[2] - *a1) >> 2;
   if (2 * v5 <= (v4 >> 2) + 1)
   {
     v6 = (v4 >> 2) + 1;
@@ -5498,7 +5497,7 @@ uint64_t std::vector<EshRegroupItems::Item,ChAllocator<EshRegroupItems::Item>>::
   *v11 = *a2;
   v12 = (v4 & 0x3FFFFFFFCLL) + 4;
   std::vector<EshRegroupItems::Item,ChAllocator<EshRegroupItems::Item>>::__swap_out_circular_buffer(a1, &__p);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   if (v12 != v11)
   {
     v12 += (v11 - v12 + 3) & 0xFFFFFFFFFFFFFFFCLL;
@@ -5572,19 +5571,19 @@ uint64_t EshPropValParserVisitor::parseTableHeader(EshPropValParserVisitor *this
   return result;
 }
 
-void std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::resize(void *a1, unsigned int a2)
+void std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::resize(void *result, unsigned int a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::__append(a1, v4);
+    std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 8 * a2;
+    result[1] = *result + 8 * a2;
   }
 }
 
@@ -5673,19 +5672,19 @@ void sub_25D496DC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<EshComputedRect,ChAllocator<EshComputedRect>>::resize(uint64_t *a1, unsigned int a2)
+void std::vector<EshComputedRect,ChAllocator<EshComputedRect>>::resize(uint64_t *result, unsigned int a2)
 {
-  v2 = (a1[1] - *a1) >> 5;
+  v2 = (result[1] - *result) >> 5;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<EshComputedRect,ChAllocator<EshComputedRect>>::__append(a1, v4);
+    std::vector<EshComputedRect,ChAllocator<EshComputedRect>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 32 * a2;
+    result[1] = *result + 32 * a2;
   }
 }
 
@@ -5784,19 +5783,19 @@ void sub_25D496F80(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<EshComputedPoint,ChAllocator<EshComputedPoint>>::resize(void *a1, unsigned int a2)
+void std::vector<EshComputedPoint,ChAllocator<EshComputedPoint>>::resize(void *result, unsigned int a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<EshComputedPoint,ChAllocator<EshComputedPoint>>::__append(a1, v4);
+    std::vector<EshComputedPoint,ChAllocator<EshComputedPoint>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 16 * a2;
+    result[1] = *result + 16 * a2;
   }
 }
 
@@ -5869,19 +5868,19 @@ void sub_25D4970FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<EshFormula,ChAllocator<EshFormula>>::resize(void *a1, unsigned int a2)
+void std::vector<EshFormula,ChAllocator<EshFormula>>::resize(void *result, unsigned int a2)
 {
-  v2 = -1227133513 * ((a1[1] - *a1) >> 2);
+  v2 = -1227133513 * ((result[1] - *result) >> 2);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<EshFormula,ChAllocator<EshFormula>>::__append(a1, v4);
+    std::vector<EshFormula,ChAllocator<EshFormula>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 28 * a2;
+    result[1] = *result + 28 * a2;
   }
 }
 
@@ -5994,19 +5993,19 @@ void sub_25D497338(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<EshHandle,ChAllocator<EshHandle>>::resize(void *a1, unsigned int a2)
+void std::vector<EshHandle,ChAllocator<EshHandle>>::resize(void *result, unsigned int a2)
 {
-  v2 = -252645135 * ((a1[1] - *a1) >> 2);
+  v2 = -252645135 * ((result[1] - *result) >> 2);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<EshHandle,ChAllocator<EshHandle>>::__append(a1, v4);
+    std::vector<EshHandle,ChAllocator<EshHandle>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 68 * a2;
+    result[1] = *result + 68 * a2;
   }
 }
 
@@ -6086,19 +6085,19 @@ void sub_25D49757C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<EshGradientStop,ChAllocator<EshGradientStop>>::resize(void *a1, unsigned int a2)
+void std::vector<EshGradientStop,ChAllocator<EshGradientStop>>::resize(void *result, unsigned int a2)
 {
-  v2 = -1431655765 * ((a1[1] - *a1) >> 2);
+  v2 = -1431655765 * ((result[1] - *result) >> 2);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<EshGradientStop,ChAllocator<EshGradientStop>>::__append(a1, v4);
+    std::vector<EshGradientStop,ChAllocator<EshGradientStop>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 12 * a2;
+    result[1] = *result + 12 * a2;
   }
 }
 
@@ -6178,19 +6177,19 @@ void sub_25D4977B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<int,ChAllocator<int>>::resize(void *a1, unsigned int a2)
+void std::vector<int,ChAllocator<int>>::resize(void *result, unsigned int a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<int,ChAllocator<int>>::__append(a1, v4);
+    std::vector<int,ChAllocator<int>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 4 * a2;
+    result[1] = *result + 4 * a2;
   }
 }
 
@@ -6263,19 +6262,19 @@ void sub_25D497948(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float,ChAllocator<float>>::resize(void *a1, unsigned int a2)
+void std::vector<float,ChAllocator<float>>::resize(void *result, unsigned int a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<float,ChAllocator<float>>::__append(a1, v4);
+    std::vector<float,ChAllocator<float>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 4 * a2;
+    result[1] = *result + 4 * a2;
   }
 }
 
@@ -6368,7 +6367,7 @@ void ChStack<EshHeader>::operator=(uint64_t a1, uint64_t a2)
   if (v4 > *(a1 + 20))
   {
     *(a1 + 20) = v4;
-    operator new[](16 * v4 + 16);
+    operator new[](16 * v4 + 16, 0x1000C808B6DE1C6);
   }
 
   LODWORD(v5) = *(a2 + 16);
@@ -6729,26 +6728,26 @@ double readPoint(const unsigned __int8 *a1, __int16 a2)
   return v4;
 }
 
-double readAffineTransform@<D0>(const unsigned __int8 *a1@<X0>, double *a2@<X8>)
+double readAffineTransform@<D0>(double *__return_ptr a1@<X8>, const unsigned __int8 *a2@<X0>)
 {
-  [MFByteUtils readFloat32FromByteArray:a1 in_offset:0];
+  [MFByteUtils readFloat32FromByteArray:a2 in_offset:0];
   v5 = v4;
-  [MFByteUtils readFloat32FromByteArray:a1 in_offset:4];
+  [MFByteUtils readFloat32FromByteArray:a2 in_offset:4];
   v7 = v6;
-  [MFByteUtils readFloat32FromByteArray:a1 in_offset:8];
+  [MFByteUtils readFloat32FromByteArray:a2 in_offset:8];
   v9 = v8;
-  [MFByteUtils readFloat32FromByteArray:a1 in_offset:12];
+  [MFByteUtils readFloat32FromByteArray:a2 in_offset:12];
   v11 = v10;
-  [MFByteUtils readFloat32FromByteArray:a1 in_offset:16];
+  [MFByteUtils readFloat32FromByteArray:a2 in_offset:16];
   v13 = v12;
-  [MFByteUtils readFloat32FromByteArray:a1 in_offset:20];
+  [MFByteUtils readFloat32FromByteArray:a2 in_offset:20];
   result = v14;
-  *a2 = v5;
-  a2[1] = v7;
-  a2[2] = v9;
-  a2[3] = v11;
-  a2[4] = v13;
-  a2[5] = result;
+  *a1 = v5;
+  a1[1] = v7;
+  a1[2] = v9;
+  a1[3] = v11;
+  a1[4] = v13;
+  a1[5] = result;
   return result;
 }
 
@@ -6846,10 +6845,10 @@ void std::vector<EMFPlusDrawStringLine *>::push_back[abi:ne200100](uint64_t a1, 
   *(a1 + 8) = v6;
 }
 
-uint64_t *destroyPointerVectorElements<EMFPlusDrawStringLine>(uint64_t *result)
+EMFPlusDrawStringLine *destroyPointerVectorElements<EMFPlusDrawStringLine>(EMFPlusDrawStringLine *result)
 {
   v1 = *result;
-  if (result[1] != *result)
+  if (*(result + 1) != *result)
   {
     v2 = result;
     v3 = 0;
@@ -6867,7 +6866,7 @@ uint64_t *destroyPointerVectorElements<EMFPlusDrawStringLine>(uint64_t *result)
       v1 = *v2;
     }
 
-    while (v3 < (v2[1] - *v2) >> 3);
+    while (v3 < (*(v2 + 1) - *v2) >> 3);
   }
 
   return result;
@@ -6902,7 +6901,7 @@ void sub_25D4A42FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short const*,unsigned short const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short const*,unsigned short const*>(uint64_t *result, __int16 *a2, __int16 *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -6968,17 +6967,17 @@ uint64_t *destroyPointerVectorElements<EMFPlusDrawStringWord>(uint64_t *result)
   return result;
 }
 
-void *std::vector<CGPoint>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<CGPoint>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<TSU::UUIDData<TSP::UUIDData>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<TSU::UUIDData<TSP::UUIDData>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_25D4A4524(_Unwind_Exception *exception_object)
@@ -6993,17 +6992,17 @@ void sub_25D4A4524(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<CGRect>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<CGRect>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<CGRect>::__vallocate[abi:ne200100](result, a2);
+    std::vector<CGRect>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_25D4A459C(_Unwind_Exception *exception_object)
@@ -7018,7 +7017,7 @@ void sub_25D4A459C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<CGRect>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CGRect>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -7130,10 +7129,10 @@ void sub_25D4AB2D4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25D4AB8B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D4AB8B4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MFPGradientBrush;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7159,7 +7158,7 @@ void sub_25D4ACC28(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<CGRect>::__init_with_size[abi:ne200100]<CGRect*,CGRect*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CGRect>::__init_with_size[abi:ne200100]<CGRect*,CGRect*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7368,7 +7367,7 @@ _xmlNode *OCXNextSiblingNamed(_xmlNode *a1, xmlChar *a2)
   return v2;
 }
 
-uint64_t OCXFindChild(_xmlNode *a1, CXNamespace *a2, const char *a3)
+_xmlNode *OCXFindChild(_xmlNode *a1, CXNamespace *a2, xmlChar *a3)
 {
   v3 = CXFindChild(a1, a2, a3);
   pOCXReplaceAlternateContentChildrenOfNode(v3);
@@ -7721,10 +7720,10 @@ uint64_t OCLanguageTypeForCharacter(unsigned int a1, BOOL *a2)
   return v2;
 }
 
-void sub_25D4BE00C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D4BE00C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = OCImporter;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7778,17 +7777,17 @@ void OCCAgileCryptoKey::~OCCAgileCryptoKey(OCCCryptoKey *this)
   JUMPOUT(0x25F897000);
 }
 
-xmlDoc *OCCAgileCryptoKey::create(OCCAgileCryptoKey *this, const void *a2)
+xmlDoc *OCCAgileCryptoKey::create(OCCAgileCryptoKey *this, const void *a2, int a3)
 {
-  v2 = (a2 - 8);
-  if ((v2 & 0x80000000) != 0)
+  v3 = (a2 - 8);
+  if ((v3 & 0x80000000) != 0)
   {
     return 0;
   }
 
   else
   {
-    return OCCAgileCryptoKey::createFromXmlDescriptor((this + 8), v2);
+    return OCCAgileCryptoKey::createFromXmlDescriptor((this + 8), v3);
   }
 }
 
@@ -8140,13 +8139,13 @@ void sub_25D4C0F98(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t OCCAgileCryptoKey::deriveDecryptionKey(OCCAgileCryptoKey *this, int a2, void *a3, unsigned __int8 **a4)
+uint64_t OCCAgileCryptoKey::deriveDecryptionKey(OCCAgileMetaKey **this, int a2, void *a3, unsigned __int8 **a4)
 {
   v7 = a2;
   v5 = OCCAgileCryptoKey::deriveDecryptionKey(this, a3);
   if (v5)
   {
-    (***(*(this + 7) + 16))(*(*(this + 7) + 16));
+    (***(this[7] + 2))(*(this[7] + 2));
     operator new[]();
   }
 
@@ -8165,7 +8164,7 @@ uint64_t OCCAgileCryptoKey::decryptBlockUsingDecryptionKey(OCCAgileCryptoKey *th
   return OCCCryptor::decrypt(v13, a2, a4, a5, a6, a7, a6);
 }
 
-unint64_t OCCAgileCryptoKey::readDataIntegrityNode(_xmlNode *this, _xmlNode *a2, unsigned __int8 **a3, unsigned int *a4, unsigned __int8 **a5, unsigned int *a6)
+_xmlNode *OCCAgileCryptoKey::readDataIntegrityNode(_xmlNode *this, _xmlNode *a2, unsigned __int8 **a3, unsigned int *a4, unsigned __int8 **a5, unsigned int *a6)
 {
   v6 = this;
   if (this)
@@ -8179,7 +8178,7 @@ unint64_t OCCAgileCryptoKey::readDataIntegrityNode(_xmlNode *this, _xmlNode *a2,
       if (v9)
       {
         v10 = CXRequiredBase64DecodedDataAttribute(v6, CXNoNamespace, "encryptedHmacValue");
-        v6 = v10 != 0;
+        v6 = (v10 != 0);
         if (v10)
         {
           *a3 = [v9 length];
@@ -8346,7 +8345,7 @@ void OCCAgileMetaKey::~OCCAgileMetaKey(OCCAgileMetaKey *this)
   }
 }
 
-void OCCAgileMetaKey::OCCAgileMetaKey(uint64_t a1, uint64_t a2, int a3, void (***a4)(void), uint64_t a5)
+void OCCAgileMetaKey::OCCAgileMetaKey(uint64_t a1, uint64_t a2, int a3, uint64_t (***a4)(void), uint64_t a5)
 {
   *a1 = a2;
   *(a1 + 8) = a3;
@@ -8607,10 +8606,10 @@ void sub_25D4C201C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25D4C20C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D4C20C4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = OCCDecryptor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8706,7 +8705,7 @@ double CsGetFloat64FromPackedLocation(uint64_t a1)
   }
 }
 
-void operator new[](uint64_t a1)
+void operator new[](uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -8717,18 +8716,18 @@ void operator new[](uint64_t a1)
   *exception = 1004;
 }
 
-uint64_t ChValueIsValidCharSet(int a1)
+uint64_t ChValueIsValidCharSet(unsigned int a1)
 {
   result = 1;
   if (a1 <= 159)
   {
-    if (((a1 - 77) > 0x3B || ((1 << (a1 - 77)) & 0xA38000000001003) == 0) && a1 >= 3)
+    if ((a1 - 77 > 0x3B || ((1 << (a1 - 77)) & 0xA38000000001003) == 0) && a1 >= 3)
     {
       return 0;
     }
   }
 
-  else if ((a1 - 160) > 0x3E || ((1 << (a1 + 96)) & 0x400010000406000FLL) == 0)
+  else if (a1 - 160 > 0x3E || ((1 << (a1 + 96)) & 0x400010000406000FLL) == 0)
   {
     v3 = a1 - 238;
     if (v3 > 0x11 || ((1 << v3) & 0x30001) == 0)
@@ -9148,7 +9147,7 @@ uint64_t CsData::copyBuffer(CsData *this, const CsData *a2)
   this->var0 = result;
   if (result)
   {
-    operator new[](result);
+    operator new[](result, 0x1000C8077774924);
   }
 
   this->var1 = 0;
@@ -9326,7 +9325,7 @@ BOOL OcBinaryData::operator==(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-BOOL OcBinaryReader::parsePropTypeInsideHyperlink(OcBinaryReader *this, unsigned int **a2, unsigned int *a3, int a4)
+BOOL OcBinaryReader::parsePropTypeInsideHyperlink(OcBinaryReader *this, unsigned int **a2, char *a3, int a4)
 {
   if (!a2)
   {
@@ -9354,7 +9353,7 @@ BOOL OcBinaryReader::parsePropTypeInsideHyperlink(OcBinaryReader *this, unsigned
   return SInt32 == a4;
 }
 
-uint64_t OcBinaryReader::parseLongPropInsideHyperlink(OcBinaryReader *this, unsigned int **a2, unsigned int *a3)
+uint64_t OcBinaryReader::parseLongPropInsideHyperlink(OcBinaryReader *this, unsigned int **a2, char *a3)
 {
   v5 = OcBinaryReader::parsePropTypeInsideHyperlink(this, a2, a3, 3);
   if (!a2)
@@ -9378,7 +9377,7 @@ uint64_t OcBinaryReader::parseLongPropInsideHyperlink(OcBinaryReader *this, unsi
   return result;
 }
 
-void OcBinaryReader::parseStringPropInsideHyperlink(OcBinaryReader *this, unsigned __int16 **a2, unsigned __int8 *a3, CsString *a4)
+void OcBinaryReader::parseStringPropInsideHyperlink(OcBinaryReader *this, unsigned __int16 **a2, unsigned __int16 *a3, CsString *a4)
 {
   if (a2)
   {
@@ -9387,7 +9386,7 @@ void OcBinaryReader::parseStringPropInsideHyperlink(OcBinaryReader *this, unsign
     if (!v7 && (a3 - *a2) >= 4)
     {
       SInt32 = CsLeReadSInt32(v6);
-      v11 = (*a2 + 2);
+      v11 = *a2 + 2;
       *a2 = v11;
       if (SInt32 == 31 && v11 < a3)
       {
@@ -9395,7 +9394,7 @@ void OcBinaryReader::parseStringPropInsideHyperlink(OcBinaryReader *this, unsign
         if ((a3 - v11) >= 4)
         {
           v14 = CsLeReadSInt32(v11);
-          v15 = (*a2 + 2);
+          v15 = *a2 + 2;
           *a2 = v15;
           if (v14 >= 1)
           {
@@ -9416,7 +9415,7 @@ void OcBinaryReader::parseStringPropInsideHyperlink(OcBinaryReader *this, unsign
               if (v14 == 1)
               {
                 CsLeReadUInt16(v15);
-                v19 = (*a2 + 1);
+                v19 = *a2 + 1;
                 *a2 = v19;
               }
 
@@ -9432,7 +9431,7 @@ void OcBinaryReader::parseStringPropInsideHyperlink(OcBinaryReader *this, unsign
 
                 while (v17);
                 CsLeReadUInt16(*a2);
-                v19 = (*a2 + 1);
+                v19 = *a2 + 1;
                 *a2 = v19;
                 if ((v14 & 1) == 0)
                 {
@@ -9450,45 +9449,45 @@ void OcBinaryReader::parseStringPropInsideHyperlink(OcBinaryReader *this, unsign
   }
 }
 
-void std::vector<OcHyperlink *,ChAllocator<OcHyperlink *>>::resize(void *a1, unsigned int a2)
+void std::vector<OcHyperlink *,ChAllocator<OcHyperlink *>>::resize(void *result, unsigned int a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<OcHyperlink *,ChAllocator<OcHyperlink *>>::__append(a1, v4);
+    std::vector<OcHyperlink *,ChAllocator<OcHyperlink *>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 8 * a2;
+    result[1] = *result + 8 * a2;
   }
 }
 
-void OcBinaryReader::readCustomProperties(uint64_t a1)
+void OcBinaryReader::readCustomProperties(uint64_t a1, uint64_t a2)
 {
-  v2 = (*(*a1 + 88))(a1);
-  v5 = 0;
-  v3 = (*(*a1 + 96))(a1);
-  if (v3)
+  v3 = (*(*a1 + 88))(a1);
+  v6 = 0;
+  v4 = (*(*a1 + 96))(a1);
+  if (v4)
   {
-    if (SsrwOOStorage::hasChild(v2, v3))
+    if (SsrwOOStorage::hasChild(v3, v4))
     {
-      SsrwOOStorage::openStorage(v2, v3);
+      SsrwOOStorage::openStorage(v3, v4);
     }
   }
 
   FMTIDForStreamType = SsrwOOPropertyStorage::getFMTIDForStreamType(3);
-  SsrwOOStorage::openPropertyStorage(v2, FMTIDForStreamType);
+  SsrwOOStorage::openPropertyStorage(v3, FMTIDForStreamType);
 }
 
-void sub_25D4C757C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25D4C757C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  if (v7)
+  va_start(va, a13);
+  if (v13)
   {
-    (*(*v7 + 8))(v7);
+    (*(*v13 + 8))(v13, a2, a3, a4, a5, a6, a7);
   }
 
   ChAutoPtr<SsrwOOStorage>::~ChAutoPtr(va);
@@ -9497,18 +9496,18 @@ void sub_25D4C757C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void OcBinaryReader::readMacroStorage(OcBinaryReader *this, OcMacros::OcStorage *a2, SsrwOOStorage *a3)
 {
-  v15 = 0;
   v14 = 0;
-  SsrwOOStorage::getChildrenInfo(a3, &v15, &v14);
-  if (v14 >= 1)
+  v13 = 0;
+  SsrwOOStorage::getChildrenInfo(a3, &v14, &v13);
+  if (v13 >= 1)
   {
     v4 = 0;
-    for (i = 0; i < v14; ++i)
+    for (i = 0; i < v13; ++i)
     {
-      v6 = v15;
-      WcsName = SsrwOOStgInfo::getWcsName((v15 + v4));
-      CsString::CsString(&v13);
-      CsString::append(&v13, WcsName);
+      v6 = v14;
+      WcsName = SsrwOOStgInfo::getWcsName((v14 + v4));
+      CsString::CsString(&v12);
+      CsString::append(&v12, WcsName);
       Type = SsrwOOStgInfo::getType((v6 + v4));
       if (Type == 1)
       {
@@ -9520,26 +9519,25 @@ void OcBinaryReader::readMacroStorage(OcBinaryReader *this, OcMacros::OcStorage 
         SsrwOOStorage::openStream(a3, WcsName);
       }
 
-      CsString::~CsString(&v13);
+      CsString::~CsString(&v12);
       v4 += 184;
     }
   }
 
-  if (v15)
+  if (v14)
   {
-    v9 = v15 - 16;
-    v10 = *(v15 - 1);
+    v9 = v14 - 16;
+    v10 = *(v14 - 1);
     if (v10)
     {
-      v11 = v15 + 184 * v10 - 184;
-      v12 = -184 * v10;
+      v11 = -184 * v10;
       do
       {
-        v11 = (TSURectWithOriginAndSize(v11) - 184);
-        v12 += 184;
+        TSURectWithOriginAndSize();
+        v11 += 184;
       }
 
-      while (v12);
+      while (v11);
     }
 
     MEMORY[0x25F896FE0](v9, 0x1020C80285AA8CALL);
@@ -9548,7 +9546,7 @@ void OcBinaryReader::readMacroStorage(OcBinaryReader *this, OcMacros::OcStorage 
 
 void sub_25D4C7A70(_Unwind_Exception *a1, OcBinaryData *a2, uint64_t a3, CsString *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
-  MEMORY[0x25F897000](v17, 0x1091C40771EC9D3, a3, a4);
+  MEMORY[0x25F897000](v17, 0x1091C40771EC9D3, a3, a4, a5, a6, a7, a8);
   ChAutoPtr<SsrwOOStorage>::~ChAutoPtr((v18 - 88));
   CsString::~CsString(&a17);
   _Unwind_Resume(a1);

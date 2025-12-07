@@ -9,20 +9,20 @@ CFStringRef PNCopyBestGuessCountryCodeForNumber(const __CFString *a1)
   if (CFStringGetLength(v1) && CFStringGetCharacterAtIndex(v1, 0) == 43)
   {
     v2 = *MEMORY[0x277CBECE8];
-    v6.length = CFStringGetLength(v1) - 1;
-    v6.location = 1;
-    v3 = CFStringCreateWithSubstring(v2, v1, v6);
-    v4 = _PNCopyCountryCodeForInternationalCode(v3);
+    v7.length = CFStringGetLength(v1) - 1;
+    v7.location = 1;
+    v3 = CFStringCreateWithSubstring(v2, v1, v7);
+    v5 = _PNCopyCountryCodeForInternationalCode(v3, v4);
     CFRelease(v3);
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
   CFRelease(v1);
-  return v4;
+  return v5;
 }
 
 CFStringRef _PNCreateStringByStrippingFormattingAndNotVisiblyAllowable(const __CFString *a1)
@@ -39,9 +39,9 @@ CFStringRef _PNCreateStringByStrippingFormattingAndNotVisiblyAllowable(const __C
     v4 = 2 * Length;
     v5 = malloc_type_malloc(2 * Length, 0x1000040BDFB0063uLL);
     v6 = malloc_type_malloc(v4, 0x1000040BDFB0063uLL);
-    v14.location = 0;
-    v14.length = v3;
-    CFStringGetCharacters(a1, v14, v5);
+    v15.location = 0;
+    v15.length = v3;
+    CFStringGetCharacters(a1, v15, v5);
     if (v3 < 1)
     {
       goto LABEL_12;
@@ -53,7 +53,8 @@ CFStringRef _PNCreateStringByStrippingFormattingAndNotVisiblyAllowable(const __C
     {
       v10 = *v8++;
       v9 = v10;
-      if (pn_uset_expandedPresentationSetContains() == 1 && !_IsInFormattingSet(v9))
+      v13 = 0;
+      if (pn_uset_expandedPresentationSetContains(v10, &v13) == 1 && !_IsInFormattingSet(v9))
       {
         v6[v7++] = v9;
       }
@@ -81,7 +82,7 @@ LABEL_12:
   return CFRetain(a1);
 }
 
-uint64_t pn_uset_expandedPresentationSetContains()
+uint64_t pn_uset_expandedPresentationSetContains(uint64_t a1, uint64_t a2)
 {
   os_unfair_lock_lock(&__pn_uset_unfair_lock);
   if (!__pn_uset_getExpandedPresentationSet_set)
@@ -107,7 +108,7 @@ uint64_t pn_uset_expandedPresentationSetContains()
   return result;
 }
 
-uint64_t _IsInFormattingSet(unsigned int a1)
+BOOL _IsInFormattingSet(unsigned int a1)
 {
   result = 1;
   if (a1 > 0x2F || ((1 << a1) & 0xE30100000000) == 0)
@@ -123,86 +124,99 @@ uint64_t _IsInFormattingSet(unsigned int a1)
 uint64_t UIPhoneFormatCountryGetInfoIndex(unsigned int *a1, CFStringRef theString)
 {
   v19 = *MEMORY[0x277D85DE8];
-  if (theString && (Length = CFStringGetLength(theString), Length >= 1))
+  if (!theString)
   {
-    v5 = Length;
-    valuePtr = 0;
+    return 0xFFFFFFFFLL;
+  }
+
+  Length = CFStringGetLength(theString);
+  if (Length < 1)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v5 = Length;
+  valuePtr = 0;
+  os_unfair_lock_lock_with_options();
+  IndexCache = __CFPhoneNumberCountryGetIndexCache();
+  Value = CFDictionaryGetValue(IndexCache, theString);
+  os_unfair_lock_unlock(&__CFPhoneNumberCountryCacheUnfairLock);
+  if (Value)
+  {
+    v8 = CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr);
+    if (v8)
+    {
+      return valuePtr;
+    }
+  }
+
+  MEMORY[0x28223BE20](v8);
+  CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
+  if (!CStringPtr)
+  {
+    CStringPtr = &v17 - ((v5 + 16) & 0xFFFFFFFFFFFFFFF0);
+    if (!CFStringGetCString(theString, CStringPtr, v5 + 1, 0x8000100u))
+    {
+      return 0xFFFFFFFFLL;
+    }
+  }
+
+  if (!a1)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v11 = *a1;
+  v17 = 0;
+  if (!v11)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v12 = (a1 + 2);
+  v13 = 1;
+  while (strcasecmp(v12, CStringPtr))
+  {
+    v17 = v13;
+    v12 += 12;
+    ++v13;
+    if (!--v11)
+    {
+      return 0xFFFFFFFFLL;
+    }
+  }
+
+  v14 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &v17);
+  if (v14)
+  {
+    v15 = v14;
     os_unfair_lock_lock_with_options();
-    IndexCache = __CFPhoneNumberCountryGetIndexCache();
-    Value = CFDictionaryGetValue(IndexCache, theString);
+    v16 = __CFPhoneNumberCountryGetIndexCache();
+    CFDictionarySetValue(v16, theString, v15);
     os_unfair_lock_unlock(&__CFPhoneNumberCountryCacheUnfairLock);
-    if (Value && CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr))
-    {
-      result = valuePtr;
-    }
-
-    else
-    {
-      MEMORY[0x28223BE20]();
-      CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
-      if ((CStringPtr || (CStringPtr = &v17 - ((v5 + 16) & 0xFFFFFFFFFFFFFFF0), CFStringGetCString(theString, CStringPtr, v5 + 1, 0x8000100u))) && a1 && (v10 = *a1, v17 = 0, v10))
-      {
-        v11 = (a1 + 2);
-        v12 = 1;
-        while (strcasecmp(v11, CStringPtr))
-        {
-          v17 = v12;
-          v11 += 12;
-          ++v12;
-          if (!--v10)
-          {
-            goto LABEL_14;
-          }
-        }
-
-        v14 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &v17);
-        if (v14)
-        {
-          v15 = v14;
-          os_unfair_lock_lock_with_options();
-          v16 = __CFPhoneNumberCountryGetIndexCache();
-          CFDictionarySetValue(v16, theString, v15);
-          os_unfair_lock_unlock(&__CFPhoneNumberCountryCacheUnfairLock);
-          CFRelease(v15);
-        }
-
-        result = v17;
-      }
-
-      else
-      {
-LABEL_14:
-        result = 0xFFFFFFFFLL;
-      }
-    }
+    CFRelease(v15);
   }
 
-  else
-  {
-    result = 0xFFFFFFFFLL;
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return v17;
 }
 
 void __PNGetFormatFileHeader_block_invoke()
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v0 = CFPhoneNumberBundleCopyRulesetFileSystemPath();
   if (v0)
   {
     v1 = v0;
     CStringPtr = CFStringGetCStringPtr(v0, 0x8000100u);
     Length = CFStringGetLength(v1);
-    if (CStringPtr || (CStringPtr = v16 - ((Length + 16) & 0xFFFFFFFFFFFFFFF0), CFStringGetCString(v1, CStringPtr, Length + 1, 0x8000100u)))
+    if (CStringPtr || (CStringPtr = v14 - ((Length + 16) & 0xFFFFFFFFFFFFFFF0), CFStringGetCString(v1, CStringPtr, Length + 1, 0x8000100u)))
     {
       v4 = open(CStringPtr, 0);
       if (v4 < 0)
       {
-        v11 = *MEMORY[0x277D85DF8];
-        v12 = __error();
-        fprintf(v11, "Attempt to open file at %s failed with errno (%d).\n", CStringPtr, *v12);
+        v10 = *MEMORY[0x277D85DF8];
+        v11 = __error();
+        fprintf(v10, "Attempt to open file at %s failed with errno (%d).\n", CStringPtr, *v11);
       }
 
       else
@@ -211,9 +225,9 @@ void __PNGetFormatFileHeader_block_invoke()
         v6 = lseek(v4, 0, 2);
         if ((v6 & 0x8000000000000000) != 0)
         {
-          v13 = *MEMORY[0x277D85DF8];
-          v14 = __error();
-          fprintf(v13, "Attempt to locate end of file at %s failed with errno (%d).\n", CStringPtr, *v14);
+          v12 = *MEMORY[0x277D85DF8];
+          v13 = __error();
+          fprintf(v12, "Attempt to locate end of file at %s failed with errno (%d).\n", CStringPtr, *v13);
         }
 
         else
@@ -238,21 +252,20 @@ void __PNGetFormatFileHeader_block_invoke()
     }
 
     CFRelease(v1);
-    v15 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     v9 = *MEMORY[0x277D85DF8];
-    v10 = *MEMORY[0x277D85DE8];
 
     fwrite("Could not obtain ruleset file system path.\n", 0x2BuLL, 1uLL, v9);
   }
 }
 
-uint64_t _PNDecomposeForCountry(char *a1, const __CFString *a2, uint64_t a3, int a4)
+uint64_t _PNDecomposeForCountry(char *a1, const __CFString *a2, uint64_t a3, uint64_t a4)
 {
-  v8 = PNGetFormatFileHeader();
+  v4 = a4;
+  v8 = PNGetFormatFileHeader(a1, a2);
   if (!a2 || !v8)
   {
     return 0;
@@ -266,10 +279,10 @@ uint64_t _PNDecomposeForCountry(char *a1, const __CFString *a2, uint64_t a3, int
     return 0;
   }
 
-  return _DecomposePhoneNumberWithCountryIndex(a1, InfoIndex, a3, 0, a4);
+  return _DecomposePhoneNumberWithCountryIndex(a1, InfoIndex, a3, 0, v4);
 }
 
-uint64_t PNGetFormatFileHeader()
+uint64_t PNGetFormatFileHeader(uint64_t a1, uint64_t a2)
 {
   result = sOverrideFormatFile;
   if (!sOverrideFormatFile)
@@ -285,7 +298,7 @@ uint64_t PNGetFormatFileHeader()
   return result;
 }
 
-__CFBundle *CFPhoneNumberBundleCopyRulesetFileSystemPath()
+const __CFURL *CFPhoneNumberBundleCopyRulesetFileSystemPath()
 {
   result = CFPhoneNumberBundleCopyRulesetURL();
   if (result)
@@ -382,11 +395,11 @@ char *PNCopyBestGuessNormalizedNumberForCountry(char *result, __CFString *a2)
   return result;
 }
 
-_BYTE *_PNCopyBestGuessNumberForCountry(const __CFString *a1, __CFString *a2, int a3, __int128 *a4, _BYTE *a5)
+char *_PNCopyBestGuessNumberForCountry(const __CFString *a1, __CFString *a2, int a3, __int128 *a4, _BYTE *a5)
 {
-  v54 = *MEMORY[0x277D85DE8];
-  v47 = 0u;
-  v48 = 0u;
+  v51 = *MEMORY[0x277D85DE8];
+  v44 = 0u;
+  v45 = 0u;
   if (a4)
   {
     v9 = a4;
@@ -394,11 +407,11 @@ _BYTE *_PNCopyBestGuessNumberForCountry(const __CFString *a1, __CFString *a2, in
 
   else
   {
-    v9 = &v45;
+    v9 = &v42;
   }
 
-  v45 = 0uLL;
-  v46 = 0uLL;
+  v42 = 0uLL;
+  v43 = 0uLL;
   if (a3)
   {
     v10 = _PNCopyNormalized(a1);
@@ -411,99 +424,111 @@ _BYTE *_PNCopyBestGuessNumberForCountry(const __CFString *a1, __CFString *a2, in
     MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
     *usedBufLen = 0;
     v10 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x100004077774924uLL);
-    v55.location = 0;
-    v55.length = Length;
-    CFStringGetBytes(v11, v55, 0x8000100u, 0, 0, v10, MaximumSizeForEncoding, usedBufLen);
+    v52.location = 0;
+    v52.length = Length;
+    CFStringGetBytes(v11, v52, 0x8000100u, 0, 0, v10, MaximumSizeForEncoding, usedBufLen);
     v10[*usedBufLen] = 0;
     CFRelease(v11);
   }
 
-  v14 = _PNDecomposeForCountry(v10, a2, v9, 1);
-  *a5 = v14;
-  if (v14)
+  InfoIndex = _PNDecomposeForCountry(v10, a2, v9, 1);
+  *a5 = InfoIndex;
+  if (InfoIndex)
   {
     goto LABEL_8;
   }
 
-  v29 = PNGetFormatFileHeader();
+  InfoIndex = PNGetFormatFileHeader(InfoIndex, v15);
   if (!a2)
   {
     goto LABEL_8;
   }
 
-  v30 = v29;
-  if (!v29)
+  v30 = InfoIndex;
+  if (!InfoIndex)
   {
     goto LABEL_8;
   }
 
-  InfoIndex = UIPhoneFormatCountryGetInfoIndex(v29, a2);
+  InfoIndex = UIPhoneFormatCountryGetInfoIndex(InfoIndex, a2);
   if (InfoIndex == -1)
   {
     goto LABEL_8;
   }
 
-  v32 = InfoIndex;
-  Count = UIPhoneFormatCountryGetCount(v30);
+  v31 = InfoIndex;
+  InfoIndex = UIPhoneFormatCountryGetCount(v30);
   if (!v10)
   {
     goto LABEL_8;
   }
 
-  if (!*(&v30[3 * Count + 3] + v30[3 * v32 + 3]))
+  if (!*(&v30[3 * InfoIndex + 3] + v30[3 * v31 + 3]))
   {
     goto LABEL_8;
   }
 
-  v34 = _PNGetITUCountryCode(a2);
-  if (!v34)
+  InfoIndex = _PNGetITUCountryCode(a2);
+  if (!InfoIndex)
   {
     goto LABEL_8;
   }
 
-  v35 = v34;
-  v36 = strlen(v10);
-  v37 = strlen(v35);
-  if (!v36 || v36 < v37 || strncmp(v10, v35, v37))
+  v32 = InfoIndex;
+  v33 = strlen(v10);
+  InfoIndex = strlen(v32);
+  if (!v33)
   {
     goto LABEL_8;
   }
 
-  v15 = malloc_type_malloc(v36 + 2, 0x100004077774924uLL);
-  *v15 = 43;
-  v15[v36 + 1] = 0;
-  strncpy(v15 + 1, v10, v36);
-  v38 = strlen(v15);
-  v39 = CFStringCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v15, v38, 0x8000100u, 0, *MEMORY[0x277CBED00]);
-  valid = _PNIsValidPhoneNumberForCountry(v39, a2, 0, 0, 1);
-  CFRelease(v39);
+  if (v33 < InfoIndex)
+  {
+    goto LABEL_8;
+  }
+
+  InfoIndex = strncmp(v10, v32, InfoIndex);
+  if (InfoIndex)
+  {
+    goto LABEL_8;
+  }
+
+  v16 = malloc_type_malloc(v33 + 2, 0x100004077774924uLL);
+  *v16 = 43;
+  v16[v33 + 1] = 0;
+  strncpy(v16 + 1, v10, v33);
+  v34 = strlen(v16);
+  v35 = CFStringCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v16, v34, 0x8000100u, 0, *MEMORY[0x277CBED00]);
+  valid = _PNIsValidPhoneNumberForCountry(v35, a2, 0, 0, 1);
+  CFRelease(v35);
   if ((valid & 1) == 0)
   {
-    free(v15);
+    free(v16);
 LABEL_8:
-    v15 = v10;
+    v16 = v10;
     goto LABEL_9;
   }
 
-  *a5 = _PNDecomposeForCountry(v15, a2, v9, 1);
-  v41 = &v45;
+  v37 = _PNDecomposeForCountry(v16, a2, v9, 1);
+  *a5 = v37;
+  v39 = &v42;
   if (a4)
   {
-    v41 = a4;
+    v39 = a4;
   }
 
-  if (v10 == v41[6])
+  if (v10 == *(v39 + 6))
   {
-    v44 = cpn_default_log();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
+    v41 = cpn_default_log(v37, v38);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
     {
       *usedBufLen = 138412802;
       *&usedBufLen[4] = a1;
-      v50 = 2112;
-      v51 = a2;
-      v52 = 2080;
-      v53 = v10;
-      _os_log_fault_impl(&dword_2461B8000, v44, OS_LOG_TYPE_FAULT, "Decompose failure for digits %@ ISO country code %@; cannot deallocate %s", usedBufLen, 0x20u);
+      v47 = 2112;
+      v48 = a2;
+      v49 = 2080;
+      v50 = v10;
+      _os_log_fault_impl(&dword_2461B8000, v41, OS_LOG_TYPE_FAULT, "Decompose failure for digits %@ ISO country code %@; cannot deallocate %s", usedBufLen, 0x20u);
     }
   }
 
@@ -513,53 +538,53 @@ LABEL_8:
   }
 
 LABEL_9:
-  if (*v15 == 43)
+  if (*v16 == 43)
   {
-    v47 = 0u;
-    v48 = 0u;
+    v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v16 = PNGetFormatFileHeader();
+    v42 = 0u;
+    v43 = 0u;
+    v17 = PNGetFormatFileHeader(InfoIndex, v15);
     if (a2)
     {
-      v17 = v16;
-      if (v16)
+      v18 = v17;
+      if (v17)
       {
-        v18 = UIPhoneFormatCountryGetInfoIndex(v16, a2);
-        if (v18 != -1)
+        v19 = UIPhoneFormatCountryGetInfoIndex(v17, a2);
+        if (v19 != -1)
         {
-          v19 = v18;
-          v20 = v17 + 1;
-          v21 = &v17[3 * UIPhoneFormatCountryGetCount(v17) + 1];
-          v22 = v20[3 * v19 + 2];
+          v20 = v19;
+          v21 = v18 + 1;
+          v22 = &v18[3 * UIPhoneFormatCountryGetCount(v18) + 1];
+          v23 = v21[3 * v20 + 2];
           *usedBufLen = 0;
-          v23 = strlen(v15);
-          if (_InternationalPrefixForDigitsInCountry(v21 + v22, v19, 0, v15, 0, v23, 0, usedBufLen))
+          v24 = strlen(v16);
+          if (_InternationalPrefixForDigitsInCountry(v22 + v23, v20, 0, v16, 0, v24, 0, usedBufLen))
           {
             if (*usedBufLen)
             {
-              v24 = strlen(*usedBufLen);
-              v25 = strdup(&v15[v24]);
-              if (_PNDecomposeForCountry(v25, a2, &v45, 1))
+              v25 = strlen(*usedBufLen);
+              v26 = strdup(&v16[v25]);
+              if (_PNDecomposeForCountry(v26, a2, &v42, 1))
               {
-                if (v25)
+                if (v26)
                 {
-                  v26 = v45;
-                  v27 = v46;
-                  v28 = v48;
-                  v9[2] = v47;
-                  v9[3] = v28;
-                  *v9 = v26;
-                  v9[1] = v27;
+                  v27 = v42;
+                  v28 = v43;
+                  v29 = v45;
+                  v9[2] = v44;
+                  v9[3] = v29;
+                  *v9 = v27;
+                  v9[1] = v28;
                   *a5 = 1;
-                  free(v15);
-                  v15 = v25;
+                  free(v16);
+                  return v26;
                 }
               }
 
               else
               {
-                free(v25);
+                free(v26);
               }
             }
           }
@@ -568,8 +593,7 @@ LABEL_9:
     }
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v16;
 }
 
 uint64_t CFPhoneNumberGetITUCountryCodeForISOCountryCode(__CFString *a1)
@@ -816,7 +840,7 @@ LABEL_16:
   return 0;
 }
 
-unsigned int *_PNCopyInternationalCodeForCountry(unsigned int *a1)
+CFStringRef _PNCopyInternationalCodeForCountry(unsigned int *a1)
 {
   result = _PNGetITUCountryCode(a1);
   if (result)
@@ -837,10 +861,10 @@ unsigned int *_PNGetITUCountryCode(unsigned int *result)
     v1 = result;
     if (CFStringGetLength(result) == 2)
     {
-      result = PNGetFormatFileHeader();
+      result = PNGetFormatFileHeader(2, v2);
       if (result)
       {
-        v2 = result;
+        v3 = result;
         InfoIndex = UIPhoneFormatCountryGetInfoIndex(result, v1);
         if (InfoIndex == -1)
         {
@@ -849,7 +873,7 @@ unsigned int *_PNGetITUCountryCode(unsigned int *result)
 
         else
         {
-          return &v2[3 * InfoIndex + 1];
+          return &v3[3 * InfoIndex + 1];
         }
       }
     }
@@ -876,7 +900,7 @@ CFMutableDictionaryRef __CFPhoneNumberCountryGetIndexCache()
   return result;
 }
 
-const __CFString *_PNCopyLastFourDigitsOfLocalNumber(const __CFString *a1, __CFString *a2)
+CFStringRef _PNCopyLastFourDigitsOfLocalNumber(const __CFString *a1, __CFString *a2)
 {
   result = _PNCopyStrippedNumberWithoutPauses(a1, a2, 0, 0);
   if (result)
@@ -903,7 +927,7 @@ const __CFString *_PNCopyLastFourDigitsOfLocalNumber(const __CFString *a1, __CFS
   return result;
 }
 
-CFStringRef PNCreateFormattedStringWithCountry(const __CFString *a1, __CFString *a2, int a3, unsigned int a4)
+CFStringRef PNCreateFormattedStringWithCountry(const __CFString *a1, __CFString *a2, int a3, uint64_t a4)
 {
   if (!a1)
   {
@@ -932,13 +956,14 @@ CFStringRef PNCreateFormattedStringWithCountry(const __CFString *a1, __CFString 
   return _PNCopyCompressedFormattedStringWithCountry(a1, a2, a4);
 }
 
-CFStringRef _PNCopyCompressedFormattedStringWithCountry(const __CFString *a1, __CFString *cf, unsigned int a3)
+CFStringRef _PNCopyCompressedFormattedStringWithCountry(const __CFString *a1, __CFString *cf, uint64_t a3)
 {
   if (!a1)
   {
     return 0;
   }
 
+  v3 = a3;
   v4 = cf;
   if (!cf)
   {
@@ -955,7 +980,7 @@ CFStringRef _PNCopyCompressedFormattedStringWithCountry(const __CFString *a1, __
 LABEL_5:
   cfa = 0;
   v6 = _PNCopyStrippedNumberWithoutPauses(a1, v4, &cfa, 0);
-  v7 = _PNCopyFormattedNumberForDigitsWithCountry(v6, v4, a3);
+  v7 = _PNCopyFormattedNumberForDigitsWithCountry(v6, v4, v3);
   v8 = _PNCreateStringByAddingPauses(v7, cfa);
   CFRelease(v6);
   if (cfa)
@@ -972,15 +997,15 @@ LABEL_5:
   return v8;
 }
 
-CFStringRef _PNCopyCountryCodeForInternationalCode(const __CFString *a1)
+CFStringRef _PNCopyCountryCodeForInternationalCode(const __CFString *a1, uint64_t a2)
 {
-  v2 = PNGetFormatFileHeader();
+  v3 = PNGetFormatFileHeader(a1, a2);
   result = 0;
-  if (a1 && v2)
+  if (a1 && v3)
   {
-    v6 = 0;
+    v7 = 0;
     Length = CFStringGetLength(a1);
-    CountryOffsetFromDialingCode = _GetCountryOffsetFromDialingCode(v2, a1, 0, 0, Length, &v6);
+    CountryOffsetFromDialingCode = _GetCountryOffsetFromDialingCode(v3, a1, 0, 0, Length, &v7);
     if (CountryOffsetFromDialingCode == -1)
     {
       return 0;
@@ -988,7 +1013,7 @@ CFStringRef _PNCopyCountryCodeForInternationalCode(const __CFString *a1)
 
     else
     {
-      return CFStringCreateWithCString(*MEMORY[0x277CBECE8], &v2[3 * CountryOffsetFromDialingCode + 2], 0x8000100u);
+      return CFStringCreateWithCString(*MEMORY[0x277CBECE8], &v3[3 * CountryOffsetFromDialingCode + 2], 0x8000100u);
     }
   }
 
@@ -1216,10 +1241,11 @@ unsigned int *UIPhoneFormatCountryGetCount(unsigned int *result)
   return result;
 }
 
-const char *_InternationalPrefixForDigitsInCountry(uint64_t a1, unsigned int a2, const __CFString *a3, const char *a4, CFIndex a5, uint64_t a6, void *a7, const char **a8)
+char *_InternationalPrefixForDigitsInCountry(uint64_t a1, uint64_t a2, const __CFString *a3, const char *a4, CFIndex a5, uint64_t a6, void *a7, char **a8)
 {
-  v16 = PNGetFormatFileHeader();
-  v17 = __InternationalPrefixForDigitsInCountry(a1, a2, a3, a4, a5, a6, a7);
+  v14 = a2;
+  v16 = PNGetFormatFileHeader(a1, a2);
+  v17 = __InternationalPrefixForDigitsInCountry(a1, v14, a3, a4, a5, a6, a7);
   v18 = v17;
   if (a8)
   {
@@ -1230,7 +1256,7 @@ const char *_InternationalPrefixForDigitsInCountry(uint64_t a1, unsigned int a2,
         v19 = a6 - 1;
         if (_GetCountryOffsetFromDialingCode(v16, a3, a4, 1, v19, 0) == -1)
         {
-          v20 = __InternationalPrefixForDigitsInCountry(a1, a2, a3, a4, 1, v19, a7);
+          v20 = __InternationalPrefixForDigitsInCountry(a1, v14, a3, a4, 1, v19, a7);
           if (v20)
           {
             *a8 = v18;
@@ -1244,7 +1270,7 @@ const char *_InternationalPrefixForDigitsInCountry(uint64_t a1, unsigned int a2,
   return v18;
 }
 
-_BYTE *_FormatEntryAndNationalPrefixForDigitsInCountry(uint64_t a1, UniChar *a2, char *__s1, uint64_t *a4, int a5, unsigned __int8 **a6, CFStringRef *a7, uint64_t a8)
+_BYTE *_FormatEntryAndNationalPrefixForDigitsInCountry(uint64_t a1, UniChar *a2, char *__s1, uint64_t *a4, int a5, char **a6, CFStringRef *a7, uint64_t a8)
 {
   if (a5)
   {
@@ -1941,9 +1967,10 @@ LABEL_42:
   return v26;
 }
 
-uint64_t _NumberRangeWithoutVerticalServiceCode(const __CFString *a1, const char *a2, int a3)
+uint64_t _NumberRangeWithoutVerticalServiceCode(const __CFString *a1, const char *a2, unsigned int a3)
 {
-  v6 = PNGetFormatFileHeader();
+  v5 = a1;
+  v6 = PNGetFormatFileHeader(a1, a2);
   if (v6)
   {
     v7 = v6;
@@ -1956,28 +1983,28 @@ uint64_t _NumberRangeWithoutVerticalServiceCode(const __CFString *a1, const char
         if ((v8 == 35 || v8 == 42) && u_isdigit(a2[1]) && u_isdigit(a2[2]))
         {
           v10 = strlen(a2);
-          a1 = CFStringCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], a2, v10, 0x8000100u, 0, *MEMORY[0x277CBED00]);
+          v5 = CFStringCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], a2, v10, 0x8000100u, 0, *MEMORY[0x277CBED00]);
           goto LABEL_17;
         }
       }
     }
 
-    else if (CFStringGetLength(a1) >= 3)
+    else if (CFStringGetLength(v5) >= 3)
     {
-      CharacterAtIndex = CFStringGetCharacterAtIndex(a1, 0);
-      v12 = CFStringGetCharacterAtIndex(a1, 0);
+      CharacterAtIndex = CFStringGetCharacterAtIndex(v5, 0);
+      v12 = CFStringGetCharacterAtIndex(v5, 0);
       v9 = CharacterAtIndex == 42;
       if (CharacterAtIndex == 42 || v12 == 35)
       {
-        v13 = CFStringGetCharacterAtIndex(a1, 1);
+        v13 = CFStringGetCharacterAtIndex(v5, 1);
         if (u_isdigit(v13))
         {
-          v14 = CFStringGetCharacterAtIndex(a1, 2);
+          v14 = CFStringGetCharacterAtIndex(v5, 2);
           if (u_isdigit(v14))
           {
-            CFRetain(a1);
+            CFRetain(v5);
 LABEL_17:
-            Length = CFStringGetLength(a1);
+            Length = CFStringGetLength(v5);
             if (Length < 2)
             {
               v27 = -1;
@@ -1998,7 +2025,7 @@ LABEL_17:
 
                 else
                 {
-                  v20 = CFStringGetCharacterAtIndex(a1, v18);
+                  v20 = CFStringGetCharacterAtIndex(v5, v18);
                 }
 
                 if (v20 == 42 || v20 == 35)
@@ -2042,7 +2069,7 @@ LABEL_17:
                 v35 = v16 - 3;
                 while (v33 != v34)
                 {
-                  v36 = CFStringGetCharacterAtIndex(a1, v34);
+                  v36 = CFStringGetCharacterAtIndex(v5, v34);
                   if (!u_isdigit(v36))
                   {
                     break;
@@ -2050,7 +2077,7 @@ LABEL_17:
 
                   v55.location = v34;
                   v55.length = v35;
-                  v37 = CFStringCreateWithSubstring(v30, a1, v55);
+                  v37 = CFStringCreateWithSubstring(v30, v5, v55);
                   valid = _PNIsValidPhoneNumberForCountry(v37, theString1, 0, 1, 0);
                   CFRelease(v37);
                   ++v34;
@@ -2064,16 +2091,16 @@ LABEL_17:
 
                 memset(v46, 0, sizeof(v46));
                 v44 = 0;
-                v45 = CFStringGetLength(a1);
-                v47 = a1;
+                v45 = CFStringGetLength(v5);
+                v47 = v5;
                 v50 = 0;
                 v51 = v45;
-                CharactersPtr = CFStringGetCharactersPtr(a1);
+                CharactersPtr = CFStringGetCharactersPtr(v5);
                 CStringPtr = 0;
                 v48 = CharactersPtr;
                 if (!CharactersPtr)
                 {
-                  CStringPtr = CFStringGetCStringPtr(a1, 0x600u);
+                  CStringPtr = CFStringGetCStringPtr(v5, 0x600u);
                 }
 
                 v52 = 0;
@@ -2085,12 +2112,12 @@ LABEL_17:
                   v27 = -1;
                 }
 
-                else if (CFStringGetCharacterAtIndex(a1, 3) == 43)
+                else if (CFStringGetCharacterAtIndex(v5, 3) == 43)
                 {
                   v27 = 3;
                 }
 
-                else if (v16 >= 5 && CFStringGetCharacterAtIndex(a1, 4) == 43)
+                else if (v16 >= 5 && CFStringGetCharacterAtIndex(v5, 4) == 43)
                 {
                   v27 = 4;
                 }
@@ -2117,7 +2144,7 @@ LABEL_60:
                 v25 = CFStringCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v23 + 8, v24, 0x8000100u, 0, *MEMORY[0x277CBED00]);
                 v54.length = v16 + ~v19;
                 v54.location = v19 + 1;
-                v26 = CFStringCreateWithSubstring(v22, a1, v54);
+                v26 = CFStringCreateWithSubstring(v22, v5, v54);
                 if (_PNIsValidPhoneNumberForCountry(v26, v25, 1, 1, 0))
                 {
                   v27 = v19 + 1;
@@ -2136,7 +2163,7 @@ LABEL_60:
             }
 
 LABEL_62:
-            CFRelease(a1);
+            CFRelease(v5);
             return v27;
           }
         }
@@ -2155,7 +2182,7 @@ LABEL_62:
 
     else
     {
-      CFStringGetLength(a1);
+      CFStringGetLength(v5);
     }
 
     return 0;
@@ -2197,19 +2224,20 @@ CFStringRef CFPhoneNumberStringCreateLowercaseCopy(const __CFAllocator *a1, CFSt
   return Copy;
 }
 
-uint64_t _DecomposePhoneNumberWithCountryIndex(char *a1, unsigned int a2, uint64_t a3, uint64_t a4, int a5)
+uint64_t _DecomposePhoneNumberWithCountryIndex(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
-  result = PNGetFormatFileHeader();
+  v9 = a1;
+  result = PNGetFormatFileHeader(a1, a2);
   if (result)
   {
     v11 = result;
     v12 = result + 4;
     v13 = (v12 + 12 * UIPhoneFormatCountryGetCount(result) + *(v12 + 12 * a2 + 8));
-    v57 = (v13 + 6);
-    v14 = strlen(a1);
-    v55 = 0;
-    v56 = v14;
-    v15 = _NumberRangeWithoutVerticalServiceCode(0, a1, a2);
+    v58 = v13 + 6;
+    v14 = strlen(v9);
+    v56 = 0;
+    v57 = v14;
+    v15 = _NumberRangeWithoutVerticalServiceCode(0, v9, a2);
     if (v15 == -1)
     {
       v17 = 0;
@@ -2218,19 +2246,19 @@ uint64_t _DecomposePhoneNumberWithCountryIndex(char *a1, unsigned int a2, uint64
     else
     {
       v17 = v15;
-      v55 = v15;
-      v56 = v16;
+      v56 = v15;
+      v57 = v16;
       v14 = v16;
     }
 
     *a3 = v12 + 12 * a2;
-    if ((a4 & 1) != 0 || ((v53 = 0, v54 = 0, !a5) ? (v18 = 0) : (v18 = &v54), (v19 = _InternationalPrefixForDigitsInCountry(v13, a2, 0, a1, v17, v14, &v53, v18)) == 0))
+    if ((a4 & 1) != 0 || ((v54 = 0, v55 = 0, !a5) ? (v18 = 0) : (v18 = &v55), (v19 = _InternationalPrefixForDigitsInCountry(v13, a2, 0, v9, v17, v14, &v54, v18)) == 0))
     {
-      v22 = _FormatEntryAndNationalPrefixForDigitsInCountry(v13, 0, a1, &v55, a4, &v57, 0, 0);
+      v22 = _FormatEntryAndNationalPrefixForDigitsInCountry(v13, 0, v9, &v56, a4, &v58, 0, 0);
       v23 = v22;
-      if (v57)
+      if (v58)
       {
-        *(a3 + 8) = v57;
+        *(a3 + 8) = v58;
       }
 
       if (!v22)
@@ -2240,18 +2268,18 @@ LABEL_51:
         *(a3 + 48) = 0u;
         *a3 = 0u;
         *(a3 + 16) = 0u;
-        *(a3 + 48) = a1;
-        v52 = strlen(a1);
+        *(a3 + 48) = v9;
+        v53 = strlen(v9);
         result = 0;
-        *(a3 + 56) = v52;
+        *(a3 + 56) = v53;
         return result;
       }
 
-      v24 = v55;
-      v25 = v56;
-      v26 = v56 + v55;
-      v27 = &a1[v55];
-      if (v56 + v55 > v55)
+      v24 = v56;
+      v25 = v57;
+      v26 = v57 + v56;
+      v27 = &v9[v56];
+      if (v57 + v56 > v56)
       {
         v28 = v22[10];
         if (v28 >= 1)
@@ -2324,7 +2352,7 @@ LABEL_51:
       {
         v36 = &v27[v33];
         *(a3 + 48) = v36;
-        *(a3 + 56) = v26 + a1 - v36;
+        *(a3 + 56) = v26 + v9 - v36;
       }
 
       v37 = _UIPhoneFormatEntryReplacementCountryCodeRange(v13, v22);
@@ -2337,7 +2365,7 @@ LABEL_51:
         if (CountryOffsetFromDialingCode != -1)
         {
           *a3 = v12 + 12 * CountryOffsetFromDialingCode;
-          _DecomposePhoneNumberWithCountryIndex(a1, CountryOffsetFromDialingCode, a3, a4, 0);
+          _DecomposePhoneNumberWithCountryIndex(v9, CountryOffsetFromDialingCode, a3, a4, 0);
         }
       }
 
@@ -2347,9 +2375,9 @@ LABEL_51:
     else
     {
       v20 = v19;
-      if (v54)
+      if (v55)
       {
-        v21 = NumberOfDigitsRequiredForPattern(v54);
+        v21 = NumberOfDigitsRequiredForPattern(v55);
       }
 
       else
@@ -2358,44 +2386,44 @@ LABEL_51:
       }
 
       v42 = NumberOfDigitsRequiredForPattern(v20);
-      v43 = strlen(a1);
+      v43 = strlen(v9);
       if (v43 >= v21 + v42)
       {
-        v44 = v21 + v42;
+        v45 = v21 + v42;
       }
 
       else
       {
-        v44 = v43;
+        v45 = v43;
       }
 
-      v45 = v53;
-      result = PNGetFormatFileHeader();
+      v46 = v54;
+      result = PNGetFormatFileHeader(v43, v44);
       if (result)
       {
-        v46 = result;
-        a1 += v44;
-        v58 = 0;
-        if (v45)
+        v47 = result;
+        v9 += v45;
+        v59 = 0;
+        if (v46)
         {
-          v47 = strlen(v45);
-          v48 = v46;
-          v49 = v45;
-          v50 = 0;
+          v48 = strlen(v46);
+          v49 = v47;
+          v50 = v46;
+          v51 = 0;
         }
 
         else
         {
-          v47 = strlen(a1);
-          v50 = &v58;
-          v48 = v46;
-          v49 = a1;
+          v48 = strlen(v9);
+          v51 = &v59;
+          v49 = v47;
+          v50 = v9;
         }
 
-        v51 = _GetCountryOffsetFromDialingCode(v48, 0, v49, 0, v47, v50);
-        if (v51 != -1)
+        v52 = _GetCountryOffsetFromDialingCode(v49, 0, v50, 0, v48, v51);
+        if (v52 != -1)
         {
-          return _DecomposePhoneNumberWithCountryIndex(&a1[v58], v51, a3, 1, 0);
+          return _DecomposePhoneNumberWithCountryIndex(&v9[v59], v52, a3, 1, 0);
         }
 
         goto LABEL_51;
@@ -2552,7 +2580,7 @@ LABEL_19:
   return 0;
 }
 
-__CFString *_PNCopyFullyQualifiedNumberForCountryInternal(const __CFString *a1, __CFString *a2, const __CFString *a3, void *a4, int a5, _DWORD *a6)
+CFMutableStringRef _PNCopyFullyQualifiedNumberForCountryInternal(const __CFString *a1, __CFString *a2, const __CFString *a3, void *a4, int a5, _DWORD *a6)
 {
   v11 = a4;
   if (!a6)
@@ -2598,18 +2626,18 @@ LABEL_9:
     CFStringGetCStringPtr(a1, 0x600u);
   }
 
-  v49 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
+  v49 = 0u;
   LOBYTE(cStr[0]) = 0;
-  v12 = _PNCopyBestGuessNumberForCountry(a1, a2, 1, &v47, cStr);
+  v12 = _PNCopyBestGuessNumberForCountry(a1, a2, 1, &v48, cStr);
   if (LOBYTE(cStr[0]) == 1)
   {
-    v13 = DWORD2(v48);
-    if (DWORD2(v48))
+    v13 = DWORD2(v49);
+    if (DWORD2(v49))
     {
-      v14 = v48;
+      v14 = v49;
       while (1)
       {
         v16 = *v14++;
@@ -2649,10 +2677,10 @@ LABEL_36:
     }
 
 LABEL_17:
-    v17 = DWORD2(v49);
-    if (DWORD2(v49))
+    v17 = DWORD2(v50);
+    if (DWORD2(v50))
     {
-      v18 = v49;
+      v18 = v50;
       do
       {
         v20 = *v18++;
@@ -2666,10 +2694,10 @@ LABEL_17:
       while (--v17);
     }
 
-    v21 = DWORD2(v50);
-    if (DWORD2(v50))
+    v21 = DWORD2(v51);
+    if (DWORD2(v51))
     {
-      v22 = v50;
+      v22 = v51;
       do
       {
         v24 = *v22++;
@@ -2685,19 +2713,19 @@ LABEL_17:
   }
 
   free(v12);
-  v55 = 0u;
-  v53 = 0u;
-  *v54 = 0u;
+  v56 = 0u;
+  v54 = 0u;
+  *v55 = 0u;
   *numBytes = 0u;
   *cStr = 0u;
-  v49 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v46 = 0;
-  v25 = _PNCopyBestGuessNumberForCountry(a1, a2, 1, cStr, &v46);
-  _PNFindFormatRuleForDigitsWithCountry(a1, a2, 0, &v47);
-  if (v46 != 1 || !v55)
+  v49 = 0u;
+  v47 = 0;
+  v25 = _PNCopyBestGuessNumberForCountry(a1, a2, 1, cStr, &v47);
+  _PNFindFormatRuleForDigitsWithCountry(a1, a2, 0, &v48);
+  if (v47 != 1 || !v56)
   {
     if (a6)
     {
@@ -2714,7 +2742,7 @@ LABEL_43:
     goto LABEL_36;
   }
 
-  if ((BYTE4(v48) & 4) != 0)
+  if ((BYTE4(v49) & 4) != 0)
   {
     if (a6)
     {
@@ -2735,7 +2763,7 @@ LABEL_43:
     goto LABEL_52;
   }
 
-  v44 = v26;
+  v45 = v26;
   v30 = _PNCopyInternationalCodeForCountry(a2);
   if (!v30)
   {
@@ -2751,44 +2779,44 @@ LABEL_43:
   v31 = v30;
   CFStringAppend(MutableCopy, v30);
   CFRelease(v31);
-  v26 = v44;
+  v26 = v45;
 LABEL_52:
   if (numBytes[0] != -1)
   {
-    v32 = CFStringCreateWithBytes(v26, (*(&v48 + 1) + numBytes[0]), numBytes[1], 0x8000100u, 0);
+    v32 = CFStringCreateWithBytes(v26, (*(&v49 + 1) + numBytes[0]), numBytes[1], 0x8000100u, 0);
     CFStringAppend(MutableCopy, v32);
     CFRelease(v32);
   }
 
-  if (v54[0])
+  if (v55[0])
   {
-    v33 = CFStringCreateWithBytes(v26, v54[0], LODWORD(v54[1]), 0x8000100u, 0);
+    v33 = CFStringCreateWithBytes(v26, v55[0], LODWORD(v55[1]), 0x8000100u, 0);
     CFStringAppend(MutableCopy, v33);
     CFRelease(v33);
   }
 
-  else if ((BYTE4(v48) & 8) != 0)
+  else if ((BYTE4(v49) & 8) != 0)
   {
     if (cStr[0])
     {
       v38 = CFStringCreateWithCString(v26, cStr[0], 0x8000100u);
-      v39 = _PNCopyCountryCodeForInternationalCode(v38);
-      v40 = v11[2](v11, v39);
-      if (v40)
+      v40 = _PNCopyCountryCodeForInternationalCode(v38, v39);
+      v41 = v11[2](v11, v40);
+      if (v41)
       {
-        v41 = v26;
-        v42 = v40;
-        v45 = v41;
-        v34 = CFStringCreateMutableCopy(v41, 0, MutableCopy);
-        CFStringAppend(MutableCopy, v42);
-        CFRelease(v42);
+        v42 = v26;
+        v43 = v41;
+        v46 = v42;
+        v34 = CFStringCreateMutableCopy(v42, 0, MutableCopy);
+        CFStringAppend(MutableCopy, v43);
+        CFRelease(v43);
         CFRelease(v38);
-        if (v39)
+        if (v40)
         {
-          CFRelease(v39);
+          CFRelease(v40);
         }
 
-        v26 = v45;
+        v26 = v46;
         if (!MutableCopy)
         {
           goto LABEL_74;
@@ -2798,9 +2826,9 @@ LABEL_52:
       }
 
       CFRelease(v38);
-      if (v39)
+      if (v40)
       {
-        CFRelease(v39);
+        CFRelease(v40);
       }
     }
 
@@ -2818,7 +2846,7 @@ LABEL_52:
   if (MutableCopy)
   {
 LABEL_58:
-    v35 = CFStringCreateWithBytes(v26, v55, DWORD2(v55), 0x8000100u, 0);
+    v35 = CFStringCreateWithBytes(v26, v56, DWORD2(v56), 0x8000100u, 0);
     if (v35)
     {
       v36 = v35;
@@ -2859,9 +2887,9 @@ LABEL_76:
   free(v25);
   if (a3 && MutableCopy)
   {
-    v43 = _PNCreateStringByAddingPauses(MutableCopy, a3);
+    v44 = _PNCreateStringByAddingPauses(MutableCopy, a3);
     CFRelease(MutableCopy);
-    MutableCopy = v43;
+    MutableCopy = v44;
   }
 
 LABEL_49:
@@ -2923,7 +2951,7 @@ LABEL_3:
   return result;
 }
 
-unsigned __int8 *_FindNationalAccessCodeForDigitsInCountry(UniChar *a1, uint64_t a2, uint64_t *a3, unsigned __int8 *a4, CFStringRef *a5)
+char *_FindNationalAccessCodeForDigitsInCountry(UniChar *a1, uint64_t a2, uint64_t *a3, char *a4, CFStringRef *a5)
 {
   if (!*a4)
   {
@@ -3057,45 +3085,45 @@ BOOL itu_streql(const char *a1, const char *a2)
   return strcmp(a1, a2) == 0;
 }
 
-CFStringRef _CreateFormattedNumberForDigitsWithCountryIndex(const __CFString *a1, uint64_t a2, unsigned int a3, const __CFString *a4, _DWORD *a5, void *a6)
+CFStringRef _CreateFormattedNumberForDigitsWithCountryIndex(const __CFString *a1, uint64_t a2, unsigned int a3, const __CFString *a4, _DWORD *a5, unsigned __int16 **a6)
 {
-  v12 = PNGetFormatFileHeader();
+  v12 = PNGetFormatFileHeader(a1, a2);
   if (!v12)
   {
     return 0;
   }
 
   v13 = v12;
-  v105 = a5;
-  v106 = a3;
+  v106 = a5;
+  v107 = a3;
   v14 = (&v12[3 * UIPhoneFormatCountryGetCount(v12) + 1] + v12[3 * a2 + 3]);
   v15 = *v14;
   v16 = *(v14 + 1);
-  v120 = (v14 + 6);
+  v121 = v14 + 6;
   if (a6)
   {
     *a6 = v14;
   }
 
-  v107 = a6;
-  memset(v112, 0, sizeof(v112));
+  v108 = a6;
+  memset(v113, 0, sizeof(v113));
   Length = CFStringGetLength(a1);
-  v110 = 0;
-  *v111 = Length;
-  v113 = a1;
-  v116 = 0;
-  v117 = Length;
+  v111 = 0;
+  *v112 = Length;
+  v114 = a1;
+  v117 = 0;
+  v118 = Length;
   CharactersPtr = CFStringGetCharactersPtr(a1);
   CStringPtr = 0;
-  v114 = CharactersPtr;
+  v115 = CharactersPtr;
   if (!CharactersPtr)
   {
     CStringPtr = CFStringGetCStringPtr(a1, 0x600u);
   }
 
-  v118 = 0;
   v119 = 0;
-  v115 = CStringPtr;
+  v120 = 0;
+  v116 = CStringPtr;
   v20 = _NumberRangeWithoutVerticalServiceCode(a1, 0, a2);
   if (v20 != -1)
   {
@@ -3112,14 +3140,14 @@ CFStringRef _CreateFormattedNumberForDigitsWithCountryIndex(const __CFString *a1
 
     v27.location = 0;
     v28 = CFStringCreateWithSubstring(v25, a1, v27);
-    v122.location = v22;
-    v122.length = v23;
-    v29 = CFStringCreateWithSubstring(v25, a1, v122);
-    v123.length = Length - v24;
-    v123.location = v24;
-    v30 = CFStringCreateWithSubstring(v25, a1, v123);
-    FormattedNumberForDigitsWithCountryIndex = _CreateFormattedNumberForDigitsWithCountryIndex(v29, a2, v106, a4, v105, v107);
-    if (v106)
+    v123.location = v22;
+    v123.length = v23;
+    v29 = CFStringCreateWithSubstring(v25, a1, v123);
+    v124.length = Length - v24;
+    v124.location = v24;
+    v30 = CFStringCreateWithSubstring(v25, a1, v124);
+    FormattedNumberForDigitsWithCountryIndex = _CreateFormattedNumberForDigitsWithCountryIndex(v29, a2, v107, a4, v106, v108);
+    if (v107)
     {
       CFRelease(v28);
       v28 = &stru_2858F2AC8;
@@ -3136,7 +3164,7 @@ CFStringRef _CreateFormattedNumberForDigitsWithCountryIndex(const __CFString *a1
     CFRelease(v29);
     CFRelease(FormattedNumberForDigitsWithCountryIndex);
     v34 = v30;
-LABEL_122:
+LABEL_121:
     CFRelease(v34);
     return Copy;
   }
@@ -3147,166 +3175,162 @@ LABEL_122:
     goto LABEL_17;
   }
 
-  v108 = 0;
+  v109 = 0;
   theString = 0;
-  v48 = _InternationalPrefixForDigitsInCountry(v14, a2, a1, 0, 0, Length, &v108, &theString);
+  v48 = _InternationalPrefixForDigitsInCountry(v14, a2, a1, 0, 0, Length, &v109, &theString);
   if (v48)
   {
     v49 = v48;
-    if (v107)
+    if (v108)
     {
-      *(v107 + 40) = 1;
+      *(v108 + 40) = 1;
     }
 
+    v50 = v107;
     if (theString)
     {
-      v50 = NumberOfDigitsRequiredForPattern(theString);
+      v51 = NumberOfDigitsRequiredForPattern(theString);
     }
 
     else
     {
-      v50 = 0;
+      v51 = 0;
     }
 
-    v76 = NumberOfDigitsRequiredForPattern(v49);
-    if (v50 + v76 <= Length)
+    v77 = NumberOfDigitsRequiredForPattern(v49);
+    if (v51 + v77 <= Length)
     {
-      v77 = v76;
+      v78 = v77;
     }
 
     else
     {
-      v77 = Length - v50;
+      v78 = Length - v51;
     }
 
-    v104 = v49;
-    FormattedStringForDigitsInRange = _CreateFormattedStringForDigitsInRange(v112, 0, v50, v77, v49, v106, 0, 0, 1);
-    v79 = *MEMORY[0x277CBECE8];
-    v80 = v77 + v50;
-    v127.length = CFStringGetLength(a1) - (v77 + v50);
-    v127.location = v77 + v50;
-    v81 = CFStringCreateWithSubstring(v79, a1, v127);
-    v82 = v108;
-    v83 = PNGetFormatFileHeader();
-    if (v83)
+    v105 = v49;
+    FormattedStringForDigitsInRange = _CreateFormattedStringForDigitsInRange(v113, 0, v51, v78, v49, v107, 0, 0, 1);
+    v80 = *MEMORY[0x277CBECE8];
+    v81 = v78 + v51;
+    v128.length = CFStringGetLength(a1) - (v78 + v51);
+    v128.location = v78 + v51;
+    v82 = CFStringCreateWithSubstring(v80, a1, v128);
+    v83 = v109;
+    v85 = PNGetFormatFileHeader(v82, v84);
+    if (v85)
     {
-      v84 = v83;
-      v121 = 0;
-      if (v82)
+      v86 = v85;
+      v122 = 0;
+      if (v83)
       {
-        v85 = strlen(v82);
-        v86 = v84;
-        v87 = 0;
-        v88 = v82;
+        v87 = strlen(v83);
+        v88 = v86;
         v89 = 0;
+        v90 = v83;
+        v91 = 0;
       }
 
       else
       {
-        v85 = CFStringGetLength(v81);
-        v89 = &v121;
-        v86 = v84;
-        v87 = v81;
-        v88 = 0;
+        v87 = CFStringGetLength(v82);
+        v91 = &v122;
+        v88 = v86;
+        v89 = v82;
+        v90 = 0;
       }
 
-      CountryOffsetFromDialingCode = _GetCountryOffsetFromDialingCode(v86, v87, v88, 0, v85, v89);
-      v92 = CountryOffsetFromDialingCode;
-      if (CountryOffsetFromDialingCode == a2)
+      CountryOffsetFromDialingCode = _GetCountryOffsetFromDialingCode(v88, v89, v90, 0, v87, v91);
+      v94 = CountryOffsetFromDialingCode;
+      if (CountryOffsetFromDialingCode != a2)
       {
-        v93 = v106;
-      }
-
-      else
-      {
-        v93 = v106 & 0xFFFFFFFD;
+        v50 = v107 & 0xFFFFFFFD;
       }
 
       if (CountryOffsetFromDialingCode != -1)
       {
-        v128.length = v121;
-        v128.location = 0;
-        v94 = CFStringCreateWithSubstring(v79, v81, v128);
-        v95 = v121;
-        v96 = CFStringGetLength(v81);
-        v129.length = v96 - v121;
-        v129.location = v95;
-        v97 = CFStringCreateWithSubstring(v79, v81, v129);
-        v90 = _CreateFormattedNumberForDigitsWithCountryIndex(v97, v92, v93, v94, v105, v107);
-        if (v107 && *(v107 + 41) == 1)
+        v129.length = v122;
+        v129.location = 0;
+        v95 = CFStringCreateWithSubstring(v80, v82, v129);
+        v96 = v122;
+        v97 = CFStringGetLength(v82);
+        v130.length = v97 - v122;
+        v130.location = v96;
+        v98 = CFStringCreateWithSubstring(v80, v82, v130);
+        v92 = _CreateFormattedNumberForDigitsWithCountryIndex(v98, v94, v50, v95, v106, v108);
+        if (v108 && *(v108 + 41) == 1)
         {
-          v107[6] = v121;
+          v108[6] = v122;
         }
 
-        CFRelease(v97);
-        CFRelease(v94);
-        if ((v93 & 2) == 0)
+        CFRelease(v98);
+        CFRelease(v95);
+        if ((v50 & 2) == 0)
         {
-          goto LABEL_107;
+          goto LABEL_106;
         }
 
-LABEL_109:
+LABEL_108:
         CFRelease(FormattedStringForDigitsInRange);
-        v98 = 0;
+        v99 = 0;
         theString = 0;
         FormattedStringForDigitsInRange = &stru_2858F2AC8;
-        goto LABEL_110;
+        goto LABEL_109;
       }
 
-      v90 = CFRetain(v81);
-      if ((v93 & 2) != 0)
+      v92 = CFRetain(v82);
+      if ((v50 & 2) != 0)
       {
-        goto LABEL_109;
+        goto LABEL_108;
       }
     }
 
     else
     {
-      v90 = 0;
-      if ((v106 & 2) != 0)
+      v92 = 0;
+      if ((v107 & 2) != 0)
       {
-        goto LABEL_109;
+        goto LABEL_108;
       }
     }
 
-LABEL_107:
-    v98 = theString;
-LABEL_110:
-    v99 = "";
-    if (v98)
+LABEL_106:
+    v99 = theString;
+LABEL_109:
+    v100 = "";
+    if (v99)
     {
-      v100 = v98;
+      v101 = v99;
     }
 
     else
     {
-      v100 = "";
+      v101 = "";
     }
 
-    if ((*v104 != 43 || v77 >= 2) && CFStringGetLength(v90) && CFStringGetLength(FormattedStringForDigitsInRange) > 0)
+    if ((*v105 != 43 || v78 >= 2) && CFStringGetLength(v92) && CFStringGetLength(FormattedStringForDigitsInRange) > 0)
     {
-      v99 = " ";
+      v100 = " ";
     }
 
-    Copy = CFStringCreateWithFormat(v79, 0, @"%s%@%s%@", v100, FormattedStringForDigitsInRange, v99, v90);
-    if (v107 && *(v107 + 41) == 1)
+    Copy = CFStringCreateWithFormat(v80, 0, @"%s%@%s%@", v101, FormattedStringForDigitsInRange, v100, v92);
+    if (v108 && *(v108 + 41) == 1)
     {
-      v107[6] += v80;
+      v108[6] = (v108[6] + v81);
     }
 
     CFRelease(FormattedStringForDigitsInRange);
-    CFRelease(v81);
-    v34 = v90;
-    goto LABEL_122;
+    CFRelease(v82);
+    v34 = v92;
+    goto LABEL_121;
   }
 
   v35 = 0;
 LABEL_17:
   theString = 0;
-  v36 = _FormatEntryAndNationalPrefixForDigitsInCountry(v14, v112, 0, &v110, v35 != 0, &v120, &theString, a6);
-  v102 = v36 != 0;
+  v36 = _FormatEntryAndNationalPrefixForDigitsInCountry(v14, v113, 0, &v111, v35 != 0, &v121, &theString, a6);
+  v103 = v36 != 0;
   v37 = v35;
-  v103 = v36;
+  v104 = v36;
   if (!v36)
   {
     goto LABEL_43;
@@ -3325,11 +3349,11 @@ LABEL_17:
     if (v44 != -1)
     {
       v45 = v44;
-      v124.location = v110;
-      v124.length = *v111;
-      v46 = CFStringCreateWithSubstring(*MEMORY[0x277CBECE8], a1, v124);
-      v47 = v106;
-      Copy = _CreateFormattedNumberForDigitsWithCountryIndex(v46, v45, v106, 0, v105, v107);
+      v125.location = v111;
+      v125.length = *v112;
+      v46 = CFStringCreateWithSubstring(*MEMORY[0x277CBECE8], a1, v125);
+      v47 = v107;
+      Copy = _CreateFormattedNumberForDigitsWithCountryIndex(v46, v45, v107, 0, v106, v108);
       CFRelease(v46);
       if (!a4)
       {
@@ -3340,93 +3364,93 @@ LABEL_87:
           return Copy;
         }
 
-        goto LABEL_122;
+        goto LABEL_121;
       }
 
       goto LABEL_57;
     }
   }
 
-  v51 = v14 + v15 + v16;
-  if (v51)
+  v52 = v14 + v15 + v16;
+  if (v52)
   {
-    v47 = v106;
-    Copy = _CreateFormattedStringForDigitsInRange(v112, 0, v110, *v111, &v51[v38], v106, theString, v37, 0);
-    if (v105)
+    v47 = v107;
+    Copy = _CreateFormattedStringForDigitsInRange(v113, 0, v111, *v112, &v52[v38], v107, theString, v37, 0);
+    if (v106)
     {
-      *v105 = a2;
+      *v106 = a2;
     }
 
-    if (v107)
+    if (v108)
     {
-      v52 = 0;
       v53 = 0;
-      *(v107 + 1) = *v103;
-      v54 = *(v103 + 7);
-      v107[3] = &v51[v54];
-      v55 = v14 + *v14 + *(v14 + 1) + v54;
-      v56 = -1;
+      v54 = 0;
+      *(v108 + 1) = *v104;
+      v55 = *(v104 + 7);
+      v108[3] = &v52[v55];
+      v56 = v14 + *v14 + *(v14 + 1) + v55;
+      v57 = -1;
       while (1)
       {
-        v57 = v55[v52];
-        if (v57 == 91)
+        v58 = v56[v53];
+        if (v58 == 91)
         {
-          if (v55[v52 + 1] == 91)
+          if (v56[v53 + 1] == 91)
           {
-            if ((v55[v52 + 2] - 48) > 9)
+            if ((v56[v53 + 2] - 48) > 9)
             {
 LABEL_49:
-              v107[8] = v56;
-              v107[9] = v53;
+              v108[8] = v57;
+              v108[9] = v54;
               break;
             }
 
-            v56 = v52 + 2;
+            v57 = v53 + 2;
           }
         }
 
         else
         {
-          if (!v55[v52])
+          if (!v56[v53])
           {
             goto LABEL_49;
           }
 
-          if (v56 != -1 && v57 == 93 && v55[v52 + 1] == 93)
+          if (v57 != -1 && v58 == 93 && v56[v53 + 1] == 93)
           {
-            v53 = v52 - v56;
+            v54 = (v53 - v57);
           }
         }
 
-        ++v52;
+        ++v53;
       }
     }
 
-    if (!v120 || (v103[12] & 1) != 0)
+    if (!v121 || (v104[12] & 1) != 0)
     {
-      v59 = 1;
+      v60 = 1;
     }
 
     else
     {
-      v60 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@%@", theString, Copy);
+      v61 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@%@", theString, Copy);
       CFRelease(Copy);
-      v59 = 1;
-      Copy = v60;
+      v60 = 1;
+      Copy = v61;
     }
   }
 
   else
   {
 LABEL_43:
-    v58 = *MEMORY[0x277CBECE8];
+    v59 = *MEMORY[0x277CBECE8];
     if (v37 && theString)
     {
-      v125.location = v110;
-      v125.length = *v111;
-      Copy = CFStringCreateWithSubstring(v58, a1, v125);
-      v47 = v106;
-      if (v103)
+      v126.location = v111;
+      v126.length = *v112;
+      Copy = CFStringCreateWithSubstring(v59, a1, v126);
+      v47 = v107;
+      if (v104)
       {
         goto LABEL_56;
       }
@@ -3434,9 +3458,9 @@ LABEL_43:
       goto LABEL_57;
     }
 
-    Copy = CFStringCreateCopy(v58, a1);
-    v47 = v106;
-    v59 = v102;
+    Copy = CFStringCreateCopy(v59, a1);
+    v47 = v107;
+    v60 = v103;
   }
 
   if (!v37)
@@ -3444,10 +3468,10 @@ LABEL_43:
     goto LABEL_87;
   }
 
-  if (v59)
+  if (v60)
   {
 LABEL_56:
-    if ((v103[12] & 2) != 0)
+    if ((v104[12] & 2) != 0)
     {
       goto LABEL_87;
     }
@@ -3456,76 +3480,66 @@ LABEL_56:
 LABEL_57:
   if (theString)
   {
-    v61 = "";
+    v62 = "";
     if ((v47 & 4) != 0)
     {
-      v62 = "";
+      v63 = "";
     }
 
     else
     {
-      v62 = "(";
+      v63 = "(";
     }
 
     if ((v47 & 4) != 0)
     {
-      v63 = &stru_2858F2AC8;
+      v64 = &stru_2858F2AC8;
     }
 
     else
     {
-      v63 = @"");
+      v64 = @"");
     }
 
     if (CFStringGetLength(Copy))
     {
       CharacterAtIndex = CFStringGetCharacterAtIndex(Copy, 0);
-      v65 = *MEMORY[0x277CBECE8];
+      v66 = *MEMORY[0x277CBECE8];
       if (CharacterAtIndex == 40)
       {
-        v126.length = CFStringGetLength(Copy) - 1;
-        v126.location = 1;
-        MutableCopy = CFStringCreateWithSubstring(v65, Copy, v126);
+        v127.length = CFStringGetLength(Copy) - 1;
+        v127.location = 1;
+        MutableCopy = CFStringCreateWithSubstring(v66, Copy, v127);
         if (CFStringGetLength(v37))
         {
-          v61 = " ";
+          v62 = " ";
         }
 
-        v67 = theString;
+        v68 = theString;
         if (CFStringGetLength(MutableCopy))
         {
-          v68 = MutableCopy;
+          v69 = MutableCopy;
         }
 
         else
         {
-          v68 = v63;
+          v69 = v64;
         }
 
-        v69 = CFStringCreateWithFormat(v65, 0, @"%@%s%s%@%@", v37, v61, v62, v67, v68);
+        v70 = CFStringCreateWithFormat(v66, 0, @"%@%s%s%@%@", v37, v62, v63, v68, v69);
         goto LABEL_85;
       }
     }
 
     else
     {
-      v65 = *MEMORY[0x277CBECE8];
+      v66 = *MEMORY[0x277CBECE8];
     }
 
-    v73 = CFStringGetLength(theString);
-    MutableCopy = CFStringCreateMutableCopy(v65, v73, theString);
+    v74 = CFStringGetLength(theString);
+    MutableCopy = CFStringCreateMutableCopy(v66, v74, theString);
     CFStringTrimWhitespace(MutableCopy);
     if (CFStringGetLength(v37))
-    {
-      v74 = " ";
-    }
-
-    else
-    {
-      v74 = "";
-    }
-
-    if (CFStringGetLength(Copy))
     {
       v75 = " ";
     }
@@ -3535,26 +3549,36 @@ LABEL_57:
       v75 = "";
     }
 
-    v69 = CFStringCreateWithFormat(v65, 0, @"%@%s%s%@%@%s%@", v37, v74, v62, MutableCopy, v63, v75, Copy);
+    if (CFStringGetLength(Copy))
+    {
+      v76 = " ";
+    }
+
+    else
+    {
+      v76 = "";
+    }
+
+    v70 = CFStringCreateWithFormat(v66, 0, @"%@%s%s%@%@%s%@", v37, v75, v63, MutableCopy, v64, v76, Copy);
 LABEL_85:
-    v72 = v69;
+    v73 = v70;
     CFRelease(MutableCopy);
 LABEL_86:
     CFRelease(Copy);
-    Copy = v72;
+    Copy = v73;
     goto LABEL_87;
   }
 
   if ((v47 & 2) == 0)
   {
-    v70 = *MEMORY[0x277CBECE8];
-    v71 = "";
+    v71 = *MEMORY[0x277CBECE8];
+    v72 = "";
     if (CFStringGetLength(Copy) && CFStringGetLength(v37))
     {
-      v71 = " ";
+      v72 = " ";
     }
 
-    v72 = CFStringCreateWithFormat(v70, 0, @"%@%s%@", v37, v71, Copy);
+    v73 = CFStringCreateWithFormat(v71, 0, @"%@%s%@", v37, v72, Copy);
     goto LABEL_86;
   }
 
@@ -3694,7 +3718,7 @@ LABEL_40:
   return v4 & 1;
 }
 
-const char *__InternationalPrefixForDigitsInCountry(uint64_t a1, unsigned int a2, const __CFString *a3, const char *a4, CFIndex a5, uint64_t a6, void *a7)
+char *__InternationalPrefixForDigitsInCountry(uint64_t a1, unsigned int a2, const __CFString *a3, const char *a4, CFIndex a5, uint64_t a6, void *a7)
 {
   v11 = 0;
   v12 = a1 + 12;
@@ -3712,8 +3736,10 @@ const char *__InternationalPrefixForDigitsInCountry(uint64_t a1, unsigned int a2
     return 0;
   }
 
-  v52 = 0;
+  v54 = 0;
   v15 = v12 + v11 + 1;
+  v52 = 0u;
+  v53 = 0u;
   v50 = 0u;
   v51 = 0u;
   v48 = 0u;
@@ -3722,28 +3748,26 @@ const char *__InternationalPrefixForDigitsInCountry(uint64_t a1, unsigned int a2
   v47 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
   *buffer = 0u;
   if (!a4)
   {
-    *&v49 = a3;
-    *(&v50 + 1) = 0;
-    *&v51 = CFStringGetLength(a3);
+    *&v51 = a3;
+    *(&v52 + 1) = 0;
+    *&v53 = CFStringGetLength(a3);
     CharactersPtr = CFStringGetCharactersPtr(a3);
     CStringPtr = 0;
-    *(&v49 + 1) = CharactersPtr;
+    *(&v51 + 1) = CharactersPtr;
     if (!CharactersPtr)
     {
       CStringPtr = CFStringGetCStringPtr(a3, 0x600u);
     }
 
-    *(&v51 + 1) = 0;
-    v52 = 0;
-    *&v50 = CStringPtr;
+    *(&v53 + 1) = 0;
+    v54 = 0;
+    *&v52 = CStringPtr;
   }
 
-  v37 = a7;
+  v39 = a7;
   v18 = *MEMORY[0x277CBECE8];
   contentsDeallocator = *MEMORY[0x277CBED00];
   while (1)
@@ -3800,34 +3824,35 @@ LABEL_14:
       }
 
       v24 = v23;
-      if (!InlineBufferHasPatternAtOffset(buffer, a4, v20, a5))
+      HasPatternAtOffset = InlineBufferHasPatternAtOffset(buffer, a4, v20, a5);
+      if (!HasPatternAtOffset)
       {
         break;
       }
 
-      v25 = v24;
-      v26 = PNGetFormatFileHeader() + 12 * a2;
-      v27 = strlen((v26 + 8));
-      v28 = CFStringCreateWithBytesNoCopy(v18, (v26 + 8), v27, 0x8000100u, 0, contentsDeallocator);
+      v27 = v24;
+      v28 = PNGetFormatFileHeader(HasPatternAtOffset, v26) + 12 * a2;
+      v29 = strlen((v28 + 8));
+      v30 = CFStringCreateWithBytesNoCopy(v18, (v28 + 8), v29, 0x8000100u, 0, contentsDeallocator);
       if (a4)
       {
-        v29 = strlen(a4);
-        v30 = CFStringCreateWithBytesNoCopy(v18, &a4[v25], v29 - v25, 0x8000100u, 0, contentsDeallocator);
+        v31 = strlen(a4);
+        v32 = CFStringCreateWithBytesNoCopy(v18, &a4[v27], v31 - v27, 0x8000100u, 0, contentsDeallocator);
       }
 
       else
       {
-        v53.length = CFStringGetLength(a3) - v25;
-        v53.location = v25;
-        v30 = CFStringCreateWithSubstring(v18, a3, v53);
+        v55.length = CFStringGetLength(a3) - v27;
+        v55.location = v27;
+        v32 = CFStringCreateWithSubstring(v18, a3, v55);
       }
 
-      v31 = v30;
+      v33 = v32;
       MutableCopy = CFStringCreateMutableCopy(v18, 0, @"+");
-      CFStringAppend(MutableCopy, v31);
-      valid = _PNIsValidPhoneNumberForCountry(MutableCopy, v28, 0, 1, 0);
-      CFRelease(v28);
-      CFRelease(v31);
+      CFStringAppend(MutableCopy, v33);
+      valid = _PNIsValidPhoneNumberForCountry(MutableCopy, v30, 0, 1, 0);
+      CFRelease(v30);
+      CFRelease(v33);
       CFRelease(MutableCopy);
       if (valid)
       {
@@ -3838,12 +3863,12 @@ LABEL_14:
     v15 = &v21[strlen(v21) + 1];
   }
 
-  if (v37)
+  if (v39)
   {
-    v34 = &v21[v22];
-    if (v21[v22 + 1] == 45 && v34[2] == 62)
+    v36 = &v21[v22];
+    if (v21[v22 + 1] == 45 && v36[2] == 62)
     {
-      *v37 = v34 + 3;
+      *v39 = v36 + 3;
     }
   }
 
@@ -3891,7 +3916,7 @@ LABEL_13:
 
 CFStringRef _PNCopyFormattedNumberForDigitsWithCountry(const __CFString *a1, const __CFString *a2, unsigned int a3)
 {
-  v6 = PNGetFormatFileHeader();
+  v6 = PNGetFormatFileHeader(a1, a2);
   FormattedNumberForDigitsWithCountryIndex = 0;
   if (!a1 || !a2 || !v6)
   {
@@ -4086,9 +4111,9 @@ LABEL_60:
               if (!((v102 | v111) & 1 | (v9 != 0)))
               {
                 v33 = CFStringGetLength(v10);
-                v116.location = 0;
-                v116.length = v33;
-                CFStringGetCharacters(v10, v116, v24);
+                v117.location = 0;
+                v117.length = v33;
+                CFStringGetCharacters(v10, v117, v24);
                 v27 = a2;
                 v30 = 0;
                 v25 = 0;
@@ -4134,9 +4159,9 @@ LABEL_95:
             else
             {
               v50 = CFStringGetLength(v9);
-              v117.location = 0;
-              v117.length = v50;
-              CFStringGetCharacters(v9, v117, v24);
+              v118.location = 0;
+              v118.length = v50;
+              CFStringGetCharacters(v9, v118, v24);
               v27 = a2;
               v24 += v50;
               if (!v10)
@@ -4162,10 +4187,10 @@ LABEL_94:
             v82 = v24 + 1;
             if ((a6 & 4) != 0)
             {
-              v120.location = 0;
+              v121.location = 0;
               v87 = v81;
-              v120.length = v81;
-              CFStringGetCharacters(v10, v120, v82);
+              v121.length = v81;
+              CFStringGetCharacters(v10, v121, v82);
               v25 = 0;
               v30 = 1;
               v108 = 1;
@@ -4178,10 +4203,10 @@ LABEL_94:
             {
               v24[1] = 40;
               v83 = v24 + 2;
-              v119.location = 0;
+              v120.location = 0;
               v84 = v81;
-              v119.length = v81;
-              CFStringGetCharacters(v10, v119, v83);
+              v120.length = v81;
+              CFStringGetCharacters(v10, v120, v83);
               v25 = 0;
               v85 = &v83[v84];
               *v85 = 41;
@@ -4337,9 +4362,9 @@ LABEL_63:
 
                 *(v34 + 168) = v90;
                 *(v34 + 176) = v41;
-                v121.length = v41 - v90;
-                v121.location = *(v34 + 152) + v90;
-                CFStringGetCharacters(*(v34 + 128), v121, v34);
+                v122.length = v41 - v90;
+                v122.location = *(v34 + 152) + v90;
+                CFStringGetCharacters(*(v34 + 128), v122, v34);
                 v34 = a1;
                 v89 = *(a1 + 168);
               }
@@ -4446,9 +4471,9 @@ LABEL_69:
 
                 *(a1 + 168) = v92;
                 *(a1 + 176) = v48;
-                v122.length = v48 - v92;
-                v122.location = *(a1 + 152) + v92;
-                CFStringGetCharacters(*(a1 + 128), v122, a1);
+                v123.length = v48 - v92;
+                v123.location = *(a1 + 152) + v92;
+                CFStringGetCharacters(*(a1 + 128), v123, a1);
                 v34 = a1;
                 v91 = *(a1 + 168);
               }
@@ -4462,7 +4487,8 @@ LABEL_69:
       }
 
       *v24 = v35;
-      if (pn_uset_basicPresentationSetContains() == 1)
+      v116[0] = 0;
+      if (pn_uset_basicPresentationSetContains(v35, v116) == 1)
       {
         v30 = 0;
         v25 = 0;
@@ -4576,12 +4602,12 @@ LABEL_119:
                 v69 = v76;
               }
 
-              v118.location = v77 + *(a1 + 152);
-              v118.length = v69 + v75;
+              v119.location = v77 + *(a1 + 152);
+              v119.length = v69 + v75;
               v114 = v57;
               v110 = v64;
               v97 = v65;
-              CFStringGetCharacters(*(a1 + 128), v118, a1);
+              CFStringGetCharacters(*(a1 + 128), v119, a1);
               v65 = v97;
               v64 = v110;
               v63 = a1;
@@ -4687,9 +4713,9 @@ uint64_t _UIPhoneFormatEntryReplacementCountryCodeRange(unsigned __int16 *a1, ui
   v2 = 0;
   v3 = a1 + *a1 + *(a1 + 1) + *(a2 + 14);
   v4 = -1;
-  while (*(v3 + v2) == 91)
+  while (v3[v2] == 91)
   {
-    if (*(v3 + v2 + 1) == 91 && !strncmp("country:", (v3 + v2 + 2), 8uLL))
+    if (v3[v2 + 1] == 91 && !strncmp("country:", &v3[v2 + 2], 8uLL))
     {
       v4 = v2 + 10;
     }
@@ -4698,7 +4724,7 @@ LABEL_8:
     ++v2;
   }
 
-  if (*(v3 + v2))
+  if (v3[v2])
   {
     goto LABEL_8;
   }
@@ -4706,7 +4732,7 @@ LABEL_8:
   return v4;
 }
 
-uint64_t pn_uset_basicPresentationSetContains()
+uint64_t pn_uset_basicPresentationSetContains(uint64_t a1, uint64_t a2)
 {
   os_unfair_lock_lock(&__pn_uset_unfair_lock);
   if (!__pn_uset_getBasicPresentationSet_set)
@@ -4734,7 +4760,7 @@ uint64_t pn_uset_basicPresentationSetContains()
 
 uint64_t _PNFindFormatRuleForDigitsWithCountry(const __CFString *a1, const __CFString *a2, int a3, uint64_t a4)
 {
-  v8 = PNGetFormatFileHeader();
+  v8 = PNGetFormatFileHeader(a1, a2);
   v9 = 0;
   if (a1 && a2 && v8)
   {
@@ -4855,7 +4881,7 @@ uint64_t __CFPhoneNumberEqual(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-_BYTE *__CFPhoneNumberNormalize(_BYTE *result)
+char *__CFPhoneNumberNormalize(char *result)
 {
   if (!*(result + 2))
   {
@@ -5174,7 +5200,7 @@ CFStringRef _PNCopyFullyQualifiedOriginalValue(const __CFString *a1, const __CFS
   }
 }
 
-uint64_t cpn_default_log()
+uint64_t cpn_default_log(uint64_t a1, uint64_t a2)
 {
   if (cpn_default_log_onceToken != -1)
   {
@@ -5274,7 +5300,7 @@ LABEL_9:
   return v6;
 }
 
-__CFString *_PNCopyFullyQualifiedNumberForCountry(const __CFString *a1, __CFString *a2, uint64_t a3, _DWORD *a4)
+CFMutableStringRef _PNCopyFullyQualifiedNumberForCountry(const __CFString *a1, __CFString *a2, uint64_t a3, _DWORD *a4)
 {
   if (a1 && a2)
   {
@@ -5312,7 +5338,7 @@ __CFString *_PNCopyFullyQualifiedNumberForCountry(const __CFString *a1, __CFStri
 
 CFStringRef _PNCopyAreaCodeForCountry(const __CFString *a1, const __CFString *a2)
 {
-  v4 = PNGetFormatFileHeader();
+  v4 = PNGetFormatFileHeader(a1, a2);
   if (!a1)
   {
     return 0;
@@ -5567,7 +5593,7 @@ LABEL_3:
   }
 }
 
-__CFString *_PNCopySampleNumberForCountry(const __CFString *key)
+CFMutableStringRef _PNCopySampleNumberForCountry(const __CFString *key)
 {
   if (_PNInitializeSamplePhoneNumbers_sSampleNumberOnceToken == -1)
   {
@@ -5589,60 +5615,60 @@ LABEL_3:
   Value = CFDictionaryGetValue(sSamplePhoneNumbers, key);
   if (!Value)
   {
-    v4 = PNGetFormatFileHeader();
-    if (!v4)
+    v5 = PNGetFormatFileHeader(0, v3);
+    if (!v5)
     {
       return 0;
     }
 
-    v5 = v4;
-    InfoIndex = UIPhoneFormatCountryGetInfoIndex(v4, key);
+    v6 = v5;
+    InfoIndex = UIPhoneFormatCountryGetInfoIndex(v5, key);
     if (InfoIndex == -1)
     {
       return 0;
     }
 
-    v7 = (&v5[3 * UIPhoneFormatCountryGetCount(v5) + 1] + v5[3 * InfoIndex + 3]);
-    v8 = *(v7 + 2);
-    if (!v8)
+    v8 = (&v6[3 * UIPhoneFormatCountryGetCount(v6) + 1] + v6[3 * InfoIndex + 3]);
+    v9 = *(v8 + 2);
+    if (!v9)
     {
       return 0;
     }
 
-    v9 = 0;
-    v10 = v7 + *v7;
+    v10 = 0;
+    v11 = v8 + *v8;
     while (1)
     {
-      v11 = *(v10 + 1);
-      if (*(v10 + 1))
+      v12 = *(v11 + 1);
+      if (*(v11 + 1))
       {
         break;
       }
 
 LABEL_16:
       Mutable = 0;
-      v10 += v11 + 4;
-      if (++v9 == v8)
+      v11 += v12 + 4;
+      if (++v10 == v9)
       {
         return Mutable;
       }
     }
 
-    v12 = (v10 + 13);
-    v13 = *(v10 + 1);
-    while (!v12[2])
+    v13 = (v11 + 13);
+    v14 = *(v11 + 1);
+    while (!v13[2])
     {
-      v12 += 16;
-      if (!--v13)
+      v13 += 16;
+      if (!--v14)
       {
-        v11 *= 16;
+        v12 *= 16;
         goto LABEL_16;
       }
     }
 
-    Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], *v12);
-    CFStringAppendFormat(Mutable, 0, @"%d", *(v12 - 9));
-    while (CFStringGetLength(Mutable) < *v12)
+    Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], *v13);
+    CFStringAppendFormat(Mutable, 0, @"%d", *(v13 - 9));
+    while (CFStringGetLength(Mutable) < *v13)
     {
       CFStringAppendFormat(Mutable, 0, @"%c", 53);
     }
@@ -5660,7 +5686,7 @@ unsigned int *_PNCopyInternationalPrefix(const __CFString *a1, const __CFString 
   {
     if (a2)
     {
-      result = PNGetFormatFileHeader();
+      result = PNGetFormatFileHeader(0, a2);
       if (result)
       {
         v5 = result;
@@ -5746,62 +5772,62 @@ CFStringRef _PNCopyInternationalDirectDialingPrefixForCountry(const __CFAllocato
     return 0;
   }
 
-  v4 = PNGetFormatFileHeader();
-  if (!v4)
+  v5 = PNGetFormatFileHeader(2, v4);
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = v4;
-  InfoIndex = UIPhoneFormatCountryGetInfoIndex(v4, theString);
+  v6 = v5;
+  InfoIndex = UIPhoneFormatCountryGetInfoIndex(v5, theString);
   if (InfoIndex == -1)
   {
     return 0;
   }
 
-  v7 = &v5[3 * UIPhoneFormatCountryGetCount(v5) + 1] + v5[3 * InfoIndex + 3];
-  if (!v7)
+  v8 = &v6[3 * UIPhoneFormatCountryGetCount(v6) + 1] + v6[3 * InfoIndex + 3];
+  if (!v8)
   {
     return 0;
   }
 
-  v8 = 0;
-  v9 = v7 + 12;
-  v10 = (v7 + 12);
+  v9 = 0;
+  v10 = v8 + 12;
+  v11 = (v8 + 12);
   do
   {
-    v11 = strlen(v10);
-    v8 += v11 + 1;
-    v10 += v11 + 1;
+    v12 = strlen(v11);
+    v9 += v12 + 1;
+    v11 += v12 + 1;
   }
 
-  while (*v10);
+  while (*v11);
 
-  return CFStringCreateWithCString(a1, (v9 + v8 + 1), 0x8000100u);
+  return CFStringCreateWithCString(a1, (v10 + v9 + 1), 0x8000100u);
 }
 
-CFStringRef _CopyPrefixForDigitsWithCountryIndex(const __CFString *a1, unsigned int a2)
+CFStringRef _CopyPrefixForDigitsWithCountryIndex(const __CFString *a1, uint64_t a2)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v15[0] = 0;
+  v14[1] = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v14[0] = 0;
+  v15.length = CFStringGetLength(a1);
+  v15.location = 0;
+  Bytes = CFStringGetBytes(a1, v15, 0x8000100u, 0, 0, 0, 0, v14);
+  MEMORY[0x28223BE20](Bytes);
+  v6 = v10 - ((v5 + 16) & 0xFFFFFFFFFFFFFFF0);
   v16.length = CFStringGetLength(a1);
   v16.location = 0;
-  Bytes = CFStringGetBytes(a1, v16, 0x8000100u, 0, 0, 0, 0, v15);
-  MEMORY[0x28223BE20](Bytes);
-  v6 = v11 - ((v5 + 16) & 0xFFFFFFFFFFFFFFF0);
-  v17.length = CFStringGetLength(a1);
-  v17.location = 0;
-  CFStringGetBytes(a1, v17, 0x8000100u, 0, 0, v6, v15[0], &v14);
-  v6[v14] = 0;
+  CFStringGetBytes(a1, v16, 0x8000100u, 0, 0, v6, v14[0], &v13);
+  v6[v13] = 0;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  memset(v11, 0, sizeof(v11));
-  v7 = _DecomposePhoneNumberWithCountryIndex(v6, a2, v11, 0, 1);
+  memset(v10, 0, sizeof(v10));
+  v7 = _DecomposePhoneNumberWithCountryIndex(v6, a2, v10, 0, 1);
   result = 0;
   if (v7)
   {
-    v9 = v12 == 0;
+    v9 = v11 == 0;
   }
 
   else
@@ -5811,10 +5837,9 @@ CFStringRef _CopyPrefixForDigitsWithCountryIndex(const __CFString *a1, unsigned 
 
   if (!v9)
   {
-    result = CFStringCreateWithBytes(*MEMORY[0x277CBECE8], v12, DWORD2(v12), 0x8000100u, 0);
+    return CFStringCreateWithBytes(*MEMORY[0x277CBECE8], v11, DWORD2(v11), 0x8000100u, 0);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5830,82 +5855,80 @@ CFStringRef _PNCopyNationalDirectDialingPrefixForCountry(const __CFAllocator *a1
     return 0;
   }
 
-  v4 = PNGetFormatFileHeader();
-  if (!v4)
+  v5 = PNGetFormatFileHeader(2, v4);
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = v4;
-  InfoIndex = UIPhoneFormatCountryGetInfoIndex(v4, theString);
+  v6 = v5;
+  InfoIndex = UIPhoneFormatCountryGetInfoIndex(v5, theString);
   if (InfoIndex == -1)
   {
     return 0;
   }
 
-  v7 = &v5[3 * UIPhoneFormatCountryGetCount(v5) + 1] + v5[3 * InfoIndex + 3];
-  if (!v7)
+  v8 = &v6[3 * UIPhoneFormatCountryGetCount(v6) + 1] + v6[3 * InfoIndex + 3];
+  if (!v8)
   {
     return 0;
   }
 
-  return CFStringCreateWithCString(a1, (v7 + 12), 0x8000100u);
+  return CFStringCreateWithCString(a1, (v8 + 12), 0x8000100u);
 }
 
-CFStringRef _PNCopyFormattedNumberForDigitsWithCountryByRemovingAtIndex(const __CFString *a1, __CFString *a2, uint64_t a3)
+__CFString *_PNCopyFormattedNumberForDigitsWithCountryByRemovingAtIndex(const __CFString *a1, __CFString *a2, uint64_t a3)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
-  if (a1 && (Length = CFStringGetLength(a1), v7 = Length - 1, Length >= 1))
+  v17[1] = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    v8 = Length;
-    v9 = a3 - 1;
-    MEMORY[0x28223BE20](Length);
-    v11 = (v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-    v19.location = 0;
-    v19.length = v8;
-    CFStringGetCharacters(a1, v19, v11);
-    if (v9 <= v8)
+    return &stru_2858F2AC8;
+  }
+
+  Length = CFStringGetLength(a1);
+  v7 = Length - 1;
+  if (Length < 1)
+  {
+    return &stru_2858F2AC8;
+  }
+
+  v8 = Length;
+  v9 = a3 - 1;
+  MEMORY[0x28223BE20](Length);
+  v11 = (v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v18.location = 0;
+  v18.length = v8;
+  CFStringGetCharacters(a1, v18, v11);
+  if (v9 <= v8)
+  {
+    v12 = v9;
+  }
+
+  else
+  {
+    v12 = v7;
+  }
+
+  if (v12 < 0)
+  {
+    return _PNCopyCompressedFormattedStringWithCountry(a1, a2, 0);
+  }
+
+  while (_IsInFormattingSet(v11[v12]))
+  {
+    if (v12-- <= 0)
     {
-      v12 = v9;
+      return _PNCopyCompressedFormattedStringWithCountry(a1, a2, 0);
     }
+  }
 
-    else
-    {
-      v12 = v7;
-    }
-
-    if (v12 < 0)
-    {
-LABEL_10:
-      v14 = _PNCopyCompressedFormattedStringWithCountry(a1, a2, 0);
-    }
-
-    else
-    {
-      while (_IsInFormattingSet(v11[v12]))
-      {
-        if (v12-- <= 0)
-        {
-          goto LABEL_10;
-        }
-      }
-
-      MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x277CBECE8], 0, a1);
-      v20.location = v12;
-      v20.length = 1;
-      CFStringDelete(MutableCopy, v20);
-      if (CFStringGetLength(MutableCopy))
-      {
-        v14 = _PNCopyCompressedFormattedStringWithCountry(MutableCopy, a2, 0);
-      }
-
-      else
-      {
-        v14 = &stru_2858F2AC8;
-      }
-
-      CFRelease(MutableCopy);
-    }
+  MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x277CBECE8], 0, a1);
+  v19.location = v12;
+  v19.length = 1;
+  CFStringDelete(MutableCopy, v19);
+  if (CFStringGetLength(MutableCopy))
+  {
+    v14 = _PNCopyCompressedFormattedStringWithCountry(MutableCopy, a2, 0);
   }
 
   else
@@ -5913,7 +5936,7 @@ LABEL_10:
     v14 = &stru_2858F2AC8;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  CFRelease(MutableCopy);
   return v14;
 }
 
@@ -5973,60 +5996,52 @@ LABEL_20:
 
 uint64_t _PNCountNonPhoneFormattingCharactersPrecedingIndex(const __CFString *a1, CFIndex a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   Length = CFStringGetLength(a1);
-  if (Length)
+  if (!Length)
   {
-    if (Length < a2)
-    {
-      a2 = Length;
-    }
-
-    MEMORY[0x28223BE20](Length);
-    v6 = (v11 - v5);
-    v12.location = 0;
-    v12.length = a2;
-    CFStringGetCharacters(a1, v12, (v11 - v5));
-    if (a2 < 1)
-    {
-      v7 = 0;
-    }
-
-    else
-    {
-      v7 = 0;
-      do
-      {
-        v8 = *v6++;
-        v7 += _IsInFormattingSet(v8) ^ 1;
-        --a2;
-      }
-
-      while (a2);
-    }
+    return 0;
   }
 
-  else
+  if (Length < a2)
   {
-    v7 = 0;
+    a2 = Length;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  MEMORY[0x28223BE20](Length);
+  v6 = (v10 - v5);
+  v11.location = 0;
+  v11.length = a2;
+  CFStringGetCharacters(a1, v11, (v10 - v5));
+  if (a2 < 1)
+  {
+    return 0;
+  }
+
+  v7 = 0;
+  do
+  {
+    v8 = *v6++;
+    v7 += !_IsInFormattingSet(v8);
+    --a2;
+  }
+
+  while (a2);
   return v7;
 }
 
 uint64_t _PNIndexCountingNonPhoneFormattingCharactersFromStart(const __CFString *a1, uint64_t a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   Length = CFStringGetLength(a1);
   result = 0;
   if (a2 && Length)
   {
     MEMORY[0x28223BE20](0);
-    v7 = (v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-    v13.location = 0;
-    v13.length = Length;
-    CFStringGetCharacters(a1, v13, v7);
+    v7 = (v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v12.location = 0;
+    v12.length = Length;
+    CFStringGetCharacters(a1, v12, v7);
     if (Length < 1)
     {
       v10 = 0;
@@ -6051,20 +6066,19 @@ uint64_t _PNIndexCountingNonPhoneFormattingCharactersFromStart(const __CFString 
 LABEL_11:
     if (v10 >= Length)
     {
-      result = Length;
+      return Length;
     }
 
     else
     {
-      result = v10;
+      return v10;
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t UIPhoneFormatFileGetCountryLength(unsigned int *a1, int a2, int a3)
+uint64_t UIPhoneFormatFileGetCountryLength(unsigned int *a1, int a2, unsigned int a3)
 {
   v6 = a1 + 1;
   v7 = &v6[3 * UIPhoneFormatCountryGetCount(a1)] + v6[3 * a3 + 2];
@@ -6134,7 +6148,7 @@ uint64_t itu_strncmp(const char *a1, const char *a2, size_t a3)
   return 1;
 }
 
-uint64_t pn_uset_alphabetSetContains()
+uint64_t pn_uset_alphabetSetContains(uint64_t a1, uint64_t a2)
 {
   os_unfair_lock_lock(&__pn_uset_unfair_lock);
   if (!__pn_uset_getAlphabetSet_set)
@@ -6160,7 +6174,7 @@ uint64_t pn_uset_alphabetSetContains()
   return result;
 }
 
-uint64_t pn_uset_internationalPrefixSetContains()
+uint64_t pn_uset_internationalPrefixSetContains(uint64_t a1, uint64_t a2)
 {
   os_unfair_lock_lock(&__pn_uset_unfair_lock);
   if (!__pn_uset_getInternationalPrefixSet_set)
@@ -6186,7 +6200,7 @@ uint64_t pn_uset_internationalPrefixSetContains()
   return result;
 }
 
-uint64_t pn_uset_numeralSetContains()
+uint64_t pn_uset_numeralSetContains(uint64_t a1, uint64_t a2)
 {
   os_unfair_lock_lock(&__pn_uset_unfair_lock);
   if (!__pn_uset_getNumeralSet_set)
@@ -6212,7 +6226,7 @@ uint64_t pn_uset_numeralSetContains()
   return result;
 }
 
-uint64_t pn_uset_pauseSetContains()
+uint64_t pn_uset_pauseSetContains(uint64_t a1, uint64_t a2)
 {
   os_unfair_lock_lock(&__pn_uset_unfair_lock);
   if (!__pn_uset_getPauseSet_set)
@@ -6238,7 +6252,7 @@ uint64_t pn_uset_pauseSetContains()
   return result;
 }
 
-uint64_t pn_uset_separatorSetContains()
+uint64_t pn_uset_separatorSetContains(uint64_t a1, uint64_t a2)
 {
   os_unfair_lock_lock(&__pn_uset_unfair_lock);
   if (!__pn_uset_getSeparatorSet_set)
@@ -6264,7 +6278,7 @@ uint64_t pn_uset_separatorSetContains()
   return result;
 }
 
-uint64_t pn_uset_verticalServiceSetContains()
+uint64_t pn_uset_verticalServiceSetContains(uint64_t a1, uint64_t a2)
 {
   os_unfair_lock_lock(&__pn_uset_unfair_lock);
   if (!__pn_uset_getVerticalServiceSet_set)
@@ -6417,13 +6431,13 @@ uint64_t CFPhoneNumberCreateCopy(uint64_t a1, uint64_t a2)
   return Instance;
 }
 
-CFStringRef CFPhoneNumberCopyNumberForInternationalAssist(uint64_t a1, char *a2)
+CFStringRef CFPhoneNumberCopyNumberForInternationalAssist(const __CFString **a1, char *a2)
 {
-  v4 = _PNCopyFullyQualifiedNumberForCountryInternal(*(a1 + 24), *(a1 + 48), *(a1 + 32), &__block_literal_global_9, 0, 0);
+  v4 = _PNCopyFullyQualifiedNumberForCountryInternal(a1[3], a1[6], a1[4], &__block_literal_global_9, 0, 0);
   if (v4)
   {
     Copy = v4;
-    if (CFStringCompare(v4, *(a1 + 40), 0))
+    if (CFStringCompare(v4, a1[5], 0))
     {
       if (a2)
       {
@@ -6439,7 +6453,7 @@ LABEL_8:
     CFRelease(Copy);
   }
 
-  Copy = CFStringCreateCopy(*MEMORY[0x277CBECE8], *(a1 + 40));
+  Copy = CFStringCreateCopy(*MEMORY[0x277CBECE8], a1[5]);
   if (a2)
   {
     v6 = 0;
@@ -6545,17 +6559,24 @@ uint64_t __CFPhoneNumberCopyDescription(uint64_t a1)
 uint64_t PhoneNumber.number.getter()
 {
   v1 = *(v0 + 8);
-  v2 = *(v0 + 16);
 
   return v1;
 }
 
 uint64_t PhoneNumber.number.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 16);
 
   *(v2 + 8) = a1;
   *(v2 + 16) = a2;
+  return result;
+}
+
+CorePhoneNumbers::PhoneNumber __swiftcall PhoneNumber.init(isoCode:number:)(CorePhoneNumbers::ISOCode isoCode, Swift::String number)
+{
+  *v2 = *isoCode;
+  *(v2 + 8) = number;
+  result.number = number;
+  result.isoCode = isoCode;
   return result;
 }
 
@@ -6586,18 +6607,15 @@ CorePhoneNumbers::PhoneNumber_optional __swiftcall PhoneNumber.init(isoCodeStrin
 
 uint64_t PhoneNumber.normalizedNumber.getter()
 {
-  v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = *(v0 + 2);
-  v4 = sub_2461C2B70();
+  v0 = sub_2461C2B70();
   ISOCode.rawValue.getter();
-  v5 = sub_2461C2B70();
+  v1 = sub_2461C2B70();
 
-  v6 = PNCopyBestGuessNormalizedNumberForCountry(v4, v5);
+  v2 = PNCopyBestGuessNormalizedNumberForCountry(v0, v1);
 
-  if (v6)
+  if (v2)
   {
-    v7 = v6;
+    v3 = v2;
   }
 
   else
@@ -6605,21 +6623,47 @@ uint64_t PhoneNumber.normalizedNumber.getter()
     __break(1u);
   }
 
-  return MEMORY[0x2821FBE78](v7);
+  return MEMORY[0x2821FBE78](v3);
 }
 
 uint64_t PhoneNumber.isValid.getter()
 {
-  v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = *(v0 + 2);
-  v4 = sub_2461C2B70();
+  v0 = sub_2461C2B70();
   ISOCode.rawValue.getter();
-  v5 = sub_2461C2B70();
+  v1 = sub_2461C2B70();
 
-  valid = PNIsValidPhoneNumberForCountry(v4, v5);
+  valid = PNIsValidPhoneNumberForCountry(v0, v1);
 
   return valid;
+}
+
+Swift::String_optional __swiftcall PhoneNumber.formattedNumber(with:compression:)(CorePhoneNumbers::FormatLocalization with, CorePhoneNumbers::FormatCompression compression)
+{
+  v2 = sub_2461C2B70();
+  ISOCode.rawValue.getter();
+  v3 = sub_2461C2B70();
+
+  v4 = sub_2461C2898();
+  v5 = sub_2461C2830();
+  v6 = PNCreateFormattedStringWithCountry(v2, v3, v4, v5);
+
+  if (v6)
+  {
+    v9 = sub_2461C2B80();
+    v11 = v10;
+
+    v7 = v9;
+    v8 = v11;
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  result.value._object = v8;
+  result.value._countAndFlagsBits = v7;
+  return result;
 }
 
 uint64_t sub_2461C10A8()
@@ -6630,11 +6674,11 @@ uint64_t sub_2461C10A8()
   return sub_2461C2C60();
 }
 
-uint64_t sub_2461C111C()
+uint64_t sub_2461C111C(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_2461C2C40();
-  MEMORY[0x24C19B6E0](v1);
+  MEMORY[0x24C19B6E0](v2);
   return sub_2461C2C60();
 }
 
@@ -6642,16 +6686,13 @@ uint64_t sub_2461C1160()
 {
   if (*v0)
   {
-    result = 0x7265626D756ELL;
+    return 0x7265626D756ELL;
   }
 
   else
   {
-    result = 0x65646F436F7369;
+    return 0x65646F436F7369;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t sub_2461C1198@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
@@ -6706,35 +6747,30 @@ uint64_t PhoneNumber.encode(to:)(void *a1)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE407F0, &qword_2461C3480);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = v13 - v7;
-  v9 = *v1;
-  v10 = *(v1 + 1);
-  v13[0] = *(v1 + 2);
-  v13[1] = v10;
-  v11 = a1[4];
+  v7 = v11 - v6;
+  v8 = *v1;
+  v9 = *(v1 + 1);
+  v11[0] = *(v1 + 2);
+  v11[1] = v9;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_2461C1A64();
   sub_2461C2C80();
-  v16 = v9;
-  v15 = 0;
+  v14 = v8;
+  v13 = 0;
   sub_2461C1AB8();
   sub_2461C2C20();
   if (!v2)
   {
-    v14 = 1;
+    v12 = 1;
     sub_2461C2C10();
   }
 
-  return (*(v5 + 8))(v8, v4);
+  return (*(v5 + 8))(v7, v4);
 }
 
-uint64_t PhoneNumber.hash(into:)()
+uint64_t PhoneNumber.hash(into:)(uint64_t a1)
 {
-  v1 = *(v0 + 1);
-  v2 = *(v0 + 2);
-  v4 = *v0;
   sub_2461C1B0C();
   sub_2461C2B60();
   return sub_2461C2BB0();
@@ -6742,9 +6778,6 @@ uint64_t PhoneNumber.hash(into:)()
 
 uint64_t PhoneNumber.hashValue.getter()
 {
-  v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = *(v0 + 2);
   sub_2461C2C40();
   sub_2461C1B0C();
   sub_2461C2B60();
@@ -6756,26 +6789,24 @@ uint64_t PhoneNumber.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE40808, &qword_2461C3488);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v16 - v8;
-  v10 = a1[4];
+  v8 = &v14 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_2461C1A64();
   sub_2461C2C70();
   if (!v2)
   {
-    v18 = 0;
+    v16 = 0;
     sub_2461C1BAC();
     sub_2461C2C00();
-    v11 = v19;
-    v17 = 1;
-    v13 = sub_2461C2BF0();
-    v15 = v14;
-    (*(v6 + 8))(v9, v5);
-    *a2 = v11;
-    *(a2 + 8) = v13;
-    *(a2 + 16) = v15;
+    v9 = v17;
+    v15 = 1;
+    v11 = sub_2461C2BF0();
+    v13 = v12;
+    (*(v6 + 8))(v8, v5);
+    *a2 = v9;
+    *(a2 + 8) = v11;
+    *(a2 + 16) = v13;
   }
 
   return __swift_destroy_boxed_opaque_existential_1(a1);
@@ -6783,9 +6814,6 @@ uint64_t PhoneNumber.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_2461C1774()
 {
-  v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = *(v0 + 2);
   sub_2461C2C40();
   sub_2461C1B0C();
   sub_2461C2B60();
@@ -6793,21 +6821,15 @@ uint64_t sub_2461C1774()
   return sub_2461C2C60();
 }
 
-uint64_t sub_2461C17EC()
+uint64_t sub_2461C17EC(uint64_t a1)
 {
-  v1 = *(v0 + 1);
-  v2 = *(v0 + 2);
-  v4 = *v0;
   sub_2461C1B0C();
   sub_2461C2B60();
   return sub_2461C2BB0();
 }
 
-uint64_t sub_2461C1854()
+uint64_t sub_2461C1854(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = *(v0 + 2);
   sub_2461C2C40();
   sub_2461C1B0C();
   sub_2461C2B60();
@@ -6815,28 +6837,21 @@ uint64_t sub_2461C1854()
   return sub_2461C2C60();
 }
 
-uint64_t _s16CorePhoneNumbers0B6NumberV2eeoiySbAC_ACtFZ_0(__int16 *a1, __int16 *a2)
+uint64_t _s16CorePhoneNumbers0B6NumberV2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = *(a1 + 1);
-  v4 = *(a1 + 2);
-  v5 = *a2;
-  v6 = *(a2 + 1);
-  v7 = *(a2 + 2);
-  v14 = 0;
-  v8 = sub_2461C2B70();
+  v9 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v2 = sub_2461C2B70();
   ISOCode.rawValue.getter();
-  v9 = sub_2461C2B70();
+  v3 = sub_2461C2B70();
 
-  v10 = sub_2461C2B70();
+  v4 = sub_2461C2B70();
   ISOCode.rawValue.getter();
-  v11 = sub_2461C2B70();
+  v5 = sub_2461C2B70();
 
-  LOBYTE(v2) = PNPhoneNumbersEqual(v8, v9, v10, v11, 1, &v14);
+  v6 = PNPhoneNumbersEqual(v2, v3, v4, v5, 1, &v8);
 
-  v12 = *MEMORY[0x277D85DE8];
-  return (v2 & v14);
+  return (v6 & v8);
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
@@ -6844,7 +6859,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -7237,50 +7251,63 @@ LABEL_9:
   return result;
 }
 
-uint64_t sub_2461C213C()
+void static ISOCode.inferred(from:)(uint64_t a1, uint64_t a2)
 {
-  v1 = *v0;
-  result = qword_2461C4430[v1];
-  v3 = qword_2461C4C38[v1];
-  return result;
+  v2 = sub_2461C2B70();
+  v3 = PNCopyBestGuessCountryCodeForNumber(v2);
+
+  if (v3)
+  {
+    sub_2461C2B80();
+
+    v4 = sub_2461C2B90();
+    v6 = v5;
+
+    v7 = v4;
+    v8 = v6;
+
+    ISOCode.init(rawValue:)(*&v7);
+  }
+
+  else
+  {
+    __break(1u);
+  }
 }
 
 uint64_t sub_2461C215C()
 {
   v1 = sub_2461C2B50();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
   MEMORY[0x28223BE20](v1);
-  v5 = v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = *v0;
+  v4 = v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = *v0;
   sub_2461C2B40();
-  v9[7] = v6;
+  v8[7] = v5;
   ISOCode.rawValue.getter();
   sub_2461C2BA0();
 
-  v7 = sub_2461C2B30();
+  v6 = sub_2461C2B30();
 
-  (*(v2 + 8))(v5, v1);
-  return v7;
+  (*(v2 + 8))(v4, v1);
+  return v6;
 }
 
-uint64_t sub_2461C2278(__int16 *a1, __int16 *a2)
+uint64_t sub_2461C2278()
 {
-  v10 = *a1;
-  v9 = *a2;
-  v2 = ISOCode.rawValue.getter();
-  v4 = v3;
-  if (v2 == ISOCode.rawValue.getter() && v4 == v5)
+  v0 = ISOCode.rawValue.getter();
+  v2 = v1;
+  if (v0 == ISOCode.rawValue.getter() && v2 == v3)
   {
-    v7 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v7 = sub_2461C2C30();
+    v5 = sub_2461C2C30();
   }
 
-  return v7 & 1;
+  return v5 & 1;
 }
 
 uint64_t sub_2461C2320@<X0>(uint64_t *a1@<X8>)
@@ -7305,7 +7332,6 @@ unint64_t sub_2461C23FC()
 
 uint64_t sub_2461C2450()
 {
-  v1 = *v0;
   sub_2461C2C40();
   ISOCode.rawValue.getter();
   sub_2461C2BB0();
@@ -7313,16 +7339,14 @@ uint64_t sub_2461C2450()
   return sub_2461C2C60();
 }
 
-uint64_t sub_2461C24B8()
+uint64_t sub_2461C24B8(uint64_t a1)
 {
-  v2 = *v0;
   ISOCode.rawValue.getter();
   sub_2461C2BB0();
 }
 
-uint64_t sub_2461C251C()
+uint64_t sub_2461C251C(uint64_t a1)
 {
-  v1 = *v0;
   sub_2461C2C40();
   ISOCode.rawValue.getter();
   sub_2461C2BB0();
@@ -7348,7 +7372,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

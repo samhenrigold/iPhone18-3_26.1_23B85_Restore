@@ -206,9 +206,11 @@
     atomic_compare_exchange_strong(v4, &v8, v6);
     if (v8 != v7)
     {
+
+      v7 = v9;
     }
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v6, v7);
   }
 }
 

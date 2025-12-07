@@ -74,52 +74,53 @@
 {
   v6 = a3;
   v7 = a4;
-  if (_ASCloudKitSchemaVersionForRecord(v6) == 2)
+  v8 = _ASCloudKitSchemaVersionForRecord(v6);
+  if (v8 == 2)
   {
     encryptedValues = [v6 encryptedValues];
-    v9 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
+    v11 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v10 = v9;
+      v12 = v11;
     }
 
     else
     {
-      v10 = 0;
+      v12 = 0;
     }
 
-    if (v10)
+    if (v12)
     {
-      v12 = [[ASCodableCloudKitActivitySnapshot alloc] initWithData:v10];
+      v16 = [[ASCodableCloudKitActivitySnapshot alloc] initWithData:v12];
       modificationDate = [v6 modificationDate];
-      v11 = [self fitnessFriendActivitySnapshotWithCodableSnapshot:v12 friendUUID:v7 uploadedDate:modificationDate];
+      v13 = [self fitnessFriendActivitySnapshotWithCodableSnapshot:v16 friendUUID:v7 uploadedDate:modificationDate];
     }
 
     else
     {
-      ASLoggingInitialize();
+      ASLoggingInitialize(v14, v15);
       if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
       {
         +[_HKFitnessFriendActivitySnapshot(CloudKitCodingSupport) fitnessFriendActivitySnapshotWithRecord:friendUUID:];
       }
 
-      v11 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    ASLoggingInitialize();
+    ASLoggingInitialize(v8, v9);
     if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
     {
       +[_HKFitnessFriendActivitySnapshot(CloudKitCodingSupport) fitnessFriendActivitySnapshotWithRecord:friendUUID:];
     }
 
-    v11 = 0;
+    v13 = 0;
   }
 
-  return v11;
+  return v13;
 }
 
 + (id)_fitnessFriendActivitySnapshotWithCodableSnapshot:()CloudKitCodingSupport friendUUID:uploadedDate:
@@ -180,11 +181,9 @@
 
 + (void)fitnessFriendActivitySnapshotWithRecord:()CloudKitCodingSupport friendUUID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)fitnessFriendActivitySnapshotWithRecord:()CloudKitCodingSupport friendUUID:.cold.2()

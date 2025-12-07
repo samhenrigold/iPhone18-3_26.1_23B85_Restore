@@ -81,7 +81,7 @@
   v41 = 0x7FFFFFFFFFFFFFFFLL;
   exploreGenerator = [(PXDayAssetsSectionBodyLayout *)self exploreGenerator];
   v8 = exploreGenerator;
-  if (!exploreGenerator || ([exploreGenerator presentedRectForItemAtIndex:item], v10 = v9, v12 = v11, v14 = v13, v16 = v15, v36 = 0u, v37 = 0u, objc_msgSend(v8, "presentedItemLocationForItemAtIndex:", item), v42.origin.x = v10, v42.origin.y = v12, v42.size.width = v14, v42.size.height = v16, CGRectEqualToRect(v42, *MEMORY[0x1E695F050])))
+  if (!exploreGenerator || ([exploreGenerator presentedRectForItemAtIndex:item], v10 = v9, v12 = v11, v14 = v13, v16 = v15, v36 = 0u, v37 = 0u, objc_msgSend_presentedItemLocationForItemAtIndex_(v8), v42.origin.x = v10, v42.origin.y = v12, v42.size.width = v14, v42.size.height = v16, CGRectEqualToRect(v42, *MEMORY[0x1E695F050])))
   {
 LABEL_22:
     v18 = v39;
@@ -175,15 +175,13 @@ LABEL_23:
   return v24;
 }
 
-uint64_t __63__PXDayAssetsSectionBodyLayout__itemClosestToItem_inDirection___block_invoke(uint64_t result, uint64_t a2)
+void __63__PXDayAssetsSectionBodyLayout__itemClosestToItem_inDirection___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (*(result + 56) != a2)
+  if (*(a1 + 56) != a2)
   {
-    [*(result + 32) presentedRectForItemAtIndex:{a2, v7, v6, v3, v2, v4, v5}];
+    [*(a1 + 32) presentedRectForItemAtIndex:{a2, v7, v6, v3, v2, v4, v5}];
     PXRectGetCenter();
   }
-
-  return result;
 }
 
 - (int64_t)_initialItemInDirection:(unint64_t)direction
@@ -440,7 +438,7 @@ LABEL_4:
   [(PXDayAssetsSectionBodyLayout *)self enumerateSpritesInRect:v13 usingBlock:x, y, width, height];
 }
 
-void __70__PXDayAssetsSectionBodyLayout_enumerateHeroSpritesInRect_usingBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void __70__PXDayAssetsSectionBodyLayout_enumerateHeroSpritesInRect_usingBlock___block_invoke(uint64_t a1, uint64_t a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (*(a6 + 1) == 2)
   {
@@ -459,9 +457,9 @@ void __70__PXDayAssetsSectionBodyLayout_enumerateHeroSpritesInRect_usingBlock___
   PXEdgeInsetsInsetRect();
 }
 
-void __81__PXDayAssetsSectionBodyLayout_enumerateVisibleAnchoringSpriteIndexesUsingBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
+void __81__PXDayAssetsSectionBodyLayout_enumerateVisibleAnchoringSpriteIndexesUsingBlock___block_invoke(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, int a8)
 {
-  v8 = a7;
+  v9 = a7;
   if (*(a6 + 1) == 2)
   {
     PXRectWithCenterAndSize();

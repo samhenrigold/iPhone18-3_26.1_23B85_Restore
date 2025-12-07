@@ -6,7 +6,7 @@
 
 - (BOOL)wf_associateWithBundleIdentifier:()Shortcuts
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
@@ -14,9 +14,9 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"WFContextualAction+Spotlight.m" lineNumber:28 description:{@"Invalid parameter not satisfying: %@", @"bundleIdentifier"}];
   }
 
-  v19 = 0;
-  v6 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v5 allowPlaceholder:0 error:&v19];
-  v7 = v19;
+  v18 = 0;
+  v6 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v5 allowPlaceholder:0 error:&v18];
+  v7 = v18;
   if (v6)
   {
     bundleIdentifier = [v6 bundleIdentifier];
@@ -35,10 +35,10 @@
     }
 
     localizedName = [v6 localizedName];
-    v20[0] = localizedName;
+    v19[0] = localizedName;
     localizedShortName = [v6 localizedShortName];
-    v20[1] = localizedShortName;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+    v19[1] = localizedShortName;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
     v15 = [v11 arrayByAddingObjectsFromArray:v14];
     [self setAlternateNames:v15];
   }
@@ -49,14 +49,13 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "[CSSearchableItemAttributeSet(Shortcuts) wf_associateWithBundleIdentifier:]";
-      v23 = 2112;
-      v24 = v7;
+      v21 = "[CSSearchableItemAttributeSet(Shortcuts) wf_associateWithBundleIdentifier:]";
+      v22 = 2112;
+      v23 = v7;
       _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_ERROR, "%s Can't associate spotlight item with app: %@", buf, 0x16u);
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6 != 0;
 }
 

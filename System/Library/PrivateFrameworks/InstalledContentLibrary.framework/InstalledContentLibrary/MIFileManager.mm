@@ -82,7 +82,7 @@
   return v2;
 }
 
-uint64_t __31__MIFileManager_defaultManager__block_invoke()
+uint64_t __31__MIFileManager_defaultManager__block_invoke(uint64_t a1)
 {
   defaultManager_defaultInstance = objc_alloc_init(objc_opt_class());
 
@@ -1805,7 +1805,7 @@ BOOL __51__MIFileManager_setOwnershipAtURL_toUID_gid_error___block_invoke(uint64
   return v14;
 }
 
-uint64_t __59__MIFileManager_validateSymlinksInURLDoNotEscapeURL_error___block_invoke(uint64_t a1, uint64_t a2)
+BOOL __59__MIFileManager_validateSymlinksInURLDoNotEscapeURL_error___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (*(a2 + 60) != 5)
   {
@@ -1972,7 +1972,7 @@ LABEL_9:
   return v14;
 }
 
-uint64_t __69__MIFileManager_urlsForItemsInDirectoryAtURL_ignoringSymlinks_error___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+BOOL __69__MIFileManager_urlsForItemsInDirectoryAtURL_ignoringSymlinks_error___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   v4 = *(a2 + 60);
   if (*(a1 + 48) == 1 && v4 == 5)

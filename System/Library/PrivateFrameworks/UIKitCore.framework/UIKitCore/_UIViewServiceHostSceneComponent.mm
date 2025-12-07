@@ -73,7 +73,7 @@
     v5 = processHandle;
     if (processHandle)
     {
-      [processHandle auditToken];
+      objc_msgSend_auditToken(processHandle);
     }
 
     else

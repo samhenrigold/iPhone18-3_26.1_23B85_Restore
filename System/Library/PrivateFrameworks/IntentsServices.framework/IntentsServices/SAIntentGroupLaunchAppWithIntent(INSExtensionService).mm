@@ -6,7 +6,7 @@
 
 - (void)ins_launchAppWithConnection:()INSExtensionService delegate:completionHandler:
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   v10 = a5;
@@ -14,9 +14,9 @@
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v44 = "[SAIntentGroupLaunchAppWithIntent(INSExtensionService) ins_launchAppWithConnection:delegate:completionHandler:]";
-    v45 = 2112;
-    *v46 = v8;
+    v43 = "[SAIntentGroupLaunchAppWithIntent(INSExtensionService) ins_launchAppWithConnection:delegate:completionHandler:]";
+    v44 = 2112;
+    *v45 = v8;
     _os_log_impl(&dword_25553C000, v11, OS_LOG_TYPE_INFO, "%s ins_launchAppWithConnection: %@", buf, 0x16u);
   }
 
@@ -70,14 +70,14 @@
   intentResponse = [interaction intentResponse];
   v31 = [v27 shouldLaunchAppInBackgroundWithIntent:intent3 intentResponse:intentResponse];
 
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __112__SAIntentGroupLaunchAppWithIntent_INSExtensionService__ins_launchAppWithConnection_delegate_completionHandler___block_invoke;
-  v41[3] = &unk_2797EA978;
-  v41[4] = self;
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __112__SAIntentGroupLaunchAppWithIntent_INSExtensionService__ins_launchAppWithConnection_delegate_completionHandler___block_invoke;
+  v40[3] = &unk_2797EA978;
+  v40[4] = self;
   v32 = v10;
-  v42 = v32;
-  v33 = [v9 completionHandlerForAppLaunchCommand:self withCompletion:v41];
+  v41 = v32;
+  v33 = [v9 completionHandlerForAppLaunchCommand:self withCompletion:v40];
   if ([v8 _carPlaySupportsVideoPlayback])
   {
     intent4 = [v8 intent];
@@ -96,20 +96,18 @@
     v37 = v36;
     doNotDismissSiri = [self doNotDismissSiri];
     *buf = 136315906;
-    v44 = "[SAIntentGroupLaunchAppWithIntent(INSExtensionService) ins_launchAppWithConnection:delegate:completionHandler:]";
-    v45 = 1024;
-    *v46 = v31;
-    *&v46[4] = 1024;
-    *&v46[6] = v35 & 1;
-    v47 = 1024;
-    v48 = doNotDismissSiri;
+    v43 = "[SAIntentGroupLaunchAppWithIntent(INSExtensionService) ins_launchAppWithConnection:delegate:completionHandler:]";
+    v44 = 1024;
+    *v45 = v31;
+    *&v45[4] = 1024;
+    *&v45[6] = v35 & 1;
+    v46 = 1024;
+    v47 = doNotDismissSiri;
     _os_log_impl(&dword_25553C000, v37, OS_LOG_TYPE_INFO, "%s launchAppInBackground: %d, restrictAppsToCarPlay: %d, donotdismiss: %d", buf, 0x1Eu);
   }
 
   appProxy = [v8 appProxy];
   [appProxy launchAppInBackground:v31 restrictAppsToCarPlay:v35 & 1 userActivityIdentifier:0 retainsSiri:objc_msgSend(self completionHandler:{"doNotDismissSiri"), v33}];
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 @end

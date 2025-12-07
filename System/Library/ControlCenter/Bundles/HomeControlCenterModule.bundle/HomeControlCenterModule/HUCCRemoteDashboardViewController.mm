@@ -2,6 +2,7 @@
 + (id)requestViewControllerWithConnectionHandler:(id)handler;
 - (HUCCRemoteDashboardDelegate)delegate;
 - (void)authorizeIfLocked;
+- (void)quickControlsPresentationDidUpdate:(BOOL)update;
 - (void)requestDismissal;
 - (void)viewServiceDidTerminateWithError:(id)error;
 @end
@@ -28,6 +29,13 @@
 {
   v5 = objc_msgSend_delegate(self, a2, v2);
   objc_msgSend_requestLockAuthenticationForRemoteDashboard_(v5, v4, self);
+}
+
+- (void)quickControlsPresentationDidUpdate:(BOOL)update
+{
+  updateCopy = update;
+  v5 = objc_msgSend_delegate(self, a2, update);
+  objc_msgSend_quickControlsPresentationDidUpdate_(v5, v4, updateCopy);
 }
 
 - (void)requestDismissal

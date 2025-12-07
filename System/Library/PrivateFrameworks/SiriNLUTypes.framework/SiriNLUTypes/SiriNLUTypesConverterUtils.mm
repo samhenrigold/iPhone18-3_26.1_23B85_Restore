@@ -29,16 +29,15 @@
 + (unique_ptr<sirinluinternalssu::SSURequest,)convertSSURequestFromObjCToCpp:(id)cpp
 {
   v5 = v3;
-  cppCopy = cpp;
-  if (cppCopy)
+  if (cpp)
   {
-    [self getCppReaderFromObjCObject:cppCopy];
+    objc_msgSend_getCppReaderFromObjCObject_(self);
     operator new();
   }
 
   *v5 = 0;
 
-  return v7;
+  return v6;
 }
 
 + (id)convertUsoGraphFromCppToObjC:(void *)c
@@ -54,61 +53,57 @@
 + (unique_ptr<sirinluexternal::UsoGraph,)convertUsoGraphFromObjCToCpp:(id)cpp
 {
   v5 = v3;
-  cppCopy = cpp;
-  if (cppCopy)
+  if (cpp)
   {
-    [self getCppReaderFromObjCObject:cppCopy];
+    objc_msgSend_getCppReaderFromObjCObject_(self);
     operator new();
   }
 
   *v5 = 0;
 
-  return v7;
+  return v6;
 }
 
 + (unique_ptr<sirinluexternal::EntityCandidate,)convertEntityCandidateFromObjCToCpp:(id)cpp
 {
   v5 = v3;
-  cppCopy = cpp;
-  if (cppCopy)
+  if (cpp)
   {
-    [self getCppReaderFromObjCObject:cppCopy];
+    objc_msgSend_getCppReaderFromObjCObject_(self);
     operator new();
   }
 
   *v5 = 0;
 
-  return v7;
+  return v6;
 }
 
 + (unique_ptr<sirinluinternal::NLv4EmbeddingTensor,)convertNLv4EmbeddingTensorFromObjCToCpp:(id)cpp
 {
   v5 = v3;
-  cppCopy = cpp;
-  if (cppCopy)
+  if (cpp)
   {
-    [self getCppReaderFromObjCObject:cppCopy];
+    objc_msgSend_getCppReaderFromObjCObject_(self);
     operator new();
   }
 
   *v5 = 0;
 
-  return v7;
+  return v6;
 }
 
 + (unique_ptr<sirinluinternal::TokenChain,)convertTokenChainFromObjCToCpp:(id)cpp
 {
   v5 = v3;
-  cppCopy = cpp;
-  if (cppCopy)
+  if (cpp)
   {
-    [self getCppReaderFromObjCObject:cppCopy];
+    objc_msgSend_getCppReaderFromObjCObject_(self);
     operator new();
   }
 
   *v5 = 0;
 
-  return v7;
+  return v6;
 }
 
 + (id)convertMatchingSpanFromCppToObjC:(void *)c
@@ -124,16 +119,15 @@
 + (unique_ptr<sirinluinternal::MatchingSpan,)convertMatchingSpanFromObjCToCpp:(id)cpp
 {
   v5 = v3;
-  cppCopy = cpp;
-  if (cppCopy)
+  if (cpp)
   {
-    [self getCppReaderFromObjCObject:cppCopy];
+    objc_msgSend_getCppReaderFromObjCObject_(self);
     operator new();
   }
 
   *v5 = 0;
 
-  return v7;
+  return v6;
 }
 
 + (id)convertNLv4ParserResponseFromCppToObjC:(void *)c
@@ -159,16 +153,15 @@
 + (unique_ptr<sirinluinternalnlv4_parser::NLv4ParserRequest,)convertNLv4ParserRequestToCpp:(id)cpp
 {
   v5 = v3;
-  cppCopy = cpp;
-  if (cppCopy)
+  if (cpp)
   {
-    [self getCppReaderFromObjCObject:cppCopy];
+    objc_msgSend_getCppReaderFromObjCObject_(self);
     operator new();
   }
 
   *v5 = 0;
 
-  return v7;
+  return v6;
 }
 
 + (Reader)getCppReaderFromObjCObject:(SEL)object

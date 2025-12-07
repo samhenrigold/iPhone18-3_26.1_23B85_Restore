@@ -128,16 +128,16 @@ LABEL_4:
 
 - (CSSiriRecordingInfo)initWithDictation:(BOOL)dictation fingerprintOnly:(BOOL)only secureOfflineOnly:(BOOL)offlineOnly audioAlertStyle:(int64_t)style recordSettings:(id)settings recordRoute:(id)route recordDeviceInfo:(id)info playbackRoute:(id)self0 audioDeviceID:(unsigned int)self1 audioSessionID:(unsigned int)self2 voiceTriggerEventInfo:(id)self3 activationAlertStartTimestamp:(double)self4 startRecordingTimestamp:(double)self5 firstBufferTimestamp:(double)self6 firstBufferHostTime:(unint64_t)self7 estimatedSpeechEndHostTime:(unint64_t)self8 deviceIdentifier:(id)self9 includeBTInfo:(BOOL)tInfo speechEvent:(int64_t)event
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   routeCopy = route;
   infoCopy = info;
   playbackRouteCopy = playbackRoute;
   eventInfoCopy = eventInfo;
   identifierCopy = identifier;
-  v118.receiver = self;
-  v118.super_class = CSSiriRecordingInfo;
-  v32 = [(CSSiriRecordingInfo *)&v118 init];
+  v115.receiver = self;
+  v115.super_class = CSSiriRecordingInfo;
+  v32 = [(CSSiriRecordingInfo *)&v115 init];
 
   if (!v32)
   {
@@ -255,7 +255,7 @@ LABEL_28:
     v43 = v49;
   }
 
-  v112 = eventInfoCopy;
+  v109 = eventInfoCopy;
   codec = v32->_codec;
   v32->_codec = v43;
 
@@ -265,9 +265,9 @@ LABEL_28:
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v122 = "[CSSiriRecordingInfo initWithDictation:fingerprintOnly:secureOfflineOnly:audioAlertStyle:recordSettings:recordRoute:recordDeviceInfo:playbackRoute:audioDeviceID:audioSessionID:voiceTriggerEventInfo:activationAlertStartTimestamp:startRecordingTimestamp:firstBufferTimestamp:firstBufferHostTime:estimatedSpeechEndHostTime:deviceIdentifier:includeBTInfo:speechEvent:]";
-      v123 = 2114;
-      v124 = v34;
+      v119 = "[CSSiriRecordingInfo initWithDictation:fingerprintOnly:secureOfflineOnly:audioAlertStyle:recordSettings:recordRoute:recordDeviceInfo:playbackRoute:audioDeviceID:audioSessionID:voiceTriggerEventInfo:activationAlertStartTimestamp:startRecordingTimestamp:firstBufferTimestamp:firstBufferHostTime:estimatedSpeechEndHostTime:deviceIdentifier:includeBTInfo:speechEvent:]";
+      v120 = 2114;
+      v121 = v34;
       _os_log_error_impl(&dword_222E4D000, v51, OS_LOG_TYPE_ERROR, "%s No SACodec for settings %{public}@", buf, 0x16u);
     }
   }
@@ -619,7 +619,7 @@ LABEL_110:
   deviceInfo = v32->_deviceInfo;
   v32->_deviceInfo = v76;
 
-  v78 = [v113 copy];
+  v78 = [v110 copy];
   voiceTriggerEventInfo = v32->_voiceTriggerEventInfo;
   v32->_voiceTriggerEventInfo = v78;
 
@@ -665,38 +665,36 @@ LABEL_110:
     headsetAddress = v32->_headsetAddress;
     v32->_headsetAddress = v92;
 
-    isEarpieceActiveNoiseCancelationEnabled = [v84 isEarpieceActiveNoiseCancelationEnabled];
-    v95 = *MEMORY[0x277D488E8];
-    if (isEarpieceActiveNoiseCancelationEnabled)
+    if ([v84 isEarpieceActiveNoiseCancelationEnabled])
     {
-      v96 = *MEMORY[0x277D488E8];
+      v94 = *MEMORY[0x277D488E8];
     }
 
     else
     {
-      v96 = 0;
+      v94 = 0;
     }
 
-    objc_storeStrong(&v32->_dspStatus, v96);
+    objc_storeStrong(&v32->_dspStatus, v94);
   }
 
-  eventInfoCopy = v113;
+  eventInfoCopy = v110;
   if ([v63 isEqualToString:*MEMORY[0x277CB8320]])
   {
     remoteDeviceUID = [infoCopy remoteDeviceUID];
-    v98 = remoteDeviceUID != 0;
+    v96 = remoteDeviceUID != 0;
   }
 
   else
   {
-    v98 = 0;
+    v96 = 0;
   }
 
-  v99 = v32->_headsetAddress;
-  if (!v99)
+  v97 = v32->_headsetAddress;
+  if (!v97)
   {
 LABEL_131:
-    if (v98)
+    if (v96)
     {
       goto LABEL_132;
     }
@@ -706,15 +704,15 @@ LABEL_131:
 
   if (v32->_deviceIdentifier)
   {
-    v98 = 1;
+    v96 = 1;
     goto LABEL_131;
   }
 
-  v110 = [(NSString *)v99 copy];
-  v111 = v32->_deviceIdentifier;
-  v32->_deviceIdentifier = v110;
+  v107 = [(NSString *)v97 copy];
+  v108 = v32->_deviceIdentifier;
+  v32->_deviceIdentifier = v107;
 
-  if (v32->_headsetAddress != 0 || v98)
+  if (v32->_headsetAddress != 0 || v96)
   {
 LABEL_132:
     if (tInfo)
@@ -728,21 +726,20 @@ LABEL_134:
   {
     currentCarPlayExternalDevice = [MEMORY[0x277CE64E8] currentCarPlayExternalDevice];
     screenIDs = [currentCarPlayExternalDevice screenIDs];
-    v102 = [screenIDs componentsJoinedByString:{@", "}];
-    v103 = v32->_deviceIdentifier;
-    v32->_deviceIdentifier = v102;
+    v100 = [screenIDs componentsJoinedByString:{@", "}];
+    v101 = v32->_deviceIdentifier;
+    v32->_deviceIdentifier = v100;
 
     modelName = [currentCarPlayExternalDevice modelName];
-    v105 = [modelName copy];
+    v103 = [modelName copy];
     modelName = v32->_modelName;
-    v32->_modelName = v105;
+    v32->_modelName = v103;
   }
 
 LABEL_137:
-  v107 = v32;
+  v105 = v32;
 
-  v108 = *MEMORY[0x277D85DE8];
-  return v107;
+  return v105;
 }
 
 @end

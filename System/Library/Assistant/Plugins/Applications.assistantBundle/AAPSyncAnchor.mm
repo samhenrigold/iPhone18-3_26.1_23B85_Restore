@@ -92,7 +92,6 @@
   {
     subIndex = self->_subIndex;
     v5 = [NSString alloc];
-    mainIndex = self->_mainIndex;
     if (subIndex)
     {
       lock_stringRepresentation = [v5 initWithFormat:@"%lu.%lu", self->_mainIndex, self->_subIndex];
@@ -100,16 +99,16 @@
 
     else
     {
-      lock_stringRepresentation = [v5 initWithFormat:@"%lu", self->_mainIndex, v9];
+      lock_stringRepresentation = [v5 initWithFormat:@"%lu", self->_mainIndex, v8];
     }
 
     self->_lock_stringRepresentation = lock_stringRepresentation;
   }
 
-  v7 = lock_stringRepresentation;
+  v6 = lock_stringRepresentation;
   os_unfair_lock_unlock(&self->_stringRepresentationLock);
 
-  return v7;
+  return v6;
 }
 
 - (int64_t)compare:(id)compare

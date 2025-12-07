@@ -8,6 +8,7 @@
 - (WFIcon)attributionIcon;
 - (WFWorkflowReference)initWithCoder:(id)coder;
 - (WFWorkflowReference)initWithIdentifier:(id)identifier name:(id)name color:(int64_t)color glyphCharacter:(unsigned __int16)character associatedAppBundleIdentifier:(id)bundleIdentifier searchAttributionAppBundleIdentifier:(id)appBundleIdentifier subtitle:(id)subtitle actionsDescription:(id)self0 actionCount:(unint64_t)self1 syncHash:(int64_t)self2 isDeleted:(BOOL)self3 hiddenFromLibraryAndSync:(BOOL)self4 creationDate:(id)self5 modificationDate:(id)self6 lastRunDate:(id)self7 remoteQuarantineStatus:(int64_t)self8 remoteQuarantineHash:(id)self9 showInSearch:(BOOL)search receivesInputFromSearch:(BOOL)fromSearch hasShortcutInputVariables:(BOOL)variables disabledOnLockScreen:(BOOL)screen source:(id)source runEventsCount:(id)eventsCount hasOutputAction:(BOOL)action;
+- (id)attributionIconWithSize:(CGSize)size scale:(double)scale rounded:(BOOL)rounded;
 - (id)externalURLForRunningWithSource:(id)source;
 - (id)loadDataWithTypeIdentifier:(id)identifier forItemProviderCompletionHandler:(id)handler;
 - (id)speakableString;
@@ -117,6 +118,29 @@
 
   handlerCopy[2](handlerCopy, v8, v9);
   return 0;
+}
+
+- (id)attributionIconWithSize:(CGSize)size scale:(double)scale rounded:(BOOL)rounded
+{
+  roundedCopy = rounded;
+  height = size.height;
+  width = size.width;
+  if ([(WFWorkflowReference *)self hiddenFromLibraryAndSync])
+  {
+    v10 = [MEMORY[0x1E69E0B58] applicationIconImageForBundleIdentifier:*MEMORY[0x1E69E0F60] format:1];
+  }
+
+  else
+  {
+    v11 = objc_alloc(MEMORY[0x1E69E0E08]);
+    icon = [(WFWorkflowReference *)self icon];
+    v13 = [v11 initWithIcon:icon];
+
+    [v13 setRounded:roundedCopy];
+    v10 = [v13 imageWithSize:width scale:{height, scale}];
+  }
+
+  return v10;
 }
 
 - (WFIcon)attributionIcon
@@ -378,9 +402,9 @@ LABEL_14:
               goto LABEL_31;
             }
 
-            v18 = [v15 isEqualToString:v16];
+            isEqualToString = objc_msgSend_isEqualToString_(v15);
 
-            if (!v18)
+            if (!isEqualToString)
             {
 LABEL_31:
 
@@ -696,7 +720,7 @@ LABEL_89:
           goto LABEL_37;
         }
 
-        v11 = [v8 isEqualToString:v9];
+        v11 = objc_msgSend_isEqualToString_(v8);
 
         if ((v11 & 1) == 0)
         {
@@ -788,26 +812,22 @@ LABEL_91:
 
 + (NSArray)writableTypeIdentifiersForItemProvider
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E6982C40] exportedTypeWithIdentifier:@"com.apple.shortcuts.workflow-reference"];
   identifier = [v2 identifier];
-  v7[0] = identifier;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = identifier;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
 
   return v4;
 }
 
 + (NSArray)readableTypeIdentifiersForItemProvider
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E6982C40] exportedTypeWithIdentifier:@"com.apple.shortcuts.workflow-reference"];
   identifier = [v2 identifier];
-  v7[0] = identifier;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = identifier;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
 
   return v4;
 }
@@ -824,25 +844,25 @@ LABEL_91:
 
 - (NSUserActivity)userActivityForViewing
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E69636A8]) initWithActivityType:@"is.workflow.my.app.viewworkflow"];
   name = [(WFWorkflowDescriptor *)self name];
   [v3 setTitle:name];
 
-  v15[0] = @"workflowID";
+  v14[0] = @"workflowID";
   identifier = [(WFWorkflowReference *)self identifier];
-  v15[1] = @"workflowName";
-  v16[0] = identifier;
+  v14[1] = @"workflowName";
+  v15[0] = identifier;
   name2 = [(WFWorkflowDescriptor *)self name];
-  v16[1] = name2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v15[1] = name2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
   [v3 setUserInfo:v7];
 
   v8 = @"workflowID";
-  v14[0] = @"workflowID";
+  v13[0] = @"workflowID";
   v9 = @"workflowName";
-  v14[1] = @"workflowName";
-  v10 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:v14 count:2];
+  v13[1] = @"workflowName";
+  v10 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:v13 count:2];
   for (i = 1; i != -1; --i)
   {
   }
@@ -851,7 +871,6 @@ LABEL_91:
 
   [v3 setEligibleForHandoff:0];
   [v3 setEligibleForSearch:0];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

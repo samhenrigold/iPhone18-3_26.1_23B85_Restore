@@ -114,15 +114,15 @@
 - (BOOL)loadResources:(id *)resources
 {
   v28 = *MEMORY[0x1E69E9840];
-  v4 = sub_1AC090E50();
+  v4 = sub_1AC090E50(self);
   v5 = os_signpost_id_generate(v4);
 
-  v6 = sub_1AC090E50();
-  v7 = v6;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = sub_1AC090E50(v6);
+  v8 = v7;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     LOWORD(v23[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC05D000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "CSUTextEncoderEspressoV1LoadResources", "", v23, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC05D000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "CSUTextEncoderEspressoV1LoadResources", "", v23, 2u);
   }
 
   v26[0] = &unk_1F20D0778;
@@ -130,22 +130,22 @@
   v27 = v26;
   if (!self->_textEncoderNet.__ptr_)
   {
-    v12 = objc_msgSend_vocabularyModelPath(self->_configuration, v8, v9, v10, v11);
-    v13 = v12;
-    v18 = objc_msgSend_UTF8String(v12, v14, v15, v16, v17);
-    v19 = strlen(v18);
-    if (v19 < 0x7FFFFFFFFFFFFFF8)
+    v13 = objc_msgSend_vocabularyModelPath(self->_configuration, v9, v10, v11, v12);
+    v14 = v13;
+    v19 = objc_msgSend_UTF8String(v13, v15, v16, v17, v18);
+    v20 = strlen(v19);
+    if (v20 < 0x7FFFFFFFFFFFFFF8)
     {
-      v20 = v19;
-      if (v19 < 0x17)
+      v21 = v20;
+      if (v20 < 0x17)
       {
-        v25 = v19;
-        if (v19)
+        v25 = v20;
+        if (v20)
         {
-          memmove(&__dst, v18, v19);
+          memmove(&__dst, v19, v20);
         }
 
-        *(&__dst + v20) = 0;
+        *(&__dst + v21) = 0;
 
         sub_1AC0600A4();
       }
@@ -167,7 +167,6 @@
     (*(*v27 + 40))(v27);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -237,21 +236,19 @@ LABEL_7:
 
 - (void)_unsafeRunOnInput:(id)input completion:(id)completion
 {
-  v13[37] = *MEMORY[0x1E69E9840];
+  v12[37] = *MEMORY[0x1E69E9840];
   inputCopy = input;
   completionCopy = completion;
-  v13[0] = 0;
-  LOBYTE(completion) = objc_msgSend_loadResources_(self, v6, v13, v7, v8);
-  v9 = v13[0];
+  v12[0] = 0;
+  LOBYTE(completion) = objc_msgSend_loadResources_(self, v6, v12, v7, v8);
+  v9 = v12[0];
   if (completion)
   {
-    memset(&v13[1], 0, 24);
+    memset(&v12[1], 0, 24);
     operator new();
   }
 
   completionCopy[2](completionCopy, 0, v9);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unsafeRunOnInputText:(id)text completion:(id)completion

@@ -7,9 +7,9 @@
 
 + (id)defaults
 {
-  v0 = objc_alloc_init(objc_opt_self());
+  v1 = objc_alloc_init(objc_opt_self());
 
-  return v0;
+  return v1;
 }
 
 - (SXTextSourceDefaults)init

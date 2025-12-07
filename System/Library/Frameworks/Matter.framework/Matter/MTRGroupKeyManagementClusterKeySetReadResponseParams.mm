@@ -61,11 +61,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:63 commandID:2 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v27)
   {
     sub_2393C5AAC(v26);
-    sub_2393C5ADC(v26, *(v27 + 1), *(v27 + 3));
+    sub_2393C5ADC(v26, *(v27 + 8), *(v27 + 24));
     v8 = sub_2393C6FD0(v26, 256);
     if (!v8)
     {

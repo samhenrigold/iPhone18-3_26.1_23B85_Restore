@@ -76,7 +76,7 @@
 
 - (void)layoutScrollViewAndRootListViewInFolderView:(id)view
 {
-  [view bounds];
+  objc_msgSend_bounds(view, a2);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -111,7 +111,7 @@
 - (void)layoutHeaderViewsInFolderView:(id)view
 {
   viewCopy = view;
-  [viewCopy bounds];
+  objc_msgSend_bounds(viewCopy);
   v6 = v5;
   v8 = v7;
   v10 = v9;
@@ -153,7 +153,7 @@
 - (void)layoutFooterViewsInFolderView:(id)view
 {
   viewCopy = view;
-  [viewCopy bounds];
+  objc_msgSend_bounds(viewCopy);
   v6 = v5;
   v8 = v7;
   traitCollection = [viewCopy traitCollection];
@@ -345,7 +345,7 @@ LABEL_14:
 
           if (!superview)
           {
-            [scalingView bounds];
+            objc_msgSend_bounds(scalingView);
             [pageManagementScrollView setFrame:?];
             [scalingView insertSubview:pageManagementScrollView aboveSubview:scrollView];
           }
@@ -437,7 +437,7 @@ LABEL_14:
             if (!focusModeOptionsButton)
             {
               v123 = +[SBIconView componentBackgroundView];
-              v53 = SBHBundle();
+              v53 = SBHBundle(v123);
               v54 = [v53 localizedStringForKey:@"OPTIONS" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
 
               model2 = currentIconListView;
@@ -516,7 +516,7 @@ LABEL_14:
                   v81 = v80;
                   v83 = v82;
                   v84 = [v148 iconViewForIcon:v73];
-                  [v84 iconImageInfo];
+                  objc_msgSend_iconImageInfo(v84);
                   v86 = v85;
                   v205.origin.x = v77;
                   v205.origin.y = v79;
@@ -823,7 +823,7 @@ void __93__SBRootFolderViewPageManagementLayoutManager_transitionToActive_inFold
   [v14 startAnimation];
 }
 
-uint64_t __93__SBRootFolderViewPageManagementLayoutManager_transitionToActive_inFolderView_usingAnimator___block_invoke_3(uint64_t a1)
+void *__93__SBRootFolderViewPageManagementLayoutManager_transitionToActive_inFolderView_usingAnimator___block_invoke_3(uint64_t a1)
 {
   if (*(a1 + 32))
   {
@@ -958,7 +958,7 @@ uint64_t __93__SBRootFolderViewPageManagementLayoutManager_transitionToActive_in
             v17 = v16;
             v19 = v18;
             v11 = [*(a1 + 64) iconViewForIcon:v7];
-            [v11 iconImageInfo];
+            objc_msgSend_iconImageInfo(v11);
             v21 = v20;
             v47.origin.x = v13;
             v47.origin.y = v15;
@@ -1258,7 +1258,7 @@ void __107__SBRootFolderViewPageManagementLayoutManager_rasterizeIconViewsForImp
   [(SBIconListModel *)v19 addListObserver:self];
   currentIconListModel = [viewCopy currentIconListModel];
   traitCollection = [viewCopy traitCollection];
-  [viewCopy bounds];
+  objc_msgSend_bounds(viewCopy);
   v21 = v20;
   v97 = v23;
   v98 = v22;
@@ -1268,18 +1268,18 @@ void __107__SBRootFolderViewPageManagementLayoutManager_rasterizeIconViewsForImp
   [viewCopy _iconListViewSize];
   v27 = v26;
   v113 = v28;
-  rootListLayout = [viewCopy rootListLayout];
+  v110 = objc_msgSend_rootListLayout(viewCopy);
   firstIconListView = [viewCopy firstIconListView];
   orientation = [firstIconListView orientation];
 
-  [rootListLayout layoutInsetsForOrientation:orientation];
+  [v110 layoutInsetsForOrientation:orientation];
   v106 = v31;
   v103 = v32;
   v34 = v33;
-  SBHIconListLayoutIconImageInfoForGridSizeClassAndOrientation(rootListLayout, orientation, @"SBHIconGridSizeClassSmall");
+  SBHIconListLayoutIconImageInfoForGridSizeClassAndOrientation(v110, orientation, @"SBHIconGridSizeClassSmall");
   v36 = v35;
   v109 = orientation;
-  SBHIconListLayoutIconImageInfoForGridSizeClassAndOrientation(rootListLayout, orientation, @"SBHIconGridSizeClassDefault");
+  SBHIconListLayoutIconImageInfoForGridSizeClassAndOrientation(v110, orientation, @"SBHIconGridSizeClassDefault");
   v38 = v37;
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
   v40 = (v36 - v38) * 0.5;
@@ -1415,7 +1415,7 @@ void __107__SBRootFolderViewPageManagementLayoutManager_rasterizeIconViewsForImp
     v67 = v66 + v96 * (v52 + 0.03);
     if ((BSFloatIsZero() & 1) == 0)
     {
-      [rootListLayout iconImageInfo];
+      objc_msgSend_iconImageInfo(v110);
     }
   }
 
@@ -1519,7 +1519,7 @@ LABEL_51:
     [(SBIconListView *)v90 setIconDragTypeIdentifier:@"com.apple.SpringBoardHome.PageReordering"];
   }
 
-  [v61 bounds];
+  objc_msgSend_bounds(v61);
   [(SBIconListView *)v90 setFrame:?];
   [(SBRootFolderViewPageManagementLayoutManager *)selfCopy setRootListView:v90];
   [(SBRootFolderViewPageManagementLayoutManager *)selfCopy setPageManagementListModel:v63];
@@ -2087,7 +2087,7 @@ uint64_t __111__SBRootFolderViewPageManagementLayoutManager_parentViewController
   [tappedCopy locationInView:view];
   v10 = v9;
   v12 = v11;
-  [view bounds];
+  objc_msgSend_bounds(view);
   v17.x = v10;
   v17.y = v12;
   v13 = CGRectContainsPoint(v18, v17);
@@ -2118,31 +2118,31 @@ LABEL_6:
 {
   completionCopy = completion;
   v6 = MEMORY[0x1E69DC650];
-  v7 = SBHBundle();
+  v7 = SBHBundle(completionCopy);
   v8 = [v7 localizedStringForKey:@"REMOVE_PAGE_TITLE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-  v9 = SBHBundle();
+  v9 = SBHBundle(v8);
   v10 = [v9 localizedStringForKey:@"REMOVE_PAGE_BODY" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
   v11 = [v6 alertControllerWithTitle:v8 message:v10 preferredStyle:1];
 
   v12 = MEMORY[0x1E69DC648];
-  v13 = SBHBundle();
-  v14 = [v13 localizedStringForKey:@"REMOVE_PAGE_BUTTON" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __104__SBRootFolderViewPageManagementLayoutManager_presentPageDeleteConfirmationAlertForIconView_completion___block_invoke;
-  v22[3] = &unk_1E808E628;
-  v23 = completionCopy;
-  v15 = completionCopy;
-  v16 = [v12 actionWithTitle:v14 style:2 handler:v22];
+  v14 = SBHBundle(v13);
+  v15 = [v14 localizedStringForKey:@"REMOVE_PAGE_BUTTON" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __104__SBRootFolderViewPageManagementLayoutManager_presentPageDeleteConfirmationAlertForIconView_completion___block_invoke;
+  v23[3] = &unk_1E808E628;
+  v24 = completionCopy;
+  v16 = completionCopy;
+  v17 = [v12 actionWithTitle:v15 style:2 handler:v23];
 
-  [v11 addAction:v16];
-  v17 = MEMORY[0x1E69DC648];
+  [v11 addAction:v17];
+  v18 = MEMORY[0x1E69DC648];
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
-  v19 = [mainBundle localizedStringForKey:@"CANCEL" value:&stru_1F3D472A8 table:@"SpringBoard"];
-  v20 = [v17 actionWithTitle:v19 style:1 handler:0];
+  v20 = [mainBundle localizedStringForKey:@"CANCEL" value:&stru_1F3D472A8 table:@"SpringBoard"];
+  v21 = [v18 actionWithTitle:v20 style:1 handler:0];
 
-  [v11 addAction:v20];
-  [v11 setPreferredAction:v20];
+  [v11 addAction:v21];
+  [v11 setPreferredAction:v21];
   alertPresentationViewController = [(SBRootFolderViewPageManagementLayoutManager *)self alertPresentationViewController];
   [alertPresentationViewController presentViewController:v11 animated:1 completion:0];
 }
@@ -2151,31 +2151,31 @@ LABEL_6:
 {
   completionCopy = completion;
   v6 = MEMORY[0x1E69DC650];
-  v7 = SBHBundle();
+  v7 = SBHBundle(completionCopy);
   v8 = [v7 localizedStringForKey:@"REMOVE_PAGE_BOOKMARKS_TITLE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-  v9 = SBHBundle();
+  v9 = SBHBundle(v8);
   v10 = [v9 localizedStringForKey:@"REMOVE_PAGE_BOOKMARKS_BODY" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
   v11 = [v6 alertControllerWithTitle:v8 message:v10 preferredStyle:1];
 
   v12 = MEMORY[0x1E69DC648];
-  v13 = SBHBundle();
-  v14 = [v13 localizedStringForKey:@"REMOVE_PAGE_BUTTON" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __124__SBRootFolderViewPageManagementLayoutManager_presentSecondPageDeleteConfirmationAlertBookmarksFoundForIconView_completion___block_invoke;
-  v22[3] = &unk_1E808E628;
-  v23 = completionCopy;
-  v15 = completionCopy;
-  v16 = [v12 actionWithTitle:v14 style:2 handler:v22];
+  v14 = SBHBundle(v13);
+  v15 = [v14 localizedStringForKey:@"REMOVE_PAGE_BUTTON" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __124__SBRootFolderViewPageManagementLayoutManager_presentSecondPageDeleteConfirmationAlertBookmarksFoundForIconView_completion___block_invoke;
+  v23[3] = &unk_1E808E628;
+  v24 = completionCopy;
+  v16 = completionCopy;
+  v17 = [v12 actionWithTitle:v15 style:2 handler:v23];
 
-  [v11 addAction:v16];
-  v17 = MEMORY[0x1E69DC648];
+  [v11 addAction:v17];
+  v18 = MEMORY[0x1E69DC648];
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
-  v19 = [mainBundle localizedStringForKey:@"CANCEL" value:&stru_1F3D472A8 table:@"SpringBoard"];
-  v20 = [v17 actionWithTitle:v19 style:1 handler:0];
+  v20 = [mainBundle localizedStringForKey:@"CANCEL" value:&stru_1F3D472A8 table:@"SpringBoard"];
+  v21 = [v18 actionWithTitle:v20 style:1 handler:0];
 
-  [v11 addAction:v20];
-  [v11 setPreferredAction:v20];
+  [v11 addAction:v21];
+  [v11 setPreferredAction:v21];
   alertPresentationViewController = [(SBRootFolderViewPageManagementLayoutManager *)self alertPresentationViewController];
   [alertPresentationViewController presentViewController:v11 animated:1 completion:0];
 }
@@ -2275,7 +2275,7 @@ void __86__SBRootFolderViewPageManagementLayoutManager__updateCloseBoxVisibility
             [v15 locationInView:viewCopy];
             v17 = v16;
             v19 = v18;
-            [listContainerView bounds];
+            objc_msgSend_bounds(listContainerView);
             v32.x = v17;
             v32.y = v19;
             v13 = CGRectContainsPoint(v33, v32);
@@ -2535,7 +2535,7 @@ void __86__SBRootFolderViewPageManagementLayoutManager__updateCloseBoxVisibility
   [(SBRootFolderViewPageManagementLayoutManager *)self setDraggingIcon:0];
 }
 
-void __107__SBRootFolderViewPageManagementLayoutManager_iconDragManager_didPerformIconDrop_withIcons_inIconListView___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __107__SBRootFolderViewPageManagementLayoutManager_iconDragManager_didPerformIconDrop_withIcons_inIconListView___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v6 = a2;
   if ([v6 isHidden])
@@ -2805,7 +2805,7 @@ LABEL_28:
       iconCopy = v34;
       if (firstIconPageIndex == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v29 = SBLogCommon();
+        v29 = SBLogCommon(0x7FFFFFFFFFFFFFFFLL);
         v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG);
 
         if (v30)

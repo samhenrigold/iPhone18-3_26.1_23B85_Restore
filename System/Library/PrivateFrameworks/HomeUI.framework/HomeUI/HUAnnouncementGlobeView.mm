@@ -3022,7 +3022,7 @@ LABEL_6:
   playerStopSource = [audioPlayer playerStopSource];
 
   audioPlayer2 = [(HUAnnouncementGlobeView *)self audioPlayer];
-  [audioPlayer2 duration];
+  objc_msgSend_duration(audioPlayer2);
   v13 = v12;
 
   v26 = objc_opt_new();

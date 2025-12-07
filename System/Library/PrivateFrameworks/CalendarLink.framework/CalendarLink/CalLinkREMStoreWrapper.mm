@@ -40,46 +40,46 @@
 
 - (id)fetchReminderDataForReminderURLs:(id)ls error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   v5 = objc_opt_new();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v6 = lsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v32 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v22 objects:v31 count:16];
   if (v7)
   {
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
-        v28 = 0;
-        v29 = &v28;
-        v30 = 0x2050000000;
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v27 = 0;
+        v28 = &v27;
+        v29 = 0x2050000000;
         v11 = getREMObjectIDClass_softClass;
-        v31 = getREMObjectIDClass_softClass;
+        v30 = getREMObjectIDClass_softClass;
         if (!getREMObjectIDClass_softClass)
         {
-          v27[0] = MEMORY[0x277D85DD0];
-          v27[1] = 3221225472;
-          v27[2] = __getREMObjectIDClass_block_invoke;
-          v27[3] = &unk_278D6AFC0;
-          v27[4] = &v28;
-          __getREMObjectIDClass_block_invoke(v27);
-          v11 = v29[3];
+          v26[0] = MEMORY[0x277D85DD0];
+          v26[1] = 3221225472;
+          v26[2] = __getREMObjectIDClass_block_invoke;
+          v26[3] = &unk_278D6AFC0;
+          v26[4] = &v27;
+          __getREMObjectIDClass_block_invoke(v26);
+          v11 = v28[3];
         }
 
         v12 = v11;
-        _Block_object_dispose(&v28, 8);
+        _Block_object_dispose(&v27, 8);
         v13 = [v11 objectIDWithURL:v10];
         if (v13)
         {
@@ -87,7 +87,7 @@
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v23 objects:v32 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v22 objects:v31 count:16];
     }
 
     while (v7);
@@ -97,21 +97,19 @@
   if (v14)
   {
     v15 = objc_opt_new();
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __65__CalLinkREMStoreWrapper_fetchReminderDataForReminderURLs_error___block_invoke;
-    v21[3] = &unk_278D6AF98;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __65__CalLinkREMStoreWrapper_fetchReminderDataForReminderURLs_error___block_invoke;
+    v20[3] = &unk_278D6AF98;
     v16 = v15;
-    v22 = v16;
-    [v14 enumerateKeysAndObjectsUsingBlock:v21];
+    v21 = v16;
+    [v14 enumerateKeysAndObjectsUsingBlock:v20];
   }
 
   else
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

@@ -280,7 +280,6 @@ LABEL_17:
   objc_storeStrong(&v43, 0);
   objc_storeStrong(&v44, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   v14 = v50;
 
   return v14;

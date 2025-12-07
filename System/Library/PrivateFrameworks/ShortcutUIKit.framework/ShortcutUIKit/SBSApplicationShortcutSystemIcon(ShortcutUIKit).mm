@@ -8,21 +8,8 @@
 - (id)_scui_iconImageWithAssetProvider:()ShortcutUIKit
 {
   systemImageName = [self systemImageName];
-  if (!systemImageName)
+  if (!systemImageName || (v3 = MEMORY[0x277D755D0], [MEMORY[0x277D74300] defaultFontForTextStyle:*MEMORY[0x277D76918]], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "pointSize"), objc_msgSend(v3, "configurationWithPointSize:weight:scale:", 4, 3), v5 = objc_claimAutoreleasedReturnValue(), v4, objc_msgSend(MEMORY[0x277D755B8], "systemImageNamed:withConfiguration:", systemImageName, v5), v6 = objc_claimAutoreleasedReturnValue(), v5, !v6))
   {
-    goto LABEL_3;
-  }
-
-  v3 = MEMORY[0x277D755D0];
-  v4 = [MEMORY[0x277D74300] defaultFontForTextStyle:*MEMORY[0x277D76918]];
-  [v4 pointSize];
-  v5 = [v3 configurationWithPointSize:4 weight:3 scale:?];
-
-  v6 = [MEMORY[0x277D755B8] systemImageNamed:systemImageName withConfiguration:v5];
-
-  if (!v6)
-  {
-LABEL_3:
     _scui_iconImageName = [self _scui_iconImageName];
     if (_scui_iconImageName)
     {

@@ -7,8 +7,8 @@
 
 + (void)gatherModelInfoWithStartDate:(NSDate *)date endDate:(NSDate *)endDate completionHandler:(id)handler
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FF807F0, &qword_2647EFA48) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FF807F0, &qword_2647EFA48);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
   v13 = swift_allocObject();

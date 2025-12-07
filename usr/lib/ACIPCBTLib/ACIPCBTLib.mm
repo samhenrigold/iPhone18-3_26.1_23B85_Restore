@@ -126,17 +126,16 @@ void ACIPCBTClass::ACIPCBTClass(ACIPCBTClass *this)
 
 void ACIPCBTClass::~ACIPCBTClass(ACIPCBTClass *this)
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 136315138;
-    v4 = "~ACIPCBTClass";
-    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: \n", &v3, 0xCu);
+    v2 = 136315138;
+    v3 = "~ACIPCBTClass";
+    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: \n", &v2, 0xCu);
   }
 
   ACIPCBTClass::stop(this, 0);
   pthread_mutex_destroy((this + 8));
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 void sub_295FE7A30(_Unwind_Exception *a1, int a2)
@@ -151,12 +150,12 @@ void sub_295FE7A30(_Unwind_Exception *a1, int a2)
 
 uint64_t ACIPCBTClass::stop(ACIPCBTClass *this, NSObject *a2)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 8));
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "stop";
+    v17 = "stop";
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: \n", buf, 0xCu);
   }
 
@@ -188,17 +187,17 @@ uint64_t ACIPCBTClass::stop(ACIPCBTClass *this, NSObject *a2)
     v5 = 1;
 LABEL_10:
     v6 = *(this + 17);
-    v13[0] = MEMORY[0x29EDCA5F8];
-    v13[1] = 0x40000000;
-    v13[2] = ___ZN12ACIPCBTClass4stopEP16dispatch_group_s_block_invoke;
-    v13[3] = &unk_29EDECDE0;
+    v12[0] = MEMORY[0x29EDCA5F8];
+    v12[1] = 0x40000000;
+    v12[2] = ___ZN12ACIPCBTClass4stopEP16dispatch_group_s_block_invoke;
+    v12[3] = &unk_29EDECDE0;
     v7 = *(this + 120);
     *(this + 15) = 0;
     *(this + 16) = 0;
     *(this + 17) = 0;
-    v14 = v7;
-    v15 = v6;
-    v16 = v4;
+    v13 = v7;
+    v14 = v6;
+    v15 = v4;
     v8 = *(this + 9);
     if (v8)
     {
@@ -207,7 +206,7 @@ LABEL_10:
         ACIPCBTClass::stop();
       }
 
-      CFRunLoopPerformBlock(v8, *MEMORY[0x29EDB8FC0], v13);
+      CFRunLoopPerformBlock(v8, *MEMORY[0x29EDB8FC0], v12);
       CFRunLoopWakeUp(*(this + 9));
       CFRelease(*(this + 9));
       *(this + 9) = 0;
@@ -216,7 +215,7 @@ LABEL_10:
     v9 = *(this + 10);
     if (v9)
     {
-      dispatch_async(v9, v13);
+      dispatch_async(v9, v12);
       dispatch_release(*(this + 10));
       *(this + 10) = 0;
     }
@@ -237,23 +236,21 @@ LABEL_10:
     if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v18 = "stop";
+      v17 = "stop";
       _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: --done\n", buf, 0xCu);
     }
 
-    goto LABEL_26;
+    return 1;
   }
 
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "stop";
+    v17 = "stop";
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: already stopped, returning true\n", buf, 0xCu);
   }
 
   pthread_mutex_unlock((this + 8));
-LABEL_26:
-  v11 = *MEMORY[0x29EDCA608];
   return 1;
 }
 
@@ -267,14 +264,14 @@ uint64_t ACIPCBTClass::start(uint64_t a1, uint64_t a2, const void *a3, uint64_t 
 
 uint64_t ACIPCBTClass::start_nl(uint64_t a1, uint64_t a2, CFTypeRef cf, dispatch_object_t object, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v44 = *MEMORY[0x29EDCA608];
+  v43 = *MEMORY[0x29EDCA608];
   *(a1 + 112) = a2;
   if ((*a1 & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v41 = "start_nl";
-    v42 = 2080;
-    v43 = a2;
+    v40 = "start_nl";
+    v41 = 2080;
+    v42 = a2;
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: for %s\n", buf, 0x16u);
   }
 
@@ -312,7 +309,7 @@ uint64_t ACIPCBTClass::start_nl(uint64_t a1, uint64_t a2, CFTypeRef cf, dispatch
   if (!v16 && (*a1 & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v41 = "start_nl";
+    v40 = "start_nl";
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: could not create matching dictionary\n", buf, 0xCu);
   }
 
@@ -327,12 +324,12 @@ uint64_t ACIPCBTClass::start_nl(uint64_t a1, uint64_t a2, CFTypeRef cf, dispatch
   *(a1 + 136) = _Block_copy(aBlock);
   if (v16)
   {
-    v38[0] = MEMORY[0x29EDCA5F8];
-    v38[1] = 0x40000000;
-    v38[2] = ___ZN12ACIPCBTClass8start_nlEPKcP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES7_U13block_pointerFv14acipcErrorTypejiE_block_invoke_2;
-    v38[3] = &unk_29EDECD40;
-    v38[4] = a5;
-    *(a1 + 120) = _Block_copy(v38);
+    v37[0] = MEMORY[0x29EDCA5F8];
+    v37[1] = 0x40000000;
+    v37[2] = ___ZN12ACIPCBTClass8start_nlEPKcP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES7_U13block_pointerFv14acipcErrorTypejiE_block_invoke_2;
+    v37[3] = &unk_29EDECD40;
+    v37[4] = a5;
+    *(a1 + 120) = _Block_copy(v37);
     CFRetain(v16);
     v18 = IOServiceAddMatchingNotification(*(a1 + 88), "IOServiceFirstMatch", v16, ACIPCBTClass::interfaceMatched, *(a1 + 120), (a1 + 104));
     if (v18)
@@ -349,9 +346,9 @@ uint64_t ACIPCBTClass::start_nl(uint64_t a1, uint64_t a2, CFTypeRef cf, dispatch
       }
 
       *buf = 136315394;
-      v41 = "start_nl";
-      v42 = 1024;
-      LODWORD(v43) = v19;
+      v40 = "start_nl";
+      v41 = 1024;
+      LODWORD(v42) = v19;
       v20 = MEMORY[0x29EDCA988];
       v21 = "ACIPCBTClass::%s: IOServiceAddMatchingNotification (kIOFirstMatchNotification) failed, ret = 0x%08x";
     }
@@ -364,8 +361,8 @@ uint64_t ACIPCBTClass::start_nl(uint64_t a1, uint64_t a2, CFTypeRef cf, dispatch
       block[1] = 0x40000000;
       block[2] = ___ZN12ACIPCBTClass8start_nlEPKcP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES7_U13block_pointerFv14acipcErrorTypejiE_block_invoke_3;
       block[3] = &unk_29EDECD68;
-      block[4] = v38;
-      v37 = v23;
+      block[4] = v37;
+      v36 = v23;
       v24 = *(a1 + 72);
       if (v24)
       {
@@ -389,45 +386,45 @@ uint64_t ACIPCBTClass::start_nl(uint64_t a1, uint64_t a2, CFTypeRef cf, dispatch
         dispatch_async(v25, block);
       }
 
-      v35[0] = MEMORY[0x29EDCA5F8];
-      v35[1] = 0x40000000;
-      v35[2] = ___ZN12ACIPCBTClass8start_nlEPKcP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES7_U13block_pointerFv14acipcErrorTypejiE_block_invoke_15;
-      v35[3] = &unk_29EDECD90;
-      v35[4] = a6;
-      *(a1 + 128) = _Block_copy(v35);
+      v34[0] = MEMORY[0x29EDCA5F8];
+      v34[1] = 0x40000000;
+      v34[2] = ___ZN12ACIPCBTClass8start_nlEPKcP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES7_U13block_pointerFv14acipcErrorTypejiE_block_invoke_15;
+      v34[3] = &unk_29EDECD90;
+      v34[4] = a6;
+      *(a1 + 128) = _Block_copy(v34);
       CFRetain(v16);
       v26 = IOServiceAddMatchingNotification(*(a1 + 88), "IOServiceTerminate", v16, ACIPCBTClass::interfaceMatched, *(a1 + 128), (a1 + 108));
       if (!v26)
       {
-        v30 = *(a1 + 108);
-        IOObjectRetain(v30);
-        v33[0] = MEMORY[0x29EDCA5F8];
-        v33[1] = 0x40000000;
-        v33[2] = ___ZN12ACIPCBTClass8start_nlEPKcP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES7_U13block_pointerFv14acipcErrorTypejiE_block_invoke_2_18;
-        v33[3] = &unk_29EDECDB8;
-        v33[4] = v35;
-        v34 = v30;
-        v31 = *(a1 + 72);
-        if (v31)
+        v29 = *(a1 + 108);
+        IOObjectRetain(v29);
+        v32[0] = MEMORY[0x29EDCA5F8];
+        v32[1] = 0x40000000;
+        v32[2] = ___ZN12ACIPCBTClass8start_nlEPKcP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES7_U13block_pointerFv14acipcErrorTypejiE_block_invoke_2_18;
+        v32[3] = &unk_29EDECDB8;
+        v32[4] = v34;
+        v33 = v29;
+        v30 = *(a1 + 72);
+        if (v30)
         {
           if (*(a1 + 80))
           {
             ACIPCBTClass::start_nl();
           }
 
-          CFRunLoopPerformBlock(v31, *MEMORY[0x29EDB8FC0], v33);
+          CFRunLoopPerformBlock(v30, *MEMORY[0x29EDB8FC0], v32);
           CFRunLoopWakeUp(*(a1 + 72));
         }
 
-        v32 = *(a1 + 80);
-        if (v32)
+        v31 = *(a1 + 80);
+        if (v31)
         {
           if (*(a1 + 72))
           {
             ACIPCBTClass::start_nl();
           }
 
-          dispatch_async(v32, v33);
+          dispatch_async(v31, v32);
         }
 
         v22 = 1;
@@ -444,9 +441,9 @@ LABEL_35:
       }
 
       *buf = 136315394;
-      v41 = "start_nl";
-      v42 = 1024;
-      LODWORD(v43) = v27;
+      v40 = "start_nl";
+      v41 = 1024;
+      LODWORD(v42) = v27;
       v20 = MEMORY[0x29EDCA988];
       v21 = "ACIPCBTClass::%s: IOServiceAddMatchingNotification (kIOTerminatedNotification) failed, ret = 0x%08x";
     }
@@ -460,11 +457,10 @@ LABEL_36:
   if ((*a1 & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v41 = "start_nl";
+    v40 = "start_nl";
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: --done\n", buf, 0xCu);
   }
 
-  v28 = *MEMORY[0x29EDCA608];
   return v22;
 }
 
@@ -554,11 +550,10 @@ void ACIPCBTClass::interfaceMatched(ACIPCBTClass *this, void *a2)
 
 uint64_t ___ZN12ACIPCBTClass8start_nlEPKcP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES7_U13block_pointerFv14acipcErrorTypejiE_block_invoke_3(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  return IOObjectRelease(v3);
+  return IOObjectRelease(v2);
 }
 
 uint64_t ___ZN12ACIPCBTClass8start_nlEPKcP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES7_U13block_pointerFv14acipcErrorTypejiE_block_invoke_15(uint64_t a1, io_iterator_t iterator)
@@ -589,16 +584,15 @@ uint64_t ___ZN12ACIPCBTClass8start_nlEPKcP11__CFRunLoopP16dispatch_queue_sU13blo
 
 uint64_t ___ZN12ACIPCBTClass8start_nlEPKcP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES7_U13block_pointerFv14acipcErrorTypejiE_block_invoke_2_18(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  return IOObjectRelease(v3);
+  return IOObjectRelease(v2);
 }
 
 uint64_t ACIPCBTClass::close_nl(ACIPCBTClass *this)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   if (*(this + 152))
   {
     *(this + 152) = 0;
@@ -622,15 +616,14 @@ uint64_t ACIPCBTClass::close_nl(ACIPCBTClass *this)
   {
     if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "close_nl";
-      _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: not open, return success\n", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "close_nl";
+      _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: not open, return success\n", &v6, 0xCu);
     }
 
-    v2 = 0;
+    return 0;
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
@@ -740,18 +733,17 @@ void ___ZN12ACIPCBTClass21clearNotificationPortEv_block_invoke(__CFRunLoop **a1)
 
 uint64_t ACIPCBTClass::open(ACIPCBTClass *this, io_service_t a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 8));
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "open";
-    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: \n", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "open";
+    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: \n", &v6, 0xCu);
   }
 
   v4 = ACIPCBTClass::open_nl(this, a2);
   pthread_mutex_unlock((this + 8));
-  v5 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -806,20 +798,18 @@ uint64_t ACIPCBTClass::open_nl(io_connect_t *this, io_service_t a2)
 
 BOOL ACIPCBTClass::setUpNotificationCallback(ACIPCBTClass *this, io_service_t a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v3 = IOServiceAddInterestNotification(*(this + 11), a2, "IOGeneralInterest", ACIPCBTClass::notificationCallback, *(this + 17), this + 36);
   if (v3 && (*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "setUpNotificationCallback";
-    v8 = 1024;
-    v9 = v3;
-    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: Could not add interest notification on service: %#x\n", &v6, 0x12u);
+    v5 = 136315394;
+    v6 = "setUpNotificationCallback";
+    v7 = 1024;
+    v8 = v3;
+    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: Could not add interest notification on service: %#x\n", &v5, 0x12u);
   }
 
-  result = v3 == 0;
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  return v3 == 0;
 }
 
 uint64_t ACIPCBTClass::cleanUpNotificationCallback(ACIPCBTClass *this)
@@ -836,18 +826,17 @@ uint64_t ACIPCBTClass::cleanUpNotificationCallback(ACIPCBTClass *this)
 
 uint64_t ACIPCBTClass::close(ACIPCBTClass *this)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 8));
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "close";
-    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: \n", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "close";
+    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: \n", &v4, 0xCu);
   }
 
   v2 = ACIPCBTClass::close_nl(this);
   pthread_mutex_unlock((this + 8));
-  v3 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
@@ -861,7 +850,7 @@ void ACIPCBTClass::notificationCallback(ACIPCBTClass *this, void *a2, uint64_t a
 
 uint64_t ACIPCBTClass::write(ACIPCBTClass *this, const void *a2, unsigned int a3)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 8));
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
@@ -869,8 +858,8 @@ uint64_t ACIPCBTClass::write(ACIPCBTClass *this, const void *a2, unsigned int a3
     *&buf[4] = "write";
     *&buf[12] = 2048;
     *&buf[14] = a2;
-    v10 = 1024;
-    v11 = a3;
+    v9 = 1024;
+    v10 = a3;
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: buff %p, size %u\n", buf, 0x1Cu);
   }
 
@@ -878,19 +867,18 @@ uint64_t ACIPCBTClass::write(ACIPCBTClass *this, const void *a2, unsigned int a3
   *&buf[8] = 0;
   v6 = IOConnectCallMethod(*(this + 37), 2u, buf, 2u, a2, a3, 0, 0, 0, 0);
   pthread_mutex_unlock((this + 8));
-  v7 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 uint64_t ACIPCBTClass::writeAsync(ACIPCBTClass *this, const void *a2, unsigned int a3, void (*a4)(void *, int, void *), void *a5)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
   *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v22 = v10;
-  v23 = v10;
-  *reference = v10;
   v21 = v10;
+  v22 = v10;
+  *reference = v10;
+  v20 = v10;
   pthread_mutex_lock((this + 8));
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
@@ -898,8 +886,8 @@ uint64_t ACIPCBTClass::writeAsync(ACIPCBTClass *this, const void *a2, unsigned i
     *&buf[4] = "writeAsync";
     *&buf[12] = 2048;
     *&buf[14] = a2;
-    v18 = 1024;
-    v19 = a3;
+    v17 = 1024;
+    v18 = a3;
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: buff %p, size %u\n", buf, 0x1Cu);
   }
 
@@ -909,7 +897,7 @@ uint64_t ACIPCBTClass::writeAsync(ACIPCBTClass *this, const void *a2, unsigned i
     *buf = a2;
     *&buf[8] = a3;
     reference[1] = a4;
-    *&v21 = a5;
+    *&v20 = a5;
     v12 = *(this + 37);
     MachPort = IONotificationPortGetMachPort(v11);
     v14 = IOConnectCallAsyncScalarMethod(v12, 2u, MachPort, reference, 3u, buf, 2u, 0, 0);
@@ -927,13 +915,12 @@ uint64_t ACIPCBTClass::writeAsync(ACIPCBTClass *this, const void *a2, unsigned i
   }
 
   pthread_mutex_unlock((this + 8));
-  v15 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
 uint64_t ACIPCBTClass::read(ACIPCBTClass *this, void *a2, unsigned int *a3)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 8));
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
@@ -942,34 +929,33 @@ uint64_t ACIPCBTClass::read(ACIPCBTClass *this, void *a2, unsigned int *a3)
     *&buf[4] = "read";
     *&buf[12] = 2048;
     *&buf[14] = a2;
-    v12 = 1024;
-    v13 = v6;
+    v11 = 1024;
+    v12 = v6;
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: buff %p, size %u\n", buf, 0x1Cu);
   }
 
   *buf = 0;
   *&buf[8] = 0;
-  v10 = *a3;
-  v7 = IOConnectCallMethod(*(this + 37), 3u, buf, 2u, 0, 0, 0, 0, a2, &v10);
+  v9 = *a3;
+  v7 = IOConnectCallMethod(*(this + 37), 3u, buf, 2u, 0, 0, 0, 0, a2, &v9);
   if (!v7)
   {
-    *a3 = v10;
+    *a3 = v9;
   }
 
   pthread_mutex_unlock((this + 8));
-  v8 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
 uint64_t ACIPCBTClass::readAsync(ACIPCBTClass *this, void *a2, unsigned int a3, void (*a4)(void *, int, void *), void *a5)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
   *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v22 = v10;
-  v23 = v10;
-  *reference = v10;
   v21 = v10;
+  v22 = v10;
+  *reference = v10;
+  v20 = v10;
   pthread_mutex_lock((this + 8));
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
@@ -977,8 +963,8 @@ uint64_t ACIPCBTClass::readAsync(ACIPCBTClass *this, void *a2, unsigned int a3, 
     *&buf[4] = "readAsync";
     *&buf[12] = 2048;
     *&buf[14] = a2;
-    v18 = 1024;
-    v19 = a3;
+    v17 = 1024;
+    v18 = a3;
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: buff %p, size %u\n", buf, 0x1Cu);
   }
 
@@ -988,7 +974,7 @@ uint64_t ACIPCBTClass::readAsync(ACIPCBTClass *this, void *a2, unsigned int a3, 
     *buf = a2;
     *&buf[8] = a3;
     reference[1] = a4;
-    *&v21 = a5;
+    *&v20 = a5;
     v12 = *(this + 37);
     MachPort = IONotificationPortGetMachPort(v11);
     v14 = IOConnectCallAsyncScalarMethod(v12, 3u, MachPort, reference, 3u, buf, 2u, 0, 0);
@@ -1006,7 +992,6 @@ uint64_t ACIPCBTClass::readAsync(ACIPCBTClass *this, void *a2, unsigned int a3, 
   }
 
   pthread_mutex_unlock((this + 8));
-  v15 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
@@ -1018,55 +1003,54 @@ uint64_t ACIPCBTClass::sendImage(ACIPCBTClass *this, const void *a2, unsigned in
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v14 = "sendImage";
-    v15 = 2048;
-    *v16 = a2;
-    *&v16[8] = 1024;
-    *&v16[10] = a3;
+    v13 = "sendImage";
+    v14 = 2048;
+    *v15 = a2;
+    *&v15[8] = 1024;
+    *&v15[10] = a3;
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: buff %p, size %u\n", buf, 0x1Cu);
   }
 
   input[0] = 0;
   input[1] = 0;
   output = 0;
-  v22 = 0;
+  v21 = 0;
   v8 = IOConnectCallMethod(*(this + 37), 4u, input, 2u, a2, a3, &output, &outputCnt, 0, 0);
   if (!v8)
   {
     *a4 = output;
-    v8 = v22;
+    v8 = v21;
   }
 
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     v9 = *a4;
     *buf = 136316162;
-    v14 = "sendImage";
-    v15 = 1024;
-    *v16 = v8;
-    *&v16[4] = 2048;
-    *&v16[6] = a2;
-    v17 = 1024;
-    v18 = a3;
-    v19 = 1024;
-    v20 = v9;
+    v13 = "sendImage";
+    v14 = 1024;
+    *v15 = v8;
+    *&v15[4] = 2048;
+    *&v15[6] = a2;
+    v16 = 1024;
+    v17 = a3;
+    v18 = 1024;
+    v19 = v9;
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: ret 0x%x, buff %p, size %u, cookie %u\n", buf, 0x28u);
   }
 
   pthread_mutex_unlock((this + 8));
-  v10 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
 uint64_t ACIPCBTClass::sendImageAsync(ACIPCBTClass *this, const void *a2, unsigned int a3, void (*a4)(void *, int, void *, void *), void *a5)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
   *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v24 = v10;
-  v25 = v10;
-  *reference = v10;
   v23 = v10;
+  v24 = v10;
+  *reference = v10;
+  v22 = v10;
   outputCnt = 2;
   pthread_mutex_lock((this + 8));
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
@@ -1075,8 +1059,8 @@ uint64_t ACIPCBTClass::sendImageAsync(ACIPCBTClass *this, const void *a2, unsign
     *&buf[4] = "sendImageAsync";
     *&buf[12] = 2048;
     *&buf[14] = a2;
-    v19 = 1024;
-    v20 = a3;
+    v18 = 1024;
+    v19 = a3;
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: buff %p, size %u\n", buf, 0x1Cu);
   }
 
@@ -1088,7 +1072,7 @@ uint64_t ACIPCBTClass::sendImageAsync(ACIPCBTClass *this, const void *a2, unsign
     output[0] = 0;
     output[1] = 0;
     reference[1] = a4;
-    *&v23 = a5;
+    *&v22 = a5;
     v12 = *(this + 37);
     MachPort = IONotificationPortGetMachPort(v11);
     v14 = IOConnectCallAsyncScalarMethod(v12, 4u, MachPort, reference, 3u, buf, 2u, output, &outputCnt);
@@ -1106,50 +1090,48 @@ uint64_t ACIPCBTClass::sendImageAsync(ACIPCBTClass *this, const void *a2, unsign
   }
 
   pthread_mutex_unlock((this + 8));
-  v15 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
 uint64_t ACIPCBTClass::readRegister(ACIPCBTClass *this, unsigned int a2, void *a3, unsigned int *a4)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 8));
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     v8 = *a4;
     *buf = 136315906;
     *&buf[4] = "readRegister";
-    v14 = 1024;
-    v15 = a2;
-    v16 = 2048;
-    v17 = a3;
-    v18 = 1024;
-    v19 = v8;
+    v13 = 1024;
+    v14 = a2;
+    v15 = 2048;
+    v16 = a3;
+    v17 = 1024;
+    v18 = v8;
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: reg %u, buff %p, size %u\n", buf, 0x22u);
   }
 
-  v12 = *a4;
+  v11 = *a4;
   *buf = a2;
-  v9 = IOConnectCallMethod(*(this + 37), 5u, buf, 1u, 0, 0, 0, 0, a3, &v12);
+  v9 = IOConnectCallMethod(*(this + 37), 5u, buf, 1u, 0, 0, 0, 0, a3, &v11);
   if (!v9)
   {
-    *a4 = v12;
+    *a4 = v11;
   }
 
   pthread_mutex_unlock((this + 8));
-  v10 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
 uint64_t ACIPCBTClass::abortChannelAsync(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v23 = v8;
-  v24 = v8;
-  *reference = v8;
   v22 = v8;
+  v23 = v8;
+  *reference = v8;
+  v21 = v8;
   input[1] = 0xAAAAAAAAAAAAAAAALL;
   pthread_mutex_lock((a1 + 8));
   if ((*a1 & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
@@ -1165,9 +1147,9 @@ uint64_t ACIPCBTClass::abortChannelAsync(uint64_t a1, unsigned int a2, uint64_t 
     }
 
     *buf = 136315394;
-    v17 = "abortChannelAsync";
-    v18 = 2080;
-    v19 = v9;
+    v16 = "abortChannelAsync";
+    v17 = 2080;
+    v18 = v9;
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: direction %s\n", buf, 0x16u);
   }
 
@@ -1176,7 +1158,7 @@ uint64_t ACIPCBTClass::abortChannelAsync(uint64_t a1, unsigned int a2, uint64_t 
   {
     input[0] = a2;
     reference[1] = a3;
-    *&v22 = a4;
+    *&v21 = a4;
     v11 = *(a1 + 148);
     MachPort = IONotificationPortGetMachPort(v10);
     v13 = IOConnectCallAsyncScalarMethod(v11, 6u, MachPort, reference, 3u, input, 1u, 0, 0);
@@ -1188,25 +1170,24 @@ uint64_t ACIPCBTClass::abortChannelAsync(uint64_t a1, unsigned int a2, uint64_t 
     if ((*a1 & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "abortChannelAsync";
+      v16 = "abortChannelAsync";
       _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: no async port\n", buf, 0xCu);
     }
   }
 
   pthread_mutex_unlock((a1 + 8));
-  v14 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
 uint64_t ACIPCBTClass::startChannelAsync(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v23 = v8;
-  v24 = v8;
-  *reference = v8;
   v22 = v8;
+  v23 = v8;
+  *reference = v8;
+  v21 = v8;
   input[1] = 0xAAAAAAAAAAAAAAAALL;
   pthread_mutex_lock((a1 + 8));
   if ((*a1 & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
@@ -1222,9 +1203,9 @@ uint64_t ACIPCBTClass::startChannelAsync(uint64_t a1, unsigned int a2, uint64_t 
     }
 
     *buf = 136315394;
-    v17 = "startChannelAsync";
-    v18 = 2080;
-    v19 = v9;
+    v16 = "startChannelAsync";
+    v17 = 2080;
+    v18 = v9;
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: direction %s\n", buf, 0x16u);
   }
 
@@ -1233,7 +1214,7 @@ uint64_t ACIPCBTClass::startChannelAsync(uint64_t a1, unsigned int a2, uint64_t 
   {
     input[0] = a2;
     reference[1] = a3;
-    *&v22 = a4;
+    *&v21 = a4;
     v11 = *(a1 + 148);
     MachPort = IONotificationPortGetMachPort(v10);
     v13 = IOConnectCallAsyncScalarMethod(v11, 7u, MachPort, reference, 3u, input, 1u, 0, 0);
@@ -1245,13 +1226,12 @@ uint64_t ACIPCBTClass::startChannelAsync(uint64_t a1, unsigned int a2, uint64_t 
     if ((*a1 & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "startChannelAsync";
+      v16 = "startChannelAsync";
       _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTClass::%s: no async port\n", buf, 0xCu);
     }
   }
 
   pthread_mutex_unlock((a1 + 8));
-  v14 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
@@ -1286,17 +1266,16 @@ void ACIPCBTControlClass::ACIPCBTControlClass(ACIPCBTControlClass *this)
 
 void ACIPCBTControlClass::~ACIPCBTControlClass(ACIPCBTControlClass *this)
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 136315138;
-    v4 = "~ACIPCBTControlClass";
-    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: \n", &v3, 0xCu);
+    v2 = 136315138;
+    v3 = "~ACIPCBTControlClass";
+    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: \n", &v2, 0xCu);
   }
 
   ACIPCBTControlClass::stop(this);
   pthread_mutex_destroy((this + 8));
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 void sub_295FE9D14(_Unwind_Exception *a1, int a2)
@@ -1311,13 +1290,13 @@ void sub_295FE9D14(_Unwind_Exception *a1, int a2)
 
 uint64_t ACIPCBTControlClass::stop(ACIPCBTControlClass *this)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 8));
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "stop";
-    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: \n", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "stop";
+    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: \n", &v4, 0xCu);
   }
 
   ACIPCBTControlClass::close_nl(this);
@@ -1331,19 +1310,18 @@ uint64_t ACIPCBTControlClass::stop(ACIPCBTControlClass *this)
 
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "stop";
-    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: --done\n", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "stop";
+    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: --done\n", &v4, 0xCu);
   }
 
   pthread_mutex_unlock((this + 8));
-  v3 = *MEMORY[0x29EDCA608];
   return 1;
 }
 
 uint64_t ACIPCBTControlClass::waitforService(ACIPCBTControlClass *this)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   notification = 0;
   Current = CFRunLoopGetCurrent();
   v3 = IOServiceMatching("AppleConvergedIPCControl");
@@ -1352,11 +1330,11 @@ uint64_t ACIPCBTControlClass::waitforService(ACIPCBTControlClass *this)
     if ((*this & 1) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v22 = "waitforService";
+      v21 = "waitforService";
       _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: could not create matching dictionary\n", buf, 0xCu);
     }
 
-    goto LABEL_28;
+    return 0;
   }
 
   v4 = v3;
@@ -1366,14 +1344,12 @@ uint64_t ACIPCBTControlClass::waitforService(ACIPCBTControlClass *this)
     if ((*this & 1) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v22 = "waitforService";
+      v21 = "waitforService";
       _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: Failed to create notification port\n", buf, 0xCu);
     }
 
     CFRelease(v4);
-LABEL_28:
-    v14 = 0;
-    goto LABEL_29;
+    return 0;
   }
 
   v6 = v5;
@@ -1395,9 +1371,9 @@ LABEL_28:
     }
 
     *buf = 136315394;
-    v22 = "waitforService";
-    v23 = 1024;
-    v24 = v10;
+    v21 = "waitforService";
+    v22 = 1024;
+    v23 = v10;
     v11 = MEMORY[0x29EDCA988];
     v12 = "ACIPCBTControlClass::%s: Failed to add notification for service %#x\n";
     v13 = 18;
@@ -1419,7 +1395,7 @@ LABEL_28:
   if ((*this & 1) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v22 = "waitforService";
+    v21 = "waitforService";
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: AppleConvergedIPCControl service not found, waiting 90 seconds for it to appear", buf, 0xCu);
   }
 
@@ -1430,7 +1406,7 @@ LABEL_28:
     if ((v16 & 1) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v22 = "waitforService";
+      v21 = "waitforService";
       _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: AppleConvergedIPCControl service found", buf, 0xCu);
     }
 
@@ -1448,7 +1424,7 @@ LABEL_28:
   if ((v16 & 1) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v22 = "waitforService";
+    v21 = "waitforService";
     v11 = MEMORY[0x29EDCA988];
     v12 = "ACIPCBTControlClass::%s: Runloop timed out while finding AppleConvergedIPCControl";
     v13 = 12;
@@ -1461,8 +1437,6 @@ LABEL_8:
 LABEL_20:
   CFRunLoopRemoveSource(Current, RunLoopSource, v8);
   IONotificationPortDestroy(v6);
-LABEL_29:
-  v18 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
@@ -1479,7 +1453,7 @@ void __serviceCallback(__CFRunLoop *a1)
 
 BOOL ACIPCBTControlClass::start(ACIPCBTControlClass *this)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 8));
   if (*(this + 18))
   {
@@ -1492,9 +1466,9 @@ BOOL ACIPCBTControlClass::start(ACIPCBTControlClass *this)
     v2 = v3 != 0;
     if (!v3 && (*this & 1) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "start";
-      _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: could not get matching service\n", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "start";
+      _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: could not get matching service\n", &v5, 0xCu);
     }
 
     *(this + 18) = v3;
@@ -1502,13 +1476,12 @@ BOOL ACIPCBTControlClass::start(ACIPCBTControlClass *this)
 
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "start";
-    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: --done\n", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "start";
+    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: --done\n", &v5, 0xCu);
   }
 
   pthread_mutex_unlock((this + 8));
-  v4 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
@@ -1548,11 +1521,11 @@ uint64_t ACIPCBTControlClass::close_nl(ACIPCBTControlClass *this)
 
 void ACIPCBTControlClass::deregisterEventNotification_nl(ACIPCBTControlClass *this, NSObject *a2)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "deregisterEventNotification_nl";
+    v14 = "deregisterEventNotification_nl";
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: +\n", buf, 0xCu);
   }
 
@@ -1608,12 +1581,12 @@ void ACIPCBTControlClass::deregisterEventNotification_nl(ACIPCBTControlClass *th
 LABEL_12:
     v8 = *(this + 19);
     *(this + 19) = 0;
-    v13[0] = MEMORY[0x29EDCA5F8];
-    v13[1] = 0x40000000;
-    v13[2] = ___ZN19ACIPCBTControlClass30deregisterEventNotification_nlEP16dispatch_group_s_block_invoke;
-    v13[3] = &unk_29EDECE98;
-    v13[4] = v8;
-    v13[5] = v6;
+    v12[0] = MEMORY[0x29EDCA5F8];
+    v12[1] = 0x40000000;
+    v12[2] = ___ZN19ACIPCBTControlClass30deregisterEventNotification_nlEP16dispatch_group_s_block_invoke;
+    v12[3] = &unk_29EDECE98;
+    v12[4] = v8;
+    v12[5] = v6;
     v9 = *(this + 14);
     if (v9)
     {
@@ -1622,7 +1595,7 @@ LABEL_12:
         ACIPCBTControlClass::deregisterEventNotification_nl();
       }
 
-      CFRunLoopPerformBlock(v9, *MEMORY[0x29EDB8FC0], v13);
+      CFRunLoopPerformBlock(v9, *MEMORY[0x29EDB8FC0], v12);
       CFRunLoopWakeUp(*(this + 14));
       CFRelease(*(this + 14));
       *(this + 14) = 0;
@@ -1631,7 +1604,7 @@ LABEL_12:
     v10 = *(this + 15);
     if (v10)
     {
-      dispatch_async(v10, v13);
+      dispatch_async(v10, v12);
       dispatch_release(*(this + 15));
       *(this + 15) = 0;
     }
@@ -1654,12 +1627,10 @@ LABEL_25:
     if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v15 = "deregisterEventNotification_nl";
+      v14 = "deregisterEventNotification_nl";
       _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: -\n", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 void ACIPCBTControlClass::setNotificationPort(ACIPCBTControlClass *this)
@@ -1793,18 +1764,17 @@ void ___ZN19ACIPCBTControlClass26clearEventNotificationPortEv_block_invoke(__CFR
 
 uint64_t ACIPCBTControlClass::open(ACIPCBTControlClass *this, __CFRunLoop *a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 8));
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "open";
-    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: \n", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "open";
+    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: \n", &v6, 0xCu);
   }
 
   v4 = ACIPCBTControlClass::open_nl(this, a2, 0);
   pthread_mutex_unlock((this + 8));
-  v5 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -1859,47 +1829,45 @@ uint64_t ACIPCBTControlClass::open_nl(ACIPCBTControlClass *this, __CFRunLoop *a2
 
 uint64_t ACIPCBTControlClass::open(ACIPCBTControlClass *this, NSObject *a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 8));
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "open";
-    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: \n", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "open";
+    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: \n", &v6, 0xCu);
   }
 
   v4 = ACIPCBTControlClass::open_nl(this, 0, a2);
   pthread_mutex_unlock((this + 8));
-  v5 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 uint64_t ACIPCBTControlClass::close(ACIPCBTControlClass *this)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 8));
   if ((*this & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "close";
-    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: \n", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "close";
+    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: \n", &v4, 0xCu);
   }
 
   v2 = ACIPCBTControlClass::close_nl(this);
   pthread_mutex_unlock((this + 8));
-  v3 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
 uint64_t ACIPCBTControlClass::readLogsAsync(ACIPCBTControlClass *this, void *a2, unsigned int a3, unsigned int a4, void (*a5)(void *, int, void *), void *a6)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   *&v12 = 0xAAAAAAAAAAAAAAAALL;
   *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v23 = v12;
-  v24 = v12;
-  *reference = v12;
   v22 = v12;
+  v23 = v12;
+  *reference = v12;
+  v21 = v12;
   pthread_mutex_lock((this + 8));
   if ((*this & 4) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
@@ -1908,7 +1876,7 @@ uint64_t ACIPCBTControlClass::readLogsAsync(ACIPCBTControlClass *this, void *a2,
     *&buf[12] = 2048;
     *&buf[14] = a2;
     *&buf[22] = 1024;
-    v20 = a3;
+    v19 = a3;
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: buff %p, size %u\n", buf, 0x1Cu);
   }
 
@@ -1919,7 +1887,7 @@ uint64_t ACIPCBTControlClass::readLogsAsync(ACIPCBTControlClass *this, void *a2,
     *&buf[8] = a3;
     *&buf[16] = a4;
     reference[1] = a5;
-    *&v22 = a6;
+    *&v21 = a6;
     v14 = *(this + 40);
     MachPort = IONotificationPortGetMachPort(v13);
     v16 = IOConnectCallAsyncScalarMethod(v14, 2u, MachPort, reference, 3u, buf, 3u, 0, 0);
@@ -1937,7 +1905,6 @@ uint64_t ACIPCBTControlClass::readLogsAsync(ACIPCBTControlClass *this, void *a2,
   }
 
   pthread_mutex_unlock((this + 8));
-  v17 = *MEMORY[0x29EDCA608];
   return v16;
 }
 
@@ -1951,7 +1918,7 @@ uint64_t ACIPCBTControlClass::registerEventNotification(uint64_t a1, const void 
 
 uint64_t ACIPCBTControlClass::registerEventNotification_nl(uint64_t a1, const void *a2, NSObject *a3, uint64_t a4)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   if (*(a1 + 72))
   {
     if (*(a1 + 152))
@@ -1960,12 +1927,12 @@ uint64_t ACIPCBTControlClass::registerEventNotification_nl(uint64_t a1, const vo
       if ((*a1 & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v19 = "registerEventNotification_nl";
+        v18 = "registerEventNotification_nl";
         _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: a notification block is already registered. deregister it before registering a new block", buf, 0xCu);
-        v5 = 3758097093;
+        return 3758097093;
       }
 
-      goto LABEL_39;
+      return v5;
     }
 
     if (a4)
@@ -1975,9 +1942,9 @@ uint64_t ACIPCBTControlClass::registerEventNotification_nl(uint64_t a1, const vo
         v8 = *(a4 + 8);
         if (v8)
         {
-          v9 = v16;
-          v16[0] = MEMORY[0x29EDCA5F8];
-          v16[1] = 0x40000000;
+          v9 = v15;
+          v15[0] = MEMORY[0x29EDCA5F8];
+          v15[1] = 0x40000000;
           v10 = &unk_29EDECE70;
           v11 = ___ZN19ACIPCBTControlClass28registerEventNotification_nlEP11__CFRunLoopP16dispatch_queue_sP17ACIPCControlEvent_block_invoke_12;
           goto LABEL_19;
@@ -1986,11 +1953,11 @@ uint64_t ACIPCBTControlClass::registerEventNotification_nl(uint64_t a1, const vo
         v5 = 3758097090;
         if ((*a1 & 2) == 0 || !os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_39;
+          return v5;
         }
 
         *buf = 136315138;
-        v19 = "registerEventNotification_nl";
+        v18 = "registerEventNotification_nl";
         v12 = MEMORY[0x29EDCA988];
         v13 = "ACIPCBTControlClass::%s: timesync block must be provided\n";
       }
@@ -2000,11 +1967,11 @@ uint64_t ACIPCBTControlClass::registerEventNotification_nl(uint64_t a1, const vo
         v5 = 3758097090;
         if ((*a1 & 1) == 0 || !os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_39;
+          return v5;
         }
 
         *buf = 136315138;
-        v19 = "registerEventNotification_nl";
+        v18 = "registerEventNotification_nl";
         v12 = MEMORY[0x29EDCA988];
         v13 = "ACIPCBTControlClass::%s: invalid event type\n";
       }
@@ -2014,9 +1981,9 @@ uint64_t ACIPCBTControlClass::registerEventNotification_nl(uint64_t a1, const vo
         v8 = *(a4 + 8);
         if (v8)
         {
-          v9 = v17;
-          v17[0] = MEMORY[0x29EDCA5F8];
-          v17[1] = 0x40000000;
+          v9 = v16;
+          v16[0] = MEMORY[0x29EDCA5F8];
+          v16[1] = 0x40000000;
           v10 = &unk_29EDECE48;
           v11 = ___ZN19ACIPCBTControlClass28registerEventNotification_nlEP11__CFRunLoopP16dispatch_queue_sP17ACIPCControlEvent_block_invoke;
 LABEL_19:
@@ -2048,28 +2015,28 @@ LABEL_19:
             if ((*a1 & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315394;
-              v19 = "registerEventNotification_nl";
-              v20 = 1024;
-              v21 = v5;
+              v18 = "registerEventNotification_nl";
+              v19 = 1024;
+              v20 = v5;
               _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: could not add interest notification on service: %#x\n", buf, 0x12u);
             }
 
             _Block_release(*(a1 + 152));
             *(a1 + 152) = 0;
-            v5 = 3758097084;
+            return 3758097084;
           }
 
-          goto LABEL_39;
+          return v5;
         }
 
         v5 = 3758097090;
         if ((*a1 & 2) == 0 || !os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_39;
+          return v5;
         }
 
         *buf = 136315138;
-        v19 = "registerEventNotification_nl";
+        v18 = "registerEventNotification_nl";
         v12 = MEMORY[0x29EDCA988];
         v13 = "ACIPCBTControlClass::%s: error block must be provided\n";
       }
@@ -2080,30 +2047,28 @@ LABEL_19:
       v5 = 3758097090;
       if ((*a1 & 2) == 0 || !os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_39;
+        return v5;
       }
 
       *buf = 136315138;
-      v19 = "registerEventNotification_nl";
+      v18 = "registerEventNotification_nl";
       v12 = MEMORY[0x29EDCA988];
       v13 = "ACIPCBTControlClass::%s: event parameters must be provided\n";
     }
 
     _os_log_impl(&dword_295FE7000, v12, OS_LOG_TYPE_DEFAULT, v13, buf, 0xCu);
-    goto LABEL_39;
+    return v5;
   }
 
   v5 = 3758097136;
   if ((*a1 & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v19 = "registerEventNotification_nl";
+    v18 = "registerEventNotification_nl";
     _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: service is NULL - must successfully start() first\n", buf, 0xCu);
-    v5 = 3758097136;
+    return 3758097136;
   }
 
-LABEL_39:
-  v14 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -2169,30 +2134,29 @@ BOOL ACIPCBTControlClass::getLogInternalBufferSize(ACIPCBTControlClass *this, un
 
 uint64_t ACIPCBTControlClass::loggerTune(ACIPCBTControlClass *this, unsigned int a2, unsigned int a3, void *a4, void *a5)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 8));
   if ((*this & 4) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 136316162;
-    *&v13[4] = "loggerTune";
-    *&v13[12] = 1024;
-    *&v13[14] = a2;
-    *&v13[18] = 1024;
-    *&v13[20] = a3;
-    *v14 = 2048;
-    *&v14[2] = a4;
-    v15 = 2048;
-    v16 = a5;
-    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: subsystem %u, index %u, arg1 %p, arg2 %p\n", v13, 0x2Cu);
+    *v12 = 136316162;
+    *&v12[4] = "loggerTune";
+    *&v12[12] = 1024;
+    *&v12[14] = a2;
+    *&v12[18] = 1024;
+    *&v12[20] = a3;
+    *v13 = 2048;
+    *&v13[2] = a4;
+    v14 = 2048;
+    v15 = a5;
+    _os_log_impl(&dword_295FE7000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "ACIPCBTControlClass::%s: subsystem %u, index %u, arg1 %p, arg2 %p\n", v12, 0x2Cu);
   }
 
-  *v13 = a2;
-  *&v13[8] = a3;
-  *&v13[16] = a4;
-  *v14 = a5;
-  v10 = IOConnectCallScalarMethod(*(this + 40), 3u, v13, 4u, 0, 0);
+  *v12 = a2;
+  *&v12[8] = a3;
+  *&v12[16] = a4;
+  *v13 = a5;
+  v10 = IOConnectCallScalarMethod(*(this + 40), 3u, v12, 4u, 0, 0);
   pthread_mutex_unlock((this + 8));
-  v11 = *MEMORY[0x29EDCA608];
   return v10;
 }
 

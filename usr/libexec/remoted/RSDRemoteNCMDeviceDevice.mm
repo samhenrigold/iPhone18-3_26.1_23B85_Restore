@@ -109,10 +109,10 @@
 
 - (void)attach
 {
-  v5.receiver = self;
-  v5.super_class = RSDRemoteNCMDeviceDevice;
-  [(RSDRemoteDevice *)&v5 attach];
-  if (sub_100031B50())
+  v7.receiver = self;
+  v7.super_class = RSDRemoteNCMDeviceDevice;
+  attach = [(RSDRemoteDevice *)&v7 attach];
+  if (sub_100031B50(attach, v4))
   {
     [(RSDRemoteNCMDeviceDevice *)self createBonjourListener];
   }
@@ -184,7 +184,7 @@
   if (*[(RSDRemoteNCMDevice *)self local_address]|| *([(RSDRemoteNCMDevice *)self local_address]+ 1) || *([(RSDRemoteNCMDevice *)self local_address]+ 2) || *([(RSDRemoteNCMDevice *)self local_address]+ 3))
   {
     interface = [(RSDRemoteNCMDevice *)self interface];
-    v5 = sub_100031974([interface index]);
+    v5 = sub_100031974([interface index], 1);
 
     if (!v5)
     {
@@ -299,11 +299,11 @@ LABEL_16:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@> create port listener start", buf, 0xCu);
   }
 
-  v16 = -6753;
-  v15 = -1;
+  v15 = -6753;
+  v14 = -1;
   local_address = [(RSDRemoteNCMDevice *)self local_address];
   interface = [(RSDRemoteNCMDevice *)self interface];
-  LODWORD(local_address) = sub_1000240DC(&v15, local_address, &v16, [interface index], &unk_100049E6C);
+  LODWORD(local_address) = sub_1000240DC(&v14, local_address, &v15, [interface index], &unk_100049E6C);
 
   if (local_address)
   {
@@ -323,7 +323,7 @@ LABEL_16:
 
   else
   {
-    v7 = dispatch_source_create(&_dispatch_source_type_read, v15, 0, qword_1000643D8);
+    v7 = dispatch_source_create(&_dispatch_source_type_read, v14, 0, qword_1000643D8);
     listener_source = self->listener_source;
     self->listener_source = v7;
 
@@ -332,18 +332,17 @@ LABEL_16:
     handler[1] = 3221225472;
     handler[2] = sub_100015084;
     handler[3] = &unk_10005D538;
-    v13 = v15;
+    v12 = v14;
     handler[4] = self;
     dispatch_source_set_event_handler(v9, handler);
-    v10 = self->listener_source;
     dispatch_source_set_mandatory_cancel_handler();
     dispatch_activate(self->listener_source);
-    v11 = qword_1000643E0;
+    v10 = qword_1000643E0;
     if (os_log_type_enabled(qword_1000643E0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@> create port listener done", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@> create port listener done", buf, 0xCu);
     }
   }
 }

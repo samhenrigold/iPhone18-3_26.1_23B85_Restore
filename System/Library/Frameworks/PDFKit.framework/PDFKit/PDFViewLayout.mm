@@ -123,8 +123,8 @@
     if (v12->delegateKnowsMargins)
     {
       [v9 pageBreakMargins];
-      v84 = v13;
-      v86 = v14;
+      v85 = v13;
+      v87 = v14;
       v16 = v15;
       v18 = v17;
       v19 = *v11;
@@ -140,8 +140,8 @@
       v20 = *(MEMORY[0x1E69DDCE0] + 8);
       v22 = *(MEMORY[0x1E69DDCE0] + 16);
       v21 = *(MEMORY[0x1E69DDCE0] + 24);
-      v84 = *MEMORY[0x1E69DDCE0];
-      v86 = v21;
+      v85 = *MEMORY[0x1E69DDCE0];
+      v87 = v21;
       v16 = v20;
       v18 = v22;
     }
@@ -184,8 +184,8 @@
     }
 
     functionalDisplayMode = [(PDFViewLayout *)self functionalDisplayMode];
-    v34 = v16 + v86 + v20 + v21;
-    v35 = v85 + v18 + v19 + v22;
+    v34 = v16 + v87 + v20 + v21;
+    v35 = v86 + v18 + v19 + v22;
     if (functionalDisplayMode > 1)
     {
       if (functionalDisplayMode == 2)
@@ -203,7 +203,7 @@
         v6 = v35 + MaxY;
         if (v52)
         {
-          v87 = v35;
+          v88 = v35;
           document2 = [v52 document];
           v55 = [document2 indexForPage:v53];
 
@@ -213,7 +213,7 @@
           v59 = v56->size.width;
           v60 = v56->size.height;
           v5 = fmax(v5, v34 + PDFRectGetMaxX(v56->origin.x, v58, v59));
-          v6 = fmax(v6, v87 + PDFRectGetMaxY(v57, v58, v59, v60));
+          v6 = fmax(v6, v88 + PDFRectGetMaxY(v57, v58, v59, v60));
         }
 
         goto LABEL_40;
@@ -229,28 +229,28 @@
           goto LABEL_40;
         }
 
-        v77 = PDFRectGetMaxY(v37->pageLayoutBounds.__begin_->origin.x, v37->pageLayoutBounds.__begin_->origin.y, v37->pageLayoutBounds.__begin_->size.width, v37->pageLayoutBounds.__begin_->size.height);
-        v78 = PDFRectGetMaxY(self->_private->pageLayoutBounds.__begin_[1].origin.x, self->_private->pageLayoutBounds.__begin_[1].origin.y, self->_private->pageLayoutBounds.__begin_[1].size.width, self->_private->pageLayoutBounds.__begin_[1].size.height);
-        v5 = v86 + PDFRectGetMaxX(self->_private->pageLayoutBounds.__begin_->origin.x, self->_private->pageLayoutBounds.__begin_->origin.y, self->_private->pageLayoutBounds.__begin_->size.width);
-        v79 = self->_private;
-        if (v79->pageCount >= 2)
+        v78 = PDFRectGetMaxY(v37->pageLayoutBounds.__begin_->origin.x, v37->pageLayoutBounds.__begin_->origin.y, v37->pageLayoutBounds.__begin_->size.width, v37->pageLayoutBounds.__begin_->size.height);
+        v79 = PDFRectGetMaxY(self->_private->pageLayoutBounds.__begin_[1].origin.x, self->_private->pageLayoutBounds.__begin_[1].origin.y, self->_private->pageLayoutBounds.__begin_[1].size.width, self->_private->pageLayoutBounds.__begin_[1].size.height);
+        v5 = v87 + PDFRectGetMaxX(self->_private->pageLayoutBounds.__begin_->origin.x, self->_private->pageLayoutBounds.__begin_->origin.y, self->_private->pageLayoutBounds.__begin_->size.width);
+        v80 = self->_private;
+        if (v80->pageCount >= 2)
         {
-          v80 = 0;
-          v81 = 1;
+          v81 = 0;
+          v82 = 1;
           do
           {
-            v5 = fmax(v5, v86 + PDFRectGetMaxX(v79->pageLayoutBounds.__begin_[v80 + 1].origin.x, v79->pageLayoutBounds.__begin_[v80 + 1].origin.y, v79->pageLayoutBounds.__begin_[v80 + 1].size.width));
+            v5 = fmax(v5, v87 + PDFRectGetMaxX(v80->pageLayoutBounds.__begin_[v81 + 1].origin.x, v80->pageLayoutBounds.__begin_[v81 + 1].origin.y, v80->pageLayoutBounds.__begin_[v81 + 1].size.width));
+            ++v82;
+            v80 = self->_private;
             ++v81;
-            v79 = self->_private;
-            ++v80;
           }
 
-          while (v79->pageCount > v81);
+          while (v80->pageCount > v82);
         }
 
-        v6 = fmax(v35 + v77, v35 + v78);
-        v79->twoUpContinousSize.width = v5;
-        v79->twoUpContinousSize.height = v6;
+        v6 = fmax(v35 + v78, v35 + v79);
+        v80->twoUpContinousSize.width = v5;
+        v80->twoUpContinousSize.height = v6;
         goto LABEL_39;
       }
     }
@@ -281,42 +281,44 @@
           goto LABEL_40;
         }
 
-        v62 = PDFRectToCGRect(1);
-        v65 = v64;
-        v67 = v66;
+        PDFRectToCGRect();
+        v64 = v63;
+        v66 = v65;
         if ((self->_private->pageLayoutBounds.__end_ - self->_private->pageLayoutBounds.__begin_) >= 0x21)
         {
+          v67 = v61;
           v68 = v62;
-          v69 = v63;
-          v70 = 0;
-          v71 = 1;
+          v69 = 0;
+          v70 = 1;
           do
           {
-            v91.origin.x = PDFRectToCGRect(v61);
-            v91.origin.y = v72;
-            v91.size.width = v73;
-            v91.size.height = v74;
-            v89.origin.x = v68;
-            v89.origin.y = v69;
-            v89.size.width = v65;
-            v89.size.height = v67;
-            v90 = CGRectUnion(v89, v91);
-            v68 = v90.origin.x;
-            v69 = v90.origin.y;
-            v65 = v90.size.width;
-            v67 = v90.size.height;
-            ++v71;
-            v70 += 32;
+            PDFRectToCGRect();
+            v92.origin.x = v71;
+            v92.origin.y = v72;
+            v92.size.width = v73;
+            v92.size.height = v74;
+            v90.origin.x = v67;
+            v90.origin.y = v68;
+            v90.size.width = v64;
+            v90.size.height = v66;
+            v91 = CGRectUnion(v90, v92);
+            v67 = v91.origin.x;
+            v68 = v91.origin.y;
+            v64 = v91.size.width;
+            v66 = v91.size.height;
+            ++v70;
+            v69 += 32;
           }
 
-          while (v71 < self->_private->pageLayoutBounds.__end_ - self->_private->pageLayoutBounds.__begin_);
+          while (v70 < self->_private->pageLayoutBounds.__end_ - self->_private->pageLayoutBounds.__begin_);
         }
 
-        v5 = PDFSizeFromCGSize(v34 + v65, v35 + v67);
-        v6 = v75;
-        v76 = self->_private;
-        v76->singlePageContinuousSize.width = v5;
-        v76->singlePageContinuousSize.height = v75;
+        PDFSizeFromCGSize();
+        v5 = v75;
+        v6 = v76;
+        v77 = self->_private;
+        v77->singlePageContinuousSize.width = v75;
+        v77->singlePageContinuousSize.height = v76;
 LABEL_39:
         self->_private->cachedContinuousSizeDisplayDirection = displayDirection;
       }
@@ -330,10 +332,10 @@ LABEL_41:
     [(NSLock *)v32->pageLayoutLock unlock];
   }
 
-  v82 = v5;
-  v83 = v6;
-  result.height = v83;
-  result.width = v82;
+  v83 = v5;
+  v84 = v6;
+  result.height = v84;
+  result.width = v83;
   return result;
 }
 
@@ -363,49 +365,51 @@ LABEL_41:
         goto LABEL_38;
       }
 
-      MaxY = PDFRectGetMaxY(x, y, width, height);
-      v21 = [(PDFViewLayout *)self pageNearestPoint:pageCopy currentPage:PDFPointMake(0.0, MaxY)];
-      v16 = [WeakRetained indexForPage:v21];
-      v22 = [(PDFViewLayout *)self facingPageForPage:v21];
+      PDFRectGetMaxY(x, y, width, height);
+      PDFPointMake();
+      v18 = [(PDFViewLayout *)self pageNearestPoint:pageCopy currentPage:?];
+      v15 = [WeakRetained indexForPage:v18];
+      v19 = [(PDFViewLayout *)self facingPageForPage:v18];
 
-      if (v22)
+      if (v19)
       {
-        v23 = [WeakRetained indexForPage:pageCopy];
-        if (v23 < v16)
+        v20 = [WeakRetained indexForPage:pageCopy];
+        if (v20 < v15)
         {
-          v16 = v23;
+          v15 = v20;
         }
       }
 
-      MinY = PDFRectGetMinY(x, y, width, height);
-      v25 = [(PDFViewLayout *)self pageNearestPoint:pageCopy currentPage:PDFPointMake(0.0, MinY)];
+      PDFRectGetMinY(x, y, width, height);
+      PDFPointMake();
+      v21 = [(PDFViewLayout *)self pageNearestPoint:pageCopy currentPage:?];
 
-      v26 = [WeakRetained indexForPage:v25];
-      v18 = [(PDFViewLayout *)self facingPageForPage:v25];
+      v22 = [WeakRetained indexForPage:v21];
+      v16 = [(PDFViewLayout *)self facingPageForPage:v21];
 
-      if (v18)
+      if (v16)
       {
-        v27 = [WeakRetained indexForPage:v18];
-        if (v27 > v26)
+        v23 = [WeakRetained indexForPage:v16];
+        if (v23 > v22)
         {
-          v26 = v27;
+          v22 = v23;
         }
       }
 
       goto LABEL_20;
     }
 
-    v16 = [WeakRetained indexForPage:pageCopy];
-    v18 = [(PDFViewLayout *)self facingPageForPage:pageCopy];
-    if (!v18)
+    v15 = [WeakRetained indexForPage:pageCopy];
+    v16 = [(PDFViewLayout *)self facingPageForPage:pageCopy];
+    if (!v16)
     {
-      v26 = v16;
+      v22 = v15;
       goto LABEL_20;
     }
 
-    v19 = [WeakRetained indexForPage:v18];
+    v17 = [WeakRetained indexForPage:v16];
 LABEL_19:
-    v26 = v19;
+    v22 = v17;
 LABEL_20:
 
     goto LABEL_21;
@@ -418,82 +422,84 @@ LABEL_20:
       goto LABEL_38;
     }
 
-    v14 = PDFRectGetMaxY(x, y, width, height);
-    v15 = [(PDFViewLayout *)self pageNearestPoint:pageCopy currentPage:PDFPointMake(0.0, v14)];
-    v16 = [WeakRetained indexForPage:v15];
+    PDFRectGetMaxY(x, y, width, height);
+    PDFPointMake();
+    v14 = [(PDFViewLayout *)self pageNearestPoint:pageCopy currentPage:?];
+    v15 = [WeakRetained indexForPage:v14];
 
-    v17 = PDFRectGetMinY(x, y, width, height);
-    v18 = [(PDFViewLayout *)self pageNearestPoint:pageCopy currentPage:PDFPointMake(0.0, v17)];
-    v19 = [WeakRetained indexForPage:v18];
+    PDFRectGetMinY(x, y, width, height);
+    PDFPointMake();
+    v16 = [(PDFViewLayout *)self pageNearestPoint:pageCopy currentPage:?];
+    v17 = [WeakRetained indexForPage:v16];
     goto LABEL_19;
   }
 
-  v26 = [WeakRetained indexForPage:pageCopy];
-  v16 = v26;
+  v22 = [WeakRetained indexForPage:pageCopy];
+  v15 = v22;
 LABEL_21:
-  if (v26 <= v16)
+  if (v22 <= v15)
   {
-    v28 = v16;
+    v24 = v15;
   }
 
   else
   {
-    v28 = v26;
+    v24 = v22;
   }
 
-  if (v26 >= v16)
+  if (v22 >= v15)
   {
-    v29 = v16;
+    v25 = v15;
   }
 
   else
   {
-    v29 = v26;
+    v25 = v22;
   }
 
-  v30 = v28 - v29;
-  if (v26 == 0x7FFFFFFFFFFFFFFFLL)
+  v26 = v24 - v25;
+  if (v22 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v31 = 0;
+    v27 = 0;
   }
 
   else
   {
-    v31 = v30 + 1;
+    v27 = v26 + 1;
   }
 
-  if (v26 == 0x7FFFFFFFFFFFFFFFLL)
+  if (v22 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v29 = 0x7FFFFFFFFFFFFFFFLL;
+    v25 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v32 = v16 == 0x7FFFFFFFFFFFFFFFLL;
-  if (v16 == 0x7FFFFFFFFFFFFFFFLL)
+  v28 = v15 == 0x7FFFFFFFFFFFFFFFLL;
+  if (v15 == 0x7FFFFFFFFFFFFFFFLL)
   {
     v11 = 0;
   }
 
   else
   {
-    v11 = v31;
+    v11 = v27;
   }
 
-  if (v32)
+  if (v28)
   {
     v12 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v12 = v29;
+    v12 = v25;
   }
 
 LABEL_38:
 
-  v33 = v12;
-  v34 = v11;
-  result.length = v34;
-  result.location = v33;
+  v29 = v12;
+  v30 = v11;
+  result.length = v30;
+  result.location = v29;
   return result;
 }
 
@@ -923,47 +929,35 @@ LABEL_49:
     {
       if (rotation == 180)
       {
-        v75.a = *MEMORY[0x1E695EFD0];
-        v75.b = v30;
-        v75.c = v32;
-        v75.d = v31;
-        v75.tx = v34;
-        v75.ty = v33;
-        v63 = PDFDegToRad(180.0);
-        CGAffineTransformRotate(&v76, &v75, v63);
-        v75 = v76;
-        CGAffineTransformTranslate(&v76, &v75, -v22 - v20, -v24 - tx);
-        a = v76.a;
-        b = v76.b;
-        c = v76.c;
-        d = v76.d;
-        v69 = v76.tx;
-        ty = v76.ty;
-        v70 = PDFPointToCGPoint(x, y);
-        v44 = PDFPointFromCGPoint(v69 + c * v71 + a * v70, ty + d * v71 + b * v70);
+        v43.a = *MEMORY[0x1E695EFD0];
+        v43.b = v30;
+        v43.c = v32;
+        v43.d = v31;
+        v43.tx = v34;
+        v43.ty = v33;
+        v39 = PDFDegToRad(180.0);
+        CGAffineTransformRotate(&v44, &v43, v39);
+        v43 = v44;
+        CGAffineTransformTranslate(&v44, &v43, -v22 - v20, -v24 - tx);
+        PDFPointToCGPoint();
+        PDFPointFromCGPoint();
         goto LABEL_19;
       }
 
       if (rotation == 270)
       {
-        v75.a = *MEMORY[0x1E695EFD0];
-        v75.b = v30;
-        v75.c = v32;
-        v75.d = v31;
-        v75.tx = v34;
-        v75.ty = v33;
-        v46 = PDFDegToRad(270.0);
-        CGAffineTransformRotate(&v76, &v75, v46);
-        v75 = v76;
-        CGAffineTransformTranslate(&v76, &v75, -v24 - tx, v20);
-        v48 = v76.a;
-        v47 = v76.b;
-        v50 = v76.c;
-        v49 = v76.d;
-        v52 = v76.tx;
-        v51 = v76.ty;
-        v53 = PDFPointToCGPoint(x, y);
-        v44 = PDFPointFromCGPoint(v52 + v50 * v54 + v48 * v53, v51 + v49 * v54 + v47 * v53);
+        v43.a = *MEMORY[0x1E695EFD0];
+        v43.b = v30;
+        v43.c = v32;
+        v43.d = v31;
+        v43.tx = v34;
+        v43.ty = v33;
+        v38 = PDFDegToRad(270.0);
+        CGAffineTransformRotate(&v44, &v43, v38);
+        v43 = v44;
+        CGAffineTransformTranslate(&v44, &v43, -v24 - tx, v20);
+        PDFPointToCGPoint();
+        PDFPointFromCGPoint();
         goto LABEL_19;
       }
     }
@@ -972,47 +966,35 @@ LABEL_49:
     {
       if (!rotation)
       {
-        v75.a = *MEMORY[0x1E695EFD0];
-        v75.b = v30;
-        v75.c = v32;
-        v75.d = v31;
-        v75.tx = v34;
-        v75.ty = v33;
-        CGAffineTransformTranslate(&v76, &v75, v20, tx);
-        v56 = v76.a;
-        v55 = v76.b;
-        v58 = v76.c;
-        v57 = v76.d;
-        v60 = v76.tx;
-        v59 = v76.ty;
-        v61 = PDFPointToCGPoint(x, y);
-        v44 = PDFPointFromCGPoint(v60 + v58 * v62 + v56 * v61, v59 + v57 * v62 + v55 * v61);
+        v43.a = *MEMORY[0x1E695EFD0];
+        v43.b = v30;
+        v43.c = v32;
+        v43.d = v31;
+        v43.tx = v34;
+        v43.ty = v33;
+        CGAffineTransformTranslate(&v44, &v43, v20, tx);
+        PDFPointToCGPoint();
+        PDFPointFromCGPoint();
         goto LABEL_19;
       }
 
       if (rotation == 90)
       {
-        v75.a = *MEMORY[0x1E695EFD0];
-        v75.b = v30;
-        v75.c = v32;
-        v75.d = v31;
-        v75.tx = v34;
-        v75.ty = v33;
+        v43.a = *MEMORY[0x1E695EFD0];
+        v43.b = v30;
+        v43.c = v32;
+        v43.d = v31;
+        v43.tx = v34;
+        v43.ty = v33;
         v35 = PDFDegToRad(90.0);
-        CGAffineTransformRotate(&v76, &v75, v35);
-        v75 = v76;
-        CGAffineTransformTranslate(&v76, &v75, tx, -v22 - v20);
-        v37 = v76.a;
-        v36 = v76.b;
-        v39 = v76.c;
-        v38 = v76.d;
-        v41 = v76.tx;
-        v40 = v76.ty;
-        v42 = PDFPointToCGPoint(x, y);
-        v44 = PDFPointFromCGPoint(v41 + v39 * v43 + v37 * v42, v40 + v38 * v43 + v36 * v42);
+        CGAffineTransformRotate(&v44, &v43, v35);
+        v43 = v44;
+        CGAffineTransformTranslate(&v44, &v43, tx, -v22 - v20);
+        PDFPointToCGPoint();
+        PDFPointFromCGPoint();
 LABEL_19:
-        x = v44;
-        y = v45;
+        x = v36;
+        y = v37;
       }
     }
 
@@ -1020,10 +1002,10 @@ LABEL_20:
     [(NSLock *)self->_private->pageLayoutLock unlock];
   }
 
-  v72 = x;
-  v73 = y;
-  result.y = v73;
-  result.x = v72;
+  v40 = x;
+  v41 = y;
+  result.y = v41;
+  result.x = v40;
   return result;
 }
 
@@ -1085,24 +1067,18 @@ LABEL_20:
       if (rotation == 180)
       {
         factorCopy4 = factor;
-        v73.a = *MEMORY[0x1E695EFD0];
-        v73.b = v25;
-        v73.c = v27;
-        v73.d = v26;
-        v73.tx = v29;
-        v73.ty = v28;
-        CGAffineTransformTranslate(&v74, &v73, v17 + v13, v19 + v15);
-        v73 = v74;
-        v58 = PDFDegToRad(180.0);
-        CGAffineTransformRotate(&v74, &v73, v58);
-        a = v74.a;
-        b = v74.b;
-        c = v74.c;
-        d = v74.d;
-        tx = v74.tx;
-        ty = v74.ty;
-        v65 = PDFPointToCGPoint(x, y);
-        v39 = PDFPointFromCGPoint(tx + c * v66 + a * v65, ty + d * v66 + b * v65);
+        v41.a = *MEMORY[0x1E695EFD0];
+        v41.b = v25;
+        v41.c = v27;
+        v41.d = v26;
+        v41.tx = v29;
+        v41.ty = v28;
+        CGAffineTransformTranslate(&v42, &v41, v17 + v13, v19 + v15);
+        v41 = v42;
+        v34 = PDFDegToRad(180.0);
+        CGAffineTransformRotate(&v42, &v41, v34);
+        PDFPointToCGPoint();
+        PDFPointFromCGPoint();
       }
 
       else
@@ -1113,24 +1089,18 @@ LABEL_20:
         }
 
         factorCopy4 = factor;
-        v73.a = *MEMORY[0x1E695EFD0];
-        v73.b = v25;
-        v73.c = v27;
-        v73.d = v26;
-        v73.tx = v29;
-        v73.ty = v28;
-        CGAffineTransformTranslate(&v74, &v73, v19 + v15, -v13);
-        v73 = v74;
-        v41 = PDFDegToRad(90.0);
-        CGAffineTransformRotate(&v74, &v73, v41);
-        v43 = v74.a;
-        v42 = v74.b;
-        v44 = v74.c;
-        v45 = v74.d;
-        v47 = v74.tx;
-        v46 = v74.ty;
-        v48 = PDFPointToCGPoint(x, y);
-        v39 = PDFPointFromCGPoint(v47 + v44 * v49 + v43 * v48, v46 + v45 * v49 + v42 * v48);
+        v41.a = *MEMORY[0x1E695EFD0];
+        v41.b = v25;
+        v41.c = v27;
+        v41.d = v26;
+        v41.tx = v29;
+        v41.ty = v28;
+        CGAffineTransformTranslate(&v42, &v41, v19 + v15, -v13);
+        v41 = v42;
+        v33 = PDFDegToRad(90.0);
+        CGAffineTransformRotate(&v42, &v41, v33);
+        PDFPointToCGPoint();
+        PDFPointFromCGPoint();
       }
     }
 
@@ -1142,57 +1112,45 @@ LABEL_20:
       }
 
       factorCopy4 = factor;
-      v73.a = *MEMORY[0x1E695EFD0];
-      v73.b = v25;
-      v73.c = v27;
-      v73.d = v26;
-      v73.tx = v29;
-      v73.ty = v28;
-      CGAffineTransformTranslate(&v74, &v73, -v15, v17 + v13);
-      v73 = v74;
+      v41.a = *MEMORY[0x1E695EFD0];
+      v41.b = v25;
+      v41.c = v27;
+      v41.d = v26;
+      v41.tx = v29;
+      v41.ty = v28;
+      CGAffineTransformTranslate(&v42, &v41, -v15, v17 + v13);
+      v41 = v42;
       v30 = PDFDegToRad(270.0);
-      CGAffineTransformRotate(&v74, &v73, v30);
-      v32 = v74.a;
-      v31 = v74.b;
-      v33 = v74.c;
-      v34 = v74.d;
-      v36 = v74.tx;
-      v35 = v74.ty;
-      v37 = PDFPointToCGPoint(x, y);
-      v39 = PDFPointFromCGPoint(v36 + v33 * v38 + v32 * v37, v35 + v34 * v38 + v31 * v37);
+      CGAffineTransformRotate(&v42, &v41, v30);
+      PDFPointToCGPoint();
+      PDFPointFromCGPoint();
     }
 
     else
     {
       factorCopy4 = factor;
-      v73.a = *MEMORY[0x1E695EFD0];
-      v73.b = v25;
-      v73.c = v27;
-      v73.d = v26;
-      v73.tx = v29;
-      v73.ty = v28;
-      CGAffineTransformTranslate(&v74, &v73, -v13, -v15);
-      v51 = v74.a;
-      v50 = v74.b;
-      v53 = v74.c;
-      v52 = v74.d;
-      v54 = v74.tx;
-      v55 = v74.ty;
-      v56 = PDFPointToCGPoint(x, y);
-      v39 = PDFPointFromCGPoint(v54 + v53 * v57 + v51 * v56, v55 + v52 * v57 + v50 * v56);
+      v41.a = *MEMORY[0x1E695EFD0];
+      v41.b = v25;
+      v41.c = v27;
+      v41.d = v26;
+      v41.tx = v29;
+      v41.ty = v28;
+      CGAffineTransformTranslate(&v42, &v41, -v13, -v15);
+      PDFPointToCGPoint();
+      PDFPointFromCGPoint();
     }
 
-    x = v39;
-    y = v40;
+    x = v31;
+    y = v32;
     factor = factorCopy4;
 LABEL_18:
     document = [pageCopy document];
-    v68 = [document indexForPage:pageCopy];
+    v36 = [document indexForPage:pageCopy];
 
     v10 = self->_private;
-    if (v68 != 0x7FFFFFFFFFFFFFFFLL && v68 < v10->pageCount)
+    if (v36 != 0x7FFFFFFFFFFFFFFFLL && v36 < v10->pageCount)
     {
-      p_x = &v10->pageLayoutBounds.__begin_[v68].origin.x;
+      p_x = &v10->pageLayoutBounds.__begin_[v36].origin.x;
       x = x + *p_x;
       y = y + p_x[1];
     }
@@ -1203,10 +1161,10 @@ LABEL_22:
     [(NSLock *)v10->pageLayoutLock unlock];
   }
 
-  v70 = x;
-  v71 = y;
-  result.y = v71;
-  result.x = v70;
+  v38 = x;
+  v39 = y;
+  result.y = v39;
+  result.x = v38;
   return result;
 }
 
@@ -1215,34 +1173,35 @@ LABEL_22:
   y = rect.origin.y;
   x = rect.origin.x;
   pageCopy = page;
-  factor = [(PDFViewLayout *)self convertPoint:pageCopy fromPage:x forScaleFactor:y, factor];
-  v12 = v11;
-  v14 = v13;
-  v33.origin.x = PDFRectToCGRect(factor);
-  v15 = v33.origin.x;
-  v16 = v33.origin.y;
-  width = v33.size.width;
-  height = v33.size.height;
-  MaxX = CGRectGetMaxX(v33);
-  v34.origin.x = v15;
-  v34.origin.y = v16;
-  v34.size.width = width;
-  v34.size.height = height;
-  MaxY = CGRectGetMaxY(v34);
-  [(PDFViewLayout *)self convertPoint:pageCopy fromPage:PDFPointMake(MaxX forScaleFactor:MaxY)];
-  v22 = PDFRectFromPDFPoints(v12, v14, v21);
-  v24 = v23;
-  v26 = v25;
-  v28 = v27;
+  [(PDFViewLayout *)self convertPoint:pageCopy fromPage:x forScaleFactor:y, factor];
+  v11 = v10;
+  v13 = v12;
+  PDFRectToCGRect();
+  v14 = v30.origin.x;
+  v15 = v30.origin.y;
+  width = v30.size.width;
+  height = v30.size.height;
+  CGRectGetMaxX(v30);
+  v31.origin.x = v14;
+  v31.origin.y = v15;
+  v31.size.width = width;
+  v31.size.height = height;
+  CGRectGetMaxY(v31);
+  PDFPointMake();
+  [PDFViewLayout convertPoint:"convertPoint:fromPage:forScaleFactor:" fromPage:pageCopy forScaleFactor:?];
+  v19 = PDFRectFromPDFPoints(v11, v13, v18);
+  v21 = v20;
+  v23 = v22;
+  v25 = v24;
 
-  v29 = v22;
-  v30 = v24;
-  v31 = v26;
-  v32 = v28;
-  result.size.height = v32;
-  result.size.width = v31;
-  result.origin.y = v30;
-  result.origin.x = v29;
+  v26 = v19;
+  v27 = v21;
+  v28 = v23;
+  v29 = v25;
+  result.size.height = v29;
+  result.size.width = v28;
+  result.origin.y = v27;
+  result.origin.x = v26;
   return result;
 }
 

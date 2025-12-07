@@ -3,7 +3,9 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)beginRecording:(id)recording;
 - (void)stopRecordAndSend:(id)send;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HUAnnounceRecordingViewControllerAccessibility
@@ -62,6 +64,22 @@ void __78__HUAnnounceRecordingViewControllerAccessibility_accessibilityPerformMa
   v3.super_class = HUAnnounceRecordingViewControllerAccessibility;
   [(HUAnnounceRecordingViewControllerAccessibility *)&v3 viewDidLoad];
   [(HUAnnounceRecordingViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = HUAnnounceRecordingViewControllerAccessibility;
+  [(HUAnnounceRecordingViewControllerAccessibility *)&v3 viewDidAppear:appear];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7EF8], *MEMORY[0x29EDC7EE0]);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = HUAnnounceRecordingViewControllerAccessibility;
+  [(HUAnnounceRecordingViewControllerAccessibility *)&v3 viewWillDisappear:disappear];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7F08], *MEMORY[0x29EDC7EE0]);
 }
 
 @end

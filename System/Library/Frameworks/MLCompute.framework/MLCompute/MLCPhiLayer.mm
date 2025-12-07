@@ -199,32 +199,23 @@ LABEL_19:
 
 - (void)initWithControlTreeNode:(const char *)a1 sources:resultTensor:.cold.1(const char *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: Two source tensors are expected in phi layer.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: Two source tensors are expected in phi layer.", v4, v5, v6, v7);
 }
 
 - (void)initWithControlTreeNode:(const char *)a1 sources:resultTensor:.cold.2(const char *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: Result and source tensors have different shape.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: Result and source tensors have different shape.", v4, v5, v6, v7);
 }
 
 - (void)resultSizeFromSourceSize:(const char *)a1 dimension:.cold.1(const char *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: resultSizeFromSourceSize:dimension must not be used for phi layer", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: resultSizeFromSourceSize:dimension must not be used for phi layer", v4, v5, v6, v7);
 }
 
 @end

@@ -165,7 +165,7 @@
 
 - (void)setPingInterval:(id)interval
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   if (MIBUOnceToken != -1)
   {
@@ -175,15 +175,13 @@
   v5 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = intervalCopy;
-    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "Setting client controller ping interval to %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = intervalCopy;
+    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "Setting client controller ping interval to %{public}@", &v7, 0xCu);
   }
 
   tcpPingInterval = self->_tcpPingInterval;
   self->_tcpPingInterval = intervalCopy;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __42__MIBUNWClientController_setPingInterval___block_invoke()
@@ -214,7 +212,7 @@ void __42__MIBUNWClientController_setPingInterval___block_invoke()
 
 - (void)_start
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (MIBUOnceToken != -1)
   {
@@ -224,15 +222,14 @@ void __42__MIBUNWClientController_setPingInterval___block_invoke()
   v3 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting client controller...", &v5, 0xCu);
+    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting client controller...", &v4, 0xCu);
   }
 
   [(MIBUPacketConsumable *)self->_packetConsumer bootstrap];
   [(MIBUNWClientController *)self _disableFirewall];
   [(MIBUNANSubscriber *)self->_nanSubscriber start];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __32__MIBUNWClientController__start__block_invoke()
@@ -253,7 +250,7 @@ void __32__MIBUNWClientController__start__block_invoke()
 
 - (void)_stop
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (MIBUOnceToken != -1)
   {
@@ -263,15 +260,14 @@ void __32__MIBUNWClientController__start__block_invoke()
   v3 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping client controller...", &v5, 0xCu);
+    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping client controller...", &v4, 0xCu);
   }
 
   [(MIBUNWDevice *)self->_tcpUnicastDevice invalidate];
   [(MIBUNWClientController *)self _stopMulticast:1];
   [(MIBUPacketConsumable *)self->_packetConsumer invalidate];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __31__MIBUNWClientController__stop__block_invoke()
@@ -293,7 +289,7 @@ void __31__MIBUNWClientController__stop__block_invoke()
 - (void)_stopMulticast:(BOOL)multicast
 {
   multicastCopy = multicast;
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (MIBUOnceToken != -1)
   {
@@ -303,9 +299,9 @@ void __31__MIBUNWClientController__stop__block_invoke()
   v5 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
+    v8 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping using multicast...", &v9, 0xCu);
+    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping using multicast...", &v8, 0xCu);
   }
 
   if (multicastCopy)
@@ -320,7 +316,6 @@ void __31__MIBUNWClientController__stop__block_invoke()
   }
 
   [(MIBUNANSubscriber *)self->_nanSubscriber stop];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __41__MIBUNWClientController__stopMulticast___block_invoke()
@@ -381,16 +376,16 @@ void __45__MIBUNWClientController__checkOutWithError___block_invoke()
 
 - (void)_startMulticastReceiverUsingInterface:(id)interface
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   interfaceCopy = interface;
-  v15[0] = @"GroupAddress";
-  v15[1] = @"GroupPort";
+  v14[0] = @"GroupAddress";
+  v14[1] = @"GroupPort";
   groupPort = self->_groupPort;
-  v16[0] = self->_groupAddress;
-  v16[1] = groupPort;
-  v15[2] = @"InterfaceName";
-  v16[2] = interfaceCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v15[0] = self->_groupAddress;
+  v15[1] = groupPort;
+  v14[2] = @"InterfaceName";
+  v15[2] = interfaceCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
   if (MIBUOnceToken != -1)
   {
     [MIBUNWClientController _startMulticastReceiverUsingInterface:];
@@ -399,11 +394,11 @@ void __45__MIBUNWClientController__checkOutWithError___block_invoke()
   v7 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543618;
+    v10 = 138543618;
     selfCopy = self;
-    v13 = 2114;
-    v14 = v6;
-    _os_log_impl(&dword_259B04000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting multicast receiver with config: %{public}@", &v11, 0x16u);
+    v12 = 2114;
+    v13 = v6;
+    _os_log_impl(&dword_259B04000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting multicast receiver with config: %{public}@", &v10, 0x16u);
   }
 
   v8 = [[MIBUMulticastSocket alloc] initWithConfiguration:v6 delegate:self];
@@ -436,8 +431,6 @@ void __45__MIBUNWClientController__checkOutWithError___block_invoke()
   [(MIBUDataCollectorProtocol *)self->_dataCollector addKeyEvent:@"ClientControllerNanMulticastInit"];
   [(MIBUMulticastSocket *)self->_multicastSocket start];
 LABEL_9:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __64__MIBUNWClientController__startMulticastReceiverUsingInterface___block_invoke()
@@ -474,7 +467,7 @@ void __64__MIBUNWClientController__startMulticastReceiverUsingInterface___block_
 
 - (void)_stopMulticastReceiver
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (self->_multicastSocket)
   {
     if (MIBUOnceToken != -1)
@@ -485,15 +478,13 @@ void __64__MIBUNWClientController__startMulticastReceiverUsingInterface___block_
     v3 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138543362;
+      v4 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping multicast receiver...", &v5, 0xCu);
+      _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping multicast receiver...", &v4, 0xCu);
     }
 
     [(MIBUMulticastSocket *)self->_multicastSocket stop];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __48__MIBUNWClientController__stopMulticastReceiver__block_invoke()
@@ -514,7 +505,7 @@ void __48__MIBUNWClientController__stopMulticastReceiver__block_invoke()
 
 - (void)_activateReceiveTimer
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_receiveTimer)
   {
@@ -527,17 +518,15 @@ void __48__MIBUNWClientController__stopMulticastReceiver__block_invoke()
     v4 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138543618;
+      v5 = 138543618;
       selfCopy = self;
-      v8 = 2048;
-      v9 = unsignedLongValue;
-      _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Activate receive timer with interval: %llu (sec)", &v6, 0x16u);
+      v7 = 2048;
+      v8 = unsignedLongValue;
+      _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Activate receive timer with interval: %llu (sec)", &v5, 0x16u);
     }
 
     [(MIBUNWClientController *)self _resetReceiveTimerWithInterval:unsignedLongValue];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47__MIBUNWClientController__activateReceiveTimer__block_invoke()
@@ -558,7 +547,7 @@ void __47__MIBUNWClientController__activateReceiveTimer__block_invoke()
 
 - (void)_resetReceiveTimerWithInterval:(unint64_t)interval
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (MIBUOnceToken != -1)
   {
@@ -570,7 +559,7 @@ void __47__MIBUNWClientController__activateReceiveTimer__block_invoke()
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v14 = 2048;
+    v13 = 2048;
     intervalCopy = interval;
     _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Resetting receive timer with interval: %llu (sec)", buf, 0x16u);
   }
@@ -618,7 +607,6 @@ LABEL_10:
   handler[4] = self;
   dispatch_source_set_event_handler(v9, handler);
   dispatch_resume(self->_receiveTimer);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __57__MIBUNWClientController__resetReceiveTimerWithInterval___block_invoke()
@@ -655,7 +643,7 @@ void __57__MIBUNWClientController__resetReceiveTimerWithInterval___block_invoke_
 
 - (void)_updateControllerProgress
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_timerQueue);
   state = self->_state;
   switch(state)
@@ -675,12 +663,12 @@ void __57__MIBUNWClientController__resetReceiveTimerWithInterval___block_invoke_
       {
         v24 = self->_progress;
         v23 = self->_state;
-        v26 = 138543874;
+        v25 = 138543874;
         selfCopy3 = self;
-        v28 = 2048;
-        v29 = v23;
-        v30 = 2112;
-        v31 = v24;
+        v27 = 2048;
+        v28 = v23;
+        v29 = 2112;
+        v30 = v24;
         v7 = "%{public}@: state :%lu; progress = %@";
         v8 = v22;
         v9 = 32;
@@ -709,19 +697,19 @@ void __57__MIBUNWClientController__resetReceiveTimerWithInterval___block_invoke_
         v17 = v12;
         missingCount = [(MIBUPacketConsumable *)packetConsumer missingCount];
         v19 = self->_progress;
-        v26 = 138544642;
+        v25 = 138544642;
         selfCopy3 = self;
-        v28 = 2048;
-        v29 = v13;
-        v30 = 2048;
-        v31 = packetReceived;
-        v32 = 2048;
-        v33 = packetExpected;
-        v34 = 2048;
-        v35 = missingCount;
-        v36 = 2112;
-        v37 = v19;
-        _os_log_impl(&dword_259B04000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: state: %lu; packets: %lu/%lu (%lu missing), progress = %@", &v26, 0x3Eu);
+        v27 = 2048;
+        v28 = v13;
+        v29 = 2048;
+        v30 = packetReceived;
+        v31 = 2048;
+        v32 = packetExpected;
+        v33 = 2048;
+        v34 = missingCount;
+        v35 = 2112;
+        v36 = v19;
+        _os_log_impl(&dword_259B04000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: state: %lu; packets: %lu/%lu (%lu missing), progress = %@", &v25, 0x3Eu);
       }
 
       break;
@@ -738,21 +726,19 @@ void __57__MIBUNWClientController__resetReceiveTimerWithInterval___block_invoke_
       if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
       {
         v6 = self->_state;
-        v26 = 138543618;
+        v25 = 138543618;
         selfCopy3 = self;
-        v28 = 2048;
-        v29 = v6;
+        v27 = 2048;
+        v28 = v6;
         v7 = "%{public}@: state: %lu; controller ready";
         v8 = v5;
         v9 = 22;
 LABEL_16:
-        _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, v7, &v26, v9);
+        _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, v7, &v25, v9);
       }
 
       break;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __51__MIBUNWClientController__updateControllerProgress__block_invoke()
@@ -805,10 +791,9 @@ void __51__MIBUNWClientController__updateControllerProgress__block_invoke_71()
 
 - (void)_handleReceiveTimerTick
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_timerQueue);
   [(MIBUNWClientController *)self _updateControllerProgress];
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
     devicePingPayload = [(MIBUNWClientControllerDelegate *)self->_delegate devicePingPayload];
@@ -831,17 +816,17 @@ void __51__MIBUNWClientController__updateControllerProgress__block_invoke_71()
           [MIBUNWClientController _handleReceiveTimerTick];
         }
 
-        v7 = MIBUConnObj;
+        v6 = MIBUConnObj;
         if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
         {
-          *v15 = 138543362;
-          *&v15[4] = self;
-          _os_log_impl(&dword_259B04000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: multicast has been inactive for some time.", v15, 0xCu);
+          *v13 = 138543362;
+          *&v13[4] = self;
+          _os_log_impl(&dword_259B04000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: multicast has been inactive for some time.", v13, 0xCu);
         }
 
         [(MIBUNWClientController *)self stopMulticast];
-        v13 = safeCreateError(3758096392, 0, @"Multicast has been inactive for some time.", v8, v9, v10, v11, v12, *v15);
-        [(MIBUNWClientControllerDelegate *)self->_delegate clientControllerDidFailReceiving:self error:v13];
+        v12 = safeCreateError(3758096392, 0, @"Multicast has been inactive for some time.", v7, v8, v9, v10, v11, *v13);
+        [(MIBUNWClientControllerDelegate *)self->_delegate clientControllerDidFailReceiving:self error:v12];
       }
 
       else
@@ -850,8 +835,6 @@ void __51__MIBUNWClientController__updateControllerProgress__block_invoke_71()
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __49__MIBUNWClientController__handleReceiveTimerTick__block_invoke()
@@ -872,7 +855,7 @@ void __49__MIBUNWClientController__handleReceiveTimerTick__block_invoke()
 
 - (void)pingThroughMulticast:(id)multicast
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   multicastCopy = multicast;
   v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:multicastCopy requiringSecureCoding:0 error:0];
   if (MIBUOnceToken != -1)
@@ -885,20 +868,18 @@ void __49__MIBUNWClientController__handleReceiveTimerTick__block_invoke()
   {
     *buf = 138543618;
     selfCopy = self;
-    v12 = 2112;
-    v13 = multicastCopy;
+    v11 = 2112;
+    v12 = multicastCopy;
     _os_log_impl(&dword_259B04000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: ping through multicast: %@", buf, 0x16u);
   }
 
   nanSubscriber = self->_nanSubscriber;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __47__MIBUNWClientController_pingThroughMulticast___block_invoke_84;
-  v9[3] = &unk_2798EBE18;
-  v9[4] = self;
-  [(MIBUNANSubscriber *)nanSubscriber sendData:v5 withCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __47__MIBUNWClientController_pingThroughMulticast___block_invoke_84;
+  v8[3] = &unk_2798EBE18;
+  v8[4] = self;
+  [(MIBUNANSubscriber *)nanSubscriber sendData:v5 withCompletion:v8];
 }
 
 void __47__MIBUNWClientController_pingThroughMulticast___block_invoke()
@@ -960,7 +941,7 @@ void __47__MIBUNWClientController_pingThroughMulticast___block_invoke_2()
 
 - (void)_calculateEffectiveBandwidth
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_timerQueue);
   unsignedLongValue = [(NSNumber *)self->_tcpPingInterval unsignedLongValue];
   bytesConsumed = [(MIBUPacketConsumable *)self->_packetConsumer bytesConsumed];
@@ -979,20 +960,18 @@ void __47__MIBUNWClientController_pingThroughMulticast___block_invoke_2()
   v10 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134219008;
-    v13 = unsignedLongValue;
-    v14 = 2048;
-    v15 = packetReceived - v6;
-    v16 = 2048;
-    v17 = unsignedLongValue;
-    v18 = 2048;
-    v19 = bytesConsumed - v7;
-    v20 = 2048;
-    v21 = (8 * (bytesConsumed - v7)) / 1000000.0 / unsignedLongValue;
-    _os_log_impl(&dword_259B04000, v10, OS_LOG_TYPE_DEFAULT, "Packets received in the last %llus: %lu; Bytes consumed in last %llus: %lu; Effective bandwidth: %0.5f Mbps", &v12, 0x34u);
+    v11 = 134219008;
+    v12 = unsignedLongValue;
+    v13 = 2048;
+    v14 = packetReceived - v6;
+    v15 = 2048;
+    v16 = unsignedLongValue;
+    v17 = 2048;
+    v18 = bytesConsumed - v7;
+    v19 = 2048;
+    v20 = (8 * (bytesConsumed - v7)) / 1000000.0 / unsignedLongValue;
+    _os_log_impl(&dword_259B04000, v10, OS_LOG_TYPE_DEFAULT, "Packets received in the last %llus: %lu; Bytes consumed in last %llus: %lu; Effective bandwidth: %0.5f Mbps", &v11, 0x34u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __54__MIBUNWClientController__calculateEffectiveBandwidth__block_invoke()
@@ -1093,7 +1072,7 @@ void __60__MIBUNWClientController__handleInboundPackets_arrivalTime___block_invo
 
 - (void)_receivedVeryFirstPacketArray
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (MIBUOnceToken != -1)
   {
@@ -1103,9 +1082,9 @@ void __60__MIBUNWClientController__handleInboundPackets_arrivalTime___block_invo
   v3 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
+    v7 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%@: Received the very first array of packets!", &v8, 0xCu);
+    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%@: Received the very first array of packets!", &v7, 0xCu);
   }
 
   self->_state = 1;
@@ -1120,8 +1099,6 @@ void __60__MIBUNWClientController__handleInboundPackets_arrivalTime___block_invo
   {
     [(MIBUNWClientControllerDelegate *)delegate clientControllerDidStartReceive:self];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __55__MIBUNWClientController__receivedVeryFirstPacketArray__block_invoke()
@@ -1142,7 +1119,7 @@ void __55__MIBUNWClientController__receivedVeryFirstPacketArray__block_invoke()
 
 - (void)_handlePacketConsumerCompletion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   v3 = [MEMORY[0x277CBEAA8] now];
   [v3 timeIntervalSinceDate:self->_startTime];
@@ -1160,29 +1137,29 @@ void __55__MIBUNWClientController__receivedVeryFirstPacketArray__block_invoke()
   {
     *buf = 138544130;
     selfCopy = self;
-    v21 = 2048;
-    v22 = packetsConsumed;
-    v23 = 2048;
-    v24 = bytesConsumed;
-    v25 = 2048;
-    v26 = v5;
+    v20 = 2048;
+    v21 = packetsConsumed;
+    v22 = 2048;
+    v23 = bytesConsumed;
+    v24 = 2048;
+    v25 = v5;
     _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: All needed packets received! Total packets consumed: %lu (=%lu bytes), Total cycle time: %fs", buf, 0x2Au);
   }
 
   if (self->_delegate)
   {
-    v17[0] = @"PacketsConsumed";
+    v16[0] = @"PacketsConsumed";
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[MIBUPacketConsumable packetsConsumed](self->_packetConsumer, "packetsConsumed")}];
-    v18[0] = v9;
-    v17[1] = @"BytesConsumed";
+    v17[0] = v9;
+    v16[1] = @"BytesConsumed";
     v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[MIBUPacketConsumable bytesConsumed](self->_packetConsumer, "bytesConsumed")}];
-    v18[1] = v10;
-    v17[2] = @"LossRate";
+    v17[1] = v10;
+    v16[2] = @"LossRate";
     v11 = MEMORY[0x277CCABB0];
     [(MIBUPacketConsumable *)self->_packetConsumer lossRate];
     v12 = [v11 numberWithDouble:?];
-    v18[2] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+    v17[2] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
 
     [(MIBUNWClientControllerDelegate *)self->_delegate clientControllerDidFinishReceive:self withStats:v13];
   }
@@ -1194,8 +1171,6 @@ void __55__MIBUNWClientController__receivedVeryFirstPacketArray__block_invoke()
   block[3] = &unk_2798EB9A8;
   block[4] = self;
   dispatch_async(v14, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __57__MIBUNWClientController__handlePacketConsumerCompletion__block_invoke()
@@ -1216,7 +1191,7 @@ void __57__MIBUNWClientController__handlePacketConsumerCompletion__block_invoke(
 
 void __57__MIBUNWClientController__handlePacketConsumerCompletion__block_invoke_107(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     __57__MIBUNWClientController__handlePacketConsumerCompletion__block_invoke_107_cold_1();
@@ -1227,7 +1202,7 @@ void __57__MIBUNWClientController__handlePacketConsumerCompletion__block_invoke_
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v16 = v3;
+    v15 = v3;
     _os_log_impl(&dword_259B04000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Start assembling output file!", buf, 0xCu);
   }
 
@@ -1261,9 +1236,9 @@ void __57__MIBUNWClientController__handlePacketConsumerCompletion__block_invoke_
 LABEL_9:
     v10 = *(a1 + 32);
     *buf = 138543618;
-    v16 = v10;
-    v17 = 2048;
-    v18 = v8;
+    v15 = v10;
+    v16 = 2048;
+    v17 = v8;
     _os_log_impl(&dword_259B04000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: File assembly done, total time taken: %fs", buf, 0x16u);
   }
 
@@ -1277,8 +1252,6 @@ LABEL_10:
   block[3] = &unk_2798EB9A8;
   block[4] = v11;
   dispatch_async(v12, block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __57__MIBUNWClientController__handlePacketConsumerCompletion__block_invoke_2()
@@ -1315,25 +1288,23 @@ void __57__MIBUNWClientController__handlePacketConsumerCompletion__block_invoke_
 
 void __57__MIBUNWClientController__handlePacketConsumerCompletion__block_invoke_113(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 176) = 3;
   v1 = *(a1 + 32);
   if (*(v1 + 152))
   {
-    v6 = @"PacketsDiscarded";
+    v5 = @"PacketsDiscarded";
     v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(v1 + 32), "packetsDiscarded")}];
-    v7[0] = v3;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    v6[0] = v3;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
     [*(*(a1 + 32) + 152) clientControllerDidFinishAssembly:*(a1 + 32) withStats:v4];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createNANTCPConnectionUsingInterface:(id)interface
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   interfaceCopy = interface;
   if (MIBUOnceToken != -1)
   {
@@ -1344,11 +1315,11 @@ void __57__MIBUNWClientController__handlePacketConsumerCompletion__block_invoke_
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
     hostAddress = self->_hostAddress;
-    v10 = 138543618;
+    v9 = 138543618;
     selfCopy = self;
-    v12 = 2114;
-    v13 = hostAddress;
-    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Establishing NAN TCP connection with sender %{public}@", &v10, 0x16u);
+    v11 = 2114;
+    v12 = hostAddress;
+    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Establishing NAN TCP connection with sender %{public}@", &v9, 0x16u);
   }
 
   v7 = [[MIBUNWServerDevice alloc] initWithHostAddress:self->_hostAddress hostPort:self->_hostPort interfaceName:interfaceCopy connectOnDemand:0 statusDelegate:self];
@@ -1381,8 +1352,6 @@ void __57__MIBUNWClientController__handlePacketConsumerCompletion__block_invoke_
   [(MIBUDataCollectorProtocol *)self->_dataCollector addKeyEvent:@"ClientControllerNanDataPathInit"];
   [(MIBUNWDevice *)self->_nanUnicastDevice bootstrap];
 LABEL_9:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __64__MIBUNWClientController__createNANTCPConnectionUsingInterface___block_invoke()
@@ -1419,7 +1388,7 @@ void __64__MIBUNWClientController__createNANTCPConnectionUsingInterface___block_
 
 - (void)_invalidateNANTCPConnection
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     [MIBUNWClientController _invalidateNANTCPConnection];
@@ -1428,9 +1397,9 @@ void __64__MIBUNWClientController__createNANTCPConnectionUsingInterface___block_
   v3 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Invalidating NAN TCP connection.", &v6, 0xCu);
+    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Invalidating NAN TCP connection.", &v5, 0xCu);
   }
 
   nanUnicastDevice = self->_nanUnicastDevice;
@@ -1438,8 +1407,6 @@ void __64__MIBUNWClientController__createNANTCPConnectionUsingInterface___block_
   {
     [(MIBUNWDevice *)nanUnicastDevice invalidate];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __53__MIBUNWClientController__invalidateNANTCPConnection__block_invoke()
@@ -1460,7 +1427,7 @@ void __53__MIBUNWClientController__invalidateNANTCPConnection__block_invoke()
 
 - (void)_createTCPConnectionWithAddr:(id)addr andPort:(id)port
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   addrCopy = addr;
   portCopy = port;
   if (MIBUOnceToken != -1)
@@ -1471,13 +1438,13 @@ void __53__MIBUNWClientController__invalidateNANTCPConnection__block_invoke()
   v8 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543874;
+    v11 = 138543874;
     selfCopy = self;
-    v14 = 2114;
-    v15 = addrCopy;
-    v16 = 2114;
-    v17 = portCopy;
-    _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: creating TCP connection to address: %{public}@; port: %{public}@", &v12, 0x20u);
+    v13 = 2114;
+    v14 = addrCopy;
+    v15 = 2114;
+    v16 = portCopy;
+    _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: creating TCP connection to address: %{public}@; port: %{public}@", &v11, 0x20u);
   }
 
   v9 = [[MIBUNWServerDevice alloc] initWithHostAddress:addrCopy hostPort:portCopy interfaceName:0 connectOnDemand:1 statusDelegate:self];
@@ -1507,8 +1474,6 @@ void __53__MIBUNWClientController__invalidateNANTCPConnection__block_invoke()
   }
 
 LABEL_8:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __63__MIBUNWClientController__createTCPConnectionWithAddr_andPort___block_invoke()
@@ -1545,10 +1510,39 @@ void __63__MIBUNWClientController__createTCPConnectionWithAddr_andPort___block_i
 
 - (void)_disableFirewall
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+  if (MIBUOnceToken != -1)
+  {
+    [MIBUNWClientController _disableFirewall];
+  }
+
+  v2 = MIBUConnObj;
+  if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_259B04000, v2, OS_LOG_TYPE_DEFAULT, "Disabling Firewall...", buf, 2u);
+  }
+
+  v3 = 0;
+  if (sysctlbyname("kern.ipc.sorestrictrecv", 0, 0, &v3, 4uLL))
+  {
+    if (MIBUOnceToken == -1)
+    {
+      if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
+      {
+        return;
+      }
+
+LABEL_10:
+      [MIBUNWClientController _disableFirewall];
+      return;
+    }
+
+    [MIBUNWClientController _disableFirewall];
+    if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_10;
+    }
+  }
 }
 
 void __42__MIBUNWClientController__disableFirewall__block_invoke()
@@ -1585,7 +1579,7 @@ void __42__MIBUNWClientController__disableFirewall__block_invoke_133()
 
 - (void)serverDeviceDidConnect:(id)connect
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   connectCopy = connect;
   if (MIBUOnceToken != -1)
   {
@@ -1595,19 +1589,17 @@ void __42__MIBUNWClientController__disableFirewall__block_invoke_133()
   v5 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
+    v6 = 138543618;
     selfCopy = self;
-    v9 = 2114;
-    v10 = connectCopy;
-    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: device connected: %{public}@", &v7, 0x16u);
+    v8 = 2114;
+    v9 = connectCopy;
+    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: device connected: %{public}@", &v6, 0x16u);
   }
 
   if ([connectCopy isEqual:self->_nanUnicastDevice])
   {
     [(MIBUDataCollectorProtocol *)self->_dataCollector addKeyEvent:@"ClientControllerNanDataPathStart"];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __49__MIBUNWClientController_serverDeviceDidConnect___block_invoke()
@@ -1628,7 +1620,7 @@ void __49__MIBUNWClientController_serverDeviceDidConnect___block_invoke()
 
 - (void)serverDeviceDidCheckIn:(id)in
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   inCopy = in;
   if (MIBUOnceToken != -1)
   {
@@ -1638,16 +1630,14 @@ void __49__MIBUNWClientController_serverDeviceDidConnect___block_invoke()
   v5 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
+    v6 = 138543618;
     selfCopy = self;
-    v9 = 2114;
-    v10 = inCopy;
-    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: device checked in: %{public}@", &v7, 0x16u);
+    v8 = 2114;
+    v9 = inCopy;
+    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: device checked in: %{public}@", &v6, 0x16u);
   }
 
   [inCopy isEqual:self->_nanUnicastDevice];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __49__MIBUNWClientController_serverDeviceDidCheckIn___block_invoke()
@@ -1668,7 +1658,7 @@ void __49__MIBUNWClientController_serverDeviceDidCheckIn___block_invoke()
 
 - (void)serverDeviceDidDisconnect:(id)disconnect
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   disconnectCopy = disconnect;
   if (MIBUOnceToken != -1)
   {
@@ -1678,11 +1668,11 @@ void __49__MIBUNWClientController_serverDeviceDidCheckIn___block_invoke()
   v5 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543618;
+    v7 = 138543618;
     selfCopy = self;
-    v10 = 2114;
-    v11 = disconnectCopy;
-    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: device disconnected: %{public}@", &v8, 0x16u);
+    v9 = 2114;
+    v10 = disconnectCopy;
+    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: device disconnected: %{public}@", &v7, 0x16u);
   }
 
   if ([disconnectCopy isEqual:self->_nanUnicastDevice])
@@ -1691,8 +1681,6 @@ void __49__MIBUNWClientController_serverDeviceDidCheckIn___block_invoke()
     nanUnicastDevice = self->_nanUnicastDevice;
     self->_nanUnicastDevice = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __52__MIBUNWClientController_serverDeviceDidDisconnect___block_invoke()
@@ -1713,7 +1701,7 @@ void __52__MIBUNWClientController_serverDeviceDidDisconnect___block_invoke()
 
 - (void)serverDeviceDidCheckOut:(id)out
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   outCopy = out;
   if ([outCopy isEqual:self->_tcpUnicastDevice])
   {
@@ -1725,17 +1713,15 @@ void __52__MIBUNWClientController_serverDeviceDidDisconnect___block_invoke()
     v5 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543618;
+      v6 = 138543618;
       selfCopy = self;
-      v9 = 2114;
-      v10 = outCopy;
-      _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: TCP device checked out: %{public}@", &v7, 0x16u);
+      v8 = 2114;
+      v9 = outCopy;
+      _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: TCP device checked out: %{public}@", &v6, 0x16u);
     }
 
     dispatch_semaphore_signal(self->_checkoutSem);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __50__MIBUNWClientController_serverDeviceDidCheckOut___block_invoke()
@@ -1756,7 +1742,7 @@ void __50__MIBUNWClientController_serverDeviceDidCheckOut___block_invoke()
 
 - (void)multicastSocketDidStart:(id)start
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   startCopy = start;
   if (MIBUOnceToken != -1)
   {
@@ -1766,14 +1752,12 @@ void __50__MIBUNWClientController_serverDeviceDidCheckOut___block_invoke()
   v5 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Multicast socket started.", &v7, 0xCu);
+    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Multicast socket started.", &v6, 0xCu);
   }
 
   [(MIBUDataCollectorProtocol *)self->_dataCollector addKeyEvent:@"ClientControllerNanMulticastStart"];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __50__MIBUNWClientController_multicastSocketDidStart___block_invoke()
@@ -1794,7 +1778,7 @@ void __50__MIBUNWClientController_multicastSocketDidStart___block_invoke()
 
 - (void)multicastSocketDidStop:(id)stop withError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   stopCopy = stop;
   errorCopy = error;
   if (MIBUOnceToken != -1)
@@ -1805,11 +1789,11 @@ void __50__MIBUNWClientController_multicastSocketDidStart___block_invoke()
   v8 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
+    v11 = 138543618;
     selfCopy = self;
-    v14 = 2114;
-    v15 = errorCopy;
-    _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Multicast socket stopped with error: %{public}@", &v12, 0x16u);
+    v13 = 2114;
+    v14 = errorCopy;
+    _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Multicast socket stopped with error: %{public}@", &v11, 0x16u);
   }
 
   multicastSocket = self->_multicastSocket;
@@ -1821,8 +1805,6 @@ void __50__MIBUNWClientController_multicastSocketDidStart___block_invoke()
   {
     dispatch_semaphore_signal(multicastSocketSem);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __59__MIBUNWClientController_multicastSocketDidStop_withError___block_invoke()
@@ -1920,48 +1902,15 @@ uint64_t __67__MIBUNWClientController_nanSubscriberDidStop_withError_willRetry__
   dispatch_async(dispatchQueue, block);
 }
 
-- (void)_checkOutWithError:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_startMulticastReceiverUsingInterface:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __47__MIBUNWClientController_pingThroughMulticast___block_invoke_84_cold_2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_259B04000, log, OS_LOG_TYPE_ERROR, "%{public}@: ping through multicast failed with error %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_createNANTCPConnectionUsingInterface:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_createTCPConnectionWithAddr:andPort:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_259B04000, log, OS_LOG_TYPE_ERROR, "%{public}@: ping through multicast failed with error %{public}@", &v4, 0x16u);
 }
 
 @end

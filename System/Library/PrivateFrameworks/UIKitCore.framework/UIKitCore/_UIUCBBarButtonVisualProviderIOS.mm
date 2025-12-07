@@ -441,7 +441,7 @@ LABEL_7:
 - (void)updateMenu
 {
   WeakRetained = objc_loadWeakRetained(&self->super._barButtonItem);
-  menu = [WeakRetained menu];
+  v4 = objc_msgSend_menu(WeakRetained);
 
   v5 = objc_loadWeakRetained(&self->super._barButtonItem);
   _menuIsPrimary = [v5 _menuIsPrimary];
@@ -484,13 +484,13 @@ LABEL_7:
 
   else
   {
-    if (menu)
+    if (v4)
     {
       v17 = MEMORY[0x1E69E9820];
       v18 = 3221225472;
       v19 = __46___UIUCBBarButtonVisualProviderIOS_updateMenu__block_invoke_3;
       v20 = &unk_1E70F6A70;
-      v21 = menu;
+      v21 = v4;
       v12 = _Block_copy(&v17);
       v13 = self->_menuProvider;
       self->_menuProvider = v12;

@@ -34,7 +34,7 @@ void __68__PLPhotoAnalysisTestService_cancelOperationsWithIdentifiers_reply___bl
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(*(a1 + 32))];
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;

@@ -191,7 +191,7 @@ LABEL_9:
 
 - (void)writeTo:(id)to
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_uuid)
   {
@@ -206,7 +206,6 @@ LABEL_9:
   has = self->_has;
   if (has)
   {
-    relevance = self->_relevance;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 4) == 0)
@@ -226,12 +225,10 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  clusterSize = self->_clusterSize;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_8:
-    activityType = self->_activityType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -263,40 +260,36 @@ LABEL_9:
 
   if ((*&self->_has & 8) != 0)
   {
-    final = self->_final;
     PBDataWriterWriteBOOLField();
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v8 = self->_eligibleClusterUUIDs;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_eligibleClusterUUIDs;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v18;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
         PBDataWriterWriteDataField();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -402,7 +395,7 @@ LABEL_9:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSData *)self->_uuid copyWithZone:zone];
   v7 = *(v5 + 80);
@@ -471,36 +464,35 @@ LABEL_5:
     *(v5 + 100) |= 8u;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v21 = self->_eligibleClusterUUIDs;
-  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v30;
+    v24 = *v29;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v30 != v24)
+        if (*v29 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = [*(*(&v29 + 1) + 8 * i) copyWithZone:{zone, v29}];
+        v26 = [*(*(&v28 + 1) + 8 * i) copyWithZone:{zone, v28}];
         [v5 addEligibleClusterUUIDs:v26];
       }
 
-      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v23);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -530,7 +522,6 @@ LABEL_5:
     }
   }
 
-  v7 = *(equalCopy + 100);
   if (*&self->_has)
   {
     if ((*(equalCopy + 100) & 1) == 0 || self->_relevance != *(equalCopy + 1))
@@ -612,7 +603,6 @@ LABEL_5:
     }
   }
 
-  v13 = *(equalCopy + 100);
   if ((*&self->_has & 8) == 0)
   {
     if ((*(equalCopy + 100) & 8) == 0)
@@ -621,7 +611,7 @@ LABEL_5:
     }
 
 LABEL_36:
-    v15 = 0;
+    v13 = 0;
     goto LABEL_37;
   }
 
@@ -630,7 +620,6 @@ LABEL_36:
     goto LABEL_36;
   }
 
-  v17 = *(equalCopy + 96);
   if (self->_final)
   {
     if ((*(equalCopy + 96) & 1) == 0)
@@ -648,17 +637,17 @@ LABEL_33:
   eligibleClusterUUIDs = self->_eligibleClusterUUIDs;
   if (eligibleClusterUUIDs | *(equalCopy + 5))
   {
-    v15 = [(NSMutableArray *)eligibleClusterUUIDs isEqual:?];
+    v13 = [(NSMutableArray *)eligibleClusterUUIDs isEqual:?];
   }
 
   else
   {
-    v15 = 1;
+    v13 = 1;
   }
 
 LABEL_37:
 
-  return v15;
+  return v13;
 }
 
 - (unint64_t)hash
@@ -740,7 +729,7 @@ LABEL_14:
 
 - (void)mergeFrom:(id)from
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 10))
   {
@@ -846,35 +835,33 @@ LABEL_9:
     *&self->_has |= 8u;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v12 = *(fromCopy + 5);
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(HDCodableRacingCluster *)self addEligibleClusterUUIDs:*(*(&v18 + 1) + 8 * i), v18];
+        [(HDCodableRacingCluster *)self addEligibleClusterUUIDs:*(*(&v17 + 1) + 8 * i), v17];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -71,10 +71,10 @@
 
 - (STLocalStatusServer)init
 {
-  v33[2] = *MEMORY[0x277D85DE8];
-  v32.receiver = self;
-  v32.super_class = STLocalStatusServer;
-  v2 = [(STLocalStatusServer *)&v32 init];
+  v32[2] = *MEMORY[0x277D85DE8];
+  v31.receiver = self;
+  v31.super_class = STLocalStatusServer;
+  v2 = [(STLocalStatusServer *)&v31 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277CF0C68]);
@@ -86,9 +86,9 @@
     v2->_publisherClientsByDomain = v5;
 
     v7 = MEMORY[0x277CBEB70];
-    v33[0] = @"data";
-    v33[1] = @"volatileData";
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+    v32[0] = @"data";
+    v32[1] = @"volatileData";
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
     v9 = [v7 orderedSetWithArray:v8];
 
     v10 = [objc_alloc(MEMORY[0x277D6BB38]) initWithRecordKeys:v9];
@@ -127,11 +127,10 @@
     publisherXPCClientListener = v2->_publisherXPCClientListener;
     v2->_publisherXPCClientListener = v26;
 
-    v31 = v2;
+    v30 = v2;
     v28 = BSLogAddStateCaptureBlockWithTitle();
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -196,7 +195,7 @@ uint64_t __39__STLocalStatusServer_publishedDomains__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)internalQueuePublisherServerHandle
@@ -238,7 +237,7 @@ uint64_t __39__STLocalStatusServer_publishedDomains__block_invoke(uint64_t a1)
   return v4;
 }
 
-void __46__STLocalStatusServer_publishedDataForDomain___block_invoke(uint64_t *a1)
+void __46__STLocalStatusServer_publishedDataForDomain___block_invoke(void *a1)
 {
   v5 = [(STLocalStatusServer *)a1[4] _internalQueue_dataForDomain:?];
   v2 = [v5 copyWithZone:0];
@@ -296,7 +295,7 @@ void __46__STLocalStatusServer_publishedDataForDomain___block_invoke(uint64_t *a
   return v4;
 }
 
-void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uint64_t *a1)
+void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(void *a1)
 {
   v5 = [(STLocalStatusServer *)a1[4] _internalQueue_volatileDataForDomain:?];
   v2 = [v5 copyWithZone:0];
@@ -637,7 +636,7 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
 
 - (void)_internalQueue_publishData:(void *)data forPublisherClient:(uint64_t)client domain:(void *)domain withChangeContext:(void *)context completion:
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v11 = a2;
   dataCopy = data;
   domainCopy = domain;
@@ -660,9 +659,9 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         v19 = STSystemStatusDescriptionForDomain();
-        v21 = 138543362;
-        v22 = v19;
-        _os_log_impl(&dword_26C4AD000, v18, OS_LOG_TYPE_DEFAULT, "Ignoring data from unknown publisher for %{public}@ domain", &v21, 0xCu);
+        v20 = 138543362;
+        v21 = v19;
+        _os_log_impl(&dword_26C4AD000, v18, OS_LOG_TYPE_DEFAULT, "Ignoring data from unknown publisher for %{public}@ domain", &v20, 0xCu);
       }
 
       if (contextCopy)
@@ -671,8 +670,6 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishVolatileData:(id)data forPublisherClient:(id)client domain:(unint64_t)domain withChangeContext:(id)context completion:(id)completion
@@ -710,7 +707,7 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
 
 - (void)_internalQueue_publishVolatileData:(void *)data forPublisherClient:(uint64_t)client domain:(void *)domain withChangeContext:(void *)context completion:
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v11 = a2;
   dataCopy = data;
   domainCopy = domain;
@@ -733,9 +730,9 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         v19 = STSystemStatusDescriptionForDomain();
-        v21 = 138543362;
-        v22 = v19;
-        _os_log_impl(&dword_26C4AD000, v18, OS_LOG_TYPE_DEFAULT, "Ignoring volatile data from unknown publisher for %{public}@ domain", &v21, 0xCu);
+        v20 = 138543362;
+        v21 = v19;
+        _os_log_impl(&dword_26C4AD000, v18, OS_LOG_TYPE_DEFAULT, "Ignoring volatile data from unknown publisher for %{public}@ domain", &v20, 0xCu);
       }
 
       if (contextCopy)
@@ -744,8 +741,6 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDataForPublisherClient:(id)client domain:(unint64_t)domain usingDiffProvider:(id)provider completion:(id)completion
@@ -780,7 +775,7 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
 
 - (void)_internalQueue_updateDataForPublisherClient:(uint64_t)client domain:(void *)domain usingDiffProvider:(void *)provider completion:
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v9 = a2;
   domainCopy = domain;
   providerCopy = provider;
@@ -794,8 +789,8 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
     {
       v14 = [(STLocalStatusServer *)self _internalQueue_dataForDomain:client];
       v15 = v14;
-      v28 = v9;
-      v29 = providerCopy;
+      v27 = v9;
+      v28 = providerCopy;
       if (v14)
       {
         v16 = v14;
@@ -808,21 +803,21 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
 
       v19 = v16;
 
-      v30 = 0;
-      v20 = domainCopy[2](domainCopy, v19, &v30);
-      v21 = v30;
+      v29 = 0;
+      v20 = domainCopy[2](domainCopy, v19, &v29);
+      v21 = v29;
       v22 = [v19 mutableCopyWithZone:0];
       [v22 applyDiff:v20];
       v23 = [v22 copyWithZone:0];
       v24 = domainCopy;
       v25 = *(self + 40);
       v26 = [v25 recordForKey:@"data"];
-      [(STLocalStatusServer *)self _internalQueue_publishData:v23 forPublisherClient:v28 domain:client inDataChangeRecord:v26 withChangeContext:v21 completion:v29];
+      [(STLocalStatusServer *)self _internalQueue_publishData:v23 forPublisherClient:v27 domain:client inDataChangeRecord:v26 withChangeContext:v21 completion:v28];
 
       domainCopy = v24;
-      providerCopy = v29;
+      providerCopy = v28;
 
-      v9 = v28;
+      v9 = v27;
     }
 
     else
@@ -832,7 +827,7 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
       {
         v18 = STSystemStatusDescriptionForDomain();
         *buf = 138543362;
-        v32 = v18;
+        v31 = v18;
         _os_log_impl(&dword_26C4AD000, v17, OS_LOG_TYPE_DEFAULT, "Ignoring diff from unknown publisher for %{public}@ domain", buf, 0xCu);
       }
 
@@ -842,8 +837,6 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateVolatileDataForPublisherClient:(id)client domain:(unint64_t)domain usingDiffProvider:(id)provider completion:(id)completion
@@ -878,7 +871,7 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
 
 - (void)_internalQueue_updateVolatileDataForPublisherClient:(uint64_t)client domain:(void *)domain usingDiffProvider:(void *)provider completion:
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v9 = a2;
   domainCopy = domain;
   providerCopy = provider;
@@ -904,22 +897,22 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
 
       v20 = v16;
 
-      v37 = v20;
-      v38 = 0;
-      v21 = (domainCopy)[2](domainCopy, v20, &v38);
-      v22 = v38;
-      v36 = *(self + 40);
-      v23 = [v36 recordForKey:@"volatileData"];
+      v36 = v20;
+      v37 = 0;
+      v21 = (domainCopy)[2](domainCopy, v20, &v37);
+      v22 = v37;
+      v35 = *(self + 40);
+      v23 = [v35 recordForKey:@"volatileData"];
       v24 = v21;
-      v34 = v9;
+      v33 = v9;
       v25 = v9;
       v26 = v23;
       v27 = v22;
       v28 = providerCopy;
-      v35 = v25;
+      v34 = v25;
       if ([v24 isEmpty])
       {
-        v9 = v34;
+        v9 = v33;
         if (v28)
         {
           v28[2](v28);
@@ -928,17 +921,17 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
 
       else
       {
-        v33 = domainCopy;
+        v32 = domainCopy;
         v29 = *(self + 32);
         v30 = [v29 objectForKey:v25];
 
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v40 = __124__STLocalStatusServer__internalQueue_publishDiff_forPublisherClient_domain_inDataChangeRecord_withChangeContext_completion___block_invoke;
-        v41 = &unk_279D34D20;
-        v42 = v26;
-        v43 = v24;
-        v44 = v30;
+        v39 = __124__STLocalStatusServer__internalQueue_publishDiff_forPublisherClient_domain_inDataChangeRecord_withChangeContext_completion___block_invoke;
+        v40 = &unk_279D34D20;
+        v41 = v26;
+        v42 = v24;
+        v43 = v30;
         clientCopy = client;
         v31 = v30;
         [(STLocalStatusServer *)self _internalQueue_mutateDataForDomain:client withChangeContext:v27 block:&buf];
@@ -947,8 +940,8 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
           v28[2](v28);
         }
 
-        domainCopy = v33;
-        v9 = v34;
+        domainCopy = v32;
+        v9 = v33;
       }
     }
 
@@ -972,8 +965,6 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
       }
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dataForDomain:(unint64_t)domain client:(id)client
@@ -1012,14 +1003,14 @@ void __54__STLocalStatusServer_publishedVolatileDataForDomain___block_invoke(uin
   return v9;
 }
 
-void __44__STLocalStatusServer_dataForDomain_client___block_invoke(uint64_t a1)
+void __44__STLocalStatusServer_dataForDomain_client___block_invoke(void *a1)
 {
-  v2 = [(STLocalStatusServer *)*(a1 + 32) _internalQueue_presentationDataForDomain:?];
+  v2 = [(STLocalStatusServer *)a1[4] _internalQueue_presentationDataForDomain:?];
   v5 = [v2 copyWithZone:0];
 
   if (v5)
   {
-    v3 = [(STLocalStatusServer *)*(a1 + 32) _internalQueue_dataForClient:*(a1 + 56) domain:v5 presentationData:?];
+    v3 = [(STLocalStatusServer *)a1[4] _internalQueue_dataForClient:a1[7] domain:v5 presentationData:?];
   }
 
   else
@@ -1027,7 +1018,7 @@ void __44__STLocalStatusServer_dataForDomain_client___block_invoke(uint64_t a1)
     v3 = 0;
   }
 
-  objc_storeStrong((*(*(a1 + 48) + 8) + 40), v3);
+  objc_storeStrong((*(a1[6] + 8) + 40), v3);
   v4 = v5;
   if (v5)
   {
@@ -1038,45 +1029,45 @@ void __44__STLocalStatusServer_dataForDomain_client___block_invoke(uint64_t a1)
 
 - (id)_internalQueue_presentationDataForDomain:(uint64_t)domain
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (domain)
   {
     dispatch_assert_queue_V2(*(domain + 88));
     v4 = [*(domain + 40) currentDataForDomain:a2];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v5 = *(domain + 64);
     v6 = MEMORY[0x277CCABB0];
     v7 = v5;
     v8 = [v6 numberWithUnsignedInteger:{a2, 0}];
     v9 = [v7 objectForKey:v8];
 
-    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         v13 = 0;
         v14 = v4;
         do
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v4 = [*(*(&v17 + 1) + 8 * v13) transformedDataForData:v14 domain:a2];
+          v4 = [*(*(&v16 + 1) + 8 * v13) transformedDataForData:v14 domain:a2];
 
           ++v13;
           v14 = v4;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v11);
@@ -1088,14 +1079,12 @@ void __44__STLocalStatusServer_dataForDomain_client___block_invoke(uint64_t a1)
     v4 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)_internalQueue_dataForClient:(uint64_t)client domain:(void *)domain presentationData:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v7 = a2;
   domainCopy = domain;
   if (self)
@@ -1104,34 +1093,34 @@ void __44__STLocalStatusServer_dataForDomain_client___block_invoke(uint64_t a1)
     v9 = domainCopy;
     if (([v7 wantsUntransformedData] & 1) == 0)
     {
-      v24 = domainCopy;
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
+      v23 = domainCopy;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       v10 = *(self + 72);
       v11 = MEMORY[0x277CCABB0];
       v12 = v10;
       v13 = [v11 numberWithUnsignedInteger:client];
       v14 = [v12 objectForKey:v13];
 
-      v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v26;
+        v17 = *v25;
         do
         {
           v18 = 0;
           v19 = v9;
           do
           {
-            if (*v26 != v17)
+            if (*v25 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v20 = [*(*(&v25 + 1) + 8 * v18) dataTransformerForClient:v7];
+            v20 = [*(*(&v24 + 1) + 8 * v18) dataTransformerForClient:v7];
             v21 = [v20 transformedDataForData:v19 domain:client];
             v9 = [v21 copyWithZone:0];
 
@@ -1140,13 +1129,13 @@ void __44__STLocalStatusServer_dataForDomain_client___block_invoke(uint64_t a1)
           }
 
           while (v16 != v18);
-          v16 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
         }
 
         while (v16);
       }
 
-      domainCopy = v24;
+      domainCopy = v23;
     }
   }
 
@@ -1154,8 +1143,6 @@ void __44__STLocalStatusServer_dataForDomain_client___block_invoke(uint64_t a1)
   {
     v9 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1934,7 +1921,7 @@ void __80__STLocalStatusServer_modifyClientDataTransformerProvider_forDomain_usi
 
 void __92__STLocalStatusServer__internalQueue_replaceDataChangeRecord_forPublisherClient_completion___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = [*(a1 + 32) objectForKey:a2];
   v6 = [v5 containsObject:*(a1 + 40)];
 
@@ -1944,16 +1931,14 @@ void __92__STLocalStatusServer__internalQueue_replaceDataChangeRecord_forPublish
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = STSystemStatusDescriptionForDomain();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_26C4AD000, v7, OS_LOG_TYPE_DEFAULT, "Ignoring change record from unknown publisher for %{public}@ domain", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_26C4AD000, v7, OS_LOG_TYPE_DEFAULT, "Ignoring change record from unknown publisher for %{public}@ domain", &v9, 0xCu);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
     *a3 = 1;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __92__STLocalStatusServer__internalQueue_replaceDataChangeRecord_forPublisherClient_completion___block_invoke_142(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5)
@@ -2006,7 +1991,7 @@ void __92__STLocalStatusServer__internalQueue_replaceDataChangeRecord_forPublish
 
 void __100__STLocalStatusServer__internalQueue_replaceVolatileDataChangeRecord_forPublisherClient_completion___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = [*(a1 + 32) objectForKey:a2];
   v6 = [v5 containsObject:*(a1 + 40)];
 
@@ -2016,16 +2001,14 @@ void __100__STLocalStatusServer__internalQueue_replaceVolatileDataChangeRecord_f
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = STSystemStatusDescriptionForDomain();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_26C4AD000, v7, OS_LOG_TYPE_DEFAULT, "Ignoring volatile change record from unknown publisher for %{public}@ domain", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_26C4AD000, v7, OS_LOG_TYPE_DEFAULT, "Ignoring volatile change record from unknown publisher for %{public}@ domain", &v9, 0xCu);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
     *a3 = 1;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_internalQueue_publishData:(void *)data forPublisherClient:(uint64_t)client domain:(void *)domain inDataChangeRecord:(void *)record withChangeContext:(void *)context completion:
@@ -2108,15 +2091,11 @@ void __122__STLocalStatusServer__internalQueue_replaceDataChangeRecord_forPublis
 
 void __122__STLocalStatusServer__internalQueue_replaceDataChangeRecord_forPublisherClient_inDataChangeRecord_applyBlock_completion___block_invoke_2(uint64_t a1)
 {
-  v6 = [(STLocalStatusServer *)*(a1 + 32) _internalQueue_fallbackDataForPublisherClient:*(a1 + 88) domain:?];
+  v2 = [(STLocalStatusServer *)*(a1 + 32) _internalQueue_fallbackDataForPublisherClient:*(a1 + 88) domain:?];
   [*(a1 + 48) removeAllEntriesForClientKey:*(a1 + 56) domain:*(a1 + 88)];
   if ([*(a1 + 64) containsValue:*(a1 + 88)])
   {
-    [*(a1 + 48) setFallbackData:v6 forClientKey:*(a1 + 56) domain:*(a1 + 88)];
-    v2 = *(a1 + 72);
-    v3 = *(a1 + 48);
-    v4 = *(a1 + 56);
-    v5 = *(a1 + 88);
+    [*(a1 + 48) setFallbackData:v2 forClientKey:*(a1 + 56) domain:*(a1 + 88)];
     (*(*(a1 + 80) + 16))();
   }
 }
@@ -2148,65 +2127,59 @@ void __82__STLocalStatusServer__internalQueue_mutateDataForDomain_withChangeCont
 
 void __82__STLocalStatusServer__internalQueue_mutateDataForDomain_withChangeContext_block___block_invoke_4(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (STSystemStatusIsInternalLoggingEnabled())
   {
     v2 = STSystemStatusLogServer();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = a1[6];
-      v4 = STSystemStatusDescriptionForDomain();
-      v5 = a1[4];
-      v6 = a1[5];
-      v8 = 138543874;
+      v3 = STSystemStatusDescriptionForDomain();
+      v4 = a1[4];
+      v5 = a1[5];
+      v6 = 138543874;
+      v7 = v3;
+      v8 = 2114;
       v9 = v4;
       v10 = 2114;
       v11 = v5;
-      v12 = 2114;
-      v13 = v6;
-      _os_log_impl(&dword_26C4AD000, v2, OS_LOG_TYPE_DEFAULT, "Server data changed for %{public}@ domain: %{public}@ -- context: %{public}@", &v8, 0x20u);
+      _os_log_impl(&dword_26C4AD000, v2, OS_LOG_TYPE_DEFAULT, "Server data changed for %{public}@ domain: %{public}@ -- context: %{public}@", &v6, 0x20u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __94__STLocalStatusServer__internalQueue_enumeratePublisherClientsForDomain_withClientQueueBlock___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
         (*(*(a1 + 40) + 16))(*(a1 + 40));
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -6,45 +6,41 @@
 
 - (TDImageColorHistogram)initWithCGImage:(CGImage *)image
 {
-  v14.receiver = self;
-  v14.super_class = TDImageColorHistogram;
-  v4 = [(TDImageColorHistogram *)&v14 init];
-  v5 = v4;
+  v10.receiver = self;
+  v10.super_class = TDImageColorHistogram;
+  v4 = [(TDImageColorHistogram *)&v10 init];
   if (v4)
   {
-    v6 = &v4->_histogram.tbl[3][1023];
     Height = CGImageGetHeight(image);
     Width = CGImageGetWidth(image);
-    v5->_imageBuffer.data = 0;
-    v5->_imageBuffer.height = Height;
-    v5->_imageBuffer.width = Width;
-    v5->_imageBuffer.rowBytes = 0;
-    v9 = CUIGetRGBAImageBuffer();
-    if (v9)
+    v4->_imageBuffer.data = 0;
+    v4->_imageBuffer.height = Height;
+    v4->_imageBuffer.width = Width;
+    v4->_imageBuffer.rowBytes = 0;
+    v7 = CUIGetRGBAImageBuffer();
+    if (v7)
     {
-      NSLog(&cfstr_FailedToInitia.isa, v9);
+      NSLog(&cfstr_FailedToInitia.isa, v7);
     }
 
     else
     {
-      v12 = *&v5->_imageBuffer.data;
-      v13 = *(v6 + 3);
-      v10 = CUIComputeImageColorHistogramARGB();
-      if (!v10)
+      v8 = CUIComputeImageColorHistogramARGB();
+      if (!v8)
       {
-        v5->_isMonochrome = CUIColorHistogramARGBIsMonochrome();
+        v4->_isMonochrome = CUIColorHistogramARGBIsMonochrome();
         CUIDeallocateRGBAImageBuffer();
-        return v5;
+        return v4;
       }
 
-      NSLog(&cfstr_FailedToComput.isa, v10);
+      NSLog(&cfstr_FailedToComput.isa, v8);
       CUIDeallocateRGBAImageBuffer();
     }
 
     return 0;
   }
 
-  return v5;
+  return v4;
 }
 
 @end

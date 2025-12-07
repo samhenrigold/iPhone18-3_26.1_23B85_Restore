@@ -27,7 +27,7 @@
   AXPerformBlockOnMainThreadAfterDelay();
 }
 
-uint64_t __52__YearMonthAnimatorAccessibility_animateTransition___block_invoke(uint64_t a1)
+void *__52__YearMonthAnimatorAccessibility_animateTransition___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) transitionDuration:0];
   *(*(*(a1 + 40) + 8) + 24) = v3;

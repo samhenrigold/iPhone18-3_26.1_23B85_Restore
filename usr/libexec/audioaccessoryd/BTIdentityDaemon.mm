@@ -2,6 +2,7 @@
 + (id)sharedBTIdentityDaemon;
 - (BOOL)diagnosticControl:(id)control completion:(id)completion;
 - (BTIdentityDaemon)init;
+- (id)descriptionWithLevel:(int)level;
 - (void)_idsDevicesChanged:(id)changed;
 - (void)_idsScheduleUpdateIdentities;
 - (void)_idsUpdateIdentities;
@@ -40,6 +41,15 @@
   }
 
   return v2;
+}
+
+- (id)descriptionWithLevel:(int)level
+{
+  v5 = 0;
+  NSAppendPrintF(&v5, "-- BTIdentityDaemon: IDS devices %d, Identities %d --\n", [(NSArray *)self->_idsDevices count], [(NSMutableDictionary *)self->_identityMap count]);
+  v3 = v5;
+
+  return v3;
 }
 
 - (void)activate
@@ -107,34 +117,34 @@
 {
   selfCopy = self;
   [(NSMutableDictionary *)self->_identityMap enumerateKeysAndObjectsUsingBlock:&stru_1002BADF0];
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   obj = selfCopy->_idsDevices;
-  v53 = [(NSArray *)obj countByEnumeratingWithState:&v60 objects:v65 count:16];
-  if (!v53)
+  v49 = [(NSArray *)obj countByEnumeratingWithState:&v56 objects:v61 count:16];
+  if (!v49)
   {
-    v48 = 0;
-    v49 = 0;
+    v44 = 0;
+    v45 = 0;
     goto LABEL_56;
   }
 
-  v48 = 0;
-  v49 = 0;
-  v51 = selfCopy;
-  v52 = *v61;
+  v44 = 0;
+  v45 = 0;
+  v47 = selfCopy;
+  v48 = *v57;
   do
   {
     v3 = 0;
     do
     {
-      if (*v61 != v52)
+      if (*v57 != v48)
       {
         objc_enumerationMutation(obj);
       }
 
-      v4 = *(*(&v60 + 1) + 8 * v3);
+      v4 = *(*(&v56 + 1) + 8 * v3);
       uniqueIDOverride = [v4 uniqueIDOverride];
       if (uniqueIDOverride)
       {
@@ -184,7 +194,7 @@
             {
 LABEL_19:
               [v7 setBluetoothIdentifier:v13];
-              v54 = 1;
+              v50 = 1;
 LABEL_20:
               modelIdentifier = [v4 modelIdentifier];
               if (modelIdentifier)
@@ -214,7 +224,7 @@ LABEL_20:
                 }
 
                 [v7 setModel:v19];
-                v54 = 1;
+                v50 = 1;
               }
 
 LABEL_28:
@@ -245,25 +255,25 @@ LABEL_28:
                   if (v6)
                   {
 LABEL_42:
-                    v49 = (v49 + 1);
+                    ++v45;
                     if (dword_1002F7148 <= 20 && (dword_1002F7148 != -1 || _LogCategory_Initialize()))
                     {
-                      sub_1001F7484();
+                      sub_1001F7484(v7);
                     }
 
                     goto LABEL_49;
                   }
 
 LABEL_46:
-                  v48 = (v48 + 1);
+                  ++v44;
                   if (dword_1002F7148 <= 20 && (dword_1002F7148 != -1 || _LogCategory_Initialize()))
                   {
-                    sub_1001F74C4();
+                    sub_1001F74C4(v7);
                   }
 
 LABEL_49:
 
-                  selfCopy = v51;
+                  selfCopy = v47;
                   goto LABEL_50;
                 }
 
@@ -282,14 +292,14 @@ LABEL_32:
                 }
               }
 
-              if (v54)
+              if (v50)
               {
                 goto LABEL_42;
               }
 
               if (dword_1002F7148 <= 10 && (dword_1002F7148 != -1 || _LogCategory_Initialize()))
               {
-                sub_1001F7444();
+                sub_1001F7444(v7);
               }
 
               goto LABEL_49;
@@ -297,7 +307,7 @@ LABEL_32:
           }
         }
 
-        v54 = 0;
+        v50 = 0;
         goto LABEL_20;
       }
 
@@ -306,44 +316,44 @@ LABEL_50:
       v3 = v3 + 1;
     }
 
-    while (v53 != v3);
-    v29 = [(NSArray *)obj countByEnumeratingWithState:&v60 objects:v65 count:16];
-    v53 = v29;
+    while (v49 != v3);
+    v29 = [(NSArray *)obj countByEnumeratingWithState:&v56 objects:v61 count:16];
+    v49 = v29;
   }
 
   while (v29);
 LABEL_56:
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   allKeys = [(NSMutableDictionary *)selfCopy->_identityMap allKeys];
-  v31 = [allKeys countByEnumeratingWithState:&v56 objects:v64 count:16];
+  v31 = [allKeys countByEnumeratingWithState:&v52 objects:v60 count:16];
   if (v31)
   {
     v32 = v31;
     v33 = 0;
-    v34 = *v57;
+    v34 = *v53;
     do
     {
       v35 = 0;
       do
       {
-        if (*v57 != v34)
+        if (*v53 != v34)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v36 = *(*(&v56 + 1) + 8 * v35);
+        v36 = *(*(&v52 + 1) + 8 * v35);
         v37 = [(NSMutableDictionary *)selfCopy->_identityMap objectForKeyedSubscript:v36];
         if (![v37 type])
         {
           [(NSMutableDictionary *)selfCopy->_identityMap setObject:0 forKeyedSubscript:v36];
-          v33 = (v33 + 1);
+          ++v33;
           if (dword_1002F7148 <= 20 && (dword_1002F7148 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001F7504();
+            sub_1001F7504(v37);
           }
         }
 
@@ -351,7 +361,7 @@ LABEL_56:
       }
 
       while (v32 != v35);
-      v38 = [allKeys countByEnumeratingWithState:&v56 objects:v64 count:16];
+      v38 = [allKeys countByEnumeratingWithState:&v52 objects:v60 count:16];
       v32 = v38;
     }
 
@@ -375,23 +385,19 @@ LABEL_56:
       v39 = "no";
     }
 
-    v46 = v49;
-    v47 = v39;
-    v44 = v48;
-    v45 = v33;
-    LogPrintF();
+    LogPrintF(&dword_1002F7148, "[BTIdentityDaemon _idsUpdateIdentities]", 30, "UpdateIdentities: summary: added %d, removed %d, changed %d, daemon updated %s", v44, v33, v45, v39);
   }
 
-  if (v48 || v33 || v49 || !selfCopy->_cbDaemonUpdated)
+  if (v44 || v33 || v45 || !selfCopy->_cbDaemonUpdated)
   {
     v40 = objc_alloc_init(CBController);
     [v40 setDispatchQueue:selfCopy->_dispatchQueue];
     allValues = [(NSMutableDictionary *)selfCopy->_identityMap allValues];
     v42 = allValues;
-    v55[0] = _NSConcreteStackBlock;
-    v55[1] = 3221225472;
-    v55[2] = sub_1000C5954;
-    v55[3] = &unk_1002B68A8;
+    v51[0] = _NSConcreteStackBlock;
+    v51[1] = 3221225472;
+    v51[2] = sub_1000C5954;
+    v51[3] = &unk_1002B68A8;
     if (allValues)
     {
       v43 = allValues;
@@ -402,9 +408,9 @@ LABEL_56:
       v43 = &__NSArray0__struct;
     }
 
-    v55[4] = v40;
-    v55[5] = selfCopy;
-    [v40 updateIdentities:v43 completion:{v55, v44, v45, v46, v47}];
+    v51[4] = v40;
+    v51[5] = selfCopy;
+    [v40 updateIdentities:v43 completion:v51];
   }
 }
 

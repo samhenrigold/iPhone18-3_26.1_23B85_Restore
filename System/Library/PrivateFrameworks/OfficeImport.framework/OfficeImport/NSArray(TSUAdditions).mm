@@ -590,22 +590,22 @@ LABEL_4:
 
 - (uint64_t)tsu_isHomogeneousForClass:()TSUAdditions
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v7 = 0u;
-  v8 = 0u;
+  v14 = *MEMORY[0x277D85DE8];
   v9 = 0u;
   v10 = 0u;
-  v2 = [self countByEnumeratingWithState:&v7 objects:v11 count:16];
-  if (v2)
+  v11 = 0u;
+  v12 = 0u;
+  v4 = [self countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v4)
   {
-    v3 = v2;
-    v4 = *v8;
+    v5 = v4;
+    v6 = *v10;
     while (2)
     {
-      v5 = 0;
+      v7 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(self);
         }
@@ -615,12 +615,12 @@ LABEL_4:
           return 0;
         }
 
-        ++v5;
+        ++v7;
       }
 
-      while (v3 != v5);
-      v3 = [self countByEnumeratingWithState:&v7 objects:v11 count:16];
-      if (v3)
+      while (v5 != v7);
+      v5 = [self countByEnumeratingWithState:&v9 objects:v13 count:16];
+      if (v5)
       {
         continue;
       }
@@ -767,14 +767,14 @@ LABEL_4:
     v5 = 2;
     for (i = v3; i; --i)
     {
-      [string appendFormat:@"%@", objc_msgSend(objc_msgSend(self, "objectAtIndexedSubscript:", v5 - 2), "description")];
+      v7 = [string appendFormat:@"%@", objc_msgSend(objc_msgSend(self, "objectAtIndexedSubscript:", v5 - 2), "description")];
       if (i < 3)
       {
         if (v4 >= 3 && i == 2)
         {
-          v7 = SFUBundle();
-          v8 = @"TSU_LIST_SEPARATOR_FINAL";
-          v9 = @", and ";
+          v9 = SFUBundle(v7, v8);
+          v10 = @"TSU_LIST_SEPARATOR_FINAL";
+          v11 = @", and ";
         }
 
         else
@@ -784,28 +784,28 @@ LABEL_4:
             goto LABEL_12;
           }
 
-          v7 = SFUBundle();
-          v8 = @"TSU_LIST_SEPARATOR_TWO_ITEMS";
-          v9 = @" and ";
+          v9 = SFUBundle(v7, v8);
+          v10 = @"TSU_LIST_SEPARATOR_TWO_ITEMS";
+          v11 = @" and ";
         }
       }
 
       else
       {
-        v7 = SFUBundle();
-        v8 = @"TSU_LIST_SEPARATOR";
-        v9 = @", ";
+        v9 = SFUBundle(v7, v8);
+        v10 = @"TSU_LIST_SEPARATOR";
+        v11 = @", ";
       }
 
-      [string appendFormat:@"%@", objc_msgSend(v7, "localizedStringForKey:value:table:", v8, v9, @"TSUtility"];
+      [string appendFormat:@"%@", objc_msgSend(v9, "localizedStringForKey:value:table:", v10, v11, @"TSUtility"];
 LABEL_12:
       ++v5;
     }
   }
 
-  v10 = [string copy];
+  v12 = [string copy];
 
-  return v10;
+  return v12;
 }
 
 + (uint64_t)tsu_arrayWithNonNilObject:()TSUAdditions

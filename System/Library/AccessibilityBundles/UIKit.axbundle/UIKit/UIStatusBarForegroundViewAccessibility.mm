@@ -59,7 +59,7 @@
   objc_storeStrong(location, 0);
 }
 
-uint64_t __77__UIStatusBarForegroundViewAccessibility__setStatusBarData_actions_animated___block_invoke(uint64_t a1)
+void *__77__UIStatusBarForegroundViewAccessibility__setStatusBarData_actions_animated___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isItemEnabled:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

@@ -3,6 +3,7 @@
 - (BOOL)createProgramInstanceForModel:(id)model modelToken:(id)token modelFilePath:(id)path qos:(unsigned int)qos isPreCompiled:(BOOL)compiled enablePowerSaving:(BOOL)saving skipPreparePhase:(BOOL)phase statsMask:(unsigned int)self0 memoryPoolID:(unint64_t)self1 enableLateLatch:(BOOL)self2 modelIdentityStr:(id)self3 owningPid:(int)self4 cacheUrlIdentifier:(id)self5 aotCacheUrlIdentifier:(id)self6 optOutOfModelMemoryUnwiring:(BOOL)self7 error:(id *)self8;
 - (BOOL)createProgramInstanceWithWeights:(id)weights modelToken:(id)token qos:(unsigned int)qos baseModelIdentifier:(id)identifier owningPid:(int)pid numWeightFiles:(unsigned int *)files error:(id *)error;
 - (BOOL)destroyProgramInstance;
+- (BOOL)prepareChainingRequest:(id)request qos:(unsigned int)qos qIndex:(unint64_t)index statsMask:(unsigned int)mask error:(id *)error;
 - (BOOL)removeCachedReference;
 - (_ANEProgramForLoad)init;
 - (id)createSymbolMapping;
@@ -718,6 +719,323 @@ LABEL_23:
   }
 
   return v39;
+}
+
+- (BOOL)prepareChainingRequest:(id)request qos:(unsigned int)qos qIndex:(unint64_t)index statsMask:(unsigned int)mask error:(id *)error
+{
+  v7 = __chkstk_darwin(self, a2, request, *&qos, index, *&mask, error);
+  v110 = v8;
+  v111 = v9;
+  v109 = v10;
+  v12 = v11;
+  aSelector = v13;
+  v113 = v7;
+  v15 = v14;
+  context = objc_autoreleasePoolPush();
+  v114 = v15;
+  validate = [v15 validate];
+  v17 = validate;
+  if ((validate & 1) == 0)
+  {
+    v40 = 0;
+    v41 = 0;
+    goto LABEL_46;
+  }
+
+  v107 = validate;
+  v18 = +[_ANELog common];
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  {
+    v103 = NSStringFromSelector(aSelector);
+    *v121 = 138413314;
+    v122 = v103;
+    v123 = 2048;
+    *v124 = v114;
+    *&v124[8] = 1024;
+    unsignedIntegerValue = v12;
+    v126 = 2048;
+    *v127 = v110;
+    *&v127[8] = 1024;
+    v128 = v109;
+    _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "%@: prepareChainingRequest : _ANEChainingRequest=%pqos=%x : qIndex=%lu : statsMask=%d", v121, 0x2Cu);
+  }
+
+  for (i = 56; i != 8248; i += 32)
+  {
+    *&v121[i] = 0;
+  }
+
+  bzero(v121, 0x16100uLL);
+  inputBuffer = [v114 inputBuffer];
+  v131[2048] = [inputBuffer count];
+
+  for (j = 0; ; j = v23 + 1)
+  {
+    inputBuffer2 = [v114 inputBuffer];
+    v23 = j;
+    v24 = [inputBuffer2 count] > j;
+
+    if (!v24)
+    {
+      break;
+    }
+
+    inputBuffer3 = [v114 inputBuffer];
+    v26 = [inputBuffer3 objectAtIndexedSubscript:v23];
+    ioSurfaceObject = [v26 ioSurfaceObject];
+    v28 = &v131[6 * v23 + 2050];
+    *v28 = [ioSurfaceObject ioSurface];
+
+    inputBuffer4 = [v114 inputBuffer];
+    v30 = [inputBuffer4 objectAtIndexedSubscript:v23];
+    symbolIndex = [v30 symbolIndex];
+    v28[2] = [symbolIndex unsignedIntegerValue];
+
+    inputBuffer5 = [v114 inputBuffer];
+    v33 = [inputBuffer5 objectAtIndexedSubscript:v23];
+    ioSurfaceObject2 = [v33 ioSurfaceObject];
+    startOffset = [ioSurfaceObject2 startOffset];
+    v28[5] = [startOffset unsignedIntegerValue];
+
+    inputBuffer6 = [v114 inputBuffer];
+    v37 = [inputBuffer6 objectAtIndexedSubscript:v23];
+    source = [v37 source];
+    if (source >= 5)
+    {
+      v39 = +[_ANELog common];
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 134218240;
+        v116 = source;
+        v117 = 2048;
+        v118 = 0;
+        _os_log_error_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Unknown _ANEChainingBufferSource=%lu using (%lu)", buf, 0x16u);
+      }
+
+      LODWORD(source) = 0;
+    }
+
+    v28[3] = source;
+  }
+
+  outputSets = [v114 outputSets];
+  v131[3580] = [outputSets count];
+
+  for (k = 0; ; k = v45 + 1)
+  {
+    outputSets2 = [v114 outputSets];
+    v45 = k;
+    v46 = [outputSets2 count] > k;
+
+    if (!v46)
+    {
+      break;
+    }
+
+    outputSets3 = [v114 outputSets];
+    v48 = [outputSets3 objectAtIndexedSubscript:k];
+    v49 = &v131[1540 * k + 3582];
+    *v49 = [v48 statsSurRef];
+
+    outputSets4 = [v114 outputSets];
+    v51 = [outputSets4 objectAtIndexedSubscript:k];
+    outputBuffer = [v51 outputBuffer];
+    v49[2] = [outputBuffer count];
+
+    if (v49[2])
+    {
+      v53 = 0;
+      v54 = &v131[1540 * k + 3591];
+      do
+      {
+        outputSets5 = [v114 outputSets];
+        v56 = [outputSets5 objectAtIndexedSubscript:v45];
+        outputBuffer2 = [v56 outputBuffer];
+        v58 = [outputBuffer2 objectAtIndexedSubscript:v53];
+        ioSurfaceObject3 = [v58 ioSurfaceObject];
+        *(v54 - 5) = [ioSurfaceObject3 ioSurface];
+
+        outputSets6 = [v114 outputSets];
+        v61 = [outputSets6 objectAtIndexedSubscript:v45];
+        outputBuffer3 = [v61 outputBuffer];
+        v63 = [outputBuffer3 objectAtIndexedSubscript:v53];
+        symbolIndex2 = [v63 symbolIndex];
+        *(v54 - 3) = [symbolIndex2 unsignedIntegerValue];
+
+        outputSets7 = [v114 outputSets];
+        v66 = [outputSets7 objectAtIndexedSubscript:v45];
+        outputBuffer4 = [v66 outputBuffer];
+        v68 = [outputBuffer4 objectAtIndexedSubscript:v53];
+        ioSurfaceObject4 = [v68 ioSurfaceObject];
+        startOffset2 = [ioSurfaceObject4 startOffset];
+        *v54 = [startOffset2 unsignedIntegerValue];
+
+        ++v53;
+        v54 += 6;
+      }
+
+      while (v53 < v49[2]);
+    }
+  }
+
+  loopbackInputSymbolIndex = [v114 loopbackInputSymbolIndex];
+  v72 = [loopbackInputSymbolIndex count];
+
+  v131[22062] = v72;
+  if (v72)
+  {
+    v73 = 0;
+    v74 = v72;
+    v75 = &v132;
+    do
+    {
+      loopbackInputSymbolIndex2 = [v114 loopbackInputSymbolIndex];
+      v77 = [loopbackInputSymbolIndex2 objectAtIndexedSubscript:v73];
+      *(v75 - 1) = [v77 unsignedIntegerValue];
+
+      loopbackOutputSymbolIndex = [v114 loopbackOutputSymbolIndex];
+      v79 = [loopbackOutputSymbolIndex objectAtIndexedSubscript:v73];
+      *v75 = [v79 unsignedIntegerValue];
+
+      ++v73;
+      ++v75;
+    }
+
+    while (v74 != v73);
+  }
+
+  signalEvents = [v114 signalEvents];
+  v81 = [signalEvents count];
+
+  v130 = v81;
+  signalEvents2 = [v114 signalEvents];
+  v83 = signalEvents2 != 0;
+
+  if (v81)
+  {
+    v84 = v83;
+  }
+
+  else
+  {
+    v84 = 0;
+  }
+
+  if (v84)
+  {
+    v85 = 0;
+    v86 = v131;
+    do
+    {
+      signalEvents3 = [v114 signalEvents];
+      v88 = [signalEvents3 objectAtIndexedSubscript:v85];
+
+      sharedEvent = [v88 sharedEvent];
+      v90 = *v86;
+      *v86 = sharedEvent;
+
+      *(v86 + 1) = [v88 value];
+      eventType = [v88 eventType];
+      if (eventType >= 6)
+      {
+        v92 = +[_ANELog common];
+        if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 134218240;
+          v116 = eventType;
+          v117 = 2048;
+          v118 = 0;
+          _os_log_error_impl(&_mh_execute_header, v92, OS_LOG_TYPE_ERROR, "Unknown _ANESignalEventType=%lu using (%lu)", buf, 0x16u);
+        }
+
+        LODWORD(eventType) = 0;
+      }
+
+      v86[4] = eventType;
+      v86[5] = [v88 symbolIndex];
+
+      ++v85;
+      v86 += 8;
+    }
+
+    while (v81 != v85);
+  }
+
+  v129 = v110;
+  *&v124[2] = [v113 programHandle];
+  procedureIndex = [v114 procedureIndex];
+  unsignedIntegerValue = [procedureIndex unsignedIntegerValue];
+
+  fwEnqueueDelay = [v114 fwEnqueueDelay];
+  *&v127[2] = [fwEnqueueDelay unsignedIntegerValue];
+
+  v128 = v109;
+  programInstance = [v113 programInstance];
+  if (!programInstance || !*programInstance)
+  {
+    v96 = 2;
+    goto LABEL_38;
+  }
+
+  v96 = (*(*programInstance + 8))(programInstance, v121, 0);
+  if (v96)
+  {
+LABEL_38:
+    v97 = +[_ANELog daemon];
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+    {
+      v104 = NSStringFromSelector(aSelector);
+      controller = [v113 controller];
+      device = [controller device];
+      *buf = 138412802;
+      v116 = v104;
+      v117 = 2048;
+      v118 = device;
+      v119 = 1024;
+      v120 = v96;
+      _os_log_error_impl(&_mh_execute_header, v97, OS_LOG_TYPE_ERROR, "%@: Could not chaining prepare ANE program=%p : ret=0x%x", buf, 0x1Cu);
+    }
+
+    v98 = [NSString stringWithFormat:@"ANEProgramChainingPrepare() Failed"];
+    v99 = +[_ANELog common];
+    if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+    {
+      NSStringFromSelector(aSelector);
+      objc_claimAutoreleasedReturnValue();
+      sub_10001D738();
+    }
+
+    v41 = [_ANEErrors programChainingPrepareErrorForMethod:v98];
+
+    v40 = 0;
+    goto LABEL_43;
+  }
+
+  v41 = 0;
+  v40 = 1;
+LABEL_43:
+  for (m = 8216; m != 24; m -= 32)
+  {
+  }
+
+  v17 = v107;
+LABEL_46:
+  objc_autoreleasePoolPop(context);
+  if (v17)
+  {
+    if (v111)
+    {
+      v101 = v41;
+      *v111 = v41;
+    }
+  }
+
+  else
+  {
+    v40 = 0;
+  }
+
+  return v40;
 }
 
 @end

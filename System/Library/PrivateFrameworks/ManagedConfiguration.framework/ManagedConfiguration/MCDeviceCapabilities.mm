@@ -28,16 +28,16 @@ uint64_t __37__MCDeviceCapabilities_currentDevice__block_invoke()
 
 - (BOOL)_mediaDiskIsEncrypted
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = MGCopyAnswer();
   v3 = v2;
   v5 = v2 && (v4 = CFGetTypeID(v2), v4 == CFBooleanGetTypeID()) && CFBooleanGetValue(v3) != 0;
   v6 = _MCLogObjects;
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEBUG))
   {
-    v9[0] = 67109120;
-    v9[1] = v5;
-    _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_DEBUG, "block level encryption is %x", v9, 8u);
+    v8[0] = 67109120;
+    v8[1] = v5;
+    _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_DEBUG, "block level encryption is %x", v8, 8u);
   }
 
   if (v3)
@@ -45,16 +45,15 @@ uint64_t __37__MCDeviceCapabilities_currentDevice__block_invoke()
     CFRelease(v3);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (MCDeviceCapabilities)init
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = MCDeviceCapabilities;
-  v2 = [(MCDeviceCapabilities *)&v9 init];
+  v11 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = MCDeviceCapabilities;
+  v2 = [(MCDeviceCapabilities *)&v8 init];
   v3 = v2;
   if (v2)
   {
@@ -70,7 +69,7 @@ uint64_t __37__MCDeviceCapabilities_currentDevice__block_invoke()
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v11 = v4;
+        v10 = v4;
         _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_ERROR, "Unable to determine if device supports file level encryption.  Got %d from MKBDeviceSupportsContentProtection()", buf, 8u);
       }
     }
@@ -80,7 +79,6 @@ uint64_t __37__MCDeviceCapabilities_currentDevice__block_invoke()
     v3->_hasSEP = v6 != 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

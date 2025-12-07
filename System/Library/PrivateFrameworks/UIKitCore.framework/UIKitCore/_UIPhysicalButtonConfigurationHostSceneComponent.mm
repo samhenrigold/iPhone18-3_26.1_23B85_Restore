@@ -86,15 +86,15 @@
       v15 = v14;
       if (v13 == v14)
       {
-        v16 = 1;
+        isEqual = 1;
       }
 
       else
       {
-        v16 = 0;
+        isEqual = 0;
         if (v14 && v13)
         {
-          v16 = [(_UIPhysicalButtonConfigurationSet *)v13 isEqual:v14];
+          isEqual = objc_msgSend_isEqual_(v13);
         }
       }
 
@@ -113,13 +113,13 @@
         *buf = 138543874;
         v42 = selfCopy;
         v43 = 1026;
-        v44 = v16 ^ 1;
+        v44 = isEqual ^ 1;
         v45 = 2114;
         *v46 = succinctDescription;
         _os_log_impl(&dword_188A29000, v20, OS_LOG_TYPE_DEFAULT, "Received resolved configurations update from client: self: %{public}@; didChange: %{public}d; configurations: %{public}@", buf, 0x1Cu);
       }
 
-      if (v16)
+      if (isEqual)
       {
         goto LABEL_26;
       }

@@ -364,7 +364,7 @@ LABEL_3:
           if (window)
           {
             v12 = MEMORY[0x277D65E58];
-            [*(*(&v14 + 1) + 8 * v10) frame];
+            objc_msgSend_frame(*(*(&v14 + 1) + 8 * v10));
             v13 = [v12 matchMoveAnimationForFrame:window relativeToView:?];
             [v11 addAnimation:v13 forKey:@"SBTodayViewFeatherBlurMatchMoveAnimation"];
           }
@@ -409,7 +409,7 @@ LABEL_3:
     v10 = v9;
     v12 = v11;
     v14 = v13;
-    [(SBFFeatherBlurView *)self->_featherBlurView frame];
+    objc_msgSend_frame(self->_featherBlurView);
     v16 = v15;
     v18 = v17;
     v20 = v19;

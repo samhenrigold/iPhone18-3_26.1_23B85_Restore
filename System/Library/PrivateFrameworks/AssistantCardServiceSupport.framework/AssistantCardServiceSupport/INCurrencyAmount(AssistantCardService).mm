@@ -55,31 +55,31 @@
 
 + (id)_acs_localeForCode:()AssistantCardService
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a3;
   [MEMORY[0x277CBEAF8] availableLocaleIdentifiers];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v4 = v19 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = v18 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     v8 = *MEMORY[0x277CBE698];
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = objc_alloc(MEMORY[0x277CBEAF8]);
-        v12 = [v11 initWithLocaleIdentifier:{v10, v16}];
+        v12 = [v11 initWithLocaleIdentifier:{v10, v15}];
         v13 = [v12 objectForKey:v8];
         if ([v13 isEqualToString:v3])
         {
@@ -88,7 +88,7 @@
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -100,8 +100,6 @@
 
   v12 = 0;
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

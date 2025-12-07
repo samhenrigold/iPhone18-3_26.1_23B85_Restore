@@ -8,31 +8,31 @@
 
 - (NSArray)stationGroups
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [(NSDictionary *)self->_responseDictionary objectForKey:@"station-groups"];
   if ([v2 isNSArray])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v3 = v2;
-    v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v4)
     {
       v5 = v4;
       v6 = 0;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * i);
+          v9 = *(*(&v12 + 1) + 8 * i);
           if ([v9 isNSDictionary])
           {
             v10 = [[RadioRecentStationsResponseStationGroup alloc] initWithResponseDictionary:v9];
@@ -48,7 +48,7 @@
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v5);
@@ -64,8 +64,6 @@
   {
     v6 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

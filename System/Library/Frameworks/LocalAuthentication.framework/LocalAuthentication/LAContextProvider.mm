@@ -1,9 +1,18 @@
 @interface LAContextProvider
+- (LAContextProvider)initWithTargetUID:(unsigned int)d;
 - (LAContextProvider)initWithTargetUIDRef:(id)ref;
 - (id)createContext;
 @end
 
 @implementation LAContextProvider
+
+- (LAContextProvider)initWithTargetUID:(unsigned int)d
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&d];
+  v5 = [(LAContextProvider *)self initWithTargetUIDRef:v4];
+
+  return v5;
+}
 
 - (LAContextProvider)initWithTargetUIDRef:(id)ref
 {

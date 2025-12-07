@@ -6,11 +6,12 @@
 
 - (id)complicationLayoutForPreviewIdentifier:(id)identifier
 {
-  sub_21B6C8DA4();
+  v3 = sub_21B6C8DA4();
+  v5 = v4;
 
-  v3 = sub_21B61790C();
+  v6 = sub_21B61790C(v3, v5);
 
-  return v3;
+  return v6;
 }
 
 @end

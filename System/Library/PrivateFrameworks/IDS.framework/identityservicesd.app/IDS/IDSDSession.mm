@@ -1291,7 +1291,7 @@ LABEL_19:
 
   v47->_verboseFunctionalLogging = IMGetDomainBoolForKey();
   v47->_verbosePerformanceLogging = IMGetDomainBoolForKey();
-  v208 = [identifier isEqualToIgnoringCase:@"com.apple.private.alloy.screensharing"];
+  v208 = objc_msgSend_isEqualToIgnoringCase_(identifier);
   sharedState21 = [(IDSDSession *)v47 sharedState];
   v210 = sharedState21;
   if (v208)
@@ -1399,7 +1399,7 @@ LABEL_296:
     goto LABEL_193;
   }
 
-  if (![identifier isEqualToIgnoringCase:@"com.apple.private.alloy.phonecontinuity"])
+  if (!objc_msgSend_isEqualToIgnoringCase_(identifier))
   {
     if (![identifier isEqualToString:@"com.apple.private.alloy.carmelsync"] && !objc_msgSend(identifier, "isEqualToString:", @"com.apple.private.alloy.notes") && !objc_msgSend(identifier, "isEqualToString:", @"com.apple.private.alloy.dropin.communication") && !objc_msgSend(identifier, "isEqualToString:", @"com.apple.private.alloy.safari.groupactivities") && !objc_msgSend(identifier, "isEqualToString:", @"com.apple.private.alloy.gftaastest.communication"))
     {
@@ -2645,7 +2645,7 @@ LABEL_291:
           {
             v14 = IDSDSessionReportDurationKey;
             v15 = [v11 objectForKey:IDSDSessionReportDurationKey];
-            [v15 doubleValue];
+            objc_msgSend_doubleValue(v15);
             v17 = v16;
 
             v18 = [NSNumber numberWithInt:((push - v17) * 1000.0)];
@@ -6920,7 +6920,7 @@ LABEL_698:
               v14 = v333;
               if (((v376 & 0xFE) == 0x4E || (v14 = v332, v376 == 80)) && ([v8 objectForKeyedSubscript:{v14, uniqueID2}], v15 = objc_claimAutoreleasedReturnValue(), (v16 = v15) != 0))
               {
-                [v15 doubleValue];
+                objc_msgSend_doubleValue(v15);
                 v18 = v17;
                 switch(v376)
                 {
@@ -7004,11 +7004,11 @@ LABEL_698:
             unsignedCharValue2 = [v200 unsignedCharValue];
 
             v202 = [v199 objectForKeyedSubscript:v335];
-            [v202 doubleValue];
+            objc_msgSend_doubleValue(v202);
             v204 = v203;
 
             v205 = [v199 objectForKeyedSubscript:v334];
-            [v205 doubleValue];
+            objc_msgSend_doubleValue(v205);
             v207 = v206;
 
             v208 = OSLogHandleForTransportCategory();
@@ -10228,7 +10228,7 @@ LABEL_22:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v3 doubleValue];
+      objc_msgSend_doubleValue(v3);
       v4 = v5;
     }
   }
@@ -15850,16 +15850,16 @@ LABEL_90:
 
 - (void)link:(id)link didConnectUnderlyingLink:(char)underlyingLink linkUUID:(id)d localAttributes:(id)attributes remoteAttributes:(id)remoteAttributes
 {
-  v9 = __chkstk_darwin(self);
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
-  v183 = v16;
-  v185 = v9;
+  __chkstk_darwin(self);
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  v183 = v15;
+  v185 = v16;
   v173 = v17;
-  v182 = v15;
-  v18 = v13;
-  v186 = v11;
+  v182 = v14;
+  v18 = v12;
+  v186 = v10;
   v19 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
@@ -17280,20 +17280,20 @@ LABEL_13:
 
 - (void)link:(id)link didGetLinkProbingStatus:(id)status
 {
-  v4 = __chkstk_darwin(self);
-  v6 = v5;
-  v57 = v4;
+  __chkstk_darwin(self);
+  v5 = v4;
+  v57 = v6;
   v52 = v7;
-  v58 = v6;
+  v58 = v5;
   v8 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    *v81 = v57;
-    *&v81[8] = 2112;
-    v82 = v52;
-    v83 = 2112;
-    v84 = v58;
+    *v80 = v57;
+    *&v80[8] = 2112;
+    v81 = v52;
+    v82 = 2112;
+    v83 = v58;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "<%@> link:%@ didGetLinkProbingStatus:%@", buf, 0x20u);
   }
 
@@ -17336,7 +17336,7 @@ LABEL_11:
     if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v81 = v57;
+      *v80 = v57;
       _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "<%@> need a client channel to send the event kClientChannelMetadataType_GetLinkStatusKey", buf, 0xCu);
     }
 
@@ -17353,12 +17353,12 @@ LABEL_12:
   v56 = [v53 count];
   if (v56)
   {
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     obj = v53;
-    v66 = [obj countByEnumeratingWithState:&v71 objects:v85 count:16];
+    v66 = [obj countByEnumeratingWithState:&v70 objects:v84 count:16];
     if (v66)
     {
       v67 = 0;
@@ -17368,8 +17368,8 @@ LABEL_12:
       v60 = IDSDataChannelNumberResponseKey;
       v61 = IDSDataChannelNumberRequestsKey;
       v59 = IDSDataChannelProbingRequestOffsetAndRTTKey;
-      v54 = *v72;
-      v13 = *v72;
+      v54 = *v71;
+      v13 = *v71;
       while (1)
       {
         if (v13 != v54)
@@ -17380,13 +17380,13 @@ LABEL_12:
         }
 
         v65 = v12;
-        v15 = *(*(&v71 + 1) + 8 * v12);
+        v15 = *(*(&v70 + 1) + 8 * v12);
         bzero(buf, 0x1000uLL);
         v16 = [v58 objectForKeyedSubscript:v15];
         buf[3] = v56;
         v68 = v67 + 1;
-        v81[0] = v67 + 1;
-        v81[1] = [v15 charValue];
+        v80[0] = v67 + 1;
+        v80[1] = [v15 charValue];
         if (v16 != 0 && key != 0)
         {
           Value = CFDictionaryGetValue(v16, key);
@@ -17397,7 +17397,7 @@ LABEL_12:
           Value = 0;
         }
 
-        *&v81[2] = bswap32([Value unsignedIntValue]);
+        *&v80[2] = bswap32([Value unsignedIntValue]);
         if (v16 != 0 && v62 != 0)
         {
           v18 = CFDictionaryGetValue(v16, v62);
@@ -17408,7 +17408,7 @@ LABEL_12:
           v18 = 0;
         }
 
-        *&v81[6] = __rev16([v18 unsignedShortValue]);
+        *&v80[6] = __rev16([v18 unsignedShortValue]);
         if (v16 != 0 && v61 != 0)
         {
           v19 = CFDictionaryGetValue(v16, v61);
@@ -17419,7 +17419,7 @@ LABEL_12:
           v19 = 0;
         }
 
-        *&v81[8] = __rev16([v19 unsignedShortValue]);
+        *&v80[8] = __rev16([v19 unsignedShortValue]);
         if (v16 != 0 && v60 != 0)
         {
           v20 = CFDictionaryGetValue(v16, v60);
@@ -17430,7 +17430,7 @@ LABEL_12:
           v20 = 0;
         }
 
-        LOWORD(v82) = __rev16([v20 unsignedShortValue]);
+        LOWORD(v81) = __rev16([v20 unsignedShortValue]);
         if (v16 != 0 && v59 != 0)
         {
           v21 = CFDictionaryGetValue(v16, v59);
@@ -17443,7 +17443,7 @@ LABEL_12:
 
         v22 = v21;
         v23 = [v22 count];
-        WORD1(v82) = bswap32(v23) >> 16;
+        WORD1(v81) = bswap32(v23) >> 16;
         v24 = v23;
         v64 = v23;
         if (v23)
@@ -17457,7 +17457,7 @@ LABEL_12:
             v29 = [v28 objectAtIndexedSubscript:0];
             unsignedShortValue = [v29 unsignedShortValue];
 
-            *(&v82 + v25 + 4) = __rev16(unsignedShortValue);
+            *(&v81 + v25 + 4) = __rev16(unsignedShortValue);
             if (v25 == 4076)
             {
               break;
@@ -17467,32 +17467,32 @@ LABEL_12:
             v32 = [v31 objectAtIndexedSubscript:1];
             unsignedShortValue2 = [v32 unsignedShortValue];
 
-            *(&v82 + v25 + 6) = __rev16(unsignedShortValue2);
+            *(&v81 + v25 + 6) = __rev16(unsignedShortValue2);
             ++v26;
             v25 += 4;
             if (v27 == v25)
             {
-              v34 = &v82 + v25 + 4;
+              v34 = &v81 + v25 + 4;
               goto LABEL_47;
             }
           }
 
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
           {
-            sub_10091A1B0(&v69, v70);
+            sub_10091A1B0(v69, &v69[1]);
           }
 
           v35 = OSLogHandleForIDSCategory();
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
-            *v75 = 138412546;
-            *v76 = v15;
-            *&v76[8] = 1024;
-            *v77 = 1019;
-            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "didGetLinkProbingStatus: linkID: %@, rtt overflow, i: %d", v75, 0x12u);
+            *v74 = 138412546;
+            *v75 = v15;
+            *&v75[8] = 1024;
+            *v76 = 1019;
+            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "didGetLinkProbingStatus: linkID: %@, rtt overflow, i: %d", v74, 0x12u);
           }
 
-          v34 = v85;
+          v34 = v84;
           if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
           {
             v46 = v15;
@@ -17505,7 +17505,7 @@ LABEL_12:
 
         else
         {
-          LOWORD(v34) = &v82 + 4;
+          LOWORD(v34) = &v81 + 4;
         }
 
         if (v24 != v64)
@@ -17521,15 +17521,15 @@ LABEL_47:
         v37 = OSLogHandleForIDSCategory();
         if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
-          *v75 = 67109890;
-          *v76 = v68;
-          *&v76[4] = 1024;
-          *&v76[6] = v56;
-          *v77 = 2112;
-          *&v77[2] = v15;
-          v78 = 1024;
-          v79 = v36 - 3;
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "currentLinkCount: %u/%u, linkID: %@, size: %u", v75, 0x1Eu);
+          *v74 = 67109890;
+          *v75 = v68;
+          *&v75[4] = 1024;
+          *&v75[6] = v56;
+          *v76 = 2112;
+          *&v76[2] = v15;
+          v77 = 1024;
+          v78 = v36 - 3;
+          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "currentLinkCount: %u/%u, linkID: %@, size: %u", v74, 0x1Eu);
         }
 
         if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
@@ -17546,7 +17546,7 @@ LABEL_47:
         v12 = v65 + 1;
         if (v65 + 1 >= v66)
         {
-          v66 = [obj countByEnumeratingWithState:&v71 objects:v85 count:16];
+          v66 = [obj countByEnumeratingWithState:&v70 objects:v84 count:16];
           if (!v66)
           {
             v64 = 0;
@@ -17557,7 +17557,7 @@ LABEL_47:
           v12 = 0;
         }
 
-        v13 = *v72;
+        v13 = *v71;
         ++v67;
       }
     }
@@ -17572,11 +17572,11 @@ LABEL_64:
       if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109632;
-        *v81 = v67;
-        *&v81[4] = 1024;
-        *&v81[6] = v56;
-        LOWORD(v82) = 1024;
-        *(&v82 + 2) = v64;
+        *v80 = v67;
+        *&v80[4] = 1024;
+        *&v80[6] = v56;
+        LOWORD(v81) = 1024;
+        *(&v81 + 2) = v64;
         _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "processedLinks: %u/%u, lastCount: %u", buf, 0x14u);
       }
 
@@ -21601,7 +21601,7 @@ LABEL_32:
     }
 
     [(IDSDSession *)self setGroupStreamInfo:self->_groupStatusNotificationParams sessionInfo:v183];
-    if (([v175 isEqualToIgnoringCase:@"yes"] & 1) != 0 || IMGetDomainBoolForKey())
+    if ((objc_msgSend_isEqualToIgnoringCase_(v175) & 1) != 0 || IMGetDomainBoolForKey())
     {
       v104 = IDSGroupSessionForceQRSession;
       if (v104)
@@ -21731,7 +21731,7 @@ LABEL_50:
         sub_10091A7EC();
       }
 
-      if (([v175 isEqualToIgnoringCase:@"yes"] & 1) != 0 || IMGetDomainBoolForKey())
+      if ((objc_msgSend_isEqualToIgnoringCase_(v175) & 1) != 0 || IMGetDomainBoolForKey())
       {
         v127 = IDSGroupSessionForceQRSession;
         if (v127)

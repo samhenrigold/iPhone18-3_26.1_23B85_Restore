@@ -24,23 +24,23 @@
     {
       if (v6)
       {
-        objc_opt_class();
-        if (sub_100027870(v6))
+        v7 = objc_opt_class();
+        if (sub_100027870(v6, v7))
         {
-          v7 = [v6 containsObject:deviceLocale];
+          v8 = [v6 containsObject:deviceLocale];
         }
 
         else
         {
-          v10 = sub_10001F638();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v11 = sub_10001F638();
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
-            v11 = 136315138;
-            v12 = "[DeviceLocaleInput inArray:]";
-            _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s: Locale list contains non-String entries", &v11, 0xCu);
+            v12 = 136315138;
+            v13 = "[DeviceLocaleInput inArray:]";
+            _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%s: Locale list contains non-String entries", &v12, 0xCu);
           }
 
-          v7 = 0;
+          v8 = 0;
         }
 
 LABEL_11:
@@ -53,25 +53,25 @@ LABEL_11:
     {
     }
 
-    v8 = sub_10001F638();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_10001F638();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "[DeviceLocaleInput inArray:]";
-      v13 = 2112;
-      v14 = v6;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%s: Unexpected type passed to selector: %@", &v11, 0x16u);
+      v12 = 136315394;
+      v13 = "[DeviceLocaleInput inArray:]";
+      v14 = 2112;
+      v15 = v6;
+      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%s: Unexpected type passed to selector: %@", &v12, 0x16u);
     }
 
-    v7 = 0;
-    v6 = v8;
+    v8 = 0;
+    v6 = v9;
     goto LABEL_11;
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_12:
 
-  return v7;
+  return v8;
 }
 
 - (NSString)description

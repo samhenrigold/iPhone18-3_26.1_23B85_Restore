@@ -74,9 +74,9 @@
   x = test.x;
   eventCopy = event;
   selfCopy = self;
-  v10 = sub_19A678E34(event, x, y);
+  v11 = sub_19A678E34(event, v10, x, y);
 
-  return v10;
+  return v11;
 }
 
 - (_TtC10StickerKit34EmojiAndStickerCollectionInputView)initWithFrame:(CGRect)frame
@@ -122,7 +122,7 @@
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_19A7A9024();
-  type metadata accessor for StickerCollectionViewCell();
+  type metadata accessor for StickerCollectionViewCell(0);
   v10 = swift_dynamicCastClass();
   if (v10)
   {
@@ -139,13 +139,13 @@
 {
   v7 = sub_19A7A9094();
   v8 = *(v7 - 8);
-  v9 = MEMORY[0x1EEE9AC00](v7);
-  v11 = &v28 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v14 = &v28 - v13;
-  v15 = MEMORY[0x1EEE9AC00](v12);
-  v17 = &v28 - v16;
-  MEMORY[0x1EEE9AC00](v15);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v28 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v28 - v12;
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v28 - v15;
+  MEMORY[0x1EEE9AC00](v17);
   v19 = &v28 - v18;
   sub_19A7A9024();
   sub_19A7A9024();
@@ -156,9 +156,9 @@
   {
 
     v22 = *(v8 + 8);
-    v22(v14, v7);
-    v22(v17, v7);
-    (*(v8 + 32))(v19, v11, v7);
+    v22(v13, v7);
+    v22(v16, v7);
+    (*(v8 + 32))(v19, v10, v7);
   }
 
   else
@@ -167,18 +167,18 @@
     v24 = sub_19A670300(v23);
 
     v22 = *(v8 + 8);
-    v22(v11, v7);
+    v22(v10, v7);
     v25 = (v8 + 32);
     if (v24)
     {
-      v22(v17, v7);
-      (*v25)(v19, v14, v7);
+      v22(v16, v7);
+      (*v25)(v19, v13, v7);
     }
 
     else
     {
-      v22(v14, v7);
-      (*v25)(v19, v17, v7);
+      v22(v13, v7);
+      (*v25)(v19, v16, v7);
     }
   }
 

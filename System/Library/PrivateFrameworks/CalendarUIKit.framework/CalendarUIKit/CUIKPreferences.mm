@@ -32,9 +32,11 @@
 
 uint64_t __36__CUIKPreferences_sharedPreferences__block_invoke()
 {
-  sharedPreferences_sharedPreferences = objc_alloc_init(CUIKPreferences);
+  v0 = objc_alloc_init(CUIKPreferences);
+  v1 = sharedPreferences_sharedPreferences;
+  sharedPreferences_sharedPreferences = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CUIKPreferences)init

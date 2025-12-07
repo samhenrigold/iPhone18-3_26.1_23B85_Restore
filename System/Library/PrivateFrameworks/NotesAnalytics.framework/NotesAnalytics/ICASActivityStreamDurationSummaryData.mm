@@ -28,8 +28,8 @@
 
 - (id)toDict
 {
-  v19[4] = *MEMORY[0x277D85DE8];
-  v18[0] = @"halfHeightViewDuration";
+  v18[4] = *MEMORY[0x277D85DE8];
+  v17[0] = @"halfHeightViewDuration";
   halfHeightViewDuration = [(ICASActivityStreamDurationSummaryData *)self halfHeightViewDuration];
   if (halfHeightViewDuration)
   {
@@ -42,8 +42,8 @@
   }
 
   v5 = halfHeightViewDuration2;
-  v19[0] = halfHeightViewDuration2;
-  v18[1] = @"fullHeightViewDuration";
+  v18[0] = halfHeightViewDuration2;
+  v17[1] = @"fullHeightViewDuration";
   fullHeightViewDuration = [(ICASActivityStreamDurationSummaryData *)self fullHeightViewDuration];
   if (fullHeightViewDuration)
   {
@@ -56,8 +56,8 @@
   }
 
   v8 = fullHeightViewDuration2;
-  v19[1] = fullHeightViewDuration2;
-  v18[2] = @"sideBarViewDuration";
+  v18[1] = fullHeightViewDuration2;
+  v17[2] = @"sideBarViewDuration";
   sideBarViewDuration = [(ICASActivityStreamDurationSummaryData *)self sideBarViewDuration];
   if (sideBarViewDuration)
   {
@@ -70,8 +70,8 @@
   }
 
   v11 = sideBarViewDuration2;
-  v19[2] = sideBarViewDuration2;
-  v18[3] = @"minimizedViewDuration";
+  v18[2] = sideBarViewDuration2;
+  v17[3] = @"minimizedViewDuration";
   minimizedViewDuration = [(ICASActivityStreamDurationSummaryData *)self minimizedViewDuration];
   if (minimizedViewDuration)
   {
@@ -84,10 +84,8 @@
   }
 
   v14 = minimizedViewDuration2;
-  v19[3] = minimizedViewDuration2;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18[3] = minimizedViewDuration2;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
   return v15;
 }

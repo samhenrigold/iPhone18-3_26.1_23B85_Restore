@@ -24,18 +24,17 @@
 
 - (SFDiagnostics)init
 {
-  v7.receiver = self;
-  v7.super_class = SFDiagnostics;
-  v2 = [(SFDiagnostics *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFDiagnostics;
+  v2 = [(SFDiagnostics *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)dealloc
@@ -348,13 +347,13 @@ void __36__SFDiagnostics_diagnosticMockStop___block_invoke(uint64_t a1)
   os_activity_scope_leave(&state);
 }
 
-void __40__SFDiagnostics__logControl_completion___block_invoke(uint64_t a1)
+void __40__SFDiagnostics__logControl_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    v2 = NSPrintF();
-    (*(v1 + 16))(v1, v2);
+    v3 = NSPrintF("### XPC error: %@\n", a2);
+    (*(v2 + 16))(v2, v3);
   }
 }
 
@@ -373,7 +372,7 @@ void __40__SFDiagnostics__logControl_completion___block_invoke_2(uint64_t a1, vo
 
     else
     {
-      v6 = NSPrintF();
+      v6 = NSPrintF("### Null output\n");
       (*(v5 + 16))(v5, v6);
     }
 
@@ -427,13 +426,13 @@ void __40__SFDiagnostics__logControl_completion___block_invoke_2(uint64_t a1, vo
   os_activity_scope_leave(&state);
 }
 
-void __34__SFDiagnostics__show_completion___block_invoke(uint64_t a1)
+void __34__SFDiagnostics__show_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    v2 = NSPrintF();
-    (*(v1 + 16))(v1, v2);
+    v3 = NSPrintF("### XPC error: %@\n", a2);
+    (*(v2 + 16))(v2, v3);
   }
 }
 
@@ -452,7 +451,7 @@ void __34__SFDiagnostics__show_completion___block_invoke_2(uint64_t a1, void *a2
 
     else
     {
-      v6 = NSPrintF();
+      v6 = NSPrintF("### Null output\n");
       (*(v5 + 16))(v5, v6);
     }
 
@@ -546,9 +545,12 @@ void __33__SFDiagnostics_unlockTestServer__block_invoke(uint64_t a1)
 - (void)_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_SFDiagnostics <= 50 && (gLogCategory_SFDiagnostics != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFDiagnostics <= 50)
   {
-    [SFDiagnostics _interrupted];
+    if (gLogCategory_SFDiagnostics != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(SFDiagnostics *)v3 _interrupted];
+    }
   }
 
   interruptionHandler = self->_interruptionHandler;
@@ -559,14 +561,14 @@ void __33__SFDiagnostics_unlockTestServer__block_invoke(uint64_t a1)
 
   if (self->_btUser)
   {
-    v4 = _os_activity_create(&dword_1A9662000, "Sharing/SFDiagnostics/bluetoothUserInteraction", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    v6.opaque[0] = 0;
-    v6.opaque[1] = 0;
-    os_activity_scope_enter(v4, &v6);
+    v7 = _os_activity_create(&dword_1A9662000, "Sharing/SFDiagnostics/bluetoothUserInteraction", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    v9.opaque[0] = 0;
+    v9.opaque[1] = 0;
+    os_activity_scope_enter(v7, &v9);
     remoteObjectProxy = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy];
     [remoteObjectProxy bluetoothUserInteraction];
 
-    os_activity_scope_leave(&v6);
+    os_activity_scope_leave(&v9);
   }
 }
 
@@ -575,9 +577,12 @@ void __33__SFDiagnostics_unlockTestServer__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_SFDiagnostics <= 50 && (gLogCategory_SFDiagnostics != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateCalled && gLogCategory_SFDiagnostics <= 50)
     {
-      [SFDiagnostics _invalidated];
+      if (gLogCategory_SFDiagnostics != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(SFDiagnostics *)v3 _invalidated];
+      }
     }
 
     invalidationHandler = self->_invalidationHandler;
@@ -589,7 +594,7 @@ void __33__SFDiagnostics_unlockTestServer__block_invoke(uint64_t a1)
     interruptionHandler = self->_interruptionHandler;
     self->_interruptionHandler = 0;
 
-    v5 = self->_invalidationHandler;
+    v8 = self->_invalidationHandler;
     self->_invalidationHandler = 0;
 
     xpcCnx = self->_xpcCnx;

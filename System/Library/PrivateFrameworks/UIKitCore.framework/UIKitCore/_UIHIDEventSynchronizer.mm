@@ -157,7 +157,7 @@
     if (v36[3])
     {
       v10 = BKSHIDEventGetDigitizerAttributes();
-      *(event + 48) = _UIEventHIDHitTestPointForChild(v10);
+      *(event + 48) = _UIEventHIDHitTestPointForChild(v10, v36[3]);
       *(event + 56) = v11;
 
       TimeStamp = IOHIDEventGetTimeStamp();
@@ -308,7 +308,7 @@ LABEL_41:
     *buf = 134218242;
     eventCopy3 = event;
     v32 = 2112;
-    v33 = *&a2;
+    v33 = a2;
     v5 = "[SYNCHRONIZER: %p] Skipping event without relevant path id: %@";
     v6 = v10;
     v7 = OS_LOG_TYPE_ERROR;
@@ -343,7 +343,7 @@ LABEL_5:
   if (*__UILogGetCategoryCachedImpl("HIDEventSynchronization", &qword_1ED49C5B0))
   {
     v17 = BKSHIDEventGetDigitizerAttributes();
-    v18 = _UIEventHIDHitTestPointForChild(v17);
+    v18 = _UIEventHIDHitTestPointForChild(v17, v27[3]);
     v20 = v19;
 
     TimeStamp = IOHIDEventGetTimeStamp();
@@ -357,7 +357,7 @@ LABEL_5:
         *buf = 134219264;
         eventCopy3 = event;
         v32 = 2048;
-        v33 = v22;
+        v33 = *&v22;
         v34 = 2048;
         v35 = v18;
         v36 = 2048;
@@ -467,7 +467,7 @@ LABEL_19:
   if (v17[3])
   {
     v3 = BKSHIDEventGetDigitizerAttributes();
-    v4 = _UIEventHIDHitTestPointForChild(v3);
+    v4 = _UIEventHIDHitTestPointForChild(v3, v17[3]);
     v6 = v5;
 
     TimeStamp = IOHIDEventGetTimeStamp();

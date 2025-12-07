@@ -17,7 +17,7 @@
     [sharedInstance unregisterObserver_];
 
     v7.receiver = selfCopy;
-    v7.super_class = type metadata accessor for AppleCardFeaturesAndBenefitsManager();
+    v7.super_class = type metadata accessor for AppleCardFeaturesAndBenefitsManager(0);
     [(AppleCardFeaturesAndBenefitsManager *)&v7 dealloc];
   }
 
@@ -50,6 +50,8 @@
 
   selfCopy = self;
   sub_1BD314240(v4, v6);
+
+  v6, v8, v9, v10, v11, v12, v13, v14;
 }
 
 @end

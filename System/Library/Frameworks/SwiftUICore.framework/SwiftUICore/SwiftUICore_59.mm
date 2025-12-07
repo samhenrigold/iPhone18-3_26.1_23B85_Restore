@@ -1,557 +1,972 @@
-uint64_t sub_18D373500()
+uint64_t CodableAlignment.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
-
-  v1 = *(v0 + 24);
-  if (v1 >= 3)
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  dispatch thunk of Decoder.unkeyedContainer()();
+  if (!v2)
   {
-  }
-
-  return swift_deallocObject();
-}
-
-Class specialized static CodableCGImage.import(from:)()
-{
-  v0.super.isa = Data._bridgeToObjectiveC()().super.isa;
-  v1 = CGImageSourceCreateWithData(v0.super.isa, 0);
-
-  if (v1)
-  {
-    ImageAtIndex = CGImageSourceCreateImageAtIndex(v1, 0, 0);
-    if (ImageAtIndex)
+    __swift_mutable_project_boxed_opaque_existential_1(v12, v13);
+    lazy protocol witness table accessor for type CodableAlignment.VerticalCodingValue and conformance CodableAlignment.VerticalCodingValue();
+    dispatch thunk of UnkeyedDecodingContainer.decode<A>(_:)();
+    v5 = v14;
+    __swift_mutable_project_boxed_opaque_existential_1(v12, v13);
+    lazy protocol witness table accessor for type CodableAlignment.HorizontalCodingValue and conformance CodableAlignment.HorizontalCodingValue();
+    dispatch thunk of UnkeyedDecodingContainer.decode<A>(_:)();
+    v7 = v14;
+    if (v5 > 2)
     {
-      v0.super.isa = ImageAtIndex;
+      if (v5 == 3)
+      {
+        if (one-time initialization token for firstTextBaseline != -1)
+        {
+          swift_once();
+        }
+
+        v8 = &static VerticalAlignment.firstTextBaseline;
+      }
+
+      else if (v5 == 4)
+      {
+        if (one-time initialization token for lastTextBaseline != -1)
+        {
+          swift_once();
+        }
+
+        v8 = &static VerticalAlignment.lastTextBaseline;
+      }
+
+      else
+      {
+        if (one-time initialization token for _firstTextLineCenter != -1)
+        {
+          swift_once();
+        }
+
+        v8 = &static VerticalAlignment._firstTextLineCenter;
+      }
+    }
+
+    else if (v5)
+    {
+      if (v5 == 1)
+      {
+        if (one-time initialization token for bottom != -1)
+        {
+          swift_once();
+        }
+
+        v8 = &static VerticalAlignment.bottom;
+      }
+
+      else
+      {
+        if (one-time initialization token for center != -1)
+        {
+          swift_once();
+        }
+
+        v8 = &static VerticalAlignment.center;
+      }
     }
 
     else
     {
-      lazy protocol witness table accessor for type CodableCGImage.Error and conformance CodableCGImage.Error();
-      swift_allocError();
-      *v4 = 0;
-      swift_willThrow();
+      if (one-time initialization token for top != -1)
+      {
+        swift_once();
+      }
+
+      v8 = &static VerticalAlignment.top;
+    }
+
+    v9 = *v8;
+    if (v7 <= 2)
+    {
+      if (v7)
+      {
+        if (v7 == 1)
+        {
+          if (one-time initialization token for trailing != -1)
+          {
+            swift_once();
+          }
+
+          v10 = &static HorizontalAlignment.trailing;
+        }
+
+        else
+        {
+          if (one-time initialization token for center != -1)
+          {
+            swift_once();
+          }
+
+          v10 = &static HorizontalAlignment.center;
+        }
+      }
+
+      else
+      {
+        if (one-time initialization token for leading != -1)
+        {
+          swift_once();
+        }
+
+        v10 = &static HorizontalAlignment.leading;
+      }
+    }
+
+    else if (v7 > 4)
+    {
+      if (v7 == 5)
+      {
+        if (one-time initialization token for listRowSeparatorLeading != -1)
+        {
+          swift_once();
+        }
+
+        v10 = &static HorizontalAlignment.listRowSeparatorLeading;
+      }
+
+      else
+      {
+        if (one-time initialization token for listRowSeparatorTrailing != -1)
+        {
+          swift_once();
+        }
+
+        v10 = &static HorizontalAlignment.listRowSeparatorTrailing;
+      }
+    }
+
+    else if (v7 == 3)
+    {
+      if (one-time initialization token for leadingText != -1)
+      {
+        swift_once();
+      }
+
+      v10 = &static HorizontalAlignment.leadingText;
+    }
+
+    else
+    {
+      if (one-time initialization token for formDetailLeading != -1)
+      {
+        swift_once();
+      }
+
+      v10 = &static HorizontalAlignment.formDetailLeading;
+    }
+
+    v11 = *v10;
+    __swift_destroy_boxed_opaque_existential_1(v12);
+    *a2 = v11;
+    a2[1] = v9;
+  }
+
+  return __swift_destroy_boxed_opaque_existential_1(a1);
+}
+
+void lazy protocol witness table accessor for type CodableAlignment.VerticalCodingValue and conformance CodableAlignment.VerticalCodingValue()
+{
+  if (!lazy protocol witness table cache variable for type CodableAlignment.VerticalCodingValue and conformance CodableAlignment.VerticalCodingValue)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for CodableAlignment.VerticalCodingValue, &unk_1F008FB30, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type CodableAlignment.VerticalCodingValue and conformance CodableAlignment.VerticalCodingValue);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type CodableAlignment.VerticalCodingValue and conformance CodableAlignment.VerticalCodingValue)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for CodableAlignment.VerticalCodingValue, &unk_1F008FB30, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type CodableAlignment.VerticalCodingValue and conformance CodableAlignment.VerticalCodingValue);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type CodableAlignment.VerticalCodingValue and conformance CodableAlignment.VerticalCodingValue)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for CodableAlignment.VerticalCodingValue, &unk_1F008FB30, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type CodableAlignment.VerticalCodingValue and conformance CodableAlignment.VerticalCodingValue);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type CodableAlignment.VerticalCodingValue and conformance CodableAlignment.VerticalCodingValue)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for CodableAlignment.VerticalCodingValue, &unk_1F008FB30, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type CodableAlignment.VerticalCodingValue and conformance CodableAlignment.VerticalCodingValue);
+  }
+}
+
+uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CodableAlignment.VerticalCodingValue@<X0>(unint64_t *a1@<X0>, _BYTE *a2@<X8>)
+{
+  result = specialized CodableAlignment.VerticalCodingValue.init(rawValue:)(*a1);
+  *a2 = result;
+  return result;
+}
+
+uint64_t specialized CodableAlignment.VerticalCodingValue.init(rawValue:)(unint64_t a1)
+{
+  if (a1 >= 7)
+  {
+    return 6;
+  }
+
+  else
+  {
+    return (0x5040302010006uLL >> (8 * a1));
+  }
+}
+
+uint64_t getEnumTagSinglePayload for CustomEventTrace.TransactionEventType(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0xFB)
+  {
+    goto LABEL_17;
+  }
+
+  if (a2 + 5 >= 0xFFFF00)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 5) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
+    {
+      return (*a1 | (v4 << 8)) - 5;
     }
   }
 
   else
   {
-    lazy protocol witness table accessor for type CodableCGImage.Error and conformance CodableCGImage.Error();
-    swift_allocError();
-    *v3 = 0;
-    swift_willThrow();
+    if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+
+      return (*a1 | (v4 << 8)) - 5;
+    }
+
+    v4 = a1[1];
+    if (a1[1])
+    {
+      return (*a1 | (v4 << 8)) - 5;
+    }
   }
 
-  return v0.super.isa;
-}
-
-uint64_t outlined destroy of LinkDestination.Configuration(uint64_t a1)
-{
-  v2 = type metadata accessor for LinkDestination.Configuration(0);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-unint64_t FixedRoundedRect.init(from:)@<X0>(unint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  v3 = result;
-  v41 = *MEMORY[0x1E69E9840];
-  v37 = 0;
-  v5 = *(result + 8);
-  v6 = *(result + 16);
-  if (v5 >= v6)
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 6;
+  v8 = v6 - 6;
+  if (!v7)
   {
-    v29 = 0;
-    v9 = 0uLL;
-    v7 = 0;
-    v8 = 0;
-    v10 = 0uLL;
-LABEL_64:
-    v3[3] = 0;
-    *a2 = v9;
-    *(a2 + 16) = v10;
-    *(a2 + 32) = v7;
-    *(a2 + 40) = v8;
-    *(a2 + 48) = v29;
-    return result;
+    v8 = -1;
   }
 
-  v7 = 0;
-  v8 = 0;
-  v9 = 0uLL;
-  v10 = 0uLL;
-  while (1)
+  return (v8 + 1);
+}
+
+void lazy protocol witness table accessor for type CodableAlignment.HorizontalCodingValue and conformance CodableAlignment.HorizontalCodingValue()
+{
+  if (!lazy protocol witness table cache variable for type CodableAlignment.HorizontalCodingValue and conformance CodableAlignment.HorizontalCodingValue)
   {
-    result = v3[3];
-    v33 = v10;
-    v35 = v9;
-    if (result)
+    swift_getWitnessTable(protocol conformance descriptor for CodableAlignment.HorizontalCodingValue, &unk_1F008FAA0, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type CodableAlignment.HorizontalCodingValue and conformance CodableAlignment.HorizontalCodingValue);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type CodableAlignment.HorizontalCodingValue and conformance CodableAlignment.HorizontalCodingValue)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for CodableAlignment.HorizontalCodingValue, &unk_1F008FAA0, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type CodableAlignment.HorizontalCodingValue and conformance CodableAlignment.HorizontalCodingValue);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type CodableAlignment.HorizontalCodingValue and conformance CodableAlignment.HorizontalCodingValue)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for CodableAlignment.HorizontalCodingValue, &unk_1F008FAA0, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type CodableAlignment.HorizontalCodingValue and conformance CodableAlignment.HorizontalCodingValue);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type CodableAlignment.HorizontalCodingValue and conformance CodableAlignment.HorizontalCodingValue)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for CodableAlignment.HorizontalCodingValue, &unk_1F008FAA0, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type CodableAlignment.HorizontalCodingValue and conformance CodableAlignment.HorizontalCodingValue);
+  }
+}
+
+uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CodableAlignment.HorizontalCodingValue@<X0>(unint64_t *a1@<X0>, _BYTE *a2@<X8>)
+{
+  result = specialized CodableAlignment.HorizontalCodingValue.init(rawValue:)(*a1);
+  *a2 = result;
+  return result;
+}
+
+uint64_t specialized CodableAlignment.HorizontalCodingValue.init(rawValue:)(unint64_t a1)
+{
+  if (a1 >= 8)
+  {
+    return 7;
+  }
+
+  else
+  {
+    return (0x605040302010007uLL >> (8 * a1));
+  }
+}
+
+uint64_t getEnumTagSinglePayload for AccessibilityCustomAttributes.Value.CodingKeys(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0xFA)
+  {
+    goto LABEL_17;
+  }
+
+  if (a2 + 6 >= 0xFFFF00)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 6) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
     {
-      v12 = v3[4];
-      if (v5 < v12)
+      return (*a1 | (v4 << 8)) - 6;
+    }
+  }
+
+  else
+  {
+    if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
       {
-        goto LABEL_11;
+        goto LABEL_17;
       }
 
-      if (v12 < v5)
-      {
-        goto LABEL_65;
-      }
-
-      v3[3] = 0;
+      return (*a1 | (v4 << 8)) - 6;
     }
 
-    result = ProtobufDecoder.decodeVarint()();
-    if (v2)
+    v4 = a1[1];
+    if (a1[1])
     {
-      return result;
+      return (*a1 | (v4 << 8)) - 6;
+    }
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 7;
+  v8 = v6 - 7;
+  if (!v7)
+  {
+    v8 = -1;
+  }
+
+  return (v8 + 1);
+}
+
+uint64_t CodableVisibility.init(from:)@<X0>(void *a1@<X0>, char *a2@<X8>)
+{
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  dispatch thunk of Decoder.singleValueContainer()();
+  if (!v2)
+  {
+    __swift_project_boxed_opaque_existential_1(v8, v8[3]);
+    v5 = dispatch thunk of SingleValueDecodingContainer.decode(_:)();
+    if (v5 == 2)
+    {
+      v6 = 2;
     }
 
-    v10 = v33;
-    v9 = v35;
-    if (result <= 7)
+    else
     {
-      goto LABEL_65;
+      v6 = v5 == 1;
     }
 
-LABEL_11:
-    v13 = result >> 3;
-    v14 = result & 7;
-    if (result >> 3 == 3)
+    __swift_destroy_boxed_opaque_existential_1(v8);
+    *a2 = v6;
+  }
+
+  return __swift_destroy_boxed_opaque_existential_1(a1);
+}
+
+uint64_t AnyAccessibilityValue.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+{
+  type metadata accessor for KeyedEncodingContainer<AccessibilityEmptyValue.CodingKeys>(0, &lazy cache variable for type metadata for KeyedDecodingContainer<AnyAccessibilityValue.Keys>, lazy protocol witness table accessor for type AnyAccessibilityValue.Keys and conformance AnyAccessibilityValue.Keys, &unk_1F008EEB0, MEMORY[0x1E69E6F48]);
+  v6 = v5;
+  v7 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v9 = &v39 - v8;
+  v10 = a1[3];
+  v40 = a1;
+  __swift_project_boxed_opaque_existential_1(a1, v10);
+  lazy protocol witness table accessor for type AnyAccessibilityValue.Keys and conformance AnyAccessibilityValue.Keys();
+  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  if (!v2)
+  {
+    v46 = 0;
+    lazy protocol witness table accessor for type AnyAccessibilityValueType and conformance AnyAccessibilityValueType();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    if (v41 > 5u)
     {
-      break;
-    }
-
-    if (v13 == 2)
-    {
-      if (v14 != 2)
+      if (v41 > 8u)
       {
-        goto LABEL_65;
-      }
-
-      v21 = v3[5];
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v21 + 2) + 1, 1, v21);
-      }
-
-      v23 = *(v21 + 2);
-      v22 = *(v21 + 3);
-      if (v23 >= v22 >> 1)
-      {
-        v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v22 > 1), v23 + 1, 1, v21);
-      }
-
-      *(v21 + 2) = v23 + 1;
-      *&v21[8 * v23 + 32] = v6;
-      v3[5] = v21;
-      result = ProtobufDecoder.decodeVarint()();
-      if (v2)
-      {
-        return result;
-      }
-
-      if ((result & 0x8000000000000000) != 0)
-      {
-        __break(1u);
-LABEL_73:
-        __break(1u);
-LABEL_74:
-        __break(1u);
-LABEL_75:
-        __break(1u);
-LABEL_76:
-        __break(1u);
-LABEL_77:
-        __break(1u);
-LABEL_78:
-        __break(1u);
-LABEL_79:
-        __break(1u);
-        __break(1u);
-        do
+        if (v41 == 9)
         {
-          __break(1u);
-          result = specialized _ArrayBuffer._consumeAndCreateNew()(a2);
-          a2 = result;
-          v30 = *(result + 16);
-          if (v30)
-          {
-            goto LABEL_71;
-          }
-
-          __break(1u);
-          a2 = v3[5];
+          type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityBoundedNumber>(0);
+          v46 = 1;
+          v42 = v27;
+          v12 = type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityBoundedNumber>;
+          lazy protocol witness table accessor for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>(&lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilityBoundedNumber> and conformance AnyAccessibilityValue.ConcreteBase<A>, type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityBoundedNumber>, protocol conformance descriptor for AnyAccessibilityValue.ConcreteBase<A>);
+          v43 = v28;
+          *&v41 = swift_allocObject();
+          v14 = &lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilityBoundedNumber> and conformance AnyAccessibilityValue.ConcreteBase<A>;
         }
 
-        while (!*(a2 + 16));
-        result = swift_isUniquelyReferenced_nonNull_native();
-        if (result)
+        else if (v41 == 10)
         {
-          v30 = *(a2 + 16);
-          if (v30)
-          {
-LABEL_71:
-            v31 = v30 - 1;
-            v32 = *(a2 + 8 * v31 + 32);
-            *(a2 + 16) = v31;
-            v3[5] = a2;
-            v3[2] = v32;
-            return result;
-          }
+          type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityNumber>(0);
+          v46 = 1;
+          v42 = v19;
+          v12 = type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityNumber>;
+          lazy protocol witness table accessor for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>(&lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilityNumber> and conformance AnyAccessibilityValue.ConcreteBase<A>, type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityNumber>, protocol conformance descriptor for AnyAccessibilityValue.ConcreteBase<A>);
+          v43 = v20;
+          v14 = &lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilityNumber> and conformance AnyAccessibilityValue.ConcreteBase<A>;
         }
 
         else
         {
-          result = specialized _ArrayBuffer._consumeAndCreateNew()(a2);
-          a2 = result;
-          v30 = *(result + 16);
-          if (v30)
-          {
-            goto LABEL_71;
-          }
+          type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue>(0);
+          v46 = 1;
+          v42 = v35;
+          v12 = type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue>;
+          lazy protocol witness table accessor for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>(&lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>, type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue>, protocol conformance descriptor for AnyAccessibilityValue.ConcreteBase<A>);
+          v43 = v36;
+          v14 = &lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>;
         }
-
-        __break(1u);
       }
 
-      v24 = v3[1] + result;
-      if (v6 < v24)
+      else if (v41 == 6)
       {
-        goto LABEL_65;
+        type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilitySliderValue>(0);
+        v46 = 1;
+        v42 = v23;
+        v12 = type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilitySliderValue>;
+        lazy protocol witness table accessor for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>(&lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilitySliderValue> and conformance AnyAccessibilityValue.ConcreteBase<A>, type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilitySliderValue>, protocol conformance descriptor for AnyAccessibilityValue.ConcreteBase<A>);
+        v43 = v24;
+        *&v41 = swift_allocObject();
+        v14 = &lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilitySliderValue> and conformance AnyAccessibilityValue.ConcreteBase<A>;
       }
 
-      v3[2] = v24;
-      specialized CGPoint.init(from:)(v3);
-      v19 = v3[5];
-      if (!*(v19 + 16))
+      else if (v41 == 7)
       {
-        goto LABEL_75;
+        type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityStepperValue>(0);
+        v46 = 1;
+        v42 = v15;
+        v12 = type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityStepperValue>;
+        lazy protocol witness table accessor for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>(&lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilityStepperValue> and conformance AnyAccessibilityValue.ConcreteBase<A>, type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityStepperValue>, protocol conformance descriptor for AnyAccessibilityValue.ConcreteBase<A>);
+        v43 = v16;
+        *&v41 = swift_allocObject();
+        v14 = &lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilityStepperValue> and conformance AnyAccessibilityValue.ConcreteBase<A>;
       }
 
-      v7 = v25;
-      v8 = v26;
-      result = swift_isUniquelyReferenced_nonNull_native();
-      if ((result & 1) == 0)
+      else
       {
-        result = specialized _ArrayBuffer._consumeAndCreateNew()(v19);
-        v19 = result;
+        type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityProgressValue>(0);
+        v46 = 1;
+        v42 = v31;
+        v12 = type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityProgressValue>;
+        lazy protocol witness table accessor for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>(&lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilityProgressValue> and conformance AnyAccessibilityValue.ConcreteBase<A>, type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityProgressValue>, protocol conformance descriptor for AnyAccessibilityValue.ConcreteBase<A>);
+        v43 = v32;
+        v14 = &lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilityProgressValue> and conformance AnyAccessibilityValue.ConcreteBase<A>;
+      }
+    }
+
+    else if (v41 > 2u)
+    {
+      if (v41 == 3)
+      {
+        type metadata accessor for AnyAccessibilityValue.ConcreteBase<String>();
+        v46 = 1;
+        v42 = v25;
+        v12 = type metadata accessor for AnyAccessibilityValue.ConcreteBase<String>;
+        lazy protocol witness table accessor for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>(&lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<String> and conformance AnyAccessibilityValue.ConcreteBase<A>, type metadata accessor for AnyAccessibilityValue.ConcreteBase<String>, protocol conformance descriptor for AnyAccessibilityValue.ConcreteBase<A>);
+        v43 = v26;
+        v14 = &lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<String> and conformance AnyAccessibilityValue.ConcreteBase<A>;
       }
 
-      v20 = *(v19 + 16);
-      v10 = v33;
-      v9 = v35;
-      if (!v20)
+      else if (v41 == 4)
       {
-        goto LABEL_77;
+        type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityDisclosureValue>(0);
+        v46 = 1;
+        v42 = v17;
+        v12 = type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityDisclosureValue>;
+        lazy protocol witness table accessor for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>(&lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilityDisclosureValue> and conformance AnyAccessibilityValue.ConcreteBase<A>, type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityDisclosureValue>, protocol conformance descriptor for AnyAccessibilityValue.ConcreteBase<A>);
+        v43 = v18;
+        v14 = &lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilityDisclosureValue> and conformance AnyAccessibilityValue.ConcreteBase<A>;
+      }
+
+      else
+      {
+        type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityToggleValue>(0);
+        v46 = 1;
+        v42 = v33;
+        v12 = type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityToggleValue>;
+        lazy protocol witness table accessor for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>(&lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilityToggleValue> and conformance AnyAccessibilityValue.ConcreteBase<A>, type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityToggleValue>, protocol conformance descriptor for AnyAccessibilityValue.ConcreteBase<A>);
+        v43 = v34;
+        v14 = &lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<AccessibilityToggleValue> and conformance AnyAccessibilityValue.ConcreteBase<A>;
+      }
+    }
+
+    else if (v41)
+    {
+      if (v41 == 1)
+      {
+        type metadata accessor for AnyAccessibilityValue.ConcreteBase<Double>();
+        v46 = 1;
+        v42 = v11;
+        v12 = type metadata accessor for AnyAccessibilityValue.ConcreteBase<Double>;
+        lazy protocol witness table accessor for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>(&lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<Double> and conformance AnyAccessibilityValue.ConcreteBase<A>, type metadata accessor for AnyAccessibilityValue.ConcreteBase<Double>, protocol conformance descriptor for AnyAccessibilityValue.ConcreteBase<A>);
+        v43 = v13;
+        v14 = &lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<Double> and conformance AnyAccessibilityValue.ConcreteBase<A>;
+      }
+
+      else
+      {
+        type metadata accessor for AnyAccessibilityValue.ConcreteBase<Bool>();
+        v46 = 1;
+        v42 = v29;
+        v12 = type metadata accessor for AnyAccessibilityValue.ConcreteBase<Bool>;
+        lazy protocol witness table accessor for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>(&lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<Bool> and conformance AnyAccessibilityValue.ConcreteBase<A>, type metadata accessor for AnyAccessibilityValue.ConcreteBase<Bool>, protocol conformance descriptor for AnyAccessibilityValue.ConcreteBase<A>);
+        v43 = v30;
+        v14 = &lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<Bool> and conformance AnyAccessibilityValue.ConcreteBase<A>;
       }
     }
 
     else
     {
-      if (v13 != 1)
+      type metadata accessor for AnyAccessibilityValue.ConcreteBase<Int>();
+      v46 = 1;
+      v42 = v21;
+      v12 = type metadata accessor for AnyAccessibilityValue.ConcreteBase<Int>;
+      lazy protocol witness table accessor for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>(&lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<Int> and conformance AnyAccessibilityValue.ConcreteBase<A>, type metadata accessor for AnyAccessibilityValue.ConcreteBase<Int>, protocol conformance descriptor for AnyAccessibilityValue.ConcreteBase<A>);
+      v43 = v22;
+      v14 = &lazy protocol witness table cache variable for type AnyAccessibilityValue.ConcreteBase<Int> and conformance AnyAccessibilityValue.ConcreteBase<A>;
+    }
+
+    lazy protocol witness table accessor for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>(v14, v12, protocol conformance descriptor for AnyAccessibilityValue.ConcreteBase<A>);
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    (*(v7 + 8))(v9, v6);
+    outlined init with take of AnyTrackedValue(&v41, v44);
+    v37 = v44[1];
+    *a2 = v44[0];
+    *(a2 + 16) = v37;
+    *(a2 + 32) = v45;
+  }
+
+  return __swift_destroy_boxed_opaque_existential_1(v40);
+}
+
+void lazy protocol witness table accessor for type AnyAccessibilityValue.Keys and conformance AnyAccessibilityValue.Keys()
+{
+  if (!lazy protocol witness table cache variable for type AnyAccessibilityValue.Keys and conformance AnyAccessibilityValue.Keys)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for AnyAccessibilityValue.Keys, &unk_1F008EEB0, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type AnyAccessibilityValue.Keys and conformance AnyAccessibilityValue.Keys);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type AnyAccessibilityValue.Keys and conformance AnyAccessibilityValue.Keys)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for AnyAccessibilityValue.Keys, &unk_1F008EEB0, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type AnyAccessibilityValue.Keys and conformance AnyAccessibilityValue.Keys);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type AnyAccessibilityValue.Keys and conformance AnyAccessibilityValue.Keys)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for AnyAccessibilityValue.Keys, &unk_1F008EEB0, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type AnyAccessibilityValue.Keys and conformance AnyAccessibilityValue.Keys);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type AnyAccessibilityValue.Keys and conformance AnyAccessibilityValue.Keys)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for AnyAccessibilityValue.Keys, &unk_1F008EEB0, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type AnyAccessibilityValue.Keys and conformance AnyAccessibilityValue.Keys);
+  }
+}
+
+void lazy protocol witness table accessor for type AnyAccessibilityValueType and conformance AnyAccessibilityValueType()
+{
+  if (!lazy protocol witness table cache variable for type AnyAccessibilityValueType and conformance AnyAccessibilityValueType)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for AnyAccessibilityValueType, &type metadata for AnyAccessibilityValueType, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type AnyAccessibilityValueType and conformance AnyAccessibilityValueType);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type AnyAccessibilityValueType and conformance AnyAccessibilityValueType)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for AnyAccessibilityValueType, &type metadata for AnyAccessibilityValueType, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type AnyAccessibilityValueType and conformance AnyAccessibilityValueType);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type AnyAccessibilityValueType and conformance AnyAccessibilityValueType)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for AnyAccessibilityValueType, &type metadata for AnyAccessibilityValueType, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type AnyAccessibilityValueType and conformance AnyAccessibilityValueType);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type AnyAccessibilityValueType and conformance AnyAccessibilityValueType)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for AnyAccessibilityValueType, &type metadata for AnyAccessibilityValueType, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type AnyAccessibilityValueType and conformance AnyAccessibilityValueType);
+  }
+}
+
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance AnyAccessibilityValue.Keys()
+{
+  if (*v0)
+  {
+    return 0x65756C6176;
+  }
+
+  else
+  {
+    return 1701869940;
+  }
+}
+
+SwiftUI::AnyAccessibilityValueType_optional __swiftcall AnyAccessibilityValueType.init(rawValue:)(Swift::UInt rawValue)
+{
+  v2 = 12;
+  if (rawValue < 0xC)
+  {
+    v2 = rawValue;
+  }
+
+  *v1 = v2;
+  return rawValue;
+}
+
+void type metadata accessor for AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue>)
+  {
+    lazy protocol witness table accessor for type AccessibilityEmptyValue and conformance AccessibilityEmptyValue();
+    v3 = v2;
+    lazy protocol witness table accessor for type AccessibilityEmptyValue and conformance AccessibilityEmptyValue();
+    v5 = v4;
+    lazy protocol witness table accessor for type AccessibilityEmptyValue and conformance AccessibilityEmptyValue();
+    v9[0] = &type metadata for AccessibilityEmptyValue;
+    v9[1] = v3;
+    v9[2] = v5;
+    v9[3] = v6;
+    v7 = type metadata accessor for AnyAccessibilityValue.ConcreteBase(a1, v9);
+    if (!v8)
+    {
+      atomic_store(v7, &lazy cache variable for type metadata for AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue>);
+    }
+  }
+}
+
+void lazy protocol witness table accessor for type AnyAccessibilityValue.ConcreteBase<AccessibilityEmptyValue> and conformance AnyAccessibilityValue.ConcreteBase<A>(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
+{
+  if (!*a1)
+  {
+    v5 = a2(255);
+    swift_getWitnessTable(a3, v5);
+    atomic_store(v6, a1);
+  }
+}
+
+uint64_t AnyAccessibilityValue.ConcreteBase.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  v32 = a6;
+  v35 = *(a2 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v37 = &v29 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39 = v12;
+  v40 = v13;
+  v41 = v14;
+  v42 = v15;
+  v16 = type metadata accessor for AnyAccessibilityValue.ConcreteBase.CodingKeys(255, &v39);
+  swift_getWitnessTable(protocol conformance descriptor for AnyAccessibilityValue.ConcreteBase<A>.CodingKeys, v16);
+  v38 = type metadata accessor for KeyedDecodingContainer();
+  v33 = *(v38 - 8);
+  MEMORY[0x1EEE9AC00](v38);
+  v18 = &v29 - v17;
+  v34 = a2;
+  v39 = a2;
+  v40 = a3;
+  v36 = a3;
+  v41 = a4;
+  v42 = a5;
+  v19 = type metadata accessor for AnyAccessibilityValue.ConcreteBase(0, &v39);
+  v31 = *(v19 - 8);
+  MEMORY[0x1EEE9AC00](v19);
+  v21 = &v29 - v20;
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  v22 = v43;
+  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  if (!v22)
+  {
+    v30 = v21;
+    v43 = v19;
+    v24 = v33;
+    v23 = v34;
+    v25 = v35;
+    v26 = v37;
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    (*(v24 + 8))(v18, v38);
+    v27 = v30;
+    (*(v25 + 32))(v30, v26, v23);
+    (*(v31 + 32))(v32, v27, v43);
+  }
+
+  return __swift_destroy_boxed_opaque_existential_1(a1);
+}
+
+uint64_t specialized ProtobufDecoder.decodeMessage<A>()@<X0>(char *a1@<X8>)
+{
+  result = ProtobufDecoder.beginMessage()();
+  if (!v2)
+  {
+    DisplayList.InterpolatorAnimation.init(from:)(v1, a1);
+    v5 = *(v1 + 40);
+    if (*(v5 + 16))
+    {
+      result = swift_isUniquelyReferenced_nonNull_native();
+      if (result)
       {
-        if ((result & 7) > 1)
+        v6 = *(v5 + 16);
+        if (v6)
         {
-          if (v14 == 2)
-          {
-            result = ProtobufDecoder.decodeVarint()();
-            if (v2)
-            {
-              return result;
-            }
-
-            if ((result & 0x8000000000000000) != 0)
-            {
-              goto LABEL_79;
-            }
-
-            v28 = v3[1] + result;
-            v10 = v33;
-            v9 = v35;
-            if (v6 < v28)
-            {
-              goto LABEL_65;
-            }
-          }
-
-          else
-          {
-            if (v14 != 5)
-            {
-              goto LABEL_65;
-            }
-
-            v28 = v3[1] + 4;
-            if (v6 < v28)
-            {
-              goto LABEL_65;
-            }
-          }
-
-          goto LABEL_62;
-        }
-
-        if ((result & 7) != 0)
-        {
-          if (v14 != 1)
-          {
-            goto LABEL_65;
-          }
-
-          v28 = v3[1] + 8;
-          if (v6 < v28)
-          {
-            goto LABEL_65;
-          }
-
-LABEL_62:
-          v3[1] = v28;
-          goto LABEL_4;
-        }
-
-        result = ProtobufDecoder.decodeVarint()();
-        if (v2)
-        {
+LABEL_5:
+          v7 = v6 - 1;
+          v8 = *(v5 + 8 * v7 + 32);
+          *(v5 + 16) = v7;
+          *(v1 + 40) = v5;
+          *(v1 + 16) = v8;
           return result;
         }
 
-LABEL_58:
-        v10 = v33;
-        v9 = v35;
-        goto LABEL_4;
-      }
-
-      if (v14 != 2)
-      {
-        goto LABEL_65;
-      }
-
-      v15 = v3[5];
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v15 + 2) + 1, 1, v15);
-      }
-
-      v17 = *(v15 + 2);
-      v16 = *(v15 + 3);
-      if (v17 >= v16 >> 1)
-      {
-        v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v16 > 1), v17 + 1, 1, v15);
-      }
-
-      *(v15 + 2) = v17 + 1;
-      *&v15[8 * v17 + 32] = v6;
-      v3[5] = v15;
-      result = ProtobufDecoder.decodeVarint()();
-      if (v2)
-      {
+LABEL_9:
+        __break(1u);
         return result;
       }
-
-      if ((result & 0x8000000000000000) != 0)
-      {
-        goto LABEL_73;
-      }
-
-      v18 = v3[1] + result;
-      if (v6 < v18)
-      {
-        goto LABEL_65;
-      }
-
-      v3[2] = v18;
-      v39 = 0u;
-      v40 = 0u;
-      closure #1 in EdgeInsets.init(from:)(&v39, v3, &v38);
-      v19 = v3[5];
-      if (!*(v19 + 16))
-      {
-        goto LABEL_74;
-      }
-
-      v34 = v40;
-      v36 = v39;
-      result = swift_isUniquelyReferenced_nonNull_native();
-      if ((result & 1) == 0)
-      {
-        result = specialized _ArrayBuffer._consumeAndCreateNew()(v19);
-        v19 = result;
-      }
-
-      v20 = *(v19 + 16);
-      v10 = v34;
-      v9 = v36;
-      if (!v20)
-      {
-        goto LABEL_76;
-      }
     }
 
-    v2 = 0;
-    v11 = v20 - 1;
-    v6 = *(v19 + 8 * v11 + 32);
-    *(v19 + 16) = v11;
-    v3[5] = v19;
-    v3[2] = v6;
-LABEL_4:
-    v5 = v3[1];
-    if (v5 >= v6)
+    else
     {
-      v29 = v37;
-      goto LABEL_64;
+      __break(1u);
     }
-  }
 
-  if ((result & 7) == 0)
-  {
-LABEL_46:
-    result = ProtobufDecoder.decodeVarint()();
-    if (v2)
+    result = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    v5 = result;
+    v6 = *(result + 16);
+    if (v6)
     {
-      return result;
+      goto LABEL_5;
     }
 
-    v37 = result == 1;
-    goto LABEL_58;
+    goto LABEL_9;
   }
 
-  if (v14 != 2)
-  {
-    goto LABEL_65;
-  }
-
-  result = ProtobufDecoder.decodeVarint()();
-  if (v2)
-  {
-    return result;
-  }
-
-  if ((result & 0x8000000000000000) != 0)
-  {
-    goto LABEL_78;
-  }
-
-  v27 = v3[1] + result;
-  if (v6 >= v27)
-  {
-    v3[3] = 24;
-    v3[4] = v27;
-    goto LABEL_46;
-  }
-
-LABEL_65:
-  lazy protocol witness table accessor for type ProtobufDecoder.DecodingError and conformance ProtobufDecoder.DecodingError();
-  swift_allocError();
-  return swift_willThrow();
+  return result;
 }
 
-uint64_t LinkDestination.Configuration.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+void DisplayList.InterpolatorAnimation.init(from:)(char *a1@<X0>, char *a2@<X8>)
 {
-  v18 = a2;
-  v21 = type metadata accessor for URL();
-  v19 = *(v21 - 8);
-  MEMORY[0x1EEE9AC00](v21);
-  v5 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for KeyedEncodingContainer<LinkDestination.Configuration.CodingKeys>(0, &lazy cache variable for type metadata for KeyedDecodingContainer<LinkDestination.Configuration.CodingKeys>, MEMORY[0x1E69E6F48]);
-  v22 = v6;
-  v20 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = &v17 - v7;
-  v9 = type metadata accessor for LinkDestination.Configuration(0);
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type LinkDestination.Configuration.CodingKeys and conformance LinkDestination.Configuration.CodingKeys();
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v2)
+  v5 = *(a1 + 1);
+  v6 = *(a1 + 2);
+  if (v5 >= v6)
   {
-    return __swift_destroy_boxed_opaque_existential_1(a1);
-  }
-
-  v17 = v11;
-  v12 = v19;
-  v24 = 0;
-  lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL);
-  v13 = v21;
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v14 = v17;
-  (*(v12 + 32))(v17, v5, v13);
-  v23 = 1;
-  v15 = KeyedDecodingContainer.decode(_:forKey:)();
-  (*(v20 + 8))(v8, v22);
-  *(v14 + *(v9 + 20)) = v15 & 1;
-  outlined init with copy of LinkDestination.Configuration(v14, v18);
-  __swift_destroy_boxed_opaque_existential_1(a1);
-  return outlined destroy of LinkDestination.Configuration(v14);
-}
-
-unint64_t closure #1 in closure #3 in DisplayList.Item.init(from:)@<X0>(unint64_t result@<X0>, _OWORD *a2@<X8>)
-{
-  v37 = a2;
-  v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
-  if (v4 >= v5)
-  {
-LABEL_55:
-    LODWORD(v6) = 0;
-    LOWORD(v7) = 0;
-    v8 = 0;
-    v34 = 0u;
-    v9 = MEMORY[0x1E69E7CC0];
 LABEL_56:
-    v3[3] = 0;
-    v30 = v37;
-    *v37 = v34;
-    *(v30 + 4) = v8;
-    *(v30 + 3) = v9;
-    *(v30 + 16) = v7;
-    *(v30 + 9) = v6;
-    return result;
+    v7 = 0;
+    v8 = 0;
+    v38 = 0u;
+    v9 = 1;
+LABEL_57:
+    *(a1 + 3) = 0;
+    *a2 = v38;
+    *(a2 + 4) = v8;
+    a2[20] = v9 & 1;
+    *(a2 + 3) = v7;
+    return;
   }
 
-  v6 = 0;
   v7 = 0;
   v8 = 0;
-  v34 = 0u;
-  v9 = MEMORY[0x1E69E7CC0];
+  v41 = 0;
+  v38 = 0u;
+  v9 = 1;
   while (1)
   {
-    v10 = v3[3];
+    v10 = *(a1 + 3);
     if (v10)
     {
-      v11 = v3[4];
-      if (v4 < v11)
+      v11 = *(a1 + 4);
+      if (v5 < v11)
       {
         goto LABEL_11;
       }
 
-      if (v11 < v4)
+      if (v11 < v5)
       {
-        goto LABEL_57;
+        goto LABEL_58;
       }
 
-      v3[3] = 0;
+      *(a1 + 3) = 0;
     }
 
-    result = ProtobufDecoder.decodeVarint()();
+    v10 = ProtobufDecoder.decodeVarint()(v10);
     if (v2)
     {
+      goto LABEL_64;
     }
 
-    v10 = result;
-    if (result < 8)
+    if (v10 <= 7)
     {
-LABEL_57:
-
-LABEL_58:
-      lazy protocol witness table accessor for type ProtobufDecoder.DecodingError and conformance ProtobufDecoder.DecodingError();
-      swift_allocError();
-      return swift_willThrow();
+      goto LABEL_58;
     }
 
 LABEL_11:
-    if (v10 >> 3 != 2)
+    if (v10 >> 3 == 2)
     {
       break;
+    }
+
+    if (v10 >> 3 != 1)
+    {
+      v32 = v10 & 7;
+      if (v32 > 1)
+      {
+        if (v32 == 2)
+        {
+          v34 = ProtobufDecoder.decodeVarint()(v10);
+          if (v2)
+          {
+            goto LABEL_64;
+          }
+
+          if (v34 < 0)
+          {
+            goto LABEL_70;
+          }
+
+          v33 = *(a1 + 1) + v34;
+          if (v6 < v33)
+          {
+            goto LABEL_58;
+          }
+        }
+
+        else
+        {
+          if (v32 != 5)
+          {
+            goto LABEL_58;
+          }
+
+          v33 = *(a1 + 1) + 4;
+          if (v6 < v33)
+          {
+            goto LABEL_58;
+          }
+        }
+      }
+
+      else
+      {
+        if ((v10 & 7) == 0)
+        {
+          ProtobufDecoder.decodeVarint()(v10);
+          if (v2)
+          {
+            goto LABEL_64;
+          }
+
+          goto LABEL_4;
+        }
+
+        if (v32 != 1)
+        {
+          goto LABEL_58;
+        }
+
+        v33 = *(a1 + 1) + 8;
+        if (v6 < v33)
+        {
+          goto LABEL_58;
+        }
+      }
+
+      *(a1 + 1) = v33;
+      goto LABEL_4;
     }
 
     if ((v10 & 7) != 2)
@@ -559,220 +974,172 @@ LABEL_11:
       goto LABEL_58;
     }
 
-    v21 = v3[5];
-    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    v12 = *(a1 + 5);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v21 + 2) + 1, 1, v21);
+      isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v12 + 16) + 1, 1, v12);
+      v12 = isUniquelyReferenced_nonNull_native;
     }
 
-    v23 = *(v21 + 2);
-    v22 = *(v21 + 3);
-    if (v23 >= v22 >> 1)
+    v15 = *(v12 + 16);
+    v14 = *(v12 + 24);
+    if (v15 >= v14 >> 1)
     {
-      v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v22 > 1), v23 + 1, 1, v21);
+      isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v14 > 1), v15 + 1, 1, v12);
+      v12 = isUniquelyReferenced_nonNull_native;
     }
 
-    *(v21 + 2) = v23 + 1;
-    *&v21[8 * v23 + 32] = v5;
-    v3[5] = v21;
-    result = ProtobufDecoder.decodeVarint()();
+    *(v12 + 16) = v15 + 1;
+    *(v12 + 8 * v15 + 32) = v6;
+    *(a1 + 5) = v12;
+    v16 = ProtobufDecoder.decodeVarint()(isUniquelyReferenced_nonNull_native);
     if (v2)
     {
-      return result;
+      goto LABEL_64;
     }
 
-    if ((result & 0x8000000000000000) != 0)
+    if (v16 < 0)
     {
-      goto LABEL_67;
+      goto LABEL_66;
     }
 
-    v24 = v3[1] + result;
-    if (v5 < v24)
+    v17 = *(a1 + 1) + v16;
+    if (v6 < v17)
     {
-      goto LABEL_58;
+LABEL_58:
+      lazy protocol witness table accessor for type ProtobufDecoder.DecodingError and conformance ProtobufDecoder.DecodingError();
+      swift_allocError();
+      swift_willThrow();
+LABEL_64:
+
+      return;
     }
 
-    v3[2] = v24;
-    DisplayList.init(from:)(&v35, v3);
-    v25 = v3[5];
-    if (!*(v25 + 16))
-    {
-      goto LABEL_69;
-    }
-
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if (result)
-    {
-      v26 = *(v25 + 16);
-      if (!v26)
-      {
-        goto LABEL_54;
-      }
-    }
-
-    else
-    {
-      result = specialized _ArrayBuffer._consumeAndCreateNew()(v25);
-      v25 = result;
-      v26 = *(result + 16);
-      if (!v26)
-      {
-LABEL_54:
-        __break(1u);
-        goto LABEL_55;
-      }
-    }
-
-    v27 = v26 - 1;
-    v5 = *(v25 + 8 * v27 + 32);
-    *(v25 + 16) = v27;
-    v3[5] = v25;
-    v3[2] = v5;
-    v9 = v35;
-    v7 = WORD4(v35);
-    v6 = HIDWORD(v35);
-LABEL_4:
-    v4 = v3[1];
-    if (v4 >= v5)
-    {
-      goto LABEL_56;
-    }
-  }
-
-  if (v10 >> 3 != 1)
-  {
-    v28 = v10 & 7;
-    if (v28 > 1)
-    {
-      if (v28 == 2)
-      {
-        result = ProtobufDecoder.decodeVarint()();
-        if (v2)
-        {
-        }
-
-        if ((result & 0x8000000000000000) != 0)
-        {
-          goto LABEL_71;
-        }
-
-        v29 = v3[1] + result;
-        if (v5 < v29)
-        {
-          goto LABEL_57;
-        }
-      }
-
-      else
-      {
-        if (v28 != 5)
-        {
-          goto LABEL_57;
-        }
-
-        v29 = v3[1] + 4;
-        if (v5 < v29)
-        {
-          goto LABEL_57;
-        }
-      }
-    }
-
-    else
-    {
-      if ((v10 & 7) == 0)
-      {
-        result = ProtobufDecoder.decodeVarint()();
-        if (v2)
-        {
-        }
-
-        goto LABEL_4;
-      }
-
-      if (v28 != 1)
-      {
-        goto LABEL_57;
-      }
-
-      v29 = v3[1] + 8;
-      if (v5 < v29)
-      {
-        goto LABEL_57;
-      }
-    }
-
-    v3[1] = v29;
-    goto LABEL_4;
-  }
-
-  if ((v10 & 7) != 2)
-  {
-    goto LABEL_57;
-  }
-
-  v12 = v3[5];
-  v13 = v6;
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-    v12 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v12 + 2) + 1, 1, v12);
-  }
-
-  v15 = *(v12 + 2);
-  v14 = *(v12 + 3);
-  if (v15 >= v14 >> 1)
-  {
-    v12 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v14 > 1), v15 + 1, 1, v12);
-  }
-
-  *(v12 + 2) = v15 + 1;
-  *&v12[8 * v15 + 32] = v5;
-  v3[5] = v12;
-  v16 = ProtobufDecoder.decodeVarint()();
-  if (v2)
-  {
-  }
-
-  if ((v16 & 0x8000000000000000) == 0)
-  {
-    v17 = v3[1] + v16;
-    if (v5 < v17)
-    {
-      goto LABEL_57;
-    }
-
-    v3[2] = v17;
-    StrongHash.init(from:)(v3, &v35);
-    v18 = v3[5];
-    if (!*(v18 + 16))
+    *(a1 + 2) = v17;
+    v18 = specialized CodableAnimation.init(from:)(a1);
+    v19 = *(a1 + 5);
+    if (!*(v19 + 2))
     {
       goto LABEL_68;
     }
 
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
+    v20 = v18;
+    if (swift_isUniquelyReferenced_nonNull_native())
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew()(v18);
-      v18 = result;
+      v21 = *(v19 + 2);
+      if (!v21)
+      {
+        goto LABEL_69;
+      }
     }
 
-    v6 = v13;
-    v19 = *(v18 + 16);
-    if (!v19)
+    else
     {
-      goto LABEL_70;
+      v19 = specialized _ArrayBuffer._consumeAndCreateNew()(v19);
+      v21 = *(v19 + 2);
+      if (!v21)
+      {
+        goto LABEL_69;
+      }
     }
 
-    v20 = v19 - 1;
-    v5 = *(v18 + 8 * v20 + 32);
-    *(v18 + 16) = v20;
-    v3[5] = v18;
-    v3[2] = v5;
-    v34 = v35;
-    v8 = v36;
+    v22 = v21 - 1;
+    v6 = *&v19[8 * v22 + 32];
+    *(v19 + 2) = v22;
+
+    *(a1 + 5) = v19;
+    *(a1 + 2) = v6;
+    v7 = v20;
+    v41 = v20;
+LABEL_4:
+    v5 = *(a1 + 1);
+    if (v5 >= v6)
+    {
+      goto LABEL_57;
+    }
+  }
+
+  if ((v10 & 7) != 2)
+  {
+    goto LABEL_58;
+  }
+
+  v23 = *(a1 + 5);
+  v24 = swift_isUniquelyReferenced_nonNull_native();
+  if ((v24 & 1) == 0)
+  {
+    v24 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v23 + 16) + 1, 1, v23);
+    v23 = v24;
+  }
+
+  v26 = *(v23 + 16);
+  v25 = *(v23 + 24);
+  if (v26 >= v25 >> 1)
+  {
+    v24 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v26 + 1, 1, v23);
+    v23 = v24;
+  }
+
+  *(v23 + 16) = v26 + 1;
+  *(v23 + 8 * v26 + 32) = v6;
+  *(a1 + 5) = v23;
+  v27 = ProtobufDecoder.decodeVarint()(v24);
+  if (v2)
+  {
+    goto LABEL_64;
+  }
+
+  if ((v27 & 0x8000000000000000) == 0)
+  {
+    v28 = *(a1 + 1) + v27;
+    if (v6 < v28)
+    {
+      goto LABEL_58;
+    }
+
+    *(a1 + 2) = v28;
+    StrongHash.init(from:)(a1, &v39);
+    v29 = *(a1 + 5);
+    if (!*(v29 + 2))
+    {
+      goto LABEL_67;
+    }
+
+    if (swift_isUniquelyReferenced_nonNull_native())
+    {
+      v30 = *(v29 + 2);
+      if (!v30)
+      {
+        goto LABEL_55;
+      }
+    }
+
+    else
+    {
+      v29 = specialized _ArrayBuffer._consumeAndCreateNew()(v29);
+      v30 = *(v29 + 2);
+      if (!v30)
+      {
+LABEL_55:
+        __break(1u);
+        goto LABEL_56;
+      }
+    }
+
+    v9 = 0;
+    v31 = v30 - 1;
+    v6 = *&v29[8 * v31 + 32];
+    *(v29 + 2) = v31;
+    *(a1 + 5) = v29;
+    *(a1 + 2) = v6;
+    v38 = v39;
+    v8 = v40;
     goto LABEL_4;
   }
 
+  __break(1u);
+LABEL_66:
   __break(1u);
 LABEL_67:
   __break(1u);
@@ -782,6603 +1149,977 @@ LABEL_69:
   __break(1u);
 LABEL_70:
   __break(1u);
-LABEL_71:
-  __break(1u);
   __break(1u);
   do
   {
     __break(1u);
-    result = specialized _ArrayBuffer._consumeAndCreateNew()(v7);
-    v7 = result;
-    v31 = *(result + 16);
-    if (v31)
+    a2 = specialized _ArrayBuffer._consumeAndCreateNew()(a2);
+    v35 = *(a2 + 2);
+    if (v35)
     {
-      goto LABEL_64;
+      goto LABEL_63;
     }
 
     __break(1u);
-    v7 = v3[5];
+    a2 = *(a1 + 5);
   }
 
-  while (!*(v7 + 16));
-  result = swift_isUniquelyReferenced_nonNull_native();
-  if (result)
+  while (!*(a2 + 2));
+  if (swift_isUniquelyReferenced_nonNull_native())
   {
-    v31 = *(v7 + 16);
-    if (v31)
+    v35 = *(a2 + 2);
+    if (v35)
     {
-LABEL_64:
-      v32 = v31 - 1;
-      v33 = *(v7 + 8 * v32 + 32);
-      *(v7 + 16) = v32;
-      v3[5] = v7;
-      v3[2] = v33;
-      return result;
-    }
-  }
-
-  else
-  {
-    result = specialized _ArrayBuffer._consumeAndCreateNew()(v7);
-    v7 = result;
-    v31 = *(result + 16);
-    if (v31)
-    {
+LABEL_63:
+      v36 = v35 - 1;
+      v37 = *&a2[8 * v36 + 32];
+      *(a2 + 2) = v36;
+      *(a1 + 5) = a2;
+      *(a1 + 2) = v37;
       goto LABEL_64;
     }
   }
 
-  __break(1u);
-  return result;
-}
-
-unint64_t closure #3 in DisplayList.Item.init(from:)@<X0>(unint64_t result@<X0>, void *a2@<X8>)
-{
-  v3 = result;
-  v5 = *(result + 8);
-  v6 = *(result + 16);
-  v7 = MEMORY[0x1E69E7CC0];
-  if (v5 >= v6)
-  {
-LABEL_45:
-    v3[3] = 0;
-    *a2 = v7;
-    a2[1] = 0;
-    a2[2] = 0;
-    a2[3] = 0x80000000;
-    return result;
-  }
-
-  while (1)
-  {
-    result = v3[3];
-    if (result)
-    {
-      v8 = v3[4];
-      if (v5 < v8)
-      {
-        goto LABEL_11;
-      }
-
-      if (v8 < v5)
-      {
-        goto LABEL_46;
-      }
-
-      v3[3] = 0;
-    }
-
-    result = ProtobufDecoder.decodeVarint()();
-    if (v2)
-    {
-    }
-
-    if (result < 8)
-    {
-LABEL_46:
-      lazy protocol witness table accessor for type ProtobufDecoder.DecodingError and conformance ProtobufDecoder.DecodingError();
-      swift_allocError();
-      swift_willThrow();
-    }
-
-LABEL_11:
-    if ((result & 0xFFFFFFFFFFFFFFF8) != 8)
-    {
-      v20 = result & 7;
-      if (v20 > 1)
-      {
-        if (v20 == 2)
-        {
-          result = ProtobufDecoder.decodeVarint()();
-          if (v2)
-          {
-          }
-
-          if ((result & 0x8000000000000000) != 0)
-          {
-            goto LABEL_52;
-          }
-
-          v21 = v3[1] + result;
-          if (v6 < v21)
-          {
-            goto LABEL_46;
-          }
-        }
-
-        else
-        {
-          if (v20 != 5)
-          {
-            goto LABEL_46;
-          }
-
-          v21 = v3[1] + 4;
-          if (v6 < v21)
-          {
-            goto LABEL_46;
-          }
-        }
-      }
-
-      else
-      {
-        if ((result & 7) == 0)
-        {
-          result = ProtobufDecoder.decodeVarint()();
-          if (v2)
-          {
-          }
-
-          goto LABEL_4;
-        }
-
-        if (v20 != 1)
-        {
-          goto LABEL_46;
-        }
-
-        v21 = v3[1] + 8;
-        if (v6 < v21)
-        {
-          goto LABEL_46;
-        }
-      }
-
-      v3[1] = v21;
-      goto LABEL_4;
-    }
-
-    if ((result & 7) != 2)
-    {
-      goto LABEL_46;
-    }
-
-    v9 = v3[5];
-    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-    {
-      v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v9 + 2) + 1, 1, v9);
-    }
-
-    v11 = *(v9 + 2);
-    v10 = *(v9 + 3);
-    if (v11 >= v10 >> 1)
-    {
-      v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v10 > 1), v11 + 1, 1, v9);
-    }
-
-    *(v9 + 2) = v11 + 1;
-    *&v9[8 * v11 + 32] = v6;
-    v3[5] = v9;
-    v12 = ProtobufDecoder.decodeVarint()();
-    if (v2)
-    {
-    }
-
-    if (v12 < 0)
-    {
-      break;
-    }
-
-    v13 = v3[1] + v12;
-    if (v6 < v13)
-    {
-      goto LABEL_46;
-    }
-
-    v3[2] = v13;
-    closure #1 in closure #3 in DisplayList.Item.init(from:)(v3, v29);
-    v14 = v3[5];
-    if (!*(v14 + 2))
-    {
-      goto LABEL_50;
-    }
-
-    if (swift_isUniquelyReferenced_nonNull_native())
-    {
-      v15 = *(v14 + 2);
-      if (!v15)
-      {
-        goto LABEL_51;
-      }
-    }
-
-    else
-    {
-      v14 = specialized _ArrayBuffer._consumeAndCreateNew()(v14);
-      v15 = *(v14 + 2);
-      if (!v15)
-      {
-        goto LABEL_51;
-      }
-    }
-
-    v16 = v15 - 1;
-    v6 = *&v14[8 * v16 + 32];
-    *(v14 + 2) = v16;
-    v3[5] = v14;
-    v3[2] = v6;
-    v26 = v29[0];
-    v27 = v29[1];
-    v28 = v30;
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
-    {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v7[2] + 1, 1, v7);
-      v7 = result;
-    }
-
-    v18 = v7[2];
-    v17 = v7[3];
-    if (v18 >= v17 >> 1)
-    {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v17 > 1), v18 + 1, 1, v7);
-      v7 = result;
-    }
-
-    v7[2] = v18 + 1;
-    v19 = &v7[5 * v18];
-    v19[8] = v28;
-    *(v19 + 2) = v26;
-    *(v19 + 3) = v27;
-LABEL_4:
-    v5 = v3[1];
-    if (v5 >= v6)
-    {
-      goto LABEL_45;
-    }
-  }
-
-  __break(1u);
-LABEL_50:
-  __break(1u);
-LABEL_51:
-  __break(1u);
-LABEL_52:
-  __break(1u);
-  __break(1u);
-  result = specialized _ArrayBuffer._consumeAndCreateNew()(a2);
-  v24 = result;
-  v25 = *(result + 16);
-  if (v25)
-  {
-    v22 = v25 - 1;
-    v23 = *(result + 8 * v22 + 32);
-    *(result + 16) = v22;
-
-    v3[5] = v24;
-    v3[2] = v23;
-  }
-
   else
   {
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t outlined init with copy of LinkDestination.Configuration(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for LinkDestination.Configuration(0);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance LinkDestination.Configuration.CodingKeys()
-{
-  if (*v0)
-  {
-    return 0x7469736E65537369;
-  }
-
-  else
-  {
-    return 7107189;
-  }
-}
-
-uint64_t lazy protocol witness table accessor for type URL and conformance URL(unint64_t *a1)
-{
-  result = *a1;
-  if (!result)
-  {
-    type metadata accessor for URL();
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-void type metadata accessor for _ContiguousArrayStorage<(StrongHash, DisplayList)>()
-{
-  if (!lazy cache variable for type metadata for _ContiguousArrayStorage<(StrongHash, DisplayList)>)
-  {
-    type metadata accessor for (Path, FillStyle)(255, &lazy cache variable for type metadata for (StrongHash, DisplayList));
-    v0 = type metadata accessor for _ContiguousArrayStorage();
-    if (!v1)
+    a2 = specialized _ArrayBuffer._consumeAndCreateNew()(a2);
+    v35 = *(a2 + 2);
+    if (v35)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _ContiguousArrayStorage<(StrongHash, DisplayList)>);
+      goto LABEL_63;
     }
-  }
-}
-
-unint64_t Image.ResizingInfo.init(from:)@<X0>(unint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  v3 = result;
-  v28 = *MEMORY[0x1E69E9840];
-  if (one-time initialization token for resizable != -1)
-  {
-    result = swift_once();
-  }
-
-  v22 = unk_1EAB12458;
-  v23 = static Image.ResizingInfo.resizable;
-  v5 = byte_1EAB12468;
-  v24 = byte_1EAB12468;
-  v6 = v3[1];
-  v7 = v3[2];
-  if (v6 >= v7)
-  {
-LABEL_54:
-    v3[3] = 0;
-    *a2 = v23;
-    *(a2 + 16) = v22;
-    *(a2 + 32) = v5;
-    return result;
-  }
-
-  while (1)
-  {
-    result = v3[3];
-    if (result)
-    {
-      v8 = v3[4];
-      if (v6 < v8)
-      {
-        goto LABEL_13;
-      }
-
-      if (v8 < v6)
-      {
-        goto LABEL_52;
-      }
-
-      v3[3] = 0;
-    }
-
-    result = ProtobufDecoder.decodeVarint()();
-    if (v2)
-    {
-      return result;
-    }
-
-    if (result <= 7)
-    {
-      goto LABEL_52;
-    }
-
-LABEL_13:
-    v9 = result & 7;
-    if (result >> 3 == 2)
-    {
-      break;
-    }
-
-    if (result >> 3 == 1)
-    {
-      if ((result & 7) != 0)
-      {
-        if (v9 != 2)
-        {
-          goto LABEL_52;
-        }
-
-        result = ProtobufDecoder.decodeVarint()();
-        if (v2)
-        {
-          return result;
-        }
-
-        if ((result & 0x8000000000000000) != 0)
-        {
-          goto LABEL_59;
-        }
-
-        v10 = v3[1] + result;
-        if (v7 < v10)
-        {
-          goto LABEL_52;
-        }
-
-        v3[3] = 8;
-        v3[4] = v10;
-      }
-
-      result = ProtobufDecoder.decodeVarint()();
-      if (v2)
-      {
-        return result;
-      }
-
-      v24 = result != 1;
-    }
-
-    else
-    {
-      if ((result & 7) > 1)
-      {
-        if (v9 == 2)
-        {
-          result = ProtobufDecoder.decodeVarint()();
-          if (v2)
-          {
-            return result;
-          }
-
-          if ((result & 0x8000000000000000) != 0)
-          {
-            goto LABEL_60;
-          }
-
-          v18 = v3[1] + result;
-          if (v7 < v18)
-          {
-            goto LABEL_52;
-          }
-        }
-
-        else
-        {
-          if (v9 != 5)
-          {
-            goto LABEL_52;
-          }
-
-          v18 = v3[1] + 4;
-          if (v7 < v18)
-          {
-            goto LABEL_52;
-          }
-        }
-      }
-
-      else
-      {
-        if ((result & 7) == 0)
-        {
-          result = ProtobufDecoder.decodeVarint()();
-          if (v2)
-          {
-            return result;
-          }
-
-          goto LABEL_6;
-        }
-
-        if (v9 != 1)
-        {
-          goto LABEL_52;
-        }
-
-        v18 = v3[1] + 8;
-        if (v7 < v18)
-        {
-          goto LABEL_52;
-        }
-      }
-
-      v3[1] = v18;
-    }
-
-LABEL_6:
-    v6 = v3[1];
-    if (v6 >= v7)
-    {
-      v5 = v24;
-      goto LABEL_54;
-    }
-  }
-
-  if (v9 != 2)
-  {
-    goto LABEL_52;
-  }
-
-  v11 = v3[5];
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-    v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v11 + 2) + 1, 1, v11);
-  }
-
-  v13 = *(v11 + 2);
-  v12 = *(v11 + 3);
-  if (v13 >= v12 >> 1)
-  {
-    v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1, v11);
-  }
-
-  *(v11 + 2) = v13 + 1;
-  *&v11[8 * v13 + 32] = v7;
-  v3[5] = v11;
-  result = ProtobufDecoder.decodeVarint()();
-  if (v2)
-  {
-    return result;
-  }
-
-  if ((result & 0x8000000000000000) == 0)
-  {
-    v14 = v3[1] + result;
-    if (v7 < v14)
-    {
-      goto LABEL_52;
-    }
-
-    v3[2] = v14;
-    v26 = 0u;
-    v27 = 0u;
-    closure #1 in EdgeInsets.init(from:)(&v26, v3, &v25);
-    v15 = v3[5];
-    if (!*(v15 + 16))
-    {
-      goto LABEL_58;
-    }
-
-    v22 = v27;
-    v23 = v26;
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if (result)
-    {
-      v16 = *(v15 + 16);
-      if (!v16)
-      {
-        goto LABEL_51;
-      }
-    }
-
-    else
-    {
-      result = specialized _ArrayBuffer._consumeAndCreateNew()(v15);
-      v15 = result;
-      v16 = *(result + 16);
-      if (!v16)
-      {
-LABEL_51:
-        __break(1u);
-LABEL_52:
-        lazy protocol witness table accessor for type ProtobufDecoder.DecodingError and conformance ProtobufDecoder.DecodingError();
-        swift_allocError();
-        return swift_willThrow();
-      }
-    }
-
-    v17 = v16 - 1;
-    v7 = *(v15 + 8 * v17 + 32);
-    *(v15 + 16) = v17;
-    v3[5] = v15;
-    v3[2] = v7;
-    goto LABEL_6;
   }
 
   __break(1u);
-LABEL_58:
-  __break(1u);
-LABEL_59:
-  __break(1u);
-LABEL_60:
-  __break(1u);
-  __break(1u);
-  result = specialized _ArrayBuffer._consumeAndCreateNew()(a2);
-  v21 = *(result + 16);
-  if (!v21)
-  {
-    __break(1u);
-  }
-
-  v19 = v21 - 1;
-  v20 = *(result + 8 * v19 + 32);
-  *(result + 16) = v19;
-  v3[5] = result;
-  v3[2] = v20;
-  return result;
 }
 
-unint64_t lazy protocol witness table accessor for type LinkDestination.Configuration.CodingKeys and conformance LinkDestination.Configuration.CodingKeys()
+uint64_t specialized CodableAnimation.init(from:)(char *a1)
 {
-  result = lazy protocol witness table cache variable for type LinkDestination.Configuration.CodingKeys and conformance LinkDestination.Configuration.CodingKeys;
-  if (!lazy protocol witness table cache variable for type LinkDestination.Configuration.CodingKeys and conformance LinkDestination.Configuration.CodingKeys)
+  v3 = *(a1 + 1);
+  v4 = *(a1 + 2);
+  if (v3 >= v4)
   {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LinkDestination.Configuration.CodingKeys and conformance LinkDestination.Configuration.CodingKeys);
+    *(a1 + 3) = 0;
+    goto LABEL_4;
   }
 
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type LinkDestination.Configuration.CodingKeys and conformance LinkDestination.Configuration.CodingKeys;
-  if (!lazy protocol witness table cache variable for type LinkDestination.Configuration.CodingKeys and conformance LinkDestination.Configuration.CodingKeys)
+  v5 = 0;
+  do
   {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LinkDestination.Configuration.CodingKeys and conformance LinkDestination.Configuration.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type LinkDestination.Configuration.CodingKeys and conformance LinkDestination.Configuration.CodingKeys;
-  if (!lazy protocol witness table cache variable for type LinkDestination.Configuration.CodingKeys and conformance LinkDestination.Configuration.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LinkDestination.Configuration.CodingKeys and conformance LinkDestination.Configuration.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type LinkDestination.Configuration.CodingKeys and conformance LinkDestination.Configuration.CodingKeys;
-  if (!lazy protocol witness table cache variable for type LinkDestination.Configuration.CodingKeys and conformance LinkDestination.Configuration.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LinkDestination.Configuration.CodingKeys and conformance LinkDestination.Configuration.CodingKeys);
-  }
-
-  return result;
-}
-
-void type metadata accessor for KeyedEncodingContainer<LinkDestination.Configuration.CodingKeys>(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t, void *, unint64_t))
-{
-  if (!*a2)
-  {
-    v6 = lazy protocol witness table accessor for type LinkDestination.Configuration.CodingKeys and conformance LinkDestination.Configuration.CodingKeys();
-    v7 = a3(a1, &unk_1F0061D08, v6);
-    if (!v8)
+    v15 = *(a1 + 3);
+    if (v15)
     {
-      atomic_store(v7, a2);
-    }
-  }
-}
-
-void *specialized ContainerRelativeShape.path(in:)@<X0>(uint64_t a1@<X8>, __n128 a2@<Q0>, __n128 a3@<Q1>, __n128 a4@<Q2>, __n128 a5@<Q3>)
-{
-  v6 = _threadGeometryProxyData();
-  if (v6)
-  {
-    v7 = *v6;
-    v8 = *(v6 + 4);
-    v9 = *(v6 + 8);
-    v10 = *(v6 + 16);
-    v11 = *(v6 + 20);
-    v35[0] = *(v6 + 24);
-    *(v35 + 12) = *(v6 + 36);
-    specialized static Update.begin()();
-    if (AGWeakAttributeGetAttribute() == *MEMORY[0x1E698D3F8])
-    {
-      EnvironmentValues.init()(v36);
-      v12 = *(&v36[0] + 1);
-      v13 = *&v36[0];
-      static Update.end()();
-      if (v12)
+      v16 = *(a1 + 4);
+      if (v3 < v16)
       {
-LABEL_4:
-
-        _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA014ContainerShapeI033_E7F652304F78E63E0DE3A54ABB60E18ALLVG_Tt1g5(v13, &v32);
-
-LABEL_9:
-
-        v20 = *(&v32 + 1);
-        v21 = v33;
-        v22 = *v34;
-        v23 = *&v34[8];
-        v24 = *&v34[24];
-        *&v32 = __PAIR64__(v8, v7);
-        *(&v32 + 1) = v9;
-        v33 = __PAIR64__(v11, v10);
-        *v34 = v35[0];
-        *&v34[12] = *(v35 + 12);
-        v29 = v22;
-        v30 = v23;
-        v31 = v24;
-        result = (*(v20 + 8))(v36, &v32, v21, &v29, a2, a3, a4, a5);
-        v15 = v36[0];
-        v17 = v36[1];
-        v16 = v37;
-        goto LABEL_11;
-      }
-    }
-
-    else
-    {
-      AGWeakAttributeGetAttribute();
-      InputValue = AGGraphGetInputValue();
-      v13 = *InputValue;
-      v19 = *(InputValue + 8);
-
-      static Update.end()();
-      if (v19)
-      {
-        goto LABEL_4;
-      }
-    }
-
-    _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA011EnvironmentcF0VyAA014ContainerShapeF033_E7F652304F78E63E0DE3A54ABB60E18ALLVG_Tt2g5(v13, &v32);
-    goto LABEL_9;
-  }
-
-  *&v38.origin.x = a2.n128_u64[0];
-  *&v38.size.width = a4.n128_u64[0];
-  *&v38.origin.y = a3.n128_u64[0];
-  *&v38.size.height = a5.n128_u64[0];
-  result = CGRectIsNull(v38);
-  if (result)
-  {
-    v15 = 0uLL;
-    v16 = 6;
-    v17 = 0uLL;
-  }
-
-  else
-  {
-    v16 = 0;
-    *&v15 = a2.n128_u64[0];
-    *(&v15 + 1) = a3.n128_u64[0];
-    *&v17 = a4.n128_u64[0];
-    *(&v17 + 1) = a5.n128_u64[0];
-  }
-
-LABEL_11:
-  *a1 = v15;
-  *(a1 + 16) = v17;
-  *(a1 + 32) = v16;
-  return result;
-}
-
-double protocol witness for Shape.path(in:) in conformance ContainerRelativeShape@<D0>(uint64_t a1@<X8>, __n128 a2@<Q0>, __n128 a3@<Q1>, __n128 a4@<Q2>, __n128 a5@<Q3>)
-{
-  specialized ContainerRelativeShape.path(in:)(v8, a2, a3, a4, a5);
-  result = *v8;
-  v7 = v8[1];
-  *a1 = v8[0];
-  *(a1 + 16) = v7;
-  *(a1 + 32) = v9;
-  return result;
-}
-
-uint64_t DisplayList.UnaryInterpolatorGroup.rewriteInterpolation(serial:list:time:frame:contentOrigin:contentOffset:version:)(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t *a12)
-{
-  v20 = *a12;
-  v21 = *(a10 + 8);
-  v22 = *(a10 + 12);
-  *&v51[0] = *a10;
-  WORD4(v51[0]) = v21;
-  HIDWORD(v51[0]) = v22;
-  swift_beginAccess();
-
-  DisplayList.InterpolatorLayer.setDisplayList(_:origin:)(v51, a5, a6);
-  swift_endAccess();
-
-  if (*(*(v12 + 80) + 16))
-  {
-    Value = AGGraphGetValue();
-    if (*(v12 + 88) != *Value)
-    {
-      *(v12 + 88) = *Value;
-      *(v12 + 107) = 1;
-    }
-
-    specialized static GraphHost.currentHost.getter();
-    type metadata accessor for ViewGraph();
-    v24 = swift_dynamicCastClassUnconditional();
-    v25 = *AGGraphGetValue();
-    swift_beginAccess();
-    v26 = *(v24 + 376);
-    if (v25 < v26)
-    {
-      v26 = v25;
-    }
-
-    *(v24 + 376) = v26;
-
-    v27 = *(v12 + 108);
-    swift_beginAccess();
-    v28 = *(v12 + 16);
-    swift_beginAccess();
-    DisplayList.InterpolatorLayer.updateInterpolators(contentsScale:maxDuration:)(v27, v28);
-    swift_endAccess();
-    v29 = *(v12 + 72);
-    v51[2] = *(v12 + 56);
-    v51[3] = v29;
-    v51[4] = *(v12 + 88);
-    v52 = *(v12 + 104);
-    v30 = *(v12 + 40);
-    v51[0] = *(v12 + 24);
-    v51[1] = v30;
-    v31 = *(v12 + 72);
-    v47 = *(v12 + 56);
-    v48 = v31;
-    v49 = *(v12 + 88);
-    v50 = *(v12 + 104);
-    v32 = *(v12 + 40);
-    v45 = *(v12 + 24);
-    v46 = v32;
-    v44 = v20;
-    v33 = *(v12 + 116);
-    v34 = *(v12 + 120);
-    v35 = *(v12 + 124);
-    v40 = *(v12 + 112);
-    v41 = v33;
-    v42 = v34;
-    v43 = v35;
-    outlined init with copy of DisplayList.InterpolatorLayer(v51, v53);
-    v38 = DisplayList.InterpolatorLayer.updateOutput(list:frame:contentOffset:version:rasterizationOptions:)(a10, &v44, &v40, v36, v37, a3, a4, a7, a8);
-    v53[2] = v47;
-    v53[3] = v48;
-    v53[4] = v49;
-    v54 = v50;
-    v53[0] = v45;
-    v53[1] = v46;
-    outlined destroy of DisplayList.InterpolatorLayer(v53);
-  }
-
-  else
-  {
-    v38 = 0;
-  }
-
-  return v38 & 1;
-}
-
-void closure #1 in ViewGraphTransform.apply(to:)(void *a1, uint64_t a2, uint64_t *a3)
-{
-  v10 = a3;
-  v14 = a1[5];
-  v12 = a1[6];
-  v13 = a1 + 5;
-  v15 = (a1 + 7);
-  v16 = a1[7];
-  v17 = a1[8];
-  v18 = v17 >> 30;
-  v224 = a2;
-  if (v17 >> 30 <= 1)
-  {
-    v221 = a1[5];
-    if (!v18)
-    {
-      if (v14 >> 60 != 11)
-      {
-        return;
+        goto LABEL_17;
       }
 
-      v219 = a1[6];
-      v220 = a1;
-      v217 = a1[8];
-      v4 = *((v14 & 0xFFFFFFFFFFFFFFFLL) + 0x10);
-      v19 = *((v14 & 0xFFFFFFFFFFFFFFFLL) + 0x18);
-      v6 = *((v14 & 0xFFFFFFFFFFFFFFFLL) + 0x20);
-      v7 = *((v14 & 0xFFFFFFFFFFFFFFFLL) + 0x28);
-      LODWORD(v3) = v217;
-      v20 = v219;
-      if ((v19 & 0x60) == 0 && ((v19 & 0x80) == 0 || !*(*(a2 + 16) + 16)))
+      if (v16 < v3)
       {
-        return;
+        goto LABEL_142;
       }
 
-      v211 = *((v14 & 0xFFFFFFFFFFFFFFFLL) + 0x3C);
-      v212 = *((v14 & 0xFFFFFFFFFFFFFFFLL) + 0x38);
-      LOBYTE(v213) = *((v14 & 0xFFFFFFFFFFFFFFFLL) + 0x35);
-      v214 = *((v14 & 0xFFFFFFFFFFFFFFFLL) + 0x34);
-      v215 = *((v14 & 0xFFFFFFFFFFFFFFFLL) + 0x30);
-      *v231 = 0;
-      v17 = *(v4 + 2);
-      outlined copy of DisplayList.Item.Value(v14, v12, v16, v217);
-      v223 = v17;
-      v218 = v10;
-      v216 = v16;
-      if (!v17)
+      *(a1 + 3) = 0;
+    }
+
+    v15 = ProtobufDecoder.decodeVarint()(v15);
+    if (v1)
+    {
+      goto LABEL_144;
+    }
+
+    if (v15 < 8)
+    {
+      goto LABEL_142;
+    }
+
+LABEL_17:
+    v17 = v15 >> 3;
+    if (v15 >> 3 <= 3)
+    {
+      switch(v17)
       {
-
-        v147 = 0;
-        v21 = 0;
-        LOWORD(v16) = 0;
-LABEL_226:
-        if (v147 <= v220[4])
-        {
-          v148 = v220[4];
-        }
-
-        else
-        {
-          v148 = v147;
-        }
-
-        v220[4] = v148;
-        v149 = swift_allocObject();
-        *(v149 + 16) = v4;
-        *(v149 + 24) = v16;
-        *(v149 + 28) = v21;
-        *(v149 + 32) = v6;
-        *(v149 + 40) = v7;
-        *(v149 + 48) = v215;
-        *(v149 + 52) = v214;
-        *(v149 + 53) = v213;
-        *(v149 + 56) = v212;
-        *(v149 + 60) = v211;
-        if (v148)
-        {
-          v150 = (2 * (((33 * WORD1(v148)) ^ v148) & 0x7FFF)) | 1;
-        }
-
-        else
-        {
-          v150 = 0;
-        }
-
-        v151 = v149 | 0xB000000000000000;
-        outlined consume of DisplayList.Item.Value(v220[5], v220[6], v220[7], v220[8]);
-        v220[5] = v151;
-        v220[6] = v150;
-        *v15 = 0;
-        *(v15 + 8) = 0;
-        v152 = *v218;
-        if (v147 > *v218)
-        {
-          v152 = v147;
-        }
-
-        *v218 = v152;
-
-        outlined consume of DisplayList.Item.Value(v14, v219, v216, v217);
-        return;
-      }
-
-      outlined copy of DisplayList.Item.Value(v14, v219, v16, v217);
-
-      if (swift_isUniquelyReferenced_nonNull_native())
-      {
-        if (*(v4 + 2))
-        {
-LABEL_8:
-          LODWORD(v16) = 0;
-          v21 = 0;
-          v22 = 0;
-          v222 = v4 + 32;
-          v23 = 1;
-          while (1)
+        case 1uLL:
+          if ((v15 & 7) != 2)
           {
-            v17 = v22;
-            v22 = v23;
-            v20 = &v222[80 * v17];
-            closure #1 in ViewGraphTransform.apply(to:)(v20, a2, v231);
-            if (v17 >= *(v4 + 2))
-            {
-              __break(1u);
-LABEL_358:
-              __break(1u);
-LABEL_359:
-              __break(1u);
-LABEL_360:
-              __break(1u);
-LABEL_361:
-              __break(1u);
-LABEL_362:
-              __break(1u);
-LABEL_363:
-              __break(1u);
-LABEL_364:
-              __break(1u);
-LABEL_365:
-              __break(1u);
-LABEL_366:
-              __break(1u);
-LABEL_367:
-              __break(1u);
-LABEL_368:
-              __break(1u);
-              goto LABEL_369;
-            }
-
-            v227 = *(v20 + 1);
-            v228 = *(v20 + 2);
-            v229[0] = *(v20 + 3);
-            *(v229 + 12) = *(v20 + 60);
-            v226 = *v20;
-            DisplayList.Item.features.getter(&v230);
-            v24 = *(v4 + 2);
-            if (v17 >= v24)
-            {
-              goto LABEL_358;
-            }
-
-            v16 = v230 | v16;
-            v3 = *(v20 + 5);
-            v5 = *(v20 + 8);
-            v25 = v5 >> 30;
-            if (v5 >> 30 > 1)
-            {
-              if (v25 != 2)
-              {
-                goto LABEL_9;
-              }
-
-              v27 = *(v3 + 16);
-              if (v27)
-              {
-                if (v27 > 7)
-                {
-                  v28 = v27 & 0x7FFFFFFFFFFFFFF8;
-                  v30 = (v3 + 188);
-                  v31 = 0uLL;
-                  v32 = v27 & 0x7FFFFFFFFFFFFFF8;
-                  v33 = 0uLL;
-                  do
-                  {
-                    v34.i32[0] = *(v30 - 30);
-                    v34.i32[1] = *(v30 - 20);
-                    v34.i32[2] = *(v30 - 10);
-                    v34.i32[3] = *v30;
-                    v35.i32[0] = v30[10];
-                    v35.i32[1] = v30[20];
-                    v35.i32[2] = v30[30];
-                    v35.i32[3] = v30[40];
-                    v31 = vorrq_s8(v34, v31);
-                    v33 = vorrq_s8(v35, v33);
-                    v30 += 80;
-                    v32 -= 8;
-                  }
-
-                  while (v32);
-                  v36 = vorrq_s8(v33, v31);
-                  *v36.i8 = vorr_s8(*v36.i8, *&vextq_s8(v36, v36, 8uLL));
-                  v26 = v36.i32[0] | v36.i32[1];
-                  if (v27 == v28)
-                  {
-                    goto LABEL_37;
-                  }
-                }
-
-                else
-                {
-                  v26 = 0;
-                  v28 = 0;
-                }
-
-                v37 = v27 - v28;
-                v38 = (v3 + 40 * v28 + 68);
-                do
-                {
-                  v39 = *v38;
-                  v38 += 10;
-                  v26 |= v39;
-                  --v37;
-                }
-
-                while (v37);
-              }
-
-              else
-              {
-                v26 = 0;
-              }
-            }
-
-            else if (v25)
-            {
-              v29 = *(v20 + 6);
-              if (BYTE4(v29) == 2)
-              {
-                outlined copy of DisplayList.Effect(*(v20 + 5), *(v20 + 6), 2);
-                v17 = v3;
-              }
-
-              else
-              {
-                v20 = *(v20 + 7);
-                if (BYTE4(v29) == 7)
-                {
-                  v17 = *(v3 + 28);
-                  outlined copy of DisplayList.Item.Value(v3, v29, v20, v5);
-                  outlined consume of DisplayList.Effect(v3, v29, 7);
-                }
-
-                else if (BYTE4(v29) == 18)
-                {
-                  (*(*v3 + 120))(&v226);
-                  outlined copy of DisplayList.Item.Value(v3, v29, v20, v5);
-                  outlined consume of DisplayList.Effect(v3, v29, 18);
-
-                  v17 = v226;
-                }
-
-                else
-                {
-                  outlined copy of DisplayList.Effect(v3, v29, SBYTE4(v29));
-
-                  outlined consume of DisplayList.Effect(v3, v29, SBYTE4(v29));
-
-                  v17 = 0;
-                }
-              }
-
-              v26 = v17 | HIDWORD(v5);
-              a2 = v224;
-            }
-
-            else
-            {
-              if (v3 >> 60 != 6 && v3 >> 60 != 11)
-              {
-LABEL_9:
-                if (v22 == v223)
-                {
-                  goto LABEL_221;
-                }
-
-                goto LABEL_10;
-              }
-
-              v26 = *((v3 & 0xFFFFFFFFFFFFFFFLL) + 0x1C);
-            }
-
-LABEL_37:
-            v21 |= v26;
-            if (v22 == v223)
-            {
-LABEL_221:
-              v14 = v221;
-              outlined consume of DisplayList.Item.Value(v221, v219, v216, v217);
-              v147 = *v231;
-              goto LABEL_226;
-            }
-
-            v24 = *(v4 + 2);
-LABEL_10:
-            v23 = v22 + 1;
-            if (v22 >= v24)
-            {
-              goto LABEL_376;
-            }
-          }
-        }
-
-        goto LABEL_376;
-      }
-
-LABEL_375:
-      v4 = specialized _ArrayBuffer._consumeAndCreateNew()(v4);
-      if (*(v4 + 2))
-      {
-        goto LABEL_8;
-      }
-
-LABEL_376:
-      __break(1u);
-      goto LABEL_377;
-    }
-
-    v15 = a1[8];
-    *v231 = a1[7];
-    *&v231[8] = v17;
-    *&v231[12] = HIDWORD(v17);
-    v219 = v12;
-    v220 = a1;
-    switch(BYTE4(v12))
-    {
-      case 7u:
-        v4 = *(v14 + 16);
-        LODWORD(v217) = *(v14 + 24);
-        v214 = *(v14 + 28);
-        v215 = *(v14 + 32);
-        v218 = a3;
-        if ((v17 & 0x60) != 0 || (v17 & 0x80) != 0 && *(*(a2 + 16) + 16))
-        {
-          v230 = 0;
-          *&v231[8] = 0;
-          *&v231[12] = 0;
-          v20 = *(v16 + 16);
-          outlined copy of DisplayList.Item.Value(v14, v12, v16, v17);
-
-          v223 = v20;
-          if (v20)
-          {
-            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-            {
-              goto LABEL_379;
-            }
-
-            if (*(v16 + 16))
-            {
-              goto LABEL_150;
-            }
-
-LABEL_380:
-            __break(1u);
-LABEL_381:
-            v16 = specialized _ArrayBuffer._consumeAndCreateNew()(v16);
-LABEL_59:
-            LODWORD(v222) = v3;
-            if (!*(v16 + 16))
-            {
-              goto LABEL_359;
-            }
-
-            v49 = 0;
-            LODWORD(v5) = 0;
-            v50 = 0;
-            v4 = (v16 + 32);
-            v51 = 1;
-            while (1)
-            {
-              v17 = v50;
-              v50 = v51;
-              v20 = &v4[80 * v17];
-              closure #1 in ViewGraphTransform.apply(to:)(v20, a2, &v230);
-              if (v17 >= *(v16 + 16))
-              {
-                goto LABEL_362;
-              }
-
-              v227 = *(v20 + 1);
-              v228 = *(v20 + 2);
-              v229[0] = *(v20 + 3);
-              *(v229 + 12) = *(v20 + 60);
-              v226 = *v20;
-              DisplayList.Item.features.getter(&v225);
-              v52 = *(v16 + 16);
-              if (v17 >= v52)
-              {
-                goto LABEL_366;
-              }
-
-              v15 = v16;
-              v49 |= v225;
-              v53 = *(v20 + 5);
-              v54 = *(v20 + 8);
-              v55 = v54 >> 30;
-              if (v54 >> 30 > 1)
-              {
-                if (v55 != 2)
-                {
-                  v16 = v15;
-                  if (v50 == v223)
-                  {
-                    goto LABEL_239;
-                  }
-
-                  goto LABEL_62;
-                }
-
-                v57 = *(v53 + 16);
-                if (!v57)
-                {
-                  v56 = 0;
-LABEL_92:
-                  v16 = v15;
-                  goto LABEL_93;
-                }
-
-                v16 = v15;
-                if (v57 > 7)
-                {
-                  v58 = v57 & 0x7FFFFFFFFFFFFFF8;
-                  v60 = (v53 + 188);
-                  v61 = 0uLL;
-                  v62 = v57 & 0x7FFFFFFFFFFFFFF8;
-                  v63 = 0uLL;
-                  do
-                  {
-                    v64.i32[0] = *(v60 - 30);
-                    v64.i32[1] = *(v60 - 20);
-                    v64.i32[2] = *(v60 - 10);
-                    v64.i32[3] = *v60;
-                    v65.i32[0] = v60[10];
-                    v65.i32[1] = v60[20];
-                    v65.i32[2] = v60[30];
-                    v65.i32[3] = v60[40];
-                    v61 = vorrq_s8(v64, v61);
-                    v63 = vorrq_s8(v65, v63);
-                    v60 += 80;
-                    v62 -= 8;
-                  }
-
-                  while (v62);
-                  v66 = vorrq_s8(v63, v61);
-                  *v66.i8 = vorr_s8(*v66.i8, *&vextq_s8(v66, v66, 8uLL));
-                  v56 = v66.i32[0] | v66.i32[1];
-                  if (v57 == v58)
-                  {
-                    goto LABEL_93;
-                  }
-                }
-
-                else
-                {
-                  v56 = 0;
-                  v58 = 0;
-                }
-
-                v67 = v57 - v58;
-                v68 = (v53 + 40 * v58 + 68);
-                do
-                {
-                  v69 = *v68;
-                  v68 += 10;
-                  v56 |= v69;
-                  --v67;
-                }
-
-                while (v67);
-              }
-
-              else
-              {
-                if (v55)
-                {
-                  v59 = *(v20 + 6);
-                  if (BYTE4(v59) == 2)
-                  {
-                    outlined copy of DisplayList.Effect(*(v20 + 5), *(v20 + 6), 2);
-                    v17 = v53;
-                  }
-
-                  else
-                  {
-                    v20 = *(v20 + 7);
-                    if (BYTE4(v59) == 7)
-                    {
-                      v17 = *(v53 + 28);
-                      outlined copy of DisplayList.Item.Value(v53, v59, v20, v54);
-                      outlined consume of DisplayList.Effect(v53, v59, 7);
-                    }
-
-                    else if (BYTE4(v59) == 18)
-                    {
-                      (*(*v53 + 120))(&v226);
-                      outlined copy of DisplayList.Item.Value(v53, v59, v20, v54);
-                      outlined consume of DisplayList.Effect(v53, v59, 18);
-
-                      v17 = v226;
-                    }
-
-                    else
-                    {
-                      outlined copy of DisplayList.Effect(v53, v59, SBYTE4(v59));
-
-                      outlined consume of DisplayList.Effect(v53, v59, SBYTE4(v59));
-
-                      v17 = 0;
-                    }
-                  }
-
-                  v56 = v17 | HIDWORD(v54);
-                  a2 = v224;
-                  goto LABEL_92;
-                }
-
-                if (v53 >> 60 == 6)
-                {
-                  v56 = *((v53 & 0xFFFFFFFFFFFFFFFLL) + 0x1C);
-                  goto LABEL_92;
-                }
-
-                v16 = v15;
-                if (v53 >> 60 != 11)
-                {
-                  if (v50 == v223)
-                  {
-                    goto LABEL_239;
-                  }
-
-                  goto LABEL_62;
-                }
-
-                v56 = *((v53 & 0xFFFFFFFFFFFFFFFLL) + 0x1C);
-              }
-
-LABEL_93:
-              LODWORD(v5) = v56 | v5;
-              if (v50 == v223)
-              {
-LABEL_239:
-                *v231 = v16;
-                *&v231[12] = v5;
-                *&v231[8] = v49;
-                v16 = v230;
-                v10 = v218;
-                v14 = v221;
-                goto LABEL_326;
-              }
-
-              v52 = *(v16 + 16);
-LABEL_62:
-              v51 = v50 + 1;
-              if (v50 >= v52)
-              {
-                goto LABEL_359;
-              }
-            }
-          }
-        }
-
-        else
-        {
-          outlined copy of DisplayList.Item.Value(v14, v12, v16, v17);
-        }
-
-        v16 = 0;
-        goto LABEL_282;
-      case 0x10u:
-        v218 = a3;
-        v6 = *(v14 + 16);
-        v7 = *(v14 + 24);
-        LODWORD(v47) = *(v14 + 32);
-        v17 = a1[4];
-        v3 = a2 + 16;
-        v20 = *(a2 + 16);
-        outlined copy of DisplayList.Effect(v14, v12, 16);
-
-        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        *(a2 + 16) = v20;
-        if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-        {
-          goto LABEL_373;
-        }
-
-        goto LABEL_105;
-      case 0x11u:
-        v3 = *(v14 + 16);
-        v7 = *(v14 + 24);
-        v8 = *(v14 + 32);
-        v9 = *(v14 + 40);
-        v6 = *(v14 + 48);
-        if ((v17 & 0x60) == 0 && ((v17 & 0x80) == 0 || !*(*(a2 + 16) + 16)))
-        {
-          outlined copy of DisplayList.Effect(v14, v12, 17);
-
-LABEL_325:
-          v16 = 0;
-LABEL_326:
-          v200 = *a2;
-          *&v226 = *(a2 + 8);
-          DisplayList.InterpolatorGroup.rewriteDisplayList(_:time:contentOrigin:contentOffset:version:)(v231, v200, &v226, v7, v8, v9, v6);
-          if (v201)
-          {
-            v16 = *(a2 + 8);
+            goto LABEL_142;
           }
 
-          v175 = v14;
-          v176 = v219;
-          v177 = 17;
-          goto LABEL_329;
-        }
-
-        v230 = 0;
-        *&v231[8] = 0;
-        *&v231[12] = 0;
-        v20 = *(v16 + 16);
-        outlined copy of DisplayList.Effect(v14, v12, 17);
-
-        v223 = v20;
-        if (!v20)
-        {
-          goto LABEL_325;
-        }
-
-        v218 = v10;
-        if (swift_isUniquelyReferenced_nonNull_native())
-        {
-          goto LABEL_59;
-        }
-
-        goto LABEL_381;
-    }
-
-    v17 = HIDWORD(v12);
-    if ((v15 & 0x60) == 0 && ((v15 & 0x80) == 0 || !*(*(a2 + 16) + 16)))
-    {
-      v202 = v12;
-      outlined copy of DisplayList.Effect(v14, v12, SBYTE4(v12));
-
-      v153 = v202;
-      v16 = 0;
-      goto LABEL_342;
-    }
-
-    v230 = 0;
-    *&v231[8] = 0;
-    *&v231[12] = 0;
-    v125 = *(v16 + 16);
-    outlined copy of DisplayList.Effect(v14, v12, SBYTE4(v12));
-
-    v223 = v125;
-    if (!v125)
-    {
-      v16 = 0;
-      v153 = v219;
-      goto LABEL_342;
-    }
-
-    v222 = v17;
-    v218 = v10;
-    if (swift_isUniquelyReferenced_nonNull_native())
-    {
-      if (*(v16 + 16))
-      {
-LABEL_190:
-        v15 = v16;
-        v126 = 0;
-        v127 = 0;
-        v128 = 0;
-        v5 = (v15 + 32);
-        v129 = 1;
-        do
-        {
-          v17 = v128;
-          v128 = v129;
-          v20 = &v5[80 * v17];
-          closure #1 in ViewGraphTransform.apply(to:)(v20, a2, &v230);
-          if (v17 >= *(v15 + 16))
+          v48 = *(a1 + 5);
+          isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+          if ((isUniquelyReferenced_nonNull_native & 1) == 0)
           {
-            goto LABEL_363;
+            isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v48 + 16) + 1, 1, v48);
+            v48 = isUniquelyReferenced_nonNull_native;
           }
 
-          v227 = *(v20 + 1);
-          v228 = *(v20 + 2);
-          v229[0] = *(v20 + 3);
-          *(v229 + 12) = *(v20 + 60);
-          v226 = *v20;
-          DisplayList.Item.features.getter(&v225);
-          v130 = *(v15 + 16);
-          if (v17 >= v130)
+          v51 = *(v48 + 16);
+          v50 = *(v48 + 24);
+          if (v51 >= v50 >> 1)
           {
-            goto LABEL_367;
+            isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v50 > 1), v51 + 1, 1, v48);
+            v48 = isUniquelyReferenced_nonNull_native;
           }
 
-          v126 |= v225;
-          v3 = *(v20 + 5);
-          v4 = *(v20 + 8);
-          v131 = v4 >> 30;
-          if (v4 >> 30 > 1)
+          *(v48 + 16) = v51 + 1;
+          *(v48 + 8 * v51 + 32) = v4;
+          *(a1 + 5) = v48;
+          v22 = a1;
+          v52 = ProtobufDecoder.decodeVarint()(isUniquelyReferenced_nonNull_native);
+          if (v1)
           {
-            if (v131 != 2)
-            {
-              goto LABEL_191;
-            }
-
-            v133 = *(v3 + 16);
-            if (v133)
-            {
-              if (v133 > 7)
-              {
-                v134 = v133 & 0x7FFFFFFFFFFFFFF8;
-                v137 = (v3 + 188);
-                v138 = 0uLL;
-                v139 = v133 & 0x7FFFFFFFFFFFFFF8;
-                v140 = 0uLL;
-                do
-                {
-                  v141.i32[0] = *(v137 - 30);
-                  v141.i32[1] = *(v137 - 20);
-                  v141.i32[2] = *(v137 - 10);
-                  v141.i32[3] = *v137;
-                  v142.i32[0] = v137[10];
-                  v142.i32[1] = v137[20];
-                  v142.i32[2] = v137[30];
-                  v142.i32[3] = v137[40];
-                  v138 = vorrq_s8(v141, v138);
-                  v140 = vorrq_s8(v142, v140);
-                  v137 += 80;
-                  v139 -= 8;
-                }
-
-                while (v139);
-                v143 = vorrq_s8(v140, v138);
-                *v143.i8 = vorr_s8(*v143.i8, *&vextq_s8(v143, v143, 8uLL));
-                v132 = v143.i32[0] | v143.i32[1];
-                if (v133 == v134)
-                {
-                  goto LABEL_219;
-                }
-              }
-
-              else
-              {
-                v132 = 0;
-                v134 = 0;
-              }
-
-              v144 = v133 - v134;
-              v145 = (v3 + 40 * v134 + 68);
-              do
-              {
-                v146 = *v145;
-                v145 += 10;
-                v132 |= v146;
-                --v144;
-              }
-
-              while (v144);
-            }
-
-            else
-            {
-              v132 = 0;
-            }
-          }
-
-          else if (v131)
-          {
-            v135 = *(v20 + 6);
-            if (BYTE4(v135) == 2)
-            {
-              outlined copy of DisplayList.Effect(*(v20 + 5), *(v20 + 6), 2);
-              v17 = v3;
-            }
-
-            else
-            {
-              v136 = *(v20 + 7);
-              if (BYTE4(v135) == 7)
-              {
-                v17 = *(v3 + 28);
-                outlined copy of DisplayList.Item.Value(v3, v135, v136, v4);
-                outlined consume of DisplayList.Effect(v3, v135, 7);
-              }
-
-              else if (BYTE4(v135) == 18)
-              {
-                (*(*v3 + 120))(&v226);
-                outlined copy of DisplayList.Item.Value(v3, v135, v136, v4);
-                outlined consume of DisplayList.Effect(v3, v135, 18);
-
-                v17 = v226;
-              }
-
-              else
-              {
-                outlined copy of DisplayList.Effect(v3, v135, SBYTE4(v135));
-
-                outlined consume of DisplayList.Effect(v3, v135, SBYTE4(v135));
-
-                v17 = 0;
-              }
-            }
-
-            v132 = v17 | HIDWORD(v4);
-            a2 = v224;
-          }
-
-          else
-          {
-            if (v3 >> 60 != 6 && v3 >> 60 != 11)
-            {
-LABEL_191:
-              if (v128 == v223)
-              {
-                goto LABEL_240;
-              }
-
-              goto LABEL_192;
-            }
-
-            v132 = *((v3 & 0xFFFFFFFFFFFFFFFLL) + 0x1C);
-          }
-
-LABEL_219:
-          v127 |= v132;
-          if (v128 == v223)
-          {
-LABEL_240:
-            *v231 = v15;
-            *&v231[12] = v127;
-            *&v231[8] = v126;
-            v16 = v230;
-            v10 = v218;
-            v153 = v219;
-            v14 = v221;
-            LOBYTE(v17) = v222;
-            goto LABEL_342;
-          }
-
-          v130 = *(v15 + 16);
-LABEL_192:
-          v129 = v128 + 1;
-        }
-
-        while (v128 < v130);
-      }
-    }
-
-    else
-    {
-      v16 = specialized _ArrayBuffer._consumeAndCreateNew()(v16);
-      if (*(v16 + 16))
-      {
-        goto LABEL_190;
-      }
-    }
-
-    __break(1u);
-    goto LABEL_384;
-  }
-
-  if (v18 != 2)
-  {
-    return;
-  }
-
-  v4 = (a2 + 16);
-  if (!*(*(a2 + 16) + 16))
-  {
-    return;
-  }
-
-  v40 = a1[6];
-  v220 = a1;
-
-  specialized Array._customRemoveLast()(&v226);
-  if (v228)
-  {
-    specialized Array.remove(at:)(*(*v4 + 16) - 1, &v226);
-  }
-
-  v15 = v226;
-  LODWORD(v5) = DWORD1(v226);
-  v217 = *(&v227 + 1);
-  v41 = *(v14 + 16);
-  LODWORD(v222) = HIDWORD(v226);
-  LODWORD(v223) = DWORD2(v226);
-  LODWORD(v221) = v227;
-  if (!v41)
-  {
-LABEL_95:
-    outlined consume of DisplayList.Item.Value(v14, v40, v16, v17);
-    outlined consume of DisplayList.Item.Value(v220[5], v220[6], v220[7], v220[8]);
-    v70 = v220;
-    *v13 = 0;
-    v13[1] = 0;
-    v13[2] = 0;
-    v220[8] = 3221225472;
-LABEL_96:
-    v71 = v70[4];
-    v17 = v217;
-    if (v217 > v71)
-    {
-      v71 = v217;
-    }
-
-    v70[4] = v71;
-    if (v71 <= *v10)
-    {
-      v71 = *v10;
-    }
-
-    *v10 = v71;
-    v20 = *v4;
-    v72 = swift_isUniquelyReferenced_nonNull_native();
-    *v4 = v20;
-    if ((v72 & 1) == 0)
-    {
-LABEL_370:
-      v20 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v20 + 2) + 1, 1, v20);
-      *v4 = v20;
-    }
-
-    v74 = *(v20 + 2);
-    v73 = *(v20 + 3);
-    v75 = v223;
-    v76 = v222;
-    v77 = v221;
-    if (v74 >= v73 >> 1)
-    {
-      v210 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v73 > 1), v74 + 1, 1, v20);
-      v77 = v221;
-      v76 = v222;
-      v75 = v223;
-      v20 = v210;
-      *v4 = v210;
-    }
-
-    *(v20 + 2) = v74 + 1;
-    v78 = &v20[32 * v74];
-    *(v78 + 8) = v15;
-    *(v78 + 9) = v5;
-    *(v78 + 10) = v75;
-    *(v78 + 11) = v76;
-    *(v78 + 12) = v77;
-    *(v78 + 7) = v17;
-    return;
-  }
-
-  v3 = v231;
-  v42 = v14 + 32;
-  while (1)
-  {
-    v43 = *(v42 + 32);
-    v44 = *(v42 + 16);
-    *v231 = *v42;
-    *&v231[16] = v44;
-    v232 = v43;
-    if (*v231 == v226 && *&v231[4] == __PAIR128__(__PAIR64__(v227, HIDWORD(v226)), *(&v226 + 4)))
-    {
-      break;
-    }
-
-    v42 += 40;
-    if (!--v41)
-    {
-      goto LABEL_95;
-    }
-  }
-
-  outlined init with copy of (StrongHash, DisplayList)(v231, &v226);
-  outlined consume of DisplayList.Item.Value(v14, v40, v16, v17);
-  v17 = *&v231[24];
-  LODWORD(v14) = v232;
-  v45 = v220;
-  if ((v232 & 0x60) == 0)
-  {
-    v16 = HIDWORD(v232);
-    if ((v14 & 0x80) == 0 || !*(*v4 + 16))
-    {
-LABEL_356:
-      outlined consume of DisplayList.Item.Value(v45[5], v45[6], v45[7], v45[8]);
-      v70 = v220;
-      *(v220 + 5) = xmmword_18DDA6ED0;
-      v220[7] = v17;
-      v220[8] = v14 | (v16 << 32) | 0x40000000;
-      goto LABEL_96;
-    }
-  }
-
-  v230 = 0;
-  v46 = *(*&v231[24] + 16);
-  v219 = v46;
-  if (!v46)
-  {
-    LODWORD(v14) = 0;
-    v16 = 0;
-LABEL_353:
-    if (v46 <= v220[4])
-    {
-      v46 = v220[4];
-    }
-
-    v45 = v220;
-    v220[4] = v46;
-    goto LABEL_356;
-  }
-
-  v218 = v10;
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-    goto LABEL_386;
-  }
-
-  if (!*(v17 + 16))
-  {
-LABEL_387:
-    __break(1u);
-    return;
-  }
-
-  while (2)
-  {
-    v14 = 0;
-    v16 = 0;
-    v47 = 0;
-    v216 = v17 + 32;
-    v48 = 1;
-    while (1)
-    {
-      v154 = v47;
-      v47 = v48;
-      v20 = (v216 + 80 * v154);
-      closure #1 in ViewGraphTransform.apply(to:)(v20, v224, &v230);
-      if (v154 >= *(v17 + 16))
-      {
-        break;
-      }
-
-      v227 = *(v20 + 1);
-      v228 = *(v20 + 2);
-      v229[0] = *(v20 + 3);
-      *(v229 + 12) = *(v20 + 60);
-      v226 = *v20;
-      v3 = &v226;
-      DisplayList.Item.features.getter(&v225);
-      v155 = *(v17 + 16);
-      if (v154 >= v155)
-      {
-        goto LABEL_372;
-      }
-
-      v14 = v225 | v14;
-      v3 = *(v20 + 5);
-      v156 = *(v20 + 8);
-      v157 = v156 >> 30;
-      if (v156 >> 30 > 1)
-      {
-        if (v157 != 2)
-        {
-          goto LABEL_241;
-        }
-
-        v159 = *(v3 + 16);
-        if (v159)
-        {
-          if (v159 > 7)
-          {
-            v160 = v159 & 0x7FFFFFFFFFFFFFF8;
-            v164 = (v3 + 188);
-            v165 = 0uLL;
-            v166 = v159 & 0x7FFFFFFFFFFFFFF8;
-            v167 = 0uLL;
-            do
-            {
-              v168.i32[0] = *(v164 - 30);
-              v168.i32[1] = *(v164 - 20);
-              v168.i32[2] = *(v164 - 10);
-              v168.i32[3] = *v164;
-              v169.i32[0] = v164[10];
-              v169.i32[1] = v164[20];
-              v169.i32[2] = v164[30];
-              v169.i32[3] = v164[40];
-              v165 = vorrq_s8(v168, v165);
-              v167 = vorrq_s8(v169, v167);
-              v164 += 80;
-              v166 -= 8;
-            }
-
-            while (v166);
-            v170 = vorrq_s8(v167, v165);
-            *v170.i8 = vorr_s8(*v170.i8, *&vextq_s8(v170, v170, 8uLL));
-            v158 = v170.i32[0] | v170.i32[1];
-            if (v159 == v160)
-            {
-              goto LABEL_269;
-            }
-          }
-
-          else
-          {
-            v158 = 0;
-            v160 = 0;
-          }
-
-          v171 = v159 - v160;
-          v172 = (v3 + 40 * v160 + 68);
-          do
-          {
-            v173 = *v172;
-            v172 += 10;
-            v158 |= v173;
-            --v171;
-          }
-
-          while (v171);
-        }
-
-        else
-        {
-          v158 = 0;
-        }
-      }
-
-      else if (v157)
-      {
-        v215 = v14;
-        v161 = *(v20 + 6);
-        if (BYTE4(v161) == 2)
-        {
-          outlined copy of DisplayList.Effect(v3, *(v20 + 6), 2);
-          v163 = v3;
-        }
-
-        else
-        {
-          v162 = *(v20 + 7);
-          if (BYTE4(v161) == 7)
-          {
-            v174 = v162;
-            v214 = v162;
-            v163 = *(v3 + 28);
-            outlined copy of DisplayList.Item.Value(v3, v161, v174, v156);
-            outlined consume of DisplayList.Effect(v3, v161, 7);
-          }
-
-          else if (BYTE4(v161) == 18)
-          {
-            (*(*v3 + 120))(&v226);
-            outlined copy of DisplayList.Item.Value(v3, v161, v162, v156);
-            outlined consume of DisplayList.Effect(v3, v161, 18);
-
-            v163 = v226;
-          }
-
-          else
-          {
-            v213 = HIDWORD(v161);
-            outlined copy of DisplayList.Effect(v3, v161, SBYTE4(v161));
-
-            outlined consume of DisplayList.Effect(v3, v161, SBYTE4(v161));
-
-            v163 = 0;
-          }
-        }
-
-        v158 = v163 | HIDWORD(v156);
-        v14 = v215;
-      }
-
-      else
-      {
-        if (v3 >> 60 != 6 && v3 >> 60 != 11)
-        {
-LABEL_241:
-          if (v47 == v219)
-          {
-            goto LABEL_348;
-          }
-
-          goto LABEL_242;
-        }
-
-        v158 = *((v3 & 0xFFFFFFFFFFFFFFFLL) + 0x1C);
-      }
-
-LABEL_269:
-      v16 = v158 | v16;
-      if (v47 == v219)
-      {
-LABEL_348:
-        v46 = v230;
-        v10 = v218;
-        goto LABEL_353;
-      }
-
-      v155 = *(v17 + 16);
-LABEL_242:
-      v48 = v47 + 1;
-      if (v47 >= v155)
-      {
-        goto LABEL_387;
-      }
-    }
-
-    __break(1u);
-LABEL_372:
-    __break(1u);
-LABEL_373:
-    v20 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v20 + 2) + 1, 1, v20);
-    *v3 = v20;
-LABEL_105:
-    v81 = *(v20 + 2);
-    v80 = *(v20 + 3);
-    v4 = (v81 + 1);
-    if (v81 >= v80 >> 1)
-    {
-      v20 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v80 > 1), v81 + 1, 1, v20);
-      *v3 = v20;
-    }
-
-    *(v20 + 2) = v4;
-    v82 = &v20[32 * v81];
-    *(v82 + 4) = v6;
-    *(v82 + 5) = v7;
-    *(v82 + 12) = v47;
-    *(v82 + 7) = v17;
-    v83 = *v3;
-    a2 = v224;
-    if ((v15 & 0x60) == 0 && ((v15 & 0x80) == 0 || !*(v83 + 16)) || (v230 = 0, *&v231[8] = 0, *&v231[12] = 0, (v223 = *(v16 + 16)) == 0))
-    {
-      v16 = 0;
-LABEL_274:
-      v10 = v218;
-      if (!*(v83 + 16))
-      {
-        __break(1u);
-        goto LABEL_375;
-      }
-
-      specialized Array._customRemoveLast()(&v226);
-      if (v228)
-      {
-        specialized Array.remove(at:)(*(*v3 + 16) - 1, &v226);
-      }
-
-      v175 = v14;
-      v176 = v219;
-      v177 = 16;
-LABEL_329:
-      outlined consume of DisplayList.Effect(v175, v176, v177);
-      v14 = 0;
-      v153 = 0;
-      LOBYTE(v17) = 20;
-      goto LABEL_342;
-    }
-
-    v222 = v3;
-    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-    {
-LABEL_377:
-      v16 = specialized _ArrayBuffer._consumeAndCreateNew()(v16);
-      if (!*(v16 + 16))
-      {
-        goto LABEL_378;
-      }
-
-LABEL_111:
-      v84 = 0;
-      LODWORD(v5) = 0;
-      v85 = 0;
-      v4 = (v16 + 32);
-      v86 = 1;
-      while (1)
-      {
-        v17 = v85;
-        v85 = v86;
-        v20 = &v4[80 * v17];
-        closure #1 in ViewGraphTransform.apply(to:)(v20, a2, &v230);
-        if (v17 >= *(v16 + 16))
-        {
-          goto LABEL_360;
-        }
-
-        v227 = *(v20 + 1);
-        v228 = *(v20 + 2);
-        v229[0] = *(v20 + 3);
-        *(v229 + 12) = *(v20 + 60);
-        v226 = *v20;
-        DisplayList.Item.features.getter(&v225);
-        v87 = *(v16 + 16);
-        if (v17 >= v87)
-        {
-          goto LABEL_364;
-        }
-
-        v15 = v16;
-        v84 |= v225;
-        v3 = *(v20 + 5);
-        v88 = *(v20 + 8);
-        v89 = v88 >> 30;
-        if (v88 >> 30 > 1)
-        {
-          if (v89 != 2)
-          {
-            v16 = v15;
-            if (v85 == v223)
-            {
-              goto LABEL_237;
-            }
-
-            goto LABEL_113;
-          }
-
-          v91 = *(v3 + 16);
-          if (!v91)
-          {
-            v90 = 0;
-LABEL_143:
-            v16 = v15;
             goto LABEL_144;
           }
 
-          v16 = v15;
-          if (v91 > 7)
+          if (v52 < 0)
           {
-            v92 = v91 & 0x7FFFFFFFFFFFFFF8;
-            v94 = (v3 + 188);
-            v95 = 0uLL;
-            v96 = v91 & 0x7FFFFFFFFFFFFFF8;
-            v97 = 0uLL;
+            __break(1u);
+LABEL_158:
+            __break(1u);
+LABEL_159:
+            __break(1u);
+LABEL_160:
+            __break(1u);
+LABEL_161:
+            __break(1u);
+LABEL_162:
+            __break(1u);
+LABEL_163:
+            __break(1u);
+LABEL_164:
+            __break(1u);
+LABEL_165:
+            __break(1u);
+LABEL_166:
+            __break(1u);
+LABEL_167:
+            __break(1u);
+LABEL_168:
+            __break(1u);
+LABEL_169:
+            __break(1u);
+LABEL_170:
+            __break(1u);
+LABEL_171:
+            __break(1u);
+LABEL_172:
+            __break(1u);
+LABEL_173:
+            __break(1u);
+            __break(1u);
+LABEL_174:
+            __break(1u);
+LABEL_175:
+            __break(1u);
             do
             {
-              v98.i32[0] = *(v94 - 30);
-              v98.i32[1] = *(v94 - 20);
-              v98.i32[2] = *(v94 - 10);
-              v98.i32[3] = *v94;
-              v99.i32[0] = v94[10];
-              v99.i32[1] = v94[20];
-              v99.i32[2] = v94[30];
-              v99.i32[3] = v94[40];
-              v95 = vorrq_s8(v98, v95);
-              v97 = vorrq_s8(v99, v97);
-              v94 += 80;
-              v96 -= 8;
+              __break(1u);
+              v22 = specialized _ArrayBuffer._consumeAndCreateNew()(v22);
+              v84 = *(v22 + 2);
+              if (v84)
+              {
+                goto LABEL_156;
+              }
+
+              __break(1u);
+              v22 = *(a1 + 5);
+              if (!*(v22 + 2))
+              {
+                goto LABEL_174;
+              }
+
+              if (swift_isUniquelyReferenced_nonNull_native())
+              {
+                v84 = *(v22 + 2);
+                if (v84)
+                {
+                  goto LABEL_156;
+                }
+              }
+
+              else
+              {
+                v22 = specialized _ArrayBuffer._consumeAndCreateNew()(v22);
+                v84 = *(v22 + 2);
+                if (v84)
+                {
+                  goto LABEL_156;
+                }
+              }
+
+              __break(1u);
+              v22 = *(a1 + 5);
+              if (!*(v22 + 2))
+              {
+                goto LABEL_175;
+              }
+
+              if (swift_isUniquelyReferenced_nonNull_native())
+              {
+                v84 = *(v22 + 2);
+                if (v84)
+                {
+                  goto LABEL_156;
+                }
+              }
+
+              else
+              {
+                v22 = specialized _ArrayBuffer._consumeAndCreateNew()(v22);
+                v84 = *(v22 + 2);
+                if (v84)
+                {
+                  goto LABEL_156;
+                }
+              }
+
+              __break(1u);
+              v22 = *(a1 + 5);
             }
 
-            while (v96);
-            v100 = vorrq_s8(v97, v95);
-            *v100.i8 = vorr_s8(*v100.i8, *&vextq_s8(v100, v100, 8uLL));
-            v90 = v100.i32[0] | v100.i32[1];
-            if (v91 == v92)
+            while (!*(v22 + 2));
+            result = swift_isUniquelyReferenced_nonNull_native();
+            if (result)
             {
-              goto LABEL_144;
+              v84 = *(v22 + 2);
+              if (v84)
+              {
+LABEL_156:
+                v85 = v84 - 1;
+                v86 = *&v22[8 * v85 + 32];
+                *(v22 + 2) = v85;
+
+                *(a1 + 5) = v22;
+                *(a1 + 2) = v86;
+                return v5;
+              }
+            }
+
+            else
+            {
+              result = specialized _ArrayBuffer._consumeAndCreateNew()(v22);
+              v22 = result;
+              v84 = *(result + 16);
+              if (v84)
+              {
+                goto LABEL_156;
+              }
+            }
+
+            __break(1u);
+            return result;
+          }
+
+          v53 = *(a1 + 1) + v52;
+          if (v4 < v53)
+          {
+            goto LABEL_142;
+          }
+
+          *(a1 + 2) = v53;
+          BezierAnimation.init(from:)(a1, &v89);
+          v22 = *(a1 + 5);
+          if (!*(v22 + 2))
+          {
+            goto LABEL_164;
+          }
+
+          v7 = 0;
+          if (swift_isUniquelyReferenced_nonNull_native())
+          {
+            v54 = *(v22 + 2);
+            if (!v54)
+            {
+              goto LABEL_168;
             }
           }
 
           else
           {
-            v90 = 0;
-            v92 = 0;
-          }
-
-          v101 = v91 - v92;
-          v102 = (v3 + 40 * v92 + 68);
-          do
-          {
-            v103 = *v102;
-            v102 += 10;
-            v90 |= v103;
-            --v101;
-          }
-
-          while (v101);
-        }
-
-        else
-        {
-          if (v89)
-          {
-            v93 = *(v20 + 6);
-            if (BYTE4(v93) == 2)
+            v22 = specialized _ArrayBuffer._consumeAndCreateNew()(v22);
+            v54 = *(v22 + 2);
+            if (!v54)
             {
-              outlined copy of DisplayList.Effect(*(v20 + 5), *(v20 + 6), 2);
-              v17 = v3;
+              goto LABEL_168;
             }
-
-            else
-            {
-              v20 = *(v20 + 7);
-              if (BYTE4(v93) == 7)
-              {
-                v17 = *(v3 + 28);
-                outlined copy of DisplayList.Item.Value(v3, v93, v20, v88);
-                outlined consume of DisplayList.Effect(v3, v93, 7);
-              }
-
-              else if (BYTE4(v93) == 18)
-              {
-                (*(*v3 + 120))(&v226);
-                outlined copy of DisplayList.Item.Value(v3, v93, v20, v88);
-                outlined consume of DisplayList.Effect(v3, v93, 18);
-
-                v17 = v226;
-              }
-
-              else
-              {
-                outlined copy of DisplayList.Effect(v3, v93, SBYTE4(v93));
-
-                outlined consume of DisplayList.Effect(v3, v93, SBYTE4(v93));
-
-                v17 = 0;
-              }
-            }
-
-            v90 = v17 | HIDWORD(v88);
-            a2 = v224;
-            goto LABEL_143;
           }
 
-          if (v3 >> 60 == 6)
+          v55 = v54 - 1;
+          v4 = *&v22[8 * v55 + 32];
+          *(v22 + 2) = v55;
+
+          *(a1 + 5) = v22;
+          *(a1 + 2) = v4;
+          v88 = v91;
+          v56 = v92;
+          type metadata accessor for InternalAnimationBox<DefaultAnimation>(0, &lazy cache variable for type metadata for InternalAnimationBox<BezierAnimation>, lazy protocol witness table accessor for type BezierAnimation and conformance BezierAnimation, &type metadata for BezierAnimation);
+          v5 = swift_allocObject();
+          v57 = v90;
+          *(v5 + 16) = v89;
+          *(v5 + 32) = v57;
+          *(v5 + 48) = v88;
+          *(v5 + 64) = v56;
+          goto LABEL_9;
+        case 2uLL:
+          if ((v15 & 7) != 2)
           {
-            v90 = *((v3 & 0xFFFFFFFFFFFFFFFLL) + 0x1C);
-            goto LABEL_143;
+            goto LABEL_142;
           }
 
-          v16 = v15;
-          if (v3 >> 60 != 11)
+          v64 = *(a1 + 5);
+          v65 = swift_isUniquelyReferenced_nonNull_native();
+          if ((v65 & 1) == 0)
           {
-            if (v85 == v223)
-            {
-              goto LABEL_237;
-            }
-
-            goto LABEL_113;
+            v65 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v64 + 16) + 1, 1, v64);
+            v64 = v65;
           }
 
-          v90 = *((v3 & 0xFFFFFFFFFFFFFFFLL) + 0x1C);
-        }
+          v67 = *(v64 + 16);
+          v66 = *(v64 + 24);
+          if (v67 >= v66 >> 1)
+          {
+            v65 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v66 > 1), v67 + 1, 1, v64);
+            v64 = v65;
+          }
 
+          *(v64 + 16) = v67 + 1;
+          *(v64 + 8 * v67 + 32) = v4;
+          *(a1 + 5) = v64;
+          v22 = a1;
+          v68 = ProtobufDecoder.decodeVarint()(v65);
+          if (v1)
+          {
 LABEL_144:
-        LODWORD(v5) = v90 | v5;
-        if (v85 == v223)
-        {
-LABEL_237:
-          *v231 = v16;
-          *&v231[12] = v5;
-          *&v231[8] = v84;
-          v16 = v230;
-          v14 = v221;
-          v3 = v222;
-          v83 = *v222;
-          goto LABEL_274;
-        }
+            v5 = v1;
 
-        v87 = *(v16 + 16);
-LABEL_113:
-        v86 = v85 + 1;
-        if (v85 >= v87)
-        {
-          goto LABEL_378;
-        }
-      }
-    }
-
-    if (*(v16 + 16))
-    {
-      goto LABEL_111;
-    }
-
-LABEL_378:
-    __break(1u);
-LABEL_379:
-    v16 = specialized _ArrayBuffer._consumeAndCreateNew()(v16);
-    if (!*(v16 + 16))
-    {
-      goto LABEL_380;
-    }
-
-LABEL_150:
-    LODWORD(v15) = 0;
-    v104 = 0;
-    v105 = 0;
-    v222 = (v16 + 32);
-    v106 = 1;
-    while (2)
-    {
-      v17 = v105;
-      v105 = v106;
-      v20 = &v222[80 * v17];
-      closure #1 in ViewGraphTransform.apply(to:)(v20, a2, &v230);
-      if (v17 >= *(v16 + 16))
-      {
-        goto LABEL_361;
-      }
-
-      v227 = *(v20 + 1);
-      v228 = *(v20 + 2);
-      v229[0] = *(v20 + 3);
-      *(v229 + 12) = *(v20 + 60);
-      v226 = *v20;
-      DisplayList.Item.features.getter(&v225);
-      v107 = *(v16 + 16);
-      if (v17 >= v107)
-      {
-        goto LABEL_365;
-      }
-
-      v5 = v4;
-      v108 = v16;
-      LODWORD(v15) = v225 | v15;
-      v3 = *(v20 + 5);
-      v109 = *(v20 + 8);
-      v110 = v109 >> 30;
-      if (v109 >> 30 > 1)
-      {
-        if (v110 != 2)
-        {
-          v16 = v108;
-          v4 = v5;
-          if (v105 == v223)
-          {
-            goto LABEL_238;
+            return v5;
           }
 
-          goto LABEL_152;
-        }
-
-        v112 = *(v3 + 16);
-        if (!v112)
-        {
-          v111 = 0;
-          break;
-        }
-
-        v16 = v108;
-        if (v112 > 7)
-        {
-          v113 = v112 & 0x7FFFFFFFFFFFFFF8;
-          v115 = (v3 + 188);
-          v116 = 0uLL;
-          v117 = v112 & 0x7FFFFFFFFFFFFFF8;
-          v118 = 0uLL;
-          v4 = v5;
-          do
+          if (v68 < 0)
           {
-            v119.i32[0] = *(v115 - 30);
-            v119.i32[1] = *(v115 - 20);
-            v119.i32[2] = *(v115 - 10);
-            v119.i32[3] = *v115;
-            v120.i32[0] = v115[10];
-            v120.i32[1] = v115[20];
-            v120.i32[2] = v115[30];
-            v120.i32[3] = v115[40];
-            v116 = vorrq_s8(v119, v116);
-            v118 = vorrq_s8(v120, v118);
-            v115 += 80;
-            v117 -= 8;
+            goto LABEL_160;
           }
 
-          while (v117);
-          v121 = vorrq_s8(v118, v116);
-          *v121.i8 = vorr_s8(*v121.i8, *&vextq_s8(v121, v121, 8uLL));
-          v111 = v121.i32[0] | v121.i32[1];
-          if (v112 == v113)
+          v69 = *(a1 + 1) + v68;
+          if (v4 < v69)
           {
-            goto LABEL_184;
+            goto LABEL_142;
+          }
+
+          *(a1 + 2) = v69;
+          SpringAnimation.init(from:)(a1, &v89);
+          v22 = *(a1 + 5);
+          if (!*(v22 + 2))
+          {
+            goto LABEL_165;
+          }
+
+          v7 = 0;
+          if (swift_isUniquelyReferenced_nonNull_native())
+          {
+            v70 = *(v22 + 2);
+            if (!v70)
+            {
+              goto LABEL_141;
+            }
+          }
+
+          else
+          {
+            v22 = specialized _ArrayBuffer._consumeAndCreateNew()(v22);
+            v70 = *(v22 + 2);
+            if (!v70)
+            {
+LABEL_141:
+              __break(1u);
+LABEL_142:
+              lazy protocol witness table accessor for type ProtobufDecoder.DecodingError and conformance ProtobufDecoder.DecodingError();
+              swift_allocError();
+              swift_willThrow();
+
+              return v5;
+            }
+          }
+
+          v71 = v70 - 1;
+          v4 = *&v22[8 * v71 + 32];
+          *(v22 + 2) = v71;
+
+          *(a1 + 5) = v22;
+          *(a1 + 2) = v4;
+          type metadata accessor for InternalAnimationBox<DefaultAnimation>(0, &lazy cache variable for type metadata for InternalAnimationBox<SpringAnimation>, lazy protocol witness table accessor for type SpringAnimation and conformance SpringAnimation, &type metadata for SpringAnimation);
+          v5 = swift_allocObject();
+          v72 = v90;
+          *(v5 + 16) = v89;
+          *(v5 + 32) = v72;
+          goto LABEL_9;
+        case 3uLL:
+          if ((v15 & 7) != 2)
+          {
+            goto LABEL_142;
+          }
+
+          v31 = *(a1 + 5);
+          v32 = swift_isUniquelyReferenced_nonNull_native();
+          if ((v32 & 1) == 0)
+          {
+            v32 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v31 + 16) + 1, 1, v31);
+            v31 = v32;
+          }
+
+          v34 = *(v31 + 16);
+          v33 = *(v31 + 24);
+          if (v34 >= v33 >> 1)
+          {
+            v32 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v33 > 1), v34 + 1, 1, v31);
+            v31 = v32;
+          }
+
+          *(v31 + 16) = v34 + 1;
+          *(v31 + 8 * v34 + 32) = v4;
+          *(a1 + 5) = v31;
+          v22 = a1;
+          v35 = ProtobufDecoder.decodeVarint()(v32);
+          if (v1)
+          {
+            goto LABEL_144;
+          }
+
+          if (v35 < 0)
+          {
+            goto LABEL_161;
+          }
+
+          v36 = *(a1 + 1) + v35;
+          if (v4 < v36)
+          {
+            goto LABEL_142;
+          }
+
+          *(a1 + 2) = v36;
+          FluidSpringAnimation.init(from:)(a1, &v89);
+          v22 = *(a1 + 5);
+          if (!*(v22 + 2))
+          {
+            goto LABEL_167;
+          }
+
+          v7 = 0;
+          if (swift_isUniquelyReferenced_nonNull_native())
+          {
+            v37 = *(v22 + 2);
+            if (!v37)
+            {
+              goto LABEL_170;
+            }
+          }
+
+          else
+          {
+            v22 = specialized _ArrayBuffer._consumeAndCreateNew()(v22);
+            v37 = *(v22 + 2);
+            if (!v37)
+            {
+              goto LABEL_170;
+            }
+          }
+
+          v38 = v37 - 1;
+          v4 = *&v22[8 * v38 + 32];
+          *(v22 + 2) = v38;
+
+          *(a1 + 5) = v22;
+          *(a1 + 2) = v4;
+          v87 = v89;
+          v39 = v90;
+          type metadata accessor for InternalAnimationBox<DefaultAnimation>(0, &lazy cache variable for type metadata for InternalAnimationBox<FluidSpringAnimation>, lazy protocol witness table accessor for type FluidSpringAnimation and conformance FluidSpringAnimation, &type metadata for FluidSpringAnimation);
+          v5 = swift_allocObject();
+          *(v5 + 16) = v87;
+          *(v5 + 32) = v39;
+          goto LABEL_9;
+      }
+
+LABEL_76:
+      v58 = v15 & 7;
+      if (v58 > 1)
+      {
+        if (v58 == 2)
+        {
+          v22 = a1;
+          v76 = ProtobufDecoder.decodeVarint()(v15);
+          if (v1)
+          {
+            goto LABEL_144;
+          }
+
+          if (v76 < 0)
+          {
+            goto LABEL_171;
+          }
+
+          v59 = *(a1 + 1) + v76;
+          if (v4 < v59)
+          {
+            goto LABEL_142;
           }
         }
 
         else
         {
-          v111 = 0;
-          v113 = 0;
-          v4 = v5;
+          if (v58 != 5)
+          {
+            goto LABEL_142;
+          }
+
+          v59 = *(a1 + 1) + 4;
+          if (v4 < v59)
+          {
+            goto LABEL_142;
+          }
         }
 
-        v122 = v112 - v113;
-        v123 = (v3 + 40 * v113 + 68);
-        do
-        {
-          v124 = *v123;
-          v123 += 10;
-          v111 |= v124;
-          --v122;
-        }
-
-        while (v122);
-        goto LABEL_184;
+        goto LABEL_116;
       }
 
-      if (v110)
+      if ((v15 & 7) != 0)
       {
-        v114 = *(v20 + 6);
-        if (BYTE4(v114) == 2)
+        if (v58 != 1)
         {
-          outlined copy of DisplayList.Effect(*(v20 + 5), *(v20 + 6), 2);
-          v17 = v3;
+          goto LABEL_142;
         }
 
-        else
+        v59 = *(a1 + 1) + 8;
+        if (v4 < v59)
         {
-          v20 = *(v20 + 7);
-          if (BYTE4(v114) == 7)
-          {
-            v17 = *(v3 + 28);
-            outlined copy of DisplayList.Item.Value(v3, v114, v20, v109);
-            outlined consume of DisplayList.Effect(v3, v114, 7);
-          }
-
-          else if (BYTE4(v114) == 18)
-          {
-            (*(*v3 + 120))(&v226);
-            outlined copy of DisplayList.Item.Value(v3, v114, v20, v109);
-            outlined consume of DisplayList.Effect(v3, v114, 18);
-
-            v17 = v226;
-          }
-
-          else
-          {
-            outlined copy of DisplayList.Effect(v3, v114, SBYTE4(v114));
-
-            outlined consume of DisplayList.Effect(v3, v114, SBYTE4(v114));
-
-            v17 = 0;
-          }
+          goto LABEL_142;
         }
 
-        v111 = v17 | HIDWORD(v109);
-        a2 = v224;
-      }
-
-      else
-      {
-        if (v3 >> 60 != 6)
-        {
-          v16 = v108;
-          if (v3 >> 60 == 11)
-          {
-            v111 = *((v3 & 0xFFFFFFFFFFFFFFFLL) + 0x1C);
-            goto LABEL_183;
-          }
-
-          v4 = v5;
-          if (v105 == v223)
-          {
-            goto LABEL_238;
-          }
-
-LABEL_152:
-          v106 = v105 + 1;
-          if (v105 >= v107)
-          {
-            goto LABEL_380;
-          }
-
-          continue;
-        }
-
-        v111 = *((v3 & 0xFFFFFFFFFFFFFFFLL) + 0x1C);
-      }
-
-      break;
-    }
-
-    v16 = v108;
-LABEL_183:
-    v4 = v5;
-LABEL_184:
-    v104 |= v111;
-    if (v105 != v223)
-    {
-      v107 = *(v16 + 16);
-      goto LABEL_152;
-    }
-
-LABEL_238:
-    *v231 = v16;
-    *&v231[12] = v104;
-    *&v231[8] = v15;
-    v16 = v230;
-    v14 = v221;
-LABEL_282:
-    v15 = v217;
-    if ((v217 & 0x60) == 0 && ((v217 & 0x80) == 0 || !*(*(a2 + 16) + 16)))
-    {
-      v10 = v218;
-      v203 = v215;
-      LODWORD(v5) = v214;
-      goto LABEL_341;
-    }
-
-    v230 = 0;
-    v178 = *(v4 + 2);
-    v223 = v178;
-    if (v178)
-    {
-      v222 = v16;
-      if (swift_isUniquelyReferenced_nonNull_native())
-      {
-        if (*(v4 + 2))
-        {
-          goto LABEL_286;
-        }
-
-LABEL_385:
-        __break(1u);
-LABEL_386:
-        v17 = specialized _ArrayBuffer._consumeAndCreateNew()(v17);
-        if (!*(v17 + 16))
-        {
-          goto LABEL_387;
-        }
-
-        continue;
-      }
-
-LABEL_384:
-      v4 = specialized _ArrayBuffer._consumeAndCreateNew()(v4);
-      if (!*(v4 + 2))
-      {
-        goto LABEL_385;
-      }
-
-LABEL_286:
-      v179 = 0;
-      LODWORD(v5) = 0;
-      v180 = 0;
-      v15 = (v4 + 32);
-      v181 = 1;
-      while (2)
-      {
-        v17 = v180;
-        v180 = v181;
-        v20 = (v15 + 80 * v17);
-        closure #1 in ViewGraphTransform.apply(to:)(v20, a2, &v230);
-        if (v17 >= *(v4 + 2))
-        {
-          goto LABEL_368;
-        }
-
-        v227 = *(v20 + 1);
-        v228 = *(v20 + 2);
-        v229[0] = *(v20 + 3);
-        *(v229 + 12) = *(v20 + 60);
-        v226 = *v20;
-        DisplayList.Item.features.getter(&v225);
-        v182 = *(v4 + 2);
-        if (v17 >= v182)
-        {
-LABEL_369:
-          __break(1u);
-          goto LABEL_370;
-        }
-
-        v179 |= v225;
-        v3 = *(v20 + 5);
-        v183 = *(v20 + 8);
-        v184 = v183 >> 30;
-        if (v183 >> 30 > 1)
-        {
-          if (v184 != 2)
-          {
-            v14 = v221;
-            if (v180 == v223)
-            {
-              goto LABEL_321;
-            }
-
-            goto LABEL_288;
-          }
-
-          v186 = *(v3 + 16);
-          v14 = v221;
-          if (v186)
-          {
-            if (v186 > 7)
-            {
-              v187 = v186 & 0x7FFFFFFFFFFFFFF8;
-              v190 = (v3 + 188);
-              v191 = 0uLL;
-              v192 = v186 & 0x7FFFFFFFFFFFFFF8;
-              v193 = 0uLL;
-              do
-              {
-                v194.i32[0] = *(v190 - 30);
-                v194.i32[1] = *(v190 - 20);
-                v194.i32[2] = *(v190 - 10);
-                v194.i32[3] = *v190;
-                v195.i32[0] = v190[10];
-                v195.i32[1] = v190[20];
-                v195.i32[2] = v190[30];
-                v195.i32[3] = v190[40];
-                v191 = vorrq_s8(v194, v191);
-                v193 = vorrq_s8(v195, v193);
-                v190 += 80;
-                v192 -= 8;
-              }
-
-              while (v192);
-              v196 = vorrq_s8(v193, v191);
-              *v196.i8 = vorr_s8(*v196.i8, *&vextq_s8(v196, v196, 8uLL));
-              v185 = v196.i32[0] | v196.i32[1];
-              if (v186 == v187)
-              {
-                break;
-              }
-            }
-
-            else
-            {
-              v185 = 0;
-              v187 = 0;
-            }
-
-            v197 = v186 - v187;
-            v198 = (v3 + 40 * v187 + 68);
-            do
-            {
-              v199 = *v198;
-              v198 += 10;
-              v185 |= v199;
-              --v197;
-            }
-
-            while (v197);
-          }
-
-          else
-          {
-            v185 = 0;
-          }
-        }
-
-        else
-        {
-          if (v184)
-          {
-            v188 = *(v20 + 6);
-            if (BYTE4(v188) == 2)
-            {
-              outlined copy of DisplayList.Effect(*(v20 + 5), *(v20 + 6), 2);
-              v17 = v3;
-            }
-
-            else
-            {
-              v189 = *(v20 + 7);
-              if (BYTE4(v188) == 7)
-              {
-                v17 = *(v3 + 28);
-                outlined copy of DisplayList.Item.Value(v3, v188, v189, v183);
-                outlined consume of DisplayList.Effect(v3, v188, 7);
-              }
-
-              else if (BYTE4(v188) == 18)
-              {
-                (*(*v3 + 120))(&v226);
-                outlined copy of DisplayList.Item.Value(v3, v188, v189, v183);
-                outlined consume of DisplayList.Effect(v3, v188, 18);
-
-                v17 = v226;
-              }
-
-              else
-              {
-                outlined copy of DisplayList.Effect(v3, v188, SBYTE4(v188));
-
-                outlined consume of DisplayList.Effect(v3, v188, SBYTE4(v188));
-
-                v17 = 0;
-              }
-            }
-
-            v185 = v17 | HIDWORD(v183);
-            a2 = v224;
-          }
-
-          else
-          {
-            if (v3 >> 60 != 6)
-            {
-              v14 = v221;
-              if (v3 >> 60 == 11)
-              {
-                v185 = *((v3 & 0xFFFFFFFFFFFFFFFLL) + 0x1C);
-                break;
-              }
-
-              if (v180 == v223)
-              {
-                goto LABEL_321;
-              }
-
-LABEL_288:
-              v181 = v180 + 1;
-              if (v180 >= v182)
-              {
-                goto LABEL_385;
-              }
-
-              continue;
-            }
-
-            v185 = *((v3 & 0xFFFFFFFFFFFFFFFLL) + 0x1C);
-          }
-
-          v14 = v221;
-        }
-
-        break;
-      }
-
-      LODWORD(v5) = v185 | v5;
-      if (v180 == v223)
-      {
-LABEL_321:
-        v178 = v230;
-        LOWORD(v15) = v179;
-        v16 = v222;
-        goto LABEL_338;
-      }
-
-      v182 = *(v4 + 2);
-      goto LABEL_288;
-    }
-
-    break;
-  }
-
-  LODWORD(v5) = 0;
-  LOWORD(v15) = 0;
-LABEL_338:
-  if (v178 > v16)
-  {
-    v16 = v178;
-  }
-
-  v10 = v218;
-  v203 = v215;
-LABEL_341:
-  v204 = swift_allocObject();
-  *(v204 + 16) = v4;
-  *(v204 + 24) = v15;
-  *(v204 + 28) = v5;
-  *(v204 + 32) = v203;
-  LOBYTE(v17) = 7;
-  outlined consume of DisplayList.Effect(v14, v219, 7);
-  v153 = 0;
-  v14 = v204;
-LABEL_342:
-  v205 = *v231;
-  v206 = v153 | (v17 << 32);
-  v207 = *&v231[8] | (*&v231[12] << 32) | 0x40000000;
-  outlined consume of DisplayList.Item.Value(v220[5], v220[6], v220[7], v220[8]);
-  v220[6] = v206;
-  v220[7] = v205;
-  v220[8] = v207;
-  v208 = v220[4];
-  if (v16 > v208)
-  {
-    v208 = v16;
-  }
-
-  v220[4] = v208;
-  v220[5] = v14;
-  v209 = *v10;
-  if (v16 > *v10)
-  {
-    v209 = v16;
-  }
-
-  *v10 = v209;
-}
-
-uint64_t sub_18D377310()
-{
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_18D377348()
-{
-
-  return swift_deallocObject();
-}
-
-void specialized DisplayList.transform(_:)(uint64_t a1, uint64_t a2, uint64_t *a3)
-{
-  *(a1 + 8) = 0;
-  *(a1 + 12) = 0;
-  v3 = *a1;
-  v4 = *(*a1 + 16);
-  if (v4)
-  {
-    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-    {
-      goto LABEL_39;
-    }
-
-    while (*(v3 + 2))
-    {
-      v7 = 0;
-      v8 = 0;
-      v9 = 0;
-      v38 = a2;
-      v10 = 1;
-      v37 = v4;
-      while (1)
-      {
-        v11 = v9;
-        v9 = v10;
-        v12 = &v3[80 * v11 + 32];
-        closure #1 in ViewGraphTransform.apply(to:)(v12, a2, a3);
-        if (v11 >= *(v3 + 2))
-        {
-          break;
-        }
-
-        v13 = *(v12 + 48);
-        v40[2] = *(v12 + 32);
-        v41[0] = v13;
-        *(v41 + 12) = *(v12 + 60);
-        v14 = *(v12 + 16);
-        v40[0] = *v12;
-        v40[1] = v14;
-        DisplayList.Item.features.getter(&v39);
-        v15 = *(v3 + 2);
-        if (v11 >= v15)
-        {
-          goto LABEL_38;
-        }
-
-        v7 |= v39;
-        v16 = *(v12 + 40);
-        v17 = *(v12 + 64);
-        v18 = v17 >> 30;
-        if (v17 >> 30 > 1)
-        {
-          if (v18 != 2)
-          {
-            goto LABEL_5;
-          }
-
-          v20 = *(v16 + 16);
-          if (v20)
-          {
-            if (v20 > 7)
-            {
-              v21 = v20 & 0x7FFFFFFFFFFFFFF8;
-              v26 = (v16 + 188);
-              v27 = 0uLL;
-              v28 = v20 & 0x7FFFFFFFFFFFFFF8;
-              v29 = 0uLL;
-              do
-              {
-                v30.i32[0] = *(v26 - 30);
-                v30.i32[1] = *(v26 - 20);
-                v30.i32[2] = *(v26 - 10);
-                v30.i32[3] = *v26;
-                v31.i32[0] = v26[10];
-                v31.i32[1] = v26[20];
-                v31.i32[2] = v26[30];
-                v31.i32[3] = v26[40];
-                v27 = vorrq_s8(v30, v27);
-                v29 = vorrq_s8(v31, v29);
-                v26 += 80;
-                v28 -= 8;
-              }
-
-              while (v28);
-              v32 = vorrq_s8(v29, v27);
-              *v32.i8 = vorr_s8(*v32.i8, *&vextq_s8(v32, v32, 8uLL));
-              v19 = v32.i32[0] | v32.i32[1];
-              if (v20 == v21)
-              {
-                goto LABEL_33;
-              }
-            }
-
-            else
-            {
-              v19 = 0;
-              v21 = 0;
-            }
-
-            v33 = v20 - v21;
-            v34 = (v16 + 40 * v21 + 68);
-            do
-            {
-              v35 = *v34;
-              v34 += 10;
-              v19 |= v35;
-              --v33;
-            }
-
-            while (v33);
-          }
-
-          else
-          {
-            v19 = 0;
-          }
-        }
-
-        else if (v18)
-        {
-          v22 = a3;
-          v23 = *(v12 + 48);
-          if (BYTE4(v23) == 2)
-          {
-            outlined copy of DisplayList.Effect(*(v12 + 40), *(v12 + 48), 2);
-            v25 = v16;
-          }
-
-          else
-          {
-            v24 = *(v12 + 56);
-            if (BYTE4(v23) == 7)
-            {
-              v25 = *(v16 + 28);
-              outlined copy of DisplayList.Item.Value(v16, v23, v24, v17);
-              outlined consume of DisplayList.Effect(v16, v23, 7);
-            }
-
-            else if (BYTE4(v23) == 18)
-            {
-              (*(*v16 + 120))(v40);
-              outlined copy of DisplayList.Item.Value(v16, v23, v24, v17);
-              outlined consume of DisplayList.Effect(v16, v23, 18);
-
-              v25 = v40[0];
-            }
-
-            else
-            {
-              outlined copy of DisplayList.Effect(v16, v23, SBYTE4(v23));
-
-              outlined consume of DisplayList.Effect(v16, v23, SBYTE4(v23));
-
-              v25 = 0;
-            }
-          }
-
-          v19 = v25 | HIDWORD(v17);
-          a3 = v22;
-          v4 = v37;
-          a2 = v38;
-        }
-
-        else
-        {
-          if (v16 >> 60 != 6 && v16 >> 60 != 11)
-          {
-LABEL_5:
-            if (v9 == v4)
-            {
-              goto LABEL_35;
-            }
-
-            goto LABEL_6;
-          }
-
-          v19 = *((v16 & 0xFFFFFFFFFFFFFFFLL) + 0x1C);
-        }
-
-LABEL_33:
-        v8 |= v19;
-        if (v9 == v4)
-        {
-LABEL_35:
-          *a1 = v3;
-          *(a1 + 12) = v8;
-          *(a1 + 8) = v7;
-          return;
-        }
-
-        v15 = *(v3 + 2);
-LABEL_6:
-        v10 = v9 + 1;
-        if (v9 >= v15)
-        {
-          goto LABEL_40;
-        }
-      }
-
-      __break(1u);
-LABEL_38:
-      __break(1u);
-LABEL_39:
-      v3 = specialized _ArrayBuffer._consumeAndCreateNew()(v3);
-    }
-
-LABEL_40:
-    __break(1u);
-  }
-}
-
-uint64_t initializeWithCopy for LinkDestination.Configuration(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = type metadata accessor for URL();
-  (*(*(v6 - 8) + 16))(a1, a2, v6);
-  *(a1 + *(a3 + 20)) = *(a2 + *(a3 + 20));
-  return a1;
-}
-
-uint64_t outlined init with take of LinkDestination.Configuration(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for LinkDestination.Configuration(0);
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t outlined copy of Environment<OpenURLAction>.Content(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, char a6)
-{
-  if (a6)
-  {
-    return outlined copy of OpenURLAction.Handler(a1, a2, a3, a4, a5 & 1);
-  }
-
-  else
-  {
-  }
-}
-
-uint64_t specialized Color.Resolved.draw(path:style:in:bounds:)(uint64_t a1, uint64_t a2, double *a3, float a4, float a5, float a6, float a7)
-{
-  v14 = *(a2 + 32);
-  v15 = *(a2 + 40);
-  type metadata accessor for ColorBox<Color.OpacityColor>(0, &lazy cache variable for type metadata for ColorBox<ResolvedColorProvider>, lazy protocol witness table accessor for type ResolvedColorProvider and conformance ResolvedColorProvider);
-  v16 = swift_allocObject();
-  *(v16 + 16) = a4;
-  *(v16 + 20) = a5;
-  *(v16 + 24) = a6;
-  *(v16 + 28) = a7;
-  *(v16 + 32) = 2143289344;
-  *&v22[0] = v16;
-  v23[24] = 1;
-  v17 = *(a2 + 16);
-  v19[0] = *a2;
-  v19[1] = v17;
-  v20 = v14;
-  v21 = v15;
-  GraphicsContext.draw(_:with:style:)(a1, v22, v19, a3);
-  v24[2] = v22[2];
-  v25[0] = *v23;
-  *(v25 + 9) = *&v23[9];
-  v24[0] = v22[0];
-  v24[1] = v22[1];
-  return outlined destroy of GraphicsContext.Shading(v24);
-}
-
-unint64_t lazy protocol witness table accessor for type _DisplayList_Identity and conformance _DisplayList_Identity()
-{
-  result = lazy protocol witness table cache variable for type _DisplayList_Identity and conformance _DisplayList_Identity;
-  if (!lazy protocol witness table cache variable for type _DisplayList_Identity and conformance _DisplayList_Identity)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type _DisplayList_Identity and conformance _DisplayList_Identity);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type _DisplayList_Identity and conformance _DisplayList_Identity;
-  if (!lazy protocol witness table cache variable for type _DisplayList_Identity and conformance _DisplayList_Identity)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type _DisplayList_Identity and conformance _DisplayList_Identity);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type RedactionReasons and conformance RedactionReasons()
-{
-  result = lazy protocol witness table cache variable for type RedactionReasons and conformance RedactionReasons;
-  if (!lazy protocol witness table cache variable for type RedactionReasons and conformance RedactionReasons)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type RedactionReasons and conformance RedactionReasons);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type RedactionReasons and conformance RedactionReasons;
-  if (!lazy protocol witness table cache variable for type RedactionReasons and conformance RedactionReasons)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type RedactionReasons and conformance RedactionReasons);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type RedactionReasons and conformance RedactionReasons;
-  if (!lazy protocol witness table cache variable for type RedactionReasons and conformance RedactionReasons)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type RedactionReasons and conformance RedactionReasons);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type RedactionReasons and conformance RedactionReasons;
-  if (!lazy protocol witness table cache variable for type RedactionReasons and conformance RedactionReasons)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type RedactionReasons and conformance RedactionReasons);
-  }
-
-  return result;
-}
-
-uint64_t type metadata completion function for ArchivedViewCore.Metadata()
-{
-  result = type metadata accessor for UUID();
-  if (v1 <= 0x3F)
-  {
-    swift_initStructMetadata();
-    return 0;
-  }
-
-  return result;
-}
-
-uint64_t one-time initialization function for readerKey()
-{
-  type metadata accessor for MutableBox<[Int : Any]>(0, &lazy cache variable for type metadata for CodingUserInfoKey?, MEMORY[0x1E69E6D30], MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v0 - 8);
-  v2 = &v7 - v1;
-  v3 = type metadata accessor for CodingUserInfoKey();
-  __swift_allocate_value_buffer(v3, static ArchiveReader.readerKey);
-  v4 = __swift_project_value_buffer(v3, static ArchiveReader.readerKey);
-  CodingUserInfoKey.init(rawValue:)();
-  v5 = *(v3 - 8);
-  result = (*(v5 + 48))(v2, 1, v3);
-  if (result != 1)
-  {
-    return (*(v5 + 32))(v4, v2, v3);
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t one-time initialization function for cacheKey()
-{
-  type metadata accessor for MutableBox<[Int : Any]>(0, &lazy cache variable for type metadata for CodingUserInfoKey?, MEMORY[0x1E69E6D30], MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v0 - 8);
-  v2 = &v7 - v1;
-  v3 = type metadata accessor for CodingUserInfoKey();
-  __swift_allocate_value_buffer(v3, static ArchiveReader.cacheKey);
-  v4 = __swift_project_value_buffer(v3, static ArchiveReader.cacheKey);
-  CodingUserInfoKey.init(rawValue:)();
-  v5 = *(v3 - 8);
-  result = (*(v5 + 48))(v2, 1, v3);
-  if (result != 1)
-  {
-    return (*(v5 + 32))(v4, v2, v3);
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t one-time initialization function for namedImagesKey()
-{
-  type metadata accessor for MutableBox<[Int : Any]>(0, &lazy cache variable for type metadata for CodingUserInfoKey?, MEMORY[0x1E69E6D30], MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v0 - 8);
-  v2 = &v7 - v1;
-  v3 = type metadata accessor for CodingUserInfoKey();
-  __swift_allocate_value_buffer(v3, static ArchiveReader.namedImagesKey);
-  v4 = __swift_project_value_buffer(v3, static ArchiveReader.namedImagesKey);
-  CodingUserInfoKey.init(rawValue:)();
-  v5 = *(v3 - 8);
-  result = (*(v5 + 48))(v2, 1, v3);
-  if (result != 1)
-  {
-    return (*(v5 + 32))(v4, v2, v3);
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t one-time initialization function for preferredBundleLanguageKey(uint64_t a1, uint64_t *a2)
-{
-  type metadata accessor for [ResolvableTextSegmentAttribute.Value](0, &lazy cache variable for type metadata for CodingUserInfoKey?, MEMORY[0x1E69E6D30], MEMORY[0x1E69E6720]);
-  MEMORY[0x1EEE9AC00](v3 - 8);
-  v5 = &v10 - v4;
-  v6 = type metadata accessor for CodingUserInfoKey();
-  __swift_allocate_value_buffer(v6, a2);
-  v7 = __swift_project_value_buffer(v6, a2);
-  CodingUserInfoKey.init(rawValue:)();
-  v8 = *(v6 - 8);
-  result = (*(v8 + 48))(v5, 1, v6);
-  if (result != 1)
-  {
-    return (*(v8 + 32))(v7, v5, v6);
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t type metadata completion function for CodableAccessibilityAttachmentStorage.V2()
-{
-  result = type metadata accessor for CodableAccessibilityAttachmentStorage.VBase(319);
-  if (v1 <= 0x3F)
-  {
-    swift_initStructMetadata();
-    return 0;
-  }
-
-  return result;
-}
-
-void type metadata completion function for CodableAccessibilityAttachmentStorage.VBase()
-{
-  type metadata accessor for LinkDestination.Configuration?(319);
-  if (v0 <= 0x3F)
-  {
-    swift_initStructMetadata();
-  }
-}
-
-unint64_t lazy protocol witness table accessor for type ContainerRelativeShape and conformance ContainerRelativeShape()
-{
-  result = lazy protocol witness table cache variable for type ContainerRelativeShape and conformance ContainerRelativeShape;
-  if (!lazy protocol witness table cache variable for type ContainerRelativeShape and conformance ContainerRelativeShape)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ContainerRelativeShape and conformance ContainerRelativeShape);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type ContainerRelativeShape and conformance ContainerRelativeShape;
-  if (!lazy protocol witness table cache variable for type ContainerRelativeShape and conformance ContainerRelativeShape)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ContainerRelativeShape and conformance ContainerRelativeShape);
-  }
-
-  return result;
-}
-
-unint64_t instantiation function for generic protocol witness table for ContainerRelativeShape(uint64_t a1)
-{
-  result = lazy protocol witness table accessor for type ContainerRelativeShape and conformance ContainerRelativeShape();
-  *(a1 + 8) = result;
-  return result;
-}
-
-{
-  result = lazy protocol witness table accessor for type ContainerRelativeShape and conformance ContainerRelativeShape();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ViewBodyAccessor<ContainerRelativeShape> and conformance ViewBodyAccessor<A>()
-{
-  result = lazy protocol witness table cache variable for type ViewBodyAccessor<ContainerRelativeShape> and conformance ViewBodyAccessor<A>;
-  if (!lazy protocol witness table cache variable for type ViewBodyAccessor<ContainerRelativeShape> and conformance ViewBodyAccessor<A>)
-  {
-    type metadata accessor for InterfaceIdiomBox<PhoneInterfaceIdiom>(255, &lazy cache variable for type metadata for ViewBodyAccessor<ContainerRelativeShape>, &type metadata for ContainerRelativeShape, &protocol witness table for ContainerRelativeShape, type metadata accessor for ViewBodyAccessor);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ViewBodyAccessor<ContainerRelativeShape> and conformance ViewBodyAccessor<A>);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type EnvironmentPropertyKey<FontDefinitionKey> and conformance EnvironmentPropertyKey<A>()
-{
-  result = lazy protocol witness table cache variable for type EnvironmentPropertyKey<FontDefinitionKey> and conformance EnvironmentPropertyKey<A>;
-  if (!lazy protocol witness table cache variable for type EnvironmentPropertyKey<FontDefinitionKey> and conformance EnvironmentPropertyKey<A>)
-  {
-    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(255, &lazy cache variable for type metadata for EnvironmentPropertyKey<FontDefinitionKey>, &type metadata for FontDefinitionKey, &protocol witness table for FontDefinitionKey, type metadata accessor for EnvironmentPropertyKey);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type EnvironmentPropertyKey<FontDefinitionKey> and conformance EnvironmentPropertyKey<A>);
-  }
-
-  return result;
-}
-
-void type metadata completion function for ReferenceDateModifier()
-{
-  type metadata accessor for TimeZone?(319, &lazy cache variable for type metadata for Date?, MEMORY[0x1E6969530], MEMORY[0x1E69E6720]);
-  if (v0 <= 0x3F)
-  {
-    swift_initStructMetadata();
-  }
-}
-
-void type metadata completion function for AccessibilityNodeAttachment.Storage()
-{
-  type metadata accessor for CodableAccessibilityVersionStorage<CodableAccessibilityAttachmentStorage.V2, CodableAccessibilityAttachmentStorage.V3>();
-  if (v0 <= 0x3F)
-  {
-    swift_initEnumMetadataMultiPayload();
-  }
-}
-
-uint64_t type metadata completion function for CodableAccessibilityAttachmentStorage.V3()
-{
-  result = type metadata accessor for CodableAccessibilityAttachmentStorage.VBase(319);
-  if (v1 <= 0x3F)
-  {
-    swift_initStructMetadata();
-    return 0;
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type CodableAccessibilityValueStorage and conformance CodableAccessibilityValueStorage()
-{
-  result = lazy protocol witness table cache variable for type CodableAccessibilityValueStorage and conformance CodableAccessibilityValueStorage;
-  if (!lazy protocol witness table cache variable for type CodableAccessibilityValueStorage and conformance CodableAccessibilityValueStorage)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CodableAccessibilityValueStorage and conformance CodableAccessibilityValueStorage);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type CodableAccessibilityValueStorage and conformance CodableAccessibilityValueStorage;
-  if (!lazy protocol witness table cache variable for type CodableAccessibilityValueStorage and conformance CodableAccessibilityValueStorage)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CodableAccessibilityValueStorage and conformance CodableAccessibilityValueStorage);
-  }
-
-  return result;
-}
-
-uint64_t type metadata completion function for AccessibilityNodeAttachment()
-{
-  result = type metadata accessor for AccessibilityNodeAttachment.Storage(319);
-  if (v1 <= 0x3F)
-  {
-    swift_initStructMetadata();
-    return 0;
-  }
-
-  return result;
-}
-
-void type metadata completion function for CodableAccessibilityAttachmentStorage()
-{
-  type metadata accessor for CodableAccessibilityVersionStorage<CodableAccessibilityAttachmentStorage.V2, CodableAccessibilityAttachmentStorage.V3>();
-  if (v0 <= 0x3F)
-  {
-    swift_initStructMetadata();
-  }
-}
-
-void type metadata accessor for _ShapeView<Path, ForegroundStyle>()
-{
-  if (!lazy cache variable for type metadata for _ShapeView<Path, ForegroundStyle>)
-  {
-    lazy protocol witness table accessor for type Path and conformance Path();
-    v0 = type metadata accessor for _ShapeView();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for _ShapeView<Path, ForegroundStyle>);
-    }
-  }
-}
-
-uint64_t closure #2 in static _MaskAlignmentEffect._makeView(modifier:inputs:body:)(uint64_t a1)
-{
-  v5[2] = type metadata accessor for _MaskAlignmentEffect();
-  v2 = type metadata accessor for PointerOffset();
-  _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1, _s14AttributeGraph13PointerOffsetV2ofyACyxq_Gq_zFZAESPyq_GXEfU_TA_4, v5, &type metadata for Alignment, MEMORY[0x1E69E73E0], v2, MEMORY[0x1E69E7410], v3);
-  return v5[5];
-}
-
-uint64_t protocol witness for static View._makeView(view:inputs:) in conformance Path@<X0>(int *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v3 = *a1;
-  v4 = *(a2 + 48);
-  v7[2] = *(a2 + 32);
-  v7[3] = v4;
-  v7[4] = *(a2 + 64);
-  v8 = *(a2 + 80);
-  v5 = *(a2 + 16);
-  v7[0] = *a2;
-  v7[1] = v5;
-  return specialized static View.makeView(view:inputs:)(v3, v7, a3);
-}
-
-uint64_t closure #1 in makeMask #1 <A>(inputs:) in static _MaskAlignmentEffect._makeView(modifier:inputs:body:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for _MaskAlignmentEffect();
-  v5 = *(v4 + 36);
-  v9[2] = v4;
-  v9[3] = a2;
-  v6 = type metadata accessor for PointerOffset();
-  _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1 + v5, closure #1 in static PointerOffset.of(_:)partial apply, v9, a2, MEMORY[0x1E69E73E0], v6, MEMORY[0x1E69E7410], v7);
-  return v9[5];
-}
-
-uint64_t protocol witness for static View._makeView(view:inputs:) in conformance Rectangle@<X0>(int *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v3 = *a1;
-  v4 = *(a2 + 48);
-  v7[2] = *(a2 + 32);
-  v7[3] = v4;
-  v7[4] = *(a2 + 64);
-  v8 = *(a2 + 80);
-  v5 = *(a2 + 16);
-  v7[0] = *a2;
-  v7[1] = v5;
-  return specialized static View.makeView(view:inputs:)(v3, v7, a3);
-}
-
-unint64_t _s7SwiftUI10_ShapeViewV05_makeD04view6inputsAA01_D7OutputsVAA11_GraphValueVyACyxq_GG_AA01_D6InputsVtFZAA9RectangleV_AA15ForegroundStyleVTt2B5@<X0>(unsigned int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  v6 = *(a2 + 48);
-  if (_s7SwiftUI17PreferencesInputsV8contains_011includeHostC0Sbxm_SbtAA13PreferenceKeyRzlFAA11DisplayListV0I0V_TtB5Tf4dn_n(v6) & 1) != 0 || (result = _s7SwiftUI17PreferencesInputsV8contains_011includeHostC0Sbxm_SbtAA13PreferenceKeyRzlFAA014ViewRespondersI0V_TtB5Tf4dn_n(v6), (result))
-  {
-    v8 = *(a2 + 48);
-    v9 = *(a2 + 64);
-    v10 = *(a2 + 16);
-    v20[2] = *(a2 + 32);
-    v20[3] = v8;
-    v11 = *(a2 + 36);
-    v20[4] = v9;
-    v21 = *(a2 + 80);
-    v20[0] = *a2;
-    v20[1] = v10;
-    LOBYTE(v16) = 0;
-    swift_beginAccess();
-    v12 = CachedEnvironment.resolvedShapeStyles(for:role:mode:)(v20, &v16, 0x100000000);
-    swift_endAccess();
-    _s7SwiftUI19ShapeStyledLeafViewPAAE04makeeF04view6inputs6styles17interpolatorGroup4dataAA01_F7OutputsVAA11_GraphValueVyxG_AA01_F6InputsV09AttributeO00R0VyAA01_C10Style_PackVGAA01_cs13_InterpolatorL0CSg0C10UpdateDataQztFZAA01_cF0VyAA9RectangleVAA010ForegroundS0VG_Tt5B5(a1, a2, v12, 0, &v17);
-    if (one-time initialization token for v4 != -1)
-    {
-      swift_once();
-    }
-
-    v13 = static Semantics.v4;
-    if (one-time initialization token for forced != -1)
-    {
-      swift_once();
-    }
-
-    swift_beginAccess();
-    if (byte_1ED53C51C)
-    {
-      if (!dyld_program_sdk_at_least())
-      {
-        goto LABEL_13;
-      }
-    }
-
-    else if (static Semantics.forced < v13)
-    {
-      goto LABEL_13;
-    }
-
-    if ((v11 & 2) != 0)
-    {
-      v16 = a1;
-      protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
-      type metadata accessor for LeafLayoutComputer<_ShapeView<Rectangle, ForegroundStyle>>(0);
-      lazy protocol witness table accessor for type StaticBody<ViewBodyAccessor<GlassItemView>, AsyncThreadFlags> and conformance StaticBody<A, B>(&lazy protocol witness table cache variable for type LeafLayoutComputer<_ShapeView<Rectangle, ForegroundStyle>> and conformance LeafLayoutComputer<A>, type metadata accessor for LeafLayoutComputer<_ShapeView<Rectangle, ForegroundStyle>>);
-      result = Attribute.init<A>(body:value:flags:update:)();
-      v14 = v18 | 0x80;
-LABEL_14:
-      *a3 = v17;
-      *(a3 + 8) = v14;
-      *(a3 + 12) = result;
-      return result;
-    }
-
-LABEL_13:
-    v14 = v18;
-    result = v19;
-    goto LABEL_14;
-  }
-
-  *a3 = MEMORY[0x1E69E7CC0];
-  v15 = *MEMORY[0x1E698D3F8];
-  *(a3 + 8) = 0;
-  *(a3 + 12) = v15;
-  return result;
-}
-
-uint64_t _s7SwiftUI19ShapeStyledLeafViewPAAE04makeeF04view6inputs6styles17interpolatorGroup4dataAA01_F7OutputsVAA11_GraphValueVyxG_AA01_F6InputsV09AttributeO00R0VyAA01_C10Style_PackVGAA01_cs13_InterpolatorL0CSg0C10UpdateDataQztFZAA01_cF0VyAA9RectangleVAA010ForegroundS0VG_Tt5B5@<X0>(unsigned int a1@<W0>, uint64_t a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X3>, void *a5@<X8>)
-{
-  v65 = *MEMORY[0x1E69E9840];
-  v8 = MEMORY[0x1E69E7CC0];
-  v56 = MEMORY[0x1E69E7CC0];
-  LODWORD(v57) = 0;
-  HIDWORD(v57) = *MEMORY[0x1E698D3F8];
-  v52 = *MEMORY[0x1E698D3F8];
-  v55 = *(a2 + 48);
-  if ((_s7SwiftUI17PreferencesInputsV8contains_011includeHostC0Sbxm_SbtAA13PreferenceKeyRzlFAA11DisplayListV0I0V_TtB5Tf4dn_n(v55) & 1) == 0)
-  {
-    goto LABEL_7;
-  }
-
-  v9 = ++lastIdentity;
-  v10 = *a2;
-  v11 = *(a2 + 16);
-  if ((*(a2 + 37) & 1) == 0)
-  {
-LABEL_3:
-    OffsetAttribute2 = AGGraphCreateOffsetAttribute2();
-    v13 = *(a2 + 48);
-    v61 = *(a2 + 32);
-    v62 = v13;
-    v63 = *(a2 + 64);
-    v64 = *(a2 + 80);
-    v14 = *(a2 + 16);
-    v59 = *a2;
-    v60 = v14;
-    swift_beginAccess();
-    v15 = CachedEnvironment.animatedSize(for:)(&v59);
-    v16 = *(a2 + 48);
-    v61 = *(a2 + 32);
-    v62 = v16;
-    v63 = *(a2 + 64);
-    v64 = *(a2 + 80);
-    v17 = *(a2 + 16);
-    v59 = *a2;
-    v60 = v17;
-    v18 = CachedEnvironment.animatedPosition(for:)(&v59);
-    swift_endAccess();
-    v19 = *(v11 + 16);
-    BloomFilter.init(hashValue:)(&type metadata for DisplayList.Options);
-    v20 = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA07DisplayS0V7OptionsV_Tt0B5(v10, v59);
-    v51 = a5;
-    if (v20)
-    {
-      v21 = *(v20 + 72);
-    }
-
-    else
-    {
-      v21 = 0;
-    }
-
-    v47 = v21;
-    v48 = *(a2 + 60);
-    v49 = *(a2 + 68);
-    v50 = *(a2 + 76);
-    *&v59 = a4;
-    *(&v59 + 1) = __PAIR64__(a1, v9);
-    *&v60 = __PAIR64__(OffsetAttribute2, a3);
-    *(&v60 + 1) = __PAIR64__(v18, v15);
-    *&v61 = __PAIR64__(v48, v49);
-    *(&v61 + 1) = __PAIR64__(v50, v19);
-    LOBYTE(v62) = v21;
-    WORD1(v62) = 0;
-    protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
-    type metadata accessor for ShapeStyledDisplayList<_ShapeView<Rectangle, ForegroundStyle>>(0);
-    lazy protocol witness table accessor for type ShapeStyledDisplayList<_ShapeView<Rectangle, LinearGradient>> and conformance ShapeStyledDisplayList<A>(&lazy protocol witness table cache variable for type ShapeStyledDisplayList<_ShapeView<Rectangle, ForegroundStyle>> and conformance ShapeStyledDisplayList<A>, type metadata accessor for ShapeStyledDisplayList<_ShapeView<Rectangle, ForegroundStyle>>);
-    v22 = v19;
-
-    v23 = Attribute.init<A>(body:value:flags:update:)();
-    *&v59 = a4;
-    *(&v59 + 1) = __PAIR64__(a1, v9);
-    *&v60 = __PAIR64__(OffsetAttribute2, a3);
-    *(&v60 + 1) = __PAIR64__(v18, v15);
-    *&v61 = __PAIR64__(v48, v49);
-    *(&v61 + 1) = __PAIR64__(v50, v22);
-    LOBYTE(v62) = v47;
-    WORD1(v62) = 0;
-    outlined destroy of ShapeStyledDisplayList<_ShapeView<Rectangle, LinearGradient>>(&v59, type metadata accessor for ShapeStyledDisplayList<_ShapeView<Rectangle, ForegroundStyle>>);
-    LOBYTE(v58[0]) = 0;
-    PreferencesOutputs.subscript.setter(v23, &type metadata for DisplayList.Key, &protocol witness table for DisplayList.Key);
-    a5 = v51;
-    v8 = MEMORY[0x1E69E7CC0];
-LABEL_7:
-    v24 = *(a2 + 48);
-    v25 = *(a2 + 64);
-    v26 = *(a2 + 16);
-    v61 = *(a2 + 32);
-    v62 = v24;
-    v63 = v25;
-    v64 = *(a2 + 80);
-    v59 = *a2;
-    v60 = v26;
-    swift_beginAccess();
-    v27 = CachedEnvironment.animatedSize(for:)(&v59);
-    v28 = *(a2 + 48);
-    v61 = *(a2 + 32);
-    v62 = v28;
-    v63 = *(a2 + 64);
-    v64 = *(a2 + 80);
-    v29 = *(a2 + 16);
-    v59 = *a2;
-    v60 = v29;
-    v30 = CachedEnvironment.animatedPosition(for:)(&v59);
-    swift_endAccess();
-    v31 = *(a2 + 60);
-    type metadata accessor for LeafViewResponder<ShapeStyledResponderData<_ShapeView<Rectangle.AsymmetricalInset, ForegroundStyle>>>(0, &lazy cache variable for type metadata for LeafViewResponder<ShapeStyledResponderData<_ShapeView<Rectangle, ForegroundStyle>>>, type metadata accessor for ShapeStyledResponderData<_ShapeView<Rectangle, ForegroundStyle>>, &protocol witness table for ShapeStyledResponderData<A>, type metadata accessor for LeafViewResponder);
-    v32 = swift_allocObject();
-    *(v32 + 40) = 0u;
-    *(v32 + 56) = 0u;
-    *(v32 + 72) = 0u;
-    *(v32 + 88) = 0u;
-    *(v32 + 104) = 0u;
-    *(v32 + 120) = v8;
-    *(v32 + 24) = 0;
-    *(v32 + 128) = 0u;
-    *(v32 + 144) = 0u;
-    swift_unknownObjectWeakInit();
-    swift_weakInit();
-    specialized static GraphHost.currentHost.getter();
-    type metadata accessor for ViewGraph();
-    v33 = swift_dynamicCastClassUnconditional();
-    swift_beginAccess();
-    swift_unknownObjectWeakLoadStrong();
-    v34 = *(v33 + 208);
-
-    swift_beginAccess();
-    *(v32 + 24) = v34;
-    swift_unknownObjectWeakAssign();
-    swift_unknownObjectRelease();
-    v35 = v55;
-    *&v59 = v55;
-    v36 = PreferenceKeys._index(of:)(&type metadata for ViewRespondersKey);
-    v37 = *(v55 + 16);
-    if (v36 != v37)
-    {
-      if (v36 >= v37)
-      {
-        __break(1u);
-        goto LABEL_20;
-      }
-
-      if (*(v55 + 16 * v36 + 32) == &type metadata for ViewRespondersKey)
-      {
-        *&v59 = __PAIR64__(a3, a1);
-        *(&v59 + 1) = __PAIR64__(v30, v27);
-        LODWORD(v60) = v31;
-        *(&v60 + 1) = v32;
-        protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
-        type metadata accessor for [ViewResponder](0, &lazy cache variable for type metadata for [ViewResponder], type metadata accessor for ViewResponder, MEMORY[0x1E69E62F8]);
-        type metadata accessor for ShapeStyledResponderFilter<_ShapeView<Rectangle, ForegroundStyle>>(0);
-        lazy protocol witness table accessor for type ShapeStyledDisplayList<_ShapeView<Rectangle, LinearGradient>> and conformance ShapeStyledDisplayList<A>(&lazy protocol witness table cache variable for type ShapeStyledResponderFilter<_ShapeView<Rectangle, ForegroundStyle>> and conformance ShapeStyledResponderFilter<A>, type metadata accessor for ShapeStyledResponderFilter<_ShapeView<Rectangle, ForegroundStyle>>);
-        v35 = v55;
-        v38 = Attribute.init<A>(body:value:flags:update:)();
-        LOBYTE(v59) = 0;
-        PreferencesOutputs.subscript.setter(v38, &type metadata for ViewRespondersKey, &protocol witness table for ViewRespondersKey);
-      }
-    }
-
-    if ((_s7SwiftUI17PreferencesInputsV8contains_011includeHostC0Sbxm_SbtAA13PreferenceKeyRzlFAA20ContentShapePathDataV_TtB5Tf4dn_n(v35) & 1) == 0)
-    {
-      goto LABEL_16;
-    }
-
-    v39 = v35;
-    v40 = *(a2 + 64);
-    v41 = AGGraphCreateOffsetAttribute2();
-    *&v59 = __PAIR64__(v40, v31);
-    *(&v59 + 1) = __PAIR64__(a1, v41);
-    LODWORD(v60) = v52;
-    protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
-    type metadata accessor for ContentResponderPathDataRule<_ShapeView<Rectangle, ForegroundStyle>>(0);
-    lazy protocol witness table accessor for type ShapeStyledDisplayList<_ShapeView<Rectangle, LinearGradient>> and conformance ShapeStyledDisplayList<A>(&lazy protocol witness table cache variable for type ContentResponderPathDataRule<_ShapeView<Rectangle, ForegroundStyle>> and conformance ContentResponderPathDataRule<A>, type metadata accessor for ContentResponderPathDataRule<_ShapeView<Rectangle, ForegroundStyle>>);
-    v42 = Attribute.init<A>(body:value:flags:update:)();
-    *&v59 = v39;
-    v43 = PreferenceKeys._index(of:)(&type metadata for ContentShapePathData);
-    if (v43 == v37)
-    {
-      goto LABEL_16;
-    }
-
-    if (v43 < v37)
-    {
-      if (*(v55 + 16 * v43 + 32) == &type metadata for ContentShapePathData)
-      {
-        LODWORD(v59) = v42;
-        protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
-        type metadata accessor for ContentShapePathData?(0, &lazy cache variable for type metadata for ContentShapePathData?, &type metadata for ContentShapePathData, MEMORY[0x1E69E6720]);
-        type metadata accessor for ContentShapePathData?(0, &lazy cache variable for type metadata for ToOptional<ContentShapePathData>, &type metadata for ContentShapePathData, type metadata accessor for ToOptional);
-        lazy protocol witness table accessor for type ToOptional<ContentShapePathData> and conformance ToOptional<A>();
-        v44 = Attribute.init<A>(body:value:flags:update:)();
-        LOBYTE(v59) = 0;
-        PreferencesOutputs.subscript.setter(v44, &type metadata for ContentShapePathData, &protocol witness table for ContentShapePathData);
-      }
-
-LABEL_16:
-
-      *a5 = v56;
-      a5[1] = v57;
-      return result;
-    }
-
-LABEL_20:
-    __break(1u);
-  }
-
-  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA08_DisplayD20_StableIdentityScopeV_Tt2G5(*a2, &v59);
-  result = AGWeakAttributeGetAttribute();
-  if (result != v52)
-  {
-    v58[0] = v9;
-    v46 = Attribute<A>.subscript.modify();
-    _DisplayList_StableIdentityScope.pushIdentity(_:)(v58);
-    v46(&v59, 0);
-    goto LABEL_3;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t Path.mix(with:by:)@<X0>(uint64_t a1@<X8>)
-{
-  Path.retainRBPath()();
-  Path.retainRBPath()();
-  v2 = RBPathCopyInterpolatedPath();
-  v4 = v3;
-  if (RBPathIsNull(v2, v3))
-  {
-    v5 = 0;
-    v6 = -1;
-  }
-
-  else
-  {
-    type metadata accessor for Path.PathBox();
-    v5 = swift_allocObject();
-    *(v5 + 40) = 0u;
-    *(v5 + 56) = 0u;
-    *(v5 + 72) = 0u;
-    *(v5 + 88) = 0u;
-    *(v5 + 104) = 0u;
-    *(v5 + 16) = 1;
-    v6 = 5;
-    *(v5 + 24) = v2;
-    *(v5 + 32) = v4;
-  }
-
-  RBPathRelease();
-  result = RBPathRelease();
-  *a1 = v5;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 32) = v6;
-  return result;
-}
-
-uint64_t static Font.default.getter()
-{
-  type metadata accessor for FontBox<Font.DefaultProvider>();
-
-  return swift_allocObject();
-}
-
-uint64_t protocol witness for FontProvider.resolveDescriptor(in:) in conformance Font.DefaultProvider(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  v3[0] = *a1;
-  v3[1] = v1;
-  return (*(**(a1 + 32) + 96))(v3, *(a1 + 32));
-}
-
-uint64_t destroy for Font.Resolved()
-{
-}
-
-unint64_t lazy protocol witness table accessor for type RBImageRendererProperty and conformance RBImageRendererProperty()
-{
-  result = lazy protocol witness table cache variable for type RBImageRendererProperty and conformance RBImageRendererProperty;
-  if (!lazy protocol witness table cache variable for type RBImageRendererProperty and conformance RBImageRendererProperty)
-  {
-    type metadata accessor for RBImageRendererProperty(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type RBImageRendererProperty and conformance RBImageRendererProperty);
-  }
-
-  return result;
-}
-
-uint64_t GraphicsContext.addSDFGradientFilter(_:)(uint64_t result)
-{
-  if (result)
-  {
-    if (result == 1)
-    {
-      v1 = 0x3F00000000000000;
-      v2 = 3204448256;
-    }
-
-    else
-    {
-      v1 = 0;
-      v2 = 3212836864;
-    }
-
-    if (one-time initialization token for system != -1)
-    {
-      swift_once();
-    }
-
-    v3 = static ShaderLibrary.system;
-    type metadata accessor for _ContiguousArrayStorage<Shader.Argument>();
-    v4 = swift_allocObject();
-    *(v4 + 16) = xmmword_18DDA6EB0;
-    *(v4 + 32) = v2 | v1;
-    *(v4 + 40) = 0;
-    *(v4 + 48) = 0;
-    *(v4 + 52) = 1;
-    *&v6 = v3;
-    *(&v6 + 1) = 0xD000000000000010;
-    *&v7 = 0x800000018DD79660;
-    *(&v7 + 1) = v4;
-    v8 = 0u;
-    v9 = 0u;
-    *&v10 = 0;
-    v11 = 3221225472;
-    v5 = v3;
-    GraphicsContext.addFilter(_:options:)(&v6, 0);
-    v12[3] = v9;
-    v12[4] = v10;
-    v13 = v11;
-    v12[0] = v6;
-    v12[1] = v7;
-    v12[2] = v8;
-    return outlined destroy of GraphicsContext.Filter(v12);
-  }
-
-  return result;
-}
-
-void type metadata accessor for _ContiguousArrayStorage<Shader.Argument>()
-{
-  if (!lazy cache variable for type metadata for _ContiguousArrayStorage<Shader.Argument>)
-  {
-    v0 = type metadata accessor for _ContiguousArrayStorage();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Shader.Argument>);
-    }
-  }
-}
-
-uint64_t outlined copy of Shader.Argument.Storage(uint64_t a1, unint64_t a2, uint64_t a3, unsigned __int8 a4)
-{
-  if (a4 <= 5u)
-  {
-    if (a4 != 4)
-    {
-      if (a4 != 5)
-      {
-        return a1;
-      }
-    }
-  }
-
-  switch(a4)
-  {
-    case 6u:
-
-    case 8u:
-
-    case 9u:
-      return outlined copy of Data._Representation(a1, a2);
-  }
-
-  return a1;
-}
-
-uint64_t outlined consume of Shader.Argument.Storage(uint64_t a1, unint64_t a2, uint64_t a3, unsigned __int8 a4)
-{
-  if (a4 <= 5u)
-  {
-    if (a4 != 4)
-    {
-      if (a4 != 5)
-      {
-        return a1;
-      }
-    }
-  }
-
-  switch(a4)
-  {
-    case 6u:
-
-    case 8u:
-
-    case 9u:
-      return outlined consume of Data._Representation(a1, a2);
-  }
-
-  return a1;
-}
-
-uint64_t initializeWithCopy for _ResolvedKeyframes.Track(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 8);
-  *a1 = *a2;
-  *(a1 + 8) = v3;
-  v4 = *(a2 + 32);
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 32) = v4;
-
-  return a1;
-}
-
-uint64_t destroy for _ResolvedKeyframes.Track()
-{
-}
-
-uint64_t implicit closure #1 in _ResolvedKeyframes.duration.getter()
-{
-
-  swift_getAtKeyPath();
-}
-
-uint64_t KeyframeTimeline.value(time:)@<X0>(uint64_t a1@<X0>, void (*a2)(uint64_t, uint64_t, double)@<X1>, uint64_t a3@<X8>, double a4@<D0>)
-{
-  (*(*(*(a1 + 16) - 8) + 16))(a3, v4, *(a1 + 16));
-  v8 = type metadata accessor for _ResolvedKeyframes();
-
-  a2(a3, v8, a4);
-}
-
-uint64_t _ResolvedKeyframes.update(value:time:)(uint64_t a1, double a2)
-{
-  v5 = *v2;
-  v6 = type metadata accessor for _ResolvedKeyframes.Track();
-
-  if (MEMORY[0x193ABF2C0](v7, v6))
-  {
-    v8 = 0;
-    v9 = v5 + 64;
-    while (1)
-    {
-      IsNativeType = Array._hoistableIsNativeTypeChecked()();
-      result = Array._checkSubscript(_:wasNativeTypeChecked:)();
-      if (!IsNativeType)
-      {
-        break;
-      }
-
-      v12 = v8 + 1;
-      if (__OFADD__(v8, 1))
-      {
+LABEL_116:
+        *(a1 + 1) = v59;
         goto LABEL_10;
       }
 
-      v13 = *(v9 - 24);
-
-      v13(a1, a2);
-
-      ++v8;
-      v9 += 40;
-      if (v12 == MEMORY[0x193ABF2C0](v5, v6))
+      ProtobufDecoder.decodeVarint()(v15);
+      if (v1)
       {
-        goto LABEL_6;
-      }
-    }
-
-    result = _ArrayBuffer._getElementSlowPath(_:)();
-    __break(1u);
-LABEL_10:
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_6:
-  }
-
-  return result;
-}
-
-uint64_t specialized FluidSpringAnimation.animate<A>(value:time:context:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, float64_t a3@<D0>, float64_t a4@<D1>, float64_t a5@<D2>, float64_t a6@<D3>, double a7@<D4>, double a8@<D5>, double a9@<D6>, double a10@<D7>)
-{
-  _s7SwiftUI14AnimationStateVy5ValueQyd__qd__mcAA0cD3KeyRd__luigAA14AnimatablePairVyAHy12CoreGraphics7CGFloatVAKGALG_AA06SpringD033_73E5E3E568519775ECB92F029EBA0DDALLVyAMGTt0B5(*a1, &v89);
-  v16 = a8;
-  if (a10 > 0.0)
-  {
-    v16 = a8;
-    if (*(&v96 + 1) != 0.0)
-    {
-      v17 = (a7 - *&v96) / a10;
-      if (v17 <= 1.0)
-      {
-        v18 = (a7 - *&v96) / a10;
+        goto LABEL_144;
       }
 
-      else
+      goto LABEL_10;
+    }
+
+    if (v15 >> 3 > 5)
+    {
+      if (v17 == 6)
       {
-        v18 = 1.0;
-      }
-
-      v19 = v17 < 0.0;
-      v20 = 0.0;
-      if (!v19)
-      {
-        v20 = v18;
-      }
-
-      v16 = *(&v96 + 1) * (1.0 - v20 * v20 * (3.0 - (v20 + v20))) + a8;
-    }
-  }
-
-  if (v16 <= 0.0)
-  {
-    v21 = INFINITY;
-  }
-
-  else
-  {
-    v21 = 6.28318531 / v16 * (6.28318531 / v16);
-  }
-
-  if (v21 > 45000.0)
-  {
-    v21 = 45000.0;
-  }
-
-  if (v16 <= a7 - *(&v95 + 1))
-  {
-    *(a1 + 17) = 1;
-  }
-
-  v22 = *&v95;
-  if (a7 - *&v95 > 1.0)
-  {
-    v22 = a7 + -0.0166666667;
-    *&v95 = a7 + -0.0166666667;
-  }
-
-  v23 = v89;
-  v24 = v90;
-  if (v22 >= a7)
-  {
-    v80 = v91;
-    v81 = v92;
-    v39 = v93.f64[1];
-    v40.f64[0] = a3;
-    v40.f64[1] = a4;
-    v38 = v94.f64[1];
-    v78 = v94.f64[0];
-    v79 = v93.f64[0];
-    v41.f64[0] = a5;
-    v41.f64[1] = a6;
-    v70 = vsubq_f64(v40, v89);
-    v71 = vsubq_f64(v41, v90);
-    v76 = v90;
-    v77 = v89;
-  }
-
-  else
-  {
-    v25 = sqrt(v21) * -2.0 * a9;
-    v26 = v93;
-    v27 = v94;
-    v28.f64[0] = a5;
-    v28.f64[1] = a6;
-    v29.f64[0] = a3;
-    v29.f64[1] = a4;
-    v30 = vdupq_n_s64(0x3F5B4E81B4E81B4FuLL);
-    v31 = v91;
-    v32 = v92;
-    v33 = vdupq_n_s64(0x3F6B4E81B4E81B4FuLL);
-    do
-    {
-      v34 = vaddq_f64(vmulq_f64(v26, v30), v31);
-      v35 = vaddq_f64(vmulq_f64(v27, v30), v32);
-      v23 = vaddq_f64(v23, vmulq_f64(v34, v33));
-      v24 = vaddq_f64(v24, vmulq_f64(v35, v33));
-      v36 = vsubq_f64(v28, v24);
-      v37 = vsubq_f64(v29, v23);
-      v27 = vaddq_f64(vmulq_n_f64(v35, v25), vmulq_n_f64(v36, v21));
-      v26 = vaddq_f64(vmulq_n_f64(v34, v25), vmulq_n_f64(v37, v21));
-      v32 = vaddq_f64(v35, vmulq_f64(v27, v30));
-      v31 = vaddq_f64(v34, vmulq_f64(v26, v30));
-      v22 = v22 + 0.00333333333;
-    }
-
-    while (v22 < a7);
-    v70 = v37;
-    v71 = v36;
-    v91 = v31;
-    v92 = v32;
-    v38 = v27.f64[1];
-    v39 = v26.f64[1];
-    v93 = v26;
-    v94 = v27;
-    *&v95 = v22;
-    v89 = v23;
-    v90 = v24;
-    v76 = v24;
-    v77 = v23;
-    v78 = v27.f64[0];
-    v79 = v26.f64[0];
-    v80 = v31;
-    v81 = v32;
-  }
-
-  type metadata accessor for SpringState<AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>>(0, &lazy cache variable for type metadata for SpringState<AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>>, type metadata accessor for SpringState);
-  v43 = v42;
-  *&v85.f64[1] = v42;
-  v44 = swift_allocObject();
-  *&v84.f64[0] = v44;
-  *(v44 + 16) = v77;
-  *(v44 + 32) = v76;
-  *(v44 + 48) = v80;
-  *(v44 + 64) = v81;
-  *(v44 + 80) = v79;
-  *(v44 + 88) = v39;
-  *(v44 + 96) = v78;
-  *(v44 + 104) = v38;
-  v45 = v96;
-  *(v44 + 112) = v95;
-  *(v44 + 128) = v45;
-  specialized Dictionary.subscript.setter(&v84, v43);
-  v46 = *(a1 + 16);
-  result = _s7SwiftUI14AnimationStateVy5ValueQyd__qd__mcAA0cD3KeyRd__luigAA14AnimatablePairVyAHy12CoreGraphics7CGFloatVAKGALG_AA0c19FinishingDefinitionF033_2DFC163B2FD0FA7B91FDE1127AAEDE04LLVyAMGTt0B5(*a1);
-  if (result)
-  {
-    v49 = result;
-    v50 = v48;
-    v51 = 6.28318531 / a8 * (6.28318531 / a8);
-    v52 = sqrt(v51);
-    v53 = (v52 + v52) * a9 / v51;
-    v68 = vmulq_n_f64(v80, v53);
-    v69 = vmulq_n_f64(v81, v53);
-    if ((v46 & 1) != 0 || (WeakValue = AGGraphGetWeakValue()) == 0)
-    {
-      EnvironmentValues.init()(&v83);
-      v55 = v83;
-    }
-
-    else
-    {
-      v67 = *WeakValue;
-
-      v55 = v67;
-    }
-
-    v84 = v70;
-    v85 = v71;
-    v86 = v68;
-    v87 = v69;
-    v88 = v55;
-    v56 = (*(v50 + 24))(&v84, v49, v50);
-    v82[2] = v86;
-    v82[3] = v87;
-    v82[4] = v88;
-    v82[0] = v84;
-    v82[1] = v85;
-    result = outlined destroy of AnimationSettlingContext<AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>>(v82);
-    if (v56)
-    {
-      goto LABEL_37;
-    }
-  }
-
-  v57 = vmuld_n_f64(v80.f64[0], v80.f64[0]) + vmuld_lane_f64(v80.f64[1], v80, 1) + vmuld_n_f64(v81.f64[0], v81.f64[0]) + vmuld_lane_f64(v81.f64[1], v81, 1);
-  if (v57 <= v79 * v79 + v39 * v39 + v78 * v78 + v38 * v38)
-  {
-    v57 = v79 * v79 + v39 * v39 + v78 * v78 + v38 * v38;
-  }
-
-  if (v57 <= 0.0036)
-  {
-    v61.f64[0] = a3;
-    v61.f64[1] = a5;
-    v62 = vdupq_n_s64(0x3F847AE147AE147BuLL);
-    v63 = vmulq_f64(v61, v62);
-    v64.f64[0] = a4;
-    v64.f64[1] = a6;
-    v65 = vmulq_f64(v64, v62);
-    v66 = vaddvq_f64(vaddq_f64(vmulq_f64(v63, v63), vmulq_f64(v65, v65)));
-    if (v66 > 0.0)
-    {
-      v19 = v66 < vmuld_n_f64(v70.f64[0], v70.f64[0]) + vmuld_lane_f64(v70.f64[1], v70, 1) + vmuld_n_f64(v71.f64[0], v71.f64[0]) + vmuld_lane_f64(v71.f64[1], v71, 1);
-      v60 = v76;
-      v59 = v77;
-      if (v19)
-      {
-        v58 = 0;
-        goto LABEL_38;
-      }
-    }
-
-LABEL_37:
-    v59 = 0uLL;
-    v58 = 1;
-    v60 = 0uLL;
-    goto LABEL_38;
-  }
-
-  v58 = 0;
-  v60 = v76;
-  v59 = v77;
-LABEL_38:
-  *a2 = v59;
-  *(a2 + 16) = v60;
-  *(a2 + 32) = v58;
-  return result;
-}
-
-uint64_t KeyframeTimeline.value(progress:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, double a3@<D0>)
-{
-  (*(*(*(a1 + 16) - 8) + 16))(a2, v3, *(a1 + 16));
-
-  type metadata accessor for _ResolvedKeyframes();
-  v6 = _ResolvedKeyframes.duration.getter();
-  _ResolvedKeyframes.update(value:time:)(a2, v6 * a3);
-}
-
-void GraphicsFilter.init(from:)(void *a1@<X0>, _OWORD *a2@<X8>)
-{
-  v3 = v2;
-  v217 = *MEMORY[0x1E69E9840];
-  __asm { FMOV            V0.4S, #1.0 }
-
-  v210 = _Q0;
-  LODWORD(v211) = 2143289344;
-  _s7SwiftUI14GraphicsFilterOWOi6_(&v210);
-  v207 = v214;
-  v208 = v215;
-  v209[0] = v216[0];
-  *(v209 + 12) = *(v216 + 12);
-  v203 = v210;
-  v204 = v211;
-  v205 = v212;
-  v206 = v213;
-  v11 = a1[1];
-  v12 = a1[2];
-  if (v11 >= v12)
-  {
-    goto LABEL_229;
-  }
-
-  v13 = 0;
-  while (1)
-  {
-    v16 = a1[3];
-    if (!v16)
-    {
-      break;
-    }
-
-    v17 = a1[4];
-    if (v11 >= v17)
-    {
-      if (v17 < v11)
-      {
-        goto LABEL_230;
-      }
-
-      a1[3] = 0;
-      break;
-    }
-
-LABEL_11:
-    switch(v16 >> 3)
-    {
-      case 1uLL:
-        if ((v16 & 7) != 2)
+        if (v5)
         {
-          goto LABEL_230;
-        }
-
-        v18 = a1[5];
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v18 + 2) + 1, 1, v18);
-        }
-
-        v19 = *(v18 + 2);
-        v20 = *(v18 + 3);
-        v21 = v19 + 1;
-        if (v19 >= v20 >> 1)
-        {
-          v173 = v19 + 1;
-          v150 = v18;
-          v151 = *(v18 + 2);
-          v152 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v19 + 1, 1, v150);
-          v19 = v151;
-          v21 = v173;
-          v18 = v152;
-        }
-
-        *(v18 + 2) = v21;
-        *&v18[8 * v19 + 32] = v12;
-        a1[5] = v18;
-        v22 = ProtobufDecoder.decodeVarint()();
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        if (v22 < 0)
-        {
-          goto LABEL_242;
-        }
-
-        v23 = a1[1] + v22;
-        if (v12 < v23)
-        {
-          goto LABEL_230;
-        }
-
-        a1[2] = v23;
-        BlurStyle.init(from:)(a1, __dst);
-        v24 = a1[5];
-        if (!*(v24 + 2))
-        {
-          goto LABEL_249;
-        }
-
-        if (swift_isUniquelyReferenced_nonNull_native())
-        {
-          v25 = *(v24 + 2);
-          if (!v25)
+          v62 = v15 & 7;
+          if (v62 == 5)
           {
-            goto LABEL_253;
-          }
-        }
+            v80 = *(a1 + 1);
+            if (v4 < (v80 + 1))
+            {
+              goto LABEL_142;
+            }
 
-        else
-        {
-          v24 = specialized _ArrayBuffer._consumeAndCreateNew()(v24);
-          v25 = *(v24 + 2);
-          if (!v25)
+            v7 = v1;
+            v81 = *v80;
+            *(a1 + 1) = v80 + 1;
+            v79 = v81;
+          }
+
+          else
           {
-            goto LABEL_253;
+            if (v62 == 2)
+            {
+              v22 = a1;
+              v78 = ProtobufDecoder.decodeVarint()(v15);
+              if (v1)
+              {
+                goto LABEL_144;
+              }
+
+              if (v78 < 0)
+              {
+                goto LABEL_173;
+              }
+
+              v63 = *(a1 + 1);
+              if (v4 < v63 + v78)
+              {
+                goto LABEL_142;
+              }
+
+              *(a1 + 3) = 49;
+              *(a1 + 4) = v63 + v78;
+            }
+
+            else
+            {
+              if (v62 != 1)
+              {
+                goto LABEL_142;
+              }
+
+              v63 = *(a1 + 1);
+            }
+
+            if (v4 < (v63 + 1))
+            {
+              goto LABEL_142;
+            }
+
+            v7 = v1;
+            v79 = *v63;
+            *(a1 + 1) = v63 + 1;
           }
+
+          *&v89 = v79;
+          v10 = *(*v5 + 144);
+          lazy protocol witness table accessor for type SpeedAnimation and conformance SpeedAnimation();
+          v12 = v82;
+          v13 = &type metadata for SpeedAnimation;
+LABEL_8:
+          v14 = v10(&v89, v13, v12);
+
+          v5 = v14;
+LABEL_9:
+          v1 = v7;
+          goto LABEL_10;
         }
 
-        v26 = v25 - 1;
-        v27 = *&v24[8 * v26 + 32];
-        *(v24 + 2) = v26;
-        outlined destroy of GraphicsFilter(&v203);
-        a1[5] = v24;
-        a1[2] = v27;
-        *v192 = *__dst;
-        *&v192[8] = *&__dst[8];
-        _s7SwiftUI14GraphicsFilterOWOi_(v192);
-        goto LABEL_200;
-      case 2uLL:
-        if ((v16 & 7) != 2)
+        goto LABEL_10;
+      }
+
+      if (v17 == 7)
+      {
+        if ((v15 & 7) != 2)
         {
-          goto LABEL_230;
+          goto LABEL_142;
         }
 
-        v79 = a1[5];
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        v40 = *(a1 + 5);
+        v41 = swift_isUniquelyReferenced_nonNull_native();
+        if ((v41 & 1) == 0)
         {
-          v79 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v79 + 2) + 1, 1, v79);
+          v41 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v40 + 2) + 1, 1, v40);
+          v40 = v41;
         }
 
-        v80 = *(v79 + 2);
-        v81 = *(v79 + 3);
-        v82 = v80 + 1;
-        if (v80 >= v81 >> 1)
+        v43 = *(v40 + 2);
+        v42 = *(v40 + 3);
+        if (v43 >= v42 >> 1)
         {
-          v174 = v80 + 1;
-          v153 = v79;
-          v154 = *(v79 + 2);
-          v155 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v81 > 1), v80 + 1, 1, v153);
-          v80 = v154;
-          v82 = v174;
-          v79 = v155;
+          v41 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v42 > 1), v43 + 1, 1, v40);
+          v40 = v41;
         }
 
-        *(v79 + 2) = v82;
-        *&v79[8 * v80 + 32] = v12;
-        a1[5] = v79;
-        v83 = ProtobufDecoder.decodeVarint()();
-        if (v3)
+        *(v40 + 2) = v43 + 1;
+        *&v40[8 * v43 + 32] = v4;
+        *(a1 + 5) = v40;
+        v22 = a1;
+        v44 = ProtobufDecoder.decodeVarint()(v41);
+        if (v1)
         {
-          goto LABEL_231;
+          goto LABEL_144;
         }
 
-        if (v83 < 0)
+        if (v44 < 0)
         {
-          goto LABEL_241;
+          goto LABEL_159;
         }
 
-        v84 = a1[1] + v83;
-        if (v12 < v84)
+        v45 = *(a1 + 1) + v44;
+        if (v4 < v45)
         {
-          goto LABEL_230;
+          goto LABEL_142;
         }
 
-        a1[2] = v84;
-        ResolvedShadowStyle.init(from:)(a1, __dst);
-        v85 = a1[5];
-        if (!*(v85 + 2))
-        {
-          goto LABEL_245;
-        }
-
-        if (swift_isUniquelyReferenced_nonNull_native())
-        {
-          v86 = *(v85 + 2);
-          if (!v86)
-          {
-            goto LABEL_256;
-          }
-        }
-
-        else
-        {
-          v85 = specialized _ArrayBuffer._consumeAndCreateNew()(v85);
-          v86 = *(v85 + 2);
-          if (!v86)
-          {
-            goto LABEL_256;
-          }
-        }
-
-        v87 = v86 - 1;
-        v88 = *&v85[8 * v87 + 32];
-        *(v85 + 2) = v87;
-        outlined destroy of GraphicsFilter(&v203);
-        a1[5] = v85;
-        a1[2] = v88;
-        *v192 = *__dst;
-        *&v192[16] = *&__dst[16];
-        *v193 = *v189;
-        *&v193[13] = *&v189[13];
-        _s7SwiftUI14GraphicsFilterOWOi3_(v192);
-        goto LABEL_200;
-      case 3uLL:
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        v34 = a1[5];
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v34 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v34 + 2) + 1, 1, v34);
-        }
-
-        v35 = *(v34 + 2);
-        v36 = *(v34 + 3);
-        v37 = v35 + 1;
-        if (v35 >= v36 >> 1)
-        {
-          v169 = v35 + 1;
-          v138 = v34;
-          v139 = *(v34 + 2);
-          v140 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v36 > 1), v35 + 1, 1, v138);
-          v35 = v139;
-          v37 = v169;
-          v34 = v140;
-        }
-
-        *(v34 + 2) = v37;
-        *&v34[8 * v35 + 32] = v12;
-        a1[5] = v34;
-        v38 = ProtobufDecoder.decodeVarint()();
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        if (v38 < 0)
-        {
-          goto LABEL_239;
-        }
-
-        v39 = a1[1] + v38;
-        if (v12 < v39)
-        {
-          goto LABEL_230;
-        }
-
-        a1[2] = v39;
-        *&__dst[16] = 0uLL;
-        *__dst = 0x3FF0000000000000uLL;
-        *v189 = 0x3FF0000000000000uLL;
-        *&v189[16] = 0uLL;
-        *v190 = 0x3FF0000000000000;
-        closure #1 in ProjectionTransform.init(from:)(__dst, a1, &v183);
-        v180 = *v189;
-        v181 = *&v189[16];
-        v182 = *v190;
-        v178 = *__dst;
-        v179 = *&__dst[16];
-        v40 = a1[5];
+        *(a1 + 2) = v45;
         if (!*(v40 + 2))
         {
-          goto LABEL_252;
+          goto LABEL_162;
         }
 
+        v22 = 0;
         if (swift_isUniquelyReferenced_nonNull_native())
         {
-          v41 = *(v40 + 2);
-          if (!v41)
+          v46 = *(v40 + 2);
+          if (!v46)
           {
-            goto LABEL_255;
+            goto LABEL_163;
           }
         }
 
         else
         {
           v40 = specialized _ArrayBuffer._consumeAndCreateNew()(v40);
-          v41 = *(v40 + 2);
-          if (!v41)
+          v46 = *(v40 + 2);
+          if (!v46)
           {
-            goto LABEL_255;
+            goto LABEL_163;
           }
         }
 
-        v42 = v41 - 1;
-        v43 = *&v40[8 * v42 + 32];
-        *(v40 + 2) = v42;
-        outlined destroy of GraphicsFilter(&v203);
-        a1[5] = v40;
-        a1[2] = v43;
-        *v193 = v180;
-        *&v193[16] = v181;
-        *v194 = v182;
-        *v192 = v178;
-        *&v192[16] = v179;
-        _s7SwiftUI14GraphicsFilterOWOi4_(v192);
-        goto LABEL_200;
-      case 4uLL:
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        specialized ProtobufDecoder.decodeMessage<A>()(__dst);
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        outlined destroy of GraphicsFilter(&v203);
-        *v193 = *v189;
-        *&v193[16] = *&v189[16];
-        *v194 = *v190;
-        *v192 = *__dst;
-        *&v192[16] = *&__dst[16];
-        v194[16] = 0;
-        _s7SwiftUI14GraphicsFilterOWOi5_(v192);
-        goto LABEL_200;
-      case 5uLL:
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        v44 = a1[5];
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v44 + 2) + 1, 1, v44);
-        }
-
-        v45 = *(v44 + 2);
-        v46 = *(v44 + 3);
-        v47 = v45 + 1;
-        if (v45 >= v46 >> 1)
-        {
-          v170 = v45 + 1;
-          v141 = v44;
-          v142 = *(v44 + 2);
-          v143 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v46 > 1), v45 + 1, 1, v141);
-          v45 = v142;
-          v47 = v170;
-          v44 = v143;
-        }
-
-        *(v44 + 2) = v47;
-        *&v44[8 * v45 + 32] = v12;
-        a1[5] = v44;
-        v48 = ProtobufDecoder.decodeVarint()();
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        if (v48 < 0)
-        {
-          goto LABEL_237;
-        }
-
-        v49 = a1[1] + v48;
-        if (v12 < v49)
-        {
-          goto LABEL_230;
-        }
-
-        a1[2] = v49;
-        specialized Color.ResolvedHDR.init(from:)(a1, &v184);
-        v50 = a1[5];
-        if (!*(v50 + 2))
-        {
-          goto LABEL_251;
-        }
-
-        v168 = v184;
-        v51 = v185;
-        if (swift_isUniquelyReferenced_nonNull_native())
-        {
-          v52 = *(v50 + 2);
-          if (!v52)
-          {
-            goto LABEL_259;
-          }
-        }
-
-        else
-        {
-          v50 = specialized _ArrayBuffer._consumeAndCreateNew()(v50);
-          v52 = *(v50 + 2);
-          if (!v52)
-          {
-            goto LABEL_259;
-          }
-        }
-
-        v53 = v52 - 1;
-        v54 = *&v50[8 * v53 + 32];
-        *(v50 + 2) = v53;
-        outlined destroy of GraphicsFilter(&v203);
-        a1[5] = v50;
-        a1[2] = v54;
-        *v192 = v168;
-        *&v192[16] = v51;
-        _s7SwiftUI14GraphicsFilterOWOi6_(v192);
-        goto LABEL_200;
-      case 6uLL:
-        *__dst = v16;
-        v73 = ProtobufDecoder.doubleField(_:)(__dst);
-        v3 = v74;
-        if (v74)
-        {
-          goto LABEL_231;
-        }
-
-        v75 = v73;
-        outlined destroy of GraphicsFilter(&v203);
-        *v192 = v75;
-        _s7SwiftUI14GraphicsFilterOWOi8_(v192);
-        goto LABEL_200;
-      case 7uLL:
-        *__dst = v16;
-        v90 = ProtobufDecoder.doubleField(_:)(__dst);
-        v3 = v91;
-        if (v91)
-        {
-          goto LABEL_231;
-        }
-
-        v92 = v90;
-        outlined destroy of GraphicsFilter(&v203);
-        *v192 = v92;
-        _s7SwiftUI14GraphicsFilterOWOi9_(v192);
-        goto LABEL_200;
-      case 8uLL:
-        *__dst = v16;
-        v93 = ProtobufDecoder.doubleField(_:)(__dst);
-        v3 = v94;
-        if (v94)
-        {
-          goto LABEL_231;
-        }
-
-        v95 = v93;
-        outlined destroy of GraphicsFilter(&v203);
-        *v192 = v95;
-        _s7SwiftUI14GraphicsFilterOWOi10_(v192);
-        goto LABEL_200;
-      case 9uLL:
-        *__dst = v16;
-        v111 = ProtobufDecoder.doubleField(_:)(__dst);
-        v3 = v112;
-        if (v112)
-        {
-          goto LABEL_231;
-        }
-
-        v113 = v111;
-        outlined destroy of GraphicsFilter(&v203);
-        *v192 = v113;
-        _s7SwiftUI14GraphicsFilterOWOi11_(v192);
-        goto LABEL_200;
-      case 0xAuLL:
-        v107 = v16;
-        outlined destroy of GraphicsFilter(&v203);
-        _s7SwiftUI14GraphicsFilterOWOi23_(v192);
-        v32 = v107 & 7;
-        if (v32 <= 1)
-        {
-          goto LABEL_145;
-        }
-
-        if (v32 != 2)
-        {
-          goto LABEL_190;
-        }
-
-        v33 = ProtobufDecoder.decodeVarint()();
-        if (v3)
-        {
-          return;
-        }
-
-        if ((v33 & 0x8000000000000000) == 0)
-        {
-          goto LABEL_197;
-        }
-
-        goto LABEL_261;
-      case 0xBuLL:
-        v31 = v16;
-        outlined destroy of GraphicsFilter(&v203);
-        _s7SwiftUI14GraphicsFilterOWOi24_(v192);
-        v32 = v31 & 7;
-        if (v32 > 1)
-        {
-          if (v32 != 2)
-          {
-            goto LABEL_190;
-          }
-
-          v33 = ProtobufDecoder.decodeVarint()();
-          if (v3)
-          {
-            return;
-          }
-
-          if (v33 < 0)
-          {
-            goto LABEL_262;
-          }
-
-          goto LABEL_197;
-        }
-
-LABEL_145:
-        if (!v32)
-        {
-          goto LABEL_142;
-        }
-
-        goto LABEL_146;
-      case 0xCuLL:
-        *__dst = v16;
-        v76 = ProtobufDecoder.doubleField(_:)(__dst);
-        v3 = v77;
-        if (v77)
-        {
-          goto LABEL_231;
-        }
-
-        v78 = v76;
-        outlined destroy of GraphicsFilter(&v203);
-        *v192 = v78;
-        _s7SwiftUI14GraphicsFilterOWOi12_(v192);
-        goto LABEL_200;
-      case 0xDuLL:
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        v55 = a1[5];
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v55 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v55 + 2) + 1, 1, v55);
-        }
-
-        v56 = *(v55 + 2);
-        v57 = *(v55 + 3);
-        v58 = v56 + 1;
-        if (v56 >= v57 >> 1)
-        {
-          v171 = v56 + 1;
-          v144 = v55;
-          v145 = *(v55 + 2);
-          v146 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v57 > 1), v56 + 1, 1, v144);
-          v56 = v145;
-          v58 = v171;
-          v55 = v146;
-        }
-
-        *(v55 + 2) = v58;
-        *&v55[8 * v56 + 32] = v12;
-        a1[5] = v55;
-        v59 = ProtobufDecoder.decodeVarint()();
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        if (v59 < 0)
-        {
-          goto LABEL_240;
-        }
-
-        v60 = a1[1] + v59;
-        if (v12 < v60)
-        {
-          goto LABEL_230;
-        }
-
-        a1[2] = v60;
-        GraphicsFilter.ColorMonochrome.init(from:)(a1, __dst);
-        v61 = a1[5];
-        if (!*(v61 + 2))
-        {
-          goto LABEL_246;
-        }
-
-        if (swift_isUniquelyReferenced_nonNull_native())
-        {
-          v62 = *(v61 + 2);
-          if (!v62)
-          {
-            goto LABEL_254;
-          }
-        }
-
-        else
-        {
-          v61 = specialized _ArrayBuffer._consumeAndCreateNew()(v61);
-          v62 = *(v61 + 2);
-          if (!v62)
-          {
-            goto LABEL_254;
-          }
-        }
-
-        v63 = v62 - 1;
-        v64 = *&v61[8 * v63 + 32];
-        *(v61 + 2) = v63;
-        outlined destroy of GraphicsFilter(&v203);
-        a1[5] = v61;
-        a1[2] = v64;
-        *v192 = *__dst;
-        *&v192[16] = *&__dst[16];
-        *&v192[24] = *&__dst[24];
-        _s7SwiftUI14GraphicsFilterOWOi13_(v192);
-        goto LABEL_200;
-      case 0xEuLL:
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        specialized ProtobufDecoder.decodeMessage<A>()(__dst);
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        outlined destroy of GraphicsFilter(&v203);
-        *v193 = *v189;
-        *&v193[16] = *&v189[16];
-        *v194 = *v190;
-        *v192 = *__dst;
-        *&v192[16] = *&__dst[16];
-        *&v194[16] = 2139095040;
-        v194[20] = 0;
-        goto LABEL_42;
-      case 0xFuLL:
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        v96 = a1[5];
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v96 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v96 + 2) + 1, 1, v96);
-        }
-
-        v97 = *(v96 + 2);
-        v98 = *(v96 + 3);
-        v99 = v97 + 1;
-        if (v97 >= v98 >> 1)
-        {
-          v175 = v97 + 1;
-          v156 = v96;
-          v157 = *(v96 + 2);
-          v158 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v98 > 1), v97 + 1, 1, v156);
-          v97 = v157;
-          v99 = v175;
-          v96 = v158;
-        }
-
-        *(v96 + 2) = v99;
-        *&v96[8 * v97 + 32] = v12;
-        a1[5] = v96;
-        v100 = ProtobufDecoder.decodeVarint()();
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        if (v100 < 0)
-        {
-          goto LABEL_235;
-        }
-
-        v101 = a1[1] + v100;
-        if (v12 < v101)
-        {
-          goto LABEL_230;
-        }
-
-        a1[2] = v101;
-        GraphicsFilter.LuminanceCurve.init(from:)(a1, __dst);
-        v102 = a1[5];
-        if (!*(v102 + 2))
-        {
-          goto LABEL_247;
-        }
-
-        if (swift_isUniquelyReferenced_nonNull_native())
-        {
-          v103 = *(v102 + 2);
-          if (!v103)
-          {
-            goto LABEL_257;
-          }
-        }
-
-        else
-        {
-          v102 = specialized _ArrayBuffer._consumeAndCreateNew()(v102);
-          v103 = *(v102 + 2);
-          if (!v103)
-          {
-            goto LABEL_257;
-          }
-        }
-
-        v104 = v103 - 1;
-        v105 = *&v102[8 * v104 + 32];
-        *(v102 + 2) = v104;
-        outlined destroy of GraphicsFilter(&v203);
-        a1[5] = v102;
-        a1[2] = v105;
-        *v192 = *__dst;
-        *&v192[16] = *&__dst[16];
-        _s7SwiftUI14GraphicsFilterOWOi15_(v192);
-        goto LABEL_200;
-      case 0x10uLL:
-        v106 = v16;
-        outlined destroy of GraphicsFilter(&v203);
-        _s7SwiftUI14GraphicsFilterOWOi22_(v192);
-        v32 = v106 & 7;
-        if (v32 > 1)
-        {
-          if (v32 == 2)
-          {
-            v33 = ProtobufDecoder.decodeVarint()();
-            if (v3)
-            {
-              return;
-            }
-
-            if (v33 < 0)
-            {
-              goto LABEL_263;
-            }
-
-LABEL_197:
-            v108 = a1[1] + v33;
-          }
-
-          else
-          {
-LABEL_190:
-            if (v32 != 5)
-            {
-              goto LABEL_233;
-            }
-
-            v108 = a1[1] + 4;
-          }
-        }
-
-        else
-        {
-          if ((v106 & 7) == 0)
-          {
-LABEL_142:
-            ProtobufDecoder.decodeVarint()();
-            if (v3)
-            {
-              return;
-            }
-
-            goto LABEL_200;
-          }
-
-LABEL_146:
-          if (v32 != 1)
-          {
-            goto LABEL_233;
-          }
-
-          v108 = a1[1] + 8;
-        }
-
-        if (v12 < v108)
-        {
-LABEL_233:
-          lazy protocol witness table accessor for type ProtobufDecoder.DecodingError and conformance ProtobufDecoder.DecodingError();
-          swift_allocError();
-          swift_willThrow();
-          return;
-        }
-
-        a1[1] = v108;
-        goto LABEL_200;
-      case 0x11uLL:
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        ProtobufDecoder.beginMessage()();
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        GraphicsFilter.ShaderFilter.init(from:)(a1, __dst);
-        v3 = 0;
-        if (!*(a1[5] + 16))
-        {
-          goto LABEL_243;
-        }
-
-        v124 = specialized Array._customRemoveLast()();
-        if (!v124)
-        {
-          v124 = specialized Array.remove(at:)(*(a1[5] + 16) - 1);
-        }
-
-        v125 = v124;
-        outlined destroy of GraphicsFilter(&v203);
-        a1[2] = v125;
-        *v192 = *__dst;
-        *&v192[8] = *&__dst[8];
-        *&v192[24] = *&__dst[24];
-        *v193 = *v189;
-        _s7SwiftUI14GraphicsFilterOWOi17_(v192);
-        goto LABEL_200;
-      case 0x12uLL:
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        v114 = a1[5];
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v114 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v114 + 2) + 1, 1, v114);
-        }
-
-        v115 = *(v114 + 2);
-        v116 = *(v114 + 3);
-        v117 = v115 + 1;
-        if (v115 >= v116 >> 1)
-        {
-          v176 = v115 + 1;
-          v159 = v114;
-          v160 = *(v114 + 2);
-          v161 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v116 > 1), v115 + 1, 1, v159);
-          v115 = v160;
-          v117 = v176;
-          v114 = v161;
-        }
-
-        *(v114 + 2) = v117;
-        *&v114[8 * v115 + 32] = v12;
-        a1[5] = v114;
-        v118 = ProtobufDecoder.decodeVarint()();
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        if (v118 < 0)
-        {
-          goto LABEL_236;
-        }
-
-        v119 = a1[1] + v118;
-        if (v12 < v119)
-        {
-          goto LABEL_230;
-        }
-
-        a1[2] = v119;
-        VariableBlurStyle.init(from:)(a1, v192);
-        v120 = a1[5];
-        if (!*(v120 + 2))
-        {
-          goto LABEL_244;
-        }
-
-        if (swift_isUniquelyReferenced_nonNull_native())
-        {
-          v121 = *(v120 + 2);
-          if (!v121)
-          {
-            goto LABEL_258;
-          }
-        }
-
-        else
-        {
-          v120 = specialized _ArrayBuffer._consumeAndCreateNew()(v120);
-          v121 = *(v120 + 2);
-          if (!v121)
-          {
-            goto LABEL_258;
-          }
-        }
-
-        v122 = v121 - 1;
-        v123 = *&v120[8 * v122 + 32];
-        *(v120 + 2) = v122;
-        outlined destroy of GraphicsFilter(&v203);
-        a1[5] = v120;
-        a1[2] = v123;
-        *v190 = *v194;
-        *&v190[16] = *&v194[16];
-        *v191 = *v195;
-        *&v191[12] = *&v195[12];
-        *__dst = *v192;
-        *&__dst[16] = *&v192[16];
-        *v189 = *v193;
-        *&v189[16] = *&v193[16];
-        _s7SwiftUI14GraphicsFilterOWOi0_(__dst);
-        v200 = *v190;
-        v201 = *&v190[16];
-        v202[0] = *v191;
-        *(v202 + 12) = *&v191[12];
-        v196 = *__dst;
-        v197 = *&__dst[16];
-        v198 = *v189;
-        v199 = *&v189[16];
-        if (v13)
-        {
-          goto LABEL_201;
-        }
-
-        goto LABEL_3;
-      case 0x13uLL:
-        if ((v16 & 7) == 0)
-        {
-          goto LABEL_30;
-        }
-
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        v28 = ProtobufDecoder.decodeVarint()();
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        if (v28 < 0)
-        {
-          goto LABEL_260;
-        }
-
-        v29 = a1[1] + v28;
-        if (v12 < v29)
-        {
-          goto LABEL_230;
-        }
-
-        a1[3] = 152;
-        a1[4] = v29;
-LABEL_30:
-        v30 = ProtobufDecoder.decodeVarint()();
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        v200 = v207;
-        v201 = v208;
-        v202[0] = v209[0];
-        *(v202 + 12) = *(v209 + 12);
-        v196 = v203;
-        v197 = v204;
-        v198 = v205;
-        v199 = v206;
-        if (!v30)
-        {
-          goto LABEL_3;
-        }
-
-        goto LABEL_201;
-      case 0x14uLL:
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        v65 = a1[5];
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v65 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v65 + 2) + 1, 1, v65);
-        }
-
-        v66 = *(v65 + 2);
-        v67 = *(v65 + 3);
-        v68 = v66 + 1;
-        if (v66 >= v67 >> 1)
-        {
-          v172 = v66 + 1;
-          v147 = v65;
-          v148 = *(v65 + 2);
-          v149 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v67 > 1), v66 + 1, 1, v147);
-          v66 = v148;
-          v68 = v172;
-          v65 = v149;
-        }
-
-        *(v65 + 2) = v68;
-        *&v65[8 * v66 + 32] = v12;
-        a1[5] = v65;
-        v69 = ProtobufDecoder.decodeVarint()();
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        if (v69 < 0)
-        {
-          __break(1u);
-LABEL_235:
-          __break(1u);
-LABEL_236:
-          __break(1u);
-LABEL_237:
-          __break(1u);
-LABEL_238:
-          __break(1u);
-LABEL_239:
-          __break(1u);
-LABEL_240:
-          __break(1u);
-LABEL_241:
-          __break(1u);
-LABEL_242:
-          __break(1u);
-LABEL_243:
-          __break(1u);
-LABEL_244:
-          __break(1u);
-LABEL_245:
-          __break(1u);
-LABEL_246:
-          __break(1u);
-LABEL_247:
-          __break(1u);
-LABEL_248:
-          __break(1u);
-LABEL_249:
-          __break(1u);
-LABEL_250:
-          __break(1u);
-LABEL_251:
-          __break(1u);
-LABEL_252:
-          __break(1u);
-LABEL_253:
-          __break(1u);
-LABEL_254:
-          __break(1u);
-LABEL_255:
-          __break(1u);
-LABEL_256:
-          __break(1u);
-LABEL_257:
-          __break(1u);
-LABEL_258:
-          __break(1u);
-LABEL_259:
-          __break(1u);
-LABEL_260:
-          __break(1u);
-LABEL_261:
-          __break(1u);
-LABEL_262:
-          __break(1u);
-LABEL_263:
-          __break(1u);
-LABEL_264:
-          __break(1u);
-          __break(1u);
-          __break(1u);
-        }
-
-        v70 = a1[1] + v69;
-        if (v12 < v70)
-        {
-          goto LABEL_230;
-        }
-
-        a1[2] = v70;
-        GraphicsFilter.ColorCurves.init(from:)(a1, __dst);
-        if (!*(a1[5] + 16))
-        {
-          goto LABEL_250;
-        }
-
-        v71 = specialized Array._customRemoveLast()();
-        if (!v71)
-        {
-          v71 = specialized Array.remove(at:)(*(a1[5] + 16) - 1);
-        }
-
-        v72 = v71;
-        outlined destroy of GraphicsFilter(&v203);
-        a1[2] = v72;
-        *v192 = *__dst;
-        *&v192[16] = *&__dst[16];
-        *v193 = *v189;
-        *&v193[16] = *&v189[16];
-        _s7SwiftUI14GraphicsFilterOWOi16_(v192);
-        goto LABEL_200;
-      case 0x15uLL:
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        v126 = a1[5];
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v126 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v126 + 2) + 1, 1, v126);
-        }
-
-        v127 = *(v126 + 2);
-        v128 = *(v126 + 3);
-        v129 = v127 + 1;
-        if (v127 >= v128 >> 1)
-        {
-          v177 = v127 + 1;
-          v162 = v126;
-          v163 = *(v126 + 2);
-          v164 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v128 > 1), v127 + 1, 1, v162);
-          v127 = v163;
-          v129 = v177;
-          v126 = v164;
-        }
-
-        *(v126 + 2) = v129;
-        *&v126[8 * v127 + 32] = v12;
-        a1[5] = v126;
-        v130 = ProtobufDecoder.decodeVarint()();
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        if (v130 < 0)
-        {
-          goto LABEL_238;
-        }
-
-        v131 = a1[1] + v130;
-        if (v12 < v131)
-        {
-          goto LABEL_230;
-        }
-
-        a1[2] = v131;
-        GraphicsFilter.AlphaThreshold.init(from:)(a1, __dst);
-        v132 = a1[5];
-        if (!*(v132 + 2))
-        {
-          goto LABEL_248;
-        }
-
-        if (swift_isUniquelyReferenced_nonNull_native())
-        {
-          v133 = *(v132 + 2);
-          if (!v133)
-          {
-            goto LABEL_228;
-          }
-
-          goto LABEL_184;
-        }
-
-        v132 = specialized _ArrayBuffer._consumeAndCreateNew()(v132);
-        v133 = *(v132 + 2);
-        if (!v133)
-        {
-LABEL_228:
-          __break(1u);
-LABEL_229:
-          a1[3] = 0;
-          v165 = v208;
-          a2[4] = v207;
-          a2[5] = v165;
-          a2[6] = v209[0];
-          *(a2 + 108) = *(v209 + 12);
-          v166 = v204;
-          *a2 = v203;
-          a2[1] = v166;
-          v167 = v206;
-          a2[2] = v205;
-          a2[3] = v167;
-          return;
-        }
-
-LABEL_184:
-        v134 = v133 - 1;
-        v135 = *&v132[8 * v134 + 32];
-        *(v132 + 2) = v134;
-        outlined destroy of GraphicsFilter(&v203);
-        a1[5] = v132;
-        a1[2] = v135;
-        *v192 = *__dst;
-        *&v192[16] = *&__dst[16];
-        _s7SwiftUI14GraphicsFilterOWOi18_(v192);
-LABEL_200:
-        v200 = *v194;
-        v201 = *&v194[16];
-        v202[0] = *v195;
-        *(v202 + 12) = *&v195[12];
-        v196 = *v192;
-        v197 = *&v192[16];
-        v198 = *v193;
-        v199 = *&v193[16];
-        if (v13)
-        {
-LABEL_201:
-          *v194 = v200;
-          *&v194[16] = v201;
-          *v195 = v202[0];
-          *&v195[12] = *(v202 + 12);
-          *v192 = v196;
-          *&v192[16] = v197;
-          *v193 = v198;
-          *&v193[16] = v199;
-          if (_s7SwiftUI14GraphicsFilterOWOg(v192) == 6)
-          {
-            v136 = _s7SwiftUI14GraphicsFilterOWOj6_(v192);
-            memmove(__dst, v136, 0x50uLL);
-            v13 = 1;
-            v190[16] = 1;
-            _s7SwiftUI14GraphicsFilterOWOi5_(__dst);
-            v207 = *v190;
-            v208 = *&v190[16];
-            v209[0] = *v191;
-            *(v209 + 12) = *&v191[12];
-            v203 = *__dst;
-            v204 = *&__dst[16];
-            v14 = *v189;
-            v15 = *&v189[16];
-          }
-
-          else
-          {
-            v207 = v200;
-            v208 = v201;
-            v209[0] = v202[0];
-            *(v209 + 12) = *(v202 + 12);
-            v203 = v196;
-            v204 = v197;
-            v14 = v198;
-            v15 = v199;
-            v13 = 1;
-          }
-        }
-
-        else
-        {
-LABEL_3:
-          v13 = 0;
-          v207 = v200;
-          v208 = v201;
-          v209[0] = v202[0];
-          *(v209 + 12) = *(v202 + 12);
-          v203 = v196;
-          v204 = v197;
-          v14 = v198;
-          v15 = v199;
-        }
-
-        v205 = v14;
-        v206 = v15;
-        v11 = a1[1];
-        v12 = a1[2];
-        if (v11 >= v12)
-        {
-          goto LABEL_229;
-        }
-
-        break;
-      case 0x16uLL:
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        specialized ProtobufDecoder.decodeMessage<A>()(__dst);
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        outlined destroy of GraphicsFilter(&v203);
-        *v194 = *v190;
-        *&v194[16] = *&v190[16];
-        *v195 = *v191;
-        *&v195[16] = *&v191[16];
-        *v192 = *__dst;
-        *&v192[16] = *&__dst[16];
-        *v193 = *v189;
-        *&v193[16] = *&v189[16];
-        _s7SwiftUI14GraphicsFilterOWOi1_(v192);
-        goto LABEL_200;
-      case 0x17uLL:
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        specialized ProtobufDecoder.decodeMessage<A>()(__dst);
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        outlined destroy of GraphicsFilter(&v203);
-        *v194 = *v190;
-        *&v194[16] = *&v190[16];
-        *v195 = *v191;
-        *&v195[16] = *&v191[16];
-        *v192 = *__dst;
-        *&v192[16] = *&__dst[16];
-        *v193 = *v189;
-        *&v193[16] = *&v189[16];
-        _s7SwiftUI14GraphicsFilterOWOi2_(v192);
-        goto LABEL_200;
-      case 0x18uLL:
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        specialized ProtobufDecoder.decodeMessage<A>()(__dst);
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        outlined destroy of GraphicsFilter(&v203);
-        *v192 = *__dst;
-        *&v192[8] = *&__dst[8];
-        _s7SwiftUI14GraphicsFilterOWOi19_(v192);
-        goto LABEL_200;
-      case 0x1AuLL:
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        specialized ProtobufDecoder.decodeMessage<A>()(&v186);
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        v89 = v187;
-        outlined destroy of GraphicsFilter(&v203);
-        *v192 = v186;
-        *&v192[16] = v89;
-        _s7SwiftUI14GraphicsFilterOWOi7_(v192);
-        goto LABEL_200;
-      case 0x1BuLL:
-        if ((v16 & 7) != 2)
-        {
-          goto LABEL_230;
-        }
-
-        specialized ProtobufDecoder.decodeMessage<A>()(__dst);
-        if (v3)
-        {
-          goto LABEL_231;
-        }
-
-        outlined destroy of GraphicsFilter(&v203);
-        *v193 = *v189;
-        *&v193[16] = *&v189[16];
-        *v194 = *v190;
-        *&v194[13] = *&v190[13];
-        *v192 = *__dst;
-        *&v192[16] = *&__dst[16];
-LABEL_42:
-        _s7SwiftUI14GraphicsFilterOWOi14_(v192);
-        goto LABEL_200;
-      default:
-        v109 = v16 & 7;
-        if (v109 > 1)
-        {
-          if (v109 == 2)
-          {
-            v137 = ProtobufDecoder.decodeVarint()();
-            if (v3)
-            {
-              goto LABEL_231;
-            }
-
-            if (v137 < 0)
-            {
-              goto LABEL_264;
-            }
-
-            v110 = a1[1] + v137;
-          }
-
-          else
-          {
-            if (v109 != 5)
-            {
-              goto LABEL_230;
-            }
-
-            v110 = a1[1] + 4;
-          }
-        }
-
-        else
-        {
-          if ((v16 & 7) == 0)
-          {
-            ProtobufDecoder.decodeVarint()();
-            if (v3)
-            {
-              goto LABEL_231;
-            }
-
-            goto LABEL_211;
-          }
-
-          if (v109 != 1)
-          {
-            goto LABEL_230;
-          }
-
-          v110 = a1[1] + 8;
-        }
-
-        if (v12 < v110)
-        {
-          goto LABEL_230;
-        }
-
-        a1[1] = v110;
-LABEL_211:
-        v200 = v207;
-        v201 = v208;
-        v202[0] = v209[0];
-        *(v202 + 12) = *(v209 + 12);
-        v196 = v203;
-        v197 = v204;
-        v198 = v205;
-        v199 = v206;
-        if (v13)
-        {
-          goto LABEL_201;
-        }
-
-        goto LABEL_3;
+        v47 = v46 - 1;
+        v4 = *&v40[8 * v47 + 32];
+        *(v40 + 2) = v47;
+
+        *(a1 + 5) = v40;
+        *(a1 + 2) = v4;
+        type metadata accessor for InternalAnimationBox<DefaultAnimation>(0, &lazy cache variable for type metadata for InternalAnimationBox<DefaultAnimation>, lazy protocol witness table accessor for type DefaultAnimation and conformance DefaultAnimation, &type metadata for DefaultAnimation);
+        v5 = swift_allocObject();
+        goto LABEL_10;
+      }
+
+      goto LABEL_76;
     }
+
+    if (v17 == 4)
+    {
+      if (v5)
+      {
+        v60 = v15 & 7;
+        if (v60 == 5)
+        {
+          v6 = *(a1 + 1);
+          if (v4 < (v6 + 1))
+          {
+            goto LABEL_142;
+          }
+
+          v7 = v1;
+          v8 = *v6;
+          *(a1 + 1) = v6 + 1;
+          v9 = v8;
+        }
+
+        else
+        {
+          if (v60 == 2)
+          {
+            v22 = a1;
+            v77 = ProtobufDecoder.decodeVarint()(v15);
+            if (v1)
+            {
+              goto LABEL_144;
+            }
+
+            if (v77 < 0)
+            {
+              goto LABEL_172;
+            }
+
+            v61 = *(a1 + 1);
+            if (v4 < v61 + v77)
+            {
+              goto LABEL_142;
+            }
+
+            *(a1 + 3) = 33;
+            *(a1 + 4) = v61 + v77;
+          }
+
+          else
+          {
+            if (v60 != 1)
+            {
+              goto LABEL_142;
+            }
+
+            v61 = *(a1 + 1);
+          }
+
+          if (v4 < (v61 + 1))
+          {
+            goto LABEL_142;
+          }
+
+          v7 = v1;
+          v9 = *v61;
+          *(a1 + 1) = v61 + 1;
+        }
+
+        *&v89 = v9;
+        v10 = *(*v5 + 144);
+        lazy protocol witness table accessor for type DelayAnimation and conformance DelayAnimation();
+        v12 = v11;
+        v13 = &type metadata for DelayAnimation;
+        goto LABEL_8;
+      }
+
+      goto LABEL_10;
+    }
+
+    if (v17 != 5)
+    {
+      goto LABEL_76;
+    }
+
+    if ((v15 & 7) != 2)
+    {
+      goto LABEL_142;
+    }
+
+    v18 = *(a1 + 5);
+    v19 = swift_isUniquelyReferenced_nonNull_native();
+    if ((v19 & 1) == 0)
+    {
+      v19 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v18 + 16) + 1, 1, v18);
+      v18 = v19;
+    }
+
+    v21 = *(v18 + 16);
+    v20 = *(v18 + 24);
+    if (v21 >= v20 >> 1)
+    {
+      v19 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v21 + 1, 1, v18);
+      v18 = v19;
+    }
+
+    *(v18 + 16) = v21 + 1;
+    *(v18 + 8 * v21 + 32) = v4;
+    *(a1 + 5) = v18;
+    v22 = a1;
+    v23 = ProtobufDecoder.decodeVarint()(v19);
+    if (v1)
+    {
+      goto LABEL_144;
+    }
+
+    if (v23 < 0)
+    {
+      goto LABEL_158;
+    }
+
+    v24 = *(a1 + 1) + v23;
+    if (v4 < v24)
+    {
+      goto LABEL_142;
+    }
+
+    *(a1 + 2) = v24;
+    v25 = specialized static Animation.decodeRepeatMessage(from:)(a1);
+    v27 = *(a1 + 5);
+    if (!*(v27 + 2))
+    {
+      goto LABEL_166;
+    }
+
+    v22 = v25;
+    v28 = v26;
+    if (swift_isUniquelyReferenced_nonNull_native())
+    {
+      v29 = *(v27 + 2);
+      if (!v29)
+      {
+        goto LABEL_169;
+      }
+    }
+
+    else
+    {
+      v27 = specialized _ArrayBuffer._consumeAndCreateNew()(v27);
+      v29 = *(v27 + 2);
+      if (!v29)
+      {
+        goto LABEL_169;
+      }
+    }
+
+    v30 = v29 - 1;
+    v4 = *&v27[8 * v30 + 32];
+    *(v27 + 2) = v30;
+    *(a1 + 5) = v27;
+    *(a1 + 2) = v4;
+    if (v28)
+    {
+      if (!v5)
+      {
+        goto LABEL_10;
+      }
+
+      *&v89 = 0;
+      BYTE8(v89) = 1;
+    }
+
+    else
+    {
+      if (!v5)
+      {
+        goto LABEL_10;
+      }
+
+      *&v89 = v22;
+      BYTE8(v89) = 0;
+    }
+
+    BYTE9(v89) = HIBYTE(v28) & 1;
+    v73 = *(*v5 + 144);
+    lazy protocol witness table accessor for type RepeatAnimation and conformance RepeatAnimation();
+    v75 = v73(&v89, &type metadata for RepeatAnimation, v74);
+
+    v5 = v75;
+LABEL_10:
+    v3 = *(a1 + 1);
   }
 
-  v16 = ProtobufDecoder.decodeVarint()();
-  if (v3)
+  while (v3 < v4);
+  *(a1 + 3) = 0;
+  if (v5)
   {
-    goto LABEL_231;
+    return v5;
   }
 
-  if (v16 >= 8)
-  {
-    goto LABEL_11;
-  }
-
-LABEL_230:
+LABEL_4:
   lazy protocol witness table accessor for type ProtobufDecoder.DecodingError and conformance ProtobufDecoder.DecodingError();
-  swift_allocError();
+  v5 = swift_allocError();
   swift_willThrow();
-LABEL_231:
-  outlined destroy of GraphicsFilter(&v203);
+  return v5;
 }
 
-uint64_t LinkDestination.init(configuration:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = swift_getKeyPath();
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
-  *(a2 + 31) = 0;
-  *(a2 + 40) = swift_getKeyPath();
-  v4 = type metadata accessor for LinkDestination(0);
-  *(a2 + 56) = 0;
-  *(a2 + 64) = 0;
-  *(a2 + 48) = 0;
-  *(a2 + 71) = 0;
-  v5 = a2 + *(v4 + 24);
-
-  return outlined init with take of LinkDestination.Configuration(a1, v5);
-}
-
-uint64_t initializeWithCopy for LinkDestination(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *a2;
-  v7 = *(a2 + 8);
-  v8 = *(a2 + 16);
-  v9 = *(a2 + 24);
-  v10 = *(a2 + 34);
-  v11 = *(a2 + 32);
-  outlined copy of Environment<OpenURLAction>.Content(*a2, v7, v8, v9, v11, v10);
-  *a1 = v6;
-  *(a1 + 8) = v7;
-  *(a1 + 16) = v8;
-  *(a1 + 24) = v9;
-  *(a1 + 32) = v11;
-  *(a1 + 34) = v10;
-  v12 = *(a2 + 40);
-  v13 = *(a2 + 48);
-  v14 = *(a2 + 56);
-  v15 = *(a2 + 64);
-  v16 = *(a2 + 74);
-  v17 = *(a2 + 72);
-  outlined copy of Environment<OpenURLAction>.Content(v12, v13, v14, v15, v17, v16);
-  *(a1 + 40) = v12;
-  *(a1 + 48) = v13;
-  *(a1 + 56) = v14;
-  *(a1 + 64) = v15;
-  *(a1 + 72) = v17;
-  *(a1 + 74) = v16;
-  v18 = *(a3 + 24);
-  v19 = a1 + v18;
-  v20 = a2 + v18;
-  v21 = type metadata accessor for URL();
-  (*(*(v21 - 8) + 16))(v19, v20, v21);
-  v22 = type metadata accessor for LinkDestination.Configuration(0);
-  *(v19 + *(v22 + 20)) = *(v20 + *(v22 + 20));
-  return a1;
-}
-
-uint64_t protocol witness for StronglyHashable.hash(into:) in conformance Bool(CC_SHA1_CTX *a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  data = *v1;
-  return CC_SHA1_Update(a1, &data, 1u);
-}
-
-uint64_t specialized Array._customRemoveLast()@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *v1;
-  result = swift_isUniquelyReferenced_nonNull_native();
-  if (result)
-  {
-    v5 = *(v3 + 16);
-    if (v5)
-    {
-LABEL_3:
-      v6 = v5 - 1;
-      v7 = v3 + 32 * v5;
-      v8 = *(v7 + 16);
-      v9 = *(v7 + 24);
-      *a1 = *v7;
-      *(a1 + 16) = v8;
-      *(a1 + 24) = v9;
-      *(v3 + 16) = v6;
-      *v1 = v3;
-      *(a1 + 32) = 0;
-      return result;
-    }
-  }
-
-  else
-  {
-    result = specialized _ArrayBuffer._consumeAndCreateNew()(v3);
-    v3 = result;
-    v5 = *(result + 16);
-    if (v5)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  v3 = *v1;
-  result = swift_isUniquelyReferenced_nonNull_native();
-  if (result)
-  {
-    v5 = *(v3 + 16);
-    if (v5)
-    {
-LABEL_3:
-      v6 = v3 + 20 * v5;
-      v7 = *(v6 + 28);
-      *a1 = *(v6 + 12);
-      *(a1 + 16) = v7;
-      *(v3 + 16) = v5 - 1;
-      *v1 = v3;
-      *(a1 + 20) = 0;
-      return result;
-    }
-  }
-
-  else
-  {
-    result = specialized _ArrayBuffer._consumeAndCreateNew()(v3);
-    v3 = result;
-    v5 = *(result + 16);
-    if (v5)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  v3 = *v1;
-  result = swift_isUniquelyReferenced_nonNull_native();
-  if (result)
-  {
-    v5 = *(v3 + 16);
-    if (v5)
-    {
-LABEL_3:
-      v6 = v5 - 1;
-      v7 = v3 + 48 * v5;
-      v8 = *v7;
-      v9 = *(v7 + 24);
-      *a1 = *(v7 - 16);
-      *(a1 + 16) = v8;
-      *(a1 + 24) = *(v7 + 8);
-      *(a1 + 40) = v9;
-      *(v3 + 16) = v6;
-      *v1 = v3;
-      return result;
-    }
-  }
-
-  else
-  {
-    result = specialized _ArrayBuffer._consumeAndCreateNew()(v3);
-    v3 = result;
-    v5 = *(result + 16);
-    if (v5)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-void RBFill.setImage(_:destRect:in:)(__int128 *a1, int a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
-{
-  v12 = a1[5];
-  v41 = a1[4];
-  v42[0] = v12;
-  *(v42 + 12) = *(a1 + 92);
-  v13 = a1[1];
-  v37 = *a1;
-  v38 = v13;
-  v14 = a1[3];
-  v39 = a1[2];
-  v40 = v14;
-  v15 = v37;
-  if (BYTE8(v37) > 3u)
-  {
-    if (BYTE8(v37) == 4)
-    {
-      v34 = *(v37 + 32);
-      if (a2 != 2)
-      {
-        RBColorFromLinear();
-      }
-
-      [v6 setColor_];
-      v30 = sel_setHeadroom_;
-      v31 = v6;
-      LODWORD(v26) = v34;
-
-      goto LABEL_20;
-    }
-
-    if (BYTE8(v37) == 255)
-    {
-LABEL_16:
-      v26 = 0.0;
-      v27 = 0.0;
-      v28 = 0.0;
-      v29 = 0.0;
-      if (a2 != 2)
-      {
-        RBColorFromLinear();
-      }
-
-      v30 = sel_setColor_;
-      v31 = v6;
-
-LABEL_20:
-      [v31 v30];
-      return;
-    }
-  }
-
-  else
-  {
-    if (!BYTE8(v37))
-    {
-      outlined init with copy of GraphicsImage(&v37, v35);
-      outlined init with copy of GraphicsImage(&v37, v35);
-      goto LABEL_22;
-    }
-
-    if (BYTE8(v37) == 1)
-    {
-      IOSurface = RBImageMakeIOSurface();
-      closure #1 in RBFill.setImage(_:destRect:in:)(IOSurface, v17, v6, &v37, a2, a3, a4, a5, a6);
-      return;
-    }
-  }
-
-  v18 = a1[5];
-  v35[4] = a1[4];
-  v36[0] = v18;
-  *(v36 + 12) = *(a1 + 92);
-  v19 = a1[1];
-  v35[0] = *a1;
-  v35[1] = v19;
-  v20 = a1[3];
-  v21 = 0.0;
-  v35[2] = a1[2];
-  v35[3] = v20;
-  v22 = 0.0;
-  if (*&v38 != 0.0)
-  {
-    v23 = *(&v38 + 1);
-    if (BYTE8(v39) <= 3u)
-    {
-      v24 = *&v39;
-    }
-
-    else
-    {
-      v24 = *(&v38 + 1);
-    }
-
-    if (BYTE8(v39) > 3u)
-    {
-      v23 = *&v39;
-    }
-
-    v21 = 1.0 / *&v38 * v23;
-    v22 = 1.0 / *&v38 * v24;
-  }
-
-  v25.value = GraphicsImage.render(at:prefersMask:)(__PAIR128__(*&v22, *&v21), 0).value;
-  if (!v25.value)
-  {
-    goto LABEL_16;
-  }
-
-  v15 = v25.value;
-LABEL_22:
-  CGImage = RBImageMakeCGImage();
-  closure #1 in RBFill.setImage(_:destRect:in:)(CGImage, v33, v6, &v37, a2, a3, a4, a5, a6);
-}
-
-id closure #1 in RBFill.setImage(_:destRect:in:)(unsigned int a1, uint64_t a2, void *a3, uint64_t a4, int a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9)
-{
-  if (*(a4 + 64))
-  {
-    v17 = 0;
-    v19 = *MEMORY[0x1E69C7148];
-    v18 = *(MEMORY[0x1E69C7148] + 4);
-    v20 = *(MEMORY[0x1E69C7148] + 8);
-    v21 = *(MEMORY[0x1E69C7148] + 12);
-  }
-
-  else
-  {
-    v19 = *(a4 + 44);
-    v18 = *(a4 + 48);
-    v20 = *(a4 + 52);
-    v21 = *(a4 + 56);
-    if (a5 != 2)
-    {
-      RBColorFromLinear();
-      v19 = v22;
-      v18 = v23;
-      v20 = v24;
-      v21 = v25;
-    }
-
-    v17 = 1;
-  }
-
-  v26 = *(a4 + 104);
-  if (v26 == 2)
-  {
-    v81 = 0u;
-    v84 = 0u;
-    LOBYTE(v26) = 1;
-  }
-
-  else
-  {
-    v81 = *(a4 + 72);
-    v84 = *(a4 + 88);
-  }
-
-  v27 = *(a4 + 80);
-  v91 = *(a4 + 64);
-  v92[0] = v27;
-  *(v92 + 12) = *(a4 + 92);
-  v28 = *(a4 + 16);
-  *&t1.a = *a4;
-  *&t1.c = v28;
-  v29 = *(a4 + 48);
-  *&t1.tx = *(a4 + 32);
-  v90 = v29;
-  v30 = GraphicsImage.bitmapOrientation.getter();
-  if (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqzq_f64(v81), vceqzq_f64(v84))))))
-  {
-    v31 = *(a4 + 16);
-    v32 = 0.0;
-    v33 = 0.0;
-    if (v31 != 0.0)
-    {
-      v34 = *(a4 + 24);
-      if (*(a4 + 40) <= 3u)
-      {
-        v35 = *(a4 + 32);
-      }
-
-      else
-      {
-        v35 = *(a4 + 24);
-      }
-
-      if (*(a4 + 40) > 3u)
-      {
-        v34 = *(a4 + 32);
-      }
-
-      v36 = 1.0 / v31;
-      v32 = v36 * v34;
-      v33 = v36 * v35;
-    }
-
-    v75 = v21;
-    v76 = v18;
-    v73 = 1.0 / v32;
-    v74 = a9;
-    v72 = 1.0 / v33;
-    RBImageSimpleTransform();
-    tx = t1.tx;
-    ty = t1.ty;
-    v77 = *&t1.a;
-    v78 = *&t1.c;
-    if (v30 > 3u)
-    {
-      v39 = a8;
-      v40 = a6;
-      v42 = xmmword_18DDAA020;
-      if (v30 <= 5u)
-      {
-        v41 = a7;
-        if (v30 == 4)
-        {
-          v43 = xmmword_18DDBA6A0;
-        }
-
-        else
-        {
-          v43 = xmmword_18DDAB500;
-        }
-
-        goto LABEL_41;
-      }
-
-      if (v30 == 6)
-      {
-        v43 = xmmword_18DDAB500;
-      }
-
-      else
-      {
-        v43 = xmmword_18DDBA6A0;
-      }
-    }
-
-    else
-    {
-      v39 = a8;
-      if (v30 <= 1u)
-      {
-        v40 = a6;
-        v41 = a7;
-        if (!v30)
-        {
-LABEL_42:
-          v93.origin.x = v40;
-          v93.origin.y = v41;
-          v93.size.width = v39;
-          v93.size.height = v74;
-          v55 = v73 * CGRectGetWidth(v93);
-          v94.origin.x = v40;
-          v94.origin.y = v41;
-          v94.size.width = v39;
-          v94.size.height = v74;
-          Height = CGRectGetHeight(v94);
-          v57 = dword_18DDD7E00[*(a4 + 106)];
-          *&t1.a = v77;
-          *&t1.c = v78;
-          t1.tx = tx;
-          t1.ty = ty;
-          return [a3 set9PartRBImage:a1 transform:a2 destinationRect:&t1 capInsets:(v26 & 1) == 0 repeat:v57 interpolation:v17 tintColor:0.0 flags:{0.0, v55, v72 * Height, v72 * v81.f64[0], vmuld_lane_f64(v73, v81, 1), v72 * v84.f64[0], vmuld_lane_f64(v73, v84, 1), __PAIR64__(v76, v19), __PAIR64__(v75, v20)}];
-        }
-
-        v42 = xmmword_18DDAB500;
-        v43 = xmmword_18DDBA6B0;
-LABEL_41:
-        *&t1.a = v43;
-        *&t1.c = v42;
-        __asm { FMOV            V0.2D, #0.5 }
-
-        *&t1.tx = _Q0;
-        CGAffineTransformTranslate(&t2, &t1, -0.5, -0.5);
-        t1 = t2;
-        *&t2.a = v77;
-        *&t2.c = v78;
-        t2.tx = tx;
-        t2.ty = ty;
-        CGAffineTransformConcat(&v87, &t1, &t2);
-        v77 = *&v87.a;
-        v78 = *&v87.c;
-        tx = v87.tx;
-        ty = v87.ty;
-        goto LABEL_42;
-      }
-
-      v42 = xmmword_18DDAB500;
-      v40 = a6;
-      if (v30 == 2)
-      {
-        v43 = xmmword_18DDBA6B0;
-      }
-
-      else
-      {
-        v43 = xmmword_18DDAA020;
-      }
-    }
-
-    v41 = a7;
-    v42 = vnegq_f64(v42);
-    goto LABEL_41;
-  }
-
-  if (v26)
-  {
-    RBImageSimpleTransform();
-    v45 = *&t1.a;
-    v46 = *&t1.c;
-    v47 = *&t1.tx;
-    if (v30 > 3u)
-    {
-      v82 = *&t1.c;
-      v85 = *&t1.a;
-      v79 = *&t1.tx;
-      v48 = xmmword_18DDAA020;
-      if (v30 <= 5u)
-      {
-        if (v30 == 4)
-        {
-          v49 = xmmword_18DDBA6A0;
-        }
-
-        else
-        {
-          v49 = xmmword_18DDAB500;
-        }
-
-        goto LABEL_62;
-      }
-
-      if (v30 == 6)
-      {
-        v49 = xmmword_18DDAB500;
-      }
-
-      else
-      {
-        v49 = xmmword_18DDBA6A0;
-      }
-    }
-
-    else
-    {
-      if (v30 <= 1u)
-      {
-        if (!v30)
-        {
-LABEL_63:
-          v69 = dword_18DDD7E00[*(a4 + 106)];
-          *&t1.a = v45;
-          *&t1.c = v46;
-          *&t1.tx = v47;
-          LODWORD(v45) = v19;
-          LODWORD(v46) = v18;
-          LODWORD(v47) = v20;
-          LODWORD(v44) = v21;
-          return [a3 setRBImage:a1 transform:a2 interpolation:&t1 tintColor:v69 flags:{v17, *&v45, *&v46, *&v47, v44}];
-        }
-
-        v79 = *&t1.tx;
-        v82 = *&t1.c;
-        v85 = *&t1.a;
-        v48 = xmmword_18DDAB500;
-        v49 = xmmword_18DDBA6B0;
-LABEL_62:
-        *&t1.a = v49;
-        *&t1.c = v48;
-        __asm { FMOV            V0.2D, #0.5 }
-
-        *&t1.tx = _Q0;
-        CGAffineTransformTranslate(&t2, &t1, -0.5, -0.5);
-        t1 = t2;
-        *&t2.a = v85;
-        *&t2.c = v82;
-        *&t2.tx = v79;
-        CGAffineTransformConcat(&v87, &t1, &t2);
-        v45 = *&v87.a;
-        v46 = *&v87.c;
-        v47 = *&v87.tx;
-        goto LABEL_63;
-      }
-
-      v82 = *&t1.c;
-      v85 = *&t1.a;
-      v48 = xmmword_18DDAB500;
-      v79 = *&t1.tx;
-      if (v30 == 2)
-      {
-        v49 = xmmword_18DDBA6B0;
-      }
-
-      else
-      {
-        v49 = xmmword_18DDAA020;
-      }
-    }
-
-    v48 = vnegq_f64(v48);
-    goto LABEL_62;
-  }
-
-  RBTiledImageTransform();
-  v63 = *&t1.a;
-  v64 = *&t1.c;
-  v65 = *&t1.tx;
-  if (v30 > 3u)
-  {
-    v83 = *&t1.c;
-    v86 = *&t1.a;
-    v80 = *&t1.tx;
-    v66 = xmmword_18DDAA020;
-    if (v30 <= 5u)
-    {
-      if (v30 == 4)
-      {
-        v67 = xmmword_18DDBA6A0;
-      }
-
-      else
-      {
-        v67 = xmmword_18DDAB500;
-      }
-
-      goto LABEL_68;
-    }
-
-    if (v30 == 6)
-    {
-      v67 = xmmword_18DDAB500;
-    }
-
-    else
-    {
-      v67 = xmmword_18DDBA6A0;
-    }
-
-    goto LABEL_67;
-  }
-
-  if (v30 > 1u)
-  {
-    v83 = *&t1.c;
-    v86 = *&t1.a;
-    v66 = xmmword_18DDAB500;
-    v80 = *&t1.tx;
-    if (v30 == 2)
-    {
-      v67 = xmmword_18DDBA6B0;
-    }
-
-    else
-    {
-      v67 = xmmword_18DDAA020;
-    }
-
-LABEL_67:
-    v66 = vnegq_f64(v66);
-    goto LABEL_68;
-  }
-
-  if (v30)
-  {
-    v80 = *&t1.tx;
-    v83 = *&t1.c;
-    v86 = *&t1.a;
-    v66 = xmmword_18DDAB500;
-    v67 = xmmword_18DDBA6B0;
-LABEL_68:
-    *&t1.a = v67;
-    *&t1.c = v66;
-    __asm { FMOV            V0.2D, #0.5 }
-
-    *&t1.tx = _Q0;
-    CGAffineTransformTranslate(&t2, &t1, -0.5, -0.5);
-    t1 = t2;
-    *&t2.a = v86;
-    *&t2.c = v83;
-    *&t2.tx = v80;
-    CGAffineTransformConcat(&v87, &t1, &t2);
-    v63 = *&v87.a;
-    v64 = *&v87.c;
-    v65 = *&v87.tx;
-  }
-
-  v71 = dword_18DDD7E00[*(a4 + 106)];
-  *&t1.a = v63;
-  *&t1.c = v64;
-  *&t1.tx = v65;
-  LODWORD(v59) = v19;
-  LODWORD(v60) = v18;
-  LODWORD(v61) = v20;
-  LODWORD(v62) = v21;
-  return [a3 setTiledRBImage:a1 transform:a2 sourceRect:&t1 interpolation:v71 tintColor:v17 flags:{0.0, 0.0, 1.0, 1.0, v59, v60, v61, v62, 0, 0, 0x3FF0000000000000, 0x3FF0000000000000}];
-}
-
-double StrongHash.init<A>(of:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  memset(&v10, 0, sizeof(v10));
-  CC_SHA1_Init(&v10);
-  c = v10;
-  (*(a3 + 8))(&c, a2, a3);
-  memset(&v10, 0, 20);
-  CC_SHA1_Final(&v10, &c);
-  (*(*(a2 - 8) + 8))(a1, a2);
-  h4 = v10.h4;
-  result = *&v10.h0;
-  *a4 = *&v10.h0;
-  *(a4 + 16) = h4;
-  return result;
-}
-
-void type metadata accessor for _ContiguousArrayStorage<(StrongHash, DisplayList.Version)>()
-{
-  if (!lazy cache variable for type metadata for _ContiguousArrayStorage<(StrongHash, DisplayList.Version)>)
-  {
-    type metadata accessor for (Path, FillStyle)(255, &lazy cache variable for type metadata for (StrongHash, DisplayList.Version));
-    v0 = type metadata accessor for _ContiguousArrayStorage();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for _ContiguousArrayStorage<(StrongHash, DisplayList.Version)>);
-    }
-  }
-}
-
-uint64_t EnvironmentValues.contentTransitionState.setter(uint64_t a1)
-{
-  v2 = v1;
-  v3 = *a1;
-  v4 = *(a1 + 8) | (*(a1 + 12) << 32);
-  v5 = *(a1 + 13);
-  v6 = *(a1 + 14);
-  v7 = *(a1 + 16);
-  v8 = *(a1 + 24);
-  v9 = *v2;
-  v10 = *(a1 + 15);
-  swift_retain_n();
-  outlined copy of ContentTransition.Storage(v3, v4, v5);
-  v11 = 0x1000000000000;
-  if (!v6)
-  {
-    v11 = 0;
-  }
-
-  v12 = v4 | (v5 << 40) | v11 | (v10 << 56);
-
-  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA17ContentTransitionV5StateVG_Tt2B5(v2, v3, v12, v7, v8);
-
-  outlined consume of ContentTransition.Storage(v3, v4, v5);
-
-  if (v2[1])
-  {
-    _s7SwiftUI12PropertyListV7TrackerC15invalidateValue3for4from2toyxm_A2CtAA0C3KeyRzlFAA011EnvironmentcK0VyAA17ContentTransitionV5StateVG_Ttg5(v9, *v2);
-  }
-
-  outlined consume of ContentTransition.Storage(v3, v4, v5);
-}
-
-unint64_t ResolvedShadowStyle.init(from:)@<X0>(unint64_t result@<X0>, uint64_t a2@<X8>)
+unint64_t FluidSpringAnimation.init(from:)@<X0>(unint64_t result@<X0>, double *a2@<X8>)
 {
   v3 = result;
   v5 = *(result + 8);
   v6 = *(result + 16);
+  v7 = 0.0;
   if (v5 >= v6)
   {
-    v7 = 0;
-    v41 = xmmword_18DD85540;
-    v8 = 0.5;
+    v8 = 0.0;
     v9 = 0.0;
-    v10 = 2143289344;
-    v11 = 0;
-    v12 = 0;
-LABEL_4:
+LABEL_66:
     v3[3] = 0;
-    *a2 = v41;
-    *(a2 + 16) = v10;
-    *(a2 + 24) = v9;
-    *(a2 + 32) = v11;
-    *(a2 + 40) = v12;
-    *(a2 + 48) = v8;
-    *(a2 + 52) = v7;
+    *a2 = v7;
+    a2[1] = v8;
+    a2[2] = v9;
     return result;
   }
 
-  v7 = 0;
-  v41 = xmmword_18DD85540;
-  v8 = 0.5;
+  v8 = 0.0;
   v9 = 0.0;
-  v10 = 2143289344;
-  v11 = 0;
-  v12 = 0;
   while (1)
   {
     result = v3[3];
     if (result)
     {
-      v13 = v3[4];
-      if (v5 < v13)
+      v10 = v3[4];
+      if (v5 < v10)
       {
-        goto LABEL_13;
+        goto LABEL_11;
       }
 
-      if (v13 < v5)
+      if (v10 < v5)
       {
-        goto LABEL_91;
+        goto LABEL_64;
       }
 
       v3[3] = 0;
     }
 
-    result = ProtobufDecoder.decodeVarint()();
+    result = ProtobufDecoder.decodeVarint()(result);
     if (v2)
     {
       return result;
@@ -7386,189 +2127,36 @@ LABEL_4:
 
     if (result <= 7)
     {
-      goto LABEL_91;
+LABEL_64:
+      lazy protocol witness table accessor for type ProtobufDecoder.DecodingError and conformance ProtobufDecoder.DecodingError();
+      swift_allocError();
+      return swift_willThrow();
     }
 
-LABEL_13:
-    v14 = result >> 3;
-    v15 = result & 7;
-    if (result >> 3 > 2)
+LABEL_11:
+    v11 = result >> 3;
+    v12 = result & 7;
+    if (result >> 3 == 3)
     {
-      break;
-    }
-
-    if (v14 == 1)
-    {
-      if (v15 != 2)
+      if (v12 == 5)
       {
-        goto LABEL_91;
-      }
-
-      v28 = v3[5];
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v28 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v28 + 2) + 1, 1, v28);
-      }
-
-      v30 = *(v28 + 2);
-      v29 = *(v28 + 3);
-      if (v30 >= v29 >> 1)
-      {
-        v28 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v29 > 1), v30 + 1, 1, v28);
-      }
-
-      *(v28 + 2) = v30 + 1;
-      *&v28[8 * v30 + 32] = v6;
-      v3[5] = v28;
-      result = ProtobufDecoder.decodeVarint()();
-      if (v2)
-      {
-        return result;
-      }
-
-      if ((result & 0x8000000000000000) != 0)
-      {
-        goto LABEL_98;
-      }
-
-      v31 = v3[1] + result;
-      if (v6 < v31)
-      {
-        goto LABEL_91;
-      }
-
-      v3[2] = v31;
-      specialized Color.ResolvedHDR.init(from:)(v3, &v42);
-      v32 = v3[5];
-      if (!*(v32 + 16))
-      {
-        goto LABEL_100;
-      }
-
-      result = swift_isUniquelyReferenced_nonNull_native();
-      if (result)
-      {
-        v33 = *(v32 + 16);
-        if (!v33)
+        v18 = v3[1];
+        v5 = (v18 + 1);
+        if (v6 < (v18 + 1))
         {
-          goto LABEL_90;
+          goto LABEL_64;
         }
+
+        v19 = *v18;
+        v3[1] = v5;
+        v9 = v19;
       }
 
       else
       {
-        result = specialized _ArrayBuffer._consumeAndCreateNew()(v32);
-        v32 = result;
-        v33 = *(result + 16);
-        if (!v33)
+        if (v12 == 2)
         {
-LABEL_90:
-          __break(1u);
-LABEL_91:
-          lazy protocol witness table accessor for type ProtobufDecoder.DecodingError and conformance ProtobufDecoder.DecodingError();
-          swift_allocError();
-          return swift_willThrow();
-        }
-      }
-
-      v34 = v33 - 1;
-      v6 = *(v32 + 8 * v34 + 32);
-      *(v32 + 16) = v34;
-      v3[5] = v32;
-      v3[2] = v6;
-      v41 = v42;
-      v10 = v43;
-    }
-
-    else
-    {
-      if (v14 != 2)
-      {
-LABEL_58:
-        if ((result & 7) > 1)
-        {
-          if (v15 == 2)
-          {
-            result = ProtobufDecoder.decodeVarint()();
-            if (v2)
-            {
-              return result;
-            }
-
-            if ((result & 0x8000000000000000) != 0)
-            {
-              goto LABEL_105;
-            }
-
-            v35 = v3[1] + result;
-            if (v6 < v35)
-            {
-              goto LABEL_91;
-            }
-          }
-
-          else
-          {
-            if (v15 != 5)
-            {
-              goto LABEL_91;
-            }
-
-            v35 = v3[1] + 4;
-            if (v6 < v35)
-            {
-              goto LABEL_91;
-            }
-          }
-        }
-
-        else
-        {
-          if ((result & 7) == 0)
-          {
-            result = ProtobufDecoder.decodeVarint()();
-            if (v2)
-            {
-              return result;
-            }
-
-            goto LABEL_6;
-          }
-
-          if (v15 != 1)
-          {
-            goto LABEL_91;
-          }
-
-          v35 = v3[1] + 8;
-          if (v6 < v35)
-          {
-            goto LABEL_91;
-          }
-        }
-
-        v3[1] = v35;
-        goto LABEL_6;
-      }
-
-      if (v15 == 5)
-      {
-        v36 = v3[1];
-        if (v6 < (v36 + 1))
-        {
-          goto LABEL_91;
-        }
-
-        v37 = *v36;
-        v3[1] = v36 + 1;
-        v9 = v37;
-      }
-
-      else
-      {
-        if (v15 == 2)
-        {
-          result = ProtobufDecoder.decodeVarint()();
+          result = ProtobufDecoder.decodeVarint()(result);
           if (v2)
           {
             return result;
@@ -7576,162 +2164,218 @@ LABEL_58:
 
           if ((result & 0x8000000000000000) != 0)
           {
-            goto LABEL_104;
+            goto LABEL_69;
           }
 
-          v17 = v3[1];
-          if (v6 < v17 + result)
+          v15 = v3[1];
+          if (v6 < v15 + result)
           {
-            goto LABEL_91;
+            goto LABEL_64;
           }
 
-          v3[3] = 17;
-          v3[4] = v17 + result;
+          v3[3] = 25;
+          v3[4] = v15 + result;
         }
 
         else
         {
-          if (v15 != 1)
+          if (v12 != 1)
           {
-            goto LABEL_91;
+            goto LABEL_64;
           }
 
-          v17 = v3[1];
+          v15 = v3[1];
         }
 
-        if (v6 < (v17 + 1))
+        v5 = (v15 + 1);
+        if (v6 < (v15 + 1))
         {
-          goto LABEL_91;
+          goto LABEL_64;
         }
 
-        v9 = *v17;
-        v3[1] = v17 + 1;
+        v9 = *v15;
+        v3[1] = v5;
       }
-    }
 
-LABEL_6:
-    v5 = v3[1];
-    if (v5 >= v6)
-    {
       goto LABEL_4;
     }
-  }
 
-  if (v14 != 3)
-  {
-    if (v14 == 4)
+    if (v11 == 2)
     {
-      if ((result & 7) != 0)
-      {
-        if (v15 != 2)
-        {
-          goto LABEL_91;
-        }
-
-        result = ProtobufDecoder.decodeVarint()();
-        if (v2)
-        {
-          return result;
-        }
-
-        if ((result & 0x8000000000000000) != 0)
-        {
-          goto LABEL_103;
-        }
-
-        v27 = v3[1] + result;
-        if (v6 < v27)
-        {
-          goto LABEL_91;
-        }
-
-        v3[3] = 32;
-        v3[4] = v27;
-      }
-
-      result = ProtobufDecoder.decodeVarint()();
-      if (v2)
-      {
-        return result;
-      }
-
-      v7 = result;
+      break;
     }
 
-    else
+    if (v11 != 1)
     {
-      if (v14 != 5)
+      if ((result & 7) > 1)
       {
-        goto LABEL_58;
-      }
-
-      if (v15 == 2)
-      {
-        result = ProtobufDecoder.decodeVarint()();
-        if (v2)
+        if (v12 == 2)
         {
-          return result;
+          result = ProtobufDecoder.decodeVarint()(result);
+          if (v2)
+          {
+            return result;
+          }
+
+          if ((result & 0x8000000000000000) != 0)
+          {
+            goto LABEL_71;
+          }
+
+          v5 = v3[1] + result;
+          if (v6 < v5)
+          {
+            goto LABEL_64;
+          }
         }
 
-        if ((result & 0x8000000000000000) != 0)
+        else
         {
-          goto LABEL_102;
-        }
+          if (v12 != 5)
+          {
+            goto LABEL_64;
+          }
 
-        v16 = v3[1];
-        if (v6 < v16 + result)
-        {
-          goto LABEL_91;
+          v5 = v3[1] + 4;
+          if (v6 < v5)
+          {
+            goto LABEL_64;
+          }
         }
-
-        v3[3] = 45;
-        v3[4] = v16 + result;
       }
 
       else
       {
-        if (v15 != 5)
+        if ((result & 7) == 0)
         {
-          goto LABEL_91;
+          result = ProtobufDecoder.decodeVarint()(result);
+          if (v2)
+          {
+            return result;
+          }
+
+          v5 = v3[1];
+          goto LABEL_4;
         }
 
-        v16 = v3[1];
+        if (v12 != 1)
+        {
+          goto LABEL_64;
+        }
+
+        v5 = v3[1] + 8;
+        if (v6 < v5)
+        {
+          goto LABEL_64;
+        }
       }
 
-      if (v6 < (v16 + 1))
-      {
-        goto LABEL_91;
-      }
-
-      v8 = *v16;
-      v3[1] = v16 + 1;
+      v3[1] = v5;
+      goto LABEL_4;
     }
 
-    goto LABEL_6;
+    if (v12 == 5)
+    {
+      v20 = v3[1];
+      v5 = (v20 + 1);
+      if (v6 < (v20 + 1))
+      {
+        goto LABEL_64;
+      }
+
+      v21 = *v20;
+      v3[1] = v5;
+      v7 = v21;
+    }
+
+    else
+    {
+      if (v12 == 2)
+      {
+        result = ProtobufDecoder.decodeVarint()(result);
+        if (v2)
+        {
+          return result;
+        }
+
+        if ((result & 0x8000000000000000) != 0)
+        {
+          goto LABEL_70;
+        }
+
+        v13 = v3[1];
+        if (v6 < v13 + result)
+        {
+          goto LABEL_64;
+        }
+
+        v3[3] = 9;
+        v3[4] = v13 + result;
+      }
+
+      else
+      {
+        if (v12 != 1)
+        {
+          goto LABEL_64;
+        }
+
+        v13 = v3[1];
+      }
+
+      v5 = (v13 + 1);
+      if (v6 < (v13 + 1))
+      {
+        goto LABEL_64;
+      }
+
+      v7 = *v13;
+      v3[1] = v5;
+    }
+
+LABEL_4:
+    if (v5 >= v6)
+    {
+      goto LABEL_66;
+    }
   }
 
-  if (v15 != 2)
+  if (v12 == 5)
   {
-    goto LABEL_91;
+    v16 = v3[1];
+    v5 = (v16 + 1);
+    if (v6 < (v16 + 1))
+    {
+      goto LABEL_64;
+    }
+
+    v17 = *v16;
+    v3[1] = v5;
+    v8 = v17;
+    goto LABEL_4;
   }
 
-  v18 = v3[5];
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+  if (v12 != 2)
   {
-    v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v18 + 2) + 1, 1, v18);
+    if (v12 != 1)
+    {
+      goto LABEL_64;
+    }
+
+    v14 = v3[1];
+LABEL_39:
+    v5 = (v14 + 1);
+    if (v6 < (v14 + 1))
+    {
+      goto LABEL_64;
+    }
+
+    v8 = *v14;
+    v3[1] = v5;
+    goto LABEL_4;
   }
 
-  v20 = *(v18 + 2);
-  v19 = *(v18 + 3);
-  if (v20 >= v19 >> 1)
-  {
-    v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1, v18);
-  }
-
-  *(v18 + 2) = v20 + 1;
-  *&v18[8 * v20 + 32] = v6;
-  v3[5] = v18;
-  result = ProtobufDecoder.decodeVarint()();
+  result = ProtobufDecoder.decodeVarint()(result);
   if (v2)
   {
     return result;
@@ -7739,109 +2383,4454 @@ LABEL_6:
 
   if ((result & 0x8000000000000000) == 0)
   {
-    v21 = v3[1] + result;
-    if (v6 < v21)
+    v14 = v3[1];
+    if (v6 < v14 + result)
     {
-      goto LABEL_91;
+      goto LABEL_64;
     }
 
-    v3[2] = v21;
-    specialized CGPoint.init(from:)(v3);
-    v24 = v3[5];
-    if (!*(v24 + 16))
-    {
-      goto LABEL_99;
-    }
+    v3[3] = 17;
+    v3[4] = v14 + result;
+    goto LABEL_39;
+  }
 
-    v11 = v22;
-    v12 = v23;
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if (result)
+  __break(1u);
+LABEL_69:
+  __break(1u);
+LABEL_70:
+  __break(1u);
+LABEL_71:
+  __break(1u);
+  return result;
+}
+
+void type metadata accessor for InternalAnimationBox<DefaultAnimation>(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void), uint64_t a4)
+{
+  if (!*a2)
+  {
+    v7 = a3();
+    v9 = type metadata accessor for InternalAnimationBox(a1, a4, v7, v8);
+    if (!v10)
     {
-      v25 = *(v24 + 16);
-      if (!v25)
+      atomic_store(v9, a2);
+    }
+  }
+}
+
+uint64_t type metadata completion function for AppearanceAnimationView(uint64_t a1)
+{
+  result = swift_checkMetadataState();
+  if (v2 <= 0x3F)
+  {
+    result = swift_checkMetadataState();
+    if (v3 <= 0x3F)
+    {
+      swift_initStructMetadata();
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t type metadata completion function for _TrimmedShape(uint64_t a1)
+{
+  result = swift_checkMetadataState();
+  if (v2 <= 0x3F)
+  {
+    swift_initStructMetadata();
+    return 0;
+  }
+
+  return result;
+}
+
+void instantiation function for generic protocol witness table for _TrimmedShape<A>(uint64_t a1, uint64_t a2)
+{
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _TrimmedShape<A>);
+  *(a1 + 8) = v5;
+  swift_getWitnessTable(protocol conformance descriptor for _TrimmedShape<A>, a2, WitnessTable);
+  *(a1 + 16) = v6;
+}
+
+uint64_t getEnumTagSinglePayload for AppearanceAnimationView(unsigned __int8 *a1, unsigned int a2, uint64_t a3)
+{
+  v4 = *(*(a3 + 16) - 8);
+  v5 = *(v4 + 84);
+  v6 = *(a3 + 24);
+  v7 = *(v6 - 8);
+  v8 = *(v7 + 84);
+  v9 = *(v7 + 80);
+  v10 = *(v7 + 64);
+  if (v8 <= v5)
+  {
+    v11 = *(v4 + 84);
+  }
+
+  else
+  {
+    v11 = *(v7 + 84);
+  }
+
+  if (v11 <= 0x7FFFFFFF)
+  {
+    v11 = 0x7FFFFFFF;
+  }
+
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v12 = *(*(*(a3 + 16) - 8) + 64) + v9;
+  v13 = v10 + v9;
+  v14 = v10 + 7;
+  if (v11 >= a2)
+  {
+    goto LABEL_30;
+  }
+
+  v15 = ((v14 + ((v13 + (v12 & ~v9)) & ~v9)) & 0xFFFFFFFFFFFFFFF8) + 9;
+  v16 = (a2 - v11 + 255) >> 8;
+  if (v15 <= 3)
+  {
+    v17 = v16 + 1;
+  }
+
+  else
+  {
+    v17 = 2;
+  }
+
+  if (v17 >= 0x10000)
+  {
+    v18 = 4;
+  }
+
+  else
+  {
+    v18 = 2;
+  }
+
+  if (v17 < 0x100)
+  {
+    v18 = 1;
+  }
+
+  if (v17 >= 2)
+  {
+    v19 = v18;
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  if (v19 > 1)
+  {
+    if (v19 == 2)
+    {
+      v20 = *&a1[v15];
+      if (!*&a1[v15])
       {
-        goto LABEL_101;
+        goto LABEL_30;
       }
     }
 
     else
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew()(v24);
-      v24 = result;
-      v25 = *(result + 16);
-      if (!v25)
+      v20 = *&a1[v15];
+      if (!v20)
       {
-        goto LABEL_101;
+        goto LABEL_30;
       }
     }
-
-    v26 = v25 - 1;
-    v6 = *(v24 + 8 * v26 + 32);
-    *(v24 + 16) = v26;
-    v3[5] = v24;
-    v3[2] = v6;
-    goto LABEL_6;
   }
 
-  __break(1u);
-LABEL_98:
-  __break(1u);
-LABEL_99:
-  __break(1u);
-LABEL_100:
-  __break(1u);
-LABEL_101:
-  __break(1u);
-LABEL_102:
-  __break(1u);
-LABEL_103:
-  __break(1u);
-LABEL_104:
-  __break(1u);
-LABEL_105:
-  __break(1u);
-  __break(1u);
-  do
+  else if (!v19 || (v20 = a1[v15]) == 0)
   {
-    __break(1u);
-    result = specialized _ArrayBuffer._consumeAndCreateNew()(a2);
-    a2 = result;
-    v38 = *(result + 16);
-    if (v38)
+LABEL_30:
+    if (v5 == v11)
     {
-      goto LABEL_96;
+      return (*(v4 + 48))(a1);
     }
 
-    __break(1u);
-    a2 = v3[5];
+    v24 = &a1[v12] & ~v9;
+    if (v8 == v11)
+    {
+      return (*(v7 + 48))(v24, v8, v6);
+    }
+
+    v25 = *((v14 + ((v13 + v24) & ~v9)) & 0xFFFFFFFFFFFFFFF8);
+    if (v25 >= 0xFFFFFFFF)
+    {
+      LODWORD(v25) = -1;
+    }
+
+    return (v25 + 1);
   }
 
-  while (!*(a2 + 16));
-  result = swift_isUniquelyReferenced_nonNull_native();
-  if (result)
+  v22 = (v20 - 1) << (8 * v15);
+  if (v15 <= 3)
   {
-    v38 = *(a2 + 16);
-    if (v38)
+    v23 = *a1;
+  }
+
+  else
+  {
+    v22 = 0;
+    v23 = *a1;
+  }
+
+  return v11 + (v23 | v22) + 1;
+}
+
+void ClosedRange<>.progress(at:countdown:)()
+{
+  Date.timeIntervalSinceReferenceDate.getter();
+  v1 = v0;
+  type metadata accessor for ClosedRange<Date>(0);
+  Date.timeIntervalSinceReferenceDate.getter();
+  if (v1 > v2)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    Date.timeIntervalSinceReferenceDate.getter();
+  }
+}
+
+void type metadata accessor for ClosedRange<Date>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for ClosedRange<Date>)
+  {
+    type metadata accessor for Date();
+    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x1E6969530], MEMORY[0x1E6969548]);
+    v1 = type metadata accessor for ClosedRange();
+    if (!v2)
     {
-LABEL_96:
-      v39 = v38 - 1;
-      v40 = *(a2 + 8 * v39 + 32);
-      *(a2 + 16) = v39;
-      v3[5] = a2;
-      v3[2] = v40;
-      return result;
+      atomic_store(v1, &lazy cache variable for type metadata for ClosedRange<Date>);
+    }
+  }
+}
+
+void lazy protocol witness table accessor for type Date and conformance Date(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
+{
+  if (!*a1)
+  {
+    v5 = a2(255);
+    swift_getWitnessTable(a3, v5);
+    atomic_store(v6, a1);
+  }
+}
+
+{
+  if (!*a1)
+  {
+    v5 = a2(255);
+    swift_getWitnessTable(a3, v5);
+    atomic_store(v6, a1);
+  }
+}
+
+void _s10Foundation4DateVACSLAAWlTm_0(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
+{
+  if (!*a1)
+  {
+    v5 = a2(255);
+    swift_getWitnessTable(a3, v5);
+    atomic_store(v6, a1);
+  }
+}
+
+void _s10Foundation4DateVACSLAAWlTm_1(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
+{
+  if (!*a1)
+  {
+    v5 = a2(255);
+    swift_getWitnessTable(a3, v5);
+    atomic_store(v6, a1);
+  }
+}
+
+void _s10Foundation4DateVACSLAAWlTm_2(unint64_t *a1, const char *a2)
+{
+  if (!*a1)
+  {
+    v4 = type metadata accessor for Date();
+    swift_getWitnessTable(a2, v4);
+    atomic_store(v5, a1);
+  }
+}
+
+void _s10Foundation4DateVACSLAAWlTm_3(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
+{
+  if (!*a1)
+  {
+    v5 = a2(255);
+    swift_getWitnessTable(a3, v5);
+    atomic_store(v6, a1);
+  }
+}
+
+void _s10Foundation4DateVACSLAAWlTm_4(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
+{
+  if (!*a1)
+  {
+    v5 = a2(255);
+    swift_getWitnessTable(a3, v5);
+    atomic_store(v6, a1);
+  }
+}
+
+void _s10Foundation4DateVACSLAAWlTm_5(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
+{
+  if (!*a1)
+  {
+    v5 = a2(255);
+    swift_getWitnessTable(a3, v5);
+    atomic_store(v6, a1);
+  }
+}
+
+uint64_t getEnumTagSinglePayload for StrokeShapeView(int *a1, unsigned int a2, void *a3)
+{
+  v5 = *(a3[2] - 8);
+  v6 = *(v5 + 84);
+  if (v6 <= 0x7FFFFFFF)
+  {
+    v7 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v7 = *(v5 + 84);
+  }
+
+  v8 = a3[4];
+  v9 = *(a3[3] - 8);
+  v10 = *(v9 + 84);
+  if (v10 <= v7)
+  {
+    v11 = v7;
+  }
+
+  else
+  {
+    v11 = *(v9 + 84);
+  }
+
+  v12 = *(v8 - 8);
+  v13 = *(v12 + 84);
+  v14 = *(*(a3[2] - 8) + 64);
+  v15 = *(v9 + 80);
+  if (v13 <= v11)
+  {
+    v16 = v11;
+  }
+
+  else
+  {
+    v16 = *(v12 + 84);
+  }
+
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v17 = ((v14 + 7) & 0xFFFFFFFFFFFFFFF8) + v15 + 40;
+  v18 = *(v12 + 80) & 0xF8 | 7;
+  v19 = *(*(a3[3] - 8) + 64) + v18 + (v17 & ~v15) + 2;
+  if (v16 >= a2)
+  {
+    goto LABEL_33;
+  }
+
+  v20 = ((*(*(v8 - 8) + 64) + 7) & 0xFFFFFFFFFFFFFFF8) + (v19 & ~v18) + 16;
+  v21 = a2 - v16;
+  v22 = v20 & 0xFFFFFFF8;
+  if ((v20 & 0xFFFFFFF8) != 0)
+  {
+    v23 = 2;
+  }
+
+  else
+  {
+    v23 = v21 + 1;
+  }
+
+  if (v23 >= 0x10000)
+  {
+    v24 = 4;
+  }
+
+  else
+  {
+    v24 = 2;
+  }
+
+  if (v23 < 0x100)
+  {
+    v24 = 1;
+  }
+
+  if (v23 >= 2)
+  {
+    v25 = v24;
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+  if (v25 <= 1)
+  {
+    if (!v25)
+    {
+      goto LABEL_33;
+    }
+
+    v26 = *(a1 + v20);
+    if (!v26)
+    {
+      goto LABEL_33;
+    }
+
+LABEL_30:
+    v28 = v26 - 1;
+    if (v22)
+    {
+      v28 = 0;
+      v29 = *a1;
+    }
+
+    else
+    {
+      v29 = 0;
+    }
+
+    return v16 + (v29 | v28) + 1;
+  }
+
+  if (v25 == 2)
+  {
+    v26 = *(a1 + v20);
+    if (v26)
+    {
+      goto LABEL_30;
     }
   }
 
   else
   {
-    result = specialized _ArrayBuffer._consumeAndCreateNew()(a2);
-    a2 = result;
-    v38 = *(result + 16);
-    if (v38)
+    v26 = *(a1 + v20);
+    if (v26)
     {
-      goto LABEL_96;
+      goto LABEL_30;
+    }
+  }
+
+LABEL_33:
+  if (v11 < v13)
+  {
+    v30 = *(v12 + 48);
+    v31 = (a1 + v19) & ~v18;
+    v32 = *(v12 + 84);
+    v33 = a3[4];
+
+    return v30(v31, v32, v33);
+  }
+
+  if (v7 < v10)
+  {
+    v30 = *(v9 + 48);
+    v31 = (a1 + v17) & ~v15;
+    v32 = *(v9 + 84);
+    v33 = a3[3];
+
+    return v30(v31, v32, v33);
+  }
+
+  if (v6 < 0x7FFFFFFF)
+  {
+    v35 = *(((a1 + v14 + 7) & 0xFFFFFFFFFFFFFFF8) + 24);
+    if (v35 >= 0xFFFFFFFF)
+    {
+      LODWORD(v35) = -1;
+    }
+
+    return (v35 + 1);
+  }
+
+  else
+  {
+    v34 = *(v5 + 48);
+
+    return v34(a1);
+  }
+}
+
+void *static CombiningTransition.properties.getter@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, _BYTE *a4@<X8>)
+{
+  (*(a2 + 32))(&v9 + 1);
+  v7 = BYTE1(v9);
+  result = (*(a3 + 32))(&v9, a1, a3);
+  *a4 = (v7 | v9) & 1;
+  return result;
+}
+
+double sub_18D388F0C(void *a1)
+{
+  v2 = a1[1];
+  v3 = a1[2];
+  v4 = a1[3];
+  v22[0] = *a1;
+  v1 = v22[0];
+  v22[1] = v2;
+  v22[2] = v3;
+  v22[3] = v4;
+  v5 = type metadata accessor for CombiningTransition(255, v22);
+  v8 = type metadata accessor for PlaceholderContentView(255, v5, v6, v7);
+  v10 = type metadata accessor for ApplyTransitionModifier(255, v1, v3, v9);
+  v12 = type metadata accessor for ModifiedContent(255, v8, v10, v11);
+  v14 = type metadata accessor for ApplyTransitionModifier(255, v2, v4, v13);
+  v16 = type metadata accessor for ModifiedContent(255, v12, v14, v15);
+  v21[0] = &protocol witness table for PlaceholderContentView<A>;
+  v21[1] = &protocol witness table for ApplyTransitionModifier<A>;
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for <> ModifiedContent<A, B>, v12, v21);
+  v20[0] = v18;
+  v20[1] = &protocol witness table for ApplyTransitionModifier<A>;
+  return swift_getWitnessTable(protocol conformance descriptor for <> ModifiedContent<A, B>, v16, v20, WitnessTable);
+}
+
+void type metadata accessor for ModifiedContent<PlaceholderContentView<ScaleTransition>, _ScaleEffect>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for ModifiedContent<PlaceholderContentView<ScaleTransition>, _ScaleEffect>)
+  {
+    type metadata accessor for _ContiguousArrayStorage<ContentTransition.Effect>(255, &lazy cache variable for type metadata for PlaceholderContentView<ScaleTransition>, &type metadata for ScaleTransition, type metadata accessor for PlaceholderContentView);
+    v4 = type metadata accessor for ModifiedContent(a1, v2, &type metadata for _ScaleEffect, v3);
+    if (!v5)
+    {
+      atomic_store(v4, &lazy cache variable for type metadata for ModifiedContent<PlaceholderContentView<ScaleTransition>, _ScaleEffect>);
+    }
+  }
+}
+
+void lazy protocol witness table accessor for type ModifiedContent<PlaceholderContentView<ScaleTransition>, _ScaleEffect> and conformance <> ModifiedContent<A, B>()
+{
+  if (!lazy protocol witness table cache variable for type ModifiedContent<PlaceholderContentView<ScaleTransition>, _ScaleEffect> and conformance <> ModifiedContent<A, B>)
+  {
+    v4[2] = v0;
+    v4[3] = v1;
+    type metadata accessor for ModifiedContent<PlaceholderContentView<ScaleTransition>, _ScaleEffect>(255);
+    v4[0] = &protocol witness table for PlaceholderContentView<A>;
+    v4[1] = &protocol witness table for _ScaleEffect;
+    swift_getWitnessTable(protocol conformance descriptor for <> ModifiedContent<A, B>, v2, v4);
+    atomic_store(v3, &lazy protocol witness table cache variable for type ModifiedContent<PlaceholderContentView<ScaleTransition>, _ScaleEffect> and conformance <> ModifiedContent<A, B>);
+  }
+}
+
+void storeEnumTagSinglePayload for StrokeShapeView(_DWORD *a1, unsigned int a2, unsigned int a3, void *a4)
+{
+  v41 = *(a4[2] - 8);
+  v5 = *(v41 + 84);
+  if (v5 <= 0x7FFFFFFF)
+  {
+    v6 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v6 = *(v41 + 84);
+  }
+
+  v7 = a4[3];
+  v8 = a4[4];
+  v9 = *(v7 - 8);
+  v10 = *(v9 + 84);
+  if (v10 <= v6)
+  {
+    v11 = v6;
+  }
+
+  else
+  {
+    v11 = *(v9 + 84);
+  }
+
+  v12 = *(v8 - 8);
+  v13 = *(v12 + 84);
+  v14 = *(*(a4[2] - 8) + 64);
+  v15 = *(v9 + 80);
+  if (v13 <= v11)
+  {
+    v16 = v11;
+  }
+
+  else
+  {
+    v16 = *(v12 + 84);
+  }
+
+  v17 = ((v14 + 7) & 0xFFFFFFFFFFFFFFF8) + 40;
+  v18 = *(*(v7 - 8) + 64) + ((v17 + v15) & ~v15) + 2;
+  v19 = *(v12 + 80) & 0xF8 | 7;
+  v20 = ((*(*(v8 - 8) + 64) + 7) & 0xFFFFFFFFFFFFFFF8) + 16;
+  v21 = ((v18 + v19) & ~v19) + v20;
+  if (v16 >= a3)
+  {
+    v24 = 0;
+    v25 = a2 - v16;
+    if (a2 <= v16)
+    {
+      goto LABEL_22;
+    }
+
+LABEL_27:
+    if (v21)
+    {
+      v26 = 1;
+    }
+
+    else
+    {
+      v26 = v25;
+    }
+
+    if (v21)
+    {
+      v27 = ~v16 + a2;
+      v28 = a1;
+      bzero(a1, ((v18 + v19) & ~v19) + v20);
+      a1 = v28;
+      *v28 = v27;
+    }
+
+    if (v24 > 1)
+    {
+      if (v24 == 2)
+      {
+        *(a1 + v21) = v26;
+      }
+
+      else
+      {
+        *(a1 + v21) = v26;
+      }
+    }
+
+    else if (v24)
+    {
+      *(a1 + v21) = v26;
+    }
+
+    return;
+  }
+
+  v22 = a3 - v16;
+  if (v21)
+  {
+    v23 = 2;
+  }
+
+  else
+  {
+    v23 = v22 + 1;
+  }
+
+  if (v23 >= 0x10000)
+  {
+    v24 = 4;
+  }
+
+  else
+  {
+    v24 = 2;
+  }
+
+  if (v23 < 0x100)
+  {
+    v24 = 1;
+  }
+
+  if (v23 < 2)
+  {
+    v24 = 0;
+  }
+
+  v25 = a2 - v16;
+  if (a2 > v16)
+  {
+    goto LABEL_27;
+  }
+
+LABEL_22:
+  if (v24 > 1)
+  {
+    if (v24 != 2)
+    {
+      *(a1 + v21) = 0;
+      if (!a2)
+      {
+        return;
+      }
+
+      goto LABEL_38;
+    }
+
+    *(a1 + v21) = 0;
+LABEL_37:
+    if (!a2)
+    {
+      return;
+    }
+
+    goto LABEL_38;
+  }
+
+  if (!v24)
+  {
+    goto LABEL_37;
+  }
+
+  *(a1 + v21) = 0;
+  if (!a2)
+  {
+    return;
+  }
+
+LABEL_38:
+  if (v11 >= v13)
+  {
+    if (v11 >= a2)
+    {
+      if (v6 >= v10)
+      {
+        if (v6 >= a2)
+        {
+          if (v5 < 0x7FFFFFFF)
+          {
+            v40 = (a1 + v14 + 7) & 0xFFFFFFFFFFFFFFF8;
+            if ((a2 & 0x80000000) != 0)
+            {
+              *(v40 + 8) = 0u;
+              *(v40 + 24) = 0u;
+              *v40 = a2 & 0x7FFFFFFF;
+            }
+
+            else
+            {
+              *(v40 + 24) = a2 - 1;
+            }
+          }
+
+          else
+          {
+            v39 = *(v41 + 56);
+
+            v39();
+          }
+        }
+
+        else if (((v14 + 7) & 0xFFFFFFF8) != 0xFFFFFFD8)
+        {
+          v29 = ~v6 + a2;
+          v30 = a1;
+          v31 = v17;
+          goto LABEL_42;
+        }
+      }
+
+      else
+      {
+        v37 = *(v9 + 56);
+        v38 = (a1 + v17 + v15) & ~v15;
+
+        v37(v38);
+      }
+    }
+
+    else
+    {
+      if (v18 <= 3)
+      {
+        v32 = ~(-1 << (8 * v18));
+      }
+
+      else
+      {
+        v32 = -1;
+      }
+
+      if (v18)
+      {
+        v33 = v32 & (~v11 + a2);
+        if (v18 <= 3)
+        {
+          v34 = v18;
+        }
+
+        else
+        {
+          v34 = 4;
+        }
+
+        v35 = a1;
+        bzero(a1, v18);
+        if (v34 > 2)
+        {
+          if (v34 == 3)
+          {
+            *v35 = v33;
+            *(v35 + 2) = BYTE2(v33);
+          }
+
+          else
+          {
+            *v35 = v33;
+          }
+        }
+
+        else if (v34 == 1)
+        {
+          *v35 = v33;
+        }
+
+        else
+        {
+          *v35 = v33;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    a1 = ((a1 + v18 + v19) & ~v19);
+    if (v13 >= a2)
+    {
+      v36 = *(v12 + 56);
+
+      v36(a1);
+    }
+
+    else if (v20)
+    {
+      v29 = ~v13 + a2;
+      v30 = a1;
+      v31 = v20;
+LABEL_42:
+      bzero(a1, v31);
+      *v30 = v29;
+    }
+  }
+}
+
+double AccessibilityAttachment.init()@<D0>(uint64_t a1@<X8>)
+{
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 0;
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 40) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 1;
+  *(a1 + 64) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 88) = 1;
+  *(a1 + 104) = 0;
+  *(a1 + 112) = 0;
+  *(a1 + 96) = 0;
+  *(a1 + 120) = 1;
+  _s7SwiftUI33AccessibilityTextLayoutPropertiesOSgWOi0_(v7);
+  v2 = v7[7];
+  *(a1 + 224) = v7[6];
+  *(a1 + 240) = v2;
+  *(a1 + 256) = v7[8];
+  *(a1 + 272) = v8;
+  v3 = v7[3];
+  *(a1 + 160) = v7[2];
+  *(a1 + 176) = v3;
+  v4 = v7[5];
+  *(a1 + 192) = v7[4];
+  *(a1 + 208) = v4;
+  result = *v7;
+  v6 = v7[1];
+  *(a1 + 128) = v7[0];
+  *(a1 + 144) = v6;
+  *(a1 + 280) = MEMORY[0x1E69E7CC8];
+  *(a1 + 288) = 0;
+  return result;
+}
+
+BOOL AccessibilityProperties.isEmpty.getter()
+{
+  if (*(*(v0 + 280) + 16))
+  {
+    return 0;
+  }
+
+  if (*(v0 + 8))
+  {
+    return 0;
+  }
+
+  if (*(v0 + 24))
+  {
+    return 0;
+  }
+
+  if (*(v0 + 56) != 1)
+  {
+    return 0;
+  }
+
+  outlined init with copy of AccessibilityValueStorage?(v0 + 64, &v7, &lazy cache variable for type metadata for AccessibilityValueStorage?, &type metadata for AccessibilityValueStorage, type metadata accessor for HitTestableEvent?);
+  v1 = *(&v8 + 1);
+  _s7SwiftUI31AnyAccessibilityPropertiesEntry_pSgWOhTm_0(&v7, &lazy cache variable for type metadata for AccessibilityValueStorage?, &type metadata for AccessibilityValueStorage, type metadata accessor for HitTestableEvent?);
+  if (v1 != 1 || *(v0 + 120) != 1)
+  {
+    return 0;
+  }
+
+  v2 = *(v0 + 240);
+  v13 = *(v0 + 224);
+  v14 = v2;
+  v15 = *(v0 + 256);
+  v16 = *(v0 + 272);
+  v3 = *(v0 + 176);
+  v9 = *(v0 + 160);
+  v10 = v3;
+  v4 = *(v0 + 208);
+  v11 = *(v0 + 192);
+  v12 = v4;
+  v5 = *(v0 + 144);
+  v7 = *(v0 + 128);
+  v8 = v5;
+  return _sSo7CGPointV_7SwiftUI18ResolvedStyledTextC0F13LayoutManagerC7Metrics33_B6B30FF60BE9B7CF80B161CEF951DAD7LLVtSgWOg(&v7) != 0;
+}
+
+uint64_t _s7SwiftUI23AccessibilityPropertiesVy13PropertyValueQzxmcAA0cD3KeyRzluisAC05HintsG0V_Tt0g5(uint64_t a1)
+{
+  if (one-time initialization token for defaultValue != -1)
+  {
+    swift_once();
+  }
+
+  if (_sSasSQRzlE2eeoiySbSayxG_ABtFZ7SwiftUI4TextV_Tt1g5(a1, static AccessibilityProperties.HintsKey.defaultValue))
+  {
+
+    specialized Dictionary.removeValue(forKey:)(&type metadata for AccessibilityProperties.HintsKey, outlined init with take of _ViewList_Elements, specialized _NativeDictionary._delete(at:), specialized _NativeDictionary.copy(), v4);
+    return outlined destroy of AnyAccessibilityPropertiesEntry?(v4, type metadata accessor for AnyAccessibilityPropertiesEntry?);
+  }
+
+  else
+  {
+    type metadata accessor for AccessibilityPropertiesEntry<[Text]>(0);
+    v4[3] = v3;
+    v4[4] = &protocol witness table for AccessibilityPropertiesEntry<A>;
+    v4[0] = a1;
+    return specialized Dictionary.subscript.setter(v4, &type metadata for AccessibilityProperties.HintsKey);
+  }
+}
+
+void (*AccessibilityProperties.activationPointStorage.modify(uint64_t *a1))(uint64_t **a1, char a2)
+{
+  if (MEMORY[0x1E69E7D08])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  *a1 = v3;
+  *(v3 + 80) = v1;
+  _s7SwiftUI23AccessibilityPropertiesVy13PropertyValueQzxmcAA0cD3KeyRzluigAC015ActivationPointG0V_Tt0g5(v3);
+  return AccessibilityProperties.activationPointStorage.modify;
+}
+
+double _s7SwiftUI23AccessibilityPropertiesVy13PropertyValueQzxmcAA0cD3KeyRzluigAC015ActivationPointG0V_Tt0g5@<D0>(uint64_t a1@<X8>)
+{
+  v3 = *(v1 + 280);
+  if (*(v3 + 16) && (v4 = specialized __RawDictionaryStorage.find<A>(_:)(&type metadata for AccessibilityProperties.ActivationPointKey), (v5 & 1) != 0))
+  {
+    outlined init with copy of AnyTrackedValue(*(v3 + 56) + 40 * v4, v15);
+    v6 = v16;
+    v7 = v17;
+    __swift_project_boxed_opaque_existential_1(v15, v16);
+    type metadata accessor for AccessibilityActivationPointStorage?(0, &lazy cache variable for type metadata for AccessibilityActivationPointStorage?, &type metadata for AccessibilityActivationPointStorage, MEMORY[0x1E69E6720]);
+    (*(v7 + 16))(v13, v8, v8, v6, v7);
+    v9 = v14;
+    v11 = v13[1];
+    v12 = v13[0];
+    __swift_destroy_boxed_opaque_existential_1(v15);
+    result = *&v12;
+    *a1 = v12;
+    *(a1 + 16) = v11;
+    *(a1 + 32) = v9;
+  }
+
+  else
+  {
+    *(a1 + 32) = 0;
+    result = 0.0;
+    *a1 = 0u;
+    *(a1 + 16) = 0u;
+  }
+
+  return result;
+}
+
+void AccessibilityProperties.activationPointStorage.modify(uint64_t **a1, char a2)
+{
+  v2 = *a1;
+  if (a2)
+  {
+    v3 = v2[3];
+    if (v3)
+    {
+      v4 = v2[4];
+      v5 = v2[2];
+      v13 = *v2;
+      type metadata accessor for AccessibilityPropertiesEntry<AccessibilityActivationPointStorage?>(0);
+      v16 = v6;
+      v17 = &protocol witness table for AccessibilityPropertiesEntry<A>;
+      v7 = swift_allocObject();
+      v15[0] = v7;
+      *(v7 + 16) = v13;
+      *(v7 + 32) = v5;
+      *(v7 + 40) = v3;
+      *(v7 + 48) = v4;
+
+      specialized Dictionary.subscript.setter(v15, &type metadata for AccessibilityProperties.ActivationPointKey);
+    }
+
+    else
+    {
+      specialized Dictionary.removeValue(forKey:)(&type metadata for AccessibilityProperties.ActivationPointKey, outlined init with take of _ViewList_Elements, specialized _NativeDictionary._delete(at:), specialized _NativeDictionary.copy(), (v2 + 5));
+      outlined destroy of AnyAccessibilityPropertiesEntry?((v2 + 5), type metadata accessor for AnyAccessibilityPropertiesEntry?);
+    }
+
+    outlined consume of AccessibilityActivationPointStorage?(*v2, v2[1], v2[2], v2[3], v2[4]);
+  }
+
+  else
+  {
+    v8 = v2[3];
+    if (v8)
+    {
+      v9 = v2[4];
+      v10 = v2[2];
+      v14 = *v2;
+      type metadata accessor for AccessibilityPropertiesEntry<AccessibilityActivationPointStorage?>(0);
+      v16 = v11;
+      v17 = &protocol witness table for AccessibilityPropertiesEntry<A>;
+      v12 = swift_allocObject();
+      v15[0] = v12;
+      *(v12 + 16) = v14;
+      *(v12 + 32) = v10;
+      *(v12 + 40) = v8;
+      *(v12 + 48) = v9;
+      specialized Dictionary.subscript.setter(v15, &type metadata for AccessibilityProperties.ActivationPointKey);
+    }
+
+    else
+    {
+      specialized Dictionary.removeValue(forKey:)(&type metadata for AccessibilityProperties.ActivationPointKey, outlined init with take of _ViewList_Elements, specialized _NativeDictionary._delete(at:), specialized _NativeDictionary.copy(), (v2 + 5));
+      outlined destroy of AnyAccessibilityPropertiesEntry?((v2 + 5), type metadata accessor for AnyAccessibilityPropertiesEntry?);
+    }
+  }
+
+  free(v2);
+}
+
+void (*AccessibilityProperties.customAttributes.modify(uint64_t *a1))(void **a1, char a2)
+{
+  if (MEMORY[0x1E69E7D08])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x38uLL);
+  }
+
+  *a1 = v3;
+  *(v3 + 48) = v1;
+  _s7SwiftUI23AccessibilityPropertiesVy13PropertyValueQzxmcAA0cD3KeyRzluigAC016CustomAttributesG0V_Tt0g5((v3 + 40));
+  return AccessibilityProperties.customAttributes.modify;
+}
+
+void AccessibilityProperties.customAttributes.modify(void **a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 5);
+  if (a2)
+  {
+    if (v3)
+    {
+      type metadata accessor for AccessibilityPropertiesEntry<AccessibilityCustomAttributes?>(0);
+      v7 = v4;
+      v8 = &protocol witness table for AccessibilityPropertiesEntry<A>;
+      v6[0] = v3;
+
+      specialized Dictionary.subscript.setter(v6, &type metadata for AccessibilityProperties.CustomAttributesKey);
+    }
+
+    else
+    {
+      specialized Dictionary.removeValue(forKey:)(&type metadata for AccessibilityProperties.CustomAttributesKey, outlined init with take of _ViewList_Elements, specialized _NativeDictionary._delete(at:), specialized _NativeDictionary.copy(), v2);
+      outlined destroy of AnyAccessibilityPropertiesEntry?(v2, type metadata accessor for AnyAccessibilityPropertiesEntry?);
+    }
+  }
+
+  else if (v3)
+  {
+    type metadata accessor for AccessibilityPropertiesEntry<AccessibilityCustomAttributes?>(0);
+    v7 = v5;
+    v8 = &protocol witness table for AccessibilityPropertiesEntry<A>;
+    v6[0] = v3;
+    specialized Dictionary.subscript.setter(v6, &type metadata for AccessibilityProperties.CustomAttributesKey);
+  }
+
+  else
+  {
+    specialized Dictionary.removeValue(forKey:)(&type metadata for AccessibilityProperties.CustomAttributesKey, outlined init with take of _ViewList_Elements, specialized _NativeDictionary._delete(at:), specialized _NativeDictionary.copy(), v2);
+    outlined destroy of AnyAccessibilityPropertiesEntry?(v2, type metadata accessor for AnyAccessibilityPropertiesEntry?);
+  }
+
+  free(v2);
+}
+
+void _s7SwiftUI23AccessibilityPropertiesVy13PropertyValueQzxmcAA0cD3KeyRzluigAC016CustomAttributesG0V_Tt0g5(void *a1@<X8>)
+{
+  v3 = *(v1 + 280);
+  if (*(v3 + 16) && (v4 = specialized __RawDictionaryStorage.find<A>(_:)(&type metadata for AccessibilityProperties.CustomAttributesKey), (v5 & 1) != 0))
+  {
+    outlined init with copy of AnyTrackedValue(*(v3 + 56) + 40 * v4, v11);
+    v6 = v12;
+    v7 = v13;
+    __swift_project_boxed_opaque_existential_1(v11, v12);
+    type metadata accessor for AccessibilityActivationPointStorage?(0, &lazy cache variable for type metadata for AccessibilityCustomAttributes?, &type metadata for AccessibilityCustomAttributes, MEMORY[0x1E69E6720]);
+    (*(v7 + 16))(&v10, v8, v8, v6, v7);
+    v9 = v10;
+    __swift_destroy_boxed_opaque_existential_1(v11);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  *a1 = v9;
+}
+
+uint64_t storeEnumTagSinglePayload for AccessibilityDataSeriesConfiguration(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 248) = 0u;
+    *(result + 232) = 0u;
+    *(result + 216) = 0u;
+    *(result + 200) = 0u;
+    *(result + 184) = 0u;
+    *(result + 168) = 0u;
+    *(result + 152) = 0u;
+    *(result + 136) = 0u;
+    *(result + 120) = 0u;
+    *(result + 104) = 0u;
+    *(result + 88) = 0u;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *(result + 296) = 0u;
+    *(result + 280) = 0u;
+    *(result + 264) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 312) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 24) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 312) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+double _s7SwiftUI36AccessibilityDataSeriesConfigurationVSgWOi0_(uint64_t a1)
+{
+  *(a1 + 304) = 0;
+  result = 0.0;
+  *(a1 + 272) = 0u;
+  *(a1 + 288) = 0u;
+  *(a1 + 240) = 0u;
+  *(a1 + 256) = 0u;
+  *(a1 + 208) = 0u;
+  *(a1 + 224) = 0u;
+  *(a1 + 176) = 0u;
+  *(a1 + 192) = 0u;
+  *(a1 + 144) = 0u;
+  *(a1 + 160) = 0u;
+  *(a1 + 112) = 0u;
+  *(a1 + 128) = 0u;
+  *(a1 + 80) = 0u;
+  *(a1 + 96) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for AccessibilityDataSeriesConfiguration(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 312))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 24);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for AccessibilityScrollableContext(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xFD)
+  {
+    *(result + 63) = 0;
+    *(result + 32) = 0u;
+    *(result + 48) = 0u;
+    *result = 0u;
+    *(result + 16) = 0u;
+    *result = a2 - 254;
+    if (a3 >= 0xFE)
+    {
+      *(result + 71) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xFE)
+    {
+      *(result + 71) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 70) = -a2;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for AccessibilityScrollableContext(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0xFE && *(a1 + 71))
+  {
+    return (*a1 + 254);
+  }
+
+  v3 = *(a1 + 70);
+  if (v3 >= 3)
+  {
+    return (v3 ^ 0xFF) + 1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t protocol witness for static AccessibilityPropertiesKey.defaultValue.getter in conformance AccessibilityProperties.LinkDestinationKey@<X0>(uint64_t (*a1)(void)@<X2>, uint64_t a2@<X8>)
+{
+  v3 = a1(0);
+  v4 = *(*(v3 - 8) + 56);
+
+  return v4(a2, 1, 1, v3);
+}
+
+void (*AccessibilityProperties.customContentList.modify(uint64_t *a1))(uint64_t a1, char a2)
+{
+  if (MEMORY[0x1E69E7D08])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x38uLL);
+  }
+
+  *a1 = v3;
+  *(v3 + 48) = v1;
+  *(v3 + 40) = _s7SwiftUI23AccessibilityPropertiesVy13PropertyValueQzxmcAA0cD3KeyRzluigAC017CustomContentListG0V_Tt0g5();
+  return AccessibilityProperties.customContentList.modify;
+}
+
+uint64_t _s7SwiftUI23AccessibilityPropertiesVy13PropertyValueQzxmcAA0cD3KeyRzluigAC017CustomContentListG0V_Tt0g5()
+{
+  v1 = *(v0 + 280);
+  if (!*(v1 + 16))
+  {
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  v2 = specialized __RawDictionaryStorage.find<A>(_:)(&type metadata for AccessibilityProperties.CustomContentListKey);
+  if ((v3 & 1) == 0)
+  {
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  outlined init with copy of AnyTrackedValue(*(v1 + 56) + 40 * v2, v10);
+  v4 = v11;
+  v5 = v12;
+  __swift_project_boxed_opaque_existential_1(v10, v11);
+  type metadata accessor for AccessibilityActivationPointStorage?(0, &lazy cache variable for type metadata for [AccessibilityCustomContentEntry], &type metadata for AccessibilityCustomContentEntry, MEMORY[0x1E69E62F8]);
+  (*(v5 + 16))(&v9, v6, v6, v4, v5);
+  v7 = v9;
+  __swift_destroy_boxed_opaque_existential_1(v10);
+  return v7;
+}
+
+void AccessibilityProperties.customContentList.modify(uint64_t a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 40);
+  if (a2)
+  {
+
+    if (_sSasSQRzlE2eeoiySbSayxG_ABtFZ7SwiftUI31AccessibilityCustomContentEntryV_Tt1g5(v4, MEMORY[0x1E69E7CC0]))
+    {
+
+      specialized Dictionary.removeValue(forKey:)(&type metadata for AccessibilityProperties.CustomContentListKey, outlined init with take of _ViewList_Elements, specialized _NativeDictionary._delete(at:), specialized _NativeDictionary.copy(), v2);
+      outlined destroy of AnyAccessibilityPropertiesEntry?(v2, type metadata accessor for AnyAccessibilityPropertiesEntry?);
+    }
+
+    else
+    {
+      type metadata accessor for AccessibilityPropertiesEntry<[AccessibilityCustomContentEntry]>(0);
+      v8 = v5;
+      v9 = &protocol witness table for AccessibilityPropertiesEntry<A>;
+      v7[0] = v3;
+      specialized Dictionary.subscript.setter(v7, &type metadata for AccessibilityProperties.CustomContentListKey);
+    }
+  }
+
+  else if (_sSasSQRzlE2eeoiySbSayxG_ABtFZ7SwiftUI31AccessibilityCustomContentEntryV_Tt1g5(*(*a1 + 40), MEMORY[0x1E69E7CC0]))
+  {
+
+    specialized Dictionary.removeValue(forKey:)(&type metadata for AccessibilityProperties.CustomContentListKey, outlined init with take of _ViewList_Elements, specialized _NativeDictionary._delete(at:), specialized _NativeDictionary.copy(), v2);
+    outlined destroy of AnyAccessibilityPropertiesEntry?(v2, type metadata accessor for AnyAccessibilityPropertiesEntry?);
+  }
+
+  else
+  {
+    type metadata accessor for AccessibilityPropertiesEntry<[AccessibilityCustomContentEntry]>(0);
+    v8 = v6;
+    v9 = &protocol witness table for AccessibilityPropertiesEntry<A>;
+    v7[0] = v3;
+    specialized Dictionary.subscript.setter(v7, &type metadata for AccessibilityProperties.CustomContentListKey);
+  }
+
+  free(v2);
+}
+
+uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ7SwiftUI31AccessibilityCustomContentEntryV_Tt1g5(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 16);
+  if (v4 != *(a2 + 16))
+  {
+    return 0;
+  }
+
+  if (!v4 || a1 == a2)
+  {
+    return 1;
+  }
+
+  v45 = v2;
+  v46 = v3;
+  v5 = a1 + 32;
+  v6 = a2 + 32;
+  for (i = v4 - 1; ; --i)
+  {
+    v24 = v5;
+    outlined init with copy of AccessibilityCustomContentEntry(v5, &v32);
+    outlined init with copy of AccessibilityCustomContentEntry(v6, &v27);
+    v37 = v32;
+    v38 = v33;
+    v39 = v34;
+    v40 = v35;
+    v41 = v27;
+    v42 = v28;
+    v43 = v29;
+    v44 = v30;
+    v7 = v32;
+    v8 = v33;
+    v9 = v27;
+    v10 = v28;
+    if ((v33 & 0x8000000000000000) == 0)
+    {
+      if ((v28 & 0x8000000000000000) != 0 || v32 != v27 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      {
+        goto LABEL_36;
+      }
+
+      outlined init with copy of AccessibilityCustomContentKey(&v37, v26);
+      outlined init with copy of AccessibilityCustomContentKey(&v41, v26);
+      goto LABEL_20;
+    }
+
+    if ((v28 & 0x8000000000000000) == 0)
+    {
+      goto LABEL_36;
+    }
+
+    v11 = *(&v42 + 1);
+    v12 = *(&v38 + 1);
+    if ((v33 & 1) == 0)
+    {
+      if (v28)
+      {
+        goto LABEL_36;
+      }
+
+      if (v32 == v27)
+      {
+        outlined init with copy of AccessibilityCustomContentKey(&v37, v26);
+        outlined init with copy of AccessibilityCustomContentKey(&v41, v26);
+
+        outlined copy of Text.Storage(v7, *(&v7 + 1), 0);
+
+        outlined copy of Text.Storage(v7, *(&v7 + 1), 0);
+      }
+
+      else
+      {
+        v13 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        outlined init with copy of AccessibilityCustomContentKey(&v37, v26);
+        outlined init with copy of AccessibilityCustomContentKey(&v41, v26);
+
+        outlined copy of Text.Storage(v9, *(&v9 + 1), 0);
+
+        outlined copy of Text.Storage(v7, *(&v7 + 1), 0);
+        if ((v13 & 1) == 0)
+        {
+          break;
+        }
+      }
+
+      goto LABEL_19;
+    }
+
+    if ((v28 & 1) == 0)
+    {
+      goto LABEL_36;
+    }
+
+    v23 = *(*v32 + 96);
+    outlined init with copy of AccessibilityCustomContentKey(&v37, v26);
+    outlined init with copy of AccessibilityCustomContentKey(&v41, v26);
+
+    outlined copy of Text.Storage(v9, *(&v9 + 1), 1);
+
+    outlined copy of Text.Storage(v7, *(&v7 + 1), 1);
+    if ((v23(v9) & 1) == 0)
+    {
+      break;
+    }
+
+LABEL_19:
+    _sSasSQRzlE2eeoiySbSayxG_ABtFZ7SwiftUI4TextV8ModifierO_Tt1g5(v12, v11);
+    v15 = v14;
+    outlined consume of Text.Storage(v9, *(&v9 + 1), v10 & 1);
+
+    outlined consume of Text.Storage(v7, *(&v7 + 1), v8 & 1);
+
+    if ((v15 & 1) == 0)
+    {
+      goto LABEL_35;
+    }
+
+LABEL_20:
+    v16 = *(&v40 + 1);
+    v17 = *(&v44 + 1);
+    if (v40)
+    {
+      if ((v44 & 1) == 0 || ((*(*v39 + 96))(v43) & 1) == 0)
+      {
+        goto LABEL_35;
+      }
+    }
+
+    else if ((v44 & 1) != 0 || v39 != v43 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    {
+      goto LABEL_35;
+    }
+
+    _sSasSQRzlE2eeoiySbSayxG_ABtFZ7SwiftUI4TextV8ModifierO_Tt1g5(v16, v17);
+    v19 = v18;
+    outlined destroy of AccessibilityCustomContentKey(&v41);
+    outlined destroy of AccessibilityCustomContentKey(&v37);
+    if ((v19 & 1) == 0)
+    {
+      goto LABEL_36;
+    }
+
+    v21 = specialized static AccessibilityCustomContentEntry.Value.== infix(_:_:)(v36, v31, v20);
+    outlined destroy of AccessibilityCustomContentEntry(&v27);
+    outlined destroy of AccessibilityCustomContentEntry(&v32);
+    if ((v21 & 1) == 0)
+    {
+      return 0;
+    }
+
+    if (!i)
+    {
+      return 1;
+    }
+
+    v6 += 120;
+    v5 = v24 + 120;
+  }
+
+  outlined consume of Text.Storage(v9, *(&v9 + 1), v8 & 1);
+
+  outlined consume of Text.Storage(v7, *(&v7 + 1), v8 & 1);
+
+LABEL_35:
+  outlined destroy of AccessibilityCustomContentKey(&v41);
+  outlined destroy of AccessibilityCustomContentKey(&v37);
+LABEL_36:
+  outlined destroy of AccessibilityCustomContentEntry(&v27);
+  outlined destroy of AccessibilityCustomContentEntry(&v32);
+  return 0;
+}
+
+uint64_t storeEnumTagSinglePayload for AccessibilityCustomAttributes.Value.CodingKeys(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 6 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 6) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 < 0xFA)
+  {
+    v4 = 0;
+  }
+
+  if (a2 > 0xF9)
+  {
+    v5 = ((a2 - 250) >> 8) + 1;
+    *result = a2 + 6;
+    if (v4 > 1)
+    {
+      if (v4 == 2)
+      {
+        *(result + 1) = v5;
+      }
+
+      else
+      {
+        *(result + 1) = v5;
+      }
+    }
+
+    else if (v4)
+    {
+      *(result + 1) = v5;
+    }
+
+    return result;
+  }
+
+  if (v4 > 1)
+  {
+    if (v4 != 2)
+    {
+      *(result + 1) = 0;
+      if (a2)
+      {
+        goto LABEL_20;
+      }
+
+      return result;
+    }
+
+    *(result + 1) = 0;
+  }
+
+  else if (v4)
+  {
+    *(result + 1) = 0;
+    if (!a2)
+    {
+      return result;
+    }
+
+LABEL_20:
+    *result = a2 + 6;
+    return result;
+  }
+
+  if (a2)
+  {
+    goto LABEL_20;
+  }
+
+  return result;
+}
+
+void lazy protocol witness table accessor for type AccessibilityVisibility and conformance AccessibilityVisibility()
+{
+  if (!lazy protocol witness table cache variable for type AccessibilityVisibility and conformance AccessibilityVisibility)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for AccessibilityVisibility, &type metadata for AccessibilityVisibility, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type AccessibilityVisibility and conformance AccessibilityVisibility);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type AccessibilityVisibility and conformance AccessibilityVisibility)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for AccessibilityVisibility, &type metadata for AccessibilityVisibility, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type AccessibilityVisibility and conformance AccessibilityVisibility);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type AccessibilityVisibility and conformance AccessibilityVisibility)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for AccessibilityVisibility, &type metadata for AccessibilityVisibility, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type AccessibilityVisibility and conformance AccessibilityVisibility);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type AccessibilityVisibility and conformance AccessibilityVisibility)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for AccessibilityVisibility, &type metadata for AccessibilityVisibility, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type AccessibilityVisibility and conformance AccessibilityVisibility);
+  }
+}
+
+uint64_t type metadata completion function for AccessibilityNullableOptionSet(uint64_t a1)
+{
+  result = swift_checkMetadataState();
+  if (v2 <= 0x3F)
+  {
+    swift_initStructMetadata();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t static AccessibilityLabelStorage.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a2 + 8);
+  return _sSasSQRzlE2eeoiySbSayxG_ABtFZ7SwiftUI4TextV_Tt1g5(*a1, *a2) & (v2 == v3);
+}
+
+uint64_t AccessibilityImageLabel.SystemSymbolTextStorage.isEqual(to:)(uint64_t a1)
+{
+  type metadata accessor for AccessibilityImageLabel.SystemSymbolTextStorage();
+  v2 = swift_dynamicCastClass();
+  if (v2 && (v4 = *(v2 + 16), v3 = *(v2 + 24), v6 = *(v1 + 16), v5 = *(v1 + 24), , v3))
+  {
+    if (v4 == v6 && v3 == v5)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    }
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8 & 1;
+}
+
+uint64_t assignWithCopy for AccessibilityAttachment(uint64_t a1, uint64_t a2)
+{
+  *a1 = *a2;
+  *(a1 + 8) = *(a2 + 8);
+
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = *(a2 + 24);
+
+  *(a1 + 32) = *(a2 + 32);
+  v4 = *(a2 + 40);
+  *(a1 + 56) = *(a2 + 56);
+  *(a1 + 40) = v4;
+  v5 = *(a1 + 88);
+  v6 = *(a2 + 88);
+  if (v5 == 1)
+  {
+    if (v6)
+    {
+      if (v6 == 1)
+      {
+        v7 = *(a2 + 64);
+        v8 = *(a2 + 96);
+        *(a1 + 80) = *(a2 + 80);
+        *(a1 + 96) = v8;
+        *(a1 + 64) = v7;
+        goto LABEL_18;
+      }
+
+      *(a1 + 88) = v6;
+      *(a1 + 96) = *(a2 + 96);
+      (**(v6 - 8))(a1 + 64, a2 + 64);
+    }
+
+    else
+    {
+      v12 = *(a2 + 64);
+      v13 = *(a2 + 80);
+      *(a1 + 96) = *(a2 + 96);
+      *(a1 + 64) = v12;
+      *(a1 + 80) = v13;
+    }
+
+    *(a1 + 104) = *(a2 + 104);
+  }
+
+  else if (v6 == 1)
+  {
+    outlined destroy of AccessibilityValueStorage(a1 + 64);
+    v10 = *(a2 + 80);
+    v9 = *(a2 + 96);
+    *(a1 + 64) = *(a2 + 64);
+    *(a1 + 80) = v10;
+    *(a1 + 96) = v9;
+  }
+
+  else
+  {
+    if (v5)
+    {
+      v11 = (a1 + 64);
+      if (v6)
+      {
+        __swift_assign_boxed_opaque_existential_1(v11, (a2 + 64), v4);
+      }
+
+      else
+      {
+        outlined destroy of AnyAccessibilityValue(v11);
+        v14 = *(a2 + 96);
+        v15 = *(a2 + 80);
+        *(a1 + 64) = *(a2 + 64);
+        *(a1 + 80) = v15;
+        *(a1 + 96) = v14;
+      }
+    }
+
+    else if (v6)
+    {
+      *(a1 + 88) = v6;
+      *(a1 + 96) = *(a2 + 96);
+      (**(v6 - 8))(a1 + 64, a2 + 64);
+    }
+
+    else
+    {
+      v16 = *(a2 + 64);
+      v17 = *(a2 + 80);
+      *(a1 + 96) = *(a2 + 96);
+      *(a1 + 64) = v16;
+      *(a1 + 80) = v17;
+    }
+
+    *(a1 + 104) = *(a2 + 104);
+  }
+
+LABEL_18:
+  v18 = *(a2 + 112);
+  *(a1 + 120) = *(a2 + 120);
+  *(a1 + 112) = v18;
+  v19 = *(a2 + 240);
+  if (*(a1 + 240) == 1)
+  {
+    if (v19 == 1)
+    {
+      v20 = *(a2 + 144);
+      *(a1 + 128) = *(a2 + 128);
+      *(a1 + 144) = v20;
+      v21 = *(a2 + 160);
+      v22 = *(a2 + 176);
+      v23 = *(a2 + 208);
+      *(a1 + 192) = *(a2 + 192);
+      *(a1 + 208) = v23;
+      *(a1 + 160) = v21;
+      *(a1 + 176) = v22;
+      v24 = *(a2 + 224);
+      v25 = *(a2 + 240);
+      v26 = *(a2 + 256);
+      *(a1 + 272) = *(a2 + 272);
+      *(a1 + 240) = v25;
+      *(a1 + 256) = v26;
+      *(a1 + 224) = v24;
+    }
+
+    else
+    {
+      v34 = *(a2 + 128);
+      *(a1 + 136) = *(a2 + 136);
+      *(a1 + 128) = v34;
+      v35 = *(a2 + 144);
+      *(a1 + 152) = *(a2 + 152);
+      *(a1 + 144) = v35;
+      *(a1 + 153) = *(a2 + 153);
+      *(a1 + 154) = *(a2 + 154);
+      *(a1 + 155) = *(a2 + 155);
+      *(a1 + 156) = *(a2 + 156);
+      *(a1 + 160) = *(a2 + 160);
+      *(a1 + 168) = *(a2 + 168);
+      *(a1 + 176) = *(a2 + 176);
+      *(a1 + 184) = *(a2 + 184);
+      *(a1 + 192) = *(a2 + 192);
+      *(a1 + 200) = *(a2 + 200);
+      *(a1 + 208) = *(a2 + 208);
+      *(a1 + 209) = *(a2 + 209);
+      *(a1 + 216) = *(a2 + 216);
+      *(a1 + 224) = *(a2 + 224);
+      *(a1 + 232) = *(a2 + 232);
+      *(a1 + 240) = *(a2 + 240);
+      v36 = *(a2 + 248);
+      *(a1 + 264) = *(a2 + 264);
+      *(a1 + 248) = v36;
+      *(a1 + 272) = *(a2 + 272);
+    }
+  }
+
+  else if (v19 == 1)
+  {
+    outlined destroy of AccessibilityTextLayoutProperties(a1 + 128);
+    v27 = *(a2 + 144);
+    *(a1 + 128) = *(a2 + 128);
+    *(a1 + 144) = v27;
+    v28 = *(a2 + 208);
+    v30 = *(a2 + 160);
+    v29 = *(a2 + 176);
+    *(a1 + 192) = *(a2 + 192);
+    *(a1 + 208) = v28;
+    *(a1 + 160) = v30;
+    *(a1 + 176) = v29;
+    v32 = *(a2 + 240);
+    v31 = *(a2 + 256);
+    v33 = *(a2 + 224);
+    *(a1 + 272) = *(a2 + 272);
+    *(a1 + 240) = v32;
+    *(a1 + 256) = v31;
+    *(a1 + 224) = v33;
+  }
+
+  else
+  {
+    v37 = *(a2 + 128);
+    *(a1 + 136) = *(a2 + 136);
+    *(a1 + 128) = v37;
+    v38 = *(a2 + 144);
+    *(a1 + 152) = *(a2 + 152);
+    *(a1 + 144) = v38;
+    *(a1 + 153) = *(a2 + 153);
+    *(a1 + 154) = *(a2 + 154);
+    *(a1 + 155) = *(a2 + 155);
+    *(a1 + 156) = *(a2 + 156);
+    *(a1 + 160) = *(a2 + 160);
+    *(a1 + 168) = *(a2 + 168);
+    *(a1 + 176) = *(a2 + 176);
+    *(a1 + 184) = *(a2 + 184);
+    *(a1 + 192) = *(a2 + 192);
+    *(a1 + 200) = *(a2 + 200);
+    *(a1 + 208) = *(a2 + 208);
+    *(a1 + 209) = *(a2 + 209);
+    *(a1 + 216) = *(a2 + 216);
+    *(a1 + 224) = *(a2 + 224);
+    *(a1 + 232) = *(a2 + 232);
+    *(a1 + 240) = *(a2 + 240);
+
+    v39 = *(a2 + 248);
+    *(a1 + 264) = *(a2 + 264);
+    *(a1 + 248) = v39;
+    *(a1 + 272) = *(a2 + 272);
+  }
+
+  *(a1 + 280) = *(a2 + 280);
+
+  v40 = *(a1 + 288);
+  v41 = *(a2 + 288);
+  *(a1 + 288) = v41;
+  v42 = v41;
+
+  return a1;
+}
+
+uint64_t closure #1 in Binding<A>.subscript.getter@<X0>(uint64_t a1@<X0>, uint64_t a3@<X4>, uint64_t a5@<X8>)
+{
+  v7 = *(a3 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v9 = &v19[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v13 = type metadata accessor for Binding(0, v12, v10, v11);
+  Binding.readValue()(v13, v9);
+  v14 = dispatch thunk of Collection.subscript.read();
+  v16 = v15;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  (*(*(AssociatedTypeWitness - 8) + 16))(a5, v16, AssociatedTypeWitness);
+  v14(v19, 0);
+  return (*(v7 + 8))(v9, a3);
+}
+
+uint64_t partial apply for closure #1 in Binding<A>.subscript.getter@<X0>(uint64_t a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+{
+  v5 = *(v3 + 32);
+  type metadata accessor for Binding(0, v5, a1, a2);
+  swift_getAssociatedTypeWitness();
+  v6 = *(v3 + 16);
+
+  return closure #1 in Binding<A>.subscript.getter(v6, v5, a3);
+}
+
+void type metadata accessor for TransitionBox<BlurAndFadeTransition>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for TransitionBox<BlurAndFadeTransition>)
+  {
+    lazy protocol witness table accessor for type BlurAndFadeTransition and conformance BlurAndFadeTransition();
+    v4 = type metadata accessor for TransitionBox(a1, &unk_1F00BC138, v2, v3);
+    if (!v5)
+    {
+      atomic_store(v4, &lazy cache variable for type metadata for TransitionBox<BlurAndFadeTransition>);
+    }
+  }
+}
+
+uint64_t static AnyTransition.blur(radius:)(double a1)
+{
+  type metadata accessor for TransitionBox<BlurAndFadeTransition>(0);
+  result = swift_allocObject();
+  *(result + 16) = a1;
+  return result;
+}
+
+void *static _ContentTransitionModifier._makeView(modifier:inputs:body:)(unsigned int *a1, __int128 *a2, void (*a3)(uint64_t, __int128 *))
+{
+  v42 = *MEMORY[0x1E69E9840];
+  v4 = *a1;
+  v5 = a2[3];
+  v38 = a2[2];
+  v39 = v5;
+  v40 = a2[4];
+  v41 = *(a2 + 20);
+  v6 = a2[1];
+  v37[0] = *a2;
+  v37[1] = v6;
+  v7 = v38;
+  v8 = v6;
+  swift_beginAccess();
+  *&v28[0] = __PAIR64__(*(v8 + 16), v4);
+  protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
+  outlined init with copy of _ViewInputs(v37, &v30);
+  lazy protocol witness table accessor for type _ContentTransitionModifier.ChildEnvironment and conformance _ContentTransitionModifier.ChildEnvironment();
+  v9 = Attribute.init<A>(body:value:flags:update:)();
+  v10 = MEMORY[0x1E69E7CC0];
+  v11 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC7SwiftUI19ResolvedShapeStyles33_B62A4B04AF9F1325924A089D63071424LLV_14AttributeGraph0O0VyAC01_F10Style_PackVGTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+  type metadata accessor for MutableBox<CachedEnvironment>(0, v12, v13, v14);
+  v15 = swift_allocObject();
+  *(v15 + 16) = v9;
+  *(v15 + 24) = v10;
+  *(v15 + 32) = 0u;
+  *(v15 + 48) = 0u;
+  *(v15 + 64) = 0u;
+  *(v15 + 80) = 256;
+  *(v15 + 88) = v11;
+
+  v25 = *a2;
+  *&v26 = v15;
+  *(&v26 + 1) = *(&v8 + 1);
+  LODWORD(v27[0]) = v7 | 0x20;
+  *(&v27[2] + 4) = *(a2 + 68);
+  *(&v27[1] + 4) = *(a2 + 52);
+  *(v27 + 4) = *(a2 + 36);
+  v21 = v27[0];
+  v22 = v27[1];
+  v23 = v27[2];
+  v24 = v27[3];
+  v19 = v25;
+  v20 = v26;
+  v16 = outlined init with copy of _ViewInputs(&v25, &v30);
+  a3(v16, &v19);
+  v28[2] = v21;
+  v28[3] = v22;
+  v28[4] = v23;
+  v29 = v24;
+  v28[0] = v19;
+  v28[1] = v20;
+  outlined destroy of _ViewInputs(v28);
+  v30 = *a2;
+  v31 = v15;
+  v32 = *(&v8 + 1);
+  v33 = v7 | 0x20;
+  v34 = *(a2 + 36);
+  v35 = *(a2 + 52);
+  v36 = *(a2 + 68);
+  return outlined destroy of _ViewInputs(&v30);
+}
+
+void lazy protocol witness table accessor for type _ContentTransitionModifier.ChildEnvironment and conformance _ContentTransitionModifier.ChildEnvironment()
+{
+  if (!lazy protocol witness table cache variable for type _ContentTransitionModifier.ChildEnvironment and conformance _ContentTransitionModifier.ChildEnvironment)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for _ContentTransitionModifier.ChildEnvironment, &unk_1F00AE7D8, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type _ContentTransitionModifier.ChildEnvironment and conformance _ContentTransitionModifier.ChildEnvironment);
+  }
+}
+
+void key path getter for EnvironmentValues.locale : EnvironmentValues(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *a1;
+  if (a1[1])
+  {
+
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA06LocaleI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v3, a2);
+  }
+
+  else
+  {
+    v4 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA06LocaleS033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt0g5(*a1);
+    if (v4)
+    {
+      v5 = *(*v4 + 248);
+      v6 = v4;
+      v7 = type metadata accessor for Locale();
+      v8 = *(*(v7 - 8) + 16);
+      v9 = v6 + v5;
+      v10 = v7;
+      v11 = a2;
+    }
+
+    else
+    {
+      if (one-time initialization token for defaultValue != -1)
+      {
+        swift_once();
+      }
+
+      v12 = type metadata accessor for Locale();
+      v9 = __swift_project_value_buffer(v12, static LocaleKey.defaultValue);
+      v8 = *(*(v12 - 8) + 16);
+      v11 = a2;
+      v10 = v12;
+    }
+
+    v8(v11, v9, v10);
+  }
+}
+
+double static ContentTransition.interpolate.getter@<D0>(uint64_t a1@<X8>)
+{
+  if (one-time initialization token for interpolate != -1)
+  {
+    v9 = a1;
+    swift_once();
+    a1 = v9;
+  }
+
+  v2 = static ContentTransition.interpolate;
+  v3 = word_1ED5280EC;
+  v4 = dword_1ED5280E8;
+  v5 = dword_1ED5280E8 | (word_1ED5280EC << 32);
+  v6 = byte_1ED5280EE;
+  *a1 = static ContentTransition.interpolate;
+  *(a1 + 12) = v3;
+  *(a1 + 8) = v4;
+  v7 = HIBYTE(word_1ED5280EC);
+  *(a1 + 13) = HIBYTE(word_1ED5280EC);
+  *(a1 + 14) = v6;
+
+  return outlined copy of ContentTransition.Storage(v2, v5, v7);
+}
+
+double static ContentTransition.opacity.getter@<D0>(uint64_t a1@<X8>)
+{
+  if (one-time initialization token for opacity != -1)
+  {
+    v9 = a1;
+    swift_once();
+    a1 = v9;
+  }
+
+  v2 = static ContentTransition.opacity;
+  v3 = word_1EAB10A0C;
+  v4 = dword_1EAB10A08;
+  v5 = dword_1EAB10A08 | (word_1EAB10A0C << 32);
+  v6 = byte_1EAB10A0E;
+  *a1 = static ContentTransition.opacity;
+  *(a1 + 12) = v3;
+  *(a1 + 8) = v4;
+  v7 = HIBYTE(word_1EAB10A0C);
+  *(a1 + 13) = HIBYTE(word_1EAB10A0C);
+  *(a1 + 14) = v6;
+
+  return outlined copy of ContentTransition.Storage(v2, v5, v7);
+}
+
+void one-time initialization function for opacity()
+{
+  static ContentTransition.opacity = 0x8000000002;
+  LOBYTE(word_1EAB10A0C) = 3;
+  dword_1EAB10A08 = 0x2000000;
+  *(&word_1EAB10A0C + 1) = 0;
+}
+
+uint64_t initializeWithCopy for _ContentTransitionModifier(uint64_t a1, uint64_t a2)
+{
+  v4 = *a2;
+  v5 = *(a2 + 12);
+  v6 = *(a2 + 8);
+  v7 = *(a2 + 13);
+  outlined copy of ContentTransition.Storage(*a2, v6 | (v5 << 32), v7);
+  *a1 = v4;
+  *(a1 + 12) = v5;
+  *(a1 + 8) = v6;
+  *(a1 + 13) = v7;
+  *(a1 + 14) = *(a2 + 14);
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = *(a2 + 24);
+
+  return a1;
+}
+
+double _ContentTransitionModifier.ChildEnvironment.value.getter@<D0>(uint64_t *a2@<X8>)
+{
+  Value = AGGraphGetValue();
+  v5 = *Value;
+  v4 = *(Value + 8);
+  *a2 = *Value;
+  a2[1] = v4;
+  v24 = a2;
+  if (v4)
+  {
+
+    swift_retain_n();
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA17ContentTransitionV5StateVG_Tt1g5(v5, &v25);
+
+    v6 = v26 | (v27 << 32);
+    v7 = v28;
+    v22 = v25;
+    LOBYTE(v21) = v30;
+    v23 = v29;
+  }
+
+  else
+  {
+
+    v9 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA17ContentTransitionV5StateVG_Tt0g5(v8);
+    if (v9)
+    {
+      v6 = *(v9 + 20) | (*(v9 + 84) << 32);
+      v7 = *(v9 + 85);
+      v22 = v9[9];
+      v23 = *(v9 + 87);
+      v21 = *(v9 + 24);
+      v10 = v22;
+    }
+
+    else
+    {
+      if (one-time initialization token for defaultValue != -1)
+      {
+        swift_once();
+      }
+
+      v10 = static ContentTransition.State.defaultValue;
+      v6 = DWORD2(static ContentTransition.State.defaultValue) | (BYTE12(static ContentTransition.State.defaultValue) << 32);
+      v7 = BYTE13(static ContentTransition.State.defaultValue);
+      v22 = static ContentTransition.State.defaultValue;
+      v23 = HIBYTE(static ContentTransition.State.defaultValue);
+      LOBYTE(v21) = dword_1ED536628;
+    }
+
+    outlined copy of ContentTransition.Storage(v10, v6, v7);
+  }
+
+  v11 = AGGraphGetValue();
+  v12 = *v11;
+  v13 = *(v11 + 8) | (*(v11 + 12) << 32);
+  v14 = *(v11 + 13);
+  v15 = *(v11 + 14);
+  outlined copy of ContentTransition.Storage(*v11, v13, v14);
+  outlined consume of ContentTransition.Storage(v22, v6, v7);
+  v16 = *(AGGraphGetValue() + 16);
+
+  v17 = *(AGGraphGetValue() + 24);
+  swift_retain_n();
+  outlined copy of ContentTransition.Storage(v12, v13, v14);
+  v18 = 0x1000000000000;
+  if (!v15)
+  {
+    v18 = 0;
+  }
+
+  v19 = v18 | v13 | (v14 << 40) | (v23 << 56);
+
+  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA17ContentTransitionV5StateVG_Tt2B5(v24, v12, v19, v16, v17 | v21 & 1);
+
+  outlined consume of ContentTransition.Storage(v12, v13, v14);
+
+  if (v4)
+  {
+    _s7SwiftUI12PropertyListV7TrackerC15invalidateValue3for4from2toyxm_A2CtAA0C3KeyRzlFAA011EnvironmentcK0VyAA17ContentTransitionV5StateVG_Ttg5(v5, *v24);
+  }
+
+  outlined consume of ContentTransition.Storage(v12, v13, v14);
+
+  return result;
+}
+
+double static AnyTransition.scale.getter()
+{
+  type metadata accessor for TransitionBox<ScaleTransition>(0, &lazy cache variable for type metadata for TransitionBox<ScaleTransition>, lazy protocol witness table accessor for type ScaleTransition and conformance ScaleTransition, &type metadata for ScaleTransition, type metadata accessor for TransitionBox);
+  v0 = swift_allocObject();
+  result = 0.00001;
+  *(v0 + 16) = xmmword_18DE21770;
+  *(v0 + 32) = 0x3FE0000000000000;
+  return result;
+}
+
+void lazy protocol witness table accessor for type BlurAndFadeTransition and conformance BlurAndFadeTransition()
+{
+  if (!lazy protocol witness table cache variable for type BlurAndFadeTransition and conformance BlurAndFadeTransition)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for BlurAndFadeTransition, &unk_1F00BC138, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type BlurAndFadeTransition and conformance BlurAndFadeTransition);
+  }
+}
+
+void lazy protocol witness table accessor for type ScaleTransition and conformance ScaleTransition()
+{
+  if (!lazy protocol witness table cache variable for type ScaleTransition and conformance ScaleTransition)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for ScaleTransition, &type metadata for ScaleTransition, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type ScaleTransition and conformance ScaleTransition);
+  }
+}
+
+double _TrimmedShape.path(in:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  (*(*(a1 + 24) + 24))(v7, *(a1 + 16));
+  Path.trimmedPath(from:to:)(v8, *(v2 + *(a1 + 36)), *(v2 + *(a1 + 40)));
+  outlined destroy of Path(v7);
+  result = *v8;
+  v6 = v8[1];
+  *a2 = v8[0];
+  *(a2 + 16) = v6;
+  *(a2 + 32) = v9;
+  return result;
+}
+
+void AccessibilityProperties.customAttributes.getter(void *a1@<X8>)
+{
+  v3 = *(v1 + 280);
+  if (*(v3 + 16) && (v4 = specialized __RawDictionaryStorage.find<A>(_:)(&type metadata for AccessibilityProperties.CustomAttributesKey), (v5 & 1) != 0))
+  {
+    outlined init with copy of AnyTrackedValue(*(v3 + 56) + 40 * v4, v11);
+    v6 = v12;
+    v7 = v13;
+    __swift_project_boxed_opaque_existential_1(v11, v12);
+    type metadata accessor for AccessibilityActivationPointStorage?(0, &lazy cache variable for type metadata for AccessibilityCustomAttributes?, &type metadata for AccessibilityCustomAttributes, MEMORY[0x1E69E6720]);
+    (*(v7 + 16))(&v10, v8, v8, v6, v7);
+    v9 = v10;
+    __swift_destroy_boxed_opaque_existential_1(v11);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  *a1 = v9;
+}
+
+double Binding<A>.subscript.getter@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+{
+  v52 = a3;
+  v46 = *(a3 + 8);
+  v47 = a4;
+  v5 = *(a2 + 16);
+  v50 = a1;
+  v51 = v5;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v49 = AssociatedTypeWitness;
+  v8 = *(AssociatedTypeWitness - 8);
+  v9 = *(v8 + 64);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v45 = &v35 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v40 = v9;
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v35 - v11;
+  v38 = &v35 - v11;
+  v48 = a2;
+  v13 = *(a2 - 8);
+  v14 = *(v13 + 64);
+  MEMORY[0x1EEE9AC00](v15);
+  v44 = &v35 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = MEMORY[0x1EEE9AC00](v16);
+  v19 = &v35 - v18;
+  v42 = *(v13 + 16);
+  v42(&v35 - v18, v4, v17);
+  v41 = *(v8 + 16);
+  v41(v12, v50, AssociatedTypeWitness);
+  v20 = *(v13 + 80);
+  v21 = (v20 + 48) & ~v20;
+  v22 = *(v8 + 80);
+  v23 = v8;
+  v24 = (v14 + v21 + v22) & ~v22;
+  v39 = v20 | v22;
+  v25 = swift_allocObject();
+  *(v25 + 2) = 0;
+  *(v25 + 3) = 0;
+  v26 = v52;
+  *(v25 + 4) = v51;
+  *(v25 + 5) = v26;
+  v37 = *(v13 + 32);
+  v27 = v48;
+  v37(&v25[v21], v19, v48);
+  v36 = *(v23 + 32);
+  v28 = v49;
+  v36(&v25[v24], v38, v49);
+  v29 = v44;
+  (v42)(v44, v43, v27);
+  v30 = v45;
+  v41(v45, v50, v28);
+  v31 = swift_allocObject();
+  *(v31 + 2) = 0;
+  *(v31 + 3) = 0;
+  v32 = v52;
+  *(v31 + 4) = v51;
+  *(v31 + 5) = v32;
+  v37(&v31[v21], v29, v48);
+  v36(&v31[v24], v30, v49);
+  v33 = swift_getAssociatedTypeWitness();
+  return Binding.init(get:set:)(partial apply for closure #1 in Binding<A>.subscript.getter, partial apply for closure #2 in Binding<A>.subscript.getter, v31, v33, v47);
+}
+
+uint64_t AccessibilityProperties.customContentList.getter()
+{
+  v1 = *(v0 + 280);
+  if (!*(v1 + 16))
+  {
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  v2 = specialized __RawDictionaryStorage.find<A>(_:)(&type metadata for AccessibilityProperties.CustomContentListKey);
+  if ((v3 & 1) == 0)
+  {
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  outlined init with copy of AnyTrackedValue(*(v1 + 56) + 40 * v2, v10);
+  v4 = v11;
+  v5 = v12;
+  __swift_project_boxed_opaque_existential_1(v10, v11);
+  type metadata accessor for AccessibilityActivationPointStorage?(0, &lazy cache variable for type metadata for [AccessibilityCustomContentEntry], &type metadata for AccessibilityCustomContentEntry, MEMORY[0x1E69E62F8]);
+  (*(v5 + 16))(&v9, v6, v6, v4, v5);
+  v7 = v9;
+  __swift_destroy_boxed_opaque_existential_1(v10);
+  return v7;
+}
+
+Swift::Bool __swiftcall AccessibilityLabelStorage.merge(with:)(SwiftUI::AccessibilityLabelStorage with)
+{
+  v2 = *with.texts._rawValue;
+  v3 = *(with.texts._rawValue + 8);
+  v4 = *(v1 + 8);
+  type metadata accessor for (AccessibilityLabelStorage.Placement, AccessibilityLabelStorage.Placement)();
+  if (v4 == 3)
+  {
+    if (v3 != 3)
+    {
+
+      *v1 = v2;
+      *(v1 + 8) = v3;
+
+      return 1;
+    }
+
+    return 0;
+  }
+
+  if (!v3)
+  {
+    goto LABEL_8;
+  }
+
+  if (v3 == 3)
+  {
+    return 0;
+  }
+
+  if (v4 == 1)
+  {
+LABEL_8:
+
+    specialized Array.replaceSubrange<A>(_:with:)(0, 0, v2);
+
+    return 1;
+  }
+
+  if (v3 == 1)
+  {
+    goto LABEL_15;
+  }
+
+  if (v4 != 2)
+  {
+    if (v4)
+    {
+      goto LABEL_16;
+    }
+
+LABEL_15:
+
+    specialized Array.append<A>(contentsOf:)(v6);
+    return 1;
+  }
+
+  if (v3 == 2)
+  {
+    return 0;
+  }
+
+LABEL_16:
+  result = _diagnoseUnexpectedEnumCase<A>(type:)();
+  __break(1u);
+  return result;
+}
+
+uint64_t initializeWithCopy for AccessibilityNodeAttachment(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  type metadata accessor for AccessibilityNodeAttachment.Storage(0);
+  if (swift_getEnumCaseMultiPayload() != 1)
+  {
+    type metadata accessor for CodableAccessibilityVersionStorage<CodableAccessibilityAttachmentStorage.V2, CodableAccessibilityAttachmentStorage.V3>(0);
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    v10 = *(a2 + 8);
+    *a1 = *a2;
+    *(a1 + 8) = v10;
+    v11 = *(a2 + 32) | (*(a2 + 34) << 16);
+
+    if (EnumCaseMultiPayload != 1)
+    {
+      if (BYTE2(v11) == 255)
+      {
+        *(a1 + 16) = *(a2 + 16);
+        *(a1 + 31) = *(a2 + 31);
+      }
+
+      else
+      {
+        v24 = *(a2 + 16);
+        v25 = *(a2 + 24);
+        outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v24, v25, v11, BYTE2(v11) & 1);
+        *(a1 + 16) = v24;
+        *(a1 + 24) = v25;
+        *(a1 + 32) = v11;
+        *(a1 + 34) = BYTE2(v11) & 1;
+      }
+
+      if (*(a2 + 58) == 255)
+      {
+        *(a1 + 40) = *(a2 + 40);
+        *(a1 + 55) = *(a2 + 55);
+      }
+
+      else
+      {
+        v29 = *(a2 + 56) | (*(a2 + 58) << 16);
+        v30 = *(a2 + 40);
+        v31 = *(a2 + 48);
+        outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v30, v31, *(a2 + 56), BYTE2(v29) & 1);
+        *(a1 + 40) = v30;
+        *(a1 + 48) = v31;
+        *(a1 + 56) = v29;
+        *(a1 + 58) = BYTE2(v29) & 1;
+      }
+
+      if (*(a2 + 82) == 255)
+      {
+        *(a1 + 64) = *(a2 + 64);
+        *(a1 + 79) = *(a2 + 79);
+      }
+
+      else
+      {
+        v36 = *(a2 + 80) | (*(a2 + 82) << 16);
+        v37 = *(a2 + 64);
+        v38 = *(a2 + 72);
+        outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v37, v38, *(a2 + 80), BYTE2(v36) & 1);
+        *(a1 + 64) = v37;
+        *(a1 + 72) = v38;
+        *(a1 + 80) = v36;
+        *(a1 + 82) = BYTE2(v36) & 1;
+      }
+
+      *(a1 + 84) = *(a2 + 84);
+      *(a1 + 96) = *(a2 + 96);
+      *(a1 + 112) = *(a2 + 112);
+      *(a1 + 120) = *(a2 + 120);
+      *(a1 + 128) = *(a2 + 128);
+      *(a1 + 136) = *(a2 + 136);
+      v39 = *(a2 + 232);
+      if (v39 == 1)
+      {
+        memcpy((a1 + 144), (a2 + 144), 0x108uLL);
+      }
+
+      else
+      {
+        if (*(a2 + 162) == 255)
+        {
+          *(a1 + 144) = *(a2 + 144);
+          *(a1 + 159) = *(a2 + 159);
+        }
+
+        else
+        {
+          v45 = *(a2 + 160) | (*(a2 + 162) << 16);
+          v46 = *(a2 + 144);
+          v47 = *(a2 + 152);
+          outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v46, v47, *(a2 + 160), BYTE2(v45) & 1);
+          *(a1 + 144) = v46;
+          *(a1 + 152) = v47;
+          *(a1 + 160) = v45;
+          *(a1 + 162) = BYTE2(v45) & 1;
+          v39 = *(a2 + 232);
+        }
+
+        *(a1 + 163) = *(a2 + 163);
+        *(a1 + 168) = *(a2 + 168);
+        *(a1 + 176) = *(a2 + 176);
+        *(a1 + 177) = *(a2 + 177);
+        v48 = (a1 + 184);
+        v49 = (a2 + 184);
+        if (v39)
+        {
+          if (*(a2 + 202) == 255)
+          {
+            *v48 = *v49;
+            *(a1 + 199) = *(a2 + 199);
+          }
+
+          else
+          {
+            v59 = *(a2 + 200) | (*(a2 + 202) << 16);
+            v60 = *(a2 + 184);
+            v61 = *(a2 + 192);
+            outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v60, v61, *(a2 + 200), BYTE2(v59) & 1);
+            *(a1 + 184) = v60;
+            *(a1 + 192) = v61;
+            *(a1 + 200) = v59;
+            *(a1 + 202) = BYTE2(v59) & 1;
+          }
+
+          if (*(a2 + 226) == 255)
+          {
+            *(a1 + 208) = *(a2 + 208);
+            *(a1 + 223) = *(a2 + 223);
+          }
+
+          else
+          {
+            v72 = *(a2 + 224) | (*(a2 + 226) << 16);
+            v73 = *(a2 + 208);
+            v74 = *(a2 + 216);
+            outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v73, v74, *(a2 + 224), BYTE2(v72) & 1);
+            *(a1 + 208) = v73;
+            *(a1 + 216) = v74;
+            *(a1 + 224) = v72;
+            *(a1 + 226) = BYTE2(v72) & 1;
+          }
+
+          v75 = *(a2 + 240);
+          *(a1 + 232) = *(a2 + 232);
+          *(a1 + 240) = v75;
+          *(a1 + 248) = *(a2 + 248);
+          *(a1 + 256) = *(a2 + 256);
+          *(a1 + 264) = *(a2 + 264);
+          v76 = *(a2 + 280);
+          *(a1 + 272) = *(a2 + 272);
+          *(a1 + 280) = v76;
+          *(a1 + 288) = *(a2 + 288);
+        }
+
+        else
+        {
+          v53 = *(a2 + 264);
+          *(a1 + 248) = *(a2 + 248);
+          *(a1 + 264) = v53;
+          *(a1 + 280) = *(a2 + 280);
+          v54 = *(a2 + 200);
+          *v48 = *v49;
+          *(a1 + 200) = v54;
+          v55 = *(a2 + 232);
+          *(a1 + 216) = *(a2 + 216);
+          *(a1 + 232) = v55;
+        }
+
+        v77 = (a1 + 296);
+        v78 = (a2 + 296);
+        if (*(a2 + 344))
+        {
+          if (*(a2 + 314) == 255)
+          {
+            *v77 = *v78;
+            *(a1 + 311) = *(a2 + 311);
+          }
+
+          else
+          {
+            v85 = *(a2 + 312) | (*(a2 + 314) << 16);
+            v86 = *(a2 + 296);
+            v87 = *(a2 + 304);
+            outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v86, v87, *(a2 + 312), BYTE2(v85) & 1);
+            *(a1 + 296) = v86;
+            *(a1 + 304) = v87;
+            *(a1 + 312) = v85;
+            *(a1 + 314) = BYTE2(v85) & 1;
+          }
+
+          if (*(a2 + 338) == 255)
+          {
+            *(a1 + 320) = *(a2 + 320);
+            *(a1 + 335) = *(a2 + 335);
+          }
+
+          else
+          {
+            v126 = *(a2 + 336) | (*(a2 + 338) << 16);
+            v127 = *(a2 + 320);
+            v128 = *(a2 + 328);
+            outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v127, v128, *(a2 + 336), BYTE2(v126) & 1);
+            *(a1 + 320) = v127;
+            *(a1 + 328) = v128;
+            *(a1 + 336) = v126;
+            *(a1 + 338) = BYTE2(v126) & 1;
+          }
+
+          v129 = *(a2 + 352);
+          *(a1 + 344) = *(a2 + 344);
+          *(a1 + 352) = v129;
+          *(a1 + 360) = *(a2 + 360);
+          *(a1 + 368) = *(a2 + 368);
+          *(a1 + 376) = *(a2 + 376);
+          v130 = *(a2 + 392);
+          *(a1 + 384) = *(a2 + 384);
+          *(a1 + 392) = v130;
+          *(a1 + 400) = *(a2 + 400);
+        }
+
+        else
+        {
+          v79 = *(a2 + 376);
+          *(a1 + 360) = *(a2 + 360);
+          *(a1 + 376) = v79;
+          *(a1 + 392) = *(a2 + 392);
+          v80 = *(a2 + 312);
+          *v77 = *v78;
+          *(a1 + 312) = v80;
+          v81 = *(a2 + 344);
+          *(a1 + 328) = *(a2 + 328);
+          *(a1 + 344) = v81;
+        }
+      }
+
+      v131 = type metadata accessor for CodableAccessibilityAttachmentStorage.VBase(0);
+      v132 = *(v131 + 52);
+      v133 = (a1 + v132);
+      v134 = (a2 + v132);
+      v135 = type metadata accessor for LinkDestination.Configuration(0);
+      v136 = *(v135 - 8);
+      if ((*(v136 + 48))(v134, 1, v135))
+      {
+        type metadata accessor for LinkDestination.Configuration?(0);
+        memcpy(v133, v134, *(*(v137 - 8) + 64));
+      }
+
+      else
+      {
+        v138 = type metadata accessor for URL();
+        (*(*(v138 - 8) + 16))(v133, v134, v138);
+        *(v133 + *(v135 + 20)) = *(v134 + *(v135 + 20));
+        (*(v136 + 56))(v133, 0, 1, v135);
+      }
+
+      *(a1 + *(v131 + 56)) = *(a2 + *(v131 + 56));
+      v139 = type metadata accessor for CodableAccessibilityAttachmentStorage.V2(0);
+      *(a1 + *(v139 + 20)) = *(a2 + *(v139 + 20));
+
+      goto LABEL_92;
+    }
+
+    if (BYTE2(v11) == 255)
+    {
+      *(a1 + 16) = *(a2 + 16);
+      *(a1 + 31) = *(a2 + 31);
+    }
+
+    else
+    {
+      v22 = *(a2 + 16);
+      v23 = *(a2 + 24);
+      outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v22, v23, v11, BYTE2(v11) & 1);
+      *(a1 + 16) = v22;
+      *(a1 + 24) = v23;
+      *(a1 + 32) = v11;
+      *(a1 + 34) = BYTE2(v11) & 1;
+    }
+
+    if (*(a2 + 58) == 255)
+    {
+      *(a1 + 40) = *(a2 + 40);
+      *(a1 + 55) = *(a2 + 55);
+    }
+
+    else
+    {
+      v26 = *(a2 + 56) | (*(a2 + 58) << 16);
+      v27 = *(a2 + 40);
+      v28 = *(a2 + 48);
+      outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v27, v28, *(a2 + 56), BYTE2(v26) & 1);
+      *(a1 + 40) = v27;
+      *(a1 + 48) = v28;
+      *(a1 + 56) = v26;
+      *(a1 + 58) = BYTE2(v26) & 1;
+    }
+
+    if (*(a2 + 82) == 255)
+    {
+      *(a1 + 64) = *(a2 + 64);
+      *(a1 + 79) = *(a2 + 79);
+    }
+
+    else
+    {
+      v32 = *(a2 + 80) | (*(a2 + 82) << 16);
+      v33 = *(a2 + 64);
+      v34 = *(a2 + 72);
+      outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v33, v34, *(a2 + 80), BYTE2(v32) & 1);
+      *(a1 + 64) = v33;
+      *(a1 + 72) = v34;
+      *(a1 + 80) = v32;
+      *(a1 + 82) = BYTE2(v32) & 1;
+    }
+
+    *(a1 + 84) = *(a2 + 84);
+    *(a1 + 96) = *(a2 + 96);
+    *(a1 + 112) = *(a2 + 112);
+    *(a1 + 120) = *(a2 + 120);
+    *(a1 + 128) = *(a2 + 128);
+    *(a1 + 136) = *(a2 + 136);
+    v35 = *(a2 + 232);
+    if (v35 == 1)
+    {
+      memcpy((a1 + 144), (a2 + 144), 0x108uLL);
+    }
+
+    else
+    {
+      if (*(a2 + 162) == 255)
+      {
+        *(a1 + 144) = *(a2 + 144);
+        *(a1 + 159) = *(a2 + 159);
+      }
+
+      else
+      {
+        v40 = *(a2 + 160) | (*(a2 + 162) << 16);
+        v41 = *(a2 + 144);
+        v42 = *(a2 + 152);
+        outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v41, v42, *(a2 + 160), BYTE2(v40) & 1);
+        *(a1 + 144) = v41;
+        *(a1 + 152) = v42;
+        *(a1 + 160) = v40;
+        *(a1 + 162) = BYTE2(v40) & 1;
+        v35 = *(a2 + 232);
+      }
+
+      *(a1 + 163) = *(a2 + 163);
+      *(a1 + 168) = *(a2 + 168);
+      *(a1 + 176) = *(a2 + 176);
+      *(a1 + 177) = *(a2 + 177);
+      v43 = (a1 + 184);
+      v44 = (a2 + 184);
+      if (v35)
+      {
+        if (*(a2 + 202) == 255)
+        {
+          *v43 = *v44;
+          *(a1 + 199) = *(a2 + 199);
+        }
+
+        else
+        {
+          v56 = *(a2 + 200) | (*(a2 + 202) << 16);
+          v57 = *(a2 + 184);
+          v58 = *(a2 + 192);
+          outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v57, v58, *(a2 + 200), BYTE2(v56) & 1);
+          *(a1 + 184) = v57;
+          *(a1 + 192) = v58;
+          *(a1 + 200) = v56;
+          *(a1 + 202) = BYTE2(v56) & 1;
+        }
+
+        if (*(a2 + 226) == 255)
+        {
+          *(a1 + 208) = *(a2 + 208);
+          *(a1 + 223) = *(a2 + 223);
+        }
+
+        else
+        {
+          v62 = *(a2 + 224) | (*(a2 + 226) << 16);
+          v63 = *(a2 + 208);
+          v64 = *(a2 + 216);
+          outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v63, v64, *(a2 + 224), BYTE2(v62) & 1);
+          *(a1 + 208) = v63;
+          *(a1 + 216) = v64;
+          *(a1 + 224) = v62;
+          *(a1 + 226) = BYTE2(v62) & 1;
+        }
+
+        v65 = *(a2 + 240);
+        *(a1 + 232) = *(a2 + 232);
+        *(a1 + 240) = v65;
+        *(a1 + 248) = *(a2 + 248);
+        *(a1 + 256) = *(a2 + 256);
+        *(a1 + 264) = *(a2 + 264);
+        v66 = *(a2 + 280);
+        *(a1 + 272) = *(a2 + 272);
+        *(a1 + 280) = v66;
+        *(a1 + 288) = *(a2 + 288);
+      }
+
+      else
+      {
+        v50 = *(a2 + 264);
+        *(a1 + 248) = *(a2 + 248);
+        *(a1 + 264) = v50;
+        *(a1 + 280) = *(a2 + 280);
+        v51 = *(a2 + 200);
+        *v43 = *v44;
+        *(a1 + 200) = v51;
+        v52 = *(a2 + 232);
+        *(a1 + 216) = *(a2 + 216);
+        *(a1 + 232) = v52;
+      }
+
+      v67 = (a1 + 296);
+      v68 = (a2 + 296);
+      if (*(a2 + 344))
+      {
+        if (*(a2 + 314) == 255)
+        {
+          *v67 = *v68;
+          *(a1 + 311) = *(a2 + 311);
+        }
+
+        else
+        {
+          v82 = *(a2 + 312) | (*(a2 + 314) << 16);
+          v83 = *(a2 + 296);
+          v84 = *(a2 + 304);
+          outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v83, v84, *(a2 + 312), BYTE2(v82) & 1);
+          *(a1 + 296) = v83;
+          *(a1 + 304) = v84;
+          *(a1 + 312) = v82;
+          *(a1 + 314) = BYTE2(v82) & 1;
+        }
+
+        if (*(a2 + 338) == 255)
+        {
+          *(a1 + 320) = *(a2 + 320);
+          *(a1 + 335) = *(a2 + 335);
+        }
+
+        else
+        {
+          v88 = *(a2 + 336) | (*(a2 + 338) << 16);
+          v89 = *(a2 + 320);
+          v90 = *(a2 + 328);
+          outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v89, v90, *(a2 + 336), BYTE2(v88) & 1);
+          *(a1 + 320) = v89;
+          *(a1 + 328) = v90;
+          *(a1 + 336) = v88;
+          *(a1 + 338) = BYTE2(v88) & 1;
+        }
+
+        v91 = *(a2 + 352);
+        *(a1 + 344) = *(a2 + 344);
+        *(a1 + 352) = v91;
+        *(a1 + 360) = *(a2 + 360);
+        *(a1 + 368) = *(a2 + 368);
+        *(a1 + 376) = *(a2 + 376);
+        v92 = *(a2 + 392);
+        *(a1 + 384) = *(a2 + 384);
+        *(a1 + 392) = v92;
+        *(a1 + 400) = *(a2 + 400);
+      }
+
+      else
+      {
+        v69 = *(a2 + 376);
+        *(a1 + 360) = *(a2 + 360);
+        *(a1 + 376) = v69;
+        *(a1 + 392) = *(a2 + 392);
+        v70 = *(a2 + 312);
+        *v67 = *v68;
+        *(a1 + 312) = v70;
+        v71 = *(a2 + 344);
+        *(a1 + 328) = *(a2 + 328);
+        *(a1 + 344) = v71;
+      }
+    }
+
+    v93 = type metadata accessor for CodableAccessibilityAttachmentStorage.VBase(0);
+    v94 = *(v93 + 52);
+    v95 = (a1 + v94);
+    v96 = (a2 + v94);
+    v97 = type metadata accessor for LinkDestination.Configuration(0);
+    v98 = *(v97 - 8);
+    v99 = a3;
+    if ((*(v98 + 48))(v96, 1, v97))
+    {
+      type metadata accessor for LinkDestination.Configuration?(0);
+      memcpy(v95, v96, *(*(v100 - 8) + 64));
+    }
+
+    else
+    {
+      v101 = type metadata accessor for URL();
+      (*(*(v101 - 8) + 16))(v95, v96, v101);
+      *(v95 + *(v97 + 20)) = *(v96 + *(v97 + 20));
+      (*(v98 + 56))(v95, 0, 1, v97);
+    }
+
+    *(a1 + *(v93 + 56)) = *(a2 + *(v93 + 56));
+    v102 = type metadata accessor for CodableAccessibilityAttachmentStorage.V3(0);
+    v103 = v102[5];
+    v104 = a1 + v103;
+    v105 = a2 + v103;
+    v106 = *(v105 + 8);
+    *v104 = *v105;
+    *(v104 + 8) = v106;
+    v107 = *(v105 + 24);
+    *(v104 + 16) = *(v105 + 16);
+    *(v104 + 24) = v107;
+    *(v104 + 48) = *(v105 + 48);
+    *(v104 + 32) = *(v105 + 32);
+    v108 = v102[6];
+    v109 = a1 + v108;
+    v110 = (a2 + v108);
+    v111 = *(a2 + v108 + 48);
+
+    if (v111 == 1)
+    {
+      v112 = *(v110 + 1);
+      *v109 = *v110;
+      *(v109 + 16) = v112;
+      v113 = *(v110 + 3);
+      *(v109 + 32) = *(v110 + 2);
+      *(v109 + 48) = v113;
+      a3 = v99;
+LABEL_85:
+      *(a1 + v102[7]) = *(a2 + v102[7]);
+      v119 = v102[8];
+      v120 = a1 + v119;
+      v121 = a2 + v119;
+      *v120 = *v121;
+      *(v120 + 16) = *(v121 + 16);
+      *(a1 + v102[9]) = *(a2 + v102[9]);
+      *(a1 + v102[10]) = *(a2 + v102[10]);
+      *(a1 + v102[11]) = *(a2 + v102[11]);
+      *(a1 + v102[12]) = *(a2 + v102[12]);
+      v122 = v102[13];
+      v123 = (a1 + v122);
+      v124 = (a2 + v122);
+      v125 = v124[1];
+      *v123 = *v124;
+      v123[1] = v125;
+      *(a1 + v102[14]) = *(a2 + v102[14]);
+
+LABEL_92:
+      swift_storeEnumTagMultiPayload();
+      goto LABEL_93;
+    }
+
+    v114 = *(v110 + 16);
+    a3 = v99;
+    if (v114 == 255)
+    {
+      *v109 = *v110;
+      *(v109 + 16) = *(v110 + 8);
+      if (v111)
+      {
+LABEL_82:
+        v115 = v110[7];
+        *(v109 + 48) = v111;
+        *(v109 + 56) = v115;
+        (**(v111 - 8))(v109 + 24, (v110 + 3), v111);
+        goto LABEL_85;
+      }
+    }
+
+    else
+    {
+      v116 = *v110;
+      v117 = v110[1];
+      v118 = v114 & 1;
+      outlined copy of AccessibilityText.Storage(*v110, v117, v114 & 1);
+      *v109 = v116;
+      *(v109 + 8) = v117;
+      *(v109 + 16) = v118;
+      *(v109 + 17) = *(v110 + 17);
+      v111 = v110[6];
+      if (v111)
+      {
+        goto LABEL_82;
+      }
+    }
+
+    *(v109 + 24) = *(v110 + 3);
+    *(v109 + 40) = *(v110 + 5);
+    *(v109 + 56) = v110[7];
+    goto LABEL_85;
+  }
+
+  v6 = *(a2 + 8);
+  *a1 = *a2;
+  *(a1 + 8) = v6;
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = *(a2 + 40);
+  *(a1 + 56) = *(a2 + 56);
+  v7 = *(a2 + 88);
+
+  if (!v7)
+  {
+    v12 = *(a2 + 80);
+    *(a1 + 64) = *(a2 + 64);
+    *(a1 + 80) = v12;
+    *(a1 + 96) = *(a2 + 96);
+LABEL_12:
+    *(a1 + 104) = *(a2 + 104);
+
+    goto LABEL_13;
+  }
+
+  if (v7 != 1)
+  {
+    v13 = *(a2 + 96);
+    *(a1 + 88) = v7;
+    *(a1 + 96) = v13;
+    (**(v7 - 8))(a1 + 64, a2 + 64, v7);
+    goto LABEL_12;
+  }
+
+  v8 = *(a2 + 80);
+  *(a1 + 64) = *(a2 + 64);
+  *(a1 + 80) = v8;
+  *(a1 + 96) = *(a2 + 96);
+LABEL_13:
+  *(a1 + 112) = *(a2 + 112);
+  *(a1 + 120) = *(a2 + 120);
+  v14 = *(a2 + 240);
+  if (v14 == 1)
+  {
+    v15 = *(a2 + 240);
+    *(a1 + 224) = *(a2 + 224);
+    *(a1 + 240) = v15;
+    *(a1 + 256) = *(a2 + 256);
+    *(a1 + 272) = *(a2 + 272);
+    v16 = *(a2 + 176);
+    *(a1 + 160) = *(a2 + 160);
+    *(a1 + 176) = v16;
+    v17 = *(a2 + 208);
+    *(a1 + 192) = *(a2 + 192);
+    *(a1 + 208) = v17;
+    v18 = *(a2 + 144);
+    *(a1 + 128) = *(a2 + 128);
+    *(a1 + 144) = v18;
+  }
+
+  else
+  {
+    *(a1 + 128) = *(a2 + 128);
+    *(a1 + 136) = *(a2 + 136);
+    *(a1 + 144) = *(a2 + 144);
+    *(a1 + 152) = *(a2 + 152);
+    *(a1 + 153) = *(a2 + 153);
+    *(a1 + 155) = *(a2 + 155);
+    *(a1 + 156) = *(a2 + 156);
+    v19 = *(a2 + 176);
+    *(a1 + 160) = *(a2 + 160);
+    *(a1 + 176) = v19;
+    *(a1 + 192) = *(a2 + 192);
+    *(a1 + 208) = *(a2 + 208);
+    *(a1 + 216) = *(a2 + 216);
+    *(a1 + 232) = *(a2 + 232);
+    *(a1 + 240) = v14;
+    *(a1 + 248) = *(a2 + 248);
+    *(a1 + 264) = *(a2 + 264);
+    *(a1 + 272) = *(a2 + 272);
+  }
+
+  v20 = *(a2 + 288);
+  *(a1 + 280) = *(a2 + 280);
+  *(a1 + 288) = v20;
+
+  v21 = v20;
+LABEL_93:
+  swift_storeEnumTagMultiPayload();
+  v140 = *(a3 + 24);
+  *(a1 + *(a3 + 20)) = *(a2 + *(a3 + 20));
+  *(a1 + v140) = *(a2 + v140);
+  return a1;
+}
+
+uint64_t AccessibilityAttachment.init(properties:platformElement:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  *(a3 + 24) = 0;
+  *(a3 + 32) = 0;
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
+  *(a3 + 40) = 0;
+  *(a3 + 48) = 0;
+  *(a3 + 56) = 1;
+  *(a3 + 64) = 0;
+  *(a3 + 72) = 0;
+  *(a3 + 80) = 0;
+  *(a3 + 88) = 1;
+  *(a3 + 104) = 0;
+  *(a3 + 112) = 0;
+  *(a3 + 96) = 0;
+  *(a3 + 120) = 1;
+  _s7SwiftUI33AccessibilityTextLayoutPropertiesOSgWOi0_(v11);
+  v6 = v11[7];
+  *(a3 + 224) = v11[6];
+  *(a3 + 240) = v6;
+  *(a3 + 256) = v11[8];
+  *(a3 + 272) = v12;
+  v7 = v11[3];
+  *(a3 + 160) = v11[2];
+  *(a3 + 176) = v7;
+  v8 = v11[5];
+  *(a3 + 192) = v11[4];
+  *(a3 + 208) = v8;
+  v9 = v11[1];
+  *(a3 + 128) = v11[0];
+  *(a3 + 144) = v9;
+  *(a3 + 280) = MEMORY[0x1E69E7CC8];
+  result = outlined assign with take of AccessibilityProperties(a1, a3);
+  *(a3 + 288) = a2;
+  return result;
+}
+
+uint64_t AccessibilityProperties.activationPointStorage.setter(__int128 *a1)
+{
+  v1 = *(a1 + 3);
+  if (v1)
+  {
+    v2 = *(a1 + 4);
+    v3 = *(a1 + 2);
+    v7 = *a1;
+    type metadata accessor for AccessibilityPropertiesEntry<AccessibilityActivationPointStorage?>(0);
+    v8[3] = v4;
+    v8[4] = &protocol witness table for AccessibilityPropertiesEntry<A>;
+    v5 = swift_allocObject();
+    v8[0] = v5;
+    *(v5 + 16) = v7;
+    *(v5 + 32) = v3;
+    *(v5 + 40) = v1;
+    *(v5 + 48) = v2;
+    return specialized Dictionary.subscript.setter(v8, &type metadata for AccessibilityProperties.ActivationPointKey);
+  }
+
+  else
+  {
+    specialized Dictionary.removeValue(forKey:)(&type metadata for AccessibilityProperties.ActivationPointKey, outlined init with take of _ViewList_Elements, specialized _NativeDictionary._delete(at:), specialized _NativeDictionary.copy(), v8);
+    return outlined destroy of AnyAccessibilityPropertiesEntry?(v8, type metadata accessor for AnyAccessibilityPropertiesEntry?);
+  }
+}
+
+uint64_t sub_18D38D5C8()
+{
+  if (*(v0 + 40))
+  {
+  }
+
+  return swift_deallocObject();
+}
+
+double AccessibilityProperties.subscript.setter(uint64_t a1, unsigned __int8 *a2)
+{
+  v3 = *a2;
+  v4 = 0uLL;
+  if ((*(v2 + 56) & 1) == 0)
+  {
+    v4 = *(v2 + 40);
+  }
+
+  v7 = v4;
+  if (v3 >= 0x40)
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = 1 << v3;
+  }
+
+  specialized AccessibilityNullableOptionSet.subscript.setter(a1, v5);
+  result = *&v7;
+  *(v2 + 40) = v7;
+  *(v2 + 56) = 0;
+  return result;
+}
+
+uint64_t AccessibilityProperties.chartDescriptor.setter(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4)
+{
+  if (a1)
+  {
+    type metadata accessor for AnyAccessibilityPropertiesEntry?(0, a2, a3, type metadata accessor for AccessibilityPropertiesEntry);
+    v8[3] = v6;
+    v8[4] = &protocol witness table for AccessibilityPropertiesEntry<A>;
+    v8[0] = a1;
+    return specialized Dictionary.subscript.setter(v8, a4);
+  }
+
+  else
+  {
+    specialized Dictionary.removeValue(forKey:)(a4, outlined init with take of _ViewList_Elements, specialized _NativeDictionary._delete(at:), specialized _NativeDictionary.copy(), v8);
+    return outlined destroy of AnyAccessibilityPropertiesEntry?(v8, type metadata accessor for AnyAccessibilityPropertiesEntry?);
+  }
+}
+
+uint64_t _s7SwiftUI23AccessibilityPropertiesVy13PropertyValueQzxmcAA0cD3KeyRzluigAC015ChartDescriptorG0V_Tt0g5Tm(uint64_t a1, uint64_t (*a2)(void))
+{
+  v3 = *(v2 + 280);
+  if (!*(v3 + 16))
+  {
+    return 0;
+  }
+
+  v5 = specialized __RawDictionaryStorage.find<A>(_:)(a1);
+  if ((v6 & 1) == 0)
+  {
+    return 0;
+  }
+
+  outlined init with copy of AnyTrackedValue(*(v3 + 56) + 40 * v5, v13);
+  v7 = v14;
+  v8 = v15;
+  __swift_project_boxed_opaque_existential_1(v13, v14);
+  v9 = a2(0);
+  (*(v8 + 16))(&v12, v9, v9, v7, v8);
+  v10 = v12;
+  __swift_destroy_boxed_opaque_existential_1(v13);
+  return v10;
+}
+
+uint64_t AccessibilityProperties.hints.getter()
+{
+  v1 = *(v0 + 280);
+  if (*(v1 + 16) && (v2 = specialized __RawDictionaryStorage.find<A>(_:)(&type metadata for AccessibilityProperties.HintsKey), (v3 & 1) != 0))
+  {
+    outlined init with copy of AnyTrackedValue(*(v1 + 56) + 40 * v2, v10);
+    v4 = v11;
+    v5 = v12;
+    __swift_project_boxed_opaque_existential_1(v10, v11);
+    type metadata accessor for AccessibilityActivationPointStorage?(0, &lazy cache variable for type metadata for [Text], &type metadata for Text, MEMORY[0x1E69E62F8]);
+    (*(v5 + 16))(&v9, v6, v6, v4, v5);
+    v7 = v9;
+    __swift_destroy_boxed_opaque_existential_1(v10);
+  }
+
+  else
+  {
+    if (one-time initialization token for defaultValue != -1)
+    {
+      swift_once();
+    }
+
+    v7 = static AccessibilityProperties.HintsKey.defaultValue;
+  }
+
+  return v7;
+}
+
+double protocol witness for Shape.path(in:) in conformance _TrimmedShape<A>@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  _TrimmedShape.path(in:)(a1, v5);
+  result = *v5;
+  v4 = v5[1];
+  *a2 = v5[0];
+  *(a2 + 16) = v4;
+  *(a2 + 32) = v6;
+  return result;
+}
+
+double AccessibilityProperties.activationPointStorage.getter@<D0>(uint64_t a1@<X8>)
+{
+  v3 = *(v1 + 280);
+  if (*(v3 + 16) && (v4 = specialized __RawDictionaryStorage.find<A>(_:)(&type metadata for AccessibilityProperties.ActivationPointKey), (v5 & 1) != 0))
+  {
+    outlined init with copy of AnyTrackedValue(*(v3 + 56) + 40 * v4, v15);
+    v6 = v16;
+    v7 = v17;
+    __swift_project_boxed_opaque_existential_1(v15, v16);
+    type metadata accessor for AccessibilityActivationPointStorage?(0, &lazy cache variable for type metadata for AccessibilityActivationPointStorage?, &type metadata for AccessibilityActivationPointStorage, MEMORY[0x1E69E6720]);
+    (*(v7 + 16))(v13, v8, v8, v6, v7);
+    v9 = v14;
+    v11 = v13[1];
+    v12 = v13[0];
+    __swift_destroy_boxed_opaque_existential_1(v15);
+    result = *&v12;
+    *a1 = v12;
+    *(a1 + 16) = v11;
+    *(a1 + 32) = v9;
+  }
+
+  else
+  {
+    *(a1 + 32) = 0;
+    result = 0.0;
+    *a1 = 0u;
+    *(a1 + 16) = 0u;
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for static ViewModifier._makeViewList(modifier:inputs:body:) in conformance _ForegroundLayerViewModifier(unsigned int *a1, __int128 *a2, void (*a3)(void))
+{
+  v4 = *a1;
+  a3();
+  return specialized _ViewListOutputs.multiModifier<A>(_:inputs:)(v4, a2);
+}
+
+void type metadata accessor for (AccessibilityLabelStorage.Placement, AccessibilityLabelStorage.Placement)()
+{
+  if (!lazy cache variable for type metadata for (AccessibilityLabelStorage.Placement, AccessibilityLabelStorage.Placement))
+  {
+    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+    if (!v1)
+    {
+      atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (AccessibilityLabelStorage.Placement, AccessibilityLabelStorage.Placement));
+    }
+  }
+}
+
+uint64_t initializeWithCopy for AccessibilityNodeAttachment.Storage(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (swift_getEnumCaseMultiPayload() != 1)
+  {
+    type metadata accessor for CodableAccessibilityVersionStorage<CodableAccessibilityAttachmentStorage.V2, CodableAccessibilityAttachmentStorage.V3>(0);
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    v9 = *(a2 + 8);
+    *a1 = *a2;
+    *(a1 + 8) = v9;
+    v10 = *(a2 + 32) | (*(a2 + 34) << 16);
+
+    if (EnumCaseMultiPayload != 1)
+    {
+      if (BYTE2(v10) == 255)
+      {
+        *(a1 + 16) = *(a2 + 16);
+        *(a1 + 31) = *(a2 + 31);
+      }
+
+      else
+      {
+        v24 = *(a2 + 16);
+        v25 = *(a2 + 24);
+        outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v24, v25, v10, BYTE2(v10) & 1);
+        *(a1 + 16) = v24;
+        *(a1 + 24) = v25;
+        *(a1 + 32) = v10;
+        *(a1 + 34) = BYTE2(v10) & 1;
+      }
+
+      if (*(a2 + 58) == 255)
+      {
+        *(a1 + 40) = *(a2 + 40);
+        *(a1 + 55) = *(a2 + 55);
+      }
+
+      else
+      {
+        v29 = *(a2 + 56) | (*(a2 + 58) << 16);
+        v30 = *(a2 + 40);
+        v31 = *(a2 + 48);
+        outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v30, v31, *(a2 + 56), BYTE2(v29) & 1);
+        *(a1 + 40) = v30;
+        *(a1 + 48) = v31;
+        *(a1 + 56) = v29;
+        *(a1 + 58) = BYTE2(v29) & 1;
+      }
+
+      if (*(a2 + 82) == 255)
+      {
+        *(a1 + 64) = *(a2 + 64);
+        *(a1 + 79) = *(a2 + 79);
+      }
+
+      else
+      {
+        v36 = *(a2 + 80) | (*(a2 + 82) << 16);
+        v37 = *(a2 + 64);
+        v38 = *(a2 + 72);
+        outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v37, v38, *(a2 + 80), BYTE2(v36) & 1);
+        *(a1 + 64) = v37;
+        *(a1 + 72) = v38;
+        *(a1 + 80) = v36;
+        *(a1 + 82) = BYTE2(v36) & 1;
+      }
+
+      *(a1 + 84) = *(a2 + 84);
+      *(a1 + 96) = *(a2 + 96);
+      *(a1 + 112) = *(a2 + 112);
+      *(a1 + 120) = *(a2 + 120);
+      *(a1 + 128) = *(a2 + 128);
+      *(a1 + 136) = *(a2 + 136);
+      v39 = *(a2 + 232);
+      if (v39 == 1)
+      {
+        memcpy((a1 + 144), (a2 + 144), 0x108uLL);
+      }
+
+      else
+      {
+        if (*(a2 + 162) == 255)
+        {
+          *(a1 + 144) = *(a2 + 144);
+          *(a1 + 159) = *(a2 + 159);
+        }
+
+        else
+        {
+          v45 = *(a2 + 160) | (*(a2 + 162) << 16);
+          v46 = *(a2 + 144);
+          v47 = *(a2 + 152);
+          outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v46, v47, *(a2 + 160), BYTE2(v45) & 1);
+          *(a1 + 144) = v46;
+          *(a1 + 152) = v47;
+          *(a1 + 160) = v45;
+          *(a1 + 162) = BYTE2(v45) & 1;
+          v39 = *(a2 + 232);
+        }
+
+        *(a1 + 163) = *(a2 + 163);
+        *(a1 + 168) = *(a2 + 168);
+        *(a1 + 176) = *(a2 + 176);
+        *(a1 + 177) = *(a2 + 177);
+        v48 = (a1 + 184);
+        v49 = (a2 + 184);
+        if (v39)
+        {
+          if (*(a2 + 202) == 255)
+          {
+            *v48 = *v49;
+            *(a1 + 199) = *(a2 + 199);
+          }
+
+          else
+          {
+            v59 = *(a2 + 200) | (*(a2 + 202) << 16);
+            v60 = *(a2 + 184);
+            v61 = *(a2 + 192);
+            outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v60, v61, *(a2 + 200), BYTE2(v59) & 1);
+            *(a1 + 184) = v60;
+            *(a1 + 192) = v61;
+            *(a1 + 200) = v59;
+            *(a1 + 202) = BYTE2(v59) & 1;
+          }
+
+          if (*(a2 + 226) == 255)
+          {
+            *(a1 + 208) = *(a2 + 208);
+            *(a1 + 223) = *(a2 + 223);
+          }
+
+          else
+          {
+            v72 = *(a2 + 224) | (*(a2 + 226) << 16);
+            v73 = *(a2 + 208);
+            v74 = *(a2 + 216);
+            outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v73, v74, *(a2 + 224), BYTE2(v72) & 1);
+            *(a1 + 208) = v73;
+            *(a1 + 216) = v74;
+            *(a1 + 224) = v72;
+            *(a1 + 226) = BYTE2(v72) & 1;
+          }
+
+          v75 = *(a2 + 240);
+          *(a1 + 232) = *(a2 + 232);
+          *(a1 + 240) = v75;
+          *(a1 + 248) = *(a2 + 248);
+          *(a1 + 256) = *(a2 + 256);
+          *(a1 + 264) = *(a2 + 264);
+          v76 = *(a2 + 280);
+          *(a1 + 272) = *(a2 + 272);
+          *(a1 + 280) = v76;
+          *(a1 + 288) = *(a2 + 288);
+        }
+
+        else
+        {
+          v53 = *(a2 + 264);
+          *(a1 + 248) = *(a2 + 248);
+          *(a1 + 264) = v53;
+          *(a1 + 280) = *(a2 + 280);
+          v54 = *(a2 + 200);
+          *v48 = *v49;
+          *(a1 + 200) = v54;
+          v55 = *(a2 + 232);
+          *(a1 + 216) = *(a2 + 216);
+          *(a1 + 232) = v55;
+        }
+
+        v77 = (a1 + 296);
+        v78 = (a2 + 296);
+        if (*(a2 + 344))
+        {
+          if (*(a2 + 314) == 255)
+          {
+            *v77 = *v78;
+            *(a1 + 311) = *(a2 + 311);
+          }
+
+          else
+          {
+            v85 = *(a2 + 312) | (*(a2 + 314) << 16);
+            v86 = *(a2 + 296);
+            v87 = *(a2 + 304);
+            outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v86, v87, *(a2 + 312), BYTE2(v85) & 1);
+            *(a1 + 296) = v86;
+            *(a1 + 304) = v87;
+            *(a1 + 312) = v85;
+            *(a1 + 314) = BYTE2(v85) & 1;
+          }
+
+          if (*(a2 + 338) == 255)
+          {
+            *(a1 + 320) = *(a2 + 320);
+            *(a1 + 335) = *(a2 + 335);
+          }
+
+          else
+          {
+            v125 = *(a2 + 336) | (*(a2 + 338) << 16);
+            v126 = *(a2 + 320);
+            v127 = *(a2 + 328);
+            outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v126, v127, *(a2 + 336), BYTE2(v125) & 1);
+            *(a1 + 320) = v126;
+            *(a1 + 328) = v127;
+            *(a1 + 336) = v125;
+            *(a1 + 338) = BYTE2(v125) & 1;
+          }
+
+          v128 = *(a2 + 352);
+          *(a1 + 344) = *(a2 + 344);
+          *(a1 + 352) = v128;
+          *(a1 + 360) = *(a2 + 360);
+          *(a1 + 368) = *(a2 + 368);
+          *(a1 + 376) = *(a2 + 376);
+          v129 = *(a2 + 392);
+          *(a1 + 384) = *(a2 + 384);
+          *(a1 + 392) = v129;
+          *(a1 + 400) = *(a2 + 400);
+        }
+
+        else
+        {
+          v79 = *(a2 + 376);
+          *(a1 + 360) = *(a2 + 360);
+          *(a1 + 376) = v79;
+          *(a1 + 392) = *(a2 + 392);
+          v80 = *(a2 + 312);
+          *v77 = *v78;
+          *(a1 + 312) = v80;
+          v81 = *(a2 + 344);
+          *(a1 + 328) = *(a2 + 328);
+          *(a1 + 344) = v81;
+        }
+      }
+
+      v130 = type metadata accessor for CodableAccessibilityAttachmentStorage.VBase(0);
+      v131 = *(v130 + 52);
+      v132 = (a1 + v131);
+      v133 = (a2 + v131);
+      v134 = type metadata accessor for LinkDestination.Configuration(0);
+      v135 = *(v134 - 8);
+      if ((*(v135 + 48))(v133, 1, v134))
+      {
+        type metadata accessor for LinkDestination.Configuration?(0);
+        memcpy(v132, v133, *(*(v136 - 8) + 64));
+      }
+
+      else
+      {
+        v137 = type metadata accessor for URL();
+        (*(*(v137 - 8) + 16))(v132, v133, v137);
+        *(v132 + *(v134 + 20)) = *(v133 + *(v134 + 20));
+        (*(v135 + 56))(v132, 0, 1, v134);
+      }
+
+      *(a1 + *(v130 + 56)) = *(a2 + *(v130 + 56));
+      v138 = type metadata accessor for CodableAccessibilityAttachmentStorage.V2(0);
+      *(a1 + *(v138 + 20)) = *(a2 + *(v138 + 20));
+
+      goto LABEL_92;
+    }
+
+    if (BYTE2(v10) == 255)
+    {
+      *(a1 + 16) = *(a2 + 16);
+      *(a1 + 31) = *(a2 + 31);
+    }
+
+    else
+    {
+      v22 = *(a2 + 16);
+      v23 = *(a2 + 24);
+      outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v22, v23, v10, BYTE2(v10) & 1);
+      *(a1 + 16) = v22;
+      *(a1 + 24) = v23;
+      *(a1 + 32) = v10;
+      *(a1 + 34) = BYTE2(v10) & 1;
+    }
+
+    if (*(a2 + 58) == 255)
+    {
+      *(a1 + 40) = *(a2 + 40);
+      *(a1 + 55) = *(a2 + 55);
+    }
+
+    else
+    {
+      v26 = *(a2 + 56) | (*(a2 + 58) << 16);
+      v27 = *(a2 + 40);
+      v28 = *(a2 + 48);
+      outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v27, v28, *(a2 + 56), BYTE2(v26) & 1);
+      *(a1 + 40) = v27;
+      *(a1 + 48) = v28;
+      *(a1 + 56) = v26;
+      *(a1 + 58) = BYTE2(v26) & 1;
+    }
+
+    if (*(a2 + 82) == 255)
+    {
+      *(a1 + 64) = *(a2 + 64);
+      *(a1 + 79) = *(a2 + 79);
+    }
+
+    else
+    {
+      v32 = *(a2 + 80) | (*(a2 + 82) << 16);
+      v33 = *(a2 + 64);
+      v34 = *(a2 + 72);
+      outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v33, v34, *(a2 + 80), BYTE2(v32) & 1);
+      *(a1 + 64) = v33;
+      *(a1 + 72) = v34;
+      *(a1 + 80) = v32;
+      *(a1 + 82) = BYTE2(v32) & 1;
+    }
+
+    *(a1 + 84) = *(a2 + 84);
+    *(a1 + 96) = *(a2 + 96);
+    *(a1 + 112) = *(a2 + 112);
+    *(a1 + 120) = *(a2 + 120);
+    *(a1 + 128) = *(a2 + 128);
+    *(a1 + 136) = *(a2 + 136);
+    v35 = *(a2 + 232);
+    if (v35 == 1)
+    {
+      memcpy((a1 + 144), (a2 + 144), 0x108uLL);
+    }
+
+    else
+    {
+      if (*(a2 + 162) == 255)
+      {
+        *(a1 + 144) = *(a2 + 144);
+        *(a1 + 159) = *(a2 + 159);
+      }
+
+      else
+      {
+        v40 = *(a2 + 160) | (*(a2 + 162) << 16);
+        v41 = *(a2 + 144);
+        v42 = *(a2 + 152);
+        outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v41, v42, *(a2 + 160), BYTE2(v40) & 1);
+        *(a1 + 144) = v41;
+        *(a1 + 152) = v42;
+        *(a1 + 160) = v40;
+        *(a1 + 162) = BYTE2(v40) & 1;
+        v35 = *(a2 + 232);
+      }
+
+      *(a1 + 163) = *(a2 + 163);
+      *(a1 + 168) = *(a2 + 168);
+      *(a1 + 176) = *(a2 + 176);
+      *(a1 + 177) = *(a2 + 177);
+      v43 = (a1 + 184);
+      v44 = (a2 + 184);
+      if (v35)
+      {
+        if (*(a2 + 202) == 255)
+        {
+          *v43 = *v44;
+          *(a1 + 199) = *(a2 + 199);
+        }
+
+        else
+        {
+          v56 = *(a2 + 200) | (*(a2 + 202) << 16);
+          v57 = *(a2 + 184);
+          v58 = *(a2 + 192);
+          outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v57, v58, *(a2 + 200), BYTE2(v56) & 1);
+          *(a1 + 184) = v57;
+          *(a1 + 192) = v58;
+          *(a1 + 200) = v56;
+          *(a1 + 202) = BYTE2(v56) & 1;
+        }
+
+        if (*(a2 + 226) == 255)
+        {
+          *(a1 + 208) = *(a2 + 208);
+          *(a1 + 223) = *(a2 + 223);
+        }
+
+        else
+        {
+          v62 = *(a2 + 224) | (*(a2 + 226) << 16);
+          v63 = *(a2 + 208);
+          v64 = *(a2 + 216);
+          outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v63, v64, *(a2 + 224), BYTE2(v62) & 1);
+          *(a1 + 208) = v63;
+          *(a1 + 216) = v64;
+          *(a1 + 224) = v62;
+          *(a1 + 226) = BYTE2(v62) & 1;
+        }
+
+        v65 = *(a2 + 240);
+        *(a1 + 232) = *(a2 + 232);
+        *(a1 + 240) = v65;
+        *(a1 + 248) = *(a2 + 248);
+        *(a1 + 256) = *(a2 + 256);
+        *(a1 + 264) = *(a2 + 264);
+        v66 = *(a2 + 280);
+        *(a1 + 272) = *(a2 + 272);
+        *(a1 + 280) = v66;
+        *(a1 + 288) = *(a2 + 288);
+      }
+
+      else
+      {
+        v50 = *(a2 + 264);
+        *(a1 + 248) = *(a2 + 248);
+        *(a1 + 264) = v50;
+        *(a1 + 280) = *(a2 + 280);
+        v51 = *(a2 + 200);
+        *v43 = *v44;
+        *(a1 + 200) = v51;
+        v52 = *(a2 + 232);
+        *(a1 + 216) = *(a2 + 216);
+        *(a1 + 232) = v52;
+      }
+
+      v67 = (a1 + 296);
+      v68 = (a2 + 296);
+      if (*(a2 + 344))
+      {
+        if (*(a2 + 314) == 255)
+        {
+          *v67 = *v68;
+          *(a1 + 311) = *(a2 + 311);
+        }
+
+        else
+        {
+          v82 = *(a2 + 312) | (*(a2 + 314) << 16);
+          v83 = *(a2 + 296);
+          v84 = *(a2 + 304);
+          outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v83, v84, *(a2 + 312), BYTE2(v82) & 1);
+          *(a1 + 296) = v83;
+          *(a1 + 304) = v84;
+          *(a1 + 312) = v82;
+          *(a1 + 314) = BYTE2(v82) & 1;
+        }
+
+        if (*(a2 + 338) == 255)
+        {
+          *(a1 + 320) = *(a2 + 320);
+          *(a1 + 335) = *(a2 + 335);
+        }
+
+        else
+        {
+          v88 = *(a2 + 336) | (*(a2 + 338) << 16);
+          v89 = *(a2 + 320);
+          v90 = *(a2 + 328);
+          outlined copy of CodableAccessibilityVersionStorage<CodableResolvedStyledText, AccessibilityText>(v89, v90, *(a2 + 336), BYTE2(v88) & 1);
+          *(a1 + 320) = v89;
+          *(a1 + 328) = v90;
+          *(a1 + 336) = v88;
+          *(a1 + 338) = BYTE2(v88) & 1;
+        }
+
+        v91 = *(a2 + 352);
+        *(a1 + 344) = *(a2 + 344);
+        *(a1 + 352) = v91;
+        *(a1 + 360) = *(a2 + 360);
+        *(a1 + 368) = *(a2 + 368);
+        *(a1 + 376) = *(a2 + 376);
+        v92 = *(a2 + 392);
+        *(a1 + 384) = *(a2 + 384);
+        *(a1 + 392) = v92;
+        *(a1 + 400) = *(a2 + 400);
+      }
+
+      else
+      {
+        v69 = *(a2 + 376);
+        *(a1 + 360) = *(a2 + 360);
+        *(a1 + 376) = v69;
+        *(a1 + 392) = *(a2 + 392);
+        v70 = *(a2 + 312);
+        *v67 = *v68;
+        *(a1 + 312) = v70;
+        v71 = *(a2 + 344);
+        *(a1 + 328) = *(a2 + 328);
+        *(a1 + 344) = v71;
+      }
+    }
+
+    v93 = type metadata accessor for CodableAccessibilityAttachmentStorage.VBase(0);
+    v94 = *(v93 + 52);
+    v95 = (a1 + v94);
+    v96 = (a2 + v94);
+    v97 = type metadata accessor for LinkDestination.Configuration(0);
+    v98 = *(v97 - 8);
+    if ((*(v98 + 48))(v96, 1, v97))
+    {
+      type metadata accessor for LinkDestination.Configuration?(0);
+      memcpy(v95, v96, *(*(v99 - 8) + 64));
+    }
+
+    else
+    {
+      v100 = type metadata accessor for URL();
+      (*(*(v100 - 8) + 16))(v95, v96, v100);
+      *(v95 + *(v97 + 20)) = *(v96 + *(v97 + 20));
+      (*(v98 + 56))(v95, 0, 1, v97);
+    }
+
+    *(a1 + *(v93 + 56)) = *(a2 + *(v93 + 56));
+    v101 = type metadata accessor for CodableAccessibilityAttachmentStorage.V3(0);
+    v102 = v101[5];
+    v103 = a1 + v102;
+    v104 = a2 + v102;
+    v105 = *(v104 + 8);
+    *v103 = *v104;
+    *(v103 + 8) = v105;
+    v106 = *(v104 + 24);
+    *(v103 + 16) = *(v104 + 16);
+    *(v103 + 24) = v106;
+    *(v103 + 48) = *(v104 + 48);
+    *(v103 + 32) = *(v104 + 32);
+    v107 = v101[6];
+    v108 = a1 + v107;
+    v109 = (a2 + v107);
+    v110 = *(a2 + v107 + 48);
+
+    if (v110 == 1)
+    {
+      v111 = *(v109 + 1);
+      *v108 = *v109;
+      *(v108 + 16) = v111;
+      v112 = *(v109 + 3);
+      *(v108 + 32) = *(v109 + 2);
+      *(v108 + 48) = v112;
+LABEL_85:
+      *(a1 + v101[7]) = *(a2 + v101[7]);
+      v118 = v101[8];
+      v119 = a1 + v118;
+      v120 = a2 + v118;
+      *v119 = *v120;
+      *(v119 + 16) = *(v120 + 16);
+      *(a1 + v101[9]) = *(a2 + v101[9]);
+      *(a1 + v101[10]) = *(a2 + v101[10]);
+      *(a1 + v101[11]) = *(a2 + v101[11]);
+      *(a1 + v101[12]) = *(a2 + v101[12]);
+      v121 = v101[13];
+      v122 = (a1 + v121);
+      v123 = (a2 + v121);
+      v124 = v123[1];
+      *v122 = *v123;
+      v122[1] = v124;
+      *(a1 + v101[14]) = *(a2 + v101[14]);
+
+LABEL_92:
+      swift_storeEnumTagMultiPayload();
+      goto LABEL_93;
+    }
+
+    v113 = *(v109 + 16);
+    if (v113 == 255)
+    {
+      *v108 = *v109;
+      *(v108 + 16) = *(v109 + 8);
+      if (v110)
+      {
+LABEL_82:
+        v114 = v109[7];
+        *(v108 + 48) = v110;
+        *(v108 + 56) = v114;
+        (**(v110 - 8))(v108 + 24, (v109 + 3), v110);
+        goto LABEL_85;
+      }
+    }
+
+    else
+    {
+      v115 = *v109;
+      v116 = v109[1];
+      v117 = v113 & 1;
+      outlined copy of AccessibilityText.Storage(*v109, v116, v113 & 1);
+      *v108 = v115;
+      *(v108 + 8) = v116;
+      *(v108 + 16) = v117;
+      *(v108 + 17) = *(v109 + 17);
+      v110 = v109[6];
+      if (v110)
+      {
+        goto LABEL_82;
+      }
+    }
+
+    *(v108 + 24) = *(v109 + 3);
+    *(v108 + 40) = *(v109 + 5);
+    *(v108 + 56) = v109[7];
+    goto LABEL_85;
+  }
+
+  v5 = *(a2 + 8);
+  *a1 = *a2;
+  *(a1 + 8) = v5;
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = *(a2 + 40);
+  *(a1 + 56) = *(a2 + 56);
+  v6 = *(a2 + 88);
+
+  if (!v6)
+  {
+    v11 = *(a2 + 80);
+    *(a1 + 64) = *(a2 + 64);
+    *(a1 + 80) = v11;
+    *(a1 + 96) = *(a2 + 96);
+LABEL_12:
+    *(a1 + 104) = *(a2 + 104);
+
+    goto LABEL_13;
+  }
+
+  if (v6 != 1)
+  {
+    v12 = *(a2 + 96);
+    *(a1 + 88) = v6;
+    *(a1 + 96) = v12;
+    (**(v6 - 8))(a1 + 64, a2 + 64, v6);
+    goto LABEL_12;
+  }
+
+  v7 = *(a2 + 80);
+  *(a1 + 64) = *(a2 + 64);
+  *(a1 + 80) = v7;
+  *(a1 + 96) = *(a2 + 96);
+LABEL_13:
+  *(a1 + 112) = *(a2 + 112);
+  *(a1 + 120) = *(a2 + 120);
+  v13 = *(a2 + 240);
+  if (v13 == 1)
+  {
+    v14 = *(a2 + 240);
+    *(a1 + 224) = *(a2 + 224);
+    *(a1 + 240) = v14;
+    *(a1 + 256) = *(a2 + 256);
+    *(a1 + 272) = *(a2 + 272);
+    v15 = *(a2 + 176);
+    *(a1 + 160) = *(a2 + 160);
+    *(a1 + 176) = v15;
+    v16 = *(a2 + 208);
+    *(a1 + 192) = *(a2 + 192);
+    *(a1 + 208) = v16;
+    v17 = *(a2 + 144);
+    *(a1 + 128) = *(a2 + 128);
+    *(a1 + 144) = v17;
+  }
+
+  else
+  {
+    *(a1 + 128) = *(a2 + 128);
+    *(a1 + 136) = *(a2 + 136);
+    *(a1 + 144) = *(a2 + 144);
+    *(a1 + 152) = *(a2 + 152);
+    *(a1 + 153) = *(a2 + 153);
+    *(a1 + 155) = *(a2 + 155);
+    *(a1 + 156) = *(a2 + 156);
+    v18 = *(a2 + 176);
+    *(a1 + 160) = *(a2 + 160);
+    *(a1 + 176) = v18;
+    *(a1 + 192) = *(a2 + 192);
+    *(a1 + 208) = *(a2 + 208);
+    *(a1 + 216) = *(a2 + 216);
+    *(a1 + 232) = *(a2 + 232);
+    *(a1 + 240) = v13;
+    *(a1 + 248) = *(a2 + 248);
+    *(a1 + 264) = *(a2 + 264);
+    *(a1 + 272) = *(a2 + 272);
+  }
+
+  v19 = *(a2 + 280);
+  v20 = *(a2 + 288);
+  *(a1 + 280) = v19;
+  *(a1 + 288) = v20;
+
+  v21 = v20;
+LABEL_93:
+  swift_storeEnumTagMultiPayload();
+  return a1;
+}
+
+uint64_t specialized AccessibilityNullableOptionSet.subscript.setter(uint64_t result, uint64_t a2)
+{
+  if (result == 2)
+  {
+    v3 = v2[1];
+    if ((v3 & a2) != 0)
+    {
+      v2[1] = v3 & ~a2;
+    }
+
+    v4 = *v2;
+    if ((*v2 & a2) == 0)
+    {
+      return result;
+    }
+
+LABEL_12:
+    *v2 = v4 & ~a2;
+    return result;
+  }
+
+  v5 = v2[1];
+  if ((a2 & ~v5) != 0)
+  {
+    v2[1] = v5 | a2;
+  }
+
+  v4 = *v2;
+  v6 = *v2 & a2;
+  if ((result & 1) == 0)
+  {
+    if (!v6)
+    {
+      return result;
+    }
+
+    goto LABEL_12;
+  }
+
+  if (v6 != a2)
+  {
+    *v2 = v4 | a2;
+  }
+
+  return result;
+}
+
+void BlurAndFadeTransition.body(content:phase:)(char a1@<W1>, uint64_t a2@<X8>, double a3@<D0>)
+{
+  if (a1 == 1)
+  {
+    a3 = 0.0;
+  }
+
+  *a2 = a3;
+  if (a1 == 1)
+  {
+    v3 = 1.0;
+  }
+
+  else
+  {
+    v3 = 0.0;
+  }
+
+  *(a2 + 8) = 0;
+  *(a2 + 16) = v3;
+}
+
+void lazy protocol witness table accessor for type RendererEffectDisplayList<_ForegroundLayerViewModifier> and conformance RendererEffectDisplayList<A>()
+{
+  if (!lazy protocol witness table cache variable for type RendererEffectDisplayList<_ForegroundLayerViewModifier> and conformance RendererEffectDisplayList<A>)
+  {
+    type metadata accessor for RendererEffectDisplayList<GraphicsBlendModeEffect>(255, &lazy cache variable for type metadata for RendererEffectDisplayList<_ForegroundLayerViewModifier>, &type metadata for _ForegroundLayerViewModifier, &protocol witness table for _ForegroundLayerViewModifier, type metadata accessor for RendererEffectDisplayList);
+    swift_getWitnessTable(protocol conformance descriptor for RendererEffectDisplayList<A>, v2, v0, v1);
+    atomic_store(v3, &lazy protocol witness table cache variable for type RendererEffectDisplayList<_ForegroundLayerViewModifier> and conformance RendererEffectDisplayList<A>);
+  }
+}
+
+void lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<PlaceholderContentView<BlurReplaceTransition>, OpacityRendererEffect>, _BlurEffect>, _ScaleEffect> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t (*a3)(void), uint64_t a4)
+{
+  if (!*a1)
+  {
+    v7 = a2(255);
+    v9[0] = a3();
+    v9[1] = a4;
+    swift_getWitnessTable(protocol conformance descriptor for <> ModifiedContent<A, B>, v7, v9);
+    atomic_store(v8, a1);
+  }
+}
+
+void type metadata accessor for ModifiedContent<PlaceholderContentView<BlurAndFadeTransition>, _BlurEffect>(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t a4, uint64_t a5)
+{
+  if (!*a2)
+  {
+    type metadata accessor for PlaceholderContentView<BlurReplaceTransition>(255, a3, a4, type metadata accessor for PlaceholderContentView);
+    v10 = type metadata accessor for ModifiedContent(a1, v8, a5, v9);
+    if (!v11)
+    {
+      atomic_store(v10, a2);
+    }
+  }
+}
+
+void type metadata accessor for ModifiedContent<ModifiedContent<PlaceholderContentView<BlurAndFadeTransition>, _BlurEffect>, OpacityRendererEffect>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<PlaceholderContentView<BlurAndFadeTransition>, _BlurEffect>, OpacityRendererEffect>)
+  {
+    type metadata accessor for ModifiedContent<PlaceholderContentView<BlurAndFadeTransition>, _BlurEffect>(255, &lazy cache variable for type metadata for ModifiedContent<PlaceholderContentView<BlurAndFadeTransition>, _BlurEffect>, &lazy cache variable for type metadata for PlaceholderContentView<BlurAndFadeTransition>, &unk_1F00BC138, &type metadata for _BlurEffect);
+    v4 = type metadata accessor for ModifiedContent(a1, v2, &type metadata for OpacityRendererEffect, v3);
+    if (!v5)
+    {
+      atomic_store(v4, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<PlaceholderContentView<BlurAndFadeTransition>, _BlurEffect>, OpacityRendererEffect>);
+    }
+  }
+}
+
+void type metadata accessor for PlaceholderContentView<BlurReplaceTransition>(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t (*a4)(void, uint64_t))
+{
+  if (!*a2)
+  {
+    v5 = a4(0, a3);
+    if (!v6)
+    {
+      atomic_store(v5, a2);
+    }
+  }
+}
+
+void lazy protocol witness table accessor for type ModifiedContent<PlaceholderContentView<BlurAndFadeTransition>, _BlurEffect> and conformance <> ModifiedContent<A, B>()
+{
+  if (!lazy protocol witness table cache variable for type ModifiedContent<PlaceholderContentView<BlurAndFadeTransition>, _BlurEffect> and conformance <> ModifiedContent<A, B>)
+  {
+    v4[2] = v0;
+    v4[3] = v1;
+    type metadata accessor for ModifiedContent<PlaceholderContentView<BlurAndFadeTransition>, _BlurEffect>(255, &lazy cache variable for type metadata for ModifiedContent<PlaceholderContentView<BlurAndFadeTransition>, _BlurEffect>, &lazy cache variable for type metadata for PlaceholderContentView<BlurAndFadeTransition>, &unk_1F00BC138, &type metadata for _BlurEffect);
+    v4[0] = &protocol witness table for PlaceholderContentView<A>;
+    v4[1] = &protocol witness table for _BlurEffect;
+    swift_getWitnessTable(protocol conformance descriptor for <> ModifiedContent<A, B>, v2, v4);
+    atomic_store(v3, &lazy protocol witness table cache variable for type ModifiedContent<PlaceholderContentView<BlurAndFadeTransition>, _BlurEffect> and conformance <> ModifiedContent<A, B>);
+  }
+}
+
+void *CoreViewSetTransform(void *result, void *a2, __int128 *a3)
+{
+  if (result)
+  {
+    if (result == 1)
+    {
+      v3 = a3[1];
+      v5 = *a3;
+      v6 = v3;
+      v7 = a3[2];
+      return [a2 setTransform:&v5];
+    }
+  }
+
+  else
+  {
+    v4 = a3[1];
+    v5 = *a3;
+    v6 = v4;
+    v7 = a3[2];
+    return [a2 setAffineTransform:&v5];
+  }
+
+  return result;
+}
+
+Swift::Bool __swiftcall DisplayList.Item.canMergeWithTransform()()
+{
+  if ((*(v0 + 64) & 0xC0000000) == 0x40000000)
+  {
+    v1 = *(v0 + 40);
+    v2 = *(v0 + 48);
+    v3 = *(v0 + 52);
+    outlined copy of DisplayList.Effect(v1, v2, v3);
+    if (v3 == 15)
+    {
+      v8 = v1;
+      v9 = v2;
+      v10 = 15;
+    }
+
+    else if (v3 == 6)
+    {
+      v4 = *(v1 + 48);
+      if (!*(v1 + 48) || v4 == 2)
+      {
+        outlined consume of DisplayList.Effect(v1, v2, 6);
+        return 0;
+      }
+
+      if (v4 == 1)
+      {
+        v6 = *(v1 + 32);
+        v5 = *(v1 + 40);
+        outlined consume of DisplayList.Effect(v1, v2, 6);
+        return vabdd_f64(v6, v5) >= 0.001;
+      }
+
+      v8 = v1;
+      v9 = v2;
+      v10 = 6;
+    }
+
+    else
+    {
+      v8 = v1;
+      v9 = v2;
+      v10 = v3;
+    }
+
+    outlined consume of DisplayList.Effect(v8, v9, v10);
+  }
+
+  return 1;
+}
+
+BOOL AccessibilityAttachment.isEmpty.getter()
+{
+  if (!*(*(v0 + 280) + 16) && !*(v0 + 8) && !*(v0 + 24) && *(v0 + 56) == 1 && (outlined init with copy of AccessibilityValueStorage?(v0 + 64, &v7), v1 = *(&v8 + 1), outlined destroy of AccessibilityValueStorage?(&v7), v1 == 1) && *(v0 + 120) == 1 && (v2 = *(v0 + 240), v13 = *(v0 + 224), v14 = v2, v15 = *(v0 + 256), v16 = *(v0 + 272), v3 = *(v0 + 176), v9 = *(v0 + 160), v10 = v3, v4 = *(v0 + 208), v11 = *(v0 + 192), v12 = v4, v5 = *(v0 + 144), v7 = *(v0 + 128), v8 = v5, _sSo7CGPointV_7SwiftUI18ResolvedStyledTextC0F13LayoutManagerC7Metrics33_B6B30FF60BE9B7CF80B161CEF951DAD7LLVtSgWOg(&v7) == 1))
+  {
+    return *(v0 + 288) == 0;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t outlined init with copy of AccessibilityValueStorage?(uint64_t a1, uint64_t a2)
+{
+  type metadata accessor for AccessibilityValueStorage?();
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+void type metadata accessor for AccessibilityValueStorage?()
+{
+  if (!lazy cache variable for type metadata for AccessibilityValueStorage?)
+  {
+    v0 = type metadata accessor for Optional();
+    if (!v1)
+    {
+      atomic_store(v0, &lazy cache variable for type metadata for AccessibilityValueStorage?);
+    }
+  }
+}
+
+uint64_t outlined destroy of AccessibilityValueStorage?(uint64_t a1)
+{
+  type metadata accessor for AccessibilityValueStorage?();
+  (*(*(v2 - 8) + 8))(a1, v2);
+  return a1;
+}
+
+uint64_t protocol witness for static ViewModifier._makeViewList(modifier:inputs:body:) in conformance _ContentTransitionModifier(unsigned int *a1, __int128 *a2, void (*a3)(void))
+{
+  v4 = *a1;
+  a3();
+  return specialized _ViewListOutputs.multiModifier<A>(_:inputs:)(v4, a2);
+}
+
+BOOL protocol witness for static Equatable.== infix(_:_:) in conformance StrokeStyle(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 16);
+  v5[0] = *a1;
+  v5[1] = v2;
+  v6 = *(a1 + 32);
+  v3 = *(a2 + 16);
+  v7[0] = *a2;
+  v7[1] = v3;
+  v8 = *(a2 + 32);
+  return specialized static StrokeStyle.== infix(_:_:)(v5, v7);
+}
+
+BOOL specialized static StrokeStyle.== infix(_:_:)(_BOOL8 result, uint64_t a2)
+{
+  if (*result != *a2)
+  {
+    return 0;
+  }
+
+  if (*(result + 8) != *(a2 + 8))
+  {
+    return 0;
+  }
+
+  if (*(result + 12) != *(a2 + 12))
+  {
+    return 0;
+  }
+
+  if (*(result + 16) != *(a2 + 16))
+  {
+    return 0;
+  }
+
+  v2 = *(result + 24);
+  v3 = *(a2 + 24);
+  v4 = *(v2 + 16);
+  if (v4 != *(v3 + 16))
+  {
+    return 0;
+  }
+
+  if (v4)
+  {
+    v5 = v2 == v3;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    return *(result + 32) == *(a2 + 32);
+  }
+
+  v6 = (v2 + 32);
+  v7 = (v3 + 32);
+  while (v4)
+  {
+    if (*v6 != *v7)
+    {
+      return 0;
+    }
+
+    ++v6;
+    ++v7;
+    if (!--v4)
+    {
+      return *(result + 32) == *(a2 + 32);
     }
   }
 
@@ -7849,290 +6838,172 @@ LABEL_96:
   return result;
 }
 
-uint64_t DefaultLayoutViewResponder.__deallocating_deinit()
+uint64_t objectdestroy_5Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  DefaultLayoutViewResponder.deinit();
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t protocol witness for _DisplayList_ViewFactory.makeView() in conformance EmptyViewFactory()
-{
-  type metadata accessor for AnyViewStorage<EmptyView>();
-
-  return swift_allocObject();
-}
-
-void type metadata accessor for AnyViewStorage<EmptyView>()
-{
-  if (!lazy cache variable for type metadata for AnyViewStorage<EmptyView>)
-  {
-    v0 = type metadata accessor for AnyViewStorage();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for AnyViewStorage<EmptyView>);
-    }
-  }
-}
-
-void *assignWithCopy for DynamicViewContainer.Value(void *a1, void *a2)
-{
-  *a1 = *a2;
+  v5 = *(v4 + 32);
+  v6 = (type metadata accessor for Binding(0, v5, a3, a4) - 8);
+  v7 = (*(*v6 + 80) + 48) & ~*(*v6 + 80);
+  v8 = v7 + *(*v6 + 64);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v5 = *(AssociatedTypeWitness - 8);
-  v6 = *(v5 + 80);
-  v7 = ((a1 + v6 + 8) & ~v6);
-  v8 = ((a2 + v6 + 8) & ~v6);
-  v9 = *(v5 + 48);
-  v10 = v9(v7, 1, AssociatedTypeWitness);
-  v11 = v9(v8, 1, AssociatedTypeWitness);
-  if (v10)
-  {
-    if (!v11)
-    {
-      (*(v5 + 16))(v7, v8, AssociatedTypeWitness);
-      (*(v5 + 56))(v7, 0, 1, AssociatedTypeWitness);
-      goto LABEL_12;
-    }
+  v10 = *(AssociatedTypeWitness - 8);
+  v11 = (v8 + *(v10 + 80)) & ~*(v10 + 80);
+  swift_unknownObjectRelease();
 
-    v12 = *(v5 + 84);
-    v13 = *(v5 + 64);
-  }
+  (*(*(v5 - 8) + 8))(v4 + v7 + v6[10], v5);
+  (*(v10 + 8))(v4 + v11, AssociatedTypeWitness);
 
-  else
-  {
-    if (!v11)
-    {
-      (*(v5 + 24))(v7, v8, AssociatedTypeWitness);
-      goto LABEL_12;
-    }
-
-    (*(v5 + 8))(v7, AssociatedTypeWitness);
-    v12 = *(v5 + 84);
-    v13 = *(v5 + 64);
-  }
-
-  if (v12)
-  {
-    v14 = v13;
-  }
-
-  else
-  {
-    v14 = v13 + 1;
-  }
-
-  memcpy(v7, v8, v14);
-LABEL_12:
-  if (*(v5 + 84))
-  {
-    v15 = *(v5 + 64);
-  }
-
-  else
-  {
-    v15 = *(v5 + 64) + 1;
-  }
-
-  v16 = ((v7 + v15 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v17 = *((v8 + v15 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v18 = *v16;
-  *v16 = v17;
-  v19 = v17;
-
-  return a1;
+  return swift_deallocObject();
 }
 
-void destroy for DynamicViewContainer.Value(uint64_t a1)
+void _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA0G6ValuesVAAE029ResolvableStringReferenceDateF033_6237733B8EBAC19656F21E79CFCF2D67LLVG_Tt2g5(Swift::UInt *a1, uint64_t a2)
 {
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v3 = *(AssociatedTypeWitness - 8);
-  v4 = (a1 + *(v3 + 80) + 8) & ~*(v3 + 80);
-  if (!(*(v3 + 48))(v4, 1, AssociatedTypeWitness))
+  type metadata accessor for GlassEffectBackdropObserver?(0, &lazy cache variable for type metadata for Date?, MEMORY[0x1E6969530], MEMORY[0x1E69E6720]);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = &v18 - v5;
+  v7 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA0T6ValuesVAAE029ResolvableStringReferenceDateS033_6237733B8EBAC19656F21E79CFCF2D67LLVG_Tt0g5(*a1);
+  if (!v7 || (v8 = MEMORY[0x1E6969530], v9 = MEMORY[0x1E69E6720], outlined init with copy of WeakBox<GlassContainerCache>(v7 + *(*v7 + 248), v6, &lazy cache variable for type metadata for Date?, MEMORY[0x1E6969530], MEMORY[0x1E69E6720]), v10 = _s7SwiftUI22EnvironmentPropertyKeyV11valuesEqualySb5ValueQz_AFtFZAA0C6ValuesVAAE029ResolvableStringReferenceDateE033_6237733B8EBAC19656F21E79CFCF2D67LLV_Tt1g5(a2, v6), outlined destroy of WeakBox<GlassContainerCache>(v6, &lazy cache variable for type metadata for Date?, v8, v9), (v10 & 1) == 0))
   {
-    (*(v3 + 8))(v4, AssociatedTypeWitness);
-  }
-
-  v5 = v4 + *(v3 + 64);
-  if (!*(v3 + 84))
-  {
-    ++v5;
-  }
-
-  v6 = *((v5 + 7) & 0xFFFFFFFFFFFFFFF8);
-}
-
-uint64_t specialized GraphicsContext.clipToLayer(opacity:options:content:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  GraphicsContext.copyOnWrite()();
-  v7 = *a2;
-  v8 = RBDrawingStateBeginLayer();
-  type metadata accessor for GraphicsContext.Storage();
-  v9 = swift_allocObject();
-  *(v9 + 32) = xmmword_18DD85500;
-  *(v9 + 48) = 1065353216;
-  *(v9 + 56) = 0x7FF8000000000000;
-  v10 = v7[2];
-  v11 = *(v10 + 64);
-  if (v11 == RBDrawingStateGetDefaultColorSpace())
-  {
-    *(v9 + 16) = v10;
-  }
-
-  else
-  {
-    v12 = RBDrawingStateGetDisplayList();
-    v13 = v7[4];
-    v14 = v13;
-    v15 = v7[5];
-    if (v13 == 1)
-    {
-      v14 = *(v10 + 48);
-      v15 = *(v10 + 56);
-    }
-
-    v19 = v14;
-    v20 = v15;
-    type metadata accessor for GraphicsContext.Storage.Shared();
-    swift_allocObject();
-    outlined copy of EnvironmentValues?(v13);
-    *(v9 + 16) = GraphicsContext.Storage.Shared.init(list:environment:)(v12, &v19);
-  }
-
-  *(v9 + 24) = v8;
-  *(v9 + 64) = 0;
-  v18 = v9;
-  v19 = a4;
-  LOWORD(v20) = a5;
-  HIDWORD(v20) = HIDWORD(a5);
-
-  DisplayList.GraphicsRenderer.render(list:in:)(&v19, &v18);
-
-  RBDrawingStateClipLayer();
-}
-
-{
-  GraphicsContext.copyOnWrite()();
-  v8 = *a2;
-  v9 = RBDrawingStateBeginLayer();
-  type metadata accessor for GraphicsContext.Storage();
-  v10 = swift_allocObject();
-  *(v10 + 32) = xmmword_18DD85500;
-  *(v10 + 48) = 1065353216;
-  *(v10 + 56) = 0x7FF8000000000000;
-  v11 = v8[2];
-  v12 = *(v11 + 64);
-  v36 = a4;
-  v37 = a5;
-  v34 = v9;
-  if (v12 == RBDrawingStateGetDefaultColorSpace())
-  {
-    *(v10 + 16) = v11;
-
-    v13 = v10;
-  }
-
-  else
-  {
-    v14 = RBDrawingStateGetDisplayList();
-    v15 = v8[4];
+    v11 = MEMORY[0x1E6969530];
+    v12 = MEMORY[0x1E69E6720];
+    outlined init with copy of WeakBox<GlassContainerCache>(a2, v6, &lazy cache variable for type metadata for Date?, MEMORY[0x1E6969530], MEMORY[0x1E69E6720]);
+    v13 = *a1;
+    type metadata accessor for TypedElement<EnvironmentPropertyKey<EnvironmentValues.ResolvableStringReferenceDateKey>>(0);
+    v14 = swift_allocObject();
+    outlined init with copy of WeakBox<GlassContainerCache>(v6, v14 + *(*v14 + 248), &lazy cache variable for type metadata for Date?, v11, v12);
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.ResolvableStringReferenceDateKey>, &type metadata for EnvironmentValues.ResolvableStringReferenceDateKey, &protocol witness table for EnvironmentValues.ResolvableStringReferenceDateKey, type metadata accessor for EnvironmentPropertyKey);
     v16 = v15;
-    v17 = v8[5];
-    if (v15 == 1)
-    {
-      v16 = *(v11 + 48);
-      v17 = *(v11 + 56);
-    }
 
-    v44[0] = v16;
-    v44[1] = v17;
-    type metadata accessor for GraphicsContext.Storage.Shared();
-    swift_allocObject();
-    outlined copy of EnvironmentValues?(v15);
-    v18 = GraphicsContext.Storage.Shared.init(list:environment:)(v14, v44);
-    v13 = v10;
-    *(v10 + 16) = v18;
-    a4 = v36;
+    value = PropertyList.Element.init(keyType:before:after:)(v16, 0, v13).value;
+    outlined destroy of WeakBox<GlassContainerCache>(v6, &lazy cache variable for type metadata for Date?, v11, v12);
+    *a1 = value;
   }
+}
 
-  *(v13 + 24) = v34;
-  *(v13 + 64) = 0;
-  v46 = v13;
-  v19 = *(a3 + 16);
-  if (v19)
+void *_s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA0T6ValuesVAAE029ResolvableStringReferenceDateS033_6237733B8EBAC19656F21E79CFCF2D67LLVG_Tt0g5(void *a1)
+{
+  type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.ResolvableStringReferenceDateKey>, &type metadata for EnvironmentValues.ResolvableStringReferenceDateKey, &protocol witness table for EnvironmentValues.ResolvableStringReferenceDateKey, type metadata accessor for EnvironmentPropertyKey);
+
+  return _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011EnvironmentrV0VyAA0W6ValuesVAAE029ResolvableStringReferenceDateV033_6237733B8EBAC19656F21E79CFCF2D67LLVG_Tt0B5(a1, (1 << (v2 >> 4)) | (1 << (v2 >> 10)) | (1 << SBYTE2(v2)));
+}
+
+void *_s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011EnvironmentrV0VyAA0W6ValuesVAAE029ResolvableStringReferenceDateV033_6237733B8EBAC19656F21E79CFCF2D67LLVG_Tt0B5(void *result, uint64_t a2)
+{
+  if (result)
   {
-
-    v20 = (a3 + 80);
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v35 = _Q0;
-    v39 = v13;
-    do
+    while (1)
     {
-      if (((*(v20 - 1) ^ a5) & a4) == 0)
+      while ((a2 & ~result[7]) != 0)
       {
-        v26 = *(v20 - 6);
-        v27 = *(v20 - 5);
-        v28 = *(v20 - 4);
-        v29 = *(v20 - 3);
-        v30 = *(v20 - 16);
-        if (*v20)
+        result = result[5];
+        if (!result)
         {
-          v31 = 23;
+          return result;
         }
-
-        else
-        {
-          v31 = 0;
-        }
-
-        v32 = *(v39 + 52);
-        outlined copy of Path.Storage(*(v20 - 6), *(v20 - 5), *(v20 - 4), *(v20 - 3), *(v20 - 16));
-        if (v32 != v31)
-        {
-          GraphicsContext.copyOnWrite()();
-          v39 = v46;
-          *(v46 + 52) = v31;
-        }
-
-        v47[0] = v26;
-        v47[1] = v27;
-        v47[2] = v28;
-        v47[3] = v29;
-        v48 = v30;
-        *v44 = v35;
-        v45 = 2;
-        v40 = 256;
-        v41 = 0u;
-        v42 = 0u;
-        v43 = 0;
-        outlined copy of Path.Storage(v26, v27, v28, v29, v30);
-        GraphicsContext.draw(_:with:style:)(v47, v44, &v40, v39);
-        outlined consume of Path.Storage(v26, v27, v28, v29, v30);
-        outlined consume of Path.Storage(v26, v27, v28, v29, v30);
-        a4 = v36;
-        a5 = v37;
       }
 
-      v20 += 56;
-      --v19;
+      if (result[3])
+      {
+        v2 = result;
+        v3 = a2;
+        v4 = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011EnvironmentrV0VyAA0W6ValuesVAAE029ResolvableStringReferenceDateV033_6237733B8EBAC19656F21E79CFCF2D67LLVG_Tt0B5(result[3], a2);
+        a2 = v3;
+        v5 = v4;
+        result = v2;
+        if (v5)
+        {
+          break;
+        }
+      }
+
+      v6 = a2;
+      v7 = result;
+      v8 = result[2];
+      _s7SwiftUI22EnvironmentPropertyKeyVyAA0C6ValuesVAAE02__E28_glassEffectBackdropObserver33_FD0C880ACFE431F75FFFB08913C85A9CLLVGMaTm_0(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.ResolvableStringReferenceDateKey>, &type metadata for EnvironmentValues.ResolvableStringReferenceDateKey, &protocol witness table for EnvironmentValues.ResolvableStringReferenceDateKey, type metadata accessor for EnvironmentPropertyKey);
+      if (v8 == v9)
+      {
+        return v7;
+      }
+
+      result = v7[4];
+      a2 = v6;
+      if (!result)
+      {
+        return result;
+      }
     }
 
-    while (v19);
+    return v5;
   }
 
-  RBDrawingStateClipLayer();
+  return result;
 }
 
-uint64_t initializeWithCopy for PathDrawingStyle(uint64_t a1, uint64_t a2)
+void type metadata accessor for TypedElement<EnvironmentPropertyKey<EnvironmentValues.ResolvableStringReferenceDateKey>>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for TypedElement<EnvironmentPropertyKey<EnvironmentValues.ResolvableStringReferenceDateKey>>)
+  {
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(255, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.ResolvableStringReferenceDateKey>, &type metadata for EnvironmentValues.ResolvableStringReferenceDateKey, &protocol witness table for EnvironmentValues.ResolvableStringReferenceDateKey, type metadata accessor for EnvironmentPropertyKey);
+    v3 = v2;
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.ResolvableStringReferenceDateKey> and conformance EnvironmentPropertyKey<A>();
+    v6 = type metadata accessor for TypedElement(a1, v3, v4, v5);
+    if (!v7)
+    {
+      atomic_store(v6, &lazy cache variable for type metadata for TypedElement<EnvironmentPropertyKey<EnvironmentValues.ResolvableStringReferenceDateKey>>);
+    }
+  }
+}
+
+void lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.ResolvableStringReferenceDateKey> and conformance EnvironmentPropertyKey<A>()
+{
+  if (!lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.ResolvableStringReferenceDateKey> and conformance EnvironmentPropertyKey<A>)
+  {
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(255, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.ResolvableStringReferenceDateKey>, &type metadata for EnvironmentValues.ResolvableStringReferenceDateKey, &protocol witness table for EnvironmentValues.ResolvableStringReferenceDateKey, type metadata accessor for EnvironmentPropertyKey);
+    swift_getWitnessTable(protocol conformance descriptor for EnvironmentPropertyKey<A>, v2, v0, v1);
+    atomic_store(v3, &lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.ResolvableStringReferenceDateKey> and conformance EnvironmentPropertyKey<A>);
+  }
+}
+
+double GraphHost.Data.hostPreferenceKeys.modify(uint64_t *a1, char a2)
+{
+  a1[1] = *a1;
+  AGGraphSetValue();
+
+  return result;
+}
+
+double Text._localizationInfo.getter@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X8>)
+{
+  if (a3)
+  {
+    v5 = *(*a1 + 120);
+
+    v5(v7);
+
+    outlined consume of Text.Storage(a1, a2, 1);
+  }
+
+  else
+  {
+    *a4 = a1;
+    *(a4 + 8) = a2;
+    *(a4 + 24) = 0;
+    *(a4 + 32) = 0;
+    *(a4 + 16) = 0;
+    *(a4 + 40) = 0;
+  }
+
+  return result;
+}
+
+uint64_t initializeWithCopy for _LocalizationInfo(uint64_t a1, uint64_t *a2)
 {
   v3 = *a2;
-  v4 = *(a2 + 8);
-  v5 = *(a2 + 16);
-  v6 = *(a2 + 24);
-  v7 = *(a2 + 32);
+  v4 = a2[1];
+  v5 = a2[2];
+  v6 = a2[3];
+  v7 = a2[4];
   v8 = *(a2 + 40);
-  outlined copy of PathDrawingStyle(*a2, v4, v5, v6, v7, v8);
+  outlined copy of _LocalizationInfo(*a2, v4, v5, v6, v7, v8);
   *a1 = v3;
   *(a1 + 8) = v4;
   *(a1 + 16) = v5;
@@ -8142,1679 +7013,2806 @@ uint64_t initializeWithCopy for PathDrawingStyle(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t outlined consume of PathDrawingStyle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
+double LocalizedTextStorage.localizationInfo.getter@<D0>(uint64_t a1@<X8>)
 {
-  if (a6)
-  {
-  }
+  v2 = *(v1 + 24);
+  v3 = *(v1 + 48);
+  v4 = *(v1 + 56);
+  v5 = *(v1 + 64);
+  v6 = *(v1 + 32) | 0x40;
+  *a1 = *(v1 + 16);
+  *(a1 + 8) = v2;
+  *(a1 + 16) = v3;
+  *(a1 + 24) = v4;
+  *(a1 + 32) = v5;
+  *(a1 + 40) = v6;
+  v7 = v5;
 
   return result;
 }
 
-void type metadata accessor for StaticBody<ViewBodyAccessor<Path>, MainThreadFlags>()
+uint64_t getEnumTag for _LocalizationInfo(uint64_t a1)
 {
-  if (!lazy cache variable for type metadata for StaticBody<ViewBodyAccessor<Path>, MainThreadFlags>)
+  v1 = *(a1 + 40);
+  v2 = v1;
+  v3 = v1 >> 6;
+  if (v2 >= 0)
   {
-    type metadata accessor for InterfaceIdiomBox<PhoneInterfaceIdiom>(255, &lazy cache variable for type metadata for ViewBodyAccessor<Path>, &type metadata for Path, &protocol witness table for Path, type metadata accessor for ViewBodyAccessor);
-    lazy protocol witness table accessor for type ViewBodyAccessor<Path> and conformance ViewBodyAccessor<A>();
-    v0 = type metadata accessor for StaticBody();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for StaticBody<ViewBodyAccessor<Path>, MainThreadFlags>);
-    }
+    return v3;
+  }
+
+  else
+  {
+    return (*a1 + 2);
   }
 }
 
-void type metadata accessor for FontBox<Font.DefaultProvider>()
+double outlined copy of _LocalizationInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, unsigned __int8 a6)
 {
-  if (!lazy cache variable for type metadata for FontBox<Font.DefaultProvider>)
+  if (a6 >> 6)
   {
-    lazy protocol witness table accessor for type Font.DefaultProvider and conformance Font.DefaultProvider();
-    v0 = type metadata accessor for FontBox();
-    if (!v1)
+    if (a6 >> 6 != 1)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for FontBox<Font.DefaultProvider>);
-    }
-  }
-}
-
-BOOL LinearGradient._Paint.isOpaque.getter()
-{
-  v1 = *(*v0 + 16);
-  if (!v1)
-  {
-    return 0;
-  }
-
-  v2 = (*v0 + 44);
-  LOBYTE(result) = 1;
-  v4 = 1 - v1;
-  do
-  {
-    if (result)
-    {
-      result = *v2 == 1.0;
-      if (!v4)
-      {
-        return result;
-      }
-    }
-
-    else
-    {
-      result = 0;
-      if (!v4)
-      {
-        return result;
-      }
-    }
-
-    ++v4;
-    v2 += 12;
-  }
-
-  while (v4 != 1);
-  __break(1u);
-  return result;
-}
-
-uint64_t initializeWithCopy for PathSet.Element(uint64_t a1, uint64_t a2)
-{
-  v4 = *a2;
-  v5 = *(a2 + 8);
-  v6 = *(a2 + 16);
-  v7 = *(a2 + 24);
-  v8 = *(a2 + 32);
-  outlined copy of Path.Storage(*a2, v5, v6, v7, v8);
-  *a1 = v4;
-  *(a1 + 8) = v5;
-  *(a1 + 16) = v6;
-  *(a1 + 24) = v7;
-  *(a1 + 32) = v8;
-  *(a1 + 40) = *(a2 + 40);
-  *(a1 + 48) = *(a2 + 48);
-  *(a1 + 52) = *(a2 + 52);
-  return a1;
-}
-
-void type metadata accessor for _ContiguousArrayStorage<(RBImageRendererProperty, Any)>()
-{
-  if (!lazy cache variable for type metadata for _ContiguousArrayStorage<(RBImageRendererProperty, Any)>)
-  {
-    type metadata accessor for (RBImageRendererProperty, Any)();
-    v0 = type metadata accessor for _ContiguousArrayStorage();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for _ContiguousArrayStorage<(RBImageRendererProperty, Any)>);
-    }
-  }
-}
-
-void type metadata accessor for (RBImageRendererProperty, Any)()
-{
-  if (!lazy cache variable for type metadata for (RBImageRendererProperty, Any))
-  {
-    type metadata accessor for RBImageRendererProperty(255);
-    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
-    {
-      atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (RBImageRendererProperty, Any));
-    }
-  }
-}
-
-void *outlined copy of GraphicsContext.Filter.Storage(void *result, id a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
-{
-  v11 = a11 >> 27;
-  if (a11 >> 27 <= 0x11)
-  {
-    if (a11 >> 27 > 5)
-    {
-      if (v11 != 6 && v11 != 8)
-      {
-        return result;
-      }
-    }
-
-    else if (v11 != 3)
-    {
-      if (v11 == 5)
-      {
-
-        return outlined copy of Path.Storage(a5, a6, a7, a8, a9);
-      }
-
       return result;
     }
 
-    goto LABEL_14;
+    v7 = a5;
   }
 
-  if (a11 >> 27 > 0x13)
+  return result;
+}
+
+void outlined consume of _LocalizationInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, unsigned __int8 a6)
+{
+  if (a6 >> 6 == 1)
   {
-    if (v11 == 20)
-    {
-      v13 = a2 & 1;
+  }
 
-      return outlined copy of EitherGradient(result, v13);
-    }
+  else if (!(a6 >> 6))
+  {
+  }
+}
 
-    else if (v11 == 24)
+void type metadata accessor for [BackgroundContext](uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t (*a4)(void, uint64_t))
+{
+  if (!*a2)
+  {
+    v5 = a4(0, a3);
+    if (!v6)
     {
-      v12 = result;
+      atomic_store(v5, a2);
     }
+  }
+}
+
+uint64_t specialized _GraphInputs.pushScope<A>(id:)(uint64_t a1)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v3 = *v1;
+  v4 = 0;
+  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA08_DisplayD20_StableIdentityScopeV_Tt2g5(*v1);
+  if (AGWeakAttributeGetAttribute() == *MEMORY[0x1E698D3F8])
+  {
+    __break(1u);
   }
 
   else
   {
-    if (v11 != 18)
+    Value = AGGraphGetValue();
+    v6 = *(Value + 28);
+    v7 = Value[1];
+    v14 = *Value;
+    v15[0] = v7;
+    *(v15 + 12) = v6;
+    outlined init with copy of _DisplayList_StableIdentityScope(&v14, &v12);
+    outlined init with copy of _DisplayList_StableIdentityScope(&v14, &v12);
+    _s7SwiftUI32_DisplayList_StableIdentityScopeV2id6parentACx_ACtcAA16StronglyHashableRzlufCSi_Tt2B5(a1, &v14, &v12);
+    v15[2] = v12;
+    v16[0] = v13[0];
+    *(v16 + 12) = *(v13 + 12);
+    Attribute.init<A>(body:value:flags:update:)();
+    outlined destroy of _DisplayList_StableIdentityScope(&v12);
+    a1 = AGCreateWeakAttribute();
+
+    _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA08_DisplayD20_StableIdentityScopeV_Tt2g5(v1, a1);
+
+    v4 = v14;
+    swift_beginAccess();
+    v3 = *(v4 + 16);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    *(v4 + 16) = v3;
+    if (isUniquelyReferenced_nonNull_native)
     {
-      if (v11 != 19)
-      {
-        return result;
-      }
-
-LABEL_14:
+      goto LABEL_3;
     }
-
-    return outlined copy of GraphicsContext.Shading.Storage(a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
   }
 
-  return result;
+  v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v3 + 16) + 1, 1, v3);
+  *(v4 + 16) = v3;
+LABEL_3:
+  v10 = *(v3 + 16);
+  v9 = *(v3 + 24);
+  if (v10 >= v9 >> 1)
+  {
+    v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v9 > 1), v10 + 1, 1, v3);
+  }
+
+  *(v3 + 16) = v10 + 1;
+  *(v3 + 8 * v10 + 32) = a1;
+  *(v4 + 16) = v3;
+  return outlined destroy of _DisplayList_StableIdentityScope(&v14);
 }
 
-uint64_t Shader.ResolvedShader.rbFilterFlags.getter()
+unint64_t _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA08_DisplayD20_StableIdentityScopeV_Tt2g5(uint64_t a1)
 {
-  v1 = *(v0 + 24);
-  if ((v1 & 2) != 0)
+  BloomFilter.init(hashValue:)(&type metadata for _DisplayList_StableIdentityScope);
+  v2 = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA08_DisplayS20_StableIdentityScopeV_Tt0B5(a1, v6);
+  if (v2)
   {
-    if ((v1 & 1) == 0)
-    {
-      result = 1;
-      if ((v1 & 8) == 0)
-      {
-        goto LABEL_9;
-      }
-
-      goto LABEL_8;
-    }
-
-    result = 17;
-    if ((v1 & 8) != 0)
-    {
-LABEL_8:
-      result = result | 0x40;
-    }
-  }
-
-  else if ((v1 & 4) != 0)
-  {
-    if (v1)
-    {
-      result = 18;
-      if ((v1 & 8) == 0)
-      {
-        goto LABEL_9;
-      }
-
-      goto LABEL_8;
-    }
-
-    result = 2;
-    if ((v1 & 8) != 0)
-    {
-      goto LABEL_8;
-    }
+    v3 = (v2 + 72);
+    v4 = (v2 + 76);
   }
 
   else
   {
-    if ((v1 & 1) == 0)
+    v3 = &static _DisplayList_StableIdentityScope.defaultValue;
+    v4 = &static _DisplayList_StableIdentityScope.defaultValue + 1;
+    if (one-time initialization token for defaultValue != -1)
     {
-      result = 0;
-      if ((v1 & 8) == 0)
-      {
-        goto LABEL_9;
-      }
-
-      goto LABEL_8;
-    }
-
-    result = 16;
-    if ((v1 & 8) != 0)
-    {
-      goto LABEL_8;
+      swift_once();
     }
   }
 
-LABEL_9:
-  if ((v1 & 0x10) != 0)
-  {
-    return result | 0x80;
-  }
-
-  return result;
+  return *v3 | (*v4 << 32);
 }
 
-BOOL KeyframeTrackState.isInitial.getter(uint64_t a1)
+uint64_t _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA08_DisplayS20_StableIdentityScopeV_Tt0B5(uint64_t result, uint64_t a2)
 {
-  v2 = *(a1 - 8);
-  v3 = MEMORY[0x1EEE9AC00](a1);
-  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v2 + 16))(v5, v3);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload != 2)
+  if (result)
   {
-    (*(v2 + 8))(v5, a1);
-  }
-
-  return EnumCaseMultiPayload == 2;
-}
-
-uint64_t KeyframeTrackState.updateAnimation(time:)(double *a1, uint64_t a2)
-{
-  v3 = v2;
-  v6 = type metadata accessor for KeyframeTrackState.RepeatingState();
-  v45 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = &v42 - v7;
-  v9 = type metadata accessor for KeyframeTimeline();
-  v44 = *(v9 - 8);
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v42 - v10;
-  v12 = *(a2 - 8);
-  v14 = MEMORY[0x1EEE9AC00](v13);
-  v16 = (&v42 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v17 = *a1;
-  v18 = *(v12 + 16);
-  v43 = v3;
-  v18(v16, v3, a2, v14);
-  result = swift_getEnumCaseMultiPayload();
-  if (!result)
-  {
-    v24 = v44;
-    v25 = *v16;
-    if ((v16[1] & 0x8000000000000000) == 0)
+    while (1)
     {
-      goto LABEL_19;
-    }
-
-    v29 = *(v12 + 8);
-
-    v30 = v43;
-    v29(v43, a2);
-    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    v32 = swift_projectBox();
-    v33 = v32 + *(TupleTypeMetadata2 + 48);
-    v34 = *v33;
-    v35 = *(v33 + 8);
-    (*(v24 + 16))(v11, v32, v9);
-    if ((v35 & 1) == 0)
-    {
-      if (v17 <= v34)
+      while ((a2 & ~*(result + 56)) != 0)
       {
-        v38 = 0;
-        goto LABEL_17;
-      }
-
-      v34 = v17;
-    }
-
-    if (KeyframeTimeline.duration.getter() < v17 - v34)
-    {
-      v36 = swift_allocBox();
-      KeyframeTimeline.value(progress:)(v9, v37, 1.0);
-      (*(v24 + 8))(v11, v9);
-
-LABEL_18:
-      *v30 = v25;
-      v30[1] = v36;
-      swift_storeEnumTagMultiPayload();
-
-LABEL_19:
-    }
-
-    v38 = 1;
-LABEL_17:
-    v39 = swift_allocBox();
-    v41 = v40 + *(TupleTypeMetadata2 + 48);
-    (*(v24 + 32))(v40, v11, v9);
-    *v41 = v34;
-    *(v41 + 8) = v38;
-
-    v36 = v39 | 0x8000000000000000;
-    goto LABEL_18;
-  }
-
-  if (result == 1)
-  {
-    v20 = v45;
-    v21 = *(v45 + 32);
-    v21(v8, v16, v6);
-    v22 = &v8[*(v6 + 44)];
-    v23 = *(v22 + 1);
-    if (v23 < 0)
-    {
-      v45 = *(v22 + 2);
-      v26 = *v22;
-      v27 = v43;
-      (*(v12 + 8))(v43, a2);
-      v28 = v17;
-      if (((v17 > v26) & ~v23) == 0)
-      {
-        v28 = v26;
-      }
-
-      *v22 = v28;
-      *(v22 + 1) = v23 & 1u | (v17 > v26) | 0x8000000000000000;
-      *(v22 + 2) = v45;
-      v21(v27, v8, v6);
-      return swift_storeEnumTagMultiPayload();
-    }
-
-    else
-    {
-      return (*(v20 + 8))(v8, v6);
-    }
-  }
-
-  return result;
-}
-
-uint64_t AnimationPath.update(value:time:)(double a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness - 8);
-  v11 = v13 - v10;
-  v13[1] = a3;
-  type metadata accessor for AnimationPath.Element();
-  type metadata accessor for Array();
-  swift_getWitnessTable();
-  result = Collection.isEmpty.getter();
-  if ((result & 1) == 0)
-  {
-    AnimationPath.animatableData(at:)(a3, a4, a5, v11, a1);
-    return (*(a5 + 32))(v11, a4, a5);
-  }
-
-  return result;
-}
-
-uint64_t AnimationPath.animatableData(at:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>, double a5@<D0>)
-{
-  v45 = a4;
-  v9 = type metadata accessor for AnimationPath.Element();
-  v10 = type metadata accessor for Optional();
-  v38 = *(v10 - 8);
-  v39 = v10;
-  MEMORY[0x1EEE9AC00](v10);
-  v42 = &v35 - v11;
-  v40 = a3;
-  v41 = a2;
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v12 = type metadata accessor for Optional();
-  v36 = *(v12 - 8);
-  v37 = v12;
-  MEMORY[0x1EEE9AC00](v12);
-  v43 = &v35 - v13;
-  v14 = *(v9 - 8);
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v35 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v35 = v16;
-  v19 = MEMORY[0x1EEE9AC00](v18);
-  v21 = &v35 - v20;
-  if (MEMORY[0x193ABF2C0](a1, v9, v19))
-  {
-    v22 = 0;
-    v23 = (v14 + 8);
-    do
-    {
-      IsNativeType = Array._hoistableIsNativeTypeChecked()();
-      Array._checkSubscript(_:wasNativeTypeChecked:)();
-      if (IsNativeType)
-      {
-        (*(v14 + 16))(v21, a1 + ((*(v14 + 80) + 32) & ~*(v14 + 80)) + *(v14 + 72) * v22, v9);
-        v25 = v22 + 1;
-        if (__OFADD__(v22, 1))
+        result = *(result + 40);
+        if (!result)
         {
-          goto LABEL_11;
-        }
-      }
-
-      else
-      {
-        result = _ArrayBuffer._getElementSlowPath(_:)();
-        if (v35 != 8)
-        {
-          __break(1u);
           return result;
         }
+      }
 
-        v46 = result;
-        (*(v14 + 16))(v21, &v46, v9);
-        swift_unknownObjectRelease();
-        v25 = v22 + 1;
-        if (__OFADD__(v22, 1))
+      if (*(result + 24))
+      {
+        v2 = result;
+        v3 = a2;
+        v4 = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA08_DisplayS20_StableIdentityScopeV_Tt0B5(*(result + 24), a2);
+        a2 = v3;
+        v5 = v4;
+        result = v2;
+        if (v5)
         {
-LABEL_11:
-          __break(1u);
           break;
         }
       }
 
-      (*(v14 + 32))(v17, v21, v9);
-      if (a5 <= AnimationPath.Element.duration.getter(v9))
+      if (*(result + 16) != &type metadata for _DisplayList_StableIdentityScope)
       {
-        AnimationPath.Element.animatableData(at:)(v9, v45, a5);
-        return (*v23)(v17, v9);
+        result = *(result + 32);
+        if (result)
+        {
+          continue;
+        }
       }
 
-      v26 = AnimationPath.Element.duration.getter(v9);
-      (*v23)(v17, v9);
-      a5 = a5 - v26;
-      ++v22;
-    }
-
-    while (v25 != MEMORY[0x193ABF2C0](a1, v9));
-  }
-
-  v46 = a1;
-  type metadata accessor for Array();
-  swift_getWitnessTable();
-  v28 = v42;
-  BidirectionalCollection.last.getter();
-  v29 = (*(v14 + 48))(v28, 1, v9);
-  v30 = AssociatedTypeWitness;
-  if (v29 == 1)
-  {
-    (*(v38 + 8))(v28, v39);
-    v31 = *(v30 - 8);
-    v32 = v43;
-    (*(v31 + 56))(v43, 1, 1, v30);
-    swift_getAssociatedConformanceWitness();
-    dispatch thunk of static AdditiveArithmetic.zero.getter();
-    result = (*(v31 + 48))(v32, 1, v30);
-    if (result != 1)
-    {
-      return (*(v36 + 8))(v32, v37);
-    }
-  }
-
-  else
-  {
-    v33 = v43;
-    AnimationPath.Element.end.getter(v9, v43);
-    (*(v14 + 8))(v28, v9);
-    v34 = *(v30 - 8);
-    (*(v34 + 56))(v33, 0, 1, v30);
-    return (*(v34 + 32))(v45, v33, v30);
-  }
-
-  return result;
-}
-
-double _s7SwiftUI14AnimationStateVy5ValueQyd__qd__mcAA0cD3KeyRd__luigAA14AnimatablePairVyAHy12CoreGraphics7CGFloatVAKGALG_AA06SpringD033_73E5E3E568519775ECB92F029EBA0DDALLVyAMGTt0B5@<D0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
-{
-  if (*(a1 + 16) && (type metadata accessor for SpringState<AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>>(), v5 = specialized __RawDictionaryStorage.find<A>(_:)(v4), (v6 & 1) != 0))
-  {
-    outlined init with copy of Any(*(a1 + 56) + 32 * v5, v8);
-    outlined init with take of Any(v8, v9);
-    outlined init with take of Any(v9, v8);
-    swift_dynamicCast();
-  }
-
-  else
-  {
-    result = 0.0;
-    a2[6] = 0u;
-    a2[7] = 0u;
-    a2[4] = 0u;
-    a2[5] = 0u;
-    a2[2] = 0u;
-    a2[3] = 0u;
-    *a2 = 0u;
-    a2[1] = 0u;
-  }
-
-  return result;
-}
-
-uint64_t DelayAnimation.animate<A, B>(base:value:time:context:)(__n128 a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  a1.n128_f64[0] = a1.n128_f64[0] - a2;
-  if (a1.n128_f64[0] <= 0.0)
-  {
-    a1.n128_f64[0] = 0.0;
-  }
-
-  return (*(a9 + 16))(a4, a5, a6, a8, a7, a9, a1);
-}
-
-unint64_t _s7SwiftUI10_ShapeViewV05_makeD04view6inputsAA01_D7OutputsVAA11_GraphValueVyACyxq_GG_AA01_D6InputsVtFZAA4PathV_AA15ForegroundStyleVTt2B5@<X0>(unsigned int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  v6 = *(a2 + 48);
-  if (_s7SwiftUI17PreferencesInputsV8contains_011includeHostC0Sbxm_SbtAA13PreferenceKeyRzlFAA11DisplayListV0I0V_TtB5Tf4dn_n(v6) & 1) != 0 || (result = _s7SwiftUI17PreferencesInputsV8contains_011includeHostC0Sbxm_SbtAA13PreferenceKeyRzlFAA014ViewRespondersI0V_TtB5Tf4dn_n(v6), (result))
-  {
-    v8 = *(a2 + 48);
-    v9 = *(a2 + 64);
-    v10 = *(a2 + 16);
-    v20[2] = *(a2 + 32);
-    v20[3] = v8;
-    v11 = *(a2 + 36);
-    v20[4] = v9;
-    v21 = *(a2 + 80);
-    v20[0] = *a2;
-    v20[1] = v10;
-    LOBYTE(v16) = 0;
-    swift_beginAccess();
-    v12 = CachedEnvironment.resolvedShapeStyles(for:role:mode:)(v20, &v16, 0x100000000);
-    swift_endAccess();
-    _s7SwiftUI19ShapeStyledLeafViewPAAE04makeeF04view6inputs6styles17interpolatorGroup4dataAA01_F7OutputsVAA11_GraphValueVyxG_AA01_F6InputsV09AttributeO00R0VyAA01_C10Style_PackVGAA01_cs13_InterpolatorL0CSg0C10UpdateDataQztFZAA01_cF0VyAA4PathVAA010ForegroundS0VG_Tt5B5(a1, a2, v12, 0, &v17);
-    if (one-time initialization token for v4 != -1)
-    {
-      swift_once();
-    }
-
-    v13 = static Semantics.v4;
-    if (one-time initialization token for forced != -1)
-    {
-      swift_once();
-    }
-
-    swift_beginAccess();
-    if (byte_1ED53C51C)
-    {
-      if (!dyld_program_sdk_at_least())
-      {
-        goto LABEL_13;
-      }
-    }
-
-    else if (static Semantics.forced < v13)
-    {
-      goto LABEL_13;
-    }
-
-    if ((v11 & 2) != 0)
-    {
-      v16 = a1;
-      protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
-      type metadata accessor for LeafLayoutComputer<_ShapeView<Path, ForegroundStyle>>(0);
-      lazy protocol witness table accessor for type StaticBody<ViewBodyAccessor<GlassItemView>, AsyncThreadFlags> and conformance StaticBody<A, B>(&lazy protocol witness table cache variable for type LeafLayoutComputer<_ShapeView<Path, ForegroundStyle>> and conformance LeafLayoutComputer<A>, type metadata accessor for LeafLayoutComputer<_ShapeView<Path, ForegroundStyle>>);
-      result = Attribute.init<A>(body:value:flags:update:)();
-      v14 = v18 | 0x80;
-LABEL_14:
-      *a3 = v17;
-      *(a3 + 8) = v14;
-      *(a3 + 12) = result;
       return result;
     }
 
-LABEL_13:
-    v14 = v18;
-    result = v19;
-    goto LABEL_14;
+    return v5;
   }
 
-  *a3 = MEMORY[0x1E69E7CC0];
-  v15 = *MEMORY[0x1E698D3F8];
-  *(a3 + 8) = 0;
-  *(a3 + 12) = v15;
   return result;
 }
 
-uint64_t Font.resolve(in:)@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t initializeWithCopy for _DisplayList_StableIdentityScope(uint64_t a1, uint64_t *a2)
 {
-  v5 = *a1;
-  if (a1[1])
-  {
+  *a1 = *a2;
+  *(a1 + 8) = *(a2 + 1);
+  *(a1 + 24) = *(a2 + 6);
+  *(a1 + 32) = a2[4];
+  *(a1 + 40) = *(a2 + 10);
 
-    _s7SwiftUI12PropertyListV7TrackerC12derivedValue_3for0G0QzAC_xmtAA07DerivedC3KeyRzlFAA0i11EnvironmentcJ033_0CBA6217BE011883F496E97230B6CF8FLLVyAA0K6ValuesV011FontContextJ033_3D5D82E35921924EBCD40D1BFB222CC3LLVG_Tt1g5(v5, v9);
+  return a1;
+}
+
+double _s7SwiftUI32_DisplayList_StableIdentityScopeV2id6parentACx_ACtcAA16StronglyHashableRzlufCSi_Tt2B5@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  *(a3 + 32) = MEMORY[0x1E69E7CC8];
+  *(a3 + 40) = 0;
+  *a3 = *a2;
+  memset(&v8, 0, sizeof(v8));
+
+  CC_SHA1_Init(&v8);
+  c = v8;
+  *&v8.h0 = a1;
+  CC_SHA1_Update(&c, &v8, 8u);
+  *&v8.h0 = *(a2 + 1);
+  v8.h4 = *(a2 + 6);
+  CC_SHA1_Update(&c, &v8, 0x14u);
+  outlined destroy of _DisplayList_StableIdentityScope(a2);
+  memset(&v8, 0, 20);
+  CC_SHA1_Final(&v8, &c);
+  h4 = v8.h4;
+  result = *&v8.h0;
+  *(a3 + 8) = *&v8.h0;
+  *(a3 + 24) = h4;
+  return result;
+}
+
+double destroy for _DisplayList_StableIdentityScope(void *a1)
+{
+
+  return result;
+}
+
+void _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA08_DisplayD20_StableIdentityScopeV_Tt2g5(uint64_t *a1, uint64_t a2)
+{
+  v4 = *a1;
+  BloomFilter.init(hashValue:)(&type metadata for _DisplayList_StableIdentityScope);
+  if (!_s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA08_DisplayS20_StableIdentityScopeV_Tt0B5(v4, v6) || (static WeakAttribute.== infix(_:_:)() & 1) == 0)
+  {
+    v5 = *a1;
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(0, &lazy cache variable for type metadata for TypedElement<_DisplayList_StableIdentityScope>, &type metadata for _DisplayList_StableIdentityScope, &protocol witness table for _DisplayList_StableIdentityScope, type metadata accessor for TypedElement);
+    *(swift_allocObject() + 72) = a2;
+
+    *a1 = PropertyList.Element.init(keyType:before:after:)(&type metadata for _DisplayList_StableIdentityScope, 0, v5);
+  }
+}
+
+uint64_t DynamicLayoutViewAdaptor.MakeTransition.makeArchivedTransition<A>(helper:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v77 = *MEMORY[0x1E69E9840];
+  v8 = type metadata accessor for TransitionHelper(0, a2, a3, a4);
+  v9 = *(v8 - 8);
+  v46 = *(v9 + 64);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = &v42 - v10;
+  v14 = type metadata accessor for UncheckedSendable(0, v8, v12, v13);
+  v51 = *(v14 - 8);
+  v52 = v14;
+  v15 = MEMORY[0x1EEE9AC00](v14);
+  v17 = &v42 - v16;
+  v47 = a1;
+  v48 = v9;
+  v18 = a1;
+  v19 = *(v9 + 16);
+  v19(v11, v18, v8, v15);
+  UncheckedSendable.init(_:)(v11, v8, v17);
+  v49 = a2;
+  v50 = v17;
+  closure #1 in DynamicLayoutViewAdaptor.MakeTransition.makeArchivedTransition<A>(helper:)(v17, a2, a3, v20, &v71);
+  if (v71 == 1)
+  {
+    v21 = *(v4 + 136);
+    v67 = *(v4 + 120);
+    v68 = v21;
+    v69 = *(v4 + 152);
+    v70 = *(v4 + 168);
+    v22 = *(v4 + 104);
+    v65 = *(v4 + 88);
+    v66 = v22;
+    v62 = v21;
+    v63 = v69;
+    v60 = v22;
+    v61 = v67;
+    v64 = v70;
+    v59 = v65;
+    v45 = a3;
+    if ((WORD2(v67) & 0x100) != 0)
+    {
+      outlined init with copy of _ViewInputs(&v65, &v71);
+      AGTypeGetSignature();
+      specialized _GraphInputs.pushScope<A>(id:)(v71, *(&v71 + 1), v72);
+    }
+
+    else
+    {
+      outlined init with copy of _ViewInputs(&v65, &v71);
+    }
+
+    v23 = (v4 + 80);
+    if (*(v4 + 84))
+    {
+      v23 = MEMORY[0x1E698D3F8];
+    }
+
+    LODWORD(v71) = *v23;
+    protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
+    lazy protocol witness table accessor for type ViewListArchivedAnimation and conformance ViewListArchivedAnimation();
+    v44 = Attribute.init<A>(body:value:flags:update:)();
+    v73 = v61;
+    v74 = v62;
+    v75 = v63;
+    v76 = v64;
+    v71 = v59;
+    v72 = v60;
+    outlined init with copy of DynamicViewListItem(v4 + 8, v56);
+    v24 = *(v4 + 184);
+    v43 = *(v4 + 176);
+    outlined init with copy of DynamicViewListItem(v56, v54);
+    (v19)(v11, v47, v8);
+    v25 = v48;
+    v26 = (*(v48 + 80) + 109) & ~*(v48 + 80);
+    v27 = (v46 + v26 + 7) & 0xFFFFFFFFFFFFFFF8;
+    v28 = swift_allocObject();
+    v29 = v45;
+    *(v28 + 16) = v49;
+    *(v28 + 24) = v29;
+    v30 = v55[0];
+    *(v28 + 64) = v54[2];
+    *(v28 + 80) = v30;
+    *(v28 + 93) = *(v55 + 13);
+    v31 = v54[1];
+    *(v28 + 32) = v54[0];
+    *(v28 + 48) = v31;
+    (*(v25 + 32))(v28 + v26, v11, v8);
+    v32 = (v28 + v27);
+    *v32 = v43;
+    v32[1] = v24;
+
+    _s7SwiftUI15_RendererEffectPAAE05_makecD06effect6inputs4bodyAA12_ViewOutputsVAA11_GraphValueVyxG_AA01_I6InputsVAiA01_K0V_ANtctFZAA0I21ListArchivedAnimation33_FF3C661D9D8317A1C8FE2B7FD4EDE12CLLV0D0V_Tt3B5(v44, &v71, partial apply for closure #2 in DynamicLayoutViewAdaptor.MakeTransition.makeArchivedTransition<A>(helper:), v53);
+
+    outlined destroy of DynamicViewListItem(v56);
+    v57[2] = v61;
+    v57[3] = v62;
+    v57[4] = v63;
+    v58 = v64;
+    v57[0] = v59;
+    v57[1] = v60;
+    outlined destroy of _ViewInputs(v57);
+    v33 = v53[0];
+    v34 = v53[1];
+
+    *(v4 + 192) = v33;
+    *(v4 + 200) = v34;
   }
 
   else
   {
-    v8[0] = *a1;
-    v8[1] = 0;
+    v35 = *(v4 + 176);
+    v36 = *(v4 + 136);
+    v67 = *(v4 + 120);
+    v68 = v36;
+    v69 = *(v4 + 152);
+    v70 = *(v4 + 168);
+    v37 = *(v4 + 104);
+    v65 = *(v4 + 88);
+    v66 = v37;
+    v38 = *(v4 + 136);
+    v61 = *(v4 + 120);
+    v62 = v38;
+    v63 = *(v4 + 152);
+    v64 = *(v4 + 168);
+    v39 = *(v4 + 104);
+    v59 = *(v4 + 88);
+    v60 = v39;
+    outlined init with copy of _ViewInputs(&v65, &v71);
+    v35(v57, &v59);
+    v73 = v61;
+    v74 = v62;
+    v75 = v63;
+    v76 = v64;
+    v71 = v59;
+    v72 = v60;
+    outlined destroy of _ViewInputs(&v71);
+    v40 = v57[0];
 
-    static EnvironmentValues.FontContextKey.value(in:)(v8, v9);
+    *(v4 + 192) = v40;
   }
 
-  *a3 = a2;
-  v6 = v9[1];
-  *(a3 + 8) = v9[0];
-  *(a3 + 24) = v6;
-  *(a3 + 40) = v9[2];
+  return (*(v51 + 8))(v50, v52);
 }
 
-uint64_t Font.Resolved.ctFont.getter()
+uint64_t sub_18D390C88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *v0;
-  v2 = *(v0 + 5);
-  v3 = *(v0 + 3);
-  v14 = *(v0 + 1);
-  v15 = v3;
-  v16 = v2;
-  *&v13[0] = *(&v2 + 1);
+  v5 = *(v4 + 2);
+  v6 = (type metadata accessor for TransitionHelper(0, v5, *(v4 + 3), a4) - 8);
+  v7 = (*(*v6 + 80) + 109) & ~*(*v6 + 80);
 
-  v4 = MEMORY[0x1E69E7CC0];
-  specialized Array.append<A>(contentsOf:)(MEMORY[0x1E69E7CC0]);
-  v5 = *&v13[0];
-  outlined init with copy of Font.Context(&v14, v13);
+  __swift_destroy_boxed_opaque_existential_1(v4 + 6);
 
-  v10 = v14;
-  v11 = v15;
-  v12 = v16;
-  v17[0] = v14;
-  v17[1] = v15;
-  *&v18 = v16;
-  *(&v18 + 1) = v4;
-  v13[1] = v14;
-  v13[2] = v15;
-  v13[3] = v18;
-  *&v13[0] = v1;
-  *(&v13[0] + 1) = v5;
-  outlined init with copy of Font.Context(v17, v19);
-  v6 = one-time initialization token for shared;
+  (*(*(v5 - 8) + 8))(&v4[v6[13] + v7], v5);
 
-  if (v6 != -1)
+  return swift_deallocObject();
+}
+
+uint64_t outlined destroy of DisplayList.ArchiveIDs?(uint64_t a1)
+{
+  _s7SwiftUI11DisplayListV10ArchiveIDsVSgMaTm_1(0, &lazy cache variable for type metadata for DisplayList.ArchiveIDs?, type metadata accessor for DisplayList.ArchiveIDs, MEMORY[0x1E69E6720]);
+  (*(*(v2 - 8) + 8))(a1, v2);
+  return a1;
+}
+
+uint64_t assignWithCopy for _ContentTransitionModifier(uint64_t a1, uint64_t a2)
+{
+  v4 = *a2;
+  v5 = *(a2 + 12);
+  v6 = *(a2 + 8);
+  v7 = *(a2 + 13);
+  outlined copy of ContentTransition.Storage(*a2, v6 | (v5 << 32), v7);
+  v8 = *a1;
+  v9 = *(a1 + 8) | (*(a1 + 12) << 32);
+  *a1 = v4;
+  *(a1 + 8) = v6;
+  *(a1 + 12) = v5;
+  v10 = *(a1 + 13);
+  *(a1 + 13) = v7;
+  outlined consume of ContentTransition.Storage(v8, v9, v10);
+  *(a1 + 14) = *(a2 + 14);
+  *(a1 + 16) = *(a2 + 16);
+
+  *(a1 + 24) = *(a2 + 24);
+  return a1;
+}
+
+uint64_t Transaction.combinedAnimationListener.getter(void *a1)
+{
+  v2 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011TransactionqS033_B2543BCA257433E04979186A1DC2B6BCLLVyAA0T0VAAE017AnimationListenerS033_390609F81ACEBEAF00AD8179BD31E870LLVG_Tt0g5(a1);
+  if (v2 && (v3 = v2[9]) != 0)
+  {
+
+    v4 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011TransactionqS033_B2543BCA257433E04979186A1DC2B6BCLLVyAA0T0VAAE024AnimationLogicalListenerS033_390609F81ACEBEAF00AD8179BD31E870LLVG_Tt0g5(a1);
+    if (v4)
+    {
+      v5 = v4[9];
+      if (v5)
+      {
+        type metadata accessor for ListenerPair();
+        v6 = swift_allocObject();
+        *(v6 + 16) = v3;
+        *(v6 + 24) = v5;
+
+        return v6;
+      }
+    }
+  }
+
+  else
+  {
+    v7 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011TransactionqS033_B2543BCA257433E04979186A1DC2B6BCLLVyAA0T0VAAE024AnimationLogicalListenerS033_390609F81ACEBEAF00AD8179BD31E870LLVG_Tt0g5(a1);
+    if (v7)
+    {
+      v3 = v7[9];
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return v3;
+}
+
+uint64_t initializeWithCopy for DisplayList.InterpolatorLayer.Removed(uint64_t a1, uint64_t *a2)
+{
+  *a1 = *a2;
+  *(a1 + 8) = *(a2 + 4);
+  *(a1 + 12) = *(a2 + 3);
+  *(a1 + 16) = *(a2 + 1);
+  v3 = a2[5];
+  *(a1 + 32) = a2[4];
+  *(a1 + 40) = v3;
+  *(a1 + 48) = *(a2 + 12);
+  *(a1 + 52) = *(a2 + 52);
+  v4 = a2[7];
+  v5 = a2[8];
+  *(a1 + 56) = v4;
+  *(a1 + 64) = v5;
+  v7 = a2[9];
+  v6 = a2[10];
+  *(a1 + 72) = v7;
+  *(a1 + 80) = v6;
+  *(a1 + 88) = *(a2 + 11);
+  *(a1 + 104) = *(a2 + 104);
+
+  swift_unknownObjectRetain();
+  v8 = v4;
+  v9 = v5;
+  v10 = v7;
+
+  return a1;
+}
+
+uint64_t _PreferenceWritingModifier.init(key:value:)@<X0>(uint64_t a1@<X1>, uint64_t a4@<X8>)
+{
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v7 = *(*(AssociatedTypeWitness - 8) + 32);
+
+  return v7(a4, a1, AssociatedTypeWitness);
+}
+
+double DynamicAnimationListener.animationWasRemoved()()
+{
+  v1 = *(v0 + 32) - 1;
+  *(v0 + 32) = v1;
+  if (!v1 && swift_weakLoadStrong())
+  {
+    specialized GraphHost.continueTransaction<A>(_:)(*(v0 + 24));
+  }
+
+  return result;
+}
+
+uint64_t closure #1 in static Update.dispatchActions()(uint64_t a1)
+{
+  v2 = type metadata accessor for OSSignpostID();
+  v3 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (one-time initialization token for postUpdateActions != -1)
   {
     swift_once();
   }
 
-  specialized ObjectCache.subscript.getter(v13);
-  v8 = v7;
-  outlined destroy of Font.FontCache.Key(v13);
-  v19[0] = v10;
-  v19[1] = v11;
-  v20 = v12;
-  v21 = v4;
-  outlined destroy of Font.Context(v19);
-  return v8;
+  v6 = static Signpost.postUpdateActions;
+  v7 = word_1ED530E00;
+  v8 = HIBYTE(word_1ED530E00);
+  v9 = byte_1ED530E02;
+  if (one-time initialization token for traceHost != -1)
+  {
+    swift_once();
+  }
+
+  v32 = v6;
+  LOBYTE(v33) = v7;
+  BYTE1(v33) = v8;
+  BYTE2(v33) = v9;
+  if (Signpost.isEnabled.getter())
+  {
+    v10 = one-time initialization token for _signpostLog;
+    swift_unknownObjectRetain();
+    if (v10 != -1)
+    {
+      swift_once();
+    }
+
+    v11 = _signpostLog;
+    OSSignpostID.init(log:object:)();
+    static os_signpost_type_t.begin.getter();
+    v30 = v3;
+    v31 = v2;
+    v29 = *(&v6 + 1);
+    v28 = v7;
+    v27[1] = v11;
+    if (v8)
+    {
+      os_signpost(_:dso:log:name:signpostID:)();
+    }
+
+    else
+    {
+      OSSignpostID.rawValue.getter();
+      kdebug_trace();
+    }
+
+    specialized static Update.begin()();
+    v20 = static Update.dispatchDepth;
+    static Update.dispatchDepth = static Update.depth;
+    v21 = *(a1 + 16);
+    if (v21)
+    {
+      v22 = (a1 + 56);
+      while (1)
+      {
+        v23 = *v22;
+        v24 = *(v22 - 2);
+        v25 = *(v22 - 1);
+        v26 = static Update.depth;
+        LOBYTE(v32) = *(v22 - 24);
+        *(&v32 + 1) = v24;
+        v33 = v25;
+        v34 = v23;
+
+        Update.Action.callAsFunction()();
+        if (static Update.depth != v26)
+        {
+          break;
+        }
+
+        v22 += 8;
+
+        if (!--v21)
+        {
+          goto LABEL_22;
+        }
+      }
+
+LABEL_26:
+      result = _assertionFailure(_:_:file:line:flags:)();
+      __break(1u);
+      return result;
+    }
+
+LABEL_22:
+    static Update.dispatchDepth = v20;
+    static Update.end()();
+    static os_signpost_type_t.end.getter();
+    if (v8)
+    {
+      os_signpost(_:dso:log:name:signpostID:)();
+    }
+
+    else
+    {
+      OSSignpostID.rawValue.getter();
+      kdebug_trace();
+    }
+
+    return (*(v30 + 8))(v5, v31);
+  }
+
+  else
+  {
+    specialized static Update.begin()();
+    v12 = static Update.dispatchDepth;
+    static Update.dispatchDepth = static Update.depth;
+    v13 = *(a1 + 16);
+    if (v13)
+    {
+      v14 = (a1 + 56);
+      do
+      {
+        v15 = *v14;
+        v16 = *(v14 - 2);
+        v17 = *(v14 - 1);
+        v18 = static Update.depth;
+        LOBYTE(v32) = *(v14 - 24);
+        *(&v32 + 1) = v16;
+        v33 = v17;
+        v34 = v15;
+
+        Update.Action.callAsFunction()();
+        if (static Update.depth != v18)
+        {
+          goto LABEL_26;
+        }
+
+        v14 += 8;
+      }
+
+      while (--v13);
+    }
+
+    static Update.dispatchDepth = v12;
+
+    return static Update.end()();
+  }
 }
 
-uint64_t closure #1 in SDFLayer.update(shape:size:in:backdropGroupID:)(uint64_t *a1, uint64_t a2, char a3, char a4, double a5, double a6, double a7, double a8, double a9, double a10, float a11)
+Swift::Void __swiftcall Update.Action.callAsFunction()()
 {
-  v107 = *MEMORY[0x1E69E9840];
-  if (a5 != 0.0 || a6 != 0.0)
+  v2 = *(v1 + 8);
+  if (one-time initialization token for enabledCategories != -1)
   {
-    GraphicsContext.copyOnWrite()();
-    RBDrawingStateTranslateCTM();
+    v0 = swift_once();
   }
 
-  v18 = 0;
-  v19 = *(a2 + 16);
-  v88 = *a2;
-  v89 = v19;
-  v20 = *(a2 + 32);
-  v90 = v20;
-  v21 = *a2;
-  v22 = *(a2 + 8);
-  *&v106[0] = 256;
-  v71 = *(a2 + 16);
-  v72 = *(a2 + 24);
-  memset(v106 + 8, 0, 33);
-  if (a3)
+  if (*(static CustomEventTrace.enabledCategories + 2) < 0x42uLL)
   {
-    v18 = a4 == 2 ? 2 : 1;
-    if (a11 != 0.0)
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  if (*(static CustomEventTrace.enabledCategories + 97) == 1 && static CustomEventTrace.recorder)
+  {
+    *(*(static CustomEventTrace.recorder + 24) + 4) = 21313;
+    type metadata accessor for (UInt32, UInt32?)(0);
+    v0 = AGGraphAddTraceEvent();
+  }
+
+  v2(v0);
+  if (*(static CustomEventTrace.enabledCategories + 2) < 0x42uLL)
+  {
+LABEL_13:
+    __break(1u);
+  }
+
+  if (*(static CustomEventTrace.enabledCategories + 97) == 1)
+  {
+    if (static CustomEventTrace.recorder)
     {
-      if (v90 > 2u)
-      {
-        if (v90 == 5)
-        {
-          if (*(v88 + 16))
-          {
-            v23 = v22;
-            v69 = v18;
-            if (*(v88 + 16) == 1)
-            {
+      *(*(static CustomEventTrace.recorder + 24) + 4) = 17985;
+      type metadata accessor for (UInt32, UInt32?)(0);
+      AGGraphAddTraceEvent();
+    }
+  }
+}
 
-              RBPathGetBoundingRect();
-            }
+Swift::Void __swiftcall ViewGraphDisplayLink.invalidate()()
+{
+  if (one-time initialization token for _lock != -1)
+  {
+    swift_once();
+  }
 
-            else
-            {
-
-              v28 = MEMORY[0x193AC3640](v88 + 24);
-            }
-
-            v39 = v28;
-            v40 = v29;
-            v41 = v30;
-            v42 = v31;
-            outlined destroy of PathSet.Element(a2);
-            v27 = v42;
-            v26 = v41;
-            v25 = v40;
-            v24 = v39;
-            v18 = v69;
-          }
-
-          else
-          {
-            v32 = *(v88 + 24);
-            if (!v32)
-            {
-              __break(1u);
-              goto LABEL_60;
-            }
-
-            v23 = v22;
-            v33 = v18;
-            v34 = v32;
-
-            PathBoundingBox = CGPathGetPathBoundingBox(v34);
-            x = PathBoundingBox.origin.x;
-            y = PathBoundingBox.origin.y;
-            width = PathBoundingBox.size.width;
-            height = PathBoundingBox.size.height;
-
-            outlined destroy of PathSet.Element(a2);
-            v27 = height;
-            v26 = width;
-            v25 = y;
-            v24 = x;
-            v18 = v33;
-          }
-        }
-
-        else
-        {
-          if (v90 != 6)
-          {
-            goto LABEL_60;
-          }
-
-          v23 = v22;
-          v24 = *MEMORY[0x1E695F050];
-          v25 = *(MEMORY[0x1E695F050] + 8);
-          v26 = *(MEMORY[0x1E695F050] + 16);
-          v27 = *(MEMORY[0x1E695F050] + 24);
-        }
-      }
-
-      else
-      {
-        v23 = v22;
-        if (v90 && v90 != 1)
-        {
-          v24 = *(v88 + 16);
-          v25 = *(v88 + 24);
-          v26 = *(v88 + 32);
-          v27 = *(v88 + 40);
-        }
-
-        else
-        {
-          v25 = *(&v88 + 1);
-          v24 = *&v88;
-          v27 = *(&v89 + 1);
-          v26 = *&v89;
-        }
-      }
-
-      v43 = v18;
-      GraphicsContext.addSDFGradientOvalizationFilter(_:ovalization:bounds:)(v18, a11, v24, v25, v26, v27);
-      v18 = v43;
-      v22 = v23;
+  v1 = static Update._lock;
+  _MovableLockLock(static Update._lock);
+  v2 = OBJC_IVAR____TtC7SwiftUI20ViewGraphDisplayLink_link;
+  v3 = *(v0 + OBJC_IVAR____TtC7SwiftUI20ViewGraphDisplayLink_link);
+  if (v3)
+  {
+    v4 = v3;
+    if ([v4 isPaused])
+    {
+      [v4 invalidate];
     }
   }
 
-  GraphicsContext.addSDFGradientFilter(_:)(v18);
-  __asm { FMOV            V0.4S, #1.0 }
+  v5 = *(v0 + v2);
+  *(v0 + v2) = 0;
 
-  v77 = _Q0;
-  LODWORD(v78) = 2143289344;
-  _s7SwiftUI15GraphicsContextV15ResolvedShadingOWOi0_(&v77);
-  v103 = v85;
-  v104 = v86;
-  v105 = v87;
-  v99 = v81;
-  v100 = v82;
-  v101 = v83;
-  v102 = v84;
-  v95 = v77;
-  v96 = v78;
-  v97 = v79;
-  v98 = v80;
-  v92 = v90;
-  v91[0] = v88;
-  v91[1] = v89;
-  if (((1 << v90) & 0x47) == 0)
-  {
-    if (v90 == 5)
-    {
-      type metadata accessor for Path.PathBox();
-      v21 = swift_allocObject();
-      *(v21 + 40) = 0u;
-      *(v21 + 56) = 0u;
-      *(v21 + 72) = 0u;
-      *(v21 + 88) = 0u;
-      *(v21 + 104) = 0u;
-      *(v21 + 24) = 0u;
-      *(v21 + 16) = 2;
-      RBPathStorageInit();
-      LOWORD(v75[0]) = 0;
-      MEMORY[0x193AC35E0](v21 + 24, 20, 0, v75);
-      Path.append(to:)(v21 + 24);
-      MEMORY[0x193AC35E0](v21 + 24, 16, 0, 0);
-      v22 = 0;
-      v71 = 0;
-      v72 = 0;
-      v20 = 5;
-      goto LABEL_27;
-    }
+  _MovableLockUnlock(v1);
+}
 
-    while (1)
-    {
-LABEL_60:
-      _assertionFailure(_:_:file:line:flags:)();
-      __break(1u);
-    }
-  }
+double destroy for RBDrawingLayer.State(uint64_t a1)
+{
+  outlined consume of PlatformDrawableContent.Storage(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 24), *(a1 + 32), *(a1 + 40));
 
-  outlined init with copy of Path.Storage(v91, v75);
-LABEL_27:
-  *&v93[0] = v21;
-  *&v93[1] = v22;
-  *&v93[2] = v71;
-  *&v93[3] = v72;
-  v94 = v20;
-  v49 = *a1;
-  if (a9 != 0.0 && a10 != 0.0)
-  {
-    v70 = v20;
-    outlined copy of Path.Storage(v21, v22, v71, v72, v20);
-    v50 = RBDrawingStateBeginLayer();
-    type metadata accessor for GraphicsContext.Storage();
-    v51 = swift_allocObject();
-    *(v51 + 32) = xmmword_18DD85500;
-    *(v51 + 48) = 1065353216;
-    *(v51 + 56) = 0x7FF8000000000000;
-    v52 = *(v49 + 16);
-    v53 = *(v52 + 64);
-    if (v53 == RBDrawingStateGetDefaultColorSpace())
-    {
-      *(v51 + 16) = v52;
-    }
-
-    else
-    {
-      v68 = RBDrawingStateGetDisplayList();
-      v56 = *(v49 + 32);
-      v57 = v56;
-      v58 = *(v49 + 40);
-      if (v56 == 1)
-      {
-        v57 = *(v52 + 48);
-        v58 = *(v52 + 56);
-      }
-
-      *&v75[0] = v57;
-      *(&v75[0] + 1) = v58;
-      type metadata accessor for GraphicsContext.Storage.Shared();
-      swift_allocObject();
-      outlined copy of EnvironmentValues?(v56);
-      *(v51 + 16) = GraphicsContext.Storage.Shared.init(list:environment:)(v68, v75);
-    }
-
-    *(v51 + 24) = v50;
-    *(v51 + 64) = 0;
-    *&v75[0] = v51;
-
-    closure #1 in GraphicsContext.drawSDF(of:style:distanceRange:gradient:ovalization:)(v75, v93, &v95, v106, a9, a10);
-
-    RBDrawingStateDrawLayer();
-
-    outlined consume of Path.Storage(v21, v22, v71, v72, v70);
-    v59 = v21;
-    v60 = v22;
-    v61 = v71;
-    v62 = v72;
-    v63 = v70;
-    return outlined consume of Path.Storage(v59, v60, v61, v62, v63);
-  }
-
-  GraphicsContext._shapeRenderingMode.getter(*a1, v75);
-  v54 = v22;
-  if (a10 == 0.0)
-  {
-    if (a9 < 0.0)
-    {
-      v55 = -a9;
-    }
-
-    else
-    {
-      v55 = 0.0;
-    }
-  }
-
-  else if (a10 > 0.0)
-  {
-    v55 = -a10;
-  }
-
-  else
-  {
-    v55 = -0.0;
-  }
-
-  v64 = v75[0];
-  v65 = *(v75 + 1);
-  if (*(v49 + 56) != v55)
-  {
-    GraphicsContext.copyOnWrite()();
-    v49 = *a1;
-    *(*a1 + 56) = v55;
-  }
-
-  v75[7] = v102;
-  v75[8] = v103;
-  v75[9] = v104;
-  v76 = v105;
-  v75[5] = v100;
-  v75[6] = v101;
-  v75[0] = v95;
-  v75[1] = v96;
-  v75[3] = v98;
-  v75[4] = v99;
-  v75[2] = v97;
-  v73 = v106[0];
-  v74[0] = v106[1];
-  *(v74 + 9) = *(&v106[1] + 9);
-  GraphicsContext.draw(_:with:style:)(v93, v75, &v73, v49);
-  if (v64 == 3)
-  {
-    if (v65 > 0.0)
-    {
-      v65 = -v65;
-    }
-
-    else
-    {
-      v65 = -0.0;
-    }
-  }
-
-  else
-  {
-    if (v64 != 2)
-    {
-      v65 = NAN;
-      v66 = v54;
-      goto LABEL_58;
-    }
-
-    if (v65 <= 0.0)
-    {
-      v65 = 0.0;
-    }
-  }
-
-  v66 = v54;
-  if (*(v49 + 56) == v65)
-  {
-    v59 = v21;
-    v60 = v54;
-    v61 = v71;
-    v62 = v72;
-    v63 = v20;
-    return outlined consume of Path.Storage(v59, v60, v61, v62, v63);
-  }
-
-LABEL_58:
-  GraphicsContext.copyOnWrite()();
-  result = outlined consume of Path.Storage(v21, v66, v71, v72, v20);
-  *(*a1 + 56) = v65;
   return result;
 }
 
-void *initializeWithCopy for GraphicsContext.Filter(void *a1, uint64_t a2)
+void outlined copy of VariableBlurStyle.Mask(void *a1, unsigned __int8 a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, unsigned int a14)
 {
-  v3 = *a2;
-  v4 = *(a2 + 8);
-  v5 = *(a2 + 16);
-  v6 = *(a2 + 24);
-  v7 = *(a2 + 32);
-  v8 = *(a2 + 40);
-  v9 = *(a2 + 48);
-  v10 = *(a2 + 56);
-  v11 = *(a2 + 64);
-  v13 = *(a2 + 72);
-  v14 = *(a2 + 80);
-  outlined copy of GraphicsContext.Filter.Storage(*a2, v4, v5, v6, v7, v8, v9, v10, v11, v13, v14);
-  *a1 = v3;
-  a1[1] = v4;
-  a1[2] = v5;
-  a1[3] = v6;
-  a1[4] = v7;
-  a1[5] = v8;
-  a1[6] = v9;
-  a1[7] = v10;
-  a1[8] = v11;
-  a1[9] = v13;
-  a1[10] = v14;
+  if (!(a14 >> 30))
+  {
+    outlined copy of GraphicsImage.Contents?(a1, a2);
+  }
+}
+
+uint64_t _ForegroundStyleModifier3.ForegroundStyleEnvironment.value.getter@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t *a8@<X8>)
+{
+  v70 = *(a4 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v69 = &v60 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v68 = *(v17 - 8);
+  MEMORY[0x1EEE9AC00](v18);
+  v67 = &v60 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v65 = *(v20 - 8);
+  MEMORY[0x1EEE9AC00](v21);
+  v60 = &v60 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v77 = v23;
+  v78 = v24;
+  v79 = v25;
+  v80 = v26;
+  v81 = v27;
+  v82 = v28;
+  v63 = v27;
+  v72 = type metadata accessor for _ForegroundStyleModifier3(0, &v77);
+  v75 = *(v72 - 8);
+  MEMORY[0x1EEE9AC00](v72);
+  v30 = &v60 - v29;
+  v73 = a1;
+  Value = AGGraphGetValue();
+  v33 = *Value;
+  v32 = Value[1];
+  v71 = a8;
+  *a8 = v33;
+  a8[1] = v32;
+
+  v61 = a4;
+  v34 = a6;
+  v35 = a7;
+  v62 = a7;
+  _ForegroundStyleModifier3.ForegroundStyleEnvironment.modifier.getter(a2, a3, a4, a5, v34, a7, v30);
+  v36 = v65;
+  v37 = v60;
+  (*(v65 + 16))(v60, v30, a2);
+  v74 = *(v75 + 8);
+  v75 += 8;
+  v74(v30, v72);
+  v38 = v71[1];
+  v77 = *v71;
+  v78 = v38;
+  default argument 0 of ShapeStyle.copyStyle(name:in:foregroundStyle:)(&v76);
+
+  v64 = a5;
+  v66 = ShapeStyle.copyStyle(name:in:foregroundStyle:)(&v76, &v77, 0, a2, a5);
+
+  (*(v36 + 8))(v37, a2);
+  v39 = v71;
+  v40 = v63;
+  _ForegroundStyleModifier3.ForegroundStyleEnvironment.modifier.getter(a2, a3, a4, a5, v63, v35, v30);
+  v41 = v72;
+  v42 = v67;
+  v43 = v68;
+  (*(v68 + 16))(v67, &v30[*(v72 + 68)], a3);
+  v74(v30, v41);
+  v44 = v39[1];
+  v77 = *v39;
+  v78 = v44;
+  default argument 0 of ShapeStyle.copyStyle(name:in:foregroundStyle:)(&v76);
+
+  v45 = v42;
+  v46 = ShapeStyle.copyStyle(name:in:foregroundStyle:)(&v76, &v77, 0, a3, v40);
+
+  (*(v43 + 8))(v45, a3);
+  v47 = a2;
+  v48 = v46;
+  v49 = v61;
+  v50 = v62;
+  _ForegroundStyleModifier3.ForegroundStyleEnvironment.modifier.getter(v47, a3, v61, v64, v40, v62, v30);
+  v52 = v69;
+  v51 = v70;
+  (*(v70 + 16))(v69, &v30[*(v41 + 72)], v49);
+  v74(v30, v41);
+  v53 = *v39;
+  v54 = v39[1];
+  v77 = *v39;
+  v78 = v54;
+  default argument 0 of ShapeStyle.copyStyle(name:in:foregroundStyle:)(&v76);
+
+  v55 = ShapeStyle.copyStyle(name:in:foregroundStyle:)(&v76, &v77, 0, v49, v50);
+
+  v56 = v52;
+  v57 = v66;
+  (*(v51 + 8))(v56, v49);
+  _s7SwiftUI13ShapeStyleBox33_C5308685324599C90E2F7A588812BB29LLCyAA0cD4PairVyAA03AnycD0VAHGGMaTm_0(0, &lazy cache variable for type metadata for ShapeStyleBox<ShapeStyleTriple<AnyShapeStyle, AnyShapeStyle, AnyShapeStyle>>, type metadata accessor for ShapeStyleTriple<AnyShapeStyle, AnyShapeStyle, AnyShapeStyle>, &protocol witness table for ShapeStyleTriple<A, B, C>);
+  v58 = swift_allocObject();
+  v58[2] = v57;
+  v58[3] = v48;
+  v58[4] = v55;
+  swift_retain_n();
+  swift_retain_n();
+
+  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA015ForegroundStyleF033_BEFE9363F68E039B4AB6422B8AA4535ALLVG_Tt2g5(v39, v58);
+
+  if (v54)
+  {
+    _s7SwiftUI12PropertyListV7TrackerC15invalidateValue3for4from2toyxm_A2CtAA0C3KeyRzlFAA011EnvironmentcK0VyAA015ForegroundStyleK033_BEFE9363F68E039B4AB6422B8AA4535ALLVG_Ttg5(v53, *v39);
+  }
+}
+
+uint64_t _ForegroundStyleModifier3.ForegroundStyleEnvironment.modifier.getter@<X0>(uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
+{
+  v12[0] = a2;
+  v12[1] = a3;
+  v12[2] = a4;
+  v12[3] = a5;
+  v12[4] = a6;
+  v12[5] = a7;
+  v9 = type metadata accessor for _ForegroundStyleModifier3(0, v12);
+  Value = AGGraphGetValue();
+  return (*(*(v9 - 8) + 16))(a8, Value, v9);
+}
+
+__n128 __swift_memcpy80_4(uint64_t a1, uint64_t a2)
+{
+  *a1 = *a2;
+  result = *(a2 + 16);
+  v3 = *(a2 + 32);
+  v4 = *(a2 + 64);
+  *(a1 + 48) = *(a2 + 48);
+  *(a1 + 64) = v4;
+  *(a1 + 16) = result;
+  *(a1 + 32) = v3;
+  return result;
+}
+
+double _ColorMatrix._apply(to:)(uint64_t *a1)
+{
+  if (*(a1 + 24) <= 1u)
+  {
+    if (*(a1 + 24))
+    {
+      v4 = a1[1];
+      if (v4 != a1[2])
+      {
+        v5 = *a1;
+        v6 = v1[3];
+        v16[2] = v1[2];
+        v16[3] = v6;
+        v16[4] = v1[4];
+        v7 = v1[1];
+        v16[0] = *v1;
+        v16[1] = v7;
+        v17 = 2139095040;
+        v18 = 1280;
+        v19 = 1065353216;
+        v20 = 0;
+        v21 = -1;
+        v8 = MEMORY[0x1E69E7CC0];
+        v22 = MEMORY[0x1E69E7CC0];
+        v15 = v5;
+        if (*(a1 + 40) == 1)
+        {
+          v8 = a1[4];
+          v9 = a1;
+
+          outlined consume of _ShapeStyle_Shape.Result(v10, 1u);
+          a1 = v9;
+          v9[4] = 0;
+          *(v9 + 40) = 5;
+        }
+
+        v11 = a1;
+        _ShapeStyle_Pack.subscript.setter(v16, &v15, v4);
+        v12 = v8;
+        v13 = v11[4];
+        v14 = *(v11 + 40);
+
+        outlined consume of _ShapeStyle_Shape.Result(v13, v14);
+        v11[4] = v12;
+        *(v11 + 40) = 1;
+      }
+    }
+
+    else
+    {
+      v2 = a1;
+      result = outlined consume of _ShapeStyle_Shape.Result(a1[4], *(a1 + 40));
+      v2[4] = 0;
+      *(v2 + 40) = 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t destroy for _ForegroundStyleModifier3(uint64_t a1, void *a2)
+{
+  v4 = *(a2[2] - 8) + 8;
+  (*v4)();
+  v5 = *(v4 + 56) + a1;
+  v6 = *(a2[3] - 8);
+  v7 = v6 + 8;
+  v8 = (v5 + *(v6 + 80)) & ~*(v6 + 80);
+  (*(v6 + 8))(v8);
+  v9 = *(a2[4] - 8);
+  v10 = *(v9 + 8);
+  v11 = (v8 + *(v7 + 56) + *(v9 + 80)) & ~*(v9 + 80);
+
+  return v10(v11);
+}
+
+BOOL sub_18D392690(_OWORD *a1, __int128 *a2)
+{
+  v2 = a1[3];
+  v8[2] = a1[2];
+  v8[3] = v2;
+  v3 = a1[4];
+  v4 = a1[1];
+  v8[0] = *a1;
+  v8[1] = v4;
+  v5 = a2[3];
+  v9[2] = a2[2];
+  v9[3] = v5;
+  v9[4] = a2[4];
+  v6 = *a2;
+  v9[1] = a2[1];
+  v8[4] = v3;
+  v9[0] = v6;
+  return specialized static ColorMatrix.== infix(_:_:)(v8, v9);
+}
+
+void _ShapeStyle_RenderedShape.render(effect:)(uint64_t a1)
+{
+  v2 = *a1;
+  v3 = *(a1 + 8);
+  v4 = *(a1 + 12);
+  if (*(a1 + 12) <= 9u)
+  {
+    if (v4 == 4)
+    {
+      *(v1 + 260) = *(v1 + 260) * *&v2;
+      return;
+    }
+
+    if (v4 == 5)
+    {
+      v5 = *(v1 + 248);
+      v6 = *(v1 + 256);
+      v7 = v3 & 1;
+      outlined copy of GraphicsBlendMode(*a1, v7);
+      outlined consume of GraphicsBlendMode(v5, v6);
+      *(v1 + 248) = v2;
+      *(v1 + 256) = v7;
+      return;
+    }
+
+    goto LABEL_21;
+  }
+
+  if (v4 == 10)
+  {
+    memmove(v19, (v2 + 16), 0x7CuLL);
+    if (_s7SwiftUI14GraphicsFilterOWOg(v19) == 15)
+    {
+      _s7SwiftUI14GraphicsFilterOWOj6_(v19);
+      v10 = *(v1 + 264);
+      if (v10)
+      {
+        LOWORD(v26) = *(v1 + 108);
+        DisplayList.Item.addDrawingGroup(contentSeed:)(&v26);
+        v10 &= ~1u;
+        *(v1 + 264) = v10;
+      }
+
+      if ((v10 & 2) == 0)
+      {
+        *(v1 + 264) = v10 | 2;
+      }
+    }
+
+    goto LABEL_21;
+  }
+
+  if (v4 != 20 || v2 != 0 || v3 != 0)
+  {
+LABEL_21:
+    v11 = *(v1 + 208);
+    v12 = *(v1 + 216);
+    v13 = *(v1 + 224);
+    v14 = *(v1 + 192);
+    v15 = *(v1 + 200);
+    v19[0] = 0uLL;
+    v19[1] = *(v1 + 176);
+    v20 = v14;
+    v21 = v15;
+    v22 = v11;
+    v23 = v12;
+    v24 = v13;
+    v25 = 0;
+    outlined copy of DisplayList.Effect(v2, v3, v4);
+    outlined copy of DisplayList.Item.Value(v15, v11, v12, v13);
+    DisplayList.init(_:)(v19, &v26);
+    v16 = v26;
+    v17 = v3 | (v4 << 32);
+    v18 = v27 | (v28 << 32) | 0x40000000;
+    outlined consume of DisplayList.Item.Value(*(v1 + 200), *(v1 + 208), *(v1 + 216), *(v1 + 224));
+    *(v1 + 200) = v2;
+    *(v1 + 208) = v17;
+    *(v1 + 216) = v16;
+    *(v1 + 224) = v18;
+    LOBYTE(v19[0]) = *(v1 + 236);
+    DisplayList.Item.canonicalize(options:)(v19);
+  }
+}
+
+uint64_t specialized static Image.SymbolRenderingOptionsProvider.== infix(_:_:)(_BYTE *a1, uint64_t a2)
+{
+  v2 = a1[8];
+  v3 = a1[9];
+  v4 = a1[10];
+  v5 = a1[11];
+  v6 = *(a2 + 8);
+  v7 = *(a2 + 9);
+  v8 = *(a2 + 10);
+  v9 = *(a2 + 11);
+  if (*a1 != *a2 && ((*(**a1 + 96))() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v12[0] = v2;
+  v12[1] = v3;
+  v12[2] = v4;
+  v11[0] = v6;
+  v11[1] = v7;
+  v11[2] = v8;
+  return specialized static SymbolRenderingOptions.== infix(_:_:)(v12, v11) & (v5 == v9);
+}
+
+void _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA011EnvironmentcF0VyAA0G6ValuesVAAE02__F15_timeDataSource33_C8A98712CE9284278805F6E671356D1BLLVG_Tt2g5(void *a1@<X0>, uint64_t *a2@<X8>)
+{
+  _s7SwiftUI14TimeDataSourceVAA10Foundation4DateVRszlE0G7StorageOyAF_GMaTm_0(0, &lazy cache variable for type metadata for TimeDataSource<Date><A>.DateStorage, type metadata accessor for TimeDataSource<A>.DateStorage);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = v11 - v5;
+  _s7SwiftUI22EnvironmentPropertyKeyVyAA0C6ValuesVAAE02__E28_glassEffectBackdropObserver33_FD0C880ACFE431F75FFFB08913C85A9CLLVGMaTm_1(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_timeDataSource>, &type metadata for EnvironmentValues.__Key_timeDataSource, &protocol witness table for EnvironmentValues.__Key_timeDataSource, type metadata accessor for EnvironmentPropertyKey);
+  BloomFilter.init(hashValue:)(v7);
+  v8 = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011EnvironmentrV0VyAA0W6ValuesVAAE02__V15_timeDataSource33_C8A98712CE9284278805F6E671356D1BLLVG_Tt0B5(a1, v11[1]);
+  if (v8)
+  {
+    v9 = v8[9];
+  }
+
+  else
+  {
+    _s7SwiftUI14TimeDataSourceVAA10Foundation4DateVRszlE0G7StorageOyAF_GMaTm_0(0, &lazy cache variable for type metadata for (pauseDate: Date), MEMORY[0x1E6969530]);
+    (*(*(v10 - 8) + 56))(v6, 1, 1, v10);
+    _s7SwiftUI14TimeDataSourceVAA10Foundation4DateVRszlE0G7StorageOyAF_GMaTm_0(0, &lazy cache variable for type metadata for TimeDataSource<Date><A>.DateBox, type metadata accessor for TimeDataSource<A>.DateBox);
+    v9 = swift_allocObject();
+    outlined init with take of TimeDataSource<Date><A>.DateStorage(v6, v9 + direct field offset for TimeDataSource<A>.DateBox.storage);
+  }
+
+  *a2 = v9;
+}
+
+void *_s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011EnvironmentrV0VyAA0W6ValuesVAAE02__V15_timeDataSource33_C8A98712CE9284278805F6E671356D1BLLVG_Tt0B5(void *result, uint64_t a2)
+{
+  if (result)
+  {
+    while (1)
+    {
+      while ((a2 & ~result[7]) != 0)
+      {
+        result = result[5];
+        if (!result)
+        {
+          return result;
+        }
+      }
+
+      if (result[3])
+      {
+        v2 = result;
+        v3 = a2;
+        v4 = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011EnvironmentrV0VyAA0W6ValuesVAAE02__V15_timeDataSource33_C8A98712CE9284278805F6E671356D1BLLVG_Tt0B5(result[3], a2);
+        a2 = v3;
+        v5 = v4;
+        result = v2;
+        if (v5)
+        {
+          break;
+        }
+      }
+
+      v6 = a2;
+      v7 = result;
+      v8 = result[2];
+      _s7SwiftUI22EnvironmentPropertyKeyVyAA0C6ValuesVAAE02__E28_glassEffectBackdropObserver33_FD0C880ACFE431F75FFFB08913C85A9CLLVGMaTm_0(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_timeDataSource>, &type metadata for EnvironmentValues.__Key_timeDataSource, &protocol witness table for EnvironmentValues.__Key_timeDataSource, type metadata accessor for EnvironmentPropertyKey);
+      if (v8 == v9)
+      {
+        return v7;
+      }
+
+      result = v7[4];
+      a2 = v6;
+      if (!result)
+      {
+        return result;
+      }
+    }
+
+    return v5;
+  }
+
+  return result;
+}
+
+void type metadata accessor for TimeDataSource<Date><A>.DateStorage(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void))
+{
+  if (!*a2)
+  {
+    v4 = a3(0);
+    if (!v5)
+    {
+      atomic_store(v4, a2);
+    }
+  }
+}
+
+void _s7SwiftUI14TimeDataSourceVAA10Foundation4DateVRszlE0G7StorageOyAF_GMaTm_0(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void))
+{
+  if (!*a2)
+  {
+    v4 = a3(0);
+    if (!v5)
+    {
+      atomic_store(v4, a2);
+    }
+  }
+}
+
+void _s7SwiftUI14TimeDataSourceVAA10Foundation4DateVRszlE0G7StorageOyAF_GMaTm_1(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void))
+{
+  if (!*a2)
+  {
+    v4 = a3(0);
+    if (!v5)
+    {
+      atomic_store(v4, a2);
+    }
+  }
+}
+
+uint64_t outlined init with take of TimeDataSource<Date><A>.DateStorage(uint64_t a1, uint64_t a2)
+{
+  type metadata accessor for TimeDataSource<Date><A>.DateStorage(0, &lazy cache variable for type metadata for TimeDataSource<Date><A>.DateStorage, type metadata accessor for TimeDataSource<A>.DateStorage);
+  (*(*(v4 - 8) + 32))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t outlined destroy of (pauseDate: Date)(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void))
+{
+  _s7SwiftUI14TimeDataSourceVAA10Foundation4DateVRszlE0G7StorageOyAF_GMaTm_1(0, a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
-uint64_t Shader.makeRBShader(in:)(uint64_t *a1)
+uint64_t TimeDataSource<A>.DateBox.__deallocating_deinit(void *a1, unint64_t *a2, uint64_t (*a3)(void))
 {
-  v126 = *MEMORY[0x1E69E9840];
-  type metadata accessor for Text.Style?();
-  MEMORY[0x1EEE9AC00](v3 - 8);
-  v102 = &v94 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v99 = type metadata accessor for ImageResolutionContext();
-  MEMORY[0x1EEE9AC00](v99);
-  v98 = (&v94 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v6 = a1[1];
-  v107 = *a1;
-  v8 = *v1;
-  v7 = *(v1 + 8);
-  v9 = *(v1 + 16);
-  v10 = *(v1 + 24);
-  v11 = objc_allocWithZone(MEMORY[0x1E69C70F0]);
-  v12 = v8;
-  v13 = MEMORY[0x193ABEC20](v7, v9);
-  v14 = [v11 initWithLibrary:v12 function:v13];
+  outlined destroy of (pauseDate: Date)(v3 + *a1, a2, a3);
 
-  v109 = v10;
-  v15 = *(v10 + 16);
-  if (!v15)
+  return swift_deallocClassInstance();
+}
+
+void _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA0G6ValuesVAAE02__F15_timeDataSource33_C8A98712CE9284278805F6E671356D1BLLVG_Tt2B5(uint64_t *a1, uint64_t a2)
+{
+  v4 = *a1;
+  type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_timeDataSource>, &type metadata for EnvironmentValues.__Key_timeDataSource, &protocol witness table for EnvironmentValues.__Key_timeDataSource, type metadata accessor for EnvironmentPropertyKey);
+  v6 = v5;
+  BloomFilter.init(hashValue:)(v5);
+  if (!_s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011EnvironmentrV0VyAA0W6ValuesVAAE02__V15_timeDataSource33_C8A98712CE9284278805F6E671356D1BLLVG_Tt0B5(v4, v8) || (type metadata accessor for GlassEffectBackdropObserver?(0, &lazy cache variable for type metadata for TimeDataSource<Date>, MEMORY[0x1E6969530], type metadata accessor for TimeDataSource), !AGCompareValues()))
   {
-    return v14;
+    v7 = *a1;
+    type metadata accessor for TypedElement<EnvironmentPropertyKey<EnvironmentValues.__Key_timeDataSource>>(0);
+    *(swift_allocObject() + 72) = a2;
+
+    *a1 = PropertyList.Element.init(keyType:before:after:)(v6, 0, v7);
   }
+}
 
-  v16 = 0;
-  v94 = 0;
-  v17 = v109 + 32;
-  v95 = *MEMORY[0x1E698D3F8];
-  v108 = v6;
-  v100 = v14;
-  v103 = v109 + 32;
-  v104 = v15;
-  while (1)
+void type metadata accessor for TypedElement<EnvironmentPropertyKey<EnvironmentValues.__Key_timeDataSource>>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for TypedElement<EnvironmentPropertyKey<EnvironmentValues.__Key_timeDataSource>>)
   {
-    if (v16 >= *(v109 + 16))
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(255, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_timeDataSource>, &type metadata for EnvironmentValues.__Key_timeDataSource, &protocol witness table for EnvironmentValues.__Key_timeDataSource, type metadata accessor for EnvironmentPropertyKey);
+    v3 = v2;
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_timeDataSource> and conformance EnvironmentPropertyKey<A>();
+    v6 = type metadata accessor for TypedElement(a1, v3, v4, v5);
+    if (!v7)
     {
-      __break(1u);
-LABEL_66:
-      __break(1u);
-    }
-
-    v23 = v17 + 24 * v16;
-    v25 = *v23;
-    v24 = *(v23 + 8);
-    v26 = *(v23 + 16);
-    v27 = *(v23 + 20);
-    if (v27 <= 4)
-    {
-      if (v27 <= 1)
-      {
-        if (v27)
-        {
-          *&v119 = v25;
-          v42 = v26;
-          outlined copy of Shader.Argument.Storage(v25, v24, v26, 1u);
-          [v14 setArgumentBytes:&v119 atIndex:v16 type:2 count:1 flags:0];
-          v19 = v25;
-          v20 = v24;
-          v21 = v42;
-          v22 = 1;
-        }
-
-        else
-        {
-          LODWORD(v119) = v25;
-          v31 = v26;
-          outlined copy of Shader.Argument.Storage(v25, v24, v26, 0);
-          [v14 setArgumentBytes:&v119 atIndex:v16 type:1 count:1 flags:0];
-          v19 = v25;
-          v20 = v24;
-          v21 = v31;
-          v22 = 0;
-        }
-      }
-
-      else if (v27 == 2)
-      {
-        *&v119 = v25;
-        DWORD2(v119) = v24;
-        v18 = v26;
-        outlined copy of Shader.Argument.Storage(v25, v24, v26, 2u);
-        [v14 setArgumentBytes:&v119 atIndex:v16 type:3 count:1 flags:0];
-        v19 = v25;
-        v20 = v24;
-        v21 = v18;
-        v22 = 2;
-      }
-
-      else if (v27 == 3)
-      {
-        *&v119 = v25;
-        *(&v119 + 1) = v24;
-        v29 = v26;
-        outlined copy of Shader.Argument.Storage(v25, v24, v26, 3u);
-        [v14 setArgumentBytes:&v119 atIndex:v16 type:4 count:1 flags:0];
-        v19 = v25;
-        v20 = v24;
-        v21 = v29;
-        v22 = 3;
-      }
-
-      else
-      {
-        v40 = v25[2];
-        v41 = v26;
-        outlined copy of Shader.Argument.Storage(v25, v24, v26, 4u);
-        [v14 setArgumentBytes:v25 + 4 atIndex:v16 type:1 count:v40 flags:3];
-        v19 = v25;
-        v20 = v24;
-        v21 = v41;
-        v22 = 4;
-      }
-
-      goto LABEL_4;
-    }
-
-    if (v27 <= 7)
-    {
-      break;
-    }
-
-    if (v27 == 8)
-    {
-      v106 = v24;
-      v37 = v107;
-      if (v107 != 1)
-      {
-        v105 = v26;
-        v49 = type metadata accessor for Text.Style(0);
-        v50 = *(*(v49 - 8) + 56);
-        v50(v102, 1, 1, v49);
-        v51 = v98;
-        v52 = v99;
-        v98[2] = 0;
-        v101 = v52[6];
-        v50(v51 + v101, 1, 1, v49);
-        v53 = v52[7];
-        v54 = v51 + v52[8];
-        *v54 = 520;
-        v54[2] = 2;
-        *(v51 + v52[9]) = 3;
-        *(v51 + v52[10]) = 1;
-        *v51 = v37;
-        v51[1] = v6;
-        outlined copy of EnvironmentValues?(v37);
-        outlined copy of Shader.Argument.Storage(v25, v106, v105, 8u);
-        outlined copy of EnvironmentValues?(v37);
-        outlined assign with take of Text.Style?(v102, v51 + v101);
-        *(v51 + v53) = v95;
-        (*(*v25 + 80))(&v112, v51);
-        outlined destroy of ImageResolutionContext(v51);
-        v124[3] = v117[3];
-        v124[4] = v117[4];
-        v125[0] = v118[0];
-        *(v125 + 11) = *(v118 + 11);
-        v123 = v116;
-        v124[0] = v117[0];
-        v124[1] = v117[1];
-        v124[2] = v117[2];
-        v119 = v112;
-        v120 = v113;
-        v121 = v114;
-        v122 = v115;
-        if (BYTE8(v112) > 3u)
-        {
-          v17 = v103;
-          v15 = v104;
-          if (BYTE8(v112) == 4)
-          {
-            outlined destroy of Image.Resolved(&v119);
-            outlined consume of Shader.Argument.Storage(v25, v106, v105, 8u);
-            v6 = v108;
-            outlined consume of EnvironmentValues?(v107);
-            v14 = v100;
-            goto LABEL_5;
-          }
-
-          v56 = v107;
-          v6 = v108;
-          v14 = v100;
-          v57 = v106;
-          if (BYTE8(v112) == 255)
-          {
-            goto LABEL_60;
-          }
-
-LABEL_46:
-          v116 = v123;
-          v117[0] = v124[0];
-          *(v117 + 12) = *(v124 + 12);
-          v112 = v119;
-          v113 = v120;
-          v81 = 0.0;
-          v114 = v121;
-          v115 = v122;
-          v82 = 0.0;
-          if (*&v120 != 0.0)
-          {
-            v83 = *&v121;
-            if (BYTE8(v121) > 3u)
-            {
-              v84 = *(&v120 + 1);
-            }
-
-            else
-            {
-              v84 = *&v121;
-              v83 = *(&v120 + 1);
-            }
-
-            v81 = 1.0 / *&v120 * v83;
-            v82 = 1.0 / *&v120 * v84;
-          }
-
-          v89.value = GraphicsImage.render(at:prefersMask:)(__PAIR128__(*&v82, *&v81), 0).value;
-          if (!v89.value)
-          {
-            goto LABEL_60;
-          }
-
-          isa = v89.value;
-        }
-
-        else
-        {
-          isa = v119;
-          if (BYTE8(v112))
-          {
-            v56 = v107;
-            v6 = v108;
-            v14 = v100;
-            v17 = v103;
-            v15 = v104;
-            v57 = v106;
-            if (BYTE8(v112) == 1)
-            {
-              LODWORD(v112) = RBImageMakeIOSurface();
-              *(&v112 + 1) = v58;
-              [v14 setArgumentBytes:&v112 atIndex:v16 type:7 count:1 flags:0];
-LABEL_60:
-              outlined destroy of Image.Resolved(&v119);
-              outlined consume of Shader.Argument.Storage(v25, v57, v105, 8u);
-              outlined consume of EnvironmentValues?(v56);
-              goto LABEL_5;
-            }
-
-            goto LABEL_46;
-          }
-
-          outlined init with copy of GraphicsImage(&v119, &v112);
-          outlined init with copy of GraphicsImage(&v119, &v112);
-          v56 = v107;
-          v6 = v108;
-          v14 = v100;
-          v17 = v103;
-          v15 = v104;
-          v57 = v106;
-        }
-
-        LODWORD(v112) = RBImageMakeCGImage();
-        *(&v112 + 1) = v90;
-        [v14 setArgumentBytes:&v112 atIndex:v16 type:7 count:1 flags:0];
-
-        outlined destroy of Image.Resolved(&v119);
-        outlined consume of Shader.Argument.Storage(v25, v57, v105, 8u);
-        outlined consume of EnvironmentValues?(v56);
-LABEL_59:
-
-        goto LABEL_5;
-      }
-
-      LODWORD(v119) = 0;
-      *(&v119 + 1) = 0;
-      v38 = v106;
-      v39 = v26;
-      outlined copy of Shader.Argument.Storage(v25, v106, v26, 8u);
-      [v14 setArgumentBytes:&v119 atIndex:v16 type:7 count:1 flags:0];
-      v19 = v25;
-      v20 = v38;
-      v21 = v39;
-      v22 = 8;
-    }
-
-    else
-    {
-      v30 = v26;
-      if (v27 == 9)
-      {
-        outlined copy of Shader.Argument.Storage(v25, v24, v26, 9u);
-        if (v107 != 1)
-        {
-          isa = Data._bridgeToObjectiveC()().super.isa;
-          [v14 setArgumentData:isa atIndex:v16 type:0 flags:3];
-          outlined consume of Shader.Argument.Storage(v25, v24, v30, 9u);
-          goto LABEL_59;
-        }
-
-        [v14 setArgumentBytes_atIndex_type_count_flags_];
-        v19 = v25;
-        v20 = v24;
-        v21 = v30;
-        v22 = 9;
-      }
-
-      else
-      {
-        outlined copy of Shader.Argument.Storage(v25, v24, v26, 0xAu);
-        [v14 setArgumentBytes_atIndex_type_count_flags_];
-        v19 = v25;
-        v20 = v24;
-        v21 = v30;
-        v22 = 10;
-      }
-    }
-
-LABEL_4:
-    outlined consume of Shader.Argument.Storage(v19, v20, v21, v22);
-LABEL_5:
-    if (++v16 == v15)
-    {
-      return v14;
+      atomic_store(v6, &lazy cache variable for type metadata for TypedElement<EnvironmentPropertyKey<EnvironmentValues.__Key_timeDataSource>>);
     }
   }
+}
 
-  if (v27 == 5)
+double outlined copy of SDFLayer.SDFElement.Contents(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 a5)
+{
+  if ((a5 & 0x80) == 0)
   {
-    v32 = v24;
-    v33 = v107;
-    if (v107 == 1)
+    return outlined copy of Path.Storage(a1, a2, a3, a4, a5);
+  }
+
+  return result;
+}
+
+uint64_t specialized static SDFLayer.SDFElement.Contents.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  v3 = *a1;
+  v2 = *(a1 + 8);
+  v5 = *(a1 + 16);
+  v4 = *(a1 + 24);
+  v6 = *(a1 + 32);
+  v8 = *a2;
+  v7 = *(a2 + 8);
+  v9 = *(a2 + 16);
+  v10 = *(a2 + 24);
+  v11 = *(a2 + 32);
+  if ((v6 & 0x80000000) == 0)
+  {
+    if ((v11 & 0x80000000) == 0)
     {
-      v119 = 0uLL;
-      v34 = v32;
-      v35 = v26;
-      outlined copy of Shader.Argument.Storage(v25, v32, v26, 5u);
-      v36 = 2143289344;
+      v17 = *a1;
+      v18 = v2;
+      v19 = v5;
+      v20 = v4;
+      v21 = v6;
+      v22.i64[0] = v8;
+      v22.i64[1] = v7;
+      v23 = v9;
+      v24 = v10;
+      v25 = v11;
+      outlined copy of SDFLayer.SDFElement.Contents(v8, v7, v9, v10, v11);
+      outlined copy of SDFLayer.SDFElement.Contents(v3, v2, v5, v4, v6);
+      v15 = v10;
+      v12 = v9;
+      v13 = specialized static Path.Storage.== infix(_:_:)(&v17, &v22);
+      outlined consume of SDFLayer.SDFElement.Contents(v3, v2, v5, v4, v6);
+      outlined consume of SDFLayer.SDFElement.Contents(v8, v7, v12, v15, v11);
+      return v13 & 1;
     }
 
-    else
-    {
-      *&v119 = v107;
-      *(&v119 + 1) = v6;
-      v46 = *(*v25 + 120);
-      v35 = v26;
-      outlined copy of Shader.Argument.Storage(v25, v32, v26, 5u);
-      outlined copy of EnvironmentValues?(v33);
-      v46(&v110, &v119);
-      v17 = v103;
-      v6 = v108;
-      v47 = v33;
-      v34 = v32;
-      outlined consume of EnvironmentValues?(v47);
-      v119 = v110;
-      v36 = v111;
-    }
-
-    [v14 setArgumentBytes:&v119 atIndex:v16 type:5 count:1 flags:{0, v94}];
-    [v14 setArgumentColorSpace:2 atIndex:v16];
-    v15 = v104;
-    LODWORD(v48) = v36;
-    [v14 setArgumentHeadroom:v16 atIndex:v48];
-    v19 = v25;
-    v20 = v34;
-    v21 = v35;
-    v22 = 5;
-    goto LABEL_4;
-  }
-
-  if (v27 != 6)
-  {
-    *&v119 = v25;
-    v43 = v26;
-    *(&v119 + 1) = v24;
-    v44 = v26;
-    outlined copy of Shader.Argument.Storage(v25, v24, v26, 7u);
-    [v14 setArgumentBytes:&v119 atIndex:v16 type:5 count:1 flags:0];
-    [v14 setArgumentColorSpace:2 atIndex:v16];
-    LODWORD(v45) = v43;
-    [v14 setArgumentHeadroom:v16 atIndex:v45];
-    v19 = v25;
-    v20 = v24;
-    v21 = v44;
-    v22 = 7;
-    goto LABEL_4;
-  }
-
-  if (v107 == 1)
-  {
-    v28 = v26;
-    outlined copy of Shader.Argument.Storage(v25, v24, v26, 6u);
-    [v14 setArgumentBytes_atIndex_type_count_flags_];
-    v19 = v25;
-    v20 = v24;
-    v21 = v28;
-    v22 = 6;
-    goto LABEL_4;
-  }
-
-  v59 = v25[2];
-  if (v59 >> 59)
-  {
-    goto LABEL_66;
-  }
-
-  v60 = v25 + 4;
-  v61 = 16 * v59;
-  v62 = v26;
-  v101 = v25[2];
-  outlined copy of Shader.Argument.Storage(v25, v24, v26, 6u);
-  v63 = v107;
-  outlined copy of EnvironmentValues?(v107);
-  v105 = v62;
-  isStackAllocationSafe = outlined copy of Shader.Argument.Storage(v25, v24, v62, 6u);
-  if (v61 < 1025 || (isStackAllocationSafe = swift_stdlib_isStackAllocationSafe(), (isStackAllocationSafe & 1) != 0))
-  {
-    v106 = v24;
-    MEMORY[0x1EEE9AC00](isStackAllocationSafe);
-    v66 = &v94 - v65;
-    v67 = v101;
-    v96 = v66;
-    v97 = v68;
-    if (v101)
-    {
-      v69 = (v66 + 8);
-      v70 = v107;
-      do
-      {
-        v71 = *v60++;
-        *&v119 = v70;
-        *(&v119 + 1) = v6;
-        v72 = *(*v71 + 112);
-
-        v73 = v72(&v119);
-        v6 = v108;
-        v74 = v73;
-        v76 = v75;
-        v78 = v77;
-        v80 = v79;
-
-        *(v69 - 2) = v74;
-        *(v69 - 1) = v76;
-        *v69 = v78;
-        *(v69 + 1) = v80;
-        v69 += 4;
-        --v67;
-      }
-
-      while (v67);
-    }
-
-    else
-    {
-      v70 = v107;
-    }
-
-    v14 = v100;
-    [v100 setArgumentBytes:v96 atIndex:v16 type:5 count:v101 flags:{3, v94}];
-    [v14 setArgumentColorSpace:2 atIndex:v16];
-    outlined consume of EnvironmentValues?(v70);
-    v85 = v106;
-    v86 = v105;
-    outlined consume of Shader.Argument.Storage(v25, v106, v105, 6u);
-    v87 = v25;
-    v88 = v85;
-    goto LABEL_51;
-  }
-
-  v91 = swift_slowAlloc();
-  v92 = v94;
-  closure #1 in closure #3 in Shader.makeRBShader(in:)(v91, v101, v25 + 4, v101, v63, v6, v14, v16);
-  v94 = v92;
-  if (!v92)
-  {
-    MEMORY[0x193AC4820](v91, -1, -1);
-    outlined consume of EnvironmentValues?(v63);
-    v86 = v105;
-    outlined consume of Shader.Argument.Storage(v25, v24, v105, 6u);
-    v87 = v25;
-    v88 = v24;
-LABEL_51:
-    outlined consume of Shader.Argument.Storage(v87, v88, v86, 6u);
-    v17 = v103;
-    v15 = v104;
     goto LABEL_5;
   }
 
-  result = MEMORY[0x193AC4820](v91, -1, -1);
-  __break(1u);
+  if ((v11 & 0x80000000) == 0)
+  {
+LABEL_5:
+    outlined copy of SDFLayer.SDFElement.Contents(*a2, *(a2 + 8), v9, v10, v11);
+    outlined copy of SDFLayer.SDFElement.Contents(v3, v2, v5, v4, v6);
+    outlined consume of SDFLayer.SDFElement.Contents(v3, v2, v5, v4, v6);
+    outlined consume of SDFLayer.SDFElement.Contents(v8, v7, v9, v10, v11);
+LABEL_6:
+    v13 = 0;
+    return v13 & 1;
+  }
+
+  v22.i64[0] = *a1;
+  v22.i16[4] = v2;
+  v22.i32[3] = HIDWORD(v2);
+  v17 = v8;
+  LOWORD(v18) = v7;
+  HIDWORD(v18) = HIDWORD(v7);
+  v16 = specialized static DisplayList.== infix(_:_:)(&v22, &v17);
+  outlined copy of SDFLayer.SDFElement.Contents(v8, v7, v9, v10, v11);
+  outlined copy of SDFLayer.SDFElement.Contents(v3, v2, v5, v4, v6);
+  outlined consume of SDFLayer.SDFElement.Contents(v3, v2, v5, v4, v6);
+  outlined consume of SDFLayer.SDFElement.Contents(v8, v7, v9, v10, v11);
+  if ((v16 & 1) == 0)
+  {
+    goto LABEL_6;
+  }
+
+  v13 = *&v4 == *&v10 && *&v5 == *&v9;
+  return v13 & 1;
+}
+
+double outlined consume of SDFLayer.SDFElement.Contents(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 a5)
+{
+  if ((a5 & 0x80) == 0)
+  {
+    return outlined consume of Path.Storage(a1, a2, a3, a4, a5);
+  }
+
   return result;
 }
 
-uint64_t @objc closure #7 in closure #1 in variable initialization expression of static Path.PathBox.bufferCallbacks()
+unint64_t DisplayList.Index.skip(effect:)(uint64_t a1)
 {
-
-  BezierOrder = RBPathStorageGetBezierOrder();
-
-  return BezierOrder;
-}
-
-_DWORD *destroy for KeyframeTrackState(_DWORD *result, uint64_t a2)
-{
-  v2 = ((((*(*(*(a2 + 16) - 8) + 64) + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 24;
-  if (v2 <= 0x10)
+  type metadata accessor for DisplayList.ArchiveIDs?(0, &lazy cache variable for type metadata for DisplayList.ArchiveIDs?, type metadata accessor for DisplayList.ArchiveIDs, MEMORY[0x1E69E6720]);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v5 = &v223 - v4;
+  result = *a1;
+  v7 = *(a1 + 12);
+  if (v7 == 1)
   {
-    v2 = 16;
+LABEL_223:
+    v220 = swift_projectBox();
+    outlined init with copy of DisplayList.ArchiveIDs?(v220, v5);
+    v221 = type metadata accessor for DisplayList.ArchiveIDs(0);
+    v222 = (*(*(v221 - 8) + 48))(v5, 1, v221) != 1;
+    DisplayList.Index.updateArchive(entering:)(v222);
+    return outlined destroy of Any?(v5, &lazy cache variable for type metadata for DisplayList.ArchiveIDs?, type metadata accessor for DisplayList.ArchiveIDs, MEMORY[0x1E69E6720], type metadata accessor for DisplayList.ArchiveIDs?);
   }
 
-  v3 = v2;
-  v4 = *(result + v2);
-  if (v4 >= 2 && v3 != 0)
+  else if (v7 == 7)
   {
-    v4 = *result + 2;
-  }
-
-  if (v4 == 1)
-  {
-    (*(*(*(a2 + 16) - 8) + 8))();
-  }
-
-  else if (!v4)
-  {
-  }
-
-  return result;
-}
-
-double _ResolvedKeyframes.duration.getter()
-{
-  KeyPath = swift_getKeyPath();
-  type metadata accessor for _ResolvedKeyframes.Track();
-  v1 = type metadata accessor for Array();
-
-  WitnessTable = swift_getWitnessTable();
-  v4 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for implicit closure #1 in _ResolvedKeyframes.duration.getter, KeyPath, v1, MEMORY[0x1E69E63B0], MEMORY[0x1E69E73E0], WitnessTable, MEMORY[0x1E69E7410], v3);
-
-  v5 = *(v4 + 16);
-  if (v5)
-  {
-    v6 = *(v4 + 32);
-    v7 = v5 - 1;
-    if (v7)
+    v8 = *(result + 16);
+    v9 = *(v8 + 16);
+    if (v9)
     {
-      v8 = (v4 + 40);
-      do
+      v10 = 0;
+      v11 = v8 + 32;
+      v225 = *(v8 + 16);
+      v226 = v8;
+      v224 = v8 + 32;
+      while (1)
       {
-        v9 = *v8++;
-        v10 = v9;
-        if (v6 < v9)
+        v12 = (v11 + 80 * v10);
+        v13 = v12[1];
+        v14 = v12[2];
+        v15 = v12[3];
+        *&v270[12] = *(v12 + 60);
+        v16 = *v12;
+        v269 = v14;
+        *v270 = v15;
+        v268[0] = v16;
+        v268[1] = v13;
+        if (*&v270[24])
         {
-          v6 = v10;
+          goto LABEL_220;
         }
 
-        --v7;
+        result = *(&v269 + 1);
+        v17 = *v270;
+        v18 = *&v270[8];
+        v19 = *&v270[16];
+        v20 = *v1;
+        v21 = v1[1] + 1;
+        v1[1] = v21;
+        v22 = *(v1 + 1);
+        v23 = *(v1 + 16);
+        *(v1 + 16) = 0;
+        v24 = v19 >> 30;
+        if (v24 - 2 < 2)
+        {
+          goto LABEL_210;
+        }
+
+        if (v24)
+        {
+          break;
+        }
+
+        if (result >> 60 != 11)
+        {
+          goto LABEL_210;
+        }
+
+        v25 = *((result & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+        v26 = *(v25 + 16);
+        if (!v26)
+        {
+          goto LABEL_210;
+        }
+
+        v231 = v20;
+        v232 = v21;
+        v233 = v23;
+        v234 = v10;
+        v242 = v26;
+        v243 = v25;
+        outlined init with copy of DisplayList.Item(v268, &v264);
+        outlined init with copy of DisplayList.Item(v268, &v264);
+        result = outlined init with copy of DisplayList.Item(v268, &v264);
+        v28 = v242;
+        v27 = v243;
+        if (!*(v243 + 16))
+        {
+          goto LABEL_227;
+        }
+
+        v29 = 0;
+        v30 = v243 + 32;
+        v241 = v243 + 32;
+        while (2)
+        {
+          v31 = (v30 + 80 * v29);
+          v32 = v31[1];
+          v33 = v31[2];
+          v34 = v31[3];
+          *(v267 + 12) = *(v31 + 60);
+          v35 = *v31;
+          v266 = v33;
+          v267[0] = v34;
+          v264 = v35;
+          v265 = v32;
+          if (DWORD2(v267[1]))
+          {
+            goto LABEL_91;
+          }
+
+          v5 = *(&v266 + 1);
+          v36 = v267[0];
+          v37 = v267[1];
+          v38 = *v1;
+          v39 = v1[1] + 1;
+          v1[1] = v39;
+          v40 = *(v1 + 1);
+          *(v1 + 16) = 0;
+          v41 = v37 >> 30;
+          if (v41 - 2 < 2)
+          {
+            goto LABEL_81;
+          }
+
+          if (v41)
+          {
+            v244 = v36;
+            LODWORD(v248) = v38;
+            LODWORD(v249) = v39;
+            v72 = *(*(&v36 + 1) + 16);
+            if (!v72)
+            {
+              outlined init with copy of DisplayList.Item(&v264, &v260);
+              outlined init with copy of DisplayList.Item(&v264, &v260);
+
+              goto LABEL_78;
+            }
+
+            v240 = v5;
+            v73 = *(&v36 + 1) + 32;
+            outlined init with copy of DisplayList.Item(&v264, &v260);
+            outlined init with copy of DisplayList.Item(&v264, &v260);
+            v74 = 0;
+            v246 = v72;
+            v247 = *(&v36 + 1);
+            v245 = *(&v36 + 1) + 32;
+            while (2)
+            {
+              v75 = (v73 + 80 * v74);
+              v76 = v75[1];
+              v77 = v75[2];
+              v78 = v75[3];
+              *(v263 + 12) = *(v75 + 60);
+              v79 = *v75;
+              v262 = v77;
+              v263[0] = v78;
+              v260 = v79;
+              v261 = v76;
+              if (!DWORD2(v263[1]))
+              {
+                v80 = *(&v262 + 1);
+                v82 = *(&v263[0] + 1);
+                v81 = *&v263[0];
+                v83 = v263[1];
+                v84 = *v1;
+                v85 = v1[1] + 1;
+                v1[1] = v85;
+                v86 = *(v1 + 1);
+                *(v1 + 16) = 0;
+                v87 = v83 >> 30;
+                if (v87 - 2 >= 2)
+                {
+                  if (v87)
+                  {
+                    LODWORD(v250) = v84;
+                    v251 = v85;
+                    v95 = *(v82 + 16);
+                    if (v95)
+                    {
+                      outlined init with copy of DisplayList.Item(&v260, &v256);
+                      outlined init with copy of DisplayList.Item(&v260, &v256);
+                      v96 = *(v82 + 48);
+                      v97 = *(v82 + 80);
+                      v258 = *(v82 + 64);
+                      v259[0] = v97;
+                      *(v259 + 12) = *(v82 + 92);
+                      v256 = *(v82 + 32);
+                      v257 = v96;
+                      DisplayList.Index.skip(item:)(&v256);
+                      v98 = v95 - 1;
+                      if (v98)
+                      {
+                        v99 = (v82 + 112);
+                        do
+                        {
+                          v257 = v99[1];
+                          v258 = v99[2];
+                          v259[0] = v99[3];
+                          *(v259 + 12) = *(v99 + 60);
+                          v100 = *v99;
+                          v99 += 5;
+                          v256 = v100;
+                          DisplayList.Index.skip(item:)(&v256);
+                          --v98;
+                        }
+
+                        while (v98);
+                      }
+                    }
+
+                    else
+                    {
+                      outlined init with copy of DisplayList.Item(&v260, &v256);
+                      outlined init with copy of DisplayList.Item(&v260, &v256);
+                    }
+
+                    *&v256 = v80;
+                    DWORD2(v256) = v81;
+                    BYTE12(v256) = BYTE4(v81);
+                    DisplayList.Index.skip(effect:)(&v256);
+                    outlined consume of DisplayList.Effect(v80, v81, SBYTE4(v81));
+                    outlined destroy of DisplayList.Item(&v260);
+                    v72 = v246;
+                    v73 = v245;
+LABEL_66:
+                    v85 = v251;
+                    v84 = v250;
+                  }
+
+                  else if (v80 >> 60 == 11)
+                  {
+                    v88 = *((v80 & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+                    v89 = *(v88 + 16);
+                    if (v89)
+                    {
+                      LODWORD(v250) = v84;
+                      v251 = v85;
+                      outlined init with copy of DisplayList.Item(&v260, &v256);
+                      v90 = *(v88 + 48);
+                      v91 = *(v88 + 80);
+                      v258 = *(v88 + 64);
+                      v259[0] = v91;
+                      *(v259 + 12) = *(v88 + 92);
+                      v256 = *(v88 + 32);
+                      v257 = v90;
+                      DisplayList.Index.skip(item:)(&v256);
+                      v92 = v89 - 1;
+                      if (v92)
+                      {
+                        v93 = (v88 + 112);
+                        do
+                        {
+                          v257 = v93[1];
+                          v258 = v93[2];
+                          v259[0] = v93[3];
+                          *(v259 + 12) = *(v93 + 60);
+                          v94 = *v93;
+                          v93 += 5;
+                          v256 = v94;
+                          DisplayList.Index.skip(item:)(&v256);
+                          --v92;
+                        }
+
+                        while (v92);
+                      }
+
+                      outlined destroy of DisplayList.Item(&v260);
+                      goto LABEL_66;
+                    }
+                  }
+                }
+
+                v101 = *(v1 + 16);
+                if ((v101 & 0xC) != 0)
+                {
+                  v102 = *v1;
+                  if ((v1[4] & 4) != 0)
+                  {
+                    *v1 = *(v1 + 1);
+                  }
+
+                  if ((v101 & 8) != 0)
+                  {
+                    *(v1 + 1) = v102;
+                  }
+                }
+
+                if (v101)
+                {
+                  *v1 = v84;
+                  v1[1] = v85;
+                }
+
+                if ((v101 & 2) != 0)
+                {
+                  *(v1 + 1) = v86;
+                }
+
+                *(v1 + 16) = 0;
+              }
+
+              if (++v74 == v72)
+              {
+
+                v5 = v240;
+LABEL_78:
+                *&v260 = v5;
+                v103 = v244;
+                DWORD2(v260) = v244;
+                BYTE12(v260) = BYTE4(v244);
+                DisplayList.Index.skip(effect:)(&v260);
+                outlined consume of DisplayList.Effect(v5, v103, SBYTE4(v103));
+                goto LABEL_80;
+              }
+
+              continue;
+            }
+          }
+
+          if (v5 >> 60 != 11)
+          {
+            goto LABEL_81;
+          }
+
+          v42 = *((v5 & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+          v43 = *(v42 + 16);
+          if (!v43)
+          {
+            goto LABEL_81;
+          }
+
+          LODWORD(v248) = v38;
+          LODWORD(v249) = v39;
+          v44 = v42 + 32;
+          outlined init with copy of DisplayList.Item(&v264, &v260);
+          outlined init with copy of DisplayList.Item(&v264, &v260);
+          outlined init with copy of DisplayList.Item(&v264, &v260);
+          v45 = 0;
+          v246 = v44;
+          v247 = v43;
+          do
+          {
+            v46 = (v44 + 80 * v45);
+            v47 = v46[1];
+            v48 = v46[2];
+            v49 = v46[3];
+            *(v263 + 12) = *(v46 + 60);
+            v50 = *v46;
+            v262 = v48;
+            v263[0] = v49;
+            v260 = v50;
+            v261 = v47;
+            if (DWORD2(v263[1]))
+            {
+              goto LABEL_19;
+            }
+
+            v5 = *(&v262 + 1);
+            v51 = *(&v263[0] + 1);
+            v52 = *&v263[0];
+            v53 = v263[1];
+            v54 = *v1;
+            v55 = v1[1] + 1;
+            v1[1] = v55;
+            v56 = *(v1 + 1);
+            *(v1 + 16) = 0;
+            v57 = v53 >> 30;
+            if (v57 - 2 >= 2)
+            {
+              if (v57)
+              {
+                v251 = v54;
+                LODWORD(v250) = v55;
+                v64 = *(v51 + 16);
+                if (v64)
+                {
+                  outlined init with copy of DisplayList.Item(&v260, &v256);
+                  outlined init with copy of DisplayList.Item(&v260, &v256);
+                  v65 = *(v51 + 48);
+                  v66 = *(v51 + 80);
+                  v258 = *(v51 + 64);
+                  v259[0] = v66;
+                  *(v259 + 12) = *(v51 + 92);
+                  v256 = *(v51 + 32);
+                  v257 = v65;
+                  DisplayList.Index.skip(item:)(&v256);
+                  v67 = v64 - 1;
+                  if (v67)
+                  {
+                    v68 = (v51 + 112);
+                    do
+                    {
+                      v257 = v68[1];
+                      v258 = v68[2];
+                      v259[0] = v68[3];
+                      *(v259 + 12) = *(v68 + 60);
+                      v69 = *v68;
+                      v68 += 5;
+                      v256 = v69;
+                      DisplayList.Index.skip(item:)(&v256);
+                      --v67;
+                    }
+
+                    while (v67);
+                  }
+                }
+
+                else
+                {
+                  outlined init with copy of DisplayList.Item(&v260, &v256);
+                  outlined init with copy of DisplayList.Item(&v260, &v256);
+                }
+
+                *&v256 = v5;
+                DWORD2(v256) = v52;
+                BYTE12(v256) = BYTE4(v52);
+                DisplayList.Index.skip(effect:)(&v256);
+                outlined consume of DisplayList.Effect(v5, v52, SBYTE4(v52));
+                outlined destroy of DisplayList.Item(&v260);
+                v44 = v246;
+                v43 = v247;
+                v55 = v250;
+              }
+
+              else
+              {
+                if (v5 >> 60 != 11)
+                {
+                  goto LABEL_37;
+                }
+
+                v58 = *((v5 & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+                v5 = *(v58 + 16);
+                if (!v5)
+                {
+                  goto LABEL_37;
+                }
+
+                v251 = v54;
+                v59 = v55;
+                outlined init with copy of DisplayList.Item(&v260, &v256);
+                v60 = *(v58 + 48);
+                v61 = *(v58 + 80);
+                v258 = *(v58 + 64);
+                v259[0] = v61;
+                *(v259 + 12) = *(v58 + 92);
+                v256 = *(v58 + 32);
+                v257 = v60;
+                DisplayList.Index.skip(item:)(&v256);
+                if (--v5)
+                {
+                  v62 = (v58 + 112);
+                  do
+                  {
+                    v257 = v62[1];
+                    v258 = v62[2];
+                    v259[0] = v62[3];
+                    *(v259 + 12) = *(v62 + 60);
+                    v63 = *v62;
+                    v62 += 5;
+                    v256 = v63;
+                    DisplayList.Index.skip(item:)(&v256);
+                    --v5;
+                  }
+
+                  while (v5);
+                }
+
+                outlined destroy of DisplayList.Item(&v260);
+                v55 = v59;
+              }
+
+              v54 = v251;
+            }
+
+LABEL_37:
+            v70 = *(v1 + 16);
+            if ((v70 & 0xC) != 0)
+            {
+              v71 = *v1;
+              if ((v1[4] & 4) != 0)
+              {
+                *v1 = *(v1 + 1);
+              }
+
+              if ((v70 & 8) != 0)
+              {
+                *(v1 + 1) = v71;
+              }
+            }
+
+            if (v70)
+            {
+              *v1 = v54;
+              v1[1] = v55;
+            }
+
+            if ((v70 & 2) != 0)
+            {
+              *(v1 + 1) = v56;
+            }
+
+            *(v1 + 16) = 0;
+LABEL_19:
+            ++v45;
+          }
+
+          while (v45 != v43);
+          outlined destroy of DisplayList.Item(&v264);
+          outlined destroy of DisplayList.Item(&v264);
+LABEL_80:
+          result = outlined destroy of DisplayList.Item(&v264);
+          v28 = v242;
+          v27 = v243;
+          v30 = v241;
+          v39 = v249;
+          v38 = v248;
+LABEL_81:
+          v104 = *(v1 + 16);
+          if ((v104 & 0xC) != 0)
+          {
+            v105 = *v1;
+            if ((v1[4] & 4) != 0)
+            {
+              *v1 = *(v1 + 1);
+            }
+
+            if ((v104 & 8) != 0)
+            {
+              *(v1 + 1) = v105;
+            }
+          }
+
+          if (v104)
+          {
+            *v1 = v38;
+            v1[1] = v39;
+          }
+
+          if ((v104 & 2) != 0)
+          {
+            *(v1 + 1) = v40;
+          }
+
+          *(v1 + 16) = 0;
+LABEL_91:
+          if (++v29 != v28)
+          {
+            if (v29 >= *(v27 + 16))
+            {
+LABEL_227:
+              __break(1u);
+              return result;
+            }
+
+            continue;
+          }
+
+          break;
+        }
+
+        outlined destroy of DisplayList.Item(v268);
+        outlined destroy of DisplayList.Item(v268);
+        result = outlined destroy of DisplayList.Item(v268);
+        v9 = v225;
+        v8 = v226;
+        v10 = v234;
+        v11 = v224;
+LABEL_209:
+        v21 = v232;
+        LOBYTE(v23) = v233;
+        v20 = v231;
+LABEL_210:
+        v218 = *(v1 + 16);
+        if ((v218 & 0xC) != 0)
+        {
+          v219 = *v1;
+          if ((v1[4] & 4) != 0)
+          {
+            *v1 = *(v1 + 1);
+          }
+
+          if ((v218 & 8) != 0)
+          {
+            *(v1 + 1) = v219;
+          }
+        }
+
+        if (v218)
+        {
+          *v1 = v20;
+          v1[1] = v21;
+        }
+
+        if ((v218 & 2) != 0)
+        {
+          *(v1 + 1) = v22;
+        }
+
+        *(v1 + 16) = v23;
+LABEL_220:
+        if (++v10 == v9)
+        {
+          return result;
+        }
+
+        if (v10 >= *(v8 + 16))
+        {
+          __break(1u);
+          goto LABEL_223;
+        }
       }
 
-      while (v7);
+      v227 = v17;
+      v228 = result;
+      v231 = v20;
+      v232 = v21;
+      v233 = v23;
+      v234 = v10;
+      v106 = *(v18 + 16);
+      if (!v106)
+      {
+        outlined init with copy of DisplayList.Item(v268, &v264);
+        outlined init with copy of DisplayList.Item(v268, &v264);
+LABEL_207:
+
+        v217 = v227;
+        v216 = v228;
+        *&v264 = v228;
+        v5 = HIDWORD(v227);
+        DWORD2(v264) = v227;
+        BYTE12(v264) = BYTE4(v227);
+        DisplayList.Index.skip(effect:)(&v264);
+        outlined consume of DisplayList.Effect(v216, v217, SBYTE4(v217));
+        result = outlined destroy of DisplayList.Item(v268);
+        v9 = v225;
+        v8 = v226;
+        v10 = v234;
+        v11 = v224;
+        goto LABEL_209;
+      }
+
+      outlined init with copy of DisplayList.Item(v268, &v264);
+      result = outlined init with copy of DisplayList.Item(v268, &v264);
+      if (*(v18 + 16))
+      {
+        v107 = 0;
+        v108 = v18 + 32;
+        v237 = v106;
+        v238 = v18;
+        v235 = v18 + 32;
+        while (1)
+        {
+          v109 = (v108 + 80 * v107);
+          v110 = v109[1];
+          v111 = v109[2];
+          v112 = v109[3];
+          *(v267 + 12) = *(v109 + 60);
+          v113 = *v109;
+          v266 = v111;
+          v267[0] = v112;
+          v264 = v113;
+          v265 = v110;
+          if (!DWORD2(v267[1]))
+          {
+            break;
+          }
+
+LABEL_203:
+          if (++v107 == v106)
+          {
+            goto LABEL_207;
+          }
+
+          if (v107 >= *(v18 + 16))
+          {
+            goto LABEL_226;
+          }
+        }
+
+        v114 = *(&v266 + 1);
+        v116 = *(&v267[0] + 1);
+        v115 = *&v267[0];
+        v117 = v267[1];
+        v118 = *v1;
+        v119 = v1[1] + 1;
+        v1[1] = v119;
+        v120 = *(v1 + 1);
+        *(v1 + 16) = 0;
+        v121 = v117 >> 30;
+        if (v121 - 2 < 2)
+        {
+LABEL_193:
+          v214 = *(v1 + 16);
+          if ((v214 & 0xC) != 0)
+          {
+            v215 = *v1;
+            if ((v1[4] & 4) != 0)
+            {
+              *v1 = *(v1 + 1);
+            }
+
+            if ((v214 & 8) != 0)
+            {
+              *(v1 + 1) = v215;
+            }
+          }
+
+          if (v214)
+          {
+            *v1 = v118;
+            v1[1] = v119;
+          }
+
+          if ((v214 & 2) != 0)
+          {
+            *(v1 + 1) = v120;
+          }
+
+          *(v1 + 16) = 0;
+          goto LABEL_203;
+        }
+
+        if (!v121)
+        {
+          if (v114 >> 60 != 11)
+          {
+            goto LABEL_193;
+          }
+
+          v122 = *((v114 & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+          v123 = *(v122 + 16);
+          if (!v123)
+          {
+            goto LABEL_193;
+          }
+
+          v239 = v118;
+          LODWORD(v240) = v119;
+          v241 = v107;
+          v124 = v122 + 32;
+          outlined init with copy of DisplayList.Item(&v264, &v260);
+          outlined init with copy of DisplayList.Item(&v264, &v260);
+          outlined init with copy of DisplayList.Item(&v264, &v260);
+          v125 = 0;
+          v249 = v124;
+          v250 = v123;
+          do
+          {
+            v126 = (v124 + 80 * v125);
+            v127 = v126[1];
+            v128 = v126[2];
+            v129 = v126[3];
+            *(v263 + 12) = *(v126 + 60);
+            v130 = *v126;
+            v262 = v128;
+            v263[0] = v129;
+            v260 = v130;
+            v261 = v127;
+            if (!DWORD2(v263[1]))
+            {
+              v131 = *(&v262 + 1);
+              v133 = *(&v263[0] + 1);
+              v132 = *&v263[0];
+              v134 = v263[1];
+              v135 = *v1;
+              v136 = v1[1] + 1;
+              v1[1] = v136;
+              v137 = *(v1 + 1);
+              *(v1 + 16) = 0;
+              v138 = v134 >> 30;
+              if (v138 - 2 >= 2)
+              {
+                if (v138)
+                {
+                  v251 = v135;
+                  v147 = *(v133 + 16);
+                  if (v147)
+                  {
+                    outlined init with copy of DisplayList.Item(&v260, &v256);
+                    outlined init with copy of DisplayList.Item(&v260, &v256);
+                    v148 = *(v133 + 48);
+                    v149 = *(v133 + 80);
+                    v258 = *(v133 + 64);
+                    v259[0] = v149;
+                    *(v259 + 12) = *(v133 + 92);
+                    v256 = *(v133 + 32);
+                    v257 = v148;
+                    DisplayList.Index.skip(item:)(&v256);
+                    v150 = v147 - 1;
+                    if (v150)
+                    {
+                      v151 = (v133 + 112);
+                      do
+                      {
+                        v257 = v151[1];
+                        v258 = v151[2];
+                        v259[0] = v151[3];
+                        *(v259 + 12) = *(v151 + 60);
+                        v152 = *v151;
+                        v151 += 5;
+                        v256 = v152;
+                        DisplayList.Index.skip(item:)(&v256);
+                        --v150;
+                      }
+
+                      while (v150);
+                    }
+                  }
+
+                  else
+                  {
+                    outlined init with copy of DisplayList.Item(&v260, &v256);
+                    outlined init with copy of DisplayList.Item(&v260, &v256);
+                  }
+
+                  *&v256 = v131;
+                  DWORD2(v256) = v132;
+                  BYTE12(v256) = BYTE4(v132);
+                  DisplayList.Index.skip(effect:)(&v256);
+                  outlined consume of DisplayList.Effect(v131, v132, SBYTE4(v132));
+                  outlined destroy of DisplayList.Item(&v260);
+                  v124 = v249;
+                  v123 = v250;
+                  v135 = v251;
+                }
+
+                else if (v131 >> 60 == 11)
+                {
+                  v139 = *((v131 & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+                  v140 = *(v139 + 16);
+                  if (v140)
+                  {
+                    v141 = v135;
+                    outlined init with copy of DisplayList.Item(&v260, &v256);
+                    v142 = *(v139 + 48);
+                    v143 = *(v139 + 80);
+                    v258 = *(v139 + 64);
+                    v259[0] = v143;
+                    *(v259 + 12) = *(v139 + 92);
+                    v256 = *(v139 + 32);
+                    v257 = v142;
+                    DisplayList.Index.skip(item:)(&v256);
+                    v144 = v140 - 1;
+                    if (v144)
+                    {
+                      v145 = (v139 + 112);
+                      do
+                      {
+                        v257 = v145[1];
+                        v258 = v145[2];
+                        v259[0] = v145[3];
+                        *(v259 + 12) = *(v145 + 60);
+                        v146 = *v145;
+                        v145 += 5;
+                        v256 = v146;
+                        DisplayList.Index.skip(item:)(&v256);
+                        --v144;
+                      }
+
+                      while (v144);
+                    }
+
+                    outlined destroy of DisplayList.Item(&v260);
+                    v135 = v141;
+                  }
+                }
+              }
+
+              v153 = *(v1 + 16);
+              if ((v153 & 0xC) != 0)
+              {
+                v154 = *v1;
+                if ((v1[4] & 4) != 0)
+                {
+                  *v1 = *(v1 + 1);
+                }
+
+                if ((v153 & 8) != 0)
+                {
+                  *(v1 + 1) = v154;
+                }
+              }
+
+              if (v153)
+              {
+                *v1 = v135;
+                v1[1] = v136;
+              }
+
+              if ((v153 & 2) != 0)
+              {
+                *(v1 + 1) = v137;
+              }
+
+              *(v1 + 16) = 0;
+            }
+
+            ++v125;
+          }
+
+          while (v125 != v123);
+          outlined destroy of DisplayList.Item(&v264);
+          outlined destroy of DisplayList.Item(&v264);
+          result = outlined destroy of DisplayList.Item(&v264);
+          v106 = v237;
+          v18 = v238;
+          goto LABEL_192;
+        }
+
+        v239 = v118;
+        LODWORD(v240) = v119;
+        v241 = v107;
+        v155 = *(v116 + 16);
+        if (!v155)
+        {
+          outlined init with copy of DisplayList.Item(&v264, &v260);
+          outlined init with copy of DisplayList.Item(&v264, &v260);
+
+LABEL_190:
+          *&v260 = v114;
+          DWORD2(v260) = v115;
+          BYTE12(v260) = BYTE4(v115);
+          DisplayList.Index.skip(effect:)(&v260);
+          outlined consume of DisplayList.Effect(v114, v115, SBYTE4(v115));
+          result = outlined destroy of DisplayList.Item(&v264);
+LABEL_192:
+          v107 = v241;
+          v108 = v235;
+          v118 = v239;
+          v119 = v240;
+          goto LABEL_193;
+        }
+
+        v229 = v115;
+        v230 = v114;
+        v243 = v155;
+        outlined init with copy of DisplayList.Item(&v264, &v260);
+        result = outlined init with copy of DisplayList.Item(&v264, &v260);
+        v156 = v243;
+        if (*(v116 + 16))
+        {
+          v157 = 0;
+          v158 = v116 + 32;
+          v242 = v116 + 32;
+          v236 = v116;
+          do
+          {
+            v159 = (v158 + 80 * v157);
+            v160 = v159[1];
+            v161 = v159[2];
+            v162 = v159[3];
+            *(v263 + 12) = *(v159 + 60);
+            v163 = *v159;
+            v262 = v161;
+            v263[0] = v162;
+            v260 = v163;
+            v261 = v160;
+            if (DWORD2(v263[1]))
+            {
+              goto LABEL_185;
+            }
+
+            v164 = *(&v262 + 1);
+            v165 = v263[0];
+            v166 = v263[1];
+            v167 = *v1;
+            v168 = v1[1] + 1;
+            v1[1] = v168;
+            v169 = *(v1 + 1);
+            *(v1 + 16) = 0;
+            v170 = v166 >> 30;
+            if (v170 - 2 >= 2)
+            {
+              if (v170)
+              {
+                v244 = v165;
+                v245 = v164;
+                LODWORD(v247) = v167;
+                LODWORD(v246) = v168;
+                if (*(*(&v165 + 1) + 16))
+                {
+                  v250 = *(*(&v165 + 1) + 16);
+                  outlined init with copy of DisplayList.Item(&v260, &v256);
+                  outlined init with copy of DisplayList.Item(&v260, &v256);
+                  v178 = *(&v165 + 1) + 32;
+                  v179 = v250;
+                  v180 = 0;
+                  v248 = *(&v165 + 1) + 32;
+                  v249 = *(&v165 + 1);
+                  do
+                  {
+                    v181 = (v178 + 80 * v180);
+                    v182 = v181[1];
+                    v183 = v181[2];
+                    v184 = v181[3];
+                    *(v259 + 12) = *(v181 + 60);
+                    v185 = *v181;
+                    v258 = v183;
+                    v259[0] = v184;
+                    v256 = v185;
+                    v257 = v182;
+                    if (!DWORD2(v259[1]))
+                    {
+                      v186 = *(&v258 + 1);
+                      v187 = *(&v259[0] + 1);
+                      v188 = *&v259[0];
+                      v189 = v259[1];
+                      v190 = *v1;
+                      v191 = v1[1] + 1;
+                      v1[1] = v191;
+                      v192 = *(v1 + 1);
+                      *(v1 + 16) = 0;
+                      v193 = v189 >> 30;
+                      if (v193 - 2 >= 2)
+                      {
+                        if (v193)
+                        {
+                          v251 = v190;
+                          v202 = *(v187 + 16);
+                          if (v202)
+                          {
+                            outlined init with copy of DisplayList.Item(&v256, &v252);
+                            outlined init with copy of DisplayList.Item(&v256, &v252);
+                            v203 = *(v187 + 48);
+                            v204 = *(v187 + 80);
+                            v254 = *(v187 + 64);
+                            v255[0] = v204;
+                            *(v255 + 12) = *(v187 + 92);
+                            v252 = *(v187 + 32);
+                            v253 = v203;
+                            DisplayList.Index.skip(item:)(&v252);
+                            v205 = v202 - 1;
+                            if (v202 != 1)
+                            {
+                              v206 = (v187 + 112);
+                              do
+                              {
+                                v253 = v206[1];
+                                v254 = v206[2];
+                                v255[0] = v206[3];
+                                *(v255 + 12) = *(v206 + 60);
+                                v207 = *v206;
+                                v206 += 5;
+                                v252 = v207;
+                                DisplayList.Index.skip(item:)(&v252);
+                                --v205;
+                              }
+
+                              while (v205);
+                            }
+                          }
+
+                          else
+                          {
+                            outlined init with copy of DisplayList.Item(&v256, &v252);
+                            outlined init with copy of DisplayList.Item(&v256, &v252);
+                          }
+
+                          *&v252 = v186;
+                          DWORD2(v252) = v188;
+                          BYTE12(v252) = BYTE4(v188);
+                          DisplayList.Index.skip(effect:)(&v252);
+                          outlined consume of DisplayList.Effect(v186, v188, SBYTE4(v188));
+                          outlined destroy of DisplayList.Item(&v256);
+                          v179 = v250;
+                          v178 = v248;
+                          v190 = v251;
+                        }
+
+                        else if (v186 >> 60 == 11)
+                        {
+                          v194 = *((v186 & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+                          v195 = *(v194 + 16);
+                          if (v195)
+                          {
+                            v196 = v190;
+                            outlined init with copy of DisplayList.Item(&v256, &v252);
+                            v197 = *(v194 + 48);
+                            v198 = *(v194 + 80);
+                            v254 = *(v194 + 64);
+                            v255[0] = v198;
+                            *(v255 + 12) = *(v194 + 92);
+                            v252 = *(v194 + 32);
+                            v253 = v197;
+                            DisplayList.Index.skip(item:)(&v252);
+                            v199 = v195 - 1;
+                            if (v199)
+                            {
+                              v200 = (v194 + 112);
+                              do
+                              {
+                                v253 = v200[1];
+                                v254 = v200[2];
+                                v255[0] = v200[3];
+                                *(v255 + 12) = *(v200 + 60);
+                                v201 = *v200;
+                                v200 += 5;
+                                v252 = v201;
+                                DisplayList.Index.skip(item:)(&v252);
+                                --v199;
+                              }
+
+                              while (v199);
+                            }
+
+                            outlined destroy of DisplayList.Item(&v256);
+                            v179 = v250;
+                            v178 = v248;
+                            v190 = v196;
+                          }
+                        }
+                      }
+
+                      v208 = *(v1 + 16);
+                      if ((v208 & 0xC) != 0)
+                      {
+                        v209 = *v1;
+                        if ((v1[4] & 4) != 0)
+                        {
+                          *v1 = *(v1 + 1);
+                        }
+
+                        if ((v208 & 8) != 0)
+                        {
+                          *(v1 + 1) = v209;
+                        }
+                      }
+
+                      if (v208)
+                      {
+                        *v1 = v190;
+                        v1[1] = v191;
+                      }
+
+                      if ((v208 & 2) != 0)
+                      {
+                        *(v1 + 1) = v192;
+                      }
+
+                      *(v1 + 16) = 0;
+                    }
+
+                    ++v180;
+                  }
+
+                  while (v180 != v179);
+
+                  v106 = v237;
+                  v18 = v238;
+                  v116 = v236;
+                }
+
+                else
+                {
+                  outlined init with copy of DisplayList.Item(&v260, &v256);
+                  outlined init with copy of DisplayList.Item(&v260, &v256);
+                }
+
+                v211 = v244;
+                v210 = v245;
+                *&v256 = v245;
+                DWORD2(v256) = v244;
+                BYTE12(v256) = BYTE4(v244);
+                DisplayList.Index.skip(effect:)(&v256);
+                outlined consume of DisplayList.Effect(v210, v211, SBYTE4(v211));
+                result = outlined destroy of DisplayList.Item(&v260);
+                v158 = v242;
+                v156 = v243;
+                v168 = v246;
+              }
+
+              else
+              {
+                if (v164 >> 60 != 11)
+                {
+                  goto LABEL_175;
+                }
+
+                v171 = *((v164 & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+                v172 = *(v171 + 16);
+                if (!v172)
+                {
+                  goto LABEL_175;
+                }
+
+                LODWORD(v247) = v167;
+                outlined init with copy of DisplayList.Item(&v260, &v256);
+                v173 = *(v171 + 48);
+                v174 = *(v171 + 80);
+                v258 = *(v171 + 64);
+                v259[0] = v174;
+                *(v259 + 12) = *(v171 + 92);
+                v256 = *(v171 + 32);
+                v257 = v173;
+                DisplayList.Index.skip(item:)(&v256);
+                v175 = v172 - 1;
+                if (v175)
+                {
+                  v176 = (v171 + 112);
+                  do
+                  {
+                    v257 = v176[1];
+                    v258 = v176[2];
+                    v259[0] = v176[3];
+                    *(v259 + 12) = *(v176 + 60);
+                    v177 = *v176;
+                    v176 += 5;
+                    v256 = v177;
+                    DisplayList.Index.skip(item:)(&v256);
+                    --v175;
+                  }
+
+                  while (v175);
+                }
+
+                result = outlined destroy of DisplayList.Item(&v260);
+                v158 = v242;
+                v156 = v243;
+              }
+
+              v167 = v247;
+            }
+
+LABEL_175:
+            v212 = *(v1 + 16);
+            if ((v212 & 0xC) != 0)
+            {
+              v213 = *v1;
+              if ((v1[4] & 4) != 0)
+              {
+                *v1 = *(v1 + 1);
+              }
+
+              if ((v212 & 8) != 0)
+              {
+                *(v1 + 1) = v213;
+              }
+            }
+
+            if (v212)
+            {
+              *v1 = v167;
+              v1[1] = v168;
+            }
+
+            if ((v212 & 2) != 0)
+            {
+              *(v1 + 1) = v169;
+            }
+
+            *(v1 + 16) = 0;
+LABEL_185:
+            if (++v157 == v156)
+            {
+
+              v115 = v229;
+              v114 = v230;
+              goto LABEL_190;
+            }
+          }
+
+          while (v157 < *(v116 + 16));
+        }
+
+        __break(1u);
+      }
+
+LABEL_226:
+      __break(1u);
+      goto LABEL_227;
     }
+  }
+
+  return result;
+}
+
+double _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA011EnvironmentcF0VyAA17ContentTransitionV5StateVG_Tt2g5@<D0>(void *a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA17ContentTransitionV5StateVG_Tt0g5(a1);
+  if (v3)
+  {
+    v4 = v3[9];
+    v5 = *(v3 + 84);
+    v6 = *(v3 + 20);
+    v7 = v6 | (v5 << 32);
+    v8 = *(v3 + 86);
+    v9 = *(v3 + 87);
+    v10 = v3[11];
+    v11 = *(v3 + 24);
+    *a2 = v4;
+    *(a2 + 12) = v5;
+    *(a2 + 8) = v6;
+    v12 = *(v3 + 85);
+    *(a2 + 13) = v12;
+    *(a2 + 14) = v8;
+    *(a2 + 15) = v9;
+    *(a2 + 16) = v10;
+    *(a2 + 24) = v11;
+    v13 = v4;
   }
 
   else
   {
-    v6 = 0.0;
+    if (one-time initialization token for defaultValue != -1)
+    {
+      swift_once();
+    }
+
+    v13 = static ContentTransition.State.defaultValue;
+    v14 = BYTE12(static ContentTransition.State.defaultValue);
+    v15 = DWORD2(static ContentTransition.State.defaultValue);
+    v7 = DWORD2(static ContentTransition.State.defaultValue) | (BYTE12(static ContentTransition.State.defaultValue) << 32);
+    v16 = BYTE14(static ContentTransition.State.defaultValue);
+    v17 = HIBYTE(static ContentTransition.State.defaultValue);
+    v18 = off_1ED536620;
+    v19 = dword_1ED536628;
+    *a2 = static ContentTransition.State.defaultValue;
+    *(a2 + 12) = v14;
+    *(a2 + 8) = v15;
+    v12 = BYTE13(static ContentTransition.State.defaultValue);
+    *(a2 + 13) = BYTE13(static ContentTransition.State.defaultValue);
+    *(a2 + 14) = v16;
+    *(a2 + 15) = v17;
+    *(a2 + 16) = v18;
+    *(a2 + 24) = v19;
   }
 
-  return v6;
+  outlined copy of ContentTransition.Storage(v13, v7, v12);
+
+  return result;
 }
 
-uint64_t closure #1 in _ResolvedKeyframes.append<A>(keyPath:path:)(double a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, void (*a6)(uint64_t, uint64_t, void, uint64_t, double))
+void EnvironmentValues.interfaceIdiom.getter(char *a1@<X8>)
 {
-  v10 = *a4;
-  v11 = swift_modifyAtWritableKeyPath();
-  a6(v12, a3, *(v10 + *MEMORY[0x1E69E6CE8] + 8), a5, a1);
-  return v11(&v14, 0);
-}
-
-double AnimationPath.Element.duration.getter(uint64_t a1)
-{
-  v2 = v1;
-  v4 = type metadata accessor for AnimationPath.SpringElement();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v20 - v6;
-  v8 = type metadata accessor for AnimationPath.CurveElement();
-  v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v20 - v10;
-  v12 = *(a1 - 8);
-  v14 = MEMORY[0x1EEE9AC00](v13);
-  v16 = &v20 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v12 + 16))(v16, v2, a1, v14);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload)
+  v3 = *v1;
+  if (*(v1 + 8))
   {
-    if (EnumCaseMultiPayload == 1)
+
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA0J6ValuesVAAE02__I16__interfaceIdiom33_39057DDA72E946BD17E1F42CCA55F7F6LLVG_Tt1g5(v3, a1);
+  }
+
+  else
+  {
+    v4 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA0T6ValuesVAAE02__S16__interfaceIdiom33_39057DDA72E946BD17E1F42CCA55F7F6LLVG_Tt0g5(*v1);
+    if (v4)
     {
-      (*(v5 + 32))(v7, v16, v4);
-      v18 = *&v7[*(v4 + 52)];
-      (*(v5 + 8))(v7, v4);
+      v5 = *(v4 + 72);
     }
 
     else
     {
-      (*(v12 + 8))(v16, a1);
-      return 0.0;
+      v5 = 6;
     }
+
+    *a1 = v5;
+  }
+}
+
+void key path getter for EnvironmentValues.contentTransitionStyle : EnvironmentValues(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+{
+  v3 = *a1;
+  if (*(a1 + 8))
+  {
+
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA17ContentTransitionV5StateVG_Tt1g5(v3, &v5);
   }
 
   else
   {
-    (*(v9 + 32))(v11, v16, v8);
-    v18 = *&v11[*(v8 + 36)];
-    (*(v9 + 8))(v11, v8);
+    _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA011EnvironmentcF0VyAA17ContentTransitionV5StateVG_Tt2g5(*a1, &v5);
   }
 
-  return v18;
+  v4 = v9;
+  outlined consume of ContentTransition.Storage(v5, v6 | (v7 << 32), v8);
+
+  *a2 = v4;
+}
+
+double EnvironmentValues.contentTransitionStyle.setter(unsigned __int8 *a1)
+{
+  v2 = v1;
+  v15 = *a1;
+  v3 = *v1;
+  v4 = v1[1];
+  if (v4)
+  {
+
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA17ContentTransitionV5StateVG_Tt1g5(v3, &v16);
+
+    v5 = v16;
+    v6 = v17 | (v18 << 32);
+    v7 = v19;
+    v8 = v20;
+    v9 = v21;
+    v10 = v22;
+  }
+
+  else
+  {
+    v11 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA17ContentTransitionV5StateVG_Tt0g5(v3);
+    if (v11)
+    {
+      v5 = v11[9];
+      v6 = *(v11 + 20) | (*(v11 + 84) << 32);
+      v7 = *(v11 + 85);
+      v8 = *(v11 + 86);
+      v9 = v11[11];
+      v10 = *(v11 + 24);
+    }
+
+    else
+    {
+      if (one-time initialization token for defaultValue != -1)
+      {
+        swift_once();
+      }
+
+      v5 = static ContentTransition.State.defaultValue;
+      v6 = DWORD2(static ContentTransition.State.defaultValue) | (BYTE12(static ContentTransition.State.defaultValue) << 32);
+      v7 = BYTE13(static ContentTransition.State.defaultValue);
+      v8 = BYTE14(static ContentTransition.State.defaultValue);
+      v9 = off_1ED536620;
+      v10 = dword_1ED536628;
+    }
+
+    outlined copy of ContentTransition.Storage(v5, v6, v7);
+  }
+
+  swift_retain_n();
+  outlined copy of ContentTransition.Storage(v5, v6, v7);
+  v12 = 0x1000000000000;
+  if (!v8)
+  {
+    v12 = 0;
+  }
+
+  v13 = v12 | (v15 << 56);
+
+  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA17ContentTransitionV5StateVG_Tt2B5(v2, v5, v13 | v6 & 0xFFFFFFFFFFLL | (v7 << 40), v9, v10);
+
+  outlined consume of ContentTransition.Storage(v5, v6, v7);
+
+  if (v4)
+  {
+    _s7SwiftUI12PropertyListV7TrackerC15invalidateValue3for4from2toyxm_A2CtAA0C3KeyRzlFAA011EnvironmentcK0VyAA17ContentTransitionV5StateVG_Ttg5(v3, *v2);
+  }
+
+  outlined consume of ContentTransition.Storage(v5, v6, v7);
+
+  return result;
 }

@@ -23,8 +23,8 @@
     imageComponent = v4->_imageComponent;
     v4->_imageComponent = v6;
 
-    preview = [(_DUIPreviewAndImageComponent *)v4 preview];
-    v9 = [preview copy];
+    v8 = objc_msgSend_preview(v4);
+    v9 = [v8 copy];
     preview = v4->_preview;
     v4->_preview = v9;
   }
@@ -57,8 +57,8 @@
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  preview = [(_DUIPreviewAndImageComponent *)self preview];
-  [coderCopy encodeObject:preview forKey:@"preview"];
+  v4 = objc_msgSend_preview(self);
+  [coderCopy encodeObject:v4 forKey:@"preview"];
 
   imageComponent = [(_DUIPreviewAndImageComponent *)self imageComponent];
   [coderCopy encodeObject:imageComponent forKey:@"imageComponent"];
@@ -76,7 +76,7 @@
     v6 = v5;
     if (self->_index != v5[3])
     {
-      LOBYTE(v11) = 0;
+      LOBYTE(isEqual) = 0;
 LABEL_17:
 
       goto LABEL_18;
@@ -92,7 +92,7 @@ LABEL_17:
 
     else
     {
-      LOBYTE(v11) = 0;
+      LOBYTE(isEqual) = 0;
       if (!v8 || !v9)
       {
 LABEL_16:
@@ -100,9 +100,9 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      v11 = [(_DUIPreview *)v8 isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(v8);
 
-      if (!v11)
+      if (!isEqual)
       {
         goto LABEL_17;
       }
@@ -115,25 +115,25 @@ LABEL_16:
     v10 = v14;
     if (v8 == v14)
     {
-      LOBYTE(v11) = 1;
+      LOBYTE(isEqual) = 1;
     }
 
     else
     {
-      LOBYTE(v11) = 0;
+      LOBYTE(isEqual) = 0;
       if (v8 && v14)
       {
-        LOBYTE(v11) = [(_DUIPreview *)v8 isEqual:v14];
+        LOBYTE(isEqual) = objc_msgSend_isEqual_(v8);
       }
     }
 
     goto LABEL_16;
   }
 
-  LOBYTE(v11) = 0;
+  LOBYTE(isEqual) = 0;
 LABEL_18:
 
-  return v11;
+  return isEqual;
 }
 
 - (unint64_t)hash

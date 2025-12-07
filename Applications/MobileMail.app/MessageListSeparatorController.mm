@@ -60,7 +60,7 @@
 {
   swift_unknownObjectRetain();
   _objc_retain(self);
-  sub_1003BF818();
+  sub_1003BF818(delegate);
   _objc_release(self);
 }
 

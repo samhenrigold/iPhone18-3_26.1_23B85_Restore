@@ -1,3 +1,64 @@
+void sub_237421F50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, xpc_object_t object, dispatch_group_t group)
+{
+  if (group)
+  {
+    dispatch_group_leave(group);
+    dispatch_release(group);
+  }
+
+  xpc_release(object);
+  if (v13)
+  {
+    dispatch_release(v13);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void std::vector<std::unique_ptr<ServiceManager::Service>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      do
+      {
+        v7 = *--v4;
+        v6 = v7;
+        *v4 = 0;
+        if (v7)
+        {
+          (*(*v6 + 8))(v6);
+        }
+      }
+
+      while (v4 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+uint64_t ___ZNK14ServiceManager22FunctorShutdownService21notifyServiceShutdownE20ServiceShutdownStageRK12ServiceStage_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 56);
+  if (!v2)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  v3 = *(*v2 + 48);
+
+  return v3();
+}
+
 uint64_t *std::unique_ptr<ServiceManager::FunctorMigrationService::notifyServiceMigration(xpc::dict,dispatch::group const&)::{lambda(void)#1},std::default_delete<ServiceManager::FunctorMigrationService::notifyServiceMigration(xpc::dict,dispatch::group const&)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](uint64_t *a1)
 {
   v2 = *a1;
@@ -157,10 +218,10 @@ void __destroy_helper_block_e8_40c43_ZTSNSt3__110shared_ptrIK14ServiceManagerEE(
 
 void dispatch::async<void ctu::SharedSynchronizable<ServiceManager>::execute_wrapped<ServiceManager::start(void)::$_0>(ServiceManager::start(void)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<ServiceManager::start(void)::$_0,dispatch_queue_s *::default_delete<ServiceManager::start(void)::$_0>>)::{lambda(void *)#1}::__invoke(void **a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v1 = *a1;
-  v6 = a1;
-  v7 = v1;
+  v5 = a1;
+  v6 = v1;
   v2 = *v1;
   *(v2 + 97) = 1;
   v3 = *(v2 + 32);
@@ -172,25 +233,24 @@ void dispatch::async<void ctu::SharedSynchronizable<ServiceManager>::execute_wra
     _os_log_impl(&dword_2373EA000, v3, OS_LOG_TYPE_DEFAULT, "#N Bootstrap %zu services in progress", buf, 0xCu);
   }
 
-  v5 = *(v2 + 64) - *(v2 + 56);
   kdebug_trace();
-  v8 = 0;
-  v9 = 0;
+  v7[0] = 0;
+  v7[1] = 0;
   *buf = dispatch_group_create();
-  std::allocate_shared[abi:ne200100]<ctu::TrackedGroup,std::allocator<ctu::TrackedGroup>,dispatch::group,0>();
+  std::allocate_shared[abi:ne200100]<ctu::TrackedGroup,std::allocator<ctu::TrackedGroup>,dispatch::group,0>(v7, buf);
 }
 
-void sub_237422D60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23, dispatch_object_t a24, uint64_t a25, dispatch_object_t object, dispatch_object_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, dispatch_object_t a34, uint64_t a35)
+void sub_237422D60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, std::__shared_weak_count *a25, dispatch_object_t a26, uint64_t a27, dispatch_object_t object, dispatch_object_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, dispatch_object_t a36, uint64_t a37)
 {
-  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&a34);
+  std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](&a36);
   if (*(v35 - 137) < 0)
   {
     operator delete(*(v35 - 160));
   }
 
-  if (a23)
+  if (a25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a23);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a25);
   }
 
   std::unique_ptr<ServiceManager::start(void)::$_0,std::default_delete<ServiceManager::start(void)::$_0>>::~unique_ptr[abi:ne200100](&a14);
@@ -221,42 +281,42 @@ uint64_t *std::unique_ptr<ServiceManager::start(void)::$_0,std::default_delete<S
   return a1;
 }
 
-void ctu::TrackedGroup::fork(NSObject **a1)
+void ctu::TrackedGroup::fork(NSObject **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = dispatch_group_create();
-  v3 = v2;
-  *a1 = v2;
-  if (v2)
+  v7 = *MEMORY[0x277D85DE8];
+  v5 = dispatch_group_create();
+  v6 = v5;
+  *a1 = v5;
+  if (v5)
   {
-    dispatch_retain(v2);
-    dispatch_group_enter(v3);
-    dispatch_release(v3);
+    dispatch_retain(v5);
+    dispatch_group_enter(v6);
+    dispatch_release(v6);
   }
 
   operator new();
 }
 
-void sub_237423248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_237423248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   ctu::TrackedGroup::fork(std::string,ctu::os::signpost_interval)::{lambda(void)#1}::~signpost_interval(va);
+  if (v8)
+  {
+    dispatch_release(v8);
+  }
+
+  if (v7)
+  {
+    dispatch_group_leave(v7);
+    dispatch_release(v7);
+  }
+
+  std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   if (v6)
   {
+    dispatch_group_leave(v6);
     dispatch_release(v6);
-  }
-
-  if (v5)
-  {
-    dispatch_group_leave(v5);
-    dispatch_release(v5);
-  }
-
-  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  if (v4)
-  {
-    dispatch_group_leave(v4);
-    dispatch_release(v4);
   }
 
   _Unwind_Resume(a1);
@@ -491,11 +551,11 @@ uint64_t std::__function::__func<ctu::rest::property_sink_t<edu_mode>::bind(ctu:
   return result;
 }
 
-uint64_t std::__function::__func<ctu::rest::property_sink_t<edu_mode>::bind(ctu::RestModule &)::{lambda(xpc::object const&)#1},std::allocator<ctu::rest::property_sink_t<edu_mode>::bind(ctu::RestModule &)::{lambda(xpc::object const&)#1}>,void ()(xpc::object)>::operator()(uint64_t a1, xpc *this)
+uint64_t std::__function::__func<ctu::rest::property_sink_t<edu_mode>::bind(ctu::RestModule &)::{lambda(xpc::object const&)#1},std::allocator<ctu::rest::property_sink_t<edu_mode>::bind(ctu::RestModule &)::{lambda(xpc::object const&)#1}>,void ()(xpc::object)>::operator()(uint64_t a1, xpc *this, BOOL a3)
 {
-  v2 = *(a1 + 8);
+  v3 = *(a1 + 8);
   result = xpc::dyn_cast_or_default(this, 0);
-  *v2 = result;
+  *v3 = result;
   return result;
 }
 
@@ -513,10 +573,10 @@ uint64_t std::__function::__func<ctu::rest::property_sink_t<edu_mode>::bind(ctu:
 
 uint64_t *dispatch::async<void ctu::SharedSynchronizable<ServiceManager>::execute_wrapped<ServiceManager::shutdown(void)::$_0>(ServiceManager::shutdown(void)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<ServiceManager::shutdown(void)::$_0,dispatch_queue_s *::default_delete<ServiceManager::shutdown(void)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t *a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v1 = *a1;
-  v31 = a1;
-  v32 = v1;
+  v29 = a1;
+  v30 = v1;
   v2 = *v1;
   v3 = *(*v1 + 104);
   if (*v3 == 1)
@@ -537,7 +597,7 @@ uint64_t *dispatch::async<void ctu::SharedSynchronizable<ServiceManager>::execut
     v5 = *&buf[8];
     *buf = 0;
     *&buf[8] = 0;
-    if (v38 < 0)
+    if (v35 < 0)
     {
       operator delete(__p);
     }
@@ -566,16 +626,16 @@ uint64_t *dispatch::async<void ctu::SharedSynchronizable<ServiceManager>::execut
 
     else
     {
-      v30 = v5;
+      v28 = v5;
       if (v7)
       {
         *buf = 0;
         _os_log_impl(&dword_2373EA000, v6, OS_LOG_TYPE_DEFAULT, "#N Shutdown in progress", buf, 2u);
       }
 
-      v36[0] = 0;
-      v36[1] = 0;
-      v35 = v36;
+      v33[0] = 0;
+      v33[1] = 0;
+      v32 = v33;
       v9 = *(v2 + 56);
       if (v9 != *(v2 + 64))
       {
@@ -591,7 +651,7 @@ uint64_t *dispatch::async<void ctu::SharedSynchronizable<ServiceManager>::execut
             do
             {
               v13 = *v11;
-              v14 = v36[0];
+              v14 = v33[0];
 LABEL_18:
               if (!v14)
               {
@@ -621,8 +681,8 @@ LABEL_25:
                 }
               }
 
-              v39 = *v9;
-              std::vector<ServiceManager::Service const*>::push_back[abi:ne200100]((v15 + 5), &v39);
+              v36 = *v9;
+              std::vector<ServiceManager::Service const*>::push_back[abi:ne200100]((v15 + 5), &v36);
               ++v11;
             }
 
@@ -636,12 +696,12 @@ LABEL_25:
             operator delete(v11);
           }
 
-          ++v9;
+          v9 += 8;
         }
 
         while (v9 != v10);
-        v17 = v35;
-        if (v35 != v36)
+        v17 = v32;
+        if (v32 != v33)
         {
           do
           {
@@ -684,11 +744,11 @@ LABEL_25:
             v17 = v22;
           }
 
-          while (v22 != v36);
-          v17 = v35;
+          while (v22 != v33);
+          v17 = v32;
         }
 
-        if (v17 != v36)
+        if (v17 != v33)
         {
           v24 = *(v2 + 32);
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
@@ -702,17 +762,16 @@ LABEL_25:
             _os_log_impl(&dword_2373EA000, v24, OS_LOG_TYPE_DEFAULT, "#N ---- Shutdown stage %s: Notify :: %zu interested parties", buf, 0x16u);
           }
 
-          v27 = *(v17 + 32);
           kdebug_trace();
-          v33 = 0;
-          v34 = 0;
+          v31[0] = 0;
+          v31[1] = 0;
           *buf = dispatch_group_create();
-          std::allocate_shared[abi:ne200100]<ctu::TrackedGroup,std::allocator<ctu::TrackedGroup>,dispatch::group,0>();
+          std::allocate_shared[abi:ne200100]<ctu::TrackedGroup,std::allocator<ctu::TrackedGroup>,dispatch::group,0>(v31, buf);
         }
       }
 
-      std::__tree<std::__value_type<ServiceShutdownStage,std::vector<ServiceManager::Service const*>>,std::__map_value_compare<ServiceShutdownStage,std::__value_type<ServiceShutdownStage,std::vector<ServiceManager::Service const*>>,std::less<ServiceShutdownStage>,true>,std::allocator<std::__value_type<ServiceShutdownStage,std::vector<ServiceManager::Service const*>>>>::destroy(v36[0]);
-      v5 = v30;
+      std::__tree<std::__value_type<ServiceShutdownStage,std::vector<ServiceManager::Service const*>>,std::__map_value_compare<ServiceShutdownStage,std::__value_type<ServiceShutdownStage,std::vector<ServiceManager::Service const*>>,std::less<ServiceShutdownStage>,true>,std::allocator<std::__value_type<ServiceShutdownStage,std::vector<ServiceManager::Service const*>>>>::destroy(v33[0]);
+      v5 = v28;
     }
   }
 
@@ -721,23 +780,21 @@ LABEL_25:
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  std::unique_ptr<ServiceManager::start(void)::$_0,std::default_delete<ServiceManager::start(void)::$_0>>::~unique_ptr[abi:ne200100](&v32);
-  result = std::unique_ptr<void ctu::SharedSynchronizable<HelperRestServer>::execute_wrapped<HelperRestServer::init(void)::$_0>(HelperRestServer::init(void)::$_0 &&)::{lambda(void)#1},std::default_delete<HelperRestServer::init(void)::$_0 &&>>::~unique_ptr[abi:ne200100](&v31);
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
+  std::unique_ptr<ServiceManager::start(void)::$_0,std::default_delete<ServiceManager::start(void)::$_0>>::~unique_ptr[abi:ne200100](&v30);
+  return std::unique_ptr<void ctu::SharedSynchronizable<HelperRestServer>::execute_wrapped<HelperRestServer::init(void)::$_0>(HelperRestServer::init(void)::$_0 &&)::{lambda(void)#1},std::default_delete<HelperRestServer::init(void)::$_0 &&>>::~unique_ptr[abi:ne200100](&v29);
 }
 
-void sub_2374248F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_2374248F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va1, a14);
-  va_start(va, a14);
-  v15 = va_arg(va1, void);
+  va_start(va1, a21);
+  va_start(va, a21);
+  v22 = va_arg(va1, void);
   std::unique_ptr<ServiceManager::start(void)::$_0,std::default_delete<ServiceManager::start(void)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<HelperRestServer>::execute_wrapped<HelperRestServer::init(void)::$_0>(HelperRestServer::init(void)::$_0 &&)::{lambda(void)#1},std::default_delete<HelperRestServer::init(void)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void std::vector<ServiceManager::Service const*>::push_back[abi:ne200100](uint64_t a1, void *a2)
+void std::vector<ServiceManager::Service const*>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -925,9 +982,9 @@ uint64_t std::__function::__value_func<void ()(BOOL)>::__value_func[abi:ne200100
   return a1;
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<ServiceManager>::execute_wrapped<ServiceManager::migrate(xpc::dict,dispatch::queue,std::function<void ()(BOOL)>)::$_0>(ServiceManager::migrate(xpc::dict,dispatch::queue,std::function<void ()(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<ServiceManager::migrate(xpc::dict,dispatch::queue,std::function<void ()(BOOL)>)::$_0,std::default_delete<ServiceManager::migrate(xpc::dict,dispatch::queue,std::function<void ()(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke(void **a1)
+void dispatch::async<void ctu::SharedSynchronizable<ServiceManager>::execute_wrapped<ServiceManager::migrate(xpc::dict,dispatch::queue,std::function<void ()(BOOL)>)::$_0>(ServiceManager::migrate(xpc::dict,dispatch::queue,std::function<void ()(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<ServiceManager::migrate(xpc::dict,dispatch::queue,std::function<void ()(BOOL)>)::$_0,std::default_delete<ServiceManager::migrate(xpc::dict,dispatch::queue,std::function<void ()(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v1 = *a1;
   v2 = **a1;
   if (v2[5])
@@ -935,32 +992,160 @@ void dispatch::async<void ctu::SharedSynchronizable<ServiceManager>::execute_wra
     std::string::basic_string[abi:ne200100]<0>(&__p, "ServiceManager migration phase");
     ctu::XpcJetsamAssertion::createActivity();
     *buf = 0;
-    v9 = 0;
-    if (v7 < 0)
+    *&buf[8] = 0;
+    if (v25 < 0)
     {
       operator delete(__p);
     }
   }
 
+  v23[0] = 0;
+  v23[1] = 0;
+  v22 = v23;
   v3 = v2[7];
-  for (i = v2[8]; v3 != i; v3 += 8)
+  v4 = v2[8];
+  if (v3 != v4)
   {
-    if ((*(**v3 + 40))())
+    do
     {
-      (*(**v3 + 56))();
-      operator new();
+      if ((*(**v3 + 40))())
+      {
+        v5 = (*(**v3 + 56))();
+        v6 = v23[0];
+        if (!v23[0])
+        {
+LABEL_12:
+          operator new();
+        }
+
+        while (1)
+        {
+          while (1)
+          {
+            v7 = v6;
+            v8 = *(v6 + 32);
+            if (v8 <= v5)
+            {
+              break;
+            }
+
+            v6 = *v7;
+            if (!*v7)
+            {
+              goto LABEL_12;
+            }
+          }
+
+          if (v8 >= v5)
+          {
+            break;
+          }
+
+          v6 = v7[1];
+          if (!v6)
+          {
+            goto LABEL_12;
+          }
+        }
+
+        *buf = *v3;
+        std::vector<ServiceManager::Service const*>::push_back[abi:ne200100]((v7 + 5), buf);
+      }
+
+      v3 += 8;
+    }
+
+    while (v3 != v4);
+    v9 = v22;
+    if (v22 != v23)
+    {
+      do
+      {
+        v10 = v2[4];
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        {
+          v11 = *(v9 + 32);
+          v12 = "???";
+          if (v11 <= 2)
+          {
+            v12 = off_278A2F708[v11];
+          }
+
+          v13 = (v9[6] - v9[5]) >> 3;
+          *buf = 136315394;
+          *&buf[4] = v12;
+          *&buf[12] = 2048;
+          *&buf[14] = v13;
+          _os_log_impl(&dword_2373EA000, v10, OS_LOG_TYPE_DEFAULT, "#N ---- Migration stage %s: Pre-run info: :: %zu interested parties", buf, 0x16u);
+        }
+
+        v14 = v9[1];
+        if (v14)
+        {
+          do
+          {
+            v15 = v14;
+            v14 = *v14;
+          }
+
+          while (v14);
+        }
+
+        else
+        {
+          do
+          {
+            v15 = v9[2];
+            v16 = *v15 == v9;
+            v9 = v15;
+          }
+
+          while (!v16);
+        }
+
+        v9 = v15;
+      }
+
+      while (v15 != v23);
+      v9 = v22;
+    }
+
+    if (v9 != v23)
+    {
+      v17 = (v9[6] - v9[5]) >> 3;
+      v18 = v2[4];
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = *(v9 + 32);
+        v20 = "???";
+        if (v19 <= 2)
+        {
+          v20 = off_278A2F708[v19];
+        }
+
+        *buf = 136315394;
+        *&buf[4] = v20;
+        *&buf[12] = 2048;
+        *&buf[14] = v17;
+        _os_log_impl(&dword_2373EA000, v18, OS_LOG_TYPE_DEFAULT, "#N ---- Migration stage %s: Notify :: %zu interested parties", buf, 0x16u);
+      }
+
+      kdebug_trace();
+      v21[0] = 0;
+      v21[1] = 0;
+      *buf = dispatch_group_create();
+      std::allocate_shared[abi:ne200100]<ctu::TrackedGroup,std::allocator<ctu::TrackedGroup>,dispatch::group,0>(v21, buf);
     }
   }
 
   std::__function::__value_func<void ()(BOOL)>::__value_func[abi:ne200100](buf, (v1 + 3));
-  v10 = 0;
-  v5 = v1[2];
+  LOBYTE(v27) = 0;
   operator new();
 }
 
-void sub_2374258FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, xpc_object_t object, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *__p, uint64_t a45, int a46, __int16 a47, char a48, char a49)
+void sub_2374258FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, xpc_object_t object, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *__p, uint64_t a47, int a48, __int16 a49, char a50, char a51)
 {
-  if (a49 < 0)
+  if (a51 < 0)
   {
     operator delete(__p);
   }
@@ -1037,9 +1222,9 @@ uint64_t *dispatch::async<ServiceManager::migrate(xpc::dict,dispatch::queue,std:
   return std::unique_ptr<ServiceManager::migrate(xpc::dict,dispatch::queue,std::function<void ()(BOOL)>)::$_0::operator() const(void)::{lambda(void)#2},std::default_delete<ServiceManager::migrate(xpc::dict,dispatch::queue,std::function<void ()(BOOL)>)::$_0::operator() const(void)::{lambda(void)#2}>>::~unique_ptr[abi:ne200100](&v2);
 }
 
-void sub_237425C94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237425C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<ServiceManager::migrate(xpc::dict,dispatch::queue,std::function<void ()(BOOL)>)::$_0::operator() const(void)::{lambda(void)#2},std::default_delete<ServiceManager::migrate(xpc::dict,dispatch::queue,std::function<void ()(BOOL)>)::$_0::operator() const(void)::{lambda(void)#2}>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1102,7 +1287,6 @@ BOOL std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<ch
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -1332,6 +1516,99 @@ LABEL_8:
   xpc_release(v16);
 }
 
+uint64_t asString@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+{
+  v24 = 0;
+  v22 = 0u;
+  memset(v23, 0, sizeof(v23));
+  *__p = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  memset(v19, 0, sizeof(v19));
+  v17 = 0u;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v17);
+  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, "[persona:", 9);
+  v5 = *(a1 + 23);
+  v6 = (v5 & 0x80u) != 0;
+  if ((v5 & 0x80u) != 0)
+  {
+    v5 = *(a1 + 8);
+  }
+
+  if (v6)
+  {
+    v7 = *a1;
+  }
+
+  else
+  {
+    v7 = a1;
+  }
+
+  if (v5)
+  {
+    v8 = v7;
+  }
+
+  else
+  {
+    v8 = "<invalid>";
+  }
+
+  v9 = strlen(v8);
+  v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v8, v9);
+  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, " -> ", 4);
+  v12 = asString(*(a1 + 24));
+  v13 = strlen(v12);
+  v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, v12, v13);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "]", 1);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](&v17, a2);
+  *&v17 = *MEMORY[0x277D82818];
+  v15 = *(MEMORY[0x277D82818] + 72);
+  *(&v17 + *(v17 - 24)) = *(MEMORY[0x277D82818] + 64);
+  *&v18 = v15;
+  *(&v18 + 1) = MEMORY[0x277D82878] + 16;
+  if (SHIBYTE(v21) < 0)
+  {
+    operator delete(__p[1]);
+  }
+
+  *(&v18 + 1) = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v19);
+  std::iostream::~basic_iostream();
+  return MEMORY[0x2383CBE70](v23);
+}
+
+{
+  v12 = 0;
+  v10 = 0u;
+  memset(v11, 0, sizeof(v11));
+  *__p = 0u;
+  v9 = 0u;
+  v6 = 0u;
+  memset(v7, 0, sizeof(v7));
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v6);
+  for (i = 0; i != 16; ++i)
+  {
+    MEMORY[0x2383CBD30](&v6, *(a1 + i));
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v6, ", ", 2);
+  }
+
+  std::ostringstream::str[abi:ne200100](&v6, a2);
+  *&v6 = *MEMORY[0x277D82828];
+  *(&v7[-1] + *(v6 - 24)) = *(MEMORY[0x277D82828] + 24);
+  *(&v6 + 1) = MEMORY[0x277D82878] + 16;
+  if (SHIBYTE(v9) < 0)
+  {
+    operator delete(__p[1]);
+  }
+
+  *(&v6 + 1) = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v7);
+  std::ostream::~ostream();
+  return MEMORY[0x2383CBE70](v11);
+}
+
 void write_rest_value(const PersonalityInfo *a1@<X0>, xpc_object_t *a2@<X8>)
 {
   v51 = 0;
@@ -1397,7 +1674,7 @@ LABEL_9:
     v9 = off_278A2F960[v8];
   }
 
-  ctu::rest::detail::write_enum_string_value(v8, v9, v7);
+  ctu::rest::detail::write_enum_string_value(&v43, v8, v7, v9);
   v47 = &v51;
   v48 = "type";
   xpc::dict::object_proxy::operator=(&v47, &v43, &v44);
@@ -1416,7 +1693,7 @@ LABEL_9:
     v12 = off_278A2F980[v11 - 1];
   }
 
-  ctu::rest::detail::write_enum_string_value(&v41, v11, v12, v10);
+  ctu::rest::detail::write_enum_string_value(&v41, v11, v10, v12);
   v47 = &v51;
   v48 = "slotId";
   xpc::dict::object_proxy::operator=(&v47, &v41, &v42);
@@ -1523,7 +1800,7 @@ LABEL_9:
     v16 = off_278A2F998[v15];
   }
 
-  ctu::rest::detail::write_enum_string_value(v15, v16, v14);
+  ctu::rest::detail::write_enum_string_value(&v27, v15, v14, v16);
   v47 = &v51;
   v48 = "src_state";
   xpc::dict::object_proxy::operator=(&v47, &v27, &v28);
@@ -1685,51 +1962,50 @@ void PersonalityInfo::uuid(PersonalityInfo *this@<X0>, CFUUIDRef *a2@<X8>)
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v9, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v8, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v9 = __p;
+    v8 = __p;
   }
 
-  v8 = 0;
-  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
+  v7 = 0;
+  if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v10, v9.__r_.__value_.__l.__data_, v9.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v9, v8.__r_.__value_.__l.__data_, v8.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v10 = v9;
+    v9 = v8;
   }
 
-  v11 = 0;
-  v3 = *MEMORY[0x277CBECE8];
+  v10 = 0;
   if (ctu::cf::convert_copy())
   {
-    v4 = v8;
-    v8 = v11;
-    v12 = v4;
-    ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v12);
+    v3 = v7;
+    v7 = v10;
+    v11 = v3;
+    ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v11);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v10.__r_.__value_.__l.__data_);
-  }
-
-  v5 = v8;
-  v7 = v8;
-  v8 = 0;
-  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v8);
   if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v9.__r_.__value_.__l.__data_);
   }
 
-  *a2 = CFUUIDCreateFromString(0, v5);
+  v4 = v7;
+  v6 = v7;
+  v7 = 0;
   ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v7);
+  if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v8.__r_.__value_.__l.__data_);
+  }
+
+  *a2 = CFUUIDCreateFromString(0, v4);
+  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v6);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -1821,7 +2097,6 @@ BOOL SimLabelContent::operator==(void *a1, void *a2)
     a1 = *a1;
   }
 
-  v8 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -1832,59 +2107,59 @@ BOOL SimLabelContent::operator==(void *a1, void *a2)
     return 0;
   }
 
-  v9 = *(v7 + 47);
-  if (v9 >= 0)
+  v8 = *(v7 + 47);
+  if (v8 >= 0)
   {
-    v10 = *(v7 + 47);
+    v9 = *(v7 + 47);
   }
 
   else
   {
-    v10 = v7[4];
+    v9 = v7[4];
   }
 
-  v11 = *(v6 + 47);
-  v12 = v11;
-  if ((v11 & 0x80u) != 0)
+  v10 = *(v6 + 47);
+  v11 = v10;
+  if ((v10 & 0x80u) != 0)
   {
-    v11 = v6[4];
+    v10 = v6[4];
   }
 
-  if (v10 != v11)
+  if (v9 != v10)
   {
     return 0;
   }
 
-  v15 = v7[3];
-  v14 = v7 + 3;
-  v13 = v15;
-  if (v9 >= 0)
+  v14 = v7[3];
+  v13 = v7 + 3;
+  v12 = v14;
+  if (v8 >= 0)
   {
-    v16 = v14;
+    v15 = v13;
   }
 
   else
   {
-    v16 = v13;
+    v15 = v12;
   }
 
-  v19 = v6[3];
-  v18 = v6 + 3;
-  v17 = v19;
-  if (v12 >= 0)
+  v18 = v6[3];
+  v17 = v6 + 3;
+  v16 = v18;
+  if (v11 >= 0)
   {
-    v20 = v18;
+    v19 = v17;
   }
 
   else
   {
-    v20 = v17;
+    v19 = v16;
   }
 
-  return memcmp(v16, v20, v10) == 0;
+  return memcmp(v15, v19, v9) == 0;
 }
 
-uint64_t asString@<X0>(const SimLabelContent *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t asString@<X0>(const SimLabelContent *a1@<X0>, void *a2@<X8>)
 {
   v25 = 0;
   v23 = 0u;
@@ -2152,7 +2427,6 @@ LABEL_18:
         this = *this;
       }
 
-      v19 = *a2;
       if (v18 < 0)
       {
         a2 = *a2;
@@ -2167,19 +2441,19 @@ LABEL_18:
 
         else
         {
-          v5 = *(v3 + 4);
+          v5 = v3[4];
         }
 
-        v20 = *(v2 + 47);
-        v21 = *(v2 + 4);
-        if ((v20 & 0x80000000) == 0)
+        v19 = *(v2 + 47);
+        v20 = *(v2 + 4);
+        if ((v19 & 0x80000000) == 0)
         {
-          v21 = *(v2 + 47);
+          v20 = *(v2 + 47);
         }
 
-        if (v5 == v21)
+        if (v5 == v20)
         {
-          v8 = v20 >> 63;
+          v8 = v19 >> 63;
           goto LABEL_10;
         }
       }
@@ -2220,12 +2494,12 @@ LABEL_3:
 LABEL_10:
   if ((v4 & 0x80000000) == 0)
   {
-    v9 = v3 + 24;
+    v9 = v3 + 3;
   }
 
   else
   {
-    v9 = *(v3 + 3);
+    v9 = v3[3];
   }
 
   v12 = *(v2 + 3);
@@ -2244,7 +2518,7 @@ LABEL_10:
   return memcmp(v9, v13, v5) == 0;
 }
 
-BOOL SimLabel::sameLabelName(uint64_t *a1, void *a2, const void **a3)
+BOOL SimLabel::sameLabelName(uint64_t *a1, void *a2, const void ***a3)
 {
   v4 = a1;
   v5 = *(a1 + 47);
@@ -2281,7 +2555,6 @@ LABEL_18:
         a1 = *a1;
       }
 
-      v17 = *a2;
       if (v16 < 0)
       {
         a2 = *a2;
@@ -2299,16 +2572,16 @@ LABEL_18:
           v6 = v4[4];
         }
 
-        v18 = *(a3 + 23);
-        v19 = a3[1];
-        if ((v18 & 0x80000000) == 0)
+        v17 = *(a3 + 23);
+        v18 = a3[1];
+        if ((v17 & 0x80000000) == 0)
         {
-          v19 = *(a3 + 23);
+          v18 = *(a3 + 23);
         }
 
-        if (v6 == v19)
+        if (v6 == v18)
         {
-          v9 = v18 >> 63;
+          v9 = v17 >> 63;
           goto LABEL_10;
         }
       }
@@ -2444,156 +2717,155 @@ BOOL SimLabel::sameContent(SimLabel *this, const SimLabel *a2)
   }
 
   v14 = v10 >= 0 ? this : *this;
-  v15 = *a2;
-  v16 = v13 >= 0 ? a2 : *a2;
-  if (memcmp(v14, v16, v11))
+  v15 = v13 >= 0 ? a2 : *a2;
+  if (memcmp(v14, v15, v11))
   {
     return 0;
   }
 
-  v17 = *(this + 47);
-  if (v17 >= 0)
+  v16 = *(this + 47);
+  if (v16 >= 0)
   {
-    v18 = *(this + 47);
+    v17 = *(this + 47);
   }
 
   else
   {
-    v18 = *(this + 4);
+    v17 = *(this + 4);
   }
 
-  v19 = *(a2 + 47);
-  v20 = v19;
-  if ((v19 & 0x80u) != 0)
+  v18 = *(a2 + 47);
+  v19 = v18;
+  if ((v18 & 0x80u) != 0)
   {
-    v19 = *(a2 + 4);
+    v18 = *(a2 + 4);
   }
 
-  if (v18 != v19)
-  {
-    return 0;
-  }
-
-  v21 = v17 >= 0 ? (this + 24) : *(this + 3);
-  v22 = v20 >= 0 ? (a2 + 24) : *(a2 + 3);
-  if (memcmp(v21, v22, v18))
+  if (v17 != v18)
   {
     return 0;
   }
 
-  v23 = *(this + 103);
-  if (v23 >= 0)
+  v20 = v16 >= 0 ? (this + 24) : *(this + 3);
+  v21 = v19 >= 0 ? (a2 + 24) : *(a2 + 3);
+  if (memcmp(v20, v21, v17))
   {
-    v24 = *(this + 103);
+    return 0;
+  }
+
+  v22 = *(this + 103);
+  if (v22 >= 0)
+  {
+    v23 = *(this + 103);
   }
 
   else
   {
-    v24 = *(this + 11);
+    v23 = *(this + 11);
   }
 
-  v25 = *(a2 + 103);
-  v26 = v25;
-  if ((v25 & 0x80u) != 0)
+  v24 = *(a2 + 103);
+  v25 = v24;
+  if ((v24 & 0x80u) != 0)
   {
-    v25 = *(a2 + 11);
+    v24 = *(a2 + 11);
   }
 
-  if (v24 != v25)
-  {
-    return 0;
-  }
-
-  v27 = v23 >= 0 ? (this + 80) : *(this + 10);
-  v28 = v26 >= 0 ? (a2 + 80) : *(a2 + 10);
-  if (memcmp(v27, v28, v24))
+  if (v23 != v24)
   {
     return 0;
   }
 
-  v29 = *(this + 127);
-  if (v29 >= 0)
+  v26 = v22 >= 0 ? (this + 80) : *(this + 10);
+  v27 = v25 >= 0 ? (a2 + 80) : *(a2 + 10);
+  if (memcmp(v26, v27, v23))
   {
-    v30 = *(this + 127);
+    return 0;
+  }
+
+  v28 = *(this + 127);
+  if (v28 >= 0)
+  {
+    v29 = *(this + 127);
   }
 
   else
   {
-    v30 = *(this + 14);
+    v29 = *(this + 14);
   }
 
-  v31 = *(a2 + 127);
-  v32 = v31;
-  if ((v31 & 0x80u) != 0)
+  v30 = *(a2 + 127);
+  v31 = v30;
+  if ((v30 & 0x80u) != 0)
   {
-    v31 = *(a2 + 14);
+    v30 = *(a2 + 14);
   }
 
-  if (v30 != v31)
-  {
-    return 0;
-  }
-
-  v33 = v29 >= 0 ? (this + 104) : *(this + 13);
-  v34 = v32 >= 0 ? (a2 + 104) : *(a2 + 13);
-  if (memcmp(v33, v34, v30))
+  if (v29 != v30)
   {
     return 0;
   }
 
-  v35 = *(this + 151);
-  if (v35 >= 0)
-  {
-    v36 = *(this + 151);
-  }
-
-  else
-  {
-    v36 = *(this + 17);
-  }
-
-  v37 = *(a2 + 151);
-  v38 = v37;
-  if ((v37 & 0x80u) != 0)
-  {
-    v37 = *(a2 + 17);
-  }
-
-  if (v36 != v37)
+  v32 = v28 >= 0 ? (this + 104) : *(this + 13);
+  v33 = v31 >= 0 ? (a2 + 104) : *(a2 + 13);
+  if (memcmp(v32, v33, v29))
   {
     return 0;
   }
 
-  v41 = *(this + 16);
-  v40 = this + 128;
-  v39 = v41;
-  if (v35 >= 0)
+  v34 = *(this + 151);
+  if (v34 >= 0)
   {
-    v42 = v40;
+    v35 = *(this + 151);
   }
 
   else
   {
-    v42 = v39;
+    v35 = *(this + 17);
   }
 
-  v45 = *(a2 + 16);
-  v44 = a2 + 128;
-  v43 = v45;
-  if (v38 >= 0)
+  v36 = *(a2 + 151);
+  v37 = v36;
+  if ((v36 & 0x80u) != 0)
   {
-    v46 = v44;
+    v36 = *(a2 + 17);
+  }
+
+  if (v35 != v36)
+  {
+    return 0;
+  }
+
+  v40 = *(this + 16);
+  v39 = this + 128;
+  v38 = v40;
+  if (v34 >= 0)
+  {
+    v41 = v39;
   }
 
   else
   {
-    v46 = v43;
+    v41 = v38;
   }
 
-  return memcmp(v42, v46, v36) == 0;
+  v44 = *(a2 + 16);
+  v43 = a2 + 128;
+  v42 = v44;
+  if (v37 >= 0)
+  {
+    v45 = v43;
+  }
+
+  else
+  {
+    v45 = v42;
+  }
+
+  return memcmp(v41, v45, v35) == 0;
 }
 
-uint64_t asString@<X0>(const SimLabel *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t asString@<X0>(const SimLabel *a1@<X0>, void *a2@<X8>)
 {
   v40 = 0;
   v38 = 0u;
@@ -2743,7 +3015,7 @@ uint64_t asString@<X0>(const SimLabel *a1@<X0>, _BYTE *a2@<X8>)
   return MEMORY[0x2383CBE70](v39);
 }
 
-void write_rest_value(const SimLabel *a1@<X0>, xpc_object_t *a2@<X8>)
+void write_rest_value(xpc_object_t *__return_ptr a1@<X8>, const SimLabel *a2@<X0>)
 {
   v33 = 0;
   v4 = xpc_dictionary_create(0, 0, 0);
@@ -2776,14 +3048,14 @@ LABEL_8:
   v33 = v6;
 LABEL_9:
   xpc_release(v5);
-  if (*(a1 + 71) >= 0)
+  if (*(a2 + 71) >= 0)
   {
-    v7 = a1 + 48;
+    v7 = a2 + 48;
   }
 
   else
   {
-    v7 = *(a1 + 6);
+    v7 = *(a2 + 6);
   }
 
   v31 = xpc_string_create(v7);
@@ -2799,14 +3071,14 @@ LABEL_9:
   v32 = 0;
   xpc_release(v31);
   v31 = 0;
-  if (*(a1 + 23) >= 0)
+  if (*(a2 + 23) >= 0)
   {
-    v8 = a1;
+    v8 = a2;
   }
 
   else
   {
-    v8 = *a1;
+    v8 = *a2;
   }
 
   object = xpc_string_create(v8);
@@ -2822,14 +3094,14 @@ LABEL_9:
   v28 = 0;
   xpc_release(object);
   object = 0;
-  if (*(a1 + 47) >= 0)
+  if (*(a2 + 47) >= 0)
   {
-    v9 = a1 + 24;
+    v9 = a2 + 24;
   }
 
   else
   {
-    v9 = *(a1 + 3);
+    v9 = *(a2 + 3);
   }
 
   v25 = xpc_string_create(v9);
@@ -2845,7 +3117,7 @@ LABEL_9:
   v26 = 0;
   xpc_release(v25);
   v25 = 0;
-  v23 = xpc_BOOL_create(*(a1 + 72));
+  v23 = xpc_BOOL_create(*(a2 + 72));
   if (!v23)
   {
     v23 = xpc_null_create();
@@ -2858,14 +3130,14 @@ LABEL_9:
   v24 = 0;
   xpc_release(v23);
   v23 = 0;
-  if (*(a1 + 103) >= 0)
+  if (*(a2 + 103) >= 0)
   {
-    v10 = a1 + 80;
+    v10 = a2 + 80;
   }
 
   else
   {
-    v10 = *(a1 + 10);
+    v10 = *(a2 + 10);
   }
 
   v21 = xpc_string_create(v10);
@@ -2881,14 +3153,14 @@ LABEL_9:
   v22 = 0;
   xpc_release(v21);
   v21 = 0;
-  if (*(a1 + 127) >= 0)
+  if (*(a2 + 127) >= 0)
   {
-    v11 = a1 + 104;
+    v11 = a2 + 104;
   }
 
   else
   {
-    v11 = *(a1 + 13);
+    v11 = *(a2 + 13);
   }
 
   v19 = xpc_string_create(v11);
@@ -2904,8 +3176,8 @@ LABEL_9:
   v20 = 0;
   xpc_release(v19);
   v19 = 0;
-  v14 = *(a1 + 16);
-  v13 = a1 + 128;
+  v14 = *(a2 + 16);
+  v13 = a2 + 128;
   v12 = v14;
   if (v13[23] >= 0)
   {
@@ -2931,7 +3203,7 @@ LABEL_9:
   xpc_release(v17);
   v17 = 0;
   v16 = v33;
-  *a2 = v33;
+  *a1 = v33;
   if (v16)
   {
     xpc_retain(v16);
@@ -2939,7 +3211,7 @@ LABEL_9:
 
   else
   {
-    *a2 = xpc_null_create();
+    *a1 = xpc_null_create();
   }
 
   xpc_release(v33);
@@ -3255,7 +3527,7 @@ LABEL_9:
   xpc_release(v5);
   v7 = *(a1 + 2);
   v8 = asString(v7);
-  ctu::rest::detail::write_enum_string_value(&object, v7, v8, v9);
+  ctu::rest::detail::write_enum_string_value(&object, v7, v9, v8);
   v21 = &v25;
   v22 = "callstate";
   xpc::dict::object_proxy::operator=(&v21, &object, &v24);
@@ -3297,7 +3569,7 @@ LABEL_9:
 
   v12 = "Unknown";
 LABEL_21:
-  ctu::rest::detail::write_enum_string_value(v11, v12, v10);
+  ctu::rest::detail::write_enum_string_value(&v19, v11, v10, v12);
   v21 = &v25;
   v22 = "subtype";
   xpc::dict::object_proxy::operator=(&v21, &v19, &v20);
@@ -3316,7 +3588,7 @@ LABEL_21:
     v15 = off_278A2F9B0[v14 - 1];
   }
 
-  ctu::rest::detail::write_enum_string_value(&v17, v14, v15, v13);
+  ctu::rest::detail::write_enum_string_value(&v17, v14, v13, v15);
   v21 = &v25;
   v22 = "slot";
   xpc::dict::object_proxy::operator=(&v21, &v17, &v18);
@@ -3404,7 +3676,7 @@ LABEL_9:
 
   v9 = "Unknown";
 LABEL_21:
-  ctu::rest::detail::write_enum_string_value(v8, v9, v7);
+  ctu::rest::detail::write_enum_string_value(&object, v8, v7, v9);
   v21 = &v25;
   v22 = "subtype";
   xpc::dict::object_proxy::operator=(&v21, &object, &v24);
@@ -3423,7 +3695,7 @@ LABEL_21:
     v12 = off_278A2F9B0[v11 - 1];
   }
 
-  ctu::rest::detail::write_enum_string_value(&v19, v11, v12, v10);
+  ctu::rest::detail::write_enum_string_value(&v19, v11, v10, v12);
   v21 = &v25;
   v22 = "slot";
   xpc::dict::object_proxy::operator=(&v21, &v19, &v20);
@@ -3433,7 +3705,7 @@ LABEL_21:
   v19 = 0;
   v13 = *(a1 + 2);
   v14 = asString(v13);
-  ctu::rest::detail::write_enum_string_value(&v17, v13, v14, v15);
+  ctu::rest::detail::write_enum_string_value(&v17, v13, v15, v14);
   v21 = &v25;
   v22 = "callType";
   xpc::dict::object_proxy::operator=(&v21, &v17, &v18);
@@ -3499,7 +3771,7 @@ LABEL_9:
     v9 = off_278A32398[v8];
   }
 
-  ctu::rest::detail::write_enum_string_value(v8, v9, v7);
+  ctu::rest::detail::write_enum_string_value(&object, v8, v7, v9);
   v19 = &v23;
   v20 = "method";
   xpc::dict::object_proxy::operator=(&v19, &object, &v22);
@@ -3967,7 +4239,7 @@ BOOL std::__tuple_equal<3ul>::operator()[abi:ne200100]<std::tuple<std::string co
   v16 = v15;
   if ((v15 & 0x80u) != 0)
   {
-    v15 = v10[1];
+    v15 = *(v10 + 8);
   }
 
   if (v14 != v15)
@@ -3976,23 +4248,22 @@ BOOL std::__tuple_equal<3ul>::operator()[abi:ne200100]<std::tuple<std::string co
   }
 
   v17 = v13 >= 0 ? v9 : *v9;
-  v18 = *v10;
-  v19 = v16 >= 0 ? v10 : *v10;
-  if (memcmp(v17, v19, v14))
+  v18 = v16 >= 0 ? v10 : *v10;
+  if (memcmp(v17, v18, v14))
   {
     return 0;
   }
 
-  v21 = a1[2];
-  v22 = a2[2];
-  v23 = *(v22 + 4);
-  v24 = *(v21 + 4);
-  result = v24 == v23;
-  if (v24 == v23)
+  v20 = a1[2];
+  v21 = a2[2];
+  v22 = *(v21 + 4);
+  v23 = *(v20 + 4);
+  result = v23 == v22;
+  if (v23 == v22)
   {
-    if (*(v21 + 4))
+    if (*(v20 + 4))
     {
-      return *v21 == *v22;
+      return *v20 == *v21;
     }
   }
 
@@ -4140,19 +4411,19 @@ void SubscriberUtilityInterface::getSubscriberMnc(uint64_t a1, void *a2)
 
 void SubscriberUtilityInterface::getLastKnownSubscriberMcc(uint64_t a1, void *a2)
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   __p[0] = 0;
   __p[1] = 0;
-  v11 = 0;
+  v10 = 0;
   dsema = dispatch_semaphore_create(0);
-  v12[0] = &unk_284A67E18;
-  v12[1] = __p;
-  v12[2] = &dsema;
-  v12[3] = v12;
-  (*(*a1 + 40))(a1, 1, v12);
-  std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](v12);
+  v11[0] = &unk_284A67E18;
+  v11[1] = __p;
+  v11[2] = &dsema;
+  v11[3] = v11;
+  (*(*a1 + 40))(a1, 1, v11);
+  std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](v11);
   dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
-  if (v11 >= 0)
+  if (v10 >= 0)
   {
     v4 = __p;
   }
@@ -4162,30 +4433,28 @@ void SubscriberUtilityInterface::getLastKnownSubscriberMcc(uint64_t a1, void *a2
     v4 = __p[0];
   }
 
-  v7 = xpc_string_create(v4);
-  if (!v7)
+  v6 = xpc_string_create(v4);
+  if (!v6)
   {
-    v7 = xpc_null_create();
+    v6 = xpc_null_create();
   }
 
-  v6[0] = *a2;
-  v6[1] = "kSubscriberLastKnownMcc";
-  xpc::dict::object_proxy::operator=(v6, &v7, &object);
+  v5[0] = *a2;
+  v5[1] = "kSubscriberLastKnownMcc";
+  xpc::dict::object_proxy::operator=(v5, &v6, &object);
   xpc_release(object);
   object = 0;
-  xpc_release(v7);
-  v7 = 0;
+  xpc_release(v6);
+  v6 = 0;
   if (dsema)
   {
     dispatch_release(dsema);
   }
 
-  if (SHIBYTE(v11) < 0)
+  if (SHIBYTE(v10) < 0)
   {
     operator delete(__p[0]);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23742F788(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, dispatch_object_t object, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21)
@@ -4209,8 +4478,7 @@ __n128 std::__function::__func<SubscriberUtilityInterface::getLastKnownSubscribe
 void std::__function::__func<SubscriberUtilityInterface::getLastKnownSubscriberMcc(xpc::auto_reply)::$_0,std::allocator<SubscriberUtilityInterface::getLastKnownSubscriberMcc(xpc::auto_reply)::$_0>,void ()(std::string)>::operator()(uint64_t a1, std::string *a2)
 {
   __p = *a2;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
+  *&a2->__r_.__value_.__r.__words[1] = 0uLL;
   a2->__r_.__value_.__r.__words[0] = 0;
   std::string::operator=(*(a1 + 8), &__p);
   dispatch_semaphore_signal(**(a1 + 16));
@@ -4533,26 +4801,26 @@ void SubscriberSimInterface::observeFile(uint64_t a1, uint64_t a2, int a3)
   std::__tree<std::__value_type<subscriber::SimSlot,unsigned long long>,std::__map_value_compare<subscriber::SimSlot,std::__value_type<subscriber::SimSlot,unsigned long long>,std::less<subscriber::SimSlot>,true>,std::allocator<std::__value_type<subscriber::SimSlot,unsigned long long>>>::destroy(v6[1]);
 }
 
-void *std::set<subscriber::SimFilePath>::set[abi:ne200100](void *result, int *a2, uint64_t a3)
+uint64_t **std::set<subscriber::SimFilePath>::set[abi:ne200100](uint64_t **a1, int *a2, uint64_t a3)
 {
-  result[1] = 0;
-  result[2] = 0;
-  *result = result + 1;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v3 = a2;
     v4 = 0;
-    v5 = result + 1;
+    v5 = a1 + 1;
     while (1)
     {
-      v6 = result + 1;
-      if (v5 == result + 1)
+      v6 = a1 + 1;
+      if (v5 == a1 + 1)
       {
         goto LABEL_9;
       }
 
       v7 = v4;
-      v8 = result + 1;
+      v8 = a1 + 1;
       if (v4)
       {
         do
@@ -4587,7 +4855,7 @@ LABEL_9:
 
         else
         {
-          v11 = result + 1;
+          v11 = a1 + 1;
         }
 
         if (!*v11)
@@ -4609,7 +4877,7 @@ LABEL_20:
           while (1)
           {
             v12 = v4;
-            v13 = *(v4 + 28);
+            v13 = *(v4 + 7);
             if (v13 <= v10)
             {
               break;
@@ -4640,12 +4908,12 @@ LABEL_20:
         break;
       }
 
-      v5 = *result;
-      v4 = result[1];
+      v5 = *a1;
+      v4 = a1[1];
     }
   }
 
-  return result;
+  return a1;
 }
 
 _DWORD *UMTSProvisioningSlotInfo::PriVersion::PriVersion(_DWORD *this)
@@ -4710,7 +4978,7 @@ void UMTSProvisioningSlotInfo::UMTSProvisioningSlotInfo(UMTSProvisioningSlotInfo
   *(this + 158) = 0;
 }
 
-void UMTSProvisioningSlotInfo::dumpState(UMTSProvisioningSlotInfo *this, os_log_t *a2)
+void UMTSProvisioningSlotInfo::dumpState(UMTSProvisioningSlotInfo *this, os_log_t *a2, unint64_t a3)
 {
   v31 = *MEMORY[0x277D85DE8];
   v25[0] = 0;
@@ -4729,7 +4997,7 @@ void UMTSProvisioningSlotInfo::dumpState(UMTSProvisioningSlotInfo *this, os_log_
   memset(&__p, 0, sizeof(__p));
   if (*(this + 8) == 1)
   {
-    *buf = createActivationStringFromData(this, 8);
+    *buf = createActivationStringFromData(this, 8, a3);
     ctu::cf::assign();
     ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(buf);
   }
@@ -4737,21 +5005,21 @@ void UMTSProvisioningSlotInfo::dumpState(UMTSProvisioningSlotInfo *this, os_log_
   if (*(this + 19) == 1)
   {
     *buf = 0;
-    *buf = createActivationStringFromData((this + 9), 0xA);
+    *buf = createActivationStringFromData((this + 9), 0xA, a3);
     ctu::cf::assign();
     ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(buf);
   }
 
   if (*(this + 48) == 1)
   {
-    ctu::hex(*(this + 3), (*(this + 4) - *(this + 3)));
+    ctu::hex(buf, *(this + 3), (*(this + 4) - *(this + 3)));
     *v21 = *buf;
     v22 = *&buf[16];
   }
 
   if (*(this + 80) == 1)
   {
-    ctu::hex(*(this + 7), (*(this + 8) - *(this + 7)));
+    ctu::hex(buf, *(this + 7), (*(this + 8) - *(this + 7)));
     *v19 = *buf;
     v20 = *&buf[16];
   }
@@ -4766,23 +5034,10 @@ void UMTSProvisioningSlotInfo::dumpState(UMTSProvisioningSlotInfo *this, os_log_
     std::string::operator=(&__p, this + 5);
   }
 
-  v4 = "false";
+  v5 = "false";
   if (*(this + 159) == 1)
   {
     if (*(this + 158))
-    {
-      v4 = "true";
-    }
-
-    else
-    {
-      v4 = "false";
-    }
-  }
-
-  if (*(this + 161) == 1)
-  {
-    if (*(this + 160))
     {
       v5 = "true";
     }
@@ -4793,67 +5048,80 @@ void UMTSProvisioningSlotInfo::dumpState(UMTSProvisioningSlotInfo *this, os_log_
     }
   }
 
-  else
+  if (*(this + 161) == 1)
   {
-    v5 = "unknown";
-  }
-
-  v6 = *a2;
-  if (os_log_type_enabled(*a2, OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = *(this + 154);
-    v8 = *(this + 155);
-    v9 = *(this + 76);
-    *buf = 67109632;
-    *&buf[4] = v7;
-    *&buf[8] = 1024;
-    *&buf[10] = v8;
-    *&buf[14] = 1024;
-    *&buf[16] = v9;
-    _os_log_impl(&dword_2373EA000, v6, OS_LOG_TYPE_DEFAULT, "#I fPriVersion = %d.%d.%d", buf, 0x14u);
-    v6 = *a2;
-  }
-
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    v10 = v23;
-    if (v24 < 0)
+    if (*(this + 160))
     {
-      v10 = v23[0];
+      v6 = "true";
     }
 
-    v11 = v25;
+    else
+    {
+      v6 = "false";
+    }
+  }
+
+  else
+  {
+    v6 = "unknown";
+  }
+
+  v7 = *a2;
+  if (os_log_type_enabled(*a2, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = *(this + 154);
+    v9 = *(this + 155);
+    v10 = *(this + 76);
+    *buf = 67109632;
+    *&buf[4] = v8;
+    *&buf[8] = 1024;
+    *&buf[10] = v9;
+    *&buf[14] = 1024;
+    *&buf[16] = v10;
+    _os_log_impl(&dword_2373EA000, v7, OS_LOG_TYPE_DEFAULT, "#I fPriVersion = %d.%d.%d", buf, 0x14u);
+    v7 = *a2;
+  }
+
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = v23;
+    if (v24 < 0)
+    {
+      v11 = v23[0];
+    }
+
+    v12 = v25;
     if (v26 < 0)
     {
-      v11 = v25[0];
+      v12 = v25[0];
     }
 
     *buf = 136315394;
-    *&buf[4] = v10;
+    *&buf[4] = v11;
     *&buf[12] = 2080;
-    *&buf[14] = v11;
-    _os_log_impl(&dword_2373EA000, v6, OS_LOG_TYPE_DEFAULT, "#I fIccid = %s, fImsi = %s", buf, 0x16u);
-    v6 = *a2;
+    *&buf[14] = v12;
+    _os_log_impl(&dword_2373EA000, v7, OS_LOG_TYPE_DEFAULT, "#I fIccid = %s, fImsi = %s", buf, 0x16u);
+    v7 = *a2;
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v21;
+    v13 = v21;
     if (v22 < 0)
     {
-      v12 = v21[0];
+      v13 = v21[0];
     }
 
-    v13 = v19;
+    v14 = v19;
     if (v20 < 0)
     {
-      v13 = v19[0];
+      v14 = v19[0];
     }
 
-    v14 = &v18;
+    v15 = &v18;
     if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v14 = v18.__r_.__value_.__r.__words[0];
+      v15 = v18.__r_.__value_.__r.__words[0];
     }
 
     p_p = &__p;
@@ -4863,24 +5131,24 @@ void UMTSProvisioningSlotInfo::dumpState(UMTSProvisioningSlotInfo *this, os_log_
     }
 
     *buf = 136315906;
-    *&buf[4] = v12;
+    *&buf[4] = v13;
     *&buf[12] = 2080;
-    *&buf[14] = v13;
+    *&buf[14] = v14;
     *&buf[22] = 2080;
-    v28 = v14;
+    v28 = v15;
     v29 = 2080;
     v30 = p_p;
-    _os_log_impl(&dword_2373EA000, v6, OS_LOG_TYPE_DEFAULT, "#I fSimGid1 = %s, fSimGid2 = %s, fGid1 = %s, fGid2 = %s", buf, 0x2Au);
-    v6 = *a2;
+    _os_log_impl(&dword_2373EA000, v7, OS_LOG_TYPE_DEFAULT, "#I fSimGid1 = %s, fSimGid2 = %s, fGid1 = %s, fGid2 = %s", buf, 0x2Au);
+    v7 = *a2;
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    *&buf[4] = v4;
+    *&buf[4] = v5;
     *&buf[12] = 2080;
-    *&buf[14] = v5;
-    _os_log_impl(&dword_2373EA000, v6, OS_LOG_TYPE_DEFAULT, "#I fIsEmbedded = %s, fIsBootstrap = %s", buf, 0x16u);
+    *&buf[14] = v6;
+    _os_log_impl(&dword_2373EA000, v7, OS_LOG_TYPE_DEFAULT, "#I fIsEmbedded = %s, fIsBootstrap = %s", buf, 0x16u);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -4912,8 +5180,6 @@ void UMTSProvisioningSlotInfo::dumpState(UMTSProvisioningSlotInfo *this, os_log_
   {
     operator delete(v25[0]);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2374305BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46)
@@ -4949,6 +5215,201 @@ void sub_2374305BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+uint64_t asString@<X0>(uint64_t **a1@<X0>, _BYTE *a2@<X8>)
+{
+  v45 = 0;
+  v43 = 0u;
+  memset(v44, 0, sizeof(v44));
+  *v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  *__src = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v36 = 0u;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v36);
+  v53 = 0;
+  v51 = 0u;
+  memset(v52, 0, sizeof(v52));
+  *__p = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  memset(v48, 0, sizeof(v48));
+  v46 = 0u;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v46);
+  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "{ imsi curr:", 12);
+  v5 = *(a1 + 23);
+  if (v5 >= 0)
+  {
+    v6 = a1;
+  }
+
+  else
+  {
+    v6 = *a1;
+  }
+
+  if (v5 >= 0)
+  {
+    v7 = *(a1 + 23);
+  }
+
+  else
+  {
+    v7 = a1[1];
+  }
+
+  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v6, v7);
+  v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ", home:", 7);
+  v10 = *(a1 + 47);
+  if (v10 >= 0)
+  {
+    v11 = (a1 + 3);
+  }
+
+  else
+  {
+    v11 = a1[3];
+  }
+
+  if (v10 >= 0)
+  {
+    v12 = *(a1 + 47);
+  }
+
+  else
+  {
+    v12 = a1[4];
+  }
+
+  v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v11, v12);
+  v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, " '", 2);
+  v15 = *(a1 + 71);
+  if (v15 >= 0)
+  {
+    v16 = (a1 + 6);
+  }
+
+  else
+  {
+    v16 = a1[6];
+  }
+
+  if (v15 >= 0)
+  {
+    v17 = *(a1 + 71);
+  }
+
+  else
+  {
+    v17 = a1[7];
+  }
+
+  v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, v16, v17);
+  v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ":", 1);
+  v22 = a1[9];
+  v21 = (a1 + 9);
+  v20 = v22;
+  v23 = *(v21 + 23);
+  if (v23 >= 0)
+  {
+    v24 = v21;
+  }
+
+  else
+  {
+    v24 = v20;
+  }
+
+  if (v23 >= 0)
+  {
+    v25 = *(v21 + 23);
+  }
+
+  else
+  {
+    v25 = v21[1];
+  }
+
+  v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, v24, v25);
+  v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "'", 1);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, " }", 2);
+  *&v46 = *MEMORY[0x277D82818];
+  v28 = v46;
+  v29 = *(MEMORY[0x277D82818] + 72);
+  v30 = *(MEMORY[0x277D82818] + 64);
+  *(&v46 + *(v46 - 24)) = v30;
+  v31 = v29;
+  *&v47 = v29;
+  *(&v47 + 1) = MEMORY[0x277D82878] + 16;
+  if (SHIBYTE(v50) < 0)
+  {
+    operator delete(__p[1]);
+  }
+
+  *(&v47 + 1) = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v48);
+  std::iostream::~basic_iostream();
+  MEMORY[0x2383CBE70](v52);
+  if ((BYTE8(v43) & 0x10) != 0)
+  {
+    v33 = v43;
+    if (v43 < __src[1])
+    {
+      *&v43 = __src[1];
+      v33 = __src[1];
+    }
+
+    v34 = __src[0];
+  }
+
+  else
+  {
+    if ((BYTE8(v43) & 8) == 0)
+    {
+      v32 = 0;
+      a2[23] = 0;
+      goto LABEL_40;
+    }
+
+    v34 = *(&v38 + 1);
+    v33 = *(&v39 + 1);
+  }
+
+  v32 = v33 - v34;
+  if ((v33 - v34) >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  if (v32 >= 0x17)
+  {
+    operator new();
+  }
+
+  a2[23] = v32;
+  if (v32)
+  {
+    memmove(a2, v34, v32);
+  }
+
+LABEL_40:
+  a2[v32] = 0;
+  *&v36 = v28;
+  *(&v36 + *(v28 - 24)) = v30;
+  *&v37 = v31;
+  *(&v37 + 1) = MEMORY[0x277D82878] + 16;
+  if (SHIBYTE(v42) < 0)
+  {
+    operator delete(v41[1]);
+  }
+
+  *(&v37 + 1) = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(&v38);
+  std::iostream::~basic_iostream();
+  return MEMORY[0x2383CBE70](v44);
 }
 
 void sub_2374311B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, xpc_object_t object, xpc_object_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -5647,7 +6108,7 @@ LABEL_9:
     v9 = off_278A2FC30[v8 - 1];
   }
 
-  ctu::rest::detail::write_enum_string_value(&v22, v8, v9, v7);
+  ctu::rest::detail::write_enum_string_value(&v22, v8, v7, v9);
   v20 = &v24;
   v21 = "slot";
   xpc::dict::object_proxy::operator=(&v20, &v22, &v23);
@@ -5657,7 +6118,7 @@ LABEL_9:
   v22 = 0;
   v10 = *(a1 + 1);
   v11 = subscriber::asString(*(a1 + 1));
-  ctu::rest::detail::write_enum_string_value(v10, v11, v12);
+  ctu::rest::detail::write_enum_string_value(&v18, v10, v12, v11);
   v20 = &v24;
   v21 = "file";
   xpc::dict::object_proxy::operator=(&v20, &v18, &object);
@@ -5815,7 +6276,7 @@ void _GLOBAL__sub_I_SubscriberRestResource_cpp()
   operator new();
 }
 
-_BYTE *convertOtaspStatusToString@<X0>(unsigned int a1@<W0>, _BYTE *a2@<X8>)
+void *convertOtaspStatusToString@<X0>(unsigned int a1@<W0>, void *a2@<X8>)
 {
   if (a1 > 0xB)
   {
@@ -5830,7 +6291,7 @@ _BYTE *convertOtaspStatusToString@<X0>(unsigned int a1@<W0>, _BYTE *a2@<X8>)
   return std::string::basic_string[abi:ne200100]<0>(a2, v2);
 }
 
-_BYTE *otaspStatusAsExternalString@<X0>(unsigned int a1@<W0>, _BYTE *a2@<X8>)
+void *otaspStatusAsExternalString@<X0>(unsigned int a1@<W0>, void *a2@<X8>)
 {
   if (a1 > 0xB)
   {
@@ -5890,52 +6351,50 @@ void printers::asString(uint64_t **a1@<X0>, uint64_t a2@<X8>)
   *a2 = 0;
   if (v3 != v2)
   {
-    v5 = *v3;
     memset(__s, 0, sizeof(__s));
-    v13 = 0;
+    v11 = 0;
     ctu::cf::assign();
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 15) = 0;
-    *(a2 + 23) = HIBYTE(v13);
+    *(a2 + 23) = HIBYTE(v11);
     for (i = v3 + 1; i != v2; ++i)
     {
-      HIBYTE(v13) = 1;
+      HIBYTE(v11) = 1;
       strcpy(__s, ",");
       std::string::append(a2, __s, 1uLL);
-      if (SHIBYTE(v13) < 0)
+      if (SHIBYTE(v11) < 0)
       {
         operator delete(*__s);
       }
 
-      v7 = *i;
       memset(__s, 0, sizeof(__s));
-      v13 = 0;
+      v11 = 0;
       ctu::cf::assign();
-      v11 = v13;
+      v9 = v11;
       *__p = *__s;
-      if (v13 >= 0)
+      if (v11 >= 0)
       {
-        v8 = __p;
+        v6 = __p;
       }
 
       else
       {
-        v8 = *__s;
+        v6 = *__s;
       }
 
-      if (v13 >= 0)
+      if (v11 >= 0)
       {
-        v9 = HIBYTE(v13);
+        v7 = HIBYTE(v11);
       }
 
       else
       {
-        v9 = *&__s[8];
+        v7 = *&__s[8];
       }
 
-      std::string::append(a2, v8, v9);
-      if (SHIBYTE(v11) < 0)
+      std::string::append(a2, v6, v7);
+      if (SHIBYTE(v9) < 0)
       {
         operator delete(__p[0]);
       }
@@ -5960,8 +6419,8 @@ void sub_237433D94(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t CellMonitorInterface::getAreaCode(CellMonitorInterface *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7 = 0;
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = 0;
   v2 = dispatch_semaphore_create(0);
   v3 = v2;
   if (v2)
@@ -5969,44 +6428,43 @@ uint64_t CellMonitorInterface::getAreaCode(CellMonitorInterface *this)
     dispatch_retain(v2);
   }
 
-  v8[2] = v3;
-  v9 = 0;
-  v8[0] = &unk_284A68788;
-  v8[1] = &v7;
+  v7[2] = v3;
+  v8 = 0;
+  v7[0] = &unk_284A68788;
+  v7[1] = &v6;
   if (v3)
   {
     dispatch_retain(v3);
   }
 
-  v9 = v8;
-  (*(*this + 56))(this, 1, v8);
-  std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v8);
+  v8 = v7;
+  (*(*this + 56))(this, 1, v7);
+  std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v7);
   if (v3)
   {
     dispatch_release(v3);
     dispatch_semaphore_wait(v3, 0xFFFFFFFFFFFFFFFFLL);
-    v4 = v7;
+    v4 = v6;
     dispatch_release(v3);
   }
 
   else
   {
     dispatch_semaphore_wait(0, 0xFFFFFFFFFFFFFFFFLL);
-    v4 = v7;
+    return v6;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
-void sub_237433F20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237433F20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](va);
-  if (v2)
+  if (v3)
   {
-    dispatch_release(v2);
-    dispatch_release(v2);
+    dispatch_release(v3);
+    dispatch_release(v3);
   }
 
   _Unwind_Resume(a1);
@@ -6014,7 +6472,7 @@ void sub_237433F20(_Unwind_Exception *a1, uint64_t a2, ...)
 
 uint64_t CellMonitorInterface::getAreaCode(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -6022,27 +6480,25 @@ uint64_t CellMonitorInterface::getAreaCode(uint64_t a1, uint64_t *a2)
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A68818;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 56))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A68818;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 56))(a1, 1, v5);
+  return std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_237434004(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237434004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t CellMonitorInterface::getCellId(CellMonitorInterface *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7 = 0;
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = 0;
   v2 = dispatch_semaphore_create(0);
   v3 = v2;
   if (v2)
@@ -6050,44 +6506,43 @@ uint64_t CellMonitorInterface::getCellId(CellMonitorInterface *this)
     dispatch_retain(v2);
   }
 
-  v8[2] = v3;
-  v9 = 0;
-  v8[0] = &unk_284A68898;
-  v8[1] = &v7;
+  v7[2] = v3;
+  v8 = 0;
+  v7[0] = &unk_284A68898;
+  v7[1] = &v6;
   if (v3)
   {
     dispatch_retain(v3);
   }
 
-  v9 = v8;
-  (*(*this + 64))(this, 1, v8);
-  std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v8);
+  v8 = v7;
+  (*(*this + 64))(this, 1, v7);
+  std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v7);
   if (v3)
   {
     dispatch_release(v3);
     dispatch_semaphore_wait(v3, 0xFFFFFFFFFFFFFFFFLL);
-    v4 = v7;
+    v4 = v6;
     dispatch_release(v3);
   }
 
   else
   {
     dispatch_semaphore_wait(0, 0xFFFFFFFFFFFFFFFFLL);
-    v4 = v7;
+    return v6;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
-void sub_23743413C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23743413C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](va);
-  if (v2)
+  if (v3)
   {
-    dispatch_release(v2);
-    dispatch_release(v2);
+    dispatch_release(v3);
+    dispatch_release(v3);
   }
 
   _Unwind_Resume(a1);
@@ -6095,7 +6550,7 @@ void sub_23743413C(_Unwind_Exception *a1, uint64_t a2, ...)
 
 uint64_t CellMonitorInterface::getCellId(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -6103,19 +6558,17 @@ uint64_t CellMonitorInterface::getCellId(uint64_t a1, uint64_t *a2)
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A68918;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 64))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A68918;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 64))(a1, 1, v5);
+  return std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_237434220(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237434220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6641,7 +7094,7 @@ uint64_t rest::LASDServerUpdateParameters::LASDServerUpdateParameters(uint64_t a
     *(a1 + 8) = v6;
   }
 
-  std::unordered_map<LASDDatabaseType,std::string>::unordered_map(a1 + 32, a4);
+  std::unordered_map<LASDDatabaseType,std::string>::unordered_map((a1 + 32), a4);
   return a1;
 }
 
@@ -6799,9 +7252,9 @@ void sub_237437138(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ctu::rest::read_rest_value<LASDDatabaseType,std::string>(void *a1, void *a2)
+void ctu::rest::read_rest_value<LASDDatabaseType,std::string>(uint64_t *a1, void *a2)
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D86440];
   if (a2 && (v4 = a2, MEMORY[0x2383CC760](a2) == v3))
   {
@@ -6827,7 +7280,7 @@ void ctu::rest::read_rest_value<LASDDatabaseType,std::string>(void *a1, void *a2
       object = xpc_null_create();
     }
 
-    xpc::array::iterator::iterator(&v24, &object, 0);
+    xpc::array::iterator::iterator(&v23, &object, 0);
     xpc_release(object);
     object = v4;
     if (v4)
@@ -6840,7 +7293,7 @@ void ctu::rest::read_rest_value<LASDDatabaseType,std::string>(void *a1, void *a2
       object = xpc_null_create();
     }
 
-    v21 = v4;
+    v20 = v4;
     if (MEMORY[0x2383CC760](v4) == v3)
     {
       count = xpc_array_get_count(v4);
@@ -6851,41 +7304,41 @@ void ctu::rest::read_rest_value<LASDDatabaseType,std::string>(void *a1, void *a2
       count = 0;
     }
 
-    xpc::array::iterator::iterator(v23, &object, count);
+    xpc::array::iterator::iterator(v22, &object, count);
     xpc_release(object);
-    v6 = v25;
+    v6 = v24;
     v7 = MEMORY[0x277D86468];
     while (1)
     {
-      if (v6 == v23[1] && v24 == v23[0])
+      if (v6 == v22[1] && v23 == v22[0])
       {
-        xpc_release(v23[0]);
-        xpc_release(v24);
-        v4 = v21;
+        xpc_release(v22[0]);
+        xpc_release(v23);
+        v4 = v20;
         break;
       }
 
-      v22 = 0;
-      object = &v24;
-      v33 = v6;
-      xpc::array::object_proxy::operator xpc::dict(&object, &v22);
-      if (MEMORY[0x2383CC760](v22) != v7)
+      v21 = 0;
+      object = &v23;
+      v32 = v6;
+      xpc::array::object_proxy::operator xpc::dict(&object, &v21);
+      if (MEMORY[0x2383CC760](v21) != v7)
       {
         goto LABEL_50;
       }
 
-      memset(v35, 0, 15);
-      v8 = v22;
-      if (v22)
+      memset(v34, 0, 15);
+      v8 = v21;
+      if (v21)
       {
-        xpc_retain(v22);
-        v28 = v8;
+        xpc_retain(v21);
+        v27 = v8;
       }
 
       else
       {
         v8 = xpc_null_create();
-        v28 = v8;
+        v27 = v8;
         if (!v8)
         {
           v9 = xpc_null_create();
@@ -6903,33 +7356,33 @@ void ctu::rest::read_rest_value<LASDDatabaseType,std::string>(void *a1, void *a2
 
       v9 = xpc_null_create();
 LABEL_26:
-      v28 = v9;
+      v27 = v9;
 LABEL_27:
       if (MEMORY[0x2383CC760](v9) == v7)
       {
-        object = &v28;
-        v33 = "first";
-        xpc::dict::object_proxy::operator xpc::object(&object, &v29);
-        v13 = xpc::dyn_cast_or_default(&v29, 0);
-        xpc_release(v29);
-        v26[0] = &v28;
-        v26[1] = "second";
-        xpc::dict::object_proxy::operator xpc::object(v26, &v27);
+        object = &v27;
+        v32 = "first";
+        xpc::dict::object_proxy::operator xpc::object(&object, &v28);
+        v13 = xpc::dyn_cast_or_default(&v28, 0);
+        xpc_release(v28);
+        v25[0] = &v27;
+        v25[1] = "second";
+        xpc::dict::object_proxy::operator xpc::object(v25, &v26);
         object = 0;
+        v32 = 0;
         v33 = 0;
-        v34 = 0;
         xpc::dyn_cast_or_default();
-        if (SHIBYTE(v34) < 0)
+        if (SHIBYTE(v33) < 0)
         {
           operator delete(object);
         }
 
-        v11 = v29;
-        v35[0] = *v30;
-        *(v35 + 7) = *&v30[7];
-        v12 = v31;
-        xpc_release(v27);
-        v9 = v28;
+        v11 = v28;
+        v34[0] = *v29;
+        *(v34 + 7) = *&v29[7];
+        v12 = v30;
+        xpc_release(v26);
+        v9 = v27;
         v10 = v13;
       }
 
@@ -7016,13 +7469,12 @@ LABEL_48:
       }
 
 LABEL_50:
-      xpc_release(v22);
-      v6 = ++v25;
+      xpc_release(v21);
+      v6 = ++v24;
     }
   }
 
   xpc_release(v4);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2374376F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t a10, uint64_t a11, xpc_object_t a12, xpc_object_t a13, uint64_t a14, xpc_object_t a15, uint64_t a16, uint64_t a17, uint64_t a18, xpc_object_t a19, xpc_object_t a20, xpc_object_t a21, uint64_t a22, uint64_t a23, xpc_object_t object, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -7037,8 +7489,7 @@ void sub_2374376F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 std::string *rest::LASDLocalUpdateParameters::LASDLocalUpdateParameters(std::string *a1, void *a2, __int128 *a3, uint64_t a4)
 {
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
   a1->__r_.__value_.__r.__words[0] = &a1->__r_.__value_.__l.__size_;
   v5 = *a2;
   if (*a2 != a2 + 1)
@@ -7246,113 +7697,6 @@ void sub_2374391C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void rest::write_rest_value(rest *a1@<X0>, xpc_object_t *a2@<X8>)
-{
-  v18 = 0;
-  v4 = xpc_dictionary_create(0, 0, 0);
-  v5 = v4;
-  if (v4)
-  {
-    v18 = v4;
-  }
-
-  else
-  {
-    v5 = xpc_null_create();
-    v18 = v5;
-    if (!v5)
-    {
-      v6 = xpc_null_create();
-      v5 = 0;
-      goto LABEL_8;
-    }
-  }
-
-  if (MEMORY[0x2383CC760](v5) != MEMORY[0x277D86468])
-  {
-    v6 = xpc_null_create();
-LABEL_8:
-    v18 = v6;
-    goto LABEL_9;
-  }
-
-  xpc_retain(v5);
-LABEL_9:
-  xpc_release(v5);
-  rest::write_rest_value(a1, &v16);
-  value = &v18;
-  v15 = "location";
-  xpc::dict::object_proxy::operator=(&value, &v16, &object);
-  xpc_release(object);
-  object = 0;
-  xpc_release(v16);
-  v16 = 0;
-  v7 = xpc_array_create(0, 0);
-  if (v7 || (v7 = xpc_null_create()) != 0)
-  {
-    if (MEMORY[0x2383CC760](v7) == MEMORY[0x277D86440])
-    {
-      xpc_retain(v7);
-      v8 = v7;
-    }
-
-    else
-    {
-      v8 = xpc_null_create();
-    }
-  }
-
-  else
-  {
-    v8 = xpc_null_create();
-    v7 = 0;
-  }
-
-  xpc_release(v7);
-  v10 = *(a1 + 2);
-  v9 = *(a1 + 3);
-  while (v10 != v9)
-  {
-    rest::write_rest_value(v10, &value);
-    xpc_array_append_value(v8, value);
-    xpc_release(value);
-    v10 = (v10 + 24);
-  }
-
-  v12 = v8;
-  if (v8)
-  {
-    xpc_retain(v8);
-  }
-
-  else
-  {
-    v12 = xpc_null_create();
-  }
-
-  value = &v18;
-  v15 = "regions";
-  xpc::dict::object_proxy::operator=(&value, &v12, &v13);
-  xpc_release(v13);
-  v13 = 0;
-  xpc_release(v12);
-  v12 = 0;
-  v11 = v18;
-  *a2 = v18;
-  if (v11)
-  {
-    xpc_retain(v11);
-  }
-
-  else
-  {
-    *a2 = xpc_null_create();
-  }
-
-  xpc_release(v8);
-  xpc_release(v18);
-}
-
 void sub_237439448(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, xpc_object_t object)
 {
   xpc_release(object);
@@ -7548,7 +7892,7 @@ void rest::CellularPlanBlacklistParams::serializeAdditionalProperties(rest::Cell
 {
   if (*(this + 192) == 1)
   {
-    codec::toJSONString<rest::CellularPlanBlacklistAdditionalProperties>(this + 36);
+    codec::toJSONString<rest::CellularPlanBlacklistAdditionalProperties>(this + 18);
   }
 
   else
@@ -7597,7 +7941,7 @@ void ctu::rest::write_rest_value<rest::CellularPlanBlacklistParams>(xpc_object_t
   v7 = a2[1];
   while (v6 != v7)
   {
-    rest::write_rest_value(v6, &value);
+    rest::write_rest_value(&value, v6);
     v8 = value;
     xpc_array_append_value(v5, value);
     xpc_release(v8);
@@ -7618,7 +7962,7 @@ void ctu::rest::write_rest_value<rest::CellularPlanBlacklistParams>(xpc_object_t
   xpc_release(v5);
 }
 
-void rest::read_rest_value(void ***a1, void *a2)
+void rest::read_rest_value(rest::CellularPlanBlacklistParams **a1, void *a2)
 {
   v4 = a1[1];
   v5 = *a1;
@@ -7713,7 +8057,7 @@ void rest::read_rest_value(void ***a1, void *a2)
             std::vector<DataConnectionType>::__throw_length_error[abi:ne200100]();
           }
 
-          v21 = 0x8F5C28F5C28F5C29 * (v15 - v18);
+          v21 = 0x8F5C28F5C28F5C29 * ((v15 - v18) >> 3);
           if (2 * v21 > v20)
           {
             v20 = 2 * v21;
@@ -7824,8 +8168,8 @@ void rest::read_rest_value(void ***a1, void *a2)
             v18 = *a1;
           }
 
-          v34 = v23 - v19;
-          v17 = v23 + 200;
+          v34 = (v23 - v19);
+          v17 = (v23 + 200);
           *a1 = v34;
           a1[1] = (v23 + 200);
           a1[2] = 0;
@@ -7837,7 +8181,7 @@ void rest::read_rest_value(void ***a1, void *a2)
 
         else
         {
-          v16[24] = 0;
+          *(v16 + 24) = 0;
           *(v16 + 10) = 0u;
           *(v16 + 11) = 0u;
           *(v16 + 8) = 0u;
@@ -7848,14 +8192,14 @@ void rest::read_rest_value(void ***a1, void *a2)
           *(v16 + 5) = 0u;
           *(v16 + 2) = 0u;
           *(v16 + 3) = 0u;
-          v17 = (v16 + 25);
+          v17 = (v16 + 200);
           *v16 = 0u;
           *(v16 + 1) = 0u;
         }
 
         a1[1] = v17;
         xpc::array::object_proxy::operator xpc::object(v38, &v37);
-        rest::read_rest_value((v17 - 200), &v37, v35);
+        rest::read_rest_value(v17 - 25, &v37, v35);
         xpc_release(v37);
       }
 
@@ -7886,6 +8230,232 @@ void sub_23743BF18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   xpc_release(a11);
   xpc_release(a10);
   _Unwind_Resume(a1);
+}
+
+void rest::write_rest_value(xpc_object_t *__return_ptr a1@<X8>, rest *this@<X0>)
+{
+  v33 = 0;
+  v4 = xpc_dictionary_create(0, 0, 0);
+  v5 = v4;
+  if (v4)
+  {
+    v33 = v4;
+  }
+
+  else
+  {
+    v5 = xpc_null_create();
+    v33 = v5;
+    if (!v5)
+    {
+      v6 = xpc_null_create();
+      v5 = 0;
+      goto LABEL_8;
+    }
+  }
+
+  if (MEMORY[0x2383CC760](v5) == MEMORY[0x277D86468])
+  {
+    xpc_retain(v5);
+    goto LABEL_9;
+  }
+
+  v6 = xpc_null_create();
+LABEL_8:
+  v33 = v6;
+LABEL_9:
+  xpc_release(v5);
+  if (*(this + 23) >= 0)
+  {
+    v7 = this;
+  }
+
+  else
+  {
+    v7 = *this;
+  }
+
+  v31 = xpc_string_create(v7);
+  if (!v31)
+  {
+    v31 = xpc_null_create();
+  }
+
+  *string = &v33;
+  v17 = "key";
+  xpc::dict::object_proxy::operator=(string, &v31, &v32);
+  xpc_release(v32);
+  v32 = 0;
+  xpc_release(v31);
+  v31 = 0;
+  if (*(this + 47) >= 0)
+  {
+    v8 = this + 24;
+  }
+
+  else
+  {
+    v8 = *(this + 3);
+  }
+
+  v29 = xpc_string_create(v8);
+  if (!v29)
+  {
+    v29 = xpc_null_create();
+  }
+
+  *string = &v33;
+  v17 = "blacklistIMEI";
+  xpc::dict::object_proxy::operator=(string, &v29, &v30);
+  xpc_release(v30);
+  v30 = 0;
+  xpc_release(v29);
+  v29 = 0;
+  if (*(this + 71) >= 0)
+  {
+    v9 = this + 48;
+  }
+
+  else
+  {
+    v9 = *(this + 6);
+  }
+
+  v27 = xpc_string_create(v9);
+  if (!v27)
+  {
+    v27 = xpc_null_create();
+  }
+
+  *string = &v33;
+  v17 = "blacklistEid";
+  xpc::dict::object_proxy::operator=(string, &v27, &v28);
+  xpc_release(v28);
+  v28 = 0;
+  xpc_release(v27);
+  v27 = 0;
+  if (*(this + 95) >= 0)
+  {
+    v10 = this + 72;
+  }
+
+  else
+  {
+    v10 = *(this + 9);
+  }
+
+  v25 = xpc_string_create(v10);
+  if (!v25)
+  {
+    v25 = xpc_null_create();
+  }
+
+  *string = &v33;
+  v17 = "blacklistIccid";
+  xpc::dict::object_proxy::operator=(string, &v25, &object);
+  xpc_release(object);
+  object = 0;
+  xpc_release(v25);
+  v25 = 0;
+  if (*(this + 119) >= 0)
+  {
+    v11 = this + 96;
+  }
+
+  else
+  {
+    v11 = *(this + 12);
+  }
+
+  v23 = xpc_string_create(v11);
+  if (!v23)
+  {
+    v23 = xpc_null_create();
+  }
+
+  *string = &v33;
+  v17 = "uploaderIMEI";
+  xpc::dict::object_proxy::operator=(string, &v23, &v24);
+  xpc_release(v24);
+  v24 = 0;
+  xpc_release(v23);
+  v23 = 0;
+  if (*(this + 143) >= 0)
+  {
+    v12 = this + 120;
+  }
+
+  else
+  {
+    v12 = *(this + 15);
+  }
+
+  v21 = xpc_string_create(v12);
+  if (!v21)
+  {
+    v21 = xpc_null_create();
+  }
+
+  *string = &v33;
+  v17 = "uploaderEid";
+  xpc::dict::object_proxy::operator=(string, &v21, &v22);
+  xpc_release(v22);
+  v22 = 0;
+  xpc_release(v21);
+  v21 = 0;
+  if (*(this + 192) == 1)
+  {
+    codec::toJSONString<rest::CellularPlanBlacklistAdditionalProperties>(this + 18);
+    if (v18 >= 0)
+    {
+      v13 = string;
+    }
+
+    else
+    {
+      v13 = *string;
+    }
+  }
+
+  else
+  {
+    *string = 0;
+    v17 = 0;
+    v13 = string;
+    v18 = 0;
+  }
+
+  v19 = xpc_string_create(v13);
+  if (!v19)
+  {
+    v19 = xpc_null_create();
+  }
+
+  v15[0] = &v33;
+  v15[1] = "additionalProperties";
+  xpc::dict::object_proxy::operator=(v15, &v19, &v20);
+  xpc_release(v20);
+  v20 = 0;
+  xpc_release(v19);
+  v19 = 0;
+  if (SHIBYTE(v18) < 0)
+  {
+    operator delete(*string);
+  }
+
+  v14 = v33;
+  *a1 = v33;
+  if (v14)
+  {
+    xpc_retain(v14);
+  }
+
+  else
+  {
+    *a1 = xpc_null_create();
+  }
+
+  xpc_release(v33);
 }
 
 void rest::read_rest_value(void **this, xpc_object_t *a2, const object *a3)
@@ -8217,7 +8787,7 @@ BOOL rest::DeleteCloudCellularPlanBlacklistRecord::operator==(const void **a1, c
   }
 
   v8 = v4 >= 0 ? a1 + 3 : a1[3];
-  v9 = v7 >= 0 ? (a2 + 3) : a2[3];
+  v9 = v7 >= 0 ? a2 + 3 : a2[3];
   if (memcmp(v8, v9, v5))
   {
     return 0;
@@ -8247,7 +8817,7 @@ BOOL rest::DeleteCloudCellularPlanBlacklistRecord::operator==(const void **a1, c
   }
 
   v14 = v10 >= 0 ? a1 + 6 : a1[6];
-  v15 = v13 >= 0 ? (a2 + 6) : a2[6];
+  v15 = v13 >= 0 ? a2 + 6 : a2[6];
   if (memcmp(v14, v15, v11))
   {
     return 0;
@@ -8286,18 +8856,17 @@ BOOL rest::DeleteCloudCellularPlanBlacklistRecord::operator==(const void **a1, c
     v20 = *a1;
   }
 
-  v21 = *a2;
   if (v19 >= 0)
   {
-    v22 = a2;
+    v21 = a2;
   }
 
   else
   {
-    v22 = *a2;
+    v21 = *a2;
   }
 
-  return memcmp(v20, v22, v17) == 0;
+  return memcmp(v20, v21, v17) == 0;
 }
 
 void sub_23743D018(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, xpc_object_t object, xpc_object_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -8714,7 +9283,7 @@ void sub_23743F00C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ctu::rest::read_rest_value<std::string,std::string>(uint64_t a1, void *a2)
+void ctu::rest::read_rest_value<std::string,std::string>(uint64_t **a1, void *a2)
 {
   v3 = *a2;
   v4 = MEMORY[0x277D86440];
@@ -8728,10 +9297,10 @@ void ctu::rest::read_rest_value<std::string,std::string>(uint64_t a1, void *a2)
     v3 = xpc_null_create();
   }
 
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(a1, *(a1 + 8));
-  *a1 = a1 + 8;
-  *(a1 + 16) = 0;
-  *(a1 + 8) = 0;
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(a1, a1[1]);
+  *a1 = (a1 + 1);
+  a1[2] = 0;
+  a1[1] = 0;
   if (MEMORY[0x2383CC760](v3) == v4)
   {
     object[0] = v3;
@@ -8796,7 +9365,7 @@ void ctu::rest::read_rest_value<std::string,std::string>(uint64_t a1, void *a2)
 
         ctu::rest::read_rest_value<std::string,std::string>(object, &v8);
         xpc_release(v8);
-        std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::string>>(a1, object);
+        std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::string>>(a1, object, object);
         if (SHIBYTE(v11) < 0)
         {
           operator delete(__p[1]);
@@ -8887,7 +9456,7 @@ LABEL_9:
       while (1)
       {
         v14 = v12;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, (v12 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, v12 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -8905,7 +9474,7 @@ LABEL_9:
         break;
       }
 
-      v13 = v14 + 1;
+      v13 = (v14 + 1);
       v12 = v14[1];
       if (!v12)
       {
@@ -8972,19 +9541,18 @@ double rest::RecognizeLanguageArg::RecognizeLanguageArg(rest::RecognizeLanguageA
   return result;
 }
 
-uint64_t rest::RecognizeLanguageArg::RecognizeLanguageArg(uint64_t a1, __int16 a2, __int128 *a3, uint64_t *a4)
+uint64_t rest::RecognizeLanguageArg::RecognizeLanguageArg(uint64_t a1, __int16 a2, __int128 *a3, __int128 **a4)
 {
   *a1 = a2;
   v5 = *a3;
   *(a1 + 24) = *(a3 + 2);
   *(a1 + 8) = v5;
-  *(a3 + 1) = 0;
-  *(a3 + 2) = 0;
+  *(a3 + 8) = 0uLL;
   *a3 = 0;
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
-  v6 = a1 + 32;
-  *(v6 + 16) = 0;
+  v6 = (a1 + 32);
+  v6[2] = 0;
   std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v6, *a4, a4[1], 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3));
   return a1;
 }
@@ -9114,8 +9682,7 @@ uint64_t rest::RecognizeLanguageResult::RecognizeLanguageResult(uint64_t result,
   v3 = *a2;
   *(result + 16) = *(a2 + 2);
   *result = v3;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *(result + 24) = a3;
   return result;
@@ -9125,8 +9692,7 @@ uint64_t rest::RecognizeLanguageResult::RecognizeLanguageResult(uint64_t result,
   v3 = *a2;
   *(result + 16) = *(a2 + 2);
   *result = v3;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *(result + 24) = a3;
   return result;
@@ -9138,14 +9704,12 @@ uint64_t rest::RecognizeLanguageResult::isValid(rest::RecognizeLanguageResult *t
   {
     if (*(this + 1))
     {
-      goto LABEL_3;
+      return 1;
     }
   }
 
   else if (*(this + 23))
   {
-LABEL_3:
-    v1 = *(this + 3);
     return 1;
   }
 
@@ -9184,7 +9748,6 @@ BOOL rest::operator==(double *a1, double *a2)
     a1 = *a1;
   }
 
-  v8 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -9223,8 +9786,7 @@ __n128 rest::CompressionCodecInfo::CompressionCodecInfo(uint64_t a1, int a2, __n
   result = *a3;
   *(a1 + 24) = a3[1].n128_u64[0];
   *(a1 + 8) = result;
-  a3->n128_u64[1] = 0;
-  a3[1].n128_u64[0] = 0;
+  *(a3 + 8) = 0uLL;
   a3->n128_u64[0] = 0;
   return result;
 }
@@ -9234,8 +9796,7 @@ __n128 rest::CompressionCodecInfo::CompressionCodecInfo(uint64_t a1, int a2, __n
   result = *a3;
   *(a1 + 24) = a3[1].n128_u64[0];
   *(a1 + 8) = result;
-  a3->n128_u64[1] = 0;
-  a3[1].n128_u64[0] = 0;
+  *(a3 + 8) = 0uLL;
   a3->n128_u64[0] = 0;
   return result;
 }
@@ -9303,8 +9864,7 @@ __n128 rest::CompressTextArg::CompressTextArg(void *a1, uint64_t a2, __n128 *a3)
   result = *a3;
   *(a1 + 3) = *a3;
   a1[5] = a3[1].n128_u64[0];
-  a3->n128_u64[0] = 0;
-  a3->n128_u64[1] = 0;
+  *a3 = 0uLL;
   a3[1].n128_u64[0] = 0;
   return result;
 }
@@ -9324,573 +9884,7 @@ __n128 rest::CompressTextArg::CompressTextArg(void *a1, uint64_t a2, __n128 *a3)
   result = *a3;
   *(a1 + 3) = *a3;
   a1[5] = a3[1].n128_u64[0];
-  a3->n128_u64[0] = 0;
-  a3->n128_u64[1] = 0;
-  a3[1].n128_u64[0] = 0;
-  return result;
-}
-
-void rest::read_rest_value(std::vector<std::string> *this, xpc_object_t *a2, const object *a3)
-{
-  v4 = *a2;
-  v16 = v4;
-  v5 = MEMORY[0x277D86468];
-  if (v4 && MEMORY[0x2383CC760](v4) == v5)
-  {
-    xpc_retain(v4);
-  }
-
-  else
-  {
-    v4 = xpc_null_create();
-    v16 = v4;
-  }
-
-  if (MEMORY[0x2383CC760](v4) == v5)
-  {
-    __p = &v16;
-    v13 = "Input";
-    xpc::dict::object_proxy::operator xpc::object(&__p, &v17);
-    if (MEMORY[0x2383CC760](v17) == MEMORY[0x277D86458])
-    {
-      length = xpc_data_get_length(v17);
-      begin = this->__begin_;
-      end = this->__end_;
-      v11 = end - this->__begin_;
-      if (length <= v11)
-      {
-        if (length < v11)
-        {
-          end = (begin + length);
-          this->__end_ = (begin + length);
-        }
-      }
-
-      else
-      {
-        std::vector<unsigned char>::__append(this, length - v11);
-        begin = this->__begin_;
-        end = this->__end_;
-      }
-
-      ctu::rest::detail::read_raw_binary_value(begin, (end - begin), &v17, v7);
-    }
-
-    xpc_release(v17);
-    __p = &v16;
-    v13 = "CodecPaths";
-    xpc::dict::object_proxy::operator xpc::object(&__p, &v17);
-    ctu::rest::read_rest_value<std::string>(&this[1], &v17);
-    xpc_release(v17);
-    v4 = v16;
-  }
-
-  else
-  {
-    v6 = this->__begin_;
-    if (this->__begin_)
-    {
-      this->__end_ = v6;
-      operator delete(v6);
-      this->__begin_ = 0;
-      this->__end_ = 0;
-      this->__end_cap_.__value_ = 0;
-    }
-
-    this->__begin_ = 0;
-    this->__end_ = 0;
-    this->__end_cap_.__value_ = 0;
-    v13 = 0;
-    v14 = 0;
-    __p = 0;
-    std::vector<std::string>::__vdeallocate(this + 1);
-    this[1].__begin_ = 0;
-    this[1].__end_ = 0;
-    this[1].__end_cap_.__value_ = 0;
-    memset(v15, 0, sizeof(v15));
-    v17 = v15;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v17);
-    if (__p)
-    {
-      v13 = __p;
-      operator delete(__p);
-    }
-  }
-
-  xpc_release(v4);
-}
-
-{
-  v43 = *a2;
-  v4 = MEMORY[0x277D86468];
-  if (v43 && MEMORY[0x2383CC760](v43) == v4)
-  {
-    xpc_retain(v43);
-  }
-
-  else
-  {
-    v43 = xpc_null_create();
-  }
-
-  if (MEMORY[0x2383CC760]() == v4)
-  {
-    v27[0] = &v43;
-    v27[1] = "Identifier";
-    xpc::dict::object_proxy::operator xpc::object(v27, &object);
-    __p[0] = 0;
-    __p[1] = 0;
-    *&v33[0] = 0;
-    xpc::dyn_cast_or_default();
-    if (SBYTE7(v33[0]) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(this->__end_cap_.__value_) < 0)
-    {
-      operator delete(this->__begin_);
-    }
-
-    *&this->__begin_ = v44;
-    this->__end_cap_.__value_ = v45;
-    xpc_release(object);
-    v27[0] = &v43;
-    v27[1] = "Title";
-    xpc::dict::object_proxy::operator xpc::object(v27, &object);
-    __p[0] = 0;
-    __p[1] = 0;
-    *&v33[0] = 0;
-    xpc::dyn_cast_or_default();
-    if (SBYTE7(v33[0]) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(this[1].__end_cap_.__value_) < 0)
-    {
-      operator delete(this[1].__begin_);
-    }
-
-    *&this[1].__begin_ = v44;
-    this[1].__end_cap_.__value_ = v45;
-    xpc_release(object);
-    v27[0] = &v43;
-    v27[1] = "DepartureAirportCode";
-    xpc::dict::object_proxy::operator xpc::object(v27, &object);
-    __p[0] = 0;
-    __p[1] = 0;
-    *&v33[0] = 0;
-    xpc::dyn_cast_or_default();
-    if (SBYTE7(v33[0]) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(this[2].__end_cap_.__value_) < 0)
-    {
-      operator delete(this[2].__begin_);
-    }
-
-    *&this[2].__begin_ = v44;
-    this[2].__end_cap_.__value_ = v45;
-    xpc_release(object);
-    v27[0] = &v43;
-    v27[1] = "ArrivalAirportCode";
-    xpc::dict::object_proxy::operator xpc::object(v27, &object);
-    __p[0] = 0;
-    __p[1] = 0;
-    *&v33[0] = 0;
-    xpc::dyn_cast_or_default();
-    if (SBYTE7(v33[0]) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(this[4].__end_cap_.__value_) < 0)
-    {
-      operator delete(this[4].__begin_);
-    }
-
-    *&this[4].__begin_ = v44;
-    this[4].__end_cap_.__value_ = v45;
-    xpc_release(object);
-    __p[0] = &v43;
-    __p[1] = "DepartureAirportLat";
-    xpc::dict::object_proxy::operator xpc::object(__p, &v44);
-    xpc::dyn_cast_or_default(&v44, v6, 0.0);
-    this[6].__begin_ = v7;
-    xpc_release(v44);
-    __p[0] = &v43;
-    __p[1] = "DepartureAirportLong";
-    xpc::dict::object_proxy::operator xpc::object(__p, &v44);
-    xpc::dyn_cast_or_default(&v44, v8, 0.0);
-    this[6].__end_ = v9;
-    xpc_release(v44);
-    __p[0] = &v43;
-    __p[1] = "DepartureTime";
-    xpc::dict::object_proxy::operator xpc::object(__p, &v44);
-    xpc::dyn_cast_or_default(&v44, v10, 0.0);
-    this[6].__end_cap_.__value_ = v11;
-    xpc_release(v44);
-    __p[0] = &v43;
-    __p[1] = "ArrivalAirportLat";
-    xpc::dict::object_proxy::operator xpc::object(__p, &v44);
-    xpc::dyn_cast_or_default(&v44, v12, 0.0);
-    this[7].__begin_ = v13;
-    xpc_release(v44);
-    __p[0] = &v43;
-    __p[1] = "ArrivalAirportLong";
-    xpc::dict::object_proxy::operator xpc::object(__p, &v44);
-    xpc::dyn_cast_or_default(&v44, v14, 0.0);
-    this[7].__end_ = v15;
-    xpc_release(v44);
-    __p[0] = &v43;
-    __p[1] = "ArrivalTime";
-    xpc::dict::object_proxy::operator xpc::object(__p, &v44);
-    xpc::dyn_cast_or_default(&v44, v16, 0.0);
-    this[7].__end_cap_.__value_ = v17;
-    xpc_release(v44);
-    v27[0] = &v43;
-    v27[1] = "ExtractionSource";
-    xpc::dict::object_proxy::operator xpc::object(v27, &object);
-    __p[0] = 0;
-    __p[1] = 0;
-    *&v33[0] = 0;
-    xpc::dyn_cast_or_default();
-    if (SBYTE7(v33[0]) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(this[9].__end_cap_.__value_) < 0)
-    {
-      operator delete(this[9].__begin_);
-    }
-
-    *&this[9].__begin_ = v44;
-    this[9].__end_cap_.__value_ = v45;
-    xpc_release(object);
-    v31 = 0;
-    xpc::dict::object_proxy::operator xpc::array(&v31, v43, "PassengerNames");
-    std::vector<std::string>::clear[abi:ne200100](&this[8]);
-    object = 0;
-    v30 = 0;
-    v18 = v31;
-    __p[0] = v31;
-    if (v31)
-    {
-      xpc_retain(v31);
-    }
-
-    else
-    {
-      __p[0] = xpc_null_create();
-    }
-
-    xpc::array::iterator::iterator(&object, __p, 0);
-    xpc_release(__p[0]);
-    v19 = MEMORY[0x277D86440];
-    while (1)
-    {
-      *&v44 = v18;
-      if (v18)
-      {
-        xpc_retain(v18);
-      }
-
-      else
-      {
-        *&v44 = xpc_null_create();
-      }
-
-      v20 = MEMORY[0x2383CC760](v18) == v19 ? xpc_array_get_count(v18) : 0;
-      xpc::array::iterator::iterator(__p, &v44, v20);
-      xpc_release(v44);
-      v21 = object;
-      v22 = v30;
-      v23 = __p[0];
-      v24 = __p[1];
-      xpc_release(__p[0]);
-      if (v22 == v24 && v21 == v23)
-      {
-        break;
-      }
-
-      v27[0] = 0;
-      v27[1] = 0;
-      v28 = 0;
-      v25[0] = &object;
-      v25[1] = v30;
-      xpc::array::object_proxy::operator xpc::object(v25, &v26);
-      __p[0] = 0;
-      __p[1] = 0;
-      *&v33[0] = 0;
-      xpc::dyn_cast_or_default();
-      if (SBYTE7(v33[0]) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      if (SHIBYTE(v28) < 0)
-      {
-        operator delete(v27[0]);
-      }
-
-      *v27 = v44;
-      v28 = v45;
-      xpc_release(v26);
-      std::vector<std::string>::push_back[abi:ne200100](&this[8], v27);
-      if (SHIBYTE(v28) < 0)
-      {
-        operator delete(v27[0]);
-      }
-
-      ++v30;
-    }
-
-    xpc_release(object);
-    xpc_release(v18);
-  }
-
-  else
-  {
-    memset(v42, 0, sizeof(v42));
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    memset(v37, 0, sizeof(v37));
-    v36 = 0u;
-    memset(v35, 0, sizeof(v35));
-    v34 = 0u;
-    *__p = 0u;
-    memset(v33, 0, sizeof(v33));
-    if (SHIBYTE(this->__end_cap_.__value_) < 0)
-    {
-      operator delete(this->__begin_);
-    }
-
-    this->__begin_ = 0;
-    this->__end_ = 0;
-    this->__end_cap_.__value_ = 0;
-    BYTE7(v33[0]) = 0;
-    LOBYTE(__p[0]) = 0;
-    if (SHIBYTE(this[1].__end_cap_.__value_) < 0)
-    {
-      operator delete(this[1].__begin_);
-    }
-
-    *&this[1].__begin_ = *(v33 + 8);
-    this[1].__end_cap_.__value_ = *(&v33[1] + 1);
-    HIBYTE(v33[1]) = 0;
-    BYTE8(v33[0]) = 0;
-    if (SHIBYTE(this[2].__end_cap_.__value_) < 0)
-    {
-      operator delete(this[2].__begin_);
-    }
-
-    *&this[2].__begin_ = v34;
-    this[2].__end_cap_.__value_ = v35[0];
-    HIBYTE(v35[0]) = 0;
-    LOBYTE(v34) = 0;
-    if (SHIBYTE(this[3].__end_cap_.__value_) < 0)
-    {
-      operator delete(this[3].__begin_);
-    }
-
-    *&this[3].__begin_ = *&v35[1];
-    this[3].__end_cap_.__value_ = v35[3];
-    HIBYTE(v35[3]) = 0;
-    LOBYTE(v35[1]) = 0;
-    if (SHIBYTE(this[4].__end_cap_.__value_) < 0)
-    {
-      operator delete(this[4].__begin_);
-    }
-
-    *&this[4].__begin_ = v36;
-    this[4].__end_cap_.__value_ = v37[0];
-    HIBYTE(v37[0]) = 0;
-    LOBYTE(v36) = 0;
-    if (SHIBYTE(this[5].__end_cap_.__value_) < 0)
-    {
-      operator delete(this[5].__begin_);
-    }
-
-    *&this[5].__begin_ = *&v37[1];
-    this[5].__end_cap_.__value_ = v37[3];
-    HIBYTE(v37[3]) = 0;
-    LOBYTE(v37[1]) = 0;
-    v5 = v39;
-    *&this[6].__begin_ = v38;
-    *&this[6].__end_cap_.__value_ = v5;
-    *&this[7].__end_ = v40;
-    std::vector<std::string>::__vdeallocate(this + 8);
-    this[8].__begin_ = 0;
-    this[8].__end_ = 0;
-    this[8].__end_cap_.__value_ = 0;
-    v42[0] = 0;
-    v41 = 0uLL;
-    if (SHIBYTE(this[9].__end_cap_.__value_) < 0)
-    {
-      operator delete(this[9].__begin_);
-    }
-
-    *&this[9].__begin_ = *&v42[1];
-    this[9].__end_cap_.__value_ = v42[3];
-    HIBYTE(v42[3]) = 0;
-    LOBYTE(v42[1]) = 0;
-    rest::FlightInfo::~FlightInfo(__p);
-  }
-
-  xpc_release(v43);
-}
-
-{
-  v4 = *a2;
-  v9 = v4;
-  v5 = MEMORY[0x277D86468];
-  if (v4 && MEMORY[0x2383CC760](v4) == v5)
-  {
-    xpc_retain(v4);
-  }
-
-  else
-  {
-    v4 = xpc_null_create();
-    v9 = v4;
-  }
-
-  if (MEMORY[0x2383CC760](v4) == v5)
-  {
-    v6 = &v9;
-    v7 = "ContactKeys";
-    xpc::dict::object_proxy::operator xpc::object(&v6, &object);
-    ctu::rest::read_rest_value<std::string>(this, &object);
-    xpc_release(object);
-    v4 = v9;
-  }
-
-  else
-  {
-    std::vector<std::string>::__vdeallocate(this);
-    this->__begin_ = 0;
-    this->__end_ = 0;
-    this->__end_cap_.__value_ = 0;
-    v7 = 0;
-    v8 = 0;
-    v6 = 0;
-    object = &v6;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&object);
-  }
-
-  xpc_release(v4);
-}
-
-{
-  v4 = *a2;
-  v9 = v4;
-  v5 = MEMORY[0x277D86468];
-  if (v4 && MEMORY[0x2383CC760](v4) == v5)
-  {
-    xpc_retain(v4);
-  }
-
-  else
-  {
-    v4 = xpc_null_create();
-    v9 = v4;
-  }
-
-  if (MEMORY[0x2383CC760](v4) == v5)
-  {
-    v6 = &v9;
-    v7 = "MyCardNames";
-    xpc::dict::object_proxy::operator xpc::object(&v6, &object);
-    ctu::rest::read_rest_value<std::string>(this, &object);
-    xpc_release(object);
-    v4 = v9;
-  }
-
-  else
-  {
-    std::vector<std::string>::__vdeallocate(this);
-    this->__begin_ = 0;
-    this->__end_ = 0;
-    this->__end_cap_.__value_ = 0;
-    v7 = 0;
-    v8 = 0;
-    v6 = 0;
-    object = &v6;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&object);
-  }
-
-  xpc_release(v4);
-}
-
-void sub_237440970(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, xpc_object_t object)
-{
-  xpc_release(*(v15 - 40));
-  xpc_release(object);
-  _Unwind_Resume(a1);
-}
-
-double rest::CompressTextResult::CompressTextResult(rest::CompressTextResult *this)
-{
-  *this = 0;
-  result = 0.0;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  *(this + 40) = 0u;
-  return result;
-}
-
-{
-  *this = 0;
-  result = 0.0;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  *(this + 40) = 0u;
-  return result;
-}
-
-__n128 rest::CompressTextResult::CompressTextResult(uint64_t a1, uint64_t a2, __n128 *a3)
-{
-  *a1 = *a2;
-  v3 = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
-  *(a1 + 8) = v3;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
-  *(a2 + 8) = 0;
-  *(a1 + 32) = 0;
-  *(a1 + 40) = 0;
-  *(a1 + 48) = 0;
-  result = *a3;
-  *(a1 + 32) = *a3;
-  *(a1 + 48) = a3[1].n128_u64[0];
-  a3->n128_u64[0] = 0;
-  a3->n128_u64[1] = 0;
-  a3[1].n128_u64[0] = 0;
-  return result;
-}
-
-{
-  *a1 = *a2;
-  v3 = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
-  *(a1 + 8) = v3;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
-  *(a2 + 8) = 0;
-  *(a1 + 32) = 0;
-  *(a1 + 40) = 0;
-  *(a1 + 48) = 0;
-  result = *a3;
-  *(a1 + 32) = *a3;
-  *(a1 + 48) = a3[1].n128_u64[0];
-  a3->n128_u64[0] = 0;
-  a3->n128_u64[1] = 0;
+  *a3 = 0uLL;
   a3[1].n128_u64[0] = 0;
   return result;
 }

@@ -4,6 +4,7 @@
 - (NSArray)pendingChanges;
 - (id)_pendingChanges;
 - (id)description;
+- (void)_addPendingChangesForContentTasteUpdateOperation:(id)operation invalidateLocalCache:(BOOL)cache;
 - (void)_removePendingChangesForContentTasteUpdateOperation:(id)operation;
 - (void)contentTasteUpdateOperation:(id)operation finishedByInvalidatingCache:(BOOL)cache error:(id)error;
 - (void)removePendingChanges;
@@ -243,6 +244,142 @@ LABEL_16:
     v27 = operationCopy;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Not removing pending changes for operation %p as is no retry identifier", buf, 0x16u);
   }
+}
+
+- (void)_addPendingChangesForContentTasteUpdateOperation:(id)operation invalidateLocalCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  operationCopy = operation;
+  dispatch_assert_queue_V2(self->_queue);
+  requestItem = [operationCopy requestItem];
+  operationIdentifier = [operationCopy operationIdentifier];
+  v9 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543618;
+    selfCopy2 = self;
+    v45 = 2114;
+    v46 = operationIdentifier;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ Adding pending changes for operation with operationIdentifier=%{public}@", buf, 0x16u);
+  }
+
+  if (requestItem)
+  {
+    v41[0] = @"ContentTastePendingChangesCoordinatorContentTasteItemKey";
+    v41[1] = @"ContentTastePendingChangesCoordinatorInvalidateCacheKey";
+    v42[0] = requestItem;
+    v10 = [NSNumber numberWithBool:cacheCopy];
+    v42[1] = v10;
+    v11 = v42;
+    v12 = v41;
+    v13 = 2;
+  }
+
+  else
+  {
+    v39 = @"ContentTastePendingChangesCoordinatorInvalidateCacheKey";
+    v10 = [NSNumber numberWithBool:cacheCopy];
+    v40 = v10;
+    v11 = &v40;
+    v12 = &v39;
+    v13 = 1;
+  }
+
+  v14 = [NSDictionary dictionaryWithObjects:v11 forKeys:v12 count:v13];
+
+  v37[0] = @"ContentTastePendingChangesCoordinatorOperationIdentifierKey";
+  v37[1] = @"ContentTastePendingChangesCoordinatorPendingChangesKey";
+  v38[0] = operationIdentifier;
+  v38[1] = v14;
+  v15 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:2];
+  _pendingChanges = [(ICContentTastePendingChangesCoordinator *)self _pendingChanges];
+  v17 = [_pendingChanges mutableCopy];
+
+  if (!v17)
+  {
+    v18 = [[NSMutableArray alloc] initWithCapacity:1];
+LABEL_22:
+    [v18 addObject:{v15, v28, v29}];
+    [(ICContentTastePendingChangesCoordinator *)self _savePendingChanges:v18];
+    goto LABEL_23;
+  }
+
+  v28 = v15;
+  v29 = v14;
+  v30 = requestItem;
+  v31 = operationCopy;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v18 = v17;
+  v19 = [v18 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  if (!v19)
+  {
+LABEL_15:
+
+LABEL_20:
+    requestItem = v30;
+    operationCopy = v31;
+    v15 = v28;
+    v14 = v29;
+    goto LABEL_22;
+  }
+
+  v20 = v19;
+  v21 = *v33;
+LABEL_9:
+  v22 = 0;
+  while (1)
+  {
+    if (*v33 != v21)
+    {
+      objc_enumerationMutation(v18);
+    }
+
+    v23 = *(*(&v32 + 1) + 8 * v22);
+    v24 = [v23 objectForKey:{@"ContentTastePendingChangesCoordinatorOperationIdentifierKey", v28, v29}];
+    v25 = [v24 isEqualToString:operationIdentifier];
+
+    if (v25)
+    {
+      break;
+    }
+
+    if (v20 == ++v22)
+    {
+      v20 = [v18 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      if (v20)
+      {
+        goto LABEL_9;
+      }
+
+      goto LABEL_15;
+    }
+  }
+
+  v26 = v23;
+
+  if (!v26)
+  {
+    goto LABEL_20;
+  }
+
+  v27 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+  operationCopy = v31;
+  v15 = v28;
+  v14 = v29;
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543618;
+    selfCopy2 = self;
+    v45 = 2048;
+    v46 = v31;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ we already have a pending change for this operation=%p", buf, 0x16u);
+  }
+
+  requestItem = v30;
+LABEL_23:
 }
 
 - (id)description

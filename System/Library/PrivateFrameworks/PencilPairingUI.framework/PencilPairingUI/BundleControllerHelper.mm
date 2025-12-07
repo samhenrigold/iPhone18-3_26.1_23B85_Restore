@@ -22,9 +22,11 @@
 
 uint64_t __40__BundleControllerHelper_sharedInstance__block_invoke()
 {
-  sharedInstance_sHelper = objc_alloc_init(BundleControllerHelper);
+  v0 = objc_alloc_init(BundleControllerHelper);
+  v1 = sharedInstance_sHelper;
+  sharedInstance_sHelper = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)loadSpecifiersFromPlistName:(id)name stringsName:(id)stringsName bundle:(id)bundle specifier:(id)specifier target:(id)target

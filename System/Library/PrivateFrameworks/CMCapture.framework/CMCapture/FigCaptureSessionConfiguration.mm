@@ -113,33 +113,33 @@
     return 0;
   }
 
-  v2 = [MEMORY[0x1E696AD60] stringWithFormat:@"%@ %p: ID %lld, sdk %llu, %@ multiCam: %d, appAudio: %d, autoConfig: %d, mixesWithOthers: %d, hqBluetooth: %d, runWhileMultitasking: %d, checkIfFileAlreadyExistForMFO: %d autoRunDeferredStart: %d", objc_opt_class(), self, objc_msgSend(self, "configurationID"), objc_msgSend(self, "clientSDKVersionToken"), objc_msgSend(self, "sessionPreset"), objc_msgSend(self, "isMultiCamSession"), objc_msgSend(self, "usesAppAudioSession"), objc_msgSend(self, "configuresAppAudioSession"), objc_msgSend(self, "configuresAppAudioSessionToMixWithOthers"), objc_msgSend(self, "configuresAppAudioSessionForBluetoothHighQualityRecording"), objc_msgSend(self, "allowedToRunInMultitaskingMode"), objc_msgSend(self, "checkIfFileAlreadyExistForMFO"), objc_msgSend(self, "automaticallyRunsDeferredStart")];
+  v3 = [MEMORY[0x1E696AD60] stringWithFormat:@"%@ %p: ID %lld, sdk %llu, %@ multiCam: %d, appAudio: %d, autoConfig: %d, mixesWithOthers: %d, hqBluetooth: %d, runWhileMultitasking: %d, checkIfFileAlreadyExistForMFO: %d autoRunDeferredStart: %d", objc_opt_class(), self, objc_msgSend(self, "configurationID"), objc_msgSend(self, "clientSDKVersionToken"), objc_msgSend(self, "sessionPreset"), objc_msgSend(self, "isMultiCamSession"), objc_msgSend(self, "usesAppAudioSession"), objc_msgSend(self, "configuresAppAudioSession"), objc_msgSend(self, "configuresAppAudioSessionToMixWithOthers"), objc_msgSend(self, "configuresAppAudioSessionForBluetoothHighQualityRecording"), objc_msgSend(self, "allowedToRunInMultitaskingMode"), objc_msgSend(self, "checkIfFileAlreadyExistForMFO"), objc_msgSend(self, "automaticallyRunsDeferredStart")];
   if ([self xctestAuthorizedToStealDevice])
   {
-    [v2 appendString:{@", xctestSteals: 1"}];
+    [v3 appendString:{@", xctestSteals: 1"}];
   }
 
   if ([self continuityCameraIsWired])
   {
-    [v2 appendString:{@", continuityCameraIsWired: YES"}];
+    [v3 appendString:{@", continuityCameraIsWired: YES"}];
   }
 
   if ([self continuityCameraClientDeviceClass])
   {
-    [v2 appendFormat:@", continuityCameraClientDeviceClass: %@", objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", objc_msgSend(self, "continuityCameraClientDeviceClass"))];
+    [v3 appendFormat:@", continuityCameraClientDeviceClass: %@", objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", objc_msgSend(self, "continuityCameraClientDeviceClass"))];
   }
 
   if ([self suppressVideoEffects])
   {
-    [v2 appendString:{@", suppressVideoEffects: YES"}];
+    [v3 appendString:{@", suppressVideoEffects: YES"}];
   }
 
   if ([self smartStyleRenderingEnabled])
   {
-    [v2 appendString:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @", smartStyle:%@ controlMode:%d", objc_msgSend(self, "smartStyle"), objc_msgSend(self, "smartStyleControlMode"))}];
+    [v3 appendString:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @", smartStyle:%@ controlMode:%d", objc_msgSend(self, "smartStyle"), objc_msgSend(self, "smartStyleControlMode"))}];
   }
 
-  return v2;
+  return v3;
 }
 
 - (id)copyXPCEncoding
@@ -385,7 +385,7 @@
   selfCopy = self;
   if (!encoding)
   {
-    [FigCaptureSessionConfiguration initWithXPCEncoding:];
+    [(FigCaptureSessionConfiguration *)self initWithXPCEncoding:a2];
     goto LABEL_15;
   }
 
@@ -559,9 +559,9 @@ BOOL __54__FigCaptureSessionConfiguration_initWithXPCEncoding___block_invoke(uin
     return v15;
   }
 
-  v42 = v5;
-  v43 = v4;
-  v44 = v3;
+  v41 = v5;
+  v42 = v4;
+  v43 = v3;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -635,12 +635,12 @@ LABEL_33:
           type = tcc_identity_get_type();
           v35 = MEMORY[0x1E696AEC0];
           [equal tccIdentity];
-          v36 = [v35 stringWithUTF8String:tcc_identity_get_identifier()];
+          [v35 stringWithUTF8String:tcc_identity_get_identifier()];
           [equal tccIdentity];
-          v37 = tcc_identity_get_type();
-          v38 = [v33 isEqualToString:v36];
+          v36 = tcc_identity_get_type();
+          isEqualToString = objc_msgSend_isEqualToString_(v33);
           LOBYTE(v15) = 0;
-          if (!v38 || type != v37)
+          if (!isEqualToString || type != v36)
           {
             return v15;
           }
@@ -884,27 +884,6 @@ LABEL_9:
   }
 
   return v5;
-}
-
-- (uint64_t)initWithXPCEncoding:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithXPCEncoding:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-uint64_t __54__FigCaptureSessionConfiguration_initWithXPCEncoding___block_invoke_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

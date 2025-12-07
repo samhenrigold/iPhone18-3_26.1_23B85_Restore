@@ -44,30 +44,13 @@
   v14.super_class = FPnfsMemFS;
   v6 = [(FPnfsMemFS *)&v14 init];
   v7 = v6;
-  if (!v6)
+  if (v6 && (pthread_rwlock_init(&v6->opLock, 0) || (objc_storeStrong(&v7->rootPath, path), v9 = objc_alloc_init(NSMutableDictionary), fhMap = v7->fhMap, v7->fhMap = v9, fhMap, !v7->fhMap) || (atomic_store(1uLL, &v7->filehandle), v11 = [[FPnfsMemNode alloc] initWithFS:v7 name:&stru_100062B08 parent:0], rootNode = v7->_rootNode, v7->_rootNode = v11, rootNode, !v7->_rootNode)))
   {
-    goto LABEL_6;
-  }
-
-  if (pthread_rwlock_init(&v6->opLock, 0))
-  {
-    goto LABEL_3;
-  }
-
-  objc_storeStrong(&v7->rootPath, path);
-  v9 = objc_alloc_init(NSMutableDictionary);
-  fhMap = v7->fhMap;
-  v7->fhMap = v9;
-
-  if (!v7->fhMap || (atomic_store(1uLL, &v7->filehandle), v11 = [[FPnfsMemNode alloc] initWithFS:v7 name:&stru_100062B08 parent:0], rootNode = v7->_rootNode, v7->_rootNode = v11, rootNode, !v7->_rootNode))
-  {
-LABEL_3:
     v8 = 0;
   }
 
   else
   {
-LABEL_6:
     v8 = v7;
   }
 

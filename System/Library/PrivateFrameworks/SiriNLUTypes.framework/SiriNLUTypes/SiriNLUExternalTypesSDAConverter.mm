@@ -148,36 +148,36 @@
 
 + (id)convertFromSystemGaveOptions:(id)options
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   if (optionsCopy)
   {
     v4 = objc_alloc_init(SIRINLUEXTERNALSystemGaveOptions);
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     choices = [optionsCopy choices];
-    v7 = [choices countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [choices countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(choices);
           }
 
-          v11 = [SiriNLUExternalTypesUDAConverter convertFromUserDialogAct:*(*(&v14 + 1) + 8 * i)];
+          v11 = [SiriNLUExternalTypesUDAConverter convertFromUserDialogAct:*(*(&v13 + 1) + 8 * i)];
           [v5 addObject:v11];
         }
 
-        v8 = [choices countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [choices countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -190,8 +190,6 @@
   {
     v4 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -268,35 +266,35 @@ LABEL_17:
 
 + (id)convertFromSystemDialogActs:(id)acts
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   actsCopy = acts;
   if (actsCopy)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = actsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [self convertFromSystemDialogAct:{*(*(&v14 + 1) + 8 * i), v14}];
+          v11 = [self convertFromSystemDialogAct:{*(*(&v13 + 1) + 8 * i), v13}];
           [v5 addObject:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -307,8 +305,6 @@ LABEL_17:
   {
     v5 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

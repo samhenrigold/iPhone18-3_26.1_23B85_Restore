@@ -12,6 +12,8 @@
 - (void)_pressedTableView;
 - (void)_setLowerBound:(id)bound specifier:(id)specifier;
 - (void)_setUpperBound:(id)bound specifier:(id)specifier;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HPRFSessionTrackerAppHeartRateZoneViewController
@@ -34,6 +36,33 @@
   }
 
   return v9;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = HPRFSessionTrackerAppHeartRateZoneViewController;
+  [(HPRFSessionTrackerAppHeartRateZoneViewController *)&v7 viewWillAppear:appear];
+  table = [(HPRFSessionTrackerAppHeartRateZoneViewController *)self table];
+  tapGesture = [(HPRFSessionTrackerAppHeartRateZoneViewController *)self tapGesture];
+  [table addGestureRecognizer:tapGesture];
+
+  v6 = +[NSNotificationCenter defaultCenter];
+  [v6 addObserver:self selector:"_didBeginEditing:" name:UITextFieldTextDidBeginEditingNotification object:0];
+
+  [(HPRFSessionTrackerAppHeartRateZoneViewController *)self reloadSpecifiers];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = HPRFSessionTrackerAppHeartRateZoneViewController;
+  [(HPRFSessionTrackerAppHeartRateZoneViewController *)&v6 viewWillDisappear:disappear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 removeObserver:self name:UITextFieldTextDidBeginEditingNotification object:0];
+
+  table = [(HPRFSessionTrackerAppHeartRateZoneViewController *)self table];
+  [table endEditing:1];
 }
 
 - (id)localizedPaneTitle

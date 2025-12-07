@@ -1,5 +1,6 @@
 @interface PSUIConvertToESIMSpecifier
 + (id)keyFor:(id)for;
++ (id)specifierWithPhoneNumber:(id)number carrierName:(id)name hostController:(id)controller isViewControllerPopNeeded:(BOOL)needed iccid:(id)iccid;
 - (PSUIConvertToESIMSpecifier)initWithPhoneNumber:(id)number carrierName:(id)name hostController:(id)controller isViewControllerPopNeeded:(BOOL)needed iccid:(id)iccid;
 - (void)_convertToeSIM;
 - (void)_showWifiAlert;
@@ -22,9 +23,35 @@
   return forCopy;
 }
 
++ (id)specifierWithPhoneNumber:(id)number carrierName:(id)name hostController:(id)controller isViewControllerPopNeeded:(BOOL)needed iccid:(id)iccid
+{
+  neededCopy = needed;
+  numberCopy = number;
+  nameCopy = name;
+  controllerCopy = controller;
+  iccidCopy = iccid;
+  v15 = [PSUIConvertToESIMSpecifier keyFor:iccidCopy];
+  v16 = +[SSFlowHostCache sharedInstance];
+  v17 = [v16 objectForKey:v15];
+
+  if (v17)
+  {
+    v18 = v17;
+  }
+
+  else
+  {
+    v18 = [[PSUIConvertToESIMSpecifier alloc] initWithPhoneNumber:numberCopy carrierName:nameCopy hostController:controllerCopy isViewControllerPopNeeded:neededCopy iccid:iccidCopy];
+  }
+
+  v19 = v18;
+
+  return v19;
+}
+
 - (PSUIConvertToESIMSpecifier)initWithPhoneNumber:(id)number carrierName:(id)name hostController:(id)controller isViewControllerPopNeeded:(BOOL)needed iccid:(id)iccid
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   nameCopy = name;
   controllerCopy = controller;
@@ -36,9 +63,9 @@
 
   v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v17 = [v16 localizedStringForKey:@"Convert to eSIM" value:&stru_287733598 table:@"Gemini-Gemini"];
-  v25.receiver = self;
-  v25.super_class = PSUIConvertToESIMSpecifier;
-  v18 = [(PSUIConvertToESIMSpecifier *)&v25 initWithName:v17 target:0 set:0 get:0 detail:0 cell:13 edit:0];
+  v24.receiver = self;
+  v24.super_class = PSUIConvertToESIMSpecifier;
+  v18 = [(PSUIConvertToESIMSpecifier *)&v24 initWithName:v17 target:0 set:0 get:0 detail:0 cell:13 edit:0];
 
   if (v18)
   {
@@ -62,14 +89,13 @@
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v27 = v18;
+      v26 = v18;
       _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "update delegate to %@", buf, 0xCu);
     }
 
     [v20 setDelegate:v18];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -175,7 +201,7 @@ LABEL_4:
 
 void __52__PSUIConvertToESIMSpecifier_simSetupFlowCompleted___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -188,9 +214,9 @@ void __52__PSUIConvertToESIMSpecifier_simSetupFlowCompleted___block_invoke(uint6
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 48);
-      v15 = 134217984;
-      v16 = v7;
-      _os_log_impl(&dword_2658DE000, v6, OS_LOG_TYPE_DEFAULT, "simSetupFlowCompleted with completionType:%ld", &v15, 0xCu);
+      v14 = 134217984;
+      v15 = v7;
+      _os_log_impl(&dword_2658DE000, v6, OS_LOG_TYPE_DEFAULT, "simSetupFlowCompleted with completionType:%ld", &v14, 0xCu);
     }
 
     if (*(v3 + 264) == 1 && *(a1 + 48) == 2)
@@ -207,13 +233,11 @@ void __52__PSUIConvertToESIMSpecifier_simSetupFlowCompleted___block_invoke(uint6
     v13 = +[SSFlowHostCache sharedInstance];
     [v13 removeObjectForKey:v12];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_convertToeSIM
 {
-  v29[3] = *MEMORY[0x277D85DE8];
+  v28[3] = *MEMORY[0x277D85DE8];
   getLogger = [(PSUIConvertToESIMSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
@@ -236,16 +260,16 @@ void __52__PSUIConvertToESIMSpecifier_simSetupFlowCompleted___block_invoke(uint6
     self->_carrierName = v6;
   }
 
-  v28[0] = *MEMORY[0x277D49548];
+  v27[0] = *MEMORY[0x277D49548];
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:9];
   v9 = *MEMORY[0x277D49538];
   v10 = self->_carrierName;
-  v29[0] = v8;
-  v29[1] = v10;
+  v28[0] = v8;
+  v28[1] = v10;
   v11 = *MEMORY[0x277D49570];
   phoneNumber = self->_phoneNumber;
-  v28[1] = v9;
-  v28[2] = v11;
+  v27[1] = v9;
+  v27[2] = v11;
   if (phoneNumber)
   {
     v13 = phoneNumber;
@@ -256,14 +280,14 @@ void __52__PSUIConvertToESIMSpecifier_simSetupFlowCompleted___block_invoke(uint6
     v13 = &stru_287733598;
   }
 
-  v29[2] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
+  v28[2] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
 
   getLogger3 = [(PSUIConvertToESIMSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = v14;
+    v26 = v14;
     _os_log_impl(&dword_2658DE000, getLogger3, OS_LOG_TYPE_DEFAULT, "launch SimSetupSupport with options:%@", buf, 0xCu);
   }
 
@@ -293,16 +317,14 @@ void __52__PSUIConvertToESIMSpecifier_simSetupFlowCompleted___block_invoke(uint6
 
   objc_initWeak(buf, self);
   v22 = self->_flow;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __44__PSUIConvertToESIMSpecifier__convertToeSIM__block_invoke;
-  v24[3] = &unk_279BAA090;
-  objc_copyWeak(&v25, buf);
-  [(TSSIMSetupFlow *)v22 firstViewController:v24];
-  objc_destroyWeak(&v25);
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __44__PSUIConvertToESIMSpecifier__convertToeSIM__block_invoke;
+  v23[3] = &unk_279BAA090;
+  objc_copyWeak(&v24, buf);
+  [(TSSIMSetupFlow *)v22 firstViewController:v23];
+  objc_destroyWeak(&v24);
   objc_destroyWeak(buf);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __44__PSUIConvertToESIMSpecifier__convertToeSIM__block_invoke(uint64_t a1, void *a2)

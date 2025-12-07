@@ -7,7 +7,7 @@
 
 - (void)_startTranslationWithService:(id)service done:(id)done
 {
-  v4 = _LTOSLogTranslationEngine();
+  v4 = _LTOSLogTranslationEngine(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [_LTBatchTextTranslationRequest _startTranslationWithService:done:];

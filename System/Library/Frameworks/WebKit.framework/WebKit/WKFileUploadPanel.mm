@@ -85,7 +85,7 @@
         {
           if (v11)
           {
-            [v11 displayImage];
+            objc_msgSend_displayImage(v11);
             v6 = arg;
           }
 
@@ -145,12 +145,12 @@ LABEL_20:
 
 - (void)_chooseFiles:(id)files displayString:(id)string iconImage:(id)image
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v9 = [files count];
   if (v9)
   {
-    v35 = 0;
-    v36 = 0;
+    v33 = 0;
+    v34 = 0;
     if (v9 >> 29)
     {
       __break(0xC471u);
@@ -158,96 +158,95 @@ LABEL_20:
 
     else
     {
-      LODWORD(v36) = v9;
-      v35 = WTF::fastMalloc((8 * v9));
+      LODWORD(v34) = v9;
+      v33 = WTF::fastMalloc(0, (8 * v9));
+      v29 = 0u;
+      v30 = 0u;
       v31 = 0u;
       v32 = 0u;
-      v33 = 0u;
-      v34 = 0u;
-      v10 = [files countByEnumeratingWithState:&v31 objects:v38 count:16];
+      v10 = [files countByEnumeratingWithState:&v29 objects:v36 count:16];
       if (v10)
       {
-        v11 = *v32;
+        v11 = *v30;
         do
         {
           v12 = 0;
           do
           {
-            if (*v32 != v11)
+            if (*v30 != v11)
             {
               objc_enumerationMutation(files);
             }
 
-            fileSystemRepresentation = [*(*(&v31 + 1) + 8 * v12) fileSystemRepresentation];
-            WTF::String::fromUTF8(&v37, fileSystemRepresentation, v14);
-            LODWORD(v16) = HIDWORD(v36);
-            if (HIDWORD(v36) == v36)
+            WTF::String::fromUTF8([*(*(&v29 + 1) + 8 * v12) fileSystemRepresentation]);
+            LODWORD(v14) = HIDWORD(v34);
+            if (HIDWORD(v34) == v34)
             {
-              v19 = WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v35, HIDWORD(v36) + 1, &v37);
-              v16 = HIDWORD(v36);
-              v20 = v35;
-              v21 = *v19;
-              *v19 = 0;
-              *(v20 + 8 * v16) = v21;
+              v17 = WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v33, HIDWORD(v34) + 1, &v35);
+              v14 = HIDWORD(v34);
+              v18 = v33;
+              v19 = *v17;
+              *v17 = 0;
+              v18[v14] = v19;
             }
 
             else
             {
-              v17 = v37;
-              v37 = 0;
-              *(v35 + 8 * HIDWORD(v36)) = v17;
+              v15 = v35;
+              v35 = 0;
+              v33[HIDWORD(v34)] = v15;
             }
 
-            HIDWORD(v36) = v16 + 1;
-            v18 = v37;
-            v37 = 0;
-            if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            HIDWORD(v34) = v14 + 1;
+            v16 = v35;
+            v35 = 0;
+            if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v18, v15);
+              WTF::StringImpl::destroy(v16, v13);
             }
 
             ++v12;
           }
 
           while (v10 != v12);
-          v22 = [files countByEnumeratingWithState:&v31 objects:v38 count:16];
-          v10 = v22;
+          v20 = [files countByEnumeratingWithState:&v29 objects:v36 count:16];
+          v10 = v20;
         }
 
-        while (v22);
+        while (v20);
       }
 
-      v23 = UIImagePNGRepresentation(image);
-      API::Data::create([(NSData *)v23 length], [(NSData *)v23 bytes], &v37);
-      if (!v37 || (v24 = *(v37 + 1)) == 0)
+      v21 = UIImagePNGRepresentation(image);
+      API::Data::create([(NSData *)v21 bytes], [(NSData *)v21 length], &v35);
+      if (!v35 || (v22 = *(v35 + 1)) == 0)
       {
         _apiObject = 0;
-        v26 = 1;
+        v24 = 1;
 LABEL_21:
         m_ptr = self->_listener.m_ptr;
-        MEMORY[0x19EB02040](&v37, string);
-        WebKit::WebOpenPanelResultListenerProxy::chooseFiles(m_ptr, &v35, &v37, _apiObject);
-        v29 = v37;
-        v37 = 0;
-        if (v29 && atomic_fetch_add_explicit(v29, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        MEMORY[0x19EB02040](&v35, string);
+        WebKit::WebOpenPanelResultListenerProxy::chooseFiles(m_ptr, &v33, &v35, _apiObject);
+        v27 = v35;
+        v35 = 0;
+        if (v27 && atomic_fetch_add_explicit(v27, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v29, v28);
+          WTF::StringImpl::destroy(v27, v26);
         }
 
         [(WKFileUploadPanel *)self _dispatchDidDismiss];
-        if ((v26 & 1) == 0)
+        if ((v24 & 1) == 0)
         {
           CFRelease(_apiObject[1]);
         }
 
-        WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v35, v30);
+        WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v33, v28);
         return;
       }
 
-      _apiObject = [v24 _apiObject];
+      _apiObject = [v22 _apiObject];
       if ((*(*_apiObject + 2))(_apiObject) == 8)
       {
-        v26 = 0;
+        v24 = 0;
         goto LABEL_21;
       }
 
@@ -287,7 +286,7 @@ LABEL_21:
   self->_interactionPointInWindow.y = v10;
   API::Array::createStringArray(parameters + 24, &v58);
   v11 = v58;
-  v12 = [MEMORY[0x1E695DF70] arrayWithCapacity:*(v58 + 7)];
+  v12 = [MEMORY[0x1E695DF70] arrayWithCapacity:HIDWORD(v58[1].var1)];
   API::Array::elementsOfType<API::String>(v11, v63);
   v13 = v64;
   v14 = v66;
@@ -491,83 +490,83 @@ LABEL_53:
         }
 
         v43 = *(v59[1] + i);
-            v24[1] = 7;
-            WTF::tryMakeString<WTF::String,WTF::ASCIILiteral>(&v22, v24, &v23);
-            v12 = v23;
-            if (!v23)
+            v26[1] = 7;
+            WTF::tryMakeString<WTF::String,WTF::ASCIILiteral>(&v24, v26, &v25);
+            v14 = v25;
+            if (!v25)
             {
               __break(0xC471u);
               goto LABEL_37;
             }
 
-            v13 = v22;
-            v22 = 0;
-            v23 = 0;
-            if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            v15 = v24;
+            v24 = 0;
+            v25 = 0;
+            if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v13, v11);
+              WTF::StringImpl::destroy(v15, v13);
             }
 
-            v24[0] = v12;
-            v14 = *(a2 + 12);
-            if (v14 == *(a2 + 8))
+            v26[0] = v14;
+            v16 = *(self + 3);
+            if (v16 == *(self + 2))
             {
-              v17 = WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a2, v14 + 1, v24);
-              v14 = *(a2 + 12);
-              v18 = *a2;
-              v19 = *v17;
-              *v17 = 0;
-              *(v18 + 8 * v14) = v19;
+              v19 = WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(self, v16 + 1, v26);
+              v16 = *(self + 3);
+              v20 = *self;
+              v21 = *v19;
+              *v19 = 0;
+              *(v20 + 8 * v16) = v21;
             }
 
             else
             {
-              v15 = *a2;
-              v24[0] = 0;
-              *(v15 + 8 * v14) = v12;
+              v17 = *self;
+              v26[0] = 0;
+              *(v17 + 8 * v16) = v14;
             }
 
-            *(a2 + 12) = v14 + 1;
-            v16 = v24[0];
-            v24[0] = 0;
-            if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            *(self + 3) = v16 + 1;
+            v18 = v26[0];
+            v26[0] = 0;
+            if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v16, v11);
+              WTF::StringImpl::destroy(v18, v13);
             }
           }
 
           do
           {
-            ++v6;
+            ++v8;
           }
 
-          while (v6 != v8 && *v6 + 1 <= 1);
+          while (v8 != v10 && *v8 + 1 <= 1);
         }
 
-        while (v6 != v9);
-        v21 = *(a2 + 12);
+        while (v8 != v11);
+        v23 = *(self + 3);
       }
 
-      return WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(a2, v21);
+      return WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(self, v23, v7);
     }
 
     else
     {
-      WebKit::WebExtensionMatchPattern::stringWithScheme(this, MEMORY[0x1E696EBA0], v24);
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(a2, v24, 1uLL);
-      this = v24[0];
-      v24[0] = 0;
+      WebKit::WebExtensionMatchPattern::stringWithScheme(v26, this, MEMORY[0x1E696EBA0]);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(self, v26, 1uLL);
+      this = v26[0];
+      v26[0] = 0;
       if (this && atomic_fetch_add_explicit(this, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        return WTF::StringImpl::destroy(this, v20);
+        return WTF::StringImpl::destroy(this, v22);
       }
     }
   }
 
   else
   {
-    *a2 = 0;
-    *(a2 + 8) = 0;
+    *self = 0;
+    self[1] = 0;
   }
 
   return this;

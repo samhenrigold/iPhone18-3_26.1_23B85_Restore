@@ -19,7 +19,7 @@
 
 - (_SFPBCoreSpotlightCopyItem)initWithFacade:(id)facade
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBCoreSpotlightCopyItem *)self init];
   if (v5)
@@ -35,32 +35,32 @@
       v7 = 0;
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     dataProviderTypeIdentifiers2 = [facadeCopy dataProviderTypeIdentifiers];
-    v9 = [dataProviderTypeIdentifiers2 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v9 = [dataProviderTypeIdentifiers2 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v32;
+      v11 = *v31;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v32 != v11)
+          if (*v31 != v11)
           {
             objc_enumerationMutation(dataProviderTypeIdentifiers2);
           }
 
-          if (*(*(&v31 + 1) + 8 * i))
+          if (*(*(&v30 + 1) + 8 * i))
           {
             [v7 addObject:?];
           }
         }
 
-        v10 = [dataProviderTypeIdentifiers2 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v10 = [dataProviderTypeIdentifiers2 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v10);
@@ -78,32 +78,32 @@
       v14 = 0;
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     fileProviderTypeIdentifiers2 = [facadeCopy fileProviderTypeIdentifiers];
-    v16 = [fileProviderTypeIdentifiers2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v16 = [fileProviderTypeIdentifiers2 countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v28;
+      v18 = *v27;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v28 != v18)
+          if (*v27 != v18)
           {
             objc_enumerationMutation(fileProviderTypeIdentifiers2);
           }
 
-          if (*(*(&v27 + 1) + 8 * j))
+          if (*(*(&v26 + 1) + 8 * j))
           {
             [v14 addObject:?];
           }
         }
 
-        v17 = [fileProviderTypeIdentifiers2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v17 = [fileProviderTypeIdentifiers2 countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
       while (v17);
@@ -129,44 +129,43 @@
     v24 = v5;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBCoreSpotlightCopyItem)initWithDictionary:(id)dictionary
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v37.receiver = self;
-  v37.super_class = _SFPBCoreSpotlightCopyItem;
-  v5 = [(_SFPBCoreSpotlightCopyItem *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = _SFPBCoreSpotlightCopyItem;
+  v5 = [(_SFPBCoreSpotlightCopyItem *)&v36 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"dataProviderTypeIdentifiers"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v32 objects:v38 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v34;
+        v10 = *v33;
         do
         {
           v11 = 0;
           do
           {
-            if (*v34 != v10)
+            if (*v33 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v33 + 1) + 8 * v11);
+            v12 = *(*(&v32 + 1) + 8 * v11);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -178,7 +177,7 @@
           }
 
           while (v9 != v11);
-          v9 = [v7 countByEnumeratingWithState:&v33 objects:v39 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v32 objects:v38 count:16];
         }
 
         while (v9);
@@ -189,27 +188,27 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v15 = v14;
-      v16 = [v15 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v28 objects:v37 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v30;
+        v18 = *v29;
         do
         {
           v19 = 0;
           do
           {
-            if (*v30 != v18)
+            if (*v29 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = *(*(&v29 + 1) + 8 * v19);
+            v20 = *(*(&v28 + 1) + 8 * v19);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -221,14 +220,14 @@
           }
 
           while (v17 != v19);
-          v17 = [v15 countByEnumeratingWithState:&v29 objects:v38 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v28 objects:v37 count:16];
         }
 
         while (v17);
       }
     }
 
-    v22 = [dictionaryCopy objectForKeyedSubscript:{@"applicationBundleIdentifier", v29}];
+    v22 = [dictionaryCopy objectForKeyedSubscript:{@"applicationBundleIdentifier", v28}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -247,7 +246,6 @@
     v26 = v5;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -448,70 +446,68 @@ LABEL_23:
 
 - (void)writeTo:(id)to
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   toCopy = to;
   dataProviderTypeIdentifiers = [(_SFPBCoreSpotlightCopyItem *)self dataProviderTypeIdentifiers];
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v6 = [dataProviderTypeIdentifiers countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v6 = [dataProviderTypeIdentifiers countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v22;
     do
     {
       v9 = 0;
       do
       {
-        if (*v25 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(dataProviderTypeIdentifiers);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [dataProviderTypeIdentifiers countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v7 = [dataProviderTypeIdentifiers countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v7);
   }
 
   fileProviderTypeIdentifiers = [(_SFPBCoreSpotlightCopyItem *)self fileProviderTypeIdentifiers];
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v12 = [fileProviderTypeIdentifiers countByEnumeratingWithState:&v20 objects:v28 count:16];
-  if (v12)
+  v11 = [fileProviderTypeIdentifiers countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v21;
+    v12 = v11;
+    v13 = *v18;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v21 != v14)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(fileProviderTypeIdentifiers);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * v15);
         PBDataWriterWriteStringField();
-        ++v15;
+        ++v14;
       }
 
-      while (v13 != v15);
-      v13 = [fileProviderTypeIdentifiers countByEnumeratingWithState:&v20 objects:v28 count:16];
+      while (v12 != v14);
+      v12 = [fileProviderTypeIdentifiers countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   applicationBundleIdentifier = [(_SFPBCoreSpotlightCopyItem *)self applicationBundleIdentifier];
@@ -525,24 +521,18 @@ LABEL_23:
   {
     PBDataWriterWriteStringField();
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCoreSpotlightIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  coreSpotlightIdentifier = self->_coreSpotlightIdentifier;
-  self->_coreSpotlightIdentifier = v4;
+  self->_coreSpotlightIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setApplicationBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  applicationBundleIdentifier = self->_applicationBundleIdentifier;
-  self->_applicationBundleIdentifier = v4;
+  self->_applicationBundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -567,9 +557,7 @@ LABEL_23:
 
 - (void)setFileProviderTypeIdentifiers:(id)identifiers
 {
-  v4 = [identifiers copy];
-  fileProviderTypeIdentifiers = self->_fileProviderTypeIdentifiers;
-  self->_fileProviderTypeIdentifiers = v4;
+  self->_fileProviderTypeIdentifiers = [identifiers copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -594,9 +582,7 @@ LABEL_23:
 
 - (void)setDataProviderTypeIdentifiers:(id)identifiers
 {
-  v4 = [identifiers copy];
-  dataProviderTypeIdentifiers = self->_dataProviderTypeIdentifiers;
-  self->_dataProviderTypeIdentifiers = v4;
+  self->_dataProviderTypeIdentifiers = [identifiers copy];
 
   MEMORY[0x1EEE66BB8]();
 }

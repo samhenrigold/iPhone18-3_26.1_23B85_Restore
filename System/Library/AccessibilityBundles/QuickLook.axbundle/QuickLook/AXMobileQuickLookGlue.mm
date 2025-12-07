@@ -63,16 +63,14 @@ void __54__AXMobileQuickLookGlue_accessibilityInitializeBundle__block_invoke_4()
 
 void __54__AXMobileQuickLookGlue_accessibilityInitializeBundle__block_invoke_347(uint64_t a1, int a2)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v3 = AXLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = a2;
-    _os_log_impl(&dword_29C1DE000, v3, OS_LOG_TYPE_DEFAULT, "Loaded PDFKit %d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = a2;
+    _os_log_impl(&dword_29C1DE000, v3, OS_LOG_TYPE_DEFAULT, "Loaded PDFKit %d", v4, 8u);
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 @end

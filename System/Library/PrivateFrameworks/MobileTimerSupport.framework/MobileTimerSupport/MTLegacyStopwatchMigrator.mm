@@ -22,19 +22,19 @@
 
 - (MTLegacyStopwatchMigrator)initWithDefaults:(id)defaults manager:(id)manager
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   defaultsCopy = defaults;
   managerCopy = manager;
-  v12.receiver = self;
-  v12.super_class = MTLegacyStopwatchMigrator;
-  v8 = [(MTLegacyStopwatchMigrator *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = MTLegacyStopwatchMigrator;
+  v8 = [(MTLegacyStopwatchMigrator *)&v11 init];
   if (v8)
   {
     v9 = MTLogForCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v14 = v8;
+      v13 = v8;
       _os_log_impl(&dword_22D741000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ initialized", buf, 0xCu);
     }
 
@@ -43,13 +43,12 @@
     [(MTLegacyStopwatchMigrator *)v8 loadInitialState];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)migrateLegacyStopwatch
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = MTLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -64,39 +63,37 @@
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v16 = 2114;
-    v17 = generateStopwatchFromDefaults;
+    v15 = 2114;
+    v16 = generateStopwatchFromDefaults;
     _os_log_impl(&dword_22D741000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ generated stopwatch from previous defaults: %{public}@", buf, 0x16u);
   }
 
   manager = [(MTLegacyStopwatchMigrator *)self manager];
   getStopwatches = [manager getStopwatches];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __51__MTLegacyStopwatchMigrator_migrateLegacyStopwatch__block_invoke;
-  v12[3] = &unk_278770B28;
-  v12[4] = self;
-  v13 = generateStopwatchFromDefaults;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __51__MTLegacyStopwatchMigrator_migrateLegacyStopwatch__block_invoke;
+  v11[3] = &unk_278770B28;
+  v11[4] = self;
+  v12 = generateStopwatchFromDefaults;
   v8 = generateStopwatchFromDefaults;
-  v9 = [getStopwatches flatMap:v12];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = [getStopwatches flatMap:v11];
 
   return v9;
 }
 
 id __51__MTLegacyStopwatchMigrator_migrateLegacyStopwatch__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [a2 firstObject];
   v4 = MTLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138543618;
-    v14 = v5;
-    v15 = 2114;
-    v16 = v3;
+    v13 = v5;
+    v14 = 2114;
+    v15 = v3;
     _os_log_impl(&dword_22D741000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ retrieved default stopwatch: %{public}@", buf, 0x16u);
   }
 
@@ -105,13 +102,13 @@ id __51__MTLegacyStopwatchMigrator_migrateLegacyStopwatch__block_invoke(uint64_t
 
   if (v3)
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __51__MTLegacyStopwatchMigrator_migrateLegacyStopwatch__block_invoke_16;
-    v11[3] = &unk_278770B00;
-    v11[4] = *(a1 + 32);
-    v12 = v3;
-    v8 = [v7 flatMap:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __51__MTLegacyStopwatchMigrator_migrateLegacyStopwatch__block_invoke_16;
+    v10[3] = &unk_278770B00;
+    v10[4] = *(a1 + 32);
+    v11 = v3;
+    v8 = [v7 flatMap:v10];
   }
 
   else
@@ -119,27 +116,23 @@ id __51__MTLegacyStopwatchMigrator_migrateLegacyStopwatch__block_invoke(uint64_t
     v8 = v7;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 id __51__MTLegacyStopwatchMigrator_migrateLegacyStopwatch__block_invoke_16(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = MTLogForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_22D741000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ created stopwatch from previous defaults, proceeding to delete default one", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_22D741000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ created stopwatch from previous defaults, proceeding to delete default one", &v7, 0xCu);
   }
 
   v4 = [*(a1 + 32) manager];
   v5 = [v4 removeStopwatch:*(a1 + 40)];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -157,37 +150,37 @@ id __51__MTLegacyStopwatchMigrator_migrateLegacyStopwatch__block_invoke_16(uint6
 
 - (id)generateStopwatchFromDefaults
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   defaults = [(MTLegacyStopwatchMigrator *)self defaults];
   v5 = [defaults objectForKey:@"LAPS"];
 
-  v6 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v25;
     v9 = 0.0;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
+        v11 = *(*(&v24 + 1) + 8 * i);
         [v3 addObject:v11];
         [v11 doubleValue];
         v9 = v9 + v12;
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v7);
@@ -235,20 +228,18 @@ id __51__MTLegacyStopwatchMigrator_migrateLegacyStopwatch__block_invoke_16(uint6
   [v20 setState:v21];
 LABEL_15:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (void)eraseLocalDefaults
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = MTLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
+    v9 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_22D741000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ erasing local defaults", &v10, 0xCu);
+    _os_log_impl(&dword_22D741000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ erasing local defaults", &v9, 0xCu);
   }
 
   defaults = [(MTLegacyStopwatchMigrator *)self defaults];
@@ -265,8 +256,6 @@ LABEL_15:
 
   defaults5 = [(MTLegacyStopwatchMigrator *)self defaults];
   [defaults5 removeObjectForKey:@"STARTTIME"];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

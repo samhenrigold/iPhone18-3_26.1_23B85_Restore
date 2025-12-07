@@ -113,7 +113,7 @@ LABEL_25:
     v21 = sub_100003D54(off_100016A30);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_100004D2C(&v8->_bundleID);
+      sub_100004D2C();
     }
 
     goto LABEL_23;

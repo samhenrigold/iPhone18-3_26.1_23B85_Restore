@@ -1,71 +1,3 @@
-void CPMLDBSerialization::CPMLDBSerialization(CPMLDBSerialization *this, sqlite3 *a2)
-{
-  CPMLSerialization::CPMLSerialization(this, a2);
-  *v3 = &unk_285927638;
-  *(v3 + 120) = 0;
-  *(v3 + 112) = v3 + 120;
-  v4 = v3 + 112;
-  *(v3 + 128) = 0;
-  *(v3 + 96) = -1;
-  *(v3 + 104) = 0;
-  *(v3 + 40) = 0u;
-  *(v3 + 56) = 0u;
-  *(v3 + 72) = 0u;
-  *(v3 + 88) = 0;
-  ppStmt[0] = 0;
-  v5 = sqlite3_mprintf("SELECT name FROM sqlite_master WHERE type = table");
-  v6 = strlen(v5);
-  sqlite3_prepare_v2(*(this + 4), v5, v6, ppStmt, 0);
-  if (v5)
-  {
-    sqlite3_free(v5);
-  }
-
-  while (1)
-  {
-    v7 = sqlite3_step(ppStmt[0]);
-    if (v7 != 100)
-    {
-      break;
-    }
-
-    v8 = sqlite3_column_text(ppStmt[0], 0);
-    v9 = strlen(v8);
-    if (v9 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      std::string::__throw_length_error[abi:ne200100]();
-    }
-
-    v10 = v9;
-    if (v9 >= 0x17)
-    {
-      operator new();
-    }
-
-    v13 = v9;
-    if (v9)
-    {
-      memmove(&__p, v8, v9);
-    }
-
-    *(&__p + v10) = 0;
-    ppStmt[2] = &__p;
-    *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v4, &__p) + 56) = 1;
-    if (v13 < 0)
-    {
-      operator delete(__p);
-    }
-  }
-
-  if (v7 != 101)
-  {
-    CPMLLog = CPMLLog::getCPMLLog(v7);
-    CPMLLog::log(CPMLLog, CPML_LOG_ERR, "CPMLDBSerialization", "Serializer: Error iterating rows\n");
-  }
-
-  sqlite3_finalize(ppStmt[0]);
-}
-
 void sub_247303484(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
   std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::destroy(v15, *(v14 + 120));
@@ -73,23 +5,23 @@ void sub_247303484(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void CPMLDBSerialization::~CPMLDBSerialization(CPMLDBSerialization *this)
+void CPMLDBSerialization::~CPMLDBSerialization(CPMLSerialization *this)
 {
-  *this = &unk_285927638;
-  v2 = *(this + 24);
-  if (v2 != -1)
+  this->var0 = &unk_285927638;
+  var3 = this[2].var3;
+  if (var3 != -1)
   {
-    close(v2);
-    *(this + 24) = -1;
+    close(var3);
+    this[2].var3 = -1;
   }
 
-  v3 = *(this + 13);
-  if (v3)
+  var4 = this[2].var4;
+  if (var4)
   {
-    munmap(v3, *(this + 25));
+    munmap(var4, *(&this[2].var3 + 1));
   }
 
-  std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::destroy(this + 112, *(this + 15));
+  std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::destroy(&this[2].var5, this[3].var0);
 
   CPMLSerialization::~CPMLSerialization(this);
 }
@@ -115,9 +47,9 @@ void std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__find_equal<std::string>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -248,7 +180,7 @@ void sub_247303838(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -292,12 +224,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -311,22 +243,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -360,13 +292,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -488,7 +420,7 @@ uint64_t CPMLsql_stepAndFinalize(sqlite3_stmt *a1)
 
 uint64_t CPMLsql_dropTableCommand(sqlite3 *a1, char *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   strcpy(__s1, "DROP TABLE IF EXISTS ");
   strcat(__s1, a2);
   errmsg = 0;
@@ -498,10 +430,9 @@ uint64_t CPMLsql_dropTableCommand(sqlite3 *a1, char *a2)
     CPMLLog = CPMLLog::getCPMLLog(result);
     CPMLLog::log(CPMLLog, CPML_LOG_ERR, "CPMLsql_dropTableCommand", "SQL error: %s \n", errmsg);
     sqlite3_free(errmsg);
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1066,8 +997,8 @@ void CPMLDBSerialization::cp_createTable(sqlite3 **this, char *a2, char *a3)
   std::string::basic_string[abi:ne200100]<0>(__p, a2);
   if (this + 15 == std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>((this + 14), __p))
   {
-    v8 = __p;
-    *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((this + 14), __p) + 56) = 1;
+    v9 = __p;
+    *(std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((this + 14), __p, &std::piecewise_construct, &v9, &v8) + 56) = 1;
     CPMLsql_createTable(this[4], a2, a3, 0);
   }
 
@@ -1092,7 +1023,7 @@ void sub_247305908(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CPMLDBSerialization::cp_write(sqlite3 **this, unsigned int *a2, char *a3, unint64_t a4, char *a5)
+uint64_t CPMLDBSerialization::cp_write(void (***this)(sqlite3 **, char *, std::string *), unsigned int *a2, char *a3, unint64_t a4, char *a5)
 {
   errmsg = 0;
   if (a5)
@@ -1143,7 +1074,7 @@ uint64_t CPMLDBSerialization::cp_write(sqlite3 **this, unsigned int *a2, char *a
     v12 = v23.__r_.__value_.__r.__words[0];
   }
 
-  (*(*this + 33))(this, a3, v12);
+  (*this)[33](this, a3, v12);
   if (a4)
   {
     v13 = 1;
@@ -1244,7 +1175,7 @@ LABEL_21:
     v12 = v23.__r_.__value_.__r.__words[0];
   }
 
-  (*(*this + 33))(this, a3, v12);
+  (*this)[33](this, a3, v12);
   if (a4)
   {
     v13 = 1;
@@ -1322,7 +1253,7 @@ void sub_247305D4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CPMLDBSerialization::cp_write(sqlite3 **this, unint64_t *a2, char *a3, unint64_t a4, char *a5)
+uint64_t CPMLDBSerialization::cp_write(void (***this)(sqlite3 **, char *, std::string *), unint64_t *a2, char *a3, unint64_t a4, char *a5)
 {
   errmsg = 0;
   if (a5)
@@ -1373,7 +1304,7 @@ uint64_t CPMLDBSerialization::cp_write(sqlite3 **this, unint64_t *a2, char *a3, 
     v12 = v23.__r_.__value_.__r.__words[0];
   }
 
-  (*(*this + 33))(this, a3, v12);
+  (*this)[33](this, a3, v12);
   if (a4)
   {
     v13 = 1;
@@ -1434,7 +1365,7 @@ void sub_247305F5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CPMLDBSerialization::cp_write(sqlite3 **this, float *a2, char *a3, unint64_t a4, char *a5)
+uint64_t CPMLDBSerialization::cp_write(void (***this)(sqlite3 **, char *, std::string *), float *a2, char *a3, unint64_t a4, char *a5)
 {
   errmsg = 0;
   if (a5)
@@ -1485,7 +1416,7 @@ uint64_t CPMLDBSerialization::cp_write(sqlite3 **this, float *a2, char *a3, unin
     v12 = v23.__r_.__value_.__r.__words[0];
   }
 
-  (*(*this + 33))(this, a3, v12);
+  (*this)[33](this, a3, v12);
   if (a4)
   {
     v13 = 1;
@@ -1547,7 +1478,7 @@ void sub_247306198(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CPMLDBSerialization::cp_write(sqlite3 **this, double *a2, char *a3, unint64_t a4, char *a5)
+uint64_t CPMLDBSerialization::cp_write(void (***this)(sqlite3 **, char *, std::string *), double *a2, char *a3, unint64_t a4, char *a5)
 {
   errmsg = 0;
   if (a5)
@@ -1598,7 +1529,7 @@ uint64_t CPMLDBSerialization::cp_write(sqlite3 **this, double *a2, char *a3, uni
     v12 = v23.__r_.__value_.__r.__words[0];
   }
 
-  (*(*this + 33))(this, a3, v12);
+  (*this)[33](this, a3, v12);
   if (a4)
   {
     v13 = 1;
@@ -1660,12 +1591,12 @@ void sub_2473063D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CPMLDBSerialization::cp_write(sqlite3 **this, char *a2, const char *a3, uint64_t a4, const char *a5)
+uint64_t CPMLDBSerialization::cp_write(void (***this)(sqlite3 **, const char *, std::string *), char *a2, const char *a3, uint64_t a4, const char *a5)
 {
   errmsg[1] = *MEMORY[0x277D85DE8];
   errmsg[0] = 0;
   MEMORY[0x28223BE20](this);
-  v12 = v23 - ((v11 + 16) & 0xFFFFFFFFFFFFFFF0);
+  v12 = v22 - ((v11 + 16) & 0xFFFFFFFFFFFFFFF0);
   if (v10)
   {
     v13 = v10;
@@ -1676,45 +1607,45 @@ uint64_t CPMLDBSerialization::cp_write(sqlite3 **this, char *a2, const char *a3,
     v13 = v9;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v25, v13);
-  std::string::basic_string[abi:ne200100]<0>(v23, " TEXT");
-  if ((v24 & 0x80u) == 0)
+  std::string::basic_string[abi:ne200100]<0>(&v24, v13);
+  std::string::basic_string[abi:ne200100]<0>(v22, " TEXT");
+  if ((v23 & 0x80u) == 0)
   {
-    v14 = v23;
+    v14 = v22;
   }
 
   else
   {
-    v14 = v23[0];
+    v14 = v22[0];
   }
 
-  if ((v24 & 0x80u) == 0)
+  if ((v23 & 0x80u) == 0)
   {
-    v15 = v24;
+    v15 = v23;
   }
 
   else
   {
-    v15 = v23[1];
+    v15 = v22[1];
   }
 
-  std::string::append(&v25, v14, v15);
-  if (v24 < 0)
+  std::string::append(&v24, v14, v15);
+  if (v23 < 0)
   {
-    operator delete(v23[0]);
+    operator delete(v22[0]);
   }
 
-  if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v16 = &v25;
+    v16 = &v24;
   }
 
   else
   {
-    v16 = v25.__r_.__value_.__r.__words[0];
+    v16 = v24.__r_.__value_.__r.__words[0];
   }
 
-  (*(*this + 33))(this, a3, v16);
+  (*this)[33](this, a3, v16);
   strlcpy(v12, a2, a4 + 1);
   v17 = sqlite3_mprintf("insert into %q (%q) VALUES('%q');", a3, v13, v12);
   v18 = sqlite3_exec(this[4], v17, callbackDBResponse2, this, errmsg);
@@ -1741,12 +1672,11 @@ uint64_t CPMLDBSerialization::cp_write(sqlite3 **this, char *a2, const char *a3,
     v20 = 0;
   }
 
-  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v25.__r_.__value_.__l.__data_);
+    operator delete(v24.__r_.__value_.__l.__data_);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -1869,41 +1799,41 @@ uint64_t std::__tree<std::__value_type<std::string,int>,std::__map_value_compare
   return v7;
 }
 
-void sub_2473074E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, _Unwind_Exception *exception_object)
+void sub_2473074E8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, _Unwind_Exception *exception_object)
 {
-  MEMORY[0x24C19F910](v16, 0x10A1C405A95AE37);
+  MEMORY[0x24C19F910](v16, 0x10A1C405A95AE37, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_247309400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, ...)
+void sub_247309400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
-  MEMORY[0x24C19F910](v19, 0x1090C40B6130435);
+  va_start(va, a24);
+  MEMORY[0x24C19F910](v26, 0x1090C40B6130435, a3, a4, a5, a6, a7, a8);
 
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v20 - 96), 8);
+  _Block_object_dispose((v27 - 96), 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_247309938(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+void sub_247309938(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10)
 {
-  MEMORY[0x24C19F910](v10, 0x10A1C4021AD9D2ELL);
+  MEMORY[0x24C19F910](v10, 0x10A1C4021AD9D2ELL, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_247309A54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+void sub_247309A54(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10)
 {
-  MEMORY[0x24C19F910](v10, 0x80C40803F642BLL);
+  MEMORY[0x24C19F910](v10, 0x80C40803F642BLL, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
 
 void CPMLOnlineSvm::CPMLOnlineSvm(CPMLOnlineSvm *this, CPMLSerialization *a2, CPMLTunableData *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   CPMLAlgorithm::CPMLAlgorithm(this, 0, a2, a3);
   *v5 = &unk_2859279D8;
   *(v5 + 96) = 0u;
@@ -1935,54 +1865,53 @@ void CPMLOnlineSvm::CPMLOnlineSvm(CPMLOnlineSvm *this, CPMLSerialization *a2, CP
   *(v5 + 504) = 0u;
   *(v5 + 472) = 0u;
   (*(a2->var0 + 13))(a2, v5 + 8, "version", 5, 0);
-  v14 = 0;
-  (*(a2->var0 + 8))(a2, &v14 + 4, "num_feature", 1, 0);
-  (*(a2->var0 + 8))(a2, &v14, "num_sv", 1, 0);
+  v13 = 0;
+  (*(a2->var0 + 8))(a2, &v13 + 4, "num_feature", 1, 0);
+  (*(a2->var0 + 8))(a2, &v13, "num_sv", 1, 0);
   (*(a2->var0 + 12))(a2, this + 304, "bias_", 1, 0);
-  std::vector<double>::resize(v6, v14);
-  (*(a2->var0 + 12))(a2, *v6, "alphas_", v14, 0);
-  std::vector<std::valarray<double>>::resize(v7, v14);
-  if (v14 >= 1)
+  std::vector<double>::resize(v6, v13);
+  (*(a2->var0 + 12))(a2, *v6, "alphas_", v13, 0);
+  std::vector<std::valarray<double>>::resize(v7, v13);
+  if (v13 >= 1)
   {
     v8 = 0;
     v9 = 0;
     do
     {
-      std::valarray<double>::resize(*v7 + v8, SHIDWORD(v14));
+      std::valarray<double>::resize(*v7 + v8, SHIDWORD(v13), 0.0);
       ++v9;
       v8 += 16;
     }
 
-    while (v9 < v14);
-    if (v14 >= 1)
+    while (v9 < v13);
+    if (v13 >= 1)
     {
       v10 = 0;
       do
       {
-        sprintf(v15, "support_vectors_%d", v10);
-        if (SHIDWORD(v14) >= 1)
+        sprintf(v14, "support_vectors_%d", v10);
+        if (SHIDWORD(v13) >= 1)
         {
           v11 = 0;
           v12 = 0;
           do
           {
-            (*(a2->var0 + 12))(a2, *(*v7 + 16 * v10) + v11, v15, 1, v12++);
+            (*(a2->var0 + 12))(a2, *(*v7 + 16 * v10) + v11, v14, 1, v12++);
             v11 += 8;
           }
 
-          while (v12 < SHIDWORD(v14));
+          while (v12 < SHIDWORD(v13));
         }
 
         ++v10;
       }
 
-      while (v10 < v14);
+      while (v10 < v13);
     }
   }
 
   *(this + 38) = 0;
   *(this + 10) = xmmword_247321F70;
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_247309EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void **a16)
@@ -2136,9 +2065,9 @@ void std::vector<std::valarray<double>>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void sub_24730A158(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24730A158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::valarray<double>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2149,7 +2078,7 @@ void CPLinearRegressionClassfier::CPLinearRegressionClassfier(CPLinearRegression
   *v5 = &unk_2859271B0;
   *(v5 + 104) = *(a2->var0 + 31) - 1;
   *(v5 + 96) = 1;
-  CPMLCDB::getIterator();
+  CPMLCDB::getIterator(a2, 0, 0, 0);
 }
 
 pthread_mutex_t *CPLinearRegressionClassfier::initializeLinearRegressionMemory(CPLinearRegressionClassfier *this)
@@ -2379,7 +2308,7 @@ uint64_t CPLinearRegressionClassfier::train(CPLinearRegressionClassfier *this)
   return v29;
 }
 
-void expandVector(int *a1, int a2, int a3, long double *a4, double *a5)
+void expandVector(int *a1, unsigned int a2, int a3, long double *a4, double *a5)
 {
   if (a3 >= 1)
   {
@@ -2495,7 +2424,7 @@ uint64_t fillDegrees(int *a1, int a2, uint64_t a3, int a4)
   if (a3)
   {
     v6 = a1;
-    v7 = a3 - 1;
+    v7 = (a3 - 1);
     if (a3 == 1)
     {
       *a1 = a4;
@@ -2539,7 +2468,6 @@ uint64_t fillDegrees(int *a1, int a2, uint64_t a3, int a4)
 
 void CPMLNaiveBayesClassifierBase::CPMLNaiveBayesClassifierBase(CPMLNaiveBayesClassifierBase *this, CPMLCDB *a2, CPMLSerialization *a3, CPMLTunableData *a4)
 {
-  v7 = *MEMORY[0x277D85DE8];
   CPMLAlgorithm::CPMLAlgorithm(this, a2, a3, a4);
   *v5 = &unk_2859270A0;
   *(v5 + 120) = 0u;
@@ -2569,7 +2497,7 @@ void CPMLNaiveBayesClassifierBase::CPMLNaiveBayesClassifierBase(CPMLNaiveBayesCl
   var0 = a2->var0;
   *(v5 + 96) = *(a2->var0 + 31);
   *(v5 + 104) = *(var0 + 33);
-  CPMLCDB::getIterator();
+  CPMLCDB::getIterator(a2, 0, 0, 0);
 }
 
 void sub_24730AFE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
@@ -2770,7 +2698,7 @@ uint64_t CPMLNaiveBayesClassifierBase::serialize(CPMLNaiveBayesClassifierBase *t
 
 uint64_t CPMLNaiveBayesClassifierBase::train(CPMLNaiveBayesClassifierBase *this)
 {
-  v88[6] = *MEMORY[0x277D85DE8];
+  v87[6] = *MEMORY[0x277D85DE8];
   v2 = (*(**(this + 10) + 32))(*(this + 10));
   if (!v2)
   {
@@ -2802,15 +2730,15 @@ LABEL_52:
 
       for (j = *(this + 23); j; j = *j)
       {
-        v88[0] = j[2];
-        std::unordered_map<int,int>::unordered_map(&v88[1], (j + 3));
-        v67 = v88[0];
-        std::unordered_map<int,int>::unordered_map(&__p, &v88[1]);
-        sprintf(v87, "xcol%d", v67 > 0x1F);
-        for (k = v83; k; k = *k)
+        v87[0] = j[2];
+        std::unordered_map<int,int>::unordered_map(&v87[1], (j + 3));
+        v67 = v87[0];
+        std::unordered_map<int,int>::unordered_map(&__p, &v87[1]);
+        sprintf(v86, "xcol%d", v67 > 0x1F);
+        for (k = v82; k; k = *k)
         {
           v69 = sqlite3_mprintf("%d,%d,%lf", *(k + 4), v67, *(k + 5));
-          (*(**(this + 11) + 136))(*(this + 11), v87, "xMap,yMap,xyCount", v69);
+          (*(**(this + 11) + 136))(*(this + 11), v86, "xMap,yMap,xyCount", v69);
           if (v69)
           {
             sqlite3_free(v69);
@@ -2818,16 +2746,16 @@ LABEL_52:
         }
 
         std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(&__p);
-        std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(&v88[1]);
+        std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(&v87[1]);
       }
 
       for (m = *(this + 33); m; m = *m)
       {
         v71 = *(m + 2);
         v72 = m[3];
-        strcpy(v88, "xcolRealMean");
+        strcpy(v87, "xcolRealMean");
         v73 = sqlite3_mprintf("%d,%d,%lf", v71 >> 31, v71, v72);
-        (*(**(this + 11) + 136))(*(this + 11), v88, "xMap,yMap,xyCount", v73);
+        (*(**(this + 11) + 136))(*(this + 11), v87, "xMap,yMap,xyCount", v73);
         if (v73)
         {
           sqlite3_free(v73);
@@ -2838,39 +2766,38 @@ LABEL_52:
       {
         v75 = *(n + 2);
         v76 = n[3];
-        strcpy(v88, "xcolRealVariance");
+        strcpy(v87, "xcolRealVariance");
         v77 = sqlite3_mprintf("%d,%d,%lf", v75 >> 31, v75, v76);
-        (*(**(this + 11) + 136))(*(this + 11), v88, "xMap,yMap,xyCount", v77);
+        (*(**(this + 11) + 136))(*(this + 11), v87, "xMap,yMap,xyCount", v77);
         if (v77)
         {
           sqlite3_free(v77);
         }
       }
 
-      result = 0;
-      goto LABEL_75;
+      return 0;
     }
 
     while (1)
     {
-      memset(v88, 0, 24);
-      CPMLNaiveBayesClassifierBase::getResponseValues(v29, v88, v30);
+      memset(v87, 0, 24);
+      CPMLNaiveBayesClassifierBase::getResponseValues(v29, v87, v30);
       YVectorVector = CPMLFeatureVector::getYVectorVector(v30);
       if (YVectorVector[1] == *YVectorVector)
       {
         break;
       }
 
-      v32 = v88[0];
-      v33 = v88[1];
-      v34 = (v88[1] - v88[0]) >> 2;
+      v32 = v87[0];
+      v33 = v87[1];
+      v34 = (v87[1] - v87[0]) >> 2;
       if (v34)
       {
         if (v34 == 1)
         {
-          v87[0] = *v88[0];
-          __p = v87;
-          v35 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 46, v87);
+          v86[0] = *v87[0];
+          __p = v86;
+          v35 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 92, v86, &std::piecewise_construct, &__p);
           ++*(v35 + 5);
         }
 
@@ -2879,7 +2806,7 @@ LABEL_52:
           v48 = *(this + 140);
           if (v34 > v48)
           {
-            v49 = ((v88[1] - v88[0]) << 30) - 0x100000000;
+            v49 = ((v87[1] - v87[0]) << 30) - 0x100000000;
             do
             {
               v33 -= 4;
@@ -2888,7 +2815,7 @@ LABEL_52:
             }
 
             while (v34 > v48);
-            v88[1] = v33;
+            v87[1] = v33;
           }
 
           if (v34)
@@ -2898,7 +2825,7 @@ LABEL_52:
               v51 = 0;
               v52 = 0;
               v53 = 0;
-              v54 = *(v88[0] + ii);
+              v54 = *(v87[0] + ii);
               while (1)
               {
                 XVectorVector = CPMLFeatureVector::getXVectorVector(v30);
@@ -2930,12 +2857,12 @@ LABEL_52:
         }
 
 LABEL_48:
-        v32 = v88[0];
+        v32 = v87[0];
       }
 
       if (v32)
       {
-        v88[1] = v32;
+        v87[1] = v32;
         operator delete(v32);
       }
 
@@ -2947,9 +2874,9 @@ LABEL_48:
       }
     }
 
-    v87[0] = *v88[0];
-    __p = v87;
-    v36 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 46, v87);
+    v86[0] = *v87[0];
+    __p = v86;
+    v36 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 92, v86, &std::piecewise_construct, &__p);
     v37 = 0;
     v38 = 0;
     v39 = 0;
@@ -2970,7 +2897,7 @@ LABEL_48:
 
       v42 = (*v41 + v37);
       v43 = v39 + (((*v42)[1] - **v42) >> 2);
-      v39 = v43 + CPMLNaiveBayesClassifierBase::processDataSetVariance(this, v42[1], v43, *v88[0]);
+      v39 = v43 + CPMLNaiveBayesClassifierBase::processDataSetVariance(this, v42[1], v43, *v87[0]);
       ++v38;
       v37 += 16;
     }
@@ -2979,7 +2906,7 @@ LABEL_48:
     v46 = *v44;
     v45 = v44[1];
     v47 = CPMLFeatureVector::getRealVector(v30);
-    CPMLNaiveBayesClassifierBase::processDataSetVariance(this, v47, v39 + ((v45 - v46) >> 2), *v88[0]);
+    CPMLNaiveBayesClassifierBase::processDataSetVariance(this, v47, v39 + ((v45 - v46) >> 2), *v87[0]);
     goto LABEL_48;
   }
 
@@ -2993,29 +2920,29 @@ LABEL_48:
     }
 
     __p = 0;
+    v81 = 0;
     v82 = 0;
-    v83 = 0;
     CPMLNaiveBayesClassifierBase::getResponseValues(v4, &__p, v3);
     v5 = CPMLFeatureVector::getYVectorVector(v3);
     if (v5[1] == *v5)
     {
-      v87[0] = *__p;
-      v88[0] = v87;
-      v11 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 46, v87);
+      v86[0] = *__p;
+      v87[0] = v86;
+      v11 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 92, v86, &std::piecewise_construct, v87);
       ++*(v11 + 5);
       v12 = CPMLFeatureVector::getXVectorVector(v3);
-      v13 = CPMLNaiveBayesClassifierBase::processVectorDataSet(this, v12, 0, v87[0]);
+      v13 = CPMLNaiveBayesClassifierBase::processVectorDataSet(this, v12, 0, v86[0]);
       v14 = CPMLFeatureVector::getIntVector(v3);
-      v15 = CPMLNaiveBayesClassifierBase::processDiscreteDataSet(this, v14, v13, v87[0], 1);
+      v15 = CPMLNaiveBayesClassifierBase::processDiscreteDataSet(this, v14, v13, v86[0], 1);
       v16 = CPMLFeatureVector::getRealVector(v3);
-      CPMLNaiveBayesClassifierBase::processContinousDataSet(this, v16, v15, v87[0], 1);
+      CPMLNaiveBayesClassifierBase::processContinousDataSet(this, v16, v15, v86[0], 1);
     }
 
     else
     {
       v6 = __p;
-      v7 = v82;
-      v8 = (v82 - __p) >> 2;
+      v7 = v81;
+      v8 = (v81 - __p) >> 2;
       if (!v8)
       {
         v10 = 2;
@@ -3025,16 +2952,16 @@ LABEL_48:
         }
 
 LABEL_24:
-        v82 = v6;
+        v81 = v6;
         operator delete(v6);
         goto LABEL_25;
       }
 
       if (v8 == 1)
       {
-        v87[0] = *__p;
-        v88[0] = v87;
-        v9 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 46, v87);
+        v86[0] = *__p;
+        v87[0] = v86;
+        v9 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 92, v86, &std::piecewise_construct, v87);
         ++*(v9 + 5);
         v10 = 2;
         goto LABEL_23;
@@ -3043,7 +2970,7 @@ LABEL_24:
       v17 = *(this + 140);
       if (v8 > v17)
       {
-        v18 = ((v82 - __p) << 30) - 0x100000000;
+        v18 = ((v81 - __p) << 30) - 0x100000000;
         do
         {
           v7 -= 4;
@@ -3052,31 +2979,31 @@ LABEL_24:
         }
 
         while (v8 > v17);
-        v82 = v7;
+        v81 = v7;
       }
 
       if (v8)
       {
         for (jj = 0; jj != v8; ++jj)
         {
-          v86 = *(__p + jj);
-          v88[0] = &v86;
-          v20 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 46, &v86);
+          v85 = *(__p + jj);
+          v87[0] = &v85;
+          v20 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 92, &v85, &std::piecewise_construct, v87);
           v21 = 0;
           ++*(v20 + 5);
           do
           {
-            v85 = *(__p + v21);
+            v84 = *(__p + v21);
             if (jj != v21)
             {
-              v84 = v86;
-              *v87 = &v84;
-              v22 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 21, &v84);
-              std::unordered_map<int,int>::unordered_map(v88, (v22 + 3));
-              *v87 = &v85;
-              v23 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v88, &v85);
+              v83 = v85;
+              *v86 = &v83;
+              v22 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 21, &v83, &std::piecewise_construct, v86);
+              std::unordered_map<int,int>::unordered_map(v87, (v22 + 3));
+              *v86 = &v84;
+              v23 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v87, &v84, &std::piecewise_construct, v86);
               ++*(v23 + 5);
-              std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(v88);
+              std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(v87);
             }
 
             ++v21;
@@ -3084,11 +3011,11 @@ LABEL_24:
 
           while (v8 != v21);
           v24 = CPMLFeatureVector::getXVectorVector(v3);
-          v25 = CPMLNaiveBayesClassifierBase::processVectorDataSet(this, v24, 0, v86);
+          v25 = CPMLNaiveBayesClassifierBase::processVectorDataSet(this, v24, 0, v85);
           v26 = CPMLFeatureVector::getIntVector(v3);
-          v27 = CPMLNaiveBayesClassifierBase::processDiscreteDataSet(this, v26, v25, v86, 1);
+          v27 = CPMLNaiveBayesClassifierBase::processDiscreteDataSet(this, v26, v25, v85, 1);
           v28 = CPMLFeatureVector::getRealVector(v3);
-          CPMLNaiveBayesClassifierBase::processContinousDataSet(this, v28, v27, v86, 1);
+          CPMLNaiveBayesClassifierBase::processContinousDataSet(this, v28, v27, v85, 1);
         }
       }
     }
@@ -3105,7 +3032,7 @@ LABEL_23:
 LABEL_25:
     if ((v10 | 2) != 2)
     {
-      goto LABEL_74;
+      return 0xFFFFFFFFLL;
     }
 
     v3 = (*(**(this + 10) + 32))(*(this + 10));
@@ -3117,11 +3044,7 @@ LABEL_25:
 
   CPMLLog = CPMLLog::getCPMLLog(v4);
   CPMLLog::log(CPMLLog, CPML_LOG_ERR, "train", "Does not support x vectors\n");
-LABEL_74:
-  result = 0xFFFFFFFFLL;
-LABEL_75:
-  v80 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
 void sub_24730C5A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28)
@@ -3180,19 +3103,20 @@ LABEL_10:
   while (v11 != v9);
 }
 
-uint64_t CPMLNaiveBayesClassifierBase::processVectorDataSet(uint64_t a1, uint64_t *a2, uint64_t a3, int a4)
+uint64_t CPMLNaiveBayesClassifierBase::processVectorDataSet(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   v4 = *a2;
   if (a2[1] != *a2)
   {
+    v5 = a4;
     v8 = 0;
     v9 = 0;
     do
     {
       v10 = (v4 + v8);
       v11 = v10[1];
-      v12 = CPMLNaiveBayesClassifierBase::processDiscreteDataSet(a1, *v10, a3, a4, 0);
-      a3 = CPMLNaiveBayesClassifierBase::processContinousDataSet(a1, v11, v12, a4, 0);
+      v12 = CPMLNaiveBayesClassifierBase::processDiscreteDataSet(a1, *v10, a3, v5, 0);
+      a3 = CPMLNaiveBayesClassifierBase::processContinousDataSet(a1, v11, v12, v5, 0);
       ++v9;
       v4 = *a2;
       v8 += 16;
@@ -3230,10 +3154,10 @@ uint64_t CPMLNaiveBayesClassifierBase::processDiscreteDataSet(uint64_t a1, uint6
 
       v19 = a4 | ((v12 + a3) << 31);
       v21 = &v19;
-      v13 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 168), &v19);
+      v13 = std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 168), &v19, &std::piecewise_construct, &v21);
       std::unordered_map<int,int>::unordered_map(v18, (v13 + 3));
       v21 = &v20;
-      v14 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v18, &v20);
+      v14 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v18, &v20, &std::piecewise_construct, &v21);
       ++*(v14 + 5);
       std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(v18);
       ++v11;
@@ -3281,9 +3205,9 @@ uint64_t CPMLNaiveBayesClassifierBase::processContinousDataSet(uint64_t a1, uint
         v13 = 0;
       }
 
-      v18[0] = a4 | ((v13 + a3) << 31);
-      v18[2] = v18;
-      v14 = std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 208), v18);
+      v18 = a4 | ((v13 + a3) << 31);
+      v19 = &v18;
+      v14 = std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 208), &v18, &std::piecewise_construct, &v19);
       v14[3] = v12 + v14[3];
       ++v11;
       v7 = *a2;
@@ -3306,9 +3230,9 @@ uint64_t CPMLNaiveBayesClassifierBase::processContinousDataSet(uint64_t a1, uint
   return (v16 + a3);
 }
 
-void *CPMLNaiveBayesClassifierBase::updateMean(void *this)
+float *CPMLNaiveBayesClassifierBase::updateMean(float *this)
 {
-  v1 = this[28];
+  v1 = *(this + 28);
   if (v1)
   {
     v2 = this;
@@ -3318,9 +3242,9 @@ void *CPMLNaiveBayesClassifierBase::updateMean(void *this)
       v6 = *(v1 + 2);
       v5 = v6;
       v7 = &v5;
-      v4 = *(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v2 + 46, &v5) + 5) / v3;
+      v4 = *(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v2 + 92, &v5, &std::piecewise_construct, &v7) + 5) / v3;
       v7 = &v6;
-      this = std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v2 + 31, &v6);
+      this = std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v2 + 31, &v6, &std::piecewise_construct, &v7);
       *(this + 3) = v4;
       v1 = *v1;
     }
@@ -3346,9 +3270,9 @@ uint64_t CPMLNaiveBayesClassifierBase::processDataSetVariance(uint64_t a1, void 
     {
       v14 = v9 | a4;
       v15 = &v14;
-      v10 = *(*a2 + 8 * v8) - *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 248), &v14) + 3);
+      v10 = *(*a2 + 8 * v8) - *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 248), &v14, &std::piecewise_construct, &v15) + 3);
       v15 = &v14;
-      v11 = std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 288), &v14);
+      v11 = std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 288), &v14, &std::piecewise_construct, &v15);
       v11[3] = v11[3] + v10 * v10;
       ++v8;
       v12 = (a2[1] - *a2) >> 3;
@@ -3361,9 +3285,9 @@ uint64_t CPMLNaiveBayesClassifierBase::processDataSetVariance(uint64_t a1, void 
   return (v12 + a3);
 }
 
-void *CPMLNaiveBayesClassifierBase::updateVariance(void *this)
+float *CPMLNaiveBayesClassifierBase::updateVariance(float *this)
 {
-  v1 = this[38];
+  v1 = *(this + 38);
   if (v1)
   {
     v2 = this;
@@ -3373,9 +3297,9 @@ void *CPMLNaiveBayesClassifierBase::updateVariance(void *this)
       v6 = *(v1 + 2);
       v5 = v6;
       v7 = &v5;
-      v4 = v3 / (*(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v2 + 46, &v5) + 5) + -1.0);
+      v4 = v3 / (*(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v2 + 92, &v5, &std::piecewise_construct, &v7) + 5) + -1.0);
       v7 = &v6;
-      this = std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v2 + 41, &v6);
+      this = std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v2 + 41, &v6, &std::piecewise_construct, &v7);
       *(this + 3) = v4;
       v1 = *v1;
     }
@@ -3421,7 +3345,7 @@ uint64_t CPMLNaiveBayesClassifierBase::eval(uint64_t a1, CPMLFeatureVector *a2, 
 
   memset(v60, 0, sizeof(v60));
   LODWORD(__p[0]) = -1;
-  std::vector<int>::vector[abi:ne200100](v59, 1uLL);
+  std::vector<int>::vector[abi:ne200100](v59, 1uLL, __p);
   XVectorVector = CPMLFeatureVector::getXVectorVector(a2);
   v9 = *XVectorVector;
   if (XVectorVector[1] != *XVectorVector)
@@ -3455,8 +3379,8 @@ uint64_t CPMLNaiveBayesClassifierBase::eval(uint64_t a1, CPMLFeatureVector *a2, 
       __p[0] = 0;
       __p[1] = 0;
       *&v57 = 0;
-      LODWORD(v54) = *(*IntVector + 4 * v15);
-      std::vector<int>::push_back[abi:ne200100](__p, &v54);
+      v54[0] = *(*IntVector + 4 * v15);
+      std::vector<int>::push_back[abi:ne200100](__p, v54);
       std::vector<std::vector<int>>::push_back[abi:ne200100](v60, __p);
       if (__p[0])
       {
@@ -3489,8 +3413,8 @@ uint64_t CPMLNaiveBayesClassifierBase::eval(uint64_t a1, CPMLFeatureVector *a2, 
     do
     {
       v55 = v17[v18];
-      *&v54 = &v55;
-      v19 = *(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((a1 + 368), &v55) + 5);
+      *v54 = &v55;
+      v19 = *(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((a1 + 368), &v55, &std::piecewise_construct, v54) + 5);
       v20 = CPMLFeatureVector::getXVectorVector(a2);
       v53 = v18;
       v21 = v19;
@@ -3517,12 +3441,12 @@ uint64_t CPMLNaiveBayesClassifierBase::eval(uint64_t a1, CPMLFeatureVector *a2, 
             v30 = v25 << 31;
             do
             {
-              v64[0] = v55 | v30;
+              v64[0] = (v55 | v30);
               v31 = *(v28 + 8 * v29);
-              *&v54 = v64;
-              v32 = *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 248), v64) + 3);
-              *&v54 = v64;
-              v33 = *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 328), v64) + 3);
+              *v54 = v64;
+              v32 = *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 248), v64, &std::piecewise_construct, v54) + 3);
+              *v54 = v64;
+              v33 = *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 328), v64, &std::piecewise_construct, v54) + 3);
               v34 = 1.0;
               if (v33 != 0.0)
               {
@@ -3556,10 +3480,10 @@ uint64_t CPMLNaiveBayesClassifierBase::eval(uint64_t a1, CPMLFeatureVector *a2, 
         {
           v64[0] = (v55 | v37);
           v38 = *(v35 + 8 * v36);
-          *&v54 = v64;
-          v39 = *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 248), v64) + 3);
-          *&v54 = v64;
-          v40 = *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 328), v64) + 3);
+          *v54 = v64;
+          v39 = *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 248), v64, &std::piecewise_construct, v54) + 3);
+          *v54 = v64;
+          v40 = *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 328), v64, &std::piecewise_construct, v54) + 3);
           v41 = 1.0;
           if (v40 != 0.0)
           {
@@ -3575,8 +3499,8 @@ uint64_t CPMLNaiveBayesClassifierBase::eval(uint64_t a1, CPMLFeatureVector *a2, 
         while (v36 < (v51[1] - *v51) >> 3);
       }
 
-      *&v54 = &v55;
-      *(std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(__p, &v55) + 3) = v21;
+      *v54 = &v55;
+      *(std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(__p, &v55, &std::piecewise_construct, v54) + 3) = v21;
       v18 = v53 + 1;
       v17 = v61;
     }
@@ -3597,9 +3521,9 @@ uint64_t CPMLNaiveBayesClassifierBase::eval(uint64_t a1, CPMLFeatureVector *a2, 
     v45 = 0;
     do
     {
-      v54 = *&v42[v44];
-      v64[0] = &v54 + 8;
-      std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(__p, &v54 + 2);
+      *v54 = *&v42[v44];
+      v64[0] = &v54[2];
+      std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(__p, &v54[2], &std::piecewise_construct, v64);
       ++v45;
       v42 = *(a1 + 120);
       v43 = *(a1 + 128);
@@ -3610,7 +3534,7 @@ uint64_t CPMLNaiveBayesClassifierBase::eval(uint64_t a1, CPMLFeatureVector *a2, 
     while (v46 > v45);
   }
 
-  *&v54 = sortProbIndex;
+  *v54 = sortProbIndex;
   v48 = 126 - 2 * __clz(v46);
   if (v43 == v42)
   {
@@ -3622,7 +3546,7 @@ uint64_t CPMLNaiveBayesClassifierBase::eval(uint64_t a1, CPMLFeatureVector *a2, 
     v49 = v48;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*,false>(v42, v43, &v54, v49, 1);
+  std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*,false>(v42, v43, v54, v49, 1);
   CPMLFeatureVector::setYHatProbList(a2, (a1 + 120));
   *(a1 + 128) = *(a1 + 120);
   std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(__p);
@@ -3680,10 +3604,10 @@ void sub_24730D5F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CPMLNaiveBayesClassifierBase::setDelegateEngine(CPMLNaiveBayesClassifierBase *this, CPMLDelegateEngine *a2)
+uint64_t CPMLNaiveBayesClassifierBase::setDelegateEngine(CPMLNaiveBayes **this, CPMLDelegateEngine *a2)
 {
-  CPMLNaiveBayes::set_engine(*(this + 72), a2);
-  v3 = *(**(this + 73) + 56);
+  CPMLNaiveBayes::set_engine(this[72], a2);
+  v3 = *(*this[73] + 56);
 
   return v3();
 }
@@ -3732,33 +3656,33 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -3766,49 +3690,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_24730DA40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24730DA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::unordered_map<int,int>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3838,39 +3762,39 @@ uint64_t std::unordered_map<int,int>::unordered_map(uint64_t a1, uint64_t a2)
   std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::pair<int const,int> const&>(a1, i + 4);
+    std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::pair<int const,int> const&>(a1, i + 4, i + 2);
   }
 
   return a1;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::pair<int const,int> const&>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::pair<int const,int> const&>(void *a1, int *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3878,47 +3802,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void *std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -3993,6 +3917,19 @@ void *std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(void *resu
   return result;
 }
 
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, int *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<int>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_24730DF80(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -4005,33 +3942,33 @@ void sub_24730DF80(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4039,73 +3976,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4113,58 +4050,58 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*,false>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*,false>(uint64_t *result, char *a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a4, char a5)
 {
 LABEL_1:
-  v53 = a2 - 4;
-  v54 = a2 - 2;
-  v52 = a2 - 6;
-  v9 = a1;
+  v53 = a2 - 32;
+  v54 = a2 - 16;
+  v52 = a2 - 48;
+  v9 = result;
 LABEL_2:
   v10 = 1 - a4;
   while (1)
   {
-    a1 = v9;
+    result = v9;
     v11 = v10;
     v12 = (a2 - v9) >> 4;
     if (v12 <= 2)
@@ -4178,7 +4115,7 @@ LABEL_2:
       {
         v47 = *(a2 - 2);
         v48 = *(a2 - 1);
-        v49 = a2 - 2;
+        v49 = a2 - 16;
         if ((*a3)(v47, v48, *v9, v9[1]))
         {
           v73 = *v9;
@@ -4251,7 +4188,7 @@ LABEL_10:
         if (v16)
         {
           v55 = *v9;
-          v17 = a2 - 2;
+          v17 = a2 - 16;
           *v9 = *v54;
           goto LABEL_28;
         }
@@ -4262,7 +4199,7 @@ LABEL_10:
         if ((*a3)(*(a2 - 2), *(a2 - 1), *v13, v13[1]))
         {
           v55 = *v13;
-          v17 = a2 - 2;
+          v17 = a2 - 16;
           *v13 = *v54;
 LABEL_28:
           *v17 = v55;
@@ -4284,14 +4221,14 @@ LABEL_28:
 
       v21 = (v9 + 2);
       v22 = v13 - 2;
-      v23 = (*a3)(*(v13 - 2), *(v13 - 1), a1[2], a1[3]);
+      v23 = (*a3)(*(v13 - 2), *(v13 - 1), result[2], result[3]);
       v24 = (*a3)(*(a2 - 4), *(a2 - 3), *(v13 - 2), *(v13 - 1));
       if (v23)
       {
         if (v24)
         {
           v25 = *v21;
-          v26 = a2 - 4;
+          v26 = a2 - 32;
           *v21 = *v53;
           goto LABEL_42;
         }
@@ -4302,7 +4239,7 @@ LABEL_28:
         if ((*a3)(*(a2 - 4), *(a2 - 3), *v22, *(v13 - 1)))
         {
           v64 = *v22;
-          v26 = a2 - 4;
+          v26 = a2 - 32;
           *v22 = *v53;
           v25 = v64;
 LABEL_42:
@@ -4315,7 +4252,7 @@ LABEL_42:
         v62 = *v22;
         *v22 = *v53;
         *v53 = v62;
-        if ((*a3)(*v22, *(v13 - 1), a1[2], a1[3]))
+        if ((*a3)(*v22, *(v13 - 1), result[2], result[3]))
         {
           v27 = *v21;
           *v21 = *v22;
@@ -4323,16 +4260,16 @@ LABEL_42:
         }
       }
 
-      v29 = (a1 + 4);
+      v29 = (result + 4);
       v30 = v13 + 2;
-      v31 = (*a3)(v13[2], v13[3], a1[4], a1[5]);
+      v31 = (*a3)(v13[2], v13[3], result[4], result[5]);
       v32 = (*a3)(*(a2 - 6), *(a2 - 5), v13[2], v13[3]);
       if (v31)
       {
         if (v32)
         {
           v33 = *v29;
-          v34 = a2 - 6;
+          v34 = a2 - 48;
           *v29 = *v52;
           goto LABEL_51;
         }
@@ -4343,7 +4280,7 @@ LABEL_42:
         if ((*a3)(*(a2 - 6), *(a2 - 5), *v30, v13[3]))
         {
           v66 = *v30;
-          v34 = a2 - 6;
+          v34 = a2 - 48;
           *v30 = *v52;
           v33 = v66;
 LABEL_51:
@@ -4356,7 +4293,7 @@ LABEL_51:
         v65 = *v30;
         *v30 = *v52;
         *v52 = v65;
-        if ((*a3)(*v30, v13[3], a1[4], a1[5]))
+        if ((*a3)(*v30, v13[3], result[4], result[5]))
         {
           v35 = *v29;
           *v29 = *v30;
@@ -4400,8 +4337,8 @@ LABEL_60:
         }
       }
 
-      v71 = *a1;
-      *a1 = *v13;
+      v71 = *result;
+      *result = *v13;
       *v13 = v71;
       if (a5)
       {
@@ -4418,7 +4355,7 @@ LABEL_60:
       if (v19)
       {
         v56 = *v13;
-        v20 = a2 - 2;
+        v20 = a2 - 16;
         *v13 = *v54;
         goto LABEL_37;
       }
@@ -4429,7 +4366,7 @@ LABEL_60:
       if ((*a3)(*(a2 - 2), *(a2 - 1), *v9, v9[1]))
       {
         v56 = *v9;
-        v20 = a2 - 2;
+        v20 = a2 - 16;
         *v9 = *v54;
 LABEL_37:
         *v20 = v56;
@@ -4466,22 +4403,22 @@ LABEL_38:
     }
 
 LABEL_62:
-    if (((*a3)(*(a1 - 2), *(a1 - 1), *a1, a1[1]) & 1) == 0)
+    if (((*a3)(*(result - 2), *(result - 1), *result, result[1]) & 1) == 0)
     {
-      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,ProbIndex *,BOOL (*&)(ProbIndex,ProbIndex)>(a1, a2, a3);
+      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,ProbIndex *,BOOL (*&)(ProbIndex,ProbIndex)>(result, a2, a3);
       goto LABEL_68;
     }
 
 LABEL_63:
-    v39 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,ProbIndex *,BOOL (*&)(ProbIndex,ProbIndex)>(a1, a2, a3);
+    v39 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,ProbIndex *,BOOL (*&)(ProbIndex,ProbIndex)>(result, a2, a3);
     if ((v40 & 1) == 0)
     {
       goto LABEL_66;
     }
 
-    v41 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*>(a1, v39, a3);
-    v9 = v39 + 2;
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*>(v39 + 2, a2, a3))
+    v41 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*>(result, v39, a3);
+    v9 = (v39 + 16);
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*>(v39 + 16, a2, a3))
     {
       a4 = -v11;
       a2 = v39;
@@ -4497,8 +4434,8 @@ LABEL_63:
     if (!v41)
     {
 LABEL_66:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*,false>(a1, v39, a3, -v11, a5 & 1);
-      v9 = v39 + 2;
+      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*,false>(result, v39, a3, -v11, a5 & 1);
+      v9 = (v39 + 16);
 LABEL_68:
       a5 = 0;
       a4 = -v11;
@@ -4508,7 +4445,7 @@ LABEL_68:
 
   v42 = v9 + 2;
   v43 = (*a3)(v9[2], v9[3], *v9, v9[1]);
-  v44 = a2 - 2;
+  v44 = a2 - 16;
   v45 = (*a3)(*(a2 - 2), *(a2 - 1), v9[2], v9[3]);
   if (v43)
   {
@@ -4643,7 +4580,7 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,Pro
   return result;
 }
 
-uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*>(uint64_t result, void *a2, uint64_t (**a3)(uint64_t, uint64_t, void, void))
+uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*>(uint64_t result, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
   if (result != a2)
   {
@@ -4697,7 +4634,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*>(uint64_t result, void *a2, uint64_t (**a3)(uint64_t, uint64_t, void, void))
+uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*>(uint64_t result, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
   if (result != a2)
   {
@@ -4716,7 +4653,7 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
           v10 = v7;
           do
           {
-            v11 = v10 - 1;
+            v11 = v10 - 2;
             *v10 = *(v10 - 1);
             result = (*a3)(v8, v9, *(v10 - 4), *(v10 - 3));
             v10 = v11;
@@ -4738,7 +4675,7 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
   return result;
 }
 
-void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,ProbIndex *,BOOL (*&)(ProbIndex,ProbIndex)>(void *a1, _OWORD *a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t))
+uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,ProbIndex *,BOOL (*&)(ProbIndex,ProbIndex)>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
   v4 = a2;
   v6 = *a1;
@@ -4779,7 +4716,8 @@ void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,
     do
     {
       v13 = *(v4 - 2);
-      v14 = *(v4-- - 1);
+      v14 = *(v4 - 1);
+      v4 -= 2;
     }
 
     while (((*a3)(v6, v7, v13, v14) & 1) != 0);
@@ -4801,7 +4739,8 @@ void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,
     do
     {
       v17 = *(v4 - 2);
-      v18 = *(v4-- - 1);
+      v18 = *(v4 - 1);
+      v4 -= 2;
     }
 
     while (((*a3)(v6, v7, v17, v18) & 1) != 0);
@@ -4900,7 +4839,7 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*>(void *a1, char *a2, uint64_t (**a3)(uint64_t, uint64_t, void, void))
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*>(char *a1, char *a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
   v6 = (a2 - a1) >> 4;
   if (v6 > 2)
@@ -4908,10 +4847,10 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
     switch(v6)
     {
       case 3:
-        v9 = a1 + 2;
-        v10 = (*a3)(a1[2], a1[3], *a1, a1[1]);
+        v9 = (a1 + 16);
+        v10 = (*a3)(*(a1 + 2), *(a1 + 3), *a1, *(a1 + 1));
         v11 = a2 - 16;
-        v12 = (*a3)(*(a2 - 2), *(a2 - 1), *v9, a1[3]);
+        v12 = (*a3)(*(a2 - 2), *(a2 - 1), *v9, *(a1 + 3));
         if ((v10 & 1) == 0)
         {
           if (v12)
@@ -4919,7 +4858,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
             v19 = *v9;
             *v9 = *v11;
             *v11 = v19;
-            if ((*a3)(a1[2], a1[3], *a1, a1[1]))
+            if ((*a3)(*(a1 + 2), *(a1 + 3), *a1, *(a1 + 1)))
             {
               v20 = *a1;
               *a1 = *v9;
@@ -4941,7 +4880,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
           v23 = *a1;
           *a1 = *v9;
           *v9 = v23;
-          if (!(*a3)(*(a2 - 2), *(a2 - 1), a1[2], a1[3]))
+          if (!(*a3)(*(a2 - 2), *(a2 - 1), *(a1 + 2), *(a1 + 3)))
           {
             return 1;
           }
@@ -4973,7 +4912,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
   if (v6 == 2)
   {
     v7 = a2 - 16;
-    if ((*a3)(*(a2 - 2), *(a2 - 1), *a1, a1[1]))
+    if ((*a3)(*(a2 - 2), *(a2 - 1), *a1, *(a1 + 1)))
     {
       v8 = *a1;
       *a1 = *v7;
@@ -4984,10 +4923,10 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
   }
 
 LABEL_13:
-  v14 = a1 + 2;
-  v15 = (*a3)(a1[2], a1[3], *a1, a1[1]);
-  v16 = (a1 + 4);
-  v17 = (*a3)(a1[4], a1[5], *v14, a1[3]);
+  v14 = (a1 + 16);
+  v15 = (*a3)(*(a1 + 2), *(a1 + 3), *a1, *(a1 + 1));
+  v16 = (a1 + 32);
+  v17 = (*a3)(*(a1 + 4), *(a1 + 5), *v14, *(a1 + 3));
   if (v15)
   {
     if (v17)
@@ -5001,7 +4940,7 @@ LABEL_13:
       v24 = *a1;
       *a1 = *v14;
       *v14 = v24;
-      if (!(*a3)(a1[4], a1[5], a1[2], a1[3]))
+      if (!(*a3)(*(a1 + 4), *(a1 + 5), *(a1 + 2), *(a1 + 3)))
       {
         goto LABEL_29;
       }
@@ -5018,7 +4957,7 @@ LABEL_13:
     v21 = *v14;
     *v14 = *v16;
     *v16 = v21;
-    if ((*a3)(a1[2], a1[3], *a1, a1[1]))
+    if ((*a3)(*(a1 + 2), *(a1 + 3), *a1, *(a1 + 1)))
     {
       v22 = *a1;
       *a1 = *v14;
@@ -5027,8 +4966,8 @@ LABEL_13:
   }
 
 LABEL_29:
-  v25 = (a1 + 6);
-  if (a1 + 6 == a2)
+  v25 = (a1 + 48);
+  if (a1 + 48 == a2)
   {
     return 1;
   }
@@ -5037,15 +4976,15 @@ LABEL_29:
   v27 = 0;
   while (1)
   {
-    if ((*a3)(*v25, *(v25 + 1), *v16, *(v16 + 1)))
+    if ((*a3)(*v25, v25[1], *v16, v16[1]))
     {
       v28 = *v25;
-      v29 = *(v25 + 1);
+      v29 = v25[1];
       v30 = v26;
       while (1)
       {
-        v31 = a1 + v30;
-        *(a1 + v30 + 48) = *(a1 + v30 + 32);
+        v31 = &a1[v30];
+        *&a1[v30 + 48] = *&a1[v30 + 32];
         if (v30 == -32)
         {
           break;
@@ -5054,7 +4993,7 @@ LABEL_29:
         v30 -= 16;
         if (((*a3)(v28, v29, *(v31 + 2), *(v31 + 3)) & 1) == 0)
         {
-          v32 = (a1 + v30 + 48);
+          v32 = &a1[v30 + 48];
           goto LABEL_37;
         }
       }
@@ -5062,16 +5001,16 @@ LABEL_29:
       v32 = a1;
 LABEL_37:
       *v32 = v28;
-      v32[1] = v29;
+      *(v32 + 1) = v29;
       if (++v27 == 8)
       {
-        return v25 + 16 == a2;
+        return v25 + 2 == a2;
       }
     }
 
     v16 = v25;
     v26 += 16;
-    v25 += 16;
+    v25 += 2;
     if (v25 == a2)
     {
       return 1;
@@ -5079,7 +5018,7 @@ LABEL_37:
   }
 }
 
-char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*,ProbIndex*>(char *a1, char *a2, char *a3, uint64_t (**a4)(void, void, uint64_t, uint64_t))
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*,ProbIndex*>(char *a1, char *a2, char *a3, uint64_t (**a4)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
   if (a1 != a2)
   {
@@ -5249,7 +5188,7 @@ _OWORD *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(Pr
   return v9;
 }
 
-uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*>(uint64_t result, uint64_t a2, uint64_t (**a3)(void, void, uint64_t, uint64_t), uint64_t a4)
+uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ProbIndex,ProbIndex),ProbIndex*>(uint64_t result, uint64_t a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a4)
 {
   v4 = a4 - 2;
   if (a4 >= 2)
@@ -5296,7 +5235,7 @@ void CPGMMClassfier::CPGMMClassfier(CPGMMClassfier *this, CPMLCDB *a2, CPMLSeria
   *(v5 + 96) = *(a2->var0 + 31) - 1;
   *(v5 + 100) = v6;
   *(v5 + 104) = 2;
-  CPMLCDB::getIterator();
+  CPMLCDB::getIterator(a2, 0, 0, 0);
 }
 
 void *CPGMMClassfier::initializeGMMMemory(CPGMMClassfier *this)
@@ -6770,11 +6709,11 @@ BOOL CPMLDelegateEngineNaiveBayes::preProcessPredictSorted(id *a1, uint64_t *a2,
     v28 = [v29 preProcessPredictSorted:v30 withRow:v32];
     for (i = 0; i < [v32 count]; ++i)
     {
-      v12 = (*a3 + 24 * i);
+      v12 = *a3 + 24 * i;
       v34 = 0;
       v35 = 0;
       __p = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v12, v12[1], (v12[1] - *v12) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v12, *(v12 + 8), (*(v12 + 8) - *v12) >> 2);
       v13 = [v32 objectAtIndexedSubscript:i];
       for (j = 0; j < [v13 count]; ++j)
       {
@@ -7105,7 +7044,7 @@ void CPMLFeatureVector::insertYRealVClass(CPMLFeatureVector *this, double a2)
   std::vector<double>::push_back[abi:ne200100](*(v2 - 8), &v3);
 }
 
-char **CPMLFeatureVector::setYHatProbList(uint64_t a1, char **a2)
+void **CPMLFeatureVector::setYHatProbList(uint64_t a1, char **a2)
 {
   v3 = *(a1 + 80);
   result = (a1 + 80);
@@ -7226,7 +7165,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<VectorClass>>(uint64_
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<ProbIndex>::__assign_with_size[abi:ne200100]<ProbIndex*,ProbIndex*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<ProbIndex>::__assign_with_size[abi:ne200100]<ProbIndex*,ProbIndex*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7301,7 +7240,7 @@ void *std::vector<ProbIndex>::__assign_with_size[abi:ne200100]<ProbIndex*,ProbIn
   return result;
 }
 
-void std::vector<ProbIndex>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ProbIndex>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -7384,34 +7323,34 @@ double CPMLNaiveBayesAdaptor::get_count(CPMLNaiveBayesAdaptor *this, double *a2)
 
 void CPMLNaiveBayesAdaptor::get_cy(CPMLNaiveBayesAdaptor *this, int a2)
 {
-  v9 = a2;
-  v8 = 0xBFF0000000000000;
+  v8 = a2;
+  v7 = 0xBFF0000000000000;
   v3 = *(this + 19);
-  if (!v3 || !CPMLDelegateEngineNaiveBayes::preProcessGetCountY(v3, &v8, a2))
+  if (!v3 || !CPMLDelegateEngineNaiveBayes::preProcessGetCountY(v3, &v7, a2))
   {
-    if (std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::find<int>(this + 4, &v9))
+    if (std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::find<int>(this + 4, &v8))
     {
-      v10 = &v9;
-      v4 = std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 4, &v9)[3];
+      v9 = &v8;
+      std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 4, &v8, &std::piecewise_construct, &v9);
     }
 
     else
     {
-      v5 = sqlite3_mprintf("select yCount from yCount where yMap=%d;", v9);
-      v6 = (*(**(this + 1) + 224))(*(this + 1), &v8, v5);
-      if (v5)
+      v4 = sqlite3_mprintf("select yCount from yCount where yMap=%d;", v8);
+      v5 = (*(**(this + 1) + 224))(*(this + 1), &v7, v4);
+      if (v4)
       {
-        sqlite3_free(v5);
+        sqlite3_free(v4);
       }
 
-      v7 = v8;
-      if ((v8 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+      v6 = v7;
+      if ((v7 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
       {
-        v10 = &v9;
-        std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 4, &v9)[3] = v7;
-        if (v6 != 101)
+        v9 = &v8;
+        std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 4, &v8, &std::piecewise_construct, &v9)[3] = v6;
+        if (v5 != 101)
         {
-          std::vector<int>::push_back[abi:ne200100](this + 20, &v9);
+          std::vector<int>::push_back[abi:ne200100](this + 20, &v8);
         }
       }
     }
@@ -7533,7 +7472,7 @@ void CPMLNaiveBayesAdaptor::set_cy(CPMLNaiveBayesAdaptor *this, int a2, double a
 
     v11 = v10;
     v14 = &v13;
-    *(std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 4, &v13) + 3) = a3;
+    *(std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_map_hasher<int,std::__hash_value_type<int,double>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,double>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,double>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 4, &v13, &std::piecewise_construct, &v14) + 3) = a3;
     (*(**(this + 1) + 224))(*(this + 1), &v12, v11);
     if (v11)
     {
@@ -7542,34 +7481,34 @@ void CPMLNaiveBayesAdaptor::set_cy(CPMLNaiveBayesAdaptor *this, int a2, double a
   }
 }
 
-void CPMLNaiveBayesAdaptor::set_cx_given_y(CPMLNaiveBayesAdaptor *this, int a2, uint64_t a3, unsigned int a4, double a5)
+void CPMLNaiveBayesAdaptor::set_cx_given_y(CPMLNaiveBayesAdaptor *this, int a2, uint64_t a3, int a4, double a5)
 {
   v10 = *(this + 19);
   if (!v10 || !CPMLDelegateEngineNaiveBayes::preProcessSetCountXGivenY(v10, a2, a3, a4, a5))
   {
     v16 = a4 | (a3 << 32);
-    v17[0] = 1.0;
+    v17 = 1.0;
     v11 = sqlite3_mprintf("select count(*) from xcol%d where (xMap=%d and yMap=%d);", a2, a3, a4);
-    (*(**(this + 1) + 224))(*(this + 1), v17, v11);
+    (*(**(this + 1) + 224))(*(this + 1), &v17, v11);
     if (v11)
     {
       sqlite3_free(v11);
     }
 
-    if (v17[0] == 0.0)
+    if (v17 == 0.0)
     {
       if ((*&a5 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
       {
-        v12 = sqlite3_mprintf("insert into xcol%d (xMap, yMap, xyCount) VALUES(%d, %d, %lf);", v17[0]);
+        v12 = sqlite3_mprintf("insert into xcol%d (xMap, yMap, xyCount) VALUES(%d, %d, %lf);", v17);
       }
 
       else
       {
-        v12 = sqlite3_mprintf("insert into xcol%d (xMap, yMap, xyCount) VALUES(%d, %d, NULL);", v17[0]);
+        v12 = sqlite3_mprintf("insert into xcol%d (xMap, yMap, xyCount) VALUES(%d, %d, NULL);", v17);
       }
 
       v14 = v12;
-      (*(**(this + 1) + 224))(*(this + 1), v17, v12);
+      (*(**(this + 1) + 224))(*(this + 1), &v17, v12);
       if (v14)
       {
         sqlite3_free(v14);
@@ -7580,23 +7519,23 @@ void CPMLNaiveBayesAdaptor::set_cx_given_y(CPMLNaiveBayesAdaptor *this, int a2, 
     {
       if ((*&a5 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
       {
-        v13 = sqlite3_mprintf("update xcol%d set xyCount=%lf where (xMap=%d and yMap=%d);", v17[0]);
+        v13 = sqlite3_mprintf("update xcol%d set xyCount=%lf where (xMap=%d and yMap=%d);", v17);
       }
 
       else
       {
-        v13 = sqlite3_mprintf("update xcol%d set xyCount=NULL where (xMap=%d and yMap=%d);", v17[0]);
+        v13 = sqlite3_mprintf("update xcol%d set xyCount=NULL where (xMap=%d and yMap=%d);", v17);
       }
 
       v15 = v13;
-      (*(**(this + 1) + 224))(*(this + 1), v17, v13);
+      (*(**(this + 1) + 224))(*(this + 1), &v17, v13);
       if (v15)
       {
         sqlite3_free(v15);
       }
 
-      *&v17[2] = &v16;
-      *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 9, &v16) + 3) = a5;
+      v18 = &v16;
+      *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 9, &v16, &std::piecewise_construct, &v18) + 3) = a5;
     }
   }
 }
@@ -7606,28 +7545,28 @@ void CPMLNaiveBayesAdaptor::set_cardinalityx_given_y(CPMLNaiveBayesAdaptor *this
   v8 = *(this + 19);
   if (!v8 || !CPMLDelegateEngineNaiveBayes::preProcessSetCardinalityXGivenY(v8, a2, a3, a4))
   {
-    v14[0] = 1.0;
+    v14 = 1.0;
     v9 = sqlite3_mprintf("select count(*) from xcol%d where yMap=%d;", a2, a3);
-    (*(**(this + 1) + 224))(*(this + 1), v14, v9);
+    (*(**(this + 1) + 224))(*(this + 1), &v14, v9);
     if (v9)
     {
       sqlite3_free(v9);
     }
 
-    if (v14[0] == 0.0)
+    if (v14 == 0.0)
     {
       if ((*&a4 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
       {
-        v10 = sqlite3_mprintf("insert into xCardinality%d (yMap, xCardinality) VALUES(%d, %lf);", v14[0]);
+        v10 = sqlite3_mprintf("insert into xCardinality%d (yMap, xCardinality) VALUES(%d, %lf);", v14);
       }
 
       else
       {
-        v10 = sqlite3_mprintf("insert into xCardinality%d (yMap, xCardinality) VALUES(%d, NULL);", v14[0]);
+        v10 = sqlite3_mprintf("insert into xCardinality%d (yMap, xCardinality) VALUES(%d, NULL);", v14);
       }
 
       v12 = v10;
-      (*(**(this + 1) + 224))(*(this + 1), v14, v10);
+      (*(**(this + 1) + 224))(*(this + 1), &v14, v10);
       if (v12)
       {
 LABEL_12:
@@ -7639,19 +7578,19 @@ LABEL_12:
     {
       if ((*&a4 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
       {
-        v11 = sqlite3_mprintf("update xCardinality%d set xCardinality=%lf where yMap=%d;", v14[0]);
+        v11 = sqlite3_mprintf("update xCardinality%d set xCardinality=%lf where yMap=%d;", v14);
       }
 
       else
       {
-        v11 = sqlite3_mprintf("update xCardinality%d set xCardinality=NULL where yMap=%d;", v14[0]);
+        v11 = sqlite3_mprintf("update xCardinality%d set xCardinality=NULL where yMap=%d;", v14);
       }
 
       v12 = v11;
-      (*(**(this + 1) + 224))(*(this + 1), v14, v11);
+      (*(**(this + 1) + 224))(*(this + 1), &v14, v11);
       v13 = a3;
-      *&v14[2] = &v13;
-      *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 14, &v13) + 3) = a4;
+      v15 = &v13;
+      *(std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(this + 14, &v13, &std::piecewise_construct, &v15) + 3) = a4;
       if (v12)
       {
         goto LABEL_12;
@@ -7727,33 +7666,33 @@ uint64_t *std::__hash_table<std::__hash_value_type<int,double>,std::__unordered_
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,double>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,double>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,double>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -7761,44 +7700,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void CPMLNaiveBayes::CPMLNaiveBayes(CPMLNaiveBayes *this)
@@ -7902,11 +7841,11 @@ double CPMLNaiveBayes::get_nb_probability(CPMLNaiveBayes *a1, void *a2, uint64_t
     v14 = v8 & 0x7FFFFFFF;
     while (1)
     {
-      v15 = (*a2 + 24 * v13);
+      v15 = *a2 + 24 * v13;
       v23 = 0;
       v24 = 0;
       __p = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v15, v15[1], (v15[1] - *v15) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v15, *(v15 + 8), (*(v15 + 8) - *v15) >> 2);
       v16 = __p;
       if (v23 == __p)
       {
@@ -7974,24 +7913,6 @@ void sub_247315148(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CPMLNaiveBayes::get_px_given_y(CPMLNaiveBayes *this, uint64_t a2, uint64_t a3, uint64_t a4, double a5)
-{
-  v11 = 0.0;
-  result = (*(**(this + 7) + 16))(*(this + 7), a2, a3, a4, &v11);
-  if (!*(this + 10))
-  {
-    v9 = v11;
-    if (v8 == 0.0)
-    {
-      v9 = v11 + 1.0;
-    }
-
-    v10 = (v8 + *(this + 4)) / (a5 + (*(this + 4) + *(this + 3)) * v9);
-  }
-
-  return result;
-}
-
 void CPMLNaiveBayes::sort_candidates(uint64_t a1, unsigned int **a2, __n128 **a3)
 {
   std::vector<ProbIndex>::resize(a3, 0);
@@ -8021,20 +7942,20 @@ void CPMLNaiveBayes::sort_candidates(uint64_t a1, unsigned int **a2, __n128 **a3
   std::__introsort<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexDescending &,ProbIndex *,false>(*a3, v10, &v13, v12, 1, v6);
 }
 
-void std::vector<ProbIndex>::resize(void *a1, unint64_t a2)
+void std::vector<ProbIndex>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    std::vector<ProbIndex>::__append(a1, a2 - v2);
+    std::vector<ProbIndex>::__append(result, a2 - v2);
   }
 }
 
@@ -8146,28 +8067,28 @@ void sub_247315534(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void CPMLNaiveBayes::predict_sorted(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, void *a5)
+void CPMLNaiveBayes::predict_sorted(uint64_t a1, uint64_t *a2, uint64_t *a3, int a4, void *a5)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  memset(v36, 0, sizeof(v36));
+  v41 = *MEMORY[0x277D85DE8];
+  memset(v35, 0, sizeof(v35));
   v9 = *(a1 + 64);
   if (v9)
   {
-    if (CPMLDelegateEngineNaiveBayes::preProcessPredictSorted(v9, a2, v36))
+    if (CPMLDelegateEngineNaiveBayes::preProcessPredictSorted(v9, a2, v35))
     {
       goto LABEL_35;
     }
   }
 
-  else if (v36 != a2)
+  else if (v35 != a2)
   {
-    std::vector<std::vector<int>>::__assign_with_size[abi:ne200100]<std::vector<int>*,std::vector<int>*>(v36, *a2, *(a2 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *a2) >> 3));
+    std::vector<std::vector<int>>::__assign_with_size[abi:ne200100]<std::vector<int>*,std::vector<int>*>(v35, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
   }
 
   __p = 0;
+  v39 = 0;
   v40 = 0;
-  v41 = 0;
-  v35 = 0.0;
+  v34 = 0.0;
   (***(a1 + 56))();
   v12 = *a3;
   v11 = a3[1];
@@ -8190,22 +8111,22 @@ void CPMLNaiveBayes::predict_sorted(uint64_t a1, uint64_t a2, uint64_t *a3, int 
 
       else
       {
-        v18 = v35;
+        v18 = v34;
         if (v16 == 0.0)
         {
-          v18 = v35 + 1.0;
+          v18 = v34 + 1.0;
         }
 
         v17 = (v16 + *(a1 + 32)) / (v13 + (*(a1 + 32) + *(a1 + 24)) * v18);
       }
 
-      v34 = 0uLL;
-      nb_probability = CPMLNaiveBayes::get_nb_probability(a1, v36, *(v12 + 8), v17, v16, v15);
-      *&v34 = nb_probability;
-      DWORD2(v34) = *(v12 + 8);
+      v33 = 0uLL;
+      nb_probability = CPMLNaiveBayes::get_nb_probability(a1, v35, *(v12 + 8), v17, v16, v15);
+      *&v33 = nb_probability;
+      DWORD2(v33) = *(v12 + 8);
       v20 = __p;
-      v21 = v40;
-      v22 = (v40 - __p) >> 4;
+      v21 = v39;
+      v22 = (v39 - __p) >> 4;
       if (v22 >= v14)
       {
         v15 = *__p;
@@ -8213,35 +8134,35 @@ void CPMLNaiveBayes::predict_sorted(uint64_t a1, uint64_t a2, uint64_t *a3, int 
         {
           if (v22 >= 2)
           {
-            v38 = *__p;
-            std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexAscending &,std::__wrap_iter<ProbIndex *>>(__p, &v37, v22);
+            v37 = *__p;
+            std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexAscending &,std::__wrap_iter<ProbIndex *>>(__p, &v36, v22);
             v24 = v21 - 16;
             if (v21 - 16 == v23)
             {
-              *v23 = v38;
+              *v23 = v37;
             }
 
             else
             {
               *v23 = *v24;
-              *v24 = v38;
-              std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexAscending &,std::__wrap_iter<ProbIndex *>>(v20, (v23 + 16), &v37, (v23 + 16 - v20) >> 4);
+              *v24 = v37;
+              std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexAscending &,std::__wrap_iter<ProbIndex *>>(v20, (v23 + 16), &v36, (v23 + 16 - v20) >> 4);
             }
 
-            v21 = v40;
+            v21 = v39;
           }
 
-          v40 = v21 - 16;
-          std::vector<ProbIndex>::push_back[abi:ne200100](&__p, &v34);
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexAscending &,std::__wrap_iter<ProbIndex *>>(__p, v40, &v38, (v40 - __p) >> 4);
-          v15 = *&v34;
+          v39 = v21 - 16;
+          std::vector<ProbIndex>::push_back[abi:ne200100](&__p, &v33);
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexAscending &,std::__wrap_iter<ProbIndex *>>(__p, v39, &v37, (v39 - __p) >> 4);
+          v15 = *&v33;
         }
       }
 
       else if (nb_probability > *(a1 + 24))
       {
-        std::vector<ProbIndex>::push_back[abi:ne200100](&__p, &v34);
-        std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexAscending &,std::__wrap_iter<ProbIndex *>>(__p, v40, &v38, (v40 - __p) >> 4);
+        std::vector<ProbIndex>::push_back[abi:ne200100](&__p, &v33);
+        std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexAscending &,std::__wrap_iter<ProbIndex *>>(__p, v39, &v37, (v39 - __p) >> 4);
       }
 
       v12 += 16;
@@ -8250,8 +8171,8 @@ void CPMLNaiveBayes::predict_sorted(uint64_t a1, uint64_t a2, uint64_t *a3, int 
     while (v12 != v11);
   }
 
-  v25 = v40 - __p;
-  std::vector<ProbIndex>::resize(a5, ((v40 - __p) >> 4));
+  v25 = v39 - __p;
+  std::vector<ProbIndex>::resize(a5, ((v39 - __p) >> 4));
   if ((v25 >> 4) >= 1)
   {
     v26 = (v25 >> 4) & 0x7FFFFFFF;
@@ -8260,29 +8181,29 @@ void CPMLNaiveBayes::predict_sorted(uint64_t a1, uint64_t a2, uint64_t *a3, int 
     {
       *(*a5 + v27) = *__p;
       v28 = __p;
-      v29 = v40;
-      v30 = (v40 - __p) >> 4;
+      v29 = v39;
+      v30 = (v39 - __p) >> 4;
       if (v30 >= 2)
       {
-        v38 = *__p;
-        std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexAscending &,std::__wrap_iter<ProbIndex *>>(__p, &v34, v30);
+        v37 = *__p;
+        std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexAscending &,std::__wrap_iter<ProbIndex *>>(__p, &v33, v30);
         v32 = v29 - 16;
         if (v29 - 16 == v31)
         {
-          *v31 = v38;
+          *v31 = v37;
         }
 
         else
         {
           *v31 = *v32;
-          *v32 = v38;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexAscending &,std::__wrap_iter<ProbIndex *>>(v28, (v31 + 16), &v34, (v31 + 16 - v28) >> 4);
+          *v32 = v37;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexAscending &,std::__wrap_iter<ProbIndex *>>(v28, (v31 + 16), &v33, (v31 + 16 - v28) >> 4);
         }
 
-        v29 = v40;
+        v29 = v39;
       }
 
-      v40 = v29 - 16;
+      v39 = v29 - 16;
       v27 -= 16;
       --v26;
     }
@@ -8292,14 +8213,13 @@ void CPMLNaiveBayes::predict_sorted(uint64_t a1, uint64_t a2, uint64_t *a3, int 
 
   if (__p)
   {
-    v40 = __p;
+    v39 = __p;
     operator delete(__p);
   }
 
 LABEL_35:
-  __p = v36;
+  __p = v35;
   std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&__p);
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2473158C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char *__p, uint64_t a21)
@@ -8442,18 +8362,18 @@ void std::vector<ProbIndex>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexDescending &,ProbIndex *,false>(__n128 *a1, __n128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 a6)
+void std::__introsort<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexDescending &,ProbIndex *,false>(__n128 *result, __n128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 a6)
 {
 LABEL_1:
   v9 = a2 - 1;
   v10 = a2 - 2;
   v11 = a2 - 3;
-  v12 = a1;
+  v12 = result;
 LABEL_2:
   v13 = 1 - a4;
   while (1)
   {
-    a1 = v12;
+    result = v12;
     v14 = v13;
     v15 = a2 - v12;
     if (v15 > 2)
@@ -8748,7 +8668,7 @@ LABEL_110:
     if (!v41)
     {
 LABEL_117:
-      std::__introsort<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexDescending &,ProbIndex *,false>(a1, v38, a3, -v14, a5 & 1);
+      std::__introsort<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexDescending &,ProbIndex *,false>(result, v38, a3, -v14, a5 & 1);
       v12 = v38 + 1;
 LABEL_119:
       a5 = 0;
@@ -9069,19 +8989,19 @@ double *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolic
   v4 = *(a2 - 16);
   if (*a1 > v4 || *a1 == v4 && v3 < *(a2 - 8))
   {
-    v5 = (a1 + 16);
+    i = a1 + 16;
     v6 = *(a1 + 16);
     if (v2 <= v6)
     {
       do
       {
-        if (v2 == v6 && v3 < *(v5 + 2))
+        if (v2 == v6 && v3 < *(i + 8))
         {
           break;
         }
 
-        v7 = v5[2];
-        v5 += 2;
+        v7 = *(i + 16);
+        i += 16;
         v6 = v7;
       }
 
@@ -9091,24 +9011,16 @@ double *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolic
 
   else
   {
-    v5 = (a1 + 16);
-    if (a1 + 16 < a2)
+    for (i = a1 + 16; i < a2; i += 16)
     {
-      do
+      if (v2 > *i || v2 == *i && v3 < *(i + 8))
       {
-        if (v2 > *v5 || v2 == *v5 && v3 < *(v5 + 2))
-        {
-          break;
-        }
-
-        v5 += 2;
+        break;
       }
-
-      while (v5 < a2);
     }
   }
 
-  if (v5 < a2)
+  if (i < a2)
   {
     for (a2 -= 16; v2 > v4 || v2 == v4 && v3 < *(a2 + 8); a2 -= 16)
     {
@@ -9117,19 +9029,19 @@ double *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolic
     }
   }
 
-  while (v5 < a2)
+  while (i < a2)
   {
-    v14 = *v5;
-    *v5 = *a2;
+    v14 = *i;
+    *i = *a2;
     *a2 = v14;
     do
     {
-      v9 = v5[2];
-      v5 += 2;
+      v9 = *(i + 16);
+      i += 16;
       v10 = v9;
     }
 
-    while (v2 <= v9 && (v2 != v10 || v3 >= *(v5 + 2)));
+    while (v2 <= v9 && (v2 != v10 || v3 >= *(i + 8)));
     do
     {
       do
@@ -9145,14 +9057,14 @@ double *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolic
     while (v12 && v3 < *(a2 + 8));
   }
 
-  if (v5 - 2 != a1)
+  if (i - 16 != a1)
   {
-    *a1 = *(v5 - 1);
+    *a1 = *(i - 16);
   }
 
-  *(v5 - 2) = v2;
-  *(v5 - 1) = v3;
-  return v5;
+  *(i - 16) = v2;
+  *(i - 8) = v3;
+  return i;
 }
 
 unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,ProbIndex *,CPMLNBCompareProbIndexDescending &>(uint64_t a1, unint64_t a2)
@@ -9391,13 +9303,13 @@ LABEL_7:
     }
   }
 
-  v24 = &a1[2];
+  v24 = a1 + 2;
   v25 = a1->n128_f64[0];
   v26 = a1 + 1;
   v27 = a1[1].n128_f64[0];
   if (v27 <= a1->n128_f64[0] && (v27 != a1->n128_f64[0] || a1[1].n128_u32[2] >= a1->n128_u32[2]))
   {
-    if (*v24 > v27 || *v24 == v27 && a1[2].n128_u32[2] < a1[1].n128_u32[2])
+    if (v24->n128_f64[0] > v27 || v24->n128_f64[0] == v27 && a1[2].n128_u32[2] < a1[1].n128_u32[2])
     {
       v33 = *v26;
       *v26 = *v24;
@@ -9413,8 +9325,8 @@ LABEL_7:
     goto LABEL_62;
   }
 
-  v28 = *v24;
-  if (*v24 > v27 || *v24 == v27 && a1[2].n128_u32[2] < a1[1].n128_u32[2])
+  v28 = v24->n128_f64[0];
+  if (v24->n128_f64[0] > v27 || v24->n128_f64[0] == v27 && a1[2].n128_u32[2] < a1[1].n128_u32[2])
   {
     v29 = *a1;
     *a1 = *v24;
@@ -9448,15 +9360,15 @@ LABEL_62:
   while (1)
   {
     v42 = v39->n128_f64[0];
-    if (v39->n128_f64[0] > *v24)
+    if (v39->n128_f64[0] > v24->n128_f64[0])
     {
       break;
     }
 
-    if (v39->n128_f64[0] == *v24)
+    if (v39->n128_f64[0] == v24->n128_f64[0])
     {
       v43 = v39->n128_i32[2];
-      if (v43 < *(v24 + 8))
+      if (v43 < v24->n128_u32[2])
       {
         goto LABEL_68;
       }
@@ -9483,7 +9395,7 @@ LABEL_68:
     {
       if (v42 != v46)
       {
-        v24 = &a1[2] + v45;
+        v24 = (a1 + v45 + 32);
         goto LABEL_75;
       }
 
@@ -9493,7 +9405,7 @@ LABEL_68:
       }
     }
 
-    v24 -= 16;
+    --v24;
     *(a1 + v45 + 32) = *(a1 + v45 + 16);
     v45 -= 16;
   }
@@ -9501,9 +9413,9 @@ LABEL_68:
   while (v45 != -32);
   v24 = a1;
 LABEL_75:
-  *v24 = v42;
-  *(v24 + 8) = v43;
-  *(v24 + 12) = v44;
+  v24->n128_f64[0] = v42;
+  v24->n128_u32[2] = v43;
+  v24->n128_u32[3] = v44;
   if (++v41 != 8)
   {
     goto LABEL_76;
@@ -9512,7 +9424,7 @@ LABEL_75:
   return &v39[1] == a2;
 }
 
-__n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexDescending &,ProbIndex *,ProbIndex *>(__n128 *a1, __n128 *a2, __n128 *a3, uint64_t a4)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexDescending &,ProbIndex *,ProbIndex *>(__n128 *a1, __n128 *a2, __int128 *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -9524,8 +9436,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBComp
       v11 = &a1[v9];
       do
       {
-        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexDescending &,ProbIndex *>(a1, a4, v8, v11);
-        v11 -= 16;
+        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexDescending &,ProbIndex *>(a1, a4, v8, v11--);
         --v10;
       }
 
@@ -9538,7 +9449,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBComp
       v12 = a2;
       do
       {
-        if (v12->n128_f64[0] > a1->n128_f64[0] || v12->n128_f64[0] == a1->n128_f64[0] && v12->n128_u32[2] < a1->n128_u32[2])
+        if (*v12 > a1->n128_f64[0] || *v12 == a1->n128_f64[0] && *(v12 + 2) < a1->n128_u32[2])
         {
           v13 = *v12;
           *v12 = *a1;
@@ -9554,7 +9465,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBComp
 
     if (v8 >= 2)
     {
-      v14 = a2 - 1;
+      v14 = &a2[-1];
       do
       {
         v18 = *a1;
@@ -9568,7 +9479,7 @@ __n128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBComp
         {
           *v15 = *v14;
           *v14 = v18;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexDescending &,ProbIndex *>(a1, &v15[1], a4, &v15[1] - a1);
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,CPMLNBCompareProbIndexDescending &,ProbIndex *>(a1, (v15 + 1), a4, ((v15 + 1) - a1) >> 4);
         }
 
         --v14;
@@ -9758,21 +9669,21 @@ LABEL_12:
   return result;
 }
 
-void std::vector<std::vector<int>>::__assign_with_size[abi:ne200100]<std::vector<int>*,std::vector<int>*>(uint64_t *a1, char **a2, char **a3, unint64_t a4)
+void std::vector<std::vector<int>>::__assign_with_size[abi:ne200100]<std::vector<int>*,std::vector<int>*>(uint64_t **a1, char **a2, char **a3, unint64_t a4)
 {
   v8 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a4)
+  if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) < a4)
   {
     std::vector<std::vector<int>>::__vdeallocate(a1);
     if (a4 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v9 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v9 = 0x5555555555555556 * (a1[2] - *a1);
       if (v9 <= a4)
       {
         v9 = a4;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= 0x555555555555555)
       {
         v10 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -9820,6 +9731,84 @@ void std::vector<std::vector<int>>::__assign_with_size[abi:ne200100]<std::vector
   else
   {
     std::__copy_impl::operator()[abi:ne200100]<std::vector<int> *,std::vector<int> *,std::vector<int> *>(&v18, a2, (a2 + v11), v8);
-    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<int>>,std::vector<int>*,std::vector<int>*,std::vector<int>*>(a1, (a2 + v11), a3, a1[1]);
+    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<int>>,std::vector<int>*,std::vector<int>*,std::vector<int>*>(a1, a2 + v11, a3, a1[1]);
+  }
+}
+
+void std::vector<std::vector<int>>::__vdeallocate(uint64_t *a1)
+{
+  if (*a1)
+  {
+    std::vector<std::vector<int>>::clear[abi:ne200100](a1);
+    operator delete(*a1);
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
+  }
+}
+
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<int>>,std::vector<int>*,std::vector<int>*,std::vector<int>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+{
+  v4 = a4;
+  v10 = a4;
+  v11 = a4;
+  v8[0] = a1;
+  v8[1] = &v10;
+  v8[2] = &v11;
+  v9 = 0;
+  if (a2 != a3)
+  {
+    v6 = a2;
+    do
+    {
+      *v4 = 0;
+      v4[1] = 0;
+      v4[2] = 0;
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 2);
+      v6 += 24;
+      v4 = v11 + 3;
+      v11 += 3;
+    }
+
+    while (v6 != a3);
+  }
+
+  v9 = 1;
+  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<int>>,std::vector<int>*>>::~__exception_guard_exceptions[abi:ne200100](v8);
+  return v4;
+}
+
+uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<int>>,std::vector<int>*>>::~__exception_guard_exceptions[abi:ne200100](uint64_t a1)
+{
+  if ((*(a1 + 24) & 1) == 0)
+  {
+    std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<int>>,std::vector<int>*>::operator()[abi:ne200100](a1);
+  }
+
+  return a1;
+}
+
+void std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<int>>,std::vector<int>*>::operator()[abi:ne200100](uint64_t a1)
+{
+  v1 = **(a1 + 16);
+  v2 = **(a1 + 8);
+  if (v1 != v2)
+  {
+    v3 = **(a1 + 16);
+    do
+    {
+      v5 = *(v3 - 24);
+      v3 -= 24;
+      v4 = v5;
+      if (v5)
+      {
+        *(v1 - 16) = v4;
+        operator delete(v4);
+      }
+
+      v1 = v3;
+    }
+
+    while (v3 != v2);
   }
 }

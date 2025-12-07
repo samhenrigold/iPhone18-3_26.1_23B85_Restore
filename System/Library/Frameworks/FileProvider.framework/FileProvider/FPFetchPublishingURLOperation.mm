@@ -12,13 +12,13 @@
 
 - (FPFetchPublishingURLOperation)initWithItem:(id)item
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
-  v15[0] = itemCopy;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
-  v14.receiver = self;
-  v14.super_class = FPFetchPublishingURLOperation;
-  v7 = [(FPActionOperation *)&v14 initWithItemsOfDifferentProviders:v6 action:0];
+  v14[0] = itemCopy;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13.receiver = self;
+  v13.super_class = FPFetchPublishingURLOperation;
+  v7 = [(FPActionOperation *)&v13 initWithItemsOfDifferentProviders:v6 action:0];
 
   if (v7)
   {
@@ -36,7 +36,6 @@
     [(FPActionOperation *)v7 setSetupRemoteOperationService:1];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -357,61 +356,54 @@ uint64_t __55__FPFetchPublishingURLOperation__tryFetchingSharingURL__block_invok
 
 - (void)presentedItemDidChangeUbiquityAttributes:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] %@ item did change", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] %@ item did change", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __74__FPFetchPublishingURLOperation_presentedItemDidChangeUbiquityAttributes___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] received updated item %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] received updated item %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __74__FPFetchPublishingURLOperation_presentedItemDidChangeUbiquityAttributes___block_invoke_2_cold_2(uint64_t a1, id *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = *(*a1 + 472);
   v5 = [*a2 fp_prettyDescription];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] couldn't get updated item for url %@; %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] couldn't get updated item for url %@; %@", &v6, 0x16u);
 }
 
 void __74__FPFetchPublishingURLOperation_presentedItemDidChangeUbiquityAttributes___block_invoke_2_cold_3(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] we're waiting on upload but the item is not uploading: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] we're waiting on upload but the item is not uploading: %@", &v3, 0xCu);
 }
 
 void __74__FPFetchPublishingURLOperation_presentedItemDidChangeUbiquityAttributes___block_invoke_2_cold_4(id *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = [*a1 uploadingError];
   v4 = [v3 fp_prettyDescription];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] item failed to upload: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] item failed to upload: %@", &v5, 0xCu);
 }
 
 void __74__FPFetchPublishingURLOperation_presentedItemDidChangeUbiquityAttributes___block_invoke_2_cold_5(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] item was successfully uploaded: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] item was successfully uploaded: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

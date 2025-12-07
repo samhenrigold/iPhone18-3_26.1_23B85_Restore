@@ -1,7 +1,7 @@
 @interface NTPBNetworkEvent(FCNetworkBehaviorMonitorAdditions)
 - (BOOL)isSuccess;
+- (char)totalDuration;
 - (uint64_t)pbNetworkEventType;
-- (uint64_t)totalDuration;
 @end
 
 @implementation NTPBNetworkEvent(FCNetworkBehaviorMonitorAdditions)
@@ -20,12 +20,12 @@
   }
 }
 
-- (uint64_t)totalDuration
+- (char)totalDuration
 {
   dnsDuration = [self dnsDuration];
   v3 = [self connectDuration] + dnsDuration;
   requestDuration = [self requestDuration];
-  return v3 + requestDuration + [self responseDuration];
+  return (v3 + requestDuration + [self responseDuration]);
 }
 
 - (BOOL)isSuccess

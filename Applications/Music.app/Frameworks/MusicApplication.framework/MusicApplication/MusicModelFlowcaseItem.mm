@@ -136,7 +136,7 @@ void __83__MusicModelFlowcaseItem_objectWithStoreLibraryPersonalizationRelativeM
 {
   forCopy = for;
   selfCopy = self;
-  v6 = sub_272264(forCopy);
+  v6 = sub_272264(forCopy, MusicModelRelationshipFlowcaseItemContentItem);
 
   return v6;
 }

@@ -10,30 +10,30 @@
 
 - (uint64_t)hm_containsAnyTextCheckingTypeInTypes:()HomeKit
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v46 = 0;
-  v5 = [MEMORY[0x1E696AB60] dataDetectorWithTypes:a3 error:&v46];
-  v6 = v46;
+  v49 = *MEMORY[0x1E69E9840];
+  v45 = 0;
+  v5 = [MEMORY[0x1E696AB60] dataDetectorWithTypes:a3 error:&v45];
+  v6 = v45;
   [v5 matchesInString:self options:0 range:{0, objc_msgSend(self, "length")}];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v7 = v45 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v42 objects:v49 count:16];
+  v7 = v44 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v41 objects:v48 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v43;
+    v10 = *v42;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v43 != v10)
+        if (*v42 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        if (([*(*(&v42 + 1) + 8 * i) resultType] & a3) != 0)
+        if (([*(*(&v41 + 1) + 8 * i) resultType] & a3) != 0)
         {
           v12 = 1;
           v13 = v7;
@@ -41,7 +41,7 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v42 objects:v49 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v41 objects:v48 count:16];
       if (v9)
       {
         continue;
@@ -53,33 +53,33 @@
 
   if ((a3 & 0x800) != 0)
   {
-    v31 = v6;
-    v32 = v5;
+    v30 = v6;
+    v31 = v5;
     v14 = &unk_1F0EFDB38;
     v15 = [self copy];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     allKeys = [&unk_1F0EFDB38 allKeys];
-    v17 = [allKeys countByEnumeratingWithState:&v38 objects:v48 count:16];
+    v17 = [allKeys countByEnumeratingWithState:&v37 objects:v47 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v39;
+      v19 = *v38;
       do
       {
         v20 = 0;
         v21 = v15;
         do
         {
-          if (*v39 != v19)
+          if (*v38 != v19)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v22 = *(*(&v38 + 1) + 8 * v20);
-          v23 = [&unk_1F0EFDB38 objectForKeyedSubscript:{v22, v31}];
+          v22 = *(*(&v37 + 1) + 8 * v20);
+          v23 = [&unk_1F0EFDB38 objectForKeyedSubscript:{v22, v30}];
           v15 = [v21 stringByReplacingOccurrencesOfString:v22 withString:v23];
 
           ++v20;
@@ -87,7 +87,7 @@
         }
 
         while (v18 != v20);
-        v18 = [allKeys countByEnumeratingWithState:&v38 objects:v48 count:16];
+        v18 = [allKeys countByEnumeratingWithState:&v37 objects:v47 count:16];
       }
 
       while (v18);
@@ -96,45 +96,45 @@
     if ([self isEqualToString:v15])
     {
       v12 = 0;
-      v6 = v31;
-      v5 = v32;
+      v6 = v30;
+      v5 = v31;
     }
 
     else
     {
-      v37 = v31;
-      v5 = [MEMORY[0x1E696AB60] dataDetectorWithTypes:2048 error:&v37];
-      v6 = v37;
+      v36 = v30;
+      v5 = [MEMORY[0x1E696AB60] dataDetectorWithTypes:2048 error:&v36];
+      v6 = v36;
 
       v24 = [v5 matchesInString:v15 options:0 range:{0, objc_msgSend(v15, "length")}];
 
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v7 = v24;
-      v25 = [v7 countByEnumeratingWithState:&v33 objects:v47 count:16];
+      v25 = [v7 countByEnumeratingWithState:&v32 objects:v46 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v34;
+        v27 = *v33;
         while (2)
         {
           for (j = 0; j != v26; ++j)
           {
-            if (*v34 != v27)
+            if (*v33 != v27)
             {
               objc_enumerationMutation(v7);
             }
 
-            if (([*(*(&v33 + 1) + 8 * j) resultType] & 0x800) != 0)
+            if (([*(*(&v32 + 1) + 8 * j) resultType] & 0x800) != 0)
             {
               v12 = 1;
               goto LABEL_31;
             }
           }
 
-          v26 = [v7 countByEnumeratingWithState:&v33 objects:v47 count:16];
+          v26 = [v7 countByEnumeratingWithState:&v32 objects:v46 count:16];
           if (v26)
           {
             continue;
@@ -161,7 +161,6 @@ LABEL_33:
     v12 = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

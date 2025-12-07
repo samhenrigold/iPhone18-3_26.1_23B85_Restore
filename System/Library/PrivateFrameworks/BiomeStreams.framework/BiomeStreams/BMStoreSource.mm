@@ -123,12 +123,11 @@ LABEL_19:
 
 - (BOOL)outOfProcess
 {
-  writer = self->_writer;
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = [v4 containsString:@"OutOfProcess"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = [v3 containsString:@"OutOfProcess"];
 
-  return v5;
+  return v4;
 }
 
 - (void)setOutOfProcess:(BOOL)process
@@ -189,7 +188,7 @@ void __43__BMStoreSource__processPendingWritesQueue__block_invoke()
 
 - (void)sendEvent:(id)event timestamp:(double)timestamp
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   os_unfair_lock_lock(&self->_lock);
   context = objc_autoreleasePoolPush();
@@ -216,7 +215,7 @@ void __43__BMStoreSource__processPendingWritesQueue__block_invoke()
   if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 138412290;
-    v53 = v11;
+    v52 = v11;
     _os_signpost_emit_with_name_impl(&dword_1848EE000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "SendEvent", "StreamIdentifier=%@", buf, 0xCu);
   }
 
@@ -234,7 +233,7 @@ void __43__BMStoreSource__processPendingWritesQueue__block_invoke()
     {
       identifier3 = [(BMSource *)self identifier];
       v23 = NSStringFromProtocol(&unk_1EF30B8F0);
-      [(BMStoreSource *)identifier3 sendEvent:v23 timestamp:v50, v21];
+      [(BMStoreSource *)identifier3 sendEvent:v23 timestamp:v49, v21];
     }
 
     v24 = __biome_log_for_category();
@@ -244,9 +243,9 @@ void __43__BMStoreSource__processPendingWritesQueue__block_invoke()
       goto LABEL_36;
     }
 
-    v48 = 138412290;
-    v49 = v11;
-    v26 = &v48;
+    v47 = 138412290;
+    v48 = v11;
+    v26 = &v47;
 LABEL_23:
     _os_signpost_emit_with_name_impl(&dword_1848EE000, v25, OS_SIGNPOST_INTERVAL_END, v13, "SendEvent", "StreamIdentifier=%@", v26, 0xCu);
 LABEL_36:
@@ -272,9 +271,9 @@ LABEL_36:
       goto LABEL_36;
     }
 
-    *v50 = 138412290;
-    v51 = v11;
-    v26 = v50;
+    *v49 = 138412290;
+    v50 = v11;
+    v26 = v49;
     goto LABEL_23;
   }
 
@@ -283,9 +282,9 @@ LABEL_36:
     v29 = __biome_log_for_category();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      *v50 = 138412290;
-      v51 = v11;
-      _os_log_impl(&dword_1848EE000, v29, OS_LOG_TYPE_DEFAULT, "Unable to access data, storing donation to %@ in memory until device unlocks", v50, 0xCu);
+      *v49 = 138412290;
+      v50 = v11;
+      _os_log_impl(&dword_1848EE000, v29, OS_LOG_TYPE_DEFAULT, "Unable to access data, storing donation to %@ in memory until device unlocks", v49, 0xCu);
     }
 
     v25 = [BMPendingWrite pendingWriteWithEvent:eventCopy timestamp:timestamp];
@@ -339,9 +338,9 @@ LABEL_36:
       computeSource2 = v43;
       if (v16 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
       {
-        *v50 = 138412290;
-        v51 = v11;
-        _os_signpost_emit_with_name_impl(&dword_1848EE000, computeSource2, OS_SIGNPOST_INTERVAL_END, v13, "SendEvent", "StreamIdentifier=%@", v50, 0xCu);
+        *v49 = 138412290;
+        v50 = v11;
+        _os_signpost_emit_with_name_impl(&dword_1848EE000, computeSource2, OS_SIGNPOST_INTERVAL_END, v13, "SendEvent", "StreamIdentifier=%@", v49, 0xCu);
       }
     }
 
@@ -354,21 +353,18 @@ LABEL_37:
   os_activity_scope_leave(&state);
   objc_autoreleasePoolPop(context);
   os_unfair_lock_unlock(&self->_lock);
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 void __37__BMStoreSource_sendEvent_timestamp___block_invoke(uint64_t a1, int a2)
 {
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() _processPendingWritesQueue];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __37__BMStoreSource_sendEvent_timestamp___block_invoke_2;
-  v6[3] = &unk_1E6E53AB0;
-  v7 = a2;
-  v6[4] = *(a1 + 32);
-  dispatch_async(v5, v6);
+  v4 = [objc_opt_class() _processPendingWritesQueue];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __37__BMStoreSource_sendEvent_timestamp___block_invoke_2;
+  v5[3] = &unk_1E6E53AB0;
+  v6 = a2;
+  v5[4] = *(a1 + 32);
+  dispatch_async(v4, v5);
 }
 
 void __37__BMStoreSource_sendEvent_timestamp___block_invoke_2(uint64_t a1)
@@ -386,7 +382,7 @@ void __37__BMStoreSource_sendEvent_timestamp___block_invoke_2(uint64_t a1)
 
 - (void)_processPendingWrites
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_lock);
   if (self->_pendingWrites)
   {
@@ -396,32 +392,32 @@ void __37__BMStoreSource_sendEvent_timestamp___block_invoke_2(uint64_t a1)
       v4 = [(NSMutableArray *)self->_pendingWrites count];
       identifier = [(BMSource *)self identifier];
       *buf = 134218242;
-      v26 = v4;
-      v27 = 2112;
-      v28 = identifier;
+      v25 = v4;
+      v26 = 2112;
+      v27 = identifier;
       _os_log_impl(&dword_1848EE000, v3, OS_LOG_TYPE_DEFAULT, "Device has unlocked, proceeding with %lu queued writes to stream %@", buf, 0x16u);
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v6 = [(NSMutableArray *)self->_pendingWrites copy];
-    v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v21;
+      v9 = *v20;
 LABEL_6:
       v10 = 0;
       while (1)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * v10);
+        v11 = *(*(&v19 + 1) + 8 * v10);
         event = [v11 event];
         [v11 timestamp];
         v13 = [(BMStoreSource *)self _writeEvent:event timestamp:0 signpostID:0 notifyCompute:?];
@@ -440,7 +436,7 @@ LABEL_6:
 
         if (v8 == ++v10)
         {
-          v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
           if (v8)
           {
             goto LABEL_6;
@@ -464,14 +460,12 @@ LABEL_6:
       self->_transaction = 0;
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_writeEvent:(id)event timestamp:(double)timestamp signpostID:(unint64_t)d notifyCompute:(BOOL)compute
 {
   computeCopy = compute;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   os_unfair_lock_assert_owner(&self->_lock);
   v11 = objc_autoreleasePoolPush();
@@ -485,8 +479,8 @@ LABEL_6:
 
   v15 = v14;
 
-  v27 = 0;
-  v16 = [(BMStreamDatastoreWriter *)self->_writer writeEventWithEventBody:eventCopy timestamp:&v27 outEventSize:timestamp];
+  v26 = 0;
+  v16 = [(BMStreamDatastoreWriter *)self->_writer writeEventWithEventBody:eventCopy timestamp:&v26 outEventSize:timestamp];
   if (v16)
   {
     computeSource = [(BMStoreSource *)self computeSource];
@@ -525,7 +519,7 @@ LABEL_16:
     if (d != -1 && os_signpost_enabled(v23))
     {
       *buf = 138412290;
-      v29 = v15;
+      v28 = v15;
       _os_signpost_emit_with_name_impl(&dword_1848EE000, computeSource2, OS_SIGNPOST_INTERVAL_END, d, "SendEvent", "StreamIdentifier=%@", buf, 0xCu);
     }
 
@@ -535,21 +529,20 @@ LABEL_16:
 LABEL_17:
   if (self->_shouldSendMetrics)
   {
-    if (v27 >= 0xFFFFFFFF)
+    if (v26 >= 0xFFFFFFFF)
     {
       v24 = 0xFFFFFFFFLL;
     }
 
     else
     {
-      v24 = v27;
+      v24 = v26;
     }
 
     [MEMORY[0x1E698E988] sendAllStreamsEventWritten:v16 size:v24 streamIdentifier:v15];
   }
 
   objc_autoreleasePoolPop(v11);
-  v25 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

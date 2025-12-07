@@ -3,6 +3,7 @@
 - (_TtC19HealthMedicationsUI12DayPickerDay)initWithFrame:(CGRect)frame;
 - (id)accessibilityWeekday;
 - (void)layoutSubviews;
+- (void)setSelected:(BOOL)selected;
 - (void)tintColorDidChange;
 @end
 
@@ -17,7 +18,7 @@
 - (void)tintColorDidChange
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for DayPickerDay();
+  v3.super_class = type metadata accessor for DayPickerDay(0);
   v2 = v3.receiver;
   [(DayPickerDay *)&v3 tintColorDidChange];
   sub_22823A148();
@@ -26,8 +27,18 @@
 - (BOOL)isSelected
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for DayPickerDay();
+  v3.super_class = type metadata accessor for DayPickerDay(0);
   return [(DayPickerDay *)&v3 isSelected];
+}
+
+- (void)setSelected:(BOOL)selected
+{
+  selectedCopy = selected;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for DayPickerDay(0);
+  v4 = v5.receiver;
+  [(DayPickerDay *)&v5 setSelected:selectedCopy];
+  sub_22823A148();
 }
 
 - (id)accessibilityWeekday

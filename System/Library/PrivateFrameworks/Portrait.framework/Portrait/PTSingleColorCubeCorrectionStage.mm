@@ -12,7 +12,7 @@
   v11 = objc_alloc_init(v9);
   if (!v11)
   {
-    v12 = _PTLogSystem();
+    v12 = _PTLogSystem(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [PTSingleColorCubeCorrectionStage load3DTextureFromData:v12 cubeSize:? metal:? outTexture:?];
@@ -53,29 +53,30 @@
 {
   v6 = *&size;
   initCopy = init;
-  v14.receiver = self;
-  v14.super_class = PTSingleColorCubeCorrectionStage;
-  v9 = [(PTSingleColorCubeCorrectionStage *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = PTSingleColorCubeCorrectionStage;
+  v9 = [(PTSingleColorCubeCorrectionStage *)&v15 init];
   v10 = v9;
   if (v9)
   {
-    if (![(PTSingleColorCubeCorrectionStage *)v9 load3DTextureFromData:data cubeSize:v6 metal:initCopy outTexture:&v9->_defaultCubeTexture])
+    v11 = [(PTSingleColorCubeCorrectionStage *)v9 load3DTextureFromData:data cubeSize:v6 metal:initCopy outTexture:&v9->_defaultCubeTexture];
+    if (!v11)
     {
-      v12 = v10;
+      v13 = v10;
       goto LABEL_8;
     }
 
-    v11 = _PTLogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _PTLogSystem(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [PTSingleColorCubeCorrectionStage init:v11 cubeSize:? data:?];
+      [PTSingleColorCubeCorrectionStage init:v12 cubeSize:? data:?];
     }
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_8:
 
-  return v12;
+  return v13;
 }
 
 - (void)load3DTextureFromData:(os_log_t)log cubeSize:metal:outTexture:.cold.1(os_log_t log)

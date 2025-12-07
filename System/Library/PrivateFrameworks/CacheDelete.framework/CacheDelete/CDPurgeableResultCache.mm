@@ -6,10 +6,12 @@
 - (BOOL)isInvalidForVolume:(id)volume;
 - (BOOL)isStale;
 - (BOOL)isStaleForVolume:(id)volume;
+- (id)_recentPurgeableTotals:(int)totals validateResults:(BOOL)results;
 - (id)bsdDiskForVolume:(id)volume;
 - (id)dictionaryByMerging:(id)merging with:(id)with;
 - (id)initEmpty;
 - (id)recentInfoForVolume:(id)volume atUrgency:(int)urgency validateResults:(BOOL)results;
+- (id)recentInfoForVolumes:(id)volumes atUrgency:(int)urgency validateResults:(BOOL)results targetVolume:(id)volume;
 - (id)servicesForVolume:(id)volume;
 - (id)thresholdsForVolume:(id)volume;
 - (int64_t)recentStateForVolume:(id)volume;
@@ -59,6 +61,189 @@ uint64_t __53__CDPurgeableResultCache_sharedPurgeableResultsCache__block_invoke(
   }
 
   return v2;
+}
+
+- (id)_recentPurgeableTotals:(int)totals validateResults:(BOOL)results
+{
+  resultsCopy = results;
+  v59 = *MEMORY[0x1E69E9840];
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  if (totals)
+  {
+    totalsCopy = totals;
+  }
+
+  else
+  {
+    totalsCopy = 3;
+  }
+
+  v39 = totalsCopy;
+  if ([(CDPurgeableResultCache *)self isStale])
+  {
+    v9 = 0;
+    goto LABEL_35;
+  }
+
+  v42 = dictionary;
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  obj = getLocalVolumes();
+  v10 = [obj countByEnumeratingWithState:&v44 objects:v58 count:16];
+  if (!v10)
+  {
+    goto LABEL_34;
+  }
+
+  v12 = v10;
+  v43 = *v45;
+  *&v11 = 67109378;
+  v38 = v11;
+  do
+  {
+    v13 = 0;
+    v40 = v12;
+    do
+    {
+      if (*v45 != v43)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      v14 = *(*(&v44 + 1) + 8 * v13);
+      v15 = [objc_opt_class() fetchVolumeWithPath:v14];
+      mountPoint = [v15 mountPoint];
+      v17 = [(CDPurgeableResultCache *)self isInvalidForVolume:mountPoint];
+
+      if (v17)
+      {
+        v18 = CDGetLogHandle("client");
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 138412290;
+          *v49 = v14;
+          _os_log_debug_impl(&dword_1BA7F1000, v18, OS_LOG_TYPE_DEBUG, "_recentPurgeableTotals - Ignoring invalid volume: %@", buf, 0xCu);
+        }
+
+        goto LABEL_32;
+      }
+
+      v19 = v39;
+      if (v39 < 1)
+      {
+        goto LABEL_28;
+      }
+
+      while (1)
+      {
+        v20 = [(CDPurgeableResultCache *)self recentInfoForVolume:v15 atUrgency:v19 validateResults:resultsCopy, v38];
+        v21 = v20;
+        if (v20)
+        {
+          break;
+        }
+
+LABEL_19:
+
+        v26 = __OFSUB__(v19, 1);
+        v19 = (v19 - 1);
+        if ((v19 < 0) ^ v26 | (v19 == 0))
+        {
+          goto LABEL_28;
+        }
+      }
+
+      v22 = [v20 objectForKeyedSubscript:@"CACHE_DELETE_TOTAL_AVAILABLE"];
+      v23 = evaluateNumberProperty(v22);
+
+      v24 = [v21 objectForKeyedSubscript:@"CACHE_DELETE_SHARED_PURGEABLE"];
+      v25 = evaluateNumberProperty(v24);
+
+      if (!v23)
+      {
+
+        goto LABEL_19;
+      }
+
+      if (v25)
+      {
+        v56[0] = @"CACHE_DELETE_SHARED_PURGEABLE";
+        v56[1] = @"CACHE_DELETE_AMOUNT";
+        v57[0] = v25;
+        v57[1] = v23;
+        v27 = MEMORY[0x1E695DF20];
+        v28 = v57;
+        v29 = v56;
+        v30 = 2;
+      }
+
+      else
+      {
+        v54 = @"CACHE_DELETE_AMOUNT";
+        v55 = v23;
+        v27 = MEMORY[0x1E695DF20];
+        v28 = &v55;
+        v29 = &v54;
+        v30 = 1;
+      }
+
+      v31 = [v27 dictionaryWithObjects:v28 forKeys:v29 count:v30];
+      [v42 setObject:v31 forKeyedSubscript:v14];
+
+      v32 = CDGetLogHandle("client");
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      {
+        v33 = [v42 objectForKeyedSubscript:v14];
+        *buf = 67109890;
+        *v49 = 108;
+        *&v49[4] = 2112;
+        *&v49[6] = v14;
+        v50 = 1024;
+        v51 = v19;
+        v52 = 2112;
+        v53 = v33;
+        v34 = v33;
+        _os_log_impl(&dword_1BA7F1000, v32, OS_LOG_TYPE_DEFAULT, "%d CDPurgeableResultCache _recentPurgeableTotals volume: %@, urgency: %d, result: %@", buf, 0x22u);
+      }
+
+LABEL_28:
+      v35 = [v42 objectForKeyedSubscript:{v14, v38}];
+
+      v12 = v40;
+      if (!v35)
+      {
+        v36 = CDGetLogHandle("client");
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        {
+          *buf = v38;
+          *v49 = 114;
+          *&v49[4] = 2112;
+          *&v49[6] = v14;
+          _os_log_error_impl(&dword_1BA7F1000, v36, OS_LOG_TYPE_ERROR, "%d CDPurgeableResultCache _recentPurgeableTotals no result for %@, setting to zero", buf, 0x12u);
+        }
+
+        [v42 setObject:&unk_1F3879730 forKeyedSubscript:v14];
+      }
+
+LABEL_32:
+
+      ++v13;
+    }
+
+    while (v13 != v12);
+    v12 = [obj countByEnumeratingWithState:&v44 objects:v58 count:16];
+  }
+
+  while (v12);
+LABEL_34:
+
+  dictionary = v42;
+  v9 = v42;
+LABEL_35:
+
+  return v9;
 }
 
 - (id)recentInfoForVolume:(id)volume atUrgency:(int)urgency validateResults:(BOOL)results
@@ -121,7 +306,7 @@ void __72__CDPurgeableResultCache_recentInfoForVolume_atUrgency_validateResults_
 
 void __51__CDPurgeableResultCache_dictionaryByMerging_with___block_invoke(id *a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (![v5 isEqual:@"CACHE_DELETE_NAME_MAP"])
@@ -140,30 +325,28 @@ void __51__CDPurgeableResultCache_dictionaryByMerging_with___block_invoke(id *a1
           v9 = CDGetLogHandle("client");
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
           {
-            v23 = [a1[5] objectForKey:v5];
-            *v24 = 138412802;
-            *&v24[4] = v6;
-            *&v24[12] = 2112;
-            *&v24[14] = v23;
-            *&v24[22] = 2112;
-            v25 = v5;
-            _os_log_debug_impl(&dword_1BA7F1000, v9, OS_LOG_TYPE_DEBUG, "invoking again %@ and %@ %@", v24, 0x20u);
+            v20 = [a1[5] objectForKey:v5];
+            *v21 = 138412802;
+            *&v21[4] = v6;
+            *&v21[12] = 2112;
+            *&v21[14] = v20;
+            *&v21[22] = 2112;
+            v22 = v5;
+            _os_log_debug_impl(&dword_1BA7F1000, v9, OS_LOG_TYPE_DEBUG, "invoking again %@ and %@ %@", v21, 0x20u);
           }
 
           v10 = [a1[6] dictionaryByMerging:v8 with:v6];
-          v11 = [v10 count];
-          v12 = a1[4];
-          if (v11)
+          if ([v10 count])
           {
-            v13 = v10;
+            v11 = v10;
           }
 
           else
           {
-            v13 = v8;
+            v11 = v8;
           }
 
-          v14 = a1[4];
+          v12 = a1[4];
           goto LABEL_26;
         }
       }
@@ -174,26 +357,26 @@ void __51__CDPurgeableResultCache_dictionaryByMerging_with___block_invoke(id *a1
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v15 = CDGetLogHandle("client");
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+          v13 = CDGetLogHandle("client");
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
-            *v24 = 138412802;
-            *&v24[4] = v6;
-            *&v24[12] = 2112;
-            *&v24[14] = v8;
-            *&v24[22] = 2112;
-            v25 = v5;
-            _os_log_debug_impl(&dword_1BA7F1000, v15, OS_LOG_TYPE_DEBUG, "adding %@ and %@ %@", v24, 0x20u);
+            *v21 = 138412802;
+            *&v21[4] = v6;
+            *&v21[12] = 2112;
+            *&v21[14] = v8;
+            *&v21[22] = 2112;
+            v22 = v5;
+            _os_log_debug_impl(&dword_1BA7F1000, v13, OS_LOG_TYPE_DEBUG, "adding %@ and %@ %@", v21, 0x20u);
           }
 
-          v16 = evaluateNumberProperty(v6);
+          v14 = evaluateNumberProperty(v6);
+          v15 = [v14 unsignedLongLongValue];
+          v16 = evaluateNumberProperty(v8);
           v17 = [v16 unsignedLongLongValue];
-          v18 = evaluateNumberProperty(v8);
-          v19 = [v18 unsignedLongLongValue];
 
-          v20 = a1[4];
-          v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v19 + v17];
-          v14 = v20;
+          v18 = a1[4];
+          v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v17 + v15];
+          v12 = v18;
           goto LABEL_25;
         }
       }
@@ -203,16 +386,16 @@ void __51__CDPurgeableResultCache_dictionaryByMerging_with___block_invoke(id *a1
       {
         v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:v8];
         [v10 setObject:v6 forKey:v5];
-        v21 = CDGetLogHandle("client");
-        if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        v19 = CDGetLogHandle("client");
+        if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
 LABEL_24:
 
-          v14 = a1[4];
+          v12 = a1[4];
 LABEL_25:
-          v13 = v10;
+          v11 = v10;
 LABEL_26:
-          [v14 setObject:v13 forKey:{v5, *v24, *&v24[16]}];
+          [v12 setObject:v11 forKey:{v5, *v21, *&v21[8]}];
 
 LABEL_27:
           goto LABEL_28;
@@ -235,26 +418,127 @@ LABEL_27:
 
         v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:v6];
         [v10 setObject:v8 forKey:v5];
-        v21 = CDGetLogHandle("client");
-        if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        v19 = CDGetLogHandle("client");
+        if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_24;
         }
       }
 
-      *v24 = 138412546;
-      *&v24[4] = v10;
-      *&v24[12] = 2112;
-      *&v24[14] = v5;
-      _os_log_debug_impl(&dword_1BA7F1000, v21, OS_LOG_TYPE_DEBUG, "setting %@ for %@", v24, 0x16u);
+      *v21 = 138412546;
+      *&v21[4] = v10;
+      *&v21[12] = 2112;
+      *&v21[14] = v5;
+      _os_log_debug_impl(&dword_1BA7F1000, v19, OS_LOG_TYPE_DEBUG, "setting %@ for %@", v21, 0x16u);
       goto LABEL_24;
     }
   }
 
   [a1[4] setObject:v6 forKey:v5];
 LABEL_28:
+}
 
-  v22 = *MEMORY[0x1E69E9840];
+- (id)recentInfoForVolumes:(id)volumes atUrgency:(int)urgency validateResults:(BOOL)results targetVolume:(id)volume
+{
+  resultsCopy = results;
+  v8 = *&urgency;
+  v45 = *MEMORY[0x1E69E9840];
+  volumesCopy = volumes;
+  volumeCopy = volume;
+  v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  obj = volumesCopy;
+  v37 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+  if (v37)
+  {
+    v36 = *v39;
+    *&v13 = 138412290;
+    v33 = v13;
+    selfCopy = self;
+    do
+    {
+      for (i = 0; i != v37; ++i)
+      {
+        if (*v39 != v36)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v15 = *(*(&v38 + 1) + 8 * i);
+        v16 = [(CDPurgeableResultCache *)self recentInfoForVolume:v15 atUrgency:v8 validateResults:resultsCopy, v33];
+        if (v16)
+        {
+          v17 = CDGetLogHandle("client");
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          {
+            mountPoint = [v15 mountPoint];
+            *buf = v33;
+            v43 = mountPoint;
+            _os_log_impl(&dword_1BA7F1000, v17, OS_LOG_TYPE_DEFAULT, "got volinfo for %@ ", buf, 0xCu);
+          }
+
+          v19 = [v12 objectForKeyedSubscript:@"CACHE_DELETE_TOTAL_AVAILABLE"];
+          v20 = evaluateNumberProperty(v19);
+
+          if (volumeCopy)
+          {
+            v21 = v8;
+            v22 = resultsCopy;
+            mountPoint2 = [v15 mountPoint];
+            v24 = volumeCopy;
+            v25 = [mountPoint2 isEqualToString:volumeCopy];
+
+            v26 = @"CACHE_DELETE_SHARED_PURGEABLE";
+            if (v25)
+            {
+              [v12 addEntriesFromDictionary:v16];
+              v26 = @"CACHE_DELETE_TOTAL_AVAILABLE";
+            }
+
+            v27 = [v16 objectForKeyedSubscript:v26];
+            v28 = evaluateNumberProperty(v27);
+
+            v29 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v28, "unsignedLongLongValue") + objc_msgSend(v20, "unsignedLongLongValue")}];
+            [v12 setObject:v29 forKeyedSubscript:@"CACHE_DELETE_TOTAL_AVAILABLE"];
+
+            volumeCopy = v24;
+            resultsCopy = v22;
+            v8 = v21;
+            self = selfCopy;
+          }
+
+          else
+          {
+            [(CDPurgeableResultCache *)self dictionaryByMerging:v12 with:v16];
+            v12 = v28 = v12;
+          }
+        }
+      }
+
+      v37 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+    }
+
+    while (v37);
+  }
+
+  if ([v12 count])
+  {
+    v30 = [v12 objectForKeyedSubscript:@"com.apple.deleted_helper"];
+    [v12 setObject:v30 forKeyedSubscript:@"CACHE_DELETE_TOTAL_FSPURGEABLE"];
+
+    [v12 removeObjectForKey:@"com.apple.deleted_helper"];
+    v31 = v12;
+  }
+
+  else
+  {
+    v31 = 0;
+  }
+
+  return v31;
 }
 
 - (int64_t)recentStateForVolume:(id)volume
@@ -319,31 +603,31 @@ void __47__CDPurgeableResultCache_recentStateForVolume___block_invoke(uint64_t a
 
 void __57__CDPurgeableResultCache_invalidateAllForgettingPushers___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v2 = [*(a1 + 32) recentPurgeableResults];
   v3 = [v2 volumes];
   v4 = [v3 copy];
 
-  v5 = [v4 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v25;
     do
     {
       v8 = 0;
       do
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * v8);
+        v9 = *(*(&v24 + 1) + 8 * v8);
         v10 = [*(a1 + 32) recentPurgeableResults];
         [v10 invalidateForVolume:v9];
 
@@ -351,7 +635,7 @@ void __57__CDPurgeableResultCache_invalidateAllForgettingPushers___block_invoke(
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v6);
@@ -359,29 +643,29 @@ void __57__CDPurgeableResultCache_invalidateAllForgettingPushers___block_invoke(
 
   if (*(a1 + 40) == 1)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v11 = [*(a1 + 32) recentPurgeableResults];
     v12 = [v11 copyPushingServices];
 
-    v13 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         v16 = 0;
         do
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v21 + 1) + 8 * v16);
+          v17 = *(*(&v20 + 1) + 8 * v16);
           v18 = [*(a1 + 32) recentPurgeableResults];
           v19 = [v18 pushingServices];
           [v19 removeObject:v17];
@@ -390,14 +674,12 @@ void __57__CDPurgeableResultCache_invalidateAllForgettingPushers___block_invoke(
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
       }
 
       while (v14);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEmpty

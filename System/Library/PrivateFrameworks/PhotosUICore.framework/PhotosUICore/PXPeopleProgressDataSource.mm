@@ -44,7 +44,7 @@ void __44__PXPeopleProgressDataSource__logFaceCounts__block_invoke(uint64_t a1)
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 progressReportForLibrary:v2];
+    objc_msgSend_progressReportForLibrary_(v4);
     v6 = *(&v29 + 1);
     v5 = v29;
     v7 = v30;
@@ -263,7 +263,7 @@ void __80__PXPeopleProgressDataSource_photoLibraryDidChangeOnMainQueue_withPrepa
   if (isPhotoLibraryReadyForAnalysis)
   {
     photoLibrary = [(PXPeopleProgressDataSource *)self photoLibrary];
-    [(PXPeopleProgressDataSource *)self progressReportForLibrary:photoLibrary];
+    objc_msgSend_progressReportForLibrary_(self);
     v14 = *&lock[0]._os_unfair_lock_opaque;
     v15 = v12;
     v9 = v13;
@@ -271,7 +271,7 @@ void __80__PXPeopleProgressDataSource_photoLibraryDidChangeOnMainQueue_withPrepa
 
   else
   {
-    +[PXPeopleProgressDataSource _invalidProgressReport];
+    objc_msgSend__invalidProgressReport(PXPeopleProgressDataSource);
     v14 = *&lock[0]._os_unfair_lock_opaque;
     v15 = v12;
     v9 = v13;

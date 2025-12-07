@@ -573,37 +573,37 @@ uint64_t __46__HUNameItemModuleController_prepareForCommit__block_invoke_2(uint6
   v17 = [host moduleController:self dismissViewControllerForRequest:v15];
 }
 
-void __63__HUNameItemModuleController_iconPicker_didPickIconDescriptor___block_invoke(uint64_t a1)
+void __63__HUNameItemModuleController_iconPicker_didPickIconDescriptor___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) nameModule];
-  v3 = [v2 itemUpdater];
+  v3 = [*(a1 + 32) nameModule];
+  v4 = [v3 itemUpdater];
   if (objc_opt_isKindOfClass())
   {
-    v4 = v3;
+    v5 = v4;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  v10 = v4;
+  v11 = v5;
 
-  if (v10)
+  if (v11)
   {
-    v5 = MEMORY[0x277CBEB98];
-    v6 = [*(a1 + 32) nameModule];
-    v7 = [v6 nameAndIconItem];
-    v8 = [v5 setWithObject:v7];
-    v9 = [v10 updateResultsForItems:v8 senderSelector:*(a1 + 40)];
+    v6 = MEMORY[0x277CBEB98];
+    v7 = [*(a1 + 32) nameModule];
+    v8 = [v7 nameAndIconItem];
+    v9 = [v6 setWithObject:v8];
+    v10 = [v11 updateResultsForItems:v9 senderSelector:*(a1 + 40)];
   }
 
   else
   {
-    v6 = [*(a1 + 32) nameModule];
-    v7 = [v6 itemUpdater];
-    NSLog(&cfstr_SomehowWeDonTH.isa, v7);
+    v7 = [*(a1 + 32) nameModule];
+    v8 = [v7 itemUpdater];
+    NSLog(&cfstr_SomehowWeDonTH.isa, v8);
   }
 }
 

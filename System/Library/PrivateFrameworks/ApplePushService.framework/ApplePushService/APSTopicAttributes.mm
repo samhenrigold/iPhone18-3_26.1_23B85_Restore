@@ -1,4 +1,5 @@
 @interface APSTopicAttributes
++ (APSTopicAttributes)topicAttributesWithFilter:(int64_t)filter darkWakeEnabled:(BOOL)enabled pushWakeEnabled:(BOOL)wakeEnabled criticalWakeEnabled:(BOOL)criticalWakeEnabled ultraConstrainedEnabled:(BOOL)constrainedEnabled;
 - (APSTopicAttributes)initWithFilter:(int64_t)filter darkWakeEnabled:(BOOL)enabled pushWakeEnabled:(BOOL)wakeEnabled criticalWakeEnabled:(BOOL)criticalWakeEnabled ultraConstrainedEnabled:(BOOL)constrainedEnabled;
 - (id)description;
 - (void)setCriticalWakeEnabled:(BOOL)enabled;
@@ -53,6 +54,13 @@
   }
 
   return result;
+}
+
++ (APSTopicAttributes)topicAttributesWithFilter:(int64_t)filter darkWakeEnabled:(BOOL)enabled pushWakeEnabled:(BOOL)wakeEnabled criticalWakeEnabled:(BOOL)criticalWakeEnabled ultraConstrainedEnabled:(BOOL)constrainedEnabled
+{
+  v7 = [[APSTopicAttributes alloc] initWithFilter:filter darkWakeEnabled:enabled pushWakeEnabled:wakeEnabled criticalWakeEnabled:criticalWakeEnabled ultraConstrainedEnabled:constrainedEnabled];
+
+  return v7;
 }
 
 - (id)description

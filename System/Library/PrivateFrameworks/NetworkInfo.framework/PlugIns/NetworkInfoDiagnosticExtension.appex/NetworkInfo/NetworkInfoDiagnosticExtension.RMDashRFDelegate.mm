@@ -9,21 +9,20 @@
 {
   v5 = sub_10000D02C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10000CFEC();
   selfCopy = self;
   sub_10000CFFC();
-  v11 = *(&selfCopy->super.isa + OBJC_IVAR____TtCC30NetworkInfoDiagnosticExtension30NetworkInfoDiagnosticExtensionP33_A8013760F8D41FC9CE2006DC6E22100C16RMDashRFDelegate_basePath);
-  v12 = *&selfCopy->basePath[OBJC_IVAR____TtCC30NetworkInfoDiagnosticExtension30NetworkInfoDiagnosticExtensionP33_A8013760F8D41FC9CE2006DC6E22100C16RMDashRFDelegate_basePath];
+  v10 = *(&selfCopy->super.isa + OBJC_IVAR____TtCC30NetworkInfoDiagnosticExtension30NetworkInfoDiagnosticExtensionP33_A8013760F8D41FC9CE2006DC6E22100C16RMDashRFDelegate_basePath);
+  v11 = *&selfCopy->basePath[OBJC_IVAR____TtCC30NetworkInfoDiagnosticExtension30NetworkInfoDiagnosticExtensionP33_A8013760F8D41FC9CE2006DC6E22100C16RMDashRFDelegate_basePath];
 
-  v16._countAndFlagsBits = v11;
-  v16._object = v12;
-  v13 = sub_10000D2DC(v16);
+  v15._countAndFlagsBits = v10;
+  v15._object = v11;
+  v12 = sub_10000D2DC(v15);
 
-  (*(v6 + 8))(v9, v5);
-  return v13;
+  (*(v6 + 8))(v8, v5);
+  return v12;
 }
 
 - (_TtCC30NetworkInfoDiagnosticExtension30NetworkInfoDiagnosticExtensionP33_A8013760F8D41FC9CE2006DC6E22100C16RMDashRFDelegate)init

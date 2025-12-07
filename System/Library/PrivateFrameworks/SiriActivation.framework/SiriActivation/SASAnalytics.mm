@@ -105,19 +105,17 @@ void __61__SASAnalytics_enqueueCurrentAnalyticsEventWithType_context___block_inv
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v8 = WeakRetained;
-    v3 = +[SiriActivationService service];
-    v4 = [v3 xcTestingActive];
+    v5 = WeakRetained;
+    v2 = +[SiriActivationService service];
+    v3 = [v2 xcTestingActive];
 
-    WeakRetained = v8;
-    if ((v4 & 1) == 0)
+    WeakRetained = v5;
+    if ((v3 & 1) == 0)
     {
-      v5 = *(a1 + 48);
-      v6 = *(a1 + 32);
-      v7 = AFAnalyticsEventCreateCurrent();
-      [v8 _enqueueAnalyticsEvent:v7];
+      v4 = AFAnalyticsEventCreateCurrent();
+      [v5 _enqueueAnalyticsEvent:v4];
 
-      WeakRetained = v8;
+      WeakRetained = v5;
     }
   }
 }

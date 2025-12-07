@@ -57,7 +57,7 @@
   v14 = v13;
   v16 = v15;
   [annotation rotationAngle];
-  [AKGeometryHelper rotationTransformForRect:v10 withAngle:v12, v14, v16, -v17];
+  objc_msgSend_rotationTransformForRect_withAngle_(AKGeometryHelper, v10, v12, v14, v16, -v17);
   v18 = y * 0.0 + 0.0 * x + 0.0;
   v19 = v18;
   pageController = [(AKAnnotationEventHandler *)self pageController];

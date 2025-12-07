@@ -14,7 +14,7 @@ void __60__NSDictionary_AVTSecureDecoding__avt_mutableContainersCopy__block_invo
     v5 = v6;
   }
 
-  [*(a1 + 32) setObject:v5 forKeyedSubscript:v7];
+  [*(a1 + 32) setObject:? forKeyedSubscript:?];
 }
 
 @end

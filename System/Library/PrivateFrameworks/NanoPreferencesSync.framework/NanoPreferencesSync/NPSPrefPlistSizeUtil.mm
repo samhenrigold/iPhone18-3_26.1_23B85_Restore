@@ -8,7 +8,7 @@
 
 + (unint64_t)sizeForPlistAtPath:(id)path
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy || ([MEMORY[0x1E696AC08] defaultManager], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "fileExistsAtPath:", pathCopy), v4, !v5))
   {
@@ -16,7 +16,7 @@
     if (os_log_type_enabled(nps_framework_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = pathCopy;
+      v18 = pathCopy;
       _os_log_impl(&dword_1C0D93000, v11, OS_LOG_TYPE_DEFAULT, "Unable to locate prefs for domain %@", buf, 0xCu);
     }
 
@@ -24,9 +24,9 @@
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v17 = 0;
-  v7 = [defaultManager attributesOfItemAtPath:pathCopy error:&v17];
-  v8 = v17;
+  v16 = 0;
+  v7 = [defaultManager attributesOfItemAtPath:pathCopy error:&v16];
+  v8 = v16;
 
   if (!v7 || v8)
   {
@@ -36,9 +36,9 @@
       v13 = v12;
       localizedDescription = [v8 localizedDescription];
       *buf = 138412546;
-      v19 = pathCopy;
-      v20 = 2112;
-      v21 = localizedDescription;
+      v18 = pathCopy;
+      v19 = 2112;
+      v20 = localizedDescription;
       _os_log_impl(&dword_1C0D93000, v13, OS_LOG_TYPE_DEFAULT, "Unable to extract attributes for %@ : %@", buf, 0x16u);
     }
 
@@ -51,7 +51,6 @@ LABEL_11:
   unsignedLongLongValue = [v9 unsignedLongLongValue];
 
 LABEL_12:
-  v15 = *MEMORY[0x1E69E9840];
   return unsignedLongLongValue;
 }
 
@@ -65,7 +64,7 @@ LABEL_12:
 
 + (id)_domainPlistPathFor:(id)for inContainer:(id)container
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   forCopy = for;
   containerCopy = container;
   v7 = [@"/" stringByAppendingPathComponent:@"var/mobile"];
@@ -84,16 +83,14 @@ LABEL_12:
   v12 = nps_framework_log;
   if (os_log_type_enabled(nps_framework_log, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412802;
-    v16 = forCopy;
-    v17 = 2112;
-    v18 = containerCopy;
-    v19 = 2112;
-    v20 = v11;
-    _os_log_impl(&dword_1C0D93000, v12, OS_LOG_TYPE_DEFAULT, "Domain: %@ Container: %@ Path: %@", &v15, 0x20u);
+    v14 = 138412802;
+    v15 = forCopy;
+    v16 = 2112;
+    v17 = containerCopy;
+    v18 = 2112;
+    v19 = v11;
+    _os_log_impl(&dword_1C0D93000, v12, OS_LOG_TYPE_DEFAULT, "Domain: %@ Container: %@ Path: %@", &v14, 0x20u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

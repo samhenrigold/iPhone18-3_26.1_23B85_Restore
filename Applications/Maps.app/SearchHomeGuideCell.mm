@@ -58,7 +58,7 @@
   v11 = type metadata accessor for MapsDesignConstants.ColumnViews.ContainerSize();
   (*(*(v11 - 8) + 56))(self + v10, 1, 1, v11);
   v13.receiver = self;
-  v13.super_class = type metadata accessor for SearchHomeGuideCell();
+  v13.super_class = type metadata accessor for SearchHomeGuideCell(0);
   return [(SearchHomeGuideCell *)&v13 initWithFrame:x, y, width, height];
 }
 

@@ -44,9 +44,11 @@
 
 uint64_t __27__ASDRequest__sharedBroker__block_invoke()
 {
-  qword_1ED90D610 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = qword_1ED90D610;
+  qword_1ED90D610 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)description
@@ -71,22 +73,20 @@ uint64_t __27__ASDRequest__sharedBroker__block_invoke()
 
 - (void)receiveResponse:(id)response
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138543874;
-    v9 = objc_opt_class();
-    v10 = 2114;
+    v7 = 138543874;
+    v8 = objc_opt_class();
+    v9 = 2114;
     selfCopy = self;
-    v12 = 2114;
-    v13 = responseCopy;
-    v7 = v9;
-    _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "[%{public}@]: Request %{public}@ received unhandled response: %{public}@", &v8, 0x20u);
+    v11 = 2114;
+    v12 = responseCopy;
+    v6 = v8;
+    _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "[%{public}@]: Request %{public}@ received unhandled response: %{public}@", &v7, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (ASDRequest)initWithCoder:(id)coder
@@ -140,26 +140,26 @@ uint64_t __27__ASDRequest__sharedBroker__block_invoke()
 
 - (void)_cancelWithErrorHandler:(id)handler
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   proxy = [(ASDRequest *)self proxy];
   if (proxy)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __38__ASDRequest__cancelWithErrorHandler___block_invoke;
-    v14[3] = &unk_1E7CDBAB8;
-    v14[4] = self;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __38__ASDRequest__cancelWithErrorHandler___block_invoke;
+    v13[3] = &unk_1E7CDBAB8;
+    v13[4] = self;
     v6 = handlerCopy;
-    v15 = v6;
-    v7 = [proxy remoteObjectProxyWithErrorHandler:v14];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __38__ASDRequest__cancelWithErrorHandler___block_invoke_16;
-    v12[3] = &unk_1E7CDBAB8;
-    v12[4] = self;
-    v13 = v6;
-    [v7 cancelWithErrorHandler:v12];
+    v14 = v6;
+    v7 = [proxy remoteObjectProxyWithErrorHandler:v13];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __38__ASDRequest__cancelWithErrorHandler___block_invoke_16;
+    v11[3] = &unk_1E7CDBAB8;
+    v11[4] = self;
+    v12 = v6;
+    [v7 cancelWithErrorHandler:v11];
   }
 
   else if (handlerCopy)
@@ -168,36 +168,32 @@ uint64_t __27__ASDRequest__sharedBroker__block_invoke()
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v17 = objc_opt_class();
-      v11 = v17;
+      v16 = objc_opt_class();
+      v10 = v16;
       _os_log_error_impl(&dword_1B8220000, v8, OS_LOG_TYPE_ERROR, "[%{public}@]: Cannot cancel request that has not yet been started", buf, 0xCu);
     }
 
     v9 = ASDErrorWithUnderlyingErrorAndInfo(0, @"ASDErrorDomain", 532, @"Request has not been started", 0, 0);
     (*(handlerCopy + 2))(handlerCopy, v9);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __38__ASDRequest__cancelWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2114;
-    v11 = v3;
-    v7 = v9;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to obtain remote proxy with error: %{public}@", &v8, 0x16u);
+    v6 = 138543618;
+    v7 = objc_opt_class();
+    v8 = 2114;
+    v9 = v3;
+    v5 = v7;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to obtain remote proxy with error: %{public}@", &v6, 0x16u);
   }
 
   [ASDRequest _callErrorHandler:*(a1 + 40) withError:v3 orDefaultCode:?];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyObserverOfCompletionWithError:(void *)error
@@ -247,27 +243,27 @@ void __38__ASDRequest__cancelWithErrorHandler___block_invoke(uint64_t a1, void *
 
 void __37__ASDRequest__startWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) proxy];
   if (v4)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __37__ASDRequest__startWithErrorHandler___block_invoke_2;
-    v14[3] = &unk_1E7CDBAB8;
-    v5 = *(a1 + 40);
-    v14[4] = *(a1 + 32);
-    v15 = v5;
-    v6 = [v4 remoteObjectProxyWithErrorHandler:v14];
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
-    v12[2] = __37__ASDRequest__startWithErrorHandler___block_invoke_20;
+    v12[2] = __37__ASDRequest__startWithErrorHandler___block_invoke_2;
     v12[3] = &unk_1E7CDBAB8;
-    v7 = *(a1 + 40);
+    v5 = *(a1 + 40);
     v12[4] = *(a1 + 32);
-    v13 = v7;
-    [v6 startWithErrorHandler:v12];
+    v13 = v5;
+    v6 = [v4 remoteObjectProxyWithErrorHandler:v12];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __37__ASDRequest__startWithErrorHandler___block_invoke_20;
+    v10[3] = &unk_1E7CDBAB8;
+    v7 = *(a1 + 40);
+    v10[4] = *(a1 + 32);
+    v11 = v7;
+    [v6 startWithErrorHandler:v10];
   }
 
   else
@@ -275,47 +271,41 @@ void __37__ASDRequest__startWithErrorHandler___block_invoke(uint64_t a1, void *a
     v8 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
       *buf = 138543618;
-      v17 = objc_opt_class();
-      v18 = 2114;
-      v19 = v3;
-      v11 = v17;
+      v15 = objc_opt_class();
+      v16 = 2114;
+      v17 = v3;
+      v9 = v15;
       _os_log_error_impl(&dword_1B8220000, v8, OS_LOG_TYPE_ERROR, "[%{public}@]: Cannot start request because submission failed with error: %{public}@", buf, 0x16u);
     }
 
     [ASDRequest _callErrorHandler:*(a1 + 40) withError:v3 orDefaultCode:?];
     [(ASDRequest *)*(a1 + 32) _notifyObserverOfCompletionWithError:v3];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __37__ASDRequest__startWithErrorHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2114;
-    v11 = v3;
-    v7 = v9;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to obtain remote proxy with error: %{public}@", &v8, 0x16u);
+    v6 = 138543618;
+    v7 = objc_opt_class();
+    v8 = 2114;
+    v9 = v3;
+    v5 = v7;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to obtain remote proxy with error: %{public}@", &v6, 0x16u);
   }
 
   [ASDRequest _callErrorHandler:*(a1 + 40) withError:v3 orDefaultCode:?];
   [(ASDRequest *)*(a1 + 32) _notifyObserverOfCompletionWithError:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __37__ASDRequest__startWithErrorHandler___block_invoke_20(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   v5 = v4;
@@ -323,36 +313,33 @@ void __37__ASDRequest__startWithErrorHandler___block_invoke_20(uint64_t a1, void
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v10 = 138543618;
-      v11 = objc_opt_class();
-      v12 = 2114;
-      v13 = v3;
-      v7 = v11;
-      _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to start with error: %{public}@", &v10, 0x16u);
+      v7 = 138543618;
+      v8 = objc_opt_class();
+      v9 = 2114;
+      v10 = v3;
+      v6 = v8;
+      _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to start with error: %{public}@", &v7, 0x16u);
 LABEL_6:
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v8 = *(a1 + 32);
-    v10 = 138543618;
-    v11 = objc_opt_class();
-    v12 = 2114;
-    v13 = 0;
-    v7 = v11;
-    _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_INFO, "[%{public}@]: Started successfully with error: %{public}@", &v10, 0x16u);
+    v7 = 138543618;
+    v8 = objc_opt_class();
+    v9 = 2114;
+    v10 = 0;
+    v6 = v8;
+    _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_INFO, "[%{public}@]: Started successfully with error: %{public}@", &v7, 0x16u);
     goto LABEL_6;
   }
 
   [(ASDRequest *)*(a1 + 32) _callErrorHandler:v3 withError:?];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __45__ASDRequest__submitRequestWithErrorHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
   v7 = ASDLogHandleForCategory(13);
@@ -361,37 +348,33 @@ void __45__ASDRequest__submitRequestWithErrorHandler___block_invoke(uint64_t a1,
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 32);
-      v17 = 138543618;
-      v18 = objc_opt_class();
-      v19 = 2114;
-      v20 = v5;
-      v12 = v18;
-      _os_log_error_impl(&dword_1B8220000, v8, OS_LOG_TYPE_ERROR, "[%{public}@]: Request could not be submitted: %{public}@", &v17, 0x16u);
+      v14 = 138543618;
+      v15 = objc_opt_class();
+      v16 = 2114;
+      v17 = v5;
+      v11 = v15;
+      _os_log_error_impl(&dword_1B8220000, v8, OS_LOG_TYPE_ERROR, "[%{public}@]: Request could not be submitted: %{public}@", &v14, 0x16u);
       goto LABEL_8;
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
-    v11 = *(a1 + 32);
-    v17 = 138543874;
-    v18 = v10;
-    v19 = 2114;
-    v20 = v11;
-    v21 = 2114;
-    v22 = 0;
-    v12 = v10;
-    _os_log_debug_impl(&dword_1B8220000, v8, OS_LOG_TYPE_DEBUG, "[%{public}@]: Request submitted successfully: %{public}@ error: %{public}@", &v17, 0x20u);
+    v9 = objc_opt_class();
+    v10 = *(a1 + 32);
+    v14 = 138543874;
+    v15 = v9;
+    v16 = 2114;
+    v17 = v10;
+    v18 = 2114;
+    v19 = 0;
+    v11 = v9;
+    _os_log_debug_impl(&dword_1B8220000, v8, OS_LOG_TYPE_DEBUG, "[%{public}@]: Request submitted successfully: %{public}@ error: %{public}@", &v14, 0x20u);
 LABEL_8:
   }
 
   [*(a1 + 32) setProxy:v6];
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v5, v13, v14);
-
-  v15 = *MEMORY[0x1E69E9840];
+  (*(*(a1 + 40) + 16))(*(a1 + 40), v5, v12, v13);
 }
 
 - (ASDRequestObserver)observer

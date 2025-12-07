@@ -142,20 +142,18 @@
 
 - (NSString)descriptionText
 {
-  v3 = +[NRPairedDeviceRegistry hprf_activeDeviceIsSatelliteDevice];
-  isHeartAgeGatingEnabled = self->_isHeartAgeGatingEnabled;
-  if (v3)
+  if (+[NRPairedDeviceRegistry hprf_activeDeviceIsSatelliteDevice])
   {
     if (!self->_isHeartAgeGatingEnabled)
     {
-      v5 = @"HEART_AREA_DESCRIPTION_TINKER_OVER_13";
+      v3 = @"HEART_AREA_DESCRIPTION_TINKER_OVER_13";
 LABEL_6:
-      v6 = HKHeartRateTinkerLocalizedString(v5);
+      v4 = HKHeartRateTinkerLocalizedString(v3);
       goto LABEL_8;
     }
 
 LABEL_5:
-    v5 = @"HEART_AREA_DESCRIPTION_TINKER_UNDER_13";
+    v3 = @"HEART_AREA_DESCRIPTION_TINKER_UNDER_13";
     goto LABEL_6;
   }
 
@@ -164,10 +162,10 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v6 = HKHeartRateLocalizedString();
+  v4 = HKHeartRateLocalizedString();
 LABEL_8:
 
-  return v6;
+  return v4;
 }
 
 - (double)topToIconTop

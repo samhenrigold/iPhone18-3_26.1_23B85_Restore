@@ -66,98 +66,94 @@
 
 - (void)recordNode:(id)node kernelID:(unint64_t)d
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v7 = [(MPSNDArrayAutoTuneRecorderObj *)self getKernelNodesForKernelID:d];
-  if ([v7 containsObject:node])
+  if (([v7 containsObject:node] & 1) == 0)
   {
-LABEL_23:
-    v33 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v8 = objc_autoreleasePoolPush();
-  [v7 addObject:node];
-  v9 = kernelIDToFileNameMap[d];
-  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", v9, @".nsarray"];
-  v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", v9, @".h"];
-  v12 = [(NSURL *)self->_autoTuneNodesDirURL URLByAppendingPathComponent:v10];
-  v13 = [(NSURL *)self->_autoTuneNodesDirURL URLByAppendingPathComponent:v11];
-  uTF8String = [(NSString *)[(NSURL *)v12 path] UTF8String];
-  MPSKernel_LogInfo(uTF8String, v15, v16, v17, v18, v19, v20, v21, uTF8String);
-  allObjects = [v7 allObjects];
-  [allObjects writeToURL:v12 error:0];
-  if (d < 4)
-  {
-    v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"const %@ nodeTable[] {\n", off_278B0AA40[d]];
-    v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v24 = [allObjects countByEnumeratingWithState:&v34 objects:v58 count:16];
-    if (v24)
+    v8 = objc_autoreleasePoolPush();
+    [v7 addObject:node];
+    v9 = kernelIDToFileNameMap[d];
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", v9, @".nsarray"];
+    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", v9, @".h"];
+    v12 = [(NSURL *)self->_autoTuneNodesDirURL URLByAppendingPathComponent:v10];
+    v13 = [(NSURL *)self->_autoTuneNodesDirURL URLByAppendingPathComponent:v11];
+    uTF8String = [(NSString *)[(NSURL *)v12 path] UTF8String];
+    MPSKernel_LogInfo(uTF8String, v15, v16, v17, v18, v19, v20, v21, uTF8String);
+    allObjects = [v7 allObjects];
+    [allObjects writeToURL:v12 error:0];
+    if (d >= 4)
     {
-      v25 = v24;
-      v26 = *v35;
-      if (d >= 2)
+      if (MTLReportFailureTypeEnabled())
       {
-        do
-        {
-          for (i = 0; i != v25; ++i)
-          {
-            if (*v35 != v26)
-            {
-              objc_enumerationMutation(allObjects);
-            }
-
-            [*(*(&v34 + 1) + 8 * i) getBytes:&v38 length:80];
-            v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d}", v38, HIDWORD(v38), v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57];
-            v23 = [v23 stringByAppendingString:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"    %@, \n", v31)}];
-          }
-
-          v25 = [allObjects countByEnumeratingWithState:&v34 objects:v58 count:16];
-        }
-
-        while (v25);
+        MTLReportFailure();
       }
 
-      else
-      {
-        do
-        {
-          for (j = 0; j != v25; ++j)
-          {
-            if (*v35 != v26)
-            {
-              objc_enumerationMutation(allObjects);
-            }
-
-            [*(*(&v34 + 1) + 8 * j) getBytes:&v38 length:72];
-            v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d}", v38, HIDWORD(v38), v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54];
-            v23 = [v23 stringByAppendingString:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"    %@, \n", v28)}];
-          }
-
-          v25 = [allObjects countByEnumeratingWithState:&v34 objects:v58 count:16];
-        }
-
-        while (v25);
-      }
+      objc_autoreleasePoolPop(v8);
     }
 
-    v32 = [v23 stringByAppendingString:@"};\n"];
-    v38 = 0;
-    [v32 writeToURL:v13 atomically:1 encoding:10 error:&v38];
-    objc_autoreleasePoolPop(v8);
-    goto LABEL_23;
+    else
+    {
+      v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"const %@ nodeTable[] {\n", off_278B0AA40[d]];
+      v32 = 0u;
+      v33 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v24 = [allObjects countByEnumeratingWithState:&v32 objects:v56 count:16];
+      if (v24)
+      {
+        v25 = v24;
+        v26 = *v33;
+        if (d >= 2)
+        {
+          do
+          {
+            for (i = 0; i != v25; ++i)
+            {
+              if (*v33 != v26)
+              {
+                objc_enumerationMutation(allObjects);
+              }
+
+              [*(*(&v32 + 1) + 8 * i) getBytes:&v36 length:80];
+              v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d}", v36, HIDWORD(v36), v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55];
+              v23 = [v23 stringByAppendingString:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"    %@, \n", v30)}];
+            }
+
+            v25 = [allObjects countByEnumeratingWithState:&v32 objects:v56 count:16];
+          }
+
+          while (v25);
+        }
+
+        else
+        {
+          do
+          {
+            for (j = 0; j != v25; ++j)
+            {
+              if (*v33 != v26)
+              {
+                objc_enumerationMutation(allObjects);
+              }
+
+              [*(*(&v32 + 1) + 8 * j) getBytes:&v36 length:72];
+              v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d}", v36, HIDWORD(v36), v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52];
+              v23 = [v23 stringByAppendingString:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"    %@, \n", v28)}];
+            }
+
+            v25 = [allObjects countByEnumeratingWithState:&v32 objects:v56 count:16];
+          }
+
+          while (v25);
+        }
+      }
+
+      v31 = [v23 stringByAppendingString:@"};\n"];
+      v36 = 0;
+      [v31 writeToURL:v13 atomically:1 encoding:10 error:&v36];
+      objc_autoreleasePoolPop(v8);
+    }
   }
-
-  if (MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  v29 = *MEMORY[0x277D85DE8];
-
-  objc_autoreleasePoolPop(v8);
 }
 
 - (id)getKernelNodesForKernelID:(unint64_t)d

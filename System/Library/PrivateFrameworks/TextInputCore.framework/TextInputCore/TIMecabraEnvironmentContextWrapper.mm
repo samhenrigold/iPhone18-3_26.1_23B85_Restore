@@ -30,7 +30,11 @@
 - (void)revertLearningForCandidate:(void *)candidate;
 - (void)setAppContext:(id)context;
 - (void)setGeometryModel:(void *)model modelData:(__CFArray *)data;
+- (void)setInTypeToSiriMode:(BOOL)mode;
 - (void)setKeyboardLayout:(id)layout;
+- (void)setPrivateMode:(BOOL)mode;
+- (void)setShuangpinType:(int)type;
+- (void)setTextContentType:(int)type;
 - (void)syncEnvironmentAndContextCandidates;
 @end
 
@@ -53,6 +57,14 @@
   return CandidateFromContextString;
 }
 
+- (void)setInTypeToSiriMode:(BOOL)mode
+{
+  modeCopy = mode;
+  mecabraEngine = [(TIMecabraEnvironmentContextWrapper *)self mecabraEngine];
+
+  MEMORY[0x2821F8FB8](mecabraEngine, modeCopy);
+}
+
 - (void)setKeyboardLayout:(id)layout
 {
   layoutCopy = layout;
@@ -70,55 +82,54 @@
 - (void)setAppContext:(id)context
 {
   contextCopy = context;
-  if (([contextCopy isEqualToString:self->_appContext] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(contextCopy) & 1) == 0)
   {
     v4 = [contextCopy copy];
     appContext = self->_appContext;
     self->_appContext = v4;
 
     [(TIMecabraEnvironmentContextWrapper *)self mecabraContext];
-    v6 = self->_appContext;
     MecabraContextSetAppContext();
   }
 }
 
 - (void)completelyCommitInlineCandidate:(void *)candidate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (candidate)
   {
     [(TIMecabraEnvironmentContextWrapper *)self mecabraContext];
     MecabraContextAddInlineCandidate();
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   inlineCandidates = [(TIMecabraEnvironmentContextWrapper *)self inlineCandidates];
-  v5 = [inlineCandidates countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [inlineCandidates countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(inlineCandidates);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         [(TIMecabraEnvironmentContextWrapper *)self setCandidateIndex:[(TIMecabraEnvironmentContextWrapper *)self candidateIndex]+ 1];
         [(TIMecabraEnvironmentContextWrapper *)self addEnvironmentCandidate:v9 atIndex:[(TIMecabraEnvironmentContextWrapper *)self candidateIndex]];
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [inlineCandidates countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [inlineCandidates countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
@@ -127,7 +138,6 @@
   [(TIMecabraEnvironmentContextWrapper *)self mecabraEngine];
   [(TIMecabraEnvironmentContextWrapper *)self mecabraContext];
   MecabraAcceptInlineCandidates();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)partiallyCommitInlineCandidate:(void *)candidate
@@ -236,6 +246,16 @@
   return MEMORY[0x2821F8EE8](mecabraEngine, mecabraContext);
 }
 
+- (void)setPrivateMode:(BOOL)mode
+{
+  modeCopy = mode;
+  mecabraContext = [(TIMecabraEnvironmentContextWrapper *)self mecabraContext];
+  v5 = *MEMORY[0x277D82A48];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:modeCopy];
+
+  MEMORY[0x2821F8E50](mecabraContext, v5, v6);
+}
+
 - (id)contextString:(id)string forRightContext:(BOOL)context
 {
   contextCopy = context;
@@ -273,7 +293,7 @@
 
 - (void)syncEnvironmentAndContextCandidates
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   temporaryCandidates = [(TIMecabraEnvironmentContextWrapper *)self temporaryCandidates];
   [temporaryCandidates removeAllObjects];
 
@@ -281,32 +301,32 @@
   environmentCandidates = [(TIMecabraEnvironmentContextWrapper *)self environmentCandidates];
   v6 = [contextCandidates deletionRangesWithElementsToKeep:environmentCandidates];
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v33;
+    v10 = *v32;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v33 != v10)
+        if (*v32 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v32 + 1) + 8 * i);
+        v12 = *(*(&v31 + 1) + 8 * i);
         [(TIMecabraEnvironmentContextWrapper *)self mecabraContext];
         [v12 rangeValue];
         MecabraContextRemoveCandidatesInRange();
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v9);
@@ -358,8 +378,6 @@
       [temporaryCandidates2 addObject:v29];
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)revertLearningForCandidate:(void *)candidate
@@ -560,13 +578,30 @@
   }
 }
 
+- (void)setShuangpinType:(int)type
+{
+  v3 = *&type;
+  self->_shuangpinType = type;
+  mecabraContext = [(TIMecabraEnvironmentContextWrapper *)self mecabraContext];
+
+  MEMORY[0x2821F8E58](mecabraContext, v3);
+}
+
+- (void)setTextContentType:(int)type
+{
+  v3 = *&type;
+  self->_textContentType = type;
+  mecabraContext = [(TIMecabraEnvironmentContextWrapper *)self mecabraContext];
+
+  MEMORY[0x2821F8E60](mecabraContext, v3);
+}
+
 - (void)dealloc
 {
-  mecabraContext = self->_mecabraContext;
   MecabraContextRelease();
-  v4.receiver = self;
-  v4.super_class = TIMecabraEnvironmentContextWrapper;
-  [(TIMecabraEnvironmentContextWrapper *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = TIMecabraEnvironmentContextWrapper;
+  [(TIMecabraEnvironmentContextWrapper *)&v3 dealloc];
 }
 
 - (TIMecabraEnvironmentContextWrapper)initWithMecabraEngine:(__Mecabra *)engine language:(int)language

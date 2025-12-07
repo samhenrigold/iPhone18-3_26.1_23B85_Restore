@@ -31,9 +31,9 @@
 - (_DASTimer)initWithCallback:(id)callback
 {
   callbackCopy = callback;
-  v19.receiver = self;
-  v19.super_class = _DASTimer;
-  v5 = [(_DASTimer *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = _DASTimer;
+  v5 = [(_DASTimer *)&v18 init];
   if (v5)
   {
     v6 = objc_retainBlock(callbackCopy);
@@ -49,19 +49,18 @@
     v12 = *(v5 + 3);
     *(v5 + 3) = v11;
 
-    v13 = *(v5 + 3);
     dispatch_set_qos_class_fallback();
     dispatch_source_set_timer(*(v5 + 3), 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL);
     objc_initWeak(&location, v5);
-    v14 = *(v5 + 3);
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10002BF94;
-    v16[3] = &unk_1001B5468;
-    objc_copyWeak(&v17, &location);
-    dispatch_source_set_event_handler(v14, v16);
+    v13 = *(v5 + 3);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_10002BF94;
+    v15[3] = &unk_1001B5468;
+    objc_copyWeak(&v16, &location);
+    dispatch_source_set_event_handler(v13, v15);
     dispatch_resume(*(v5 + 3));
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
 

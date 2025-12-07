@@ -34,26 +34,27 @@
 - (_GCRacingWheelProductInformation)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v14.receiver = self;
-  v14.super_class = _GCRacingWheelProductInformation;
-  v5 = [(_GCRacingWheelProductInformation *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = _GCRacingWheelProductInformation;
+  v5 = [(_GCRacingWheelProductInformation *)&v15 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = GCIPCObjectIdentifier_Classes();
-    v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"identifier"];
-    identifier = v5->_identifier;
-    v5->_identifier = v7;
+    v7 = GCIPCObjectIdentifier_Classes(v5);
+    v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"identifier"];
+    identifier = v6->_identifier;
+    v6->_identifier = v8;
 
-    v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"productCategory"];
-    productCategory = v5->_productCategory;
-    v5->_productCategory = v9;
+    v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"productCategory"];
+    productCategory = v6->_productCategory;
+    v6->_productCategory = v10;
 
-    v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"vendorName"];
-    vendorName = v5->_vendorName;
-    v5->_vendorName = v11;
+    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"vendorName"];
+    vendorName = v6->_vendorName;
+    v6->_vendorName = v12;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder

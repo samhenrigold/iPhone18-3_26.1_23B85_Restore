@@ -61,7 +61,7 @@
 {
   v3 = [NSString stringWithFormat:@"============================== KeyframeVector ==================================\n"];
   [(MPAnimationKeyframe *)self time];
-  v5 = [[[(NSString *)v3 stringByAppendingFormat:@"\t                          Time: %f\n" stringByAppendingFormat:"stringByAppendingFormat:" stringByAppendingFormat:[(MPAnimationKeyframe *)self offsetType]], "stringByAppendingFormat:", @"\t                        Vector: %@\n", [(MPVector *)[(MPAnimationKeyframeVector *)self vector] string]];
+  v5 = -[NSString stringByAppendingFormat:](-[NSString stringByAppendingFormat:](-[NSString stringByAppendingFormat:](v3, "stringByAppendingFormat:", @"\t                          Time: %f\n", v4), "stringByAppendingFormat:", @"\t                        Offset: %f\n", -[MPAnimationKeyframe offsetType](self, "offsetType")), "stringByAppendingFormat:", @"\t                        Vector: %@\n", [objc_msgSend_vector(self) string]);
   if (self->super._keyframe)
   {
     v6 = @"YES";
@@ -89,7 +89,7 @@
     v12 = 0;
     if (vector)
     {
-      [vector vector];
+      objc_msgSend_vector(vector);
     }
 
     [(MPAnimationPath *)self->super._parentPath animatedParent];

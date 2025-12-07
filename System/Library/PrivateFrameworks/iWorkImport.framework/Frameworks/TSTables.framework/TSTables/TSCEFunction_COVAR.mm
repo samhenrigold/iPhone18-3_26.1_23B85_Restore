@@ -7,82 +7,82 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v8 = **arguments;
-  v56 = 0;
-  v9 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v8, a2, context, spec, 0, 1, &v56);
-  v10 = v56;
+  v48 = 0;
+  v9 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v8, a2, context, spec, 0, 1, &v48);
+  v10 = v48;
   if (v10)
   {
-    v14 = v10;
-    v15 = objc_msgSend_raiseErrorOrConvert_(context, v11, v10, v12, v13);
+    v13 = v10;
+    v14 = objc_msgSend_raiseErrorOrConvert_(context, v11, v10, v12);
     goto LABEL_7;
   }
 
-  v16 = *(*arguments + 8);
-  v55 = 0;
-  v17 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v16, v11, context, spec, 1, 1, &v55);
-  v14 = v55;
-  if (v14)
+  v15 = *(*arguments + 8);
+  v47 = 0;
+  v16 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v15, v11, context, spec, 1, 1, &v47);
+  v13 = v47;
+  if (v13)
   {
-    v22 = objc_msgSend_raiseErrorOrConvert_(context, v18, v14, v20, v21);
+    v20 = objc_msgSend_raiseErrorOrConvert_(context, v17, v13, v19);
   }
 
   else
   {
-    v24 = objc_msgSend_count(v9, v18, v19, v20, v21);
-    if (v24 != objc_msgSend_count(v17, v25, v26, v27, v28))
+    v22 = objc_msgSend_count(v9, v17, v18, v19);
+    if (v22 != objc_msgSend_count(v16, v23, v24, v25))
     {
-      v40 = objc_msgSend_functionName(spec, v29, v30, v31, v32);
-      v44 = objc_msgSend_differentNumberOfDataPointsErrorForFunctionName_(TSCEError, v41, v40, v42, v43);
-      v15 = objc_msgSend_raiseErrorOrConvert_(context, v45, v44, v46, v47);
+      v35 = objc_msgSend_functionName(spec, v26, v27, v28);
+      v38 = objc_msgSend_differentNumberOfDataPointsErrorForFunctionName_(TSCEError, v36, v35, v37);
+      v14 = objc_msgSend_raiseErrorOrConvert_(context, v39, v38, v40);
 
-      v14 = 0;
+      v13 = 0;
       goto LABEL_6;
     }
 
-    v53 = 0;
-    isSample_outError = objc_msgSend_covarianceWithVector_functionSpec_vector1_vector2_outStdDev_durationAllowed_isSample_outError_(TSCEFunction_CORREL, v29, context, spec, v9, v17, 0, 0, 0, &v53);
-    v35 = v34;
-    v14 = v53;
-    v54[0] = isSample_outError;
-    v54[1] = v35;
-    if (v14)
+    v45 = 0;
+    isSample_outError = objc_msgSend_covarianceWithVector_functionSpec_vector1_vector2_outStdDev_durationAllowed_isSample_outError_(TSCEFunction_CORREL, v26, context, spec, v9, v16, 0, 0, 0, &v45);
+    v31 = v30;
+    v13 = v45;
+    v46[0] = isSample_outError;
+    v46[1] = v31;
+    if (v13)
     {
-      v22 = objc_msgSend_raiseErrorOrConvert_(context, v36, v14, v38, v39);
+      v20 = objc_msgSend_raiseErrorOrConvert_(context, v32, v13, v34);
     }
 
     else
     {
       if (v9)
       {
-        objc_msgSend_formatWithContext_(v9, v36, context, v38, v39);
+        objc_msgSend_formatWithContext_(v9, v32, context, v34);
       }
 
       else
       {
-        memset(&v51, 0, sizeof(v51));
+        memset(&v43, 0, sizeof(v43));
       }
 
-      if (v17)
+      if (v16)
       {
-        objc_msgSend_formatWithContext_(v17, v36, context, v38, v39);
+        objc_msgSend_formatWithContext_(v16, v32, context, v34);
       }
 
       else
       {
-        memset(&v50, 0, sizeof(v50));
+        memset(&v42, 0, sizeof(v42));
       }
 
-      TSCEFormat::formatByMergingWithFormat(&v51, &v50, v37, v38, v39, v52);
-      v22 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v48, v54, v52, v49);
+      TSCEFormat::formatByMergingWithFormat(&v44, &v43, &v42, v33, v34);
+      v20 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v41, v46, &v44);
     }
   }
 
-  v15 = v22;
+  v14 = v20;
 LABEL_6:
 
 LABEL_7:
 
-  return v15;
+  return v14;
 }
 
 @end

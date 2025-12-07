@@ -65,23 +65,21 @@
 
 - (void)updateConversationWithUUID:(id)d participantPresentationContexts:(id)contexts
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dCopy = d;
   contextsCopy = contexts;
-  v8 = TUDefaultLog();
+  v8 = TUDefaultLog(contextsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = contextsCopy;
-    v13 = 2112;
-    v14 = dCopy;
-    _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "Updating participants presentation contexts: %@ for conversation UUID: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = contextsCopy;
+    v12 = 2112;
+    v13 = dCopy;
+    _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "Updating participants presentation contexts: %@ for conversation UUID: %@", &v10, 0x16u);
   }
 
   dataSource = [(TUConversationMediaController *)self dataSource];
   [dataSource updateConversationWithUUID:dCopy participantPresentationContexts:contextsCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mediaPrioritiesChangeForConversation:(id)conversation
@@ -99,28 +97,28 @@
 
 void __70__TUConversationMediaController_mediaPrioritiesChangeForConversation___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) delegates];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 mediaController:*(a1 + 32) participantMediaPrioritiesChangedForConversation:*(a1 + 40)];
@@ -130,13 +128,11 @@ void __70__TUConversationMediaController_mediaPrioritiesChangeForConversation___
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

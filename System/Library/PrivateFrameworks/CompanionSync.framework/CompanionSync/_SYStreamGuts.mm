@@ -60,8 +60,6 @@
   {
     if (mach_port_insert_right(*v5, self->_port, self->_port, 0x14u))
     {
-      v6 = *v5;
-      port = self->_port;
 
       JUMPOUT(0x1E12E0E60);
     }

@@ -19,7 +19,7 @@
 - (_AXGlassBackgroundView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____AXGlassBackgroundView_glassBackgroundHostingController;
-  v5 = objc_allocWithZone(type metadata accessor for GlassBackgroundHostingController());
+  v5 = objc_allocWithZone(type metadata accessor for GlassBackgroundHostingController(0));
   *(&self->super.super.super.isa + v4) = UIHostingController.init(rootView:)();
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);

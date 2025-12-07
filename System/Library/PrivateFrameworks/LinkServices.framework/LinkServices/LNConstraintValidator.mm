@@ -56,16 +56,16 @@ void __46__LNConstraintValidator_validateAction_error___block_invoke(uint64_t a1
 
 void __46__LNConstraintValidator_validateAction_error___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = v6;
   *(*(*(a1 + 32) + 8) + 24) = a2;
   if (v6)
   {
     v8 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696A578];
-    v12[0] = v6;
-    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696A578];
+    v11[0] = v6;
+    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v8 errorWithDomain:@"AppIntentConstraints" code:a2 userInfo:v3];
   }
 
@@ -78,8 +78,6 @@ void __46__LNConstraintValidator_validateAction_error___block_invoke_2(uint64_t 
   if (v7)
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

@@ -56,19 +56,17 @@
 
   *(v6 + 2) = v9 + 1;
   *&v6[4 * v9 + 32] = float;
-  v10 = *(&self->super.super.isa + v5);
   *(&self->super.super.isa + v5) = v6;
 }
 
 - (void)appendFloats:(const float *)floats count:(int64_t)count
 {
   v7 = OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector;
-  v10 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector);
+  v9 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector);
   selfCopy = self;
 
   sub_25587DD74(floats, count);
-  v9 = *(&self->super.super.isa + v7);
-  *(&self->super.super.isa + v7) = v10;
+  *(&self->super.super.isa + v7) = v9;
 }
 
 - (void)appendDoubles:(const double *)doubles count:(int64_t)count
@@ -79,27 +77,25 @@
 
 - (void)appendVector:(id)vector
 {
-  (*((*MEMORY[0x277D85000] & *vector) + 0x70))(&v9, self, a2);
-  v4 = v9;
+  (*((*MEMORY[0x277D85000] & *vector) + 0x70))(&v8, self, a2);
+  v4 = v8;
   v5 = OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector;
-  v8 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector);
+  v7 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector);
   selfCopy = self;
 
   sub_25587DF30(v4);
-  v7 = *(&self->super.super.isa + v5);
-  *(&self->super.super.isa + v5) = v8;
+  *(&self->super.super.isa + v5) = v7;
 }
 
 - (void)appendArray:(id)array
 {
   v4 = sub_2559654C0();
   v5 = OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector;
-  v8 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector);
+  v7 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector);
   selfCopy = self;
 
   sub_25587DF30(v4);
-  v7 = *(&self->super.super.isa + v5);
-  *(&self->super.super.isa + v5) = v8;
+  *(&self->super.super.isa + v5) = v7;
 }
 
 - (void)setFloat:(float)float atIndex:(int64_t)index
@@ -135,7 +131,6 @@ LABEL_9:
   }
 
   *&v8[4 * index + 32] = float;
-  v10 = *(&self->super.super.isa + v7);
   *(&self->super.super.isa + v7) = v8;
 }
 
@@ -156,53 +151,49 @@ LABEL_9:
 - (void)subtractScalar:(float)scalar
 {
   v4 = OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector;
-  v8 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector);
+  v7 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector);
   v5 = -scalar;
   selfCopy = self;
   swift_bridgeObjectRetain_n();
-  sub_25587FD64(v8, &v8, v5);
+  sub_25587FD64(v7, &v7, v5);
 
-  v7 = *(&self->super.super.isa + v4);
-  *(&self->super.super.isa + v4) = v8;
+  *(&self->super.super.isa + v4) = v7;
 }
 
 - (void)addScalar:(float)scalar
 {
   v5 = OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector;
-  v8 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector);
+  v7 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector);
   selfCopy = self;
   swift_bridgeObjectRetain_n();
-  sub_25587FD64(v8, &v8, scalar);
+  sub_25587FD64(v7, &v7, scalar);
 
-  v7 = *(&self->super.super.isa + v5);
-  *(&self->super.super.isa + v5) = v8;
+  *(&self->super.super.isa + v5) = v7;
 }
 
 - (void)divideByScalar:(float)scalar
 {
   v5 = OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector;
-  v8 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector);
+  v7 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector);
   selfCopy = self;
   swift_bridgeObjectRetain_n();
-  sub_25587FF4C(v8, &v8, scalar);
+  sub_25587FF4C(v7, &v7, scalar);
 
-  v7 = *(&self->super.super.isa + v5);
-  *(&self->super.super.isa + v5) = v8;
+  *(&self->super.super.isa + v5) = v7;
 }
 
 - (void)elementwiseMultiplyByWrapper:(id)wrapper
 {
-  (*((*MEMORY[0x277D85000] & *wrapper) + 0x70))(&v11, self, a2);
-  v5 = v11;
+  (*((*MEMORY[0x277D85000] & *wrapper) + 0x70))(&v10, self, a2);
+  v5 = v10;
   v6 = OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector;
-  v10 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector);
+  v9 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatVectorWrapper__floatVector);
   wrapperCopy = wrapper;
   selfCopy = self;
   swift_bridgeObjectRetain_n();
-  sub_25587FCB4(v10, v5, &v10, MEMORY[0x277CB87D0]);
+  sub_25587FCB4(v9, v5, &v9, MEMORY[0x277CB87D0]);
 
-  v9 = *(&self->super.super.isa + v6);
-  *(&self->super.super.isa + v6) = v10;
+  *(&self->super.super.isa + v6) = v9;
 }
 
 @end

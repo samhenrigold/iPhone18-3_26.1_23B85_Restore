@@ -83,67 +83,67 @@ uint64_t __38__CPUINowPlayingManager_sharedManager__block_invoke(uint64_t a1)
 
 - (void)_setupRequestController
 {
-  v59[1] = *MEMORY[0x277D85DE8];
+  v60[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CD6038]);
   selfCopy = self;
   requestController = self->_requestController;
   self->_requestController = v3;
 
   MRMediaRemoteSetWantsNowPlayingNotifications();
-  v40 = objc_alloc(MEMORY[0x277CD6018]);
-  v58 = *MEMORY[0x277CD5BB0];
   v41 = objc_alloc(MEMORY[0x277CD6018]);
+  v59 = *MEMORY[0x277CD5BB0];
+  v42 = objc_alloc(MEMORY[0x277CD6018]);
   v5 = *MEMORY[0x277CD5B18];
-  v57[0] = *MEMORY[0x277CD5B60];
-  v57[1] = v5;
+  v58[0] = *MEMORY[0x277CD5B60];
+  v58[1] = v5;
   v6 = *MEMORY[0x277CD5B08];
-  v57[2] = *MEMORY[0x277CD5AF8];
-  v57[3] = v6;
-  v57[4] = *MEMORY[0x277CD5B50];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:5];
-  v55[0] = *MEMORY[0x277CD5C10];
+  v58[2] = *MEMORY[0x277CD5AF8];
+  v58[3] = v6;
+  v58[4] = *MEMORY[0x277CD5B50];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:5];
+  v56[0] = *MEMORY[0x277CD5C10];
   v8 = MEMORY[0x277CD6018];
-  v54 = *MEMORY[0x277CD5988];
-  v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
-  v42 = [v8 propertySetWithProperties:v43];
-  v56[0] = v42;
-  v55[1] = *MEMORY[0x277CD5BF0];
+  v55 = *MEMORY[0x277CD5988];
+  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+  v43 = [v8 propertySetWithProperties:v44];
+  v57[0] = v43;
+  v56[1] = *MEMORY[0x277CD5BF0];
   v9 = objc_alloc(MEMORY[0x277CD6018]);
-  v53 = *MEMORY[0x277CD5960];
-  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
-  v51 = *MEMORY[0x277CD5B68];
+  v54 = *MEMORY[0x277CD5960];
+  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+  v52 = *MEMORY[0x277CD5B68];
   v10 = MEMORY[0x277CD6018];
-  v50 = *MEMORY[0x277CD5980];
-  v11 = v50;
-  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
-  v12 = [v10 propertySetWithProperties:v39];
-  v52 = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-  v14 = [v9 initWithProperties:v38 relationships:v13];
-  v56[1] = v14;
-  v55[2] = *MEMORY[0x277CD5C08];
+  v51 = *MEMORY[0x277CD5980];
+  v11 = v51;
+  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+  v12 = [v10 propertySetWithProperties:v40];
+  v53 = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+  v14 = [v9 initWithProperties:v39 relationships:v13];
+  v57[1] = v14;
+  v56[2] = *MEMORY[0x277CD5C08];
   v15 = MEMORY[0x277CD6018];
-  v49 = v11;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
+  v50 = v11;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
   v17 = [v15 propertySetWithProperties:v16];
-  v56[2] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:3];
+  v57[2] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:3];
   v19 = v7;
-  v20 = [v41 initWithProperties:v7 relationships:v18];
-  v59[0] = v20;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&v58 count:1];
-  v22 = [v40 initWithProperties:0 relationships:v21];
+  v20 = [v42 initWithProperties:v7 relationships:v18];
+  v60[0] = v20;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:&v59 count:1];
+  v22 = [v41 initWithProperties:0 relationships:v21];
 
   v23 = objc_alloc(MEMORY[0x277CD6018]);
-  v47 = *MEMORY[0x277CD5B90];
+  v48 = *MEMORY[0x277CD5B90];
   v24 = MEMORY[0x277CD6018];
   v25 = *MEMORY[0x277CD5A78];
-  v46[0] = *MEMORY[0x277CD5AB0];
-  v46[1] = v25;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
+  v47[0] = *MEMORY[0x277CD5AB0];
+  v47[1] = v25;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
   v27 = [v24 propertySetWithProperties:v26];
-  v48 = v27;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+  v49 = v27;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
   v29 = [v23 initWithProperties:0 relationships:v28];
 
   v30 = objc_alloc_init(MEMORY[0x277D278F0]);
@@ -162,11 +162,11 @@ uint64_t __38__CPUINowPlayingManager_sharedManager__block_invoke(uint64_t a1)
   requestController2 = [(CPUINowPlayingManager *)selfCopy requestController];
   [requestController2 setDelegate:selfCopy];
 
-  v36 = CarPlayUIGeneralLogging();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+  v37 = CarPlayUIGeneralLogging(v36);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_243134000, v36, OS_LOG_TYPE_DEFAULT, "Beginning automatic mediaplayer response loading.", buf, 2u);
+    _os_log_impl(&dword_243134000, v37, OS_LOG_TYPE_DEFAULT, "Beginning automatic mediaplayer response loading.", buf, 2u);
   }
 
   requestController3 = [(CPUINowPlayingManager *)selfCopy requestController];
@@ -175,7 +175,7 @@ uint64_t __38__CPUINowPlayingManager_sharedManager__block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  v3 = CarPlayUIGeneralLogging();
+  v3 = CarPlayUIGeneralLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -265,7 +265,7 @@ void __58__CPUINowPlayingManager_performCommandRequest_completion___block_invoke
 
 void __62__CPUINowPlayingManager_controller_defersResponseReplacement___block_invoke(uint64_t a1)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   if (v2)
   {
@@ -313,38 +313,38 @@ void __62__CPUINowPlayingManager_controller_defersResponseReplacement___block_in
         {
           [*(a1 + 40) lastContentItemTitle];
           v19 = v18 = v3;
-          v56 = [v14 isEqualToString:v19];
+          v59 = [v14 isEqualToString:v19];
 
           v3 = v18;
-          if ((v56 & 1) == 0)
+          if ((v59 & 1) == 0)
           {
             v20 = [*(a1 + 40) metadataThrottle];
             v21 = [v20 incrementAttempts];
 
             if ((v21 & 1) == 0)
             {
-              v22 = CarPlayUIGeneralLogging();
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+              v23 = CarPlayUIGeneralLogging(v22);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
               {
-                v23 = [(CPUINowPlayingSnapshot *)v4 bundleIdentifier];
-                v24 = v23;
-                v25 = @"[all]";
-                if (v23)
+                v24 = [(CPUINowPlayingSnapshot *)v4 bundleIdentifier];
+                v25 = v24;
+                v26 = @"[all]";
+                if (v24)
                 {
-                  v25 = v23;
+                  v26 = v24;
                 }
 
                 *buf = 138412546;
-                v68 = v25;
-                v69 = 2112;
-                v70 = v9;
-                _os_log_impl(&dword_243134000, v22, OS_LOG_TYPE_DEFAULT, "Throttling snapshot update for app %@ with content item identifier %@", buf, 0x16u);
+                v71 = v26;
+                v72 = 2112;
+                v73 = v9;
+                _os_log_impl(&dword_243134000, v23, OS_LOG_TYPE_DEFAULT, "Throttling snapshot update for app %@ with content item identifier %@", buf, 0x16u);
               }
 
-              v26 = [*(a1 + 40) stateObservers];
-              v27 = *(a1 + 40);
-              v28 = [(CPUINowPlayingSnapshot *)v4 bundleIdentifier];
-              [(CPUINowPlayingSnapshotArtwork *)v26 nowPlayingManager:v27 didThrottleUpdateForBundleIdentifier:v28];
+              v27 = [*(a1 + 40) stateObservers];
+              v28 = *(a1 + 40);
+              v29 = [(CPUINowPlayingSnapshot *)v4 bundleIdentifier];
+              [(CPUINowPlayingSnapshotArtwork *)v27 nowPlayingManager:v28 didThrottleUpdateForBundleIdentifier:v29];
 
 LABEL_47:
               goto LABEL_48;
@@ -361,81 +361,81 @@ LABEL_47:
 LABEL_22:
     [*(a1 + 40) setLastContentItemIdentifier:v9];
     [*(a1 + 40) setLastContentItemTitle:v14];
-    v29 = [*(a1 + 40) metadataThrottle];
-    [v29 unthrottle];
-
     v30 = [*(a1 + 40) metadataThrottle];
-    [v30 incrementAttempts];
+    [v30 unthrottle];
+
+    v31 = [*(a1 + 40) metadataThrottle];
+    [v31 incrementAttempts];
 
 LABEL_23:
   }
 
   objc_storeStrong((*(a1 + 40) + 48), v4);
-  v31 = [*(a1 + 40) stateObservers];
-  [v31 nowPlayingManager:*(a1 + 40) didUpdateSnapshot:v4];
+  v32 = [*(a1 + 40) stateObservers];
+  [v32 nowPlayingManager:*(a1 + 40) didUpdateSnapshot:v4];
 
   v6 = [(CPUINowPlayingSnapshot *)v4 artworkCatalog];
   v9 = [(CPUINowPlayingSnapshot *)v4 bundleIdentifier];
-  [*(a1 + 40) preferredArtworkSize];
-  if (v32 >= 1.0)
+  v33 = [*(a1 + 40) preferredArtworkSize];
+  if (v34 >= 1.0)
   {
     if (!v6)
     {
-      v52 = CarPlayUIGeneralLogging();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+      v55 = CarPlayUIGeneralLogging(v33);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
       {
-        __62__CPUINowPlayingManager_controller_defersResponseReplacement___block_invoke_cold_3(v4, v52);
+        __62__CPUINowPlayingManager_controller_defersResponseReplacement___block_invoke_cold_3(v4, v55);
       }
 
-      v53 = [[CPUINowPlayingSnapshotArtwork alloc] initWithArtworkCatalog:0 bundleIdentifier:v9 artworkImage:0 snapshot:v4];
-      v54 = *(a1 + 40);
-      v55 = *(v54 + 40);
-      *(v54 + 40) = v53;
-      v26 = v53;
+      v56 = [[CPUINowPlayingSnapshotArtwork alloc] initWithArtworkCatalog:0 bundleIdentifier:v9 artworkImage:0 snapshot:v4];
+      v57 = *(a1 + 40);
+      v58 = *(v57 + 40);
+      *(v57 + 40) = v56;
+      v27 = v56;
 
       v14 = [*(a1 + 40) stateObservers];
-      [v14 nowPlayingManager:*(a1 + 40) didReceiveArtworkResponse:v26];
+      [v14 nowPlayingManager:*(a1 + 40) didReceiveArtworkResponse:v27];
       goto LABEL_47;
     }
 
     [*(a1 + 40) preferredArtworkSize];
-    v34 = v33;
-    v57 = v3;
+    v36 = v35;
+    v60 = v3;
     if (CPUICannedArtworkSizeNearestToSize_onceToken != -1)
     {
       __62__CPUINowPlayingManager_controller_defersResponseReplacement___block_invoke_cold_1();
     }
 
-    v35 = [MEMORY[0x277CCABB0] numberWithDouble:v34];
-    v63 = 0u;
-    v64 = 0u;
-    v65 = 0u;
+    v37 = [MEMORY[0x277CCABB0] numberWithDouble:v36];
     v66 = 0u;
-    v36 = CPUICannedArtworkSizeNearestToSize__cannedSizes;
-    v37 = [v36 countByEnumeratingWithState:&v63 objects:buf count:16];
-    if (v37)
+    v67 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    v38 = CPUICannedArtworkSizeNearestToSize__cannedSizes;
+    v39 = [v38 countByEnumeratingWithState:&v66 objects:buf count:16];
+    if (v39)
     {
-      v38 = v37;
-      v39 = *v64;
+      v40 = v39;
+      v41 = *v67;
 LABEL_32:
-      v40 = 0;
+      v42 = 0;
       while (1)
       {
-        if (*v64 != v39)
+        if (*v67 != v41)
         {
-          objc_enumerationMutation(v36);
+          objc_enumerationMutation(v38);
         }
 
-        v41 = *(*(&v63 + 1) + 8 * v40);
-        if ([v41 compare:v35] == 1)
+        v43 = *(*(&v66 + 1) + 8 * v42);
+        if ([v43 compare:v37] == 1)
         {
           break;
         }
 
-        if (v38 == ++v40)
+        if (v40 == ++v42)
         {
-          v38 = [v36 countByEnumeratingWithState:&v63 objects:buf count:16];
-          if (v38)
+          v40 = [v38 countByEnumeratingWithState:&v66 objects:buf count:16];
+          if (v40)
           {
             goto LABEL_32;
           }
@@ -449,56 +449,56 @@ LABEL_32:
     {
 LABEL_38:
 
-      v41 = [CPUICannedArtworkSizeNearestToSize__cannedSizes lastObject];
-      v36 = v41;
+      v43 = [CPUICannedArtworkSizeNearestToSize__cannedSizes lastObject];
+      v38 = v43;
     }
 
-    [v41 floatValue];
-    v43 = v42;
+    [v43 floatValue];
+    v45 = v44;
 
-    v44 = v43;
-    v45 = CarPlayUIGeneralLogging();
-    v3 = v57;
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+    v46 = v45;
+    v48 = CarPlayUIGeneralLogging(v47);
+    v3 = v60;
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
     {
-      __62__CPUINowPlayingManager_controller_defersResponseReplacement___block_invoke_cold_2(v4, v45);
+      __62__CPUINowPlayingManager_controller_defersResponseReplacement___block_invoke_cold_2(v4, v48);
     }
 
-    v46 = [*(a1 + 40) stateObservers];
-    [v46 nowPlayingManager:*(a1 + 40) willStartLoadingArtworkForCatalog:v6 bundleIdentifier:v9];
+    v49 = [*(a1 + 40) stateObservers];
+    [v49 nowPlayingManager:*(a1 + 40) willStartLoadingArtworkForCatalog:v6 bundleIdentifier:v9];
 
-    v47 = *(a1 + 40);
-    v48 = *(v47 + 40);
-    *(v47 + 40) = 0;
+    v50 = *(a1 + 40);
+    v51 = *(v50 + 40);
+    *(v50 + 40) = 0;
 
-    [v6 setFittingSize:v44, v44];
+    [v6 setFittingSize:v46, v46];
     [*(a1 + 40) preferredArtworkScale];
-    if (v49 < 2.0)
+    if (v52 < 2.0)
     {
-      v49 = 2.0;
+      v52 = 2.0;
     }
 
-    [v6 setDestinationScale:v49];
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __62__CPUINowPlayingManager_controller_defersResponseReplacement___block_invoke_90;
-    v58[3] = &unk_278D9C5A8;
+    [v6 setDestinationScale:v52];
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __62__CPUINowPlayingManager_controller_defersResponseReplacement___block_invoke_90;
+    v61[3] = &unk_278D9C5A8;
     v6 = v6;
-    v59 = v6;
+    v62 = v6;
     v9 = v9;
-    v60 = v9;
-    v50 = v4;
-    v51 = *(a1 + 40);
-    v61 = v50;
-    v62 = v51;
-    [v6 requestImageWithCompletion:v58];
+    v63 = v9;
+    v53 = v4;
+    v54 = *(a1 + 40);
+    v64 = v53;
+    v65 = v54;
+    [v6 requestImageWithCompletion:v61];
 
-    v14 = v59;
+    v14 = v62;
   }
 
   else
   {
-    v14 = CarPlayUIGeneralLogging();
+    v14 = CarPlayUIGeneralLogging(v33);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       __62__CPUINowPlayingManager_controller_defersResponseReplacement___block_invoke_cold_4(v14);
@@ -514,7 +514,7 @@ void __62__CPUINowPlayingManager_controller_defersResponseReplacement___block_in
   v5 = a2;
   v6 = a3;
   v7 = [[CPUINowPlayingSnapshotArtwork alloc] initWithArtworkCatalog:*(a1 + 32) bundleIdentifier:*(a1 + 40) artworkImage:v5 snapshot:*(a1 + 48)];
-  v8 = CarPlayUIGeneralLogging();
+  v8 = CarPlayUIGeneralLogging(v7);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
   if (v6)
   {

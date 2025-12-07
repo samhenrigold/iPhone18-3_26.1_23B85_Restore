@@ -18,7 +18,7 @@
 
 - (BOOL)cmsBoolForKey:()CMSCodingUtils withDefault:
 {
-  v5 = [self objectForKey:?];
+  v5 = [self objectForKey:a3];
   if (v5)
   {
     objc_opt_class();
@@ -82,7 +82,7 @@ LABEL_7:
 
 - (uint64_t)cmsIntegerForKey:()CMSCodingUtils withDefault:
 {
-  v5 = [self objectForKey:?];
+  v5 = [self objectForKey:a3];
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
@@ -94,7 +94,7 @@ LABEL_7:
 
 - (uint64_t)cmsUnsignedForKey:()CMSCodingUtils withDefault:
 {
-  v5 = [self objectForKey:?];
+  v5 = [self objectForKey:a3];
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
@@ -184,47 +184,47 @@ LABEL_13:
 {
   v1 = [self objectForKey:?];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v2 = cmsDateFormatter();
-    v3 = [v2 dateFromString:v1];
+    v3 = cmsDateFormatter(isKindOfClass);
+    v4 = [v3 dateFromString:v1];
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (id)cmsOptionalArrayOfClass:()CMSCodingUtils forKey:
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = [self objectForKey:a4];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v13;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
 
@@ -232,7 +232,7 @@ LABEL_13:
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           continue;
@@ -242,18 +242,16 @@ LABEL_13:
       }
     }
 
-    v11 = v5;
+    v10 = v5;
   }
 
   else
   {
 LABEL_12:
-    v11 = 0;
+    v10 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v10;
 }
 
 - (id)cmsOptionalDecodedClass:()CMSCodingUtils forKey:

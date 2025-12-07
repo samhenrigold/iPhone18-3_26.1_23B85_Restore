@@ -303,7 +303,7 @@ uint64_t __35__SCNPhysicsHingeJoint_setAnchorB___block_invoke(uint64_t a1)
 
   if (!v8)
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SCNPhysicsHingeJoint _addToPhysicsWorld:v9 definition:?];
@@ -317,7 +317,7 @@ uint64_t __35__SCNPhysicsHingeJoint_setAnchorB___block_invoke(uint64_t a1)
   v11 = *&definition->var0[48];
   v13[2] = *&definition->var0[32];
   v13[3] = v11;
-  self->_constraint = _createConstraintFromDefinition(v13);
+  self->_constraint = _createConstraintFromDefinition(v13, a2);
   _handle = [world _handle];
   (*(*_handle + 112))(_handle, self->_constraint, 0);
 }

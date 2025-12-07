@@ -125,7 +125,7 @@
   path = [libraryURL path];
   v9 = [path stringByAppendingPathComponent:@"PhotoData/OutgoingTemp"];
 
-  if ([v6 isEqualToString:v9])
+  if (objc_msgSend_isEqualToString_(v6))
   {
 
 LABEL_4:

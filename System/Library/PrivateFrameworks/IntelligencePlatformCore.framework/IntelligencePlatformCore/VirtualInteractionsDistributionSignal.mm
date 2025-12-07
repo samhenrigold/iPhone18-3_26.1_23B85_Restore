@@ -1,17 +1,27 @@
 @interface VirtualInteractionsDistributionSignal
+- (NSSet)featureNames;
 - (id)featureValueForName:(id)name;
 @end
 
 @implementation VirtualInteractionsDistributionSignal
 
+- (NSSet)featureNames
+{
+
+  sub_1C4D2FCFC();
+
+  v2 = sub_1C4F01AA8();
+
+  return v2;
+}
+
 - (id)featureValueForName:(id)name
 {
-  v3 = sub_1C4F01138();
-  v5 = v4;
+  sub_1C4F01138();
 
-  v6 = sub_1C4D30CE0(v3, v5);
+  v3 = sub_1C4D30CE0();
 
-  return v6;
+  return v3;
 }
 
 @end

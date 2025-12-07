@@ -314,7 +314,7 @@ void __39__C2MetricOptions_generateCloudKitInfo__block_invoke(uint64_t a1, void 
   return v11;
 }
 
-uint64_t __53__C2MetricOptions_generateTriggerWithResponseHeader___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__53__C2MetricOptions_generateTriggerWithResponseHeader___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) clientOperationTriggered:a2];
   if (result)
@@ -329,7 +329,7 @@ uint64_t __53__C2MetricOptions_generateTriggerWithResponseHeader___block_invoke(
   return result;
 }
 
-uint64_t __53__C2MetricOptions_generateTriggerWithResponseHeader___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__53__C2MetricOptions_generateTriggerWithResponseHeader___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) operationGroupTriggered:a2];
   if (result)
@@ -348,38 +348,27 @@ uint64_t __53__C2MetricOptions_generateTriggerWithResponseHeader___block_invoke_
 {
   triggeredCopy = triggered;
   v5 = triggeredCopy;
-  if (!self->_reportClientOperationFrequencyBase)
+  v12 = 0;
+  if (self->_reportClientOperationFrequencyBase)
   {
-    goto LABEL_6;
-  }
+    if (self->_reportClientOperationFrequency)
+    {
+      operationId = [triggeredCopy operationId];
 
-  if (!self->_reportClientOperationFrequency)
-  {
-    goto LABEL_6;
-  }
+      if (operationId)
+      {
+        operationId2 = [v5 operationId];
+        c2UniformlyDistributedIdentifier = [operationId2 c2UniformlyDistributedIdentifier];
+        p_reportClientOperationFrequency = &self->_reportClientOperationFrequency;
+        reportClientOperationFrequency = self->_reportClientOperationFrequency;
+        v11 = c2UniformlyDistributedIdentifier % p_reportClientOperationFrequency[1];
 
-  operationId = [triggeredCopy operationId];
-
-  if (!operationId)
-  {
-    goto LABEL_6;
-  }
-
-  operationId2 = [v5 operationId];
-  c2UniformlyDistributedIdentifier = [operationId2 c2UniformlyDistributedIdentifier];
-  p_reportClientOperationFrequency = &self->_reportClientOperationFrequency;
-  reportClientOperationFrequency = self->_reportClientOperationFrequency;
-  v11 = c2UniformlyDistributedIdentifier % p_reportClientOperationFrequency[1];
-
-  if (v11 < reportClientOperationFrequency)
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-LABEL_6:
-    v12 = 0;
+        if (v11 < reportClientOperationFrequency)
+        {
+          v12 = 1;
+        }
+      }
+    }
   }
 
   return v12;
@@ -389,38 +378,27 @@ LABEL_6:
 {
   triggeredCopy = triggered;
   v5 = triggeredCopy;
-  if (!self->_reportOperationGroupFrequencyBase)
+  v12 = 0;
+  if (self->_reportOperationGroupFrequencyBase)
   {
-    goto LABEL_6;
-  }
+    if (self->_reportOperationGroupFrequency)
+    {
+      operationGroupId = [triggeredCopy operationGroupId];
 
-  if (!self->_reportOperationGroupFrequency)
-  {
-    goto LABEL_6;
-  }
+      if (operationGroupId)
+      {
+        operationGroupId2 = [v5 operationGroupId];
+        c2UniformlyDistributedIdentifier = [operationGroupId2 c2UniformlyDistributedIdentifier];
+        p_reportOperationGroupFrequency = &self->_reportOperationGroupFrequency;
+        reportOperationGroupFrequency = self->_reportOperationGroupFrequency;
+        v11 = c2UniformlyDistributedIdentifier % p_reportOperationGroupFrequency[1];
 
-  operationGroupId = [triggeredCopy operationGroupId];
-
-  if (!operationGroupId)
-  {
-    goto LABEL_6;
-  }
-
-  operationGroupId2 = [v5 operationGroupId];
-  c2UniformlyDistributedIdentifier = [operationGroupId2 c2UniformlyDistributedIdentifier];
-  p_reportOperationGroupFrequency = &self->_reportOperationGroupFrequency;
-  reportOperationGroupFrequency = self->_reportOperationGroupFrequency;
-  v11 = c2UniformlyDistributedIdentifier % p_reportOperationGroupFrequency[1];
-
-  if (v11 < reportOperationGroupFrequency)
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-LABEL_6:
-    v12 = 0;
+        if (v11 < reportOperationGroupFrequency)
+        {
+          v12 = 1;
+        }
+      }
+    }
   }
 
   return v12;
@@ -809,26 +787,25 @@ LABEL_74:
 
 - (unint64_t)hash
 {
-  v22 = [(NSURL *)self->_c2MetricsEndpoint hash];
-  v3 = *&self->_reportFrequency;
-  v17 = v3;
-  v18 = *&self->_reportClientOperationFrequency;
+  v21 = [(NSURL *)self->_c2MetricsEndpoint hash];
+  v16 = *&self->_reportFrequency;
+  v17 = *&self->_reportClientOperationFrequency;
   reportOperationGroupFrequencyBase = self->_reportOperationGroupFrequencyBase;
   reportOperationGroupFrequency = self->_reportOperationGroupFrequency;
-  v21 = [(NSString *)self->_clientProcessVersion hash];
-  v16 = [(NSString *)self->_clientProcessBundleId hash];
-  v4 = [(NSString *)self->_container hash];
-  v5 = [(NSString *)self->_environment hash];
-  v6 = [(NSString *)self->_databaseScope hash];
+  v20 = [(NSString *)self->_clientProcessVersion hash];
+  v15 = [(NSString *)self->_clientProcessBundleId hash];
+  v3 = [(NSString *)self->_container hash];
+  v4 = [(NSString *)self->_environment hash];
+  v5 = [(NSString *)self->_databaseScope hash];
   anonymous = self->_anonymous;
-  v8 = [(NSString *)self->_containerScopedUserIdentifier hash];
-  v9 = [(NSString *)self->_containerScopedDeviceIdentifier hash];
-  v10 = [(NSString *)self->_applicationBundleIdentifierOverrideForContainerAccess hash];
-  v11 = [(NSString *)self->_applicationBundleIdentifierOverrideForNetworkAttribution hash];
-  v12 = [(NSArray *)self->_operationGroups hash];
-  v13 = [(NSArray *)self->_clientOperations hash];
-  v14 = veorq_s8(v17, v18);
-  return *&veor_s8(*v14.i8, *&vextq_s8(v14, v14, 8uLL)) ^ reportOperationGroupFrequency ^ reportOperationGroupFrequencyBase ^ anonymous ^ v13 ^ v12 ^ self->_reportFrequencyRandomValue ^ self->_pushTrigger ^ v11 ^ v10 ^ v9 ^ v8 ^ v6 ^ v5 ^ v4 ^ v16 ^ v21 ^ v22;
+  v7 = [(NSString *)self->_containerScopedUserIdentifier hash];
+  v8 = [(NSString *)self->_containerScopedDeviceIdentifier hash];
+  v9 = [(NSString *)self->_applicationBundleIdentifierOverrideForContainerAccess hash];
+  v10 = [(NSString *)self->_applicationBundleIdentifierOverrideForNetworkAttribution hash];
+  v11 = [(NSArray *)self->_operationGroups hash];
+  v12 = [(NSArray *)self->_clientOperations hash];
+  v13 = veorq_s8(v16, v17);
+  return *&veor_s8(*v13.i8, *&vextq_s8(v13, v13, 8uLL)) ^ reportOperationGroupFrequency ^ reportOperationGroupFrequencyBase ^ anonymous ^ v12 ^ v11 ^ self->_reportFrequencyRandomValue ^ self->_pushTrigger ^ v10 ^ v9 ^ v8 ^ v7 ^ v5 ^ v4 ^ v3 ^ v15 ^ v20 ^ v21;
 }
 
 - (void)encodeWithCoder:(id)coder

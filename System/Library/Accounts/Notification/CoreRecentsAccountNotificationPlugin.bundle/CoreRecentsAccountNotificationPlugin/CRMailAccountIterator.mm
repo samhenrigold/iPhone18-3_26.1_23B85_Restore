@@ -35,97 +35,93 @@
 
 - (void)enumerateEmailAddresses:(id)addresses
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   addressesCopy = addresses;
   [(CRMailAccountIterator *)self mailAccounts];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  obj = v28 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  obj = v27 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
-    v19 = *MEMORY[0x29EDC5818];
-    v20 = *v26;
+    v18 = *MEMORY[0x29EDC5818];
+    v19 = *v25;
     v7 = *MEMORY[0x29EDC5810];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v20)
+        if (*v25 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * i);
-        v10 = [v9 objectForKeyedSubscript:v19];
+        v9 = *(*(&v24 + 1) + 8 * i);
+        v10 = [v9 objectForKeyedSubscript:v18];
         bOOLValue = [v10 BOOLValue];
 
         v12 = [v9 objectForKeyedSubscript:v7];
+        v20 = 0u;
         v21 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v24 = 0u;
-        v13 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v22;
+          v15 = *v21;
           do
           {
             for (j = 0; j != v14; ++j)
             {
-              if (*v22 != v15)
+              if (*v21 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              addressesCopy[2](addressesCopy, *(*(&v21 + 1) + 8 * j), bOOLValue);
+              addressesCopy[2](addressesCopy, *(*(&v20 + 1) + 8 * j), bOOLValue);
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
           }
 
           while (v14);
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v6 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v6);
   }
-
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 - (id)mailAccounts
 {
-  v12[2] = *MEMORY[0x29EDCA608];
+  v11[2] = *MEMORY[0x29EDCA608];
   v2 = objc_alloc_init(MEMORY[0x29EDC0C30]);
   future = [v2 future];
   [future addFailureBlock:&unk_2A23D2B50];
 
   v4 = MEMORY[0x29EDC5820];
   v5 = *MEMORY[0x29EDC5818];
-  v12[0] = *MEMORY[0x29EDC5810];
-  v12[1] = v5;
-  v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:2];
+  v11[0] = *MEMORY[0x29EDC5810];
+  v11[1] = v5;
+  v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:2];
   completionHandlerAdapter = [v2 completionHandlerAdapter];
   [v4 accountValuesForKeys:v6 completionBlock:completionHandlerAdapter];
 
   future2 = [v2 future];
   v9 = [future2 resultWithTimeout:0 error:10.0];
 
-  v10 = *MEMORY[0x29EDCA608];
-
   return v9;
 }
 
 - (id)emailAddressesForAccount:(id)account
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   v4 = objc_alloc_init(MEMORY[0x29EDB8E20]);
   accountProperties = [accountCopy accountProperties];
@@ -137,30 +133,30 @@
     [v4 addObject:v7];
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v8 = [accountCopy objectForKeyedSubscript:*MEMORY[0x29EDB82F8]];
-  v9 = [v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v31;
+    v11 = *v30;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v31 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [MEMORY[0x29EDC1040] rawAddressFromFullAddress:*(*(&v30 + 1) + 8 * i)];
+        v13 = [MEMORY[0x29EDC1040] rawAddressFromFullAddress:*(*(&v29 + 1) + 8 * i)];
         [v4 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v10);
@@ -176,37 +172,35 @@
   }
 
   v17 = [objc_opt_class() receivedEmailAddressesFromAccount:accountCopy];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v18 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v27;
+    v20 = *v26;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v27 != v20)
+        if (*v26 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = [MEMORY[0x29EDC1040] rawAddressFromFullAddress:*(*(&v26 + 1) + 8 * j)];
+        v22 = [MEMORY[0x29EDC1040] rawAddressFromFullAddress:*(*(&v25 + 1) + 8 * j)];
         [v4 addObject:v22];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v19);
   }
 
   allObjects = [v4 allObjects];
-
-  v24 = *MEMORY[0x29EDCA608];
 
   return allObjects;
 }

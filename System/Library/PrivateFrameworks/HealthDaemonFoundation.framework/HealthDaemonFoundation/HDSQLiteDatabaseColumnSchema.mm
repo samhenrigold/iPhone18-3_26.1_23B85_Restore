@@ -21,28 +21,7 @@
   equalCopy = equal;
   name = self->_name;
   v6 = equalCopy[2];
-  if (name != v6 && (!v6 || ![(NSString *)name isEqual:?]))
-  {
-    goto LABEL_20;
-  }
-
-  type = self->_type;
-  v8 = equalCopy[3];
-  if (type != v8 && (!v8 || ![(NSString *)type isEqual:?]))
-  {
-    goto LABEL_20;
-  }
-
-  if (((defaultValue = self->_defaultValue, v10 = equalCopy[4], defaultValue == v10) || v10 && [(NSString *)defaultValue isEqual:?]) && self->_isAutoincrement == *(equalCopy + 8) && self->_isPrimaryKey == *(equalCopy + 9) && self->_isNullable == *(equalCopy + 10) && ((foreignKeyTargetTable = self->_foreignKeyTargetTable, v12 = equalCopy[5], foreignKeyTargetTable == v12) || v12 && [(NSString *)foreignKeyTargetTable isEqual:?]) && ((foreignKeyTargetColumn = self->_foreignKeyTargetColumn, v14 = equalCopy[6], foreignKeyTargetColumn == v14) || v14 && [(NSString *)foreignKeyTargetColumn isEqual:?]))
-  {
-    v15 = self->_deletionAction == equalCopy[7];
-  }
-
-  else
-  {
-LABEL_20:
-    v15 = 0;
-  }
+  v15 = (name == v6 || v6 && [(NSString *)name isEqual:?]) && ((type = self->_type, v8 = equalCopy[3], type == v8) || v8 && [(NSString *)type isEqual:?]) && ((defaultValue = self->_defaultValue, v10 = equalCopy[4], defaultValue == v10) || v10 && [(NSString *)defaultValue isEqual:?]) && self->_isAutoincrement == *(equalCopy + 8) && self->_isPrimaryKey == *(equalCopy + 9) && self->_isNullable == *(equalCopy + 10) && ((foreignKeyTargetTable = self->_foreignKeyTargetTable, v12 = equalCopy[5], foreignKeyTargetTable == v12) || v12 && [(NSString *)foreignKeyTargetTable isEqual:?]) && ((foreignKeyTargetColumn = self->_foreignKeyTargetColumn, v14 = equalCopy[6], foreignKeyTargetColumn == v14) || v14 && [(NSString *)foreignKeyTargetColumn isEqual:?]) && self->_deletionAction == equalCopy[7];
 
   return v15;
 }

@@ -5,6 +5,7 @@
 + (void)_decorateVODSummary:(id)summary completion:(id)completion;
 + (void)_donateIntentWithPlaybackSummary:(id)summary andMetadata:(id)metadata;
 - (WLDPlaybackReporter)initWithSessionID:(id)d;
+- (void)_cleanupWithSuccess:(BOOL)success error:(id)error completion:(id)completion;
 - (void)_clearBDTimer;
 - (void)_reportPlayEvent:(id)event summary:(id)summary completion:(id)completion;
 - (void)_scheduleTimedReportForSummary:(id)summary afterMillis:(id)millis;
@@ -105,44 +106,43 @@ void __49__WLDPlaybackReporter_reportPlayback_completion___block_invoke(id *a1, 
 
     if ([v9 length])
     {
-      v10 = a1[4];
-      v11 = objc_opt_class();
-      v17[0] = _NSConcreteStackBlock;
-      v17[1] = 3221225472;
-      v17[2] = __49__WLDPlaybackReporter_reportPlayback_completion___block_invoke_9;
-      v17[3] = &unk_100045258;
-      v12 = a1[5];
-      v17[4] = a1[4];
-      v19 = a1[6];
-      v18 = a1[5];
-      [v11 _decorateVODSummary:v12 completion:v17];
+      v10 = objc_opt_class();
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = __49__WLDPlaybackReporter_reportPlayback_completion___block_invoke_9;
+      v16[3] = &unk_100045258;
+      v11 = a1[5];
+      v16[4] = a1[4];
+      v18 = a1[6];
+      v17 = a1[5];
+      [v10 _decorateVODSummary:v11 completion:v16];
     }
 
     else
     {
-      v14 = WLKPlaybackTrackingLogObject();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v13 = WLKPlaybackTrackingLogObject();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v21 = v5;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: could not resolve lookupID for %@", buf, 0xCu);
+        v20 = v5;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: could not resolve lookupID for %@", buf, 0xCu);
       }
 
-      v15 = [NSString stringWithFormat:@"could not resolve lookupID for %@", v5];
-      v16 = WLKError();
+      v14 = [NSString stringWithFormat:@"could not resolve lookupID for %@", v5];
+      v15 = WLKError();
 
-      [a1[4] _cleanupWithSuccess:0 error:v16 completion:a1[6]];
+      [a1[4] _cleanupWithSuccess:0 error:v15 completion:a1[6]];
     }
   }
 
   else
   {
-    v13 = WLKPlaybackTrackingLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v12 = WLKPlaybackTrackingLogObject();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = v6;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: Failed to resolve channelID %@", buf, 0xCu);
+      v20 = v6;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: Failed to resolve channelID %@", buf, 0xCu);
     }
 
     [a1[4] _cleanupWithSuccess:0 error:v6 completion:a1[6]];
@@ -160,13 +160,13 @@ void __49__WLDPlaybackReporter_reportPlayback_completion___block_invoke_9(uint64
     {
       v8 = *(a1 + 32);
       v9 = *(a1 + 40);
-      v37 = 138412802;
-      v38 = v8;
-      v39 = 2048;
-      v40 = v6;
-      v41 = 2048;
-      v42 = v9;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@ Report playback activity:%p summary:%p", &v37, 0x20u);
+      v36 = 138412802;
+      v37 = v8;
+      v38 = 2048;
+      v39 = v6;
+      v40 = 2048;
+      v41 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@ Report playback activity:%p summary:%p", &v36, 0x20u);
     }
 
     v10 = [*(a1 + 40) bundleID];
@@ -267,7 +267,6 @@ LABEL_23:
 
         [(UWLPlayEvent *)v6 setMainContentInfo:v20];
         [*(a1 + 32) _reportPlayEvent:v6 summary:*(a1 + 40) completion:*(a1 + 48)];
-        v36 = *(a1 + 32);
         [objc_opt_class() _donateIntentWithPlaybackSummary:*(a1 + 40) andMetadata:v5];
 
         goto LABEL_24;
@@ -314,89 +313,88 @@ void __72__WLDPlaybackReporter_getCachedCanonicalIDForSummary_completionHandler_
 
       if ([v10 length])
       {
-        v11 = *(a1 + 40);
-        v12 = [objc_opt_class() _cachedMetadataByIdentifier];
-        v13 = [v12 objectForKey:v10];
+        v11 = [objc_opt_class() _cachedMetadataByIdentifier];
+        v12 = [v11 objectForKey:v10];
 
-        v14 = WLKPlaybackTrackingLogObject();
-        v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-        if (v13)
+        v13 = WLKPlaybackTrackingLogObject();
+        v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+        if (v12)
         {
-          if (v15)
+          if (v14)
           {
-            v16 = *(a1 + 40);
-            v28 = 138412546;
-            v29 = v16;
-            v30 = 2112;
-            v31 = v10;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@ Returning cached metadata for %@.", &v28, 0x16u);
+            v15 = *(a1 + 40);
+            v27 = 138412546;
+            v28 = v15;
+            v29 = 2112;
+            v30 = v10;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@ Returning cached metadata for %@.", &v27, 0x16u);
           }
 
-          v17 = *(a1 + 48);
-          v18 = [v13 canonicalID];
-          (*(v17 + 16))(v17, v18, 0);
+          v16 = *(a1 + 48);
+          v17 = [v12 canonicalID];
+          (*(v16 + 16))(v16, v17, 0);
         }
 
         else
         {
-          if (v15)
+          if (v14)
           {
-            v26 = *(a1 + 40);
-            v28 = 138412546;
-            v29 = v26;
-            v30 = 2112;
-            v31 = v10;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@ Cached metadata not found for %@.", &v28, 0x16u);
+            v25 = *(a1 + 40);
+            v27 = 138412546;
+            v28 = v25;
+            v29 = 2112;
+            v30 = v10;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@ Cached metadata not found for %@.", &v27, 0x16u);
           }
 
-          v27 = *(a1 + 48);
-          v18 = WLKError();
-          (*(v27 + 16))(v27, 0, v18);
+          v26 = *(a1 + 48);
+          v17 = WLKError();
+          (*(v26 + 16))(v26, 0, v17);
         }
       }
 
       else
       {
-        v23 = WLKPlaybackTrackingLogObject();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v22 = WLKPlaybackTrackingLogObject();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v24 = [*(a1 + 32) bundleID];
-          v28 = 138412290;
-          v29 = v24;
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: could not resolve lookupID for %@", &v28, 0xCu);
+          v23 = [*(a1 + 32) bundleID];
+          v27 = 138412290;
+          v28 = v23;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: could not resolve lookupID for %@", &v27, 0xCu);
         }
 
-        v25 = *(a1 + 48);
-        v13 = WLKError();
-        (*(v25 + 16))(v25, 0, v13);
+        v24 = *(a1 + 48);
+        v12 = WLKError();
+        (*(v24 + 16))(v24, 0, v12);
       }
     }
 
     else
     {
-      v20 = WLKPlaybackTrackingLogObject();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v19 = WLKPlaybackTrackingLogObject();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = [*(a1 + 32) bundleID];
-        v28 = 138412290;
-        v29 = v21;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: Nil duration found in playback summary for %@", &v28, 0xCu);
+        v20 = [*(a1 + 32) bundleID];
+        v27 = 138412290;
+        v28 = v20;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: Nil duration found in playback summary for %@", &v27, 0xCu);
       }
 
-      v22 = *(a1 + 48);
+      v21 = *(a1 + 48);
       v10 = WLKError();
-      (*(v22 + 16))(v22, 0, v10);
+      (*(v21 + 16))(v21, 0, v10);
     }
   }
 
   else
   {
-    v19 = WLKPlaybackTrackingLogObject();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v18 = WLKPlaybackTrackingLogObject();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 138412290;
-      v29 = v6;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: Failed to resolve channelID %@", &v28, 0xCu);
+      v27 = 138412290;
+      v28 = v6;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: Failed to resolve channelID %@", &v27, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -474,21 +472,20 @@ void __54__WLDPlaybackReporter__decorateVODSummary_completion___block_invoke(uin
 
       if ([v10 length])
       {
-        v11 = *(a1 + 48);
-        v12 = [objc_opt_class() _cachedMetadataByIdentifier];
-        v13 = [v12 objectForKey:v10];
+        v11 = [objc_opt_class() _cachedMetadataByIdentifier];
+        v12 = [v11 objectForKey:v10];
 
-        if (v13)
+        if (v12)
         {
-          v14 = WLKPlaybackTrackingLogObject();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v13 = WLKPlaybackTrackingLogObject();
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            v15 = *(a1 + 48);
+            v14 = *(a1 + 48);
             *buf = 138412546;
-            v43 = v15;
-            v44 = 2112;
-            v45 = v10;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@ Returning cached metadata for %@.", buf, 0x16u);
+            v41 = v14;
+            v42 = 2112;
+            v43 = v10;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@ Returning cached metadata for %@.", buf, 0x16u);
           }
 
           (*(*(a1 + 40) + 16))();
@@ -496,47 +493,45 @@ void __54__WLDPlaybackReporter__decorateVODSummary_completion___block_invoke(uin
 
         else
         {
-          v23 = *(a1 + 48);
-          v24 = [objc_opt_class() _cachedNotFoundIdentifiers];
-          v25 = [v24 containsObject:v10];
+          v22 = [objc_opt_class() _cachedNotFoundIdentifiers];
+          v23 = [v22 containsObject:v10];
 
-          if (v25)
+          if (v23)
           {
-            v26 = WLKPlaybackTrackingLogObject();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            v24 = WLKPlaybackTrackingLogObject();
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v43 = v10;
-              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Item with identifier %@ is known to be unavailable.", buf, 0xCu);
+              v41 = v10;
+              _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Item with identifier %@ is known to be unavailable.", buf, 0xCu);
             }
 
-            v27 = *(a1 + 40);
-            v28 = WLKError();
-            (*(v27 + 16))(v27, 0, v28);
+            v25 = *(a1 + 40);
+            v26 = WLKError();
+            (*(v25 + 16))(v25, 0, v26);
           }
 
           else
           {
-            v29 = [WLKPlayActivityDecorateVODOperation alloc];
-            v30 = [*(a1 + 32) contentID];
-            v31 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v7 integerValue]);
-            v32 = [*(a1 + 32) playablePassthrough];
-            v33 = [v29 initWithExternalId:v30 brandId:v5 hlsAssetDuration:v31 playablePassthrough:v32];
+            v27 = [WLKPlayActivityDecorateVODOperation alloc];
+            v28 = [*(a1 + 32) contentID];
+            v29 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v7 integerValue]);
+            v30 = [*(a1 + 32) playablePassthrough];
+            v31 = [v27 initWithExternalId:v28 brandId:v5 hlsAssetDuration:v29 playablePassthrough:v30];
 
-            objc_initWeak(buf, v33);
-            v35 = _NSConcreteStackBlock;
-            v36 = 3221225472;
-            v37 = __54__WLDPlaybackReporter__decorateVODSummary_completion___block_invoke_36;
-            v38 = &unk_100044F50;
-            objc_copyWeak(v41, buf);
-            v41[1] = *(a1 + 48);
-            v39 = v10;
-            v40 = *(a1 + 40);
-            [v33 setCompletionBlock:&v35];
-            v34 = WLDOperationQueue();
-            [v34 addOperation:{v33, v35, v36, v37, v38}];
+            objc_initWeak(buf, v31);
+            v33 = _NSConcreteStackBlock;
+            v34 = 3221225472;
+            v35 = __54__WLDPlaybackReporter__decorateVODSummary_completion___block_invoke_36;
+            v36 = &unk_100044F50;
+            objc_copyWeak(v39, buf);
+            v39[1] = *(a1 + 48);
+            v37 = v10;
+            v38 = *(a1 + 40);
+            v32 = WLDOperationQueue([v31 setCompletionBlock:&v33]);
+            [v32 addOperation:{v31, v33, v34, v35, v36}];
 
-            objc_destroyWeak(v41);
+            objc_destroyWeak(v39);
             objc_destroyWeak(buf);
           }
         }
@@ -544,46 +539,46 @@ void __54__WLDPlaybackReporter__decorateVODSummary_completion___block_invoke(uin
 
       else
       {
-        v20 = WLKPlaybackTrackingLogObject();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v19 = WLKPlaybackTrackingLogObject();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = [*(a1 + 32) bundleID];
+          v20 = [*(a1 + 32) bundleID];
           *buf = 138412290;
-          v43 = v21;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: could not resolve lookupID for %@", buf, 0xCu);
+          v41 = v20;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: could not resolve lookupID for %@", buf, 0xCu);
         }
 
-        v22 = *(a1 + 40);
-        v13 = WLKError();
-        (*(v22 + 16))(v22, 0, v13);
+        v21 = *(a1 + 40);
+        v12 = WLKError();
+        (*(v21 + 16))(v21, 0, v12);
       }
     }
 
     else
     {
-      v17 = WLKPlaybackTrackingLogObject();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = WLKPlaybackTrackingLogObject();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = [*(a1 + 32) bundleID];
+        v17 = [*(a1 + 32) bundleID];
         *buf = 138412290;
-        v43 = v18;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: Nil duration found in playback summary for %@", buf, 0xCu);
+        v41 = v17;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: Nil duration found in playback summary for %@", buf, 0xCu);
       }
 
-      v19 = *(a1 + 40);
+      v18 = *(a1 + 40);
       v10 = WLKError();
-      (*(v19 + 16))(v19, 0, v10);
+      (*(v18 + 16))(v18, 0, v10);
     }
   }
 
   else
   {
-    v16 = WLKPlaybackTrackingLogObject();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = WLKPlaybackTrackingLogObject();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v43 = v6;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: Failed to resolve channelID %@", buf, 0xCu);
+      v41 = v6;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Error: Failed to resolve channelID %@", buf, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -601,9 +596,9 @@ void __54__WLDPlaybackReporter__decorateVODSummary_completion___block_invoke_36(
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [WeakRetained error];
-      v25 = 138412290;
-      v26 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Activity lookup failed: %@", &v25, 0xCu);
+      v23 = 138412290;
+      v24 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Activity lookup failed: %@", &v23, 0xCu);
     }
 
     v6 = [WeakRetained httpResponse];
@@ -614,69 +609,67 @@ void __54__WLDPlaybackReporter__decorateVODSummary_completion___block_invoke_36(
       v8 = WLKPlaybackTrackingLogObject();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 134217984;
-        v26 = v7;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Activity lookup got a %ld. We will not retry.", &v25, 0xCu);
+        v23 = 134217984;
+        v24 = v7;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - Activity lookup got a %ld. We will not retry.", &v23, 0xCu);
       }
 
-      v9 = *(a1 + 56);
-      v10 = [objc_opt_class() _cachedNotFoundIdentifiers];
-      [v10 addObject:*(a1 + 32)];
+      v9 = [objc_opt_class() _cachedNotFoundIdentifiers];
+      [v9 addObject:*(a1 + 32)];
     }
 
-    v11 = *(a1 + 40);
-    v12 = [WeakRetained error];
-    (*(v11 + 16))(v11, 0, v12);
+    v10 = *(a1 + 40);
+    v11 = [WeakRetained error];
+    (*(v10 + 16))(v10, 0, v11);
   }
 
   else
   {
-    v13 = [WeakRetained metadataByIdentifier];
-    v12 = [v13 objectForKeyedSubscript:*(a1 + 32)];
+    v12 = [WeakRetained metadataByIdentifier];
+    v11 = [v12 objectForKeyedSubscript:*(a1 + 32)];
 
-    v14 = WLKPlaybackTrackingLogObject();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-    if (v12)
+    v13 = WLKPlaybackTrackingLogObject();
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    if (v11)
     {
-      if (v15)
+      if (v14)
       {
-        v16 = *(a1 + 56);
-        v17 = *(a1 + 32);
-        v25 = 138412546;
+        v15 = *(a1 + 56);
+        v16 = *(a1 + 32);
+        v23 = 138412546;
+        v24 = v15;
+        v25 = 2112;
         v26 = v16;
-        v27 = 2112;
-        v28 = v17;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@ Got metadata for %@.", &v25, 0x16u);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@ Got metadata for %@.", &v23, 0x16u);
       }
 
-      v18 = *(a1 + 56);
-      v19 = [objc_opt_class() _cachedMetadataByIdentifier];
-      [v19 setObject:v12 forKey:*(a1 + 32)];
+      v17 = [objc_opt_class() _cachedMetadataByIdentifier];
+      [v17 setObject:v11 forKey:*(a1 + 32)];
 
-      v20 = *(a1 + 40);
-      v21 = *(v20 + 16);
-      v22 = v12;
+      v18 = *(a1 + 40);
+      v19 = *(v18 + 16);
+      v20 = v11;
     }
 
     else
     {
-      if (v15)
+      if (v14)
       {
-        v23 = *(a1 + 56);
-        v24 = *(a1 + 32);
-        v25 = 138412546;
-        v26 = v23;
-        v27 = 2112;
-        v28 = v24;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@ Metadata not found even after successfully receiving response from backend for %@.", &v25, 0x16u);
+        v21 = *(a1 + 56);
+        v22 = *(a1 + 32);
+        v23 = 138412546;
+        v24 = v21;
+        v25 = 2112;
+        v26 = v22;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@ Metadata not found even after successfully receiving response from backend for %@.", &v23, 0x16u);
       }
 
-      v20 = *(a1 + 40);
-      v21 = *(v20 + 16);
-      v22 = 0;
+      v18 = *(a1 + 40);
+      v19 = *(v18 + 16);
+      v20 = 0;
     }
 
-    v21(v20, v22, 0);
+    v19(v18, v20, 0);
   }
 }
 
@@ -686,8 +679,8 @@ void __54__WLDPlaybackReporter__decorateVODSummary_completion___block_invoke_36(
   summaryCopy = summary;
   completionCopy = completion;
   v11 = [WLDPlayActivityReportOperation alloc];
-  v39 = eventCopy;
-  v12 = [NSArray arrayWithObjects:&v39 count:1];
+  v40 = eventCopy;
+  v12 = [NSArray arrayWithObjects:&v40 count:1];
   v13 = [(WLDPlayActivityReportOperation *)v11 initWithPlayEvents:v12];
 
   v14 = +[TVAppAccountStoreObjC activeAccount];
@@ -723,10 +716,10 @@ LABEL_8:
     {
       *buf = 138412802;
       selfCopy2 = self;
-      v35 = 2112;
-      v36 = v18;
-      v37 = 2112;
-      v38 = v20;
+      v36 = 2112;
+      v37 = v18;
+      v38 = 2112;
+      v39 = v20;
       _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@: Note: DSID mismatch. Active:%@ Summary:%@", buf, 0x20u);
     }
 
@@ -737,31 +730,31 @@ LABEL_8:
 
 LABEL_12:
   objc_initWeak(&location, v13);
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = __59__WLDPlaybackReporter__reportPlayEvent_summary_completion___block_invoke;
-  v28[3] = &unk_100045310;
-  objc_copyWeak(&v31, &location);
-  v28[4] = self;
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = __59__WLDPlaybackReporter__reportPlayEvent_summary_completion___block_invoke;
+  v29[3] = &unk_100045310;
+  objc_copyWeak(&v32, &location);
+  v29[4] = self;
   v24 = summaryCopy;
-  v29 = v24;
+  v30 = v24;
   v25 = completionCopy;
-  v30 = v25;
-  [(WLDPlayActivityReportOperation *)v13 setCompletionBlock:v28];
+  v31 = v25;
+  [(WLDPlayActivityReportOperation *)v13 setCompletionBlock:v29];
   v26 = WLKPlaybackTrackingLogObject();
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy2 = self;
-    v35 = 2048;
-    v36 = eventCopy;
+    v36 = 2048;
+    v37 = eventCopy;
     _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@ Queueing activity report: %p", buf, 0x16u);
   }
 
-  v27 = WLDOperationQueue();
-  [v27 addOperation:v13];
+  v28 = WLDOperationQueue(v27);
+  [v28 addOperation:v13];
 
-  objc_destroyWeak(&v31);
+  objc_destroyWeak(&v32);
   objc_destroyWeak(&location);
 }
 
@@ -781,6 +774,33 @@ void __59__WLDPlaybackReporter__reportPlayEvent_summary_completion___block_invok
   v6 = *(a1 + 32);
   v7 = [WeakRetained error];
   [v6 _cleanupWithSuccess:v2 == 0 error:v7 completion:*(a1 + 48)];
+}
+
+- (void)_cleanupWithSuccess:(BOOL)success error:(id)error completion:(id)completion
+{
+  successCopy = success;
+  errorCopy = error;
+  completionCopy = completion;
+  v10 = completionCopy;
+  if (completionCopy)
+  {
+    (*(completionCopy + 2))(completionCopy, successCopy, errorCopy);
+  }
+
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  transaction = selfCopy->_transaction;
+  selfCopy->_transaction = 0;
+
+  v13 = WLKPlaybackTrackingLogObject();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = 138412290;
+    v15 = selfCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@ Ended Transaction", &v14, 0xCu);
+  }
+
+  objc_sync_exit(selfCopy);
 }
 
 + (int64_t)_intentsMediaItemTypeFromWLKContentType:(unint64_t)type
@@ -967,34 +987,34 @@ void __68__WLDPlaybackReporter__donateIntentWithPlaybackSummary_andMetadata___bl
       {
         *buf = 138412546;
         selfCopy3 = self;
-        v22 = 2112;
-        v23 = millisCopy;
+        v23 = 2112;
+        v24 = millisCopy;
         _os_log_impl(&_mh_execute_header, &selfCopy2->super, OS_LOG_TYPE_DEFAULT, "WLDPlaybackReporter - %@ TR: Will schedule timed report in %@ millis", buf, 0x16u);
       }
 
       selfCopy2 = self;
-      objc_sync_enter(selfCopy2);
-      v11 = WLDDispatchQueue();
-      v12 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v11);
+      v11 = objc_sync_enter(selfCopy2);
+      v12 = WLDDispatchQueue(v11);
+      v13 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v12);
       BDTimer = selfCopy2->_BDTimer;
-      selfCopy2->_BDTimer = v12;
+      selfCopy2->_BDTimer = v13;
 
       [millisCopy doubleValue];
-      v15 = dispatch_time(0, (v14 * 1000000.0));
-      dispatch_source_set_timer(selfCopy2->_BDTimer, v15, 0xFFFFFFFFFFFFFFFFLL, 0);
+      v16 = dispatch_time(0, (v15 * 1000000.0));
+      dispatch_source_set_timer(selfCopy2->_BDTimer, v16, 0xFFFFFFFFFFFFFFFFLL, 0);
       objc_initWeak(buf, selfCopy2);
-      v16 = selfCopy2->_BDTimer;
+      v17 = selfCopy2->_BDTimer;
       handler[0] = _NSConcreteStackBlock;
       handler[1] = 3221225472;
       handler[2] = __66__WLDPlaybackReporter__scheduleTimedReportForSummary_afterMillis___block_invoke;
       handler[3] = &unk_100045380;
-      objc_copyWeak(&v19, buf);
+      objc_copyWeak(&v20, buf);
       handler[4] = selfCopy2;
-      v18 = summaryCopy;
-      dispatch_source_set_event_handler(v16, handler);
+      v19 = summaryCopy;
+      dispatch_source_set_event_handler(v17, handler);
       dispatch_activate(selfCopy2->_BDTimer);
 
-      objc_destroyWeak(&v19);
+      objc_destroyWeak(&v20);
       objc_destroyWeak(buf);
       objc_sync_exit(selfCopy2);
     }

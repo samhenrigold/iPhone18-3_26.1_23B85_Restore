@@ -150,7 +150,7 @@
   return v13;
 }
 
-id __80__AMSMediaInvokeAuthenticationHandler__performAuthRequest_redirectURL_taskInfo___block_invoke(uint64_t a1, void *a2, void *a3)
+id __80__AMSMediaInvokeAuthenticationHandler__performAuthRequest_redirectURL_taskInfo___block_invoke(void *a1, void *a2, void *a3)
 {
   v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -165,7 +165,7 @@ id __80__AMSMediaInvokeAuthenticationHandler__performAuthRequest_redirectURL_tas
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = objc_opt_class();
-    v10 = *(a1 + 32);
+    v10 = a1[4];
     v11 = v9;
     v12 = [v10 properties];
     v13 = [v12 logUUID];
@@ -189,7 +189,7 @@ id __80__AMSMediaInvokeAuthenticationHandler__performAuthRequest_redirectURL_tas
   if (!v14 || ![v14 actionType])
   {
 LABEL_10:
-    if (*(a1 + 40))
+    if (a1[5])
     {
       [AMSURLAction redirectActionWithURL:?];
     }

@@ -11,15 +11,15 @@
   v7.super_class = _UIReflectingContainerView;
   if ([(UIView *)&v7 _shouldAnimatePropertyWithKey:keyCopy])
   {
-    v5 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v5 = [keyCopy isEqualToString:@"instanceTransform"];
+    isEqualToString = objc_msgSend_isEqualToString_(keyCopy);
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 @end

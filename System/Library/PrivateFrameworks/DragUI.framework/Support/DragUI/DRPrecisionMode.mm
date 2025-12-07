@@ -57,7 +57,7 @@
     y = 25.0;
     if (byte_1000634F8 == 1)
     {
-      y = sub_10000E4F0();
+      y = sub_10000E4F0(direction);
     }
   }
 
@@ -71,7 +71,7 @@
     v6 = 25.0;
     if (byte_1000634F8 == 1)
     {
-      v6 = sub_10000E34C();
+      v6 = sub_10000E34C(direction);
     }
 
     y = -v6;
@@ -153,7 +153,7 @@
 
     if (byte_1000634F8 == 1)
     {
-      v4 = sub_10000E83C();
+      v4 = sub_10000E83C(direction);
     }
 
     else
@@ -177,7 +177,7 @@
       if (byte_1000634F8 == 1)
       {
 
-        return sub_10000E694();
+        return sub_10000E694(direction);
       }
 
       else

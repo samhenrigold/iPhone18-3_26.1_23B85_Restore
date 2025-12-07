@@ -158,7 +158,7 @@
 
 - (void)addBulletedListItem:(id)item
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   items = [(OBBulletedList *)self items];
   [items addObject:itemCopy];
@@ -168,17 +168,16 @@
   leadingAnchor = [(OBBulletedList *)self leadingAnchor];
   leadingAnchor2 = [itemCopy leadingAnchor];
   v9 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v15[0] = v9;
+  v14[0] = v9;
   trailingAnchor = [(OBBulletedList *)self trailingAnchor];
   trailingAnchor2 = [itemCopy trailingAnchor];
 
   v12 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v15[1] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[1] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   [v6 activateConstraints:v13];
 
   [(OBBulletedList *)self _updateConstraints];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (double)bulletedListItemSpacing
@@ -270,7 +269,7 @@ LABEL_16:
 
 - (void)_updateConstraints
 {
-  v44[2] = *MEMORY[0x1E69E9840];
+  v43[2] = *MEMORY[0x1E69E9840];
   verticalConstraints = [(OBBulletedList *)self verticalConstraints];
   [(OBBulletedList *)self removeConstraints:verticalConstraints];
 
@@ -290,12 +289,12 @@ LABEL_16:
     topAnchor = [(OBBulletedList *)self topAnchor];
     topAnchor2 = [firstObject topAnchor];
     v13 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:0.0];
-    v44[0] = v13;
+    v43[0] = v13;
     bottomAnchor = [(OBBulletedList *)self bottomAnchor];
     bottomAnchor2 = [firstObject bottomAnchor];
     v16 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:0.0];
-    v44[1] = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
+    v43[1] = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
     [verticalConstraints3 addObjectsFromArray:v17];
 
 LABEL_17:
@@ -308,17 +307,17 @@ LABEL_17:
   {
     [(OBBulletedList *)self bulletedListItemSpacing];
     v20 = v19;
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     obj = [(OBBulletedList *)self items];
-    v21 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v21 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
     if (v21)
     {
       v22 = v21;
       firstObject = 0;
-      v23 = *v40;
+      v23 = *v39;
       v24 = -v20;
       do
       {
@@ -326,12 +325,12 @@ LABEL_17:
         v26 = firstObject;
         do
         {
-          if (*v40 != v23)
+          if (*v39 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v39 + 1) + 8 * v25);
+          v27 = *(*(&v38 + 1) + 8 * v25);
           verticalConstraints4 = [(OBBulletedList *)self verticalConstraints];
           if (v26)
           {
@@ -360,7 +359,7 @@ LABEL_17:
         }
 
         while (v22 != v25);
-        v22 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v22 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
       }
 
       while (v22);
@@ -383,8 +382,6 @@ LABEL_18:
   v35 = MEMORY[0x1E696ACD8];
   verticalConstraints5 = [(OBBulletedList *)self verticalConstraints];
   [v35 activateConstraints:verticalConstraints5];
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)layoutSubviews

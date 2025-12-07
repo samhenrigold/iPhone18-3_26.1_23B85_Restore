@@ -104,8 +104,7 @@
     v6 = @"client";
   }
 
-  unique = self->_unique;
-  return [v3 stringWithFormat:@"<%@:%p %@ %llx %@>", v4, self, v6, unique, self->_eDesc];
+  return [v3 stringWithFormat:@"<%@:%p %@ %llx %@>", v4, self, v6, self->_unique, self->_eDesc];
 }
 
 @end

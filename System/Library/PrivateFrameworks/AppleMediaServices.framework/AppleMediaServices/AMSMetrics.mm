@@ -1632,7 +1632,7 @@ LABEL_10:
   return v21;
 }
 
-id __37__AMSMetrics__flushDataSource_topic___block_invoke(uint64_t a1, void *a2)
+AMSMutablePromise *__37__AMSMetrics__flushDataSource_topic___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = objc_opt_new();

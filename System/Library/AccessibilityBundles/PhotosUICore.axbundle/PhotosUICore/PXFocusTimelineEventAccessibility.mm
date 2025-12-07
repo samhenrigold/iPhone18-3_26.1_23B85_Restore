@@ -31,13 +31,13 @@
   return v2;
 }
 
-double __70__PXFocusTimelineEventAccessibility_accessibilityFocusEventTimeString__block_invoke(uint64_t a1)
+double __70__PXFocusTimelineEventAccessibility_accessibilityFocusEventTimeString__block_invoke(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) time];
-  v2 = *(*(a1 + 40) + 8);
-  result = *&v4;
-  *(v2 + 32) = v4;
-  *(v2 + 48) = v5;
+  objc_msgSend_time(*(a1 + 32), a2);
+  v3 = *(*(a1 + 40) + 8);
+  result = *&v5;
+  *(v3 + 32) = v5;
+  *(v3 + 48) = v6;
   return result;
 }
 

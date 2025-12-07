@@ -3,6 +3,7 @@
 - (CSLPRFIconFetcher)init;
 - (CSLPRFIconFetcher)initWithIconCache:(id)cache;
 - (UIImage)genericIcon;
+- (id)iconFetchTaskForBundleIdentifier:(id)identifier isPhoneApp:(BOOL)app completion:(id)completion;
 - (void)_completeLoadForBundleID:(id)d image:(id)image error:(id)error;
 - (void)_insertTask:(id)task forBundleID:(id)d;
 - (void)_loadIconForBundleIdentifier:(id)identifier isPhoneApp:(BOOL)app;
@@ -13,44 +14,42 @@
 
 - (void)_completeLoadForBundleID:(id)d image:(id)image error:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   imageCopy = image;
   errorCopy = error;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v11 = [(NSMutableDictionary *)self->_tasksByBundleID objectForKeyedSubscript:dCopy];
   [(NSMutableDictionary *)self->_tasksByBundleID setObject:0 forKeyedSubscript:dCopy];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [*(*(&v18 + 1) + 8 * v16++) completeWithImage:imageCopy error:{errorCopy, v18}];
+        [*(*(&v17 + 1) + 8 * v16++) completeWithImage:imageCopy error:{errorCopy, v17}];
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_insertTask:(id)task forBundleID:(id)d
@@ -181,12 +180,10 @@ void __54__CSLPRFIconFetcher__loadNanoIconForBundleIdentifier___block_invoke(uin
   }
 }
 
-void __61__CSLPRFIconFetcher__loadIconForBundleIdentifier_isPhoneApp___block_invoke(uint64_t a1, void *a2)
+void __61__CSLPRFIconFetcher__loadIconForBundleIdentifier_isPhoneApp___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v7 = *(a1 + 48);
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
+  v5 = a1[5];
   v4 = v3;
   BSDispatchMain();
 }
@@ -214,6 +211,41 @@ void __61__CSLPRFIconFetcher__loadIconForBundleIdentifier_isPhoneApp___block_inv
   }
 
   [v3 _completeLoadForBundleID:v4 image:v2 error:v5];
+}
+
+- (id)iconFetchTaskForBundleIdentifier:(id)identifier isPhoneApp:(BOOL)app completion:(id)completion
+{
+  appCopy = app;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
+  v10 = [(CSLPRFIconFetcher *)self hasPendingRequestsForBundleID:identifierCopy];
+  v11 = objc_alloc_init(CSLPRFIconFetchTask);
+  [(CSLPRFIconFetchTask *)v11 setCompletion:completionCopy];
+
+  [(CSLPRFIconFetcher *)self _insertTask:v11 forBundleID:identifierCopy];
+  iconCache = [(CSLPRFIconFetcher *)self iconCache];
+  v13 = [iconCache iconForName:identifierCopy fallBackToPersistentStoreIfNecessary:0];
+
+  if (v13)
+  {
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __76__CSLPRFIconFetcher_iconFetchTaskForBundleIdentifier_isPhoneApp_completion___block_invoke;
+    block[3] = &unk_2787453E0;
+    block[4] = self;
+    v17 = identifierCopy;
+    v18 = v13;
+    v14 = MEMORY[0x277D85CD0];
+    dispatch_async(MEMORY[0x277D85CD0], block);
+  }
+
+  else if (!v10)
+  {
+    [(CSLPRFIconFetcher *)self _loadIconForBundleIdentifier:identifierCopy isPhoneApp:appCopy];
+  }
+
+  return v11;
 }
 
 - (UIImage)genericIcon

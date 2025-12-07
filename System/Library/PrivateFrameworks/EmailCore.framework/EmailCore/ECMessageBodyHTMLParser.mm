@@ -507,7 +507,7 @@ LABEL_91:
   return self->super._parserError == 0;
 }
 
-uint64_t __32__ECMessageBodyHTMLParser_parse__block_invoke()
+void *__32__ECMessageBodyHTMLParser_parse__block_invoke()
 {
   parse_tagNameEndCharacterSet = [objc_msgSend(MEMORY[0x277CCA900] characterSetWithCharactersInString:{@"> /", "copy"}];
   parse_tagEndCharacterSet = [objc_msgSend(MEMORY[0x277CCA900] characterSetWithCharactersInString:{@">/", "copy"}];
@@ -519,27 +519,26 @@ uint64_t __32__ECMessageBodyHTMLParser_parse__block_invoke()
 
 - (void)didFindError:(id)error
 {
-  v5.receiver = self;
-  v5.super_class = ECMessageBodyHTMLParser;
-  [(ECMessageBodyParser *)&v5 didFindError:error];
-  v4 = _ef_log_ECMessageBodyParser();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v7.receiver = self;
+  v7.super_class = ECMessageBodyHTMLParser;
+  v4 = [(ECMessageBodyParser *)&v7 didFindError:error];
+  v6 = _ef_log_ECMessageBodyParser(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    [(ECMessageBodyHTMLParser *)self didFindError:v4];
+    [(ECMessageBodyHTMLParser *)self didFindError:v6];
   }
 }
 
 - (void)didFindError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 112) scanLocation];
   v5 = [*(a1 + 112) string];
-  v7 = 134218242;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_22D092000, a2, OS_LOG_TYPE_ERROR, "Scanner info: %lu %@", &v7, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 134218242;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_22D092000, a2, OS_LOG_TYPE_ERROR, "Scanner info: %lu %@", &v6, 0x16u);
 }
 
 @end

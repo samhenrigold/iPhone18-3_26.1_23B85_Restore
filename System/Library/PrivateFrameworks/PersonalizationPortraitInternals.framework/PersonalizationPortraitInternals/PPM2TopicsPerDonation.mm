@@ -1,8 +1,10 @@
 @interface PPM2TopicsPerDonation
 - (BOOL)isEqual:(id)equal;
+- (id)algorithmAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)donationSourceAsString:(int)string;
 - (int)StringAsAlgorithm:(id)algorithm;
 - (int)StringAsDonationSource:(id)source;
 - (int)algorithm;
@@ -196,31 +198,29 @@ LABEL_18:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    donationSource = self->_donationSource;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_groupId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    algorithm = self->_algorithm;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_activeTreatments)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -407,6 +407,21 @@ LABEL_18:
   return v4;
 }
 
+- (id)algorithmAsString:(int)string
+{
+  if (string >= 0x16)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2789741F8[string];
+  }
+
+  return v4;
+}
+
 - (int)algorithm
 {
   if (*&self->_has)
@@ -551,6 +566,21 @@ LABEL_18:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)donationSourceAsString:(int)string
+{
+  if (string >= 0x19)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278974130[string];
   }
 
   return v4;

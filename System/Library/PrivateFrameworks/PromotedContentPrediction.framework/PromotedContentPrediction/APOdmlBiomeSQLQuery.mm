@@ -8,13 +8,13 @@
 
 - (APOdmlBiomeSQLQuery)init
 {
-  v6.receiver = self;
-  v6.super_class = APOdmlBiomeSQLQuery;
-  v2 = [(APOdmlBiomeSQLQuery *)&v6 init];
+  v5.receiver = self;
+  v5.super_class = APOdmlBiomeSQLQuery;
+  v2 = [(APOdmlBiomeSQLQuery *)&v5 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277CF1A88]);
-    objc_msgSend_setDatabase_(v2, v4, v3);
+    [(APOdmlBiomeSQLQuery *)v2 setDatabase:v3];
   }
 
   return v2;
@@ -22,26 +22,26 @@
 
 - (id)query:(id)query startDate:(id)date endDate:(id)endDate
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   queryCopy = query;
-  v13 = objc_msgSend_database(self, v11, v12);
-  v15 = objc_msgSend_formatEventName_(self, v14, queryCopy);
+  database = [(APOdmlBiomeSQLQuery *)self database];
+  v12 = [(APOdmlBiomeSQLQuery *)self formatEventName:queryCopy];
 
   if (dateCopy && endDateCopy)
   {
-    objc_msgSend_timeIntervalSince1970(dateCopy, v16, v17);
-    v19 = v18;
-    objc_msgSend_timeIntervalSince1970(endDateCopy, v20, v21);
-    v24 = objc_msgSend_executeQuery_(v13, v22, @"SELECT * FROM %@ WHERE eventTimestamp > %f AND eventTimestamp < %f", v15, v19, v23);
+    [dateCopy timeIntervalSince1970];
+    v14 = v13;
+    [endDateCopy timeIntervalSince1970];
+    v16 = [database executeQuery:{@"SELECT * FROM %@ WHERE eventTimestamp > %f AND eventTimestamp < %f", v12, v14, v15}];
 
-    v27 = objc_msgSend_error(v24, v25, v26);
+    error = [v16 error];
 
-    if (v27)
+    if (error)
     {
-      v29 = OdmlLogForCategory(2uLL);
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v18 = OdmlLogForCategory(2uLL);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_8;
       }
@@ -52,55 +52,53 @@
 
   else
   {
-    v24 = objc_msgSend_executeQuery_(v13, v16, @"SELECT * FROM %@", v15);
+    v16 = [database executeQuery:{@"SELECT * FROM %@", v12}];
 
-    v34 = objc_msgSend_error(v24, v32, v33);
+    error2 = [v16 error];
 
-    if (v34)
+    if (error2)
     {
-      v29 = OdmlLogForCategory(2uLL);
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v18 = OdmlLogForCategory(2uLL);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_8:
-        v35 = objc_msgSend_error(v24, v30, v31);
+        error3 = [v16 error];
         *buf = 138412290;
-        v40 = v35;
-        _os_log_impl(&dword_260ECB000, v29, OS_LOG_TYPE_DEFAULT, "Biome SQL query error: %@", buf, 0xCu);
+        v24 = error3;
+        _os_log_impl(&dword_260ECB000, v18, OS_LOG_TYPE_DEFAULT, "Biome SQL query error: %@", buf, 0xCu);
       }
 
 LABEL_9:
 
-      v36 = 0;
+      v21 = 0;
       goto LABEL_11;
     }
   }
 
-  v36 = objc_msgSend_getRowsFromResults_(self, v28, v24);
+  v21 = [(APOdmlBiomeSQLQuery *)self getRowsFromResults:v16];
 LABEL_11:
 
-  v37 = *MEMORY[0x277D85DE8];
-
-  return v36;
+  return v21;
 }
 
 - (id)getRowsFromResults:(id)results
 {
   resultsCopy = results;
-  v6 = objc_msgSend_array(MEMORY[0x277CBEB18], v4, v5);
-  if (objc_msgSend_next(resultsCopy, v7, v8))
+  array = [MEMORY[0x277CBEB18] array];
+  if ([resultsCopy next])
   {
     do
     {
-      v11 = objc_msgSend_row(resultsCopy, v9, v10);
-      objc_msgSend_addObject_(v6, v12, v11);
+      v5 = [resultsCopy row];
+      [array addObject:v5];
     }
 
-    while ((objc_msgSend_next(resultsCopy, v13, v14) & 1) != 0);
+    while (([resultsCopy next] & 1) != 0);
   }
 
-  v15 = objc_msgSend_copy(v6, v9, v10);
+  v6 = [array copy];
 
-  return v15;
+  return v6;
 }
 
 @end

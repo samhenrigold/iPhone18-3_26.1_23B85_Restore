@@ -4,8 +4,6 @@
 - (id)_queue_lastSubmittedDate;
 - (id)diagnosticDescription;
 - (int64_t)_queue_lastRingCompletionSubmittedIndex;
-- (void)_queue_lastRingCompletionSubmittedIndex;
-- (void)_queue_lastSubmittedDate;
 - (void)_queue_setLastRingCompletionSubmittedIndex:(int64_t)index;
 - (void)_queue_setLastSubmittedDate:(id)date;
 - (void)dealloc;
@@ -131,7 +129,7 @@ uint64_t __53__CHCoachingDiagnosticManager_profileDidBecomeReady___block_invoke_
 
 - (BOOL)_queue_performRingCompletionDiagnostics
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (!FIIsFitnessTrackingEnabled() || ([MEMORY[0x277CCDD30] sharedBehavior], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "isStandalonePhoneFitnessMode"), v3, (v4 & 1) == 0))
   {
 LABEL_6:
@@ -139,8 +137,7 @@ LABEL_6:
     lastRunDate = self->_lastRunDate;
     self->_lastRunDate = date;
 
-    v11 = 1;
-    goto LABEL_7;
+    return 1;
   }
 
   v5 = activitySummaryIndexForReporting();
@@ -152,9 +149,9 @@ LABEL_6:
   {
     if (v8)
     {
-      v24 = 134217984;
-      v25 = v5;
-      _os_log_impl(&dword_243CCD000, v7, OS_LOG_TYPE_DEFAULT, "Not submitting activity summary index %ld; already submitted", &v24, 0xCu);
+      v23 = 134217984;
+      v24 = v5;
+      _os_log_impl(&dword_243CCD000, v7, OS_LOG_TYPE_DEFAULT, "Not submitting activity summary index %ld; already submitted", &v23, 0xCu);
     }
 
     goto LABEL_6;
@@ -162,23 +159,23 @@ LABEL_6:
 
   if (v8)
   {
-    v24 = 134217984;
-    v25 = v5;
-    _os_log_impl(&dword_243CCD000, v7, OS_LOG_TYPE_DEFAULT, "Submitting activity summary index %ld", &v24, 0xCu);
+    v23 = 134217984;
+    v24 = v5;
+    _os_log_impl(&dword_243CCD000, v7, OS_LOG_TYPE_DEFAULT, "Submitting activity summary index %ld", &v23, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v15 = FIActivitySummaryAnalyticsPayloadForProfileAndSummaryCacheIndex();
+  v14 = FIActivitySummaryAnalyticsPayloadForProfileAndSummaryCacheIndex();
 
-  v11 = v15 != 0;
-  if (v15)
+  v11 = v14 != 0;
+  if (v14)
   {
-    v16 = objc_loadWeakRetained(&self->_profile);
+    v15 = objc_loadWeakRetained(&self->_profile);
     HasCompletedWorkoutWithProfile = FIActivitySummaryAnalyticsHasCompletedWorkoutWithProfile();
 
-    v18 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v15];
-    v19 = [MEMORY[0x277CCABB0] numberWithBool:HasCompletedWorkoutWithProfile];
-    [v18 setObject:v19 forKey:@"hasCompletedWorkout"];
+    v17 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v14];
+    v18 = [MEMORY[0x277CCABB0] numberWithBool:HasCompletedWorkoutWithProfile];
+    [v17 setObject:v18 forKey:@"hasCompletedWorkout"];
 
     FIActivityAnalyticsSubmissionWithPayload();
     [(CHCoachingDiagnosticManager *)self _queue_setLastRingCompletionSubmittedIndex:v5];
@@ -186,19 +183,17 @@ LABEL_6:
     [(CHCoachingDiagnosticManager *)self _queue_setLastSubmittedDate:date2];
 
     date3 = [MEMORY[0x277CBEAA8] date];
-    v22 = self->_lastRunDate;
+    v21 = self->_lastRunDate;
     self->_lastRunDate = date3;
   }
 
   else
   {
     date4 = [MEMORY[0x277CBEAA8] date];
-    v18 = self->_lastRunDate;
+    v17 = self->_lastRunDate;
     self->_lastRunDate = date4;
   }
 
-LABEL_7:
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -383,38 +378,6 @@ void __52__CHCoachingDiagnosticManager_diagnosticDescription__block_invoke(void 
   v3 = (*(a1[7] + 8) + 40);
 
   objc_storeStrong(v3, v2);
-}
-
-- (void)profileDidBecomeReady:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_243CCD000, v0, v1, "Error submitting coaching diagnostic task request: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_lastRingCompletionSubmittedIndex
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_243CCD000, v0, v1, "Could not read last ring completion submitted index: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_setLastRingCompletionSubmittedIndex:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_243CCD000, v0, v1, "Could not write last submitted date: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_lastSubmittedDate
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_243CCD000, v0, v1, "Could not read last submitted date: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

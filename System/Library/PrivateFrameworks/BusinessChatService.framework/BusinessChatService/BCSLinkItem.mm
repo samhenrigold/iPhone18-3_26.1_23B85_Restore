@@ -37,43 +37,42 @@
 
 + (id)linkItemsFromLinkItemModels:(id)models
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   modelsCopy = models;
   v4 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = modelsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         v11 = [BCSLinkItem alloc];
         v12 = objc_alloc_init(BCSLocaleHelper);
-        v13 = [(BCSLinkItem *)v11 initWithLinkItemModel:v10 localeHelper:v12, v17];
+        v13 = [(BCSLinkItem *)v11 initWithLinkItemModel:v10 localeHelper:v12, v16];
         [v4 addObject:v13];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
 
   v14 = [v4 copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -197,7 +196,7 @@
 - (BCSBusinessLinkContentItem)businessLinkContentItem
 {
   selfCopy = self;
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   localeHelper = [(BCSLinkItem *)self localeHelper];
   currentLocale = [localeHelper currentLocale];
   language = [(NSLocale *)currentLocale language];
@@ -245,17 +244,17 @@
   {
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   if (selfCopy)
   {
     v11 = objc_opt_new();
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
     model = [(BCSLinkItem *)selfCopy model];
     v13 = model;
     if (model)
@@ -270,16 +269,16 @@
 
     v15 = v14;
 
-    v16 = [v15 countByEnumeratingWithState:&v48 objects:v53 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v47 objects:v52 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v49;
+      v18 = *v48;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v49 != v18)
+          if (*v48 != v18)
           {
             objc_enumerationMutation(v15);
           }
@@ -288,7 +287,7 @@
           [v11 addObject:v20];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v48 objects:v53 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v47 objects:v52 count:16];
       }
 
       while (v17);
@@ -302,23 +301,23 @@
     v21 = 0;
   }
 
-  v22 = [v21 countByEnumeratingWithState:&v44 objects:v52 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v43 objects:v51 count:16];
   if (v22)
   {
     v23 = v22;
     obj = v21;
-    v43 = 0;
-    v24 = *v45;
+    v42 = 0;
+    v24 = *v44;
 LABEL_24:
     v25 = 0;
     while (1)
     {
-      if (*v45 != v24)
+      if (*v44 != v24)
       {
         objc_enumerationMutation(obj);
       }
 
-      v26 = *(*(&v44 + 1) + 8 * v25);
+      v26 = *(*(&v43 + 1) + 8 * v25);
       language2 = [v26 language];
       v28 = selfCopy;
       localeHelper2 = [(BCSLinkItem *)selfCopy localeHelper];
@@ -335,14 +334,14 @@ LABEL_24:
       {
         v33 = v26;
 
-        v43 = v33;
+        v42 = v33;
       }
 
       selfCopy = v28;
       if (v23 == ++v25)
       {
         v21 = obj;
-        v23 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+        v23 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
         if (v23)
         {
           goto LABEL_24;
@@ -363,15 +362,15 @@ LABEL_24:
 
   else
   {
-    v43 = 0;
+    v42 = 0;
 LABEL_36:
   }
 
-  v35 = v43;
+  v35 = v42;
   v34 = v35;
   if (v35)
   {
-    v43 = v35;
+    v42 = v35;
 LABEL_39:
     if (selfCopy)
     {
@@ -386,7 +385,7 @@ LABEL_39:
       objc_storeStrong(&selfCopy->_cachedContentItemLanguage, language4);
     }
 
-    v39 = v43;
+    v39 = v42;
   }
 
   else
@@ -397,7 +396,6 @@ LABEL_39:
   v10 = v34;
 
 LABEL_46:
-  v40 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -554,7 +552,7 @@ LABEL_46:
 
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   succinctDescriptionBuilder = [(BCSLinkItem *)self succinctDescriptionBuilder];
   debugInfo = [(BCSLinkItem *)self debugInfo];
   v6 = [succinctDescriptionBuilder appendObject:debugInfo withName:@"Debug Info"];
@@ -569,12 +567,10 @@ LABEL_46:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     debugInfo2 = [(BCSLinkItem *)self debugInfo];
-    v15 = 138412290;
-    v16 = debugInfo2;
-    _os_log_impl(&dword_242072000, v11, OS_LOG_TYPE_DEFAULT, "Debug Info: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = debugInfo2;
+    _os_log_impl(&dword_242072000, v11, OS_LOG_TYPE_DEFAULT, "Debug Info: %@", &v14, 0xCu);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return succinctDescriptionBuilder;
 }

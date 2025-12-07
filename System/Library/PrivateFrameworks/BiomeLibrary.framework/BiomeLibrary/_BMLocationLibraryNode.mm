@@ -23,22 +23,20 @@
 
 + (id)MicroLocationVisit
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForMicroLocationVisit = [self configurationForMicroLocationVisit];
   v3 = +[BMLocationMicroLocationVisit columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Location.MicroLocationVisit" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Location.MicroLocationVisit" schema:v9 configuration:configurationForMicroLocationVisit];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -66,37 +64,33 @@
 
 + (id)sublibraries
 {
-  v9[3] = *MEMORY[0x1E69E9840];
+  v8[3] = *MEMORY[0x1E69E9840];
   emergency = [self Emergency];
   microLocation = [self MicroLocation];
-  v9[1] = microLocation;
+  v8[1] = microLocation;
   pointOfInterest = [self PointOfInterest];
-  v9[2] = pointOfInterest;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:3];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[2] = pointOfInterest;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
 
   return v6;
 }
 
 + (id)Visit
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForVisit = [self configurationForVisit];
   v3 = +[BMLocationVisit columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Location.Visit" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Location.Visit" schema:v9 configuration:configurationForVisit];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -209,22 +203,20 @@ LABEL_12:
 
 + (id)configurationForSemantic
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   storeConfigurationForSemantic = [self storeConfigurationForSemantic];
   syncPolicyForSemantic = [self syncPolicyForSemantic];
   v5 = objc_alloc(MEMORY[0x1E698F330]);
   v6 = [MEMORY[0x1E696AE18] predicateWithFormat:@"TRUEPREDICATE" argumentArray:0];
   v7 = [v5 initWithIdentifier:@"reset-privacy-and-location-warnings" predicate:v6];
-  v15[0] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
 
   v9 = MEMORY[0x1E698F338];
   v10 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"024238EA-AB88-46BE-9D43-E0A6442135D3"];
-  BYTE2(v14) = 1;
-  LOWORD(v14) = 1;
-  v11 = [v9 _libraryStreamConfigurationWithUUID:v10 streamIdentifier:@"Location.Semantic" eventClass:objc_opt_class() storeConfig:storeConfigurationForSemantic syncPolicy:syncPolicyForSemantic legacyNames:&unk_1EF3EB508 internalMetadata:0 enableSubscriptions:v14 enableSubscriptionSubstream:0 enableTombstoneSubstream:v8 allowedClients:0 pruningTriggers:? spaceAttributionOwner:?];
-
-  v12 = *MEMORY[0x1E69E9840];
+  BYTE2(v13) = 1;
+  LOWORD(v13) = 1;
+  v11 = [v9 _libraryStreamConfigurationWithUUID:v10 streamIdentifier:@"Location.Semantic" eventClass:objc_opt_class() storeConfig:storeConfigurationForSemantic syncPolicy:syncPolicyForSemantic legacyNames:&unk_1EF3EB508 internalMetadata:0 enableSubscriptions:v13 enableSubscriptionSubstream:0 enableTombstoneSubstream:v8 allowedClients:0 pruningTriggers:? spaceAttributionOwner:?];
 
   return v11;
 }
@@ -260,66 +252,60 @@ LABEL_12:
 
 + (id)SignificantVisit
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForSignificantVisit = [self configurationForSignificantVisit];
   v3 = +[BMLocationSignificantVisit columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Location.SignificantVisit" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Location.SignificantVisit" schema:v9 configuration:configurationForSignificantVisit];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)Semantic
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForSemantic = [self configurationForSemantic];
   v3 = +[BMLocationSemantic columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Location.Semantic" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Location.Semantic" schema:v9 configuration:configurationForSemantic];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)HashedCoordinates
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForHashedCoordinates = [self configurationForHashedCoordinates];
   v3 = +[BMLocationHashedCoordinates columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Location.HashedCoordinates" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Location.HashedCoordinates" schema:v9 configuration:configurationForHashedCoordinates];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

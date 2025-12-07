@@ -44,71 +44,65 @@
   v10 = v9;
   if (v9)
   {
-    v29 = 0.0;
-    v30 = 0.0;
-    [v9 getFloatValue:&v30 fromParm:1 atFxTime:info->var0.var1];
-    [v10 getFloatValue:&v29 fromParm:2 atFxTime:info->var0.var1];
-    v28 = 0;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
-    v25 = 0u;
+    v22 = 0.0;
+    v23 = 0.0;
+    [v9 getFloatValue:&v23 fromParm:1 atFxTime:info->var0.var1];
+    [v10 getFloatValue:&v22 fromParm:2 atFxTime:info->var0.var1];
+    v21 = 0;
+    v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     if (output)
     {
-      [output imageInfo];
+      objc_msgSend_imageInfo(output);
     }
 
-    [(PAESharedDefaultBase *)self getInversePixelTransformForImage:input];
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
-    v11 = v29;
-    if (*(&v26 + 1))
+    objc_msgSend_getInversePixelTransformForImage_(self);
+    objc_msgSend_getPixelTransformForImage_(self);
+    v11 = v22;
+    if (*(&v19 + 1))
     {
-      v11 = -v29;
+      v11 = -v22;
     }
 
-    v29 = v11 / 100.0 - floor(v11 / 100.0);
-    v30 = v30 / 100.0 - floor(v30 / 100.0);
+    v22 = v11 / 100.0 - floor(v11 / 100.0);
+    v23 = v23 / 100.0 - floor(v23 / 100.0);
     if (-[PAESharedDefaultBase getRenderMode:](self, "getRenderMode:", info->var0.var1) && [input imageType] == 3)
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input);
       }
 
       else
       {
-        v23 = 0;
+        v16 = 0;
       }
 
-      [(PAESharedDefaultBase *)self getScaleForImage:input];
-      v19 = v23;
-      if (v23)
+      objc_msgSend_getScaleForImage_(self);
+      if (v16)
       {
-        (*(*v23 + 16))(v23);
+        (*(*v16 + 16))(v16);
       }
 
-      v12 = v30;
+      v12 = v23;
       width = [input width];
-      v14 = v21;
-      v15 = v29;
-      height = [input height];
-      *v18 = v21;
-      *&v18[1] = v22;
-      [(PAETile *)self transformAndTile:&v19 withXValue:v18 YValue:input skew:v12 * width * v14 scale:v15 * height * v22 stretch:0.0 rotation:1.0 resolution:1.0 inputImage:0.0];
-      if (v19)
+      objc_msgSend_transformAndTile_withXValue_YValue_skew_scale_stretch_rotation_resolution_inputImage_(self, v12 * width * *&v15[1], v22 * [input height] * *&v15[2], 0.0, 1.0, 1.0, 0.0);
+      if (v16)
       {
-        (*(*v19 + 24))(v19);
+        (*(*v16 + 24))(v16);
       }
 
-      [output setHeliumRef:&v20];
-      if (v20)
+      [output setHeliumRef:v15];
+      if (v15[0])
       {
-        (*(*v20 + 24))(v20);
+        (*(*v15[0] + 24))(v15[0]);
       }
 
-      if (v23)
+      if (v16)
       {
-        (*(*v23 + 24))(v23);
+        (*(*v16 + 24))(v16);
       }
     }
   }

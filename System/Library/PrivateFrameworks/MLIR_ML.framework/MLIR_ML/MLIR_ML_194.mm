@@ -1,3 +1,909 @@
+uint64_t mlir::DictionaryAttr::getEmptyUnchecked(mlir::DictionaryAttr *this, mlir::MLIRContext *a2)
+{
+  AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(this);
+  v8[0] = &mlir::detail::TypeIDResolver<mlir::DictionaryAttr,void>::id;
+  v8[1] = this;
+  v12[0] = _ZN4llvm12function_refIFvPN4mlir6detail21DictionaryAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_14DictionaryAttrEJNS_8ArrayRefINS1_14NamedAttributeEEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESG_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSI_E_EEvlS4_;
+  v12[1] = v8;
+  v11[0] = 0;
+  v11[1] = 0;
+  v4 = llvm::hashing::detail::hash_combine_range_impl<mlir::NamedAttribute const*>(0, 0);
+  v5 = HIDWORD(v4) ^ 0xFF51AFD7ED558CCDLL;
+  v6 = 0x9DDFEA08EB382D69 * ((8 * v4 + 8) ^ v5);
+  v9[0] = v11;
+  v9[1] = v12;
+  v10 = v11;
+  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DictionaryAttr,void>::id, -348639895 * ((((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 32) >> 15) ^ (-348639895 * (v5 ^ (v6 >> 47) ^ v6))), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DictionaryAttrStorage * mlir::StorageUniquer::get<mlir::detail::DictionaryAttrStorage,llvm::ArrayRef<mlir::NamedAttribute>>(llvm::function_ref<void ()(mlir::detail::DictionaryAttrStorage *)>,mlir::TypeID,llvm::ArrayRef<mlir::NamedAttribute> &&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v10, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DictionaryAttrStorage * mlir::StorageUniquer::get<mlir::detail::DictionaryAttrStorage,llvm::ArrayRef<mlir::NamedAttribute>>(llvm::function_ref<void ()(mlir::detail::DictionaryAttrStorage *)>,mlir::TypeID,llvm::ArrayRef<mlir::NamedAttribute> &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v9);
+}
+
+uint64_t *mlir::StridedLayoutAttr::print(uint64_t *this, llvm::raw_ostream *a2)
+{
+  v3 = this;
+  v4 = *(a2 + 4);
+  if ((*(a2 + 3) - v4) > 8)
+  {
+    *(v4 + 8) = 91;
+    *v4 = *"strided<[";
+    *(a2 + 4) += 9;
+    v5 = *this;
+    v6 = *(*this + 24);
+    if (!v6)
+    {
+      goto LABEL_12;
+    }
+
+    goto LABEL_5;
+  }
+
+  this = llvm::raw_ostream::write(a2, "strided<[", 9uLL);
+  v5 = *v3;
+  v6 = *(*v3 + 24);
+  if (v6)
+  {
+LABEL_5:
+    v7 = *(v5 + 16);
+    if (*v7 == 0x8000000000000000)
+    {
+      v8 = *(a2 + 4);
+      if (*(a2 + 3) == v8)
+      {
+        this = llvm::raw_ostream::write(a2, "?", 1uLL);
+        if (v6 == 1)
+        {
+          goto LABEL_12;
+        }
+      }
+
+      else
+      {
+        *v8 = 63;
+        ++*(a2 + 4);
+        if (v6 == 1)
+        {
+          goto LABEL_12;
+        }
+      }
+    }
+
+    else
+    {
+      this = llvm::raw_ostream::operator<<(a2, *v7);
+      if (v6 == 1)
+      {
+        goto LABEL_12;
+      }
+    }
+
+    v13 = v7 + 1;
+    for (i = 8 * v6 - 8; i; i -= 8)
+    {
+      v15 = *(a2 + 4);
+      if (*(a2 + 3) - v15 > 1uLL)
+      {
+        *v15 = 8236;
+        *(a2 + 4) += 2;
+        v16 = *v13;
+        if (*v13 == 0x8000000000000000)
+        {
+LABEL_27:
+          v17 = *(a2 + 4);
+          if (*(a2 + 3) == v17)
+          {
+            this = llvm::raw_ostream::write(a2, "?", 1uLL);
+          }
+
+          else
+          {
+            *v17 = 63;
+            ++*(a2 + 4);
+          }
+
+          goto LABEL_22;
+        }
+      }
+
+      else
+      {
+        this = llvm::raw_ostream::write(a2, ", ", 2uLL);
+        v16 = *v13;
+        if (*v13 == 0x8000000000000000)
+        {
+          goto LABEL_27;
+        }
+      }
+
+      this = llvm::raw_ostream::operator<<(a2, v16);
+LABEL_22:
+      ++v13;
+    }
+  }
+
+LABEL_12:
+  v9 = *(a2 + 4);
+  if (*(a2 + 3) == v9)
+  {
+    this = llvm::raw_ostream::write(a2, "]", 1uLL);
+    if (!*(*v3 + 8))
+    {
+      goto LABEL_33;
+    }
+  }
+
+  else
+  {
+    *v9 = 93;
+    ++*(a2 + 4);
+    if (!*(*v3 + 8))
+    {
+LABEL_33:
+      v12 = *(a2 + 4);
+      if (*(a2 + 3) != v12)
+      {
+        goto LABEL_34;
+      }
+
+      goto LABEL_36;
+    }
+  }
+
+  v10 = *(a2 + 4);
+  if ((*(a2 + 3) - v10) <= 9)
+  {
+    this = llvm::raw_ostream::write(a2, ", offset: ", 0xAuLL);
+    v11 = *(*v3 + 8);
+    if (v11 != 0x8000000000000000)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_31:
+    v18 = *(a2 + 4);
+    if (*(a2 + 3) == v18)
+    {
+      this = llvm::raw_ostream::write(a2, "?", 1uLL);
+      v12 = *(a2 + 4);
+      if (*(a2 + 3) != v12)
+      {
+        goto LABEL_34;
+      }
+
+      goto LABEL_36;
+    }
+
+    *v18 = 63;
+    ++*(a2 + 4);
+    goto LABEL_33;
+  }
+
+  *(v10 + 8) = 8250;
+  *v10 = *", offset: ";
+  *(a2 + 4) += 10;
+  v11 = *(*v3 + 8);
+  if (v11 == 0x8000000000000000)
+  {
+    goto LABEL_31;
+  }
+
+LABEL_18:
+  this = llvm::raw_ostream::operator<<(a2, v11);
+  v12 = *(a2 + 4);
+  if (*(a2 + 3) != v12)
+  {
+LABEL_34:
+    *v12 = 62;
+    ++*(a2 + 4);
+    return this;
+  }
+
+LABEL_36:
+
+  return llvm::raw_ostream::write(a2, ">", 1uLL);
+}
+
+BOOL mlir::StridedLayoutAttr::hasStaticLayout(mlir::StridedLayoutAttr *this)
+{
+  v1 = *this;
+  if (*(*this + 8) == 0x8000000000000000)
+  {
+    return 0;
+  }
+
+  v3 = *(v1 + 24);
+  if (!v3)
+  {
+    return 1;
+  }
+
+  v4 = *(v1 + 16);
+  v5 = 8 * v3 - 8;
+  do
+  {
+    v6 = *v4++;
+    result = v6 != 0x8000000000000000;
+    v7 = v6 == 0x8000000000000000 || v5 == 0;
+    v5 -= 8;
+  }
+
+  while (!v7);
+  return result;
+}
+
+uint64_t mlir::StridedLayoutAttr::getAffineMap(mlir::StridedLayoutAttr *this)
+{
+  v2 = *(*this + 16);
+  v1 = *(*this + 24);
+  v3 = *(*this + 8);
+  Context = mlir::Attribute::getContext(this);
+
+  return mlir::makeStridedLinearLayoutMap(v2, v1, v3, Context);
+}
+
+uint64_t mlir::makeStridedLinearLayoutMap(uint64_t a1, uint64_t a2, mlir *this, mlir::MLIRContext *a4)
+{
+  if (this == 0x8000000000000000)
+  {
+    AffineSymbolExpr = mlir::getAffineSymbolExpr(0, a4, 0x8000000000000000);
+    v8 = 1;
+    v18 = AffineSymbolExpr;
+    if (!a2)
+    {
+      return mlir::AffineMap::get(a2, v8, AffineSymbolExpr);
+    }
+  }
+
+  else
+  {
+    AffineSymbolExpr = mlir::getAffineConstantExpr(this, a4, this);
+    v8 = 0;
+    v18 = AffineSymbolExpr;
+    if (!a2)
+    {
+      return mlir::AffineMap::get(a2, v8, AffineSymbolExpr);
+    }
+  }
+
+  v9 = 0;
+  v10 = 8 * a2;
+  do
+  {
+    v14 = *(a1 + 8 * v9);
+    AffineDimExpr = mlir::getAffineDimExpr(v9, a4, AffineSymbolExpr);
+    if (v14 == 0x8000000000000000)
+    {
+      AffineConstantExpr = mlir::getAffineSymbolExpr(v8, a4, v15);
+      v8 = (v8 + 1);
+    }
+
+    else
+    {
+      AffineConstantExpr = mlir::getAffineConstantExpr(v14, a4, v15);
+    }
+
+    v12 = mlir::AffineExpr::operator*(&AffineDimExpr, AffineConstantExpr);
+    v13 = mlir::AffineExpr::operator+(&v18, v12);
+    v18 = v13;
+    v9 = (v9 + 1);
+    v10 -= 8;
+  }
+
+  while (v10);
+  AffineSymbolExpr = v13;
+  return mlir::AffineMap::get(a2, v8, AffineSymbolExpr);
+}
+
+BOOL mlir::StridedLayoutAttr::verifyLayout(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *__return_ptr, uint64_t), uint64_t a5)
+{
+  v30 = *MEMORY[0x277D85DE8];
+  if (a3 == *(*a1 + 24))
+  {
+    return 1;
+  }
+
+  (a4)(v19, a5, a2);
+  if (v19[0])
+  {
+    LODWORD(v17) = 3;
+    *(&v17 + 1) = "expected the number of strides to match the rank";
+    v18 = 48;
+    if (v21 >= v22)
+    {
+      if (v20 > &v17 || v20 + 24 * v21 <= &v17)
+      {
+        llvm::SmallVectorBase<unsigned int>::grow_pod();
+      }
+
+      llvm::SmallVectorBase<unsigned int>::grow_pod();
+    }
+
+    v6 = v20 + 24 * v21;
+    v7 = v17;
+    *(v6 + 2) = v18;
+    *v6 = v7;
+    ++v21;
+  }
+
+  v5 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v19);
+  if (v19[0])
+  {
+    mlir::InFlightDiagnostic::report(v19);
+  }
+
+  if (v29 == 1)
+  {
+    if (v28 != &v29)
+    {
+      free(v28);
+    }
+
+    v8 = __p;
+    if (__p)
+    {
+      v9 = v27;
+      v10 = __p;
+      if (v27 != __p)
+      {
+        do
+        {
+          v9 = std::unique_ptr<mlir::Diagnostic>::~unique_ptr[abi:nn200100](v9 - 1);
+        }
+
+        while (v9 != v8);
+        v10 = __p;
+      }
+
+      v27 = v8;
+      operator delete(v10);
+    }
+
+    v11 = v24;
+    if (v24)
+    {
+      v12 = v25;
+      v13 = v24;
+      if (v25 != v24)
+      {
+        do
+        {
+          v15 = *--v12;
+          v14 = v15;
+          *v12 = 0;
+          if (v15)
+          {
+            MEMORY[0x259C63150](v14, 0x1000C8077774924);
+          }
+        }
+
+        while (v12 != v11);
+        v13 = v24;
+      }
+
+      v25 = v11;
+      operator delete(v13);
+    }
+
+    if (v20 != &v23)
+    {
+      free(v20);
+    }
+  }
+
+  return v5;
+}
+
+uint64_t mlir::StringAttr::getEmptyStringAttrUnchecked(mlir::StringAttr *this, mlir::MLIRContext *a2)
+{
+  v3 = mlir::NoneType::get(this, a2);
+  AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(this);
+  v7[0] = &mlir::detail::TypeIDResolver<mlir::StringAttr,void>::id;
+  v7[1] = this;
+  v11[0] = _ZN4llvm12function_refIFvPN4mlir6detail17StringAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_10StringAttrEJRA1_KcNS1_8NoneTypeEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESH_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSJ_E_EEvlS4_;
+  v11[1] = v7;
+  v10[0] = "";
+  v10[1] = 0;
+  v10[2] = v3;
+  v5 = 0xBF58476D1CE4E5B9 * ((v3 >> 4) ^ (v3 >> 9) | (llvm::DenseMapInfo<llvm::StringRef,void>::getHashValue("", 0) << 32));
+  v8[0] = v10;
+  v8[1] = v11;
+  v9 = v10;
+  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::StringAttr,void>::id, (v5 >> 31) ^ v5, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::StringAttrStorage * mlir::StorageUniquer::get<mlir::detail::StringAttrStorage,char const(&)[1],mlir::NoneType>(llvm::function_ref<void ()(mlir::detail::StringAttrStorage *)>,mlir::TypeID,char const(&)[1],mlir::NoneType &&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v9, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::StringAttrStorage * mlir::StorageUniquer::get<mlir::detail::StringAttrStorage,char const(&)[1],mlir::NoneType>(llvm::function_ref<void ()(mlir::detail::StringAttrStorage *)>,mlir::TypeID,char const(&)[1],mlir::NoneType &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v8);
+}
+
+uint64_t mlir::StringAttr::get(mlir::StringAttr *this, size_t *a2, const llvm::Twine *a3)
+{
+  v20[4] = *MEMORY[0x277D85DE8];
+  v4 = *(a2 + 32);
+  if (v4 <= 1)
+  {
+
+    return mlir::StringAttr::get(this, a2);
+  }
+
+  v18 = v20;
+  v19 = xmmword_25736B040;
+  if (*(a2 + 33) != 1)
+  {
+    goto LABEL_11;
+  }
+
+  if (v4 - 5 < 2)
+  {
+    v6 = *a2;
+    v7 = a2[1];
+    goto LABEL_20;
+  }
+
+  if (v4 != 4)
+  {
+    if (v4 == 3)
+    {
+      v6 = *a2;
+      if (*a2)
+      {
+        v7 = strlen(*a2);
+      }
+
+      else
+      {
+        v7 = 0;
+      }
+
+      goto LABEL_20;
+    }
+
+LABEL_11:
+    llvm::Twine::toVector(a2, &v18);
+    v6 = v18;
+    v7 = v19;
+    goto LABEL_20;
+  }
+
+  v8 = *(*a2 + 23);
+  if (v8 >= 0)
+  {
+    v6 = *a2;
+  }
+
+  else
+  {
+    v6 = **a2;
+  }
+
+  if (v8 >= 0)
+  {
+    v7 = *(*a2 + 23);
+  }
+
+  else
+  {
+    v7 = *(*a2 + 8);
+  }
+
+LABEL_20:
+  v9 = mlir::NoneType::get(this, a2);
+  AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(this);
+  v13[0] = &mlir::detail::TypeIDResolver<mlir::StringAttr,void>::id;
+  v13[1] = this;
+  v17[0] = _ZN4llvm12function_refIFvPN4mlir6detail17StringAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_10StringAttrEJNS_9StringRefENS1_8NoneTypeEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESF_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSH_E_EEvlS4_;
+  v17[1] = v13;
+  v16[0] = v6;
+  v16[1] = v7;
+  v16[2] = v9;
+  v11 = 0xBF58476D1CE4E5B9 * ((v9 >> 4) ^ (v9 >> 9) | (llvm::DenseMapInfo<llvm::StringRef,void>::getHashValue(v6, v7) << 32));
+  v14[0] = v16;
+  v14[1] = v17;
+  v15 = v16;
+  result = mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::StringAttr,void>::id, (v11 >> 31) ^ v11, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::StringAttrStorage * mlir::StorageUniquer::get<mlir::detail::StringAttrStorage,llvm::StringRef,mlir::NoneType>(llvm::function_ref<void ()(mlir::detail::StringAttrStorage *)>,mlir::TypeID,llvm::StringRef,mlir::NoneType &&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v15, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::StringAttrStorage * mlir::StorageUniquer::get<mlir::detail::StringAttrStorage,llvm::StringRef,mlir::NoneType>(llvm::function_ref<void ()(mlir::detail::StringAttrStorage *)>,mlir::TypeID,llvm::StringRef,mlir::NoneType &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v14);
+  if (v18 != v20)
+  {
+    v12 = result;
+    free(v18);
+    return v12;
+  }
+
+  return result;
+}
+
+uint64_t mlir::StringAttr::get(unsigned __int8 *a1, uint64_t a2)
+{
+  v22[4] = *MEMORY[0x277D85DE8];
+  v14 = a2;
+  v20 = v22;
+  v21 = xmmword_25736B040;
+  Context = mlir::Type::getContext(&v14);
+  v4 = a1;
+  if (a1[33] != 1)
+  {
+    goto LABEL_14;
+  }
+
+  v5 = a1[32];
+  if (v5 > 4)
+  {
+    if (v5 - 5 < 2)
+    {
+      v7 = *a1;
+      v8 = *(v4 + 1);
+      goto LABEL_15;
+    }
+
+    goto LABEL_14;
+  }
+
+  if (v5 == 1)
+  {
+    v8 = 0;
+    v7 = 0;
+    goto LABEL_15;
+  }
+
+  if (v5 == 3)
+  {
+    v7 = *a1;
+    if (*v4)
+    {
+      v8 = strlen(*v4);
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    goto LABEL_15;
+  }
+
+  if (v5 != 4)
+  {
+LABEL_14:
+    llvm::Twine::toVector(a1, &v20);
+    v7 = v20;
+    v8 = v21;
+    goto LABEL_15;
+  }
+
+  v6 = *(*a1 + 23);
+  if (v6 >= 0)
+  {
+    v7 = *a1;
+  }
+
+  else
+  {
+    v7 = **a1;
+  }
+
+  if (v6 >= 0)
+  {
+    v8 = *(*v4 + 23);
+  }
+
+  else
+  {
+    v8 = *(*v4 + 8);
+  }
+
+LABEL_15:
+  AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
+  v15[0] = &mlir::detail::TypeIDResolver<mlir::StringAttr,void>::id;
+  v15[1] = Context;
+  v19[0] = _ZN4llvm12function_refIFvPN4mlir6detail17StringAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_10StringAttrEJNS_9StringRefERNS1_4TypeEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESG_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSI_E_EEvlS4_;
+  v19[1] = v15;
+  v18[0] = v7;
+  v18[1] = v8;
+  v10 = v14;
+  v18[2] = v14;
+  v11 = 0xBF58476D1CE4E5B9 * ((v10 >> 4) ^ (v10 >> 9) | (llvm::DenseMapInfo<llvm::StringRef,void>::getHashValue(v7, v8) << 32));
+  v16[0] = v18;
+  v16[1] = v19;
+  v17 = v18;
+  result = mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::StringAttr,void>::id, (v11 >> 31) ^ v11, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::StringAttrStorage * mlir::StorageUniquer::get<mlir::detail::StringAttrStorage,llvm::StringRef,mlir::Type &>(llvm::function_ref<void ()(mlir::detail::StringAttrStorage *)>,mlir::TypeID,llvm::StringRef,mlir::Type &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v17, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::StringAttrStorage * mlir::StorageUniquer::get<mlir::detail::StringAttrStorage,llvm::StringRef,mlir::Type &>(llvm::function_ref<void ()(mlir::detail::StringAttrStorage *)>,mlir::TypeID,llvm::StringRef,mlir::Type &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v16);
+  if (v20 != v22)
+  {
+    v13 = result;
+    free(v20);
+    return v13;
+  }
+
+  return result;
+}
+
+double mlir::FloatAttr::getValueAsDouble(mlir::FloatAttr *this)
+{
+  v16[3] = *MEMORY[0x277D85DE8];
+  v1 = (*this + 24);
+  v2 = *v1;
+  v3 = llvm::APFloatBase::PPCDoubleDouble(this);
+  if (v3 != v2)
+  {
+    v4 = llvm::detail::IEEEFloat::IEEEFloat(v16, v1);
+    v5 = v16[0];
+    v6 = llvm::APFloatBase::IEEEdouble(v4);
+    if (v5 == v6)
+    {
+      goto LABEL_4;
+    }
+
+    goto LABEL_3;
+  }
+
+  v12 = llvm::detail::DoubleAPFloat::DoubleAPFloat(v16, v1);
+  v13 = v16[0];
+  v6 = llvm::APFloatBase::IEEEdouble(v12);
+  if (v13 != v6)
+  {
+LABEL_3:
+    v14 = 0;
+    llvm::APFloat::convert(&v15, v6, 1u, &v14);
+  }
+
+LABEL_4:
+  v10 = llvm::APFloat::convertToDouble(&v15, v7, v8, v9);
+  if (v3 == v16[0])
+  {
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v16);
+  }
+
+  else
+  {
+    llvm::detail::IEEEFloat::~IEEEFloat(v16);
+  }
+
+  return v10;
+}
+
+double mlir::FloatAttr::getValueAsDouble(llvm::APFloatBase *a1)
+{
+  v2 = *(a1 + 1);
+  v3 = llvm::APFloatBase::IEEEdouble(a1);
+  if (v2 != v3)
+  {
+    v8 = 0;
+    llvm::APFloat::convert(a1, v3, 1u, &v8);
+  }
+
+  return llvm::APFloat::convertToDouble(a1, v4, v5, v6);
+}
+
+uint64_t mlir::SymbolRefAttr::get(mlir::StringAttr *a1, size_t a2, const llvm::Twine *a3, _DWORD *a4, uint64_t a5)
+{
+  v15 = 261;
+  v14[0] = a2;
+  v14[1] = a3;
+  v16 = mlir::StringAttr::get(a1, v14, a3);
+  Context = mlir::Attribute::getContext(&v16);
+  AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
+  v17[0] = &mlir::detail::TypeIDResolver<mlir::SymbolRefAttr,void>::id;
+  v17[1] = Context;
+  v21[0] = _ZN4llvm12function_refIFvPN4mlir6detail20SymbolRefAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_13SymbolRefAttrEJRNS1_10StringAttrERNS_8ArrayRefINS1_17FlatSymbolRefAttrEEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESJ_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSL_E_EEvlS4_;
+  v21[1] = v17;
+  v20[0] = v16;
+  v20[1] = a4;
+  v20[2] = a5;
+  v9 = (v16 >> 4) ^ (v16 >> 9);
+  v10 = llvm::hashing::detail::hash_combine_range_impl<mlir::StringAttr const*>(a4, &a4[2 * a5]);
+  v11 = __ROR8__(v10 + 16, 16);
+  v12 = 0x9DDFEA08EB382D69 * (v11 ^ ((0x9DDFEA08EB382D69 * (v11 ^ 0xFF51AFD7ED558CCDLL ^ v9)) >> 47) ^ (0x9DDFEA08EB382D69 * (v11 ^ 0xFF51AFD7ED558CCDLL ^ v9)));
+  v18[0] = v20;
+  v18[1] = v21;
+  v19 = v20;
+  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::SymbolRefAttr,void>::id, (-348639895 * ((v12 >> 47) ^ v12)) ^ v10, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::SymbolRefAttrStorage * mlir::StorageUniquer::get<mlir::detail::SymbolRefAttrStorage,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &>(llvm::function_ref<void ()(mlir::detail::SymbolRefAttrStorage *)>,mlir::TypeID,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v19, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::SymbolRefAttrStorage * mlir::StorageUniquer::get<mlir::detail::SymbolRefAttrStorage,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &>(llvm::function_ref<void ()(mlir::detail::SymbolRefAttrStorage *)>,mlir::TypeID,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v18);
+}
+
+uint64_t mlir::SymbolRefAttr::get(mlir::StringAttr *a1, size_t a2, const llvm::Twine *a3)
+{
+  v11 = 261;
+  v10[0] = a2;
+  v10[1] = a3;
+  v12 = mlir::StringAttr::get(a1, v10, a3);
+  Context = mlir::Attribute::getContext(&v12);
+  AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
+  v13[0] = &mlir::detail::TypeIDResolver<mlir::SymbolRefAttr,void>::id;
+  v13[1] = Context;
+  v17[0] = _ZN4llvm12function_refIFvPN4mlir6detail20SymbolRefAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_13SymbolRefAttrEJRNS1_10StringAttrERNS_8ArrayRefINS1_17FlatSymbolRefAttrEEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESJ_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSL_E_EEvlS4_;
+  v17[1] = v13;
+  v5 = (v12 >> 4) ^ (v12 >> 9);
+  v16[1] = 0;
+  v16[2] = 0;
+  v16[0] = v12;
+  v6 = llvm::hashing::detail::hash_combine_range_impl<mlir::StringAttr const*>(0, 0);
+  v7 = __ROR8__(v6 + 16, 16);
+  v8 = 0x9DDFEA08EB382D69 * (v7 ^ ((0x9DDFEA08EB382D69 * (v7 ^ 0xFF51AFD7ED558CCDLL ^ v5)) >> 47) ^ (0x9DDFEA08EB382D69 * (v7 ^ 0xFF51AFD7ED558CCDLL ^ v5)));
+  v14[0] = v16;
+  v14[1] = v17;
+  v15 = v16;
+  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::SymbolRefAttr,void>::id, (-348639895 * ((v8 >> 47) ^ v8)) ^ v6, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::SymbolRefAttrStorage * mlir::StorageUniquer::get<mlir::detail::SymbolRefAttrStorage,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &>(llvm::function_ref<void ()(mlir::detail::SymbolRefAttrStorage *)>,mlir::TypeID,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v15, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::SymbolRefAttrStorage * mlir::StorageUniquer::get<mlir::detail::SymbolRefAttrStorage,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &>(llvm::function_ref<void ()(mlir::detail::SymbolRefAttrStorage *)>,mlir::TypeID,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v14);
+}
+
+uint64_t mlir::SymbolRefAttr::get(uint64_t a1)
+{
+  v8 = a1;
+  Context = mlir::Attribute::getContext(&v8);
+  AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
+  v9[0] = &mlir::detail::TypeIDResolver<mlir::SymbolRefAttr,void>::id;
+  v9[1] = Context;
+  v13[0] = _ZN4llvm12function_refIFvPN4mlir6detail20SymbolRefAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_13SymbolRefAttrEJRNS1_10StringAttrERNS_8ArrayRefINS1_17FlatSymbolRefAttrEEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESJ_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSL_E_EEvlS4_;
+  v13[1] = v9;
+  v3 = (v8 >> 4) ^ (v8 >> 9);
+  v12[1] = 0;
+  v12[2] = 0;
+  v12[0] = v8;
+  v4 = llvm::hashing::detail::hash_combine_range_impl<mlir::StringAttr const*>(0, 0);
+  v5 = __ROR8__(v4 + 16, 16);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ ((0x9DDFEA08EB382D69 * (v5 ^ 0xFF51AFD7ED558CCDLL ^ v3)) >> 47) ^ (0x9DDFEA08EB382D69 * (v5 ^ 0xFF51AFD7ED558CCDLL ^ v3)));
+  v10[0] = v12;
+  v10[1] = v13;
+  v11 = v12;
+  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::SymbolRefAttr,void>::id, (-348639895 * ((v6 >> 47) ^ v6)) ^ v4, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::SymbolRefAttrStorage * mlir::StorageUniquer::get<mlir::detail::SymbolRefAttrStorage,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &>(llvm::function_ref<void ()(mlir::detail::SymbolRefAttrStorage *)>,mlir::TypeID,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v11, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::SymbolRefAttrStorage * mlir::StorageUniquer::get<mlir::detail::SymbolRefAttrStorage,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &>(llvm::function_ref<void ()(mlir::detail::SymbolRefAttrStorage *)>,mlir::TypeID,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v10);
+}
+
+uint64_t mlir::SymbolRefAttr::get(mlir::SymbolRefAttr *this, mlir::Operation *a2)
+{
+  v6 = mlir::Operation::getAttrOfType<mlir::StringAttr>(this, "sym_name", 8uLL);
+  Context = mlir::Attribute::getContext(&v6);
+  AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
+  v7[0] = &mlir::detail::TypeIDResolver<mlir::SymbolRefAttr,void>::id;
+  v7[1] = Context;
+  v11[0] = _ZN4llvm12function_refIFvPN4mlir6detail20SymbolRefAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_13SymbolRefAttrEJRNS1_10StringAttrERNS_8ArrayRefINS1_17FlatSymbolRefAttrEEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESJ_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSL_E_EEvlS4_;
+  v11[1] = v7;
+  v10[1] = 0;
+  v10[2] = 0;
+  v10[0] = v6;
+  v4 = 0x9DDFEA08EB382D69 * ((v6 >> 4) ^ (v6 >> 9) ^ 0x33C3CA6728B94E08);
+  v8[0] = v10;
+  v8[1] = v11;
+  v9 = v10;
+  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::SymbolRefAttr,void>::id, (-348639895 * ((((0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47) ^ 0xCC9265B0C5ECC2C5)) >> 32) >> 15) ^ (-348639895 * (v4 ^ (v4 >> 47) ^ 0xC5ECC2C5)))) ^ 0xC2C5CC82, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::SymbolRefAttrStorage * mlir::StorageUniquer::get<mlir::detail::SymbolRefAttrStorage,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &>(llvm::function_ref<void ()(mlir::detail::SymbolRefAttrStorage *)>,mlir::TypeID,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v9, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::SymbolRefAttrStorage * mlir::StorageUniquer::get<mlir::detail::SymbolRefAttrStorage,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &>(llvm::function_ref<void ()(mlir::detail::SymbolRefAttrStorage *)>,mlir::TypeID,mlir::StringAttr &,llvm::ArrayRef<mlir::FlatSymbolRefAttr> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v8);
+}
+
+uint64_t mlir::Operation::getAttrOfType<mlir::StringAttr>(uint64_t a1, const void *a2, size_t a3)
+{
+  if (*(a1 + 47))
+  {
+    result = mlir::Operation::getInherentAttr(a1, a2, a3);
+    if (v7)
+    {
+      goto LABEL_21;
+    }
+  }
+
+  v8 = *(a1 + 56);
+  v9 = (16 * *(v8 + 16)) >> 4;
+  if (v9 < 1)
+  {
+    return 0;
+  }
+
+  v10 = *(v8 + 8);
+  while (1)
+  {
+    v11 = v9 >> 1;
+    v12 = &v10[2 * (v9 >> 1)];
+    Name = mlir::NamedAttribute::getName(v12);
+    v14 = *(Name + 24);
+    if (a3 >= v14)
+    {
+      v15 = *(Name + 24);
+    }
+
+    else
+    {
+      v15 = a3;
+    }
+
+    if (v15)
+    {
+      v16 = memcmp(*(Name + 16), a2, v15);
+      if (v16)
+      {
+        if ((v16 & 0x80000000) == 0)
+        {
+          goto LABEL_6;
+        }
+
+        goto LABEL_5;
+      }
+    }
+
+    if (v14 == a3)
+    {
+      break;
+    }
+
+    if (v14 >= a3)
+    {
+      goto LABEL_6;
+    }
+
+LABEL_5:
+    v10 = (v12 + 16);
+    v11 = v9 + ~v11;
+LABEL_6:
+    v9 = v11;
+    if (v11 <= 0)
+    {
+      return 0;
+    }
+  }
+
+  result = *(v12 + 1);
+LABEL_21:
+  if (result)
+  {
+    if (*(*result + 136) != &mlir::detail::TypeIDResolver<mlir::StringAttr,void>::id)
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::SymbolRefAttr::getLeafReference(mlir::SymbolRefAttr *this)
+{
+  v1 = *this;
+  v2 = *(*this + 24);
+  if (v2)
+  {
+    v1 = *(*(v1 + 16) + 8 * v2 - 8);
+  }
+
+  return *(v1 + 8);
+}
+
+uint64_t mlir::IntegerAttr::getInt(mlir::IntegerAttr *this)
+{
+  v1 = (*this + 16);
+  v2 = *(*this + 24);
+  v5 = v2;
+  if (v2 >= 0x41)
+  {
+    llvm::APInt::initSlowCase(&v4, v1);
+  }
+
+  if (v2)
+  {
+    return (*v1 << -v2) >> -v2;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t mlir::IntegerAttr::getSInt(mlir::IntegerAttr *this)
+{
+  v1 = (*this + 16);
+  v2 = *(*this + 24);
+  v5 = v2;
+  if (v2 >= 0x41)
+  {
+    llvm::APInt::initSlowCase(&v4, v1);
+  }
+
+  if (v2)
+  {
+    return (*v1 << -v2) >> -v2;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t *mlir::IntegerAttr::getUInt(mlir::IntegerAttr *this)
+{
+  v1 = *this;
+  v4 = *(*this + 24);
+  if (v4 > 0x40)
+  {
+    llvm::APInt::initSlowCase(&v3, (v1 + 16));
+  }
+
+  return *(v1 + 16);
+}
+
 BOOL mlir::IntegerAttr::getAPSInt@<W0>(mlir::IntegerAttr *this@<X0>, uint64_t a2@<X8>)
 {
   v3 = *this;
@@ -84,7 +990,7 @@ void *mlir::DenseElementsAttr::AttributeElementIterator::AttributeElementIterato
   return result;
 }
 
-uint64_t mlir::DenseElementsAttr::AttributeElementIterator::operator*(void *a1)
+llvm::APFloatBase *mlir::DenseElementsAttr::AttributeElementIterator::operator*(void *a1)
 {
   v97 = *MEMORY[0x277D85DE8];
   v2 = *a1;
@@ -122,7 +1028,7 @@ uint64_t mlir::DenseElementsAttr::AttributeElementIterator::operator*(void *a1)
       DWORD2(__dst) = DenseElementBitWidth;
       if (DenseElementBitWidth >= 0x41)
       {
-        llvm::APInt::initSlowCase(&__dst);
+        llvm::APInt::initSlowCase(&__dst, 0, 0);
       }
 
       *&__dst = 0;
@@ -224,7 +1130,7 @@ LABEL_57:
         v89[1] = v76;
         v90 = v49;
         mlir::DenseElementsAttr::ComplexIntElementIterator::operator*(v89, &v91);
-        mlir::DenseElementsAttr::ComplexFloatElementIterator::mapElement(&v91, v89, &__dst);
+        mlir::DenseElementsAttr::ComplexFloatElementIterator::mapElement(&__dst, &v91, v89);
         if (v94 >= 0x41)
         {
           v50 = v93;
@@ -472,7 +1378,7 @@ LABEL_3:
   *(a2 + 2) = v4;
   if (v4 >= 0x41)
   {
-    llvm::APInt::initSlowCase(a2);
+    llvm::APInt::initSlowCase(a2, 0, 0);
   }
 
   *a2 = 0;
@@ -509,8 +1415,8 @@ llvm::detail::IEEEFloat *llvm::mapped_iterator_base<mlir::DenseElementsAttr::Flo
 
 LABEL_10:
     v8 = ((*(v5 + (v4 >> 3)) >> (v4 & 7)) & 1);
-    v13 = 1;
-    v12 = v8;
+    v15 = 1;
+    v14 = v8;
     goto LABEL_11;
   }
 
@@ -523,13 +1429,13 @@ LABEL_10:
   }
 
 LABEL_3:
-  v13 = v6;
+  v15 = v6;
   if (v6 >= 0x41)
   {
-    llvm::APInt::initSlowCase(&v12);
+    llvm::APInt::initSlowCase(&v14, 0, 0);
   }
 
-  v12 = 0;
+  v14 = 0;
   if (v6)
   {
     v7 = ((v6 - (v6 != 0)) >> 3) + 1;
@@ -552,22 +1458,23 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v10 = memmove(&v12, (v5 + ((((v6 - (v6 != 0) + 8 * (v6 != 0)) & 0xFFFFFFFFFFFFFFF8) * v4) >> 3)), v7);
+  v10 = memmove(&v14, (v5 + ((((v6 - (v6 != 0) + 8 * (v6 != 0)) & 0xFFFFFFFFFFFFFFF8) * v4) >> 3)), v7);
   v11 = *(a1 + 4);
-  if (llvm::APFloatBase::PPCDoubleDouble(v10) == v11)
+  v12 = llvm::APFloatBase::PPCDoubleDouble(v10);
+  if (v12 == v11)
   {
 LABEL_16:
-    llvm::detail::DoubleAPFloat::DoubleAPFloat((a2 + 8), v11);
+    llvm::detail::DoubleAPFloat::DoubleAPFloat((a2 + 8), v11, &v14);
   }
 
 LABEL_12:
-  result = llvm::detail::IEEEFloat::IEEEFloat((a2 + 8), v11, &v12);
-  if (v13 >= 0x41)
+  result = llvm::detail::IEEEFloat::IEEEFloat((a2 + 8), v11, &v14, v13);
+  if (v15 >= 0x41)
   {
-    result = v12;
-    if (v12)
+    result = v14;
+    if (v14)
     {
-      return MEMORY[0x259C63150](v12, 0x1000C8000313F17);
+      return MEMORY[0x259C63150](v14, 0x1000C8000313F17);
     }
   }
 
@@ -626,12 +1533,12 @@ LABEL_3:
       }
 
 LABEL_12:
-      v9 = (*(v7 + (v6 >> 3)) >> (v6 & 6)) & 1;
+      v9 = ((*(v7 + (v6 >> 3)) >> (v6 & 6)) & 1);
       v18 = 1;
       v17 = v9;
       v10 = v6 + v5;
 LABEL_15:
-      v11 = (*(v7 + (v10 >> 3)) >> (v10 & 7)) & 1;
+      v11 = ((*(v7 + (v10 >> 3)) >> (v10 & 7)) & 1);
       v16 = 1;
       v15 = v11;
       goto LABEL_24;
@@ -649,7 +1556,7 @@ LABEL_4:
   v18 = result[3];
   if (v4 >= 0x41)
   {
-    llvm::APInt::initSlowCase(&v17);
+    llvm::APInt::initSlowCase(&v17, 0, 0);
   }
 
   v17 = 0;
@@ -683,7 +1590,7 @@ LABEL_4:
   v16 = v4;
   if (v4 >= 0x41)
   {
-    llvm::APInt::initSlowCase(&v15);
+    llvm::APInt::initSlowCase(&v15, 0, 0);
   }
 
   v15 = 0;
@@ -796,9 +1703,9 @@ unint64_t mlir::detail::getDenseElementBitWidth(uint64_t a1)
   }
 }
 
-uint64_t mlir::detail::DenseArrayAttrImpl<BOOL>::get(uint64_t *a1, void *a2, uint64_t a3)
+uint64_t mlir::detail::DenseArrayAttrImpl<BOOL>::get(mlir::MLIRContext *a1, llvm::hashing::detail *a2, uint64_t a3)
 {
-  v6 = mlir::IntegerType::get(a1, 1, 0);
+  v6 = mlir::IntegerType::get(a1, 1u, 0);
   AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(a1);
   v14[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
   v14[1] = a1;
@@ -834,7 +1741,7 @@ void mlir::detail::DenseArrayAttrImpl<BOOL>::print(uint64_t a1, uint64_t a2)
   mlir::detail::DenseArrayAttrImpl<BOOL>::printWithoutBraces();
 }
 
-void mlir::detail::DenseArrayAttrImpl<BOOL>::print(int a1, llvm::raw_ostream *this)
+void mlir::detail::DenseArrayAttrImpl<BOOL>::print(uint64_t a1, llvm::raw_ostream *this)
 {
   v2 = *(this + 4);
   if (*(this + 3) != v2)
@@ -942,7 +1849,7 @@ void *mlir::detail::DenseArrayAttrImpl<BOOL>::printWithoutBraces(void *result, l
   return result;
 }
 
-uint64_t mlir::detail::DenseArrayAttrImpl<BOOL>::parse(mlir::AsmParser *a1)
+uint64_t mlir::detail::DenseArrayAttrImpl<BOOL>::parse(mlir::AsmParser *a1, uint64_t a2)
 {
   if (((*(*a1 + 312))(a1) & 1) == 0)
   {
@@ -955,23 +1862,23 @@ uint64_t mlir::detail::DenseArrayAttrImpl<BOOL>::parse(mlir::AsmParser *a1)
   }
 
   Context = mlir::AsmParser::getContext(a1);
-  v3 = mlir::IntegerType::get(Context, 1, 0);
+  v4 = mlir::IntegerType::get(Context, 1u, 0);
   AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
-  v11[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
-  v11[1] = Context;
-  v15[0] = _ZN4llvm12function_refIFvPN4mlir6detail21DenseArrayAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_14DenseArrayAttrEJRNS1_4TypeEmRNS_8ArrayRefIcEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESI_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSK_E_EEvlS4_;
-  v15[1] = v11;
-  v5 = (v3 >> 4) ^ (v3 >> 9);
-  v14[0] = v3;
-  memset(&v14[1], 0, 24);
-  v6 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(0, 0);
-  v7 = 0xB492B66FBE98F273 * v5 - 0x9AE16A3B2F90404FLL * v6 - 0x1A58D393752DFE12;
-  v8 = (__ROR8__((0x9AE16A3B2F90404FLL * v6) ^ 0xFF51AFD7ED558CCDLL, 30) + __ROR8__(0xB492B66FBE98F273 * v5, 43)) ^ v7;
-  v9 = 0x9DDFEA08EB382D69 * (v7 ^ ((0x9DDFEA08EB382D69 * v8) >> 47) ^ (0x9DDFEA08EB382D69 * v8));
-  v12[0] = v14;
-  v12[1] = v15;
-  v13 = v14;
-  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id, -348639895 * ((v9 >> 47) ^ v9), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v13, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v12);
+  v12[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
+  v12[1] = Context;
+  v16[0] = _ZN4llvm12function_refIFvPN4mlir6detail21DenseArrayAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_14DenseArrayAttrEJRNS1_4TypeEmRNS_8ArrayRefIcEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESI_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSK_E_EEvlS4_;
+  v16[1] = v12;
+  v6 = (v4 >> 4) ^ (v4 >> 9);
+  v15[0] = v4;
+  memset(&v15[1], 0, 24);
+  v7 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(0, 0);
+  v8 = 0xB492B66FBE98F273 * v6 - 0x9AE16A3B2F90404FLL * v7 - 0x1A58D393752DFE12;
+  v9 = (__ROR8__((0x9AE16A3B2F90404FLL * v7) ^ 0xFF51AFD7ED558CCDLL, 30) + __ROR8__(0xB492B66FBE98F273 * v6, 43)) ^ v8;
+  v10 = 0x9DDFEA08EB382D69 * (v8 ^ ((0x9DDFEA08EB382D69 * v9) >> 47) ^ (0x9DDFEA08EB382D69 * v9));
+  v13[0] = v15;
+  v13[1] = v16;
+  v14 = v15;
+  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id, -348639895 * ((v10 >> 47) ^ v10), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v14, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v13);
 }
 
 uint64_t mlir::detail::DenseArrayAttrImpl<BOOL>::parseWithoutBraces(mlir::AsmParser *a1)
@@ -987,7 +1894,7 @@ uint64_t mlir::detail::DenseArrayAttrImpl<BOOL>::parseWithoutBraces(mlir::AsmPar
     Context = mlir::AsmParser::getContext(a1);
     v4 = v22;
     v5 = v23;
-    v6 = mlir::IntegerType::get(Context, 1, 0);
+    v6 = mlir::IntegerType::get(Context, 1u, 0);
     AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
     v14[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
     v14[1] = Context;
@@ -1036,9 +1943,9 @@ BOOL mlir::detail::DenseArrayAttrImpl<BOOL>::classof(void *a1)
   return result;
 }
 
-uint64_t mlir::detail::DenseArrayAttrImpl<signed char>::get(uint64_t *a1, void *a2, uint64_t a3)
+uint64_t mlir::detail::DenseArrayAttrImpl<signed char>::get(mlir::MLIRContext *a1, llvm::hashing::detail *a2, uint64_t a3)
 {
-  v6 = mlir::IntegerType::get(a1, 8, 0);
+  v6 = mlir::IntegerType::get(a1, 8u, 0);
   AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(a1);
   v14[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
   v14[1] = a1;
@@ -1066,7 +1973,7 @@ void mlir::detail::DenseArrayAttrImpl<signed char>::print(uint64_t a1, uint64_t 
   mlir::detail::DenseArrayAttrImpl<signed char>::print();
 }
 
-void *mlir::detail::DenseArrayAttrImpl<signed char>::print(void *result, llvm::raw_ostream *this)
+uint64_t *mlir::detail::DenseArrayAttrImpl<signed char>::print(uint64_t *result, llvm::raw_ostream *this)
 {
   v3 = result;
   v4 = *(this + 4);
@@ -1189,7 +2096,7 @@ llvm::raw_ostream *mlir::detail::DenseArrayAttrImpl<signed char>::printWithoutBr
   return result;
 }
 
-uint64_t mlir::detail::DenseArrayAttrImpl<signed char>::parse(mlir::AsmParser *a1)
+uint64_t mlir::detail::DenseArrayAttrImpl<signed char>::parse(mlir::AsmParser *a1, uint64_t a2)
 {
   if (((*(*a1 + 312))(a1) & 1) == 0)
   {
@@ -1202,23 +2109,23 @@ uint64_t mlir::detail::DenseArrayAttrImpl<signed char>::parse(mlir::AsmParser *a
   }
 
   Context = mlir::AsmParser::getContext(a1);
-  v3 = mlir::IntegerType::get(Context, 8, 0);
+  v4 = mlir::IntegerType::get(Context, 8u, 0);
   AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
-  v11[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
-  v11[1] = Context;
-  v15[0] = _ZN4llvm12function_refIFvPN4mlir6detail21DenseArrayAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_14DenseArrayAttrEJRNS1_4TypeEmRNS_8ArrayRefIcEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESI_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSK_E_EEvlS4_;
-  v15[1] = v11;
-  v5 = (v3 >> 4) ^ (v3 >> 9);
-  v14[0] = v3;
-  memset(&v14[1], 0, 24);
-  v6 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(0, 0);
-  v7 = 0xB492B66FBE98F273 * v5 - 0x9AE16A3B2F90404FLL * v6 - 0x1A58D393752DFE12;
-  v8 = (__ROR8__((0x9AE16A3B2F90404FLL * v6) ^ 0xFF51AFD7ED558CCDLL, 30) + __ROR8__(0xB492B66FBE98F273 * v5, 43)) ^ v7;
-  v9 = 0x9DDFEA08EB382D69 * (v7 ^ ((0x9DDFEA08EB382D69 * v8) >> 47) ^ (0x9DDFEA08EB382D69 * v8));
-  v12[0] = v14;
-  v12[1] = v15;
-  v13 = v14;
-  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id, -348639895 * ((v9 >> 47) ^ v9), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v13, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v12);
+  v12[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
+  v12[1] = Context;
+  v16[0] = _ZN4llvm12function_refIFvPN4mlir6detail21DenseArrayAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_14DenseArrayAttrEJRNS1_4TypeEmRNS_8ArrayRefIcEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESI_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSK_E_EEvlS4_;
+  v16[1] = v12;
+  v6 = (v4 >> 4) ^ (v4 >> 9);
+  v15[0] = v4;
+  memset(&v15[1], 0, 24);
+  v7 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(0, 0);
+  v8 = 0xB492B66FBE98F273 * v6 - 0x9AE16A3B2F90404FLL * v7 - 0x1A58D393752DFE12;
+  v9 = (__ROR8__((0x9AE16A3B2F90404FLL * v7) ^ 0xFF51AFD7ED558CCDLL, 30) + __ROR8__(0xB492B66FBE98F273 * v6, 43)) ^ v8;
+  v10 = 0x9DDFEA08EB382D69 * (v8 ^ ((0x9DDFEA08EB382D69 * v9) >> 47) ^ (0x9DDFEA08EB382D69 * v9));
+  v13[0] = v15;
+  v13[1] = v16;
+  v14 = v15;
+  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id, -348639895 * ((v10 >> 47) ^ v10), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v14, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v13);
 }
 
 uint64_t mlir::detail::DenseArrayAttrImpl<signed char>::parseWithoutBraces(mlir::AsmParser *a1)
@@ -1234,7 +2141,7 @@ uint64_t mlir::detail::DenseArrayAttrImpl<signed char>::parseWithoutBraces(mlir:
     Context = mlir::AsmParser::getContext(a1);
     v4 = v22;
     v5 = v23;
-    v6 = mlir::IntegerType::get(Context, 8, 0);
+    v6 = mlir::IntegerType::get(Context, 8u, 0);
     AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
     v14[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
     v14[1] = Context;
@@ -1283,9 +2190,9 @@ BOOL mlir::detail::DenseArrayAttrImpl<signed char>::classof(void *a1)
   return result;
 }
 
-uint64_t mlir::detail::DenseArrayAttrImpl<short>::get(uint64_t *a1, void *a2, uint64_t a3)
+uint64_t mlir::detail::DenseArrayAttrImpl<short>::get(mlir::MLIRContext *a1, llvm::hashing::detail *a2, uint64_t a3)
 {
-  v6 = mlir::IntegerType::get(a1, 16, 0);
+  v6 = mlir::IntegerType::get(a1, 0x10u, 0);
   AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(a1);
   v14[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
   v14[1] = a1;
@@ -1313,7 +2220,7 @@ void mlir::detail::DenseArrayAttrImpl<short>::print(uint64_t a1, uint64_t a2)
   mlir::detail::DenseArrayAttrImpl<short>::print();
 }
 
-void *mlir::detail::DenseArrayAttrImpl<short>::print(void *result, llvm::raw_ostream *this)
+uint64_t *mlir::detail::DenseArrayAttrImpl<short>::print(uint64_t *result, llvm::raw_ostream *this)
 {
   v3 = result;
   v4 = *(this + 4);
@@ -1440,7 +2347,7 @@ llvm::raw_ostream *mlir::detail::DenseArrayAttrImpl<short>::printWithoutBraces(l
   return result;
 }
 
-uint64_t mlir::detail::DenseArrayAttrImpl<short>::parse(mlir::AsmParser *a1)
+uint64_t mlir::detail::DenseArrayAttrImpl<short>::parse(mlir::AsmParser *a1, uint64_t a2)
 {
   if (((*(*a1 + 312))(a1) & 1) == 0)
   {
@@ -1453,23 +2360,23 @@ uint64_t mlir::detail::DenseArrayAttrImpl<short>::parse(mlir::AsmParser *a1)
   }
 
   Context = mlir::AsmParser::getContext(a1);
-  v3 = mlir::IntegerType::get(Context, 16, 0);
+  v4 = mlir::IntegerType::get(Context, 0x10u, 0);
   AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
-  v11[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
-  v11[1] = Context;
-  v15[0] = _ZN4llvm12function_refIFvPN4mlir6detail21DenseArrayAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_14DenseArrayAttrEJRNS1_4TypeEmRNS_8ArrayRefIcEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESI_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSK_E_EEvlS4_;
-  v15[1] = v11;
-  v5 = (v3 >> 4) ^ (v3 >> 9);
-  v14[0] = v3;
-  memset(&v14[1], 0, 24);
-  v6 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(0, 0);
-  v7 = 0xB492B66FBE98F273 * v5 - 0x9AE16A3B2F90404FLL * v6 - 0x1A58D393752DFE12;
-  v8 = (__ROR8__((0x9AE16A3B2F90404FLL * v6) ^ 0xFF51AFD7ED558CCDLL, 30) + __ROR8__(0xB492B66FBE98F273 * v5, 43)) ^ v7;
-  v9 = 0x9DDFEA08EB382D69 * (v7 ^ ((0x9DDFEA08EB382D69 * v8) >> 47) ^ (0x9DDFEA08EB382D69 * v8));
-  v12[0] = v14;
-  v12[1] = v15;
-  v13 = v14;
-  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id, -348639895 * ((v9 >> 47) ^ v9), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v13, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v12);
+  v12[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
+  v12[1] = Context;
+  v16[0] = _ZN4llvm12function_refIFvPN4mlir6detail21DenseArrayAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_14DenseArrayAttrEJRNS1_4TypeEmRNS_8ArrayRefIcEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESI_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSK_E_EEvlS4_;
+  v16[1] = v12;
+  v6 = (v4 >> 4) ^ (v4 >> 9);
+  v15[0] = v4;
+  memset(&v15[1], 0, 24);
+  v7 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(0, 0);
+  v8 = 0xB492B66FBE98F273 * v6 - 0x9AE16A3B2F90404FLL * v7 - 0x1A58D393752DFE12;
+  v9 = (__ROR8__((0x9AE16A3B2F90404FLL * v7) ^ 0xFF51AFD7ED558CCDLL, 30) + __ROR8__(0xB492B66FBE98F273 * v6, 43)) ^ v8;
+  v10 = 0x9DDFEA08EB382D69 * (v8 ^ ((0x9DDFEA08EB382D69 * v9) >> 47) ^ (0x9DDFEA08EB382D69 * v9));
+  v13[0] = v15;
+  v13[1] = v16;
+  v14 = v15;
+  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id, -348639895 * ((v10 >> 47) ^ v10), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v14, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v13);
 }
 
 uint64_t mlir::detail::DenseArrayAttrImpl<short>::parseWithoutBraces(mlir::AsmParser *a1)
@@ -1485,7 +2392,7 @@ uint64_t mlir::detail::DenseArrayAttrImpl<short>::parseWithoutBraces(mlir::AsmPa
     Context = mlir::AsmParser::getContext(a1);
     v4 = v22;
     v5 = v23;
-    v6 = mlir::IntegerType::get(Context, 16, 0);
+    v6 = mlir::IntegerType::get(Context, 0x10u, 0);
     AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
     v14[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
     v14[1] = Context;
@@ -1534,9 +2441,9 @@ BOOL mlir::detail::DenseArrayAttrImpl<short>::classof(void *a1)
   return result;
 }
 
-uint64_t mlir::detail::DenseArrayAttrImpl<int>::get(uint64_t *a1, void *a2, uint64_t a3)
+uint64_t mlir::detail::DenseArrayAttrImpl<int>::get(mlir::MLIRContext *a1, llvm::hashing::detail *a2, uint64_t a3)
 {
-  v6 = mlir::IntegerType::get(a1, 32, 0);
+  v6 = mlir::IntegerType::get(a1, 0x20u, 0);
   AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(a1);
   v14[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
   v14[1] = a1;
@@ -1564,7 +2471,7 @@ void mlir::detail::DenseArrayAttrImpl<int>::print(uint64_t a1, uint64_t a2)
   mlir::detail::DenseArrayAttrImpl<int>::print();
 }
 
-void *mlir::detail::DenseArrayAttrImpl<int>::print(void *result, llvm::raw_ostream *this)
+uint64_t *mlir::detail::DenseArrayAttrImpl<int>::print(uint64_t *result, llvm::raw_ostream *this)
 {
   v3 = result;
   v4 = *(this + 4);
@@ -1691,7 +2598,7 @@ llvm::raw_ostream *mlir::detail::DenseArrayAttrImpl<int>::printWithoutBraces(llv
   return result;
 }
 
-uint64_t mlir::detail::DenseArrayAttrImpl<int>::parse(mlir::AsmParser *a1)
+uint64_t mlir::detail::DenseArrayAttrImpl<int>::parse(mlir::AsmParser *a1, uint64_t a2)
 {
   if (((*(*a1 + 312))(a1) & 1) == 0)
   {
@@ -1704,23 +2611,23 @@ uint64_t mlir::detail::DenseArrayAttrImpl<int>::parse(mlir::AsmParser *a1)
   }
 
   Context = mlir::AsmParser::getContext(a1);
-  v3 = mlir::IntegerType::get(Context, 32, 0);
+  v4 = mlir::IntegerType::get(Context, 0x20u, 0);
   AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
-  v11[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
-  v11[1] = Context;
-  v15[0] = _ZN4llvm12function_refIFvPN4mlir6detail21DenseArrayAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_14DenseArrayAttrEJRNS1_4TypeEmRNS_8ArrayRefIcEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESI_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSK_E_EEvlS4_;
-  v15[1] = v11;
-  v5 = (v3 >> 4) ^ (v3 >> 9);
-  v14[0] = v3;
-  memset(&v14[1], 0, 24);
-  v6 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(0, 0);
-  v7 = 0xB492B66FBE98F273 * v5 - 0x9AE16A3B2F90404FLL * v6 - 0x1A58D393752DFE12;
-  v8 = (__ROR8__((0x9AE16A3B2F90404FLL * v6) ^ 0xFF51AFD7ED558CCDLL, 30) + __ROR8__(0xB492B66FBE98F273 * v5, 43)) ^ v7;
-  v9 = 0x9DDFEA08EB382D69 * (v7 ^ ((0x9DDFEA08EB382D69 * v8) >> 47) ^ (0x9DDFEA08EB382D69 * v8));
-  v12[0] = v14;
-  v12[1] = v15;
-  v13 = v14;
-  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id, -348639895 * ((v9 >> 47) ^ v9), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v13, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v12);
+  v12[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
+  v12[1] = Context;
+  v16[0] = _ZN4llvm12function_refIFvPN4mlir6detail21DenseArrayAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_14DenseArrayAttrEJRNS1_4TypeEmRNS_8ArrayRefIcEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESI_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSK_E_EEvlS4_;
+  v16[1] = v12;
+  v6 = (v4 >> 4) ^ (v4 >> 9);
+  v15[0] = v4;
+  memset(&v15[1], 0, 24);
+  v7 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(0, 0);
+  v8 = 0xB492B66FBE98F273 * v6 - 0x9AE16A3B2F90404FLL * v7 - 0x1A58D393752DFE12;
+  v9 = (__ROR8__((0x9AE16A3B2F90404FLL * v7) ^ 0xFF51AFD7ED558CCDLL, 30) + __ROR8__(0xB492B66FBE98F273 * v6, 43)) ^ v8;
+  v10 = 0x9DDFEA08EB382D69 * (v8 ^ ((0x9DDFEA08EB382D69 * v9) >> 47) ^ (0x9DDFEA08EB382D69 * v9));
+  v13[0] = v15;
+  v13[1] = v16;
+  v14 = v15;
+  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id, -348639895 * ((v10 >> 47) ^ v10), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v14, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v13);
 }
 
 uint64_t mlir::detail::DenseArrayAttrImpl<int>::parseWithoutBraces(mlir::AsmParser *a1)
@@ -1736,7 +2643,7 @@ uint64_t mlir::detail::DenseArrayAttrImpl<int>::parseWithoutBraces(mlir::AsmPars
     Context = mlir::AsmParser::getContext(a1);
     v4 = v22;
     v5 = v23;
-    v6 = mlir::IntegerType::get(Context, 32, 0);
+    v6 = mlir::IntegerType::get(Context, 0x20u, 0);
     AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
     v14[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
     v14[1] = Context;
@@ -1785,9 +2692,9 @@ BOOL mlir::detail::DenseArrayAttrImpl<int>::classof(void *a1)
   return result;
 }
 
-uint64_t mlir::detail::DenseArrayAttrImpl<long long>::get(uint64_t *a1, void *a2, uint64_t a3)
+uint64_t mlir::detail::DenseArrayAttrImpl<long long>::get(mlir::MLIRContext *a1, llvm::hashing::detail *a2, uint64_t a3)
 {
-  v6 = mlir::IntegerType::get(a1, 64, 0);
+  v6 = mlir::IntegerType::get(a1, 0x40u, 0);
   AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(a1);
   v14[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
   v14[1] = a1;
@@ -1798,7 +2705,7 @@ uint64_t mlir::detail::DenseArrayAttrImpl<long long>::get(uint64_t *a1, void *a2
   v17[2] = a2;
   v17[3] = 8 * a3;
   v8 = (v6 >> 4) ^ (v6 >> 9);
-  v9 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(a2, &a2[a3]);
+  v9 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(a2, a2 + 8 * a3);
   v10 = __ROR8__(a3 ^ 0xC949D7C7509E6557, 20) - 0xAE502812AA7333 - 0x4B6D499041670D8DLL * v8 - 0x9AE16A3B2F90404FLL * v9 + 24;
   v11 = (__ROR8__(0xB492B66FBE98F273 * v8 - a3, 43) - 0x3C5A37A36834CED9 * a3 + __ROR8__((0x9AE16A3B2F90404FLL * v9) ^ 0xFF51AFD7ED558CCDLL, 30)) ^ v10;
   v12 = 0x9DDFEA08EB382D69 * (v10 ^ ((0x9DDFEA08EB382D69 * v11) >> 47) ^ (0x9DDFEA08EB382D69 * v11));
@@ -1815,7 +2722,7 @@ void mlir::detail::DenseArrayAttrImpl<long long>::print(uint64_t a1, uint64_t a2
   mlir::detail::DenseArrayAttrImpl<long long>::print();
 }
 
-void *mlir::detail::DenseArrayAttrImpl<long long>::print(void *result, llvm::raw_ostream *this)
+uint64_t *mlir::detail::DenseArrayAttrImpl<long long>::print(uint64_t *result, llvm::raw_ostream *this)
 {
   v3 = result;
   v4 = *(this + 4);
@@ -1942,7 +2849,7 @@ llvm::raw_ostream *mlir::detail::DenseArrayAttrImpl<long long>::printWithoutBrac
   return result;
 }
 
-uint64_t mlir::detail::DenseArrayAttrImpl<long long>::parse(mlir::AsmParser *a1)
+uint64_t mlir::detail::DenseArrayAttrImpl<long long>::parse(mlir::AsmParser *a1, uint64_t a2)
 {
   if (((*(*a1 + 312))(a1) & 1) == 0)
   {
@@ -1955,23 +2862,23 @@ uint64_t mlir::detail::DenseArrayAttrImpl<long long>::parse(mlir::AsmParser *a1)
   }
 
   Context = mlir::AsmParser::getContext(a1);
-  v3 = mlir::IntegerType::get(Context, 64, 0);
+  v4 = mlir::IntegerType::get(Context, 0x40u, 0);
   AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
-  v11[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
-  v11[1] = Context;
-  v15[0] = _ZN4llvm12function_refIFvPN4mlir6detail21DenseArrayAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_14DenseArrayAttrEJRNS1_4TypeEmRNS_8ArrayRefIcEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESI_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSK_E_EEvlS4_;
-  v15[1] = v11;
-  v5 = (v3 >> 4) ^ (v3 >> 9);
-  v14[0] = v3;
-  memset(&v14[1], 0, 24);
-  v6 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(0, 0);
-  v7 = 0xB492B66FBE98F273 * v5 - 0x9AE16A3B2F90404FLL * v6 - 0x1A58D393752DFE12;
-  v8 = (__ROR8__((0x9AE16A3B2F90404FLL * v6) ^ 0xFF51AFD7ED558CCDLL, 30) + __ROR8__(0xB492B66FBE98F273 * v5, 43)) ^ v7;
-  v9 = 0x9DDFEA08EB382D69 * (v7 ^ ((0x9DDFEA08EB382D69 * v8) >> 47) ^ (0x9DDFEA08EB382D69 * v8));
-  v12[0] = v14;
-  v12[1] = v15;
-  v13 = v14;
-  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id, -348639895 * ((v9 >> 47) ^ v9), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v13, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v12);
+  v12[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
+  v12[1] = Context;
+  v16[0] = _ZN4llvm12function_refIFvPN4mlir6detail21DenseArrayAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_14DenseArrayAttrEJRNS1_4TypeEmRNS_8ArrayRefIcEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESI_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSK_E_EEvlS4_;
+  v16[1] = v12;
+  v6 = (v4 >> 4) ^ (v4 >> 9);
+  v15[0] = v4;
+  memset(&v15[1], 0, 24);
+  v7 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(0, 0);
+  v8 = 0xB492B66FBE98F273 * v6 - 0x9AE16A3B2F90404FLL * v7 - 0x1A58D393752DFE12;
+  v9 = (__ROR8__((0x9AE16A3B2F90404FLL * v7) ^ 0xFF51AFD7ED558CCDLL, 30) + __ROR8__(0xB492B66FBE98F273 * v6, 43)) ^ v8;
+  v10 = 0x9DDFEA08EB382D69 * (v8 ^ ((0x9DDFEA08EB382D69 * v9) >> 47) ^ (0x9DDFEA08EB382D69 * v9));
+  v13[0] = v15;
+  v13[1] = v16;
+  v14 = v15;
+  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id, -348639895 * ((v10 >> 47) ^ v10), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v14, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v13);
 }
 
 uint64_t mlir::detail::DenseArrayAttrImpl<long long>::parseWithoutBraces(mlir::AsmParser *a1)
@@ -1987,7 +2894,7 @@ uint64_t mlir::detail::DenseArrayAttrImpl<long long>::parseWithoutBraces(mlir::A
     Context = mlir::AsmParser::getContext(a1);
     v4 = v22;
     v5 = v23;
-    v6 = mlir::IntegerType::get(Context, 64, 0);
+    v6 = mlir::IntegerType::get(Context, 0x40u, 0);
     AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
     v14[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
     v14[1] = Context;
@@ -1998,7 +2905,7 @@ uint64_t mlir::detail::DenseArrayAttrImpl<long long>::parseWithoutBraces(mlir::A
     v19 = v4;
     v20 = 8 * v5;
     v8 = (v6 >> 4) ^ (v6 >> 9);
-    v9 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(v4, &v4[v5]);
+    v9 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(v4, v4 + 8 * v5);
     v10 = __ROR8__(v5 ^ 0xC949D7C7509E6557, 20) - 0xAE502812AA7333 - 0x4B6D499041670D8DLL * v8 - 0x9AE16A3B2F90404FLL * v9 + 24;
     v11 = (__ROR8__(0xB492B66FBE98F273 * v8 - v5, 43) - 0x3C5A37A36834CED9 * v5 + __ROR8__((0x9AE16A3B2F90404FLL * v9) ^ 0xFF51AFD7ED558CCDLL, 30)) ^ v10;
     v12 = 0x9DDFEA08EB382D69 * (v10 ^ ((0x9DDFEA08EB382D69 * v11) >> 47) ^ (0x9DDFEA08EB382D69 * v11));
@@ -2066,7 +2973,7 @@ void mlir::detail::DenseArrayAttrImpl<float>::print(uint64_t a1, uint64_t a2)
   mlir::detail::DenseArrayAttrImpl<float>::print();
 }
 
-void *mlir::detail::DenseArrayAttrImpl<float>::print(void *result, llvm::raw_ostream *this)
+uint64_t *mlir::detail::DenseArrayAttrImpl<float>::print(uint64_t *result, llvm::raw_ostream *this)
 {
   v3 = result;
   v4 = *(this + 4);
@@ -2193,7 +3100,7 @@ llvm::raw_ostream *mlir::detail::DenseArrayAttrImpl<float>::printWithoutBraces(l
   return result;
 }
 
-uint64_t mlir::detail::DenseArrayAttrImpl<float>::parse(mlir::AsmParser *a1)
+uint64_t mlir::detail::DenseArrayAttrImpl<float>::parse(mlir::AsmParser *a1, uint64_t a2)
 {
   if (((*(*a1 + 312))(a1) & 1) == 0)
   {
@@ -2206,23 +3113,23 @@ uint64_t mlir::detail::DenseArrayAttrImpl<float>::parse(mlir::AsmParser *a1)
   }
 
   Context = mlir::AsmParser::getContext(a1);
-  v4 = mlir::Float32Type::get(Context, v3);
+  v5 = mlir::Float32Type::get(Context, v4);
   AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
-  v12[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
-  v12[1] = Context;
-  v16[0] = _ZN4llvm12function_refIFvPN4mlir6detail21DenseArrayAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_14DenseArrayAttrEJRNS1_4TypeEmRNS_8ArrayRefIcEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESI_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSK_E_EEvlS4_;
-  v16[1] = v12;
-  v6 = (v4 >> 4) ^ (v4 >> 9);
-  v15[0] = v4;
-  memset(&v15[1], 0, 24);
-  v7 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(0, 0);
-  v8 = 0xB492B66FBE98F273 * v6 - 0x9AE16A3B2F90404FLL * v7 - 0x1A58D393752DFE12;
-  v9 = (__ROR8__((0x9AE16A3B2F90404FLL * v7) ^ 0xFF51AFD7ED558CCDLL, 30) + __ROR8__(0xB492B66FBE98F273 * v6, 43)) ^ v8;
-  v10 = 0x9DDFEA08EB382D69 * (v8 ^ ((0x9DDFEA08EB382D69 * v9) >> 47) ^ (0x9DDFEA08EB382D69 * v9));
-  v13[0] = v15;
-  v13[1] = v16;
-  v14 = v15;
-  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id, -348639895 * ((v10 >> 47) ^ v10), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v14, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v13);
+  v13[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
+  v13[1] = Context;
+  v17[0] = _ZN4llvm12function_refIFvPN4mlir6detail21DenseArrayAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_14DenseArrayAttrEJRNS1_4TypeEmRNS_8ArrayRefIcEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESI_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSK_E_EEvlS4_;
+  v17[1] = v13;
+  v7 = (v5 >> 4) ^ (v5 >> 9);
+  v16[0] = v5;
+  memset(&v16[1], 0, 24);
+  v8 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(0, 0);
+  v9 = 0xB492B66FBE98F273 * v7 - 0x9AE16A3B2F90404FLL * v8 - 0x1A58D393752DFE12;
+  v10 = (__ROR8__((0x9AE16A3B2F90404FLL * v8) ^ 0xFF51AFD7ED558CCDLL, 30) + __ROR8__(0xB492B66FBE98F273 * v7, 43)) ^ v9;
+  v11 = 0x9DDFEA08EB382D69 * (v9 ^ ((0x9DDFEA08EB382D69 * v10) >> 47) ^ (0x9DDFEA08EB382D69 * v10));
+  v14[0] = v16;
+  v14[1] = v17;
+  v15 = v16;
+  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id, -348639895 * ((v11 >> 47) ^ v11), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v15, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v14);
 }
 
 uint64_t mlir::detail::DenseArrayAttrImpl<float>::parseWithoutBraces(mlir::AsmParser *a1)
@@ -2314,7 +3221,7 @@ void mlir::detail::DenseArrayAttrImpl<double>::print(uint64_t a1, uint64_t a2)
   mlir::detail::DenseArrayAttrImpl<double>::print();
 }
 
-void *mlir::detail::DenseArrayAttrImpl<double>::print(void *result, llvm::raw_ostream *this)
+uint64_t *mlir::detail::DenseArrayAttrImpl<double>::print(uint64_t *result, llvm::raw_ostream *this)
 {
   v3 = result;
   v4 = *(this + 4);
@@ -2429,7 +3336,7 @@ llvm::raw_ostream *mlir::detail::DenseArrayAttrImpl<double>::printWithoutBraces(
   return result;
 }
 
-uint64_t mlir::detail::DenseArrayAttrImpl<double>::parse(mlir::AsmParser *a1)
+uint64_t mlir::detail::DenseArrayAttrImpl<double>::parse(mlir::AsmParser *a1, uint64_t a2)
 {
   if (((*(*a1 + 312))(a1) & 1) == 0)
   {
@@ -2442,23 +3349,23 @@ uint64_t mlir::detail::DenseArrayAttrImpl<double>::parse(mlir::AsmParser *a1)
   }
 
   Context = mlir::AsmParser::getContext(a1);
-  v4 = mlir::Float64Type::get(Context, v3);
+  v5 = mlir::Float64Type::get(Context, v4);
   AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
-  v12[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
-  v12[1] = Context;
-  v16[0] = _ZN4llvm12function_refIFvPN4mlir6detail21DenseArrayAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_14DenseArrayAttrEJRNS1_4TypeEmRNS_8ArrayRefIcEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESI_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSK_E_EEvlS4_;
-  v16[1] = v12;
-  v6 = (v4 >> 4) ^ (v4 >> 9);
-  v15[0] = v4;
-  memset(&v15[1], 0, 24);
-  v7 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(0, 0);
-  v8 = 0xB492B66FBE98F273 * v6 - 0x9AE16A3B2F90404FLL * v7 - 0x1A58D393752DFE12;
-  v9 = (__ROR8__((0x9AE16A3B2F90404FLL * v7) ^ 0xFF51AFD7ED558CCDLL, 30) + __ROR8__(0xB492B66FBE98F273 * v6, 43)) ^ v8;
-  v10 = 0x9DDFEA08EB382D69 * (v8 ^ ((0x9DDFEA08EB382D69 * v9) >> 47) ^ (0x9DDFEA08EB382D69 * v9));
-  v13[0] = v15;
-  v13[1] = v16;
-  v14 = v15;
-  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id, -348639895 * ((v10 >> 47) ^ v10), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v14, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v13);
+  v13[0] = &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id;
+  v13[1] = Context;
+  v17[0] = _ZN4llvm12function_refIFvPN4mlir6detail21DenseArrayAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_14DenseArrayAttrEJRNS1_4TypeEmRNS_8ArrayRefIcEEEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESI_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSK_E_EEvlS4_;
+  v17[1] = v13;
+  v7 = (v5 >> 4) ^ (v5 >> 9);
+  v16[0] = v5;
+  memset(&v16[1], 0, 24);
+  v8 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(0, 0);
+  v9 = 0xB492B66FBE98F273 * v7 - 0x9AE16A3B2F90404FLL * v8 - 0x1A58D393752DFE12;
+  v10 = (__ROR8__((0x9AE16A3B2F90404FLL * v8) ^ 0xFF51AFD7ED558CCDLL, 30) + __ROR8__(0xB492B66FBE98F273 * v7, 43)) ^ v9;
+  v11 = 0x9DDFEA08EB382D69 * (v9 ^ ((0x9DDFEA08EB382D69 * v10) >> 47) ^ (0x9DDFEA08EB382D69 * v10));
+  v14[0] = v16;
+  v14[1] = v17;
+  v15 = v16;
+  return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseArrayAttr,void>::id, -348639895 * ((v11 >> 47) ^ v11), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v15, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type &,unsigned long,llvm::ArrayRef<char> &>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type &,unsigned long,llvm::ArrayRef<char> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v14);
 }
 
 uint64_t mlir::detail::DenseArrayAttrImpl<double>::parseWithoutBraces(mlir::AsmParser *a1)
@@ -2485,7 +3392,7 @@ uint64_t mlir::detail::DenseArrayAttrImpl<double>::parseWithoutBraces(mlir::AsmP
     v20 = v4;
     v21 = 8 * v5;
     v9 = (v7 >> 4) ^ (v7 >> 9);
-    v10 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(v4, &v4[v5]);
+    v10 = llvm::hashing::detail::hash_combine_range_impl<unsigned char const>(v4, v4 + 8 * v5);
     v11 = __ROR8__(v5 ^ 0xC949D7C7509E6557, 20) - 0xAE502812AA7333 - 0x4B6D499041670D8DLL * v9 - 0x9AE16A3B2F90404FLL * v10 + 24;
     v12 = (__ROR8__(0xB492B66FBE98F273 * v9 - v5, 43) - 0x3C5A37A36834CED9 * v5 + __ROR8__((0x9AE16A3B2F90404FLL * v10) ^ 0xFF51AFD7ED558CCDLL, 30)) ^ v11;
     v13 = 0x9DDFEA08EB382D69 * (v11 ^ ((0x9DDFEA08EB382D69 * v12) >> 47) ^ (0x9DDFEA08EB382D69 * v12));
@@ -2522,11 +3429,11 @@ BOOL mlir::detail::DenseArrayAttrImpl<double>::classof(void *a1)
 
 uint64_t mlir::DenseElementsAttr::get(uint64_t a1, uint64_t a2, uint64_t *a3, unint64_t a4)
 {
-  v86[4] = *MEMORY[0x277D85DE8];
-  *&v71 = a1;
-  *(&v71 + 1) = a2;
-  ElementType = mlir::ShapedType::getElementType(&v71);
-  v70 = ElementType;
+  v87[4] = *MEMORY[0x277D85DE8];
+  *&v72 = a1;
+  *(&v72 + 1) = a2;
+  ElementType = mlir::ShapedType::getElementType(&v72);
+  v71 = ElementType;
   if (*(*ElementType + 136) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
   {
     v7 = ElementType;
@@ -2537,18 +3444,18 @@ uint64_t mlir::DenseElementsAttr::get(uint64_t a1, uint64_t a2, uint64_t *a3, un
     v7 = 0;
   }
 
-  v73[0] = v7;
+  v74[0] = v7;
   if (v7)
   {
-    v75 = mlir::ComplexType::getElementType(v73);
-    isIntOrIndex = mlir::Type::isIntOrIndex(&v75);
+    v76 = mlir::ComplexType::getElementType(v74);
+    isIntOrIndex = mlir::Type::isIntOrIndex(&v76);
     if (isIntOrIndex)
     {
-      v75 = &v76 + 8;
-      *&v76 = 0x100000000;
+      v76 = &v77 + 8;
+      *&v77 = 0x100000000;
       if (a4 >= 2)
       {
-        llvm::SmallVectorTemplateBase<std::complex<llvm::APInt>,false>::grow();
+        llvm::SmallVectorTemplateBase<std::complex<llvm::APInt>,false>::grow(&v76, a4);
       }
 
       if (a4)
@@ -2559,55 +3466,55 @@ uint64_t mlir::DenseElementsAttr::get(uint64_t a1, uint64_t a2, uint64_t *a3, un
           v12 = *(*a3 + 8);
           v13 = *v12;
           v14 = v12[1];
-          LODWORD(v81[0]) = *(*v12 + 24);
-          if (LODWORD(v81[0]) > 0x40)
+          v82[0] = *(*v12 + 24);
+          if (v82[0] > 0x40)
           {
-            llvm::APInt::initSlowCase(&v80, (v13 + 16));
+            llvm::APInt::initSlowCase(&v81, (v13 + 16));
           }
 
-          v80 = *(v13 + 16);
-          LODWORD(v79[0]) = *(v14 + 24);
-          if (LODWORD(v79[0]) > 0x40)
+          v81 = *(v13 + 16);
+          LODWORD(v80[0]) = *(v14 + 24);
+          if (LODWORD(v80[0]) > 0x40)
           {
-            llvm::APInt::initSlowCase(&v78, (v14 + 16));
+            llvm::APInt::initSlowCase(&v79, (v14 + 16));
           }
 
-          v78 = *(v14 + 16);
-          DWORD2(v82) = v81[0];
-          *&v82 = v80;
-          v84 = v79[0];
-          v83 = v78;
-          if (v76 >= DWORD1(v76))
+          v79 = *(v14 + 16);
+          DWORD2(v83) = v82[0];
+          *&v83 = v81;
+          v85 = v80[0];
+          v84 = v79;
+          if (v77 >= DWORD1(v77))
           {
-            if (v75 > &v82 || v75 + 32 * v76 <= &v82)
+            if (v76 > &v83 || v76 + 32 * v77 <= &v83)
             {
-              llvm::SmallVectorTemplateBase<std::complex<llvm::APInt>,false>::grow();
+              llvm::SmallVectorTemplateBase<std::complex<llvm::APInt>,false>::grow(&v76, v77 + 1);
             }
 
-            llvm::SmallVectorTemplateBase<std::complex<llvm::APInt>,false>::grow();
+            llvm::SmallVectorTemplateBase<std::complex<llvm::APInt>,false>::grow(&v76, v77 + 1);
           }
 
-          v15 = v75 + 32 * v76;
-          *(v15 + 2) = DWORD2(v82);
-          *v15 = v82;
-          DWORD2(v82) = 0;
-          *(v15 + 6) = v84;
-          *(v15 + 2) = v83;
-          v84 = 0;
-          LODWORD(v76) = v76 + 1;
-          if (DWORD2(v82) >= 0x41 && v82)
+          v15 = v76 + 32 * v77;
+          *(v15 + 2) = DWORD2(v83);
+          *v15 = v83;
+          DWORD2(v83) = 0;
+          *(v15 + 6) = v85;
+          *(v15 + 2) = v84;
+          v85 = 0;
+          LODWORD(v77) = v77 + 1;
+          if (DWORD2(v83) >= 0x41 && v83)
           {
-            MEMORY[0x259C63150](v82, 0x1000C8000313F17);
+            MEMORY[0x259C63150](v83, 0x1000C8000313F17);
           }
 
-          if (LODWORD(v79[0]) >= 0x41 && v78)
+          if (LODWORD(v80[0]) >= 0x41 && v79)
           {
-            MEMORY[0x259C63150](v78, 0x1000C8000313F17);
+            MEMORY[0x259C63150](v79, 0x1000C8000313F17);
           }
 
-          if (LODWORD(v81[0]) >= 0x41 && v80)
+          if (v82[0] >= 0x41 && v81)
           {
-            MEMORY[0x259C63150](v80, 0x1000C8000313F17);
+            MEMORY[0x259C63150](v81, 0x1000C8000313F17);
           }
 
           ++a3;
@@ -2617,10 +3524,10 @@ uint64_t mlir::DenseElementsAttr::get(uint64_t a1, uint64_t a2, uint64_t *a3, un
         while (v11);
       }
 
-      v16 = v75;
-      v17 = v76;
-      v82 = v71;
-      v18 = mlir::ShapedType::getElementType(&v82);
+      v16 = v76;
+      v17 = v77;
+      v83 = v72;
+      v18 = mlir::ShapedType::getElementType(&v83);
       DenseElementBitWidth = mlir::detail::getDenseElementBitWidth(v18);
       if (DenseElementBitWidth == 1)
       {
@@ -2632,12 +3539,12 @@ uint64_t mlir::DenseElementsAttr::get(uint64_t a1, uint64_t a2, uint64_t *a3, un
         v20 = ((DenseElementBitWidth - (DenseElementBitWidth != 0) + 8 * (DenseElementBitWidth != 0)) >> 1) & 0x7FFFFFFFFFFFFFFCLL;
       }
 
-      Raw = mlir::DenseIntOrFPElementsAttr::getRaw(v82, *(&v82 + 1), v20, v16, 2 * v17);
-      v22 = v75;
-      if (v76)
+      Raw = mlir::DenseIntOrFPElementsAttr::getRaw(v83, *(&v83 + 1), v20, v16, 2 * v17);
+      v22 = v76;
+      if (v77)
       {
-        v23 = -32 * v76;
-        v24 = v75 + 32 * v76 - 16;
+        v23 = -32 * v77;
+        v24 = v76 + 32 * v77 - 16;
         do
         {
           if (*(v24 + 2) >= 0x41u && *v24)
@@ -2659,10 +3566,10 @@ uint64_t mlir::DenseElementsAttr::get(uint64_t a1, uint64_t a2, uint64_t *a3, un
         }
 
         while (v23);
-        v22 = v75;
+        v22 = v76;
       }
 
-      if (v22 == (&v76 + 8))
+      if (v22 == (&v77 + 8))
       {
         return Raw;
       }
@@ -2672,15 +3579,15 @@ LABEL_154:
       return Raw;
     }
 
-    v75 = &v76 + 8;
-    *&v76 = 0x100000000;
+    v76 = &v77 + 8;
+    *&v77 = 0x100000000;
     if (a4 >= 2)
     {
-      *&v82 = 0;
+      *&v83 = 0;
       llvm::SmallVectorBase<unsigned int>::mallocForGrow();
     }
 
-    v26 = &v76 + 8;
+    v26 = &v77 + 8;
     if (a4)
     {
       v27 = llvm::APFloatBase::PPCDoubleDouble(isIntOrIndex);
@@ -2692,13 +3599,13 @@ LABEL_154:
         v31 = (*v29 + 24);
         if (v27 == *v31)
         {
-          llvm::detail::DoubleAPFloat::DoubleAPFloat(v81, v31);
+          llvm::detail::DoubleAPFloat::DoubleAPFloat(v82, v31);
           v32 = (v30 + 24);
           if (v27 != *(v30 + 24))
           {
 LABEL_56:
-            llvm::detail::IEEEFloat::IEEEFloat(v79, v32);
-            if (v27 != v81[0])
+            llvm::detail::IEEEFloat::IEEEFloat(v80, v32);
+            if (v27 != *v82)
             {
               goto LABEL_57;
             }
@@ -2709,7 +3616,7 @@ LABEL_56:
 
         else
         {
-          llvm::detail::IEEEFloat::IEEEFloat(v81, v31);
+          llvm::detail::IEEEFloat::IEEEFloat(v82, v31);
           v32 = (v30 + 24);
           if (v27 != *(v30 + 24))
           {
@@ -2717,12 +3624,12 @@ LABEL_56:
           }
         }
 
-        llvm::detail::DoubleAPFloat::DoubleAPFloat(v79, v32);
-        if (v27 != v81[0])
+        llvm::detail::DoubleAPFloat::DoubleAPFloat(v80, v32);
+        if (v27 != *v82)
         {
 LABEL_57:
-          llvm::detail::IEEEFloat::IEEEFloat((&v82 + 8), v81);
-          if (v27 == v79[0])
+          llvm::detail::IEEEFloat::IEEEFloat((&v83 + 8), v82);
+          if (v27 == v80[0])
           {
             goto LABEL_62;
           }
@@ -2731,42 +3638,42 @@ LABEL_57:
         }
 
 LABEL_61:
-        llvm::detail::DoubleAPFloat::DoubleAPFloat(&v82 + 1, v81);
-        if (v27 == v79[0])
+        llvm::detail::DoubleAPFloat::DoubleAPFloat(&v83 + 1, v82);
+        if (v27 == v80[0])
         {
 LABEL_62:
-          llvm::detail::DoubleAPFloat::DoubleAPFloat(v86, v79);
+          llvm::detail::DoubleAPFloat::DoubleAPFloat(v87, v80);
           goto LABEL_63;
         }
 
 LABEL_58:
-        llvm::detail::IEEEFloat::IEEEFloat(v86, v79);
+        llvm::detail::IEEEFloat::IEEEFloat(v87, v80);
 LABEL_63:
-        llvm::SmallVectorTemplateBase<std::complex<llvm::APFloat>,false>::push_back(&v75, &v82);
-        if (v27 == v86[0])
+        llvm::SmallVectorTemplateBase<std::complex<llvm::APFloat>,false>::push_back(&v76, &v83);
+        if (v27 == v87[0])
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat(v86);
-          if (v27 == *(&v82 + 1))
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat(v87);
+          if (v27 == *(&v83 + 1))
           {
             goto LABEL_69;
           }
 
 LABEL_65:
-          llvm::detail::IEEEFloat::~IEEEFloat((&v82 + 8));
-          if (v27 != v79[0])
+          llvm::detail::IEEEFloat::~IEEEFloat((&v83 + 8));
+          if (v27 != v80[0])
           {
             goto LABEL_66;
           }
 
 LABEL_70:
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat(v79);
-          if (v27 != v81[0])
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat(v80);
+          if (v27 != *v82)
           {
             goto LABEL_71;
           }
 
 LABEL_53:
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat(v81);
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat(v82);
           ++a3;
           v28 -= 8;
           if (!v28)
@@ -2777,43 +3684,43 @@ LABEL_53:
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat(v86);
-          if (v27 != *(&v82 + 1))
+          llvm::detail::IEEEFloat::~IEEEFloat(v87);
+          if (v27 != *(&v83 + 1))
           {
             goto LABEL_65;
           }
 
 LABEL_69:
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v82 + 8));
-          if (v27 == v79[0])
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v83 + 8));
+          if (v27 == v80[0])
           {
             goto LABEL_70;
           }
 
 LABEL_66:
-          llvm::detail::IEEEFloat::~IEEEFloat(v79);
-          if (v27 == v81[0])
+          llvm::detail::IEEEFloat::~IEEEFloat(v80);
+          if (v27 == *v82)
           {
             goto LABEL_53;
           }
 
 LABEL_71:
-          llvm::detail::IEEEFloat::~IEEEFloat(v81);
+          llvm::detail::IEEEFloat::~IEEEFloat(v82);
           ++a3;
           v28 -= 8;
           if (!v28)
           {
 LABEL_72:
-            v26 = v75;
+            v26 = v76;
             break;
           }
         }
       }
     }
 
-    v33 = v76;
-    v82 = v71;
-    v34 = mlir::ShapedType::getElementType(&v82);
+    v33 = v77;
+    v83 = v72;
+    v34 = mlir::ShapedType::getElementType(&v83);
     v35 = mlir::detail::getDenseElementBitWidth(v34);
     if (v35 == 1)
     {
@@ -2825,14 +3732,14 @@ LABEL_72:
       v36 = ((v35 - (v35 != 0) + 8 * (v35 != 0)) >> 1) & 0x7FFFFFFFFFFFFFFCLL;
     }
 
-    v37 = mlir::DenseIntOrFPElementsAttr::getRaw(v82, *(&v82 + 1), v36, v26, 2 * v33);
+    v37 = mlir::DenseIntOrFPElementsAttr::getRaw(v83, *(&v83 + 1), v36, v26, 2 * v33);
     Raw = v37;
-    v38 = v75;
-    v39 = v76;
-    if (!v76)
+    v38 = v76;
+    v39 = v77;
+    if (!v77)
     {
 LABEL_85:
-      if (v38 == (&v76 + 8))
+      if (v38 == (&v77 + 8))
       {
         return Raw;
       }
@@ -2881,16 +3788,16 @@ LABEL_83:
         if (!v42)
         {
 LABEL_84:
-          v38 = v75;
+          v38 = v76;
           goto LABEL_85;
         }
       }
     }
   }
 
-  if (mlir::Type::isIntOrIndexOrFloat(&v70))
+  if (mlir::Type::isIntOrIndexOrFloat(&v71))
   {
-    v9 = mlir::detail::getDenseElementBitWidth(v70);
+    v9 = mlir::detail::getDenseElementBitWidth(v71);
     if (v9 == 1)
     {
       v10 = 1;
@@ -2912,8 +3819,8 @@ LABEL_84:
       v45 = v44 >> 3;
     }
 
-    v75 = v77;
-    v76 = xmmword_25738FDE0;
+    v76 = v78;
+    v77 = xmmword_25738FDE0;
     if (v45)
     {
       if (v45 >= 9)
@@ -2921,12 +3828,12 @@ LABEL_84:
         llvm::SmallVectorBase<unsigned long long>::grow_pod();
       }
 
-      bzero(v75, v45);
-      *&v76 = v45;
+      bzero(v76, v45);
+      *&v77 = v45;
     }
 
-    LODWORD(v81[0]) = 1;
-    v80 = 0;
+    v82[0] = 1;
+    v81 = 0;
     v53 = a4;
     if (a4)
     {
@@ -2936,31 +3843,31 @@ LABEL_84:
         v55 = *a3;
         if (*(**a3 + 136) != &mlir::detail::TypeIDResolver<mlir::FloatAttr,void>::id)
         {
-          DWORD2(v82) = *(v55 + 24);
-          if (DWORD2(v82) > 0x40)
+          DWORD2(v83) = *(v55 + 24);
+          if (DWORD2(v83) > 0x40)
           {
-            llvm::APInt::initSlowCase(&v82, (v55 + 16));
+            llvm::APInt::initSlowCase(&v83, (v55 + 16));
           }
 
-          *&v82 = *(v55 + 16);
-          if (LODWORD(v81[0]) >= 0x41)
+          *&v83 = *(v55 + 16);
+          if (v82[0] >= 0x41)
           {
-            v9 = v80;
-            if (v80)
+            v9 = v81;
+            if (v81)
             {
-              v9 = MEMORY[0x259C63150](v80, 0x1000C8000313F17);
+              v9 = MEMORY[0x259C63150](v81, 0x1000C8000313F17);
             }
           }
 
-          v80 = v82;
-          v59 = DWORD2(v82);
-          LODWORD(v81[0]) = DWORD2(v82);
-          v60 = v75;
-          v69 = DWORD2(v82);
-          if (DWORD2(v82) > 0x40uLL)
+          v81 = v83;
+          v60 = DWORD2(v83);
+          v82[0] = DWORD2(v83);
+          v61 = v76;
+          v70 = DWORD2(v83);
+          if (DWORD2(v83) > 0x40uLL)
           {
 LABEL_136:
-            llvm::APInt::initSlowCase(&v68, &v80);
+            llvm::APInt::initSlowCase(&v69, &v81);
           }
 
           goto LABEL_125;
@@ -2971,12 +3878,12 @@ LABEL_136:
         v58 = llvm::APFloatBase::PPCDoubleDouble(v9);
         if (v58 == v57)
         {
-          llvm::detail::DoubleAPFloat::DoubleAPFloat(&v82 + 1, v56);
-          if (v58 != *(&v82 + 1))
+          llvm::detail::DoubleAPFloat::DoubleAPFloat(&v83 + 1, v56);
+          if (v58 != *(&v83 + 1))
           {
 LABEL_112:
-            llvm::detail::IEEEFloat::bitcastToAPInt(&v82 + 1, &v78);
-            if (LODWORD(v81[0]) < 0x41)
+            llvm::detail::IEEEFloat::bitcastToAPInt(&v79, (&v83 + 8));
+            if (v82[0] < 0x41)
             {
               goto LABEL_123;
             }
@@ -2987,36 +3894,36 @@ LABEL_112:
 
         else
         {
-          llvm::detail::IEEEFloat::IEEEFloat((&v82 + 8), v56);
-          if (v58 != *(&v82 + 1))
+          llvm::detail::IEEEFloat::IEEEFloat((&v83 + 8), v56);
+          if (v58 != *(&v83 + 1))
           {
             goto LABEL_112;
           }
         }
 
-        llvm::detail::DoubleAPFloat::bitcastToAPInt((&v82 + 8), &v78);
-        if (LODWORD(v81[0]) < 0x41)
+        llvm::detail::DoubleAPFloat::bitcastToAPInt(&v79, (&v83 + 8), v59);
+        if (v82[0] < 0x41)
         {
           goto LABEL_123;
         }
 
 LABEL_121:
-        if (v80)
+        if (v81)
         {
-          MEMORY[0x259C63150](v80, 0x1000C8000313F17);
+          MEMORY[0x259C63150](v81, 0x1000C8000313F17);
         }
 
 LABEL_123:
-        v80 = v78;
-        LODWORD(v81[0]) = v79[0];
-        LODWORD(v79[0]) = 0;
-        if (v58 == *(&v82 + 1))
+        v81 = v79;
+        v82[0] = v80[0];
+        LODWORD(v80[0]) = 0;
+        if (v58 == *(&v83 + 1))
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v82 + 8));
-          v60 = v75;
-          v69 = v81[0];
-          v59 = LODWORD(v81[0]);
-          if (LODWORD(v81[0]) > 0x40uLL)
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat((&v83 + 8));
+          v61 = v76;
+          v70 = v82[0];
+          v60 = v82[0];
+          if (v82[0] > 0x40uLL)
           {
             goto LABEL_136;
           }
@@ -3024,27 +3931,27 @@ LABEL_123:
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat((&v82 + 8));
-          v60 = v75;
-          v69 = v81[0];
-          v59 = LODWORD(v81[0]);
-          if (LODWORD(v81[0]) > 0x40uLL)
+          llvm::detail::IEEEFloat::~IEEEFloat((&v83 + 8));
+          v61 = v76;
+          v70 = v82[0];
+          v60 = v82[0];
+          if (v82[0] > 0x40uLL)
           {
             goto LABEL_136;
           }
         }
 
 LABEL_125:
-        v68 = v80;
-        if (v59 == 1)
+        v69 = v81;
+        if (v60 == 1)
         {
-          v63 = 1 << (v54 & 7);
-          v64 = v54 >> 3;
-          if (v68 == 1)
+          v64 = 1 << (v54 & 7);
+          v65 = v54 >> 3;
+          if (v69 == 1)
           {
-            v60[v64] |= v63;
+            v61[v65] |= v64;
 LABEL_139:
-            if (v69 >= 0x41)
+            if (v70 >= 0x41)
             {
               goto LABEL_140;
             }
@@ -3052,8 +3959,8 @@ LABEL_139:
             goto LABEL_105;
           }
 
-          v60[v64] &= ~v63;
-          if (v69 >= 0x41)
+          v61[v65] &= ~v64;
+          if (v70 >= 0x41)
           {
             goto LABEL_140;
           }
@@ -3061,39 +3968,39 @@ LABEL_139:
 
         else
         {
-          if (v59)
+          if (v60)
           {
-            v61 = ((v59 - (v59 != 0)) >> 3) + 1;
+            v62 = ((v60 - (v60 != 0)) >> 3) + 1;
           }
 
           else
           {
-            v61 = (v59 - (v59 != 0)) >> 3;
+            v62 = (v60 - (v60 != 0)) >> 3;
           }
 
-          if (!v61)
+          if (!v62)
           {
             goto LABEL_139;
           }
 
-          if (v59 >= 0x41)
+          if (v60 >= 0x41)
           {
-            v62 = v68;
+            v63 = v69;
           }
 
           else
           {
-            v62 = &v68;
+            v63 = &v69;
           }
 
-          v9 = memmove(&v60[v54 >> 3], v62, v61);
-          if (v69 >= 0x41)
+          v9 = memmove(&v61[v54 >> 3], v63, v62);
+          if (v70 >= 0x41)
           {
 LABEL_140:
-            v9 = v68;
-            if (v68)
+            v9 = v69;
+            if (v69)
             {
-              v9 = MEMORY[0x259C63150](v68, 0x1000C8000313F17);
+              v9 = MEMORY[0x259C63150](v69, 0x1000C8000313F17);
             }
           }
         }
@@ -3107,29 +4014,29 @@ LABEL_105:
       while (v53);
     }
 
-    if (a4 == 1 && mlir::Type::isInteger(&v70, 1))
+    if (a4 == 1 && mlir::Type::isInteger(&v71, 1))
     {
-      if (*v75)
+      if (*v76)
       {
-        v65 = -1;
+        v66 = -1;
       }
 
       else
       {
-        v65 = 0;
+        v66 = 0;
       }
 
-      *v75 = v65;
+      *v76 = v66;
     }
 
-    Raw = mlir::DenseIntOrFPElementsAttr::getRaw(v71, *(&v71 + 1), v75, v76);
-    if (LODWORD(v81[0]) >= 0x41 && v80)
+    Raw = mlir::DenseIntOrFPElementsAttr::getRaw(v72, *(&v72 + 1), v76, v77);
+    if (v82[0] >= 0x41 && v81)
     {
-      MEMORY[0x259C63150](v80, 0x1000C8000313F17);
+      MEMORY[0x259C63150](v81, 0x1000C8000313F17);
     }
 
-    v22 = v75;
-    if (v75 != v77)
+    v22 = v76;
+    if (v76 != v78)
     {
       goto LABEL_154;
     }
@@ -3137,8 +4044,8 @@ LABEL_105:
 
   else
   {
-    v75 = &v76 + 8;
-    *&v76 = 0x800000000;
+    v76 = &v77 + 8;
+    *&v77 = 0x800000000;
     if (a4 >= 9)
     {
       llvm::SmallVectorBase<unsigned int>::grow_pod();
@@ -3151,15 +4058,15 @@ LABEL_105:
       v46 = 0;
       do
       {
-        if (v46 >= DWORD1(v76))
+        if (v46 >= DWORD1(v77))
         {
-          v67 = *(*a3 + 16);
+          v68 = *(*a3 + 16);
           llvm::SmallVectorBase<unsigned int>::grow_pod();
         }
 
-        *(v75 + v46) = *(*a3 + 16);
-        v46 = v76 + 1;
-        LODWORD(v76) = v76 + 1;
+        *(v76 + v46) = *(*a3 + 16);
+        v46 = v77 + 1;
+        LODWORD(v77) = v77 + 1;
         ++a3;
         v47 -= 8;
       }
@@ -3167,23 +4074,23 @@ LABEL_105:
       while (v47);
     }
 
-    v48 = v75;
-    v72 = v71;
-    Context = mlir::Type::getContext(&v72);
+    v48 = v76;
+    v73 = v72;
+    Context = mlir::Type::getContext(&v73);
     AttributeUniquer = mlir::MLIRContext::getAttributeUniquer(Context);
-    v73[0] = &mlir::detail::TypeIDResolver<mlir::DenseStringElementsAttr,void>::id;
-    v73[1] = Context;
-    v80 = _ZN4llvm12function_refIFvPN4mlir6detail30DenseStringElementsAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_23DenseStringElementsAttrEJRNS1_10ShapedTypeERNS_8ArrayRefINS_9StringRefEEEbEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESJ_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSL_E_EEvlS4_;
-    v81[0] = v73;
-    mlir::detail::DenseStringElementsAttrStorage::getKey(v72, *(&v72 + 1), v48, v46, v46 == 1, &v82);
-    v51 = __ROR8__(v85 + 16, 16);
-    v52 = 0x9DDFEA08EB382D69 * (v51 ^ 0xFF51AFD7ED558CCDLL ^ (v82 >> 4) ^ (v82 >> 9));
-    v74 = &v82;
-    v78 = &v82;
-    v79[0] = &v80;
-    Raw = mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseStringElementsAttr,void>::id, (-348639895 * ((((0x9DDFEA08EB382D69 * (v51 ^ (v52 >> 47) ^ v52)) >> 32) >> 15) ^ (-348639895 * (v51 ^ (v52 >> 47) ^ v52)))) ^ v85, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseStringElementsAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseStringElementsAttrStorage,mlir::ShapedType &,llvm::ArrayRef<llvm::StringRef> &,BOOL>(llvm::function_ref<void ()(mlir::detail::DenseStringElementsAttrStorage *)>,mlir::TypeID,mlir::ShapedType &,llvm::ArrayRef<llvm::StringRef> &,BOOL &&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v74, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseStringElementsAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseStringElementsAttrStorage,mlir::ShapedType &,llvm::ArrayRef<llvm::StringRef> &,BOOL>(llvm::function_ref<void ()(mlir::detail::DenseStringElementsAttrStorage *)>,mlir::TypeID,mlir::ShapedType &,llvm::ArrayRef<llvm::StringRef> &,BOOL &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, &v78);
-    v22 = v75;
-    if (v75 != &v76 + 8)
+    v74[0] = &mlir::detail::TypeIDResolver<mlir::DenseStringElementsAttr,void>::id;
+    v74[1] = Context;
+    v81 = _ZN4llvm12function_refIFvPN4mlir6detail30DenseStringElementsAttrStorageEEE11callback_fnIZNS2_16AttributeUniquer13getWithTypeIDINS1_23DenseStringElementsAttrEJRNS1_10ShapedTypeERNS_8ArrayRefINS_9StringRefEEEbEEENSt3__19enable_ifIXntsr3std7is_sameINT_8ImplTypeENS1_16AttributeStorageEEE5valueESJ_E4typeEPNS1_11MLIRContextENS1_6TypeIDEDpOT0_EUlPSL_E_EEvlS4_;
+    *v82 = v74;
+    mlir::detail::DenseStringElementsAttrStorage::getKey(v73, *(&v73 + 1), v48, v46, v46 == 1, &v83);
+    v51 = __ROR8__(v86 + 16, 16);
+    v52 = 0x9DDFEA08EB382D69 * (v51 ^ 0xFF51AFD7ED558CCDLL ^ (v83 >> 4) ^ (v83 >> 9));
+    v75 = &v83;
+    v79 = &v83;
+    v80[0] = &v81;
+    Raw = mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseStringElementsAttr,void>::id, (-348639895 * ((((0x9DDFEA08EB382D69 * (v51 ^ (v52 >> 47) ^ v52)) >> 32) >> 15) ^ (-348639895 * (v51 ^ (v52 >> 47) ^ v52)))) ^ v86, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseStringElementsAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseStringElementsAttrStorage,mlir::ShapedType &,llvm::ArrayRef<llvm::StringRef> &,BOOL>(llvm::function_ref<void ()(mlir::detail::DenseStringElementsAttrStorage *)>,mlir::TypeID,mlir::ShapedType &,llvm::ArrayRef<llvm::StringRef> &,BOOL &&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v75, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseStringElementsAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseStringElementsAttrStorage,mlir::ShapedType &,llvm::ArrayRef<llvm::StringRef> &,BOOL>(llvm::function_ref<void ()(mlir::detail::DenseStringElementsAttrStorage *)>,mlir::TypeID,mlir::ShapedType &,llvm::ArrayRef<llvm::StringRef> &,BOOL &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, &v79);
+    v22 = v76;
+    if (v76 != &v77 + 8)
     {
       goto LABEL_154;
     }
@@ -3229,21 +4136,21 @@ uint64_t mlir::DenseElementsAttr::get(uint64_t a1, uint64_t a2, unsigned int *a3
   return mlir::DenseIntOrFPElementsAttr::getRaw(v10, v11, v8, a3, a4);
 }
 
-void llvm::SmallVectorTemplateBase<std::complex<llvm::APFloat>,false>::push_back(unsigned int *a1, unint64_t a2)
+void llvm::SmallVectorTemplateBase<std::complex<llvm::APFloat>,false>::push_back(llvm::APFloatBase *a1, unint64_t a2)
 {
-  v4 = a1[2];
+  v4 = *(a1 + 2);
   v5 = *a1;
-  if (v4 >= a1[3])
+  if (v4 >= *(a1 + 3))
   {
     if (v5 > a2 || v5 + (v4 << 6) <= a2)
     {
-      llvm::SmallVectorTemplateBase<std::complex<llvm::APFloat>,false>::grow();
+      llvm::SmallVectorTemplateBase<std::complex<llvm::APFloat>,false>::grow(a1, v4 + 1);
     }
 
-    llvm::SmallVectorTemplateBase<std::complex<llvm::APFloat>,false>::grow();
+    llvm::SmallVectorTemplateBase<std::complex<llvm::APFloat>,false>::grow(a1, v4 + 1);
   }
 
-  v6 = v5 + (a1[2] << 6);
+  v6 = v5 + (*(a1 + 2) << 6);
   v7 = *(a2 + 8);
   v8 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v8 == v7)
@@ -3272,7 +4179,7 @@ LABEL_6:
 LABEL_4:
   llvm::detail::IEEEFloat::IEEEFloat(v9, v10);
 LABEL_7:
-  ++a1[2];
+  ++*(a1 + 2);
 }
 
 uint64_t mlir::DenseElementsAttr::get(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -3312,7 +4219,7 @@ uint64_t mlir::DenseElementsAttr::get(llvm::APFloatBase *a1, uint64_t a2, uint64
   return mlir::DenseIntOrFPElementsAttr::getRaw(v10, v11, v8, a3, a4);
 }
 
-uint64_t mlir::DenseElementsAttr::get(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t mlir::DenseElementsAttr::get(uint64_t a1, uint64_t a2, llvm::hashing::detail **a3, uint64_t a4)
 {
   v11 = a1;
   v12 = a2;
@@ -3324,14 +4231,14 @@ uint64_t mlir::DenseElementsAttr::get(unint64_t a1, uint64_t a2, uint64_t a3, ui
   v18[1] = v13;
   mlir::detail::DenseStringElementsAttrStorage::getKey(v11, v12, a3, a4, a4 == 1, v16);
   v8 = __ROR8__(v17 + 16, 16);
-  v9 = 0x9DDFEA08EB382D69 * (v8 ^ 0xFF51AFD7ED558CCDLL ^ (v16[0] >> 4) ^ (v16[0] >> 9));
+  v9 = 0x9DDFEA08EB382D69 * (v8 ^ 0xFF51AFD7ED558CCDLL ^ (LODWORD(v16[0]) >> 4) ^ (LODWORD(v16[0]) >> 9));
   v14[0] = v16;
   v14[1] = v18;
   v15 = v16;
   return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseStringElementsAttr,void>::id, (-348639895 * ((((0x9DDFEA08EB382D69 * (v8 ^ (v9 >> 47) ^ v9)) >> 32) >> 15) ^ (-348639895 * (v8 ^ (v9 >> 47) ^ v9)))) ^ v17, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseStringElementsAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseStringElementsAttrStorage,mlir::ShapedType &,llvm::ArrayRef<llvm::StringRef> &,BOOL>(llvm::function_ref<void ()(mlir::detail::DenseStringElementsAttrStorage *)>,mlir::TypeID,mlir::ShapedType &,llvm::ArrayRef<llvm::StringRef> &,BOOL &&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v15, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseStringElementsAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseStringElementsAttrStorage,mlir::ShapedType &,llvm::ArrayRef<llvm::StringRef> &,BOOL>(llvm::function_ref<void ()(mlir::detail::DenseStringElementsAttrStorage *)>,mlir::TypeID,mlir::ShapedType &,llvm::ArrayRef<llvm::StringRef> &,BOOL &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v14);
 }
 
-uint64_t mlir::DenseIntOrFPElementsAttr::getRaw(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unint64_t a4)
+uint64_t mlir::DenseIntOrFPElementsAttr::getRaw(uint64_t a1, uint64_t a2, unsigned __int8 *a3, size_t a4)
 {
   v12 = a1;
   v13 = a2;
@@ -3345,14 +4252,14 @@ uint64_t mlir::DenseIntOrFPElementsAttr::getRaw(uint64_t a1, uint64_t a2, unsign
   v19[1] = v14;
   mlir::detail::DenseIntOrFPElementsAttrStorage::getKey(v12, v13, a3, a4, v11, v17);
   v8 = __ROR8__(v18 + 16, 16);
-  v9 = 0x9DDFEA08EB382D69 * (v8 ^ 0xFF51AFD7ED558CCDLL ^ (v17[0] >> 4) ^ (v17[0] >> 9));
+  v9 = 0x9DDFEA08EB382D69 * (v8 ^ 0xFF51AFD7ED558CCDLL ^ (LODWORD(v17[0]) >> 4) ^ (LODWORD(v17[0]) >> 9));
   v15[0] = v17;
   v15[1] = v19;
   v16 = v17;
   return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseIntOrFPElementsAttr,void>::id, (-348639895 * ((((0x9DDFEA08EB382D69 * (v8 ^ (v9 >> 47) ^ v9)) >> 32) >> 15) ^ (-348639895 * (v8 ^ (v9 >> 47) ^ v9)))) ^ v18, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseIntOrFPElementsAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseIntOrFPElementsAttrStorage,mlir::ShapedType &,llvm::ArrayRef<char> &,BOOL &>(llvm::function_ref<void ()(mlir::detail::DenseIntOrFPElementsAttrStorage *)>,mlir::TypeID,mlir::ShapedType &,llvm::ArrayRef<char> &,BOOL &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v16, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseIntOrFPElementsAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseIntOrFPElementsAttrStorage,mlir::ShapedType &,llvm::ArrayRef<char> &,BOOL &>(llvm::function_ref<void ()(mlir::detail::DenseIntOrFPElementsAttrStorage *)>,mlir::TypeID,mlir::ShapedType &,llvm::ArrayRef<char> &,BOOL &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v15);
 }
 
-uint64_t mlir::DenseElementsAttr::get(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4)
+uint64_t mlir::DenseElementsAttr::get(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -3507,7 +4414,7 @@ uint64_t mlir::DenseIntOrFPElementsAttr::getRaw(uint64_t a1, uint64_t a2, uint64
         v17 = 0;
       }
 
-      MEMORY[0] = v17;
+      LOBYTE(MEMORY[0]) = v17;
     }
   }
 
@@ -3516,10 +4423,10 @@ uint64_t mlir::DenseIntOrFPElementsAttr::getRaw(uint64_t a1, uint64_t a2, uint64
 
 uint64_t mlir::DenseIntOrFPElementsAttr::getRaw(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v25 = a1;
+  v27 = a1;
   v7 = ((32 * a5) >> 5) * a3;
   v8 = v7 - (v7 != 0);
-  v27 = 32 * a5;
+  v29 = 32 * a5;
   if (v7)
   {
     v9 = (v8 >> 3) + 1;
@@ -3537,49 +4444,49 @@ uint64_t mlir::DenseIntOrFPElementsAttr::getRaw(llvm::APFloatBase *a1, uint64_t 
 
   if (a4 != a4 + 32 * a5)
   {
-    v13 = llvm::APFloatBase::PPCDoubleDouble(a1);
-    v14 = 0;
-    v15 = (a4 + 8);
-    for (i = v27; i; i -= 32)
+    v15 = llvm::APFloatBase::PPCDoubleDouble(a1);
+    v16 = 0;
+    v17 = (a4 + 8);
+    for (i = v29; i; i -= 32)
     {
-      if (v13 == *v15)
+      if (v15 == *v17)
       {
-        a1 = llvm::detail::DoubleAPFloat::bitcastToAPInt(v15, &v30);
-        v18 = v31;
-        if (v31 != 1)
+        a1 = llvm::detail::DoubleAPFloat::bitcastToAPInt(&v32, v17, v14);
+        v20 = v33;
+        if (v33 != 1)
         {
 LABEL_21:
-          if (v18)
+          if (v20)
           {
-            v21 = ((v18 - (v18 != 0)) >> 3) + 1;
+            v23 = ((v20 - (v20 != 0)) >> 3) + 1;
           }
 
           else
           {
-            v21 = (v18 - (v18 != 0)) >> 3;
+            v23 = (v20 - (v20 != 0)) >> 3;
           }
 
-          if (v21)
+          if (v23)
           {
-            if (v18 >= 0x41)
+            if (v20 >= 0x41)
             {
-              v22 = v30;
+              v24 = v32;
             }
 
             else
             {
-              v22 = &v30;
+              v24 = &v32;
             }
 
-            a1 = memmove((v14 >> 3), v22, v21);
+            a1 = memmove((v16 >> 3), v24, v23);
           }
 
-          if (v18 >= 0x41)
+          if (v20 >= 0x41)
           {
-            a1 = v30;
-            if (v30)
+            a1 = v32;
+            if (v32)
             {
-              a1 = MEMORY[0x259C63150](v30, 0x1000C8000313F17);
+              a1 = MEMORY[0x259C63150](v32, 0x1000C8000313F17);
             }
           }
 
@@ -3589,82 +4496,82 @@ LABEL_21:
 
       else
       {
-        a1 = llvm::detail::IEEEFloat::bitcastToAPInt(v15, &v30);
-        v18 = v31;
-        if (v31 != 1)
+        a1 = llvm::detail::IEEEFloat::bitcastToAPInt(&v32, v17);
+        v20 = v33;
+        if (v33 != 1)
         {
           goto LABEL_21;
         }
       }
 
-      v19 = 1 << (v14 & 7);
-      v20 = (v14 >> 3);
-      if (v30 == 1)
+      v21 = 1 << (v16 & 7);
+      v22 = (v16 >> 3);
+      if (v32 == 1)
       {
-        v17 = *v20 | v19;
+        v19 = *v22 | v21;
       }
 
       else
       {
-        v17 = *v20 & ~v19;
+        v19 = *v22 & ~v21;
       }
 
-      *v20 = v17;
+      *v22 = v19;
 LABEL_15:
-      v14 += a3;
-      v15 = (v15 + 32);
+      v16 += a3;
+      v17 = (v17 + 32);
     }
   }
 
-  if (v27 != 32)
+  if (v29 != 32)
   {
-    return mlir::DenseIntOrFPElementsAttr::getRaw(v25, a2, 0, 0);
+    return mlir::DenseIntOrFPElementsAttr::getRaw(v27, a2, 0, 0);
   }
 
   v11 = *(a4 + 8);
   v10 = (a4 + 8);
   if (llvm::APFloatBase::PPCDoubleDouble(a1) == v11)
   {
-    llvm::detail::DoubleAPFloat::bitcastToAPInt(v10, &v28);
-    v12 = v29;
-    if (v29 >= 0x41)
+    llvm::detail::DoubleAPFloat::bitcastToAPInt(&v30, v10, v12);
+    v13 = v31;
+    if (v31 >= 0x41)
     {
 LABEL_10:
-      if (v28)
+      if (v30)
       {
-        MEMORY[0x259C63150](v28, 0x1000C8000313F17);
+        MEMORY[0x259C63150](v30, 0x1000C8000313F17);
       }
 
-      return mlir::DenseIntOrFPElementsAttr::getRaw(v25, a2, 0, 0);
+      return mlir::DenseIntOrFPElementsAttr::getRaw(v27, a2, 0, 0);
     }
   }
 
   else
   {
-    llvm::detail::IEEEFloat::bitcastToAPInt(v10, &v28);
-    v12 = v29;
-    if (v29 >= 0x41)
+    llvm::detail::IEEEFloat::bitcastToAPInt(&v30, v10);
+    v13 = v31;
+    if (v31 >= 0x41)
     {
       goto LABEL_10;
     }
   }
 
-  if (v12 == 1)
+  if (v13 == 1)
   {
     if (MEMORY[0])
     {
-      v23 = -1;
+      v25 = -1;
     }
 
     else
     {
-      v23 = 0;
+      v25 = 0;
     }
 
-    MEMORY[0] = v23;
+    LOBYTE(MEMORY[0]) = v25;
   }
 
-  return mlir::DenseIntOrFPElementsAttr::getRaw(v25, a2, 0, 0);
+  return mlir::DenseIntOrFPElementsAttr::getRaw(v27, a2, 0, 0);
 }
 
 BOOL mlir::DenseElementsAttr::isValidRawBuffer(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, BOOL *a5)
@@ -3710,11 +4617,13 @@ LABEL_9:
   return v11 == v15;
 }
 
-uint64_t mlir::DenseElementsAttr::isValidIntOrFloat(mlir::DenseElementsAttr *this, uint64_t a2, char a3, unsigned int a4)
+uint64_t mlir::DenseElementsAttr::isValidIntOrFloat(mlir::DenseElementsAttr *this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
   v9 = *(*this + 8);
   ElementType = mlir::ShapedType::getElementType(&v9);
-  return isValidIntOrFloat(ElementType, a2, a3, a4);
+  return isValidIntOrFloat(ElementType, a2, v5, v4);
 }
 
 uint64_t isValidIntOrFloat(uint64_t a1, uint64_t a2, char a3, unsigned int a4)
@@ -3790,7 +4699,7 @@ uint64_t mlir::DenseElementsAttr::isValidComplex(mlir::DenseElementsAttr *this, 
   return isValidIntOrFloat(ElementType, a2 / 2, a3, a4);
 }
 
-unint64_t mlir::DenseElementsAttr::tryGetComplexIntValues@<X0>(mlir::DenseElementsAttr *this@<X0>, uint64_t a2@<X8>)
+uint64_t *mlir::DenseElementsAttr::tryGetComplexIntValues@<X0>(uint64_t *__return_ptr a1@<X8>, mlir::DenseElementsAttr *this@<X0>)
 {
   v19 = *(*this + 8);
   *&v19 = mlir::ShapedType::getElementType(&v19);
@@ -3816,26 +4725,26 @@ unint64_t mlir::DenseElementsAttr::tryGetComplexIntValues@<X0>(mlir::DenseElemen
     *&v19 = mlir::ShapedType::getElementType(&v19);
     v18 = mlir::ComplexType::getElementType(&v19);
     result = mlir::detail::getDenseElementBitWidth(v18);
-    *a2 = v8;
-    *(a2 + 8) = v9;
-    *(a2 + 16) = 0;
-    *(a2 + 24) = DenseElementBitWidth;
-    *(a2 + 32) = v16;
-    *(a2 + 40) = v17;
-    *(a2 + 48) = NumElements;
-    *(a2 + 56) = result;
+    *a1 = v8;
+    a1[1] = v9;
+    a1[2] = 0;
+    a1[3] = DenseElementBitWidth;
+    a1[4] = v16;
+    a1[5] = v17;
+    a1[6] = NumElements;
+    a1[7] = result;
     v5 = 1;
-    *(a2 + 64) = v6;
-    *(a2 + 72) = v7;
+    a1[8] = v6;
+    a1[9] = v7;
   }
 
   else
   {
     v5 = 0;
-    *a2 = 0;
+    *a1 = 0;
   }
 
-  *(a2 + 80) = v5;
+  *(a1 + 80) = v5;
   return result;
 }
 
@@ -3846,7 +4755,7 @@ uint64_t mlir::DenseElementsAttr::getNumElements(mlir::DenseElementsAttr *this)
   return mlir::ShapedType::getNumElements(Shape, v2);
 }
 
-unint64_t mlir::DenseElementsAttr::tryGetFloatValues@<X0>(mlir::DenseElementsAttr *this@<X0>, uint64_t a2@<X8>)
+uint64_t *mlir::DenseElementsAttr::tryGetFloatValues@<X0>(uint64_t *__return_ptr a1@<X8>, mlir::DenseElementsAttr *this@<X0>)
 {
   v38 = *(*this + 8);
   result = mlir::ShapedType::getElementType(&v38);
@@ -3872,32 +4781,32 @@ unint64_t mlir::DenseElementsAttr::tryGetFloatValues@<X0>(mlir::DenseElementsAtt
     v38 = *(v28 + 8);
     v34 = mlir::ShapedType::getElementType(&v38);
     result = mlir::detail::getDenseElementBitWidth(v34);
-    *a2 = v36;
-    *(a2 + 8) = v25;
-    *(a2 + 16) = 0;
-    *(a2 + 24) = DenseElementBitWidth;
-    *(a2 + 32) = FloatSemantics;
-    *(a2 + 40) = v32;
-    *(a2 + 48) = v33;
-    *(a2 + 56) = NumElements;
-    *(a2 + 64) = result;
-    *(a2 + 72) = FloatSemantics;
+    *a1 = v36;
+    a1[1] = v25;
+    a1[2] = 0;
+    a1[3] = DenseElementBitWidth;
+    a1[4] = FloatSemantics;
+    a1[5] = v32;
+    a1[6] = v33;
+    a1[7] = NumElements;
+    a1[8] = result;
+    a1[9] = FloatSemantics;
     v35 = 1;
-    *(a2 + 80) = v23;
-    *(a2 + 88) = v24;
+    a1[10] = v23;
+    a1[11] = v24;
   }
 
   else
   {
     v35 = 0;
-    *a2 = 0;
+    *a1 = 0;
   }
 
-  *(a2 + 96) = v35;
+  *(a1 + 96) = v35;
   return result;
 }
 
-unint64_t mlir::DenseElementsAttr::tryGetComplexFloatValues@<X0>(mlir::DenseElementsAttr *this@<X0>, uint64_t a2@<X8>)
+uint64_t *mlir::DenseElementsAttr::tryGetComplexFloatValues@<X0>(uint64_t *__return_ptr a1@<X8>, mlir::DenseElementsAttr *this@<X0>)
 {
   v40 = *(*this + 8);
   result = mlir::ShapedType::getElementType(&v40);
@@ -3939,56 +4848,56 @@ unint64_t mlir::DenseElementsAttr::tryGetComplexFloatValues@<X0>(mlir::DenseElem
       *&v40 = mlir::ShapedType::getElementType(&v40);
       v35 = mlir::ComplexType::getElementType(&v40);
       result = mlir::detail::getDenseElementBitWidth(v35);
-      *a2 = v37;
-      *(a2 + 8) = v26;
-      *(a2 + 16) = 0;
-      *(a2 + 24) = DenseElementBitWidth;
-      *(a2 + 32) = FloatSemantics;
-      *(a2 + 40) = v33;
-      *(a2 + 48) = v34;
-      *(a2 + 56) = NumElements;
-      *(a2 + 64) = result;
-      *(a2 + 72) = FloatSemantics;
+      *a1 = v37;
+      a1[1] = v26;
+      a1[2] = 0;
+      a1[3] = DenseElementBitWidth;
+      a1[4] = FloatSemantics;
+      a1[5] = v33;
+      a1[6] = v34;
+      a1[7] = NumElements;
+      a1[8] = result;
+      a1[9] = FloatSemantics;
       v36 = 1;
-      *(a2 + 80) = v24;
-      *(a2 + 88) = v25;
+      a1[10] = v24;
+      a1[11] = v25;
     }
 
     else
     {
       v36 = 0;
-      *a2 = 0;
+      *a1 = 0;
     }
 
-    *(a2 + 96) = v36;
+    *(a1 + 96) = v36;
   }
 
   else
   {
-    *a2 = 0;
-    *(a2 + 96) = 0;
+    *a1 = 0;
+    *(a1 + 96) = 0;
   }
 
   return result;
 }
 
-uint64_t mlir::DenseElementsAttr::reshape(uint64_t *a1, uint64_t a2, uint64_t a3)
+void *mlir::DenseElementsAttr::reshape(void *a1, uint64_t a2, uint64_t a3)
 {
   result = *a1;
-  if (*(result + 8) != a2)
+  if (result[1] != a2)
   {
-    return mlir::DenseIntOrFPElementsAttr::getRaw(a2, a3, *(result + 32), *(result + 40));
+    return mlir::DenseIntOrFPElementsAttr::getRaw(a2, a3, result[4], result[5]);
   }
 
   return result;
 }
 
-uint64_t mlir::DenseElementsAttr::resizeSplat(uint64_t *a1, uint64_t a2, uint64_t a3)
+void *mlir::DenseElementsAttr::resizeSplat(void *a1, uint64_t a2, uint64_t a3)
 {
   result = *a1;
-  if (*(result + 8) != a2)
+  if (result[1] != a2)
   {
-    return mlir::DenseIntOrFPElementsAttr::getRaw(a2, a3, *(result + 32), *(result + 40));
+    return mlir::DenseIntOrFPElementsAttr::getRaw(a2, a3, result[4], result[5]);
   }
 
   return result;
@@ -3996,15 +4905,15 @@ uint64_t mlir::DenseElementsAttr::resizeSplat(uint64_t *a1, uint64_t a2, uint64_
 
 uint64_t mlir::DenseElementsAttr::bitcast(uint64_t a1, uint64_t a2)
 {
-  *v7 = *(*a1 + 8);
-  if (mlir::ShapedType::getElementType(v7) == a2)
+  v7 = *(*a1 + 8);
+  if (mlir::ShapedType::getElementType(&v7) == a2)
   {
     return *a1;
   }
 
   LOBYTE(v8) = 0;
   v9 = 0;
-  v5 = mlir::ShapedType::cloneWith(v7, &v8, a2);
+  v5 = mlir::ShapedType::cloneWith(&v7, &v8, a2);
   return mlir::DenseIntOrFPElementsAttr::getRaw(v5, v6, *(*a1 + 32), *(*a1 + 40));
 }
 
@@ -4110,7 +5019,7 @@ uint64_t mlir::DenseIntElementsAttr::mapValues(uint64_t *a1, uint64_t a2, void (
       v64 = v22;
       if (v22 >= 0x41)
       {
-        llvm::APInt::initSlowCase(&__dst);
+        llvm::APInt::initSlowCase(&__dst, 0, 0);
       }
 
       __dst = 0;
@@ -4226,7 +5135,7 @@ LABEL_57:
       }
     }
 
-    v37 = (*(v20 + (v30 >> 3)) >> (v30 & 7)) & 1;
+    v37 = ((*(v20 + (v30 >> 3)) >> (v30 & 7)) & 1);
     v64 = 1;
     __dst = v37;
 LABEL_29:
@@ -4242,7 +5151,7 @@ LABEL_29:
     v45 = mlir::detail::getDenseElementBitWidth(v44);
     if (v45 == 1)
     {
-      v46 = *v43 & 1;
+      v46 = (*v43 & 1);
       v64 = 1;
       __dst = v46;
     }
@@ -4252,7 +5161,7 @@ LABEL_29:
       v64 = v45;
       if (v45 >= 0x41)
       {
-        llvm::APInt::initSlowCase(&__dst);
+        llvm::APInt::initSlowCase(&__dst, 0, 0);
       }
 
       __dst = 0;
@@ -4369,7 +5278,7 @@ LABEL_110:
     v71 = v18;
     if (v18 >= 0x41)
     {
-      llvm::APInt::initSlowCase(&v70);
+      llvm::APInt::initSlowCase(&v70, 0, 0);
     }
 
     v70 = 0;
@@ -4430,7 +5339,7 @@ LABEL_113:
   return result;
 }
 
-uint64_t mlir::DenseFPElementsAttr::mapValues(mlir::DenseElementsAttr *a1, uint64_t a2, void (*a3)(llvm::APFloatBase **__return_ptr, uint64_t, llvm::APFloatBase **), uint64_t a4)
+uint64_t mlir::DenseFPElementsAttr::mapValues(mlir::DenseElementsAttr *a1, uint64_t a2, llvm::APFloatBase *(*a3)(const void ***__return_ptr, uint64_t, const void ***), uint64_t a4)
 {
   v61 = *MEMORY[0x277D85DE8];
   __dst = &v54;
@@ -4491,11 +5400,11 @@ uint64_t mlir::DenseFPElementsAttr::mapValues(mlir::DenseElementsAttr *a1, uint6
 
   if (*(*a1 + 24) != 1)
   {
-    mlir::DenseElementsAttr::tryGetFloatValues(a1, &v57);
+    mlir::DenseElementsAttr::tryGetFloatValues(&v57, a1);
     v42 = v57;
     v43 = v58;
     v44 = v59;
-    mlir::DenseElementsAttr::tryGetFloatValues(a1, &v57);
+    mlir::DenseElementsAttr::tryGetFloatValues(&v57, a1);
     v21 = v60;
     if (v43 == v60)
     {
@@ -4643,12 +5552,12 @@ LABEL_51:
 
   if (v9 == 1)
   {
-    mlir::DenseElementsAttr::tryGetFloatValues(a1, &v57);
+    mlir::DenseElementsAttr::tryGetFloatValues(&v57, a1);
     v42 = v57;
     v43 = v58;
     v44 = v59;
     llvm::mapped_iterator_base<mlir::DenseElementsAttr::FloatElementIterator,mlir::DenseElementsAttr::IntElementIterator,llvm::APFloat>::operator*(&v42, &v55);
-    v18 = (a3)(&v50, a4, &v55);
+    v18 = a3(&v50, a4, &v55);
     v19 = v51;
     if (v51 > 0x40)
     {
@@ -4691,12 +5600,12 @@ LABEL_73:
     goto LABEL_84;
   }
 
-  mlir::DenseElementsAttr::tryGetFloatValues(a1, &v57);
+  mlir::DenseElementsAttr::tryGetFloatValues(&v57, a1);
   v42 = v57;
   v43 = v58;
   v44 = v59;
   llvm::mapped_iterator_base<mlir::DenseElementsAttr::FloatElementIterator,mlir::DenseElementsAttr::IntElementIterator,llvm::APFloat>::operator*(&v42, &v57);
-  v33 = (a3)(&v55, a4, &v57);
+  v33 = a3(&v55, a4, &v57);
   v34 = v56[0];
   v51 = v56[0];
   if (LODWORD(v56[0]) > 0x40)
@@ -4790,7 +5699,7 @@ LABEL_74:
   return v39;
 }
 
-unint64_t mlir::DenseIntOrFPElementsAttr::convertEndianOfCharForBEmachine(unint64_t this, int8x16_t *a2, char *a3, uint64_t a4)
+int8x16_t *mlir::DenseIntOrFPElementsAttr::convertEndianOfCharForBEmachine(int8x16_t *this, int8x16_t *a2, char *a3, uint64_t a4)
 {
   if (a3 == 64)
   {
@@ -4800,7 +5709,7 @@ unint64_t mlir::DenseIntOrFPElementsAttr::convertEndianOfCharForBEmachine(unint6
     }
 
     v18 = (a4 - 1) & 0x1FFFFFFFFFFFFFFFLL;
-    if (v18 < 3 || a2 - this < 0x20)
+    if (v18 < 3 || (a2 - this) < 0x20)
     {
       v22 = a2;
       v23 = this;
@@ -4811,18 +5720,18 @@ unint64_t mlir::DenseIntOrFPElementsAttr::convertEndianOfCharForBEmachine(unint6
       v19 = 0;
       v20 = v18 + 1;
       v21 = (v18 + 1) & 0x3FFFFFFFFFFFFFFCLL;
-      v22 = &a2->i8[8 * v21];
-      v23 = (this + 8 * v21);
+      v22 = (a2 + 8 * v21);
+      v23 = &this->i64[v21];
       v24 = v21;
       v25 = this;
       do
       {
-        i8 = a2[v19].i8;
+        v26 = &a2[v19];
         v27 = *v25;
         v28 = v25[1];
         v25 += 2;
-        *i8 = v27;
-        *(i8 + 1) = v28;
+        *v26 = v27;
+        v26[1] = v28;
         v19 += 2;
         v24 -= 4;
       }
@@ -4837,8 +5746,8 @@ unint64_t mlir::DenseIntOrFPElementsAttr::convertEndianOfCharForBEmachine(unint6
     do
     {
       v34 = *v23++;
-      *v22 = v34;
-      v22 += 8;
+      v22->i64[0] = v34;
+      v22 = (v22 + 8);
     }
 
     while (v23 != (this + 8 * a4));
@@ -4853,7 +5762,7 @@ unint64_t mlir::DenseIntOrFPElementsAttr::convertEndianOfCharForBEmachine(unint6
     }
 
     v7 = (a4 - 1) & 0x3FFFFFFFFFFFFFFFLL;
-    if (v7 < 7 || a2 - this < 0x20)
+    if (v7 < 7 || (a2 - this) < 0x20)
     {
       v11 = a2;
       v12 = this;
@@ -4864,18 +5773,18 @@ unint64_t mlir::DenseIntOrFPElementsAttr::convertEndianOfCharForBEmachine(unint6
       v8 = 0;
       v9 = v7 + 1;
       v10 = (v7 + 1) & 0x7FFFFFFFFFFFFFF8;
-      v11 = &a2->i8[4 * v10];
-      v12 = (this + 4 * v10);
+      v11 = (a2 + 4 * v10);
+      v12 = &this->i32[v10];
       v13 = v10;
       v14 = this;
       do
       {
-        v15 = a2[v8].i8;
+        v15 = &a2[v8];
         v16 = *v14;
         v17 = v14[1];
         v14 += 2;
         *v15 = v16;
-        *(v15 + 1) = v17;
+        v15[1] = v17;
         v8 += 2;
         v13 -= 8;
       }
@@ -4890,8 +5799,8 @@ unint64_t mlir::DenseIntOrFPElementsAttr::convertEndianOfCharForBEmachine(unint6
     do
     {
       v33 = *v12++;
-      *v11 = v33;
-      v11 += 4;
+      v11->i32[0] = v33;
+      v11 = (v11 + 4);
     }
 
     while (v12 != (this + 4 * a4));
@@ -4906,7 +5815,7 @@ unint64_t mlir::DenseIntOrFPElementsAttr::convertEndianOfCharForBEmachine(unint6
     }
 
     v29 = a3 >> 3;
-    if (a3 < 0x40 || this + v29 > a2 && a2->u64 + v29 > this)
+    if (a3 < 0x40 || &this->i8[v29] > a2 && &a2->i8[v29] > this)
     {
       v30 = 0;
       goto LABEL_28;
@@ -4915,7 +5824,7 @@ unint64_t mlir::DenseIntOrFPElementsAttr::convertEndianOfCharForBEmachine(unint6
     if (a3 >= 0x100)
     {
       v30 = v29 & 0x1FFFFFFFFFFFFFE0;
-      v48 = (v29 + this - 16);
+      v48 = (this + v29 - 16);
       v49 = a2 + 1;
       v50 = v29 & 0x1FFFFFFFFFFFFFE0;
       do
@@ -4942,7 +5851,7 @@ LABEL_28:
         v32 = &a2->i8[v30];
         do
         {
-          *v32++ = *(this - 1 + v31--);
+          *v32++ = this[-1].i8[v31-- + 15];
         }
 
         while (v31);
@@ -4957,7 +5866,7 @@ LABEL_28:
 
     v53 = v30;
     v30 = v29 & 0x1FFFFFFFFFFFFFF8;
-    v54 = (v29 - v53 + this - 8);
+    v54 = &this->i8[v29 - v53 - 8];
     v55 = &a2->i8[v53];
     v56 = v53 - (v29 & 0x1FFFFFFFFFFFFFF8);
     do
@@ -4982,7 +5891,7 @@ LABEL_28:
   }
 
   v4 = (a4 - 1) & 0x7FFFFFFFFFFFFFFFLL;
-  if (v4 < 3 || a2 - this < 0x20)
+  if (v4 < 3 || (a2 - this) < 0x20)
   {
     v35 = a2;
     v36 = this;
@@ -5002,12 +5911,12 @@ LABEL_28:
   v39 = this;
   do
   {
-    v40 = a2[v37].i8;
+    v40 = &a2[v37];
     v41 = *v39;
     v42 = v39[1];
     v39 += 2;
     *v40 = v41;
-    *(v40 + 1) = v42;
+    v40[1] = v42;
     v37 += 2;
     v38 -= 16;
   }
@@ -5017,17 +5926,17 @@ LABEL_28:
   {
     if ((v5 & 0xC) == 0)
     {
-      v36 = (this + 2 * v6);
-      v35 = &a2->i8[2 * v6];
+      v36 = &this->i16[v6];
+      v35 = (a2 + 2 * v6);
       goto LABEL_57;
     }
 
 LABEL_42:
-    v43 = 2 * (v5 & 0xFFFFFFFFFFFFFFFCLL);
-    v35 = &a2->i8[v43];
-    v36 = (this + v43);
+    v43 = v5 & 0xFFFFFFFFFFFFFFFCLL;
+    v35 = (a2 + v43 * 2);
+    v36 = &this->i16[v43];
     v44 = 2 * v6;
-    v45 = (this + 2 * v6);
+    v45 = (this->i64 + 2 * v6);
     v46 = v6 - (v5 & 0xFFFFFFFFFFFFFFFCLL);
     do
     {
@@ -5047,8 +5956,8 @@ LABEL_42:
     {
 LABEL_57:
       v58 = *v36++;
-      *v35 = v58;
-      v35 += 2;
+      v35->i16[0] = v58;
+      v35 = (v35 + 2);
     }
 
     while (v36 != (this + 2 * a4));
@@ -5057,7 +5966,7 @@ LABEL_57:
   return this;
 }
 
-void *mlir::DenseIntOrFPElementsAttr::convertEndianOfArrayRefForBEmachine(char *a1, size_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+char *mlir::DenseIntOrFPElementsAttr::convertEndianOfArrayRefForBEmachine(char *a1, size_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v74[0] = a5;
   v74[1] = a6;
@@ -5087,7 +5996,7 @@ void *mlir::DenseIntOrFPElementsAttr::convertEndianOfArrayRefForBEmachine(char *
     return memcpy(a3, a1, a2);
   }
 
-  v15 = result + 8 * (result != 0) - (result != 0);
+  v15 = &result[8 * (result != 0) - (result != 0)];
   v16 = v15 & 0xFFFFFFFFFFFFFFF8;
   if ((v15 & 0xFFFFFFFFFFFFFFF8) <= 8)
   {
@@ -5123,8 +6032,8 @@ void *mlir::DenseIntOrFPElementsAttr::convertEndianOfArrayRefForBEmachine(char *
         {
           v40 = &a3[v34];
           v41 = *v39;
-          v42 = v39[1];
-          v39 += 2;
+          v42 = *(v39 + 1);
+          v39 += 32;
           *v40 = v41;
           v40[1] = v42;
           v34 += 4;
@@ -5180,8 +6089,8 @@ void *mlir::DenseIntOrFPElementsAttr::convertEndianOfArrayRefForBEmachine(char *
         {
           v29 = &a3[v23];
           v30 = *v28;
-          v31 = v28[1];
-          v28 += 2;
+          v31 = *(v28 + 1);
+          v28 += 32;
           *v29 = v30;
           v29[1] = v31;
           v23 += 4;
@@ -5268,7 +6177,8 @@ LABEL_40:
     v70 = v67 - (v43 & 0x1FFFFFFFFFFFFFF8);
     do
     {
-      v71 = *v68--;
+      v71 = *v68;
+      v68 -= 8;
       *v69++ = vrev64_s8(v71);
       v70 += 8;
     }
@@ -5311,8 +6221,8 @@ LABEL_40:
     {
       v53 = &a3[v50];
       v54 = *v52;
-      v55 = v52[1];
-      v52 += 2;
+      v55 = *(v52 + 1);
+      v52 += 32;
       *v53 = v54;
       v53[1] = v55;
       v50 += 4;
@@ -5459,7 +6369,7 @@ uint64_t mlir::DenseResourceElementsAttr::get(uint64_t a1, uint64_t a2, __int128
   return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::DenseResourceElementsAttr,void>::id, (-348639895 * ((((0x9DDFEA08EB382D69 * (v10 ^ (v11 >> 47) ^ v11)) >> 32) >> 15) ^ (-348639895 * (v10 ^ (v11 >> 47) ^ v11)))) ^ v9, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::DenseResourceElementsAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseResourceElementsAttrStorage,mlir::ShapedType &,mlir::DialectResourceBlobHandle<mlir::BuiltinDialect> &>(llvm::function_ref<void ()(mlir::detail::DenseResourceElementsAttrStorage *)>,mlir::TypeID,mlir::ShapedType &,mlir::DialectResourceBlobHandle<mlir::BuiltinDialect> &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v16, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseResourceElementsAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseResourceElementsAttrStorage,mlir::ShapedType &,mlir::DialectResourceBlobHandle<mlir::BuiltinDialect> &>(llvm::function_ref<void ()(mlir::detail::DenseResourceElementsAttrStorage *)>,mlir::TypeID,mlir::ShapedType &,mlir::DialectResourceBlobHandle<mlir::BuiltinDialect> &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v15);
 }
 
-uint64_t mlir::DenseResourceElementsAttr::get(uint64_t a1, uint64_t a2, unsigned int *a3, const unsigned __int8 *a4, __int128 *a5)
+uint64_t mlir::DenseResourceElementsAttr::get(uint64_t a1, uint64_t a2, unsigned int *a3, size_t a4, __int128 *a5)
 {
   v44 = *MEMORY[0x277D85DE8];
   v28 = a1;
@@ -5550,7 +6460,7 @@ uint64_t mlir::DenseResourceElementsAttr::get(uint64_t a1, uint64_t a2, unsigned
   return result;
 }
 
-void mlir::ResourceBlobManagerDialectInterfaceBase<mlir::DialectResourceBlobHandle<mlir::BuiltinDialect>>::insert(uint64_t a1@<X0>, unsigned int *a2@<X1>, const unsigned __int8 *a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
+void mlir::ResourceBlobManagerDialectInterfaceBase<mlir::DialectResourceBlobHandle<mlir::BuiltinDialect>>::insert(uint64_t a1@<X0>, unsigned int *a2@<X1>, size_t a3@<X2>, __int128 *a4@<X3>, uint64_t *a5@<X8>)
 {
   v25 = *MEMORY[0x277D85DE8];
   v8 = *(a1 + 24);
@@ -5560,8 +6470,8 @@ void mlir::ResourceBlobManagerDialectInterfaceBase<mlir::DialectResourceBlobHand
   if (*(a4 + 64) == 1)
   {
     v18 = *a4;
-    v10 = *(a4 + 48);
-    v19 = *(a4 + 16);
+    v10 = *(a4 + 6);
+    v19 = *(a4 + 2);
     v22 = v10;
     if (v10 >= 8)
     {
@@ -5582,10 +6492,10 @@ void mlir::ResourceBlobManagerDialectInterfaceBase<mlir::DialectResourceBlobHand
       else
       {
         v20 = *(a4 + 24);
-        v21 = *(a4 + 40);
+        v21 = *(a4 + 5);
       }
 
-      *(a4 + 48) = 0;
+      *(a4 + 6) = 0;
     }
 
     v23 = *(a4 + 56);
@@ -5623,7 +6533,7 @@ void mlir::ResourceBlobManagerDialectInterfaceBase<mlir::DialectResourceBlobHand
   }
 }
 
-uint64_t mlir::detail::DenseResourceElementsAttrBase<BOOL>::get(uint64_t a1, uint64_t a2, unsigned int *a3, const unsigned __int8 *a4, uint64_t a5)
+uint64_t mlir::detail::DenseResourceElementsAttrBase<BOOL>::get(uint64_t a1, uint64_t a2, unsigned int *a3, size_t a4, uint64_t a5)
 {
   v22 = *MEMORY[0x277D85DE8];
   v16 = *a5;
@@ -5810,7 +6720,7 @@ LABEL_4:
   return mlir::ElementsAttr::getElementType(v2, v13);
 }
 
-uint64_t mlir::detail::DenseResourceElementsAttrBase<signed char>::get(uint64_t a1, uint64_t a2, unsigned int *a3, const unsigned __int8 *a4, uint64_t a5)
+uint64_t mlir::detail::DenseResourceElementsAttrBase<signed char>::get(uint64_t a1, uint64_t a2, unsigned int *a3, size_t a4, uint64_t a5)
 {
   v22 = *MEMORY[0x277D85DE8];
   v16 = *a5;
@@ -5923,7 +6833,7 @@ BOOL mlir::detail::DenseResourceElementsAttrBase<signed char>::classof(void *a1)
   }
 }
 
-uint64_t mlir::detail::DenseResourceElementsAttrBase<short>::get(uint64_t a1, uint64_t a2, unsigned int *a3, const unsigned __int8 *a4, uint64_t a5)
+uint64_t mlir::detail::DenseResourceElementsAttrBase<short>::get(uint64_t a1, uint64_t a2, unsigned int *a3, size_t a4, uint64_t a5)
 {
   v22 = *MEMORY[0x277D85DE8];
   v16 = *a5;
@@ -6036,7 +6946,7 @@ BOOL mlir::detail::DenseResourceElementsAttrBase<short>::classof(void *a1)
   }
 }
 
-uint64_t mlir::detail::DenseResourceElementsAttrBase<int>::get(uint64_t a1, uint64_t a2, unsigned int *a3, const unsigned __int8 *a4, uint64_t a5)
+uint64_t mlir::detail::DenseResourceElementsAttrBase<int>::get(uint64_t a1, uint64_t a2, unsigned int *a3, size_t a4, uint64_t a5)
 {
   v22 = *MEMORY[0x277D85DE8];
   v16 = *a5;
@@ -6149,7 +7059,7 @@ BOOL mlir::detail::DenseResourceElementsAttrBase<int>::classof(void *a1)
   }
 }
 
-uint64_t mlir::detail::DenseResourceElementsAttrBase<long long>::get(uint64_t a1, uint64_t a2, unsigned int *a3, const unsigned __int8 *a4, uint64_t a5)
+uint64_t mlir::detail::DenseResourceElementsAttrBase<long long>::get(uint64_t a1, uint64_t a2, unsigned int *a3, size_t a4, uint64_t a5)
 {
   v22 = *MEMORY[0x277D85DE8];
   v16 = *a5;
@@ -6262,7 +7172,7 @@ BOOL mlir::detail::DenseResourceElementsAttrBase<long long>::classof(void *a1)
   }
 }
 
-uint64_t mlir::detail::DenseResourceElementsAttrBase<unsigned char>::get(uint64_t a1, uint64_t a2, unsigned int *a3, const unsigned __int8 *a4, uint64_t a5)
+uint64_t mlir::detail::DenseResourceElementsAttrBase<unsigned char>::get(uint64_t a1, uint64_t a2, unsigned int *a3, size_t a4, uint64_t a5)
 {
   v22 = *MEMORY[0x277D85DE8];
   v16 = *a5;
@@ -6375,7 +7285,7 @@ BOOL mlir::detail::DenseResourceElementsAttrBase<unsigned char>::classof(void *a
   }
 }
 
-uint64_t mlir::detail::DenseResourceElementsAttrBase<unsigned short>::get(uint64_t a1, uint64_t a2, unsigned int *a3, const unsigned __int8 *a4, uint64_t a5)
+uint64_t mlir::detail::DenseResourceElementsAttrBase<unsigned short>::get(uint64_t a1, uint64_t a2, unsigned int *a3, size_t a4, uint64_t a5)
 {
   v22 = *MEMORY[0x277D85DE8];
   v16 = *a5;
@@ -6488,7 +7398,7 @@ BOOL mlir::detail::DenseResourceElementsAttrBase<unsigned short>::classof(void *
   }
 }
 
-uint64_t mlir::detail::DenseResourceElementsAttrBase<unsigned int>::get(uint64_t a1, uint64_t a2, unsigned int *a3, const unsigned __int8 *a4, uint64_t a5)
+uint64_t mlir::detail::DenseResourceElementsAttrBase<unsigned int>::get(uint64_t a1, uint64_t a2, unsigned int *a3, size_t a4, uint64_t a5)
 {
   v22 = *MEMORY[0x277D85DE8];
   v16 = *a5;
@@ -6601,7 +7511,7 @@ BOOL mlir::detail::DenseResourceElementsAttrBase<unsigned int>::classof(void *a1
   }
 }
 
-uint64_t mlir::detail::DenseResourceElementsAttrBase<unsigned long long>::get(uint64_t a1, uint64_t a2, unsigned int *a3, const unsigned __int8 *a4, uint64_t a5)
+uint64_t mlir::detail::DenseResourceElementsAttrBase<unsigned long long>::get(uint64_t a1, uint64_t a2, unsigned int *a3, size_t a4, uint64_t a5)
 {
   v22 = *MEMORY[0x277D85DE8];
   v16 = *a5;
@@ -6714,7 +7624,7 @@ BOOL mlir::detail::DenseResourceElementsAttrBase<unsigned long long>::classof(vo
   }
 }
 
-uint64_t mlir::detail::DenseResourceElementsAttrBase<float>::get(uint64_t a1, uint64_t a2, unsigned int *a3, const unsigned __int8 *a4, uint64_t a5)
+uint64_t mlir::detail::DenseResourceElementsAttrBase<float>::get(uint64_t a1, uint64_t a2, unsigned int *a3, size_t a4, uint64_t a5)
 {
   v22 = *MEMORY[0x277D85DE8];
   v16 = *a5;
@@ -6825,7 +7735,7 @@ BOOL mlir::detail::DenseResourceElementsAttrBase<float>::classof(void *a1)
   return mlir::Type::isF32(&ElementType);
 }
 
-uint64_t mlir::detail::DenseResourceElementsAttrBase<double>::get(uint64_t a1, uint64_t a2, unsigned int *a3, const unsigned __int8 *a4, uint64_t a5)
+uint64_t mlir::detail::DenseResourceElementsAttrBase<double>::get(uint64_t a1, uint64_t a2, unsigned int *a3, size_t a4, uint64_t a5)
 {
   v22 = *MEMORY[0x277D85DE8];
   v16 = *a5;
@@ -6936,7 +7846,7 @@ BOOL mlir::detail::DenseResourceElementsAttrBase<double>::classof(void *a1)
   return mlir::Type::isF64(&ElementType);
 }
 
-uint64_t mlir::SparseElementsAttr::getZeroAPFloat@<X0>(mlir::SparseElementsAttr *this@<X0>, uint64_t a2@<X8>)
+uint64_t *mlir::SparseElementsAttr::getZeroAPFloat@<X0>(mlir::SparseElementsAttr *this@<X0>, uint64_t a2@<X8>)
 {
   ElementType = mlir::detail::ElementsAttrTrait<mlir::DenseResourceElementsAttr>::getElementType(this);
   FloatSemantics = mlir::FloatType::getFloatSemantics(&ElementType);
@@ -6945,7 +7855,7 @@ uint64_t mlir::SparseElementsAttr::getZeroAPFloat@<X0>(mlir::SparseElementsAttr 
     llvm::detail::DoubleAPFloat::DoubleAPFloat((a2 + 8), FloatSemantics);
   }
 
-  return llvm::detail::IEEEFloat::IEEEFloat(a2 + 8, FloatSemantics);
+  return llvm::detail::IEEEFloat::IEEEFloat((a2 + 8), FloatSemantics, v4, v5);
 }
 
 uint64_t mlir::SparseElementsAttr::getZeroAPInt@<X0>(mlir::SparseElementsAttr *this@<X0>, llvm::APInt *a2@<X8>)
@@ -6955,7 +7865,7 @@ uint64_t mlir::SparseElementsAttr::getZeroAPInt@<X0>(mlir::SparseElementsAttr *t
   *(a2 + 2) = result;
   if (result > 0x40)
   {
-    llvm::APInt::initSlowCase(a2);
+    llvm::APInt::initSlowCase(a2, 0, 0);
   }
 
   *a2 = 0;
@@ -7468,7 +8378,7 @@ void mlir::SparseElementsAttr::verify(llvm::function_ref<mlir::InFlightDiagnosti
   }
 }
 
-void mlir::SparseElementsAttr::verify(llvm::function_ref<mlir::InFlightDiagnostic ()(void)>,mlir::ShapedType,mlir::DenseIntElementsAttr,mlir::DenseElementsAttr)::$_1::operator()(uint64_t a1, uint64_t **a2, unsigned int a3, unint64_t *a4, uint64_t a5)
+void mlir::SparseElementsAttr::verify(llvm::function_ref<mlir::InFlightDiagnostic ()(void)>,mlir::ShapedType,mlir::DenseIntElementsAttr,mlir::DenseElementsAttr)::$_1::operator()(uint64_t a1, void **a2, unsigned int a3, const char **a4, uint64_t a5)
 {
   v44 = *MEMORY[0x277D85DE8];
   (**a2)(&v32, (*a2)[1]);
@@ -7648,14 +8558,14 @@ void mlir::SparseElementsAttr::verify(llvm::function_ref<mlir::InFlightDiagnosti
 
 void *mlir::DistinctAttr::create(uint64_t a1)
 {
-  v4 = a1;
-  Context = mlir::Attribute::getContext(&v4);
-  Storage = mlir::detail::DistinctAttributeUniquer::allocateStorage(Context, v4);
+  v5 = a1;
+  Context = mlir::Attribute::getContext(&v5);
+  Storage = mlir::detail::DistinctAttributeUniquer::allocateStorage(Context, v5);
   {
     mlir::DistinctAttr::create();
   }
 
-  *Storage = mlir::AbstractAttribute::lookup(mlir::detail::TypeIDResolver<mlir::DistinctAttr,void>::resolveTypeID(void)::id, Context);
+  *Storage = mlir::AbstractAttribute::lookup(mlir::detail::TypeIDResolver<mlir::DistinctAttr,void>::resolveTypeID(void)::id, Context, v2);
   return Storage;
 }
 
@@ -7716,7 +8626,7 @@ LABEL_9:
   return result;
 }
 
-__n128 llvm::interleave<unsigned long long const*,mlir::Diagnostic& mlir::Diagnostic::appendRange<llvm::ArrayRef<unsigned long long>>(llvm::ArrayRef<unsigned long long> const&,char const*)::{lambda(llvm::ArrayRef<unsigned long long> const&)#1},mlir::Diagnostic& mlir::Diagnostic::appendRange<llvm::ArrayRef<unsigned long long>>(llvm::ArrayRef<unsigned long long> const&,char const*)::{lambda(void)#1},void>(unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4, const char **a5)
+__n128 llvm::interleave<unsigned long long const*,mlir::Diagnostic& mlir::Diagnostic::appendRange<llvm::ArrayRef<unsigned long long>>(llvm::ArrayRef<unsigned long long> const&,char const*)::{lambda(llvm::ArrayRef<unsigned long long> const&)#1},mlir::Diagnostic& mlir::Diagnostic::appendRange<llvm::ArrayRef<unsigned long long>>(llvm::ArrayRef<unsigned long long> const&,char const*)::{lambda(void)#1},void>(const char **a1, const char **a2, uint64_t a3, uint64_t a4, const char **a5)
 {
   if (a1 != a2)
   {
@@ -7884,13 +8794,13 @@ BOOL llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::call
   return result;
 }
 
-void *llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::ArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::ArrayAttrStorage,llvm::ArrayRef<mlir::Attribute>>(llvm::function_ref<void ()(mlir::detail::ArrayAttrStorage *)>,mlir::TypeID,llvm::ArrayRef<mlir::Attribute> &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(uint64_t a1, unint64_t *a2)
+void *llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::ArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::ArrayAttrStorage,llvm::ArrayRef<mlir::Attribute>>(llvm::function_ref<void ()(mlir::detail::ArrayAttrStorage *)>,mlir::TypeID,llvm::ArrayRef<mlir::Attribute> &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(uint64_t **a1, unint64_t *a2)
 {
   v3 = mlir::detail::ArrayAttrStorage::construct(a2, *a1);
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   if (*v4)
   {
-    (*v4)(*(v4 + 8), v3);
+    (*v4)(v4[1], v3);
   }
 
   return v3;
@@ -7987,7 +8897,7 @@ LABEL_16:
 LABEL_17:
   a1[10] += 24;
   v20 = ((v3 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v21 = v20 + 3;
+  v21 = (v20 + 3);
   if (v3)
   {
     v22 = v21 > a1[1];
@@ -8028,13 +8938,13 @@ BOOL llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::call
   }
 }
 
-void *llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type,long long,llvm::ArrayRef<char>>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type,long long,llvm::ArrayRef<char> &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(uint64_t a1, unint64_t *a2)
+void *llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::DenseArrayAttrStorage * mlir::StorageUniquer::get<mlir::detail::DenseArrayAttrStorage,mlir::Type,long long,llvm::ArrayRef<char>>(llvm::function_ref<void ()(mlir::detail::DenseArrayAttrStorage *)>,mlir::TypeID,mlir::Type,long long,llvm::ArrayRef<char> &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(uint64_t **a1, unint64_t *a2)
 {
   v3 = mlir::detail::DenseArrayAttrStorage::construct(a2, *a1);
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   if (*v4)
   {
-    (*v4)(*(v4 + 8), v3);
+    (*v4)(v4[1], v3);
   }
 
   return v3;
@@ -8154,7 +9064,7 @@ LABEL_22:
 LABEL_23:
   a1[10] += 40;
   v19 = ((*a1 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v20 = v19 + 5;
+  v20 = (v19 + 5);
   if (*a1)
   {
     v21 = v20 > a1[1];
@@ -8235,13 +9145,13 @@ void *llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUni
   return v3;
 }
 
-unint64_t mlir::detail::DenseStringElementsAttrStorage::getKey@<X0>(unint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, int a5@<W4>, uint64_t a6@<X8>)
+uint64_t mlir::detail::DenseStringElementsAttrStorage::getKey@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, llvm::hashing::detail **a3@<X2>, uint64_t a4@<X3>, int a5@<W4>, uint64_t a6@<X8>)
 {
   v8 = result;
   v22 = *MEMORY[0x277D85DE8];
   if (a4)
   {
-    result = llvm::hash_value(*a3, *(a3 + 8));
+    result = llvm::hash_value(*a3, a3[1]);
     v12 = result;
     if (a5)
     {
@@ -8267,12 +9177,12 @@ LABEL_6:
       return result;
     }
 
-    v14 = *(a3 + 8);
+    v14 = a3[1];
     if (v14)
     {
       v15 = *a3;
-      v16 = a3 + 16;
-      while (v14 == *(v16 + 8))
+      v16 = a3 + 2;
+      while (v14 == v16[1])
       {
         result = memcmp(v15, *v16, v14);
         if (result)
@@ -8280,7 +9190,7 @@ LABEL_6:
           break;
         }
 
-        v16 += 16;
+        v16 += 2;
         if (!--v13)
         {
           goto LABEL_6;
@@ -8290,10 +9200,10 @@ LABEL_6:
 
     else
     {
-      v16 = a3 + 16;
-      while (!*(v16 + 8))
+      v16 = a3 + 2;
+      while (!v16[1])
       {
-        v16 += 16;
+        v16 += 2;
         if (!--v13)
         {
           goto LABEL_6;
@@ -8306,7 +9216,7 @@ LABEL_6:
     v20 = 0;
     v21 = 0xFF51AFD7ED558CCDLL;
     v17[0] = v12;
-    v17[1] = llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>(v16, a3 + 16 * a4);
+    v17[1] = llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>(v16, &a3[2 * a4]);
     result = llvm::hashing::detail::hash_combine_recursive_helper::combine(v17, 0, v18, v19);
     *a6 = v8;
     *(a6 + 8) = a2;
@@ -8328,7 +9238,7 @@ LABEL_6:
   return result;
 }
 
-unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>(uint64_t a1, uint64_t a2)
+unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>(llvm::hashing::detail **a1, llvm::hashing::detail **a2)
 {
   v97 = *MEMORY[0x277D85DE8];
   if (a1 == a2)
@@ -8338,9 +9248,9 @@ unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>
 
   else
   {
-    v4 = llvm::hash_value(*a1, *(a1 + 8));
+    v4 = llvm::hash_value(*a1, a1[1]);
     v89 = v4;
-    if (a1 + 16 == a2)
+    if (a1 + 2 == a2)
     {
       v30 = 8;
     }
@@ -8348,9 +9258,9 @@ unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>
     else
     {
       v5 = v4;
-      v6 = llvm::hash_value(*(a1 + 16), *(a1 + 24));
+      v6 = llvm::hash_value(a1[2], a1[3]);
       v90 = v6;
-      if (a1 + 32 == a2)
+      if (a1 + 4 == a2)
       {
         v30 = 16;
       }
@@ -8358,9 +9268,9 @@ unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>
       else
       {
         v7 = v6;
-        v8 = llvm::hash_value(*(a1 + 32), *(a1 + 40));
+        v8 = llvm::hash_value(a1[4], a1[5]);
         v91 = v8;
-        if (a1 + 48 == a2)
+        if (a1 + 6 == a2)
         {
           v30 = 24;
         }
@@ -8368,9 +9278,9 @@ unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>
         else
         {
           v9 = v8;
-          v10 = llvm::hash_value(*(a1 + 48), *(a1 + 56));
+          v10 = llvm::hash_value(a1[6], a1[7]);
           v92 = v10;
-          if (a1 + 64 == a2)
+          if (a1 + 8 == a2)
           {
             v30 = 32;
           }
@@ -8378,9 +9288,9 @@ unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>
           else
           {
             v87 = v10;
-            v11 = llvm::hash_value(*(a1 + 64), *(a1 + 72));
+            v11 = llvm::hash_value(a1[8], a1[9]);
             v93 = v11;
-            if (a1 + 80 == a2)
+            if (a1 + 10 == a2)
             {
               v30 = 40;
             }
@@ -8388,9 +9298,9 @@ unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>
             else
             {
               v12 = v11;
-              v13 = llvm::hash_value(*(a1 + 80), *(a1 + 88));
+              v13 = llvm::hash_value(a1[10], a1[11]);
               v94 = v13;
-              if (a1 + 96 == a2)
+              if (a1 + 12 == a2)
               {
                 v30 = 48;
               }
@@ -8398,9 +9308,9 @@ unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>
               else
               {
                 v14 = v13;
-                v15 = llvm::hash_value(*(a1 + 96), *(a1 + 104));
+                v15 = llvm::hash_value(a1[12], a1[13]);
                 v95 = v15;
-                if (a1 + 112 == a2)
+                if (a1 + 14 == a2)
                 {
                   v30 = 56;
                 }
@@ -8408,13 +9318,13 @@ unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>
                 else
                 {
                   v16 = v15;
-                  v17 = llvm::hash_value(*(a1 + 112), *(a1 + 120));
+                  v17 = llvm::hash_value(a1[14], a1[15]);
                   v96 = v17;
-                  v18 = a1 + 128;
-                  if (a1 + 128 != a2)
+                  v18 = a1 + 16;
+                  if (a1 + 16 != a2)
                   {
                     v84 = v17;
-                    llvm::hash_value(*(a1 + 128), *(a1 + 136));
+                    llvm::hash_value(a1[16], a1[17]);
                     v19 = v14 + v16 + v12 + 0x4BF62CB950C3753ALL + v84;
                     v20 = __ROR8__(v14 + v16 + v12 + 0x4BF62CB950C3753ALL, 44) + v12 + 0x4BF62CB950C3753ALL;
                     v21 = v14 - 0x4B6D499041670D8DLL * __ROR8__(v16 - 0x414BFF9ED66A691CLL, 42) - 0x7323D61940A0DA1FLL;
@@ -8432,9 +9342,9 @@ unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>
                       v85 = v26;
                       v86 = v19;
                       v88 = v22;
-                      v89 = llvm::hash_value(*v18, *(v18 + 8));
-                      v38 = v18 + 16;
-                      if (v18 + 16 == a2)
+                      v89 = llvm::hash_value(*v18, v18[1]);
+                      v38 = v18 + 2;
+                      if (v18 + 2 == a2)
                       {
                         v39 = &v90;
                         v40 = &v90;
@@ -8443,9 +9353,9 @@ unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>
 
                       else
                       {
-                        v90 = llvm::hash_value(*(v18 + 16), *(v18 + 24));
-                        v38 = v18 + 32;
-                        if (v18 + 32 == a2)
+                        v90 = llvm::hash_value(v18[2], v18[3]);
+                        v38 = v18 + 4;
+                        if (v18 + 4 == a2)
                         {
                           v39 = &v91;
                           v40 = &v91;
@@ -8454,9 +9364,9 @@ unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>
 
                         else
                         {
-                          v91 = llvm::hash_value(*(v18 + 32), *(v18 + 40));
-                          v38 = v18 + 48;
-                          if (v18 + 48 == a2)
+                          v91 = llvm::hash_value(v18[4], v18[5]);
+                          v38 = v18 + 6;
+                          if (v18 + 6 == a2)
                           {
                             v39 = &v92;
                             v40 = &v92;
@@ -8465,9 +9375,9 @@ unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>
 
                           else
                           {
-                            v92 = llvm::hash_value(*(v18 + 48), *(v18 + 56));
-                            v38 = v18 + 64;
-                            if (v18 + 64 == a2)
+                            v92 = llvm::hash_value(v18[6], v18[7]);
+                            v38 = v18 + 8;
+                            if (v18 + 8 == a2)
                             {
                               v39 = &v93;
                               v40 = &v93;
@@ -8476,9 +9386,9 @@ unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>
 
                             else
                             {
-                              v93 = llvm::hash_value(*(v18 + 64), *(v18 + 72));
-                              v38 = v18 + 80;
-                              if (v18 + 80 == a2)
+                              v93 = llvm::hash_value(v18[8], v18[9]);
+                              v38 = v18 + 10;
+                              if (v18 + 10 == a2)
                               {
                                 v39 = &v94;
                                 v40 = &v94;
@@ -8487,9 +9397,9 @@ unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>
 
                               else
                               {
-                                v94 = llvm::hash_value(*(v18 + 80), *(v18 + 88));
-                                v38 = v18 + 96;
-                                if (v18 + 96 == a2)
+                                v94 = llvm::hash_value(v18[10], v18[11]);
+                                v38 = v18 + 12;
+                                if (v18 + 12 == a2)
                                 {
                                   v39 = &v95;
                                   v40 = &v95;
@@ -8498,15 +9408,15 @@ unint64_t llvm::hashing::detail::hash_combine_range_impl<llvm::StringRef const*>
 
                                 else
                                 {
-                                  v95 = llvm::hash_value(*(v18 + 96), *(v18 + 104));
-                                  v38 = v18 + 112;
-                                  if (v18 + 112 != a2)
+                                  v95 = llvm::hash_value(v18[12], v18[13]);
+                                  v38 = v18 + 14;
+                                  if (v18 + 14 != a2)
                                   {
-                                    v96 = llvm::hash_value(*(v18 + 112), *(v18 + 120));
-                                    v38 = v18 + 128;
-                                    if (v18 + 128 != a2)
+                                    v96 = llvm::hash_value(v18[14], v18[15]);
+                                    v38 = v18 + 16;
+                                    if (v18 + 16 != a2)
                                     {
-                                      llvm::hash_value(*(v18 + 128), *(v18 + 136));
+                                      llvm::hash_value(v18[16], v18[17]);
                                     }
 
                                     v31 = 64;
@@ -8766,9 +9676,9 @@ uint64_t llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::Storage
   v6 = mlir::detail::DenseStringElementsAttrStorage::construct(a2, v10);
   v7 = v5;
   v8 = a1[1];
-  if (v8->n128_u64[0])
+  if (*v8)
   {
-    (v8->n128_u64[0])(v8->n128_u64[1], v5, v6);
+    (*v8)(*(v8 + 1), v5, v6);
   }
 
   return v7;
@@ -8942,935 +9852,4 @@ LABEL_26:
   *(v35 + 32) = v27;
   *(v35 + 40) = v6;
   return result;
-}
-
-uint64_t mlir::StorageUniquer::get<mlir::detail::FloatAttrStorage,mlir::Type &,llvm::APFloat const&>(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6)
-{
-  v22[3] = *MEMORY[0x277D85DE8];
-  v19[0] = a2;
-  v19[1] = a3;
-  v20 = *a5;
-  v8 = (a6 + 8);
-  v9 = *(a6 + 8);
-  v10 = llvm::APFloatBase::PPCDoubleDouble(a1);
-  if (v10 == v9)
-  {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(v22, v8);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::IEEEFloat(v22, v8);
-  }
-
-  v12 = llvm::hash_value(&v21, v11);
-  v13 = __ROR8__(v12 + 16, 16);
-  v14 = 0x9DDFEA08EB382D69 * (v13 ^ ((0x9DDFEA08EB382D69 * (v13 ^ 0xFF51AFD7ED558CCDLL ^ (v20 >> 4) ^ (v20 >> 9))) >> 47) ^ (0x9DDFEA08EB382D69 * (v13 ^ 0xFF51AFD7ED558CCDLL ^ (v20 >> 4) ^ (v20 >> 9))));
-  v17[0] = &v20;
-  v17[1] = v19;
-  v18 = &v20;
-  ParametricStorageTypeImpl = mlir::StorageUniquer::getParametricStorageTypeImpl(a1, a4, (-348639895 * ((v14 >> 47) ^ v14)) ^ v12, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::FloatAttrStorage * mlir::StorageUniquer::get<mlir::detail::FloatAttrStorage,mlir::Type &,llvm::APFloat const&>(llvm::function_ref<void ()(mlir::detail::FloatAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APFloat const&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v18, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::FloatAttrStorage * mlir::StorageUniquer::get<mlir::detail::FloatAttrStorage,mlir::Type &,llvm::APFloat const&>(llvm::function_ref<void ()(mlir::detail::FloatAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APFloat const&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v17);
-  if (v10 == v22[0])
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v22);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::~IEEEFloat(v22);
-  }
-
-  return ParametricStorageTypeImpl;
-}
-
-uint64_t llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::FloatAttrStorage * mlir::StorageUniquer::get<mlir::detail::FloatAttrStorage,mlir::Type &,llvm::APFloat const&>(llvm::function_ref<void ()(mlir::detail::FloatAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APFloat const&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>(llvm::APFloatBase *a1, uint64_t a2)
-{
-  v2 = *a1;
-  if (*(a2 + 8) != **a1)
-  {
-    return 0;
-  }
-
-  v5 = *(a2 + 24);
-  v3 = (a2 + 24);
-  v4 = v5;
-  v7 = v2[2];
-  v6 = (v2 + 2);
-  if (v4 != v7)
-  {
-    return 0;
-  }
-
-  v9 = v3;
-  if (llvm::APFloatBase::PPCDoubleDouble(a1) == v4)
-  {
-
-    return llvm::detail::DoubleAPFloat::bitwiseIsEqual(v9, v6);
-  }
-
-  else
-  {
-
-    return llvm::detail::IEEEFloat::bitwiseIsEqual(v9, v6);
-  }
-}
-
-void *llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::FloatAttrStorage * mlir::StorageUniquer::get<mlir::detail::FloatAttrStorage,mlir::Type &,llvm::APFloat const&>(llvm::function_ref<void ()(mlir::detail::FloatAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APFloat const&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(uint64_t a1, llvm::APFloatBase *a2)
-{
-  v3 = mlir::detail::FloatAttrStorage::construct(a2, *a1);
-  v4 = *(a1 + 8);
-  if (*v4)
-  {
-    (*v4)(*(v4 + 8), v3);
-  }
-
-  return v3;
-}
-
-void *mlir::detail::FloatAttrStorage::construct(llvm::APFloatBase *a1, __n128 *a2)
-{
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = a2->n128_u64[0];
-  v4 = a2 + 1;
-  v5 = a2[1].n128_u64[0];
-  v6 = llvm::APFloatBase::PPCDoubleDouble(a1);
-  if (v6 == v5)
-  {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v12, v4);
-    *(a1 + 10) += 48;
-    v7 = *a1;
-    if (!*a1)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::IEEEFloat(&v12, v4);
-    *(a1 + 10) += 48;
-    v7 = *a1;
-    if (!*a1)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  Slow = ((v7 + 7) & 0xFFFFFFFFFFFFFFF8);
-  if ((Slow + 6) <= *(a1 + 1))
-  {
-    *a1 = Slow + 6;
-    if (v6 == v12.n128_u64[0])
-    {
-      goto LABEL_13;
-    }
-
-LABEL_7:
-    llvm::detail::IEEEFloat::IEEEFloat(&v11, &v12);
-    *Slow = 0;
-    Slow[1] = v3;
-    v9 = (Slow + 3);
-    if (v6 == v11.n128_u64[0])
-    {
-      goto LABEL_14;
-    }
-
-LABEL_8:
-    llvm::detail::IEEEFloat::IEEEFloat(v9, &v11);
-    if (v6 == v11.n128_u64[0])
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_9;
-  }
-
-LABEL_12:
-  Slow = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(a1, 48, 48, 3);
-  if (v6 != v12.n128_u64[0])
-  {
-    goto LABEL_7;
-  }
-
-LABEL_13:
-  llvm::detail::DoubleAPFloat::DoubleAPFloat(&v11, &v12);
-  *Slow = 0;
-  Slow[1] = v3;
-  v9 = (Slow + 3);
-  if (v6 != v11.n128_u64[0])
-  {
-    goto LABEL_8;
-  }
-
-LABEL_14:
-  llvm::detail::DoubleAPFloat::DoubleAPFloat(v9, &v11);
-  if (v6 == v11.n128_u64[0])
-  {
-LABEL_15:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v11);
-    if (v6 == v12.n128_u64[0])
-    {
-      goto LABEL_16;
-    }
-
-    goto LABEL_10;
-  }
-
-LABEL_9:
-  llvm::detail::IEEEFloat::~IEEEFloat(&v11);
-  if (v6 == v12.n128_u64[0])
-  {
-LABEL_16:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v12);
-    return Slow;
-  }
-
-LABEL_10:
-  llvm::detail::IEEEFloat::~IEEEFloat(&v12);
-  return Slow;
-}
-
-uint64_t mlir::StorageUniquer::get<mlir::detail::FloatAttrStorage,mlir::Type &,llvm::APFloat &>(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6)
-{
-  v22[3] = *MEMORY[0x277D85DE8];
-  v19[0] = a2;
-  v19[1] = a3;
-  v20 = *a5;
-  v8 = (a6 + 8);
-  v9 = *(a6 + 8);
-  v10 = llvm::APFloatBase::PPCDoubleDouble(a1);
-  if (v10 == v9)
-  {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(v22, v8);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::IEEEFloat(v22, v8);
-  }
-
-  v12 = llvm::hash_value(&v21, v11);
-  v13 = __ROR8__(v12 + 16, 16);
-  v14 = 0x9DDFEA08EB382D69 * (v13 ^ ((0x9DDFEA08EB382D69 * (v13 ^ 0xFF51AFD7ED558CCDLL ^ (v20 >> 4) ^ (v20 >> 9))) >> 47) ^ (0x9DDFEA08EB382D69 * (v13 ^ 0xFF51AFD7ED558CCDLL ^ (v20 >> 4) ^ (v20 >> 9))));
-  v17[0] = &v20;
-  v17[1] = v19;
-  v18 = &v20;
-  ParametricStorageTypeImpl = mlir::StorageUniquer::getParametricStorageTypeImpl(a1, a4, (-348639895 * ((v14 >> 47) ^ v14)) ^ v12, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::FloatAttrStorage * mlir::StorageUniquer::get<mlir::detail::FloatAttrStorage,mlir::Type &,llvm::APFloat &>(llvm::function_ref<void ()(mlir::detail::FloatAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APFloat &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v18, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::FloatAttrStorage * mlir::StorageUniquer::get<mlir::detail::FloatAttrStorage,mlir::Type &,llvm::APFloat &>(llvm::function_ref<void ()(mlir::detail::FloatAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APFloat &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v17);
-  if (v10 == v22[0])
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v22);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::~IEEEFloat(v22);
-  }
-
-  return ParametricStorageTypeImpl;
-}
-
-uint64_t llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::FloatAttrStorage * mlir::StorageUniquer::get<mlir::detail::FloatAttrStorage,mlir::Type &,llvm::APFloat &>(llvm::function_ref<void ()(mlir::detail::FloatAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APFloat &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>(llvm::APFloatBase *a1, uint64_t a2)
-{
-  v2 = *a1;
-  if (*(a2 + 8) != **a1)
-  {
-    return 0;
-  }
-
-  v5 = *(a2 + 24);
-  v3 = (a2 + 24);
-  v4 = v5;
-  v7 = v2[2];
-  v6 = (v2 + 2);
-  if (v4 != v7)
-  {
-    return 0;
-  }
-
-  v9 = v3;
-  if (llvm::APFloatBase::PPCDoubleDouble(a1) == v4)
-  {
-
-    return llvm::detail::DoubleAPFloat::bitwiseIsEqual(v9, v6);
-  }
-
-  else
-  {
-
-    return llvm::detail::IEEEFloat::bitwiseIsEqual(v9, v6);
-  }
-}
-
-void *llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::FloatAttrStorage * mlir::StorageUniquer::get<mlir::detail::FloatAttrStorage,mlir::Type &,llvm::APFloat &>(llvm::function_ref<void ()(mlir::detail::FloatAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APFloat &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(uint64_t a1, llvm::APFloatBase *a2)
-{
-  v3 = mlir::detail::FloatAttrStorage::construct(a2, *a1);
-  v4 = *(a1 + 8);
-  if (*v4)
-  {
-    (*v4)(*(v4 + 8), v3);
-  }
-
-  return v3;
-}
-
-uint64_t mlir::StorageUniquer::get<mlir::detail::FloatAttrStorage,mlir::Type &,llvm::APFloat>(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6)
-{
-  v23 = *MEMORY[0x277D85DE8];
-  v19[0] = a2;
-  v19[1] = a3;
-  v20 = *a5;
-  v8 = (a6 + 8);
-  v9 = *(a6 + 8);
-  v10 = llvm::APFloatBase::PPCDoubleDouble(a1);
-  if (v10 == v9)
-  {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v22, v8);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::IEEEFloat(&v22, v8);
-  }
-
-  v12 = llvm::hash_value(&v21, v11);
-  v13 = __ROR8__(v12 + 16, 16);
-  v14 = 0x9DDFEA08EB382D69 * (v13 ^ ((0x9DDFEA08EB382D69 * (v13 ^ 0xFF51AFD7ED558CCDLL ^ (v20 >> 4) ^ (v20 >> 9))) >> 47) ^ (0x9DDFEA08EB382D69 * (v13 ^ 0xFF51AFD7ED558CCDLL ^ (v20 >> 4) ^ (v20 >> 9))));
-  v17[0] = &v20;
-  v17[1] = v19;
-  v18 = &v20;
-  ParametricStorageTypeImpl = mlir::StorageUniquer::getParametricStorageTypeImpl(a1, a4, (-348639895 * ((v14 >> 47) ^ v14)) ^ v12, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::FloatAttrStorage * mlir::StorageUniquer::get<mlir::detail::FloatAttrStorage,mlir::Type &,llvm::APFloat>(llvm::function_ref<void ()(mlir::detail::FloatAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APFloat &&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v18, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::FloatAttrStorage * mlir::StorageUniquer::get<mlir::detail::FloatAttrStorage,mlir::Type &,llvm::APFloat>(llvm::function_ref<void ()(mlir::detail::FloatAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APFloat &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v17);
-  if (v10 == v22.n128_u64[0])
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v22);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::~IEEEFloat(&v22);
-  }
-
-  return ParametricStorageTypeImpl;
-}
-
-uint64_t llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::FloatAttrStorage * mlir::StorageUniquer::get<mlir::detail::FloatAttrStorage,mlir::Type &,llvm::APFloat>(llvm::function_ref<void ()(mlir::detail::FloatAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APFloat &&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>(llvm::APFloatBase *a1, uint64_t a2)
-{
-  v2 = *a1;
-  if (*(a2 + 8) != **a1)
-  {
-    return 0;
-  }
-
-  v5 = *(a2 + 24);
-  v3 = (a2 + 24);
-  v4 = v5;
-  v7 = v2[2];
-  v6 = (v2 + 2);
-  if (v4 != v7)
-  {
-    return 0;
-  }
-
-  v9 = v3;
-  if (llvm::APFloatBase::PPCDoubleDouble(a1) == v4)
-  {
-
-    return llvm::detail::DoubleAPFloat::bitwiseIsEqual(v9, v6);
-  }
-
-  else
-  {
-
-    return llvm::detail::IEEEFloat::bitwiseIsEqual(v9, v6);
-  }
-}
-
-void *llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::FloatAttrStorage * mlir::StorageUniquer::get<mlir::detail::FloatAttrStorage,mlir::Type &,llvm::APFloat>(llvm::function_ref<void ()(mlir::detail::FloatAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APFloat &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(uint64_t a1, llvm::APFloatBase *a2)
-{
-  v3 = mlir::detail::FloatAttrStorage::construct(a2, *a1);
-  v4 = *(a1 + 8);
-  if (*v4)
-  {
-    (*v4)(*(v4 + 8), v3);
-  }
-
-  return v3;
-}
-
-uint64_t mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::Type &,llvm::APInt const&>(mlir::detail::StorageUniquerImpl **a1, const llvm::APInt *a2, uint64_t a3, uint64_t a4, uint64_t *a5, llvm::APInt *a6)
-{
-  v20[0] = a2;
-  v20[1] = a3;
-  v8 = *a5;
-  v17 = *a5;
-  v19 = *(a6 + 2);
-  if (v19 > 0x40)
-  {
-    llvm::APInt::initSlowCase(&v18, a6);
-  }
-
-  v18 = *a6;
-  v9 = (v8 >> 4) ^ (v8 >> 9);
-  v10 = llvm::hash_value(&v18, a2);
-  v11 = __ROR8__(v10 + 16, 16);
-  v12 = 0x9DDFEA08EB382D69 * (v11 ^ ((0x9DDFEA08EB382D69 * (v11 ^ 0xFF51AFD7ED558CCDLL ^ v9)) >> 47) ^ (0x9DDFEA08EB382D69 * (v11 ^ 0xFF51AFD7ED558CCDLL ^ v9)));
-  v15[0] = &v17;
-  v15[1] = v20;
-  v16 = &v17;
-  result = mlir::StorageUniquer::getParametricStorageTypeImpl(a1, a4, (-348639895 * ((v12 >> 47) ^ v12)) ^ v10, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::Type &,llvm::APInt const&>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APInt const&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v16, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::Type &,llvm::APInt const&>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APInt const&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v15);
-  if (v19 >= 0x41)
-  {
-    if (v18)
-    {
-      v14 = result;
-      MEMORY[0x259C63150](v18, 0x1000C8000313F17);
-      return v14;
-    }
-  }
-
-  return result;
-}
-
-BOOL llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::Type &,llvm::APInt const&>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APInt const&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>(const void ***a1, uint64_t a2)
-{
-  v2 = *a1;
-  if (*(a2 + 8) != **a1)
-  {
-    return 0;
-  }
-
-  if (*(a2 + 24) > 0x40u)
-  {
-    return llvm::APInt::equalSlowCase((a2 + 16), v2 + 1);
-  }
-
-  return *(a2 + 16) == v2[1];
-}
-
-unint64_t llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::Type &,llvm::APInt const&>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APInt const&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(uint64_t **a1, void *a2)
-{
-  v2 = *(*a1 + 4);
-  v4 = **a1;
-  v3 = (*a1)[1];
-  *(*a1 + 4) = 0;
-  a2[10] += 32;
-  if (!*a2 || (Slow = (*a2 + 7) & 0xFFFFFFFFFFFFFFF8, Slow + 32 > a2[1]))
-  {
-    Slow = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(a2, 32, 32, 3);
-    *Slow = 0;
-    *(Slow + 8) = v4;
-    *(Slow + 24) = v2;
-    *(Slow + 16) = v3;
-    v6 = a1[1];
-    v7 = *v6;
-    if (!*v6)
-    {
-      return Slow;
-    }
-
-    goto LABEL_4;
-  }
-
-  *a2 = Slow + 32;
-  *Slow = 0;
-  *(Slow + 8) = v4;
-  *(Slow + 24) = v2;
-  *(Slow + 16) = v3;
-  v6 = a1[1];
-  v7 = *v6;
-  if (*v6)
-  {
-LABEL_4:
-    v7(v6[1], Slow);
-  }
-
-  return Slow;
-}
-
-uint64_t mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::Type &,llvm::APInt &>(mlir::detail::StorageUniquerImpl **a1, const llvm::APInt *a2, uint64_t a3, uint64_t a4, uint64_t *a5, llvm::APInt *a6)
-{
-  v20[0] = a2;
-  v20[1] = a3;
-  v8 = *a5;
-  v17 = *a5;
-  v19 = *(a6 + 2);
-  if (v19 > 0x40)
-  {
-    llvm::APInt::initSlowCase(&v18, a6);
-  }
-
-  v18 = *a6;
-  v9 = (v8 >> 4) ^ (v8 >> 9);
-  v10 = llvm::hash_value(&v18, a2);
-  v11 = __ROR8__(v10 + 16, 16);
-  v12 = 0x9DDFEA08EB382D69 * (v11 ^ ((0x9DDFEA08EB382D69 * (v11 ^ 0xFF51AFD7ED558CCDLL ^ v9)) >> 47) ^ (0x9DDFEA08EB382D69 * (v11 ^ 0xFF51AFD7ED558CCDLL ^ v9)));
-  v15[0] = &v17;
-  v15[1] = v20;
-  v16 = &v17;
-  result = mlir::StorageUniquer::getParametricStorageTypeImpl(a1, a4, (-348639895 * ((v12 >> 47) ^ v12)) ^ v10, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::Type &,llvm::APInt &>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APInt &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v16, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::Type &,llvm::APInt &>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APInt &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v15);
-  if (v19 >= 0x41)
-  {
-    if (v18)
-    {
-      v14 = result;
-      MEMORY[0x259C63150](v18, 0x1000C8000313F17);
-      return v14;
-    }
-  }
-
-  return result;
-}
-
-BOOL llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::Type &,llvm::APInt &>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APInt &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>(const void ***a1, uint64_t a2)
-{
-  v2 = *a1;
-  if (*(a2 + 8) != **a1)
-  {
-    return 0;
-  }
-
-  if (*(a2 + 24) > 0x40u)
-  {
-    return llvm::APInt::equalSlowCase((a2 + 16), v2 + 1);
-  }
-
-  return *(a2 + 16) == v2[1];
-}
-
-unint64_t llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::Type &,llvm::APInt &>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::Type &,llvm::APInt &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(uint64_t **a1, void *a2)
-{
-  v2 = *(*a1 + 4);
-  v4 = **a1;
-  v3 = (*a1)[1];
-  *(*a1 + 4) = 0;
-  a2[10] += 32;
-  if (!*a2 || (Slow = (*a2 + 7) & 0xFFFFFFFFFFFFFFF8, Slow + 32 > a2[1]))
-  {
-    Slow = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(a2, 32, 32, 3);
-    *Slow = 0;
-    *(Slow + 8) = v4;
-    *(Slow + 24) = v2;
-    *(Slow + 16) = v3;
-    v6 = a1[1];
-    v7 = *v6;
-    if (!*v6)
-    {
-      return Slow;
-    }
-
-    goto LABEL_4;
-  }
-
-  *a2 = Slow + 32;
-  *Slow = 0;
-  *(Slow + 8) = v4;
-  *(Slow + 24) = v2;
-  *(Slow + 16) = v3;
-  v6 = a1[1];
-  v7 = *v6;
-  if (*v6)
-  {
-LABEL_4:
-    v7(v6[1], Slow);
-  }
-
-  return Slow;
-}
-
-uint64_t mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::IntegerType &,llvm::APSInt const&>(mlir::detail::StorageUniquerImpl **a1, const llvm::APInt *a2, uint64_t a3, uint64_t a4, uint64_t *a5, llvm::APInt *a6)
-{
-  v20[0] = a2;
-  v20[1] = a3;
-  v8 = *a5;
-  v17 = *a5;
-  v19 = *(a6 + 2);
-  if (v19 > 0x40)
-  {
-    llvm::APInt::initSlowCase(&v18, a6);
-  }
-
-  v18 = *a6;
-  v9 = (v8 >> 4) ^ (v8 >> 9);
-  v10 = llvm::hash_value(&v18, a2);
-  v11 = __ROR8__(v10 + 16, 16);
-  v12 = 0x9DDFEA08EB382D69 * (v11 ^ ((0x9DDFEA08EB382D69 * (v11 ^ 0xFF51AFD7ED558CCDLL ^ v9)) >> 47) ^ (0x9DDFEA08EB382D69 * (v11 ^ 0xFF51AFD7ED558CCDLL ^ v9)));
-  v15[0] = &v17;
-  v15[1] = v20;
-  v16 = &v17;
-  result = mlir::StorageUniquer::getParametricStorageTypeImpl(a1, a4, (-348639895 * ((v12 >> 47) ^ v12)) ^ v10, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::IntegerType &,llvm::APSInt const&>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::IntegerType &,llvm::APSInt const&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v16, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::IntegerType &,llvm::APSInt const&>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::IntegerType &,llvm::APSInt const&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v15);
-  if (v19 >= 0x41)
-  {
-    if (v18)
-    {
-      v14 = result;
-      MEMORY[0x259C63150](v18, 0x1000C8000313F17);
-      return v14;
-    }
-  }
-
-  return result;
-}
-
-BOOL llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::IntegerType &,llvm::APSInt const&>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::IntegerType &,llvm::APSInt const&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>(const void ***a1, uint64_t a2)
-{
-  v2 = *a1;
-  if (*(a2 + 8) != **a1)
-  {
-    return 0;
-  }
-
-  if (*(a2 + 24) > 0x40u)
-  {
-    return llvm::APInt::equalSlowCase((a2 + 16), v2 + 1);
-  }
-
-  return *(a2 + 16) == v2[1];
-}
-
-unint64_t llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::IntegerType &,llvm::APSInt const&>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::IntegerType &,llvm::APSInt const&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(uint64_t **a1, void *a2)
-{
-  v2 = *(*a1 + 4);
-  v4 = **a1;
-  v3 = (*a1)[1];
-  *(*a1 + 4) = 0;
-  a2[10] += 32;
-  if (!*a2 || (Slow = (*a2 + 7) & 0xFFFFFFFFFFFFFFF8, Slow + 32 > a2[1]))
-  {
-    Slow = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(a2, 32, 32, 3);
-    *Slow = 0;
-    *(Slow + 8) = v4;
-    *(Slow + 24) = v2;
-    *(Slow + 16) = v3;
-    v6 = a1[1];
-    v7 = *v6;
-    if (!*v6)
-    {
-      return Slow;
-    }
-
-    goto LABEL_4;
-  }
-
-  *a2 = Slow + 32;
-  *Slow = 0;
-  *(Slow + 8) = v4;
-  *(Slow + 24) = v2;
-  *(Slow + 16) = v3;
-  v6 = a1[1];
-  v7 = *v6;
-  if (*v6)
-  {
-LABEL_4:
-    v7(v6[1], Slow);
-  }
-
-  return Slow;
-}
-
-uint64_t mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::IntegerType &,llvm::APSInt &>(mlir::detail::StorageUniquerImpl **a1, const llvm::APInt *a2, uint64_t a3, uint64_t a4, uint64_t *a5, llvm::APInt *a6)
-{
-  v20[0] = a2;
-  v20[1] = a3;
-  v8 = *a5;
-  v17 = *a5;
-  v19 = *(a6 + 2);
-  if (v19 > 0x40)
-  {
-    llvm::APInt::initSlowCase(&v18, a6);
-  }
-
-  v18 = *a6;
-  v9 = (v8 >> 4) ^ (v8 >> 9);
-  v10 = llvm::hash_value(&v18, a2);
-  v11 = __ROR8__(v10 + 16, 16);
-  v12 = 0x9DDFEA08EB382D69 * (v11 ^ ((0x9DDFEA08EB382D69 * (v11 ^ 0xFF51AFD7ED558CCDLL ^ v9)) >> 47) ^ (0x9DDFEA08EB382D69 * (v11 ^ 0xFF51AFD7ED558CCDLL ^ v9)));
-  v15[0] = &v17;
-  v15[1] = v20;
-  v16 = &v17;
-  result = mlir::StorageUniquer::getParametricStorageTypeImpl(a1, a4, (-348639895 * ((v12 >> 47) ^ v12)) ^ v10, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::IntegerType &,llvm::APSInt &>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::IntegerType &,llvm::APSInt &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v16, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::IntegerType &,llvm::APSInt &>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::IntegerType &,llvm::APSInt &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v15);
-  if (v19 >= 0x41)
-  {
-    if (v18)
-    {
-      v14 = result;
-      MEMORY[0x259C63150](v18, 0x1000C8000313F17);
-      return v14;
-    }
-  }
-
-  return result;
-}
-
-BOOL llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::IntegerType &,llvm::APSInt &>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::IntegerType &,llvm::APSInt &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>(const void ***a1, uint64_t a2)
-{
-  v2 = *a1;
-  if (*(a2 + 8) != **a1)
-  {
-    return 0;
-  }
-
-  if (*(a2 + 24) > 0x40u)
-  {
-    return llvm::APInt::equalSlowCase((a2 + 16), v2 + 1);
-  }
-
-  return *(a2 + 16) == v2[1];
-}
-
-unint64_t llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::IntegerAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerAttrStorage,mlir::IntegerType &,llvm::APSInt &>(llvm::function_ref<void ()(mlir::detail::IntegerAttrStorage *)>,mlir::TypeID,mlir::IntegerType &,llvm::APSInt &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(uint64_t **a1, void *a2)
-{
-  v2 = *(*a1 + 4);
-  v4 = **a1;
-  v3 = (*a1)[1];
-  *(*a1 + 4) = 0;
-  a2[10] += 32;
-  if (!*a2 || (Slow = (*a2 + 7) & 0xFFFFFFFFFFFFFFF8, Slow + 32 > a2[1]))
-  {
-    Slow = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(a2, 32, 32, 3);
-    *Slow = 0;
-    *(Slow + 8) = v4;
-    *(Slow + 24) = v2;
-    *(Slow + 16) = v3;
-    v6 = a1[1];
-    v7 = *v6;
-    if (!*v6)
-    {
-      return Slow;
-    }
-
-    goto LABEL_4;
-  }
-
-  *a2 = Slow + 32;
-  *Slow = 0;
-  *(Slow + 8) = v4;
-  *(Slow + 24) = v2;
-  *(Slow + 16) = v3;
-  v6 = a1[1];
-  v7 = *v6;
-  if (*v6)
-  {
-LABEL_4:
-    v7(v6[1], Slow);
-  }
-
-  return Slow;
-}
-
-void *llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::IntegerSetAttrStorage * mlir::StorageUniquer::get<mlir::detail::IntegerSetAttrStorage,mlir::IntegerSet &>(llvm::function_ref<void ()(mlir::detail::IntegerSetAttrStorage *)>,mlir::TypeID,mlir::IntegerSet &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(uint64_t **a1, void *a2)
-{
-  v2 = **a1;
-  a2[10] += 16;
-  Slow = ((*a2 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v4 = Slow + 2;
-  if (*a2)
-  {
-    v5 = v4 > a2[1];
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    Slow = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(a2, 16, 16, 3);
-    *Slow = 0;
-    Slow[1] = v2;
-    v6 = a1[1];
-    v7 = *v6;
-    if (!*v6)
-    {
-      return Slow;
-    }
-
-    goto LABEL_6;
-  }
-
-  *a2 = v4;
-  *Slow = 0;
-  Slow[1] = v2;
-  v6 = a1[1];
-  v7 = *v6;
-  if (*v6)
-  {
-LABEL_6:
-    v7(v6[1], Slow);
-  }
-
-  return Slow;
-}
-
-BOOL llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::detail::OpaqueAttrStorage * mlir::StorageUniquer::get<mlir::detail::OpaqueAttrStorage,mlir::StringAttr &,llvm::StringRef &,mlir::Type &>(llvm::function_ref<void ()(mlir::detail::OpaqueAttrStorage *)>,mlir::TypeID,mlir::StringAttr &,llvm::StringRef &,mlir::Type &)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>(void *a1, uint64_t a2)
-{
-  v2 = *a1;
-  if (*(a2 + 8) == **a1 && (v3 = *(a2 + 24), v3 == v2[2]) && (!v3 || (v4 = a2, v5 = memcmp(*(a2 + 16), v2[1], v3), a2 = v4, !v5)))
-  {
-    return *(a2 + 32) == v2[3];
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void *llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::detail::OpaqueAttrStorage * mlir::StorageUniquer::get<mlir::detail::OpaqueAttrStorage,mlir::StringAttr &,llvm::StringRef &,mlir::Type &>(llvm::function_ref<void ()(mlir::detail::OpaqueAttrStorage *)>,mlir::TypeID,mlir::StringAttr &,llvm::StringRef &,mlir::Type &)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(uint64_t a1, uint64_t *a2)
-{
-  v3 = mlir::detail::OpaqueAttrStorage::construct(a2, *a1);
-  v4 = *(a1 + 8);
-  if (*v4)
-  {
-    (*v4)(*(v4 + 8), v3);
-  }
-
-  return v3;
-}
-
-void *mlir::detail::OpaqueAttrStorage::construct(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a2;
-  v3 = a2[2];
-  v4 = a2[3];
-  if (!v3)
-  {
-    Slow = 0;
-    goto LABEL_24;
-  }
-
-  v5 = a2[1];
-  a1[10] += v3 + 1;
-  Slow = *a1;
-  v7 = v3 + 1 + *a1;
-  if (*a1)
-  {
-    v8 = v7 > a1[1];
-  }
-
-  else
-  {
-    v8 = 1;
-  }
-
-  if (!v8)
-  {
-    *a1 = v7;
-    if (v3 >= 8)
-    {
-      goto LABEL_7;
-    }
-
-LABEL_21:
-    v9 = Slow;
-    v10 = v5;
-    goto LABEL_22;
-  }
-
-  v20 = a1;
-  Slow = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(a1, v3 + 1, v3 + 1, 0);
-  a1 = v20;
-  if (v3 < 8)
-  {
-    goto LABEL_21;
-  }
-
-LABEL_7:
-  v9 = Slow;
-  v10 = v5;
-  if ((Slow - v5) >= 0x20)
-  {
-    if (v3 < 0x20)
-    {
-      v11 = 0;
-      goto LABEL_15;
-    }
-
-    v11 = v3 & 0xFFFFFFFFFFFFFFE0;
-    v12 = (v5 + 16);
-    v13 = (Slow + 16);
-    v14 = v3 & 0xFFFFFFFFFFFFFFE0;
-    do
-    {
-      v15 = *v12;
-      *(v13 - 1) = *(v12 - 1);
-      *v13 = v15;
-      v12 += 2;
-      v13 += 2;
-      v14 -= 32;
-    }
-
-    while (v14);
-    if (v3 == v11)
-    {
-      goto LABEL_23;
-    }
-
-    if ((v3 & 0x18) != 0)
-    {
-LABEL_15:
-      v9 = (Slow + (v3 & 0xFFFFFFFFFFFFFFF8));
-      v10 = (v5 + (v3 & 0xFFFFFFFFFFFFFFF8));
-      v16 = (v5 + v11);
-      v17 = (Slow + v11);
-      v18 = v11 - (v3 & 0xFFFFFFFFFFFFFFF8);
-      do
-      {
-        v19 = *v16++;
-        *v17++ = v19;
-        v18 += 8;
-      }
-
-      while (v18);
-      if (v3 == (v3 & 0xFFFFFFFFFFFFFFF8))
-      {
-        goto LABEL_23;
-      }
-
-      goto LABEL_22;
-    }
-
-    v10 = (v5 + v11);
-    v9 = (Slow + v11);
-  }
-
-  do
-  {
-LABEL_22:
-    v21 = *v10++;
-    *v9++ = v21;
-  }
-
-  while (v10 != (v5 + v3));
-LABEL_23:
-  *(Slow + v3) = 0;
-LABEL_24:
-  a1[10] += 40;
-  v22 = ((*a1 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v23 = v22 + 5;
-  if (*a1)
-  {
-    v24 = v23 > a1[1];
-  }
-
-  else
-  {
-    v24 = 1;
-  }
-
-  if (v24)
-  {
-    v22 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow(a1, 40, 40, 3);
-  }
-
-  else
-  {
-    *a1 = v23;
-  }
-
-  *v22 = 0;
-  v22[1] = v2;
-  v22[2] = Slow;
-  v22[3] = v3;
-  v22[4] = v4;
-  return v22;
 }

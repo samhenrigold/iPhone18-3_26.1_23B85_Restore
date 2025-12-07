@@ -14,24 +14,22 @@
 
 - (id)descriptionDictionary
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  v12[0] = @"EventType";
+  v12[4] = *MEMORY[0x277D85DE8];
+  v11[0] = @"EventType";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v13[0] = v4;
-  v12[1] = @"SystemStateType";
+  v12[0] = v4;
+  v11[1] = @"SystemStateType";
   v5 = TASystemStateTypeToString(self->_systemStateType);
-  v13[1] = v5;
-  v12[2] = @"IsOn";
+  v12[1] = v5;
+  v11[2] = @"IsOn";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:self->_isOn];
-  v13[2] = v6;
-  v12[3] = @"Date";
+  v12[2] = v6;
+  v11[3] = @"Date";
   date = [(TASystemState *)self date];
   getDateString = [date getDateString];
-  v13[3] = getDateString;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[3] = getDateString;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
 
   return v9;
 }

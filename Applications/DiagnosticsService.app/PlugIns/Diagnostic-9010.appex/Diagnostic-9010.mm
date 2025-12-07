@@ -35,7 +35,7 @@ id sub_100002368(uint64_t a1)
   }
 }
 
-uint64_t sub_100002B80()
+uint64_t sub_100002B80(uint64_t a1)
 {
   if (!qword_10000CDC0)
   {
@@ -47,7 +47,6 @@ uint64_t sub_100002B80()
 
 uint64_t sub_100002C50(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000CDC0 = result;
   return result;
@@ -55,12 +54,24 @@ uint64_t sub_100002C50(uint64_t a1)
 
 Class sub_100002CC4(uint64_t a1)
 {
-  if (!sub_100002B80())
+  v5 = 0;
+  v2 = sub_100002B80(&v5);
+  v3 = v5;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v5)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v5);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("DSHardwareButtonEventMonitor");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))

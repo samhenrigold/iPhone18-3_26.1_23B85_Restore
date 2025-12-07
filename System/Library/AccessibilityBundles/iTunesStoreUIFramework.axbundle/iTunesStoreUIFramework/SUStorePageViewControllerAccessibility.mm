@@ -1,6 +1,7 @@
 @interface SUStorePageViewControllerAccessibility
 - (BOOL)reloadForSectionsWithGroup:(id)group;
 - (void)_handleViewControllerBecameReady:(id)ready;
+- (void)_setActiveChildViewController:(id)controller shouldTearDown:(BOOL)down;
 @end
 
 @implementation SUStorePageViewControllerAccessibility
@@ -23,6 +24,23 @@
   [v5 setAccessibilityLanguage:v6];
 
   return v4;
+}
+
+- (void)_setActiveChildViewController:(id)controller shouldTearDown:(BOOL)down
+{
+  downCopy = down;
+  controllerCopy = controller;
+  v7 = [(SUStorePageViewControllerAccessibility *)self safeValueForKey:@"_activeChildViewController"];
+  NSClassFromString(&cfstr_Suplaceholderv.isa);
+  isKindOfClass = objc_opt_isKindOfClass();
+  v9.receiver = self;
+  v9.super_class = SUStorePageViewControllerAccessibility;
+  [(SUStorePageViewControllerAccessibility *)&v9 _setActiveChildViewController:controllerCopy shouldTearDown:downCopy];
+
+  if (v7 != controllerCopy && (isKindOfClass & 1) != 0)
+  {
+    UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
+  }
 }
 
 @end

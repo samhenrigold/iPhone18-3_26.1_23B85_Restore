@@ -50,8 +50,8 @@
 
 - (NSDictionary)JSONObject
 {
-  v33[9] = *MEMORY[0x1E69E9840];
-  v32[0] = @"type";
+  v32[9] = *MEMORY[0x1E69E9840];
+  v31[0] = @"type";
   type = [(MUWebMessage *)self type];
   v4 = type;
   if (!type)
@@ -59,9 +59,9 @@
     type = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28 = type;
-  v33[0] = type;
-  v32[1] = @"caller";
+  v27 = type;
+  v32[0] = type;
+  v31[1] = @"caller";
   caller = [(MUWebMessage *)self caller];
   v6 = caller;
   if (!caller)
@@ -69,9 +69,9 @@
     caller = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27 = caller;
-  v33[1] = caller;
-  v32[2] = @"callee";
+  v26 = caller;
+  v32[1] = caller;
+  v31[2] = @"callee";
   callee = [(MUWebMessage *)self callee];
   v8 = callee;
   if (!callee)
@@ -79,9 +79,9 @@
     callee = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26 = callee;
-  v33[2] = callee;
-  v32[3] = @"method";
+  v25 = callee;
+  v32[2] = callee;
+  v31[3] = @"method";
   method = [(MUWebMessage *)self method];
   v10 = method;
   if (!method)
@@ -89,9 +89,9 @@
     method = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25 = method;
-  v33[3] = method;
-  v32[4] = @"callNumber";
+  v24 = method;
+  v32[3] = method;
+  v31[4] = @"callNumber";
   callNumber = [(MUWebMessage *)self callNumber];
   v12 = callNumber;
   if (!callNumber)
@@ -99,10 +99,10 @@
     callNumber = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30 = v6;
-  v24 = callNumber;
-  v33[4] = callNumber;
-  v32[5] = @"status";
+  v29 = v6;
+  v23 = callNumber;
+  v32[4] = callNumber;
+  v31[5] = @"status";
   status = [(MUWebMessage *)self status];
   v14 = status;
   if (!status)
@@ -110,10 +110,10 @@
     status = [MEMORY[0x1E695DFB0] null];
   }
 
-  v31 = v4;
-  v23 = status;
-  v33[5] = status;
-  v32[6] = @"arguments";
+  v30 = v4;
+  v22 = status;
+  v32[5] = status;
+  v31[6] = @"arguments";
   arguments = [(MUWebMessage *)self arguments];
   null = arguments;
   if (!arguments)
@@ -121,8 +121,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v33[6] = null;
-  v32[7] = @"result";
+  v32[6] = null;
+  v31[7] = @"result";
   result = [(MUWebMessage *)self result];
   null2 = result;
   if (!result)
@@ -130,8 +130,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v33[7] = null2;
-  v32[8] = @"errorMessage";
+  v32[7] = null2;
+  v31[8] = @"errorMessage";
   errorMessage = [(MUWebMessage *)self errorMessage];
   null3 = errorMessage;
   if (!errorMessage)
@@ -139,8 +139,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v33[8] = null3;
-  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:9];
+  v32[8] = null3;
+  v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:9];
   if (!errorMessage)
   {
   }
@@ -169,17 +169,15 @@
   {
   }
 
+  if (!v29)
+  {
+  }
+
   if (!v30)
   {
   }
 
-  if (!v31)
-  {
-  }
-
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v29;
+  return v28;
 }
 
 - (MUWebMessage)initWithJSONObject:(id)object

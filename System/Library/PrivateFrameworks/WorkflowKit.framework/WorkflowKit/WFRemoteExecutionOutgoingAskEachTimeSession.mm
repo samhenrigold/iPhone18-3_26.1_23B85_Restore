@@ -61,24 +61,24 @@
 
 - (void)handleIncomingProtobuf:(id)protobuf
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
   [(WFRemoteExecutionSession *)self setState:102];
   v5 = [WFRemoteExecutionAskEachTimeRequestResponse alloc];
   data = [protobufCopy data];
 
-  v29 = 0;
-  v7 = [(WFRemoteExecutionAskEachTimeRequestResponse *)v5 initWithData:data error:&v29];
-  v8 = v29;
+  v28 = 0;
+  v7 = [(WFRemoteExecutionAskEachTimeRequestResponse *)v5 initWithData:data error:&v28];
+  v8 = v28;
 
   if (v7)
   {
     originatingRequestIdentifier = [(WFRemoteExecutionAskEachTimeRequestResponse *)v7 originatingRequestIdentifier];
     request = [(WFRemoteExecutionSession *)self request];
     identifier = [request identifier];
-    v12 = [originatingRequestIdentifier isEqualToString:identifier];
+    isEqualToString = objc_msgSend_isEqualToString_(originatingRequestIdentifier);
 
-    if (v12)
+    if (isEqualToString)
     {
       [(WFRemoteExecutionSession *)self setState:103];
       v13 = +[WFActionRegistry sharedRegistry];
@@ -114,7 +114,7 @@
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v31 = "[WFRemoteExecutionOutgoingAskEachTimeSession handleIncomingProtobuf:]";
+        v30 = "[WFRemoteExecutionOutgoingAskEachTimeSession handleIncomingProtobuf:]";
         _os_log_impl(&dword_1CA256000, v24, OS_LOG_TYPE_ERROR, "%s Encountered unsupported version of ask each time request response", buf, 0xCu);
       }
 
@@ -126,9 +126,9 @@
       if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v31 = "[WFRemoteExecutionOutgoingAskEachTimeSession handleIncomingProtobuf:]";
-        v32 = 2114;
-        v33 = v8;
+        v30 = "[WFRemoteExecutionOutgoingAskEachTimeSession handleIncomingProtobuf:]";
+        v31 = 2114;
+        v32 = v8;
         _os_log_impl(&dword_1CA256000, v24, OS_LOG_TYPE_FAULT, "%s Failed to read ask each time request response: %{public}@", buf, 0x16u);
       }
 
@@ -140,28 +140,26 @@
     (completion2)[2](completion2, 0, 0, v8);
 
     [(WFRemoteExecutionOutgoingAskEachTimeSession *)self setCompletion:0];
-    v28.receiver = self;
-    v28.super_class = WFRemoteExecutionOutgoingAskEachTimeSession;
-    [(WFRemoteExecutionSession *)&v28 finish];
+    v27.receiver = self;
+    v27.super_class = WFRemoteExecutionOutgoingAskEachTimeSession;
+    [(WFRemoteExecutionSession *)&v27 finish];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendToDestinations:(id)destinations options:(id)options
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   optionsCopy = options;
-  v30.receiver = self;
-  v30.super_class = WFRemoteExecutionOutgoingAskEachTimeSession;
-  [(WFRemoteExecutionSession *)&v30 sendToDestinations:destinationsCopy options:optionsCopy];
+  v29.receiver = self;
+  v29.super_class = WFRemoteExecutionOutgoingAskEachTimeSession;
+  [(WFRemoteExecutionSession *)&v29 sendToDestinations:destinationsCopy options:optionsCopy];
   [(WFRemoteExecutionSession *)self setState:100];
   v8 = objc_alloc_init(MEMORY[0x1E69C65C0]);
   request = [(WFRemoteExecutionSession *)self request];
-  v29 = 0;
-  v10 = [request writeTo:v8 error:&v29];
-  v11 = v29;
+  v28 = 0;
+  v10 = [request writeTo:v8 error:&v28];
+  v11 = v28;
 
   if (v10)
   {
@@ -175,19 +173,19 @@
       request2 = [(WFRemoteExecutionSession *)self request];
       identifier = [request2 identifier];
       *buf = 136315394;
-      v32 = "[WFRemoteExecutionOutgoingAskEachTimeSession sendToDestinations:options:]";
-      v33 = 2114;
+      v31 = "[WFRemoteExecutionOutgoingAskEachTimeSession sendToDestinations:options:]";
+      v32 = 2114;
       selfCopy = identifier;
       _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_INFO, "%s <%{public}@> sending ask each time request", buf, 0x16u);
     }
 
     [(WFRemoteExecutionSession *)self restartTimeout];
     service = [(WFRemoteExecutionSession *)self service];
+    v26 = 0;
     v27 = 0;
-    v28 = 0;
-    v19 = [service sendProtobuf:v14 toDestinations:destinationsCopy priority:300 options:optionsCopy identifier:&v28 error:&v27];
-    v20 = v28;
-    v21 = v27;
+    v19 = [service sendProtobuf:v14 toDestinations:destinationsCopy priority:300 options:optionsCopy identifier:&v27 error:&v26];
+    v20 = v27;
+    v21 = v26;
 
     if (v19)
     {
@@ -202,11 +200,11 @@
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v32 = "[WFRemoteExecutionOutgoingAskEachTimeSession sendToDestinations:options:]";
-        v33 = 2114;
+        v31 = "[WFRemoteExecutionOutgoingAskEachTimeSession sendToDestinations:options:]";
+        v32 = 2114;
         selfCopy = self;
-        v35 = 2114;
-        v36 = v21;
+        v34 = 2114;
+        v35 = v21;
         _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_ERROR, "%s %{public}@ failed to send with error: %{public}@", buf, 0x20u);
       }
 
@@ -222,19 +220,17 @@
       request3 = [(WFRemoteExecutionSession *)self request];
       identifier2 = [request3 identifier];
       *buf = 136315650;
-      v32 = "[WFRemoteExecutionOutgoingAskEachTimeSession sendToDestinations:options:]";
-      v33 = 2114;
+      v31 = "[WFRemoteExecutionOutgoingAskEachTimeSession sendToDestinations:options:]";
+      v32 = 2114;
       selfCopy = identifier2;
-      v35 = 2114;
-      v36 = v11;
+      v34 = 2114;
+      v35 = v11;
       _os_log_impl(&dword_1CA256000, v22, OS_LOG_TYPE_FAULT, "%s <%{public}@> failed to write protobuf with error: %{public}@", buf, 0x20u);
     }
 
     [(WFRemoteExecutionSession *)self setState:1];
     [(WFRemoteExecutionOutgoingAskEachTimeSession *)self finish];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (WFRemoteExecutionOutgoingAskEachTimeSession)initWithService:(id)service request:(id)request completion:(id)completion

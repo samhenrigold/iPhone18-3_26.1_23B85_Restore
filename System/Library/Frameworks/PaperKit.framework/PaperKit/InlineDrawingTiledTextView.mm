@@ -23,23 +23,23 @@
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
   specialized InlineDrawingTiledTextView.inlineDrawingCanvasElementControllerCurrentAttachment(_:)();
-  if (v11)
+  if (v12)
   {
-    v12 = v11;
-    v13 = specialized InlineDrawingTextAttachmentView.selectionInteraction(_:canPerformAction:withSender:inAttachment:)();
+    v13 = v12;
+    v14 = specialized InlineDrawingTextAttachmentView.selectionInteraction(_:canPerformAction:withSender:inAttachment:)(action);
 
     interactionCopy = attachmentCopy;
     attachmentCopy = selfCopy;
-    selfCopy = v12;
+    selfCopy = v13;
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  __swift_destroy_boxed_opaque_existential_0(&v15);
-  return v13;
+  __swift_destroy_boxed_opaque_existential_0(v16);
+  return v14;
 }
 
 - (void)selectionInteractionDidPaste:(id)paste atPoint:(CGPoint)point inAttachment:(id)attachment

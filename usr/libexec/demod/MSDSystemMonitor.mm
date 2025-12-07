@@ -206,8 +206,8 @@
   if (v15)
   {
 LABEL_2:
-    v18 = 0;
     v19 = 0;
+    v20 = 0;
     if (!bOOLValue)
     {
       goto LABEL_13;
@@ -216,19 +216,19 @@ LABEL_2:
     goto LABEL_6;
   }
 
-  v19 = @"batteryLevelTriggeredPause";
+  v20 = @"batteryLevelTriggeredPause";
   if (unsignedIntegerValue >= 0x15)
   {
     if (unsignedIntegerValue <= 0x31)
     {
-      v23 = +[_CDContextQueries batteryExternalConnectedKey];
-      v24 = [v16 objectForKey:v23];
-      bOOLValue2 = [v24 BOOLValue];
+      v24 = +[_CDContextQueries batteryExternalConnectedKey];
+      v25 = [v16 objectForKey:v24];
+      bOOLValue2 = [v25 BOOLValue];
 
-      v18 = bOOLValue2 ^ 1;
+      v19 = bOOLValue2 ^ 1;
       if (bOOLValue2)
       {
-        v19 = 0;
+        v20 = 0;
       }
 
       if (!bOOLValue)
@@ -242,39 +242,39 @@ LABEL_2:
     goto LABEL_2;
   }
 
-  v18 = 1;
+  v19 = 1;
   if (!bOOLValue)
   {
 LABEL_13:
-    v22 = 0;
+    v23 = 0;
     goto LABEL_14;
   }
 
 LABEL_6:
   foregroundAllowedApps = [(MSDSystemMonitor *)selfCopy foregroundAllowedApps];
-  v21 = [foregroundAllowedApps containsObject:v5];
+  v22 = [foregroundAllowedApps containsObject:v5];
 
-  v22 = v21 ^ 1;
-  if (!v21)
+  v23 = v22 ^ 1;
+  if (!v22)
   {
-    v19 = @"systemInUseTriggeredPause";
+    v20 = @"systemInUseTriggeredPause";
   }
 
 LABEL_14:
-  v26 = sub_100063A54();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  v27 = sub_100063A54(v18);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000DF160(v5, bOOLValue, v26);
+    sub_1000DF160(v5, bOOLValue, v27);
   }
 
-  [(MSDSystemMonitor *)selfCopy setCoreDuetTriggeredPause:v18 | v22];
+  [(MSDSystemMonitor *)selfCopy setCoreDuetTriggeredPause:v19 | v23];
   observer = [(MSDSystemMonitor *)selfCopy observer];
 
   if (observer)
   {
     observer2 = [(MSDSystemMonitor *)selfCopy observer];
     diskSpaceTriggeredPause = [(MSDSystemMonitor *)selfCopy coreDuetTriggeredPause]|| [(MSDSystemMonitor *)selfCopy diskSpaceTriggeredPause];
-    [observer2 didReceiveNewPauseStatus:diskSpaceTriggeredPause forReason:v19];
+    [observer2 didReceiveNewPauseStatus:diskSpaceTriggeredPause forReason:v20];
   }
 
   objc_sync_exit(selfCopy);

@@ -84,7 +84,7 @@
 
 - (void)updateValue:(id)value completionHandler:(id)handler
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   handlerCopy = handler;
   settingManager = [(HMSetting *)self settingManager];
@@ -102,17 +102,15 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v13;
-      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@setting does not have manager", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v13;
+      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@setting does not have manager", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     v14 = [MEMORY[0x1E696ABC0] hmErrorWithCode:2];
     handlerCopy[2](handlerCopy, v14);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)valueForUpdate:(id)update

@@ -241,7 +241,7 @@ void __44__CKMediaObjectAssetDataSource_mediaObjects__block_invoke(uint64_t a1, 
 {
   v7 = 0u;
   v8 = 0u;
-  [(CKMediaObjectAssetDataSource *)self _indexPathForMediaObject:object];
+  objc_msgSend__indexPathForMediaObject_(self, a2, object);
   if (*MEMORY[0x1E69C4880])
   {
     v6[0] = v7;
@@ -263,7 +263,7 @@ void __44__CKMediaObjectAssetDataSource_mediaObjects__block_invoke(uint64_t a1, 
   v5 = referenceCopy;
   if (referenceCopy)
   {
-    [referenceCopy indexPath];
+    objc_msgSend_indexPath(referenceCopy);
     v6 = v16;
   }
 
@@ -287,7 +287,7 @@ void __44__CKMediaObjectAssetDataSource_mediaObjects__block_invoke(uint64_t a1, 
     chatItems2 = [(CKMediaObjectAssetDataSource *)self chatItems];
     if (v5)
     {
-      [v5 indexPath];
+      objc_msgSend_indexPath(v5);
       v10 = v14;
     }
 
@@ -546,7 +546,7 @@ LABEL_7:
       if (objc_opt_isKindOfClass())
       {
         mediaObject = [asset mediaObject];
-        [(CKMediaObjectAssetDataSource *)self _indexPathForMediaObject:mediaObject];
+        objc_msgSend__indexPathForMediaObject_(self);
         *&retstr->dataSourceIdentifier = v10;
         *&retstr->item = v11;
       }

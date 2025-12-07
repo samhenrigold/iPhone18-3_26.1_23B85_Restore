@@ -9,19 +9,17 @@
 
 - (id)scopesForTask
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   scope = [(CPLEngineScopedTask *)self scope];
-  v6[0] = scope;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = scope;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 - (BOOL)checkScopeIsValidInTransaction:(id)transaction
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   transactionCopy = transaction;
   error = [transactionCopy error];
 
@@ -42,14 +40,14 @@ LABEL_15:
       v8 = __CPLTaskOSLogDomain_15620();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v16 = 138412290;
-        *&v16[4] = objc_opt_class();
-        v9 = *&v16[4];
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Session for %@ has been deferred", v16, 0xCu);
+        *v15 = 138412290;
+        *&v15[4] = objc_opt_class();
+        v9 = *&v15[4];
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Session for %@ has been deferred", v15, 0xCu);
       }
     }
 
-    v10 = +[CPLErrors sessionHasBeenDeferredError];
+    v10 = [CPLErrors sessionHasBeenDeferredError:*v15];
     [transactionCopy setError:v10];
 
     goto LABEL_15;
@@ -63,9 +61,9 @@ LABEL_15:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         scope = [(CPLEngineScopedTask *)self scope];
-        *v16 = 138412290;
-        *&v16[4] = scope;
-        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEFAULT, "%@ is not valid anymore - stopping here", v16, 0xCu);
+        *v15 = 138412290;
+        *&v15[4] = scope;
+        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEFAULT, "%@ is not valid anymore - stopping here", v15, 0xCu);
       }
     }
 
@@ -76,13 +74,12 @@ LABEL_15:
   v11 = 1;
 LABEL_16:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (BOOL)isScopeValidInTransaction:(id)transaction
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v4 = self->_clientCacheIdentifier;
   clientCacheIdentifier = [(CPLEngineStore *)self->_store clientCacheIdentifier];
   v6 = clientCacheIdentifier;
@@ -105,26 +102,26 @@ LABEL_12:
       scopes = [(CPLEngineStore *)self->_store scopes];
       validLocalScopeIndexes = [scopes validLocalScopeIndexes];
 
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       scopesForTask = [(CPLEngineScopedTask *)self scopesForTask];
-      v14 = [scopesForTask countByEnumeratingWithState:&v30 objects:v40 count:16];
+      v14 = [scopesForTask countByEnumeratingWithState:&v29 objects:v39 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v31;
+        v16 = *v30;
 LABEL_14:
         v17 = 0;
         while (1)
         {
-          if (*v31 != v16)
+          if (*v30 != v16)
           {
             objc_enumerationMutation(scopesForTask);
           }
 
-          v18 = *(*(&v30 + 1) + 8 * v17);
+          v18 = *(*(&v29 + 1) + 8 * v17);
           if (([validLocalScopeIndexes containsIndex:[(CPLEngineScope *)v18 localIndex]]& 1) == 0)
           {
             break;
@@ -132,7 +129,7 @@ LABEL_14:
 
           if (v15 == ++v17)
           {
-            v15 = [scopesForTask countByEnumeratingWithState:&v30 objects:v40 count:16];
+            v15 = [scopesForTask countByEnumeratingWithState:&v29 objects:v39 count:16];
             if (v15)
             {
               goto LABEL_14;
@@ -152,9 +149,9 @@ LABEL_14:
               scope = self->_scope;
               v27 = objc_opt_class();
               *buf = 138412546;
-              v35 = scope;
-              v36 = 2112;
-              v37 = v27;
+              v34 = scope;
+              v35 = 2112;
+              v36 = v27;
               v22 = v27;
               v23 = "Scope %@ is invalid, stopping %@ now";
               v24 = v19;
@@ -174,11 +171,11 @@ LABEL_29:
             v20 = self->_scope;
             v21 = objc_opt_class();
             *buf = 138412802;
-            v35 = v18;
-            v36 = 2112;
-            v37 = v20;
-            v38 = 2112;
-            v39 = v21;
+            v34 = v18;
+            v35 = 2112;
+            v36 = v20;
+            v37 = 2112;
+            v38 = v21;
             v22 = v21;
             v23 = "Scope %@ (associated with %@) is invalid, stopping %@ now";
             v24 = v19;
@@ -216,24 +213,21 @@ LABEL_31:
 
   if (_CPLSilentLogging)
   {
-    v10 = 0;
-    goto LABEL_33;
+    return 0;
   }
 
   validLocalScopeIndexes = __CPLTaskOSLogDomain_15620();
   if (os_log_type_enabled(validLocalScopeIndexes, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v35 = objc_opt_class();
-    v9 = v35;
+    v34 = objc_opt_class();
+    v9 = v34;
     _os_log_impl(&dword_1DC05A000, validLocalScopeIndexes, OS_LOG_TYPE_DEFAULT, "Client cache has been reset. Stopping %@ for now", buf, 0xCu);
   }
 
   v10 = 0;
 LABEL_32:
 
-LABEL_33:
-  v28 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

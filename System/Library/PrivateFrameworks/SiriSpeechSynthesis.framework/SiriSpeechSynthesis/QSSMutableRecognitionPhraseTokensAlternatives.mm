@@ -2,10 +2,17 @@
 - (BOOL)has_unsuggested_alternatives;
 - (QSSMutableRecognitionPhraseTokensAlternatives)init;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setHas_unsuggested_alternatives:(BOOL)has_unsuggested_alternatives;
 - (void)setTok_phrases:(id)tok_phrases;
 @end
 
 @implementation QSSMutableRecognitionPhraseTokensAlternatives
+
+- (void)setHas_unsuggested_alternatives:(BOOL)has_unsuggested_alternatives
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:has_unsuggested_alternatives];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (BOOL)has_unsuggested_alternatives
 {

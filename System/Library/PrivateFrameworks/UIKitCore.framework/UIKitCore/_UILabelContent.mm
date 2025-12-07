@@ -53,9 +53,9 @@
 
   if (v6 && v7)
   {
-    v9 = [(NSDictionary *)v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6);
 
-    if (!v9)
+    if (!isEqual)
     {
       goto LABEL_9;
     }
@@ -114,9 +114,9 @@ LABEL_11:
 
   if (v7 && v8)
   {
-    v10 = [(NSDictionary *)v7 isEqual:v8];
+    isEqual = objc_msgSend_isEqual_(v7);
 
-    if (!v10)
+    if (!isEqual)
     {
       goto LABEL_18;
     }
@@ -151,9 +151,9 @@ LABEL_14:
 
   if (v9 && v8)
   {
-    v11 = [v8 isEqual:v9];
+    isEqual = objc_msgSend_isEqual_(v8);
 
-    if (!v11)
+    if (!isEqual)
     {
       goto LABEL_9;
     }
@@ -223,9 +223,9 @@ LABEL_14:
 
   if (v9 && v10)
   {
-    v12 = [(NSDictionary *)v9 isEqual:v10];
+    isEqual = objc_msgSend_isEqual_(v9);
 
-    if (!v12)
+    if (!isEqual)
     {
       goto LABEL_21;
     }
@@ -337,9 +337,9 @@ LABEL_19:
           goto LABEL_20;
         }
 
-        v18 = [v15 isEqual:v16];
+        isEqual = objc_msgSend_isEqual_(v15);
 
-        if ((v18 & 1) == 0)
+        if ((isEqual & 1) == 0)
         {
           goto LABEL_19;
         }
@@ -369,19 +369,19 @@ LABEL_15:
   v9 = v8;
   if (v7 == v8)
   {
-    v10 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v10 = 0;
+    isEqual = 0;
     if (v8 && v7)
     {
-      v10 = [v7 isEqual:v8];
+      isEqual = objc_msgSend_isEqual_(v7);
     }
   }
 
-  return v10;
+  return isEqual;
 }
 
 - (int64_t)supportedMonochromaticTreatment:(id)treatment
@@ -405,19 +405,19 @@ LABEL_15:
   v12 = v11;
   if (v10 == v11)
   {
-    v13 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v13 = 0;
+    isEqual = 0;
     if (v10 && v11)
     {
-      v13 = [v10 isEqual:v11];
+      isEqual = objc_msgSend_isEqual_(v10);
     }
   }
 
-  return v13;
+  return isEqual;
 }
 
 - (BOOL)_isContentEqualToContent:(id)content
@@ -429,7 +429,7 @@ LABEL_15:
   v8 = v7;
   if (v6 == v7)
   {
-    v10 = 1;
+    isEqual = 1;
   }
 
   else
@@ -446,16 +446,16 @@ LABEL_15:
 
     if (v9)
     {
-      v10 = 0;
+      isEqual = 0;
     }
 
     else
     {
-      v10 = [(NSDictionary *)v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
     }
   }
 
-  return v10;
+  return isEqual;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -537,9 +537,9 @@ LABEL_15:
           goto LABEL_24;
         }
 
-        v21 = [v18 isEqual:v19];
+        isEqual = objc_msgSend_isEqual_(v18);
 
-        if ((v21 & 1) == 0)
+        if ((isEqual & 1) == 0)
         {
 LABEL_24:
           v13 |= 0x200uLL;
@@ -631,7 +631,7 @@ LABEL_35:
               v55 = 0;
               if (v52 && v53)
               {
-                v55 = [v52 isEqual:v53];
+                v55 = objc_msgSend_isEqual_(v52);
               }
             }
 
@@ -653,9 +653,9 @@ LABEL_35:
             v39 = [(_UILabelContent *)self length];
             string3 = [attributedString string];
             string4 = [attributedString2 string];
-            v42 = [string3 isEqualToString:string4];
+            isEqualToString = objc_msgSend_isEqualToString_(string3);
 
-            if (v42)
+            if (isEqualToString)
             {
               if (v39)
               {

@@ -42,32 +42,28 @@
 
 - (void)endTransaction
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_DEBUG, "EndTransaction was called but transaction was already nil. (%p)", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_DEBUG, "EndTransaction was called but transaction was already nil. (%p)", &v2, 0xCu);
 }
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
   [a2 creationTime];
-  OUTLINED_FUNCTION_0(v3);
-  OUTLINED_FUNCTION_1(&dword_1C00A7000, v4, v5, "Ending transaction %s (%p) - held for %.3fs", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x1E69E9840];
+  v4 = OUTLINED_FUNCTION_0(v3);
+  OUTLINED_FUNCTION_1(&dword_1C00A7000, v5, v6, "Ending transaction %s (%p) - held for %.3fs", v7, v8, v9, v10, v4);
 }
 
 - (void)initWithTransactionName:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 136315394;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a2;
-  _os_log_debug_impl(&dword_1C00A7000, log, OS_LOG_TYPE_DEBUG, "Created transaction: %s (%p)", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 136315394;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a2;
+  _os_log_debug_impl(&dword_1C00A7000, log, OS_LOG_TYPE_DEBUG, "Created transaction: %s (%p)", &v3, 0x16u);
 }
 
 @end

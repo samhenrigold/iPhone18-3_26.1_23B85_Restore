@@ -103,8 +103,8 @@ uint64_t __79__WFVariableConditionalSubjectState_localizedLabelForEnumerationPos
 
   v7 = [v6 value];
 
-  v8 = [v3 isEqualToString:v7];
-  return v8;
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
+  return isEqualToString;
 }
 
 - (void)getEnumerationPossibleStatesWithCompletionHandler:(id)handler
@@ -495,7 +495,7 @@ LABEL_5:
 
 - (Class)contentClassProvidingContentProperty
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   variable = [(WFVariableConditionalSubjectState *)self variable];
   isAvailable = [variable isAvailable];
 
@@ -505,14 +505,14 @@ LABEL_5:
     goto LABEL_19;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   variable2 = [(WFVariableConditionalSubjectState *)self variable];
   aggrandizements = [variable2 aggrandizements];
 
-  v7 = [aggrandizements countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [aggrandizements countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (!v7)
   {
 
@@ -536,17 +536,17 @@ LABEL_15:
 
   v8 = v7;
   possibleContentClasses = 0;
-  v10 = *v21;
+  v10 = *v20;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v21 != v10)
+      if (*v20 != v10)
       {
         objc_enumerationMutation(aggrandizements);
       }
 
-      v12 = *(*(&v20 + 1) + 8 * i);
+      v12 = *(*(&v19 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -556,7 +556,7 @@ LABEL_15:
       }
     }
 
-    v8 = [aggrandizements countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = [aggrandizements countByEnumeratingWithState:&v19 objects:v23 count:16];
   }
 
   while (v8);
@@ -571,7 +571,6 @@ LABEL_18:
   v15 = coercionItemClass;
 
 LABEL_19:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -790,7 +789,7 @@ LABEL_28:
 
 - (WFVariableConditionalSubjectState)initWithSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   parameterCopy = parameter;
   providerCopy = provider;
@@ -801,16 +800,16 @@ LABEL_28:
     v14 = getWFGeneralLogObject();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      v21 = 136315906;
-      v22 = "WFEnforceClass";
-      v23 = 2114;
-      v24 = v12;
-      v25 = 2114;
-      v26 = objc_opt_class();
-      v27 = 2114;
-      v28 = v11;
-      v15 = v26;
-      _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v21, 0x2Au);
+      v20 = 136315906;
+      v21 = "WFEnforceClass";
+      v22 = 2114;
+      v23 = v12;
+      v24 = 2114;
+      v25 = objc_opt_class();
+      v26 = 2114;
+      v27 = v11;
+      v15 = v25;
+      _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v20, 0x2Au);
     }
 
     v13 = 0;
@@ -835,7 +834,6 @@ LABEL_28:
     selfCopy = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

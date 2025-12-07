@@ -72,7 +72,7 @@
         v34.size.width = width;
         v34.size.height = v20;
         v21 = polygonFromRect(v34);
-        TSDgpc_polygon_clip(3u, v21, polygon, v29);
+        TSDgpc_polygon_clip(3, v21, polygon, v29);
         TSDgpc_polygon_clip(0, v29, polygon, v29);
         v35.origin.x = x;
         v35.origin.y = y;
@@ -154,7 +154,7 @@
   v34.size.width = width;
   v11 = polygonFromRect(v34);
   v12 = polygonFromBezier(path);
-  TSDgpc_polygon_clip(1u, v11, v12, v12);
+  TSDgpc_polygon_clip(1, v11, v12, v12);
   TSDgpc_free_polygon(v11);
   free(v11);
   v30 = height;
@@ -165,7 +165,7 @@
     v35.size.width = width;
     v35.size.height = height;
     v13 = polygonFromRect(v35);
-    TSDgpc_polygon_clip(1u, v13, v12, v31);
+    TSDgpc_polygon_clip(1, v13, v12, v31);
     TSDgpc_free_polygon(v13);
     free(v13);
     if (!v31[0])

@@ -19,6 +19,7 @@
 - (void)_writeInfo;
 - (void)setDownloadPauseReason:(unint64_t)reason forItem:(id)item;
 - (void)setItems:(id)items forContainer:(id)container;
+- (void)setOverStorageLimit:(BOOL)limit forItem:(id)item;
 - (void)setOverStorageLimitBehavior:(unint64_t)behavior forContainer:(id)container;
 - (void)setProgressBytes:(unint64_t)bytes totalBytes:(unint64_t)totalBytes forItem:(id)item;
 - (void)setStatus:(unint64_t)status forItem:(id)item;
@@ -176,6 +177,16 @@
   v7 = [(NMSMutableMediaSyncInfo *)self _infoForItem:item];
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:reason];
   [v7 setObject:v6 forKeyedSubscript:@"downloadPauseReason"];
+
+  self->_needsUpdateAggregateInfo = 1;
+}
+
+- (void)setOverStorageLimit:(BOOL)limit forItem:(id)item
+{
+  limitCopy = limit;
+  v7 = [(NMSMutableMediaSyncInfo *)self _infoForItem:item];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:limitCopy];
+  [v7 setObject:v6 forKeyedSubscript:@"overStorageLimit"];
 
   self->_needsUpdateAggregateInfo = 1;
 }
@@ -662,20 +673,20 @@ void __55__NMSMutableMediaSyncInfo__updateAggregateInfoIfNeeded__block_invoke_3(
 
 - (void)_writeInfo
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   _persistingOptions = [(NMSMutableMediaSyncInfo *)self _persistingOptions];
   info = [(NMSMediaSyncInfo *)self info];
   v7 = [info objectForKeyedSubscript:@"containers"];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __37__NMSMutableMediaSyncInfo__writeInfo__block_invoke;
-  v36[3] = &unk_27993E3A0;
-  v38 = _persistingOptions;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __37__NMSMutableMediaSyncInfo__writeInfo__block_invoke;
+  v35[3] = &unk_27993E3A0;
+  v37 = _persistingOptions;
   v8 = dictionary2;
-  v37 = v8;
-  [v7 enumerateKeysAndObjectsUsingBlock:v36];
+  v36 = v8;
+  [v7 enumerateKeysAndObjectsUsingBlock:v35];
 
   if ([v8 count])
   {
@@ -740,11 +751,11 @@ void __55__NMSMutableMediaSyncInfo__updateAggregateInfoIfNeeded__block_invoke_3(
       v30 = [info9 objectForKeyedSubscript:@"items"];
       if (v30)
       {
-        v39 = @"items";
+        v38 = @"items";
         info10 = [(NMSMediaSyncInfo *)self info];
         v32 = [info10 objectForKeyedSubscript:@"items"];
-        v40[0] = v32;
-        v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+        v39[0] = v32;
+        v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
       }
 
       else
@@ -766,8 +777,6 @@ void __55__NMSMutableMediaSyncInfo__updateAggregateInfoIfNeeded__block_invoke_3(
   {
     [v26 setMusicSyncInfo:dictionary];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __37__NMSMutableMediaSyncInfo__writeInfo__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -840,7 +849,7 @@ void __37__NMSMutableMediaSyncInfo__writeInfo__block_invoke(uint64_t a1, void *a
 
 + (id)requiredUserInfoPropertiesForModelKind:(id)kind
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   kindCopy = kind;
   identityKind = [kindCopy identityKind];
   identityKind2 = [MEMORY[0x277CD5E48] identityKind];
@@ -850,10 +859,10 @@ void __37__NMSMutableMediaSyncInfo__writeInfo__block_invoke(uint64_t a1, void *a
   {
     v7 = MEMORY[0x277CD6018];
     v8 = *MEMORY[0x277CD5950];
-    v20[0] = *MEMORY[0x277CD5960];
-    v20[1] = v8;
+    v19[0] = *MEMORY[0x277CD5960];
+    v19[1] = v8;
     v9 = MEMORY[0x277CBEA60];
-    v10 = v20;
+    v10 = v19;
 LABEL_5:
     v15 = [v9 arrayWithObjects:v10 count:2];
     emptyPropertySet = [v7 propertySetWithProperties:v15];
@@ -869,17 +878,15 @@ LABEL_5:
   if (v13)
   {
     v14 = *MEMORY[0x277CD59A8];
-    v19[0] = *MEMORY[0x277CD59B8];
-    v19[1] = v14;
+    v18[0] = *MEMORY[0x277CD59B8];
+    v18[1] = v14;
     v9 = MEMORY[0x277CBEA60];
-    v10 = v19;
+    v10 = v18;
     goto LABEL_5;
   }
 
   emptyPropertySet = [MEMORY[0x277CD6018] emptyPropertySet];
 LABEL_7:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return emptyPropertySet;
 }

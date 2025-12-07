@@ -8,25 +8,24 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[CSSafetyOneArgumentCompletionBlock dealloc]";
+    v6 = "[CSSafetyOneArgumentCompletionBlock dealloc]";
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
   [(CSSafetyOneArgumentCompletionBlock *)self invokeWithValue:self->_defaultValue];
-  v5.receiver = self;
-  v5.super_class = CSSafetyOneArgumentCompletionBlock;
-  [(CSSafetyOneArgumentCompletionBlock *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = CSSafetyOneArgumentCompletionBlock;
+  [(CSSafetyOneArgumentCompletionBlock *)&v4 dealloc];
 }
 
 - (void)invokeWithValue:(id)value
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   os_unfair_lock_lock(&self->_lock);
   if (!self->_isDirty)
@@ -34,11 +33,11 @@
     v5 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315395;
-      v8 = "[CSSafetyOneArgumentCompletionBlock invokeWithValue:]";
-      v9 = 2113;
-      v10 = valueCopy;
-      _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s invoking with value %{private}@", &v7, 0x16u);
+      v6 = 136315395;
+      v7 = "[CSSafetyOneArgumentCompletionBlock invokeWithValue:]";
+      v8 = 2113;
+      v9 = valueCopy;
+      _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s invoking with value %{private}@", &v6, 0x16u);
     }
 
     self->_isDirty = 1;
@@ -46,8 +45,6 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (CSSafetyOneArgumentCompletionBlock)initWithDefaultValue:(id)value completionBlock:(id)block

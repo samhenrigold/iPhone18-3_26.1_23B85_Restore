@@ -23,7 +23,7 @@
   [(PXValueAnimation *)self elapsedTime];
   v4 = self->_A + self->_B * v3;
   v5 = v4 * exp(-(self->_omega0 * v3));
-  [(PXValueAnimation *)self spec];
+  objc_msgSend_spec(self);
   return v7 * floor(v5 / v7);
 }
 

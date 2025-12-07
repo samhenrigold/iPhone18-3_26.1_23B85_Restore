@@ -13,6 +13,7 @@
 - (id)_flagsFilterGroup;
 - (id)groupContainingFilter:(id)filter;
 - (id)reduce:(id)reduce;
+- (void)_contentSizeCategoryChanged:(id)changed;
 - (void)dealloc;
 - (void)defaultFilters;
 - (void)setSenderFilter:(id)filter;
@@ -493,6 +494,13 @@ void __43__MUIMailboxFilterProvider__andFilterGroup__block_invoke(uint64_t a1, u
     filtersGroups = self->_filtersGroups;
     self->_filtersGroups = 0;
   }
+}
+
+- (void)_contentSizeCategoryChanged:(id)changed
+{
+  filtersGroups = self->_filtersGroups;
+  self->_filtersGroups = 0;
+  MEMORY[0x2821F96F8](self, filtersGroups);
 }
 
 - (void)defaultFilters

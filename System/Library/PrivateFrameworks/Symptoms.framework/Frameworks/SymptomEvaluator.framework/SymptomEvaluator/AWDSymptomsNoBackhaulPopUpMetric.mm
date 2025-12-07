@@ -1,8 +1,10 @@
 @interface AWDSymptomsNoBackhaulPopUpMetric
 - (BOOL)isEqual:(id)equal;
+- (id)actionAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)networkTypeAsString:(int)string;
 - (int)StringAsAction:(id)action;
 - (int)StringAsNetworkType:(id)type;
 - (int)action;
@@ -47,6 +49,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)networkTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_27898E3D8 + (string - 1));
+  }
+
+  return v4;
 }
 
 - (int)StringAsNetworkType:(id)type
@@ -161,6 +178,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)actionAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_27898E3F0 + (string - 1));
+  }
+
+  return v4;
 }
 
 - (int)StringAsAction:(id)action
@@ -340,7 +372,6 @@ LABEL_22:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -360,7 +391,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  networkType = self->_networkType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -375,7 +405,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  popUpShownForSecs = self->_popUpShownForSecs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -390,7 +419,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  timeSinceShownOnSameNetworkSecs = self->_timeSinceShownOnSameNetworkSecs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -405,7 +433,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  timesShownOnAnyNetworkLast24Hrs = self->_timesShownOnAnyNetworkLast24Hrs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -420,12 +447,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  networksShownAtLeastOnceInLast24Hrs = self->_networksShownAtLeastOnceInLast24Hrs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_8:
-    action = self->_action;
     PBDataWriterWriteInt32Field();
   }
 

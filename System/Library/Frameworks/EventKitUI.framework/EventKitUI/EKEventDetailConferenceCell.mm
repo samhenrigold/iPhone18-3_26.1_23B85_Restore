@@ -50,15 +50,15 @@
 - (BOOL)_buttonsShouldUseSeparateLine
 {
   v3 = EKUICurrentWindowWidthWithViewHierarchy(self);
-  v4 = EKUIWidthForWindowSizeParadigm(16);
+  v5 = EKUIWidthForWindowSizeParadigm(16, v4);
   traitCollection = [(EKEventDetailConferenceCell *)self traitCollection];
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
-  v7 = UIContentSizeCategoryCompareToCategory(preferredContentSizeCategory, *MEMORY[0x1E69DDC60]);
+  v8 = UIContentSizeCategoryCompareToCategory(preferredContentSizeCategory, *MEMORY[0x1E69DDC60]);
 
   traitCollection2 = [(EKEventDetailConferenceCell *)self traitCollection];
-  v9 = EKUIUsesLargeTextLayout(traitCollection2) || v3 < v4 && v7 != NSOrderedAscending;
+  v10 = EKUIUsesLargeTextLayout(traitCollection2) || v3 < v5 && v8 != NSOrderedAscending;
 
-  return v9;
+  return v10;
 }
 
 - (double)_separatorHeight
@@ -134,8 +134,8 @@
   self->_listView = v5;
 
   [(UIListContentView *)self->_listView setTranslatesAutoresizingMaskIntoConstraints:0];
-  contentView = [(EKEventDetailConferenceCell *)self contentView];
-  [contentView addSubview:self->_listView];
+  v7 = objc_msgSend_contentView(self);
+  [v7 addSubview:self->_listView];
 
   v8 = [MEMORY[0x1E69DC738] buttonWithType:1];
   openURLButton = self->_openURLButton;
@@ -152,8 +152,8 @@
   LODWORD(v13) = 1148846080;
   [(UIButton *)self->_openURLButton setContentCompressionResistancePriority:1 forAxis:v13];
   [(UIButton *)self->_openURLButton addTarget:self action:sel__openURL forControlEvents:64];
-  contentView2 = [(EKEventDetailConferenceCell *)self contentView];
-  [contentView2 addSubview:self->_openURLButton];
+  v14 = objc_msgSend_contentView(self);
+  [v14 addSubview:self->_openURLButton];
 
   v32 = [MEMORY[0x1E69DCAD8] configurationWithWeight:5];
   grayButtonConfiguration = [MEMORY[0x1E69DC740] grayButtonConfiguration];
@@ -179,8 +179,8 @@
   LODWORD(v22) = 1148846080;
   [(UIButton *)self->_shareButton setContentCompressionResistancePriority:0 forAxis:v22];
   [(UIButton *)self->_shareButton addTarget:self action:sel__share_ forControlEvents:64];
-  contentView3 = [(EKEventDetailConferenceCell *)self contentView];
-  [contentView3 addSubview:self->_shareButton];
+  v23 = objc_msgSend_contentView(self);
+  [v23 addSubview:self->_shareButton];
 
   v24 = objc_opt_new();
   topSeparator = self->_topSeparator;
@@ -198,8 +198,8 @@
   v26 = ;
   [(UIView *)self->_topSeparator setBackgroundColor:v26];
 
-  contentView4 = [(EKEventDetailConferenceCell *)self contentView];
-  [contentView4 addSubview:self->_topSeparator];
+  v27 = objc_msgSend_contentView(self);
+  [v27 addSubview:self->_topSeparator];
 
   v28 = objc_opt_new();
   bottomSeparator = self->_bottomSeparator;
@@ -217,8 +217,8 @@
   v30 = ;
   [(UIView *)self->_bottomSeparator setBackgroundColor:v30];
 
-  contentView5 = [(EKEventDetailConferenceCell *)self contentView];
-  [contentView5 addSubview:self->_bottomSeparator];
+  v31 = objc_msgSend_contentView(self);
+  [v31 addSubview:self->_bottomSeparator];
 
   [(EKEventDetailConferenceCell *)self _createConstraints];
 }
@@ -233,19 +233,19 @@
   v98 = [heightAnchor constraintEqualToConstant:?];
   v105[0] = v98;
   topAnchor = [(UIView *)self->_topSeparator topAnchor];
-  contentView = [(EKEventDetailConferenceCell *)self contentView];
-  topAnchor2 = [contentView topAnchor];
+  v96 = objc_msgSend_contentView(self);
+  topAnchor2 = [v96 topAnchor];
   v89 = [topAnchor constraintEqualToAnchor:topAnchor2];
   v105[1] = v89;
   leadingAnchor = [(UIView *)self->_topSeparator leadingAnchor];
-  contentView2 = [(EKEventDetailConferenceCell *)self contentView];
-  layoutMarginsGuide = [contentView2 layoutMarginsGuide];
+  v87 = objc_msgSend_contentView(self);
+  layoutMarginsGuide = [v87 layoutMarginsGuide];
   leadingAnchor2 = [layoutMarginsGuide leadingAnchor];
   v79 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
   v105[2] = v79;
   trailingAnchor = [(UIView *)self->_topSeparator trailingAnchor];
-  contentView3 = [(EKEventDetailConferenceCell *)self contentView];
-  trailingAnchor2 = [contentView3 trailingAnchor];
+  v77 = objc_msgSend_contentView(self);
+  trailingAnchor2 = [v77 trailingAnchor];
   v71 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
   v105[3] = v71;
   heightAnchor2 = [(UIView *)self->_bottomSeparator heightAnchor];
@@ -253,29 +253,29 @@
   v67 = [heightAnchor2 constraintEqualToConstant:?];
   v105[4] = v67;
   bottomAnchor = [(UIView *)self->_bottomSeparator bottomAnchor];
-  contentView4 = [(EKEventDetailConferenceCell *)self contentView];
-  bottomAnchor2 = [contentView4 bottomAnchor];
+  v65 = objc_msgSend_contentView(self);
+  bottomAnchor2 = [v65 bottomAnchor];
   v62 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
   v105[5] = v62;
   leadingAnchor3 = [(UIView *)self->_bottomSeparator leadingAnchor];
-  contentView5 = [(EKEventDetailConferenceCell *)self contentView];
-  layoutMarginsGuide2 = [contentView5 layoutMarginsGuide];
+  v61 = objc_msgSend_contentView(self);
+  layoutMarginsGuide2 = [v61 layoutMarginsGuide];
   leadingAnchor4 = [layoutMarginsGuide2 leadingAnchor];
   v57 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
   v105[6] = v57;
   trailingAnchor3 = [(UIView *)self->_bottomSeparator trailingAnchor];
-  contentView6 = [(EKEventDetailConferenceCell *)self contentView];
-  trailingAnchor4 = [contentView6 trailingAnchor];
+  v56 = objc_msgSend_contentView(self);
+  trailingAnchor4 = [v56 trailingAnchor];
   v53 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
   v105[7] = v53;
   leadingAnchor5 = [(UIListContentView *)self->_listView leadingAnchor];
-  contentView7 = [(EKEventDetailConferenceCell *)self contentView];
-  leadingAnchor6 = [contentView7 leadingAnchor];
+  v52 = objc_msgSend_contentView(self);
+  leadingAnchor6 = [v52 leadingAnchor];
   v49 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
   v105[8] = v49;
   topAnchor3 = [(UIListContentView *)self->_listView topAnchor];
-  contentView8 = [(EKEventDetailConferenceCell *)self contentView];
-  topAnchor4 = [contentView8 topAnchor];
+  v48 = objc_msgSend_contentView(self);
+  topAnchor4 = [v48 topAnchor];
   v45 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
   v105[9] = v45;
   topAnchor5 = [(UIButton *)self->_shareButton topAnchor];
@@ -307,15 +307,15 @@
   if ([(EKEventDetailConferenceCell *)self _buttonsShouldUseSeparateLine])
   {
     leadingAnchor8 = [(UIButton *)self->_openURLButton leadingAnchor];
-    contentView9 = [(EKEventDetailConferenceCell *)self contentView];
-    layoutMarginsGuide3 = [contentView9 layoutMarginsGuide];
+    v16 = objc_msgSend_contentView(self);
+    layoutMarginsGuide3 = [v16 layoutMarginsGuide];
     leadingAnchor9 = [layoutMarginsGuide3 leadingAnchor];
     trailingAnchor8 = leadingAnchor8;
     v19 = [leadingAnchor8 constraintEqualToAnchor:leadingAnchor9];
     v104[0] = v19;
     trailingAnchor6 = [(UIListContentView *)self->_listView trailingAnchor];
-    contentView10 = [(EKEventDetailConferenceCell *)self contentView];
-    trailingAnchor7 = [contentView10 trailingAnchor];
+    v21 = objc_msgSend_contentView(self);
+    trailingAnchor7 = [v21 trailingAnchor];
     v99 = [trailingAnchor6 constraintEqualToAnchor:?];
     v104[1] = v99;
     topAnchor7 = [(UIButton *)self->_openURLButton topAnchor];
@@ -326,27 +326,27 @@
     v24 = [topAnchor7 constraintEqualToAnchor:bottomAnchor5 constant:?];
     v104[2] = v24;
     bottomAnchor6 = [(UIButton *)self->_openURLButton bottomAnchor];
-    contentView11 = [(EKEventDetailConferenceCell *)self contentView];
-    layoutMarginsGuide4 = [contentView11 layoutMarginsGuide];
+    layoutMarginsGuide6 = objc_msgSend_contentView(self);
+    layoutMarginsGuide4 = [layoutMarginsGuide6 layoutMarginsGuide];
     [layoutMarginsGuide4 bottomAnchor];
-    v86 = contentView14 = bottomAnchor6;
+    v86 = v92 = bottomAnchor6;
     v84 = [bottomAnchor6 constraintLessThanOrEqualToAnchor:?];
     v104[3] = v84;
-    contentView15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v104 count:4];
-    [(NSArray *)array addObjectsFromArray:contentView15];
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v104 count:4];
+    [(NSArray *)array addObjectsFromArray:v26];
   }
 
   else
   {
     trailingAnchor8 = [(UIButton *)self->_shareButton trailingAnchor];
-    contentView12 = [(EKEventDetailConferenceCell *)self contentView];
-    layoutMarginsGuide5 = [contentView12 layoutMarginsGuide];
+    v82 = objc_msgSend_contentView(self);
+    layoutMarginsGuide5 = [v82 layoutMarginsGuide];
     trailingAnchor9 = [layoutMarginsGuide5 trailingAnchor];
     v76 = [trailingAnchor8 constraintEqualToAnchor:trailingAnchor9];
     v103[0] = v76;
     bottomAnchor7 = [(UIListContentView *)self->_listView bottomAnchor];
-    contentView13 = [(EKEventDetailConferenceCell *)self contentView];
-    trailingAnchor7 = [contentView13 bottomAnchor];
+    v72 = objc_msgSend_contentView(self);
+    trailingAnchor7 = [v72 bottomAnchor];
     v99 = [bottomAnchor7 constraintEqualToAnchor:?];
     v103[1] = v99;
     trailingAnchor10 = [(UIListContentView *)self->_listView trailingAnchor];
@@ -354,28 +354,28 @@
     v93 = [trailingAnchor10 constraintEqualToAnchor:?];
     v103[2] = v93;
     centerYAnchor = [(UIButton *)self->_openURLButton centerYAnchor];
-    contentView14 = [(EKEventDetailConferenceCell *)self contentView];
-    contentView11 = [contentView14 layoutMarginsGuide];
-    layoutMarginsGuide4 = [contentView11 centerYAnchor];
+    v92 = objc_msgSend_contentView(self);
+    layoutMarginsGuide6 = [v92 layoutMarginsGuide];
+    layoutMarginsGuide4 = [layoutMarginsGuide6 centerYAnchor];
     v86 = [centerYAnchor constraintEqualToAnchor:?];
     v103[3] = v86;
     topAnchor8 = [(UIButton *)self->_openURLButton topAnchor];
-    contentView15 = [(EKEventDetailConferenceCell *)self contentView];
-    layoutMarginsGuide6 = [contentView15 layoutMarginsGuide];
-    topAnchor9 = [layoutMarginsGuide6 topAnchor];
+    v26 = objc_msgSend_contentView(self);
+    layoutMarginsGuide7 = [v26 layoutMarginsGuide];
+    topAnchor9 = [layoutMarginsGuide7 topAnchor];
     v84 = topAnchor8;
     v29 = [topAnchor8 constraintGreaterThanOrEqualToAnchor:topAnchor9];
     v103[4] = v29;
     topAnchor10 = [(UIButton *)self->_openURLButton topAnchor];
-    contentView16 = [(EKEventDetailConferenceCell *)self contentView];
-    layoutMarginsGuide7 = [contentView16 layoutMarginsGuide];
-    bottomAnchor8 = [layoutMarginsGuide7 bottomAnchor];
+    v31 = objc_msgSend_contentView(self);
+    layoutMarginsGuide8 = [v31 layoutMarginsGuide];
+    bottomAnchor8 = [layoutMarginsGuide8 bottomAnchor];
     v34 = [topAnchor10 constraintLessThanOrEqualToAnchor:bottomAnchor8];
     v103[5] = v34;
     v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v103 count:6];
     [(NSArray *)array addObjectsFromArray:v35];
 
-    contentView10 = contentView13;
+    v21 = v72;
     topAnchor7 = trailingAnchor10;
 
     trailingAnchor6 = bottomAnchor7;
@@ -384,7 +384,7 @@
     leadingAnchor9 = trailingAnchor9;
     layoutMarginsGuide3 = layoutMarginsGuide5;
 
-    contentView9 = contentView12;
+    v16 = v82;
     v24 = centerYAnchor;
   }
 

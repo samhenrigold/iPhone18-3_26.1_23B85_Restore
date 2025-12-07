@@ -74,7 +74,7 @@
 
 - (_PASDomainSelection)initWithCoder:(id)coder
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_autoreleasePoolPush();
   v6 = objc_alloc(MEMORY[0x1E695DFD8]);
@@ -91,40 +91,39 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v20 = [MEMORY[0x1E696ABC0] errorWithDomain:@"_PASDomainSelectionErrorDomain" code:1 userInfo:0];
-    [coderCopy failWithError:v20];
+    v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"_PASDomainSelectionErrorDomain" code:1 userInfo:0];
+    [coderCopy failWithError:v18];
 
 LABEL_16:
     selfCopy = 0;
     goto LABEL_14;
   }
 
+  v19 = 0u;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v22;
+    v13 = *v20;
     while (2)
     {
       v14 = 0;
       do
       {
-        if (*v22 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * v14);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v17 = [MEMORY[0x1E696ABC0] errorWithDomain:@"_PASDomainSelectionErrorDomain" code:1 userInfo:0];
-          [coderCopy failWithError:v17];
+          v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"_PASDomainSelectionErrorDomain" code:1 userInfo:0];
+          [coderCopy failWithError:v16];
 
           selfCopy = 0;
           goto LABEL_13;
@@ -134,7 +133,7 @@ LABEL_16:
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v12)
       {
         continue;
@@ -149,7 +148,6 @@ LABEL_16:
 LABEL_13:
 
 LABEL_14:
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -192,7 +190,7 @@ LABEL_14:
 
 - (id)globPatterns
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   if ([(_PASDomainSelection *)self isEmpty])
   {
     v3 = MEMORY[0x1E695E0F0];
@@ -201,30 +199,30 @@ LABEL_14:
 
   allDomains = [(_PASDomainSelection *)self allDomains];
   v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{2 * objc_msgSend(allDomains, "count")}];
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
   obj = allDomains;
-  v43 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
-  if (!v43)
+  v42 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
+  if (!v42)
   {
     goto LABEL_51;
   }
 
-  v5 = *v59;
-  v40 = *v59;
-  v41 = v3;
+  v5 = *v58;
+  v39 = *v58;
+  v40 = v3;
   do
   {
-    for (i = 0; i != v43; ++i)
+    for (i = 0; i != v42; ++i)
     {
-      if (*v59 != v5)
+      if (*v58 != v5)
       {
         objc_enumerationMutation(obj);
       }
 
-      v7 = *(*(&v58 + 1) + 8 * i);
+      v7 = *(*(&v57 + 1) + 8 * i);
       context = objc_autoreleasePoolPush();
       v8 = v7;
       v9 = objc_opt_self();
@@ -234,23 +232,23 @@ LABEL_14:
         goto LABEL_47;
       }
 
-      v44 = i;
-      v57 = 0;
+      v43 = i;
+      v56 = 0;
+      v54 = 0u;
       v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
-      *theString = 0u;
-      v51 = 0u;
       v52 = 0u;
-      v49 = 0u;
+      *theString = 0u;
       v50 = 0u;
-      v47 = 0u;
+      v51 = 0u;
       v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
       *buffer = 0u;
       Length = CFStringGetLength(v8);
       theString[0] = v8;
-      *(&v55 + 1) = 0;
-      *&v56 = Length;
+      *(&v54 + 1) = 0;
+      *&v55 = Length;
       CharactersPtr = CFStringGetCharactersPtr(v8);
       CStringPtr = 0;
       theString[1] = CharactersPtr;
@@ -259,12 +257,12 @@ LABEL_14:
         CStringPtr = CFStringGetCStringPtr(v8, 0x600u);
       }
 
-      *&v55 = CStringPtr;
-      *(&v56 + 1) = 0;
-      v57 = 0;
+      *&v54 = CStringPtr;
+      *(&v55 + 1) = 0;
+      v56 = 0;
       if (Length < 1)
       {
-        i = v44;
+        i = v43;
 LABEL_47:
 
 LABEL_48:
@@ -293,8 +291,8 @@ LABEL_48:
           v19 = v17;
         }
 
-        v20 = v56;
-        if (v56 <= v17)
+        v20 = v55;
+        if (v55 <= v17)
         {
 LABEL_29:
           ++v16;
@@ -303,44 +301,44 @@ LABEL_29:
 
         if (theString[1])
         {
-          v21 = theString[1] + *(&v55 + 1);
+          v21 = theString[1] + *(&v54 + 1);
 LABEL_19:
           v22 = v21[v17];
           goto LABEL_22;
         }
 
-        if (!v55)
+        if (!v54)
         {
-          v28 = *(&v56 + 1);
-          if (v57 <= v17 || *(&v56 + 1) > v17)
+          v28 = *(&v55 + 1);
+          if (v56 <= v17 || *(&v55 + 1) > v17)
           {
             v30 = v19 + v13;
             v31 = v18 - v19;
             v32 = v17 - v19;
             v33 = v32 + 64;
-            if (v32 + 64 >= v56)
+            if (v32 + 64 >= v55)
             {
-              v33 = v56;
+              v33 = v55;
             }
 
-            *(&v56 + 1) = v32;
-            v57 = v33;
-            if (v56 >= v31)
+            *(&v55 + 1) = v32;
+            v56 = v33;
+            if (v55 >= v31)
             {
               v20 = v31;
             }
 
-            v65.location = v32 + *(&v55 + 1);
-            v65.length = v20 + v30;
-            CFStringGetCharacters(theString[0], v65, buffer);
-            v28 = *(&v56 + 1);
+            v64.location = v32 + *(&v54 + 1);
+            v64.length = v20 + v30;
+            CFStringGetCharacters(theString[0], v64, buffer);
+            v28 = *(&v55 + 1);
           }
 
           v21 = &buffer[-v28];
           goto LABEL_19;
         }
 
-        v22 = *(v55 + *(&v55 + 1) + v17);
+        v22 = *(v54 + *(&v54 + 1) + v17);
 LABEL_22:
         v23 = v22;
         v24 = (1 << (v22 - 42)) & 0x2000000200001;
@@ -368,9 +366,9 @@ LABEL_30:
 
       while (Length != v17);
 
-      v5 = v40;
-      v3 = v41;
-      i = v44;
+      v5 = v39;
+      v3 = v40;
+      i = v43;
       if (!v14)
       {
         goto LABEL_48;
@@ -386,7 +384,7 @@ LABEL_30:
       }
 
       v36 = [v14 copy];
-      [v41 addObject:v36];
+      [v40 addObject:v36];
 
       [v14 appendString:@".*"];
 LABEL_49:
@@ -395,14 +393,13 @@ LABEL_49:
       objc_autoreleasePoolPop(context);
     }
 
-    v43 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
+    v42 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
   }
 
-  while (v43);
+  while (v42);
 LABEL_51:
 
 LABEL_52:
-  v38 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

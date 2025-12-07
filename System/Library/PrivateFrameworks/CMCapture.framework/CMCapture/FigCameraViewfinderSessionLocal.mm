@@ -1,12 +1,11 @@
 @interface FigCameraViewfinderSessionLocal
 - ($115C4C562B26FF47E01F9F4EA65B5887)clientAuditToken;
 - (id)_initWithOwningViewfinder:(id)viewfinder captureSessionProxy:(id)proxy delegateStorage:(id)storage;
-- (uint64_t)_closePreviewStream;
-- (uint64_t)_setupStateMachine;
 - (void)_captureSessionDidCapturePhotoWithStatus:(int)status thumbnailData:(id)data timestamp:(id *)timestamp;
 - (void)_captureSessionDidFinishMovieRecording;
 - (void)_captureSessionDidStartMovieRecording;
 - (void)_captureSessionDidStop;
+- (void)_setupStateMachine;
 - (void)cameraViewfinderStream:(id)stream didCloseWithStatus:(int)status;
 - (void)cameraViewfinderStreamDidOpen:(id)open;
 - (void)captureSessionPreviewTapDidClose:(id)close;
@@ -18,13 +17,13 @@
 
 @implementation FigCameraViewfinderSessionLocal
 
-- (uint64_t)_setupStateMachine
+- (void)_setupStateMachine
 {
   if (result)
   {
     v1 = result;
     v2 = [[FigStateMachine alloc] initWithLabel:@"FigCameraViewfinderSessionLocalStateMachine" stateCount:7 initialState:1 owner:result];
-    *(v1 + 24) = v2;
+    v1[3] = v2;
     [(FigStateMachine *)v2 setLabel:@"Idle" forState:1];
     [OUTLINED_FUNCTION_0_54() setLabel:@"OpeningPreviewStream" forState:2];
     [OUTLINED_FUNCTION_0_54() setLabel:@"OpeningPreviewTap" forState:4];
@@ -49,7 +48,7 @@
   result = self->_captureSessionProxy;
   if (result)
   {
-    return [($115C4C562B26FF47E01F9F4EA65B5887 *)result clientAuditToken];
+    return objc_msgSend_clientAuditToken(result, a3);
   }
 
   *retstr->var0 = 0u;
@@ -119,7 +118,7 @@
   fig_dispatch_async_autoreleasepool(previewStreamQueue, v7);
 }
 
-uint64_t __64__FigCameraViewfinderSessionLocal_openPreviewStreamWithOptions___block_invoke(uint64_t a1)
+void *__64__FigCameraViewfinderSessionLocal_openPreviewStreamWithOptions___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) transitionToState:2 fromState:1];
   if (result)
@@ -428,7 +427,7 @@ uint64_t __53__FigCameraViewfinderSessionLocal__setupStateMachine__block_invoke_
   return result;
 }
 
-uint64_t __53__FigCameraViewfinderSessionLocal__setupStateMachine__block_invoke_3(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
+void *__53__FigCameraViewfinderSessionLocal__setupStateMachine__block_invoke_3(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
 {
   *(a2 + 72) = 0;
   *(a2 + 76) = 0;
@@ -453,7 +452,7 @@ uint64_t __53__FigCameraViewfinderSessionLocal__setupStateMachine__block_invoke_
     v10[3] = &unk_1E79908B8;
     v10[4] = a2;
     v11 = v7;
-    return [v8 invokeDelegateCallbackWithBlock:v10];
+    return [v8 invokeDelegateCallbackWithBlock:{v10, a4}];
   }
 
   return result;
@@ -473,7 +472,7 @@ uint64_t __53__FigCameraViewfinderSessionLocal__setupStateMachine__block_invoke_
   return result;
 }
 
-uint64_t __53__FigCameraViewfinderSessionLocal__setupStateMachine__block_invoke_5(uint64_t a1, uint64_t a2, int a3)
+void *__53__FigCameraViewfinderSessionLocal__setupStateMachine__block_invoke_5(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3 == 64)
   {
@@ -499,45 +498,6 @@ uint64_t __53__FigCameraViewfinderSessionLocal__setupStateMachine__block_invoke_
     v5 = *(a1 + 32);
 
     return [a2 cameraViewfinderSession:v5 previewStreamDidCloseWithStatus:4294951005];
-  }
-
-  return result;
-}
-
-- (uint64_t)_closePreviewStream
-{
-  if (result)
-  {
-    v1 = result;
-    if (!_FigIsCurrentDispatchQueue())
-    {
-      OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
-    }
-
-    result = [OUTLINED_FUNCTION_0_54() currentState];
-    if (result == 8 || result == 4)
-    {
-      result = [OUTLINED_FUNCTION_0_54() transitionToState:16 fromStates:12];
-      if (result)
-      {
-        v3 = v1;
-        v4 = v1[5];
-
-        return [v4 closePreviewTap];
-      }
-    }
-
-    else if (result == 2)
-    {
-      result = [OUTLINED_FUNCTION_0_54() transitionToState:32 fromState:2];
-      if (result)
-      {
-        v5 = v1[7];
-
-        return [v5 close];
-      }
-    }
   }
 
   return result;

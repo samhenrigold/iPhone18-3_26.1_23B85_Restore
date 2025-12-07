@@ -52,25 +52,23 @@
 
 - (id)dictionary
 {
-  v14[4] = *MEMORY[0x1E69E9840];
-  v13[0] = @"uuid";
+  v13[4] = *MEMORY[0x1E69E9840];
+  v12[0] = @"uuid";
   uuid = [(OTCustodianRecoveryKey *)self uuid];
   v4 = [uuid description];
-  v14[0] = v4;
-  v13[1] = @"recoveryString";
+  v13[0] = v4;
+  v12[1] = @"recoveryString";
   recoveryString = [(OTCustodianRecoveryKey *)self recoveryString];
-  v14[1] = recoveryString;
-  v13[2] = @"wrappingKey";
+  v13[1] = recoveryString;
+  v12[2] = @"wrappingKey";
   wrappingKey = [(OTCustodianRecoveryKey *)self wrappingKey];
   v7 = [wrappingKey base64EncodedStringWithOptions:0];
-  v14[2] = v7;
-  v13[3] = @"wrappedKey";
+  v13[2] = v7;
+  v12[3] = @"wrappedKey";
   wrappedKey = [(OTCustodianRecoveryKey *)self wrappedKey];
   v9 = [wrappedKey base64EncodedStringWithOptions:0];
-  v14[3] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v13[3] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
 
   return v10;
 }

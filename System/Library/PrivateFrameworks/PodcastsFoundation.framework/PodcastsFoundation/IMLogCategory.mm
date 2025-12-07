@@ -21,9 +21,11 @@
 
 uint64_t __32__IMLogCategory_defaultCategory__block_invoke()
 {
-  defaultCategory_IMLogCategoryDefault = os_log_create("com.apple.podcasts.imframeworks", "Podcasts");
+  v0 = os_log_create("com.apple.podcasts.imframeworks", "Podcasts");
+  v1 = defaultCategory_IMLogCategoryDefault;
+  defaultCategory_IMLogCategoryDefault = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (OS_os_log)accessibility
@@ -40,9 +42,11 @@ uint64_t __32__IMLogCategory_defaultCategory__block_invoke()
 
 uint64_t __30__IMLogCategory_accessibility__block_invoke()
 {
-  accessibility_IMLogCategoryAccessibility = os_log_create("com.apple.podcasts.imframeworks", "Accessibility");
+  v0 = os_log_create("com.apple.podcasts.imframeworks", "Accessibility");
+  v1 = accessibility_IMLogCategoryAccessibility;
+  accessibility_IMLogCategoryAccessibility = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (OS_os_log)imageCache
@@ -59,9 +63,11 @@ uint64_t __30__IMLogCategory_accessibility__block_invoke()
 
 uint64_t __27__IMLogCategory_imageCache__block_invoke()
 {
-  imageCache_IMLogCategoryImageCache = os_log_create("com.apple.podcasts.imframeworks", "ImageCache");
+  v0 = os_log_create("com.apple.podcasts.imframeworks", "ImageCache");
+  v1 = imageCache_IMLogCategoryImageCache;
+  imageCache_IMLogCategoryImageCache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (OS_os_log)player
@@ -78,9 +84,11 @@ uint64_t __27__IMLogCategory_imageCache__block_invoke()
 
 uint64_t __23__IMLogCategory_player__block_invoke()
 {
-  player_IMLogCategoryPlayer = os_log_create("com.apple.podcasts.imframeworks", "Player");
+  v0 = os_log_create("com.apple.podcasts.imframeworks", "Player");
+  v1 = player_IMLogCategoryPlayer;
+  player_IMLogCategoryPlayer = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

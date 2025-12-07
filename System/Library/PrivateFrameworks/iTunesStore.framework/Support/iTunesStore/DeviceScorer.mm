@@ -38,12 +38,12 @@
 {
   nonceCopy = nonce;
   completionCopy = completion;
-  v25[0] = 0;
-  v25[1] = v25;
-  v25[2] = 0x3032000000;
-  v25[3] = sub_1000B9A8C;
-  v25[4] = sub_1000B9A9C;
-  v26 = 0;
+  v24[0] = 0;
+  v24[1] = v24;
+  v24[2] = 0x3032000000;
+  v24[3] = sub_1000B9A8C;
+  v24[4] = sub_1000B9A9C;
+  v25 = 0;
   if (!self->_deviceScorer)
   {
     v11 = +[SSLogConfig sharedDaemonConfig];
@@ -52,42 +52,46 @@
       v11 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v11 shouldLog];
+    LODWORD(v12) = [v11 shouldLog];
     shouldLogToDisk = [v11 shouldLogToDisk];
     oSLogObject = [v11 OSLogObject];
     v15 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v12) = v12 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v12 = v12;
     }
 
-    if (shouldLog)
+    else
+    {
+      v12 &= 2u;
+    }
+
+    if (v12)
     {
       v16 = objc_opt_class();
       LODWORD(location[0]) = 138543362;
       *(location + 4) = v16;
       v17 = v16;
-      LODWORD(v19) = 12;
-      v18 = _os_log_send_and_compose_impl();
+      v18 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, v15, 16, "%{public}@: Failed to create device scorer", location, 12);
 
       if (!v18)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      v15 = [NSString stringWithCString:v18 encoding:4, location, v19];
+      v15 = [NSString stringWithCString:v18 encoding:4];
       free(v18);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   v8 = objc_alloc_init(RvCyrXrrh7eJhtzx);
@@ -98,17 +102,17 @@ LABEL_13:
   block[1] = 3221225472;
   block[2] = sub_1000B9AA4;
   block[3] = &unk_100327E58;
-  objc_copyWeak(&v24, location);
-  v21 = v8;
-  v22 = completionCopy;
-  v23 = v25;
+  objc_copyWeak(&v23, location);
+  v20 = v8;
+  v21 = completionCopy;
+  v22 = v24;
   v10 = v8;
   dispatch_async(v9, block);
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(location);
-LABEL_14:
-  _Block_object_dispose(v25, 8);
+LABEL_15:
+  _Block_object_dispose(v24, 8);
 }
 
 - (void)didConsumeDeviceScore:(BOOL)score
@@ -127,39 +131,43 @@ LABEL_14:
     shouldLog = [(L1vrniCr6VjgMaLl *)v7 shouldLog];
     if ([(L1vrniCr6VjgMaLl *)v7 shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
     oSLogObject = [(L1vrniCr6VjgMaLl *)v7 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
 
     if (v13)
     {
-      LODWORD(v18) = 138543362;
-      *(&v18 + 4) = objc_opt_class();
-      v15 = *(&v18 + 4);
-      LODWORD(v17) = 12;
-      v16 = _os_log_send_and_compose_impl();
+      v17 = 138543362;
+      v18 = objc_opt_class();
+      v15 = v18;
+      v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Failed to find device scorer for score completion SPI", &v17, 12);
 
       if (!v16)
       {
-        goto LABEL_25;
+        goto LABEL_27;
       }
 
-      oSLogObject = [NSString stringWithCString:v16 encoding:4, &v18, v17, v18];
+      oSLogObject = [NSString stringWithCString:v16 encoding:4];
       free(v16);
       SSFileLog();
     }
 
-    goto LABEL_25;
+    goto LABEL_27;
   }
 
   if (!v6)
@@ -170,42 +178,46 @@ LABEL_14:
   shouldLog2 = [(L1vrniCr6VjgMaLl *)v7 shouldLog];
   if ([(L1vrniCr6VjgMaLl *)v7 shouldLogToDisk])
   {
-    v9 = shouldLog2 | 2;
+    LODWORD(v9) = shouldLog2 | 2;
   }
 
   else
   {
-    v9 = shouldLog2;
+    LODWORD(v9) = shouldLog2;
   }
 
   oSLogObject2 = [(L1vrniCr6VjgMaLl *)v7 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (!v9)
   {
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
-  LODWORD(v18) = 138543362;
-  *(&v18 + 4) = objc_opt_class();
-  LODWORD(v17) = 12;
-  v11 = _os_log_send_and_compose_impl();
+  v17 = 138543362;
+  v18 = objc_opt_class();
+  v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Invoking fraud score completion SPI", &v17, 12);
 
   if (v11)
   {
-    oSLogObject2 = [NSString stringWithCString:v11 encoding:4, &v18, v17];
+    oSLogObject2 = [NSString stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog();
-LABEL_12:
+LABEL_13:
   }
 
   v7 = objc_alloc_init(L1vrniCr6VjgMaLl);
   [(L1vrniCr6VjgMaLl *)v7 setConsumed:scoreCopy];
   [(CerKRQOmMu7LBUoc *)self->_deviceScorer eVZ8hjC0Tuzwvnqc:v7];
-LABEL_25:
+LABEL_27:
 }
 
 + (id)_hexEncodingForData:(id)data
@@ -269,7 +281,7 @@ LABEL_111:
       v103 = v88;
       v89 = v88;
       LODWORD(v92) = 12;
-      v90 = _os_log_send_and_compose_impl();
+      v90 = _os_log_send_and_compose_impl(v87, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Preparing score message", &v102, v92);
 
       if (!v90)
       {
@@ -279,7 +291,7 @@ LABEL_122:
         goto LABEL_123;
       }
 
-      oSLogObject = [NSString stringWithCString:v90 encoding:4, &v102, v92];
+      oSLogObject = [NSString stringWithCString:v90 encoding:4];
       free(v90);
       SSFileLog();
     }
@@ -323,16 +335,14 @@ LABEL_122:
     v104 = 2114;
     v105 = v6;
     v12 = v103;
-    LODWORD(v92) = 22;
-    v91 = &v102;
-    v13 = _os_log_send_and_compose_impl();
+    v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Initializing device scoring context with endpoint identifier: %{public}@", &v102, 22);
 
     if (!v13)
     {
       goto LABEL_14;
     }
 
-    oSLogObject2 = [NSString stringWithCString:v13 encoding:4, &v102, v92];
+    oSLogObject2 = [NSString stringWithCString:v13 encoding:4];
     free(v13);
     v91 = oSLogObject2;
     SSFileLog();
@@ -401,12 +411,11 @@ LABEL_14:
       v103 = v40;
       v41 = v40;
       LODWORD(v92) = 12;
-      v91 = &v102;
-      v42 = _os_log_send_and_compose_impl();
+      v42 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &_mh_execute_header, oSLogObject3, 16, "%{public}@: Failed to create identity for names", &v102, v92);
 
       if (v42)
       {
-        oSLogObject3 = [NSString stringWithCString:v42 encoding:4, &v102, v92];
+        oSLogObject3 = [NSString stringWithCString:v42 encoding:4];
         free(v42);
         v91 = oSLogObject3;
         SSFileLog();
@@ -451,15 +460,14 @@ LABEL_52:
         v103 = v33;
         v34 = v33;
         LODWORD(v92) = 12;
-        v91 = &v102;
-        v35 = _os_log_send_and_compose_impl();
+        v35 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &_mh_execute_header, oSLogObject4, 16, "%{public}@: Failed to obtain full name", &v102, v92);
 
         if (!v35)
         {
           goto LABEL_54;
         }
 
-        oSLogObject4 = [NSString stringWithCString:v35 encoding:4, &v102, v92];
+        oSLogObject4 = [NSString stringWithCString:v35 encoding:4];
         free(v35);
         v91 = oSLogObject4;
         SSFileLog();
@@ -519,12 +527,11 @@ LABEL_54:
       v103 = v58;
       v59 = v58;
       LODWORD(v92) = 12;
-      v91 = &v102;
-      v60 = _os_log_send_and_compose_impl();
+      v60 = _os_log_send_and_compose_impl(v57, 0, 0, 0, &_mh_execute_header, oSLogObject5, 16, "%{public}@: Failed to create identity for account name", &v102, v92);
 
       if (v60)
       {
-        oSLogObject5 = [NSString stringWithCString:v60 encoding:4, &v102, v92];
+        oSLogObject5 = [NSString stringWithCString:v60 encoding:4];
         free(v60);
         v91 = oSLogObject5;
         SSFileLog();
@@ -571,15 +578,14 @@ LABEL_79:
         v103 = v51;
         v52 = v51;
         LODWORD(v92) = 12;
-        v91 = &v102;
-        v53 = _os_log_send_and_compose_impl();
+        v53 = _os_log_send_and_compose_impl(v50, 0, 0, 0, &_mh_execute_header, oSLogObject6, 16, "%{public}@: Failed to obtain account name", &v102, v92);
 
         if (!v53)
         {
           goto LABEL_81;
         }
 
-        oSLogObject6 = [NSString stringWithCString:v53 encoding:4, &v102, v92];
+        oSLogObject6 = [NSString stringWithCString:v53 encoding:4];
         free(v53);
         v91 = oSLogObject6;
         SSFileLog();
@@ -633,8 +639,7 @@ LABEL_81:
       v103 = v68;
       v69 = v68;
       LODWORD(v92) = 12;
-      v91 = &v102;
-      v70 = _os_log_send_and_compose_impl();
+      v70 = _os_log_send_and_compose_impl(v67, 0, 0, 0, &_mh_execute_header, oSLogObject7, 16, "%{public}@: Failed to lookup phone number", &v102, v92);
 
       if (!v70)
       {
@@ -681,8 +686,7 @@ LABEL_96:
           v104 = 2112;
           v105 = v80;
           LODWORD(v92) = 22;
-          v91 = &v102;
-          v81 = _os_log_send_and_compose_impl();
+          v81 = _os_log_send_and_compose_impl(v77, 0, 0, 0, &_mh_execute_header, oSLogObject8, 1, "%{public}@: Registering AFDS Bundle: %@", &v102, v92);
 
           if (!v81)
           {
@@ -701,7 +705,7 @@ LABEL_108:
             goto LABEL_109;
           }
 
-          oSLogObject8 = [NSString stringWithCString:v81 encoding:4, &v102, v92];
+          oSLogObject8 = [NSString stringWithCString:v81 encoding:4];
           free(v81);
           v91 = oSLogObject8;
           SSFileLog();
@@ -710,7 +714,7 @@ LABEL_108:
         goto LABEL_108;
       }
 
-      oSLogObject7 = [NSString stringWithCString:v70 encoding:4, &v102, v92];
+      oSLogObject7 = [NSString stringWithCString:v70 encoding:4];
       free(v70);
       v91 = oSLogObject7;
       SSFileLog();
@@ -754,15 +758,14 @@ LABEL_108:
     v103 = v26;
     v27 = v26;
     LODWORD(v92) = 12;
-    v91 = &v102;
-    v28 = _os_log_send_and_compose_impl();
+    v28 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject9, 16, "%{public}@: Failed to create ASScorerContext", &v102, v92);
 
     if (!v28)
     {
       goto LABEL_110;
     }
 
-    oSLogObject9 = [NSString stringWithCString:v28 encoding:4, &v102, v92];
+    oSLogObject9 = [NSString stringWithCString:v28 encoding:4];
     free(v28);
     v91 = oSLogObject9;
     SSFileLog();
@@ -808,51 +811,54 @@ LABEL_123:
       v7 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v7 shouldLog];
+    LODWORD(v8) = [v7 shouldLog];
     shouldLogToDisk = [v7 shouldLogToDisk];
     oSLogObject = [v7 OSLogObject];
     v11 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v8) = v8 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v8 = v8;
     }
 
-    if (shouldLog)
+    else
+    {
+      v8 &= 2u;
+    }
+
+    if (v8)
     {
       v12 = objc_opt_class();
       v37 = 138543362;
       v38 = v12;
       v13 = v12;
-      LODWORD(v26) = 12;
-      v25 = &v37;
-      v14 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, v11, 16, "%{public}@: Load bag operation failed for timeout", &v37, 12, v27, v28, v29, v30);
 
       if (!v14)
       {
-LABEL_12:
+LABEL_13:
 
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      v11 = [NSString stringWithCString:v14 encoding:4, &v37, v26, v27, v28, v29, v30];
+      v11 = [NSString stringWithCString:v14 encoding:4];
       free(v14);
       v25 = v11;
       SSFileLog();
     }
 
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
-LABEL_13:
+LABEL_14:
   if ([v3 success])
   {
     uRLBag = [v3 URLBag];
-    goto LABEL_26;
+    goto LABEL_28;
   }
 
   v16 = +[SSLogConfig sharedDaemonConfig];
@@ -861,23 +867,28 @@ LABEL_13:
     v16 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog2 = [v16 shouldLog];
+  LODWORD(v17) = [v16 shouldLog];
   shouldLogToDisk2 = [v16 shouldLogToDisk];
   oSLogObject2 = [v16 OSLogObject];
   v20 = oSLogObject2;
   if (shouldLogToDisk2)
   {
-    shouldLog2 |= 2u;
+    LODWORD(v17) = v17 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
   {
-    shouldLog2 &= 2u;
+    v17 = v17;
   }
 
-  if (!shouldLog2)
+  else
   {
-    goto LABEL_24;
+    v17 &= 2u;
+  }
+
+  if (!v17)
+  {
+    goto LABEL_26;
   }
 
   v21 = objc_opt_class();
@@ -885,18 +896,18 @@ LABEL_13:
   v38 = v21;
   v22 = v21;
   LODWORD(v26) = 12;
-  v23 = _os_log_send_and_compose_impl();
+  v23 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, v20, 16, "%{public}@: Failed to find bag", &v37, v26);
 
   if (v23)
   {
-    v20 = [NSString stringWithCString:v23 encoding:4, &v37, v26];
+    v20 = [NSString stringWithCString:v23 encoding:4];
     free(v23);
     SSFileLog();
-LABEL_24:
+LABEL_26:
   }
 
   uRLBag = 0;
-LABEL_26:
+LABEL_28:
 
   _Block_object_dispose(&v33, 8);
 

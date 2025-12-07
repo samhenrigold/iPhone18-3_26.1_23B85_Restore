@@ -1,5 +1,6 @@
 @interface NSURL(EmailFoundationAdditions)
 + (id)ef_urlWithString:()EmailFoundationAdditions;
+- (BOOL)ef_isEligibleForRichLink;
 - (BOOL)ef_isHTTPOrHTTPSURL;
 - (id)ef_URLByAppendingTimestampedPathComponent:()EmailFoundationAdditions withExtension:;
 - (id)ef_caseNormalizedURL;
@@ -10,7 +11,6 @@
 - (id)ef_urlByReplacingSchemeWithScheme:()EmailFoundationAdditions;
 - (uint64_t)ef_hasHost:()EmailFoundationAdditions;
 - (uint64_t)ef_hasScheme:()EmailFoundationAdditions;
-- (uint64_t)ef_isEligibleForRichLink;
 - (void)ef_hostNilForEmpty;
 @end
 
@@ -90,7 +90,7 @@
   return v3;
 }
 
-- (uint64_t)ef_isEligibleForRichLink
+- (BOOL)ef_isEligibleForRichLink
 {
   if ([self ef_isHTTPOrHTTPSURL])
   {
@@ -105,30 +105,30 @@
 
 - (id)ef_urlByAddingSchemeIfNeeded
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   absoluteString = [self absoluteString];
   if ([absoluteString length] && !objc_msgSend(self, "ef_isHTTPOrHTTPSURL"))
   {
     v4 = [MEMORY[0x1E696AB60] dataDetectorWithTypes:32 error:0];
     [v4 matchesInString:absoluteString options:1 range:{0, objc_msgSend(absoluteString, "length")}];
+    v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v5 = v14 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v12 = 0u;
+    v5 = v13 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
-      v7 = *v14;
+      v7 = *v13;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * i);
+          v9 = *(*(&v12 + 1) + 8 * i);
           v10 = [v9 URL];
 
           if (v10)
@@ -139,7 +139,7 @@
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v6)
         {
           continue;
@@ -157,8 +157,6 @@ LABEL_14:
   {
     selfCopy2 = self;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return selfCopy2;
 }

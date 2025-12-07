@@ -1,6 +1,7 @@
 @interface SKUIBootstrapScriptFallback
 + (id)cacheFilenameForStoreFrontIdentifier:(id)identifier;
 + (id)defaultCacheFolder;
++ (void)defaultCacheFolder;
 - (BOOL)_setCacheAge:(id)age error:(id *)error;
 - (BOOL)canFallbackForError:(id)error;
 - (BOOL)isBagAvailable;
@@ -172,7 +173,7 @@
   return v5;
 }
 
-uint64_t __36__SKUIBootstrapScriptFallback_state__block_invoke(uint64_t a1)
+void *__36__SKUIBootstrapScriptFallback_state__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _unsynchronizedState];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -226,7 +227,7 @@ uint64_t __36__SKUIBootstrapScriptFallback_state__block_invoke(uint64_t a1)
   }
 
   domain = [v6 domain];
-  if ([domain isEqualToString:*MEMORY[0x277CCA738]])
+  if (objc_msgSend_isEqualToString_(domain))
   {
     code = [v6 code];
 
@@ -260,7 +261,7 @@ LABEL_19:
   integerValue = [v27 integerValue];
 
   domain2 = [v17 domain];
-  if (([domain2 isEqualToString:*MEMORY[0x277D6A110]] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(domain2) & 1) == 0)
   {
 
 LABEL_21:
@@ -417,7 +418,7 @@ void __47__SKUIBootstrapScriptFallback_scriptEvaluated___block_invoke(uint64_t a
 
 void __41__SKUIBootstrapScriptFallback_invalidate__block_invoke(uint64_t a1)
 {
-  *(&v50[1] + 4) = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [*(a1 + 32) cacheFolder];
   v47 = 0;
@@ -440,7 +441,7 @@ void __41__SKUIBootstrapScriptFallback_invalidate__block_invoke(uint64_t a1)
     }
 
     v36 = [v27 domain];
-    if ([v36 isEqualToString:*MEMORY[0x277CCA050]])
+    if (objc_msgSend_isEqualToString_(v36))
     {
       if ([v27 code] == 4)
       {
@@ -500,11 +501,11 @@ void __41__SKUIBootstrapScriptFallback_invalidate__block_invoke(uint64_t a1)
           v17 = v9;
           if (os_variant_has_internal_content() && _os_feature_enabled_impl() && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
           {
-            __41__SKUIBootstrapScriptFallback_invalidate__block_invoke_cold_1(buf, v50);
+            __41__SKUIBootstrapScriptFallback_invalidate__block_invoke_cold_1(buf, &buf[4]);
           }
 
           v18 = [v17 domain];
-          if (([v18 isEqualToString:v11] & 1) == 0)
+          if ((objc_msgSend_isEqualToString_(v18) & 1) == 0)
           {
 
 LABEL_28:
@@ -635,41 +636,46 @@ void __62__SKUIBootstrapScriptFallback__createCacheDirectoriesIfNeeded__block_in
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (!v9)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   v11 = objc_opt_class();
-  NSStringFromClass(v11);
-  v15 = v14 = 138412802;
+  v12 = NSStringFromClass(v11);
+  v14 = 138412802;
+  v15 = v12;
   v16 = 2112;
   v17 = operationCopy;
   v18 = 2112;
   v19 = errorCopy;
-  LODWORD(v13) = 32;
-  v12 = _os_log_send_and_compose_impl();
+  v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_215BAE000, oSLogObject, 0, "%@: %@ failed, reason: %@", &v14, 32);
 
-  if (v12)
+  if (v13)
   {
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:{4, &v14, v13}];
-    free(v12);
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:4];
+    free(v13);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 }
 
@@ -727,10 +733,52 @@ void __50__SKUIBootstrapScriptFallback__setCacheAge_error___block_invoke(uint64_
   }
 }
 
++ (void)defaultCacheFolder
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIBootstrapScriptFallback defaultCacheFolder]";
+}
+
++ (void)cacheFilenameForStoreFrontIdentifier:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIBootstrapScriptFallback cacheFilenameForStoreFrontIdentifier:]";
+}
+
+- (void)initWithCacheFolder:(uint64_t)a3 filename:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBootstrapScriptFallback initWithCacheFolder:filename:]";
+}
+
+- (void)initWithFilename:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIBootstrapScriptFallback initWithFilename:]";
+}
+
+- (void)canFallbackForError:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "NSErrorIsConnectionTimeout";
+}
+
+- (void)canFallbackForError:(uint64_t)a3 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "NSErrorIsServerError";
+}
+
 void __41__SKUIBootstrapScriptFallback_invalidate__block_invoke_cold_1(uint8_t *buf, void *a2)
 {
   *buf = 136446210;
   *a2 = "NSErrorIsFileNotFound";
+}
+
+void __41__SKUIBootstrapScriptFallback_invalidate__block_invoke_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "NSErrorIsFileNotFound";
 }
 
 @end

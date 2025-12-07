@@ -2,13 +2,140 @@
 + (id)cacheDirPathForAppBundleID:(id)d withPairedDeviceStorePath:(id)path;
 + (id)cacheDirPathForPairedDevice;
 + (id)cacheDirPathForPairedDeviceStorePath:(id)path;
++ (id)cachePathForIconVariant:(int)variant inBundleID:(id)d withPairedDeviceStorePath:(id)path;
 + (id)iconCacheDirPathForAppBundleID:(id)d withPairedDeviceStorePath:(id)path;
++ (id)iconForIconVariant:(int)variant inBundleID:(id)d withPairedDeviceStorePath:(id)path;
 + (void)createCachePathIfNecessaryWithPairedDeviceStorePath:(id)path;
 + (void)invalidateBundleID:(id)d withPairedDeviceStorePath:(id)path;
 + (void)invalidatePairedDevice:(id)device;
++ (void)setIcon:(id)icon forIconVariant:(int)variant inBundleID:(id)d withPairedDeviceStorePath:(id)path;
 @end
 
 @implementation NRGResourceCache
+
++ (void)setIcon:(id)icon forIconVariant:(int)variant inBundleID:(id)d withPairedDeviceStorePath:(id)path
+{
+  v8 = *&variant;
+  v33 = *MEMORY[0x277D85DE8];
+  iconCopy = icon;
+  dCopy = d;
+  pathCopy = path;
+  v13 = [self iconCacheDirPathForAppBundleID:dCopy withPairedDeviceStorePath:pathCopy];
+  if (v13)
+  {
+    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+    v15 = [defaultManager fileExistsAtPath:v13];
+
+    if (v15)
+    {
+      v16 = 0;
+    }
+
+    else
+    {
+      [self createCachePathIfNecessaryWithPairedDeviceStorePath:pathCopy];
+      defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
+      v26 = 0;
+      v18 = [defaultManager2 createDirectoryAtPath:v13 withIntermediateDirectories:1 attributes:0 error:&v26];
+      v16 = v26;
+
+      if ((v18 & 1) == 0)
+      {
+        v21 = nrg_daemon_log(v19);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412546;
+          v28 = v16;
+          v29 = 2112;
+          v30 = v13;
+          _os_log_impl(&dword_25B66E000, v21, OS_LOG_TYPE_DEFAULT, "setIcon: Error creating cache directory %@ path %@", buf, 0x16u);
+        }
+
+        goto LABEL_13;
+      }
+    }
+
+    v20 = v16;
+    v21 = [self cachePathForIconVariant:v8 inBundleID:dCopy withPairedDeviceStorePath:pathCopy];
+    v25 = v16;
+    v22 = [iconCopy writeToFile:v21 options:268435457 error:&v25];
+    v16 = v25;
+
+    if ((v22 & 1) == 0)
+    {
+      v24 = nrg_daemon_log(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412546;
+        v28 = v21;
+        v29 = 2112;
+        v30 = v16;
+        _os_log_impl(&dword_25B66E000, v24, OS_LOG_TYPE_DEFAULT, "setIcon: Failed writing icon path %@ with error: %@", buf, 0x16u);
+      }
+    }
+
+LABEL_13:
+
+    goto LABEL_14;
+  }
+
+  v16 = nrg_daemon_log(0);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218498;
+    v28 = v8;
+    v29 = 2112;
+    v30 = dCopy;
+    v31 = 2112;
+    v32 = pathCopy;
+    _os_log_impl(&dword_25B66E000, v16, OS_LOG_TYPE_DEFAULT, "setIcon: Error creating icon dir path: iconVariant=%ld appBundleID=%@ pairedDeviceStorePath=%@", buf, 0x20u);
+  }
+
+LABEL_14:
+}
+
++ (id)iconForIconVariant:(int)variant inBundleID:(id)d withPairedDeviceStorePath:(id)path
+{
+  v6 = *&variant;
+  v23 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  pathCopy = path;
+  v10 = [self cachePathForIconVariant:v6 inBundleID:dCopy withPairedDeviceStorePath:pathCopy];
+  if (v10)
+  {
+    v16 = 0;
+    v11 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v10 options:0 error:&v16];
+    v12 = v16;
+    v13 = v12;
+    if (v12)
+    {
+      v14 = nrg_daemon_log(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        [NRGResourceCache iconForIconVariant:v13 inBundleID:v14 withPairedDeviceStorePath:?];
+      }
+    }
+  }
+
+  else
+  {
+    v13 = nrg_daemon_log(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218498;
+      v18 = v6;
+      v19 = 2112;
+      v20 = dCopy;
+      v21 = 2112;
+      v22 = pathCopy;
+      _os_log_error_impl(&dword_25B66E000, v13, OS_LOG_TYPE_ERROR, "iconForIconVariant: Error creating icon path: iconVariant=%ld appBundleID=%@ pairedDeviceStorePath=%@", buf, 0x20u);
+    }
+
+    v11 = 0;
+  }
+
+  return v11;
+}
 
 + (void)invalidateBundleID:(id)d withPairedDeviceStorePath:(id)path
 {
@@ -23,14 +150,14 @@
     if (v10)
     {
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-      v15 = 0;
-      v12 = [defaultManager2 removeItemAtPath:v8 error:&v15];
-      v13 = v15;
+      v16 = 0;
+      v12 = [defaultManager2 removeItemAtPath:v8 error:&v16];
+      v13 = v16;
 
       if ((v12 & 1) == 0)
       {
-        v14 = nrg_daemon_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = nrg_daemon_log(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           +[NRGResourceCache invalidateBundleID:withPairedDeviceStorePath:];
         }
@@ -45,7 +172,7 @@
 
   else
   {
-    v13 = nrg_daemon_log();
+    v13 = nrg_daemon_log(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       +[NRGResourceCache invalidateBundleID:withPairedDeviceStorePath:];
@@ -59,7 +186,7 @@
   v5 = [self cacheDirPathForPairedDeviceStorePath:deviceCopy];
   if (!v5)
   {
-    v6 = nrg_daemon_log();
+    v6 = nrg_daemon_log(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(NRGResourceCache *)deviceCopy invalidatePairedDevice:v6];
@@ -72,14 +199,14 @@
   if (v8)
   {
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v13 = 0;
-    v10 = [defaultManager2 removeItemAtPath:v5 error:&v13];
-    v11 = v13;
+    v14 = 0;
+    v10 = [defaultManager2 removeItemAtPath:v5 error:&v14];
+    v11 = v14;
 
     if ((v10 & 1) == 0)
     {
-      v12 = nrg_daemon_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = nrg_daemon_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         +[NRGResourceCache invalidatePairedDevice:];
       }
@@ -137,7 +264,7 @@
 
 + (void)createCachePathIfNecessaryWithPairedDeviceStorePath:(id)path
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [self cacheDirPathForPairedDeviceStorePath:path];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v5 = [defaultManager fileExistsAtPath:v3];
@@ -145,31 +272,31 @@
   if ((v5 & 1) == 0)
   {
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v17 = 0;
-    v7 = [defaultManager2 createDirectoryAtPath:v3 withIntermediateDirectories:1 attributes:0 error:&v17];
-    v8 = v17;
+    v18 = 0;
+    v7 = [defaultManager2 createDirectoryAtPath:v3 withIntermediateDirectories:1 attributes:0 error:&v18];
+    v8 = v18;
 
     if (v7)
     {
-      v9 = [MEMORY[0x277CBEBC0] fileURLWithPath:v3 isDirectory:1];
-      v10 = *MEMORY[0x277CBE878];
-      v16 = v8;
-      v11 = [v9 setResourceValue:MEMORY[0x277CBEC38] forKey:v10 error:&v16];
-      v12 = v16;
+      v10 = [MEMORY[0x277CBEBC0] fileURLWithPath:v3 isDirectory:1];
+      v11 = *MEMORY[0x277CBE878];
+      v17 = v8;
+      v12 = [v10 setResourceValue:MEMORY[0x277CBEC38] forKey:v11 error:&v17];
+      v13 = v17;
 
-      v13 = nrg_daemon_log();
-      v14 = v13;
-      if (v11)
+      v15 = nrg_daemon_log(v14);
+      v16 = v15;
+      if (v12)
       {
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v19 = v3;
-          _os_log_impl(&dword_25B66E000, v14, OS_LOG_TYPE_DEFAULT, "createCachePathIfNecessary created and excludedFromBackup %@", buf, 0xCu);
+          v20 = v3;
+          _os_log_impl(&dword_25B66E000, v16, OS_LOG_TYPE_DEFAULT, "createCachePathIfNecessary created and excludedFromBackup %@", buf, 0xCu);
         }
       }
 
-      else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         +[NRGResourceCache createCachePathIfNecessaryWithPairedDeviceStorePath:];
       }
@@ -177,17 +304,15 @@
 
     else
     {
-      v9 = nrg_daemon_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = nrg_daemon_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         +[NRGResourceCache createCachePathIfNecessaryWithPairedDeviceStorePath:];
       }
 
-      v12 = v8;
+      v13 = v8;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (id)iconCacheDirPathForAppBundleID:(id)d withPairedDeviceStorePath:(id)path
@@ -207,62 +332,38 @@
   return v6;
 }
 
++ (id)cachePathForIconVariant:(int)variant inBundleID:(id)d withPairedDeviceStorePath:(id)path
+{
+  v5 = *&variant;
+  v6 = [self iconCacheDirPathForAppBundleID:d withPairedDeviceStorePath:path];
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"icon_%d.png", v5];
+  if (v6)
+  {
+    v8 = [v6 stringByAppendingPathComponent:v7];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
 + (void)iconForIconVariant:(uint64_t)a1 inBundleID:(NSObject *)a2 withPairedDeviceStorePath:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B66E000, a2, OS_LOG_TYPE_ERROR, "iconForIconVariant: Error reading data %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)invalidateBundleID:withPairedDeviceStorePath:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25B66E000, v0, v1, "invalidateBundleID: Failed invalidating cache at %@, error %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)invalidateBundleID:withPairedDeviceStorePath:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25B66E000, v0, v1, "invalidateBundleID: Error creating bundle cache dir path: appBundleID=%@ pairedDeviceStorePath=%@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B66E000, a2, OS_LOG_TYPE_ERROR, "iconForIconVariant: Error reading data %@", &v2, 0xCu);
 }
 
 + (void)invalidatePairedDevice:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B66E000, a2, OS_LOG_TYPE_ERROR, "invalidatePairedDevice: Error creating bundle cache dir path: pairedDeviceStorePath=%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)invalidatePairedDevice:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25B66E000, v0, v1, "invalidatePairedDevice: Failed invalidating paired device cache at %@, error %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)createCachePathIfNecessaryWithPairedDeviceStorePath:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25B66E000, v0, v1, "createCachePathIfNecessary: Error creating cache directory %@ path %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)createCachePathIfNecessaryWithPairedDeviceStorePath:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25B66E000, v0, v1, "createCachePathIfNecessary: Error setting attributes on cache directory %@ path %@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B66E000, a2, OS_LOG_TYPE_ERROR, "invalidatePairedDevice: Error creating bundle cache dir path: pairedDeviceStorePath=%@", &v2, 0xCu);
 }
 
 @end

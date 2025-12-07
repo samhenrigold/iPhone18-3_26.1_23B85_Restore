@@ -9,7 +9,7 @@
 
 - (BOOL)enumerateItemsWithError:(id *)error usingBlock:(id)block
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v6 = KMIntentVocabularyAuthorization;
   v7 = KMLogContextCore;
@@ -20,9 +20,9 @@
     v10 = v7;
     v11 = [v8 numberWithDouble:setupTimeout];
     *buf = 136315394;
-    v57 = "[KMHomeManagerBridge enumerateItemsWithError:usingBlock:]";
-    v58 = 2112;
-    v59 = v11;
+    v56 = "[KMHomeManagerBridge enumerateItemsWithError:usingBlock:]";
+    v57 = 2112;
+    v58 = v11;
     _os_log_impl(&dword_2559DF000, v10, OS_LOG_TYPE_INFO, "%s Waiting up to %@ seconds for home manager setup", buf, 0x16u);
   }
 
@@ -34,7 +34,7 @@
     if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v57 = "[KMHomeManagerBridge enumerateItemsWithError:usingBlock:]";
+      v56 = "[KMHomeManagerBridge enumerateItemsWithError:usingBlock:]";
       _os_log_impl(&dword_2559DF000, v14, OS_LOG_TYPE_INFO, "%s Timed out waiting for home manager setup", buf, 0xCu);
     }
 
@@ -47,46 +47,46 @@
     v17 = KMLogContextCore;
     if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_DEBUG))
     {
-      v36 = MEMORY[0x277CCABB0];
-      v37 = v17;
-      v38 = [v36 numberWithUnsignedInteger:{objc_msgSend(homes, "count")}];
+      v35 = MEMORY[0x277CCABB0];
+      v36 = v17;
+      v37 = [v35 numberWithUnsignedInteger:{objc_msgSend(homes, "count")}];
       *buf = 136315394;
-      v57 = "[KMHomeManagerBridge enumerateItemsWithError:usingBlock:]";
-      v58 = 2112;
-      v59 = v38;
-      _os_log_debug_impl(&dword_2559DF000, v37, OS_LOG_TYPE_DEBUG, "%s Home manager is ready. homesCount: %@", buf, 0x16u);
+      v56 = "[KMHomeManagerBridge enumerateItemsWithError:usingBlock:]";
+      v57 = 2112;
+      v58 = v37;
+      _os_log_debug_impl(&dword_2559DF000, v36, OS_LOG_TYPE_DEBUG, "%s Home manager is ready. homesCount: %@", buf, 0x16u);
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v18 = homes;
-    v19 = [v18 countByEnumeratingWithState:&v50 objects:v55 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v49 objects:v54 count:16];
     if (v19)
     {
       v20 = 0;
-      v21 = *v51;
-      v42 = v18;
-      v40 = *v51;
+      v21 = *v50;
+      v41 = v18;
+      v39 = *v50;
       while (2)
       {
         v22 = 0;
         v23 = v20;
-        v41 = v19;
+        v40 = v19;
         do
         {
-          if (*v51 != v21)
+          if (*v50 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v24 = *(*(&v50 + 1) + 8 * v22);
+          v24 = *(*(&v49 + 1) + 8 * v22);
           context = objc_autoreleasePoolPush();
           itemMapper = self->_itemMapper;
-          v49 = v23;
-          v26 = [(KVItemMapper *)itemMapper mapObject:v24 error:&v49];
-          v20 = v49;
+          v48 = v23;
+          v26 = [(KVItemMapper *)itemMapper mapObject:v24 error:&v48];
+          v20 = v48;
 
           if (!v26)
           {
@@ -94,9 +94,9 @@
             if (os_log_type_enabled(vtable, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v57 = "[KMHomeManagerBridge enumerateItemsWithError:usingBlock:]";
-              v58 = 2112;
-              v59 = v20;
+              v56 = "[KMHomeManagerBridge enumerateItemsWithError:usingBlock:]";
+              v57 = 2112;
+              v58 = v20;
               _os_log_error_impl(&dword_2559DF000, vtable, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
             }
 
@@ -107,27 +107,27 @@
             goto LABEL_28;
           }
 
-          v43 = v20;
-          v47 = 0u;
-          v48 = 0u;
-          v45 = 0u;
+          v42 = v20;
           v46 = 0u;
+          v47 = 0u;
+          v44 = 0u;
+          v45 = 0u;
           v27 = v26;
-          v28 = [v27 countByEnumeratingWithState:&v45 objects:v54 count:16];
+          v28 = [v27 countByEnumeratingWithState:&v44 objects:v53 count:16];
           if (v28)
           {
             v29 = v28;
-            v30 = *v46;
+            v30 = *v45;
             while (2)
             {
               for (i = 0; i != v29; ++i)
               {
-                if (*v46 != v30)
+                if (*v45 != v30)
                 {
                   objc_enumerationMutation(v27);
                 }
 
-                v32 = *(*(&v45 + 1) + 8 * i);
+                v32 = *(*(&v44 + 1) + 8 * i);
                 v33 = objc_autoreleasePoolPush();
                 LODWORD(v32) = blockCopy[2](blockCopy, v32);
                 objc_autoreleasePoolPop(v33);
@@ -135,15 +135,15 @@
                 {
 
                   objc_autoreleasePoolPop(context);
-                  v18 = v42;
+                  v18 = v41;
 
                   v15 = 0;
-                  v20 = v43;
+                  v20 = v42;
                   goto LABEL_28;
                 }
               }
 
-              v29 = [v27 countByEnumeratingWithState:&v45 objects:v54 count:16];
+              v29 = [v27 countByEnumeratingWithState:&v44 objects:v53 count:16];
               if (v29)
               {
                 continue;
@@ -155,15 +155,15 @@
 
           objc_autoreleasePoolPop(context);
           ++v22;
-          v18 = v42;
-          v20 = v43;
-          v23 = v43;
-          v21 = v40;
+          v18 = v41;
+          v20 = v42;
+          v23 = v42;
+          v21 = v39;
           v6 = KMIntentVocabularyAuthorization;
         }
 
-        while (v22 != v41);
-        v19 = [v42 countByEnumeratingWithState:&v50 objects:v55 count:16];
+        while (v22 != v40);
+        v19 = [v41 countByEnumeratingWithState:&v49 objects:v54 count:16];
         if (v19)
         {
           continue;
@@ -184,32 +184,30 @@
 LABEL_28:
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (void)homeManagerDidUpdateHomes:(id)homes
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = KMLogContextCore;
   if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[KMHomeManagerBridge homeManagerDidUpdateHomes:]";
-    _os_log_impl(&dword_2559DF000, v4, OS_LOG_TYPE_INFO, "%s homeManagerDidUpdateHomes being invoked", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[KMHomeManagerBridge homeManagerDidUpdateHomes:]";
+    _os_log_impl(&dword_2559DF000, v4, OS_LOG_TYPE_INFO, "%s homeManagerDidUpdateHomes being invoked", &v5, 0xCu);
   }
 
   dispatch_semaphore_signal(self->_setupSema);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (KMHomeManagerBridge)initWithHomeManager:(id)manager setupTimeout:(double)timeout
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
-  v23.receiver = self;
-  v23.super_class = KMHomeManagerBridge;
-  v8 = [(KMHomeManagerBridge *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = KMHomeManagerBridge;
+  v8 = [(KMHomeManagerBridge *)&v22 init];
   v9 = v8;
   if (!v8)
   {
@@ -223,7 +221,7 @@ LABEL_28:
     if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v25 = "[KMHomeManagerBridge initWithHomeManager:setupTimeout:]";
+      v24 = "[KMHomeManagerBridge initWithHomeManager:setupTimeout:]";
       _os_log_error_impl(&dword_2559DF000, v17, OS_LOG_TYPE_ERROR, "%s Cannot initialize KMHomeManagerBridge with nil homeManager", buf, 0xCu);
     }
 
@@ -238,9 +236,9 @@ LABEL_28:
   v12 = objc_initWeak(&location, v9);
   [(HMHomeManager *)v9->_homeManager setDelegate:v9];
 
-  v21 = 0;
-  v13 = [objc_alloc(MEMORY[0x277D22D30]) initWithObjectClass:objc_opt_class() error:&v21];
-  v14 = v21;
+  v20 = 0;
+  v13 = [objc_alloc(MEMORY[0x277D22D30]) initWithObjectClass:objc_opt_class() error:&v20];
+  v14 = v20;
   itemMapper = v9->_itemMapper;
   v9->_itemMapper = v13;
 
@@ -250,9 +248,9 @@ LABEL_28:
     if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "[KMHomeManagerBridge initWithHomeManager:setupTimeout:]";
-      v26 = 2112;
-      v27 = v14;
+      v24 = "[KMHomeManagerBridge initWithHomeManager:setupTimeout:]";
+      v25 = 2112;
+      v26 = v14;
       _os_log_error_impl(&dword_2559DF000, v18, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
     }
 
@@ -267,7 +265,6 @@ LABEL_5:
   v16 = v9;
 LABEL_12:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

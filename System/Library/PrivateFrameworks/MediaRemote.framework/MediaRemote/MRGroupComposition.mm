@@ -115,11 +115,11 @@
 
 - (void)addHomePodWithModelIdentifier:(id)identifier
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = MEMORY[0x1E695DFD8];
-  v9[0] = @"AudioAccessory5,1";
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = @"AudioAccessory5,1";
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v7 = [v5 setWithArray:v6];
 
   if (identifierCopy && [v7 containsObject:identifierCopy])
@@ -131,8 +131,6 @@
   {
     [(MRGroupComposition *)self setHomePodCount:[(MRGroupComposition *)self homePodCount]+ 1];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)localizedGroupComposition

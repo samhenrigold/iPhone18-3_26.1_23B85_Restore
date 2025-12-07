@@ -24,7 +24,7 @@
     v9 = objc_autoreleasePoolPush();
     v14 = 0;
     v10 = [self count];
-    v11 = v10 - v8 >= a3 ? a3 : v10 - v8;
+    v11 = v10 - v8 >= a3 ? a3 : (v10 - v8);
     v12 = [self subarrayWithRange:{v8, v11}];
     v7[2](v7, v12, &v14);
 

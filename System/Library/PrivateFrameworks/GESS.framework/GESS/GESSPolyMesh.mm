@@ -1331,7 +1331,7 @@ LABEL_14:
             if (v36 != v40)
             {
               sub_24BE7335C(v36, *v40, v40[1], 0xAAAAAAAAAAAAAAABLL * ((v40[1] - *v40) >> 4));
-              sub_24BE739BC(v36 + 24, v41[3], v41[4], 0xAAAAAAAAAAAAAAABLL * ((v41[4] - v41[3]) >> 4));
+              sub_24BE739BC((v36 + 24), v41[3], v41[4], 0xAAAAAAAAAAAAAAABLL * ((v41[4] - v41[3]) >> 4));
               sub_24BCCEEA4((v36 + 48), v41[6], v41 + 7);
             }
           }

@@ -24,9 +24,9 @@
 {
   WeakRetained = objc_loadWeakRetained(&self->_timeView);
   v8 = objc_msgSend_needsDisplayElementMask(self, v6, v7);
-  objc_msgSend__drawInContext_needsDisplayElementMask_(WeakRetained, v9, v10, context, v8);
+  objc_msgSend__drawInContext_needsDisplayElementMask_(WeakRetained, v9, context, v8);
 
-  MEMORY[0x2821F9670](v11);
+  MEMORY[0x2821F9670](self, sel_setNeedsDisplayElementMask_, 0);
 }
 
 @end

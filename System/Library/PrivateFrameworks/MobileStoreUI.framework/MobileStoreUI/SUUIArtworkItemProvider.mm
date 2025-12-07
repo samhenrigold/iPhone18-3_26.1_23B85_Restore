@@ -43,7 +43,7 @@
 {
   identifierCopy = identifier;
   handlerCopy = handler;
-  if ([identifierCopy isEqualToString:*MEMORY[0x277CC20C8]])
+  if (objc_msgSend_isEqualToString_(identifierCopy))
   {
     if ([(NSProgress *)self->_progress isFinished])
     {

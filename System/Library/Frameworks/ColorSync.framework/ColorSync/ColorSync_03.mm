@@ -1,1199 +1,3 @@
-CFDataRef NxMLUTCreateData(int a1, unsigned __int16 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v10 = a4;
-  v11 = a3;
-  if (a5)
-  {
-    v14 = 1;
-    v15 = a5;
-    do
-    {
-      v16 = v14 * v10;
-      v18 = v14 * v10 >= v14 && v16 >= v10;
-      CMMThrowExceptionWithLog(v18, "Overflow in Power", a3, a4, a5, a6, a7, a8);
-      v14 = v16;
-      --v15;
-    }
-
-    while (v15);
-  }
-
-  else
-  {
-    v16 = 1;
-  }
-
-  v19 = 0;
-  if (a1 > 2)
-  {
-    if (a1 <= 4)
-    {
-      if (a1 == 3)
-      {
-        if (v11)
-        {
-          __assert_rtn("NxMLUTCreateData", "CMMNxMUtils.cpp", 819, "dataIsFloat == false");
-        }
-
-        switch(a5)
-        {
-          case 4:
-            if (a6 != 3)
-            {
-              __assert_rtn("nxm_copy_CMYK_to_RGBX8_data", "CMMNxMUtils.cpp", 164, "inpChannels == 4 && outChannels == 3");
-            }
-
-            v94 = v10 * v10;
-            Mutable = CFDataCreateMutable(0, 4 * v94 * v94);
-            v19 = Mutable;
-            if (Mutable)
-            {
-              CFDataSetLength(Mutable, 4 * v94 * v94);
-              MutableBytePtr = CFDataGetMutableBytePtr(v19);
-              if (v10)
-              {
-                if (MutableBytePtr)
-                {
-                  v97 = 0;
-                  v98 = MutableBytePtr + 3;
-                  v99 = a2 + 2;
-                  do
-                  {
-                    v100 = 0;
-                    v101 = v99;
-                    v102 = v98;
-                    do
-                    {
-                      v103 = 0;
-                      v104 = v101;
-                      v105 = v102;
-                      do
-                      {
-                        v106 = v104;
-                        v107 = v105;
-                        v108 = v10;
-                        do
-                        {
-                          v109 = (*(v106 - 2) + 128) >> 8;
-                          if (v109 >= 0xFF)
-                          {
-                            LOBYTE(v109) = -1;
-                          }
-
-                          *(v107 - 3) = v109;
-                          v110 = (*(v106 - 1) + 128) >> 8;
-                          if (v110 >= 0xFF)
-                          {
-                            LOBYTE(v110) = -1;
-                          }
-
-                          *(v107 - 2) = v110;
-                          v111 = (*v106 + 128) >> 8;
-                          if (v111 >= 0xFF)
-                          {
-                            LOBYTE(v111) = -1;
-                          }
-
-                          *(v107 - 1) = v111;
-                          *v107 = -1;
-                          v107 += 4;
-                          v106 += 3 * v10 * v94;
-                          --v108;
-                        }
-
-                        while (v108);
-                        ++v103;
-                        v105 += 4 * v10;
-                        v104 += 3 * v94;
-                      }
-
-                      while (v103 != v10);
-                      ++v100;
-                      v102 += 4 * v94;
-                      v101 += 3 * v10;
-                    }
-
-                    while (v100 != v10);
-                    ++v97;
-                    v98 += 4 * v10 * v94;
-                    v99 += 3;
-                  }
-
-                  while (v97 != v10);
-                }
-              }
-            }
-
-            break;
-          case 3:
-            if (a6 != 3)
-            {
-              __assert_rtn("nxm_copy_RGB_to_RGBX8_data", "CMMNxMUtils.cpp", 134, "inpChannels == 3 && outChannels == 3");
-            }
-
-            v79 = v10 * v10;
-            v80 = CFDataCreateMutable(0, 4 * v10 * v10 * v10);
-            v19 = v80;
-            if (v80)
-            {
-              CFDataSetLength(v80, 4 * v10 * v10 * v10);
-              v81 = CFDataGetMutableBytePtr(v19);
-              if (v10)
-              {
-                if (v81)
-                {
-                  v82 = 0;
-                  v83 = v81 + 3;
-                  v84 = a2 + 2;
-                  do
-                  {
-                    v85 = 0;
-                    v86 = v84;
-                    v87 = v83;
-                    do
-                    {
-                      v88 = v86;
-                      v89 = v87;
-                      v90 = v10;
-                      do
-                      {
-                        v91 = (*(v88 - 2) + 128) >> 8;
-                        if (v91 >= 0xFF)
-                        {
-                          LOBYTE(v91) = -1;
-                        }
-
-                        *(v89 - 3) = v91;
-                        v92 = (*(v88 - 1) + 128) >> 8;
-                        if (v92 >= 0xFF)
-                        {
-                          LOBYTE(v92) = -1;
-                        }
-
-                        *(v89 - 2) = v92;
-                        v93 = (*v88 + 128) >> 8;
-                        if (v93 >= 0xFF)
-                        {
-                          LOBYTE(v93) = -1;
-                        }
-
-                        *(v89 - 1) = v93;
-                        *v89 = -1;
-                        v89 += 4;
-                        v88 += 3 * v79;
-                        --v90;
-                      }
-
-                      while (v90);
-                      ++v85;
-                      v87 += 4 * v10;
-                      v86 += 3 * v10;
-                    }
-
-                    while (v85 != v10);
-                    ++v82;
-                    v83 += 4 * v79;
-                    v84 += 3;
-                  }
-
-                  while (v82 != v10);
-                }
-              }
-            }
-
-            break;
-          case 1:
-            if (a6 != 3)
-            {
-              __assert_rtn("nxm_copy_GRAY_to_RGBX8_data", "CMMNxMUtils.cpp", 109, "inpChannels == 1 && outChannels == 3");
-            }
-
-            v39 = CFDataCreateMutable(0, 4 * v10);
-            v19 = v39;
-            if (v39)
-            {
-              CFDataSetLength(v39, 4 * v10);
-              v40 = CFDataGetMutableBytePtr(v19);
-              if (v10)
-              {
-                if (v40)
-                {
-                  v41 = v40 + 3;
-                  v42 = a2 + 2;
-                  do
-                  {
-                    v43 = (*(v42 - 2) + 128) >> 8;
-                    if (v43 >= 0xFF)
-                    {
-                      LOBYTE(v43) = -1;
-                    }
-
-                    *(v41 - 3) = v43;
-                    v44 = (*(v42 - 1) + 128) >> 8;
-                    if (v44 >= 0xFF)
-                    {
-                      LOBYTE(v44) = -1;
-                    }
-
-                    *(v41 - 2) = v44;
-                    v45 = *v42;
-                    v42 += 3;
-                    v46 = (v45 + 128) >> 8;
-                    if (v46 >= 0xFF)
-                    {
-                      LOBYTE(v46) = -1;
-                    }
-
-                    *(v41 - 1) = v46;
-                    *v41 = -1;
-                    v41 += 4;
-                    --v10;
-                  }
-
-                  while (v10);
-                }
-              }
-            }
-
-            break;
-          default:
-            __assert_rtn("nxm_create_NxM_to_RGBX8_from_fixed16", "CMMNxMUtils.cpp", 204, "0");
-        }
-      }
-
-      else
-      {
-        if (v11)
-        {
-          __assert_rtn("NxMLUTCreateData", "CMMNxMUtils.cpp", 823, "dataIsFloat == false");
-        }
-
-        switch(a5)
-        {
-          case 4:
-            if (a6 != 3)
-            {
-              __assert_rtn("nxm_copy_CMYK_to_RGBX16_data", "CMMNxMUtils.cpp", 352, "inpChannels == 4 && outChannels == 3");
-            }
-
-            v114 = CFDataCreateMutable(0, 8 * v10 * v10 * v10 * v10);
-            v19 = v114;
-            if (v114)
-            {
-              CFDataSetLength(v114, 8 * v10 * v10 * v10 * v10);
-              v115 = CFDataGetMutableBytePtr(v19);
-              repackage_CMYK16_to_RGBX16(v115, a2, v10);
-            }
-
-            break;
-          case 3:
-            if (a6 != 3)
-            {
-              __assert_rtn("nxm_copy_RGB_to_RGBX16_data", "CMMNxMUtils.cpp", 294, "inpChannels == 3 && outChannels == 3");
-            }
-
-            v112 = CFDataCreateMutable(0, 8 * v10 * v10 * v10);
-            v19 = v112;
-            if (v112)
-            {
-              CFDataSetLength(v112, 8 * v10 * v10 * v10);
-              v113 = CFDataGetMutableBytePtr(v19);
-              repackage_RGB16_to_RGBX16(v113, a2, v10);
-            }
-
-            break;
-          case 1:
-            if (a6 != 3)
-            {
-              __assert_rtn("nxm_copy_GRAY_to_RGBX16_data", "CMMNxMUtils.cpp", 240, "inpChannels == 1 && outChannels == 3");
-            }
-
-            v20 = CFDataCreateMutable(0, 8 * v10);
-            v19 = v20;
-            if (v20)
-            {
-              CFDataSetLength(v20, 8 * v10);
-              v21 = CFDataGetMutableBytePtr(v19);
-              if (v10)
-              {
-                if (v21)
-                {
-                  v22 = v21 + 4;
-                  v23 = (a2 + 2);
-                  do
-                  {
-                    *(v22 - 2) = *(v23 - 2);
-                    *(v22 - 1) = *(v23 - 1);
-                    v24 = *v23;
-                    v23 += 3;
-                    *v22 = v24;
-                    v22[1] = -1;
-                    v22 += 4;
-                    --v10;
-                  }
-
-                  while (v10);
-                }
-              }
-            }
-
-            break;
-          default:
-            __assert_rtn("nxm_create_NxM_to_RGBX16_from_fixed16", "CMMNxMUtils.cpp", 376, "0");
-        }
-      }
-
-      return v19;
-    }
-
-    if (a1 != 5)
-    {
-      if (a1 == 6)
-      {
-        if (v11)
-        {
-          switch(a5)
-          {
-            case 4:
-              if (a6 != 3)
-              {
-                __assert_rtn("nxm_copy_CMYK_float_to_RGBX_float32", "CMMNxMUtils.cpp", 727, "inpChannels == 4 && outChannels == 3");
-              }
-
-              v183 = v10 * v10;
-              v184 = CFDataCreateMutable(0, 16 * v183 * v183);
-              v19 = v184;
-              if (v184)
-              {
-                CFDataSetLength(v184, 16 * v183 * v183);
-                v185 = CFDataGetMutableBytePtr(v19);
-                if (v10)
-                {
-                  if (v185)
-                  {
-                    v186 = 0;
-                    v187 = v185 + 8;
-                    v188 = a2 + 4;
-                    do
-                    {
-                      v189 = 0;
-                      v190 = v188;
-                      v191 = v187;
-                      do
-                      {
-                        v192 = 0;
-                        v193 = v190;
-                        v194 = v191;
-                        do
-                        {
-                          v195 = v193;
-                          v196 = v194;
-                          v197 = v10;
-                          do
-                          {
-                            *(v196 - 2) = *(v195 - 2);
-                            *(v196 - 1) = *(v195 - 1);
-                            *v196 = *v195;
-                            *(v196 + 1) = 1065353216;
-                            v196 += 16;
-                            v195 += 6 * v10 * v183;
-                            --v197;
-                          }
-
-                          while (v197);
-                          ++v192;
-                          v194 += 16 * v10;
-                          v193 += 6 * v183;
-                        }
-
-                        while (v192 != v10);
-                        ++v189;
-                        v191 += 16 * v183;
-                        v190 += 6 * v10;
-                      }
-
-                      while (v189 != v10);
-                      ++v186;
-                      v187 += 16 * v10 * v183;
-                      v188 += 6;
-                    }
-
-                    while (v186 != v10);
-                  }
-                }
-              }
-
-              break;
-            case 3:
-              if (a6 != 3)
-              {
-                __assert_rtn("nxm_copy_RGB_float_to_RGBX_float32", "CMMNxMUtils.cpp", 697, "inpChannels == 3 && outChannels == 3");
-              }
-
-              v153 = v10 * v10;
-              v154 = CFDataCreateMutable(0, 16 * v10 * v10 * v10);
-              v19 = v154;
-              if (v154)
-              {
-                CFDataSetLength(v154, 16 * v10 * v10 * v10);
-                v155 = CFDataGetMutableBytePtr(v19);
-                if (v10)
-                {
-                  if (v155)
-                  {
-                    v156 = 0;
-                    v157 = v155 + 8;
-                    v158 = a2 + 4;
-                    do
-                    {
-                      v159 = 0;
-                      v160 = v158;
-                      v161 = v157;
-                      do
-                      {
-                        v162 = v160;
-                        v163 = v161;
-                        v164 = v10;
-                        do
-                        {
-                          *(v163 - 2) = *(v162 - 2);
-                          *(v163 - 1) = *(v162 - 1);
-                          *v163 = *v162;
-                          *(v163 + 1) = 1065353216;
-                          v163 += 16;
-                          v162 += 6 * v153;
-                          --v164;
-                        }
-
-                        while (v164);
-                        ++v159;
-                        v161 += 16 * v10;
-                        v160 += 6 * v10;
-                      }
-
-                      while (v159 != v10);
-                      ++v156;
-                      v157 += 16 * v153;
-                      v158 += 6;
-                    }
-
-                    while (v156 != v10);
-                  }
-                }
-              }
-
-              break;
-            case 1:
-              if (a6 != 3)
-              {
-                __assert_rtn("nxm_copy_GRAY_float_to_RGBX_float32", "CMMNxMUtils.cpp", 672, "inpChannels == 1 && outChannels == 3");
-              }
-
-              v30 = CFDataCreateMutable(0, 16 * v10);
-              v19 = v30;
-              if (v30)
-              {
-                CFDataSetLength(v30, 16 * v10);
-                v31 = CFDataGetMutableBytePtr(v19);
-                if (v10)
-                {
-                  if (v31)
-                  {
-                    v32 = v31 + 8;
-                    v33 = (a2 + 4);
-                    do
-                    {
-                      *(v32 - 2) = *(v33 - 2);
-                      *(v32 - 1) = *(v33 - 1);
-                      v34 = *v33;
-                      v33 += 3;
-                      *v32 = v34;
-                      v32[1] = 1065353216;
-                      v32 += 4;
-                      --v10;
-                    }
-
-                    while (v10);
-                  }
-                }
-              }
-
-              break;
-            default:
-              __assert_rtn("nxm_copy_NxM_to_RGBX_float32_from_float", "CMMNxMUtils.cpp", 767, "0");
-          }
-        }
-
-        else
-        {
-          switch(a5)
-          {
-            case 4:
-              if (a6 != 3)
-              {
-                __assert_rtn("nxm_copy_CMYK_fixed16_to_RGBX_float32", "CMMNxMUtils.cpp", 624, "inpChannels == 4 && outChannels == 3");
-              }
-
-              v198 = v10 * v10;
-              v199 = CFDataCreateMutable(0, 16 * v198 * v198);
-              v19 = v199;
-              if (v199)
-              {
-                CFDataSetLength(v199, 16 * v198 * v198);
-                v200 = CFDataGetMutableBytePtr(v19);
-                if (v10)
-                {
-                  if (v200)
-                  {
-                    v201 = 0;
-                    v202 = a2 + 2;
-                    v203 = v200 + 12;
-                    v204 = vdup_n_s32(0x477FFF00u);
-                    __asm { FMOV            V1.2S, #1.0 }
-
-                    do
-                    {
-                      v206 = 0;
-                      v207 = v203;
-                      v208 = v202;
-                      do
-                      {
-                        v209 = 0;
-                        v210 = v207;
-                        v211 = v208;
-                        do
-                        {
-                          v212 = v210;
-                          v213 = v211;
-                          v214 = v10;
-                          do
-                          {
-                            v215.i32[0] = *(v213 - 2);
-                            v215.i32[1] = *(v213 - 1);
-                            v216 = vdiv_f32(vcvt_f32_u32(v215), v204);
-                            v217 = vbsl_s8(vcgt_f32(v216, _D1), _D1, v216);
-                            *(v212 - 3) = v217;
-                            v217.i16[0] = *v213;
-                            v218 = v217.u32[0] / 65535.0;
-                            if (v218 > 1.0)
-                            {
-                              v218 = 1.0;
-                            }
-
-                            *(v212 - 1) = v218;
-                            *v212 = 1.0;
-                            v212 += 4;
-                            v213 += 3 * v10 * v198;
-                            --v214;
-                          }
-
-                          while (v214);
-                          ++v209;
-                          v211 += 3 * v198;
-                          v210 += 4 * v10;
-                        }
-
-                        while (v209 != v10);
-                        ++v206;
-                        v208 += 3 * v10;
-                        v207 += 16 * v198;
-                      }
-
-                      while (v206 != v10);
-                      ++v201;
-                      v202 += 3;
-                      v203 += 16 * v10 * v198;
-                    }
-
-                    while (v201 != v10);
-                  }
-                }
-              }
-
-              break;
-            case 3:
-              if (a6 != 3)
-              {
-                __assert_rtn("nxm_copy_RGB_fixed16_to_RGBX_float32", "CMMNxMUtils.cpp", 594, "inpChannels == 3 && outChannels == 3");
-              }
-
-              v165 = v10 * v10;
-              v166 = CFDataCreateMutable(0, 16 * v10 * v10 * v10);
-              v19 = v166;
-              if (v166)
-              {
-                CFDataSetLength(v166, 16 * v10 * v10 * v10);
-                v167 = CFDataGetMutableBytePtr(v19);
-                if (v10)
-                {
-                  if (v167)
-                  {
-                    v168 = 0;
-                    v169 = a2 + 2;
-                    v170 = v167 + 8;
-                    v171 = vdup_n_s32(0x477FFF00u);
-                    __asm { FMOV            V1.2S, #1.0 }
-
-                    do
-                    {
-                      v173 = 0;
-                      v174 = v170;
-                      v175 = v169;
-                      do
-                      {
-                        v176 = v174;
-                        v177 = v175;
-                        v178 = v10;
-                        do
-                        {
-                          v179.i32[0] = *(v177 - 2);
-                          v179.i32[1] = *(v177 - 1);
-                          v180 = vdiv_f32(vcvt_f32_u32(v179), v171);
-                          v181 = vbsl_s8(vcgt_f32(v180, _D1), _D1, v180);
-                          *(v176 - 1) = v181;
-                          v181.i16[0] = *v177;
-                          v182 = v181.u32[0] / 65535.0;
-                          if (v182 > 1.0)
-                          {
-                            v182 = 1.0;
-                          }
-
-                          *v176 = v182;
-                          *(v176 + 1) = 1065353216;
-                          v177 += 3 * v165;
-                          v176 += 16;
-                          --v178;
-                        }
-
-                        while (v178);
-                        ++v173;
-                        v175 += 3 * v10;
-                        v174 += 16 * v10;
-                      }
-
-                      while (v173 != v10);
-                      ++v168;
-                      v169 += 3;
-                      v170 += 16 * v165;
-                    }
-
-                    while (v168 != v10);
-                  }
-                }
-              }
-
-              break;
-            case 1:
-              if (a6 != 3)
-              {
-                __assert_rtn("nxm_copy_GRAY_fixed16_to_RGBX_float32", "CMMNxMUtils.cpp", 569, "inpChannels == 1 && outChannels == 3");
-              }
-
-              v65 = CFDataCreateMutable(0, 16 * v10);
-              v19 = v65;
-              if (v65)
-              {
-                CFDataSetLength(v65, 16 * v10);
-                v66 = CFDataGetMutableBytePtr(v19);
-                if (v10)
-                {
-                  if (v66)
-                  {
-                    v67 = (a2 + 2);
-                    v68 = vdup_n_s32(0x477FFF00u);
-                    v69 = (v66 + 12);
-                    __asm { FMOV            V1.2S, #1.0 }
-
-                    do
-                    {
-                      v74.i32[0] = *(v67 - 2);
-                      v74.i32[1] = *(v67 - 1);
-                      v75 = vdiv_f32(vcvt_f32_u32(v74), v68);
-                      v76 = vbsl_s8(vcgt_f32(v75, _D1), _D1, v75);
-                      *(v69 - 3) = v76;
-                      v76.i16[0] = *v67;
-                      v77 = v76.u32[0] / 65535.0;
-                      if (v77 > 1.0)
-                      {
-                        v77 = 1.0;
-                      }
-
-                      *(v69 - 1) = v77;
-                      *v69 = 1.0;
-                      v69 += 4;
-                      v67 += 3;
-                      --v10;
-                    }
-
-                    while (v10);
-                  }
-                }
-              }
-
-              break;
-            default:
-              __assert_rtn("nxm_copy_NxM_to_RGBX_float32_from_fixed16", "CMMNxMUtils.cpp", 664, "0");
-          }
-        }
-      }
-
-      return v19;
-    }
-
-    if (v11)
-    {
-      if (a5 == 4)
-      {
-        if (a6 != 3)
-        {
-          __assert_rtn("nxm_copy_CMYK_float_to_RGBX_float16", "CMMNxMUtils.cpp", 523, "inpChannels == 4 && outChannels == 3");
-        }
-
-        v134 = v10 * v10;
-        v135 = v134 * v134;
-        v47 = 8 * v134 * v134;
-        v136 = CFDataCreateMutable(0, v47);
-        v19 = v136;
-        if (!v136)
-        {
-          return v19;
-        }
-
-        v49 = 4 * v135;
-        CFDataSetLength(v136, 8 * v134 * v134);
-        v50 = 16 * v135;
-        if (((v135 >> 58) & 3) != 0)
-        {
-          v137 = -1;
-        }
-
-        else
-        {
-          v137 = v135 << 6;
-        }
-
-        v138 = operator new[](v137, MEMORY[0x1E69E5398]);
-        v53 = v138;
-        if (v10 && v138)
-        {
-          v139 = 0;
-          v140 = a2 + 4;
-          v141 = v138 + 12;
-          do
-          {
-            v142 = 0;
-            v143 = v141;
-            v144 = v140;
-            do
-            {
-              v145 = 0;
-              v146 = v143;
-              v147 = v144;
-              do
-              {
-                v148 = v146;
-                v149 = v147;
-                v150 = v10;
-                do
-                {
-                  *(v148 - 3) = *(v149 - 1);
-                  *(v148 - 1) = *v149;
-                  *v148 = 1065353216;
-                  v148 += 4;
-                  v149 += 6 * v10 * v134;
-                  --v150;
-                }
-
-                while (v150);
-                ++v145;
-                v147 += 6 * v134;
-                v146 += 4 * v10;
-              }
-
-              while (v145 != v10);
-              ++v142;
-              v144 += 6 * v10;
-              v143 += 4 * v134;
-            }
-
-            while (v142 != v10);
-            ++v139;
-            v140 += 6;
-            v141 += 16 * v10 * v134;
-          }
-
-          while (v139 != v10);
-        }
-
-        goto LABEL_192;
-      }
-
-      if (a5 != 3)
-      {
-        if (a5 != 1)
-        {
-          __assert_rtn("nxm_create_NxM_to_RGBX_float16_from_float", "CMMNxMUtils.cpp", 561, "0");
-        }
-
-        if (a6 != 3)
-        {
-          __assert_rtn("nxm_copy_GRAY_float_to_RGBX_float16", "CMMNxMUtils.cpp", 468, "inpChannels == 1 && outChannels == 3");
-        }
-
-        v47 = 8 * v10;
-        v48 = CFDataCreateMutable(0, 8 * v10);
-        v19 = v48;
-        if (!v48)
-        {
-          return v19;
-        }
-
-        v49 = 4 * v10;
-        CFDataSetLength(v48, 8 * v10);
-        v50 = 16 * v10;
-        if (((v10 >> 58) & 3) != 0)
-        {
-          v51 = -1;
-        }
-
-        else
-        {
-          v51 = v10 << 6;
-        }
-
-        v52 = operator new[](v51, MEMORY[0x1E69E5398]);
-        v53 = v52;
-        if (v10 && v52)
-        {
-          v54 = a2 + 4;
-          v55 = v52 + 12;
-          do
-          {
-            *(v55 - 3) = *(v54 - 1);
-            v56 = *v54;
-            v54 += 3;
-            *(v55 - 1) = v56;
-            *v55 = 1065353216;
-            v55 += 4;
-            --v10;
-          }
-
-          while (v10);
-        }
-
-        goto LABEL_192;
-      }
-
-      if (a6 != 3)
-      {
-        return 0;
-      }
-
-      v116 = v10 * v10;
-      v117 = v10 * v10 * v10;
-      v47 = 8 * v117;
-      v118 = CFDataCreateMutable(0, 8 * v117);
-      v19 = v118;
-      if (v118)
-      {
-        v49 = 4 * v117;
-        CFDataSetLength(v118, 8 * v117);
-        v50 = 16 * v117;
-        if (((v117 >> 58) & 3) != 0)
-        {
-          v119 = -1;
-        }
-
-        else
-        {
-          v119 = v117 << 6;
-        }
-
-        v120 = operator new[](v119, MEMORY[0x1E69E5398]);
-        v53 = v120;
-        if (v10 && v120)
-        {
-          v121 = 0;
-          v122 = a2 + 4;
-          v123 = v120 + 8;
-          do
-          {
-            v124 = 0;
-            v125 = v123;
-            v126 = v122;
-            do
-            {
-              v127 = v125;
-              v128 = v126;
-              v129 = v10;
-              do
-              {
-                *(v127 - 1) = *(v128 - 1);
-                *v127 = *v128;
-                v127[1] = 1065353216;
-                v128 += 6 * v116;
-                v127 += 4;
-                --v129;
-              }
-
-              while (v129);
-              ++v124;
-              v126 += 6 * v10;
-              v125 += 4 * v10;
-            }
-
-            while (v124 != v10);
-            ++v121;
-            v122 += 6;
-            v123 += 16 * v116;
-          }
-
-          while (v121 != v10);
-        }
-
-LABEL_192:
-        v223 = v53;
-        v224 = 1;
-        v225 = v49;
-        v226 = v50;
-        v219 = CFDataGetMutableBytePtr(v19);
-        v220 = 1;
-        v221 = v49;
-        v222 = v47;
-        ColorSync_vImageConvert_Fto16F(&v223, &v219);
-        if (v53)
-        {
-          MEMORY[0x19EAE45F0](v53, 0x1000C8052888210);
-        }
-      }
-
-      return v19;
-    }
-
-    switch(a5)
-    {
-      case 4:
-        if (a6 != 3)
-        {
-          __assert_rtn("nxm_copy_CMYK_fixed16_to_RGBX_float16", "CMMNxMUtils.cpp", 430, "inpChannels == 4 && outChannels == 3");
-        }
-
-        v151 = v10 * v10 * v10 * v10;
-        v58 = 8 * v151;
-        v152 = CFDataCreateMutable(0, 8 * v151);
-        v19 = v152;
-        if (!v152)
-        {
-          return v19;
-        }
-
-        v132 = 4 * v151;
-        CFDataSetLength(v152, v58);
-        v133 = CFDataGetMutableBytePtr(v19);
-        repackage_CMYK16_to_RGBX16(v133, a2, v10);
-        break;
-      case 3:
-        if (a6 != 3)
-        {
-          __assert_rtn("nxm_copy_RGB_fixed16_to_RGBX_float16", "CMMNxMUtils.cpp", 407, "inpChannels == 3 && outChannels == 3");
-        }
-
-        v130 = v10 * v10 * v10;
-        v58 = 8 * v130;
-        v131 = CFDataCreateMutable(0, 8 * v130);
-        v19 = v131;
-        if (!v131)
-        {
-          return v19;
-        }
-
-        v132 = 4 * v130;
-        CFDataSetLength(v131, 8 * v130);
-        v133 = CFDataGetMutableBytePtr(v19);
-        repackage_RGB16_to_RGBX16(v133, a2, v10);
-        break;
-      case 1:
-        if (a6 != 3)
-        {
-          __assert_rtn("nxm_copy_GRAY_fixed16_to_RGBX_float16", "CMMNxMUtils.cpp", 384, "inpChannels == 1 && outChannels == 3");
-        }
-
-        v58 = 8 * v10;
-        v59 = CFDataCreateMutable(0, 8 * v10);
-        v19 = v59;
-        if (!v59)
-        {
-          return v19;
-        }
-
-        v60 = 4 * v10;
-        CFDataSetLength(v59, 8 * v10);
-        v61 = CFDataGetMutableBytePtr(v19);
-        if (v10 && v61)
-        {
-          v62 = v61 + 4;
-          v63 = (a2 + 2);
-          do
-          {
-            *(v62 - 2) = *(v63 - 2);
-            *(v62 - 1) = *(v63 - 1);
-            v64 = *v63;
-            v63 += 3;
-            *v62 = v64;
-            v62[1] = -1;
-            v62 += 4;
-            --v10;
-          }
-
-          while (v10);
-        }
-
-        v223 = v61;
-        v224 = 1;
-        v225 = v60;
-        goto LABEL_198;
-      default:
-        __assert_rtn("nxm_create_NxM_to_RGBX_float16_from_fixed16", "CMMNxMUtils.cpp", 460, "0");
-    }
-
-    v223 = v133;
-    v224 = 1;
-    v225 = v132;
-LABEL_198:
-    v226 = v58;
-    v78 = &v223;
-    goto LABEL_199;
-  }
-
-  v25 = v16 * a6;
-  if (a1)
-  {
-    if (a1 == 1)
-    {
-      v57 = CFDataCreateMutable(0, 2 * v25);
-      v19 = v57;
-      if (v11)
-      {
-        if (v57)
-        {
-          CFDataSetLength(v57, 2 * v25);
-          v223 = a2;
-          v224 = 1;
-          v225 = v25;
-          v226 = 4 * v25;
-          v219 = CFDataGetMutableBytePtr(v19);
-          v220 = 1;
-          v221 = v25;
-          v222 = 2 * v25;
-          ColorSync_vImageConvert_Fto16F(&v223, &v219);
-        }
-
-        return v19;
-      }
-
-      if (!v57)
-      {
-        return v19;
-      }
-
-      CFDataSetLength(v57, 2 * v25);
-      v223 = a2;
-      v224 = 1;
-      v225 = v25;
-      v226 = 2 * v25;
-      v219 = CFDataGetMutableBytePtr(v19);
-      v220 = 1;
-      v221 = v25;
-      v222 = 2 * v25;
-      v78 = &v219;
-LABEL_199:
-      ColorSync_vImageConvert_16Uto16F(&v223, v78);
-      return v19;
-    }
-
-    if (a1 != 2)
-    {
-      return v19;
-    }
-
-    v26 = 4 * v25;
-    if (!v11)
-    {
-      v27 = CFDataCreateMutable(0, 4 * v25);
-      v19 = v27;
-      if (v27)
-      {
-        CFDataSetLength(v27, 4 * v25);
-        v223 = a2;
-        v224 = 1;
-        v225 = v25;
-        v226 = 2 * v25;
-        v219 = CFDataGetMutableBytePtr(v19);
-        v220 = 1;
-        v221 = v25;
-        v222 = 4 * v25;
-        ColorSync_vImageConvert_16UToF(&v223, &v219, v28, v29);
-      }
-
-      return v19;
-    }
-  }
-
-  else
-  {
-    v26 = 2 * v25;
-    if (v11)
-    {
-      v35 = CFDataCreateMutable(0, 2 * v25);
-      v19 = v35;
-      if (v35)
-      {
-        CFDataSetLength(v35, 2 * v25);
-        v223 = a2;
-        v224 = 1;
-        v225 = v25;
-        v226 = 4 * v25;
-        v219 = CFDataGetMutableBytePtr(v19);
-        v220 = 1;
-        v221 = v25;
-        v222 = 2 * v25;
-        v36 = ColorSync_vImageConvert_Fto16U_ptr__;
-        if (!ColorSync_vImageConvert_Fto16U_ptr__)
-        {
-          if (ColorSyncLoadvImageDYLD_once != -1)
-          {
-            dispatch_once(&ColorSyncLoadvImageDYLD_once, &__block_literal_global_1547);
-          }
-
-          v37 = ColorSyncLoadvImageDYLD_handle;
-          if (ColorSyncLoadvImageDYLD_handle)
-          {
-            v37 = dlsym(ColorSyncLoadvImageDYLD_handle, "vImageConvert_FTo16U");
-          }
-
-          if (v37)
-          {
-            v36 = v37;
-          }
-
-          else
-          {
-            v36 = vImage_smart_null;
-          }
-
-          ColorSync_vImageConvert_Fto16U_ptr__ = v36;
-        }
-
-        (v36)(&v223, &v219, 0, 0.0, 0.000015259);
-      }
-
-      return v19;
-    }
-  }
-
-  return CFDataCreate(0, a2, v26);
-}
-
 __CFDictionary *CMMConvMatrixTemplate<CMMMtxLabToXYZ,CMMConvMatrix>::FlattenConversion(uint64_t a1)
 {
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -1512,7 +316,7 @@ uint64_t ColorSyncNxMCreate(const void *a1, int a2, __int128 *a3, int a4, const 
   return v14;
 }
 
-BOOL matrix_equal_matrix(char *cf, uint64_t a2)
+uint64_t matrix_equal_matrix(char *cf, uint64_t a2)
 {
   if (cf == a2)
   {
@@ -1660,9 +464,10 @@ BOOL InvertMatrix(double *a1)
   return v12 >= 1.17549435e-38;
 }
 
-void ColorSyncLog(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void ColorSyncLog(int a1, const char *a2, ...)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  va_start(va, a2);
+  v16 = *MEMORY[0x1E69E9840];
   if (a1 >= 1)
   {
     if (ColorSyncLog_predicate != -1)
@@ -1670,72 +475,70 @@ void ColorSyncLog(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ui
       dispatch_once(&ColorSyncLog_predicate, &__block_literal_global_1);
     }
 
-    v11 = *MEMORY[0x1E695E480];
-    v12 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%s", a2);
-    v13 = CFStringCreateWithFormatAndArguments(v11, 0, v12, &a9);
-    if (v12)
+    v4 = *MEMORY[0x1E695E480];
+    v5 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%s", a2);
+    v6 = CFStringCreateWithFormatAndArguments(v4, 0, v5, va);
+    if (v5)
     {
-      CFRelease(v12);
+      CFRelease(v5);
     }
 
-    if (v13)
+    if (v6)
     {
-      CStringPtr = CFStringGetCStringPtr(v13, 0x8000100u);
+      CStringPtr = CFStringGetCStringPtr(v6, 0x8000100u);
       if (CStringPtr)
       {
-        v15 = CStringPtr;
-        v16 = 0;
+        v8 = CStringPtr;
+        v9 = 0;
       }
 
       else
       {
-        Length = CFStringGetLength(v13);
+        Length = CFStringGetLength(v6);
         MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-        v16 = malloc_type_calloc(MaximumSizeForEncoding, 1uLL, 0xFA682526uLL);
-        if (v16 && CFStringGetCString(v13, v16, MaximumSizeForEncoding, 0x8000100u))
+        v9 = malloc_type_calloc(MaximumSizeForEncoding, 1uLL, 0xFA682526uLL);
+        if (v9 && CFStringGetCString(v6, v9, MaximumSizeForEncoding, 0x8000100u))
         {
-          v15 = v16;
+          v8 = v9;
         }
 
         else
         {
-          v15 = &unk_19AA95E0B;
+          v8 = &unk_19AA95E0B;
         }
       }
 
       if (a1 == 3)
       {
-        puts(v15);
+        puts(v8);
       }
 
       else if (a1 == 2)
       {
-        v19 = ColorSyncLog_log;
+        v12 = ColorSyncLog_log;
         if (os_log_type_enabled(ColorSyncLog_log, OS_LOG_TYPE_ERROR))
         {
           *buf = 136446210;
-          v23 = v15;
-          _os_log_error_impl(&dword_19A910000, v19, OS_LOG_TYPE_ERROR, "%{public}s", buf, 0xCu);
+          v15 = v8;
+          _os_log_error_impl(&dword_19A910000, v12, OS_LOG_TYPE_ERROR, "%{public}s", buf, 0xCu);
         }
       }
 
       else
       {
-        v20 = ColorSyncLog_log;
+        v13 = ColorSyncLog_log;
         if (os_log_type_enabled(ColorSyncLog_log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446210;
-          v23 = v15;
-          _os_log_impl(&dword_19A910000, v20, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
+          v15 = v8;
+          _os_log_impl(&dword_19A910000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
         }
       }
 
-      free(v16);
-      CFRelease(v13);
+      free(v9);
+      CFRelease(v6);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 os_log_t __ColorSyncLog_block_invoke()
@@ -1767,83 +570,83 @@ os_log_t __ColorSyncLog_block_invoke()
   return result;
 }
 
-uint64_t ColorSyncEvaluateConstrainedHeadroomForReferenceWhiteToneMapping(const void *a1, _DWORD *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ColorSyncEvaluateConstrainedHeadroomForReferenceWhiteToneMapping(const void *a1, _DWORD *a2, _DWORD *a3)
 {
-  v10 = 8.0;
-  v11 = 0.0;
-  v12 = 0.5;
-  v13 = 1.0;
-  v14 = 0.9;
-  v15 = 0.35;
-  v16 = 2.6667;
+  v5 = 8.0;
+  v6 = 0.0;
+  v7 = 0.5;
+  v8 = 1.0;
+  v9 = 0.9;
+  v10 = 0.35;
+  v11 = 2.6667;
   if (a1)
   {
-    v18 = CFGetTypeID(a1);
-    if (v18 == CFDictionaryGetTypeID())
+    v13 = CFGetTypeID(a1);
+    if (v13 == CFDictionaryGetTypeID())
     {
-      v31 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMSourcePeak", 1000.0);
-      v30 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMSourceReferenceWhite", 203.0);
-      v29 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMEDRHeadroom", 1.0);
-      v28 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMTargetReferenceWhiteBase", 0.5);
-      v16 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMReferenceWhiteThreshold", 2.6667);
-      v19 = float_from_dictionary_with_default(a1, @"com.apple.cmm.ContentEDRStrength", 1.0);
-      v20 = int32_from_dictionary_with_default(a1, @"com.apple.cmm.ContentAverageLightLevelNits", 0);
-      v11 = float_from_dictionary_with_default(a1, @"com.apple.cmm.ConstrainedDynamicRange", 0.0);
-      v15 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMMinimumSDRExposure", 0.35);
-      v21 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMOffsetAnchor", 2.6667);
-      v22 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMHighlightsTradeOffRatio", 0.35);
-      v14 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMMinimumGammaAdjustment", 0.9);
-      v10 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMStopAnchor", 8.0);
-      v23 = int32_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMVersion", 2);
-      v25 = v30;
-      v24 = v31;
-      v12 = v28;
-      v13 = v29;
-      v26 = v23;
+      v26 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMSourcePeak", 1000.0);
+      v25 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMSourceReferenceWhite", 203.0);
+      v24 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMEDRHeadroom", 1.0);
+      v23 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMTargetReferenceWhiteBase", 0.5);
+      v11 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMReferenceWhiteThreshold", 2.6667);
+      v14 = float_from_dictionary_with_default(a1, @"com.apple.cmm.ContentEDRStrength", 1.0);
+      v15 = int32_from_dictionary_with_default(a1, @"com.apple.cmm.ContentAverageLightLevelNits", 0);
+      v6 = float_from_dictionary_with_default(a1, @"com.apple.cmm.ConstrainedDynamicRange", 0.0);
+      v10 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMMinimumSDRExposure", 0.35);
+      v16 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMOffsetAnchor", 2.6667);
+      v17 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMHighlightsTradeOffRatio", 0.35);
+      v9 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMMinimumGammaAdjustment", 0.9);
+      v5 = float_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMStopAnchor", 8.0);
+      v18 = int32_from_dictionary_with_default(a1, @"com.apple.cmm.RWTMVersion", 2);
+      v20 = v25;
+      v19 = v26;
+      v7 = v23;
+      v8 = v24;
+      v21 = v18;
     }
 
     else
     {
-      v20 = 0;
-      v26 = 2;
-      v24 = 1000.0;
-      v25 = 203.0;
-      v19 = 1.0;
-      v21 = 2.6667;
-      v22 = 0.35;
-      v13 = 1.0;
-      v12 = 0.5;
+      v15 = 0;
+      v21 = 2;
+      v19 = 1000.0;
+      v20 = 203.0;
+      v14 = 1.0;
+      v16 = 2.6667;
+      v17 = 0.35;
+      v8 = 1.0;
+      v7 = 0.5;
     }
   }
 
   else
   {
-    v20 = 0;
-    v26 = 2;
-    v24 = 1000.0;
-    v25 = 203.0;
-    v19 = 1.0;
-    v21 = 2.6667;
-    v22 = 0.35;
+    v15 = 0;
+    v21 = 2;
+    v19 = 1000.0;
+    v20 = 203.0;
+    v14 = 1.0;
+    v16 = 2.6667;
+    v17 = 0.35;
   }
 
-  v39 = 0;
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v34 = 0;
+  v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  memset(v32, 0, sizeof(v32));
-  CMMConvRWToneMapping::CMMConvRWToneMapping(v32, 1000.0, v24, v25, v13, v12, v16, v19, v20, v11, v26, 0, a5, a6, a7, a8, v15, v21, v22, v14, v10);
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  memset(v27, 0, sizeof(v27));
+  CMMConvRWToneMapping::CMMConvRWToneMapping(v27, 1000.0, v19, v20, v8, v7, v11, v14, v15, v6, v21, 0, v10, v16, v17, v9, v5);
   if (a2)
   {
-    *a2 = DWORD1(v33);
+    *a2 = DWORD1(v28);
   }
 
   if (a3)
   {
-    *a3 = v33;
+    *a3 = v28;
   }
 
   return 1;
@@ -2096,25 +899,25 @@ const ColorSyncProfile *makeConcatenated(uint64_t a1, CFTypeRef cf)
 
 uint64_t makeTableBasedRGB(uint64_t a1, const void *a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v4 = create(0, 0, 1, 0);
   v5 = CFGetTypeID(a2);
   if (v5 == CFDictionaryGetTypeID())
   {
     Value = CFDictionaryGetValue(a2, @"A2B0");
-    v34 = Value;
-    v35 = CFDictionaryGetValue(a2, @"A2B1");
+    v33 = Value;
+    v34 = CFDictionaryGetValue(a2, @"A2B1");
     v7 = CFDictionaryGetValue(a2, @"A2B2");
-    v36 = v7;
-    if (!v35)
+    v35 = v7;
+    if (!v34)
     {
-      v35 = Value;
+      v34 = Value;
     }
 
     prof = v4;
     if (!v7)
     {
-      v36 = Value;
+      v35 = Value;
     }
 
     v8 = CFDictionaryGetValue(a2, @"gridPoints");
@@ -2124,7 +927,7 @@ uint64_t makeTableBasedRGB(uint64_t a1, const void *a2)
     {
       if (valuePtr)
       {
-        v10 = *(&v34 + i);
+        v10 = *(&v33 + i);
         if (v10)
         {
           BytePtr = CFDataGetBytePtr(v10);
@@ -2217,7 +1020,6 @@ uint64_t makeTableBasedRGB(uint64_t a1, const void *a2)
     }
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -2267,12 +1069,23 @@ void *makeByCopyingTags(uint64_t a1, const void *a2)
 
 ColorSyncProfile *makeCopyWithFlexGTC(uint64_t a1, CFDictionaryRef theDict)
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   Value = CFDictionaryGetValue(theDict, @"profileToCopy");
-  if (!Value || (v5 = Value, !ColorSyncProfileIsPQBased(Value)) || (CICPInfo = ColorSyncProfileGetCICPInfo(v5)) == 0)
+  if (!Value)
   {
-    MutableCopy = 0;
-    goto LABEL_11;
+    return 0;
+  }
+
+  v5 = Value;
+  if (!ColorSyncProfileIsPQBased(Value))
+  {
+    return 0;
+  }
+
+  CICPInfo = ColorSyncProfileGetCICPInfo(v5);
+  if (!CICPInfo)
+  {
+    return 0;
   }
 
   v7 = CICPInfo;
@@ -2280,7 +1093,7 @@ ColorSyncProfile *makeCopyWithFlexGTC(uint64_t a1, CFDictionaryRef theDict)
   MutableCopy = ColorSyncProfileCreateMutableCopy(v5);
   if (MutableCopy)
   {
-    v86 = v8;
+    v85 = v8;
     v10 = CFDictionaryGetValue(theDict, kColorSyncPreGainMapCICP);
     if (v10 && (v11 = v10, v12 = CFGetTypeID(v10), v12 == CFNumberGetTypeID()))
     {
@@ -2301,313 +1114,312 @@ ColorSyncProfile *makeCopyWithFlexGTC(uint64_t a1, CFDictionaryRef theDict)
       A = 0;
     }
 
-    v16 = (A & 0xFF00) != 0 && A != 0;
-    v17 = CFDictionaryGetValue(theDict, kColorSyncPostGainMapCICP);
-    if (v17 && (v18 = v17, v19 = CFGetTypeID(v17), v19 == CFNumberGetTypeID()))
+    v15 = (A & 0xFF00) != 0 && A != 0;
+    v16 = CFDictionaryGetValue(theDict, kColorSyncPostGainMapCICP);
+    if (v16 && (v17 = v16, v18 = CFGetTypeID(v16), v18 == CFNumberGetTypeID()))
     {
       valuePtr.A = 0;
-      if (CFNumberGetValue(v18, kCFNumberSInt32Type, &valuePtr) == 1)
+      if (CFNumberGetValue(v17, kCFNumberSInt32Type, &valuePtr) == 1)
       {
-        v20 = valuePtr.A;
+        v19 = valuePtr.A;
       }
 
       else
       {
-        v20 = 0;
+        v19 = 0;
       }
     }
 
     else
     {
-      v20 = 0;
+      v19 = 0;
     }
 
-    v21 = (v20 & 0xFF00) == 0 || v20 == 0;
-    v22 = CFGetTypeID(theDict);
-    if (v22 != CFDictionaryGetTypeID())
+    v20 = (v19 & 0xFF00) == 0 || v19 == 0;
+    v21 = CFGetTypeID(theDict);
+    if (v21 != CFDictionaryGetTypeID())
     {
       goto LABEL_88;
     }
 
-    v84 = v16;
-    v23 = CFDictionaryGetValue(theDict, kColorSyncMonoFlexGTCNodeTable);
-    if (!v23)
+    v83 = v15;
+    v22 = CFDictionaryGetValue(theDict, kColorSyncMonoFlexGTCNodeTable);
+    if (!v22)
     {
       goto LABEL_88;
     }
 
-    v24 = v23;
-    v25 = CFGetTypeID(v23);
-    if (v25 != CFArrayGetTypeID())
+    v23 = v22;
+    v24 = CFGetTypeID(v22);
+    if (v24 != CFArrayGetTypeID())
     {
       goto LABEL_88;
     }
 
-    Count = CFArrayGetCount(v24);
+    Count = CFArrayGetCount(v23);
     if (Count < 1)
     {
       goto LABEL_88;
     }
 
-    v27 = Count;
-    v82 = v21;
-    v83 = A;
-    v28 = 1;
-    theArray = v24;
+    v26 = Count;
+    v81 = v20;
+    v82 = A;
+    v27 = 1;
+    theArray = v23;
     do
     {
-      v29 = v27;
-      ValueAtIndex = CFArrayGetValueAtIndex(v24, v28 - 1);
+      v28 = v26;
+      ValueAtIndex = CFArrayGetValueAtIndex(v23, v27 - 1);
       if (!ValueAtIndex)
       {
         goto LABEL_88;
       }
 
-      v31 = ValueAtIndex;
-      v32 = CFGetTypeID(ValueAtIndex);
-      if (v32 != CFDictionaryGetTypeID() || !verified_float_from_dictionary(v31, kColorSyncFlexGTCNodeX, 0) || !verified_float_from_dictionary(v31, kColorSyncFlexGTCNodeY, 0))
+      v30 = ValueAtIndex;
+      v31 = CFGetTypeID(ValueAtIndex);
+      if (v31 != CFDictionaryGetTypeID() || !verified_float_from_dictionary(v30, kColorSyncFlexGTCNodeX, 0) || !verified_float_from_dictionary(v30, kColorSyncFlexGTCNodeY, 0))
       {
         goto LABEL_88;
       }
 
-      v33 = verified_float_from_dictionary(v31, kColorSyncFlexGTCNodeSlope, 0);
-      v24 = theArray;
-      v27 = v29;
-      if ((v33 & 1) == 0)
+      v32 = verified_float_from_dictionary(v30, kColorSyncFlexGTCNodeSlope, 0);
+      v23 = theArray;
+      v26 = v28;
+      if ((v32 & 1) == 0)
       {
         break;
       }
     }
 
-    while (v28++ < v29);
-    if (((v29 != 0) & v33) == 0 || (v35 = malloc_type_calloc(1uLL, (12 * v29 + 158), 0x100004079E30E38uLL)) == 0)
+    while (v27++ < v28);
+    if (((v28 != 0) & v32) == 0 || (v34 = malloc_type_calloc(1uLL, (12 * v28 + 158), 0x100004079E30E38uLL)) == 0)
     {
 LABEL_88:
       CopyWithFlexGTCBasedA2B0 = 0;
       goto LABEL_89;
     }
 
-    data = v35;
-    v36 = CFDictionaryGetValue(theDict, kColorSyncMonoGainMapParams);
-    if (v36)
+    data = v34;
+    v35 = CFDictionaryGetValue(theDict, kColorSyncMonoGainMapParams);
+    if (v35)
     {
-      v37 = v36;
-      v38 = CFGetTypeID(v36);
-      if (v38 == CFDictionaryGetTypeID())
+      v36 = v35;
+      v37 = CFGetTypeID(v35);
+      if (v37 == CFDictionaryGetTypeID())
       {
-        len = (12 * v29 + 158);
+        len = (12 * v28 + 158);
         valuePtr.A = 0;
-        if (verified_float_from_dictionary(v37, kColorSyncGainMapMin, &valuePtr))
+        if (verified_float_from_dictionary(v36, kColorSyncGainMapMin, &valuePtr))
         {
-          v39 = valuePtr.A;
-          if (verified_float_from_dictionary(v37, kColorSyncGainMapMax, &valuePtr))
+          v38 = valuePtr.A;
+          if (verified_float_from_dictionary(v36, kColorSyncGainMapMax, &valuePtr))
           {
-            v79 = valuePtr.A;
-            if (verified_float_from_dictionary(v37, kColorSyncGainMapGamma, &valuePtr))
+            v78 = valuePtr.A;
+            if (verified_float_from_dictionary(v36, kColorSyncGainMapGamma, &valuePtr))
             {
-              v78 = valuePtr.A;
-              if (verified_float_from_dictionary(v37, kColorSyncGainMapBaselineConst, &valuePtr))
+              v77 = valuePtr.A;
+              if (verified_float_from_dictionary(v36, kColorSyncGainMapBaselineConst, &valuePtr))
               {
-                v77 = valuePtr.A;
-                if (verified_float_from_dictionary(v37, kColorSyncGainMapAlternateConst, &valuePtr))
+                v76 = valuePtr.A;
+                if (verified_float_from_dictionary(v36, kColorSyncGainMapAlternateConst, &valuePtr))
                 {
-                  v76 = valuePtr.A;
-                  if (verified_float_from_dictionary(v37, kColorSyncGainMapBaselineHeadroom, &valuePtr))
+                  v75 = valuePtr.A;
+                  if (verified_float_from_dictionary(v36, kColorSyncGainMapBaselineHeadroom, &valuePtr))
                   {
-                    v40 = valuePtr.A;
-                    if (verified_float_from_dictionary(v37, kColorSyncGainMapAlternateHeadroom, &valuePtr))
+                    v39 = valuePtr.A;
+                    if (verified_float_from_dictionary(v36, kColorSyncGainMapAlternateHeadroom, &valuePtr))
                     {
-                      v75 = valuePtr.A;
-                      if (CFDictionaryContainsKey(v37, kColorSyncGUID) == 1)
+                      v74 = valuePtr.A;
+                      if (CFDictionaryContainsKey(v36, kColorSyncGUID) == 1)
                       {
-                        v41 = CFDictionaryGetValue(v37, kColorSyncGUID);
-                        if (!v41)
+                        v40 = CFDictionaryGetValue(v36, kColorSyncGUID);
+                        if (!v40)
                         {
                           goto LABEL_87;
                         }
 
-                        v42 = v41;
-                        v74 = CFGetTypeID(v41);
-                        if (v74 != CFUUIDGetTypeID())
+                        v41 = v40;
+                        v73 = CFGetTypeID(v40);
+                        if (v73 != CFUUIDGetTypeID())
                         {
                           goto LABEL_87;
                         }
 
-                        *(data + 106) = CFUUIDGetUUIDBytes(v42);
-                        *(data + 122) = bswap32(v39);
-                        *(data + 126) = bswap32(v79);
-                        *(data + 130) = bswap32(v78);
-                        *(data + 134) = bswap32(v77);
-                        *(data + 138) = bswap32(v76);
-                        *(data + 142) = bswap32(v40);
-                        *(data + 146) = bswap32(v75);
+                        *(data + 106) = CFUUIDGetUUIDBytes(v41);
+                        *(data + 122) = bswap32(v38);
+                        *(data + 126) = bswap32(v78);
+                        *(data + 130) = bswap32(v77);
+                        *(data + 134) = bswap32(v76);
+                        *(data + 138) = bswap32(v75);
+                        *(data + 142) = bswap32(v39);
+                        *(data + 146) = bswap32(v74);
                       }
 
-                      if (v84)
+                      if (v83)
                       {
-                        v43 = v83;
+                        v42 = v82;
                       }
 
                       else
                       {
-                        v43 = v86 & 0xFFFF00FF | 0x800;
+                        v42 = v85 & 0xFFFF00FF | 0x800;
                       }
 
-                      if (v82)
+                      if (v81)
                       {
-                        v44 = 0;
+                        v43 = 0;
                       }
 
                       else
                       {
-                        v44 = 1711276032;
+                        v43 = 1711276032;
                       }
 
-                      if (v82)
+                      if (v81)
                       {
-                        v20 = 0;
+                        v19 = 0;
                       }
 
-                      v45 = CFDictionaryGetValue(theDict, @"FlexGTC.based.A2B0");
-                      v46 = *MEMORY[0x1E695E4D0];
-                      v47 = bswap32(v43);
-                      v48 = bswap32(v20);
+                      v44 = CFDictionaryGetValue(theDict, @"FlexGTC.based.A2B0");
+                      v45 = *MEMORY[0x1E695E4D0];
+                      v46 = bswap32(v42);
+                      v47 = bswap32(v19);
                       *data = 1885433191;
                       *(data + 2) = 0;
                       *(data + 3) = bswap32(len);
                       *(data + 1) = xmmword_19A96E090;
-                      *(data + 8) = v44;
+                      *(data + 8) = v43;
                       *(data + 9) = -1778384896;
-                      v49 = bswap32(12 * v29 + 8);
-                      *(data + 10) = v49;
+                      v48 = bswap32(12 * v28 + 8);
+                      *(data + 10) = v48;
                       *(data + 11) = -1778384896;
-                      *(data + 12) = v49;
+                      *(data + 12) = v48;
                       *(data + 13) = -1778384896;
-                      v87 = v46;
-                      if (v45 == v46)
+                      v86 = v45;
+                      if (v44 == v45)
                       {
-                        v50 = 809644609;
+                        v49 = 809644609;
                       }
 
                       else
                       {
-                        v50 = 0;
+                        v49 = 0;
                       }
 
-                      *(data + 14) = v49;
-                      *(data + 15) = v50;
+                      *(data + 14) = v48;
+                      *(data + 15) = v49;
                       *(data + 8) = 0;
-                      *(data + 98) = v47;
-                      *(data + 102) = v48;
+                      *(data + 98) = v46;
+                      *(data + 102) = v47;
                       *(data + 150) = 0;
-                      *(data + 154) = bswap32(v29);
-                      v51 = malloc_type_calloc(v29, 0xCuLL, 0x10000403E1C8BA9uLL);
-                      if (v51)
+                      *(data + 154) = bswap32(v28);
+                      v50 = malloc_type_calloc(v28, 0xCuLL, 0x10000403E1C8BA9uLL);
+                      if (v50)
                       {
-                        v52 = v51;
-                        v53 = 0;
-                        v54 = v51 + 2;
+                        v51 = v50;
+                        v52 = 0;
+                        v53 = v50 + 2;
                         do
                         {
-                          v55 = CFArrayGetValueAtIndex(theArray, v53);
+                          v54 = CFArrayGetValueAtIndex(theArray, v52);
                           valuePtr.A = 0;
-                          verified_float_from_dictionary(v55, kColorSyncFlexGTCNodeX, &valuePtr);
-                          *(v54 - 2) = bswap32(valuePtr.A);
-                          verified_float_from_dictionary(v55, kColorSyncFlexGTCNodeY, &valuePtr);
-                          *(v54 - 1) = bswap32(valuePtr.A);
-                          verified_float_from_dictionary(v55, kColorSyncFlexGTCNodeSlope, &valuePtr);
-                          *v54 = bswap32(valuePtr.A);
-                          v54 += 3;
-                          ++v53;
+                          verified_float_from_dictionary(v54, kColorSyncFlexGTCNodeX, &valuePtr);
+                          *(v53 - 2) = bswap32(valuePtr.A);
+                          verified_float_from_dictionary(v54, kColorSyncFlexGTCNodeY, &valuePtr);
+                          *(v53 - 1) = bswap32(valuePtr.A);
+                          verified_float_from_dictionary(v54, kColorSyncFlexGTCNodeSlope, &valuePtr);
+                          *v53 = bswap32(valuePtr.A);
+                          v53 += 3;
+                          ++v52;
                         }
 
-                        while (v29 != v53);
-                        memcpy(data + 158, v52, 12 * v29);
-                        free(v52);
+                        while (v28 != v52);
+                        memcpy(data + 158, v51, 12 * v28);
+                        free(v51);
                       }
 
-                      v56 = CFDictionaryGetValue(theDict, kColorSyncMonoGainMapParams);
-                      if (CFDictionaryGetValue(v56, kColorSyncGUID))
+                      v55 = CFDictionaryGetValue(theDict, kColorSyncMonoGainMapParams);
+                      if (CFDictionaryGetValue(v55, kColorSyncGUID))
                       {
-                        v57 = *(data + 106);
-                        v58 = *(data + 114);
+                        v56 = *(data + 106);
+                        v57 = *(data + 114);
                       }
 
                       else
                       {
                         *md = 0;
-                        v90 = 0;
+                        v89 = 0;
                         memset(&valuePtr, 0, sizeof(valuePtr));
                         CC_MD5_Init(&valuePtr);
                         CC_MD5_Update(&valuePtr, data, len);
                         CC_MD5_Final(md, &valuePtr);
-                        v57 = *md;
-                        v58 = v90;
+                        v56 = *md;
+                        v57 = v89;
                       }
 
-                      v59 = CFDataCreate(0, data, len);
-                      if (v59)
+                      v58 = CFDataCreate(0, data, len);
+                      if (v58)
                       {
-                        v60 = v59;
-                        ColorSyncProfileSetTag(MutableCopy, @"hdgm", v59);
-                        CFRelease(v60);
-                        v61 = CFDictionaryGetValue(theDict, kColorSyncFlexGTCName);
-                        v62 = *v7 - 1 > 0xB ? @"Unknown primaries" : off_1E7522E08[(*v7 - 1)];
-                        v63 = v7[1] - 1 > 0x11 ? 0 : *(&off_1E7522E68 + (v7[1] - 1));
-                        v64 = CFStringCreateWithFormat(0, 0, @"%@; %@", v62, v63);
-                        *&valuePtr.A = v57;
-                        *&valuePtr.C = v58;
-                        v65 = XXH64(&valuePtr);
-                        v66 = @"Adaptive Gain Curve";
-                        if (v61)
+                        v59 = v58;
+                        ColorSyncProfileSetTag(MutableCopy, @"hdgm", v58);
+                        CFRelease(v59);
+                        v60 = CFDictionaryGetValue(theDict, kColorSyncFlexGTCName);
+                        v61 = *v7 - 1 > 0xB ? @"Unknown primaries" : off_1E7522E08[(*v7 - 1)];
+                        v62 = v7[1] - 1 > 0x11 ? 0 : *(&off_1E7522E68 + (v7[1] - 1));
+                        v63 = CFStringCreateWithFormat(0, 0, @"%@; %@", v61, v62);
+                        *&valuePtr.A = v56;
+                        *&valuePtr.C = v57;
+                        v64 = XXH64(&valuePtr);
+                        v65 = @"Adaptive Gain Curve";
+                        if (v60)
                         {
-                          v66 = v61;
+                          v65 = v60;
                         }
 
-                        v67 = CFStringCreateWithFormat(0, 0, @"%@ %02X%02X%02X%02X%02X%02X%02X%02X", v66, v65, BYTE1(v65), BYTE2(v65), BYTE3(v65), BYTE4(v65), BYTE5(v65), BYTE6(v65), HIBYTE(v65));
-                        v68 = CFStringCreateWithFormat(0, 0, @"%@ (%@)", v64, v67);
-                        CFRelease(v64);
-                        CFRelease(v67);
-                        if (v68)
+                        v66 = CFStringCreateWithFormat(0, 0, @"%@ %02X%02X%02X%02X%02X%02X%02X%02X", v65, v64, BYTE1(v64), BYTE2(v64), BYTE3(v64), BYTE4(v64), BYTE5(v64), BYTE6(v64), HIBYTE(v64));
+                        v67 = CFStringCreateWithFormat(0, 0, @"%@ (%@)", v63, v66);
+                        CFRelease(v63);
+                        CFRelease(v66);
+                        if (v67)
                         {
                           ColorSyncProfileRemoveTag(MutableCopy, @"dscm");
-                          ColorSyncProfileSetDescriptionTag(MutableCopy, v68, 0);
-                          CFRelease(v68);
-                          v69 = ColorSyncProfileCopyHeader(v5);
-                          if (v69)
+                          ColorSyncProfileSetDescriptionTag(MutableCopy, v67, 0);
+                          CFRelease(v67);
+                          v68 = ColorSyncProfileCopyHeader(v5);
+                          if (v68)
                           {
-                            v70 = v69;
-                            v71 = CFGetTypeID(v69);
-                            if (v71 == CFDataGetTypeID())
+                            v69 = v68;
+                            v70 = CFGetTypeID(v68);
+                            if (v70 == CFDataGetTypeID())
                             {
-                              BytePtr = CFDataGetBytePtr(v70);
+                              BytePtr = CFDataGetBytePtr(v69);
                               if (BytePtr)
                               {
                                 if (*(BytePtr + 9) == 1633907568)
                                 {
                                   *(a1 + 8) = *(BytePtr + 8);
-                                  CFRelease(v70);
+                                  CFRelease(v69);
                                   free(data);
-                                  if (CFDictionaryGetValue(theDict, @"FlexGTC.based.A2B0") != v87)
+                                  if (CFDictionaryGetValue(theDict, @"FlexGTC.based.A2B0") != v86)
                                   {
-                                    goto LABEL_11;
+                                    return MutableCopy;
                                   }
 
                                   CopyWithFlexGTCBasedA2B0 = makeCopyWithFlexGTCBasedA2B0(a1, theDict, MutableCopy);
                                   if (!CopyWithFlexGTCBasedA2B0)
                                   {
-                                    goto LABEL_11;
+                                    return MutableCopy;
                                   }
 
 LABEL_89:
                                   CFRelease(MutableCopy);
-                                  MutableCopy = CopyWithFlexGTCBasedA2B0;
-                                  goto LABEL_11;
+                                  return CopyWithFlexGTCBasedA2B0;
                                 }
                               }
                             }
 
-                            CFRelease(v70);
+                            CFRelease(v69);
                           }
                         }
                       }
@@ -2626,14 +1438,12 @@ LABEL_87:
     goto LABEL_88;
   }
 
-LABEL_11:
-  v14 = *MEMORY[0x1E69E9840];
   return MutableCopy;
 }
 
 const ColorSyncProfile *makeCopyWithFlexGTCBasedA2B0(uint64_t a1, CFDictionaryRef theDict, const ColorSyncProfile *a3)
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   Value = CFDictionaryGetValue(theDict, @"profileToCopy");
   if (a3)
   {
@@ -2647,13 +1457,12 @@ const ColorSyncProfile *makeCopyWithFlexGTCBasedA2B0(uint64_t a1, CFDictionaryRe
 
   if (!MutableCopy)
   {
-    goto LABEL_49;
+    return MutableCopy;
   }
 
   if (!ColorSyncProfileIsPQBased(MutableCopy))
   {
-    MutableCopy = 0;
-    goto LABEL_49;
+    return 0;
   }
 
   valuePtr = 0;
@@ -2675,33 +1484,33 @@ const ColorSyncProfile *makeCopyWithFlexGTCBasedA2B0(uint64_t a1, CFDictionaryRe
   }
 
   valuePtr = v11;
-  v52 = CFDictionaryGetValue(theDict, @"FlexGTC.input.profile");
+  v39 = CFDictionaryGetValue(theDict, @"FlexGTC.input.profile");
   v12 = *MEMORY[0x1E695E4D0];
-  v53 = valuePtr;
+  v40 = valuePtr;
   v13 = ColorSyncProfileCreateWithName(kColorSyncGenericXYZProfile);
-  v75 = 0u;
-  v76 = 0u;
-  v69 = 0u;
-  v68 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v56 = 0u;
+  v55 = 0u;
   keys = @"com.apple.cmm.FlexGTCTargetHeadroom";
-  LODWORD(v56[0]) = 1065353216;
-  values = CFNumberCreate(0, kCFNumberFloatType, v56);
+  LODWORD(v43[0]) = 1065353216;
+  values = CFNumberCreate(0, kCFNumberFloatType, v43);
   v14 = MEMORY[0x1E695E9D8];
   v15 = MEMORY[0x1E695E9E8];
   v16 = CFDictionaryCreate(0, &keys, &values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  *&v75 = @"com.apple.cmm.ApplyFlexLumaScaling";
-  *&v68 = v16;
-  v17 = CFDictionaryCreate(0, &v75, &v68, 1, v14, v15);
-  *(&v75 + 1) = @"com.apple.cmm.ApplyToneMaping";
-  *&v76 = @"com.apple.cmm.PQEOTFTable";
-  *(&v68 + 1) = v17;
-  *&v69 = v12;
-  *(&v76 + 1) = @"com.apple.cmm.PQEOTFTableSize";
-  LODWORD(v56[0]) = 1024;
-  *(&v69 + 1) = CFNumberCreate(0, kCFNumberSInt32Type, v56);
-  v18 = CFDictionaryCreate(0, &v75 + 1, &v68 + 1, 3, v14, v15);
+  *&v62 = @"com.apple.cmm.ApplyFlexLumaScaling";
+  *&v55 = v16;
+  v17 = CFDictionaryCreate(0, &v62, &v55, 1, v14, v15);
+  *(&v62 + 1) = @"com.apple.cmm.ApplyToneMaping";
+  *&v63 = @"com.apple.cmm.PQEOTFTable";
+  *(&v55 + 1) = v17;
+  *&v56 = v12;
+  *(&v63 + 1) = @"com.apple.cmm.PQEOTFTableSize";
+  LODWORD(v43[0]) = 1024;
+  *(&v56 + 1) = CFNumberCreate(0, kCFNumberSInt32Type, v43);
+  v18 = CFDictionaryCreate(0, &v62 + 1, &v55 + 1, 3, v14, v15);
   CFRelease(values);
-  CFRelease(*(&v69 + 1));
+  CFRelease(*(&v56 + 1));
   CFRelease(v16);
   CFRelease(v17);
   colorsync_transform = create_colorsync_transform(MutableCopy, v13, v18);
@@ -2710,7 +1519,7 @@ const ColorSyncProfile *makeCopyWithFlexGTCBasedA2B0(uint64_t a1, CFDictionaryRe
     CFRelease(v13);
   }
 
-  v20 = pow(v53, 3.0);
+  v20 = pow(v40, 3.0);
   v21 = 3 * v20;
   v22 = (6 * v20) & 0xFFFFFFFFFFFFFFFCLL;
   v23 = malloc_type_calloc(1uLL, v22 + 6298, 0xB54B97A0uLL);
@@ -2721,107 +1530,107 @@ const ColorSyncProfile *makeCopyWithFlexGTCBasedA2B0(uint64_t a1, CFDictionaryRe
     v23[1].i16[0] = 771;
     v23[3] = 0x2000001850;
     v25 = (v22 + 6248);
-    v66[0] = 0;
-    v66[1] = v66;
-    v66[2] = 0x2000000000;
-    v66[3] = v23 + 4;
-    v23[778].i8[2] = v53;
-    v23[778].i8[1] = v53;
-    v23[778].i8[0] = v53;
+    v53[0] = 0;
+    v53[1] = v53;
+    v53[2] = 0x2000000000;
+    v53[3] = v23 + 4;
+    v23[778].i8[2] = v40;
+    v23[778].i8[1] = v40;
+    v23[778].i8[0] = v40;
     v23[780].i8[0] = 2;
-    v65[0] = 0;
-    v65[1] = v65;
-    v65[2] = 0x2000000000;
-    v65[3] = v23 + 6244;
-    v64[0] = 0;
-    v64[1] = v64;
-    v64[2] = 0x2000000000;
-    v64[3] = v23 + v25;
+    v52[0] = 0;
+    v52[1] = v52;
+    v52[2] = 0x2000000000;
+    v52[3] = v23 + 6244;
+    v51[0] = 0;
+    v51[1] = v51;
+    v51[2] = 0x2000000000;
+    v51[3] = v23 + v25;
     v23[3] = vrev32_s8(v23[3]);
     v23[2].i32[0] = bswap32(v25);
     keys = 0;
-    *&v75 = &keys;
-    *(&v75 + 1) = 0x6800000000;
-    v76 = 0u;
-    v77 = 0u;
-    v78 = 0u;
-    memset(v79, 0, sizeof(v79));
-    v62[0] = 0;
-    v62[1] = v62;
-    v62[2] = 0x2000000000;
-    v63 = 0;
-    v58 = 0;
-    v59 = &v58;
-    v60 = 0x2000000000;
-    v61 = malloc_type_calloc(1uLL, 4 * v21, 0x100004052888210uLL);
-    if (v59[3])
+    *&v62 = &keys;
+    *(&v62 + 1) = 0x6800000000;
+    v63 = 0u;
+    v64 = 0u;
+    v65 = 0u;
+    memset(v66, 0, sizeof(v66));
+    v49[0] = 0;
+    v49[1] = v49;
+    v49[2] = 0x2000000000;
+    v50 = 0;
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x2000000000;
+    v48 = malloc_type_calloc(1uLL, 4 * v21, 0x100004052888210uLL);
+    if (v46[3])
     {
-      v57[0] = MEMORY[0x1E69E9820];
-      v57[1] = 0x40000000;
-      v57[2] = __ColorSyncMakeCopyWithLUTBasedLumaScaling_block_invoke;
-      v57[3] = &unk_1E7524588;
-      v57[4] = &keys;
-      v56[0] = MEMORY[0x1E69E9820];
-      v56[1] = 0x40000000;
-      v56[2] = __ColorSyncMakeCopyWithLUTBasedLumaScaling_block_invoke_2;
-      v56[3] = &unk_1E75245B0;
-      v56[4] = &keys;
-      v56[5] = v66;
-      v56[6] = 1024;
-      v55[0] = MEMORY[0x1E69E9820];
-      v55[1] = 0x40000000;
-      v55[2] = __ColorSyncMakeCopyWithLUTBasedLumaScaling_block_invoke_3;
-      v55[3] = &unk_1E75245D8;
-      v55[4] = &keys;
-      v55[5] = v64;
-      v55[6] = v62;
+      v44[0] = MEMORY[0x1E69E9820];
+      v44[1] = 0x40000000;
+      v44[2] = __ColorSyncMakeCopyWithLUTBasedLumaScaling_block_invoke;
+      v44[3] = &unk_1E7524588;
+      v44[4] = &keys;
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 0x40000000;
+      v43[2] = __ColorSyncMakeCopyWithLUTBasedLumaScaling_block_invoke_2;
+      v43[3] = &unk_1E75245B0;
+      v43[4] = &keys;
+      v43[5] = v53;
+      v43[6] = 1024;
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 0x40000000;
+      v42[2] = __ColorSyncMakeCopyWithLUTBasedLumaScaling_block_invoke_3;
+      v42[3] = &unk_1E75245D8;
+      v42[4] = &keys;
+      v42[5] = v51;
+      v42[6] = v49;
       values = MEMORY[0x1E69E9820];
-      *&v68 = 0x40000000;
-      *(&v68 + 1) = __ColorSyncMakeCopyWithLUTBasedLumaScaling_block_invoke_4;
-      *&v69 = &unk_1E7524600;
-      *(&v69 + 1) = &keys;
-      v70 = v65;
-      v72 = v62;
-      v73 = v53;
-      v71 = &v58;
-      if (ColorSyncTransformIterate(colorsync_transform, v18, v57, v56, v55, &values))
+      *&v55 = 0x40000000;
+      *(&v55 + 1) = __ColorSyncMakeCopyWithLUTBasedLumaScaling_block_invoke_4;
+      *&v56 = &unk_1E7524600;
+      *(&v56 + 1) = &keys;
+      v57 = v52;
+      v59 = v49;
+      v60 = v40;
+      v58 = &v45;
+      if (ColorSyncTransformIterate(colorsync_transform, v18, v44, v43, v42, &values))
       {
-        v32 = CFDataCreate(0, v24, v22 + 6298);
+        v26 = CFDataCreate(0, v24, v22 + 6298);
         MutableCopy = ColorSyncProfileCreateMutableCopy(MutableCopy);
-        ColorSyncProfileSetTag(MutableCopy, @"A2B0", v32);
-        if (v32)
+        ColorSyncProfileSetTag(MutableCopy, @"A2B0", v26);
+        if (v26)
         {
-          CFRelease(v32);
+          CFRelease(v26);
         }
 
-        v33 = ColorSyncProfileCopyHeader(MutableCopy);
-        if (v33)
+        v27 = ColorSyncProfileCopyHeader(MutableCopy);
+        if (v27)
         {
-          v36 = v33;
-          v37 = CFDataCreateMutableCopy(0, 0, v33);
-          if (v37)
+          v30 = v27;
+          v31 = CFDataCreateMutableCopy(0, 0, v27);
+          if (v31)
           {
-            v38 = v37;
-            MutableBytePtr = CFDataGetMutableBytePtr(v37);
+            v32 = v31;
+            MutableBytePtr = CFDataGetMutableBytePtr(v31);
             *(MutableBytePtr + 2) = 71303168;
-            if (v52 == v12 && *(MutableBytePtr + 3) != 1935896178)
+            if (v39 == v12 && *(MutableBytePtr + 3) != 1935896178)
             {
               *(MutableBytePtr + 3) = 1935896178;
               ColorSyncProfileRemoveTag(MutableCopy, @"B2A0");
             }
 
-            ColorSyncProfileSetHeader(MutableCopy, v38);
-            CFRelease(v38);
+            ColorSyncProfileSetHeader(MutableCopy, v32);
+            CFRelease(v32);
             ColorSyncProfileRemoveTag(MutableCopy, @"lumi");
             ColorSyncProfileGetMD5(MutableCopy);
           }
 
-          CFRelease(v36);
+          CFRelease(v30);
         }
 
-        if (!ColorSyncProfileVerify(MutableCopy, v34, v35))
+        if (!ColorSyncProfileVerify(MutableCopy, v28, v29))
         {
-          ColorSyncLog(2, "%s failed to create a valid profile", v40, v41, v42, v43, v44, v45, "ColorSyncMakeCopyWithLUTBasedLumaScaling");
+          ColorSyncLog(2, "%s failed to create a valid profile", "ColorSyncMakeCopyWithLUTBasedLumaScaling");
           if (MutableCopy)
           {
             CFRelease(MutableCopy);
@@ -2832,11 +1641,11 @@ const ColorSyncProfile *makeCopyWithFlexGTCBasedA2B0(uint64_t a1, CFDictionaryRe
 
       else
       {
-        ColorSyncLog(2, "ColorSyncTransformIterate failed in %s", v26, v27, v28, v29, v30, v31, "ColorSyncMakeCopyWithLUTBasedLumaScaling");
+        ColorSyncLog(2, "ColorSyncTransformIterate failed in %s", "ColorSyncMakeCopyWithLUTBasedLumaScaling");
         MutableCopy = 0;
       }
 
-      free(v59[3]);
+      free(v46[3]);
     }
 
     else
@@ -2845,12 +1654,12 @@ const ColorSyncProfile *makeCopyWithFlexGTCBasedA2B0(uint64_t a1, CFDictionaryRe
     }
 
     free(v24);
-    _Block_object_dispose(&v58, 8);
-    _Block_object_dispose(v62, 8);
+    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(v49, 8);
     _Block_object_dispose(&keys, 8);
-    _Block_object_dispose(v64, 8);
-    _Block_object_dispose(v65, 8);
-    _Block_object_dispose(v66, 8);
+    _Block_object_dispose(v51, 8);
+    _Block_object_dispose(v52, 8);
+    _Block_object_dispose(v53, 8);
     if (colorsync_transform)
     {
       goto LABEL_36;
@@ -2874,22 +1683,22 @@ LABEL_36:
 
   if (MutableCopy)
   {
-    v46 = ColorSyncProfileCopyHeader(MutableCopy);
-    if (v46)
+    v34 = ColorSyncProfileCopyHeader(MutableCopy);
+    if (v34)
     {
-      v47 = v46;
-      v48 = CFGetTypeID(v46);
-      if (v48 == CFDataGetTypeID())
+      v35 = v34;
+      v36 = CFGetTypeID(v34);
+      if (v36 == CFDataGetTypeID())
       {
-        BytePtr = CFDataGetBytePtr(v47);
+        BytePtr = CFDataGetBytePtr(v35);
         if (BytePtr)
         {
           if (*(BytePtr + 9) == 1633907568)
           {
             *(a1 + 8) = *(BytePtr + 8);
 LABEL_48:
-            CFRelease(v47);
-            goto LABEL_49;
+            CFRelease(v35);
+            return MutableCopy;
           }
         }
       }
@@ -2899,15 +1708,13 @@ LABEL_48:
 
     else
     {
-      v47 = MutableCopy;
+      v35 = MutableCopy;
     }
 
     MutableCopy = 0;
     goto LABEL_48;
   }
 
-LABEL_49:
-  v50 = *MEMORY[0x1E69E9840];
   return MutableCopy;
 }
 
@@ -2968,7 +1775,7 @@ ColorSyncProfile *makeLabProfile(uint64_t a1, const __CFDictionary *a2)
   return v4;
 }
 
-unint64_t verified_float_from_dictionary(const __CFDictionary *a1, const void *a2, _DWORD *a3)
+const __CFNumber *verified_float_from_dictionary(const __CFDictionary *a1, const void *a2, _DWORD *a3)
 {
   result = CFDictionaryGetValue(a1, a2);
   if (result)
@@ -2982,7 +1789,7 @@ unint64_t verified_float_from_dictionary(const __CFDictionary *a1, const void *a
       {
         valuePtr = 0;
         Value = CFNumberGetValue(v5, kCFNumberFloatType, &valuePtr);
-        result = Value != 0;
+        result = (Value != 0);
         if (a3)
         {
           if (Value)
@@ -3247,28 +2054,27 @@ CFStringRef colorSyncTransformCopyDebugDescription(uint64_t a1)
       v3 = *(a1 + 120);
       if (v3)
       {
-        v10.length = CFArrayGetCount(v3);
-        v10.location = 0;
-        CFArrayApplyFunction(*(a1 + 120), v10, description_adder, Mutable);
+        v9.length = CFArrayGetCount(v3);
+        v9.location = 0;
+        CFArrayApplyFunction(*(a1 + 120), v9, description_adder, Mutable);
       }
     }
 
     v4 = CFGetAllocator(a1);
-    v5 = *(a1 + 80);
-    v6 = CFStringCreateWithFormat(v4, 0, @"<ColorSyncTransform %p;cmm:%@;\nproperties:%@;\noptions:%@;\nsequence:%@>", a1, v5, *(a1 + 112), *(a1 + 128), Mutable);
+    v5 = CFStringCreateWithFormat(v4, 0, @"<ColorSyncTransform %p;cmm:%@;\nproperties:%@;\noptions:%@;\nsequence:%@>", a1, *(a1 + 80), *(a1 + 112), *(a1 + 128), Mutable);
     if (Mutable)
     {
       CFRelease(Mutable);
     }
 
-    return v6;
+    return v5;
   }
 
   else
   {
-    v8 = CFGetAllocator(0);
+    v7 = CFGetAllocator(0);
 
-    return CFStringCreateWithFormat(v8, 0, @"<NULL ColorSyncTransform>");
+    return CFStringCreateWithFormat(v7, 0, @"<NULL ColorSyncTransform>");
   }
 }
 
@@ -3435,9 +2241,48 @@ uint64_t ColorSyncTransformGetDstComponentCount(uint64_t result)
   return result;
 }
 
-uint64_t ColorSyncTransformCreateWithName()
+BOOL ColorSyncTransformConvert(ColorSyncTransformRef transform, size_t width, size_t height, void *dst, ColorSyncDataDepth dstDepth, ColorSyncDataLayout dstLayout, size_t dstBytesPerRow, const void *src, ColorSyncDataDepth srcDepth, ColorSyncDataLayout srcLayout, size_t srcBytesPerRow, CFDictionaryRef options)
 {
-  if (createRuntimeInstance(0x52474220u, 0x52474220u, 0))
+  v24[1] = *MEMORY[0x1E69E9840];
+  if (!transform)
+  {
+    goto LABEL_11;
+  }
+
+  v14 = *&dstLayout;
+  v15 = *&dstDepth;
+  v20 = CFGetTypeID(transform);
+  if (ColorSyncTransformGetTypeID_predicate != -1)
+  {
+    dispatch_once(&ColorSyncTransformGetTypeID_predicate, &__block_literal_global_21);
+  }
+
+  if (v20 == ColorSyncTransformGetTypeID_kColorSyncTransformRuntimeID)
+  {
+    if ((v15 != 8 || !v14) && (srcDepth != kColorSync10BitInteger || !srcLayout))
+    {
+      v23 = src;
+      v24[0] = dst;
+      v21 = *(*(transform + 10) + 56);
+      if (v21)
+      {
+        return v21(transform, width, height, 1, v24, v15, v14, dstBytesPerRow, 1, &v23, __PAIR64__(srcLayout, srcDepth), srcBytesPerRow, options);
+      }
+    }
+  }
+
+  else
+  {
+LABEL_11:
+    ColorSyncLog(2, "ColorSync: ColorSyncTransform is not valid\n", height, dst, *&dstDepth, *&dstLayout, dstBytesPerRow, src);
+  }
+
+  return 0;
+}
+
+_OWORD *ColorSyncTransformCreateWithName(const void *a1)
+{
+  if (createRuntimeInstance(0x52474220u, 1380401696, 0))
   {
     ColorSyncCMMCreateAppleCMM();
     operator new();
@@ -3448,44 +2293,43 @@ uint64_t ColorSyncTransformCreateWithName()
 
 void sub_19A93F43C(void *a1, int a2)
 {
-  v4 = __cxa_begin_catch(a1);
+  __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    v5 = *v4;
-    v6 = *(v2 - 88);
-    if (v6)
+    v4 = *(v2 - 88);
+    if (v4)
     {
-      v7 = *v6;
-      if (*v6)
+      v5 = *v4;
+      if (*v4)
       {
         do
         {
-          v8 = *v7;
-          free(v7);
-          v7 = v8;
+          v6 = *v5;
+          free(v5);
+          v5 = v6;
         }
 
-        while (v8);
+        while (v6);
       }
     }
   }
 
   else
   {
-    v9 = *(v2 - 88);
-    if (v9)
+    v7 = *(v2 - 88);
+    if (v7)
     {
-      v10 = *v9;
-      if (*v9)
+      v8 = *v7;
+      if (*v7)
       {
         do
         {
-          v11 = *v10;
-          free(v10);
-          v10 = v11;
+          v9 = *v8;
+          free(v8);
+          v8 = v9;
         }
 
-        while (v11);
+        while (v9);
       }
     }
   }
@@ -3634,23 +2478,22 @@ ColorSyncTransformRef create_colorsync_transform(void *a1, void *a2, const __CFD
   v5 = MEMORY[0x1E695E9D8];
   v6 = MEMORY[0x1E695E9E8];
   v7 = CFDictionaryCreate(0, keys, values, 4, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  v16[0] = kColorSyncProfile;
-  v16[1] = kColorSyncRenderingIntent;
-  v16[2] = kColorSyncTransformTag;
-  v16[3] = kColorSyncExtendedRange;
-  v15[0] = a2;
-  v15[1] = kColorSyncRenderingIntentUseProfileHeader;
-  v15[2] = kColorSyncTransformPCSToDevice;
-  v15[3] = v4;
-  v8 = CFDictionaryCreate(0, v16, v15, 4, v5, v6);
-  v14[0] = v7;
-  v14[1] = v8;
-  v9 = CFArrayCreate(0, v14, 2, MEMORY[0x1E695E9C0]);
+  v15[0] = kColorSyncProfile;
+  v15[1] = kColorSyncRenderingIntent;
+  v15[2] = kColorSyncTransformTag;
+  v15[3] = kColorSyncExtendedRange;
+  v14[0] = a2;
+  v14[1] = kColorSyncRenderingIntentUseProfileHeader;
+  v14[2] = kColorSyncTransformPCSToDevice;
+  v14[3] = v4;
+  v8 = CFDictionaryCreate(0, v15, v14, 4, v5, v6);
+  v13[0] = v7;
+  v13[1] = v8;
+  v9 = CFArrayCreate(0, v13, 2, MEMORY[0x1E695E9C0]);
   CFRelease(v7);
   CFRelease(v8);
   v10 = ColorSyncTransformCreate(v9, a3);
   CFRelease(v9);
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -4115,19 +2958,15 @@ uint64_t findDescByLanguage(const __CFString *a1, uint64_t a2, uint64_t a3)
 
 CFDataRef *system_profile_for_profile_from_data(CFDataRef *result)
 {
-  v33 = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_5;
+    return result;
   }
 
   v1 = result;
   if (!result[14] || *(result + 39))
   {
-    result = 0;
-LABEL_5:
-    v2 = *MEMORY[0x1E69E9840];
-    return result;
+    return 0;
   }
 
   if (*(CFDataGetBytePtr(result[15]) + 4) == 1380401696)
@@ -4135,32 +2974,32 @@ LABEL_5:
     if (ColorSyncProfileContainsTag(v1, @"aarg") && ColorSyncProfileContainsTag(v1, @"aagg") && ColorSyncProfileContainsTag(v1, @"aabg") && ColorSyncProfileContainsTag(v1, @"aaRc") && ColorSyncProfileContainsTag(v1, @"aaGc") && ColorSyncProfileContainsTag(v1, @"aaBc"))
     {
       Tag = getTag(v1, @"aarg");
-      v4 = getTag(v1, @"aagg");
-      v5 = getTag(v1, @"aabg");
-      LODWORD(v6) = 0;
+      v3 = getTag(v1, @"aagg");
+      v4 = getTag(v1, @"aabg");
+      LODWORD(v5) = 0;
       if (Tag)
       {
-        if (v4)
+        if (v3)
         {
-          v7 = v5;
-          if (v5)
+          v6 = v4;
+          if (v4)
           {
-            if (CFEqual(Tag, v4) == 1 && CFEqual(v4, v7))
+            if (CFEqual(Tag, v3) == 1 && CFEqual(v3, v6))
             {
               BytePtr = CFDataGetBytePtr(Tag);
-              v9 = Tag;
-              v10 = BytePtr;
-              LODWORD(v6) = 0;
-              if (CFDataGetLength(v9) >= 0xC && v10)
+              v8 = Tag;
+              v9 = BytePtr;
+              LODWORD(v5) = 0;
+              if (CFDataGetLength(v8) >= 0xC && v9)
               {
                 if (get_preliminary_PQ_curve_data_predicate != -1)
                 {
                   dispatch_once(&get_preliminary_PQ_curve_data_predicate, &__block_literal_global_555);
                 }
 
-                if (get_preliminary_PQ_curve_data_preliminary_PQ_data == *v10 && dword_1EAFE00E0 == *(v10 + 2))
+                if (get_preliminary_PQ_curve_data_preliminary_PQ_data == *v9 && dword_1EAFE00E0 == *(v9 + 2))
                 {
-                  LODWORD(v6) = 16;
+                  LODWORD(v5) = 16;
                 }
 
                 else
@@ -4170,14 +3009,14 @@ LABEL_5:
                     dispatch_once(&get_preliminary_HLG_curve_data_predicate, &__block_literal_global_558);
                   }
 
-                  if (get_preliminary_HLG_curve_data_preliminary_HLG_data ^ *v10 | dword_1EAFE00F8 ^ *(v10 + 2))
+                  if (get_preliminary_HLG_curve_data_preliminary_HLG_data ^ *v9 | dword_1EAFE00F8 ^ *(v9 + 2))
                   {
-                    LODWORD(v6) = 0;
+                    LODWORD(v5) = 0;
                   }
 
                   else
                   {
-                    LODWORD(v6) = 18;
+                    LODWORD(v5) = 18;
                   }
                 }
               }
@@ -4185,98 +3024,95 @@ LABEL_5:
 
             else
             {
-              LODWORD(v6) = 0;
+              LODWORD(v5) = 0;
             }
           }
         }
       }
 
-      v27 = ColorSyncProfileGetTag(v1, @"aaRc");
-      v28 = ColorSyncProfileGetTag(v1, @"aaGc");
-      v29 = @"aaBc";
-    }
-
-    else
-    {
-      if (!ColorSyncProfileContainsTag(v1, @"hdTF"))
+      v26 = ColorSyncProfileGetTag(v1, @"aaRc");
+      v27 = ColorSyncProfileGetTag(v1, @"aaGc");
+      v28 = @"aaBc";
+LABEL_59:
+      v29 = ColorSyncProfileGetTag(v1, v28);
+      v30 = primaries_from_tag_data(v26, v27, v29);
+      result = system_profile_from_cicp(v30, v5);
+LABEL_60:
+      if (result)
       {
-        LegacyDisplayP3 = ColorSyncProfileCreateLegacyDisplayP3();
-        MD5 = ColorSyncProfileGetMD5(LegacyDisplayP3);
-        Legacy2DisplayP3 = ColorSyncProfileCreateLegacy2DisplayP3();
-        v20 = ColorSyncProfileGetMD5(Legacy2DisplayP3);
-        v21 = *(v1 + 17);
-        v22 = *(v1 + 18);
-        v24 = v21 != *MD5.digest || v22 != *&MD5.digest[8];
-        v26 = v21 != *v20.digest || v22 != *&v20.digest[8];
-        if (v24 && v26)
-        {
-          goto LABEL_61;
-        }
-
-        result = create_DisplayP3Profile();
-        goto LABEL_60;
+        return result;
       }
 
-      v12 = ColorSyncProfileGetTag(v1, @"hdTF");
-      v6 = v12;
-      if (v12)
+      goto LABEL_61;
+    }
+
+    if (ColorSyncProfileContainsTag(v1, @"hdTF"))
+    {
+      v11 = ColorSyncProfileGetTag(v1, @"hdTF");
+      v5 = v11;
+      if (v11)
       {
-        v13 = CFDataGetBytePtr(v12);
-        Length = CFDataGetLength(v6);
-        LODWORD(v6) = 0;
-        if (v13)
+        v12 = CFDataGetBytePtr(v11);
+        Length = CFDataGetLength(v5);
+        LODWORD(v5) = 0;
+        if (v12)
         {
           if (Length >= 0xC)
           {
-            if (*v13 == 543648115)
+            if (*v12 == 543648115)
             {
-              v15 = *(v13 + 2);
-              if (v15 == 541543496)
+              v14 = *(v12 + 2);
+              if (v14 == 541543496)
               {
-                v16 = 18;
+                v15 = 18;
               }
 
               else
               {
-                v16 = 0;
+                v15 = 0;
               }
 
-              if (v15 == 538988880)
+              if (v14 == 538988880)
               {
-                LODWORD(v6) = 16;
+                LODWORD(v5) = 16;
               }
 
               else
               {
-                LODWORD(v6) = v16;
+                LODWORD(v5) = v15;
               }
             }
 
             else
             {
-              LODWORD(v6) = 0;
+              LODWORD(v5) = 0;
             }
           }
         }
       }
 
-      v27 = ColorSyncProfileGetTag(v1, @"rXYZ");
-      v28 = ColorSyncProfileGetTag(v1, @"gXYZ");
-      v29 = @"bXYZ";
+      v26 = ColorSyncProfileGetTag(v1, @"rXYZ");
+      v27 = ColorSyncProfileGetTag(v1, @"gXYZ");
+      v28 = @"bXYZ";
+      goto LABEL_59;
     }
 
-    v30 = ColorSyncProfileGetTag(v1, v29);
-    v31 = primaries_from_tag_data(v27, v28, v30);
-    result = system_profile_from_cicp(v31, v6);
-LABEL_60:
-    if (result)
+    LegacyDisplayP3 = ColorSyncProfileCreateLegacyDisplayP3();
+    MD5 = ColorSyncProfileGetMD5(LegacyDisplayP3);
+    Legacy2DisplayP3 = ColorSyncProfileCreateLegacy2DisplayP3();
+    v19 = ColorSyncProfileGetMD5(Legacy2DisplayP3);
+    v20 = v1[17];
+    v21 = v1[18];
+    v23 = v20 != *MD5.digest || v21 != *&MD5.digest[8];
+    v25 = v20 != *v19.digest || v21 != *&v19.digest[8];
+    if (!v23 || !v25)
     {
-      goto LABEL_5;
+      result = create_DisplayP3Profile();
+      goto LABEL_60;
     }
   }
 
 LABEL_61:
-  v32 = *MEMORY[0x1E69E9840];
 
   return ColorSyncProfileFindMatchingSystemProfile(v1);
 }
@@ -4808,7 +3644,7 @@ char *__use_xpc_only_block_invoke()
 
 uint64_t ColorSyncProfileCreateWithURLAndOptions(const void *a1, CFDictionaryRef theDict, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     goto LABEL_12;
@@ -4849,34 +3685,34 @@ uint64_t ColorSyncProfileCreateWithURLAndOptions(const void *a1, CFDictionaryRef
   }
 
   v9 = v8;
-  memset(&v22, 0, sizeof(v22));
-  if (fstat(v8, &v22))
+  memset(&v21, 0, sizeof(v21));
+  if (fstat(v8, &v21))
   {
     goto LABEL_11;
   }
 
-  if ((v22.st_mode & 0xF000) != 0x8000)
+  if ((v21.st_mode & 0xF000) != 0x8000)
   {
     goto LABEL_11;
   }
 
-  if ((v22.st_size - 1) > 0x1FFFFFFE)
+  if ((v21.st_size - 1) > 0x1FFFFFFE)
   {
     goto LABEL_11;
   }
 
-  v16 = malloc_type_malloc(v22.st_size, 0x5BC13B6FuLL);
-  if (!v16)
+  v15 = malloc_type_malloc(v21.st_size, 0x5BC13B6FuLL);
+  if (!v15)
   {
     goto LABEL_11;
   }
 
-  v17 = v16;
-  bzero(v16, v22.st_size);
-  v18 = read(v9, v17, v22.st_size);
-  if (v18 != v22.st_size)
+  v16 = v15;
+  bzero(v15, v21.st_size);
+  v17 = read(v9, v16, v21.st_size);
+  if (v17 != v21.st_size)
   {
-    free(v17);
+    free(v16);
 LABEL_11:
     close(v9);
 LABEL_12:
@@ -4884,22 +3720,22 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v19 = v18;
+  v18 = v17;
   close(v9);
   if (colorSyncBytesDeallocator_predicate != -1)
   {
     dispatch_once(&colorSyncBytesDeallocator_predicate, &__block_literal_global_1023);
   }
 
-  v20 = CFDataCreateWithBytesNoCopy(0, v17, v19, colorSyncBytesDeallocator_colorSyncAllocator);
-  if (!v20)
+  v19 = CFDataCreateWithBytesNoCopy(0, v16, v18, colorSyncBytesDeallocator_colorSyncAllocator);
+  if (!v19)
   {
     goto LABEL_12;
   }
 
-  v21 = v20;
-  v10 = create(0, v20, 0, 0);
-  CFRelease(v21);
+  v20 = v19;
+  v10 = create(0, v19, 0, 0);
+  CFRelease(v20);
   if (v10)
   {
     *(v10 + 128) = CFRetain(a1);
@@ -4923,7 +3759,6 @@ LABEL_13:
     *a3 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -4946,7 +3781,6 @@ CFDictionaryRef __ColorSyncProfileCreateWithURLWithoutSubstitution_block_invoke(
   values = *MEMORY[0x1E695E4D0];
   result = CFDictionaryCreate(0, keys, &values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   ColorSyncProfileCreateWithURLWithoutSubstitution_options = result;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5135,7 +3969,7 @@ void ColorSyncProfileRemoveTag(ColorSyncMutableProfileRef prof, CFStringRef sign
 void ColorSyncIterateInstalledProfiles(ColorSyncProfileIterateCallback callBack, uint32_t *seed, void *userInfo, CFErrorRef *error)
 {
   v4 = userInfo;
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (error)
   {
     *error = 0;
@@ -5143,22 +3977,22 @@ void ColorSyncIterateInstalledProfiles(ColorSyncProfileIterateCallback callBack,
 
   if (callBack)
   {
-    v33 = seed;
-    v34[0] = kColorSyncACESCGLinearProfile;
-    v34[1] = kColorSyncAdobeRGB1998Profile;
-    v34[2] = kColorSyncDCIP3Profile;
-    v34[3] = kColorSyncDisplayP3Profile;
-    v34[4] = kColorSyncGenericCMYKProfile;
-    v34[5] = kColorSyncGenericGrayGamma22Profile;
-    v34[6] = kColorSyncGenericGrayProfile;
-    v34[7] = kColorSyncGenericLabProfile;
-    v34[8] = kColorSyncGenericRGBProfile;
-    v34[9] = kColorSyncGenericXYZProfile;
-    v34[10] = kColorSyncITUR2020Profile;
-    v34[11] = kColorSyncITUR709Profile;
-    v34[12] = kColorSyncROMMRGBProfile;
-    v34[13] = kColorSyncSRGBProfile;
-    v34[14] = kColorSyncWebSafeColorsProfile;
+    v32 = seed;
+    v33[0] = kColorSyncACESCGLinearProfile;
+    v33[1] = kColorSyncAdobeRGB1998Profile;
+    v33[2] = kColorSyncDCIP3Profile;
+    v33[3] = kColorSyncDisplayP3Profile;
+    v33[4] = kColorSyncGenericCMYKProfile;
+    v33[5] = kColorSyncGenericGrayGamma22Profile;
+    v33[6] = kColorSyncGenericGrayProfile;
+    v33[7] = kColorSyncGenericLabProfile;
+    v33[8] = kColorSyncGenericRGBProfile;
+    v33[9] = kColorSyncGenericXYZProfile;
+    v33[10] = kColorSyncITUR2020Profile;
+    v33[11] = kColorSyncITUR709Profile;
+    v33[12] = kColorSyncROMMRGBProfile;
+    v33[13] = kColorSyncSRGBProfile;
+    v33[14] = kColorSyncWebSafeColorsProfile;
     Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
     if (Mutable)
     {
@@ -5167,7 +4001,7 @@ void ColorSyncIterateInstalledProfiles(ColorSyncProfileIterateCallback callBack,
       v9 = MEMORY[0x1E695E9E8];
       do
       {
-        v10 = ColorSyncProfileCreateWithName(v34[v7]);
+        v10 = ColorSyncProfileCreateWithName(v33[v7]);
         v11 = CFDictionaryCreateMutable(0, 0, v8, v9);
         if (v11)
         {
@@ -5237,8 +4071,8 @@ void ColorSyncIterateInstalledProfiles(ColorSyncProfileIterateCallback callBack,
     }
 
     v4 = userInfo;
-    seed = v33;
-    if (v33)
+    seed = v32;
+    if (v32)
     {
       goto LABEL_21;
     }
@@ -5275,13 +4109,11 @@ LABEL_21:
 
     CFRelease(Mutable);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 float ColorSyncProfileEstimateGamma(ColorSyncProfileRef prof, CFErrorRef *error)
 {
-  v17 = 0;
+  v15 = 0;
   v2 = 0.0;
   if (prof)
   {
@@ -5293,47 +4125,47 @@ float ColorSyncProfileEstimateGamma(ColorSyncProfileRef prof, CFErrorRef *error)
 
     if (v4 == ColorSyncProfileGetTypeID_kColorSyncProfileRuntimeID)
     {
-      v19 = 0;
-      CMMMemMgr::CMMMemMgr(&v19);
-      v18 = &unk_1F0E0A3B8;
-      Profile = CMMProfileMaker::MakeProfile(prof, &v19, 0);
+      v17 = 0;
+      CMMMemMgr::CMMMemMgr(&v17);
+      v16 = &unk_1F0E0A3B8;
+      Profile = CMMProfileMaker::MakeProfile(prof, &v17, 0);
       Tag = CMMProfile::GetTag(Profile, 1800688195);
       {
-        v10 = (*(*v8 + 80))(v8, &v17, 0.05);
+        v9 = (*(*v7 + 80))(v7, &v15, 0.05);
       }
 
-      v12 = *(Profile + 2) - 1;
-      *(Profile + 2) = v12;
-      if (!v12)
+      v10 = *(Profile + 2) - 1;
+      *(Profile + 2) = v10;
+      if (!v10)
       {
         (*(*Profile + 8))(Profile);
       }
 
-      if (v19)
+      if (v17)
       {
-        v13 = *v19;
-        if (*v19)
+        v11 = *v17;
+        if (*v17)
         {
           do
           {
-            v14 = *v13;
-            free(v13);
-            v13 = v14;
+            v12 = *v11;
+            free(v11);
+            v11 = v12;
           }
 
-          while (v14);
+          while (v12);
         }
       }
 
-      CMMMemMgr::ReleaseMemList(&v19);
-      if (v17)
+      CMMMemMgr::ReleaseMemList(&v17);
+      if (v15)
       {
-        return v10;
+        return v9;
       }
 
       else
       {
-        return floor(v10 * 10.0 + 0.5) / 10.0;
+        return floor(v9 * 10.0 + 0.5) / 10.0;
       }
     }
   }
@@ -5343,40 +4175,39 @@ float ColorSyncProfileEstimateGamma(ColorSyncProfileRef prof, CFErrorRef *error)
 
 void sub_19A941DEC(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
 {
-  v13 = __cxa_begin_catch(a1);
+  __cxa_begin_catch(a1);
   if (a2 == 2)
   {
-    v14 = *v13;
     if (a12)
     {
-      v15 = *a12;
+      v13 = *a12;
       if (*a12)
       {
         do
         {
-          v16 = *v15;
-          free(v15);
-          v15 = v16;
+          v14 = *v13;
+          free(v13);
+          v13 = v14;
         }
 
-        while (v16);
+        while (v14);
       }
     }
   }
 
   else if (a12)
   {
-    v17 = *a12;
+    v15 = *a12;
     if (*a12)
     {
       do
       {
-        v18 = *v17;
-        free(v17);
-        v17 = v18;
+        v16 = *v15;
+        free(v15);
+        v15 = v16;
       }
 
-      while (v18);
+      while (v16);
     }
   }
 
@@ -5384,9 +4215,9 @@ void sub_19A941DEC(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
   JUMPOUT(0x19A941D78);
 }
 
-void sub_19A941EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_19A941EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   CMMMemMgr::ReleaseMemList(va);
   _Unwind_Resume(a1);
 }
@@ -5469,7 +4300,7 @@ CFIndex ColorSyncProfileGetTagCount(const void *a1)
 BOOL ColorSyncProfileWriteToFile(const ColorSyncProfile *a1, char *a2)
 {
   v2 = 0;
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v3 = a2;
@@ -5487,9 +4318,9 @@ BOOL ColorSyncProfileWriteToFile(const ColorSyncProfile *a1, char *a2)
             dispatch_once(&ColorSyncGetTempDirPath_predicate, &__block_literal_global_540);
           }
 
-          v12 = v3 + 2;
+          v11 = v3 + 2;
           v3 = __str;
-          snprintf(__str, 0x400uLL, "%s%s", &ColorSyncGetTempDirPath_tempDirPath, v12);
+          snprintf(__str, 0x400uLL, "%s%s", &ColorSyncGetTempDirPath_tempDirPath, v11);
         }
 
         v6 = fopen(v3, "wb");
@@ -5512,12 +4343,11 @@ BOOL ColorSyncProfileWriteToFile(const ColorSyncProfile *a1, char *a2)
 
       else
       {
-        v2 = 0;
+        return 0;
       }
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -5570,7 +4400,7 @@ BOOL ColorSyncProfileUsesSRGBGamma(uint64_t a1)
 
 double ColorSyncProfileGetWhitePoint(const void *a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   XYZColor = ColorSyncProfileGetXYZColor(a1, @"wtpt");
   v3 = vcvtd_n_f64_s32(XYZColor, 0x10uLL);
   v4 = vcvtd_n_f64_s32(HIDWORD(XYZColor), 0x10uLL);
@@ -5614,8 +4444,8 @@ double ColorSyncProfileGetWhitePoint(const void *a1)
                   v20 = vrev32_s8(v15[2]);
                   v17.i64[0] = v20.i32[0];
                   v17.i64[1] = v20.i32[1];
-                  v25 = v19;
-                  v26 = vmulq_f64(vcvtq_f64_s64(v17), v18);
+                  v24 = v19;
+                  v25 = vmulq_f64(vcvtq_f64_s64(v17), v18);
                   *&v19.f64[0] = vrev32_s8(v15[3]);
                   v17.i64[0] = SLODWORD(v19.f64[0]);
                   v17.i64[1] = SHIDWORD(v19.f64[0]);
@@ -5623,12 +4453,12 @@ double ColorSyncProfileGetWhitePoint(const void *a1)
                   v22 = vrev32_s8(v15[4]);
                   v17.i64[0] = v22.i32[0];
                   v17.i64[1] = v22.i32[1];
-                  v27 = v21;
-                  v28 = vmulq_f64(vcvtq_f64_s64(v17), v18);
-                  v29 = vcvtd_n_f64_s32(bswap32(v15[5].u32[0]), 0x10uLL);
-                  if (InvertMatrix(v25.f64))
+                  v26 = v21;
+                  v27 = vmulq_f64(vcvtq_f64_s64(v17), v18);
+                  v28 = vcvtd_n_f64_s32(bswap32(v15[5].u32[0]), 0x10uLL);
+                  if (InvertMatrix(v24.f64))
                   {
-                    v3 = v4 * v25.f64[1] + v3 * v25.f64[0] + v6 * v26.f64[0];
+                    return v4 * v24.f64[1] + v3 * v24.f64[0] + v6 * v25.f64[0];
                   }
                 }
               }
@@ -5644,7 +4474,6 @@ double ColorSyncProfileGetWhitePoint(const void *a1)
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -5681,11 +4510,10 @@ float *ColorSyncProfileGetLuminanceCoefficients(float *a1)
 
 void add_basic_formulas(uint64_t a1)
 {
-  v94[9] = *MEMORY[0x1E69E9840];
+  v101[9] = *MEMORY[0x1E69E9840];
   v2 = ColorSyncProfileCopyHeader(a1);
   if (!v2)
   {
-    v44 = *MEMORY[0x1E69E9840];
     return;
   }
 
@@ -5698,11 +4526,11 @@ void add_basic_formulas(uint64_t a1)
     {
       Tag = ColorSyncProfileGetTag(a1, @"wtpt");
       v6 = ColorSyncProfileGetTag(a1, @"rXYZ");
-      v81 = v6;
+      v88 = v6;
       v7 = ColorSyncProfileGetTag(a1, @"gXYZ");
-      v80 = v7;
+      v87 = v7;
       v8 = ColorSyncProfileGetTag(a1, @"bXYZ");
-      v79 = v8;
+      v86 = v8;
       if (v6)
       {
         if (v7)
@@ -5727,114 +4555,114 @@ LABEL_12:
                     WhitePoint = ColorSyncProfileGetWhitePoint(a1);
                     v17 = v16;
                     v19 = v18;
-                    v77.f64[0] = WhitePoint;
-                    v77.f64[1] = v16;
-                    v78 = v18;
+                    v84.f64[0] = WhitePoint;
+                    v84.f64[1] = v16;
+                    v85 = v18;
                     v20 = vrev32_s8(v11[1]);
                     v21.i64[0] = v20.i32[0];
                     v21.i64[1] = v20.i32[1];
                     v22 = vdupq_n_s64(0x3EF0000000000000uLL);
-                    v75 = vmulq_f64(vcvtq_f64_s64(v21), v22);
-                    v76 = vcvtd_n_f64_s32(bswap32(v11[2].u32[0]), 0x10uLL);
+                    v82 = vmulq_f64(vcvtq_f64_s64(v21), v22);
+                    v83 = vcvtd_n_f64_s32(bswap32(v11[2].u32[0]), 0x10uLL);
                     v23 = vrev32_s8(v12[1]);
                     v21.i64[0] = v23.i32[0];
                     v21.i64[1] = v23.i32[1];
-                    v73 = vmulq_f64(vcvtq_f64_s64(v21), v22);
-                    v74 = vcvtd_n_f64_s32(bswap32(v12[2].u32[0]), 0x10uLL);
+                    v80 = vmulq_f64(vcvtq_f64_s64(v21), v22);
+                    v81 = vcvtd_n_f64_s32(bswap32(v12[2].u32[0]), 0x10uLL);
                     v24 = vrev32_s8(v14[1]);
                     v21.i64[0] = v24.i32[0];
                     v21.i64[1] = v24.i32[1];
-                    v71 = vmulq_f64(vcvtq_f64_s64(v21), v22);
-                    v72 = vcvtd_n_f64_s32(bswap32(v14[2].u32[0]), 0x10uLL);
-                    v69 = 0uLL;
-                    v70 = 0.0;
-                    v67 = 0uLL;
-                    v68 = 0.0;
-                    v65 = 0uLL;
-                    v66 = 0.0;
-                    ColorSyncConvertDoubleXYZFromD50(&v75, &v77, &v69, 3, 0);
-                    ColorSyncConvertDoubleXYZFromD50(&v73, &v77, &v67, 3, 0);
-                    ColorSyncConvertDoubleXYZFromD50(&v71, &v77, &v65, 3, 0);
-                    v25 = v69.f64[0] + v69.f64[1] + v70;
-                    v26 = v67.f64[0] + v67.f64[1] + v68;
-                    v27 = v65.f64[0] + v65.f64[1] + v66;
-                    v94[0] = v69.f64[0] / v25;
-                    v94[1] = v67.f64[0] / v26;
-                    v94[2] = v65.f64[0] / v27;
-                    v94[3] = v69.f64[1] / v25;
-                    v94[4] = v67.f64[1] / v26;
-                    v94[5] = v65.f64[1] / v27;
-                    v94[6] = v70 / v25;
-                    v94[7] = v68 / v26;
-                    v94[8] = v66 / v27;
-                    v85 = v69.f64[0] / v25;
-                    v86 = v67.f64[0] / v26;
-                    v87 = v65.f64[0] / v27;
-                    v88 = v69.f64[1] / v25;
-                    v89 = v67.f64[1] / v26;
-                    v90 = v65.f64[1] / v27;
-                    v91 = v70 / v25;
-                    v92 = v68 / v26;
-                    v93 = v66 / v27;
-                    if (InvertMatrix(&v85))
+                    v78 = vmulq_f64(vcvtq_f64_s64(v21), v22);
+                    v79 = vcvtd_n_f64_s32(bswap32(v14[2].u32[0]), 0x10uLL);
+                    v76 = 0uLL;
+                    v77 = 0.0;
+                    v74 = 0uLL;
+                    v75 = 0.0;
+                    v72 = 0uLL;
+                    v73 = 0.0;
+                    ColorSyncConvertDoubleXYZFromD50(&v82, &v84, &v76, 3, 0, v25, v26, v27);
+                    ColorSyncConvertDoubleXYZFromD50(&v80, &v84, &v74, 3, 0, v28, v29, v30);
+                    ColorSyncConvertDoubleXYZFromD50(&v78, &v84, &v72, 3, 0, v31, v32, v33);
+                    v34 = v76.f64[0] + v76.f64[1] + v77;
+                    v35 = v74.f64[0] + v74.f64[1] + v75;
+                    v36 = v72.f64[0] + v72.f64[1] + v73;
+                    v101[0] = v76.f64[0] / v34;
+                    v101[1] = v74.f64[0] / v35;
+                    v101[2] = v72.f64[0] / v36;
+                    v101[3] = v76.f64[1] / v34;
+                    v101[4] = v74.f64[1] / v35;
+                    v101[5] = v72.f64[1] / v36;
+                    v101[6] = v77 / v34;
+                    v101[7] = v75 / v35;
+                    v101[8] = v73 / v36;
+                    v92 = v76.f64[0] / v34;
+                    v93 = v74.f64[0] / v35;
+                    v94 = v72.f64[0] / v36;
+                    v95 = v76.f64[1] / v34;
+                    v96 = v74.f64[1] / v35;
+                    v97 = v72.f64[1] / v36;
+                    v98 = v77 / v34;
+                    v99 = v75 / v35;
+                    v100 = v73 / v36;
+                    if (InvertMatrix(&v92))
                     {
-                      v28 = WhitePoint + v17 + v19;
-                      v29 = v19 / v28;
-                      v30 = v17 / v28;
-                      v31 = WhitePoint / v28 / (v17 / v28);
-                      v32 = v29 / v30;
-                      v84[0] = v86 + v31 * v85 + v32 * v87;
-                      memset(&v84[1], 0, 24);
-                      v84[4] = v89 + v31 * v88 + v32 * v90;
-                      memset(&v84[5], 0, 24);
-                      v84[8] = v92 + v31 * v91 + v32 * v93;
-                      v83 = 0;
-                      memset(v82, 0, sizeof(v82));
-                      MatrixMatrix(v84, v94, v82[0].f64);
-                      v33 = *(&v82[1] + 8);
-                      v34 = v82[2].f64[1];
-                      v35 = v82[1].f64[1];
-                      if (v35 <= 0.2626 || v35 >= 0.2628 || (v36 = v82[2].f64[0], v36 <= 0.6779) || v36 >= 0.6781 || (v37 = v82[2].f64[1], v37 <= 0.0592) || v37 >= 0.0594)
+                      v37 = WhitePoint + v17 + v19;
+                      v38 = v19 / v37;
+                      v39 = v17 / v37;
+                      v40 = WhitePoint / v37 / (v17 / v37);
+                      v41 = v38 / v39;
+                      v91[0] = v93 + v40 * v92 + v41 * v94;
+                      memset(&v91[1], 0, 24);
+                      v91[4] = v96 + v40 * v95 + v41 * v97;
+                      memset(&v91[5], 0, 24);
+                      v91[8] = v99 + v40 * v98 + v41 * v100;
+                      v90 = 0;
+                      memset(v89, 0, sizeof(v89));
+                      MatrixMatrix(v91, v101, v89[0].f64);
+                      v42 = *(&v89[1] + 8);
+                      v43 = v89[2].f64[1];
+                      v44 = v89[1].f64[1];
+                      if (v44 <= 0.2626 || v44 >= 0.2628 || (v45 = v89[2].f64[0], v45 <= 0.6779) || v45 >= 0.6781 || (v46 = v89[2].f64[1], v46 <= 0.0592) || v46 >= 0.0594)
                       {
-                        if (v35 <= 0.2289 || v35 >= 0.2291 || (v45 = v82[2].f64[0], v45 <= 0.6916) || v45 >= 0.6918 || (v46 = v82[2].f64[1], v46 <= 0.0792) || v46 >= 0.0794)
+                        if (v44 <= 0.2289 || v44 >= 0.2291 || (v53 = v89[2].f64[0], v53 <= 0.6916) || v53 >= 0.6918 || (v54 = v89[2].f64[1], v54 <= 0.0792) || v54 >= 0.0794)
                         {
-                          v47 = vdupq_n_s64(0x40C3880000000000uLL);
-                          v48 = vdivq_f64(vrndaq_f64(vmulq_f64(*(&v82[1] + 8), v47)), v47);
-                          v49 = round(v82[2].f64[1] * 10000.0) / 10000.0;
-                          v42 = vcvt_f32_f64(v48);
-                          v43 = v49;
+                          v55 = vdupq_n_s64(0x40C3880000000000uLL);
+                          v56 = vdivq_f64(vrndaq_f64(vmulq_f64(*(&v89[1] + 8), v55)), v55);
+                          v57 = round(v89[2].f64[1] * 10000.0) / 10000.0;
+                          v51 = vcvt_f32_f64(v56);
+                          v52 = v57;
                           __asm { FMOV            V5.2D, #-0.5 }
 
-                          v55 = vmulq_f64(v48, _Q5);
-                          *&v56.f64[0] = vdupq_laneq_s64(v55, 1).u64[0];
-                          v56.f64[1] = v49 * -0.5;
-                          v57 = vdupq_lane_s64(*&v48.f64[0], 0);
-                          v57.f64[0] = v49;
+                          v63 = vmulq_f64(v56, _Q5);
+                          *&v64.f64[0] = vdupq_laneq_s64(v63, 1).u64[0];
+                          v64.f64[1] = v57 * -0.5;
+                          v65 = vdupq_lane_s64(*&v56.f64[0], 0);
+                          v65.f64[0] = v57;
                           __asm { FMOV            V3.2D, #1.0 }
 
-                          v59 = vsubq_f64(_Q3, v57);
-                          v41 = vcvt_f32_f64(vdivq_f64(v55, vdupq_lane_s64(*&v59.f64[0], 0)));
-                          v40 = vcvt_f32_f64(vdivq_f64(v56, vdupq_laneq_s64(v59, 1)));
+                          v67 = vsubq_f64(_Q3, v65);
+                          v50 = vcvt_f32_f64(vdivq_f64(v63, vdupq_lane_s64(*&v67.f64[0], 0)));
+                          v49 = vcvt_f32_f64(vdivq_f64(v64, vdupq_laneq_s64(v67, 1)));
                           __asm { FMOV            V3.2D, #-2.0 }
 
-                          v39 = vcvt_f32_f64(vdivq_f64(vmulq_f64(v57, vmulq_f64(v59, _Q3)), vdupq_laneq_s64(v48, 1)));
-                          v38 = vcvt_f32_f64(vaddq_f64(v59, v59));
-                          if (v35 > 0.2125 && v35 < 0.2127)
+                          v48 = vcvt_f32_f64(vdivq_f64(vmulq_f64(v65, vmulq_f64(v67, _Q3)), vdupq_laneq_s64(v56, 1)));
+                          v47 = vcvt_f32_f64(vaddq_f64(v67, v67));
+                          if (v44 > 0.2125 && v44 < 0.2127)
                           {
-                            v61 = v82[2].f64[0];
-                            if (v61 > 0.7151 && v61 < 0.7153)
+                            v69 = v89[2].f64[0];
+                            if (v69 > 0.7151 && v69 < 0.7153)
                             {
-                              v62 = v82[2].f64[1];
-                              if (v62 > 0.0721 && v62 < 0.0723)
+                              v70 = v89[2].f64[1];
+                              if (v70 > 0.0721 && v70 < 0.0723)
                               {
-                                v38 = 0x3FC98FC53FED844DLL;
-                                v39 = 0xBEEFB7E9BE3FCB92;
-                                v40 = 0xBD3B98C8BEE88CE7;
-                                v41 = 0xBEC55326BDEAB368;
-                                v42 = 0x3F3717593E59B3D0;
-                                v33 = xmmword_19A96E210;
-                                v43 = 0.0722;
-                                v34 = 0.0722000003;
+                                v47 = 0x3FC98FC53FED844DLL;
+                                v48 = 0xBEEFB7E9BE3FCB92;
+                                v49 = 0xBD3B98C8BEE88CE7;
+                                v50 = 0xBEC55326BDEAB368;
+                                v51 = 0x3F3717593E59B3D0;
+                                v42 = xmmword_19A96E210;
+                                v52 = 0.0722;
+                                v43 = 0.0722000003;
                               }
                             }
                           }
@@ -5842,43 +4670,43 @@ LABEL_12:
 
                         else
                         {
-                          v38 = 0x3FC563883FEBB2FFLL;
-                          v39 = 0xBF02A993BE582A99;
-                          v40 = 0xBD52934BBEE5AEE6;
-                          v41 = 0xBEC05BC0BDFE9100;
-                          v42 = 0x3F3113403E6A7EFALL;
-                          v33 = xmmword_19A96E200;
-                          v43 = 0.0793;
-                          v34 = 0.0793000013;
+                          v47 = 0x3FC563883FEBB2FFLL;
+                          v48 = 0xBF02A993BE582A99;
+                          v49 = 0xBD52934BBEE5AEE6;
+                          v50 = 0xBEC05BC0BDFE9100;
+                          v51 = 0x3F3113403E6A7EFALL;
+                          v42 = xmmword_19A96E200;
+                          v52 = 0.0793;
+                          v43 = 0.0793000013;
                         }
                       }
 
                       else
                       {
-                        v38 = 0x3FBCBFB13FF0D1B7;
-                        v39 = 0xBF124745BE288CE7;
-                        v40 = 0xBD24A8C1BEEB6AE8;
-                        v41 = 0xBEB88659BE0EF34DLL;
-                        v42 = 0x3F2D91683E86809DLL;
-                        v33 = xmmword_19A96E1F0;
-                        v43 = 0.0593;
-                        v34 = 0.0593000017;
+                        v47 = 0x3FBCBFB13FF0D1B7;
+                        v48 = 0xBF124745BE288CE7;
+                        v49 = 0xBD24A8C1BEEB6AE8;
+                        v50 = 0xBEB88659BE0EF34DLL;
+                        v51 = 0x3F2D91683E86809DLL;
+                        v42 = xmmword_19A96E1F0;
+                        v52 = 0.0593;
+                        v43 = 0.0593000017;
                       }
 
-                      *(a1 + 160) = vcvt_f32_f64(v33);
-                      v63 = v34;
-                      *(a1 + 168) = v63;
-                      *(a1 + 176) = v42;
-                      *(a1 + 184) = v43;
-                      *(a1 + 188) = v41;
+                      *(a1 + 160) = vcvt_f32_f64(v42);
+                      v71 = v43;
+                      *(a1 + 168) = v71;
+                      *(a1 + 176) = v51;
+                      *(a1 + 184) = v52;
+                      *(a1 + 188) = v50;
                       *(a1 + 196) = 0x3F0000003F000000;
-                      *(a1 + 204) = v40;
+                      *(a1 + 204) = v49;
                       *(a1 + 212) = 1065353216;
-                      *(a1 + 220) = v38.i32[1];
+                      *(a1 + 220) = v47.i32[1];
                       *(a1 + 224) = 1065353216;
-                      *(a1 + 228) = v39;
+                      *(a1 + 228) = v48;
                       *(a1 + 236) = 1065353216;
-                      *(a1 + 240) = v38.i32[0];
+                      *(a1 + 240) = v47.i32[0];
                       *(a1 + 244) = 0;
                     }
                   }
@@ -5891,11 +4719,11 @@ LABEL_12:
         }
       }
 
-      if (get_primaries_data_from_cicp(a1, &v81, &v80, &v79))
+      if (get_primaries_data_from_cicp(a1, &v88, &v87, &v86))
       {
-        v7 = v80;
-        v6 = v81;
-        v9 = v79;
+        v7 = v87;
+        v6 = v88;
+        v9 = v86;
         goto LABEL_12;
       }
     }
@@ -5903,8 +4731,6 @@ LABEL_12:
 LABEL_40:
     pthread_mutex_unlock((a1 + 24));
   }
-
-  v64 = *MEMORY[0x1E69E9840];
 
   CFRelease(v3);
 }
@@ -5971,64 +4797,59 @@ float *ColorSyncProfileGetYCCtoRGBMatrix(float *a1)
   return v3;
 }
 
-ColorSyncProfile *ColorSyncProfileCreateCopyWithFlexGTC(const ColorSyncProfile *a1, const __CFDictionary *a2, CFErrorRef *a3)
+ColorSyncProfile *ColorSyncProfileCreateCopyWithFlexGTC(const ColorSyncProfile *a1, CFErrorRef *a2, CFErrorRef *a3)
 {
-  v24[6] = *MEMORY[0x1E69E9840];
-  if (ColorSyncProfileVerify(a1, a2, a3) && ColorSyncProfileIsPQBased(a1))
+  v23[6] = *MEMORY[0x1E69E9840];
+  if (!ColorSyncProfileVerify(a1, a2, a3) || !ColorSyncProfileIsPQBased(a1))
   {
-    Count = CFDictionaryGetCount(a2);
-    v6 = malloc_type_calloc(1uLL, 16 * (Count + 5), 0x8545CF49uLL);
-    v7 = &v6[Count + 5];
-    CFDictionaryGetKeysAndValues(a2, v6, v7);
-    v24[0] = time(0);
-    v8 = localtime(v24);
-    v9 = LOWORD(v8->tm_min) | (v8->tm_sec << 16);
-    valuePtr = (v8->tm_hour << 48) | (LOWORD(v8->tm_mday) << 32) | ((v8->tm_mon << 16) + 0x10000) | (v8->tm_year + 1900);
-    v23 = v9;
-    v24[0] = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-    v24[1] = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr + 2);
-    v24[2] = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr + 4);
-    v24[3] = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr + 6);
-    v24[4] = CFNumberCreate(0, kCFNumberSInt16Type, &v23);
-    v24[5] = CFNumberCreate(0, kCFNumberSInt16Type, &v23 + 2);
-    v10 = CFArrayCreate(*MEMORY[0x1E695E480], v24, 6, MEMORY[0x1E695E9C0]);
-    for (i = 0; i != 6; ++i)
+    return 0;
+  }
+
+  Count = CFDictionaryGetCount(a2);
+  v6 = malloc_type_calloc(1uLL, 16 * (Count + 5), 0x8545CF49uLL);
+  v7 = &v6[Count + 5];
+  CFDictionaryGetKeysAndValues(a2, v6, v7);
+  v23[0] = time(0);
+  v8 = localtime(v23);
+  v9 = LOWORD(v8->tm_min) | (v8->tm_sec << 16);
+  valuePtr = (v8->tm_hour << 48) | (LOWORD(v8->tm_mday) << 32) | ((v8->tm_mon << 16) + 0x10000) | (v8->tm_year + 1900);
+  v22 = v9;
+  v23[0] = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
+  v23[1] = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr + 2);
+  v23[2] = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr + 4);
+  v23[3] = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr + 6);
+  v23[4] = CFNumberCreate(0, kCFNumberSInt16Type, &v22);
+  v23[5] = CFNumberCreate(0, kCFNumberSInt16Type, &v22 + 2);
+  v10 = CFArrayCreate(*MEMORY[0x1E695E480], v23, 6, MEMORY[0x1E695E9C0]);
+  for (i = 0; i != 6; ++i)
+  {
+    v12 = v23[i];
+    if (v12)
     {
-      v12 = v24[i];
-      if (v12)
-      {
-        CFRelease(v12);
-      }
+      CFRelease(v12);
     }
-
-    v6[Count] = @"profileType";
-    v13 = 8 * Count + 8;
-    *(v6 + v13) = @"profileToCopy";
-    v14 = 8 * Count + 16;
-    *(v6 + v14) = @"Date";
-    v15 = 8 * Count + 24;
-    *(v6 + v15) = @"FlexGTC.based.A2B0";
-    v16 = 8 * Count + 32;
-    *(v6 + v16) = @"createImmutableCopy";
-    v7[Count] = @"copyWithGTC";
-    *(v7 + v13) = a1;
-    *(v7 + v14) = v10;
-    v17 = *MEMORY[0x1E695E4D0];
-    *(v7 + v15) = *MEMORY[0x1E695E4D0];
-    *(v7 + v16) = v17;
-    v18 = CFDictionaryCreate(0, v6, v7, Count + 5, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    CFRelease(v10);
-    free(v6);
-    Profile = ColorSyncMakeProfile(v18);
-    CFRelease(v18);
   }
 
-  else
-  {
-    Profile = 0;
-  }
-
-  v20 = *MEMORY[0x1E69E9840];
+  v6[Count] = @"profileType";
+  v13 = 8 * Count + 8;
+  *(v6 + v13) = @"profileToCopy";
+  v14 = 8 * Count + 16;
+  *(v6 + v14) = @"Date";
+  v15 = 8 * Count + 24;
+  *(v6 + v15) = @"FlexGTC.based.A2B0";
+  v16 = 8 * Count + 32;
+  *(v6 + v16) = @"createImmutableCopy";
+  v7[Count] = @"copyWithGTC";
+  *(v7 + v13) = a1;
+  *(v7 + v14) = v10;
+  v17 = *MEMORY[0x1E695E4D0];
+  *(v7 + v15) = *MEMORY[0x1E695E4D0];
+  *(v7 + v16) = v17;
+  v18 = CFDictionaryCreate(0, v6, v7, Count + 5, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  CFRelease(v10);
+  free(v6);
+  Profile = ColorSyncMakeProfile(v18);
+  CFRelease(v18);
   return Profile;
 }
 
@@ -6036,107 +4857,102 @@ ColorSyncProfile *ColorSyncProfileCreateCopyWithLUTBasedLumaScaling(void *a1, co
 {
   values[6] = *MEMORY[0x1E69E9840];
   v4 = ColorSyncProfileCopyFlexGTCInfo(a1);
-  if (v4)
+  if (!v4)
   {
-    v5 = v4;
-    values[0] = CFNumberCreate(0, kCFNumberSInt16Type, &ColorSyncProfileCreateCopyWithLUTBasedLumaScaling_iccDate);
-    values[1] = CFNumberCreate(0, kCFNumberSInt16Type, &unk_19A96E6A2);
-    values[2] = CFNumberCreate(0, kCFNumberSInt16Type, &unk_19A96E6A4);
-    values[3] = CFNumberCreate(0, kCFNumberSInt16Type, &unk_19A96E6A6);
-    values[4] = CFNumberCreate(0, kCFNumberSInt16Type, &unk_19A96E6A8);
-    values[5] = CFNumberCreate(0, kCFNumberSInt16Type, &unk_19A96E6AA);
-    v6 = CFArrayCreate(*MEMORY[0x1E695E480], values, 6, MEMORY[0x1E695E9C0]);
-    for (i = 0; i != 6; ++i)
-    {
-      v8 = values[i];
-      if (v8)
-      {
-        CFRelease(v8);
-      }
-    }
+    return 0;
+  }
 
-    if (a2 && (v9 = CFGetTypeID(a2), v9 == CFDictionaryGetTypeID()) && (Value = CFDictionaryGetValue(a2, kColorSyncConversionGridPoints)) != 0)
+  v5 = v4;
+  values[0] = CFNumberCreate(0, kCFNumberSInt16Type, &ColorSyncProfileCreateCopyWithLUTBasedLumaScaling_iccDate);
+  values[1] = CFNumberCreate(0, kCFNumberSInt16Type, &unk_19A96E6A2);
+  values[2] = CFNumberCreate(0, kCFNumberSInt16Type, &unk_19A96E6A4);
+  values[3] = CFNumberCreate(0, kCFNumberSInt16Type, &unk_19A96E6A6);
+  values[4] = CFNumberCreate(0, kCFNumberSInt16Type, &unk_19A96E6A8);
+  values[5] = CFNumberCreate(0, kCFNumberSInt16Type, &unk_19A96E6AA);
+  v6 = CFArrayCreate(*MEMORY[0x1E695E480], values, 6, MEMORY[0x1E695E9C0]);
+  for (i = 0; i != 6; ++i)
+  {
+    v8 = values[i];
+    if (v8)
     {
-      v11 = Value;
-      CFRetain(Value);
+      CFRelease(v8);
     }
+  }
 
-    else
-    {
-      v11 = CFNumberCreate(0, kCFNumberLongLongType, &ColorSyncProfileCreateCopyWithLUTBasedLumaScaling_kFlexGTCGridPoints);
-    }
-
-    *keys = xmmword_1E7523518;
-    v18 = *off_1E7523528;
-    v19 = @"createImmutableCopy";
-    v16[0] = @"FlexGTC.based.A2B0";
-    v16[1] = a1;
-    v16[2] = v6;
-    v16[3] = v11;
-    v16[4] = *MEMORY[0x1E695E4D0];
-    v12 = CFDictionaryCreate(0, keys, v16, 5, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    CFRelease(v6);
-    Profile = ColorSyncMakeProfile(v12);
-    CFRelease(v12);
-    CFRelease(v5);
+  if (a2 && (v9 = CFGetTypeID(a2), v9 == CFDictionaryGetTypeID()) && (Value = CFDictionaryGetValue(a2, kColorSyncConversionGridPoints)) != 0)
+  {
+    v11 = Value;
+    CFRetain(Value);
   }
 
   else
   {
-    Profile = 0;
+    v11 = CFNumberCreate(0, kCFNumberLongLongType, &ColorSyncProfileCreateCopyWithLUTBasedLumaScaling_kFlexGTCGridPoints);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
+  *keys = xmmword_1E7523518;
+  v17 = *off_1E7523528;
+  v18 = @"createImmutableCopy";
+  v15[0] = @"FlexGTC.based.A2B0";
+  v15[1] = a1;
+  v15[2] = v6;
+  v15[3] = v11;
+  v15[4] = *MEMORY[0x1E695E4D0];
+  v12 = CFDictionaryCreate(0, keys, v15, 5, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  CFRelease(v6);
+  Profile = ColorSyncMakeProfile(v12);
+  CFRelease(v12);
+  CFRelease(v5);
   return Profile;
 }
 
 BOOL validate_gmap_tag(uint64_t a1, unint64_t a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (*a1 == 1885433191 && !*(a1 + 8) && bswap32(*(a1 + 12)) <= a2 && ((v2 = *(a1 + 16)) == 0 || ((v3 = bswap32(v2), v3 >= 0x59) ? (v4 = a2 - 4 >= v3) : (v4 = 0), v4)))
   {
-    v8 = *(a1 + 32);
-    if (!v8 || (v5 = 0, v9 = bswap32(v8), v9 >= 0x59) && a2 - 4 >= v9)
+    v7 = *(a1 + 32);
+    if (!v7 || (v5 = 0, v8 = bswap32(v7), v8 >= 0x59) && a2 - 4 >= v8)
     {
-      v10 = *(a1 + 20);
-      if (!v10 || (v5 = 0, v11 = bswap32(v10), v11 >= 0x59) && a2 - 44 >= v11)
+      v9 = *(a1 + 20);
+      if (!v9 || (v5 = 0, v10 = bswap32(v9), v10 >= 0x59) && a2 - 44 >= v10)
       {
-        v12 = *(a1 + 24);
-        if (!v12 || (v5 = 0, v13 = bswap32(v12), v13 >= 0x59) && a2 - 44 >= v13)
+        v11 = *(a1 + 24);
+        if (!v11 || (v5 = 0, v12 = bswap32(v11), v12 >= 0x59) && a2 - 44 >= v12)
         {
-          v14 = *(a1 + 28);
-          if (!v14 || (v5 = 0, v15 = bswap32(v14), v15 >= 0x59) && a2 - 44 >= v15)
+          v13 = *(a1 + 28);
+          if (!v13 || (v5 = 0, v14 = bswap32(v13), v14 >= 0x59) && a2 - 44 >= v14)
           {
-            v16 = 0;
+            v15 = 0;
             v5 = 0;
-            v23 = *(a1 + 36);
-            v24 = *(a1 + 52);
-            v17 = &v23 + 1;
+            v22 = *(a1 + 36);
+            v23 = *(a1 + 52);
+            v16 = &v22 + 1;
             do
             {
-              v18 = *(v17 - 1);
-              if (v18)
+              v17 = *(v16 - 1);
+              if (v17)
               {
-                v19 = bswap32(v18);
-                if (v19 < 0x59)
+                v18 = bswap32(v17);
+                if (v18 < 0x59)
                 {
                   break;
                 }
 
-                v20 = bswap32(*v17);
-                v4 = a2 >= v20;
-                v21 = a2 - v20;
-                if (!v4 || v21 < v19)
+                v19 = bswap32(*v16);
+                v4 = a2 >= v19;
+                v20 = a2 - v19;
+                if (!v4 || v20 < v18)
                 {
                   break;
                 }
               }
 
-              v17 += 2;
-              v5 = v16++ > 1;
+              v16 += 2;
+              v5 = v15++ > 1;
             }
 
-            while (v16 != 3);
+            while (v15 != 3);
           }
         }
       }
@@ -6145,10 +4961,9 @@ BOOL validate_gmap_tag(uint64_t a1, unint64_t a2)
 
   else
   {
-    v5 = 0;
+    return 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -6191,72 +5006,71 @@ CFDictionaryRef create_gain_map_info(uint64_t a1)
     CFRelease(values[i]);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 uint64_t ColorSyncProfileCreateFlexGTCLookupData(void *a1, float a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2000000000;
-  v22 = 0;
+  v32 = *MEMORY[0x1E69E9840];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2000000000;
+  v21 = 0;
   v4 = ColorSyncProfileCreateWithName(kColorSyncGenericXYZProfile);
-  v26 = 0u;
   v25 = 0u;
+  v24 = 0u;
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   keys = @"com.apple.cmm.FlexGTCTargetHeadroom";
   valuePtr = LODWORD(a2);
   values = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
   v5 = MEMORY[0x1E695E9D8];
   v6 = MEMORY[0x1E695E9E8];
   v7 = CFDictionaryCreate(0, &keys, &values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  *&v25 = @"com.apple.cmm.ApplyFlexLumaScaling";
-  *&v31 = v7;
-  v8 = CFDictionaryCreate(0, &v25, &v31, 1, v5, v6);
-  *(&v25 + 1) = @"com.apple.cmm.ApplyToneMaping";
-  *&v26 = @"com.apple.cmm.PQEOTFTable";
+  *&v24 = @"com.apple.cmm.ApplyFlexLumaScaling";
+  *&v30 = v7;
+  v8 = CFDictionaryCreate(0, &v24, &v30, 1, v5, v6);
+  *(&v24 + 1) = @"com.apple.cmm.ApplyToneMaping";
+  *&v25 = @"com.apple.cmm.PQEOTFTable";
   v9 = *MEMORY[0x1E695E4D0];
-  *(&v31 + 1) = v8;
-  *&v32 = v9;
-  *(&v26 + 1) = @"com.apple.cmm.PQEOTFTableSize";
+  *(&v30 + 1) = v8;
+  *&v31 = v9;
+  *(&v25 + 1) = @"com.apple.cmm.PQEOTFTableSize";
   valuePtr = 1024;
-  *(&v32 + 1) = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v10 = CFDictionaryCreate(0, &v25 + 1, &v31 + 1, 3, v5, v6);
+  *(&v31 + 1) = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+  v10 = CFDictionaryCreate(0, &v24 + 1, &v30 + 1, 3, v5, v6);
   CFRelease(values);
-  CFRelease(*(&v32 + 1));
+  CFRelease(*(&v31 + 1));
   CFRelease(v7);
   CFRelease(v8);
   colorsync_transform = create_colorsync_transform(a1, v4, v10);
   keys = 0;
-  *&v25 = &keys;
-  *(&v25 + 1) = 0x6800000000;
+  *&v24 = &keys;
+  *(&v24 + 1) = 0x6800000000;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  memset(v29, 0, sizeof(v29));
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 0x40000000;
-  v18[2] = __ColorSyncProfileCreateFlexGTCLookupData_block_invoke;
-  v18[3] = &unk_1E7523548;
-  v18[4] = &keys;
+  memset(v28, 0, sizeof(v28));
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 0x40000000;
-  v17[2] = __ColorSyncProfileCreateFlexGTCLookupData_block_invoke_4;
-  v17[3] = &unk_1E75235B0;
+  v17[2] = __ColorSyncProfileCreateFlexGTCLookupData_block_invoke;
+  v17[3] = &unk_1E7523548;
   v17[4] = &keys;
-  v17[5] = &v19;
-  v12 = ColorSyncTransformIterate(colorsync_transform, v10, v18, &__block_literal_global_388, &__block_literal_global_392, v17);
-  v13 = v20;
-  v14 = v20[3];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 0x40000000;
+  v16[2] = __ColorSyncProfileCreateFlexGTCLookupData_block_invoke_4;
+  v16[3] = &unk_1E75235B0;
+  v16[4] = &keys;
+  v16[5] = &v18;
+  v12 = ColorSyncTransformIterate(colorsync_transform, v10, v17, &__block_literal_global_388, &__block_literal_global_392, v16);
+  v13 = v19;
+  v14 = v19[3];
   if ((v12 & 1) == 0)
   {
     if (v14)
     {
-      CFRelease(v20[3]);
-      v13 = v20;
+      CFRelease(v19[3]);
+      v13 = v19;
     }
 
     v14 = 0;
@@ -6264,8 +5078,7 @@ uint64_t ColorSyncProfileCreateFlexGTCLookupData(void *a1, float a2)
   }
 
   _Block_object_dispose(&keys, 8);
-  _Block_object_dispose(&v19, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v18, 8);
   return v14;
 }
 
@@ -6304,17 +5117,17 @@ uint64_t __ColorSyncProfileCreateFlexGTCLookupData_block_invoke_4(uint64_t a1, u
 
 ColorSyncProfile *ColorSyncProfileCreateCopyWithISO5Metadata(const ColorSyncProfile *a1, CFErrorRef *a2, CFErrorRef *a3)
 {
-  v148 = *MEMORY[0x1E69E9840];
+  v147 = *MEMORY[0x1E69E9840];
   if (!ColorSyncProfileVerify(a1, a2, a3))
   {
-    goto LABEL_84;
+    return 0;
   }
 
   if (ColorSyncProfileIsHLGBased(a1))
   {
     if (!a2)
     {
-      goto LABEL_84;
+      return 0;
     }
   }
 
@@ -6324,16 +5137,14 @@ ColorSyncProfile *ColorSyncProfileCreateCopyWithISO5Metadata(const ColorSyncProf
     MutableCopy = 0;
     if (!a2 || !IsPQBased)
     {
-      goto LABEL_85;
+      return MutableCopy;
     }
   }
 
   v7 = CFGetTypeID(a2);
   if (v7 != CFDictionaryGetTypeID())
   {
-LABEL_84:
-    MutableCopy = 0;
-    goto LABEL_85;
+    return 0;
   }
 
   if (CFDictionaryContainsKey(a2, kColorSyncMDCVInfo[0]) != 1)
@@ -6341,7 +5152,7 @@ LABEL_84:
     LODWORD(MaximumSizeForEncoding) = 0;
     LODWORD(v15) = 0;
     LODWORD(v16) = 0;
-    v137 = 0;
+    v136 = 0;
     v9 = 0;
     goto LABEL_32;
   }
@@ -6417,12 +5228,12 @@ LABEL_30:
       Length = CFStringGetLength(@"MDCV");
       MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x10000100u);
       CFStringGetCString(@"MDCV", v9, MaximumSizeForEncoding + 1, 0x10000100u);
-      v144 = 0u;
-      v145 = 0u;
-      v142 = 0u;
       v143 = 0u;
-      *__str = 0u;
+      v144 = 0u;
       v141 = 0u;
+      v142 = 0u;
+      *__str = 0u;
+      v140 = 0u;
       snprintf(__str, 0x60uLL, "%06.6f,%06.6f,%d", float_from_dictionary, v12, v17);
       v19 = CFStringCreateWithCString(0, __str, 0x8000100u);
       if (v19)
@@ -6450,16 +5261,16 @@ LABEL_27:
   }
 
 LABEL_31:
-  v137 = v9 != 0;
+  v136 = v9 != 0;
 LABEL_32:
-  v134 = MaximumSizeForEncoding;
-  v135 = v16;
+  v133 = MaximumSizeForEncoding;
+  v134 = v16;
   if (CFDictionaryContainsKey(a2, kColorSyncCCVInfo[0]) != 1)
   {
     LODWORD(v28) = 0;
+    v130 = 0;
     v131 = 0;
-    v132 = 0;
-    v136 = 0;
+    v135 = 0;
     v29 = 0;
     goto LABEL_45;
   }
@@ -6490,17 +5301,17 @@ LABEL_32:
       v27 = 10000.0;
     }
 
-    if (get_float_from_dictionary(v24, kColorSyncMinLuminance) < 0.0 || (v113 = 10000.0, get_float_from_dictionary(v24, kColorSyncMinLuminance) <= 10000.0))
+    if (get_float_from_dictionary(v24, kColorSyncMinLuminance) < 0.0 || (v112 = 10000.0, get_float_from_dictionary(v24, kColorSyncMinLuminance) <= 10000.0))
     {
-      v113 = 0.0;
+      v112 = 0.0;
       if (get_float_from_dictionary(v24, kColorSyncMinLuminance) >= 0.0)
       {
-        v113 = get_float_from_dictionary(v24, kColorSyncMinLuminance);
+        v112 = get_float_from_dictionary(v24, kColorSyncMinLuminance);
       }
     }
 
     v30 = v15;
-    v114 = get_primaries_from_dictionary(v24, kColorSyncPrimaries);
+    v113 = get_primaries_from_dictionary(v24, kColorSyncPrimaries);
     v29 = 0;
     LODWORD(v28) = 0;
     if (v26 <= 0.0)
@@ -6513,41 +5324,41 @@ LABEL_121:
 
     LODWORD(v31) = 0;
     LODWORD(v15) = 0;
-    if (v113 > 0.0)
+    if (v112 > 0.0)
     {
-      v115 = v114;
+      v114 = v113;
       v29 = 0;
       LODWORD(v28) = 0;
-      if (v114 <= 0xC)
+      if (v113 <= 0xC)
       {
         LODWORD(v31) = 0;
         LODWORD(v15) = 0;
-        if (((1 << v114) & 0x1A23) != 0)
+        if (((1 << v113) & 0x1A23) != 0)
         {
           v29 = malloc_type_calloc(1uLL, 0xB8uLL, 0x10000400D840072uLL);
-          v116 = CFStringGetLength(@"CCV");
-          v28 = CFStringGetMaximumSizeForEncoding(v116, 0x10000100u);
+          v115 = CFStringGetLength(@"CCV");
+          v28 = CFStringGetMaximumSizeForEncoding(v115, 0x10000100u);
           CFStringGetCString(@"CCV", v29, v28 + 1, 0x10000100u);
-          v146 = 0u;
-          v147 = 0u;
-          v144 = 0u;
           v145 = 0u;
-          v142 = 0u;
+          v146 = 0u;
           v143 = 0u;
-          *__str = 0u;
+          v144 = 0u;
           v141 = 0u;
-          snprintf(__str, 0x80uLL, "%06.6f,%06.6f,%06.6f,%d", v26, v27, v113, v115);
-          v117 = CFStringCreateWithCString(0, __str, 0x8000100u);
-          if (v117)
+          v142 = 0u;
+          *__str = 0u;
+          v140 = 0u;
+          snprintf(__str, 0x80uLL, "%06.6f,%06.6f,%06.6f,%d", v26, v27, v112, v114);
+          v116 = CFStringCreateWithCString(0, __str, 0x8000100u);
+          if (v116)
           {
-            v118 = v117;
-            v119 = CFStringGetLength(v117);
-            v31 = CFStringGetMaximumSizeForEncoding(v119, 0x10000100u);
-            CFStringGetCString(v118, v29 + 12, v31 + 1, 0x10000100u);
-            v120 = CFStringGetLength(@"Content Color Volume");
-            v15 = CFStringGetMaximumSizeForEncoding(v120, 0x10000100u);
+            v117 = v116;
+            v118 = CFStringGetLength(v116);
+            v31 = CFStringGetMaximumSizeForEncoding(v118, 0x10000100u);
+            CFStringGetCString(v117, v29 + 12, v31 + 1, 0x10000100u);
+            v119 = CFStringGetLength(@"Content Color Volume");
+            v15 = CFStringGetMaximumSizeForEncoding(v119, 0x10000100u);
             CFStringGetCString(@"Content Color Volume", v29 + 140, v15 + 1, 0x10000100u);
-            CFRelease(v118);
+            CFRelease(v117);
           }
 
           else
@@ -6574,16 +5385,16 @@ LABEL_121:
   }
 
 LABEL_44:
-  v131 = v15;
-  v132 = v31;
-  v136 = v29 != 0;
+  v130 = v15;
+  v131 = v31;
+  v135 = v29 != 0;
   LODWORD(v15) = v30;
 LABEL_45:
   if (CFDictionaryContainsKey(a2, kColorSyncCLLInfo[0]) != 1)
   {
     v39 = 0;
+    v128 = 0;
     v129 = 0;
-    v130 = 0;
     v50 = 0;
     v38 = 0;
     goto LABEL_65;
@@ -6634,17 +5445,17 @@ LABEL_120:
         v41 = 0;
         if (((1 << v37) & 0x1A23) != 0)
         {
-          v122 = v15;
+          v121 = v15;
           v38 = malloc_type_calloc(1uLL, 0xB0uLL, 0x1000040C3A7E6FCuLL);
           v43 = CFStringGetLength(@"CLL");
-          v124 = CFStringGetMaximumSizeForEncoding(v43, 0x10000100u);
-          CFStringGetCString(@"CLL", v38, v124 + 1, 0x10000100u);
-          v144 = 0u;
-          v145 = 0u;
-          v142 = 0u;
+          v123 = CFStringGetMaximumSizeForEncoding(v43, 0x10000100u);
+          CFStringGetCString(@"CLL", v38, v123 + 1, 0x10000100u);
           v143 = 0u;
-          *__str = 0u;
+          v144 = 0u;
           v141 = 0u;
+          v142 = 0u;
+          *__str = 0u;
+          v140 = 0u;
           snprintf(__str, 0x60uLL, "%06.6f,%06.6f,%d", v35, v36, v42);
           v44 = CFStringCreateWithCString(0, __str, 0x8000100u);
           if (v44)
@@ -6667,8 +5478,8 @@ LABEL_120:
             v41 = 0;
           }
 
-          LODWORD(v15) = v122;
-          v39 = v124;
+          LODWORD(v15) = v121;
+          v39 = v123;
         }
 
         goto LABEL_64;
@@ -6687,11 +5498,11 @@ LABEL_120:
   }
 
 LABEL_64:
-  v129 = v41;
-  v130 = v40;
+  v128 = v41;
+  v129 = v40;
   v50 = v38 != 0;
 LABEL_65:
-  v133 = v28;
+  v132 = v28;
   if (CFDictionaryContainsKey(a2, kColorSyncCRWLInfo[0]) == 1)
   {
     v51 = CFDictionaryGetValue(a2, kColorSyncCRWLInfo[0]);
@@ -6711,25 +5522,25 @@ LABEL_65:
       valuePtr = v57;
       v58 = malloc_type_calloc(1uLL, 0x78uLL, 0x1000040A9FC9F90uLL);
       v59 = CFStringGetLength(@"CRWL");
-      v127 = CFStringGetMaximumSizeForEncoding(v59, 0x10000100u);
-      CFStringGetCString(@"CRWL", v58, v127 + 1, 0x10000100u);
+      v126 = CFStringGetMaximumSizeForEncoding(v59, 0x10000100u);
+      CFStringGetCString(@"CRWL", v58, v126 + 1, 0x10000100u);
       memset(__str, 0, sizeof(__str));
-      DWORD2(v141) = 0;
-      *&v141 = 0;
+      DWORD2(v140) = 0;
+      *&v140 = 0;
       snprintf(__str, 0x1CuLL, "%06.6f", valuePtr);
       v60 = CFStringCreateWithCString(0, __str, 0x8000100u);
       if (v60)
       {
         v61 = v60;
         v62 = CFStringGetLength(v60);
-        v125 = CFStringGetMaximumSizeForEncoding(v62, 0x10000100u);
-        CFStringGetCString(v61, v58 + 12, v125 + 1, 0x10000100u);
+        v124 = CFStringGetMaximumSizeForEncoding(v62, 0x10000100u);
+        CFStringGetCString(v61, v58 + 12, v124 + 1, 0x10000100u);
         v63 = CFStringGetLength(@"Content HDR Reference White Luminance");
         v64 = CFStringGetMaximumSizeForEncoding(v63, 0x10000100u);
         CFStringGetCString(@"Content HDR Reference White Luminance", v58 + 40, v64 + 1, 0x10000100u);
         CFRelease(v61);
         v65 = v64;
-        v66 = v125;
+        v66 = v124;
       }
 
       else
@@ -6738,7 +5549,7 @@ LABEL_65:
         v65 = 0;
       }
 
-      v67 = v127;
+      v67 = v126;
     }
 
     else
@@ -6763,167 +5574,167 @@ LABEL_65:
 
   if (!v9 && !v29 && !v38 && !v58)
   {
-    goto LABEL_84;
+    return 0;
   }
 
-  v123 = v65;
-  v126 = v66;
-  v128 = v67;
+  v122 = v65;
+  v125 = v66;
+  v127 = v67;
   MutableCopy = ColorSyncProfileCreateMutableCopy(a1);
   if (!MutableCopy)
   {
     goto LABEL_100;
   }
 
-  v138 = v9;
-  v71 = v136 + v137 + v50 + v68;
-  v121 = 184 * v136 + 172 * v137 + 176 * v50 + 120 * v68 + 24 * v71;
-  v72 = malloc_type_calloc(1uLL, v121 + 16, 0x1000040A86A77D5uLL);
-  if (v72)
+  v137 = v9;
+  v70 = v135 + v136 + v50 + v68;
+  v120 = 184 * v135 + 172 * v136 + 176 * v50 + 120 * v68 + 24 * v70;
+  v71 = malloc_type_calloc(1uLL, v120 + 16, 0x1000040A86A77D5uLL);
+  if (v71)
   {
-    v73 = v72;
-    *v72 = 1952672100;
-    *(v72 + 2) = v71 << 24;
-    *(v72 + 3) = 402653184;
-    v74 = &v72[24 * v137 + 16];
-    v75 = &v74[24 * v136];
-    v76 = &v75[24 * v50];
-    v77 = &v76[24 * v68];
-    if (v137)
-    {
-      v78 = *v138;
-      v79 = v138[2];
-      *(v77 + 1) = v138[1];
-      *(v77 + 2) = v79;
-      *v77 = v78;
-      v80 = v138[3];
-      v81 = v138[4];
-      v82 = v138[6];
-      *(v77 + 5) = v138[5];
-      *(v77 + 6) = v82;
-      *(v77 + 3) = v80;
-      *(v77 + 4) = v81;
-      v83 = v138[7];
-      v84 = v138[8];
-      v85 = v138[9];
-      *(v77 + 156) = *(v138 + 156);
-      *(v77 + 8) = v84;
-      *(v77 + 9) = v85;
-      *(v77 + 7) = v83;
-      *(v72 + 4) = bswap32(v77 - v72);
-      *(v72 + 5) = bswap32(v134);
-      *(v72 + 6) = bswap32(v77 - v72 + 12);
-      *(v72 + 7) = bswap32(v15);
-      *(v72 + 8) = bswap32(v77 - v72 + 108);
-      *(v72 + 9) = bswap32(v135);
-    }
-
-    v86 = &v77[172 * v137];
+    v72 = v71;
+    *v71 = 1952672100;
+    *(v71 + 2) = v70 << 24;
+    *(v71 + 3) = 402653184;
+    v73 = &v71[24 * v136 + 16];
+    v74 = &v73[24 * v135];
+    v75 = &v74[24 * v50];
+    v76 = &v75[24 * v68];
     if (v136)
     {
-      v87 = *v29;
-      v88 = *(v29 + 1);
-      v89 = *(v29 + 3);
-      *(v86 + 2) = *(v29 + 2);
-      *(v86 + 3) = v89;
-      *v86 = v87;
-      *(v86 + 1) = v88;
-      v90 = *(v29 + 4);
-      v91 = *(v29 + 5);
-      v92 = *(v29 + 7);
-      *(v86 + 6) = *(v29 + 6);
-      *(v86 + 7) = v92;
-      *(v86 + 4) = v90;
-      *(v86 + 5) = v91;
-      v93 = *(v29 + 8);
-      v94 = *(v29 + 9);
-      v95 = *(v29 + 10);
-      *(v86 + 22) = *(v29 + 22);
-      *(v86 + 9) = v94;
-      *(v86 + 10) = v95;
-      *(v86 + 8) = v93;
-      *v74 = bswap32(v86 - v72);
-      *&v72[24 * v137 + 20] = bswap32(v133);
-      *&v72[24 * v137 + 24] = bswap32(v86 - v72 + 12);
-      *&v72[24 * v137 + 28] = bswap32(v132);
-      *&v72[24 * v137 + 32] = bswap32(v86 - v72 + 140);
-      *&v72[24 * v137 + 36] = bswap32(v131);
+      v77 = *v137;
+      v78 = v137[2];
+      *(v76 + 1) = v137[1];
+      *(v76 + 2) = v78;
+      *v76 = v77;
+      v79 = v137[3];
+      v80 = v137[4];
+      v81 = v137[6];
+      *(v76 + 5) = v137[5];
+      *(v76 + 6) = v81;
+      *(v76 + 3) = v79;
+      *(v76 + 4) = v80;
+      v82 = v137[7];
+      v83 = v137[8];
+      v84 = v137[9];
+      *(v76 + 156) = *(v137 + 156);
+      *(v76 + 8) = v83;
+      *(v76 + 9) = v84;
+      *(v76 + 7) = v82;
+      *(v71 + 4) = bswap32(v76 - v71);
+      *(v71 + 5) = bswap32(v133);
+      *(v71 + 6) = bswap32(v76 - v71 + 12);
+      *(v71 + 7) = bswap32(v15);
+      *(v71 + 8) = bswap32(v76 - v71 + 108);
+      *(v71 + 9) = bswap32(v134);
     }
 
-    v96 = &v86[184 * v136];
-    v9 = v138;
+    v85 = &v76[172 * v136];
+    if (v135)
+    {
+      v86 = *v29;
+      v87 = *(v29 + 1);
+      v88 = *(v29 + 3);
+      *(v85 + 2) = *(v29 + 2);
+      *(v85 + 3) = v88;
+      *v85 = v86;
+      *(v85 + 1) = v87;
+      v89 = *(v29 + 4);
+      v90 = *(v29 + 5);
+      v91 = *(v29 + 7);
+      *(v85 + 6) = *(v29 + 6);
+      *(v85 + 7) = v91;
+      *(v85 + 4) = v89;
+      *(v85 + 5) = v90;
+      v92 = *(v29 + 8);
+      v93 = *(v29 + 9);
+      v94 = *(v29 + 10);
+      *(v85 + 22) = *(v29 + 22);
+      *(v85 + 9) = v93;
+      *(v85 + 10) = v94;
+      *(v85 + 8) = v92;
+      *v73 = bswap32(v85 - v71);
+      *&v71[24 * v136 + 20] = bswap32(v132);
+      *&v71[24 * v136 + 24] = bswap32(v85 - v71 + 12);
+      *&v71[24 * v136 + 28] = bswap32(v131);
+      *&v71[24 * v136 + 32] = bswap32(v85 - v71 + 140);
+      *&v71[24 * v136 + 36] = bswap32(v130);
+    }
+
+    v95 = &v85[184 * v135];
+    v9 = v137;
     if (v50)
     {
-      v97 = *v38;
-      v98 = *(v38 + 2);
-      *(v96 + 1) = *(v38 + 1);
-      *(v96 + 2) = v98;
-      *v96 = v97;
-      v99 = *(v38 + 3);
-      v100 = *(v38 + 4);
-      v101 = *(v38 + 6);
-      *(v96 + 5) = *(v38 + 5);
-      *(v96 + 6) = v101;
-      *(v96 + 3) = v99;
-      *(v96 + 4) = v100;
-      v102 = *(v38 + 7);
-      v103 = *(v38 + 8);
-      v104 = *(v38 + 10);
-      *(v96 + 9) = *(v38 + 9);
-      *(v96 + 10) = v104;
-      *(v96 + 7) = v102;
-      *(v96 + 8) = v103;
-      *v75 = bswap32(v96 - v72);
-      *(v75 + 1) = bswap32(v39);
-      *(v75 + 2) = bswap32(v96 - v72 + 12);
-      *(v75 + 3) = bswap32(v130);
-      *(v75 + 4) = bswap32(v96 - v72 + 108);
-      *(v75 + 5) = bswap32(v129);
+      v96 = *v38;
+      v97 = *(v38 + 2);
+      *(v95 + 1) = *(v38 + 1);
+      *(v95 + 2) = v97;
+      *v95 = v96;
+      v98 = *(v38 + 3);
+      v99 = *(v38 + 4);
+      v100 = *(v38 + 6);
+      *(v95 + 5) = *(v38 + 5);
+      *(v95 + 6) = v100;
+      *(v95 + 3) = v98;
+      *(v95 + 4) = v99;
+      v101 = *(v38 + 7);
+      v102 = *(v38 + 8);
+      v103 = *(v38 + 10);
+      *(v95 + 9) = *(v38 + 9);
+      *(v95 + 10) = v103;
+      *(v95 + 7) = v101;
+      *(v95 + 8) = v102;
+      *v74 = bswap32(v95 - v71);
+      *(v74 + 1) = bswap32(v39);
+      *(v74 + 2) = bswap32(v95 - v71 + 12);
+      *(v74 + 3) = bswap32(v129);
+      *(v74 + 4) = bswap32(v95 - v71 + 108);
+      *(v74 + 5) = bswap32(v128);
     }
 
     if (v68)
     {
-      v105 = *v58;
-      v106 = *(v58 + 1);
-      v107 = &v96[176 * v50];
-      v108 = *(v58 + 3);
-      *(v107 + 2) = *(v58 + 2);
-      *(v107 + 3) = v108;
-      *v107 = v105;
-      *(v107 + 1) = v106;
-      v109 = *(v58 + 4);
-      v110 = *(v58 + 5);
-      v111 = *(v58 + 6);
-      *(v107 + 14) = *(v58 + 14);
-      *(v107 + 5) = v110;
-      *(v107 + 6) = v111;
-      *(v107 + 4) = v109;
-      *v76 = bswap32(v107 - v72);
-      *(v76 + 1) = bswap32(v128);
-      *(v76 + 2) = bswap32(v107 - v72 + 12);
-      *(v76 + 3) = bswap32(v126);
-      *(v76 + 4) = bswap32(v107 - v72 + 40);
-      *(v76 + 5) = bswap32(v123);
+      v104 = *v58;
+      v105 = *(v58 + 1);
+      v106 = &v95[176 * v50];
+      v107 = *(v58 + 3);
+      *(v106 + 2) = *(v58 + 2);
+      *(v106 + 3) = v107;
+      *v106 = v104;
+      *(v106 + 1) = v105;
+      v108 = *(v58 + 4);
+      v109 = *(v58 + 5);
+      v110 = *(v58 + 6);
+      *(v106 + 14) = *(v58 + 14);
+      *(v106 + 5) = v109;
+      *(v106 + 6) = v110;
+      *(v106 + 4) = v108;
+      *v75 = bswap32(v106 - v71);
+      *(v75 + 1) = bswap32(v127);
+      *(v75 + 2) = bswap32(v106 - v71 + 12);
+      *(v75 + 3) = bswap32(v125);
+      *(v75 + 4) = bswap32(v106 - v71 + 40);
+      *(v75 + 5) = bswap32(v122);
     }
 
-    v112 = CFDataCreate(0, v72, v121 + 16);
-    free(v73);
-    if (!v112)
+    v111 = CFDataCreate(0, v71, v120 + 16);
+    free(v72);
+    if (!v111)
     {
       goto LABEL_100;
     }
 
-    ColorSyncProfileSetTag(MutableCopy, @"meta", v112);
+    ColorSyncProfileSetTag(MutableCopy, @"meta", v111);
   }
 
   else
   {
-    v112 = MutableCopy;
+    v111 = MutableCopy;
     MutableCopy = 0;
-    v9 = v138;
+    v9 = v137;
   }
 
-  CFRelease(v112);
+  CFRelease(v111);
 LABEL_100:
   if (v9)
   {
@@ -6945,8 +5756,6 @@ LABEL_100:
     free(v58);
   }
 
-LABEL_85:
-  v69 = *MEMORY[0x1E69E9840];
   return MutableCopy;
 }
 
@@ -7215,59 +6024,62 @@ LABEL_57:
 CFDictionaryRef create_master_display_color_volume_dict(const __CFString *a1, const void *a2)
 {
   keys[4] = *MEMORY[0x1E69E9840];
-  if (a1 && (Length = CFStringGetLength(a1), MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u), (v6 = malloc_type_calloc(1uLL, MaximumSizeForEncoding + 1, 0x87FDB2D3uLL)) != 0))
+  if (!a1)
   {
-    v7 = v6;
-    CFStringGetCString(a1, v6, MaximumSizeForEncoding + 1, 0x8000100u);
-    v16 = 0;
-    v15 = 0;
-    if (sscanf(v7, "%f, %f, %i", &v16, &v15 + 4, &v15) == 3)
+    return 0;
+  }
+
+  Length = CFStringGetLength(a1);
+  MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
+  v6 = malloc_type_calloc(1uLL, MaximumSizeForEncoding + 1, 0x87FDB2D3uLL);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  v7 = v6;
+  CFStringGetCString(a1, v6, MaximumSizeForEncoding + 1, 0x8000100u);
+  v15 = 0;
+  v14 = 0;
+  if (sscanf(v7, "%f, %f, %i", &v15, &v14 + 4, &v14) == 3)
+  {
+    v8 = v14 & ~(v14 >> 31);
+    if (v8 >= 255)
     {
-      v8 = v15 & ~(v15 >> 31);
-      if (v8 >= 255)
-      {
-        v8 = 255;
-      }
+      v8 = 255;
+    }
 
-      LODWORD(v15) = v8;
-      keys[0] = kColorSyncMaxLuminance;
-      keys[1] = kColorSyncMinLuminance;
-      keys[2] = kColorSyncPrimaries;
-      keys[3] = kColorSyncMetadataDisplayName;
-      LODWORD(valuePtr[0]) = v16;
-      valuePtr[0] = CFNumberCreate(0, kCFNumberFloatType, valuePtr);
-      v17 = HIDWORD(v15);
-      valuePtr[1] = CFNumberCreate(0, kCFNumberFloatType, &v17);
-      LOBYTE(v17) = v15;
-      valuePtr[2] = CFNumberCreate(0, kCFNumberSInt8Type, &v17);
-      valuePtr[3] = a2;
-      if (a2)
-      {
-        v9 = 4;
-      }
-
-      else
-      {
-        v9 = 3;
-      }
-
-      v10 = CFDictionaryCreate(0, keys, valuePtr, v9, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      for (i = 0; i != 3; ++i)
-      {
-        v12 = valuePtr[i];
-        if (v12)
-        {
-          CFRelease(v12);
-        }
-      }
+    LODWORD(v14) = v8;
+    keys[0] = kColorSyncMaxLuminance;
+    keys[1] = kColorSyncMinLuminance;
+    keys[2] = kColorSyncPrimaries;
+    keys[3] = kColorSyncMetadataDisplayName;
+    LODWORD(valuePtr[0]) = v15;
+    valuePtr[0] = CFNumberCreate(0, kCFNumberFloatType, valuePtr);
+    v16 = HIDWORD(v14);
+    valuePtr[1] = CFNumberCreate(0, kCFNumberFloatType, &v16);
+    LOBYTE(v16) = v14;
+    valuePtr[2] = CFNumberCreate(0, kCFNumberSInt8Type, &v16);
+    valuePtr[3] = a2;
+    if (a2)
+    {
+      v9 = 4;
     }
 
     else
     {
-      v10 = 0;
+      v9 = 3;
     }
 
-    free(v7);
+    v10 = CFDictionaryCreate(0, keys, valuePtr, v9, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    for (i = 0; i != 3; ++i)
+    {
+      v12 = valuePtr[i];
+      if (v12)
+      {
+        CFRelease(v12);
+      }
+    }
   }
 
   else
@@ -7275,70 +6087,73 @@ CFDictionaryRef create_master_display_color_volume_dict(const __CFString *a1, co
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
+  free(v7);
   return v10;
 }
 
 CFDictionaryRef create_content_color_volume_dict(const __CFString *a1, const void *a2)
 {
   keys[5] = *MEMORY[0x1E69E9840];
-  if (a1 && (Length = CFStringGetLength(a1), MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u), (v6 = malloc_type_calloc(1uLL, MaximumSizeForEncoding + 1, 0xA160E2AuLL)) != 0))
+  if (!a1)
   {
-    v7 = v6;
-    CFStringGetCString(a1, v6, MaximumSizeForEncoding + 1, 0x8000100u);
-    v17 = 0;
-    v16 = 0;
-    v15 = 0;
-    if (sscanf(v7, "%f, %f, %f, %i", &v17, &v16 + 4, &v16, &v15) == 4)
+    return 0;
+  }
+
+  Length = CFStringGetLength(a1);
+  MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
+  v6 = malloc_type_calloc(1uLL, MaximumSizeForEncoding + 1, 0xA160E2AuLL);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  v7 = v6;
+  CFStringGetCString(a1, v6, MaximumSizeForEncoding + 1, 0x8000100u);
+  v16 = 0;
+  v15 = 0;
+  v14 = 0;
+  if (sscanf(v7, "%f, %f, %f, %i", &v16, &v15 + 4, &v15, &v14) == 4)
+  {
+    v8 = v14 & ~(v14 >> 31);
+    if (v8 >= 255)
     {
-      v8 = v15 & ~(v15 >> 31);
-      if (v8 >= 255)
-      {
-        v8 = 255;
-      }
+      v8 = 255;
+    }
 
-      v15 = v8;
-      keys[0] = kColorSyncMaxLuminance;
-      keys[1] = kColorSyncAverageLuminance;
-      keys[2] = kColorSyncMinLuminance;
-      keys[3] = kColorSyncPrimaries;
-      keys[4] = kColorSyncMetadataDisplayName;
-      LODWORD(valuePtr[0]) = v17;
-      valuePtr[0] = CFNumberCreate(0, kCFNumberFloatType, valuePtr);
-      v18 = HIDWORD(v16);
-      valuePtr[1] = CFNumberCreate(0, kCFNumberFloatType, &v18);
-      v18 = v16;
-      valuePtr[2] = CFNumberCreate(0, kCFNumberFloatType, &v18);
-      LOBYTE(v18) = v15;
-      valuePtr[3] = CFNumberCreate(0, kCFNumberSInt8Type, &v18);
-      valuePtr[4] = a2;
-      if (a2)
-      {
-        v9 = 5;
-      }
-
-      else
-      {
-        v9 = 4;
-      }
-
-      v10 = CFDictionaryCreate(0, keys, valuePtr, v9, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      for (i = 0; i != 4; ++i)
-      {
-        v12 = valuePtr[i];
-        if (v12)
-        {
-          CFRelease(v12);
-        }
-      }
+    v14 = v8;
+    keys[0] = kColorSyncMaxLuminance;
+    keys[1] = kColorSyncAverageLuminance;
+    keys[2] = kColorSyncMinLuminance;
+    keys[3] = kColorSyncPrimaries;
+    keys[4] = kColorSyncMetadataDisplayName;
+    LODWORD(valuePtr[0]) = v16;
+    valuePtr[0] = CFNumberCreate(0, kCFNumberFloatType, valuePtr);
+    v17 = HIDWORD(v15);
+    valuePtr[1] = CFNumberCreate(0, kCFNumberFloatType, &v17);
+    v17 = v15;
+    valuePtr[2] = CFNumberCreate(0, kCFNumberFloatType, &v17);
+    LOBYTE(v17) = v14;
+    valuePtr[3] = CFNumberCreate(0, kCFNumberSInt8Type, &v17);
+    valuePtr[4] = a2;
+    if (a2)
+    {
+      v9 = 5;
     }
 
     else
     {
-      v10 = 0;
+      v9 = 4;
     }
 
-    free(v7);
+    v10 = CFDictionaryCreate(0, keys, valuePtr, v9, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    for (i = 0; i != 4; ++i)
+    {
+      v12 = valuePtr[i];
+      if (v12)
+      {
+        CFRelease(v12);
+      }
+    }
   }
 
   else
@@ -7346,68 +6161,71 @@ CFDictionaryRef create_content_color_volume_dict(const __CFString *a1, const voi
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
+  free(v7);
   return v10;
 }
 
 CFDictionaryRef create_content_light_level_dict(const __CFString *a1, const void *a2)
 {
   keys[5] = *MEMORY[0x1E69E9840];
-  if (a1 && (Length = CFStringGetLength(a1), MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u), (v6 = malloc_type_calloc(1uLL, MaximumSizeForEncoding + 1, 0x595D26BuLL)) != 0))
+  if (!a1)
   {
-    v7 = v6;
-    CFStringGetCString(a1, v6, MaximumSizeForEncoding + 1, 0x8000100u);
-    v16 = 0;
-    v15 = 0;
-    if (sscanf(v7, "%f, %f, %i", &v16, &v15 + 4, &v15) == 3)
+    return 0;
+  }
+
+  Length = CFStringGetLength(a1);
+  MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
+  v6 = malloc_type_calloc(1uLL, MaximumSizeForEncoding + 1, 0x595D26BuLL);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  v7 = v6;
+  CFStringGetCString(a1, v6, MaximumSizeForEncoding + 1, 0x8000100u);
+  v15 = 0;
+  v14 = 0;
+  if (sscanf(v7, "%f, %f, %i", &v15, &v14 + 4, &v14) == 3)
+  {
+    v8 = v14 & ~(v14 >> 31);
+    if (v8 >= 255)
     {
-      v8 = v15 & ~(v15 >> 31);
-      if (v8 >= 255)
-      {
-        v8 = 255;
-      }
+      v8 = 255;
+    }
 
-      LODWORD(v15) = v8;
-      keys[0] = kColorSyncMaxLightLevel;
-      keys[1] = kColorSyncAverageLightLevel;
-      keys[2] = kColorSyncPrimaries;
-      keys[3] = kColorSyncMetadataDisplayName;
-      keys[4] = 0;
-      LODWORD(valuePtr[0]) = v16;
-      valuePtr[0] = CFNumberCreate(0, kCFNumberFloatType, valuePtr);
-      v17 = HIDWORD(v15);
-      valuePtr[1] = CFNumberCreate(0, kCFNumberFloatType, &v17);
-      LOBYTE(v17) = v15;
-      valuePtr[2] = CFNumberCreate(0, kCFNumberSInt8Type, &v17);
-      valuePtr[3] = a2;
-      valuePtr[4] = 0;
-      if (a2)
-      {
-        v9 = 4;
-      }
-
-      else
-      {
-        v9 = 3;
-      }
-
-      v10 = CFDictionaryCreate(0, keys, valuePtr, v9, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      for (i = 0; i != 3; ++i)
-      {
-        v12 = valuePtr[i];
-        if (v12)
-        {
-          CFRelease(v12);
-        }
-      }
+    LODWORD(v14) = v8;
+    keys[0] = kColorSyncMaxLightLevel;
+    keys[1] = kColorSyncAverageLightLevel;
+    keys[2] = kColorSyncPrimaries;
+    keys[3] = kColorSyncMetadataDisplayName;
+    keys[4] = 0;
+    LODWORD(valuePtr[0]) = v15;
+    valuePtr[0] = CFNumberCreate(0, kCFNumberFloatType, valuePtr);
+    v16 = HIDWORD(v14);
+    valuePtr[1] = CFNumberCreate(0, kCFNumberFloatType, &v16);
+    LOBYTE(v16) = v14;
+    valuePtr[2] = CFNumberCreate(0, kCFNumberSInt8Type, &v16);
+    valuePtr[3] = a2;
+    valuePtr[4] = 0;
+    if (a2)
+    {
+      v9 = 4;
     }
 
     else
     {
-      v10 = 0;
+      v9 = 3;
     }
 
-    free(v7);
+    v10 = CFDictionaryCreate(0, keys, valuePtr, v9, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    for (i = 0; i != 3; ++i)
+    {
+      v12 = valuePtr[i];
+      if (v12)
+      {
+        CFRelease(v12);
+      }
+    }
   }
 
   else
@@ -7415,45 +6233,48 @@ CFDictionaryRef create_content_light_level_dict(const __CFString *a1, const void
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
+  free(v7);
   return v10;
 }
 
 CFDictionaryRef create_content_reference_white_dict(const __CFString *a1, void *a2)
 {
   valuePtr[2] = *MEMORY[0x1E69E9840];
-  if (a1 && (Length = CFStringGetLength(a1), MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u), (v6 = malloc_type_calloc(1uLL, MaximumSizeForEncoding + 1, 0x78FA0CE2uLL)) != 0))
+  if (!a1)
   {
-    v7 = v6;
-    CFStringGetCString(a1, v6, MaximumSizeForEncoding + 1, 0x8000100u);
-    v14 = 0;
-    if (sscanf(v7, "%f", &v14) == 1 && (LODWORD(valuePtr[0]) = v14, (v8 = CFNumberCreate(0, kCFNumberFloatType, valuePtr)) != 0))
+    return 0;
+  }
+
+  Length = CFStringGetLength(a1);
+  MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
+  v6 = malloc_type_calloc(1uLL, MaximumSizeForEncoding + 1, 0x78FA0CE2uLL);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  v7 = v6;
+  CFStringGetCString(a1, v6, MaximumSizeForEncoding + 1, 0x8000100u);
+  v13 = 0;
+  if (sscanf(v7, "%f", &v13) == 1 && (LODWORD(valuePtr[0]) = v13, (v8 = CFNumberCreate(0, kCFNumberFloatType, valuePtr)) != 0))
+  {
+    v9 = v8;
+    valuePtr[0] = kColorSyncReferenceWhite;
+    valuePtr[1] = kColorSyncMetadataDisplayName;
+    values[0] = v8;
+    values[1] = a2;
+    if (a2)
     {
-      v9 = v8;
-      valuePtr[0] = kColorSyncReferenceWhite;
-      valuePtr[1] = kColorSyncMetadataDisplayName;
-      values[0] = v8;
-      values[1] = a2;
-      if (a2)
-      {
-        v10 = 2;
-      }
-
-      else
-      {
-        v10 = 1;
-      }
-
-      v11 = CFDictionaryCreate(0, valuePtr, values, v10, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      CFRelease(v9);
+      v10 = 2;
     }
 
     else
     {
-      v11 = 0;
+      v10 = 1;
     }
 
-    free(v7);
+    v11 = CFDictionaryCreate(0, valuePtr, values, v10, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    CFRelease(v9);
   }
 
   else
@@ -7461,7 +6282,7 @@ CFDictionaryRef create_content_reference_white_dict(const __CFString *a1, void *
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
+  free(v7);
   return v11;
 }
 
@@ -7490,40 +6311,39 @@ void *ColorSyncProfileGetID(void *result)
   return result;
 }
 
-double ColorSyncConvertDoubleXYZFromD50(float64x2_t *a1, float64x2_t *a2, float64x2_t *a3, int a4, double *a5)
+double ColorSyncConvertDoubleXYZFromD50(float64x2_t *a1, float64x2_t *a2, float64x2_t *a3, int a4, double *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v19 = xmmword_19A96E220;
-  v20 = 0x3FEA6594AF4F0D84;
-  v8 = a1[1].f64[0];
+  v28 = *MEMORY[0x1E69E9840];
+  v21 = xmmword_19A96E220;
+  v22 = 0x3FEA6594AF4F0D84;
+  v11 = a1[1].f64[0];
   *a3 = *a1;
-  a3[1].f64[0] = v8;
-  v25 = 0.0;
+  a3[1].f64[0] = v11;
+  v27 = 0.0;
+  v25 = 0u;
+  v26 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  if (!a5 || (v9 = *(a5 + 1), v21 = *a5, v22 = v9, v10 = *(a5 + 3), v23 = *(a5 + 2), v24 = v10, v25 = a5[8], !InvertMatrix(&v21)))
+  if (!a5 || (v12 = *(a5 + 1), v23 = *a5, v24 = v12, v13 = *(a5 + 3), v25 = *(a5 + 2), v26 = v13, v27 = a5[8], !InvertMatrix(&v23)))
   {
-    ColorSyncGetAdaptationMtx(a4, &v21, &v19, a2);
+    ColorSyncGetAdaptationMtx(a4, &v23, &v21, a2, a5, a6, a7, a8, v21);
   }
 
-  v11 = *a3;
-  v12 = a3[1].f64[0];
-  v13 = a3->f64[1];
-  v14 = vmuld_lane_f64(*&v23, *a3, 1) + a3->f64[0] * *(&v22 + 1) + v12 * *(&v23 + 1);
-  v15 = 0.0;
-  if (v14 < 0.0 || (v15 = 1.0, v14 > 1.0))
+  v14 = *a3;
+  v15 = a3[1].f64[0];
+  v16 = a3->f64[1];
+  v17 = vmuld_lane_f64(*&v25, *a3, 1) + a3->f64[0] * *(&v24 + 1) + v15 * *(&v25 + 1);
+  v18 = 0.0;
+  if (v17 < 0.0 || (v18 = 1.0, v17 > 1.0))
   {
-    v14 = v15;
+    v17 = v18;
   }
 
-  v16 = v13 * *(&v24 + 1) + v11.f64[0] * *&v24 + v12 * v25;
-  result = v13 * *(&v21 + 1) + v11.f64[0] * *&v21 + v12 * *&v22;
+  v19 = v16 * *(&v26 + 1) + v14.f64[0] * *&v26 + v15 * v27;
+  result = v16 * *(&v23 + 1) + v14.f64[0] * *&v23 + v15 * *&v24;
   a3->f64[0] = result;
-  a3->f64[1] = v14;
-  a3[1].f64[0] = v16;
-  v18 = *MEMORY[0x1E69E9840];
+  a3->f64[1] = v17;
+  a3[1].f64[0] = v19;
   return result;
 }
 
@@ -8244,7 +7064,7 @@ LABEL_30:
 
 void CMMConvTRC::ConvertFloat(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v186 = *MEMORY[0x1E69E9840];
+  v149 = *MEMORY[0x1E69E9840];
   if (a5 && (*(a1 + 33) & 1) != 0)
   {
     v8 = 1;
@@ -8254,378 +7074,472 @@ void CMMConvTRC::ConvertFloat(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
   {
     if (*(a1 + 35))
     {
-      v183 = 0;
+      v146 = 0;
       goto LABEL_8;
     }
 
     v8 = *(a1 + 36) == 0;
   }
 
-  v183 = v8;
+  v146 = v8;
 LABEL_8:
   v9 = a4 * a3;
   v10 = *(a1 + 88);
   if (v10 == 1)
   {
-    v38 = *(a1 + 100);
-    if (v38 <= 4)
+    v31 = *(a1 + 100);
+    if (v31 <= 4)
     {
-      if (v38 <= 1)
+      if (v31 <= 1)
       {
-        if (v38)
+        if (v31)
         {
-          if (v38 == 1)
+          if (v31 == 1)
           {
-            v81 = *(a1 + 72);
-            if (v9 > v81)
+            v68 = *(a1 + 72);
+            if (v9 > v68)
             {
-              v82 = *(a1 + 112);
-              v83 = *(a1 + 116);
-              v84 = *(a1 + 120);
+              v69 = *(a1 + 112);
+              v70 = *(a1 + 116);
+              v71 = *(a1 + 120);
               do
               {
-                v85 = *(a2 + 4 * v81);
-                v86 = *(a1 + 34);
-                if ((LODWORD(v85) & 0x7FFFFFFFu) >= 0x7F800000)
+                v72 = *(a2 + 4 * v68);
+                v73 = *(a1 + 34);
+                if ((LODWORD(v72) & 0x7FFFFFFFu) >= 0x7F800000)
                 {
                   bzero(__str, 0x400uLL);
-                  snprintf(__str, 0x400uLL, "CMMConvTRC::ConvertFloat input is not a valid value (%f)", v85);
-                  CMMThrowExceptionWithLog(0, __str, v87, v88, v89, v90, v91, v92);
+                  snprintf(__str, 0x400uLL, "CMMConvTRC::ConvertFloat input is not a valid value (%f)", v72);
+                  CMMThrowExceptionWithLog(0, __str);
                 }
 
-                v93 = fabsf(v85);
-                if (v86)
+                v74 = fabsf(v72);
+                if (v73)
                 {
-                  v94 = v93;
+                  v75 = v74;
                 }
 
                 else
                 {
-                  v94 = v85;
+                  v75 = v72;
                 }
 
-                v95 = 0.0;
-                if (v94 >= (-v84 / v83))
+                v76 = 0.0;
+                if (v75 >= (-v71 / v70))
                 {
-                  v95 = powf(v84 + (v83 * v94), v82);
-                  if (((v85 < 0.0) & v86) != 0)
+                  v76 = powf(v71 + (v70 * v75), v69);
+                  if (((v72 < 0.0) & v73) != 0)
                   {
-                    v95 = -v95;
+                    v76 = -v76;
                   }
                 }
 
-                *(a2 + 4 * v81) = v95;
-                if ((v183 & *(a1 + 33) & 1) == 0)
+                *(a2 + 4 * v68) = v76;
+                if ((v146 & *(a1 + 33) & 1) == 0)
                 {
-                  if (v95 <= 1.0)
+                  if (v76 <= 1.0)
                   {
-                    v96 = v95;
+                    v77 = v76;
                   }
 
                   else
                   {
-                    v96 = 1.0;
+                    v77 = 1.0;
                   }
 
-                  if (v95 >= 0.0)
+                  if (v76 >= 0.0)
                   {
-                    v97 = v96;
+                    v78 = v77;
                   }
 
                   else
                   {
-                    v97 = 0.0;
+                    v78 = 0.0;
                   }
 
-                  *(a2 + 4 * v81) = v97;
+                  *(a2 + 4 * v68) = v78;
                 }
 
-                v81 += a3;
+                v68 += a3;
               }
 
-              while (v81 < v9);
+              while (v68 < v9);
             }
           }
         }
 
         else
         {
-          v135 = *(a1 + 72);
-          if (v9 > v135)
+          v110 = *(a1 + 72);
+          if (v9 > v110)
           {
-            v136 = *(a1 + 112);
+            v111 = *(a1 + 112);
             do
             {
-              v137 = *(a2 + 4 * v135);
-              v138 = *(a1 + 34);
-              if ((LODWORD(v137) & 0x7FFFFFFFu) >= 0x7F800000)
+              v112 = *(a2 + 4 * v110);
+              v113 = *(a1 + 34);
+              if ((LODWORD(v112) & 0x7FFFFFFFu) >= 0x7F800000)
               {
                 bzero(__str, 0x400uLL);
-                snprintf(__str, 0x400uLL, "CMMConvTRC::ConvertFloat input is not a valid value (%f)", v137);
-                CMMThrowExceptionWithLog(0, __str, v139, v140, v141, v142, v143, v144);
+                snprintf(__str, 0x400uLL, "CMMConvTRC::ConvertFloat input is not a valid value (%f)", v112);
+                CMMThrowExceptionWithLog(0, __str);
               }
 
-              if (v136 != 1.0)
+              if (v111 != 1.0)
               {
-                v145 = fabsf(v137);
-                if (!v138)
+                v114 = fabsf(v112);
+                if (!v113)
                 {
-                  v145 = v137;
+                  v114 = v112;
                 }
 
-                v146 = powf(v145, v136);
-                if (((v137 < 0.0) & v138) != 0)
+                v115 = powf(v114, v111);
+                if (((v112 < 0.0) & v113) != 0)
                 {
-                  v146 = -v146;
+                  v115 = -v115;
                 }
 
-                *(a2 + 4 * v135) = v146;
+                *(a2 + 4 * v110) = v115;
               }
 
-              if ((v183 & *(a1 + 33) & 1) == 0)
+              if ((v146 & *(a1 + 33) & 1) == 0)
               {
-                v147 = *(a2 + 4 * v135);
-                if (v147 <= 1.0)
+                v116 = *(a2 + 4 * v110);
+                if (v116 <= 1.0)
                 {
-                  v148 = *(a2 + 4 * v135);
-                }
-
-                else
-                {
-                  v148 = 1.0;
-                }
-
-                if (v147 >= 0.0)
-                {
-                  v149 = v148;
+                  v117 = *(a2 + 4 * v110);
                 }
 
                 else
                 {
-                  v149 = 0.0;
+                  v117 = 1.0;
                 }
 
-                *(a2 + 4 * v135) = v149;
+                if (v116 >= 0.0)
+                {
+                  v118 = v117;
+                }
+
+                else
+                {
+                  v118 = 0.0;
+                }
+
+                *(a2 + 4 * v110) = v118;
               }
 
-              v135 += a3;
+              v110 += a3;
             }
 
-            while (v135 < v9);
+            while (v110 < v9);
           }
         }
       }
 
-      else if (v38 == 2)
+      else if (v31 == 2)
       {
-        v98 = *(a1 + 72);
-        if (v9 > v98)
+        v79 = *(a1 + 72);
+        if (v9 > v79)
         {
-          v99 = *(a1 + 116);
-          v181 = *(a1 + 112);
-          v100 = *(a1 + 120);
-          v101 = *(a1 + 124);
+          v80 = *(a1 + 116);
+          v144 = *(a1 + 112);
+          v81 = *(a1 + 120);
+          v82 = *(a1 + 124);
           do
           {
-            v102 = *(a2 + 4 * v98);
-            v103 = *(a1 + 34);
-            if ((LODWORD(v102) & 0x7FFFFFFFu) >= 0x7F800000)
+            v83 = *(a2 + 4 * v79);
+            v84 = *(a1 + 34);
+            if ((LODWORD(v83) & 0x7FFFFFFFu) >= 0x7F800000)
             {
               bzero(__str, 0x400uLL);
-              snprintf(__str, 0x400uLL, "CMMConvTRC::ConvertFloat input is not a valid value (%f)", v102);
-              CMMThrowExceptionWithLog(0, __str, v104, v105, v106, v107, v108, v109);
+              snprintf(__str, 0x400uLL, "CMMConvTRC::ConvertFloat input is not a valid value (%f)", v83);
+              CMMThrowExceptionWithLog(0, __str);
             }
 
-            v110 = fabsf(v102);
-            if (((v102 < 0.0) & v103) != 0)
+            v85 = fabsf(v83);
+            if (((v83 < 0.0) & v84) != 0)
             {
-              v111 = -1.0;
-            }
-
-            else
-            {
-              v111 = 1.0;
-            }
-
-            if (!v103)
-            {
-              v110 = v102;
-            }
-
-            if (v110 >= (-v100 / v99))
-            {
-              v112 = v101 + (v111 * powf(v100 + (v99 * v110), v181));
+              v86 = -1.0;
             }
 
             else
             {
-              v112 = v101 * v111;
+              v86 = 1.0;
             }
 
-            *(a2 + 4 * v98) = v112;
-            if ((v183 & *(a1 + 33) & 1) == 0)
+            if (!v84)
             {
-              if (v112 <= 1.0)
+              v85 = v83;
+            }
+
+            if (v85 >= (-v81 / v80))
+            {
+              v87 = v82 + (v86 * powf(v81 + (v80 * v85), v144));
+            }
+
+            else
+            {
+              v87 = v82 * v86;
+            }
+
+            *(a2 + 4 * v79) = v87;
+            if ((v146 & *(a1 + 33) & 1) == 0)
+            {
+              if (v87 <= 1.0)
               {
-                v113 = v112;
+                v88 = v87;
               }
 
               else
               {
-                v113 = 1.0;
+                v88 = 1.0;
               }
 
-              v67 = v112 < 0.0;
-              v114 = 0.0;
-              if (!v67)
+              v54 = v87 < 0.0;
+              v89 = 0.0;
+              if (!v54)
               {
-                v114 = v113;
+                v89 = v88;
               }
 
-              *(a2 + 4 * v98) = v114;
+              *(a2 + 4 * v79) = v89;
             }
 
-            v98 += a3;
+            v79 += a3;
           }
 
-          while (v98 < v9);
+          while (v79 < v9);
         }
       }
 
-      else if (v38 == 3)
+      else if (v31 == 3)
       {
-        v150 = *(a1 + 72);
-        if (v9 > v150)
+        v119 = *(a1 + 72);
+        if (v9 > v119)
         {
-          v151 = *(a1 + 112);
-          v182 = *(a1 + 116);
-          v152 = *(a1 + 120);
-          v153 = *(a1 + 124);
-          v154 = *(a1 + 128);
+          v120 = *(a1 + 112);
+          v145 = *(a1 + 116);
+          v121 = *(a1 + 120);
+          v122 = *(a1 + 124);
+          v123 = *(a1 + 128);
           do
           {
-            v155 = *(a2 + 4 * v150);
-            v156 = *(a1 + 34);
-            if ((LODWORD(v155) & 0x7FFFFFFFu) >= 0x7F800000)
+            v124 = *(a2 + 4 * v119);
+            v125 = *(a1 + 34);
+            if ((LODWORD(v124) & 0x7FFFFFFFu) >= 0x7F800000)
             {
               bzero(__str, 0x400uLL);
-              snprintf(__str, 0x400uLL, "CMMConvTRC::ConvertFloat input is not a valid value (%f)", v155);
-              CMMThrowExceptionWithLog(0, __str, v157, v158, v159, v160, v161, v162);
+              snprintf(__str, 0x400uLL, "CMMConvTRC::ConvertFloat input is not a valid value (%f)", v124);
+              CMMThrowExceptionWithLog(0, __str);
             }
 
-            v163 = fabsf(v155);
-            if (((v155 < 0.0) & v156) != 0)
+            v126 = fabsf(v124);
+            if (((v124 < 0.0) & v125) != 0)
             {
-              v164 = -1.0;
-            }
-
-            else
-            {
-              v164 = 1.0;
-            }
-
-            if (!v156)
-            {
-              v163 = v155;
-            }
-
-            if (v163 >= v154)
-            {
-              v165 = v164 * powf(v152 + (v182 * v163), v151);
+              v127 = -1.0;
             }
 
             else
             {
-              v165 = v163 * (v153 * v164);
+              v127 = 1.0;
             }
 
-            *(a2 + 4 * v150) = v165;
-            if ((v183 & *(a1 + 33) & 1) == 0)
+            if (!v125)
             {
-              if (v165 <= 1.0)
+              v126 = v124;
+            }
+
+            if (v126 >= v123)
+            {
+              v128 = v127 * powf(v121 + (v145 * v126), v120);
+            }
+
+            else
+            {
+              v128 = v126 * (v122 * v127);
+            }
+
+            *(a2 + 4 * v119) = v128;
+            if ((v146 & *(a1 + 33) & 1) == 0)
+            {
+              if (v128 <= 1.0)
               {
-                v166 = v165;
+                v129 = v128;
               }
 
               else
               {
-                v166 = 1.0;
+                v129 = 1.0;
               }
 
-              v67 = v165 < 0.0;
-              v167 = 0.0;
-              if (!v67)
+              v54 = v128 < 0.0;
+              v130 = 0.0;
+              if (!v54)
               {
-                v167 = v166;
+                v130 = v129;
               }
 
-              *(a2 + 4 * v150) = v167;
+              *(a2 + 4 * v119) = v130;
             }
 
-            v150 += a3;
+            v119 += a3;
           }
 
-          while (v150 < v9);
+          while (v119 < v9);
         }
       }
 
       else
       {
-        v48 = *(a1 + 72);
-        if (v9 > v48)
+        v41 = *(a1 + 72);
+        if (v9 > v41)
         {
-          v49 = *(a1 + 112);
-          v180 = *(a1 + 116);
-          v50 = *(a1 + 120);
-          v51 = *(a1 + 124);
-          v52 = *(a1 + 128);
-          v53 = *(a1 + 132);
-          v54 = *(a1 + 136);
+          v42 = *(a1 + 112);
+          v143 = *(a1 + 116);
+          v43 = *(a1 + 120);
+          v44 = *(a1 + 124);
+          v45 = *(a1 + 128);
+          v46 = *(a1 + 132);
+          v47 = *(a1 + 136);
           do
           {
-            v55 = *(a2 + 4 * v48);
-            v56 = *(a1 + 34);
-            if ((LODWORD(v55) & 0x7FFFFFFFu) >= 0x7F800000)
+            v48 = *(a2 + 4 * v41);
+            v49 = *(a1 + 34);
+            if ((LODWORD(v48) & 0x7FFFFFFFu) >= 0x7F800000)
             {
               bzero(__str, 0x400uLL);
-              snprintf(__str, 0x400uLL, "CMMConvTRC::ConvertFloat input is not a valid value (%f)", v55);
-              CMMThrowExceptionWithLog(0, __str, v57, v58, v59, v60, v61, v62);
+              snprintf(__str, 0x400uLL, "CMMConvTRC::ConvertFloat input is not a valid value (%f)", v48);
+              CMMThrowExceptionWithLog(0, __str);
             }
 
-            v63 = fabsf(v55);
-            if (v55 < 0.0)
+            v50 = fabsf(v48);
+            if (v48 < 0.0)
             {
-              v64 = v56;
-            }
-
-            else
-            {
-              v64 = 0;
-            }
-
-            if (!v56)
-            {
-              v63 = v55;
-            }
-
-            if (v63 >= v52)
-            {
-              v65 = v53 + powf(v50 + (v180 * v63), v49);
+              v51 = v49;
             }
 
             else
             {
-              v65 = v54 + (v51 * v63);
+              v51 = 0;
             }
 
-            if (v64)
+            if (!v49)
             {
-              v65 = -v65;
+              v50 = v48;
             }
 
-            *(a2 + 4 * v48) = v65;
-            if ((v183 & *(a1 + 33) & 1) == 0)
+            if (v50 >= v45)
             {
+              v52 = v46 + powf(v43 + (v143 * v50), v42);
+            }
+
+            else
+            {
+              v52 = v47 + (v44 * v50);
+            }
+
+            if (v51)
+            {
+              v52 = -v52;
+            }
+
+            *(a2 + 4 * v41) = v52;
+            if ((v146 & *(a1 + 33) & 1) == 0)
+            {
+              if (v52 <= 1.0)
+              {
+                v53 = v52;
+              }
+
+              else
+              {
+                v53 = 1.0;
+              }
+
+              v54 = v52 < 0.0;
+              v55 = 0.0;
+              if (!v54)
+              {
+                v55 = v53;
+              }
+
+              *(a2 + 4 * v41) = v55;
+            }
+
+            v41 += a3;
+          }
+
+          while (v41 < v9);
+        }
+      }
+    }
+
+    else if (v31 > 7)
+    {
+      switch(v31)
+      {
+        case 8:
+          v90 = *(a1 + 72);
+          if (v9 > v90)
+          {
+            v91 = *(a1 + 124);
+            v92 = *(a1 + 128);
+            v93 = *(a1 + 116);
+            v94 = -*(a1 + 120);
+            do
+            {
+              v95 = *(a2 + 4 * v90);
+              v96 = fabsf(v95);
+              if (v96 <= v92)
+              {
+                v98 = sqrtf(v96 * 3.0);
+              }
+
+              else
+              {
+                v97 = v94 + v96 * 12.0;
+                v98 = v91 + (v93 * logf(v97));
+              }
+
+              if (v95 < 0.0)
+              {
+                v98 = -v98;
+              }
+
+              *(a2 + 4 * v90) = v98;
+              v90 += a3;
+            }
+
+            while (v90 < v9);
+          }
+
+          break;
+        case 9:
+          v56 = *(a1 + 72);
+          if (v9 > v56)
+          {
+            v57 = *(a1 + 116);
+            v147 = *(a1 + 112);
+            v58 = *(a1 + 120);
+            v59 = *(a1 + 124);
+            v60 = *(a1 + 128);
+            v61 = *(a1 + 132);
+            do
+            {
+              v62 = *(a2 + 4 * v56);
+              v63 = fabsf(v62) - v147;
+              if (v63 < 0.0)
+              {
+                v63 = 0.0;
+              }
+
+              v64 = v57 * v63;
+              if (v64 > v58)
+              {
+                v64 = v58 + (logf(((v64 - v58) * v59) + 1.0) / v59);
+              }
+
+              v65 = v61 * powf(v64, v60);
               if (v65 <= 1.0)
               {
                 v66 = v65;
@@ -8636,120 +7550,26 @@ LABEL_8:
                 v66 = 1.0;
               }
 
-              v67 = v65 < 0.0;
-              v68 = 0.0;
-              if (!v67)
+              if (v65 >= 0.0)
               {
-                v68 = v66;
-              }
-
-              *(a2 + 4 * v48) = v68;
-            }
-
-            v48 += a3;
-          }
-
-          while (v48 < v9);
-        }
-      }
-    }
-
-    else if (v38 > 7)
-    {
-      switch(v38)
-      {
-        case 8:
-          v115 = *(a1 + 72);
-          if (v9 > v115)
-          {
-            v116 = *(a1 + 124);
-            v117 = *(a1 + 128);
-            v118 = *(a1 + 116);
-            v119 = -*(a1 + 120);
-            do
-            {
-              v120 = *(a2 + 4 * v115);
-              v121 = fabsf(v120);
-              if (v121 <= v117)
-              {
-                v123 = sqrtf(v121 * 3.0);
+                v67 = v66;
               }
 
               else
               {
-                v122 = v119 + v121 * 12.0;
-                v123 = v116 + (v118 * logf(v122));
+                v67 = 0.0;
               }
 
-              if (v120 < 0.0)
+              if (v62 < 0.0)
               {
-                v123 = -v123;
+                v67 = -v67;
               }
 
-              *(a2 + 4 * v115) = v123;
-              v115 += a3;
+              *(a2 + 4 * v56) = v67;
+              v56 += a3;
             }
 
-            while (v115 < v9);
-          }
-
-          break;
-        case 9:
-          v69 = *(a1 + 72);
-          if (v9 > v69)
-          {
-            v70 = *(a1 + 116);
-            v184 = *(a1 + 112);
-            v71 = *(a1 + 120);
-            v72 = *(a1 + 124);
-            v73 = *(a1 + 128);
-            v74 = *(a1 + 132);
-            do
-            {
-              v75 = *(a2 + 4 * v69);
-              v76 = fabsf(v75) - v184;
-              if (v76 < 0.0)
-              {
-                v76 = 0.0;
-              }
-
-              v77 = v70 * v76;
-              if (v77 > v71)
-              {
-                v77 = v71 + (logf(((v77 - v71) * v72) + 1.0) / v72);
-              }
-
-              v78 = v74 * powf(v77, v73);
-              if (v78 <= 1.0)
-              {
-                v79 = v78;
-              }
-
-              else
-              {
-                v79 = 1.0;
-              }
-
-              if (v78 >= 0.0)
-              {
-                v80 = v79;
-              }
-
-              else
-              {
-                v80 = 0.0;
-              }
-
-              if (v75 < 0.0)
-              {
-                v80 = -v80;
-              }
-
-              *(a2 + 4 * v69) = v80;
-              v69 += a3;
-            }
-
-            while (v69 < v9);
+            while (v56 < v9);
           }
 
           break;
@@ -8759,100 +7579,100 @@ LABEL_8:
       }
     }
 
-    else if (v38 == 5)
+    else if (v31 == 5)
     {
-      v124 = *(a1 + 72);
-      if (v9 > v124)
+      v99 = *(a1 + 72);
+      if (v9 > v99)
       {
-        v125 = *(a1 + 116);
-        v126 = *(a1 + 120);
-        v127 = *(a1 + 124);
-        v128 = *(a1 + 128);
-        v129 = *(a1 + 136);
-        v130 = -*(a1 + 132);
+        v100 = *(a1 + 116);
+        v101 = *(a1 + 120);
+        v102 = *(a1 + 124);
+        v103 = *(a1 + 128);
+        v104 = *(a1 + 136);
+        v105 = -*(a1 + 132);
         do
         {
-          v131 = *(a2 + 4 * v124);
-          v132 = powf(fabsf(v131), v125);
-          v133 = v129 * powf(fmaxf(v132 - v127, 0.0) / (v128 + (v130 * v132)), v126);
-          v134 = -v133;
-          if (v131 >= 0.0)
+          v106 = *(a2 + 4 * v99);
+          v107 = powf(fabsf(v106), v100);
+          v108 = v104 * powf(fmaxf(v107 - v102, 0.0) / (v103 + (v105 * v107)), v101);
+          v109 = -v108;
+          if (v106 >= 0.0)
           {
-            v134 = v133;
+            v109 = v108;
           }
 
-          *(a2 + 4 * v124) = v134;
-          v124 += a3;
+          *(a2 + 4 * v99) = v109;
+          v99 += a3;
         }
 
-        while (v124 < v9);
+        while (v99 < v9);
       }
     }
 
-    else if (v38 == 6)
+    else if (v31 == 6)
     {
-      v168 = *(a1 + 72);
-      if (v9 > v168)
+      v131 = *(a1 + 72);
+      if (v9 > v131)
       {
-        v169 = *(a1 + 116);
-        v170 = *(a1 + 120);
-        v171 = *(a1 + 124);
-        v172 = *(a1 + 128);
-        v173 = *(a1 + 132);
-        v174 = 1.0 / *(a1 + 136);
+        v132 = *(a1 + 116);
+        v133 = *(a1 + 120);
+        v134 = *(a1 + 124);
+        v135 = *(a1 + 128);
+        v136 = *(a1 + 132);
+        v137 = 1.0 / *(a1 + 136);
         do
         {
-          v175 = *(a2 + 4 * v168);
-          v176 = powf(v174 * fabsf(v175), v169);
-          v177 = (v171 + (v172 * v176)) / ((v173 * v176) + 1.0);
-          v178 = powf(v177, v170);
-          if (v175 < 0.0)
+          v138 = *(a2 + 4 * v131);
+          v139 = powf(v137 * fabsf(v138), v132);
+          v140 = (v134 + (v135 * v139)) / ((v136 * v139) + 1.0);
+          v141 = powf(v140, v133);
+          if (v138 < 0.0)
           {
-            v178 = -v178;
+            v141 = -v141;
           }
 
-          *(a2 + 4 * v168) = v178;
-          v168 += a3;
+          *(a2 + 4 * v131) = v141;
+          v131 += a3;
         }
 
-        while (v168 < v9);
+        while (v131 < v9);
       }
     }
 
     else
     {
-      v39 = *(a1 + 72);
-      if (v9 > v39)
+      v32 = *(a1 + 72);
+      if (v9 > v32)
       {
-        v40 = *(a1 + 116);
-        v41 = *(a1 + 120);
-        v42 = *(a1 + 124);
-        v43 = *(a1 + 128);
-        v44 = *(a1 + 132);
+        v33 = *(a1 + 116);
+        v34 = *(a1 + 120);
+        v35 = *(a1 + 124);
+        v36 = *(a1 + 128);
+        v37 = *(a1 + 132);
         do
         {
-          v45 = *(a2 + 4 * v39);
-          v46 = fabsf(v45);
-          if (v46 <= 0.5)
+          v38 = *(a2 + 4 * v32);
+          v39 = fabsf(v38);
+          if (v39 <= 0.5)
           {
-            v47 = (v45 * v45) / 3.0;
+            v40 = (v38 * v38) / 3.0;
           }
 
           else
           {
-            v47 = v43 * (v41 + expf((v46 - v42) / v40));
+            v40 = v36 * (v34 + expf((v39 - v35) / v33));
           }
 
-          if (v45 < 0.0)
+          if (v38 < 0.0)
           {
-            v47 = -v47;
+            v40 = -v40;
           }
 
-          *(a2 + 4 * v39) = v44 * v47;
-          v39 += a3;
+          *(a2 + 4 * v32) = v37 * v40;
+          v32 += a3;
         }
 
-        while (v39 < v9);
+        while (v32 < v9);
       }
     }
   }
@@ -8880,75 +7700,73 @@ LABEL_8:
         {
           bzero(__str, 0x400uLL);
           snprintf(__str, 0x400uLL, "CMMConvTRC::ConvertFloat input is not a valid value (%f)", v22);
-          CMMThrowExceptionWithLog(0, __str, v24, v25, v26, v27, v28, v29);
+          CMMThrowExceptionWithLog(0, __str);
         }
 
-        v30 = fabsf(v22);
+        v24 = fabsf(v22);
         if (v22 < 0.0)
         {
-          v31 = v23;
+          v25 = v23;
         }
 
         else
         {
-          v31 = 0;
+          v25 = 0;
         }
 
         if (!v23)
         {
-          v30 = v22;
+          v24 = v22;
         }
 
-        if (v30 <= 1.0)
+        if (v24 <= 1.0)
         {
-          if (v30 >= 0.0)
+          if (v24 >= 0.0)
           {
-            v33 = v30 * v16;
-            v35 = v33 + 1;
-            if (v16 < v35)
+            v27 = v24 * v16;
+            v29 = v27 + 1;
+            if (v16 < v29)
             {
-              v35 = v16;
+              v29 = v16;
             }
 
-            v34 = v15[v33];
-            v36 = v34 + ((v15[v35] - v34) * (v33 - v33));
-            v32 = -v36;
-            if (!v31)
+            v28 = v15[v27];
+            v30 = v28 + ((v15[v29] - v28) * (v27 - v27));
+            v26 = -v30;
+            if (!v25)
             {
-              v32 = v36;
+              v26 = v30;
             }
           }
 
-          else if (v183)
+          else if (v146)
           {
-            v32 = v18 + (v17 * v30);
+            v26 = v18 + (v17 * v24);
           }
 
           else
           {
-            v32 = *v15;
+            v26 = *v15;
           }
         }
 
-        else if (v183)
+        else if (v146)
         {
-          v32 = v20 + (v19 * v30);
+          v26 = v20 + (v19 * v24);
         }
 
         else
         {
-          v32 = *v21;
+          v26 = *v21;
         }
 
-        *(a2 + 4 * v14) = v32;
+        *(a2 + 4 * v14) = v26;
         v14 += a3;
       }
 
       while (v14 < v9);
     }
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 CFDataRef CMMConvTRC::create_flattened_TRC_data(CMMConvTRC *this, CFDictionaryRef theDict, unsigned int *a3)
@@ -9043,9 +7861,9 @@ void CMMConvNode::PrintInfo(CMMConvNode *this)
   CMMMemMgr::ReleaseMemList(&v4);
 }
 
-void sub_19A946F90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A946F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CMMMemMgr::ReleaseMemList(va);
   _Unwind_Resume(a1);
 }
@@ -9152,14 +7970,13 @@ _DWORD *CMMConvTRC::SetOutputClamp(CMMConvTRC *this)
   result = *(this + 3);
   if (result)
   {
-    v3 = **result;
     if (result)
     {
       if (result[18] < *(this + 18))
       {
-        v4 = *(*result + 48);
+        v3 = *(*result + 48);
 
-        return v4();
+        return v3();
       }
     }
   }
@@ -9453,7 +8270,7 @@ __CFDictionary *CMMConvPQEOTF::FlattenConversion(CMMConvPQEOTF *this, const __CF
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!Mutable)
   {
-    goto LABEL_29;
+    return Mutable;
   }
 
   v5 = CFNumberCreate(0, kCFNumberSInt32Type, this + 72);
@@ -9538,12 +8355,12 @@ LABEL_18:
   }
 
   LODWORD(valuePtr[0]) = 0;
-  v32 = (*(*this + 248))(this, a2, valuePtr);
-  if (v32)
+  v31 = (*(*this + 248))(this, a2, valuePtr);
+  if (v31)
   {
-    v33 = v32;
-    CFDictionaryAddValue(Mutable, kColorSyncConversion1DLut, v32);
-    CFRelease(v33);
+    v32 = v31;
+    CFDictionaryAddValue(Mutable, kColorSyncConversion1DLut, v31);
+    CFRelease(v32);
   }
 
 LABEL_21:
@@ -9569,12 +8386,12 @@ LABEL_24:
   }
 
   CMMConvNode::AddClampingInfo(this, Mutable);
-  v35 = 0;
-  v34 = *(this + 41);
-  if (v34 != 1.0)
+  v34 = 0;
+  v33 = *(this + 41);
+  if (v33 != 1.0)
   {
-    v27 = CFNumberCreate(0, kCFNumberFloat32Type, &v35);
-    v28 = CFNumberCreate(0, kCFNumberFloat32Type, &v34);
+    v27 = CFNumberCreate(0, kCFNumberFloat32Type, &v34);
+    v28 = CFNumberCreate(0, kCFNumberFloat32Type, &v33);
     valuePtr[0] = v27;
     valuePtr[1] = v28;
     v29 = CFArrayCreate(0, valuePtr, 2, MEMORY[0x1E695E9C0]);
@@ -9587,8 +8404,6 @@ LABEL_24:
     }
   }
 
-LABEL_29:
-  v30 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
@@ -9764,4 +8579,1213 @@ LABEL_10:
   }
 
   return v9;
+}
+
+__CFDictionary *CMMConvHLGInvOETF::FlattenConversion(CMMConvHLGInvOETF *this, const __CFDictionary *a2)
+{
+  v43 = *MEMORY[0x1E69E9840];
+  Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  if (!Mutable)
+  {
+    return Mutable;
+  }
+
+  v5 = CFNumberCreate(0, kCFNumberSInt32Type, this + 72);
+  if (v5)
+  {
+    v6 = v5;
+    CFDictionaryAddValue(Mutable, kColorSyncConversionChannelID, v5);
+    CFRelease(v6);
+  }
+
+  v7 = CFNumberCreate(0, kCFNumberSInt32Type, this + 76);
+  if (v7)
+  {
+    v8 = v7;
+    CFDictionaryAddValue(Mutable, @"com.apple.cmm.ChannelsInStageCount", v7);
+    CFRelease(v8);
+  }
+
+  v9 = MEMORY[0x1E695E4D0];
+  if (a2 && CFDictionaryGetValue(a2, @"com.apple.cmm.HLGInvOETFTable") == *v9)
+  {
+    v38 = 0.0;
+    v21 = (*(*this + 248))(this, a2, &v38);
+    if (v21)
+    {
+      v22 = v21;
+      CFDictionaryAddValue(Mutable, kColorSyncConversion1DLut, v21);
+      CFRelease(v22);
+    }
+
+    v23 = CFNumberCreate(0, kCFNumberSInt32Type, &v38);
+    if (v23)
+    {
+      v24 = v23;
+      CFDictionaryAddValue(Mutable, kColorSyncConversionGridPoints, v23);
+      CFRelease(v24);
+    }
+
+    if (*(this + 33) != 1)
+    {
+      goto LABEL_28;
+    }
+
+    v25 = CFNumberCreate(0, kCFNumberFloat32Type, this + 144);
+    v26 = CFNumberCreate(0, kCFNumberFloat32Type, this + 148);
+    values = v25;
+    v41 = v26;
+    v27 = CFArrayCreate(0, &values, 2, MEMORY[0x1E695E9C0]);
+    CFRelease(v25);
+    CFRelease(v26);
+    if (v27)
+    {
+      CFDictionaryAddValue(Mutable, @"com.apple.cmm.FunctionNegBoundary", v27);
+      CFRelease(v27);
+    }
+
+    v28 = CFNumberCreate(0, kCFNumberFloat32Type, this + 152);
+    v12 = CFNumberCreate(0, kCFNumberFloat32Type, this + 156);
+    valuePtr[0] = v28;
+    valuePtr[1] = v12;
+    v29 = CFArrayCreate(0, valuePtr, 2, MEMORY[0x1E695E9C0]);
+    if (v29)
+    {
+      v30 = v29;
+      CFDictionaryAddValue(Mutable, @"com.apple.cmm.FunctionPosBoundary", v29);
+      CFRelease(v30);
+    }
+
+    CFRelease(v28);
+    goto LABEL_27;
+  }
+
+  v10 = kColorSyncConversionParamHLGInvOETF;
+  v11 = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+  if (v11)
+  {
+    v12 = v11;
+    v13 = this + 112;
+    v14 = 4;
+    while (1)
+    {
+      v15 = CFNumberCreate(0, kCFNumberFloat32Type, v13);
+      if (!v15)
+      {
+        break;
+      }
+
+      v16 = v15;
+      CFArrayAppendValue(v12, v15);
+      CFRelease(v16);
+      v13 += 4;
+      if (!--v14)
+      {
+        v17 = *(this + 34);
+        v18 = *(this + 32) * v17;
+        v38 = v17 * *(this + 33);
+        *valuePtr = v18;
+        v37 = 0;
+        values = CFNumberCreate(0, kCFNumberFloat32Type, valuePtr);
+        v41 = CFNumberCreate(0, kCFNumberFloat32Type, &v38);
+        v19 = 0;
+        v42 = CFNumberCreate(0, kCFNumberFloat32Type, &v37);
+        do
+        {
+          v20 = *(&values + v19);
+          if (v20)
+          {
+            CFArrayAppendValue(v12, *(&values + v19));
+            CFRelease(v20);
+          }
+
+          v19 += 8;
+        }
+
+        while (v19 != 24);
+        CFDictionaryAddValue(Mutable, v10, v12);
+        break;
+      }
+    }
+
+LABEL_27:
+    CFRelease(v12);
+  }
+
+LABEL_28:
+  v31 = CFNumberCreate(0, kCFNumberSInt32Type, this + 92);
+  CFDictionaryAddValue(Mutable, kColorSyncTransformGammaID, v31);
+  CFRelease(v31);
+  CFDictionaryAddValue(Mutable, kColorSyncTransformPureGammaOriginalTRC, *MEMORY[0x1E695E4C0]);
+  CMMConvNode::AddFixedPointClippingRange(Mutable, v32, *(this + 10), *(this + 11));
+  if (*(this + 34) == 1)
+  {
+    CFDictionaryAddValue(Mutable, @"com.apple.cmm.FunctionDoesSignedReflection", *v9);
+  }
+
+  CMMConvNode::AddClampingInfo(this, Mutable);
+  LODWORD(valuePtr[0]) = 0;
+  v38 = *(this + 41);
+  if (v38 != 1.0)
+  {
+    v33 = CFNumberCreate(0, kCFNumberFloat32Type, valuePtr);
+    v34 = CFNumberCreate(0, kCFNumberFloat32Type, &v38);
+    values = v33;
+    v41 = v34;
+    v35 = CFArrayCreate(0, &values, 2, MEMORY[0x1E695E9C0]);
+    CFRelease(v33);
+    CFRelease(v34);
+    if (v35)
+    {
+      CFDictionaryAddValue(Mutable, @"com.apple.cmm.FunctionOutputRange", v35);
+      CFRelease(v35);
+    }
+  }
+
+  return Mutable;
+}
+
+uint64_t CMMConvHLGInvOETF::ClampOutput(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  for (i = *(result + 72); i < a4 * a3; i += a3)
+  {
+    v5 = *(a2 + 4 * i);
+    v6 = *(result + 164);
+    if (v5 <= v6)
+    {
+      v6 = *(a2 + 4 * i);
+    }
+
+    if (v5 >= 0.0)
+    {
+      v7 = v6;
+    }
+
+    else
+    {
+      v7 = 0.0;
+    }
+
+    *(a2 + 4 * i) = v7;
+  }
+
+  return result;
+}
+
+uint64_t CMMConvHLGInvOETF::ClampInput(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  for (i = *(result + 72); i < a4 * a3; i += a3)
+  {
+    v5 = *(a2 + 4 * i);
+    if (v5 <= 1.0)
+    {
+      v6 = *(a2 + 4 * i);
+    }
+
+    else
+    {
+      v6 = 1.0;
+    }
+
+    if (v5 >= 0.0)
+    {
+      v7 = v6;
+    }
+
+    else
+    {
+      v7 = 0.0;
+    }
+
+    *(a2 + 4 * i) = v7;
+  }
+
+  return result;
+}
+
+void CMMConvHLGInvOETF::~CMMConvHLGInvOETF(CMMConvHLGInvOETF *this)
+{
+  CMMConvTRC::~CMMConvTRC(this);
+
+  CMMBase::operator delete(v1);
+}
+
+void CMMConvPQInvEOTF::ConvertFloat(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = a4 * a3;
+  v5 = *(a1 + 72);
+  if (a4 * a3 > v5)
+  {
+    v8 = *(a1 + 176);
+    do
+    {
+      v9 = v8 * *(a2 + 4 * v5);
+      v10 = powf(fabsf(v9), 0.1593);
+      v11 = powf(((v10 * 18.852) + 0.83594) / ((v10 * 18.688) + 1.0), 78.844);
+      if (v9 < 0.0)
+      {
+        v11 = -v11;
+      }
+
+      *(a2 + 4 * v5) = v11;
+      v5 += a3;
+    }
+
+    while (v5 < v4);
+  }
+}
+
+__CFData *CMMConvPQInvEOTF::create_flattened_TRC_data(CMMConvPQInvEOTF *this, CFDictionaryRef theDict, unsigned int *a3)
+{
+  *a3 = 0;
+  if (!theDict)
+  {
+    valuePtr = 4097;
+LABEL_9:
+    v6 = 65552;
+    *a3 = 65552;
+    goto LABEL_10;
+  }
+
+  Value = CFDictionaryGetValue(theDict, @"com.apple.cmm.PQInvEOTFTableSize");
+  valuePtr = 4097;
+  if (Value && CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr) == 1)
+  {
+    v6 = valuePtr;
+    *a3 = valuePtr;
+    if (!v6)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    v6 = *a3;
+    if (!*a3)
+    {
+      goto LABEL_9;
+    }
+  }
+
+LABEL_10:
+  v7 = 4 * v6;
+  Mutable = CFDataCreateMutable(0, v7);
+  v9 = Mutable;
+  if (Mutable)
+  {
+    CFDataSetLength(Mutable, v7);
+    MutableBytePtr = CFDataGetMutableBytePtr(v9);
+    v12 = *a3;
+    if (v12)
+    {
+      v13 = (this + 176);
+      *v11.i32 = (v12 - 1);
+      v36 = vdupq_n_s64(v12 - 1);
+      v35 = vdup_lane_s32(v11, 0);
+      v14 = vld1_dup_f32(v13);
+      v15 = (v12 + 1) & 0x1FFFFFFFELL;
+      v16 = 0x100000000;
+      v17 = xmmword_19A96E050;
+      v18 = (MutableBytePtr + 4);
+      v19 = vdup_n_s32(0x4196D000u);
+      v20 = vdup_n_s32(0x3F560000u);
+      v21 = vdup_n_s32(0x41958000u);
+      __asm { FMOV            V10.2S, #1.0 }
+
+      v34 = vdupq_n_s64(2uLL);
+      do
+      {
+        v43 = v17;
+        v41 = vmovn_s64(vcgeq_u64(v36, v17));
+        v42 = vmul_f32(v14, vdiv_f32(vcvt_f32_u32(v16), v35));
+        v27 = vabs_f32(v42);
+        v37 = v27.f32[0];
+        v39 = powf(v27.f32[1], 0.1593);
+        v28.f32[0] = powf(v37, 0.1593);
+        v28.f32[1] = v39;
+        v29 = vdiv_f32(vmla_f32(v20, v19, v28), vmla_f32(_D10, v21, v28));
+        v38 = v29.f32[0];
+        v40 = powf(v29.f32[1], 78.844);
+        v30 = powf(v38, 78.844);
+        if (v41.i8[0])
+        {
+          v31 = -v30;
+          if (v42.f32[0] >= 0.0)
+          {
+            v31 = v30;
+          }
+
+          *(v18 - 1) = v31;
+        }
+
+        if (v41.i8[4])
+        {
+          v32 = v40;
+          if (v42.f32[1] < 0.0)
+          {
+            v32 = -v40;
+          }
+
+          *v18 = v32;
+        }
+
+        v17 = vaddq_s64(v43, v34);
+        v16 = vadd_s32(v16, 0x200000002);
+        v18 += 2;
+        v15 -= 2;
+      }
+
+      while (v15);
+    }
+  }
+
+  return v9;
+}
+
+__CFDictionary *CMMConvPQInvEOTF::FlattenConversion(CMMConvPQInvEOTF *this, const __CFDictionary *a2)
+{
+  values[2] = *MEMORY[0x1E69E9840];
+  Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  if (!Mutable)
+  {
+    return Mutable;
+  }
+
+  v5 = CFNumberCreate(0, kCFNumberSInt32Type, this + 72);
+  if (v5)
+  {
+    v6 = v5;
+    CFDictionaryAddValue(Mutable, kColorSyncConversionChannelID, v5);
+    CFRelease(v6);
+  }
+
+  v7 = CFNumberCreate(0, kCFNumberSInt32Type, this + 76);
+  if (v7)
+  {
+    v8 = v7;
+    CFDictionaryAddValue(Mutable, @"com.apple.cmm.ChannelsInStageCount", v7);
+    CFRelease(v8);
+  }
+
+  v9 = MEMORY[0x1E695E4D0];
+  if (a2 && CFDictionaryGetValue(a2, @"com.apple.cmm.PQInvEOTFTable") == *v9)
+  {
+    valuePtr = 0;
+    v22 = (*(*this + 248))(this, a2, &valuePtr);
+    if (v22)
+    {
+      v23 = v22;
+      CFDictionaryAddValue(Mutable, kColorSyncConversion1DLut, v22);
+      CFRelease(v23);
+    }
+
+    v24 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+    if (v24)
+    {
+      v25 = v24;
+      CFDictionaryAddValue(Mutable, kColorSyncConversionGridPoints, v24);
+      CFRelease(v25);
+    }
+
+    if (*(this + 33) != 1)
+    {
+      goto LABEL_18;
+    }
+
+    v26 = CFNumberCreate(0, kCFNumberFloat32Type, this + 144);
+    v27 = CFNumberCreate(0, kCFNumberFloat32Type, this + 148);
+    values[0] = v26;
+    values[1] = v27;
+    v28 = CFArrayCreate(0, values, 2, MEMORY[0x1E695E9C0]);
+    CFRelease(v26);
+    CFRelease(v27);
+    if (v28)
+    {
+      CFDictionaryAddValue(Mutable, @"com.apple.cmm.FunctionNegBoundary", v28);
+      CFRelease(v28);
+    }
+
+    v29 = CFNumberCreate(0, kCFNumberFloat32Type, this + 152);
+    v12 = CFNumberCreate(0, kCFNumberFloat32Type, this + 156);
+    v33[0] = v29;
+    v33[1] = v12;
+    v30 = CFArrayCreate(0, v33, 2, MEMORY[0x1E695E9C0]);
+    if (v30)
+    {
+      v31 = v30;
+      CFDictionaryAddValue(Mutable, @"com.apple.cmm.FunctionPosBoundary", v30);
+      CFRelease(v31);
+    }
+
+    CFRelease(v29);
+    goto LABEL_17;
+  }
+
+  v10 = kColorSyncConversionParamPQInvEOTF;
+  v11 = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+  if (v11)
+  {
+    v12 = v11;
+    v13 = this + 112;
+    v14 = 6;
+    while (1)
+    {
+      v15 = CFNumberCreate(0, kCFNumberFloat32Type, v13);
+      if (!v15)
+      {
+        break;
+      }
+
+      v16 = v15;
+      CFArrayAppendValue(v12, v15);
+      CFRelease(v16);
+      v13 += 4;
+      if (!--v14)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    CFRelease(v12);
+    v12 = 0;
+LABEL_14:
+    v17 = CFNumberCreate(0, kCFNumberFloat32Type, this + 176);
+    if (v17)
+    {
+      v18 = v17;
+      CFArrayAppendValue(v12, v17);
+      CFRelease(v18);
+    }
+
+    CFDictionaryAddValue(Mutable, v10, v12);
+LABEL_17:
+    CFRelease(v12);
+  }
+
+LABEL_18:
+  v19 = CFNumberCreate(0, kCFNumberSInt32Type, this + 92);
+  CFDictionaryAddValue(Mutable, kColorSyncTransformGammaID, v19);
+  CFRelease(v19);
+  CFDictionaryAddValue(Mutable, kColorSyncTransformPureGammaOriginalTRC, *MEMORY[0x1E695E4C0]);
+  CMMConvNode::AddFixedPointClippingRange(Mutable, v20, *(this + 10), *(this + 11));
+  if (*(this + 34) == 1)
+  {
+    CFDictionaryAddValue(Mutable, @"com.apple.cmm.FunctionDoesSignedReflection", *v9);
+  }
+
+  CMMConvNode::AddClampingInfo(this, Mutable);
+  return Mutable;
+}
+
+void CMMConvPQInvEOTF::~CMMConvPQInvEOTF(CMMConvPQInvEOTF *this)
+{
+  CMMConvInvertedTRC::~CMMConvInvertedTRC(this);
+
+  CMMBase::operator delete(v1);
+}
+
+void CMMConvHLGOETF::ConvertFloat(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = a4 * a3;
+  v5 = *(a1 + 72);
+  if (a4 * a3 > v5)
+  {
+    do
+    {
+      v9 = *(a2 + 4 * v5);
+      v10 = fabsf(v9) * *(a1 + 132);
+      if (v10 <= 0.0833333333)
+      {
+        v12 = sqrtf(v10 * 3.0);
+      }
+
+      else
+      {
+        v11 = v10 * 12.0 + -0.284668922;
+        v12 = (logf(v11) * 0.17883) + 0.55991;
+      }
+
+      if (v9 < 0.0)
+      {
+        v12 = -v12;
+      }
+
+      *(a2 + 4 * v5) = v12;
+      v5 += a3;
+    }
+
+    while (v5 < v4);
+  }
+}
+
+__CFData *CMMConvHLGOETF::create_flattened_TRC_data(CMMConvHLGOETF *this, CFDictionaryRef theDict, unsigned int *a3)
+{
+  *a3 = 0;
+  if (!theDict)
+  {
+    valuePtr = 4097;
+LABEL_9:
+    v6 = 65552;
+    *a3 = 65552;
+    goto LABEL_10;
+  }
+
+  Value = CFDictionaryGetValue(theDict, @"com.apple.cmm.HLGOETFCTableSize");
+  valuePtr = 4097;
+  if (Value && CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr) == 1)
+  {
+    v6 = valuePtr;
+    *a3 = valuePtr;
+    if (!v6)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    v6 = *a3;
+    if (!*a3)
+    {
+      goto LABEL_9;
+    }
+  }
+
+LABEL_10:
+  v7 = 4 * v6;
+  Mutable = CFDataCreateMutable(0, v7);
+  v9 = Mutable;
+  if (Mutable)
+  {
+    CFDataSetLength(Mutable, v7);
+    MutableBytePtr = CFDataGetMutableBytePtr(v9);
+    v11 = *a3;
+    if (v11)
+    {
+      v12 = MutableBytePtr;
+      for (i = 0; i != v11; ++i)
+      {
+        v14 = fabsf(i / (v11 - 1)) * *(this + 33);
+        if (v14 <= 0.0833333333)
+        {
+          v16 = sqrtf(v14 * 3.0);
+        }
+
+        else
+        {
+          v15 = v14 * 12.0 + -0.284668922;
+          v16 = (logf(v15) * 0.17883) + 0.55991;
+        }
+
+        *&v12[4 * i] = v16;
+      }
+    }
+  }
+
+  return v9;
+}
+
+__CFDictionary *CMMConvHLGOETF::FlattenConversion(CMMConvHLGOETF *this, const __CFDictionary *a2)
+{
+  valuePtr[2] = *MEMORY[0x1E69E9840];
+  Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  if (!Mutable)
+  {
+    return Mutable;
+  }
+
+  v5 = CFNumberCreate(0, kCFNumberSInt32Type, this + 72);
+  if (v5)
+  {
+    v6 = v5;
+    CFDictionaryAddValue(Mutable, kColorSyncConversionChannelID, v5);
+    CFRelease(v6);
+  }
+
+  v7 = CFNumberCreate(0, kCFNumberSInt32Type, this + 76);
+  if (v7)
+  {
+    v8 = v7;
+    CFDictionaryAddValue(Mutable, @"com.apple.cmm.ChannelsInStageCount", v7);
+    CFRelease(v8);
+  }
+
+  v9 = MEMORY[0x1E695E4D0];
+  if (a2 && CFDictionaryGetValue(a2, @"com.apple.cmm.HLGOETFTable") == *v9)
+  {
+    v32 = 0;
+    v19 = (*(*this + 248))(this, a2, &v32);
+    if (v19)
+    {
+      v20 = v19;
+      CFDictionaryAddValue(Mutable, kColorSyncConversion1DLut, v19);
+      CFRelease(v20);
+    }
+
+    v21 = CFNumberCreate(0, kCFNumberSInt32Type, &v32);
+    if (v21)
+    {
+      v22 = v21;
+      CFDictionaryAddValue(Mutable, kColorSyncConversionGridPoints, v21);
+      CFRelease(v22);
+    }
+
+    if (*(this + 33) != 1)
+    {
+      goto LABEL_26;
+    }
+
+    v23 = CFNumberCreate(0, kCFNumberFloat32Type, this + 144);
+    v24 = CFNumberCreate(0, kCFNumberFloat32Type, this + 148);
+    valuePtr[0] = v23;
+    valuePtr[1] = v24;
+    v25 = CFArrayCreate(0, valuePtr, 2, MEMORY[0x1E695E9C0]);
+    CFRelease(v23);
+    CFRelease(v24);
+    if (v25)
+    {
+      CFDictionaryAddValue(Mutable, @"com.apple.cmm.FunctionNegBoundary", v25);
+      CFRelease(v25);
+    }
+
+    v26 = CFNumberCreate(0, kCFNumberFloat32Type, this + 152);
+    v12 = CFNumberCreate(0, kCFNumberFloat32Type, this + 156);
+    values[0] = v26;
+    values[1] = v12;
+    v27 = CFArrayCreate(0, values, 2, MEMORY[0x1E695E9C0]);
+    if (v27)
+    {
+      v28 = v27;
+      CFDictionaryAddValue(Mutable, @"com.apple.cmm.FunctionPosBoundary", v27);
+      CFRelease(v28);
+    }
+
+    CFRelease(v26);
+    goto LABEL_25;
+  }
+
+  v10 = kColorSyncConversionParamHLGOETF;
+  v11 = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+  if (v11)
+  {
+    v12 = v11;
+    v13 = this + 112;
+    v14 = 5;
+    while (1)
+    {
+      v15 = CFNumberCreate(0, kCFNumberFloat32Type, v13);
+      if (!v15)
+      {
+        break;
+      }
+
+      v16 = v15;
+      CFArrayAppendValue(v12, v15);
+      CFRelease(v16);
+      v13 += 4;
+      if (!--v14)
+      {
+        LODWORD(valuePtr[0]) = *(this + 33);
+        v17 = CFNumberCreate(0, kCFNumberFloat32Type, valuePtr);
+        if (v17)
+        {
+          v18 = v17;
+          CFArrayAppendValue(v12, v17);
+          CFRelease(v18);
+        }
+
+        CFDictionaryAddValue(Mutable, v10, v12);
+        break;
+      }
+    }
+
+LABEL_25:
+    CFRelease(v12);
+  }
+
+LABEL_26:
+  v29 = CFNumberCreate(0, kCFNumberSInt32Type, this + 92);
+  CFDictionaryAddValue(Mutable, kColorSyncTransformGammaID, v29);
+  CFRelease(v29);
+  CFDictionaryAddValue(Mutable, kColorSyncTransformPureGammaOriginalTRC, *MEMORY[0x1E695E4C0]);
+  CMMConvNode::AddFixedPointClippingRange(Mutable, v30, *(this + 10), *(this + 11));
+  if (*(this + 34) == 1)
+  {
+    CFDictionaryAddValue(Mutable, @"com.apple.cmm.FunctionDoesSignedReflection", *v9);
+  }
+
+  CMMConvNode::AddClampingInfo(this, Mutable);
+  return Mutable;
+}
+
+void CMMConvHLGOETF::~CMMConvHLGOETF(CMMConvHLGOETF *this)
+{
+  CMMConvInvertedTRC::~CMMConvInvertedTRC(this);
+
+  CMMBase::operator delete(v1);
+}
+
+uint64_t CMMConvMatrix::Collapse3x3(CMMConvMatrix *this, CMMConvMatrix *a2, CMMMemMgr *a3)
+{
+  v73 = *MEMORY[0x1E69E9840];
+  v6 = (*(*this + 224))(this);
+  if ((v6 & 1) == 0)
+  {
+    *(this + 32) = 1;
+    *(a2 + 32) = 1;
+    v43 = 0;
+    v37 = &unk_1F0E071F8;
+    v7 = *(a2 + 6);
+    *v41 = *(a2 + 7);
+    v8 = *(a2 + 9);
+    *&v41[16] = *(a2 + 8);
+    v42 = v8;
+    LODWORD(v43) = *(a2 + 40);
+    v9 = *(a2 + 5);
+    v38 = *(a2 + 4);
+    v39 = v9;
+    v40 = v7;
+    v10 = this + 64;
+    v62 = vcvtq_f64_f32(*(this + 100));
+    LODWORD(v9) = *(this + 38);
+    *&v7 = *(this + 37);
+    v63 = *(this + 27);
+    v64 = v7;
+    v65 = vcvtq_f64_f32(*(this + 112));
+    v66 = *(this + 30);
+    v67 = *&v9;
+    v68 = vcvtq_f64_f32(*(this + 124));
+    *&v7 = *(this + 39);
+    v69 = *(this + 33);
+    v70 = v7;
+    v71 = xmmword_19A9B02E8;
+    v72 = unk_19A9B02F8;
+    v51 = vcvtq_f64_f32(*(&v40 + 4));
+    v52 = *(&v40 + 3);
+    v53 = *(&v42 + 1);
+    v54 = vcvtq_f64_f32(*v41);
+    v55 = *&v41[8];
+    v56 = *(&v42 + 2);
+    v57 = vcvtq_f64_f32(*&v41[12]);
+    v58 = *&v41[20];
+    v59 = *(&v42 + 3);
+    v60 = xmmword_19A9B02E8;
+    v61 = unk_19A9B02F8;
+    v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    memset(v46, 0, sizeof(v46));
+    v44 = 0u;
+    v45 = 0u;
+    MatrixMatrix4x4<double>(v44.f64, v51.f64, v62.f64);
+    v12 = 0;
+    v36 = 0;
+    v32 = 0;
+    v28[0] = 0;
+    memset(v27, 0, sizeof(v27));
+    *&v13.f64[0] = v45;
+    v13.f64[1] = v46[0].f64[0];
+    *&v28[1] = vcvt_hight_f32_f64(vcvt_f32_f64(v44), v13);
+    v29 = vcvt_hight_f32_f64(vcvt_f32_f64(*(v46 + 8)), v47);
+    v14 = *&v48;
+    v30 = v14;
+    v15 = *(&v45 + 1);
+    v16 = v46[1].f64[1];
+    v33 = v15;
+    v34 = v16;
+    v17 = *(this + 40) * *(a2 + 40);
+    v26 = &unk_1F0E071F8;
+    v31 = 0;
+    *v13.f64 = *(&v48 + 1);
+    v35 = LODWORD(v13.f64[0]);
+    *&v36 = v17;
+    do
+    {
+      v18 = 0;
+      v19 = 8;
+      do
+      {
+        v20 = 0;
+        v21 = 0;
+        v22 = v19;
+        do
+        {
+          v21 += *(&v37 + v22) * *&v10[v20];
+          v20 += 4;
+          v22 += 12;
+        }
+
+        while (v20 != 12);
+        *(v27 + 3 * v12 + v18++) = (v21 + 0x8000) >> 16;
+        v19 += 4;
+      }
+
+      while (v18 != 3);
+      ++v12;
+      v10 += 12;
+    }
+
+    while (v12 != 3);
+    v23 = *(a2 + 2);
+    CMMMatrix::MakeMatrixConv(&v26, a3, a2, v11);
+    *(a2 + 2) = v24;
+    *(v24 + 16) = v23;
+    if (v23)
+    {
+      *(v23 + 24) = v24;
+    }
+  }
+
+  return v6 ^ 1u;
+}
+
+__CFDictionary *CMMConvMatrixTemplate<CMMMtxGeneric,CMMConvMatrix>::FlattenConversion(uint64_t a1)
+{
+  Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  if (Mutable)
+  {
+    v3 = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+    v4 = MEMORY[0x1E695E4D0];
+    if (v3)
+    {
+      v5 = v3;
+      v6 = *MEMORY[0x1E695E4D0];
+      v7 = *MEMORY[0x1E695E4C0];
+      if (*(a1 + 49))
+      {
+        v8 = *MEMORY[0x1E695E4D0];
+      }
+
+      else
+      {
+        v8 = *MEMORY[0x1E695E4C0];
+      }
+
+      CFDictionaryAddValue(Mutable, @"com.apple.cmm.OneChannelActiveMatrix", v8);
+      if (*(a1 + 48))
+      {
+        v9 = v6;
+      }
+
+      else
+      {
+        v9 = v7;
+      }
+
+      CFDictionaryAddValue(Mutable, @"com.apple.cmm.OneChannelInputMatrix", v9);
+      v10 = 0;
+      v11 = a1 + 100;
+      v12 = MEMORY[0x1E695E9C0];
+      while (1)
+      {
+        v13 = CFArrayCreateMutable(0, 0, v12);
+        if (!v13)
+        {
+          break;
+        }
+
+        v14 = v13;
+        v15 = 0;
+        while (1)
+        {
+          valuePtr = *(a1 + 160) * *(v11 + v15);
+          v16 = CFNumberCreate(0, kCFNumberFloat32Type, &valuePtr);
+          if (!v16)
+          {
+            break;
+          }
+
+          v17 = v16;
+          CFArrayAppendValue(v14, v16);
+          CFRelease(v17);
+          v15 += 4;
+          if (v15 == 12)
+          {
+            goto LABEL_16;
+          }
+        }
+
+        CFRelease(v14);
+        v14 = 0;
+LABEL_16:
+        v22 = *(a1 + 160) * *(a1 + 148 + 4 * v10);
+        v18 = CFNumberCreate(0, kCFNumberFloat32Type, &v22);
+        if (!v18)
+        {
+          CFRelease(v14);
+          break;
+        }
+
+        v19 = v18;
+        CFArrayAppendValue(v14, v18);
+        CFRelease(v19);
+        if (!v14)
+        {
+          break;
+        }
+
+        CFArrayAppendValue(v5, v14);
+        CFRelease(v14);
+        ++v10;
+        v11 += 12;
+        if (v10 == 3)
+        {
+          CFDictionaryAddValue(Mutable, kColorSyncConversionMatrix, v5);
+          goto LABEL_23;
+        }
+      }
+
+      CFRelease(v5);
+      v5 = Mutable;
+      Mutable = 0;
+LABEL_23:
+      v4 = MEMORY[0x1E695E4D0];
+    }
+
+    else
+    {
+      v5 = Mutable;
+      Mutable = 0;
+    }
+
+    CFRelease(v5);
+    CMMConvNode::AddFixedPointClippingRange(Mutable, v20, *(a1 + 40), *(a1 + 44));
+    if (*(a1 + 34) == 1)
+    {
+      CFDictionaryAddValue(Mutable, @"com.apple.cmm.FunctionDoesSignedReflection", *v4);
+    }
+
+    CMMConvNode::AddClampingInfo(a1, Mutable);
+  }
+
+  return Mutable;
+}
+
+void CMMConvMatrixTemplate<CMMMtxGeneric,CMMConvMatrix>::ClampOutput(uint64_t a1, float32x2_t *a2, uint64_t a3, uint64_t a4)
+{
+  if (a4 * a3)
+  {
+    v4 = 0;
+    v5 = a2 + 1;
+    __asm { FMOV            V0.2S, #1.0 }
+
+    do
+    {
+      *a2 = vbic_s8(vbsl_s8(vcgt_f32(*a2, _D0), _D0, *a2), vcltz_f32(*a2));
+      v11 = v5->f32[v4];
+      if (v11 <= 1.0)
+      {
+        v12 = v5->f32[v4];
+      }
+
+      else
+      {
+        v12 = 1.0;
+      }
+
+      if (v11 >= 0.0)
+      {
+        v13 = v12;
+      }
+
+      else
+      {
+        v13 = 0.0;
+      }
+
+      v5->f32[v4] = v13;
+      v4 += a3;
+      a2 = (a2 + 4 * a3);
+    }
+
+    while (v4 < a4 * a3);
+  }
+}
+
+void CMMConvMatrixTemplate<CMMMtxGeneric,CMMConvMatrix>::ClampInput(uint64_t a1, float32x2_t *a2, uint64_t a3, uint64_t a4)
+{
+  if (a4 * a3)
+  {
+    v4 = 0;
+    v5 = a2 + 1;
+    __asm { FMOV            V0.2S, #1.0 }
+
+    do
+    {
+      *a2 = vbic_s8(vbsl_s8(vcgt_f32(*a2, _D0), _D0, *a2), vcltz_f32(*a2));
+      v11 = v5->f32[v4];
+      if (v11 <= 1.0)
+      {
+        v12 = v5->f32[v4];
+      }
+
+      else
+      {
+        v12 = 1.0;
+      }
+
+      if (v11 >= 0.0)
+      {
+        v13 = v12;
+      }
+
+      else
+      {
+        v13 = 0.0;
+      }
+
+      v5->f32[v4] = v13;
+      v4 += a3;
+      a2 = (a2 + 4 * a3);
+    }
+
+    while (v4 < a4 * a3);
+  }
+}
+
+uint64_t CMMConvMatrixTemplate<CMMMtxGeneric,CMMConvMatrix>::Convert(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6, double a7, double a8, float32x4_t a9, float32x4_t a10)
+{
+  if (!a3)
+  {
+    exception = __cxa_allocate_exception(4uLL);
+    *exception = -171;
+  }
+
+  if (a5 * a4)
+  {
+    v10 = *(result + 148);
+    v11 = *(result + 156);
+    a9.i32[0] = *(result + 160);
+    a10.i32[0] = 1.0;
+    v12 = vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(a9, a10)), 0);
+    v13 = vbslq_s8(v12, vmulq_n_f32(*(result + 104), a9.f32[0]), *(result + 104));
+    v14 = vbslq_s8(v12, vmulq_n_f32(*(result + 120), a9.f32[0]), *(result + 120));
+    if (a9.f32[0] == 1.0)
+    {
+      v15 = *(result + 100);
+    }
+
+    else
+    {
+      v15 = *(result + 100) * a9.f32[0];
+    }
+
+    v16 = *&v14.i32[1];
+    *v14.i8 = vext_s8(*v13.i8, *v14.i8, 4uLL);
+    v17 = vdup_laneq_s32(v13, 2);
+    v17.f32[0] = v15;
+    v13.i32[1] = vextq_s8(*&v13, *&v13, 8uLL).i32[1];
+    v18 = (a2 + 8);
+    v19 = 1;
+    do
+    {
+      v20 = *(v18 - 2);
+      v21 = *(v18 - 1);
+      v22 = v11 + (((*&v14.i32[2] * v21) + (v20 * v16)) + (*v18 * *&v14.i32[3]));
+      *(v18 - 1) = vadd_f32(v10, vmla_n_f32(vmla_n_f32(vmul_n_f32(*v13.i8, v21), v17, v20), *v14.i8, *v18));
+      *v18 = v22;
+      v19 += a4;
+      v18 += a4;
+    }
+
+    while (v19 - 1 < (a5 * a4));
+  }
+
+  return result;
+}
+
+int *CMMConvMatrixTemplate<CMMMtxGeneric,CMMConvMatrix>::Convert(int *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (!a3)
+  {
+    exception = __cxa_allocate_exception(4uLL);
+    *exception = -171;
+  }
+
+  v5 = a5 * a4;
+  if (a5 * a4)
+  {
+    v6 = 0;
+    v7 = result[34];
+    v8 = result[35];
+    v9 = result[36];
+    v11 = result[23];
+    v10 = result[24];
+    v13 = result[21];
+    v12 = result[22];
+    v14 = result[19];
+    v15 = result[20];
+    v17 = result[17];
+    v16 = result[18];
+    result = result[16];
+    do
+    {
+      v18 = (a2 + 4 * v6);
+      v19 = v18[1];
+      v20 = v18[2];
+      v21 = v7 + ((v17 * v19 + result * *v18 + v16 * v20 + 0x8000) >> 16);
+      v22 = v8 + ((v15 * v19 + v14 * *v18 + v13 * v20 + 0x8000) >> 16);
+      v23 = v9 + ((v11 * v19 + v12 * *v18 + v10 * v20 + 0x8000) >> 16);
+      if (v21 >= 0x1000000)
+      {
+        v24 = 0x1000000;
+      }
+
+      else
+      {
+        v24 = v7 + ((v17 * v19 + result * *v18 + v16 * v20 + 0x8000) >> 16);
+      }
+
+      if (v21 < 0)
+      {
+        v24 = 0;
+      }
+
+      if (v22 >= 0x1000000)
+      {
+        v25 = 0x1000000;
+      }
+
+      else
+      {
+        v25 = v22;
+      }
+
+      if (v22 < 0)
+      {
+        v25 = 0;
+      }
+
+      *v18 = v24;
+      v18[1] = v25;
+      if (v23 >= 0x1000000)
+      {
+        v26 = 0x1000000;
+      }
+
+      else
+      {
+        v26 = v23;
+      }
+
+      if (v23 >= 0)
+      {
+        v27 = v26;
+      }
+
+      else
+      {
+        v27 = 0;
+      }
+
+      v18[2] = v27;
+      v6 += a4;
+    }
+
+    while (v6 < v5);
+  }
+
+  return result;
 }

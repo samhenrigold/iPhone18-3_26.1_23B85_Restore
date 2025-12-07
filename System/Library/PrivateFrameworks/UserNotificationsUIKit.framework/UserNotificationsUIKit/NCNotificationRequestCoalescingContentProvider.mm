@@ -250,17 +250,21 @@ LABEL_3:
     goto LABEL_8;
   }
 
-  if ([(NCNotificationRequestCoalescingContentProvider *)self isLeadingRequestInGroup]&& [(NCNotificationRequestCoalescingContentProvider *)self _notificationCount]>= 2)
+  if ([(NCNotificationRequestCoalescingContentProvider *)self isLeadingRequestInGroup])
   {
-    v6 = MEMORY[0x277CCACA8];
-    v7 = NCUserNotificationsUIKitFrameworkBundle();
-    v8 = [v7 localizedStringForKey:@"NOTIFICATION_LIST_STACK_APP_CONTENT_SUMMARY" value:&stru_282FE84F8 table:0];
-    v4 = [v6 stringWithFormat:v8, -[NCNotificationRequestCoalescingContentProvider _notificationCount](self, "_notificationCount")];
+    _notificationCount = [(NCNotificationRequestCoalescingContentProvider *)self _notificationCount];
+    if (_notificationCount >= 2)
+    {
+      v7 = MEMORY[0x277CCACA8];
+      v8 = NCUserNotificationsUIKitFrameworkBundle(_notificationCount);
+      v9 = [v8 localizedStringForKey:@"NOTIFICATION_LIST_STACK_APP_CONTENT_SUMMARY" value:&stru_282FE84F8 table:0];
+      v4 = [v7 stringWithFormat:v9, -[NCNotificationRequestCoalescingContentProvider _notificationCount](self, "_notificationCount")];
 
-    v9 = objc_alloc(MEMORY[0x277CCA898]);
-    secondaryText = [v9 nc_initWithString:v4 contentType:7];
+      v10 = objc_alloc(MEMORY[0x277CCA898]);
+      secondaryText = [v10 nc_initWithString:v4 contentType:7];
 
-    goto LABEL_3;
+      goto LABEL_3;
+    }
   }
 
   secondaryText = [(NCNotificationRequestCoalescingContentProvider *)self secondaryText];
@@ -349,7 +353,7 @@ LABEL_8:
   if (v4 && (v5 = MEMORY[0x277D77E60], -[NCNotificationRequestCoalescingContentProvider notificationRequest](self, "notificationRequest"), v6 = objc_claimAutoreleasedReturnValue(), [v6 sectionIdentifier], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v5, "categoryOfBundleId:", v7), v7, v6, v8 == 1))
   {
     v9 = objc_alloc(MEMORY[0x277CCA898]);
-    v10 = NCUserNotificationsUIKitFrameworkBundle();
+    v10 = NCUserNotificationsUIKitFrameworkBundle(v9);
     v11 = [v10 localizedStringForKey:@"NOTIFICATION_SUMMARY_ATTRIBUTION_TEXT" value:&stru_282FE84F8 table:0];
     uppercaseString = [v11 uppercaseString];
     v13 = [v9 initWithString:uppercaseString];
@@ -510,7 +514,7 @@ LABEL_8:
 
     v11 = objc_alloc(MEMORY[0x277CCA898]);
     v12 = MEMORY[0x277CCACA8];
-    v13 = NCUserNotificationsUIKitFrameworkBundle();
+    v13 = NCUserNotificationsUIKitFrameworkBundle(v11);
     v14 = v13;
     v15 = @"CRITICAL_TEXT";
 LABEL_10:
@@ -536,7 +540,7 @@ LABEL_10:
 
     v11 = objc_alloc(MEMORY[0x277CCA898]);
     v12 = MEMORY[0x277CCACA8];
-    v13 = NCUserNotificationsUIKitFrameworkBundle();
+    v13 = NCUserNotificationsUIKitFrameworkBundle(v11);
     v14 = v13;
     v15 = @"INTELLIGENCE_PRIORITY";
     goto LABEL_10;
@@ -643,7 +647,7 @@ LABEL_11:
 
 - (id)_placeholderSecondaryText
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   overridenSummaryBuilder = [(NCNotificationRequestCoalescingContentProvider *)self overridenSummaryBuilder];
   if (overridenSummaryBuilder)
@@ -657,31 +661,31 @@ LABEL_11:
     notificationRequests = self->_coalescedNotificationRequests;
   }
 
-  v53 = 0u;
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
+  v53 = 0u;
   v7 = notificationRequests;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v51 objects:v55 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v52 objects:v56 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v52;
+    v10 = *v53;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v52 != v10)
+        if (*v53 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        content = [*(*(&v51 + 1) + 8 * i) content];
+        content = [*(*(&v52 + 1) + 8 * i) content];
         hiddenPreviewsBodyPlaceholder = [content hiddenPreviewsBodyPlaceholder];
 
         if (![hiddenPreviewsBodyPlaceholder length])
         {
-          v14 = NCUserNotificationsUIKitFrameworkBundle();
+          v14 = NCUserNotificationsUIKitFrameworkBundle(0);
           v15 = [v14 localizedStringForKey:@"DEFAULT_HIDDEN_PREVIEW_PLACEHOLDER" value:&stru_282FE84F8 table:0];
 
           hiddenPreviewsBodyPlaceholder = v15;
@@ -704,21 +708,21 @@ LABEL_11:
         [v3 setObject:v20 forKey:hiddenPreviewsBodyPlaceholder];
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v51 objects:v55 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v52 objects:v56 count:16];
     }
 
     while (v9);
   }
 
   allKeys = [v3 allKeys];
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __75__NCNotificationRequestCoalescingContentProvider__placeholderSecondaryText__block_invoke;
-  v48[3] = &unk_278371D40;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __75__NCNotificationRequestCoalescingContentProvider__placeholderSecondaryText__block_invoke;
+  v49[3] = &unk_278371D40;
   v22 = v3;
-  v49 = v22;
+  v50 = v22;
   selfCopy = self;
-  v23 = [allKeys bs_map:v48];
+  v23 = [allKeys bs_map:v49];
 
   v24 = [v23 sortedArrayUsingComparator:&__block_literal_global_63_0];
 
@@ -727,7 +731,7 @@ LABEL_11:
   if (v25 == 2)
   {
     v28 = MEMORY[0x277CCACA8];
-    v29 = NCUserNotificationsUIKitFrameworkBundle();
+    v29 = NCUserNotificationsUIKitFrameworkBundle(2);
     v30 = [v29 localizedStringForKey:@"COALESCED_NOTIFICATION_END_FORMAT" value:&stru_282FE84F8 table:0];
     v31 = [v24 objectAtIndexedSubscript:0];
     v32 = [v24 objectAtIndexedSubscript:1];
@@ -746,36 +750,37 @@ LABEL_11:
 
   else
   {
-    v46 = v25 - 1;
-    v47 = v22;
+    v47 = v25 - 1;
+    v48 = v22;
     v33 = [v24 objectAtIndexedSubscript:0];
-    v34 = 1;
+    v34 = v33;
+    v35 = 1;
     do
     {
-      v35 = v33;
-      v36 = MEMORY[0x277CCACA8];
-      v37 = NCUserNotificationsUIKitFrameworkBundle();
-      v38 = [v37 localizedStringForKey:@"COALESCED_NOTIFICATION_MIDDLE_FORMAT" value:&stru_282FE84F8 table:0];
-      v39 = [v24 objectAtIndexedSubscript:v34];
-      v33 = [v36 stringWithFormat:v38, v35, v39];
+      v36 = v34;
+      v37 = MEMORY[0x277CCACA8];
+      v38 = NCUserNotificationsUIKitFrameworkBundle(v33);
+      v39 = [v38 localizedStringForKey:@"COALESCED_NOTIFICATION_MIDDLE_FORMAT" value:&stru_282FE84F8 table:0];
+      v40 = [v24 objectAtIndexedSubscript:v35];
+      v34 = [v37 stringWithFormat:v39, v36, v40];
 
-      ++v34;
+      ++v35;
       --v26;
     }
 
     while (v26);
-    v40 = MEMORY[0x277CCACA8];
-    v41 = NCUserNotificationsUIKitFrameworkBundle();
-    v42 = [v41 localizedStringForKey:@"COALESCED_NOTIFICATION_END_FORMAT" value:&stru_282FE84F8 table:0];
-    v43 = [v24 objectAtIndexedSubscript:v46];
-    v27 = [v40 stringWithFormat:v42, v33, v43];
+    v41 = MEMORY[0x277CCACA8];
+    v42 = NCUserNotificationsUIKitFrameworkBundle(v33);
+    v43 = [v42 localizedStringForKey:@"COALESCED_NOTIFICATION_END_FORMAT" value:&stru_282FE84F8 table:0];
+    v44 = [v24 objectAtIndexedSubscript:v47];
+    v27 = [v41 stringWithFormat:v43, v34, v44];
 
-    v22 = v47;
+    v22 = v48;
   }
 
-  v44 = [MEMORY[0x277CCA898] nc_safeAttributedStringWithString:v27];
+  v45 = [MEMORY[0x277CCA898] nc_safeAttributedStringWithString:v27];
 
-  return v44;
+  return v45;
 }
 
 id __75__NCNotificationRequestCoalescingContentProvider__placeholderSecondaryText__block_invoke(uint64_t a1, void *a2)
@@ -807,23 +812,24 @@ id __75__NCNotificationRequestCoalescingContentProvider__placeholderSecondaryTex
 
 - (id)_localizedStringWithPlaceholderFormat:(id)format count:(unint64_t)count
 {
-  v14 = 0;
-  v6 = [MEMORY[0x277CCACA8] localizedStringWithValidatedFormat:format validFormatSpecifiers:@"%u" error:&v14, count];
-  v7 = v14;
+  v15 = 0;
+  v6 = [MEMORY[0x277CCACA8] localizedStringWithValidatedFormat:format validFormatSpecifiers:@"%u" error:&v15, count];
+  v7 = v15;
   if (v7)
   {
     v8 = *MEMORY[0x277D77DD0];
-    if (os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_ERROR))
+    v9 = os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_ERROR);
+    if (v9)
     {
       [NCNotificationRequestCoalescingContentProvider _localizedStringWithPlaceholderFormat:v8 count:self];
     }
 
-    v9 = MEMORY[0x277CCACA8];
-    v10 = NCUserNotificationsUIKitFrameworkBundle();
-    v11 = [v10 localizedStringForKey:@"DEFAULT_HIDDEN_PREVIEW_PLACEHOLDER" value:&stru_282FE84F8 table:0];
-    v12 = [v9 localizedStringWithFormat:v11, count, 0];
+    v10 = MEMORY[0x277CCACA8];
+    v11 = NCUserNotificationsUIKitFrameworkBundle(v9);
+    v12 = [v11 localizedStringForKey:@"DEFAULT_HIDDEN_PREVIEW_PLACEHOLDER" value:&stru_282FE84F8 table:0];
+    v13 = [v10 localizedStringWithFormat:v12, count, 0];
 
-    v6 = v12;
+    v6 = v13;
   }
 
   return v6;

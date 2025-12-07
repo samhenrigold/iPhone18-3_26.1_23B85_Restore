@@ -23,7 +23,7 @@
   v6 = v5;
 
   swift_getObjCClassMetadata();
-  v7 = static TrackingSummaryInternal.decode(data:)();
+  v7 = static TrackingSummaryInternal.decode(data:)(v4, v6);
   sub_22452F684(v4, v6);
 
   return v7;

@@ -5,7 +5,6 @@
 - (int)scalePixelBuffer:(__CVBuffer *)buffer rect:(CGRect)rect intoPixelBuffer:(__CVBuffer *)pixelBuffer rect:(CGRect)a6;
 - (void)_ensurePixelTransferSession;
 - (void)dealloc;
-- (void)init;
 - (void)invalidate;
 @end
 
@@ -81,13 +80,13 @@
 {
   if (!buffer)
   {
-    [BWScalingSession scalePixelBuffer:rect:intoPixelBuffer:rect:];
+    [(BWScalingSession *)self scalePixelBuffer:a2 rect:0 intoPixelBuffer:pixelBuffer rect:rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, a6.origin, *&a6.origin.y, a6.size, *&a6.size.height];
     return 0;
   }
 
   if (!pixelBuffer)
   {
-    [BWScalingSession scalePixelBuffer:rect:intoPixelBuffer:rect:];
+    [(BWScalingSession *)self scalePixelBuffer:a2 rect:rect.origin intoPixelBuffer:*&rect.origin.y rect:rect.size, *&rect.size.height, a6.origin, *&a6.origin.y, a6.size, *&a6.size.height];
     return 0;
   }
 
@@ -107,11 +106,11 @@
     v11 = v19;
   }
 
-  v49.origin.x = x;
-  v49.origin.y = y;
-  v49.size.width = width;
-  v49.size.height = height;
-  if (CGRectIsNull(v49))
+  v50.origin.x = x;
+  v50.origin.y = y;
+  v50.size.width = width;
+  v50.size.height = height;
+  if (CGRectIsNull(v50))
   {
     x = psn_pixelBufferRect(pixelBuffer);
     y = v20;
@@ -129,16 +128,16 @@
   v36 = v35;
   transferSession = self->_transferSession;
   v38 = *MEMORY[0x1E6983E40];
-  v50.origin.x = v23;
-  v50.origin.y = v25;
-  v50.size.width = v27;
-  v50.size.height = v29;
-  DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v50);
+  v51.origin.x = v23;
+  v51.origin.y = v25;
+  v51.size.width = v27;
+  v51.size.height = v29;
+  DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v51);
   v40 = CFAutorelease(DictionaryRepresentation);
   v41 = VTSessionSetProperty(transferSession, v38, v40);
   if (v41)
   {
-    v47 = v41;
+    v48 = v41;
     [BWScalingSession scalePixelBuffer:rect:intoPixelBuffer:rect:];
   }
 
@@ -146,49 +145,50 @@
   {
     v42 = self->_transferSession;
     v43 = *MEMORY[0x1E6983DD0];
-    v51.origin.x = v30;
-    v51.origin.y = v32;
-    v51.size.width = v34;
-    v51.size.height = v36;
-    v44 = CGRectCreateDictionaryRepresentation(v51);
+    v52.origin.x = v30;
+    v52.origin.y = v32;
+    v52.size.width = v34;
+    v52.size.height = v36;
+    v44 = CGRectCreateDictionaryRepresentation(v52);
     v45 = CFAutorelease(v44);
     v46 = VTSessionSetProperty(v42, v43, v45);
     if (v46)
     {
-      v47 = v46;
+      v48 = v46;
       [BWScalingSession scalePixelBuffer:rect:intoPixelBuffer:rect:];
     }
 
     else
     {
       v47 = VTPixelTransferSessionTransferImage(self->_transferSession, buffer, pixelBuffer);
+      v48 = v47;
       if (v47)
       {
-        [BWScalingSession scalePixelBuffer:rect:intoPixelBuffer:rect:];
+        [BWScalingSession scalePixelBuffer:v47 rect:? intoPixelBuffer:? rect:?];
       }
     }
   }
 
-  return v47;
+  return v48;
 }
 
 - (int)scalePixelBuffer:(__CVBuffer *)buffer rect:(CGRect)rect exifOrientation:(int)orientation intoPixelBuffer:(__CVBuffer *)pixelBuffer rect:(CGRect)a7
 {
   if (!buffer)
   {
-    [BWScalingSession scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:];
+    [(BWScalingSession *)self scalePixelBuffer:a2 rect:0 exifOrientation:*&orientation intoPixelBuffer:pixelBuffer rect:rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, a7.origin, *&a7.origin.y, a7.size, *&a7.size.height];
     return 0;
   }
 
   if (!pixelBuffer)
   {
-    [BWScalingSession scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:];
+    [(BWScalingSession *)self scalePixelBuffer:a2 rect:rect.origin exifOrientation:*&rect.origin.y intoPixelBuffer:rect.size rect:*&rect.size.height, a7.origin, *&a7.origin.y, a7.size, *&a7.size.height];
     return 0;
   }
 
   if ((orientation - 9) <= 0xFFFFFFF7)
   {
-    [BWScalingSession scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:];
+    [(BWScalingSession *)self scalePixelBuffer:a2 rect:rect.origin exifOrientation:*&rect.origin.y intoPixelBuffer:rect.size rect:*&rect.size.height, a7.origin, *&a7.origin.y, a7.size, *&a7.size.height];
     return 0;
   }
 
@@ -208,13 +208,13 @@
     v13 = v21;
   }
 
-  v45.origin.x = x;
-  v45.origin.y = y;
-  v45.size.width = width;
-  v45.size.height = height;
-  v43 = v16;
-  v44 = v15;
-  if (CGRectIsNull(v45))
+  v46.origin.x = x;
+  v46.origin.y = y;
+  v46.size.width = width;
+  v46.size.height = height;
+  v44 = v16;
+  v45 = v15;
+  if (CGRectIsNull(v46))
   {
     psn_pixelBufferRect(pixelBuffer);
     width = v22;
@@ -270,10 +270,10 @@ LABEL_20:
 
 LABEL_21:
   v30 = [(BWPixelBufferPool *)intermediateBufferPool newPixelBuffer:v29];
-  v35 = [(BWScalingSession *)self scalePixelBuffer:buffer rect:v30 intoPixelBuffer:v43 rect:v44, v14, v13, *MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), v26, v27];
+  v35 = [(BWScalingSession *)self scalePixelBuffer:buffer rect:v30 intoPixelBuffer:v44 rect:v45, v14, v13, *MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), v26, v27];
   if (v35)
   {
-    v41 = v35;
+    v42 = v35;
     [BWScalingSession scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:];
     goto LABEL_37;
   }
@@ -295,7 +295,7 @@ LABEL_22:
   v38 = VTPixelRotationSessionCreate(*MEMORY[0x1E695E480], &self->_rotationSession);
   if (v38)
   {
-    v41 = v38;
+    v42 = v38;
     [BWScalingSession scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:];
   }
 
@@ -320,7 +320,7 @@ LABEL_22:
     v40 = VTSessionSetProperty(*p_rotationSession, *MEMORY[0x1E6983D98], *v39);
     if (v40)
     {
-      v41 = v40;
+      v42 = v40;
       [BWScalingSession scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:];
     }
 
@@ -331,16 +331,17 @@ LABEL_22:
       {
 LABEL_35:
         v41 = VTPixelRotationSessionRotateSubImage();
+        v42 = v41;
         if (v41)
         {
-          [BWScalingSession scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:];
+          [BWScalingSession scalePixelBuffer:v41 rect:? exifOrientation:? intoPixelBuffer:? rect:?];
         }
 
         goto LABEL_37;
       }
 
       [BWScalingSession scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:];
-      v41 = 0;
+      v42 = 0;
     }
   }
 
@@ -350,7 +351,7 @@ LABEL_37:
     CFRelease(v30);
   }
 
-  return v41;
+  return v42;
 }
 
 - (id)_newIntermediatePoolWithDimensions:(id)dimensions pixelFormat:(unsigned int)format
@@ -390,111 +391,6 @@ LABEL_37:
       self->_transferSession = 0;
     }
   }
-}
-
-- (void)init
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  FigDebugAssert3();
-}
-
-- (uint64_t)scalePixelBuffer:rect:intoPixelBuffer:rect:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)scalePixelBuffer:rect:intoPixelBuffer:rect:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)scalePixelBuffer:rect:intoPixelBuffer:rect:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)scalePixelBuffer:rect:intoPixelBuffer:rect:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)scalePixelBuffer:rect:intoPixelBuffer:rect:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:.cold.6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:.cold.7()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:.cold.8()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)scalePixelBuffer:rect:exifOrientation:intoPixelBuffer:rect:.cold.9()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

@@ -92,26 +92,26 @@ void __21__DRClient_activate___block_invoke(id *a1)
 
 void __21__DRClient_activate___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[DataRelayAnalytics getInstance];
-  memset(v15, 0, sizeof(v15));
+  memset(v14, 0, sizeof(v14));
   GetDeviceModelString();
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v6 = [WeakRetained rapportClient];
   v7 = [v6 destinationDevice];
   v8 = [v7 model];
-  v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:v15];
+  v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:v14];
   [v4 updateDRDeviceTypes:1 drClientDeviceType:v8 drServerDeviceType:v9];
 
   [v4 updateFromRemoteServer:1];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __21__DRClient_activate___block_invoke_3;
-  v13[3] = &unk_278F4E780;
-  objc_copyWeak(&v14, (a1 + 48));
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __21__DRClient_activate___block_invoke_3;
+  v12[3] = &unk_278F4E780;
+  objc_copyWeak(&v13, (a1 + 48));
   v10 = objc_loadWeakRetained((a1 + 48));
-  [v10 setDisconnectHandler:v13];
+  [v10 setDisconnectHandler:v12];
 
   v11 = *(a1 + 40);
   if (v11)
@@ -120,9 +120,7 @@ void __21__DRClient_activate___block_invoke_2(uint64_t a1, void *a2)
   }
 
   dispatch_semaphore_signal(*(*(a1 + 32) + 152));
-  objc_destroyWeak(&v14);
-
-  v12 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v13);
 }
 
 void __21__DRClient_activate___block_invoke_3(uint64_t a1)
@@ -417,7 +415,7 @@ void __45__DRClient_addAvailableDataTypes_completion___block_invoke(uint64_t a1)
 
 void __45__DRClient_addAvailableDataTypes_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -436,33 +434,31 @@ void __45__DRClient_addAvailableDataTypes_completion___block_invoke_2(uint64_t a
     }
 
     v5 = *(a1 + 56);
-    v16.receiver = *(a1 + 32);
-    v16.super_class = DRClient;
-    objc_msgSendSuper2(&v16, sel_addAvailableDataTypes_, v5);
-    v17[0] = @"dataTypes";
+    v15.receiver = *(a1 + 32);
+    v15.super_class = DRClient;
+    objc_msgSendSuper2(&v15, sel_addAvailableDataTypes_, v5);
+    v16[0] = @"dataTypes";
     v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(a1 + 56)];
-    v18[0] = v6;
-    v17[1] = @"wxAddress";
-    v18[1] = *(*(a1 + 32) + 120);
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v17[0] = v6;
+    v16[1] = @"wxAddress";
+    v17[1] = *(*(a1 + 32) + 120);
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     v9 = [WeakRetained rapportClient];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __45__DRClient_addAvailableDataTypes_completion___block_invoke_3;
-    v14[3] = &unk_278F4E870;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __45__DRClient_addAvailableDataTypes_completion___block_invoke_3;
+    v13[3] = &unk_278F4E870;
     v10 = *(a1 + 40);
-    v14[4] = *(a1 + 32);
-    v15 = v10;
-    [v9 sendRequestID:@"com.apple.datarelay.addavailabledatatypes" request:v7 options:0 responseHandler:v14];
+    v13[4] = *(a1 + 32);
+    v14 = v10;
+    [v9 sendRequestID:@"com.apple.datarelay.addavailabledatatypes" request:v7 options:0 responseHandler:v13];
 
     v11 = *(*(a1 + 32) + 152);
     v12 = dispatch_time(0, 12000000000);
     dispatch_semaphore_wait(v11, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __45__DRClient_addAvailableDataTypes_completion___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -470,7 +466,7 @@ intptr_t __45__DRClient_addAvailableDataTypes_completion___block_invoke_3(uint64
   v5 = *(a1 + 40);
   if (v5)
   {
-    (*(v5 + 16))(v5, a4);
+    (*(v5 + 16))(v5, a4, a3);
   }
 
   v6 = *(*(a1 + 32) + 152);
@@ -495,39 +491,37 @@ intptr_t __45__DRClient_addAvailableDataTypes_completion___block_invoke_3(uint64
 
 void __48__DRClient_removeAvailableDataTypes_completion___block_invoke(uint64_t a1)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v3 = (a1 + 48);
   v2 = *(a1 + 48);
-  v13.receiver = *(a1 + 32);
-  v13.super_class = DRClient;
-  objc_msgSendSuper2(&v13, sel_removeAvailableDataTypes_, v2);
+  v12.receiver = *(a1 + 32);
+  v12.super_class = DRClient;
+  objc_msgSendSuper2(&v12, sel_removeAvailableDataTypes_, v2);
   if (gLogCategory_DRClient <= 50 && (gLogCategory_DRClient != -1 || _LogCategory_Initialize()))
   {
     __48__DRClient_removeAvailableDataTypes_completion___block_invoke_cold_1(v3);
   }
 
-  v14[0] = @"dataTypes";
+  v13[0] = @"dataTypes";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(a1 + 48)];
-  v15[0] = v4;
-  v14[1] = @"wxAddress";
-  v15[1] = *(*(a1 + 32) + 120);
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v14[0] = v4;
+  v13[1] = @"wxAddress";
+  v14[1] = *(*(a1 + 32) + 120);
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   v6 = [*(a1 + 32) rapportClient];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __48__DRClient_removeAvailableDataTypes_completion___block_invoke_2;
-  v11[3] = &unk_278F4E870;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __48__DRClient_removeAvailableDataTypes_completion___block_invoke_2;
+  v10[3] = &unk_278F4E870;
   v7 = *(a1 + 40);
-  v11[4] = *(a1 + 32);
-  v12 = v7;
-  [v6 sendRequestID:@"com.apple.datarelay.removeavailabledatatypes" request:v5 options:0 responseHandler:v11];
+  v10[4] = *(a1 + 32);
+  v11 = v7;
+  [v6 sendRequestID:@"com.apple.datarelay.removeavailabledatatypes" request:v5 options:0 responseHandler:v10];
 
   v8 = *(*(a1 + 32) + 152);
   v9 = dispatch_time(0, 12000000000);
   dispatch_semaphore_wait(v8, v9);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __48__DRClient_removeAvailableDataTypes_completion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -535,7 +529,7 @@ intptr_t __48__DRClient_removeAvailableDataTypes_completion___block_invoke_2(uin
   v5 = *(a1 + 40);
   if (v5)
   {
-    (*(v5 + 16))(v5, a4);
+    (*(v5 + 16))(v5, a4, a3);
   }
 
   v6 = *(*(a1 + 32) + 152);
@@ -545,7 +539,7 @@ intptr_t __48__DRClient_removeAvailableDataTypes_completion___block_invoke_2(uin
 
 - (void)sendEvents
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_events count])
   {
     if (gLogCategory_DRClient <= 50 && (gLogCategory_DRClient != -1 || _LogCategory_Initialize()))
@@ -554,9 +548,9 @@ intptr_t __48__DRClient_removeAvailableDataTypes_completion___block_invoke_2(uin
     }
 
     v3 = [(NSMutableArray *)self->_events copy];
-    v7 = @"events";
-    v8[0] = v3;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v6 = @"events";
+    v7[0] = v3;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     rapportClient = [(DRPeer *)self rapportClient];
     [rapportClient sendEventID:@"com.apple.datarelay.events" event:v4 options:0 completion:0];
 
@@ -567,8 +561,6 @@ intptr_t __48__DRClient_removeAvailableDataTypes_completion___block_invoke_2(uin
   {
     [DRClient sendEvents];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setReportHandler:(id)handler
@@ -851,31 +843,28 @@ void __22__DRClient_resetWxHRM__block_invoke_2(uint64_t a1, uint64_t a2, uint64_
 
 void __34__DRClient_routedWxDeviceChanged___block_invoke(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 40);
+  v11[1] = *MEMORY[0x277D85DE8];
   if (([*(*(a1 + 32) + 120) isEqualToData:*(a1 + 40)] & 1) == 0)
   {
     if (gLogCategory_DRClient <= 50 && (gLogCategory_DRClient != -1 || _LogCategory_Initialize()))
     {
-      __34__DRClient_routedWxDeviceChanged___block_invoke_cold_1(v2);
+      __34__DRClient_routedWxDeviceChanged___block_invoke_cold_1();
     }
 
     objc_storeStrong((*(a1 + 32) + 120), *(a1 + 40));
-    v3 = *(*(a1 + 32) + 128);
-    v7 = MEMORY[0x277D85DD0];
-    v8 = 3221225472;
-    v9 = __34__DRClient_routedWxDeviceChanged___block_invoke_2;
-    v10 = &unk_278F4E958;
-    v11 = *(a1 + 40);
-    [v3 enumerateKeysAndObjectsUsingBlock:&v7];
-    v12 = @"wxAddress";
-    v13[0] = *(*(a1 + 32) + 120);
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:{1, v7, v8, v9, v10}];
-    v5 = [*(a1 + 32) rapportClient];
-    [v5 sendEventID:@"com.apple.datarelay.wxaddresschanged" event:v4 options:0 completion:0];
+    v2 = *(*(a1 + 32) + 128);
+    v5 = MEMORY[0x277D85DD0];
+    v6 = 3221225472;
+    v7 = __34__DRClient_routedWxDeviceChanged___block_invoke_2;
+    v8 = &unk_278F4E958;
+    v9 = *(a1 + 40);
+    [v2 enumerateKeysAndObjectsUsingBlock:&v5];
+    v10 = @"wxAddress";
+    v11[0] = *(*(a1 + 32) + 120);
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:{1, v5, v6, v7, v8}];
+    v4 = [*(a1 + 32) rapportClient];
+    [v4 sendEventID:@"com.apple.datarelay.wxaddresschanged" event:v3 options:0 completion:0];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

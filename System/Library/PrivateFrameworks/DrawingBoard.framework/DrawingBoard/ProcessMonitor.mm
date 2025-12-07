@@ -6,7 +6,7 @@
 
 - (void)processManager:(id)manager didRemoveProcess:(id)process
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EF1C1A0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EF1C1A0, &qword_249D76580);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v16 - v7;
   v9 = sub_249D73294();

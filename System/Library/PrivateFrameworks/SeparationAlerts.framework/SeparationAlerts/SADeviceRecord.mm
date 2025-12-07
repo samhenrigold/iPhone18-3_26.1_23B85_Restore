@@ -32,7 +32,9 @@
 - (void)updateLastWithYouLocation:(id)location forDeviceWithUUID:(id)d;
 - (void)updateLatestAdvertisement:(id)advertisement forDeviceWithUUID:(id)d;
 - (void)updateLocation:(id)location;
+- (void)updateMaintenanceStatus:(unsigned __int8)status forDeviceWithUUID:(id)d;
 - (void)updateMonitoringSessionState:(unint64_t)state forDeviceWithUUID:(id)d;
+- (void)updateRelationStatus:(unsigned __int8)status forDeviceWithUUID:(id)d;
 - (void)updateScenario:(unint64_t)scenario forDeviceWithUUID:(id)d;
 - (void)updatedWithYouStatusFrom:(unint64_t)from to:(unint64_t)to forDeviceWithUUID:(id)d;
 @end
@@ -412,29 +414,29 @@ LABEL_13:
 
 - (void)_updateAllRelatedDevices
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   [(NSMutableDictionary *)self->_deviceRecord allKeys];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  obj = v36 = 0u;
-  v25 = [obj countByEnumeratingWithState:&v33 objects:v48 count:16];
-  if (v25)
+  obj = v35 = 0u;
+  v24 = [obj countByEnumeratingWithState:&v32 objects:v47 count:16];
+  if (v24)
   {
-    v24 = *v34;
+    v23 = *v33;
     *&v2 = 68289795;
-    v23 = v2;
+    v22 = v2;
     do
     {
-      for (i = 0; i != v25; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v34 != v24)
+        if (*v33 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v33 + 1) + 8 * i);
-        v5 = [(SADeviceRecord *)self getSADevice:v4, v23];
+        v4 = *(*(&v32 + 1) + 8 * i);
+        v5 = [(SADeviceRecord *)self getSADevice:v4, v22];
         groupIdentifier = [v5 groupIdentifier];
 
         v7 = [(NSMutableDictionary *)self->_deviceRecord objectForKeyedSubscript:v4];
@@ -443,27 +445,27 @@ LABEL_13:
         v8 = groupIdentifier;
         if (groupIdentifier)
         {
-          v27 = i;
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
+          v26 = i;
           v30 = 0u;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
           v9 = obj;
-          v10 = [v9 countByEnumeratingWithState:&v29 objects:v47 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v28 objects:v46 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v30;
+            v12 = *v29;
             do
             {
               for (j = 0; j != v11; ++j)
               {
-                if (*v30 != v12)
+                if (*v29 != v12)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                v14 = *(*(&v29 + 1) + 8 * j);
+                v14 = *(*(&v28 + 1) + 8 * j);
                 if (([v14 isEqual:v4] & 1) == 0)
                 {
                   v15 = [(SADeviceRecord *)self getSADevice:v14];
@@ -478,13 +480,13 @@ LABEL_13:
                 }
               }
 
-              v11 = [v9 countByEnumeratingWithState:&v29 objects:v47 count:16];
+              v11 = [v9 countByEnumeratingWithState:&v28 objects:v46 count:16];
             }
 
             while (v11);
           }
 
-          i = v27;
+          i = v26;
         }
 
         v19 = TASALog;
@@ -492,27 +494,25 @@ LABEL_13:
         {
           v20 = v19;
           v21 = [(SADeviceRecord *)self getRelatedDevices:v4];
-          *buf = v23;
-          v38 = 0;
-          v39 = 2082;
-          v40 = "";
-          v41 = 2113;
-          v42 = v4;
-          v43 = 2113;
-          v44 = v8;
-          v45 = 2113;
-          v46 = v21;
+          *buf = v22;
+          v37 = 0;
+          v38 = 2082;
+          v39 = "";
+          v40 = 2113;
+          v41 = v4;
+          v42 = 2113;
+          v43 = v8;
+          v44 = 2113;
+          v45 = v21;
           _os_log_impl(&dword_2656EA000, v20, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#sa related devices update for device, uuid:%{private}@, groupID:%{private}@, related devices:%{private}@}", buf, 0x30u);
         }
       }
 
-      v25 = [obj countByEnumeratingWithState:&v33 objects:v48 count:16];
+      v24 = [obj countByEnumeratingWithState:&v32 objects:v47 count:16];
     }
 
-    while (v25);
+    while (v24);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateConnectionStateOnConnectionEvent:(id)event
@@ -605,7 +605,7 @@ LABEL_17:
 
 - (void)_updateLatestCaseAdvertisementDate:(id)date
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   deviceRecord = self->_deviceRecord;
   uuid = [dateCopy uuid];
@@ -619,27 +619,27 @@ LABEL_17:
     scanDate = [dateCopy scanDate];
     [v7 updateLatestCaseAdvertisementDate:scanDate];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     uuidsOfRelatedDevices = [v7 uuidsOfRelatedDevices];
-    v12 = [uuidsOfRelatedDevices countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v12 = [uuidsOfRelatedDevices countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       do
       {
         v15 = 0;
         do
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(uuidsOfRelatedDevices);
           }
 
-          v16 = [(NSMutableDictionary *)self->_deviceRecord objectForKey:*(*(&v19 + 1) + 8 * v15)];
+          v16 = [(NSMutableDictionary *)self->_deviceRecord objectForKey:*(*(&v18 + 1) + 8 * v15)];
           scanDate2 = [dateCopy scanDate];
           [v16 updateLatestCaseAdvertisementDate:scanDate2];
 
@@ -647,19 +647,17 @@ LABEL_17:
         }
 
         while (v13 != v15);
-        v13 = [uuidsOfRelatedDevices countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v13 = [uuidsOfRelatedDevices countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v13);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAdvertisingStartDateForHELE:(id)e
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   eCopy = e;
   deviceRecord = self->_deviceRecord;
   uuid = [eCopy uuid];
@@ -673,70 +671,68 @@ LABEL_17:
     v11 = v10;
     if (currentBudPosition != v10)
     {
-      v26 = currentBudPosition;
-      v27 = v10;
+      v25 = currentBudPosition;
+      v26 = v10;
       scanDate = [eCopy scanDate];
       [v7 updateAdvertisingStartDateForHELE:scanDate];
 
       uuid2 = [eCopy uuid];
       v14 = [(SADeviceRecord *)self getRelatedDevices:uuid2];
 
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       v15 = v14;
-      v16 = [v15 countByEnumeratingWithState:&v28 objects:v44 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v27 objects:v43 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v29;
+        v18 = *v28;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v29 != v18)
+            if (*v28 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = [(NSMutableDictionary *)self->_deviceRecord objectForKey:*(*(&v28 + 1) + 8 * i)];
+            v20 = [(NSMutableDictionary *)self->_deviceRecord objectForKey:*(*(&v27 + 1) + 8 * i)];
             scanDate2 = [eCopy scanDate];
             [v20 updateAdvertisingStartDateForHELE:scanDate2];
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v28 objects:v44 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v27 objects:v43 count:16];
         }
 
         while (v17);
       }
 
       v22 = TASALog;
-      v11 = v27;
+      v11 = v26;
       if (os_log_type_enabled(TASALog, OS_LOG_TYPE_DEFAULT))
       {
         v23 = v22;
         uuid3 = [eCopy uuid];
         *buf = 68290051;
-        v34 = 2082;
-        v33 = 0;
-        v35 = "";
-        v36 = 2113;
-        v37 = uuid3;
-        v38 = 2113;
-        v39 = v15;
-        v40 = 2049;
-        v41 = v26;
-        v42 = 2049;
-        v43 = v27;
+        v33 = 2082;
+        v32 = 0;
+        v34 = "";
+        v35 = 2113;
+        v36 = uuid3;
+        v37 = 2113;
+        v38 = v15;
+        v39 = 2049;
+        v40 = v25;
+        v41 = 2049;
+        v42 = v26;
         _os_log_impl(&dword_2656EA000, v23, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#sa updated start time for AirPods advertising timer, uuid:%{private}@, related devices:%{private}@, currentPosition:%{private}lu, newPosition:%{private}lu}", buf, 0x3Au);
       }
     }
 
     [v7 setCurrentBudPosition:v11];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateLastWithYouDate:(id)date forDeviceWithUUID:(id)d
@@ -826,43 +822,87 @@ LABEL_12:
 LABEL_13:
 }
 
+- (void)updateRelationStatus:(unsigned __int8)status forDeviceWithUUID:(id)d
+{
+  statusCopy = status;
+  dCopy = d;
+  v7 = dCopy;
+  if (dCopy)
+  {
+    v10 = dCopy;
+    v8 = [(NSMutableDictionary *)self->_deviceRecord objectForKey:dCopy];
+
+    v7 = v10;
+    if (v8)
+    {
+      v9 = [(NSMutableDictionary *)self->_deviceRecord objectForKeyedSubscript:v10];
+      [v9 updateRelationStatus:statusCopy];
+
+      v7 = v10;
+    }
+  }
+
+  MEMORY[0x2821F96F8](dCopy, v7);
+}
+
+- (void)updateMaintenanceStatus:(unsigned __int8)status forDeviceWithUUID:(id)d
+{
+  statusCopy = status;
+  dCopy = d;
+  v7 = dCopy;
+  if (dCopy)
+  {
+    v10 = dCopy;
+    v8 = [(NSMutableDictionary *)self->_deviceRecord objectForKey:dCopy];
+
+    v7 = v10;
+    if (v8)
+    {
+      v9 = [(NSMutableDictionary *)self->_deviceRecord objectForKeyedSubscript:v10];
+      [v9 updateMaintenanceStatus:statusCopy];
+
+      v7 = v10;
+    }
+  }
+
+  MEMORY[0x2821F96F8](dCopy, v7);
+}
+
 - (void)resetAllWithYouStatus
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   allKeys = [(NSMutableDictionary *)self->_deviceRecord allKeys];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v8 = [(NSMutableDictionary *)self->_deviceRecord objectForKeyedSubscript:*(*(&v10 + 1) + 8 * v7)];
+        v8 = [(NSMutableDictionary *)self->_deviceRecord objectForKeyedSubscript:*(*(&v9 + 1) + 8 * v7)];
         [v8 updateWithYouStatus:0];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasSurfacedNotificationFor:(id)for
@@ -884,27 +924,27 @@ LABEL_13:
 
 - (BOOL)hasDisconnectedDevices
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = self->_deviceRecord;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [(NSMutableDictionary *)self->_deviceRecord objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i), v13];
+        v8 = [(NSMutableDictionary *)self->_deviceRecord objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i), v12];
         connectionState = [v8 connectionState];
 
         if (connectionState < 2)
@@ -914,7 +954,7 @@ LABEL_13:
         }
       }
 
-      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -927,13 +967,12 @@ LABEL_13:
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)updateLocation:(id)location
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   lastLocation = self->_lastLocation;
   p_lastLocation = &self->_lastLocation;
@@ -954,15 +993,15 @@ LABEL_9:
         v16 = v14;
         v17 = [v15 description];
         v18 = [locationCopy description];
-        v24 = 68289539;
-        v25 = 0;
-        v26 = 2082;
-        v27 = "";
-        v28 = 2117;
-        v29 = v17;
-        v30 = 2117;
-        v31 = v18;
-        _os_log_impl(&dword_2656EA000, v16, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:SADeviceRecord updateLocation update criteria not satisfied, lastLocation:%{sensitive}@, newLocation:%{sensitive}@}", &v24, 0x26u);
+        v23 = 68289539;
+        v24 = 0;
+        v25 = 2082;
+        v26 = "";
+        v27 = 2117;
+        v28 = v17;
+        v29 = 2117;
+        v30 = v18;
+        _os_log_impl(&dword_2656EA000, v16, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:SADeviceRecord updateLocation update criteria not satisfied, lastLocation:%{sensitive}@, newLocation:%{sensitive}@}", &v23, 0x26u);
       }
 
       goto LABEL_13;
@@ -992,18 +1031,16 @@ LABEL_9:
     v20 = *p_lastLocation;
     v21 = v19;
     v22 = [v20 description];
-    v24 = 68289283;
-    v25 = 0;
-    v26 = 2082;
-    v27 = "";
-    v28 = 2117;
-    v29 = v22;
-    _os_log_impl(&dword_2656EA000, v21, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#SADeviceRecord updateLocation updated, lastLocation:%{sensitive}@}", &v24, 0x1Cu);
+    v23 = 68289283;
+    v24 = 0;
+    v25 = 2082;
+    v26 = "";
+    v27 = 2117;
+    v28 = v22;
+    _os_log_impl(&dword_2656EA000, v21, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#SADeviceRecord updateLocation updated, lastLocation:%{sensitive}@}", &v23, 0x1Cu);
   }
 
 LABEL_13:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ingestTAEvent:(id)event

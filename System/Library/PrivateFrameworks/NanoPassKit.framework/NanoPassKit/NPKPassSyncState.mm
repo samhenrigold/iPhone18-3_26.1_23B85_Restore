@@ -32,35 +32,35 @@
 
 - (NPKPassSyncState)initWithProtoSyncState:(id)state
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if (stateCopy)
   {
     v5 = [MEMORY[0x277CBEB58] set];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     passSyncStateItems = [stateCopy passSyncStateItems];
-    v7 = [passSyncStateItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [passSyncStateItems countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(passSyncStateItems);
           }
 
-          v11 = [[NPKPassSyncStateItem alloc] initWithProtoSyncStateItem:*(*(&v15 + 1) + 8 * i)];
+          v11 = [[NPKPassSyncStateItem alloc] initWithProtoSyncStateItem:*(*(&v14 + 1) + 8 * i)];
           [v5 addObject:v11];
         }
 
-        v8 = [passSyncStateItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [passSyncStateItems countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -75,47 +75,44 @@
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (id)protoSyncState
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(NPKProtoPassSyncState);
   [(NPKProtoPassSyncState *)v3 setVersion:[(NPKPassSyncState *)self version]];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   syncStateItems = [(NPKPassSyncState *)self syncStateItems];
   allValues = [syncStateItems allValues];
 
-  v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        protoSyncStateItem = [*(*(&v13 + 1) + 8 * i) protoSyncStateItem];
+        protoSyncStateItem = [*(*(&v12 + 1) + 8 * i) protoSyncStateItem];
         [(NPKProtoPassSyncState *)v3 addPassSyncStateItems:protoSyncStateItem];
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -145,38 +142,38 @@
 
 - (NPKPassSyncState)initWithPasses:(id)passes version:(unint64_t)version
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   passesCopy = passes;
-  v24.receiver = self;
-  v24.super_class = NPKPassSyncState;
-  v7 = [(NPKPassSyncState *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = NPKPassSyncState;
+  v7 = [(NPKPassSyncState *)&v23 init];
   v8 = v7;
   if (v7)
   {
     [(NPKPassSyncState *)v7 _commonInitWithVersion:version];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v9 = passesCopy;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         v13 = 0;
         do
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * v13);
+          v14 = *(*(&v19 + 1) + 8 * v13);
           v15 = [NPKPassSyncStateItem alloc];
-          v16 = [(NPKPassSyncStateItem *)v15 initWithPass:v14, v20];
+          v16 = [(NPKPassSyncStateItem *)v15 initWithPass:v14, v19];
           uniqueID = [(NPKPassSyncStateItem *)v16 uniqueID];
           if (uniqueID)
           {
@@ -187,14 +184,13 @@
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v11);
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -208,35 +204,35 @@
 
 - (NPKPassSyncState)initWithSyncStateItems:(id)items version:(unint64_t)version
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
-  v22.receiver = self;
-  v22.super_class = NPKPassSyncState;
-  v7 = [(NPKPassSyncState *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = NPKPassSyncState;
+  v7 = [(NPKPassSyncState *)&v21 init];
   v8 = v7;
   if (v7)
   {
     [(NPKPassSyncState *)v7 _commonInitWithVersion:version];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v9 = itemsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * i);
+          v14 = *(*(&v17 + 1) + 8 * i);
           uniqueID = [v14 uniqueID];
           if (uniqueID)
           {
@@ -244,14 +240,13 @@
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v11);
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -292,7 +287,7 @@ void __31__NPKPassSyncState_description__block_invoke(uint64_t a1, uint64_t a2, 
 
 - (void)compareWithBaselinePassSyncState:(id)state outAddedSyncItems:(id *)items outUpdatedSyncItems:(id *)syncItems outRemovedSyncItems:(id *)removedSyncItems
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v11 = MEMORY[0x277CBEB98];
   syncStateItems = [stateCopy syncStateItems];
@@ -313,33 +308,33 @@ void __31__NPKPassSyncState_description__block_invoke(uint64_t a1, uint64_t a2, 
   if (syncItems)
   {
     syncItemsCopy = syncItems;
-    v35 = v14;
+    v34 = v14;
     removedSyncItemsCopy = removedSyncItems;
     v19 = [v14 mutableCopy];
-    v33 = v17;
+    v32 = v17;
     [v19 intersectSet:v17];
     v20 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v21 = v19;
-    v22 = [v21 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v38;
+      v24 = *v37;
       do
       {
         v25 = 0;
         do
         {
-          if (*v38 != v24)
+          if (*v37 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v37 + 1) + 8 * v25);
+          v26 = *(*(&v36 + 1) + 8 * v25);
           syncStateItems2 = [stateCopy syncStateItems];
           v28 = [syncStateItems2 objectForKey:v26];
 
@@ -353,7 +348,7 @@ void __31__NPKPassSyncState_description__block_invoke(uint64_t a1, uint64_t a2, 
         }
 
         while (v23 != v25);
-        v23 = [v21 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v23);
@@ -361,9 +356,9 @@ void __31__NPKPassSyncState_description__block_invoke(uint64_t a1, uint64_t a2, 
 
     *syncItemsCopy = _sortedSyncItemsByUniqueID(v20, self->_syncStateItems);
 
-    v14 = v35;
+    v14 = v34;
     removedSyncItems = removedSyncItemsCopy;
-    v17 = v33;
+    v17 = v32;
   }
 
   if (removedSyncItems)
@@ -373,8 +368,6 @@ void __31__NPKPassSyncState_description__block_invoke(uint64_t a1, uint64_t a2, 
     syncStateItems3 = [stateCopy syncStateItems];
     *removedSyncItems = _sortedSyncItemsByUniqueID(v30, syncStateItems3);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)passSyncStateByApplyingChange:(id)change
@@ -421,34 +414,34 @@ void __31__NPKPassSyncState_description__block_invoke(uint64_t a1, uint64_t a2, 
 
 - (id)commonBaselinePassSyncStateWithState:(id)state version:(unint64_t)version
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v6 = [(NPKPassSyncState *)self copy];
   v6[2] = version;
-  v22 = v6;
+  v21 = v6;
   syncStateItems = [v6 syncStateItems];
   allKeys = [syncStateItems allKeys];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = allKeys;
-  v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
+        v13 = *(*(&v24 + 1) + 8 * i);
         syncStateItems2 = [stateCopy syncStateItems];
         v15 = [syncStateItems2 objectForKey:v13];
         syncStateItems3 = [(NPKPassSyncState *)self syncStateItems];
@@ -457,70 +450,68 @@ void __31__NPKPassSyncState_description__block_invoke(uint64_t a1, uint64_t a2, 
 
         if ((v18 & 1) == 0)
         {
-          syncStateItems4 = [v22 syncStateItems];
+          syncStateItems4 = [v21 syncStateItems];
           [syncStateItems4 removeObjectForKey:v13];
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v10);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 - (BOOL)stateIsSubsetOfUnionOfPassSyncStates:(id)states
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   statesCopy = states;
   [(NSMutableDictionary *)self->_syncStateItems allKeys];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  obj = v29 = 0u;
-  v3 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  obj = v28 = 0u;
+  v3 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v3)
   {
     v4 = v3;
-    v19 = *v27;
+    v18 = *v26;
     while (1)
     {
       v5 = 0;
 LABEL_4:
-      if (*v27 != v19)
+      if (*v26 != v18)
       {
         objc_enumerationMutation(obj);
       }
 
-      v6 = *(*(&v26 + 1) + 8 * v5);
+      v6 = *(*(&v25 + 1) + 8 * v5);
       v7 = [(NSMutableDictionary *)self->_syncStateItems objectForKey:v6];
+      v21 = 0u;
       v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
       v8 = statesCopy;
-      v9 = [v8 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v21 objects:v29 count:16];
       if (!v9)
       {
         break;
       }
 
       v10 = v9;
-      v11 = *v23;
+      v11 = *v22;
 LABEL_8:
       v12 = 0;
       while (1)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        syncStateItems = [*(*(&v22 + 1) + 8 * v12) syncStateItems];
+        syncStateItems = [*(*(&v21 + 1) + 8 * v12) syncStateItems];
         v14 = [syncStateItems objectForKey:v6];
 
         LOBYTE(syncStateItems) = [v7 isEqual:v14];
@@ -531,7 +522,7 @@ LABEL_8:
 
         if (v10 == ++v12)
         {
-          v10 = [v8 countByEnumeratingWithState:&v22 objects:v30 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v21 objects:v29 count:16];
           if (v10)
           {
             goto LABEL_8;
@@ -546,7 +537,7 @@ LABEL_8:
         goto LABEL_4;
       }
 
-      v4 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v4 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
       v15 = 1;
       if (!v4)
       {
@@ -566,25 +557,24 @@ LABEL_18:
 
 LABEL_20:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)diffWithBaselineState:(id)state representsMaterialDifferenceFromState:(id)fromState
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   fromStateCopy = fromState;
   version = [(NPKPassSyncState *)self version];
   if (version == [stateCopy version])
   {
-    v30 = 0;
-    v31 = 0;
     v29 = 0;
-    [(NPKPassSyncState *)self compareWithBaselinePassSyncState:stateCopy outAddedSyncItems:&v31 outUpdatedSyncItems:&v30 outRemovedSyncItems:&v29];
-    v9 = v31;
-    v10 = v30;
-    v11 = v29;
+    v30 = 0;
+    v28 = 0;
+    [(NPKPassSyncState *)self compareWithBaselinePassSyncState:stateCopy outAddedSyncItems:&v30 outUpdatedSyncItems:&v29 outRemovedSyncItems:&v28];
+    v9 = v30;
+    v10 = v29;
+    v11 = v28;
     if ([v11 count])
     {
       LOBYTE(v12) = 1;
@@ -592,28 +582,28 @@ LABEL_20:
 
     else
     {
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       v13 = [v9 arrayByAddingObjectsFromArray:v10];
-      v12 = [v13 countByEnumeratingWithState:&v25 objects:v32 count:16];
+      v12 = [v13 countByEnumeratingWithState:&v24 objects:v31 count:16];
       if (v12)
       {
-        v22 = v11;
-        v23 = v10;
-        v24 = v9;
-        v14 = *v26;
+        v21 = v11;
+        v22 = v10;
+        v23 = v9;
+        v14 = *v25;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v26 != v14)
+            if (*v25 != v14)
             {
               objc_enumerationMutation(v13);
             }
 
-            v16 = *(*(&v25 + 1) + 8 * i);
+            v16 = *(*(&v24 + 1) + 8 * i);
             syncStateItems = [fromStateCopy syncStateItems];
             uniqueID = [v16 uniqueID];
             v19 = [syncStateItems objectForKey:uniqueID];
@@ -626,7 +616,7 @@ LABEL_20:
             }
           }
 
-          v12 = [v13 countByEnumeratingWithState:&v25 objects:v32 count:16];
+          v12 = [v13 countByEnumeratingWithState:&v24 objects:v31 count:16];
           if (v12)
           {
             continue;
@@ -636,9 +626,9 @@ LABEL_20:
         }
 
 LABEL_15:
-        v10 = v23;
-        v9 = v24;
-        v11 = v22;
+        v10 = v22;
+        v9 = v23;
+        v11 = v21;
       }
     }
   }
@@ -648,7 +638,6 @@ LABEL_15:
     LOBYTE(v12) = 1;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -675,29 +664,29 @@ LABEL_15:
 
 - (NSData)syncStateHash
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   allKeys = [(NSMutableDictionary *)self->_syncStateItems allKeys];
   v4 = [allKeys sortedArrayUsingSelector:sel_compare_];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
     data = 0;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = [(NSMutableDictionary *)self->_syncStateItems objectForKey:*(*(&v15 + 1) + 8 * i)];
+        v10 = [(NSMutableDictionary *)self->_syncStateItems objectForKey:*(*(&v14 + 1) + 8 * i)];
         manifestHash = [v10 manifestHash];
         if (manifestHash)
         {
@@ -710,7 +699,7 @@ LABEL_15:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -722,8 +711,6 @@ LABEL_15:
   }
 
   sHA256Hash = [data SHA256Hash];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return sHA256Hash;
 }
@@ -747,24 +734,24 @@ LABEL_15:
 
 - (BOOL)isEqualToPassSyncState:(id)state
 {
-  if (self->_version != *(state + 2))
+  if (self->_version == *(state + 2))
+  {
+    return PKEqualObjects();
+  }
+
+  else
   {
     return 0;
   }
-
-  syncStateItems = self->_syncStateItems;
-  v4 = *(state + 1);
-  return PKEqualObjects();
 }
 
 - (unint64_t)hash
 {
   array = [MEMORY[0x277CBEB18] array];
   [array safelyAddObject:self->_syncStateItems];
-  v4 = *MEMORY[0x277D38638];
-  v5 = PKCombinedHash();
+  v4 = PKCombinedHash();
 
-  return v5;
+  return v4;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -808,43 +795,37 @@ LABEL_15:
 + (unint64_t)minRemoteDevicePassSyncStateVersionSupport
 {
   v17 = *MEMORY[0x277D85DE8];
-  if (PKCloudKitPassSyncEnabled())
+  if (!PKCloudKitPassSyncEnabled())
   {
-    _currentActiveDevice = [self _currentActiveDevice];
-    v4 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"AAA2622E-C2DC-45BF-A337-F8A4BCED8CFD"];
-    v5 = [_currentActiveDevice supportsCapability:v4];
+    return 0;
+  }
 
-    if (v5)
+  _currentActiveDevice = [self _currentActiveDevice];
+  v4 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"AAA2622E-C2DC-45BF-A337-F8A4BCED8CFD"];
+  v5 = [_currentActiveDevice supportsCapability:v4];
+
+  if (v5)
+  {
+    return 1;
+  }
+
+  _deviceDomainAccessor = [self _deviceDomainAccessor];
+  v14 = 0;
+  v8 = [_deviceDomainAccessor integerForKey:@"NPKPassSyncStateVersion" keyExistsAndHasValidFormat:&v14];
+  if (v14 == 1)
+  {
+    v6 = v8;
+    v9 = pk_Sync_log(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+
+    if (v10)
     {
-      v6 = 1;
-    }
-
-    else
-    {
-      _deviceDomainAccessor = [self _deviceDomainAccessor];
-      v14 = 0;
-      v8 = [_deviceDomainAccessor integerForKey:@"NPKPassSyncStateVersion" keyExistsAndHasValidFormat:&v14];
-      if (v14 == 1)
+      v12 = pk_Sync_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = v8;
-        v9 = pk_Sync_log();
-        v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-
-        if (v10)
-        {
-          v11 = pk_Sync_log();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 134217984;
-            v16 = v6;
-            _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: fetched from user defaults version:%lu", buf, 0xCu);
-          }
-        }
-      }
-
-      else
-      {
-        v6 = 0;
+        *buf = 134217984;
+        v16 = v6;
+        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: fetched from user defaults version:%lu", buf, 0xCu);
       }
     }
   }
@@ -854,24 +835,23 @@ LABEL_15:
     v6 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 + (void)setMinRemoteDevicePassSyncStateVersionSupport:(unint64_t)support
 {
   v14 = *MEMORY[0x277D85DE8];
-  v5 = pk_Sync_log();
+  v5 = pk_Sync_log(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Sync_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Sync_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 134217984;
       supportCopy = support;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Updated expected pass sync state version to:%lu", &v12, 0xCu);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Updated expected pass sync state version to:%lu", &v12, 0xCu);
     }
   }
 
@@ -880,8 +860,6 @@ LABEL_15:
 
   _deviceDomainAccessor2 = [self _deviceDomainAccessor];
   synchronize = [_deviceDomainAccessor2 synchronize];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

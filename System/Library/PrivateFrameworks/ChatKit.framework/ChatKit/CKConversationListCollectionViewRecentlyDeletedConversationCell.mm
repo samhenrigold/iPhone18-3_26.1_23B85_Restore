@@ -29,28 +29,28 @@
     unreadRecoverableMessagesCount = 0;
   }
 
-  v14 = MEMORY[0x1E696AEC0];
-  v15 = CKFrameworkBundle();
-  v16 = [v15 localizedStringForKey:@"RECENTLY_DELETED_CONVERSATIONLIST_CELL_SUMMARY_TEXT" value:&stru_1F04268F8 table:@"ChatKit"];
-  v17 = [v14 localizedStringWithFormat:v16, recoverableMessagesCount, unreadRecoverableMessagesCount];
+  v15 = MEMORY[0x1E696AEC0];
+  v16 = CKFrameworkBundle(v12);
+  v17 = [v16 localizedStringForKey:@"RECENTLY_DELETED_CONVERSATIONLIST_CELL_SUMMARY_TEXT" value:&stru_1F04268F8 table:@"ChatKit"];
+  v18 = [v15 localizedStringWithFormat:v17, recoverableMessagesCount, unreadRecoverableMessagesCount];
 
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
   userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
   if (userInterfaceLayoutDirection == 1)
   {
-    v20 = @"\u200F";
+    v21 = @"\u200F";
   }
 
   else
   {
-    v20 = @"\u200E";
+    v21 = @"\u200E";
   }
 
-  v21 = [(__CFString *)v20 stringByAppendingString:v17];
+  v22 = [(__CFString *)v21 stringByAppendingString:v18];
 
-  v22 = [(CKConversationListCollectionViewRecentlyDeletedConversationCell *)self _attributedStringForRecoverableSummaryLabelWithText:v21];
-  [labelCopy setAttributedText:v22];
+  v23 = [(CKConversationListCollectionViewRecentlyDeletedConversationCell *)self _attributedStringForRecoverableSummaryLabelWithText:v22];
+  [labelCopy setAttributedText:v23];
 }
 
 - (id)_attributedStringForRecoverableSummaryLabelWithText:(id)text

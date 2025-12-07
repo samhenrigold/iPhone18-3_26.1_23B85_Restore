@@ -69,7 +69,7 @@
   _Block_object_dispose(&v22, 8);
 }
 
-uint64_t __87__WGWidgetListViewControllerAccessibility__invokeBlockWithPlatterViewsVisibleInBounds___block_invoke(uint64_t a1)
+void *__87__WGWidgetListViewControllerAccessibility__invokeBlockWithPlatterViewsVisibleInBounds___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _invokeBlockWithPlatterViewsVisibleInRect:*(a1 + 40) block:{*(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
   *(*(*(a1 + 48) + 8) + 24) = 1;

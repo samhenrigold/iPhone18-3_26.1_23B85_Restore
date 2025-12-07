@@ -19,10 +19,10 @@
 
 - (DTNetworkingService)initWithChannel:(id)channel
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = DTNetworkingService;
-  v3 = [(DTXService *)&v20 initWithChannel:channel];
+  v34 = *MEMORY[0x277D85DE8];
+  v32.receiver = self;
+  v32.super_class = DTNetworkingService;
+  v3 = [(DTXService *)&v32 initWithChannel:channel];
   v4 = v3;
   if (v3)
   {
@@ -36,53 +36,53 @@
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
     v8 = [standardUserDefaults BOOLForKey:@"XRIncludeLoopback"];
 
-    if ((v8 & 1) != 0 || (v19 = 0, !sub_247F6E928("lo0", &v19)))
+    if ((v8 & 1) != 0 || (v31 = 0, !sub_247F6E928("lo0", &v31, v9, v10, v11, v12, v13, v14)))
     {
       NSLog(&cfstr_IncludingLoopb.isa);
     }
 
     else
     {
-      v4->_hiddenInterfaces |= 1 << v19;
+      v4->_hiddenInterfaces |= 1 << v31;
     }
 
-    v19 = 0;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    v9 = [&unk_285A369D8 countByEnumeratingWithState:&v15 objects:v21 count:16];
-    if (v9)
+    v31 = 0;
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v15 = [&unk_285A369D8 countByEnumeratingWithState:&v27 objects:v33 count:16];
+    if (v15)
     {
-      v10 = v9;
-      v11 = *v16;
+      v16 = v15;
+      v17 = *v28;
       do
       {
-        v12 = 0;
+        v18 = 0;
         do
         {
-          if (*v16 != v11)
+          if (*v28 != v17)
           {
             objc_enumerationMutation(&unk_285A369D8);
           }
 
-          if (sub_247F6E928([*(*(&v15 + 1) + 8 * v12) UTF8String], &v19))
+          uTF8String = [*(*(&v27 + 1) + 8 * v18) UTF8String];
+          if (sub_247F6E928(uTF8String, &v31, v20, v21, v22, v23, v24, v25))
           {
-            v4->_hiddenInterfaces |= 1 << v19;
+            v4->_hiddenInterfaces |= 1 << v31;
           }
 
-          ++v12;
+          ++v18;
         }
 
-        while (v10 != v12);
-        v10 = [&unk_285A369D8 countByEnumeratingWithState:&v15 objects:v21 count:16];
+        while (v16 != v18);
+        v16 = [&unk_285A369D8 countByEnumeratingWithState:&v27 objects:v33 count:16];
       }
 
-      while (v10);
+      while (v16);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

@@ -6,6 +6,8 @@
 - (id).cxx_construct;
 - (id)init_with_host_endpoint:(id)init_with_host_endpoint driver:(id)driver;
 - (int)delete_from_driver_storage:(StringRef)delete_from_driver_storage;
+- (int)driver_properties_changed:(unsigned int)driver_properties_changed properties_data:(id)properties_data;
+- (int)driver_request_config_change:(unsigned int)driver_request_config_change change_action:(unint64_t)change_action change_info:(void *)change_info;
 - (int)write_to_driver_storage:(StringRef)write_to_driver_storage property_list:(PropertyListRef)property_list;
 - (shared_ptr<Host_Interface>)host_interface;
 - (shared_ptr<caulk::mach::unfair_lock>)config_change_lock;
@@ -96,6 +98,129 @@
   result.__cntrl_ = a2;
   result.__ptr_ = self;
   return result;
+}
+
+- (int)driver_request_config_change:(unsigned int)driver_request_config_change change_action:(unint64_t)change_action change_info:(void *)change_info
+{
+  v7 = *&driver_request_config_change;
+  v38 = *MEMORY[0x1E69E9840];
+  v9 = 2003329396;
+  v36 = 2003329396;
+  connection_to_host = [(Core_Audio_Driver_Host_Proxy *)self connection_to_host];
+
+  if (!connection_to_host)
+  {
+    v12 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v12 & 1) == 0)
+    {
+      AMCP::Log::AMCP_Scope_Registry::initialize(v11);
+    }
+
+    v13 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v14 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+      v15 = *v13;
+      AMCP::Log::Scope::get_os_log_t(*v13);
+      objc_claimAutoreleasedReturnValue();
+      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    }
+
+    else
+    {
+      v15 = *v13;
+      AMCP::Log::Scope::get_os_log_t(*v13);
+      objc_claimAutoreleasedReturnValue();
+    }
+
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      v26 = 0;
+      v27 = 0;
+      v28 = 47;
+      do
+      {
+        v29 = &aLibraryCachesC_25[v26];
+        if (v28 == 47)
+        {
+          v27 = &aLibraryCachesC_25[v26];
+        }
+
+        v28 = v29[1];
+        if (!v29[1])
+        {
+          break;
+        }
+      }
+
+      while (v26++ < 0xFFF);
+      if (v27)
+      {
+        v31 = v27 + 1;
+      }
+
+      else
+      {
+        v31 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/ASP/Portal/Driver/Core_Audio_Driver_Host_Proxy.mm";
+      }
+
+      *lock = 136315394;
+      *&lock[4] = v31;
+      *&lock[12] = 1024;
+      *&lock[14] = 235;
+      _os_log_error_impl(&dword_1DE1F9000, v15, OS_LOG_TYPE_ERROR, "%32s:%-5d No connection to host", lock, 0x12u);
+    }
+  }
+
+  v35 = 0;
+  connection_to_host2 = [(Core_Audio_Driver_Host_Proxy *)self connection_to_host];
+  v17 = connection_to_host2 == 0;
+
+  if (!v17)
+  {
+    connection_to_host3 = [(Core_Audio_Driver_Host_Proxy *)self connection_to_host];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3321888768;
+    v34[2] = __87__Core_Audio_Driver_Host_Proxy_driver_request_config_change_change_action_change_info___block_invoke;
+    v34[3] = &__block_descriptor_48_ea8_32c101_ZTSKZ87__Core_Audio_Driver_Host_Proxy_driver_request_config_change_change_action_change_info__E4__12_e17_v16__0__NSError_8l;
+    v34[4] = &v36;
+    v34[5] = &v35;
+    v19 = [connection_to_host3 synchronousRemoteObjectProxyWithErrorHandler:v34];
+
+    objc_msgSend_config_change_lock(self);
+    v20 = *lock;
+    os_unfair_lock_lock(*lock);
+    if (*&lock[8])
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](*&lock[8]);
+    }
+
+    current_config_change_token = [(Core_Audio_Driver_Host_Proxy *)self current_config_change_token];
+    [(Core_Audio_Driver_Host_Proxy *)self setCurrent_config_change_token:current_config_change_token + 1];
+    os_unfair_lock_unlock(v20);
+    driver = [(Core_Audio_Driver_Host_Proxy *)self driver];
+    [driver store_change_info:change_info for_token:current_config_change_token + 1];
+
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3321888768;
+    v32[2] = __87__Core_Audio_Driver_Host_Proxy_driver_request_config_change_change_action_change_info___block_invoke_39;
+    v32[3] = &__block_descriptor_48_ea8_32c101_ZTSKZ87__Core_Audio_Driver_Host_Proxy_driver_request_config_change_change_action_change_info__E4__13_e8_v12__0i8l;
+    [(Core_Audio_Driver_Host_Proxy *)self driver];
+    v23 = v32[4] = &v36;
+    v33 = v23;
+    [v19 request_config_change:v7 change_action:change_action change_token:current_config_change_token + 1 reply:v32];
+
+    if (v35 == 1)
+    {
+      connection_to_host4 = [(Core_Audio_Driver_Host_Proxy *)self connection_to_host];
+      [connection_to_host4 invalidate];
+    }
+
+    return v36;
+  }
+
+  return v9;
 }
 
 - (int)delete_from_driver_storage:(StringRef)delete_from_driver_storage
@@ -202,9 +327,41 @@
   return v10;
 }
 
+- (int)driver_properties_changed:(unsigned int)driver_properties_changed properties_data:(id)properties_data
+{
+  v4 = *&driver_properties_changed;
+  properties_dataCopy = properties_data;
+  v15 = 0;
+  v14 = 2003329396;
+  connection_to_host = [(Core_Audio_Driver_Host_Proxy *)self connection_to_host];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3321888768;
+  v13[2] = __74__Core_Audio_Driver_Host_Proxy_driver_properties_changed_properties_data___block_invoke;
+  v13[3] = &__block_descriptor_48_ea8_32c87_ZTSKZ74__Core_Audio_Driver_Host_Proxy_driver_properties_changed_properties_data__E3__4_e17_v16__0__NSError_8l;
+  v13[4] = &v14;
+  v13[5] = &v15;
+  v8 = [connection_to_host synchronousRemoteObjectProxyWithErrorHandler:v13];
+
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3321888768;
+  v12[2] = __74__Core_Audio_Driver_Host_Proxy_driver_properties_changed_properties_data___block_invoke_16;
+  v12[3] = &__block_descriptor_40_ea8_32c87_ZTSKZ74__Core_Audio_Driver_Host_Proxy_driver_properties_changed_properties_data__E3__5_e8_v12__0i8l;
+  v12[4] = &v14;
+  [v8 object_properties_changed:v4 properties_data:properties_dataCopy reply:v12];
+  if (v15 == 1)
+  {
+    connection_to_host2 = [(Core_Audio_Driver_Host_Proxy *)self connection_to_host];
+    [connection_to_host2 invalidate];
+  }
+
+  v10 = v14;
+
+  return v10;
+}
+
 - (AudioServerPlugInHostInterface)get_host_interface
 {
-  [(Core_Audio_Driver_Host_Proxy *)self host_interface];
+  objc_msgSend_host_interface(self, a2);
   if (v4)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
@@ -217,11 +374,11 @@
 {
   init_with_host_endpointCopy = init_with_host_endpoint;
   driverCopy = driver;
-  v14.receiver = self;
-  v14.super_class = Core_Audio_Driver_Host_Proxy;
-  v15 = 0;
-  v8 = [(Core_Audio_Driver_Host_Proxy *)&v14 init];
-  v15 = v8;
+  v15.receiver = self;
+  v15.super_class = Core_Audio_Driver_Host_Proxy;
+  v16 = 0;
+  v8 = [(Core_Audio_Driver_Host_Proxy *)&v15 init];
+  v16 = v8;
   if (v8)
   {
     v9 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithListenerEndpoint:init_with_host_endpointCopy];
@@ -232,7 +389,7 @@
     [(NSXPCConnection *)v8->_connection_to_host setRemoteObjectInterface:v11];
 
     [(NSXPCConnection *)v8->_connection_to_host resume];
-    std::allocate_shared[abi:ne200100]<Host_Interface,std::allocator<Host_Interface>,Core_Audio_Driver_Host_Proxy * {__strong}&,0>();
+    std::allocate_shared[abi:ne200100]<Host_Interface,std::allocator<Host_Interface>,Core_Audio_Driver_Host_Proxy * {__strong}&,0>(&v14, &v16);
   }
 
   v12 = 0;
@@ -242,16 +399,16 @@
 
 - (Core_Audio_Driver_Host_Proxy)init
 {
-  v6.receiver = self;
-  v6.super_class = Core_Audio_Driver_Host_Proxy;
-  v2 = [(Core_Audio_Driver_Host_Proxy *)&v6 init];
-  v7 = v2;
+  v7.receiver = self;
+  v7.super_class = Core_Audio_Driver_Host_Proxy;
+  v2 = [(Core_Audio_Driver_Host_Proxy *)&v7 init];
+  v8 = v2;
   if (v2)
   {
     connection_to_host = v2->_connection_to_host;
     v2->_connection_to_host = 0;
 
-    std::allocate_shared[abi:ne200100]<Host_Interface,std::allocator<Host_Interface>,Core_Audio_Driver_Host_Proxy * {__strong}&,0>();
+    std::allocate_shared[abi:ne200100]<Host_Interface,std::allocator<Host_Interface>,Core_Audio_Driver_Host_Proxy * {__strong}&,0>(&v6, &v8);
   }
 
   v4 = 0;

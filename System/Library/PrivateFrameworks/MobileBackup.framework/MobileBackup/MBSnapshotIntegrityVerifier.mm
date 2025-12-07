@@ -57,7 +57,7 @@
     *buf = 138412290;
     v8 = summaryCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_FAULT, "=verifier= %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"F ", "=verifier= %@", summaryCopy);
   }
 
   attemptSummary = [(MBSnapshotIntegrityVerifier *)self attemptSummary];
@@ -89,7 +89,7 @@
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=verifier= Failed to fetch metadata from fetched file list %@: %@", buf, 0x16u);
 
         path2 = [listCopy path];
-        _MBLog();
+        _MBLog(@"E ", "=verifier= Failed to fetch metadata from fetched file list %@: %@", path2, v11);
       }
 
       v13 = v11;

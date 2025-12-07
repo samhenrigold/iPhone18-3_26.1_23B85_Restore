@@ -34,7 +34,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_20CFE2038();
+  sub_20CFE2038(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -46,7 +46,7 @@
   [(HUUtilityOnboardingQuickLookupViewController *)&v7 viewWillAppear:appearCopy];
   v5 = *&v4[OBJC_IVAR___HUUtilityOnboardingQuickLookupViewController_context];
   headerView = [v4 headerView];
-  sub_20CEE70AC(headerView);
+  sub_20CEE70AC(headerView, 0xD00000000000002CLL, 0x800000020D5D35F0);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
@@ -76,7 +76,7 @@
 
 - (Class)onboardingFlowClass
 {
-  sub_20CECF940(0, &qword_27C81E450);
+  sub_20CECF940(0, &qword_27C81E450, off_277DB19A0);
 
   return swift_getObjCClassFromMetadata();
 }

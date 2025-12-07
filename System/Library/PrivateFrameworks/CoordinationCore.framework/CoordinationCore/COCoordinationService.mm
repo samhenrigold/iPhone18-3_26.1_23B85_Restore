@@ -26,10 +26,10 @@
 
 - (id)_initWithConstituentType:(unint64_t)type
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v27.receiver = self;
-  v27.super_class = COCoordinationService;
-  v4 = [(COCoordinationService *)&v27 init];
+  v29 = *MEMORY[0x277D85DE8];
+  v26.receiver = self;
+  v26.super_class = COCoordinationService;
+  v4 = [(COCoordinationService *)&v26 init];
   v5 = v4;
   if (v4)
   {
@@ -94,7 +94,6 @@
     [(COCoordinationService *)v5 _setupIDSServerBag];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -121,7 +120,7 @@ void __50__COCoordinationService_startWithConstituentType___block_invoke(uint64_
 
 - (void)_initiateMigrationFrom:(int64_t)from
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = COCoreLogForCategory(1);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (from < 1)
@@ -130,8 +129,8 @@ void __50__COCoordinationService_startWithConstituentType___block_invoke(uint64_
     {
       *buf = 134218240;
       fromCopy2 = from;
-      v11 = 2048;
-      v12 = 1;
+      v10 = 2048;
+      v11 = 1;
       _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "Migration starting from %ld to %ld...", buf, 0x16u);
     }
 
@@ -144,26 +143,24 @@ void __50__COCoordinationService_startWithConstituentType___block_invoke(uint64_
     {
       *buf = 134218240;
       fromCopy2 = from;
-      v11 = 2048;
-      v12 = 1;
+      v10 = 2048;
+      v11 = 1;
       _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "No migration required (%ld >= %ld)", buf, 0x16u);
     }
 
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __48__COCoordinationService__initiateMigrationFrom___block_invoke;
-    v8[3] = &unk_278E15AB8;
-    v8[4] = self;
-    [(COCoordinationService *)self _withLock:v8];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __48__COCoordinationService__initiateMigrationFrom___block_invoke;
+    v7[3] = &unk_278E15AB8;
+    v7[4] = self;
+    [(COCoordinationService *)self _withLock:v7];
     [(COCoordinationService *)self _continueInitialization];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_continueMigration
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   hkAdapter = [(COCoordinationService *)self hkAdapter];
   currentAccessory = [hkAdapter currentAccessory];
 
@@ -173,193 +170,186 @@ void __50__COCoordinationService_startWithConstituentType___block_invoke(uint64_
     v6 = objc_alloc_init(MEMORY[0x277D29740]);
     v7 = MEMORY[0x277D2C900];
     alarms = [v5 alarms];
-    v22[0] = alarms;
+    v21[0] = alarms;
     timers = [v6 timers];
-    v22[1] = timers;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v21[1] = timers;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
     immediateScheduler = [MEMORY[0x277D2C938] immediateScheduler];
     v12 = [v7 combineAllFutures:v10 ignoringErrors:1 scheduler:immediateScheduler];
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __43__COCoordinationService__continueMigration__block_invoke;
-    v17[3] = &unk_278E16E60;
-    v18 = currentAccessory;
-    v19 = v5;
-    v20 = v6;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __43__COCoordinationService__continueMigration__block_invoke;
+    v16[3] = &unk_278E16E60;
+    v17 = currentAccessory;
+    v18 = v5;
+    v19 = v6;
     selfCopy = self;
     v13 = v6;
     v14 = v5;
-    v15 = [v12 addSuccessBlock:v17];
+    v15 = [v12 addSuccessBlock:v16];
   }
 
   else
   {
     [(COCoordinationService *)self _completeMigration];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-void __43__COCoordinationService__continueMigration__block_invoke(uint64_t a1, void *a2)
+void __43__COCoordinationService__continueMigration__block_invoke(id *a1, void *a2)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectAtIndex:0];
   v5 = [v3 objectAtIndex:1];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v7 = 0x277CBE000uLL;
   objc_opt_class();
-  v49 = a1;
+  v44 = a1;
   if (objc_opt_isKindOfClass())
   {
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
-    v58 = 0u;
-    v8 = v4;
-    v9 = [v8 countByEnumeratingWithState:&v57 objects:v62 count:16];
-    if (v9)
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v7 = v4;
+    v8 = [v7 countByEnumeratingWithState:&v52 objects:v57 count:16];
+    if (v8)
     {
-      v10 = v9;
-      v50 = v6;
-      v43 = v5;
-      v45 = v4;
-      v47 = v3;
-      v11 = *v58;
-      v12 = *MEMORY[0x277CFCEC8];
+      v9 = v8;
+      v45 = v6;
+      v38 = v5;
+      v40 = v4;
+      v42 = v3;
+      v10 = *v53;
+      v11 = *MEMORY[0x277CFCEC8];
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v58 != v11)
+          if (*v53 != v10)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v7);
           }
 
-          v14 = *(*(&v57 + 1) + 8 * i);
-          v15 = [v14 siriContext];
-          v16 = [v15 objectForKey:v12];
-          if (!v16)
+          v13 = *(*(&v52 + 1) + 8 * i);
+          v14 = [v13 siriContext];
+          v15 = [v14 objectForKey:v11];
+          if (!v15)
           {
-            v17 = *(a1 + 32);
-            v16 = COAlarmSiriContextTargetReferenceForAccessory();
-            v18 = [v14 mutableCopy];
-            if (v15)
+            v15 = COAlarmSiriContextTargetReferenceForAccessory();
+            v16 = [v13 mutableCopy];
+            if (v14)
             {
-              v19 = [v15 mutableCopy];
+              v17 = [v14 mutableCopy];
             }
 
             else
             {
-              v19 = objc_alloc_init(MEMORY[0x277CBEB38]);
+              v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
             }
 
-            v20 = v19;
-            [v19 setObject:v16 forKey:v12];
-            [v18 setSiriContext:v20];
-            v21 = [*(a1 + 40) updateAlarm:v18];
-            [v50 addObject:v21];
+            v18 = v17;
+            [v17 setObject:v15 forKey:v11];
+            [v16 setSiriContext:v18];
+            v19 = [a1[5] updateAlarm:v16];
+            [v45 addObject:v19];
 
-            a1 = v49;
+            a1 = v44;
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v57 objects:v62 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v52 objects:v57 count:16];
       }
 
-      while (v10);
-      v4 = v45;
-      v3 = v47;
-      v5 = v43;
-      v6 = v50;
-      v7 = 0x277CBE000;
+      while (v9);
+      v4 = v40;
+      v3 = v42;
+      v5 = v38;
+      v6 = v45;
     }
   }
 
   else
   {
-    v8 = COCoreLogForCategory(1);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = COCoreLogForCategory(1);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __43__COCoordinationService__continueMigration__block_invoke_cold_1();
     }
   }
 
-  v22 = *(v7 + 2656);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
-    v54 = 0u;
-    v23 = v5;
-    v24 = [v23 countByEnumeratingWithState:&v53 objects:v61 count:16];
-    if (v24)
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v20 = v5;
+    v21 = [v20 countByEnumeratingWithState:&v48 objects:v56 count:16];
+    if (v21)
     {
-      v25 = v24;
-      v51 = v6;
-      v44 = v5;
-      v46 = v4;
-      v48 = v3;
-      v26 = *v54;
-      v27 = *MEMORY[0x277CFD068];
+      v22 = v21;
+      v46 = v6;
+      v39 = v5;
+      v41 = v4;
+      v43 = v3;
+      v23 = *v49;
+      v24 = *MEMORY[0x277CFD068];
       do
       {
-        for (j = 0; j != v25; ++j)
+        for (j = 0; j != v22; ++j)
         {
-          if (*v54 != v26)
+          if (*v49 != v23)
           {
-            objc_enumerationMutation(v23);
+            objc_enumerationMutation(v20);
           }
 
-          v29 = *(*(&v53 + 1) + 8 * j);
-          if (([v29 isCurrentTimer] & 1) == 0)
+          v26 = *(*(&v48 + 1) + 8 * j);
+          if (([v26 isCurrentTimer] & 1) == 0)
           {
-            v30 = [v29 siriContext];
-            v31 = [v30 objectForKey:v27];
-            if (!v31)
+            v27 = [v26 siriContext];
+            v28 = [v27 objectForKey:v24];
+            if (!v28)
             {
-              v32 = *(a1 + 32);
-              v31 = COTimerSiriContextTargetReferenceForAccessory();
-              v33 = [v29 mutableCopy];
-              if (v30)
+              v28 = COTimerSiriContextTargetReferenceForAccessory();
+              v29 = [v26 mutableCopy];
+              if (v27)
               {
-                v34 = [v30 mutableCopy];
+                v30 = [v27 mutableCopy];
               }
 
               else
               {
-                v34 = objc_alloc_init(MEMORY[0x277CBEB38]);
+                v30 = objc_alloc_init(MEMORY[0x277CBEB38]);
               }
 
-              v35 = v34;
-              [v34 setObject:v31 forKey:v27];
-              [v33 setSiriContext:v35];
-              v36 = [*(a1 + 48) updateTimer:v33];
-              [v51 addObject:v36];
+              v31 = v30;
+              [v30 setObject:v28 forKey:v24];
+              [v29 setSiriContext:v31];
+              v32 = [a1[6] updateTimer:v29];
+              [v46 addObject:v32];
 
-              a1 = v49;
+              a1 = v44;
             }
           }
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v53 objects:v61 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v48 objects:v56 count:16];
       }
 
-      while (v25);
-      v4 = v46;
-      v3 = v48;
-      v5 = v44;
-      v6 = v51;
+      while (v22);
+      v4 = v41;
+      v3 = v43;
+      v5 = v39;
+      v6 = v46;
     }
   }
 
   else
   {
-    v23 = COCoreLogForCategory(1);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v20 = COCoreLogForCategory(1);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       __43__COCoordinationService__continueMigration__block_invoke_cold_2();
     }
@@ -367,24 +357,22 @@ void __43__COCoordinationService__continueMigration__block_invoke(uint64_t a1, v
 
   if ([v6 count])
   {
-    v37 = a1;
-    v38 = MEMORY[0x277D2C900];
-    v39 = [MEMORY[0x277D2C938] immediateScheduler];
-    v40 = [v38 combineAllFutures:v6 ignoringErrors:1 scheduler:v39];
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __43__COCoordinationService__continueMigration__block_invoke_36;
-    v52[3] = &unk_278E19258;
-    v52[4] = *(v37 + 56);
-    v41 = [v40 addCompletionBlock:v52];
+    v33 = a1;
+    v34 = MEMORY[0x277D2C900];
+    v35 = [MEMORY[0x277D2C938] immediateScheduler];
+    v36 = [v34 combineAllFutures:v6 ignoringErrors:1 scheduler:v35];
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __43__COCoordinationService__continueMigration__block_invoke_36;
+    v47[3] = &unk_278E19258;
+    v47[4] = v33[7];
+    v37 = [v36 addCompletionBlock:v47];
   }
 
   else
   {
-    [*(a1 + 56) _completeMigration];
+    [a1[7] _completeMigration];
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_completeMigration
@@ -412,7 +400,7 @@ void __43__COCoordinationService__continueMigration__block_invoke(uint64_t a1, v
 
 - (void)_initializeServices
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_servicesLock);
   v3 = objc_alloc_init(MEMORY[0x277CBEB40]);
   v4 = [COCapabilityService serviceWithDelegate:self];
@@ -432,9 +420,9 @@ void __43__COCoordinationService__continueMigration__block_invoke(uint64_t a1, v
     v8 = COCoreLogForCategory(1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134217984;
+      v12 = 134217984;
       selfCopy = self;
-      _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%p Alarms & Timers are handled by DistributedTimers (HH1 ok)", &v13, 0xCu);
+      _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%p Alarms & Timers are handled by DistributedTimers (HH1 ok)", &v12, 0xCu);
     }
   }
 
@@ -450,8 +438,6 @@ void __43__COCoordinationService__continueMigration__block_invoke(uint64_t a1, v
   v10 = [objc_alloc(MEMORY[0x277CBEB70]) initWithOrderedSet:v3];
   services = self->_services;
   self->_services = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_continueInitialization
@@ -490,25 +476,25 @@ void __43__COCoordinationService__continueMigration__block_invoke(uint64_t a1, v
 
 - (void)_linkServicesToMeshController:(id)controller withClusterIdentifier:(id)identifier forClusters:(id)clusters
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   identifierCopy = identifier;
   clustersCopy = clusters;
-  v63 = 0;
-  v64[0] = &v63;
-  v64[1] = 0x3032000000;
-  v64[2] = __Block_byref_object_copy__29;
-  v64[3] = __Block_byref_object_dispose__29;
-  v65 = 0;
-  v60[0] = MEMORY[0x277D85DD0];
-  v60[1] = 3221225472;
-  v60[2] = __89__COCoordinationService__linkServicesToMeshController_withClusterIdentifier_forClusters___block_invoke;
-  v60[3] = &unk_278E15A18;
-  v62 = &v63;
-  v60[4] = self;
-  v37 = clustersCopy;
-  v61 = v37;
-  [(COCoordinationService *)self _withServicesLock:v60];
+  v62 = 0;
+  v63 = &v62;
+  v64 = 0x3032000000;
+  v65 = __Block_byref_object_copy__29;
+  v66 = __Block_byref_object_dispose__29;
+  v67 = 0;
+  v59[0] = MEMORY[0x277D85DD0];
+  v59[1] = 3221225472;
+  v59[2] = __89__COCoordinationService__linkServicesToMeshController_withClusterIdentifier_forClusters___block_invoke;
+  v59[3] = &unk_278E15A18;
+  v61 = &v62;
+  v59[4] = self;
+  v36 = clustersCopy;
+  v60 = v36;
+  [(COCoordinationService *)self _withServicesLock:v59];
   isDistributedTimersEnabled = [MEMORY[0x277CFD0B8] isDistributedTimersEnabled];
   hkAdapter = [(COCoordinationService *)self hkAdapter];
   hasOptedToHH2 = [hkAdapter hasOptedToHH2];
@@ -516,28 +502,28 @@ void __43__COCoordinationService__continueMigration__block_invoke(uint64_t a1, v
   v12 = COCoreLogForCategory(1);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v35 = "no";
+    v34 = "no";
     if (isDistributedTimersEnabled)
-    {
-      v36 = "yes";
-    }
-
-    else
-    {
-      v36 = "no";
-    }
-
-    *buf = 134218498;
-    selfCopy4 = self;
-    v69 = v36;
-    v68 = 2080;
-    if (hasOptedToHH2)
     {
       v35 = "yes";
     }
 
-    v70 = 2080;
+    else
+    {
+      v35 = "no";
+    }
+
+    *buf = 134218498;
+    selfCopy4 = self;
     v71 = v35;
+    v70 = 2080;
+    if (hasOptedToHH2)
+    {
+      v34 = "yes";
+    }
+
+    v72 = 2080;
+    v73 = v34;
     _os_log_debug_impl(&dword_244378000, v12, OS_LOG_TYPE_DEBUG, "%p DistributedTimers: %s, HomeHub2: %s", buf, 0x20u);
   }
 
@@ -551,26 +537,26 @@ void __43__COCoordinationService__continueMigration__block_invoke(uint64_t a1, v
       _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%p Alarms & Timers are handled by DistributedTimers, removing services.", buf, 0xCu);
     }
 
-    v14 = [*(v64[0] + 40) mutableCopy];
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
+    v14 = [v63[5] mutableCopy];
     v57 = 0u;
-    v15 = *(v64[0] + 40);
-    v16 = [v15 countByEnumeratingWithState:&v56 objects:v76 count:16];
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
+    v15 = v63[5];
+    v16 = [v15 countByEnumeratingWithState:&v55 objects:v78 count:16];
     if (v16)
     {
-      v17 = *v57;
+      v17 = *v56;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v57 != v17)
+          if (*v56 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v56 + 1) + 8 * i);
+          v19 = *(*(&v55 + 1) + 8 * i);
           v20 = objc_opt_class();
           if (([v20 isEqual:objc_opt_class()] & 1) == 0)
           {
@@ -586,88 +572,86 @@ void __43__COCoordinationService__continueMigration__block_invoke(uint64_t a1, v
           {
             *buf = 134218242;
             selfCopy4 = self;
-            v68 = 2112;
-            v69 = v19;
+            v70 = 2112;
+            v71 = v19;
             _os_log_impl(&dword_244378000, v22, OS_LOG_TYPE_DEFAULT, "%p removing %@", buf, 0x16u);
           }
 
           [v14 removeObject:v19];
         }
 
-        v16 = [v15 countByEnumeratingWithState:&v56 objects:v76 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v55 objects:v78 count:16];
       }
 
       while (v16);
     }
 
-    v23 = *(v64[0] + 40);
-    *(v64[0] + 40) = v14;
+    v23 = v63[5];
+    v63[5] = v14;
   }
 
-  v24 = [*(v64[0] + 40) count];
-  v55[0] = 0;
-  v55[1] = v55;
-  v55[2] = 0x2020000000;
-  v55[3] = 0;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3042000000;
-  v52 = __Block_byref_object_copy__50;
-  v53 = __Block_byref_object_dispose__51;
-  v54 = 0;
+  v24 = [v63[5] count];
+  v54[0] = 0;
+  v54[1] = v54;
+  v54[2] = 0x2020000000;
+  v54[3] = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3042000000;
+  v51 = __Block_byref_object_copy__50;
+  v52 = __Block_byref_object_dispose__51;
+  v53 = 0;
   v25 = dispatch_group_create();
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __89__COCoordinationService__linkServicesToMeshController_withClusterIdentifier_forClusters___block_invoke_52;
-  v40[3] = &unk_278E192A8;
-  v48 = v24;
-  v45 = v55;
-  v46 = &v63;
-  v26 = v37;
-  v41 = v26;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __89__COCoordinationService__linkServicesToMeshController_withClusterIdentifier_forClusters___block_invoke_52;
+  v39[3] = &unk_278E192A8;
+  v47 = v24;
+  v44 = v54;
+  v45 = &v62;
+  v26 = v36;
+  v40 = v26;
   v27 = controllerCopy;
-  v42 = v27;
+  v41 = v27;
   v28 = identifierCopy;
-  v43 = v28;
-  v47 = &v49;
+  v42 = v28;
+  v46 = &v48;
   v29 = v25;
-  v44 = v29;
-  v30 = MEMORY[0x245D5FF10](v40);
-  objc_storeWeak(v50 + 5, v30);
+  v43 = v29;
+  v30 = MEMORY[0x245D5FF10](v39);
+  objc_storeWeak(v49 + 5, v30);
   v31 = COCoreLogForCategory(1);
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = [*(v64[0] + 40) count];
+    v32 = [v63[5] count];
     *buf = 134219010;
     selfCopy4 = self;
-    v68 = 2048;
-    v69 = v32;
     v70 = 2048;
-    v71 = v27;
-    v72 = 2112;
-    v73 = v28;
+    v71 = v32;
+    v72 = 2048;
+    v73 = v27;
     v74 = 2112;
-    v75 = v26;
+    v75 = v28;
+    v76 = 2112;
+    v77 = v26;
     _os_log_impl(&dword_244378000, v31, OS_LOG_TYPE_DEFAULT, "%p linking %lu services to %p with %@ for Clusters %@", buf, 0x34u);
   }
 
   v33 = COCoreLogForCategory(1);
   if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
   {
-    [COCoordinationService _linkServicesToMeshController:v64 withClusterIdentifier:? forClusters:?];
+    [COCoordinationService _linkServicesToMeshController:withClusterIdentifier:forClusters:];
   }
 
   dispatch_group_enter(v29);
   v30[2](v30);
   dispatch_group_wait(v29, 0xFFFFFFFFFFFFFFFFLL);
 
-  _Block_object_dispose(&v49, 8);
-  objc_destroyWeak(&v54);
+  _Block_object_dispose(&v48, 8);
+  objc_destroyWeak(&v53);
 
-  _Block_object_dispose(v55, 8);
-  _Block_object_dispose(&v63, 8);
-
-  v34 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v54, 8);
+  _Block_object_dispose(&v62, 8);
 }
 
 uint64_t __89__COCoordinationService__linkServicesToMeshController_withClusterIdentifier_forClusters___block_invoke(uint64_t a1)
@@ -713,67 +697,67 @@ void __89__COCoordinationService__linkServicesToMeshController_withClusterIdenti
 
 - (void)_unlinkServicesFromMeshController:(id)controller withClusterIdentifier:(id)identifier forClusters:(id)clusters
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   identifierCopy = identifier;
   clustersCopy = clusters;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__29;
-  v46 = __Block_byref_object_dispose__29;
-  v47 = 0;
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __93__COCoordinationService__unlinkServicesFromMeshController_withClusterIdentifier_forClusters___block_invoke;
-  v39[3] = &unk_278E15A18;
-  v41 = &v42;
-  v39[4] = self;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__29;
+  v45 = __Block_byref_object_dispose__29;
+  v46 = 0;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __93__COCoordinationService__unlinkServicesFromMeshController_withClusterIdentifier_forClusters___block_invoke;
+  v38[3] = &unk_278E15A18;
+  v40 = &v41;
+  v38[4] = self;
   v11 = clustersCopy;
-  v40 = v11;
-  [(COCoordinationService *)self _withServicesLock:v39];
-  v12 = [v43[5] count];
-  v38[0] = 0;
-  v38[1] = v38;
-  v38[2] = 0x2020000000;
-  v38[3] = 0;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3042000000;
-  v35 = __Block_byref_object_copy__50;
-  v36 = __Block_byref_object_dispose__51;
-  v37 = 0;
+  v39 = v11;
+  [(COCoordinationService *)self _withServicesLock:v38];
+  v12 = [v42[5] count];
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x2020000000;
+  v37[3] = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3042000000;
+  v34 = __Block_byref_object_copy__50;
+  v35 = __Block_byref_object_dispose__51;
+  v36 = 0;
   v13 = dispatch_group_create();
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = __93__COCoordinationService__unlinkServicesFromMeshController_withClusterIdentifier_forClusters___block_invoke_2;
-  v24 = &unk_278E192D0;
-  v31 = v12;
-  v28 = v38;
-  v29 = &v42;
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __93__COCoordinationService__unlinkServicesFromMeshController_withClusterIdentifier_forClusters___block_invoke_2;
+  v23 = &unk_278E192D0;
+  v30 = v12;
+  v27 = v37;
+  v28 = &v41;
   v14 = v11;
-  v25 = v14;
+  v24 = v14;
   v15 = identifierCopy;
-  v26 = v15;
-  v30 = &v32;
+  v25 = v15;
+  v29 = &v31;
   v16 = v13;
-  v27 = v16;
-  v17 = MEMORY[0x245D5FF10](&v21);
-  objc_storeWeak(v33 + 5, v17);
+  v26 = v16;
+  v17 = MEMORY[0x245D5FF10](&v20);
+  objc_storeWeak(v32 + 5, v17);
   v18 = COCoreLogForCategory(1);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = [v43[5] count];
+    v19 = [v42[5] count];
     *buf = 134219010;
     selfCopy = self;
-    v50 = 2048;
-    v51 = v19;
-    v52 = 2048;
-    v53 = controllerCopy;
-    v54 = 2112;
-    v55 = v15;
-    v56 = 2112;
-    v57 = v14;
+    v49 = 2048;
+    v50 = v19;
+    v51 = 2048;
+    v52 = controllerCopy;
+    v53 = 2112;
+    v54 = v15;
+    v55 = 2112;
+    v56 = v14;
     _os_log_impl(&dword_244378000, v18, OS_LOG_TYPE_DEFAULT, "%p unlinking %lu services from %p with %@ for Clusters %@", buf, 0x34u);
   }
 
@@ -781,13 +765,11 @@ void __89__COCoordinationService__linkServicesToMeshController_withClusterIdenti
   v17[2](v17);
   dispatch_group_wait(v16, 0xFFFFFFFFFFFFFFFFLL);
 
-  _Block_object_dispose(&v32, 8);
-  objc_destroyWeak(&v37);
+  _Block_object_dispose(&v31, 8);
+  objc_destroyWeak(&v36);
 
-  _Block_object_dispose(v38, 8);
-  _Block_object_dispose(&v42, 8);
-
-  v20 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v37, 8);
+  _Block_object_dispose(&v41, 8);
 }
 
 uint64_t __93__COCoordinationService__unlinkServicesFromMeshController_withClusterIdentifier_forClusters___block_invoke(uint64_t a1)
@@ -869,7 +851,7 @@ void __93__COCoordinationService__unlinkServicesFromMeshController_withClusterId
 
 void __49__COCoordinationService_takeAssertionForCluster___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) assertions];
   v3 = [v2 objectForKey:*(a1 + 40)];
   objc_initWeak(&location, v3);
@@ -888,13 +870,13 @@ void __49__COCoordinationService_takeAssertionForCluster___block_invoke(uint64_t
       v9 = [v8 assertions];
       v10 = [v9 count];
       *buf = 134218754;
-      v23 = v8;
-      v24 = 2048;
-      v25 = v7;
-      v26 = 2112;
-      v27 = v6;
-      v28 = 2048;
-      v29 = v10;
+      v22 = v8;
+      v23 = 2048;
+      v24 = v7;
+      v25 = 2112;
+      v26 = v6;
+      v27 = 2048;
+      v28 = v10;
       _os_log_debug_impl(&dword_244378000, v5, OS_LOG_TYPE_DEBUG, "%p reusing assertion %p for Cluster %@ (total %lu)", buf, 0x2Au);
     }
   }
@@ -918,19 +900,18 @@ void __49__COCoordinationService_takeAssertionForCluster___block_invoke(uint64_t
       v18 = [v17 assertions];
       v19 = [v18 count];
       *buf = 134218754;
-      v23 = v17;
-      v24 = 2048;
-      v25 = v16;
-      v26 = 2112;
-      v27 = v15;
-      v28 = 2048;
-      v29 = v19;
+      v22 = v17;
+      v23 = 2048;
+      v24 = v16;
+      v25 = 2112;
+      v26 = v15;
+      v27 = 2048;
+      v28 = v19;
       _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p established assertion %p for Cluster %@ (total %lu)", buf, 0x2Au);
     }
   }
 
   objc_destroyWeak(&location);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)waitForClusterBootstrap:(id)bootstrap completion:(id)completion
@@ -999,7 +980,7 @@ void __60__COCoordinationService_waitForClusterBootstrap_completion___block_invo
 
 void __58__COCoordinationService_didInvalidateAssertionForCluster___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) assertions];
   [v2 removeObjectForKey:*(a1 + 40)];
 
@@ -1009,16 +990,14 @@ void __58__COCoordinationService_didInvalidateAssertionForCluster___block_invoke
     v4 = *(a1 + 32);
     v5 = *(a1 + 40);
     v6 = [v4 assertions];
-    v8 = 134218498;
-    v9 = v4;
-    v10 = 2112;
-    v11 = v5;
-    v12 = 2048;
-    v13 = [v6 count];
-    _os_log_impl(&dword_244378000, v3, OS_LOG_TYPE_DEFAULT, "%p assertion invalidated for Cluster %@ (total %lu)", &v8, 0x20u);
+    v7 = 134218498;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    v11 = 2048;
+    v12 = [v6 count];
+    _os_log_impl(&dword_244378000, v3, OS_LOG_TYPE_DEFAULT, "%p assertion invalidated for Cluster %@ (total %lu)", &v7, 0x20u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)aliasManagerRequestsNewMesh:(id)mesh
@@ -1077,57 +1056,57 @@ void __58__COCoordinationService_didInvalidateAssertionForCluster___block_invoke
 
 - (id)_servicesForClusters:(id)clusters
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   clustersCopy = clusters;
   os_unfair_lock_assert_owner(&self->_servicesLock);
-  v18 = objc_alloc_init(MEMORY[0x277CBEB40]);
+  v17 = objc_alloc_init(MEMORY[0x277CBEB40]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   services = [(COCoordinationService *)self services];
-  v6 = [services countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v6 = [services countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(services);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         v11 = clustersCopy;
-        v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v20;
+          v14 = *v19;
           while (2)
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v20 != v14)
+              if (*v19 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              if ([v10 _applicableToCluster:*(*(&v19 + 1) + 8 * j)])
+              if ([v10 _applicableToCluster:*(*(&v18 + 1) + 8 * j)])
               {
-                [v18 addObject:v10];
+                [v17 addObject:v10];
                 goto LABEL_16;
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
             if (v13)
             {
               continue;
@@ -1140,26 +1119,24 @@ void __58__COCoordinationService_didInvalidateAssertionForCluster___block_invoke
 LABEL_16:
       }
 
-      v7 = [services countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [services countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v7);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v18;
+  return v17;
 }
 
 - (void)_setupIDSServerBag
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = COCoreLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_244378000, v3, OS_LOG_TYPE_DEFAULT, "%p setting up IDSServer Bag", &v9, 0xCu);
+    _os_log_impl(&dword_244378000, v3, OS_LOG_TYPE_DEFAULT, "%p setting up IDSServer Bag", &v8, 0xCu);
   }
 
   v4 = objc_alloc_init(COIDSServerBag);
@@ -1171,20 +1148,18 @@ LABEL_16:
 
   idsServerBag2 = [(COCoordinationService *)self idsServerBag];
   [idsServerBag2 configure];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)idsServerBagDidUpdate:(id)update
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   v5 = COCoreLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 134217984;
+    v19 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p IDS server bag updated", &v20, 0xCu);
+    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p IDS server bag updated", &v19, 0xCu);
   }
 
   v6 = MEMORY[0x277CFD0B0];
@@ -1202,9 +1177,9 @@ LABEL_16:
       v13 = COCoreLogForCategory(1);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 138412290;
+        v19 = 138412290;
         selfCopy = isFastFoldEnabled;
-        _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "Received an updated bag value for fast fold %@. Writing to prefs", &v20, 0xCu);
+        _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "Received an updated bag value for fast fold %@. Writing to prefs", &v19, 0xCu);
       }
 
       [v8 setObject:isFastFoldEnabled forKey:v10];
@@ -1222,53 +1197,46 @@ LABEL_16:
       v18 = COCoreLogForCategory(1);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 138412290;
+        v19 = 138412290;
         selfCopy = isIPDiffingEnabled;
-        _os_log_impl(&dword_244378000, v18, OS_LOG_TYPE_DEFAULT, "Received an updated bag value for ip diffing %@. Writing to prefs", &v20, 0xCu);
+        _os_log_impl(&dword_244378000, v18, OS_LOG_TYPE_DEFAULT, "Received an updated bag value for ip diffing %@. Writing to prefs", &v19, 0xCu);
       }
 
       [v8 setObject:isIPDiffingEnabled forKey:v15];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __43__COCoordinationService__continueMigration__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_244378000, v0, OS_LOG_TYPE_ERROR, "Migrating alarms failed (%@)", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_244378000, v0, OS_LOG_TYPE_ERROR, "Migrating alarms failed (%@)", v1, 0xCu);
 }
 
 void __43__COCoordinationService__continueMigration__block_invoke_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_244378000, v0, OS_LOG_TYPE_ERROR, "Migrating timers failed (%@)", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_244378000, v0, OS_LOG_TYPE_ERROR, "Migrating timers failed (%@)", v1, 0xCu);
 }
 
-- (void)_linkServicesToMeshController:(uint64_t)a1 withClusterIdentifier:(uint64_t)a2 forClusters:.cold.1(uint64_t a1, uint64_t a2)
+- (void)_linkServicesToMeshController:withClusterIdentifier:forClusters:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_3();
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_244378000, v4, OS_LOG_TYPE_DEBUG, "%p services: %@", v6, 0x16u);
   v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3();
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_244378000, v1, OS_LOG_TYPE_DEBUG, "%p services: %@", v2, 0x16u);
 }
 
 - (void)waitForClusterBootstrap:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_244378000, v1, OS_LOG_TYPE_ERROR, "%p no assertion for Cluster %@, invoking bootstrap block inline", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_244378000, v1, OS_LOG_TYPE_ERROR, "%p no assertion for Cluster %@, invoking bootstrap block inline", v2, 0x16u);
 }
 
 @end

@@ -26,9 +26,10 @@
 {
   v3 = objc_alloc_init(LACDTORatchetSEPStateParser);
   sep = self->_sep;
-  v11 = 0;
-  v5 = [(LACDTORatchetSEPInterface *)sep fetchConfigurationAndStatus:&v11];
-  v6 = v11;
+  v12 = 0;
+  v5 = [(LACDTORatchetSEPInterface *)sep fetchConfigurationAndStatus:&v12];
+  v6 = v12;
+  v7 = v6;
   if (v5)
   {
     defaultConfiguration = [(LACDTORatchetSEPStateParser *)v3 timerConfigurationFromState:v5];
@@ -36,18 +37,18 @@
 
   else
   {
-    v8 = LACLogDTO();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = LACLogDTO(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(LACDTOTimerConfigurationProvider *)v6 currentConfiguration];
+      [(LACDTOTimerConfigurationProvider *)v7 currentConfiguration];
     }
 
     defaultConfiguration = [(LACDTOTimerConfigurationProvider *)self defaultConfiguration];
   }
 
-  v9 = defaultConfiguration;
+  v10 = defaultConfiguration;
 
-  return v9;
+  return v10;
 }
 
 - (id)defaultConfiguration
@@ -66,11 +67,10 @@
 
 - (void)currentConfiguration
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Could not fetch current configuration (%@). Falling back to default", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Could not fetch current configuration (%@). Falling back to default", &v2, 0xCu);
 }
 
 @end

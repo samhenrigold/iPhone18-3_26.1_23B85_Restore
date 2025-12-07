@@ -1,24 +1,3 @@
-void sub_2972C2BA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (*(v17 + 23) < 0)
-  {
-    operator delete(*v17);
-    if ((a17 & 0x80000000) == 0)
-    {
-LABEL_3:
-      _Unwind_Resume(exception_object);
-    }
-  }
-
-  else if ((a17 & 0x80000000) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  operator delete(__p);
-  _Unwind_Resume(exception_object);
-}
-
 void std::regex_traits<char>::__transform_primary<char *>(uint64_t a1@<X0>, _BYTE *a2@<X1>, _BYTE *a3@<X2>, _BYTE **a4@<X8>)
 {
   v5 = a3 - a2;
@@ -133,7 +112,7 @@ LABEL_26:
     v16 = *a4;
   }
 
-  v16[11] = v16[3];
+  *(v16 + 11) = *(v16 + 3);
   if (SHIBYTE(__dst[2]) < 0)
   {
     goto LABEL_29;
@@ -1485,9 +1464,9 @@ LABEL_67:
   }
 }
 
-void sub_2972C423C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2972C423C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   support::mobileasset::registerForUpdates(std::string const&,std::string const&,dispatch_queue_s *,void({block_pointer})(int))::$_0::~$_0(va);
   _Unwind_Resume(a1);
 }
@@ -1508,11 +1487,11 @@ void sub_2972C4250(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 169) == 1)
   {
-    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v6 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
     v8 = *(a1 + 120);
     v7 = *(a1 + 128);
@@ -2028,7 +2007,7 @@ LABEL_26:
     v16 = *a4;
   }
 
-  v16[11] = v16[3];
+  *(v16 + 11) = *(v16 + 3);
   if (SHIBYTE(__dst[2]) < 0)
   {
     goto LABEL_29;
@@ -2250,11 +2229,11 @@ void sub_2972C4D1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_neg_char[abi:ne200100](uint64_t a1, char a2)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_neg_char[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 169) == 1)
   {
-    v3 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v3 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v5 = *(a1 + 72);
     v4 = *(a1 + 80);
     if (v5 < v4)
@@ -2264,42 +2243,42 @@ void std::__bracket_expression<char,std::regex_traits<char>>::__add_neg_char[abi
       goto LABEL_28;
     }
 
-    v10 = *(a1 + 64);
-    v11 = v5 - v10;
-    v12 = v5 - v10 + 1;
-    if (v12 >= 0)
+    v9 = *(a1 + 64);
+    v10 = v5 - v9;
+    v11 = v5 - v9 + 1;
+    if (v11 >= 0)
     {
-      v13 = v4 - v10;
-      if (2 * v13 > v12)
+      v12 = v4 - v9;
+      if (2 * v12 > v11)
       {
-        v12 = 2 * v13;
+        v11 = 2 * v12;
       }
 
-      if (v13 >= 0x3FFFFFFFFFFFFFFFLL)
+      if (v12 >= 0x3FFFFFFFFFFFFFFFLL)
       {
-        v14 = 0x7FFFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        v14 = v12;
-      }
-
-      if (v14)
-      {
-        v15 = v3;
-        v16 = operator new(v14);
-        v3 = v15;
+        v13 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v16 = 0;
+        v13 = v11;
       }
 
-      v22 = &v16[v14];
-      v16[v11] = v3;
-      v6 = &v16[v11 + 1];
+      if (v13)
+      {
+        v14 = v3;
+        v15 = operator new(v13);
+        v3 = v14;
+      }
+
+      else
+      {
+        v15 = 0;
+      }
+
+      v21 = &v15[v13];
+      v15[v10] = v3;
+      v6 = &v15[v10 + 1];
       goto LABEL_26;
     }
 
@@ -2307,64 +2286,63 @@ LABEL_29:
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  v7 = *(a1 + 170);
-  v9 = *(a1 + 72);
-  v8 = *(a1 + 80);
-  if (v9 < v8)
+  v8 = *(a1 + 72);
+  v7 = *(a1 + 80);
+  if (v8 < v7)
   {
-    *v9 = a2;
-    *(a1 + 72) = v9 + 1;
+    *v8 = a2;
+    *(a1 + 72) = v8 + 1;
     return;
   }
 
-  v10 = *(a1 + 64);
-  v11 = v9 - v10;
-  v17 = v9 - v10 + 1;
-  if (v17 < 0)
+  v9 = *(a1 + 64);
+  v10 = v8 - v9;
+  v16 = v8 - v9 + 1;
+  if (v16 < 0)
   {
     goto LABEL_29;
   }
 
-  v18 = v8 - v10;
-  if (2 * v18 > v17)
+  v17 = v7 - v9;
+  if (2 * v17 > v16)
   {
-    v17 = 2 * v18;
+    v16 = 2 * v17;
   }
 
-  if (v18 >= 0x3FFFFFFFFFFFFFFFLL)
+  if (v17 >= 0x3FFFFFFFFFFFFFFFLL)
   {
-    v19 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    v19 = v17;
-  }
-
-  if (v19)
-  {
-    v20 = a2;
-    v21 = operator new(v19);
-    a2 = v20;
-    v16 = v21;
+    v18 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v16 = 0;
+    v18 = v16;
   }
 
-  v22 = &v16[v19];
-  v16[v11] = a2;
-  v6 = &v16[v11 + 1];
+  if (v18)
+  {
+    v19 = a2;
+    v20 = operator new(v18);
+    LOBYTE(a2) = v19;
+    v15 = v20;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v21 = &v15[v18];
+  v15[v10] = a2;
+  v6 = &v15[v10 + 1];
 LABEL_26:
-  memcpy(v16, v10, v11);
-  *(a1 + 64) = v16;
+  memcpy(v15, v9, v10);
+  *(a1 + 64) = v15;
   *(a1 + 72) = v6;
-  *(a1 + 80) = v22;
-  if (v10)
+  *(a1 + 80) = v21;
+  if (v9)
   {
-    operator delete(v10);
+    operator delete(v9);
     *(a1 + 72) = v6;
     return;
   }
@@ -2373,7 +2351,7 @@ LABEL_28:
   *(a1 + 72) = v6;
 }
 
-void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](void **a1, __int128 *a2)
+void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](char **a1, __int128 *a2)
 {
   v3 = a1[1];
   v4 = a1[2];
@@ -2382,14 +2360,12 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](vo
     v5 = *a2;
     *(v3 + 2) = *(a2 + 2);
     *v3 = v5;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = *(a2 + 24);
     *(v3 + 5) = *(a2 + 5);
     *(v3 + 24) = v6;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v7 = v3 + 48;
 LABEL_3:
@@ -2441,14 +2417,11 @@ LABEL_3:
   *v14 = *a2;
   v15 = &v13[48 * v11];
   *(v14 + 2) = *(a2 + 2);
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v16 = *(a2 + 24);
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
+  a2[1] = 0uLL;
   *(v14 + 5) = *(a2 + 5);
-  *(a2 + 4) = 0;
-  *(a2 + 5) = 0;
+  a2[2] = 0uLL;
   v7 = v14 + 48;
   v17 = *a1;
   v18 = a1[1] - *a1;
@@ -3034,7 +3007,7 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)15
   __cxa_throw(exception, MEMORY[0x29EDC9420], MEMORY[0x29EDC9378]);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl_RE<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
+std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl_RE<std::__wrap_iter<char const*>>(uint64_t a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
 {
   v4 = a2;
   v6 = std::basic_regex<char,std::regex_traits<char>>::__parse_one_char_or_coll_elem_RE<std::__wrap_iter<char const*>>(a1, a2, a3);
@@ -3043,15 +3016,15 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl
     return v6;
   }
 
-  if (v4 == a3 || v4 + 1 == a3 || *v6 != 92)
+  if (v4 == a3 || (&v4->__traits_.__loc_.__locale_ + 1) == a3 || LOBYTE(v6->__traits_.__loc_.__locale_) != 92)
   {
     return v4;
   }
 
-  v7 = v4[1];
+  v7 = BYTE1(v4->__traits_.__loc_.__locale_);
   if (v7 == 40)
   {
-    v6 = v4 + 2;
+    v6 = (&v4->__traits_.__loc_.__locale_ + 2);
   }
 
   if (v6 != v4)
@@ -3104,14 +3077,14 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl
 
     else
     {
-      if (v14 + 1 == a3 || *v14 != 92)
+      if ((&v14->__traits_.__loc_.__locale_ + 1) == a3 || LOBYTE(v14->__traits_.__loc_.__locale_) != 92)
       {
         goto LABEL_31;
       }
 
-      if (v14[1] == 41)
+      if (BYTE1(v14->__traits_.__loc_.__locale_) == 41)
       {
-        v4 = v14 + 2;
+        v4 = (&v14->__traits_.__loc_.__locale_ + 2);
       }
 
       else
@@ -3153,7 +3126,7 @@ LABEL_31:
   }
 
   std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(a1, v7 - 48);
-  return v4 + 2;
+  return (&v4->__traits_.__loc_.__locale_ + 2);
 }
 
 std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_RE_dupl_symbol<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, std::basic_regex<char> *this, std::basic_regex<char> *a3, std::__owns_one_state<char> *a4, size_t __mexp_begin, size_t __mexp_end)
@@ -3190,22 +3163,22 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v11 = LOBYTE(v9->__traits_.__loc_.__locale_);
+  v11 = *v9;
   if ((v11 & 0xF8) != 0x30 && (v11 & 0xFE) != 0x38)
   {
     goto LABEL_54;
   }
 
   v10 = v11 - 48;
-  v12 = &v9->__traits_.__loc_.__locale_ + 1;
-  if ((&v9->__traits_.__loc_.__locale_ + 1) == a3)
+  v12 = (v9 + 1);
+  if ((v9 + 1) == a3)
   {
     goto LABEL_20;
   }
 
   while (1)
   {
-    v13 = *v12;
+    v13 = LOBYTE(v12->__traits_.__loc_.__locale_);
     if ((v13 & 0xF8) != 0x30 && (v13 & 0xFE) != 0x38)
     {
       break;
@@ -3217,7 +3190,8 @@ LABEL_20:
     }
 
     v10 = v13 + 10 * v10 - 48;
-    if (++v12 == a3)
+    v12 = (v12 + 1);
+    if (v12 == a3)
     {
       goto LABEL_20;
     }
@@ -3234,8 +3208,8 @@ LABEL_21:
     goto LABEL_55;
   }
 
-  v14 = *v12;
-  v15 = (v12 + 1);
+  v14 = LOBYTE(v12->__traits_.__loc_.__locale_);
+  v15 = (&v12->__traits_.__loc_.__locale_ + 1);
   if (v14 == 44)
   {
     if (v15 == a3)
@@ -3246,8 +3220,8 @@ LABEL_21:
     v16 = LOBYTE(v15->__traits_.__loc_.__locale_);
     if ((v16 & 0xF8) == 0x30 || (v16 & 0xFE) == 0x38)
     {
-      v15 = (v12 + 2);
-      if (v12 + 2 == a3)
+      v15 = (&v12->__traits_.__loc_.__locale_ + 2);
+      if ((&v12->__traits_.__loc_.__locale_ + 2) == a3)
       {
         goto LABEL_55;
       }
@@ -3334,7 +3308,7 @@ LABEL_55:
     goto LABEL_55;
   }
 
-  v18 = (v12[1] == 125 ? v12 + 2 : v12);
+  v18 = BYTE1(v12->__traits_.__loc_.__locale_) == 125 ? &v12->__traits_.__loc_.__locale_ + 2 : v12;
   if (v12 == v18)
   {
     goto LABEL_55;
@@ -3669,7 +3643,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_
   return v3;
 }
 
-uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, std::sub_match<const char *> *a2, std::sub_match<const char *> *a3, std::vector<std::csub_match> *this, int a5)
+uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, std::sub_match<const char *> *a2, std::sub_match<const char *> *a3, std::vector<std::csub_match> *this, unsigned int a5)
 {
   if ((a5 & 0x80) != 0)
   {
@@ -3725,19 +3699,19 @@ LABEL_13:
         {
           if (*(a1 + 28))
           {
-            if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80u, 0))
+            if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80, 0))
             {
               goto LABEL_28;
             }
           }
 
-          else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80u, 0))
+          else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80, 0))
           {
             goto LABEL_28;
           }
         }
 
-        else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80u, 0))
+        else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80, 0))
         {
           goto LABEL_28;
         }
@@ -3750,19 +3724,19 @@ LABEL_13:
       {
         if (*(a1 + 28))
         {
-          if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80u, 0))
+          if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80, 0))
           {
             goto LABEL_28;
           }
         }
 
-        else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80u, 0))
+        else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80, 0))
         {
           goto LABEL_28;
         }
       }
 
-      else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80u, 0))
+      else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80, 0))
       {
         goto LABEL_28;
       }
@@ -4368,11 +4342,11 @@ LABEL_97:
   return v67;
 }
 
-void sub_2972C7764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2972C7764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__state<char>::~__state(va);
-  std::deque<std::__state<char>>::~deque[abi:ne200100]((v9 - 144));
+  std::deque<std::__state<char>>::~deque[abi:ne200100]((v16 - 144));
   _Unwind_Resume(a1);
 }
 
@@ -5481,7 +5455,7 @@ char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:
         v52 = 16 * (v51 & 0x1FFFFFFFFFFFFFFCLL);
         v15 = &result[v52];
         v25 = &a2[v52];
-        v53 = (a2 + 32);
+        v53 = a2 + 32;
         v54 = result + 32;
         v55 = v51 & 0x1FFFFFFFFFFFFFFCLL;
         do
@@ -5489,13 +5463,13 @@ char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:
           v57 = *(v53 - 2);
           v56 = *(v53 - 1);
           v59 = *v53;
-          v58 = v53[1];
-          v53 += 4;
+          v58 = *(v53 + 1);
+          v53 += 64;
           *(v54 - 2) = v57;
           *(v54 - 1) = v56;
           *v54 = v59;
-          v54[1] = v58;
-          v54 += 4;
+          *(v54 + 1) = v58;
+          v54 += 64;
           v55 -= 4;
         }
 
@@ -5538,7 +5512,7 @@ LABEL_26:
         v36 = 16 * (v35 & 0x1FFFFFFFFFFFFFFCLL);
         v18 = &result[v36];
         v19 = &a2[v36];
-        v37 = (a2 + 32);
+        v37 = a2 + 32;
         v38 = result + 32;
         v39 = v35 & 0x1FFFFFFFFFFFFFFCLL;
         do
@@ -5546,13 +5520,13 @@ LABEL_26:
           v41 = *(v37 - 2);
           v40 = *(v37 - 1);
           v43 = *v37;
-          v42 = v37[1];
-          v37 += 4;
+          v42 = *(v37 + 1);
+          v37 += 64;
           *(v38 - 2) = v41;
           *(v38 - 1) = v40;
           *v38 = v43;
-          v38[1] = v42;
-          v38 += 4;
+          *(v38 + 1) = v42;
+          v38 += 64;
           v39 -= 4;
         }
 
@@ -5775,93 +5749,93 @@ uint64_t __cxx_global_var_init_36()
 
 void _GLOBAL__sub_I_ResetInfo_cpp()
 {
-  v77 = *MEMORY[0x29EDCA608];
-  v9 = 15;
-  strcpy(v8, ".*\\[abmtool\\].*");
-  v10[0] = 1;
-  v12 = 14;
-  strcpy(v11, ".*\\[bbutil\\].*");
-  v13 = 1;
-  v14 = operator new(0x50uLL);
-  v15 = xmmword_29742FB30;
-  strcpy(v14, ".*AP forced coredump via SPMI - Please analyze reason from AP perspective.*");
-  v16 = 1;
-  v17 = operator new(0x19uLL);
-  v18 = xmmword_29742FB40;
-  strcpy(v17, ".*(after OTASP/OTAPA).*");
-  v19 = 1;
-  v20 = operator new(0x38uLL);
-  v21 = xmmword_29742FB50;
-  strcpy(v20, ".*Carrier bundle updated settings that require reset");
-  v22 = 1;
-  v23 = operator new(0x28uLL);
-  v24 = xmmword_29742F120;
-  strcpy(v23, ".*Manually Triggering BB Core Dump");
-  v25 = 1;
-  v26 = operator new(0x28uLL);
-  v27 = xmmword_29742FB60;
-  strcpy(v26, ".*modem manager triggered reset.*");
-  v28 = 1;
-  v29 = operator new(0x38uLL);
-  v30 = xmmword_29742FB70;
-  strcpy(v29, ".*User requested to change Baseband field test config");
-  v31 = 1;
-  v32 = operator new(0x28uLL);
-  v33 = 33;
-  v34 = 0x8000000000000028;
-  strcpy(v32, ".*applebbproxy setup AT interface");
-  v35 = 1;
-  v36 = operator new(0x28uLL);
-  v37 = 36;
-  v38 = 0x8000000000000028;
-  strcpy(v36, ".*Resetting Baseband after restore.*");
-  v39 = 1;
-  v40 = operator new(0x30uLL);
-  v41 = 42;
-  v42 = 0x8000000000000030;
-  strcpy(v40, ".*Resetting baseband after pushing files.*");
-  v43 = 1;
-  v44 = operator new(0x40uLL);
-  v45 = 59;
-  v46 = 0x8000000000000040;
-  strcpy(v44, ".*Resetting Baseband after successful restore of carrier NV");
-  v47 = 1;
-  v48 = operator new(0x30uLL);
-  v49 = 41;
-  v50 = 0x8000000000000030;
-  strcpy(v48, ".*Resetting modem from WirelessAutomation");
-  v51 = 1;
-  v52 = operator new(0x20uLL);
-  v53 = 25;
-  v54 = 0x8000000000000020;
-  strcpy(v52, ".*Requesting Soft Reset.*");
-  v55 = 1;
-  v58 = 0x8000000000000030;
-  v56 = operator new(0x30uLL);
-  v57 = 42;
-  strcpy(v56, ".*AP-triggered((?!: locationd PDS).*|(.*))");
-  v59 = 1;
-  v62 = 0x8000000000000038;
-  v60 = operator new(0x38uLL);
-  v61 = 50;
-  strcpy(v60, ".*User ((requested state)|(Triggered Core))dump.*");
+  v75 = *MEMORY[0x29EDCA608];
+  v7 = 15;
+  strcpy(v6, ".*\\[abmtool\\].*");
+  v8[0] = 1;
+  v10 = 14;
+  strcpy(v9, ".*\\[bbutil\\].*");
+  v11 = 1;
+  v12 = operator new(0x50uLL);
+  v13 = xmmword_29742FB30;
+  strcpy(v12, ".*AP forced coredump via SPMI - Please analyze reason from AP perspective.*");
+  v14 = 1;
+  v15 = operator new(0x19uLL);
+  v16 = xmmword_29742FB40;
+  strcpy(v15, ".*(after OTASP/OTAPA).*");
+  v17 = 1;
+  v18 = operator new(0x38uLL);
+  v19 = xmmword_29742FB50;
+  strcpy(v18, ".*Carrier bundle updated settings that require reset");
+  v20 = 1;
+  v21 = operator new(0x28uLL);
+  v22 = xmmword_29742F120;
+  strcpy(v21, ".*Manually Triggering BB Core Dump");
+  v23 = 1;
+  v24 = operator new(0x28uLL);
+  v25 = xmmword_29742FB60;
+  strcpy(v24, ".*modem manager triggered reset.*");
+  v26 = 1;
+  v27 = operator new(0x38uLL);
+  v28 = xmmword_29742FB70;
+  strcpy(v27, ".*User requested to change Baseband field test config");
+  v29 = 1;
+  v30 = operator new(0x28uLL);
+  v31 = 33;
+  v32 = 0x8000000000000028;
+  strcpy(v30, ".*applebbproxy setup AT interface");
+  v33 = 1;
+  v34 = operator new(0x28uLL);
+  v35 = 36;
+  v36 = 0x8000000000000028;
+  strcpy(v34, ".*Resetting Baseband after restore.*");
+  v37 = 1;
+  v38 = operator new(0x30uLL);
+  v39 = 42;
+  v40 = 0x8000000000000030;
+  strcpy(v38, ".*Resetting baseband after pushing files.*");
+  v41 = 1;
+  v42 = operator new(0x40uLL);
+  v43 = 59;
+  v44 = 0x8000000000000040;
+  strcpy(v42, ".*Resetting Baseband after successful restore of carrier NV");
+  v45 = 1;
+  v46 = operator new(0x30uLL);
+  v47 = 41;
+  v48 = 0x8000000000000030;
+  strcpy(v46, ".*Resetting modem from WirelessAutomation");
+  v49 = 1;
+  v50 = operator new(0x20uLL);
+  v51 = 25;
+  v52 = 0x8000000000000020;
+  strcpy(v50, ".*Requesting Soft Reset.*");
+  v53 = 1;
+  v56 = 0x8000000000000030;
+  v54 = operator new(0x30uLL);
+  v55 = 42;
+  strcpy(v54, ".*AP-triggered((?!: locationd PDS).*|(.*))");
+  v57 = 1;
+  v60 = 0x8000000000000038;
+  v58 = operator new(0x38uLL);
+  v59 = 50;
+  strcpy(v58, ".*User ((requested state)|(Triggered Core))dump.*");
+  v61 = 1;
+  HIBYTE(v62[2]) = 19;
+  strcpy(v62, ".*SIM APNs change.*");
   v63 = 1;
-  HIBYTE(v64[2]) = 19;
-  strcpy(v64, ".*SIM APNs change.*");
-  v65 = 1;
-  v66 = operator new(0x28uLL);
-  v68 = 0x8000000000000028;
-  v67 = 34;
-  strcpy(v66, ".*AttachAPN Push to force detach.*");
-  v69 = 1;
-  v71 = 14;
-  strcpy(v70, ".*CSIM reset.*");
-  v72 = 1;
+  v64 = operator new(0x28uLL);
+  v66 = 0x8000000000000028;
+  v65 = 34;
+  strcpy(v64, ".*AttachAPN Push to force detach.*");
+  v67 = 1;
+  v69 = 14;
+  strcpy(v68, ".*CSIM reset.*");
+  v70 = 1;
   __p = operator new(0x20uLL);
-  v75 = 0x8000000000000020;
-  v74 = 25;
+  v73 = 0x8000000000000020;
+  v72 = 25;
   strcpy(__p, ".*com\\.apple\\.symptomsd.*");
-  v76 = 1;
+  v74 = 1;
   qword_2A18CA988 = 0;
   qword_2A18CA990 = 0;
   kDefaultPatternMasks = 0;
@@ -5869,15 +5843,15 @@ void _GLOBAL__sub_I_ResetInfo_cpp()
   kDefaultPatternMasks = operator new(0x280uLL);
   qword_2A18CA988 = kDefaultPatternMasks;
   qword_2A18CA990 = kDefaultPatternMasks + 640;
-  v7 = kDefaultPatternMasks;
+  v5 = kDefaultPatternMasks;
   v1 = kDefaultPatternMasks;
   do
   {
-    v4 = &v8[v0 / 2];
-    if (*(&v9 + v0 * 4) < 0)
+    v4 = &v6[v0 / 2];
+    if (*(&v7 + v0 * 4) < 0)
     {
       std::string::__init_copy_ctor_external(v1, *v4, v4[1]);
-      v3 = v7;
+      v3 = v5;
     }
 
     else
@@ -5888,266 +5862,262 @@ void _GLOBAL__sub_I_ResetInfo_cpp()
       v3 = v1;
     }
 
-    *(v1 + 24) = v10[v0];
+    *(v1 + 24) = v8[v0];
     v0 += 8;
     v1 = v3 + 32;
-    v7 = v3 + 32;
+    v5 = v3 + 32;
   }
 
   while (v0 != 160);
   qword_2A18CA988 = v3 + 32;
-  if (SHIBYTE(v75) < 0)
+  if (SHIBYTE(v73) < 0)
   {
     operator delete(__p);
-    if ((v71 & 0x80000000) == 0)
+    if ((v69 & 0x80000000) == 0)
     {
 LABEL_8:
-      if ((SHIBYTE(v68) & 0x80000000) == 0)
+      if ((SHIBYTE(v66) & 0x80000000) == 0)
       {
         goto LABEL_9;
       }
 
-      goto LABEL_30;
+      goto LABEL_29;
     }
   }
 
-  else if ((v71 & 0x80000000) == 0)
+  else if ((v69 & 0x80000000) == 0)
   {
     goto LABEL_8;
   }
 
-  operator delete(v70[0]);
-  if ((SHIBYTE(v68) & 0x80000000) == 0)
+  operator delete(v68[0]);
+  if ((SHIBYTE(v66) & 0x80000000) == 0)
   {
 LABEL_9:
-    if ((SHIBYTE(v64[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v62[2]) & 0x80000000) == 0)
     {
       goto LABEL_10;
+    }
+
+    goto LABEL_30;
+  }
+
+LABEL_29:
+  operator delete(v64);
+  if ((SHIBYTE(v62[2]) & 0x80000000) == 0)
+  {
+LABEL_10:
+    if ((SHIBYTE(v60) & 0x80000000) == 0)
+    {
+      goto LABEL_11;
     }
 
     goto LABEL_31;
   }
 
 LABEL_30:
-  operator delete(v66);
-  if ((SHIBYTE(v64[2]) & 0x80000000) == 0)
+  operator delete(v62[0]);
+  if ((SHIBYTE(v60) & 0x80000000) == 0)
   {
-LABEL_10:
-    if ((SHIBYTE(v62) & 0x80000000) == 0)
+LABEL_11:
+    if ((SHIBYTE(v56) & 0x80000000) == 0)
     {
-      goto LABEL_11;
+      goto LABEL_12;
     }
 
     goto LABEL_32;
   }
 
 LABEL_31:
-  operator delete(v64[0]);
-  if ((SHIBYTE(v62) & 0x80000000) == 0)
+  operator delete(v58);
+  if ((SHIBYTE(v56) & 0x80000000) == 0)
   {
-LABEL_11:
-    if ((SHIBYTE(v58) & 0x80000000) == 0)
+LABEL_12:
+    if ((SHIBYTE(v52) & 0x80000000) == 0)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
     goto LABEL_33;
   }
 
 LABEL_32:
-  operator delete(v60);
-  if ((SHIBYTE(v58) & 0x80000000) == 0)
+  operator delete(v54);
+  if ((SHIBYTE(v52) & 0x80000000) == 0)
   {
-LABEL_12:
-    if ((SHIBYTE(v54) & 0x80000000) == 0)
+LABEL_13:
+    if ((SHIBYTE(v48) & 0x80000000) == 0)
     {
-      goto LABEL_13;
+      goto LABEL_14;
     }
 
     goto LABEL_34;
   }
 
 LABEL_33:
-  operator delete(v56);
-  if ((SHIBYTE(v54) & 0x80000000) == 0)
+  operator delete(v50);
+  if ((SHIBYTE(v48) & 0x80000000) == 0)
   {
-LABEL_13:
-    if ((SHIBYTE(v50) & 0x80000000) == 0)
+LABEL_14:
+    if ((SHIBYTE(v44) & 0x80000000) == 0)
     {
-      goto LABEL_14;
+      goto LABEL_15;
     }
 
     goto LABEL_35;
   }
 
 LABEL_34:
-  operator delete(v52);
-  if ((SHIBYTE(v50) & 0x80000000) == 0)
+  operator delete(v46);
+  if ((SHIBYTE(v44) & 0x80000000) == 0)
   {
-LABEL_14:
-    if ((SHIBYTE(v46) & 0x80000000) == 0)
+LABEL_15:
+    if ((SHIBYTE(v40) & 0x80000000) == 0)
     {
-      goto LABEL_15;
+      goto LABEL_16;
     }
 
     goto LABEL_36;
   }
 
 LABEL_35:
-  operator delete(v48);
-  if ((SHIBYTE(v46) & 0x80000000) == 0)
+  operator delete(v42);
+  if ((SHIBYTE(v40) & 0x80000000) == 0)
   {
-LABEL_15:
-    if ((SHIBYTE(v42) & 0x80000000) == 0)
+LABEL_16:
+    if ((SHIBYTE(v36) & 0x80000000) == 0)
     {
-      goto LABEL_16;
+      goto LABEL_17;
     }
 
     goto LABEL_37;
   }
 
 LABEL_36:
-  operator delete(v44);
-  if ((SHIBYTE(v42) & 0x80000000) == 0)
+  operator delete(v38);
+  if ((SHIBYTE(v36) & 0x80000000) == 0)
   {
-LABEL_16:
-    if ((SHIBYTE(v38) & 0x80000000) == 0)
+LABEL_17:
+    if ((SHIBYTE(v32) & 0x80000000) == 0)
     {
-      goto LABEL_17;
+      goto LABEL_18;
     }
 
     goto LABEL_38;
   }
 
 LABEL_37:
-  operator delete(v40);
-  if ((SHIBYTE(v38) & 0x80000000) == 0)
+  operator delete(v34);
+  if ((SHIBYTE(v32) & 0x80000000) == 0)
   {
-LABEL_17:
-    if ((SHIBYTE(v34) & 0x80000000) == 0)
+LABEL_18:
+    if ((SHIBYTE(v28) & 0x80000000) == 0)
     {
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     goto LABEL_39;
   }
 
 LABEL_38:
-  operator delete(v36);
-  if ((SHIBYTE(v34) & 0x80000000) == 0)
+  operator delete(v30);
+  if ((SHIBYTE(v28) & 0x80000000) == 0)
   {
-LABEL_18:
-    if ((SHIBYTE(v30) & 0x80000000) == 0)
+LABEL_19:
+    if ((SHIBYTE(v25) & 0x80000000) == 0)
     {
-      goto LABEL_19;
+      goto LABEL_20;
     }
 
     goto LABEL_40;
   }
 
 LABEL_39:
-  operator delete(v32);
-  if ((SHIBYTE(v30) & 0x80000000) == 0)
+  operator delete(v27);
+  if ((SHIBYTE(v25) & 0x80000000) == 0)
   {
-LABEL_19:
-    if ((SHIBYTE(v27) & 0x80000000) == 0)
+LABEL_20:
+    if ((SHIBYTE(v22) & 0x80000000) == 0)
     {
-      goto LABEL_20;
+      goto LABEL_21;
     }
 
     goto LABEL_41;
   }
 
 LABEL_40:
-  operator delete(v29);
-  if ((SHIBYTE(v27) & 0x80000000) == 0)
+  operator delete(v24);
+  if ((SHIBYTE(v22) & 0x80000000) == 0)
   {
-LABEL_20:
-    if ((SHIBYTE(v24) & 0x80000000) == 0)
+LABEL_21:
+    if ((SHIBYTE(v19) & 0x80000000) == 0)
     {
-      goto LABEL_21;
+      goto LABEL_22;
     }
 
     goto LABEL_42;
   }
 
 LABEL_41:
-  operator delete(v26);
-  if ((SHIBYTE(v24) & 0x80000000) == 0)
+  operator delete(v21);
+  if ((SHIBYTE(v19) & 0x80000000) == 0)
   {
-LABEL_21:
-    if ((SHIBYTE(v21) & 0x80000000) == 0)
+LABEL_22:
+    if ((SHIBYTE(v16) & 0x80000000) == 0)
     {
-      goto LABEL_22;
+      goto LABEL_23;
     }
 
     goto LABEL_43;
   }
 
 LABEL_42:
-  operator delete(v23);
-  if ((SHIBYTE(v21) & 0x80000000) == 0)
+  operator delete(v18);
+  if ((SHIBYTE(v16) & 0x80000000) == 0)
   {
-LABEL_22:
-    if ((SHIBYTE(v18) & 0x80000000) == 0)
+LABEL_23:
+    if ((SHIBYTE(v13) & 0x80000000) == 0)
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
     goto LABEL_44;
   }
 
 LABEL_43:
-  operator delete(v20);
-  if ((SHIBYTE(v18) & 0x80000000) == 0)
+  operator delete(v15);
+  if ((SHIBYTE(v13) & 0x80000000) == 0)
   {
-LABEL_23:
-    if ((SHIBYTE(v15) & 0x80000000) == 0)
+LABEL_24:
+    if ((v10 & 0x80000000) == 0)
     {
-      goto LABEL_24;
+      goto LABEL_25;
     }
 
     goto LABEL_45;
   }
 
 LABEL_44:
-  operator delete(v17);
-  if ((SHIBYTE(v15) & 0x80000000) == 0)
+  operator delete(v12);
+  if ((v10 & 0x80000000) == 0)
   {
-LABEL_24:
-    if ((v12 & 0x80000000) == 0)
+LABEL_25:
+    if ((v7 & 0x80000000) == 0)
     {
-      goto LABEL_25;
+      return;
     }
 
 LABEL_46:
-    operator delete(v11[0]);
-    if ((v9 & 0x80000000) == 0)
-    {
-      goto LABEL_26;
-    }
-
-LABEL_47:
-    operator delete(v8[0]);
-    v6 = *MEMORY[0x29EDCA608];
+    operator delete(v6[0]);
     return;
   }
 
 LABEL_45:
-  operator delete(v14);
-  if (v12 < 0)
+  operator delete(v9[0]);
+  if (v7 < 0)
   {
     goto LABEL_46;
   }
-
-LABEL_25:
-  if (v9 < 0)
-  {
-    goto LABEL_47;
-  }
-
-LABEL_26:
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2972C9534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void ***a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58, uint64_t a59, void *a60, uint64_t a61, int a62, __int16 a63)
@@ -6216,7 +6186,7 @@ LABEL_26:
   if ((SLOBYTE(STACK[0x21F]) & 0x80000000) == 0)
   {
 LABEL_7:
-    if ((a84 & 0x80000000) == 0)
+    if ((a79 & 0x80000000) == 0)
     {
       goto LABEL_8;
     }
@@ -6226,10 +6196,10 @@ LABEL_7:
 
 LABEL_27:
   operator delete(STACK[0x208]);
-  if ((a84 & 0x80000000) == 0)
+  if ((a79 & 0x80000000) == 0)
   {
 LABEL_8:
-    if ((a82 & 0x80000000) == 0)
+    if ((a77 & 0x80000000) == 0)
     {
       goto LABEL_9;
     }
@@ -6238,11 +6208,11 @@ LABEL_8:
   }
 
 LABEL_28:
-  operator delete(a83);
-  if ((a82 & 0x80000000) == 0)
+  operator delete(a78);
+  if ((a77 & 0x80000000) == 0)
   {
 LABEL_9:
-    if ((a80 & 0x80000000) == 0)
+    if ((a75 & 0x80000000) == 0)
     {
       goto LABEL_10;
     }
@@ -6251,11 +6221,11 @@ LABEL_9:
   }
 
 LABEL_29:
-  operator delete(a81);
-  if ((a80 & 0x80000000) == 0)
+  operator delete(a76);
+  if ((a75 & 0x80000000) == 0)
   {
 LABEL_10:
-    if ((a78 & 0x80000000) == 0)
+    if ((a73 & 0x80000000) == 0)
     {
       goto LABEL_11;
     }
@@ -6264,11 +6234,11 @@ LABEL_10:
   }
 
 LABEL_30:
-  operator delete(a79);
-  if ((a78 & 0x80000000) == 0)
+  operator delete(a74);
+  if ((a73 & 0x80000000) == 0)
   {
 LABEL_11:
-    if ((a76 & 0x80000000) == 0)
+    if ((a71 & 0x80000000) == 0)
     {
       goto LABEL_12;
     }
@@ -6277,11 +6247,11 @@ LABEL_11:
   }
 
 LABEL_31:
-  operator delete(a77);
-  if ((a76 & 0x80000000) == 0)
+  operator delete(a72);
+  if ((a71 & 0x80000000) == 0)
   {
 LABEL_12:
-    if ((a74 & 0x80000000) == 0)
+    if ((a69 & 0x80000000) == 0)
     {
       goto LABEL_13;
     }
@@ -6290,11 +6260,11 @@ LABEL_12:
   }
 
 LABEL_32:
-  operator delete(a75);
-  if ((a74 & 0x80000000) == 0)
+  operator delete(a70);
+  if ((a69 & 0x80000000) == 0)
   {
 LABEL_13:
-    if ((a72 & 0x80000000) == 0)
+    if ((a67 & 0x80000000) == 0)
     {
       goto LABEL_14;
     }
@@ -6303,8 +6273,8 @@ LABEL_13:
   }
 
 LABEL_33:
-  operator delete(a73);
-  if ((a72 & 0x80000000) == 0)
+  operator delete(a68);
+  if ((a67 & 0x80000000) == 0)
   {
 LABEL_14:
     if ((a65 & 0x80000000) == 0)
@@ -6316,7 +6286,7 @@ LABEL_14:
   }
 
 LABEL_34:
-  operator delete(a67);
+  operator delete(a66);
   if ((a65 & 0x80000000) == 0)
   {
 LABEL_15:
@@ -6819,7 +6789,7 @@ LABEL_27:
   CFRelease(v12);
 }
 
-void sub_2972C9ED0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54)
+void sub_2972C9ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54)
 {
   if (a23 < 0)
   {
@@ -6853,7 +6823,7 @@ LABEL_6:
       operator delete(*(v54 - 168));
     }
 
-    MEMORY[0x29C26DFC0](v54 - 144);
+    MEMORY[0x29C26DFC0](v54 - 144, a2, a3, a4, a5, a6, a7, a8);
     ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef((v54 - 128));
     ctu::cf::CFSharedRef<__CFArray const>::~CFSharedRef((v54 - 120));
     _Unwind_Resume(a1);
@@ -6872,7 +6842,7 @@ void sub_2972CA124(_Unwind_Exception *a1)
 
 void LogDumpDB::commitToDisk(LogDumpDB *this)
 {
-  v40 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
   cf = 0;
   v2 = *MEMORY[0x29EDB8ED8];
   Mutable = CFArrayCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9000]);
@@ -6884,22 +6854,22 @@ void LogDumpDB::commitToDisk(LogDumpDB *this)
 
   v5 = *(this + 3);
   v6 = *(this + 4);
-  v32 = this;
+  v31 = this;
   if (v5 != v6)
   {
-    v35 = *MEMORY[0x29EDBE930];
-    v34 = *MEMORY[0x29EDBEB00];
-    v33 = *MEMORY[0x29EDBEEE0];
+    v34 = *MEMORY[0x29EDBE930];
+    v33 = *MEMORY[0x29EDBEB00];
+    v32 = *MEMORY[0x29EDBEEE0];
     v7 = *MEMORY[0x29EDBEF60];
     v8 = *MEMORY[0x29EDBED78];
     do
     {
-      v38 = 0;
+      v37 = 0;
       v9 = CFDictionaryCreateMutable(v2, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
       v10 = v9;
       if (v9)
       {
-        v38 = v9;
+        v37 = v9;
       }
 
       v11 = *(v5 + 9);
@@ -6926,7 +6896,7 @@ void LogDumpDB::commitToDisk(LogDumpDB *this)
         __dst = __p;
       }
 
-      ctu::cf::insert<char const*,std::string>(v10, v35, &__dst, v2, v13);
+      ctu::cf::insert<char const*,std::string>(v10, v34, &__dst, v2, v13);
       if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__dst.__r_.__value_.__l.__data_);
@@ -6970,7 +6940,7 @@ LABEL_18:
         __dst = __p;
       }
 
-      ctu::cf::insert<char const*,std::string>(v10, v34, &__dst, v2, v14);
+      ctu::cf::insert<char const*,std::string>(v10, v33, &__dst, v2, v14);
       if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__dst.__r_.__value_.__l.__data_);
@@ -7012,7 +6982,7 @@ LABEL_28:
         __dst = __p;
       }
 
-      ctu::cf::insert<char const*,std::string>(v10, v33, &__dst, v2, v16);
+      ctu::cf::insert<char const*,std::string>(v10, v32, &__dst, v2, v16);
       if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__dst.__r_.__value_.__l.__data_);
@@ -7124,7 +7094,7 @@ LABEL_56:
     while (v5 != v6);
   }
 
-  v19 = *(v32 + 1);
+  v19 = *(v31 + 1);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     LODWORD(__dst.__r_.__value_.__l.__data_) = 138412290;
@@ -7217,36 +7187,33 @@ LABEL_77:
     v29 = __p.__r_.__value_.__l.__size_;
     if (!__p.__r_.__value_.__l.__size_)
     {
-      goto LABEL_83;
-    }
-  }
-
-  if (!atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v29->__on_zero_shared)(v29);
-    std::__shared_weak_count::__release_weak(v29);
-    v30 = cf;
-    if (!cf)
-    {
-      goto LABEL_85;
-    }
-
-    goto LABEL_84;
-  }
-
 LABEL_83:
+      v30 = cf;
+      if (!cf)
+      {
+        return;
+      }
+
+      goto LABEL_84;
+    }
+  }
+
+  if (atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    goto LABEL_83;
+  }
+
+  (v29->__on_zero_shared)(v29);
+  std::__shared_weak_count::__release_weak(v29);
   v30 = cf;
   if (cf)
   {
 LABEL_84:
     CFRelease(v30);
   }
-
-LABEL_85:
-  v31 = *MEMORY[0x29EDCA608];
 }
 
-void sub_2972CA7E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, const void *a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_2972CA7E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   pthread_mutex_unlock(&ctu::Singleton<SharedData,SharedData,ctu::PthreadMutexGuardPolicy<SharedData>>::sInstance);
   ctu::cf::CFSharedRef<__CFArray>::~CFSharedRef(&a14);
@@ -7295,74 +7262,75 @@ const void **ctu::cf::CFSharedRef<__CFArray>::~CFSharedRef(const void **a1)
 
 BOOL LogDumpDB::checkIfDuplicatedSignature(LogDumpDB *this, const ResetInfo *a2, const ResetInfo *a3)
 {
-  v93 = *MEMORY[0x29EDCA608];
+  __dst.__end_ = *MEMORY[0x29EDCA608];
   if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v90, *a3, *(a3 + 1));
+    std::string::__init_copy_ctor_external(&v89, *a3, *(a3 + 1));
   }
 
   else
   {
-    v90 = *a3;
+    v89 = *a3;
   }
 
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v92, *a2, *(a2 + 1));
+    std::string::__init_copy_ctor_external(&__dst.__loop_count_, *a2, *(a2 + 1));
   }
 
   else
   {
-    v92 = *a2;
+    *&__dst.__loop_count_ = *a2;
+    __dst.__start_.__cntrl_ = *(a2 + 2);
   }
 
-  v6 = SHIBYTE(v92.__r_.__value_.__r.__words[2]);
-  size = v92.__r_.__value_.__l.__size_;
-  v8 = v92.__r_.__value_.__r.__words[0];
-  v9 = HIBYTE(v90.__r_.__value_.__r.__words[2]);
-  v10 = HIBYTE(v90.__r_.__value_.__r.__words[2]);
-  if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  cntrl_high = SHIBYTE(__dst.__start_.__cntrl_);
+  ptr = __dst.__start_.__ptr_;
+  v8 = *&__dst.__loop_count_;
+  size = HIBYTE(v89.__r_.__value_.__r.__words[2]);
+  v10 = HIBYTE(v89.__r_.__value_.__r.__words[2]);
+  if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v11 = &v90;
+    v11 = &v89;
   }
 
   else
   {
-    v9 = v90.__r_.__value_.__l.__size_;
-    v11 = v90.__r_.__value_.__r.__words[0];
+    size = v89.__r_.__value_.__l.__size_;
+    v11 = v89.__r_.__value_.__r.__words[0];
   }
 
-  if ((v92.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  if (SHIBYTE(__dst.__start_.__cntrl_) < 0)
   {
-    v12 = v92.__r_.__value_.__r.__words[0];
+    p_loop_count = *&__dst.__loop_count_;
   }
 
   else
   {
-    size = SHIBYTE(v92.__r_.__value_.__r.__words[2]);
-    v12 = &v92;
+    ptr = SHIBYTE(__dst.__start_.__cntrl_);
+    p_loop_count = &__dst.__loop_count_;
   }
 
-  if (size >= v9)
-  {
-    v13 = v9;
-  }
-
-  else
+  if (ptr >= size)
   {
     v13 = size;
   }
 
-  v14 = size == v9;
-  if (memcmp(v11, v12, v13))
+  else
+  {
+    v13 = ptr;
+  }
+
+  v14 = ptr == size;
+  if (memcmp(v11, p_loop_count, v13))
   {
     v14 = 0;
   }
 
-  if (v6 < 0)
+  if (cntrl_high < 0)
   {
     operator delete(v8);
-    if ((*(&v90.__r_.__value_.__s + 23) & 0x80) == 0)
+    if ((*(&v89.__r_.__value_.__s + 23) & 0x80) == 0)
     {
 LABEL_20:
       if (v14)
@@ -7375,14 +7343,12 @@ LABEL_25:
       result = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
       if (!result)
       {
-        goto LABEL_239;
+        return result;
       }
 
-      LOWORD(v90.__r_.__value_.__l.__data_) = 0;
+      LOWORD(v89.__r_.__value_.__l.__data_) = 0;
       v17 = "#D Two reset types are not same. No need to check duplicated signature";
-LABEL_27:
-      _os_log_debug_impl(&dword_297288000, v15, OS_LOG_TYPE_DEBUG, v17, &v90, 2u);
-      goto LABEL_238;
+      goto LABEL_27;
     }
   }
 
@@ -7391,7 +7357,7 @@ LABEL_27:
     goto LABEL_20;
   }
 
-  operator delete(v90.__r_.__value_.__l.__data_);
+  operator delete(v89.__r_.__value_.__l.__data_);
   if (!v14)
   {
     goto LABEL_25;
@@ -7400,23 +7366,23 @@ LABEL_27:
 LABEL_21:
   if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v90, *a3, *(a3 + 1));
+    std::string::__init_copy_ctor_external(&v89, *a3, *(a3 + 1));
   }
 
   else
   {
-    v90 = *a3;
+    v89 = *a3;
   }
 
   v18 = strlen(*MEMORY[0x29EDBEB60]);
   v19 = v18;
-  v20 = SHIBYTE(v90.__r_.__value_.__r.__words[2]);
-  if ((SHIBYTE(v90.__r_.__value_.__r.__words[2]) & 0x8000000000000000) == 0)
+  v20 = SHIBYTE(v89.__r_.__value_.__r.__words[2]);
+  if ((SHIBYTE(v89.__r_.__value_.__r.__words[2]) & 0x8000000000000000) == 0)
   {
     if (v18 != -1)
     {
-      v21 = &v90;
-      v22 = SHIBYTE(v90.__r_.__value_.__r.__words[2]);
+      v21 = &v89;
+      v22 = SHIBYTE(v89.__r_.__value_.__r.__words[2]);
       goto LABEL_34;
     }
 
@@ -7429,8 +7395,8 @@ LABEL_241:
     goto LABEL_241;
   }
 
-  v22 = v90.__r_.__value_.__l.__size_;
-  v21 = v90.__r_.__value_.__r.__words[0];
+  v22 = v89.__r_.__value_.__l.__size_;
+  v21 = v89.__r_.__value_.__r.__words[0];
 LABEL_34:
   if (v22 >= v19)
   {
@@ -7454,35 +7420,36 @@ LABEL_34:
 LABEL_46:
     if (*(a2 + 71) < 0)
     {
-      std::string::__init_copy_ctor_external(&v90, *(a2 + 6), *(a2 + 7));
+      std::string::__init_copy_ctor_external(&v89, *(a2 + 6), *(a2 + 7));
     }
 
     else
     {
-      v90 = *(a2 + 2);
+      v89 = *(a2 + 2);
     }
 
     if (*(a3 + 71) < 0)
     {
-      std::string::__init_copy_ctor_external(&v92, *(a3 + 6), *(a3 + 7));
+      std::string::__init_copy_ctor_external(&__dst.__loop_count_, *(a3 + 6), *(a3 + 7));
     }
 
     else
     {
-      v92 = *(a3 + 2);
+      *&__dst.__loop_count_ = *(a3 + 3);
+      __dst.__start_.__cntrl_ = *(a3 + 8);
     }
 
-    *__dst = operator new(0x68uLL);
-    *&__dst[8] = xmmword_29742FFE0;
-    strcpy(*__dst, "(Power assertion watchdog fired for 'com.apple.AppleBasebandManager.RadioNotReady.Bootup'; Timeout =).*");
-    v27 = util::compareTwoStringsWithPattern(&v90, &v92, __dst);
-    if ((__dst[23] & 0x80000000) != 0)
+    __dst.__traits_.__loc_.__locale_ = operator new(0x68uLL);
+    *&__dst.__traits_.__ct_ = xmmword_29742FFE0;
+    strcpy(__dst.__traits_.__loc_.__locale_, "(Power assertion watchdog fired for 'com.apple.AppleBasebandManager.RadioNotReady.Bootup'; Timeout =).*");
+    v27 = util::compareTwoStringsWithPattern(&v89, &__dst.__loop_count_, &__dst);
+    if (SHIBYTE(__dst.__traits_.__col_) < 0)
     {
-      operator delete(*__dst);
-      if ((SHIBYTE(v92.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      operator delete(__dst.__traits_.__loc_.__locale_);
+      if ((SHIBYTE(__dst.__start_.__cntrl_) & 0x80000000) == 0)
       {
 LABEL_54:
-        if ((SHIBYTE(v90.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v89.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_55;
         }
@@ -7491,73 +7458,67 @@ LABEL_54:
       }
     }
 
-    else if ((SHIBYTE(v92.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    else if ((SHIBYTE(__dst.__start_.__cntrl_) & 0x80000000) == 0)
     {
       goto LABEL_54;
     }
 
-    operator delete(v92.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v90.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    operator delete(*&__dst.__loop_count_);
+    if ((SHIBYTE(v89.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_55:
       if (!v27)
       {
-        goto LABEL_238;
+        return 0;
       }
 
       goto LABEL_109;
     }
 
 LABEL_108:
-    operator delete(v90.__r_.__value_.__l.__data_);
+    operator delete(v89.__r_.__value_.__l.__data_);
     if (!v27)
     {
-      goto LABEL_238;
+      return 0;
     }
 
 LABEL_109:
     v44 = *(this + 1);
     if (!os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_113;
+      return 1;
     }
 
     if (*(a3 + 71) < 0)
     {
-      std::string::__init_copy_ctor_external(&v90, *(a3 + 6), *(a3 + 7));
+      std::string::__init_copy_ctor_external(&v89, *(a3 + 6), *(a3 + 7));
     }
 
     else
     {
-      v90 = *(a3 + 2);
+      v89 = *(a3 + 2);
     }
 
-    v85 = &v90;
-    if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v85 = &v89;
+    if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v85 = v90.__r_.__value_.__r.__words[0];
+      v85 = v89.__r_.__value_.__r.__words[0];
     }
 
-    LODWORD(v92.__r_.__value_.__l.__data_) = 136315138;
-    *(v92.__r_.__value_.__r.__words + 4) = v85;
+    __dst.__loop_count_ = 136315138;
+    *&__dst.__open_count_ = v85;
 LABEL_231:
-    _os_log_debug_impl(&dword_297288000, v44, OS_LOG_TYPE_DEBUG, "#D This is duplicated signature based on the dump reason: %s", &v92, 0xCu);
-    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+    _os_log_debug_impl(&dword_297288000, v44, OS_LOG_TYPE_DEBUG, "#D This is duplicated signature based on the dump reason: %s", &__dst.__loop_count_, 0xCu);
+    if ((SHIBYTE(v89.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
-      operator delete(v90.__r_.__value_.__l.__data_);
-      result = 1;
+      return 1;
     }
 
-    else
-    {
-LABEL_113:
-      result = 1;
-    }
-
-    goto LABEL_239;
+    operator delete(v89.__r_.__value_.__l.__data_);
+    return 1;
   }
 
-  operator delete(v90.__r_.__value_.__l.__data_);
+  operator delete(v89.__r_.__value_.__l.__data_);
   if (!v25)
   {
     goto LABEL_46;
@@ -7569,99 +7530,101 @@ LABEL_42:
   {
     if (*(a3 + 111) < 0)
     {
-      std::string::__init_copy_ctor_external(&v90, *(a3 + 11), *(a3 + 12));
+      std::string::__init_copy_ctor_external(&v89, *(a3 + 11), *(a3 + 12));
     }
 
     else
     {
-      v90 = *(a3 + 88);
+      v89 = *(a3 + 88);
     }
 
-    v69 = SHIBYTE(v90.__r_.__value_.__r.__words[2]);
-    v70 = v90.__r_.__value_.__r.__words[0];
+    v69 = SHIBYTE(v89.__r_.__value_.__r.__words[2]);
+    v70 = v89.__r_.__value_.__r.__words[0];
     if (*(a2 + 111) < 0)
     {
-      std::string::__init_copy_ctor_external(&v92, *(a2 + 11), *(a2 + 12));
+      std::string::__init_copy_ctor_external(&__dst.__loop_count_, *(a2 + 11), *(a2 + 12));
     }
 
     else
     {
-      v92 = *(a2 + 88);
+      *&__dst.__loop_count_ = *(a2 + 88);
+      __dst.__start_.__cntrl_ = *(a2 + 13);
     }
 
-    v71 = &v90;
+    v71 = &v89;
     if (v69 < 0)
     {
       v71 = v70;
     }
 
-    v72 = &v92;
-    if ((v92.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v72 = &__dst.__loop_count_;
+    if (SHIBYTE(__dst.__start_.__cntrl_) < 0)
     {
-      v72 = v92.__r_.__value_.__r.__words[0];
+      v72 = *&__dst.__loop_count_;
     }
 
-    *__dst = 136315394;
-    *&__dst[4] = v71;
-    *&__dst[12] = 2080;
-    *&__dst[14] = v72;
-    _os_log_debug_impl(&dword_297288000, v26, OS_LOG_TYPE_DEBUG, "#D Comparing current reason, %s, and the recorded reason, %s", __dst, 0x16u);
-    if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
+    LODWORD(__dst.__traits_.__loc_.__locale_) = 136315394;
+    *(&__dst.__traits_.__loc_.__locale_ + 4) = v71;
+    WORD2(__dst.__traits_.__ct_) = 2080;
+    *(&__dst.__traits_.__ct_ + 6) = v72;
+    _os_log_debug_impl(&dword_297288000, v26, OS_LOG_TYPE_DEBUG, "#D Comparing current reason, %s, and the recorded reason, %s", &__dst, 0x16u);
+    if (SHIBYTE(__dst.__start_.__cntrl_) < 0)
     {
-      operator delete(v92.__r_.__value_.__l.__data_);
+      operator delete(*&__dst.__loop_count_);
     }
 
-    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v90.__r_.__value_.__l.__data_);
+      operator delete(v89.__r_.__value_.__l.__data_);
     }
   }
 
   if (*(a3 + 111) < 0)
   {
-    std::string::__init_copy_ctor_external(&v90, *(a3 + 11), *(a3 + 12));
+    std::string::__init_copy_ctor_external(&v89, *(a3 + 11), *(a3 + 12));
   }
 
   else
   {
-    v90 = *(a3 + 88);
+    v89 = *(a3 + 88);
   }
 
   if (*(a2 + 111) < 0)
   {
-    std::string::__init_copy_ctor_external(&v92, *(a2 + 11), *(a2 + 12));
+    std::string::__init_copy_ctor_external(&__dst.__loop_count_, *(a2 + 11), *(a2 + 12));
   }
 
   else
   {
-    v92 = *(a2 + 88);
+    *&__dst.__loop_count_ = *(a2 + 88);
+    __dst.__start_.__cntrl_ = *(a2 + 13);
   }
 
-  v28 = SHIBYTE(v92.__r_.__value_.__r.__words[2]);
-  v29 = v92.__r_.__value_.__l.__size_;
-  v30 = v92.__r_.__value_.__r.__words[0];
-  v31 = HIBYTE(v90.__r_.__value_.__r.__words[2]);
-  v32 = HIBYTE(v90.__r_.__value_.__r.__words[2]);
-  if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v28 = SHIBYTE(__dst.__start_.__cntrl_);
+  v29 = __dst.__start_.__ptr_;
+  v30 = *&__dst.__loop_count_;
+  v31 = HIBYTE(v89.__r_.__value_.__r.__words[2]);
+  v32 = HIBYTE(v89.__r_.__value_.__r.__words[2]);
+  if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v33 = &v90;
-  }
-
-  else
-  {
-    v31 = v90.__r_.__value_.__l.__size_;
-    v33 = v90.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v92.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    v34 = v92.__r_.__value_.__r.__words[0];
+    v33 = &v89;
   }
 
   else
   {
-    v29 = SHIBYTE(v92.__r_.__value_.__r.__words[2]);
-    v34 = &v92;
+    v31 = v89.__r_.__value_.__l.__size_;
+    v33 = v89.__r_.__value_.__r.__words[0];
+  }
+
+  if (SHIBYTE(__dst.__start_.__cntrl_) < 0)
+  {
+    v34 = *&__dst.__loop_count_;
+  }
+
+  else
+  {
+    v29 = SHIBYTE(__dst.__start_.__cntrl_);
+    v34 = &__dst.__loop_count_;
   }
 
   if (v29 >= v31)
@@ -7688,7 +7651,7 @@ LABEL_42:
     }
 
 LABEL_103:
-    operator delete(v90.__r_.__value_.__l.__data_);
+    operator delete(v89.__r_.__value_.__l.__data_);
     if (v36)
     {
       goto LABEL_75;
@@ -7698,7 +7661,7 @@ LABEL_103:
   }
 
   operator delete(v30);
-  if ((*(&v90.__r_.__value_.__s + 23) & 0x80) != 0)
+  if ((*(&v89.__r_.__value_.__s + 23) & 0x80) != 0)
   {
     goto LABEL_103;
   }
@@ -7711,36 +7674,39 @@ LABEL_104:
     result = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
     if (!result)
     {
-      goto LABEL_239;
+      return result;
     }
 
-    LOWORD(v90.__r_.__value_.__l.__data_) = 0;
+    LOWORD(v89.__r_.__value_.__l.__data_) = 0;
     v17 = "#D Two crash reasons are not identical. No need to check duplicated signature";
-    goto LABEL_27;
+LABEL_27:
+    _os_log_debug_impl(&dword_297288000, v15, OS_LOG_TYPE_DEBUG, v17, &v89, 2u);
+    return 0;
   }
 
 LABEL_75:
-  v89 = this;
+  v88 = this;
   for (i = 0; i != 8; ++i)
   {
     if (*(a2 + 71) < 0)
     {
-      std::string::__init_copy_ctor_external(&v90, *(a2 + 6), *(a2 + 7));
+      std::string::__init_copy_ctor_external(&v89, *(a2 + 6), *(a2 + 7));
     }
 
     else
     {
-      v90 = *(a2 + 2);
+      v89 = *(a2 + 2);
     }
 
     if (*(a3 + 71) < 0)
     {
-      std::string::__init_copy_ctor_external(&v92, *(a3 + 6), *(a3 + 7));
+      std::string::__init_copy_ctor_external(&__dst.__loop_count_, *(a3 + 6), *(a3 + 7));
     }
 
     else
     {
-      v92 = *(a3 + 2);
+      *&__dst.__loop_count_ = *(a3 + 3);
+      __dst.__start_.__cntrl_ = *(a3 + 8);
     }
 
     v38 = abm::kInterestingHardResetReasonSignatures[i];
@@ -7763,32 +7729,32 @@ LABEL_75:
         v42 = (v39 | 7) + 1;
       }
 
-      v41 = operator new(v42);
-      *&__dst[8] = v40;
-      *&__dst[16] = v42 | 0x8000000000000000;
-      *__dst = v41;
+      p_dst = operator new(v42);
+      __dst.__traits_.__ct_ = v40;
+      __dst.__traits_.__col_ = (v42 | 0x8000000000000000);
+      __dst.__traits_.__loc_.__locale_ = p_dst;
 LABEL_90:
-      memmove(v41, v38, v40);
+      memmove(p_dst, v38, v40);
       goto LABEL_91;
     }
 
-    __dst[23] = v39;
-    v41 = __dst;
+    HIBYTE(__dst.__traits_.__col_) = v39;
+    p_dst = &__dst;
     if (v39)
     {
       goto LABEL_90;
     }
 
 LABEL_91:
-    v41[v40] = 0;
-    v43 = util::compareTwoStringsWithPattern(&v90, &v92, __dst);
-    if ((__dst[23] & 0x80000000) != 0)
+    *(&v40->__vftable + p_dst) = 0;
+    v43 = util::compareTwoStringsWithPattern(&v89, &__dst.__loop_count_, &__dst);
+    if (SHIBYTE(__dst.__traits_.__col_) < 0)
     {
-      operator delete(*__dst);
-      if ((SHIBYTE(v92.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      operator delete(__dst.__traits_.__loc_.__locale_);
+      if ((SHIBYTE(__dst.__start_.__cntrl_) & 0x80000000) == 0)
       {
 LABEL_93:
-        if ((SHIBYTE(v90.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v89.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_94;
         }
@@ -7797,13 +7763,13 @@ LABEL_93:
       }
     }
 
-    else if ((SHIBYTE(v92.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    else if ((SHIBYTE(__dst.__start_.__cntrl_) & 0x80000000) == 0)
     {
       goto LABEL_93;
     }
 
-    operator delete(v92.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v90.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    operator delete(*&__dst.__loop_count_);
+    if ((SHIBYTE(v89.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_94:
       if (v43)
@@ -7815,71 +7781,71 @@ LABEL_94:
     }
 
 LABEL_98:
-    operator delete(v90.__r_.__value_.__l.__data_);
+    operator delete(v89.__r_.__value_.__l.__data_);
     if (v43)
     {
 LABEL_112:
-      v44 = *(v89 + 1);
+      v44 = *(v88 + 1);
       if (!os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
       {
-        goto LABEL_113;
+        return 1;
       }
 
       if (*(a3 + 71) < 0)
       {
-        std::string::__init_copy_ctor_external(&v90, *(a3 + 6), *(a3 + 7));
+        std::string::__init_copy_ctor_external(&v89, *(a3 + 6), *(a3 + 7));
       }
 
       else
       {
-        v90 = *(a3 + 2);
+        v89 = *(a3 + 2);
       }
 
-      v86 = &v90;
-      if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v86 = &v89;
+      if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v86 = v90.__r_.__value_.__r.__words[0];
+        v86 = v89.__r_.__value_.__r.__words[0];
       }
 
-      LODWORD(v92.__r_.__value_.__l.__data_) = 136315138;
-      *(v92.__r_.__value_.__r.__words + 4) = v86;
+      __dst.__loop_count_ = 136315138;
+      *&__dst.__open_count_ = v86;
       goto LABEL_231;
     }
   }
 
   if (*(a3 + 111) < 0)
   {
-    std::string::__init_copy_ctor_external(&v90, *(a3 + 11), *(a3 + 12));
+    std::string::__init_copy_ctor_external(&v89, *(a3 + 11), *(a3 + 12));
   }
 
   else
   {
-    v90 = *(a3 + 88);
+    v89 = *(a3 + 88);
   }
 
-  v45 = HIBYTE(v90.__r_.__value_.__r.__words[2]);
-  v46 = SHIBYTE(v90.__r_.__value_.__r.__words[2]);
-  v47 = v90.__r_.__value_.__r.__words[0];
-  if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v45 = HIBYTE(v89.__r_.__value_.__r.__words[2]);
+  v46 = SHIBYTE(v89.__r_.__value_.__r.__words[2]);
+  v47 = v89.__r_.__value_.__r.__words[0];
+  if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v48 = &v90;
+    v48 = &v89;
   }
 
   else
   {
-    v48 = v90.__r_.__value_.__r.__words[0];
+    v48 = v89.__r_.__value_.__r.__words[0];
   }
 
-  if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v45 = v90.__r_.__value_.__l.__size_;
+    v45 = v89.__r_.__value_.__l.__size_;
   }
 
   v49 = v48 + v45;
   if (v45 >= 17)
   {
     v52 = v48;
-    v51 = v89;
+    v51 = v88;
     do
     {
       v50 = memchr(v52, 67, v45 - 16);
@@ -7904,7 +7870,7 @@ LABEL_112:
   else
   {
     v50 = v48 + v45;
-    v51 = v89;
+    v51 = v88;
   }
 
 LABEL_133:
@@ -7918,37 +7884,37 @@ LABEL_133:
   {
     if (*(a3 + 111) < 0)
     {
-      std::string::__init_copy_ctor_external(&v90, *(a3 + 11), *(a3 + 12));
+      std::string::__init_copy_ctor_external(&v89, *(a3 + 11), *(a3 + 12));
     }
 
     else
     {
-      v90 = *(a3 + 88);
+      v89 = *(a3 + 88);
     }
 
-    v58 = HIBYTE(v90.__r_.__value_.__r.__words[2]);
-    v59 = SHIBYTE(v90.__r_.__value_.__r.__words[2]);
-    v60 = v90.__r_.__value_.__r.__words[0];
-    if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v58 = HIBYTE(v89.__r_.__value_.__r.__words[2]);
+    v59 = SHIBYTE(v89.__r_.__value_.__r.__words[2]);
+    v60 = v89.__r_.__value_.__r.__words[0];
+    if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v61 = &v90;
+      v61 = &v89;
     }
 
     else
     {
-      v61 = v90.__r_.__value_.__r.__words[0];
+      v61 = v89.__r_.__value_.__r.__words[0];
     }
 
-    if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v58 = v90.__r_.__value_.__l.__size_;
+      v58 = v89.__r_.__value_.__l.__size_;
     }
 
     v62 = v61 + v58;
     if (v58 >= 18)
     {
       v64 = v61;
-      v51 = v89;
+      v51 = v88;
       do
       {
         v63 = memchr(v64, 67, v58 - 17);
@@ -7973,7 +7939,7 @@ LABEL_133:
     else
     {
       v63 = v61 + v58;
-      v51 = v89;
+      v51 = v88;
     }
 
 LABEL_166:
@@ -7987,37 +7953,37 @@ LABEL_166:
     {
       if (*(a3 + 111) < 0)
       {
-        std::string::__init_copy_ctor_external(&v90, *(a3 + 11), *(a3 + 12));
+        std::string::__init_copy_ctor_external(&v89, *(a3 + 11), *(a3 + 12));
       }
 
       else
       {
-        v90 = *(a3 + 88);
+        v89 = *(a3 + 88);
       }
 
-      v73 = HIBYTE(v90.__r_.__value_.__r.__words[2]);
-      v74 = SHIBYTE(v90.__r_.__value_.__r.__words[2]);
-      v75 = v90.__r_.__value_.__r.__words[0];
-      if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      v73 = HIBYTE(v89.__r_.__value_.__r.__words[2]);
+      v74 = SHIBYTE(v89.__r_.__value_.__r.__words[2]);
+      v75 = v89.__r_.__value_.__r.__words[0];
+      if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v76 = &v90;
+        v76 = &v89;
       }
 
       else
       {
-        v76 = v90.__r_.__value_.__r.__words[0];
+        v76 = v89.__r_.__value_.__r.__words[0];
       }
 
-      if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v73 = v90.__r_.__value_.__l.__size_;
+        v73 = v89.__r_.__value_.__l.__size_;
       }
 
       v77 = v76 + v73;
       if (v73 >= 14)
       {
         v79 = v76;
-        v51 = v89;
+        v51 = v88;
         do
         {
           v78 = memchr(v79, 67, v73 - 13);
@@ -8042,7 +8008,7 @@ LABEL_166:
       else
       {
         v78 = v76 + v73;
-        v51 = v89;
+        v51 = v88;
       }
 
 LABEL_206:
@@ -8057,11 +8023,11 @@ LABEL_206:
         v83 = *(v51 + 1);
         if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
         {
-          LOWORD(v90.__r_.__value_.__l.__data_) = 0;
-          _os_log_debug_impl(&dword_297288000, v83, OS_LOG_TYPE_DEBUG, "#D The crash reason has duplicated signature", &v90, 2u);
+          LOWORD(v89.__r_.__value_.__l.__data_) = 0;
+          _os_log_debug_impl(&dword_297288000, v83, OS_LOG_TYPE_DEBUG, "#D The crash reason has duplicated signature", &v89, 2u);
         }
 
-        goto LABEL_113;
+        return 1;
       }
 
       v57 = "Crash injected";
@@ -8082,40 +8048,36 @@ LABEL_206:
   result = os_log_type_enabled(v84, OS_LOG_TYPE_DEBUG);
   if (!result)
   {
-    goto LABEL_239;
+    return result;
   }
 
   if (*(a3 + 111) < 0)
   {
-    std::string::__init_copy_ctor_external(&v90, *(a3 + 11), *(a3 + 12));
+    std::string::__init_copy_ctor_external(&v89, *(a3 + 11), *(a3 + 12));
   }
 
   else
   {
-    v90 = *(a3 + 88);
+    v89 = *(a3 + 88);
   }
 
-  v87 = &v90;
-  if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v87 = &v89;
+  if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v87 = v90.__r_.__value_.__r.__words[0];
+    v87 = v89.__r_.__value_.__r.__words[0];
   }
 
-  LODWORD(v92.__r_.__value_.__l.__data_) = 136315394;
-  *(v92.__r_.__value_.__r.__words + 4) = v87;
-  WORD2(v92.__r_.__value_.__r.__words[1]) = 2080;
-  *(&v92.__r_.__value_.__r.__words[1] + 6) = v57;
-  _os_log_debug_impl(&dword_297288000, v84, OS_LOG_TYPE_DEBUG, "#D This is NOT duplicated signature based on the crash reason: %s has %s", &v92, 0x16u);
-  if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+  __dst.__loop_count_ = 136315394;
+  *&__dst.__open_count_ = v87;
+  WORD2(__dst.__start_.__ptr_) = 2080;
+  *(&__dst.__start_.__ptr_ + 6) = v57;
+  _os_log_debug_impl(&dword_297288000, v84, OS_LOG_TYPE_DEBUG, "#D This is NOT duplicated signature based on the crash reason: %s has %s", &__dst.__loop_count_, 0x16u);
+  if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v90.__r_.__value_.__l.__data_);
+    operator delete(v89.__r_.__value_.__l.__data_);
   }
 
-LABEL_238:
-  result = 0;
-LABEL_239:
-  v88 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 void sub_2972CB4A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -8290,9 +8252,9 @@ LABEL_33:
   }
 }
 
-void sub_2972CB858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2972CB858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   pthread_mutex_unlock(&ctu::Singleton<SharedData,SharedData,ctu::PthreadMutexGuardPolicy<SharedData>>::sInstance);
   ctu::cf::CFSharedRef<__CFArray>::~CFSharedRef(va);
   _Unwind_Resume(a1);
@@ -8368,7 +8330,7 @@ LABEL_8:
 
         if (v9 != v10)
         {
-          for (i = (v9 + 112); i != v10; i = (i + 112))
+          for (i = (v9 + 112); i != v10; i += 14)
           {
             if (!LogDumpDB::writeToDB(ResetInfo const&,std::chrono::duration<long long,std::ratio<1l,1l>>)::$_0::operator()(v23, i))
             {
@@ -8445,7 +8407,7 @@ LABEL_40:
 LABEL_47:
             *(a1 + 32) = v17;
             v18 = *(a1 + 24);
-            if (0x6DB6DB6DB6DB6DB7 * (&v17[-v18] >> 4) <= *(a1 + 16))
+            if (0x6DB6DB6DB6DB6DB7 * ((v17 - v18) >> 4) <= *(a1 + 16))
             {
 LABEL_64:
               LogDumpDB::commitToDisk(a1);
@@ -8453,14 +8415,14 @@ LABEL_64:
               return v13 & 1;
             }
 
-            if ((v18 + 112) != v17)
+            if (v18 + 14 != v17)
             {
               do
               {
-                v19 = v18 + 112;
-                ResetInfo::operator=(v18, (v18 + 112));
-                v20 = (v18 + 224);
-                v18 += 112;
+                v19 = v18 + 14;
+                ResetInfo::operator=(v18, v18 + 14);
+                v20 = (v18 + 28);
+                v18 += 14;
               }
 
               while (v20 != v17);
@@ -8645,16 +8607,16 @@ void LogDumpDB::writeToDB(LogDumpDB *this, const ResetInfo *a2)
 
   *(this + 4) = v4;
   v5 = *(this + 3);
-  if (0x6DB6DB6DB6DB6DB7 * (&v4[-v5] >> 4) > *(this + 4))
+  if (0x6DB6DB6DB6DB6DB7 * ((v4 - v5) >> 4) > *(this + 4))
   {
-    if ((v5 + 112) != v4)
+    if (v5 + 14 != v4)
     {
       do
       {
-        v6 = v5 + 112;
-        ResetInfo::operator=(v5, (v5 + 112));
-        v7 = (v5 + 224);
-        v5 += 112;
+        v6 = v5 + 14;
+        ResetInfo::operator=(v5, v5 + 14);
+        v7 = (v5 + 28);
+        v5 += 14;
       }
 
       while (v7 != v4);
@@ -9184,13 +9146,13 @@ std::string::value_type *std::vector<ResetInfo>::__emplace_back_slow_path<ResetI
   ResetInfo::ResetInfo(v16, a2);
   v8 = *a1;
   v9 = a1[1];
-  v10 = *a1 - v9;
-  v11 = (v16 + v10);
+  v10 = (*a1 - v9);
+  v11 = &v10[v16];
   if (*a1 != v9)
   {
     v12 = 0;
     v13 = *a1;
-    v14 = (v16 + v10);
+    v14 = &v10[v16];
     do
     {
       ResetInfo::ResetInfo(v14, v13);
@@ -9263,27 +9225,27 @@ LABEL_15:
   return &v16[4].__r_.__value_.__s.__data_[16];
 }
 
-void sub_2972CC858(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2972CC858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<ResetInfo>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2972CC86C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2972CC86C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (v3)
+  va_start(va, a3);
+  if (v4)
   {
-    v5 = (v2 - 112);
+    v6 = (v3 - 112);
     do
     {
-      ResetInfo::~ResetInfo(v5);
-      v5 = (v6 - 112);
-      v3 += 112;
+      ResetInfo::~ResetInfo(v6);
+      v6 = (v7 - 112);
+      v4 += 112;
     }
 
-    while (v3);
+    while (v4);
   }
 
   std::__split_buffer<ResetInfo>::~__split_buffer(va);
@@ -9389,19 +9351,19 @@ LABEL_11:
   return v9;
 }
 
-void sub_2972CCA34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2972CCA34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_2972CCA58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2972CCA58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -9429,163 +9391,161 @@ const void **ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(const void **a1)
 
 BOOL LogDumpDB::writeToDB(ResetInfo const&,std::chrono::duration<long long,std::ratio<1l,1l>>)::$_0::operator()(uint64_t a1, const ResetInfo *a2)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   v4 = *a1;
   result = LogDumpDB::checkIfDuplicatedSignature(*a1, a2, (a1 + 16));
   if (result)
   {
     v6 = *(a2 + 9);
-    if (*(a1 + 88) - v6 < *(a1 + 128))
+    if (*(a1 + 88) - v6 >= *(a1 + 128))
     {
-      v7 = *(v4 + 1);
-      if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      return 0;
+    }
+
+    v7 = *(v4 + 1);
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_24;
+    }
+
+    v8 = operator new(0x38uLL);
+    v8[8] = 0;
+    *v8 = 0;
+    *(v8 + 1) = 0;
+    *(v8 + 2) = &v23.__r_.__value_.__l.__size_;
+    v23.__r_.__value_.__r.__words[0] = v8;
+    v23.__r_.__value_.__l.__size_ = v8;
+    *(v8 + 24) = 1;
+    v23.__r_.__value_.__r.__words[2] = 1;
+    *(v8 + 5) = v6;
+    *(v8 + 6) = 0xAAAAAAAA00000000;
+    v9 = v21;
+    Timestamp::asString(&v23, 0, 9, v21);
+    std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(&v23, v23.__r_.__value_.__l.__size_);
+    if (v22 < 0)
+    {
+      v9 = v21[0];
+    }
+
+    v10 = *(a1 + 88);
+    v11 = operator new(0x38uLL);
+    v11[8] = 0;
+    *v11 = 0;
+    *(v11 + 1) = 0;
+    *(v11 + 2) = &v23.__r_.__value_.__l.__size_;
+    v23.__r_.__value_.__r.__words[0] = v11;
+    v23.__r_.__value_.__l.__size_ = v11;
+    *(v11 + 24) = 1;
+    v23.__r_.__value_.__r.__words[2] = 1;
+    *(v11 + 5) = v10;
+    *(v11 + 6) = 0xAAAAAAAA00000000;
+    Timestamp::asString(&v23, 0, 9, v19);
+    std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(&v23, v23.__r_.__value_.__l.__size_);
+    if (v20 >= 0)
+    {
+      v12 = v19;
+    }
+
+    else
+    {
+      v12 = v19[0];
+    }
+
+    v13 = *(a1 + 88);
+    if (*(a1 + 87) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v23, *(a1 + 64), *(a1 + 72));
+    }
+
+    else
+    {
+      v23 = *(a1 + 64);
+    }
+
+    v14 = SHIBYTE(v23.__r_.__value_.__r.__words[2]);
+    v15 = v23.__r_.__value_.__r.__words[0];
+    if (*(a1 + 127) < 0)
+    {
+      std::string::__init_copy_ctor_external(&__p, *(a1 + 104), *(a1 + 112));
+    }
+
+    else
+    {
+      __p = *(a1 + 104);
+    }
+
+    v16 = &v23;
+    if (v14 < 0)
+    {
+      v16 = v15;
+    }
+
+    p_p = &__p;
+    *buf = 136316418;
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      p_p = __p.__r_.__value_.__r.__words[0];
+    }
+
+    v25 = v9;
+    v26 = 2050;
+    v27 = v6;
+    v28 = 2080;
+    v29 = v12;
+    v30 = 2050;
+    v31 = v13;
+    v32 = 2082;
+    v33 = v16;
+    v34 = 2082;
+    v35 = p_p;
+    _os_log_impl(&dword_297288000, v7, OS_LOG_TYPE_DEFAULT, "#I Found duplicated log at timestamp: %s[%{public}llu], new log timestamp: %s[%{public}llu], dump reason: %{public}s, crash reason: %{public}s", buf, 0x3Eu);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+      if ((SHIBYTE(v23.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      {
+LABEL_22:
+        if ((v20 & 0x80000000) == 0)
+        {
+          goto LABEL_23;
+        }
+
+        goto LABEL_28;
+      }
+    }
+
+    else if ((SHIBYTE(v23.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    {
+      goto LABEL_22;
+    }
+
+    operator delete(v23.__r_.__value_.__l.__data_);
+    if ((v20 & 0x80000000) == 0)
+    {
+LABEL_23:
+      if ((v22 & 0x80000000) == 0)
       {
 LABEL_24:
         result = 1;
         **(a1 + 8) = 1;
-        goto LABEL_25;
+        return result;
       }
-
-      v8 = operator new(0x38uLL);
-      v8[8] = 0;
-      *v8 = 0;
-      *(v8 + 1) = 0;
-      *(v8 + 2) = &v24.__r_.__value_.__l.__size_;
-      v24.__r_.__value_.__r.__words[0] = v8;
-      v24.__r_.__value_.__l.__size_ = v8;
-      *(v8 + 24) = 1;
-      v24.__r_.__value_.__r.__words[2] = 1;
-      *(v8 + 5) = v6;
-      *(v8 + 6) = 0xAAAAAAAA00000000;
-      v9 = v22;
-      Timestamp::asString(&v24, 0, 9, v22);
-      std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(&v24, v24.__r_.__value_.__l.__size_);
-      if (v23 < 0)
-      {
-        v9 = v22[0];
-      }
-
-      v10 = *(a1 + 88);
-      v11 = operator new(0x38uLL);
-      v11[8] = 0;
-      *v11 = 0;
-      *(v11 + 1) = 0;
-      *(v11 + 2) = &v24.__r_.__value_.__l.__size_;
-      v24.__r_.__value_.__r.__words[0] = v11;
-      v24.__r_.__value_.__l.__size_ = v11;
-      *(v11 + 24) = 1;
-      v24.__r_.__value_.__r.__words[2] = 1;
-      *(v11 + 5) = v10;
-      *(v11 + 6) = 0xAAAAAAAA00000000;
-      Timestamp::asString(&v24, 0, 9, v20);
-      std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(&v24, v24.__r_.__value_.__l.__size_);
-      if (v21 >= 0)
-      {
-        v12 = v20;
-      }
-
-      else
-      {
-        v12 = v20[0];
-      }
-
-      v13 = *(a1 + 88);
-      if (*(a1 + 87) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v24, *(a1 + 64), *(a1 + 72));
-      }
-
-      else
-      {
-        v24 = *(a1 + 64);
-      }
-
-      v14 = SHIBYTE(v24.__r_.__value_.__r.__words[2]);
-      v15 = v24.__r_.__value_.__r.__words[0];
-      if (*(a1 + 127) < 0)
-      {
-        std::string::__init_copy_ctor_external(&__p, *(a1 + 104), *(a1 + 112));
-      }
-
-      else
-      {
-        __p = *(a1 + 104);
-      }
-
-      v16 = &v24;
-      if (v14 < 0)
-      {
-        v16 = v15;
-      }
-
-      p_p = &__p;
-      *buf = 136316418;
-      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-      {
-        p_p = __p.__r_.__value_.__r.__words[0];
-      }
-
-      v26 = v9;
-      v27 = 2050;
-      v28 = v6;
-      v29 = 2080;
-      v30 = v12;
-      v31 = 2050;
-      v32 = v13;
-      v33 = 2082;
-      v34 = v16;
-      v35 = 2082;
-      v36 = p_p;
-      _os_log_impl(&dword_297288000, v7, OS_LOG_TYPE_DEFAULT, "#I Found duplicated log at timestamp: %s[%{public}llu], new log timestamp: %s[%{public}llu], dump reason: %{public}s, crash reason: %{public}s", buf, 0x3Eu);
-      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__p.__r_.__value_.__l.__data_);
-        if ((SHIBYTE(v24.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-LABEL_22:
-          if ((v21 & 0x80000000) == 0)
-          {
-            goto LABEL_23;
-          }
-
-          goto LABEL_28;
-        }
-      }
-
-      else if ((SHIBYTE(v24.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_22;
-      }
-
-      operator delete(v24.__r_.__value_.__l.__data_);
-      if ((v21 & 0x80000000) == 0)
-      {
-LABEL_23:
-        if ((v23 & 0x80000000) == 0)
-        {
-          goto LABEL_24;
-        }
 
 LABEL_29:
-        operator delete(v22[0]);
-        goto LABEL_24;
-      }
-
-LABEL_28:
-      operator delete(v20[0]);
-      if ((v23 & 0x80000000) == 0)
-      {
-        goto LABEL_24;
-      }
-
-      goto LABEL_29;
+      operator delete(v21[0]);
+      goto LABEL_24;
     }
 
-    result = 0;
+LABEL_28:
+    operator delete(v19[0]);
+    if ((v22 & 0x80000000) == 0)
+    {
+      goto LABEL_24;
+    }
+
+    goto LABEL_29;
   }
 
-LABEL_25:
-  v18 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -9623,7 +9583,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-_OWORD *ResetInfo::operator=(_OWORD *result, void *a2)
+void ***ResetInfo::operator=(void ***result, void ***a2)
 {
   v2 = a2;
   v3 = result;
@@ -9631,7 +9591,7 @@ _OWORD *ResetInfo::operator=(_OWORD *result, void *a2)
   {
     v7 = a2[9];
     *(result + 20) = *(a2 + 20);
-    *(result + 9) = v7;
+    result[9] = v7;
     return result;
   }
 
@@ -9649,12 +9609,12 @@ _OWORD *ResetInfo::operator=(_OWORD *result, void *a2)
     }
 
     std::string::__assign_no_alias<false>(result, a2, v8);
-    v5 = v2 + 3;
+    v5 = (v2 + 3);
     v6 = *(v2 + 47);
     if (*(v3 + 47) < 0)
     {
 LABEL_15:
-      if ((v6 & 0x80u) == 0)
+      if (v6 >= 0)
       {
         v12 = v5;
       }
@@ -9664,7 +9624,7 @@ LABEL_15:
         v12 = v2[3];
       }
 
-      if ((v6 & 0x80u) == 0)
+      if (v6 >= 0)
       {
         v13 = v6;
       }
@@ -9674,8 +9634,8 @@ LABEL_15:
         v13 = v2[4];
       }
 
-      std::string::__assign_no_alias<false>((v3 + 24), v12, v13);
-      v10 = v2 + 6;
+      std::string::__assign_no_alias<false>(v3 + 3, v12, v13);
+      v10 = (v2 + 6);
       v11 = *(v2 + 71);
       if ((*(v3 + 71) & 0x80000000) == 0)
       {
@@ -9683,7 +9643,7 @@ LABEL_15:
       }
 
 LABEL_25:
-      if ((v11 & 0x80u) == 0)
+      if (v11 >= 0)
       {
         v15 = v10;
       }
@@ -9693,7 +9653,7 @@ LABEL_25:
         v15 = v2[6];
       }
 
-      if ((v11 & 0x80u) == 0)
+      if (v11 >= 0)
       {
         v16 = v11;
       }
@@ -9703,7 +9663,7 @@ LABEL_25:
         v16 = v2[7];
       }
 
-      std::string::__assign_no_alias<false>((v3 + 48), v15, v16);
+      std::string::__assign_no_alias<false>(v3 + 6, v15, v16);
       goto LABEL_33;
     }
   }
@@ -9711,7 +9671,7 @@ LABEL_25:
   else if ((*(a2 + 23) & 0x80) != 0)
   {
     std::string::__assign_no_alias<true>(result, *a2, a2[1]);
-    v5 = v2 + 3;
+    v5 = (v2 + 3);
     v6 = *(v2 + 47);
     if (*(v3 + 47) < 0)
     {
@@ -9722,9 +9682,9 @@ LABEL_25:
   else
   {
     v4 = *a2;
-    *(result + 2) = a2[2];
+    result[2] = a2[2];
     *result = v4;
-    v5 = a2 + 3;
+    v5 = (a2 + 3);
     v6 = *(a2 + 47);
     if (*(result + 47) < 0)
     {
@@ -9734,8 +9694,8 @@ LABEL_25:
 
   if ((v6 & 0x80) != 0)
   {
-    std::string::__assign_no_alias<true>((v3 + 24), v2[3], v2[4]);
-    v10 = v2 + 6;
+    std::string::__assign_no_alias<true>(v3 + 3, v2[3], v2[4]);
+    v10 = (v2 + 6);
     v11 = *(v2 + 71);
     if (*(v3 + 71) < 0)
     {
@@ -9746,9 +9706,9 @@ LABEL_25:
   else
   {
     v9 = *v5;
-    *(v3 + 40) = v5[2];
-    *(v3 + 24) = v9;
-    v10 = v2 + 6;
+    v3[5] = v5[2];
+    *(v3 + 3) = v9;
+    v10 = (v2 + 6);
     v11 = *(v2 + 71);
     if (*(v3 + 71) < 0)
     {
@@ -9759,26 +9719,26 @@ LABEL_25:
 LABEL_22:
   if ((v11 & 0x80) != 0)
   {
-    std::string::__assign_no_alias<true>((v3 + 48), v2[6], v2[7]);
+    std::string::__assign_no_alias<true>(v3 + 6, v2[6], v2[7]);
   }
 
   else
   {
     v14 = *v10;
-    *(v3 + 64) = v10[2];
-    *(v3 + 48) = v14;
+    v3[8] = v10[2];
+    *(v3 + 3) = v14;
   }
 
 LABEL_33:
   v17 = v2[9];
-  *(v3 + 80) = *(v2 + 20);
-  *(v3 + 72) = v17;
+  *(v3 + 20) = *(v2 + 20);
+  v3[9] = v17;
   v18 = *(v2 + 111);
   if (*(v3 + 111) < 0)
   {
     if (v18 >= 0)
     {
-      v20 = v2 + 11;
+      v20 = (v2 + 11);
     }
 
     else
@@ -9796,7 +9756,7 @@ LABEL_33:
       v21 = v2[12];
     }
 
-    std::string::__assign_no_alias<false>((v3 + 88), v20, v21);
+    std::string::__assign_no_alias<false>(v3 + 11, v20, v21);
     return v3;
   }
 
@@ -9804,14 +9764,14 @@ LABEL_33:
   {
     if ((*(v2 + 111) & 0x80) != 0)
     {
-      std::string::__assign_no_alias<true>((v3 + 88), v2[11], v2[12]);
+      std::string::__assign_no_alias<true>(v3 + 11, v2[11], v2[12]);
     }
 
     else
     {
       v19 = *(v2 + 11);
-      *(v3 + 104) = v2[13];
-      *(v3 + 88) = v19;
+      v3[13] = v2[13];
+      *(v3 + 11) = v19;
     }
 
     return v3;
@@ -9872,4 +9832,38 @@ LABEL_6:
     this[4].__r_.__value_.__l.__size_ = *(a2 + 13);
     *&this[3].__r_.__value_.__r.__words[2] = v8;
   }
+}
+
+void sub_2972CD10C(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 71) < 0)
+  {
+    operator delete(*(v1 + 48));
+    if ((*(v1 + 47) & 0x80000000) == 0)
+    {
+LABEL_3:
+      if ((*(v1 + 23) & 0x80000000) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((*(v1 + 47) & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(*(v1 + 24));
+  if ((*(v1 + 23) & 0x80000000) == 0)
+  {
+LABEL_4:
+    _Unwind_Resume(exception_object);
+  }
+
+LABEL_7:
+  operator delete(*v1);
+  _Unwind_Resume(exception_object);
 }

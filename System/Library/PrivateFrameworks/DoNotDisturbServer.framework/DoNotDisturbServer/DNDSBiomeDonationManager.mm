@@ -24,7 +24,7 @@
 
 - (void)_donateEventForStateUpdate:(id)update
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   previousState = [updateCopy previousState];
   activeModeConfiguration = [previousState activeModeConfiguration];
@@ -56,7 +56,7 @@
       v13 = dword_2491FFB10[reason];
     }
 
-    v39 = v13;
+    v38 = v13;
     source = [updateCopy source];
     if (source >= 4)
     {
@@ -75,7 +75,7 @@
       uUIDString = [identifier UUIDString];
       v19 = BMUserFocusModeComputedSemanticTypeForDNDModeSemanticType([mode semanticType]);
       modeIdentifier = [mode modeIdentifier];
-      v21 = [v16 initWithMode:uUIDString starting:MEMORY[0x277CBEC28] updateReason:v39 semanticType:v19 updateSource:v15 semanticModeIdentifier:modeIdentifier];
+      v21 = [v16 initWithMode:uUIDString starting:MEMORY[0x277CBEC28] updateReason:v38 semanticType:v19 updateSource:v15 semanticModeIdentifier:modeIdentifier];
 
       source2 = [(BMStream *)self->_computedModeStream source];
       [source2 sendEvent:v21];
@@ -89,11 +89,11 @@
         [updateCopy source];
         v26 = DNDStateUpdateSourceToString();
         *buf = 138543874;
-        v41 = v25;
-        v42 = 2114;
-        v43 = v26;
-        v44 = 2114;
-        v45 = mode;
+        v40 = v25;
+        v41 = 2114;
+        v42 = v26;
+        v43 = 2114;
+        v44 = mode;
         _os_log_impl(&dword_24912E000, v24, OS_LOG_TYPE_DEFAULT, "Biome event(s) donated for mode end: reason=%{public}@ source=%{public}@ from=%{public}@", buf, 0x20u);
       }
     }
@@ -105,7 +105,7 @@
       uUIDString2 = [identifier2 UUIDString];
       v30 = BMUserFocusModeComputedSemanticTypeForDNDModeSemanticType([mode2 semanticType]);
       modeIdentifier2 = [mode2 modeIdentifier];
-      v32 = [v27 initWithMode:uUIDString2 starting:MEMORY[0x277CBEC38] updateReason:v39 semanticType:v30 updateSource:v15 semanticModeIdentifier:modeIdentifier2];
+      v32 = [v27 initWithMode:uUIDString2 starting:MEMORY[0x277CBEC38] updateReason:v38 semanticType:v30 updateSource:v15 semanticModeIdentifier:modeIdentifier2];
 
       source3 = [(BMStream *)self->_computedModeStream source];
       [source3 sendEvent:v32];
@@ -119,17 +119,15 @@
         [updateCopy source];
         v37 = DNDStateUpdateSourceToString();
         *buf = 138543874;
-        v41 = v36;
-        v42 = 2114;
-        v43 = v37;
-        v44 = 2114;
-        v45 = mode2;
+        v40 = v36;
+        v41 = 2114;
+        v42 = v37;
+        v43 = 2114;
+        v44 = mode2;
         _os_log_impl(&dword_24912E000, v35, OS_LOG_TYPE_DEFAULT, "Biome event(s) donated for mode begin: reason=%{public}@ source=%{public}@ to=%{public}@", buf, 0x20u);
       }
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -39,87 +39,80 @@
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v37 = v15;
+    v32 = v15;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Placeholder: temporary placeholder extraction directory: %@", buf, 0xCu);
-    v30 = v15;
-    _MBLog();
+    _MBLog(@"I ", "Placeholder: temporary placeholder extraction directory: %@", v15);
   }
 
   if ([v11 fileExistsAtPath:v15] && (objc_msgSend(v11, "removeItemAtPath:error:", v15, error) & 1) == 0)
   {
-    v24 = MBGetDefaultLog();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = MBGetDefaultLog();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_21;
+      v27 = *error;
+      *buf = 138412546;
+      v32 = v15;
+      v33 = 2112;
+      v34 = v27;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Placeholder: Unable to remove existing temporary placeholder extraction directory: %@: %@", buf, 0x16u);
+      _MBLog(@"E ", "Placeholder: Unable to remove existing temporary placeholder extraction directory: %@: %@", v15, *error);
     }
 
-    v26 = *error;
-    *buf = 138412546;
-    v37 = v15;
-    v38 = 2112;
-    v39 = v26;
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Placeholder: Unable to remove existing temporary placeholder extraction directory: %@: %@", buf, 0x16u);
-    v32 = *error;
     goto LABEL_20;
   }
 
-  if (([v11 createDirectoryAtPath:v15 withIntermediateDirectories:1 attributes:0 error:{error, v30}] & 1) == 0)
+  if (([v11 createDirectoryAtPath:v15 withIntermediateDirectories:1 attributes:0 error:error] & 1) == 0)
   {
-    v24 = MBGetDefaultLog();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = MBGetDefaultLog();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_21;
+      v26 = *error;
+      *buf = 138412546;
+      v32 = v15;
+      v33 = 2112;
+      v34 = v26;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Placeholder: Unable to create temporary placeholder extraction directory: %@: %@", buf, 0x16u);
+      _MBLog(@"E ", "Placeholder: Unable to create temporary placeholder extraction directory: %@: %@", v15, *error);
     }
 
-    v25 = *error;
-    *buf = 138412546;
-    v37 = v15;
-    v38 = 2112;
-    v39 = v25;
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Placeholder: Unable to create temporary placeholder extraction directory: %@: %@", buf, 0x16u);
-    v31 = *error;
-LABEL_20:
-    _MBLog();
-    goto LABEL_21;
+    goto LABEL_20;
   }
 
   if (([self _unzipPlaceholderDomainZipFile:fileCopy intoDirectory:v15 error:error] & 1) == 0)
   {
-    v24 = MBGetDefaultLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = MBGetDefaultLog();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v27 = *error;
+      v28 = *error;
       *buf = 138412546;
-      v37 = v15;
-      v38 = 2112;
-      v39 = v27;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Placeholder: Unable to unzip placeholder: %@: %@", buf, 0x16u);
-      v33 = *error;
-      goto LABEL_20;
+      v32 = v15;
+      v33 = 2112;
+      v34 = v28;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Placeholder: Unable to unzip placeholder: %@: %@", buf, 0x16u);
+      _MBLog(@"E ", "Placeholder: Unable to unzip placeholder: %@: %@", v15, *error);
     }
 
-LABEL_21:
-
-    v23 = 0;
-    goto LABEL_22;
+    goto LABEL_20;
   }
 
   if ([v11 fileExistsAtPath:v10] && (objc_msgSend(v11, "removeItemAtPath:error:", v10, error) & 1) == 0)
   {
-    v24 = MBGetDefaultLog();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = MBGetDefaultLog();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_21;
+      v30 = *error;
+      *buf = 138412546;
+      v32 = v10;
+      v33 = 2112;
+      v34 = v30;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Placeholder: Unable to remove existing placeholder directory: %@: %@", buf, 0x16u);
+      _MBLog(@"E ", "Placeholder: Unable to remove existing placeholder directory: %@: %@", v10, *error);
     }
 
-    v29 = *error;
-    *buf = 138412546;
-    v37 = v10;
-    v38 = 2112;
-    v39 = v29;
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Placeholder: Unable to remove existing placeholder directory: %@: %@", buf, 0x16u);
-    v34 = *error;
-    goto LABEL_20;
+LABEL_20:
+
+    v24 = 0;
+    goto LABEL_21;
   }
 
   fileSystemRepresentation = [v15 fileSystemRepresentation];
@@ -132,28 +125,28 @@ LABEL_21:
     {
       v22 = *__error();
       *buf = 138412802;
-      v37 = v15;
-      v38 = 2112;
-      v39 = v10;
-      v40 = 1024;
-      v41 = v22;
+      v32 = v15;
+      v33 = 2112;
+      v34 = v10;
+      v35 = 1024;
+      v36 = v22;
       _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Placeholder: unable to rename %@ -> %@: %{errno}d", buf, 0x1Cu);
-      v35 = *__error();
-      _MBLog();
+      v23 = __error();
+      _MBLog(@"E ", "Placeholder: unable to rename %@ -> %@: %{errno}d", v15, v10, *v23);
     }
 
     [MBError posixErrorWithCode:*__error() path:v10 format:@"%@ -> %@", v15, v10];
-    *error = v23 = 0;
+    *error = v24 = 0;
   }
 
   else
   {
-    v23 = 1;
+    v24 = 1;
   }
 
-LABEL_22:
+LABEL_21:
 
-  return v23;
+  return v24;
 }
 
 + (BOOL)_unzipPlaceholderDomainZipFile:(id)file intoDirectory:(id)directory error:(id *)error
@@ -175,35 +168,34 @@ LABEL_22:
     goto LABEL_21;
   }
 
-  v42 = v10;
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = sub_1001AEFD4;
-  v58 = sub_1001AEFE4;
-  v59 = 0;
-  v40 = dispatch_semaphore_create(0);
+  v39 = v10;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x3032000000;
+  v54 = sub_1001AEFD4;
+  v55 = sub_1001AEFE4;
+  v56 = 0;
+  v37 = dispatch_semaphore_create(0);
   v11 = [SZExtractor alloc];
-  v65 = SZExtractorOptionsDenyInvalidSymlinks;
-  v66 = &__kCFBooleanTrue;
-  v12 = [NSDictionary dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+  v62 = SZExtractorOptionsDenyInvalidSymlinks;
+  v63 = &__kCFBooleanTrue;
+  v12 = [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1];
   v13 = [v11 initWithPath:directoryCopy options:v12];
 
   if (!v13)
   {
     v31 = [MBError errorWithDomain:@"MBErrorDomain" code:0 path:directoryCopy format:@"Unable to init SZExtractor"];
-    v32 = v55[5];
-    v55[5] = v31;
+    v32 = v52[5];
+    v52[5] = v31;
 
     v33 = MBGetDefaultLog();
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      v34 = v55[5];
-      LODWORD(v62) = 138412290;
-      *(&v62 + 4) = v34;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Placeholder: %@", &v62, 0xCu);
-      v38 = v55[5];
-      _MBLog();
+      v34 = v52[5];
+      LODWORD(v59) = 138412290;
+      *(&v59 + 4) = v34;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Placeholder: %@", &v59, 0xCu);
+      _MBLog(@"E ", "Placeholder: %@", v52[5]);
     }
 
 LABEL_31:
@@ -212,26 +204,25 @@ LABEL_31:
     objc_exception_throw(v36);
   }
 
-  v51[0] = _NSConcreteStackBlock;
-  v51[1] = 3221225472;
-  v51[2] = sub_1001AEFEC;
-  v51[3] = &unk_1003C0C30;
-  v53 = &v54;
-  v14 = v40;
-  v52 = v14;
-  [v13 prepareForExtraction:v51];
+  v48[0] = _NSConcreteStackBlock;
+  v48[1] = 3221225472;
+  v48[2] = sub_1001AEFEC;
+  v48[3] = &unk_1003C0C30;
+  v50 = &v51;
+  v14 = v37;
+  v49 = v14;
+  [v13 prepareForExtraction:v48];
   dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
-  if (v55[5])
+  if (v52[5])
   {
     v33 = MBGetDefaultLog();
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      v35 = v55[5];
-      LODWORD(v62) = 138412290;
-      *(&v62 + 4) = v35;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Placeholder: Unable to prepare SZExtractor: %@", &v62, 0xCu);
-      v39 = v55[5];
-      _MBLog();
+      v35 = v52[5];
+      LODWORD(v59) = 138412290;
+      *(&v59 + 4) = v35;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Placeholder: Unable to prepare SZExtractor: %@", &v59, 0xCu);
+      _MBLog(@"E ", "Placeholder: Unable to prepare SZExtractor: %@", v52[5]);
     }
 
     goto LABEL_31;
@@ -244,28 +235,27 @@ LABEL_31:
   do
   {
     v18 = objc_autoreleasePoolPush();
-    *&v62 = 0;
-    *(&v62 + 1) = &v62;
-    v63 = 0x2020000000;
-    v64 = 0;
-    v19 = read(v42, mutableBytes, 0x4000uLL);
+    *&v59 = 0;
+    *(&v59 + 1) = &v59;
+    v60 = 0x2020000000;
+    v61 = 0;
+    v19 = read(v39, mutableBytes, 0x4000uLL);
     if (v19)
     {
       if (v19 == -1)
       {
         v26 = [MBError errorWithDomain:@"MBErrorDomain" code:0 path:fileCopy format:@"Unable to read bytes from zip file"];
-        v27 = v55[5];
-        v55[5] = v26;
+        v27 = v52[5];
+        v52[5] = v26;
 
         v28 = MBGetDefaultLog();
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          v29 = v55[5];
+          v29 = v52[5];
           *buf = 138412290;
-          v61 = v29;
+          v58 = v29;
           _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Placeholder: %@", buf, 0xCu);
-          v37 = v55[5];
-          _MBLog();
+          _MBLog(@"E ", "Placeholder: %@", v52[5]);
         }
 
 LABEL_26:
@@ -274,18 +264,18 @@ LABEL_26:
       }
 
       [v15 setLength:v19];
-      v47[0] = _NSConcreteStackBlock;
-      v47[1] = 3221225472;
-      v47[2] = sub_1001AF050;
-      v47[3] = &unk_1003C0C58;
-      v49 = &v54;
-      v50 = &v62;
+      v44[0] = _NSConcreteStackBlock;
+      v44[1] = 3221225472;
+      v44[2] = sub_1001AF050;
+      v44[3] = &unk_1003C0C58;
+      v46 = &v51;
+      v47 = &v59;
       v20 = v14;
-      v48 = v20;
-      [v13 supplyBytes:v15 withCompletionBlock:v47];
+      v45 = v20;
+      [v13 supplyBytes:v15 withCompletionBlock:v44];
       dispatch_semaphore_wait(v20, 0xFFFFFFFFFFFFFFFFLL);
       [v15 setLength:0x4000];
-      if (v55[5])
+      if (v52[5])
       {
         goto LABEL_26;
       }
@@ -298,24 +288,24 @@ LABEL_26:
       v21 = 0;
     }
 
-    _Block_object_dispose(&v62, 8);
+    _Block_object_dispose(&v59, 8);
     objc_autoreleasePoolPop(v18);
   }
 
   while ((v21 & 1) != 0);
-  v43[0] = _NSConcreteStackBlock;
-  v43[1] = 3221225472;
-  v43[2] = sub_1001AF15C;
-  v43[3] = &unk_1003C0C80;
-  v44 = fileCopy;
-  v46 = &v54;
+  v40[0] = _NSConcreteStackBlock;
+  v40[1] = 3221225472;
+  v40[2] = sub_1001AF15C;
+  v40[3] = &unk_1003C0C80;
+  v41 = fileCopy;
+  v43 = &v51;
   v22 = v14;
-  v45 = v22;
-  [v13 finishStreamWithCompletionBlock:v43];
+  v42 = v22;
+  [v13 finishStreamWithCompletionBlock:v40];
   dispatch_semaphore_wait(v22, 0xFFFFFFFFFFFFFFFFLL);
 
-  close(v42);
-  if (v40)
+  close(v39);
+  if (v37)
   {
   }
 
@@ -323,11 +313,11 @@ LABEL_26:
   {
   }
 
-  v23 = v55[5];
+  v23 = v52[5];
   if (v23)
   {
     *error = v23;
-    v24 = v55[5] == 0;
+    v24 = v52[5] == 0;
   }
 
   else
@@ -335,7 +325,7 @@ LABEL_26:
     v24 = 1;
   }
 
-  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v51, 8);
 
 LABEL_21:
   objc_sync_exit(selfCopy);
@@ -389,21 +379,21 @@ LABEL_21:
   if (!mkdir([v10 fileSystemRepresentation], 0x1C0u) || *__error() == 17)
   {
     errorCopy = error;
-    memset(&v58, 0, sizeof(v58));
-    if (stat([stringByStandardizingPath fileSystemRepresentation], &v58))
+    memset(&v57, 0, sizeof(v57));
+    if (stat([stringByStandardizingPath fileSystemRepresentation], &v57))
     {
       tv_sec = 0;
     }
 
     else
     {
-      tv_sec = v58.st_mtimespec.tv_sec;
+      tv_sec = v57.st_mtimespec.tv_sec;
     }
 
     v17 = [v10 stringByAppendingPathComponent:v12];
     v18 = [v17 stringByAppendingPathExtension:@"ipa"];
-    v19 = stat([v18 fileSystemRepresentation], &v58);
-    v20 = v58.st_mtimespec.tv_sec;
+    v19 = stat([v18 fileSystemRepresentation], &v57);
+    v20 = v57.st_mtimespec.tv_sec;
     if (v19)
     {
       v20 = 0;
@@ -417,24 +407,24 @@ LABEL_21:
         LODWORD(buf.tv_sec) = 138412290;
         *(&buf.tv_sec + 4) = v12;
         _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Placeholder: %@ does not need updating", &buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "Placeholder: %@ does not need updating", v12);
       }
 
       v28 = [(MBApp *)self _placeholderDomainRootedInDirectory:v10];
       goto LABEL_44;
     }
 
-    v45 = stringByStandardizingPath;
+    v44 = stringByStandardizingPath;
     v21 = +[NSFileManager defaultManager];
     v22 = [v17 stringByAppendingPathExtension:@"zip"];
-    v48 = v21;
-    v46 = identifierCopy;
-    v44 = v17;
+    v47 = v21;
+    v45 = identifierCopy;
+    v43 = v17;
     if ([v21 fileExistsAtPath:v22])
     {
-      v50 = 0;
-      v23 = [v21 removeItemAtPath:v22 error:&v50];
-      v24 = v50;
+      v49 = 0;
+      v23 = [v21 removeItemAtPath:v22 error:&v49];
+      v24 = v49;
       v25 = MBGetDefaultLog();
       v26 = v25;
       if ((v23 & 1) == 0)
@@ -444,14 +434,14 @@ LABEL_21:
           LODWORD(buf.tv_sec) = 138412290;
           *(&buf.tv_sec + 4) = v24;
           _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Placeholder: Failed to remove existing legacy zip placeholder: %@", &buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "Placeholder: Failed to remove existing legacy zip placeholder: %@", v24);
         }
 
         v38 = v24;
         v28 = 0;
         *errorCopy = v24;
         v32 = v24;
-        v17 = v44;
+        v17 = v43;
         goto LABEL_42;
       }
 
@@ -460,8 +450,7 @@ LABEL_21:
         LODWORD(buf.tv_sec) = 138412290;
         *(&buf.tv_sec + 4) = v22;
         _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Placeholder: Removed legacy zip placeholder %@", &buf, 0xCu);
-        v42 = v22;
-        _MBLog();
+        _MBLog(@"I ", "Placeholder: Removed legacy zip placeholder %@", v22);
       }
     }
 
@@ -470,10 +459,10 @@ LABEL_21:
       v24 = 0;
     }
 
-    if (![v48 fileExistsAtPath:{v18, v42}])
+    if (![v47 fileExistsAtPath:v18])
     {
 LABEL_28:
-      v43 = [NSURL fileURLWithPath:v18 isDirectory:0];
+      v42 = [NSURL fileURLWithPath:v18 isDirectory:0];
       v33 = MICreateSerializedPlaceholderForInstalledApplication();
       v32 = v24;
 
@@ -481,19 +470,19 @@ LABEL_28:
       {
         buf.tv_sec = tv_sec;
         buf.tv_usec = 0;
-        v56 = tv_sec;
-        v57 = 0;
+        v55 = tv_sec;
+        v56 = 0;
         utimes([v18 fileSystemRepresentation], &buf);
         v34 = MBGetDefaultLog();
-        v17 = v44;
+        v17 = v43;
         if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
         {
-          *v51 = 138412546;
-          v52 = v12;
-          v53 = 2112;
-          v54 = v18;
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "Placeholder: Successfully archived %@ -> %@", v51, 0x16u);
-          _MBLog();
+          *v50 = 138412546;
+          v51 = v12;
+          v52 = 2112;
+          v53 = v18;
+          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "Placeholder: Successfully archived %@ -> %@", v50, 0x16u);
+          _MBLog(@"I ", "Placeholder: Successfully archived %@ -> %@", v12, v18, v42);
         }
 
         v28 = [(MBApp *)self _placeholderDomainRootedInDirectory:v10];
@@ -502,13 +491,13 @@ LABEL_28:
       else
       {
         v35 = MBGetDefaultLog();
-        v17 = v44;
+        v17 = v43;
         if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf.tv_sec) = 138543362;
           *(&buf.tv_sec + 4) = v12;
           _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Placeholder: Unable to create placeholder for %{public}@", &buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "Placeholder: Unable to create placeholder for %{public}@", v12);
         }
 
         v36 = v32;
@@ -516,13 +505,13 @@ LABEL_28:
         *errorCopy = v32;
       }
 
-      v37 = v48;
+      v37 = v47;
       goto LABEL_43;
     }
 
-    v49 = v24;
-    v31 = [v48 removeItemAtPath:v18 error:&v49];
-    v32 = v49;
+    v48 = v24;
+    v31 = [v47 removeItemAtPath:v18 error:&v48];
+    v32 = v48;
 
     if (v31)
     {
@@ -531,24 +520,24 @@ LABEL_28:
     }
 
     v39 = MBGetDefaultLog();
-    v17 = v44;
+    v17 = v43;
     if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf.tv_sec) = 138412290;
       *(&buf.tv_sec + 4) = v32;
       _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Placeholder: failed to remove existing stale placeholder: %@", &buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Placeholder: failed to remove existing stale placeholder: %@", v32);
     }
 
     v40 = v32;
     v28 = 0;
     *errorCopy = v32;
 LABEL_42:
-    v37 = v48;
+    v37 = v47;
 LABEL_43:
 
-    identifierCopy = v46;
-    stringByStandardizingPath = v45;
+    identifierCopy = v45;
+    stringByStandardizingPath = v44;
 LABEL_44:
 
     goto LABEL_45;
@@ -558,12 +547,12 @@ LABEL_44:
   v30 = MBGetDefaultLog();
   if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
-    v58.st_dev = 138543618;
-    *&v58.st_mode = v10;
-    WORD2(v58.st_ino) = 1024;
-    *(&v58.st_ino + 6) = v29;
-    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Placeholder: mkdir failed at %{public}@: %{errno}d", &v58, 0x12u);
-    _MBLog();
+    v57.st_dev = 138543618;
+    *&v57.st_mode = v10;
+    WORD2(v57.st_ino) = 1024;
+    *(&v57.st_ino + 6) = v29;
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Placeholder: mkdir failed at %{public}@: %{errno}d", &v57, 0x12u);
+    _MBLog(@"E ", "Placeholder: mkdir failed at %{public}@: %{errno}d", v10, v29);
   }
 
   [MBError errorWithErrno:v29 path:v10 format:@"Placeholder: mkdir failed"];

@@ -110,7 +110,7 @@ uint64_t __86__NSCoreTypesetter__allowsFontOverridingTextAttachmentVerticalMetri
   return _shouldShowLineBadges_result;
 }
 
-uint64_t __41__NSCoreTypesetter__shouldShowLineBadges__block_invoke()
+void *__41__NSCoreTypesetter__shouldShowLineBadges__block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
   _shouldShowLineBadges_result = result;
@@ -340,7 +340,7 @@ LABEL_20:
   return resolvesIndentationWritingDirectionWithBaseWritingDirection__resolvesIndentationWritingDirectionWithBaseWritingDirection;
 }
 
-uint64_t __79__NSCoreTypesetter_resolvesIndentationWritingDirectionWithBaseWritingDirection__block_invoke()
+void *__79__NSCoreTypesetter_resolvesIndentationWritingDirectionWithBaseWritingDirection__block_invoke()
 {
   v0 = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
   if (v0)
@@ -907,7 +907,7 @@ uint64_t __38__NSCoreTypesetter_layoutWithYOrigin___block_invoke_3(uint64_t a1, 
   return result;
 }
 
-uint64_t __131__NSCoreTypesetter__getLineMetricsForRange_attributes_attributedString_applySpacing_usesSystemFontLeading_usesNegativeFontLeading___block_invoke(uint64_t a1, void *a2)
+void *__131__NSCoreTypesetter__getLineMetricsForRange_attributes_attributedString_applySpacing_usesSystemFontLeading_usesNegativeFontLeading___block_invoke(uint64_t a1, void *a2)
 {
   if ((*(a1 + 88) & 1) != 0 || (result = [a2 objectForKeyedSubscript:@"NSAttachment"]) == 0)
   {
@@ -1176,7 +1176,7 @@ LABEL_16:
   return [(NSCoreTypesetterDelegateInternal *)delegate coreTypesetter:self isSimpleRectangularTextContainerForStartingCharacterAtIndex:index];
 }
 
-uint64_t __80__NSCoreTypesetter_isSimpleRectangularTextContainerForStartingCharacterAtIndex___block_invoke()
+void *__80__NSCoreTypesetter_isSimpleRectangularTextContainerForStartingCharacterAtIndex___block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
   isSimpleRectangularTextContainerForStartingCharacterAtIndex__forcesNonSimple = result;
@@ -1320,7 +1320,7 @@ LABEL_11:
   {
     if (self)
     {
-      [(NSCoreTypesetter *)self _forcedLineBreakAfterIndex:location];
+      objc_msgSend__forcedLineBreakAfterIndex_(self);
     }
 
     if (location + length)
@@ -1353,7 +1353,7 @@ LABEL_11:
       if (v19 <= location + v27)
       {
         v20 = v19;
-        [arbitrator lineBreakContextBeforeIndex:v19 lineFragmentWidth:location range:{v27, width}];
+        objc_msgSend_lineBreakContextBeforeIndex_lineFragmentWidth_range_(arbitrator, width);
         v18 = -location;
         v17 = 0;
       }
@@ -1841,7 +1841,7 @@ LABEL_71:
     if ([(NSParagraphStyle *)v9 baseWritingDirection]== NSWritingDirectionNatural)
     {
       v10 = malloc_type_calloc(length, 1uLL, 0x100004077774924uLL);
-      self->_resolvedBaseWritingDirection = [_NSParagraphBidiLevelsProducer resolvedBaseWritingDirectionForTextContentManager:string AttributedString:location paragraphRange:length baseWritingDirection:-1 fallbackBaseWritingDirection:self->_fallbackBaseWritingDirection bidiLevels:?];
+      self->_resolvedBaseWritingDirection = [_NSParagraphBidiLevelsProducer resolvedBaseWritingDirectionForTextContentManager:string AttributedString:location paragraphRange:length baseWritingDirection:-1 fallbackBaseWritingDirection:self->_fallbackBaseWritingDirection bidiLevels:v10];
     }
 
     else
@@ -4385,7 +4385,7 @@ uint64_t __180__NSCoreTypesetter__stringDrawingCoreTextEngineWithOriginalString_
   return result;
 }
 
-uint64_t __180__NSCoreTypesetter__stringDrawingCoreTextEngineWithOriginalString_rect_padding_graphicsContext_forceClipping_attributes_stringDrawingOptions_drawingContext_stringDrawingInterface___block_invoke_2(uint64_t a1, unint64_t a2, unint64_t *a3)
+void *__180__NSCoreTypesetter__stringDrawingCoreTextEngineWithOriginalString_rect_padding_graphicsContext_forceClipping_attributes_stringDrawingOptions_drawingContext_stringDrawingInterface___block_invoke_2(uint64_t a1, unint64_t a2, unint64_t *a3)
 {
   if ([*(a1 + 32) length] <= a2)
   {

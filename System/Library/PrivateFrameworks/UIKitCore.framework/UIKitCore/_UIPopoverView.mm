@@ -108,9 +108,9 @@ LABEL_15:
         goto LABEL_3;
       }
 
-      v13 = [_normalInheritedTintColor isEqual:v12];
+      isEqual = objc_msgSend_isEqual_(_normalInheritedTintColor);
 
-      if (v13)
+      if (isEqual)
       {
         goto LABEL_15;
       }

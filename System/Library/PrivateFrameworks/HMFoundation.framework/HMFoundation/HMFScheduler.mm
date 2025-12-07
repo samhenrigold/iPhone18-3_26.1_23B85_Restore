@@ -25,9 +25,11 @@
 
 uint64_t __32__HMFScheduler_defaultScheduler__block_invoke()
 {
-  qword_280AFC730 = objc_alloc_init(HMFScheduler);
+  v0 = objc_alloc_init(HMFScheduler);
+  v1 = qword_280AFC730;
+  qword_280AFC730 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)mainScheduler

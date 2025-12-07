@@ -398,7 +398,7 @@ LABEL_9:
 LABEL_7:
   v13 = [ML3Track importChaptersByParsingAsset:v7];
 LABEL_10:
-  [v7 duration];
+  objc_msgSend_duration(v7);
   v14 = ISWeakLinkedSymbolForString();
   if (v14)
   {

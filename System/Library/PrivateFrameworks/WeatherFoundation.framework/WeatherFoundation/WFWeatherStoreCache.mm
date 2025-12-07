@@ -719,13 +719,13 @@ void __65__WFWeatherStoreCache_cachedObjectWithinDomain_forKey_staleness___block
 void __77__WFWeatherStoreCache_cache_withinDomain_date_forKey_expiration_synchronous___block_invoke(uint64_t a1)
 {
   v26 = *MEMORY[0x277D85DE8];
-  v2 = a1 + 40;
+  v2 = (a1 + 40);
   v3 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 40)];
   v4 = [v3 objectForKeyedSubscript:@"values"];
   v5 = [v3 objectForKeyedSubscript:@"dates"];
   v6 = [v3 objectForKeyedSubscript:@"WFWeatherStoreCacheRecordExpirationDate"];
   v7 = v6;
-  v8 = *(v2 + 8);
+  v8 = v2[1];
   if (v8)
   {
     [v6 setObject:v8 forKeyedSubscript:*(a1 + 56)];
@@ -1025,15 +1025,17 @@ LABEL_20:
   return v20;
 }
 
-uint64_t __59__WFWeatherStoreCache__concurrentQueue_barrier_loadDomain___block_invoke()
+uint64_t __59__WFWeatherStoreCache__concurrentQueue_barrier_loadDomain___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
+  v2 = MEMORY[0x277CBEB98];
   v3 = objc_opt_class();
-  _concurrentQueue_barrier_loadDomain__CacheClasses = [v0 setWithObjects:{v1, v2, v3, objc_opt_class(), 0}];
+  v4 = objc_opt_class();
+  v5 = objc_opt_class();
+  v6 = [v2 setWithObjects:{v3, v4, v5, objc_opt_class(), 0}];
+  v7 = _concurrentQueue_barrier_loadDomain__CacheClasses;
+  _concurrentQueue_barrier_loadDomain__CacheClasses = v6;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v6, v7);
 }
 
 - (void)_markDomainDirty:(id)dirty
@@ -1136,9 +1138,12 @@ void __42__WFWeatherStoreCache__loadedCacheDomains__block_invoke(uint64_t a1)
 
 uint64_t __41__WFWeatherStoreCache__dirtyCacheDomains__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 32) + 8) + 40) = [*(*(*(a1 + 40) + 8) + 40) allObjects];
+  v2 = [*(*(*(a1 + 40) + 8) + 40) allObjects];
+  v3 = *(*(a1 + 32) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)_ensureDomainIsLoaded:(id)loaded
@@ -1260,6 +1265,13 @@ void __65__WFWeatherStoreCache_cachedObjectWithinDomain_forKey_staleness___block
   OUTLINED_FUNCTION_4(&dword_272B94000, a2, a3, "Successfully retrieved cached value at cache key '%@' within cache domain '%@'", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
+void __77__WFWeatherStoreCache_cache_withinDomain_date_forKey_expiration_synchronous___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_2(&dword_272B94000, a2, a3, "Marking cache domain '%@' as dirty.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)_concurrentQueue_barrier_shrinkDomain:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
   v6 = *MEMORY[0x277D85DE8];
@@ -1268,6 +1280,13 @@ void __65__WFWeatherStoreCache_cachedObjectWithinDomain_forKey_staleness___block
   v4 = 2048;
   v5 = 500;
   _os_log_error_impl(&dword_272B94000, a2, OS_LOG_TYPE_ERROR, "Deleting old cached data based on dictionary size: %lu, max allowed size: %lu", v3, 0x16u);
+}
+
+void __40__WFWeatherStoreCache__markDomainDirty___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_2(&dword_272B94000, a2, a3, "Marking cache domain '%@' as dirty.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

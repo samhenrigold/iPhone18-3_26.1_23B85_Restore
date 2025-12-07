@@ -2182,9 +2182,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x41650A8095FBA956;
-    v2[1] = "md::ls::RegisterHandle]";
-    v2[2] = 22;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::RegisterHandle]";
+    *(v2 + 2) = 22;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -2396,9 +2396,9 @@ void gdc::typelist_as_vector<std::tuple<md::ls::TileStyleDataKeyHandle>>(void **
   else
   {
     *v2 = 0xC8961A732428331FLL;
-    v2[1] = "md::ls::TileStyleDataKeyHandle]";
-    v2[2] = 30;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::TileStyleDataKeyHandle]";
+    *(v2 + 2) = 30;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -2473,9 +2473,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x46F9AEB7461D3EE2;
-    v2[1] = "md::ls::TileProjectionTypeT<md::ls::TileProjectionType::S2>]";
-    v2[2] = 59;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::TileProjectionTypeT<md::ls::TileProjectionType::S2>]";
+    *(v2 + 2) = 59;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -5249,9 +5249,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x8CADE1E37F052ADDLL;
-    v2[1] = "md::ls::TileViewMatrix]";
-    v2[2] = 22;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::TileViewMatrix]";
+    *(v2 + 2) = 22;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -7155,9 +7155,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x81BF69EEE736436;
-    v2[1] = "md::ls::FlyoverCommonS2TransformHandle]";
-    v2[2] = 38;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::FlyoverCommonS2TransformHandle]";
+    *(v2 + 2) = 38;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -7543,9 +7543,9 @@ void gdc::typelist_as_vector<std::tuple<md::ls::ColorRampDataHandle>>(void **a1)
   else
   {
     *v2 = 0xE103B5C60804137ELL;
-    v2[1] = "md::ls::ColorRampDataHandle]";
-    v2[2] = 27;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::ColorRampDataHandle]";
+    *(v2 + 2) = 27;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -8437,9 +8437,9 @@ void gdc::typelist_as_vector<std::tuple<md::ls::ColorCorrectionDataKeyHandle>>(v
   else
   {
     *v2 = 0xFA89E73840C3EC51;
-    v2[1] = "md::ls::ColorCorrectionDataKeyHandle]";
-    v2[2] = 36;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::ColorCorrectionDataKeyHandle]";
+    *(v2 + 2) = 36;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;

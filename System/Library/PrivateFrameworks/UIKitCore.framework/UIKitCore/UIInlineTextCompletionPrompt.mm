@@ -153,15 +153,15 @@
     }
 
     v49 = width;
-    v50 = [v48 isEqualToString:@"com.apple.mobilemail"];
+    isEqualToString = objc_msgSend_isEqualToString_(v48);
     v51 = 20.0;
-    if ((v50 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
-      v52 = [v48 isEqualToString:@"com.apple.MobileSMS"];
+      v52 = objc_msgSend_isEqualToString_(v48);
       v51 = 6.0;
       if ((v52 & 1) == 0)
       {
-        if ([v48 isEqualToString:@"com.apple.mobilenotes"])
+        if (objc_msgSend_isEqualToString_(v48))
         {
           v51 = 54.0;
         }

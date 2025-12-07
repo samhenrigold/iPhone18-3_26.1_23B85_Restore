@@ -62,7 +62,7 @@
 {
   if (self->_extension && self->_sessionID)
   {
-    v3 = _FLLogSystem();
+    v3 = _FLLogSystem(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -87,27 +87,28 @@
 
 - (BOOL)_loadExtension:(id *)extension
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v25 = 0;
-  v5 = [(FLHeadlessExtensionLoader *)self _setupSessionIfNeeded:&v25];
-  v6 = v25;
+  v27 = *MEMORY[0x277D85DE8];
+  v24 = 0;
+  v5 = [(FLHeadlessExtensionLoader *)self _setupSessionIfNeeded:&v24];
+  v6 = v24;
+  v7 = v6;
   if (v5)
   {
     extension = [(FLHeadlessExtensionLoader *)self extension];
-    v8 = [(FLHeadlessExtensionLoader *)self _hostContextForExtension:extension];
-    v9 = [v8 remoteContextWithErrorHandler:&__block_literal_global_1];
+    v9 = [(FLHeadlessExtensionLoader *)self _hostContextForExtension:extension];
+    v10 = [v9 remoteContextWithErrorHandler:&__block_literal_global_1];
     extensionContext = self->_extensionContext;
-    self->_extensionContext = v9;
+    self->_extensionContext = v10;
   }
 
   if (extension)
   {
-    v11 = v6;
-    *extension = v6;
+    v6 = v7;
+    *extension = v7;
   }
 
   v12 = self->_extensionContext;
-  v13 = _FLLogSystem();
+  v13 = _FLLogSystem(v6);
   v14 = v13;
   if (v12)
   {
@@ -115,25 +116,24 @@
     {
       v15 = self->_extensionContext;
       *buf = 138412290;
-      v27 = v15;
+      v26 = v15;
       _os_log_impl(&dword_22E696000, v14, OS_LOG_TYPE_DEFAULT, "Extension context %@ loaded successfully", buf, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    [(FLHeadlessExtensionLoader *)v6 _loadExtension:v14, v16, v17, v18, v19, v20, v21];
+    [(FLHeadlessExtensionLoader *)v7 _loadExtension:v14, v16, v17, v18, v19, v20, v21];
   }
 
   v22 = self->_extensionContext != 0;
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 void __44__FLHeadlessExtensionLoader__loadExtension___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _FLLogSystem();
+  v3 = _FLLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __44__FLHeadlessExtensionLoader__loadExtension___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -200,49 +200,50 @@ uint64_t __49__FLHeadlessExtensionLoader_sharedExtensionQueue__block_invoke()
 {
   v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v7 = identifierCopy;
   if (identifierCopy)
   {
-    v7 = _FLLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _FLLogSystem(identifierCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = identifierCopy;
-      _os_log_impl(&dword_22E696000, v7, OS_LOG_TYPE_DEFAULT, "Loading extension with identifier: %@", buf, 0xCu);
+      v25 = v7;
+      _os_log_impl(&dword_22E696000, v8, OS_LOG_TYPE_DEFAULT, "Loading extension with identifier: %@", buf, 0xCu);
     }
 
     v23 = 0;
-    v8 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:identifierCopy error:&v23];
-    v9 = v23;
+    v9 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:v7 error:&v23];
+    v10 = v23;
     objc_initWeak(&location, self);
     v20[0] = MEMORY[0x277D85DD0];
     v20[1] = 3221225472;
     v20[2] = __63__FLHeadlessExtensionLoader__loadExtensionForIdentifier_error___block_invoke;
     v20[3] = &unk_278852968;
     objc_copyWeak(&v21, &location);
-    [v8 setRequestInterruptionBlock:v20];
+    v11 = [v9 setRequestInterruptionBlock:v20];
     if (error)
     {
-      v10 = v9;
-      *error = v9;
+      v11 = v10;
+      *error = v10;
     }
 
-    if (v9)
+    if (v10)
     {
-      v11 = _FLLogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = _FLLogSystem(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [(FLHeadlessExtensionLoader *)v9 _loadExtensionForIdentifier:v11 error:v12, v13, v14, v15, v16, v17];
+        [(FLHeadlessExtensionLoader *)v10 _loadExtensionForIdentifier:v12 error:v13, v14, v15, v16, v17, v18];
       }
     }
 
     else
     {
-      v11 = _FLLogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = _FLLogSystem(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v25 = v8;
-        _os_log_impl(&dword_22E696000, v11, OS_LOG_TYPE_DEFAULT, "Loaded extension: %@", buf, 0xCu);
+        v25 = v9;
+        _os_log_impl(&dword_22E696000, v12, OS_LOG_TYPE_DEFAULT, "Loaded extension: %@", buf, 0xCu);
       }
     }
 
@@ -252,18 +253,16 @@ uint64_t __49__FLHeadlessExtensionLoader_sharedExtensionQueue__block_invoke()
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v9;
 }
 
 void __63__FLHeadlessExtensionLoader__loadExtensionForIdentifier_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FLLogSystem();
+  v4 = _FLLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __63__FLHeadlessExtensionLoader__loadExtensionForIdentifier_error___block_invoke_cold_1(v4);
@@ -302,8 +301,8 @@ void __63__FLHeadlessExtensionLoader__loadExtensionForIdentifier_error___block_i
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = _FLLogSystem();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = _FLLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -312,31 +311,30 @@ void __63__FLHeadlessExtensionLoader__loadExtensionForIdentifier_error___block_i
   }
 
   [(FLHeadlessExtensionLoader *)self _terminate];
-  v5.receiver = self;
-  v5.super_class = FLHeadlessExtensionLoader;
-  [(FLHeadlessExtensionLoader *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = FLHeadlessExtensionLoader;
+  [(FLHeadlessExtensionLoader *)&v4 dealloc];
 }
 
 - (void)_loadExtension:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_22E696000, a2, a3, "Failed to load extension context with error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_22E696000, a2, a3, "Failed to load extension context with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __44__FLHeadlessExtensionLoader__loadExtension___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_22E696000, a2, a3, "Remote context failed with error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_22E696000, a2, a3, "Remote context failed with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_loadExtensionForIdentifier:(uint64_t)a3 error:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_22E696000, a2, a3, "Failed to load extension with error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_22E696000, a2, a3, "Failed to load extension with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

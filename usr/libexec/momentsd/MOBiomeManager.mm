@@ -1,8 +1,10 @@
 @interface MOBiomeManager
 - (MOBiomeManager)initWithEventManager:(id)manager setDefaultValues:(BOOL)values;
+- (id)appEntryTypeToString:(int)string;
 - (id)generateBiomeEventsFromBundle:(id)bundle andOnboardingStatus:(id)status;
 - (id)generateBiomeEventsFromEvent:(id)event andOnboardingStatus:(id)status;
 - (id)generateBiomeEventsFromMomentsEventDataBundle:(id)bundle withBundleEngagement:(id)engagement;
+- (id)suggestionTypeToString:(int)string;
 - (void)_fetchAndSetDemographicsWithCompletionHandler:(id)handler;
 - (void)_updateDataStreamWithEngagement;
 - (void)donateEvents:(id)events andBundles:(id)bundles andOnboardingStatus:(id)status;
@@ -89,6 +91,100 @@ void __56__MOBiomeManager_initWithEventManager_setDefaultValues___block_invoke(i
   v1 = dispatch_queue_create("MOBiomeManager", v3);
   v2 = initWithEventManager_setDefaultValues__sharedQueue;
   initWithEventManager_setDefaultValues__sharedQueue = v1;
+}
+
+- (id)suggestionTypeToString:(int)string
+{
+  v3 = *&string;
+  v8[0] = &off_10036B3F8;
+  v8[1] = &off_10036B410;
+  v9[0] = @"Unknown";
+  v9[1] = @"Selected";
+  v8[2] = &off_10036B428;
+  v8[3] = &off_10036B440;
+  v9[2] = @"Shared";
+  v9[3] = @"Liked";
+  v8[4] = &off_10036B458;
+  v8[5] = &off_10036B470;
+  v9[4] = @"Disliked";
+  v9[5] = @"Dismissed";
+  v8[6] = &off_10036B488;
+  v8[7] = &off_10036B4A0;
+  v9[6] = @"Deleted";
+  v9[7] = @"Hidden";
+  v8[8] = &off_10036B4B8;
+  v8[9] = &off_10036B4D0;
+  v9[8] = @"QuickAddEntry";
+  v9[9] = @"Viewed";
+  v8[10] = &off_10036B4E8;
+  v8[11] = &off_10036B500;
+  v9[10] = @"ThumbsDown";
+  v9[11] = @"Favorite";
+  v8[12] = &off_10036B518;
+  v8[13] = &off_10036B530;
+  v9[12] = @"ThumbsUp";
+  v9[13] = @"EntryCreated";
+  v8[14] = &off_10036B548;
+  v8[15] = &off_10036B560;
+  v9[14] = @"EntryEdited";
+  v9[15] = @"EntryDeleted";
+  v8[16] = &off_10036B578;
+  v8[17] = &off_10036B590;
+  v9[16] = @"EntryCancelled";
+  v9[17] = @"Annotated";
+  v8[18] = &off_10036B5A8;
+  v8[19] = &off_10036B5C0;
+  v9[18] = @"Positive";
+  v9[19] = @"Negative";
+  v8[20] = &off_10036B5D8;
+  v8[21] = &off_10036B5F0;
+  v9[20] = @"Neutral";
+  v9[21] = @"Rejected";
+  v8[22] = &off_10036B608;
+  v8[23] = &off_10036B620;
+  v9[22] = @"Accepted";
+  v9[23] = @"Posted";
+  v8[24] = &off_10036B638;
+  v8[25] = &off_10036B650;
+  v9[24] = @"Filtered";
+  v9[25] = @"EntryCreatedWithUpdates";
+  v8[26] = &off_10036B668;
+  v8[27] = &off_10036B680;
+  v9[26] = @"NotificationQueued";
+  v9[27] = @"NotificationDequeued";
+  v8[28] = &off_10036B698;
+  v8[29] = &off_10036B6B0;
+  v9[28] = @"NotificationTapped";
+  v9[29] = @"NotificationDismissed";
+  v8[30] = &off_10036B6C8;
+  v8[31] = &off_10036B6E0;
+  v9[30] = @"NotificationPosted";
+  v9[31] = @"NotificationOverride";
+  v4 = [NSDictionary dictionaryWithObjects:v9 forKeys:v8 count:32];
+  v5 = [NSNumber numberWithInt:v3];
+  v6 = [v4 objectForKeyedSubscript:v5];
+
+  return v6;
+}
+
+- (id)appEntryTypeToString:(int)string
+{
+  v3 = *&string;
+  v8[0] = &off_10036B3F8;
+  v8[1] = &off_10036B410;
+  v9[0] = @"Unknown";
+  v9[1] = @"EntryCreated";
+  v8[2] = &off_10036B428;
+  v8[3] = &off_10036B440;
+  v9[2] = @"EntryEdited";
+  v9[3] = @"EntryDeleted";
+  v8[4] = &off_10036B458;
+  v9[4] = @"EntryCancelled";
+  v4 = [NSDictionary dictionaryWithObjects:v9 forKeys:v8 count:5];
+  v5 = [NSNumber numberWithInt:v3];
+  v6 = [v4 objectForKeyedSubscript:v5];
+
+  return v6;
 }
 
 - (id)generateBiomeEventsFromEvent:(id)event andOnboardingStatus:(id)status
@@ -963,17 +1059,7 @@ LABEL_16:
 uint64_t __49__MOBiomeManager__updateDataStreamWithEngagement__block_invoke_668(uint64_t a1, void *a2)
 {
   v3 = [a2 eventBody];
-  if (![v3 isBundle])
-  {
-    goto LABEL_4;
-  }
-
-  v4 = [*(a1 + 32) allKeys];
-  v5 = [v3 bundle];
-  v6 = [v5 bundleIdentifier];
-  v7 = [v4 containsObject:v6];
-
-  if (v7)
+  if ([v3 isBundle] && (objc_msgSend(*(a1 + 32), "allKeys"), v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "bundle"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "bundleIdentifier"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v4, "containsObject:", v6), v6, v5, v4, v7))
   {
     ++*(*(*(a1 + 40) + 8) + 24);
     v8 = 1;
@@ -981,7 +1067,6 @@ uint64_t __49__MOBiomeManager__updateDataStreamWithEngagement__block_invoke_668(
 
   else
   {
-LABEL_4:
     v8 = 0;
   }
 
@@ -1062,13 +1147,12 @@ void __69__MOBiomeManager_fetchMomentsEngagementForBundles_CompletionHandler___b
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = [*(a1 + 32) count];
-      v8 = 134217984;
-      v9 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Successfully fetched %ld engagement from MomentsEngagement.", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Successfully fetched %ld engagement from MomentsEngagement.", &v7, 0xCu);
     }
   }
 
-  v7 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -1599,14 +1683,14 @@ void __69__MOBiomeManager_fetchMomentsEngagementForBundles_CompletionHandler___b
 {
   v1 = [a1 error];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "returning no engagement due to biome query error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "returning no engagement due to biome query error: %@", v4, v5, v6, v7);
 }
 
 void __82__MOBiomeManager_fetchMomentsEventDataBetweenStartDate_EndDate_CompletionHandler___block_invoke_2_cold_1(void *a1)
 {
   v1 = [a1 error];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "completionHandler not called due to biome query error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "completionHandler not called due to biome query error: %@", v4, v5, v6, v7);
 }
 
 - (void)_fetchAndSetDemographicsWithCompletionHandler:(os_log_t)log .cold.1(os_log_t log)
@@ -1616,6 +1700,20 @@ void __82__MOBiomeManager_fetchMomentsEventDataBetweenStartDate_EndDate_Completi
   v3 = 1024;
   v4 = 715;
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: completion (in %s:%d)", &v1, 0x12u);
+}
+
+void __64__MOBiomeManager__fetchAndSetDemographicsWithCompletionHandler___block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, a2, a3, "fetch error occurred during fetching gender from health kit, %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __64__MOBiomeManager__fetchAndSetDemographicsWithCompletionHandler___block_invoke_cold_5(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, a2, a3, "fetch error occurred during fetching age from health kit, %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

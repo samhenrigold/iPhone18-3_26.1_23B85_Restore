@@ -103,23 +103,24 @@
       [(NSMutableData *)self->_dataBufferNDEAPI appendData:v7];
     }
 
-    for (; [(NSMutableData *)self->_dataBufferNDEAPI length]- self->_dataBufferPositionNDEAPI >= self->_hearstNumberOfBytesPerChunk; self->_dataBufferPositionNDEAPI += self->_hearstNumberOfBytesPerChunk)
+    for (i = [(NSMutableData *)self->_dataBufferNDEAPI length]; i - self->_dataBufferPositionNDEAPI >= self->_hearstNumberOfBytesPerChunk; i = [(NSMutableData *)self->_dataBufferNDEAPI length])
     {
-      __chkstk_darwin();
-      v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-      if (v10 >= 0x200)
+      __chkstk_darwin(i);
+      v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+      if (v11 >= 0x200)
       {
-        v12 = 512;
+        v13 = 512;
       }
 
       else
       {
-        v12 = v10;
+        v13 = v11;
       }
 
-      bzero(&v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v12);
-      [(NSMutableData *)self->_dataBufferNDEAPI getBytes:v11 range:self->_dataBufferPositionNDEAPI, self->_hearstNumberOfBytesPerChunk];
-      v13 = [(CSKeywordAnalyzerNDEAPI *)self->_keywordAnalyzerNDEAPI processAudioBytes:v11 withNumberOfSamples:self->_hearstNumberOfSamplesPerChunk];
+      bzero(&v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v13);
+      [(NSMutableData *)self->_dataBufferNDEAPI getBytes:v12 range:self->_dataBufferPositionNDEAPI, self->_hearstNumberOfBytesPerChunk];
+      v14 = [(CSKeywordAnalyzerNDEAPI *)self->_keywordAnalyzerNDEAPI processAudioBytes:v12 withNumberOfSamples:self->_hearstNumberOfSamplesPerChunk];
+      self->_dataBufferPositionNDEAPI += self->_hearstNumberOfBytesPerChunk;
     }
   }
 

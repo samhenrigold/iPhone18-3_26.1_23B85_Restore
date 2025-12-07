@@ -317,7 +317,7 @@ void __64__CDPDDeviceSecretValidator_validateRecoveryKey_withCompletion___block_
 
 void __72__CDPDDeviceSecretValidator_validateSecret_devices_type_withCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
   if (a3)
@@ -327,9 +327,9 @@ void __72__CDPDDeviceSecretValidator_validateSecret_devices_type_withCompletion_
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(*(a1 + 32) + 64), "remainingAttempts")}];
-      v19 = 138412290;
-      v20 = v8;
-      _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Remaining attempts: %@", &v19, 0xCu);
+      v17 = 138412290;
+      v18 = v8;
+      _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Remaining attempts: %@", &v17, 0xCu);
     }
 
     if (![*(*(a1 + 32) + 64) remainingAttempts])
@@ -344,9 +344,9 @@ void __72__CDPDDeviceSecretValidator_validateSecret_devices_type_withCompletion_
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v11 = *(a1 + 48);
-        v19 = 138412290;
-        v20 = v11;
-        _os_log_impl(&dword_24510B000, v10, OS_LOG_TYPE_DEFAULT, "Depleted remaining attempts for multiple-iCSC entry (%@)", &v19, 0xCu);
+        v17 = 138412290;
+        v18 = v11;
+        _os_log_impl(&dword_24510B000, v10, OS_LOG_TYPE_DEFAULT, "Depleted remaining attempts for multiple-iCSC entry (%@)", &v17, 0xCu);
       }
 
       v9 = *(a1 + 32);
@@ -363,7 +363,6 @@ void __72__CDPDDeviceSecretValidator_validateSecret_devices_type_withCompletion_
         [*(a1 + 32) validateSecret:*(a1 + 40) devices:*(a1 + 56) type:*(a1 + 72) withCompletion:*(a1 + 64)];
 LABEL_18:
 
-        v18 = *MEMORY[0x277D85DE8];
         return;
       }
     }
@@ -379,7 +378,6 @@ LABEL_18:
   v14 = v4[8];
   v16 = *(a1 + 64);
   v15 = *(a1 + 72);
-  v17 = *MEMORY[0x277D85DE8];
 
   [v4 _handleMultiCSCRecoveryResults:a2 clique:0 type:v15 secret:v5 device:v14 completion:v16];
 }
@@ -675,7 +673,7 @@ LABEL_9:
 
 - (id)_handleMultiCSCRecoveryFailureForDevice:(id)device recoveryError:(id)error secret:(id)secret
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   errorCopy = error;
   secretCopy = secret;
@@ -691,9 +689,9 @@ LABEL_9:
     v15 = v11;
     if ((v14 & 1) == 0)
     {
-      v19 = *MEMORY[0x277CCA7E8];
-      v20[0] = v11;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v18 = *MEMORY[0x277CCA7E8];
+      v19[0] = v11;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
       v15 = _CDPStateError();
     }
   }
@@ -705,8 +703,6 @@ LABEL_9:
   }
 
   [(NSMutableDictionary *)self->_recoveryErrors setObject:v15 forKey:deviceCopy];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -969,18 +965,9 @@ LABEL_24:
 
 void __75__CDPDDeviceSecretValidator__attemptToRecoverDevice_withSecret_completion___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_24510B000, v0, OS_LOG_TYPE_DEBUG, "Recovery delegate rejected recovery with error. %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)validateRecoveryKey:withCompletion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24510B000, v0, OS_LOG_TYPE_DEBUG, "Recovery delegate rejected recovery with error. %@", v1, 0xCu);
 }
 
 - (void)_handleRecoveryFailureForFinalDevice:completion:.cold.1()
@@ -992,11 +979,9 @@ void __75__CDPDDeviceSecretValidator__attemptToRecoverDevice_withSecret_completi
 
 void __77__CDPDDeviceSecretValidator__handleRecoveryFailureForFinalDevice_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

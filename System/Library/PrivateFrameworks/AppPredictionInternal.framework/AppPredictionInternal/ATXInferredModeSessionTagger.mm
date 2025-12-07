@@ -9,7 +9,7 @@
 {
   v32 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
-  v5 = __atxlog_handle_modes();
+  v5 = __atxlog_handle_modes(activityCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -23,8 +23,7 @@
   v10 = objc_opt_new();
   v11 = [(ATXModeScoringSessionRange *)v9 initWithStartDate:v6 endDate:v7 modeEntityStore:v10];
 
-  [(ATXModeScoringSessionRange *)v11 populateInitialSessionsFromScreenTransitions];
-  v12 = __atxlog_handle_modes();
+  v12 = __atxlog_handle_modes([(ATXModeScoringSessionRange *)v11 populateInitialSessionsFromScreenTransitions]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -33,8 +32,7 @@
 
   if (([activityCopy didDefer] & 1) == 0)
   {
-    [(ATXModeScoringSessionRange *)v11 attachAppLaunches];
-    v13 = __atxlog_handle_modes();
+    v13 = __atxlog_handle_modes([(ATXModeScoringSessionRange *)v11 attachAppLaunches]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -43,8 +41,7 @@
 
     if (([activityCopy didDefer] & 1) == 0)
     {
-      [(ATXModeScoringSessionRange *)v11 coalesceSessions];
-      v14 = __atxlog_handle_modes();
+      v14 = __atxlog_handle_modes([(ATXModeScoringSessionRange *)v11 coalesceSessions]);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -53,8 +50,7 @@
 
       if (([activityCopy didDefer] & 1) == 0)
       {
-        [(ATXModeScoringSessionRange *)v11 filterSessions];
-        v15 = __atxlog_handle_modes();
+        v15 = __atxlog_handle_modes([(ATXModeScoringSessionRange *)v11 filterSessions]);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -97,11 +93,11 @@
             while (v18);
           }
 
-          v23 = __atxlog_handle_modes();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v24 = __atxlog_handle_modes(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEFAULT, "Finished app-based mode inference", buf, 2u);
+            _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "Finished app-based mode inference", buf, 2u);
           }
 
           v6 = v25;
@@ -109,8 +105,6 @@
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)biomeSessionFromScoredSession:(id)session

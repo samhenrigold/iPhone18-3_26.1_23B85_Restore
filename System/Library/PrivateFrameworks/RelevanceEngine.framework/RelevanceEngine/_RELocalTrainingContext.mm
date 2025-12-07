@@ -12,9 +12,9 @@
 - (_RELocalTrainingContext)initWithConnection:(id)connection
 {
   connectionCopy = connection;
-  v19.receiver = self;
-  v19.super_class = _RELocalTrainingContext;
-  v6 = [(RETrainingContext *)&v19 init];
+  v21.receiver = self;
+  v21.super_class = _RELocalTrainingContext;
+  v6 = [(RETrainingContext *)&v21 init];
   if (v6)
   {
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.RelevanceEngine.LocalTrainingContext.%p", v6];
@@ -25,24 +25,24 @@
     [(_RELocalTrainingContext *)v6 _configureForRelevanceEngine:0];
     objc_storeStrong(&v6->_connection, connection);
     connection = v6->_connection;
-    v11 = RERemoteTrainingClientInterface();
-    [(NSXPCConnection *)connection setRemoteObjectInterface:v11];
+    v12 = RERemoteTrainingClientInterface(v11);
+    [(NSXPCConnection *)connection setRemoteObjectInterface:v12];
 
-    v12 = v6->_connection;
-    v13 = RERemoteTrainingServerInterface();
-    [(NSXPCConnection *)v12 setExportedInterface:v13];
+    v13 = v6->_connection;
+    v15 = RERemoteTrainingServerInterface(v14);
+    [(NSXPCConnection *)v13 setExportedInterface:v15];
 
     [(NSXPCConnection *)v6->_connection setExportedObject:v6];
     objc_initWeak(&location, v6);
-    v14 = v6->_connection;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __46___RELocalTrainingContext_initWithConnection___block_invoke;
-    v16[3] = &unk_2785F9A90;
-    objc_copyWeak(&v17, &location);
-    [(NSXPCConnection *)v14 setInvalidationHandler:v16];
+    v16 = v6->_connection;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __46___RELocalTrainingContext_initWithConnection___block_invoke;
+    v18[3] = &unk_2785F9A90;
+    objc_copyWeak(&v19, &location);
+    [(NSXPCConnection *)v16 setInvalidationHandler:v18];
     [(NSXPCConnection *)v6->_connection resume];
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&location);
   }
 

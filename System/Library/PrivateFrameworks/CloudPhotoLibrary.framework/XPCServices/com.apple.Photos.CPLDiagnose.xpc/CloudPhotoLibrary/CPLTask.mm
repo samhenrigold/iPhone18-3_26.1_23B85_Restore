@@ -301,7 +301,7 @@ LABEL_22:
   {
     sub_10001DBF0(buf);
 LABEL_65:
-    v73 = *buf;
+    v81 = *buf;
     goto LABEL_66;
   }
 
@@ -312,27 +312,27 @@ LABEL_65:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v22 = sub_100004E20();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v23 = sub_100004E20(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
-        v23 = *v10;
+        v24 = *v10;
         redirectStdoutToFileAtPath2 = [(CPLTask *)self redirectStdoutToFileAtPath];
         *buf = 136315394;
-        *&buf[4] = v23;
-        v90 = 2112;
-        v91[0] = redirectStdoutToFileAtPath2;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "Setting up stdout for %s to %@", buf, 0x16u);
+        *&buf[4] = v24;
+        v98 = 2112;
+        v99[0] = redirectStdoutToFileAtPath2;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "Setting up stdout for %s to %@", buf, 0x16u);
       }
     }
 
     redirectStdoutToFileAtPath3 = [(CPLTask *)self redirectStdoutToFileAtPath];
-    v26 = posix_spawn_file_actions_addopen(v19, 1, [redirectStdoutToFileAtPath3 fileSystemRepresentation], 513, 0x1B6u);
+    v27 = posix_spawn_file_actions_addopen(v19, 1, [redirectStdoutToFileAtPath3 fileSystemRepresentation], 513, 0x1B6u);
 
-    if (v26)
+    if (v27)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        sub_10001DD48();
+        sub_10001DD48(v28);
       }
 
       goto LABEL_63;
@@ -340,33 +340,33 @@ LABEL_65:
   }
 
   redirectStderrToFileAtPath = [(CPLTask *)self redirectStderrToFileAtPath];
-  v28 = [redirectStderrToFileAtPath length];
+  v30 = [redirectStderrToFileAtPath length];
 
-  if (v28)
+  if (v30)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v29 = sub_100004E20();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v32 = sub_100004E20(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
-        v30 = *v10;
+        v33 = *v10;
         redirectStderrToFileAtPath2 = [(CPLTask *)self redirectStderrToFileAtPath];
         *buf = 136315394;
-        *&buf[4] = v30;
-        v90 = 2112;
-        v91[0] = redirectStderrToFileAtPath2;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "Setting up stderr for %s to %@", buf, 0x16u);
+        *&buf[4] = v33;
+        v98 = 2112;
+        v99[0] = redirectStderrToFileAtPath2;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, "Setting up stderr for %s to %@", buf, 0x16u);
       }
     }
 
     redirectStderrToFileAtPath3 = [(CPLTask *)self redirectStderrToFileAtPath];
-    v33 = posix_spawn_file_actions_addopen(v19, 2, [redirectStderrToFileAtPath3 fileSystemRepresentation], 513, 0x1B6u);
+    v36 = posix_spawn_file_actions_addopen(v19, 2, [redirectStderrToFileAtPath3 fileSystemRepresentation], 513, 0x1B6u);
 
-    if (v33)
+    if (v36)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        sub_10001DDD8();
+        sub_10001DDD8(v37);
       }
 
       goto LABEL_63;
@@ -375,42 +375,42 @@ LABEL_65:
 
   stdinPipe = [(CPLTask *)self stdinPipe];
 
-  v84 = v19;
+  v92 = v19;
   if (stdinPipe)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v35 = sub_100004E20();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+      v40 = sub_100004E20(v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
       {
-        v36 = endHandlerCopy;
-        v37 = *v10;
+        v41 = endHandlerCopy;
+        v42 = *v10;
         stdinPipe2 = [(CPLTask *)self stdinPipe];
         fileHandleForReading = [stdinPipe2 fileHandleForReading];
         fileDescriptor = [fileHandleForReading fileDescriptor];
         [(CPLTask *)self stdinPipe];
-        v41 = v83 = handlerCopy;
-        fileHandleForWriting = [v41 fileHandleForWriting];
+        v46 = v91 = handlerCopy;
+        fileHandleForWriting = [v46 fileHandleForWriting];
         fileDescriptor2 = [fileHandleForWriting fileDescriptor];
         *buf = 136315650;
-        *&buf[4] = v37;
-        endHandlerCopy = v36;
-        v90 = 1024;
-        LODWORD(v91[0]) = fileDescriptor;
-        WORD2(v91[0]) = 1024;
-        *(v91 + 6) = fileDescriptor2;
-        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEBUG, "Setting up stdin for %s to %d (and closing %d)", buf, 0x18u);
+        *&buf[4] = v42;
+        endHandlerCopy = v41;
+        v98 = 1024;
+        LODWORD(v99[0]) = fileDescriptor;
+        WORD2(v99[0]) = 1024;
+        *(v99 + 6) = fileDescriptor2;
+        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEBUG, "Setting up stdin for %s to %d (and closing %d)", buf, 0x18u);
 
-        handlerCopy = v83;
-        v19 = v84;
+        handlerCopy = v91;
+        v19 = v92;
       }
     }
 
     stdinPipe3 = [(CPLTask *)self stdinPipe];
     fileHandleForReading2 = [stdinPipe3 fileHandleForReading];
-    v46 = posix_spawn_file_actions_adddup2(v19, [fileHandleForReading2 fileDescriptor], 0);
+    v51 = posix_spawn_file_actions_adddup2(v19, [fileHandleForReading2 fileDescriptor], 0);
 
-    if (v46)
+    if (v51)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
@@ -422,59 +422,62 @@ LABEL_65:
 
     stdinPipe4 = [(CPLTask *)self stdinPipe];
     fileHandleForWriting2 = [stdinPipe4 fileHandleForWriting];
-    v49 = posix_spawn_file_actions_addclose(v19, [fileHandleForWriting2 fileDescriptor]);
+    v55 = posix_spawn_file_actions_addclose(v19, [fileHandleForWriting2 fileDescriptor]);
 
-    if (v49)
+    if (v55)
     {
       goto LABEL_63;
     }
   }
 
-  if ([(CPLTask *)self redirectStdoutToFileDescriptor]!= -1)
+  redirectStdoutToFileDescriptor = [(CPLTask *)self redirectStdoutToFileDescriptor];
+  if (redirectStdoutToFileDescriptor != -1)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v50 = sub_100004E20();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+      v57 = sub_100004E20(redirectStdoutToFileDescriptor);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
       {
-        v51 = *v10;
-        redirectStdoutToFileDescriptor = [(CPLTask *)self redirectStdoutToFileDescriptor];
+        v58 = *v10;
+        redirectStdoutToFileDescriptor2 = [(CPLTask *)self redirectStdoutToFileDescriptor];
         *buf = 136315394;
-        *&buf[4] = v51;
-        v90 = 1024;
-        LODWORD(v91[0]) = redirectStdoutToFileDescriptor;
-        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEBUG, "Setting up stdout for %s to %d", buf, 0x12u);
+        *&buf[4] = v58;
+        v98 = 1024;
+        LODWORD(v99[0]) = redirectStdoutToFileDescriptor2;
+        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEBUG, "Setting up stdout for %s to %d", buf, 0x12u);
       }
     }
 
-    if (posix_spawn_file_actions_adddup2(v19, [(CPLTask *)self redirectStdoutToFileDescriptor], 1))
+    v52 = posix_spawn_file_actions_adddup2(v19, [(CPLTask *)self redirectStdoutToFileDescriptor], 1);
+    if (v52)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
 LABEL_62:
-        sub_10001DE68();
+        sub_10001DE68(v52);
       }
 
 LABEL_63:
-      v73 = 1;
+      v81 = 1;
       goto LABEL_66;
     }
   }
 
-  if ([(CPLTask *)self redirectStderrToFileDescriptor]!= -1)
+  redirectStderrToFileDescriptor = [(CPLTask *)self redirectStderrToFileDescriptor];
+  if (redirectStderrToFileDescriptor != -1)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v53 = sub_100004E20();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+      v61 = sub_100004E20(redirectStderrToFileDescriptor);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
       {
-        v54 = *v10;
-        redirectStderrToFileDescriptor = [(CPLTask *)self redirectStderrToFileDescriptor];
+        v62 = *v10;
+        redirectStderrToFileDescriptor2 = [(CPLTask *)self redirectStderrToFileDescriptor];
         *buf = 136315394;
-        *&buf[4] = v54;
-        v90 = 1024;
-        LODWORD(v91[0]) = redirectStderrToFileDescriptor;
-        _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEBUG, "Setting up stderr for %s to %d", buf, 0x12u);
+        *&buf[4] = v62;
+        v98 = 1024;
+        LODWORD(v99[0]) = redirectStderrToFileDescriptor2;
+        _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEBUG, "Setting up stderr for %s to %d", buf, 0x12u);
       }
     }
 
@@ -487,8 +490,8 @@ LABEL_63:
 
   *buf = 0;
   argv7 = [(CPLTask *)self argv];
-  v57 = [argv7 objectAtIndex:0];
-  fileSystemRepresentation = [v57 fileSystemRepresentation];
+  v65 = [argv7 objectAtIndex:0];
+  fileSystemRepresentation = [v65 fileSystemRepresentation];
   if (self->_environ)
   {
     environ = self->_environ;
@@ -499,47 +502,47 @@ LABEL_63:
     environ = ::environ;
   }
 
-  v60 = posix_spawnp(buf, fileSystemRepresentation, v19, 0, v10, environ);
+  v68 = posix_spawnp(buf, fileSystemRepresentation, v19, 0, v10, environ);
 
-  if (v60)
+  if (v68)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      sub_10001DB60(v60);
+      sub_10001DB60(v68);
     }
 
     self->_waitStatus = 0;
     goto LABEL_63;
   }
 
-  v61 = endHandlerCopy;
-  v62 = handlerCopy;
+  v69 = endHandlerCopy;
+  v70 = handlerCopy;
   handlerCopy[2](handlerCopy, *buf);
-  v63 = dispatch_queue_create("com.apple.cplctl.task", 0);
+  v71 = dispatch_queue_create("com.apple.cplctl.task", 0);
   waitQueue = self->_waitQueue;
-  self->_waitQueue = v63;
+  self->_waitQueue = v71;
 
-  v65 = [[NSConditionLock alloc] initWithCondition:0];
-  v66 = self->_waitQueue;
+  v73 = [[NSConditionLock alloc] initWithCondition:0];
+  v74 = self->_waitQueue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100004E64;
   block[3] = &unk_100034C20;
-  v88 = *buf;
+  v96 = *buf;
   block[4] = self;
-  v67 = v65;
-  v87 = v67;
-  dispatch_async(v66, block);
+  v75 = v73;
+  v95 = v75;
+  dispatch_async(v74, block);
   [(CPLTask *)self _updateWaitDeadline];
   _waitDeadline = [(CPLTask *)self _waitDeadline];
   do
   {
-    v69 = [v67 lockWhenCondition:1 beforeDate:_waitDeadline];
-    if (v69)
+    v77 = [v75 lockWhenCondition:1 beforeDate:_waitDeadline];
+    if (v77)
     {
-      v73 = 0;
+      v81 = 0;
       _waitDeadline2 = _waitDeadline;
-      handlerCopy = v62;
+      handlerCopy = v70;
       goto LABEL_49;
     }
 
@@ -549,39 +552,39 @@ LABEL_63:
     _waitDeadline = _waitDeadline2;
   }
 
-  while (v71 > 0.0);
-  v85[0] = _NSConcreteStackBlock;
-  v85[1] = 3221225472;
-  v85[2] = sub_10001D914;
-  v85[3] = &unk_100034C40;
-  v85[4] = v10;
-  v85[5] = v84;
-  v72 = objc_retainBlock(v85);
+  while (v79 > 0.0);
+  v93[0] = _NSConcreteStackBlock;
+  v93[1] = 3221225472;
+  v93[2] = sub_10001D914;
+  v93[3] = &unk_100034C40;
+  v93[4] = v10;
+  v93[5] = v92;
+  v80 = objc_retainBlock(v93);
   if (self->_waitInBackgroundIfTaskTimesOut)
   {
     [CPLTask _enqueueTaskCompletionForLaterWait:self];
-    dispatch_async(self->_waitQueue, v72);
+    dispatch_async(self->_waitQueue, v80);
   }
 
   else
   {
     kill(*buf, 15);
-    (v72[2])(v72);
+    (v80[2])(v80);
   }
 
-  handlerCopy = v62;
-  [v67 lock];
+  handlerCopy = v70;
+  [v75 lock];
 
-  v73 = 2;
+  v81 = 2;
 LABEL_49:
-  endHandlerCopy = v61;
-  [v67 unlock];
-  v61[2](v61, v73);
+  endHandlerCopy = v69;
+  [v75 unlock];
+  v69[2](v69, v81);
 
-  if (v69)
+  if (v77)
   {
-    v73 = 0;
-    v19 = v84;
+    v81 = 0;
+    v19 = v92;
 LABEL_66:
     sub_10001DEF8(v10, v19);
   }
@@ -589,9 +592,9 @@ LABEL_66:
   if ([(CPLTask *)self cleanupEmptyFiles])
   {
     redirectStderrToFileAtPath4 = [(CPLTask *)self redirectStderrToFileAtPath];
-    v75 = [redirectStderrToFileAtPath4 length];
+    v83 = [redirectStderrToFileAtPath4 length];
 
-    if (v75)
+    if (v83)
     {
       redirectStderrToFileAtPath5 = [(CPLTask *)self redirectStderrToFileAtPath];
       fileSystemRepresentation2 = [redirectStderrToFileAtPath5 fileSystemRepresentation];
@@ -599,9 +602,9 @@ LABEL_66:
     }
 
     redirectStdoutToFileAtPath4 = [(CPLTask *)self redirectStdoutToFileAtPath];
-    v79 = [redirectStdoutToFileAtPath4 length];
+    v87 = [redirectStdoutToFileAtPath4 length];
 
-    if (v79)
+    if (v87)
     {
       redirectStdoutToFileAtPath5 = [(CPLTask *)self redirectStdoutToFileAtPath];
       fileSystemRepresentation3 = [redirectStdoutToFileAtPath5 fileSystemRepresentation];
@@ -609,7 +612,7 @@ LABEL_66:
     }
   }
 
-  return v73;
+  return v81;
 }
 
 - (int64_t)exec

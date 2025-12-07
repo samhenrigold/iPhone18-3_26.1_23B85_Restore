@@ -3,7 +3,7 @@
 
 @implementation UIEventHIDButtonMaskFromPointerEventAndChildren
 
-uint64_t ___UIEventHIDButtonMaskFromPointerEventAndChildren_block_invoke(uint64_t a1)
+uint64_t ___UIEventHIDButtonMaskFromPointerEventAndChildren_block_invoke(uint64_t a1, uint64_t a2)
 {
   result = IOHIDEventGetType();
   if (result == 2)
@@ -11,13 +11,13 @@ uint64_t ___UIEventHIDButtonMaskFromPointerEventAndChildren_block_invoke(uint64_
     result = IOHIDEventGetIntegerValue();
     if (result >= 1)
     {
-      v3 = 1 << (result - 1);
+      v4 = 1 << (result - 1);
       if (result >= 0x3F)
       {
-        v3 = 0;
+        v4 = 0;
       }
 
-      *(*(*(a1 + 32) + 8) + 24) |= v3;
+      *(*(*(a1 + 32) + 8) + 24) |= v4;
     }
   }
 

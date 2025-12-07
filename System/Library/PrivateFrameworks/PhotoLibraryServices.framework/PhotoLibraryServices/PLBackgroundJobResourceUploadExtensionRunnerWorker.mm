@@ -697,10 +697,10 @@ void __84__PLBackgroundJobResourceUploadExtensionRunnerWorker__workItemIdentifie
   v19 = *MEMORY[0x1E69E9840];
   configurationsCopy = configurations;
   libraryCopy = library;
-  if ([configurationsCopy count])
+  if (objc_msgSend_count(configurationsCopy))
   {
     v8 = [(PLBackgroundJobResourceUploadExtensionRunnerWorker *)self _workItemIdentifiersInLibrary:libraryCopy];
-    if ([v8 count])
+    if (objc_msgSend_count(v8))
     {
       [(PLBackgroundJobResourceUploadExtensionRunnerWorker *)self _updateConfigurationStateWithWorkItemIdentifiers:v8 configurations:configurationsCopy inLibrary:libraryCopy];
       v16 = 0u;
@@ -1304,7 +1304,7 @@ void __93__PLBackgroundJobResourceUploadExtensionRunnerWorker_performWorkOnItem_
   [(PLBackgroundJobResourceUploadExtensionRunnerWorker *)self _switchEventMonitorConfigurationWithConfigurations:v11 inLibrary:libraryCopy];
   v23 = -1.0;
   v12 = [(PLBackgroundJobResourceUploadExtensionRunnerWorker *)self _enabledJobConfigurationsForProcessingInLibrary:libraryCopy delay:&v23];
-  if ([v12 count])
+  if (objc_msgSend_count(v12))
   {
     v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v20[0] = MEMORY[0x1E69E9820];
@@ -1494,7 +1494,7 @@ void __105__PLBackgroundJobResourceUploadExtensionRunnerWorker_workItemsNeedingP
   return v7 & 1;
 }
 
-uint64_t __128__PLBackgroundJobResourceUploadExtensionRunnerWorker_isBackgroundAppRefreshEnabledWithBundleIdentifiers_libraryServicesManager___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__128__PLBackgroundJobResourceUploadExtensionRunnerWorker_isBackgroundAppRefreshEnabledWithBundleIdentifiers_libraryServicesManager___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) isBackgroundAppRefreshEnabledForBundleIdentifier:a2];
   if (result)
@@ -1636,7 +1636,7 @@ LABEL_10:
 
     libraryServicesManager = [bundleCopy libraryServicesManager];
     v7 = [self fetchConfigurationEnabledBundleIdentifiersForLibraryServicesManager:libraryServicesManager];
-    if ([v7 count])
+    if (objc_msgSend_count(v7))
     {
       if ([self isBackgroundAppRefreshEnabledWithBundleIdentifiers:v7 libraryServicesManager:libraryServicesManager])
       {

@@ -401,12 +401,12 @@ LABEL_29:
   toDateCopy = toDate;
   dCopy = d;
   iDCopy = iD;
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x3032000000;
-  v65 = sub_1000100D0;
-  v66 = sub_1000100E0;
-  v67 = +[NSMutableArray array];
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x3032000000;
+  v64 = sub_1000100D0;
+  v65 = sub_1000100E0;
+  v66 = +[NSMutableArray array];
   v34 = [(ICBaseIntentHandler *)self predicateForSearchFromDate:dateCopy toDate:toDateCopy dateSearchType:type];
   noteContext = [(ICBaseIntentHandler *)self noteContext];
   modernManagedObjectContext = [noteContext modernManagedObjectContext];
@@ -423,17 +423,17 @@ LABEL_29:
 LABEL_4:
     v26 = [(ICBaseIntentHandler *)self searchableItemsWithText:textCopy title:titleCopy fromDate:dateCopy toDate:toDateCopy dateSearchType:type];
     v27 = +[ICSearchIndexer sharedIndexer];
-    v68[0] = htmlManagedObjectContext;
-    v68[1] = modernManagedObjectContext;
-    v28 = [NSArray arrayWithObjects:v68 count:2];
+    v67[0] = htmlManagedObjectContext;
+    v67[1] = modernManagedObjectContext;
+    v28 = [NSArray arrayWithObjects:v67 count:2];
     v29 = [v27 objectsForSearchableItems:v26 inContexts:v28];
 
-    v56 = _NSConcreteStackBlock;
-    v57 = *(v22 + 41);
-    v58 = sub_100010908;
-    v59 = &unk_100020E28;
-    v60 = v29;
-    v61 = &v62;
+    v55 = _NSConcreteStackBlock;
+    v56 = *(v22 + 41);
+    v57 = sub_100010908;
+    v58 = &unk_100020E28;
+    v59 = v29;
+    v60 = &v61;
     performBlockOnMainThreadAndWait();
 
     goto LABEL_5;
@@ -449,45 +449,42 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v54[0] = 0;
-  v54[1] = v54;
-  v54[2] = 0x3032000000;
-  v54[3] = sub_1000100D0;
-  v54[4] = sub_1000100E0;
-  v55 = 0;
-  v48[0] = _NSConcreteStackBlock;
-  v48[1] = 3221225472;
-  v48[2] = sub_100010A90;
-  v48[3] = &unk_100020E50;
-  v49 = dCopy;
-  v50 = modernManagedObjectContext;
+  v53[0] = 0;
+  v53[1] = v53;
+  v53[2] = 0x3032000000;
+  v53[3] = sub_1000100D0;
+  v53[4] = sub_1000100E0;
+  v54 = 0;
+  v47[0] = _NSConcreteStackBlock;
+  v47[1] = 3221225472;
+  v47[2] = sub_100010A90;
+  v47[3] = &unk_100020E50;
+  v48 = dCopy;
+  v49 = modernManagedObjectContext;
   v32 = v34;
-  v51 = v32;
-  v52 = v54;
-  v53 = &v62;
-  [v50 performBlockAndWait:v48];
-  v43[0] = _NSConcreteStackBlock;
-  v43[1] = 3221225472;
-  v43[2] = sub_100010CC0;
-  v43[3] = &unk_100020E78;
-  v44 = v32;
-  v45 = htmlManagedObjectContext;
-  v46 = v54;
-  v47 = &v62;
-  [v45 performBlockAndWait:v43];
+  v50 = v32;
+  v51 = v53;
+  v52 = &v61;
+  [v49 performBlockAndWait:v47];
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = sub_100010CC0;
+  v42[3] = &unk_100020E78;
+  v43 = v32;
+  v44 = htmlManagedObjectContext;
+  v45 = v53;
+  v46 = &v61;
+  [v44 performBlockAndWait:v42];
 
-  v22 = "@<ICFolderObject>16@0:8" + 13;
-  _Block_object_dispose(v54, 8);
-
+  _Block_object_dispose(v53, 8);
 LABEL_5:
-  v39 = *(v22 + 41);
-  v40 = v34;
-  v41 = dCopy;
-  v42 = iDCopy;
+  v39 = v34;
+  v40 = dCopy;
+  v41 = iDCopy;
   performBlockOnMainThreadAndWait();
-  v30 = v63[5];
+  v30 = v62[5];
 
-  _Block_object_dispose(&v62, 8);
+  _Block_object_dispose(&v61, 8);
 
   return v30;
 }

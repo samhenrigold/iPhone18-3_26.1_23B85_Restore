@@ -18,10 +18,10 @@
 
 + (id)suggestionsService
 {
-  serviceForContacts = [(objc_class *)getSGSuggestionsServiceClass() serviceForContacts];
-  [serviceForContacts setSyncTimeout:0.2];
+  v2 = [getSGSuggestionsServiceClass(self a2)];
+  [v2 setSyncTimeout:0.2];
 
-  return serviceForContacts;
+  return v2;
 }
 
 + (id)idsIDQueryControllerWrapper

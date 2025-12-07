@@ -39,8 +39,8 @@
 void __23__SGBloomFilter_counts__block_invoke(uint64_t a1)
 {
   v2 = objc_alloc(MEMORY[0x277D42648]);
-  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(*(*(a1 + 32) + 8), "count")}];
-  v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(*(*(a1 + 32) + 16), "count")}];
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:objc_msgSend_count(*(*(a1 + 32) + 8))];
+  v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:objc_msgSend_count(*(*(a1 + 32) + 16))];
   v4 = [v2 initWithFirst:v7 second:v3];
   v5 = *(*(a1 + 40) + 8);
   v6 = *(v5 + 40);
@@ -49,27 +49,26 @@ void __23__SGBloomFilter_counts__block_invoke(uint64_t a1)
 
 - (BOOL)exists:(id)exists
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v8 = 0;
   v9 = 0;
-  v10 = 0;
-  SGMurmurhashString(exists, 12345, &v9);
-  v4 = v9;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
-  v12 = 0;
+  SGMurmurhashString(exists, 12345, &v8);
+  v4 = v8;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = 0;
   queue = self->_queue;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __24__SGBloomFilter_exists___block_invoke;
-  v8[3] = &unk_278954E28;
-  v8[4] = self;
-  v8[5] = &v9;
-  v8[6] = v4;
-  dispatch_sync(queue, v8);
-  LOBYTE(self) = *(v10 + 24);
-  _Block_object_dispose(&v9, 8);
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __24__SGBloomFilter_exists___block_invoke;
+  v7[3] = &unk_278954E28;
+  v7[4] = self;
+  v7[5] = &v8;
+  v7[6] = v4;
+  dispatch_sync(queue, v7);
+  LOBYTE(self) = *(v9 + 24);
+  _Block_object_dispose(&v8, 8);
   return self;
 }
 
@@ -105,15 +104,14 @@ uint64_t __24__SGBloomFilter_exists___block_invoke(void *a1)
 
 uint64_t __26__SGBloomFilter_addAsync___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _rotateIfNecessary];
   v2 = *(a1 + 40);
   v3 = *(*(a1 + 32) + 8);
-  v7[0] = 0;
-  v7[1] = 0;
-  SGMurmurhashString(v2, 12345, v7);
-  v4 = v7[0];
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = 0;
+  v6[1] = 0;
+  SGMurmurhashString(v2, 12345, v6);
+  v4 = v6[0];
 
   return [v3 add:v4];
 }
@@ -134,15 +132,14 @@ uint64_t __26__SGBloomFilter_addAsync___block_invoke(uint64_t a1)
 
 uint64_t __21__SGBloomFilter_add___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _rotateIfNecessary];
   v2 = *(a1 + 40);
   v3 = *(*(a1 + 32) + 8);
-  v7[0] = 0;
-  v7[1] = 0;
-  SGMurmurhashString(v2, 12345, v7);
-  v4 = v7[0];
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = 0;
+  v6[1] = 0;
+  SGMurmurhashString(v2, 12345, v6);
+  v4 = v6[0];
 
   return [v3 add:v4];
 }
@@ -160,119 +157,116 @@ uint64_t __21__SGBloomFilter_add___block_invoke(uint64_t a1)
 
 - (void)_rotate
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v36) = 0;
-    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_INFO, "Rotating bloom filters", &v36, 2u);
+    LOWORD(v33) = 0;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_INFO, "Rotating bloom filters", &v33, 2u);
   }
 
-  head = self->_head;
-  v5 = 0x278948000uLL;
+  v4 = 0x278948000uLL;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v7 = self->_head;
+  head = self->_head;
   if ((isKindOfClass & 1) == 0)
   {
-    objc_storeStrong(&self->_tail, v7);
-    v19 = self->_head;
+    objc_storeStrong(&self->_tail, head);
     objc_opt_class();
-    v20 = objc_opt_new();
-    v8 = self->_head;
-    self->_head = v20;
+    v18 = objc_opt_new();
+    v7 = self->_head;
+    self->_head = v18;
     goto LABEL_21;
   }
 
-  v8 = v7;
-  v9 = self->_tail;
-  path = [(SGBloomFilterChunk *)v8 path];
-  path2 = [(SGBloomFilterChunk *)v9 path];
-  v12 = [path hasSuffix:@".bf-head"];
-  if (v12)
+  v7 = head;
+  v8 = self->_tail;
+  path = [(SGBloomFilterChunk *)v7 path];
+  path2 = [(SGBloomFilterChunk *)v8 path];
+  v11 = [path hasSuffix:@".bf-head"];
+  if (v11)
   {
-    v13 = v9;
-    v14 = objc_autoreleasePoolPush();
-    v15 = [path substringToIndex:{objc_msgSend(path, "length") - 8}];
-    v16 = [v15 stringByAppendingString:@".bf2-head"];
-    v17 = path;
-    v18 = path2;
+    v12 = v8;
+    v13 = objc_autoreleasePoolPush();
+    v14 = [path substringToIndex:{objc_msgSend(path, "length") - 8}];
+    v15 = [v14 stringByAppendingString:@".bf2-head"];
+    v16 = path;
+    v17 = path2;
   }
 
   else
   {
     if (![path2 hasSuffix:@".bf-tail"])
     {
-      v22 = 0;
-      v18 = path2;
-      v21 = path;
+      v20 = 0;
+      v17 = path2;
+      v19 = path;
       goto LABEL_11;
     }
 
-    v13 = v9;
-    v14 = objc_autoreleasePoolPush();
-    v15 = [path2 substringToIndex:{objc_msgSend(path2, "length") - 8}];
-    v18 = [v15 stringByAppendingString:@".bf2-tail"];
-    v17 = path2;
-    v16 = path;
+    v12 = v8;
+    v13 = objc_autoreleasePoolPush();
+    v14 = [path2 substringToIndex:{objc_msgSend(path2, "length") - 8}];
+    v17 = [v14 stringByAppendingString:@".bf2-tail"];
+    v16 = path2;
+    v15 = path;
   }
 
-  objc_autoreleasePoolPop(v14);
-  v9 = v13;
-  v5 = 0x278948000;
-  v21 = v16;
-  v22 = v12 ^ 1;
+  objc_autoreleasePoolPop(v13);
+  v8 = v12;
+  v4 = 0x278948000;
+  v19 = v15;
+  v20 = v11 ^ 1;
 LABEL_11:
+  [(SGBloomFilterChunk *)v7 close];
   [(SGBloomFilterChunk *)v8 close];
-  [(SGBloomFilterChunk *)v9 close];
   uTF8String = [path UTF8String];
-  uTF8String2 = [v18 UTF8String];
-  rename(uTF8String, uTF8String2, v25);
-  if (v26)
+  uTF8String2 = [v17 UTF8String];
+  rename(uTF8String, uTF8String2, v23);
+  if (v24)
   {
-    v27 = sgLogHandle();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v25 = sgLogHandle();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v34 = *__error();
-      v36 = 138412802;
-      v37 = v21;
-      v38 = 2112;
-      v39 = v18;
-      v40 = 1024;
-      v41 = v34;
-      _os_log_error_impl(&dword_231E60000, v27, OS_LOG_TYPE_ERROR, "Could not move %@ to %@: errno=%i", &v36, 0x1Cu);
+      v31 = *__error();
+      v33 = 138412802;
+      v34 = v19;
+      v35 = 2112;
+      v36 = v17;
+      v37 = 1024;
+      v38 = v31;
+      _os_log_error_impl(&dword_231E60000, v25, OS_LOG_TYPE_ERROR, "Could not move %@ to %@: errno=%i", &v33, 0x1Cu);
     }
   }
 
-  if (v22 && unlink([path2 UTF8String]))
+  if (v20 && unlink([path2 UTF8String]))
   {
-    v28 = sgLogHandle();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v26 = sgLogHandle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v35 = *__error();
-      v36 = 138412546;
-      v37 = path2;
-      v38 = 1024;
-      LODWORD(v39) = v35;
-      _os_log_error_impl(&dword_231E60000, v28, OS_LOG_TYPE_ERROR, "Could not unlink %@: errno=%i", &v36, 0x12u);
+      v32 = *__error();
+      v33 = 138412546;
+      v34 = path2;
+      v35 = 1024;
+      LODWORD(v36) = v32;
+      _os_log_error_impl(&dword_231E60000, v26, OS_LOG_TYPE_ERROR, "Could not unlink %@: errno=%i", &v33, 0x12u);
     }
   }
 
-  v29 = [objc_alloc(*(v5 + 2224)) initWithPath:v21];
-  v30 = self->_head;
-  self->_head = v29;
+  v27 = [objc_alloc(*(v4 + 2224)) initWithPath:v19];
+  v28 = self->_head;
+  self->_head = v27;
 
-  v31 = [objc_alloc(*(v5 + 2224)) initWithPath:v18];
+  v29 = [objc_alloc(*(v4 + 2224)) initWithPath:v17];
   tail = self->_tail;
-  self->_tail = v31;
+  self->_tail = v29;
 
 LABEL_21:
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_rotateIfNecessary
 {
-  if ([(SGBloomFilterChunk *)self->_head count]>> 3 >= 0xC35)
+  if (objc_msgSend_count(self->_head, a2) >> 3 >= 0xC35)
   {
 
     [(SGBloomFilter *)self _rotate];
@@ -281,7 +275,7 @@ LABEL_21:
 
 - (SGBloomFilter)initWithDirectory:(id)directory name:(id)name
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   nameCopy = name;
   v9 = nameCopy;
@@ -320,9 +314,9 @@ LABEL_3:
   {
     v13 = objc_autoreleasePoolPush();
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v64 = 0;
-    v15 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v64];
-    v16 = v64;
+    v63 = 0;
+    v15 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v63];
+    v16 = v63;
 
     if (!v15)
     {
@@ -330,9 +324,9 @@ LABEL_3:
       if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v66 = directoryCopy;
-        v67 = 2112;
-        v68 = v16;
+        v65 = directoryCopy;
+        v66 = 2112;
+        v67 = v16;
         _os_log_error_impl(&dword_231E60000, v35, OS_LOG_TYPE_ERROR, "Error listing contents of directory %@: %@", buf, 0x16u);
       }
 
@@ -340,7 +334,7 @@ LABEL_3:
       goto LABEL_37;
     }
 
-    v58 = v13;
+    v57 = v13;
     selfCopy = self;
     v17 = v16;
     v18 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v15];
@@ -348,8 +342,8 @@ LABEL_3:
     v20 = [v9 stringByAppendingString:@".bf-tail"];
     v21 = [v9 stringByAppendingString:@".bf2-head"];
     v22 = [v9 stringByAppendingString:@".bf2-tail"];
-    v63 = v19;
-    v61 = v21;
+    v62 = v19;
+    v60 = v21;
     if ([v18 containsObject:v19])
     {
       v23 = v19;
@@ -373,9 +367,9 @@ LABEL_3:
     }
 
     v27 = v26;
-    v60 = v20;
-    v59 = v18;
-    v55 = v24;
+    v59 = v20;
+    v58 = v18;
+    v54 = v24;
     if ([v18 containsObject:v20])
     {
       v28 = [v18 containsObject:v24];
@@ -383,7 +377,7 @@ LABEL_3:
       v30 = v17;
       if (v28)
       {
-        v62 = v29;
+        v61 = v29;
 
         v31 = [directoryCopy stringByAppendingPathComponent:v20];
         v32 = unlink([v31 UTF8String]);
@@ -394,38 +388,38 @@ LABEL_3:
           v34 = sgLogHandle();
           if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
-            v48 = [directoryCopy stringByAppendingPathComponent:v20];
-            v49 = *__error();
+            v47 = [directoryCopy stringByAppendingPathComponent:v20];
+            v48 = *__error();
             *buf = 138412546;
-            v66 = v48;
-            v67 = 1024;
-            LODWORD(v68) = v49;
+            v65 = v47;
+            v66 = 1024;
+            LODWORD(v67) = v48;
             _os_log_error_impl(&dword_231E60000, v34, OS_LOG_TYPE_ERROR, "Could not unlink %@ while rotating: errno=%i", buf, 0x12u);
           }
         }
 
-        v18 = v59;
+        v18 = v58;
         goto LABEL_27;
       }
 
-      v62 = v27;
+      v61 = v27;
     }
 
     else
     {
-      v62 = v27;
+      v61 = v27;
       v30 = v17;
     }
 
     v33 = selfCopy;
 LABEL_27:
-    v56 = v30;
-    v57 = v15;
-    if ([v18 containsObject:v63]&& [v18 containsObject:v61])
+    v55 = v30;
+    v56 = v15;
+    if ([v18 containsObject:v62]&& [v18 containsObject:v60])
     {
-      v36 = v61;
+      v36 = v60;
 
-      v37 = [directoryCopy stringByAppendingPathComponent:v63];
+      v37 = [directoryCopy stringByAppendingPathComponent:v62];
       v38 = unlink([v37 UTF8String]);
 
       if (v38)
@@ -433,12 +427,12 @@ LABEL_27:
         v39 = sgLogHandle();
         if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
-          v50 = [directoryCopy stringByAppendingPathComponent:v63];
-          v51 = *__error();
+          v49 = [directoryCopy stringByAppendingPathComponent:v62];
+          v50 = *__error();
           *buf = 138412546;
-          v66 = v50;
-          v67 = 1024;
-          LODWORD(v68) = v51;
+          v65 = v49;
+          v66 = 1024;
+          LODWORD(v67) = v50;
           _os_log_error_impl(&dword_231E60000, v39, OS_LOG_TYPE_ERROR, "Could not unlink %@ while rotating: errno=%i", buf, 0x12u);
         }
       }
@@ -453,11 +447,11 @@ LABEL_27:
     v41 = [directoryCopy stringByAppendingPathComponent:v36];
     v42 = [(SGBloomFilterChunkMmap *)v40 initWithPath:v41];
     v43 = [SGBloomFilterChunkMmap alloc];
-    v44 = [directoryCopy stringByAppendingPathComponent:v62];
+    v44 = [directoryCopy stringByAppendingPathComponent:v61];
     v45 = [(SGBloomFilterChunkMmap *)v43 initWithPath:v44];
     v12 = [(SGBloomFilter *)v33 initWithHead:v42 tail:v45];
 
-    if ([v36 isEqualToString:v63])
+    if ([v36 isEqualToString:v62])
     {
       [(SGBloomFilter *)v12 _rotate];
     }
@@ -465,10 +459,10 @@ LABEL_27:
     [initWithDirectory_name__instances setObject:v12 forKey:v10];
 
     self = v12;
-    v15 = v57;
-    v13 = v58;
-    v16 = v56;
-    v35 = v59;
+    v15 = v56;
+    v13 = v57;
+    v16 = v55;
+    v35 = v58;
 LABEL_37:
 
     objc_autoreleasePoolPop(v13);
@@ -479,7 +473,6 @@ LABEL_37:
 LABEL_38:
   pthread_mutex_unlock(&initWithDirectory_name__lock);
 
-  v46 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

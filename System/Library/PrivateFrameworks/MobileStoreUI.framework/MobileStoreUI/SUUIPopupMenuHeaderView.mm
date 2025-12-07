@@ -52,7 +52,7 @@
     [(UILabel *)menuLabel setTextColor:secondaryTextColor];
 
     titleLabel = self->_titleLabel;
-    primaryTextColor = [schemeCopy primaryTextColor];
+    blackColor = objc_msgSend_primaryTextColor(schemeCopy);
     v10 = titleLabel;
   }
 
@@ -64,11 +64,11 @@
     [(UILabel *)menuLabel setTextColor:v13];
 
     v14 = self->_titleLabel;
-    primaryTextColor = [MEMORY[0x277D75348] blackColor];
+    blackColor = [MEMORY[0x277D75348] blackColor];
     v10 = v14;
   }
 
-  [(UILabel *)v10 setTextColor:primaryTextColor];
+  [(UILabel *)v10 setTextColor:blackColor];
 
   backgroundColor = [scheme backgroundColor];
 

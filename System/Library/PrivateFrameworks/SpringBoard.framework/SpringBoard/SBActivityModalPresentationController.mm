@@ -31,7 +31,7 @@
   v27 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   completionCopy = completion;
-  v8 = SBLogActivity();
+  v8 = SBLogActivity(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [itemCopy identifier];
@@ -64,7 +64,7 @@ uint64_t __80__SBActivityModalPresentationController_presentModalForActivityItem
 {
   v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v5 = SBLogActivity();
+  v5 = SBLogActivity(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [*(a1 + 32) identifier];
@@ -85,7 +85,7 @@ uint64_t __80__SBActivityModalPresentationController_presentModalForActivityItem
 
 - (void)dismissModalForActivityItem:(id)item
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   entitiesByIdentifiers = self->_entitiesByIdentifiers;
   identifier = [itemCopy identifier];
@@ -93,19 +93,19 @@ uint64_t __80__SBActivityModalPresentationController_presentModalForActivityItem
 
   if (v7)
   {
-    v8 = SBLogActivity();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogActivity(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       identifier2 = [itemCopy identifier];
-      v12 = 138543362;
-      v13 = identifier2;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] dismissing modal full screen alert", &v12, 0xCu);
+      v13 = 138543362;
+      v14 = identifier2;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[ActivityID: %{public}@] dismissing modal full screen alert", &v13, 0xCu);
     }
 
     [(SBDashBoardHostableEntityPresentationManager *)self->_entityPresentationManager dismissEntity:v7 completion:0];
-    v10 = self->_entitiesByIdentifiers;
+    v11 = self->_entitiesByIdentifiers;
     identifier3 = [itemCopy identifier];
-    [(NSMapTable *)v10 removeObjectForKey:identifier3];
+    [(NSMapTable *)v11 removeObjectForKey:identifier3];
   }
 }
 

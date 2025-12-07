@@ -512,13 +512,13 @@ LABEL_10:
   if (identifier)
   {
     identifier = [invitationCopy identifier];
-    LOBYTE(v8) = [(NSString *)identifier isEqualToString:identifier];
+    LOBYTE(v8) = objc_msgSend_isEqualToString_(identifier);
   }
 
   else
   {
     pairedReaderIdentifier = self->_pairedReaderIdentifier;
-    if (pairedReaderIdentifier && ([invitationCopy pairedReaderIdentifier], v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqualToString:](pairedReaderIdentifier, "isEqualToString:", v10), v10, !v11))
+    if (pairedReaderIdentifier && ([invitationCopy pairedReaderIdentifier], v10 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(pairedReaderIdentifier), v10, !isEqualToString))
     {
       LOBYTE(v8) = 0;
     }

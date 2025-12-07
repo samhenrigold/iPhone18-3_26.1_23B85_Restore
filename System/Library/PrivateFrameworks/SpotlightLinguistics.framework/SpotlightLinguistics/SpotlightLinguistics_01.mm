@@ -1,60 +1,3 @@
-void IncompleteRomajiKanaResolve(char *__s, uint64_t a2)
-{
-  std::string::basic_string[abi:ne200100]<0>(__p, __s);
-  incompleteRomajiKanaData();
-  v3 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::find<std::string>(incompleteRomajiKanaData(void)::data, __p);
-  v4 = v3;
-  if (v14 < 0)
-  {
-    operator delete(__p[0]);
-    if (!v4)
-    {
-      return;
-    }
-  }
-
-  else if (!v3)
-  {
-    return;
-  }
-
-  v10 = 0;
-  v11 = 0;
-  v12 = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v10, v4[5], v4[6], 0xAAAAAAAAAAAAAAABLL * ((v4[6] - v4[5]) >> 3));
-  if (v11 != v10)
-  {
-    v5 = 0;
-    v6 = 0;
-    v7 = 0xAAAAAAAAAAAAAAABLL * ((v11 - v10) >> 3);
-    if (v7 <= 1)
-    {
-      v8 = 1;
-    }
-
-    else
-    {
-      v8 = 0xAAAAAAAAAAAAAAABLL * ((v11 - v10) >> 3);
-    }
-
-    do
-    {
-      if (*(v10 + v5 + 23) < 0)
-      {
-        v9 = *(v10 + v5);
-      }
-
-      (*(a2 + 16))(a2, v7, v6++);
-      v5 += 24;
-    }
-
-    while (v8 != v6);
-  }
-
-  v15 = &v10;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v15);
-}
-
 void sub_26B7B6FB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19)
 {
   if (a18 < 0)
@@ -65,7 +8,7 @@ void sub_26B7B6FB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -79,19 +22,19 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void incompleteRomajiKanaData(void)
+void incompleteRomajiKanaData(uint64_t a1)
 {
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](a1);
   v532 = *MEMORY[0x277D85DE8];
   {
     std::string::basic_string[abi:ne200100]<0>(v214, "b");
@@ -566,7 +509,7 @@ void incompleteRomajiKanaData(void)
     memset(v45, 0, sizeof(v45));
     std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(v45, v217, v222, 5uLL);
     std::pair<std::string const,std::vector<std::string>>::pair[abi:ne200100]<true,0>(v531, __p, v45);
-    std::unordered_map<std::string,std::vector<std::string>>::unordered_map(&incompleteRomajiKanaData(void)::data, &v475[0].__r_.__value_.__l.__data_, 57);
+    std::unordered_map<std::string,std::vector<std::string>>::unordered_map(&incompleteRomajiKanaData(void)::data, v475, 57);
     for (i = 2688; i != -48; i -= 48)
     {
       std::pair<std::string const,std::vector<std::string>>::~pair(&v475[i / 0x18]);
@@ -574,11 +517,11 @@ void incompleteRomajiKanaData(void)
 
     v216 = v45;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v216);
-    for (j = 0; j != -120; j -= 24)
+    for (j = 0; j != -15; j -= 3)
     {
-      if (v221[j + 23] < 0)
+      if (SHIBYTE(v221[j + 2]) < 0)
       {
-        operator delete(*&v221[j]);
+        operator delete(v221[j]);
       }
     }
 
@@ -589,11 +532,11 @@ void incompleteRomajiKanaData(void)
 
     v217[0] = v48;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v217);
-    for (k = 0; k != -144; k -= 24)
+    for (k = 0; k != -18; k -= 3)
     {
-      if (v227[k + 23] < 0)
+      if (SHIBYTE(v227[k + 2]) < 0)
       {
-        operator delete(*&v227[k]);
+        operator delete(v227[k]);
       }
     }
 
@@ -604,11 +547,11 @@ void incompleteRomajiKanaData(void)
 
     v222[0] = v51;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v222);
-    for (m = 0; m != -144; m -= 24)
+    for (m = 0; m != -18; m -= 3)
     {
-      if (v233[m + 23] < 0)
+      if (SHIBYTE(v233[m + 2]) < 0)
       {
-        operator delete(*&v233[m]);
+        operator delete(v233[m]);
       }
     }
 
@@ -619,11 +562,11 @@ void incompleteRomajiKanaData(void)
 
     v228[0] = v54;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v228);
-    for (n = 0; n != -120; n -= 24)
+    for (n = 0; n != -15; n -= 3)
     {
-      if (v238[n + 23] < 0)
+      if (SHIBYTE(v238[n + 2]) < 0)
       {
-        operator delete(*&v238[n]);
+        operator delete(v238[n]);
       }
     }
 
@@ -670,11 +613,11 @@ void incompleteRomajiKanaData(void)
 
     v228[0] = v66;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v228);
-    for (ii = 0; ii != -240; ii -= 24)
+    for (ii = 0; ii != -30; ii -= 3)
     {
-      if (v254[ii + 23] < 0)
+      if (SHIBYTE(v254[ii + 2]) < 0)
       {
-        operator delete(*&v254[ii]);
+        operator delete(v254[ii]);
       }
     }
 
@@ -685,11 +628,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v69;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (jj = 0; jj != -48; jj -= 24)
+    for (jj = 0; jj != -6; jj -= 3)
     {
-      if (v256[jj + 23] < 0)
+      if (SHIBYTE(v256[jj + 2]) < 0)
       {
-        operator delete(*&v255[jj + 24]);
+        operator delete(v255[jj + 3]);
       }
     }
 
@@ -700,11 +643,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v72;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (kk = 0; kk != -72; kk -= 24)
+    for (kk = 0; kk != -9; kk -= 3)
     {
-      if (v259[kk + 23] < 0)
+      if (SHIBYTE(v259[kk + 2]) < 0)
       {
-        operator delete(*&v259[kk]);
+        operator delete(v259[kk]);
       }
     }
 
@@ -715,11 +658,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v75;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (mm = 0; mm != -144; mm -= 24)
+    for (mm = 0; mm != -18; mm -= 3)
     {
-      if (v265[mm + 23] < 0)
+      if (SHIBYTE(v265[mm + 2]) < 0)
       {
-        operator delete(*&v265[mm]);
+        operator delete(v265[mm]);
       }
     }
 
@@ -742,11 +685,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v81;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (nn = 0; nn != -48; nn -= 24)
+    for (nn = 0; nn != -6; nn -= 3)
     {
-      if (v269[nn + 23] < 0)
+      if (SHIBYTE(v269[nn + 2]) < 0)
       {
-        operator delete(*&v268[nn + 24]);
+        operator delete(v268[nn + 3]);
       }
     }
 
@@ -757,11 +700,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v84;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i1 = 0; i1 != -120; i1 -= 24)
+    for (i1 = 0; i1 != -15; i1 -= 3)
     {
-      if (v274[i1 + 23] < 0)
+      if (SHIBYTE(v274[i1 + 2]) < 0)
       {
-        operator delete(*&v274[i1]);
+        operator delete(v274[i1]);
       }
     }
 
@@ -796,11 +739,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v93;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i2 = 0; i2 != -96; i2 -= 24)
+    for (i2 = 0; i2 != -12; i2 -= 3)
     {
-      if (v282[i2 + 23] < 0)
+      if (SHIBYTE(v282[i2 + 2]) < 0)
       {
-        operator delete(*&v282[i2]);
+        operator delete(v282[i2]);
       }
     }
 
@@ -811,11 +754,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v96;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i3 = 0; i3 != -144; i3 -= 24)
+    for (i3 = 0; i3 != -18; i3 -= 3)
     {
-      if (v288[i3 + 23] < 0)
+      if (SHIBYTE(v288[i3 + 2]) < 0)
       {
-        operator delete(*&v288[i3]);
+        operator delete(v288[i3]);
       }
     }
 
@@ -826,11 +769,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v99;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i4 = 0; i4 != -120; i4 -= 24)
+    for (i4 = 0; i4 != -15; i4 -= 3)
     {
-      if (v293[i4 + 23] < 0)
+      if (SHIBYTE(v293[i4 + 2]) < 0)
       {
-        operator delete(*&v293[i4]);
+        operator delete(v293[i4]);
       }
     }
 
@@ -853,11 +796,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v105;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i5 = 0; i5 != -144; i5 -= 24)
+    for (i5 = 0; i5 != -18; i5 -= 3)
     {
-      if (v301[i5 + 23] < 0)
+      if (SHIBYTE(v301[i5 + 2]) < 0)
       {
-        operator delete(*&v301[i5]);
+        operator delete(v301[i5]);
       }
     }
 
@@ -868,11 +811,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v108;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i6 = 0; i6 != -120; i6 -= 24)
+    for (i6 = 0; i6 != -15; i6 -= 3)
     {
-      if (v306[i6 + 23] < 0)
+      if (SHIBYTE(v306[i6 + 2]) < 0)
       {
-        operator delete(*&v306[i6]);
+        operator delete(v306[i6]);
       }
     }
 
@@ -883,11 +826,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v111;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i7 = 0; i7 != -144; i7 -= 24)
+    for (i7 = 0; i7 != -18; i7 -= 3)
     {
-      if (v312[i7 + 23] < 0)
+      if (SHIBYTE(v312[i7 + 2]) < 0)
       {
-        operator delete(*&v312[i7]);
+        operator delete(v312[i7]);
       }
     }
 
@@ -898,11 +841,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v114;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i8 = 0; i8 != -120; i8 -= 24)
+    for (i8 = 0; i8 != -15; i8 -= 3)
     {
-      if (v317[i8 + 23] < 0)
+      if (SHIBYTE(v317[i8 + 2]) < 0)
       {
-        operator delete(*&v317[i8]);
+        operator delete(v317[i8]);
       }
     }
 
@@ -925,11 +868,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v120;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i9 = 0; i9 != -120; i9 -= 24)
+    for (i9 = 0; i9 != -15; i9 -= 3)
     {
-      if (v324[i9 + 23] < 0)
+      if (SHIBYTE(v324[i9 + 2]) < 0)
       {
-        operator delete(*&v324[i9]);
+        operator delete(v324[i9]);
       }
     }
 
@@ -940,11 +883,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v123;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i10 = 0; i10 != -144; i10 -= 24)
+    for (i10 = 0; i10 != -18; i10 -= 3)
     {
-      if (v330[i10 + 23] < 0)
+      if (SHIBYTE(v330[i10 + 2]) < 0)
       {
-        operator delete(*&v330[i10]);
+        operator delete(v330[i10]);
       }
     }
 
@@ -955,11 +898,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v126;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i11 = 0; i11 != -120; i11 -= 24)
+    for (i11 = 0; i11 != -15; i11 -= 3)
     {
-      if (v335[i11 + 23] < 0)
+      if (SHIBYTE(v335[i11 + 2]) < 0)
       {
-        operator delete(*&v335[i11]);
+        operator delete(v335[i11]);
       }
     }
 
@@ -970,11 +913,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v129;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i12 = 0; i12 != -168; i12 -= 24)
+    for (i12 = 0; i12 != -21; i12 -= 3)
     {
-      if (v342[i12 + 23] < 0)
+      if (SHIBYTE(v342[i12 + 2]) < 0)
       {
-        operator delete(*&v342[i12]);
+        operator delete(v342[i12]);
       }
     }
 
@@ -985,11 +928,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v132;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i13 = 0; i13 != -120; i13 -= 24)
+    for (i13 = 0; i13 != -15; i13 -= 3)
     {
-      if (v347[i13 + 23] < 0)
+      if (SHIBYTE(v347[i13 + 2]) < 0)
       {
-        operator delete(*&v347[i13]);
+        operator delete(v347[i13]);
       }
     }
 
@@ -1000,11 +943,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v135;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i14 = 0; i14 != -144; i14 -= 24)
+    for (i14 = 0; i14 != -18; i14 -= 3)
     {
-      if (v353[i14 + 23] < 0)
+      if (SHIBYTE(v353[i14 + 2]) < 0)
       {
-        operator delete(*&v353[i14]);
+        operator delete(v353[i14]);
       }
     }
 
@@ -1015,11 +958,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v138;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i15 = 0; i15 != -120; i15 -= 24)
+    for (i15 = 0; i15 != -15; i15 -= 3)
     {
-      if (v358[i15 + 23] < 0)
+      if (SHIBYTE(v358[i15 + 2]) < 0)
       {
-        operator delete(*&v358[i15]);
+        operator delete(v358[i15]);
       }
     }
 
@@ -1054,11 +997,11 @@ void incompleteRomajiKanaData(void)
 
     v245[0] = v147;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v245);
-    for (i16 = 0; i16 != -240; i16 -= 24)
+    for (i16 = 0; i16 != -30; i16 -= 3)
     {
-      if (v372[i16 + 23] < 0)
+      if (SHIBYTE(v372[i16 + 2]) < 0)
       {
-        operator delete(*&v372[i16]);
+        operator delete(v372[i16]);
       }
     }
 
@@ -1069,11 +1012,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v150;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i17 = 0; i17 != -120; i17 -= 24)
+    for (i17 = 0; i17 != -15; i17 -= 3)
     {
-      if (v377[i17 + 23] < 0)
+      if (SHIBYTE(v377[i17 + 2]) < 0)
       {
-        operator delete(*&v377[i17]);
+        operator delete(v377[i17]);
       }
     }
 
@@ -1084,11 +1027,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v153;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i18 = 0; i18 != -120; i18 -= 24)
+    for (i18 = 0; i18 != -15; i18 -= 3)
     {
-      if (v382[i18 + 23] < 0)
+      if (SHIBYTE(v382[i18 + 2]) < 0)
       {
-        operator delete(*&v382[i18]);
+        operator delete(v382[i18]);
       }
     }
 
@@ -1099,11 +1042,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v156;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i19 = 0; i19 != -144; i19 -= 24)
+    for (i19 = 0; i19 != -18; i19 -= 3)
     {
-      if (v388[i19 + 23] < 0)
+      if (SHIBYTE(v388[i19 + 2]) < 0)
       {
-        operator delete(*&v388[i19]);
+        operator delete(v388[i19]);
       }
     }
 
@@ -1114,11 +1057,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v159;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i20 = 0; i20 != -120; i20 -= 24)
+    for (i20 = 0; i20 != -15; i20 -= 3)
     {
-      if (v393[i20 + 23] < 0)
+      if (SHIBYTE(v393[i20 + 2]) < 0)
       {
-        operator delete(*&v393[i20]);
+        operator delete(v393[i20]);
       }
     }
 
@@ -1129,11 +1072,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v162;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i21 = 0; i21 != -48; i21 -= 24)
+    for (i21 = 0; i21 != -6; i21 -= 3)
     {
-      if (v395[i21 + 23] < 0)
+      if (SHIBYTE(v395[i21 + 2]) < 0)
       {
-        operator delete(*&v394[i21 + 24]);
+        operator delete(v394[i21 + 3]);
       }
     }
 
@@ -1144,11 +1087,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v165;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i22 = 0; i22 != -120; i22 -= 24)
+    for (i22 = 0; i22 != -15; i22 -= 3)
     {
-      if (v400[i22 + 23] < 0)
+      if (SHIBYTE(v400[i22 + 2]) < 0)
       {
-        operator delete(*&v400[i22]);
+        operator delete(v400[i22]);
       }
     }
 
@@ -1159,11 +1102,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v168;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i23 = 0; i23 != -120; i23 -= 24)
+    for (i23 = 0; i23 != -15; i23 -= 3)
     {
-      if (v405[i23 + 23] < 0)
+      if (SHIBYTE(v405[i23 + 2]) < 0)
       {
-        operator delete(*&v405[i23]);
+        operator delete(v405[i23]);
       }
     }
 
@@ -1174,11 +1117,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v171;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i24 = 0; i24 != -144; i24 -= 24)
+    for (i24 = 0; i24 != -18; i24 -= 3)
     {
-      if (v411[i24 + 23] < 0)
+      if (SHIBYTE(v411[i24 + 2]) < 0)
       {
-        operator delete(*&v411[i24]);
+        operator delete(v411[i24]);
       }
     }
 
@@ -1189,11 +1132,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v174;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i25 = 0; i25 != -120; i25 -= 24)
+    for (i25 = 0; i25 != -15; i25 -= 3)
     {
-      if (v416[i25 + 23] < 0)
+      if (SHIBYTE(v416[i25 + 2]) < 0)
       {
-        operator delete(*&v416[i25]);
+        operator delete(v416[i25]);
       }
     }
 
@@ -1204,11 +1147,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v177;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i26 = 0; i26 != -120; i26 -= 24)
+    for (i26 = 0; i26 != -15; i26 -= 3)
     {
-      if (v421[i26 + 23] < 0)
+      if (SHIBYTE(v421[i26 + 2]) < 0)
       {
-        operator delete(*&v421[i26]);
+        operator delete(v421[i26]);
       }
     }
 
@@ -1219,11 +1162,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v180;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i27 = 0; i27 != -144; i27 -= 24)
+    for (i27 = 0; i27 != -18; i27 -= 3)
     {
-      if (v427[i27 + 23] < 0)
+      if (SHIBYTE(v427[i27 + 2]) < 0)
       {
-        operator delete(*&v427[i27]);
+        operator delete(v427[i27]);
       }
     }
 
@@ -1258,11 +1201,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v189;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i28 = 0; i28 != -120; i28 -= 24)
+    for (i28 = 0; i28 != -15; i28 -= 3)
     {
-      if (v436[i28 + 23] < 0)
+      if (SHIBYTE(v436[i28 + 2]) < 0)
       {
-        operator delete(*&v436[i28]);
+        operator delete(v436[i28]);
       }
     }
 
@@ -1285,11 +1228,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v195;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i29 = 0; i29 != -120; i29 -= 24)
+    for (i29 = 0; i29 != -15; i29 -= 3)
     {
-      if (v443[i29 + 23] < 0)
+      if (SHIBYTE(v443[i29 + 2]) < 0)
       {
-        operator delete(*&v443[i29]);
+        operator delete(v443[i29]);
       }
     }
 
@@ -1300,11 +1243,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v198;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i30 = 0; i30 != -144; i30 -= 24)
+    for (i30 = 0; i30 != -18; i30 -= 3)
     {
-      if (v449[i30 + 23] < 0)
+      if (SHIBYTE(v449[i30 + 2]) < 0)
       {
-        operator delete(*&v449[i30]);
+        operator delete(v449[i30]);
       }
     }
 
@@ -1315,11 +1258,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v201;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i31 = 0; i31 != -120; i31 -= 24)
+    for (i31 = 0; i31 != -15; i31 -= 3)
     {
-      if (v454[i31 + 23] < 0)
+      if (SHIBYTE(v454[i31 + 2]) < 0)
       {
-        operator delete(*&v454[i31]);
+        operator delete(v454[i31]);
       }
     }
 
@@ -1342,11 +1285,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v207;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i32 = 0; i32 != -168; i32 -= 24)
+    for (i32 = 0; i32 != -21; i32 -= 3)
     {
-      if (v463[i32 + 23] < 0)
+      if (SHIBYTE(v463[i32 + 2]) < 0)
       {
-        operator delete(*&v463[i32]);
+        operator delete(v463[i32]);
       }
     }
 
@@ -1357,11 +1300,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v210;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i33 = 0; i33 != -120; i33 -= 24)
+    for (i33 = 0; i33 != -15; i33 -= 3)
     {
-      if (v468[i33 + 23] < 0)
+      if (SHIBYTE(v468[i33 + 2]) < 0)
       {
-        operator delete(*&v468[i33]);
+        operator delete(v468[i33]);
       }
     }
 
@@ -1372,11 +1315,11 @@ void incompleteRomajiKanaData(void)
 
     v363[0] = v213;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v363);
-    for (i34 = 0; i34 != -144; i34 -= 24)
+    for (i34 = 0; i34 != -18; i34 -= 3)
     {
-      if (v474[i34 + 23] < 0)
+      if (SHIBYTE(v474[i34 + 2]) < 0)
       {
-        operator delete(*&v474[i34]);
+        operator delete(v474[i34]);
       }
     }
 
@@ -1385,38 +1328,36 @@ void incompleteRomajiKanaData(void)
       operator delete(v214[0]);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, char a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, char a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, int a50, __int16 a51, char a52, char a53, char a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, int a59, __int16 a60, char a61, char a62, char a63)
 {
-  v86 = -2736;
-  v87 = v82;
+  v81 = -2736;
+  v82 = v77;
   do
   {
-    v87 = std::pair<std::string const,std::vector<std::string>>::~pair(v87) - 48;
-    v86 += 48;
+    v82 = std::pair<std::string const,std::vector<std::string>>::~pair(v82) - 48;
+    v81 += 48;
   }
 
-  while (v86);
+  while (v81);
   STACK[0xAB0] = &a9;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xAB0]);
-  v88 = &STACK[0xB2F];
-  v89 = -120;
-  v90 = &STACK[0xB2F];
+  v83 = &STACK[0xB2F];
+  v84 = -120;
+  v85 = &STACK[0xB2F];
   while (1)
   {
-    v91 = *v90;
-    v90 -= 3;
-    if (v91 < 0)
+    v86 = *v85;
+    v85 -= 3;
+    if (v86 < 0)
     {
-      operator delete(*(v88 - 23));
+      operator delete(*(v83 - 23));
     }
 
-    v88 = v90;
-    v89 += 24;
-    if (!v89)
+    v83 = v85;
+    v84 += 24;
+    if (!v84)
     {
       if (a17 < 0)
       {
@@ -1425,21 +1366,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
       STACK[0xAB8] = &a18;
       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xAB8]);
-      v92 = &STACK[0xBBF];
-      v93 = -144;
-      v94 = &STACK[0xBBF];
+      v87 = &STACK[0xBBF];
+      v88 = -144;
+      v89 = &STACK[0xBBF];
       while (1)
       {
-        v95 = *v94;
-        v94 -= 3;
-        if (v95 < 0)
+        v90 = *v89;
+        v89 -= 3;
+        if (v90 < 0)
         {
-          operator delete(*(v92 - 23));
+          operator delete(*(v87 - 23));
         }
 
-        v92 = v94;
-        v93 += 24;
-        if (!v93)
+        v87 = v89;
+        v88 += 24;
+        if (!v88)
         {
           if (a26 < 0)
           {
@@ -1448,21 +1389,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
           STACK[0xB30] = &a27;
           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xB30]);
-          v96 = &STACK[0xC4F];
-          v97 = -144;
-          v98 = &STACK[0xC4F];
+          v91 = &STACK[0xC4F];
+          v92 = -144;
+          v93 = &STACK[0xC4F];
           while (1)
           {
-            v99 = *v98;
-            v98 -= 3;
-            if (v99 < 0)
+            v94 = *v93;
+            v93 -= 3;
+            if (v94 < 0)
             {
-              operator delete(*(v96 - 23));
+              operator delete(*(v91 - 23));
             }
 
-            v96 = v98;
-            v97 += 24;
-            if (!v97)
+            v91 = v93;
+            v92 += 24;
+            if (!v92)
             {
               if (a35 < 0)
               {
@@ -1471,21 +1412,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
               STACK[0xBC0] = &a36;
               std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xBC0]);
-              v100 = &STACK[0xCC7];
-              v101 = -120;
-              v102 = &STACK[0xCC7];
+              v95 = &STACK[0xCC7];
+              v96 = -120;
+              v97 = &STACK[0xCC7];
               while (1)
               {
-                v103 = *v102;
-                v102 -= 3;
-                if (v103 < 0)
+                v98 = *v97;
+                v97 -= 3;
+                if (v98 < 0)
                 {
-                  operator delete(*(v100 - 23));
+                  operator delete(*(v95 - 23));
                 }
 
-                v100 = v102;
-                v101 += 24;
-                if (!v101)
+                v95 = v97;
+                v96 += 24;
+                if (!v96)
                 {
                   if (a44 < 0)
                   {
@@ -1523,101 +1464,101 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
                     operator delete(STACK[0xCF8]);
                   }
 
-                  if (a71 < 0)
+                  if (a66 < 0)
                   {
-                    operator delete(a66);
+                    operator delete(a65);
                   }
 
-                  STACK[0xBC0] = &a72;
+                  STACK[0xBC0] = &a67;
                   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xBC0]);
-                  v104 = &STACK[0xDFF];
-                  v105 = -240;
-                  v106 = &STACK[0xDFF];
+                  v99 = &STACK[0xDFF];
+                  v100 = -240;
+                  v101 = &STACK[0xDFF];
                   while (1)
                   {
-                    v107 = *v106;
-                    v106 -= 3;
-                    if (v107 < 0)
+                    v102 = *v101;
+                    v101 -= 3;
+                    if (v102 < 0)
                     {
-                      operator delete(*(v104 - 23));
+                      operator delete(*(v99 - 23));
                     }
 
-                    v104 = v106;
-                    v105 += 24;
-                    if (!v105)
+                    v99 = v101;
+                    v100 += 24;
+                    if (!v100)
                     {
-                      if (a74 < 0)
+                      if (a69 < 0)
                       {
-                        operator delete(a73);
+                        operator delete(a68);
                       }
 
-                      STACK[0xD10] = &a75;
+                      STACK[0xD10] = &a70;
                       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                      v108 = &STACK[0xE2F];
-                      v109 = -48;
-                      v110 = &STACK[0xE2F];
+                      v103 = &STACK[0xE2F];
+                      v104 = -48;
+                      v105 = &STACK[0xE2F];
                       while (1)
                       {
-                        v111 = *v110;
-                        v110 -= 3;
-                        if (v111 < 0)
+                        v106 = *v105;
+                        v105 -= 3;
+                        if (v106 < 0)
                         {
-                          operator delete(*(v108 - 23));
+                          operator delete(*(v103 - 23));
                         }
 
-                        v108 = v110;
-                        v109 += 24;
-                        if (!v109)
+                        v103 = v105;
+                        v104 += 24;
+                        if (!v104)
                         {
-                          if (a77 < 0)
+                          if (a72 < 0)
                           {
-                            operator delete(a76);
+                            operator delete(a71);
                           }
 
-                          STACK[0xD10] = &a78;
+                          STACK[0xD10] = &a73;
                           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                          v112 = &STACK[0xE77];
-                          v113 = -72;
-                          v114 = &STACK[0xE77];
+                          v107 = &STACK[0xE77];
+                          v108 = -72;
+                          v109 = &STACK[0xE77];
                           while (1)
                           {
-                            v115 = *v114;
-                            v114 -= 3;
-                            if (v115 < 0)
+                            v110 = *v109;
+                            v109 -= 3;
+                            if (v110 < 0)
                             {
-                              operator delete(*(v112 - 23));
+                              operator delete(*(v107 - 23));
                             }
 
-                            v112 = v114;
-                            v113 += 24;
-                            if (!v113)
+                            v107 = v109;
+                            v108 += 24;
+                            if (!v108)
                             {
-                              if (a80 < 0)
+                              if (a75 < 0)
                               {
-                                operator delete(a79);
+                                operator delete(a74);
                               }
 
-                              STACK[0xD10] = &a81;
+                              STACK[0xD10] = &a76;
                               std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                              v116 = &STACK[0xF07];
-                              v117 = -144;
-                              v118 = &STACK[0xF07];
+                              v111 = &STACK[0xF07];
+                              v112 = -144;
+                              v113 = &STACK[0xF07];
                               while (1)
                               {
-                                v119 = *v118;
-                                v118 -= 3;
-                                if (v119 < 0)
+                                v114 = *v113;
+                                v113 -= 3;
+                                if (v114 < 0)
                                 {
-                                  operator delete(*(v116 - 23));
+                                  operator delete(*(v111 - 23));
                                 }
 
-                                v116 = v118;
-                                v117 += 24;
-                                if (!v117)
+                                v111 = v113;
+                                v112 += 24;
+                                if (!v112)
                                 {
                                   if (SLOBYTE(STACK[0x20F]) < 0)
                                   {
-                                    operator delete(a82);
+                                    operator delete(a77);
                                   }
 
                                   STACK[0xD10] = &STACK[0x210];
@@ -1634,21 +1575,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                   STACK[0xD10] = &STACK[0x240];
                                   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                  v120 = &STACK[0xF4F];
-                                  v121 = -48;
-                                  v122 = &STACK[0xF4F];
+                                  v115 = &STACK[0xF4F];
+                                  v116 = -48;
+                                  v117 = &STACK[0xF4F];
                                   while (1)
                                   {
-                                    v123 = *v122;
-                                    v122 -= 3;
-                                    if (v123 < 0)
+                                    v118 = *v117;
+                                    v117 -= 3;
+                                    if (v118 < 0)
                                     {
-                                      operator delete(*(v120 - 23));
+                                      operator delete(*(v115 - 23));
                                     }
 
-                                    v120 = v122;
-                                    v121 += 24;
-                                    if (!v121)
+                                    v115 = v117;
+                                    v116 += 24;
+                                    if (!v116)
                                     {
                                       if (SLOBYTE(STACK[0x26F]) < 0)
                                       {
@@ -1657,21 +1598,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                       STACK[0xD10] = &STACK[0x270];
                                       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                      v124 = &STACK[0xFC7];
-                                      v125 = -120;
-                                      v126 = &STACK[0xFC7];
+                                      v119 = &STACK[0xFC7];
+                                      v120 = -120;
+                                      v121 = &STACK[0xFC7];
                                       while (1)
                                       {
-                                        v127 = *v126;
-                                        v126 -= 3;
-                                        if (v127 < 0)
+                                        v122 = *v121;
+                                        v121 -= 3;
+                                        if (v122 < 0)
                                         {
-                                          operator delete(*(v124 - 23));
+                                          operator delete(*(v119 - 23));
                                         }
 
-                                        v124 = v126;
-                                        v125 += 24;
-                                        if (!v125)
+                                        v119 = v121;
+                                        v120 += 24;
+                                        if (!v120)
                                         {
                                           if (SLOBYTE(STACK[0x29F]) < 0)
                                           {
@@ -1680,7 +1621,7 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                           STACK[0xD10] = &STACK[0x2A0];
                                           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                          if (v84[23] < 0)
+                                          if (v79[23] < 0)
                                           {
                                             operator delete(STACK[0xFC8]);
                                           }
@@ -1692,7 +1633,7 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                           STACK[0xD10] = &STACK[0x2D0];
                                           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                          if (v84[47] < 0)
+                                          if (v79[47] < 0)
                                           {
                                             operator delete(STACK[0xFE0]);
                                           }
@@ -1704,21 +1645,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                           STACK[0xD10] = &STACK[0x300];
                                           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                          v128 = &STACK[0x1057];
-                                          v129 = -96;
-                                          v130 = &STACK[0x1057];
+                                          v123 = &STACK[0x1057];
+                                          v124 = -96;
+                                          v125 = &STACK[0x1057];
                                           while (1)
                                           {
-                                            v131 = *v130;
-                                            v130 -= 3;
-                                            if (v131 < 0)
+                                            v126 = *v125;
+                                            v125 -= 3;
+                                            if (v126 < 0)
                                             {
-                                              operator delete(*(v128 - 23));
+                                              operator delete(*(v123 - 23));
                                             }
 
-                                            v128 = v130;
-                                            v129 += 24;
-                                            if (!v129)
+                                            v123 = v125;
+                                            v124 += 24;
+                                            if (!v124)
                                             {
                                               if (SLOBYTE(STACK[0x32F]) < 0)
                                               {
@@ -1727,21 +1668,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                               STACK[0xD10] = &STACK[0x330];
                                               std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                              v132 = &STACK[0x10E7];
-                                              v133 = -144;
-                                              v134 = &STACK[0x10E7];
+                                              v127 = &STACK[0x10E7];
+                                              v128 = -144;
+                                              v129 = &STACK[0x10E7];
                                               while (1)
                                               {
-                                                v135 = *v134;
-                                                v134 -= 3;
-                                                if (v135 < 0)
+                                                v130 = *v129;
+                                                v129 -= 3;
+                                                if (v130 < 0)
                                                 {
-                                                  operator delete(*(v132 - 23));
+                                                  operator delete(*(v127 - 23));
                                                 }
 
-                                                v132 = v134;
-                                                v133 += 24;
-                                                if (!v133)
+                                                v127 = v129;
+                                                v128 += 24;
+                                                if (!v128)
                                                 {
                                                   if (SLOBYTE(STACK[0x35F]) < 0)
                                                   {
@@ -1750,21 +1691,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                   STACK[0xD10] = &STACK[0x360];
                                                   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                  v136 = &STACK[0x115F];
-                                                  v137 = -120;
-                                                  v138 = &STACK[0x115F];
+                                                  v131 = &STACK[0x115F];
+                                                  v132 = -120;
+                                                  v133 = &STACK[0x115F];
                                                   while (1)
                                                   {
-                                                    v139 = *v138;
-                                                    v138 -= 3;
-                                                    if (v139 < 0)
+                                                    v134 = *v133;
+                                                    v133 -= 3;
+                                                    if (v134 < 0)
                                                     {
-                                                      operator delete(*(v136 - 23));
+                                                      operator delete(*(v131 - 23));
                                                     }
 
-                                                    v136 = v138;
-                                                    v137 += 24;
-                                                    if (!v137)
+                                                    v131 = v133;
+                                                    v132 += 24;
+                                                    if (!v132)
                                                     {
                                                       if (SLOBYTE(STACK[0x38F]) < 0)
                                                       {
@@ -1773,7 +1714,7 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                       STACK[0xD10] = &STACK[0x390];
                                                       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                      if (v84[431] < 0)
+                                                      if (v79[431] < 0)
                                                       {
                                                         operator delete(STACK[0x1160]);
                                                       }
@@ -1785,21 +1726,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                       STACK[0xD10] = &STACK[0x3C0];
                                                       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                      v140 = &STACK[0x1207];
-                                                      v141 = -144;
-                                                      v142 = &STACK[0x1207];
+                                                      v135 = &STACK[0x1207];
+                                                      v136 = -144;
+                                                      v137 = &STACK[0x1207];
                                                       while (1)
                                                       {
-                                                        v143 = *v142;
-                                                        v142 -= 3;
-                                                        if (v143 < 0)
+                                                        v138 = *v137;
+                                                        v137 -= 3;
+                                                        if (v138 < 0)
                                                         {
-                                                          operator delete(*(v140 - 23));
+                                                          operator delete(*(v135 - 23));
                                                         }
 
-                                                        v140 = v142;
-                                                        v141 += 24;
-                                                        if (!v141)
+                                                        v135 = v137;
+                                                        v136 += 24;
+                                                        if (!v136)
                                                         {
                                                           if (SLOBYTE(STACK[0x3EF]) < 0)
                                                           {
@@ -1808,21 +1749,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                           STACK[0xD10] = &STACK[0x3F0];
                                                           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                          v144 = &STACK[0x127F];
-                                                          v145 = -120;
-                                                          v146 = &STACK[0x127F];
+                                                          v139 = &STACK[0x127F];
+                                                          v140 = -120;
+                                                          v141 = &STACK[0x127F];
                                                           while (1)
                                                           {
-                                                            v147 = *v146;
-                                                            v146 -= 3;
-                                                            if (v147 < 0)
+                                                            v142 = *v141;
+                                                            v141 -= 3;
+                                                            if (v142 < 0)
                                                             {
-                                                              operator delete(*(v144 - 23));
+                                                              operator delete(*(v139 - 23));
                                                             }
 
-                                                            v144 = v146;
-                                                            v145 += 24;
-                                                            if (!v145)
+                                                            v139 = v141;
+                                                            v140 += 24;
+                                                            if (!v140)
                                                             {
                                                               if (SLOBYTE(STACK[0x41F]) < 0)
                                                               {
@@ -1831,21 +1772,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                               STACK[0xD10] = &STACK[0x420];
                                                               std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                              v148 = &STACK[0x130F];
-                                                              v149 = -144;
-                                                              v150 = &STACK[0x130F];
+                                                              v143 = &STACK[0x130F];
+                                                              v144 = -144;
+                                                              v145 = &STACK[0x130F];
                                                               while (1)
                                                               {
-                                                                v151 = *v150;
-                                                                v150 -= 3;
-                                                                if (v151 < 0)
+                                                                v146 = *v145;
+                                                                v145 -= 3;
+                                                                if (v146 < 0)
                                                                 {
-                                                                  operator delete(*(v148 - 23));
+                                                                  operator delete(*(v143 - 23));
                                                                 }
 
-                                                                v148 = v150;
-                                                                v149 += 24;
-                                                                if (!v149)
+                                                                v143 = v145;
+                                                                v144 += 24;
+                                                                if (!v144)
                                                                 {
                                                                   if (SLOBYTE(STACK[0x44F]) < 0)
                                                                   {
@@ -1854,21 +1795,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                   STACK[0xD10] = &STACK[0x450];
                                                                   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                                  v152 = &STACK[0x1387];
-                                                                  v153 = -120;
-                                                                  v154 = &STACK[0x1387];
+                                                                  v147 = &STACK[0x1387];
+                                                                  v148 = -120;
+                                                                  v149 = &STACK[0x1387];
                                                                   while (1)
                                                                   {
-                                                                    v155 = *v154;
-                                                                    v154 -= 3;
-                                                                    if (v155 < 0)
+                                                                    v150 = *v149;
+                                                                    v149 -= 3;
+                                                                    if (v150 < 0)
                                                                     {
-                                                                      operator delete(*(v152 - 23));
+                                                                      operator delete(*(v147 - 23));
                                                                     }
 
-                                                                    v152 = v154;
-                                                                    v153 += 24;
-                                                                    if (!v153)
+                                                                    v147 = v149;
+                                                                    v148 += 24;
+                                                                    if (!v148)
                                                                     {
                                                                       if (SLOBYTE(STACK[0x47F]) < 0)
                                                                       {
@@ -1877,7 +1818,7 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                       STACK[0xD10] = &STACK[0x480];
                                                                       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                                      if (v84[983] < 0)
+                                                                      if (v79[983] < 0)
                                                                       {
                                                                         operator delete(STACK[0x1388]);
                                                                       }
@@ -1889,21 +1830,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                       STACK[0xD10] = &STACK[0x4B0];
                                                                       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                                      v156 = &STACK[0x1417];
-                                                                      v157 = -120;
-                                                                      v158 = &STACK[0x1417];
+                                                                      v151 = &STACK[0x1417];
+                                                                      v152 = -120;
+                                                                      v153 = &STACK[0x1417];
                                                                       while (1)
                                                                       {
-                                                                        v159 = *v158;
-                                                                        v158 -= 3;
-                                                                        if (v159 < 0)
+                                                                        v154 = *v153;
+                                                                        v153 -= 3;
+                                                                        if (v154 < 0)
                                                                         {
-                                                                          operator delete(*(v156 - 23));
+                                                                          operator delete(*(v151 - 23));
                                                                         }
 
-                                                                        v156 = v158;
-                                                                        v157 += 24;
-                                                                        if (!v157)
+                                                                        v151 = v153;
+                                                                        v152 += 24;
+                                                                        if (!v152)
                                                                         {
                                                                           if (SLOBYTE(STACK[0x4DF]) < 0)
                                                                           {
@@ -1912,21 +1853,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                           STACK[0xD10] = &STACK[0x4E0];
                                                                           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                                          v160 = &STACK[0x14A7];
-                                                                          v161 = -144;
-                                                                          v162 = &STACK[0x14A7];
+                                                                          v155 = &STACK[0x14A7];
+                                                                          v156 = -144;
+                                                                          v157 = &STACK[0x14A7];
                                                                           while (1)
                                                                           {
-                                                                            v163 = *v162;
-                                                                            v162 -= 3;
-                                                                            if (v163 < 0)
+                                                                            v158 = *v157;
+                                                                            v157 -= 3;
+                                                                            if (v158 < 0)
                                                                             {
-                                                                              operator delete(*(v160 - 23));
+                                                                              operator delete(*(v155 - 23));
                                                                             }
 
-                                                                            v160 = v162;
-                                                                            v161 += 24;
-                                                                            if (!v161)
+                                                                            v155 = v157;
+                                                                            v156 += 24;
+                                                                            if (!v156)
                                                                             {
                                                                               if (SLOBYTE(STACK[0x50F]) < 0)
                                                                               {
@@ -1935,21 +1876,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                               STACK[0xD10] = &STACK[0x510];
                                                                               std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                                              v164 = &STACK[0x151F];
-                                                                              v165 = -120;
-                                                                              v166 = &STACK[0x151F];
+                                                                              v159 = &STACK[0x151F];
+                                                                              v160 = -120;
+                                                                              v161 = &STACK[0x151F];
                                                                               while (1)
                                                                               {
-                                                                                v167 = *v166;
-                                                                                v166 -= 3;
-                                                                                if (v167 < 0)
+                                                                                v162 = *v161;
+                                                                                v161 -= 3;
+                                                                                if (v162 < 0)
                                                                                 {
-                                                                                  operator delete(*(v164 - 23));
+                                                                                  operator delete(*(v159 - 23));
                                                                                 }
 
-                                                                                v164 = v166;
-                                                                                v165 += 24;
-                                                                                if (!v165)
+                                                                                v159 = v161;
+                                                                                v160 += 24;
+                                                                                if (!v160)
                                                                                 {
                                                                                   if (SLOBYTE(STACK[0x53F]) < 0)
                                                                                   {
@@ -1958,21 +1899,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                   STACK[0xD10] = &STACK[0x540];
                                                                                   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                                                  v168 = &STACK[0x15C7];
-                                                                                  v169 = -168;
-                                                                                  v170 = &STACK[0x15C7];
+                                                                                  v163 = &STACK[0x15C7];
+                                                                                  v164 = -168;
+                                                                                  v165 = &STACK[0x15C7];
                                                                                   while (1)
                                                                                   {
-                                                                                    v171 = *v170;
-                                                                                    v170 -= 3;
-                                                                                    if (v171 < 0)
+                                                                                    v166 = *v165;
+                                                                                    v165 -= 3;
+                                                                                    if (v166 < 0)
                                                                                     {
-                                                                                      operator delete(*(v168 - 23));
+                                                                                      operator delete(*(v163 - 23));
                                                                                     }
 
-                                                                                    v168 = v170;
-                                                                                    v169 += 24;
-                                                                                    if (!v169)
+                                                                                    v163 = v165;
+                                                                                    v164 += 24;
+                                                                                    if (!v164)
                                                                                     {
                                                                                       if (SLOBYTE(STACK[0x56F]) < 0)
                                                                                       {
@@ -1981,21 +1922,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                       STACK[0xD10] = &STACK[0x570];
                                                                                       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                                                      v172 = &STACK[0x163F];
-                                                                                      v173 = -120;
-                                                                                      v174 = &STACK[0x163F];
+                                                                                      v167 = &STACK[0x163F];
+                                                                                      v168 = -120;
+                                                                                      v169 = &STACK[0x163F];
                                                                                       while (1)
                                                                                       {
-                                                                                        v175 = *v174;
-                                                                                        v174 -= 3;
-                                                                                        if (v175 < 0)
+                                                                                        v170 = *v169;
+                                                                                        v169 -= 3;
+                                                                                        if (v170 < 0)
                                                                                         {
-                                                                                          operator delete(*(v172 - 23));
+                                                                                          operator delete(*(v167 - 23));
                                                                                         }
 
-                                                                                        v172 = v174;
-                                                                                        v173 += 24;
-                                                                                        if (!v173)
+                                                                                        v167 = v169;
+                                                                                        v168 += 24;
+                                                                                        if (!v168)
                                                                                         {
                                                                                           if (SLOBYTE(STACK[0x59F]) < 0)
                                                                                           {
@@ -2004,21 +1945,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                           STACK[0xD10] = &STACK[0x5A0];
                                                                                           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                                                          v176 = &STACK[0x16CF];
-                                                                                          v177 = -144;
-                                                                                          v178 = &STACK[0x16CF];
+                                                                                          v171 = &STACK[0x16CF];
+                                                                                          v172 = -144;
+                                                                                          v173 = &STACK[0x16CF];
                                                                                           while (1)
                                                                                           {
-                                                                                            v179 = *v178;
-                                                                                            v178 -= 3;
-                                                                                            if (v179 < 0)
+                                                                                            v174 = *v173;
+                                                                                            v173 -= 3;
+                                                                                            if (v174 < 0)
                                                                                             {
-                                                                                              operator delete(*(v176 - 23));
+                                                                                              operator delete(*(v171 - 23));
                                                                                             }
 
-                                                                                            v176 = v178;
-                                                                                            v177 += 24;
-                                                                                            if (!v177)
+                                                                                            v171 = v173;
+                                                                                            v172 += 24;
+                                                                                            if (!v172)
                                                                                             {
                                                                                               if (SLOBYTE(STACK[0x5CF]) < 0)
                                                                                               {
@@ -2027,21 +1968,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                               STACK[0xD10] = &STACK[0x5D0];
                                                                                               std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                                                              v180 = &STACK[0x1747];
-                                                                                              v181 = -120;
-                                                                                              v182 = &STACK[0x1747];
+                                                                                              v175 = &STACK[0x1747];
+                                                                                              v176 = -120;
+                                                                                              v177 = &STACK[0x1747];
                                                                                               while (1)
                                                                                               {
-                                                                                                v183 = *v182;
-                                                                                                v182 -= 3;
-                                                                                                if (v183 < 0)
+                                                                                                v178 = *v177;
+                                                                                                v177 -= 3;
+                                                                                                if (v178 < 0)
                                                                                                 {
-                                                                                                  operator delete(*(v180 - 23));
+                                                                                                  operator delete(*(v175 - 23));
                                                                                                 }
 
-                                                                                                v180 = v182;
-                                                                                                v181 += 24;
-                                                                                                if (!v181)
+                                                                                                v175 = v177;
+                                                                                                v176 += 24;
+                                                                                                if (!v176)
                                                                                                 {
                                                                                                   if (SLOBYTE(STACK[0x5FF]) < 0)
                                                                                                   {
@@ -2050,7 +1991,7 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                   STACK[0xD10] = &STACK[0x600];
                                                                                                   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                                                                  if (v84[1943] < 0)
+                                                                                                  if (v79[1943] < 0)
                                                                                                   {
                                                                                                     operator delete(STACK[0x1748]);
                                                                                                   }
@@ -2062,7 +2003,7 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                   STACK[0xD10] = &STACK[0x630];
                                                                                                   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                                                                  if (v84[1967] < 0)
+                                                                                                  if (v79[1967] < 0)
                                                                                                   {
                                                                                                     operator delete(STACK[0x1760]);
                                                                                                   }
@@ -2074,21 +2015,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                   STACK[0xD10] = &STACK[0x660];
                                                                                                   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0xD10]);
-                                                                                                  v184 = &STACK[0x1867];
-                                                                                                  v185 = -240;
-                                                                                                  v186 = &STACK[0x1867];
+                                                                                                  v179 = &STACK[0x1867];
+                                                                                                  v180 = -240;
+                                                                                                  v181 = &STACK[0x1867];
                                                                                                   while (1)
                                                                                                   {
-                                                                                                    v187 = *v186;
-                                                                                                    v186 -= 3;
-                                                                                                    if (v187 < 0)
+                                                                                                    v182 = *v181;
+                                                                                                    v181 -= 3;
+                                                                                                    if (v182 < 0)
                                                                                                     {
-                                                                                                      operator delete(*(v184 - 23));
+                                                                                                      operator delete(*(v179 - 23));
                                                                                                     }
 
-                                                                                                    v184 = v186;
-                                                                                                    v185 += 24;
-                                                                                                    if (!v185)
+                                                                                                    v179 = v181;
+                                                                                                    v180 += 24;
+                                                                                                    if (!v180)
                                                                                                     {
                                                                                                       if (SLOBYTE(STACK[0x68F]) < 0)
                                                                                                       {
@@ -2097,21 +2038,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                       STACK[0x1778] = &STACK[0x690];
                                                                                                       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                      v188 = &STACK[0x18DF];
-                                                                                                      v189 = -120;
-                                                                                                      v190 = &STACK[0x18DF];
+                                                                                                      v183 = &STACK[0x18DF];
+                                                                                                      v184 = -120;
+                                                                                                      v185 = &STACK[0x18DF];
                                                                                                       while (1)
                                                                                                       {
-                                                                                                        v191 = *v190;
-                                                                                                        v190 -= 3;
-                                                                                                        if (v191 < 0)
+                                                                                                        v186 = *v185;
+                                                                                                        v185 -= 3;
+                                                                                                        if (v186 < 0)
                                                                                                         {
-                                                                                                          operator delete(*(v188 - 23));
+                                                                                                          operator delete(*(v183 - 23));
                                                                                                         }
 
-                                                                                                        v188 = v190;
-                                                                                                        v189 += 24;
-                                                                                                        if (!v189)
+                                                                                                        v183 = v185;
+                                                                                                        v184 += 24;
+                                                                                                        if (!v184)
                                                                                                         {
                                                                                                           if (SLOBYTE(STACK[0x6BF]) < 0)
                                                                                                           {
@@ -2120,21 +2061,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                           STACK[0x1778] = &STACK[0x6C0];
                                                                                                           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                          v192 = &STACK[0x1957];
-                                                                                                          v193 = -120;
-                                                                                                          v194 = &STACK[0x1957];
+                                                                                                          v187 = &STACK[0x1957];
+                                                                                                          v188 = -120;
+                                                                                                          v189 = &STACK[0x1957];
                                                                                                           while (1)
                                                                                                           {
-                                                                                                            v195 = *v194;
-                                                                                                            v194 -= 3;
-                                                                                                            if (v195 < 0)
+                                                                                                            v190 = *v189;
+                                                                                                            v189 -= 3;
+                                                                                                            if (v190 < 0)
                                                                                                             {
-                                                                                                              operator delete(*(v192 - 23));
+                                                                                                              operator delete(*(v187 - 23));
                                                                                                             }
 
-                                                                                                            v192 = v194;
-                                                                                                            v193 += 24;
-                                                                                                            if (!v193)
+                                                                                                            v187 = v189;
+                                                                                                            v188 += 24;
+                                                                                                            if (!v188)
                                                                                                             {
                                                                                                               if (SLOBYTE(STACK[0x6EF]) < 0)
                                                                                                               {
@@ -2143,21 +2084,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                               STACK[0x1778] = &STACK[0x6F0];
                                                                                                               std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                              v196 = &STACK[0x19E7];
-                                                                                                              v197 = -144;
-                                                                                                              v198 = &STACK[0x19E7];
+                                                                                                              v191 = &STACK[0x19E7];
+                                                                                                              v192 = -144;
+                                                                                                              v193 = &STACK[0x19E7];
                                                                                                               while (1)
                                                                                                               {
-                                                                                                                v199 = *v198;
-                                                                                                                v198 -= 3;
-                                                                                                                if (v199 < 0)
+                                                                                                                v194 = *v193;
+                                                                                                                v193 -= 3;
+                                                                                                                if (v194 < 0)
                                                                                                                 {
-                                                                                                                  operator delete(*(v196 - 23));
+                                                                                                                  operator delete(*(v191 - 23));
                                                                                                                 }
 
-                                                                                                                v196 = v198;
-                                                                                                                v197 += 24;
-                                                                                                                if (!v197)
+                                                                                                                v191 = v193;
+                                                                                                                v192 += 24;
+                                                                                                                if (!v192)
                                                                                                                 {
                                                                                                                   if (SLOBYTE(STACK[0x71F]) < 0)
                                                                                                                   {
@@ -2166,21 +2107,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                   STACK[0x1778] = &STACK[0x720];
                                                                                                                   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                  v200 = &STACK[0x1A5F];
-                                                                                                                  v201 = -120;
-                                                                                                                  v202 = &STACK[0x1A5F];
+                                                                                                                  v195 = &STACK[0x1A5F];
+                                                                                                                  v196 = -120;
+                                                                                                                  v197 = &STACK[0x1A5F];
                                                                                                                   while (1)
                                                                                                                   {
-                                                                                                                    v203 = *v202;
-                                                                                                                    v202 -= 3;
-                                                                                                                    if (v203 < 0)
+                                                                                                                    v198 = *v197;
+                                                                                                                    v197 -= 3;
+                                                                                                                    if (v198 < 0)
                                                                                                                     {
-                                                                                                                      operator delete(*(v200 - 23));
+                                                                                                                      operator delete(*(v195 - 23));
                                                                                                                     }
 
-                                                                                                                    v200 = v202;
-                                                                                                                    v201 += 24;
-                                                                                                                    if (!v201)
+                                                                                                                    v195 = v197;
+                                                                                                                    v196 += 24;
+                                                                                                                    if (!v196)
                                                                                                                     {
                                                                                                                       if (SLOBYTE(STACK[0x74F]) < 0)
                                                                                                                       {
@@ -2189,21 +2130,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                       STACK[0x1778] = &STACK[0x750];
                                                                                                                       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                      v204 = &STACK[0x1A8F];
-                                                                                                                      v205 = -48;
-                                                                                                                      v206 = &STACK[0x1A8F];
+                                                                                                                      v199 = &STACK[0x1A8F];
+                                                                                                                      v200 = -48;
+                                                                                                                      v201 = &STACK[0x1A8F];
                                                                                                                       while (1)
                                                                                                                       {
-                                                                                                                        v207 = *v206;
-                                                                                                                        v206 -= 3;
-                                                                                                                        if (v207 < 0)
+                                                                                                                        v202 = *v201;
+                                                                                                                        v201 -= 3;
+                                                                                                                        if (v202 < 0)
                                                                                                                         {
-                                                                                                                          operator delete(*(v204 - 23));
+                                                                                                                          operator delete(*(v199 - 23));
                                                                                                                         }
 
-                                                                                                                        v204 = v206;
-                                                                                                                        v205 += 24;
-                                                                                                                        if (!v205)
+                                                                                                                        v199 = v201;
+                                                                                                                        v200 += 24;
+                                                                                                                        if (!v200)
                                                                                                                         {
                                                                                                                           if (SLOBYTE(STACK[0x77F]) < 0)
                                                                                                                           {
@@ -2212,21 +2153,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                           STACK[0x1778] = &STACK[0x780];
                                                                                                                           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                          v208 = &STACK[0x1B07];
-                                                                                                                          v209 = -120;
-                                                                                                                          v210 = &STACK[0x1B07];
+                                                                                                                          v203 = &STACK[0x1B07];
+                                                                                                                          v204 = -120;
+                                                                                                                          v205 = &STACK[0x1B07];
                                                                                                                           while (1)
                                                                                                                           {
-                                                                                                                            v211 = *v210;
-                                                                                                                            v210 -= 3;
-                                                                                                                            if (v211 < 0)
+                                                                                                                            v206 = *v205;
+                                                                                                                            v205 -= 3;
+                                                                                                                            if (v206 < 0)
                                                                                                                             {
-                                                                                                                              operator delete(*(v208 - 23));
+                                                                                                                              operator delete(*(v203 - 23));
                                                                                                                             }
 
-                                                                                                                            v208 = v210;
-                                                                                                                            v209 += 24;
-                                                                                                                            if (!v209)
+                                                                                                                            v203 = v205;
+                                                                                                                            v204 += 24;
+                                                                                                                            if (!v204)
                                                                                                                             {
                                                                                                                               if (SLOBYTE(STACK[0x7AF]) < 0)
                                                                                                                               {
@@ -2235,21 +2176,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                               STACK[0x1778] = &STACK[0x7B0];
                                                                                                                               std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                              v212 = &STACK[0x1B7F];
-                                                                                                                              v213 = -120;
-                                                                                                                              v214 = &STACK[0x1B7F];
+                                                                                                                              v207 = &STACK[0x1B7F];
+                                                                                                                              v208 = -120;
+                                                                                                                              v209 = &STACK[0x1B7F];
                                                                                                                               while (1)
                                                                                                                               {
-                                                                                                                                v215 = *v214;
-                                                                                                                                v214 -= 3;
-                                                                                                                                if (v215 < 0)
+                                                                                                                                v210 = *v209;
+                                                                                                                                v209 -= 3;
+                                                                                                                                if (v210 < 0)
                                                                                                                                 {
-                                                                                                                                  operator delete(*(v212 - 23));
+                                                                                                                                  operator delete(*(v207 - 23));
                                                                                                                                 }
 
-                                                                                                                                v212 = v214;
-                                                                                                                                v213 += 24;
-                                                                                                                                if (!v213)
+                                                                                                                                v207 = v209;
+                                                                                                                                v208 += 24;
+                                                                                                                                if (!v208)
                                                                                                                                 {
                                                                                                                                   if (SLOBYTE(STACK[0x7DF]) < 0)
                                                                                                                                   {
@@ -2258,21 +2199,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                                   STACK[0x1778] = &STACK[0x7E0];
                                                                                                                                   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                                  v216 = &STACK[0x1C0F];
-                                                                                                                                  v217 = -144;
-                                                                                                                                  v218 = &STACK[0x1C0F];
+                                                                                                                                  v211 = &STACK[0x1C0F];
+                                                                                                                                  v212 = -144;
+                                                                                                                                  v213 = &STACK[0x1C0F];
                                                                                                                                   while (1)
                                                                                                                                   {
-                                                                                                                                    v219 = *v218;
-                                                                                                                                    v218 -= 3;
-                                                                                                                                    if (v219 < 0)
+                                                                                                                                    v214 = *v213;
+                                                                                                                                    v213 -= 3;
+                                                                                                                                    if (v214 < 0)
                                                                                                                                     {
-                                                                                                                                      operator delete(*(v216 - 23));
+                                                                                                                                      operator delete(*(v211 - 23));
                                                                                                                                     }
 
-                                                                                                                                    v216 = v218;
-                                                                                                                                    v217 += 24;
-                                                                                                                                    if (!v217)
+                                                                                                                                    v211 = v213;
+                                                                                                                                    v212 += 24;
+                                                                                                                                    if (!v212)
                                                                                                                                     {
                                                                                                                                       if (SLOBYTE(STACK[0x80F]) < 0)
                                                                                                                                       {
@@ -2281,21 +2222,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                                       STACK[0x1778] = &STACK[0x810];
                                                                                                                                       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                                      v220 = &STACK[0x1C87];
-                                                                                                                                      v221 = -120;
-                                                                                                                                      v222 = &STACK[0x1C87];
+                                                                                                                                      v215 = &STACK[0x1C87];
+                                                                                                                                      v216 = -120;
+                                                                                                                                      v217 = &STACK[0x1C87];
                                                                                                                                       while (1)
                                                                                                                                       {
-                                                                                                                                        v223 = *v222;
-                                                                                                                                        v222 -= 3;
-                                                                                                                                        if (v223 < 0)
+                                                                                                                                        v218 = *v217;
+                                                                                                                                        v217 -= 3;
+                                                                                                                                        if (v218 < 0)
                                                                                                                                         {
-                                                                                                                                          operator delete(*(v220 - 23));
+                                                                                                                                          operator delete(*(v215 - 23));
                                                                                                                                         }
 
-                                                                                                                                        v220 = v222;
-                                                                                                                                        v221 += 24;
-                                                                                                                                        if (!v221)
+                                                                                                                                        v215 = v217;
+                                                                                                                                        v216 += 24;
+                                                                                                                                        if (!v216)
                                                                                                                                         {
                                                                                                                                           if (SLOBYTE(STACK[0x83F]) < 0)
                                                                                                                                           {
@@ -2304,21 +2245,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                                           STACK[0x1778] = &STACK[0x840];
                                                                                                                                           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                                          v224 = &STACK[0x1CFF];
-                                                                                                                                          v225 = -120;
-                                                                                                                                          v226 = &STACK[0x1CFF];
+                                                                                                                                          v219 = &STACK[0x1CFF];
+                                                                                                                                          v220 = -120;
+                                                                                                                                          v221 = &STACK[0x1CFF];
                                                                                                                                           while (1)
                                                                                                                                           {
-                                                                                                                                            v227 = *v226;
-                                                                                                                                            v226 -= 3;
-                                                                                                                                            if (v227 < 0)
+                                                                                                                                            v222 = *v221;
+                                                                                                                                            v221 -= 3;
+                                                                                                                                            if (v222 < 0)
                                                                                                                                             {
-                                                                                                                                              operator delete(*(v224 - 23));
+                                                                                                                                              operator delete(*(v219 - 23));
                                                                                                                                             }
 
-                                                                                                                                            v224 = v226;
-                                                                                                                                            v225 += 24;
-                                                                                                                                            if (!v225)
+                                                                                                                                            v219 = v221;
+                                                                                                                                            v220 += 24;
+                                                                                                                                            if (!v220)
                                                                                                                                             {
                                                                                                                                               if (SLOBYTE(STACK[0x86F]) < 0)
                                                                                                                                               {
@@ -2327,21 +2268,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                                               STACK[0x1778] = &STACK[0x870];
                                                                                                                                               std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                                              v228 = &STACK[0x1D8F];
-                                                                                                                                              v229 = -144;
-                                                                                                                                              v230 = &STACK[0x1D8F];
+                                                                                                                                              v223 = &STACK[0x1D8F];
+                                                                                                                                              v224 = -144;
+                                                                                                                                              v225 = &STACK[0x1D8F];
                                                                                                                                               while (1)
                                                                                                                                               {
-                                                                                                                                                v231 = *v230;
-                                                                                                                                                v230 -= 3;
-                                                                                                                                                if (v231 < 0)
+                                                                                                                                                v226 = *v225;
+                                                                                                                                                v225 -= 3;
+                                                                                                                                                if (v226 < 0)
                                                                                                                                                 {
-                                                                                                                                                  operator delete(*(v228 - 23));
+                                                                                                                                                  operator delete(*(v223 - 23));
                                                                                                                                                 }
 
-                                                                                                                                                v228 = v230;
-                                                                                                                                                v229 += 24;
-                                                                                                                                                if (!v229)
+                                                                                                                                                v223 = v225;
+                                                                                                                                                v224 += 24;
+                                                                                                                                                if (!v224)
                                                                                                                                                 {
                                                                                                                                                   if (SLOBYTE(STACK[0x89F]) < 0)
                                                                                                                                                   {
@@ -2350,7 +2291,7 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                                                   STACK[0x1778] = &STACK[0x8A0];
                                                                                                                                                   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                                                  if (v84[3551] < 0)
+                                                                                                                                                  if (v79[3551] < 0)
                                                                                                                                                   {
                                                                                                                                                     operator delete(STACK[0x1D90]);
                                                                                                                                                   }
@@ -2362,7 +2303,7 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                                                   STACK[0x1778] = &STACK[0x8D0];
                                                                                                                                                   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                                                  if (v84[3575] < 0)
+                                                                                                                                                  if (v79[3575] < 0)
                                                                                                                                                   {
                                                                                                                                                     operator delete(STACK[0x1DA8]);
                                                                                                                                                   }
@@ -2374,21 +2315,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                                                   STACK[0x1778] = &STACK[0x900];
                                                                                                                                                   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                                                  v232 = &STACK[0x1E37];
-                                                                                                                                                  v233 = -120;
-                                                                                                                                                  v234 = &STACK[0x1E37];
+                                                                                                                                                  v227 = &STACK[0x1E37];
+                                                                                                                                                  v228 = -120;
+                                                                                                                                                  v229 = &STACK[0x1E37];
                                                                                                                                                   while (1)
                                                                                                                                                   {
-                                                                                                                                                    v235 = *v234;
-                                                                                                                                                    v234 -= 3;
-                                                                                                                                                    if (v235 < 0)
+                                                                                                                                                    v230 = *v229;
+                                                                                                                                                    v229 -= 3;
+                                                                                                                                                    if (v230 < 0)
                                                                                                                                                     {
-                                                                                                                                                      operator delete(*(v232 - 23));
+                                                                                                                                                      operator delete(*(v227 - 23));
                                                                                                                                                     }
 
-                                                                                                                                                    v232 = v234;
-                                                                                                                                                    v233 += 24;
-                                                                                                                                                    if (!v233)
+                                                                                                                                                    v227 = v229;
+                                                                                                                                                    v228 += 24;
+                                                                                                                                                    if (!v228)
                                                                                                                                                     {
                                                                                                                                                       if (SLOBYTE(STACK[0x92F]) < 0)
                                                                                                                                                       {
@@ -2397,7 +2338,7 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                                                       STACK[0x1778] = &STACK[0x930];
                                                                                                                                                       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                                                      if (v84[3719] < 0)
+                                                                                                                                                      if (v79[3719] < 0)
                                                                                                                                                       {
                                                                                                                                                         operator delete(STACK[0x1E38]);
                                                                                                                                                       }
@@ -2409,21 +2350,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                                                       STACK[0x1778] = &STACK[0x960];
                                                                                                                                                       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                                                      v236 = &STACK[0x1EC7];
-                                                                                                                                                      v237 = -120;
-                                                                                                                                                      v238 = &STACK[0x1EC7];
+                                                                                                                                                      v231 = &STACK[0x1EC7];
+                                                                                                                                                      v232 = -120;
+                                                                                                                                                      v233 = &STACK[0x1EC7];
                                                                                                                                                       while (1)
                                                                                                                                                       {
-                                                                                                                                                        v239 = *v238;
-                                                                                                                                                        v238 -= 3;
-                                                                                                                                                        if (v239 < 0)
+                                                                                                                                                        v234 = *v233;
+                                                                                                                                                        v233 -= 3;
+                                                                                                                                                        if (v234 < 0)
                                                                                                                                                         {
-                                                                                                                                                          operator delete(*(v236 - 23));
+                                                                                                                                                          operator delete(*(v231 - 23));
                                                                                                                                                         }
 
-                                                                                                                                                        v236 = v238;
-                                                                                                                                                        v237 += 24;
-                                                                                                                                                        if (!v237)
+                                                                                                                                                        v231 = v233;
+                                                                                                                                                        v232 += 24;
+                                                                                                                                                        if (!v232)
                                                                                                                                                         {
                                                                                                                                                           if (SLOBYTE(STACK[0x98F]) < 0)
                                                                                                                                                           {
@@ -2432,21 +2373,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                                                           STACK[0x1778] = &STACK[0x990];
                                                                                                                                                           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                                                          v240 = &STACK[0x1F57];
-                                                                                                                                                          v241 = -144;
-                                                                                                                                                          v242 = &STACK[0x1F57];
+                                                                                                                                                          v235 = &STACK[0x1F57];
+                                                                                                                                                          v236 = -144;
+                                                                                                                                                          v237 = &STACK[0x1F57];
                                                                                                                                                           while (1)
                                                                                                                                                           {
-                                                                                                                                                            v243 = *v242;
-                                                                                                                                                            v242 -= 3;
-                                                                                                                                                            if (v243 < 0)
+                                                                                                                                                            v238 = *v237;
+                                                                                                                                                            v237 -= 3;
+                                                                                                                                                            if (v238 < 0)
                                                                                                                                                             {
-                                                                                                                                                              operator delete(*(v240 - 23));
+                                                                                                                                                              operator delete(*(v235 - 23));
                                                                                                                                                             }
 
-                                                                                                                                                            v240 = v242;
-                                                                                                                                                            v241 += 24;
-                                                                                                                                                            if (!v241)
+                                                                                                                                                            v235 = v237;
+                                                                                                                                                            v236 += 24;
+                                                                                                                                                            if (!v236)
                                                                                                                                                             {
                                                                                                                                                               if (SLOBYTE(STACK[0x9BF]) < 0)
                                                                                                                                                               {
@@ -2455,21 +2396,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                                                               STACK[0x1778] = &STACK[0x9C0];
                                                                                                                                                               std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                                                              v244 = &STACK[0x1FCF];
-                                                                                                                                                              v245 = -120;
-                                                                                                                                                              v246 = &STACK[0x1FCF];
+                                                                                                                                                              v239 = &STACK[0x1FCF];
+                                                                                                                                                              v240 = -120;
+                                                                                                                                                              v241 = &STACK[0x1FCF];
                                                                                                                                                               while (1)
                                                                                                                                                               {
-                                                                                                                                                                v247 = *v246;
-                                                                                                                                                                v246 -= 3;
-                                                                                                                                                                if (v247 < 0)
+                                                                                                                                                                v242 = *v241;
+                                                                                                                                                                v241 -= 3;
+                                                                                                                                                                if (v242 < 0)
                                                                                                                                                                 {
-                                                                                                                                                                  operator delete(*(v244 - 23));
+                                                                                                                                                                  operator delete(*(v239 - 23));
                                                                                                                                                                 }
 
-                                                                                                                                                                v244 = v246;
-                                                                                                                                                                v245 += 24;
-                                                                                                                                                                if (!v245)
+                                                                                                                                                                v239 = v241;
+                                                                                                                                                                v240 += 24;
+                                                                                                                                                                if (!v240)
                                                                                                                                                                 {
                                                                                                                                                                   if (SLOBYTE(STACK[0x9EF]) < 0)
                                                                                                                                                                   {
@@ -2478,7 +2419,7 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                                                                   STACK[0x1778] = &STACK[0x9F0];
                                                                                                                                                                   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                                                                  if (*(v83 + 23) < 0)
+                                                                                                                                                                  if (*(v78 + 23) < 0)
                                                                                                                                                                   {
                                                                                                                                                                     operator delete(STACK[0x1FD0]);
                                                                                                                                                                   }
@@ -2490,21 +2431,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                                                                   STACK[0x1778] = &STACK[0xA20];
                                                                                                                                                                   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                                                                  v248 = &STACK[0x208F];
-                                                                                                                                                                  v249 = -168;
-                                                                                                                                                                  v250 = &STACK[0x208F];
+                                                                                                                                                                  v243 = &STACK[0x208F];
+                                                                                                                                                                  v244 = -168;
+                                                                                                                                                                  v245 = &STACK[0x208F];
                                                                                                                                                                   while (1)
                                                                                                                                                                   {
-                                                                                                                                                                    v251 = *v250;
-                                                                                                                                                                    v250 -= 3;
-                                                                                                                                                                    if (v251 < 0)
+                                                                                                                                                                    v246 = *v245;
+                                                                                                                                                                    v245 -= 3;
+                                                                                                                                                                    if (v246 < 0)
                                                                                                                                                                     {
-                                                                                                                                                                      operator delete(*(v248 - 23));
+                                                                                                                                                                      operator delete(*(v243 - 23));
                                                                                                                                                                     }
 
-                                                                                                                                                                    v248 = v250;
-                                                                                                                                                                    v249 += 24;
-                                                                                                                                                                    if (!v249)
+                                                                                                                                                                    v243 = v245;
+                                                                                                                                                                    v244 += 24;
+                                                                                                                                                                    if (!v244)
                                                                                                                                                                     {
                                                                                                                                                                       if (SLOBYTE(STACK[0xA4F]) < 0)
                                                                                                                                                                       {
@@ -2513,21 +2454,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                                                                       STACK[0x1778] = &STACK[0xA50];
                                                                                                                                                                       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                                                                      v252 = &STACK[0x2107];
-                                                                                                                                                                      v253 = -120;
-                                                                                                                                                                      v254 = &STACK[0x2107];
+                                                                                                                                                                      v247 = &STACK[0x2107];
+                                                                                                                                                                      v248 = -120;
+                                                                                                                                                                      v249 = &STACK[0x2107];
                                                                                                                                                                       while (1)
                                                                                                                                                                       {
-                                                                                                                                                                        v255 = *v254;
-                                                                                                                                                                        v254 -= 3;
-                                                                                                                                                                        if (v255 < 0)
+                                                                                                                                                                        v250 = *v249;
+                                                                                                                                                                        v249 -= 3;
+                                                                                                                                                                        if (v250 < 0)
                                                                                                                                                                         {
-                                                                                                                                                                          operator delete(*(v252 - 23));
+                                                                                                                                                                          operator delete(*(v247 - 23));
                                                                                                                                                                         }
 
-                                                                                                                                                                        v252 = v254;
-                                                                                                                                                                        v253 += 24;
-                                                                                                                                                                        if (!v253)
+                                                                                                                                                                        v247 = v249;
+                                                                                                                                                                        v248 += 24;
+                                                                                                                                                                        if (!v248)
                                                                                                                                                                         {
                                                                                                                                                                           if (SLOBYTE(STACK[0xA7F]) < 0)
                                                                                                                                                                           {
@@ -2536,21 +2477,21 @@ void sub_26B7BA99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
                                                                                                                                                                           STACK[0x1778] = &STACK[0xA80];
                                                                                                                                                                           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x1778]);
-                                                                                                                                                                          v256 = &STACK[0x2197];
-                                                                                                                                                                          v257 = -144;
-                                                                                                                                                                          v258 = &STACK[0x2197];
+                                                                                                                                                                          v251 = &STACK[0x2197];
+                                                                                                                                                                          v252 = -144;
+                                                                                                                                                                          v253 = &STACK[0x2197];
                                                                                                                                                                           while (1)
                                                                                                                                                                           {
-                                                                                                                                                                            v259 = *v258;
-                                                                                                                                                                            v258 -= 3;
-                                                                                                                                                                            if (v259 < 0)
+                                                                                                                                                                            v254 = *v253;
+                                                                                                                                                                            v253 -= 3;
+                                                                                                                                                                            if (v254 < 0)
                                                                                                                                                                             {
-                                                                                                                                                                              operator delete(*(v256 - 23));
+                                                                                                                                                                              operator delete(*(v251 - 23));
                                                                                                                                                                             }
 
-                                                                                                                                                                            v256 = v258;
-                                                                                                                                                                            v257 += 24;
-                                                                                                                                                                            if (!v257)
+                                                                                                                                                                            v251 = v253;
+                                                                                                                                                                            v252 += 24;
+                                                                                                                                                                            if (!v252)
                                                                                                                                                                             {
                                                                                                                                                                               if (SLOBYTE(STACK[0xAAF]) < 0)
                                                                                                                                                                               {
@@ -2916,7 +2857,7 @@ void sub_26B7BCA14()
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -2985,9 +2926,9 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<st
   return i;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -3196,7 +3137,7 @@ uint64_t std::pair<std::string const,std::vector<std::string>>::~pair(uint64_t a
   return a1;
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3206,14 +3147,14 @@ uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string co
   return result;
 }
 
-void sub_26B7BD12C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_26B7BD12C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -3363,7 +3304,7 @@ void std::vector<std::string>::clear[abi:ne200100](void ***a1)
   a1[1] = v2;
 }
 
-std::string *std::pair<std::string const,std::vector<std::string>>::pair[abi:ne200100]<true,0>(std::string *this, __int128 *a2, uint64_t *a3)
+std::string *std::pair<std::string const,std::vector<std::string>>::pair[abi:ne200100]<true,0>(std::string *this, __int128 *a2, void *a3)
 {
   if (*(a2 + 23) < 0)
   {
@@ -3394,7 +3335,7 @@ void sub_26B7BD5E4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::unordered_map<std::string,std::vector<std::string>>::unordered_map(uint64_t a1, const void **a2, uint64_t a3)
+uint64_t std::unordered_map<std::string,std::vector<std::string>>::unordered_map(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -3404,7 +3345,7 @@ uint64_t std::unordered_map<std::string,std::vector<std::string>>::unordered_map
     v5 = 48 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<std::string>> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<std::string>> const&>(a1, a2, a2);
       a2 += 6;
       v5 -= 48;
     }
@@ -3415,93 +3356,93 @@ uint64_t std::unordered_map<std::string,std::vector<std::string>>::unordered_map
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<std::string>> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<std::string>> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
-    v14 = 0;
     v15 = 0;
     v16 = 0;
+    v17 = 0;
     std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__construct_node_hash<std::pair<std::string const,std::vector<std::string>> const&>();
   }
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_26B7BD8D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26B7BD8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<std::string>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<std::string>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<std::string>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -3549,7 +3490,7 @@ void sub_26B7BDA24(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -3565,7 +3506,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::vector<std::strin
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -3573,7 +3514,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::vector<std::strin
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -3597,7 +3538,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::vector<std::strin
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -3664,7 +3605,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::vector<std::strin
   }
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3720,7 +3661,7 @@ std::string *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocat
   return v4;
 }
 
-uint64_t SIIsAppleInternal()
+uint64_t SIIsAppleInternal(uint64_t a1, uint64_t a2)
 {
   if (SIIsAppleInternal_onceToken != -1)
   {
@@ -3737,7 +3678,7 @@ uint64_t __SIIsAppleInternal_block_invoke()
   return result;
 }
 
-uint64_t SIBullseyeFilterLocalSuggestionsDefault()
+uint64_t SIBullseyeFilterLocalSuggestionsDefault(uint64_t a1, uint64_t a2)
 {
   if (SIBullseyeFilterLocalSuggestionsDefault_onceFilterLocalToken != -1)
   {
@@ -3768,7 +3709,7 @@ uint64_t __SIBullseyeFilterLocalSuggestionsDefault_block_invoke()
   return result;
 }
 
-uint64_t SIBullseyeThresholdLocalSuggestionsDefault()
+uint64_t SIBullseyeThresholdLocalSuggestionsDefault(uint64_t a1, uint64_t a2)
 {
   if (SIBullseyeThresholdLocalSuggestionsDefault_onceThresholdLocalToken != -1)
   {
@@ -3799,7 +3740,7 @@ uint64_t __SIBullseyeThresholdLocalSuggestionsDefault_block_invoke()
   return result;
 }
 
-uint64_t SIBullseyeNoForceUnigramsDefault()
+uint64_t SIBullseyeNoForceUnigramsDefault(uint64_t a1, uint64_t a2)
 {
   if (SIBullseyeNoForceUnigramsDefault_onceToken != -1)
   {
@@ -3832,45 +3773,40 @@ uint64_t __SIBullseyeNoForceUnigramsDefault_block_invoke()
 
 void SISimulateCrashForPid(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
-    v6 = 3134249728;
+    v5 = 3134249728;
     if (a2)
     {
-      v6 = a2;
+      v5 = a2;
     }
 
-    v7 = 134218242;
-    v8 = v6;
-    v9 = 2112;
-    v10 = a3;
-    _os_log_fault_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%lld %@", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = v5;
+    v8 = 2112;
+    v9 = a3;
+    _os_log_fault_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%lld %@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t SIIsProcessDebugged(int a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  bzero(v8, 0x288uLL);
-  *v5 = 0xE00000001;
-  v6 = 1;
-  v7 = a1;
-  v4 = 648;
-  if (sysctl(v5, 4u, v8, &v4, 0, 0))
+  v9 = *MEMORY[0x277D85DE8];
+  bzero(v7, 0x288uLL);
+  *v4 = 0xE00000001;
+  v5 = 1;
+  v6 = a1;
+  v3 = 648;
+  if (sysctl(v4, 4u, v7, &v3, 0, 0))
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = (v9 >> 11) & 1;
+    return (v8 >> 11) & 1;
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void *SIDataMapCreateMutableWithOptions(const __CFURL *a1, const __CFString *a2, const __CFDictionary *a3)
@@ -3878,7 +3814,7 @@ void *SIDataMapCreateMutableWithOptions(const __CFURL *a1, const __CFString *a2,
   values[128] = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    goto LABEL_21;
+    return 0;
   }
 
   if (!CFURLResourceIsReachable(a1, 0))
@@ -3889,7 +3825,7 @@ void *SIDataMapCreateMutableWithOptions(const __CFURL *a1, const __CFString *a2,
       SIDataMapCreateMutableWithOptions_cold_3(v22, v23, v24, v25, v26, v27, v28, v29);
     }
 
-    goto LABEL_21;
+    return 0;
   }
 
   v6 = *MEMORY[0x277CBF168];
@@ -3897,9 +3833,7 @@ void *SIDataMapCreateMutableWithOptions(const __CFURL *a1, const __CFString *a2,
   v7 = CFArrayCreate(*MEMORY[0x277CBECE8], values, 1, MEMORY[0x277CBF128]);
   if (!v7)
   {
-LABEL_21:
-    v21 = 0;
-    goto LABEL_22;
+    return 0;
   }
 
   v8 = v7;
@@ -3907,7 +3841,7 @@ LABEL_21:
   if (!v9)
   {
     CFRelease(v8);
-    goto LABEL_21;
+    return 0;
   }
 
   v10 = v9;
@@ -3917,7 +3851,7 @@ LABEL_21:
   CFRelease(v8);
   if (v11 != v12)
   {
-    goto LABEL_21;
+    return 0;
   }
 
   v13 = *MEMORY[0x277CBED10];
@@ -3934,43 +3868,43 @@ LABEL_21:
 
   bzero(values, 0x400uLL);
   usedBufLen = 0;
-  memset(&v48, 0, sizeof(v48));
+  memset(&v47, 0, sizeof(v47));
   v15 = CFURLCopyPath(a1);
   if (v15)
   {
     v16 = v15;
-    v52.length = CFStringGetLength(v15);
-    v52.location = 0;
-    CFStringGetBytes(v16, v52, 0x8000100u, 0x2Du, 0, values, 1024, &usedBufLen);
+    v51.length = CFStringGetLength(v15);
+    v51.location = 0;
+    CFStringGetBytes(v16, v51, 0x8000100u, 0x2Du, 0, values, 1024, &usedBufLen);
     *(values + usedBufLen) = 0;
     CFRelease(v16);
   }
 
-  if (stat(values, &v48))
+  if (stat(values, &v47))
   {
-    goto LABEL_21;
+    return 0;
   }
 
   v17 = open(values, 256);
   if (v17 < 0)
   {
-    v32 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    if (v32)
+    v31 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    if (v31)
     {
-      SIDataMapCreateMutableWithOptions_cold_2(v32, v33, v34, v35, v36, v37, v38, v39);
+      SIDataMapCreateMutableWithOptions_cold_2(v31, v32, v33, v34, v35, v36, v37, v38);
     }
 
     if (v17 == -1)
     {
-      goto LABEL_21;
+      return 0;
     }
 
     goto LABEL_29;
   }
 
-  v53.length = CFStringGetLength(v14);
-  v53.location = 0;
-  CFStringGetBytes(v14, v53, 0x8000100u, 0x2Du, 0, values, 1024, &usedBufLen);
+  v52.length = CFStringGetLength(v14);
+  v52.location = 0;
+  CFStringGetBytes(v14, v52, 0x8000100u, 0x2Du, 0, values, 1024, &usedBufLen);
   *(values + usedBufLen) = 0;
   if (a3)
   {
@@ -3982,15 +3916,15 @@ LABEL_21:
   v19 = data_map32_init(v17, values, v18, 9);
   if (!v19)
   {
-    v40 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    if (v40)
+    v39 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    if (v39)
     {
-      SIDataMapCreateMutableWithOptions_cold_1(v40, v41, v42, v43, v44, v45, v46, v47);
+      SIDataMapCreateMutableWithOptions_cold_1(v39, v40, v41, v42, v43, v44, v45, v46);
     }
 
 LABEL_29:
     close(v17);
-    goto LABEL_21;
+    return 0;
   }
 
   v20 = v19;
@@ -4010,8 +3944,6 @@ LABEL_29:
     data_map32_destroy(v20);
   }
 
-LABEL_22:
-  v30 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -4030,7 +3962,7 @@ void *SIDataMapCreateWithOptions(const __CFURL *a1, const __CFString *a2, const 
   values[128] = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    goto LABEL_22;
+    return 0;
   }
 
   if (!CFURLResourceIsReachable(a1, 0))
@@ -4041,7 +3973,7 @@ void *SIDataMapCreateWithOptions(const __CFURL *a1, const __CFString *a2, const 
       SIDataMapCreateMutableWithOptions_cold_3(v28, v29, v30, v31, v32, v33, v34, v35);
     }
 
-    goto LABEL_22;
+    return 0;
   }
 
   v6 = *MEMORY[0x277CBF168];
@@ -4050,7 +3982,7 @@ void *SIDataMapCreateWithOptions(const __CFURL *a1, const __CFString *a2, const 
   v8 = CFArrayCreate(*MEMORY[0x277CBECE8], values, 1, MEMORY[0x277CBF128]);
   if (!v8)
   {
-    goto LABEL_22;
+    return 0;
   }
 
   v9 = v8;
@@ -4058,7 +3990,7 @@ void *SIDataMapCreateWithOptions(const __CFURL *a1, const __CFString *a2, const 
   if (!v10)
   {
     CFRelease(v9);
-    goto LABEL_22;
+    return 0;
   }
 
   v11 = v10;
@@ -4068,7 +4000,7 @@ void *SIDataMapCreateWithOptions(const __CFURL *a1, const __CFString *a2, const 
   CFRelease(v9);
   if (v12 != v13)
   {
-    goto LABEL_22;
+    return 0;
   }
 
   v14 = *MEMORY[0x277CBED10];
@@ -4085,33 +4017,33 @@ void *SIDataMapCreateWithOptions(const __CFURL *a1, const __CFString *a2, const 
 
   bzero(values, 0x400uLL);
   usedBufLen = 0;
-  memset(&v60, 0, sizeof(v60));
+  memset(&v59, 0, sizeof(v59));
   v16 = CFURLCopyPath(a1);
   if (v16)
   {
     v17 = v16;
-    v64.length = CFStringGetLength(v16);
-    v64.location = 0;
-    CFStringGetBytes(v17, v64, 0x8000100u, 0x2Du, 0, values, 1024, &usedBufLen);
+    v63.length = CFStringGetLength(v16);
+    v63.location = 0;
+    CFStringGetBytes(v17, v63, 0x8000100u, 0x2Du, 0, values, 1024, &usedBufLen);
     *(values + usedBufLen) = 0;
     CFRelease(v17);
   }
 
-  if (stat(values, &v60))
+  if (stat(values, &v59))
   {
-    goto LABEL_22;
+    return 0;
   }
 
   v18 = open(values, 256);
   if (v18 < 0)
   {
-    v39 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    if (v39)
+    v38 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    if (v38)
     {
-      SIDataMapCreateMutableWithOptions_cold_2(v39, v40, v41, v42, v43, v44, v45, v46);
+      SIDataMapCreateMutableWithOptions_cold_2(v38, v39, v40, v41, v42, v43, v44, v45);
     }
 
-    goto LABEL_22;
+    return 0;
   }
 
   v19 = v18;
@@ -4123,8 +4055,8 @@ void *SIDataMapCreateWithOptions(const __CFURL *a1, const __CFString *a2, const 
     if (v22)
     {
       v23 = v22;
-      v59 = 0;
-      v24 = createDictionaryWithContentsOfURL(v22, &v59);
+      v58 = 0;
+      v24 = createDictionaryWithContentsOfURL(v22, &v58);
       if (v24)
       {
         v25 = v24;
@@ -4142,9 +4074,7 @@ void *SIDataMapCreateWithOptions(const __CFURL *a1, const __CFString *a2, const 
             goto LABEL_29;
           }
 
-LABEL_22:
-          v36 = 0;
-          goto LABEL_23;
+          return 0;
         }
 
         CFRelease(v25);
@@ -4157,9 +4087,9 @@ LABEL_22:
   }
 
 LABEL_29:
-  v65.length = CFStringGetLength(v15);
-  v65.location = 0;
-  CFStringGetBytes(v15, v65, 0x8000100u, 0x2Du, 0, values, 1024, &usedBufLen);
+  v64.length = CFStringGetLength(v15);
+  v64.location = 0;
+  CFStringGetBytes(v15, v64, 0x8000100u, 0x2Du, 0, values, 1024, &usedBufLen);
   *(values + usedBufLen) = 0;
   if (a3)
   {
@@ -4167,27 +4097,27 @@ LABEL_29:
     v14 = value;
   }
 
-  v47 = 4 * (v14 == v12);
-  v48 = data_map32_init(v19, values, v47, 10);
-  if (!v48)
+  v46 = 4 * (v14 == v12);
+  v47 = data_map32_init(v19, values, v46, 10);
+  if (!v47)
   {
-    v50 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    if (v50)
+    v49 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    if (v49)
     {
-      SIDataMapCreateMutableWithOptions_cold_1(v50, v51, v52, v53, v54, v55, v56, v57);
+      SIDataMapCreateMutableWithOptions_cold_1(v49, v50, v51, v52, v53, v54, v55, v56);
     }
 
     close(v19);
-    goto LABEL_22;
+    return 0;
   }
 
-  v49 = v48;
+  v48 = v47;
   v36 = malloc_type_calloc(1uLL, 0x20uLL, 0x1060040504AB746uLL);
   if (v36)
   {
     v36[1] = CFRetain(a1);
-    v36[2] = v49;
-    *(v36 + 6) = v47;
+    v36[2] = v48;
+    *(v36 + 6) = v46;
     *(v36 + 7) = v19;
     atomic_fetch_add(v36, 1u);
   }
@@ -4195,11 +4125,9 @@ LABEL_29:
   else
   {
     close(v19);
-    data_map32_destroy(v49);
+    data_map32_destroy(v48);
   }
 
-LABEL_23:
-  v37 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
@@ -4271,7 +4199,7 @@ LABEL_7:
 
 uint64_t SIDataMapAddKeyWithPayload(uint64_t result, const void *a2, size_t a3, int a4, _DWORD *a5)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   if (result)
   {
     v5 = result;
@@ -4279,9 +4207,9 @@ uint64_t SIDataMapAddKeyWithPayload(uint64_t result, const void *a2, size_t a3, 
     {
       v10 = *(result + 24);
       v11 = v10 + a3;
-      MEMORY[0x28223BE20]();
-      v13 = v15 - v12;
-      bzero(v15 - v12, v11);
+      MEMORY[0x28223BE20](result);
+      v13 = v14 - v12;
+      bzero(v14 - v12, v11);
       *v13 = a4;
       memcpy(&v13[v10], a2, a3);
       result = data_map32_id_insert(*(v5 + 16), v13, v11);
@@ -4292,23 +4220,22 @@ uint64_t SIDataMapAddKeyWithPayload(uint64_t result, const void *a2, size_t a3, 
           *a5 = result;
         }
 
-        result = 1;
+        return 1;
       }
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t SIDataMapLookupStringKey(uint64_t result, CFStringRef theString, unint64_t a3, unint64_t a4)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (result)
   {
     v5 = result;
@@ -4324,16 +4251,16 @@ uint64_t SIDataMapLookupStringKey(uint64_t result, CFStringRef theString, unint6
           if (Length <= 1023)
           {
             MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-            v10 = MEMORY[0x28223BE20]();
-            v12 = (v14 - v11);
-            bzero(v14 - v11, v10 + 1);
-            v14[0] = 0;
-            v15.location = 0;
-            v15.length = Length;
-            if (CFStringGetBytes(theString, v15, 0x8000100u, 0x2Du, 0, v12, MaximumSizeForEncoding, v14) == Length)
+            v10 = MEMORY[0x28223BE20](MaximumSizeForEncoding);
+            v12 = (v13 - v11);
+            bzero(v13 - v11, v10 + 1);
+            v13[0] = 0;
+            v14.location = 0;
+            v14.length = Length;
+            if (CFStringGetBytes(theString, v14, 0x8000100u, 0x2Du, 0, v12, MaximumSizeForEncoding, v13) == Length)
             {
-              *(v12 + v14[0]) = 0;
-              result = SIDataMapLookupKey(v5, v12, Length, a3, a4);
+              *(v12 + v13[0]) = 0;
+              return SIDataMapLookupKey(v5, v12, Length, a3, a4);
             }
 
             else
@@ -4341,8 +4268,8 @@ uint64_t SIDataMapLookupStringKey(uint64_t result, CFStringRef theString, unint6
               result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
               if (result)
               {
-                SIDataMapLookupStringKey_cold_1(v14);
-                result = 0;
+                SIDataMapLookupStringKey_cold_1();
+                return 0;
               }
             }
           }
@@ -4351,13 +4278,12 @@ uint64_t SIDataMapLookupStringKey(uint64_t result, CFStringRef theString, unint6
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t SIDataMapAddStringKeyWithPayload(uint64_t result, CFStringRef theString, int a3, _DWORD *a4)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (result)
   {
     v4 = result;
@@ -4365,16 +4291,16 @@ uint64_t SIDataMapAddStringKeyWithPayload(uint64_t result, CFStringRef theString
     {
       Length = CFStringGetLength(theString);
       MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-      v10 = MEMORY[0x28223BE20]();
-      v12 = v14 - v11;
-      bzero(v14 - v11, v10 + 1);
-      v14[0] = 0;
-      v15.location = 0;
-      v15.length = Length;
-      if (CFStringGetBytes(theString, v15, 0x8000100u, 0x2Du, 0, v12, MaximumSizeForEncoding, v14) == Length)
+      v10 = MEMORY[0x28223BE20](MaximumSizeForEncoding);
+      v12 = v13 - v11;
+      bzero(v13 - v11, v10 + 1);
+      v13[0] = 0;
+      v14.location = 0;
+      v14.length = Length;
+      if (CFStringGetBytes(theString, v14, 0x8000100u, 0x2Du, 0, v12, MaximumSizeForEncoding, v13) == Length)
       {
-        v12[v14[0]] = 0;
-        result = SIDataMapAddKeyWithPayload(v4, v12, Length, a3, a4);
+        v12[v13[0]] = 0;
+        return SIDataMapAddKeyWithPayload(v4, v12, Length, a3, a4);
       }
 
       else
@@ -4382,19 +4308,18 @@ uint64_t SIDataMapAddStringKeyWithPayload(uint64_t result, CFStringRef theString
         result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
         if (result)
         {
-          SIDataMapLookupStringKey_cold_1(v14);
-          result = 0;
+          SIDataMapLookupStringKey_cold_1();
+          return 0;
         }
       }
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4621,13 +4546,14 @@ void SIDataMapRelease(void *a1)
   }
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-uint64_t MDHash(unsigned __int8 *a1, unsigned int a2, int a3)
+uint64_t MDHash(unsigned __int8 *a1, unsigned int a2, unsigned int a3)
 {
   v3 = -1640531527;
   if (a2 < 0xC)
@@ -4845,19 +4771,18 @@ void *CITokenizerCreate(int a1)
 void __message_assert_1(char *a1, ...)
 {
   va_start(va, a1);
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
-  va_copy(&v2[1], va);
-  vasprintf(v2, a1, va);
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
+  va_copy(&v1[1], va);
+  vasprintf(v1, a1, va);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v4 = v2[0];
+    v3 = v1[0];
     _os_log_error_impl(&dword_26B7AA000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
   }
 
-  free(v2[0]);
-  v1 = *MEMORY[0x277D85DE8];
+  free(v1[0]);
 }
 
 void CITokenizerDispose(void *a1)
@@ -4896,14 +4821,12 @@ uint64_t CITokenizerReset(void *a1)
 {
   if (a1[1])
   {
-    v2 = a1[3];
     _NLStringTokenizerSetStringWithOptionsAndLanguageID();
   }
 
   result = a1[2];
   if (result)
   {
-    v4 = a1[3];
 
     return _NLStringTokenizerSetStringWithOptionsAndLanguageID();
   }
@@ -5004,9 +4927,9 @@ void CIReleaseIndexingTokenizer(uint64_t a1)
   OSAtomicEnqueue(&gIndexingTokenizerStack + v1, v3, 0);
 }
 
-void CITokenizerSetLocale(uint64_t a1, const __CFString *a2, const char *a3)
+void CITokenizerSetLocale(uint64_t a1, const __CFString *a2, char *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   bzero(buffer, 0x400uLL);
   if (a2 && (v6 = buffer, CFStringGetCString(a2, buffer, 1024, 0x8000100u)) || (v6 = a3) != 0)
   {
@@ -5039,14 +4962,14 @@ void CITokenizerSetLocale(uint64_t a1, const __CFString *a2, const char *a3)
   v8 = *(a1 + 64);
   if (a3 == v8)
   {
-    goto LABEL_29;
+    return;
   }
 
   if (a3 && v8)
   {
     if (!strcmp(a3, *(a1 + 64)))
     {
-      goto LABEL_29;
+      return;
     }
 
     goto LABEL_17;
@@ -5088,128 +5011,121 @@ LABEL_17:
   }
 
   *(a1 + 72) = MEMORY[0x26D680E30](*(a1 + 56));
-LABEL_29:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-BOOL CIStringTokenizerResolveTranscriptions()
+BOOL CIStringTokenizerResolveTranscriptions(uint64_t a1)
 {
-  v0 = MEMORY[0x28223BE20]();
-  v2 = v1;
-  v4 = v3;
-  v6 = v5;
-  v7 = v0;
-  v57 = *MEMORY[0x277D85DE8];
-  v8 = strlen(v0);
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
+  v8 = v1;
+  v53 = *MEMORY[0x277D85DE8];
+  v9 = strlen(v1);
   alloc = *MEMORY[0x277CBECE8];
-  v9 = CFStringCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v7, v8, 0x8000100u, 0, *MEMORY[0x277CBED00]);
-  if (!v9)
+  v10 = CFStringCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v8, v9, 0x8000100u, 0, *MEMORY[0x277CBED00]);
+  if (!v10)
   {
-    v36 = 0;
-    goto LABEL_56;
+    return 0;
   }
 
-  v10 = v9;
-  v11 = CIRetainIndexingTokenizer(3u);
-  if (!v11)
+  v11 = v10;
+  v12 = CIRetainIndexingTokenizer(3u);
+  if (!v12)
   {
-    v36 = 0;
+    v33 = 0;
     goto LABEL_55;
   }
 
-  v12 = v11;
-  buffer = v4;
-  v40 = v2;
-  bzero(v56, 0x1000uLL);
-  bzero(&v55, 0x800uLL);
-  bzero(v54, 0x800uLL);
-  bzero(v53, 0x800uLL);
-  v52 = 0;
-  *v50 = 0u;
+  v13 = v12;
+  buffer = v5;
+  v36 = v3;
+  bzero(v52, 0x1000uLL);
+  bzero(&v51, 0x800uLL);
+  bzero(v50, 0x800uLL);
+  bzero(v49, 0x800uLL);
+  v48 = 0;
+  *v46 = 0u;
   *cf = 0u;
-  memset(v49, 0, sizeof(v49));
-  CITokenizerSetLocale(v12, 0, v6);
-  CITokenizerStateInit(v49, v10, (*(v12 + 72) < 0x37uLL) & (0x40000000300030uLL >> *(v12 + 72)), 0);
-  v41 = v10;
+  memset(v45, 0, sizeof(v45));
+  CITokenizerSetLocale(v13, 0, v7);
+  CITokenizerStateInit(v45, v11, (*(v13 + 72) < 0x37uLL) & (0x40000000300030uLL >> *(v13 + 72)), 0);
+  v37 = v11;
   if (cf[0])
   {
-    v13 = cf[0];
+    v14 = cf[0];
   }
 
   else
   {
-    v13 = v10;
+    v14 = v11;
   }
 
-  CFStringGetLength(v13);
-  v14 = *(v12 + 8);
-  v15 = *(v12 + 24);
-  v16 = *(v12 + 72);
+  CFStringGetLength(v14);
   _NLStringTokenizerSetStringWithOptionsAndLanguageID();
-  v17 = 0;
-  v18 = 0;
+  v15 = 0;
+  v16 = 0;
   Mutable = 0;
   chars = 32;
-  v47 = v50[0];
-  v42 = v12;
-  v43 = v50[0] - 2;
+  v43 = v46[0];
+  v38 = v13;
+  v39 = v46[0] - 2;
   do
   {
-    v20 = *(v12 + 8);
-    v21 = _NLStringTokenizerTokenizeWithTranscriptions();
-    v44 = v21;
-    if (v21 >= 1)
+    v18 = _NLStringTokenizerTokenizeWithTranscriptions();
+    v40 = v18;
+    if (v18 >= 1)
     {
-      v22 = 0;
-      v23 = v56;
-      v45 = &v56[v21 - 1];
-      v24 = v54;
-      v25 = v21;
+      v19 = 0;
+      v20 = v52;
+      v41 = &v52[v18 - 1];
+      v21 = v50;
+      v22 = v18;
       while (1)
       {
-        if (!*v24)
+        if (!*v21)
         {
-          if (v25 != 1)
+          if (v22 != 1)
           {
             goto LABEL_26;
           }
 
-          if (!v17)
+          if (!v15)
           {
             goto LABEL_26;
           }
 
-          v26 = v45[1] + *v45;
-          v27 = v26 - v17;
-          if (v26 == v17)
+          v23 = v41[1] + *v41;
+          v24 = v23 - v15;
+          if (v23 == v15)
           {
             goto LABEL_26;
           }
 
-          v28 = v47[v17];
-          if (v28 > 0x7F)
+          v25 = v43[v15];
+          if (v25 > 0x7F)
           {
-            if (!__maskrune(v28, 0x4000uLL))
+            if (!__maskrune(v25, 0x4000uLL))
             {
               goto LABEL_34;
             }
           }
 
-          else if ((*(MEMORY[0x277D85DE0] + 4 * v28 + 60) & 0x4000) == 0)
+          else if ((*(MEMORY[0x277D85DE0] + 4 * v25 + 60) & 0x4000) == 0)
           {
 LABEL_34:
             CFStringAppendCharacters(Mutable, &chars, 1);
           }
 
-          v31 = Mutable;
-          v29 = &v47[v17];
-          v30 = v27;
+          v28 = Mutable;
+          v26 = &v43[v15];
+          v27 = v24;
           goto LABEL_25;
         }
 
-        if (**&v53[v22] >= 0x80u)
+        if (**&v49[v19] >= 0x80u)
         {
-          v18 = 1;
+          v16 = 1;
         }
 
         if (Mutable)
@@ -5218,60 +5134,60 @@ LABEL_34:
         }
 
         Mutable = CFStringCreateMutable(alloc, 0);
-        if (v22)
+        if (v19)
         {
           goto LABEL_22;
         }
 
 LABEL_24:
-        v17 = v23[1] + *v23;
-        v29 = *&v53[v22];
-        v30 = *v24;
-        v31 = Mutable;
+        v15 = v20[1] + *v20;
+        v26 = *&v49[v19];
+        v27 = *v21;
+        v28 = Mutable;
 LABEL_25:
-        CFStringAppendCharacters(v31, v29, v30);
+        CFStringAppendCharacters(v28, v26, v27);
 LABEL_26:
-        ++v24;
-        v23 += 2;
-        v22 += 8;
-        if (!--v25)
+        ++v21;
+        v20 += 2;
+        v19 += 8;
+        if (!--v22)
         {
           goto LABEL_43;
         }
       }
 
-      if (!v22)
+      if (!v19)
       {
         goto LABEL_24;
       }
 
 LABEL_22:
-      if (*(v24 - 1))
+      if (*(v21 - 1))
       {
 LABEL_23:
         CFStringAppendCharacters(Mutable, &chars, 1);
         goto LABEL_24;
       }
 
-      v32 = *v23;
-      v33 = *v23 - v17;
-      if (v33 < 1)
+      v29 = *v20;
+      v30 = *v20 - v15;
+      if (v30 < 1)
       {
         goto LABEL_24;
       }
 
-      if (v17)
+      if (v15)
       {
-        v34 = v47[v17];
-        if (v34 > 0x7F)
+        v31 = v43[v15];
+        if (v31 > 0x7F)
         {
-          if (__maskrune(v34, 0x4000uLL))
+          if (__maskrune(v31, 0x4000uLL))
           {
             goto LABEL_38;
           }
         }
 
-        else if ((*(MEMORY[0x277D85DE0] + 4 * v34 + 60) & 0x4000) != 0)
+        else if ((*(MEMORY[0x277D85DE0] + 4 * v31 + 60) & 0x4000) != 0)
         {
           goto LABEL_38;
         }
@@ -5280,17 +5196,17 @@ LABEL_23:
       }
 
 LABEL_38:
-      CFStringAppendCharacters(Mutable, &v47[v17], v33);
-      v35 = *&v43[2 * v32];
-      if (v35 > 0x7F)
+      CFStringAppendCharacters(Mutable, &v43[v15], v30);
+      v32 = *&v39[2 * v29];
+      if (v32 > 0x7F)
       {
-        if (__maskrune(v35, 0x4000uLL))
+        if (__maskrune(v32, 0x4000uLL))
         {
           goto LABEL_24;
         }
       }
 
-      else if ((*(MEMORY[0x277D85DE0] + 4 * v35 + 60) & 0x4000) != 0)
+      else if ((*(MEMORY[0x277D85DE0] + 4 * v32 + 60) & 0x4000) != 0)
       {
         goto LABEL_24;
       }
@@ -5299,43 +5215,41 @@ LABEL_38:
     }
 
 LABEL_43:
-    v12 = v42;
+    ;
   }
 
-  while (v44);
-  if (v18)
+  while (v40);
+  if (v16)
   {
     CFStringNormalize(Mutable, kCFStringNormalizationFormD);
   }
 
-  v10 = v41;
+  v11 = v37;
   if (Mutable)
   {
-    v36 = CFStringGetCString(Mutable, buffer, v40, 0x8000100u) != 0;
+    v33 = CFStringGetCString(Mutable, buffer, v36, 0x8000100u) != 0;
     CFRelease(Mutable);
   }
 
   else
   {
-    v36 = 0;
+    v33 = 0;
   }
 
-  CIReleaseIndexingTokenizer(v42);
+  CIReleaseIndexingTokenizer(v38);
   if (cf[0])
   {
     CFRelease(cf[0]);
   }
 
-  if (v50[1])
+  if (v46[1])
   {
-    free(v50[1]);
+    free(v46[1]);
   }
 
 LABEL_55:
-  CFRelease(v10);
-LABEL_56:
-  v37 = *MEMORY[0x277D85DE8];
-  return v36;
+  CFRelease(v11);
+  return v33;
 }
 
 void CITokenizerStateInit(uint64_t a1, CFStringRef theString, int a3, int a4)
@@ -5370,9 +5284,9 @@ void CITokenizerStateInit(uint64_t a1, CFStringRef theString, int a3, int a4)
       CITokenizerStateInit_cold_1(Length);
     }
 
-    v20.location = 0;
-    v20.length = Length;
-    CFStringGetCharacters(theString, v20, v10);
+    v18.location = 0;
+    v18.length = Length;
+    CFStringGetCharacters(theString, v18, v10);
     *(a1 + 96) = *(a1 + 104);
   }
 
@@ -5383,7 +5297,6 @@ void CITokenizerStateInit(uint64_t a1, CFStringRef theString, int a3, int a4)
   }
 
   unorm2_getNFCInstance();
-  v11 = *(a1 + 96);
   if (unorm2_quickCheck() == 1)
   {
     *(a1 + 128) = 1;
@@ -5395,8 +5308,8 @@ void CITokenizerStateInit(uint64_t a1, CFStringRef theString, int a3, int a4)
     goto LABEL_16;
   }
 
-  v12 = malloc_type_malloc(2 * (Length & 0x7FFFFFFF), 0x1000040BDFB0063uLL);
-  if (!v12)
+  v11 = malloc_type_malloc(2 * (Length & 0x7FFFFFFF), 0x1000040BDFB0063uLL);
+  if (!v11)
   {
 LABEL_15:
     if (!a4)
@@ -5407,40 +5320,39 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v13 = v12;
-  v14 = *(a1 + 96);
-  v15 = unorm2_normalize();
-  v18 = v15;
+  v12 = v11;
+  v13 = unorm2_normalize();
+  v16 = v13;
   *(a1 + 128) = 1;
-  if (v15 == Length && !memcmp(*(a1 + 96), v13, Length & 0x7FFFFFFF))
+  if (v13 == Length && !memcmp(*(a1 + 96), v12, Length & 0x7FFFFFFF))
   {
-    free(v13);
+    free(v12);
     goto LABEL_15;
   }
 
-  if (v18 < Length)
+  if (v16 < Length)
   {
-    LODWORD(Length) = v18;
+    LODWORD(Length) = v16;
   }
 
-  v19 = *(a1 + 104);
-  if (v19)
+  v17 = *(a1 + 104);
+  if (v17)
   {
-    free(v19);
+    free(v17);
   }
 
-  *(a1 + 96) = v13;
-  *(a1 + 104) = v13;
-  *(a1 + 112) = CFStringCreateWithCharactersNoCopy(0, v13, Length, *MEMORY[0x277CBED00]);
+  *(a1 + 96) = v12;
+  *(a1 + 104) = v12;
+  *(a1 + 112) = CFStringCreateWithCharactersNoCopy(0, v12, Length, *MEMORY[0x277CBED00]);
   *(a1 + 120) = Length;
   if (a4)
   {
 LABEL_16:
-    v16 = *(a1 + 120);
-    if (v16 >= 2)
+    v14 = *(a1 + 120);
+    if (v14 >= 2)
     {
-      v17 = *(a1 + 96) + 2 * v16;
-      if (*(v17 - 2) == 42 && (*(v17 - 4) != 92 || v16 != 2 && *(v17 - 6) != 92))
+      v15 = *(a1 + 96) + 2 * v14;
+      if (*(v15 - 2) == 42 && (*(v15 - 4) != 92 || v14 != 2 && *(v15 - 6) != 92))
       {
         *(a1 + 129) = 1;
       }
@@ -5456,70 +5368,70 @@ __n128 CITokenizerGetMatchState@<Q0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
   return result;
 }
 
-void CITokenizerGetQueryTokensWithOptions()
+void CITokenizerGetQueryTokensWithOptions(uint64_t a1)
 {
-  v0 = MEMORY[0x28223BE20]();
-  v6 = v5;
-  if (v1)
+  v1 = MEMORY[0x28223BE20](a1);
+  v7 = v6;
+  if (v2)
   {
-    v7 = v3;
-    v8 = v2;
-    v9 = v1;
-    v10 = v0;
-    v11 = v4;
-    if (CFStringGetLength(v1))
+    v8 = v4;
+    v9 = v3;
+    v10 = v2;
+    v11 = v1;
+    v12 = v5;
+    if (CFStringGetLength(v2))
     {
-      v14[0] = v11;
-      v14[1] = v6;
-      v15 = 0u;
+      v15[0] = v12;
+      v15[1] = v7;
       v16 = 0u;
-      v17 = 0;
+      v17 = 0u;
+      v18 = 0;
       bzero(&cf, 0x1810uLL);
-      CITokenizerSetLocale(v10, v8, 0);
-      _CITokenizerGetTokens(v10, *(v10 + 8), v9, &cf, v7 | 0x46u, _CITokenizerGetQueryTokensStart, _CITokenizerGetQueryTokens, 0, 0, 0, _CITokenizerGetQueryTokensEnd, v14);
+      CITokenizerSetLocale(v11, v9, 0);
+      _CITokenizerGetTokens(v11, *(v11 + 8), v10, &cf, v8 | 0x46u, _CITokenizerGetQueryTokensStart, _CITokenizerGetQueryTokens, 0, 0, 0, _CITokenizerGetQueryTokensEnd, v15);
       if (cf)
       {
         CFRelease(cf);
       }
 
-      if (v13)
+      if (v14)
       {
-        free(v13);
+        free(v14);
       }
     }
 
     else
     {
 
-      v11();
+      v12();
     }
   }
 
   else
   {
 
-    (v4)(0);
+    (v5)(0);
   }
 }
 
 void _CITokenizerGetTokens(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void (*a9)(void, _OWORD *, uint64_t *), void (*a10)(uint64_t, uint64_t), void (*a11)(void, uint64_t, uint64_t), uint64_t a12)
 {
-  v12 = MEMORY[0x28223BE20]();
-  v217 = v13;
-  v213 = v14;
+  v12 = MEMORY[0x28223BE20](a1);
+  v210 = v13;
+  v206 = v14;
   v16 = v15;
   v18 = v17;
-  v209 = v19;
+  v202 = v19;
   v21 = v20;
   v23 = v22;
   v24 = v12;
-  v249 = *MEMORY[0x277D85DE8];
-  bzero(v222, 0xC30uLL);
-  v224 = -1;
+  v242 = *MEMORY[0x277D85DE8];
+  bzero(v215, 0xC30uLL);
+  v217 = -1;
   v25 = *(v24 + 8);
-  v218 = v23;
-  v221 = v24;
-  v219 = v18;
+  v211 = v23;
+  v214 = v24;
+  v212 = v18;
   if (v25 != v23)
   {
     goto LABEL_2;
@@ -5544,45 +5456,44 @@ LABEL_2:
   }
 
 LABEL_7:
-  v210 = a11;
-  v28 = *(v221 + 24);
-  v29 = *(v221 + 40);
-  v234 = 0;
-  v233 = 0u;
-  v232 = 0u;
-  v231 = 0u;
-  v230 = 0u;
-  memset(v229, 0, sizeof(v229));
-  v228 = 0u;
-  v227 = 0u;
-  bzero(v248, 0x1010uLL);
-  bzero(v247, 0x808uLL);
-  bzero(&v243, 0x1010uLL);
-  bzero(v239, 0x808uLL);
-  bzero(v237, 0x808uLL);
-  bzero(v236, 0x808uLL);
-  CITokenizerStateInit(&v227, v21, v26 & 1, (v219 >> 6) & 1);
-  if (*(v221 + 16) == v218)
+  v203 = a11;
+  v28 = *(v214 + 40);
+  v227 = 0;
+  v226 = 0u;
+  v225 = 0u;
+  v224 = 0u;
+  v223 = 0u;
+  memset(v222, 0, sizeof(v222));
+  v221 = 0u;
+  v220 = 0u;
+  bzero(v241, 0x1010uLL);
+  bzero(v240, 0x808uLL);
+  bzero(&v236, 0x1010uLL);
+  bzero(v232, 0x808uLL);
+  bzero(v230, 0x808uLL);
+  bzero(v229, 0x808uLL);
+  CITokenizerStateInit(&v220, v21, v26 & 1, (v212 >> 6) & 1);
+  if (*(v214 + 16) == v211)
   {
-    LOBYTE(v234) = 1;
+    LOBYTE(v227) = 1;
   }
 
-  v220 = a12;
-  v212 = *(&v233 + 1);
-  if (!*(&v233 + 1))
+  v213 = a12;
+  v205 = *(&v226 + 1);
+  if (!*(&v226 + 1))
   {
-    v184 = v210;
-    v185 = 0;
-    if (v219)
+    v179 = v203;
+    v180 = 0;
+    if (v212)
     {
       if (v16)
       {
-        v16(0, 0, v220);
+        v16(0, 0, v213);
       }
 
-      if (v213)
+      if (v206)
       {
-        v213(0, 0, 0, v220);
+        v206(0, 0, 0, v213);
       }
     }
 
@@ -5591,40 +5502,39 @@ LABEL_7:
 
   if (a10)
   {
-    v30 = NLStringTokenizerCopyBestStringLanguage();
-    if (v30)
+    v29 = NLStringTokenizerCopyBestStringLanguage();
+    if (v29)
     {
-      v31 = v30;
-      a10(v30, v220);
-      CFRelease(v31);
+      v30 = v29;
+      a10(v29, v213);
+      CFRelease(v30);
     }
   }
 
-  v216 = a9;
-  v32 = *(v221 + 72);
+  v209 = a9;
   _NLStringTokenizerSetStringWithOptionsAndLanguageID();
   if (v16)
   {
-    v16(v232, v212, v220);
+    v16(v225, v205, v213);
   }
 
-  v215 = 0;
-  v33 = *MEMORY[0x277CBED00];
-  v214 = &v223;
-  v203 = &v245;
-  v204 = v33;
-  v34 = v239;
-  v201 = (v209 + 24);
-  v202 = &v240;
-  v211 = &v244;
-  v207 = &v238;
-  v208 = &v242;
-  v205 = &v241;
-  v206 = &v246;
-  v35 = 1;
-  v36 = 4294959088;
-  v37 = 65293;
-  v38 = v221;
+  v208 = 0;
+  v31 = *MEMORY[0x277CBED00];
+  v207 = &v216;
+  v196 = &v238;
+  v197 = v31;
+  v32 = v232;
+  v194 = (v202 + 24);
+  v195 = &v233;
+  v204 = &v237;
+  v200 = &v231;
+  v201 = &v235;
+  v198 = &v234;
+  v199 = &v239;
+  v33 = 1;
+  v34 = 4294959088;
+  v35 = 65293;
+  v36 = v214;
 LABEL_16:
   while (2)
   {
@@ -5638,109 +5548,108 @@ LABEL_16:
           {
             while (2)
             {
-              v39 = *(&v228 + 1);
-              for (i = v228; v39 < v228; i = v228)
+              v37 = *(&v221 + 1);
+              for (i = v221; v37 < v221; i = v221)
               {
-                v41 = &v243 + 2 * v39;
-                v230 = *v41;
-                v42 = v239[v39];
-                *&v231 = v42;
-                if (v39)
+                v39 = &v236 + 2 * v37;
+                v223 = *v39;
+                v40 = v232[v37];
+                *&v224 = v40;
+                if (v37)
                 {
-                  v43 = v39 + 2;
-                  if (v39 + 2 < i)
+                  v41 = v37 + 2;
+                  if (v37 + 2 < i)
                   {
-                    v44 = v39 - 1;
-                    v45 = v39 - 2;
-                    if (v39 < 2 || (v239[v45] & 0x20) == 0 || *(&v243 + 2 * v45 + 1) + *(&v243 + 2 * v45) != *(&v243 + 2 * v44))
+                    v42 = v37 - 1;
+                    v43 = v37 - 2;
+                    if (v37 < 2 || (v232[v43] & 0x20) == 0 || *(&v236 + 2 * v43 + 1) + *(&v236 + 2 * v43) != *(&v236 + 2 * v42))
                     {
-                      v46 = v42 & 0x20;
-                      if ((v239[v44] & 0x30) == 0 && v46 != 0 && v41[1] == 1)
+                      v44 = v40 & 0x20;
+                      if ((v232[v42] & 0x30) == 0 && v44 != 0 && v39[1] == 1)
                       {
-                        v48 = v229[1];
-                        v49 = v232 + 2 * v229[1];
-                        if (*(v49 + 2 * *v41) == 46)
+                        v46 = v222[1];
+                        v47 = v225 + 2 * v222[1];
+                        if (*(v47 + 2 * *v39) == 46)
                         {
-                          v50 = v39 + 1;
-                          if ((v239[v39 + 1] & 0x30) == 0 && (v239[v43] & 0x20) != 0)
+                          v48 = v37 + 1;
+                          if ((v232[v37 + 1] & 0x30) == 0 && (v232[v41] & 0x20) != 0)
                           {
-                            v51 = &v243 + 2 * v43;
-                            if (v51[1] == 1 && *(v49 + 2 * *v51) == 46)
+                            v49 = &v236 + 2 * v41;
+                            if (v49[1] == 1 && *(v47 + 2 * *v49) == 46)
                             {
-                              memset(v235, 0, 512);
-                              v52 = &v243 + 2 * v44;
-                              v53 = v52[1];
-                              v200 = v52;
-                              if (v53 > 255)
+                              memset(v228, 0, 512);
+                              v50 = &v236 + 2 * v42;
+                              v51 = v50[1];
+                              v193 = v50;
+                              if (v51 > 255)
                               {
-                                v56 = 0;
+                                v53 = 0;
                               }
 
                               else
                               {
-                                v54 = 2 * v53;
-                                v55 = *v52;
+                                v52 = 2 * v51;
                                 __memcpy_chk();
-                                v56 = v54;
+                                v53 = v52;
                               }
 
-                              v57 = &v203[2 * v39];
-                              v58 = &v202[v39];
-                              while ((*(v58 - 1) & 0x30) == 0)
+                              v54 = &v196[2 * v37];
+                              v55 = &v195[v37];
+                              while ((*(v55 - 1) & 0x30) == 0)
                               {
-                                if ((*v58 & 0x20) == 0)
+                                if ((*v55 & 0x20) == 0)
                                 {
                                   goto LABEL_44;
                                 }
 
-                                if (v57[2] != 1)
+                                if (v54[2] != 1)
                                 {
                                   goto LABEL_44;
                                 }
 
-                                if (*(v49 + 2 * v57[1]) != 46)
+                                if (*(v47 + 2 * v54[1]) != 46)
                                 {
                                   goto LABEL_44;
                                 }
 
-                                v59 = v56 + 2 * *v57;
-                                if (v59 > 511)
+                                v56 = v53 + 2 * *v54;
+                                if (v56 > 511)
                                 {
                                   goto LABEL_44;
                                 }
 
-                                memcpy(v235 + v56, (v49 + 2 * *(v57 - 1)), 2 * *v57);
-                                v50 += 2;
-                                v57 += 4;
-                                v43 += 2;
-                                v58 += 2;
-                                v56 = v59;
-                                if (v43 >= i)
+                                memcpy(v228 + v53, (v47 + 2 * *(v54 - 1)), 2 * *v54);
+                                v48 += 2;
+                                v54 += 4;
+                                v41 += 2;
+                                v55 += 2;
+                                v53 = v56;
+                                if (v41 >= i)
                                 {
-                                  v50 = v43 - 1;
+                                  v48 = v41 - 1;
                                   goto LABEL_45;
                                 }
                               }
 
-                              v50 = v43 - 1;
+                              v48 = v41 - 1;
 LABEL_44:
-                              v59 = v56;
+                              v56 = v53;
 LABEL_45:
-                              v60 = *v200 + v48;
-                              v61 = *(&v243 + 2 * v50 - 2) - v60 + *(&v243 + 2 * v50 - 1);
-                              v38 = v221;
-                              *(v221 + 88) = v60;
-                              v38[12] = v61;
-                              v38[13] = *(&v227 + 1) - 1;
-                              if (v217)
+                              v57 = *v193 + v46;
+                              v58 = *(&v236 + 2 * v48 - 2) - v57 + *(&v236 + 2 * v48 - 1);
+                              v36 = v214;
+                              *(v214 + 88) = v57;
+                              v36[12] = v58;
+                              v36[13] = *(&v220 + 1) - 1;
+                              if (v210)
                               {
-                                (v217)(v235, v59 >> 1, 0, v220);
+                                (v210)(v228, v56 >> 1, 0, v213);
                               }
 
-                              v34 = v239;
-                              v35 = 1;
-                              v36 = 4294959088;
-                              v37 = 65293;
+                              v32 = v232;
+                              v33 = 1;
+                              v34 = 4294959088;
+                              v35 = 65293;
                             }
                           }
                         }
@@ -5749,165 +5658,165 @@ LABEL_45:
                   }
                 }
 
-                v62 = v229[0];
-                if (*(&v230 + 1) + v230 > v229[0])
+                v59 = v222[0];
+                if (*(&v223 + 1) + v223 > v222[0])
                 {
-                  if ((v231 & 0x20) != 0)
+                  if ((v224 & 0x20) != 0)
                   {
-                    if (v29 < 2 || *(&v230 + 1) != 1 || (v90 = *(v232 + 2 * v229[1] + 2 * v230), (v90 - 8208) >= 2) && (v90 != 45 ? (v91 = v90 == 65293) : (v91 = 1), !v91))
+                    if (v28 < 2 || *(&v223 + 1) != 1 || (v87 = *(v225 + 2 * v222[1] + 2 * v223), (v87 - 8208) >= 2) && (v87 != 45 ? (v88 = v87 == 65293) : (v88 = 1), !v88))
                     {
-                      v229[0] = *(&v230 + 1) + v230;
-                      v39 = *(&v228 + 1) + 1;
-                      v62 = *(&v230 + 1) + v230;
+                      v222[0] = *(&v223 + 1) + v223;
+                      v37 = *(&v221 + 1) + 1;
+                      v59 = *(&v223 + 1) + v223;
                       goto LABEL_121;
                     }
                   }
 
-                  v80 = *(&v243 + 2 * *(&v228 + 1));
-                  v81 = *(&v243 + 2 * v228 - 1) + *(&v243 + 2 * v228 - 2);
-                  v229[0] = v81;
-                  if (v228 > *(&v228 + 1))
+                  v77 = *(&v236 + 2 * *(&v221 + 1));
+                  v78 = *(&v236 + 2 * v221 - 1) + *(&v236 + 2 * v221 - 2);
+                  v222[0] = v78;
+                  if (v221 > *(&v221 + 1))
                   {
-                    v82 = 0;
-                    v83 = 0;
-                    v84 = &v211[2 * *(&v228 + 1)];
-                    v85 = 1;
-                    v86 = *(&v228 + 1);
+                    v79 = 0;
+                    v80 = 0;
+                    v81 = &v204[2 * *(&v221 + 1)];
+                    v82 = 1;
+                    v83 = *(&v221 + 1);
                     while (1)
                     {
-                      v62 = *(v84 - 1);
-                      v87 = *v84;
-                      if ((v239[v86] & 0x10000020) == 0x20)
+                      v59 = *(v81 - 1);
+                      v84 = *v81;
+                      if ((v232[v83] & 0x10000020) == 0x20)
                       {
-                        if (v29 < 2 || v87 != 1)
+                        if (v28 < 2 || v84 != 1)
                         {
                           goto LABEL_114;
                         }
 
-                        v88 = *(v232 + 2 * v229[1] + 2 * v62);
-                        if ((v88 - 8208) < 2)
+                        v85 = *(v225 + 2 * v222[1] + 2 * v59);
+                        if ((v85 - 8208) < 2)
                         {
-                          v87 = 1;
+                          v84 = 1;
                         }
 
                         else
                         {
-                          v89 = v88 == 45 || v88 == 65293;
-                          v87 = 1;
-                          if (!v89)
+                          v86 = v85 == 45 || v85 == 65293;
+                          v84 = 1;
+                          if (!v86)
                           {
 LABEL_114:
-                            v229[0] = *(v84 - 1);
+                            v222[0] = *(v81 - 1);
 LABEL_115:
-                            if (v83 >= 9)
+                            if (v80 >= 9)
                             {
-                              if (v82 - v80 <= 63 && (v82 - v80) / v83 > 2)
+                              if (v79 - v77 <= 63 && (v79 - v77) / v80 > 2)
                               {
-                                if (v85)
+                                if (v82)
                                 {
-                                  v140 = v86;
+                                  v137 = v83;
                                 }
 
                                 else
                                 {
-                                  v140 = v228 - 1;
+                                  v137 = v221 - 1;
                                 }
 
-                                v36 = 4294959088;
-                                v37 = 65293;
-                                if ((v239[v140] & 0x20) != 0)
+                                v34 = 4294959088;
+                                v35 = 65293;
+                                if ((v232[v137] & 0x20) != 0)
                                 {
-                                  if (v29 < 2 || (v141 = &v243 + 2 * v140, v141[1] != 1) || (v142 = *(v232 + 2 * v229[1] + 2 * *v141), (v142 - 8208) >= 2) && (v142 != 45 ? (v143 = v142 == 65293) : (v143 = 1), !v143))
+                                  if (v28 < 2 || (v138 = &v236 + 2 * v137, v138[1] != 1) || (v139 = *(v225 + 2 * v222[1] + 2 * *v138), (v139 - 8208) >= 2) && (v139 != 45 ? (v140 = v139 == 65293) : (v140 = 1), !v140))
                                   {
-                                    --v140;
+                                    --v137;
                                   }
                                 }
 
-                                v144 = 0;
-                                v145 = &v208[2 * v140];
-                                v39 = v140 - 7;
-                                v146 = &v207[v140];
-                                v147 = &v206[2 * *(&v228 + 1)];
-                                v148 = &v205[*(&v228 + 1)];
+                                v141 = 0;
+                                v142 = &v201[2 * v137];
+                                v37 = v137 - 7;
+                                v143 = &v200[v137];
+                                v144 = &v199[2 * *(&v221 + 1)];
+                                v145 = &v198[*(&v221 + 1)];
                                 do
                                 {
-                                  v149 = *v148--;
-                                  *v146-- = v149;
-                                  *&v145[v144] = *&v147[v144];
-                                  v144 -= 2;
+                                  v146 = *v145--;
+                                  *v143-- = v146;
+                                  *&v142[v141] = *&v144[v141];
+                                  v141 -= 2;
                                 }
 
-                                while (v144 != -10);
+                                while (v141 != -10);
                               }
 
                               else
                               {
-                                *&v230 = v80;
-                                *(&v230 + 1) = v82 - v80;
-                                v39 = v83 + *(&v228 + 1);
-                                v36 = 4294959088;
-                                v37 = 65293;
+                                *&v223 = v77;
+                                *(&v223 + 1) = v79 - v77;
+                                v37 = v80 + *(&v221 + 1);
+                                v34 = 4294959088;
+                                v35 = 65293;
                               }
 
 LABEL_121:
-                              *(&v228 + 1) = v39;
-                              DWORD2(v231) = 0;
+                              *(&v221 + 1) = v37;
+                              DWORD2(v224) = 0;
 LABEL_122:
-                              if (!v39)
+                              if (!v37)
                               {
                                 goto LABEL_178;
                               }
 
 LABEL_123:
-                              v92 = v230;
-                              v93 = v229[1];
-                              v94 = v229[2];
-                              v95 = v229[2] - v230;
-                              v38[11] = v230 + v229[1];
-                              v38[12] = v95;
+                              v89 = v223;
+                              v90 = v222[1];
+                              v91 = v222[2];
+                              v92 = v222[2] - v223;
+                              v36[11] = v223 + v222[1];
+                              v36[12] = v92;
                               goto LABEL_179;
                             }
 
-                            v36 = 4294959088;
-                            v37 = 65293;
+                            v34 = 4294959088;
+                            v35 = 65293;
 LABEL_120:
-                            v39 = *(&v228 + 1) + 1;
+                            v37 = *(&v221 + 1) + 1;
                             goto LABEL_121;
                           }
                         }
                       }
 
-                      v84 += 2;
-                      ++v83;
-                      v82 = v87 + v62;
-                      v85 = ++v86 < v228;
-                      if (v228 == v86)
+                      v81 += 2;
+                      ++v80;
+                      v79 = v84 + v59;
+                      v82 = ++v83 < v221;
+                      if (v221 == v83)
                       {
-                        v62 = v81;
-                        v83 = v228 - *(&v228 + 1);
-                        v86 = v228;
+                        v59 = v78;
+                        v80 = v221 - *(&v221 + 1);
+                        v83 = v221;
                         goto LABEL_115;
                       }
                     }
                   }
 
-                  v62 = v81;
+                  v59 = v78;
                   goto LABEL_120;
                 }
 
-                DWORD2(v231) = 1;
-                v63 = *(&v228 + 1);
-                v39 = ++*(&v228 + 1);
-                if (v63 < 1)
+                DWORD2(v224) = 1;
+                v60 = *(&v221 + 1);
+                v37 = ++*(&v221 + 1);
+                if (v60 < 1)
                 {
                   goto LABEL_122;
                 }
 
-                if (v29 >= 2 && *(&v230 + 1) == 1)
+                if (v28 >= 2 && *(&v223 + 1) == 1)
                 {
-                  v64 = *(v232 + 2 * v229[1] + 2 * v230);
-                  v65 = (v64 - 8208) < 2 || v64 == 65293;
-                  if (v65 || v64 == 45)
+                  v61 = *(v225 + 2 * v222[1] + 2 * v223);
+                  v62 = (v61 - 8208) < 2 || v61 == 65293;
+                  if (v62 || v61 == 45)
                   {
                     continue;
                   }
@@ -5916,61 +5825,61 @@ LABEL_120:
                 goto LABEL_123;
               }
 
-              v66 = *(&v227 + 1);
-              v67 = v227;
-              if (*(&v227 + 1) >= v227)
+              v63 = *(&v220 + 1);
+              v64 = v220;
+              if (*(&v220 + 1) >= v220)
               {
-                *(&v227 + 1) = 0;
-                if ((v219 & 2) != 0)
+                *(&v220 + 1) = 0;
+                if ((v212 & 2) != 0)
                 {
-                  v67 = _NLStringTokenizerTokenize();
+                  v64 = _NLStringTokenizerTokenize();
                 }
 
                 else
                 {
-                  v67 = _NLStringTokenizerTokenizeWithTranscriptions();
+                  v64 = _NLStringTokenizerTokenizeWithTranscriptions();
                 }
 
-                *&v227 = v67;
-                v35 = 1;
-                v36 = 4294959088;
-                v37 = 65293;
-                if (!v67)
+                *&v220 = v64;
+                v33 = 1;
+                v34 = 4294959088;
+                v35 = 65293;
+                if (!v64)
                 {
-                  if (v215 < v212 && v38[1] == v218)
+                  if (v208 < v205 && v36[1] == v211)
                   {
-                    handle_missing_punctuation(v232, v215, v212, v213, v220, 0);
+                    handle_missing_punctuation(v225, v208, v205, v206, v213, 0);
                   }
 
                   goto LABEL_334;
                 }
 
-                v215 = *(&v248[v67 - 1] + 1) + *&v248[v67 - 1];
-                v66 = *(&v227 + 1);
-                v34 = v239;
+                v208 = *(&v241[v64 - 1] + 1) + *&v241[v64 - 1];
+                v63 = *(&v220 + 1);
+                v32 = v232;
               }
 
-              v68 = v66 + 1;
-              v69 = v247[v66];
-              *(&v227 + 1) = v66 + 1;
-              v229[3] = v69;
-              *&v229[1] = v248[v66];
-              if (v229[2] == 1)
+              v65 = v63 + 1;
+              v66 = v240[v63];
+              *(&v220 + 1) = v63 + 1;
+              v222[3] = v66;
+              *&v222[1] = v241[v63];
+              if (v222[2] == 1)
               {
-                if (*(v232 + 2 * v229[1]) == 8204)
+                if (*(v225 + 2 * v222[1]) == 8204)
                 {
                   continue;
                 }
 
-                if (v234)
+                if (v227)
                 {
                   goto LABEL_126;
                 }
               }
 
-              else if (v234)
+              else if (v227)
               {
-                if (v229[2] > 256)
+                if (v222[2] > 256)
                 {
                   continue;
                 }
@@ -5981,44 +5890,43 @@ LABEL_120:
               break;
             }
 
-            if (v69 & 1) != 0 || v68 < v67 && (v247[v68])
+            if (v66 & 1) != 0 || v65 < v64 && (v240[v65])
             {
-              if ((v69 & 0x40001000) != 0 || (v70 = *(v232 + 2 * v229[1]), v70 >> 8 >= 0x11) && ((v70 & 0xFF00) == 0x1100 || (v70 - 11904) >> 7 < 0x197 || v70 - 65376 <= 0x4F))
+              if ((v66 & 0x40001000) != 0 || (v67 = *(v225 + 2 * v222[1]), v67 >> 8 >= 0x11) && ((v67 & 0xFF00) == 0x1100 || (v67 - 11904) >> 7 < 0x197 || v67 - 65376 <= 0x4F))
               {
-                v235[0] = 0;
+                v228[0] = 0;
                 unorm2_getNFCInstance();
-                v184 = v210;
-                v185 = v212;
-                if (v235[0] <= 0)
+                v179 = v203;
+                v180 = v205;
+                if (v228[0] <= 0)
                 {
-                  v189 = v229[1];
-                  v190 = v212 - v229[1];
-                  v191 = malloc_type_malloc(2 * (v212 - v229[1]), 0xE21ED15EuLL);
-                  if (v191)
+                  v184 = v222[1];
+                  v185 = v205 - v222[1];
+                  v186 = malloc_type_malloc(2 * (v205 - v222[1]), 0xE21ED15EuLL);
+                  if (v186)
                   {
-                    v192 = v191;
-                    v193 = unorm2_normalize();
-                    if (v235[0] <= 0)
+                    v187 = v186;
+                    v188 = unorm2_normalize();
+                    if (v228[0] <= 0)
                     {
-                      v194 = v190 >= v193 ? v193 : v185 - v189;
-                      v195 = CFStringCreateWithCharactersNoCopy(0, v192, v194, v204);
-                      if (v195)
+                      v189 = v185 >= v188 ? v188 : v180 - v184;
+                      v190 = CFStringCreateWithCharactersNoCopy(0, v187, v189, v197);
+                      if (v190)
                       {
-                        v196 = v195;
-                        v197 = v221;
-                        if (!*(v221 + 16))
+                        v191 = v190;
+                        v192 = v214;
+                        if (!*(v214 + 16))
                         {
-                          *(v197 + 16) = NLStringTokenizerCreate();
+                          *(v192 + 16) = NLStringTokenizerCreate();
                         }
 
-                        v198 = *(v197 + 56);
                         _NLStringTokenizerSetLocale();
-                        _CITokenizerGetTokens(v197, *(v197 + 16), v196, v209, v219 & 0xFFFFFFFE, 0, v213, v217, 0, 0, 0, v220);
-                        CFRelease(v196);
+                        _CITokenizerGetTokens(v192, *(v192 + 16), v191, v202, v212 & 0xFFFFFFFE, 0, v206, v210, 0, 0, 0, v213);
+                        CFRelease(v191);
                       }
                     }
 
-                    free(v192);
+                    free(v187);
                   }
                 }
 
@@ -6026,7 +5934,7 @@ LABEL_120:
               }
             }
 
-            if (v229[2] > 256)
+            if (v222[2] > 256)
             {
               continue;
             }
@@ -6034,220 +5942,217 @@ LABEL_120:
             break;
           }
 
-          if ((~v69 & 0x401) == 0)
+          if ((~v66 & 0x401) == 0)
           {
-            v235[0] = 0;
-            unorm2_getNFCInstance();
-            if (v235[0] <= 0)
+            v228[0] = 0;
+            NFCInstance = unorm2_getNFCInstance();
+            if (v228[0] <= 0)
             {
-              v71 = v229[2];
-              v72 = v229[2];
-              MEMORY[0x28223BE20]();
-              v74 = &v200 - ((v73 + 15) & 0x3FFFFFFF0);
-              bzero(v74, v73);
-              v75 = unorm2_normalize();
-              if (v235[0] <= 0)
+              v69 = v222[2];
+              v70 = v222[2];
+              MEMORY[0x28223BE20](NFCInstance);
+              v72 = &v193 - ((v71 + 15) & 0x3FFFFFFF0);
+              bzero(v72, v71);
+              v73 = unorm2_normalize();
+              if (v228[0] <= 0)
               {
-                v76 = v75;
-                if (v75 <= v71 && (v75 != v71 || !memcmp(v74, (v232 + 2 * v229[1]), 2 * v72)))
+                v74 = v73;
+                if (v73 <= v69 && (v73 != v69 || !memcmp(v72, (v225 + 2 * v222[1]), 2 * v70)))
                 {
-                  v77 = CFStringCreateWithCharactersNoCopy(0, v74, v76, v204);
-                  if (v77)
+                  v75 = CFStringCreateWithCharactersNoCopy(0, v72, v74, v197);
+                  if (v75)
                   {
-                    v78 = v77;
-                    v38 = v221;
-                    if (!*(v221 + 16))
+                    v76 = v75;
+                    v36 = v214;
+                    if (!*(v214 + 16))
                     {
-                      v38[2] = NLStringTokenizerCreate();
+                      v36[2] = NLStringTokenizerCreate();
                     }
 
-                    v79 = v38[7];
                     _NLStringTokenizerSetLocale();
-                    _CITokenizerGetTokens(v38, v38[2], v78, v209, v219 & 0xFFFFFFFE, 0, v213, v217, 0, 0, 0, v220);
-                    CFRelease(v78);
-                    v34 = v239;
-                    v35 = 1;
-                    v36 = 4294959088;
-                    v37 = 65293;
+                    _CITokenizerGetTokens(v36, v36[2], v76, v202, v212 & 0xFFFFFFFE, 0, v206, v210, 0, 0, 0, v213);
+                    CFRelease(v76);
+                    v32 = v232;
+                    v33 = 1;
+                    v34 = 4294959088;
+                    v35 = 65293;
                     continue;
                   }
                 }
               }
 
-              v38 = v221;
+              v36 = v214;
             }
 
-            v34 = v239;
-            v35 = 1;
-            v36 = 4294959088;
-            v37 = 65293;
+            v32 = v232;
+            v33 = 1;
+            v34 = 4294959088;
+            v35 = 65293;
           }
 
           break;
         }
 
 LABEL_126:
-        v96 = v219;
-        if ((v219 & 2) == 0)
+        v93 = v212;
+        if ((v212 & 2) == 0)
         {
-          if (v237[v66])
+          if (v230[v63])
           {
-            *(v38 + 11) = *&v229[1];
-            v38[13] = v66;
-            if (v217)
+            *(v36 + 11) = *&v222[1];
+            v36[13] = v63;
+            if (v210)
             {
-              v217(v236[v66]);
-              v37 = 65293;
-              v36 = 4294959088;
-              v35 = 1;
-              v34 = v239;
+              v210(v229[v63]);
+              v35 = 65293;
+              v34 = 4294959088;
+              v33 = 1;
+              v32 = v232;
             }
           }
         }
 
-        *(&v228 + 1) = 0;
-        DWORD2(v231) = 0;
-        if ((v229[3] & 0xFFFFFFFFFFFFFFFDLL) == 0)
+        *(&v221 + 1) = 0;
+        DWORD2(v224) = 0;
+        if ((v222[3] & 0xFFFFFFFFFFFFFFFDLL) == 0)
         {
-          *&v228 = 1;
-          v243 = 0;
-          v244 = v229[2];
-          v239[0] = 0;
+          *&v221 = 1;
+          v236 = 0;
+          v237 = v222[2];
+          v232[0] = 0;
           goto LABEL_143;
         }
 
-        if ((v229[3] & 0x400) == 0)
+        if ((v222[3] & 0x400) == 0)
         {
           goto LABEL_132;
         }
 
-        v175 = *v209;
-        if (*v209)
+        v172 = *v202;
+        if (*v202)
         {
-          v176 = v209;
-          v250.length = CFStringGetLength(*v209);
-          v250.location = 0;
-          CFStringDelete(v175, v250);
-          v177 = *v176;
-          v38 = v221;
+          v243.length = CFStringGetLength(*v202);
+          v243.location = 0;
+          CFStringDelete(v172, v243);
+          v36 = v214;
         }
 
         else
         {
-          v178 = *(v209 + 8);
-          v38 = v221;
-          if (!v178)
+          v173 = *(v202 + 8);
+          v36 = v214;
+          if (!v173)
           {
-            v178 = malloc_type_malloc(0x400uLL, 0x1000040BDFB0063uLL);
-            *(v209 + 8) = v178;
-            if (!v178)
+            v173 = malloc_type_malloc(0x400uLL, 0x1000040BDFB0063uLL);
+            *(v202 + 8) = v173;
+            if (!v173)
             {
               goto LABEL_334;
             }
           }
 
-          MutableWithExternalCharactersNoCopy = CFStringCreateMutableWithExternalCharactersNoCopy(0, v178, 0, 512, v204);
-          *v209 = MutableWithExternalCharactersNoCopy;
+          MutableWithExternalCharactersNoCopy = CFStringCreateMutableWithExternalCharactersNoCopy(0, v173, 0, 512, v197);
+          *v202 = MutableWithExternalCharactersNoCopy;
           if (!MutableWithExternalCharactersNoCopy)
           {
             goto LABEL_334;
           }
         }
 
-        *&v228 = 0;
+        *&v221 = 0;
         DerivedTokens = _NLStringTokenizerGetDerivedTokens();
-        *&v228 = DerivedTokens;
+        *&v221 = DerivedTokens;
         if (DerivedTokens == 1)
         {
-          v97 = v229[2];
-          v96 = v219;
-          v34 = v239;
-          v36 = 4294959088;
-          v37 = 65293;
-          if (v229[2] == v244)
+          v94 = v222[2];
+          v93 = v212;
+          v32 = v232;
+          v34 = 4294959088;
+          v35 = 65293;
+          if (v222[2] == v237)
           {
-            *&v228 = 0;
-            v35 = 1;
+            *&v221 = 0;
+            v33 = 1;
             goto LABEL_133;
           }
 
           DerivedTokens = 1;
-          v35 = 1;
+          v33 = 1;
           goto LABEL_320;
         }
 
-        v96 = v219;
-        v34 = v239;
-        v35 = 1;
-        v36 = 4294959088;
-        v37 = 65293;
+        v93 = v212;
+        v32 = v232;
+        v33 = 1;
+        v34 = 4294959088;
+        v35 = 65293;
         if (DerivedTokens >= 1)
         {
 LABEL_320:
-          v181 = 0;
-          v182 = v201;
+          v176 = 0;
+          v177 = v194;
           do
           {
-            if (*v182)
+            if (*v177)
             {
-              v183 = v221;
-              *(v221 + 88) = *&v229[1];
-              *(v183 + 104) = v66;
-              if (v217)
+              v178 = v214;
+              *(v214 + 88) = *&v222[1];
+              *(v178 + 104) = v63;
+              if (v210)
               {
-                (v217)(*(v209 + 8) + 2 * *(v182 - 1), *v182, 2, v220, 4294959088, 65293, 1, v239);
-                v37 = 65293;
-                v36 = 4294959088;
-                v35 = 1;
-                v34 = v239;
-                DerivedTokens = v228;
+                (v210)(*(v202 + 8) + 2 * *(v177 - 1), *v177, 2, v213, 4294959088, 65293, 1, v232);
+                v35 = 65293;
+                v34 = 4294959088;
+                v33 = 1;
+                v32 = v232;
+                DerivedTokens = v221;
               }
             }
 
-            ++v181;
-            v182 += 2;
+            ++v176;
+            v177 += 2;
           }
 
-          while (v181 < DerivedTokens);
+          while (v176 < DerivedTokens);
         }
 
 LABEL_132:
-        v97 = v229[2];
-        v38 = v221;
+        v94 = v222[2];
+        v36 = v214;
 LABEL_133:
-        if (v97 < 2 || (v96 & 0x20) != 0 && (v229[3] & 0x200) == 0)
+        if (v94 < 2 || (v93 & 0x20) != 0 && (v222[3] & 0x200) == 0)
         {
           goto LABEL_145;
         }
 
         SubTokensOfCompound = _NLStringTokenizerGetSubTokensOfCompound();
-        *&v228 = SubTokensOfCompound;
+        *&v221 = SubTokensOfCompound;
         if (!SubTokensOfCompound)
         {
-          v97 = v229[2];
-          v34 = v239;
-          v35 = 1;
-          v36 = 4294959088;
-          v37 = 65293;
+          v94 = v222[2];
+          v32 = v232;
+          v33 = 1;
+          v34 = 4294959088;
+          v35 = 65293;
 LABEL_145:
-          *&v228 = 1;
-          v243 = 0;
-          v244 = v97;
+          *&v221 = 1;
+          v236 = 0;
+          v237 = v94;
           SubTokensOfCompound = 1;
-          v239[0] = 0;
+          v232[0] = 0;
           goto LABEL_146;
         }
 
-        v34 = v239;
-        v35 = 1;
-        v36 = 4294959088;
-        v37 = 65293;
+        v32 = v232;
+        v33 = 1;
+        v34 = 4294959088;
+        v35 = 65293;
         if (SubTokensOfCompound < 2)
         {
-          v138 = SubTokensOfCompound;
+          v135 = SubTokensOfCompound;
 LABEL_240:
-          SubTokensOfCompound = v138;
-          if (!v138)
+          SubTokensOfCompound = v135;
+          if (!v135)
           {
             continue;
           }
@@ -6258,282 +6163,282 @@ LABEL_240:
         break;
       }
 
-      if ((v229[3] & 0x20) != 0)
+      if ((v222[3] & 0x20) != 0)
       {
-        if ((v96 & 8) != 0 && (v229[3] & 0x40001000) == 0)
+        if ((v93 & 8) != 0 && (v222[3] & 0x40001000) == 0)
         {
-          v99 = v229[2];
-          v100 = &v243 + 2 * *(&v228 + 1);
-          *v100 = 0;
-          v100[1] = v99;
-          *&v228 = 1;
+          v96 = v222[2];
+          v97 = &v236 + 2 * *(&v221 + 1);
+          *v97 = 0;
+          v97[1] = v96;
+          *&v221 = 1;
 LABEL_143:
           SubTokensOfCompound = 1;
           goto LABEL_146;
         }
 
-        LOBYTE(v165) = 0;
-        v166 = 0;
-        v167 = 0;
-        v168 = 0;
-        v169 = v232 + 2 * v229[1];
-        v170 = v211;
-        v138 = SubTokensOfCompound;
+        LOBYTE(v162) = 0;
+        v163 = 0;
+        v164 = 0;
+        v165 = 0;
+        v166 = v225 + 2 * v222[1];
+        v167 = v204;
+        v135 = SubTokensOfCompound;
         while (1)
         {
-          v171 = v239[v167];
-          if ((v171 & 0x20) != 0)
+          v168 = v232[v164];
+          if ((v168 & 0x20) != 0)
           {
             break;
           }
 
-          v165 = (v171 & 0xFFFFFFFFFFFFFFD1) == 0;
-          if ((v166 & v165) != 1)
+          v162 = (v168 & 0xFFFFFFFFFFFFFFD1) == 0;
+          if ((v163 & v162) != 1)
           {
             goto LABEL_300;
           }
 
-          if (*v170 > 2)
+          if (*v167 > 2)
           {
-            LOBYTE(v165) = 1;
+            LOBYTE(v162) = 1;
 LABEL_300:
-            v174 = v168 + (v166 & 1);
-            *(&v243 + v174) = *(v170 - 1);
-            v168 = v174 + 1;
-            v239[v174] = v171;
-            v166 = 0;
+            v171 = v165 + (v163 & 1);
+            *(&v236 + v171) = *(v167 - 1);
+            v165 = v171 + 1;
+            v232[v171] = v168;
+            v163 = 0;
             goto LABEL_301;
           }
 
-          v166 = 0;
-          LOBYTE(v165) = 0;
-          *(&v243 + 2 * v168 + 1) += *v170;
-          v239[v168++] |= v171;
-          *&v228 = --v138;
+          v163 = 0;
+          LOBYTE(v162) = 0;
+          *(&v236 + 2 * v165 + 1) += *v167;
+          v232[v165++] |= v168;
+          *&v221 = --v135;
 LABEL_301:
-          ++v167;
-          v170 += 2;
-          if (SubTokensOfCompound == v167)
+          ++v164;
+          v167 += 2;
+          if (SubTokensOfCompound == v164)
           {
             goto LABEL_240;
           }
         }
 
-        if (*v170 == 1)
+        if (*v167 == 1)
         {
-          v172 = *(v169 + 2 * *(v170 - 1));
-          if (v172 == 8217 || v172 == 39)
+          v169 = *(v166 + 2 * *(v167 - 1));
+          if (v169 == 8217 || v169 == 39)
           {
-            if (!v167)
+            if (!v164)
             {
               goto LABEL_240;
             }
 
-            if (v165)
+            if (v162)
             {
-              --v168;
-              ++*(&v243 + 2 * v168 + 1);
-              v173 = v239[v168];
-              if ((v173 & 0x20) == 0)
+              --v165;
+              ++*(&v236 + 2 * v165 + 1);
+              v170 = v232[v165];
+              if ((v170 & 0x20) == 0)
               {
-                v239[v168] = v173 | 0x10000020;
+                v232[v165] = v170 | 0x10000020;
               }
 
-              LOBYTE(v165) = 0;
-              *&v228 = --v138;
-              v166 = 1;
+              LOBYTE(v162) = 0;
+              *&v221 = --v135;
+              v163 = 1;
               goto LABEL_301;
             }
           }
         }
 
-        LOBYTE(v165) = 0;
+        LOBYTE(v162) = 0;
         goto LABEL_300;
       }
 
 LABEL_146:
-      v101 = &v243 + 2 * *(&v228 + 1);
-      v230 = *v101;
-      v102 = v239[*(&v228 + 1)];
-      *&v231 = v102;
-      if ((v102 & 0x20) != 0)
+      v98 = &v236 + 2 * *(&v221 + 1);
+      v223 = *v98;
+      v99 = v232[*(&v221 + 1)];
+      *&v224 = v99;
+      if ((v99 & 0x20) != 0)
       {
-        v62 = *(&v230 + 1) + v230;
-        v229[0] = *(&v230 + 1) + v230;
+        v59 = *(&v223 + 1) + v223;
+        v222[0] = *(&v223 + 1) + v223;
 LABEL_176:
-        v116 = *(&v228 + 1) + 1;
+        v113 = *(&v221 + 1) + 1;
         goto LABEL_177;
       }
 
-      v103 = *v101;
-      v104 = *(&v243 + 2 * SubTokensOfCompound - 1) + *(&v243 + 2 * SubTokensOfCompound - 2);
-      v229[0] = v104;
-      if (*(&v228 + 1) >= SubTokensOfCompound)
+      v100 = *v98;
+      v101 = *(&v236 + 2 * SubTokensOfCompound - 1) + *(&v236 + 2 * SubTokensOfCompound - 2);
+      v222[0] = v101;
+      if (*(&v221 + 1) >= SubTokensOfCompound)
       {
-        v111 = v102;
-        v62 = v104;
+        v108 = v99;
+        v59 = v101;
 LABEL_175:
-        *&v231 = v111 | v102;
+        *&v224 = v108 | v99;
         goto LABEL_176;
       }
 
-      v105 = 0;
-      v106 = 0;
-      v107 = v232 + 2 * v229[1];
-      v108 = &v211[2 * *(&v228 + 1)];
-      v109 = 1;
-      v110 = *(&v228 + 1);
-      v111 = v102;
+      v102 = 0;
+      v103 = 0;
+      v104 = v225 + 2 * v222[1];
+      v105 = &v204[2 * *(&v221 + 1)];
+      v106 = 1;
+      v107 = *(&v221 + 1);
+      v108 = v99;
       while (1)
       {
-        if ((v239[v110] & 0x10000020) != 0x20)
+        if ((v232[v107] & 0x10000020) != 0x20)
         {
-          ++v105;
-          v62 = *(v108 - 1);
-          v112 = *v108;
+          ++v102;
+          v59 = *(v105 - 1);
+          v109 = *v105;
           goto LABEL_165;
         }
 
-        v62 = *(v108 - 1);
-        if (v29 < 2)
+        v59 = *(v105 - 1);
+        if (v28 < 2)
         {
           break;
         }
 
-        v112 = *v108;
-        if (*v108 != 1)
+        v109 = *v105;
+        if (*v105 != 1)
         {
-          v113 = v112 == 2 && BYTE1(v234) & (v229[2] + v229[1] == *(&v233 + 1));
-          if (!v113 || *(v107 + 2 + 2 * v62) != 42)
+          v110 = v109 == 2 && BYTE1(v227) & (v222[2] + v222[1] == *(&v226 + 1));
+          if (!v110 || *(v104 + 2 + 2 * v59) != 42)
           {
             break;
           }
         }
 
-        v114 = *(v107 + 2 * v62);
-        if ((v114 - 8208) >= 2 && v114 != 45 && v114 != 65293)
+        v111 = *(v104 + 2 * v59);
+        if ((v111 - 8208) >= 2 && v111 != 45 && v111 != 65293)
         {
           break;
         }
 
-        v111 |= 0x10uLL;
-        v38 = v221;
+        v108 |= 0x10uLL;
+        v36 = v214;
 LABEL_165:
-        v106 = v112 + v62;
-        v109 = ++v110 < SubTokensOfCompound;
-        v108 += 2;
-        v34 = v239;
-        if (SubTokensOfCompound == v110)
+        v103 = v109 + v59;
+        v106 = ++v107 < SubTokensOfCompound;
+        v105 += 2;
+        v32 = v232;
+        if (SubTokensOfCompound == v107)
         {
-          v62 = v104;
-          v110 = SubTokensOfCompound;
+          v59 = v101;
+          v107 = SubTokensOfCompound;
           goto LABEL_170;
         }
       }
 
-      v229[0] = *(v108 - 1);
-      v38 = v221;
-      v34 = v239;
+      v222[0] = *(v105 - 1);
+      v36 = v214;
+      v32 = v232;
 LABEL_170:
-      v35 = 1;
-      if (v105 < 9)
+      v33 = 1;
+      if (v102 < 9)
       {
-        v36 = 4294959088;
-        v37 = 65293;
+        v34 = 4294959088;
+        v35 = 65293;
         goto LABEL_175;
       }
 
-      if (v106 - v103 <= 63 && (v106 - v103) / v105 > 2)
+      if (v103 - v100 <= 63 && (v103 - v100) / v102 > 2)
       {
-        if (v109)
+        if (v106)
         {
-          v139 = v110;
+          v136 = v107;
         }
 
         else
         {
-          v139 = SubTokensOfCompound - 1;
+          v136 = SubTokensOfCompound - 1;
         }
 
-        if ((v239[v139] & 0x20) != 0)
+        if ((v232[v136] & 0x20) != 0)
         {
-          v36 = 4294959088;
-          v37 = 65293;
-          if (v29 < 2 || (v156 = &v243 + 2 * v139, v156[1] != 1) || (v157 = *(v232 + 2 * v229[1] + 2 * *v156), (v157 - 8208) >= 2) && (v157 != 45 ? (v158 = v157 == 65293) : (v158 = 1), !v158))
+          v34 = 4294959088;
+          v35 = 65293;
+          if (v28 < 2 || (v153 = &v236 + 2 * v136, v153[1] != 1) || (v154 = *(v225 + 2 * v222[1] + 2 * *v153), (v154 - 8208) >= 2) && (v154 != 45 ? (v155 = v154 == 65293) : (v155 = 1), !v155))
           {
-            --v139;
+            --v136;
           }
         }
 
         else
         {
-          v36 = 4294959088;
-          v37 = 65293;
+          v34 = 4294959088;
+          v35 = 65293;
         }
 
-        v159 = 0;
-        v160 = &v208[2 * v139];
-        v116 = v139 - 7;
-        v161 = &v207[v139];
-        v162 = &v206[2 * *(&v228 + 1)];
-        v163 = &v205[*(&v228 + 1)];
+        v156 = 0;
+        v157 = &v201[2 * v136];
+        v113 = v136 - 7;
+        v158 = &v200[v136];
+        v159 = &v199[2 * *(&v221 + 1)];
+        v160 = &v198[*(&v221 + 1)];
         do
         {
-          v164 = *v163--;
-          *v161-- = v164;
-          *&v160[v159] = *&v162[v159];
-          v159 -= 2;
+          v161 = *v160--;
+          *v158-- = v161;
+          *&v157[v156] = *&v159[v156];
+          v156 -= 2;
         }
 
-        while (v159 != -10);
+        while (v156 != -10);
       }
 
       else
       {
-        *&v230 = v103;
-        *(&v230 + 1) = v106 - v103;
-        v116 = v105 + *(&v228 + 1);
-        v36 = 4294959088;
-        v37 = 65293;
+        *&v223 = v100;
+        *(&v223 + 1) = v103 - v100;
+        v113 = v102 + *(&v221 + 1);
+        v34 = 4294959088;
+        v35 = 65293;
       }
 
 LABEL_177:
-      *(&v228 + 1) = v116;
-      if (v116)
+      *(&v221 + 1) = v113;
+      if (v113)
       {
         goto LABEL_123;
       }
 
 LABEL_178:
-      v93 = v229[1];
-      v94 = v229[2];
-      v38[11] = v229[1];
-      v38[12] = v94;
-      v92 = v230;
+      v90 = v222[1];
+      v91 = v222[2];
+      v36[11] = v222[1];
+      v36[12] = v91;
+      v89 = v223;
 LABEL_179:
-      v117 = v232;
-      v38[13] = *(&v227 + 1) - 1;
-      v118 = (v117 + 2 * v93 + 2 * v92);
-      v119 = v62 - v92;
-      v120 = *v118;
-      if ((v120 - 12441) <= 1)
+      v114 = v225;
+      v36[13] = *(&v220 + 1) - 1;
+      v115 = (v114 + 2 * v90 + 2 * v89);
+      v116 = v59 - v89;
+      v117 = *v115;
+      if ((v117 - 12441) <= 1)
       {
-        if (!v119)
+        if (!v116)
         {
           continue;
         }
 
-        while (*v118 - 12441 <= 1)
+        while (*v115 - 12441 <= 1)
         {
-          ++v118;
-          if (!--v119)
+          ++v115;
+          if (!--v116)
           {
             goto LABEL_16;
           }
         }
       }
 
-      else if (v94 == 1 && (v120 & 0xF800 | 0x400) == 0xDC00)
+      else if (v91 == 1 && (v117 & 0xF800 | 0x400) == 0xDC00)
       {
         continue;
       }
@@ -6541,17 +6446,17 @@ LABEL_179:
       break;
     }
 
-    if (DWORD2(v231))
+    if (DWORD2(v224))
     {
-      if (v217)
+      if (v210)
       {
-        v121 = (v217)(v118, v119, 0, v220, 4294959088, 65293, 1, v239);
-        v37 = 65293;
-        v36 = 4294959088;
-        v35 = 1;
-        v34 = v239;
-        v122 = v121;
-        if (v121)
+        v118 = (v210)(v115, v116, 0, v213, 4294959088, 65293, 1, v232);
+        v35 = 65293;
+        v34 = 4294959088;
+        v33 = 1;
+        v32 = v232;
+        v119 = v118;
+        if (v118)
         {
           goto LABEL_218;
         }
@@ -6559,60 +6464,60 @@ LABEL_179:
 
       else
       {
-        v122 = 0;
+        v119 = 0;
       }
 
       goto LABEL_213;
     }
 
-    v123 = v213;
-    if ((v219 & 0x10) == 0 || ((v229[3] & 0x40001000) != 0 ? (v124 = v119 < 2) : (v124 = 1), v124))
+    v120 = v206;
+    if ((v212 & 0x10) == 0 || ((v222[3] & 0x40001000) != 0 ? (v121 = v116 < 2) : (v121 = 1), v121))
     {
-      if (v213)
+      if (v206)
       {
-        v122 = (v213)(v118, v119, v231, v220, 4294959088, 65293, 1, v239);
+        v119 = (v206)(v115, v116, v224, v213, 4294959088, 65293, 1, v232);
       }
 
       else
       {
-        v122 = 0;
+        v119 = 0;
       }
 
       goto LABEL_196;
     }
 
-    v134 = 0;
-    v135 = 0;
+    v131 = 0;
+    v132 = 0;
     while (1)
     {
-      v136 = &v118[v134];
-      if ((*v136 & 0xFC00) == 0xD800)
+      v133 = &v115[v131];
+      if ((*v133 & 0xFC00) == 0xD800)
       {
         break;
       }
 
-      if (v123)
+      if (v120)
       {
-        v137 = 1;
+        v134 = 1;
         goto LABEL_229;
       }
 
 LABEL_230:
-      v135 = 0;
+      v132 = 0;
 LABEL_231:
-      if (++v134 >= v119 || (v135 & 1) != 0)
+      if (++v131 >= v116 || (v132 & 1) != 0)
       {
         goto LABEL_233;
       }
     }
 
-    if (++v134 < v119 && (v118[v134] & 0xFC00) == 0xDC00)
+    if (++v131 < v116 && (v115[v131] & 0xFC00) == 0xDC00)
     {
-      if (v123)
+      if (v120)
       {
-        v137 = 2;
+        v134 = 2;
 LABEL_229:
-        v135 = (v123)(v136, v137, v231, v220, v36, v37, v35, v34);
+        v132 = (v120)(v133, v134, v224, v213, v34, v35, v33, v32);
         goto LABEL_231;
       }
 
@@ -6620,38 +6525,38 @@ LABEL_229:
     }
 
 LABEL_233:
-    if (v135)
+    if (v132)
     {
-      v122 = v135;
+      v119 = v132;
     }
 
     else
     {
-      v122 = 0;
+      v119 = 0;
     }
 
-    if (v135)
+    if (v132)
     {
 LABEL_196:
-      v38 = v221;
+      v36 = v214;
       goto LABEL_197;
     }
 
-    v38 = v221;
-    if (v217)
+    v36 = v214;
+    if (v210)
     {
-      v122 = (v217)(v118, v119, 3, v220);
+      v119 = (v210)(v115, v116, 3, v213);
     }
 
 LABEL_197:
-    if (!v216)
+    if (!v209)
     {
 LABEL_212:
-      v34 = v239;
-      v35 = 1;
-      v36 = 4294959088;
-      v37 = 65293;
-      if (v122)
+      v32 = v232;
+      v33 = 1;
+      v34 = 4294959088;
+      v35 = 65293;
+      if (v119)
       {
         goto LABEL_218;
       }
@@ -6659,44 +6564,44 @@ LABEL_212:
       goto LABEL_213;
     }
 
-    if (v226 < 128)
+    if (v219 < 128)
     {
-      v125 = (v118 - v232) >> 1;
-      if (v226)
+      v122 = (v115 - v225) >> 1;
+      if (v219)
       {
-        v126 = *(&v222[v226 - 1] + 1) + *&v222[v226 - 1];
-        if (v126 < v125)
+        v123 = *(&v215[v219 - 1] + 1) + *&v215[v219 - 1];
+        if (v123 < v122)
         {
-          handle_missing_punctuation(v232, v126, (v118 - v232) >> 1, sentenceTokenizerMissingPunctuation, v222, 1);
+          handle_missing_punctuation(v225, v123, (v115 - v225) >> 1, sentenceTokenizerMissingPunctuation, v215, 1);
         }
       }
     }
 
     else
     {
-      v216(v232, v222, v214);
-      v226 = 0;
-      v125 = (v118 - v232) >> 1;
+      v209(v225, v215, v207);
+      v219 = 0;
+      v122 = (v115 - v225) >> 1;
     }
 
-    if (v119)
+    if (v116)
     {
-      v224 = v125;
-      v225 = v119;
-      v127 = &v222[v226];
-      *v127 = v125;
-      v127[1] = v119;
-      v214[v226++] = v231;
+      v217 = v122;
+      v218 = v116;
+      v124 = &v215[v219];
+      *v124 = v122;
+      v124[1] = v116;
+      v207[v219++] = v224;
     }
 
-    v128 = &v118[v119];
-    if (v128 >= v232 + 2 * v212)
+    v125 = &v115[v116];
+    if (v125 >= v225 + 2 * v205)
     {
       goto LABEL_210;
     }
 
-    v129 = *v128;
-    switch(v129)
+    v126 = *v125;
+    switch(v126)
     {
       case 9:
         goto LABEL_210;
@@ -6707,90 +6612,90 @@ LABEL_212:
     }
 
     Predefined = CFCharacterSetGetPredefined(kCFCharacterSetNewline);
-    if (CFCharacterSetIsCharacterMember(Predefined, v129))
+    if (CFCharacterSetIsCharacterMember(Predefined, v126))
     {
       goto LABEL_210;
     }
 
-    if (*(&v228 + 1) != v228)
+    if (*(&v221 + 1) != v221)
     {
 LABEL_211:
-      v38 = v221;
+      v36 = v214;
       goto LABEL_212;
     }
 
-    v34 = v239;
-    v35 = 1;
-    v36 = 4294959088;
-    v37 = 65293;
-    if (*(&v227 + 1) < v227)
+    v32 = v232;
+    v33 = 1;
+    v34 = 4294959088;
+    v35 = 65293;
+    if (*(&v220 + 1) < v220)
     {
-      v150 = v232 + 2 * *&v248[*(&v227 + 1)];
-      if (v128 < v150)
+      v147 = v225 + 2 * *&v241[*(&v220 + 1)];
+      if (v125 < v147)
       {
-        v151 = *(&v248[*(&v227 + 1) - 1] + 1) + *&v248[*(&v227 + 1) - 1];
-        v152 = 2 * v151 + 2;
+        v148 = *(&v241[*(&v220 + 1) - 1] + 1) + *&v241[*(&v220 + 1) - 1];
+        v149 = 2 * v148 + 2;
         while (1)
         {
-          v153 = *v128;
-          if (v153 == 9 || v153 == 8200)
+          v150 = *v125;
+          if (v150 == 9 || v150 == 8200)
           {
             break;
           }
 
-          if (v153 == 12288)
+          if (v150 == 12288)
           {
             break;
           }
 
-          v155 = CFCharacterSetGetPredefined(kCFCharacterSetNewline);
-          if (CFCharacterSetIsCharacterMember(v155, v153))
+          v152 = CFCharacterSetGetPredefined(kCFCharacterSetNewline);
+          if (CFCharacterSetIsCharacterMember(v152, v150))
           {
             break;
           }
 
-          ++v151;
-          v128 = (v232 + v152);
-          v152 += 2;
-          if (v232 + 2 * v151 >= v150)
+          ++v148;
+          v125 = (v225 + v149);
+          v149 += 2;
+          if (v225 + 2 * v148 >= v147)
           {
             goto LABEL_211;
           }
         }
 
 LABEL_210:
-        (v216)(v232, v222, v214, v226, v220);
-        v226 = 0;
+        (v209)(v225, v215, v207, v219, v213);
+        v219 = 0;
         goto LABEL_211;
       }
     }
 
-    v38 = v221;
-    if ((v122 & 1) == 0)
+    v36 = v214;
+    if ((v119 & 1) == 0)
     {
 LABEL_213:
-      if (v38[1] == v218 && v228 == *(&v228 + 1) && *(&v227 + 1) < v227)
+      if (v36[1] == v211 && v221 == *(&v221 + 1) && *(&v220 + 1) < v220)
       {
-        v131 = &v248[*(&v227 + 1)];
-        v132 = *(v131 - 1) + *(v131 - 2);
-        if (v132 < *v131)
+        v128 = &v241[*(&v220 + 1)];
+        v129 = *(v128 - 1) + *(v128 - 2);
+        if (v129 < *v128)
         {
-          v133 = handle_missing_punctuation(v232, v132, *v131, v213, v220, 0);
-          v37 = 65293;
-          v36 = 4294959088;
-          v35 = 1;
-          v34 = v239;
-          v122 = v133;
+          v130 = handle_missing_punctuation(v225, v129, *v128, v206, v213, 0);
+          v35 = 65293;
+          v34 = 4294959088;
+          v33 = 1;
+          v32 = v232;
+          v119 = v130;
         }
       }
     }
 
 LABEL_218:
-    if ((v122 & 1) == 0)
+    if ((v119 & 1) == 0)
     {
-      if ((v122 & 2) != 0 && !DWORD2(v231))
+      if ((v119 & 2) != 0 && !DWORD2(v224))
       {
-        v229[3] &= ~0x400uLL;
+        v222[3] &= ~0x400uLL;
       }
 
       continue;
@@ -6800,47 +6705,45 @@ LABEL_218:
   }
 
 LABEL_334:
-  v184 = v210;
-  v185 = v212;
-  if (v216)
+  v179 = v203;
+  v180 = v205;
+  if (v209)
   {
-    v186 = v226;
-    if (v226)
+    v181 = v219;
+    if (v219)
     {
-      if (v226 <= 127)
+      if (v219 <= 127)
       {
-        v187 = *(&v222[v226 - 1] + 1) + *&v222[v226 - 1];
-        v188 = v232;
-        if (v187 < v212)
+        v182 = *(&v215[v219 - 1] + 1) + *&v215[v219 - 1];
+        v183 = v225;
+        if (v182 < v205)
         {
-          handle_missing_punctuation(v232, v187, v212, sentenceTokenizerMissingPunctuation, v222, 1);
-          v188 = v232;
-          v186 = v226;
+          handle_missing_punctuation(v225, v182, v205, sentenceTokenizerMissingPunctuation, v215, 1);
+          v183 = v225;
+          v181 = v219;
         }
 
-        (v216)(v188, v222, v214, v186, v220);
-        v226 = 0;
+        (v209)(v183, v215, v207, v181, v213);
+        v219 = 0;
       }
     }
   }
 
 LABEL_351:
-  if (v184)
+  if (v179)
   {
-    v184(v232, v185, v220);
+    v179(v225, v180, v213);
   }
 
-  if (v233)
+  if (v226)
   {
-    CFRelease(v233);
+    CFRelease(v226);
   }
 
-  if (*(&v232 + 1))
+  if (*(&v225 + 1))
   {
-    free(*(&v232 + 1));
+    free(*(&v225 + 1));
   }
-
-  v199 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t _CITokenizerGetQueryTokensStart(uint64_t result, uint64_t a2, void *a3)
@@ -6880,16 +6783,16 @@ uint64_t _CITokenizerGetQueryTokens(unint64_t a1, uint64_t a2, uint64_t a3, uint
               goto LABEL_14;
             }
 
-            --v5;
+            v5 -= 2;
             ++v6;
             if (v11 < v10)
             {
-              v5 = v11 + 1;
+              v5 = (v11 + 1);
               goto LABEL_14;
             }
           }
 
-          v5 = v9 + 1;
+          v5 = (v9 + 1);
         }
 
 LABEL_14:
@@ -6916,10 +6819,10 @@ LABEL_14:
             v12 = v15 - 1;
           }
 
-          v16 = (v13 + 2 * v12);
+          v16 = v13 + 2 * v12;
           if (v16 == v5)
           {
-            if (*(v16 - 1) == 42 && (v12 < 2 || *(v16 - 2) != 92))
+            if (*(v16 - 2) == 42 && (v12 < 2 || *(v16 - 4) != 92))
             {
               *(a4 + 48) = v12 + v6;
               return 0;
@@ -6928,27 +6831,26 @@ LABEL_14:
 
           else
           {
-            v17 = *(a4 + 8);
             (*a4)();
             v12 = 0;
-            v18 = *(a4 + 32) + 2 * *(a4 + 48);
+            v17 = *(a4 + 32) + 2 * *(a4 + 48);
             *(a4 + 32) = 0;
-            *(a4 + 40) = v18;
+            *(a4 + 40) = v17;
             *(a4 + 48) = 0;
           }
         }
 
-        v19 = &v5[v6];
-        if (*(v19 - 1) == 42 && (v6 < 2 || *(v19 - 2) != 92) || v19 < *(a4 + 24) && *v19 == 42)
+        v18 = (v5 + 2 * v6);
+        if (*(v18 - 1) == 42 && (v6 < 2 || *(v18 - 2) != 92) || v18 < *(a4 + 24) && *v18 == 42)
         {
-          v20 = *(a4 + 32);
-          if (!v20)
+          v19 = *(a4 + 32);
+          if (!v19)
           {
             *(a4 + 32) = v5;
-            v20 = v5;
+            v19 = v5;
           }
 
-          *(a4 + 40) = &v20[v12 + v6];
+          *(a4 + 40) = v19 + 2 * (v12 + v6);
           *(a4 + 48) = v12 + v6;
         }
 
@@ -6957,14 +6859,14 @@ LABEL_14:
           if (v12)
           {
             (*a4)(*(a4 + 32), v12, *(a4 + 8));
-            v21 = *(a4 + 32) + 2 * *(a4 + 48);
+            v20 = *(a4 + 32) + 2 * *(a4 + 48);
             *(a4 + 32) = 0;
-            *(a4 + 40) = v21;
+            *(a4 + 40) = v20;
             *(a4 + 48) = 0;
           }
 
           (*a4)(v5, v6, *(a4 + 8));
-          *(a4 + 40) = v19;
+          *(a4 + 40) = v18;
         }
       }
     }
@@ -6986,7 +6888,7 @@ uint64_t _CITokenizerGetQueryTokensEnd(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void CITokenizerGetTokensNew(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void (*a9)(uint64_t, uint64_t), uint64_t a10)
 {
-  v10 = MEMORY[0x28223BE20]();
+  v10 = MEMORY[0x28223BE20](a1);
   v12 = v11;
   v14 = v13;
   v16 = v15;
@@ -7412,7 +7314,7 @@ char *partial_path(_BYTE *a1, const char *a2, char *__dst)
   else
   {
 LABEL_5:
-    v9 = a2 - v4;
+    v9 = &a2[-v4];
     if (a2 && v9 <= 0x3FF && ((v10 = &a1[v9], !*v10) && !*a2 || *(v10 - 1) == 47 || (v11 = *a2, ++a2, v11 == 47)))
     {
       v9 = strlcpy(__dst, a2, 0x400uLL);
@@ -7592,82 +7494,74 @@ _BYTE *accurate_realpath_nocred(const char *a1, _BYTE *a2)
   return a2;
 }
 
-uint64_t device_for_path()
+uint64_t device_for_path(uint64_t a1)
 {
   v5 = *MEMORY[0x277D85DE8];
   memset(&v3, 0, sizeof(v3));
   bzero(__s, 0x400uLL);
   if (__strlcpy_chk() > 0x3FF)
   {
-LABEL_5:
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-  else
+  while (md_stat_real(__s, &v3))
   {
-    while (md_stat_real(__s, &v3))
+    v1 = strrchr(__s, 47);
+    if (!v1)
     {
-      v0 = strrchr(__s, 47);
-      if (!v0)
-      {
-        goto LABEL_5;
-      }
-
-      *v0 = 0;
+      return 0xFFFFFFFFLL;
     }
 
-    result = v3.st_dev;
+    *v1 = 0;
   }
 
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return v3.st_dev;
 }
 
 char *device_subpath(char *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if (*a1 == 47 && (v1 = a1, memset(&v9, 0, sizeof(v9)), !md_stat_real(a1, &v9)))
+  v10 = *MEMORY[0x277D85DE8];
+  if (*a1 != 47)
   {
-    st_dev = v9.st_dev;
-    v6 = v10;
-    bzero(v10, 0x400uLL);
-    while (1)
+    return 0;
+  }
+
+  v1 = a1;
+  memset(&v8, 0, sizeof(v8));
+  if (md_stat_real(a1, &v8))
+  {
+    return 0;
+  }
+
+  st_dev = v8.st_dev;
+  v5 = v9;
+  bzero(v9, 0x400uLL);
+  while (1)
+  {
+    v6 = strchr(v1, 47);
+    if (!v6)
     {
-      v7 = strchr(v1, 47);
-      if (!v7)
-      {
-        break;
-      }
-
-      v2 = v7 + 1;
-      v8 = v7 + 1 - v1;
-      memcpy(v6, v1, v8);
-      v6 += v8;
-      *v6 = 0;
-      if (md_stat_real(v10, &v9))
-      {
-        goto LABEL_3;
-      }
-
-      v1 = v2;
-      if (v9.st_dev == st_dev)
-      {
-        goto LABEL_4;
-      }
+      break;
     }
 
-    v2 = &v1[strlen(v1)];
+    v2 = v6 + 1;
+    v7 = v6 + 1 - v1;
+    memcpy(v5, v1, v7);
+    v5 += v7;
+    *v5 = 0;
+    if (md_stat_real(v9, &v8))
+    {
+      return 0;
+    }
+
+    v1 = v2;
+    if (v8.st_dev == st_dev)
+    {
+      return v2;
+    }
   }
 
-  else
-  {
-LABEL_3:
-    v2 = 0;
-  }
-
-LABEL_4:
-  v3 = *MEMORY[0x277D85DE8];
-  return v2;
+  return &v1[strlen(v1)];
 }
 
 uint64_t create_scratch_directory(char *a1, uid_t a2, gid_t a3, int a4)
@@ -7722,7 +7616,7 @@ LABEL_3:
   }
 }
 
-uint64_t nosymlink_open(char *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, unsigned __int16 a9)
+uint64_t nosymlink_open(char *a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int16 a9)
 {
   if ((a2 & 0x200) != 0)
   {
@@ -7737,7 +7631,7 @@ uint64_t nosymlink_open(char *a1, int a2, int a3, int a4, int a5, int a6, int a7
   return x_openat(-1, a1, a2 | 0x20000000u, a4, a5, a6, a7, a8, v9);
 }
 
-uint64_t x_openat(int a1, char *a2, int a3, int a4, int a5, int a6, int a7, int a8, unsigned __int16 a9)
+uint64_t x_openat(int a1, char *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int16 a9)
 {
   if ((a3 & 0x200) != 0)
   {
@@ -7749,7 +7643,7 @@ uint64_t x_openat(int a1, char *a2, int a3, int a4, int a5, int a6, int a7, int 
     v12 = 0;
   }
 
-  result = openat(a1, a2, a3, v12);
+  result = openat(a1, a2, a3, a4, a5, a6, a7, a8, v12);
   if (result == -1)
   {
     v14 = __error();
@@ -7763,17 +7657,18 @@ uint64_t x_openat(int a1, char *a2, int a3, int a4, int a5, int a6, int a7, int 
   return result;
 }
 
-uint64_t nosymlink_mkdir(_BYTE *a1, mode_t a2)
+uint64_t nosymlink_mkdir(_BYTE *a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = geteuid();
   v5 = getegid();
 
-  return nosymlink_mkdir_chown(a1, v4, v5, a2);
+  return nosymlink_mkdir_chown(a1, v4, v5, v2);
 }
 
 uint64_t nosymlink_mkdir_chown(_BYTE *a1, uid_t a2, gid_t a3, mode_t a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   bzero(__s, 0x400uLL);
   fixed = fixPath(a1, __s);
   if (!fixed || (v9 = separate_path_parent_child(fixed, __s)) == 0)
@@ -7782,7 +7677,7 @@ uint64_t nosymlink_mkdir_chown(_BYTE *a1, uid_t a2, gid_t a3, mode_t a4)
     v14 = 22;
 LABEL_14:
     *__error() = v14;
-    goto LABEL_15;
+    return v13;
   }
 
   v10 = v9;
@@ -7820,36 +7715,36 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v13 = 0xFFFFFFFFLL;
-LABEL_15:
-  v15 = *MEMORY[0x277D85DE8];
-  return v13;
+  return 0xFFFFFFFFLL;
 }
 
-uint64_t nosymlink_chown_chmod_directory(_BYTE *a1, uid_t a2, gid_t a3, int a4)
+uint64_t nosymlink_chown_chmod_directory(_BYTE *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  bzero(v16, 0x400uLL);
-  if (fixPath(a1, v16))
+  v4 = a4;
+  v5 = a3;
+  v6 = a2;
+  v19 = *MEMORY[0x277D85DE8];
+  bzero(v18, 0x400uLL);
+  if (fixPath(a1, v18))
   {
-    v8 = open(v16, 537952260);
+    v8 = open(v18, 537952260);
     if ((v8 & 0x80000000) == 0)
     {
       v9 = v8;
-      memset(&v15, 0, sizeof(v15));
-      v10 = md_fstat_real(v8, &v15);
+      memset(&v17, 0, sizeof(v17));
+      v10 = md_fstat_real(v8, &v17);
       if (v10)
       {
         v11 = v10;
 LABEL_25:
-        v12 = *__error();
+        v15 = *__error();
 LABEL_26:
         close(v9);
-        *__error() = v12;
-        goto LABEL_27;
+        *__error() = v15;
+        return v11;
       }
 
-      if (a2 == -1 || v15.st_uid == a2)
+      if (v6 == -1 || (st_uid = v17.st_uid, v17.st_uid == v6))
       {
         v11 = 0;
       }
@@ -7858,25 +7753,26 @@ LABEL_26:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
-          nosymlink_chown_chmod_directory_cold_1();
+          nosymlink_chown_chmod_directory_cold_1(v18, st_uid);
         }
 
-        v11 = fchown(v9, a2, 0xFFFFFFFF);
+        v11 = fchown(v9, v6, 0xFFFFFFFF);
       }
 
-      if (a3 != -1 && !v11)
+      if (v5 != -1 && !v11)
       {
-        if (v15.st_gid == a3)
+        st_gid = v17.st_gid;
+        if (v17.st_gid == v5)
         {
           goto LABEL_20;
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
-          nosymlink_chown_chmod_directory_cold_2();
+          nosymlink_chown_chmod_directory_cold_2(v18, st_gid);
         }
 
-        v11 = fchown(v9, 0xFFFFFFFF, a3);
+        v11 = fchown(v9, 0xFFFFFFFF, v5);
       }
 
       if (v11)
@@ -7885,7 +7781,8 @@ LABEL_26:
       }
 
 LABEL_20:
-      if ((v15.st_mode & 0x1FF) == a4)
+      v14 = v17.st_mode & 0x1FF;
+      if (v14 == v4)
       {
         v11 = 0;
       }
@@ -7894,17 +7791,17 @@ LABEL_20:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
-          nosymlink_chown_chmod_directory_cold_3();
+          nosymlink_chown_chmod_directory_cold_3(v14);
         }
 
-        v11 = fchmod(v9, a4);
+        v11 = fchmod(v9, v4);
         if (v11)
         {
           goto LABEL_25;
         }
       }
 
-      v12 = 0;
+      v15 = 0;
       goto LABEL_26;
     }
   }
@@ -7914,10 +7811,7 @@ LABEL_20:
     *__error() = 22;
   }
 
-  v11 = 0xFFFFFFFFLL;
-LABEL_27:
-  v13 = *MEMORY[0x277D85DE8];
-  return v11;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t md_fstat_real(int a1, stat *a2)
@@ -8139,9 +8033,9 @@ uint64_t x_getattrlistat(int a1, const char *a2, void *a3, void *a4, size_t a5, 
   return getattrlistat(a1, a2, a3, a4, a5, a6 & 0xFFFFFFFFFFFFF7FFLL);
 }
 
-uint64_t x2_openat(int a1, char *a2, int a3, int a4, int a5, int a6, int a7, int a8, unsigned __int16 a9)
+uint64_t x2_openat(int a1, char *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int16 a9)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (x2_openat_onceToken != -1)
   {
     x2_openat_cold_1();
@@ -8195,21 +8089,21 @@ LABEL_20:
       }
     }
 
-    v27 = 0;
-    v28 = 47;
+    v26 = 0;
+    v27 = 47;
     do
     {
-      v29 = a2[v27];
-      v14 = v28 == v29;
-      if (v28 != v29)
+      v28 = a2[v26];
+      v14 = v27 == v28;
+      if (v27 != v28)
       {
         break;
       }
 
-      v28 = aPrivateVarDbSp_0[++v27];
+      v27 = aPrivateVarDbSp_0[++v26];
     }
 
-    while (v27 != 26);
+    while (v26 != 26);
   }
 
   else
@@ -8242,12 +8136,12 @@ LABEL_21:
   v24 = v23;
   if ((v23 & 0x80000000) == 0)
   {
-    memset(&v30, 0, sizeof(v30));
-    if (fstat(v23, &v30) || v30.st_nlink != 1 || (bzero(&v31, 0x878uLL), !v14) && (fstatfs(v24, &v31) || *&v31.f_fsid == x2_openat_sBootFSID || *&v31.f_fsid == x2_openat_sDataFSID))
+    memset(&v29, 0, sizeof(v29));
+    if (fstat(v23, &v29) || v29.st_nlink != 1 || (bzero(&v30, 0x878uLL), !v14) && (fstatfs(v24, &v30) || *&v30.f_fsid == x2_openat_sBootFSID || *&v30.f_fsid == x2_openat_sDataFSID))
     {
       close(v24);
       *__error() = 1;
-      v24 = 0xFFFFFFFFLL;
+      return 0xFFFFFFFFLL;
     }
 
     else if ((a3 & 0x400) != 0)
@@ -8256,26 +8150,25 @@ LABEL_21:
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 uint64_t __x2_openat_block_invoke()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  bzero(&v2, 0x878uLL);
-  statfs("/", &v2);
-  x2_openat_sBootFSID = v2.f_fsid;
-  result = statfs("/System/Volumes/Data", &v2);
-  x2_openat_sDataFSID = v2.f_fsid;
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  bzero(&v1, 0x878uLL);
+  statfs("/", &v1);
+  x2_openat_sBootFSID = v1.f_fsid;
+  result = statfs("/System/Volumes/Data", &v1);
+  x2_openat_sDataFSID = v1.f_fsid;
   return result;
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x18u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x18u);
 }
 
 void *SILexiconCacheCreateWithOptions(const __CFDictionary *a1)
@@ -8490,7 +8383,7 @@ LABEL_13:
   _Block_object_dispose(&v27, 8);
 }
 
-void __SILexiconCacheLoad_block_invoke()
+void __SILexiconCacheLoad_block_invoke(uint64_t a1)
 {
   v4 = *MEMORY[0x277D85DE8];
   OptionsDictionary = SIGeneralTrieCreateOptionsDictionary(1, 64, 0, 0, 0);
@@ -8500,11 +8393,11 @@ void __SILexiconCacheLoad_block_invoke()
     CFRelease(OptionsDictionary);
   }
 
-  v1 = SIGeneralTrieCreateOptionsDictionary(2, 64, 0, 0, 0);
-  sTypes = SIGeneralTrieCreateMutableWithDictionary(v1);
-  if (v1)
+  v2 = SIGeneralTrieCreateOptionsDictionary(2, 64, 0, 0, 0);
+  sTypes = SIGeneralTrieCreateMutableWithDictionary(v2);
+  if (v2)
   {
-    CFRelease(v1);
+    CFRelease(v2);
   }
 
   sOVSLexicon = LXCreateWordModerationLexicon();
@@ -8514,8 +8407,6 @@ void __SILexiconCacheLoad_block_invoke()
     atomic_store(0, &sLexiconsLoaded[i]);
     sLexicons[i] = 0;
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __SILexiconCacheLoad_block_invoke_17(uint64_t a1, uint64_t a2)
@@ -8537,12 +8428,11 @@ void __SILexiconCacheLoad_block_invoke_17(uint64_t a1, uint64_t a2)
   }
 
   dispatch_group_leave(*(a1 + 48));
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t createLexicon(const __CFLocale *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   LanguageID = SILanguagesGetLanguageID(a1);
   Current = CFAbsoluteTimeGetCurrent();
   if (logger(void)::token != -1)
@@ -8554,7 +8444,7 @@ uint64_t createLexicon(const __CFLocale *a1)
   if (os_log_type_enabled(logger(void)::log, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v17 = LanguageID;
+    v16 = LanguageID;
     _os_log_impl(&dword_26B7AA000, v4, OS_LOG_TYPE_INFO, "Creating lexicon for language ID %d", buf, 8u);
     if (logger(void)::token != -1)
     {
@@ -8596,9 +8486,9 @@ uint64_t createLexicon(const __CFLocale *a1)
   {
     v12 = CFAbsoluteTimeGetCurrent();
     *buf = 67109376;
-    v17 = LanguageID;
-    v18 = 2048;
-    v19 = v12 - Current;
+    v16 = LanguageID;
+    v17 = 2048;
+    v18 = v12 - Current;
     _os_log_impl(&dword_26B7AA000, v11, OS_LOG_TYPE_INFO, "Created lexicon for language ID %d <%f s>", buf, 0x12u);
     if (logger(void)::token != -1)
     {
@@ -8616,13 +8506,12 @@ uint64_t createLexicon(const __CFLocale *a1)
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return Transient;
 }
 
 uint64_t createStaticLexicon(const __CFLocale *a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   Value = CFLocaleGetValue(a1, *MEMORY[0x277CBEE98]);
   RegionID = SILanguagesGetRegionID(Value);
   LanguageID = SILanguagesGetLanguageID(a1);
@@ -8636,7 +8525,7 @@ uint64_t createStaticLexicon(const __CFLocale *a1)
   if (os_log_type_enabled(logger(void)::log, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v25 = LanguageID;
+    v24 = LanguageID;
     _os_log_impl(&dword_26B7AA000, v6, OS_LOG_TYPE_INFO, "Creating lexicon for language ID %d", buf, 8u);
     if (logger(void)::token != -1)
     {
@@ -8693,9 +8582,9 @@ uint64_t createStaticLexicon(const __CFLocale *a1)
     {
       v18 = CFAbsoluteTimeGetCurrent();
       *buf = 67109376;
-      v25 = LanguageID;
-      v26 = 2048;
-      v27 = v18 - Current;
+      v24 = LanguageID;
+      v25 = 2048;
+      v26 = v18 - Current;
       _os_log_impl(&dword_26B7AA000, v17, OS_LOG_TYPE_INFO, "Created System lexicon for language ID %d <%f s>", buf, 0x12u);
     }
   }
@@ -8734,7 +8623,6 @@ uint64_t createStaticLexicon(const __CFLocale *a1)
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -8770,13 +8658,12 @@ void __SILexiconCacheLoad_block_invoke_23(uint64_t a1, uint64_t a2)
     block[1] = 0x40000000;
     block[2] = __SILexiconCacheLoad_block_invoke_2;
     block[3] = &__block_descriptor_tmp_24;
-    v10 = *(a1 + 56);
-    v9 = *(a1 + 40);
+    v9 = *(a1 + 56);
+    v8 = *(a1 + 40);
     dispatch_async(getLexiconQueue(void)::gLexQueue, block);
   }
 
   dispatch_group_leave(*(a1 + 48));
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __SILexiconCacheLoad_block_invoke_2(uint64_t a1)
@@ -8807,40 +8694,39 @@ void __SILexiconCacheLoad_block_invoke_3(uint64_t a1)
     v3 = logger(void)::log;
     if (os_signpost_enabled(logger(void)::log))
     {
-      *v6 = 0;
-      _os_signpost_emit_with_name_impl(&dword_26B7AA000, v3, OS_SIGNPOST_INTERVAL_END, v2, "SILexiconCacheLoad", "", v6, 2u);
+      *v5 = 0;
+      _os_signpost_emit_with_name_impl(&dword_26B7AA000, v3, OS_SIGNPOST_INTERVAL_END, v2, "SILexiconCacheLoad", "", v5, 2u);
     }
   }
 
-  v4 = *(*(*(a1 + 40) + 8) + 24);
   (*(*(a1 + 32) + 16))();
   dispatch_release(*(a1 + 56));
-  v5 = *(*(*(a1 + 40) + 8) + 24);
-  if (v5)
+  v4 = *(*(*(a1 + 40) + 8) + 24);
+  if (v4)
   {
-    CFRelease(v5);
+    CFRelease(v4);
   }
 }
 
 void SILexiconCacheRefresh(uint64_t a1, CFArrayRef theArray, uint64_t a3)
 {
-  v17 = a3;
-  v22 = *MEMORY[0x277D85DE8];
+  v16 = a3;
+  v21 = *MEMORY[0x277D85DE8];
   if (theArray)
   {
     Count = CFArrayGetCount(theArray);
-    MEMORY[0x28223BE20]();
+    MEMORY[0x28223BE20](Count);
     v7 = (&block[-1] - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
     bzero(v7, v6);
-    v23.location = 0;
-    v23.length = Count;
-    CFArrayGetValues(theArray, v23, v7);
+    v22.location = 0;
+    v22.length = Count;
+    CFArrayGetValues(theArray, v22, v7);
   }
 
   else
   {
     Count = 0;
-    v7 = &v21;
+    v7 = &v20;
   }
 
   v8 = dispatch_group_create();
@@ -8869,15 +8755,15 @@ void SILexiconCacheRefresh(uint64_t a1, CFArrayRef theArray, uint64_t a3)
 
       LanguageID = SILanguagesGetLanguageID(Locale);
       dispatch_group_enter(v8);
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 0x40000000;
-      v19[2] = __SILexiconCacheRefresh_block_invoke;
-      v19[3] = &__block_descriptor_tmp_27;
-      v20 = LanguageID;
-      v19[4] = v9;
-      v19[5] = v10;
-      v19[6] = v8;
-      SILexiconCacheLoad(a1, Locale, v19);
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 0x40000000;
+      v18[2] = __SILexiconCacheRefresh_block_invoke;
+      v18[3] = &__block_descriptor_tmp_27;
+      v19 = LanguageID;
+      v18[4] = v9;
+      v18[5] = v10;
+      v18[6] = v8;
+      SILexiconCacheLoad(a1, Locale, v18);
       ++v7;
       --Count;
     }
@@ -8894,12 +8780,11 @@ void SILexiconCacheRefresh(uint64_t a1, CFArrayRef theArray, uint64_t a3)
   block[1] = 0x40000000;
   block[2] = __SILexiconCacheRefresh_block_invoke_2;
   block[3] = &unk_279D02F80;
-  block[4] = v17;
+  block[4] = v16;
   block[5] = v9;
   block[6] = v10;
   block[7] = v8;
   dispatch_group_notify(v8, getRefreshQueue(void)::gRefQueue, block);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __SILexiconCacheRefresh_block_invoke(uint64_t a1, uint64_t a2)
@@ -8975,7 +8860,6 @@ void __SILexiconCacheRefresh_block_invoke_2(uint64_t a1)
   free(*(a1 + 40));
   free(*(a1 + 48));
   dispatch_release(*(a1 + 56));
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 BOOL SILexiconCacheIsAvailable(uint64_t a1, const __CFLocale *a2)
@@ -9008,39 +8892,34 @@ void SILexiconCacheRelease(void *a1)
 
 uint64_t SILexiconCacheContainsTokenIDInString(uint64_t a1, const __CFLocale *a2, CFStringRef theString, unsigned int *a4, unsigned int *a5, void *a6)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   if (!theString)
   {
-LABEL_6:
-    result = 0;
-    goto LABEL_8;
+    return 0;
   }
 
   Length = CFStringGetLength(theString);
   result = 0;
-  v20[0] = Length;
+  v19[0] = Length;
   if (a1 && a2 && Length)
   {
-    if (SILanguagesGetLanguageID(a2) - 59 >= 0xFFFFFFC7)
+    if (SILanguagesGetLanguageID(a2) - 59 < 0xFFFFFFC7)
     {
-      MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-      v15 = MEMORY[0x28223BE20]();
-      v17 = v20 - v16;
-      bzero(v20 - v16, v15 + 1);
-      v21.location = 0;
-      v21.length = Length;
-      CFStringGetBytes(theString, v21, 0x8000100u, 0x2Du, 0, v17, MaximumSizeForEncoding, v20);
-      v18 = v20[0];
-      v17[v20[0]] = 0;
-      result = SILexiconCacheContainsTokenID(a1, a2, v17, v18, a4, a5, a6);
-      goto LABEL_8;
+      return 0;
     }
 
-    goto LABEL_6;
+    MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
+    v15 = MEMORY[0x28223BE20](MaximumSizeForEncoding);
+    v17 = v19 - v16;
+    bzero(v19 - v16, v15 + 1);
+    v20.location = 0;
+    v20.length = Length;
+    CFStringGetBytes(theString, v20, 0x8000100u, 0x2Du, 0, v17, MaximumSizeForEncoding, v19);
+    v18 = v19[0];
+    v17[v19[0]] = 0;
+    return SILexiconCacheContainsTokenID(a1, a2, v17, v18, a4, a5, a6);
   }
 
-LABEL_8:
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9263,14 +9142,14 @@ void sub_26B7C59A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SILexiconCacheSetTokenIDInString(uint64_t a1, const __CFLocale *a2, CFStringRef theString, unsigned int a4, int a5, double a6)
+void SILexiconCacheSetTokenIDInString(CFIndex result, const __CFLocale *a2, CFStringRef theString, double a4, uint64_t a5, uint64_t a6)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   if (theString)
   {
     Length = CFStringGetLength(theString);
-    v20[0] = Length;
-    if (a1)
+    v19[0] = Length;
+    if (result)
     {
       if (a2)
       {
@@ -9280,25 +9159,23 @@ void SILexiconCacheSetTokenIDInString(uint64_t a1, const __CFLocale *a2, CFStrin
           if (SILanguagesGetLanguageID(a2) - 59 >= 0xFFFFFFC7)
           {
             MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(v13, 0x8000100u);
-            v15 = MEMORY[0x28223BE20]();
-            v17 = v20 - v16;
-            bzero(v20 - v16, v15 + 1);
-            v21.location = 0;
-            v21.length = v13;
-            CFStringGetBytes(theString, v21, 0x8000100u, 0x2Du, 0, v17, MaximumSizeForEncoding, v20);
-            v18 = v20[0];
-            v17[v20[0]] = 0;
-            SILexiconCacheSetTokenID(a1, a2, v17, v18, a4, a5, a6);
+            v15 = MEMORY[0x28223BE20](MaximumSizeForEncoding);
+            v17 = v19 - v16;
+            bzero(v19 - v16, v15 + 1);
+            v20.location = 0;
+            v20.length = v13;
+            CFStringGetBytes(theString, v20, 0x8000100u, 0x2Du, 0, v17, MaximumSizeForEncoding, v19);
+            v18 = v19[0];
+            v17[v19[0]] = 0;
+            SILexiconCacheSetTokenID(result, a2, v17, v18, a5, a6, a4);
           }
         }
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-void SILexiconCacheSetTokenID(uint64_t a1, const __CFLocale *a2, void *a3, unsigned int a4, unsigned int a5, int a6, double a7)
+void SILexiconCacheSetTokenID(uint64_t a1, const __CFLocale *a2, void *a3, unsigned int a4, uint64_t a5, uint64_t a6, double a7)
 {
   if (a1)
   {
@@ -9383,7 +9260,7 @@ void SILexiconCacheSetTokenID(uint64_t a1, const __CFLocale *a2, void *a3, unsig
 
               else
               {
-                v21 = v33[1];
+                v21 = LODWORD(v33[1]);
               }
 
               v19.n128_f64[0] = a7;
@@ -9466,7 +9343,7 @@ void SILexiconCacheSetTokenID(uint64_t a1, const __CFLocale *a2, void *a3, unsig
 
               else
               {
-                v29 = v33[1];
+                v29 = LODWORD(v33[1]);
               }
 
               SIGeneralTrieAddKey(sTypes, v28, v29, a6);
@@ -9494,40 +9371,40 @@ void sub_26B7C5E24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SILexiconCacheEnumerateOVSAnnotationsInString(uint64_t a1, uint64_t a2)
+uint64_t SILexiconCacheEnumerateOVSAnnotationsInString(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (!a2)
   {
     return 0;
   }
 
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2000000000;
-  v7 = 0;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2000000000;
+  v12 = 0;
   if (sOVSLexicon)
   {
     LXLexiconEnumerateEntriesForString();
-    v2 = *(v5 + 24);
+    v7 = *(v10 + 24);
   }
 
   else
   {
-    v2 = 0;
+    v7 = 0;
   }
 
-  _Block_object_dispose(&v4, 8);
-  return v2;
+  _Block_object_dispose(&v9, 8);
+  return v7;
 }
 
-void sub_26B7C5F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26B7C5F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __SILexiconCacheEnumerateOVSAnnotationsInString_block_invoke(uint64_t a1)
+uint64_t __SILexiconCacheEnumerateOVSAnnotationsInString_block_invoke(uint64_t a1, uint64_t a2)
 {
   MetaFlags = LXEntryGetMetaFlags();
   result = LXEntryGetCategoryFlags();
@@ -9543,7 +9420,7 @@ uint64_t __SILexiconCacheEnumerateOVSAnnotationsInString_block_invoke(uint64_t a
 uint64_t SILexiconCacheEnumerateAnyAnnotationsInString(uint64_t a1, const __CFLocale *a2, CFStringRef theString, uint64_t a4, uint64_t a5)
 {
   Length = 0;
-  v46 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     if (theString)
@@ -9553,115 +9430,267 @@ uint64_t SILexiconCacheEnumerateAnyAnnotationsInString(uint64_t a1, const __CFLo
       {
         LanguageID = SILanguagesGetLanguageID(a2);
         v11 = atomic_load(&sLexiconsLoaded[LanguageID]);
-        if ((v11 & 1) != 0 && (v12 = LanguageID, sLexicons[LanguageID]))
+        if ((v11 & 1) != 0 && sLexicons[LanguageID])
         {
+          v39 = 0;
+          v40 = &v39;
+          v41 = 0x2000000000;
           v42 = 0;
-          v43 = &v42;
-          v44 = 0x2000000000;
-          v45 = 0;
           MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-          v14 = MEMORY[0x28223BE20]();
-          v15 = v33 - ((v14 + 16) & 0xFFFFFFFFFFFFFFF0);
-          bzero(v15, v14 + 1);
-          v16 = sLexicons[v12];
+          v13 = MEMORY[0x28223BE20](MaximumSizeForEncoding);
+          v14 = v30 - ((v13 + 16) & 0xFFFFFFFFFFFFFFF0);
+          bzero(v14, v13 + 1);
           RootCursor = LXLexiconCreateRootCursor();
           if (RootCursor)
           {
-            v34 = a5;
-            v33[1] = v33;
-            v41 = 0;
+            v31 = a5;
+            v30[1] = v30;
+            v38 = 0;
             if (Length >= 1)
             {
-              v18 = 0;
-              v35 = a4 + 16;
-              v33[2] = v38;
-              v19 = 1;
-              v20 = -1;
+              v16 = 0;
+              v32 = a4 + 16;
+              v30[2] = v35;
+              v17 = 1;
+              v18 = -1;
               do
               {
-                v21 = (*(a4 + 16))(a4, &v41);
-                if (v21 == -1)
+                v19 = (*(a4 + 16))(a4, &v38);
+                if (v19 == -1)
                 {
                   break;
                 }
 
-                v23 = v18 + v20;
-                v24 = v21 + v22 - (v18 + v20);
-                v25 = v21 + v22 - v20;
-                v26 = v20 == -1;
-                if (v20 == -1)
+                v21 = v16 + v18;
+                v22 = v19 + v20 - (v16 + v18);
+                v23 = v19 + v20 - v18;
+                v24 = v18 == -1;
+                if (v18 == -1)
                 {
-                  v20 = v21;
+                  v18 = v19;
                 }
 
-                if (v26)
+                if (v24)
                 {
-                  v18 = v22;
-                }
-
-                else
-                {
-                  v18 = v25;
-                }
-
-                if (v26)
-                {
-                  v23 = v21;
-                  v27.length = v22;
+                  v16 = v20;
                 }
 
                 else
                 {
-                  v27.length = v24;
+                  v16 = v23;
                 }
 
-                v40 = 0;
-                v28 = MaximumSizeForEncoding;
-                v27.location = v23;
-                CFStringGetBytes(theString, v27, 0x8000100u, 0x2Du, 0, v15, MaximumSizeForEncoding + 1, &v40);
-                v15[v40] = 0;
-                v29 = RootCursor;
-                v30 = LXCursorCreateByAdvancingWithUTF8();
-                if (!v30)
+                if (v24)
                 {
-                  RootCursor = v29;
+                  v21 = v19;
+                  v25.length = v20;
+                }
+
+                else
+                {
+                  v25.length = v22;
+                }
+
+                v37 = 0;
+                v26 = MaximumSizeForEncoding;
+                v25.location = v21;
+                CFStringGetBytes(theString, v25, 0x8000100u, 0x2Du, 0, v14, MaximumSizeForEncoding + 1, &v37);
+                v14[v37] = 0;
+                v27 = RootCursor;
+                v28 = LXCursorCreateByAdvancingWithUTF8();
+                if (!v28)
+                {
+                  RootCursor = v27;
                   break;
                 }
 
-                v36 = MEMORY[0x277D85DD0];
-                v37 = 0x40000000;
-                v38[0] = __SILexiconCacheEnumerateAnyAnnotationsInString_block_invoke;
-                v38[1] = &unk_279D02FD0;
-                v38[4] = v20;
-                v38[5] = v18;
-                v38[2] = v34;
-                v38[3] = &v42;
-                v39 = v19;
+                v33 = MEMORY[0x277D85DD0];
+                v34 = 0x40000000;
+                v35[0] = __SILexiconCacheEnumerateAnyAnnotationsInString_block_invoke;
+                v35[1] = &unk_279D02FD0;
+                v35[4] = v18;
+                v35[5] = v16;
+                v35[2] = v31;
+                v35[3] = &v39;
+                v36 = v17;
                 LXCursorEnumerateEntries();
-                CFRelease(v30);
-                v19 = 0;
-                RootCursor = v29;
-                MaximumSizeForEncoding = v28;
+                CFRelease(v28);
+                v17 = 0;
+                RootCursor = v27;
+                MaximumSizeForEncoding = v26;
               }
 
-              while (v18 < Length);
+              while (v16 < Length);
             }
 
             CFRelease(RootCursor);
           }
 
-          Length = *(v43 + 24);
-          _Block_object_dispose(&v42, 8);
+          Length = *(v40 + 24);
+          _Block_object_dispose(&v39, 8);
         }
 
         else
         {
-          Length = 0;
+          return 0;
         }
       }
     }
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return Length;
+}
+
+uint64_t __SILexiconCacheEnumerateAnyAnnotationsInString_block_invoke(uint64_t a1, uint64_t a2)
+{
+  MetaFlags = LXEntryGetMetaFlags();
+  result = LXEntryGetCategoryFlags();
+  if ((MetaFlags & 0x3800000) != 0 || (result & 0x1F500) != 0 || (result & 0x40000) != 0 || *(a1 + 64) && ((MetaFlags & 0x20000000) != 0 || (MetaFlags & 0x200061) == 0))
+  {
+    result = (*(*(a1 + 32) + 16))();
+    *(*(*(a1 + 40) + 8) + 24) = 1;
+  }
+
+  return result;
+}
+
+CFIndex SILexiconCacheEnumerateAnnotationsInString(uint64_t a1, const __CFLocale *a2, CFStringRef theString, uint64_t a4)
+{
+  result = 0;
+  v17[1] = *MEMORY[0x277D85DE8];
+  if (a1)
+  {
+    if (theString)
+    {
+      result = CFStringGetLength(theString);
+      v17[0] = result;
+      if (result)
+      {
+        LanguageID = SILanguagesGetLanguageID(a2);
+        v10 = atomic_load(&sLexiconsLoaded[LanguageID]);
+        if ((v10 & 1) != 0 && sLexicons[LanguageID])
+        {
+          v11 = v17[0];
+          MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(v17[0], 0x8000100u);
+          v13 = MEMORY[0x28223BE20](MaximumSizeForEncoding);
+          v15 = v17 - v14;
+          bzero(v17 - v14, v13 + 1);
+          v18.location = 0;
+          v18.length = v11;
+          CFStringGetBytes(theString, v18, 0x8000100u, 0x2Du, 0, v15, MaximumSizeForEncoding, v17);
+          v16 = v17[0];
+          v15[v17[0]] = 0;
+          return SILexiconCacheEnumerateAnnotations(a1, a2, v15, v16, a4);
+        }
+
+        else
+        {
+          return 0;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t SILexiconCacheEnumerateAnnotations(uint64_t a1, const __CFLocale *a2, uint64_t a3, int a4, uint64_t a5)
+{
+  v5 = 0;
+  if (a1 && a4)
+  {
+    LanguageID = SILanguagesGetLanguageID(a2);
+    v7 = atomic_load(&sLexiconsLoaded[LanguageID]);
+    if ((v7 & 1) != 0 && sLexicons[LanguageID])
+    {
+      v11 = 0;
+      v12 = &v11;
+      v13 = 0x2000000000;
+      v14 = 0;
+      RootCursor = LXLexiconCreateRootCursor();
+      if (RootCursor)
+      {
+        v9 = LXCursorCreateByAdvancingWithUTF8();
+        if (v9)
+        {
+          LXCursorEnumerateEntries();
+          CFRelease(v9);
+        }
+
+        CFRelease(RootCursor);
+      }
+
+      v5 = *(v12 + 24);
+      _Block_object_dispose(&v11, 8);
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return v5;
+}
+
+void sub_26B7C6670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __SILexiconCacheEnumerateAnnotations_block_invoke(uint64_t a1, uint64_t a2)
+{
+  MetaFlags = LXEntryGetMetaFlags();
+  result = LXEntryGetCategoryFlags();
+  if ((MetaFlags & 0x3800000) != 0 || (result & 0x1F500) != 0 || (result & 0x40000) != 0 || (MetaFlags & 0x20000000) != 0 || (MetaFlags & 0x200061) == 0)
+  {
+    result = (*(*(a1 + 32) + 16))();
+    *(*(*(a1 + 40) + 8) + 24) = 1;
+  }
+
+  return result;
+}
+
+uint64_t SILexiconCacheGetTokenIDInString(uint64_t a1, const __CFLocale *a2, CFStringRef theString)
+{
+  if (!theString)
+  {
+    return 0;
+  }
+
+  Length = CFStringGetLength(theString);
+  v6 = 0;
+  if (!a1 || !a2 || !Length)
+  {
+    return v6;
+  }
+
+  LanguageID = SILanguagesGetLanguageID(a2);
+  if ((LanguageID - 59) < 0xFFFFFFC7)
+  {
+    return 0;
+  }
+
+  v8 = LanguageID;
+  v9 = atomic_load(&sLexiconsLoaded[LanguageID]);
+  if ((v9 & 1) == 0)
+  {
+    return 0;
+  }
+
+  os_unfair_lock_lock(&sLexiconLock);
+  if (sDynamicLexicons[v8])
+  {
+    v6 = LXLexiconAdd();
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  os_unfair_lock_unlock(&sLexiconLock);
+  return v6;
 }

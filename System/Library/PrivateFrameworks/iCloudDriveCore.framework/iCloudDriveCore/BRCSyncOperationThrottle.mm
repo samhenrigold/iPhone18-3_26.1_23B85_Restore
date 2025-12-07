@@ -248,7 +248,7 @@
 
 - (void)updateForError:(id)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   selfCopy = self;
   mangledID = [(BRCSyncOperationThrottle *)selfCopy mangledID];
@@ -312,13 +312,13 @@
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       delay = selfCopy->_delay;
-      v28 = 134218498;
-      v29 = v17;
-      v30 = 2048;
-      v31 = delay;
-      v32 = 2112;
-      v33 = v18;
-      _os_log_debug_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEBUG, "[DEBUG] server provided backoff %.03fs (delay %.03fs)%@", &v28, 0x20u);
+      v27 = 134218498;
+      v28 = v17;
+      v29 = 2048;
+      v30 = delay;
+      v31 = 2112;
+      v32 = v18;
+      _os_log_debug_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEBUG, "[DEBUG] server provided backoff %.03fs (delay %.03fs)%@", &v27, 0x20u);
     }
 
     if (selfCopy->_delay >= v17)
@@ -349,8 +349,6 @@ LABEL_22:
 
   selfCopy->_lastErrorKind = brc_syncOperationErrorKind;
   selfCopy->_nextTry = v13 + selfCopy->_delay;
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clear
@@ -362,7 +360,7 @@ LABEL_22:
 
 - (BOOL)scheduleIfPossibleWithCurrentTimestamp:(int64_t)timestamp signalSourceIfFailed:(id)failed description:(id)description
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   failedCopy = failed;
   descriptionCopy = description;
   [(BRCSyncOperationThrottle *)self nextTry];
@@ -375,26 +373,26 @@ LABEL_22:
     {
       if ([(BRCSyncOperationThrottle *)self isSyncDown])
       {
-        v21 = @"down";
+        v20 = @"down";
       }
 
       else
       {
-        v21 = @"up";
+        v20 = @"up";
       }
 
       brc_interval_from_nsec();
-      v25 = 138413314;
-      v26 = descriptionCopy;
-      v27 = 2112;
-      v28 = v21;
-      v29 = 2048;
-      v30 = v22;
-      v31 = 2112;
+      v24 = 138413314;
+      v25 = descriptionCopy;
+      v26 = 2112;
+      v27 = v20;
+      v28 = 2048;
+      v29 = v21;
+      v30 = 2112;
       selfCopy = self;
-      v33 = 2112;
-      v34 = v11;
-      _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ sync-%@ is throttled for more than 10s: %.1fs (%@)%@", &v25, 0x34u);
+      v32 = 2112;
+      v33 = v11;
+      _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ sync-%@ is throttled for more than 10s: %.1fs (%@)%@", &v24, 0x34u);
     }
   }
 
@@ -430,37 +428,35 @@ LABEL_22:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       isSyncDown = [(BRCSyncOperationThrottle *)self isSyncDown];
-      v24 = @"up";
-      v25 = 138412802;
+      v23 = @"up";
+      v24 = 138412802;
       if (isSyncDown)
       {
-        v24 = @"down";
+        v23 = @"down";
       }
 
-      v26 = v24;
-      v27 = 2112;
-      v28 = descriptionCopy;
-      v29 = 2112;
-      v30 = v13;
-      _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] syncing %@ %@%@", &v25, 0x20u);
+      v25 = v23;
+      v26 = 2112;
+      v27 = descriptionCopy;
+      v28 = 2112;
+      v29 = v13;
+      _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] syncing %@ %@%@", &v24, 0x20u);
     }
 
     [(BRCSyncOperationThrottle *)self updateAfterSchedulingTask];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v10 <= timestamp;
 }
 
 - (void)updateForError:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync: Updated sync throttle %@%@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Sync: Updated sync throttle %@%@", &v3, 0x16u);
 }
 
 @end

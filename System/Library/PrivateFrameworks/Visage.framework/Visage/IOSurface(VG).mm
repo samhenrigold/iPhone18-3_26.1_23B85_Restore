@@ -20,9 +20,6 @@
 - (uint64_t)vg_copyToSurfaceWithNewStride:()VG;
 - (uint64_t)vg_hasBasicProperties:()VG;
 - (uint64_t)vg_scaleToSurfaceUsingNearestNeighborResampling:()VG;
-- (uint64_t)vg_vImageBuffer;
-- (uint64_t)vg_vImageBufferOfPlaneAtIndex:()VG;
-- (uint64_t)vg_vImageBufferWithCropOrigin:()VG cropSize:;
 - (void)vg_convert420Yp8_CbCr8ToARGB8888:()VG;
 - (void)vg_convert444Yp8_CbCr8FullRangeToARGB8888:()VG;
 - (void)vg_convertARGB8888To420Yp8_CbCr8:()VG;
@@ -33,45 +30,48 @@
 - (void)vg_fillWithData:()VG;
 - (void)vg_unstackL008To420Yp8_CbCr8:()VG;
 - (void)vg_unstackL008To444Yp8_CbCr8:()VG;
+- (void)vg_vImageBuffer;
+- (void)vg_vImageBufferOfPlaneAtIndex:()VG;
+- (void)vg_vImageBufferWithCropOrigin:()VG cropSize:;
 @end
 
 @implementation IOSurface(VG)
 
 + (id)vg_IOSurfaceFromData:()VG pixelFormat:
 {
-  v31[4] = *MEMORY[0x277D85DE8];
+  v30[4] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [MEMORY[0x277CBF758] imageWithData:v5];
-  v30[0] = *MEMORY[0x277CD2B88];
+  v29[0] = *MEMORY[0x277CD2B88];
   v7 = MEMORY[0x277CCABB0];
   [v6 extent];
   v9 = [v7 numberWithDouble:v8];
-  v31[0] = v9;
-  v30[1] = *MEMORY[0x277CD2A28];
+  v30[0] = v9;
+  v29[1] = *MEMORY[0x277CD2A28];
   v10 = MEMORY[0x277CCABB0];
   [v6 extent];
   v12 = [v10 numberWithDouble:v11];
   v13 = *MEMORY[0x277CD2960];
-  v31[1] = v12;
-  v31[2] = &unk_2880F60A0;
+  v30[1] = v12;
+  v30[2] = &unk_2880F60A0;
   v14 = *MEMORY[0x277CD2A70];
-  v30[2] = v13;
-  v30[3] = v14;
+  v29[2] = v13;
+  v29[3] = v14;
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a4];
-  v31[3] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
+  v30[3] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
 
   v17 = [objc_alloc(MEMORY[0x277CD2930]) initWithProperties:v16];
   v18 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF4B8]);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __50__IOSurface_VG__vg_IOSurfaceFromData_pixelFormat___block_invoke;
-  v27[3] = &__block_descriptor_40_e5_v8__0l;
-  v27[4] = v18;
-  v19 = MEMORY[0x2743B9AA0](v27);
-  v28 = *MEMORY[0x277CBF938];
-  v29 = MEMORY[0x277CBEC28];
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __50__IOSurface_VG__vg_IOSurfaceFromData_pixelFormat___block_invoke;
+  v26[3] = &__block_descriptor_40_e5_v8__0l;
+  v26[4] = v18;
+  v19 = MEMORY[0x2743B9AA0](v26);
+  v27 = *MEMORY[0x277CBF938];
+  v28 = MEMORY[0x277CBEC28];
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
   v21 = [objc_alloc(MEMORY[0x277CBF740]) initWithOptions:v20];
   [v17 lockWithOptions:0 seed:0];
   [v6 extent];
@@ -82,37 +82,36 @@
   v24 = v17;
 
   v19[2](v19);
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
 
 - (id)vg_basicProperties
 {
-  v18[7] = *MEMORY[0x277D85DE8];
+  v17[7] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB38];
-  v17[0] = *MEMORY[0x277CD2928];
+  v16[0] = *MEMORY[0x277CD2928];
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "width")}];
-  v18[0] = v3;
-  v17[1] = *MEMORY[0x277CD28D0];
+  v17[0] = v3;
+  v16[1] = *MEMORY[0x277CD28D0];
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "height")}];
-  v18[1] = v4;
-  v17[2] = *MEMORY[0x277CD28C8];
+  v17[1] = v4;
+  v16[2] = *MEMORY[0x277CD28C8];
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "elementWidth")}];
-  v18[2] = v5;
-  v17[3] = *MEMORY[0x277CD28C0];
+  v17[2] = v5;
+  v16[3] = *MEMORY[0x277CD28C0];
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "elementHeight")}];
-  v18[3] = v6;
-  v17[4] = *MEMORY[0x277CD28B0];
+  v17[3] = v6;
+  v16[4] = *MEMORY[0x277CD28B0];
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "bytesPerElement")}];
-  v18[4] = v7;
-  v17[5] = *MEMORY[0x277CD28B8];
+  v17[4] = v7;
+  v16[5] = *MEMORY[0x277CD28B8];
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "bytesPerRow")}];
-  v18[5] = v8;
-  v17[6] = *MEMORY[0x277CD28D8];
+  v17[5] = v8;
+  v16[6] = *MEMORY[0x277CD28D8];
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(self, "pixelFormat")}];
-  v18[6] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:7];
+  v17[6] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:7];
   v11 = [v2 dictionaryWithDictionary:v10];
 
   if ([self planeCount])
@@ -122,8 +121,6 @@
     v14 = [v13 objectForKeyedSubscript:*MEMORY[0x277CD2B30]];
     [v11 setObject:v14 forKeyedSubscript:*MEMORY[0x277CD2908]];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -158,29 +155,29 @@
 
 - (uint64_t)vg_hasBasicProperties:()VG
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = a3;
   vg_basicProperties = [self vg_basicProperties];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
-        v11 = [v6 objectForKeyedSubscript:{v10, v17}];
+        v10 = *(*(&v16 + 1) + 8 * i);
+        v11 = [v6 objectForKeyedSubscript:{v10, v16}];
         v12 = [vg_basicProperties objectForKeyedSubscript:v10];
         v13 = [v11 isEqual:v12];
 
@@ -191,7 +188,7 @@
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -204,11 +201,10 @@
   v14 = 1;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
-- (uint64_t)vg_vImageBuffer
+- (void)vg_vImageBuffer
 {
   *a2 = [self baseAddress];
   a2[1] = [self height];
@@ -218,7 +214,7 @@ LABEL_11:
   return result;
 }
 
-- (uint64_t)vg_vImageBufferOfPlaneAtIndex:()VG
+- (void)vg_vImageBufferOfPlaneAtIndex:()VG
 {
   if ([self planeCount])
   {
@@ -232,13 +228,13 @@ LABEL_11:
   else
   {
 
-    return [self vg_vImageBuffer];
+    return objc_msgSend_vg_vImageBuffer(self);
   }
 
   return result;
 }
 
-- (uint64_t)vg_vImageBufferWithCropOrigin:()VG cropSize:
+- (void)vg_vImageBufferWithCropOrigin:()VG cropSize:
 {
   baseAddress = [self baseAddress];
   v9 = baseAddress + [self bytesPerRow] * HIWORD(a2);
@@ -296,35 +292,33 @@ LABEL_11:
 
 - (void)vg_cropIntoSurface:()VG origin:
 {
-  v6 = a3;
-  width = [v6 width];
-  height = [v6 height];
-  bytesPerElement = [v6 bytesPerElement];
+  v5 = a3;
+  width = [v5 width];
+  height = [v5 height];
+  bytesPerElement = [v5 bytesPerElement];
   [self lockWithOptions:1 seed:0];
-  [v6 lockWithOptions:0 seed:0];
-  HIWORD(v12) = height;
-  LOWORD(v12) = width;
-  [self vg_vImageBufferWithCropOrigin:a4 cropSize:v12];
-  if (v6)
+  [v5 lockWithOptions:0 seed:0];
+  objc_msgSend_vg_vImageBufferWithCropOrigin_cropSize_(self);
+  if (v5)
   {
-    [v6 vg_vImageBuffer];
+    objc_msgSend_vg_vImageBuffer(v5);
   }
 
-  v10 = height;
+  v9 = height;
   if (height)
   {
-    v11 = bytesPerElement * width;
+    v10 = bytesPerElement * width;
     do
     {
-      memcpy(0, 0, v11);
-      --v10;
+      memcpy(0, 0, v10);
+      --v9;
     }
 
-    while (v10);
+    while (v9);
   }
 
   [self unlockWithOptions:1 seed:0];
-  [v6 unlockWithOptions:0 seed:0];
+  [v5 unlockWithOptions:0 seed:0];
 }
 
 - (void)vg_cropAndResizeYIntoSurface:()VG origin:size:
@@ -348,7 +342,7 @@ LABEL_11:
   memset(&dest, 0, sizeof(dest));
   if (v10)
   {
-    [v10 vg_vImageBuffer];
+    objc_msgSend_vg_vImageBuffer(v10);
   }
 
   v12 = [self bytesPerRowOfPlaneAtIndex:0];
@@ -364,7 +358,7 @@ LABEL_11:
 
 - (void)vg_convert420Yp8_CbCr8ToARGB8888:()VG
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = *MEMORY[0x277CB86F0];
   if ([v4 pixelFormat] == 32)
@@ -409,25 +403,23 @@ LABEL_6:
   [self lockWithOptions:1 seed:0];
   [v4 lockWithOptions:0 seed:0];
   memset(&srcYp, 0, sizeof(srcYp));
-  [self vg_vImageBufferOfPlaneAtIndex:0];
+  objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(self);
   memset(&srcCbCr, 0, sizeof(srcCbCr));
-  [self vg_vImageBufferOfPlaneAtIndex:1];
-  memset(&v13, 0, sizeof(v13));
+  objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(self);
+  memset(&v12, 0, sizeof(v12));
   if (v4)
   {
-    [v4 vg_vImageBuffer];
+    objc_msgSend_vg_vImageBuffer(v4, *&v12.data, *&v12.width);
   }
 
-  vImageConvert_420Yp8_CbCr8ToARGB8888(&srcYp, &srcCbCr, &v13, &outInfo, permuteMap, 0xFFu, 0);
+  vImageConvert_420Yp8_CbCr8ToARGB8888(&srcYp, &srcCbCr, &v12, &outInfo, permuteMap, 0xFFu, 0);
   [v4 unlockWithOptions:0 seed:0];
   [self unlockWithOptions:1 seed:0];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)vg_convertARGB8888To420Yp8_CbCr8:()VG
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = *MEMORY[0x277CB86D8];
   if ([self pixelFormat] == 32)
@@ -470,39 +462,38 @@ LABEL_6:
   pixelRange.CbCrMin = 16 * (pixelFormat != 875704422);
   vImageConvert_ARGBToYpCbCr_GenerateConversion(v5, &pixelRange, &outInfo, kvImageARGB8888, kvImage420Yp8_CbCr8, 0);
   [self lockWithOptions:1 seed:0];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __50__IOSurface_VG__vg_convertARGB8888To420Yp8_CbCr8___block_invoke;
-  v21[3] = &unk_279E28D98;
-  v21[4] = self;
-  v12 = MEMORY[0x2743B9AA0](v21);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __50__IOSurface_VG__vg_convertARGB8888To420Yp8_CbCr8___block_invoke;
+  v20[3] = &unk_279E28D98;
+  v20[4] = self;
+  v12 = MEMORY[0x2743B9AA0](v20);
   [v4 lockWithOptions:0 seed:0];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __50__IOSurface_VG__vg_convertARGB8888To420Yp8_CbCr8___block_invoke_2;
-  v19[3] = &unk_279E28D98;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __50__IOSurface_VG__vg_convertARGB8888To420Yp8_CbCr8___block_invoke_2;
+  v18[3] = &unk_279E28D98;
   v13 = v4;
-  v20 = v13;
-  v14 = MEMORY[0x2743B9AA0](v19);
+  v19 = v13;
+  v14 = MEMORY[0x2743B9AA0](v18);
   memset(&src, 0, sizeof(src));
-  [self vg_vImageBuffer];
+  objc_msgSend_vg_vImageBuffer(self);
   memset(&destYp, 0, sizeof(destYp));
   if (v13)
   {
-    [v13 vg_vImageBufferOfPlaneAtIndex:0];
-    [v13 vg_vImageBufferOfPlaneAtIndex:{1, 0, 0, 0, 0, destYp.data, destYp.height, destYp.width, destYp.rowBytes}];
+    objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(v13);
+    objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(v13, 0, 0, 0, 0, destYp.data, destYp.height, destYp.width, destYp.rowBytes);
   }
 
   else
   {
-    memset(&v16, 0, sizeof(v16));
+    memset(&v15, 0, sizeof(v15));
   }
 
-  vImageConvert_ARGB8888To420Yp8_CbCr8(&src, &destYp, &v16, &outInfo, permuteMap, 0);
+  vImageConvert_ARGB8888To420Yp8_CbCr8(&src, &destYp, &v15, &outInfo, permuteMap, 0);
   v14[2](v14);
 
   v12[2](v12);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)vg_convert444Yp8_CbCr8FullRangeToARGB8888:()VG
@@ -841,7 +832,7 @@ LABEL_6:
   v5 = MEMORY[0x2743B9AA0](v14);
   v12 = 0u;
   v13 = 0u;
-  [self vg_vImageBuffer];
+  objc_msgSend_vg_vImageBuffer(self);
   *&src.data = v12;
   src.rowBytes = *(&v13 + 1);
   src.width = 4 * v13;
@@ -858,7 +849,7 @@ LABEL_6:
 
 - (id)vg_toFloat32Surface
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   if ([self pixelFormat] == 1278226534 || objc_msgSend(self, "pixelFormat") == 1717855600)
   {
     selfCopy = self;
@@ -866,58 +857,58 @@ LABEL_6:
 
   else if ([self pixelFormat] == 1278226536 || objc_msgSend(self, "pixelFormat") == 1751410032)
   {
-    v5 = objc_alloc(MEMORY[0x277CD2930]);
-    v20[0] = *MEMORY[0x277CD2928];
-    v6 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "width")}];
-    v21[0] = v6;
-    v20[1] = *MEMORY[0x277CD28D0];
-    v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "height")}];
-    v8 = *MEMORY[0x277CD28D8];
-    v21[1] = v7;
-    v21[2] = &unk_2880F60B8;
-    v9 = *MEMORY[0x277CD28B0];
-    v20[2] = v8;
-    v20[3] = v9;
-    v21[3] = &unk_2880F60A0;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
-    v11 = [v5 initWithProperties:v10];
+    v4 = objc_alloc(MEMORY[0x277CD2930]);
+    v19[0] = *MEMORY[0x277CD2928];
+    v5 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "width")}];
+    v20[0] = v5;
+    v19[1] = *MEMORY[0x277CD28D0];
+    v6 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "height")}];
+    v7 = *MEMORY[0x277CD28D8];
+    v20[1] = v6;
+    v20[2] = &unk_2880F60B8;
+    v8 = *MEMORY[0x277CD28B0];
+    v19[2] = v7;
+    v19[3] = v8;
+    v20[3] = &unk_2880F60A0;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
+    v10 = [v4 initWithProperties:v9];
 
-    [v11 lockWithOptions:0 seed:0];
+    [v10 lockWithOptions:0 seed:0];
     [self lockWithOptions:1 seed:0];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __36__IOSurface_VG__vg_toFloat32Surface__block_invoke;
-    v18[3] = &unk_279E28D98;
-    v12 = v11;
-    v19 = v12;
-    v13 = MEMORY[0x2743B9AA0](v18);
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
-    v17[2] = __36__IOSurface_VG__vg_toFloat32Surface__block_invoke_2;
+    v17[2] = __36__IOSurface_VG__vg_toFloat32Surface__block_invoke;
     v17[3] = &unk_279E28D98;
-    v17[4] = self;
-    v14 = MEMORY[0x2743B9AA0](v17);
+    v11 = v10;
+    v18 = v11;
+    v12 = MEMORY[0x2743B9AA0](v17);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __36__IOSurface_VG__vg_toFloat32Surface__block_invoke_2;
+    v16[3] = &unk_279E28D98;
+    v16[4] = self;
+    v13 = MEMORY[0x2743B9AA0](v16);
     memset(&src, 0, sizeof(src));
-    [self vg_vImageBuffer];
-    memset(&v15, 0, sizeof(v15));
-    if (v12)
+    objc_msgSend_vg_vImageBuffer(self);
+    memset(&v14, 0, sizeof(v14));
+    if (v11)
     {
-      [v12 vg_vImageBuffer];
+      objc_msgSend_vg_vImageBuffer(v11, *&v14.data, *&v14.width);
     }
 
-    if (vImageConvert_Planar16FtoPlanarF(&src, &v15, 0))
+    if (vImageConvert_Planar16FtoPlanarF(&src, &v14, 0))
     {
       selfCopy = 0;
     }
 
     else
     {
-      selfCopy = v12;
+      selfCopy = v11;
     }
 
-    v14[2](v14);
-
     v13[2](v13);
+
+    v12[2](v12);
   }
 
   else
@@ -925,14 +916,12 @@ LABEL_6:
     selfCopy = 0;
   }
 
-  v3 = *MEMORY[0x277D85DE8];
-
   return selfCopy;
 }
 
 - (id)vg_toFloat16Surface
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   if ([self pixelFormat] == 1278226536 || objc_msgSend(self, "pixelFormat") == 1751410032)
   {
     selfCopy = self;
@@ -940,66 +929,64 @@ LABEL_6:
 
   else if ([self pixelFormat] == 1278226534 || objc_msgSend(self, "pixelFormat") == 1717855600)
   {
-    v5 = objc_alloc(MEMORY[0x277CD2930]);
-    v20[0] = *MEMORY[0x277CD2928];
-    v6 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "width")}];
-    v21[0] = v6;
-    v20[1] = *MEMORY[0x277CD28D0];
-    v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "height")}];
-    v8 = *MEMORY[0x277CD28D8];
-    v21[1] = v7;
-    v21[2] = &unk_2880F60D0;
-    v9 = *MEMORY[0x277CD28B0];
-    v20[2] = v8;
-    v20[3] = v9;
-    v21[3] = &unk_2880F60E8;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
-    v11 = [v5 initWithProperties:v10];
+    v4 = objc_alloc(MEMORY[0x277CD2930]);
+    v19[0] = *MEMORY[0x277CD2928];
+    v5 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "width")}];
+    v20[0] = v5;
+    v19[1] = *MEMORY[0x277CD28D0];
+    v6 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "height")}];
+    v7 = *MEMORY[0x277CD28D8];
+    v20[1] = v6;
+    v20[2] = &unk_2880F60D0;
+    v8 = *MEMORY[0x277CD28B0];
+    v19[2] = v7;
+    v19[3] = v8;
+    v20[3] = &unk_2880F60E8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
+    v10 = [v4 initWithProperties:v9];
 
-    [v11 lockWithOptions:0 seed:0];
+    [v10 lockWithOptions:0 seed:0];
     [self lockWithOptions:1 seed:0];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __36__IOSurface_VG__vg_toFloat16Surface__block_invoke;
-    v18[3] = &unk_279E28D98;
-    v12 = v11;
-    v19 = v12;
-    v13 = MEMORY[0x2743B9AA0](v18);
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
-    v17[2] = __36__IOSurface_VG__vg_toFloat16Surface__block_invoke_2;
+    v17[2] = __36__IOSurface_VG__vg_toFloat16Surface__block_invoke;
     v17[3] = &unk_279E28D98;
-    v17[4] = self;
-    v14 = MEMORY[0x2743B9AA0](v17);
+    v11 = v10;
+    v18 = v11;
+    v12 = MEMORY[0x2743B9AA0](v17);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __36__IOSurface_VG__vg_toFloat16Surface__block_invoke_2;
+    v16[3] = &unk_279E28D98;
+    v16[4] = self;
+    v13 = MEMORY[0x2743B9AA0](v16);
     memset(&src, 0, sizeof(src));
-    [self vg_vImageBuffer];
-    memset(&v15, 0, sizeof(v15));
-    if (v12)
+    objc_msgSend_vg_vImageBuffer(self);
+    memset(&v14, 0, sizeof(v14));
+    if (v11)
     {
-      [v12 vg_vImageBuffer];
+      objc_msgSend_vg_vImageBuffer(v11, *&v14.data, *&v14.width);
     }
 
-    if (vImageConvert_PlanarFtoPlanar16F(&src, &v15, 0))
+    if (vImageConvert_PlanarFtoPlanar16F(&src, &v14, 0))
     {
       selfCopy = 0;
     }
 
     else
     {
-      selfCopy = v12;
+      selfCopy = v11;
     }
 
-    v14[2](v14);
-
     v13[2](v13);
+
+    v12[2](v12);
   }
 
   else
   {
     selfCopy = 0;
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
@@ -1008,89 +995,88 @@ LABEL_6:
 {
   v34[5] = *MEMORY[0x277D85DE8];
   width = [self width];
-  if ([self bytesPerElement] * width <= a3)
+  bytesPerElement = [self bytesPerElement];
+  if (bytesPerElement * width <= a3)
   {
-    v8 = objc_alloc(MEMORY[0x277CD2930]);
+    v9 = objc_alloc(MEMORY[0x277CD2930]);
     v33[0] = *MEMORY[0x277CD2928];
-    v9 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "width")}];
-    v34[0] = v9;
+    v10 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "width")}];
+    v34[0] = v10;
     v33[1] = *MEMORY[0x277CD28D0];
-    v10 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "height")}];
-    v34[1] = v10;
+    v11 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "height")}];
+    v34[1] = v11;
     v33[2] = *MEMORY[0x277CD28D8];
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(self, "pixelFormat")}];
-    v34[2] = v11;
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(self, "pixelFormat")}];
+    v34[2] = v12;
     v33[3] = *MEMORY[0x277CD28B0];
-    v12 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "bytesPerElement")}];
-    v34[3] = v12;
+    v13 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "bytesPerElement")}];
+    v34[3] = v13;
     v33[4] = *MEMORY[0x277CD28B8];
-    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:a3];
-    v34[4] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:5];
-    v15 = [v8 initWithProperties:v14];
+    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:a3];
+    v34[4] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:5];
+    v16 = [v9 initWithProperties:v15];
 
-    [v15 lockWithOptions:0 seed:0];
+    [v16 lockWithOptions:0 seed:0];
     [self lockWithOptions:1 seed:0];
     v30[0] = MEMORY[0x277D85DD0];
     v30[1] = 3221225472;
     v30[2] = __41__IOSurface_VG__vg_convertSurfaceStride___block_invoke;
     v30[3] = &unk_279E28D98;
-    v16 = v15;
-    v31 = v16;
-    v17 = MEMORY[0x2743B9AA0](v30);
+    v17 = v16;
+    v31 = v17;
+    v18 = MEMORY[0x2743B9AA0](v30);
     v29[0] = MEMORY[0x277D85DD0];
     v29[1] = 3221225472;
     v29[2] = __41__IOSurface_VG__vg_convertSurfaceStride___block_invoke_2;
     v29[3] = &unk_279E28D98;
     v29[4] = self;
-    v18 = MEMORY[0x2743B9AA0](v29);
+    v19 = MEMORY[0x2743B9AA0](v29);
     selfCopy = self;
     baseAddress = [self baseAddress];
-    v21 = v16;
-    baseAddress2 = [v16 baseAddress];
+    v22 = v17;
+    baseAddress2 = [v17 baseAddress];
     bytesPerRow = [self bytesPerRow];
-    v24 = bytesPerRow;
-    v25 = 0;
+    v25 = bytesPerRow;
+    v26 = 0;
     if (bytesPerRow >= a3)
     {
-      v26 = a3;
+      v27 = a3;
     }
 
     else
     {
-      v26 = bytesPerRow;
+      v27 = bytesPerRow;
     }
 
-    while (v25 < [self height])
+    while (v26 < [self height])
     {
-      memcpy(baseAddress2, baseAddress, v26);
-      ++v25;
+      memcpy(baseAddress2, baseAddress, v27);
+      ++v26;
       baseAddress2 += a3;
-      baseAddress += v24;
+      baseAddress += v25;
     }
 
-    v6 = v16;
-    v18[2](v18);
+    v7 = v17;
+    v19[2](v19);
 
-    v17[2](v17);
-    v7 = v6;
+    v18[2](v18);
+    v8 = v7;
   }
 
   else
   {
-    v6 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __VGLogSharedInstance(bytesPerElement);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_270F06000, v6, OS_LOG_TYPE_ERROR, " Invalid stride size. ", buf, 2u);
+      _os_log_impl(&dword_270F06000, v7, OS_LOG_TYPE_ERROR, " Invalid stride size. ", buf, 2u);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 - (uint64_t)vg_copyToSurfaceWithNewStride:()VG
@@ -1098,15 +1084,16 @@ LABEL_6:
   v4 = a3;
   bytesPerRow = [v4 bytesPerRow];
   width = [self width];
-  if (bytesPerRow < [self bytesPerElement] * width)
+  bytesPerElement = [self bytesPerElement];
+  if (bytesPerRow < bytesPerElement * width)
   {
-    v7 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __VGLogSharedInstance(bytesPerElement);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v8 = " Invalid stride size. ";
+      v9 = " Invalid stride size. ";
 LABEL_15:
-      _os_log_impl(&dword_270F06000, v7, OS_LOG_TYPE_ERROR, v8, buf, 2u);
+      _os_log_impl(&dword_270F06000, v8, OS_LOG_TYPE_ERROR, v9, buf, 2u);
       goto LABEL_16;
     }
 
@@ -1114,81 +1101,83 @@ LABEL_15:
   }
 
   width2 = [v4 width];
-  if (width2 != [self width] || (v10 = objc_msgSend(v4, "height"), v10 != objc_msgSend(self, "height")))
+  width3 = [self width];
+  if (width2 != width3 || (v12 = [v4 height], width3 = objc_msgSend(self, "height"), v12 != width3))
   {
-    v7 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __VGLogSharedInstance(width3);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v8 = " Invalid destination surface height/width. ";
+      v9 = " Invalid destination surface height/width. ";
       goto LABEL_15;
     }
 
 LABEL_16:
-    v22 = 0;
+    v25 = 0;
     goto LABEL_17;
   }
 
   pixelFormat = [v4 pixelFormat];
-  if (pixelFormat != [self pixelFormat] || (v12 = objc_msgSend(v4, "bytesPerElement"), v12 != objc_msgSend(self, "bytesPerElement")))
+  pixelFormat2 = [self pixelFormat];
+  if (pixelFormat != pixelFormat2 || (v15 = [v4 bytesPerElement], pixelFormat2 = objc_msgSend(self, "bytesPerElement"), v15 != pixelFormat2))
   {
-    v7 = __VGLogSharedInstance();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __VGLogSharedInstance(pixelFormat2);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_16;
     }
 
     *buf = 0;
-    v8 = " Invalid destination surface pixel format. ";
+    v9 = " Invalid destination surface pixel format. ";
     goto LABEL_15;
   }
 
   [v4 lockWithOptions:0 seed:0];
   [self lockWithOptions:1 seed:0];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __47__IOSurface_VG__vg_copyToSurfaceWithNewStride___block_invoke;
-  v25[3] = &unk_279E28D98;
-  v13 = v4;
-  v26 = v13;
-  v14 = MEMORY[0x2743B9AA0](v25);
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __47__IOSurface_VG__vg_copyToSurfaceWithNewStride___block_invoke_2;
-  v24[3] = &unk_279E28D98;
-  v24[4] = self;
-  v15 = MEMORY[0x2743B9AA0](v24);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __47__IOSurface_VG__vg_copyToSurfaceWithNewStride___block_invoke;
+  v28[3] = &unk_279E28D98;
+  v16 = v4;
+  v29 = v16;
+  v17 = MEMORY[0x2743B9AA0](v28);
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __47__IOSurface_VG__vg_copyToSurfaceWithNewStride___block_invoke_2;
+  v27[3] = &unk_279E28D98;
+  v27[4] = self;
+  v18 = MEMORY[0x2743B9AA0](v27);
   baseAddress = [self baseAddress];
-  baseAddress2 = [v13 baseAddress];
+  baseAddress2 = [v16 baseAddress];
   bytesPerRow2 = [self bytesPerRow];
-  v19 = bytesPerRow2;
-  v20 = 0;
+  v22 = bytesPerRow2;
+  v23 = 0;
   if (bytesPerRow >= bytesPerRow2)
   {
-    v21 = bytesPerRow2;
+    v24 = bytesPerRow2;
   }
 
   else
   {
-    v21 = bytesPerRow;
+    v24 = bytesPerRow;
   }
 
-  while (v20 < [self height])
+  while (v23 < [self height])
   {
-    memcpy(baseAddress2, baseAddress, v21);
-    ++v20;
+    memcpy(baseAddress2, baseAddress, v24);
+    ++v23;
     baseAddress2 += bytesPerRow;
-    baseAddress += v19;
+    baseAddress += v22;
   }
 
-  v15[2](v15);
+  v18[2](v18);
 
-  v14[2](v14);
-  v22 = 1;
-  v7 = v26;
+  v17[2](v17);
+  v25 = 1;
+  v8 = v29;
 LABEL_17:
 
-  return v22;
+  return v25;
 }
 
 - (IOSurface)vg_multiplyAlphaFromSurface:()VG
@@ -1271,81 +1260,72 @@ LABEL_17:
 
 - (id)vg_stack420Yp8_CbCr8ToL008
 {
-  v40[4] = *MEMORY[0x277D85DE8];
+  v34[4] = *MEMORY[0x277D85DE8];
   [self lockWithOptions:1 seed:0];
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __43__IOSurface_VG__vg_stack420Yp8_CbCr8ToL008__block_invoke;
-  v38[3] = &unk_279E28D98;
-  v38[4] = self;
-  v2 = MEMORY[0x2743B9AA0](v38);
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __43__IOSurface_VG__vg_stack420Yp8_CbCr8ToL008__block_invoke;
+  v32[3] = &unk_279E28D98;
+  v32[4] = self;
+  v2 = MEMORY[0x2743B9AA0](v32);
   memset(&src, 0, sizeof(src));
-  [self vg_vImageBufferOfPlaneAtIndex:0];
-  v35 = 0u;
-  v36 = 0u;
-  [self vg_vImageBufferOfPlaneAtIndex:1];
+  objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(self);
+  v29 = 0u;
+  v30 = 0u;
+  objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(self);
   height = src.height;
-  width = src.width;
-  v5 = WORD4(v35);
-  v4 = v36;
+  v5 = WORD4(v29);
+  v4 = v30;
   v6 = objc_alloc(MEMORY[0x277CD2930]);
-  v39[0] = *MEMORY[0x277CD2928];
+  v33[0] = *MEMORY[0x277CD2928];
   v7 = [MEMORY[0x277CCABB0] numberWithInt:2 * v4];
-  v40[0] = v7;
-  v39[1] = *MEMORY[0x277CD28D0];
+  v34[0] = v7;
+  v33[1] = *MEMORY[0x277CD28D0];
   height = [MEMORY[0x277CCABB0] numberWithInt:v5 + height];
   v9 = *MEMORY[0x277CD28D8];
-  v40[1] = height;
-  v40[2] = &unk_2880F6100;
+  v34[1] = height;
+  v34[2] = &unk_2880F6100;
   v10 = *MEMORY[0x277CD28B0];
-  v39[2] = v9;
-  v39[3] = v10;
-  v40[3] = &unk_2880F6118;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:4];
+  v33[2] = v9;
+  v33[3] = v10;
+  v34[3] = &unk_2880F6118;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:4];
   v12 = [v6 initWithProperties:v11];
 
   [v12 lockWithOptions:0 seed:0];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __43__IOSurface_VG__vg_stack420Yp8_CbCr8ToL008__block_invoke_20;
-  v33[3] = &unk_279E28D98;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __43__IOSurface_VG__vg_stack420Yp8_CbCr8ToL008__block_invoke_20;
+  v27[3] = &unk_279E28D98;
   v13 = v12;
-  v34 = v13;
-  v14 = MEMORY[0x2743B9AA0](v33);
+  v28 = v13;
+  v14 = MEMORY[0x2743B9AA0](v27);
   memset(&dest, 0, sizeof(dest));
   if (v13)
   {
-    HIWORD(v30) = height;
-    LOWORD(v30) = width;
-    [v13 vg_vImageBufferWithCropOrigin:0 cropSize:v30];
+    objc_msgSend_vg_vImageBufferWithCropOrigin_cropSize_(v13);
   }
 
   vImageCopyBuffer(&src, &dest, 1uLL, 0);
   if (v13)
   {
-    HIWORD(v29) = height;
-    LOWORD(v29) = 0;
-    HIWORD(v28) = v5;
-    LOWORD(v28) = v4;
-    [v13 vg_vImageBufferWithCropOrigin:v29 cropSize:v28];
-    v31 = 0u;
-    LOWORD(v27) = v4;
-    HIWORD(v27) = height;
-    [v13 vg_vImageBufferWithCropOrigin:v27 cropSize:v28];
+    objc_msgSend_vg_vImageBufferWithCropOrigin_cropSize_(v13);
+    v25 = 0u;
+    objc_msgSend_vg_vImageBufferWithCropOrigin_cropSize_(v13);
   }
 
   else
   {
-    *(&v31 + 1) = 0;
+    *(&v25 + 1) = 0;
   }
 
-  v15 = *(&v35 + 1);
-  if (*(&v35 + 1))
+  v15 = *(&v29 + 1);
+  if (*(&v29 + 1))
   {
     v16 = 0;
     v17 = 0;
-    v18 = v35;
-    v19 = v36;
+    v18 = v29;
+    v19 = v30;
     do
     {
       if (v19)
@@ -1358,15 +1338,15 @@ LABEL_17:
           v22 = *v21;
           v21 += 2;
           (v20++)[v17] = v22;
-          v19 = v36;
+          v19 = v30;
         }
 
-        while (v20 < v36);
-        v15 = *(&v35 + 1);
+        while (v20 < v30);
+        v15 = *(&v29 + 1);
       }
 
-      v18 += *(&v36 + 1);
-      v17 += *(&v31 + 1);
+      v18 += *(&v30 + 1);
+      v17 += *(&v25 + 1);
       ++v16;
     }
 
@@ -1377,7 +1357,6 @@ LABEL_17:
   v14[2](v14);
 
   v2[2](v2);
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -1387,51 +1366,43 @@ LABEL_17:
   v4 = a3;
   [self lockWithOptions:1 seed:0];
   [v4 lockWithOptions:0 seed:0];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __46__IOSurface_VG__vg_unstackL008To420Yp8_CbCr8___block_invoke;
-  v22[3] = &unk_279E28D98;
-  v22[4] = self;
-  v5 = MEMORY[0x2743B9AA0](v22);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __46__IOSurface_VG__vg_unstackL008To420Yp8_CbCr8___block_invoke_2;
-  v20[3] = &unk_279E28D98;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __46__IOSurface_VG__vg_unstackL008To420Yp8_CbCr8___block_invoke;
+  v17[3] = &unk_279E28D98;
+  v17[4] = self;
+  v5 = MEMORY[0x2743B9AA0](v17);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __46__IOSurface_VG__vg_unstackL008To420Yp8_CbCr8___block_invoke_2;
+  v15[3] = &unk_279E28D98;
   v6 = v4;
-  v21 = v6;
-  v7 = MEMORY[0x2743B9AA0](v20);
+  v16 = v6;
+  v7 = MEMORY[0x2743B9AA0](v15);
   v8 = 0uLL;
   memset(&dest, 0, sizeof(dest));
   if (v6)
   {
-    [v6 vg_vImageBufferOfPlaneAtIndex:0];
-    v17 = 0u;
-    v18 = 0u;
-    [v6 vg_vImageBufferOfPlaneAtIndex:1];
+    objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(v6);
+    v12 = 0u;
+    v13 = 0u;
+    objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(v6);
     *(&v8 + 1) = dest.width;
     *&v8 = vmovn_s64(*&dest.height);
   }
 
   else
   {
-    v17 = 0uLL;
-    v18 = 0uLL;
+    v12 = 0uLL;
+    v13 = 0uLL;
   }
 
-  v11 = v8;
-  v9 = vrev64_s32(*&v8);
-  HIWORD(v15) = v9.i16[2];
-  LOWORD(v15) = v9.i16[0];
+  v10 = *(&v8 + 1);
   memset(&src, 0, sizeof(src));
-  [self vg_vImageBufferWithCropOrigin:0 cropSize:{v15, v11}];
+  objc_msgSend_vg_vImageBufferWithCropOrigin_cropSize_(self, v8);
   vImageCopyBuffer(&src, &dest, 1uLL, 0);
-  LOWORD(v14) = 0;
-  v10 = vzip1_s32(0, *&v11);
-  HIWORD(v14) = v10.i16[2];
-  [self vg_vImageBufferWithCropOrigin:v14 cropSize:{0, *&v10, *(&v11 + 1)}];
-  LOWORD(v13) = 0;
-  HIWORD(v13) = v12;
-  [self vg_vImageBufferWithCropOrigin:v13 cropSize:0];
+  objc_msgSend_vg_vImageBufferWithCropOrigin_cropSize_(self, vzip1_s32(0, v9), v10);
+  objc_msgSend_vg_vImageBufferWithCropOrigin_cropSize_(self);
   v7[2](v7);
 
   v5[2](v5);
@@ -1439,116 +1410,104 @@ LABEL_17:
 
 - (id)vg_stack444Yp8_CbCr8ToL008
 {
-  v40[4] = *MEMORY[0x277D85DE8];
+  v33[4] = *MEMORY[0x277D85DE8];
   [self lockWithOptions:1 seed:0];
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __43__IOSurface_VG__vg_stack444Yp8_CbCr8ToL008__block_invoke;
-  v38[3] = &unk_279E28D98;
-  v38[4] = self;
-  v2 = MEMORY[0x2743B9AA0](v38);
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __43__IOSurface_VG__vg_stack444Yp8_CbCr8ToL008__block_invoke;
+  v31[3] = &unk_279E28D98;
+  v31[4] = self;
+  v2 = MEMORY[0x2743B9AA0](v31);
   memset(&src, 0, sizeof(src));
-  [self vg_vImageBufferOfPlaneAtIndex:0];
-  v35 = 0u;
-  v36 = 0u;
-  [self vg_vImageBufferOfPlaneAtIndex:1];
+  objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(self);
+  v28 = 0u;
+  v29 = 0u;
+  objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(self);
   width = src.width;
   height = src.height;
-  LOWORD(v5) = v36;
-  WORD2(v5) = WORD4(v35);
-  v26 = v5;
-  v6 = objc_alloc(MEMORY[0x277CD2930]);
-  v39[0] = *MEMORY[0x277CD2928];
-  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:width];
-  v40[0] = v7;
-  v39[1] = *MEMORY[0x277CD28D0];
+  v5 = objc_alloc(MEMORY[0x277CD2930]);
+  v32[0] = *MEMORY[0x277CD2928];
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:width];
+  v33[0] = v6;
+  v32[1] = *MEMORY[0x277CD28D0];
   height = [MEMORY[0x277CCABB0] numberWithInt:3 * height];
-  v9 = *MEMORY[0x277CD28D8];
-  v40[1] = height;
-  v40[2] = &unk_2880F6100;
-  v10 = *MEMORY[0x277CD28B0];
-  v39[2] = v9;
-  v39[3] = v10;
-  v40[3] = &unk_2880F6118;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:4];
-  v12 = [v6 initWithProperties:v11];
+  v8 = *MEMORY[0x277CD28D8];
+  v33[1] = height;
+  v33[2] = &unk_2880F6100;
+  v9 = *MEMORY[0x277CD28B0];
+  v32[2] = v8;
+  v32[3] = v9;
+  v33[3] = &unk_2880F6118;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:4];
+  v11 = [v5 initWithProperties:v10];
 
-  [v12 lockWithOptions:0 seed:0];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __43__IOSurface_VG__vg_stack444Yp8_CbCr8ToL008__block_invoke_2;
-  v33[3] = &unk_279E28D98;
-  v13 = v12;
-  v34 = v13;
-  v14 = MEMORY[0x2743B9AA0](v33);
+  [v11 lockWithOptions:0 seed:0];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __43__IOSurface_VG__vg_stack444Yp8_CbCr8ToL008__block_invoke_2;
+  v26[3] = &unk_279E28D98;
+  v12 = v11;
+  v27 = v12;
+  v13 = MEMORY[0x2743B9AA0](v26);
   memset(&dest, 0, sizeof(dest));
-  if (v13)
+  if (v12)
   {
-    HIWORD(v30) = height;
-    LOWORD(v30) = width;
-    [v13 vg_vImageBufferWithCropOrigin:0 cropSize:v30];
+    objc_msgSend_vg_vImageBufferWithCropOrigin_cropSize_(v12);
   }
 
   vImageCopyBuffer(&src, &dest, 1uLL, 0);
-  if (v13)
+  if (v12)
   {
-    HIWORD(v29) = height;
-    LOWORD(v29) = 0;
-    HIWORD(v28) = WORD2(v26);
-    LOWORD(v28) = v26;
-    [v13 vg_vImageBufferWithCropOrigin:v29 cropSize:v28];
-    v31 = 0u;
-    HIWORD(v27) = 2 * height;
-    LOWORD(v27) = 0;
-    [v13 vg_vImageBufferWithCropOrigin:v27 cropSize:v28];
+    objc_msgSend_vg_vImageBufferWithCropOrigin_cropSize_(v12);
+    v24 = 0u;
+    objc_msgSend_vg_vImageBufferWithCropOrigin_cropSize_(v12);
   }
 
   else
   {
-    *(&v31 + 1) = 0;
+    *(&v24 + 1) = 0;
   }
 
-  v15 = *(&v35 + 1);
-  if (*(&v35 + 1))
+  v14 = *(&v28 + 1);
+  if (*(&v28 + 1))
   {
+    v15 = 0;
     v16 = 0;
-    v17 = 0;
-    v18 = v35;
-    v19 = v36;
+    v17 = v28;
+    v18 = v29;
     do
     {
-      if (v19)
+      if (v18)
       {
-        v20 = 0;
-        v21 = (v18 + 1);
+        v19 = 0;
+        v20 = (v17 + 1);
         do
         {
-          *v20 = *(v21 - 1);
-          v22 = *v21;
-          v21 += 2;
-          (v20++)[v17] = v22;
-          v19 = v36;
+          *v19 = *(v20 - 1);
+          v21 = *v20;
+          v20 += 2;
+          (v19++)[v16] = v21;
+          v18 = v29;
         }
 
-        while (v20 < v36);
-        v15 = *(&v35 + 1);
+        while (v19 < v29);
+        v14 = *(&v28 + 1);
       }
 
-      v18 += *(&v36 + 1);
-      v17 += *(&v31 + 1);
-      ++v16;
+      v17 += *(&v29 + 1);
+      v16 += *(&v24 + 1);
+      ++v15;
     }
 
-    while (v16 < v15);
+    while (v15 < v14);
   }
 
-  v23 = v13;
-  v14[2](v14);
+  v22 = v12;
+  v13[2](v13);
 
   v2[2](v2);
-  v24 = *MEMORY[0x277D85DE8];
 
-  return v23;
+  return v22;
 }
 
 - (void)vg_unstackL008To444Yp8_CbCr8:()VG
@@ -1556,84 +1515,69 @@ LABEL_17:
   v4 = a3;
   [self lockWithOptions:1 seed:0];
   [v4 lockWithOptions:0 seed:0];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __46__IOSurface_VG__vg_unstackL008To444Yp8_CbCr8___block_invoke;
-  v32[3] = &unk_279E28D98;
-  v32[4] = self;
-  v5 = MEMORY[0x2743B9AA0](v32);
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __46__IOSurface_VG__vg_unstackL008To444Yp8_CbCr8___block_invoke_2;
-  v30[3] = &unk_279E28D98;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __46__IOSurface_VG__vg_unstackL008To444Yp8_CbCr8___block_invoke;
+  v22[3] = &unk_279E28D98;
+  v22[4] = self;
+  v5 = MEMORY[0x2743B9AA0](v22);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __46__IOSurface_VG__vg_unstackL008To444Yp8_CbCr8___block_invoke_2;
+  v20[3] = &unk_279E28D98;
   v6 = v4;
-  v31 = v6;
-  v7 = MEMORY[0x2743B9AA0](v30);
+  v21 = v6;
+  v7 = MEMORY[0x2743B9AA0](v20);
   memset(&dest, 0, sizeof(dest));
   if (v6)
   {
-    [v6 vg_vImageBufferOfPlaneAtIndex:0];
-    memset(v28, 0, sizeof(v28));
-    [v6 vg_vImageBufferOfPlaneAtIndex:1];
-    v21 = *(v28 + 8);
-    v8 = vmovn_s64(*&dest.height);
+    objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(v6);
+    memset(v18, 0, sizeof(v18));
+    objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(v6);
+    v16 = *(v18 + 8);
   }
 
   else
   {
-    memset(v28, 0, sizeof(v28));
-    v8 = 0;
-    v21 = 0uLL;
+    memset(v18, 0, sizeof(v18));
+    v16 = 0uLL;
   }
 
-  v22 = v8;
-  v9 = vrev64_s32(v8);
-  HIWORD(v26) = v9.i16[2];
-  LOWORD(v26) = v9.i16[0];
   memset(&src, 0, sizeof(src));
-  [self vg_vImageBufferWithCropOrigin:0 cropSize:v26];
+  objc_msgSend_vg_vImageBufferWithCropOrigin_cropSize_(self);
   vImageCopyBuffer(&src, &dest, 1uLL, 0);
-  v10 = vrev64_s32(vmovn_s64(v21));
-  LOWORD(v25) = 0;
-  v11 = vzip1_s32(0, v22);
-  v20 = v11.i16[0];
-  HIWORD(v25) = v11.i16[2];
-  HIWORD(v24) = v10.i16[2];
-  LOWORD(v24) = v10.i16[0];
-  [self vg_vImageBufferWithCropOrigin:v25 cropSize:v24];
-  LOWORD(v23) = v20;
-  HIWORD(v23) = 2 * v22.i16[0];
-  [self vg_vImageBufferWithCropOrigin:v23 cropSize:v24];
-  if (v21.i16[0])
+  objc_msgSend_vg_vImageBufferWithCropOrigin_cropSize_(self);
+  objc_msgSend_vg_vImageBufferWithCropOrigin_cropSize_(self);
+  if (v16)
   {
-    v12 = 0;
-    v13 = *&v28[0];
+    v8 = 0;
+    v9 = *&v18[0];
     do
     {
-      if (v21.i16[4])
+      if (WORD4(v16))
       {
-        v14 = (v13 + 1);
-        v15 = 0;
-        v16 = 0;
-        v17 = v21.u16[4];
+        v10 = (v9 + 1);
+        v11 = 0;
+        v12 = 0;
+        v13 = WORD4(v16);
         do
         {
-          v18 = *v15++;
-          *(v14 - 1) = v18;
-          v19 = *v16++;
-          *v14 = v19;
-          v14 += 2;
-          --v17;
+          v14 = *v11++;
+          *(v10 - 1) = v14;
+          v15 = *v12++;
+          *v10 = v15;
+          v10 += 2;
+          --v13;
         }
 
-        while (v17);
+        while (v13);
       }
 
-      v13 += *(&v28[1] + 1);
-      ++v12;
+      v9 += *(&v18[1] + 1);
+      ++v8;
     }
 
-    while (v12 != v21.u16[0]);
+    while (v8 != v16);
   }
 
   v7[2](v7);
@@ -1671,12 +1615,12 @@ LABEL_17:
 
 + (id)vg_surfaceWithPNGData:()VG
 {
-  v68[1] = *MEMORY[0x277D85DE8];
+  v67[1] = *MEMORY[0x277D85DE8];
   data = a3;
   v3 = objc_alloc(MEMORY[0x277CBEB38]);
-  v67 = *MEMORY[0x277CD3618];
-  v68[0] = MEMORY[0x277CBEC28];
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:&v67 count:1];
+  v66 = *MEMORY[0x277CD3618];
+  v67[0] = MEMORY[0x277CBEC28];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:&v66 count:1];
   v5 = [v3 initWithDictionary:v4];
 
   [v5 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"kCGImageSourceCreateUnpremultipliedPNG"];
@@ -1689,28 +1633,12 @@ LABEL_17:
   v12 = CFAutorelease(v11);
   v13 = CGImageSourceCopyPropertiesAtIndex(v7, 0, 0);
   CFAutorelease(v13);
-  v54 = theData = v12;
-  v14 = [v54 objectForKeyedSubscript:*MEMORY[0x277CD3038]];
+  v53 = theData = v12;
+  v14 = [v53 objectForKeyedSubscript:*MEMORY[0x277CD3038]];
   v15 = [v14 objectForKeyedSubscript:*MEMORY[0x277CD30E0]];
 
-  if (!v15)
+  if (!v15 || (v16 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v15 options:0], v17 = MEMORY[0x277CBEB98], v18 = objc_opt_class(), v19 = objc_opt_class(), v20 = objc_opt_class(), objc_msgSend(v17, "setWithObjects:", v18, v19, v20, objc_opt_class(), 0), v21 = objc_claimAutoreleasedReturnValue(), v61 = 0, objc_msgSend(MEMORY[0x277CCAAC8], "unarchivedObjectOfClasses:fromData:error:", v21, v16, &v61), v22 = objc_claimAutoreleasedReturnValue(), v23 = v61, v21, v16, v23, !v22))
   {
-    goto LABEL_3;
-  }
-
-  v16 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v15 options:0];
-  v17 = MEMORY[0x277CBEB98];
-  v18 = objc_opt_class();
-  v19 = objc_opt_class();
-  v20 = objc_opt_class();
-  v21 = [v17 setWithObjects:{v18, v19, v20, objc_opt_class(), 0}];
-  v62 = 0;
-  v22 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v21 fromData:v16 error:&v62];
-  v23 = v62;
-
-  if (!v22)
-  {
-LABEL_3:
     ColorSpace = CGImageGetColorSpace(v9);
     Model = CGColorSpaceGetModel(ColorSpace);
     BitsPerPixel = CGImageGetBitsPerPixel(v9);
@@ -1737,19 +1665,19 @@ LABEL_3:
       }
     }
 
-    v65[0] = *MEMORY[0x277CD2928];
+    v64[0] = *MEMORY[0x277CD2928];
     v30 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:CGImageGetWidth(v9)];
-    v66[0] = v30;
-    v65[1] = *MEMORY[0x277CD28D0];
+    v65[0] = v30;
+    v64[1] = *MEMORY[0x277CD28D0];
     v31 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:CGImageGetHeight(v9)];
-    v66[1] = v31;
-    v65[2] = *MEMORY[0x277CD28D8];
+    v65[1] = v31;
+    v64[2] = *MEMORY[0x277CD28D8];
     v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v28];
-    v66[2] = v32;
-    v65[3] = *MEMORY[0x277CD28B0];
+    v65[2] = v32;
+    v64[3] = *MEMORY[0x277CD28B0];
     v33 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v27 >> 3];
-    v66[3] = v33;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:4];
+    v65[3] = v33;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:4];
   }
 
   v34 = [objc_alloc(MEMORY[0x277CD2930]) initWithProperties:v22];
@@ -1774,17 +1702,17 @@ LABEL_18:
     width = [v34 width];
     src.rowBytes = [v34 bytesPerElement] * width;
     [v34 lockWithOptions:0 seed:0];
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __39__IOSurface_VG__vg_surfaceWithPNGData___block_invoke;
-    v59[3] = &unk_279E28D98;
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __39__IOSurface_VG__vg_surfaceWithPNGData___block_invoke;
+    v58[3] = &unk_279E28D98;
     v37 = v34;
-    v60 = v37;
-    v38 = MEMORY[0x2743B9AA0](v59);
+    v59 = v37;
+    v38 = MEMORY[0x2743B9AA0](v58);
     memset(&dest, 0, sizeof(dest));
     if (v37)
     {
-      [v37 vg_vImageBuffer];
+      objc_msgSend_vg_vImageBuffer(v37);
     }
 
     if ([v37 pixelFormat] == 32)
@@ -1811,7 +1739,7 @@ LABEL_28:
   }
 
   v40 = objc_alloc(MEMORY[0x277CD2930]);
-  v63[0] = *MEMORY[0x277CD2928];
+  v62[0] = *MEMORY[0x277CD2928];
   v41 = MEMORY[0x277CCABB0];
   if ([v34 width])
   {
@@ -1832,24 +1760,23 @@ LABEL_28:
   }
 
   v46 = [v41 numberWithInteger:width4];
-  v64[0] = v46;
-  v63[1] = *MEMORY[0x277CD28D0];
+  v63[0] = v46;
+  v62[1] = *MEMORY[0x277CD28D0];
   v47 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v34, "height") + (objc_msgSend(v34, "height") + 1) / 2}];
   v48 = *MEMORY[0x277CD28D8];
-  v64[1] = v47;
-  v64[2] = &unk_2880F6100;
+  v63[1] = v47;
+  v63[2] = &unk_2880F6100;
   v49 = *MEMORY[0x277CD28B0];
-  v63[2] = v48;
-  v63[3] = v49;
-  v64[3] = &unk_2880F6118;
-  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:4];
+  v62[2] = v48;
+  v62[3] = v49;
+  v63[3] = &unk_2880F6118;
+  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:4];
   v51 = [v40 initWithProperties:v50];
 
   [v51 vg_fillWithData:theData];
   [v51 vg_unstackL008To420Yp8_CbCr8:v34];
 
 LABEL_33:
-  v52 = *MEMORY[0x277D85DE8];
 
   return v34;
 }
@@ -1865,11 +1792,11 @@ LABEL_33:
     vg::IOSurfaceData::IOSurfaceData(v20, self, 1);
     vg::IOSurfaceData::IOSurfaceData(v19, v6, 0);
     memset(&src, 0, sizeof(src));
-    [(IOSurface *)self vg_vImageBuffer];
+    v9 = objc_msgSend_vg_vImageBuffer(self);
     memset(&v17, 0, sizeof(v17));
     if (v6)
     {
-      [(IOSurface *)v6 vg_vImageBuffer];
+      v9 = objc_msgSend_vg_vImageBuffer(v6, v17.data);
     }
 
     if ((a4 & 0xFD) == 1)
@@ -1906,12 +1833,12 @@ LABEL_33:
           {
             if (pixelFormat2 != 1278226536)
             {
-              v12 = 1380401729;
+              v13 = 1380401729;
               goto LABEL_21;
             }
 
 LABEL_42:
-            v13 = vImageRotate90_Planar16U(&src, &v17, a4, 0, 0);
+            v14 = vImageRotate90_Planar16U(&src, &v17, a4, 0, 0);
             goto LABEL_43;
           }
 
@@ -1924,25 +1851,25 @@ LABEL_42:
             goto LABEL_42;
           case 1717855600:
 LABEL_32:
-            v13 = vImageRotate90_PlanarF(&src, &v17, a4, 0.0, 0);
+            v14 = vImageRotate90_PlanarF(&src, &v17, a4, 0.0, 0);
             goto LABEL_43;
           case 1380410945:
-            v13 = vImageRotate90_ARGBFFFF(&src, &v17, a4, backColor, 0);
+            v14 = vImageRotate90_ARGBFFFF(&src, &v17, a4, backColor, 0);
 LABEL_43:
-            v11 = v13 == 0;
+            v12 = v14 == 0;
             goto LABEL_44;
         }
 
 LABEL_33:
-        v14 = __VGLogSharedInstance();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = __VGLogSharedInstance(v9);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf.data) = 67109120;
           HIDWORD(buf.data) = pixelFormat2;
-          _os_log_impl(&dword_270F06000, v14, OS_LOG_TYPE_ERROR, " Format not supported: %u ", &buf, 8u);
+          _os_log_impl(&dword_270F06000, v15, OS_LOG_TYPE_ERROR, " Format not supported: %u ", &buf, 8u);
         }
 
-        v13 = -21773;
+        v14 = -21773;
         goto LABEL_43;
       }
 
@@ -1963,24 +1890,24 @@ LABEL_33:
       {
         if (pixelFormat2 != 1094862674)
         {
-          v12 = 1111970369;
+          v13 = 1111970369;
 LABEL_21:
-          if (pixelFormat2 != v12)
+          if (pixelFormat2 != v13)
           {
             goto LABEL_33;
           }
         }
 
 LABEL_31:
-        v13 = vImageRotate90_ARGB8888(&src, &v17, a4, backColor, 0);
+        v14 = vImageRotate90_ARGB8888(&src, &v17, a4, backColor, 0);
         goto LABEL_43;
       }
 
-      [(IOSurface *)self vg_vImageBufferOfPlaneAtIndex:0, v17.data];
+      objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(self, v17.data);
       src = buf;
       if (v6)
       {
-        [(IOSurface *)v6 vg_vImageBufferOfPlaneAtIndex:0];
+        objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(v6);
       }
 
       else
@@ -1989,17 +1916,17 @@ LABEL_31:
       }
 
       v17 = buf;
-      v13 = vImageRotate90_Planar8(&src, &v17, a4, 0, 0);
-      if (v13)
+      v14 = vImageRotate90_Planar8(&src, &v17, a4, 0, 0);
+      if (v14)
       {
         goto LABEL_43;
       }
 
-      [(IOSurface *)self vg_vImageBufferOfPlaneAtIndex:1];
+      objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(self);
       src = buf;
       if (v6)
       {
-        [(IOSurface *)v6 vg_vImageBufferOfPlaneAtIndex:1];
+        objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(v6);
       }
 
       else
@@ -2012,18 +1939,17 @@ LABEL_31:
     }
 
 LABEL_16:
-    v11 = 0;
+    v12 = 0;
 LABEL_44:
     vg::IOSurfaceData::~IOSurfaceData(v19);
     vg::IOSurfaceData::~IOSurfaceData(v20);
     goto LABEL_45;
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_45:
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (BOOL)vg_scaleToSurface:()VG temporaryBuffer:
@@ -2067,11 +1993,11 @@ LABEL_45:
   vg::IOSurfaceData::IOSurfaceData(v17, self, 1);
   vg::IOSurfaceData::IOSurfaceData(v16, v8, 0);
   memset(&src, 0, sizeof(src));
-  [(IOSurface *)self vg_vImageBuffer];
+  objc_msgSend_vg_vImageBuffer(self);
   memset(&v14, 0, sizeof(v14));
   if (v8)
   {
-    [(IOSurface *)v8 vg_vImageBuffer:*&v14.data];
+    objc_msgSend_vg_vImageBuffer(v8, *&v14.data, *&v14.width);
   }
 
   v9 = [(IOSurface *)self pixelFormat:*&v14.data];
@@ -2146,45 +2072,47 @@ LABEL_22:
 {
   v4 = a3;
   memset(&src, 0, sizeof(src));
-  [self vg_vImageBufferOfPlaneAtIndex:0];
+  objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(self);
   memset(&dest, 0, sizeof(dest));
   if (v4)
   {
-    [v4 vg_vImageBufferOfPlaneAtIndex:0];
+    objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(v4);
   }
 
-  if (vImageScale_Planar8(&src, &dest, 0, 0))
+  v5 = vImageScale_Planar8(&src, &dest, 0, 0);
+  if (v5)
   {
-    v5 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __VGLogSharedInstance(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v11.data) = 0;
-      v6 = " resize of Y plane error ";
-      v7 = &v11;
+      LOWORD(v13.data) = 0;
+      v7 = " resize of Y plane error ";
+      v8 = &v13;
 LABEL_11:
-      _os_log_impl(&dword_270F06000, v5, OS_LOG_TYPE_ERROR, v6, v7, 2u);
+      _os_log_impl(&dword_270F06000, v6, OS_LOG_TYPE_ERROR, v7, v8, 2u);
       goto LABEL_12;
     }
 
     goto LABEL_12;
   }
 
-  memset(&v11, 0, sizeof(v11));
-  [self vg_vImageBufferOfPlaneAtIndex:1];
-  memset(&v10, 0, sizeof(v10));
+  memset(&v13, 0, sizeof(v13));
+  objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(self);
+  memset(&v12, 0, sizeof(v12));
   if (v4)
   {
-    [v4 vg_vImageBufferOfPlaneAtIndex:1];
+    objc_msgSend_vg_vImageBufferOfPlaneAtIndex_(v4);
   }
 
-  if (vImageScale_CbCr8(&v11, &v10, 0, 0))
+  v9 = vImageScale_CbCr8(&v13, &v12, 0, 0);
+  if (v9)
   {
-    v5 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __VGLogSharedInstance(v9);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 0;
-      v6 = " resize of CbCr plane error ";
-      v7 = &v9;
+      v11 = 0;
+      v7 = " resize of CbCr plane error ";
+      v8 = &v11;
       goto LABEL_11;
     }
 

@@ -1,13 +1,13 @@
-id CRNavigationClientInterface()
+id CRNavigationClientInterface(uint64_t a1)
 {
   if (CRNavigationClientInterface_onceToken != -1)
   {
     CRNavigationClientInterface_cold_1();
   }
 
-  v1 = CRNavigationClientInterface_interface;
+  v2 = CRNavigationClientInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 void __CRNavigationClientInterface_block_invoke()
@@ -56,28 +56,30 @@ void __CRNavigationServiceInterface_block_invoke()
   [v10 setClasses:v11 forSelector:sel_sendInfo_toComponentUID_ argumentIndex:1 ofReply:0];
 }
 
-id CarNavLogging()
+id CarNavLogging(uint64_t a1)
 {
   if (CarNavLogging_onceToken != -1)
   {
     CarNavLogging_cold_1();
   }
 
-  v1 = CarNavLogging_facility;
+  v2 = CarNavLogging_facility;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x34u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x34u);
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x20u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x20u);
 }
 
 __CFString *NSStringFromCRAccNavRole(uint64_t a1)

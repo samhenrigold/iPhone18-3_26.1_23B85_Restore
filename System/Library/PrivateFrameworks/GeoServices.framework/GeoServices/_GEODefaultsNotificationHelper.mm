@@ -16,51 +16,50 @@
 
     if (connection == sendCopy)
     {
-      v25 = 0;
-      v26 = &v25;
-      v27 = 0x2020000000;
-      v28 = 0;
-      v19 = 0;
-      v20 = &v19;
-      v21 = 0x3032000000;
-      v22 = sub_1000304A0;
-      v23 = sub_1000304B0;
       v24 = 0;
-      v17[0] = 0;
-      v17[1] = v17;
-      v17[2] = 0x2020000000;
+      v25 = &v24;
+      v26 = 0x2020000000;
+      v27 = 0;
       v18 = 0;
-      isolater = self->_isolater;
-      v9 = v6;
-      v16 = v9;
+      v19 = &v18;
+      v20 = 0x3032000000;
+      v21 = sub_1000304A0;
+      v22 = sub_1000304B0;
+      v23 = 0;
+      v16[0] = 0;
+      v16[1] = v16;
+      v16[2] = 0x2020000000;
+      v17 = 0;
+      v8 = v6;
+      v15 = v8;
       geo_isolate_sync();
-      if ([v20[5] count] && v26[3])
+      if ([v19[5] count] && v25[3])
       {
-        v10 = GEOGetUserDefaultsLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v9 = GEOGetUserDefaultsLog();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          allObjects = [v20[5] allObjects];
-          v12 = [allObjects componentsJoinedByString:{@", "}];
+          allObjects = [v19[5] allObjects];
+          v11 = [allObjects componentsJoinedByString:{@", "}];
           *buf = 138412546;
-          v30 = v9;
-          v31 = 2114;
-          v32 = v12;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Notifying peer %@ of changed keys: %{public}@", buf, 0x16u);
+          v29 = v8;
+          v30 = 2114;
+          v31 = v11;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "Notifying peer %@ of changed keys: %{public}@", buf, 0x16u);
         }
 
-        v13 = [[GEOConfigKeyChangeNotification alloc] initWithTraits:0 auditToken:0 throttleToken:0];
-        allObjects2 = [v20[5] allObjects];
-        [v13 setKeyStrings:allObjects2];
+        v12 = [[GEOConfigKeyChangeNotification alloc] initWithTraits:0 auditToken:0 throttleToken:0];
+        allObjects2 = [v19[5] allObjects];
+        [v12 setKeyStrings:allObjects2];
 
-        [v13 setKeyOptions:v26[3]];
-        connection2 = [v9 connection];
-        [v13 send:connection2];
+        [v12 setKeyOptions:v25[3]];
+        connection2 = [v8 connection];
+        [v12 send:connection2];
       }
 
-      _Block_object_dispose(v17, 8);
-      _Block_object_dispose(&v19, 8);
+      _Block_object_dispose(v16, 8);
+      _Block_object_dispose(&v18, 8);
 
-      _Block_object_dispose(&v25, 8);
+      _Block_object_dispose(&v24, 8);
     }
   }
 }
@@ -71,9 +70,8 @@
   WeakRetained = objc_loadWeakRetained(&self->_peer);
   if (WeakRetained)
   {
-    isolater = self->_isolater;
-    v8 = keysCopy;
-    v9 = WeakRetained;
+    v7 = keysCopy;
+    v8 = WeakRetained;
     geo_isolate_sync();
   }
 }

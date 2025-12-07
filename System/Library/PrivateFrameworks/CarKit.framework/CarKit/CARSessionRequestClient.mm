@@ -30,12 +30,12 @@
   return serviceConnection;
 }
 
-void __44__CARSessionRequestClient_serviceConnection__block_invoke()
+void __44__CARSessionRequestClient_serviceConnection__block_invoke(uint64_t a1)
 {
-  v0 = CarGeneralLogging();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = CarGeneralLogging(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __44__CARSessionRequestClient_serviceConnection__block_invoke_cold_1(v0);
+    __44__CARSessionRequestClient_serviceConnection__block_invoke_cold_1(v1);
   }
 }
 
@@ -55,7 +55,7 @@ void __44__CARSessionRequestClient_serviceConnection__block_invoke()
   hostCopy = host;
   identifierCopy = identifier;
   completionCopy = completion;
-  v11 = CarGeneralLogging();
+  v11 = CarGeneralLogging(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -80,7 +80,7 @@ void __44__CARSessionRequestClient_serviceConnection__block_invoke()
 void __77__CARSessionRequestClient_startSessionWithHost_requestIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __77__CARSessionRequestClient_startSessionWithHost_requestIdentifier_completion___block_invoke_cold_1();
@@ -102,7 +102,7 @@ uint64_t __77__CARSessionRequestClient_startSessionWithHost_requestIdentifier_co
 {
   v10 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -119,7 +119,7 @@ uint64_t __77__CARSessionRequestClient_startSessionWithHost_requestIdentifier_co
 void __59__CARSessionRequestClient_stoppedSessionForHostIdentifier___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __77__CARSessionRequestClient_startSessionWithHost_requestIdentifier_completion___block_invoke_cold_1();
@@ -128,7 +128,7 @@ void __59__CARSessionRequestClient_stoppedSessionForHostIdentifier___block_invok
 
 - (void)startAdvertisingCarPlayControlForUSB
 {
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -144,7 +144,7 @@ void __59__CARSessionRequestClient_stoppedSessionForHostIdentifier___block_invok
 void __63__CARSessionRequestClient_startAdvertisingCarPlayControlForUSB__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __77__CARSessionRequestClient_startSessionWithHost_requestIdentifier_completion___block_invoke_cold_1();
@@ -155,7 +155,7 @@ void __63__CARSessionRequestClient_startAdvertisingCarPlayControlForUSB__block_i
 {
   v10 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -172,7 +172,7 @@ void __63__CARSessionRequestClient_startAdvertisingCarPlayControlForUSB__block_i
 void __69__CARSessionRequestClient_startAdvertisingCarPlayControlForWiFiUUID___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __77__CARSessionRequestClient_startSessionWithHost_requestIdentifier_completion___block_invoke_cold_1();
@@ -184,7 +184,7 @@ void __69__CARSessionRequestClient_startAdvertisingCarPlayControlForWiFiUUID___b
   v16 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
-  v8 = CarGeneralLogging();
+  v8 = CarGeneralLogging(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -207,7 +207,7 @@ void __69__CARSessionRequestClient_startAdvertisingCarPlayControlForWiFiUUID___b
 void __65__CARSessionRequestClient_prepareForRemovingWiFiUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __77__CARSessionRequestClient_startSessionWithHost_requestIdentifier_completion___block_invoke_cold_1();
@@ -227,7 +227,7 @@ uint64_t __65__CARSessionRequestClient_prepareForRemovingWiFiUUID_completion___b
 
 - (void)cancelRequests
 {
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -243,7 +243,7 @@ uint64_t __65__CARSessionRequestClient_prepareForRemovingWiFiUUID_completion___b
 void __41__CARSessionRequestClient_cancelRequests__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __77__CARSessionRequestClient_startSessionWithHost_requestIdentifier_completion___block_invoke_cold_1();

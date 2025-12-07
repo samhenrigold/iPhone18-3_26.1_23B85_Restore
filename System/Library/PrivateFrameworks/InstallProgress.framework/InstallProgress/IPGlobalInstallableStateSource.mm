@@ -61,7 +61,7 @@ void __57__IPGlobalInstallableStateSource_sharedAllAppStateSource__block_invoke(
   IPDoWithLock(&self->_ivarLock, v6);
 }
 
-uint64_t __46__IPGlobalInstallableStateSource_addObserver___block_invoke(uint64_t a1)
+void *__46__IPGlobalInstallableStateSource_addObserver___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) addObject:*(a1 + 40)];
   v3 = *(a1 + 32);
@@ -89,43 +89,43 @@ uint64_t __46__IPGlobalInstallableStateSource_addObserver___block_invoke(uint64_
 
 - (void)globalStateSourceBehavior:(id)behavior stateSourceAvailableForIdentity:(id)identity withGenerator:(id)generator
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   behaviorCopy = behavior;
   identityCopy = identity;
   generatorCopy = generator;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy_;
-  v27 = __Block_byref_object_dispose_;
-  v28 = 0;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __106__IPGlobalInstallableStateSource_globalStateSourceBehavior_stateSourceAvailableForIdentity_withGenerator___block_invoke;
-  v22[3] = &unk_2797B1E28;
-  v22[4] = self;
-  v22[5] = &v23;
-  IPDoWithLock(&self->_ivarLock, v22);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy_;
+  v26 = __Block_byref_object_dispose_;
+  v27 = 0;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __106__IPGlobalInstallableStateSource_globalStateSourceBehavior_stateSourceAvailableForIdentity_withGenerator___block_invoke;
+  v21[3] = &unk_2797B1E28;
+  v21[4] = self;
+  v21[5] = &v22;
+  IPDoWithLock(&self->_ivarLock, v21);
   v19 = 0u;
-  v10 = v24[5];
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v29 count:16];
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v10 = v23[5];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v28 count:16];
   if (v11)
   {
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       v13 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * v13);
+        v14 = *(*(&v17 + 1) + 8 * v13);
         v15 = generatorCopy[2](generatorCopy);
         [v14 globalInstallableStateSource:self stateSourceIsAvailable:v15];
 
@@ -133,22 +133,18 @@ uint64_t __46__IPGlobalInstallableStateSource_addObserver___block_invoke(uint64_
       }
 
       while (v11 != v13);
-      v11 = [v10 countByEnumeratingWithState:&v18 objects:v29 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v17 objects:v28 count:16];
     }
 
     while (v11);
   }
 
-  _Block_object_dispose(&v23, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v22, 8);
 }
 
 uint64_t __106__IPGlobalInstallableStateSource_globalStateSourceBehavior_stateSourceAvailableForIdentity_withGenerator___block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 24) allObjects];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 24) allObjects];
 
   return MEMORY[0x2821F96F8]();
 }

@@ -7764,7 +7764,8 @@ LABEL_47:
       currentDevice3 = [MEMORY[0x277D75418] currentDevice];
       if ([currentDevice3 userInterfaceIdiom] != 1)
       {
-        *(&v238[3] + 4) = 0x100000000;
+        HIDWORD(v238[3]) = 0;
+        LODWORD(v238[4]) = 1;
         goto LABEL_56;
       }
     }

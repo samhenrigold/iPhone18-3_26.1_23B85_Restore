@@ -31,29 +31,29 @@
 
 - (id)debugDescription
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   selfCopy = self;
   tasksInvolved = [(UBDeadlockInfo *)self tasksInvolved];
-  v5 = [tasksInvolved countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [tasksInvolved countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(tasksInvolved);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         name = [v9 name];
         if (name)
         {
@@ -67,7 +67,7 @@
         }
       }
 
-      v6 = [tasksInvolved countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [tasksInvolved countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
@@ -77,8 +77,6 @@
   v13 = [v3 componentsJoinedByString:{@", "}];
   tasksBlocked = [(UBDeadlockInfo *)selfCopy tasksBlocked];
   v15 = [v12 initWithFormat:@"Deadlock in %@, blocking %lu tasks", v13, objc_msgSend(tasksBlocked, "count")];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

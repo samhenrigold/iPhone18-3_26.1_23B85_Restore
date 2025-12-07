@@ -23,14 +23,14 @@
 
 void __55__BKSMousePointerServiceSessionSpecification_interface__block_invoke(uint64_t a1)
 {
-  v8 = [MEMORY[0x1E698E710] protocolForProtocol:&unk_1EF579710];
-  v2 = [MEMORY[0x1E698E710] protocolForProtocol:&unk_1EF5718F0];
+  v8 = [MEMORY[0x1E698E710] protocolForProtocol:?];
+  v2 = [MEMORY[0x1E698E710] protocolForProtocol:?];
   v3 = MEMORY[0x1E698F470];
   v4 = [*(a1 + 32) identifier];
-  v5 = [v3 interfaceWithIdentifier:v4];
+  v5 = [v3 interfaceWithIdentifier:?];
 
-  [v5 setServer:v8];
-  [v5 setClient:v2];
+  [v5 setServer:?];
+  [v5 setClient:?];
   v6 = [v5 copy];
   v7 = interface___interface;
   interface___interface = v6;

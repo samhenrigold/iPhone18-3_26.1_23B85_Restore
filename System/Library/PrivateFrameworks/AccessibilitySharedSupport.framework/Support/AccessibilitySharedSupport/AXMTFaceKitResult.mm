@@ -46,13 +46,14 @@
   v6 = self.n128_f64[0];
   if (a6)
   {
+    v7 = a6;
     v75 = self.n128_u64[0];
     if (a6 == 180 || a6 == 270)
     {
       v67 = matrix_identity_float4x4.columns[3];
       v68 = matrix_identity_float4x4.columns[2];
       *&v8 = AXMTEulerAnglesFromMatrix(self, a2, pose);
-      if (a6 == 270)
+      if (v7 == 270)
       {
         v70 = v8;
         v38 = __sincosf_stret(-0.5 * *&v8);
@@ -124,7 +125,7 @@
         return *v82.i64;
       }
 
-      if (a6 == 180)
+      if (v7 == 180)
       {
         v69 = v8;
         v9 = __sincosf_stret(0.5 * *&v8);
@@ -311,90 +312,90 @@
 + (__n128)_projectZAxisVectorUsingRGBCameraDictionary:(__n128)dictionary pose:(__n128)pose
 {
   v8 = a7;
+  v9 = v8;
   if (v8)
   {
-    v9 = [v8 objectForKeyedSubscript:sub_100025CDC()];
-    v10 = AXMTMatrix3x3FromArray(v9).n128_u64[0];
-    v47 = v11;
-    v49 = *&v10;
-    v45 = v12;
+    v10 = [v8 objectForKeyedSubscript:sub_100025CDC(v8)];
+    v11 = AXMTMatrix3x3FromArray(v10).n128_u64[0];
+    v49 = v12;
+    v51 = *&v11;
+    v47 = v13;
 
-    [self _logIntrinsicsForInternalBuilds:@"Original FaceKit" withLogPrefix:{v49, v47, v45}];
+    [self _logIntrinsicsForInternalBuilds:@"Original FaceKit" withLogPrefix:{v51, v49, v47}];
     [self _iOSReferenceFocalLengthFor3DPointProjection];
-    v14 = v13;
-    v16 = v15;
+    v15 = v14;
+    v17 = v16;
     [self _iOSReferencePrincipalPointFor3DPointProjection];
-    v17 = v14;
-    v18 = v17;
-    v19 = v16;
-    LODWORD(v20) = 0;
-    *(&v20 + 1) = v19;
-    v48 = *&v20;
-    v50 = LODWORD(v18);
-    *&v21 = v21;
+    v18 = v15;
+    v19 = v18;
+    v20 = v17;
+    LODWORD(v21) = 0;
+    *(&v21 + 1) = v20;
+    v50 = *&v21;
+    v52 = LODWORD(v19);
     *&v22 = v22;
+    *&v23 = v23;
     __asm { FMOV            V2.4S, #1.0 }
 
-    _Q2.i64[0] = __PAIR64__(LODWORD(v22), LODWORD(v21));
-    v46 = _Q2;
-    [self _logIntrinsicsForInternalBuilds:@"targetIntrinsics" withLogPrefix:{COERCE_DOUBLE(LODWORD(v18)), v20}];
-    v28 = [v8 objectForKeyedSubscript:sub_100025BE8()];
-    v29 = [v28 objectForKeyedSubscript:sub_100025A00()];
-    AXMTMatrix3x3FromArray(v29);
+    _Q2.i64[0] = __PAIR64__(LODWORD(v23), LODWORD(v22));
+    v48 = _Q2;
+    v29 = [v9 objectForKeyedSubscript:{sub_100025BE8(objc_msgSend(self, "_logIntrinsicsForInternalBuilds:withLogPrefix:", @"targetIntrinsics", COERCE_DOUBLE(LODWORD(v19)), v21))}];
+    v30 = [v29 objectForKeyedSubscript:sub_100025A00(v29)];
+    AXMTMatrix3x3FromArray(v30);
 
-    v30 = [v8 objectForKeyedSubscript:sub_100025BE8()];
-    v31 = [v30 objectForKeyedSubscript:sub_100025AF4()];
-    AXMTVector3FromArray(v31);
+    v32 = [v9 objectForKeyedSubscript:sub_100025BE8(v31)];
+    v33 = [v32 objectForKeyedSubscript:sub_100025AF4(v32)];
+    AXMTVector3FromArray(v33);
 
     AXMTMatrix4x4FromRotationAndTranslation();
-    v32 = 0;
-    v56 = v33;
-    dictionaryCopy = v34;
-    poseCopy = v35;
-    v59 = v36;
-    v60 = 0u;
-    v61 = 0u;
+    v34 = 0;
+    v58 = v35;
+    dictionaryCopy = v36;
+    poseCopy = v37;
+    v61 = v38;
     v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     do
     {
-      *(&v60 + v32) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v50, COERCE_FLOAT(*(&v56 + v32))), v48, v56.n128_u64[v32 / 8], 1), v46, *(&v56 + v32), 2), 0, *(&v56 + v32), 3);
-      v32 += 16;
+      *(&v62 + v34) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v52, COERCE_FLOAT(*(&v58 + v34))), v50, v58.n128_u64[v34 / 8], 1), v48, *(&v58 + v34), 2), 0, *(&v58 + v34), 3);
+      v34 += 16;
     }
 
-    while (v32 != 64);
-    v37 = 0;
-    v38 = v60;
-    v39 = v61;
+    while (v34 != 64);
+    v39 = 0;
     v40 = v62;
     v41 = v63;
-    v56 = a2;
+    v42 = v64;
+    v43 = v65;
+    v58 = a2;
     dictionaryCopy = dictionary;
     poseCopy = pose;
-    v59 = a5;
-    v60 = 0u;
-    v61 = 0u;
+    v61 = a5;
     v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     do
     {
-      *(&v60 + v37) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v38, COERCE_FLOAT(*(&v56 + v37))), v39, v56.n128_u64[v37 / 8], 1), v40, *(&v56 + v37), 2), v41, *(&v56 + v37), 3);
-      v37 += 16;
+      *(&v62 + v39) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v40, COERCE_FLOAT(*(&v58 + v39))), v41, v58.n128_u64[v39 / 8], 1), v42, *(&v58 + v39), 2), v43, *(&v58 + v39), 3);
+      v39 += 16;
     }
 
-    while (v37 != 64);
-    v42 = vaddq_f32(v63, vaddq_f32(v62, vmlaq_f32(vmulq_f32(v60, 0), 0, v61)));
-    v43 = vcvtq_f64_f32(vdiv_f32(*v42.i8, vdup_laneq_s32(v42, 2)));
+    while (v39 != 64);
+    v44 = vaddq_f32(v65, vaddq_f32(v64, vmlaq_f32(vmulq_f32(v62, 0), 0, v63)));
+    v45 = vcvtq_f64_f32(vdiv_f32(*v44.i8, vdup_laneq_s32(v44, 2)));
   }
 
   else
   {
-    v43 = NSZeroPoint;
+    v45 = NSZeroPoint;
   }
 
-  v55 = v43;
+  v57 = v45;
 
-  return v55;
+  return v57;
 }
 
 - (CGSize)imageSize

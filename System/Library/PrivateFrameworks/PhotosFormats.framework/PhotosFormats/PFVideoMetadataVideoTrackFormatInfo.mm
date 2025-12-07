@@ -139,7 +139,7 @@ LABEL_12:
   v8 = v7;
   [firstObject naturalSize];
   v10 = v9;
-  [firstObject preferredTransform];
+  objc_msgSend_preferredTransform(firstObject);
   v27.origin.x = 0.0;
   v27.origin.y = 0.0;
   v27.size.width = v8;

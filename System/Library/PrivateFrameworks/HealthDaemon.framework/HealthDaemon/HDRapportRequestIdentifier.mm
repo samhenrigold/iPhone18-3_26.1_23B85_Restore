@@ -15,7 +15,7 @@
   if (v7)
   {
     v7->_schemaIdentifier = identifier;
-    v9 = [nameCopy copy];
+    v9 = objc_msgSend_copy(nameCopy);
     name = v8->_name;
     v8->_name = v9;
   }

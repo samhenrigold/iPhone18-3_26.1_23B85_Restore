@@ -77,37 +77,37 @@
 
 - (void)updateTopoIDRange:(TopoIDRange *)range toNewRangeID:(TopoIDRange *)d
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   commands = [(TTMergeableStringUndoGroup *)self commands];
-  v7 = [commands countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [commands countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(commands);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
-        v17 = range->var0.var0;
+        v10 = *(*(&v19 + 1) + 8 * i);
+        v16 = range->var0.var0;
         var1 = range->var1;
-        v18 = range->var0.var1;
-        v19 = var1;
-        v14 = d->var0.var0;
+        v17 = range->var0.var1;
+        v18 = var1;
+        v13 = d->var0.var0;
         v12 = d->var1;
-        v15 = d->var0.var1;
-        v16 = v12;
+        v14 = d->var0.var1;
+        v15 = v12;
         if (v10)
         {
-          [v10 updateTopoIDRange:&v17 toNewRangeID:&v14];
+          [v10 updateTopoIDRange:&v16 toNewRangeID:&v13];
         }
 
         else
@@ -115,44 +115,42 @@
         }
       }
 
-      v7 = [commands countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [commands countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasTopoIDsThatCanChange
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   commands = [(TTMergeableStringUndoGroup *)self commands];
-  v3 = [commands countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [commands countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(commands);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) hasTopoIDsThatCanChange])
+        if ([*(*(&v7 + 1) + 8 * i) hasTopoIDsThatCanChange])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [commands countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [commands countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -164,46 +162,43 @@
 
 LABEL_11:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (void)applyToString:(id)string
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   stringCopy = string;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   commands = [(TTMergeableStringUndoGroup *)self commands];
   reverseObjectEnumerator = [commands reverseObjectEnumerator];
 
-  v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) applyToString:stringCopy];
+        [*(*(&v10 + 1) + 8 * v9++) applyToString:stringCopy];
       }
 
       while (v7 != v9);
-      v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)description

@@ -22,11 +22,11 @@
 - (CCDatabaseDeviceMapping)initWithDeviceRecords:(id)records siteIdentifierFormat:(unsigned __int8)format error:(id *)error
 {
   formatCopy = format;
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
-  v39.receiver = self;
-  v39.super_class = CCDatabaseDeviceMapping;
-  v7 = [(CCDatabaseDeviceMapping *)&v39 init];
+  v38.receiver = self;
+  v38.super_class = CCDatabaseDeviceMapping;
+  v7 = [(CCDatabaseDeviceMapping *)&v38 init];
   if (v7)
   {
     if (!recordsCopy)
@@ -46,28 +46,28 @@
     siteIdentifierMap = v7->_siteIdentifierMap;
     v7->_siteIdentifierMap = v10;
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = recordsCopy;
-    v12 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v12 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v36;
-      v31 = recordsCopy;
+      v14 = *v35;
+      v30 = recordsCopy;
       while (2)
       {
         v15 = 0;
         do
         {
-          if (*v36 != v14)
+          if (*v35 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v35 + 1) + 8 * v15);
+          v16 = *(*(&v34 + 1) + 8 * v15);
           v17 = [objc_opt_class() encodeSiteIdentifierWithFormat:formatCopy fromDeviceRecord:v16 error:error];
           if (!v17)
           {
@@ -81,7 +81,7 @@
 
 LABEL_18:
             v27 = 0;
-            recordsCopy = v31;
+            recordsCopy = v30;
             goto LABEL_19;
           }
 
@@ -94,7 +94,7 @@ LABEL_18:
             objc_storeStrong(&v7->_localDeviceSite, v20);
           }
 
-          v23 = [MEMORY[0x1E69C5D98] tupleWithFirst:v16 second:{v20, v31}];
+          v23 = [MEMORY[0x1E69C5D98] tupleWithFirst:v16 second:{v20, v30}];
           deviceRowId = [v16 deviceRowId];
           v25 = v7->_deviceRowIdMap;
           v26 = [MEMORY[0x1E69C5D98] tupleWithFirst:v18 second:v23];
@@ -105,8 +105,8 @@ LABEL_18:
         }
 
         while (v13 != v15);
-        v13 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
-        recordsCopy = v31;
+        v13 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+        recordsCopy = v30;
         if (v13)
         {
           continue;
@@ -120,7 +120,6 @@ LABEL_18:
   v27 = v7;
 LABEL_19:
 
-  v29 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -163,28 +162,28 @@ LABEL_19:
 
 - (id)deviceRowIdForDeviceSite:(id)site
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   siteCopy = site;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   allKeys = [(NSMutableDictionary *)self->_deviceRowIdMap allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_deviceRowIdMap objectForKey:v10];
         second = [v11 second];
         v12Second = [second second];
@@ -197,7 +196,7 @@ LABEL_19:
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -210,35 +209,33 @@ LABEL_19:
   v14 = 0;
 LABEL_11:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (id)allActiveDeviceSites
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allValues = [(NSMutableDictionary *)self->_deviceRowIdMap allValues];
-  v5 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         second = [v9 second];
         first = [second first];
 
@@ -254,41 +251,39 @@ LABEL_11:
         }
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)activeDeviceSiteWithDeviceUUID:(id)d
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   allValues = [(NSMutableDictionary *)self->_deviceRowIdMap allValues];
-  v6 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         second = [v10 second];
         first = [second first];
 
@@ -309,7 +304,7 @@ LABEL_11:
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v7)
       {
         continue;
@@ -321,8 +316,6 @@ LABEL_11:
 
   v13Second = 0;
 LABEL_13:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v13Second;
 }
@@ -430,41 +423,40 @@ LABEL_18:
 
 + (unsigned)decodeFormatFromSiteIdentifier:(id)identifier error:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   identifier = [identifierCopy identifier];
   v7 = identifier;
   if (identifier)
   {
-    v15 = 0;
-    [identifier getBytes:&v15 length:1];
-    v8 = v15;
+    v14 = 0;
+    [identifier getBytes:&v14 length:1];
+    v8 = v14;
   }
 
   else
   {
     v9 = MEMORY[0x1E696ABC0];
-    v16 = *MEMORY[0x1E696A278];
+    v15 = *MEMORY[0x1E696A278];
     identifierCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot decode site identifier missing data: %@", identifierCopy];
-    v17[0] = identifierCopy;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v16[0] = identifierCopy;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v12 = [v9 errorWithDomain:@"com.apple.CascadeSets.CCDatabaseDeviceMapping" code:3 userInfo:v11];
     CCSetError(error, v12);
 
     v8 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 + (BOOL)_validateSiteIdentifier:(id)identifier outFormat:(unsigned __int8 *)format error:(id *)error
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v21 = 0;
-  v8 = [objc_opt_class() decodeFormatFromSiteIdentifier:identifierCopy error:&v21];
-  v9 = v21;
+  v20 = 0;
+  v8 = [objc_opt_class() decodeFormatFromSiteIdentifier:identifierCopy error:&v20];
+  v9 = v20;
   if (v9)
   {
     CCSetError(error, v9);
@@ -475,34 +467,34 @@ LABEL_3:
 
   if (v8 == 1)
   {
-    v13 = 25;
+    v12 = 25;
   }
 
   else
   {
     if (v8 != 2)
     {
-      v20 = _unsupportedFormatError(v8);
-      CCSetError(error, v20);
+      v19 = _unsupportedFormatError(v8);
+      CCSetError(error, v19);
 
       goto LABEL_3;
     }
 
-    v13 = 33;
+    v12 = 33;
   }
 
   identifier = [identifierCopy identifier];
-  v15 = [identifier length];
+  v14 = [identifier length];
 
-  if (v13 != v15)
+  if (v12 != v14)
   {
-    v16 = MEMORY[0x1E696ABC0];
-    v22 = *MEMORY[0x1E696A278];
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid site identifier length (%u) expected %u for format %u", v15, v13, v8];
-    v23[0] = v17;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-    v19 = [v16 errorWithDomain:@"com.apple.CascadeSets.CCDatabaseDeviceMapping" code:4 userInfo:v18];
-    CCSetError(error, v19);
+    v15 = MEMORY[0x1E696ABC0];
+    v21 = *MEMORY[0x1E696A278];
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid site identifier length (%u) expected %u for format %u", v14, v12, v8];
+    v22[0] = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v18 = [v15 errorWithDomain:@"com.apple.CascadeSets.CCDatabaseDeviceMapping" code:4 userInfo:v17];
+    CCSetError(error, v18);
 
     goto LABEL_3;
   }
@@ -515,7 +507,6 @@ LABEL_3:
   v10 = 1;
 LABEL_4:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -581,25 +572,25 @@ LABEL_4:
 
 + (id)decodeDeviceUUIDFromSiteIdentifier:(id)identifier error:(id *)error
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v11 = 0;
-  if (![objc_opt_class() _validateSiteIdentifier:identifierCopy outFormat:&v11 error:error])
+  v10 = 0;
+  if (![objc_opt_class() _validateSiteIdentifier:identifierCopy outFormat:&v10 error:error])
   {
     v7 = 0;
     goto LABEL_10;
   }
 
-  if (v11 == 2)
+  if (v10 == 2)
   {
     v6 = 17;
   }
 
   else
   {
-    if (v11 != 1)
+    if (v10 != 1)
     {
-      identifier = _unsupportedFormatError(v11);
+      identifier = _unsupportedFormatError(v10);
       CCSetError(error, identifier);
       v7 = 0;
       goto LABEL_9;
@@ -609,14 +600,13 @@ LABEL_4:
   }
 
   identifier = [identifierCopy identifier];
-  v12[0] = 0;
-  v12[1] = 0;
-  [identifier getBytes:v12 range:{v6, 16}];
-  v7 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v12];
+  v11[0] = 0;
+  v11[1] = 0;
+  [identifier getBytes:v11 range:{v6, 16}];
+  v7 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v11];
 LABEL_9:
 
 LABEL_10:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

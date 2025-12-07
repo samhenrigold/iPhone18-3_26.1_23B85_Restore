@@ -135,10 +135,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)currencyCode isEqualToString:v6];
+  isEqualToString = objc_msgSend_isEqualToString_(currencyCode, v6, v6);
 
   v8 = v10;
-  if (!v7)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_8:
     v9 = v8;
@@ -336,9 +336,9 @@ LABEL_7:
             goto LABEL_63;
           }
 
-          v14 = [(NSString *)v11 isEqualToString:v12];
+          isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-          if (!v14)
+          if (!isEqualToString)
           {
             goto LABEL_64;
           }
@@ -359,7 +359,7 @@ LABEL_7:
             goto LABEL_63;
           }
 
-          v17 = [(NSString *)v11 isEqualToString:v16];
+          v17 = objc_msgSend_isEqualToString_(v11);
 
           if (!v17)
           {
@@ -397,7 +397,7 @@ LABEL_7:
             goto LABEL_63;
           }
 
-          v22 = [(NSString *)v11 isEqualToString:v21];
+          v22 = objc_msgSend_isEqualToString_(v11);
 
           if (!v22)
           {
@@ -420,7 +420,7 @@ LABEL_7:
             goto LABEL_63;
           }
 
-          v25 = [(NSString *)v11 isEqualToString:v24];
+          v25 = objc_msgSend_isEqualToString_(v11);
 
           if (!v25)
           {
@@ -443,7 +443,7 @@ LABEL_7:
             goto LABEL_63;
           }
 
-          v28 = [(NSString *)v11 isEqualToString:v27];
+          v28 = objc_msgSend_isEqualToString_(v11);
 
           if (!v28)
           {
@@ -466,7 +466,7 @@ LABEL_7:
             goto LABEL_63;
           }
 
-          v31 = [(NSString *)v11 isEqualToString:v30];
+          v31 = objc_msgSend_isEqualToString_(v11);
 
           if (!v31)
           {
@@ -489,7 +489,7 @@ LABEL_7:
             goto LABEL_63;
           }
 
-          v34 = [(NSString *)v11 isEqualToString:v33];
+          v34 = objc_msgSend_isEqualToString_(v11);
 
           if (!v34)
           {
@@ -580,7 +580,7 @@ LABEL_65:
 
         if (v11 && v36)
         {
-          v37 = [(NSString *)v11 isEqualToString:v36];
+          v37 = objc_msgSend_isEqualToString_(v11);
 
           if (!v37)
           {

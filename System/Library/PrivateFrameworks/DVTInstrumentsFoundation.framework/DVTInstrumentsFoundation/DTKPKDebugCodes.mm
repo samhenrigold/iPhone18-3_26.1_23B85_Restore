@@ -19,7 +19,7 @@
     v4 = qword_27EE84468;
     qword_27EE84468 = 0;
 
-    DTKPSetupLogging();
+    DTKPSetupLogging(v5, v6);
   }
 }
 

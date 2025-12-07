@@ -42,15 +42,15 @@
   upper = column._upper;
   lower = column._lower;
   byCopy = by;
-  v12 = objc_msgSend_context(byCopy, v8, v9, v10, v11);
-  v14 = objc_msgSend_initWithColumn_context_(self, v13, lower, upper, v12);
+  v11 = objc_msgSend_context(byCopy, v8, v9, v10);
+  v13 = objc_msgSend_initWithColumn_context_(self, v12, lower, upper, v11);
 
-  if (v14)
+  if (v13)
   {
-    objc_storeWeak(&v14->_groupBy, byCopy);
+    objc_storeWeak(&v13->_groupBy, byCopy);
   }
 
-  return v14;
+  return v13;
 }
 
 - (TSTAggregator)initWithArchive:(const void *)archive groupBy:(id)by
@@ -73,16 +73,16 @@
     v12 = [TSTAggNode alloc];
     if (*(archive + 4))
     {
-      v15 = objc_msgSend_initWithArchive_aggregator_(v12, v13, *(archive + 4), v11, v14);
+      v14 = objc_msgSend_initWithArchive_aggregator_(v12, v13, *(archive + 4), v11);
     }
 
     else
     {
-      v15 = objc_msgSend_initWithArchive_aggregator_(v12, v13, &TST::_GroupByArchive_AggNodeArchive_default_instance_, v11, v14);
+      v14 = objc_msgSend_initWithArchive_aggregator_(v12, v13, &TST::_GroupByArchive_AggNodeArchive_default_instance_, v11);
     }
 
     aggRoot = v11->_aggRoot;
-    v11->_aggRoot = v15;
+    v11->_aggRoot = v14;
   }
 
   return v11;
@@ -107,16 +107,16 @@
     v7 = [TSTAggNode alloc];
     if (*(archive + 4))
     {
-      v10 = objc_msgSend_initWithArchive_aggregator_(v7, v8, *(archive + 4), self, v9);
+      v9 = objc_msgSend_initWithArchive_aggregator_(v7, v8, *(archive + 4), self);
     }
 
     else
     {
-      v10 = objc_msgSend_initWithArchive_aggregator_(v7, v8, &TST::_GroupByArchive_AggNodeArchive_default_instance_, self, v9);
+      v9 = objc_msgSend_initWithArchive_aggregator_(v7, v8, &TST::_GroupByArchive_AggNodeArchive_default_instance_, self);
     }
 
     aggRoot = self->_aggRoot;
-    self->_aggRoot = v10;
+    self->_aggRoot = v9;
   }
 }
 
@@ -141,20 +141,20 @@
   if (aggRoot)
   {
     *(archive + 4) |= 2u;
-    v11 = *(archive + 4);
-    if (!v11)
+    v10 = *(archive + 4);
+    if (!v10)
     {
-      v12 = *(archive + 1);
-      if (v12)
+      v11 = *(archive + 1);
+      if (v11)
       {
-        v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
+        v11 = *(v11 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v11 = google::protobuf::Arena::CreateMaybeMessage<TST::GroupByArchive_AggNodeArchive>(v12);
-      *(archive + 4) = v11;
+      v10 = google::protobuf::Arena::CreateMaybeMessage<TST::GroupByArchive_AggNodeArchive>(v11);
+      *(archive + 4) = v10;
     }
 
-    objc_msgSend_encodeToArchive_(aggRoot, v7, v11, v8, v9);
+    objc_msgSend_encodeToArchive_(aggRoot, v7, v10, v8);
   }
 }
 
@@ -162,77 +162,77 @@
 {
   byCopy = by;
   objc_storeWeak(&self->_groupBy, byCopy);
-  objc_msgSend_unpackAfterUnarchiveForGroupBy_(self->_aggRoot, v4, byCopy, v5, v6);
+  objc_msgSend_unpackAfterUnarchiveForGroupBy_(self->_aggRoot, v4, byCopy, v5);
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[266], v5, v6);
+  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[266], v5);
 
-  objc_msgSend_loadFromArchive_(self, v8, v7, v9, v10);
+  objc_msgSend_loadFromArchive_(self, v7, v6, v8);
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_22120FC00, off_2812E4498[266], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_22120FC00, off_2812E4498[266]);
 
-  objc_msgSend_encodeToArchive_(self, v7, v6, v8, v9);
+  objc_msgSend_encodeToArchive_(self, v6, v5, v7);
 }
 
 - (TSTCategoryOwner)categoryOwner
 {
   WeakRetained = objc_loadWeakRetained(&self->_groupBy);
-  v7 = objc_msgSend_categoryOwner(WeakRetained, v3, v4, v5, v6);
+  v6 = objc_msgSend_categoryOwner(WeakRetained, v3, v4, v5);
 
-  return v7;
+  return v6;
 }
 
 - (vector<TSCECellRef,)cellRefsForRowIndexes:(TSTAggregator *)self tableUID:(SEL)d
 {
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x4812000000;
-  v36 = sub_22120F1BC;
-  v37 = sub_22120F1E0;
-  v38 = &unk_22188E88F;
-  v40 = 0;
-  v41 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x4812000000;
+  v32 = sub_22120F1BC;
+  v33 = sub_22120F1E0;
+  v34 = &unk_22188E88F;
+  v36 = 0;
+  v37 = 0;
   __p = 0;
   if (!TSUIndexSet::count(a4))
   {
     goto LABEL_7;
   }
 
-  v13 = objc_msgSend_categoryOwner(self, v9, v10, v11, v12);
-  v18 = objc_msgSend_tableModel(v13, v14, v15, v16, v17);
-  v23 = objc_msgSend_columnRowUIDMap(v18, v19, v20, v21, v22);
+  v12 = objc_msgSend_categoryOwner(self, v9, v10, v11);
+  v16 = objc_msgSend_tableModel(v12, v13, v14, v15);
+  v20 = objc_msgSend_columnRowUIDMap(v16, v17, v18, v19);
 
   if (*&self->_columnUid == 0)
   {
-    v26 = 0;
+    v22 = 0;
 LABEL_5:
-    v27 = v34;
-    v28 = TSUIndexSet::count(a4);
-    sub_22120F1F8(v27 + 6, v28);
-    v31[0] = 0;
-    v31[1] = v31;
-    v31[2] = 0x4812000000;
-    v31[3] = sub_22120F2B8;
-    v31[4] = nullsub_29;
-    v31[5] = &unk_22188E88F;
-    v31[6] = v26 << 32;
-    v32 = *a5;
+    v23 = v30;
+    v24 = TSUIndexSet::count(a4);
+    sub_22120F1F8(v23 + 6, v24);
+    v27[0] = 0;
+    v27[1] = v27;
+    v27[2] = 0x4812000000;
+    v27[3] = sub_22120F2B8;
+    v27[4] = nullsub_29;
+    v27[5] = &unk_22188E88F;
+    v27[6] = v22 << 32;
+    v28 = *a5;
     TSUIndexSet::enumerateIndexesUsingBlock();
-    _Block_object_dispose(v31, 8);
+    _Block_object_dispose(v27, 8);
     goto LABEL_6;
   }
 
-  v26 = objc_msgSend_columnIndexForColumnUID_(v23, v24, self->_columnUid._lower, self->_columnUid._upper, v25);
-  if (v26 != 0x7FFF)
+  v22 = objc_msgSend_columnIndexForColumnUID_(v20, v21, self->_columnUid._lower, self->_columnUid._upper);
+  if (v22 != 0x7FFF)
   {
     goto LABEL_5;
   }
@@ -240,16 +240,16 @@ LABEL_5:
 LABEL_6:
 
 LABEL_7:
-  v29 = v34;
+  v25 = v30;
   retstr->__end_ = 0;
   retstr->__cap_ = 0;
   retstr->__begin_ = 0;
-  sub_22120FC6C(retstr, v29[6], v29[7], 0xAAAAAAAAAAAAAAABLL * ((v29[7] - v29[6]) >> 3));
-  _Block_object_dispose(&v33, 8);
+  sub_22120FC6C(retstr, v25[6], v25[7], 0xAAAAAAAAAAAAAAABLL * ((v25[7] - v25[6]) >> 3));
+  _Block_object_dispose(&v29, 8);
   result = __p;
   if (__p)
   {
-    v40 = __p;
+    v36 = __p;
     operator delete(__p);
   }
 
@@ -262,43 +262,43 @@ LABEL_7:
   v4 = objc_opt_class();
   WeakRetained = objc_loadWeakRetained(&self->_groupBy);
   v6 = TSKUIDStruct::description(&self->_columnUid);
-  v10 = objc_msgSend_stringWithFormat_(v3, v7, @"%@ group-by: %@ for column: %@", v8, v9, v4, WeakRetained, v6);
+  v9 = objc_msgSend_stringWithFormat_(v3, v7, @"%@ group-by: %@ for column: %@", v8, v4, WeakRetained, v6);
 
-  return v10;
+  return v9;
 }
 
 - (vector<TSCECellRef,)cellRefsForAggNodesAtGroup:(TSTAggregator *)self
 {
   v6 = a4;
-  v11 = objc_msgSend_groupBy(self, v7, v8, v9, v10);
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x4812000000;
-  v24 = sub_22120F1BC;
-  v25 = sub_22120F1E0;
-  v26 = &unk_22188E88F;
-  v28 = 0;
-  v29 = 0;
+  v10 = objc_msgSend_groupBy(self, v7, v8, v9);
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x4812000000;
+  v22 = sub_22120F1BC;
+  v23 = sub_22120F1E0;
+  v24 = &unk_22188E88F;
+  v26 = 0;
+  v27 = 0;
   __p = 0;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = sub_22120F650;
-  v18[3] = &unk_278461598;
-  v18[4] = self;
-  v12 = v11;
-  v19 = v12;
-  v20 = &v21;
-  objc_msgSend_enumerateDirectChildren_(v6, v13, v18, v14, v15);
-  v16 = v22;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = sub_22120F650;
+  v16[3] = &unk_278461598;
+  v16[4] = self;
+  v11 = v10;
+  v17 = v11;
+  v18 = &v19;
+  objc_msgSend_enumerateDirectChildren_(v6, v12, v16, v13);
+  v14 = v20;
   retstr->__end_ = 0;
   retstr->__cap_ = 0;
   retstr->__begin_ = 0;
-  sub_22120FC6C(retstr, v16[6], v16[7], 0xAAAAAAAAAAAAAAABLL * ((v16[7] - v16[6]) >> 3));
+  sub_22120FC6C(retstr, v14[6], v14[7], 0xAAAAAAAAAAAAAAABLL * ((v14[7] - v14[6]) >> 3));
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v19, 8);
   if (__p)
   {
-    v28 = __p;
+    v26 = __p;
     operator delete(__p);
   }
 
@@ -308,75 +308,75 @@ LABEL_7:
 - (id)aggNodeForGroupNode:(id)node
 {
   nodeCopy = node;
-  v9 = objc_msgSend_groupBy(self, v5, v6, v7, v8);
-  v36[0] = objc_msgSend_columnUid(self, v10, v11, v12, v13);
-  v36[1] = v14;
-  v21 = objc_msgSend_aggNodeForColumnUid_(nodeCopy, v14, v36, v15, v16);
-  if (!v21)
+  v8 = objc_msgSend_groupBy(self, v5, v6, v7);
+  v29[0] = objc_msgSend_columnUid(self, v9, v10, v11);
+  v29[1] = v12;
+  v17 = objc_msgSend_aggNodeForColumnUid_(nodeCopy, v12, v29, v13);
+  if (!v17)
   {
-    NextAggFormulaCoord = objc_msgSend_getNextAggFormulaCoord(v9, v17, v18, v19, v20);
-    v23 = [TSTAggNode alloc];
-    v21 = objc_msgSend_initWithFormulaCoord_groupNode_aggregator_(v23, v24, NextAggFormulaCoord, nodeCopy, self);
-    objc_msgSend_addAggNode_(nodeCopy, v25, v21, v26, v27);
-    if (objc_msgSend_isRebuildFormulasDeferred(v9, v28, v29, v30, v31))
+    NextAggFormulaCoord = objc_msgSend_getNextAggFormulaCoord(v8, v14, v15, v16);
+    v19 = [TSTAggNode alloc];
+    v17 = objc_msgSend_initWithFormulaCoord_groupNode_aggregator_(v19, v20, NextAggFormulaCoord, nodeCopy, self);
+    objc_msgSend_addAggNode_(nodeCopy, v21, v17, v22);
+    if (objc_msgSend_isRebuildFormulasDeferred(v8, v23, v24, v25))
     {
-      objc_msgSend_setNeedsRebuildOfAggFormulas_(v9, v32, 1, v33, v34);
+      objc_msgSend_setNeedsRebuildOfAggFormulas_(v8, v26, 1, v27);
     }
 
     else
     {
-      objc_msgSend_rebuildFormulasForAggNode_(nodeCopy, v32, v21, v33, v34);
+      objc_msgSend_rebuildFormulasForAggNode_(nodeCopy, v26, v17, v27);
     }
   }
 
-  return v21;
+  return v17;
 }
 
 - (void)rebuildAggFormulas
 {
-  v6 = objc_msgSend_categoryOwner(self, a2, v2, v3, v4);
-  if (objc_msgSend_allowRegistrationOfAggFormulas(v6, v7, v8, v9, v10))
+  v5 = objc_msgSend_categoryOwner(self, a2, v2, v3);
+  if (objc_msgSend_allowRegistrationOfAggFormulas(v5, v6, v7, v8))
   {
-    objc_msgSend_willModify(self, v11, v12, v13, v14);
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x3032000000;
-    v23 = sub_22120F980;
-    v24 = sub_22120F990;
-    v25 = 0;
+    objc_msgSend_willModify(self, v9, v10, v11);
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x3032000000;
+    v19 = sub_22120F980;
+    v20 = sub_22120F990;
+    v21 = 0;
     WeakRetained = objc_loadWeakRetained(&self->_groupBy);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = sub_22120F998;
-    v19[3] = &unk_2784615C0;
-    v19[4] = self;
-    v19[5] = &v20;
-    objc_msgSend_enumerateAllGroupsWithBlock_(WeakRetained, v16, v19, v17, v18);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = sub_22120F998;
+    v15[3] = &unk_2784615C0;
+    v15[4] = self;
+    v15[5] = &v16;
+    objc_msgSend_enumerateAllGroupsWithBlock_(WeakRetained, v13, v15, v14);
 
-    objc_storeStrong(&self->_aggRoot, v21[5]);
-    _Block_object_dispose(&v20, 8);
+    objc_storeStrong(&self->_aggRoot, v17[5]);
+    _Block_object_dispose(&v16, 8);
   }
 }
 
 - (void)clearAggFormulas:(id)formulas
 {
   formulasCopy = formulas;
-  objc_msgSend_willModify(self, v5, v6, v7, v8);
+  objc_msgSend_willModify(self, v5, v6, v7);
   aggRoot = self->_aggRoot;
-  v14 = objc_msgSend_groupBy(self, v10, v11, v12, v13);
-  v21[0] = objc_msgSend_groupByUid(v14, v15, v16, v17, v18);
-  v21[1] = v19;
-  objc_msgSend_clearAggFormulas_inOwner_(aggRoot, v19, formulasCopy, v21, v20);
+  v12 = objc_msgSend_groupBy(self, v9, v10, v11);
+  v17[0] = objc_msgSend_groupByUid(v12, v13, v14, v15);
+  v17[1] = v16;
+  objc_msgSend_clearAggFormulas_inOwner_(aggRoot, v16, formulasCopy, v17);
 }
 
 - (void)upgradeForNewAggregateTypes:(id)types
 {
   typesCopy = types;
   aggRoot = self->_aggRoot;
-  v10 = objc_msgSend_groupBy(self, v6, v7, v8, v9);
-  v17[0] = objc_msgSend_groupByUid(v10, v11, v12, v13, v14);
-  v17[1] = v15;
-  objc_msgSend_upgradeForNewAggregateTypes_inOwner_(aggRoot, v15, typesCopy, v17, v16);
+  v9 = objc_msgSend_groupBy(self, v6, v7, v8);
+  v14[0] = objc_msgSend_groupByUid(v9, v10, v11, v12);
+  v14[1] = v13;
+  objc_msgSend_upgradeForNewAggregateTypes_inOwner_(aggRoot, v13, typesCopy, v14);
 }
 
 - (TSTGroupBy)groupBy

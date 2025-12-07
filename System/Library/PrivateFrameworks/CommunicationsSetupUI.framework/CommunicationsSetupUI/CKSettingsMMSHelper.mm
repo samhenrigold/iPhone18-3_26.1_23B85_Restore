@@ -15,28 +15,12 @@
   {
     mEMORY[0x277D1A908] = [MEMORY[0x277D1A908] sharedInstance];
     ctSubscriptionInfo = [mEMORY[0x277D1A908] ctSubscriptionInfo];
-    firstObject = [ctSubscriptionInfo __im_subscriptionContextForForSimID:dCopy phoneNumber:numberCopy];
+    v11 = [ctSubscriptionInfo __im_subscriptionContextForForSimID:dCopy phoneNumber:numberCopy];
 
-    if (firstObject)
+    if (v11 || (IMSharedHelperDeviceHasMultipleActiveSubscriptions() & 1) == 0 && ([MEMORY[0x277D1A908] sharedInstance], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "ctSubscriptionInfo"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "subscriptions"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "firstObject"), v11 = objc_claimAutoreleasedReturnValue(), v19, v18, v17, v11))
     {
-      goto LABEL_3;
-    }
-
-    if (IMSharedHelperDeviceHasMultipleActiveSubscriptions())
-    {
-      goto LABEL_9;
-    }
-
-    mEMORY[0x277D1A908]2 = [MEMORY[0x277D1A908] sharedInstance];
-    ctSubscriptionInfo2 = [mEMORY[0x277D1A908]2 ctSubscriptionInfo];
-    subscriptions = [ctSubscriptionInfo2 subscriptions];
-    firstObject = [subscriptions firstObject];
-
-    if (firstObject)
-    {
-LABEL_3:
-      mEMORY[0x277D1A908]3 = [MEMORY[0x277D1A908] sharedInstance];
-      v13 = [mEMORY[0x277D1A908]3 copyCarrierBundleValueForSubscriptionContext:firstObject keyHierarchy:&unk_2856EB970 defaultValue:0 valueIfError:0];
+      mEMORY[0x277D1A908]2 = [MEMORY[0x277D1A908] sharedInstance];
+      v13 = [mEMORY[0x277D1A908]2 copyCarrierBundleValueForSubscriptionContext:v11 keyHierarchy:&unk_2856EB970 defaultValue:0 valueIfError:0];
 
       if (v13)
       {
@@ -61,7 +45,6 @@ LABEL_3:
 
     else
     {
-LABEL_9:
       bOOLValue = 0;
     }
   }

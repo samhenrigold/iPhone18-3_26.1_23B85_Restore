@@ -213,7 +213,7 @@ LABEL_14:
     }
 
     v14 = sub_10035D02C();
-    sub_10035FE70(v14, 1000, buf);
+    sub_10035FE70(v14, buf, 1000);
     [(PRBSTActivityManager *)self cleanupPowerState];
     if (v29 == 1)
     {

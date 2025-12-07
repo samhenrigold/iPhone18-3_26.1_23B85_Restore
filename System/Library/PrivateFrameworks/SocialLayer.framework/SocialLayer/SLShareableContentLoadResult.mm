@@ -1,4 +1,5 @@
 @interface SLShareableContentLoadResult
++ (SLShareableContentLoadResult)resultWithData:(id)data archivedObjectClass:(Class)class urlWrapper:(id)wrapper wasOpenedInPlace:(BOOL)place error:(id)error;
 + (SLShareableContentLoadResult)resultWithError:(id)error;
 - (Class)archivedObjectClass;
 - (SLShareableContentLoadResult)initWithBSXPCCoder:(id)coder;
@@ -27,6 +28,28 @@
     objc_storeStrong(&v18->_urlWrapper, wrapper);
     v18->_wasOpenedInPlace = place;
     objc_storeStrong(&v18->_error, error);
+  }
+
+  return v18;
+}
+
++ (SLShareableContentLoadResult)resultWithData:(id)data archivedObjectClass:(Class)class urlWrapper:(id)wrapper wasOpenedInPlace:(BOOL)place error:(id)error
+{
+  placeCopy = place;
+  dataCopy = data;
+  wrapperCopy = wrapper;
+  errorCopy = error;
+  v15 = [self alloc];
+  v16 = v15;
+  if (class)
+  {
+    v17 = NSStringFromClass(class);
+    v18 = [v16 initWithWithData:dataCopy archivedObjectClassName:v17 urlWrapper:wrapperCopy wasOpenedInPlace:placeCopy error:errorCopy];
+  }
+
+  else
+  {
+    v18 = [v15 initWithWithData:dataCopy archivedObjectClassName:0 urlWrapper:wrapperCopy wasOpenedInPlace:placeCopy error:errorCopy];
   }
 
   return v18;

@@ -24,7 +24,7 @@
   {
     if (bufferCopy)
     {
-      [bufferCopy timingInfo];
+      objc_msgSend_timingInfo(bufferCopy);
     }
 
     else
@@ -177,7 +177,7 @@ LABEL_99:
           {
             if (bufferCopy)
             {
-              [bufferCopy timingInfo];
+              objc_msgSend_timingInfo(bufferCopy);
             }
 
             else
@@ -379,7 +379,7 @@ LABEL_97:
                       parabolaDetector = self->_parabolaDetector;
                       if (bufferCopy)
                       {
-                        [bufferCopy timingInfo];
+                        objc_msgSend_timingInfo(bufferCopy);
                       }
 
                       else
@@ -565,11 +565,11 @@ LABEL_102:
   return v52;
 }
 
-NSString *__109__VNTrajectoryProcessor_processVNImageBuffer_regionOfInterest_withOptions_warningRecorder_requestUUID_error___block_invoke()
+NSString *__109__VNTrajectoryProcessor_processVNImageBuffer_regionOfInterest_withOptions_warningRecorder_requestUUID_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 - (id)_VNPointsFromCGPoints:(const void *)points

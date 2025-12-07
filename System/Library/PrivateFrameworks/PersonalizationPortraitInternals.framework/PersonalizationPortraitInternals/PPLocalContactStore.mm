@@ -45,7 +45,7 @@
 
 - (void)rebuildCachedSignificantContactHandlesWithShouldContinue:(id)continue
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   continueCopy = continue;
   v5 = +[PPPeopleSuggester sharedInstance];
   rankedContactIdentifiers = [v5 rankedContactIdentifiers];
@@ -76,138 +76,138 @@
     [v15 setMatchingIdentifiers:allObjects];
 
     v17 = +[PPLocalContactStore defaultStore];
-    v63 = 0;
-    v18 = [v17 contactsWithQuery:v15 error:&v63];
-    v19 = v63;
+    v62 = 0;
+    v18 = [v17 contactsWithQuery:v15 error:&v62];
+    v19 = v62;
 
-    v47 = v18;
+    v46 = v18;
     if (!v18)
     {
       v20 = pp_social_highlights_log_handle();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v68 = v19;
+        v67 = v19;
         _os_log_error_impl(&dword_23224A000, v20, OS_LOG_TYPE_ERROR, "PPSocialHighlightRanker: unable to fetch contacts: %@", buf, 0xCu);
       }
 
-      v47 = MEMORY[0x277CBEBF8];
+      v46 = MEMORY[0x277CBEBF8];
     }
 
     if (continueCopy[2](continueCopy))
     {
-      v43 = v19;
-      v44 = v15;
-      v45 = v13;
+      v42 = v19;
+      v43 = v15;
+      v44 = v13;
       selfCopy = self;
-      v46 = rankedContactIdentifiers;
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
+      v45 = rankedContactIdentifiers;
       v60 = 0u;
-      obj = v47;
-      v50 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
-      if (v50)
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
+      obj = v46;
+      v49 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
+      if (v49)
       {
-        v49 = *v60;
+        v48 = *v59;
         do
         {
-          for (i = 0; i != v50; ++i)
+          for (i = 0; i != v49; ++i)
           {
-            if (*v60 != v49)
+            if (*v59 != v48)
             {
               objc_enumerationMutation(obj);
             }
 
-            v22 = *(*(&v59 + 1) + 8 * i);
+            v22 = *(*(&v58 + 1) + 8 * i);
+            v54 = 0u;
             v55 = 0u;
             v56 = 0u;
             v57 = 0u;
-            v58 = 0u;
             emailAddresses = [v22 emailAddresses];
-            v24 = [emailAddresses countByEnumeratingWithState:&v55 objects:v65 count:16];
+            v24 = [emailAddresses countByEnumeratingWithState:&v54 objects:v64 count:16];
             if (v24)
             {
               v25 = v24;
-              v26 = *v56;
+              v26 = *v55;
               do
               {
                 for (j = 0; j != v25; ++j)
                 {
-                  if (*v56 != v26)
+                  if (*v55 != v26)
                   {
                     objc_enumerationMutation(emailAddresses);
                   }
 
                   v28 = MEMORY[0x277CFE080];
-                  value = [*(*(&v55 + 1) + 8 * j) value];
+                  value = [*(*(&v54 + 1) + 8 * j) value];
                   v30 = [v28 normalizedStringFromContactString:value];
 
                   [v14 addObject:v30];
                 }
 
-                v25 = [emailAddresses countByEnumeratingWithState:&v55 objects:v65 count:16];
+                v25 = [emailAddresses countByEnumeratingWithState:&v54 objects:v64 count:16];
               }
 
               while (v25);
             }
 
-            v53 = 0u;
-            v54 = 0u;
-            v51 = 0u;
             v52 = 0u;
+            v53 = 0u;
+            v50 = 0u;
+            v51 = 0u;
             phoneNumbers = [v22 phoneNumbers];
-            v32 = [phoneNumbers countByEnumeratingWithState:&v51 objects:v64 count:16];
+            v32 = [phoneNumbers countByEnumeratingWithState:&v50 objects:v63 count:16];
             if (v32)
             {
               v33 = v32;
-              v34 = *v52;
+              v34 = *v51;
               do
               {
                 for (k = 0; k != v33; ++k)
                 {
-                  if (*v52 != v34)
+                  if (*v51 != v34)
                   {
                     objc_enumerationMutation(phoneNumbers);
                   }
 
                   v36 = MEMORY[0x277CFE080];
-                  value2 = [*(*(&v51 + 1) + 8 * k) value];
+                  value2 = [*(*(&v50 + 1) + 8 * k) value];
                   v38 = [v36 normalizedStringFromContactString:value2];
 
                   [v14 addObject:v38];
                 }
 
-                v33 = [phoneNumbers countByEnumeratingWithState:&v51 objects:v64 count:16];
+                v33 = [phoneNumbers countByEnumeratingWithState:&v50 objects:v63 count:16];
               }
 
               while (v33);
             }
           }
 
-          v50 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+          v49 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
         }
 
-        while (v50);
+        while (v49);
       }
 
       if (continueCopy[2](continueCopy))
       {
         [(PPContactStorage *)selfCopy->_contactStorage setCachedSignificantContactHandles:v14];
-        v13 = v45;
-        rankedContactIdentifiers = v46;
-        v15 = v44;
-        v19 = v43;
+        v13 = v44;
+        rankedContactIdentifiers = v45;
+        v15 = v43;
+        v19 = v42;
 LABEL_41:
 
         goto LABEL_42;
       }
 
       v39 = pp_contacts_log_handle();
-      v13 = v45;
-      rankedContactIdentifiers = v46;
-      v15 = v44;
-      v19 = v43;
+      v13 = v44;
+      rankedContactIdentifiers = v45;
+      v15 = v43;
+      v19 = v42;
       if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -239,21 +239,19 @@ LABEL_39:
   }
 
 LABEL_42:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerFeedback:(id)feedback completion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   completionCopy = completion;
   v7 = pp_contacts_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 138739971;
-    v12 = feedbackCopy;
-    _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "Contact feedback received: %{sensitive}@", &v11, 0xCu);
+    v10 = 138739971;
+    v11 = feedbackCopy;
+    _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "Contact feedback received: %{sensitive}@", &v10, 0xCu);
   }
 
   feedbackItems = [feedbackCopy feedbackItems];
@@ -268,27 +266,25 @@ LABEL_42:
   {
     completionCopy[2](completionCopy, 1, 0);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)contactNameRecordChangesForClient:(id)client error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   contactStorage = self->_contactStorage;
-  v25 = 0;
-  v8 = [(PPContactStorage *)contactStorage contactsChangeHistoryForClient:clientCopy error:&v25];
-  v9 = v25;
+  v24 = 0;
+  v8 = [(PPContactStorage *)contactStorage contactsChangeHistoryForClient:clientCopy error:&v24];
+  v9 = v24;
   if (v8)
   {
-    v24 = 0;
-    v10 = self->_contactStorage;
     v23 = 0;
-    v11 = [(PPContactStorage *)v10 contactNameRecordsWithHistoryResult:v8 truncated:&v24 error:&v23];
-    v12 = v23;
+    v10 = self->_contactStorage;
+    v22 = 0;
+    v11 = [(PPContactStorage *)v10 contactNameRecordsWithHistoryResult:v8 truncated:&v23 error:&v22];
+    v12 = v22;
     v13 = v12;
-    if (v24 == 1)
+    if (v23 == 1)
     {
       v14 = pp_contacts_log_handle();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
@@ -321,7 +317,7 @@ LABEL_42:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v27 = v13;
+        v26 = v13;
         _os_log_error_impl(&dword_23224A000, v20, OS_LOG_TYPE_ERROR, "contactNameRecordChangeResultWithChanges failed with error: %@", buf, 0xCu);
       }
 
@@ -335,7 +331,7 @@ LABEL_42:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v27 = v9;
+      v26 = v9;
       _os_log_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEFAULT, "failed to load CN change history during changes call: %@", buf, 0xCu);
     }
 
@@ -352,27 +348,25 @@ LABEL_42:
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (BOOL)iterContactNameRecordsForClient:(id)client error:(id *)error block:(id)block
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   blockCopy = block;
   contactStorage = self->_contactStorage;
-  v26 = 0;
-  v11 = [(PPContactStorage *)contactStorage contactsChangeHistoryForClient:clientCopy error:&v26];
-  v12 = v26;
+  v25 = 0;
+  v11 = [(PPContactStorage *)contactStorage contactsChangeHistoryForClient:clientCopy error:&v25];
+  v12 = v25;
   if (!v11)
   {
     v13 = pp_contacts_log_handle();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v28 = v12;
+      v27 = v12;
       _os_log_impl(&dword_23224A000, v13, OS_LOG_TYPE_DEFAULT, "PPLocalContactStore: failed to load CN change history during full name load: %@", buf, 0xCu);
     }
 
@@ -384,15 +378,15 @@ LABEL_42:
   }
 
   v15 = self->_contactStorage;
-  v25 = 0;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __67__PPLocalContactStore_iterContactNameRecordsForClient_error_block___block_invoke;
-  v23[3] = &unk_278972788;
+  v24 = 0;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __67__PPLocalContactStore_iterContactNameRecordsForClient_error_block___block_invoke;
+  v22[3] = &unk_278972788;
   v16 = blockCopy;
-  v24 = v16;
-  v17 = [(PPContactStorage *)v15 iterAllNameRecordsFromAllSourcesWithError:&v25 block:v23];
-  v18 = v25;
+  v23 = v16;
+  v17 = [(PPContactStorage *)v15 iterAllNameRecordsFromAllSourcesWithError:&v24 block:v22];
+  v18 = v24;
   if (v17)
   {
     if (v11)
@@ -407,7 +401,7 @@ LABEL_42:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v28 = v18;
+      v27 = v18;
       _os_log_error_impl(&dword_23224A000, v19, OS_LOG_TYPE_ERROR, "PPLocalContactStore: failed to load internal name records: %@", buf, 0xCu);
     }
 
@@ -418,7 +412,6 @@ LABEL_42:
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -436,25 +429,23 @@ void __67__PPLocalContactStore_iterContactNameRecordsForClient_error_block___blo
 
 - (void)feedbackDisambiguationResultWithChoicesIdentifiers:(id)identifiers chosenContactIdentifier:(id)identifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   identifierCopy = identifier;
   v7 = pp_contacts_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134218242;
-    v10 = [identifiersCopy count];
-    v11 = 2112;
-    v12 = identifierCopy;
-    _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "PPLocalContactStore: feedbackDisambiguationResultWithChoicesIdentifiers choice count: %tu chose: %@", &v9, 0x16u);
+    v8 = 134218242;
+    v9 = [identifiersCopy count];
+    v10 = 2112;
+    v11 = identifierCopy;
+    _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "PPLocalContactStore: feedbackDisambiguationResultWithChoicesIdentifiers choice count: %tu chose: %@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)upcomingRelevantContactsForQuery:(id)query error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   v7 = objc_opt_new();
   startDate = [queryCopy startDate];
@@ -482,13 +473,13 @@ void __67__PPLocalContactStore_iterContactNameRecordsForClient_error_block___blo
       v15 = [(PPLocalContactStore *)self resolveContactsForNamedEntities:v14];
       v16 = objc_opt_new();
       v17 = [v15 sortedArrayUsingComparator:&__block_literal_global_122];
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __62__PPLocalContactStore_upcomingRelevantContactsForQuery_error___block_invoke_2;
-      v25[3] = &unk_278972760;
-      v26 = v16;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __62__PPLocalContactStore_upcomingRelevantContactsForQuery_error___block_invoke_2;
+      v24[3] = &unk_278972760;
+      v25 = v16;
       v18 = v16;
-      v19 = [v17 _pas_filteredArrayWithTest:v25];
+      v19 = [v17 _pas_filteredArrayWithTest:v24];
 
       v20 = pp_contacts_log_handle();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
@@ -496,9 +487,9 @@ void __67__PPLocalContactStore_iterContactNameRecordsForClient_error_block___blo
         v21 = [v15 count];
         v22 = [v19 count];
         *buf = 134218240;
-        v28 = v21;
-        v29 = 2048;
-        v30 = v22;
+        v27 = v21;
+        v28 = 2048;
+        v29 = v22;
         _os_log_impl(&dword_23224A000, v20, OS_LOG_TYPE_INFO, "PPLocalContactStore: resolved a total of %tu matches into %tu contacts.", buf, 0x16u);
       }
     }
@@ -527,8 +518,6 @@ void __67__PPLocalContactStore_iterContactNameRecordsForClient_error_block___blo
 
     v19 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -566,22 +555,22 @@ uint64_t __62__PPLocalContactStore_upcomingRelevantContactsForQuery_error___bloc
 
 - (id)resolveContactsForNamedEntities:(id)entities
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   v5 = objc_opt_new();
   contactStorage = self->_contactStorage;
-  v18 = 0;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __55__PPLocalContactStore_resolveContactsForNamedEntities___block_invoke;
-  v14[3] = &unk_278972738;
+  v17 = 0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __55__PPLocalContactStore_resolveContactsForNamedEntities___block_invoke;
+  v13[3] = &unk_278972738;
   v7 = entitiesCopy;
-  v15 = v7;
+  v14 = v7;
   v8 = v5;
-  v16 = v8;
+  v15 = v8;
   selfCopy = self;
-  LOBYTE(contactStorage) = [(PPContactStorage *)contactStorage iterAllNameRecordsFromAllSourcesWithError:&v18 block:v14];
-  v9 = v18;
+  LOBYTE(contactStorage) = [(PPContactStorage *)contactStorage iterAllNameRecordsFromAllSourcesWithError:&v17 block:v13];
+  v9 = v17;
   if (contactStorage)
   {
     v10 = v8;
@@ -593,49 +582,47 @@ uint64_t __62__PPLocalContactStore_upcomingRelevantContactsForQuery_error___bloc
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v9;
+      v19 = v9;
       _os_log_error_impl(&dword_23224A000, v11, OS_LOG_TYPE_ERROR, "PPLocalContactStore: error iterating name records: %@", buf, 0xCu);
     }
 
     v10 = MEMORY[0x277CBEBF8];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 void __55__PPLocalContactStore_resolveContactsForNamedEntities___block_invoke(uint64_t a1, void *a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 source] == 1)
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     obj = *(a1 + 32);
-    v38 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
-    if (!v38)
+    v37 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+    if (!v37)
     {
       goto LABEL_20;
     }
 
-    v37 = *v41;
+    v36 = *v40;
     while (1)
     {
       v4 = 0;
       do
       {
         v5 = a1;
-        if (*v41 != v37)
+        if (*v40 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v40 + 1) + 8 * v4);
-        v39 = objc_autoreleasePoolPush();
+        v6 = *(*(&v39 + 1) + 8 * v4);
+        v38 = objc_autoreleasePoolPush();
         v7 = [v3 firstName];
         v8 = [v6 item];
         v9 = [v8 name];
@@ -675,14 +662,14 @@ void __55__PPLocalContactStore_resolveContactsForNamedEntities___block_invoke(ui
 LABEL_13:
           v27 = [v24 _scoredContactFromContactsRecord:v3 score:v26];
           [v23 addObject:v27];
-          v28 = v39;
+          v28 = v38;
 LABEL_14:
 
           goto LABEL_15;
         }
 
         [*(v5 + 48) similarityForNamedEntity:v6 nameRecord:v3];
-        v28 = v39;
+        v28 = v38;
         if (v29 > 0.5)
         {
           v30 = v29;
@@ -699,9 +686,9 @@ LABEL_15:
         ++v4;
       }
 
-      while (v38 != v4);
-      v34 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
-      v38 = v34;
+      while (v37 != v4);
+      v34 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v37 = v34;
       if (!v34)
       {
 LABEL_20:
@@ -710,8 +697,6 @@ LABEL_20:
       }
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_scoredContactFromContactsRecord:(id)record score:(double)score
@@ -791,7 +776,7 @@ LABEL_20:
 
 - (id)rankedContactsWithQuery:(id)query error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   queryCopy = query;
   if ([queryCopy hasNoConstraints])
   {
@@ -815,18 +800,18 @@ LABEL_20:
       {
         v11 = MEMORY[0x277CCA9B8];
         v12 = *MEMORY[0x277D3A580];
-        v21 = *MEMORY[0x277D3A588];
-        v22[0] = @"PPLocalContactStore rankedContactsWithQuery passed PPContactQuery with onlyQueryMostRelevantContacts and an unsupported matching property";
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+        v20 = *MEMORY[0x277D3A588];
+        v21[0] = @"PPLocalContactStore rankedContactsWithQuery passed PPContactQuery with onlyQueryMostRelevantContacts and an unsupported matching property";
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
         *error = [v11 errorWithDomain:v12 code:8 userInfo:v13];
       }
 
       v14 = pp_default_log_handle();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
-        v19 = 138412290;
-        v20 = @"PPLocalContactStore rankedContactsWithQuery passed PPContactQuery with onlyQueryMostRelevantContacts and an unsupported matching property";
-        _os_log_fault_impl(&dword_23224A000, v14, OS_LOG_TYPE_FAULT, "%@", &v19, 0xCu);
+        v18 = 138412290;
+        v19 = @"PPLocalContactStore rankedContactsWithQuery passed PPContactQuery with onlyQueryMostRelevantContacts and an unsupported matching property";
+        _os_log_fault_impl(&dword_23224A000, v14, OS_LOG_TYPE_FAULT, "%@", &v18, 0xCu);
       }
 
       error = 0;
@@ -846,17 +831,15 @@ LABEL_20:
       v15 = pp_contacts_log_handle();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v18 = *error;
-        v19 = 138412290;
-        v20 = v18;
-        _os_log_error_impl(&dword_23224A000, v15, OS_LOG_TYPE_ERROR, "rankedContactsWithQuery: %@", &v19, 0xCu);
+        v17 = *error;
+        v18 = 138412290;
+        v19 = v17;
+        _os_log_error_impl(&dword_23224A000, v15, OS_LOG_TYPE_ERROR, "rankedContactsWithQuery: %@", &v18, 0xCu);
       }
 
       error = 0;
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return error;
 }

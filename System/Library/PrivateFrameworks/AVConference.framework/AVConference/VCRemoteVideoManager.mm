@@ -392,7 +392,7 @@ uint64_t __64__VCRemoteVideoManager_resetDidReceiveFirstFrameForStreamToken___bl
   return v4;
 }
 
-uint64_t __53__VCRemoteVideoManager_doesQueueExistForStreamToken___block_invoke(void *a1)
+void *__53__VCRemoteVideoManager_doesQueueExistForStreamToken___block_invoke(void *a1)
 {
   result = [*(a1[4] + 8) objectForKeyedSubscript:a1[5]];
   *(*(a1[6] + 8) + 24) = result != 0;
@@ -1016,7 +1016,7 @@ LABEL_16:
 
 - (BOOL)setLayerBoundsForStreamTokenWithArguments:(id)arguments error:(id *)error
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v7 = [arguments objectForKeyedSubscript:@"conferenceCallID"];
   v8 = [arguments objectForKeyedSubscript:@"conferenceVisualRectangle"];
   if (v7)
@@ -1041,89 +1041,93 @@ LABEL_16:
   if ([(NSMutableDictionary *)self->_queuesForStreamTokenDict objectForKeyedSubscript:v7])
   {
     QueueForStreamToken = _VCRemoteVideoManager_GetQueueForStreamToken(self, unsignedIntValue, 0);
-    v47 = NSRectFromString(v10);
-    if (VideoUtil_LayerBoundsAreValid(v47.origin.x, v47.origin.y, v47.size.width, v47.size.height))
+    v51 = NSRectFromString(v10);
+    x = v51.origin.x;
+    y = v51.origin.y;
+    width = v51.size.width;
+    height = v51.size.height;
+    if (VideoUtil_LayerBoundsAreValid(v51.origin.x, v51.origin.y, v51.size.width, v51.size.height))
     {
-      v14 = [arguments objectForKeyedSubscript:@"USERXPCARGUMENTS"];
-      v15 = [MEMORY[0x1E6979370] handleFromXPCRepresentation:v14];
-      if (v15)
+      v18 = [arguments objectForKeyedSubscript:@"USERXPCARGUMENTS"];
+      v19 = [MEMORY[0x1E6979370] handleFromXPCRepresentation:v18];
+      if (v19)
       {
-        v16 = v15;
-        v17 = VCImageQueue_setCALayerSize(QueueForStreamToken, v15);
-        if (v17)
+        v20 = v19;
+        v21 = VCImageQueue_setCALayerSize(QueueForStreamToken, v19, x, y, width, height);
+        if (v21)
         {
           if (VRTraceGetErrorLogLevelForModule() >= 8)
           {
-            v18 = VRTraceErrorLogLevelToCSTR();
-            v19 = *MEMORY[0x1E6986650];
-            v20 = *MEMORY[0x1E6986650];
+            v22 = VRTraceErrorLogLevelToCSTR();
+            v23 = *MEMORY[0x1E6986650];
+            v24 = *MEMORY[0x1E6986650];
             if (*MEMORY[0x1E6986640] == 1)
             {
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
               {
                 if (QueueForStreamToken)
                 {
-                  v21 = [objc_msgSend(QueueForStreamToken "description")];
+                  v25 = [objc_msgSend(QueueForStreamToken "description")];
                 }
 
                 else
                 {
-                  v21 = "<nil>";
+                  v25 = "<nil>";
                 }
 
                 *buf = 136316930;
-                *&buf[4] = v18;
-                v32 = 2080;
-                v33 = "[VCRemoteVideoManager setLayerBoundsForStreamTokenWithArguments:error:]";
-                v34 = 1024;
-                v35 = 669;
+                *&buf[4] = v22;
                 v36 = 2080;
-                v37 = v21;
-                v38 = 2112;
+                v37 = "[VCRemoteVideoManager setLayerBoundsForStreamTokenWithArguments:error:]";
+                v38 = 1024;
+                v39 = 669;
+                v40 = 2080;
+                v41 = v25;
+                v42 = 2112;
                 selfCopy = v10;
-                v40 = 2048;
-                v41 = v16;
-                v42 = 1024;
-                v43 = unsignedIntValue;
-                v44 = 1024;
-                v45 = 0;
-                _os_log_impl(&dword_1DB56E000, v19, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VCRemoteVideoManager: queue=%s --> set layer bounds=%@ caFenceHandle=%p for streamToken=%u(mode=%d)", buf, 0x46u);
+                v44 = 2048;
+                v45 = v20;
+                v46 = 1024;
+                v47 = unsignedIntValue;
+                v48 = 1024;
+                v49 = 0;
+                _os_log_impl(&dword_1DB56E000, v23, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VCRemoteVideoManager: queue=%s --> set layer bounds=%@ caFenceHandle=%p for streamToken=%u(mode=%d)", buf, 0x46u);
               }
             }
 
-            else if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+            else if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
             {
               if (QueueForStreamToken)
               {
-                v22 = [objc_msgSend(QueueForStreamToken "description")];
+                v26 = [objc_msgSend(QueueForStreamToken "description")];
               }
 
               else
               {
-                v22 = "<nil>";
+                v26 = "<nil>";
               }
 
               *buf = 136316930;
-              *&buf[4] = v18;
-              v32 = 2080;
-              v33 = "[VCRemoteVideoManager setLayerBoundsForStreamTokenWithArguments:error:]";
-              v34 = 1024;
-              v35 = 669;
+              *&buf[4] = v22;
               v36 = 2080;
-              v37 = v22;
-              v38 = 2112;
+              v37 = "[VCRemoteVideoManager setLayerBoundsForStreamTokenWithArguments:error:]";
+              v38 = 1024;
+              v39 = 669;
+              v40 = 2080;
+              v41 = v26;
+              v42 = 2112;
               selfCopy = v10;
-              v40 = 2048;
-              v41 = v16;
-              v42 = 1024;
-              v43 = unsignedIntValue;
-              v44 = 1024;
-              v45 = 0;
-              _os_log_debug_impl(&dword_1DB56E000, v19, OS_LOG_TYPE_DEBUG, " [%s] %s:%d VCRemoteVideoManager: queue=%s --> set layer bounds=%@ caFenceHandle=%p for streamToken=%u(mode=%d)", buf, 0x46u);
+              v44 = 2048;
+              v45 = v20;
+              v46 = 1024;
+              v47 = unsignedIntValue;
+              v48 = 1024;
+              v49 = 0;
+              _os_log_debug_impl(&dword_1DB56E000, v23, OS_LOG_TYPE_DEBUG, " [%s] %s:%d VCRemoteVideoManager: queue=%s --> set layer bounds=%@ caFenceHandle=%p for streamToken=%u(mode=%d)", buf, 0x46u);
             }
           }
 
-          v23 = 0;
+          v27 = 0;
         }
 
         else
@@ -1144,42 +1148,42 @@ LABEL_16:
           {
             if (objc_opt_respondsToSelector())
             {
-              v26 = [(VCRemoteVideoManager *)self performSelector:sel_logPrefix];
+              v30 = [(VCRemoteVideoManager *)self performSelector:sel_logPrefix];
             }
 
             else
             {
-              v26 = &stru_1F570E008;
+              v30 = &stru_1F570E008;
             }
 
             if (VRTraceGetErrorLogLevelForModule() >= 3)
             {
-              v27 = VRTraceErrorLogLevelToCSTR();
-              v28 = *MEMORY[0x1E6986650];
+              v31 = VRTraceErrorLogLevelToCSTR();
+              v32 = *MEMORY[0x1E6986650];
               if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
               {
                 *buf = 136316418;
-                *&buf[4] = v27;
-                v32 = 2080;
-                v33 = "[VCRemoteVideoManager setLayerBoundsForStreamTokenWithArguments:error:]";
-                v34 = 1024;
-                v35 = 668;
-                v36 = 2112;
-                v37 = v26;
-                v38 = 2048;
+                *&buf[4] = v31;
+                v36 = 2080;
+                v37 = "[VCRemoteVideoManager setLayerBoundsForStreamTokenWithArguments:error:]";
+                v38 = 1024;
+                v39 = 668;
+                v40 = 2112;
+                v41 = v30;
+                v42 = 2048;
                 selfCopy = self;
-                v40 = 2048;
-                v41 = v12;
-                _os_log_error_impl(&dword_1DB56E000, v28, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Invalid CALayer for queue wiht streamToken=%ld", buf, 0x3Au);
+                v44 = 2048;
+                v45 = v12;
+                _os_log_error_impl(&dword_1DB56E000, v32, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Invalid CALayer for queue wiht streamToken=%ld", buf, 0x3Au);
               }
             }
           }
 
-          v23 = -3;
+          v27 = -3;
         }
 
-        v24 = v17 ^ 1;
-        [v16 invalidate];
+        v28 = v21 ^ 1;
+        [v20 invalidate];
         goto LABEL_21;
       }
 
@@ -1192,9 +1196,9 @@ LABEL_16:
     }
 
 LABEL_34:
-    v23 = *buf;
-    LOBYTE(v17) = v29;
-    v24 = v30;
+    v27 = *buf;
+    LOBYTE(v21) = v33;
+    v28 = v34;
     goto LABEL_21;
   }
 
@@ -1207,16 +1211,16 @@ LABEL_34:
     }
   }
 
-  LOBYTE(v17) = 0;
-  v24 = 1;
-  v23 = -2;
+  LOBYTE(v21) = 0;
+  v28 = 1;
+  v27 = -2;
 LABEL_21:
-  if (error && v24)
+  if (error && v28)
   {
-    *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"VCRemoteVideoManager" code:v23 userInfo:0];
+    *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"VCRemoteVideoManager" code:v27 userInfo:0];
   }
 
-  return v17;
+  return v21;
 }
 
 - (BOOL)setTransformForRemoteVideoOrientationEnabledWithArguments:(id)arguments error:(id *)error

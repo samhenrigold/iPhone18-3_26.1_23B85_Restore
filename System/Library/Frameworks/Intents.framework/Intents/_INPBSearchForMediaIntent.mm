@@ -14,7 +14,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   intentMetadata = [(_INPBSearchForMediaIntent *)self intentMetadata];
   dictionaryRepresentation = [intentMetadata dictionaryRepresentation];
@@ -23,30 +23,30 @@
   if ([(NSArray *)self->_mediaItems count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v7 = self->_mediaItems;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation2 = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -62,8 +62,6 @@
   privateSearchForMediaIntentData = [(_INPBSearchForMediaIntent *)self privateSearchForMediaIntentData];
   dictionaryRepresentation4 = [privateSearchForMediaIntentData dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation4 forKeyedSubscript:@"privateSearchForMediaIntentData"];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -239,7 +237,7 @@ LABEL_23:
 
 - (void)writeTo:(id)to
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   toCopy = to;
   intentMetadata = [(_INPBSearchForMediaIntent *)self intentMetadata];
 
@@ -249,33 +247,32 @@ LABEL_23:
     PBDataWriterWriteSubmessage();
   }
 
-  v20 = 0u;
-  v21 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = self->_mediaItems;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v17;
     do
     {
       v11 = 0;
       do
       {
-        if (*v19 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
@@ -296,8 +293,6 @@ LABEL_23:
     privateSearchForMediaIntentData2 = [(_INPBSearchForMediaIntent *)self privateSearchForMediaIntentData];
     PBDataWriterWriteSubmessage();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addMediaItems:(id)items

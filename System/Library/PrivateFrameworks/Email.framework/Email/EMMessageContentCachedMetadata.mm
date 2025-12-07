@@ -83,46 +83,48 @@
 - (id)cachedValueForKeyPath:(uint64_t)path
 {
   v3 = a2;
+  v4 = v3;
   if (path)
   {
-    v4 = EMLogCategoryMessageLoading();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = EMLogCategoryMessageLoading(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      [(EMMessageContentCachedMetadata *)v3 cachedValueForKeyPath:v4];
+      [(EMMessageContentCachedMetadata *)v4 cachedValueForKeyPath:v5];
     }
 
     _cachedMetadataJSONFromResult = [(EMMessageContentCachedMetadata *)path _cachedMetadataJSONFromResult];
+    v7 = _cachedMetadataJSONFromResult;
     if (_cachedMetadataJSONFromResult)
     {
-      v6 = EMLogCategoryMessageLoading();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = EMLogCategoryMessageLoading(_cachedMetadataJSONFromResult);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        [(EMMessageContentCachedMetadata *)v3 cachedValueForKeyPath:v6];
+        [(EMMessageContentCachedMetadata *)v4 cachedValueForKeyPath:v8];
       }
 
-      v7 = [(EMMessageContentCachedMetadata *)path _cachedValueForKeyPath:v3 fromJSONData:_cachedMetadataJSONFromResult];
+      v9 = [(EMMessageContentCachedMetadata *)path _cachedValueForKeyPath:v4 fromJSONData:v7];
     }
 
     else
     {
-      v8 = EMLogCategoryMessageLoading();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = EMLogCategoryMessageLoading(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [(EMMessageContentCachedMetadata *)v3 cachedValueForKeyPath:v8];
+        [(EMMessageContentCachedMetadata *)v4 cachedValueForKeyPath:v10];
       }
 
       WeakRetained = objc_loadWeakRetained((path + 16));
       contentMessage = [WeakRetained contentMessage];
-      v7 = [contentMessage cachedMetadataOfClass:objc_opt_class() forKey:v3];
+      v9 = [contentMessage cachedMetadataOfClass:objc_opt_class() forKey:v4];
     }
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7;
+  return v9;
 }
 
 - (id)_cachedMetadataJSONFromResult
@@ -155,6 +157,7 @@
       v14 = 0;
       v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:24 error:&v14];
       v9 = v14;
+      v10 = v9;
       if (v8)
       {
         self = [(EMMessageContentCachedMetadata *)self _cachedValueForKeyPath:v5 fromDictionary:v8];
@@ -165,11 +168,11 @@
         if ((self[12] & 1) == 0)
         {
           self[12] = 1;
-          v10 = EMLogCategoryMessageLoading();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v11 = EMLogCategoryMessageLoading(v9);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
-            ef_publicDescription = [v9 ef_publicDescription];
-            [(EMMessageContentCachedMetadata *)ef_publicDescription _cachedValueForKeyPath:buf fromJSONData:v10];
+            ef_publicDescription = [v10 ef_publicDescription];
+            [(EMMessageContentCachedMetadata *)ef_publicDescription _cachedValueForKeyPath:buf fromJSONData:v11];
           }
         }
 
@@ -182,8 +185,6 @@
       self = 0;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return self;
 }
@@ -263,29 +264,26 @@ void __72__EMMessageContentCachedMetadata__cachedValueForKeyPath_fromDictionary_
 
 - (void)cachedValueForKeyPath:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1C6655000, a2, OS_LOG_TYPE_DEBUG, "Getting cached metadata value for key %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1C6655000, a2, OS_LOG_TYPE_DEBUG, "Getting cached metadata value for key %{public}@", &v2, 0xCu);
 }
 
 - (void)cachedValueForKeyPath:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1C6655000, a2, OS_LOG_TYPE_DEBUG, "Got cached metadata value for key %{public}@ from EMContentRepresentation.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1C6655000, a2, OS_LOG_TYPE_DEBUG, "Got cached metadata value for key %{public}@ from EMContentRepresentation.", &v2, 0xCu);
 }
 
 - (void)cachedValueForKeyPath:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "Using EMMessage fallback for cached metadata value for key %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "Using EMMessage fallback for cached metadata value for key %{public}@", &v2, 0xCu);
 }
 
 - (void)_cachedValueForKeyPath:(os_log_t)log fromJSONData:.cold.1(void *a1, uint8_t *buf, os_log_t log)

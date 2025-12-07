@@ -32,15 +32,19 @@
 - (unint64_t)sessionAppRelaunchAttemptsForAppWithIdentifier:(id)identifier;
 - (void)_updateGAXApp:(id)app fromAXApp:(id)xApp;
 - (void)addSessionAppWithIdentifier:(id)identifier;
+- (void)appWithBundleIdentifier:(id)identifier becameActiveWithPid:(int)pid;
 - (void)dealloc;
 - (void)effectiveAppRestrictionWithIdentifier:(id)identifier didChangeState:(int64_t)state;
 - (void)gaxAppDidGoInvalid:(id)invalid;
+- (void)gaxClientDidLoad:(id)load pid:(int)pid;
 - (void)incrementRelaunchAttemptsForSessionAppWithIdentifier:(id)identifier;
 - (void)monitorForPurpleBuddyDeath;
 - (void)resetRelaunchAttempts;
 - (void)resumeEffectiveApp;
 - (void)scheduleResetLaunchAttempts;
+- (void)setEffectiveAppWasPlayingMedia:(BOOL)media;
 - (void)setLastKnownEffectiveApp:(id)app;
+- (void)settingsDidChangeWithServerMode:(unsigned int)mode allowsMotion:(BOOL)motion allowsKeyboardTextInput:(BOOL)input;
 - (void)suspendEffectiveApp;
 - (void)terminateEffectiveApp;
 - (void)updateManagedAppState:(BOOL)state;
@@ -333,6 +337,119 @@ LABEL_30:
   [resetRelaunchAttemptsTimer3 afterDelay:v9 processBlock:5.0];
 }
 
+- (void)settingsDidChangeWithServerMode:(unsigned int)mode allowsMotion:(BOOL)motion allowsKeyboardTextInput:(BOOL)input
+{
+  motionCopy = motion;
+  inputCopy = input;
+  v5 = *&mode;
+  v7 = +[NSMutableArray array];
+  _effectiveApp = [(GAXAppManager *)self _effectiveApp];
+  [v7 axSafelyAddObject:?];
+  _sessionApps = [(GAXAppManager *)self _sessionApps];
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v9 = [_sessionApps countByEnumeratingWithState:&v41 objects:v47 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v42;
+    do
+    {
+      for (i = 0; i != v10; i = i + 1)
+      {
+        if (*v42 != v11)
+        {
+          objc_enumerationMutation(_sessionApps);
+        }
+
+        v13 = *(*(&v41 + 1) + 8 * i);
+        if (![(GAXAppManager *)self _sessionAppIsEffectiveApp:v13])
+        {
+          [v7 axSafelyAddObject:v13];
+        }
+      }
+
+      v10 = [_sessionApps countByEnumeratingWithState:&v41 objects:v47 count:16];
+    }
+
+    while (v10);
+  }
+
+  v29 = _sessionApps;
+  v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  managedApps = [(GAXAppManager *)self managedApps];
+  v15 = [managedApps countByEnumeratingWithState:&v37 objects:v46 count:16];
+  if (v15)
+  {
+    v16 = v15;
+    v17 = *v38;
+    do
+    {
+      for (j = 0; j != v16; j = j + 1)
+      {
+        if (*v38 != v17)
+        {
+          objc_enumerationMutation(managedApps);
+        }
+
+        v19 = *(*(&v37 + 1) + 8 * j);
+        if ([v19 isGAXClientLoaded] && (objc_msgSend(v7, "containsObject:", v19) & 1) == 0)
+        {
+          bundleIdentifier = [v19 bundleIdentifier];
+          v21 = bundleIdentifier;
+          if (bundleIdentifier)
+          {
+            v22 = GAXAllowedRemoteUIProcesses(bundleIdentifier);
+            v23 = [v22 containsObject:v21];
+
+            if (v23)
+            {
+              [v7 addObject:v19];
+            }
+          }
+        }
+      }
+
+      v16 = [managedApps countByEnumeratingWithState:&v37 objects:v46 count:16];
+    }
+
+    while (v16);
+  }
+
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v24 = v7;
+  v25 = [v24 countByEnumeratingWithState:&v33 objects:v45 count:16];
+  if (v25)
+  {
+    v26 = v25;
+    v27 = *v34;
+    do
+    {
+      for (k = 0; k != v26; k = k + 1)
+      {
+        if (*v34 != v27)
+        {
+          objc_enumerationMutation(v24);
+        }
+
+        [*(*(&v33 + 1) + 8 * k) settingsDidChangeWithServerMode:v5 allowsMotion:motionCopy allowsKeyboardTextInput:inputCopy];
+      }
+
+      v26 = [v24 countByEnumeratingWithState:&v33 objects:v45 count:16];
+    }
+
+    while (v26);
+  }
+}
+
 - (void)monitorForPurpleBuddyDeath
 {
   purpleBuddyPIDMonitor = [(GAXAppManager *)self purpleBuddyPIDMonitor];
@@ -347,6 +464,89 @@ LABEL_30:
     v5[4] = self;
     [v4 purpleBuddyPID:v5];
   }
+}
+
+- (void)gaxClientDidLoad:(id)load pid:(int)pid
+{
+  v4 = *&pid;
+  loadCopy = load;
+  [(GAXAppManager *)self updateManagedAppState:0];
+  v7 = [(GAXAppManager *)self _appWithBundleIdentifier:loadCopy];
+  if (v7)
+  {
+    v8 = v7;
+    if ([(_GAXAppRepresentation *)v7 pid]!= v4)
+    {
+      if ([(_GAXAppRepresentation *)v8 pid]!= -1)
+      {
+        v9 = GAXLogCommon();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        {
+          v10 = [NSNumber numberWithInt:v4];
+          v11 = [NSNumber numberWithInt:[(_GAXAppRepresentation *)v8 pid]];
+          v15 = 138543874;
+          v16 = loadCopy;
+          v17 = 2114;
+          v18 = v10;
+          v19 = 2114;
+          v20 = v11;
+          _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "The pid sent from loaded client:(%{public}@: PID:%{public}@) does not match the pid we are managing: (%{public}@). This is expected if the app crashed.", &v15, 0x20u);
+        }
+
+        [(_GAXAppRepresentation *)v8 handleDeath];
+      }
+
+      [(_GAXAppRepresentation *)v8 setPid:v4];
+    }
+
+    if ([(_GAXAppRepresentation *)v8 isGAXClientLoaded])
+    {
+      v12 = GAXLogCommon();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = 138543362;
+        v16 = v8;
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "The GAXClientLoaded flag was already set. Something is out of sync. %{public}@", &v15, 0xCu);
+      }
+    }
+
+    [(_GAXAppRepresentation *)v8 setGaxClientLoaded:1];
+  }
+
+  else
+  {
+    v13 = GAXLogCommon();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = 138543362;
+      v16 = loadCopy;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "GAX client loaded with bundleID:%{public}@ but we did not know about this app. Adding it now", &v15, 0xCu);
+    }
+
+    v8 = [[_GAXAppRepresentation alloc] initWithDelegate:self];
+    [(_GAXAppRepresentation *)v8 setBundleIdentifier:loadCopy];
+    [(_GAXAppRepresentation *)v8 setPid:v4];
+    [(_GAXAppRepresentation *)v8 setGaxClientLoaded:1];
+    managedApps = [(GAXAppManager *)self managedApps];
+    [managedApps addObject:v8];
+  }
+}
+
+- (void)appWithBundleIdentifier:(id)identifier becameActiveWithPid:(int)pid
+{
+  v4 = *&pid;
+  identifierCopy = identifier;
+  if ([identifierCopy isEqualToString:@"com.apple.webapp"])
+  {
+    v6 = [(GAXAppManager *)self _appWithBundleIdentifier:identifierCopy];
+    v7 = v6;
+    if (v6)
+    {
+      [v6 setPid:v4];
+    }
+  }
+
+  _objc_release_x2();
 }
 
 - (void)setLastKnownEffectiveApp:(id)app
@@ -423,6 +623,13 @@ LABEL_30:
   wasPlayingMedia = [_effectiveApp wasPlayingMedia];
 
   return wasPlayingMedia;
+}
+
+- (void)setEffectiveAppWasPlayingMedia:(BOOL)media
+{
+  mediaCopy = media;
+  _effectiveApp = [(GAXAppManager *)self _effectiveApp];
+  [_effectiveApp setWasPlayingMedia:mediaCopy];
 }
 
 - (id)effectiveAppContainedViewsForArchivedFingerPath:(id)path
@@ -970,7 +1177,7 @@ LABEL_11:
 
 - (id)_effectiveApp
 {
-  v3 = GAXAllowedRemoteUIProcesses();
+  v3 = GAXAllowedRemoteUIProcesses(self);
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
@@ -1176,7 +1383,7 @@ LABEL_11:
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v4 = GAXAllowedRemoteUIProcesses();
+  v4 = GAXAllowedRemoteUIProcesses(identifierCopy);
   v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {

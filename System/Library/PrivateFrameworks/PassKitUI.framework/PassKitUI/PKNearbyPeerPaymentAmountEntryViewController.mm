@@ -81,13 +81,13 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_1BD997734(appear, &selRef_viewDidAppear_);
+  sub_1BD997734(appear, &selRef_viewDidAppear_, MEMORY[0x1E69BA818]);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_1BD997734(disappear, &selRef_viewDidDisappear_);
+  sub_1BD997734(disappear, &selRef_viewDidDisappear_, MEMORY[0x1E69BA820]);
 }
 
 - ($85E40A55691FE2F31975A98F57E3065D)pkui_navigationStatusBarStyleDescriptor

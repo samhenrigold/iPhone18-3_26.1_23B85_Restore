@@ -2,7 +2,7 @@
 - (id)URLExceptPrivate;
 - (id)pathExceptPrivate;
 - (uint64_t)isAssetsLibraryURL;
-- (uint64_t)isUbiquitous;
+- (void)isUbiquitous;
 @end
 
 @implementation NSURL(TSPersistence)
@@ -42,7 +42,7 @@
   return v3;
 }
 
-- (uint64_t)isUbiquitous
+- (void)isUbiquitous
 {
   v2 = 0;
   result = [self getResourceValue:&v2 forKey:*MEMORY[0x277CBE8B8] error:0];

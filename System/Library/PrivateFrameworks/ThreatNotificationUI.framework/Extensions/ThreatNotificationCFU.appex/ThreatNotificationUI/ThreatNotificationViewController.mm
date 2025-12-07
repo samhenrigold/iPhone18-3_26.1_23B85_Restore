@@ -33,7 +33,7 @@
   actionCopy = action;
   selfCopy = self;
   specialized ThreatNotificationViewController.processFollowUpItem(_:selectedAction:completion:)(item, v8, v9);
-  sub_1000047C4(v8);
+  sub_1000047C4(v8, v9);
 }
 
 - (void)followUpPerformUpdateWithCompletionHandler:(id)handler
@@ -53,7 +53,7 @@
 
   selfCopy = self;
   specialized ThreatNotificationViewController.followUpPerformUpdate(completionHandler:)(v4, v5);
-  sub_1000047C4(v4);
+  sub_1000047C4(v4, v5);
 }
 
 - (_TtC21ThreatNotificationCFU32ThreatNotificationViewController)initWithNibName:(id)name bundle:(id)bundle

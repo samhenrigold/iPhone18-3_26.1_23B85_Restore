@@ -143,37 +143,37 @@ LABEL_21:
 
 - (id)serializeWithError:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
+  v45 = *MEMORY[0x277D85DE8];
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v24 = 0u;
   TLV8BufferInit();
   operationType = [(HAP2TLVThreadControl *)self operationType];
 
   if (operationType)
   {
     operationType2 = [(HAP2TLVThreadControl *)self operationType];
-    v24 = 0;
-    v7 = [operationType2 serializeWithError:&v24];
-    v8 = v24;
+    v23 = 0;
+    v7 = [operationType2 serializeWithError:&v23];
+    v8 = v23;
 
     if (v8)
     {
@@ -203,9 +203,9 @@ LABEL_13:
     }
 
     formingAllowed2 = [(HAP2TLVThreadControl *)self formingAllowed];
-    v22 = 0;
-    v7 = [formingAllowed2 serializeWithError:&v22];
-    v8 = v22;
+    v21 = 0;
+    v7 = [formingAllowed2 serializeWithError:&v21];
+    v8 = v21;
 
     if (v8)
     {
@@ -219,7 +219,7 @@ LABEL_13:
     if (!v9)
     {
 LABEL_21:
-      v19 = [MEMORY[0x277CBEA90] dataWithBytes:v25 length:?];
+      v19 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:?];
       v8 = 0;
       goto LABEL_24;
     }
@@ -238,9 +238,9 @@ LABEL_19:
   }
 
   threadNetworkCredentials2 = [(HAP2TLVThreadControl *)self threadNetworkCredentials];
-  v23 = 0;
-  v7 = [threadNetworkCredentials2 serializeWithError:&v23];
-  v8 = v23;
+  v22 = 0;
+  v7 = [threadNetworkCredentials2 serializeWithError:&v22];
+  v8 = v22;
 
   if (!v8)
   {
@@ -282,8 +282,6 @@ LABEL_23:
   v19 = 0;
 LABEL_24:
   TLV8BufferFree();
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

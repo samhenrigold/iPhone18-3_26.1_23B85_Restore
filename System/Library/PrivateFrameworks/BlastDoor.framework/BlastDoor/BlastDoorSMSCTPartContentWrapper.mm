@@ -65,7 +65,7 @@
     v11[1] = v7;
     v11[2] = v6;
     v11[3] = v5;
-    sub_214031CA0(v8);
+    sub_214031CA0(v8, v7, v6);
     v14.receiver = v10;
     v14.super_class = v9;
 
@@ -155,7 +155,7 @@
     v9 = &v8[OBJC_IVAR___BlastDoorSMSCTPartAttributedRichCards_sMSCTPartAttributedRichCards];
     *v9 = v6;
     v9[1] = v5;
-    sub_2143001B8(v6);
+    sub_2143001B8(v6, v5);
     v12.receiver = v8;
     v12.super_class = v7;
     v10 = [(BlastDoorSMSCTPartContentWrapper *)&v12 init];

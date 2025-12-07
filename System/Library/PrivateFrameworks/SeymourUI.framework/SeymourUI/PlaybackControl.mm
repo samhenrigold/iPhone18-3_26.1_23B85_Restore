@@ -26,8 +26,9 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_20B83A544(highlighted);
+  sub_20B83A544(highlightedCopy, selfCopy);
 }
 
 - (CGSize)intrinsicContentSize

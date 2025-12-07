@@ -63,7 +63,7 @@
 
   selfCopy = self;
   WorkoutSessionViewController.dismiss(animated:completion:)(animated, v6, v7);
-  sub_20C6861E4(v6);
+  sub_20C6861E4(v6, v7);
 }
 
 - (_TtC9WorkoutUI28WorkoutSessionViewController)initWithNibName:(id)name bundle:(id)bundle

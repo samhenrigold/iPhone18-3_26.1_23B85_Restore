@@ -37,7 +37,7 @@
     v8 = [v7 objectForKeyedSubscript:@"url"];
 
     v5 = [NSString stringWithFormat:@"%@/api/settings/sharedcalendar", v8];
-    v9 = _CalLogSystem();
+    v9 = _CalLogSystem(v5);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;

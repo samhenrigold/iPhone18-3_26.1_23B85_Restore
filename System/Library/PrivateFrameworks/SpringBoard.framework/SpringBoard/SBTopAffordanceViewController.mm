@@ -743,11 +743,11 @@ uint64_t __48__SBTopAffordanceViewController_setHighlighted___block_invoke(uint6
 
     else
     {
-      v8 = SBLogTopAffordance();
+      v8 = SBLogTopAffordance(v13);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Top affordance dismiss upon screen tap", v14, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Top affordance dismiss upon screen tap", v15, 2u);
       }
 
       LOBYTE(v8) = 1;
@@ -2281,10 +2281,12 @@ void __63__SBTopAffordanceViewController__createAlphaAnimatableProperty__block_i
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (action <= 3)
   {
-    v7 = WeakRetained;
-    [WeakRetained topAffordanceViewController:self requestsPerformShortcutActionWithType:qword_21F8A8758[action]];
-    _SBWindowControlsAnalyticsLogAction();
-    WeakRetained = v7;
+    v7 = qword_21F8A8758[action];
+    v8 = qword_21F8A8778[action];
+    v9 = WeakRetained;
+    [WeakRetained topAffordanceViewController:self requestsPerformShortcutActionWithType:v7];
+    _SBWindowControlsAnalyticsLogAction(v8);
+    WeakRetained = v9;
   }
 }
 
@@ -2295,7 +2297,7 @@ void __63__SBTopAffordanceViewController__createAlphaAnimatableProperty__block_i
   {
     v7 = WeakRetained;
     [WeakRetained topAffordanceViewController:self requestsPerformShortcutActionWithType:position + 5];
-    _SBWindowControlsAnalyticsLogAction();
+    _SBWindowControlsAnalyticsLogAction(position | 4);
     WeakRetained = v7;
   }
 }
@@ -2305,10 +2307,12 @@ void __63__SBTopAffordanceViewController__createAlphaAnimatableProperty__block_i
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (configuration <= 4)
   {
-    v7 = WeakRetained;
-    [WeakRetained topAffordanceViewController:self requestsPerformShortcutActionWithType:qword_21F8A8798[configuration]];
-    _SBWindowControlsAnalyticsLogAction();
-    WeakRetained = v7;
+    v7 = qword_21F8A8798[configuration];
+    v8 = qword_21F8A87C0[configuration];
+    v9 = WeakRetained;
+    [WeakRetained topAffordanceViewController:self requestsPerformShortcutActionWithType:v7];
+    _SBWindowControlsAnalyticsLogAction(v8);
+    WeakRetained = v9;
   }
 }
 
@@ -2322,18 +2326,20 @@ void __63__SBTopAffordanceViewController__createAlphaAnimatableProperty__block_i
       goto LABEL_6;
     }
 
-    v7 = 18;
+    v7 = 12;
+    v8 = 18;
   }
 
   else
   {
-    v7 = 19;
+    v7 = 13;
+    v8 = 19;
   }
 
-  v8 = WeakRetained;
-  [WeakRetained topAffordanceViewController:self requestsPerformShortcutActionWithType:v7];
-  _SBWindowControlsAnalyticsLogAction();
-  WeakRetained = v8;
+  v9 = WeakRetained;
+  [WeakRetained topAffordanceViewController:self requestsPerformShortcutActionWithType:v8];
+  _SBWindowControlsAnalyticsLogAction(v7);
+  WeakRetained = v9;
 LABEL_6:
 }
 
@@ -2342,7 +2348,7 @@ LABEL_6:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained topAffordanceViewController:self requestsPerformShortcutActionWithType:3];
 
-  _SBWindowControlsAnalyticsLogAction();
+  _SBWindowControlsAnalyticsLogAction(16);
 }
 
 - (void)windowControlsViewControllerWillExpand:(id)expand

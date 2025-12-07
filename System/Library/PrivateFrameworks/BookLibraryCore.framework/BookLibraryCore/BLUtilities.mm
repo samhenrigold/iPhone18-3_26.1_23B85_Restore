@@ -9,28 +9,28 @@
 
 + (id)buyParametersValueForKey:(id)key fromBuyParams:(id)params
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   [params componentsSeparatedByString:@"&"];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v6 = v21 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = v20 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v18 + 1) + 8 * i) componentsSeparatedByString:{@"=", v18}];
+        v11 = [*(*(&v17 + 1) + 8 * i) componentsSeparatedByString:{@"=", v17}];
         if ([v11 count] == 2)
         {
           v12 = [v11 objectAtIndexedSubscript:0];
@@ -45,7 +45,7 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         continue;
@@ -60,8 +60,6 @@ LABEL_12:
 
   stringByRemovingPercentEncoding = [v14 stringByRemovingPercentEncoding];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return stringByRemovingPercentEncoding;
 }
 
@@ -74,7 +72,7 @@ LABEL_12:
 
   else
   {
-    v4 = BLUtilitiesLog();
+    v4 = BLUtilitiesLog(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *v7 = 0;

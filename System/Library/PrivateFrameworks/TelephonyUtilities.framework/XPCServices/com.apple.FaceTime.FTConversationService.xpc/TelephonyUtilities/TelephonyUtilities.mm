@@ -1,4 +1,4 @@
-uint64_t FTCServiceLog()
+uint64_t FTCServiceLog(uint64_t a1, uint64_t a2)
 {
   if (qword_10001E1A8 != -1)
   {
@@ -13,27 +13,27 @@ void sub_100001890(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   v6 = a3;
   v7 = v6;
-  if (v6 && isFatalPersistentStoreError(v6) || ([*(a1 + 32) userConfiguration], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "simulateFatalPersistentStoreError"), v8, v9))
+  if (v6 && (v8 = isFatalPersistentStoreError(v6)) || ([*(a1 + 32) userConfiguration], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "simulateFatalPersistentStoreError"), v10, v11))
   {
-    v10 = FTCServiceLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v12 = FTCServiceLog(v8, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      sub_10000C78C(v7, v10);
+      sub_10000C78C(v7, v12);
     }
 
-    v11 = [*(a1 + 32) persistentStoreCoordinator];
-    v15 = 0;
-    v12 = [v11 destroyPersistentStoreWithDescription:v5 error:&v15];
-    v13 = v15;
-    v14 = *(a1 + 40);
-    if (v12)
+    v13 = [*(a1 + 32) persistentStoreCoordinator];
+    v17 = 0;
+    v14 = [v13 destroyPersistentStoreWithDescription:v5 error:&v17];
+    v15 = v17;
+    v16 = *(a1 + 40);
+    if (v14)
     {
-      [v11 addPersistentStoreWithDescription:v5 completionHandler:v14];
+      [v13 addPersistentStoreWithDescription:v5 completionHandler:v16];
     }
 
     else
     {
-      (*(v14 + 16))(*(a1 + 40), v5, v13);
+      (*(v16 + 16))(*(a1 + 40), v5, v15);
     }
   }
 
@@ -43,124 +43,128 @@ void sub_100001890(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100001A28(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001A28(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 int main(int argc, const char **argv, const char **envp)
 {
   FTSandboxEnter();
   v5 = objc_autoreleasePoolPush();
-  v6 = 0;
+  v7 = v5;
+  v8 = 0;
   if (argc >= 1 && argv)
   {
     if (*argv)
     {
-      v7 = [NSString stringWithCString:*argv encoding:4];
-      v6 = [v7 lastPathComponent];
+      v9 = [NSString stringWithCString:*argv encoding:4];
+      v8 = [v9 lastPathComponent];
     }
 
     else
     {
-      v6 = 0;
+      v8 = 0;
     }
   }
 
-  v8 = FTCServiceLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = FTCServiceLog(v5, v6);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = v6;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Launching %@", buf, 0xCu);
+    v38 = v8;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Launching %@", buf, 0xCu);
   }
 
-  v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v10 = dispatch_queue_attr_make_with_qos_class(v9, QOS_CLASS_DEFAULT, 0);
+  v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v12 = dispatch_queue_attr_make_with_qos_class(v11, QOS_CLASS_DEFAULT, 0);
 
-  v11 = dispatch_queue_create("com.apple.FaceTime.FTConversationService.queue", v10);
-  v12 = FTCServiceLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = dispatch_queue_create("com.apple.FaceTime.FTConversationService.queue", v12);
+  v15 = FTCServiceLog(v13, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Checking whether device is boot locked", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Checking whether device is boot locked", buf, 2u);
   }
 
-  v13 = [[FTDeviceObserver alloc] initWithQueue:v11];
-  v14 = [(FTDeviceObserver *)v13 isBootLockEnabled];
-  v15 = FTCServiceLog();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-  if (v14)
+  v16 = [[FTDeviceObserver alloc] initWithQueue:v13];
+  v17 = [(FTDeviceObserver *)v16 isBootLockEnabled];
+  v18 = v17;
+  v20 = FTCServiceLog(v17, v19);
+  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+  if (v18)
   {
-    if (v16)
+    if (v21)
     {
       *buf = 138412290;
-      v28 = v6;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Exiting %@; device has not been unlocked since boot.", buf, 0xCu);
+      v38 = v8;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Exiting %@; device has not been unlocked since boot.", buf, 0xCu);
     }
 
 LABEL_23:
     exit(1);
   }
 
-  if (v16)
+  if (v21)
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Creating directory hierarchy", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Creating directory hierarchy", buf, 2u);
   }
 
-  v17 = FTGetUserDataStoreDirectoryURL();
-  v18 = +[NSFileManager defaultManager];
-  v26 = 0;
-  v19 = [v18 createDirectoryAtURL:v17 withIntermediateDirectories:1 attributes:0 error:&v26];
-  v20 = v26;
+  v23 = FTGetUserDataStoreDirectoryURL(v22);
+  v24 = +[NSFileManager defaultManager];
+  v36 = 0;
+  v25 = [v24 createDirectoryAtURL:v23 withIntermediateDirectories:1 attributes:0 error:&v36];
+  v26 = v36;
 
-  if ((v19 & 1) == 0)
+  if ((v25 & 1) == 0)
   {
-    v25 = FTCServiceLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v35 = FTCServiceLog(v27, v28);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v28 = v6;
-      v29 = 2112;
-      v30 = v17;
-      v31 = 2112;
-      v32 = v20;
-      _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Exiting %@; creation of data store directory at %@ failed with error %@", buf, 0x20u);
+      v38 = v8;
+      v39 = 2112;
+      v40 = v23;
+      v41 = 2112;
+      v42 = v26;
+      _os_log_error_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Exiting %@; creation of data store directory at %@ failed with error %@", buf, 0x20u);
     }
 
     goto LABEL_23;
   }
 
-  v21 = [[FTConversationService alloc] initWithQueue:v11];
-  v22 = +[NSXPCListener serviceListener];
-  [v22 setDelegate:v21];
+  v29 = [[FTConversationService alloc] initWithQueue:v13];
+  v30 = +[NSXPCListener serviceListener];
+  [v30 setDelegate:v29];
 
-  objc_autoreleasePoolPop(v5);
-  v23 = FTCServiceLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  objc_autoreleasePoolPop(v7);
+  v33 = FTCServiceLog(v31, v32);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = v22;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Resuming listener %@", buf, 0xCu);
+    v38 = v30;
+    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Resuming listener %@", buf, 0xCu);
   }
 
-  [v22 resume];
+  [v30 resume];
   return 0;
 }
 
-void sub_1000033D4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000033D4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_10000378C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10000378C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -198,11 +202,11 @@ void sub_100003958(void *a1)
   }
 }
 
-void sub_100003BDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100003BDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -233,11 +237,11 @@ void sub_100003DA0(void *a1)
   }
 }
 
-void sub_100003FA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100003FA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -268,10 +272,11 @@ void sub_100004134(void *a1)
   }
 }
 
-void sub_100004400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_100004400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -308,11 +313,11 @@ void sub_1000045C0(void *a1)
   }
 }
 
-void sub_1000047D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000047D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -345,11 +350,11 @@ void sub_100004970(void *a1)
   }
 }
 
-void sub_100004B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100004B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -380,11 +385,11 @@ void sub_100004D08(void *a1)
   }
 }
 
-void sub_100004F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100004F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -419,11 +424,11 @@ void sub_1000050D0(uint64_t a1)
   }
 }
 
-void sub_100005310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100005310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -458,11 +463,11 @@ void sub_1000054D4(void *a1)
   }
 }
 
-void sub_100005714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100005714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -497,11 +502,11 @@ void sub_1000058D8(void *a1)
   }
 }
 
-void sub_100005B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100005B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -649,21 +654,21 @@ void sub_10000780C(id a1, NSPersistentStoreDescription *a2, NSError *a3)
   v5 = a3;
   if (v5)
   {
-    v7 = [NSString stringWithFormat:@"Loading persistent store with description %@ failed with error %@", v4, v5];
-    v8 = FTCServiceLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v8 = [NSString stringWithFormat:@"Loading persistent store with description %@ failed with error %@", v4, v5];
+    v10 = FTCServiceLog(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_10000CD8C(v7, v8);
+      sub_10000CD8C(v8, v10);
     }
 
-    v9 = [NSException exceptionWithName:NSInternalInconsistencyException reason:v7 userInfo:0];
-    objc_exception_throw(v9);
+    v11 = [NSException exceptionWithName:NSInternalInconsistencyException reason:v8 userInfo:0];
+    objc_exception_throw(v11);
   }
 
-  v6 = FTCServiceLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = FTCServiceLog(0, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    sub_10000CE04(v4, v6);
+    sub_10000CE04(v4, v7);
   }
 }
 
@@ -687,11 +692,11 @@ void sub_100007B98(uint64_t a1)
   }
 }
 
-void sub_100007E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100007E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -756,11 +761,11 @@ void sub_100008184(void *a1)
   }
 }
 
-void sub_1000083A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000083A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -779,11 +784,11 @@ void sub_1000083C4(void *a1)
   }
 }
 
-void sub_1000085F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000085F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -840,11 +845,11 @@ void sub_100008928(void *a1)
   }
 }
 
-void sub_100008BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100008BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -877,51 +882,54 @@ void sub_1000091BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_1000091EC(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = FTCServiceLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v4 = FTCServiceLog(WeakRetained, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = 138412290;
-      v4 = WeakRetained;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ connection interrupted", &v3, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ connection interrupted", &v5, 0xCu);
     }
 
-    [WeakRetained invalidate];
+    [v3 invalidate];
   }
 }
 
 void sub_1000092A8(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = FTCServiceLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v4 = FTCServiceLog(WeakRetained, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = 138412290;
-      v4 = WeakRetained;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ connection invalidated", &v3, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ connection invalidated", &v5, 0xCu);
     }
   }
 }
 
-void sub_10000A4C0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000A4C0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-id FTGetUserDataStoreDirectoryURL()
+id FTGetUserDataStoreDirectoryURL(uint64_t a1)
 {
   if (qword_10001E1B8 != -1)
   {
     sub_10000CF00();
   }
 
-  v1 = qword_10001E1B0;
+  v2 = qword_10001E1B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000A524(id a1)
@@ -937,21 +945,21 @@ void sub_10000A524(id a1)
   qword_10001E1B0 = v1;
 }
 
-id FTGetUserDataStoreClassCFileURL()
+id FTGetUserDataStoreClassCFileURL(uint64_t a1)
 {
   if (qword_10001E1C8 != -1)
   {
     sub_10000CF28();
   }
 
-  v1 = qword_10001E1C0;
+  v2 = qword_10001E1C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000A5E4(id a1)
 {
-  v3 = FTGetUserDataStoreDirectoryURL();
+  v3 = FTGetUserDataStoreDirectoryURL(a1);
   v1 = [v3 URLByAppendingPathComponent:@"FaceTime.sqlite3" isDirectory:0];
   v2 = qword_10001E1C0;
   qword_10001E1C0 = v1;
@@ -1020,9 +1028,9 @@ void sub_10000BAFC(uint64_t a1)
   }
 }
 
-void sub_10000BC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000BC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1051,10 +1059,11 @@ void sub_10000BD0C(uint64_t a1, void *a2, void *a3)
 
 void FTSandboxEnter()
 {
-  if ((_set_user_dir_suffix() & 1) == 0)
+  v0 = _set_user_dir_suffix();
+  if ((v0 & 1) == 0)
   {
-    v6 = FTCServiceLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v12 = FTCServiceLog(v0, v1);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10000CFDC();
     }
@@ -1063,13 +1072,14 @@ LABEL_13:
     exit(1);
   }
 
-  bzero(v9, 0x400uLL);
-  v0 = confstr(65537, v9, 0x400uLL);
-  v1 = FTCServiceLog();
-  v2 = v1;
-  if (!v0)
+  bzero(v15, 0x400uLL);
+  v2 = confstr(65537, v15, 0x400uLL);
+  v4 = FTCServiceLog(v2, v3);
+  v5 = v4;
+  if (!v2)
   {
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v8 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+    if (v8)
     {
       sub_10000D0D4();
     }
@@ -1077,25 +1087,26 @@ LABEL_13:
     goto LABEL_11;
   }
 
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446210;
-    v8 = v9;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Created temporary directory: %{public}s", &v7, 0xCu);
+    v13 = 136446210;
+    v14 = v15;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Created temporary directory: %{public}s", &v13, 0xCu);
   }
 
-  v3 = realpath_DARWIN_EXTSN(v9, 0);
-  if (!v3)
+  v6 = realpath_DARWIN_EXTSN(v15, 0);
+  if (!v6)
   {
-    v4 = FTCServiceLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v10 = FTCServiceLog(0, v7);
+    v8 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    if (v8)
     {
       sub_10000D058();
     }
 
 LABEL_11:
-    v5 = FTCServiceLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v11 = FTCServiceLog(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10000D058();
     }
@@ -1103,13 +1114,14 @@ LABEL_11:
     goto LABEL_13;
   }
 
-  free(v3);
+  free(v6);
 }
 
-void sub_10000C0B8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000C0B8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 id FTManagedConversationLink.__allocating_init(entity:insertInto:)(void *a1, void *a2)
@@ -1144,12 +1156,11 @@ id static FTManagedConversationLink.fetchRequest()()
   return v2;
 }
 
-uint64_t sub_10000C2C8@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_10000C2C8@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *v1;
   type metadata accessor for FTManagedConversationLink();
   result = sub_10000D160();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
@@ -1178,12 +1189,11 @@ id static FTManagedHandle.fetchRequest()()
   return v2;
 }
 
-uint64_t sub_10000C484@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_10000C484@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *v1;
   type metadata accessor for FTManagedHandle();
   result = sub_10000D160();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
@@ -1212,12 +1222,11 @@ id static FTManagedKeyValue.fetchRequest()()
   return v2;
 }
 
-uint64_t sub_10000C644@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_10000C644@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *v1;
   type metadata accessor for FTManagedKeyValue();
   result = sub_10000D160();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
@@ -1262,7 +1271,7 @@ void sub_10000CE7C(const char *a1)
 {
   v1 = NSStringFromSelector(a1);
   sub_1000033F0();
-  sub_10000A4C0(&_mh_execute_header, v2, v3, "Connection is not entitled to use %@", v4, v5, v6, v7, v8);
+  sub_10000A4C0(&_mh_execute_header, v2, v3, "Connection is not entitled to use %@", v4, v5, v6, v7);
 }
 
 void sub_10000CF64(uint64_t a1, NSObject *a2)
@@ -1274,21 +1283,21 @@ void sub_10000CF64(uint64_t a1, NSObject *a2)
 
 void sub_10000CFDC()
 {
-  v0 = *__error();
+  __error();
   sub_10000C0D8();
-  sub_10000C0B8(&_mh_execute_header, v1, v2, "failed to set user_dir_suffix path component: %{darwin.errno}d", v3, v4, v5, v6, v7);
+  sub_10000C0B8(&_mh_execute_header, v0, v1, "failed to set user_dir_suffix path component: %{darwin.errno}d", v2, v3, v4, v5);
 }
 
 void sub_10000D058()
 {
-  v0 = *__error();
+  __error();
   sub_10000C0D8();
-  sub_10000C0B8(&_mh_execute_header, v1, v2, "failed to resolve temporary directory: %{darwin.errno}d", v3, v4, v5, v6, v7);
+  sub_10000C0B8(&_mh_execute_header, v0, v1, "failed to resolve temporary directory: %{darwin.errno}d", v2, v3, v4, v5);
 }
 
 void sub_10000D0D4()
 {
-  v0 = *__error();
+  __error();
   sub_10000C0D8();
-  sub_10000C0B8(&_mh_execute_header, v1, v2, "failed to create temporary directory: %{darwin.errno}d", v3, v4, v5, v6, v7);
+  sub_10000C0B8(&_mh_execute_header, v0, v1, "failed to create temporary directory: %{darwin.errno}d", v2, v3, v4, v5);
 }

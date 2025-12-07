@@ -110,7 +110,9 @@
       }
     }
 
-    self->_dirtyRange = NSUnionRange(v12, range);
+    v13 = NSUnionRange(v12, range);
+    a2 = v13.length;
+    self->_dirtyRange = v13;
     self->_delta += delta;
   }
 
@@ -123,52 +125,53 @@ LABEL_16:
 
   if (location < location + length)
   {
-    v13 = location;
-    while (!IsParagraphBreakingCharacter([storage characterAtIndex:v13]))
+    v14 = location;
+    do
     {
-      ++v13;
-      if (!--length)
+      v15 = [storage characterAtIndex:v14];
+      if (IsParagraphBreakingCharacter(v15, v16))
       {
-        goto LABEL_14;
+        goto LABEL_16;
       }
+
+      ++v14;
     }
 
-    goto LABEL_16;
+    while (--length);
   }
 
-LABEL_14:
   if (storage)
   {
-    [storage paragraphEnumeratorAtCharIndex:location styleProvider:0];
+    objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(storage, a2, location, 0);
   }
 
   else
   {
-    memset(&v14, 0, sizeof(v14));
+    memset(&v17, 0, sizeof(v17));
   }
 
-  [(TSWPCTTypesetterCache *)self->_typesetterCache removeTypesetterForParagraphIndex:TSWPParagraphEnumerator::relevantParagraphIndex(&v14)];
-  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v14);
+  [(TSWPCTTypesetterCache *)self->_typesetterCache removeTypesetterForParagraphIndex:TSWPParagraphEnumerator::relevantParagraphIndex(&v17)];
+  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v17);
 LABEL_17:
-  [(TSWPLayoutOwner *)self->_owner layoutManagerNeedsLayout:self, *&v14.var0, *&v14.var2, *&v14.var4, *&v14.var6];
+  [(TSWPLayoutOwner *)self->_owner layoutManagerNeedsLayout:self, *&v17.var0, *&v17.var2, *&v17.var4, *&v17.var6];
 }
 
 - (void)willRemoveAttachmentLayout:(id)layout
 {
-  v4 = [objc_msgSend(objc_msgSend(layout "info")];
+  [objc_msgSend(objc_msgSend(layout "info")];
   storage = self->_storage;
   if (storage)
   {
-    [(TSWPStorage *)storage paragraphEnumeratorAtCharIndex:v4 styleProvider:0];
+    objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(storage);
   }
 
   else
   {
-    memset(&v6, 0, sizeof(v6));
+    memset(&v5, 0, sizeof(v5));
   }
 
-  [(TSWPCTTypesetterCache *)self->_typesetterCache removeTypesetterForParagraphIndex:TSWPParagraphEnumerator::relevantParagraphIndex(&v6)];
-  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v6);
+  [(TSWPCTTypesetterCache *)self->_typesetterCache removeTypesetterForParagraphIndex:TSWPParagraphEnumerator::relevantParagraphIndex(&v5)];
+  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v5);
 }
 
 - (BOOL)needsLayoutInColumn:(id)column

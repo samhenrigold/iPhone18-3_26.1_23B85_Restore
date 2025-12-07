@@ -860,8 +860,8 @@ LABEL_54:
 
   if (self->_poseAnalyzer || self->_meshAnalyzer)
   {
-    [(VCPCaptureAnalysisSession *)self transformForAngle:self->_rotationAngleForFacePose pixelBuffer:buffer];
-    [(VCPCaptureAnalysisSession *)self flipTransform:&v115];
+    objc_msgSend_transformForAngle_pixelBuffer_(self);
+    objc_msgSend_flipTransform_(self);
     v128.origin.x = x;
     v128.origin.y = y;
     v128.size.width = width;

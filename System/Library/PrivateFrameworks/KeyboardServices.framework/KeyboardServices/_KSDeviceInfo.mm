@@ -1,6 +1,7 @@
 @interface _KSDeviceInfo
 + (id)ksDecviceWithName:(id)name swVersion:(id)version model:(id)model modelDisplayName:(id)displayName;
 + (id)ksDecviceWithiCloudDeviceInfo:(id)info;
++ (id)ksDeviceWithName:(id)name needsUpgrade:(BOOL)upgrade;
 + (id)ksDeviceWithName:(id)name swVersion:(id)version;
 @end
 
@@ -39,6 +40,18 @@
   [(_KSDeviceInfo *)v11 setModelDisplayName:displayNameCopy];
 
   return v11;
+}
+
++ (id)ksDeviceWithName:(id)name needsUpgrade:(BOOL)upgrade
+{
+  upgradeCopy = upgrade;
+  nameCopy = name;
+  v6 = objc_alloc_init(_KSDeviceInfo);
+  [(_KSDeviceInfo *)v6 setName:nameCopy];
+
+  [(_KSDeviceInfo *)v6 setNeedsUpdate:upgradeCopy];
+
+  return v6;
 }
 
 + (id)ksDeviceWithName:(id)name swVersion:(id)version

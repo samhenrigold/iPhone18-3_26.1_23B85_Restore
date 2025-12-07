@@ -180,80 +180,81 @@
 + (id)loadUserObjectForURL:(id)l expectedClass:(Class)class strict:(BOOL)strict error:(id *)error
 {
   strictCopy = strict;
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (![lCopy checkResourceIsReachableAndReturnError:error])
   {
-    v15 = 0;
+    v16 = 0;
     goto LABEL_15;
   }
 
   v10 = objc_autoreleasePoolPush();
-  v22 = 0;
-  v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfURL:lCopy options:1 error:&v22];
-  v12 = v22;
+  v24 = 0;
+  v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfURL:lCopy options:1 error:&v24];
+  v12 = v24;
+  v13 = v12;
   if (v11)
   {
-    v13 = MEMORY[0x1E696ACD0];
-    v14 = [MEMORY[0x1E695DFD8] setWithObject:class];
-    v20 = 0;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error___block_invoke;
-    v21[3] = &__block_descriptor_40_e27_v16__0__NSKeyedUnarchiver_8lu32l8;
-    v21[4] = class;
-    v15 = [v13 pf_unarchivedObjectOfClasses:v14 fromData:v11 strict:strictCopy classReplacementBlock:v21 error:&v20];
-    v16 = v20;
+    v14 = MEMORY[0x1E696ACD0];
+    v15 = [MEMORY[0x1E695DFD8] setWithObject:class];
+    v22 = 0;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error___block_invoke;
+    v23[3] = &__block_descriptor_40_e27_v16__0__NSKeyedUnarchiver_8lu32l8;
+    v23[4] = class;
+    v16 = [v14 pf_unarchivedObjectOfClasses:v15 fromData:v11 strict:strictCopy classReplacementBlock:v23 error:&v22];
+    v17 = v22;
 
-    if (v15)
+    if (v16)
     {
       goto LABEL_11;
     }
 
-    v17 = PRLogModel();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v19 = PRLogModel(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v24 = lCopy;
-      v25 = 2112;
+      v26 = lCopy;
+      v27 = 2112;
       classCopy2 = class;
-      v27 = 2114;
-      v28 = v16;
-      _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "Unable to unarchive user object @ %@; expected class %@: %{public}@", buf, 0x20u);
+      v29 = 2114;
+      v30 = v17;
+      _os_log_debug_impl(&dword_1A8AA7000, v19, OS_LOG_TYPE_DEBUG, "Unable to unarchive user object @ %@; expected class %@: %{public}@", buf, 0x20u);
     }
 
-    v12 = v16;
+    v13 = v17;
   }
 
   else
   {
-    v17 = PRLogModel();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v19 = PRLogModel(v12);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v24 = lCopy;
-      v25 = 2112;
+      v26 = lCopy;
+      v27 = 2112;
       classCopy2 = class;
-      v27 = 2114;
-      v28 = v12;
-      _os_log_debug_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEBUG, "Unable to load user object @ %@; expected class %@: %{public}@", buf, 0x20u);
+      v29 = 2114;
+      v30 = v13;
+      _os_log_debug_impl(&dword_1A8AA7000, v19, OS_LOG_TYPE_DEBUG, "Unable to load user object @ %@; expected class %@: %{public}@", buf, 0x20u);
     }
   }
 
-  v15 = 0;
-  v16 = v12;
+  v16 = 0;
+  v17 = v13;
 LABEL_11:
 
   objc_autoreleasePoolPop(v10);
-  if (error && v16)
+  if (error && v17)
   {
-    v18 = v16;
-    *error = v16;
+    v20 = v17;
+    *error = v17;
   }
 
 LABEL_15:
 
-  return v15;
+  return v16;
 }
 
 void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error___block_invoke(uint64_t a1, void *a2)
@@ -268,48 +269,49 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 + (BOOL)storeUserObject:(id)object path:(id)path atURL:(id)l clearCache:(BOOL)cache error:(id *)error
 {
   cacheCopy = cache;
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   pathCopy = path;
   lCopy = l;
+  v14 = lCopy;
   if (cacheCopy)
   {
-    [PRPosterPathModelObjectCache invalidateModelObjectCacheForPath:pathCopy];
+    lCopy = [PRPosterPathModelObjectCache invalidateModelObjectCacheForPath:pathCopy];
   }
 
-  v14 = PRLogModel();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = PRLogModel(lCopy);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v32 = objectCopy;
-    v33 = 2112;
-    v34 = pathCopy;
-    v35 = 2112;
-    v36 = lCopy;
-    _os_log_debug_impl(&dword_1A8AA7000, v14, OS_LOG_TYPE_DEBUG, "Storing %@ for path %@ to URL '%@'", buf, 0x20u);
+    v31 = objectCopy;
+    v32 = 2112;
+    v33 = pathCopy;
+    v34 = 2112;
+    v35 = v14;
+    _os_log_debug_impl(&dword_1A8AA7000, v15, OS_LOG_TYPE_DEBUG, "Storing %@ for path %@ to URL '%@'", buf, 0x20u);
   }
 
   if (objectCopy)
   {
-    v30 = 0;
-    v15 = [pathCopy ensureContentsURLIsReachableAndReturnError:&v30];
-    v16 = v30;
-    v17 = v16;
-    if (v15)
+    v29 = 0;
+    v16 = [pathCopy ensureContentsURLIsReachableAndReturnError:&v29];
+    v17 = v29;
+    v18 = v17;
+    if (v16)
     {
-      v29 = 0;
-      v18 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:objectCopy requiringSecureCoding:1 error:&v29];
-      v19 = v29;
-      v20 = v19;
-      if (v19)
+      v28 = 0;
+      v19 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:objectCopy requiringSecureCoding:1 error:&v28];
+      v20 = v28;
+      v21 = v20;
+      if (v20)
       {
         if (error)
         {
-          v21 = v19;
-          *error = v20;
+          v20 = v20;
+          *error = v21;
         }
 
-        v22 = PRLogModel();
+        v22 = PRLogModel(v20);
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           +[PRPosterPathUtilities storeUserObject:path:atURL:clearCache:error:];
@@ -320,26 +322,26 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
       else
       {
-        v28 = 0;
-        v23 = [v18 writeToURL:lCopy options:268435457 error:&v28];
-        v22 = v28;
-        v25 = PRLogModel();
-        v26 = v25;
+        v27 = 0;
+        v23 = [v19 writeToURL:v14 options:268435457 error:&v27];
+        v22 = v27;
+        v24 = PRLogModel(v22);
+        v25 = v24;
         if (v23)
         {
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412802;
-            v32 = objectCopy;
-            v33 = 2112;
-            v34 = pathCopy;
-            v35 = 2112;
-            v36 = lCopy;
-            _os_log_debug_impl(&dword_1A8AA7000, v26, OS_LOG_TYPE_DEBUG, "Successfuly stored %@ for path %@ to URL '%@'", buf, 0x20u);
+            v31 = objectCopy;
+            v32 = 2112;
+            v33 = pathCopy;
+            v34 = 2112;
+            v35 = v14;
+            _os_log_debug_impl(&dword_1A8AA7000, v25, OS_LOG_TYPE_DEBUG, "Successfuly stored %@ for path %@ to URL '%@'", buf, 0x20u);
           }
         }
 
-        else if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           +[PRPosterPathUtilities storeUserObject:path:atURL:clearCache:error:];
         }
@@ -350,12 +352,12 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     {
       if (error)
       {
-        v24 = v16;
-        *error = v17;
+        v17 = v17;
+        *error = v18;
       }
 
-      v20 = PRLogModel();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = PRLogModel(v17);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         +[PRPosterPathUtilities storeUserObject:path:atURL:clearCache:error:];
       }
@@ -1420,38 +1422,39 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 {
   lCopy = l;
   v6 = objc_autoreleasePoolPush();
-  v17 = 0;
-  v7 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:lCopy options:1 error:&v17];
-  v8 = v17;
+  v18 = 0;
+  v7 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:lCopy options:1 error:&v18];
+  v8 = v18;
   v9 = v8;
   if (v7)
   {
-    v16 = 0;
-    v10 = [MEMORY[0x1E696AE40] propertyListWithData:v7 options:0 format:0 error:&v16];
-    v11 = v16;
+    v17 = 0;
+    v10 = [MEMORY[0x1E696AE40] propertyListWithData:v7 options:0 format:0 error:&v17];
+    v11 = v17;
+    v12 = v11;
     if (v11)
     {
-      v12 = PRLogModel();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = PRLogModel(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         +[PRPosterPathUtilities loadUserInfoForURL:error:];
       }
 
-      v13 = v11;
+      v14 = v12;
     }
   }
 
   else
   {
-    v11 = v8;
+    v12 = v8;
     v10 = 0;
   }
 
   objc_autoreleasePoolPop(v6);
-  if (error && v11)
+  if (error && v12)
   {
-    v14 = v11;
-    *error = v11;
+    v15 = v12;
+    *error = v12;
   }
 
   return v10;
@@ -1459,7 +1462,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (BOOL)storeUserInfoToPath:(id)path userInfo:(id)info error:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   infoCopy = info;
   v11 = [PRPosterPathModelObjectCache modelObjectCacheForPath:pathCopy];
@@ -1479,54 +1482,55 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
   v13 = [self userInfoURLForPath:pathCopy];
   v14 = objc_autoreleasePoolPush();
-  v31 = 0;
-  v15 = [MEMORY[0x1E696AE40] dataWithPropertyList:v12 format:200 options:0 error:&v31];
-  v16 = v31;
+  v32 = 0;
+  v15 = [MEMORY[0x1E696AE40] dataWithPropertyList:v12 format:200 options:0 error:&v32];
+  v16 = v32;
+  v17 = v16;
   if (v16)
   {
-    v17 = PRLogModel();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = PRLogModel(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       +[PRPosterPathUtilities storeUserInfoToPath:userInfo:error:];
     }
 
-    v18 = v16;
+    v19 = v17;
   }
 
   if (v15)
   {
     errorCopy = error;
-    v30 = 0;
-    v19 = [v15 writeToURL:v13 options:268435457 error:&v30];
-    v20 = v30;
-    v21 = PRLogModel();
-    v22 = v21;
-    if (v20)
+    v31 = 0;
+    v20 = [v15 writeToURL:v13 options:268435457 error:&v31];
+    v21 = v31;
+    v22 = PRLogModel(v21);
+    v23 = v22;
+    if (v21)
     {
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         +[PRPosterPathUtilities storeUserInfoToPath:userInfo:error:];
       }
 
-      v23 = v20;
-      v22 = v16;
+      v24 = v21;
+      v23 = v17;
     }
 
     else
     {
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         lastPathComponent = [v13 lastPathComponent];
         uRLByDeletingLastPathComponent = [v13 URLByDeletingLastPathComponent];
         *buf = 138412546;
-        v33 = lastPathComponent;
-        v34 = 2112;
-        v35 = uRLByDeletingLastPathComponent;
-        v25 = uRLByDeletingLastPathComponent;
-        _os_log_impl(&dword_1A8AA7000, v22, OS_LOG_TYPE_DEFAULT, "saved '%@'': (path=%@)", buf, 0x16u);
+        v34 = lastPathComponent;
+        v35 = 2112;
+        v36 = uRLByDeletingLastPathComponent;
+        v26 = uRLByDeletingLastPathComponent;
+        _os_log_impl(&dword_1A8AA7000, v23, OS_LOG_TYPE_DEFAULT, "saved '%@'': (path=%@)", buf, 0x16u);
       }
 
-      v23 = v16;
+      v24 = v17;
     }
 
     error = errorCopy;
@@ -1534,18 +1538,18 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
   else
   {
-    v19 = 0;
-    v23 = v16;
+    v20 = 0;
+    v24 = v17;
   }
 
   objc_autoreleasePoolPop(v14);
-  if (error && v23)
+  if (error && v24)
   {
-    v26 = v23;
-    *error = v23;
+    v27 = v24;
+    *error = v24;
   }
 
-  return v19;
+  return v20;
 }
 
 + (BOOL)removeUserInfo:(id)info error:(id *)error
@@ -1620,7 +1624,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (void)storeTitleStyleConfigurationForPath:(char *)a1 titleStyleConfiguration:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterTitleStyleConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1628,7 +1632,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterTitleStyleConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1638,7 +1642,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (void)storeRenderingConfiguration:(char *)a1 forPath:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterRenderingConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1646,7 +1650,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterRenderingConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1656,7 +1660,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (void)storeConfigurableOptionsForPath:(char *)a1 configurableOptions:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterConfigurableOptionsClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1664,7 +1668,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterConfigurableOptionsClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1674,7 +1678,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (void)storeHomeScreenConfigurationForPath:(char *)a1 homeScreenConfiguration:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterHomeScreenConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1682,7 +1686,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterHomeScreenConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1692,7 +1696,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (void)storeFocusConfigurationForPath:(char *)a1 focusConfiguration:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterFocusConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1700,7 +1704,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterFocusConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1710,7 +1714,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (void)storeComplicationLayoutForPath:(char *)a1 complicationLayout:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterComplicationLayoutClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1718,7 +1722,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterComplicationLayoutClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1728,7 +1732,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (void)storeColorVariationsConfigurationForPath:(char *)a1 colorVariationsConfiguration:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterColorVariationsConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1736,7 +1740,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterColorVariationsConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1746,7 +1750,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (void)storeQuickActionsConfigurationForPath:(char *)a1 quickActionsConfiguration:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterQuickActionsConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1754,7 +1758,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterQuickActionsConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1764,7 +1768,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (void)storeAmbientConfigurationForPath:(char *)a1 ambientConfiguration:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterAmbientConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1772,7 +1776,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterAmbientConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1782,7 +1786,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (void)storeSuggestionMetadataForPath:(char *)a1 suggestionMetadata:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterSuggestionMetadataClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1790,7 +1794,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterSuggestionMetadataClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1800,7 +1804,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (void)storeOtherMetadataForPath:(char *)a1 otherMetadata:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterMetadataClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1808,7 +1812,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterMetadataClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1818,7 +1822,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (void)storePosterDescriptorGalleryOptions:(char *)a1 posterDescriptorGalleryOptions:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterDescriptorGalleryOptionsClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1826,7 +1830,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterDescriptorGalleryOptionsClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1836,7 +1840,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (void)storeAmbientWidgetLayoutToPath:(char *)a1 posterAmbientWidgetLayout:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterAmbientWidgetLayoutClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1844,7 +1848,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterAmbientWidgetLayoutClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1858,12 +1862,12 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
   v2 = [v1 lastPathComponent];
   v3 = [v0 URLByDeletingLastPathComponent];
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_9(&dword_1A8AA7000, v4, v5, "Error during dict-plist deserializing of '%@': %{public}@ (path=%@)", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_9(&dword_1A8AA7000, v4, v5, "Error during dict-plist deserializing of '%@': %{public}@ (path=%@)", v6, v7, v8, v9);
 }
 
 + (void)storeUserInfoToPath:(char *)a1 userInfo:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSDictionaryClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1871,7 +1875,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSDictionaryClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1885,7 +1889,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
   v2 = [v1 lastPathComponent];
   v3 = [v0 URLByDeletingLastPathComponent];
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_9(&dword_1A8AA7000, v4, v5, "Error during dict-plist serializing of '%@': %{public}@ (path=%@)", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_9(&dword_1A8AA7000, v4, v5, "Error during dict-plist serializing of '%@': %{public}@ (path=%@)", v6, v7, v8, v9);
 }
 
 + (void)storeUserInfoToPath:userInfo:error:.cold.3()
@@ -1894,12 +1898,12 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
   v2 = [v1 lastPathComponent];
   v3 = [v0 URLByDeletingLastPathComponent];
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_9(&dword_1A8AA7000, v4, v5, "Error during dict-plist writing of '%@': %{public}@ (path=%@)", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_9(&dword_1A8AA7000, v4, v5, "Error during dict-plist writing of '%@': %{public}@ (path=%@)", v6, v7, v8, v9);
 }
 
 + (void)storeUserInfoToPath:(char *)a1 userInfo:error:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1907,7 +1911,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1917,7 +1921,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (void)storeProactiveGalleryOptionsToPath:(char *)a1 proactiveGalleryOptions:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:ATXPosterDescriptorGalleryOptionsClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1925,7 +1929,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:ATXPosterDescriptorGalleryOptionsClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1935,7 +1939,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
 
 + (void)storeProactiveGalleryOptionsToPath:(char *)a1 proactiveGalleryOptions:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1943,7 +1947,7 @@ void __73__PRPosterPathUtilities_loadUserObjectForURL_expectedClass_strict_error
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

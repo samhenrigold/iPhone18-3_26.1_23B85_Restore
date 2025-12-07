@@ -118,7 +118,7 @@ uint64_t __33__TKSmartCardATR_initWithSource___block_invoke(uint64_t a1)
 
 - (id)parseFromSource:(id)source
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   if (((sourceCopy[2])() & 0x80000000) != 0 || (v5 = sourceCopy[2](sourceCopy), v5 < 0))
   {
@@ -129,16 +129,16 @@ uint64_t __33__TKSmartCardATR_initWithSource___block_invoke(uint64_t a1)
   {
     v6 = 0;
     v7 = 0;
-    v23 = v5 & 0xF0;
+    v22 = v5 & 0xF0;
     v8 = v5 & 0xF;
-    v22 = 1;
+    v21 = 1;
     do
     {
       v9 = v7;
       v10 = [[TKSmartCardATRInterfaceGroup alloc] initWithProtocol:v7];
-      v21 = v7;
-      v11 = [(TKSmartCardATRInterfaceGroup *)v10 parseWithY:&v23 toProtocol:&v21 fromSource:sourceCopy hasNext:&v22];
-      v7 = v21;
+      v20 = v7;
+      v11 = [(TKSmartCardATRInterfaceGroup *)v10 parseWithY:&v22 toProtocol:&v20 fromSource:sourceCopy hasNext:&v21];
+      v7 = v20;
 
       if (!v11)
       {
@@ -153,11 +153,11 @@ uint64_t __33__TKSmartCardATR_initWithSource___block_invoke(uint64_t a1)
       }
     }
 
-    while ((v22 & 1) != 0);
+    while ((v21 & 1) != 0);
     if (v8)
     {
       v12 = v8;
-      v13 = &v20 - ((v8 + 15) & 0x10);
+      v13 = &v19 - ((v8 + 15) & 0x10);
       while (1)
       {
         v14 = sourceCopy[2](sourceCopy);
@@ -177,7 +177,7 @@ uint64_t __33__TKSmartCardATR_initWithSource___block_invoke(uint64_t a1)
     else
     {
 LABEL_12:
-      v15 = [MEMORY[0x1E695DEF0] dataWithBytes:&v20 - ((v8 + 15) & 0x10) length:v8];
+      v15 = [MEMORY[0x1E695DEF0] dataWithBytes:&v19 - ((v8 + 15) & 0x10) length:v8];
       historicalBytes = self->_historicalBytes;
       self->_historicalBytes = v15;
 
@@ -191,8 +191,6 @@ LABEL_12:
     selfCopy = 0;
 LABEL_18:
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }
@@ -246,7 +244,7 @@ LABEL_9:
 
 - (NSArray)protocols
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSMutableArray count](self->_interfaces, "count")}];
   v4 = [(TKSmartCardATR *)self interfaceGroupAtIndex:2];
   v5 = [v4 TA];
@@ -259,26 +257,26 @@ LABEL_9:
 
   else
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v7 = self->_interfaces;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v25;
+      v10 = *v24;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v25 != v10)
+          if (*v24 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v24 + 1) + 8 * i);
+          v12 = *(*(&v23 + 1) + 8 * i);
           protocol = [v12 protocol];
           if (protocol)
           {
@@ -311,7 +309,7 @@ LABEL_9:
           }
         }
 
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v9);
@@ -322,8 +320,6 @@ LABEL_9:
       [v3 addObject:&unk_1F5A851B0];
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -353,7 +349,7 @@ LABEL_9:
 
 - (id)description
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD60] stringWithFormat:@"<TKSmartCardATR: %p %02x", self, *-[NSData bytes](self->_bytes, "bytes")];
   if ([(NSMutableArray *)self->_interfaces count])
   {
@@ -375,38 +371,38 @@ LABEL_9:
   v8 = historicalRecords;
   if (historicalRecords)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v9 = [historicalRecords countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v9 = [historicalRecords countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v24;
+      v11 = *v23;
       v12 = "";
       do
       {
         for (i = 0; i != v10; ++i)
         {
           v14 = v3;
-          if (*v24 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v15 = *(*(&v23 + 1) + 8 * i);
+          v15 = *(*(&v22 + 1) + 8 * i);
           v16 = [v15 tag];
           value = [v15 value];
           v18 = [(TKSmartCardATR *)self _formatHexData:value to:0];
-          v22 = v16;
+          v21 = v16;
           v3 = v14;
-          [v14 appendFormat:@"%s%x(%@)", v12, v22, v18];
+          [v14 appendFormat:@"%s%x(%@)", v12, v21, v18];
 
           v12 = " ";
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v10);
@@ -419,8 +415,6 @@ LABEL_9:
   }
 
   [v3 appendString:@">"];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

@@ -26,14 +26,16 @@
 
 uint64_t __36__BLTPairedSyncState_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance___sharedInstance = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedInstance___sharedInstance;
+  sharedInstance___sharedInstance = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (void)setState:(unint64_t)state
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (self->_state != state)
   {
     v5 = objc_alloc_init(BLTPairedSyncStateChangedInfo);
@@ -41,13 +43,11 @@ uint64_t __36__BLTPairedSyncState_sharedInstance__block_invoke(uint64_t a1)
     [(BLTPairedSyncStateChangedInfo *)v5 setNewState:state];
     self->_state = state;
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v9 = @"info";
-    v10[0] = v5;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = @"info";
+    v9[0] = v5;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     [defaultCenter postNotificationName:@"BLTPairedSyncStateChanged" object:self userInfo:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setInitialSyncComplete:(BOOL)complete

@@ -9,7 +9,17 @@
 - (void)_fetchStoreAndSave;
 - (void)_handleStateUpdateIfNecessary;
 - (void)_loadAndBootstrap;
+- (void)_onAirplaneMode:(BOOL)mode;
+- (void)_onAllowSimulatedEvents:(BOOL)events;
+- (void)_onBatterySaverMode:(BOOL)mode;
+- (void)_onDeviceUnlockedSinceBoot:(BOOL)boot;
+- (void)_onHasKoreaCountryCode:(BOOL)code;
+- (void)_onHighThermalState:(BOOL)state;
 - (void)_onLocationAndPrivacyReset:(BOOL)reset;
+- (void)_onLocationServicesEnabled:(BOOL)enabled;
+- (void)_onLocationSimulationInProgress:(BOOL)progress;
+- (void)_onServiceEnabled:(BOOL)enabled;
+- (void)_onUserLocationInsideKorea:(BOOL)korea;
 - (void)_registerForAvengerScanner;
 - (void)_registerForTATrackingAvoidanceServiceWithSettings:(id)settings;
 - (void)_schedulePeriodicSaveAfterTimeInterval:(double)interval;
@@ -18,6 +28,9 @@
 - (void)_unregisterForTATrackingAvoidanceService;
 - (void)addDataSource:(id)source;
 - (void)addObserver:(id)observer;
+- (void)debugForceSurfaceStagedDetections:(id)detections deviceType:(unint64_t)type detailsBitmask:(unsigned int)bitmask;
+- (void)debugStageTADetection:(id)detection deviceType:(unint64_t)type detailsBitmask:(unsigned int)bitmask;
+- (void)debugStageTADetection:(id)detection deviceType:(unint64_t)type detailsBitmask:(unsigned int)bitmask shouldRemoveDevice:(BOOL)device;
 - (void)fetchTAUnknownBeacon:(id)beacon withCompletion:(id)completion;
 - (void)ingestTAEvent:(id)event;
 - (void)notifyObserversOfStateChangeFrom:(unint64_t)from to:(unint64_t)to;
@@ -36,75 +49,281 @@
 {
   queueCopy = queue;
   settingsCopy = settings;
-  v30.receiver = self;
-  v30.super_class = TATrackingAvoidanceServiceManager;
-  v9 = [(TATrackingAvoidanceServiceManager *)&v30 init];
+  v32.receiver = self;
+  v32.super_class = TATrackingAvoidanceServiceManager;
+  v9 = [(TATrackingAvoidanceServiceManager *)&v32 init];
+  v11 = v9;
   if (v9)
   {
-    TARegisterLogs();
-    objc_storeStrong(&v9->_queue, queue);
-    v10 = [MEMORY[0x277CCAA50] hashTableWithOptions:517];
-    observers = v9->_observers;
-    v9->_observers = v10;
-
+    TARegisterLogs(v9, v10);
+    objc_storeStrong(&v11->_queue, queue);
     v12 = [MEMORY[0x277CCAA50] hashTableWithOptions:517];
-    dataSources = v9->_dataSources;
-    v9->_dataSources = v12;
+    observers = v11->_observers;
+    v11->_observers = v12;
 
-    service = v9->_service;
-    v9->_service = 0;
+    v14 = [MEMORY[0x277CCAA50] hashTableWithOptions:517];
+    dataSources = v11->_dataSources;
+    v11->_dataSources = v14;
 
-    v9->_state = 0;
-    v15 = objc_alloc_init(TATrackingAvoidanceServiceStateContext);
-    stateContext = v9->_stateContext;
-    v9->_stateContext = v15;
+    service = v11->_service;
+    v11->_service = 0;
 
-    v17 = [TAPersistenceManager alloc];
+    v11->_state = 0;
+    v17 = objc_alloc_init(TATrackingAvoidanceServiceStateContext);
+    stateContext = v11->_stateContext;
+    v11->_stateContext = v17;
+
+    v19 = [TAPersistenceManager alloc];
     persistenceManagerSettings = [settingsCopy persistenceManagerSettings];
-    v19 = [(TAPersistenceManager *)v17 initWithSettings:persistenceManagerSettings];
-    persistenceManager = v9->_persistenceManager;
-    v9->_persistenceManager = v19;
+    v21 = [(TAPersistenceManager *)v19 initWithSettings:persistenceManagerSettings];
+    persistenceManager = v11->_persistenceManager;
+    v11->_persistenceManager = v21;
 
     uUID = [MEMORY[0x277CCAD78] UUID];
-    sessionID = v9->_sessionID;
-    v9->_sessionID = uUID;
+    sessionID = v11->_sessionID;
+    v11->_sessionID = uUID;
 
-    v23 = [TAAnalyticsManager alloc];
+    v25 = [TAAnalyticsManager alloc];
     analyticsManagerSettings = [settingsCopy analyticsManagerSettings];
-    v25 = [(TAAnalyticsManager *)v23 initWithSettings:analyticsManagerSettings];
-    analyticsManager = v9->_analyticsManager;
-    v9->_analyticsManager = v25;
+    v27 = [(TAAnalyticsManager *)v25 initWithSettings:analyticsManagerSettings];
+    analyticsManager = v11->_analyticsManager;
+    v11->_analyticsManager = v27;
 
-    v27 = objc_alloc_init(MEMORY[0x277D01280]);
-    routineManager = v9->_routineManager;
-    v9->_routineManager = v27;
+    v29 = objc_alloc_init(MEMORY[0x277D01280]);
+    routineManager = v11->_routineManager;
+    v11->_routineManager = v29;
 
-    [(TATrackingAvoidanceServiceManager *)v9 addObserver:v9];
-    [(TATrackingAvoidanceServiceManager *)v9 addObserver:v9->_analyticsManager];
-    [(TAPersistenceManager *)v9->_persistenceManager addObserver:v9->_analyticsManager];
-    [(TATrackingAvoidanceServiceManager *)v9 onUpdatedSettings:settingsCopy];
+    [(TATrackingAvoidanceServiceManager *)v11 addObserver:v11];
+    [(TATrackingAvoidanceServiceManager *)v11 addObserver:v11->_analyticsManager];
+    [(TAPersistenceManager *)v11->_persistenceManager addObserver:v11->_analyticsManager];
+    [(TATrackingAvoidanceServiceManager *)v11 onUpdatedSettings:settingsCopy];
   }
 
-  return v9;
+  return v11;
+}
+
+- (void)_onServiceEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = TAStatusLog;
+  if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
+  {
+    v6[0] = 68289282;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 1026;
+    v10 = enabledCopy;
+    _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#ut received service enable notification, serviceEnabled:%{public}hhd}", v6, 0x18u);
+  }
+
+  [(TATrackingAvoidanceServiceStateContext *)self->_stateContext setServiceEnabled:enabledCopy];
+  [(TATrackingAvoidanceServiceManager *)self _handleStateUpdateIfNecessary];
+}
+
+- (void)_onHighThermalState:(BOOL)state
+{
+  stateCopy = state;
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = TAStatusLog;
+  if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
+  {
+    v6[0] = 68289282;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 1026;
+    v10 = stateCopy;
+    _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#ut received thermal state notification, isHighThermalState:%{public}hhd}", v6, 0x18u);
+  }
+
+  [(TATrackingAvoidanceServiceStateContext *)self->_stateContext setHighThermalState:stateCopy];
+  [(TATrackingAvoidanceServiceManager *)self _handleStateUpdateIfNecessary];
+}
+
+- (void)_onAirplaneMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = TAStatusLog;
+  if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
+  {
+    v6[0] = 68289282;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 1026;
+    v10 = modeCopy;
+    _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#ut received airplane mode notification, airplaneMode:%{public}hhd}", v6, 0x18u);
+  }
+
+  [(TATrackingAvoidanceServiceStateContext *)self->_stateContext setAirplaneMode:modeCopy];
+  [(TATrackingAvoidanceServiceManager *)self _handleStateUpdateIfNecessary];
+}
+
+- (void)_onBatterySaverMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = TAStatusLog;
+  if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
+  {
+    v6[0] = 68289282;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 1026;
+    v10 = modeCopy;
+    _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#ut received battery saver mode notification, batterySaverMode:%{public}hhd}", v6, 0x18u);
+  }
+
+  [(TATrackingAvoidanceServiceStateContext *)self->_stateContext setBatterySaverMode:modeCopy];
+  [(TATrackingAvoidanceServiceManager *)self _handleStateUpdateIfNecessary];
+}
+
+- (void)_onLocationServicesEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = TAStatusLog;
+  if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
+  {
+    v6[0] = 68289282;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 1026;
+    v10 = enabledCopy;
+    _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#ut received location services notification, locationServicesEnabled:%{public}hhd}", v6, 0x18u);
+  }
+
+  [(TATrackingAvoidanceServiceStateContext *)self->_stateContext setLocationServicesEnabled:enabledCopy];
+  if (!enabledCopy)
+  {
+    [(TAPersistenceManager *)self->_persistenceManager reset];
+    [(TATrackingAvoidanceServiceStateContext *)self->_stateContext setRestartRequired:1];
+  }
+
+  [(TATrackingAvoidanceServiceManager *)self _handleStateUpdateIfNecessary];
+}
+
+- (void)_onLocationSimulationInProgress:(BOOL)progress
+{
+  progressCopy = progress;
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = TAStatusLog;
+  if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
+  {
+    v6[0] = 68289282;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 1026;
+    v10 = progressCopy;
+    _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#ut received location simulation notification, locationSimulationInProgress:%{public}hhd}", v6, 0x18u);
+  }
+
+  [(TATrackingAvoidanceServiceStateContext *)self->_stateContext setLocationSimulationInProgress:progressCopy];
+  [(TATrackingAvoidanceServiceManager *)self _handleStateUpdateIfNecessary];
+}
+
+- (void)_onAllowSimulatedEvents:(BOOL)events
+{
+  eventsCopy = events;
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = TAStatusLog;
+  if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
+  {
+    v6[0] = 68289282;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 1026;
+    v10 = eventsCopy;
+    _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#ut received allow simulated events notification, allowSimulatedEvents:%{public}hhd}", v6, 0x18u);
+  }
+
+  [(TATrackingAvoidanceServiceStateContext *)self->_stateContext setAllowSimulatedEvents:eventsCopy];
+  [(TATrackingAvoidanceServiceManager *)self _handleStateUpdateIfNecessary];
+}
+
+- (void)_onDeviceUnlockedSinceBoot:(BOOL)boot
+{
+  bootCopy = boot;
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = TAStatusLog;
+  if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
+  {
+    v6[0] = 68289282;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 1026;
+    v10 = bootCopy;
+    _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#ut received device unlocked since boot notification, deviceUnlockedSinceBoot:%{public}hhd}", v6, 0x18u);
+  }
+
+  [(TATrackingAvoidanceServiceStateContext *)self->_stateContext setDeviceUnlockedSinceBoot:bootCopy];
+  [(TATrackingAvoidanceServiceManager *)self _handleStateUpdateIfNecessary];
 }
 
 - (void)_onLocationAndPrivacyReset:(BOOL)reset
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = TAStatusLog;
   if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
   {
-    v6[0] = 68289026;
-    v6[1] = 0;
-    v7 = 2082;
-    v8 = "";
-    _os_log_impl(&dword_26F2E2000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#ut received location and privacy reset notification. Resetting persistence store and restarting service.}", v6, 0x12u);
+    v5[0] = 68289026;
+    v5[1] = 0;
+    v6 = 2082;
+    v7 = "";
+    _os_log_impl(&dword_26F2E2000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#ut received location and privacy reset notification. Resetting persistence store and restarting service.}", v5, 0x12u);
   }
 
   [(TAPersistenceManager *)self->_persistenceManager reset];
   [(TATrackingAvoidanceServiceStateContext *)self->_stateContext setRestartRequired:1];
   [(TATrackingAvoidanceServiceManager *)self _handleStateUpdateIfNecessary];
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_onHasKoreaCountryCode:(BOOL)code
+{
+  codeCopy = code;
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = TAStatusLog;
+  if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
+  {
+    v6[0] = 68289282;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 1026;
+    v10 = codeCopy;
+    _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#ut received country code notification, hasKoreaCountryCode:%{public}hhd}", v6, 0x18u);
+  }
+
+  [(TATrackingAvoidanceServiceStateContext *)self->_stateContext setHasKoreaCountryCode:codeCopy];
+  [(TATrackingAvoidanceServiceManager *)self _handleStateUpdateIfNecessary];
+}
+
+- (void)_onUserLocationInsideKorea:(BOOL)korea
+{
+  koreaCopy = korea;
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = TAStatusLog;
+  if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
+  {
+    v6[0] = 68289282;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 1026;
+    v10 = koreaCopy;
+    _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#ut received user location inside Korea notification, userLocationInsideKorea:%{public}hhd}", v6, 0x18u);
+  }
+
+  [(TATrackingAvoidanceServiceStateContext *)self->_stateContext setUserLocationInsideKorea:koreaCopy];
+  [(TATrackingAvoidanceServiceManager *)self _handleStateUpdateIfNecessary];
 }
 
 - (void)onUpdatedSettings:(id)settings
@@ -112,7 +331,7 @@
   settingsCopy = settings;
   if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
   {
-    [(TATrackingAvoidanceServiceManager *)settingsCopy onUpdatedSettings:?];
+    [TATrackingAvoidanceServiceManager onUpdatedSettings:];
   }
 
   if (!self->_serviceSettings || ([settingsCopy isEqual:?] & 1) == 0)
@@ -154,13 +373,10 @@
 
 - (void)_handleStateUpdateIfNecessary
 {
-  v11 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v2 = [TATrackingAvoidanceServiceManager managerStateToString:0];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_1(&dword_26F2E2000, v3, v4, "#ut no state update necessary at %@ state", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_26F2E2000, v3, v4, "#ut no state update necessary at %@ state", v5, v6, v7, v8);
 }
 
 - (void)_setState:(unint64_t)state
@@ -173,7 +389,7 @@
 
 - (void)_changeSession
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   uUID = [MEMORY[0x277CCAD78] UUID];
   v4 = TAStatusLog;
   if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
@@ -183,26 +399,24 @@
     uUIDString = [(NSUUID *)sessionID UUIDString];
     uTF8String = [uUIDString UTF8String];
     uUIDString2 = [(NSUUID *)uUID UUIDString];
-    v12[0] = 68289538;
-    v12[1] = 0;
-    v13 = 2082;
-    v14 = "";
-    v15 = 2082;
-    v16 = uTF8String;
-    v17 = 2082;
+    v11[0] = 68289538;
+    v11[1] = 0;
+    v12 = 2082;
+    v13 = "";
+    v14 = 2082;
+    v15 = uTF8String;
+    v16 = 2082;
     uTF8String2 = [uUIDString2 UTF8String];
-    _os_log_impl(&dword_26F2E2000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#ut session change, oldSessionID:%{public}s, newSessionID:%{public}s}", v12, 0x26u);
+    _os_log_impl(&dword_26F2E2000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#ut session change, oldSessionID:%{public}s, newSessionID:%{public}s}", v11, 0x26u);
   }
 
   v10 = self->_sessionID;
   self->_sessionID = uUID;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForTATrackingAvoidanceServiceWithSettings:(id)settings
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   if (!self->_service)
   {
@@ -210,31 +424,31 @@
     service = self->_service;
     self->_service = v5;
 
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = self->_observers;
-    v8 = [(NSHashTable *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [(NSHashTable *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [(TATrackingAvoidanceService *)self->_service addObserver:*(*(&v13 + 1) + 8 * v11++), v13];
+          [(TATrackingAvoidanceService *)self->_service addObserver:*(*(&v12 + 1) + 8 * v11++), v12];
         }
 
         while (v9 != v11);
-        v9 = [(NSHashTable *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [(NSHashTable *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
@@ -246,40 +460,38 @@
     [(TASettings *)self->_serviceSettings persistenceInterval];
     [(TATrackingAvoidanceServiceManager *)self _schedulePeriodicSaveAfterTimeInterval:?];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unregisterForTATrackingAvoidanceService
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_service)
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v3 = self->_observers;
-    v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v11;
+      v6 = *v10;
       do
       {
         v7 = 0;
         do
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [(TATrackingAvoidanceService *)self->_service removeObserver:*(*(&v10 + 1) + 8 * v7++), v10];
+          [(TATrackingAvoidanceService *)self->_service removeObserver:*(*(&v9 + 1) + 8 * v7++), v9];
         }
 
         while (v5 != v7);
-        v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v5);
@@ -289,8 +501,6 @@
     service = self->_service;
     self->_service = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchAndIngestLastVisit
@@ -325,7 +535,7 @@ void __61__TATrackingAvoidanceServiceManager__fetchAndIngestLastVisit__block_inv
 
 void __61__TATrackingAvoidanceServiceManager__fetchAndIngestLastVisit__block_invoke_2(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2 && [v2 count])
   {
@@ -333,13 +543,13 @@ void __61__TATrackingAvoidanceServiceManager__fetchAndIngestLastVisit__block_inv
     if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 32);
-      v25 = 68289283;
-      v26 = 0;
-      v27 = 2082;
-      v28 = "";
-      v29 = 2117;
-      v30 = v4;
-      _os_log_impl(&dword_26F2E2000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:visit got last visit, visits:%{sensitive}@}", &v25, 0x1Cu);
+      v24 = 68289283;
+      v25 = 0;
+      v26 = 2082;
+      v27 = "";
+      v28 = 2117;
+      v29 = v4;
+      _os_log_impl(&dword_26F2E2000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:visit got last visit, visits:%{sensitive}@}", &v24, 0x1Cu);
     }
 
     v5 = [*(a1 + 32) firstObject];
@@ -372,11 +582,11 @@ void __61__TATrackingAvoidanceServiceManager__fetchAndIngestLastVisit__block_inv
       v23 = TAStatusLog;
       if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_ERROR))
       {
-        v25 = 68289026;
-        v26 = 0;
-        v27 = 2082;
-        v28 = "";
-        _os_log_impl(&dword_26F2E2000, v23, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#manager:visit not ingesting TAEvent as TA service is down}", &v25, 0x12u);
+        v24 = 68289026;
+        v25 = 0;
+        v26 = 2082;
+        v27 = "";
+        _os_log_impl(&dword_26F2E2000, v23, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#manager:visit not ingesting TAEvent as TA service is down}", &v24, 0x12u);
       }
     }
   }
@@ -386,20 +596,18 @@ void __61__TATrackingAvoidanceServiceManager__fetchAndIngestLastVisit__block_inv
     v22 = TAStatusLog;
     if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 68289026;
-      v26 = 0;
-      v27 = 2082;
-      v28 = "";
-      _os_log_impl(&dword_26F2E2000, v22, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:visit no last visit to bootstrap onto}", &v25, 0x12u);
+      v24 = 68289026;
+      v25 = 0;
+      v26 = 2082;
+      v27 = "";
+      _os_log_impl(&dword_26F2E2000, v22, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:visit no last visit to bootstrap onto}", &v24, 0x12u);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchAndIngestNextPredictedLocationOfInterestWithCurrentVisitState
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   service = [(TATrackingAvoidanceServiceManager *)self service];
   store = [service store];
   visitState = [store visitState];
@@ -428,19 +636,17 @@ void __61__TATrackingAvoidanceServiceManager__fetchAndIngestLastVisit__block_inv
     v19 = TAStatusLog;
     if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_ERROR))
     {
-      v21[0] = 68289539;
-      v21[1] = 0;
-      v22 = 2082;
-      v23 = "";
-      v24 = 2117;
-      v25 = getLatestValidVisit;
-      v26 = 2113;
-      v27 = clock;
-      _os_log_impl(&dword_26F2E2000, v19, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#manager:nextPLOI missing required info to query, latestVisit:%{sensitive}@, startDate:%{private}@}", v21, 0x26u);
+      v20[0] = 68289539;
+      v20[1] = 0;
+      v21 = 2082;
+      v22 = "";
+      v23 = 2117;
+      v24 = getLatestValidVisit;
+      v25 = 2113;
+      v26 = clock;
+      _os_log_impl(&dword_26F2E2000, v19, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#manager:nextPLOI missing required info to query, latestVisit:%{sensitive}@, startDate:%{private}@}", v20, 0x26u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchAndIngestNextPredictedLocationOfInterestFromLocation:(id)location startDate:(id)date interval:(double)interval
@@ -473,7 +679,7 @@ void __115__TATrackingAvoidanceServiceManager__fetchAndIngestNextPredictedLocati
 
 void __115__TATrackingAvoidanceServiceManager__fetchAndIngestNextPredictedLocationOfInterestFromLocation_startDate_interval___block_invoke_2(uint64_t a1)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (v1 && [v1 count])
   {
@@ -482,50 +688,50 @@ void __115__TATrackingAvoidanceServiceManager__fetchAndIngestNextPredictedLocati
     {
       v3 = *(a1 + 32);
       buf = 68289283;
-      v48 = 2082;
-      v49 = "";
-      v50 = 2117;
-      v51 = v3;
+      v47 = 2082;
+      v48 = "";
+      v49 = 2117;
+      v50 = v3;
       _os_log_impl(&dword_26F2E2000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:nextPLOI got nextPLOI, nextPLOI:%{sensitive}@}", &buf, 0x1Cu);
     }
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     obj = *(a1 + 32);
-    v4 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v4 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
     if (v4)
     {
       v6 = v4;
-      v7 = *v43;
+      v7 = *v42;
       *&v5 = 68289283;
-      v33 = v5;
+      v32 = v5;
       do
       {
         v8 = 0;
-        v35 = v6;
+        v34 = v6;
         do
         {
-          if (*v43 != v7)
+          if (*v42 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v42 + 1) + 8 * v8);
+          v9 = *(*(&v41 + 1) + 8 * v8);
           [v9 confidence];
           if (v10 >= 1.0)
           {
             v12 = [v9 locationOfInterest];
-            v38 = +[TALocationOfInterest convertRTToTALocationOfInterestType:](TALocationOfInterest, "convertRTToTALocationOfInterestType:", [v12 type]);
+            v37 = +[TALocationOfInterest convertRTToTALocationOfInterestType:](TALocationOfInterest, "convertRTToTALocationOfInterestType:", [v12 type]);
 
-            v37 = [TAPredictedLocationOfInterest alloc];
-            v41 = [v9 locationOfInterest];
-            v40 = [v41 location];
-            [v40 latitude];
+            v36 = [TAPredictedLocationOfInterest alloc];
+            v40 = [v9 locationOfInterest];
+            v39 = [v40 location];
+            [v39 latitude];
             v14 = v13;
-            v39 = [v9 locationOfInterest];
-            v15 = [v39 location];
+            v38 = [v9 locationOfInterest];
+            v15 = [v38 location];
             [v15 longitude];
             v17 = v16;
             v18 = [v9 locationOfInterest];
@@ -539,12 +745,12 @@ void __115__TATrackingAvoidanceServiceManager__fetchAndIngestNextPredictedLocati
             v26 = v25;
             v27 = [v9 nextEntryTime];
             v28 = [MEMORY[0x277CBEAA8] date];
-            v29 = [(TAPredictedLocationOfInterest *)v37 initWithType:v38 latitude:v24 longitude:v27 horizontalAccuracy:v28 referenceFrame:v14 confidence:v17 nextEntryTime:v21 date:v26];
+            v29 = [(TAPredictedLocationOfInterest *)v36 initWithType:v37 latitude:v24 longitude:v27 horizontalAccuracy:v28 referenceFrame:v14 confidence:v17 nextEntryTime:v21 date:v26];
 
             v30 = [*(a1 + 40) service];
             [v30 ingestTAEvent:v29];
 
-            v6 = v35;
+            v6 = v34;
           }
 
           else
@@ -552,11 +758,11 @@ void __115__TATrackingAvoidanceServiceManager__fetchAndIngestNextPredictedLocati
             v11 = TAStatusLog;
             if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
             {
-              buf = v33;
-              v48 = 2082;
-              v49 = "";
-              v50 = 2117;
-              v51 = v9;
+              buf = v32;
+              v47 = 2082;
+              v48 = "";
+              v49 = 2117;
+              v50 = v9;
               _os_log_impl(&dword_26F2E2000, v11, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#manager:nextPLOI ignoring low confidence PLOI, nextPLOI:%{sensitive}@}", &buf, 0x1Cu);
             }
           }
@@ -565,7 +771,7 @@ void __115__TATrackingAvoidanceServiceManager__fetchAndIngestNextPredictedLocati
         }
 
         while (v6 != v8);
-        v6 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+        v6 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
       }
 
       while (v6);
@@ -578,39 +784,37 @@ void __115__TATrackingAvoidanceServiceManager__fetchAndIngestNextPredictedLocati
     if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
     {
       buf = 68289026;
-      v48 = 2082;
-      v49 = "";
+      v47 = 2082;
+      v48 = "";
       _os_log_impl(&dword_26F2E2000, v31, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:nextPLOI no next PLOI}", &buf, 0x12u);
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForAvengerScanner
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = self->_dataSources;
-  v3 = [(NSHashTable *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [(NSHashTable *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 registerForAvengerScanner];
@@ -620,39 +824,37 @@ void __115__TATrackingAvoidanceServiceManager__fetchAndIngestNextPredictedLocati
       }
 
       while (v4 != v6);
-      v4 = [(NSHashTable *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [(NSHashTable *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unregisterForAvengerScanner
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = self->_dataSources;
-  v3 = [(NSHashTable *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [(NSHashTable *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 unregisterForAvengerScanner];
@@ -662,60 +864,56 @@ void __115__TATrackingAvoidanceServiceManager__fetchAndIngestNextPredictedLocati
       }
 
       while (v4 != v6);
-      v4 = [(NSHashTable *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [(NSHashTable *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyObserversOfStateChangeFrom:(unint64_t)from to:(unint64_t)to
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = self->_dataSources;
-  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
+        v11 = *(*(&v12 + 1) + 8 * v10);
         if (objc_opt_respondsToSelector())
         {
-          [v11 onManagerStateChangeFrom:from to:{to, v13}];
+          [v11 onManagerStateChangeFrom:from to:{to, v12}];
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSHashTable *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadAndBootstrap
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = os_transaction_create();
   if (![(TAPersistenceManager *)self->_persistenceManager load])
   {
@@ -725,15 +923,15 @@ void __115__TATrackingAvoidanceServiceManager__fetchAndIngestNextPredictedLocati
       goto LABEL_11;
     }
 
-    v18 = 68289026;
-    v19 = 0;
-    v20 = 2082;
-    v21 = "";
+    v17 = 68289026;
+    v18 = 0;
+    v19 = 2082;
+    v20 = "";
     v14 = "{msg%{public}.0s:#manager:persistence failed to load persistence store, aborting bootstrap}";
     v15 = v13;
     v16 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-    _os_log_impl(&dword_26F2E2000, v15, v16, v14, &v18, 0x12u);
+    _os_log_impl(&dword_26F2E2000, v15, v16, v14, &v17, 0x12u);
     goto LABEL_11;
   }
 
@@ -748,10 +946,10 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v18 = 68289026;
-    v19 = 0;
-    v20 = 2082;
-    v21 = "";
+    v17 = 68289026;
+    v18 = 0;
+    v19 = 2082;
+    v20 = "";
     v14 = "{msg%{public}.0s:#manager:persistence no device record to bootstrap onto}";
     v15 = v6;
     v16 = OS_LOG_TYPE_DEBUG;
@@ -760,11 +958,11 @@ LABEL_10:
 
   if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 68289026;
-    v19 = 0;
-    v20 = 2082;
-    v21 = "";
-    _os_log_impl(&dword_26F2E2000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence bootstrapping onto loaded store}", &v18, 0x12u);
+    v17 = 68289026;
+    v18 = 0;
+    v19 = 2082;
+    v20 = "";
+    _os_log_impl(&dword_26F2E2000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence bootstrapping onto loaded store}", &v17, 0x12u);
   }
 
   service = self->_service;
@@ -778,7 +976,6 @@ LABEL_10:
   [(TATrackingAvoidanceService *)v10 bootstrapVisitState:visitState];
 
 LABEL_11:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchStoreAndSave
@@ -794,7 +991,7 @@ LABEL_11:
 
 - (void)_schedulePeriodicSaveAfterTimeInterval:(double)interval
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = TAStatusLog;
   if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -802,12 +999,12 @@ LABEL_11:
     v7 = v5;
     uUIDString = [(NSUUID *)sessionID UUIDString];
     *buf = 68289538;
-    v18 = 0;
-    v19 = 2082;
-    v20 = "";
-    v21 = 2050;
+    v17 = 0;
+    v18 = 2082;
+    v19 = "";
+    v20 = 2050;
     intervalCopy = interval;
-    v23 = 2082;
+    v22 = 2082;
     uTF8String = [uUIDString UTF8String];
     _os_log_impl(&dword_26F2E2000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence scheduling save, interval:%{public}f, currentSession:%{public}s}", buf, 0x26u);
   }
@@ -821,27 +1018,25 @@ LABEL_11:
   block[3] = &unk_279DD1DE0;
   intervalCopy2 = interval;
   block[4] = self;
-  v15 = v9;
+  v14 = v9;
   v12 = v9;
   dispatch_after(v10, queue, block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __76__TATrackingAvoidanceServiceManager__schedulePeriodicSaveAfterTimeInterval___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = TAStatusLog;
   if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 48);
-    v27 = 68289282;
-    v28 = 0;
-    v29 = 2082;
-    v30 = "";
-    v31 = 2050;
-    v32 = v3;
-    _os_log_impl(&dword_26F2E2000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence begin scheduled save, interval:%{public}f}", &v27, 0x1Cu);
+    v25 = 68289282;
+    v26 = 0;
+    v27 = 2082;
+    v28 = "";
+    v29 = 2050;
+    v30 = v3;
+    _os_log_impl(&dword_26F2E2000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence begin scheduled save, interval:%{public}f}", &v25, 0x1Cu);
   }
 
   if ([*(*(a1 + 32) + 80) isEqual:*(a1 + 40)])
@@ -849,94 +1044,91 @@ void __76__TATrackingAvoidanceServiceManager__schedulePeriodicSaveAfterTimeInter
     if (*(*(a1 + 32) + 8) == 1)
     {
       mach_continuous_time();
-      v4 = *(*(a1 + 32) + 72);
       TMConvertTicksToSeconds();
-      v6 = v5;
+      v5 = v4;
       [*(*(a1 + 32) + 48) persistenceInterval];
-      if (v6 >= v7)
+      if (v5 >= v6)
       {
-        v21 = TAStatusLog;
+        v20 = TAStatusLog;
         if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = *(*(a1 + 32) + 48);
-          v23 = v21;
-          [v22 persistenceInterval];
-          v27 = 68289282;
-          v28 = 0;
-          v29 = 2082;
-          v30 = "";
-          v31 = 2050;
-          v32 = v24;
-          _os_log_impl(&dword_26F2E2000, v23, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence save and schedule next save, secondsToNextSave:%{public}f}", &v27, 0x1Cu);
+          v21 = *(*(a1 + 32) + 48);
+          v22 = v20;
+          [v21 persistenceInterval];
+          v25 = 68289282;
+          v26 = 0;
+          v27 = 2082;
+          v28 = "";
+          v29 = 2050;
+          v30 = v23;
+          _os_log_impl(&dword_26F2E2000, v22, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence save and schedule next save, secondsToNextSave:%{public}f}", &v25, 0x1Cu);
         }
 
         [*(a1 + 32) _fetchStoreAndSave];
-        v25 = *(a1 + 32);
-        [v25[6] persistenceInterval];
-        v11 = v25;
+        v24 = *(a1 + 32);
+        [v24[6] persistenceInterval];
+        v10 = v24;
       }
 
       else
       {
         [*(*(a1 + 32) + 48) persistenceInterval];
-        v9 = v8 - v6;
-        v10 = TAStatusLog;
+        v8 = v7 - v5;
+        v9 = TAStatusLog;
         if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = 68289282;
-          v28 = 0;
-          v29 = 2082;
-          v30 = "";
-          v31 = 2050;
-          v32 = v9;
-          _os_log_impl(&dword_26F2E2000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence push out save schedule, secondsToNextSave:%{public}f}", &v27, 0x1Cu);
+          v25 = 68289282;
+          v26 = 0;
+          v27 = 2082;
+          v28 = "";
+          v29 = 2050;
+          v30 = v8;
+          _os_log_impl(&dword_26F2E2000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence push out save schedule, secondsToNextSave:%{public}f}", &v25, 0x1Cu);
         }
 
-        v11 = *(a1 + 32);
-        v12 = v9;
+        v10 = *(a1 + 32);
+        v11 = v8;
       }
 
-      [v11 _schedulePeriodicSaveAfterTimeInterval:v12];
+      [v10 _schedulePeriodicSaveAfterTimeInterval:v11];
     }
 
     else
     {
-      v20 = TAStatusLog;
+      v19 = TAStatusLog;
       if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
       {
-        v27 = 68289026;
-        v28 = 0;
-        v29 = 2082;
-        v30 = "";
-        _os_log_impl(&dword_26F2E2000, v20, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#manager:persistence scheduled save running but not in running state, discontinuing scheduled saves}", &v27, 0x12u);
+        v25 = 68289026;
+        v26 = 0;
+        v27 = 2082;
+        v28 = "";
+        _os_log_impl(&dword_26F2E2000, v19, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#manager:persistence scheduled save running but not in running state, discontinuing scheduled saves}", &v25, 0x12u);
       }
     }
   }
 
   else
   {
-    v13 = TAStatusLog;
+    v12 = TAStatusLog;
     if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
     {
-      v14 = *(*(a1 + 32) + 80);
-      v15 = v13;
-      v16 = [v14 UUIDString];
-      *&v17 = COERCE_DOUBLE([v16 UTF8String]);
-      v18 = [*(a1 + 40) UUIDString];
-      v19 = [v18 UTF8String];
-      v27 = 68289538;
-      v28 = 0;
+      v13 = *(*(a1 + 32) + 80);
+      v14 = v12;
+      v15 = [v13 UUIDString];
+      *&v16 = COERCE_DOUBLE([v15 UTF8String]);
+      v17 = [*(a1 + 40) UUIDString];
+      v18 = [v17 UTF8String];
+      v25 = 68289538;
+      v26 = 0;
+      v27 = 2082;
+      v28 = "";
       v29 = 2082;
-      v30 = "";
+      v30 = *&v16;
       v31 = 2082;
-      v32 = *&v17;
-      v33 = 2082;
-      v34 = v19;
-      _os_log_impl(&dword_26F2E2000, v15, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#manager:persistence canceling scheduled save due to session change, currentSession:%{public}s, sessionAtTimeOfSchedule:%{public}s}", &v27, 0x26u);
+      v32 = v18;
+      _os_log_impl(&dword_26F2E2000, v14, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#manager:persistence canceling scheduled save due to session change, currentSession:%{public}s, sessionAtTimeOfSchedule:%{public}s}", &v25, 0x26u);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer
@@ -1057,6 +1249,55 @@ void __76__TATrackingAvoidanceServiceManager__schedulePeriodicSaveAfterTimeInter
   }
 }
 
+- (void)debugForceSurfaceStagedDetections:(id)detections deviceType:(unint64_t)type detailsBitmask:(unsigned int)bitmask
+{
+  v5 = *&bitmask;
+  detectionsCopy = detections;
+  service = self->_service;
+  if (service)
+  {
+    [(TATrackingAvoidanceService *)service debugForceSurfaceStagedDetections:detectionsCopy deviceType:type detailsBitmask:v5];
+  }
+
+  else if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
+  {
+    [TATrackingAvoidanceServiceManager debugForceSurfaceStagedDetections:deviceType:detailsBitmask:];
+  }
+}
+
+- (void)debugStageTADetection:(id)detection deviceType:(unint64_t)type detailsBitmask:(unsigned int)bitmask
+{
+  v5 = *&bitmask;
+  detectionCopy = detection;
+  service = self->_service;
+  if (service)
+  {
+    [(TATrackingAvoidanceService *)service debugStageTADetection:detectionCopy deviceType:type detailsBitmask:v5];
+  }
+
+  else if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
+  {
+    [TATrackingAvoidanceServiceManager debugStageTADetection:deviceType:detailsBitmask:];
+  }
+}
+
+- (void)debugStageTADetection:(id)detection deviceType:(unint64_t)type detailsBitmask:(unsigned int)bitmask shouldRemoveDevice:(BOOL)device
+{
+  deviceCopy = device;
+  v7 = *&bitmask;
+  detectionCopy = detection;
+  service = self->_service;
+  if (service)
+  {
+    [(TATrackingAvoidanceService *)service debugStageTADetection:detectionCopy deviceType:type detailsBitmask:v7 shouldRemoveDevice:deviceCopy];
+  }
+
+  else if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
+  {
+    [TATrackingAvoidanceServiceManager debugStageTADetection:deviceType:detailsBitmask:];
+  }
+}
+
 - (void)addDataSource:(id)source
 {
   sourceCopy = source;
@@ -1099,83 +1340,76 @@ void __76__TATrackingAvoidanceServiceManager__schedulePeriodicSaveAfterTimeInter
 
 - (void)trackingAvoidanceService:(id)service didFindSuspiciousDevices:(id)devices
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ([devices count])
   {
     v5 = TAStatusLog;
     if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
     {
-      v7[0] = 68289026;
-      v7[1] = 0;
-      v8 = 2082;
-      v9 = "";
-      _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence didFindSuspiciousDevices called, saving state}", v7, 0x12u);
+      v6[0] = 68289026;
+      v6[1] = 0;
+      v7 = 2082;
+      v8 = "";
+      _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence didFindSuspiciousDevices called, saving state}", v6, 0x12u);
     }
 
     [(TATrackingAvoidanceServiceManager *)self _fetchStoreAndSave];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)trackingAvoidanceService:(id)service didStageSuspiciousDevices:(id)devices
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ([devices count])
   {
     v5 = TAStatusLog;
     if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
     {
-      v7[0] = 68289026;
-      v7[1] = 0;
-      v8 = 2082;
-      v9 = "";
-      _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence didStageSuspiciousDevices called, saving state}", v7, 0x12u);
+      v6[0] = 68289026;
+      v6[1] = 0;
+      v7 = 2082;
+      v8 = "";
+      _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence didStageSuspiciousDevices called, saving state}", v6, 0x12u);
     }
 
     [(TATrackingAvoidanceServiceManager *)self _fetchStoreAndSave];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)trackingAvoidanceService:(id)service didUnstageSuspiciousDevices:(id)devices
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ([devices count])
   {
     v5 = TAStatusLog;
     if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
     {
-      v7[0] = 68289026;
-      v7[1] = 0;
-      v8 = 2082;
-      v9 = "";
-      _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence didUnstageSuspiciousDevices called, saving state}", v7, 0x12u);
+      v6[0] = 68289026;
+      v6[1] = 0;
+      v7 = 2082;
+      v8 = "";
+      _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence didUnstageSuspiciousDevices called, saving state}", v6, 0x12u);
     }
 
     [(TATrackingAvoidanceServiceManager *)self _fetchStoreAndSave];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)visitStateChangedForTrackingAvoidanceService:(id)service
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = TAStatusLog;
   if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 68289026;
-    v6[1] = 0;
-    v7 = 2082;
-    v8 = "";
-    _os_log_impl(&dword_26F2E2000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence visitStateChangedForTrackingAvoidanceService called, saving state}", v6, 0x12u);
+    v5[0] = 68289026;
+    v5[1] = 0;
+    v6 = 2082;
+    v7 = "";
+    _os_log_impl(&dword_26F2E2000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#manager:persistence visitStateChangedForTrackingAvoidanceService called, saving state}", v5, 0x12u);
   }
 
   [(TATrackingAvoidanceServiceManager *)self _fetchStoreAndSave];
   [(TATrackingAvoidanceServiceManager *)self _fetchAndIngestNextPredictedLocationOfInterestWithCurrentVisitState];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)managerStateToString:(unint64_t)string
@@ -1191,15 +1425,13 @@ void __76__TATrackingAvoidanceServiceManager__schedulePeriodicSaveAfterTimeInter
   }
 }
 
-- (void)onUpdatedSettings:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
+- (void)onUpdatedSettings:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 48);
-  OUTLINED_FUNCTION_3();
-  v7 = 2113;
-  v8 = v3;
-  _os_log_debug_impl(&dword_26F2E2000, v4, OS_LOG_TYPE_DEBUG, "#ut new settings %{private}@, old settings %{private}@", v6, 0x16u);
   v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3();
+  v3 = 2113;
+  v4 = v0;
+  _os_log_debug_impl(&dword_26F2E2000, v1, OS_LOG_TYPE_DEBUG, "#ut new settings %{private}@, old settings %{private}@", v2, 0x16u);
 }
 
 @end

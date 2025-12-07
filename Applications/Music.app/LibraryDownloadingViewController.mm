@@ -40,7 +40,7 @@
 {
   v4 = type metadata accessor for UIContentUnavailableConfigurationState();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
+  __chkstk_darwin();
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UIContentUnavailableConfigurationState._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
@@ -63,10 +63,10 @@
 {
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_100009F78(0, &unk_101184750);
+  sub_100009F78(0, &unk_101184750, UICollectionViewCell_ptr);
   viewCopy = view;
   selfCopy = self;
   v13 = UICollectionView.dequeueConfiguredReusableSupplementary<A>(using:for:)();
@@ -80,7 +80,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -96,7 +96,7 @@
 {
   v5 = type metadata accessor for IndexPath();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = *(&self->super.super.super.isa + OBJC_IVAR____TtC5Music32LibraryDownloadingViewController_sections);
@@ -134,12 +134,12 @@ LABEL_8:
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_1002D88F8();
+  sub_1002D88F8(v9);
 
   (*(v7 + 8))(v9, v6);
 }

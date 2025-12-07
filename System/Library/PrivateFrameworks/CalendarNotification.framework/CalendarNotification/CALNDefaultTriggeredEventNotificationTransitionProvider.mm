@@ -96,7 +96,7 @@ LABEL_9:
 
 - (BOOL)_shouldModifyForAlarmFiredForSourceClientIdentifier:(id)identifier sourceNotificationInfo:(id)info oldNotificationData:(id)data
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   infoCopy = info;
   dataCopy = data;
@@ -105,11 +105,11 @@ LABEL_9:
     lastTimeNotificationAdded = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(lastTimeNotificationAdded, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543362;
-      v20 = identifierCopy;
+      v18 = 138543362;
+      v19 = identifierCopy;
       v16 = "Should not modify for alarm fired because old notification data is nil. source client identifier = %{public}@";
 LABEL_11:
-      _os_log_impl(&dword_242909000, lastTimeNotificationAdded, OS_LOG_TYPE_DEFAULT, v16, &v19, 0xCu);
+      _os_log_impl(&dword_242909000, lastTimeNotificationAdded, OS_LOG_TYPE_DEFAULT, v16, &v18, 0xCu);
     }
 
 LABEL_12:
@@ -122,8 +122,8 @@ LABEL_12:
     lastTimeNotificationAdded = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(lastTimeNotificationAdded, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543362;
-      v20 = identifierCopy;
+      v18 = 138543362;
+      v19 = identifierCopy;
       v16 = "Should not modify for alarm fired that is not offset from travel time start. source client identifier = %{public}@";
       goto LABEL_11;
     }
@@ -141,9 +141,9 @@ LABEL_12:
     v15 = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543362;
-      v20 = identifierCopy;
-      _os_log_impl(&dword_242909000, v15, OS_LOG_TYPE_DEFAULT, "Should modify for alarm fired that is offset from travel time start because last fire time of alert is within eight minutes. source client identifier = %{public}@", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = identifierCopy;
+      _os_log_impl(&dword_242909000, v15, OS_LOG_TYPE_DEFAULT, "Should modify for alarm fired that is offset from travel time start because last fire time of alert is within eight minutes. source client identifier = %{public}@", &v18, 0xCu);
     }
   }
 
@@ -152,16 +152,15 @@ LABEL_12:
     v13 = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543362;
-      v20 = identifierCopy;
-      _os_log_impl(&dword_242909000, v13, OS_LOG_TYPE_DEFAULT, "Should not modify for alarm fired that is offset from travel time start because last time notification added is nil. source client identifier = %{public}@", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = identifierCopy;
+      _os_log_impl(&dword_242909000, v13, OS_LOG_TYPE_DEFAULT, "Should not modify for alarm fired that is offset from travel time start because last time notification added is nil. source client identifier = %{public}@", &v18, 0xCu);
     }
 
     v14 = 0;
   }
 
 LABEL_17:
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -192,7 +191,7 @@ LABEL_17:
 
 - (BOOL)_shouldAddNotificationForTravelAdviceReceivedForSourceClientIdentifier:(id)identifier sourceNotificationInfo:(id)info oldNotificationData:(id)data
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   infoCopy = info;
   dataCopy = data;
@@ -205,8 +204,8 @@ LABEL_17:
     lastFireTimeOfAlertOffsetFromTravelTime = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(lastFireTimeOfAlertOffsetFromTravelTime, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = 138543362;
-      v28 = identifierCopy;
+      v26 = 138543362;
+      v27 = identifierCopy;
       v15 = "Should not add notification because no new travel advice received, source client identifier = %{public}@";
       goto LABEL_12;
     }
@@ -219,11 +218,11 @@ LABEL_17:
     lastFireTimeOfAlertOffsetFromTravelTime = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(lastFireTimeOfAlertOffsetFromTravelTime, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = 138543362;
-      v28 = identifierCopy;
+      v26 = 138543362;
+      v27 = identifierCopy;
       v15 = "We've detected that the user has arrived at the event's location, source client identifier = %{public}@";
 LABEL_12:
-      _os_log_impl(&dword_242909000, lastFireTimeOfAlertOffsetFromTravelTime, OS_LOG_TYPE_DEFAULT, v15, &v27, 0xCu);
+      _os_log_impl(&dword_242909000, lastFireTimeOfAlertOffsetFromTravelTime, OS_LOG_TYPE_DEFAULT, v15, &v26, 0xCu);
       goto LABEL_13;
     }
 
@@ -237,8 +236,8 @@ LABEL_12:
       lastFireTimeOfAlertOffsetFromTravelTime = +[CALNLogSubsystem calendar];
       if (os_log_type_enabled(lastFireTimeOfAlertOffsetFromTravelTime, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = 138543362;
-        v28 = identifierCopy;
+        v26 = 138543362;
+        v27 = identifierCopy;
         v15 = "Should not add notification because time to leave status has already been displayed. source client identifier = %{public}@";
         goto LABEL_12;
       }
@@ -250,41 +249,41 @@ LABEL_13:
 
     isOffsetFromTravelTimeStart = [dataCopy isOffsetFromTravelTimeStart];
     lastFireTimeOfAlertOffsetFromTravelTime = [dataCopy lastFireTimeOfAlertOffsetFromTravelTime];
-    if (lastFireTimeOfAlertOffsetFromTravelTime && (-[CALNDefaultTriggeredEventNotificationTransitionProvider dateProvider](self, "dateProvider"), v20 = objc_claimAutoreleasedReturnValue(), [v20 now], v21 = objc_claimAutoreleasedReturnValue(), v22 = +[CALNTravelAdvisoryUtilities isLastFireTimeOfAlert:withinEightMinutesOfDate:](CALNTravelAdvisoryUtilities, "isLastFireTimeOfAlert:withinEightMinutesOfDate:", lastFireTimeOfAlertOffsetFromTravelTime, v21), v21, v20, (isOffsetFromTravelTimeStart & v22) == 1))
+    if (lastFireTimeOfAlertOffsetFromTravelTime && (-[CALNDefaultTriggeredEventNotificationTransitionProvider dateProvider](self, "dateProvider"), v19 = objc_claimAutoreleasedReturnValue(), [v19 now], v20 = objc_claimAutoreleasedReturnValue(), v21 = +[CALNTravelAdvisoryUtilities isLastFireTimeOfAlert:withinEightMinutesOfDate:](CALNTravelAdvisoryUtilities, "isLastFireTimeOfAlert:withinEightMinutesOfDate:", lastFireTimeOfAlertOffsetFromTravelTime, v20), v20, v19, (isOffsetFromTravelTimeStart & v21) == 1))
     {
-      v23 = +[CALNLogSubsystem calendar];
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v22 = +[CALNLogSubsystem calendar];
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = 138543362;
-        v28 = identifierCopy;
-        v24 = "Should not add notification because notification recently fired due to a travel time alert. source client identifier = %{public}@";
+        v26 = 138543362;
+        v27 = identifierCopy;
+        v23 = "Should not add notification because notification recently fired due to a travel time alert. source client identifier = %{public}@";
 LABEL_26:
-        _os_log_impl(&dword_242909000, v23, OS_LOG_TYPE_DEFAULT, v24, &v27, 0xCu);
+        _os_log_impl(&dword_242909000, v22, OS_LOG_TYPE_DEFAULT, v23, &v26, 0xCu);
       }
     }
 
     else
     {
-      if (!v13 || (v25 = [v13 travelState], -[CALNDefaultTriggeredEventNotificationTransitionProvider travelAdvisoryAuthority](self, "travelAdvisoryAuthority"), v26 = objc_claimAutoreleasedReturnValue(), LODWORD(v25) = objc_msgSend(v26, "travelStateIndicatesTravelingTowardDestination:", v25), v26, !v25))
+      if (!v13 || (v24 = [v13 travelState], -[CALNDefaultTriggeredEventNotificationTransitionProvider travelAdvisoryAuthority](self, "travelAdvisoryAuthority"), v25 = objc_claimAutoreleasedReturnValue(), LODWORD(v24) = objc_msgSend(v25, "travelStateIndicatesTravelingTowardDestination:", v24), v25, !v24))
       {
-        v23 = +[CALNLogSubsystem calendar];
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v22 = +[CALNLogSubsystem calendar];
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = 138543362;
-          v28 = identifierCopy;
-          _os_log_impl(&dword_242909000, v23, OS_LOG_TYPE_DEFAULT, "Should add notification because new travel advice received for existing alert. source client identifier = %{public}@", &v27, 0xCu);
+          v26 = 138543362;
+          v27 = identifierCopy;
+          _os_log_impl(&dword_242909000, v22, OS_LOG_TYPE_DEFAULT, "Should add notification because new travel advice received for existing alert. source client identifier = %{public}@", &v26, 0xCu);
         }
 
         v16 = 1;
         goto LABEL_31;
       }
 
-      v23 = +[CALNLogSubsystem calendar];
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v22 = +[CALNLogSubsystem calendar];
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = 138543362;
-        v28 = identifierCopy;
-        v24 = "Should not add notification because an alert already fired for the event and the user is traveling to the destination. source client identifier = %{public}@";
+        v26 = 138543362;
+        v27 = identifierCopy;
+        v23 = "Should not add notification because an alert already fired for the event and the user is traveling to the destination. source client identifier = %{public}@";
         goto LABEL_26;
       }
     }
@@ -298,21 +297,20 @@ LABEL_31:
   lastFireTimeOfAlertOffsetFromTravelTime = +[CALNLogSubsystem calendar];
   if (os_log_type_enabled(lastFireTimeOfAlertOffsetFromTravelTime, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138543362;
-    v28 = identifierCopy;
-    _os_log_impl(&dword_242909000, lastFireTimeOfAlertOffsetFromTravelTime, OS_LOG_TYPE_DEFAULT, "Should add notification because new travel advice received and no associated notification data exists already, source client identifier = %{public}@", &v27, 0xCu);
+    v26 = 138543362;
+    v27 = identifierCopy;
+    _os_log_impl(&dword_242909000, lastFireTimeOfAlertOffsetFromTravelTime, OS_LOG_TYPE_DEFAULT, "Should add notification because new travel advice received and no associated notification data exists already, source client identifier = %{public}@", &v26, 0xCu);
   }
 
   v16 = 1;
 LABEL_14:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BOOL)_shouldRemoveNotificationForTravelAdviceReceivedForSourceClientIdentifier:(id)identifier sourceNotificationInfo:(id)info oldNotificationData:(id)data
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dataCopy = data;
   hypothesis = [info hypothesis];
@@ -332,16 +330,15 @@ LABEL_14:
       v13 = +[CALNLogSubsystem calendar];
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138543362;
-        v17 = identifierCopy;
-        _os_log_impl(&dword_242909000, v13, OS_LOG_TYPE_DEFAULT, "Should remove notification because the user has arrived and we've only shown pure 'Time to Leave' alerts and no manual alerts for this event. Source client identifier to remove = %{public}@", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = identifierCopy;
+        _os_log_impl(&dword_242909000, v13, OS_LOG_TYPE_DEFAULT, "Should remove notification because the user has arrived and we've only shown pure 'Time to Leave' alerts and no manual alerts for this event. Source client identifier to remove = %{public}@", &v15, 0xCu);
       }
 
       v11 = 1;
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -407,7 +404,7 @@ LABEL_14:
 
 - (BOOL)_timeToLeaveStateAlreadyDisplayedBasedOnSourceNotificationInfo:(id)info oldNotificationData:(id)data
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (!dataCopy)
   {
@@ -468,7 +465,7 @@ LABEL_11:
       v13 = @"No";
     }
 
-    v17 = 138544386;
+    v16 = 138544386;
     if ([dataCopy hasDisplayedRunningLateMessage])
     {
       v14 = @"Yes";
@@ -479,30 +476,28 @@ LABEL_11:
       v14 = @"No";
     }
 
-    v18 = v11;
-    v19 = 2048;
-    v20 = v7;
-    v21 = 2114;
-    v22 = v12;
-    v23 = 2114;
-    v24 = v13;
-    v25 = 2114;
-    v26 = v14;
-    _os_log_impl(&dword_242909000, v10, OS_LOG_TYPE_DEFAULT, "Time to leave status already displayed based on travel advisory timeliness period: (%{public}@), period = %lu, hasDisplayedLeaveByMessage = (%{public}@), hasDisplayedLeaveNowMessage = (%{public}@), hasDisplayedRunningLateMessage = (%{public}@)", &v17, 0x34u);
+    v17 = v11;
+    v18 = 2048;
+    v19 = v7;
+    v20 = 2114;
+    v21 = v12;
+    v22 = 2114;
+    v23 = v13;
+    v24 = 2114;
+    v25 = v14;
+    _os_log_impl(&dword_242909000, v10, OS_LOG_TYPE_DEFAULT, "Time to leave status already displayed based on travel advisory timeliness period: (%{public}@), period = %lu, hasDisplayedLeaveByMessage = (%{public}@), hasDisplayedLeaveNowMessage = (%{public}@), hasDisplayedRunningLateMessage = (%{public}@)", &v16, 0x34u);
   }
 
 LABEL_26:
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)_transitionForTimeToLeaveRefreshTimerFiredForSourceClientIdentifier:(uint64_t)a1 sourceNotificationInfo:(NSObject *)a2 oldNotificationData:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_242909000, a2, OS_LOG_TYPE_ERROR, "Could not compute transition for time to leave refresh timer fired because could not find existing notification data. source client identifier = %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_242909000, a2, OS_LOG_TYPE_ERROR, "Could not compute transition for time to leave refresh timer fired because could not find existing notification data. source client identifier = %{public}@", &v2, 0xCu);
 }
 
 @end

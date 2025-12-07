@@ -5,7 +5,9 @@
 - (TKSlotServer)initWithRegistryListener:(id)listener clientListener:(id)clientListener nfcSlotFactory:(id)factory;
 - (void)addClient:(id)client reply:(id)reply;
 - (void)addSlotRegistration:(id)registration name:(id)name;
+- (void)createNewNFCSlot:(id)slot connectionPID:(int)d uiMessage:(id)message appIdentifiers:(id)identifiers reply:(id)reply;
 - (void)dealloc;
+- (void)endAndRemoveNFCSlotWithSlotName:(id)name connectionPID:(int)d reply:(id)reply;
 - (void)ensureSlotWatchersRunning;
 - (void)handleExistingNFCSlot:(id)slot connectionPID:(int)d reply:(id)reply;
 - (void)isNFCSupportedWithReply:(id)reply;
@@ -14,8 +16,10 @@
 - (void)removeSlotRegistration:(id)registration;
 - (void)setupReaderDisconnectHandler:(id)handler slotName:(id)name;
 - (void)start;
+- (void)startNFCSlotWithName:(id)name uiMessage:(id)message supportedAppIdentifiers:(id)identifiers connectionPID:(int)d reply:(id)reply;
 - (void)startPollingWithNewSlot:(id)slot slotName:(id)name reply:(id)reply;
 - (void)stop;
+- (void)updateNFCSlotUIMessageWithMessage:(id)message slotName:(id)name connectionPID:(int)d reply:(id)reply;
 - (void)verifyNFCSlotInvalidationWithRemovedClientPID:(int)d;
 @end
 
@@ -136,25 +140,25 @@ LABEL_7:
 LABEL_5:
   [registrationCopy setSlotName:nameCopy];
 LABEL_6:
-  v44 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
+  v44 = 0u;
   v10 = obj[1];
-  v11 = [v10 countByEnumeratingWithState:&v42 objects:v48 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v11)
   {
-    v12 = *v43;
+    v12 = *v44;
     while (2)
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v43 != v12)
+        if (*v44 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        slotName = [*(*(&v42 + 1) + 8 * i) slotName];
+        slotName = [*(*(&v43 + 1) + 8 * i) slotName];
         slotName2 = [registrationCopy slotName];
         v16 = [slotName isEqualToString:slotName2];
 
@@ -174,7 +178,7 @@ LABEL_6:
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v43 objects:v49 count:16];
       if (v11)
       {
         continue;
@@ -192,57 +196,56 @@ LABEL_6:
   v20 = os_transaction_create();
   [registrationCopy setTransaction:v20];
 
-  v40 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
+  v40 = 0u;
   v21 = obj[2];
-  v22 = [v21 countByEnumeratingWithState:&v38 objects:v47 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v39 objects:v48 count:16];
   if (v22)
   {
-    v23 = *v39;
+    v23 = *v40;
     do
     {
       for (j = 0; j != v22; j = j + 1)
       {
-        if (*v39 != v23)
+        if (*v40 != v23)
         {
           objc_enumerationMutation(v21);
         }
 
-        v25 = *(*(&v38 + 1) + 8 * j);
+        v25 = *(*(&v39 + 1) + 8 * j);
         slotType = [v25 slotType];
-        if (!slotType)
+        if (slotType)
         {
-          goto LABEL_24;
+          slotType2 = [v25 slotType];
+          slotType3 = [registrationCopy slotType];
+          v29 = [slotType2 isEqualToString:slotType3];
+
+          if (!v29)
+          {
+            continue;
+          }
         }
 
-        slotType2 = [v25 slotType];
-        slotType3 = [registrationCopy slotType];
-        v29 = [slotType2 isEqualToString:slotType3];
-
-        if (v29)
-        {
-LABEL_24:
-          notification = [v25 notification];
-          slotName4 = [registrationCopy slotName];
-          endpoint = [registrationCopy endpoint];
-          slotType4 = [registrationCopy slotType];
-          [notification setSlotWithName:slotName4 endpoint:endpoint type:slotType4 reply:&stru_100038C98];
-        }
+        notification = [v25 notification];
+        slotName4 = [registrationCopy slotName];
+        endpoint = [registrationCopy endpoint];
+        slotType4 = [registrationCopy slotType];
+        [notification setSlotWithName:slotName4 endpoint:endpoint type:slotType4 reply:&stru_100038C98];
       }
 
-      v22 = [v21 countByEnumeratingWithState:&v38 objects:v47 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v39 objects:v48 count:16];
     }
 
     while (v22);
   }
 
-  v34 = sub_10000EE10();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+  v35 = sub_10000EE10(v34);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
   {
     slotName5 = [registrationCopy slotName];
-    sub_10001F5F4(slotName5, buf, v34);
+    sub_10001F5F4(slotName5, buf, v35);
   }
 
   objc_sync_exit(obj);
@@ -270,58 +273,57 @@ LABEL_24:
 {
   registrationCopy = registration;
   obj = self;
-  objc_sync_enter(obj);
-  v5 = sub_10000EE10();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v5 = objc_sync_enter(obj);
+  v6 = sub_10000EE10(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     slotName = [registrationCopy slotName];
-    sub_10001F800(slotName, buf, v5);
+    sub_10001F800(slotName, buf, v6);
   }
 
   [(NSMutableArray *)obj->_registrations removeObject:registrationCopy];
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v7 = obj->_clients;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
-  if (v8)
+  v22 = 0u;
+  v8 = obj->_clients;
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v9)
   {
-    v9 = *v21;
+    v10 = *v22;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v9; i = i + 1)
       {
-        if (*v21 != v9)
+        if (*v22 != v10)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v8);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
-        slotType = [v11 slotType];
-        if (!slotType)
+        v12 = *(*(&v21 + 1) + 8 * i);
+        slotType = [v12 slotType];
+        if (slotType)
         {
-          goto LABEL_10;
+          slotType2 = [v12 slotType];
+          slotType3 = [registrationCopy slotType];
+          v16 = [slotType2 isEqualToString:slotType3];
+
+          if (!v16)
+          {
+            continue;
+          }
         }
 
-        slotType2 = [v11 slotType];
-        slotType3 = [registrationCopy slotType];
-        v15 = [slotType2 isEqualToString:slotType3];
-
-        if (v15)
-        {
-LABEL_10:
-          notification = [v11 notification];
-          slotName2 = [registrationCopy slotName];
-          slotType4 = [registrationCopy slotType];
-          [notification setSlotWithName:slotName2 endpoint:0 type:slotType4 reply:&stru_100038D00];
-        }
+        notification = [v12 notification];
+        slotName2 = [registrationCopy slotName];
+        slotType4 = [registrationCopy slotType];
+        [notification setSlotWithName:slotName2 endpoint:0 type:slotType4 reply:&stru_100038D00];
       }
 
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
   objc_sync_exit(obj);
@@ -357,29 +359,19 @@ LABEL_10:
 
         v12 = *(*(&v27 + 1) + 8 * v11);
         slotType = [clientCopy slotType];
-        if (!slotType)
+        if (!slotType || ([clientCopy slotType], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "slotType"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "isEqualToString:", v15), v15, v14, slotType, v16))
         {
-          goto LABEL_8;
-        }
-
-        slotType2 = [clientCopy slotType];
-        slotType3 = [v12 slotType];
-        v16 = [slotType2 isEqualToString:slotType3];
-
-        if (v16)
-        {
-LABEL_8:
           dispatch_group_enter(v8);
           notification = [clientCopy notification];
           slotName = [v12 slotName];
           endpoint = [v12 endpoint];
-          slotType4 = [v12 slotType];
+          slotType2 = [v12 slotType];
           v25[0] = _NSConcreteStackBlock;
           v25[1] = 3221225472;
           v25[2] = sub_100010378;
           v25[3] = &unk_100038710;
           v26 = v8;
-          [notification setSlotWithName:slotName endpoint:endpoint type:slotType4 reply:v25];
+          [notification setSlotWithName:slotName endpoint:endpoint type:slotType2 reply:v25];
         }
 
         v11 = v11 + 1;
@@ -407,6 +399,41 @@ LABEL_8:
   objc_sync_exit(selfCopy);
 }
 
+- (void)startNFCSlotWithName:(id)name uiMessage:(id)message supportedAppIdentifiers:(id)identifiers connectionPID:(int)d reply:(id)reply
+{
+  v8 = *&d;
+  nameCopy = name;
+  messageCopy = message;
+  identifiersCopy = identifiers;
+  replyCopy = reply;
+  v16 = self->_nfcSlotLock;
+  v17 = objc_sync_enter(v16);
+  nfcSlot = self->_nfcSlot;
+  v19 = sub_10000EE10(v17);
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
+  if (nfcSlot)
+  {
+    if (v20)
+    {
+      sub_10001F898();
+    }
+
+    [(TKSlotServer *)self handleExistingNFCSlot:nameCopy connectionPID:v8 reply:replyCopy];
+  }
+
+  else
+  {
+    if (v20)
+    {
+      sub_10001F8D8();
+    }
+
+    [(TKSlotServer *)self createNewNFCSlot:nameCopy connectionPID:v8 uiMessage:messageCopy appIdentifiers:identifiersCopy reply:replyCopy];
+  }
+
+  objc_sync_exit(v16);
+}
+
 - (void)isNFCSupportedWithReply:(id)reply
 {
   replyCopy = reply;
@@ -415,6 +442,65 @@ LABEL_8:
   v5 = [(TKNFCHardwareManager *)v4 isNFCSupportedWithError:&v7];
   v6 = v7;
   replyCopy[2](replyCopy, v5, v6);
+}
+
+- (void)createNewNFCSlot:(id)slot connectionPID:(int)d uiMessage:(id)message appIdentifiers:(id)identifiers reply:(id)reply
+{
+  v10 = *&d;
+  slotCopy = slot;
+  messageCopy = message;
+  identifiersCopy = identifiers;
+  replyCopy = reply;
+  nfcSlotFactory = self->_nfcSlotFactory;
+  if (nfcSlotFactory)
+  {
+    v17 = nfcSlotFactory;
+  }
+
+  else
+  {
+    v17 = objc_alloc_init(TKNFCSlotFactory);
+  }
+
+  v18 = v17;
+  v25 = 0;
+  v19 = [(TKNFCSlotFactory *)v17 createNFCSlotWithName:slotCopy uiMessage:messageCopy creatorPID:v10 appIdentifiers:identifiersCopy error:&v25];
+  v20 = v25;
+  v21 = sub_10000EE10(v20);
+  v22 = v21;
+  if (v20 || !v19)
+  {
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      sub_10001F94C(slotCopy, v20, v22);
+    }
+
+    if (v20)
+    {
+      v23 = v20;
+    }
+
+    else
+    {
+      v26 = NSLocalizedDescriptionKey;
+      v27 = @"NFC slot failed to be created for unknown reason.";
+      v24 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      v23 = [NSError errorWithDomain:TKErrorDomain code:-6 userInfo:v24];
+    }
+
+    (*(replyCopy + 2))(replyCopy, 0, 0, v23);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10001F9C4();
+    }
+
+    [(TKSlotServer *)self setupReaderDisconnectHandler:v19 slotName:slotCopy];
+    [(TKSlotServer *)self startPollingWithNewSlot:v19 slotName:slotCopy reply:replyCopy];
+  }
 }
 
 - (void)startPollingWithNewSlot:(id)slot slotName:(id)name reply:(id)reply
@@ -480,6 +566,36 @@ LABEL_8:
   objc_destroyWeak(&location);
 }
 
+- (void)endAndRemoveNFCSlotWithSlotName:(id)name connectionPID:(int)d reply:(id)reply
+{
+  v6 = *&d;
+  nameCopy = name;
+  replyCopy = reply;
+  v10 = self->_nfcSlotLock;
+  objc_sync_enter(v10);
+  v16 = 0;
+  v11 = [(TKSlotServer *)self validateNFCSlotAccessWithSlotName:nameCopy connectionPID:v6 error:&v16];
+  v12 = v16;
+  if (v11)
+  {
+    nfcSlot = self->_nfcSlot;
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_100011118;
+    v14[3] = &unk_100038C38;
+    v14[4] = self;
+    v15 = replyCopy;
+    [(TKNFCSlot *)nfcSlot endSessionWithCompletion:v14];
+  }
+
+  else
+  {
+    (*(replyCopy + 2))(replyCopy, 0, v12);
+  }
+
+  objc_sync_exit(v10);
+}
+
 - (void)verifyNFCSlotInvalidationWithRemovedClientPID:(int)d
 {
   v5 = self->_nfcSlotLock;
@@ -497,6 +613,29 @@ LABEL_8:
   }
 
   objc_sync_exit(v5);
+}
+
+- (void)updateNFCSlotUIMessageWithMessage:(id)message slotName:(id)name connectionPID:(int)d reply:(id)reply
+{
+  v7 = *&d;
+  messageCopy = message;
+  nameCopy = name;
+  replyCopy = reply;
+  v13 = self->_nfcSlotLock;
+  objc_sync_enter(v13);
+  v17 = 0;
+  v14 = [(TKSlotServer *)self validateNFCSlotAccessWithSlotName:nameCopy connectionPID:v7 error:&v17];
+  v15 = v17;
+  v16 = v15;
+  if (v14)
+  {
+    [(TKNFCSlot *)self->_nfcSlot setUiMessage:messageCopy];
+    v16 = 0;
+  }
+
+  (replyCopy)[2](replyCopy, v14, v16);
+
+  objc_sync_exit(v13);
 }
 
 - (BOOL)validateNFCSlotAccessWithSlotName:(id)name connectionPID:(int)d error:(id *)error

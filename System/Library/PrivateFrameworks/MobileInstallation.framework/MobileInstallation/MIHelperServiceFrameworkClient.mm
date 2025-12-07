@@ -5,6 +5,7 @@
 - (BOOL)removeMacAppWithBundleID:(id)d atURL:(id)l error:(id *)error;
 - (BOOL)setTestModeForIdentifierPrefix:(id)prefix testMode:(unint64_t)mode error:(id *)error;
 - (BOOL)setTestModeForIdentifierPrefix:(id)prefix testMode:(unint64_t)mode validationData:(id)data error:(id *)error;
+- (BOOL)setTestingEnabled:(BOOL)enabled error:(id *)error;
 - (id)_remoteObjectProxyWithErrorHandler:(id)handler;
 - (id)_sharedConnection;
 - (id)_synchronousRemoteObjectProxyWithErrorHandler:(id)handler;
@@ -42,10 +43,11 @@
 
 uint64_t __48__MIHelperServiceFrameworkClient_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  sharedInstance_sharedInstance = objc_alloc_init(objc_opt_class());
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (void)_invalidateObject
@@ -651,6 +653,41 @@ void __112__MIHelperServiceFrameworkClient_stagingLocationForInstallLocation_wit
   v9 = v7;
   v10 = *(v8 + 40);
   *(v8 + 40) = v9;
+}
+
+- (BOOL)setTestingEnabled:(BOOL)enabled error:(id *)error
+{
+  enabledCopy = enabled;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy_;
+  v16 = __Block_byref_object_dispose_;
+  v17 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __58__MIHelperServiceFrameworkClient_setTestingEnabled_error___block_invoke;
+  v11[3] = &unk_1E80B9D88;
+  v11[4] = &v12;
+  v6 = [(MIHelperServiceFrameworkClient *)self _synchronousRemoteObjectProxyWithErrorHandler:v11];
+  v7 = v6;
+  v8 = v13[5];
+  if (v8)
+  {
+    if (error)
+    {
+      v9 = v8;
+      *error = v8;
+    }
+  }
+
+  else
+  {
+    [v6 setTestingEnabled:enabledCopy];
+  }
+
+  _Block_object_dispose(&v12, 8);
+  return v8 == 0;
 }
 
 void __58__MIHelperServiceFrameworkClient_setTestingEnabled_error___block_invoke(uint64_t a1, void *a2)

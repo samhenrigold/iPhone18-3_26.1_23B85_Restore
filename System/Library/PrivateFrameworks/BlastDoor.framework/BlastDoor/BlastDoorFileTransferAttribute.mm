@@ -17,14 +17,12 @@
 
 - (NSArray)attachments
 {
-  v3 = OBJC_IVAR___BlastDoorFileTransferAttribute_attachments;
   swift_beginAccess();
-  v4 = *(self + v3);
   type metadata accessor for _ObjCFileTransferAttribute_AttachmentInfoWrapper(0);
 
-  v5 = sub_2146D98E8();
+  v2 = sub_2146D98E8();
 
-  return v5;
+  return v2;
 }
 
 - (void)setAttachments:(id)attachments
@@ -33,7 +31,6 @@
   v4 = sub_2146D9918();
   v5 = OBJC_IVAR___BlastDoorFileTransferAttribute_attachments;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -62,14 +59,11 @@
 
 - (NSString)name
 {
-  v2 = (self + OBJC_IVAR___BlastDoorFileTransferAttribute_name);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_2146D9588();
+  v2 = sub_2146D9588();
 
-  return v5;
+  return v2;
 }
 
 - (void)setName:(id)name
@@ -78,7 +72,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___BlastDoorFileTransferAttribute_name);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

@@ -104,7 +104,7 @@ LABEL_7:
   return v3;
 }
 
-uint64_t __49__MRNowPlayingPlayerClientCallbacks_capabilities__block_invoke(uint64_t a1)
+void *__49__MRNowPlayingPlayerClientCallbacks_capabilities__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _onQueue_capabilities];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -194,18 +194,17 @@ uint64_t __49__MRNowPlayingPlayerClientCallbacks_capabilities__block_invoke(uint
 
 - (id)videoThumbnailsCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__34;
-  v9 = __Block_byref_object_dispose__34;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__34;
+  v8 = __Block_byref_object_dispose__34;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __60__MRNowPlayingPlayerClientCallbacks_videoThumbnailsCallback__block_invoke(uint64_t a1)
@@ -220,9 +219,7 @@ void __60__MRNowPlayingPlayerClientCallbacks_videoThumbnailsCallback__block_invo
 - (void)setVideoThumbnailsCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -236,18 +233,17 @@ void __64__MRNowPlayingPlayerClientCallbacks_setVideoThumbnailsCallback___block_
 
 - (id)audioAmplitudeSamplesCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__34;
-  v9 = __Block_byref_object_dispose__34;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__34;
+  v8 = __Block_byref_object_dispose__34;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __66__MRNowPlayingPlayerClientCallbacks_audioAmplitudeSamplesCallback__block_invoke(uint64_t a1)
@@ -262,9 +258,7 @@ void __66__MRNowPlayingPlayerClientCallbacks_audioAmplitudeSamplesCallback__bloc
 - (void)setAudioAmplitudeSamplesCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -278,18 +272,17 @@ void __70__MRNowPlayingPlayerClientCallbacks_setAudioAmplitudeSamplesCallback___
 
 - (id)playbackSessionCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__34;
-  v9 = __Block_byref_object_dispose__34;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__34;
+  v8 = __Block_byref_object_dispose__34;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __60__MRNowPlayingPlayerClientCallbacks_playbackSessionCallback__block_invoke(uint64_t a1)
@@ -304,9 +297,7 @@ void __60__MRNowPlayingPlayerClientCallbacks_playbackSessionCallback__block_invo
 - (void)setPlaybackSessionCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -320,18 +311,17 @@ void __64__MRNowPlayingPlayerClientCallbacks_setPlaybackSessionCallback___block_
 
 - (id)playbackSessionMigrateBeginCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__34;
-  v9 = __Block_byref_object_dispose__34;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__34;
+  v8 = __Block_byref_object_dispose__34;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __72__MRNowPlayingPlayerClientCallbacks_playbackSessionMigrateBeginCallback__block_invoke(uint64_t a1)
@@ -346,9 +336,7 @@ void __72__MRNowPlayingPlayerClientCallbacks_playbackSessionMigrateBeginCallback
 - (void)setPlaybackSessionMigrateBeginCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -362,18 +350,17 @@ void __76__MRNowPlayingPlayerClientCallbacks_setPlaybackSessionMigrateBeginCallb
 
 - (id)playbackSessionMigrateEndCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__34;
-  v9 = __Block_byref_object_dispose__34;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__34;
+  v8 = __Block_byref_object_dispose__34;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __70__MRNowPlayingPlayerClientCallbacks_playbackSessionMigrateEndCallback__block_invoke(uint64_t a1)
@@ -388,9 +375,7 @@ void __70__MRNowPlayingPlayerClientCallbacks_playbackSessionMigrateEndCallback__
 - (void)setPlaybackSessionMigrateEndCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -404,18 +389,17 @@ void __74__MRNowPlayingPlayerClientCallbacks_setPlaybackSessionMigrateEndCallbac
 
 - (id)playbackSessionMigrateFinalizeCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__34;
-  v9 = __Block_byref_object_dispose__34;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__34;
+  v8 = __Block_byref_object_dispose__34;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __75__MRNowPlayingPlayerClientCallbacks_playbackSessionMigrateFinalizeCallback__block_invoke(uint64_t a1)
@@ -430,9 +414,7 @@ void __75__MRNowPlayingPlayerClientCallbacks_playbackSessionMigrateFinalizeCallb
 - (void)setPlaybackSessionMigrateFinalizeCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -446,18 +428,17 @@ void __79__MRNowPlayingPlayerClientCallbacks_setPlaybackSessionMigrateFinalizeCa
 
 - (id)playbackSessionMigrateRequestCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__34;
-  v9 = __Block_byref_object_dispose__34;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__34;
+  v8 = __Block_byref_object_dispose__34;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __74__MRNowPlayingPlayerClientCallbacks_playbackSessionMigrateRequestCallback__block_invoke(uint64_t a1)
@@ -472,9 +453,7 @@ void __74__MRNowPlayingPlayerClientCallbacks_playbackSessionMigrateRequestCallba
 - (void)setPlaybackSessionMigrateRequestCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -488,18 +467,17 @@ void __78__MRNowPlayingPlayerClientCallbacks_setPlaybackSessionMigrateRequestCal
 
 - (id)endLyricsEventCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__34;
-  v9 = __Block_byref_object_dispose__34;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__34;
+  v8 = __Block_byref_object_dispose__34;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __59__MRNowPlayingPlayerClientCallbacks_endLyricsEventCallback__block_invoke(uint64_t a1)
@@ -514,9 +492,7 @@ void __59__MRNowPlayingPlayerClientCallbacks_endLyricsEventCallback__block_invok
 - (void)setBeginLyricsEventCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -530,18 +506,17 @@ void __65__MRNowPlayingPlayerClientCallbacks_setBeginLyricsEventCallback___block
 
 - (id)beginLyricsEventCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__34;
-  v9 = __Block_byref_object_dispose__34;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__34;
+  v8 = __Block_byref_object_dispose__34;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __61__MRNowPlayingPlayerClientCallbacks_beginLyricsEventCallback__block_invoke(uint64_t a1)
@@ -556,9 +531,7 @@ void __61__MRNowPlayingPlayerClientCallbacks_beginLyricsEventCallback__block_inv
 - (void)setEndLyricsEventCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -572,18 +545,17 @@ void __63__MRNowPlayingPlayerClientCallbacks_setEndLyricsEventCallback___block_i
 
 - (id)playbackSessionMigratePostCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__34;
-  v9 = __Block_byref_object_dispose__34;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__34;
+  v8 = __Block_byref_object_dispose__34;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __71__MRNowPlayingPlayerClientCallbacks_playbackSessionMigratePostCallback__block_invoke(uint64_t a1)
@@ -598,9 +570,7 @@ void __71__MRNowPlayingPlayerClientCallbacks_playbackSessionMigratePostCallback_
 - (void)setPlaybackSessionMigratePostCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -617,24 +587,23 @@ void __75__MRNowPlayingPlayerClientCallbacks_setPlaybackSessionMigratePostCallba
   v3 = +[MRNowPlayingOriginClientManager sharedManager];
   v4 = [v3 originClientForPlayerPath:self->_playerPath];
 
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   playbackQueueCallback = [v4 playbackQueueCallback];
   v6 = playbackQueueCallback != 0;
 
-  v12 = v6;
-  serialQueue = self->_serialQueue;
+  v11 = v6;
   msv_dispatch_sync_on_queue();
-  LOBYTE(self) = *(v10 + 24);
-  _Block_object_dispose(&v9, 8);
+  LOBYTE(self) = *(v9 + 24);
+  _Block_object_dispose(&v8, 8);
 
   return self;
 }
 
-uint64_t __62__MRNowPlayingPlayerClientCallbacks_hasPlaybackQueueCallbacks__block_invoke(uint64_t result)
+void *__62__MRNowPlayingPlayerClientCallbacks_hasPlaybackQueueCallbacks__block_invoke(void *result)
 {
-  v1 = *(*(result + 40) + 8);
+  v1 = *(*(result + 5) + 8);
   if (*(v1 + 24))
   {
     v2 = 1;
@@ -643,9 +612,9 @@ uint64_t __62__MRNowPlayingPlayerClientCallbacks_hasPlaybackQueueCallbacks__bloc
   else
   {
     v3 = result;
-    result = [*(result + 32) _onQueue_capabilities];
+    result = [*(result + 4) _onQueue_capabilities];
     v2 = result != 0;
-    v1 = *(*(v3 + 40) + 8);
+    v1 = *(v3[5] + 8);
   }
 
   *(v1 + 24) = v2;
@@ -790,7 +759,7 @@ void __97__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoBackedPlaybac
   }
 }
 
-uint64_t __69__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoCallbacks___block_invoke(uint64_t a1, uint64_t a2)
+MRContentItem *__69__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoCallbacks___block_invoke(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
@@ -817,7 +786,7 @@ uint64_t __69__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoCallbacks
   return v5;
 }
 
-uint64_t __69__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoCallbacks___block_invoke_2(uint64_t a1, uint64_t a2)
+MRContentItem *__69__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoCallbacks___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
@@ -832,7 +801,7 @@ uint64_t __69__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoCallbacks
     if (v9)
     {
       v10 = [MRContentItem extractedIdentifierFromNowPlayingInfo:v9];
-      if ([v10 isEqualToString:a2])
+      if (objc_msgSend_isEqualToString_(v10))
       {
         v5 = MRContentItemCreate(*MEMORY[0x1E695E480], a2);
       }
@@ -903,7 +872,7 @@ void __74__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoAssetCallback
     {
       v15 = [MRContentItem extractedIdentifierFromNowPlayingInfo:v14];
       v16 = [v8 identifier];
-      if ([v15 isEqualToString:v16])
+      if (objc_msgSend_isEqualToString_(v15))
       {
         v17 = [v13 nowPlayingArtwork];
 
@@ -986,7 +955,7 @@ void __80__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoArtworkAssetC
     v12 = [v10 nowPlayingInfo];
     v13 = [MRContentItem extractedIdentifierFromNowPlayingInfo:v12];
     v14 = MRContentItemGetIdentifier(a3);
-    if ([v13 isEqualToString:v14])
+    if (objc_msgSend_isEqualToString_(v13))
     {
       v20 = v13;
       v21 = [v11 copyImageData];
@@ -1052,9 +1021,9 @@ void __80__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoArtworkAssetC
 
 void __83__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoAnimatedArtworkCallback___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   v7 = a4;
-  v56 = a1;
+  v55 = a1;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -1078,53 +1047,53 @@ void __83__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoAnimatedArtwo
 
     else
     {
-      if ([v19 isEqualToString:v20])
+      if (objc_msgSend_isEqualToString_(v19))
       {
-        v47 = v20;
-        v48 = v19;
-        v49 = v18;
-        v50 = v13;
-        v51 = WeakRetained;
-        v52 = v7;
+        v46 = v20;
+        v47 = v19;
+        v48 = v18;
+        v49 = v13;
+        v50 = WeakRetained;
+        v51 = v7;
         v21 = dispatch_group_create();
-        v55 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v54 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v76 = 0u;
         v77 = 0u;
         v78 = 0u;
         v79 = 0u;
-        v80 = 0u;
-        v53 = v12;
+        v52 = v12;
         v22 = [v12 requestedAnimatedArtworkPreviewFrameFormats];
-        v23 = [v22 countByEnumeratingWithState:&v77 objects:v82 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v76 objects:v81 count:16];
         if (v23)
         {
           v24 = v23;
           v25 = 0;
-          v26 = *v78;
+          v26 = *v77;
           do
           {
             for (i = 0; i != v24; ++i)
             {
-              if (*v78 != v26)
+              if (*v77 != v26)
               {
                 objc_enumerationMutation(v22);
               }
 
-              v28 = *(*(&v77 + 1) + 8 * i);
+              v28 = *(*(&v76 + 1) + 8 * i);
               v29 = [v11 nowPlayingAnimatedArtworkForFormat:v28];
               if (v29)
               {
                 dispatch_group_enter(v21);
-                v72[0] = MEMORY[0x1E69E9820];
-                v72[1] = 3221225472;
-                v72[2] = __83__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoAnimatedArtworkCallback___block_invoke_2;
-                v72[3] = &unk_1E76A1AC8;
-                v73 = *(v56 + 32);
-                v74 = v55;
-                v75 = v28;
-                v76 = v21;
-                [v29 previewFrameDataWithSize:v72 completion:{v15, v17}];
+                v71[0] = MEMORY[0x1E69E9820];
+                v71[1] = 3221225472;
+                v71[2] = __83__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoAnimatedArtworkCallback___block_invoke_2;
+                v71[3] = &unk_1E76A1AC8;
+                v72 = *(v55 + 32);
+                v73 = v54;
+                v74 = v28;
+                v75 = v21;
+                [v29 previewFrameDataWithSize:v71 completion:{v15, v17}];
 
-                v30 = v73;
+                v30 = v72;
               }
 
               else
@@ -1135,7 +1104,7 @@ void __83__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoAnimatedArtwo
               }
             }
 
-            v24 = [v22 countByEnumeratingWithState:&v77 objects:v82 count:16];
+            v24 = [v22 countByEnumeratingWithState:&v76 objects:v81 count:16];
           }
 
           while (v24);
@@ -1146,42 +1115,42 @@ void __83__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoAnimatedArtwo
           v25 = 0;
         }
 
-        v54 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v53 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v67 = 0u;
         v68 = 0u;
         v69 = 0u;
         v70 = 0u;
-        v71 = 0u;
-        v34 = [v53 requestedAnimatedArtworkAssetURLFormats];
-        v35 = [v34 countByEnumeratingWithState:&v68 objects:v81 count:16];
+        v34 = [v52 requestedAnimatedArtworkAssetURLFormats];
+        v35 = [v34 countByEnumeratingWithState:&v67 objects:v80 count:16];
         if (v35)
         {
           v36 = v35;
-          v37 = *v69;
+          v37 = *v68;
           do
           {
             for (j = 0; j != v36; ++j)
             {
-              if (*v69 != v37)
+              if (*v68 != v37)
               {
                 objc_enumerationMutation(v34);
               }
 
-              v39 = *(*(&v68 + 1) + 8 * j);
+              v39 = *(*(&v67 + 1) + 8 * j);
               v40 = [v11 nowPlayingAnimatedArtworkForFormat:v39];
               if (v40)
               {
                 dispatch_group_enter(v21);
-                v63[0] = MEMORY[0x1E69E9820];
-                v63[1] = 3221225472;
-                v63[2] = __83__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoAnimatedArtworkCallback___block_invoke_4;
-                v63[3] = &unk_1E76A1AF0;
-                v64 = *(v56 + 32);
-                v65 = v54;
-                v66 = v39;
-                v67 = v21;
-                [v40 artworkAssetFileURLWithSize:v63 completion:{v15, v17}];
+                v62[0] = MEMORY[0x1E69E9820];
+                v62[1] = 3221225472;
+                v62[2] = __83__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoAnimatedArtworkCallback___block_invoke_4;
+                v62[3] = &unk_1E76A1AF0;
+                v63 = *(v55 + 32);
+                v64 = v53;
+                v65 = v39;
+                v66 = v21;
+                [v40 artworkAssetFileURLWithSize:v62 completion:{v15, v17}];
 
-                v41 = v64;
+                v41 = v63;
               }
 
               else
@@ -1192,34 +1161,34 @@ void __83__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoAnimatedArtwo
               }
             }
 
-            v36 = [v34 countByEnumeratingWithState:&v68 objects:v81 count:16];
+            v36 = [v34 countByEnumeratingWithState:&v67 objects:v80 count:16];
           }
 
           while (v36);
         }
 
-        v43 = *(v56 + 32);
+        v43 = *(v55 + 32);
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __83__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoAnimatedArtworkCallback___block_invoke_6;
         block[3] = &unk_1E76A1B18;
         v32 = v25;
-        v58 = v32;
-        v13 = v50;
-        v59 = v50;
-        v60 = v55;
-        v61 = v54;
-        v7 = v52;
-        v62 = v52;
-        v44 = v54;
-        v45 = v55;
+        v57 = v32;
+        v13 = v49;
+        v58 = v49;
+        v59 = v54;
+        v60 = v53;
+        v7 = v51;
+        v61 = v51;
+        v44 = v53;
+        v45 = v54;
         dispatch_group_notify(v21, v43, block);
 
-        WeakRetained = v51;
-        v12 = v53;
-        v19 = v48;
-        v18 = v49;
-        v20 = v47;
+        WeakRetained = v50;
+        v12 = v52;
+        v19 = v47;
+        v18 = v48;
+        v20 = v46;
         goto LABEL_32;
       }
 
@@ -1236,8 +1205,6 @@ LABEL_32:
   v32 = MRMediaRemoteCreateError(4);
   (*(v7 + 2))(v7, v32);
 LABEL_33:
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 void __83__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoAnimatedArtworkCallback___block_invoke_2(uint64_t a1, void *a2)
@@ -1307,12 +1274,11 @@ uint64_t __83__MRNowPlayingPlayerClientCallbacks_registerNowPlayingInfoAnimatedA
   {
     [*(a1 + 40) setAnimatedArtworkPreviewFrames:*(a1 + 48)];
     [*(a1 + 40) setAnimatedArtworks:*(a1 + 56)];
-    v2 = *(a1 + 32);
   }
 
-  v3 = *(*(a1 + 64) + 16);
+  v2 = *(*(a1 + 64) + 16);
 
-  return v3();
+  return v2();
 }
 
 - (BOOL)removePlaybackQueueDataSourceCallback:(id)callback

@@ -554,9 +554,9 @@ LABEL_3:
 
       v10 = *(*(&v18 + 1) + 8 * v9);
       identifier = [v10 identifier];
-      v12 = [identifier isEqualToString:identifierCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-      if (v12)
+      if (isEqualToString)
       {
         break;
       }
@@ -587,7 +587,7 @@ LABEL_9:
   }
 
   footerField = self->_footerField;
-  if (footerField && (-[PKPaymentSetupField identifier](footerField, "identifier"), v15 = objc_claimAutoreleasedReturnValue(), v16 = [v15 isEqualToString:identifierCopy], v15, v16))
+  if (footerField && ([(PKPaymentSetupField *)footerField identifier], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend_isEqualToString_(v15), v15, v16))
   {
     v13 = self->_footerField;
   }
@@ -839,9 +839,9 @@ LABEL_12:
                 goto LABEL_20;
               }
 
-              v17 = [(__CFString *)v16 isEqualToString:v9];
+              isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-              if (!v17)
+              if (!isEqualToString)
               {
 LABEL_20:
                 v18 = 0;
@@ -868,7 +868,7 @@ LABEL_22:
           }
 
           submissionDestination = [v11 submissionDestination];
-          if (![submissionDestination isEqualToString:destinationCopy])
+          if (!objc_msgSend_isEqualToString_(submissionDestination))
           {
             goto LABEL_22;
           }
@@ -901,7 +901,7 @@ LABEL_22:
   submissionSecurity = [fieldCopy submissionSecurity];
   if ([fieldCopy submissionStringMeetsAllRequirements])
   {
-    if (!destinationCopy || ([fieldCopy submissionDestination], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isEqualToString:", destinationCopy), v12, v13))
+    if (!destinationCopy || ([fieldCopy submissionDestination], v12 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v12), v12, isEqualToString))
     {
       if (submissionSecurity == security)
       {
@@ -929,7 +929,7 @@ LABEL_22:
         submissionSecurity2 = [nextLevelPicker submissionSecurity];
         if ([nextLevelPicker submissionStringMeetsAllRequirements])
         {
-          if (!destinationCopy || ([nextLevelPicker submissionDestination], v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "isEqualToString:", destinationCopy), v21, v22))
+          if (!destinationCopy || ([nextLevelPicker submissionDestination], v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend_isEqualToString_(v21), v21, v22))
           {
             if (submissionSecurity2 == security)
             {
@@ -1024,9 +1024,9 @@ LABEL_12:
 
         if (@"dateOfBirth" && identifier)
         {
-          v10 = [(__CFString *)identifier isEqualToString:@"dateOfBirth"];
+          isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-          if (v10)
+          if (isEqualToString)
           {
             goto LABEL_12;
           }
@@ -1284,9 +1284,9 @@ LABEL_90:
 
           else
           {
-            v40 = [v35 isEqualToString:v36];
+            isEqualToString = objc_msgSend_isEqualToString_(v35);
 
-            if (v40)
+            if (isEqualToString)
             {
               goto LABEL_42;
             }
@@ -1328,7 +1328,7 @@ LABEL_57:
 
           else
           {
-            v46 = [v41 isEqualToString:v42];
+            v46 = objc_msgSend_isEqualToString_(v41);
 
             if (v46)
             {
@@ -1371,7 +1371,7 @@ LABEL_71:
 
           else
           {
-            v53 = [v48 isEqualToString:v49];
+            v53 = objc_msgSend_isEqualToString_(v48);
 
             if (v53)
             {
@@ -1429,7 +1429,7 @@ LABEL_96:
           else
           {
             v58 = v55;
-            v279 = [v54 isEqualToString:v55];
+            v279 = objc_msgSend_isEqualToString_(v54);
 
             if (v279)
             {
@@ -1442,7 +1442,7 @@ LABEL_96:
           v61 = v60;
           if (v39)
           {
-            v62 = [v59 isEqualToString:v60];
+            v62 = objc_msgSend_isEqualToString_(v59);
 
             if (v62)
             {
@@ -1460,7 +1460,7 @@ LABEL_96:
           v28 = v304;
           if (v297)
           {
-            v66 = [v63 isEqualToString:v64];
+            v66 = objc_msgSend_isEqualToString_(v63);
 
             if (v66)
             {
@@ -1479,7 +1479,7 @@ LABEL_96:
           v69 = v68;
           if (v291)
           {
-            v70 = [v67 isEqualToString:v68];
+            v70 = objc_msgSend_isEqualToString_(v67);
 
             v27 = obj;
             if (v70)
@@ -1499,7 +1499,7 @@ LABEL_96:
           v73 = v72;
           if (v283)
           {
-            v74 = [v71 isEqualToString:v72];
+            v74 = objc_msgSend_isEqualToString_(v71);
 
             if (v74)
             {
@@ -1523,7 +1523,7 @@ LABEL_96:
 
           if (v275 && v35)
           {
-            v77 = [v47 isEqualToString:v75];
+            v77 = objc_msgSend_isEqualToString_(v47);
 
             if (v77)
             {
@@ -2481,7 +2481,7 @@ LABEL_345:
 
           if (v218 && v225)
           {
-            v228 = [v225 isEqualToString:v226];
+            v228 = objc_msgSend_isEqualToString_(v225);
 
             if (v228)
             {
@@ -2507,7 +2507,7 @@ LABEL_353:
 
           if (v219 && v225)
           {
-            v233 = [v230 isEqualToString:v231];
+            v233 = objc_msgSend_isEqualToString_(v230);
 
             if (v233)
             {
@@ -2533,7 +2533,7 @@ LABEL_361:
 
           if (v296 && v225)
           {
-            v237 = [v234 isEqualToString:v235];
+            v237 = objc_msgSend_isEqualToString_(v234);
 
             if (v237)
             {
@@ -2571,7 +2571,7 @@ LABEL_389:
               goto LABEL_390;
             }
 
-            v241 = [v238 isEqualToString:v239];
+            v241 = objc_msgSend_isEqualToString_(v238);
 
             if (!v241)
             {
@@ -2593,7 +2593,7 @@ LABEL_389:
               goto LABEL_386;
             }
 
-            v244 = [v242 isEqualToString:v243];
+            v244 = objc_msgSend_isEqualToString_(v242);
 
             if (!v244)
             {
@@ -2615,7 +2615,7 @@ LABEL_389:
               goto LABEL_386;
             }
 
-            v247 = [v245 isEqualToString:v246];
+            v247 = objc_msgSend_isEqualToString_(v245);
 
             if (!v247)
             {
@@ -2637,7 +2637,7 @@ LABEL_389:
             goto LABEL_386;
           }
 
-          v249 = [v229 isEqualToString:v248];
+          v249 = objc_msgSend_isEqualToString_(v229);
 
           if ((v249 & 1) == 0)
           {

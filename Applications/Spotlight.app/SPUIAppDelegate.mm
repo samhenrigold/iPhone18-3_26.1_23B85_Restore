@@ -59,14 +59,7 @@
   configuration = [sessionCopy configuration];
   persistentIdentifier = [sessionCopy persistentIdentifier];
 
-  LODWORD(sessionCopy) = [persistentIdentifier hasPrefix:@"searchBar"];
-  v8 = off_10000C2A8;
-  if (!sessionCopy)
-  {
-    v8 = &off_10000C2B0;
-  }
-
-  v9 = *v8;
+  [persistentIdentifier hasPrefix:@"searchBar"];
   [configuration setDelegateClass:objc_opt_class()];
 
   return configuration;

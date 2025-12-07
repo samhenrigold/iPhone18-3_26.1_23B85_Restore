@@ -10,6 +10,7 @@
 - (MTL4RenderPassDescriptor)currentMTL4RenderPassDescriptor;
 - (MTLClearColor)clearColor;
 - (MTLRenderPassDescriptor)currentRenderPassDescriptor;
+- (const)colorTexturesForceUpdate:(BOOL)update;
 - (const)multisampleColorTexturesForceUpdate:(BOOL)update;
 - (id)currentDrawable;
 - (id)delegate;
@@ -48,9 +49,11 @@
 - (void)setDrawableSize:(CGSize)drawableSize;
 - (void)setEnableSetNeedsDisplay:(BOOL)enableSetNeedsDisplay;
 - (void)setFrame:(CGRect)frame;
+- (void)setFramebufferOnly:(BOOL)framebufferOnly;
 - (void)setMultisampleColorAttachmentTextureUsage:(MTLTextureUsage)multisampleColorAttachmentTextureUsage;
 - (void)setNilValueForKey:(id)key;
 - (void)setPreferredFramesPerSecond:(NSInteger)preferredFramesPerSecond;
+- (void)setPresentsWithTransaction:(BOOL)presentsWithTransaction;
 - (void)setSampleCount:(NSUInteger)sampleCount;
 @end
 
@@ -117,19 +120,19 @@
   [v9 setFramebufferOnly:1];
 
   self->_framebufferOnly = 1;
-  v10 = _mtkLinkedOnOrAfter(1);
-  v11 = 4;
-  if (!v10)
+  v11 = _mtkLinkedOnOrAfter(1, v10);
+  v12 = 4;
+  if (!v11)
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  self->_depthStencilTextureUsage = v11;
-  self->_multisampleColorTextureUsage = v11;
+  self->_depthStencilTextureUsage = v12;
+  self->_multisampleColorTextureUsage = v12;
   if (self->_dumpFrameAtFrame || self->_dumpFrameAtSeconds || self->_dumpFirstFrame)
   {
-    v12 = objc_loadWeakRetained(&self->_metalLayer);
-    [v12 setFramebufferOnly:0];
+    v13 = objc_loadWeakRetained(&self->_metalLayer);
+    [v13 setFramebufferOnly:0];
   }
 
   self->_clearColor.red = 0.0;
@@ -144,9 +147,9 @@
   {
     for (i = 0; i != 3; ++i)
     {
-      v14 = [[MTKOffscreenDrawable alloc] initWithDevice:self->_device pixelFormat:[(MTKView *)self colorPixelFormat] size:i drawableID:self->_drawableSize.width, self->_drawableSize.height];
-      v15 = self->_offscreenSwapChain[i];
-      self->_offscreenSwapChain[i] = v14;
+      v15 = [[MTKOffscreenDrawable alloc] initWithDevice:self->_device pixelFormat:[(MTKView *)self colorPixelFormat] size:i drawableID:self->_drawableSize.width, self->_drawableSize.height];
+      v16 = self->_offscreenSwapChain[i];
+      self->_offscreenSwapChain[i] = v15;
     }
   }
 
@@ -174,16 +177,16 @@
 
   if (drawRectSubIMP)
   {
-    v17 = drawRectSubIMP == _drawRectSuperIMP;
+    v18 = drawRectSubIMP == _drawRectSuperIMP;
   }
 
   else
   {
-    v17 = 1;
+    v18 = 1;
   }
 
-  v18 = !v17;
-  self->_subClassOverridesDrawRect = v18;
+  v19 = !v18;
+  self->_subClassOverridesDrawRect = v19;
   self->_autoResizeDrawable = 1;
   [(MTKView *)self _resizeDrawable];
 }
@@ -985,6 +988,147 @@ LABEL_6:
   return 0;
 }
 
+- (const)colorTexturesForceUpdate:(BOOL)update
+{
+  if (!self->_device)
+  {
+    return 0;
+  }
+
+  updateCopy = update;
+  currentDrawable = [(MTKView *)self currentDrawable];
+  v6 = currentDrawable;
+  v7 = &OBJC_IVAR___MTKView__forceOrientation;
+  if (currentDrawable)
+  {
+    texture = [currentDrawable texture];
+    drawableAttachmentIndex = self->_drawableAttachmentIndex;
+    v10 = self->_colorTextures[drawableAttachmentIndex];
+    self->_colorTextures[drawableAttachmentIndex] = texture;
+  }
+
+  if (self->_renderAttachmentDirtyState)
+  {
+    v42 = 776;
+    v43 = v6;
+    v11 = 0;
+    v44 = v47;
+    v45 = *MEMORY[0x1E695E8D0];
+    v12 = &OBJC_IVAR___MTKView__forceOrientation;
+    while (1)
+    {
+      if (self->_drawOffscreen || *(&self->super.super.super.isa + v12[9]) != v11)
+      {
+        if (updateCopy)
+        {
+          goto LABEL_17;
+        }
+
+        v13 = self + v7[7];
+        v14 = *&v13[8 * v11];
+        if (!v14)
+        {
+          goto LABEL_17;
+        }
+
+        width = [v14 width];
+        WeakRetained = objc_loadWeakRetained(&self->_metalLayer);
+        [WeakRetained drawableSize];
+        if (v17 != width)
+        {
+          goto LABEL_16;
+        }
+
+        height = [*&v13[8 * v11] height];
+        v19 = objc_loadWeakRetained(&self->_metalLayer);
+        [v19 drawableSize];
+        if (v20 != height || [*&v13[8 * v11] pixelFormat] != self->_colorPixelFormats[v11])
+        {
+
+LABEL_16:
+LABEL_17:
+          if (self->_drawOffscreen && *(&self->super.super.super.isa + v12[9]) == v11)
+          {
+            v23 = 0;
+            offscreenSwapChain = self->_offscreenSwapChain;
+            do
+            {
+              [(MTKOffscreenDrawable *)offscreenSwapChain[v23] setSize:self->_drawableSize.width, self->_drawableSize.height, v42, v43, v44];
+              [(MTKOffscreenDrawable *)offscreenSwapChain[v23++] setPixelFormat:self->_colorPixelFormats[v11]];
+            }
+
+            while (v23 != 3);
+            texture2 = [(CAMetalDrawable *)self->_currentDrawable texture];
+          }
+
+          else if (self->_colorPixelFormats[v11])
+          {
+            Main = CFRunLoopGetMain();
+            block[0] = MEMORY[0x1E69E9820];
+            block[1] = 3221225472;
+            v47[0] = __36__MTKView_colorTexturesForceUpdate___block_invoke;
+            v47[1] = &unk_1E8580E00;
+            v47[2] = self;
+            CFRunLoopPerformBlock(Main, v45, block);
+            v27 = CFRunLoopGetMain();
+            CFRunLoopWakeUp(v27);
+            [(MTKView *)self _resizeMetalLayerDrawable];
+            v28 = MEMORY[0x1E69741C0];
+            v29 = self->_colorPixelFormats[v11];
+            v30 = v7;
+            v31 = updateCopy;
+            v32 = objc_loadWeakRetained(&self->_metalLayer);
+            [v32 drawableSize];
+            v34 = v33;
+            v35 = objc_loadWeakRetained(&self->_metalLayer);
+            [v35 drawableSize];
+            v37 = [v28 texture2DDescriptorWithPixelFormat:v29 width:v34 height:v36 mipmapped:0];
+
+            updateCopy = v31;
+            v7 = v30;
+            v12 = &OBJC_IVAR___MTKView__forceOrientation;
+
+            [v37 setUsage:self->_multisampleColorTextureUsage];
+            [v37 setStorageMode:2];
+            texture2 = [(MTLDevice *)self->_device newTextureWithDescriptor:v37];
+          }
+
+          else
+          {
+            texture2 = [MEMORY[0x1E695DFB0] null];
+          }
+
+          v38 = self + v7[7];
+          v39 = *&v38[8 * v11];
+          *&v38[8 * v11] = texture2;
+
+          goto LABEL_26;
+        }
+
+        usage = [*&v13[8 * v11] usage];
+        multisampleColorTextureUsage = self->_multisampleColorTextureUsage;
+
+        if (usage != multisampleColorTextureUsage)
+        {
+          goto LABEL_17;
+        }
+      }
+
+LABEL_26:
+      if (++v11 > self->_maxValidAttachmentIndex)
+      {
+        v6 = v43;
+        *(&self->super.super.super.isa + v42) &= ~1u;
+        break;
+      }
+    }
+  }
+
+  v40 = (&self->super.super.super.isa + v7[7]);
+
+  return v40;
+}
+
 - (id)multisampleColorTexture
 {
   v2 = [(MTKView *)self multisampleColorTextures][8 * self->_drawableAttachmentIndex];
@@ -1679,6 +1823,14 @@ LABEL_18:
   self->_renderAttachmentDirtyState |= 0x80000000;
 }
 
+- (void)setFramebufferOnly:(BOOL)framebufferOnly
+{
+  v3 = framebufferOnly;
+  self->_framebufferOnly = framebufferOnly;
+  WeakRetained = objc_loadWeakRetained(&self->_metalLayer);
+  [WeakRetained setFramebufferOnly:v3];
+}
+
 - (void)setDepthStencilAttachmentTextureUsage:(MTLTextureUsage)depthStencilAttachmentTextureUsage
 {
   if (self->_depthStencilTextureUsage != depthStencilAttachmentTextureUsage)
@@ -1713,6 +1865,13 @@ LABEL_18:
   framebufferOnly = [WeakRetained framebufferOnly];
 
   return framebufferOnly;
+}
+
+- (void)setPresentsWithTransaction:(BOOL)presentsWithTransaction
+{
+  v3 = presentsWithTransaction;
+  WeakRetained = objc_loadWeakRetained(&self->_metalLayer);
+  [WeakRetained setPresentsWithTransaction:v3];
 }
 
 - (BOOL)presentsWithTransaction

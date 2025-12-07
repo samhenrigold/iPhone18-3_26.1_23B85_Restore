@@ -118,7 +118,7 @@
     v24 = v23;
     if (v23)
     {
-      [v23 decimalValue];
+      objc_msgSend_decimalValue(v23);
     }
 
     else

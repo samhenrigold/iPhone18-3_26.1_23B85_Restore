@@ -1,4 +1,9 @@
 @interface ASDSelectorValue
++ (id)withValue:(unsigned int)value;
++ (id)withValue:(unsigned int)value andName:(id)name;
++ (id)withValue:(unsigned int)value andName:(id)name selected:(BOOL)selected;
++ (id)withValue:(unsigned int)value name:(id)name andKind:(unsigned int)kind;
++ (id)withValue:(unsigned int)value name:(id)name andKind:(unsigned int)kind selected:(BOOL)selected;
 - (ASDSelectorValue)initWithValue:(unsigned int)value name:(id)name andKind:(unsigned int)kind selected:(BOOL)selected;
 - (BOOL)isEqual:(id)equal;
 - (id)description;
@@ -22,6 +27,53 @@
   }
 
   return v13;
+}
+
++ (id)withValue:(unsigned int)value name:(id)name andKind:(unsigned int)kind selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  v7 = *&kind;
+  v8 = *&value;
+  nameCopy = name;
+  v10 = [[ASDSelectorValue alloc] initWithValue:v8 name:nameCopy andKind:v7 selected:selectedCopy];
+
+  return v10;
+}
+
++ (id)withValue:(unsigned int)value name:(id)name andKind:(unsigned int)kind
+{
+  v5 = *&kind;
+  v6 = *&value;
+  nameCopy = name;
+  v8 = [[ASDSelectorValue alloc] initWithValue:v6 name:nameCopy andKind:v5 selected:0];
+
+  return v8;
+}
+
++ (id)withValue:(unsigned int)value andName:(id)name selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  v6 = *&value;
+  nameCopy = name;
+  v8 = [[ASDSelectorValue alloc] initWithValue:v6 name:nameCopy andKind:0 selected:selectedCopy];
+
+  return v8;
+}
+
++ (id)withValue:(unsigned int)value andName:(id)name
+{
+  v4 = *&value;
+  nameCopy = name;
+  v6 = [[ASDSelectorValue alloc] initWithValue:v4 name:nameCopy andKind:0 selected:0];
+
+  return v6;
+}
+
++ (id)withValue:(unsigned int)value
+{
+  v3 = [[ASDSelectorValue alloc] initWithValue:*&value name:0 andKind:0 selected:0];
+
+  return v3;
 }
 
 - (BOOL)isEqual:(id)equal

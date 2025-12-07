@@ -13,16 +13,15 @@
 
   v8 = sub_2429B71F0();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20]();
-  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2429A24D4(v5, v7);
   sub_2429B71D0();
-  v13 = sub_2429B71B0();
+  v12 = sub_2429B71B0();
   sub_2429A27AC(v5, v7);
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 
-  return v13;
+  return v12;
 }
 
 - (_TtC21CalendarUIKitInternal25ReminderColorDeserializer)init

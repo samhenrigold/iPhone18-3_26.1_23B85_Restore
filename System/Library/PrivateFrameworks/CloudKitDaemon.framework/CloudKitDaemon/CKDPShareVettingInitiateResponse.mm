@@ -116,7 +116,6 @@
 {
   if (*&self->_has)
   {
-    vettingError = self->_vettingError;
     PBDataWriterWriteInt32Field();
   }
 }

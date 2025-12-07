@@ -668,13 +668,13 @@ LABEL_12:
   [navigationFlowDelegate pushFlowItem:v13 inFlow:flowCopy withExtendedInitialization:initializationCopy animated:animatedCopy willPushFlowItem:v14];
 }
 
-uint64_t __67__BFFFlow_pushFlowItem_inFlow_withExtendedInitialization_animated___block_invoke(uint64_t result, int a2)
+void *__67__BFFFlow_pushFlowItem_inFlow_withExtendedInitialization_animated___block_invoke(void *result, int a2)
 {
   if (a2)
   {
-    if (*(result + 32))
+    if (result[4])
     {
-      return [*(*(result + 40) + 56) addObject:?];
+      return [*(result[5] + 56) addObject:?];
     }
   }
 

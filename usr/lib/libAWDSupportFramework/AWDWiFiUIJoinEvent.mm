@@ -76,7 +76,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   if (*&self->_has)
   {
@@ -110,29 +110,29 @@
   if ([(NSMutableArray *)self->_sectionCounts count])
   {
     v7 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_sectionCounts, "count")}];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     sectionCounts = self->_sectionCounts;
-    v9 = [(NSMutableArray *)sectionCounts countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [(NSMutableArray *)sectionCounts countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(sectionCounts);
           }
 
-          [v7 addObject:{objc_msgSend(*(*(&v15 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v7 addObject:{objc_msgSend(*(*(&v14 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v10 = [(NSMutableArray *)sectionCounts countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [(NSMutableArray *)sectionCounts countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v10);
@@ -141,16 +141,14 @@
     [dictionary setObject:v7 forKey:@"sectionCounts"];
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -162,14 +160,12 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    securityType = self->_securityType;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    error = self->_error;
     PBDataWriterWriteUint32Field();
   }
 
@@ -178,36 +174,33 @@
     PBDataWriterWriteStringField();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   sectionCounts = self->_sectionCounts;
-  v9 = [(NSMutableArray *)sectionCounts countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v9)
+  v6 = [(NSMutableArray *)sectionCounts countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v10 = v9;
-    v11 = *v16;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v11)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(sectionCounts);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)sectionCounts countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSMutableArray *)sectionCounts countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v10);
+    while (v7);
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -259,7 +252,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -284,36 +277,35 @@
   }
 
   *(v6 + 32) = [(NSString *)self->_section copyWithZone:zone];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   sectionCounts = self->_sectionCounts;
-  v9 = [(NSMutableArray *)sectionCounts countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [(NSMutableArray *)sectionCounts countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(sectionCounts);
         }
 
-        v13 = [*(*(&v16 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v15 + 1) + 8 * i) copyWithZone:zone];
         [v6 addSectionCounts:v13];
       }
 
-      v10 = [(NSMutableArray *)sectionCounts countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [(NSMutableArray *)sectionCounts countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -323,7 +315,6 @@
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 52);
     if (has)
     {
       if ((*(equal + 52) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -351,7 +342,6 @@ LABEL_24:
       has = self->_has;
     }
 
-    v9 = *(equal + 52);
     if ((has & 4) != 0)
     {
       if ((*(equal + 52) & 4) == 0 || self->_securityType != *(equal + 12))
@@ -439,7 +429,7 @@ LABEL_9:
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   if (*(from + 52))
   {
     self->_timestamp = *(from + 1);
@@ -470,35 +460,33 @@ LABEL_9:
     [(AWDWiFiUIJoinEvent *)self setSection:?];
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = *(from + 5);
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(AWDWiFiUIJoinEvent *)self addSectionCounts:*(*(&v12 + 1) + 8 * i)];
+        [(AWDWiFiUIJoinEvent *)self addSectionCounts:*(*(&v11 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 @end

@@ -186,54 +186,54 @@ LABEL_3:
     goto LABEL_14;
   }
 
-  v17 = [familyCopy isEqualToString:*MEMORY[0x1E69AC188]];
+  isEqualToString = objc_msgSend_isEqualToString_(familyCopy);
   v18 = *MEMORY[0x1E69AC190];
-  if (v17)
+  if (isEqualToString)
   {
     goto LABEL_13;
   }
 
-  v19 = [familyCopy isEqualToString:v18];
+  v19 = objc_msgSend_isEqualToString_(familyCopy);
   v18 = *MEMORY[0x1E69AC198];
   if (v19)
   {
     goto LABEL_13;
   }
 
-  v20 = [familyCopy isEqualToString:v18];
+  v20 = objc_msgSend_isEqualToString_(familyCopy);
   v18 = *MEMORY[0x1E69AC1A0];
   if (v20)
   {
     goto LABEL_13;
   }
 
-  if ([familyCopy isEqualToString:v18])
+  if (objc_msgSend_isEqualToString_(familyCopy))
   {
     goto LABEL_9;
   }
 
-  v21 = [familyCopy isEqualToString:*MEMORY[0x1E69AC178]];
+  v21 = objc_msgSend_isEqualToString_(familyCopy);
   v18 = *MEMORY[0x1E69AC160];
   if (v21)
   {
     goto LABEL_13;
   }
 
-  v22 = [familyCopy isEqualToString:v18];
+  v22 = objc_msgSend_isEqualToString_(familyCopy);
   v18 = *MEMORY[0x1E69AC168];
   if (v22)
   {
     goto LABEL_13;
   }
 
-  v23 = [familyCopy isEqualToString:v18];
+  v23 = objc_msgSend_isEqualToString_(familyCopy);
   v18 = *MEMORY[0x1E69AC170];
   if (v23)
   {
     goto LABEL_13;
   }
 
-  if ([familyCopy isEqualToString:v18])
+  if (objc_msgSend_isEqualToString_(familyCopy))
   {
 LABEL_9:
     v18 = *MEMORY[0x1E69AC1A8];
@@ -252,7 +252,7 @@ LABEL_14:
 
 - (id)parameterDefinitionDictionary
 {
-  v43[8] = *MEMORY[0x1E69E9840];
+  v42[8] = *MEMORY[0x1E69E9840];
   memberParameterDefinition = [(WFLinkActionArrayParameterDefinition *)self memberParameterDefinition];
   parameterDefinitionDictionary = [memberParameterDefinition parameterDefinitionDictionary];
 
@@ -265,9 +265,9 @@ LABEL_14:
     v8 = v7;
     if (v7)
     {
-      v41 = @"DefaultValue";
-      v42 = v7;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      v40 = @"DefaultValue";
+      v41 = v7;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
       v10 = [parameterDefinitionDictionary definitionByAddingEntriesInDictionary:v9];
 
       parameterDefinitionDictionary = v10;
@@ -281,50 +281,48 @@ LABEL_14:
   if (if_dictionaryWithNonEmptyValues)
   {
     v14 = *MEMORY[0x1E69AC1A0];
-    v43[0] = *MEMORY[0x1E69AC1A8];
-    v43[1] = v14;
+    v42[0] = *MEMORY[0x1E69AC1A8];
+    v42[1] = v14;
     v15 = *MEMORY[0x1E69AC190];
-    v43[2] = *MEMORY[0x1E69AC198];
-    v43[3] = v15;
+    v42[2] = *MEMORY[0x1E69AC198];
+    v42[3] = v15;
     v16 = *MEMORY[0x1E69AC160];
-    v43[4] = *MEMORY[0x1E69AC188];
-    v43[5] = v16;
+    v42[4] = *MEMORY[0x1E69AC188];
+    v42[5] = v16;
     v17 = *MEMORY[0x1E69AC170];
-    v43[6] = *MEMORY[0x1E69AC178];
-    v43[7] = v17;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:8];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __69__WFLinkActionArrayParameterDefinition_parameterDefinitionDictionary__block_invoke;
-    v35[3] = &unk_1E837B580;
-    v35[4] = self;
+    v42[6] = *MEMORY[0x1E69AC178];
+    v42[7] = v17;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:8];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __69__WFLinkActionArrayParameterDefinition_parameterDefinitionDictionary__block_invoke;
+    v34[3] = &unk_1E837B580;
+    v34[4] = self;
     v19 = v11;
-    v36 = v19;
-    v20 = [v18 if_compactMap:v35];
-    v29 = MEMORY[0x1E69E9820];
-    v30 = 3221225472;
-    v31 = __69__WFLinkActionArrayParameterDefinition_parameterDefinitionDictionary__block_invoke_2;
-    v32 = &unk_1E837B5A8;
+    v35 = v19;
+    v20 = [v18 if_compactMap:v34];
+    v28 = MEMORY[0x1E69E9820];
+    v29 = 3221225472;
+    v30 = __69__WFLinkActionArrayParameterDefinition_parameterDefinitionDictionary__block_invoke_2;
+    v31 = &unk_1E837B5A8;
     selfCopy = self;
-    v34 = v19;
-    v21 = [v18 if_objectsPassingTest:&v29];
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:{v21, v29, v30, v31, v32, selfCopy}];
-    v39[0] = @"RangedSizeArray";
-    v39[1] = @"ArraySizeRangesForWidgetFamily";
-    v40[0] = v13;
-    v40[1] = v22;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:2];
+    v33 = v19;
+    v21 = [v18 if_objectsPassingTest:&v28];
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:{v21, v28, v29, v30, v31, selfCopy}];
+    v38[0] = @"RangedSizeArray";
+    v38[1] = @"ArraySizeRangesForWidgetFamily";
+    v39[0] = v13;
+    v39[1] = v22;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:2];
     v24 = [parameterDefinitionDictionary definitionByAddingEntriesInDictionary:v23];
 
     parameterDefinitionDictionary = v24;
   }
 
-  v37 = @"AllowsMultipleValues";
-  v38 = v13;
-  v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+  v36 = @"AllowsMultipleValues";
+  v37 = v13;
+  v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
   v26 = [parameterDefinitionDictionary definitionByAddingEntriesInDictionary:v25];
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
@@ -444,7 +442,7 @@ void __172__WFLinkActionArrayParameterDefinition_getLinkValueFromProcessedParame
 
 void __172__WFLinkActionArrayParameterDefinition_getLinkValueFromProcessedParameterValue_parameterState_permissionRequestor_runningFromToolKit_action_parameterKey_completionHandler___block_invoke_2(uint64_t a1, void *a2, unint64_t a3, void *a4)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
   v9 = *(a1 + 32);
@@ -465,7 +463,7 @@ void __172__WFLinkActionArrayParameterDefinition_getLinkValueFromProcessedParame
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v26 = "[WFLinkActionArrayParameterDefinition getLinkValueFromProcessedParameterValue:parameterState:permissionRequestor:runningFromToolKit:action:parameterKey:completionHandler:]_block_invoke_2";
+      v25 = "[WFLinkActionArrayParameterDefinition getLinkValueFromProcessedParameterValue:parameterState:permissionRequestor:runningFromToolKit:action:parameterKey:completionHandler:]_block_invoke_2";
       _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_ERROR, "%s Attempted to unwrap WFMultipleValueParameterState but did not find a matching substate this is a serious error! Falling back to multiple parameter state.", buf, 0xCu);
     }
   }
@@ -483,15 +481,13 @@ LABEL_8:
   v18 = *(a1 + 56);
   v19 = *(a1 + 64);
   v20 = *(a1 + 72);
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __172__WFLinkActionArrayParameterDefinition_getLinkValueFromProcessedParameterValue_parameterState_permissionRequestor_runningFromToolKit_action_parameterKey_completionHandler___block_invoke_165;
-  v23[3] = &unk_1E837B530;
-  v24 = v8;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __172__WFLinkActionArrayParameterDefinition_getLinkValueFromProcessedParameterValue_parameterState_permissionRequestor_runningFromToolKit_action_parameterKey_completionHandler___block_invoke_165;
+  v22[3] = &unk_1E837B530;
+  v23 = v8;
   v21 = v8;
-  [v15 getLinkValueFromProcessedParameterValue:v7 parameterState:v16 permissionRequestor:v18 runningFromToolKit:v17 action:v19 parameterKey:v20 completionHandler:v23];
-
-  v22 = *MEMORY[0x1E69E9840];
+  [v15 getLinkValueFromProcessedParameterValue:v7 parameterState:v16 permissionRequestor:v18 runningFromToolKit:v17 action:v19 parameterKey:v20 completionHandler:v22];
 }
 
 void __172__WFLinkActionArrayParameterDefinition_getLinkValueFromProcessedParameterValue_parameterState_permissionRequestor_runningFromToolKit_action_parameterKey_completionHandler___block_invoke_2_168(uint64_t a1, uint64_t a2, void *a3)
@@ -505,7 +501,7 @@ void __172__WFLinkActionArrayParameterDefinition_getLinkValueFromProcessedParame
 
 - (id)linkValueFromProcessedParameterValue:(id)value
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   if (valueCopy)
   {
@@ -526,19 +522,17 @@ void __172__WFLinkActionArrayParameterDefinition_getLinkValueFromProcessedParame
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       valueType3 = [(WFLinkActionParameterDefinition *)self valueType];
-      v15 = 136315650;
-      v16 = "[WFLinkActionArrayParameterDefinition linkValueFromProcessedParameterValue:]";
-      v17 = 2112;
-      v18 = valueCopy;
-      v19 = 2112;
-      v20 = valueType3;
+      v14 = 136315650;
+      v15 = "[WFLinkActionArrayParameterDefinition linkValueFromProcessedParameterValue:]";
+      v16 = 2112;
+      v17 = valueCopy;
+      v18 = 2112;
+      v19 = valueType3;
     }
   }
 
   v10 = 0;
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

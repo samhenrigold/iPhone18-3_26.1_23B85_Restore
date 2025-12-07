@@ -48,12 +48,10 @@
 
 - (AVAudioFormat)avFormat
 {
-  v6[5] = *MEMORY[0x1E69E9840];
+  v5[5] = *MEMORY[0x1E69E9840];
   selfCopy = self;
   [(TTSAudioFormat *)selfCopy streamDescription];
   initWithStreamDescription_ = [objc_allocWithZone(MEMORY[0x1E6958420]) initWithStreamDescription_];
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return initWithStreamDescription_;
 }

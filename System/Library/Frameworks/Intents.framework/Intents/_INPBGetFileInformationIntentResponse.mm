@@ -186,7 +186,6 @@ LABEL_13:
 
   if ([(_INPBGetFileInformationIntentResponse *)self hasSuccess])
   {
-    success = self->_success;
     PBDataWriterWriteBOOLField();
   }
 }

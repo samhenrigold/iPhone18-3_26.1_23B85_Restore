@@ -28,7 +28,7 @@
   selfCopy = self;
   sub_1001A5108();
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for RangingProxy();
+  v3.super_class = type metadata accessor for RangingProxy(0);
   [(RangingProxy *)&v3 dealloc];
 }
 
@@ -62,7 +62,7 @@
   sessionCopy = session;
   errorCopy = error;
   selfCopy = self;
-  sub_1001AA9C8();
+  sub_1001AA9C8(errorCopy);
 }
 
 - (void)session:(id)session didRemoveNearbyObjects:(id)objects withReason:(int64_t)reason
@@ -118,7 +118,7 @@
 {
   sessionCopy = session;
   selfCopy = self;
-  sub_1001A8458(sessionCopy);
+  sub_1001A8458(sessionCopy, state);
 }
 
 @end

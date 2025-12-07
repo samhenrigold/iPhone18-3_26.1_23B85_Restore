@@ -194,10 +194,10 @@ void __50__SecKeyProxy_listener_shouldAcceptNewConnection___block_invoke(uint64_
 
 + (__SecIdentity)createIdentityFromEndpoint:(id)endpoint error:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v5 = [self createItemFromEndpoint:endpoint certificate:&v15 error:error];
-  v6 = v15;
+  v16[1] = *MEMORY[0x1E69E9840];
+  v14 = 0;
+  v5 = [self createItemFromEndpoint:endpoint certificate:&v14 error:error];
+  v6 = v14;
   v7 = v6;
   if (!v5)
   {
@@ -210,9 +210,9 @@ void __50__SecKeyProxy_listener_shouldAcceptNewConnection___block_invoke(uint64_
     {
       v11 = MEMORY[0x1E696ABC0];
       v12 = *MEMORY[0x1E695E638];
-      v16 = *MEMORY[0x1E696A578];
-      v17[0] = @"Attempt to create remote identity from key-only proxy";
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v15 = *MEMORY[0x1E696A578];
+      v16[0] = @"Attempt to create remote identity from key-only proxy";
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
       [v11 errorWithDomain:v12 code:-50 userInfo:v9];
       *error = v10 = 0;
       goto LABEL_6;
@@ -229,7 +229,6 @@ LABEL_7:
 LABEL_6:
 
 LABEL_8:
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -294,20 +293,18 @@ LABEL_8:
 
 void __56__SecKeyProxy_createItemFromEndpoint_certificate_error___block_invoke(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   v4 = *MEMORY[0x1E695E638];
-  v12 = *MEMORY[0x1E696AA08];
-  v13[0] = a2;
+  v11 = *MEMORY[0x1E696AA08];
+  v12[0] = a2;
   v5 = MEMORY[0x1E695DF20];
   v6 = a2;
-  v7 = [v5 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v7 = [v5 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v8 = [v3 errorWithDomain:v4 code:-25300 userInfo:v7];
   v9 = *(*(a1 + 32) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (id)targetForKey:(__SecKey *)key error:(__CFError *)error

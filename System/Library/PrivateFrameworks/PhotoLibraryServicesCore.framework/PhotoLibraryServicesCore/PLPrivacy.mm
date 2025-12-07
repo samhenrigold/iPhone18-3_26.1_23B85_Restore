@@ -369,7 +369,7 @@ LABEL_24:
   memset(buf, 0, 32);
   if (identificationCopy)
   {
-    [identificationCopy clientAuditToken];
+    objc_msgSend_clientAuditToken(identificationCopy);
   }
 
   v9[0] = *buf;
@@ -402,7 +402,7 @@ LABEL_24:
     memset(buf, 0, 32);
     if (authorizationCopy)
     {
-      [authorizationCopy clientAuditToken];
+      objc_msgSend_clientAuditToken(authorizationCopy);
     }
 
     v6[0] = *buf;
@@ -436,7 +436,7 @@ LABEL_24:
   }
 
   v5 = *v4;
-  if (TCCLibraryCore() && gettcc_authorization_audit_token_report_useSymbolLoc())
+  if (TCCLibraryCore(0) && gettcc_authorization_audit_token_report_useSymbolLoc())
   {
     v6 = PLPrivacyGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -454,7 +454,7 @@ LABEL_24:
     memset(buf, 0, 32);
     if (authorizationCopy)
     {
-      [authorizationCopy clientAuditToken];
+      objc_msgSend_clientAuditToken(authorizationCopy);
     }
 
     v8 = dispatch_get_global_queue(0, 0);
@@ -613,7 +613,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if ((PLIsClientApplicationStateReadyForLimitedLibraryPickerReprompt() & 1) == 0)
+  if (!PLIsClientApplicationStateReadyForLimitedLibraryPickerReprompt())
   {
     v2 = PLPrivacyGetLog();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -665,7 +665,7 @@ LABEL_10:
   }
 }
 
-uint64_t __62__PLPrivacy_presentAsyncPromptForLimitedLibraryPickerIfNeeded__block_invoke_68(uint64_t a1)
+void *__62__PLPrivacy_presentAsyncPromptForLimitedLibraryPickerIfNeeded__block_invoke_68(uint64_t a1)
 {
   result = [*(a1 + 32) hasHandledLimitedLibraryReprompt];
   if ((result & 1) != 0 || (result = [*(a1 + 32) _authStatusForScope:7], result != 3))
@@ -717,7 +717,7 @@ void __62__PLPrivacy_presentAsyncPromptForLimitedLibraryPickerIfNeeded__block_in
     v7 = v6;
   }
 
-  v8 = &unk_1AAA8F588;
+  v8 = qword_1AAA8F588;
   if (scope <= 1)
   {
     v8 = qword_1AAA8F5B0;
@@ -924,7 +924,7 @@ LABEL_27:
       v23 = qword_1AAA8F5B0;
       if (scope > 1)
       {
-        v23 = &unk_1AAA8F588;
+        v23 = qword_1AAA8F588;
       }
 
       v21 = v23[v22];

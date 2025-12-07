@@ -7,6 +7,7 @@
 - (BOOL)enforceCKOptInRecords;
 - (BOOL)havePendingRecords;
 - (BOOL)removeDevice:(id)device clientData:(id)data error:(id *)error;
+- (BOOL)setOptInStateWithURIs:(id)is application:(id)application state:(BOOL)state error:(id *)error;
 - (BOOL)updateSelfCloudDeviceWithPushToken:(id)token tbsRegistrationData:(id)data applications:(id)applications;
 - (BOOL)updatedRecordWithCkrecord:(id)ckrecord;
 - (_TtC13transparencyd14KTCloudRecords)init;
@@ -21,8 +22,11 @@
 - (id)getAggregateOptInStateForApplication:(id)application;
 - (id)getAllOptInStates;
 - (id)getOptInStateWithUri:(id)uri application:(id)application;
+- (id)storeOptInForApplication:(id)application uris:(id)uris state:(BOOL)state error:(id *)error;
+- (id)storeOptInIntentForApplication:(id)application state:(BOOL)state overwrite:(BOOL)overwrite error:(id *)error;
 - (id)sysdiagnose;
 - (id)updateCloudRecordsOperation:(id)operation context:(id)context;
+- (void)clearDataStore:(BOOL)store;
 - (void)clearLocalCloudState;
 - (void)deleteRecordIDWithCkrecordID:(id)d;
 - (void)deleteRecordWithCkrecord:(id)ckrecord;
@@ -227,24 +231,37 @@
   return 1;
 }
 
+- (BOOL)setOptInStateWithURIs:(id)is application:(id)application state:(BOOL)state error:(id *)error
+{
+  stateCopy = state;
+  type metadata accessor for Date();
+  v8 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v11 = v10;
+  v12 = *(**(&self->super.isa + OBJC_IVAR____TtC13transparencyd14KTCloudRecords_cloudOptIn) + 352);
+  selfCopy = self;
+  v12(v8, v9, v11, stateCopy);
+
+  return 1;
+}
+
 - (BOOL)addOptInStateWithURI:(id)i smtTimestamp:(id)timestamp application:(id)application state:(BOOL)state error:(id *)error
 {
-  v20[1] = error;
+  v19[1] = error;
   stateCopy = state;
-  v23 = type metadata accessor for Date();
-  v8 = *(v23 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v23);
-  v11 = v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = v13;
+  v22 = type metadata accessor for Date();
+  v8 = *(v22 - 8);
+  __chkstk_darwin(v22);
+  v10 = v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v13 = v12;
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
-  v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v17 = v16;
-  v18 = *(**(&self->super.isa + OBJC_IVAR____TtC13transparencyd14KTCloudRecords_cloudOptIn) + 360);
+  v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v16 = v15;
+  v17 = *(**(&self->super.isa + OBJC_IVAR____TtC13transparencyd14KTCloudRecords_cloudOptIn) + 360);
   selfCopy = self;
-  v18(v12, v14, v11, v15, v17, stateCopy);
-  (*(v8 + 8))(v11, v23);
+  v17(v11, v13, v10, v14, v16, stateCopy);
+  (*(v8 + 8))(v10, v22);
 
   return 1;
 }
@@ -303,6 +320,19 @@
   return 1;
 }
 
+- (id)storeOptInIntentForApplication:(id)application state:(BOOL)state overwrite:(BOOL)overwrite error:(id *)error
+{
+  overwriteCopy = overwrite;
+  stateCopy = state;
+  v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v11 = v10;
+  v12 = *(**(&self->super.isa + OBJC_IVAR____TtC13transparencyd14KTCloudRecords_cloudOptIn) + 328);
+  selfCopy = self;
+  v14 = v12(v9, v11, stateCopy, overwriteCopy);
+
+  return v14;
+}
+
 - (id)deleteOptInIntentForApplication:(id)application error:(id *)error
 {
   v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -312,6 +342,29 @@
   v10 = v8(v5, v7, selfCopy);
 
   return v10;
+}
+
+- (id)storeOptInForApplication:(id)application uris:(id)uris state:(BOOL)state error:(id *)error
+{
+  stateCopy = state;
+  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = v9;
+  type metadata accessor for Date();
+  v11 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v12 = *(**(&self->super.isa + OBJC_IVAR____TtC13transparencyd14KTCloudRecords_cloudOptIn) + 344);
+  selfCopy = self;
+  v14 = v12(v8, v10, v11, stateCopy, selfCopy);
+
+  return v14;
+}
+
+- (void)clearDataStore:(BOOL)store
+{
+  storeCopy = store;
+  v4 = *(**(&self->super.isa + OBJC_IVAR____TtC13transparencyd14KTCloudRecords_cloudOptIn) + 464);
+  selfCopy = self;
+  v4(storeCopy);
+  (*(**(&selfCopy->super.isa + OBJC_IVAR____TtC13transparencyd14KTCloudRecords_cloudDevice) + 440))(storeCopy);
 }
 
 - (void)clearLocalCloudState

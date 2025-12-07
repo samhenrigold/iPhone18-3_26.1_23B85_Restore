@@ -57,7 +57,7 @@
 
   else
   {
-    v14 = BUILogCommon();
+    v14 = BUILogCommon(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10F7B4(v14);
@@ -82,16 +82,16 @@
   }
   v13 = ;
   v14 = PLBatteryUsageUIKeyForRequest();
-  v15 = BUILogCommon();
+  v15 = BUILogCommon(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v20 = 134218498;
+    v21 = 134218498;
     typeCopy2 = type;
-    v22 = 2112;
+    v23 = 2112;
     rangeCopy2 = *&v14;
-    v24 = 2048;
+    v25 = 2048;
     sizeCopy = range;
-    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "Requesting response type: %ld, key: %@, query range: %f", &v20, 0x20u);
+    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "Requesting response type: %ld, key: %@, query range: %f", &v21, 0x20u);
   }
 
   if (v14)
@@ -99,21 +99,21 @@
     queryPayload = [(PLBatteryUIBackendModel *)self queryPayload];
     [queryPayload setObject:v13 forKeyedSubscript:v14];
 
-    v17 = v14;
+    v18 = v14;
   }
 
   else
   {
-    v18 = BUILogCommon();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = BUILogCommon(v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v20 = 134218496;
+      v21 = 134218496;
       typeCopy2 = type;
-      v22 = 2048;
+      v23 = 2048;
       rangeCopy2 = range;
-      v24 = 2048;
+      v25 = 2048;
       sizeCopy = size;
-      _os_log_error_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "Failed to add response type:%ld range:%f bucket:%f", &v20, 0x20u);
+      _os_log_error_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "Failed to add response type:%ld range:%f bucket:%f", &v21, 0x20u);
     }
   }
 
@@ -125,56 +125,56 @@
   queryPayload = [(PLBatteryUIBackendModel *)self queryPayload];
   v4 = [queryPayload count];
 
-  v5 = BUILogCommon();
-  v6 = v5;
+  v6 = BUILogCommon(v5);
+  v7 = v6;
   if (v4)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       queryPayload2 = [(PLBatteryUIBackendModel *)self queryPayload];
-      v14 = 138412290;
-      v15 = queryPayload2;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "querying with %@", &v14, 0xCu);
+      v18 = 138412290;
+      v19 = queryPayload2;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "querying with %@", &v18, 0xCu);
     }
 
     queryPayload3 = [(PLBatteryUIBackendModel *)self queryPayload];
-    v6 = PLQueryRegistered();
+    v7 = PLQueryRegistered();
 
-    v9 = BUILogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = BUILogCommon(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = v6;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "response %@", &v14, 0xCu);
+      v18 = 138412290;
+      v19 = v7;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "response %@", &v18, 0xCu);
     }
 
-    if (!v6)
+    if (!v7)
     {
-      v10 = BUILogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v13 = BUILogCommon(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         queryPayload4 = [(PLBatteryUIBackendModel *)self queryPayload];
-        v14 = 138412290;
-        v15 = queryPayload4;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "no response: retrying query with %@", &v14, 0xCu);
+        v18 = 138412290;
+        v19 = queryPayload4;
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "no response: retrying query with %@", &v18, 0xCu);
       }
 
       queryPayload5 = [(PLBatteryUIBackendModel *)self queryPayload];
-      v6 = PLQueryRegistered();
+      v7 = PLQueryRegistered();
 
-      v13 = BUILogCommon();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v17 = BUILogCommon(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
-        v15 = v6;
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "after retry: response %@", &v14, 0xCu);
+        v18 = 138412290;
+        v19 = v7;
+        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "after retry: response %@", &v18, 0xCu);
       }
     }
 
-    [(PLBatteryUIBackendModel *)self setQueryResult:v6];
+    [(PLBatteryUIBackendModel *)self setQueryResult:v7];
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_10F850();
   }
@@ -189,9 +189,7 @@
   endOfHour = self->_endOfHour;
   self->_endOfHour = v4;
 
-  v6 = PLCalculateEndOfDay();
-  endOfDay = self->_endOfDay;
-  self->_endOfDay = v6;
+  self->_endOfDay = PLCalculateEndOfDay();
 
   _objc_release_x1();
 }
@@ -214,8 +212,8 @@
   }
 
   while (v9);
-  v11 = BUILogCommon();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = BUILogCommon(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     sub_10F88C(v8);
   }
@@ -224,86 +222,87 @@
   [v6 setObject:v8 forKeyedSubscript:@"PLBatteryUIGraphDays"];
   endOfHour = [(PLBatteryUIBackendModel *)self endOfHour];
   [endOfHour timeIntervalSince1970];
-  v13 = [NSNumber numberWithDouble:?];
-  [v5 setObject:v13 forKeyedSubscript:@"endOfHour"];
+  v14 = [NSNumber numberWithDouble:?];
+  [v5 setObject:v14 forKeyedSubscript:@"endOfHour"];
 
-  v14 = BUILogCommon();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v16 = BUILogCommon(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     endOfHour2 = [(PLBatteryUIBackendModel *)self endOfHour];
     [endOfHour2 timeIntervalSince1970];
     *buf = 134217984;
-    v33 = v16;
-    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "setting end of hour:%f", buf, 0xCu);
+    v36 = v18;
+    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "setting end of hour:%f", buf, 0xCu);
   }
 
   endOfDay = [(PLBatteryUIBackendModel *)self endOfDay];
   [endOfDay timeIntervalSince1970];
-  v18 = [NSNumber numberWithDouble:?];
-  [v5 setObject:v18 forKeyedSubscript:@"endOfDay"];
+  v20 = [NSNumber numberWithDouble:?];
+  [v5 setObject:v20 forKeyedSubscript:@"endOfDay"];
 
-  v19 = BUILogCommon();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v22 = BUILogCommon(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     endOfDay2 = [(PLBatteryUIBackendModel *)self endOfDay];
     [endOfDay2 timeIntervalSince1970];
     *buf = 134217984;
-    v33 = v21;
-    _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "setting end of day:%f", buf, 0xCu);
+    v36 = v24;
+    _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "setting end of day:%f", buf, 0xCu);
   }
 
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_B478;
-  v28[3] = &unk_163F50;
-  v28[4] = self;
-  v22 = v5;
-  v29 = v22;
-  v30 = v7;
-  v31 = v8;
-  v23 = v8;
-  v24 = v7;
-  [formatCopy enumerateKeysAndObjectsUsingBlock:v28];
-  v25 = v31;
-  v26 = v22;
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_B478;
+  v31[3] = &unk_163F50;
+  v31[4] = self;
+  v25 = v5;
+  v32 = v25;
+  v33 = v7;
+  v34 = v8;
+  v26 = v8;
+  v27 = v7;
+  [formatCopy enumerateKeysAndObjectsUsingBlock:v31];
+  v28 = v34;
+  v29 = v25;
 
-  return v22;
+  return v25;
 }
 
 + (int)getBatteryHealthServiceState
 {
   _getBatteryHealthServiceState = [self _getBatteryHealthServiceState];
-  if (+[PLBatteryUIUtilities inDemoMode])
+  v3 = +[PLBatteryUIUtilities inDemoMode];
+  if (v3)
   {
-    v3 = [PLBatteryUIUtilities getDefaultValueForKey:@"BUI_DEMO_SVC"];
-    v4 = BUILogCommon();
-    v5 = v4;
-    if (v3)
+    v4 = [PLBatteryUIUtilities getDefaultValueForKey:@"BUI_DEMO_SVC"];
+    v5 = BUILogCommon(v4);
+    v6 = v5;
+    if (v4)
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v8[0]) = 0;
-        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "demo  mode: overriding svc", v8, 2u);
+        LOWORD(v9[0]) = 0;
+        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "demo  mode: overriding svc", v9, 2u);
       }
 
-      _getBatteryHealthServiceState = [v3 intValue];
+      _getBatteryHealthServiceState = [v4 intValue];
     }
 
     else
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         sub_10FC38();
       }
     }
   }
 
-  v6 = BUILogCommon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = BUILogCommon(v3);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = _getBatteryHealthServiceState;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Svc State: %d", v8, 8u);
+    v9[0] = 67109120;
+    v9[1] = _getBatteryHealthServiceState;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Svc State: %d", v9, 8u);
   }
 
   return _getBatteryHealthServiceState;
@@ -312,110 +311,112 @@
 + (int)getMaximumCapacity
 {
   _getMaximumCapacity = [self _getMaximumCapacity];
-  if (+[PLBatteryUIUtilities inDemoMode])
+  v3 = +[PLBatteryUIUtilities inDemoMode];
+  if (v3)
   {
-    v3 = [PLBatteryUIUtilities getDefaultValueForKey:@"BUI_DEMO_NCC"];
-    v4 = BUILogCommon();
-    v5 = v4;
-    if (v3)
+    v4 = [PLBatteryUIUtilities getDefaultValueForKey:@"BUI_DEMO_NCC"];
+    v5 = BUILogCommon(v4);
+    v6 = v5;
+    if (v4)
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "demo mode: overriding ncc", &v11, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "demo mode: overriding ncc", &v13, 2u);
       }
 
-      _getMaximumCapacity = [v3 intValue];
+      _getMaximumCapacity = [v4 intValue];
     }
 
     else
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         sub_10FC74();
       }
     }
   }
 
-  v6 = BUILogCommon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = BUILogCommon(v3);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 67109120;
-    v12 = _getMaximumCapacity;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "ncc: %d", &v11, 8u);
+    v13 = 67109120;
+    v14 = _getMaximumCapacity;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "ncc: %d", &v13, 8u);
   }
 
   if (_getMaximumCapacity == -1)
   {
-    v9 = BUILogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = BUILogCommon(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "missing NCC", &v11, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "missing NCC", &v13, 2u);
     }
 
-    v8 = -1;
+    v10 = -1;
   }
 
   else
   {
     if (_getMaximumCapacity >= 100)
     {
-      v7 = 100;
+      v9 = 100;
     }
 
     else
     {
-      v7 = _getMaximumCapacity;
+      v9 = _getMaximumCapacity;
     }
 
-    v8 = v7 & ~(v7 >> 31);
-    v9 = BUILogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = v9 & ~(v9 >> 31);
+    v11 = BUILogCommon(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 67109120;
-      v12 = v8;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Maximum capacity: %d%%", &v11, 8u);
+      v13 = 67109120;
+      v14 = v10;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Maximum capacity: %d%%", &v13, 8u);
     }
   }
 
-  return v8;
+  return v10;
 }
 
 + (int)getCurrentStateOfCharge
 {
   _getCurrentStateOfCharge = [self _getCurrentStateOfCharge];
-  if (+[PLBatteryUIUtilities inDemoMode])
+  v3 = +[PLBatteryUIUtilities inDemoMode];
+  if (v3)
   {
-    v3 = [PLBatteryUIUtilities getDefaultValueForKey:@"BUI_DEMO_SOC"];
-    v4 = BUILogCommon();
-    v5 = v4;
-    if (v3)
+    v4 = [PLBatteryUIUtilities getDefaultValueForKey:@"BUI_DEMO_SOC"];
+    v5 = BUILogCommon(v4);
+    v6 = v5;
+    if (v4)
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v8[0]) = 0;
-        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "demo mode: overriding uisoc", v8, 2u);
+        LOWORD(v9[0]) = 0;
+        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "demo mode: overriding uisoc", v9, 2u);
       }
 
-      _getCurrentStateOfCharge = [v3 intValue];
+      _getCurrentStateOfCharge = [v4 intValue];
     }
 
     else
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         sub_10FCB0();
       }
     }
   }
 
-  v6 = BUILogCommon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = BUILogCommon(v3);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = _getCurrentStateOfCharge;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "UISoC: %d", v8, 8u);
+    v9[0] = 67109120;
+    v9[1] = _getCurrentStateOfCharge;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "UISoC: %d", v9, 8u);
   }
 
   return _getCurrentStateOfCharge;
@@ -424,15 +425,15 @@
 - (void)updateSmartChargingState
 {
   smartChargingClient = [(PLBatteryUIBackendModel *)self smartChargingClient];
-  v8 = 0;
-  v4 = [smartChargingClient isSmartChargingCurrentlyEnabled:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [smartChargingClient isSmartChargingCurrentlyEnabled:&v9];
+  v5 = v9;
 
-  v6 = BUILogCommon();
-  v7 = v6;
+  v7 = BUILogCommon(v6);
+  v8 = v7;
   if (v5)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10FCEC();
     }
@@ -440,7 +441,7 @@
     v4 = &dword_0 + 1;
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_10FD5C();
   }
@@ -450,14 +451,14 @@
 
 - (BOOL)isSmartChargingTempDisabled
 {
-  v3 = BUILogCommon();
+  v3 = BUILogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10FDCC();
   }
 
-  v4 = BUILogCommon();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = BUILogCommon(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_10FE08(self);
   }
@@ -468,72 +469,72 @@
 - (void)enableSmartCharging
 {
   smartChargingClient = [(PLBatteryUIBackendModel *)self smartChargingClient];
-  v8 = 0;
-  v3 = [smartChargingClient enableSmartCharging:&v8];
-  v4 = v8;
+  v9 = 0;
+  v3 = [smartChargingClient enableSmartCharging:&v9];
+  v4 = v9;
 
-  v5 = BUILogCommon();
-  v6 = v5;
+  v6 = BUILogCommon(v5);
+  v7 = v6;
   if (!v3 || v4)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10FE80();
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Smart charging enabled", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Smart charging enabled", v8, 2u);
   }
 }
 
 - (void)tempDisableSmartCharging
 {
   smartChargingClient = [(PLBatteryUIBackendModel *)self smartChargingClient];
-  v8 = 0;
-  v3 = [smartChargingClient temporarilyDisableSmartCharging:&v8];
-  v4 = v8;
+  v9 = 0;
+  v3 = [smartChargingClient temporarilyDisableSmartCharging:&v9];
+  v4 = v9;
 
-  v5 = BUILogCommon();
-  v6 = v5;
+  v6 = BUILogCommon(v5);
+  v7 = v6;
   if (!v3 || v4)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10FEF0();
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Smart charging temporarily disabled", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Smart charging temporarily disabled", v8, 2u);
   }
 }
 
 - (void)disableSmartCharging
 {
   smartChargingClient = [(PLBatteryUIBackendModel *)self smartChargingClient];
-  v8 = 0;
-  v3 = [smartChargingClient disableSmartCharging:&v8];
-  v4 = v8;
+  v9 = 0;
+  v3 = [smartChargingClient disableSmartCharging:&v9];
+  v4 = v9;
 
-  v5 = BUILogCommon();
-  v6 = v5;
+  v6 = BUILogCommon(v5);
+  v7 = v6;
   if (!v3 || v4)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10FF60();
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Smart charging disabled", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Smart charging disabled", v8, 2u);
   }
 }
 
@@ -553,14 +554,14 @@
 - (void)getOBCEngagedState:(BOOL *)state andDesktopMode:(BOOL *)mode
 {
   smartChargingClient = [(PLBatteryUIBackendModel *)self smartChargingClient];
-  v10 = 0;
-  v7 = [smartChargingClient isOBCEngagedAsDesktopDevice:mode chargingOverrideAllowed:0 withError:&v10];
-  v8 = v10;
+  v11 = 0;
+  v7 = [smartChargingClient isOBCEngagedAsDesktopDevice:mode chargingOverrideAllowed:0 withError:&v11];
+  v8 = v11;
 
   if (v8)
   {
-    v9 = BUILogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = BUILogCommon(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10FFD0();
     }
@@ -588,19 +589,20 @@
   }
 
   v4 = +[PLModelingUtilities isiPad];
-  v5 = BUILogCommon();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v5 = v4;
+  v6 = BUILogCommon(v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_110040();
   }
 
-  v6 = BUILogCommon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v8 = BUILogCommon(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1100B0();
   }
 
-  return supportsChargingFixedLimit & v4;
+  return supportsChargingFixedLimit & v5;
 }
 
 + (BOOL)supportsChargingFixedLimit
@@ -608,7 +610,7 @@
   v2 = [PowerUISmartChargeClient alloc];
   v3 = [v2 initWithClientName:PowerUISmartChargeClientSettings];
   isMCLSupported = [v3 isMCLSupported];
-  v5 = BUILogCommon();
+  v5 = BUILogCommon(isMCLSupported);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_110120();
@@ -619,23 +621,25 @@
 
 + (BOOL)shouldShowChargingController
 {
-  if (_os_feature_enabled_impl())
+  supportsChargingFixedLimit = _os_feature_enabled_impl();
+  if (supportsChargingFixedLimit)
   {
     supportsChargingFixedLimit = [self supportsChargingFixedLimit];
+    v4 = supportsChargingFixedLimit;
   }
 
   else
   {
-    supportsChargingFixedLimit = 0;
+    v4 = 0;
   }
 
-  v4 = BUILogCommon();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = BUILogCommon(supportsChargingFixedLimit);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_110190();
   }
 
-  return supportsChargingFixedLimit & +[PLModelingUtilities isiPhone];
+  return v4 & +[PLModelingUtilities isiPhone];
 }
 
 - (void)addSkipPlistWriteKey
@@ -646,10 +650,11 @@
 
 + (int)_getCurrentStateOfCharge
 {
-  if (IOPSGetPercentRemaining())
+  v2 = IOPSGetPercentRemaining();
+  if (v2)
   {
-    v2 = BUILogCommon();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = BUILogCommon(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_110200();
     }
@@ -660,7 +665,7 @@
 
 + (int)_getMaximumCapacity
 {
-  v2 = BUILogCommon();
+  v2 = BUILogCommon(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -669,7 +674,7 @@
 
   v3 = IOPSCopyPowerSourcesByType();
   v4 = v3;
-  if (v3 && [v3 count])
+  if (v3 && (v3 = [v3 count]) != 0)
   {
     v5 = [v4 objectAtIndexedSubscript:0];
     v6 = [v5 objectForKeyedSubscript:@"Maximum Capacity Percent"];
@@ -681,7 +686,7 @@
 
     else
     {
-      v9 = BUILogCommon();
+      v9 = BUILogCommon(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_110274();
@@ -693,7 +698,7 @@
 
   else
   {
-    v5 = BUILogCommon();
+    v5 = BUILogCommon(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1102B0();
@@ -707,7 +712,7 @@
 
 + (int)_getBatteryHealthServiceState
 {
-  v2 = BUILogCommon();
+  v2 = BUILogCommon(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -716,7 +721,7 @@
 
   v3 = IOPSCopyPowerSourcesByType();
   v4 = v3;
-  if (v3 && [v3 count])
+  if (v3 && (v3 = [v3 count]) != 0)
   {
     v5 = [v4 objectAtIndexedSubscript:0];
     v6 = [v5 objectForKeyedSubscript:@"Battery Service State"];
@@ -728,7 +733,7 @@
 
     else
     {
-      v9 = BUILogCommon();
+      v9 = BUILogCommon(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_1102EC();
@@ -740,7 +745,7 @@
 
   else
   {
-    v5 = BUILogCommon();
+    v5 = BUILogCommon(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1102B0();

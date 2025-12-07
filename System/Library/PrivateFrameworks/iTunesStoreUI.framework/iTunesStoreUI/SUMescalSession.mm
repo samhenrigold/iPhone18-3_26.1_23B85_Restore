@@ -57,33 +57,38 @@
         shouldLog = [mEMORY[0x1E69D4938] shouldLog];
         if ([mEMORY[0x1E69D4938] shouldLogToDisk])
         {
-          v16 = shouldLog | 2;
+          LODWORD(v16) = shouldLog | 2;
         }
 
         else
         {
-          v16 = shouldLog;
+          LODWORD(v16) = shouldLog;
         }
 
-        if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+        oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+        {
+          v16 = v16;
+        }
+
+        else
         {
           v16 &= 2u;
         }
 
         if (v16)
         {
-          v17 = objc_opt_class();
+          v18 = objc_opt_class();
           v23 = 138412546;
-          v24 = v17;
+          v24 = v18;
           v25 = 2048;
           v26 = v13;
-          LODWORD(v21) = 22;
-          v18 = _os_log_send_and_compose_impl();
-          if (v18)
+          v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Could not SAP init: %li", &v23, 22);
+          if (v19)
           {
-            v19 = v18;
-            [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v23, v21}];
-            free(v19);
+            v20 = v19;
+            [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
+            free(v20);
             SSFileLog();
           }
         }
@@ -181,30 +186,29 @@ id __38__SUMescalSession_exchangeData_error___block_invoke(uint64_t a1)
         v8 = v7;
       }
 
-      if (os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      v9 = [v6 OSLogObject];
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = v8;
+        v10 = v8;
       }
 
       else
       {
-        v9 = v8 & 2;
+        v10 = v8 & 2;
       }
 
-      if (v9)
+      if (v10)
       {
         v5 = v5;
         v19 = 134217984;
         v20 = v5;
-        LODWORD(v15) = 12;
-        v14 = &v19;
-        v10 = _os_log_send_and_compose_impl();
-        if (v10)
+        v11 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1C21AF000, v9, 0, "Could not SAP exchange: %li", &v19);
+        if (v11)
         {
-          v11 = v10;
-          v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v19, v15}];
-          free(v11);
-          v14 = v12;
+          v12 = v11;
+          v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+          free(v12);
+          v15 = v13;
           SSFileLog();
         }
       }
@@ -214,7 +218,7 @@ id __38__SUMescalSession_exchangeData_error___block_invoke(uint64_t a1)
         v5 = v5;
       }
 
-      *(*(*(a1 + 48) + 8) + 40) = [MEMORY[0x1E696ABC0] errorWithDomain:@"SUFairPlayErrorDomain" code:v5 userInfo:{0, v14}];
+      *(*(*(a1 + 48) + 8) + 40) = [MEMORY[0x1E696ABC0] errorWithDomain:@"SUFairPlayErrorDomain" code:v5 userInfo:{0, v15}];
       [*(a1 + 32) _teardownSession];
     }
 
@@ -307,36 +311,40 @@ id __57__SUMescalSession_primeForAccountCreationWithData_error___block_invoke(ui
       v6 = [v5 shouldLog];
       if ([v5 shouldLogToDisk])
       {
-        v7 = v6 | 2;
+        LODWORD(v7) = v6 | 2;
       }
 
       else
       {
-        v7 = v6;
+        LODWORD(v7) = v6;
       }
 
-      if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      v8 = [v5 OSLogObject];
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v7 = v7;
+      }
+
+      else
       {
         v7 &= 2u;
       }
 
       if (v7)
       {
-        v8 = objc_opt_class();
+        v9 = objc_opt_class();
         v4 = v4;
         v20 = 138412546;
-        v21 = v8;
+        v21 = v9;
         v22 = 2048;
         v23 = v4;
-        LODWORD(v17) = 22;
-        v16 = &v20;
-        v9 = _os_log_send_and_compose_impl();
-        if (v9)
+        v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, v8, 0, "%@: Could not SAP prime: %li", &v20, 22);
+        if (v10)
         {
-          v10 = v9;
-          v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v20, v17}];
-          free(v10);
-          v16 = v11;
+          v11 = v10;
+          v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+          free(v11);
+          v17 = v12;
           SSFileLog();
         }
       }
@@ -346,26 +354,26 @@ id __57__SUMescalSession_primeForAccountCreationWithData_error___block_invoke(ui
         v4 = v4;
       }
 
-      v12 = [MEMORY[0x1E696ABC0] errorWithDomain:@"SUFairPlayErrorDomain" code:v4 userInfo:{0, v16}];
-      v14 = 48;
+      v13 = [MEMORY[0x1E696ABC0] errorWithDomain:@"SUFairPlayErrorDomain" code:v4 userInfo:{0, v17}];
+      v15 = 48;
     }
 
     else
     {
-      v12 = [*(a1 + 32) _newDataWithBytes:v19 length:v18];
-      v14 = 56;
+      v13 = [*(a1 + 32) _newDataWithBytes:v19 length:v18];
+      v15 = 56;
     }
 
-    v13 = *(a1 + v14);
+    v14 = *(a1 + v15);
   }
 
   else
   {
-    v12 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69D4C28] code:15 userInfo:0];
-    v13 = *(a1 + 48);
+    v13 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69D4C28] code:15 userInfo:0];
+    v14 = *(a1 + 48);
   }
 
-  *(*(v13 + 8) + 40) = v12;
+  *(*(v14 + 8) + 40) = v13;
   return *(*(*(a1 + 48) + 8) + 40);
 }
 
@@ -414,10 +422,10 @@ id __34__SUMescalSession_signData_error___block_invoke(uint64_t a1)
   v2 = *(*(a1 + 32) + 48);
   if (!v2)
   {
-    v12 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69D4C28] code:15 userInfo:0];
-    v13 = *(a1 + 48);
-LABEL_13:
-    *(*(v13 + 8) + 40) = v12;
+    v13 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69D4C28] code:15 userInfo:0];
+    v14 = *(a1 + 48);
+LABEL_14:
+    *(*(v14 + 8) + 40) = v13;
     return *(*(*(a1 + 48) + 8) + 40);
   }
 
@@ -426,9 +434,9 @@ LABEL_13:
   Fc3vhtJDvr(v2, [*(a1 + 40) bytes], objc_msgSend(*(a1 + 40), "length"), &v18, &v17);
   if (!v3)
   {
-    v12 = [*(a1 + 32) _newDataWithBytes:v18 length:v17];
-    v13 = *(a1 + 56);
-    goto LABEL_13;
+    v13 = [*(a1 + 32) _newDataWithBytes:v18 length:v17];
+    v14 = *(a1 + 56);
+    goto LABEL_14;
   }
 
   LODWORD(v4) = v3;
@@ -436,36 +444,40 @@ LABEL_13:
   v6 = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = v6 | 2;
+    LODWORD(v7) = v6 | 2;
   }
 
   else
   {
-    v7 = v6;
+    LODWORD(v7) = v6;
   }
 
-  if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  v8 = [v5 OSLogObject];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (v7)
   {
-    v8 = objc_opt_class();
+    v9 = objc_opt_class();
     v4 = v4;
     v19 = 138412546;
-    v20 = v8;
+    v20 = v9;
     v21 = 2048;
     v22 = v4;
-    LODWORD(v16) = 22;
-    v15 = &v19;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, v8, 0, "%@: Could not SAP sign: %li", &v19, 22);
+    if (v10)
     {
-      v10 = v9;
-      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v19, v16}];
-      free(v10);
-      v15 = v11;
+      v11 = v10;
+      v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+      free(v11);
+      v16 = v12;
       SSFileLog();
     }
   }
@@ -475,7 +487,7 @@ LABEL_13:
     v4 = v4;
   }
 
-  *(*(*(a1 + 48) + 8) + 40) = [MEMORY[0x1E696ABC0] errorWithDomain:@"SUFairPlayErrorDomain" code:v4 userInfo:{0, v15}];
+  *(*(*(a1 + 48) + 8) + 40) = [MEMORY[0x1E696ABC0] errorWithDomain:@"SUFairPlayErrorDomain" code:v4 userInfo:{0, v16}];
   [*(a1 + 32) _teardownSession];
   return *(*(*(a1 + 48) + 8) + 40);
 }
@@ -531,15 +543,21 @@ id __46__SUMescalSession_verifyPrimeSignature_error___block_invoke(uint64_t a1)
       v5 = [v4 shouldLog];
       if ([v4 shouldLogToDisk])
       {
-        v6 = v5 | 2;
+        LODWORD(v6) = v5 | 2;
       }
 
       else
       {
-        v6 = v5;
+        LODWORD(v6) = v5;
       }
 
-      if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      v7 = [v4 OSLogObject];
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      {
+        v6 = v6;
+      }
+
+      else
       {
         v6 &= 2u;
       }
@@ -551,15 +569,13 @@ id __46__SUMescalSession_verifyPrimeSignature_error___block_invoke(uint64_t a1)
         v14 = objc_opt_class();
         v15 = 2048;
         v16 = v3;
-        LODWORD(v12) = 22;
-        v11 = &v13;
-        v7 = _os_log_send_and_compose_impl();
-        if (v7)
+        v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, v7, 0, "%@: Could not process SAP response: %li", &v13, 22);
+        if (v8)
         {
-          v8 = v7;
-          v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v13, v12}];
-          free(v8);
-          v11 = v9;
+          v9 = v8;
+          v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+          free(v9);
+          v12 = v10;
           SSFileLog();
         }
       }
@@ -569,7 +585,7 @@ id __46__SUMescalSession_verifyPrimeSignature_error___block_invoke(uint64_t a1)
         v3 = v3;
       }
 
-      *(*(*(a1 + 48) + 8) + 40) = [MEMORY[0x1E696ABC0] errorWithDomain:@"SUFairPlayErrorDomain" code:v3 userInfo:{0, v11}];
+      *(*(*(a1 + 48) + 8) + 40) = [MEMORY[0x1E696ABC0] errorWithDomain:@"SUFairPlayErrorDomain" code:v3 userInfo:{0, v12}];
       [*(a1 + 32) _teardownSession];
     }
 

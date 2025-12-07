@@ -10,32 +10,32 @@
 
 - (id)copyFilteredItemsFromItems:(id)items
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v4 = [(ASPurchaseBatch *)self _copyItemsByStorefrontFromItems:?];
   v5 = [objc_msgSend(MEMORY[0x277D69A80] "currentDevice")];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v6 = [v4 countByEnumeratingWithState:&v25 objects:v39 count:16];
+  v6 = [v4 countByEnumeratingWithState:&v24 objects:v38 count:16];
   if (!v6)
   {
-    goto LABEL_23;
+    goto LABEL_24;
   }
 
   v7 = v6;
   v8 = 0;
-  v9 = *v26;
+  v9 = *v25;
   while (2)
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v26 != v9)
+      if (*v25 != v9)
       {
         objc_enumerationMutation(v4);
       }
 
-      v11 = *(*(&v25 + 1) + 8 * i);
+      v11 = *(*(&v24 + 1) + 8 * i);
       if ([v5 hasPrefix:v11])
       {
         v8 = v11;
@@ -48,7 +48,7 @@
       }
     }
 
-    v7 = [v4 countByEnumeratingWithState:&v25 objects:v39 count:16];
+    v7 = [v4 countByEnumeratingWithState:&v24 objects:v38 count:16];
     if (v7)
     {
       continue;
@@ -65,42 +65,47 @@ LABEL_14:
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v15 = shouldLog | 2;
+      LODWORD(v15) = shouldLog | 2;
     }
 
     else
     {
-      v15 = shouldLog;
+      LODWORD(v15) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v15 = v15;
+    }
+
+    else
     {
       v15 &= 2u;
     }
 
     if (v15)
     {
-      v16 = objc_opt_class();
-      v17 = [v4 count];
-      v18 = [v12 count];
-      v19 = [items count];
-      v29 = 138413314;
-      v30 = v16;
-      v31 = 2112;
-      v32 = v8;
-      v33 = 2048;
-      v34 = v17;
-      v35 = 2048;
-      v36 = v18;
-      v37 = 2048;
-      v38 = v19;
-      LODWORD(v24) = 52;
-      v20 = _os_log_send_and_compose_impl();
-      if (v20)
+      v17 = objc_opt_class();
+      v18 = [v4 count];
+      v19 = [v12 count];
+      v20 = [items count];
+      v28 = 138413314;
+      v29 = v17;
+      v30 = 2112;
+      v31 = v8;
+      v32 = 2048;
+      v33 = v18;
+      v34 = 2048;
+      v35 = v19;
+      v36 = 2048;
+      v37 = v20;
+      v21 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_2400F5000, oSLogObject, 2, "%@: Picked %@ from %lu available storefronts (%lu items out of %lu possible)", &v28, 52);
+      if (v21)
       {
-        v21 = v20;
-        [MEMORY[0x277CCACA8] stringWithCString:v20 encoding:{4, &v29, v24}];
-        free(v21);
+        v22 = v21;
+        [MEMORY[0x277CCACA8] stringWithCString:v21 encoding:4];
+        free(v22);
         SSFileLog();
       }
     }
@@ -108,11 +113,10 @@ LABEL_14:
 
   else
   {
-LABEL_23:
+LABEL_24:
     v12 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -200,28 +204,28 @@ LABEL_9:
 
 - (id)_copyItemsByStorefrontFromItems:(id)items
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   loadedMap = [MEMORY[0x277D7FD40] loadedMap];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v6 = [items countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [items countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(items);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         itemIdentifier = [v10 itemIdentifier];
         if (itemIdentifier)
         {
@@ -244,13 +248,12 @@ LABEL_9:
         [v13 addObject:v10];
       }
 
-      v7 = [items countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [items countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

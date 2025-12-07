@@ -30,108 +30,104 @@
 
 - (void)setupPersistentStoreIfNeeded
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   if (self->_persistentContainer)
   {
-    goto LABEL_2;
+    return;
   }
 
-  v4 = +[DNDSKeybag sharedInstance];
-  hasUnlockedSinceBoot = [v4 hasUnlockedSinceBoot];
+  v3 = +[DNDSKeybag sharedInstance];
+  hasUnlockedSinceBoot = [v3 hasUnlockedSinceBoot];
 
-  if ((hasUnlockedSinceBoot & 1) == 0)
+  if (hasUnlockedSinceBoot)
   {
-    v7 = DNDSLogSettings;
-    if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_DEFAULT))
+    os_unfair_lock_lock(&self->_setupLock);
+    if (self->_persistentContainer)
     {
-      *buf = 0;
-      _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Attempt to load persistent store before first unlock.", buf, 2u);
+
+      os_unfair_lock_unlock(&self->_setupLock);
+      return;
     }
 
-    goto LABEL_2;
-  }
+    v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v7 = [v6 URLForResource:@"DNDSettingsModel" withExtension:@"momd"];
 
-  os_unfair_lock_lock(&self->_setupLock);
-  if (!self->_persistentContainer)
-  {
-    v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v9 = [v8 URLForResource:@"DNDSettingsModel" withExtension:@"momd"];
-
-    v10 = [objc_alloc(MEMORY[0x277CBE450]) initWithContentsOfURL:v9];
+    v8 = [objc_alloc(MEMORY[0x277CBE450]) initWithContentsOfURL:v7];
     dnds_backingStoreRootDirectoryURL = [MEMORY[0x277CBEBC0] dnds_backingStoreRootDirectoryURL];
-    v12 = [dnds_backingStoreRootDirectoryURL URLByAppendingPathComponent:@"Settings.sqlite"];
+    v10 = [dnds_backingStoreRootDirectoryURL URLByAppendingPathComponent:@"Settings.sqlite"];
 
     if (os_variant_has_internal_content())
     {
       testDatabaseURL = self->_testDatabaseURL;
       if (testDatabaseURL)
       {
-        lastPathComponent = [v12 lastPathComponent];
-        v15 = [(NSURL *)testDatabaseURL URLByAppendingPathComponent:lastPathComponent];
+        lastPathComponent = [v10 lastPathComponent];
+        v13 = [(NSURL *)testDatabaseURL URLByAppendingPathComponent:lastPathComponent];
 
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-        uRLByDeletingLastPathComponent = [v15 URLByDeletingLastPathComponent];
-        v29 = 0;
-        [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v29];
-        v18 = v29;
+        uRLByDeletingLastPathComponent = [v13 URLByDeletingLastPathComponent];
+        v27 = 0;
+        [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v27];
+        v16 = v27;
 
-        if (v18)
+        if (v16)
         {
-          v19 = DNDSLogSettings;
+          v17 = DNDSLogSettings;
           if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_ERROR))
           {
-            [(DNDSCoreDataBackingStore *)v19 setupPersistentStoreIfNeeded];
+            [(DNDSCoreDataBackingStore *)v17 setupPersistentStoreIfNeeded];
           }
 
           os_unfair_lock_unlock(&self->_setupLock);
           goto LABEL_18;
         }
 
-        v12 = v15;
+        v10 = v13;
       }
     }
 
-    v20 = MEMORY[0x277CBE4E0];
-    filePathURL = [v12 filePathURL];
-    v18 = [v20 persistentStoreDescriptionWithURL:filePathURL];
+    v18 = MEMORY[0x277CBE4E0];
+    filePathURL = [v10 filePathURL];
+    v16 = [v18 persistentStoreDescriptionWithURL:filePathURL];
 
-    [v18 setType:*MEMORY[0x277CBE2E8]];
-    [v18 setShouldInferMappingModelAutomatically:1];
-    [v18 setShouldMigrateStoreAutomatically:1];
-    [v18 setShouldAddStoreAsynchronously:0];
-    [v18 setOption:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277CBE270]];
-    [v18 setOption:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CBE210]];
-    v22 = [MEMORY[0x277CBE4A0] persistentContainerWithName:@"donotdisturbd" managedObjectModel:v10];
-    v31[0] = v18;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
-    [v22 setPersistentStoreDescriptions:v23];
+    [v16 setType:*MEMORY[0x277CBE2E8]];
+    [v16 setShouldInferMappingModelAutomatically:1];
+    [v16 setShouldMigrateStoreAutomatically:1];
+    [v16 setShouldAddStoreAsynchronously:0];
+    [v16 setOption:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277CBE270]];
+    [v16 setOption:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CBE210]];
+    v20 = [MEMORY[0x277CBE4A0] persistentContainerWithName:@"donotdisturbd" managedObjectModel:v8];
+    v29[0] = v16;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+    [v20 setPersistentStoreDescriptions:v21];
 
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __56__DNDSCoreDataBackingStore_setupPersistentStoreIfNeeded__block_invoke;
-    v25[3] = &unk_278F8AA78;
-    v26 = v22;
-    v15 = v12;
-    v27 = v15;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __56__DNDSCoreDataBackingStore_setupPersistentStoreIfNeeded__block_invoke;
+    v23[3] = &unk_278F8AA78;
+    v24 = v20;
+    v13 = v10;
+    v25 = v13;
     selfCopy = self;
-    v24 = v22;
-    [v24 loadPersistentStoresWithCompletionHandler:v25];
+    v22 = v20;
+    [v22 loadPersistentStoresWithCompletionHandler:v23];
     os_unfair_lock_unlock(&self->_setupLock);
 
 LABEL_18:
-LABEL_2:
-    v2 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
-  os_unfair_lock_unlock(&self->_setupLock);
+  v5 = DNDSLogSettings;
+  if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Attempt to load persistent store before first unlock.", buf, 2u);
+  }
 }
 
 void __56__DNDSCoreDataBackingStore_setupPersistentStoreIfNeeded__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = DNDSLogSettings;
@@ -145,9 +141,9 @@ void __56__DNDSCoreDataBackingStore_setupPersistentStoreIfNeeded__block_invoke(u
     v8 = [*(a1 + 32) persistentStoreCoordinator];
     v9 = *(a1 + 40);
     v10 = *MEMORY[0x277CBE2E8];
-    v18 = 0;
-    [v8 destroyPersistentStoreAtURL:v9 withType:v10 options:0 error:&v18];
-    v11 = v18;
+    v17 = 0;
+    [v8 destroyPersistentStoreAtURL:v9 withType:v10 options:0 error:&v17];
+    v11 = v17;
 
     v12 = DNDSLogSettings;
     if (v11)
@@ -162,7 +158,7 @@ void __56__DNDSCoreDataBackingStore_setupPersistentStoreIfNeeded__block_invoke(u
     {
       v16 = *(a1 + 40);
       *buf = 138412290;
-      v20 = v16;
+      v19 = v16;
       _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "Destroyed persistent store to retry load. url=%@", buf, 0xCu);
     }
   }
@@ -172,7 +168,7 @@ void __56__DNDSCoreDataBackingStore_setupPersistentStoreIfNeeded__block_invoke(u
     if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v5;
+      v19 = v5;
       _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Loaded persistent store with description: %@", buf, 0xCu);
     }
 
@@ -182,8 +178,6 @@ void __56__DNDSCoreDataBackingStore_setupPersistentStoreIfNeeded__block_invoke(u
     v11 = *(v14 + 16);
     *(v14 + 16) = v15;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)newManagedObjectContext
@@ -196,20 +190,18 @@ void __56__DNDSCoreDataBackingStore_setupPersistentStoreIfNeeded__block_invoke(u
 
 void __56__DNDSCoreDataBackingStore_setupPersistentStoreIfNeeded__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_24912E000, a2, OS_LOG_TYPE_FAULT, "Error adding persistent store: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_24912E000, a2, OS_LOG_TYPE_FAULT, "Error adding persistent store: %@", &v2, 0xCu);
 }
 
 void __56__DNDSCoreDataBackingStore_setupPersistentStoreIfNeeded__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_24912E000, a2, OS_LOG_TYPE_FAULT, "Failed to destroy persistent store: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_24912E000, a2, OS_LOG_TYPE_FAULT, "Failed to destroy persistent store: %@", &v2, 0xCu);
 }
 
 @end

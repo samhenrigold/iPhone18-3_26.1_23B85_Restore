@@ -26,7 +26,7 @@
   Logger.init(subsystem:category:)();
   *(&self->super.isa + OBJC_IVAR___SiriCoreMetricsPlugin_processor) = 0;
   v4.receiver = self;
-  v4.super_class = type metadata accessor for SiriCoreMetricsPlugin();
+  v4.super_class = type metadata accessor for SiriCoreMetricsPlugin(0);
   return [(SiriCoreMetricsPlugin *)&v4 init];
 }
 

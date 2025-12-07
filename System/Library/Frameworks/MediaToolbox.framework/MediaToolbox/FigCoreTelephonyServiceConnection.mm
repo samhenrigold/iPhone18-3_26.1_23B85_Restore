@@ -174,7 +174,7 @@ void __56__FigCoreTelephonyServiceConnection_deregisterListener___block_invoke_2
 
 - (void)_handleCTNotification:(__CFString *)notification notificationInfo:(__CFDictionary *)info
 {
-  v6 = getkCTConnectionInvalidatedNotification[0]();
+  v6 = getkCTConnectionInvalidatedNotification(self, a2, notification, info);
   if (CFEqual(notification, v6))
   {
     [(FigCoreTelephonyServiceConnection *)self _teardownConnection];
@@ -210,35 +210,35 @@ void __53__FigCoreTelephonyServiceConnection__setupConnection__block_invoke(uint
   v5 = *(a1 + 32);
   if (*(v5 + 56) && !*(v5 + 24))
   {
-    v17[5] = v4;
-    v17[6] = v3;
-    v17[11] = v1;
-    v17[12] = v2;
+    v21[5] = v4;
+    v21[6] = v3;
+    v21[11] = v1;
+    v21[12] = v2;
     v7 = objc_autoreleasePoolPush();
     v8 = *(a1 + 32);
     v9 = *(v8 + 72);
     v10 = *(v8 + 8);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __53__FigCoreTelephonyServiceConnection__setupConnection__block_invoke_2;
-    v17[3] = &unk_1E74971D8;
-    v17[4] = v8;
-    *(*(a1 + 32) + 24) = (softLink_CTServerConnectionCreateOnTargetQueue[0])(v9, @"com.apple.coremedia", v10, v17);
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __53__FigCoreTelephonyServiceConnection__setupConnection__block_invoke_2;
+    v21[3] = &unk_1E74971D8;
+    v21[4] = v8;
+    *(*(a1 + 32) + 24) = softLink_CTServerConnectionCreateOnTargetQueue(v9, @"com.apple.coremedia", v10, v21);
     v11 = *(a1 + 32);
-    if (!v11[3] || (*(*(a1 + 32) + 32) = [objc_alloc(getCoreTelephonyClientClass[0]()) initWithQueue:*(*(a1 + 32) + 8)], objc_msgSend(*(*(a1 + 32) + 32), "setDelegate:"), v12 = *(*(a1 + 32) + 24), v13 = getkCTConnectionInvalidatedNotification[0](), v14 = (softLink_CTServerConnectionRegisterForNotification[0])(v12, v13), v11 = *(a1 + 32), HIDWORD(v14)))
+    if (!v11[3] || (*(*(a1 + 32) + 32) = [objc_alloc(getCoreTelephonyClientClass()) initWithQueue:*(*(a1 + 32) + 8)], v12 = objc_msgSend(*(*(a1 + 32) + 32), "setDelegate:"), v13 = *(*(a1 + 32) + 24), v17 = getkCTConnectionInvalidatedNotification(v12, v14, v15, v16), v18 = softLink_CTServerConnectionRegisterForNotification(v13, v17), v11 = *(a1 + 32), HIDWORD(v18)))
     {
       [v11 _teardownConnection];
     }
 
     else
     {
-      v15 = v11[4];
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __53__FigCoreTelephonyServiceConnection__setupConnection__block_invoke_3;
-      v16[3] = &unk_1E7497200;
-      v16[4] = v11;
-      [v15 getDataStatusBasic:0 completion:v16];
+      v19 = v11[4];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __53__FigCoreTelephonyServiceConnection__setupConnection__block_invoke_3;
+      v20[3] = &unk_1E7497200;
+      v20[4] = v11;
+      [v19 getDataStatusBasic:0 completion:v20];
     }
 
     objc_autoreleasePoolPop(v7);
@@ -280,7 +280,7 @@ void __53__FigCoreTelephonyServiceConnection__setupConnection__block_invoke_3(ui
   ctServerConnection = self->_ctServerConnection;
   if (ctServerConnection)
   {
-    (softLink_CTServerConnectionUnregisterForAllNotifications[0])(ctServerConnection);
+    softLink_CTServerConnectionUnregisterForAllNotifications(ctServerConnection);
     CFRelease(self->_ctServerConnection);
     self->_ctServerConnection = 0;
   }
@@ -424,31 +424,28 @@ LABEL_6:
   return v3;
 }
 
-- (uint64_t)registerListener:(_DWORD *)a1 callback:queue:.cold.1(_DWORD *a1)
+- (void)registerListener:(_DWORD *)a1 callback:queue:.cold.1(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
+  *a1 = v2;
 }
 
-- (uint64_t)registerListener:(_DWORD *)a1 callback:queue:.cold.2(_DWORD *a1)
+- (void)registerListener:(_DWORD *)a1 callback:queue:.cold.2(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
+  *a1 = v2;
 }
 
-- (uint64_t)registerListener:(_DWORD *)a1 callback:queue:.cold.3(_DWORD *a1)
+- (void)registerListener:(_DWORD *)a1 callback:queue:.cold.3(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
+  *a1 = v2;
 }
 
 void __56__FigCoreTelephonyServiceConnection_deregisterListener___block_invoke_cold_1(uint64_t *a1, void *a2)

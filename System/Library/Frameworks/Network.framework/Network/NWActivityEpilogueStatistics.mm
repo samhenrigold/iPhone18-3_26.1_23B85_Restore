@@ -39,7 +39,7 @@
   v11 = __nwlog_obj();
   *buf = 136446210;
   v24 = "[NWActivityEpilogueStatistics initWithJSONData:]";
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v20 = 0;
@@ -154,7 +154,7 @@ LABEL_2:
     goto LABEL_3;
   }
 
-  [(NWActivityEpilogueStatistics *)self report];
+  objc_msgSend_report(self, a2);
   v4 = [NWActivityEpilogueStatistics createActivityEpilogueDictionary:__dst];
   if (v4)
   {
@@ -175,7 +175,7 @@ LABEL_2:
       externallyVisibleParentUUID = [externallyVisibleParentUUID2 UUIDString];
     }
 
-    [(NWActivityEpilogueStatistics *)self report];
+    objc_msgSend_report(self);
     memcpy(__dst, v20, 0x138uLL);
     v12 = [NWActivityStatistics createActivityReportDictionary:__dst uuidString:externallyVisibleActivityUUID parentUUIDString:externallyVisibleParentUUID];
     if (v12)
@@ -257,7 +257,7 @@ LABEL_3:
     }
   }
 
-  [(NWActivityEpilogueStatistics *)self report];
+  objc_msgSend_report(self);
   strlcpy(v6, [dCopy UTF8String], 0x100uLL);
 }
 
@@ -265,7 +265,7 @@ LABEL_3:
 {
   v5[67] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
-  [(NWActivityEpilogueStatistics *)self report];
+  objc_msgSend_report(self, a2);
   v3 = [v2 stringWithCString:v5 encoding:134217984];
 
   return v3;
@@ -274,14 +274,14 @@ LABEL_3:
 - (unint64_t)durationMsecs
 {
   v4 = *MEMORY[0x1E69E9840];
-  [(NWActivityEpilogueStatistics *)self report];
+  objc_msgSend_report(self, a2);
   return v3;
 }
 
 - (unint64_t)investigation_identifier
 {
   v4 = *MEMORY[0x1E69E9840];
-  [(NWActivityEpilogueStatistics *)self report];
+  objc_msgSend_report(self, a2);
   return v3;
 }
 
@@ -290,11 +290,11 @@ LABEL_3:
   v10 = *MEMORY[0x1E69E9840];
   if (!self->_parentUUID)
   {
-    [(NWActivityEpilogueStatistics *)self report];
+    objc_msgSend_report(self, a2);
     if (!uuid_is_null(v9))
     {
       v3 = objc_alloc(MEMORY[0x1E696AFB0]);
-      [(NWActivityEpilogueStatistics *)self report];
+      objc_msgSend_report(self);
       v4 = [v3 initWithUUIDBytes:&v8];
       parentUUID = self->_parentUUID;
       self->_parentUUID = v4;
@@ -311,11 +311,11 @@ LABEL_3:
   v10 = *MEMORY[0x1E69E9840];
   if (!self->_activityUUID)
   {
-    [(NWActivityEpilogueStatistics *)self report];
+    objc_msgSend_report(self, a2);
     if (!uuid_is_null(v9))
     {
       v3 = objc_alloc(MEMORY[0x1E696AFB0]);
-      [(NWActivityEpilogueStatistics *)self report];
+      objc_msgSend_report(self);
       v4 = [v3 initWithUUIDBytes:&v8];
       activityUUID = self->_activityUUID;
       self->_activityUUID = v4;

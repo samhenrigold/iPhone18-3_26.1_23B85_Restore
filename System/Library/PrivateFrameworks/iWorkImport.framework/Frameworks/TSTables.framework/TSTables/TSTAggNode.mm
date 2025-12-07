@@ -22,17 +22,17 @@
   coordCopy = coord;
   nodeCopy = node;
   aggregatorCopy = aggregator;
-  v19.receiver = self;
-  v19.super_class = TSTAggNode;
-  v9 = [(TSTAggNode *)&v19 init];
+  v17.receiver = self;
+  v17.super_class = TSTAggNode;
+  v9 = [(TSTAggNode *)&v17 init];
   if (v9)
   {
     TSUCellCoord::verifyCoordIsSane(&coordCopy);
     v9->_formulaCoord = coordCopy;
     objc_storeWeak(&v9->_groupNode, nodeCopy);
     v10 = objc_storeWeak(&v9->_aggregator, aggregatorCopy);
-    v15 = objc_msgSend_groupBy(aggregatorCopy, v11, v12, v13, v14);
-    objc_msgSend_setAggNode_forFormulaCoord_(v15, v16, v9, &v9->_formulaCoord, v17);
+    v14 = objc_msgSend_groupBy(aggregatorCopy, v11, v12, v13);
+    objc_msgSend_setAggNode_forFormulaCoord_(v14, v15, v9, &v9->_formulaCoord);
   }
 
   return v9;
@@ -42,7 +42,7 @@
 {
   accumulatorCopy = accumulator;
   WeakRetained = objc_loadWeakRetained(&self->_aggregator);
-  objc_msgSend_willModify(WeakRetained, v6, v7, v8, v9);
+  objc_msgSend_willModify(WeakRetained, v6, v7, v8);
 
   accumulator = self->_accumulator;
   self->_accumulator = accumulatorCopy;
@@ -56,22 +56,22 @@
     if (!modify)
     {
       WeakRetained = objc_loadWeakRetained(&self->_aggregator);
-      objc_msgSend_willModify(WeakRetained, v12, v13, v14, v15);
+      objc_msgSend_willModify(WeakRetained, v11, v12, v13);
     }
 
     if (!self->_children)
     {
-      v16 = objc_opt_new();
+      v14 = objc_opt_new();
       children = self->_children;
-      self->_children = v16;
+      self->_children = v14;
     }
 
-    v25 = objc_msgSend_formulaCoord(childCopy, v6, v7, v8, v9);
-    if ((TSCECellCoordSet::containsCellCoord(&self->_childrenCoordSet, &v25) & 1) == 0)
+    v21 = objc_msgSend_formulaCoord(childCopy, v6, v7, v8);
+    if ((TSCECellCoordSet::containsCellCoord(&self->_childrenCoordSet, &v21) & 1) == 0)
     {
-      objc_msgSend_addObject_(self->_children, v18, childCopy, v19, v20);
-      v25 = objc_msgSend_formulaCoord(childCopy, v21, v22, v23, v24);
-      TSCECellCoordSet::addCellCoord(&self->_childrenCoordSet, &v25);
+      objc_msgSend_addObject_(self->_children, v16, childCopy, v17);
+      v21 = objc_msgSend_formulaCoord(childCopy, v18, v19, v20);
+      TSCECellCoordSet::addCellCoord(&self->_childrenCoordSet, &v21);
     }
   }
 }
@@ -84,117 +84,117 @@
     if (!modify)
     {
       WeakRetained = objc_loadWeakRetained(&self->_aggregator);
-      objc_msgSend_willModify(WeakRetained, v12, v13, v14, v15);
+      objc_msgSend_willModify(WeakRetained, v11, v12, v13);
     }
 
-    v19 = objc_msgSend_formulaCoord(childCopy, v6, v7, v8, v9);
-    TSCECellCoordSet::removeCellCoord(&self->_childrenCoordSet, &v19);
-    objc_msgSend_removeObjectIdenticalTo_(self->_children, v16, childCopy, v17, v18);
+    v16 = objc_msgSend_formulaCoord(childCopy, v6, v7, v8);
+    TSCECellCoordSet::removeCellCoord(&self->_childrenCoordSet, &v16);
+    objc_msgSend_removeObjectIdenticalTo_(self->_children, v14, childCopy, v15);
   }
 }
 
 - (void)clearAggFormulas:(id)formulas inOwner:(const TSKUIDStruct *)owner
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   formulasCopy = formulas;
-  objc_msgSend_removeFormulaAt_inOwner_(formulasCopy, v7, &self->_formulaCoord, owner, v8);
-  v22 = 0u;
-  v23 = 0u;
+  objc_msgSend_removeFormulaAt_inOwner_(formulasCopy, v7, &self->_formulaCoord, owner);
+  v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v9 = self->_children;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v20, v24, 16);
-  if (v13)
+  v17 = 0u;
+  v18 = 0u;
+  v8 = self->_children;
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v17, v21, 16);
+  if (v11)
   {
-    v14 = *v21;
+    v12 = *v18;
     do
     {
-      v15 = 0;
+      v13 = 0;
       do
       {
-        if (*v21 != v14)
+        if (*v18 != v12)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        objc_msgSend_clearAggFormulas_inOwner_(*(*(&v20 + 1) + 8 * v15++), v11, formulasCopy, owner, v12, v20);
+        objc_msgSend_clearAggFormulas_inOwner_(*(*(&v17 + 1) + 8 * v13++), v10, formulasCopy, owner, v17);
       }
 
-      while (v13 != v15);
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v11, &v20, v24, 16);
+      while (v11 != v13);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v10, &v17, v21, 16);
     }
 
-    while (v13);
+    while (v11);
   }
 
-  objc_msgSend_removeAllObjects(self->_children, v16, v17, v18, v19);
+  objc_msgSend_removeAllObjects(self->_children, v14, v15, v16);
   TSCECellCoordSet::clear(&self->_childrenCoordSet);
 }
 
 - (void)upgradeForNewAggregateTypes:(id)types inOwner:(const TSKUIDStruct *)owner
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   WeakRetained = objc_loadWeakRetained(&self->_aggregator);
-  objc_msgSend_willModifyForUpgrade(WeakRetained, v8, v9, v10, v11);
+  objc_msgSend_willModifyForUpgrade(WeakRetained, v8, v9, v10);
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v12 = self->_children;
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v32, v36, 16);
-  if (v16)
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v11 = self->_children;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v28, v32, 16);
+  if (v14)
   {
-    v17 = *v33;
+    v15 = *v29;
     do
     {
-      for (i = 0; i != v16; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v33 != v17)
+        if (*v29 != v15)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v11);
         }
 
-        objc_msgSend_upgradeForNewAggregateTypes_inOwner_(*(*(&v32 + 1) + 8 * i), v14, typesCopy, owner, v15);
+        objc_msgSend_upgradeForNewAggregateTypes_inOwner_(*(*(&v28 + 1) + 8 * i), v13, typesCopy, owner);
       }
 
-      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v14, &v32, v36, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v28, v32, 16);
     }
 
-    while (v16);
+    while (v14);
   }
 
   formulaCoord = self->_formulaCoord;
-  v31 = *owner;
-  v23 = objc_opt_new();
+  v27 = *owner;
+  v20 = objc_opt_new();
   if (typesCopy)
   {
-    objc_msgSend_precedentsOfCell_(typesCopy, v19, &formulaCoord, v21, v22);
+    objc_msgSend_precedentsOfCell_(typesCopy, v17, &formulaCoord, v19);
   }
 
   else
   {
-    memset(&v29, 0, sizeof(v29));
+    memset(&v25, 0, sizeof(v25));
   }
 
-  v24 = objc_msgSend_referenceSet(v23, v19, v20, v21, v22, *&v29._vptr$TSCEReferenceSet, *&v29._cellRefs.__table_.__bucket_list_, *&v29._cellRefs.__table_.__first_node_.__next_, *&v29._cellRefs.__table_.__max_load_factor_, *&v29._rangeRefs.__tree_.__end_node_.__left_, *&v29._datalessRefs, *&v29._tableUuidRefs, *&v29._spanningRefs, v29._wholeOwnerRefs, formulaCoord, v31, v32);
-  TSCEReferenceSet::operator=(v24, &v29);
-  TSCEReferenceSet::~TSCEReferenceSet(&v29);
-  objc_msgSend_markCellRefsAsDirty_(typesCopy, v25, v23, v26, v27);
+  v21 = objc_msgSend_referenceSet(v20, v17, v18, v19, *&v25._vptr$TSCEReferenceSet, *&v25._cellRefs.__table_.__bucket_list_, *&v25._cellRefs.__table_.__first_node_.__next_, *&v25._cellRefs.__table_.__max_load_factor_, *&v25._rangeRefs.__tree_.__end_node_.__left_, *&v25._datalessRefs, *&v25._tableUuidRefs, *&v25._spanningRefs, v25._wholeOwnerRefs, formulaCoord, v27, v28);
+  TSCEReferenceSet::operator=(v21, &v25);
+  TSCEReferenceSet::~TSCEReferenceSet(&v25);
+  objc_msgSend_markCellRefsAsDirty_(typesCopy, v22, v20, v23);
   accumulator = self->_accumulator;
   self->_accumulator = 0;
 }
 
 - (id)descriptionWithGroupBy:(id)by
 {
-  objc_msgSend_formulaCoord(self, a2, by, v3, v4);
-  v5 = MEMORY[0x277CCAB68];
-  v6 = objc_opt_class();
-  v7 = NSStringFromTSUCellCoord();
-  v11 = objc_msgSend_stringWithFormat_(v5, v8, @"%@ @ %@", v9, v10, v6, v7);
+  objc_msgSend_formulaCoord(self, a2, by, v3);
+  v4 = MEMORY[0x277CCAB68];
+  v5 = objc_opt_class();
+  v6 = NSStringFromTSUCellCoord();
+  v9 = objc_msgSend_stringWithFormat_(v4, v7, @"%@ @ %@", v8, v5, v6);
 
-  return v11;
+  return v9;
 }
 
 - (void)enumerateDirectChildren:(id)children
@@ -251,32 +251,32 @@
     v11 = [TSTAccumulator alloc];
     if (*(archive + 7))
     {
-      v15 = objc_msgSend_initWithArchive_(v11, v12, *(archive + 7), v13, v14);
+      v14 = objc_msgSend_initWithArchive_(v11, v12, *(archive + 7), v13);
     }
 
     else
     {
-      v15 = objc_msgSend_initWithArchive_(v11, v12, &TST::_AccumulatorArchive_default_instance_, v13, v14);
+      v14 = objc_msgSend_initWithArchive_(v11, v12, TST::_AccumulatorArchive_default_instance_, v13);
     }
 
     accumulator = v10->_accumulator;
-    v10->_accumulator = v15;
+    v10->_accumulator = v14;
 
-    v17 = *(archive + 8);
-    if (v17 >= 1)
+    v16 = *(archive + 8);
+    if (v16 >= 1)
     {
-      v18 = 8;
+      v17 = 8;
       do
       {
-        v19 = [TSTAggNode alloc];
-        v22 = objc_msgSend_initWithArchive_aggregator_(v19, v20, *(*(archive + 5) + v18), aggregatorCopy, v21);
-        objc_msgSend_addChild_skipWillModify_(v10, v23, v22, 1, v24);
+        v18 = [TSTAggNode alloc];
+        v20 = objc_msgSend_initWithArchive_aggregator_(v18, v19, *(*(archive + 5) + v17), aggregatorCopy);
+        objc_msgSend_addChild_skipWillModify_(v10, v21, v20, 1);
 
-        v18 += 8;
-        --v17;
+        v17 += 8;
+        --v16;
       }
 
-      while (v17);
+      while (v16);
     }
   }
 
@@ -285,148 +285,148 @@
 
 - (void)encodeToArchive:(void *)archive
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   p_formulaCoord = &self->_formulaCoord;
   formulaCoord = self->_formulaCoord;
-  v9 = formulaCoord.row == 0x7FFFFFFF || (*&formulaCoord & 0xFFFF00000000) == 0x7FFF00000000;
-  if (v9 || (TSUCellCoord::verifyCoordIsSane(&self->_formulaCoord) & 1) == 0)
+  v8 = formulaCoord.row == 0x7FFFFFFF || (*&formulaCoord & 0xFFFF00000000) == 0x7FFF00000000;
+  if (v8 || (TSUCellCoord::verifyCoordIsSane(&self->_formulaCoord) & 1) == 0)
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTAggNode encodeToArchive:]", v3, v4);
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTAggNode.mm", v13, v14);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v15, 198, 0, "Not expecting an invalid coord here");
+    v9 = MEMORY[0x277D81150];
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTAggNode encodeToArchive:]", v3);
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTAggNode.mm", v12);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v10, v13, 198, 0, "Not expecting an invalid coord here");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19, v20);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17);
   }
 
   *(archive + 4) |= 1u;
-  v21 = *(archive + 6);
-  if (!v21)
+  v18 = *(archive + 6);
+  if (!v18)
   {
-    v22 = *(archive + 1);
-    if (v22)
+    v19 = *(archive + 1);
+    if (v19)
     {
-      v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
+      v19 = *(v19 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v21 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellCoordinateArchive>(v22);
-    *(archive + 6) = v21;
+    v18 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellCoordinateArchive>(v19);
+    *(archive + 6) = v18;
   }
 
-  sub_221269820(p_formulaCoord, v21);
+  sub_221269820(p_formulaCoord, v18);
   accumulator = self->_accumulator;
   if (accumulator)
   {
     *(archive + 4) |= 2u;
-    v27 = *(archive + 7);
-    if (!v27)
+    v23 = *(archive + 7);
+    if (!v23)
     {
-      v28 = *(archive + 1);
-      if (v28)
+      v24 = *(archive + 1);
+      if (v24)
       {
-        v28 = *(v28 & 0xFFFFFFFFFFFFFFFELL);
+        v24 = *(v24 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v27 = google::protobuf::Arena::CreateMaybeMessage<TST::AccumulatorArchive>(v28);
-      *(archive + 7) = v27;
+      v23 = google::protobuf::Arena::CreateMaybeMessage<TST::AccumulatorArchive>(v24);
+      *(archive + 7) = v23;
     }
 
-    objc_msgSend_saveToArchive_(accumulator, v23, v27, v24, v25);
+    objc_msgSend_saveToArchive_(accumulator, v20, v23, v21);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v29 = self->_children;
-  v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v47, v51, 16);
-  if (v34)
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v25 = self->_children;
+  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v41, v45, 16);
+  if (v29)
   {
-    v35 = *v48;
+    v30 = *v42;
     do
     {
-      for (i = 0; i != v34; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v48 != v35)
+        if (*v42 != v30)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v25);
         }
 
-        v37 = *(*(&v47 + 1) + 8 * i);
-        v38 = *(archive + 5);
-        if (!v38)
+        v32 = *(*(&v41 + 1) + 8 * i);
+        v33 = *(archive + 5);
+        if (!v33)
         {
           goto LABEL_27;
         }
 
-        v39 = *(archive + 8);
-        v40 = *v38;
-        if (v39 < *v38)
+        v34 = *(archive + 8);
+        v35 = *v33;
+        if (v34 < *v33)
         {
-          *(archive + 8) = v39 + 1;
-          objc_msgSend_encodeToArchive_(v37, v31, *&v38[2 * v39 + 2], v32, v33, v47);
+          *(archive + 8) = v34 + 1;
+          objc_msgSend_encodeToArchive_(v32, v27, *&v33[2 * v34 + 2], v28, v41);
           continue;
         }
 
-        if (v40 == *(archive + 9))
+        if (v35 == *(archive + 9))
         {
 LABEL_27:
           google::protobuf::internal::RepeatedPtrFieldBase::Reserve((archive + 24));
-          v38 = *(archive + 5);
-          v40 = *v38;
+          v33 = *(archive + 5);
+          v35 = *v33;
         }
 
-        *v38 = v40 + 1;
-        v41 = google::protobuf::Arena::CreateMaybeMessage<TST::GroupByArchive_AggNodeArchive>(*(archive + 3));
-        v42 = *(archive + 8);
-        v43 = *(archive + 5) + 8 * v42;
-        *(archive + 8) = v42 + 1;
-        *(v43 + 8) = v41;
-        objc_msgSend_encodeToArchive_(v37, v44, v41, v45, v46, v47);
+        *v33 = v35 + 1;
+        v36 = google::protobuf::Arena::CreateMaybeMessage<TST::GroupByArchive_AggNodeArchive>(*(archive + 3));
+        v37 = *(archive + 8);
+        v38 = *(archive + 5) + 8 * v37;
+        *(archive + 8) = v37 + 1;
+        *(v38 + 8) = v36;
+        objc_msgSend_encodeToArchive_(v32, v39, v36, v40, v41);
       }
 
-      v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v31, &v47, v51, 16);
+      v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v27, &v41, v45, 16);
     }
 
-    while (v34);
+    while (v29);
   }
 }
 
 - (void)unpackAfterUnarchiveForGroupBy:(id)by
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   byCopy = by;
   WeakRetained = objc_loadWeakRetained(&self->_aggregator);
-  v10 = objc_msgSend_groupBy(WeakRetained, v6, v7, v8, v9);
-  objc_msgSend_setAggNode_forFormulaCoord_(v10, v11, self, &self->_formulaCoord, v12);
+  v9 = objc_msgSend_groupBy(WeakRetained, v6, v7, v8);
+  objc_msgSend_setAggNode_forFormulaCoord_(v9, v10, self, &self->_formulaCoord);
 
-  v23 = 0u;
-  v24 = 0u;
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v13 = self->_children;
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v21, v25, 16);
-  if (v18)
+  v18 = 0u;
+  v19 = 0u;
+  v11 = self->_children;
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v18, v22, 16);
+  if (v15)
   {
-    v19 = *v22;
+    v16 = *v19;
     do
     {
-      v20 = 0;
+      v17 = 0;
       do
       {
-        if (*v22 != v19)
+        if (*v19 != v16)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v11);
         }
 
-        objc_msgSend_unpackAfterUnarchiveForGroupBy_(*(*(&v21 + 1) + 8 * v20++), v15, byCopy, v16, v17, v21);
+        objc_msgSend_unpackAfterUnarchiveForGroupBy_(*(*(&v18 + 1) + 8 * v17++), v13, byCopy, v14, v18);
       }
 
-      while (v18 != v20);
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v15, &v21, v25, 16);
+      while (v15 != v17);
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v18, v22, 16);
     }
 
-    while (v18);
+    while (v15);
   }
 }
 

@@ -326,52 +326,52 @@ LABEL_15:
 
 - (void)layoutSubviews
 {
-  v27.receiver = self;
-  v27.super_class = SKUIReviewCollectionViewCell;
-  [(SKUICollectionViewCell *)&v27 layoutSubviews];
-  v3 = storeShouldReverseLayoutDirection() ^ 1;
+  v29.receiver = self;
+  v29.super_class = SKUIReviewCollectionViewCell;
+  layoutSubviews = [(SKUICollectionViewCell *)&v29 layoutSubviews];
+  v5 = storeShouldReverseLayoutDirection(layoutSubviews, v4) ^ 1;
   contentView = [(SKUIReviewCollectionViewCell *)self contentView];
   [contentView bounds];
-  v22 = v5;
-  v7 = v6;
+  v24 = v7;
   v9 = v8;
   v11 = v10;
+  v13 = v12;
 
   [(SKUIViewReuseCollectionViewCell *)self contentInset];
-  v13 = v12;
   v15 = v14;
   v17 = v16;
   v19 = v18;
-  v20 = v9 - v14 - v18;
+  v21 = v20;
+  v22 = v11 - v16 - v20;
   allExistingViews = [(SKUIViewReuseCollectionViewCell *)self allExistingViews];
-  v26[0] = 0;
-  v26[1] = v26;
-  v26[2] = 0x2020000000;
-  v26[3] = 0;
-  v25[0] = 0;
-  v25[1] = v25;
-  v25[2] = 0x2020000000;
-  v25[3] = v13;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __46__SKUIReviewCollectionViewCell_layoutSubviews__block_invoke;
-  v23[3] = &unk_2781FD348;
-  v23[4] = self;
-  v23[5] = v25;
-  v23[6] = v26;
-  v24 = v3;
-  *&v23[7] = v20;
-  v23[8] = v13;
-  *&v23[9] = v15;
-  v23[10] = v17;
-  *&v23[11] = v19;
-  v23[12] = v22;
-  v23[13] = v7;
-  *&v23[14] = v9;
-  v23[15] = v11;
-  [allExistingViews enumerateObjectsUsingBlock:v23];
-  _Block_object_dispose(v25, 8);
-  _Block_object_dispose(v26, 8);
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x2020000000;
+  v28[3] = 0;
+  v27[0] = 0;
+  v27[1] = v27;
+  v27[2] = 0x2020000000;
+  v27[3] = v15;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __46__SKUIReviewCollectionViewCell_layoutSubviews__block_invoke;
+  v25[3] = &unk_2781FD348;
+  v25[4] = self;
+  v25[5] = v27;
+  v25[6] = v28;
+  v26 = v5;
+  *&v25[7] = v22;
+  v25[8] = v15;
+  *&v25[9] = v17;
+  v25[10] = v19;
+  *&v25[11] = v21;
+  v25[12] = v24;
+  v25[13] = v9;
+  *&v25[14] = v11;
+  v25[15] = v13;
+  [allExistingViews enumerateObjectsUsingBlock:v25];
+  _Block_object_dispose(v27, 8);
+  _Block_object_dispose(v28, 8);
 }
 
 void __46__SKUIReviewCollectionViewCell_layoutSubviews__block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -495,10 +495,10 @@ void __46__SKUIReviewCollectionViewCell_layoutSubviews__block_invoke(uint64_t a1
   labelCopy = label;
   contextCopy = context;
   style = [labelCopy style];
-  v8 = SKUIViewElementFontWithStyle(style);
-  if (!v8)
+  v9 = SKUIViewElementFontWithStyle(style);
+  if (!v9)
   {
-    v8 = SKUIFontPreferredFontForTextStyle(1);
+    v9 = SKUIFontPreferredFontForTextStyle(1, v8);
   }
 
   tintColor = [contextCopy tintColor];
@@ -510,9 +510,9 @@ void __46__SKUIReviewCollectionViewCell_layoutSubviews__block_invoke(uint64_t a1
   }
 
   text = [labelCopy text];
-  v12 = [text attributedStringWithDefaultFont:v8 foregroundColor:blackColor style:style];
+  v13 = [text attributedStringWithDefaultFont:v9 foregroundColor:blackColor style:style];
 
-  return v12;
+  return v13;
 }
 
 + (id)_attributedStringForDateLabel:(id)label context:(id)context
@@ -520,24 +520,24 @@ void __46__SKUIReviewCollectionViewCell_layoutSubviews__block_invoke(uint64_t a1
   labelCopy = label;
   contextCopy = context;
   style = [labelCopy style];
-  v8 = SKUIViewElementFontWithStyle(style);
-  if (!v8)
+  v9 = SKUIViewElementFontWithStyle(style);
+  if (!v9)
   {
-    v8 = SKUIFontPreferredFontForTextStyle(21);
+    v9 = SKUIFontPreferredFontForTextStyle(21, v8);
   }
 
   tintColor = [contextCopy tintColor];
-  v10 = SKUIViewElementPlainColorWithStyle(style, tintColor);
+  v11 = SKUIViewElementPlainColorWithStyle(style, tintColor);
 
-  if (!v10)
+  if (!v11)
   {
-    v10 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.3];
+    v11 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.3];
   }
 
   text = [labelCopy text];
-  v12 = [text attributedStringWithDefaultFont:v8 foregroundColor:v10 style:style];
+  v13 = [text attributedStringWithDefaultFont:v9 foregroundColor:v11 style:style];
 
-  return v12;
+  return v13;
 }
 
 - (void)_resetTapGestures
@@ -585,6 +585,24 @@ void __46__SKUIReviewCollectionViewCell_layoutSubviews__block_invoke(uint64_t a1
   v12 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:self action:sel_contentViewTapped_];
   contentView4 = [(SKUIReviewCollectionViewCell *)self contentView];
   [contentView4 addGestureRecognizer:v12];
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIReviewCollectionViewCell preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIReviewCollectionViewCell requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIReviewCollectionViewCell sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

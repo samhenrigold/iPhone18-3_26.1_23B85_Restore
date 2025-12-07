@@ -11,73 +11,72 @@
 
 + (id)sanitizedSet:(id)set
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   setCopy = set;
   v5 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(setCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = setCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [self sanitizedString:{*(*(&v15 + 1) + 8 * i), v15}];
+        v11 = [self sanitizedString:{*(*(&v14 + 1) + 8 * i), v14}];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [v5 copy];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 + (id)sanitizedDictionary:(id)dictionary
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(dictionaryCopy, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = dictionaryCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
-        v12 = [v6 objectForKeyedSubscript:{v11, v19}];
+        v11 = *(*(&v18 + 1) + 8 * i);
+        v12 = [v6 objectForKeyedSubscript:{v11, v18}];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -110,14 +109,13 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
   }
 
   v16 = [v5 copy];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -254,34 +252,34 @@ LABEL_38:
 
 + (BOOL)setContainsValidStrings:(id)strings
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   stringsCopy = strings;
-  v5 = [stringsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [stringsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(stringsCopy);
         }
 
-        if (![self stringIsValid:{*(*(&v12 + 1) + 8 * i), v12}])
+        if (![self stringIsValid:{*(*(&v11 + 1) + 8 * i), v11}])
         {
           v9 = 0;
           goto LABEL_11;
         }
       }
 
-      v6 = [stringsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [stringsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -294,40 +292,39 @@ LABEL_38:
   v9 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (BOOL)dictionaryContainsValidStrings:(id)strings
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   stringsCopy = strings;
-  v5 = [stringsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [stringsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(stringsCopy);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && ![self stringIsValid:{v9, v14}])
+        if ((objc_opt_isKindOfClass() & 1) != 0 && ![self stringIsValid:{v9, v13}])
         {
           goto LABEL_14;
         }
 
-        v10 = [stringsCopy objectForKeyedSubscript:{v9, v14}];
+        v10 = [stringsCopy objectForKeyedSubscript:{v9, v13}];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && ![self stringIsValid:v10])
         {
@@ -338,7 +335,7 @@ LABEL_14:
         }
       }
 
-      v6 = [stringsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [stringsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -351,7 +348,6 @@ LABEL_14:
   v11 = 1;
 LABEL_15:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

@@ -12,7 +12,7 @@
 
 - (id)attributeDescriptions
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   step = [(HMMTRAccessoryPairingEndContext *)self step];
   v5 = HMMTRAccessoryPairingStepAsString([step unsignedIntValue]);
@@ -20,14 +20,12 @@
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   error = [(HMMTRAccessoryPairingEndContext *)self error];
   v9 = [v7 initWithName:@"Error" value:error];
-  v16[1] = v9;
+  v15[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   sourceErrorDomain = [(HMMTRAccessoryPairingEndContext *)self sourceErrorDomain];
   v12 = [v10 initWithName:@"SourceErrorDomain" value:sourceErrorDomain];
-  v16[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v15[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
 
   return v13;
 }

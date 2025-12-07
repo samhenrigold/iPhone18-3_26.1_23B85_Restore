@@ -119,10 +119,9 @@
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:self->_morningIndex];
   startDate = [(NSDateInterval *)self->_dateInterval startDate];
   endDate = [(NSDateInterval *)self->_dateInterval endDate];
-  periods = self->_periods;
-  v10 = [v3 stringWithFormat:@"<%@:%p %@ (%@ - %@), goal = %@/%@, schedules = %@, periods = %@, calendar = %@>", v5, self, v6, startDate, endDate, self->_sleepDurationGoal, self->_minimumRecommendedSleepDurationGoal, self->_schedules, periods, self->_gregorianCalendar];
+  v9 = [v3 stringWithFormat:@"<%@:%p %@ (%@ - %@), goal = %@/%@, schedules = %@, periods = %@, calendar = %@>", v5, self, v6, startDate, endDate, self->_sleepDurationGoal, self->_minimumRecommendedSleepDurationGoal, self->_schedules, self->_periods, self->_gregorianCalendar];
 
-  return v10;
+  return v9;
 }
 
 - (NSString)hk_redactedDescription
@@ -233,28 +232,28 @@
 
 + (id)_computeTotalDurationsFromPeriodDurations:(id)durations
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   durationsCopy = durations;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [durationsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [durationsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(durationsCopy);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if (v6)
         {
           v10 = [v6 durationsByAdding:v9];
@@ -268,7 +267,7 @@
         }
       }
 
-      v5 = [durationsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [durationsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -278,8 +277,6 @@
   {
     v6 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -318,18 +315,16 @@
 
 - (id)_recomputeDurationsForStrategy:(id)strategy
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   strategyCopy = strategy;
   v5 = [HKSleepDaySummaryDurationStrategySet alloc];
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(strategyCopy, "strategyType")}];
-  v12 = v6;
-  v13[0] = strategyCopy;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = v6;
+  v12[0] = strategyCopy;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v8 = [(HKSleepDaySummaryDurationStrategySet *)v5 initWithStrategies:v7];
 
   v9 = [objc_opt_class() _computeDurationsForPeriods:self->_periods sleepDayInterval:self->_dateInterval strategies:v8 periodDurations:0];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -412,29 +407,28 @@ double __36__HKSleepDaySummary_primarySchedule__block_invoke(uint64_t a1, void *
 
 - (HKSleepDaySummary)initWithCoder:(id)coder
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeIntegerForKey:@"MorningIndex"];
-  v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"DateInterval"];
-  v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Calendar"];
+  v20 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"DateInterval"];
+  v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Calendar"];
   v6 = MEMORY[0x1E695DFD8];
-  v23[0] = objc_opt_class();
-  v23[1] = objc_opt_class();
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
-  v18 = [v6 setWithArray:v20];
-  v7 = [coderCopy decodeObjectOfClasses:v18 forKey:@"Periods"];
-  v8 = MEMORY[0x1E695DFD8];
   v22[0] = objc_opt_class();
   v22[1] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+  v17 = [v6 setWithArray:v19];
+  v7 = [coderCopy decodeObjectOfClasses:v17 forKey:@"Periods"];
+  v8 = MEMORY[0x1E695DFD8];
+  v21[0] = objc_opt_class();
+  v21[1] = objc_opt_class();
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
   v10 = [v8 setWithArray:v9];
   v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"Schedules"];
   v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"SleepDurationGoal"];
   v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MinimumRecommendedSleepDurationGoal"];
   v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"CreationInterval"];
 
-  v15 = [(HKSleepDaySummary *)self initWithMorningIndex:v5 dateInterval:v21 calendar:v19 periods:v7 schedules:v11 sleepDurationGoal:v12 minimumRecommendedSleepDurationGoal:v13 creationInterval:v14];
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = [(HKSleepDaySummary *)self initWithMorningIndex:v5 dateInterval:v20 calendar:v18 periods:v7 schedules:v11 sleepDurationGoal:v12 minimumRecommendedSleepDurationGoal:v13 creationInterval:v14];
   return v15;
 }
 
@@ -810,40 +804,41 @@ LABEL_12:
 
 - (BOOL)getData:(id *)data error:(id *)error
 {
-  v15 = 0;
-  v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v15];
-  v8 = v15;
+  v17 = 0;
+  v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v17];
+  v8 = v17;
+  v10 = v8;
   if (v7)
   {
     if (data)
     {
-      v9 = v7;
+      v11 = v7;
       *data = v7;
     }
   }
 
   else
   {
-    _HKInitializeLogging();
-    v10 = HKLogSleep;
+    _HKInitializeLogging(v8, v9);
+    v12 = HKLogSleep;
     if (os_log_type_enabled(HKLogSleep, OS_LOG_TYPE_ERROR))
     {
-      [(HKSleepDaySummary *)v10 getData:v8 error:?];
+      [(HKSleepDaySummary *)v12 getData:v10 error:?];
     }
 
-    v11 = v8;
-    v12 = v11;
-    if (v11)
+    v13 = v10;
+    v14 = v13;
+    if (v13)
     {
       if (error)
       {
-        v13 = v11;
-        *error = v12;
+        v15 = v13;
+        *error = v14;
       }
 
       else
       {
-        _HKLogDroppedError(v11);
+        _HKLogDroppedError(v13);
       }
     }
   }
@@ -854,7 +849,7 @@ LABEL_12:
 - (id)summaryFilteredWithOptions:(unint64_t)options strategyType:(int64_t)type
 {
   optionsCopy = options;
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   selfCopy = self;
   v7 = selfCopy;
   if (optionsCopy)
@@ -863,9 +858,9 @@ LABEL_12:
     v9 = v12;
     if (v12)
     {
-      v21[0] = v12;
+      v20[0] = v12;
       v10 = MEMORY[0x1E695DEC8];
-      v11 = v21;
+      v11 = v20;
       goto LABEL_7;
     }
 
@@ -886,9 +881,9 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v20 = lastSleepPeriod;
+  v19 = lastSleepPeriod;
   v10 = MEMORY[0x1E695DEC8];
-  v11 = &v20;
+  v11 = &v19;
 LABEL_7:
   v13 = [v10 arrayWithObjects:v11 count:1];
 LABEL_9:
@@ -909,8 +904,6 @@ LABEL_12:
 
     v7 = v17;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -1044,18 +1037,16 @@ LABEL_9:
 
 - (void)getData:(uint64_t)a3 error:.cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a1;
-  v8 = 138543874;
-  v9 = objc_opt_class();
-  v10 = 2114;
-  v11 = a2;
-  v12 = 2114;
-  v13 = a3;
-  v6 = v9;
-  _os_log_error_impl(&dword_19197B000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Error archiving summary %{public}@ for caching: %{public}@", &v8, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138543874;
+  v8 = objc_opt_class();
+  v9 = 2114;
+  v10 = a2;
+  v11 = 2114;
+  v12 = a3;
+  v6 = v8;
+  _os_log_error_impl(&dword_19197B000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Error archiving summary %{public}@ for caching: %{public}@", &v7, 0x20u);
 }
 
 @end

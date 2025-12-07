@@ -64,29 +64,29 @@ LABEL_8:
 
 - (void)enumerateUpdatesUsingBlock:(id)block
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   context = objc_autoreleasePoolPush();
-  v46 = 0;
+  v45 = 0;
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   obj = self->_updates;
-  v40 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v42 objects:v47 count:16];
-  if (v40)
+  v39 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+  if (v39)
   {
-    v39 = *v43;
+    v38 = *v42;
     do
     {
-      for (i = 0; i != v40; ++i)
+      for (i = 0; i != v39; ++i)
       {
-        if (*v43 != v39)
+        if (*v42 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v42 + 1) + 8 * i);
+        v5 = *(*(&v41 + 1) + 8 * i);
         context = [(NSMutableDictionary *)self->_updates objectForKeyedSubscript:v5, context];
         attributes = [context attributes];
         if ([attributes count])
@@ -175,8 +175,8 @@ LABEL_22:
         [v33 setBundleID:bundleIdentifier];
 
         [v33 setIsUpdate:1];
-        blockCopy[2](blockCopy, v33, &v46);
-        LOBYTE(donation7) = v46;
+        blockCopy[2](blockCopy, v33, &v45);
+        LOBYTE(donation7) = v45;
 
         if (donation7)
         {
@@ -184,16 +184,15 @@ LABEL_22:
         }
       }
 
-      v40 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v39 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
-    while (v40);
+    while (v39);
   }
 
 LABEL_25:
 
   objc_autoreleasePoolPop(context);
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 @end

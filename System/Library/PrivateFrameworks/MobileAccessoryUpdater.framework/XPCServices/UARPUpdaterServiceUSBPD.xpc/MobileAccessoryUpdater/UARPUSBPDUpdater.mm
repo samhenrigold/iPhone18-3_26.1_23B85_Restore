@@ -15,6 +15,8 @@
 - (id)gFindUSBCLightningAccessories:(id)accessories;
 - (id)getUARPAccessoryForUARPAccessoryID:(id)d;
 - (id)getUARPUSBPDAccessoryForUARPAccessory:(id)accessory;
+- (id)qCreateOrUpdateDongle:(unsigned int)dongle identifier:(id)identifier;
+- (id)qCreateOrUpdateMagSafeAccessory:(unsigned int)accessory identifier:(id)identifier;
 - (id)qCreateOrUpdatePowerAdapterAccessory:(id)accessory identifier:(id)identifier;
 - (id)qFindPowerAdapterAccessories:(id)accessories;
 - (id)qHpmForRID:(unsigned __int16)d;
@@ -44,6 +46,7 @@
 - (void)qAccessoryUnplugged:(id)unplugged;
 - (void)qBsdNotificationReceivedPowerSource;
 - (void)qCheckForUpdate:(id)update assetID:(id)d;
+- (void)qDisconnectDongle:(unsigned int)dongle;
 - (void)qDisconnectFromCoreUARP:(id)p;
 - (void)qEnumerateHPMsWithMagSafe;
 - (void)qRemoveDisconnectedAccessories:(unsigned __int16)accessories;
@@ -563,6 +566,198 @@
   }
 }
 
+- (id)qCreateOrUpdateMagSafeAccessory:(unsigned int)accessory identifier:(id)identifier
+{
+  v4 = *&accessory;
+  identifierCopy = identifier;
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v43[0] = identifierCopy;
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "qCreateOrUpdateMagSafeAccessory for identifier %@", buf, 0xCu);
+  }
+
+  v8 = [UARPSupportedAccessory findByAppleModelNumber:identifierCopy];
+  hardwareID = [v8 hardwareID];
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    v11 = self->_log;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v43[0] = hardwareID;
+      v22 = "qCreateOrUpdateMagSafeAccessory hwid is not usbpd %@";
+LABEL_21:
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, v22, buf, 0xCu);
+    }
+
+LABEL_22:
+    v23 = 0;
+    goto LABEL_34;
+  }
+
+  isMagSafeCable = [hardwareID isMagSafeCable];
+  v11 = self->_log;
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+  if ((isMagSafeCable & 1) == 0)
+  {
+    if (v12)
+    {
+      *buf = 138412290;
+      v43[0] = hardwareID;
+      v22 = "qCreateOrUpdateMagSafeAccessory hwid is not usb-c lightning %@";
+      goto LABEL_21;
+    }
+
+    goto LABEL_22;
+  }
+
+  if (v12)
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "MagSafe notification", buf, 2u);
+  }
+
+  v13 = [UARPMagSafeCable rid:v4];
+  v14 = self->_log;
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109120;
+    LODWORD(v43[0]) = v13;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "MagSafe notification on %d", buf, 8u);
+  }
+
+  v15 = [(UARPUSBPDUpdater *)self qHpmForRID:v13];
+  if (!v15)
+  {
+    goto LABEL_32;
+  }
+
+  v16 = self->_log;
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v43[0] = v15;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "MagSafe notification on %@", buf, 0xCu);
+  }
+
+  sopPrimeDelegate = [v15 sopPrimeDelegate];
+
+  if (!sopPrimeDelegate)
+  {
+    sopPrimeDelegate4 = [[UARPMagSafeCable alloc] initWithHPM:v15 service:v4 location:1];
+    [v15 setSopPrimeDelegate:sopPrimeDelegate4];
+    if (!sopPrimeDelegate4)
+    {
+      goto LABEL_15;
+    }
+
+LABEL_24:
+    v41 = v13;
+    sopPrimeDelegate2 = [v15 sopPrimeDelegate];
+    isActive = [sopPrimeDelegate2 isActive];
+
+    if ((isActive & 1) == 0)
+    {
+      v30 = self->_log;
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        v43[0] = v15;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "MagSafe (not active); remove accessories %@", buf, 0xCu);
+      }
+
+      [(UARPUSBPDUpdater *)self qRemoveDisconnectedAccessories:v41];
+
+      goto LABEL_32;
+    }
+
+    [v15 setSopType:1];
+    v26 = [[UARPAccessoryHardwareUSBPD alloc] initWithVendorID:-[UARPMagSafeCable vendorID](sopPrimeDelegate4 productID:"vendorID") usbpdClass:-[UARPMagSafeCable productID](sopPrimeDelegate4 locationType:{"productID"), 0, 1}];
+    v27 = [UARPSupportedAccessory findByHardwareID:v26];
+    if (v27)
+    {
+      if (![(UARPMagSafeCable *)sopPrimeDelegate4 requiresAuthentication]|| [(UARPMagSafeCable *)sopPrimeDelegate4 isAuthenticated])
+      {
+        v28 = [UARPUSBPDAccessory alloc];
+        identifier = [v27 identifier];
+        v23 = [(UARPUSBPDAccessory *)v28 initWithHardwareID:v26 identifier:identifier vuarpDelegate:sopPrimeDelegate4 hpmDelegate:sopPrimeDelegate4];
+
+LABEL_43:
+        goto LABEL_33;
+      }
+
+      v39 = self->_log;
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+      {
+        v33 = v39;
+        v40 = [UARPMagSafeCable authenticationStatusToString:[UARPMagSafeCable authenticationStatus:v4]];
+        *buf = 136315138;
+        v43[0] = v40;
+        v36 = "MagSafe (needs auth) auth state is %s";
+        v37 = v33;
+        v38 = 12;
+        goto LABEL_41;
+      }
+    }
+
+    else
+    {
+      v32 = self->_log;
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      {
+        v33 = v32;
+        vendorID = [(UARPMagSafeCable *)sopPrimeDelegate4 vendorID];
+        productID = [(UARPMagSafeCable *)sopPrimeDelegate4 productID];
+        *buf = 67109376;
+        LODWORD(v43[0]) = vendorID;
+        WORD2(v43[0]) = 1024;
+        *(v43 + 6) = productID;
+        v36 = "MagSafe (not active); unsupported VID=0x%04x PID=0x%04x";
+        v37 = v33;
+        v38 = 14;
+LABEL_41:
+        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, v36, buf, v38);
+      }
+    }
+
+    v23 = 0;
+    goto LABEL_43;
+  }
+
+  sopPrimeDelegate3 = [v15 sopPrimeDelegate];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    sopPrimeDelegate4 = [v15 sopPrimeDelegate];
+    [(UARPMagSafeCable *)sopPrimeDelegate4 updateWithService:v4];
+    if (sopPrimeDelegate4)
+    {
+      goto LABEL_24;
+    }
+  }
+
+LABEL_15:
+  v21 = self->_log;
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "MagSafe notification but no MagSafe on this RID?", buf, 2u);
+  }
+
+LABEL_32:
+  v23 = 0;
+LABEL_33:
+
+LABEL_34:
+
+  return v23;
+}
+
 - (id)usbpdHardwareIdForPowerAdapter
 {
   v3 = IOPSCopyExternalPowerAdapterDetails();
@@ -907,6 +1102,214 @@ LABEL_16:
 LABEL_29:
 
   return v19;
+}
+
+- (id)qCreateOrUpdateDongle:(unsigned int)dongle identifier:(id)identifier
+{
+  v4 = *&dongle;
+  identifierCopy = identifier;
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v41[0] = identifierCopy;
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "qCreateOrUpdateDongle for identifier %@", buf, 0xCu);
+  }
+
+  v8 = [UARPSupportedAccessory findByAppleModelNumber:identifierCopy];
+  hardwareID = [v8 hardwareID];
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    v19 = self->_log;
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v41[0] = hardwareID;
+      v20 = "qCreateOrUpdateDongle hwid is not usbpd %@";
+LABEL_19:
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, v20, buf, 0xCu);
+    }
+
+LABEL_20:
+    v21 = 0;
+    goto LABEL_32;
+  }
+
+  if (([hardwareID isUSBCLightning] & 1) == 0)
+  {
+    v19 = self->_log;
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v41[0] = hardwareID;
+      v20 = "qCreateOrUpdateDongle hwid is not usb-c lightning %@";
+      goto LABEL_19;
+    }
+
+    goto LABEL_20;
+  }
+
+  v10 = [UARPMagSafeCable rid:v4];
+  v11 = self->_log;
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109120;
+    LODWORD(v41[0]) = v10;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Dongle notification on %d", buf, 8u);
+  }
+
+  v12 = [(UARPUSBPDUpdater *)self qHpmForRID:v10];
+  if (!v12)
+  {
+    goto LABEL_30;
+  }
+
+  v13 = self->_log;
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v41[0] = v12;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Dongle notification on %@", buf, 0xCu);
+  }
+
+  sopDelegate = [v12 sopDelegate];
+
+  if (!sopDelegate)
+  {
+    sopDelegate4 = [[UARPMagSafeCable alloc] initWithHPM:v12 service:v4 location:0];
+    [v12 setSopDelegate:sopDelegate4];
+    if (!sopDelegate4)
+    {
+      goto LABEL_13;
+    }
+
+LABEL_22:
+    v39 = v10;
+    sopDelegate2 = [v12 sopDelegate];
+    isActive = [sopDelegate2 isActive];
+
+    if ((isActive & 1) == 0)
+    {
+      v28 = self->_log;
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        v41[0] = v12;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Dongle (not active); remove accessories %@", buf, 0xCu);
+      }
+
+      [(UARPUSBPDUpdater *)self qRemoveDisconnectedAccessories:v39];
+
+      goto LABEL_30;
+    }
+
+    [v12 setSopType:0];
+    v24 = [[UARPAccessoryHardwareUSBPD alloc] initWithVendorID:-[UARPMagSafeCable vendorID](sopDelegate4 productID:"vendorID") usbpdClass:-[UARPMagSafeCable productID](sopDelegate4 locationType:{"productID"), 2, 0}];
+    v25 = [UARPSupportedAccessory findByHardwareID:v24];
+    if (v25)
+    {
+      if (![(UARPMagSafeCable *)sopDelegate4 requiresAuthentication]|| [(UARPMagSafeCable *)sopDelegate4 isAuthenticated])
+      {
+        v26 = [UARPUSBPDAccessory alloc];
+        identifier = [v25 identifier];
+        v21 = [(UARPUSBPDAccessory *)v26 initWithHardwareID:v24 identifier:identifier vuarpDelegate:sopDelegate4 hpmDelegate:sopDelegate4];
+
+LABEL_41:
+        goto LABEL_31;
+      }
+
+      v37 = self->_log;
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+      {
+        v31 = v37;
+        v38 = [UARPMagSafeCable authenticationStatusToString:[UARPMagSafeCable authenticationStatus:v4]];
+        *buf = 136315138;
+        v41[0] = v38;
+        v34 = "Dongle (needs auth) auth state is %s";
+        v35 = v31;
+        v36 = 12;
+        goto LABEL_39;
+      }
+    }
+
+    else
+    {
+      v30 = self->_log;
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      {
+        v31 = v30;
+        vendorID = [(UARPMagSafeCable *)sopDelegate4 vendorID];
+        productID = [(UARPMagSafeCable *)sopDelegate4 productID];
+        *buf = 67109376;
+        LODWORD(v41[0]) = vendorID;
+        WORD2(v41[0]) = 1024;
+        *(v41 + 6) = productID;
+        v34 = "Dongle (not active); unsupported VID=0x%04x PID=0x%04x";
+        v35 = v31;
+        v36 = 14;
+LABEL_39:
+        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, v34, buf, v36);
+      }
+    }
+
+    v21 = 0;
+    goto LABEL_41;
+  }
+
+  sopDelegate3 = [v12 sopDelegate];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    sopDelegate4 = [v12 sopDelegate];
+    [(UARPMagSafeCable *)sopDelegate4 updateWithService:v4];
+    if (sopDelegate4)
+    {
+      goto LABEL_22;
+    }
+  }
+
+LABEL_13:
+  v18 = self->_log;
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Dongle notification but no Dongle on this RID?", buf, 2u);
+  }
+
+LABEL_30:
+  v21 = 0;
+LABEL_31:
+
+LABEL_32:
+
+  return v21;
+}
+
+- (void)qDisconnectDongle:(unsigned int)dongle
+{
+  v4 = [UARPMagSafeCable rid:*&dongle];
+  v5 = [(UARPUSBPDUpdater *)self qHpmForRID:v4];
+  if (v5)
+  {
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+    {
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "Disconnect dongle notification on %@", &v8, 0xCu);
+    }
+
+    if ([v5 hasMagSafe])
+    {
+      magSafeCable = self->magSafeCable;
+      self->magSafeCable = 0;
+    }
+
+    [(UARPUSBPDUpdater *)self qRemoveDisconnectedAccessories:v4];
+  }
 }
 
 - (void)qCheckForUpdate:(id)update assetID:(id)d
@@ -1307,7 +1710,7 @@ LABEL_29:
 
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
-    sub_100023BB8(self);
+    sub_100023BB8();
   }
 
   if (([(NSMutableArray *)self->_uarpUSBPDAccessories containsObject:accessoryCopy]& 1) != 0)
@@ -2309,15 +2712,15 @@ LABEL_25:
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
-    v18 = 136315906;
-    v19 = "[UARPUSBPDUpdater firmwareStagingComplete:assetID:withStatus:]";
-    v20 = 2112;
-    v21 = completeCopy;
-    v22 = 2112;
-    v23 = dCopy;
-    v24 = 2048;
+    v17 = 136315906;
+    v18 = "[UARPUSBPDUpdater firmwareStagingComplete:assetID:withStatus:]";
+    v19 = 2112;
+    v20 = completeCopy;
+    v21 = 2112;
+    v22 = dCopy;
+    v23 = 2048;
     statusCopy = status;
-    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: accessory=%@, assetID=%@, status=%lu", &v18, 0x2Au);
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: accessory=%@, assetID=%@, status=%lu", &v17, 0x2Au);
   }
 
   v11 = [(UARPUSBPDUpdater *)self getUARPUSBPDAccessoryForUARPAccessory:completeCopy];
@@ -2345,12 +2748,11 @@ LABEL_25:
       }
     }
 
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
-      v16 = self->_goldRestoreDelegate;
+      goldRestoreDelegate = self->_goldRestoreDelegate;
       uarpAccessoryID = [v12 uarpAccessoryID];
-      [(GoldRestoreUARPStatusDelegate *)v16 firmwareStagingComplete:uarpAccessoryID withStatus:status];
+      [(GoldRestoreUARPStatusDelegate *)goldRestoreDelegate firmwareStagingComplete:uarpAccessoryID withStatus:status];
     }
 
     else if (status == 3)
@@ -2376,24 +2778,23 @@ LABEL_25:
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315650;
-    v13 = "[UARPUSBPDUpdater stagedFirmwareApplicationComplete:withStatus:]";
-    v14 = 2112;
-    v15 = completeCopy;
-    v16 = 2048;
+    v11 = 136315650;
+    v12 = "[UARPUSBPDUpdater stagedFirmwareApplicationComplete:withStatus:]";
+    v13 = 2112;
+    v14 = completeCopy;
+    v15 = 2048;
     statusCopy = status;
-    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: accessory=%@, status=%lu", &v12, 0x20u);
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: accessory=%@, status=%lu", &v11, 0x20u);
   }
 
   v8 = [(UARPUSBPDUpdater *)self getUARPUSBPDAccessoryForUARPAccessory:completeCopy];
   if (v8)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
-      v10 = self->_goldRestoreDelegate;
+      goldRestoreDelegate = self->_goldRestoreDelegate;
       uarpAccessoryID = [v8 uarpAccessoryID];
-      [(GoldRestoreUARPStatusDelegate *)v10 stagedFirmwareApplicationComplete:uarpAccessoryID withStatus:status];
+      [(GoldRestoreUARPStatusDelegate *)goldRestoreDelegate stagedFirmwareApplicationComplete:uarpAccessoryID withStatus:status];
     }
 
     else
@@ -2414,24 +2815,23 @@ LABEL_25:
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315650;
-    v13 = "[UARPUSBPDUpdater stagedFirmwareRescindComplete:withStatus:]";
-    v14 = 2112;
-    v15 = completeCopy;
-    v16 = 2048;
+    v11 = 136315650;
+    v12 = "[UARPUSBPDUpdater stagedFirmwareRescindComplete:withStatus:]";
+    v13 = 2112;
+    v14 = completeCopy;
+    v15 = 2048;
     statusCopy = status;
-    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: accessory=%@, status=%lu", &v12, 0x20u);
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: accessory=%@, status=%lu", &v11, 0x20u);
   }
 
   v8 = [(UARPUSBPDUpdater *)self getUARPUSBPDAccessoryForUARPAccessory:completeCopy];
   if (v8)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
-      v10 = self->_goldRestoreDelegate;
+      goldRestoreDelegate = self->_goldRestoreDelegate;
       uarpAccessoryID = [v8 uarpAccessoryID];
-      [(GoldRestoreUARPStatusDelegate *)v10 stagedFirmwareRescindComplete:uarpAccessoryID withStatus:status];
+      [(GoldRestoreUARPStatusDelegate *)goldRestoreDelegate stagedFirmwareRescindComplete:uarpAccessoryID withStatus:status];
     }
 
     else
@@ -2453,26 +2853,25 @@ LABEL_25:
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
-    v15 = 136315906;
-    v16 = "[UARPUSBPDUpdater assetSolicitationComplete:assetID:withStatus:]";
-    v17 = 2112;
-    v18 = completeCopy;
-    v19 = 2112;
-    v20 = dCopy;
-    v21 = 2048;
+    v14 = 136315906;
+    v15 = "[UARPUSBPDUpdater assetSolicitationComplete:assetID:withStatus:]";
+    v16 = 2112;
+    v17 = completeCopy;
+    v18 = 2112;
+    v19 = dCopy;
+    v20 = 2048;
     statusCopy = status;
-    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: accessory=%@, assetID=%@, status=%lu", &v15, 0x2Au);
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: accessory=%@, assetID=%@, status=%lu", &v14, 0x2Au);
   }
 
   v11 = [(UARPUSBPDUpdater *)self getUARPUSBPDAccessoryForUARPAccessory:completeCopy];
   if (v11)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
-      v13 = self->_goldRestoreDelegate;
+      goldRestoreDelegate = self->_goldRestoreDelegate;
       uarpAccessoryID = [v11 uarpAccessoryID];
-      [(GoldRestoreUARPStatusDelegate *)v13 assetSolicitationComplete:uarpAccessoryID assetID:dCopy withStatus:status];
+      [(GoldRestoreUARPStatusDelegate *)goldRestoreDelegate assetSolicitationComplete:uarpAccessoryID assetID:dCopy withStatus:status];
     }
 
     else if (status == 3)
@@ -2501,18 +2900,18 @@ LABEL_25:
   v12 = v11;
   if (v11)
   {
-    if ([v11 goldrestoreQueryInProgress] && (goldRestoreDelegate = self->_goldRestoreDelegate, (objc_opt_respondsToSelector() & 1) != 0))
+    if ([v11 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegateQueue = self->_delegateQueue;
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_100008FCC;
-      v15[3] = &unk_1000406B0;
-      v15[4] = self;
-      v16 = v12;
-      v17 = manufacturerCopy;
-      v18 = errorCopy;
-      dispatch_async(delegateQueue, v15);
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_100008FCC;
+      v14[3] = &unk_1000406B0;
+      v14[4] = self;
+      v15 = v12;
+      v16 = manufacturerCopy;
+      v17 = errorCopy;
+      dispatch_async(delegateQueue, v14);
     }
 
     else
@@ -2536,18 +2935,18 @@ LABEL_25:
   v12 = v11;
   if (v11)
   {
-    if ([v11 goldrestoreQueryInProgress] && (goldRestoreDelegate = self->_goldRestoreDelegate, (objc_opt_respondsToSelector() & 1) != 0))
+    if ([v11 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegateQueue = self->_delegateQueue;
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_100009190;
-      v15[3] = &unk_1000406B0;
-      v15[4] = self;
-      v16 = v12;
-      v17 = nameCopy;
-      v18 = errorCopy;
-      dispatch_async(delegateQueue, v15);
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_100009190;
+      v14[3] = &unk_1000406B0;
+      v14[4] = self;
+      v15 = v12;
+      v16 = nameCopy;
+      v17 = errorCopy;
+      dispatch_async(delegateQueue, v14);
     }
 
     else
@@ -2571,18 +2970,18 @@ LABEL_25:
   v12 = v11;
   if (v11)
   {
-    if ([v11 goldrestoreQueryInProgress] && (goldRestoreDelegate = self->_goldRestoreDelegate, (objc_opt_respondsToSelector() & 1) != 0))
+    if ([v11 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegateQueue = self->_delegateQueue;
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_100009354;
-      v15[3] = &unk_1000406B0;
-      v15[4] = self;
-      v16 = v12;
-      v17 = versionCopy;
-      v18 = errorCopy;
-      dispatch_async(delegateQueue, v15);
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_100009354;
+      v14[3] = &unk_1000406B0;
+      v14[4] = self;
+      v15 = v12;
+      v16 = versionCopy;
+      v17 = errorCopy;
+      dispatch_async(delegateQueue, v14);
     }
 
     else
@@ -2606,18 +3005,18 @@ LABEL_25:
   v12 = v11;
   if (v11)
   {
-    if ([v11 goldrestoreQueryInProgress] && (goldRestoreDelegate = self->_goldRestoreDelegate, (objc_opt_respondsToSelector() & 1) != 0))
+    if ([v11 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegateQueue = self->_delegateQueue;
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_100009518;
-      v15[3] = &unk_1000406B0;
-      v15[4] = self;
-      v16 = v12;
-      v17 = versionCopy;
-      v18 = errorCopy;
-      dispatch_async(delegateQueue, v15);
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_100009518;
+      v14[3] = &unk_1000406B0;
+      v14[4] = self;
+      v15 = v12;
+      v16 = versionCopy;
+      v17 = errorCopy;
+      dispatch_async(delegateQueue, v14);
     }
 
     else
@@ -2641,22 +3040,18 @@ LABEL_25:
   v12 = v11;
   if (v11)
   {
-    if ([v11 goldrestoreQueryInProgress])
+    if ([v11 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      goldRestoreDelegate = self->_goldRestoreDelegate;
-      if (objc_opt_respondsToSelector())
-      {
-        delegateQueue = self->_delegateQueue;
-        v15[0] = _NSConcreteStackBlock;
-        v15[1] = 3221225472;
-        v15[2] = sub_1000096C8;
-        v15[3] = &unk_1000406B0;
-        v15[4] = self;
-        v16 = v12;
-        v17 = statsCopy;
-        v18 = errorCopy;
-        dispatch_async(delegateQueue, v15);
-      }
+      delegateQueue = self->_delegateQueue;
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_1000096C8;
+      v14[3] = &unk_1000406B0;
+      v14[4] = self;
+      v15 = v12;
+      v16 = statsCopy;
+      v17 = errorCopy;
+      dispatch_async(delegateQueue, v14);
     }
   }
 
@@ -2675,22 +3070,18 @@ LABEL_25:
   v12 = v11;
   if (v11)
   {
-    if ([v11 goldrestoreQueryInProgress])
+    if ([v11 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      goldRestoreDelegate = self->_goldRestoreDelegate;
-      if (objc_opt_respondsToSelector())
-      {
-        delegateQueue = self->_delegateQueue;
-        v15[0] = _NSConcreteStackBlock;
-        v15[1] = 3221225472;
-        v15[2] = sub_100009878;
-        v15[3] = &unk_1000406B0;
-        v15[4] = self;
-        v16 = v12;
-        v17 = versionCopy;
-        v18 = errorCopy;
-        dispatch_async(delegateQueue, v15);
-      }
+      delegateQueue = self->_delegateQueue;
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_100009878;
+      v14[3] = &unk_1000406B0;
+      v14[4] = self;
+      v15 = v12;
+      v16 = versionCopy;
+      v17 = errorCopy;
+      dispatch_async(delegateQueue, v14);
     }
   }
 
@@ -2709,18 +3100,18 @@ LABEL_25:
   v12 = v11;
   if (v11)
   {
-    if ([v11 goldrestoreQueryInProgress] && (goldRestoreDelegate = self->_goldRestoreDelegate, (objc_opt_respondsToSelector() & 1) != 0))
+    if ([v11 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegateQueue = self->_delegateQueue;
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_100009A3C;
-      v15[3] = &unk_1000406B0;
-      v15[4] = self;
-      v16 = v12;
-      v17 = numberCopy;
-      v18 = errorCopy;
-      dispatch_async(delegateQueue, v15);
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_100009A3C;
+      v14[3] = &unk_1000406B0;
+      v14[4] = self;
+      v15 = v12;
+      v16 = numberCopy;
+      v17 = errorCopy;
+      dispatch_async(delegateQueue, v14);
     }
 
     else
@@ -2743,19 +3134,18 @@ LABEL_25:
   v11 = [(UARPUSBPDUpdater *)self getUARPUSBPDAccessoryForUARPAccessory:accessoryCopy];
   if (v11)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
-      v18[0] = _NSConcreteStackBlock;
-      v18[1] = 3221225472;
-      v18[2] = sub_100009C5C;
-      v18[3] = &unk_1000406B0;
-      v18[4] = self;
-      v19 = v11;
-      v20 = numberCopy;
-      v21 = errorCopy;
-      dispatch_async(delegateQueue, v18);
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_100009C5C;
+      v17[3] = &unk_1000406B0;
+      v17[4] = self;
+      v18 = v11;
+      v19 = numberCopy;
+      v20 = errorCopy;
+      dispatch_async(delegateQueue, v17);
     }
 
     else
@@ -2764,9 +3154,9 @@ LABEL_25:
       {
         uarpAccessoryID = [v11 uarpAccessoryID];
         modelNumber = [uarpAccessoryID modelNumber];
-        v16 = [numberCopy isEqualToString:modelNumber];
+        v15 = [numberCopy isEqualToString:modelNumber];
 
-        if ((v16 & 1) == 0)
+        if ((v15 & 1) == 0)
         {
           log = self->_log;
           if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
@@ -2794,19 +3184,18 @@ LABEL_25:
   v11 = [(UARPUSBPDUpdater *)self getUARPUSBPDAccessoryForUARPAccessory:accessoryCopy];
   if (v11)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100009E10;
-      v14[3] = &unk_1000406B0;
-      v14[4] = self;
-      v15 = v11;
-      v16 = typeCopy;
-      v17 = errorCopy;
-      dispatch_async(delegateQueue, v14);
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_100009E10;
+      v13[3] = &unk_1000406B0;
+      v13[4] = self;
+      v14 = v11;
+      v15 = typeCopy;
+      v16 = errorCopy;
+      dispatch_async(delegateQueue, v13);
     }
 
     else
@@ -2829,19 +3218,18 @@ LABEL_25:
   v11 = [(UARPUSBPDUpdater *)self getUARPUSBPDAccessoryForUARPAccessory:accessoryCopy];
   if (v11)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100009FC4;
-      v14[3] = &unk_1000406B0;
-      v14[4] = self;
-      v15 = v11;
-      v16 = nameCopy;
-      v17 = errorCopy;
-      dispatch_async(delegateQueue, v14);
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_100009FC4;
+      v13[3] = &unk_1000406B0;
+      v13[4] = self;
+      v14 = v11;
+      v15 = nameCopy;
+      v16 = errorCopy;
+      dispatch_async(delegateQueue, v13);
     }
 
     else
@@ -2870,29 +3258,28 @@ LABEL_25:
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v21 = "[UARPUSBPDUpdater firmwareStagingProgress:assetID:bytesSent:bytesTotal:]";
-    v22 = 2112;
-    v23 = progressCopy;
-    v24 = 2112;
-    v25 = dCopy;
-    v26 = 2048;
-    v27 = ((sent / total) * 100.0);
+    v20 = "[UARPUSBPDUpdater firmwareStagingProgress:assetID:bytesSent:bytesTotal:]";
+    v21 = 2112;
+    v22 = progressCopy;
+    v23 = 2112;
+    v24 = dCopy;
+    v25 = 2048;
+    v26 = ((sent / total) * 100.0);
     _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s: accessory=%@, assetID=%@, progress=%f", buf, 0x2Au);
   }
 
-  goldRestoreDelegate = self->_goldRestoreDelegate;
   if (objc_opt_respondsToSelector())
   {
     delegateQueue = self->_delegateQueue;
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10000A204;
-    v16[3] = &unk_1000406D8;
-    v16[4] = self;
-    v17 = v12;
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_10000A204;
+    v15[3] = &unk_1000406D8;
+    v15[4] = self;
+    v16 = v12;
     sentCopy = sent;
     totalCopy = total;
-    dispatch_async(delegateQueue, v16);
+    dispatch_async(delegateQueue, v15);
   }
 }
 
@@ -2910,17 +3297,16 @@ LABEL_25:
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v22 = "[UARPUSBPDUpdater assetSolicitationProgress:assetID:bytesReceived:bytesTotal:]";
-    v23 = 2112;
-    v24 = progressCopy;
-    v25 = 2112;
-    v26 = dCopy;
-    v27 = 2048;
-    v28 = ((received / total) * 100.0);
+    v21 = "[UARPUSBPDUpdater assetSolicitationProgress:assetID:bytesReceived:bytesTotal:]";
+    v22 = 2112;
+    v23 = progressCopy;
+    v24 = 2112;
+    v25 = dCopy;
+    v26 = 2048;
+    v27 = ((received / total) * 100.0);
     _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s: accessory=%@, assetID=%@, progress=%f", buf, 0x2Au);
   }
 
-  goldRestoreDelegate = self->_goldRestoreDelegate;
   if (objc_opt_respondsToSelector())
   {
     delegateQueue = self->_delegateQueue;
@@ -2929,8 +3315,8 @@ LABEL_25:
     block[2] = sub_10000A454;
     block[3] = &unk_100040700;
     block[4] = self;
-    v17 = v12;
-    v18 = dCopy;
+    v16 = v12;
+    v17 = dCopy;
     receivedCopy = received;
     totalCopy = total;
     dispatch_async(delegateQueue, block);
@@ -2983,15 +3369,14 @@ LABEL_25:
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v15 = "[UARPUSBPDUpdater assetDownloadFailed:assetID:]";
-    v16 = 2112;
-    v17 = failedCopy;
-    v18 = 2112;
-    v19 = dCopy;
+    v14 = "[UARPUSBPDUpdater assetDownloadFailed:assetID:]";
+    v15 = 2112;
+    v16 = failedCopy;
+    v17 = 2112;
+    v18 = dCopy;
     _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: usbpd = %@, assetID = %@", buf, 0x20u);
   }
 
-  goldRestoreDelegate = self->_goldRestoreDelegate;
   if (objc_opt_respondsToSelector())
   {
     delegateQueue = self->_delegateQueue;
@@ -3000,8 +3385,8 @@ LABEL_25:
     block[2] = sub_10000A890;
     block[3] = &unk_100040688;
     block[4] = self;
-    v12 = failedCopy;
-    v13 = dCopy;
+    v11 = failedCopy;
+    v12 = dCopy;
     dispatch_async(delegateQueue, block);
   }
 
@@ -3061,15 +3446,14 @@ LABEL_25:
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v15 = "[UARPUSBPDUpdater assetNotFound:assetID:]";
-    v16 = 2112;
-    v17 = foundCopy;
-    v18 = 2112;
-    v19 = dCopy;
+    v14 = "[UARPUSBPDUpdater assetNotFound:assetID:]";
+    v15 = 2112;
+    v16 = foundCopy;
+    v17 = 2112;
+    v18 = dCopy;
     _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: usbpd = %@, assetID = %@", buf, 0x20u);
   }
 
-  goldRestoreDelegate = self->_goldRestoreDelegate;
   if (objc_opt_respondsToSelector())
   {
     delegateQueue = self->_delegateQueue;
@@ -3078,8 +3462,8 @@ LABEL_25:
     block[2] = sub_10000AC90;
     block[3] = &unk_100040688;
     block[4] = self;
-    v12 = foundCopy;
-    v13 = dCopy;
+    v11 = foundCopy;
+    v12 = dCopy;
     dispatch_async(delegateQueue, block);
   }
 

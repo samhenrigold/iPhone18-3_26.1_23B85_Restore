@@ -93,7 +93,7 @@
 
 - (NSArray)handles
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   backingContact = [(TUProxyAutocompleteResult *)self backingContact];
   v4 = backingContact;
   if (backingContact)
@@ -111,15 +111,13 @@ LABEL_5:
   if (destinationId)
   {
     phoneNumberStrings = [(TUProxyAutocompleteResult *)self destinationId];
-    v11[0] = phoneNumberStrings;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+    v10[0] = phoneNumberStrings;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
     goto LABEL_5;
   }
 
   v7 = MEMORY[0x1E695E0F0];
 LABEL_6:
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

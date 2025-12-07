@@ -13,7 +13,7 @@
   v2 = +[ODXIteratorSpecification axisTypeMap]::axisTypeMap;
   if (!+[ODXIteratorSpecification axisTypeMap]::axisTypeMap)
   {
-    if ((atomic_load_explicit(&_MergedGlobals_55, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(_MergedGlobals_55, memory_order_acquire) & 1) == 0)
     {
       +[ODXIteratorSpecification axisTypeMap];
     }
@@ -33,7 +33,7 @@
   v2 = +[ODXIteratorSpecification elementTypeMap]::elementTypeMap;
   if (!+[ODXIteratorSpecification elementTypeMap]::elementTypeMap)
   {
-    if ((atomic_load_explicit(&qword_27FC3F348, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_27FC3F348, memory_order_acquire) & 1) == 0)
     {
       +[ODXIteratorSpecification elementTypeMap];
     }
@@ -77,7 +77,7 @@
 
 + (void)axisTypeMap
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_55))
+  if (__cxa_guard_acquire(_MergedGlobals_55))
   {
     qword_27FC3F408 = "self";
     dword_27FC3F410 = 1;
@@ -107,13 +107,13 @@
     qword_27FC3F4C8 = "none";
     xmmword_27FC3F4D0 = TCXmlEnumSentinel;
 
-    __cxa_guard_release(&_MergedGlobals_55);
+    __cxa_guard_release(_MergedGlobals_55);
   }
 }
 
 + (void)elementTypeMap
 {
-  if (__cxa_guard_acquire(&qword_27FC3F348))
+  if (__cxa_guard_acquire(byte_27FC3F348))
   {
     qword_27FC3F358 = "all";
     dword_27FC3F360 = 1;
@@ -137,7 +137,7 @@
     qword_27FC3F3E8 = "sibTrans";
     *algn_27FC3F3F0 = TCXmlEnumSentinel;
 
-    __cxa_guard_release(&qword_27FC3F348);
+    __cxa_guard_release(byte_27FC3F348);
   }
 }
 

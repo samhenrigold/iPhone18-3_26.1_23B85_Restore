@@ -174,13 +174,11 @@ LABEL_13:
 
   if (groupId)
   {
-    groupId = self->_groupId;
     PBDataWriterWriteStringField();
   }
 
   if (*&self->_has)
   {
-    seq = self->_seq;
     PBDataWriterWriteUint32Field();
   }
 }

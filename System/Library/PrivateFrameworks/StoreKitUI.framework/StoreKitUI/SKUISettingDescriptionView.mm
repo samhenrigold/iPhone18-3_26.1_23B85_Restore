@@ -7,6 +7,8 @@
 - (BOOL)setImage:(id)image forArtworkRequest:(id)request context:(id)context;
 - (UIEdgeInsets)contentInset;
 - (UIEdgeInsets)layoutMargins;
+- (void)hasDisclosureChevron;
+- (void)layoutMargins;
 - (void)reloadWithSettingDescription:(id)description width:(double)width context:(id)context;
 @end
 
@@ -183,6 +185,54 @@
   result.left = left;
   result.top = top;
   return result;
+}
+
++ (void)prefetchResourcesForSettingDescription:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISettingDescriptionView prefetchResourcesForSettingDescription:reason:context:]";
+}
+
++ (void)preferredSizeForSettingDescription:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISettingDescriptionView preferredSizeForSettingDescription:context:]";
+}
+
++ (void)requestLayoutForSettingDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISettingDescriptionView requestLayoutForSettingDescription:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 settingDescription:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISettingDescriptionView sizeThatFitsWidth:settingDescription:context:]";
+}
+
+- (void)hasDisclosureChevron
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISettingDescriptionView hasDisclosureChevron]";
+}
+
+- (void)reloadWithSettingDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISettingDescriptionView reloadWithSettingDescription:width:context:]";
+}
+
+- (void)setImage:(uint64_t)a3 forArtworkRequest:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISettingDescriptionView setImage:forArtworkRequest:context:]";
+}
+
+- (void)layoutMargins
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISettingDescriptionView layoutMargins]";
 }
 
 @end

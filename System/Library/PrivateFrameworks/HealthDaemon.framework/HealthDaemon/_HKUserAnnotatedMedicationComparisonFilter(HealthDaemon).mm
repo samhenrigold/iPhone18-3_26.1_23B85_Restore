@@ -6,7 +6,7 @@
 
 - (id)predicateWithProfile:()HealthDaemon
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v4 = a3;
   daemon = [v4 daemon];
   userDomainConceptEntityRegistry = [daemon userDomainConceptEntityRegistry];
@@ -58,34 +58,34 @@
       goto LABEL_26;
     }
 
-    v36 = MEMORY[0x277D10B70];
+    v35 = MEMORY[0x277D10B70];
     v18 = v4;
     if (self)
     {
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
-      v35 = v18;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v34 = v18;
       daemon2 = [v18 daemon];
       userDomainConceptEntityRegistry2 = [daemon2 userDomainConceptEntityRegistry];
       registeredUserDomainConceptEntityClasses2 = [userDomainConceptEntityRegistry2 registeredUserDomainConceptEntityClasses];
 
-      v22 = [registeredUserDomainConceptEntityClasses2 countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v22 = [registeredUserDomainConceptEntityClasses2 countByEnumeratingWithState:&v36 objects:v42 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v38;
+        v24 = *v37;
         while (2)
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v38 != v24)
+            if (*v37 != v24)
             {
               objc_enumerationMutation(registeredUserDomainConceptEntityClasses2);
             }
 
-            v26 = *(*(&v37 + 1) + 8 * i);
+            v26 = *(*(&v36 + 1) + 8 * i);
             value2 = [self value];
             truePredicate = [v26 predicateForHasSchedule:{objc_msgSend(value2, "BOOLValue")}];
 
@@ -96,7 +96,7 @@
             }
           }
 
-          v23 = [registeredUserDomainConceptEntityClasses2 countByEnumeratingWithState:&v37 objects:v43 count:16];
+          v23 = [registeredUserDomainConceptEntityClasses2 countByEnumeratingWithState:&v36 objects:v42 count:16];
           if (v23)
           {
             continue;
@@ -117,14 +117,14 @@
 
       truePredicate = [MEMORY[0x277D10BA8] truePredicate];
 LABEL_23:
-      v18 = v35;
-      v32 = v36;
+      v18 = v34;
+      v32 = v35;
     }
 
     else
     {
       truePredicate = 0;
-      v32 = v36;
+      v32 = v35;
     }
 
     v31 = v32;
@@ -133,7 +133,6 @@ LABEL_23:
   v30 = [v31 compoundPredicateWithPredicate:v9 otherPredicate:truePredicate];
 
 LABEL_26:
-  v33 = *MEMORY[0x277D85DE8];
 
   return v30;
 }

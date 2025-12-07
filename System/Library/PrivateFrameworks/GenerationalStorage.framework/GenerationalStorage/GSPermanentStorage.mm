@@ -1,13 +1,17 @@
 @interface GSPermanentStorage
 + (id)storageIDForItemAtURL:(id)l error:(id *)error;
++ (id)storagePrefixForFileDescriptor:(int)descriptor error:(id *)error;
+- (BOOL)_refreshRemoteIDWithFileDescriptor:(int)descriptor error:(id *)error;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)mergeAdditionUserInfo:(id)info value:(id)value error:(id *)error;
 - (BOOL)replaceDocumentWithContentsOfAddition:(id)addition preservingCurrentVersionWithCreationInfo:(id)info createdAddition:(id *)createdAddition error:(id *)error;
 - (BOOL)replaceDocumentWithContentsOfItemAtURL:(id)l preservingCurrentVersionWithCreationInfo:(id)info createdAddition:(id *)addition error:(id *)error;
+- (BOOL)setAdditionConflictResolved:(id)resolved value:(BOOL)value error:(id *)error;
 - (BOOL)setAdditionDisplayName:(id)name value:(id)value error:(id *)error;
 - (BOOL)setAdditionOptions:(id)options value:(unint64_t)value error:(id *)error;
 - (BOOL)transferToItemAtURL:(id)l error:(id *)error;
 - (GSPermanentStorage)init;
+- (GSPermanentStorage)initWithFileDescriptor:(int)descriptor documentID:(id)d forItemAtURL:(id)l error:(id *)error;
 - (NSData)privExtension;
 - (NSData)pubExtension;
 - (id)URLforReplacingItemWithError:(id *)error;
@@ -15,6 +19,7 @@
 - (id)_removalErrorDictionaryCreation:(id)creation withAdditions:(id)additions;
 - (id)additionWithName:(id)name inNameSpace:(id)space error:(id *)error;
 - (id)additionsWithNames:(id)names inNameSpace:(id)space error:(id *)error;
+- (id)enumeratorForAdditionsInNameSpace:(id)space withOptions:(unint64_t)options withoutOptions:(unint64_t)withoutOptions ordering:(int)ordering;
 - (id)getAdditionDictionary:(id)dictionary error:(id *)error;
 - (id)prepareAdditionCreationWithItemAtURL:(id)l byMoving:(BOOL)moving creationInfo:(id)info error:(id *)error;
 - (id)setAdditionNameSpace:(id)space value:(id)value error:(id *)error;
@@ -33,6 +38,27 @@
 
 @implementation GSPermanentStorage
 
++ (id)storagePrefixForFileDescriptor:(int)descriptor error:(id *)error
+{
+  v5 = *&descriptor;
+  v6 = +[GSDaemonProxySync proxy];
+  v7 = [objc_alloc(MEMORY[0x277CCA9F8]) initWithFileDescriptor:v5 closeOnDealloc:0];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __59__GSPermanentStorage_storagePrefixForFileDescriptor_error___block_invoke;
+  v11[3] = &unk_2796976D8;
+  v8 = v6;
+  v12 = v8;
+  [v8 permanentStoragePrefixForHandle:v7 reply:v11];
+  result = [v8 result];
+  if (error)
+  {
+    *error = [v8 error];
+  }
+
+  return result;
+}
+
 + (id)storageIDForItemAtURL:(id)l error:(id *)error
 {
   lCopy = l;
@@ -43,16 +69,17 @@
     path = [lCopy path];
     v10 = [v12 stringWithFormat:@"unable to open %@", path];
 
-    v14 = *__error();
-    v15 = gs_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v14 = __error();
+    v15 = *v14;
+    v16 = gs_default_log(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [GSDocumentIdentifier initWithFileDescriptor:forItemAtURL:allocateIfNone:error:];
     }
 
     if (error)
     {
-      _GSErrorForErrno(v14, v10);
+      _GSErrorForErrno(v15, v10);
       *error = result = 0;
     }
 
@@ -67,13 +94,13 @@
     v7 = v6;
     v8 = +[GSDaemonProxySync proxy];
     v9 = [objc_alloc(MEMORY[0x277CCA9F8]) initWithFileDescriptor:v7 closeOnDealloc:1];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __50__GSPermanentStorage_storageIDForItemAtURL_error___block_invoke;
-    v17[3] = &unk_279697700;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __50__GSPermanentStorage_storageIDForItemAtURL_error___block_invoke;
+    v18[3] = &unk_279697700;
     v10 = v8;
-    v18 = v10;
-    [v10 permanentStorageIDForHandle:v9 reply:v17];
+    v19 = v10;
+    [v10 permanentStorageIDForHandle:v9 reply:v18];
     result = [v10 result];
     if (error)
     {
@@ -112,6 +139,31 @@ void __50__GSPermanentStorage_storageIDForItemAtURL_error___block_invoke(uint64_
   return 0;
 }
 
+- (GSPermanentStorage)initWithFileDescriptor:(int)descriptor documentID:(id)d forItemAtURL:(id)l error:(id *)error
+{
+  v9 = *&descriptor;
+  dCopy = d;
+  lCopy = l;
+  v16.receiver = self;
+  v16.super_class = GSPermanentStorage;
+  v13 = [(GSPermanentStorage *)&v16 init];
+  v14 = v13;
+  if (v13)
+  {
+    v13->_pubHandle = -1;
+    v13->_privHandle = -1;
+    objc_storeStrong(&v13->_documentURL, l);
+    objc_storeStrong(&v14->_documentID, d);
+    if (![(GSPermanentStorage *)v14 _refreshRemoteIDWithFileDescriptor:v9 error:error])
+    {
+
+      v14 = 0;
+    }
+  }
+
+  return v14;
+}
+
 - (NSData)pubExtension
 {
   selfCopy = self;
@@ -124,7 +176,7 @@ void __50__GSPermanentStorage_storageIDForItemAtURL_error___block_invoke(uint64_
 
 - (void)setPubExtension:(id)extension
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -143,27 +195,25 @@ void __50__GSPermanentStorage_storageIDForItemAtURL_error___block_invoke(uint64_
     selfCopy->_pubHandle = v8;
     if (v8 < 0)
     {
-      v9 = gs_default_log();
+      v9 = gs_default_log(v8);
       if (os_log_type_enabled(v9, 0x90u))
       {
-        v11 = selfCopy->_pubExtension;
-        v12 = *__error();
-        v13 = __error();
-        v14 = strerror(*v13);
-        v15 = 138412802;
-        v16 = v11;
-        v17 = 1024;
-        v18 = v12;
-        v19 = 2080;
-        v20 = v14;
-        _os_log_error_impl(&dword_24FD46000, v9, 0x90u, "[ERROR] Failed consuming extension %@; error %d (%s)", &v15, 0x1Cu);
+        v10 = selfCopy->_pubExtension;
+        v11 = *__error();
+        v12 = __error();
+        v13 = strerror(*v12);
+        v14 = 138412802;
+        v15 = v10;
+        v16 = 1024;
+        v17 = v11;
+        v18 = 2080;
+        v19 = v13;
+        _os_log_error_impl(&dword_24FD46000, v9, 0x90u, "[ERROR] Failed consuming extension %@; error %d (%s)", &v14, 0x1Cu);
       }
     }
   }
 
   objc_sync_exit(selfCopy);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSData)privExtension
@@ -178,7 +228,7 @@ void __50__GSPermanentStorage_storageIDForItemAtURL_error___block_invoke(uint64_
 
 - (void)setPrivExtension:(id)extension
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -197,27 +247,61 @@ void __50__GSPermanentStorage_storageIDForItemAtURL_error___block_invoke(uint64_
     selfCopy->_privHandle = v8;
     if (v8 < 0)
     {
-      v9 = gs_default_log();
+      v9 = gs_default_log(v8);
       if (os_log_type_enabled(v9, 0x90u))
       {
-        v11 = selfCopy->_privExtension;
-        v12 = *__error();
-        v13 = __error();
-        v14 = strerror(*v13);
-        v15 = 138412802;
-        v16 = v11;
-        v17 = 1024;
-        v18 = v12;
-        v19 = 2080;
-        v20 = v14;
-        _os_log_error_impl(&dword_24FD46000, v9, 0x90u, "[ERROR] Failed consuming extension %@; error %d (%s)", &v15, 0x1Cu);
+        v10 = selfCopy->_privExtension;
+        v11 = *__error();
+        v12 = __error();
+        v13 = strerror(*v12);
+        v14 = 138412802;
+        v15 = v10;
+        v16 = 1024;
+        v17 = v11;
+        v18 = 2080;
+        v19 = v13;
+        _os_log_error_impl(&dword_24FD46000, v9, 0x90u, "[ERROR] Failed consuming extension %@; error %d (%s)", &v14, 0x1Cu);
       }
     }
   }
 
   objc_sync_exit(selfCopy);
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (BOOL)_refreshRemoteIDWithFileDescriptor:(int)descriptor error:(id *)error
+{
+  v5 = *&descriptor;
+  v7 = +[GSDaemonProxySync proxy];
+  v8 = [objc_alloc(MEMORY[0x277CCA9F8]) initWithFileDescriptor:v5 closeOnDealloc:0];
+  v9 = atomic_fetch_add(&gPermanentStorageCurrentID, 1uLL) + 1;
+  self->_remoteID = v9;
+  documentID = self->_documentID;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __63__GSPermanentStorage__refreshRemoteIDWithFileDescriptor_error___block_invoke;
+  v18 = &unk_279697728;
+  selfCopy = self;
+  v11 = v7;
+  v20 = v11;
+  [v11 permanentStorageOpenForHandle:v8 withRemoteID:v9 andDocumentID:documentID reply:&v15];
+  result = [v11 result];
+  if (error)
+  {
+    *error = [v11 error];
+  }
+
+  if (result)
+  {
+    v13 = self->_remoteID != 0;
+  }
+
+  else
+  {
+    v13 = 0;
+    self->_remoteID = 0;
+  }
+
+  return v13;
 }
 
 void __63__GSPermanentStorage__refreshRemoteIDWithFileDescriptor_error___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -454,6 +538,36 @@ void __57__GSPermanentStorage_setAdditionDisplayName_value_error___block_invoke(
   [WeakRetained handleBoolResult:a2 error:v5];
 }
 
+- (BOOL)setAdditionConflictResolved:(id)resolved value:(BOOL)value error:(id *)error
+{
+  valueCopy = value;
+  resolvedCopy = resolved;
+  v9 = +[GSDaemonProxySync proxy];
+  objc_initWeak(&location, v9);
+  remoteID = [(GSPermanentStorage *)self remoteID];
+  nameSpace = [resolvedCopy nameSpace];
+  name = [resolvedCopy name];
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __62__GSPermanentStorage_setAdditionConflictResolved_value_error___block_invoke;
+  v19 = &unk_279697798;
+  objc_copyWeak(&v20, &location);
+  [v9 setAdditionConflictResolvedInStorage:remoteID nameSpace:nameSpace additionName:name value:valueCopy reply:&v16];
+
+  result = [v9 result];
+  if (error)
+  {
+    *error = [v9 error];
+  }
+
+  bOOLValue = [result BOOLValue];
+
+  objc_destroyWeak(&v20);
+  objc_destroyWeak(&location);
+
+  return bOOLValue;
+}
+
 void __62__GSPermanentStorage_setAdditionConflictResolved_value_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
@@ -575,15 +689,16 @@ void __55__GSPermanentStorage_setAdditionNameSpace_value_error___block_invoke(ui
   if (movingCopy)
   {
     v14 = open([v12 fileSystemRepresentation], 0);
-    if (v14 < 0)
+    if ((v14 & 0x80000000) != 0)
     {
       v28 = MEMORY[0x277CCACA8];
       path = [v13 path];
       v17 = [v28 stringWithFormat:@"Unable to open %@", path];
 
-      v30 = *__error();
-      v31 = gs_default_log();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      v30 = __error();
+      v31 = *v30;
+      v32 = gs_default_log(v30);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
         [GSDocumentIdentifier initWithFileDescriptor:forItemAtURL:allocateIfNone:error:];
       }
@@ -593,7 +708,7 @@ void __55__GSPermanentStorage_setAdditionNameSpace_value_error___block_invoke(ui
         goto LABEL_19;
       }
 
-      v19 = _GSErrorForErrno(v30, v17);
+      v19 = _GSErrorForErrno(v31, v17);
       goto LABEL_18;
     }
 
@@ -603,7 +718,7 @@ void __55__GSPermanentStorage_setAdditionNameSpace_value_error___block_invoke(ui
     if (self->_documentID->documentID == v16)
     {
       v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Can't add a generation to the forward facing file by moving the forward facing file to be that new generation."];
-      v18 = gs_default_log();
+      v18 = gs_default_log(v17);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         [GSPermanentStorage prepareAdditionCreationWithItemAtURL:v17 byMoving:v18 creationInfo:? error:?];
@@ -636,7 +751,7 @@ LABEL_19:
     }
 
 LABEL_20:
-    v32 = 0;
+    v33 = 0;
     v22 = v13;
     goto LABEL_38;
   }
@@ -660,47 +775,47 @@ LABEL_20:
     lastPathComponent = [v13 lastPathComponent];
   }
 
-  v33 = lastPathComponent;
+  v34 = lastPathComponent;
 
-  v34 = [infoCopy objectForKeyedSubscript:@"kGSAdditionKeepFileID"];
-  bOOLValue = [v34 BOOLValue];
+  v35 = [infoCopy objectForKeyedSubscript:@"kGSAdditionKeepFileID"];
+  bOOLValue = [v35 BOOLValue];
 
-  v22 = [v24 URLByAppendingPathComponent:v33];
+  v22 = [v24 URLByAppendingPathComponent:v34];
 
   if (!GSStageTree([v13 fileSystemRepresentation], objc_msgSend(v22, "fileSystemRepresentation"), movingCopy, bOOLValue, error))
   {
     _RemoveTree([v24 fileSystemRepresentation], 0, 0);
 
-    v32 = 0;
+    v33 = 0;
     goto LABEL_38;
   }
 
 LABEL_24:
   fileSystemRepresentation = [v22 fileSystemRepresentation];
-  v37 = GSAdditionComputePOSIXName(infoCopy, self->_documentURL, v22, error);
-  if (v37)
+  v38 = GSAdditionComputePOSIXName(infoCopy, self->_documentURL, v22, error);
+  if (v38)
   {
-    v38 = v37;
-    if (!GSSetOriginalPOSIXName(fileSystemRepresentation, v37, error))
+    v39 = v38;
+    if (!GSSetOriginalPOSIXName(fileSystemRepresentation, v38, error))
     {
-      v32 = 0;
-      v39 = v38;
+      v33 = 0;
+      v40 = v39;
       goto LABEL_37;
     }
 
-    v39 = GSAdditionComputeDN(infoCopy, self->_documentURL, v22, error);
+    v40 = GSAdditionComputeDN(infoCopy, self->_documentURL, v22, error);
 
-    if (v39 && GSSetOriginalDisplayName(fileSystemRepresentation, v39, error))
+    if (v40 && GSSetOriginalDisplayName(fileSystemRepresentation, v40, error))
     {
-      v40 = GSAdditionValidateUInfo(infoCopy, error);
-      if (v40 && GSSetInfoDictionary(fileSystemRepresentation, v40, error))
+      v41 = GSAdditionValidateUInfo(infoCopy, error);
+      if (v41 && GSSetInfoDictionary(fileSystemRepresentation, v41, error))
       {
-        v32 = v22;
+        v33 = v22;
       }
 
       else
       {
-        v32 = 0;
+        v33 = 0;
       }
 
       goto LABEL_37;
@@ -709,15 +824,15 @@ LABEL_24:
 
   else
   {
-    v39 = 0;
+    v40 = 0;
   }
 
-  v32 = 0;
+  v33 = 0;
 LABEL_37:
 
 LABEL_38:
 
-  return v32;
+  return v33;
 }
 
 - (void)createAdditionStagedAtURL:(id)l creationInfo:(id)info completionHandler:(id)handler
@@ -729,16 +844,17 @@ LABEL_38:
   if ((v11 & 0x80000000) != 0)
   {
     lCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to open %@", lCopy];
-    v18 = *__error();
-    v19 = gs_default_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v18 = __error();
+    v19 = *v18;
+    v20 = gs_default_log(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       [GSDocumentIdentifier initWithFileDescriptor:forItemAtURL:allocateIfNone:error:];
     }
 
-    v20 = _GSErrorForErrno(v18, lCopy);
+    v21 = _GSErrorForErrno(v19, lCopy);
 
-    handlerCopy[2](handlerCopy, 0, v20);
+    handlerCopy[2](handlerCopy, 0, v21);
     stagingPrefix = self->_stagingPrefix;
     path = [lCopy path];
     [(GSStagingPrefix *)stagingPrefix cleanupStagingPath:path];
@@ -747,25 +863,25 @@ LABEL_38:
   else
   {
     path = [objc_alloc(MEMORY[0x277CCA9F8]) initWithFileDescriptor:v11 closeOnDealloc:1];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __79__GSPermanentStorage_createAdditionStagedAtURL_creationInfo_completionHandler___block_invoke;
-    v25[3] = &unk_279697810;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __79__GSPermanentStorage_createAdditionStagedAtURL_creationInfo_completionHandler___block_invoke;
+    v26[3] = &unk_279697810;
     v13 = handlerCopy;
-    v27 = v13;
-    v25[4] = self;
+    v28 = v13;
+    v26[4] = self;
     v14 = lCopy;
-    v26 = v14;
-    v15 = GSDaemonProxy(v25);
+    v27 = v14;
+    v15 = GSDaemonProxy(v26);
     remoteID = [(GSPermanentStorage *)self remoteID];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __79__GSPermanentStorage_createAdditionStagedAtURL_creationInfo_completionHandler___block_invoke_2;
-    v22[3] = &unk_279697838;
-    v22[4] = self;
-    v24 = v13;
-    v23 = v14;
-    [v15 createAdditionInStorage:remoteID stagedFileDescriptor:path creationInfo:infoCopy completionHandler:v22];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __79__GSPermanentStorage_createAdditionStagedAtURL_creationInfo_completionHandler___block_invoke_2;
+    v23[3] = &unk_279697838;
+    v23[4] = self;
+    v25 = v13;
+    v24 = v14;
+    [v15 createAdditionInStorage:remoteID stagedFileDescriptor:path creationInfo:infoCopy completionHandler:v23];
   }
 }
 
@@ -959,7 +1075,7 @@ void __57__GSPermanentStorage_additionWithName_inNameSpace_error___block_invoke(
 
 void __59__GSPermanentStorage_additionsWithNames_inNameSpace_error___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -977,31 +1093,31 @@ void __59__GSPermanentStorage_additionsWithNames_inNameSpace_error___block_invok
   if (v9)
   {
     v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v9, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v14 = v9;
-    v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v15)
     {
       v16 = v15;
-      v22 = v11;
-      v23 = v10;
+      v21 = v11;
+      v22 = v10;
       v17 = 0;
-      v18 = *v25;
+      v18 = *v24;
       do
       {
         v19 = 0;
         v20 = v17;
         do
         {
-          if (*v25 != v18)
+          if (*v24 != v18)
           {
             objc_enumerationMutation(v14);
           }
 
-          v17 = [[GSAddition alloc] _initWithStorage:*(a1 + 32) andDictionary:*(*(&v24 + 1) + 8 * v19)];
+          v17 = [[GSAddition alloc] _initWithStorage:*(a1 + 32) andDictionary:*(*(&v23 + 1) + 8 * v19)];
 
           [v13 addObject:v17];
           ++v19;
@@ -1009,13 +1125,13 @@ void __59__GSPermanentStorage_additionsWithNames_inNameSpace_error___block_invok
         }
 
         while (v16 != v19);
-        v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v16);
 
-      v11 = v22;
-      v10 = v23;
+      v11 = v21;
+      v10 = v22;
     }
 
     [*(a1 + 40) handleObjResult:v13 error:0];
@@ -1025,35 +1141,42 @@ void __59__GSPermanentStorage_additionsWithNames_inNameSpace_error___block_invok
   {
     [*(a1 + 40) handleObjResult:0 error:v12];
   }
+}
 
-  v21 = *MEMORY[0x277D85DE8];
+- (id)enumeratorForAdditionsInNameSpace:(id)space withOptions:(unint64_t)options withoutOptions:(unint64_t)withoutOptions ordering:(int)ordering
+{
+  v6 = *&ordering;
+  spaceCopy = space;
+  v11 = [[GSPermanentAdditionEnumerator alloc] initWithStorage:self nameSpace:spaceCopy withOptions:options withoutOptions:withoutOptions ordering:v6];
+
+  return v11;
 }
 
 - (id)_calculateSpecForAdditionRemoval:(id)removal
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   removalCopy = removal;
   v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(removalCopy, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = removalCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         nameSpace = [v10 nameSpace];
         v12 = [v4 objectForKey:nameSpace];
         if (!v12)
@@ -1066,20 +1189,18 @@ void __59__GSPermanentStorage_additionsWithNames_inNameSpace_error___block_invok
         [v12 addObject:name];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)_removalErrorDictionaryCreation:(id)creation withAdditions:(id)additions
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   creationCopy = creation;
   additionsCopy = additions;
   v7 = additionsCopy;
@@ -1087,27 +1208,27 @@ void __59__GSPermanentStorage_additionsWithNames_inNameSpace_error___block_invok
   if (creationCopy && additionsCopy)
   {
     v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v22 = v7;
+    v21 = v7;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v24;
+      v12 = *v23;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v23 + 1) + 8 * i);
+          v14 = *(*(&v22 + 1) + 8 * i);
           nameSpace = [v14 nameSpace];
           v16 = [creationCopy objectForKey:nameSpace];
 
@@ -1121,16 +1242,14 @@ void __59__GSPermanentStorage_additionsWithNames_inNameSpace_error___block_invok
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v11);
     }
 
-    v7 = v22;
+    v7 = v21;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1178,38 +1297,38 @@ void __56__GSPermanentStorage_removeAdditions_completionHandler___block_invoke_2
 
 - (void)removeAllAdditionsForNamespaces:(id)namespaces completionHandler:(id)handler
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   namespacesCopy = namespaces;
   handlerCopy = handler;
   if (namespacesCopy)
   {
     v8 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(namespacesCopy, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v9 = namespacesCopy;
-    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v25;
+      v12 = *v24;
       v13 = MEMORY[0x277CBEBF8];
       do
       {
         v14 = 0;
         do
         {
-          if (*v25 != v12)
+          if (*v24 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          [v8 setObject:v13 forKey:*(*(&v24 + 1) + 8 * v14++)];
+          [v8 setObject:v13 forKey:*(*(&v23 + 1) + 8 * v14++)];
         }
 
         while (v11 != v14);
-        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v11);
@@ -1221,42 +1340,41 @@ void __56__GSPermanentStorage_removeAdditions_completionHandler___block_invoke_2
     v8 = 0;
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __72__GSPermanentStorage_removeAllAdditionsForNamespaces_completionHandler___block_invoke;
-  v22[3] = &unk_279697888;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __72__GSPermanentStorage_removeAllAdditionsForNamespaces_completionHandler___block_invoke;
+  v21[3] = &unk_279697888;
   v15 = handlerCopy;
-  v23 = v15;
-  v16 = GSDaemonProxy(v22);
+  v22 = v15;
+  v16 = GSDaemonProxy(v21);
   remoteID = [(GSPermanentStorage *)self remoteID];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __72__GSPermanentStorage_removeAllAdditionsForNamespaces_completionHandler___block_invoke_2;
-  v20[3] = &unk_2796978D8;
-  v21 = v15;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __72__GSPermanentStorage_removeAllAdditionsForNamespaces_completionHandler___block_invoke_2;
+  v19[3] = &unk_2796978D8;
+  v20 = v15;
   v18 = v15;
-  [v16 removeAdditionsInStorage:remoteID removalSpec:v8 completionHandler:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [v16 removeAdditionsInStorage:remoteID removalSpec:v8 completionHandler:v19];
 }
 
 - (BOOL)transferToItemAtURL:(id)l error:(id *)error
 {
   lCopy = l;
-  v16 = open([lCopy fileSystemRepresentation], 0);
-  if (v16 < 0)
+  v18 = open([lCopy fileSystemRepresentation], 0);
+  if (v18 < 0)
   {
     lCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"opening %@ failed", lCopy];
-    v13 = *__error();
-    v14 = gs_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v14 = __error();
+    v15 = *v14;
+    v16 = gs_default_log(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [GSDocumentIdentifier initWithFileDescriptor:forItemAtURL:allocateIfNone:error:];
     }
 
     if (error)
     {
-      *error = _GSErrorForErrno(v13, lCopy);
+      *error = _GSErrorForErrno(v15, lCopy);
     }
 
     v8 = 0;
@@ -1264,21 +1382,22 @@ void __56__GSPermanentStorage_removeAdditions_completionHandler___block_invoke_2
 
   else
   {
-    v7 = fsctl([(NSURL *)self->_documentURL fileSystemRepresentation], 0x80046820uLL, &v16, 0);
+    v7 = fsctl([(NSURL *)self->_documentURL fileSystemRepresentation], 0x80046820uLL, &v18, 0);
     v8 = v7 == 0;
     if (v7)
     {
       lCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"fsctl(%@, TRANSFER_DOCUMENT_ID, %@) failed", self->_documentURL, lCopy];
-      v10 = *__error();
-      v11 = gs_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v10 = __error();
+      v11 = *v10;
+      v12 = gs_default_log(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [GSDocumentIdentifier initWithFileDescriptor:forItemAtURL:allocateIfNone:error:];
       }
 
       if (error)
       {
-        *error = _GSErrorForErrno(v10, lCopy2);
+        *error = _GSErrorForErrno(v11, lCopy2);
       }
     }
 
@@ -1287,7 +1406,7 @@ void __56__GSPermanentStorage_removeAdditions_completionHandler___block_invoke_2
       [(GSPermanentStorage *)self setDocumentURL:lCopy];
     }
 
-    close(v16);
+    close(v18);
   }
 
   return v8;
@@ -1295,13 +1414,12 @@ void __56__GSPermanentStorage_removeAdditions_completionHandler___block_invoke_2
 
 - (void)prepareAdditionCreationWithItemAtURL:(uint64_t)a1 byMoving:(NSObject *)a2 creationInfo:error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 1024;
-  v6 = 104;
-  _os_log_debug_impl(&dword_24FD46000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] %@; status %d", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 1024;
+  v5 = 104;
+  _os_log_debug_impl(&dword_24FD46000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] %@; status %d", &v2, 0x12u);
 }
 
 @end

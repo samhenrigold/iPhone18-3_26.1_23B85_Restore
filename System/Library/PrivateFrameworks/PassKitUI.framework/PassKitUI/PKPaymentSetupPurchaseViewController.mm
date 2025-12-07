@@ -220,7 +220,7 @@ void __81__PKPaymentSetupPurchaseViewController_paymentAuthorizationCoordinatorD
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __81__PKPaymentSetupPurchaseViewController_paymentAuthorizationCoordinatorDidFinish___block_invoke_2(uint64_t a1)
+void *__81__PKPaymentSetupPurchaseViewController_paymentAuthorizationCoordinatorDidFinish___block_invoke_2(uint64_t a1)
 {
   v19[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
@@ -228,9 +228,9 @@ uint64_t __81__PKPaymentSetupPurchaseViewController_paymentAuthorizationCoordina
   *(v2 + 1104) = 0;
 
   result = *(a1 + 32);
-  if (*(result + 1112))
+  if (result[139])
   {
-    v5 = *(result + 1024);
+    v5 = result[128];
     v18 = *MEMORY[0x1E69BA680];
     v19[0] = *MEMORY[0x1E69BA778];
     v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
@@ -259,7 +259,7 @@ uint64_t __81__PKPaymentSetupPurchaseViewController_paymentAuthorizationCoordina
     result = *(a1 + 32);
   }
 
-  if ((*(result + 992) & 1) == 0)
+  if ((result[124] & 1) == 0)
   {
     return [result showKeyPad];
   }

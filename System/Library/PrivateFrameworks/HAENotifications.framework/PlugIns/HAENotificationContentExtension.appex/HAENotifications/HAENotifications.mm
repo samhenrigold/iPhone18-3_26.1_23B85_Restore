@@ -1,13 +1,13 @@
-id HAENotificationsLog()
+id HAENotificationsLog(uint64_t a1)
 {
   if (qword_100008608 != -1)
   {
     sub_1000016AC();
   }
 
-  v1 = qword_100008610;
+  v2 = qword_100008610;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000D8C(id a1)
@@ -17,16 +17,16 @@ void sub_100000D8C(id a1)
   _objc_release_x1();
 }
 
-id HAENLocalizationUtilityGetBundle()
+id HAENLocalizationUtilityGetBundle(uint64_t a1)
 {
   if (qword_100008620 != -1)
   {
     sub_1000016C0();
   }
 
-  v1 = qword_100008618;
+  v2 = qword_100008618;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000E14(id a1)

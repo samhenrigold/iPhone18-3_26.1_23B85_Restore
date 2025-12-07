@@ -73,7 +73,7 @@
   v4 = [userInfo objectForKeyedSubscript:TUCallUserActivityHandleKey];
   if (!v4)
   {
-    v6 = PHDefaultLog();
+    v6 = PHDefaultLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -95,7 +95,7 @@ LABEL_9:
 
     else
     {
-      v8 = PHDefaultLog();
+      v8 = PHDefaultLog(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *v10 = 0;

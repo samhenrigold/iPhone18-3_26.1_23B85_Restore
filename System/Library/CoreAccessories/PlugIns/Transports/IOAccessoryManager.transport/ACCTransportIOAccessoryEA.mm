@@ -1,4 +1,5 @@
 @interface ACCTransportIOAccessoryEA
+- (ACCTransportIOAccessoryEA)initWithDelegate:(id)delegate andIOService:(unsigned int)service;
 - (ACCTransportIOAccessoryEAProtocol)delegate;
 - (BOOL)_handleIncomingEAData;
 - (BOOL)openEAServiceSession;
@@ -22,9 +23,33 @@
 
 @implementation ACCTransportIOAccessoryEA
 
+- (ACCTransportIOAccessoryEA)initWithDelegate:(id)delegate andIOService:(unsigned int)service
+{
+  v4 = *&service;
+  delegateCopy = delegate;
+  v11.receiver = self;
+  v11.super_class = ACCTransportIOAccessoryEA;
+  v7 = [(ACCTransportIOAccessoryBase *)&v11 initWithIOAccessoryClass:2 ioService:v4];
+  v8 = v7;
+  if (v7)
+  {
+    objc_storeWeak(&v7->_parentConnectionUUID, 0);
+    endpointUUID = v8->_endpointUUID;
+    v8->_endpointUUID = 0;
+
+    v8->_sessionOpen = 0;
+    objc_storeWeak(&v8->_delegate, delegateCopy);
+    [(ACCTransportIOAccessoryEA *)v8 _checkEAInfo];
+    v8->_eaDataReadBuffer = malloc_type_malloc(0x400uLL, 0xB99C52EuLL);
+    v8->_eaDataReadBufferDataLength = 1024;
+  }
+
+  return v8;
+}
+
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v3 = gNumLogObjects < 6;
@@ -61,15 +86,14 @@
   [(ACCTransportIOAccessoryEA *)self closeEAServiceSession];
   objc_storeWeak(&self->_delegate, 0);
   free(self->_eaDataReadBuffer);
-  v7.receiver = self;
-  v7.super_class = ACCTransportIOAccessoryEA;
-  [(ACCTransportIOAccessoryBase *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = ACCTransportIOAccessoryEA;
+  [(ACCTransportIOAccessoryBase *)&v6 dealloc];
 }
 
 - (BOOL)openEAServiceSession
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([(ACCTransportIOAccessoryEA *)self sessionOpen])
   {
     if (gLogObjects)
@@ -102,11 +126,11 @@
     {
       eaProtocol = [(ACCTransportIOAccessoryEA *)self eaProtocol];
       endpointUUID = [(ACCTransportIOAccessoryEA *)self endpointUUID];
-      v18 = 138412546;
-      v19 = eaProtocol;
-      v20 = 2112;
-      *v21 = endpointUUID;
-      _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_DEFAULT, "EA session for protocol %@ is already open (endpointUUID %@)", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = eaProtocol;
+      v19 = 2112;
+      *v20 = endpointUUID;
+      _os_log_impl(&dword_233656000, v9, OS_LOG_TYPE_DEFAULT, "EA session for protocol %@ is already open (endpointUUID %@)", &v17, 0x16u);
     }
   }
 
@@ -146,28 +170,26 @@
       eaProtocol2 = [(ACCTransportIOAccessoryEA *)self eaProtocol];
       ioService2 = [(ACCTransportIOAccessoryBase *)self ioService];
       endpointUUID2 = [(ACCTransportIOAccessoryEA *)self endpointUUID];
-      v18 = 138413058;
-      v19 = eaProtocol2;
-      v20 = 1024;
-      *v21 = ioService2;
-      *&v21[4] = 1024;
-      *&v21[6] = v6;
-      v22 = 2112;
-      v23 = endpointUUID2;
-      _os_log_impl(&dword_233656000, v12, OS_LOG_TYPE_DEFAULT, "EA session for protocol %@ self.ioService %d is open result = 0x%X (endpointUUID %@)", &v18, 0x22u);
+      v17 = 138413058;
+      v18 = eaProtocol2;
+      v19 = 1024;
+      *v20 = ioService2;
+      *&v20[4] = 1024;
+      *&v20[6] = v6;
+      v21 = 2112;
+      v22 = endpointUUID2;
+      _os_log_impl(&dword_233656000, v12, OS_LOG_TYPE_DEFAULT, "EA session for protocol %@ self.ioService %d is open result = 0x%X (endpointUUID %@)", &v17, 0x22u);
     }
 
     self->_sessionOpen = 1;
   }
 
-  result = [(ACCTransportIOAccessoryEA *)self sessionOpen];
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(ACCTransportIOAccessoryEA *)self sessionOpen];
 }
 
 - (void)closeEAServiceSession
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ([(ACCTransportIOAccessoryEA *)self sessionOpen])
   {
     IOServiceClose(self->super._ioConnect);
@@ -202,11 +224,11 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       eaProtocol = [(ACCTransportIOAccessoryEA *)self eaProtocol];
-      v11 = 138412290;
-      v12 = eaProtocol;
+      v10 = 138412290;
+      v11 = eaProtocol;
       v9 = "EA session for protocol %@ is closed";
 LABEL_22:
-      _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, v9, &v11, 0xCu);
+      _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, v9, &v10, 0xCu);
     }
   }
 
@@ -241,19 +263,17 @@ LABEL_22:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       eaProtocol = [(ACCTransportIOAccessoryEA *)self eaProtocol];
-      v11 = 138412290;
-      v12 = eaProtocol;
+      v10 = 138412290;
+      v11 = eaProtocol;
       v9 = "EA session for protocol %@ is already closed";
       goto LABEL_22;
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_handleIncomingEAData
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   parentConnectionUUID = [(ACCTransportIOAccessoryEA *)self parentConnectionUUID];
 
   if (parentConnectionUUID)
@@ -285,30 +305,30 @@ LABEL_22:
           if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            v38 = v9;
-            v39 = 1024;
-            LODWORD(v40) = v10;
+            v35 = v9;
+            v36 = 1024;
+            LODWORD(v37) = v10;
             _os_log_error_impl(&dword_233656000, v8, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
           v12 = v8;
-          v19 = v8;
+          v17 = v8;
         }
 
         else
         {
-          v19 = v9[5];
+          v17 = v9[5];
         }
 
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           parentConnectionUUID2 = [(ACCTransportIOAccessoryEA *)self parentConnectionUUID];
           eaProtocol = [(ACCTransportIOAccessoryEA *)self eaProtocol];
           *buf = 138412546;
-          v38 = parentConnectionUUID2;
-          v39 = 2112;
-          v40 = eaProtocol;
-          _os_log_error_impl(&dword_233656000, v19, OS_LOG_TYPE_ERROR, "error reading from EA session UUID %@, protocol %@", buf, 0x16u);
+          v35 = parentConnectionUUID2;
+          v36 = 2112;
+          v37 = eaProtocol;
+          _os_log_error_impl(&dword_233656000, v17, OS_LOG_TYPE_ERROR, "error reading from EA session UUID %@, protocol %@", buf, 0x16u);
 
           v6 = 0x2812FE000;
         }
@@ -316,56 +336,54 @@ LABEL_22:
 
       else
       {
-        ioConnect = self->super._ioConnect;
-        eaDataReadBuffer = self->_eaDataReadBuffer;
         v4 = IOAccessoryEAInterfaceReceiveData();
-        v15 = *(v6 + 3720);
-        v16 = *(v7 + 3704);
-        if (v15)
+        v13 = *(v6 + 3720);
+        v14 = *(v7 + 3704);
+        if (v13)
         {
-          v17 = v16 < 6;
+          v15 = v14 < 6;
         }
 
         else
         {
-          v17 = 1;
+          v15 = 1;
         }
 
-        if (v17)
+        if (v15)
         {
           if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            v38 = v15;
-            v39 = 1024;
-            LODWORD(v40) = v16;
+            v35 = v13;
+            v36 = 1024;
+            LODWORD(v37) = v14;
             _os_log_error_impl(&dword_233656000, v8, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
+          v16 = v8;
           v18 = v8;
-          v20 = v8;
         }
 
         else
         {
-          v20 = v15[5];
+          v18 = v13[5];
         }
 
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           eaDataReadBufferDataLength = self->_eaDataReadBufferDataLength;
           endpointUUID = [(ACCTransportIOAccessoryEA *)self endpointUUID];
           eaProtocol2 = [(ACCTransportIOAccessoryEA *)self eaProtocol];
           *buf = 134218754;
-          v38 = eaDataReadBufferDataLength;
+          v35 = eaDataReadBufferDataLength;
           v6 = 0x2812FE000;
-          v39 = 2112;
-          v40 = endpointUUID;
-          v41 = 2112;
-          v42 = eaProtocol2;
-          v43 = 1024;
-          v44 = v4;
-          _os_log_debug_impl(&dword_233656000, v20, OS_LOG_TYPE_DEBUG, "read %zu bytes from EA session UUID %@, protocol %@, result = 0x%X", buf, 0x26u);
+          v36 = 2112;
+          v37 = endpointUUID;
+          v38 = 2112;
+          v39 = eaProtocol2;
+          v40 = 1024;
+          v41 = v4;
+          _os_log_debug_impl(&dword_233656000, v18, OS_LOG_TYPE_DEBUG, "read %zu bytes from EA session UUID %@, protocol %@, result = 0x%X", buf, 0x26u);
 
           v7 = 0x2812FE000;
         }
@@ -377,21 +395,21 @@ LABEL_22:
           goto LABEL_23;
         }
 
-        v22 = delegate;
+        v20 = delegate;
         delegate2 = [(ACCTransportIOAccessoryEA *)self delegate];
-        v24 = objc_opt_respondsToSelector();
+        v22 = objc_opt_respondsToSelector();
 
-        if ((v24 & 1) == 0)
+        if ((v22 & 1) == 0)
         {
           v5 = 1;
           v6 = 0x2812FE000;
           goto LABEL_23;
         }
 
-        v19 = [MEMORY[0x277CBEA90] dataWithBytes:self->_eaDataReadBuffer length:self->_eaDataReadBufferDataLength];
+        v17 = [MEMORY[0x277CBEA90] dataWithBytes:self->_eaDataReadBuffer length:self->_eaDataReadBufferDataLength];
         delegate3 = [(ACCTransportIOAccessoryEA *)self delegate];
         endpointUUID2 = [(ACCTransportIOAccessoryEA *)self endpointUUID];
-        [delegate3 IOAccessoryEADataArrived:v19 eaEndpointUUID:endpointUUID2];
+        [delegate3 IOAccessoryEADataArrived:v17 eaEndpointUUID:endpointUUID2];
 
         v5 = 1;
         v6 = 0x2812FE000;
@@ -400,55 +418,51 @@ LABEL_22:
 LABEL_23:
       if (self->_eaDataReadBufferDataLength != 1024)
       {
-        goto LABEL_43;
+        return v5;
       }
     }
   }
 
   if (gLogObjects)
   {
-    v32 = gNumLogObjects < 6;
+    v30 = gNumLogObjects < 6;
   }
 
   else
   {
-    v32 = 1;
+    v30 = 1;
   }
 
-  if (v32)
+  if (v30)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       [ACCTransportIOAccessoryOOBPairing dealloc];
     }
 
-    v34 = MEMORY[0x277D86220];
-    v33 = MEMORY[0x277D86220];
+    v32 = MEMORY[0x277D86220];
+    v31 = MEMORY[0x277D86220];
   }
 
   else
   {
-    v34 = *(gLogObjects + 40);
+    v32 = *(gLogObjects + 40);
   }
 
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
   {
     [(ACCTransportIOAccessoryEA *)self _handleIncomingEAData];
   }
 
-  v5 = 0;
-LABEL_43:
-  v35 = *MEMORY[0x277D85DE8];
-  return v5 & 1;
+  return 0;
 }
 
 - (void)_registerEAReadCallback
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_233656000, a2, OS_LOG_TYPE_ERROR, "ERROR registering EAReadCallback: 0x%x", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_233656000, a2, OS_LOG_TYPE_ERROR, "ERROR registering EAReadCallback: 0x%x", v2, 8u);
 }
 
 - (void)_checkEAInfo
@@ -568,15 +582,14 @@ LABEL_43:
     [(ACCTransportIOAccessoryEA *)dataCopy transmitData:v7];
   }
 
-  ioConnect = self->super._ioConnect;
   [dataCopy bytes];
   [dataCopy length];
-  v9 = IOAccessoryEAInterfaceSendData();
-  if (v9)
+  v8 = IOAccessoryEAInterfaceSendData();
+  if (v8)
   {
     if (gLogObjects && gNumLogObjects >= 6)
     {
-      v10 = *(gLogObjects + 40);
+      v9 = *(gLogObjects + 40);
     }
 
     else
@@ -586,17 +599,17 @@ LABEL_43:
         [ACCTransportIOAccessoryOOBPairing dealloc];
       }
 
+      v9 = MEMORY[0x277D86220];
       v10 = MEMORY[0x277D86220];
-      v11 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ACCTransportIOAccessoryEA transmitData:?];
     }
   }
 
-  return v9 == 0;
+  return v8 == 0;
 }
 
 - (id)description
@@ -832,40 +845,32 @@ LABEL_43:
 
 - (void)_handleIncomingEAData
 {
-  v8 = *MEMORY[0x277D85DE8];
   eaProtocol = [self eaProtocol];
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transmitData:(NSObject *)a3 .cold.2(void *a1, void *a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = [a1 length];
   v6 = [a2 eaProtocol];
   v7 = [a2 parentConnectionUUID];
-  v9 = 134218498;
-  v10 = v5;
-  v11 = 2112;
-  v12 = v6;
-  v13 = 2112;
-  v14 = v7;
-  _os_log_debug_impl(&dword_233656000, a3, OS_LOG_TYPE_DEBUG, "transmitting EA data length %lu for protocol %@ (Connection UUID %@)", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 134218498;
+  v9 = v5;
+  v10 = 2112;
+  v11 = v6;
+  v12 = 2112;
+  v13 = v7;
+  _os_log_debug_impl(&dword_233656000, a3, OS_LOG_TYPE_DEBUG, "transmitting EA data length %lu for protocol %@ (Connection UUID %@)", &v8, 0x20u);
 }
 
 - (void)transmitData:(void *)a1 .cold.4(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [a1 eaProtocol];
-  v9 = [a1 parentConnectionUUID];
+  v8 = [a1 parentConnectionUUID];
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

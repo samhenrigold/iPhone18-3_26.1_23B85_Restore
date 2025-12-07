@@ -11,6 +11,7 @@
 - (BOOL)areSubModelsEmpty;
 - (BOOL)clearDatabases;
 - (BOOL)contactIsSignificant:(id)significant usingCoreRecents:(BOOL)recents;
+- (BOOL)contactIsSignificantOrSignificanceIsDisabled:(id)disabled usingCoreRecents:(BOOL)recents;
 - (BOOL)databasecheck_BrokenEntityIDReferences;
 - (BOOL)databasecheck_IntegrityCheck;
 - (BOOL)databasecheck_contactMergeGroupConsistency;
@@ -202,6 +203,7 @@
 - (void)deleteInteractionsWithBundleId:(id)id;
 - (void)deleteInteractionsWithBundleId:(id)id groupIdentifiers:(id)identifiers;
 - (void)deleteInteractionsWithBundleId:(id)id identifiers:(id)identifiers;
+- (void)deleteItemsWithEntityTag:(id)tag preserveEventConfirmationHistory:(BOOL)history;
 - (void)deleteMailIntelligenceForMessageIds:(id)ids;
 - (void)deleteMessages:(id)messages;
 - (void)deleteMessagesByDuplicateKey:(id)key;
@@ -441,7 +443,7 @@ void __77__SGSqlEntityStore_URLs__deleteURLsFromBundleIdentifier_documentIdentif
   identifierCopy = identifier;
   globsCopy = globs;
   v8 = objc_msgSend(objc_alloc(MEMORY[0x277CCAB68]), "initWithString:", @"DELETE FROM urls WHERE bundle_id = ? AND ((group_id GLOB ?) ");
-  if ([globsCopy count] >= 2)
+  if (objc_msgSend_count(globsCopy) >= 2)
   {
     v9 = 1;
     do
@@ -450,7 +452,7 @@ void __77__SGSqlEntityStore_URLs__deleteURLsFromBundleIdentifier_documentIdentif
       ++v9;
     }
 
-    while ([globsCopy count] > v9);
+    while (objc_msgSend_count(globsCopy) > v9);
   }
 
   [v8 appendString:@""]);
@@ -506,19 +508,19 @@ void __78__SGSqlEntityStore_URLs__deleteURLsFromBundleIdentifier_groupIdentifier
 
 void __78__SGSqlEntityStore_URLs__deleteURLsFromBundleIdentifier_groupIdentifierGlobs___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 bindParam:1 toNonnullNSString:*(a1 + 32)];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     v8 = 2;
     do
     {
@@ -526,24 +528,22 @@ void __78__SGSqlEntityStore_URLs__deleteURLsFromBundleIdentifier_groupIdentifier
       v10 = v8;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
         v8 = (v10 + 1);
-        [v3 bindParam:v10 toNonnullNSString:{*(*(&v12 + 1) + 8 * v9++), v12}];
+        [v3 bindParam:v10 toNonnullNSString:{*(*(&v11 + 1) + 8 * v9++), v11}];
         v10 = v8;
       }
 
       while (v6 != v9);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)deleteURLsFromBundleIdentifier:(id)identifier
@@ -595,7 +595,7 @@ void __57__SGSqlEntityStore_URLs__deleteURLsFromBundleIdentifier___block_invoke(
 
 - (id)urlsFoundBetweenStartDate:(id)date endDate:(id)endDate bundleIdentifier:(id)identifier
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   identifierCopy = identifier;
@@ -604,46 +604,45 @@ void __57__SGSqlEntityStore_URLs__deleteURLsFromBundleIdentifier___block_invoke(
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [dateCopy timeIntervalSince1970];
-    v24 = v23;
+    v23 = v22;
     [endDateCopy timeIntervalSince1970];
     *buf = 134218754;
-    v32 = v24;
-    v33 = 2048;
-    v34 = v25;
-    v35 = 2112;
-    v36 = dateCopy;
-    v37 = 2112;
-    v38 = endDateCopy;
+    v31 = v23;
+    v32 = 2048;
+    v33 = v24;
+    v34 = 2112;
+    v35 = dateCopy;
+    v36 = 2112;
+    v37 = endDateCopy;
     _os_log_debug_impl(&dword_231E60000, v12, OS_LOG_TYPE_DEBUG, "SGURL: urlsFoundBetweenStartDate+bundle query: %f - %f (%@ - %@)", buf, 0x2Au);
   }
 
   db = self->_db;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __77__SGSqlEntityStore_URLs__urlsFoundBetweenStartDate_endDate_bundleIdentifier___block_invoke;
-  v26[3] = &unk_278954AC8;
-  v26[4] = self;
-  v27 = identifierCopy;
-  v28 = dateCopy;
-  v29 = endDateCopy;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __77__SGSqlEntityStore_URLs__urlsFoundBetweenStartDate_endDate_bundleIdentifier___block_invoke;
+  v25[3] = &unk_278954AC8;
+  v25[4] = self;
+  v26 = identifierCopy;
+  v27 = dateCopy;
+  v28 = endDateCopy;
   v14 = v11;
-  v30 = v14;
+  v29 = v14;
   v15 = endDateCopy;
   v16 = dateCopy;
   v17 = identifierCopy;
-  [(SGSqliteDatabase *)db readTransaction:v26];
+  [(SGSqliteDatabase *)db readTransaction:v25];
   v18 = sgLogHandle();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138739971;
-    v32 = v14;
+    v31 = v14;
     _os_log_debug_impl(&dword_231E60000, v18, OS_LOG_TYPE_DEBUG, "SGURL: urlsFoundBetweenStartDate+bundle results: %{sensitive}@", buf, 0xCu);
   }
 
-  v19 = v30;
+  v19 = v29;
   v20 = v14;
 
-  v21 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -783,26 +782,25 @@ uint64_t __64__SGSqlEntityStore_URLs__trimURLTableDownToLimit_deletionCount___bl
 
 - (BOOL)writeURL:(id)l
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   lCopy = l;
   db = self->_db;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __35__SGSqlEntityStore_URLs__writeURL___block_invoke;
-  v10[3] = &unk_278955830;
-  v10[4] = self;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __35__SGSqlEntityStore_URLs__writeURL___block_invoke;
+  v9[3] = &unk_278955830;
+  v9[4] = self;
   v6 = lCopy;
-  v11 = v6;
-  [(SGSqliteDatabase *)db writeTransaction:v10];
+  v10 = v6;
+  [(SGSqliteDatabase *)db writeTransaction:v9];
   v7 = sgLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138739971;
-    v13 = v6;
+    v12 = v6;
     _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGURL: written: %{sensitive}@", buf, 0xCu);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -979,7 +977,7 @@ id __58__SGSqlEntityStore_URLs__registerURLFeedback_absoluteURL___block_invoke_3
 - (id)urlsFoundBetweenStartDate:(id)date endDate:(id)endDate excludingBundleIdentifiers:(id)identifiers containingSubstring:(id)substring flagFilter:(unsigned __int8)filter limit:(int64_t)limit
 {
   filterCopy = filter;
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   identifiersCopy = identifiers;
@@ -1009,48 +1007,47 @@ id __58__SGSqlEntityStore_URLs__registerURLFeedback_absoluteURL___block_invoke_3
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     [dateCopy timeIntervalSince1970];
-    v33 = v32;
+    v32 = v31;
     [endDateCopy timeIntervalSince1970];
     *buf = 134218240;
-    v47 = v33;
-    v48 = 2048;
-    v49 = v34;
+    v46 = v32;
+    v47 = 2048;
+    v48 = v33;
     _os_log_debug_impl(&dword_231E60000, v20, OS_LOG_TYPE_DEBUG, "SGURL: query: %f - %f ", buf, 0x16u);
   }
 
   db = self->_db;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __124__SGSqlEntityStore_URLs__urlsFoundBetweenStartDate_endDate_excludingBundleIdentifiers_containingSubstring_flagFilter_limit___block_invoke;
-  v36[3] = &unk_27894ADC8;
-  v36[4] = self;
-  v37 = v18;
-  v38 = v19;
-  v39 = identifiersCopy;
-  v40 = dateCopy;
-  v41 = endDateCopy;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __124__SGSqlEntityStore_URLs__urlsFoundBetweenStartDate_endDate_excludingBundleIdentifiers_containingSubstring_flagFilter_limit___block_invoke;
+  v35[3] = &unk_27894ADC8;
+  v35[4] = self;
+  v36 = v18;
+  v37 = v19;
+  v38 = identifiersCopy;
+  v39 = dateCopy;
+  v40 = endDateCopy;
   limitCopy = limit;
-  v42 = substringCopy;
-  v45 = filterCopy;
+  v41 = substringCopy;
+  v44 = filterCopy;
   v22 = v17;
-  v43 = v22;
+  v42 = v22;
   v23 = substringCopy;
   v24 = endDateCopy;
   v25 = dateCopy;
   v26 = identifiersCopy;
-  [(SGSqliteDatabase *)db readTransaction:v36];
+  [(SGSqliteDatabase *)db readTransaction:v35];
   v27 = sgLogHandle();
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138739971;
-    v47 = v22;
+    v46 = v22;
     _os_log_debug_impl(&dword_231E60000, v27, OS_LOG_TYPE_DEBUG, "SGURL: urlsFoundBetweenStartDate results: %{sensitive}@", buf, 0xCu);
   }
 
-  v28 = v43;
+  v28 = v42;
   v29 = v22;
 
-  v30 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -1467,7 +1464,7 @@ uint64_t __64__SGSqlEntityStore_Reminders__reminderSourceKeyForDuplicateKey___bl
 
 void __53__SGSqlEntityStore_Reminders__commitStorageReminder___block_invoke(id *a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = [a1[4] recordId];
   +[SGSqliteDatabase bindParam:name:int64:](SGSqliteDatabase, "bindParam:name:int64:", a2, ":entityId", [v4 numericValue]);
 
@@ -1511,10 +1508,10 @@ void __53__SGSqlEntityStore_Reminders__commitStorageReminder___block_invoke(id *
       v16 = sgLogHandle();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        v25 = [a1[5] dueDateComponents];
-        v26 = 138412290;
-        v27 = v25;
-        _os_log_fault_impl(&dword_231E60000, v16, OS_LOG_TYPE_FAULT, "null date derived from reminder.dueDateComponents is unexpected: %@", &v26, 0xCu);
+        v24 = [a1[5] dueDateComponents];
+        v25 = 138412290;
+        v26 = v24;
+        _os_log_fault_impl(&dword_231E60000, v16, OS_LOG_TYPE_FAULT, "null date derived from reminder.dueDateComponents is unexpected: %@", &v25, 0xCu);
       }
 
       if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -1562,7 +1559,6 @@ void __53__SGSqlEntityStore_Reminders__commitStorageReminder___block_invoke(id *
   [SGSqliteDatabase bindParam:a2 name:":contactIdentifier" nsstring:v23];
 
   +[SGSqliteDatabase bindParam:name:int64:](SGSqliteDatabase, "bindParam:name:int64:", a2, ":reminderStatus", [a1[4] reminderStatus]);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 sqlite3_int64 __53__SGSqlEntityStore_Reminders__commitStorageReminder___block_invoke_33(void *a1)
@@ -2141,31 +2137,30 @@ void __82__SGSqlEntityStore_Saliency__updateSaliencyCreationTimestampForTesting_
   return v7;
 }
 
-uint64_t __45__SGSqlEntityStore_Saliency__commitSaliency___block_invoke(uint64_t a1)
+void *__45__SGSqlEntityStore_Saliency__commitSaliency___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) messageId];
   *(*(*(a1 + 48) + 8) + 24) = [v2 checkExistsSaliencyForMessageId:v3];
 
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 32);
+  v4 = *(a1 + 32);
   if ((*(*(*(a1 + 48) + 8) + 24) & 0x8000000000000000) != 0)
   {
-    result = [v5 insertSaliency:*(a1 + 40)];
-    v7 = *(*(a1 + 48) + 8);
+    result = [v4 insertSaliency:*(a1 + 40)];
+    v6 = *(*(a1 + 48) + 8);
   }
 
   else
   {
-    result = [v5 updateSaliency:? saliency:?];
-    v7 = *(*(a1 + 48) + 8);
+    result = [v4 updateSaliency:? saliency:?];
+    v6 = *(*(a1 + 48) + 8);
     if (result != -1)
     {
-      result = *(v7 + 24);
+      result = *(v6 + 24);
     }
   }
 
-  *(v7 + 24) = result;
+  *(v6 + 24) = result;
   return result;
 }
 
@@ -2764,18 +2759,16 @@ uint64_t __59__SGSqlEntityStore_StatsCounters__loadStatsCounterWithKey___block_i
 
 void __66__SGSqlEntityStore_StatsCounters__storeStatsCounterWithKey_value___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
   v2 = *(*(a1 + 32) + 8);
-  v6[1] = @"value";
-  v7[0] = v1;
-  v6[0] = @"key";
+  v5[1] = @"value";
+  v6[0] = v1;
+  v5[0] = @"key";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 48)];
-  v7[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v6[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
   [v2 insertOrReplaceIntoTable:@"statsCounters" dictionary:v4 onError:0];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)analyzeMergeBlobs:(id)blobs
@@ -2905,32 +2898,32 @@ LABEL_15:
 
 void __65__SGSqlEntityStore_IdentityStore___analyzeMergeBlobsIncremental___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _popMergeBlobForAnalysis];
   if (v2)
   {
-    v22 = a1;
-    v20 = v2;
+    v21 = a1;
+    v19 = v2;
     [*(a1 + 32) makeInterdictsForBlob:v2 withContactStore:*(a1 + 40)];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    obj = v29 = 0u;
-    v3 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+    obj = v28 = 0u;
+    v3 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v27;
+      v5 = *v26;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v27 != v5)
+          if (*v26 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v26 + 1) + 8 * i);
+          v7 = *(*(&v25 + 1) + 8 * i);
           v8 = [v7 first];
           v9 = sgMap();
           v10 = [v9 sortedArrayUsingSelector:sel_compare_];
@@ -2941,50 +2934,48 @@ void __65__SGSqlEntityStore_IdentityStore___analyzeMergeBlobsIncremental___block
           v14 = [v13 sortedArrayUsingSelector:sel_compare_];
           v15 = SGDelimitedStringsSerializeArray();
 
-          v16 = *(*(v22 + 32) + 8);
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v23[2] = __65__SGSqlEntityStore_IdentityStore___analyzeMergeBlobsIncremental___block_invoke_4;
-          v23[3] = &unk_278954630;
-          v24 = v11;
-          v25 = v15;
+          v16 = *(*(v21 + 32) + 8);
+          v22[0] = MEMORY[0x277D85DD0];
+          v22[1] = 3221225472;
+          v22[2] = __65__SGSqlEntityStore_IdentityStore___analyzeMergeBlobsIncremental___block_invoke_4;
+          v22[3] = &unk_278954630;
+          v23 = v11;
+          v24 = v15;
           v17 = v15;
           v18 = v11;
-          [v16 prepAndRunQuery:@"INSERT INTO identityInterdictNext (a onPrep:b) VALUES (? onRow:?)" onError:{v23, 0, 0}];
+          [v16 prepAndRunQuery:@"INSERT INTO identityInterdictNext (a onPrep:b) VALUES (? onRow:?)" onError:{v22, 0, 0}];
         }
 
-        v4 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v4 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v4);
     }
 
-    v2 = v20;
+    v2 = v19;
   }
 
   else
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SGSqlEntityStore_IdentityStore___analyzeMergeBlobsIncremental___block_invoke_5(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 8) prepAndRunSQL:@"DROP TABLE identityInterdict" onPrep:0 onRow:0 onError:0];
   [*(*(a1 + 32) + 8) prepAndRunSQL:@"CREATE TABLE identityInterdict (a TEXT NOT NULL onPrep:b TEXT NOT NULL)" onRow:0 onError:{0, 0}];
   v2 = objc_opt_new();
   v3 = objc_opt_new();
   v4 = *(*(a1 + 32) + 8);
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __65__SGSqlEntityStore_IdentityStore___analyzeMergeBlobsIncremental___block_invoke_6;
-  v21[3] = &unk_278955A20;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __65__SGSqlEntityStore_IdentityStore___analyzeMergeBlobsIncremental___block_invoke_6;
+  v20[3] = &unk_278955A20;
   v5 = v2;
-  v22 = v5;
-  [v4 prepAndRunSQL:@"SELECT a onPrep:b FROM identityInterdictNext" onRow:0 onError:{v21, 0}];
+  v21 = v5;
+  [v4 prepAndRunSQL:@"SELECT a onPrep:b FROM identityInterdictNext" onRow:0 onError:{v20, 0}];
   do
   {
     do
@@ -2999,39 +2990,39 @@ void __65__SGSqlEntityStore_IdentityStore___analyzeMergeBlobsIncremental___block
   }
 
   while ((v7 & 1) != 0);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * v12);
+        v13 = *(*(&v16 + 1) + 8 * v12);
         v14 = *(*(a1 + 32) + 8);
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __65__SGSqlEntityStore_IdentityStore___analyzeMergeBlobsIncremental___block_invoke_7;
-        v16[3] = &unk_278956070;
-        v16[4] = v13;
-        [v14 prepAndRunQuery:@"INSERT INTO identityInterdict (a onPrep:b) VALUES (? onRow:?)" onError:{v16, 0, 0}];
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __65__SGSqlEntityStore_IdentityStore___analyzeMergeBlobsIncremental___block_invoke_7;
+        v15[3] = &unk_278956070;
+        v15[4] = v13;
+        [v14 prepAndRunQuery:@"INSERT INTO identityInterdict (a onPrep:b) VALUES (? onRow:?)" onError:{v15, 0, 0}];
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v10);
@@ -3040,8 +3031,6 @@ void __65__SGSqlEntityStore_IdentityStore___analyzeMergeBlobsIncremental___block
   [*(*(a1 + 32) + 8) prepAndRunQuery:@"DELETE FROM identityInterdictNext" onPrep:0 onRow:0 onError:0];
   [*(a1 + 32) _markIdentityStoreDirty];
   [*(a1 + 32) syncNewBlobsIfChanged];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65__SGSqlEntityStore_IdentityStore___analyzeMergeBlobsIncremental___block_invoke_6(uint64_t a1, void *a2)
@@ -3217,41 +3206,41 @@ uint64_t __59__SGSqlEntityStore_IdentityStore___popMergeBlobForAnalysis__block_i
 
 void __70__SGSqlEntityStore_IdentityStore___writeMergeBlobSnapshotForAnalysis___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 8) prepAndRunQuery:@"DELETE FROM identityBlobAnalysisJobs" onPrep:0 onRow:0 onError:0];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v2 = *(a1 + 40);
-  v3 = [v2 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v18;
+    v6 = *v17;
     *&v4 = 138412290;
-    v14 = v4;
+    v13 = v4;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
-        v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v8 requiringSecureCoding:1 error:{0, v14}];
+        v8 = *(*(&v16 + 1) + 8 * i);
+        v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v8 requiringSecureCoding:1 error:{0, v13}];
         v10 = v9;
         if (v9)
         {
           v11 = *(*(a1 + 32) + 8);
-          v15[0] = MEMORY[0x277D85DD0];
-          v15[1] = 3221225472;
-          v15[2] = __70__SGSqlEntityStore_IdentityStore___writeMergeBlobSnapshotForAnalysis___block_invoke_302;
-          v15[3] = &unk_278956070;
-          v16 = v9;
-          [v11 prepAndRunQuery:@"INSERT INTO identityBlobAnalysisJobs (mergeBlob) VALUES (:mergeBlob)" onPrep:v15 onRow:0 onError:0];
+          v14[0] = MEMORY[0x277D85DD0];
+          v14[1] = 3221225472;
+          v14[2] = __70__SGSqlEntityStore_IdentityStore___writeMergeBlobSnapshotForAnalysis___block_invoke_302;
+          v14[3] = &unk_278956070;
+          v15 = v9;
+          [v11 prepAndRunQuery:@"INSERT INTO identityBlobAnalysisJobs (mergeBlob) VALUES (:mergeBlob)" onPrep:v14 onRow:0 onError:0];
         }
 
         else
@@ -3259,8 +3248,8 @@ void __70__SGSqlEntityStore_IdentityStore___writeMergeBlobSnapshotForAnalysis___
           v12 = sgLogHandle();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
           {
-            *buf = v14;
-            v22 = v8;
+            *buf = v13;
+            v21 = v8;
             _os_log_fault_impl(&dword_231E60000, v12, OS_LOG_TYPE_FAULT, "Failed to encode mergeBlob: %@", buf, 0xCu);
           }
 
@@ -3271,33 +3260,31 @@ void __70__SGSqlEntityStore_IdentityStore___writeMergeBlobSnapshotForAnalysis___
         }
       }
 
-      v5 = [v2 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)makeInterdictsForBlob:(id)blob withContactStore:(id)store
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   blobCopy = blob;
   storeCopy = store;
-  if (![blobCopy count])
+  if (!objc_msgSend_count(blobCopy))
   {
     v8 = MEMORY[0x277CBEBF8];
     goto LABEL_48;
   }
 
-  if ([blobCopy count] >= 0x65)
+  if (objc_msgSend_count(blobCopy) >= 0x65)
   {
     v7 = sgLogHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v78 = [blobCopy count];
+      v77 = objc_msgSend_count(blobCopy);
       _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "Can't create interdicts for blob of size %lu; skipping.", buf, 0xCu);
     }
 
@@ -3308,29 +3295,29 @@ void __70__SGSqlEntityStore_IdentityStore___writeMergeBlobSnapshotForAnalysis___
   v9 = objc_opt_new();
   v10 = sgMap();
   db = self->_db;
-  v72[0] = MEMORY[0x277D85DD0];
-  v72[1] = 3221225472;
-  v72[2] = __74__SGSqlEntityStore_IdentityStore__makeInterdictsForBlob_withContactStore___block_invoke_2;
-  v72[3] = &unk_278955E30;
+  v71[0] = MEMORY[0x277D85DD0];
+  v71[1] = 3221225472;
+  v71[2] = __74__SGSqlEntityStore_IdentityStore__makeInterdictsForBlob_withContactStore___block_invoke_2;
+  v71[3] = &unk_278955E30;
   v12 = v10;
-  v73 = v12;
-  v70[0] = MEMORY[0x277D85DD0];
-  v70[1] = 3221225472;
-  v70[2] = __74__SGSqlEntityStore_IdentityStore__makeInterdictsForBlob_withContactStore___block_invoke_3;
-  v70[3] = &unk_278955A20;
+  v72 = v12;
+  v69[0] = MEMORY[0x277D85DD0];
+  v69[1] = 3221225472;
+  v69[2] = __74__SGSqlEntityStore_IdentityStore__makeInterdictsForBlob_withContactStore___block_invoke_3;
+  v69[3] = &unk_278955A20;
   v7 = v9;
-  v71 = v7;
-  [(SGSqliteDatabase *)db prepAndRunSQL:@"SELECT recordId onPrep:fullname onRow:phones onError:email, socialProfileIdentifiers FROM identityPerson WHERE recordId IN _pas_nsarray(:ids)", v72, v70, 0];
-  if ([v7 count]>= 6)
+  v70 = v7;
+  [(SGSqliteDatabase *)db prepAndRunSQL:@"SELECT recordId onPrep:fullname onRow:phones onError:email, socialProfileIdentifiers FROM identityPerson WHERE recordId IN _pas_nsarray(:ids)", v71, v69, 0];
+  if (objc_msgSend_count(v7) >= 6)
   {
     v13 = sgLogHandle();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v44 = [v7 count];
+      v43 = objc_msgSend_count(v7);
       *buf = 134218240;
-      v78 = v44;
-      v79 = 2048;
-      v80 = 5;
+      v77 = v43;
+      v78 = 2048;
+      v79 = 5;
       _os_log_debug_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEBUG, "Merge group containing %lu names exceeds limit of %lu; skipping interdict construction.", buf, 0x16u);
     }
 
@@ -3338,83 +3325,83 @@ void __70__SGSqlEntityStore_IdentityStore___writeMergeBlobSnapshotForAnalysis___
     goto LABEL_46;
   }
 
-  v46 = v12;
-  v48 = blobCopy;
+  v45 = v12;
+  v47 = blobCopy;
   v14 = *MEMORY[0x277CBD098];
-  v76[0] = *MEMORY[0x277CBD018];
-  v76[1] = v14;
+  v75[0] = *MEMORY[0x277CBD018];
+  v75[1] = v14;
   v15 = *MEMORY[0x277CBD038];
-  v76[2] = *MEMORY[0x277CBCFC0];
-  v76[3] = v15;
-  v76[4] = *MEMORY[0x277CBD138];
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:5];
+  v75[2] = *MEMORY[0x277CBCFC0];
+  v75[3] = v15;
+  v75[4] = *MEMORY[0x277CBD138];
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:5];
   v16 = objc_opt_new();
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v68[2] = __74__SGSqlEntityStore_IdentityStore__makeInterdictsForBlob_withContactStore___block_invoke_290;
-  v68[3] = &unk_27894D038;
-  v49 = v16;
-  v69 = v49;
-  v17 = MEMORY[0x2383809F0](v68);
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __74__SGSqlEntityStore_IdentityStore__makeInterdictsForBlob_withContactStore___block_invoke_290;
+  v67[3] = &unk_27894D038;
+  v48 = v16;
+  v68 = v48;
+  v17 = MEMORY[0x2383809F0](v67);
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
-  v47 = v7;
+  v46 = v7;
   v18 = v7;
-  v54 = [v18 countByEnumeratingWithState:&v64 objects:v75 count:16];
-  v51 = v13;
-  v52 = storeCopy;
-  if (v54)
+  v53 = [v18 countByEnumeratingWithState:&v63 objects:v74 count:16];
+  v50 = v13;
+  v51 = storeCopy;
+  if (v53)
   {
-    v53 = *v65;
-    v50 = v18;
+    v52 = *v64;
+    v49 = v18;
     do
     {
       v19 = 0;
       do
       {
-        if (*v65 != v53)
+        if (*v64 != v52)
         {
           objc_enumerationMutation(v18);
         }
 
-        v56 = v19;
-        v20 = *(*(&v64 + 1) + 8 * v19);
+        v55 = v19;
+        v20 = *(*(&v63 + 1) + 8 * v19);
         context = objc_autoreleasePoolPush();
         v21 = objc_opt_new();
-        v62[0] = MEMORY[0x277D85DD0];
-        v62[1] = 3221225472;
-        v62[2] = __74__SGSqlEntityStore_IdentityStore__makeInterdictsForBlob_withContactStore___block_invoke_2_293;
-        v62[3] = &unk_2789540B0;
+        v61[0] = MEMORY[0x277D85DD0];
+        v61[1] = 3221225472;
+        v61[2] = __74__SGSqlEntityStore_IdentityStore__makeInterdictsForBlob_withContactStore___block_invoke_2_293;
+        v61[3] = &unk_2789540B0;
         v22 = v21;
-        v63 = v22;
-        [SGContactsInterface enumerateContactsMatchingName:v20 withKeysToFetch:v13 usingContactStore:storeCopy error:0 usingBlock:v62];
-        if ([v22 count] && objc_msgSend(v22, "count") <= 4)
+        v62 = v22;
+        [SGContactsInterface enumerateContactsMatchingName:v20 withKeysToFetch:v13 usingContactStore:storeCopy error:0 usingBlock:v61];
+        if (objc_msgSend_count(v22) && objc_msgSend_count(v22) <= 4)
         {
           v23 = [v18 objectForKeyedSubscript:v20];
+          v57 = 0u;
           v58 = 0u;
           v59 = 0u;
           v60 = 0u;
-          v61 = 0u;
           v24 = v23;
-          v25 = [v24 countByEnumeratingWithState:&v58 objects:v74 count:16];
+          v25 = [v24 countByEnumeratingWithState:&v57 objects:v73 count:16];
           if (v25)
           {
             v26 = v25;
-            v27 = *v59;
+            v27 = *v58;
             do
             {
               for (i = 0; i != v26; ++i)
               {
-                if (*v59 != v27)
+                if (*v58 != v27)
                 {
                   objc_enumerationMutation(v24);
                 }
 
-                v29 = *(*(&v58 + 1) + 8 * i);
+                v29 = *(*(&v57 + 1) + 8 * i);
                 v30 = objc_autoreleasePoolPush();
-                if ([v22 count] == 1)
+                if (objc_msgSend_count(v22) == 1)
                 {
                   v31 = [v22 objectAtIndexedSubscript:0];
                   (v17)[2](v17, v31, v29);
@@ -3434,36 +3421,36 @@ void __70__SGSqlEntityStore_IdentityStore___writeMergeBlobSnapshotForAnalysis___
                 objc_autoreleasePoolPop(v30);
               }
 
-              v26 = [v24 countByEnumeratingWithState:&v58 objects:v74 count:16];
+              v26 = [v24 countByEnumeratingWithState:&v57 objects:v73 count:16];
             }
 
             while (v26);
           }
 
-          v13 = v51;
-          storeCopy = v52;
-          v18 = v50;
+          v13 = v50;
+          storeCopy = v51;
+          v18 = v49;
         }
 
         objc_autoreleasePoolPop(context);
-        v19 = v56 + 1;
+        v19 = v55 + 1;
       }
 
-      while (v56 + 1 != v54);
-      v54 = [v18 countByEnumeratingWithState:&v64 objects:v75 count:16];
+      while (v55 + 1 != v53);
+      v53 = [v18 countByEnumeratingWithState:&v63 objects:v74 count:16];
     }
 
-    while (v54);
+    while (v53);
   }
 
-  v33 = v49;
-  if ([v49 count] < 6)
+  v33 = v48;
+  if (objc_msgSend_count(v48) < 6)
   {
     v35 = objc_autoreleasePoolPush();
-    allValues = [v49 allValues];
+    allValues = [v48 allValues];
     objc_autoreleasePoolPop(v35);
     v8 = objc_opt_new();
-    if ([allValues count])
+    if (objc_msgSend_count(allValues))
     {
       v36 = 0;
       do
@@ -3484,11 +3471,11 @@ void __70__SGSqlEntityStore_IdentityStore___writeMergeBlobSnapshotForAnalysis___
         ++v36;
       }
 
-      while (v36 < [allValues count]);
-      v13 = v51;
-      storeCopy = v52;
-      v7 = v47;
-      v33 = v49;
+      while (v36 < objc_msgSend_count(allValues));
+      v13 = v50;
+      storeCopy = v51;
+      v7 = v46;
+      v33 = v48;
       goto LABEL_45;
     }
   }
@@ -3498,35 +3485,33 @@ void __70__SGSqlEntityStore_IdentityStore___writeMergeBlobSnapshotForAnalysis___
     allValues = sgLogHandle();
     if (os_log_type_enabled(allValues, OS_LOG_TYPE_DEBUG))
     {
-      v45 = [v49 count];
+      v44 = objc_msgSend_count(v48);
       *buf = 134218240;
-      v78 = v45;
-      v79 = 2048;
-      v80 = 5;
+      v77 = v44;
+      v78 = 2048;
+      v79 = 5;
       _os_log_debug_impl(&dword_231E60000, allValues, OS_LOG_TYPE_DEBUG, "Merge group mapping to %lu CNContacts exceeds limit of %lu; skipping interdict construction.", buf, 0x16u);
     }
 
     v8 = MEMORY[0x277CBEBF8];
   }
 
-  v7 = v47;
+  v7 = v46;
 LABEL_45:
 
-  blobCopy = v48;
-  v12 = v46;
+  blobCopy = v47;
+  v12 = v45;
 LABEL_46:
 
 LABEL_47:
 LABEL_48:
-
-  v42 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 uint64_t __74__SGSqlEntityStore_IdentityStore__makeInterdictsForBlob_withContactStore___block_invoke_3(uint64_t a1, void *a2)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = [MEMORY[0x277D020C8] recordIdForContactWithRowId:{objc_msgSend(v3, "getInt64ForColumnName:table:", "recordId", "identityPerson")}];
@@ -3555,9 +3540,9 @@ uint64_t __74__SGSqlEntityStore_IdentityStore__makeInterdictsForBlob_withContact
 
     else
     {
-      v20 = v5;
-      v21[0] = v7;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v19 = v5;
+      v20[0] = v7;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
       v14 = [v17 mutableCopy];
 
       v13 = *(a1 + 32);
@@ -3569,7 +3554,6 @@ uint64_t __74__SGSqlEntityStore_IdentityStore__makeInterdictsForBlob_withContact
   }
 
   objc_autoreleasePoolPop(v4);
-  v18 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
@@ -3644,17 +3628,17 @@ LABEL_6:
 
 id __82__SGSqlEntityStore_IdentityStore___uniqueGoodDetailMatchFrom_toDetails_nonUnique___block_invoke(uint64_t a1, void *a2)
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) phones];
-  if (![v4 count])
+  if (!objc_msgSend_count(v4))
   {
 
     goto LABEL_12;
   }
 
   v5 = [v3 phoneNumbers];
-  v6 = [v5 count];
+  v6 = objc_msgSend_count(v5);
 
   if (!v6)
   {
@@ -3667,30 +3651,30 @@ LABEL_12:
   v8 = [v3 phoneNumbers];
   v9 = [v7 map:v8 f:&__block_literal_global_274];
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v10 = [*(a1 + 32) phones];
-  v11 = [v10 countByEnumeratingWithState:&v61 objects:v68 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v60 objects:v67 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 0;
-    v14 = *v62;
+    v14 = *v61;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v62 != v14)
+        if (*v61 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v13 += [v9 containsObject:*(*(&v61 + 1) + 8 * i)];
+        v13 += [v9 containsObject:*(*(&v60 + 1) + 8 * i)];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v61 objects:v68 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v60 objects:v67 count:16];
     }
 
     while (v12);
@@ -3706,7 +3690,7 @@ LABEL_15:
   if ([v16 length])
   {
     v17 = [v3 emailAddresses];
-    v18 = [v17 count];
+    v18 = objc_msgSend_count(v17);
 
     if (!v18)
     {
@@ -3725,101 +3709,101 @@ LABEL_15:
 
 LABEL_19:
   v23 = [*(a1 + 32) socialProfileIdentifiers];
-  if ([v23 count])
+  if (objc_msgSend_count(v23))
   {
     v24 = [v3 socialProfiles];
-    v25 = [v24 count];
+    v25 = objc_msgSend_count(v24);
 
     if (!v25)
     {
       goto LABEL_45;
     }
 
-    v46 = a1;
-    v47 = v3;
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
+    v45 = a1;
+    v46 = v3;
     v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     obj = [v3 socialProfiles];
-    v26 = [obj countByEnumeratingWithState:&v57 objects:v67 count:16];
+    v26 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v58;
+      v28 = *v57;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v58 != v28)
+          if (*v57 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = *(*(&v57 + 1) + 8 * j);
+          v30 = *(*(&v56 + 1) + 8 * j);
           v31 = [SGSocialProfileDetails alloc];
           v32 = [v30 value];
           v33 = [(SGSocialProfileDetails *)v31 initWithCNSocialProfile:v32];
 
-          v55 = 0u;
-          v56 = 0u;
-          v53 = 0u;
           v54 = 0u;
+          v55 = 0u;
+          v52 = 0u;
+          v53 = 0u;
           v34 = [(SGSocialProfileDetails *)v33 uniqueIdentifiers];
-          v35 = [v34 countByEnumeratingWithState:&v53 objects:v66 count:16];
+          v35 = [v34 countByEnumeratingWithState:&v52 objects:v65 count:16];
           if (v35)
           {
             v36 = v35;
-            v37 = *v54;
+            v37 = *v53;
             do
             {
               for (k = 0; k != v36; ++k)
               {
-                if (*v54 != v37)
+                if (*v53 != v37)
                 {
                   objc_enumerationMutation(v34);
                 }
 
-                [0 addObject:*(*(&v53 + 1) + 8 * k)];
+                [0 addObject:*(*(&v52 + 1) + 8 * k)];
               }
 
-              v36 = [v34 countByEnumeratingWithState:&v53 objects:v66 count:16];
+              v36 = [v34 countByEnumeratingWithState:&v52 objects:v65 count:16];
             }
 
             while (v36);
           }
         }
 
-        v27 = [obj countByEnumeratingWithState:&v57 objects:v67 count:16];
+        v27 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
       }
 
       while (v27);
     }
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
-    v23 = [*(v46 + 32) socialProfileIdentifiers];
-    v39 = [v23 countByEnumeratingWithState:&v49 objects:v65 count:16];
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v23 = [*(v45 + 32) socialProfileIdentifiers];
+    v39 = [v23 countByEnumeratingWithState:&v48 objects:v64 count:16];
     if (v39)
     {
       v40 = v39;
-      v41 = *v50;
-      v3 = v47;
+      v41 = *v49;
+      v3 = v46;
       do
       {
         for (m = 0; m != v40; ++m)
         {
-          if (*v50 != v41)
+          if (*v49 != v41)
           {
             objc_enumerationMutation(v23);
           }
 
-          v13 += [0 containsObject:*(*(&v49 + 1) + 8 * m)];
+          v13 += [0 containsObject:*(*(&v48 + 1) + 8 * m)];
         }
 
-        v40 = [v23 countByEnumeratingWithState:&v49 objects:v65 count:16];
+        v40 = [v23 countByEnumeratingWithState:&v48 objects:v64 count:16];
       }
 
       while (v40);
@@ -3827,14 +3811,12 @@ LABEL_19:
 
     else
     {
-      v3 = v47;
+      v3 = v46;
     }
   }
 
 LABEL_45:
   v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v13];
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return v43;
 }
@@ -3842,7 +3824,7 @@ LABEL_45:
 id __82__SGSqlEntityStore_IdentityStore___uniqueGoodDetailMatchFrom_toDetails_nonUnique___block_invoke_4(uint64_t a1, unint64_t a2, void *a3)
 {
   v5 = a3;
-  if ([v5 count])
+  if (objc_msgSend_count(v5))
   {
     v6 = 0;
     v7 = 0;
@@ -3863,7 +3845,7 @@ id __82__SGSqlEntityStore_IdentityStore___uniqueGoodDetailMatchFrom_toDetails_no
         v7 = [*(a1 + 32) objectAtIndexedSubscript:v6];
       }
 
-      if (++v6 >= [v5 count])
+      if (++v6 >= objc_msgSend_count(v5))
       {
         goto LABEL_9;
       }
@@ -3890,68 +3872,68 @@ id __82__SGSqlEntityStore_IdentityStore___uniqueGoodDetailMatchFrom_toDetails_no
 
 - (id)unmergedCandidatesLimitedTo:(int)to
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   db = self->_db;
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __63__SGSqlEntityStore_IdentityStore__unmergedCandidatesLimitedTo___block_invoke;
-  v44[3] = &__block_descriptor_36_e23_v16__0__sqlite3_stmt__8l;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __63__SGSqlEntityStore_IdentityStore__unmergedCandidatesLimitedTo___block_invoke;
+  v43[3] = &__block_descriptor_36_e23_v16__0__sqlite3_stmt__8l;
   toCopy = to;
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __63__SGSqlEntityStore_IdentityStore__unmergedCandidatesLimitedTo___block_invoke_2;
-  v42[3] = &unk_278954708;
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __63__SGSqlEntityStore_IdentityStore__unmergedCandidatesLimitedTo___block_invoke_2;
+  v41[3] = &unk_278954708;
   v7 = v5;
-  v43 = v7;
-  [(SGSqliteDatabase *)db prepAndRunQuery:@"SELECT (CASE WHEN e.masterEntityId > 0 THEN e.masterEntityId ELSE e.id END) onPrep:i.nameSketches FROM entity AS e INNER JOIN identityPerson AS i ON e.id = i.recordId LIMIT :limit" onRow:v44 onError:v42, 0];
+  v42 = v7;
+  [(SGSqliteDatabase *)db prepAndRunQuery:@"SELECT (CASE WHEN e.masterEntityId > 0 THEN e.masterEntityId ELSE e.id END) onPrep:i.nameSketches FROM entity AS e INNER JOIN identityPerson AS i ON e.id = i.recordId LIMIT :limit" onRow:v43 onError:v41, 0];
   v8 = objc_opt_new();
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v39;
+    v12 = *v38;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v39 != v12)
+        if (*v38 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v38 + 1) + 8 * i);
+        v14 = *(*(&v37 + 1) + 8 * i);
         v15 = MEMORY[0x277D42648];
         v16 = [v9 objectForKeyedSubscript:v14];
         v17 = [v15 tupleWithFirst:v14 second:v16];
         [v8 addObject:v17];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v11);
   }
 
   v18 = objc_opt_new();
-  if ([v8 count])
+  if (objc_msgSend_count(v8))
   {
     v19 = 0;
-    v37 = 1;
+    v36 = 1;
     do
     {
-      v35 = v19 + 1;
-      if ([v8 count] > v19 + 1)
+      v34 = v19 + 1;
+      if (objc_msgSend_count(v8) > v19 + 1)
       {
-        v20 = v37;
+        v20 = v36;
         do
         {
-          v21 = [v8 objectAtIndexedSubscript:{v19, v35}];
+          v21 = [v8 objectAtIndexedSubscript:{v19, v34}];
           second = [v21 second];
           v23 = [v8 objectAtIndexedSubscript:v20];
           second2 = [v23 second];
@@ -3971,18 +3953,16 @@ id __82__SGSqlEntityStore_IdentityStore___uniqueGoodDetailMatchFrom_toDetails_no
           ++v20;
         }
 
-        while ([v8 count] > v20);
+        while (objc_msgSend_count(v8) > v20);
       }
 
-      v32 = [v8 count];
-      ++v37;
-      v19 = v36;
+      v32 = objc_msgSend_count(v8, v34);
+      ++v36;
+      v19 = v35;
     }
 
-    while (v32 > v36);
+    while (v32 > v35);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -4013,62 +3993,62 @@ uint64_t __63__SGSqlEntityStore_IdentityStore__unmergedCandidatesLimitedTo___blo
 
 - (id)splitBlob:(id)blob withInterdicts:(id)interdicts edges:(id)edges curatedRecordIds:(id)ids
 {
-  v116[1] = *MEMORY[0x277D85DE8];
+  v115[1] = *MEMORY[0x277D85DE8];
   blobCopy = blob;
   interdictsCopy = interdicts;
   edgesCopy = edges;
   selfCopy = self;
   idsCopy = ids;
-  v81 = interdictsCopy;
+  v80 = interdictsCopy;
   v13 = [(SGSqlEntityStore *)self splitNeededFor:blobCopy withInterdicts:interdictsCopy curatedRecordIds:?];
   v14 = v13;
   if (v13)
   {
-    v74 = edgesCopy;
-    v77 = [v13 objectAtIndexedSubscript:0];
-    v72 = v14;
-    v75 = [v14 objectAtIndexedSubscript:1];
-    v108 = 0x400000000;
-    v109 = malloc_type_malloc(0x60uLL, 0x1080040CC6EE3FDuLL);
-    if (!v109)
+    v73 = edgesCopy;
+    v76 = [v13 objectAtIndexedSubscript:0];
+    v71 = v14;
+    v74 = [v14 objectAtIndexedSubscript:1];
+    v107 = 0x400000000;
+    v108 = malloc_type_malloc(0x60uLL, 0x1080040CC6EE3FDuLL);
+    if (!v108)
     {
-      freeGraph(&v108);
+      freeGraph(&v107);
       [MEMORY[0x277CBEAD8] raise:@"graph error" format:{@"SGIStore.h, line %i", 1144}];
     }
 
     v15 = objc_opt_new();
+    v103 = 0u;
     v104 = 0u;
     v105 = 0u;
     v106 = 0u;
-    v107 = 0u;
-    v73 = blobCopy;
+    v72 = blobCopy;
     obj = blobCopy;
-    v16 = [obj countByEnumeratingWithState:&v104 objects:v115 count:16];
+    v16 = [obj countByEnumeratingWithState:&v103 objects:v114 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v105;
+      v18 = *v104;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v105 != v18)
+          if (*v104 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v104 + 1) + 8 * i);
-          if (newVertex(&v108, v20))
+          v20 = *(*(&v103 + 1) + 8 * i);
+          if (newVertex(&v107, v20))
           {
-            freeGraph(&v108);
+            freeGraph(&v107);
             [MEMORY[0x277CBEAD8] raise:@"graph error" format:{@"SGIStore.h, line %i", 1149}];
           }
 
-          v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:(v108 - 1)];
+          v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:(v107 - 1)];
           [v15 setObject:v21 forKeyedSubscript:v20];
         }
 
-        v17 = [obj countByEnumeratingWithState:&v104 objects:v115 count:16];
+        v17 = [obj countByEnumeratingWithState:&v103 objects:v114 count:16];
       }
 
       while (v17);
@@ -4076,52 +4056,52 @@ uint64_t __63__SGSqlEntityStore_IdentityStore__unmergedCandidatesLimitedTo___blo
 
     v22 = obj;
 
-    if (newVertex(&v108, 0))
+    if (newVertex(&v107, 0))
     {
-      freeGraph(&v108);
+      freeGraph(&v107);
       [MEMORY[0x277CBEAD8] raise:@"graph error" format:{@"SGIStore.h, line %i", 1153}];
     }
 
-    if (newVertex(&v108, 0))
+    if (newVertex(&v107, 0))
     {
-      freeGraph(&v108);
+      freeGraph(&v107);
       [MEMORY[0x277CBEAD8] raise:@"graph error" format:{@"SGIStore.h, line %i", 1153}];
     }
 
-    v83 = v108;
+    v82 = v107;
+    v99 = 0u;
     v100 = 0u;
     v101 = 0u;
     v102 = 0u;
-    v103 = 0u;
-    v86 = v74;
-    v23 = [v86 countByEnumeratingWithState:&v100 objects:v114 count:16];
+    v85 = v73;
+    v23 = [v85 countByEnumeratingWithState:&v99 objects:v113 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v101;
+      v25 = *v100;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v101 != v25)
+          if (*v100 != v25)
           {
-            objc_enumerationMutation(v86);
+            objc_enumerationMutation(v85);
           }
 
-          v27 = *(*(&v100 + 1) + 8 * j);
+          v27 = *(*(&v99 + 1) + 8 * j);
           if ([v22 containsObject:*(v27 + 8)] && objc_msgSend(v22, "containsObject:", *(v27 + 16)))
           {
-            v28 = v109;
+            v28 = v108;
             v29 = [v15 objectForKeyedSubscript:*(v27 + 8)];
             v30 = &v28[24 * [v29 intValue]];
 
-            v31 = v109;
+            v31 = v108;
             v32 = [v15 objectForKeyedSubscript:*(v27 + 16)];
             v33 = &v31[24 * [v32 intValue]];
 
             if (addEdge(v30, v33, *(v27 + 24)))
             {
-              freeGraph(&v108);
+              freeGraph(&v107);
               [MEMORY[0x277CBEAD8] raise:@"graph error" format:{@"SGIStore.h, line %i", 1161}];
             }
 
@@ -4129,114 +4109,114 @@ uint64_t __63__SGSqlEntityStore_IdentityStore__unmergedCandidatesLimitedTo___blo
             v22 = obj;
             if (v34)
             {
-              freeGraph(&v108);
+              freeGraph(&v107);
               [MEMORY[0x277CBEAD8] raise:@"graph error" format:{@"SGIStore.h, line %i", 1162}];
             }
           }
         }
 
-        v24 = [v86 countByEnumeratingWithState:&v100 objects:v114 count:16];
+        v24 = [v85 countByEnumeratingWithState:&v99 objects:v113 count:16];
       }
 
       while (v24);
     }
 
-    v85 = v83 - 2;
-    v84 = v83 - 1;
+    v84 = v82 - 2;
+    v83 = v82 - 1;
 
-    v98 = 0u;
-    v99 = 0u;
-    v96 = 0u;
     v97 = 0u;
-    v78 = v77;
-    v35 = [v78 countByEnumeratingWithState:&v96 objects:v113 count:16];
+    v98 = 0u;
+    v95 = 0u;
+    v96 = 0u;
+    v77 = v76;
+    v35 = [v77 countByEnumeratingWithState:&v95 objects:v112 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v97;
+      v37 = *v96;
       do
       {
         for (k = 0; k != v36; ++k)
         {
-          if (*v97 != v37)
+          if (*v96 != v37)
           {
-            objc_enumerationMutation(v78);
+            objc_enumerationMutation(v77);
           }
 
-          v39 = v109;
-          v40 = &v109[24 * v85];
-          v41 = [v15 objectForKeyedSubscript:*(*(&v96 + 1) + 8 * k)];
+          v39 = v108;
+          v40 = &v108[24 * v84];
+          v41 = [v15 objectForKeyedSubscript:*(*(&v95 + 1) + 8 * k)];
           v42 = &v39[24 * [v41 intValue]];
 
           if (addEdge(v40, v42, INFINITY))
           {
-            freeGraph(&v108);
+            freeGraph(&v107);
             [MEMORY[0x277CBEAD8] raise:@"graph error" format:{@"SGIStore.h, line %i", 1171}];
           }
 
           if (addEdge(v42, v40, INFINITY))
           {
-            freeGraph(&v108);
+            freeGraph(&v107);
             [MEMORY[0x277CBEAD8] raise:@"graph error" format:{@"SGIStore.h, line %i", 1172}];
           }
         }
 
-        v36 = [v78 countByEnumeratingWithState:&v96 objects:v113 count:16];
+        v36 = [v77 countByEnumeratingWithState:&v95 objects:v112 count:16];
       }
 
       while (v36);
     }
 
-    v94 = 0u;
-    v95 = 0u;
-    v92 = 0u;
     v93 = 0u;
-    v76 = v75;
-    v43 = [v76 countByEnumeratingWithState:&v92 objects:v112 count:16];
+    v94 = 0u;
+    v91 = 0u;
+    v92 = 0u;
+    v75 = v74;
+    v43 = [v75 countByEnumeratingWithState:&v91 objects:v111 count:16];
     if (v43)
     {
       v44 = v43;
-      v45 = *v93;
+      v45 = *v92;
       do
       {
         for (m = 0; m != v44; ++m)
         {
-          if (*v93 != v45)
+          if (*v92 != v45)
           {
-            objc_enumerationMutation(v76);
+            objc_enumerationMutation(v75);
           }
 
-          v47 = v109;
-          v48 = &v109[24 * v84];
-          v49 = [v15 objectForKeyedSubscript:*(*(&v92 + 1) + 8 * m)];
+          v47 = v108;
+          v48 = &v108[24 * v83];
+          v49 = [v15 objectForKeyedSubscript:*(*(&v91 + 1) + 8 * m)];
           v50 = &v47[24 * [v49 intValue]];
 
           if (addEdge(v48, v50, INFINITY))
           {
-            freeGraph(&v108);
+            freeGraph(&v107);
             [MEMORY[0x277CBEAD8] raise:@"graph error" format:{@"SGIStore.h, line %i", 1177}];
           }
 
           if (addEdge(v50, v48, INFINITY))
           {
-            freeGraph(&v108);
+            freeGraph(&v107);
             [MEMORY[0x277CBEAD8] raise:@"graph error" format:{@"SGIStore.h, line %i", 1178}];
           }
         }
 
-        v44 = [v76 countByEnumeratingWithState:&v92 objects:v112 count:16];
+        v44 = [v75 countByEnumeratingWithState:&v91 objects:v111 count:16];
       }
 
       while (v44);
     }
 
-    v51 = mincut(&v108, v85, v84);
+    v51 = mincut(&v107, v84, v83);
     if (v51)
     {
       v52 = v51;
       v53 = objc_opt_new();
       v54 = objc_opt_new();
-      if (v85)
+      if (v84)
       {
         v55 = 0;
         v56 = v52;
@@ -4252,53 +4232,53 @@ uint64_t __63__SGSqlEntityStore_IdentityStore__unmergedCandidatesLimitedTo___blo
             v58 = v54;
           }
 
-          [v58 addObject:*&v109[v55]];
+          [v58 addObject:*&v108[v55]];
           v55 += 24;
         }
 
-        while (24 * v85 != v55);
+        while (24 * v84 != v55);
       }
 
       free(v52);
-      freeGraph(&v108);
+      freeGraph(&v107);
       v59 = objc_opt_new();
-      v60 = [(SGSqlEntityStore *)selfCopy _makeBlobsFromConnectedComponents:v53 edges:v86];
+      v60 = [(SGSqlEntityStore *)selfCopy _makeBlobsFromConnectedComponents:v53 edges:v85];
       [v59 addObjectsFromArray:v60];
 
-      v61 = [(SGSqlEntityStore *)selfCopy _makeBlobsFromConnectedComponents:v54 edges:v86];
+      v61 = [(SGSqlEntityStore *)selfCopy _makeBlobsFromConnectedComponents:v54 edges:v85];
       [v59 addObjectsFromArray:v61];
 
       v62 = objc_opt_new();
+      v86 = 0u;
       v87 = 0u;
       v88 = 0u;
       v89 = 0u;
-      v90 = 0u;
       v63 = v59;
-      v64 = [v63 countByEnumeratingWithState:&v87 objects:v110 count:16];
+      v64 = [v63 countByEnumeratingWithState:&v86 objects:v109 count:16];
       if (v64)
       {
         v65 = v64;
-        v66 = *v88;
+        v66 = *v87;
         do
         {
           for (n = 0; n != v65; ++n)
           {
-            if (*v88 != v66)
+            if (*v87 != v66)
             {
               objc_enumerationMutation(v63);
             }
 
-            v68 = [(SGSqlEntityStore *)selfCopy splitBlob:*(*(&v87 + 1) + 8 * n) withInterdicts:v81 edges:v86 curatedRecordIds:idsCopy];
+            v68 = [(SGSqlEntityStore *)selfCopy splitBlob:*(*(&v86 + 1) + 8 * n) withInterdicts:v80 edges:v85 curatedRecordIds:idsCopy];
             [v62 addObjectsFromArray:v68];
           }
 
-          v65 = [v63 countByEnumeratingWithState:&v87 objects:v110 count:16];
+          v65 = [v63 countByEnumeratingWithState:&v86 objects:v109 count:16];
         }
 
         while (v65);
       }
 
-      blobCopy = v73;
+      blobCopy = v72;
     }
 
     else
@@ -4310,28 +4290,26 @@ uint64_t __63__SGSqlEntityStore_IdentityStore__unmergedCandidatesLimitedTo___blo
         _os_log_fault_impl(&dword_231E60000, v69, OS_LOG_TYPE_FAULT, "mincut returned NULL, will not split blob even though we want to", buf, 2u);
       }
 
-      blobCopy = v73;
+      blobCopy = v72;
       if (_PASEvaluateLogFaultAndProbCrashCriteria())
       {
         abort();
       }
 
-      freeGraph(&v108);
-      v111 = obj;
-      v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v111 count:1];
+      freeGraph(&v107);
+      v110 = obj;
+      v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v110 count:1];
     }
 
-    edgesCopy = v74;
-    v14 = v72;
+    edgesCopy = v73;
+    v14 = v71;
   }
 
   else
   {
-    v116[0] = blobCopy;
-    v62 = [MEMORY[0x277CBEA60] arrayWithObjects:v116 count:1];
+    v115[0] = blobCopy;
+    v62 = [MEMORY[0x277CBEA60] arrayWithObjects:v115 count:1];
   }
-
-  v70 = *MEMORY[0x277D85DE8];
 
   return v62;
 }
@@ -4428,7 +4406,7 @@ uint64_t __63__SGSqlEntityStore_IdentityStore__unmergedCandidatesLimitedTo___blo
     while (v13);
   }
 
-  findConnectedComponents();
+  findConnectedComponents(&v34);
 }
 
 void __75__SGSqlEntityStore_IdentityStore___makeBlobsFromConnectedComponents_edges___block_invoke(uint64_t a1)
@@ -4491,9 +4469,9 @@ void __75__SGSqlEntityStore_IdentityStore___makeBlobsFromConnectedComponents_edg
 
 void __47__SGSqlEntityStore_IdentityStore__computeBlobs__block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v28 = 0;
-  v2 = [*(a1 + 32) _computeBlobsRaw:&v28];
+  v30 = *MEMORY[0x277D85DE8];
+  v27 = 0;
+  v2 = [*(a1 + 32) _computeBlobsRaw:&v27];
   v3 = [*(a1 + 32) loadInterdicts];
   v4 = [*(a1 + 32) curatedRecordIds];
   v5 = objc_opt_new();
@@ -4501,52 +4479,52 @@ void __47__SGSqlEntityStore_IdentityStore__computeBlobs__block_invoke(uint64_t a
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = v2;
-  v8 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v8 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       v11 = 0;
       do
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * v11);
+        v12 = *(*(&v23 + 1) + 8 * v11);
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
-        v13 = [*(a1 + 32) splitBlob:v12 withInterdicts:v3 edges:v28 curatedRecordIds:v4];
-        v14 = [v13 countByEnumeratingWithState:&v20 objects:v29 count:16];
+        v13 = [*(a1 + 32) splitBlob:v12 withInterdicts:v3 edges:v27 curatedRecordIds:v4];
+        v14 = [v13 countByEnumeratingWithState:&v19 objects:v28 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v21;
+          v16 = *v20;
           do
           {
             v17 = 0;
             do
             {
-              if (*v21 != v16)
+              if (*v20 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              [*(*(*(a1 + 40) + 8) + 40) addObject:*(*(&v20 + 1) + 8 * v17++)];
+              [*(*(*(a1 + 40) + 8) + 40) addObject:*(*(&v19 + 1) + 8 * v17++)];
             }
 
             while (v15 != v17);
-            v15 = [v13 countByEnumeratingWithState:&v20 objects:v29 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v19 objects:v28 count:16];
           }
 
           while (v15);
@@ -4556,13 +4534,11 @@ void __47__SGSqlEntityStore_IdentityStore__computeBlobs__block_invoke(uint64_t a
       }
 
       while (v11 != v9);
-      v9 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v9 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v9);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_computeBlobsRaw:(id *)raw
@@ -4707,7 +4683,7 @@ void __52__SGSqlEntityStore_IdentityStore___computeBlobsRaw___block_invoke(uint6
     while (v19);
   }
 
-  findConnectedComponents();
+  findConnectedComponents(&v38);
 }
 
 uint64_t __52__SGSqlEntityStore_IdentityStore___computeBlobsRaw___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
@@ -4787,24 +4763,24 @@ uint64_t __52__SGSqlEntityStore_IdentityStore___computeBlobsRaw___block_invoke_3
   return 0;
 }
 
-uint64_t __52__SGSqlEntityStore_IdentityStore___computeBlobsRaw___block_invoke_4(uint64_t a1)
+uint64_t __52__SGSqlEntityStore_IdentityStore___computeBlobsRaw___block_invoke_4(uint64_t a1, const char *a2)
 {
-  if ([*(*(*(a1 + 40) + 8) + 40) count])
+  if (objc_msgSend_count(*(*(*(a1 + 40) + 8) + 40), a2))
   {
     [*(a1 + 32) addObject:*(*(*(a1 + 40) + 8) + 40)];
   }
 
-  v2 = objc_opt_new();
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v3 = objc_opt_new();
+  v4 = *(*(a1 + 40) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8](v2, v4);
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 - (void)_linkNamelessSocialProfilesIfAppropriate:(graph_t *)appropriate nameToVertex:(id)vertex disjointSets:(DisjointSetHandle *)sets edges:(id)edges
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   vertexCopy = vertex;
   edgesCopy = edges;
   appropriateCopy = appropriate;
@@ -4828,32 +4804,32 @@ uint64_t __52__SGSqlEntityStore_IdentityStore___computeBlobsRaw___block_invoke_4
 
   v8 = objc_opt_new();
   db = self->_db;
-  v66[0] = MEMORY[0x277D85DD0];
-  v66[1] = 3221225472;
-  v66[2] = __108__SGSqlEntityStore_IdentityStore___linkNamelessSocialProfilesIfAppropriate_nameToVertex_disjointSets_edges___block_invoke;
-  v66[3] = &unk_278954708;
+  v65[0] = MEMORY[0x277D85DD0];
+  v65[1] = 3221225472;
+  v65[2] = __108__SGSqlEntityStore_IdentityStore___linkNamelessSocialProfilesIfAppropriate_nameToVertex_disjointSets_edges___block_invoke;
+  v65[3] = &unk_278954708;
   v10 = v8;
-  v67 = v10;
-  [(SGSqliteDatabase *)db prepAndRunQuery:@"SELECT recordId onPrep:socialProfileIdentifiers FROM identityPerson WHERE (surname = '' OR surname IS NULL) AND fullname IS NULL AND LENGTH(socialProfileIdentifiers) > 0" onRow:0 onError:v66, 0];
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
+  v66 = v10;
+  [(SGSqliteDatabase *)db prepAndRunQuery:@"SELECT recordId onPrep:socialProfileIdentifiers FROM identityPerson WHERE (surname = '' OR surname IS NULL) AND fullname IS NULL AND LENGTH(socialProfileIdentifiers) > 0" onRow:0 onError:v65, 0];
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   obj = v10;
-  v39 = [obj countByEnumeratingWithState:&v62 objects:v68 count:16];
-  if (v39)
+  v38 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
+  if (v38)
   {
-    v36 = *v63;
+    v35 = *v62;
     do
     {
-      for (i = 0; i != v39; ++i)
+      for (i = 0; i != v38; ++i)
       {
-        if (*v63 != v36)
+        if (*v62 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v62 + 1) + 8 * i);
+        v12 = *(*(&v61 + 1) + 8 * i);
         v13 = [obj objectForKeyedSubscript:v12];
         v14 = [vertexCopy objectForKeyedSubscript:v12];
         if (!v14)
@@ -4865,35 +4841,35 @@ uint64_t __52__SGSqlEntityStore_IdentityStore___computeBlobsRaw___block_invoke_4
         var2 = appropriateCopy->var2;
         integerValue = [v14 integerValue];
         v17 = MEMORY[0x277D85DD0];
-        v58 = 0;
-        v59 = &v58;
-        v60 = 0x2020000000;
-        v61 = 0;
-        v54 = 0;
-        v55 = &v54;
-        v56 = 0x2020000000;
-        v57 = 1;
+        v57 = 0;
+        v58 = &v57;
+        v59 = 0x2020000000;
+        v60 = 0;
+        v53 = 0;
+        v54 = &v53;
+        v55 = 0x2020000000;
+        v56 = 1;
         v18 = self->_db;
-        v52[0] = MEMORY[0x277D85DD0];
-        v52[1] = 3221225472;
-        v52[2] = __108__SGSqlEntityStore_IdentityStore___linkNamelessSocialProfilesIfAppropriate_nameToVertex_disjointSets_edges___block_invoke_2;
-        v52[3] = &unk_278955E30;
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = __108__SGSqlEntityStore_IdentityStore___linkNamelessSocialProfilesIfAppropriate_nameToVertex_disjointSets_edges___block_invoke_2;
+        v51[3] = &unk_278955E30;
         v19 = v13;
-        v53 = v19;
-        v44[0] = v17;
-        v44[1] = 3221225472;
-        v44[2] = __108__SGSqlEntityStore_IdentityStore___linkNamelessSocialProfilesIfAppropriate_nameToVertex_disjointSets_edges___block_invoke_3;
-        v44[3] = &unk_27894CF58;
-        v45 = vertexCopy;
+        v52 = v19;
+        v43[0] = v17;
+        v43[1] = 3221225472;
+        v43[2] = __108__SGSqlEntityStore_IdentityStore___linkNamelessSocialProfilesIfAppropriate_nameToVertex_disjointSets_edges___block_invoke_3;
+        v43[3] = &unk_27894CF58;
+        v44 = vertexCopy;
         selfCopy = self;
-        v49 = a2;
-        v50 = appropriateCopy;
+        v48 = a2;
+        v49 = appropriateCopy;
         setsCopy = sets;
-        v47 = &v58;
-        v48 = &v54;
-        [(SGSqliteDatabase *)v18 prepAndRunSQL:@"SELECT recordId FROM identityPerson    WHERE fullname IS NOT NULL        AND recordId IN(           SELECT recordId from identitySocialProfileIdentifiers                WHERE socialProfileIdentifier IN _pas_nsarray(:socialProfileIdentifiers)       )" onPrep:v52 onRow:v44 onError:0];
-        v20 = v59[3];
-        if (v20 && *(v55 + 24) == 1)
+        v46 = &v57;
+        v47 = &v53;
+        [(SGSqliteDatabase *)v18 prepAndRunSQL:@"SELECT recordId FROM identityPerson    WHERE fullname IS NOT NULL        AND recordId IN(           SELECT recordId from identitySocialProfileIdentifiers                WHERE socialProfileIdentifier IN _pas_nsarray(:socialProfileIdentifiers)       )" onPrep:v51 onRow:v43 onError:0];
+        v20 = v58[3];
+        if (v20 && *(v54 + 24) == 1)
         {
           v21 = (var2 + 24 * integerValue);
           if (addEdge(v21, v20, 1.0))
@@ -4902,7 +4878,7 @@ uint64_t __52__SGSqlEntityStore_IdentityStore___computeBlobsRaw___block_invoke_4
             [currentHandler5 handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Identity.m" lineNumber:985 description:@"OOM while adding edge to graph"];
           }
 
-          v22 = *v59[3];
+          v22 = *v58[3];
           v23 = *v21;
           v24 = v22;
           v25 = objc_opt_new();
@@ -4917,17 +4893,15 @@ uint64_t __52__SGSqlEntityStore_IdentityStore___computeBlobsRaw___block_invoke_4
           [edgesCopy addObject:v25];
         }
 
-        _Block_object_dispose(&v54, 8);
-        _Block_object_dispose(&v58, 8);
+        _Block_object_dispose(&v53, 8);
+        _Block_object_dispose(&v57, 8);
       }
 
-      v39 = [obj countByEnumeratingWithState:&v62 objects:v68 count:16];
+      v38 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
     }
 
-    while (v39);
+    while (v38);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __108__SGSqlEntityStore_IdentityStore___linkNamelessSocialProfilesIfAppropriate_nameToVertex_disjointSets_edges___block_invoke(uint64_t a1, sqlite3_stmt *a2)
@@ -4976,7 +4950,7 @@ LABEL_8:
 
 - (void)_linkNamelessPhonesIfAppropriate:(graph_t *)appropriate nameToVertex:(id)vertex disjointSets:(DisjointSetHandle *)sets edges:(id)edges
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   vertexCopy = vertex;
   edgesCopy = edges;
   appropriateCopy = appropriate;
@@ -5000,32 +4974,32 @@ LABEL_8:
 
   v8 = objc_opt_new();
   db = self->_db;
-  v66[0] = MEMORY[0x277D85DD0];
-  v66[1] = 3221225472;
-  v66[2] = __100__SGSqlEntityStore_IdentityStore___linkNamelessPhonesIfAppropriate_nameToVertex_disjointSets_edges___block_invoke;
-  v66[3] = &unk_278954708;
+  v65[0] = MEMORY[0x277D85DD0];
+  v65[1] = 3221225472;
+  v65[2] = __100__SGSqlEntityStore_IdentityStore___linkNamelessPhonesIfAppropriate_nameToVertex_disjointSets_edges___block_invoke;
+  v65[3] = &unk_278954708;
   v10 = v8;
-  v67 = v10;
-  [(SGSqliteDatabase *)db prepAndRunQuery:@"SELECT recordId onPrep:phones FROM identityPerson WHERE (surname = '' OR surname IS NULL) AND fullname IS NULL AND LENGTH(phones) > 0" onRow:0 onError:v66, 0];
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
+  v66 = v10;
+  [(SGSqliteDatabase *)db prepAndRunQuery:@"SELECT recordId onPrep:phones FROM identityPerson WHERE (surname = '' OR surname IS NULL) AND fullname IS NULL AND LENGTH(phones) > 0" onRow:0 onError:v65, 0];
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   obj = v10;
-  v39 = [obj countByEnumeratingWithState:&v62 objects:v68 count:16];
-  if (v39)
+  v38 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
+  if (v38)
   {
-    v36 = *v63;
+    v35 = *v62;
     do
     {
-      for (i = 0; i != v39; ++i)
+      for (i = 0; i != v38; ++i)
       {
-        if (*v63 != v36)
+        if (*v62 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v62 + 1) + 8 * i);
+        v12 = *(*(&v61 + 1) + 8 * i);
         v13 = [obj objectForKeyedSubscript:v12];
         v14 = [vertexCopy objectForKeyedSubscript:v12];
         if (!v14)
@@ -5037,35 +5011,35 @@ LABEL_8:
         var2 = appropriateCopy->var2;
         integerValue = [v14 integerValue];
         v17 = MEMORY[0x277D85DD0];
-        v58 = 0;
-        v59 = &v58;
-        v60 = 0x2020000000;
-        v61 = 0;
-        v54 = 0;
-        v55 = &v54;
-        v56 = 0x2020000000;
-        v57 = 1;
+        v57 = 0;
+        v58 = &v57;
+        v59 = 0x2020000000;
+        v60 = 0;
+        v53 = 0;
+        v54 = &v53;
+        v55 = 0x2020000000;
+        v56 = 1;
         v18 = self->_db;
-        v52[0] = MEMORY[0x277D85DD0];
-        v52[1] = 3221225472;
-        v52[2] = __100__SGSqlEntityStore_IdentityStore___linkNamelessPhonesIfAppropriate_nameToVertex_disjointSets_edges___block_invoke_2;
-        v52[3] = &unk_278955E30;
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = __100__SGSqlEntityStore_IdentityStore___linkNamelessPhonesIfAppropriate_nameToVertex_disjointSets_edges___block_invoke_2;
+        v51[3] = &unk_278955E30;
         v19 = v13;
-        v53 = v19;
-        v44[0] = v17;
-        v44[1] = 3221225472;
-        v44[2] = __100__SGSqlEntityStore_IdentityStore___linkNamelessPhonesIfAppropriate_nameToVertex_disjointSets_edges___block_invoke_3;
-        v44[3] = &unk_27894CF58;
-        v45 = vertexCopy;
+        v52 = v19;
+        v43[0] = v17;
+        v43[1] = 3221225472;
+        v43[2] = __100__SGSqlEntityStore_IdentityStore___linkNamelessPhonesIfAppropriate_nameToVertex_disjointSets_edges___block_invoke_3;
+        v43[3] = &unk_27894CF58;
+        v44 = vertexCopy;
         selfCopy = self;
-        v49 = a2;
-        v50 = appropriateCopy;
+        v48 = a2;
+        v49 = appropriateCopy;
         setsCopy = sets;
-        v47 = &v58;
-        v48 = &v54;
-        [(SGSqliteDatabase *)v18 prepAndRunSQL:@"SELECT recordId FROM identityPerson    WHERE fullname IS NOT NULL        AND recordId IN(           SELECT recordId from identityPhones                WHERE phone IN _pas_nsarray(:phones)       )" onPrep:v52 onRow:v44 onError:0];
-        v20 = v59[3];
-        if (v20 && *(v55 + 24) == 1)
+        v46 = &v57;
+        v47 = &v53;
+        [(SGSqliteDatabase *)v18 prepAndRunSQL:@"SELECT recordId FROM identityPerson    WHERE fullname IS NOT NULL        AND recordId IN(           SELECT recordId from identityPhones                WHERE phone IN _pas_nsarray(:phones)       )" onPrep:v51 onRow:v43 onError:0];
+        v20 = v58[3];
+        if (v20 && *(v54 + 24) == 1)
         {
           v21 = (var2 + 24 * integerValue);
           if (addEdge(v21, v20, 1.0))
@@ -5074,7 +5048,7 @@ LABEL_8:
             [currentHandler5 handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Identity.m" lineNumber:916 description:@"OOM while adding edge to graph"];
           }
 
-          v22 = *v59[3];
+          v22 = *v58[3];
           v23 = *v21;
           v24 = v22;
           v25 = objc_opt_new();
@@ -5089,17 +5063,15 @@ LABEL_8:
           [edgesCopy addObject:v25];
         }
 
-        _Block_object_dispose(&v54, 8);
-        _Block_object_dispose(&v58, 8);
+        _Block_object_dispose(&v53, 8);
+        _Block_object_dispose(&v57, 8);
       }
 
-      v39 = [obj countByEnumeratingWithState:&v62 objects:v68 count:16];
+      v38 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
     }
 
-    while (v39);
+    while (v38);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __100__SGSqlEntityStore_IdentityStore___linkNamelessPhonesIfAppropriate_nameToVertex_disjointSets_edges___block_invoke(uint64_t a1, sqlite3_stmt *a2)
@@ -5148,7 +5120,7 @@ LABEL_8:
 
 - (void)_linkNamelessEmailsIfAppropriate:(graph_t *)appropriate nameToVertex:(id)vertex disjointSets:(DisjointSetHandle *)sets edges:(id)edges
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   vertexCopy = vertex;
   edgesCopy = edges;
   appropriateCopy = appropriate;
@@ -5172,32 +5144,32 @@ LABEL_8:
 
   v8 = objc_opt_new();
   db = self->_db;
-  v63[0] = MEMORY[0x277D85DD0];
-  v63[1] = 3221225472;
-  v63[2] = __100__SGSqlEntityStore_IdentityStore___linkNamelessEmailsIfAppropriate_nameToVertex_disjointSets_edges___block_invoke;
-  v63[3] = &unk_278955A20;
+  v62[0] = MEMORY[0x277D85DD0];
+  v62[1] = 3221225472;
+  v62[2] = __100__SGSqlEntityStore_IdentityStore___linkNamelessEmailsIfAppropriate_nameToVertex_disjointSets_edges___block_invoke;
+  v62[3] = &unk_278955A20;
   v10 = v8;
-  v64 = v10;
-  [(SGSqliteDatabase *)db prepAndRunSQL:@"SELECT recordId onPrep:email FROM identityPerson WHERE (surname = '' OR surname IS NULL) AND fullname IS NULL AND LENGTH(email) > 0" onRow:0 onError:v63, 0];
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
+  v63 = v10;
+  [(SGSqliteDatabase *)db prepAndRunSQL:@"SELECT recordId onPrep:email FROM identityPerson WHERE (surname = '' OR surname IS NULL) AND fullname IS NULL AND LENGTH(email) > 0" onRow:0 onError:v62, 0];
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   obj = v10;
-  v37 = [obj countByEnumeratingWithState:&v59 objects:v65 count:16];
-  if (v37)
+  v36 = [obj countByEnumeratingWithState:&v58 objects:v64 count:16];
+  if (v36)
   {
-    v34 = *v60;
+    v33 = *v59;
     do
     {
-      for (i = 0; i != v37; ++i)
+      for (i = 0; i != v36; ++i)
       {
-        if (*v60 != v34)
+        if (*v59 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v59 + 1) + 8 * i);
+        v12 = *(*(&v58 + 1) + 8 * i);
         v13 = [obj objectForKeyedSubscript:v12];
         v14 = [vertexCopy objectForKeyedSubscript:v13];
         if (!v14)
@@ -5208,34 +5180,34 @@ LABEL_8:
 
         var2 = appropriateCopy->var2;
         integerValue = [v14 integerValue];
-        v55 = 0;
-        v56 = &v55;
-        v57 = 0x2020000000;
-        v58 = 0;
-        v51 = 0;
-        v52 = &v51;
-        v53 = 0x2020000000;
-        v54 = 1;
+        v54 = 0;
+        v55 = &v54;
+        v56 = 0x2020000000;
+        v57 = 0;
+        v50 = 0;
+        v51 = &v50;
+        v52 = 0x2020000000;
+        v53 = 1;
         v17 = self->_db;
-        v50[0] = MEMORY[0x277D85DD0];
-        v50[1] = 3221225472;
-        v50[2] = __100__SGSqlEntityStore_IdentityStore___linkNamelessEmailsIfAppropriate_nameToVertex_disjointSets_edges___block_invoke_2;
-        v50[3] = &unk_278955E30;
-        v50[4] = v12;
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __100__SGSqlEntityStore_IdentityStore___linkNamelessEmailsIfAppropriate_nameToVertex_disjointSets_edges___block_invoke_3;
-        v42[3] = &unk_27894CF58;
-        v43 = vertexCopy;
+        v49[0] = MEMORY[0x277D85DD0];
+        v49[1] = 3221225472;
+        v49[2] = __100__SGSqlEntityStore_IdentityStore___linkNamelessEmailsIfAppropriate_nameToVertex_disjointSets_edges___block_invoke_2;
+        v49[3] = &unk_278955E30;
+        v49[4] = v12;
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v41[2] = __100__SGSqlEntityStore_IdentityStore___linkNamelessEmailsIfAppropriate_nameToVertex_disjointSets_edges___block_invoke_3;
+        v41[3] = &unk_27894CF58;
+        v42 = vertexCopy;
         selfCopy = self;
-        v47 = a2;
-        v48 = appropriateCopy;
+        v46 = a2;
+        v47 = appropriateCopy;
         setsCopy = sets;
-        v45 = &v55;
-        v46 = &v51;
-        [(SGSqliteDatabase *)v17 prepAndRunSQL:@"SELECT recordId FROM identityPerson WHERE email = :email AND fullname IS NOT NULL" onPrep:v50 onRow:v42 onError:0];
-        v18 = v56[3];
-        if (v18 && *(v52 + 24) == 1)
+        v44 = &v54;
+        v45 = &v50;
+        [(SGSqliteDatabase *)v17 prepAndRunSQL:@"SELECT recordId FROM identityPerson WHERE email = :email AND fullname IS NOT NULL" onPrep:v49 onRow:v41 onError:0];
+        v18 = v55[3];
+        if (v18 && *(v51 + 24) == 1)
         {
           v19 = (var2 + 24 * integerValue);
           if (addEdge(v19, v18, 1.0))
@@ -5244,7 +5216,7 @@ LABEL_8:
             [currentHandler5 handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Identity.m" lineNumber:847 description:@"OOM while adding edge to graph"];
           }
 
-          v20 = *v56[3];
+          v20 = *v55[3];
           v21 = *v19;
           v22 = v20;
           v23 = objc_opt_new();
@@ -5259,17 +5231,15 @@ LABEL_8:
           [edgesCopy addObject:v23];
         }
 
-        _Block_object_dispose(&v51, 8);
-        _Block_object_dispose(&v55, 8);
+        _Block_object_dispose(&v50, 8);
+        _Block_object_dispose(&v54, 8);
       }
 
-      v37 = [obj countByEnumeratingWithState:&v59 objects:v65 count:16];
+      v36 = [obj countByEnumeratingWithState:&v58 objects:v64 count:16];
     }
 
-    while (v37);
+    while (v36);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __100__SGSqlEntityStore_IdentityStore___linkNamelessEmailsIfAppropriate_nameToVertex_disjointSets_edges___block_invoke(uint64_t a1, void *a2)
@@ -5361,20 +5331,19 @@ uint64_t __51__SGSqlEntityStore_IdentityStore__curatedRecordIds__block_invoke(ui
 
 uint64_t __46__SGSqlEntityStore_IdentityStore__getAllLinks__block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v11[4] = *MEMORY[0x277D85DE8];
+  v10[4] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = [MEMORY[0x277D020C8] recordIdForContactWithRowId:{sqlite3_column_int64(a2, 0)}];
-  v11[0] = v4;
+  v10[0] = v4;
   v5 = [MEMORY[0x277D020C8] recordIdForContactWithRowId:{sqlite3_column_int64(a2, 1)}];
-  v11[1] = v5;
+  v10[1] = v5;
   v6 = [MEMORY[0x277CCABB0] numberWithInt:{sqlite3_column_int(a2, 2)}];
-  v11[2] = v6;
+  v10[2] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:{sqlite3_column_double(a2, 3)}];
-  v11[3] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:4];
+  v10[3] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:4];
   [v3 addObject:v8];
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -5424,7 +5393,7 @@ void __52__SGSqlEntityStore_IdentityStore__deleteByRecordId___block_invoke(uint6
   v20[5] = &v23;
   v20[6] = &v35;
   [v2 prepAndRunSQL:@"SELECT phones onPrep:socialProfileIdentifiers FROM identityPerson WHERE recordId = :recordId" onRow:v21 onError:{v20, 0}];
-  if ([v30[5] count])
+  if (objc_msgSend_count(v30[5]))
   {
     v3 = *(*(a1 + 32) + 8);
     v17[0] = MEMORY[0x277D85DD0];
@@ -5436,7 +5405,7 @@ void __52__SGSqlEntityStore_IdentityStore__deleteByRecordId___block_invoke(uint6
     [v3 prepAndRunSQL:@"DELETE FROM identityPhones WHERE phone IN _pas_nsarray(:phones) AND recordId=:recordId" onPrep:v17 onRow:0 onError:0];
   }
 
-  if ([v24[5] count])
+  if (objc_msgSend_count(v24[5]))
   {
     v4 = *(*(a1 + 32) + 8);
     v14[0] = MEMORY[0x277D85DD0];
@@ -5633,7 +5602,7 @@ uint64_t __57__SGSqlEntityStore_IdentityStore__link_to_type_strength___block_inv
 
 - (void)_joinIncompleteIdentitySocialProfilesWithOthersOfTheirIlk:(id)ilk name:(id)name recordId:(id)id
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   ilkCopy = ilk;
   nameCopy = name;
   idCopy = id;
@@ -5661,7 +5630,7 @@ uint64_t __57__SGSqlEntityStore_IdentityStore__link_to_type_strength___block_inv
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Identity.m" lineNumber:641 description:{@"Invalid parameter not satisfying: %@", @"recordId"}];
 
 LABEL_3:
-  if (![ilkCopy count])
+  if (!objc_msgSend_count(ilkCopy))
   {
     currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler3 handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Identity.m" lineNumber:642 description:@"Expected nonzero number of socialProfiles"];
@@ -5680,52 +5649,50 @@ LABEL_3:
 
   v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT recordId FROM identityPerson   WHERE %@ AND recordId IN(      SELECT recordId from identitySocialProfileIdentifiers           WHERE socialProfileIdentifier IN _pas_nsarray(:socialProfileIdentifiers)  )   LIMIT :limit", v14];
   db = self->_db;
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __107__SGSqlEntityStore_IdentityStore___joinIncompleteIdentitySocialProfilesWithOthersOfTheirIlk_name_recordId___block_invoke;
-  v35[3] = &unk_2789559D0;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __107__SGSqlEntityStore_IdentityStore___joinIncompleteIdentitySocialProfilesWithOthersOfTheirIlk_name_recordId___block_invoke;
+  v34[3] = &unk_2789559D0;
   v17 = nameCopy;
-  v36 = v17;
+  v35 = v17;
   v18 = ilkCopy;
-  v37 = v18;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __107__SGSqlEntityStore_IdentityStore___joinIncompleteIdentitySocialProfilesWithOthersOfTheirIlk_name_recordId___block_invoke_3;
-  v33[3] = &unk_278955A20;
+  v36 = v18;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __107__SGSqlEntityStore_IdentityStore___joinIncompleteIdentitySocialProfilesWithOthersOfTheirIlk_name_recordId___block_invoke_3;
+  v32[3] = &unk_278955A20;
   v19 = v13;
-  v34 = v19;
-  [(SGSqliteDatabase *)db prepAndRunSQL:v15 onPrep:v35 onRow:v33 onError:0];
+  v33 = v19;
+  [(SGSqliteDatabase *)db prepAndRunSQL:v15 onPrep:v34 onRow:v32 onError:0];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v20 = v19;
-  v21 = [v20 countByEnumeratingWithState:&v29 objects:v38 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v28 objects:v37 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v30;
+    v23 = *v29;
     do
     {
       v24 = 0;
       do
       {
-        if (*v30 != v23)
+        if (*v29 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        [(SGSqlEntityStore *)self link:v12 to:*(*(&v29 + 1) + 8 * v24++) type:3 strength:1.0];
+        [(SGSqlEntityStore *)self link:v12 to:*(*(&v28 + 1) + 8 * v24++) type:3 strength:1.0];
       }
 
       while (v22 != v24);
-      v22 = [v20 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
     while (v22);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __107__SGSqlEntityStore_IdentityStore___joinIncompleteIdentitySocialProfilesWithOthersOfTheirIlk_name_recordId___block_invoke(uint64_t a1, void *a2)
@@ -5762,7 +5729,7 @@ id __107__SGSqlEntityStore_IdentityStore___joinIncompleteIdentitySocialProfilesW
 
 - (void)_joinIncompleteIdentityPhonesWithOthersOfTheirIlk:(id)ilk name:(id)name recordId:(id)id
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   ilkCopy = ilk;
   nameCopy = name;
   idCopy = id;
@@ -5790,7 +5757,7 @@ id __107__SGSqlEntityStore_IdentityStore___joinIncompleteIdentitySocialProfilesW
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Identity.m" lineNumber:599 description:{@"Invalid parameter not satisfying: %@", @"recordId"}];
 
 LABEL_3:
-  if (![ilkCopy count])
+  if (!objc_msgSend_count(ilkCopy))
   {
     currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler3 handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Identity.m" lineNumber:600 description:@"Expected nonzero number of phones"];
@@ -5809,52 +5776,50 @@ LABEL_3:
 
   v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT recordId FROM identityPerson   WHERE %@ AND recordId IN(      SELECT recordId from identityPhones           WHERE phone IN _pas_nsarray(:phones)  )   LIMIT :limit", v14];
   db = self->_db;
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __99__SGSqlEntityStore_IdentityStore___joinIncompleteIdentityPhonesWithOthersOfTheirIlk_name_recordId___block_invoke;
-  v35[3] = &unk_2789559D0;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __99__SGSqlEntityStore_IdentityStore___joinIncompleteIdentityPhonesWithOthersOfTheirIlk_name_recordId___block_invoke;
+  v34[3] = &unk_2789559D0;
   v17 = nameCopy;
-  v36 = v17;
+  v35 = v17;
   v18 = ilkCopy;
-  v37 = v18;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __99__SGSqlEntityStore_IdentityStore___joinIncompleteIdentityPhonesWithOthersOfTheirIlk_name_recordId___block_invoke_3;
-  v33[3] = &unk_278955A20;
+  v36 = v18;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __99__SGSqlEntityStore_IdentityStore___joinIncompleteIdentityPhonesWithOthersOfTheirIlk_name_recordId___block_invoke_3;
+  v32[3] = &unk_278955A20;
   v19 = v13;
-  v34 = v19;
-  [(SGSqliteDatabase *)db prepAndRunSQL:v15 onPrep:v35 onRow:v33 onError:0];
+  v33 = v19;
+  [(SGSqliteDatabase *)db prepAndRunSQL:v15 onPrep:v34 onRow:v32 onError:0];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v20 = v19;
-  v21 = [v20 countByEnumeratingWithState:&v29 objects:v38 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v28 objects:v37 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v30;
+    v23 = *v29;
     do
     {
       v24 = 0;
       do
       {
-        if (*v30 != v23)
+        if (*v29 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        [(SGSqlEntityStore *)self link:v12 to:*(*(&v29 + 1) + 8 * v24++) type:1 strength:1.0];
+        [(SGSqlEntityStore *)self link:v12 to:*(*(&v28 + 1) + 8 * v24++) type:1 strength:1.0];
       }
 
       while (v22 != v24);
-      v22 = [v20 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
     while (v22);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __99__SGSqlEntityStore_IdentityStore___joinIncompleteIdentityPhonesWithOthersOfTheirIlk_name_recordId___block_invoke(uint64_t a1, void *a2)
@@ -5890,7 +5855,7 @@ id __99__SGSqlEntityStore_IdentityStore___joinIncompleteIdentityPhonesWithOthers
 
 - (void)_joinIncompleteIdentityEmailWithOthersOfItsIlk:(id)ilk name:(id)name recordId:(id)id
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   ilkCopy = ilk;
   nameCopy = name;
   idCopy = id;
@@ -5932,52 +5897,50 @@ LABEL_3:
 
   v16 = [v14 initWithFormat:v15, 10];
   db = self->_db;
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __96__SGSqlEntityStore_IdentityStore___joinIncompleteIdentityEmailWithOthersOfItsIlk_name_recordId___block_invoke;
-  v35[3] = &unk_278954630;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __96__SGSqlEntityStore_IdentityStore___joinIncompleteIdentityEmailWithOthersOfItsIlk_name_recordId___block_invoke;
+  v34[3] = &unk_278954630;
   v18 = ilkCopy;
-  v36 = v18;
+  v35 = v18;
   v19 = nameCopy;
-  v37 = v19;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __96__SGSqlEntityStore_IdentityStore___joinIncompleteIdentityEmailWithOthersOfItsIlk_name_recordId___block_invoke_2;
-  v33[3] = &unk_278954708;
+  v36 = v19;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __96__SGSqlEntityStore_IdentityStore___joinIncompleteIdentityEmailWithOthersOfItsIlk_name_recordId___block_invoke_2;
+  v32[3] = &unk_278954708;
   v20 = v13;
-  v34 = v20;
-  [(SGSqliteDatabase *)db prepAndRunQuery:v16 onPrep:v35 onRow:v33 onError:0];
+  v33 = v20;
+  [(SGSqliteDatabase *)db prepAndRunQuery:v16 onPrep:v34 onRow:v32 onError:0];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v21 = v20;
-  v22 = [v21 countByEnumeratingWithState:&v29 objects:v38 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v28 objects:v37 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v30;
+    v24 = *v29;
     do
     {
       v25 = 0;
       do
       {
-        if (*v30 != v24)
+        if (*v29 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        [(SGSqlEntityStore *)self link:v12 to:*(*(&v29 + 1) + 8 * v25++) type:2 strength:1.0];
+        [(SGSqlEntityStore *)self link:v12 to:*(*(&v28 + 1) + 8 * v25++) type:2 strength:1.0];
       }
 
       while (v23 != v25);
-      v23 = [v21 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
     while (v23);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void *__96__SGSqlEntityStore_IdentityStore___joinIncompleteIdentityEmailWithOthersOfItsIlk_name_recordId___block_invoke(uint64_t a1, sqlite3_stmt *a2)
@@ -6005,7 +5968,7 @@ uint64_t __96__SGSqlEntityStore_IdentityStore___joinIncompleteIdentityEmailWithO
 
 - (BOOL)registerAndLinkIdentity:(id)identity recordId:(id)id phones:(id)phones socialProfiles:(id)profiles email:(id)email curated:(BOOL)curated isSent:(BOOL)sent
 {
-  v139 = *MEMORY[0x277D85DE8];
+  v138 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   idCopy = id;
   phonesCopy = phones;
@@ -6024,7 +5987,7 @@ uint64_t __96__SGSqlEntityStore_IdentityStore___joinIncompleteIdentityEmailWithO
       v21 = [emailCopy length] != 0;
     }
 
-    v96 = v19;
+    v95 = v19;
     if ([identityCopy length])
     {
       v22 = 0;
@@ -6032,7 +5995,7 @@ uint64_t __96__SGSqlEntityStore_IdentityStore___joinIncompleteIdentityEmailWithO
 
     else
     {
-      v22 = [phonesCopy count] != 0;
+      v22 = objc_msgSend_count(phonesCopy) != 0;
     }
 
     selfCopy = self;
@@ -6047,7 +6010,7 @@ uint64_t __96__SGSqlEntityStore_IdentityStore___joinIncompleteIdentityEmailWithO
 
     else
     {
-      v23 = [profilesCopy count] != 0;
+      v23 = objc_msgSend_count(profilesCopy) != 0;
       if (!v21)
       {
 LABEL_13:
@@ -6061,22 +6024,22 @@ LABEL_13:
           [(SGSqlEntityStore *)selfCopy _joinIncompleteIdentitySocialProfilesWithOthersOfTheirIlk:profilesCopy name:0 recordId:idCopy];
         }
 
-        v129[0] = MEMORY[0x277D85DD0];
-        v129[1] = 3221225472;
-        v129[2] = __111__SGSqlEntityStore_IdentityStore__registerAndLinkIdentity_recordId_phones_socialProfiles_email_curated_isSent___block_invoke;
-        v129[3] = &unk_27894CE48;
+        v128[0] = MEMORY[0x277D85DD0];
+        v128[1] = 3221225472;
+        v128[2] = __111__SGSqlEntityStore_IdentityStore__registerAndLinkIdentity_recordId_phones_socialProfiles_email_curated_isSent___block_invoke;
+        v128[3] = &unk_27894CE48;
         v25 = phonesCopy;
-        v130 = v25;
-        v99 = profilesCopy;
-        v131 = v99;
-        v132 = selfCopy;
-        v102 = emailCopy;
-        v133 = v102;
-        v101 = idCopy;
-        v134 = v101;
+        v129 = v25;
+        v98 = profilesCopy;
+        v130 = v98;
+        v131 = selfCopy;
+        v101 = emailCopy;
+        v132 = v101;
+        v100 = idCopy;
+        v133 = v100;
         curatedCopy = curated;
         sentCopy = sent;
-        v95 = MEMORY[0x2383809F0](v129);
+        v94 = MEMORY[0x2383809F0](v128);
         if ([identityCopy length])
         {
           if (![SGInhumans isInhumanName:identityCopy])
@@ -6084,15 +6047,15 @@ LABEL_13:
             v26 = [SGIdentityName nameWithString:identityCopy];
             surname = [v26 surname];
             middlename = [v26 middlename];
-            emailCopy = v102;
+            emailCopy = v101;
             if ([surname length])
             {
-              v107 = SGNamesAsciify(surname);
+              v106 = SGNamesAsciify(surname);
 
-              v87 = phonesCopy;
-              v88 = idCopy;
-              v85 = v26;
-              v86 = profilesCopy;
+              v86 = phonesCopy;
+              v87 = idCopy;
+              v84 = v26;
+              v85 = profilesCopy;
               if (middlename)
               {
                 v29 = SGNamesAsciify(middlename);
@@ -6110,104 +6073,104 @@ LABEL_13:
               v35 = objc_opt_new();
               v36 = objc_opt_new();
               db = selfCopy->_db;
-              v125[0] = MEMORY[0x277D85DD0];
-              v125[1] = 3221225472;
-              v125[2] = __111__SGSqlEntityStore_IdentityStore__registerAndLinkIdentity_recordId_phones_socialProfiles_email_curated_isSent___block_invoke_2;
-              v125[3] = &unk_27894F4B0;
-              v91 = v29;
-              v126 = v91;
-              v90 = v107;
-              v127 = v90;
+              v124[0] = MEMORY[0x277D85DD0];
+              v124[1] = 3221225472;
+              v124[2] = __111__SGSqlEntityStore_IdentityStore__registerAndLinkIdentity_recordId_phones_socialProfiles_email_curated_isSent___block_invoke_2;
+              v124[3] = &unk_27894F4B0;
+              v90 = v29;
+              v125 = v90;
+              v89 = v106;
+              v126 = v89;
               sentCopy2 = sent;
-              v118[0] = MEMORY[0x277D85DD0];
-              v118[1] = 3221225472;
-              v118[2] = __111__SGSqlEntityStore_IdentityStore__registerAndLinkIdentity_recordId_phones_socialProfiles_email_curated_isSent___block_invoke_3;
-              v118[3] = &unk_27894CE70;
-              v106 = v31;
-              v119 = v106;
-              v105 = v32;
-              v120 = v105;
-              v104 = v33;
-              v121 = v104;
-              v94 = v34;
-              v122 = v94;
-              v93 = v35;
-              v123 = v93;
-              v92 = v36;
-              v124 = v92;
-              [(SGSqliteDatabase *)db prepAndRunSQL:@"SELECT fullname onPrep:recordId onRow:nameSketches onError:phones, socialProfileIdentifiers, email FROM identityPerson WHERE (surname IN _pas_nsarray(:middleNameAndSurname) OR middlename = :surname) AND isSent = :isSent LIMIT :limit", v125, v118, 0];
+              v117[0] = MEMORY[0x277D85DD0];
+              v117[1] = 3221225472;
+              v117[2] = __111__SGSqlEntityStore_IdentityStore__registerAndLinkIdentity_recordId_phones_socialProfiles_email_curated_isSent___block_invoke_3;
+              v117[3] = &unk_27894CE70;
+              v105 = v31;
+              v118 = v105;
+              v104 = v32;
+              v119 = v104;
+              v103 = v33;
+              v120 = v103;
+              v93 = v34;
+              v121 = v93;
+              v92 = v35;
+              v122 = v92;
+              v91 = v36;
+              v123 = v91;
+              [(SGSqliteDatabase *)db prepAndRunSQL:@"SELECT fullname onPrep:recordId onRow:nameSketches onError:phones, socialProfileIdentifiers, email FROM identityPerson WHERE (surname IN _pas_nsarray(:middleNameAndSurname) OR middlename = :surname) AND isSent = :isSent LIMIT :limit", v124, v117, 0];
               v38 = objc_alloc(MEMORY[0x277CBEB98]);
               v39 = [SGNames sketchesForName:identityCopy];
-              v108 = [v38 initWithArray:v39];
+              v107 = [v38 initWithArray:v39];
 
-              v40 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(v25, "count")}];
+              v40 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:objc_msgSend_count(v25)];
+              v113 = 0u;
               v114 = 0u;
               v115 = 0u;
               v116 = 0u;
-              v117 = 0u;
               v41 = v25;
-              v42 = [v41 countByEnumeratingWithState:&v114 objects:v138 count:16];
+              v42 = [v41 countByEnumeratingWithState:&v113 objects:v137 count:16];
               if (v42)
               {
                 v43 = v42;
-                v44 = *v115;
+                v44 = *v114;
                 do
                 {
                   for (i = 0; i != v43; ++i)
                   {
-                    if (*v115 != v44)
+                    if (*v114 != v44)
                     {
                       objc_enumerationMutation(v41);
                     }
 
-                    value = [*(*(&v114 + 1) + 8 * i) value];
+                    value = [*(*(&v113 + 1) + 8 * i) value];
                     v47 = SGNormalizePhoneNumber();
                     [v40 addObject:v47];
                   }
 
-                  v43 = [v41 countByEnumeratingWithState:&v114 objects:v138 count:16];
+                  v43 = [v41 countByEnumeratingWithState:&v113 objects:v137 count:16];
                 }
 
                 while (v43);
               }
 
-              v48 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(v99, "count")}];
+              v48 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:objc_msgSend_count(v98)];
+              v109 = 0u;
               v110 = 0u;
               v111 = 0u;
               v112 = 0u;
-              v113 = 0u;
-              v49 = v99;
-              v50 = [v49 countByEnumeratingWithState:&v110 objects:v137 count:16];
-              emailAddress = v102;
+              v49 = v98;
+              v50 = [v49 countByEnumeratingWithState:&v109 objects:v136 count:16];
+              emailAddress = v101;
               if (v50)
               {
                 v52 = v50;
-                v53 = *v111;
+                v53 = *v110;
                 do
                 {
                   for (j = 0; j != v52; ++j)
                   {
-                    if (*v111 != v53)
+                    if (*v110 != v53)
                     {
                       objc_enumerationMutation(v49);
                     }
 
-                    value2 = [*(*(&v110 + 1) + 8 * j) value];
+                    value2 = [*(*(&v109 + 1) + 8 * j) value];
                     v56 = SGNormalizeSocialProfileIdentifier(value2);
                     [v48 addObject:v56];
                   }
 
-                  v52 = [v49 countByEnumeratingWithState:&v110 objects:v137 count:16];
+                  v52 = [v49 countByEnumeratingWithState:&v109 objects:v136 count:16];
                 }
 
                 while (v52);
               }
 
-              v57 = v106;
-              if (!v102)
+              v57 = v105;
+              if (!v101)
               {
                 v58 = identityCopy;
-                v59 = [(SGSqlEntityStore *)selfCopy loadEntityByRecordId:v101];
+                v59 = [(SGSqlEntityStore *)selfCopy loadEntityByRecordId:v100];
                 duplicateKey = [v59 duplicateKey];
                 entityType = [duplicateKey entityType];
 
@@ -6238,111 +6201,111 @@ LABEL_13:
                 }
               }
 
-              v103 = emailAddress;
-              v89 = identityCopy;
-              v97 = SGNormalizeName(identityCopy);
-              if ([v106 count])
+              v102 = emailAddress;
+              v88 = identityCopy;
+              v96 = SGNormalizeName(identityCopy);
+              if (objc_msgSend_count(v105))
               {
                 v68 = 0;
-                v100 = 0;
+                v99 = 0;
                 v69 = 0;
                 v70 = 0;
                 v71 = 0;
                 do
                 {
                   v72 = [v57 objectAtIndexedSubscript:v68];
-                  v73 = [v105 objectAtIndexedSubscript:v68];
+                  v73 = [v104 objectAtIndexedSubscript:v68];
                   if (v71 <= 9)
                   {
-                    [SGNames nameSimilarity:v97 and:v72];
+                    [SGNames nameSimilarity:v96 and:v72];
                     if (v74 > 4.0)
                     {
-                      [(SGSqlEntityStore *)selfCopy link:v101 to:v73 type:0 strength:?];
+                      [(SGSqlEntityStore *)selfCopy link:v100 to:v73 type:0 strength:?];
                       ++v71;
                     }
                   }
 
-                  v75 = [v104 objectAtIndexedSubscript:v68];
-                  v76 = [v108 intersectsSet:v75];
+                  v75 = [v103 objectAtIndexedSubscript:v68];
+                  v76 = [v107 intersectsSet:v75];
 
                   if (v76)
                   {
                     if (v70 <= 9)
                     {
-                      v77 = [v94 objectAtIndexedSubscript:v68];
+                      v77 = [v93 objectAtIndexedSubscript:v68];
                       v78 = [v40 intersectsSet:v77];
 
                       if (v78)
                       {
-                        [(SGSqlEntityStore *)selfCopy link:v101 to:v73 type:1 strength:2.0];
+                        [(SGSqlEntityStore *)selfCopy link:v100 to:v73 type:1 strength:2.0];
                         ++v70;
                       }
                     }
 
                     if (v69 <= 9)
                     {
-                      if (v103)
+                      if (v102)
                       {
-                        v79 = [v92 objectAtIndexedSubscript:v68];
-                        v80 = [v103 isEqualToString:v79];
+                        v79 = [v91 objectAtIndexedSubscript:v68];
+                        v80 = [v102 isEqualToString:v79];
 
                         if (v80)
                         {
-                          [(SGSqlEntityStore *)selfCopy link:v101 to:v73 type:2 strength:4.0];
+                          [(SGSqlEntityStore *)selfCopy link:v100 to:v73 type:2 strength:4.0];
                           ++v69;
                         }
                       }
                     }
 
-                    if (v100 <= 9)
+                    if (v99 <= 9)
                     {
-                      v81 = [v93 objectAtIndexedSubscript:v68];
+                      v81 = [v92 objectAtIndexedSubscript:v68];
                       v82 = [v48 intersectsSet:v81];
 
                       if (v82)
                       {
-                        [(SGSqlEntityStore *)selfCopy link:v101 to:v73 type:3 strength:4.0];
-                        ++v100;
+                        [(SGSqlEntityStore *)selfCopy link:v100 to:v73 type:3 strength:4.0];
+                        ++v99;
                       }
                     }
                   }
 
-                  v57 = v106;
+                  v57 = v105;
 
                   ++v68;
                 }
 
-                while ([v106 count] > v68);
+                while (objc_msgSend_count(v105) > v68);
               }
 
-              emailCopy = v103;
-              if (writeIdentity(selfCopy->_db, v90, v91, v97, v108, v40, v48, v103, v101, curated, sent))
+              emailCopy = v102;
+              if (writeIdentity(selfCopy->_db, v89, v90, v96, v107, v40, v48, v102, v100, curated, sent))
               {
                 [(SGSqlEntityStore *)selfCopy _markIdentityStoreDirty];
               }
 
               v20 = 1;
-              idCopy = v88;
-              identityCopy = v89;
-              profilesCopy = v86;
-              phonesCopy = v87;
-              v30 = v95;
-              v19 = v96;
-              v26 = v85;
+              idCopy = v87;
+              identityCopy = v88;
+              profilesCopy = v85;
+              phonesCopy = v86;
+              v30 = v94;
+              v19 = v95;
+              v26 = v84;
               goto LABEL_85;
             }
 
-            v90 = surname;
-            v91 = middlename;
-            if ([v102 length] || objc_msgSend(v25, "count") || objc_msgSend(v99, "count"))
+            v89 = surname;
+            v90 = middlename;
+            if ([v101 length] || objc_msgSend_count(v25) || objc_msgSend_count(v98))
             {
               if (v21)
               {
-                v30 = v95;
-                (*(v95 + 16))(v95, 0);
+                v30 = v94;
+                (*(v94 + 16))(v94, 0);
 LABEL_59:
                 v20 = 1;
-                v19 = v96;
+                v19 = v95;
 LABEL_85:
 
                 goto LABEL_86;
@@ -6353,51 +6316,51 @@ LABEL_85:
               if (firstname)
               {
                 v67 = SGNormalizeName(identityCopy);
-                if ([v102 length])
+                if ([v101 length])
                 {
-                  [(SGSqlEntityStore *)selfCopy _joinIncompleteIdentityEmailWithOthersOfItsIlk:v102 name:v67 recordId:v101];
+                  [(SGSqlEntityStore *)selfCopy _joinIncompleteIdentityEmailWithOthersOfItsIlk:v101 name:v67 recordId:v100];
                 }
 
-                v30 = v95;
-                if ([v25 count])
+                v30 = v94;
+                if (objc_msgSend_count(v25))
                 {
-                  [(SGSqlEntityStore *)selfCopy _joinIncompleteIdentityPhonesWithOthersOfTheirIlk:v25 name:v67 recordId:v101];
+                  [(SGSqlEntityStore *)selfCopy _joinIncompleteIdentityPhonesWithOthersOfTheirIlk:v25 name:v67 recordId:v100];
                 }
 
-                if ([v99 count])
+                if (objc_msgSend_count(v98))
                 {
-                  [(SGSqlEntityStore *)selfCopy _joinIncompleteIdentitySocialProfilesWithOthersOfTheirIlk:v99 name:v67 recordId:v101];
+                  [(SGSqlEntityStore *)selfCopy _joinIncompleteIdentitySocialProfilesWithOthersOfTheirIlk:v98 name:v67 recordId:v100];
                 }
 
-                (*(v95 + 16))(v95, v67);
+                (*(v94 + 16))(v94, v67);
 
                 goto LABEL_59;
               }
             }
 
             v20 = 0;
-            v30 = v95;
-            v19 = v96;
+            v30 = v94;
+            v19 = v95;
             goto LABEL_85;
           }
         }
 
         else if (v21 || v22 || v23)
         {
-          v30 = v95;
-          (*(v95 + 16))(v95, 0);
+          v30 = v94;
+          (*(v94 + 16))(v94, 0);
           v20 = 1;
-          emailCopy = v102;
-          v19 = v96;
+          emailCopy = v101;
+          v19 = v95;
 LABEL_86:
 
           goto LABEL_87;
         }
 
         v20 = 0;
-        emailCopy = v102;
-        v30 = v95;
-        v19 = v96;
+        emailCopy = v101;
+        v30 = v94;
+        v19 = v95;
         goto LABEL_86;
       }
     }
@@ -6413,36 +6376,35 @@ LABEL_86:
 LABEL_87:
   objc_autoreleasePoolPop(v19);
 
-  v83 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 void __111__SGSqlEntityStore_IdentityStore__registerAndLinkIdentity_recordId_phones_socialProfiles_email_curated_isSent___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v4 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:objc_msgSend_count(*(a1 + 32))];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v25;
     do
     {
       v9 = 0;
       do
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v25 + 1) + 8 * v9) value];
+        v10 = [*(*(&v24 + 1) + 8 * v9) value];
         v11 = SGNormalizePhoneNumber();
         [v4 addObject:v11];
 
@@ -6450,34 +6412,34 @@ void __111__SGSqlEntityStore_IdentityStore__registerAndLinkIdentity_recordId_pho
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v7);
   }
 
-  v12 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
+  v12 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:objc_msgSend_count(*(a1 + 40))];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v13 = *(a1 + 40);
-  v14 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       v17 = 0;
       do
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [*(*(&v21 + 1) + 8 * v17) value];
+        v18 = [*(*(&v20 + 1) + 8 * v17) value];
         v19 = SGNormalizeSocialProfileIdentifier(v18);
         [v12 addObject:v19];
 
@@ -6485,7 +6447,7 @@ void __111__SGSqlEntityStore_IdentityStore__registerAndLinkIdentity_recordId_pho
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v15);
@@ -6495,40 +6457,36 @@ void __111__SGSqlEntityStore_IdentityStore__registerAndLinkIdentity_recordId_pho
   {
     [*(a1 + 48) _markIdentityStoreDirty];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __111__SGSqlEntityStore_IdentityStore__registerAndLinkIdentity_recordId_phones_socialProfiles_email_curated_isSent___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) length])
   {
     v4 = *(a1 + 40);
-    v11 = *(a1 + 32);
-    v12 = v4;
+    v10 = *(a1 + 32);
+    v11 = v4;
     v5 = MEMORY[0x277CBEA60];
-    v6 = &v11;
+    v6 = &v10;
     v7 = 2;
   }
 
   else
   {
-    v10 = *(a1 + 40);
+    v9 = *(a1 + 40);
     v5 = MEMORY[0x277CBEA60];
-    v6 = &v10;
+    v6 = &v9;
     v7 = 1;
   }
 
-  v8 = [v5 arrayWithObjects:v6 count:{v7, v10, v11, v12, v13}];
+  v8 = [v5 arrayWithObjects:v6 count:{v7, v9, v10, v11, v12}];
   [v3 bindNamedParam:":middleNameAndSurname" toNSArray:v8];
 
   [v3 bindNamedParam:":surname" toNonnullNSString:*(a1 + 40)];
   [v3 bindNamedParam:":isSent" toInteger:*(a1 + 48)];
   [v3 bindNamedParam:":limit" toInteger:100];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __111__SGSqlEntityStore_IdentityStore__registerAndLinkIdentity_recordId_phones_socialProfiles_email_curated_isSent___block_invoke_3(uint64_t a1, void *a2)
@@ -6619,7 +6577,7 @@ void __56__SGSqlEntityStore_IdentityStore__rebuildIdentityTables__block_invoke(u
 
 uint64_t __56__SGSqlEntityStore_IdentityStore__rebuildIdentityTables__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   v5 = [*(a1 + 32) entityFromSqlResult:a2];
   v6 = [v5 duplicateKey];
@@ -6634,13 +6592,13 @@ uint64_t __56__SGSqlEntityStore_IdentityStore__rebuildIdentityTables__block_invo
     {
       v12 = [v11 phone];
       v13 = [[SGLabeledValue alloc] initWithLabel:&stru_284703F00 value:v12];
-      v32[0] = v13;
-      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+      v31[0] = v13;
+      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
     }
 
     else
     {
-      v30 = 0;
+      v29 = 0;
     }
 
     if ([v11 hasEmailAddress])
@@ -6657,8 +6615,8 @@ uint64_t __56__SGSqlEntityStore_IdentityStore__rebuildIdentityTables__block_invo
     {
       v19 = [v11 socialProfile];
       v20 = [[SGLabeledValue alloc] initWithLabel:&stru_284703F00 value:v19];
-      v31 = v20;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+      v30 = v20;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
     }
 
     else
@@ -6671,8 +6629,8 @@ uint64_t __56__SGSqlEntityStore_IdentityStore__rebuildIdentityTables__block_invo
     v24 = [v5 recordId];
     v25 = [v5 tags];
     v26 = [MEMORY[0x277D01FA0] isSent];
-    LOBYTE(v29) = [v25 containsObject:v26];
-    [v22 registerAndLinkIdentity:v23 recordId:v24 phones:v30 socialProfiles:v21 email:v18 curated:0 isSent:v29];
+    LOBYTE(v28) = [v25 containsObject:v26];
+    [v22 registerAndLinkIdentity:v23 recordId:v24 phones:v29 socialProfiles:v21 email:v18 curated:0 isSent:v28];
 
     goto LABEL_15;
   }
@@ -6696,25 +6654,23 @@ LABEL_15:
 
 LABEL_16:
   objc_autoreleasePoolPop(v4);
-  v27 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t __56__SGSqlEntityStore_IdentityStore__rebuildIdentityTables__block_invoke_4(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = [v3 description];
-    v8 = 138412290;
-    v9 = v7;
-    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "Sqlite error while rebuilding identity tables: %@", &v8, 0xCu);
+    v6 = [v3 description];
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "Sqlite error while rebuilding identity tables: %@", &v7, 0xCu);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 0;
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -6781,7 +6737,7 @@ LABEL_3:
 
   v28 = entityCopy;
   title = [entityCopy title];
-  v18 = [v13 count];
+  v18 = objc_msgSend_count(v13);
   if (v18)
   {
     v25 = [v13 objectAtIndexedSubscript:0];
@@ -6845,33 +6801,33 @@ SGLabeledValue *__71__SGSqlEntityStore_IdentityStore__processPseudoContactEntity
 
 - (id)splitNeededFor:(id)for withInterdicts:(id)interdicts curatedRecordIds:(id)ids
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   forCopy = for;
   interdictsCopy = interdicts;
   idsCopy = ids;
-  if ([forCopy count] >= 2 && objc_msgSend(forCopy, "count") <= 0x64)
+  if (objc_msgSend_count(forCopy) >= 2 && objc_msgSend_count(forCopy) <= 0x64)
   {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    v31 = interdictsCopy;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v30 = interdictsCopy;
     v11 = interdictsCopy;
-    v12 = [v11 countByEnumeratingWithState:&v36 objects:v42 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v35 objects:v41 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v37;
+      v14 = *v36;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v37 != v14)
+          if (*v36 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v36 + 1) + 8 * i);
+          v16 = *(*(&v35 + 1) + 8 * i);
           first = [v16 first];
           if ([forCopy intersectsSet:first])
           {
@@ -6888,9 +6844,9 @@ SGLabeledValue *__71__SGSqlEntityStore_IdentityStore__processPseudoContactEntity
               second2 = [v16 second];
               [v27 intersectSet:second2];
 
-              v41[0] = v25;
-              v41[1] = v27;
-              v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
+              v40[0] = v25;
+              v40[1] = v27;
+              v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
 
               goto LABEL_26;
             }
@@ -6901,32 +6857,32 @@ SGLabeledValue *__71__SGSqlEntityStore_IdentityStore__processPseudoContactEntity
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v36 objects:v42 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v35 objects:v41 count:16];
       }
 
       while (v13);
     }
 
     v11 = objc_opt_new();
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v25 = forCopy;
-    v10 = [v25 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v10 = [v25 countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v10)
     {
-      v20 = *v33;
+      v20 = *v32;
       while (2)
       {
         for (j = 0; j != v10; j = j + 1)
         {
-          if (*v33 != v20)
+          if (*v32 != v20)
           {
             objc_enumerationMutation(v25);
           }
 
-          v22 = *(*(&v32 + 1) + 8 * j);
+          v22 = *(*(&v31 + 1) + 8 * j);
           if ([idsCopy containsObject:v22])
           {
             v23 = objc_autoreleasePoolPush();
@@ -6934,7 +6890,7 @@ SGLabeledValue *__71__SGSqlEntityStore_IdentityStore__processPseudoContactEntity
             objc_autoreleasePoolPop(v23);
             [v11 addObject:v24];
 
-            if ([v11 count] == 2)
+            if (objc_msgSend_count(v11) == 2)
             {
               v11 = v11;
               v10 = v11;
@@ -6943,7 +6899,7 @@ SGLabeledValue *__71__SGSqlEntityStore_IdentityStore__processPseudoContactEntity
           }
         }
 
-        v10 = [v25 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v10 = [v25 countByEnumeratingWithState:&v31 objects:v39 count:16];
         if (v10)
         {
           continue;
@@ -6955,15 +6911,13 @@ SGLabeledValue *__71__SGSqlEntityStore_IdentityStore__processPseudoContactEntity
 
 LABEL_26:
 
-    interdictsCopy = v31;
+    interdictsCopy = v30;
   }
 
   else
   {
     v10 = 0;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -7296,33 +7250,31 @@ uint64_t __60__SGSqlEntityStore_ReimportRequests__reimportRequestDBStats__block_
 
 uint64_t __60__SGSqlEntityStore_ReimportRequests__reimportRequestDBStats__block_invoke_2_146(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "error during reimportRequestDBStats query of reimportItems: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "error during reimportRequestDBStats query of reimportItems: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __60__SGSqlEntityStore_ReimportRequests__reimportRequestDBStats__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "error during reimportRequestDBStats query of reimportRequests: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "error during reimportRequestDBStats query of reimportRequests: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -7339,17 +7291,16 @@ uint64_t __60__SGSqlEntityStore_ReimportRequests__reimportRequestDBStats__block_
 
 uint64_t __58__SGSqlEntityStore_ReimportRequests___deleteOrphanedItems__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "failed to delete orphaned reimport items: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "failed to delete orphaned reimport items: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -7374,17 +7325,16 @@ uint64_t __69__SGSqlEntityStore_ReimportRequests__deleteCompletedReimportRequest
 
 uint64_t __69__SGSqlEntityStore_ReimportRequests__deleteCompletedReimportRequests__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "failed to delete completed reimport requests: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "failed to delete completed reimport requests: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -7428,20 +7378,19 @@ uint64_t __77__SGSqlEntityStore_ReimportRequests__deleteAllReimportRequestsOlder
 
 uint64_t __77__SGSqlEntityStore_ReimportRequests__deleteAllReimportRequestsOlderThanDate___block_invoke_3(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to delete reimport requests older than: %@: %@", &v8, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to delete reimport requests older than: %@: %@", &v7, 0x16u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -7551,14 +7500,14 @@ LABEL_21:
   }
 
 LABEL_23:
-  if (*(v27 + 24) == 1 && [reimportRequestsContainBundleIdentifier_uniqueIdentifier__yesCache count] >= 0x1A)
+  if (*(v27 + 24) == 1 && objc_msgSend_count(reimportRequestsContainBundleIdentifier_uniqueIdentifier__yesCache) >= 0x1A)
   {
-    [reimportRequestsContainBundleIdentifier_uniqueIdentifier__yesCache removeObjectsInRange:{0, objc_msgSend(reimportRequestsContainBundleIdentifier_uniqueIdentifier__yesCache, "count") - 25}];
+    [reimportRequestsContainBundleIdentifier_uniqueIdentifier__yesCache removeObjectsInRange:{0, objc_msgSend_count(reimportRequestsContainBundleIdentifier_uniqueIdentifier__yesCache) - 25}];
   }
 
-  if ((v27[3] & 1) == 0 && [reimportRequestsContainBundleIdentifier_uniqueIdentifier__noCache count] >= 0x1A)
+  if ((v27[3] & 1) == 0 && objc_msgSend_count(reimportRequestsContainBundleIdentifier_uniqueIdentifier__noCache) >= 0x1A)
   {
-    [reimportRequestsContainBundleIdentifier_uniqueIdentifier__noCache removeObjectsInRange:{0, objc_msgSend(reimportRequestsContainBundleIdentifier_uniqueIdentifier__noCache, "count") - 25}];
+    [reimportRequestsContainBundleIdentifier_uniqueIdentifier__noCache removeObjectsInRange:{0, objc_msgSend_count(reimportRequestsContainBundleIdentifier_uniqueIdentifier__noCache) - 25}];
   }
 
 LABEL_29:
@@ -7643,20 +7592,19 @@ uint64_t __72__SGSqlEntityStore_ReimportRequests__loadUnseenReimportItemsForRequ
 
 uint64_t __72__SGSqlEntityStore_ReimportRequests__loadUnseenReimportItemsForRequest___block_invoke_3(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 134218242;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to load unseen reimport items for request: %llu: %@", &v8, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 134218242;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to load unseen reimport items for request: %llu: %@", &v7, 0x16u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -7715,17 +7663,16 @@ uint64_t __75__SGSqlEntityStore_ReimportRequests___loadReimportRequestsWithWhere
 
 uint64_t __75__SGSqlEntityStore_ReimportRequests___loadReimportRequestsWithWhereClause___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "failed to load unqueried reimport requests: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "failed to load unqueried reimport requests: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -7779,23 +7726,22 @@ uint64_t __94__SGSqlEntityStore_ReimportRequests__updateReimportItemUniqueIdForB
 
 uint64_t __94__SGSqlEntityStore_ReimportRequests__updateReimportItemUniqueIdForBundleId_oldValue_newValue___block_invoke_3(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = 138412802;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to update reimport uniqueId item from %@ to %@: %@", &v9, 0x20u);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to update reimport uniqueId item from %@ to %@: %@", &v8, 0x20u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -7848,23 +7794,22 @@ uint64_t __92__SGSqlEntityStore_ReimportRequests__markReimportItemAsSeenByReceiv
 
 uint64_t __92__SGSqlEntityStore_ReimportRequests__markReimportItemAsSeenByReceiverWithBundleId_uniqueId___block_invoke_3(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = 138412802;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to mark reimport item %@/%@ as seen: %@", &v9, 0x20u);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to mark reimport item %@/%@ as seen: %@", &v8, 0x20u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -7917,23 +7862,22 @@ void __90__SGSqlEntityStore_ReimportRequests__markReimportItemsAsSeenByReceiverW
 
 uint64_t __90__SGSqlEntityStore_ReimportRequests__markReimportItemsAsSeenByReceiverWithBundleId_items___block_invoke_4(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = [*(a1 + 32) count];
-    v8 = *(a1 + 40);
-    v9 = 134218498;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to mark %tu reimport items for %@ as seen: %@", &v9, 0x20u);
+    v6 = objc_msgSend_count(*(a1 + 32));
+    v7 = *(a1 + 40);
+    v8 = 134218498;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to mark %tu reimport items for %@ as seen: %@", &v8, 0x20u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -7978,20 +7922,19 @@ uint64_t __81__SGSqlEntityStore_ReimportRequests__markReimportRequestAsExecutedW
 
 uint64_t __81__SGSqlEntityStore_ReimportRequests__markReimportRequestAsExecutedWithRequestId___block_invoke_3(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 134218242;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to mark reimport request %llu as executed: %@", &v8, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 134218242;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to mark reimport request %llu as executed: %@", &v7, 0x16u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -8126,20 +8069,19 @@ uint64_t __67__SGSqlEntityStore_ReimportRequests__storeReimportItems_requestId__
 
 uint64_t __67__SGSqlEntityStore_ReimportRequests__storeReimportItems_requestId___block_invoke_3(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 134218242;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to mark reimport request %llu as queried: %@", &v8, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 134218242;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to mark reimport request %llu as queried: %@", &v7, 0x16u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -8220,20 +8162,19 @@ void __59__SGSqlEntityStore_ReimportRequests__storeReimportRequest___block_invok
 
 uint64_t __59__SGSqlEntityStore_ReimportRequests__storeReimportRequest___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to store reimport request: %@: %@", &v8, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "failed to store reimport request: %@: %@", &v7, 0x16u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -8441,7 +8382,7 @@ LABEL_13:
     [currentHandler handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Deleting.m" lineNumber:887 description:{@"Invalid parameter not satisfying: %@", @"bundleId"}];
   }
 
-  if ([identifiersCopy count])
+  if (objc_msgSend_count(identifiersCopy))
   {
     v8 = sgMap();
     v9 = [(SGSqlEntityStore *)self duplicateKeysMatchingInteractionBundleId:idCopy andTags:v8];
@@ -8459,7 +8400,7 @@ LABEL_13:
     [currentHandler handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Deleting.m" lineNumber:874 description:{@"Invalid parameter not satisfying: %@", @"bundleId"}];
   }
 
-  if ([identifiersCopy count])
+  if (objc_msgSend_count(identifiersCopy))
   {
     v8 = sgMap();
     v9 = [(SGSqlEntityStore *)self duplicateKeysMatchingInteractionBundleId:idCopy andTags:v8];
@@ -8481,6 +8422,40 @@ LABEL_13:
 
   v6 = [MEMORY[0x277D01FA0] interactionBundleId:idCopy];
   [(SGSqlEntityStore *)self deleteItemsWithEntityTag:v6 preserveEventConfirmationHistory:0];
+}
+
+- (void)deleteItemsWithEntityTag:(id)tag preserveEventConfirmationHistory:(BOOL)history
+{
+  historyCopy = history;
+  tagCopy = tag;
+  if (!tagCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Deleting.m" lineNumber:847 description:{@"Invalid parameter not satisfying: %@", @"tag"}];
+  }
+
+  if (([tagCopy indexed] & 1) == 0)
+  {
+    currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler2 handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Deleting.m" lineNumber:848 description:{@"Invalid parameter not satisfying: %@", @"tag.indexed"}];
+  }
+
+  v8 = objc_opt_new();
+  db = self->_db;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __88__SGSqlEntityStore_Deleting__deleteItemsWithEntityTag_preserveEventConfirmationHistory___block_invoke;
+  v16[3] = &unk_278955E30;
+  v17 = tagCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __88__SGSqlEntityStore_Deleting__deleteItemsWithEntityTag_preserveEventConfirmationHistory___block_invoke_2;
+  v14[3] = &unk_278955A20;
+  v15 = v8;
+  v10 = v8;
+  v11 = tagCopy;
+  [(SGSqliteDatabase *)db prepAndRunSQL:@"SELECT entityKey onPrep:entityType onRow:parentKey FROM entityTags WHERE tag = :tag" onError:v16, v14, 0];
+  [(SGSqlEntityStore *)self deleteEntitiesByDuplicateKey:v10 preserveEventConfirmationHistory:historyCopy emitChangeNotifications:1];
 }
 
 void __88__SGSqlEntityStore_Deleting__deleteItemsWithEntityTag_preserveEventConfirmationHistory___block_invoke(uint64_t a1, void *a2)
@@ -8616,7 +8591,7 @@ uint64_t __92__SGSqlEntityStore_Deleting__deleteInteractionEntitiesExceedingLimi
 {
   keyCopy = key;
   [(SGSqlEntityStore *)self deleteEntitiesByDuplicateKey:keyCopy emitChangeNotifications:1];
-  v5 = [keyCopy count];
+  v5 = objc_msgSend_count(keyCopy);
 
   [SGAggregateLogging messagesDeleted:v5];
 }
@@ -8624,17 +8599,17 @@ uint64_t __92__SGSqlEntityStore_Deleting__deleteInteractionEntitiesExceedingLimi
 - (void)deleteEntitiesByDuplicateKey:(id)key preserveEventConfirmationHistory:(BOOL)history emitChangeNotifications:(BOOL)notifications
 {
   notificationsCopy = notifications;
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  if ([keyCopy count])
+  if (objc_msgSend_count(keyCopy))
   {
-    v45 = a2;
+    v44 = a2;
     selfCopy = self;
     v8 = sgLogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218243;
-      *&buf[4] = [keyCopy count];
+      *&buf[4] = objc_msgSend_count(keyCopy);
       *&buf[12] = 2113;
       *&buf[14] = keyCopy;
       _os_log_impl(&dword_231E60000, v8, OS_LOG_TYPE_DEFAULT, "Deleting entities by duplicate key (duplicateKeys count = %tu): %{private}@", buf, 0x16u);
@@ -8642,25 +8617,25 @@ uint64_t __92__SGSqlEntityStore_Deleting__deleteInteractionEntitiesExceedingLimi
 
     v9 = objc_opt_new();
     v10 = objc_opt_new();
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     v11 = keyCopy;
-    v12 = [v11 countByEnumeratingWithState:&v64 objects:v74 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v63 objects:v73 count:16];
     if (v12)
     {
-      v13 = *v65;
+      v13 = *v64;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v65 != v13)
+          if (*v64 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v64 + 1) + 8 * i);
+          v15 = *(*(&v63 + 1) + 8 * i);
           parentKey = [v15 parentKey];
 
           if (parentKey)
@@ -8676,7 +8651,7 @@ uint64_t __92__SGSqlEntityStore_Deleting__deleteInteractionEntitiesExceedingLimi
           [v17 addObject:v15];
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v64 objects:v74 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v63 objects:v73 count:16];
       }
 
       while (v12);
@@ -8684,25 +8659,25 @@ uint64_t __92__SGSqlEntityStore_Deleting__deleteInteractionEntitiesExceedingLimi
 
     if (!history)
     {
-      v62 = 0u;
-      v63 = 0u;
-      v60 = 0u;
       v61 = 0u;
+      v62 = 0u;
+      v59 = 0u;
+      v60 = 0u;
       v18 = v10;
-      v19 = [v18 countByEnumeratingWithState:&v60 objects:v73 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v59 objects:v72 count:16];
       if (v19)
       {
-        v20 = *v61;
+        v20 = *v60;
         do
         {
           for (j = 0; j != v19; ++j)
           {
-            if (*v61 != v20)
+            if (*v60 != v20)
             {
               objc_enumerationMutation(v18);
             }
 
-            v22 = *(*(&v60 + 1) + 8 * j);
+            v22 = *(*(&v59 + 1) + 8 * j);
             if ([v22 entityType] == 2)
             {
               v23 = [(SGSqlEntityStore *)selfCopy loadEventByDuplicateKey:v22];
@@ -8719,7 +8694,7 @@ uint64_t __92__SGSqlEntityStore_Deleting__deleteInteractionEntitiesExceedingLimi
             }
           }
 
-          v19 = [v18 countByEnumeratingWithState:&v60 objects:v73 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v59 objects:v72 count:16];
         }
 
         while (v19);
@@ -8730,35 +8705,35 @@ uint64_t __92__SGSqlEntityStore_Deleting__deleteInteractionEntitiesExceedingLimi
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v70 = __Block_byref_object_copy__16775;
-    v71 = __Block_byref_object_dispose__16776;
-    v72 = 0;
+    v69 = __Block_byref_object_copy__16775;
+    v70 = __Block_byref_object_dispose__16776;
+    v71 = 0;
     db = selfCopy->_db;
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __116__SGSqlEntityStore_Deleting__deleteEntitiesByDuplicateKey_preserveEventConfirmationHistory_emitChangeNotifications___block_invoke;
-    v53[3] = &unk_27894E398;
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __116__SGSqlEntityStore_Deleting__deleteEntitiesByDuplicateKey_preserveEventConfirmationHistory_emitChangeNotifications___block_invoke;
+    v52[3] = &unk_27894E398;
     v29 = v27;
-    v54 = v29;
-    v55 = selfCopy;
-    v44 = v10;
-    v56 = v44;
-    v43 = v9;
-    v57 = v43;
-    v58 = buf;
-    v59 = v45;
-    [(SGSqliteDatabase *)db writeTransaction:v53];
+    v53 = v29;
+    v54 = selfCopy;
+    v43 = v10;
+    v55 = v43;
+    v42 = v9;
+    v56 = v42;
+    v57 = buf;
+    v58 = v44;
+    [(SGSqliteDatabase *)db writeTransaction:v52];
     kvCacheManager = [(SGSqlEntityStore *)selfCopy kvCacheManager];
     [kvCacheManager deleteValueByRecordIdSet:v29];
 
     if (notificationsCopy)
     {
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
       v31 = v11;
-      v32 = [v31 countByEnumeratingWithState:&v49 objects:v68 count:16];
+      v32 = [v31 countByEnumeratingWithState:&v48 objects:v67 count:16];
       if (!v32)
       {
 
@@ -8768,17 +8743,17 @@ uint64_t __92__SGSqlEntityStore_Deleting__deleteInteractionEntitiesExceedingLimi
       v33 = 0;
       v34 = 0;
       v35 = 0;
-      v36 = *v50;
+      v36 = *v49;
 LABEL_32:
       v37 = 0;
       while (1)
       {
-        if (*v50 != v36)
+        if (*v49 != v36)
         {
           objc_enumerationMutation(v31);
         }
 
-        v38 = *(*(&v49 + 1) + 8 * v37);
+        v38 = *(*(&v48 + 1) + 8 * v37);
         parentKey2 = [v38 parentKey];
         v40 = parentKey2 == 0;
 
@@ -8805,7 +8780,7 @@ LABEL_32:
 
         if (v32 == ++v37)
         {
-          v32 = [v31 countByEnumeratingWithState:&v49 objects:v68 count:16];
+          v32 = [v31 countByEnumeratingWithState:&v48 objects:v67 count:16];
           if (v32)
           {
             goto LABEL_32;
@@ -8842,8 +8817,6 @@ LABEL_52:
 
     _Block_object_dispose(buf, 8);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __116__SGSqlEntityStore_Deleting__deleteEntitiesByDuplicateKey_preserveEventConfirmationHistory_emitChangeNotifications___block_invoke(uint64_t a1)
@@ -8861,19 +8834,17 @@ void __116__SGSqlEntityStore_Deleting__deleteEntitiesByDuplicateKey_preserveEven
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
 
-  v16 = MEMORY[0x277D85DD0];
-  v9 = *(a1 + 32);
-  v17 = *(a1 + 40);
-  v18 = *(a1 + 72);
+  v14 = MEMORY[0x277D85DD0];
+  v15 = *(a1 + 40);
+  v16 = *(a1 + 72);
+  v9 = sgMap();
+  [*(a1 + 40) removeSnippetsForEntities:v9];
+  v11 = MEMORY[0x277D85DD0];
+  v12 = *(a1 + 40);
+  v13 = *(a1 + 72);
   v10 = sgMap();
-  [*(a1 + 40) removeSnippetsForEntities:v10];
-  v11 = *(*(*(a1 + 64) + 8) + 40);
-  v13 = MEMORY[0x277D85DD0];
-  v14 = *(a1 + 40);
-  v15 = *(a1 + 72);
-  v12 = sgMap();
 
-  [*(a1 + 40) _removeSnippetsForEmails:{v12, v13, 3221225472, __116__SGSqlEntityStore_Deleting__deleteEntitiesByDuplicateKey_preserveEventConfirmationHistory_emitChangeNotifications___block_invoke_3, &unk_27894E370, v14, v15, v16, 3221225472, __116__SGSqlEntityStore_Deleting__deleteEntitiesByDuplicateKey_preserveEventConfirmationHistory_emitChangeNotifications___block_invoke_2, &unk_27894E370, v17, v18}];
+  [*(a1 + 40) _removeSnippetsForEmails:{v10, v11, 3221225472, __116__SGSqlEntityStore_Deleting__deleteEntitiesByDuplicateKey_preserveEventConfirmationHistory_emitChangeNotifications___block_invoke_3, &unk_27894E370, v12, v13, v14, 3221225472, __116__SGSqlEntityStore_Deleting__deleteEntitiesByDuplicateKey_preserveEventConfirmationHistory_emitChangeNotifications___block_invoke_2, &unk_27894E370, v15, v16}];
 }
 
 id __116__SGSqlEntityStore_Deleting__deleteEntitiesByDuplicateKey_preserveEventConfirmationHistory_emitChangeNotifications___block_invoke_2(uint64_t a1, void *a2)
@@ -8907,7 +8878,7 @@ id __116__SGSqlEntityStore_Deleting__deleteEntitiesByDuplicateKey_preserveEventC
 - (id)_deleteMessageMetadataByDuplicateKeyNoRecurse:(id)recurse
 {
   recurseCopy = recurse;
-  if ([recurseCopy count])
+  if (objc_msgSend_count(recurseCopy))
   {
     db = self->_db;
     v17[0] = MEMORY[0x277D85DD0];
@@ -8973,7 +8944,7 @@ id __76__SGSqlEntityStore_Deleting___deleteMessageMetadataByDuplicateKeyNoRecurs
 - (void)_deleteEventsByRecordIds:(id)ids
 {
   idsCopy = ids;
-  if ([idsCopy count])
+  if (objc_msgSend_count(idsCopy))
   {
     v5 = sgMap();
     db = self->_db;
@@ -9016,7 +8987,7 @@ uint64_t __55__SGSqlEntityStore_Deleting___deleteEventsByRecordIds___block_invok
 - (void)_deleteContactDetailsByRecordIds:(id)ids
 {
   idsCopy = ids;
-  if ([idsCopy count])
+  if (objc_msgSend_count(idsCopy))
   {
     v5 = sgMap();
     db = self->_db;
@@ -9049,7 +9020,7 @@ uint64_t __63__SGSqlEntityStore_Deleting___deleteContactDetailsByRecordIds___blo
 - (void)_deleteRemindersByRecordIds:(id)ids
 {
   idsCopy = ids;
-  if ([idsCopy count])
+  if (objc_msgSend_count(idsCopy))
   {
     v5 = sgMap();
     db = self->_db;
@@ -9082,7 +9053,7 @@ uint64_t __58__SGSqlEntityStore_Deleting___deleteRemindersByRecordIds___block_in
 - (id)_deleteEntitiesByDuplicateKeyNoRecurse:(id)recurse
 {
   recurseCopy = recurse;
-  if ([recurseCopy count])
+  if (objc_msgSend_count(recurseCopy))
   {
     v5 = sgMapSelector();
     v10[0] = MEMORY[0x277D85DD0];
@@ -9110,18 +9081,18 @@ uint64_t __58__SGSqlEntityStore_Deleting___deleteRemindersByRecordIds___block_in
 
 - (id)_derefChildrenOf:(id)of
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   ofCopy = of;
-  if ([ofCopy count])
+  if (objc_msgSend_count(ofCopy))
   {
     v5 = sgMapSelector();
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __47__SGSqlEntityStore_Deleting___derefChildrenOf___block_invoke;
-    v13[3] = &unk_278955E30;
-    v14 = v5;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __47__SGSqlEntityStore_Deleting___derefChildrenOf___block_invoke;
+    v12[3] = &unk_278955E30;
+    v13 = v5;
     v6 = v5;
-    v7 = MEMORY[0x2383809F0](v13);
+    v7 = MEMORY[0x2383809F0](v12);
     [(SGSqliteDatabase *)self->_db prepAndRunSQL:@"DROP TABLE IF EXISTS childrenOfRemovedParents" onPrep:0 onRow:0 onError:0];
     [(SGSqliteDatabase *)self->_db prepAndRunSQL:@"CREATE TEMP TABLE childrenOfRemovedParents (id INTEGER PRIMARY KEY)" onPrep:0 onRow:0 onError:0];
     [(SGSqliteDatabase *)self->_db prepAndRunSQL:@"INSERT INTO childrenOfRemovedParents SELECT DISTINCT childId FROM entityParentage WHERE parentKey IN _pas_nsarray(:keys)" onPrep:v7 onRow:0 onError:0];
@@ -9129,10 +9100,10 @@ uint64_t __58__SGSqlEntityStore_Deleting___deleteRemindersByRecordIds___block_in
     [(SGSqliteDatabase *)self->_db prepAndRunSQL:@"CREATE TEMP TABLE childrenWithRemainingParents (id INTEGER PRIMARY KEY)" onPrep:0 onRow:0 onError:0];
     [(SGSqliteDatabase *)self->_db prepAndRunSQL:@"INSERT INTO childrenWithRemainingParents SELECT DISTINCT cr.id FROM childrenOfRemovedParents AS cr CROSS JOIN entityParentage AS ep ON cr.id = ep.childId WHERE ep.parentKey NOT IN _pas_nsarray(:keys)" onPrep:v7 onRow:0 onError:0];
     db = self->_db;
-    v15[0] = @"DROP TABLE IF EXISTS childrenToRemove";
-    v15[1] = @"CREATE TEMP TABLE childrenToRemove (id INTEGER PRIMARY KEY)";
-    v15[2] = @"INSERT INTO childrenToRemove SELECT id FROM childrenOfRemovedParents      WHERE id NOT IN (SELECT id FROM childrenWithRemainingParents)";
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+    v14[0] = @"DROP TABLE IF EXISTS childrenToRemove";
+    v14[1] = @"CREATE TEMP TABLE childrenToRemove (id INTEGER PRIMARY KEY)";
+    v14[2] = @"INSERT INTO childrenToRemove SELECT id FROM childrenOfRemovedParents      WHERE id NOT IN (SELECT id FROM childrenWithRemainingParents)";
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
     [(SGSqliteDatabase *)db prepAndRunNonDataQueries:v9 onError:0];
 
     v10 = [(SGSqlEntityStore *)self _deleteChildEntitiesByRecordIdsInTable:@"childrenToRemove"];
@@ -9147,52 +9118,50 @@ uint64_t __58__SGSqlEntityStore_Deleting___deleteRemindersByRecordIds___block_in
     v10 = objc_opt_new();
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)_deleteChildEntitiesByRecordIdsInTable:(id)table
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   tableCopy = table;
   v5 = objc_opt_new();
   db = self->_db;
   tableCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT DISTINCT id FROM %@", tableCopy];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __69__SGSqlEntityStore_Deleting___deleteChildEntitiesByRecordIdsInTable___block_invoke;
-  v35[3] = &unk_278954708;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __69__SGSqlEntityStore_Deleting___deleteChildEntitiesByRecordIdsInTable___block_invoke;
+  v34[3] = &unk_278954708;
   v8 = v5;
-  v36 = v8;
-  [(SGSqliteDatabase *)db prepAndRunQuery:tableCopy onPrep:0 onRow:v35 onError:0];
+  v35 = v8;
+  [(SGSqliteDatabase *)db prepAndRunQuery:tableCopy onPrep:0 onRow:v34 onError:0];
 
   [(SGSqlEntityStore *)self _recordPseudoContactsWithDeletedDetailsInTable:@"pseudoContactsWithDeletedDetails" deletedChildrenTable:tableCopy];
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v31 objects:v38 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v30 objects:v37 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v32;
+    v12 = *v31;
     do
     {
       v13 = 0;
       do
       {
-        if (*v32 != v12)
+        if (*v31 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [(SGSqlEntityStore *)self deleteByRecordId:*(*(&v31 + 1) + 8 * v13++)];
+        [(SGSqlEntityStore *)self deleteByRecordId:*(*(&v30 + 1) + 8 * v13++)];
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v31 objects:v38 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v30 objects:v37 count:16];
     }
 
     while (v11);
@@ -9204,18 +9173,18 @@ uint64_t __58__SGSqlEntityStore_Deleting___deleteRemindersByRecordIds___block_in
   tableCopy2 = [v14 initWithFormat:@"%@ FROM %@ AS c CROSS JOIN entity AS e ON c.id = e.id CROSS JOIN entityParentage AS ep ON e.id = ep.childId WHERE e.entityType = :pseudoevent OR e.entityType = :pseudoreminder", columnQueryPrefixSelect, tableCopy];
 
   v17 = self->_db;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __69__SGSqlEntityStore_Deleting___deleteChildEntitiesByRecordIdsInTable___block_invoke_3;
-  v30[3] = &unk_278954708;
-  v30[4] = self;
-  [(SGSqliteDatabase *)v17 prepAndRunQuery:tableCopy2 onPrep:&__block_literal_global_121_16884 onRow:v30 onError:0];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __69__SGSqlEntityStore_Deleting___deleteChildEntitiesByRecordIdsInTable___block_invoke_3;
+  v29[3] = &unk_278954708;
+  v29[4] = self;
+  [(SGSqliteDatabase *)v17 prepAndRunQuery:tableCopy2 onPrep:&__block_literal_global_121_16884 onRow:v29 onError:0];
   v18 = self->_db;
   tableCopy3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"DELETE FROM entity WHERE id IN (SELECT id FROM %@)", tableCopy];
-  v37[0] = tableCopy3;
+  v36[0] = tableCopy3;
   tableCopy4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"DELETE FROM entity_fts WHERE docid IN (SELECT id FROM %@)", tableCopy];
-  v37[1] = tableCopy4;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+  v36[1] = tableCopy4;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
   [(SGSqliteDatabase *)v18 prepAndRunNonDataQueries:v21 onError:0];
 
   [(SGSqlEntityStore *)self _deleteRemindersByRecordIds:v9];
@@ -9224,18 +9193,17 @@ uint64_t __58__SGSqlEntityStore_Deleting___deleteRemindersByRecordIds___block_in
   v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT masterEntityId FROM %@", @"pseudoContactsWithDeletedDetails"];
 
   v23 = self->_db;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __69__SGSqlEntityStore_Deleting___deleteChildEntitiesByRecordIdsInTable___block_invoke_4;
-  v29[3] = &unk_278954708;
-  v29[4] = self;
-  [(SGSqliteDatabase *)v23 prepAndRunQuery:v22 onPrep:0 onRow:v29 onError:0];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __69__SGSqlEntityStore_Deleting___deleteChildEntitiesByRecordIdsInTable___block_invoke_4;
+  v28[3] = &unk_278954708;
+  v28[4] = self;
+  [(SGSqliteDatabase *)v23 prepAndRunQuery:v22 onPrep:0 onRow:v28 onError:0];
   v24 = self->_db;
   v25 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"DROP TABLE %@", @"pseudoContactsWithDeletedDetails"];
   [(SGSqliteDatabase *)v24 prepAndRunQuery:v25 onPrep:0 onRow:0 onError:0];
 
   v26 = v9;
-  v27 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -9291,23 +9259,22 @@ uint64_t __69__SGSqlEntityStore_Deleting___deleteChildEntitiesByRecordIdsInTable
 
 - (void)_recordPseudoContactsWithDeletedDetailsInTable:(id)table deletedChildrenTable:(id)childrenTable
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   db = self->_db;
   v7 = MEMORY[0x277CCACA8];
   childrenTableCopy = childrenTable;
   tableCopy = table;
   tableCopy = [[v7 alloc] initWithFormat:@"DROP TABLE IF EXISTS %@", tableCopy];
-  v16[0] = tableCopy;
+  v15[0] = tableCopy;
   tableCopy2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"CREATE TEMP TABLE %@ (masterEntityId INTEGER PRIMARY KEY)", tableCopy];
-  v16[1] = tableCopy2;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[1] = tableCopy2;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   [(SGSqliteDatabase *)db prepAndRunNonDataQueries:v12 onError:0];
 
   v13 = objc_alloc(MEMORY[0x277CCACA8]);
-  v14 = [v13 initWithFormat:@"INSERT OR IGNORE INTO %@ SELECT e.masterEntityId FROM %@ AS cr CROSS JOIN entity AS e ON e.id = cr.id WHERE e.entityType IN (:email, :phone, :address, :birthday, :socialProfile)   AND e.masterEntityId > 0   AND e.masterEntityId NOT IN (SELECT id FROM %@)", tableCopy, childrenTableCopy, childrenTableCopy, v16[0]];
+  v14 = [v13 initWithFormat:@"INSERT OR IGNORE INTO %@ SELECT e.masterEntityId FROM %@ AS cr CROSS JOIN entity AS e ON e.id = cr.id WHERE e.entityType IN (:email, :phone, :address, :birthday, :socialProfile)   AND e.masterEntityId > 0   AND e.masterEntityId NOT IN (SELECT id FROM %@)", tableCopy, childrenTableCopy, childrenTableCopy, v15[0]];
 
   [(SGSqliteDatabase *)self->_db prepAndRunQuery:v14 onPrep:&__block_literal_global_103 onRow:0 onError:0];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __98__SGSqlEntityStore_Deleting___recordPseudoContactsWithDeletedDetailsInTable_deletedChildrenTable___block_invoke(uint64_t a1, uint64_t a2)
@@ -9363,40 +9330,40 @@ uint64_t __52__SGSqlEntityStore_Deleting__childrenFromParentKey___block_invoke_2
 
 - (void)deleteMessages:(id)messages
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   v5 = sgMap();
   v6 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = [(SGSqlEntityStore *)self duplicateKeysMatchingAnyTag:v5, 0];
   allValues = [v7 allValues];
 
-  v9 = [allValues countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v9 = [allValues countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       v12 = 0;
       do
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(allValues);
         }
 
-        allObjects = [*(*(&v19 + 1) + 8 * v12) allObjects];
+        allObjects = [*(*(&v18 + 1) + 8 * v12) allObjects];
         [v6 addObjectsFromArray:allObjects];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [allValues countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v10 = [allValues countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v10);
@@ -9405,16 +9372,16 @@ uint64_t __52__SGSqlEntityStore_Deleting__childrenFromParentKey___block_invoke_2
   allObjects2 = [messagesCopy allObjects];
   v15 = [allObjects2 _pas_mappedArrayWithTransform:&__block_literal_global_88];
 
-  if ([v15 count])
+  if (objc_msgSend_count(v15))
   {
     v16 = sgLogHandle();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = [v15 count];
+      v17 = objc_msgSend_count(v15);
       *buf = 134218242;
-      v24 = v17;
-      v25 = 2112;
-      v26 = v15;
+      v23 = v17;
+      v24 = 2112;
+      v25 = v15;
       _os_log_impl(&dword_231E60000, v16, OS_LOG_TYPE_DEFAULT, "Deleting Mail Intelligence data for %tu messages (%@)", buf, 0x16u);
     }
 
@@ -9422,13 +9389,11 @@ uint64_t __52__SGSqlEntityStore_Deleting__childrenFromParentKey___block_invoke_2
   }
 
   [(SGSqlEntityStore *)self deleteMessagesByDuplicateKey:v6];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pruneNLEventEntitiesOlderThan:(SGUnixTimestamp_)than
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   showPastEvents = [MEMORY[0x277D02098] showPastEvents];
   v6 = sgLogHandle();
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
@@ -9455,41 +9420,39 @@ uint64_t __52__SGSqlEntityStore_Deleting__childrenFromParentKey___block_invoke_2
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__16775;
-    v25 = __Block_byref_object_dispose__16776;
-    v26 = objc_opt_new();
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__16775;
+    v24 = __Block_byref_object_dispose__16776;
+    v25 = objc_opt_new();
     v10 = [(SGSqlEntityStore *)self selectEntityQuery:@"WHERE e.timeRangeEnd < :timeRangeEnd AND e.entityType = :entityType"];
     db = self->_db;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __60__SGSqlEntityStore_Deleting__pruneNLEventEntitiesOlderThan___block_invoke;
-    v17[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-    v17[4] = *&than.secondsFromUnixEpoch;
     v16[0] = MEMORY[0x277D85DD0];
     v16[1] = 3221225472;
-    v16[2] = __60__SGSqlEntityStore_Deleting__pruneNLEventEntitiesOlderThan___block_invoke_2;
-    v16[3] = &unk_278955878;
-    v16[4] = self;
-    v16[5] = &buf;
-    [(SGSqliteDatabase *)db prepAndRunQuery:v10 onPrep:v17 onRow:v16 onError:0];
+    v16[2] = __60__SGSqlEntityStore_Deleting__pruneNLEventEntitiesOlderThan___block_invoke;
+    v16[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+    v16[4] = *&than.secondsFromUnixEpoch;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __60__SGSqlEntityStore_Deleting__pruneNLEventEntitiesOlderThan___block_invoke_2;
+    v15[3] = &unk_278955878;
+    v15[4] = self;
+    v15[5] = &buf;
+    [(SGSqliteDatabase *)db prepAndRunQuery:v10 onPrep:v16 onRow:v15 onError:0];
     v12 = sgLogHandle();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [*(*(&buf + 1) + 40) count];
+      v13 = objc_msgSend_count(*(*(&buf + 1) + 40));
       v14 = *(*(&buf + 1) + 40);
-      *v18 = 134218243;
-      v19 = v13;
-      v20 = 2113;
-      v21 = v14;
-      _os_log_impl(&dword_231E60000, v12, OS_LOG_TYPE_DEFAULT, "NL Event entities to delete (%tu) %{private}@", v18, 0x16u);
+      *v17 = 134218243;
+      v18 = v13;
+      v19 = 2113;
+      v20 = v14;
+      _os_log_impl(&dword_231E60000, v12, OS_LOG_TYPE_DEFAULT, "NL Event entities to delete (%tu) %{private}@", v17, 0x16u);
     }
 
     [(SGSqlEntityStore *)self deleteEntitiesByDuplicateKey:*(*(&buf + 1) + 40) emitChangeNotifications:1];
     _Block_object_dispose(&buf, 8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __60__SGSqlEntityStore_Deleting__pruneNLEventEntitiesOlderThan___block_invoke(uint64_t a1, uint64_t a2)
@@ -9508,7 +9471,7 @@ uint64_t __60__SGSqlEntityStore_Deleting__pruneNLEventEntitiesOlderThan___block_
     v5 = [v3 duplicateKey];
     v6 = [v5 parentKey];
     v7 = [v4 childrenFromParentKey:v6];
-    v8 = [v7 count];
+    v8 = objc_msgSend_count(v7);
 
     v9 = *(*(*(a1 + 40) + 8) + 40);
     v10 = [v3 duplicateKey];
@@ -9530,7 +9493,7 @@ uint64_t __60__SGSqlEntityStore_Deleting__pruneNLEventEntitiesOlderThan___block_
 
 - (void)pruneReminders
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSince1970];
@@ -9538,32 +9501,31 @@ uint64_t __60__SGSqlEntityStore_Deleting__pruneNLEventEntitiesOlderThan___block_
 
   v7 = [(SGSqlEntityStore *)self selectEntityQuery:@"WHERE ((e.timeRangeEnd < :timeRangeEnd AND e.timeRangeEnd != 0) OR (e.timeRangeEnd == 0 AND e.creationTimestamp < :creationTimestamp)) AND e.entityType = :entityType"];
   db = self->_db;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __44__SGSqlEntityStore_Deleting__pruneReminders__block_invoke;
-  v15[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-  *&v15[4] = v6 + -604800.0;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __44__SGSqlEntityStore_Deleting__pruneReminders__block_invoke_2;
-  v13[3] = &unk_278954818;
-  v13[4] = self;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __44__SGSqlEntityStore_Deleting__pruneReminders__block_invoke;
+  v14[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+  *&v14[4] = v6 + -604800.0;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __44__SGSqlEntityStore_Deleting__pruneReminders__block_invoke_2;
+  v12[3] = &unk_278954818;
+  v12[4] = self;
   v9 = v3;
-  v14 = v9;
-  [(SGSqliteDatabase *)db prepAndRunQuery:v7 onPrep:v15 onRow:v13 onError:0];
+  v13 = v9;
+  [(SGSqliteDatabase *)db prepAndRunQuery:v7 onPrep:v14 onRow:v12 onError:0];
   v10 = sgRemindersLogHandle();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v11 = [v9 count];
+    v11 = objc_msgSend_count(v9);
     *buf = 134218242;
-    v17 = v11;
-    v18 = 2112;
-    v19 = v9;
+    v16 = v11;
+    v17 = 2112;
+    v18 = v9;
     _os_log_impl(&dword_231E60000, v10, OS_LOG_TYPE_INFO, "PseudoReminders to prune (%lu), %@", buf, 0x16u);
   }
 
   [(SGSqlEntityStore *)self deleteEntitiesByDuplicateKey:v9 emitChangeNotifications:1];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__SGSqlEntityStore_Deleting__pruneReminders__block_invoke(uint64_t a1, uint64_t a2)
@@ -9581,7 +9543,7 @@ uint64_t __44__SGSqlEntityStore_Deleting__pruneReminders__block_invoke_2(uint64_
   v5 = [v3 duplicateKey];
   v6 = [v5 parentKey];
   v7 = [v4 childrenFromParentKey:v6];
-  v8 = [v7 count];
+  v8 = objc_msgSend_count(v7);
 
   v9 = *(a1 + 40);
   v10 = [v3 duplicateKey];
@@ -9611,7 +9573,7 @@ uint64_t __44__SGSqlEntityStore_Deleting__pruneReminders__block_invoke_2(uint64_
 
 - (void)pruneDuplicateEventExtractions:(id)extractions
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   extractionsCopy = extractions;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -9622,56 +9584,54 @@ uint64_t __44__SGSqlEntityStore_Deleting__pruneReminders__block_invoke_2(uint64_
 
   v6 = objc_opt_new();
   db = self->_db;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __61__SGSqlEntityStore_Deleting__pruneDuplicateEventExtractions___block_invoke_2;
-  v24[3] = &unk_278955A20;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __61__SGSqlEntityStore_Deleting__pruneDuplicateEventExtractions___block_invoke_2;
+  v23[3] = &unk_278955A20;
   v8 = v6;
-  v25 = v8;
-  [(SGSqliteDatabase *)db prepAndRunSQL:@"SELECT entityKey FROM entity WHERE entityType = :entityType GROUP BY entityKey having(COUNT(entityKey) > 1)" onPrep:&__block_literal_global_16941 onRow:v24 onError:0];
+  v24 = v8;
+  [(SGSqliteDatabase *)db prepAndRunSQL:@"SELECT entityKey FROM entity WHERE entityType = :entityType GROUP BY entityKey having(COUNT(entityKey) > 1)" onPrep:&__block_literal_global_16941 onRow:v23 onError:0];
   v9 = objc_opt_new();
   v10 = self->_db;
   v11 = [(SGSqlEntityStore *)self selectEntityQuery:@"WHERE e.entityKey in _pas_nsarray(:candidateEntityKeys) AND e.entityType = :entityType"];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __61__SGSqlEntityStore_Deleting__pruneDuplicateEventExtractions___block_invoke_3;
-  v22[3] = &unk_278955E30;
-  v23 = v8;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __61__SGSqlEntityStore_Deleting__pruneDuplicateEventExtractions___block_invoke_4;
-  v19[3] = &unk_278950878;
-  v19[4] = self;
-  v20 = extractionsCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __61__SGSqlEntityStore_Deleting__pruneDuplicateEventExtractions___block_invoke_3;
+  v21[3] = &unk_278955E30;
+  v22 = v8;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __61__SGSqlEntityStore_Deleting__pruneDuplicateEventExtractions___block_invoke_4;
+  v18[3] = &unk_278950878;
+  v18[4] = self;
+  v19 = extractionsCopy;
   v12 = v9;
-  v21 = v12;
+  v20 = v12;
   v13 = extractionsCopy;
   v14 = v8;
-  [(SGSqliteDatabase *)v10 prepAndRunSQL:v11 onPrep:v22 onRow:v19 onError:0];
+  [(SGSqliteDatabase *)v10 prepAndRunSQL:v11 onPrep:v21 onRow:v18 onError:0];
 
   v15 = sgLogHandle();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v27 = v12;
+    v26 = v12;
     _os_log_debug_impl(&dword_231E60000, v15, OS_LOG_TYPE_DEBUG, "entities to delete %@", buf, 0xCu);
   }
 
-  if ([v12 count])
+  if (objc_msgSend_count(v12))
   {
     v16 = sgLogHandle();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = [v12 count];
+      v17 = objc_msgSend_count(v12);
       *buf = 134349056;
-      v27 = v17;
+      v26 = v17;
       _os_log_impl(&dword_231E60000, v16, OS_LOG_TYPE_DEFAULT, "Pruning duplicate Event entities: %{public}lu", buf, 0xCu);
     }
 
     [(SGSqlEntityStore *)self deleteEntitiesByDuplicateKey:v12 emitChangeNotifications:1];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__SGSqlEntityStore_Deleting__pruneDuplicateEventExtractions___block_invoke_2(uint64_t a1, void *a2)
@@ -9694,7 +9654,7 @@ void __61__SGSqlEntityStore_Deleting__pruneDuplicateEventExtractions___block_inv
 uint64_t __61__SGSqlEntityStore_Deleting__pruneDuplicateEventExtractions___block_invoke_4(uint64_t a1, id a2)
 {
   v3 = a1;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = [v4 entityFromSqlResult:objc_msgSend(a2 withSnippets:{"stmt"), 0}];
@@ -9717,30 +9677,30 @@ uint64_t __61__SGSqlEntityStore_Deleting__pruneDuplicateEventExtractions___block
   }
 
   [*(v3 + 40) eventsWithSameOpaqueKeyAsPseudoEvent:v6 harvestStore:*(v3 + 32)];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  obj = v35 = 0u;
-  v12 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+  obj = v34 = 0u;
+  v12 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
   if (!v12)
   {
     goto LABEL_16;
   }
 
   v13 = v12;
-  v30 = v3;
-  v14 = *v33;
+  v29 = v3;
+  v14 = *v32;
   v15 = 1;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v33 != v14)
+      if (*v32 != v14)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = [*(*(&v32 + 1) + 8 * i) suggestionInfo];
+      v17 = [*(*(&v31 + 1) + 8 * i) suggestionInfo];
       v18 = [v17 uniqueKey];
       v19 = [v6 duplicateKey];
       v20 = [v19 serialize];
@@ -9754,7 +9714,7 @@ uint64_t __61__SGSqlEntityStore_Deleting__pruneDuplicateEventExtractions___block
           v23 = [v6 duplicateKey];
           v24 = [v23 serialize];
           *buf = 138412290;
-          v37 = v24;
+          v36 = v24;
           _os_log_debug_impl(&dword_231E60000, v22, OS_LOG_TYPE_DEBUG, "web-page event entity exists on calendar, don't delete: %@", buf, 0xCu);
         }
 
@@ -9762,11 +9722,11 @@ uint64_t __61__SGSqlEntityStore_Deleting__pruneDuplicateEventExtractions___block
       }
     }
 
-    v13 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+    v13 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
   }
 
   while (v13);
-  v3 = v30;
+  v3 = v29;
   if (v15)
   {
 LABEL_16:
@@ -9777,7 +9737,6 @@ LABEL_16:
   }
 
 LABEL_18:
-  v28 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
@@ -9897,7 +9856,7 @@ uint64_t __66__SGSqlEntityStore_Deleting__deleteMailIntelligenceForMessageIds___
     v16 = v10;
     v17 = 500;
     [(SGSqliteDatabase *)db prepAndRunSQL:@"SELECT messageId FROM mailIntelligence_saliency WHERE creationTimestamp < :time" onPrep:v18 onRow:v15 onError:0];
-    if (![v10 count])
+    if (!objc_msgSend_count(v10))
     {
       break;
     }
@@ -9924,7 +9883,7 @@ uint64_t __89__SGSqlEntityStore_Deleting__pruneMailIntelligenceOlderThanOneYearW
 {
   v3 = [a2 nonnullNSStringForColumnName:"messageId" table:0];
   [*(a1 + 32) addObject:v3];
-  v4 = [*(a1 + 32) count];
+  v4 = objc_msgSend_count(*(a1 + 32));
   v5 = *(a1 + 40);
   v6 = MEMORY[0x277D42690];
   v7 = MEMORY[0x277D42698];
@@ -9944,7 +9903,7 @@ uint64_t __89__SGSqlEntityStore_Deleting__pruneMailIntelligenceOlderThanOneYearW
 
 - (void)pruneEntitiesOlderThan:(SGUnixTimestamp_)than suspensionHandler:(id)handler batchSize:(unint64_t)size
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!size)
   {
@@ -9978,30 +9937,30 @@ uint64_t __89__SGSqlEntityStore_Deleting__pruneMailIntelligenceOlderThanOneYearW
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v27 = 0x2020000000;
-    v28 = -1;
+    v26 = 0x2020000000;
+    v27 = -1;
     do
     {
       v15 = objc_autoreleasePoolPush();
       v16 = objc_opt_new();
       db = self->_db;
       p_buf = &buf;
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __81__SGSqlEntityStore_Deleting__pruneEntitiesOlderThan_suspensionHandler_batchSize___block_invoke;
-      v25[3] = &unk_27894E2E8;
-      v25[5] = *&than.secondsFromUnixEpoch;
-      v25[4] = &buf;
-      v25[6] = size;
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __81__SGSqlEntityStore_Deleting__pruneEntitiesOlderThan_suspensionHandler_batchSize___block_invoke_2;
-      v22[3] = &unk_27894E310;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __81__SGSqlEntityStore_Deleting__pruneEntitiesOlderThan_suspensionHandler_batchSize___block_invoke;
+      v24[3] = &unk_27894E2E8;
+      v24[5] = *&than.secondsFromUnixEpoch;
+      v24[4] = &buf;
+      v24[6] = size;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __81__SGSqlEntityStore_Deleting__pruneEntitiesOlderThan_suspensionHandler_batchSize___block_invoke_2;
+      v21[3] = &unk_27894E310;
       v18 = v16;
-      v23 = v18;
-      [(SGSqliteDatabase *)db prepAndRunSQL:@"SELECT rowid AS minId onPrep:key FROM emailMetadata WHERE creationTimestamp < :time AND rowid > :minId ORDER BY rowid LIMIT :limit" onRow:v25 onError:v22, 0];
+      v22 = v18;
+      [(SGSqliteDatabase *)db prepAndRunSQL:@"SELECT rowid AS minId onPrep:key FROM emailMetadata WHERE creationTimestamp < :time AND rowid > :minId ORDER BY rowid LIMIT :limit" onRow:v24 onError:v21, 0];
       [(SGSqlEntityStore *)self deleteEntitiesByDuplicateKey:v18 emitChangeNotifications:1];
-      v19 = (!handlerCopy || (handlerCopy[2](handlerCopy) & 1) == 0) && [v18 count] >= size;
+      v19 = (!handlerCopy || (handlerCopy[2](handlerCopy) & 1) == 0) && objc_msgSend_count(v18) >= size;
 
       objc_autoreleasePoolPop(v15);
     }
@@ -10009,8 +9968,6 @@ uint64_t __89__SGSqlEntityStore_Deleting__pruneMailIntelligenceOlderThanOneYearW
     while (v19);
     _Block_object_dispose(&buf, 8);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __81__SGSqlEntityStore_Deleting__pruneEntitiesOlderThan_suspensionHandler_batchSize___block_invoke(double *a1, void *a2)
@@ -10049,40 +10006,38 @@ uint64_t __81__SGSqlEntityStore_Deleting__pruneEntitiesOlderThan_suspensionHandl
 {
   v12[1] = *MEMORY[0x277D85DE8];
   emailsCopy = emails;
-  if ([emailsCopy count])
+  if (objc_msgSend_count(emailsCopy))
   {
     v5 = objc_alloc(MEMORY[0x277CCACA8]);
-    v6 = qmarksSeparatedByCommas([emailsCopy count]);
-    v7 = [v5 initWithFormat:@"DELETE FROM emailSnippets WHERE emailId IN (%@)", v6];
+    v6 = objc_msgSend_count(emailsCopy);
+    v7 = qmarksSeparatedByCommas(v6);
+    v8 = [v5 initWithFormat:@"DELETE FROM emailSnippets WHERE emailId IN (%@)", v7];
 
     snippetsJournal = self->_snippetsJournal;
     v11 = @"qmarksSeparatedByCommas";
     v12[0] = emailsCopy;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-    [(SGDatabaseJournal *)snippetsJournal runQuery:v7 values:v9 onDb:self->_snippetDb];
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    [(SGDatabaseJournal *)snippetsJournal runQuery:v8 values:v10 onDb:self->_snippetDb];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeSnippetsForEntities:(id)entities
 {
   v12[1] = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
-  if ([entitiesCopy count])
+  if (objc_msgSend_count(entitiesCopy))
   {
     v5 = objc_alloc(MEMORY[0x277CCACA8]);
-    v6 = qmarksSeparatedByCommas([entitiesCopy count]);
-    v7 = [v5 initWithFormat:@"DELETE FROM snippets WHERE entityId IN (%@)", v6];
+    v6 = objc_msgSend_count(entitiesCopy);
+    v7 = qmarksSeparatedByCommas(v6);
+    v8 = [v5 initWithFormat:@"DELETE FROM snippets WHERE entityId IN (%@)", v7];
 
     snippetsJournal = self->_snippetsJournal;
     v11 = @"qmarksSeparatedByCommas";
     v12[0] = entitiesCopy;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-    [(SGDatabaseJournal *)snippetsJournal runQuery:v7 values:v9 onDb:self->_snippetDb];
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    [(SGDatabaseJournal *)snippetsJournal runQuery:v8 values:v10 onDb:self->_snippetDb];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyCappingPolicy:(id)policy byDiscardingTokensCounts:(id)counts withMargin:(float)margin
@@ -10253,60 +10208,60 @@ uint64_t __81__SGSqlEntityStore_Deleting__pruneEntitiesOlderThan_suspensionHandl
 
 void __75__SGSqlEntityStore_SqlHelpers__selectAuthoritativeDetailsForContactWithId___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__17738;
-  v33 = __Block_byref_object_dispose__17739;
-  v34 = objc_opt_new();
+  v35 = *MEMORY[0x277D85DE8];
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__17738;
+  v32 = __Block_byref_object_dispose__17739;
+  v33 = objc_opt_new();
   v1 = [*(a1 + 32) selectEntityQuery:@"WHERE e.groupId = :groupId"];
   v2 = *(a1 + 32);
   v3 = *(v2 + 8);
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __75__SGSqlEntityStore_SqlHelpers__selectAuthoritativeDetailsForContactWithId___block_invoke_2;
-  v28[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-  v28[4] = *(a1 + 40);
   v27[0] = MEMORY[0x277D85DD0];
   v27[1] = 3221225472;
-  v27[2] = __75__SGSqlEntityStore_SqlHelpers__selectAuthoritativeDetailsForContactWithId___block_invoke_3;
-  v27[3] = &unk_278955878;
-  v27[4] = v2;
-  v27[5] = &v29;
-  [v3 prepAndRunQuery:v1 onPrep:v28 onRow:v27 onError:0];
-  if ([v30[5] count])
+  v27[2] = __75__SGSqlEntityStore_SqlHelpers__selectAuthoritativeDetailsForContactWithId___block_invoke_2;
+  v27[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+  v27[4] = *(a1 + 40);
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __75__SGSqlEntityStore_SqlHelpers__selectAuthoritativeDetailsForContactWithId___block_invoke_3;
+  v26[3] = &unk_278955878;
+  v26[4] = v2;
+  v26[5] = &v28;
+  [v3 prepAndRunQuery:v1 onPrep:v27 onRow:v26 onError:0];
+  if (objc_msgSend_count(v29[5]))
   {
-    v18 = v1;
+    v17 = v1;
     v4 = *(a1 + 32);
     v5 = [MEMORY[0x277D020C8] recordIdWithNumericValue:*(a1 + 40)];
-    v19 = [v4 masterEntityIdForContactOrContactDetailRecord:v5];
+    v18 = [v4 masterEntityIdForContactOrContactDetailRecord:v5];
 
     [*(a1 + 32) deleteSerializedContactForId:*(a1 + 40)];
-    [*(a1 + 32) deleteSerializedContactForId:{objc_msgSend(v19, "rowId")}];
+    [*(a1 + 32) deleteSerializedContactForId:{objc_msgSend(v18, "rowId")}];
     v6 = objc_alloc(MEMORY[0x277CBEB18]);
-    v7 = [v6 initWithCapacity:{objc_msgSend(v30[5], "count") + 2}];
+    v7 = [v6 initWithCapacity:objc_msgSend_count(v29[5]) + 2];
     objc_msgSend(v7, "addObject:", @"UPDATE entity SET masterEntityId = (CASE id");
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    obj = v30[5];
-    v8 = [obj countByEnumeratingWithState:&v23 objects:v35 count:16];
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    obj = v29[5];
+    v8 = [obj countByEnumeratingWithState:&v22 objects:v34 count:16];
     if (v8)
     {
-      v9 = *v24;
+      v9 = *v23;
       do
       {
         v10 = 0;
         do
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = [v30[5] objectForKeyedSubscript:*(*(&v23 + 1) + 8 * v10)];
+          v11 = [v29[5] objectForKeyedSubscript:*(*(&v22 + 1) + 8 * v10)];
           v12 = objc_alloc(MEMORY[0x277CCACA8]);
           v13 = [v11 first];
           v14 = [v13 recordId];
@@ -10317,7 +10272,7 @@ void __75__SGSqlEntityStore_SqlHelpers__selectAuthoritativeDetailsForContactWith
         }
 
         while (v8 != v10);
-        v8 = [obj countByEnumeratingWithState:&v23 objects:v35 count:16];
+        v8 = [obj countByEnumeratingWithState:&v22 objects:v34 count:16];
       }
 
       while (v8);
@@ -10327,21 +10282,20 @@ void __75__SGSqlEntityStore_SqlHelpers__selectAuthoritativeDetailsForContactWith
     v1 = [v7 _pas_componentsJoinedByString:@" "];
 
     v16 = *(*(a1 + 32) + 8);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __75__SGSqlEntityStore_SqlHelpers__selectAuthoritativeDetailsForContactWithId___block_invoke_311;
-    v22[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-    v22[4] = *(a1 + 40);
-    [v16 prepAndRunQuery:v1 onPrep:v22 onRow:0 onError:0];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __75__SGSqlEntityStore_SqlHelpers__selectAuthoritativeDetailsForContactWithId___block_invoke_311;
+    v21[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+    v21[4] = *(a1 + 40);
+    [v16 prepAndRunQuery:v1 onPrep:v21 onRow:0 onError:0];
   }
 
-  _Block_object_dispose(&v29, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v28, 8);
 }
 
 uint64_t __75__SGSqlEntityStore_SqlHelpers__selectAuthoritativeDetailsForContactWithId___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) entityFromSqlResult:a2];
   v4 = [SGContactDetail contactDetailFromEntity:v3];
   v5 = [v3 duplicateKey];
@@ -10389,15 +10343,15 @@ LABEL_13:
     }
 
 LABEL_28:
-    v19 = sgLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = sgLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = [v3 duplicateKey];
-      [v20 entityType];
-      v21 = SGEntityTypeDescription();
-      v22 = 138412290;
-      v23 = v21;
-      _os_log_error_impl(&dword_231E60000, v19, OS_LOG_TYPE_ERROR, "GroupID lookup found unexpected entity type for contact detail (%@)", &v22, 0xCu);
+      v19 = [v3 duplicateKey];
+      [v19 entityType];
+      v20 = SGEntityTypeDescription();
+      v21 = 138412290;
+      v22 = v20;
+      _os_log_error_impl(&dword_231E60000, v18, OS_LOG_TYPE_ERROR, "GroupID lookup found unexpected entity type for contact detail (%@)", &v21, 0xCu);
     }
 
     goto LABEL_27;
@@ -10453,7 +10407,6 @@ LABEL_23:
   }
 
 LABEL_27:
-  v17 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -10496,40 +10449,38 @@ LABEL_27:
 
 uint64_t __46__SGSqlEntityStore_SqlHelpers__clearAllTables__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(a1 + 40) + 8) prepAndRunQuery:*(*(&v9 + 1) + 8 * v6++) onPrep:0 onRow:0 onError:{0, v9}];
+        [*(*(a1 + 40) + 8) prepAndRunQuery:*(*(&v8 + 1) + 8 * v6++) onPrep:0 onRow:0 onError:{0, v8}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(*(a1 + 40) + 24) prepAndRunNonDataQueries:&unk_28474A750 onError:0];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 40) + 24) prepAndRunNonDataQueries:&unk_28474A750 onError:0];
 }
 
 void __46__SGSqlEntityStore_SqlHelpers__clearAllTables__block_invoke_3(uint64_t a1, void *a2)
@@ -10820,177 +10771,166 @@ uint64_t __39__SGSqlEntityStore_SqlHelpers__dbStats__block_invoke_223(uint64_t a
 
 uint64_t __39__SGSqlEntityStore_SqlHelpers__dbStats__block_invoke_2_214(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to dump stats: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to dump stats: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
 uint64_t __39__SGSqlEntityStore_SqlHelpers__dbStats__block_invoke_2_201(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count orphaned entities: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count orphaned entities: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __39__SGSqlEntityStore_SqlHelpers__dbStats__block_invoke_2_188(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count tombstones: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count tombstones: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __39__SGSqlEntityStore_SqlHelpers__dbStats__block_invoke_2_175(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count snippets with content: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count snippets with content: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __39__SGSqlEntityStore_SqlHelpers__dbStats__block_invoke_2_165(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count snippets with titles: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count snippets with titles: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __39__SGSqlEntityStore_SqlHelpers__dbStats__block_invoke_2_155(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count snippets: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count snippets: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __39__SGSqlEntityStore_SqlHelpers__dbStats__block_invoke_2_136(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count details in entity_fts: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count details in entity_fts: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __39__SGSqlEntityStore_SqlHelpers__dbStats__block_invoke_2_126(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count entity_fts: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count entity_fts: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __39__SGSqlEntityStore_SqlHelpers__dbStats__block_invoke_2_113(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to calculate stats from serializedContacts table: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to calculate stats from serializedContacts table: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __39__SGSqlEntityStore_SqlHelpers__dbStats__block_invoke_3(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count merged pseudocontacts: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to count merged pseudocontacts: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __39__SGSqlEntityStore_SqlHelpers__dbStats__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to calculate stats from entity table: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "Unable to calculate stats from entity table: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -11070,7 +11010,7 @@ uint64_t __58__SGSqlEntityStore_SqlHelpers__allContactsWithEntityType___block_in
 - (id)entityFromSqlResult:(sqlite3_stmt *)result withSnippets:(BOOL)snippets
 {
   snippetsCopy = snippets;
-  v74[1] = *MEMORY[0x277D85DE8];
+  v73[1] = *MEMORY[0x277D85DE8];
   v8 = objc_opt_new();
   v9 = [MEMORY[0x277D020C8] recordIdWithTableId:0 rowId:{sqlite3_column_int64(result, 0)}];
   [v8 setRecordId:v9];
@@ -11083,7 +11023,7 @@ uint64_t __58__SGSqlEntityStore_SqlHelpers__allContactsWithEntityType___block_in
     [currentHandler handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+SqlHelpers.m" lineNumber:104 description:{@"Invalid parameter not satisfying: %@", @"serializedEntityKey"}];
   }
 
-  v62 = v10;
+  v61 = v10;
   v12 = [[SGDuplicateKey alloc] initWithSerializedEntityKey:v11 entityType:sqlite3_column_int64(result serializedParentKey:2), v10];
   [v8 setDuplicateKey:v12];
 
@@ -11110,15 +11050,15 @@ uint64_t __58__SGSqlEntityStore_SqlHelpers__allContactsWithEntityType___block_in
 
       if (emailAddress)
       {
-        v61 = objc_alloc(MEMORY[0x277CC3450]);
+        v60 = objc_alloc(MEMORY[0x277CC3450]);
         name = [v22 name];
         emailAddress2 = [v22 emailAddress];
-        v74[0] = emailAddress2;
-        [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:1];
+        v73[0] = emailAddress2;
+        [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:1];
         v24 = snippetsCopy;
         v25 = v11;
         v27 = v26 = self;
-        emailAddress = [v61 initWithDisplayName:name handles:v27 handleIdentifier:*MEMORY[0x277CBCFC0]];
+        emailAddress = [v60 initWithDisplayName:name handles:v27 handleIdentifier:*MEMORY[0x277CBCFC0]];
 
         self = v26;
         v11 = v25;
@@ -11136,22 +11076,22 @@ uint64_t __58__SGSqlEntityStore_SqlHelpers__allContactsWithEntityType___block_in
   if (snippetsCopy && ![(SGDatabaseJournal *)self->_snippetsJournal journaling])
   {
     snippetDb = self->_snippetDb;
-    v71[0] = MEMORY[0x277D85DD0];
-    v71[1] = 3221225472;
-    v71[2] = __65__SGSqlEntityStore_SqlHelpers__entityFromSqlResult_withSnippets___block_invoke;
-    v71[3] = &unk_278956070;
-    v72 = v8;
-    v69[0] = MEMORY[0x277D85DD0];
-    v69[1] = 3221225472;
-    v69[2] = __65__SGSqlEntityStore_SqlHelpers__entityFromSqlResult_withSnippets___block_invoke_2;
-    v69[3] = &unk_278954708;
-    v70 = v72;
-    v67[0] = MEMORY[0x277D85DD0];
-    v67[1] = 3221225472;
-    v67[2] = __65__SGSqlEntityStore_SqlHelpers__entityFromSqlResult_withSnippets___block_invoke_3;
-    v67[3] = &unk_278956108;
-    v68 = v70;
-    [(SGSqliteDatabase *)snippetDb prepAndRunQuery:@"SELECT title onPrep:content onRow:contentRangeOfInterest FROM snippets WHERE entityId=?" onError:v71, v69, v67];
+    v70[0] = MEMORY[0x277D85DD0];
+    v70[1] = 3221225472;
+    v70[2] = __65__SGSqlEntityStore_SqlHelpers__entityFromSqlResult_withSnippets___block_invoke;
+    v70[3] = &unk_278956070;
+    v71 = v8;
+    v68[0] = MEMORY[0x277D85DD0];
+    v68[1] = 3221225472;
+    v68[2] = __65__SGSqlEntityStore_SqlHelpers__entityFromSqlResult_withSnippets___block_invoke_2;
+    v68[3] = &unk_278954708;
+    v69 = v71;
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = __65__SGSqlEntityStore_SqlHelpers__entityFromSqlResult_withSnippets___block_invoke_3;
+    v66[3] = &unk_278956108;
+    v67 = v69;
+    [(SGSqliteDatabase *)snippetDb prepAndRunQuery:@"SELECT title onPrep:content onRow:contentRangeOfInterest FROM snippets WHERE entityId=?" onError:v70, v68, v66];
   }
 
   v30 = sqlite3_column_double(result, 17);
@@ -11179,31 +11119,31 @@ uint64_t __58__SGSqlEntityStore_SqlHelpers__allContactsWithEntityType___block_in
 
   [v8 setCreationTimestamp:{sqlite3_column_double(result, 7)}];
   [v8 setLastModifiedTimestamp:{sqlite3_column_double(result, 8)}];
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   v39 = sqlite3_column_nsstring(result, 10);
   v40 = SGEntityTagsFromStorage(v39);
 
-  v41 = [v40 countByEnumeratingWithState:&v63 objects:v73 count:16];
+  v41 = [v40 countByEnumeratingWithState:&v62 objects:v72 count:16];
   if (v41)
   {
     v42 = v41;
-    v43 = *v64;
+    v43 = *v63;
     do
     {
       for (i = 0; i != v42; ++i)
       {
-        if (*v64 != v43)
+        if (*v63 != v43)
         {
           objc_enumerationMutation(v40);
         }
 
-        [v8 addTag:*(*(&v63 + 1) + 8 * i)];
+        [v8 addTag:*(*(&v62 + 1) + 8 * i)];
       }
 
-      v42 = [v40 countByEnumeratingWithState:&v63 objects:v73 count:16];
+      v42 = [v40 countByEnumeratingWithState:&v62 objects:v72 count:16];
     }
 
     while (v42);
@@ -11254,8 +11194,6 @@ uint64_t __58__SGSqlEntityStore_SqlHelpers__allContactsWithEntityType___block_in
 
   [v8 setOperatingSystemVersion:v56];
 
-  v57 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
@@ -11291,17 +11229,16 @@ uint64_t __65__SGSqlEntityStore_SqlHelpers__entityFromSqlResult_withSnippets___b
 
 uint64_t __65__SGSqlEntityStore_SqlHelpers__entityFromSqlResult_withSnippets___block_invoke_3(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = sgLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) recordId];
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_231E60000, v2, OS_LOG_TYPE_DEFAULT, "failed to load snippet data for entity: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_231E60000, v2, OS_LOG_TYPE_DEFAULT, "failed to load snippet data for entity: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -11327,87 +11264,87 @@ uint64_t __65__SGSqlEntityStore_SqlHelpers__entityFromSqlResult_withSnippets___b
 
 void __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupConsistency__block_invoke(void *a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = *(a1[4] + 8);
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupConsistency__block_invoke_3;
-  v43[3] = &unk_278954708;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupConsistency__block_invoke_3;
+  v42[3] = &unk_278954708;
   v4 = v2;
-  v44 = v4;
-  [v3 prepAndRunQuery:@"SELECT DISTINCT masterEntityId FROM entity WHERE masterEntityId >= 0 AND masterEntityId != id AND entityType = :pseudo" onPrep:&__block_literal_global_18061 onRow:v43 onError:0];
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  v43 = v4;
+  [v3 prepAndRunQuery:@"SELECT DISTINCT masterEntityId FROM entity WHERE masterEntityId >= 0 AND masterEntityId != id AND entityType = :pseudo" onPrep:&__block_literal_global_18061 onRow:v42 onError:0];
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v5 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v5)
   {
-    v26 = *v40;
+    v25 = *v39;
     do
     {
       v6 = 0;
       do
       {
-        if (*v40 != v26)
+        if (*v39 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v39 + 1) + 8 * v6);
-        v35 = 0;
-        v36 = &v35;
-        v37 = 0x2020000000;
-        v38 = 0x7FFFFFFFFFFFFFFFLL;
+        v7 = *(*(&v38 + 1) + 8 * v6);
+        v34 = 0;
+        v35 = &v34;
+        v36 = 0x2020000000;
+        v37 = 0x7FFFFFFFFFFFFFFFLL;
         v8 = *(a1[4] + 8);
-        v33[4] = &v35;
-        v34[0] = MEMORY[0x277D85DD0];
-        v34[1] = 3221225472;
-        v34[2] = __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupConsistency__block_invoke_4;
-        v34[3] = &unk_278956070;
-        v34[4] = v7;
+        v32[4] = &v34;
         v33[0] = MEMORY[0x277D85DD0];
         v33[1] = 3221225472;
-        v33[2] = __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupConsistency__block_invoke_5;
-        v33[3] = &unk_278954658;
-        [v8 prepAndRunQuery:@"SELECT MIN(id) FROM entity WHERE masterEntityId = :masterEntityId AND entityType = :pseudo" onPrep:v34 onRow:v33 onError:0];
-        if (v36[3] == 0x7FFFFFFFFFFFFFFFLL)
+        v33[2] = __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupConsistency__block_invoke_4;
+        v33[3] = &unk_278956070;
+        v33[4] = v7;
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupConsistency__block_invoke_5;
+        v32[3] = &unk_278954658;
+        [v8 prepAndRunQuery:@"SELECT MIN(id) FROM entity WHERE masterEntityId = :masterEntityId AND entityType = :pseudo" onPrep:v33 onRow:v32 onError:0];
+        if (v35[3] == 0x7FFFFFFFFFFFFFFFLL)
         {
           v23 = [MEMORY[0x277CCA890] currentHandler];
           [v23 handleFailureInMethod:a1[6] object:a1[4] file:@"SGSqlEntityStore+DatabaseCheck.m" lineNumber:155 description:@"Failed to find merge group minimal element"];
         }
 
         v9 = [v7 rowId];
-        if (v9 != v36[3])
+        if (v9 != v35[3])
         {
           v10 = objc_alloc(MEMORY[0x277CCACA8]);
           v11 = [v7 rowId];
-          v12 = [v10 initWithFormat:@"  * merge group with masterEntityId %lld has unexpected minimal element %lld", v11, v36[3]];
+          v12 = [v10 initWithFormat:@"  * merge group with masterEntityId %lld has unexpected minimal element %lld", v11, v35[3]];
           v13 = v12;
           puts([v12 UTF8String]);
 
           *(*(a1[5] + 8) + 24) = 0;
         }
 
-        v29 = 0;
-        v30 = &v29;
-        v31 = 0x2020000000;
-        v32 = 0x7FFFFFFFFFFFFFFFLL;
+        v28 = 0;
+        v29 = &v28;
+        v30 = 0x2020000000;
+        v31 = 0x7FFFFFFFFFFFFFFFLL;
         v14 = *(a1[4] + 8);
-        v27[4] = &v29;
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupConsistency__block_invoke_6;
-        v28[3] = &unk_278956070;
-        v28[4] = v7;
+        v26[4] = &v28;
         v27[0] = MEMORY[0x277D85DD0];
         v27[1] = 3221225472;
-        v27[2] = __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupConsistency__block_invoke_7;
-        v27[3] = &unk_278954658;
-        [v14 prepAndRunQuery:@"SELECT masterEntityId FROM entity WHERE id = :mergeId" onPrep:v28 onRow:v27 onError:0];
-        v15 = v30[3];
+        v27[2] = __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupConsistency__block_invoke_6;
+        v27[3] = &unk_278956070;
+        v27[4] = v7;
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupConsistency__block_invoke_7;
+        v26[3] = &unk_278954658;
+        [v14 prepAndRunQuery:@"SELECT masterEntityId FROM entity WHERE id = :mergeId" onPrep:v27 onRow:v26 onError:0];
+        v15 = v29[3];
         if (v15 == 0x7FFFFFFFFFFFFFFFLL)
         {
           v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"  * merge group has masterEntityId %lld, but there is no row with id == %lld", objc_msgSend(v7, "rowId"), objc_msgSend(v7, "rowId")];
@@ -11417,7 +11354,7 @@ void __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupConsis
 
         else
         {
-          if (v15 == v36[3])
+          if (v15 == v35[3])
           {
             goto LABEL_15;
           }
@@ -11425,7 +11362,7 @@ void __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupConsis
           v19 = objc_alloc(MEMORY[0x277CCACA8]);
           v20 = [v7 rowId];
           v21 = [v7 rowId];
-          v16 = [v19 initWithFormat:@"  * merge group has masterEntityId %lld, but the row with entity.id == %lld has masterEntityId == %lld", v20, v21, v30[3]];
+          v16 = [v19 initWithFormat:@"  * merge group has masterEntityId %lld, but the row with entity.id == %lld has masterEntityId == %lld", v20, v21, v29[3]];
           v22 = v16;
           v18 = [v16 UTF8String];
         }
@@ -11434,19 +11371,17 @@ void __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupConsis
 
         *(*(a1[5] + 8) + 24) = 0;
 LABEL_15:
-        _Block_object_dispose(&v29, 8);
-        _Block_object_dispose(&v35, 8);
+        _Block_object_dispose(&v28, 8);
+        _Block_object_dispose(&v34, 8);
         ++v6;
       }
 
       while (v5 != v6);
-      v5 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v5 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v5);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupConsistency__block_invoke_3(uint64_t a1, sqlite3_stmt *a2)
@@ -11475,31 +11410,31 @@ uint64_t __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupCo
 
 - (BOOL)databasecheck_BrokenEntityIDReferences
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 1;
+  v32 = *MEMORY[0x277D85DE8];
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 1;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v2 = [(SGSqliteDatabase *)self->_db tablesWithColumnNamed:@"entityId"];
-  v3 = [v2 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v3)
   {
-    v18 = *v25;
+    v17 = *v24;
     obj = v2;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v25 != v18)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v24 + 1) + 8 * i);
+        v5 = *(*(&v23 + 1) + 8 * i);
         v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Broken entityId reference check: %@", v5];
         v7 = v6;
         puts([v6 UTF8String]);
@@ -11507,20 +11442,20 @@ uint64_t __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupCo
         v8 = objc_opt_new();
         db = self->_db;
         v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT entityId, * FROM %@ WHERE entityId NOT IN (SELECT id FROM entity)", v5];
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __73__SGSqlEntityStore_DatabaseCheck__databasecheck_BrokenEntityIDReferences__block_invoke;
-        v21[3] = &unk_278955878;
-        v11 = v8;
-        v22 = v11;
-        v23 = &v28;
         v20[0] = MEMORY[0x277D85DD0];
         v20[1] = 3221225472;
-        v20[2] = __73__SGSqlEntityStore_DatabaseCheck__databasecheck_BrokenEntityIDReferences__block_invoke_2;
-        v20[3] = &unk_2789560B8;
-        v20[4] = v5;
-        v20[5] = &v28;
-        [(SGSqliteDatabase *)db prepAndRunQuery:v10 onPrep:0 onRow:v21 onError:v20];
+        v20[2] = __73__SGSqlEntityStore_DatabaseCheck__databasecheck_BrokenEntityIDReferences__block_invoke;
+        v20[3] = &unk_278955878;
+        v11 = v8;
+        v21 = v11;
+        v22 = &v27;
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __73__SGSqlEntityStore_DatabaseCheck__databasecheck_BrokenEntityIDReferences__block_invoke_2;
+        v19[3] = &unk_2789560B8;
+        v19[4] = v5;
+        v19[5] = &v27;
+        [(SGSqliteDatabase *)db prepAndRunQuery:v10 onPrep:0 onRow:v20 onError:v19];
 
         v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:&stru_284703F00];
         v13 = v12;
@@ -11528,15 +11463,14 @@ uint64_t __77__SGSqlEntityStore_DatabaseCheck__databasecheck_contactMergeGroupCo
       }
 
       v2 = obj;
-      v3 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v3 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v3);
   }
 
-  v14 = *(v29 + 24);
-  _Block_object_dispose(&v28, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *(v28 + 24);
+  _Block_object_dispose(&v27, 8);
   return v14;
 }
 
@@ -11736,18 +11670,18 @@ uint64_t __63__SGSqlEntityStore_DatabaseCheck__databasecheck_IntegrityCheck__blo
 
 - (void)reportDbStats
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dbStats = [(SGSqlEntityStore *)self dbStats];
   v3 = dbStats;
-  v22 = dbStats;
+  v21 = dbStats;
   if (dbStats)
   {
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __46__SGSqlEntityStore_Maintenance__reportDbStats__block_invoke;
-    v27[3] = &unk_27894E5F0;
-    v28 = @"dbstats";
-    [dbStats enumerateKeysAndObjectsUsingBlock:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __46__SGSqlEntityStore_Maintenance__reportDbStats__block_invoke;
+    v26[3] = &unk_27894E5F0;
+    v27 = @"dbstats";
+    [dbStats enumerateKeysAndObjectsUsingBlock:v26];
     v4 = [v3 objectForKeyedSubscript:@"entities"];
     v5 = SGEntityTypeDescription();
     v6 = [v4 objectForKeyedSubscript:v5];
@@ -11755,33 +11689,33 @@ uint64_t __63__SGSqlEntityStore_DatabaseCheck__databasecheck_IntegrityCheck__blo
 
     if (integerValue >= 1)
     {
-      v8 = [v22 objectForKeyedSubscript:@"merged_pseudocontacts"];
+      v8 = [v21 objectForKeyedSubscript:@"merged_pseudocontacts"];
       +[SGAggregateLogging setKeyWithDomain:suffix:toValue:](SGAggregateLogging, "setKeyWithDomain:suffix:toValue:", @"dbstats", @"merged_pseudocontact_percent", 100 * [v8 integerValue] / integerValue);
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v9 = [v22 objectForKeyedSubscript:@"entities"];
-    v10 = [v9 countByEnumeratingWithState:&v23 objects:v30 count:16];
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v9 = [v21 objectForKeyedSubscript:@"entities"];
+    v10 = [v9 countByEnumeratingWithState:&v22 objects:v29 count:16];
     if (v10)
     {
-      v11 = *v24;
+      v11 = *v23;
       obj = v9;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v24 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v23 + 1) + 8 * i);
+          v13 = *(*(&v22 + 1) + 8 * i);
           v14 = objc_autoreleasePoolPush();
           v15 = [@"entityTypes." stringByAppendingString:v13];
-          v16 = [v22 objectForKeyedSubscript:@"entities"];
+          v16 = [v21 objectForKeyedSubscript:@"entities"];
           v17 = [v16 objectForKeyedSubscript:v13];
           [SGAggregateLogging setKeyWithDomain:@"dbstats" suffix:v15 toValue:[SGAggregateLogging twoSigFigs:v17]];
 
@@ -11789,7 +11723,7 @@ uint64_t __63__SGSqlEntityStore_DatabaseCheck__databasecheck_IntegrityCheck__blo
         }
 
         v9 = obj;
-        v10 = [obj countByEnumeratingWithState:&v23 objects:v30 count:16];
+        v10 = [obj countByEnumeratingWithState:&v22 objects:v29 count:16];
       }
 
       while (v10);
@@ -11802,7 +11736,7 @@ uint64_t __63__SGSqlEntityStore_DatabaseCheck__databasecheck_IntegrityCheck__blo
       _os_log_impl(&dword_231E60000, v18, OS_LOG_TYPE_INFO, "reported db stats to AggD", buf, 2u);
     }
 
-    v19 = v28;
+    v19 = v27;
   }
 
   else
@@ -11814,8 +11748,6 @@ uint64_t __63__SGSqlEntityStore_DatabaseCheck__databasecheck_IntegrityCheck__blo
       _os_log_impl(&dword_231E60000, v19, OS_LOG_TYPE_DEFAULT, "dbStats returned nil during reportDbStats", buf, 2u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __46__SGSqlEntityStore_Maintenance__reportDbStats__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -11896,12 +11828,12 @@ void __67__SGSqlEntityStore_Maintenance__registerCachePrecomputationWithCTS__blo
 
 void __67__SGSqlEntityStore_Maintenance__registerCachePrecomputationWithCTS__block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = sgLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_231E60000, v2, OS_LOG_TYPE_INFO, "serializing contacts due to CTS", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_231E60000, v2, OS_LOG_TYPE_INFO, "serializing contacts due to CTS", &v6, 2u);
   }
 
   v3 = objc_opt_new();
@@ -11910,12 +11842,10 @@ void __67__SGSqlEntityStore_Maintenance__registerCachePrecomputationWithCTS__blo
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     [v3 timeIntervalSinceNow];
-    v7 = 134217984;
-    v8 = -v5;
-    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_INFO, "Finished updating serialized contacts in %0.3f seconds", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = -v5;
+    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_INFO, "Finished updating serialized contacts in %0.3f seconds", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __67__SGSqlEntityStore_Maintenance__registerCachePrecomputationWithCTS__block_invoke_16(uint64_t a1)
@@ -11932,28 +11862,28 @@ uint64_t __67__SGSqlEntityStore_Maintenance__registerCachePrecomputationWithCTS_
 
 - (void)registerSentHandles:(id)handles
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [handlesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [handlesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(handlesCopy);
         }
 
-        v9 = [(SGSqlEntityStore *)self normalizeHandleForRecipientFilterAndRemoveFromDetailsCache:*(*(&v11 + 1) + 8 * v8)];
+        v9 = [(SGSqlEntityStore *)self normalizeHandleForRecipientFilterAndRemoveFromDetailsCache:*(*(&v10 + 1) + 8 * v8)];
         if (v9)
         {
           [(SGBloomFilter *)self->_messageRecipients add:v9];
@@ -11963,60 +11893,58 @@ uint64_t __67__SGSqlEntityStore_Maintenance__registerCachePrecomputationWithCTS_
       }
 
       while (v6 != v8);
-      v6 = [handlesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [handlesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerSentTextMessage:(id)message
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   recipients = [message recipients];
-  v5 = [recipients countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v5 = [recipients countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       v8 = 0;
       do
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(recipients);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * v8);
+        v9 = *(*(&v20 + 1) + 8 * v8);
+        v16 = 0u;
         v17 = 0u;
         v18 = 0u;
         v19 = 0u;
-        v20 = 0u;
         handles = [v9 handles];
-        v11 = [handles countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v11 = [handles countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v18;
+          v13 = *v17;
           do
           {
             v14 = 0;
             do
             {
-              if (*v18 != v13)
+              if (*v17 != v13)
               {
                 objc_enumerationMutation(handles);
               }
 
-              v15 = [(SGSqlEntityStore *)self normalizeHandleForRecipientFilterAndRemoveFromDetailsCache:*(*(&v17 + 1) + 8 * v14)];
+              v15 = [(SGSqlEntityStore *)self normalizeHandleForRecipientFilterAndRemoveFromDetailsCache:*(*(&v16 + 1) + 8 * v14)];
               if (v15)
               {
                 [(SGBloomFilter *)self->_messageRecipients add:v15];
@@ -12026,7 +11954,7 @@ uint64_t __67__SGSqlEntityStore_Maintenance__registerCachePrecomputationWithCTS_
             }
 
             while (v12 != v14);
-            v12 = [handles countByEnumeratingWithState:&v17 objects:v25 count:16];
+            v12 = [handles countByEnumeratingWithState:&v16 objects:v24 count:16];
           }
 
           while (v12);
@@ -12036,13 +11964,11 @@ uint64_t __67__SGSqlEntityStore_Maintenance__registerCachePrecomputationWithCTS_
       }
 
       while (v8 != v6);
-      v6 = [recipients countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v6 = [recipients countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)mayHaveSentMessageToHandle:(id)handle
@@ -12116,28 +12042,28 @@ LABEL_9:
 
 void __58__SGSqlEntityStore_Significance__registerSentMailMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       v7 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * v7);
+        v8 = *(*(&v14 + 1) + 8 * v7);
         v9 = objc_autoreleasePoolPush();
         v10 = [v8 emailAddress];
 
@@ -12158,13 +12084,11 @@ void __58__SGSqlEntityStore_Significance__registerSentMailMessage___block_invoke
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)mayHaveSentMessageToEmail:(id)email
@@ -12178,64 +12102,64 @@ void __58__SGSqlEntityStore_Significance__registerSentMailMessage___block_invoke
 
 - (BOOL)recentsContainSomeOfEmails:(id)emails phoneNumbers:(id)numbers instantMessageAddresses:(id)addresses
 {
-  v57[3] = *MEMORY[0x277D85DE8];
+  v56[3] = *MEMORY[0x277D85DE8];
   emailsCopy = emails;
   numbersCopy = numbers;
   addressesCopy = addresses;
   if (!self->_crLookup)
   {
-    v42 = objc_opt_new();
+    v41 = objc_opt_new();
     v13 = *MEMORY[0x277D00F20];
-    v57[0] = *MEMORY[0x277D00F18];
-    v57[1] = v13;
-    v57[2] = *MEMORY[0x277D00F10];
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:3];
-    [v42 setDomains:v14];
+    v56[0] = *MEMORY[0x277D00F18];
+    v56[1] = v13;
+    v56[2] = *MEMORY[0x277D00F10];
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:3];
+    [v41 setDomains:v14];
 
     v15 = objc_opt_new();
-    if ([emailsCopy count])
+    if (objc_msgSend_count(emailsCopy))
     {
       v16 = MEMORY[0x277D00F30];
-      v55 = *MEMORY[0x277D00EC0];
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+      v54 = *MEMORY[0x277D00EC0];
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
       v18 = [v16 predicateForKey:*MEMORY[0x277D00EF8] inCollection:v17];
-      v56[0] = v18;
+      v55[0] = v18;
       v19 = [MEMORY[0x277D00F30] predicateForKey:*MEMORY[0x277D00EE8] inCollection:emailsCopy];
-      v56[1] = v19;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+      v55[1] = v19;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
       v21 = [v16 predicateSatisfyingAllSubpredicates:v20];
       [v15 addObject:v21];
     }
 
-    if ([numbersCopy count])
+    if (objc_msgSend_count(numbersCopy))
     {
       v22 = MEMORY[0x277D00F30];
-      v53 = *MEMORY[0x277D00EE0];
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
+      v52 = *MEMORY[0x277D00EE0];
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
       v24 = [v22 predicateForKey:*MEMORY[0x277D00EF8] inCollection:v23];
-      v54[0] = v24;
+      v53[0] = v24;
       v25 = [MEMORY[0x277D00F30] predicateForKey:*MEMORY[0x277D00EE8] inCollection:numbersCopy];
-      v54[1] = v25;
-      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
+      v53[1] = v25;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
       v27 = [v22 predicateSatisfyingAllSubpredicates:v26];
       [v15 addObject:v27];
     }
 
-    if ([addressesCopy count])
+    if (objc_msgSend_count(addressesCopy))
     {
       v28 = MEMORY[0x277D00F30];
-      v51 = *MEMORY[0x277D00ED0];
-      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+      v50 = *MEMORY[0x277D00ED0];
+      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
       v30 = [v28 predicateForKey:*MEMORY[0x277D00EF8] inCollection:v29];
-      v52[0] = v30;
+      v51[0] = v30;
       v31 = [MEMORY[0x277D00F30] predicateForKey:*MEMORY[0x277D00EE8] inCollection:addressesCopy];
-      v52[1] = v31;
-      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
+      v51[1] = v31;
+      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
       v33 = [v28 predicateSatisfyingAllSubpredicates:v32];
       [v15 addObject:v33];
     }
 
-    if (![v15 count])
+    if (!objc_msgSend_count(v15))
     {
       v12 = 0;
 LABEL_18:
@@ -12244,34 +12168,34 @@ LABEL_18:
     }
 
     v34 = [MEMORY[0x277D00F30] predicateSatisfyingAnySubpredicate:v15];
-    [v42 setSearchPredicate:v34];
+    [v41 setSearchPredicate:v34];
 
     *buf = 0;
-    v48 = buf;
-    v49 = 0x2020000000;
-    v50 = 0;
+    v47 = buf;
+    v48 = 0x2020000000;
+    v49 = 0;
     v35 = dispatch_semaphore_create(0);
     defaultInstance = [MEMORY[0x277D00F28] defaultInstance];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __98__SGSqlEntityStore_Significance__recentsContainSomeOfEmails_phoneNumbers_instantMessageAddresses___block_invoke;
-    v44[3] = &unk_27894EC58;
-    v46 = buf;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __98__SGSqlEntityStore_Significance__recentsContainSomeOfEmails_phoneNumbers_instantMessageAddresses___block_invoke;
+    v43[3] = &unk_27894EC58;
+    v45 = buf;
     v37 = v35;
-    v45 = v37;
-    [defaultInstance performRecentsSearch:v42 queue:0 completion:v44];
+    v44 = v37;
+    [defaultInstance performRecentsSearch:v41 queue:0 completion:v43];
 
     [MEMORY[0x277D425A0] waitForSemaphore:v37 timeoutSeconds:1.0];
-    v12 = atomic_load(v48 + 24);
+    v12 = atomic_load(v47 + 24);
     if (v12)
     {
       v38 = sgLogHandle();
       if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
-        *v43 = 0;
+        *v42 = 0;
         v39 = "Found email in recents";
 LABEL_21:
-        _os_log_debug_impl(&dword_231E60000, v38, OS_LOG_TYPE_DEBUG, v39, v43, 2u);
+        _os_log_debug_impl(&dword_231E60000, v38, OS_LOG_TYPE_DEBUG, v39, v42, 2u);
       }
     }
 
@@ -12280,7 +12204,7 @@ LABEL_21:
       v38 = sgLogHandle();
       if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
-        *v43 = 0;
+        *v42 = 0;
         v39 = "Email was not found in recents";
         goto LABEL_21;
       }
@@ -12300,13 +12224,12 @@ LABEL_21:
   v12 = (*(self->_crLookup + 2))();
 LABEL_19:
 
-  v40 = *MEMORY[0x277D85DE8];
   return v12 & 1;
 }
 
 void __98__SGSqlEntityStore_Significance__recentsContainSomeOfEmails_phoneNumbers_instantMessageAddresses___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -12314,24 +12237,24 @@ void __98__SGSqlEntityStore_Significance__recentsContainSomeOfEmails_phoneNumber
     v7 = sgLogHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v11 = [v6 description];
-      v12 = v11;
-      v13 = @"(nil)";
-      if (v11)
+      v10 = [v6 description];
+      v11 = v10;
+      v12 = @"(nil)";
+      if (v10)
       {
-        v13 = v11;
+        v12 = v10;
       }
 
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, "Unable to search recents; error: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, "Unable to search recents; error: %@", &v13, 0xCu);
     }
   }
 
   v8 = *(*(a1 + 40) + 8);
   if (v5)
   {
-    v9 = [v5 count] != 0;
+    v9 = objc_msgSend_count(v5) != 0;
   }
 
   else
@@ -12341,8 +12264,6 @@ void __98__SGSqlEntityStore_Significance__recentsContainSomeOfEmails_phoneNumber
 
   atomic_store(v9, (v8 + 24));
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCRLookupForTesting:(id)testing
@@ -12351,32 +12272,32 @@ void __98__SGSqlEntityStore_Significance__recentsContainSomeOfEmails_phoneNumber
   crLookup = self->_crLookup;
   self->_crLookup = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, crLookup);
 }
 
 - (BOOL)anyHandleIsSignificant:(id)significant
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   significantCopy = significant;
-  v5 = [significantCopy countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v5 = [significantCopy countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v30;
+    v7 = *v29;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(significantCopy);
         }
 
-        if ([(SGSqlEntityStore *)self mayHaveSentMessageToHandle:*(*(&v29 + 1) + 8 * i)])
+        if ([(SGSqlEntityStore *)self mayHaveSentMessageToHandle:*(*(&v28 + 1) + 8 * i)])
         {
           v10 = sgLogHandle();
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
@@ -12391,7 +12312,7 @@ void __98__SGSqlEntityStore_Significance__recentsContainSomeOfEmails_phoneNumber
         }
       }
 
-      v6 = [significantCopy countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v6 = [significantCopy countByEnumeratingWithState:&v28 objects:v33 count:16];
       if (v6)
       {
         continue;
@@ -12403,27 +12324,27 @@ void __98__SGSqlEntityStore_Significance__recentsContainSomeOfEmails_phoneNumber
 
   v9 = objc_opt_new();
   v10 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v11 = significantCopy;
-  v12 = [v11 countByEnumeratingWithState:&v24 objects:v33 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v23 objects:v32 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v25;
+    v14 = *v24;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v25 != v14)
+        if (*v24 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v24 + 1) + 8 * j);
-        if ([v16 containsString:{@"@", v24}])
+        v16 = *(*(&v23 + 1) + 8 * j);
+        if ([v16 containsString:{@"@", v23}])
         {
           v17 = v10;
         }
@@ -12436,7 +12357,7 @@ void __98__SGSqlEntityStore_Significance__recentsContainSomeOfEmails_phoneNumber
         [v17 addObject:v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v24 objects:v33 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v23 objects:v32 count:16];
     }
 
     while (v13);
@@ -12464,39 +12385,38 @@ LABEL_29:
   }
 
 LABEL_27:
-  v22 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (BOOL)anyEmailAddressIsSignificant:(id)significant
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   significantCopy = significant;
-  v5 = [significantCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [significantCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(significantCopy);
         }
 
-        if ([(SGSqlEntityStore *)self mayHaveSentMessageToEmail:*(*(&v17 + 1) + 8 * i)])
+        if ([(SGSqlEntityStore *)self mayHaveSentMessageToEmail:*(*(&v16 + 1) + 8 * i)])
         {
           v13 = sgLogHandle();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
-            *v16 = 0;
-            _os_log_debug_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEBUG, "Email Address is significant: Found in bloom filter", v16, 2u);
+            *v15 = 0;
+            _os_log_debug_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEBUG, "Email Address is significant: Found in bloom filter", v15, 2u);
           }
 
           v12 = 1;
@@ -12505,7 +12425,7 @@ LABEL_27:
         }
       }
 
-      v6 = [significantCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [significantCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v6)
       {
         continue;
@@ -12522,8 +12442,8 @@ LABEL_27:
   {
     if (v11)
     {
-      *v16 = 0;
-      _os_log_debug_impl(&dword_231E60000, v10, OS_LOG_TYPE_DEBUG, "Email Address is significant: Found in recents", v16, 2u);
+      *v15 = 0;
+      _os_log_debug_impl(&dword_231E60000, v10, OS_LOG_TYPE_DEBUG, "Email Address is significant: Found in recents", v15, 2u);
     }
 
     v12 = 1;
@@ -12533,8 +12453,8 @@ LABEL_27:
   {
     if (v11)
     {
-      *v16 = 0;
-      _os_log_debug_impl(&dword_231E60000, v10, OS_LOG_TYPE_DEBUG, "Email Address is not significant", v16, 2u);
+      *v15 = 0;
+      _os_log_debug_impl(&dword_231E60000, v10, OS_LOG_TYPE_DEBUG, "Email Address is not significant", v15, 2u);
     }
 
     v12 = 0;
@@ -12542,7 +12462,6 @@ LABEL_27:
 
 LABEL_19:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -12590,10 +12509,30 @@ LABEL_19:
   return v6;
 }
 
+- (BOOL)contactIsSignificantOrSignificanceIsDisabled:(id)disabled usingCoreRecents:(BOOL)recents
+{
+  if (![(SGSqlEntityStore *)self contactIsSignificant:disabled usingCoreRecents:recents])
+  {
+    if ([MEMORY[0x277D02098] onlyShowSignificantPseudoContacts])
+    {
+      return 0;
+    }
+
+    v5 = sgLogHandle();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    {
+      *v6 = 0;
+      _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Contact is not significant, but selecting anyway due to preference setting", v6, 2u);
+    }
+  }
+
+  return 1;
+}
+
 - (BOOL)contactIsSignificant:(id)significant usingCoreRecents:(BOOL)recents
 {
   recentsCopy = recents;
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   significantCopy = significant;
   if ([significantCopy significance] == 1)
   {
@@ -12611,26 +12550,26 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   emailAddresses = [significantCopy emailAddresses];
-  v8 = [emailAddresses countByEnumeratingWithState:&v48 objects:v55 count:16];
+  v8 = [emailAddresses countByEnumeratingWithState:&v47 objects:v54 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v49;
+    v10 = *v48;
 LABEL_6:
     v11 = 0;
     while (1)
     {
-      if (*v49 != v10)
+      if (*v48 != v10)
       {
         objc_enumerationMutation(emailAddresses);
       }
 
-      emailAddress = [*(*(&v48 + 1) + 8 * v11) emailAddress];
+      emailAddress = [*(*(&v47 + 1) + 8 * v11) emailAddress];
       v13 = [(SGSqlEntityStore *)self mayHaveSentMessageToEmail:emailAddress];
 
       if (v13)
@@ -12640,7 +12579,7 @@ LABEL_6:
 
       if (v9 == ++v11)
       {
-        v9 = [emailAddresses countByEnumeratingWithState:&v48 objects:v55 count:16];
+        v9 = [emailAddresses countByEnumeratingWithState:&v47 objects:v54 count:16];
         if (v9)
         {
           goto LABEL_6;
@@ -12657,49 +12596,49 @@ LABEL_6:
     }
 
     *buf = 0;
-    v31 = "Contact is significant: Found in bloom filter (email)";
+    v30 = "Contact is significant: Found in bloom filter (email)";
     goto LABEL_37;
   }
 
 LABEL_12:
 
   socialProfiles = [significantCopy socialProfiles];
-  v15 = [socialProfiles count];
+  v15 = objc_msgSend_count(socialProfiles);
 
   if (!v15)
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     emailAddresses = [significantCopy phones];
-    v20 = [emailAddresses countByEnumeratingWithState:&v44 objects:v54 count:16];
-    if (!v20)
+    v19 = [emailAddresses countByEnumeratingWithState:&v43 objects:v53 count:16];
+    if (!v19)
     {
 LABEL_27:
 
       if (recentsCopy)
       {
-        v26 = sgLogHandle();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v25 = sgLogHandle();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_debug_impl(&dword_231E60000, v26, OS_LOG_TYPE_DEBUG, "Sender isn't in bloom filter, checking recents", buf, 2u);
+          _os_log_debug_impl(&dword_231E60000, v25, OS_LOG_TYPE_DEBUG, "Sender isn't in bloom filter, checking recents", buf, 2u);
         }
 
         emailAddresses2 = [significantCopy emailAddresses];
         emailAddresses = sgMap();
 
         phones = [significantCopy phones];
-        v29 = sgMap();
+        v28 = sgMap();
 
-        if ([(SGSqlEntityStore *)self recentsContainSomeOfEmails:emailAddresses phoneNumbers:v29 instantMessageAddresses:MEMORY[0x277CBEBF8]])
+        if ([(SGSqlEntityStore *)self recentsContainSomeOfEmails:emailAddresses phoneNumbers:v28 instantMessageAddresses:MEMORY[0x277CBEBF8]])
         {
-          v30 = sgLogHandle();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+          v29 = sgLogHandle();
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_debug_impl(&dword_231E60000, v30, OS_LOG_TYPE_DEBUG, "Contact is significant: Found in recents", buf, 2u);
+            _os_log_debug_impl(&dword_231E60000, v29, OS_LOG_TYPE_DEBUG, "Contact is significant: Found in recents", buf, 2u);
           }
 
           goto LABEL_16;
@@ -12707,35 +12646,35 @@ LABEL_27:
       }
 
       emailAddresses = +[SGSqlEntityStore _cachedVIPEmailAddresses];
+      v39 = 0u;
       v40 = 0u;
       v41 = 0u;
       v42 = 0u;
-      v43 = 0u;
       emailAddresses3 = [significantCopy emailAddresses];
-      v33 = [emailAddresses3 countByEnumeratingWithState:&v40 objects:v53 count:16];
-      if (v33)
+      v32 = [emailAddresses3 countByEnumeratingWithState:&v39 objects:v52 count:16];
+      if (v32)
       {
-        v34 = v33;
-        v35 = *v41;
+        v33 = v32;
+        v34 = *v40;
         while (2)
         {
-          for (i = 0; i != v34; ++i)
+          for (i = 0; i != v33; ++i)
           {
-            if (*v41 != v35)
+            if (*v40 != v34)
             {
               objc_enumerationMutation(emailAddresses3);
             }
 
-            emailAddress2 = [*(*(&v40 + 1) + 8 * i) emailAddress];
-            v38 = [emailAddresses containsObject:emailAddress2];
+            emailAddress2 = [*(*(&v39 + 1) + 8 * i) emailAddress];
+            v37 = [emailAddresses containsObject:emailAddress2];
 
-            if (v38)
+            if (v37)
             {
-              v39 = sgLogHandle();
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+              v38 = sgLogHandle();
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 0;
-                _os_log_debug_impl(&dword_231E60000, v39, OS_LOG_TYPE_DEBUG, "Contact is significant - VIP email address", buf, 2u);
+                _os_log_debug_impl(&dword_231E60000, v38, OS_LOG_TYPE_DEBUG, "Contact is significant - VIP email address", buf, 2u);
               }
 
               v16 = 1;
@@ -12743,8 +12682,8 @@ LABEL_27:
             }
           }
 
-          v34 = [emailAddresses3 countByEnumeratingWithState:&v40 objects:v53 count:16];
-          if (v34)
+          v33 = [emailAddresses3 countByEnumeratingWithState:&v39 objects:v52 count:16];
+          if (v33)
           {
             continue;
           }
@@ -12766,29 +12705,29 @@ LABEL_53:
       goto LABEL_17;
     }
 
-    v21 = v20;
-    v22 = *v45;
+    v20 = v19;
+    v21 = *v44;
 LABEL_21:
-    v23 = 0;
+    v22 = 0;
     while (1)
     {
-      if (*v45 != v22)
+      if (*v44 != v21)
       {
         objc_enumerationMutation(emailAddresses);
       }
 
-      phoneNumber = [*(*(&v44 + 1) + 8 * v23) phoneNumber];
-      v25 = [(SGSqlEntityStore *)self mayHaveSentMessageToHandle:phoneNumber];
+      phoneNumber = [*(*(&v43 + 1) + 8 * v22) phoneNumber];
+      v24 = [(SGSqlEntityStore *)self mayHaveSentMessageToHandle:phoneNumber];
 
-      if (v25)
+      if (v24)
       {
         break;
       }
 
-      if (v21 == ++v23)
+      if (v20 == ++v22)
       {
-        v21 = [emailAddresses countByEnumeratingWithState:&v44 objects:v54 count:16];
-        if (v21)
+        v20 = [emailAddresses countByEnumeratingWithState:&v43 objects:v53 count:16];
+        if (v20)
         {
           goto LABEL_21;
         }
@@ -12804,9 +12743,9 @@ LABEL_21:
     }
 
     *buf = 0;
-    v31 = "Contact is significant: Found in bloom filter (phone)";
+    v30 = "Contact is significant: Found in bloom filter (phone)";
 LABEL_37:
-    _os_log_debug_impl(&dword_231E60000, v17, OS_LOG_TYPE_DEBUG, v31, buf, 2u);
+    _os_log_debug_impl(&dword_231E60000, v17, OS_LOG_TYPE_DEBUG, v30, buf, 2u);
 LABEL_15:
 
     goto LABEL_16;
@@ -12815,7 +12754,6 @@ LABEL_15:
   v16 = 1;
 LABEL_18:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -12947,42 +12885,40 @@ uint64_t __78__SGSqlEntityStore_ContactDetails__loadAllContactDetailsFromTableFo
 
 - (id)loadAllContactDetailsFromTableForRecordId:(id)id type:(unint64_t)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = [(SGSqlEntityStore *)self loadAllContactDetailsFromTableForRecordId:id];
   v6 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
+        v12 = *(*(&v14 + 1) + 8 * i);
         if ([v12 type] == type)
         {
           [v6 addObject:v12];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -13157,7 +13093,7 @@ void __56__SGSqlEntityStore_ContactDetails__commitContactDetail___block_invoke_2
 - (void)writeIdentityBlobs:(id)blobs forceRewrite:(BOOL)rewrite
 {
   rewriteCopy = rewrite;
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   blobsCopy = blobs;
   v7 = sgLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
@@ -13166,102 +13102,102 @@ void __56__SGSqlEntityStore_ContactDetails__commitContactDetail___block_invoke_2
     _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_INFO, "Writing identity blobs", buf, 2u);
   }
 
+  v64 = 0;
   v65 = 0;
-  v66 = 0;
-  v64 = @"writeIdentityBlobs";
-  v65 = mach_absolute_time();
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x2020000000;
-  v63 = 0;
-  *buf = 0;
-  v55 = buf;
-  v56 = 0x3032000000;
-  v57 = __Block_byref_object_copy__22534;
-  v58 = __Block_byref_object_dispose__22535;
+  v63 = @"writeIdentityBlobs";
+  v64 = mach_absolute_time();
   v59 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__22534;
-  v52 = __Block_byref_object_dispose__22535;
-  v53 = 0;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__22534;
-  v46 = __Block_byref_object_dispose__22535;
+  v60 = &v59;
+  v61 = 0x2020000000;
+  v62 = 0;
+  *buf = 0;
+  v54 = buf;
+  v55 = 0x3032000000;
+  v56 = __Block_byref_object_copy__22534;
+  v57 = __Block_byref_object_dispose__22535;
+  v58 = 0;
   v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__22534;
+  v51 = __Block_byref_object_dispose__22535;
+  v52 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__22534;
+  v45 = __Block_byref_object_dispose__22535;
+  v46 = 0;
   db = self->_db;
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __61__SGSqlEntityStore_Writing__writeIdentityBlobs_forceRewrite___block_invoke;
-  v35[3] = &unk_27894F4F8;
-  v35[4] = self;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __61__SGSqlEntityStore_Writing__writeIdentityBlobs_forceRewrite___block_invoke;
+  v34[3] = &unk_27894F4F8;
+  v34[4] = self;
   v9 = blobsCopy;
-  v36 = v9;
-  v37 = buf;
-  v38 = &v48;
-  v39 = &v42;
-  v40 = &v60;
-  v41 = rewriteCopy;
-  [(SGSqliteDatabase *)db writeTransaction:v35];
-  if (*(v61 + 24) == 1)
+  v35 = v9;
+  v36 = buf;
+  v37 = &v47;
+  v38 = &v41;
+  v39 = &v59;
+  v40 = rewriteCopy;
+  [(SGSqliteDatabase *)db writeTransaction:v34];
+  if (*(v60 + 24) == 1)
   {
     [(SGSqlEntityStore *)self clearMasterEntityCache];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v10 = v49[5];
-    v11 = [v10 countByEnumeratingWithState:&v31 objects:v69 count:16];
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v10 = v48[5];
+    v11 = [v10 countByEnumeratingWithState:&v30 objects:v68 count:16];
     if (v11)
     {
-      v12 = *v32;
+      v12 = *v31;
       do
       {
         v13 = 0;
         do
         {
-          if (*v32 != v12)
+          if (*v31 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          [SGDNotificationBroadcaster emitContactDeleted:*(*(&v31 + 1) + 8 * v13++)];
+          [SGDNotificationBroadcaster emitContactDeleted:*(*(&v30 + 1) + 8 * v13++)];
         }
 
         while (v11 != v13);
-        v11 = [v10 countByEnumeratingWithState:&v31 objects:v69 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v30 objects:v68 count:16];
       }
 
       while (v11);
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
-    v14 = v43[5];
-    v15 = [v14 countByEnumeratingWithState:&v27 objects:v68 count:16];
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v14 = v42[5];
+    v15 = [v14 countByEnumeratingWithState:&v26 objects:v67 count:16];
     if (v15)
     {
-      v16 = *v28;
+      v16 = *v27;
       do
       {
         v17 = 0;
         do
         {
-          if (*v28 != v16)
+          if (*v27 != v16)
           {
             objc_enumerationMutation(v14);
           }
 
-          [SGDNotificationBroadcaster emitContactUpdated:*(*(&v27 + 1) + 8 * v17++)];
+          [SGDNotificationBroadcaster emitContactUpdated:*(*(&v26 + 1) + 8 * v17++)];
         }
 
         while (v15 != v17);
-        v15 = [v14 countByEnumeratingWithState:&v27 objects:v68 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v26 objects:v67 count:16];
       }
 
       while (v15);
@@ -13269,30 +13205,30 @@ void __56__SGSqlEntityStore_ContactDetails__commitContactDetail___block_invoke_2
 
     if (rewriteCopy)
     {
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
-      v18 = *(v55 + 5);
-      v19 = [v18 countByEnumeratingWithState:&v23 objects:v67 count:16];
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
+      v18 = *(v54 + 5);
+      v19 = [v18 countByEnumeratingWithState:&v22 objects:v66 count:16];
       if (v19)
       {
-        v20 = *v24;
+        v20 = *v23;
         do
         {
           v21 = 0;
           do
           {
-            if (*v24 != v20)
+            if (*v23 != v20)
             {
               objc_enumerationMutation(v18);
             }
 
-            [SGDNotificationBroadcaster emitContactUpdated:*(*(&v23 + 1) + 8 * v21++), v23];
+            [SGDNotificationBroadcaster emitContactUpdated:*(*(&v22 + 1) + 8 * v21++), v22];
           }
 
           while (v19 != v21);
-          v19 = [v18 countByEnumeratingWithState:&v23 objects:v67 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v22 objects:v66 count:16];
         }
 
         while (v19);
@@ -13300,21 +13236,19 @@ void __56__SGSqlEntityStore_ContactDetails__commitContactDetail___block_invoke_2
     }
   }
 
-  SGRecordMeasurementState(&v64);
+  SGRecordMeasurementState(&v63);
 
-  _Block_object_dispose(&v42, 8);
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v47, 8);
 
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(&v60, 8);
-  SGRecordMeasurementState(&v64);
-
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v59, 8);
+  SGRecordMeasurementState(&v63);
 }
 
 void __61__SGSqlEntityStore_Writing__writeIdentityBlobs_forceRewrite___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _loadIdentityBlobs];
   v3 = [*(a1 + 32) _labelIdentityBlobs:*(a1 + 40)];
   v4 = [v2 _pas_mappedSetWithTransform:&__block_literal_global_396];
@@ -13342,119 +13276,117 @@ void __61__SGSqlEntityStore_Writing__writeIdentityBlobs_forceRewrite___block_inv
   v17 = *(v16 + 40);
   *(v16 + 40) = v15;
 
-  if ([v10 count])
+  if (objc_msgSend_count(v10))
   {
     v18 = sgLogHandle();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v22 = 138412290;
-      v23 = v10;
-      _os_log_debug_impl(&dword_231E60000, v18, OS_LOG_TYPE_DEBUG, "IdentityStore: Writing deletes for %@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = v10;
+      _os_log_debug_impl(&dword_231E60000, v18, OS_LOG_TYPE_DEBUG, "IdentityStore: Writing deletes for %@", &v21, 0xCu);
     }
 
     [*(a1 + 32) _writeLabeledBlobs:v10 deletedMasterEntityIds:*(*(*(a1 + 56) + 8) + 40)];
     *(*(*(a1 + 72) + 8) + 24) = 1;
   }
 
-  if ([v14 count])
+  if (objc_msgSend_count(v14))
   {
     v19 = sgLogHandle();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      v22 = 138412290;
-      v23 = v14;
-      _os_log_debug_impl(&dword_231E60000, v19, OS_LOG_TYPE_DEBUG, "IdentityStore: Newly created contacts %@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = v14;
+      _os_log_debug_impl(&dword_231E60000, v19, OS_LOG_TYPE_DEBUG, "IdentityStore: Newly created contacts %@", &v21, 0xCu);
     }
 
     [*(a1 + 32) _writeLabeledBlobs:v14 deletedMasterEntityIds:*(*(*(a1 + 56) + 8) + 40)];
     *(*(*(a1 + 72) + 8) + 24) = 1;
   }
 
-  if (*(a1 + 80) == 1 && [v6 count])
+  if (*(a1 + 80) == 1 && objc_msgSend_count(v6))
   {
     v20 = sgLogHandle();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v22 = 138412290;
-      v23 = v6;
-      _os_log_debug_impl(&dword_231E60000, v20, OS_LOG_TYPE_DEBUG, "IdentityStore: Forced update of contacts %@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = v6;
+      _os_log_debug_impl(&dword_231E60000, v20, OS_LOG_TYPE_DEBUG, "IdentityStore: Forced update of contacts %@", &v21, 0xCu);
     }
 
     [*(a1 + 32) _writeLabeledBlobs:v6 deletedMasterEntityIds:*(*(*(a1 + 56) + 8) + 40)];
     *(*(*(a1 + 72) + 8) + 24) = 1;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeLabeledBlobs:(id)blobs deletedMasterEntityIds:(id)ids
 {
-  v116 = *MEMORY[0x277D85DE8];
+  v115 = *MEMORY[0x277D85DE8];
   blobsCopy = blobs;
   idsCopy = ids;
   v7 = dispatch_semaphore_create(0);
-  v106[0] = MEMORY[0x277D85DD0];
-  v106[1] = 3221225472;
-  v106[2] = __71__SGSqlEntityStore_Writing___writeLabeledBlobs_deletedMasterEntityIds___block_invoke;
-  v106[3] = &unk_278954A30;
+  v105[0] = MEMORY[0x277D85DD0];
+  v105[1] = 3221225472;
+  v105[2] = __71__SGSqlEntityStore_Writing___writeLabeledBlobs_deletedMasterEntityIds___block_invoke;
+  v105[3] = &unk_278954A30;
   v8 = v7;
-  v107 = v8;
-  [SGSpotlightContactsAdapter notifyWhenFlushed:v106];
-  v72 = v8;
+  v106 = v8;
+  [SGSpotlightContactsAdapter notifyWhenFlushed:v105];
+  v71 = v8;
   dispatch_semaphore_wait(v8, 0xFFFFFFFFFFFFFFFFLL);
+  v101 = 0u;
   v102 = 0u;
   v103 = 0u;
   v104 = 0u;
-  v105 = 0u;
   obj = blobsCopy;
-  v82 = [obj countByEnumeratingWithState:&v102 objects:v115 count:16];
-  if (v82)
+  v81 = [obj countByEnumeratingWithState:&v101 objects:v114 count:16];
+  if (v81)
   {
-    v80 = *v103;
+    v79 = *v102;
     do
     {
       v9 = 0;
       do
       {
-        if (*v103 != v80)
+        if (*v102 != v79)
         {
           objc_enumerationMutation(obj);
         }
 
-        v84 = v9;
-        v10 = *(*(&v102 + 1) + 8 * v9);
-        v83 = objc_autoreleasePoolPush();
+        v83 = v9;
+        v10 = *(*(&v101 + 1) + 8 * v9);
+        v82 = objc_autoreleasePoolPush();
         first = [v10 first];
         [(SGSqlEntityStore *)self deleteSerializedContactsForIdSet:first];
 
         first2 = [v10 first];
         [(SGSqlEntityStore *)self deleteAllCNContactMatchesForIdSet:first2];
 
-        v100 = 0u;
-        v101 = 0u;
-        v98 = 0u;
         v99 = 0u;
+        v100 = 0u;
+        v97 = 0u;
+        v98 = 0u;
         first3 = [v10 first];
-        v14 = [first3 countByEnumeratingWithState:&v98 objects:v114 count:16];
+        v14 = [first3 countByEnumeratingWithState:&v97 objects:v113 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v99;
+          v16 = *v98;
           do
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v99 != v16)
+              if (*v98 != v16)
               {
                 objc_enumerationMutation(first3);
               }
 
-              v18 = +[SGStorageContact contactWithMasterEntityId:](SGStorageContact, "contactWithMasterEntityId:", [*(*(&v98 + 1) + 8 * i) internalEntityId]);
+              v18 = +[SGStorageContact contactWithMasterEntityId:](SGStorageContact, "contactWithMasterEntityId:", [*(*(&v97 + 1) + 8 * i) internalEntityId]);
               v19 = [[SGJournalEntry alloc] initWithOperation:13 contact:v18];
               [(SGJournal *)self->_journal addEntry:v19];
             }
 
-            v15 = [first3 countByEnumeratingWithState:&v98 objects:v114 count:16];
+            v15 = [first3 countByEnumeratingWithState:&v97 objects:v113 count:16];
           }
 
           while (v15);
@@ -13483,7 +13415,7 @@ void __61__SGSqlEntityStore_Writing__writeIdentityBlobs_forceRewrite___block_inv
           }
 
           [kvCacheManager removeObject:first4];
-          if ([kvCacheManager count])
+          if (objc_msgSend_count(kvCacheManager))
           {
             kvCacheManager2 = [(SGSqlEntityStore *)self kvCacheManager];
             [kvCacheManager2 deleteValueByRecordIdSet:kvCacheManager];
@@ -13494,15 +13426,15 @@ void __61__SGSqlEntityStore_Writing__writeIdentityBlobs_forceRewrite___block_inv
         v27 = sgMap();
 
         db = self->_db;
-        v95[0] = MEMORY[0x277D85DD0];
-        v95[1] = 3221225472;
-        v95[2] = __71__SGSqlEntityStore_Writing___writeLabeledBlobs_deletedMasterEntityIds___block_invoke_3;
-        v95[3] = &unk_27894F4B0;
-        v97 = v21;
-        v95[4] = v10;
+        v94[0] = MEMORY[0x277D85DD0];
+        v94[1] = 3221225472;
+        v94[2] = __71__SGSqlEntityStore_Writing___writeLabeledBlobs_deletedMasterEntityIds___block_invoke_3;
+        v94[3] = &unk_27894F4B0;
+        v96 = v21;
+        v94[4] = v10;
         v29 = v27;
-        v96 = v29;
-        [(SGSqliteDatabase *)db prepAndRunSQL:@"UPDATE entity SET masterEntityId = :masterEntityId WHERE id IN _pas_nsarray(:ids) AND entityType IN (:pseudoContact onPrep::unrecognizedContact)" onRow:v95 onError:0, 0];
+        v95 = v29;
+        [(SGSqliteDatabase *)db prepAndRunSQL:@"UPDATE entity SET masterEntityId = :masterEntityId WHERE id IN _pas_nsarray(:ids) AND entityType IN (:pseudoContact onPrep::unrecognizedContact)" onRow:v94 onError:0, 0];
         if ((v21 & 1) == 0)
         {
           second2 = [v10 second];
@@ -13526,7 +13458,7 @@ void __61__SGSqlEntityStore_Writing__writeIdentityBlobs_forceRewrite___block_inv
               fullName = [name fullName];
 
               v40 = v34;
-              v75 = fullName;
+              v74 = fullName;
               if (fullName)
               {
                 v41 = [MEMORY[0x277D01FF8] encodedStringForFullName:fullName];
@@ -13538,40 +13470,40 @@ void __61__SGSqlEntityStore_Writing__writeIdentityBlobs_forceRewrite___block_inv
               }
 
               phones = [v34 phones];
-              v44 = [phones count];
+              v44 = objc_msgSend_count(phones);
 
-              v77 = v31;
-              v78 = v29;
-              v76 = v34;
+              v76 = v31;
+              v77 = v29;
+              v75 = v34;
               if (v44)
               {
                 context = objc_autoreleasePoolPush();
                 v45 = objc_opt_new();
+                v90 = 0u;
                 v91 = 0u;
                 v92 = 0u;
                 v93 = 0u;
-                v94 = 0u;
                 phones2 = [v34 phones];
-                v46 = [phones2 countByEnumeratingWithState:&v91 objects:v109 count:16];
+                v46 = [phones2 countByEnumeratingWithState:&v90 objects:v108 count:16];
                 if (v46)
                 {
                   v47 = v46;
-                  v48 = *v92;
+                  v48 = *v91;
                   do
                   {
                     for (j = 0; j != v47; ++j)
                     {
-                      if (*v92 != v48)
+                      if (*v91 != v48)
                       {
                         objc_enumerationMutation(phones2);
                       }
 
-                      phoneNumber = [*(*(&v91 + 1) + 8 * j) phoneNumber];
+                      phoneNumber = [*(*(&v90 + 1) + 8 * j) phoneNumber];
                       v51 = SGNormalizePhoneNumber();
                       [v45 setObject:v41 forKeyedSubscript:v51];
                     }
 
-                    v47 = [phones2 countByEnumeratingWithState:&v91 objects:v109 count:16];
+                    v47 = [phones2 countByEnumeratingWithState:&v90 objects:v108 count:16];
                   }
 
                   while (v47);
@@ -13580,47 +13512,47 @@ void __61__SGSqlEntityStore_Writing__writeIdentityBlobs_forceRewrite___block_inv
                 kvCacheManager3 = [(SGSqlEntityStore *)self kvCacheManager];
                 v53 = [kvCacheManager3 cacheOfType:0];
 
-                v40 = v76;
-                recordId2 = [v76 recordId];
+                v40 = v75;
+                recordId2 = [v75 recordId];
                 [v53 setValueIfNotPresentWithDict:v45 fromRecordId:recordId2];
 
                 objc_autoreleasePoolPop(context);
-                v31 = v77;
-                v29 = v78;
+                v31 = v76;
+                v29 = v77;
               }
 
               emailAddresses = [v40 emailAddresses];
-              v56 = [emailAddresses count];
+              v56 = objc_msgSend_count(emailAddresses);
 
               if (v56)
               {
                 contexta = objc_autoreleasePoolPush();
                 v57 = objc_opt_new();
+                v86 = 0u;
                 v87 = 0u;
                 v88 = 0u;
                 v89 = 0u;
-                v90 = 0u;
                 emailAddresses2 = [v40 emailAddresses];
-                v58 = [emailAddresses2 countByEnumeratingWithState:&v87 objects:v108 count:16];
+                v58 = [emailAddresses2 countByEnumeratingWithState:&v86 objects:v107 count:16];
                 if (v58)
                 {
                   v59 = v58;
-                  v60 = *v88;
+                  v60 = *v87;
                   do
                   {
                     for (k = 0; k != v59; ++k)
                     {
-                      if (*v88 != v60)
+                      if (*v87 != v60)
                       {
                         objc_enumerationMutation(emailAddresses2);
                       }
 
-                      emailAddress = [*(*(&v87 + 1) + 8 * k) emailAddress];
+                      emailAddress = [*(*(&v86 + 1) + 8 * k) emailAddress];
                       v63 = SGNormalizeEmailAddress();
                       [v57 setObject:v41 forKeyedSubscript:v63];
                     }
 
-                    v59 = [emailAddresses2 countByEnumeratingWithState:&v87 objects:v108 count:16];
+                    v59 = [emailAddresses2 countByEnumeratingWithState:&v86 objects:v107 count:16];
                   }
 
                   while (v59);
@@ -13629,13 +13561,13 @@ void __61__SGSqlEntityStore_Writing__writeIdentityBlobs_forceRewrite___block_inv
                 kvCacheManager4 = [(SGSqlEntityStore *)self kvCacheManager];
                 v65 = [kvCacheManager4 cacheOfType:1];
 
-                v40 = v76;
-                recordId3 = [v76 recordId];
+                v40 = v75;
+                recordId3 = [v75 recordId];
                 [v65 setValueIfNotPresentWithDict:v57 fromRecordId:recordId3];
 
                 objc_autoreleasePoolPop(contexta);
-                v31 = v77;
-                v29 = v78;
+                v31 = v76;
+                v29 = v77;
               }
             }
 
@@ -13647,9 +13579,9 @@ void __61__SGSqlEntityStore_Writing__writeIdentityBlobs_forceRewrite___block_inv
                 recordId4 = [v34 recordId];
                 second4 = [v10 second];
                 *buf = 138412546;
-                v111 = recordId4;
-                v112 = 2112;
-                v113 = second4;
+                v110 = recordId4;
+                v111 = 2112;
+                v112 = second4;
                 _os_log_fault_impl(&dword_231E60000, v42, OS_LOG_TYPE_FAULT, "Expected the new mergedContact record Id %@ to be %@:", buf, 0x16u);
               }
 
@@ -13662,18 +13594,16 @@ void __61__SGSqlEntityStore_Writing__writeIdentityBlobs_forceRewrite___block_inv
           }
         }
 
-        objc_autoreleasePoolPop(v83);
-        v9 = v84 + 1;
+        objc_autoreleasePoolPop(v82);
+        v9 = v83 + 1;
       }
 
-      while (v84 + 1 != v82);
-      v82 = [obj countByEnumeratingWithState:&v102 objects:v115 count:16];
+      while (v83 + 1 != v81);
+      v81 = [obj countByEnumeratingWithState:&v101 objects:v114 count:16];
     }
 
-    while (v82);
+    while (v81);
   }
-
-  v70 = *MEMORY[0x277D85DE8];
 }
 
 void __71__SGSqlEntityStore_Writing___writeLabeledBlobs_deletedMasterEntityIds___block_invoke_3(uint64_t a1, void *a2)
@@ -13705,52 +13635,52 @@ uint64_t __71__SGSqlEntityStore_Writing___writeLabeledBlobs_deletedMasterEntityI
 
 - (id)_labelIdentityBlobs:(id)blobs
 {
-  v28 = a2;
-  v57 = *MEMORY[0x277D85DE8];
+  v27 = a2;
+  v56 = *MEMORY[0x277D85DE8];
   blobsCopy = blobs;
-  v33 = objc_opt_new();
   v32 = objc_opt_new();
+  v31 = objc_opt_new();
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   obj = blobsCopy;
-  v4 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+  v4 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
   if (v4)
   {
-    v31 = *v52;
+    v30 = *v51;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v52 != v31)
+        if (*v51 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v51 + 1) + 8 * i);
+        v6 = *(*(&v50 + 1) + 8 * i);
         v7 = objc_autoreleasePoolPush();
-        +[SGAggregateLogging identityGroupSize:](SGAggregateLogging, "identityGroupSize:", [v6 count]);
+        [SGAggregateLogging identityGroupSize:objc_msgSend_count(v6)];
         anyObject = [v6 anyObject];
-        v49 = 0u;
-        v50 = 0u;
-        v47 = 0u;
         v48 = 0u;
+        v49 = 0u;
+        v46 = 0u;
+        v47 = 0u;
         v9 = v6;
-        v10 = [v9 countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v46 objects:v54 count:16];
         if (v10)
         {
-          v11 = *v48;
+          v11 = *v47;
           do
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v48 != v11)
+              if (*v47 != v11)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v13 = *(*(&v47 + 1) + 8 * j);
+              v13 = *(*(&v46 + 1) + 8 * j);
               rowId = [v13 rowId];
               if (rowId < [anyObject rowId])
               {
@@ -13760,7 +13690,7 @@ uint64_t __71__SGSqlEntityStore_Writing___writeLabeledBlobs_deletedMasterEntityI
               }
             }
 
-            v10 = [v9 countByEnumeratingWithState:&v47 objects:v55 count:16];
+            v10 = [v9 countByEnumeratingWithState:&v46 objects:v54 count:16];
           }
 
           while (v10);
@@ -13770,33 +13700,33 @@ uint64_t __71__SGSqlEntityStore_Writing___writeLabeledBlobs_deletedMasterEntityI
         v17 = [MEMORY[0x277D020C8] recordIdForContactWithRowId:{objc_msgSend(anyObject, "rowId")}];
         v18 = [v16 tupleWithFirst:v9 second:v17];
 
-        [v33 addObject:v18];
-        [v32 addIndex:{objc_msgSend(anyObject, "rowId")}];
+        [v32 addObject:v18];
+        [v31 addIndex:{objc_msgSend(anyObject, "rowId")}];
 
         objc_autoreleasePoolPop(v7);
       }
 
-      v4 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+      v4 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
     }
 
     while (v4);
   }
 
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
   db = self->_db;
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __49__SGSqlEntityStore_Writing___labelIdentityBlobs___block_invoke;
-  v40[3] = &unk_2789561A8;
-  v40[4] = self;
-  v20 = v32;
-  v41 = v20;
-  v42 = &v43;
-  [(SGSqliteDatabase *)db readTransaction:v40];
-  if (v44[3])
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __49__SGSqlEntityStore_Writing___labelIdentityBlobs___block_invoke;
+  v39[3] = &unk_2789561A8;
+  v39[4] = self;
+  v20 = v31;
+  v40 = v20;
+  v41 = &v42;
+  [(SGSqliteDatabase *)db readTransaction:v39];
+  if (v43[3])
   {
     v21 = sgLogHandle();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
@@ -13813,26 +13743,25 @@ uint64_t __71__SGSqlEntityStore_Writing___writeLabeledBlobs_deletedMasterEntityI
     v22 = objc_opt_new();
 
     v23 = self->_db;
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __49__SGSqlEntityStore_Writing___labelIdentityBlobs___block_invoke_367;
-    v34[3] = &unk_278954C50;
-    v38 = v28;
-    v35 = obj;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __49__SGSqlEntityStore_Writing___labelIdentityBlobs___block_invoke_367;
+    v33[3] = &unk_278954C50;
+    v37 = v27;
+    v34 = obj;
     selfCopy = self;
     v24 = v22;
-    v37 = v24;
-    [(SGSqliteDatabase *)v23 readTransaction:v34];
+    v36 = v24;
+    [(SGSqliteDatabase *)v23 readTransaction:v33];
     v25 = v24;
   }
 
   else
   {
-    v25 = v33;
+    v25 = v32;
   }
 
-  _Block_object_dispose(&v43, 8);
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v42, 8);
 
   return v25;
 }
@@ -13855,54 +13784,54 @@ void __49__SGSqlEntityStore_Writing___labelIdentityBlobs___block_invoke(uint64_t
 
 void __49__SGSqlEntityStore_Writing___labelIdentityBlobs___block_invoke_367(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v2 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v2)
   {
-    v15 = *v30;
+    v14 = *v29;
     do
     {
       v3 = 0;
       do
       {
-        if (*v30 != v15)
+        if (*v29 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v29 + 1) + 8 * v3);
+        v4 = *(*(&v28 + 1) + 8 * v3);
         v5 = objc_autoreleasePoolPush();
-        v25 = 0;
-        v26 = &v25;
-        v27 = 0x2020000000;
-        v28 = -1;
-        v19 = MEMORY[0x277D85DD0];
-        v20 = 3221225472;
-        v21 = __49__SGSqlEntityStore_Writing___labelIdentityBlobs___block_invoke_2_368;
-        v22 = &unk_27894F738;
+        v24 = 0;
+        v25 = &v24;
+        v26 = 0x2020000000;
+        v27 = -1;
+        v18 = MEMORY[0x277D85DD0];
+        v19 = 3221225472;
+        v20 = __49__SGSqlEntityStore_Writing___labelIdentityBlobs___block_invoke_2_368;
+        v21 = &unk_27894F738;
         v6 = *(a1 + 56);
-        v23 = *(a1 + 40);
-        v24 = v6;
+        v22 = *(a1 + 40);
+        v23 = v6;
         v7 = sgMap();
         v8 = *(*(a1 + 40) + 8);
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __49__SGSqlEntityStore_Writing___labelIdentityBlobs___block_invoke_3_376;
-        v17[3] = &unk_278955E30;
-        v9 = v7;
-        v18 = v9;
         v16[0] = MEMORY[0x277D85DD0];
         v16[1] = 3221225472;
-        v16[2] = __49__SGSqlEntityStore_Writing___labelIdentityBlobs___block_invoke_4;
-        v16[3] = &unk_278955EA0;
-        v16[4] = &v25;
-        [v8 prepAndRunSQL:@"SELECT MIN(id) FROM entity WHERE id IN _pas_nsarray(:ids)" onPrep:v17 onRow:v16 onError:0];
-        if (v26[3] >= 1)
+        v16[2] = __49__SGSqlEntityStore_Writing___labelIdentityBlobs___block_invoke_3_376;
+        v16[3] = &unk_278955E30;
+        v9 = v7;
+        v17 = v9;
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __49__SGSqlEntityStore_Writing___labelIdentityBlobs___block_invoke_4;
+        v15[3] = &unk_278955EA0;
+        v15[4] = &v24;
+        [v8 prepAndRunSQL:@"SELECT MIN(id) FROM entity WHERE id IN _pas_nsarray(:ids)" onPrep:v16 onRow:v15 onError:0];
+        if (v25[3] >= 1)
         {
           v10 = MEMORY[0x277D42648];
           v11 = [MEMORY[0x277D020C8] recordIdForContactWithRowId:?];
@@ -13911,19 +13840,17 @@ void __49__SGSqlEntityStore_Writing___labelIdentityBlobs___block_invoke_367(uint
           [*(a1 + 48) addObject:v12];
         }
 
-        _Block_object_dispose(&v25, 8);
+        _Block_object_dispose(&v24, 8);
         objc_autoreleasePoolPop(v5);
         ++v3;
       }
 
       while (v2 != v3);
-      v2 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v2 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v2);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 id __49__SGSqlEntityStore_Writing___labelIdentityBlobs___block_invoke_2_368(uint64_t a1, void *a2)
@@ -14050,7 +13977,7 @@ uint64_t __47__SGSqlEntityStore_Writing___loadIdentityBlobs__block_invoke_3(uint
 
 - (void)_writeFTSTermsForEnrichment:(id)enrichment entityId:(int64_t)id
 {
-  v42[4] = *MEMORY[0x277D85DE8];
+  v41[4] = *MEMORY[0x277D85DE8];
   enrichmentCopy = enrichment;
   [(SGSqlEntityStore *)self clearMasterEntityCache];
   v7 = objc_opt_new();
@@ -14108,31 +14035,31 @@ LABEL_8:
 
     else if (type)
     {
-      v27 = [SGSocialProfileDetails alloc];
+      v26 = [SGSocialProfileDetails alloc];
       value2 = [v17 value];
-      value = [(SGSocialProfileDetails *)v27 initWithSerialized:value2];
+      value = [(SGSocialProfileDetails *)v26 initWithSerialized:value2];
 
       if (value)
       {
         displayName = [(SGSocialProfileDetails *)value displayName];
-        v42[0] = displayName;
+        v41[0] = displayName;
         bundleIdentifier = [(SGSocialProfileDetails *)value bundleIdentifier];
-        v42[1] = bundleIdentifier;
+        v41[1] = bundleIdentifier;
         username = [(SGSocialProfileDetails *)value username];
-        v42[2] = username;
+        v41[2] = username;
         service = [(SGSocialProfileDetails *)value service];
-        v42[3] = service;
-        v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:4];
-        [v8 addObjectsFromArray:v31];
+        v41[3] = service;
+        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:4];
+        [v8 addObjectsFromArray:v30];
       }
     }
 
     else
     {
       value3 = [v17 value];
-      v24 = [value3 containsString:@";"];
+      v23 = [value3 containsString:@";"];
 
-      if (v24)
+      if (v23)
       {
         goto LABEL_13;
       }
@@ -14156,34 +14083,33 @@ LABEL_8:
       }
 
       value4 = [v17 value];
-      v34 = _PNCopyIndexStringsForAddressBookSearch();
+      v33 = _PNCopyIndexStringsForAddressBookSearch();
 
-      if (v34)
+      if (v33)
       {
-        [v7 addObjectsFromArray:v34];
+        [v7 addObjectsFromArray:v33];
       }
     }
   }
 
 LABEL_13:
-  v20 = [v7 count];
-  if (v20 + [v8 count])
+  v20 = objc_msgSend_count(v7);
+  if (v20 + objc_msgSend_count(v8))
   {
     db = self->_db;
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __66__SGSqlEntityStore_Writing___writeFTSTermsForEnrichment_entityId___block_invoke;
-    v37[3] = &unk_278954B90;
-    v37[4] = self;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __66__SGSqlEntityStore_Writing___writeFTSTermsForEnrichment_entityId___block_invoke;
+    v36[3] = &unk_278954B90;
+    v36[4] = self;
     idCopy = id;
-    v38 = enrichmentCopy;
-    v39 = v7;
-    v40 = v8;
-    [(SGSqliteDatabase *)db writeTransaction:v37];
+    v37 = enrichmentCopy;
+    v38 = v7;
+    v39 = v8;
+    [(SGSqliteDatabase *)db writeTransaction:v36];
   }
 
 LABEL_16:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __66__SGSqlEntityStore_Writing___writeFTSTermsForEnrichment_entityId___block_invoke(uint64_t a1)
@@ -14286,7 +14212,7 @@ void __66__SGSqlEntityStore_Writing___writeFTSTermsForEnrichment_entityId___bloc
 - (void)_writeReminderEntitiesToJournal:(id)journal
 {
   journalCopy = journal;
-  v5 = [journalCopy count];
+  v5 = objc_msgSend_count(journalCopy);
   v6 = sgLogHandle();
   firstObject = v6;
   if (v5 == 1)
@@ -14312,22 +14238,22 @@ void __66__SGSqlEntityStore_Writing___writeFTSTermsForEnrichment_entityId___bloc
 
 - (void)_writeEventEntitiesToJournal:(id)journal
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   journalCopy = journal;
   v5 = sgEventsLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [journalCopy count];
+    v6 = objc_msgSend_count(journalCopy);
     v7 = [journalCopy valueForKey:@"loggingIdentifier"];
     v8 = [v7 _pas_componentsJoinedByString:{@", "}];
     *buf = 134218242;
-    v12 = v6;
-    v13 = 2114;
-    v14 = v8;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v8;
     _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEFAULT, "Writing %lu event entities to journal. [SGEvent (%{public}@)]", buf, 0x16u);
   }
 
-  if ([journalCopy count] == 1)
+  if (objc_msgSend_count(journalCopy) == 1)
   {
     firstObject = [journalCopy firstObject];
     [(SGSqlEntityStore *)self _writeEventEntityToJournal:firstObject];
@@ -14338,8 +14264,6 @@ void __66__SGSqlEntityStore_Writing___writeFTSTermsForEnrichment_entityId___bloc
     firstObject = sgMap();
     [(SGJournal *)self->_journal addEntries:firstObject];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_journalEntryFromReminderEntity:(id)entity
@@ -14402,44 +14326,44 @@ void __66__SGSqlEntityStore_Writing___writeFTSTermsForEnrichment_entityId___bloc
 
 void __63__SGSqlEntityStore_Writing___writeEntityParentageFor_entityId___block_invoke(uint64_t a1)
 {
-  v43[8] = *MEMORY[0x277D85DE8];
+  v42[8] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v38 = *(v3 + 8);
+  v37 = *(v3 + 8);
   if (*(v3 + 80) < 0x3Eu)
   {
-    v40[0] = @"parentKey";
+    v39[0] = @"parentKey";
     v7 = [*(a1 + 40) duplicateKey];
     v5 = [v7 parentKey];
     if (v5)
     {
-      v39 = [*(a1 + 40) duplicateKey];
-      v36 = [v39 parentKey];
-      v8 = [v36 serialize];
+      v38 = [*(a1 + 40) duplicateKey];
+      v35 = [v38 parentKey];
+      v8 = [v35 serialize];
     }
 
     else
     {
       v8 = [MEMORY[0x277CBEB68] null];
-      v39 = v8;
+      v38 = v8;
     }
 
-    v37 = v8;
-    v41[0] = v8;
-    v40[1] = @"childId";
+    v36 = v8;
+    v40[0] = v8;
+    v39[1] = @"childId";
     v12 = [MEMORY[0x277CCABB0] numberWithLongLong:*(a1 + 48)];
-    v41[1] = v12;
-    v41[2] = @"-";
-    v40[2] = @"duplicateKeyHash";
-    v40[3] = @"duplicateKeyHashBlob";
+    v40[1] = v12;
+    v40[2] = @"-";
+    v39[2] = @"duplicateKeyHash";
+    v39[3] = @"duplicateKeyHashBlob";
     v13 = [*(a1 + 40) duplicateKey];
     v14 = [v13 compositeHash];
-    v41[3] = v14;
-    v40[4] = @"extractionType";
+    v40[3] = v14;
+    v39[4] = @"extractionType";
     v15 = MEMORY[0x277CCABB0];
     v16 = [*(a1 + 40) extractionInfo];
     v17 = [v15 numberWithUnsignedInteger:{objc_msgSend(v16, "extractionType")}];
-    v41[4] = v17;
-    v40[5] = @"sourceKey";
+    v40[4] = v17;
+    v39[5] = @"sourceKey";
     v18 = [*(a1 + 40) sourceKey];
     if (v18)
     {
@@ -14451,9 +14375,9 @@ void __63__SGSqlEntityStore_Writing___writeEntityParentageFor_entityId___block_i
       [MEMORY[0x277CBEB68] null];
     }
     v22 = ;
-    v41[5] = v22;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:6];
-    [v38 insertOrReplaceIntoTable:@"entityParentage" dictionary:v23 onError:0];
+    v40[5] = v22;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:6];
+    [v37 insertOrReplaceIntoTable:@"entityParentage" dictionary:v23 onError:0];
 
     if (v5)
     {
@@ -14463,46 +14387,46 @@ LABEL_27:
 
   else
   {
-    v42[0] = @"parentKey";
+    v41[0] = @"parentKey";
     v4 = [*(a1 + 40) duplicateKey];
     v5 = [v4 parentKey];
     if (v5)
     {
-      v39 = [*(a1 + 40) duplicateKey];
-      v36 = [v39 parentKey];
-      v6 = [v36 serialize];
+      v38 = [*(a1 + 40) duplicateKey];
+      v35 = [v38 parentKey];
+      v6 = [v35 serialize];
     }
 
     else
     {
       v6 = [MEMORY[0x277CBEB68] null];
-      v39 = v6;
+      v38 = v6;
     }
 
-    v37 = v6;
-    v43[0] = v6;
-    v42[1] = @"childId";
-    v34 = [MEMORY[0x277CCABB0] numberWithLongLong:*(a1 + 48)];
-    v43[1] = v34;
-    v43[2] = @"-";
-    v42[2] = @"duplicateKeyHash";
-    v42[3] = @"duplicateKeyHashBlob";
-    v33 = [*(a1 + 40) duplicateKey];
-    v32 = [v33 compositeHash];
-    v43[3] = v32;
-    v42[4] = @"extractionType";
+    v36 = v6;
+    v42[0] = v6;
+    v41[1] = @"childId";
+    v33 = [MEMORY[0x277CCABB0] numberWithLongLong:*(a1 + 48)];
+    v42[1] = v33;
+    v42[2] = @"-";
+    v41[2] = @"duplicateKeyHash";
+    v41[3] = @"duplicateKeyHashBlob";
+    v32 = [*(a1 + 40) duplicateKey];
+    v31 = [v32 compositeHash];
+    v42[3] = v31;
+    v41[4] = @"extractionType";
     v9 = MEMORY[0x277CCABB0];
-    v31 = [*(a1 + 40) extractionInfo];
-    v30 = [v9 numberWithUnsignedInteger:{objc_msgSend(v31, "extractionType")}];
-    v43[4] = v30;
-    v42[5] = @"modelVersion";
-    v29 = [*(a1 + 40) extractionInfo];
-    v10 = [v29 modelVersion];
-    v35 = v4;
+    v30 = [*(a1 + 40) extractionInfo];
+    v29 = [v9 numberWithUnsignedInteger:{objc_msgSend(v30, "extractionType")}];
+    v42[4] = v29;
+    v41[5] = @"modelVersion";
+    v28 = [*(a1 + 40) extractionInfo];
+    v10 = [v28 modelVersion];
+    v34 = v4;
     if (v10)
     {
-      v28 = [*(a1 + 40) extractionInfo];
-      v11 = [v28 modelVersion];
+      v27 = [*(a1 + 40) extractionInfo];
+      v11 = [v27 modelVersion];
     }
 
     else
@@ -14510,8 +14434,8 @@ LABEL_27:
       v11 = &unk_284749AE8;
     }
 
-    v43[5] = v11;
-    v42[6] = @"modelConfidence";
+    v42[5] = v11;
+    v41[6] = @"modelConfidence";
     v19 = [*(a1 + 40) extractionInfo];
     v20 = [v19 confidence];
     if (v20)
@@ -14525,8 +14449,8 @@ LABEL_27:
       v21 = &unk_28474A3B8;
     }
 
-    v43[6] = v21;
-    v42[7] = @"sourceKey";
+    v42[6] = v21;
+    v41[7] = @"sourceKey";
     v24 = [*(a1 + 40) sourceKey];
     if (v24)
     {
@@ -14538,9 +14462,9 @@ LABEL_27:
       [MEMORY[0x277CBEB68] null];
     }
     v25 = ;
-    v43[7] = v25;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:8];
-    [v38 insertOrReplaceIntoTable:@"entityParentage" dictionary:v26 onError:0];
+    v42[7] = v25;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:8];
+    [v37 insertOrReplaceIntoTable:@"entityParentage" dictionary:v26 onError:0];
 
     if (v20)
     {
@@ -14550,14 +14474,12 @@ LABEL_27:
     {
     }
 
-    v7 = v35;
+    v7 = v34;
     if (v5)
     {
       goto LABEL_27;
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_writeEnrichmentToDb:(id)db
@@ -14721,13 +14643,13 @@ uint64_t __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_2(v
 
 void __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_3(uint64_t a1)
 {
-  v85[17] = *MEMORY[0x277D85DE8];
+  v84[17] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   [v2 timeIntervalSince1970];
   v4 = v3;
 
   context = objc_autoreleasePoolPush();
-  v84[0] = @"id";
+  v83[0] = @"id";
   if (*(*(*(a1 + 48) + 8) + 24) == -1)
   {
     [MEMORY[0x277CBEB68] null];
@@ -14737,23 +14659,23 @@ void __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_3(uint6
   {
     [MEMORY[0x277CCABB0] numberWithLongLong:?];
   }
-  v71 = ;
-  v85[0] = v71;
-  v84[1] = @"entityKey";
-  v70 = [*(a1 + 32) duplicateKey];
-  v69 = [v70 entityKey];
-  v68 = [v69 serialize];
-  v85[1] = v68;
-  v84[2] = @"entityType";
+  v70 = ;
+  v84[0] = v70;
+  v83[1] = @"entityKey";
+  v69 = [*(a1 + 32) duplicateKey];
+  v68 = [v69 entityKey];
+  v67 = [v68 serialize];
+  v84[1] = v67;
+  v83[2] = @"entityType";
   v5 = MEMORY[0x277CCABB0];
-  v67 = [*(a1 + 32) duplicateKey];
-  v66 = [v5 numberWithLongLong:{objc_msgSend(v67, "entityType")}];
-  v85[2] = v66;
-  v84[3] = @"author";
-  v65 = [*(a1 + 32) author];
-  v6 = [v65 sg_serialized];
-  v74 = a1;
-  v64 = v6;
+  v66 = [*(a1 + 32) duplicateKey];
+  v65 = [v5 numberWithLongLong:{objc_msgSend(v66, "entityType")}];
+  v84[2] = v65;
+  v83[3] = @"author";
+  v64 = [*(a1 + 32) author];
+  v6 = [v64 sg_serialized];
+  v73 = a1;
+  v63 = v6;
   if (v6)
   {
     v7 = v6;
@@ -14764,10 +14686,10 @@ void __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_3(uint6
     v7 = &stru_284703F00;
   }
 
-  v85[3] = v7;
-  v84[4] = @"title";
+  v84[3] = v7;
+  v83[4] = @"title";
   v8 = [*(a1 + 32) title];
-  v63 = v8;
+  v62 = v8;
   if (v8)
   {
     v9 = v8;
@@ -14778,21 +14700,21 @@ void __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_3(uint6
     v9 = &stru_284703F00;
   }
 
-  v85[4] = v9;
-  v84[5] = @"creationTimestamp";
+  v84[4] = v9;
+  v83[5] = @"creationTimestamp";
   v10 = MEMORY[0x277CCABB0];
   [*(a1 + 32) creationTimestamp];
-  v62 = [v10 numberWithDouble:?];
-  v85[5] = v62;
-  v84[6] = @"updateTimestamp";
+  v61 = [v10 numberWithDouble:?];
+  v84[5] = v61;
+  v83[6] = @"updateTimestamp";
   v11 = MEMORY[0x277CCABB0];
   [*(a1 + 32) lastModifiedTimestamp];
-  v61 = [v11 numberWithDouble:?];
-  v85[6] = v61;
-  v84[7] = @"tags";
-  v60 = [*(a1 + 32) tags];
-  v12 = SGEntityTagsForStorage(v60);
-  v59 = v12;
+  v60 = [v11 numberWithDouble:?];
+  v84[6] = v60;
+  v83[7] = @"tags";
+  v59 = [*(a1 + 32) tags];
+  v12 = SGEntityTagsForStorage(v59);
+  v58 = v12;
   if (v12)
   {
     v13 = v12;
@@ -14803,8 +14725,8 @@ void __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_3(uint6
     v13 = &stru_284703F00;
   }
 
-  v85[7] = v13;
-  v84[8] = @"structuredData";
+  v84[7] = v13;
+  v83[8] = @"structuredData";
   v14 = [*(a1 + 32) structuredData];
   v15 = v14;
   if (!v14)
@@ -14812,18 +14734,18 @@ void __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_3(uint6
     v14 = [MEMORY[0x277CBEB68] null];
   }
 
-  v56 = v14;
-  v85[8] = v14;
-  v84[9] = @"state";
-  v58 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(*(a1 + 32), "state")}];
-  v85[9] = v58;
-  v84[10] = @"indexTimestamp";
-  v57 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
-  v85[10] = v57;
-  v84[11] = @"lastSeenTimestamp";
+  v55 = v14;
+  v84[8] = v14;
+  v83[9] = @"state";
+  v57 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(*(a1 + 32), "state")}];
+  v84[9] = v57;
+  v83[10] = @"indexTimestamp";
+  v56 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
+  v84[10] = v56;
+  v83[11] = @"lastSeenTimestamp";
   v16 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
-  v85[11] = v16;
-  v84[12] = @"masterEntityId";
+  v84[11] = v16;
+  v83[12] = @"masterEntityId";
   v17 = MEMORY[0x277CCABB0];
   v18 = [*(a1 + 32) masterEntityId];
   if (v18)
@@ -14837,8 +14759,8 @@ void __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_3(uint6
   }
 
   v20 = [v17 numberWithLongLong:v19];
-  v85[12] = v20;
-  v84[13] = @"groupId";
+  v84[12] = v20;
+  v83[13] = @"groupId";
   v21 = MEMORY[0x277CCABB0];
   v22 = [*(a1 + 32) groupId];
   if (v22)
@@ -14852,8 +14774,8 @@ void __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_3(uint6
   }
 
   v24 = [v21 numberWithLongLong:v23];
-  v85[13] = v24;
-  v84[14] = @"contentHashBlob";
+  v84[13] = v24;
+  v83[14] = @"contentHashBlob";
   v25 = [*(a1 + 32) contentHash];
   v26 = v25;
   if (!v25)
@@ -14861,15 +14783,15 @@ void __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_3(uint6
     v26 = [MEMORY[0x277CBEB68] null];
   }
 
-  v85[14] = v26;
-  v84[15] = @"pendingGeocode";
+  v84[14] = v26;
+  v83[15] = @"pendingGeocode";
   v27 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(*(a1 + 32), "pendingGeocode")}];
-  v85[15] = v27;
-  v84[16] = @"harvestedOnBuild";
+  v84[15] = v27;
+  v83[16] = @"harvestedOnBuild";
   v28 = [MEMORY[0x277D42598] currentOsBuild];
-  v85[16] = v28;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:v84 count:17];
-  v73 = [v29 mutableCopy];
+  v84[16] = v28;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:17];
+  v72 = [v29 mutableCopy];
 
   if (!v25)
   {
@@ -14882,13 +14804,13 @@ void __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_3(uint6
   objc_autoreleasePoolPop(context);
   v30 = *(a1 + 40);
   v31 = [*(a1 + 32) timeRange];
-  [v30 _addTimeRange:v31 toEntityWriteDictionary:v73];
+  [v30 _addTimeRange:v31 toEntityWriteDictionary:v72];
 
   v32 = *(a1 + 40);
   v33 = [*(a1 + 32) locations];
-  [v32 _addLocations:v33 toEntityWriteDictionary:v73];
+  [v32 _addLocations:v33 toEntityWriteDictionary:v72];
 
-  [*(*(a1 + 40) + 8) insertOrReplaceIntoTable:@"entity" dictionary:v73 onError:0];
+  [*(*(a1 + 40) + 8) insertOrReplaceIntoTable:@"entity" dictionary:v72 onError:0];
   *(*(*(a1 + 48) + 8) + 24) = sqlite3_last_insert_rowid([*(*(a1 + 40) + 8) handle]);
   v34 = [MEMORY[0x277D020C8] recordIdWithTableId:0 rowId:*(*(*(a1 + 48) + 8) + 24)];
   [*(a1 + 32) setRecordId:v34];
@@ -14918,60 +14840,58 @@ void __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_3(uint6
 
   v43 = *(*(a1 + 40) + 8);
   v44 = *(*(*(a1 + 56) + 8) + 40);
-  v81[0] = MEMORY[0x277D85DD0];
-  v81[1] = 3221225472;
-  v81[2] = __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_4;
-  v81[3] = &unk_278956070;
-  v82 = *(a1 + 32);
-  [v43 prepAndRunQuery:v44 onPrep:v81 onRow:0 onError:0];
+  v80[0] = MEMORY[0x277D85DD0];
+  v80[1] = 3221225472;
+  v80[2] = __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_4;
+  v80[3] = &unk_278956070;
+  v81 = *(a1 + 32);
+  [v43 prepAndRunQuery:v44 onPrep:v80 onRow:0 onError:0];
   v45 = *(*(a1 + 56) + 8);
   v46 = *(v45 + 40);
   *(v45 + 40) = @"INSERT INTO entityTags (tag, entityKey, entityType, parentKey, duplicateKeyHash, duplicateKeyHashBlob) VALUES (:tag, :entityKey, :entityType, :parentKey, '-', :duplicateKeyHash)";
 
-  v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
   v78 = 0u;
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
   v47 = [*(a1 + 32) tags];
-  v48 = [v47 countByEnumeratingWithState:&v77 objects:v83 count:16];
+  v48 = [v47 countByEnumeratingWithState:&v76 objects:v82 count:16];
   if (v48)
   {
     v49 = v48;
-    v50 = *v78;
+    v50 = *v77;
     do
     {
       for (i = 0; i != v49; ++i)
       {
-        if (*v78 != v50)
+        if (*v77 != v50)
         {
           objc_enumerationMutation(v47);
         }
 
-        v52 = *(*(&v77 + 1) + 8 * i);
+        v52 = *(*(&v76 + 1) + 8 * i);
         if ([v52 indexed])
         {
-          v53 = *(*(v74 + 40) + 8);
-          v54 = *(*(*(v74 + 56) + 8) + 40);
-          v75[0] = MEMORY[0x277D85DD0];
-          v75[1] = 3221225472;
-          v75[2] = __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_5;
-          v75[3] = &unk_278954630;
-          v75[4] = v52;
-          v76 = *(v74 + 32);
-          [v53 prepAndRunQuery:v54 onPrep:v75 onRow:0 onError:0];
+          v53 = *(*(v73 + 40) + 8);
+          v54 = *(*(*(v73 + 56) + 8) + 40);
+          v74[0] = MEMORY[0x277D85DD0];
+          v74[1] = 3221225472;
+          v74[2] = __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_5;
+          v74[3] = &unk_278954630;
+          v74[4] = v52;
+          v75 = *(v73 + 32);
+          [v53 prepAndRunQuery:v54 onPrep:v74 onRow:0 onError:0];
         }
       }
 
-      v49 = [v47 countByEnumeratingWithState:&v77 objects:v83 count:16];
+      v49 = [v47 countByEnumeratingWithState:&v76 objects:v82 count:16];
     }
 
     while (v49);
   }
 
-  [*(v74 + 40) _writeEntityParentageFor:*(v74 + 32) entityId:*(*(*(v74 + 48) + 8) + 24)];
-  [*(v74 + 40) _writeFTSTermsForEnrichment:*(v74 + 32) entityId:*(*(*(v74 + 48) + 8) + 24)];
-
-  v55 = *MEMORY[0x277D85DE8];
+  [*(v73 + 40) _writeEntityParentageFor:*(v73 + 32) entityId:*(*(*(v73 + 48) + 8) + 24)];
+  [*(v73 + 40) _writeFTSTermsForEnrichment:*(v73 + 32) entityId:*(*(*(v73 + 48) + 8) + 24)];
 }
 
 void __50__SGSqlEntityStore_Writing___writeEnrichmentToDb___block_invoke_4(uint64_t a1, uint64_t a2)
@@ -15183,13 +15103,13 @@ uint64_t __53__SGSqlEntityStore_Writing___writeMessageEntityToDb___block_invoke_
 
 void __53__SGSqlEntityStore_Writing___writeMessageEntityToDb___block_invoke_3(uint64_t a1)
 {
-  v62[14] = *MEMORY[0x277D85DE8];
+  v61[14] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   [v2 timeIntervalSince1970];
   v4 = v3;
 
-  v44 = *(*(a1 + 32) + 8);
-  v61[0] = @"id";
+  v43 = *(*(a1 + 32) + 8);
+  v60[0] = @"id";
   if (*(*(*(a1 + 48) + 8) + 24) == -1)
   {
     [MEMORY[0x277CBEB68] null];
@@ -15200,74 +15120,74 @@ void __53__SGSqlEntityStore_Writing___writeMessageEntityToDb___block_invoke_3(ui
     [MEMORY[0x277CCABB0] numberWithLongLong:?];
   }
   obj = ;
-  v62[0] = obj;
-  v61[1] = @"key";
-  v48 = [*(a1 + 40) duplicateKey];
-  v47 = [v48 messageKey];
-  v46 = [v47 serialize];
-  v62[1] = v46;
-  v61[2] = @"type";
+  v61[0] = obj;
+  v60[1] = @"key";
+  v47 = [*(a1 + 40) duplicateKey];
+  v46 = [v47 messageKey];
+  v45 = [v46 serialize];
+  v61[1] = v45;
+  v60[2] = @"type";
   v5 = MEMORY[0x277CCABB0];
-  v45 = [*(a1 + 40) duplicateKey];
-  v43 = [v5 numberWithLongLong:{objc_msgSend(v45, "entityType")}];
-  v62[2] = v43;
-  v61[3] = @"sourceKey";
+  v44 = [*(a1 + 40) duplicateKey];
+  v42 = [v5 numberWithLongLong:{objc_msgSend(v44, "entityType")}];
+  v61[2] = v42;
+  v60[3] = @"sourceKey";
   v6 = [*(a1 + 40) sourceKey];
-  v42 = v6;
+  v41 = v6;
   if (!v6)
   {
     v6 = [MEMORY[0x277CBEB68] null];
   }
 
-  v37 = v6;
-  v62[3] = v6;
-  v61[4] = @"author";
-  v41 = [*(a1 + 40) author];
-  v7 = [v41 sg_serialized];
-  v40 = v7;
+  v36 = v6;
+  v61[3] = v6;
+  v60[4] = @"author";
+  v40 = [*(a1 + 40) author];
+  v7 = [v40 sg_serialized];
+  v39 = v7;
   v8 = &stru_284703F00;
   if (v7)
   {
     v8 = v7;
   }
 
-  v62[4] = v8;
-  v61[5] = @"creationTimestamp";
+  v61[4] = v8;
+  v60[5] = @"creationTimestamp";
   v9 = MEMORY[0x277CCABB0];
   [*(a1 + 40) creationTimestamp];
-  v39 = [v9 numberWithDouble:?];
-  v62[5] = v39;
-  v61[6] = @"updateTimestamp";
+  v38 = [v9 numberWithDouble:?];
+  v61[5] = v38;
+  v60[6] = @"updateTimestamp";
   v10 = MEMORY[0x277CCABB0];
   [*(a1 + 40) lastModifiedTimestamp];
-  v38 = [v10 numberWithDouble:?];
-  v62[6] = v38;
-  v61[7] = @"indexTimestamp";
+  v37 = [v10 numberWithDouble:?];
+  v61[6] = v37;
+  v60[7] = @"indexTimestamp";
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
-  v62[7] = v11;
-  v61[8] = @"lastSeenTimestamp";
+  v61[7] = v11;
+  v60[8] = @"lastSeenTimestamp";
   v12 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
-  v62[8] = v12;
-  v61[9] = @"tags";
+  v61[8] = v12;
+  v60[9] = @"tags";
   v13 = [*(a1 + 40) tags];
   v14 = SGEntityTagsForStorage(v13);
-  v62[9] = v14;
-  v61[10] = @"state";
+  v61[9] = v14;
+  v60[10] = @"state";
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(*(a1 + 40), "state")}];
-  v62[10] = v15;
-  v61[11] = @"downloadState";
+  v61[10] = v15;
+  v60[11] = @"downloadState";
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*(*(a1 + 56) + 8) + 24)];
-  v62[11] = v16;
-  v61[12] = @"harvestedOnBuild";
+  v61[11] = v16;
+  v60[12] = @"harvestedOnBuild";
   v17 = [MEMORY[0x277D42598] currentOsBuild];
-  v62[12] = v17;
-  v61[13] = @"pendingVerification";
+  v61[12] = v17;
+  v60[13] = @"pendingVerification";
   v18 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 40), "pendingVerification")}];
-  v62[13] = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:14];
-  [v44 insertOrReplaceIntoTable:@"emailMetadata" dictionary:v19 onError:0];
+  v61[13] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:14];
+  [v43 insertOrReplaceIntoTable:@"emailMetadata" dictionary:v19 onError:0];
 
-  if (!v42)
+  if (!v41)
   {
   }
 
@@ -15290,54 +15210,52 @@ void __53__SGSqlEntityStore_Writing___writeMessageEntityToDb___block_invoke_3(ui
 
   v25 = *(*(a1 + 32) + 8);
   v26 = *(*(*(a1 + 64) + 8) + 40);
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __53__SGSqlEntityStore_Writing___writeMessageEntityToDb___block_invoke_4;
-  v58[3] = &unk_278956070;
-  v59 = *(a1 + 40);
-  [v25 prepAndRunQuery:v26 onPrep:v58 onRow:0 onError:0];
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __53__SGSqlEntityStore_Writing___writeMessageEntityToDb___block_invoke_4;
+  v57[3] = &unk_278956070;
+  v58 = *(a1 + 40);
+  [v25 prepAndRunQuery:v26 onPrep:v57 onRow:0 onError:0];
   v27 = *(*(a1 + 64) + 8);
   v28 = *(v27 + 40);
   *(v27 + 40) = @"INSERT INTO emailTags (key, type, tag) VALUES (:key, :type, :tag)";
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   obja = [*(a1 + 40) tags];
-  v29 = [obja countByEnumeratingWithState:&v54 objects:v60 count:16];
+  v29 = [obja countByEnumeratingWithState:&v53 objects:v59 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v55;
+    v31 = *v54;
     do
     {
       for (i = 0; i != v30; ++i)
       {
-        if (*v55 != v31)
+        if (*v54 != v31)
         {
           objc_enumerationMutation(obja);
         }
 
-        v33 = *(*(&v54 + 1) + 8 * i);
+        v33 = *(*(&v53 + 1) + 8 * i);
         v34 = *(*(a1 + 32) + 8);
         v35 = *(*(*(a1 + 64) + 8) + 40);
-        v51[0] = MEMORY[0x277D85DD0];
-        v51[1] = 3221225472;
-        v51[2] = __53__SGSqlEntityStore_Writing___writeMessageEntityToDb___block_invoke_5;
-        v51[3] = &unk_278954630;
-        v52 = *(a1 + 40);
-        v53 = v33;
-        [v34 prepAndRunQuery:v35 onPrep:v51 onRow:0 onError:0];
+        v50[0] = MEMORY[0x277D85DD0];
+        v50[1] = 3221225472;
+        v50[2] = __53__SGSqlEntityStore_Writing___writeMessageEntityToDb___block_invoke_5;
+        v50[3] = &unk_278954630;
+        v51 = *(a1 + 40);
+        v52 = v33;
+        [v34 prepAndRunQuery:v35 onPrep:v50 onRow:0 onError:0];
       }
 
-      v30 = [obja countByEnumeratingWithState:&v54 objects:v60 count:16];
+      v30 = [obja countByEnumeratingWithState:&v53 objects:v59 count:16];
     }
 
     while (v30);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __53__SGSqlEntityStore_Writing___writeMessageEntityToDb___block_invoke_4(uint64_t a1, uint64_t a2)
@@ -15364,28 +15282,26 @@ void __53__SGSqlEntityStore_Writing___writeMessageEntityToDb___block_invoke_5(ui
 
 - (void)markEntityAsDupeByRecordId:(id)id
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   idCopy = id;
-  v14[0] = @"id";
+  v13[0] = @"id";
   v5 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(idCopy, "rowId")}];
-  v14[1] = @"curatedDupe";
-  v15[0] = v5;
-  v15[1] = &unk_284749B00;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v13[1] = @"curatedDupe";
+  v14[0] = v5;
+  v14[1] = &unk_284749B00;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   db = self->_db;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __56__SGSqlEntityStore_Writing__markEntityAsDupeByRecordId___block_invoke;
-  v11[3] = &unk_278956130;
-  v11[4] = self;
-  v12 = idCopy;
-  v13 = v6;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __56__SGSqlEntityStore_Writing__markEntityAsDupeByRecordId___block_invoke;
+  v10[3] = &unk_278956130;
+  v10[4] = self;
+  v11 = idCopy;
+  v12 = v6;
   v8 = v6;
   v9 = idCopy;
-  [(SGSqliteDatabase *)db writeTransaction:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(SGSqliteDatabase *)db writeTransaction:v10];
 }
 
 void __56__SGSqlEntityStore_Writing__markEntityAsDupeByRecordId___block_invoke(uint64_t a1)
@@ -15441,31 +15357,29 @@ uint64_t __56__SGSqlEntityStore_Writing__markEntityAsDupeByRecordId___block_invo
 
 void __87__SGSqlEntityStore_Writing__writeEmailVerificationResultForEmailWithKey_eventEntities___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = sgEventsLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v14 = v3;
+    v13 = v3;
     _os_log_impl(&dword_231E60000, v2, OS_LOG_TYPE_DEFAULT, "Removing pendingVerification flag from %@", buf, 0xCu);
   }
 
   v4 = *(*(a1 + 40) + 8);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __87__SGSqlEntityStore_Writing__writeEmailVerificationResultForEmailWithKey_eventEntities___block_invoke_184;
-  v11[3] = &unk_278955E30;
-  v12 = *(a1 + 32);
-  v6 = MEMORY[0x277D85DD0];
-  v7 = 3221225472;
-  v8 = __87__SGSqlEntityStore_Writing__writeEmailVerificationResultForEmailWithKey_eventEntities___block_invoke_2;
-  v9 = &unk_278956108;
-  v10 = *(a1 + 32);
-  [v4 prepAndRunSQL:@"UPDATE emailMetadata SET pendingVerification = :pendingVerification WHERE key = :key" onPrep:v11 onRow:0 onError:&v6];
-  [*(a1 + 40) _writeEventEntitiesToJournal:{*(a1 + 48), v6, v7, v8, v9}];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __87__SGSqlEntityStore_Writing__writeEmailVerificationResultForEmailWithKey_eventEntities___block_invoke_184;
+  v10[3] = &unk_278955E30;
+  v11 = *(a1 + 32);
+  v5 = MEMORY[0x277D85DD0];
+  v6 = 3221225472;
+  v7 = __87__SGSqlEntityStore_Writing__writeEmailVerificationResultForEmailWithKey_eventEntities___block_invoke_2;
+  v8 = &unk_278956108;
+  v9 = *(a1 + 32);
+  [v4 prepAndRunSQL:@"UPDATE emailMetadata SET pendingVerification = :pendingVerification WHERE key = :key" onPrep:v10 onRow:0 onError:&v5];
+  [*(a1 + 40) _writeEventEntitiesToJournal:{*(a1 + 48), v5, v6, v7, v8}];
 }
 
 void __87__SGSqlEntityStore_Writing__writeEmailVerificationResultForEmailWithKey_eventEntities___block_invoke_184(uint64_t a1, void *a2)
@@ -15478,35 +15392,34 @@ void __87__SGSqlEntityStore_Writing__writeEmailVerificationResultForEmailWithKey
 
 uint64_t __87__SGSqlEntityStore_Writing__writeEmailVerificationResultForEmailWithKey_eventEntities___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgEventsLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_fault_impl(&dword_231E60000, v4, OS_LOG_TYPE_FAULT, "Error removing pendingVerification flag from %@: %@", &v8, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_fault_impl(&dword_231E60000, v4, OS_LOG_TYPE_FAULT, "Error removing pendingVerification flag from %@: %@", &v7, 0x16u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
 - (void)writeEntityGeocodeResultToDb:(id)db
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   dbCopy = db;
-  v19[0] = @"id";
+  v18[0] = @"id";
   v5 = MEMORY[0x277CCABB0];
   recordId = [dbCopy recordId];
   v7 = [v5 numberWithLongLong:{objc_msgSend(recordId, "rowId")}];
-  v19[1] = @"pendingGeocode";
-  v20[0] = v7;
-  v20[1] = &unk_284749AE8;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v18[1] = @"pendingGeocode";
+  v19[0] = v7;
+  v19[1] = &unk_284749AE8;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
   v9 = [v8 mutableCopy];
 
   timeRange = [dbCopy timeRange];
@@ -15516,18 +15429,16 @@ uint64_t __87__SGSqlEntityStore_Writing__writeEmailVerificationResultForEmailWit
   [(SGSqlEntityStore *)self _addLocations:locations toEntityWriteDictionary:v9];
 
   db = self->_db;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __58__SGSqlEntityStore_Writing__writeEntityGeocodeResultToDb___block_invoke;
-  v16[3] = &unk_278956130;
-  v16[4] = self;
-  v17 = dbCopy;
-  v18 = v9;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __58__SGSqlEntityStore_Writing__writeEntityGeocodeResultToDb___block_invoke;
+  v15[3] = &unk_278956130;
+  v15[4] = self;
+  v16 = dbCopy;
+  v17 = v9;
   v13 = v9;
   v14 = dbCopy;
-  [(SGSqliteDatabase *)db writeTransaction:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(SGSqliteDatabase *)db writeTransaction:v15];
 }
 
 void __58__SGSqlEntityStore_Writing__writeEntityGeocodeResultToDb___block_invoke(uint64_t a1)
@@ -15571,7 +15482,7 @@ void __58__SGSqlEntityStore_Writing__writeEntityGeocodeResultToDb___block_invoke
 {
   locationsCopy = locations;
   dictionaryCopy = dictionary;
-  if ([locationsCopy count])
+  if (objc_msgSend_count(locationsCopy))
   {
     [dictionaryCopy setObject:locationsCopy forKeyedSubscript:@"locations"];
   }
@@ -15763,7 +15674,7 @@ void __53__SGSqlEntityStore_Writing__entityWantsFullDownload___block_invoke(uint
 
 - (id)_computePseudoContactContentHash:(id)hash contactDetails:(id)details
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   hashCopy = hash;
   detailsCopy = details;
   v9 = detailsCopy;
@@ -15791,7 +15702,7 @@ void __53__SGSqlEntityStore_Writing__entityWantsFullDownload___block_invoke(uint
 
 LABEL_3:
   v10 = [v9 sortedArrayUsingComparator:&__block_literal_global_112];
-  v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v9, "count") + 1}];
+  v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(v9) + 1];
   title = [hashCopy title];
   v13 = title;
   if (title)
@@ -15811,38 +15722,36 @@ LABEL_3:
   uniqueIdentifier = [identityKey uniqueIdentifier];
   [v11 addObject:uniqueIdentifier];
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v18 = v10;
-  v19 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v30;
+    v21 = *v29;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v30 != v21)
+        if (*v29 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        normalizedValue = [*(*(&v29 + 1) + 8 * i) normalizedValue];
+        normalizedValue = [*(*(&v28 + 1) + 8 * i) normalizedValue];
         [v11 addObject:normalizedValue];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v20);
   }
 
   v24 = SGSha256BytesForStrings(v11, 0);
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -15888,12 +15797,12 @@ uint64_t __77__SGSqlEntityStore_Writing___computePseudoContactContentHash_contac
   v22[2] = 0x2020000000;
   toCopy = to;
   v11 = @"SELECT ";
-  while ([columnsCopy count] > v10)
+  while (objc_msgSend_count(columnsCopy) > v10)
   {
     v12 = [columnsCopy objectAtIndexedSubscript:v10];
     v13 = [(__CFString *)v11 stringByAppendingString:v12];
 
-    if ([columnsCopy count] - 1 > v10)
+    if (objc_msgSend_count(columnsCopy) - 1 > v10)
     {
       v14 = [(__CFString *)v13 stringByAppendingString:@", "];
 
@@ -15922,73 +15831,73 @@ uint64_t __77__SGSqlEntityStore_Writing___computePseudoContactContentHash_contac
 
 uint64_t __56__SGSqlEntityStore_Writing___dumpTable_columns_limitTo___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  if ([*(a1 + 32) count])
+  if (objc_msgSend_count(*(a1 + 32)))
   {
-    v4 = 0;
-    v5 = &stru_284703F00;
+    v5 = 0;
+    v6 = &stru_284703F00;
     do
     {
-      v6 = objc_alloc(MEMORY[0x277CCACA8]);
-      v7 = sqlite3_column_nsstring(a2, v4);
-      v8 = [v6 initWithFormat:@"%@    ", v7];
-      v9 = [(__CFString *)v5 stringByAppendingString:v8];
+      v7 = objc_alloc(MEMORY[0x277CCACA8]);
+      v8 = sqlite3_column_nsstring(a2, v5);
+      v9 = [v7 initWithFormat:@"%@    ", v8];
+      v10 = [(__CFString *)v6 stringByAppendingString:v9];
 
-      ++v4;
-      v5 = v9;
+      ++v5;
+      v6 = v10;
     }
 
-    while ([*(a1 + 32) count] > v4);
+    while (objc_msgSend_count(*(a1 + 32)) > v5);
   }
 
   else
   {
-    v9 = &stru_284703F00;
+    v10 = &stru_284703F00;
   }
 
-  NSLog(@"%@", v9);
-  v10 = *(*(a1 + 40) + 8);
-  v11 = *(v10 + 24);
-  if (v11 <= 0)
+  NSLog(@"%@", v10);
+  v11 = *(*(a1 + 40) + 8);
+  v12 = *(v11 + 24);
+  if (v12 <= 0)
   {
-    v12 = &SGSqliteDatabaseStop;
+    v13 = &SGSqliteDatabaseStop;
   }
 
   else
   {
-    *(v10 + 24) = v11 - 1;
-    v12 = &SGSqliteDatabaseKeepGoing;
+    *(v11 + 24) = v12 - 1;
+    v13 = &SGSqliteDatabaseKeepGoing;
   }
 
-  return *v12;
+  return *v13;
 }
 
 - (void)_addIndexingTagsToParent:(id)parent
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   parentCopy = parent;
   [(SGSqlEntityStore *)self _addIndexingTagsTo:parentCopy];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   enrichments = [parentCopy enrichments];
-  v6 = [enrichments countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [enrichments countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(enrichments);
         }
 
         v10 = MEMORY[0x277D01FA0];
-        duplicateKey = [*(*(&v14 + 1) + 8 * v9) duplicateKey];
+        duplicateKey = [*(*(&v13 + 1) + 8 * v9) duplicateKey];
         v12 = [v10 containsEntityExtraction:{objc_msgSend(duplicateKey, "entityType")}];
         [parentCopy addTag:v12];
 
@@ -15996,18 +15905,16 @@ uint64_t __56__SGSqlEntityStore_Writing___dumpTable_columns_limitTo___block_invo
       }
 
       while (v7 != v9);
-      v7 = [enrichments countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [enrichments countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addIndexingTagsTo:(id)to
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   toCopy = to;
   duplicateKey = [toCopy duplicateKey];
   entityType = [duplicateKey entityType];
@@ -16131,32 +16038,32 @@ LABEL_43:
       [toCopy creationTimestamp];
       v39 = [(SGSuggestHistory *)history identityBasedHashesForPseudoEvent:pseudoEventKey withCreationTime:?];
 
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
       v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       identityKey = v39;
-      v40 = [identityKey countByEnumeratingWithState:&v53 objects:v58 count:16];
+      v40 = [identityKey countByEnumeratingWithState:&v52 objects:v57 count:16];
       if (v40)
       {
         v41 = v40;
-        v42 = *v54;
+        v42 = *v53;
         do
         {
           for (i = 0; i != v41; ++i)
           {
-            if (*v54 != v42)
+            if (*v53 != v42)
             {
               objc_enumerationMutation(identityKey);
             }
 
             v44 = MEMORY[0x277D01FA0];
-            v45 = [*(*(&v53 + 1) + 8 * i) base64EncodedStringWithOptions:0];
+            v45 = [*(*(&v52 + 1) + 8 * i) base64EncodedStringWithOptions:0];
             v46 = [v44 eventHash:v45];
             [toCopy addTag:v46];
           }
 
-          v41 = [identityKey countByEnumeratingWithState:&v53 objects:v58 count:16];
+          v41 = [identityKey countByEnumeratingWithState:&v52 objects:v57 count:16];
         }
 
         while (v41);
@@ -16170,32 +16077,32 @@ LABEL_43:
       [toCopy creationTimestamp];
       v27 = [(SGSuggestHistory *)v24 identityBasedHashesForPseudoReminder:pseudoReminderKey withCreationTime:?];
 
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
       identityKey = v27;
-      v28 = [identityKey countByEnumeratingWithState:&v49 objects:v57 count:16];
+      v28 = [identityKey countByEnumeratingWithState:&v48 objects:v56 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v50;
+        v30 = *v49;
         do
         {
           for (j = 0; j != v29; ++j)
           {
-            if (*v50 != v30)
+            if (*v49 != v30)
             {
               objc_enumerationMutation(identityKey);
             }
 
             v32 = MEMORY[0x277D01FA0];
-            v33 = [*(*(&v49 + 1) + 8 * j) base64EncodedStringWithOptions:{0, v49}];
+            v33 = [*(*(&v48 + 1) + 8 * j) base64EncodedStringWithOptions:{0, v48}];
             v34 = [v32 reminderHash:v33];
             [toCopy addTag:v34];
           }
 
-          v29 = [identityKey countByEnumeratingWithState:&v49 objects:v57 count:16];
+          v29 = [identityKey countByEnumeratingWithState:&v48 objects:v56 count:16];
         }
 
         while (v29);
@@ -16216,8 +16123,6 @@ LABEL_48:
   }
 
 LABEL_49:
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deleteOldInteractionContactDetails:(id)details currentIdentifiers:(id)identifiers
@@ -16227,7 +16132,7 @@ LABEL_49:
   duplicateKey = [detailsCopy duplicateKey];
   if ([duplicateKey entityType] == 16)
   {
-    v9 = [identifiersCopy count];
+    v9 = objc_msgSend_count(identifiersCopy);
 
     if (v9)
     {
@@ -16349,7 +16254,7 @@ void __65__SGSqlEntityStore_Writing___prunePseudoContactGeneratingEmails___block
   v13[3] = &unk_278954658;
   v13[4] = &v16;
   [v4 prepAndRunQuery:@"SELECT parentKey FROM entityParentage WHERE childId = :childId" onPrep:v14 onRow:v13 onError:0];
-  if ([v17[5] count] > *(*(a1 + 32) + 144))
+  if (objc_msgSend_count(v17[5]) > *(*(a1 + 32) + 144))
   {
     v6 = objc_opt_new();
     v7 = *(a1 + 32);
@@ -16381,7 +16286,7 @@ void __65__SGSqlEntityStore_Writing___prunePseudoContactGeneratingEmails___block
 
 uint64_t __65__SGSqlEntityStore_Writing___prunePseudoContactGeneratingEmails___block_invoke_3(uint64_t a1, sqlite3_stmt *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = sqlite3_column_nsstring(a2, 0);
   if (v3)
   {
@@ -16399,9 +16304,9 @@ uint64_t __65__SGSqlEntityStore_Writing___prunePseudoContactGeneratingEmails___b
       v5 = sgLogHandle();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        v8 = 138412290;
-        v9 = v3;
-        _os_log_fault_impl(&dword_231E60000, v5, OS_LOG_TYPE_FAULT, "invalid serialization found in _prunePseudoContactGeneratingEmails: %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = v3;
+        _os_log_fault_impl(&dword_231E60000, v5, OS_LOG_TYPE_FAULT, "invalid serialization found in _prunePseudoContactGeneratingEmails: %@", &v7, 0xCu);
       }
 
       if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -16411,7 +16316,6 @@ uint64_t __65__SGSqlEntityStore_Writing___prunePseudoContactGeneratingEmails___b
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -16474,27 +16378,27 @@ id __65__SGSqlEntityStore_Writing___prunePseudoContactGeneratingEmails___block_i
 
 void __50__SGSqlEntityStore_Writing___writeContactDetails___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v15 = a2;
+  v22 = *MEMORY[0x277D85DE8];
+  v14 = a2;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = [*(a1 + 32) enrichments];
-  v17 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v17)
+  v16 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v16)
   {
-    v2 = *v19;
+    v2 = *v18;
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v19 != v2)
+        if (*v18 != v2)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v18 + 1) + 8 * i);
+        v4 = *(*(&v17 + 1) + 8 * i);
         v5 = [v4 duplicateKey];
         [v5 entityType];
         if (SGEntityTypeIsContactDetail())
@@ -16502,7 +16406,7 @@ void __50__SGSqlEntityStore_Writing___writeContactDetails___block_invoke(uint64_
           v6 = [v4 duplicateKey];
           v7 = [v6 contactDetailKey];
           v8 = [v7 identityKey];
-          v9 = [v15 duplicateKey];
+          v9 = [v14 duplicateKey];
           v10 = [v9 identityKey];
           v11 = [v8 isEqualToIdentityKey:v10];
 
@@ -16517,13 +16421,11 @@ void __50__SGSqlEntityStore_Writing___writeContactDetails___block_invoke(uint64_
         }
       }
 
-      v17 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v16 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v17);
+    while (v16);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_hashAttachedPseudoContacts:(id)contacts
@@ -16557,21 +16459,9 @@ id __57__SGSqlEntityStore_Writing___hashAttachedPseudoContacts___block_invoke_2(
   v4 = [v3 duplicateKey];
   v5 = [v4 entityType];
 
-  if (v5 > 0x14 || ((1 << v5) & 0x1881C0) == 0)
+  v6 = v5 > 0x14 || ((1 << v5) & 0x1881C0) == 0;
+  if (v6 || ([v3 duplicateKey], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "contactDetailKey"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "identityKey"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "duplicateKey"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "identityKey"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v9, "isEqualToIdentityKey:", v11), v11, v10, v9, v8, v7, !v12))
   {
-    goto LABEL_7;
-  }
-
-  v7 = [v3 duplicateKey];
-  v8 = [v7 contactDetailKey];
-  v9 = [v8 identityKey];
-  v10 = [*(a1 + 32) duplicateKey];
-  v11 = [v10 identityKey];
-  v12 = [v9 isEqualToIdentityKey:v11];
-
-  if (!v12)
-  {
-LABEL_7:
     v13 = 0;
   }
 
@@ -16585,43 +16475,41 @@ LABEL_7:
 
 - (void)_emitChangeNotifications:(id)notifications
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   enrichments = [notifications enrichments];
-  v5 = [enrichments countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [enrichments countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(enrichments);
         }
 
-        [(SGSqlEntityStore *)self _emitChangeNotificationForEnrichment:*(*(&v10 + 1) + 8 * v8++)];
+        [(SGSqlEntityStore *)self _emitChangeNotificationForEnrichment:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [enrichments countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [enrichments countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_emitChangeNotificationForEnrichment:(id)enrichment
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   enrichmentCopy = enrichment;
   duplicateKey = [enrichmentCopy duplicateKey];
   [duplicateKey entityType];
@@ -16659,29 +16547,29 @@ LABEL_7:
 
       if (v15)
       {
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
         v42 = 0u;
+        v43 = 0u;
+        v40 = 0u;
+        v41 = 0u;
         uniqueIdentifiers = [(SGSocialProfileDetails *)v15 uniqueIdentifiers];
-        v17 = [uniqueIdentifiers countByEnumeratingWithState:&v41 objects:v46 count:16];
+        v17 = [uniqueIdentifiers countByEnumeratingWithState:&v40 objects:v45 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v42;
+          v19 = *v41;
           do
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v42 != v19)
+              if (*v41 != v19)
               {
                 objc_enumerationMutation(uniqueIdentifiers);
               }
 
-              [(SGSqlEntityStore *)self removeStringFromNoContactsCache:*(*(&v41 + 1) + 8 * i)];
+              [(SGSqlEntityStore *)self removeStringFromNoContactsCache:*(*(&v40 + 1) + 8 * i)];
             }
 
-            v18 = [uniqueIdentifiers countByEnumeratingWithState:&v41 objects:v46 count:16];
+            v18 = [uniqueIdentifiers countByEnumeratingWithState:&v40 objects:v45 count:16];
           }
 
           while (v18);
@@ -16726,29 +16614,29 @@ LABEL_42:
           goto LABEL_43;
         }
 
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
         v38 = 0u;
+        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
         uniqueIdentifiers2 = [(SGSocialProfileDetails *)title uniqueIdentifiers];
-        v32 = [uniqueIdentifiers2 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v32 = [uniqueIdentifiers2 countByEnumeratingWithState:&v36 objects:v44 count:16];
         if (v32)
         {
           v33 = v32;
-          v34 = *v38;
+          v34 = *v37;
           do
           {
             for (j = 0; j != v33; ++j)
             {
-              if (*v38 != v34)
+              if (*v37 != v34)
               {
                 objc_enumerationMutation(uniqueIdentifiers2);
               }
 
-              [(SGSqlEntityStore *)self removeStringFromNoContactsCache:*(*(&v37 + 1) + 8 * j)];
+              [(SGSqlEntityStore *)self removeStringFromNoContactsCache:*(*(&v36 + 1) + 8 * j)];
             }
 
-            v33 = [uniqueIdentifiers2 countByEnumeratingWithState:&v37 objects:v45 count:16];
+            v33 = [uniqueIdentifiers2 countByEnumeratingWithState:&v36 objects:v44 count:16];
           }
 
           while (v33);
@@ -16794,8 +16682,6 @@ LABEL_43:
     [SGDNotificationBroadcaster emitEventUpdated:identityKey];
 LABEL_44:
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)writeEntity:(id)entity withSpotlightReferenceForBundleIdentifier:(id)identifier uniqueIdentifier:(id)uniqueIdentifier domainIdentifier:(id)domainIdentifier
@@ -16854,7 +16740,7 @@ void __117__SGSqlEntityStore_Writing__writeEntity_withSpotlightReferenceForBundl
 
 - (int64_t)writeEntity:(id)entity
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   duplicateKey = [entityCopy duplicateKey];
 
@@ -16864,70 +16750,70 @@ void __117__SGSqlEntityStore_Writing__writeEntity_withSpotlightReferenceForBundl
     [currentHandler handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Writing.m" lineNumber:144 description:{@"Invalid parameter not satisfying: %@", @"containerEntity.duplicateKey"}];
   }
 
-  v59[2] = 0;
-  v59[0] = @"writeEntity";
-  v59[1] = mach_absolute_time();
+  v58[2] = 0;
+  v58[0] = @"writeEntity";
+  v58[1] = mach_absolute_time();
   externalEnrichments = [entityCopy externalEnrichments];
-  v8 = [externalEnrichments count];
+  v8 = objc_msgSend_count(externalEnrichments);
 
   if (v8)
   {
     [entityCopy flushExternalEnrichmentsUponDealloc];
   }
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   externalEnrichments2 = [entityCopy externalEnrichments];
-  v10 = [externalEnrichments2 countByEnumeratingWithState:&v55 objects:v67 count:16];
+  v10 = [externalEnrichments2 countByEnumeratingWithState:&v54 objects:v66 count:16];
   if (v10)
   {
-    v11 = *v56;
+    v11 = *v55;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v56 != v11)
+        if (*v55 != v11)
         {
           objc_enumerationMutation(externalEnrichments2);
         }
 
-        [*(*(&v55 + 1) + 8 * i) writeWithEntityStore:self];
+        [*(*(&v54 + 1) + 8 * i) writeWithEntityStore:self];
       }
 
-      v10 = [externalEnrichments2 countByEnumeratingWithState:&v55 objects:v67 count:16];
+      v10 = [externalEnrichments2 countByEnumeratingWithState:&v54 objects:v66 count:16];
     }
 
     while (v10);
   }
 
   [entityCopy setRecordId:0];
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   enrichments = [entityCopy enrichments];
-  v14 = [enrichments countByEnumeratingWithState:&v51 objects:v66 count:16];
+  v14 = [enrichments countByEnumeratingWithState:&v50 objects:v65 count:16];
   if (v14)
   {
-    v15 = *v52;
+    v15 = *v51;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v52 != v15)
+        if (*v51 != v15)
         {
           objc_enumerationMutation(enrichments);
         }
 
-        v17 = *(*(&v51 + 1) + 8 * j);
+        v17 = *(*(&v50 + 1) + 8 * j);
         [v17 setRecordId:0];
         [v17 setGroupId:0];
         [v17 setMasterEntityId:0];
       }
 
-      v14 = [enrichments countByEnumeratingWithState:&v51 objects:v66 count:16];
+      v14 = [enrichments countByEnumeratingWithState:&v50 objects:v65 count:16];
     }
 
     while (v14);
@@ -16939,10 +16825,10 @@ void __117__SGSqlEntityStore_Writing__writeEntity_withSpotlightReferenceForBundl
 
   if (IsMessage)
   {
-    v47 = 0;
-    v48 = &v47;
-    v49 = 0x2020000000;
-    v50 = -1;
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x2020000000;
+    v49 = -1;
     [entityCopy validate];
     if (!-[SGSqlEntityStore isEphemeral](self, "isEphemeral") && (v20 = objc_opt_class(), [entityCopy accountType], v21 = objc_claimAutoreleasedReturnValue(), LODWORD(v20) = objc_msgSend(v20, "canStoreEventsForAccountType:", v21), v21, !v20) || (objc_msgSend(MEMORY[0x277D02098], "shouldHarvestEvents") & 1) == 0)
     {
@@ -16952,14 +16838,14 @@ void __117__SGSqlEntityStore_Writing__writeEntity_withSpotlightReferenceForBundl
     if ([entityCopy state] == 2)
     {
       duplicateKey3 = [entityCopy duplicateKey];
-      v65 = duplicateKey3;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
+      v64 = duplicateKey3;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
       [(SGSqlEntityStore *)self deleteEntitiesByDuplicateKey:v23 emitChangeNotifications:1];
 
 LABEL_26:
-      v24 = v48[3];
+      v24 = v47[3];
 LABEL_40:
-      _Block_object_dispose(&v47, 8);
+      _Block_object_dispose(&v46, 8);
       goto LABEL_41;
     }
 
@@ -16968,7 +16854,7 @@ LABEL_40:
     if (SGEntityTypeIsMessage())
     {
       enrichments2 = [entityCopy enrichments];
-      if (![enrichments2 count])
+      if (!objc_msgSend_count(enrichments2))
       {
         hasFullDownloadBeenRequested = [entityCopy hasFullDownloadBeenRequested];
 
@@ -16989,38 +16875,38 @@ LABEL_34:
 
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v61 = 0x3032000000;
-        v62 = __Block_byref_object_copy__22534;
-        v63 = __Block_byref_object_dispose__22535;
-        v64 = &unk_284749AE8;
+        v60 = 0x3032000000;
+        v61 = __Block_byref_object_copy__22534;
+        v62 = __Block_byref_object_dispose__22535;
+        v63 = &unk_284749AE8;
         db = self->_db;
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __41__SGSqlEntityStore_Writing__writeEntity___block_invoke;
-        v42[3] = &unk_27894F290;
-        v44 = &v47;
-        v42[4] = self;
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v41[2] = __41__SGSqlEntityStore_Writing__writeEntity___block_invoke;
+        v41[3] = &unk_27894F290;
+        v43 = &v46;
+        v41[4] = self;
         v32 = entityCopy;
-        v43 = v32;
+        v42 = v32;
         p_buf = &buf;
-        v46 = a2;
-        [(SGSqliteDatabase *)db writeTransaction:v42];
+        v45 = a2;
+        [(SGSqliteDatabase *)db writeTransaction:v41];
 
         if (![(SGSqlEntityStore *)self isEphemeral]&& *(*(&buf + 1) + 40))
         {
           v33 = self->_db;
-          v41[0] = MEMORY[0x277D85DD0];
-          v41[1] = 3221225472;
-          v41[2] = __41__SGSqlEntityStore_Writing__writeEntity___block_invoke_4;
-          v41[3] = &unk_2789561D0;
-          v41[4] = self;
-          v41[5] = &buf;
-          [(SGSqliteDatabase *)v33 writeTransaction:v41];
+          v40[0] = MEMORY[0x277D85DD0];
+          v40[1] = 3221225472;
+          v40[2] = __41__SGSqlEntityStore_Writing__writeEntity___block_invoke_4;
+          v40[3] = &unk_2789561D0;
+          v40[4] = self;
+          v40[5] = &buf;
+          [(SGSqliteDatabase *)v33 writeTransaction:v40];
         }
 
         [(SGSqlEntityStore *)self _emitChangeNotifications:v32];
-        SGRecordMeasurementState(v59);
-        v24 = v48[3];
+        SGRecordMeasurementState(v58);
+        v24 = v47[3];
         _Block_object_dispose(&buf, 8);
 
         goto LABEL_40;
@@ -17031,66 +16917,65 @@ LABEL_34:
   }
 
   enrichments3 = [entityCopy enrichments];
-  v26 = [enrichments3 count] == 0;
+  v26 = objc_msgSend_count(enrichments3) == 0;
 
   if (!v26)
   {
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
     duplicateKey6 = [entityCopy duplicateKey];
     [duplicateKey6 entityType];
-    v40 = SGEntityTypeDescription();
-    [currentHandler2 handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Writing.m" lineNumber:168 description:{@"Don't know how to write out a container entity of type %@", v40}];
+    v39 = SGEntityTypeDescription();
+    [currentHandler2 handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Writing.m" lineNumber:168 description:{@"Don't know how to write out a container entity of type %@", v39}];
   }
 
   v24 = [(SGSqlEntityStore *)self _writeOneEntityToDb:entityCopy];
 LABEL_41:
-  SGRecordMeasurementState(v59);
+  SGRecordMeasurementState(v58);
 
-  v34 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 void __41__SGSqlEntityStore_Writing__writeEntity___block_invoke(uint64_t a1)
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 32) _writeOneEntityToDb:*(a1 + 40)];
   [*(a1 + 32) _hashAttachedPseudoContacts:*(a1 + 40)];
   v2 = objc_opt_new();
   v3 = objc_opt_new();
-  v71[0] = MEMORY[0x277D85DD0];
-  v71[1] = 3221225472;
-  v71[2] = __41__SGSqlEntityStore_Writing__writeEntity___block_invoke_2;
-  v71[3] = &unk_27894F240;
+  v70[0] = MEMORY[0x277D85DD0];
+  v70[1] = 3221225472;
+  v70[2] = __41__SGSqlEntityStore_Writing__writeEntity___block_invoke_2;
+  v70[3] = &unk_27894F240;
   v4 = *(a1 + 40);
-  v71[4] = *(a1 + 32);
-  v55 = v3;
-  v72 = v55;
-  v57 = v2;
-  v73 = v57;
-  [v4 enumeratePeople:v71];
-  v53 = objc_opt_new();
-  v56 = objc_opt_new();
+  v70[4] = *(a1 + 32);
+  v54 = v3;
+  v71 = v54;
+  v56 = v2;
+  v72 = v56;
+  [v4 enumeratePeople:v70];
+  v52 = objc_opt_new();
+  v55 = objc_opt_new();
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
   v5 = [*(a1 + 40) enrichments];
-  v6 = [v5 countByEnumeratingWithState:&v67 objects:v76 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v66 objects:v75 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v68;
+    v8 = *v67;
     do
     {
       v9 = 0;
       do
       {
-        if (*v68 != v8)
+        if (*v67 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v67 + 1) + 8 * v9);
+        v10 = *(*(&v66 + 1) + 8 * v9);
         v11 = [v10 duplicateKey];
         [v11 entityType];
         IsContact = SGEntityTypeIsContact();
@@ -17123,7 +17008,7 @@ LABEL_17:
               v23 = [v10 duplicateKey];
               v24 = [v23 entityType];
 
-              v25 = v56;
+              v25 = v55;
               if (v24 == 22)
               {
 LABEL_18:
@@ -17136,7 +17021,7 @@ LABEL_18:
 
             v26 = [*(a1 + 40) pendingVerification];
 
-            v25 = v53;
+            v25 = v52;
             if (v26)
             {
               goto LABEL_17;
@@ -17148,14 +17033,14 @@ LABEL_18:
           v15 = [v10 duplicateKey];
           v16 = [v15 contactDetailKey];
           v17 = [v16 identityKey];
-          v18 = [v57 objectForKeyedSubscript:v17];
+          v18 = [v56 objectForKeyedSubscript:v17];
 
           if (v18)
           {
             [v10 setGroupId:{objc_msgSend(v18, "longLongValue")}];
             v19 = [*(a1 + 32) _writeEnrichmentToDb:v10];
             v20 = [MEMORY[0x277CCABB0] numberWithLongLong:v19];
-            [v55 addObject:v20];
+            [v54 addObject:v20];
           }
         }
 
@@ -17164,15 +17049,15 @@ LABEL_20:
       }
 
       while (v7 != v9);
-      v27 = [v5 countByEnumeratingWithState:&v67 objects:v76 count:16];
+      v27 = [v5 countByEnumeratingWithState:&v66 objects:v75 count:16];
       v7 = v27;
     }
 
     while (v27);
   }
 
-  v28 = v56;
-  if ([v53 count])
+  v28 = v55;
+  if (objc_msgSend_count(v52))
   {
     if (([*(a1 + 32) isEphemeral] & 1) == 0)
     {
@@ -17190,27 +17075,27 @@ LABEL_20:
 
       objc_storeStrong((*(*(a1 + 56) + 8) + 40), v31);
 
-      v65 = 0u;
-      v66 = 0u;
-      v63 = 0u;
       v64 = 0u;
-      v32 = v53;
-      v33 = [v32 countByEnumeratingWithState:&v63 objects:v75 count:16];
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      v32 = v52;
+      v33 = [v32 countByEnumeratingWithState:&v62 objects:v74 count:16];
       if (v33)
       {
         v34 = v33;
-        v35 = *v64;
+        v35 = *v63;
         do
         {
           for (i = 0; i != v34; ++i)
           {
-            if (*v64 != v35)
+            if (*v63 != v35)
             {
               objc_enumerationMutation(v32);
             }
 
-            v37 = *(*(&v63 + 1) + 8 * i);
-            v38 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "unsignedLongLongValue", v53) + 1}];
+            v37 = *(*(&v62 + 1) + 8 * i);
+            v38 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "unsignedLongLongValue", v52) + 1}];
             v39 = *(*(a1 + 56) + 8);
             v40 = *(v39 + 40);
             *(v39 + 40) = v38;
@@ -17219,44 +17104,44 @@ LABEL_20:
             [v37 addTag:v41];
           }
 
-          v34 = [v32 countByEnumeratingWithState:&v63 objects:v75 count:16];
+          v34 = [v32 countByEnumeratingWithState:&v62 objects:v74 count:16];
         }
 
         while (v34);
       }
 
       [*(a1 + 32) setInt64NSNumber:*(*(*(a1 + 56) + 8) + 40) forKey:@"kEntitySetCascadeDonationVersion"];
-      v28 = v56;
+      v28 = v55;
     }
 
-    [*(a1 + 32) _writeEventEntitiesToJournal:{v53, v53}];
+    [*(a1 + 32) _writeEventEntitiesToJournal:{v52, v52}];
   }
 
-  if ([v28 count])
+  if (objc_msgSend_count(v28, v52))
   {
     [*(a1 + 32) _writeReminderEntitiesToJournal:v28];
   }
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
-  v42 = v57;
-  v43 = [v42 countByEnumeratingWithState:&v59 objects:v74 count:16];
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v42 = v56;
+  v43 = [v42 countByEnumeratingWithState:&v58 objects:v73 count:16];
   if (v43)
   {
     v44 = v43;
-    v45 = *v60;
+    v45 = *v59;
     do
     {
       for (j = 0; j != v44; ++j)
       {
-        if (*v60 != v45)
+        if (*v59 != v45)
         {
           objc_enumerationMutation(v42);
         }
 
-        v47 = [v42 objectForKeyedSubscript:*(*(&v59 + 1) + 8 * j)];
+        v47 = [v42 objectForKeyedSubscript:*(*(&v58 + 1) + 8 * j)];
         v48 = v47;
         if (v47)
         {
@@ -17264,27 +17149,25 @@ LABEL_20:
         }
       }
 
-      v44 = [v42 countByEnumeratingWithState:&v59 objects:v74 count:16];
+      v44 = [v42 countByEnumeratingWithState:&v58 objects:v73 count:16];
     }
 
     while (v44);
   }
 
-  [*(a1 + 32) _deleteOldInteractionContactDetails:*(a1 + 40) currentIdentifiers:v55];
+  [*(a1 + 32) _deleteOldInteractionContactDetails:*(a1 + 40) currentIdentifiers:v54];
   [*(a1 + 32) _writeContactDetails:*(a1 + 40)];
   v50 = *(a1 + 32);
   v49 = *(a1 + 40);
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __41__SGSqlEntityStore_Writing__writeEntity___block_invoke_3;
-  v58[3] = &unk_27894F268;
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __41__SGSqlEntityStore_Writing__writeEntity___block_invoke_3;
+  v57[3] = &unk_27894F268;
   v51 = *(a1 + 64);
-  v58[4] = v50;
-  v58[5] = v51;
-  [v49 enumeratePeople:v58];
+  v57[4] = v50;
+  v57[5] = v51;
+  [v49 enumeratePeople:v57];
   [*(a1 + 32) _prunePseudoContactGeneratingEmails:*(a1 + 40)];
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void __41__SGSqlEntityStore_Writing__writeEntity___block_invoke_4(uint64_t a1)
@@ -17344,41 +17227,41 @@ void __41__SGSqlEntityStore_Writing__writeEntity___block_invoke_3(uint64_t a1, v
 
 - (void)writeInteractionEventEntities:(id)entities
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
-  v37[2] = 0;
-  v37[0] = @"writeInteractionEventEntities";
-  v37[1] = mach_absolute_time();
+  v36[2] = 0;
+  v36[0] = @"writeInteractionEventEntities";
+  v36[1] = mach_absolute_time();
   if ([MEMORY[0x277D02098] shouldHarvestEvents])
   {
     v5 = objc_opt_new();
-    v25 = a2;
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
+    v24 = a2;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v6 = entitiesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v33 objects:v40 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v32 objects:v39 count:16];
     if (v7)
     {
-      v8 = *v34;
+      v8 = *v33;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v34 != v8)
+          if (*v33 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v33 + 1) + 8 * i);
+          v10 = *(*(&v32 + 1) + 8 * i);
           duplicateKey = [v10 duplicateKey];
           v12 = [duplicateKey entityType] == 16;
 
           if (!v12)
           {
             currentHandler = [MEMORY[0x277CCA890] currentHandler];
-            [currentHandler handleFailureInMethod:v25 object:self file:@"SGSqlEntityStore+Writing.m" lineNumber:94 description:@"Do not call writeInteractionEventEntities with non-interaction entity type."];
+            [currentHandler handleFailureInMethod:v24 object:self file:@"SGSqlEntityStore+Writing.m" lineNumber:94 description:@"Do not call writeInteractionEventEntities with non-interaction entity type."];
           }
 
           duplicateKey2 = [v10 duplicateKey];
@@ -17387,76 +17270,74 @@ void __41__SGSqlEntityStore_Writing__writeEntity___block_invoke_3(uint64_t a1, v
           if (v14)
           {
             currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-            [currentHandler2 handleFailureInMethod:v25 object:self file:@"SGSqlEntityStore+Writing.m" lineNumber:95 description:{@"Invalid parameter not satisfying: %@", @"containerEntity.duplicateKey"}];
+            [currentHandler2 handleFailureInMethod:v24 object:self file:@"SGSqlEntityStore+Writing.m" lineNumber:95 description:{@"Invalid parameter not satisfying: %@", @"containerEntity.duplicateKey"}];
           }
 
           [v10 validate];
           if ([v10 state] == 2)
           {
             duplicateKey3 = [v10 duplicateKey];
-            v39 = duplicateKey3;
-            v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
+            v38 = duplicateKey3;
+            v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
             [(SGSqlEntityStore *)self deleteEntitiesByDuplicateKey:v16 emitChangeNotifications:1];
           }
 
           else
           {
             db = self->_db;
-            v31[0] = MEMORY[0x277D85DD0];
-            v31[1] = 3221225472;
-            v31[2] = __59__SGSqlEntityStore_Writing__writeInteractionEventEntities___block_invoke;
-            v31[3] = &unk_278956130;
-            v31[4] = self;
-            v31[5] = v10;
-            v32 = v5;
-            [(SGSqliteDatabase *)db writeTransaction:v31];
+            v30[0] = MEMORY[0x277D85DD0];
+            v30[1] = 3221225472;
+            v30[2] = __59__SGSqlEntityStore_Writing__writeInteractionEventEntities___block_invoke;
+            v30[3] = &unk_278956130;
+            v30[4] = self;
+            v30[5] = v10;
+            v31 = v5;
+            [(SGSqliteDatabase *)db writeTransaction:v30];
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v33 objects:v40 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v32 objects:v39 count:16];
       }
 
       while (v7);
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v20 = v6;
-    v21 = [v20 countByEnumeratingWithState:&v27 objects:v38 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v26 objects:v37 count:16];
     if (v21)
     {
-      v22 = *v28;
+      v22 = *v27;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v28 != v22)
+          if (*v27 != v22)
           {
             objc_enumerationMutation(v20);
           }
 
-          [(SGSqlEntityStore *)self _emitChangeNotifications:*(*(&v27 + 1) + 8 * j)];
+          [(SGSqlEntityStore *)self _emitChangeNotifications:*(*(&v26 + 1) + 8 * j)];
         }
 
-        v21 = [v20 countByEnumeratingWithState:&v27 objects:v38 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v26 objects:v37 count:16];
       }
 
       while (v21);
     }
 
-    SGRecordMeasurementState(v37);
+    SGRecordMeasurementState(v36);
   }
 
-  SGRecordMeasurementState(v37);
-
-  v24 = *MEMORY[0x277D85DE8];
+  SGRecordMeasurementState(v36);
 }
 
-uint64_t __59__SGSqlEntityStore_Writing__writeInteractionEventEntities___block_invoke(id *a1)
+void *__59__SGSqlEntityStore_Writing__writeInteractionEventEntities___block_invoke(id *a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (![a1[4] _writeOneEntityToDb:a1[5]])
   {
     v2 = sgEventsLogHandle();
@@ -17467,26 +17348,26 @@ uint64_t __59__SGSqlEntityStore_Writing__writeInteractionEventEntities___block_i
     }
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v3 = [a1[5] enrichments];
-  v4 = [v3 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
+        v8 = *(*(&v18 + 1) + 8 * i);
         v9 = [v8 duplicateKey];
         [v9 entityType];
         IsEvent = SGEntityTypeIsEvent();
@@ -17538,7 +17419,7 @@ LABEL_21:
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v5);
@@ -17547,19 +17428,18 @@ LABEL_21:
   v15 = sgEventsLogHandle();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = [a1[6] count];
+    v16 = objc_msgSend_count(a1[6]);
     *buf = 134217984;
-    v24 = v16;
+    v23 = v16;
     _os_log_impl(&dword_231E60000, v15, OS_LOG_TYPE_DEFAULT, "Number of event entities to journal: %lu", buf, 0xCu);
   }
 
-  result = [a1[6] count];
+  result = objc_msgSend_count(a1[6]);
   if (result)
   {
-    result = [a1[4] _writeEventEntitiesToJournal:a1[6]];
+    return [a1[4] _writeEventEntitiesToJournal:a1[6]];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -17608,57 +17488,57 @@ void __57__SGSqlEntityStore_TestHelpers__lastSeenTimestampForKey___block_invoke(
 
 - (void)updateSerializedContacts:(id)contacts
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   contactsCopy = contacts;
-  v31[2] = 0;
-  v31[0] = @"updateSerializedContacts";
-  v31[1] = mach_absolute_time();
+  v30[2] = 0;
+  v30[0] = @"updateSerializedContacts";
+  v30[1] = mach_absolute_time();
   if (![(SGSqlEntityStore *)self _processBatchOfSerializedContactJobs])
   {
     v5 = objc_opt_new();
     v6 = [(SGSqlEntityStore *)self allContactsMasterEntityIdsLimitedTo:self->_serializedContactsLimit];
     serializedEntityIds = [(SGSqlEntityStore *)self serializedEntityIds];
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v9)
     {
-      v10 = *v28;
+      v10 = *v27;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v28 != v10)
+          if (*v27 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v27 + 1) + 8 * i);
+          v12 = *(*(&v26 + 1) + 8 * i);
           if (([serializedEntityIds containsObject:v12] & 1) == 0)
           {
             [v5 addObject:v12];
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v9);
     }
 
-    if ([v5 count])
+    if (objc_msgSend_count(v5))
     {
       db = self->_db;
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __65__SGSqlEntityStore_SerializedContacts__updateSerializedContacts___block_invoke;
-      v24[3] = &unk_278955830;
-      v25 = v5;
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __65__SGSqlEntityStore_SerializedContacts__updateSerializedContacts___block_invoke;
+      v23[3] = &unk_278955830;
+      v24 = v5;
       selfCopy = self;
-      [(SGSqliteDatabase *)db writeTransaction:v24];
+      [(SGSqliteDatabase *)db writeTransaction:v23];
     }
   }
 
@@ -17683,19 +17563,19 @@ void __57__SGSqlEntityStore_TestHelpers__lastSeenTimestampForKey___block_invoke(
       v18 = sgLogHandle();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        *v23 = 0;
-        _os_log_impl(&dword_231E60000, v18, OS_LOG_TYPE_INFO, "done serializing new contacts", v23, 2u);
+        *v22 = 0;
+        _os_log_impl(&dword_231E60000, v18, OS_LOG_TYPE_INFO, "done serializing new contacts", v22, 2u);
       }
 
       [(SGSqlEntityStore *)self _trimSerializedContacts];
       v19 = sgLogHandle();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        *v23 = 0;
-        _os_log_impl(&dword_231E60000, v19, OS_LOG_TYPE_INFO, "done trimming serialized contacts", v23, 2u);
+        *v22 = 0;
+        _os_log_impl(&dword_231E60000, v19, OS_LOG_TYPE_INFO, "done trimming serialized contacts", v22, 2u);
       }
 
-      SGRecordMeasurementState(v31);
+      SGRecordMeasurementState(v30);
       goto LABEL_29;
     }
   }
@@ -17705,66 +17585,62 @@ void __57__SGSqlEntityStore_TestHelpers__lastSeenTimestampForKey___block_invoke(
     v20 = sgLogHandle();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      *v23 = 0;
-      _os_log_error_impl(&dword_231E60000, v20, OS_LOG_TYPE_ERROR, "Could not defer activity", v23, 2u);
+      *v22 = 0;
+      _os_log_error_impl(&dword_231E60000, v20, OS_LOG_TYPE_ERROR, "Could not defer activity", v22, 2u);
     }
   }
 
   v21 = sgLogHandle();
   if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
-    *v23 = 0;
-    _os_log_impl(&dword_231E60000, v21, OS_LOG_TYPE_INFO, "serialized contact precomputation deferring", v23, 2u);
+    *v22 = 0;
+    _os_log_impl(&dword_231E60000, v21, OS_LOG_TYPE_INFO, "serialized contact precomputation deferring", v22, 2u);
   }
 
 LABEL_29:
-  SGRecordMeasurementState(v31);
-
-  v22 = *MEMORY[0x277D85DE8];
+  SGRecordMeasurementState(v30);
 }
 
 void __65__SGSqlEntityStore_SerializedContacts__updateSerializedContacts___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * v6);
+        v7 = *(*(&v10 + 1) + 8 * v6);
         v8 = *(*(a1 + 40) + 8);
-        v10[0] = MEMORY[0x277D85DD0];
-        v10[1] = 3221225472;
-        v10[2] = __65__SGSqlEntityStore_SerializedContacts__updateSerializedContacts___block_invoke_2;
-        v10[3] = &unk_278956070;
-        v10[4] = v7;
-        [v8 prepAndRunQuery:@"INSERT INTO serializedContactCacheJobs (id) VALUES (?)" onPrep:v10 onRow:0 onError:0];
+        v9[0] = MEMORY[0x277D85DD0];
+        v9[1] = 3221225472;
+        v9[2] = __65__SGSqlEntityStore_SerializedContacts__updateSerializedContacts___block_invoke_2;
+        v9[3] = &unk_278956070;
+        v9[4] = v7;
+        [v8 prepAndRunQuery:@"INSERT INTO serializedContactCacheJobs (id) VALUES (?)" onPrep:v9 onRow:0 onError:0];
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65__SGSqlEntityStore_SerializedContacts__updateSerializedContacts___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
@@ -17795,39 +17671,35 @@ uint64_t __65__SGSqlEntityStore_SerializedContacts__updateSerializedContacts___b
 
 void __76__SGSqlEntityStore_SerializedContacts___processBatchOfSerializedContactJobs__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _popQueuedSerializedContactId];
-  if ((v2 & 0x8000000000000000) == 0)
+  if (v2 < 0)
   {
-    v3 = v2;
-    v9[0] = @"updateSerializedContacts-onequery";
-    v9[1] = mach_absolute_time();
-    v9[2] = 0;
-    v4 = [*(a1 + 32) storageContactByMasterEntityId:v3 withSnippets:0];
-    if (v4)
-    {
-      v5 = [*(a1 + 32) loadContactForStorageContact:v4 usingSerializedContactCache:0];
-      v6 = v5;
-      if (v5 && [v5 containsSuggestions])
-      {
-        [*(a1 + 32) writeSerializedContact:v6];
-LABEL_11:
-        SGRecordMeasurementState(v9);
+    *(*(*(a1 + 40) + 8) + 24) = 0;
+    return;
+  }
 
-        goto LABEL_12;
-      }
-    }
+  v3 = v2;
+  v8[0] = @"updateSerializedContacts-onequery";
+  v8[1] = mach_absolute_time();
+  v8[2] = 0;
+  v4 = [*(a1 + 32) storageContactByMasterEntityId:v3 withSnippets:0];
+  if (!v4)
+  {
+    v6 = 0;
+    goto LABEL_8;
+  }
 
-    else
-    {
-      v6 = 0;
-    }
-
+  v5 = [*(a1 + 32) loadContactForStorageContact:v4 usingSerializedContactCache:0];
+  v6 = v5;
+  if (!v5 || ![v5 containsSuggestions])
+  {
+LABEL_8:
     v7 = sgLogHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v11 = v3;
+      v10 = v3;
       _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_INFO, "Writing placeholder for contact id: %lli", buf, 0xCu);
     }
 
@@ -17835,9 +17707,9 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = 0;
-LABEL_12:
-  v8 = *MEMORY[0x277D85DE8];
+  [*(a1 + 32) writeSerializedContact:v6];
+LABEL_11:
+  SGRecordMeasurementState(v8);
 }
 
 - (int64_t)_popQueuedSerializedContactId
@@ -17859,7 +17731,7 @@ LABEL_12:
   return v3;
 }
 
-uint64_t __69__SGSqlEntityStore_SerializedContacts___popQueuedSerializedContactId__block_invoke(uint64_t a1)
+void *__69__SGSqlEntityStore_SerializedContacts___popQueuedSerializedContactId__block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 8);
   v7[0] = MEMORY[0x277D85DD0];
@@ -17924,7 +17796,7 @@ void __63__SGSqlEntityStore_SerializedContacts___trimSerializedContacts__block_i
 
 uint64_t __63__SGSqlEntityStore_SerializedContacts___trimSerializedContacts__block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   v5 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v4);
@@ -17939,30 +17811,28 @@ uint64_t __63__SGSqlEntityStore_SerializedContacts___trimSerializedContacts__blo
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v13 = sqlite3_column_int64(a2, 0);
+      v12 = sqlite3_column_int64(a2, 0);
       _os_log_impl(&dword_231E60000, v9, OS_LOG_TYPE_DEFAULT, "Unexpected error while deserializing contact%lldld", buf, 0xCu);
     }
 
     [*(a1 + 32) deleteSerializedContactForId:{sqlite3_column_int64(a2, 0)}];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t __63__SGSqlEntityStore_SerializedContacts___trimSerializedContacts__block_invoke_73(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "Failed to load all serialized contacts: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "Failed to load all serialized contacts: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -18007,7 +17877,7 @@ uint64_t __59__SGSqlEntityStore_SerializedContacts__serializedEntityIds__block_i
 
 uint64_t __65__SGSqlEntityStore_SerializedContacts__loadAllSerializedContacts__block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   v5 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v4);
@@ -18024,28 +17894,26 @@ uint64_t __65__SGSqlEntityStore_SerializedContacts__loadAllSerializedContacts__b
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v10 = sqlite3_column_int64(a2, 0);
+      v9 = sqlite3_column_int64(a2, 0);
       _os_log_impl(&dword_231E60000, v6, OS_LOG_TYPE_DEFAULT, "Unexpected error while deserializing contact: %lld", buf, 0xCu);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t __65__SGSqlEntityStore_SerializedContacts__loadAllSerializedContacts__block_invoke_66(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "Failed to load all serialized contacts: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "Failed to load all serialized contacts: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -18091,7 +17959,6 @@ uint64_t __65__SGSqlEntityStore_SerializedContacts__loadAllSerializedContacts__b
 
 uint64_t __67__SGSqlEntityStore_SerializedContacts__loadSerializedContactForId___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   v5 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v4);
@@ -18100,7 +17967,6 @@ uint64_t __67__SGSqlEntityStore_SerializedContacts__loadSerializedContactForId__
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -18147,21 +18013,20 @@ void __67__SGSqlEntityStore_SerializedContacts__loadSerializedContactForId___blo
 
 void __73__SGSqlEntityStore_SerializedContacts__deleteSerializedContactsForIdSet___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v8 = MEMORY[0x277D85DD0];
-  v9 = 3221225472;
-  v10 = __73__SGSqlEntityStore_SerializedContacts__deleteSerializedContactsForIdSet___block_invoke_2;
-  v11 = &unk_27894F738;
-  v12 = *(a1 + 40);
-  v3 = sgMap();
-  v4 = *(*(a1 + 40) + 8);
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __73__SGSqlEntityStore_SerializedContacts__deleteSerializedContactsForIdSet___block_invoke_3;
-  v6[3] = &unk_278955E30;
-  v7 = v3;
-  v5 = v3;
-  [v4 prepAndRunSQL:@"DELETE FROM serializedContacts WHERE entityId IN _pas_nsarray(:ids)" onPrep:v6 onRow:0 onError:&__block_literal_global_42];
+  v7 = MEMORY[0x277D85DD0];
+  v8 = 3221225472;
+  v9 = __73__SGSqlEntityStore_SerializedContacts__deleteSerializedContactsForIdSet___block_invoke_2;
+  v10 = &unk_27894F738;
+  v11 = *(a1 + 40);
+  v2 = sgMap();
+  v3 = *(*(a1 + 40) + 8);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __73__SGSqlEntityStore_SerializedContacts__deleteSerializedContactsForIdSet___block_invoke_3;
+  v5[3] = &unk_278955E30;
+  v6 = v2;
+  v4 = v2;
+  [v3 prepAndRunSQL:@"DELETE FROM serializedContacts WHERE entityId IN _pas_nsarray(:ids)" onPrep:v5 onRow:0 onError:&__block_literal_global_42];
 }
 
 id __73__SGSqlEntityStore_SerializedContacts__deleteSerializedContactsForIdSet___block_invoke_2(uint64_t a1, void *a2)
@@ -18180,17 +18045,16 @@ id __73__SGSqlEntityStore_SerializedContacts__deleteSerializedContactsForIdSet__
 
 uint64_t __73__SGSqlEntityStore_SerializedContacts__deleteSerializedContactsForIdSet___block_invoke_4(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "Failed to delete serialized contact: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "Failed to delete serialized contact: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -18219,17 +18083,16 @@ uint64_t __69__SGSqlEntityStore_SerializedContacts__deleteSerializedContactForId
 
 uint64_t __69__SGSqlEntityStore_SerializedContacts__deleteSerializedContactForId___block_invoke_3(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "Failed to delete serialized contact: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "Failed to delete serialized contact: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -18247,34 +18110,31 @@ uint64_t __69__SGSqlEntityStore_SerializedContacts__deleteSerializedContactForId
 
 void __74__SGSqlEntityStore_SerializedContacts__writeSerializedContactPlaceholder___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
   v2 = *(*(a1 + 32) + 8);
-  v7[0] = @"entityId";
+  v6[0] = @"entityId";
   v3 = [MEMORY[0x277CCABB0] numberWithLongLong:v1];
-  v7[1] = @"data";
-  v8[0] = v3;
+  v6[1] = @"data";
+  v7[0] = v3;
   v4 = [MEMORY[0x277CBEB68] null];
-  v8[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v7[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
   [v2 insertOrReplaceIntoTable:@"serializedContacts" dictionary:v5 onError:&__block_literal_global_28];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__SGSqlEntityStore_SerializedContacts__writeSerializedContactPlaceholder___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "Failed to insert serialized contact placeholder: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "Failed to insert serialized contact placeholder: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -18304,42 +18164,39 @@ uint64_t __74__SGSqlEntityStore_SerializedContacts__writeSerializedContactPlaceh
 
 void __63__SGSqlEntityStore_SerializedContacts__writeSerializedContact___block_invoke(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   v4 = *(v3 + 8);
-  v10[0] = @"entityId";
+  v9[0] = @"entityId";
   v5 = MEMORY[0x277CCABB0];
   v6 = [v2 recordId];
   v7 = [v5 numberWithLongLong:{objc_msgSend(v6, "rowId")}];
-  v10[1] = @"data";
-  v11[0] = v7;
-  v11[1] = *(a1 + 40);
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[1] = @"data";
+  v10[0] = v7;
+  v10[1] = *(a1 + 40);
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   [v4 insertOrReplaceIntoTable:@"serializedContacts" dictionary:v8 onError:&__block_literal_global_23881];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__SGSqlEntityStore_SerializedContacts__writeSerializedContact___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "Failed to insert serialized contact: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "Failed to insert serialized contact: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (id)loadEventsWithInteractionIdentifiers:(id)identifiers fromBundleIdentifier:(id)identifier
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   identifierCopy = identifier;
   if (!identifierCopy)
@@ -18348,7 +18205,7 @@ uint64_t __63__SGSqlEntityStore_SerializedContacts__writeSerializedContact___blo
     [currentHandler handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Loading.m" lineNumber:670 description:{@"Invalid parameter not satisfying: %@", @"bundleId"}];
   }
 
-  if (![identifiersCopy count])
+  if (!objc_msgSend_count(identifiersCopy))
   {
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Loading.m" lineNumber:671 description:{@"Invalid parameter not satisfying: %@", @"identifiers.count != 0"}];
@@ -18357,39 +18214,37 @@ uint64_t __63__SGSqlEntityStore_SerializedContacts__writeSerializedContact___blo
   v9 = sgMap();
   v10 = [(SGSqlEntityStore *)self duplicateKeysMatchingInteractionBundleId:identifierCopy andTags:v9];
   v11 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v12 = v10;
-  v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v23;
+    v15 = *v22;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [(SGSqlEntityStore *)self loadEventByDuplicateKey:*(*(&v22 + 1) + 8 * i)];
+        v17 = [(SGSqlEntityStore *)self loadEventByDuplicateKey:*(*(&v21 + 1) + 8 * i)];
         if (v17)
         {
           [v11 addObject:v17];
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -18404,7 +18259,7 @@ uint64_t __63__SGSqlEntityStore_SerializedContacts__writeSerializedContact___blo
 
 - (id)loadReminderByRecordIdOld:(id)old
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   oldCopy = old;
   v5 = [(SGSqlEntityStore *)self loadEntityByRecordId:oldCopy];
   if (v5)
@@ -18417,15 +18272,13 @@ uint64_t __63__SGSqlEntityStore_SerializedContacts__writeSerializedContact___blo
     v7 = sgRemindersLogHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = oldCopy;
-      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEFAULT, "Unable to load entity by recordId: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = oldCopy;
+      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEFAULT, "Unable to load entity by recordId: %@", &v9, 0xCu);
     }
 
     v6 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -18447,57 +18300,56 @@ uint64_t __63__SGSqlEntityStore_SerializedContacts__writeSerializedContact___blo
 
 - (id)allRemindersLimitedTo:(unint64_t)to
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__24709;
-  v25 = __Block_byref_object_dispose__24710;
-  v26 = objc_opt_new();
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __51__SGSqlEntityStore_Loading__allRemindersLimitedTo___block_invoke;
-  v20[3] = &unk_278954658;
-  v20[4] = &v21;
-  v5 = MEMORY[0x2383809F0](v20);
-  db = self->_db;
+  v27 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__24709;
+  v24 = __Block_byref_object_dispose__24710;
+  v25 = objc_opt_new();
   v19[0] = MEMORY[0x277D85DD0];
   v19[1] = 3221225472;
-  v19[2] = __51__SGSqlEntityStore_Loading__allRemindersLimitedTo___block_invoke_2;
-  v19[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-  v19[4] = to;
-  [(SGSqliteDatabase *)db prepAndRunQuery:@"SELECT id FROM reminders LIMIT ?" onPrep:v19 onRow:v5 onError:0];
+  v19[2] = __51__SGSqlEntityStore_Loading__allRemindersLimitedTo___block_invoke;
+  v19[3] = &unk_278954658;
+  v19[4] = &v20;
+  v5 = MEMORY[0x2383809F0](v19);
+  db = self->_db;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __51__SGSqlEntityStore_Loading__allRemindersLimitedTo___block_invoke_2;
+  v18[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+  v18[4] = to;
+  [(SGSqliteDatabase *)db prepAndRunQuery:@"SELECT id FROM reminders LIMIT ?" onPrep:v18 onRow:v5 onError:0];
   v7 = objc_opt_new();
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
-  v8 = v22[5];
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v27 count:16];
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v8 = v21[5];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v26 count:16];
   if (v9)
   {
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = -[SGSqlEntityStore getReminder:](self, "getReminder:", [*(*(&v15 + 1) + 8 * i) longValue]);
+        v12 = -[SGSqlEntityStore getReminder:](self, "getReminder:", [*(*(&v14 + 1) + 8 * i) longValue]);
         [v7 addObject:v12];
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v15 objects:v27 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v14 objects:v26 count:16];
     }
 
     while (v9);
   }
 
-  _Block_object_dispose(&v21, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 
   return v7;
 }
@@ -18563,7 +18415,7 @@ uint64_t __76__SGSqlEntityStore_Loading__entityKeyCountsForEntityType_startDate_
 
 - (id)loadAllContactDetailsWithWhereClause:(id)clause onPrep:(id)prep dedupeAgainst:(id)against
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   clauseCopy = clause;
   prepCopy = prep;
   againstCopy = against;
@@ -18592,51 +18444,51 @@ LABEL_35:
 
 LABEL_3:
   context = objc_autoreleasePoolPush();
-  v54 = clauseCopy;
+  v53 = clauseCopy;
   v12 = [clauseCopy stringByAppendingString:{@" AND e.entityType IN (:detPhone, :detAddr, :detEmailAddr, :detSocialProfile, :curPhone, :curAddr, :curEmailAddr, :detBirthday, :curBirthday, :curPhotoPath)"}];
   v13 = [(SGSqlEntityStore *)self selectEntityQuery:v12];
 
-  v56 = objc_opt_new();
-  v53 = v11;
-  [v56 addObjectsFromArray:v11];
+  v55 = objc_opt_new();
+  v52 = v11;
+  [v55 addObjectsFromArray:v11];
   v14 = objc_opt_new();
   db = self->_db;
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v68[2] = __87__SGSqlEntityStore_Loading__loadAllContactDetailsWithWhereClause_onPrep_dedupeAgainst___block_invoke;
-  v68[3] = &unk_27894FC68;
-  v50 = prepCopy;
-  v69 = v50;
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = __87__SGSqlEntityStore_Loading__loadAllContactDetailsWithWhereClause_onPrep_dedupeAgainst___block_invoke_2;
-  v65[3] = &unk_27894FC90;
-  v65[4] = self;
-  v67 = a2;
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __87__SGSqlEntityStore_Loading__loadAllContactDetailsWithWhereClause_onPrep_dedupeAgainst___block_invoke;
+  v67[3] = &unk_27894FC68;
+  v49 = prepCopy;
+  v68 = v49;
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v64[2] = __87__SGSqlEntityStore_Loading__loadAllContactDetailsWithWhereClause_onPrep_dedupeAgainst___block_invoke_2;
+  v64[3] = &unk_27894FC90;
+  v64[4] = self;
+  v66 = a2;
   v16 = v14;
-  v66 = v16;
-  v51 = v13;
-  [(SGSqliteDatabase *)db prepAndRunQuery:v13 onPrep:v68 onRow:v65 onError:0];
+  v65 = v16;
+  v50 = v13;
+  [(SGSqliteDatabase *)db prepAndRunQuery:v13 onPrep:v67 onRow:v64 onError:0];
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   v17 = v16;
-  v18 = [v17 countByEnumeratingWithState:&v61 objects:v71 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v60 objects:v70 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v62;
+    v20 = *v61;
     while (2)
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v62 != v20)
+        if (*v61 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        tags = [*(*(&v61 + 1) + 8 * i) tags];
+        tags = [*(*(&v60 + 1) + 8 * i) tags];
         fromReply = [MEMORY[0x277D01FA0] fromReply];
         v24 = [tags containsObject:fromReply];
 
@@ -18647,7 +18499,7 @@ LABEL_3:
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v61 objects:v71 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v60 objects:v70 count:16];
       if (v19)
       {
         continue;
@@ -18660,32 +18512,32 @@ LABEL_3:
   v25 = 0;
 LABEL_13:
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v26 = v17;
-  v27 = [v26 countByEnumeratingWithState:&v57 objects:v70 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v56 objects:v69 count:16];
   if (!v27)
   {
     goto LABEL_31;
   }
 
   v28 = v27;
-  v29 = *v58;
+  v29 = *v57;
   do
   {
     for (j = 0; j != v28; ++j)
     {
-      if (*v58 != v29)
+      if (*v57 != v29)
       {
         objc_enumerationMutation(v26);
       }
 
-      v31 = *(*(&v57 + 1) + 8 * j);
+      v31 = *(*(&v56 + 1) + 8 * j);
       if (v25)
       {
-        tags2 = [*(*(&v57 + 1) + 8 * j) tags];
+        tags2 = [*(*(&v56 + 1) + 8 * j) tags];
         fromReply2 = [MEMORY[0x277D01FA0] fromReply];
         v34 = [tags2 containsObject:fromReply2];
 
@@ -18720,7 +18572,7 @@ LABEL_13:
 
 LABEL_28:
         v43 = [SGContactDetail contactDetailFromEntity:v31];
-        [v56 addObject:v43];
+        [v55 addObject:v43];
 
         continue;
       }
@@ -18736,17 +18588,16 @@ LABEL_28:
       }
     }
 
-    v28 = [v26 countByEnumeratingWithState:&v57 objects:v70 count:16];
+    v28 = [v26 countByEnumeratingWithState:&v56 objects:v69 count:16];
   }
 
   while (v28);
 LABEL_31:
 
-  v44 = [(SGSqlEntityStore *)self filterOutUndisplayableEntities:v56];
+  v44 = [(SGSqlEntityStore *)self filterOutUndisplayableEntities:v55];
   v45 = [SGDeduper dedupeContactDetails:v44];
 
   objc_autoreleasePoolPop(context);
-  v46 = *MEMORY[0x277D85DE8];
 
   return v45;
 }
@@ -18791,7 +18642,7 @@ uint64_t __87__SGSqlEntityStore_Loading__loadAllContactDetailsWithWhereClause_on
 
 - (id)loadAllContactDetailsForRecordId:(id)id
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   if (!idCopy)
   {
@@ -18819,8 +18670,8 @@ uint64_t __87__SGSqlEntityStore_Loading__loadAllContactDetailsWithWhereClause_on
       if (type != 4)
       {
         v12 = [SGContactDetail contactDetailFromEntity:v7];
-        v22[0] = v12;
-        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+        v21[0] = v12;
+        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
 
         goto LABEL_11;
       }
@@ -18833,15 +18684,13 @@ uint64_t __87__SGSqlEntityStore_Loading__loadAllContactDetailsWithWhereClause_on
 
   v13 = MEMORY[0x277CBEBF8];
 LABEL_11:
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __62__SGSqlEntityStore_Loading__loadAllContactDetailsForRecordId___block_invoke;
-  v20[3] = &unk_278956070;
-  v21 = idCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __62__SGSqlEntityStore_Loading__loadAllContactDetailsForRecordId___block_invoke;
+  v19[3] = &unk_278956070;
+  v20 = idCopy;
   v14 = idCopy;
-  v15 = [(SGSqlEntityStore *)self loadAllContactDetailsWithWhereClause:@"WHERE masterEntityId = :masterEntityId" onPrep:v20 dedupeAgainst:v13];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = [(SGSqlEntityStore *)self loadAllContactDetailsWithWhereClause:@"WHERE masterEntityId = :masterEntityId" onPrep:v19 dedupeAgainst:v13];
 
   return v15;
 }
@@ -18855,7 +18704,7 @@ uint64_t __62__SGSqlEntityStore_Loading__loadAllContactDetailsForRecordId___bloc
 
 - (id)loadContactDetailsWithWhereClause:(id)clause onPrep:(id)prep type:(unint64_t)type dedupeAgainst:(id)against recordId:(id)id
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   clauseCopy = clause;
   prepCopy = prep;
   againstCopy = against;
@@ -18886,8 +18735,8 @@ LABEL_3:
   clauseCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@ AND e.entityType IN (:entityTypeDetected, :entityTypeCurated)", clauseCopy];
   v18 = [(SGSqlEntityStore *)self selectEntityQuery:clauseCopy];
 
-  v60 = clauseCopy;
-  v58 = idCopy;
+  v59 = clauseCopy;
+  v57 = idCopy;
   typeCopy = type;
   if (type > 6)
   {
@@ -18901,49 +18750,49 @@ LABEL_3:
     v20 = qword_23210C488[type];
   }
 
-  v61 = objc_opt_new();
-  v59 = againstCopy;
-  [v61 addObjectsFromArray:againstCopy];
+  v60 = objc_opt_new();
+  v58 = againstCopy;
+  [v60 addObjectsFromArray:againstCopy];
   v21 = objc_opt_new();
   db = self->_db;
-  v72[0] = MEMORY[0x277D85DD0];
-  v72[1] = 3221225472;
-  v72[2] = __98__SGSqlEntityStore_Loading__loadContactDetailsWithWhereClause_onPrep_type_dedupeAgainst_recordId___block_invoke;
-  v72[3] = &unk_27894FC40;
-  v54 = prepCopy;
-  v73 = v54;
-  v74 = v20;
-  v75 = v19;
-  v70[0] = MEMORY[0x277D85DD0];
-  v70[1] = 3221225472;
-  v70[2] = __98__SGSqlEntityStore_Loading__loadContactDetailsWithWhereClause_onPrep_type_dedupeAgainst_recordId___block_invoke_2;
-  v70[3] = &unk_278954818;
-  v70[4] = self;
+  v71[0] = MEMORY[0x277D85DD0];
+  v71[1] = 3221225472;
+  v71[2] = __98__SGSqlEntityStore_Loading__loadContactDetailsWithWhereClause_onPrep_type_dedupeAgainst_recordId___block_invoke;
+  v71[3] = &unk_27894FC40;
+  v53 = prepCopy;
+  v72 = v53;
+  v73 = v20;
+  v74 = v19;
+  v69[0] = MEMORY[0x277D85DD0];
+  v69[1] = 3221225472;
+  v69[2] = __98__SGSqlEntityStore_Loading__loadContactDetailsWithWhereClause_onPrep_type_dedupeAgainst_recordId___block_invoke_2;
+  v69[3] = &unk_278954818;
+  v69[4] = self;
   v23 = v21;
-  v71 = v23;
-  [(SGSqliteDatabase *)db prepAndRunQuery:v18 onPrep:v72 onRow:v70 onError:0];
+  v70 = v23;
+  [(SGSqliteDatabase *)db prepAndRunQuery:v18 onPrep:v71 onRow:v69 onError:0];
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
   v24 = v23;
-  v25 = [v24 countByEnumeratingWithState:&v66 objects:v77 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v65 objects:v76 count:16];
   selfCopy = self;
-  v55 = v18;
+  v54 = v18;
   if (v25)
   {
     v26 = v25;
-    v27 = *v67;
+    v27 = *v66;
     while (2)
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v67 != v27)
+        if (*v66 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        tags = [*(*(&v66 + 1) + 8 * i) tags];
+        tags = [*(*(&v65 + 1) + 8 * i) tags];
         fromReply = [MEMORY[0x277D01FA0] fromReply];
         v31 = [tags containsObject:fromReply];
 
@@ -18954,7 +18803,7 @@ LABEL_3:
         }
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v66 objects:v77 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v65 objects:v76 count:16];
       if (v26)
       {
         continue;
@@ -18967,32 +18816,32 @@ LABEL_3:
   v32 = 0;
 LABEL_16:
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   v33 = v24;
-  v34 = [v33 countByEnumeratingWithState:&v62 objects:v76 count:16];
+  v34 = [v33 countByEnumeratingWithState:&v61 objects:v75 count:16];
   if (!v34)
   {
     goto LABEL_30;
   }
 
   v35 = v34;
-  v36 = *v63;
+  v36 = *v62;
   do
   {
     for (j = 0; j != v35; ++j)
     {
-      if (*v63 != v36)
+      if (*v62 != v36)
       {
         objc_enumerationMutation(v33);
       }
 
-      v38 = *(*(&v62 + 1) + 8 * j);
+      v38 = *(*(&v61 + 1) + 8 * j);
       if (v32)
       {
-        tags2 = [*(*(&v62 + 1) + 8 * j) tags];
+        tags2 = [*(*(&v61 + 1) + 8 * j) tags];
         fromReply2 = [MEMORY[0x277D01FA0] fromReply];
         v41 = [tags2 containsObject:fromReply2];
 
@@ -19009,7 +18858,7 @@ LABEL_16:
 
 LABEL_27:
         v46 = [SGContactDetail contactDetailFromEntity:v38];
-        [v61 addObject:v46];
+        [v60 addObject:v46];
 
         continue;
       }
@@ -19024,17 +18873,15 @@ LABEL_27:
       }
     }
 
-    v35 = [v33 countByEnumeratingWithState:&v62 objects:v76 count:16];
+    v35 = [v33 countByEnumeratingWithState:&v61 objects:v75 count:16];
   }
 
   while (v35);
 LABEL_30:
 
-  v47 = [(SGSqlEntityStore *)selfCopy loadAllContactDetailsFromTableForRecordId:v58 type:typeCopy];
+  v47 = [(SGSqlEntityStore *)selfCopy loadAllContactDetailsFromTableForRecordId:v57 type:typeCopy];
   v48 = [(SGSqlEntityStore *)selfCopy filterOutUndisplayableEntities:v47];
   v49 = [SGDeduper dedupeContactDetails:v48];
-
-  v50 = *MEMORY[0x277D85DE8];
 
   return v49;
 }
@@ -19195,7 +19042,7 @@ uint64_t __65__SGSqlEntityStore_Loading__loadEventByKeyForOldCodePathTesting___b
 
 - (id)loadContactDetailsForRecordId:(id)id type:(unint64_t)type
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   if (!idCopy)
   {
@@ -19224,8 +19071,8 @@ uint64_t __65__SGSqlEntityStore_Loading__loadEventByKeyForOldCodePathTesting___b
     if (entityType == 4)
     {
       v11 = [SGContactDetail contactDetailFromEntity:v8];
-      v22[0] = v11;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+      v21[0] = v11;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     }
 
     else
@@ -19239,15 +19086,13 @@ uint64_t __65__SGSqlEntityStore_Loading__loadEventByKeyForOldCodePathTesting___b
     v12 = MEMORY[0x277CBEBF8];
   }
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __64__SGSqlEntityStore_Loading__loadContactDetailsForRecordId_type___block_invoke;
-  v20[3] = &unk_278956070;
-  v21 = idCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __64__SGSqlEntityStore_Loading__loadContactDetailsForRecordId_type___block_invoke;
+  v19[3] = &unk_278956070;
+  v20 = idCopy;
   v13 = idCopy;
-  v14 = [(SGSqlEntityStore *)self loadContactDetailsWithWhereClause:@"WHERE masterEntityId = :masterEntityId" onPrep:v20 type:type dedupeAgainst:v12 recordId:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [(SGSqlEntityStore *)self loadContactDetailsWithWhereClause:@"WHERE masterEntityId = :masterEntityId" onPrep:v19 type:type dedupeAgainst:v12 recordId:v13];
 
   return v14;
 }
@@ -19261,7 +19106,7 @@ uint64_t __64__SGSqlEntityStore_Loading__loadContactDetailsForRecordId_type___bl
 
 - (id)loadStorageContactByRecordId:(id)id error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v7 = [(SGSqlEntityStore *)self loadEntityByRecordId:idCopy];
   if (v7)
@@ -19277,25 +19122,23 @@ uint64_t __64__SGSqlEntityStore_Loading__loadContactDetailsForRecordId_type___bl
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v21 = idCopy;
+      v20 = idCopy;
       _os_log_error_impl(&dword_231E60000, v11, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
     if (error)
     {
       v12 = MEMORY[0x277CCA9B8];
-      v18 = *MEMORY[0x277CCA450];
+      v17 = *MEMORY[0x277CCA450];
       mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
       v14 = [mainBundle localizedStringForKey:idCopy value:&stru_284703F00 table:0];
-      v19 = v14;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+      v18 = v14;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
       *error = [v12 errorWithDomain:@"SGSqlEntityStoreErrorDomain" code:0 userInfo:v15];
     }
 
     v9 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -19541,7 +19384,7 @@ uint64_t __45__SGSqlEntityStore_Loading__loadEntityByKey___block_invoke_2(uint64
 
 - (id)_loadMessageByKey:(id)key
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (!keyCopy)
   {
@@ -19550,20 +19393,20 @@ uint64_t __45__SGSqlEntityStore_Loading__loadEntityByKey___block_invoke_2(uint64
   }
 
   db = self->_db;
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __47__SGSqlEntityStore_Loading___loadMessageByKey___block_invoke;
-  v53[3] = &unk_278955E30;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __47__SGSqlEntityStore_Loading___loadMessageByKey___block_invoke;
+  v52[3] = &unk_278955E30;
   v7 = keyCopy;
-  v54 = v7;
-  v8 = [(SGSqliteDatabase *)db selectColumns:&unk_28474A7C8 fromTable:@"emailMetadata" whereClause:@"key = :key" onPrep:v53 onError:0];
-  if ([v8 count] >= 2)
+  v53 = v7;
+  v8 = [(SGSqliteDatabase *)db selectColumns:&unk_28474A7C8 fromTable:@"emailMetadata" whereClause:@"key = :key" onPrep:v52 onError:0];
+  if (objc_msgSend_count(v8) >= 2)
   {
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"SGSqlEntityStore+Loading.m" lineNumber:165 description:@"_loadMessageByKey matched multiple rows"];
   }
 
-  if ([v8 count])
+  if (objc_msgSend_count(v8))
   {
     firstObject = [v8 firstObject];
     v10 = objc_opt_new();
@@ -19611,22 +19454,22 @@ uint64_t __45__SGSqlEntityStore_Loading__loadEntityByKey___block_invoke_2(uint64
     if (![(SGDatabaseJournal *)self->_snippetsJournal journaling])
     {
       snippetDb = self->_snippetDb;
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __47__SGSqlEntityStore_Loading___loadMessageByKey___block_invoke_2;
-      v51[3] = &unk_278956070;
-      v52 = v10;
-      v49[0] = MEMORY[0x277D85DD0];
-      v49[1] = 3221225472;
-      v49[2] = __47__SGSqlEntityStore_Loading___loadMessageByKey___block_invoke_3;
-      v49[3] = &unk_278954708;
-      v50 = v52;
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = __47__SGSqlEntityStore_Loading___loadMessageByKey___block_invoke_4;
-      v47[3] = &unk_278956108;
-      v48 = v50;
-      [(SGSqliteDatabase *)snippetDb prepAndRunQuery:@"SELECT title onPrep:content FROM emailSnippets WHERE emailId = :emailId" onRow:v51 onError:v49, v47];
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __47__SGSqlEntityStore_Loading___loadMessageByKey___block_invoke_2;
+      v50[3] = &unk_278956070;
+      v51 = v10;
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = __47__SGSqlEntityStore_Loading___loadMessageByKey___block_invoke_3;
+      v48[3] = &unk_278954708;
+      v49 = v51;
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = __47__SGSqlEntityStore_Loading___loadMessageByKey___block_invoke_4;
+      v46[3] = &unk_278956108;
+      v47 = v49;
+      [(SGSqliteDatabase *)snippetDb prepAndRunQuery:@"SELECT title onPrep:content FROM emailSnippets WHERE emailId = :emailId" onRow:v50 onError:v48, v46];
     }
 
     v27 = [firstObject objectForKeyedSubscript:@"creationTimestamp"];
@@ -19643,31 +19486,31 @@ uint64_t __45__SGSqlEntityStore_Loading__loadEntityByKey___block_invoke_2(uint64
       }
     }
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v31 = [firstObject objectForKeyedSubscript:@"tags"];
     v32 = SGEntityTagsFromStorage(v31);
 
-    v33 = [v32 countByEnumeratingWithState:&v43 objects:v55 count:16];
+    v33 = [v32 countByEnumeratingWithState:&v42 objects:v54 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v44;
+      v35 = *v43;
       do
       {
         for (i = 0; i != v34; ++i)
         {
-          if (*v44 != v35)
+          if (*v43 != v35)
           {
             objc_enumerationMutation(v32);
           }
 
-          [v10 addTag:*(*(&v43 + 1) + 8 * i)];
+          [v10 addTag:*(*(&v42 + 1) + 8 * i)];
         }
 
-        v34 = [v32 countByEnumeratingWithState:&v43 objects:v55 count:16];
+        v34 = [v32 countByEnumeratingWithState:&v42 objects:v54 count:16];
       }
 
       while (v34);
@@ -19684,8 +19527,6 @@ uint64_t __45__SGSqlEntityStore_Loading__loadEntityByKey___block_invoke_2(uint64
   {
     v10 = 0;
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -19717,17 +19558,16 @@ uint64_t __47__SGSqlEntityStore_Loading___loadMessageByKey___block_invoke_3(uint
 
 uint64_t __47__SGSqlEntityStore_Loading___loadMessageByKey___block_invoke_4(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = sgLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) recordId];
-    v6 = 134217984;
-    v7 = [v3 rowId];
-    _os_log_impl(&dword_231E60000, v2, OS_LOG_TYPE_DEFAULT, "failed to load snippet data for email entity: %lld", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = [v3 rowId];
+    _os_log_impl(&dword_231E60000, v2, OS_LOG_TYPE_DEFAULT, "failed to load snippet data for email entity: %lld", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -19809,7 +19649,7 @@ uint64_t __75__SGSqlEntityStore_Loading__allEntitiesOfType_limitedTo_onlyMLExtra
 
 - (id)loadEntityByRecordId:(id)id
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if ([idCopy tableId])
   {
@@ -19818,44 +19658,43 @@ uint64_t __75__SGSqlEntityStore_Loading__allEntitiesOfType_limitedTo_onlyMLExtra
   }
 
   v6 = [(SGSqlEntityStore *)self selectEntityQuery:@"WHERE e.id = :rowId"];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__24709;
-  v22 = __Block_byref_object_dispose__24710;
-  v23 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__24709;
+  v21 = __Block_byref_object_dispose__24710;
+  v22 = 0;
   db = self->_db;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __50__SGSqlEntityStore_Loading__loadEntityByRecordId___block_invoke;
-  v16[3] = &unk_278956070;
-  v8 = idCopy;
-  v17 = v8;
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
-  v15[2] = __50__SGSqlEntityStore_Loading__loadEntityByRecordId___block_invoke_2;
-  v15[3] = &unk_278955878;
-  v15[4] = self;
-  v15[5] = &v18;
-  [(SGSqliteDatabase *)db prepAndRunQuery:v6 onPrep:v16 onRow:v15 onError:0];
-  v9 = v19[5];
+  v15[2] = __50__SGSqlEntityStore_Loading__loadEntityByRecordId___block_invoke;
+  v15[3] = &unk_278956070;
+  v8 = idCopy;
+  v16 = v8;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __50__SGSqlEntityStore_Loading__loadEntityByRecordId___block_invoke_2;
+  v14[3] = &unk_278955878;
+  v14[4] = self;
+  v14[5] = &v17;
+  [(SGSqliteDatabase *)db prepAndRunQuery:v6 onPrep:v15 onRow:v14 onError:0];
+  v9 = v18[5];
   if (!v9)
   {
     v10 = sgLogHandle();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v25 = v8;
+      v24 = v8;
       _os_log_impl(&dword_231E60000, v10, OS_LOG_TYPE_INFO, "Could not load event with record id %@", buf, 0xCu);
     }
 
-    v9 = v19[5];
+    v9 = v18[5];
   }
 
   v11 = v9;
 
-  _Block_object_dispose(&v18, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
 
   return v11;
 }
@@ -19879,45 +19718,44 @@ uint64_t __50__SGSqlEntityStore_Loading__loadEntityByRecordId___block_invoke_2(u
 
 - (id)loadSourceKeyByRecordId:(id)id
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   idCopy = id;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__24709;
-  v19 = __Block_byref_object_dispose__24710;
-  v20 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__24709;
+  v18 = __Block_byref_object_dispose__24710;
+  v19 = 0;
   db = self->_db;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __53__SGSqlEntityStore_Loading__loadSourceKeyByRecordId___block_invoke;
-  v13[3] = &unk_278956070;
-  v6 = idCopy;
-  v14 = v6;
   v12[0] = MEMORY[0x277D85DD0];
   v12[1] = 3221225472;
-  v12[2] = __53__SGSqlEntityStore_Loading__loadSourceKeyByRecordId___block_invoke_2;
-  v12[3] = &unk_278954658;
-  v12[4] = &v15;
-  [(SGSqliteDatabase *)db prepAndRunQuery:@"SELECT ep.sourceKey FROM entity AS e JOIN entityParentage AS ep ON ep.childId = e.id WHERE e.id = :rowId" onPrep:v13 onRow:v12 onError:0];
-  v7 = v16[5];
+  v12[2] = __53__SGSqlEntityStore_Loading__loadSourceKeyByRecordId___block_invoke;
+  v12[3] = &unk_278956070;
+  v6 = idCopy;
+  v13 = v6;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __53__SGSqlEntityStore_Loading__loadSourceKeyByRecordId___block_invoke_2;
+  v11[3] = &unk_278954658;
+  v11[4] = &v14;
+  [(SGSqliteDatabase *)db prepAndRunQuery:@"SELECT ep.sourceKey FROM entity AS e JOIN entityParentage AS ep ON ep.childId = e.id WHERE e.id = :rowId" onPrep:v12 onRow:v11 onError:0];
+  v7 = v15[5];
   if (!v7)
   {
     v8 = sgLogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v22 = v6;
+      v21 = v6;
       _os_log_impl(&dword_231E60000, v8, OS_LOG_TYPE_INFO, "Could not load duplicate key with record id %@", buf, 0xCu);
     }
 
-    v7 = v16[5];
+    v7 = v15[5];
   }
 
   v9 = v7;
 
-  _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v14, 8);
 
   return v9;
 }
@@ -19941,45 +19779,44 @@ uint64_t __53__SGSqlEntityStore_Loading__loadSourceKeyByRecordId___block_invoke_
 
 - (id)loadDuplicateKeyByRecordId:(id)id
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   idCopy = id;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__24709;
-  v19 = __Block_byref_object_dispose__24710;
-  v20 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__24709;
+  v18 = __Block_byref_object_dispose__24710;
+  v19 = 0;
   db = self->_db;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __56__SGSqlEntityStore_Loading__loadDuplicateKeyByRecordId___block_invoke;
-  v13[3] = &unk_278955E30;
-  v6 = idCopy;
-  v14 = v6;
   v12[0] = MEMORY[0x277D85DD0];
   v12[1] = 3221225472;
-  v12[2] = __56__SGSqlEntityStore_Loading__loadDuplicateKeyByRecordId___block_invoke_2;
-  v12[3] = &unk_278955EA0;
-  v12[4] = &v15;
-  [(SGSqliteDatabase *)db prepAndRunSQL:@"SELECT e.entityKey onPrep:e.entityType onRow:ep.parentKey FROM entity AS e JOIN entityParentage AS ep ON ep.childId = e.id WHERE e.id = :rowId" onError:v13, v12, 0];
-  v7 = v16[5];
+  v12[2] = __56__SGSqlEntityStore_Loading__loadDuplicateKeyByRecordId___block_invoke;
+  v12[3] = &unk_278955E30;
+  v6 = idCopy;
+  v13 = v6;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __56__SGSqlEntityStore_Loading__loadDuplicateKeyByRecordId___block_invoke_2;
+  v11[3] = &unk_278955EA0;
+  v11[4] = &v14;
+  [(SGSqliteDatabase *)db prepAndRunSQL:@"SELECT e.entityKey onPrep:e.entityType onRow:ep.parentKey FROM entity AS e JOIN entityParentage AS ep ON ep.childId = e.id WHERE e.id = :rowId" onError:v12, v11, 0];
+  v7 = v15[5];
   if (!v7)
   {
     v8 = sgLogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v22 = v6;
+      v21 = v6;
       _os_log_impl(&dword_231E60000, v8, OS_LOG_TYPE_INFO, "Could not load duplicate key with record id %@", buf, 0xCu);
     }
 
-    v7 = v16[5];
+    v7 = v15[5];
   }
 
   v9 = v7;
 
-  _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v14, 8);
 
   return v9;
 }

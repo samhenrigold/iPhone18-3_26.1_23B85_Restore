@@ -36,9 +36,9 @@
     [NSObject(SBSAGeometricTypeAnimationDecomposing) _independentlyAnimatableMemberKeyPathsForProperty:];
   }
 
-  v1 = _independentlyAnimatableMemberKeyPathsForProperty____emptySet;
+  v2 = _independentlyAnimatableMemberKeyPathsForProperty____emptySet;
 
-  return v1;
+  return v2;
 }
 
 - (void)_setValue:()SBSAGeometricTypeAnimationDecomposing byUpdatingMemberKeypaths:forKeyPath:

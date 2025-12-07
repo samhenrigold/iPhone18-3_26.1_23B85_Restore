@@ -180,7 +180,7 @@ LABEL_3:
   v9 = [(NSMutableDictionary *)self->_rootToConnectedParticipants objectForKey:v8];
   v10 = [v9 mutableCopy];
 
-  if (([v10 containsObject:participantCopy] & 1) == 0)
+  if ((objc_msgSend_containsObject_(v10) & 1) == 0)
   {
     [SBSSKExternalDisplayService willDisconnectParticipant:];
   }

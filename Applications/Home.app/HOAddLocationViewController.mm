@@ -10,6 +10,7 @@
 - (HUEditableTextCell)nameCell;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path rowIdentifier:(id)identifier;
 - (id)tableView:(id)view viewForHeaderInSection:(int64_t)section;
+- (void)applySnapshotWithAnimation:(BOOL)animation;
 - (void)cancelButtonPressed:(id)pressed;
 - (void)imagePickerController:(id)controller didFinishPickingMediaWithInfo:(id)info;
 - (void)nameCellTextChanged:(id)changed;
@@ -20,7 +21,9 @@
 - (void)textFieldDidChange:(id)change;
 - (void)updateCell:(id)cell forIndexPath:(id)path animated:(BOOL)animated;
 - (void)updateWallpaper:(id)wallpaper image:(id)image;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillDisappear:(BOOL)disappear;
 - (void)wallpaperEditing:(id)editing didFinishWithWallpaper:(id)wallpaper image:(id)image;
 - (void)wallpaperPicker:(id)picker didReceiveDroppedImage:(id)image;
@@ -174,6 +177,35 @@
   [(HOAddLocationViewController *)self applySnapshotWithAnimation:0];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HOAddLocationViewController;
+  [(HOAddLocationViewController *)&v4 viewWillAppear:appear];
+  [(HOAddLocationViewController *)self setNavigationBarVisibility];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v11.receiver = self;
+  v11.super_class = HOAddLocationViewController;
+  [(HOAddLocationViewController *)&v11 viewDidAppear:appear];
+  v4 = sub_100003520(@"HOAddLocationPlaceholderTitle");
+  nameCell = [(HOAddLocationViewController *)self nameCell];
+  textField = [nameCell textField];
+  [textField setPlaceholder:v4];
+
+  nameCell2 = [(HOAddLocationViewController *)self nameCell];
+  textField2 = [nameCell2 textField];
+  [textField2 becomeFirstResponder];
+
+  nameCell3 = [(HOAddLocationViewController *)self nameCell];
+  [nameCell3 setAccessibilityIdentifier:@"Home.HomeSettings.AddHome.HomeName"];
+
+  v10 = +[NSNotificationCenter defaultCenter];
+  [v10 addObserver:self selector:"textFieldDidChange:" name:UITextFieldTextDidChangeNotification object:0];
+}
+
 - (void)viewWillDisappear:(BOOL)disappear
 {
   v5.receiver = self;
@@ -283,6 +315,46 @@
   [rightBarButtonItem setEnabled:v6];
 
   [(HOAddLocationViewController *)self setModalInPresentation:v6];
+}
+
+- (void)applySnapshotWithAnimation:(BOOL)animation
+{
+  animationCopy = animation;
+  v5 = objc_alloc_init(NSDiffableDataSourceSnapshot);
+  v12[0] = off_1000D81B0;
+  v12[1] = off_1000D81B8;
+  v6 = [NSArray arrayWithObjects:v12 count:2];
+  [v5 appendSectionsWithIdentifiers:v6];
+
+  v11 = off_1000D81C0;
+  v7 = [NSArray arrayWithObjects:&v11 count:1];
+  [v5 appendItemsWithIdentifiers:v7 intoSectionWithIdentifier:off_1000D81B0];
+
+  v8 = objc_opt_new();
+  if ([(HOAddLocationViewController *)self shouldShowFullWallpaperSection])
+  {
+    if ((+[HUWallpaperPickerInlineViewController useWallpaperPickerCell]& 1) != 0)
+    {
+      v9 = &off_1000D81E0;
+    }
+
+    else
+    {
+      if ([UIImagePickerController isSourceTypeAvailable:1])
+      {
+        [v8 addObject:off_1000D81C8];
+      }
+
+      [v8 addObject:off_1000D81D0];
+      v9 = &off_1000D81D8;
+    }
+
+    [v8 addObject:*v9];
+  }
+
+  [v5 appendItemsWithIdentifiers:v8 intoSectionWithIdentifier:off_1000D81B8];
+  diffableDataSource = [(HOAddLocationViewController *)self diffableDataSource];
+  [diffableDataSource applySnapshot:v5 animatingDifferences:animationCopy];
 }
 
 - (void)updateCell:(id)cell forIndexPath:(id)path animated:(BOOL)animated

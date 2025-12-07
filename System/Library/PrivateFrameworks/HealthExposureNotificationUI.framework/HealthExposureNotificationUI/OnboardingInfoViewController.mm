@@ -1,6 +1,7 @@
 @interface OnboardingInfoViewController
 - (_TtC28HealthExposureNotificationUI28OnboardingInfoViewController)initWithCoder:(id)coder;
 - (_TtC28HealthExposureNotificationUI28OnboardingInfoViewController)initWithNibName:(id)name bundle:(id)bundle;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -13,6 +14,16 @@
   v2 = v3.receiver;
   [(OnboardingInfoViewController *)&v3 viewDidLoad];
   sub_2516AE9EC();
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5.receiver = self;
+  v5.super_class = swift_getObjectType();
+  v4 = v5.receiver;
+  [(OnboardingInfoViewController *)&v5 viewDidDisappear:disappearCopy];
+  [*&v4[OBJC_IVAR____TtC28HealthExposureNotificationUI28OnboardingInfoViewController_scrollView] setContentOffset:0 animated:{0.0, 0.0, v5.receiver, v5.super_class}];
 }
 
 - (_TtC28HealthExposureNotificationUI28OnboardingInfoViewController)initWithNibName:(id)name bundle:(id)bundle

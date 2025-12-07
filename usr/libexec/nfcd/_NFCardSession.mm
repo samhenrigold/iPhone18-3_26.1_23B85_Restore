@@ -1,5 +1,6 @@
 @interface _NFCardSession
 + (id)validateEntitlements:(id)entitlements;
++ (void)isEligibleWithUserPrompt:(BOOL)prompt auditToken:(id *)token completion:(id)completion;
 - (BOOL)validateReceivedAPDU:(id)u;
 - (BOOL)willStartSession;
 - (_NFCardSession)initWithConfig:(id)config allowlistChecker:(id)checker remoteObject:(id)object workQueue:(id)queue;
@@ -9,10 +10,12 @@
 - (void)_deassertPresentationAssertion;
 - (void)_initPaymentAIDPrefixList;
 - (void)_invalidateUIController;
+- (void)_invalidateUIControllerWithStatus:(BOOL)status;
 - (void)_sendErrorStatus:(unsigned __int16)status;
 - (void)asyncReadAPDUWithCompletion:(id)completion;
 - (void)cleanup;
 - (void)didStartSession:(id)session;
+- (void)handleFieldChanged:(BOOL)changed;
 - (void)handleFieldNotification:(id)notification;
 - (void)readAPDUWithCompletion:(id)completion;
 - (void)requestEmulationAssertion:(id)assertion completion:(id)completion;
@@ -20,6 +23,7 @@
 - (void)resumeSessionFromWaitingOnFieldWithCompletion:(id)completion;
 - (void)sendAPDU:(id)u completion:(id)completion;
 - (void)startEmulationWithCompletion:(id)completion;
+- (void)stopEmulationWithStatus:(BOOL)status completion:(id)completion;
 - (void)updateUIString:(id)string completion:(id)completion;
 @end
 
@@ -288,6 +292,61 @@
   [(_NFCardSession *)self _deassertPresentationAssertion];
 }
 
+- (void)_invalidateUIControllerWithStatus:(BOOL)status
+{
+  statusCopy = status;
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v7 = Logger;
+    Class = object_getClass(self);
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(self);
+    Name = sel_getName(a2);
+    v10 = 45;
+    if (isMetaClass)
+    {
+      v10 = 43;
+    }
+
+    v7(6, "%c[%{public}s %{public}s]:%i Invalidating with status %{public}d...", v10, ClassName, Name, 177, statusCopy);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v11 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = object_getClass(self);
+    if (class_isMetaClass(v12))
+    {
+      v13 = 43;
+    }
+
+    else
+    {
+      v13 = 45;
+    }
+
+    *buf = 67110146;
+    v17 = v13;
+    v18 = 2082;
+    v19 = object_getClassName(self);
+    v20 = 2082;
+    v21 = sel_getName(a2);
+    v22 = 1024;
+    v23 = 177;
+    v24 = 1026;
+    v25 = statusCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Invalidating with status %{public}d...", buf, 0x28u);
+  }
+
+  [(NFUIService *)self->_uiService coreNFCUITagScannedCount:statusCopy];
+  [(NFUIService *)self->_uiService coreNFCUIInvalidate];
+  [(NFUIService *)self->_uiService disconnect];
+  [(_NFCardSession *)self _deassertPresentationAssertion];
+}
+
 - (void)sendAPDU:(id)u completion:(id)completion
 {
   uCopy = u;
@@ -326,6 +385,16 @@
   block[4] = self;
   v8 = completionCopy;
   dispatch_async(workQueue, block);
+}
+
+- (void)stopEmulationWithStatus:(BOOL)status completion:(id)completion
+{
+  statusCopy = status;
+  completionCopy = completion;
+  v7 = sub_10004C224(NFRoutingConfig, 1);
+  [(_NFHCESession *)self stopEmulationAndConfigWithRouting:v7 completion:completionCopy];
+
+  [(_NFCardSession *)self _invalidateUIControllerWithStatus:statusCopy];
 }
 
 - (void)updateUIString:(id)string completion:(id)completion
@@ -1123,6 +1192,69 @@ LABEL_25:
   return [(_NFHCESession *)&v4 willStartSession];
 }
 
+- (void)handleFieldChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  v19.receiver = self;
+  v19.super_class = _NFCardSession;
+  [(_NFHCESession *)&v19 handleFieldChanged:?];
+  if ([(_NFCardSession *)self fieldPresent]!= changedCopy)
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v7 = Logger;
+      Class = object_getClass(self);
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(self);
+      Name = sel_getName(a2);
+      v10 = 45;
+      if (isMetaClass)
+      {
+        v10 = 43;
+      }
+
+      v7(6, "%c[%{public}s %{public}s]:%i fieldPresent=%{public}d", v10, ClassName, Name, 407, changedCopy);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v11 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = object_getClass(self);
+      if (class_isMetaClass(v12))
+      {
+        v13 = 43;
+      }
+
+      else
+      {
+        v13 = 45;
+      }
+
+      v14 = object_getClassName(self);
+      v15 = sel_getName(a2);
+      *buf = 67110146;
+      v21 = v13;
+      v22 = 2082;
+      v23 = v14;
+      v24 = 2082;
+      v25 = v15;
+      v26 = 1024;
+      v27 = 407;
+      v28 = 1026;
+      v29 = changedCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i fieldPresent=%{public}d", buf, 0x28u);
+    }
+
+    remoteObject = [(_NFXPCSession *)self remoteObject];
+    [remoteObject fieldChanged:changedCopy];
+
+    [(_NFCardSession *)self setFieldPresent:changedCopy];
+  }
+}
+
 - (void)handleFieldNotification:(id)notification
 {
   notificationCopy = notification;
@@ -1320,6 +1452,150 @@ LABEL_25:
   initialRoutingConfig = [(_NFHCESession *)&v6 initialRoutingConfig];
 
   return initialRoutingConfig;
+}
+
++ (void)isEligibleWithUserPrompt:(BOOL)prompt auditToken:(id *)token completion:(id)completion
+{
+  promptCopy = prompt;
+  completionCopy = completion;
+  v10 = sub_1000A7C38(NFTCCChecker);
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v12 = Logger;
+    Class = object_getClass(self);
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(self);
+    Name = sel_getName(a2);
+    v15 = 45;
+    if (isMetaClass)
+    {
+      v15 = 43;
+    }
+
+    v12(6, "%c[%{public}s %{public}s]:%i userPrompt=%d", v15, ClassName, Name, 473, promptCopy);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v16 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = object_getClass(self);
+    if (class_isMetaClass(v17))
+    {
+      v18 = 43;
+    }
+
+    else
+    {
+      v18 = 45;
+    }
+
+    *buf = 67110146;
+    *&buf[4] = v18;
+    *&buf[8] = 2082;
+    *&buf[10] = object_getClassName(self);
+    *&buf[18] = 2082;
+    *&buf[20] = sel_getName(a2);
+    *&buf[28] = 1024;
+    *&buf[30] = 473;
+    v52 = 1024;
+    v53 = promptCopy;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i userPrompt=%d", buf, 0x28u);
+  }
+
+  if (NFIsInternalBuild())
+  {
+    v19 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.stockholm"];
+    v20 = [v19 objectForKey:@"IgnoreEligibilityAuditToken"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v41 = completionCopy;
+      bOOLValue = [v20 BOOLValue];
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v22 = NFLogGetLogger();
+      if (v22)
+      {
+        v23 = v22;
+        v24 = object_getClass(self);
+        v25 = class_isMetaClass(v24);
+        v39 = object_getClassName(self);
+        v38 = sel_getName(a2);
+        v26 = 45;
+        if (v25)
+        {
+          v26 = 43;
+        }
+
+        v23(4, "%c[%{public}s %{public}s]:%i Internal Override! ignoreAuditToken=%d", v26, v39, v38, 481, bOOLValue);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v27 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      {
+        v28 = object_getClass(self);
+        if (class_isMetaClass(v28))
+        {
+          v29 = 43;
+        }
+
+        else
+        {
+          v29 = 45;
+        }
+
+        v40 = v29;
+        v30 = object_getClassName(self);
+        v31 = sel_getName(a2);
+        *buf = 67110146;
+        *&buf[4] = v40;
+        *&buf[8] = 2082;
+        *&buf[10] = v30;
+        *&buf[18] = 2082;
+        *&buf[20] = v31;
+        *&buf[28] = 1024;
+        *&buf[30] = 481;
+        v52 = 1024;
+        v53 = bOOLValue;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Internal Override! ignoreAuditToken=%d", buf, 0x28u);
+      }
+
+      completionCopy = v41;
+    }
+
+    else
+    {
+      LOBYTE(bOOLValue) = 0;
+    }
+  }
+
+  else
+  {
+    LOBYTE(bOOLValue) = 0;
+  }
+
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = sub_1001A8708;
+  v42[3] = &unk_10031B208;
+  selfCopy = self;
+  v46 = a2;
+  v49 = bOOLValue;
+  v32 = *&token->var0[4];
+  v47 = *token->var0;
+  v48 = v32;
+  v50 = promptCopy;
+  v43 = v10;
+  v44 = completionCopy;
+  v33 = *&token->var0[4];
+  *buf = *token->var0;
+  *&buf[16] = v33;
+  v34 = v10;
+  v35 = completionCopy;
+  sub_1000A87F8(v34, 0, 0, buf, v42);
 }
 
 @end

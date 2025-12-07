@@ -409,7 +409,7 @@ void ReleaseDebugObject(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void ReleaseDebugObjects(uint64_t *a1, int a2)
+void ReleaseDebugObjects(uint64_t *a1, unsigned int a2)
 {
   v7 = [[NSMutableArray alloc] initWithCapacity:a2];
   if (a2 >= 1)
@@ -503,11 +503,11 @@ uint64_t StoreMTLCompileOptionsUsingEncode(uint64_t a1, uint64_t a2, uint64_t a3
   }
 
   v8 = EncodeDYMTLCompileOptions(a2, 0, 0, a4);
-  __chkstk_darwin(v8, v9);
-  v11 = (&v13 - v10);
-  bzero(&v13 - v10, v8);
-  EncodeDYMTLCompileOptions(a2, v11, v8, a4);
-  SavePointer(a1, v11, v8, a3);
+  __chkstk_darwin(v8);
+  v10 = (&v12 - v9);
+  bzero(&v12 - v9, v8);
+  EncodeDYMTLCompileOptions(a2, v10, v8, a4);
+  SavePointer(a1, v10, v8, a3);
   return a3;
 }
 
@@ -541,15 +541,16 @@ BOOL EncodeDebugLibraryWithData(uint64_t *a1, uint64_t a2, uint64_t a3)
   return v3;
 }
 
-uint64_t SaveDirPath(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t SaveDirPath(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   v8 = objc_autoreleasePoolPush();
   v9 = +[NSFileManager defaultManager];
   v10 = [NSString stringWithUTF8String:a2];
   v18 = 0;
   v11 = [v9 contentsOfDirectoryAtPath:v10 error:&v18];
   v12 = v18;
-  v13 = DirToDict(v10, a4);
+  v13 = DirToDict(v10, v4);
   v17 = v12;
   v14 = [NSKeyedArchiver archivedDataWithRootObject:v13 requiringSecureCoding:1 error:&v17];
   v15 = v17;
@@ -701,7 +702,7 @@ char *SaveFileWithURL(uint64_t a1, char *a2, char *a3, void *a4, int a5)
   return a3;
 }
 
-uint64_t GTTrace_storePointer(uint64_t result, int a2, uint64_t a3, char *a4, uint64_t a5, uint64_t a6)
+uint64_t GTTrace_storePointer(uint64_t result, int a2, void *a3, char *a4, uint64_t a5, uint64_t a6)
 {
   v7 = a5;
   v8 = a4;
@@ -724,7 +725,7 @@ uint64_t GTTrace_storePointer(uint64_t result, int a2, uint64_t a3, char *a4, ui
               {
                 if (a2 == -16309)
                 {
-                  result = StoreMTLSamplerDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+                  result = StoreMTLSamplerDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
                   goto LABEL_414;
                 }
 
@@ -738,7 +739,7 @@ uint64_t GTTrace_storePointer(uint64_t result, int a2, uint64_t a3, char *a4, ui
 
               if (a2 == -16311)
               {
-                result = StoreMTLDepthStencilDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+                result = StoreMTLDepthStencilDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
                 goto LABEL_414;
               }
 
@@ -753,7 +754,7 @@ uint64_t GTTrace_storePointer(uint64_t result, int a2, uint64_t a3, char *a4, ui
                 return result;
               }
 
-              result = StoreMTLRenderPassDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+              result = StoreMTLRenderPassDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
               goto LABEL_414;
             }
 
@@ -770,7 +771,7 @@ LABEL_245:
             }
 
 LABEL_345:
-            result = StoreMTLFXTemporalDenoisedScalerDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+            result = StoreMTLFXTemporalDenoisedScalerDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
             goto LABEL_414;
           }
 
@@ -790,7 +791,7 @@ LABEL_232:
                 return result;
               }
 
-              result = StoreMTLFXFrameInterpolatorDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+              result = StoreMTLFXFrameInterpolatorDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
               goto LABEL_414;
             }
           }
@@ -805,7 +806,7 @@ LABEL_232:
               }
 
 LABEL_351:
-              result = StoreMTLFXSpatialScalerDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+              result = StoreMTLFXSpatialScalerDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
               goto LABEL_414;
             }
 
@@ -816,7 +817,7 @@ LABEL_351:
             }
           }
 
-          result = StoreMTLFXTemporalScalerDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+          result = StoreMTLFXTemporalScalerDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
           goto LABEL_414;
         }
 
@@ -832,10 +833,10 @@ LABEL_351:
                 goto LABEL_336;
               }
 
-              *(a3 + 16) = StoreMTLTextureDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
-              result = StoreIOSurfaceUsingEncode(v11, *(a3 + 24), &v10[-v61], &v61);
+              a3[2] = StoreMTLTextureDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
+              result = StoreIOSurfaceUsingEncode(v11, a3[3], &v10[-v61], &v61);
 LABEL_468:
-              *(a3 + 24) = result;
+              a3[3] = result;
               return result;
             }
 
@@ -846,7 +847,7 @@ LABEL_468:
             }
 
 LABEL_337:
-            v42 = *(a3 + 8);
+            v42 = a3[1];
             if (v42)
             {
               result = SavePointer(*(result + 32), (v42 + 16), *(v42 + 12), a4);
@@ -857,7 +858,7 @@ LABEL_337:
               v8 = 0;
             }
 
-            *(a3 + 8) = v8;
+            a3[1] = v8;
             return result;
           }
 
@@ -880,7 +881,7 @@ LABEL_285:
             goto LABEL_285;
           }
 
-          v33 = *(a3 + 16);
+          v33 = a3[2];
           v34 = *(result + 32);
           v35 = a4;
 LABEL_287:
@@ -895,10 +896,10 @@ LABEL_287:
             goto LABEL_297;
           }
 
-          v29 = *(a3 + 16);
+          v29 = a3[2];
           if (*(result + 48))
           {
-            v8 = *(a3 + 16);
+            v8 = a3[2];
           }
 
           else if (v29)
@@ -913,8 +914,8 @@ LABEL_287:
             v8 = 0;
           }
 
-          *(a3 + 16) = v8;
-          result = StoreMTLCompileOptionsUsingEncode_16210(v11, *(a3 + 24), &v10[-v7], &v61, a6);
+          a3[2] = v8;
+          result = StoreMTLCompileOptionsUsingEncode_16210(v11, a3[3], &v10[-v7], &v61, a6);
           goto LABEL_468;
         }
 
@@ -937,7 +938,7 @@ LABEL_241:
           goto LABEL_241;
         }
 
-        result = StoreMTLRenderPipelineDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+        result = StoreMTLRenderPipelineDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
         goto LABEL_414;
       }
 
@@ -947,13 +948,13 @@ LABEL_241:
         {
           if (a2 == -16165)
           {
-            result = StoreMTLCommandQueueDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+            result = StoreMTLCommandQueueDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
             goto LABEL_414;
           }
 
           if (a2 == -16163)
           {
-            result = StoreIOSurfaceUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+            result = StoreIOSurfaceUsingEncode(*(result + 32), a3[2], a4, &v61);
             goto LABEL_414;
           }
 
@@ -964,7 +965,7 @@ LABEL_241:
         switch(a2)
         {
           case -16120:
-            result = StoreMTLHeapDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+            result = StoreMTLHeapDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
             goto LABEL_414;
           case -16116:
           case -16104:
@@ -977,7 +978,7 @@ LABEL_241:
           case -16106:
           case -16082:
           case -16081:
-            result = StoreMTLFunctionConstantValuesUsingEncode(*(result + 32), *(a3 + 24), a4, &v61);
+            result = StoreMTLFunctionConstantValuesUsingEncode(*(result + 32), a3[3], a4, &v61);
             goto LABEL_468;
           case -16101:
             goto LABEL_97;
@@ -990,7 +991,7 @@ LABEL_241:
           case -16090:
           case -16089:
           case -16088:
-            result = StoreMTLTileRenderPipelineDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+            result = StoreMTLTileRenderPipelineDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
             goto LABEL_414;
           case -16077:
             goto LABEL_168;
@@ -1011,13 +1012,13 @@ LABEL_241:
             goto LABEL_277;
           case -16031:
 LABEL_342:
-            result = StoreMTLTextureDescriptorUsingEncode(*(result + 32), *(a3 + 32), a4, &v61);
-            *(a3 + 32) = result;
+            result = StoreMTLTextureDescriptorUsingEncode(*(result + 32), a3[4], a4, &v61);
+            a3[4] = result;
             break;
           case -16030:
-            result = StoreMTLTextureDescriptorUsingEncode(*(result + 32), *(a3 + 40), a4, &v61);
+            result = StoreMTLTextureDescriptorUsingEncode(*(result + 32), a3[5], a4, &v61);
 LABEL_369:
-            *(a3 + 40) = result;
+            a3[5] = result;
             break;
         }
 
@@ -1032,7 +1033,7 @@ LABEL_369:
         }
 
 LABEL_97:
-        v17 = *(a3 + 16);
+        v17 = a3[2];
         if (v17)
         {
           v18 = *v17;
@@ -1046,8 +1047,8 @@ LABEL_97:
           v18 = 0;
         }
 
-        *(a3 + 16) = v19;
-        result = StoreMTLImageFilterFunctionInfoSPIUsingEncode(v11, *(a3 + 24), &v10[-v7], &v61, v18);
+        a3[2] = v19;
+        result = StoreMTLImageFilterFunctionInfoSPIUsingEncode(v11, a3[3], &v10[-v7], &v61, v18);
         goto LABEL_468;
       }
 
@@ -1059,12 +1060,12 @@ LABEL_97:
         }
 
 LABEL_229:
-        result = StoreMTLIndirectCommandBufferDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+        result = StoreMTLIndirectCommandBufferDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
         goto LABEL_414;
       }
 
 LABEL_246:
-      result = StoreMTLTextureDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+      result = StoreMTLTextureDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
       goto LABEL_414;
     }
 
@@ -1080,7 +1081,7 @@ LABEL_246:
             {
               if (a2 == -15848)
               {
-                result = StoreMTLCounterSampleBufferDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+                result = StoreMTLCounterSampleBufferDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
                 goto LABEL_414;
               }
 
@@ -1089,7 +1090,7 @@ LABEL_246:
                 return result;
               }
 
-              result = StoreMTLImageFilterFunctionInfoSPIUsingEncode(*(result + 32), *(a3 + 32), a4, &v61, *(a3 + 24));
+              result = StoreMTLImageFilterFunctionInfoSPIUsingEncode(*(result + 32), a3[4], a4, &v61, a3[3]);
               goto LABEL_367;
             }
 
@@ -1110,7 +1111,7 @@ LABEL_246:
           {
             if (a2 == -15793)
             {
-              result = StoreMTLRasterizationRateMapDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+              result = StoreMTLRasterizationRateMapDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
               goto LABEL_414;
             }
 
@@ -1128,7 +1129,7 @@ LABEL_246:
             goto LABEL_336;
           }
 
-          v49 = *(a3 + 48);
+          v49 = a3[6];
           if (!v49)
           {
             goto LABEL_431;
@@ -1148,7 +1149,7 @@ LABEL_246:
                 return result;
               }
 
-              result = StoreMTLMotionEstimationPipelineDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+              result = StoreMTLMotionEstimationPipelineDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
               goto LABEL_414;
             }
           }
@@ -1158,7 +1159,7 @@ LABEL_246:
             goto LABEL_198;
           }
 
-          v43 = *(a3 + 40);
+          v43 = a3[5];
           if (v43)
           {
             v7 = a5 - 65;
@@ -1170,8 +1171,8 @@ LABEL_246:
             v8 = 0;
           }
 
-          *(a3 + 40) = v8;
-          v49 = *(a3 + 48);
+          a3[5] = v8;
+          v49 = a3[6];
           if (!v49)
           {
 LABEL_431:
@@ -1183,7 +1184,7 @@ LABEL_431:
 LABEL_430:
           result = SavePointer(v11, (v49 + 16), *(v49 + 12), v8);
 LABEL_432:
-          *(a3 + 48) = v8;
+          a3[6] = v8;
           return result;
         }
 
@@ -1203,7 +1204,7 @@ LABEL_432:
         }
 
 LABEL_198:
-        v27 = *(a3 + 40);
+        v27 = a3[5];
         if (v27)
         {
           result = SavePointer(*(result + 32), (v27 + 16), *(v27 + 12), a4);
@@ -1214,7 +1215,7 @@ LABEL_198:
           v8 = 0;
         }
 
-        *(a3 + 40) = v8;
+        a3[5] = v8;
         return result;
       }
 
@@ -1234,20 +1235,20 @@ LABEL_120:
               }
 
 LABEL_297:
-              v37 = *(a3 + 16);
+              v37 = a3[2];
               if (v37)
               {
 LABEL_298:
                 result = SavePointer(v11, (v37 + 16), *(v37 + 12), v8);
 LABEL_465:
-                *(a3 + 16) = v8;
+                a3[2] = v8;
                 return result;
               }
 
               goto LABEL_464;
             }
 
-            result = StoreMTLCaptureDescriptorInternalUsingEncode(*(result + 32), *(a3 + 8), a4, &v61, a6);
+            result = StoreMTLCaptureDescriptorInternalUsingEncode(*(result + 32), a3[1], a4, &v61, a6);
             goto LABEL_410;
           }
 
@@ -1262,7 +1263,7 @@ LABEL_465:
 
         if (a2 == -15746)
         {
-          v53 = *(a3 + 8);
+          v53 = a3[1];
           if (v53)
           {
             v7 = a5 - 65;
@@ -1274,8 +1275,8 @@ LABEL_465:
             v8 = 0;
           }
 
-          *(a3 + 8) = v8;
-          v37 = *(a3 + 16);
+          a3[1] = v8;
+          v37 = a3[2];
           if (v37)
           {
             v8 = &v10[-v7];
@@ -1314,7 +1315,7 @@ LABEL_464:
               return result;
             }
 
-            result = StoreMTLCommandBufferDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+            result = StoreMTLCommandBufferDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
             goto LABEL_414;
           }
 
@@ -1326,7 +1327,7 @@ LABEL_464:
             }
 
 LABEL_66:
-            v15 = *(a3 + 24);
+            v15 = a3[3];
             if (v15)
             {
               goto LABEL_309;
@@ -1346,7 +1347,7 @@ LABEL_66:
             goto LABEL_336;
           }
 
-          v46 = *(a3 + 24);
+          v46 = a3[3];
           v47 = *(result + 32);
           v48 = a4;
           goto LABEL_445;
@@ -1355,12 +1356,12 @@ LABEL_66:
         if (a2 != -15666)
         {
 LABEL_289:
-          result = StoreMTLRenderPipelineDescriptorUsingEncode(*(result + 32), *(a3 + 8), a4, &v61, a6);
+          result = StoreMTLRenderPipelineDescriptorUsingEncode(*(result + 32), a3[1], a4, &v61, a6);
           goto LABEL_410;
         }
       }
 
-      result = StoreMTLComputePipelineDescriptorUsingEncode(*(result + 32), *(a3 + 8), a4, &v61, a6);
+      result = StoreMTLComputePipelineDescriptorUsingEncode(*(result + 32), a3[1], a4, &v61, a6);
       goto LABEL_410;
     }
 
@@ -1374,12 +1375,12 @@ LABEL_289:
           {
             if (a2 == -15586)
             {
-              result = StoreMTLComputePassDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+              result = StoreMTLComputePassDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
             }
 
             else
             {
-              result = StoreMTLResourceStatePassDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+              result = StoreMTLResourceStatePassDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
             }
 
             goto LABEL_414;
@@ -1393,13 +1394,13 @@ LABEL_289:
             }
 
 LABEL_282:
-            result = StoreMTLVisibleFunctionTableDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+            result = StoreMTLVisibleFunctionTableDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
             goto LABEL_414;
           }
 
-          result = StoreMTLComputePassDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
-          *(a3 + 16) = result;
-          v15 = *(a3 + 24);
+          result = StoreMTLComputePassDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
+          a3[2] = result;
+          v15 = a3[3];
           if (v15)
           {
             v8 = &v10[-v61];
@@ -1420,11 +1421,11 @@ LABEL_391:
               return result;
             }
 
-            result = StoreMTLBlitPassDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+            result = StoreMTLBlitPassDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
             goto LABEL_414;
           }
 
-          result = UnwrapArray_(*(result + 32), *(a3 + 8), a4, &v61, *(a3 + 24), a6);
+          result = UnwrapArray_(*(result + 32), a3[1], a4, &v61, a3[3], a6);
           goto LABEL_410;
         }
 
@@ -1447,11 +1448,11 @@ LABEL_391:
           }
 
 LABEL_255:
-          result = StoreMTLAccelerationStructureDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+          result = StoreMTLAccelerationStructureDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
           goto LABEL_414;
         }
 
-        result = StoreMTLTileRenderPipelineDescriptorUsingEncode(*(result + 32), *(a3 + 8), a4, &v61, a6);
+        result = StoreMTLTileRenderPipelineDescriptorUsingEncode(*(result + 32), a3[1], a4, &v61, a6);
         goto LABEL_410;
       }
 
@@ -1464,7 +1465,7 @@ LABEL_255:
             return result;
           }
 
-          result = StoreMTLFunctionDescriptorUsingEncode(*(result + 32), *(a3 + 24), a4, &v61, a6);
+          result = StoreMTLFunctionDescriptorUsingEncode(*(result + 32), a3[3], a4, &v61, a6);
           goto LABEL_468;
         }
 
@@ -1494,8 +1495,8 @@ LABEL_249:
         {
           if (a2 == -15498)
           {
-            *(a3 + 8) = UnwrapMTLArray_(*(result + 32), *(a3 + 8), a4, &v61, a6);
-            v33 = *(a3 + 16);
+            a3[1] = UnwrapMTLArray_(*(result + 32), a3[1], a4, &v61, a6);
+            v33 = a3[2];
             v35 = &v10[-v61];
             v34 = v11;
             goto LABEL_287;
@@ -1506,8 +1507,8 @@ LABEL_249:
             return result;
           }
 
-          *(a3 + 8) = UnwrapMTLArray_(*(result + 32), *(a3 + 8), a4, &v61, a6);
-          v22 = *(a3 + 16);
+          a3[1] = UnwrapMTLArray_(*(result + 32), a3[1], a4, &v61, a6);
+          v22 = a3[2];
           v23 = v61;
           if (v22)
           {
@@ -1522,8 +1523,8 @@ LABEL_249:
             v24 = 0;
           }
 
-          *(a3 + 16) = v24;
-          v46 = *(a3 + 24);
+          a3[2] = v24;
+          v46 = a3[3];
           v48 = &v10[-v23];
           v47 = v11;
 LABEL_445:
@@ -1535,7 +1536,7 @@ LABEL_445:
         {
           if (a2 == -15473)
           {
-            v36 = *(a3 + 80);
+            v36 = a3[10];
             if (v36)
             {
               result = SavePointer(*(result + 32), (v36 + 16), *(v36 + 12), a4);
@@ -1546,14 +1547,14 @@ LABEL_445:
               v8 = 0;
             }
 
-            *(a3 + 80) = v8;
+            a3[10] = v8;
           }
 
           return result;
         }
 
 LABEL_294:
-        result = StoreMTLFunctionDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+        result = StoreMTLFunctionDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
         goto LABEL_414;
       }
 
@@ -1561,7 +1562,7 @@ LABEL_294:
       {
         if (a2 == -15509)
         {
-          result = StoreMTLBufferDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+          result = StoreMTLBufferDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
           goto LABEL_414;
         }
 
@@ -1572,7 +1573,7 @@ LABEL_294:
       if (a2 == -15524)
       {
 LABEL_127:
-        result = UnwrapMTLArray_(*(result + 32), *(a3 + 16), a4, &v61, a6);
+        result = UnwrapMTLArray_(*(result + 32), a3[2], a4, &v61, a6);
         goto LABEL_414;
       }
 
@@ -1592,7 +1593,7 @@ LABEL_126:
       {
         if (a2 == -15552)
         {
-          result = StoreMTLAccelerationStructureDescriptorUsingEncode(*(result + 32), *(a3 + 8), a4, &v61, a6);
+          result = StoreMTLAccelerationStructureDescriptorUsingEncode(*(result + 32), a3[1], a4, &v61, a6);
           goto LABEL_410;
         }
 
@@ -1616,7 +1617,7 @@ LABEL_126:
         }
 
 LABEL_213:
-        result = StoreMTLIntersectionFunctionDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+        result = StoreMTLIntersectionFunctionDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
         goto LABEL_414;
       }
 
@@ -1628,7 +1629,7 @@ LABEL_213:
     }
 
 LABEL_251:
-    result = StoreMTLIntersectionFunctionTableDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+    result = StoreMTLIntersectionFunctionTableDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
     goto LABEL_414;
   }
 
@@ -1639,11 +1640,11 @@ LABEL_251:
       switch(a2)
       {
         case -15466:
-          *(a3 + 16) = UnwrapMTLArray_(*(result + 32), *(a3 + 16), a4, &v61, a6);
-          result = StoreMTLAccelerationStructureDescriptorUsingEncode(v11, *(a3 + 40), &v10[-v61], &v61, a6);
+          a3[2] = UnwrapMTLArray_(*(result + 32), a3[2], a4, &v61, a6);
+          result = StoreMTLAccelerationStructureDescriptorUsingEncode(v11, a3[5], &v10[-v61], &v61, a6);
           goto LABEL_369;
         case -15465:
-          v30 = *(a3 + 32);
+          v30 = a3[4];
           v32 = *(result + 32);
           v31 = a4;
           goto LABEL_366;
@@ -1653,7 +1654,7 @@ LABEL_251:
         case -15441:
           goto LABEL_251;
         case -15461:
-          result = StoreMTLRenderPipelineFunctionsDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+          result = StoreMTLRenderPipelineFunctionsDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
           goto LABEL_414;
         case -15460:
         case -15440:
@@ -1666,7 +1667,7 @@ LABEL_251:
         case -15421:
         case -15420:
         case -15419:
-          result = StoreMTLStitchedLibraryDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+          result = StoreMTLStitchedLibraryDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
           goto LABEL_414;
         case -15430:
         case -15428:
@@ -1679,16 +1680,16 @@ LABEL_251:
         case -15385:
           goto LABEL_304;
         case -15426:
-          result = StoreMTLStitchedLibraryDescriptorUsingEncode(*(result + 32), *(a3 + 8), a4, &v61, a6);
+          result = StoreMTLStitchedLibraryDescriptorUsingEncode(*(result + 32), a3[1], a4, &v61, a6);
           goto LABEL_410;
         case -15411:
-          result = StoreMTLRasterizationRateMapDescriptorUsingEncode(*(result + 32), *(a3 + 8), a4, &v61);
+          result = StoreMTLRasterizationRateMapDescriptorUsingEncode(*(result + 32), a3[1], a4, &v61);
           goto LABEL_410;
         case -15406:
         case -15405:
         case -15404:
         case -15403:
-          result = StoreMTLMeshRenderPipelineDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+          result = StoreMTLMeshRenderPipelineDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
           goto LABEL_414;
         case -15398:
         case -15388:
@@ -1714,9 +1715,9 @@ LABEL_251:
               goto LABEL_120;
             }
 
-            result = StoreMTLIOCommandQueueDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+            result = StoreMTLIOCommandQueueDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
 LABEL_414:
-            *(a3 + 16) = result;
+            a3[2] = result;
             return result;
           }
 
@@ -1738,7 +1739,7 @@ LABEL_414:
           }
 
 LABEL_304:
-          v38 = *(a3 + 16);
+          v38 = a3[2];
           if (v38)
           {
             v7 = a5 - 65;
@@ -1750,15 +1751,15 @@ LABEL_304:
             v8 = 0;
           }
 
-          *(a3 + 16) = v8;
-          v15 = *(a3 + 24);
+          a3[2] = v8;
+          v15 = a3[3];
           if (v15)
           {
             v8 = &v10[-v7];
 LABEL_309:
             result = SavePointer(v11, (v15 + 16), *(v15 + 12), v8);
 LABEL_392:
-            *(a3 + 24) = v8;
+            a3[3] = v8;
             return result;
           }
 
@@ -1786,7 +1787,7 @@ LABEL_336:
         {
           if (a2 == -15362)
           {
-            result = StoreMTLAccelerationStructureDescriptorUsingEncode(*(result + 32), *(a3 + 24), a4, &v61, a6);
+            result = StoreMTLAccelerationStructureDescriptorUsingEncode(*(result + 32), a3[3], a4, &v61, a6);
           }
 
           else
@@ -1796,7 +1797,7 @@ LABEL_336:
               return result;
             }
 
-            result = StoreMTLAccelerationStructureAllocationDescriptorUsingEncode(*(result + 32), *(a3 + 24), a4, &v61);
+            result = StoreMTLAccelerationStructureAllocationDescriptorUsingEncode(*(result + 32), a3[3], a4, &v61);
           }
 
           goto LABEL_468;
@@ -1824,7 +1825,7 @@ LABEL_254:
 
       if (a2 == -15364)
       {
-        result = StoreMTLAccelerationStructurePassDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+        result = StoreMTLAccelerationStructurePassDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
         goto LABEL_414;
       }
 
@@ -1833,14 +1834,14 @@ LABEL_254:
         return result;
       }
 
-      *(a3 + 24) = UnwrapMTLArray_(*(result + 32), *(a3 + 24), a4, &v61, a6);
-      v30 = *(a3 + 32);
+      a3[3] = UnwrapMTLArray_(*(result + 32), a3[3], a4, &v61, a6);
+      v30 = a3[4];
       v31 = &v10[-v61];
       v32 = v11;
 LABEL_366:
       result = StoreMTLAccelerationStructureDescriptorUsingEncode(v32, v30, v31, &v61, a6);
 LABEL_367:
-      *(a3 + 32) = result;
+      a3[4] = result;
       return result;
     }
 
@@ -1858,14 +1859,14 @@ LABEL_367:
           return result;
         }
 
-        result = StoreMTLResidencySetDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+        result = StoreMTLResidencySetDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
       }
 
       else if (a2 > -15195)
       {
         if (a2 == -15194)
         {
-          result = StoreMTL4CompilerDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+          result = StoreMTL4CompilerDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
         }
 
         else
@@ -1875,13 +1876,13 @@ LABEL_367:
             return result;
           }
 
-          result = StoreMTLResourceViewPoolDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+          result = StoreMTLResourceViewPoolDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
         }
       }
 
       else if (a2 == -15200)
       {
-        result = StoreMTL4ArgumentTableDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+        result = StoreMTL4ArgumentTableDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
       }
 
       else
@@ -1891,7 +1892,7 @@ LABEL_367:
           return result;
         }
 
-        result = StoreMTL4CommandAllocatorDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+        result = StoreMTL4CommandAllocatorDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
       }
 
       goto LABEL_414;
@@ -1903,7 +1904,7 @@ LABEL_367:
       {
         if (a2 == -15172)
         {
-          result = StoreMTL4CommandBufferOptionsUsingEncode(*(result + 32), *(a3 + 24), a4, &v61, a6);
+          result = StoreMTL4CommandBufferOptionsUsingEncode(*(result + 32), a3[3], a4, &v61, a6);
           goto LABEL_468;
         }
 
@@ -1913,7 +1914,7 @@ LABEL_367:
         }
 
 LABEL_346:
-        result = StoreMTL4RenderPassDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+        result = StoreMTL4RenderPassDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
         goto LABEL_414;
       }
 
@@ -1928,8 +1929,8 @@ LABEL_346:
       }
 
 LABEL_301:
-      *(a3 + 16) = StoreMTL4PipelineDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
-      result = StoreMTL4CompilerTaskOptionsUsingEncode(v11, *(a3 + 24), &v10[-v61], &v61, a6);
+      a3[2] = StoreMTL4PipelineDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
+      result = StoreMTL4CompilerTaskOptionsUsingEncode(v11, a3[3], &v10[-v61], &v61, a6);
       goto LABEL_468;
     }
 
@@ -1947,12 +1948,12 @@ LABEL_301:
     if (a2 != -15136)
     {
 LABEL_311:
-      result = StoreMTL4LibraryDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+      result = StoreMTL4LibraryDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
       goto LABEL_414;
     }
 
 LABEL_277:
-    result = SaveFileWithURL(*(result + 32), *(a3 + 16), a4, &v61, 1);
+    result = SaveFileWithURL(*(result + 32), a3[2], a4, &v61, 1);
     goto LABEL_414;
   }
 
@@ -1965,13 +1966,13 @@ LABEL_277:
         case -6143:
         case -6131:
         case -6111:
-          *(a3 + 16) = StoreMPSPluginCNNConvolutionDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
-          result = StoreMPSPluginCNNConvolutionDataUsingEncode(v11, *(a3 + 24), &v10[-v61], &v61);
+          a3[2] = StoreMPSPluginCNNConvolutionDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
+          result = StoreMPSPluginCNNConvolutionDataUsingEncode(v11, a3[3], &v10[-v61], &v61);
           goto LABEL_468;
         case -6142:
-          *(a3 + 56) = StoreMPSSourceTextureInfoUsingEncode(*(result + 32), *(a3 + 56), a4, &v61);
-          result = StoreMPSDestinationTextureInfoUsingEncode(v11, *(a3 + 80), &v10[-v61], &v61);
-          *(a3 + 80) = result;
+          a3[7] = StoreMPSSourceTextureInfoUsingEncode(*(result + 32), a3[7], a4, &v61);
+          result = StoreMPSDestinationTextureInfoUsingEncode(v11, a3[10], &v10[-v61], &v61);
+          a3[10] = result;
           return result;
         case -6141:
         case -6140:
@@ -2004,65 +2005,65 @@ LABEL_277:
         case -6135:
         case -6126:
         case -6121:
-          *(a3 + 48) = StoreMPSSourceTextureInfoUsingEncode(*(result + 32), *(a3 + 48), a4, &v61);
-          result = StoreMPSDestinationTextureInfoUsingEncode(v11, *(a3 + 64), &v10[-v61], &v61);
-          *(a3 + 64) = result;
+          a3[6] = StoreMPSSourceTextureInfoUsingEncode(*(result + 32), a3[6], a4, &v61);
+          result = StoreMPSDestinationTextureInfoUsingEncode(v11, a3[8], &v10[-v61], &v61);
+          a3[8] = result;
           return result;
         case -6129:
           goto LABEL_66;
         case -6127:
         case -6120:
-          result = StoreMPSPluginCNNConvolutionDataUsingEncode(*(result + 32), *(a3 + 8), a4, &v61);
+          result = StoreMPSPluginCNNConvolutionDataUsingEncode(*(result + 32), a3[1], a4, &v61);
           goto LABEL_410;
         case -6125:
-          *(a3 + 56) = StoreMPSSourceTextureInfoUsingEncode(*(result + 32), *(a3 + 56), a4, &v61);
-          *(a3 + 72) = StoreMPSSourceTextureInfoUsingEncode(v11, *(a3 + 72), &v10[-v61], &v61);
+          a3[7] = StoreMPSSourceTextureInfoUsingEncode(*(result + 32), a3[7], a4, &v61);
+          a3[9] = StoreMPSSourceTextureInfoUsingEncode(v11, a3[9], &v10[-v61], &v61);
           goto LABEL_421;
         case -6118:
-          *(a3 + 64) = StoreMPSSourceTextureInfoUsingEncode(*(result + 32), *(a3 + 64), a4, &v61);
-          *(a3 + 88) = StoreMPSSourceTextureInfoUsingEncode(v11, *(a3 + 88), &v10[-v61], &v61);
-          result = StoreMPSDestinationTextureInfoUsingEncode(v11, *(a3 + 112), &v10[-v61], &v61);
-          *(a3 + 112) = result;
+          a3[8] = StoreMPSSourceTextureInfoUsingEncode(*(result + 32), a3[8], a4, &v61);
+          a3[11] = StoreMPSSourceTextureInfoUsingEncode(v11, a3[11], &v10[-v61], &v61);
+          result = StoreMPSDestinationTextureInfoUsingEncode(v11, a3[14], &v10[-v61], &v61);
+          a3[14] = result;
           return result;
         case -6117:
-          *(a3 + 56) = StoreMPSSourceTextureInfoUsingEncode(*(result + 32), *(a3 + 56), a4, &v61);
-          result = StoreMPSDestinationTextureInfoUsingEncode(v11, *(a3 + 72), &v10[-v61], &v61);
-          *(a3 + 72) = result;
+          a3[7] = StoreMPSSourceTextureInfoUsingEncode(*(result + 32), a3[7], a4, &v61);
+          result = StoreMPSDestinationTextureInfoUsingEncode(v11, a3[9], &v10[-v61], &v61);
+          a3[9] = result;
           return result;
         case -6115:
-          *(a3 + 64) = StoreMPSSourceTextureInfoUsingEncode(*(result + 32), *(a3 + 64), a4, &v61);
+          a3[8] = StoreMPSSourceTextureInfoUsingEncode(*(result + 32), a3[8], a4, &v61);
 LABEL_421:
-          result = StoreMPSDestinationTextureInfoUsingEncode(v11, *(a3 + 88), &v10[-v61], &v61);
+          result = StoreMPSDestinationTextureInfoUsingEncode(v11, a3[11], &v10[-v61], &v61);
           goto LABEL_423;
         case -6114:
-          *(a3 + 64) = StoreMPSSourceTextureInfoUsingEncode(*(result + 32), *(a3 + 64), a4, &v61);
-          result = StoreMPSSourceTextureInfoUsingEncode(v11, *(a3 + 88), &v10[-v61], &v61);
+          a3[8] = StoreMPSSourceTextureInfoUsingEncode(*(result + 32), a3[8], a4, &v61);
+          result = StoreMPSSourceTextureInfoUsingEncode(v11, a3[11], &v10[-v61], &v61);
           goto LABEL_423;
         case -6102:
         case -6100:
         case -6099:
         case -6098:
-          *(a3 + 56) = StoreMPSNDArrayStructureUsingEncode(*(result + 32), *(a3 + 56), a4, &v61);
-          *(a3 + 72) = StoreMPSNDArrayStructureUsingEncode(v11, *(a3 + 72), &v10[-v61], &v61);
-          *(a3 + 88) = StoreMPSNDArrayStructureUsingEncode(v11, *(a3 + 88), &v10[-v61], &v61);
-          result = StoreMPSNDArrayStructureUsingEncode(v11, *(a3 + 104), &v10[-v61], &v61);
-          *(a3 + 104) = result;
+          a3[7] = StoreMPSNDArrayStructureUsingEncode(*(result + 32), a3[7], a4, &v61);
+          a3[9] = StoreMPSNDArrayStructureUsingEncode(v11, a3[9], &v10[-v61], &v61);
+          a3[11] = StoreMPSNDArrayStructureUsingEncode(v11, a3[11], &v10[-v61], &v61);
+          result = StoreMPSNDArrayStructureUsingEncode(v11, a3[13], &v10[-v61], &v61);
+          a3[13] = result;
           return result;
         case -6097:
-          *(a3 + 56) = StoreMPSNDArrayStructureUsingEncode(*(result + 32), *(a3 + 56), a4, &v61);
-          *(a3 + 72) = StoreMPSNDArrayStructureUsingEncode(v11, *(a3 + 72), &v10[-v61], &v61);
-          result = StoreMPSNDArrayStructureUsingEncode(v11, *(a3 + 88), &v10[-v61], &v61);
+          a3[7] = StoreMPSNDArrayStructureUsingEncode(*(result + 32), a3[7], a4, &v61);
+          a3[9] = StoreMPSNDArrayStructureUsingEncode(v11, a3[9], &v10[-v61], &v61);
+          result = StoreMPSNDArrayStructureUsingEncode(v11, a3[11], &v10[-v61], &v61);
 LABEL_423:
-          *(a3 + 88) = result;
+          a3[11] = result;
           return result;
         case -6096:
         case -6095:
-          result = StoreMPSPluginNDArrayConvolutionDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+          result = StoreMPSPluginNDArrayConvolutionDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
           goto LABEL_414;
         default:
           if (a2 == -7153)
           {
-            v54 = *(a3 + 8);
+            v54 = a3[1];
             if (v54)
             {
               result = SavePointer(*(result + 32), (v54 + 16), *(v54 + 12), a4);
@@ -2073,7 +2074,7 @@ LABEL_423:
               v8 = 0;
             }
 
-            *(a3 + 8) = v8;
+            a3[1] = v8;
             return result;
           }
 
@@ -2082,7 +2083,7 @@ LABEL_423:
             return result;
           }
 
-          result = StoreMTLDeviceDescriptorUsingEncode(*(result + 32), *(a3 + 24), a4, &v61);
+          result = StoreMTLDeviceDescriptorUsingEncode(*(result + 32), a3[3], a4, &v61);
           break;
       }
 
@@ -2100,7 +2101,7 @@ LABEL_423:
             return result;
           }
 
-          result = StoreMTLDeviceDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+          result = StoreMTLDeviceDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
           goto LABEL_414;
         }
       }
@@ -2117,7 +2118,7 @@ LABEL_423:
     switch(a2)
     {
       case -10190:
-        v45 = *(a3 + 8);
+        v45 = a3[1];
         if (v45)
         {
           v7 = a5 - 65;
@@ -2129,8 +2130,8 @@ LABEL_423:
           v8 = 0;
         }
 
-        *(a3 + 8) = v8;
-        v44 = *(a3 + 24);
+        a3[1] = v8;
+        v44 = a3[3];
         if (!v44)
         {
           goto LABEL_441;
@@ -2139,10 +2140,10 @@ LABEL_423:
         v8 = &v10[-v7];
         goto LABEL_440;
       case -10157:
-        result = StoreMTLFunctionDescriptorUsingEncode(*(result + 32), *(a3 + 8), a4, &v61, a6);
+        result = StoreMTLFunctionDescriptorUsingEncode(*(result + 32), a3[1], a4, &v61, a6);
         break;
       case -10156:
-        result = UnwrapMTLArray_(*(result + 32), *(a3 + 8), a4, &v61, a6);
+        result = UnwrapMTLArray_(*(result + 32), a3[1], a4, &v61, a6);
         break;
       default:
         return result;
@@ -2195,18 +2196,18 @@ LABEL_423:
           }
 
 LABEL_168:
-          result = StoreMTLViewportUsingEncode(*(result + 32), *(a3 + 8), a4, &v61, *(a3 + 16));
+          result = StoreMTLViewportUsingEncode(*(result + 32), a3[1], a4, &v61, a3[2]);
           goto LABEL_410;
         }
 
 LABEL_264:
-        result = StoreMTLVertexAmplificationViewMappingUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, *(a3 + 8));
+        result = StoreMTLVertexAmplificationViewMappingUsingEncode(*(result + 32), a3[2], a4, &v61, a3[1]);
         goto LABEL_414;
       }
 
       if (a2 == -14969)
       {
-        result = StoreMTLTextureViewDescriptorUsingEncode(*(result + 32), *(a3 + 24), a4, &v61);
+        result = StoreMTLTextureViewDescriptorUsingEncode(*(result + 32), a3[3], a4, &v61);
         goto LABEL_468;
       }
 
@@ -2217,7 +2218,7 @@ LABEL_332:
         return result;
       }
 
-      result = StoreMTLTensorDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+      result = StoreMTLTensorDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
       goto LABEL_414;
     }
 
@@ -2228,7 +2229,7 @@ LABEL_332:
         if (a2 == -14920)
         {
 LABEL_315:
-          result = StoreMTLScissorRectUsingEncode(*(result + 32), *(a3 + 8), a4, &v61, *(a3 + 16));
+          result = StoreMTLScissorRectUsingEncode(*(result + 32), a3[1], a4, &v61, a3[2]);
           goto LABEL_410;
         }
 
@@ -2240,17 +2241,17 @@ LABEL_315:
         goto LABEL_168;
       }
 
-      *(a3 + 16) = StoreMTL4PipelineDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
-      v39 = StoreMTL4PipelineStageDynamicLinkingDescriptorUsingEncode(v11, *(a3 + 24), &v10[-v61], &v61, a6);
+      a3[2] = StoreMTL4PipelineDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
+      v39 = StoreMTL4PipelineStageDynamicLinkingDescriptorUsingEncode(v11, a3[3], &v10[-v61], &v61, a6);
 LABEL_348:
-      *(a3 + 24) = v39;
-      result = StoreMTL4CompilerTaskOptionsUsingEncode(v11, *(a3 + 32), &v10[-v61], &v61, a6);
+      a3[3] = v39;
+      result = StoreMTL4CompilerTaskOptionsUsingEncode(v11, a3[4], &v10[-v61], &v61, a6);
       goto LABEL_367;
     }
 
     if (a2 <= -14868)
     {
-      result = StoreMTL4PipelineDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
+      result = StoreMTL4PipelineDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
       goto LABEL_414;
     }
 
@@ -2261,8 +2262,8 @@ LABEL_348:
     }
 
 LABEL_347:
-    *(a3 + 16) = StoreMTL4PipelineDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61, a6);
-    v39 = StoreMTL4RenderPipelineDynamicLinkingDescriptorUsingEncode(v11, *(a3 + 24), &v10[-v61], &v61, a6);
+    a3[2] = StoreMTL4PipelineDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61, a6);
+    v39 = StoreMTL4RenderPipelineDynamicLinkingDescriptorUsingEncode(v11, a3[3], &v10[-v61], &v61, a6);
     goto LABEL_348;
   }
 
@@ -2274,7 +2275,7 @@ LABEL_347:
       {
         if (a2 == -12272)
         {
-          v50 = *(a3 + 8);
+          v50 = *(a3 + 2);
           if (v50 != 116)
           {
             if (v50 != 111)
@@ -2282,7 +2283,7 @@ LABEL_347:
               return result;
             }
 
-            result = StoreMTLFunctionConstantValuesUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+            result = StoreMTLFunctionConstantValuesUsingEncode(*(result + 32), a3[2], a4, &v61);
             goto LABEL_414;
           }
         }
@@ -2292,7 +2293,7 @@ LABEL_347:
           return result;
         }
 
-        v51 = *(a3 + 16);
+        v51 = a3[2];
         if (v51)
         {
           result = SavePointer(*(result + 32), (v51 + 16), *(v51 + 12), a4);
@@ -2303,7 +2304,7 @@ LABEL_347:
           v8 = 0;
         }
 
-        *(a3 + 16) = v8;
+        a3[2] = v8;
         return result;
       }
 
@@ -2314,12 +2315,12 @@ LABEL_347:
           return result;
         }
 
-        result = StoreMTLTextureViewDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+        result = StoreMTLTextureViewDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
         goto LABEL_414;
       }
 
 LABEL_341:
-      result = StoreMTLTextureDescriptorUsingEncode(*(result + 32), *(a3 + 24), a4, &v61);
+      result = StoreMTLTextureDescriptorUsingEncode(*(result + 32), a3[3], a4, &v61);
       goto LABEL_468;
     }
 
@@ -2327,7 +2328,7 @@ LABEL_341:
     {
       if (a2 == -10229)
       {
-        v52 = *(a3 + 8);
+        v52 = a3[1];
         if (v52)
         {
           v7 = a5 - 65;
@@ -2339,8 +2340,8 @@ LABEL_341:
           v8 = 0;
         }
 
-        *(a3 + 8) = v8;
-        v55 = *(a3 + 16);
+        a3[1] = v8;
+        v55 = a3[2];
         if (v55)
         {
           v56 = &v10[-v7];
@@ -2353,8 +2354,8 @@ LABEL_341:
           v56 = 0;
         }
 
-        *(a3 + 16) = v56;
-        v57 = *(a3 + 24);
+        a3[2] = v56;
+        v57 = a3[3];
         if (v57)
         {
           v58 = &v10[-v7];
@@ -2367,8 +2368,8 @@ LABEL_341:
           v58 = 0;
         }
 
-        *(a3 + 24) = v58;
-        v59 = *(a3 + 32);
+        a3[3] = v58;
+        v59 = a3[4];
         if (v59)
         {
           v60 = &v10[-v7];
@@ -2380,7 +2381,7 @@ LABEL_341:
           v60 = 0;
         }
 
-        *(a3 + 32) = v60;
+        a3[4] = v60;
         return result;
       }
 
@@ -2390,7 +2391,7 @@ LABEL_341:
 
     if (a2 == -10239)
     {
-      result = StoreMTLDeviceDescriptorUsingEncode(*(result + 32), *(a3 + 8), a4, &v61);
+      result = StoreMTLDeviceDescriptorUsingEncode(*(result + 32), a3[1], a4, &v61);
     }
 
     else
@@ -2400,11 +2401,11 @@ LABEL_341:
         return result;
       }
 
-      result = StoreMTLTextureMipmapInfo2UsingEncode(*(result + 32), *(a3 + 8), a4, &v61);
+      result = StoreMTLTextureMipmapInfo2UsingEncode(*(result + 32), a3[1], a4, &v61);
     }
 
 LABEL_410:
-    *(a3 + 8) = result;
+    a3[1] = result;
     return result;
   }
 
@@ -2419,7 +2420,7 @@ LABEL_410:
           return result;
         }
 
-        result = StoreMTL4CommandQueueDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+        result = StoreMTL4CommandQueueDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
         goto LABEL_414;
       }
 
@@ -2432,7 +2433,7 @@ LABEL_410:
     }
 
 LABEL_319:
-    result = StoreMTL4AccelerationStructureDescriptorUsingEncode(*(result + 32), *(a3 + 16), a4, &v61);
+    result = StoreMTL4AccelerationStructureDescriptorUsingEncode(*(result + 32), a3[2], a4, &v61);
     goto LABEL_414;
   }
 
@@ -2449,7 +2450,7 @@ LABEL_319:
     }
 
 LABEL_349:
-    v44 = *(a3 + 24);
+    v44 = a3[3];
     if (!v44)
     {
 LABEL_441:
@@ -2460,7 +2461,7 @@ LABEL_441:
 LABEL_440:
     result = SavePointer(v11, (v44 + 16), *(v44 + 12), v8);
 LABEL_442:
-    *(a3 + 24) = v8;
+    a3[3] = v8;
     return result;
   }
 
@@ -2471,7 +2472,7 @@ LABEL_442:
 
   if (a2 == -14803)
   {
-    v41 = *(a3 + 280);
+    v41 = a3[35];
     if (v41)
     {
       result = SavePointer(*(result + 32), (v41 + 16), *(v41 + 12), a4);
@@ -2482,7 +2483,7 @@ LABEL_442:
       v8 = 0;
     }
 
-    *(a3 + 280) = v8;
+    a3[35] = v8;
   }
 
   return result;
@@ -2529,7 +2530,7 @@ uint64_t UnwrapMTLArray_(uint64_t a1, unint64_t *a2, uint64_t a3, void *a4, uint
 
   v10 = *a2;
   v11 = 8 * *a2;
-  __chkstk_darwin(a1, a2);
+  __chkstk_darwin(a1);
   v12 = (&v19 - ((v11 + 31) & 0xFFFFFFFFFFFFFFF0));
   bzero(v12, v11 + 16);
   *v12 = 115;
@@ -2577,7 +2578,7 @@ uint64_t UnwrapArray_(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, unint64_t
 
   v20 = a1;
   v11 = (8 * a5);
-  __chkstk_darwin(a1, a2);
+  __chkstk_darwin(a1);
   bzero(&v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v11);
   if (a5)
   {
@@ -2782,7 +2783,7 @@ uint64_t StoreMTL4AccelerationStructureDescriptorUsingEncode(uint64_t a1, uint64
   return a3;
 }
 
-uint64_t StoreMTLAccelerationStructureDescriptorUsingEncode(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
+uint64_t StoreMTLAccelerationStructureDescriptorUsingEncode(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4, uint64_t a5)
 {
   if (!a2)
   {
@@ -3091,7 +3092,7 @@ uint64_t StoreMTLVisibleFunctionTableDescriptorUsingEncode(uint64_t a1, uint64_t
   return a3;
 }
 
-uint64_t StoreMTLFunctionDescriptorUsingEncode(uint64_t a1, void **a2, uint64_t a3, void *a4, uint64_t a5)
+uint64_t StoreMTLFunctionDescriptorUsingEncode(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5)
 {
   if (!a2)
   {
@@ -3684,9 +3685,7 @@ uint64_t FetchData(uint64_t result)
 {
   if (result)
   {
-    v1 = result;
     result += 16;
-    v2 = *(v1 + 12);
   }
 
   return result;
@@ -4079,7 +4078,7 @@ LABEL_29:
   v23 = v18 + 64;
   while (v18)
   {
-    v24 = (v23 + ((HIDWORD(v22) - v22) << 6));
+    v24 = v23 + ((HIDWORD(v22) - v22) << 6);
     if ((*(v24 + 15) & 8) == 0)
     {
       break;
@@ -4096,7 +4095,7 @@ LABEL_29:
       return;
     }
 
-    v26 = *(v24 + 2);
+    v26 = *(v24 + 8);
     if (v26 > -15209)
     {
       if (v26 == -15208)
@@ -4114,7 +4113,7 @@ LABEL_29:
 LABEL_49:
         v32 = GTTraceFunc_argumentBytesWithMap((v23 + ((HIDWORD(v22) - v22) << 6)), *(v24 + 13), a3);
         v33 = GTTraceFunc_argumentBytesWithMap((v23 + ((HIDWORD(v22) - v22) << 6)), v32[16], a3);
-        if (a6 == 2 || (v34 = *(v24 + 2), v34 == -15211))
+        if (a6 == 2 || (v34 = *(v24 + 8), v34 == -15211))
         {
           if (*(v32 + 1))
           {
@@ -4189,7 +4188,7 @@ LABEL_49:
     }
 
     v27 = GTTraceFunc_argumentBytesWithMap((v23 + ((HIDWORD(v22) - v22) << 6)), *(v24 + 13), a3);
-    if (a6 == 2 || (v28 = *(v24 + 2), v28 == -15212))
+    if (a6 == 2 || (v28 = *(v24 + 8), v28 == -15212))
     {
       entry = find_entry(*a1, v27 + 8, 8uLL, 0);
       if (*entry && *(*entry + 32))
@@ -4500,25 +4499,19 @@ char *GTResourceDownloaderGetResourceFilename(uint64_t a1, int a2, char *__str, 
     {
       if (v5 == 50)
       {
-        v12 = *(a1 + 8);
-        v13 = *(a1 + 40);
         if (*(a1 + 48))
         {
-          v29 = *(a1 + 40);
           snprintf(__str, __size, "MTLHeap-%llu-%u-0x%llx");
         }
 
         else
         {
-          v23 = *(a1 + 8);
           snprintf(__str, __size, "MTLHeap-%llu-%u");
         }
       }
 
       else if (v5 == 57)
       {
-        v9 = *(a1 + 8);
-        v26 = *(a1 + 40);
         snprintf(__str, __size, "MTLIndirectCmdBuf-%llu-%u");
       }
     }
@@ -4527,32 +4520,24 @@ char *GTResourceDownloaderGetResourceFilename(uint64_t a1, int a2, char *__str, 
     {
       if (a2 == 1)
       {
-        v17 = *(a1 + 8);
-        v32 = *(a1 + 40);
         snprintf(__str, __size, "MTLAccelerationStructure-primitive-%llu-%u");
       }
 
       else if (!a2)
       {
-        v11 = *(a1 + 8);
-        v28 = *(a1 + 40);
         snprintf(__str, __size, "MTLAccelerationStructure-data-%llu-%u");
       }
     }
 
     else if (v5 == 22)
     {
-      v7 = *(a1 + 8);
-      v8 = *(a1 + 40);
       if (*(a1 + 48))
       {
-        v25 = *(a1 + 40);
         snprintf(__str, __size, "MTLBuffer-%llu-%u-0x%llx");
       }
 
       else
       {
-        v22 = *(a1 + 8);
         snprintf(__str, __size, "MTLBuffer-%llu-%u");
       }
     }
@@ -4564,47 +4549,29 @@ char *GTResourceDownloaderGetResourceFilename(uint64_t a1, int a2, char *__str, 
     {
       if (a2 == 1)
       {
-        v18 = *(a1 + 8);
-        v33 = *(a1 + 40);
         snprintf(__str, __size, "MTLIntersectionFunctionTable-buffers-%llu-%u");
       }
 
       else if (!a2)
       {
-        v15 = *(a1 + 8);
-        v31 = *(a1 + 40);
         snprintf(__str, __size, "MTLIntersectionFunctionTable-functions-%llu-%u");
       }
     }
 
     else if (v5 == 80)
     {
-      v10 = a1 + 456 * a2;
       if (*(a1 + 47))
       {
-        v43 = *(v10 + 50);
-        v44 = *(v10 + 48);
-        v41 = *(v10 + 64);
-        v42 = *(v10 + 66);
-        v39 = *(v10 + 58);
-        v40 = *(v10 + 60);
-        v38 = *(v10 + 56);
-        snprintf(__str, __size, "MTLTexture-%llu-%u-Origin:%u-%u-%u-Size:%u-%u-%u-Level%u-Slice%u", *(a1 + 8), *(a1 + 40), *(v10 + 52));
+        snprintf(__str, __size, "MTLTexture-%llu-%u-Origin:%u-%u-%u-Size:%u-%u-%u-Level%u-Slice%u", *(a1 + 8), *(a1 + 40), *(a1 + 456 * a2 + 52));
       }
 
       else if ((*(a1 + 47) & 4) != 0)
       {
-        v19 = *(a1 + 24);
-        v34 = *(a1 + 32);
         snprintf(__str, __size, "CAMetalLayer-%llu-index-%llu");
       }
 
       else
       {
-        v35 = *(v10 + 50);
-        v37 = *(v10 + 48);
-        v21 = *(a1 + 8);
-        v27 = *(a1 + 40);
         snprintf(__str, __size, "MTLTexture-%llu-%u-mipmap%u-slice%u");
       }
     }
@@ -4615,18 +4582,12 @@ char *GTResourceDownloaderGetResourceFilename(uint64_t a1, int a2, char *__str, 
     switch(v5)
     {
       case 'S':
-        v14 = *(a1 + 8);
-        v30 = *(a1 + 40);
         snprintf(__str, __size, "MTLVisibleFunctionTable-%llu-%u");
         break;
       case 'V':
-        v16 = *(a1 + 8);
-        v36 = *(a1 + 40);
         snprintf(__str, __size, "IOSurface-%llu-%d-%u");
         break;
       case 'e':
-        v6 = *(a1 + 8);
-        v24 = *(a1 + 40);
         snprintf(__str, __size, "MTLTensor-%llu-%u");
         break;
     }
@@ -4635,21 +4596,21 @@ char *GTResourceDownloaderGetResourceFilename(uint64_t a1, int a2, char *__str, 
   return __str;
 }
 
-void FlushGTMTL4FunctionReflection(uint64_t a1, uint64_t a2, unsigned int a3)
+void FlushGTMTL4FunctionReflection(uint64_t result, uint64_t a2, unsigned int a3)
 {
   if (a2)
   {
-    v6 = *(a1 + 24);
-    v7 = *(a1 + 8);
+    v6 = *(result + 24);
+    v7 = *(result + 8);
     v8 = *v7;
     v9 = objc_autoreleasePoolPush();
     [*(v6 + 8) appendBytes:v7 length:v8];
     objc_autoreleasePoolPop(v9);
-    v10 = *(a1 + 8);
+    v10 = *(result + 8);
     *(v10 + 32) = 0;
     *v10 = 0u;
     *(v10 + 16) = 0u;
-    v11 = *(a1 + 8);
+    v11 = *(result + 8);
     v11[8] = 198;
     *v11 = 0xFFFFD01000000024;
     v30 = 0u;
@@ -4659,24 +4620,24 @@ void FlushGTMTL4FunctionReflection(uint64_t a1, uint64_t a2, unsigned int a3)
     v13 = *(a2 + 10);
     v29[2] = *(a2 + 9);
     v29[3] = v13;
-    DYTraceEncode_InternalData(v29, v11, *(a1 + 16), v14, 0);
+    DYTraceEncode_InternalData(v29, v11, *(result + 16), v14, 0);
     if (*(a2 + 8))
     {
       v15 = 0;
       v16 = 0;
       do
       {
-        v17 = *(a1 + 24);
-        v18 = *(a1 + 8);
+        v17 = *(result + 24);
+        v18 = *(result + 8);
         v19 = *v18;
         v20 = objc_autoreleasePoolPush();
         [*(v17 + 8) appendBytes:v18 length:v19];
         objc_autoreleasePoolPop(v20);
-        v21 = *(a1 + 8);
+        v21 = *(result + 8);
         *(v21 + 32) = 0;
         *v21 = 0u;
         *(v21 + 16) = 0u;
-        v22 = *(a1 + 8);
+        v22 = *(result + 8);
         v22[8] = 198;
         *v22 = 0xFFFFD01000000024;
         v23 = *a2 + v15;
@@ -4691,7 +4652,7 @@ void FlushGTMTL4FunctionReflection(uint64_t a1, uint64_t a2, unsigned int a3)
         BYTE8(v28) = *(v23 + 13);
         HIDWORD(v28) = 0;
         *(&v28 + 9) = 0;
-        DYTraceEncode_InternalData(v26, v22, *(a1 + 16), v25, 0);
+        DYTraceEncode_InternalData(v26, v22, *(result + 16), v25, 0);
         ++v16;
         v15 += 16;
       }
@@ -5170,8 +5131,9 @@ uint64_t GetObjectStream_(uint64_t a1, uint64_t a2)
   return *(v3 + (~(v4 >> 2) & 8));
 }
 
-void EncodeGTMTLBinding(uint64_t *a1, uint64_t a2, int a3)
+void EncodeGTMTLBinding(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   if (*(a2 + 16) == 17 && !*(a2 + 38))
   {
     return;
@@ -5197,7 +5159,7 @@ void EncodeGTMTLBinding(uint64_t *a1, uint64_t a2, int a3)
     {
       if (v12 == 35)
       {
-        EncodeGTMTLBindingStart(a1, a2, a3);
+        EncodeGTMTLBindingStart(a1, a2, v3, "bbuiuib");
         v48 = a1[1];
         *(v48 + (*v48)++) = *(a2 + 24);
         v49 = a1[1];
@@ -5239,7 +5201,7 @@ LABEL_39:
 
 LABEL_9:
 
-    EncodeGTMTLBindingStart(a1, a2, a3);
+    EncodeGTMTLBindingStart(a1, a2, v3, "");
     return;
   }
 
@@ -5252,7 +5214,7 @@ LABEL_9:
         v20 = *(a2 + 24);
         v34 = *(a2 + 8) != 0;
         v22 = v20 != 0;
-        EncodeGTMTLBindingStart(a1, a2, a3);
+        EncodeGTMTLBindingStart(a1, a2, v3, "bulbbul");
         v35 = a1[1];
         *(v35 + (*v35)++) = v34;
         v36 = a1[1];
@@ -5272,7 +5234,7 @@ LABEL_9:
         v20 = *(a2 + 24);
         v21 = *(a2 + 8) != 0;
         v22 = v20 != 0;
-        EncodeGTMTLBindingStart(a1, a2, a3);
+        EncodeGTMTLBindingStart(a1, a2, v3, "bululbbul");
         v23 = a1[1];
         *(v23 + (*v23)++) = v21;
         v24 = a1[1];
@@ -5322,7 +5284,7 @@ LABEL_9:
       if (v29 == 1)
       {
 LABEL_32:
-        EncodeGTMTLBindingStart(a1, a2, a3);
+        EncodeGTMTLBindingStart(a1, a2, v3, "ulululbb");
         v59 = a1[1];
         *(v59 + *v59) = *(a2 + 28);
         *v59 += 8;
@@ -5364,7 +5326,7 @@ LABEL_32:
 
   if (v12 != 1)
   {
-    EncodeGTMTLBindingStart(a1, a2, a3);
+    EncodeGTMTLBindingStart(a1, a2, v3, "ulululb");
     v13 = a1[1];
     *(v13 + *v13) = *(a2 + 25);
     *v13 += 8;
@@ -5399,7 +5361,7 @@ LABEL_32:
     v31 = 0;
   }
 
-  EncodeGTMTLBindingStart(a1, a2, a3);
+  EncodeGTMTLBindingStart(a1, a2, v3, "ululululb");
   v68 = a1[1];
   *(v68 + *v68) = *(a2 + 28);
   *v68 += 8;
@@ -5429,75 +5391,75 @@ LABEL_38:
   }
 }
 
-void EncodeGTMTLBindingStart(uint64_t *a1, uint64_t a2, int a3)
+void EncodeGTMTLBindingStart(uint64_t *a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v20[0] = *"CiSululuiul";
-  memset(&v20[1], 0, 48);
+  v21[0] = *"CiSululuiul";
+  memset(&v21[1], 0, 48);
   __strcat_chk();
-  v6 = *a1;
-  v7 = a1[1];
-  v8 = strlen(v20);
-  v9 = v8 + 1;
-  memcpy(v7 + *v7, v20, v8 + 1);
-  *v7 += v9;
-  v10 = a1[1];
-  v11 = *v10;
-  LODWORD(v7) = (v11 + 3) & 0xFFFFFFFC;
-  bzero(v10 + v11, (v7 - v11));
-  *v10 = v7;
-  v12 = a1[1];
-  *(v12 + *v12) = v6;
-  *v12 += 8;
+  v7 = *a1;
+  v8 = a1[1];
+  v9 = strlen(v21);
+  v10 = v9 + 1;
+  memcpy(v8 + *v8, v21, v9 + 1);
+  *v8 += v10;
+  v11 = a1[1];
+  v12 = *v11;
+  LODWORD(v8) = (v12 + 3) & 0xFFFFFFFC;
+  bzero(v11 + v12, (v8 - v12));
+  *v11 = v8;
   v13 = a1[1];
-  *(v13 + *v13) = a3;
-  *v13 += 4;
-  EncodeString(a1[1], *a2);
+  *(v13 + *v13) = v7;
+  *v13 += 8;
   v14 = a1[1];
-  v15 = *v14;
-  LODWORD(v10) = (v15 + 3) & 0xFFFFFFFC;
-  bzero(v14 + v15, (v10 - v15));
-  *v14 = v10;
-  v16 = a1[1];
-  *(v16 + *v16) = *(a2 + 16);
-  *v16 += 8;
+  *(v14 + *v14) = a3;
+  *v14 += 4;
+  EncodeString(a1[1], *a2);
+  v15 = a1[1];
+  v16 = *v15;
+  LODWORD(v11) = (v16 + 3) & 0xFFFFFFFC;
+  bzero(v15 + v16, (v11 - v16));
+  *v15 = v11;
   v17 = a1[1];
-  *(v17 + *v17) = *(a2 + 17);
+  *(v17 + *v17) = *(a2 + 16);
   *v17 += 8;
   v18 = a1[1];
-  *(v18 + *v18) = *(a2 + 19) & 1;
-  *v18 += 4;
+  *(v18 + *v18) = *(a2 + 17);
+  *v18 += 8;
   v19 = a1[1];
-  *(v19 + *v19) = *(a2 + 18);
-  *v19 += 8;
+  *(v19 + *v19) = *(a2 + 19) & 1;
+  *v19 += 4;
+  v20 = a1[1];
+  *(v20 + *v20) = *(a2 + 18);
+  *v20 += 8;
 }
 
-void EncodeGTMTLStructType(uint64_t a1, uint64_t a2, unsigned int a3)
+void EncodeGTMTLStructType(uint64_t *a1, uint64_t a2, unsigned int a3)
 {
-  v5 = *(a1 + 24);
+  v5 = a1[3];
   v7 = *a1;
-  v6 = *(a1 + 8);
+  v6 = a1[1];
   v8 = *v6;
   v9 = objc_autoreleasePoolPush();
   [*(v5 + 8) appendBytes:v6 length:v8];
   objc_autoreleasePoolPop(v9);
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   *(v10 + 32) = 0;
   *v10 = 0u;
   *(v10 + 16) = 0u;
-  v11 = *(a1 + 8);
+  v11 = a1[1];
   *(v11 + 32) = 198;
   strcpy((v11 + 36), "Ci");
   *v11 = 0xFFFFD01000000027;
-  v12 = *(a1 + 8);
+  v12 = a1[1];
   v13 = *v12;
   v14 = (v13 + 3) & 0xFFFFFFFC;
   bzero(v12 + v13, (v14 - v13));
   *v12 = v14;
-  v15 = *(a1 + 8);
+  v15 = a1[1];
   v64 = v7;
   *(v15 + *v15) = v7;
   *v15 += 8;
-  v16 = *(a1 + 8);
+  v16 = a1[1];
   *(v16 + *v16) = *(a2 + 16);
   *v16 += 4;
   if (*(a2 + 16))
@@ -5546,59 +5508,59 @@ void EncodeGTMTLStructType(uint64_t a1, uint64_t a2, unsigned int a3)
         v22 = 0;
       }
 
-      v23 = *(a1 + 24);
-      v24 = *(a1 + 8);
+      v23 = a1[3];
+      v24 = a1[1];
       v25 = *v24;
       v26 = objc_autoreleasePoolPush();
       [*(v23 + 8) appendBytes:v24 length:v25];
       objc_autoreleasePoolPop(v26);
-      v27 = *(a1 + 8);
+      v27 = a1[1];
       *(v27 + 32) = 0;
       *v27 = 0u;
       *(v27 + 16) = 0u;
-      v28 = *(a1 + 8);
+      v28 = a1[1];
       *(v28 + 32) = 198;
       *v28 = 0xFFFFD01000000024;
       strcpy((v28 + 36), "CiSulbbulbb");
       *v28 = 48;
-      v29 = *(a1 + 8);
+      v29 = a1[1];
       v30 = *v29;
       LODWORD(v24) = (v30 + 3) & 0xFFFFFFFC;
       bzero(v29 + v30, (v24 - v30));
       *v29 = v24;
-      v31 = *(a1 + 8);
+      v31 = a1[1];
       *(v31 + *v31) = v64;
       *v31 += 8;
-      v32 = *(a1 + 8);
+      v32 = a1[1];
       v33 = v67;
       *(v32 + *v32) = *(v68 + 24);
       *v32 += 4;
-      EncodeString(*(a1 + 8), *(v67 + v17));
-      v34 = *(a1 + 8);
+      EncodeString(a1[1], *(v67 + v17));
+      v34 = a1[1];
       v35 = *v34;
       LODWORD(v25) = (v35 + 3) & 0xFFFFFFFC;
       bzero(v34 + v35, (v25 - v35));
       *v34 = v25;
-      v36 = *(a1 + 8);
+      v36 = a1[1];
       *(v36 + *v36) = *(v67 + v17 + 16);
       *v36 += 8;
-      v37 = *(a1 + 8);
+      v37 = a1[1];
       *(v37 + (*v37)++) = v21;
-      v38 = *(a1 + 8);
+      v38 = a1[1];
       *(v38 + (*v38)++) = v20;
-      v39 = *(a1 + 8);
+      v39 = a1[1];
       v40 = *v39;
       v41 = (v40 + 3) & 0xFFFFFFFC;
       bzero(v39 + v40, (v41 - v40));
       *v39 = v41;
-      v42 = *(a1 + 8);
+      v42 = a1[1];
       *(v42 + *v42) = *(v67 + v17 + 22);
       *v42 += 8;
-      v43 = *(a1 + 8);
+      v43 = a1[1];
       *(v43 + (*v43)++) = a3;
-      v44 = *(a1 + 8);
+      v44 = a1[1];
       *(v44 + (*v44)++) = v22;
-      v45 = *(a1 + 8);
+      v45 = a1[1];
       v46 = *v45;
       v47 = (v46 + 3) & 0xFFFFFFFC;
       bzero(v45 + v46, (v47 - v46));
@@ -5615,33 +5577,33 @@ void EncodeGTMTLStructType(uint64_t a1, uint64_t a2, unsigned int a3)
           v48 = asc_29BD3A[(*(v68 + 24) - 62)];
         }
 
-        v49 = *(a1 + 24);
-        v50 = *(a1 + 8);
+        v49 = a1[3];
+        v50 = a1[1];
         v51 = *v50;
         v52 = objc_autoreleasePoolPush();
         [*(v49 + 8) appendBytes:v50 length:v51];
         objc_autoreleasePoolPop(v52);
-        v53 = *(a1 + 8);
+        v53 = a1[1];
         *(v53 + 32) = 0;
         *v53 = 0u;
         *(v53 + 16) = 0u;
-        v54 = *(a1 + 8);
+        v54 = a1[1];
         *(v54 + 32) = 0x756C7543000000C6;
         *v54 = 0xFFFFD01000000024;
         *(v54 + 40) = 108;
         *v54 = 42;
-        v55 = *(a1 + 8);
+        v55 = a1[1];
         v56 = *v55;
         LODWORD(v50) = (v56 + 3) & 0xFFFFFFFC;
         bzero(v55 + v56, (v50 - v56));
         *v55 = v50;
-        v57 = *(a1 + 8);
+        v57 = a1[1];
         *(v57 + *v57) = v64;
         *v57 += 8;
-        v58 = *(a1 + 8);
+        v58 = a1[1];
         *(v58 + *v58) = v48;
         *v58 += 8;
-        v59 = *(a1 + 8);
+        v59 = a1[1];
         v33 = v67;
         *(v59 + *v59) = *(v67 + v17 + 25);
         *v59 += 8;
@@ -5715,7 +5677,7 @@ LABEL_32:
   }
 }
 
-int *EncodeString(int *result, char *__s)
+unsigned int *EncodeString(unsigned int *result, char *__s)
 {
   v2 = result;
   if (__s)
@@ -8616,13 +8578,13 @@ void FlushChainedPipelineLibraryInfo(uint64_t *a1, uint64_t a2, uint64_t a3, int
       memset(&v35[8], 0, 32);
       v34 = *a1;
       *v35 = 135;
-      v21 = __chkstk_darwin(a1[4], *(*(a2 + 64) + 8 * v14));
+      *&v21 = __chkstk_darwin(a1[4]);
       *(&v33 - 16) = 0;
-      *(&v33 - 3) = v22;
-      *(&v33 - 2) = v22;
-      *(&v33 - 5) = v22;
-      *(&v33 - 4) = v22;
-      *&v35[8] = SaveFileWithURL(v21, v23, &v33 - 80, 0, 1);
+      *(&v33 - 3) = v21;
+      *(&v33 - 2) = v21;
+      *(&v33 - 5) = v21;
+      *(&v33 - 4) = v21;
+      *&v35[8] = SaveFileWithURL(v22, v23, &v33 - 80, 0, 1);
       *&v35[16] = *(*(a2 + 72) + 8 * v14);
       DYTraceEncode_InternalData(&v34, a1[1], *(a1 + 4), v24, 0);
       ++v14;
@@ -9612,14 +9574,14 @@ LABEL_18:
   v15 = result;
   if (v13 >= 1)
   {
-    v16 = (v12 + 2);
+    v16 = v12 + 2;
     do
     {
       result = apr_array_push(v15);
       result->pool = *v16;
-      *&result->elt_size = v16[1];
-      v17 = v16[2];
-      v16 += 3;
+      *&result->elt_size = *(v16 + 1);
+      v17 = *(v16 + 2);
+      v16 += 6;
       *&result->nalloc = v17;
       --v13;
     }

@@ -11,6 +11,7 @@
 - (void)playHapticWithEvents:(id)events;
 - (void)setUpHaptics;
 - (void)setupSound;
+- (void)triggerSoundHapticForTransitionToState:(int)state fromState:(int)fromState;
 - (void)triggerSoundHapticForTransitionToSubstate:(int)substate fromSubstate:(int)fromSubstate;
 @end
 
@@ -44,25 +45,25 @@
 
   if (isRunning)
   {
-    v10 = self->_audioSession;
+    v11 = self->_audioSession;
 
-    [(BKUIPearlAudioSession *)v10 play];
+    [(BKUIPearlAudioSession *)v11 play];
   }
 
   else
   {
-    v11 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _BKUILoggingFacility(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_241B0A000, v11, OS_LOG_TYPE_DEFAULT, "Unable to play sound, audio engine is not running!", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_241B0A000, v12, OS_LOG_TYPE_DEFAULT, "Unable to play sound, audio engine is not running!", v13, 2u);
     }
   }
 }
 
 - (void)cleanupSound
 {
-  v3 = _BKUILoggingFacility();
+  v3 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -87,11 +88,11 @@ void __43__BKUIPearlEnrollAudioManager_cleanupSound__block_invoke(uint64_t a1)
   v4 = *(v3 + 8);
   *(v3 + 8) = 0;
 
-  v5 = _BKUILoggingFacility();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _BKUILoggingFacility(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Sound stopped!", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "Sound stopped!", v7, 2u);
   }
 }
 
@@ -114,7 +115,7 @@ void __43__BKUIPearlEnrollAudioManager_cleanupSound__block_invoke(uint64_t a1)
 
 - (void)cleanupHaptics
 {
-  v3 = _BKUILoggingFacility();
+  v3 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -127,28 +128,126 @@ void __43__BKUIPearlEnrollAudioManager_cleanupSound__block_invoke(uint64_t a1)
 
 void __45__BKUIPearlEnrollAudioManager_cleanupHaptics__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = _BKUILoggingFacility();
+  v3 = _BKUILoggingFacility(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2)
   {
     if (v4)
     {
       v5 = [v2 localizedDescription];
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_241B0A000, v3, OS_LOG_TYPE_DEFAULT, "Unable to clean up Haptics %@.", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_241B0A000, v3, OS_LOG_TYPE_DEFAULT, "Unable to clean up Haptics %@.", &v6, 0xCu);
     }
   }
 
   else if (v4)
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_241B0A000, v3, OS_LOG_TYPE_DEFAULT, "Haptics stopped!", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_241B0A000, v3, OS_LOG_TYPE_DEFAULT, "Haptics stopped!", &v6, 2u);
+  }
+}
+
+- (void)triggerSoundHapticForTransitionToState:(int)state fromState:(int)fromState
+{
+  if (state == 2)
+  {
+    v5 = 0.0;
+LABEL_3:
+
+    [(BKUIPearlEnrollAudioManager *)self fadeCurrentSound:0 completion:*&fromState, v5];
+    return;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  if ((state | 2) == 7 && (fromState - 3) <= 1)
+  {
+    audioEngine = [(BKUIPearlAudioSession *)self->_audioSession audioEngine];
+    mainMixerNode = [audioEngine mainMixerNode];
+    LODWORD(v8) = 1.0;
+    [mainMixerNode setOutputVolume:v8];
+
+    audioSession = self->_audioSession;
+    lockSoundBuffer = [(BKUIPearlAudioSession *)audioSession lockSoundBuffer];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __80__BKUIPearlEnrollAudioManager_triggerSoundHapticForTransitionToState_fromState___block_invoke;
+    v24[3] = &unk_278D09978;
+    v24[4] = self;
+    [(BKUIPearlAudioSession *)audioSession scheduleBuffer:lockSoundBuffer completionHandler:v24];
+
+    v11 = 413.0;
+LABEL_16:
+    [(BKUIPearlEnrollAudioManager *)self playHaptic:20310 withDelay:v11];
+    return;
+  }
+
+  if (state == 6 && fromState == 5)
+  {
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __80__BKUIPearlEnrollAudioManager_triggerSoundHapticForTransitionToState_fromState___block_invoke_2;
+    v23[3] = &unk_278D09978;
+    v23[4] = self;
+    v12 = 10.0;
+    v13 = v23;
+LABEL_12:
+    [(BKUIPearlEnrollAudioManager *)self fadeCurrentSound:v13 completion:v12];
+    return;
+  }
+
+  if (state == 7 && fromState == 6)
+  {
+    v14 = dispatch_time(0, 483000000);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __80__BKUIPearlEnrollAudioManager_triggerSoundHapticForTransitionToState_fromState___block_invoke_3;
+    block[3] = &unk_278D09978;
+    block[4] = self;
+    dispatch_after(v14, MEMORY[0x277D85CD0], block);
+    v11 = 483.0;
+    goto LABEL_16;
+  }
+
+  if (state == 8 && fromState == 7)
+  {
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __80__BKUIPearlEnrollAudioManager_triggerSoundHapticForTransitionToState_fromState___block_invoke_4;
+    v21[3] = &unk_278D09978;
+    v21[4] = self;
+    v12 = 10.0;
+    v13 = v21;
+    goto LABEL_12;
+  }
+
+  if (state == 9)
+  {
+LABEL_22:
+    v5 = 10.0;
+    goto LABEL_3;
+  }
+
+  v15 = state == 5 || state == 7;
+  if (!v15 || fromState != 9)
+  {
+    if (state != 3 || (fromState | 2) != 7)
+    {
+      return;
+    }
+
+    goto LABEL_22;
+  }
+
+  audioEngine2 = [(BKUIPearlAudioSession *)self->_audioSession audioEngine];
+  mainMixerNode2 = [audioEngine2 mainMixerNode];
+  LODWORD(v18) = 1.0;
+  [mainMixerNode2 setOutputVolume:v18];
+
+  v19 = self->_audioSession;
+  scanSoundBuffer = [(BKUIPearlAudioSession *)v19 scanSoundBuffer];
+  [(BKUIPearlAudioSession *)v19 scheduleBuffer:scanSoundBuffer atTime:0 options:3 completionHandler:0];
 }
 
 uint64_t __80__BKUIPearlEnrollAudioManager_triggerSoundHapticForTransitionToState_fromState___block_invoke(uint64_t a1)
@@ -250,7 +349,7 @@ uint64_t __80__BKUIPearlEnrollAudioManager_triggerSoundHapticForTransitionToStat
 
 void __86__BKUIPearlEnrollAudioManager_triggerSoundHapticForTransitionToSubstate_fromSubstate___block_invoke(uint64_t a1)
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) audioEngine];
   v3 = [v2 mainMixerNode];
   LODWORD(v4) = 1.0;
@@ -263,24 +362,20 @@ void __86__BKUIPearlEnrollAudioManager_triggerSoundHapticForTransitionToSubstate
   v7 = *(a1 + 32);
   v8 = [v7 hapticEventWithEventType:26454 withDelay:12.0];
   v9 = [*(a1 + 32) hapticEventWithEventType:20310 withDelay:{134.0, v8}];
-  v13[1] = v9;
+  v12[1] = v9;
   v10 = [*(a1 + 32) hapticEventWithEventType:20311 withDelay:239.0];
-  v13[2] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
+  v12[2] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
   [v7 playHapticWithEvents:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)playHaptic:(unint64_t)haptic withDelay:(double)delay
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v5 = [(BKUIPearlEnrollAudioManager *)self hapticEventWithEventType:haptic withDelay:delay];
-  v8[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   [(BKUIPearlEnrollAudioManager *)self playHapticWithEvents:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)hapticEventWithEventType:(unint64_t)type withDelay:(double)delay
@@ -294,7 +389,7 @@ void __86__BKUIPearlEnrollAudioManager_triggerSoundHapticForTransitionToSubstate
     [(BKUIPearlEnrollAudioManager *)self setHapticsEngine:createEngine];
   }
 
-  v9 = 0.598999977;
+  v10 = 0.598999977;
   if (type > 20310)
   {
     switch(type)
@@ -302,7 +397,7 @@ void __86__BKUIPearlEnrollAudioManager_triggerSoundHapticForTransitionToSubstate
       case 0x4F57uLL:
         goto LABEL_12;
       case 0x6756uLL:
-        v9 = 1.0;
+        v10 = 1.0;
         break;
       case 0x6757uLL:
         break;
@@ -310,7 +405,7 @@ void __86__BKUIPearlEnrollAudioManager_triggerSoundHapticForTransitionToSubstate
         goto LABEL_11;
     }
 
-    v10 = 0.779999971;
+    v11 = 0.779999971;
   }
 
   else
@@ -318,15 +413,15 @@ void __86__BKUIPearlEnrollAudioManager_triggerSoundHapticForTransitionToSubstate
     switch(type)
     {
       case 0x2B57uLL:
-        v10 = 0.0500000007;
+        v11 = 0.0500000007;
         break;
       case 0x4357uLL:
-        v10 = 0.319999993;
+        v11 = 0.319999993;
         break;
       case 0x4F56uLL:
-        v9 = 1.0;
+        v10 = 1.0;
 LABEL_12:
-        v10 = 0.409999996;
+        v11 = 0.409999996;
         break;
       default:
 LABEL_11:
@@ -334,101 +429,100 @@ LABEL_11:
     }
   }
 
-  v11 = _BKUILoggingFacility();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _BKUILoggingFacility(v8);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v26 = v9;
+    v26 = v10;
     v27 = 2048;
-    v28 = v10;
-    _os_log_impl(&dword_241B0A000, v11, OS_LOG_TYPE_DEFAULT, "Created Haptic event with intensity %f sharpness %f", buf, 0x16u);
+    v28 = v11;
+    _os_log_impl(&dword_241B0A000, v12, OS_LOG_TYPE_DEFAULT, "Created Haptic event with intensity %f sharpness %f", buf, 0x16u);
   }
 
-  v12 = objc_alloc(MEMORY[0x277CBF6C0]);
-  *&v13 = v9;
-  v14 = [v12 initWithParameterID:*MEMORY[0x277CBF638] value:v13];
-  v15 = objc_alloc(MEMORY[0x277CBF6C0]);
-  *&v16 = v10;
-  v17 = [v15 initWithParameterID:*MEMORY[0x277CBF640] value:v16];
-  v18 = objc_alloc(MEMORY[0x277CBF6B8]);
-  v19 = *MEMORY[0x277CBF650];
-  v24[0] = v14;
-  v24[1] = v17;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
-  v21 = [v18 initWithEventType:v19 parameters:v20 relativeTime:delay / 1000.0];
+  v13 = objc_alloc(MEMORY[0x277CBF6C0]);
+  *&v14 = v10;
+  v15 = [v13 initWithParameterID:*MEMORY[0x277CBF638] value:v14];
+  v16 = objc_alloc(MEMORY[0x277CBF6C0]);
+  *&v17 = v11;
+  v18 = [v16 initWithParameterID:*MEMORY[0x277CBF640] value:v17];
+  v19 = objc_alloc(MEMORY[0x277CBF6B8]);
+  v20 = *MEMORY[0x277CBF650];
+  v24[0] = v15;
+  v24[1] = v18;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  v22 = [v19 initWithEventType:v20 parameters:v21 relativeTime:delay / 1000.0];
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v22;
 }
 
 - (void)playHapticWithEvents:(id)events
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBF6D0];
   eventsCopy = events;
   v6 = [v4 alloc];
-  v21 = 0;
-  v7 = [v6 initWithEvents:eventsCopy parameters:MEMORY[0x277CBEBF8] error:&v21];
+  v23 = 0;
+  v7 = [v6 initWithEvents:eventsCopy parameters:MEMORY[0x277CBEBF8] error:&v23];
 
-  v8 = v21;
+  v8 = v23;
+  v9 = v8;
   if (!v8)
   {
     hapticsEngine = [(BKUIPearlEnrollAudioManager *)self hapticsEngine];
-    v20 = 0;
-    [hapticsEngine startAndReturnError:&v20];
-    v9 = v20;
+    v22 = 0;
+    [hapticsEngine startAndReturnError:&v22];
+    v10 = v22;
 
-    if (v9)
+    if (v10)
     {
-      v11 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = _BKUILoggingFacility(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v23 = v9;
-        _os_log_impl(&dword_241B0A000, v11, OS_LOG_TYPE_DEFAULT, "Unable to start Haptic Engine %@", buf, 0xCu);
+        v25 = v10;
+        _os_log_impl(&dword_241B0A000, v13, OS_LOG_TYPE_DEFAULT, "Unable to start Haptic Engine %@", buf, 0xCu);
       }
 
       goto LABEL_15;
     }
 
     hapticsEngine2 = [(BKUIPearlEnrollAudioManager *)self hapticsEngine];
-    v19 = 0;
-    v11 = [hapticsEngine2 createPlayerWithPattern:v7 error:&v19];
-    v13 = v19;
+    v21 = 0;
+    v13 = [hapticsEngine2 createPlayerWithPattern:v7 error:&v21];
+    v15 = v21;
 
-    if (v13)
+    if (v15)
     {
-      v14 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v17 = _BKUILoggingFacility(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v23 = v13;
-        v15 = "Unable to create CHHapticPatternPlayer error: %@";
+        v25 = v15;
+        v18 = "Unable to create CHHapticPatternPlayer error: %@";
 LABEL_13:
-        _os_log_impl(&dword_241B0A000, v14, OS_LOG_TYPE_DEFAULT, v15, buf, 0xCu);
+        _os_log_impl(&dword_241B0A000, v17, OS_LOG_TYPE_DEFAULT, v18, buf, 0xCu);
       }
     }
 
     else
     {
-      v18 = 0;
-      [v11 startAtTime:&v18 error:0.0];
-      v16 = v18;
-      if (!v16)
+      v20 = 0;
+      [v13 startAtTime:&v20 error:0.0];
+      v19 = v20;
+      if (!v19)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      v13 = v16;
-      v14 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = v19;
+      v17 = _BKUILoggingFacility(v19);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v23 = v13;
-        v15 = "Unable to create start HapticsPlayer error: %@";
+        v25 = v15;
+        v18 = "Unable to create start HapticsPlayer error: %@";
         goto LABEL_13;
       }
     }
@@ -436,72 +530,67 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v9 = _BKUILoggingFacility();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _BKUILoggingFacility(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = v8;
-    _os_log_impl(&dword_241B0A000, v9, OS_LOG_TYPE_DEFAULT, "Unable to create CHHapticPattern error: %@", buf, 0xCu);
+    v25 = v9;
+    _os_log_impl(&dword_241B0A000, v10, OS_LOG_TYPE_DEFAULT, "Unable to create CHHapticPattern error: %@", buf, 0xCu);
   }
 
 LABEL_16:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createEngine
 {
   v13 = *MEMORY[0x277D85DE8];
   capabilitiesForHardware = [MEMORY[0x277CBF6B0] capabilitiesForHardware];
-  if ([capabilitiesForHardware supportsHaptics] & 1) != 0 || (objc_msgSend(capabilitiesForHardware, "supportsAudio"))
+  if ([capabilitiesForHardware supportsHaptics] & 1) != 0 || (v3 = objc_msgSend(capabilitiesForHardware, "supportsAudio"), (v3))
   {
     v10 = 0;
-    v3 = [objc_alloc(MEMORY[0x277CBF6B0]) initAndReturnError:&v10];
-    v4 = v10;
-    [v3 setMuteHapticsWhileRecordingAudio:0];
-    [v3 setAutoShutdownEnabled:1];
-    v5 = _BKUILoggingFacility();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-    if (!v3 || v4)
+    v4 = [objc_alloc(MEMORY[0x277CBF6B0]) initAndReturnError:&v10];
+    v5 = v10;
+    [v4 setMuteHapticsWhileRecordingAudio:0];
+    v6 = _BKUILoggingFacility([v4 setAutoShutdownEnabled:1]);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    if (!v4 || v5)
     {
-      if (v6)
+      if (v7)
       {
         *buf = 138412290;
-        v12 = v4;
-        _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Could not create CHHapticEngine: %@", buf, 0xCu);
+        v12 = v5;
+        _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "Could not create CHHapticEngine: %@", buf, 0xCu);
       }
 
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      if (v6)
+      if (v7)
       {
         *buf = 138412290;
-        v12 = v3;
-        _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Created CHHapticEngine %@", buf, 0xCu);
+        v12 = v4;
+        _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "Created CHHapticEngine %@", buf, 0xCu);
       }
 
-      v7 = v3;
+      v8 = v4;
     }
   }
 
   else
   {
-    v4 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _BKUILoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241B0A000, v4, OS_LOG_TYPE_DEFAULT, "Haptics and audio not supported", buf, 2u);
+      _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Haptics and audio not supported", buf, 2u);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 - (void)fadeCurrentSound:(double)sound completion:(id)completion

@@ -139,7 +139,6 @@ LABEL_13:
 
   if (callIdentifier)
   {
-    callIdentifier = self->_callIdentifier;
     PBDataWriterWriteStringField();
   }
 

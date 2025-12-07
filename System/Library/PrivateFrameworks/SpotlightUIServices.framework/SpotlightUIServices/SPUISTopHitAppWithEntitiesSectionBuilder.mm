@@ -31,7 +31,7 @@
   }
 
   LOBYTE(v11) = 0;
-  if ([results count] == 1 && (v10 & 1) == 0)
+  if (objc_msgSend_count(results) == 1 && (v10 & 1) == 0)
   {
     firstObject2 = [results firstObject];
     if ([firstObject2 isAppClip])
@@ -81,18 +81,16 @@
 
 void __68__SPUISTopHitAppWithEntitiesSectionBuilder_supportsFileProviderFor___block_invoke()
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"com.apple.DocumentsApp";
-  v5[1] = @"com.apple.Pages";
-  v5[2] = @"com.apple.Keynote";
-  v5[3] = @"com.apple.Numbers";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
+  v4[0] = @"com.apple.DocumentsApp";
+  v4[1] = @"com.apple.Pages";
+  v4[2] = @"com.apple.Keynote";
+  v4[3] = @"com.apple.Numbers";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
   v2 = [v0 setWithArray:v1];
   v3 = supportsFileProviderFor__supportedBundleIdentifiers;
   supportsFileProviderFor__supportedBundleIdentifiers = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)buildBridgedResult
@@ -164,7 +162,7 @@ void __68__SPUISTopHitAppWithEntitiesSectionBuilder_supportsFileProviderFor___bl
 
 - (id)buildCardSections
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   appResultBuilder = [(SPUISTopHitAppWithEntitiesSectionBuilder *)self appResultBuilder];
   bundleId = [appResultBuilder bundleId];
@@ -172,7 +170,7 @@ void __68__SPUISTopHitAppWithEntitiesSectionBuilder_supportsFileProviderFor___bl
 
   appResultBuilder2 = [(SPUISTopHitAppWithEntitiesSectionBuilder *)self appResultBuilder];
   name = [appResultBuilder2 name];
-  [v3 setTitle:name];
+  objc_msgSend_setTitle_(v3);
 
   v8 = objc_alloc(MEMORY[0x277D65850]);
   section = [(SPUISSectionBuilder *)self section];
@@ -186,10 +184,8 @@ void __68__SPUISTopHitAppWithEntitiesSectionBuilder_supportsFileProviderFor___bl
   [v13 setApplicationBundleIdentifier:applicationBundleIdentifier];
 
   [v3 setCommand:v13];
-  v18[0] = v3;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[0] = v3;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
 
   return v15;
 }

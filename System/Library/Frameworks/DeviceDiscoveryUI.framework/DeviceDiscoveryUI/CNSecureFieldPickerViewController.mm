@@ -9,7 +9,7 @@
 - (_TtC17DeviceDiscoveryUI33CNSecureFieldPickerViewController)initWithNameDrop:(id)drop fieldSelections:(id)selections
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for CNSecureFieldPickerViewController();
+  v7.super_class = type metadata accessor for CNSecureFieldPickerViewController(self, a2);
   return [(CNContactCardFieldPicker *)&v7 initWithNameDrop:drop fieldSelections:selections];
 }
 
@@ -28,17 +28,17 @@
     v7 = 0;
   }
 
-  v11.receiver = self;
-  v11.super_class = type metadata accessor for CNSecureFieldPickerViewController();
-  v9 = [(CNSecureFieldPickerViewController *)&v11 initWithNibName:v7 bundle:bundle];
+  v12.receiver = self;
+  v12.super_class = type metadata accessor for CNSecureFieldPickerViewController(bundleCopy2, v9);
+  v10 = [(CNSecureFieldPickerViewController *)&v12 initWithNibName:v7 bundle:bundle];
 
-  return v9;
+  return v10;
 }
 
 - (_TtC17DeviceDiscoveryUI33CNSecureFieldPickerViewController)initWithCoder:(id)coder
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for CNSecureFieldPickerViewController();
+  v7.super_class = type metadata accessor for CNSecureFieldPickerViewController(self, a2);
   coderCopy = coder;
   v5 = [(CNSecureFieldPickerViewController *)&v7 initWithCoder:coderCopy];
 

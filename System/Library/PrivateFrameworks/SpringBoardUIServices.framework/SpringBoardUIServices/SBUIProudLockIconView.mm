@@ -290,9 +290,9 @@
 
 - (SBUIProudLockIconView)initWithFrame:(CGRect)frame
 {
-  v35.receiver = self;
-  v35.super_class = SBUIProudLockIconView;
-  v3 = [(SBUIProudLockIconView *)&v35 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v37.receiver = self;
+  v37.super_class = SBUIProudLockIconView;
+  v3 = [(SBUIProudLockIconView *)&v37 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (!v3)
   {
@@ -321,17 +321,17 @@
   v12 = [MEMORY[0x1E695DFA8] set];
   v13 = [MEMORY[0x1E695DFA8] set];
   layer3 = [(SBUIProudLockIconContentView *)v4->_lockView layer];
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __39__SBUIProudLockIconView_initWithFrame___block_invoke;
-  v31[3] = &unk_1E789E4B0;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __39__SBUIProudLockIconView_initWithFrame___block_invoke;
+  v33[3] = &unk_1E789E4B0;
   v15 = v11;
-  v32 = v15;
+  v34 = v15;
   v16 = v12;
-  v33 = v16;
+  v35 = v16;
   v17 = v13;
-  v34 = v17;
-  [(SBUIProudLockIconView *)v4 _forEachLayerInHierarchy:layer3 perform:v31];
+  v36 = v17;
+  [(SBUIProudLockIconView *)v4 _forEachLayerInHierarchy:layer3 perform:v33];
 
   v18 = [v15 copy];
   imageLayers = v4->_imageLayers;
@@ -369,12 +369,12 @@ LABEL_6:
   }
 
 LABEL_7:
-  [(SBUIProudLockIconView *)v4 addSubview:v4->_cameraCoveredView];
-  if (SBUIAllowsIndicatorSecureRendering() && (SBSIsSystemApertureAvailable() & 1) == 0)
+  v28 = [(SBUIProudLockIconView *)v4 addSubview:v4->_cameraCoveredView];
+  if (SBUIAllowsIndicatorSecureRendering(v28, v29) && (SBSIsSystemApertureAvailable() & 1) == 0)
   {
-    v28 = [MEMORY[0x1E69AE158] materialViewWithRecipe:1];
+    v30 = [MEMORY[0x1E69AE158] materialViewWithRecipe:1];
     backgroundMaterialView = v4->_backgroundMaterialView;
-    v4->_backgroundMaterialView = v28;
+    v4->_backgroundMaterialView = v30;
 
     [(MTMaterialView *)v4->_backgroundMaterialView setAutoresizingMask:18];
     [(MTMaterialView *)v4->_backgroundMaterialView setOverrideUserInterfaceStyle:1];
@@ -511,13 +511,13 @@ LABEL_5:
 
 - (double)proudLockLandscapeOffset
 {
-  [MEMORY[0x1E69D3FE8] proudLockLandscapeOffset];
-  v3 = v2;
-  v4 = SBUIAllowsIndicatorSecureRendering();
+  proudLockLandscapeOffset = [MEMORY[0x1E69D3FE8] proudLockLandscapeOffset];
+  v4 = v3;
+  v6 = SBUIAllowsIndicatorSecureRendering(proudLockLandscapeOffset, v5);
   result = 0.0;
-  if (!v4)
+  if (!v6)
   {
-    return v3;
+    return v4;
   }
 
   return result;
@@ -542,7 +542,7 @@ LABEL_5:
   }
 }
 
-uint64_t __52__SBUIProudLockIconView_setAllowsAlongsideCoaching___block_invoke(uint64_t a1)
+void *__52__SBUIProudLockIconView_setAllowsAlongsideCoaching___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (*(v2 + 490) == 1)
@@ -953,7 +953,7 @@ LABEL_50:
               v95 = 0u;
               v96 = 0u;
               v94 = 0u;
-              [(SBUIProudLockIconView *)self _incomingTransformForActiveView:v48 forState:state];
+              objc_msgSend__incomingTransformForActiveView_forState_(self);
               v93[0] = v94;
               v93[1] = v95;
               v93[2] = v96;
@@ -1412,7 +1412,7 @@ void __83__SBUIProudLockIconView__transitionToState_animated_updateText_options_
           v8 = *(a1 + 40);
           if (v8)
           {
-            [v8 _outgoingTransformForView:v7 fromState:*(a1 + 48)];
+            objc_msgSend__outgoingTransformForView_fromState_(v8);
           }
 
           v9[0] = v10;
@@ -1460,7 +1460,7 @@ void __83__SBUIProudLockIconView__transitionToState_animated_updateText_options_
           v8 = *(a1 + 40);
           if (v8)
           {
-            [v8 _transformForActiveView:v7 forState:*(a1 + 48)];
+            objc_msgSend__transformForActiveView_forState_(v8);
           }
 
           v9[0] = v10;
@@ -1855,34 +1855,33 @@ LABEL_12:
   v6 = v5;
   v8 = v7;
   v9 = v5 / v7;
-  SBUICeilingCapHeightForCoachingTextForUIContentSizeCategory(sizeCopy);
-  v11 = v10;
+  v10 = SBUICeilingCapHeightForCoachingTextForUIContentSizeCategory(sizeCopy);
 
-  v12 = v11 * 1.66666667;
-  v13 = v12 * v9;
-  v14 = BSSizeLessThanSize();
-  if (v14)
+  v11 = v10 * 1.66666667;
+  v12 = v11 * v9;
+  v13 = BSSizeLessThanSize();
+  if (v13)
   {
-    v15 = v13;
+    v14 = v12;
   }
 
   else
   {
-    v15 = v6;
+    v14 = v6;
   }
 
-  if (v14)
+  if (v13)
   {
-    v16 = v12;
+    v15 = v11;
   }
 
   else
   {
-    v16 = v8;
+    v15 = v8;
   }
 
-  result.height = v16;
-  result.width = v15;
+  result.height = v15;
+  result.width = v14;
   return result;
 }
 
@@ -1896,27 +1895,28 @@ LABEL_12:
     if (pearlGlyphStyle == 4)
     {
       createSystemApertureConfiguration = [LAUIPearlGlyphStaticConfigurationClass createSystemApertureConfiguration];
-      v7 = 7;
+      createDefaultConfiguration = createSystemApertureConfiguration;
+      v9 = 7;
     }
 
     else
     {
-      createSystemApertureConfiguration = [LAUIPearlGlyphStaticConfigurationClass createDefaultConfiguration];
-      [createSystemApertureConfiguration setInitialStyle:self->_pearlGlyphStyle];
-      v7 = 0;
+      createDefaultConfiguration = [LAUIPearlGlyphStaticConfigurationClass createDefaultConfiguration];
+      createSystemApertureConfiguration = [createDefaultConfiguration setInitialStyle:self->_pearlGlyphStyle];
+      v9 = 0;
     }
 
-    if (SBUIAllowsIndicatorSecureRendering())
+    if (SBUIAllowsIndicatorSecureRendering(createSystemApertureConfiguration, v8))
     {
-      [createSystemApertureConfiguration setSecureVariantEnabled:1];
-      [createSystemApertureConfiguration setSecureVariantType:pearlGlyphStyle != 4];
+      [createDefaultConfiguration setSecureVariantEnabled:1];
+      [createDefaultConfiguration setSecureVariantType:pearlGlyphStyle != 4];
     }
 
-    v8 = [objc_alloc(getLAUIPearlGlyphViewClass()) initWithConfiguration:createSystemApertureConfiguration];
-    v9 = self->_lazy_pearlGlyphView;
-    self->_lazy_pearlGlyphView = v8;
+    v10 = [objc_alloc(getLAUIPearlGlyphViewClass()) initWithConfiguration:createDefaultConfiguration];
+    v11 = self->_lazy_pearlGlyphView;
+    self->_lazy_pearlGlyphView = v10;
 
-    [(LAUIPearlGlyphView *)self->_lazy_pearlGlyphView setFaceVisibility:v7 animated:0];
+    [(LAUIPearlGlyphView *)self->_lazy_pearlGlyphView setFaceVisibility:v9 animated:0];
     [(LAUIPearlGlyphView *)self->_lazy_pearlGlyphView setFeedbackEnabled:0];
     [(UIView *)self->_iconContainerView addSubview:self->_lazy_pearlGlyphView];
     [(SBUIProudLockIconView *)self setNeedsLayout];

@@ -98,7 +98,7 @@
 
 - (IRMiloLslSingleScoreDO)initWithCoder:(id)coder
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeInt64ForKey:@"score"];
   if (v5)
@@ -112,9 +112,9 @@
   {
     if (([coderCopy containsValueForKey:@"score"] & 1) == 0)
     {
-      v21 = *MEMORY[0x277CCA450];
-      v22[0] = @"Missing serialized value for IRMiloLslSingleScoreDO.score";
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v20 = *MEMORY[0x277CCA450];
+      v21[0] = @"Missing serialized value for IRMiloLslSingleScoreDO.score";
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
       v8 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRMiloLslSingleScoreDOOCNTErrorDomain" code:1 userInfo:v6];
       [coderCopy failWithError:v8];
       goto LABEL_11;
@@ -132,9 +132,9 @@ LABEL_2:
         v9 = objc_opt_class();
         v10 = NSStringFromClass(v9);
         v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRMiloLslSingleScoreDO key eventID (expected %@, decoded %@)", v8, v10, 0];
-        v19 = *MEMORY[0x277CCA450];
-        v20 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+        v18 = *MEMORY[0x277CCA450];
+        v19 = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
         v13 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRMiloLslSingleScoreDOOCNTErrorDomain" code:3 userInfo:v12];
         [coderCopy failWithError:v13];
 
@@ -165,7 +165,6 @@ LABEL_13:
   selfCopy = 0;
 LABEL_14:
 
-  v17 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

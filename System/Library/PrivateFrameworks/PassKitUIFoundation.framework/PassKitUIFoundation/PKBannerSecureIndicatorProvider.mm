@@ -61,39 +61,37 @@
 
 void __42__PKBannerSecureIndicatorProvider_dealloc__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        (*(*(*(&v7 + 1) + 8 * v5) + 16))(*(*(&v7 + 1) + 8 * v5));
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerConsumer:(id)consumer
@@ -295,52 +293,49 @@ LABEL_11:
 
 - (void)_notifyIndicatorWaiters
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (!self->_banner || (serverState = self->_serverState) != 0 && (([(PKFaceIDBannerHandleServerState *)serverState isSecurelyVisible]& 1) != 0 || !self->_banner))
   {
-    v5 = self->_completions;
+    v4 = self->_completions;
     completions = self->_completions;
     self->_completions = 0;
 
     os_unfair_lock_unlock(&self->_lock);
-    if (v5)
+    if (v4)
     {
-      v15 = 0u;
-      v16 = 0u;
       v13 = 0u;
       v14 = 0u;
-      v7 = v5;
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
-      if (v8)
+      v11 = 0u;
+      v12 = 0u;
+      v6 = v4;
+      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      if (v7)
       {
-        v9 = v8;
-        v10 = *v14;
+        v8 = v7;
+        v9 = *v12;
         do
         {
-          for (i = 0; i != v9; ++i)
+          for (i = 0; i != v8; ++i)
           {
-            if (*v14 != v10)
+            if (*v12 != v9)
             {
-              objc_enumerationMutation(v7);
+              objc_enumerationMutation(v6);
             }
 
-            (*(*(*(&v13 + 1) + 8 * i) + 16))(*(*(&v13 + 1) + 8 * i));
+            (*(*(*(&v11 + 1) + 8 * i) + 16))(*(*(&v11 + 1) + 8 * i));
           }
 
-          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
         }
 
-        while (v9);
+        while (v8);
       }
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v4 = *MEMORY[0x277D85DE8];
 
     os_unfair_lock_unlock(&self->_lock);
   }
@@ -378,40 +373,40 @@ LABEL_11:
 
 - (id)_calculateEffectiveState
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = self->_consumers;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [(NSMapTable *)self->_states objectForKey:*(*(&v12 + 1) + 8 * v7), v12];
+        v8 = [(NSMapTable *)self->_states objectForKey:*(*(&v11 + 1) + 8 * v7), v11];
         if (v8)
         {
           v9 = v8;
 
-          goto LABEL_11;
+          return v9;
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -421,10 +416,7 @@ LABEL_11:
     }
   }
 
-  v9 = [MEMORY[0x277D37EC8] createForGlyphState:0];
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
+  return [MEMORY[0x277D37EC8] createForGlyphState:0];
 }
 
 - (void)consumer:(id)consumer ensureIndicatorWithCompletion:(id)completion

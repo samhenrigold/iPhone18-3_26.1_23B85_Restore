@@ -21,9 +21,9 @@
 {
   height = size.height;
   width = size.width;
-  v13.receiver = self;
-  v13.super_class = ARMLImageDownScalingTechnique;
-  v7 = [(ARImageBasedTechnique *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = ARMLImageDownScalingTechnique;
+  v7 = [(ARImageBasedTechnique *)&v14 init];
   v8 = v7;
   if (v7)
   {
@@ -33,13 +33,13 @@
     v9 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.matting.doubleMLResolutionForIPad"];
     if (v9)
     {
-      LOBYTE(v9) = ARDeviceIsiPad();
+      LOBYTE(v9) = ARDeviceIsiPad(v9, v10);
     }
 
     v8->_enableDoubleMLResolutionForIPad = v9;
-    v10 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.mldownsampling");
+    v11 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.mldownsampling", 0xFFFFFFFFLL);
     processingQueue = v8->_processingQueue;
-    v8->_processingQueue = v10;
+    v8->_processingQueue = v11;
 
     v8->_resultLatency = interval;
     v8->_resizeUltraWideImage = 0;
@@ -141,7 +141,7 @@
 
       else
       {
-        [v6 timestamp];
+        objc_msgSend_timestamp(v6, width);
         [(ARImageBasedTechnique *)self pushResultData:MEMORY[0x1E695E0F0] forTimestamp:?];
         v12 = v6;
       }
@@ -150,12 +150,12 @@
     else
     {
       v13 = [ARMLImageDownScalingResultData alloc];
-      [v6 timestamp];
+      objc_msgSend_timestamp(v6);
       v14 = [(ARMLImageDownScalingResultData *)v13 initWithResultDataArray:MEMORY[0x1E695E0F0] timestamp:90 rotationOfResultTensor:v6 originalImageData:?];
       [(ARMLImageDownScalingResultData *)v14 setIsDroppedData:1];
       v27[0] = v14;
       v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
-      [v6 timestamp];
+      objc_msgSend_timestamp(v6);
       [(ARImageBasedTechnique *)self pushResultData:v15 forTimestamp:?];
 
       v16 = v6;
@@ -178,14 +178,14 @@ void __45__ARMLImageDownScalingTechnique_processData___block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(processingQueue);
   v41 = [[ARModifiedImageData alloc] initWithImageData:backgroundCopy];
 
-  [(ARImageData *)v41 timestamp];
+  objc_msgSend_timestamp(v41);
   cameraType = [(ARImageData *)v41 cameraType];
   [cameraType isEqualToString:*MEMORY[0x1E6986948]];
   kdebug_trace();
 
   if ([(ARMLImageDownScalingTechnique *)self centerCropImage])
   {
-    [(ARImageData *)v41 timestamp];
+    objc_msgSend_timestamp(v41);
     kdebug_trace();
     [(ARImageData *)v41 imageResolution];
     [(ARImageData *)v41 imageResolution];
@@ -237,7 +237,7 @@ void __45__ARMLImageDownScalingTechnique_processData___block_invoke(uint64_t a1)
     [(ARImageData *)v30 cameraIntrinsics];
     [(ARImageData *)v30 cameraIntrinsics];
     kdebug_trace();
-    [(ARImageData *)v30 timestamp];
+    objc_msgSend_timestamp(v30);
 
     kdebug_trace();
     v41 = v30;
@@ -281,7 +281,7 @@ void __45__ARMLImageDownScalingTechnique_processData___block_invoke(uint64_t a1)
   }
 
 LABEL_19:
-  [(ARImageData *)v41 timestamp];
+  objc_msgSend_timestamp(v41);
   kdebug_trace();
   v37 = objc_opt_new();
   v38 = v37;
@@ -299,9 +299,9 @@ LABEL_19:
     self->_intermediateDownSamplingResultData = 0;
   }
 
-  [(ARImageData *)v41 timestamp];
+  objc_msgSend_timestamp(v41);
   kdebug_trace();
-  [(ARImageData *)v41 timestamp];
+  objc_msgSend_timestamp(v41);
   [(ARImageBasedTechnique *)self pushResultData:v38 forTimestamp:?];
 }
 
@@ -375,7 +375,7 @@ LABEL_7:
   v15 = [ARMLImageDownScalingResult initWithPixelBuffer:v13 regionOfInterest:"initWithPixelBuffer:regionOfInterest:cropRegion:" cropRegion:pixelBuffer];
   v16 = [ARMLIntermediateDownScalingResultData alloc];
   pixelBuffer2 = [(ARMLImageDownScalingResult *)v15 pixelBuffer];
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   v18 = [(ARMLIntermediateDownScalingResultData *)v16 initWithPixelBuffer:pixelBuffer2 timestamp:dataCopy originalImageData:?];
   intermediateDownSamplingResultData = self->_intermediateDownSamplingResultData;
   self->_intermediateDownSamplingResultData = v18;
@@ -390,7 +390,7 @@ LABEL_7:
   v24 = [ARMLImageDownScalingResultData alloc];
   v31[0] = height;
   v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   v26 = [(ARMLImageDownScalingResultData *)v24 initWithResultDataArray:v25 timestamp:v28 rotationOfResultTensor:dataCopy originalImageData:?];
 
   return v26;
@@ -411,7 +411,7 @@ LABEL_7:
     [(ARImageScalingTechnique *)self->_imageScalingTechnique setConversionPixelFormatType:1111970369];
   }
 
-  [networkCopy timestamp];
+  objc_msgSend_timestamp(networkCopy);
   cameraType = [networkCopy cameraType];
   [cameraType isEqualToString:*MEMORY[0x1E6986948]];
   [networkCopy imageResolution];
@@ -427,10 +427,10 @@ LABEL_7:
   [v15 cameraIntrinsics];
   [v15 cameraIntrinsics];
   kdebug_trace();
-  [networkCopy timestamp];
+  objc_msgSend_timestamp(networkCopy);
   kdebug_trace();
   v16 = [[ARModifiedImageData alloc] initWithImageData:networkCopy];
-  [networkCopy timestamp];
+  objc_msgSend_timestamp(networkCopy);
   [(ARImageData *)v16 setTimestamp:?];
   -[ARImageData setPixelBuffer:](v16, "setPixelBuffer:", [v15 pixelBuffer]);
 
@@ -476,7 +476,7 @@ LABEL_7:
     self->_imageRotationTechnique = v26;
   }
 
-  [originalImage timestamp];
+  objc_msgSend_timestamp(originalImage);
   cameraType = [originalImage cameraType];
   [cameraType isEqualToString:*v13];
   kdebug_trace();
@@ -488,7 +488,7 @@ LABEL_7:
   [v29 imageResolution];
   [v29 imageResolution];
   kdebug_trace();
-  [originalImage timestamp];
+  objc_msgSend_timestamp(originalImage);
   kdebug_trace();
   pixelBuffer = [originalImage pixelBuffer];
   if (pixelBuffer)
@@ -521,7 +521,7 @@ LABEL_7:
 
   interest->width = v37;
   interest->height = v36;
-  [originalImage timestamp];
+  objc_msgSend_timestamp(originalImage);
   [v29 setTimestamp:?];
   v47[0] = @"imageDownScalingRotationOfResultTensorKey";
   v38 = [MEMORY[0x1E696AD98] numberWithInteger:*tensor];

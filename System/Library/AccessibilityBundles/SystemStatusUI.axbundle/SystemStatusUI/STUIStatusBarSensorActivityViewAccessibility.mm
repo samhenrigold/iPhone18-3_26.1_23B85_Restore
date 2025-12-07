@@ -18,40 +18,40 @@
 
 - (id)accessibilityLabel
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v3 = [*MEMORY[0x29EDC8008] safeValueForKey:@"sensorActivityDataProvider"];
   v4 = [v3 safeSetForKey:@"activeSensorActivityAttributions"];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (!v6)
   {
 
 LABEL_16:
-    v18.receiver = self;
-    v18.super_class = STUIStatusBarSensorActivityViewAccessibility;
-    accessibilityLabel = [(STUIStatusBarSensorActivityViewAccessibility *)&v18 accessibilityLabel];
+    v17.receiver = self;
+    v17.super_class = STUIStatusBarSensorActivityViewAccessibility;
+    accessibilityLabel = [(STUIStatusBarSensorActivityViewAccessibility *)&v17 accessibilityLabel];
     goto LABEL_22;
   }
 
   v7 = v6;
   LOBYTE(v8) = 0;
   LOBYTE(v9) = 0;
-  v10 = *v20;
+  v10 = *v19;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v20 != v10)
+      if (*v19 != v10)
       {
         objc_enumerationMutation(v5);
       }
 
-      v12 = *(*(&v19 + 1) + 8 * i);
+      v12 = *(*(&v18 + 1) + 8 * i);
       if (v8)
       {
         v8 = 1;
@@ -63,7 +63,7 @@ LABEL_16:
 
       else
       {
-        v8 = [*(*(&v19 + 1) + 8 * i) safeIntegerForKey:@"sensor"] == 0;
+        v8 = [*(*(&v18 + 1) + 8 * i) safeIntegerForKey:@"sensor"] == 0;
         if (!v9)
         {
 LABEL_8:
@@ -75,7 +75,7 @@ LABEL_8:
       v9 = 1;
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   }
 
   while (v7);
@@ -102,8 +102,6 @@ LABEL_21:
   accessibilityLabel = accessibilityLocalizedString(v13);
 LABEL_22:
   v15 = accessibilityLabel;
-
-  v16 = *MEMORY[0x29EDCA608];
 
   return v15;
 }

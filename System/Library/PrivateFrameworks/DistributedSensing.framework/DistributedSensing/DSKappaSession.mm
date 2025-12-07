@@ -46,7 +46,7 @@
   v7 = [(DSKappaSession *)&v21 init];
   if (!v7)
   {
-    v19 = DSLogObjectForCategory_DSKappaSession();
+    v19 = DSLogObjectForCategory_DSKappaSession(0);
     if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_27;
@@ -57,9 +57,10 @@
     goto LABEL_26;
   }
 
-  if (MEMORY[0x24C1EF810](objectCopy) != MEMORY[0x277D86468])
+  v8 = MEMORY[0x24C1EF810](objectCopy);
+  if (v8 != MEMORY[0x277D86468])
   {
-    v19 = DSLogObjectForCategory_DSKappaSession();
+    v19 = DSLogObjectForCategory_DSKappaSession(v8);
     if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_27;
@@ -73,7 +74,7 @@
   uint64 = xpc_dictionary_get_uint64(objectCopy, "kDSCoordStatus");
   if (uint64 >= 0x100)
   {
-    v19 = DSLogObjectForCategory_DSKappaSession();
+    v19 = DSLogObjectForCategory_DSKappaSession(uint64);
     if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_27;
@@ -84,35 +85,35 @@
     goto LABEL_26;
   }
 
-  v9 = uint64;
+  v10 = uint64;
   if (onceTokenDSKappaSession != -1)
   {
     [DSKappaSession initWithXPCObject:error:];
   }
 
-  v10 = logObjDSKappaSession;
+  v11 = logObjDSKappaSession;
   if (os_log_type_enabled(logObjDSKappaSession, OS_LOG_TYPE_DEFAULT))
   {
-    if (v9 > 5)
+    if (v10 > 5)
     {
-      v11 = "?";
+      v12 = "?";
     }
 
     else
     {
-      v11 = off_278F858A0[v9];
+      v12 = off_278F858A0[v10];
     }
 
     *buf = 136315138;
-    v23 = v11;
-    _os_log_impl(&dword_249027000, v10, OS_LOG_TYPE_DEFAULT, "Coordination status %s", buf, 0xCu);
+    v23 = v12;
+    _os_log_impl(&dword_249027000, v11, OS_LOG_TYPE_DEFAULT, "Coordination status %s", buf, 0xCu);
   }
 
-  v7->_coordinationStatus = v9;
-  v12 = xpc_dictionary_get_uint64(objectCopy, "kDSTiebreaker");
-  if (v12 >= 0x100)
+  v7->_coordinationStatus = v10;
+  v13 = xpc_dictionary_get_uint64(objectCopy, "kDSTiebreaker");
+  if (v13 >= 0x100)
   {
-    v19 = DSLogObjectForCategory_DSKappaSession();
+    v19 = DSLogObjectForCategory_DSKappaSession(v13);
     if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_27;
@@ -124,43 +125,42 @@ LABEL_26:
     _os_log_impl(&dword_249027000, v19, OS_LOG_TYPE_ERROR, v20, buf, 2u);
 LABEL_27:
 
-    v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:1 userInfo:0];
+    v17 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:1 userInfo:0];
     if (error)
     {
-      v16 = v16;
-      v15 = 0;
-      *error = v16;
+      v17 = v17;
+      v16 = 0;
+      *error = v17;
     }
 
     else
     {
-      v15 = 0;
+      v16 = 0;
     }
 
     goto LABEL_17;
   }
 
-  v13 = v12;
+  v14 = v13;
   if (onceTokenDSKappaSession != -1)
   {
     [DSKappaSession initWithXPCObject:error:];
   }
 
-  v14 = logObjDSKappaSession;
+  v15 = logObjDSKappaSession;
   if (os_log_type_enabled(logObjDSKappaSession, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v23 = v13;
-    _os_log_impl(&dword_249027000, v14, OS_LOG_TYPE_DEFAULT, "Tie breaker: %llu", buf, 0xCu);
+    v23 = v14;
+    _os_log_impl(&dword_249027000, v15, OS_LOG_TYPE_DEFAULT, "Tie breaker: %llu", buf, 0xCu);
   }
 
-  v7->_tiebreaker = v13;
-  v15 = v7;
-  v16 = 0;
+  v7->_tiebreaker = v14;
+  v16 = v7;
+  v17 = 0;
 LABEL_17:
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v16;
 }
 
 - (void)encodeSelf:(id)self
@@ -182,7 +182,7 @@ LABEL_17:
 
 - (void)activateWithCompletion:(id)completion
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -242,9 +242,9 @@ LABEL_19:
   else
   {
     v8 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA450];
-    v19[0] = @"Unsupported feature";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = @"Unsupported feature";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v10 = [v8 errorWithDomain:@"DSErrorDomain" code:5 userInfo:v9];
 
     if (onceTokenDSKappaSession != -1)
@@ -267,8 +267,6 @@ LABEL_19:
 
 LABEL_21:
   objc_sync_exit(selfCopy);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activate
@@ -361,7 +359,7 @@ LABEL_21:
 
 - (void)_xpcHandleCompletionBlockReply:(id)reply error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   string = xpc_dictionary_get_string(replyCopy, "kDSXPCMsg");
   if (!strcmp(string, "kDSXPCSuccess"))
@@ -374,8 +372,8 @@ LABEL_21:
     v8 = logObjDSKappaSession;
     if (os_log_type_enabled(logObjDSKappaSession, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_249027000, v8, OS_LOG_TYPE_DEFAULT, "Activated", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_249027000, v8, OS_LOG_TYPE_DEFAULT, "Activated", &v16, 2u);
     }
 
     v7 = 0;
@@ -402,9 +400,9 @@ LABEL_21:
       bytes_ptr = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:bytes_ptr length:xpc_data_get_length(v9)];
       if (bytes_ptr)
       {
-        v15 = MEMORY[0x277CCAAC8];
-        v16 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-        v7 = [v15 unarchivedObjectOfClasses:v16 fromData:bytes_ptr error:0];
+        v14 = MEMORY[0x277CCAAC8];
+        v15 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
+        v7 = [v14 unarchivedObjectOfClasses:v15 fromData:bytes_ptr error:0];
 
         if (v7)
         {
@@ -427,8 +425,8 @@ LABEL_21:
   v11 = logObjDSKappaSession;
   if (os_log_type_enabled(logObjDSKappaSession, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v17) = 0;
-    _os_log_impl(&dword_249027000, v11, OS_LOG_TYPE_ERROR, "Error while unarchiving completion block error", &v17, 2u);
+    LOWORD(v16) = 0;
+    _os_log_impl(&dword_249027000, v11, OS_LOG_TYPE_ERROR, "Error while unarchiving completion block error", &v16, 2u);
   }
 
   v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:1 userInfo:0];
@@ -441,9 +439,9 @@ LABEL_17:
   v12 = logObjDSKappaSession;
   if (os_log_type_enabled(logObjDSKappaSession, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = v7;
-    _os_log_impl(&dword_249027000, v12, OS_LOG_TYPE_DEFAULT, "Failed to activate with error %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = v7;
+    _os_log_impl(&dword_249027000, v12, OS_LOG_TYPE_DEFAULT, "Failed to activate with error %@", &v16, 0xCu);
   }
 
   if (error)
@@ -454,8 +452,6 @@ LABEL_22:
   }
 
 LABEL_23:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateKappaCoordinationStatus:(unsigned __int8)status
@@ -747,7 +743,7 @@ LABEL_13:
 
 - (void)_xpcEventHandler:(id)handler
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = handlerCopy;
   if (handlerCopy == MEMORY[0x277D863F8])
@@ -762,17 +758,16 @@ LABEL_13:
       v8 = logObjDSKappaSession;
       if (os_log_type_enabled(logObjDSKappaSession, OS_LOG_TYPE_ERROR))
       {
-        xpcConnection = self->_xpcConnection;
-        v10 = v8;
-        v14 = 136315138;
-        v15 = xpc_connection_copy_invalidation_reason();
-        _os_log_impl(&dword_249027000, v10, OS_LOG_TYPE_ERROR, "XPC Connection Invalidated for reason: %s", &v14, 0xCu);
+        v9 = v8;
+        v12 = 136315138;
+        v13 = xpc_connection_copy_invalidation_reason();
+        _os_log_impl(&dword_249027000, v9, OS_LOG_TYPE_ERROR, "XPC Connection Invalidated for reason: %s", &v12, 0xCu);
       }
     }
 
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v12 = selfCopy->_xpcConnection;
+    xpcConnection = selfCopy->_xpcConnection;
     selfCopy->_xpcConnection = 0;
 
     objc_sync_exit(selfCopy);
@@ -800,13 +795,11 @@ LABEL_13:
     if (os_log_type_enabled(logObjDSKappaSession, OS_LOG_TYPE_ERROR))
     {
       v7 = v6;
-      v14 = 136315138;
-      v15 = MEMORY[0x24C1EF710](v5);
-      _os_log_impl(&dword_249027000, v7, OS_LOG_TYPE_ERROR, "Invalid XPC Message :%s", &v14, 0xCu);
+      v12 = 136315138;
+      v13 = MEMORY[0x24C1EF710](v5);
+      _os_log_impl(&dword_249027000, v7, OS_LOG_TYPE_ERROR, "Invalid XPC Message :%s", &v12, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleXPCMessage:(id)message
@@ -909,10 +902,11 @@ LABEL_13:
   dispatchQueue = self->_dispatchQueue;
   messageCopy = message;
   dispatch_assert_queue_V2(dispatchQueue);
-  v9 = 0;
-  v6 = [[DSDeviceContext alloc] initWithXPCObject:messageCopy error:&v9];
+  v10 = 0;
+  v6 = [[DSDeviceContext alloc] initWithXPCObject:messageCopy error:&v10];
 
-  v7 = v9;
+  v7 = v10;
+  v8 = v7;
   if (v6)
   {
     deviceFoundHandler = self->_deviceFoundHandler;
@@ -924,7 +918,7 @@ LABEL_13:
 
   else
   {
-    [DSKappaSession _deviceFoundMessage:];
+    [DSKappaSession _deviceFoundMessage:v7];
   }
 }
 
@@ -933,10 +927,11 @@ LABEL_13:
   dispatchQueue = self->_dispatchQueue;
   messageCopy = message;
   dispatch_assert_queue_V2(dispatchQueue);
-  v9 = 0;
-  v6 = [[DSDeviceContext alloc] initWithXPCObject:messageCopy error:&v9];
+  v10 = 0;
+  v6 = [[DSDeviceContext alloc] initWithXPCObject:messageCopy error:&v10];
 
-  v7 = v9;
+  v7 = v10;
+  v8 = v7;
   if (v6)
   {
     deviceChangedHandler = self->_deviceChangedHandler;
@@ -948,7 +943,7 @@ LABEL_13:
 
   else
   {
-    [DSKappaSession _deviceFoundMessage:];
+    [DSKappaSession _deviceFoundMessage:v7];
   }
 }
 
@@ -957,10 +952,11 @@ LABEL_13:
   dispatchQueue = self->_dispatchQueue;
   messageCopy = message;
   dispatch_assert_queue_V2(dispatchQueue);
-  v9 = 0;
-  v6 = [[DSDeviceContext alloc] initWithXPCObject:messageCopy error:&v9];
+  v10 = 0;
+  v6 = [[DSDeviceContext alloc] initWithXPCObject:messageCopy error:&v10];
 
-  v7 = v9;
+  v7 = v10;
+  v8 = v7;
   if (v6)
   {
     deviceLostHandler = self->_deviceLostHandler;
@@ -972,25 +968,27 @@ LABEL_13:
 
   else
   {
-    [DSKappaSession _deviceLostMessage:];
+    [DSKappaSession _deviceLostMessage:v7];
   }
 }
 
-- (void)_deviceFoundMessage:.cold.1()
+- (void)_deviceFoundMessage:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = DSLogObjectForCategory_DSKappaSession();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = DSLogObjectForCategory_DSKappaSession(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_0(&dword_249027000, v1, v2, "Error decoding device context", v3, v4, v5, v6, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0(&dword_249027000, v2, v3, "Error decoding device context", v4, v5, v6, v7, v8);
   }
 }
 
-- (void)_deviceLostMessage:.cold.1()
+- (void)_deviceLostMessage:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = DSLogObjectForCategory_DSKappaSession();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = DSLogObjectForCategory_DSKappaSession(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_0(&dword_249027000, v1, v2, "Error decoding winner context", v3, v4, v5, v6, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0(&dword_249027000, v2, v3, "Error decoding winner context", v4, v5, v6, v7, v8);
   }
 }
 

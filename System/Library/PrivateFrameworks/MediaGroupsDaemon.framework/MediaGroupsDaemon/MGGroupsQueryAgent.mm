@@ -20,11 +20,11 @@
 
 - (MGGroupsQueryAgent)initWithDelegate:(id)delegate
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v34.receiver = self;
-  v34.super_class = MGGroupsQueryAgent;
-  v5 = [(MGGroupsQueryAgent *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = MGGroupsQueryAgent;
+  v5 = [(MGGroupsQueryAgent *)&v33 init];
   v6 = v5;
   if (v5)
   {
@@ -85,20 +85,19 @@
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v36 = v6;
-      v37 = 2048;
-      v38 = v30;
+      v35 = v6;
+      v36 = 2048;
+      v37 = v30;
       _os_log_impl(&dword_25863A000, v31, OS_LOG_TYPE_DEFAULT, "%p operating with a max concurrency of %ld", buf, 0x16u);
     }
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)setGroups:(id)groups
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   groupsCopy = groups;
   os_unfair_lock_assert_owner(&self->_lock);
   groups = [(MGGroupsQueryAgent *)self groups];
@@ -117,23 +116,21 @@
     v8 = MGLogForCategory(4);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 134218240;
+      v10 = 134218240;
       selfCopy = self;
-      v13 = 2048;
-      v14 = v7;
-      _os_log_impl(&dword_25863A000, v8, OS_LOG_TYPE_DEFAULT, "%p groups updated to %p", &v11, 0x16u);
+      v12 = 2048;
+      v13 = v7;
+      _os_log_impl(&dword_25863A000, v8, OS_LOG_TYPE_DEFAULT, "%p groups updated to %p", &v10, 0x16u);
     }
 
     currentIdentifier = [(MGGroupsQueryAgent *)self currentIdentifier];
     [(MGGroupsQueryAgent *)self _performQueryExchangeUsingGroups:v7 currentIdentifier:currentIdentifier];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setGroupsByMediator:(id)mediator
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   mediatorCopy = mediator;
   os_unfair_lock_assert_owner(&self->_lock);
   groupsByMediator = [(MGGroupsQueryAgent *)self groupsByMediator];
@@ -143,59 +140,59 @@
   {
     v7 = [mediatorCopy copy];
 
-    v22 = v7;
+    v21 = v7;
     objc_storeStrong(&self->_groupsByMediator, v7);
     v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     allKeys = [(NSDictionary *)self->_groupsByMediator allKeys];
     v11 = [allKeys sortedArrayUsingComparator:&__block_literal_global];
 
     obj = v11;
-    v26 = [v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
-    if (v26)
+    v25 = [v11 countByEnumeratingWithState:&v30 objects:v35 count:16];
+    if (v25)
     {
-      v24 = *v32;
+      v23 = *v31;
       selfCopy = self;
       do
       {
-        for (i = 0; i != v26; ++i)
+        for (i = 0; i != v25; ++i)
         {
-          if (*v32 != v24)
+          if (*v31 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v31 + 1) + 8 * i);
+          v13 = *(*(&v30 + 1) + 8 * i);
           v14 = [(NSDictionary *)self->_groupsByMediator objectForKey:v13];
+          v26 = 0u;
           v27 = 0u;
           v28 = 0u;
           v29 = 0u;
-          v30 = 0u;
-          v15 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v28;
+            v17 = *v27;
             do
             {
               for (j = 0; j != v16; ++j)
               {
-                if (*v28 != v17)
+                if (*v27 != v17)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                v19 = *(*(&v27 + 1) + 8 * j);
+                v19 = *(*(&v26 + 1) + 8 * j);
                 v20 = [v14 objectForKey:v19];
                 [v8 setObject:v20 forKey:v19];
                 [v9 setObject:v13 forKey:v19];
               }
 
-              v16 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
             }
 
             while (v16);
@@ -204,24 +201,22 @@
           self = selfCopy;
         }
 
-        v26 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v25 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
-      while (v26);
+      while (v25);
     }
 
     [(MGGroupsQueryAgent *)self setMediatorsByGroup:v9];
     [(MGGroupsQueryAgent *)self setGroups:v8];
 
-    mediatorCopy = v22;
+    mediatorCopy = v21;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCurrentIdentifier:(id)identifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   os_unfair_lock_assert_owner(&self->_lock);
   if (self->_currentIdentifier == identifierCopy || ([(MGGroupIdentifier *)identifierCopy isEqual:?]& 1) != 0)
@@ -237,18 +232,16 @@
     v6 = MGLogForCategory(4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134218240;
+      v8 = 134218240;
       selfCopy = self;
-      v11 = 2048;
-      v12 = v5;
-      _os_log_impl(&dword_25863A000, v6, OS_LOG_TYPE_DEFAULT, "%p current identifier changed to %p", &v9, 0x16u);
+      v10 = 2048;
+      v11 = v5;
+      _os_log_impl(&dword_25863A000, v6, OS_LOG_TYPE_DEFAULT, "%p current identifier changed to %p", &v8, 0x16u);
     }
 
     groups = [(MGGroupsQueryAgent *)self groups];
     [(MGGroupsQueryAgent *)self _performQueryExchangeUsingGroups:groups currentIdentifier:v5];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCurrentDeviceIdentifier:(id)identifier
@@ -309,19 +302,19 @@ void __73__MGGroupsQueryAgent__performQueryExchangeUsingGroups_currentIdentifier
 
 - (void)_prepareWithGroups:(id)groups currentIdentifier:(id)identifier
 {
-  v124 = *MEMORY[0x277D85DE8];
+  v123 = *MEMORY[0x277D85DE8];
   groupsCopy = groups;
   identifierCopy = identifier;
-  v112[0] = MEMORY[0x277D85DD0];
-  v112[1] = 3221225472;
-  v112[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke;
-  v112[3] = &unk_27989F170;
-  v112[4] = self;
+  v111[0] = MEMORY[0x277D85DD0];
+  v111[1] = 3221225472;
+  v111[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke;
+  v111[3] = &unk_27989F170;
+  v111[4] = self;
   v8 = groupsCopy;
-  v113 = v8;
+  v112 = v8;
   v9 = identifierCopy;
-  v114 = v9;
-  v10 = MEMORY[0x259C85F90](v112);
+  v113 = v9;
+  v10 = MEMORY[0x259C85F90](v111);
   if ((v10[2])())
   {
     v11 = MGLogForCategory(4);
@@ -329,8 +322,8 @@ void __73__MGGroupsQueryAgent__performQueryExchangeUsingGroups_currentIdentifier
     {
       *buf = 134218240;
       selfCopy = self;
-      v122 = 2048;
-      v123 = v8;
+      v121 = 2048;
+      v122 = v8;
       _os_log_impl(&dword_25863A000, v11, OS_LOG_TYPE_DEFAULT, "%p got an update after %p", buf, 0x16u);
     }
   }
@@ -338,56 +331,56 @@ void __73__MGGroupsQueryAgent__performQueryExchangeUsingGroups_currentIdentifier
   else
   {
     selfCopy2 = self;
-    v76 = v9;
+    v75 = v9;
     v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
     [v12 setObject:v8 forKey:@"ALL_GROUPS_MAP"];
     allValues = [v8 allValues];
-    v75 = v12;
+    v74 = v12;
     [v12 setObject:allValues forKey:@"ALL_GROUPS_LIST"];
     type = [MEMORY[0x277D27470] type];
-    v119[0] = type;
+    v118[0] = type;
     type2 = [MEMORY[0x277D274C0] type];
-    v119[1] = type2;
+    v118[1] = type2;
     type3 = [MEMORY[0x277D274A8] type];
-    v119[2] = type3;
+    v118[2] = type3;
     type4 = [MEMORY[0x277D27488] type];
-    v119[3] = type4;
+    v118[3] = type4;
     type5 = [MEMORY[0x277D27498] type];
-    v119[4] = type5;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v119 count:5];
+    v118[4] = type5;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v118 count:5];
 
-    v110[0] = MEMORY[0x277D85DD0];
-    v110[1] = 3221225472;
-    v110[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_24;
-    v110[3] = &unk_27989F198;
+    v109[0] = MEMORY[0x277D85DD0];
+    v109[1] = 3221225472;
+    v109[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_24;
+    v109[3] = &unk_27989F198;
     v20 = v19;
-    v111 = v20;
-    v21 = [allValues indexesOfObjectsPassingTest:v110];
+    v110 = v20;
+    v21 = [allValues indexesOfObjectsPassingTest:v109];
     v22 = [allValues objectsAtIndexes:v21];
 
-    v108[0] = MEMORY[0x277D85DD0];
-    v108[1] = 3221225472;
-    v108[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_2_26;
-    v108[3] = &unk_27989F1C0;
-    v71 = v20;
-    v109 = v71;
-    v23 = [v22 sortedArrayUsingComparator:v108];
+    v107[0] = MEMORY[0x277D85DD0];
+    v107[1] = 3221225472;
+    v107[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_2_26;
+    v107[3] = &unk_27989F1C0;
+    v70 = v20;
+    v108 = v70;
+    v23 = [v22 sortedArrayUsingComparator:v107];
 
     v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v104[0] = MEMORY[0x277D85DD0];
-    v104[1] = 3221225472;
-    v104[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_3;
-    v104[3] = &unk_27989F1E8;
+    v103[0] = MEMORY[0x277D85DD0];
+    v103[1] = 3221225472;
+    v103[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_3;
+    v103[3] = &unk_27989F1E8;
     v25 = v10;
-    v107 = v25;
+    v106 = v25;
+    v72 = v8;
     v73 = v8;
-    v74 = v8;
-    v105 = v74;
+    v104 = v73;
     v26 = v24;
-    v106 = v26;
-    [v23 enumerateObjectsUsingBlock:v104];
-    v72 = v10;
-    v70 = v23;
+    v105 = v26;
+    [v23 enumerateObjectsUsingBlock:v103];
+    v71 = v10;
+    v69 = v23;
     if (v10[2](v25))
     {
       v27 = MGLogForCategory(4);
@@ -395,76 +388,76 @@ void __73__MGGroupsQueryAgent__performQueryExchangeUsingGroups_currentIdentifier
       {
         *buf = 134218240;
         selfCopy = selfCopy2;
-        v122 = 2048;
-        v123 = v74;
+        v121 = 2048;
+        v122 = v73;
         _os_log_impl(&dword_25863A000, v27, OS_LOG_TYPE_DEFAULT, "%p got a newer update after %p", buf, 0x16u);
       }
 
-      v11 = v75;
-      v9 = v76;
+      v11 = v74;
+      v9 = v75;
     }
 
     else
     {
-      v102 = 0u;
-      v103 = 0u;
-      v100 = 0u;
       v101 = 0u;
+      v102 = 0u;
+      v99 = 0u;
+      v100 = 0u;
       v28 = v23;
-      v29 = [v28 countByEnumeratingWithState:&v100 objects:v118 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v99 objects:v117 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v101;
-        v77 = *v101;
-        v78 = v28;
+        v31 = *v100;
+        v76 = *v100;
+        v77 = v28;
         do
         {
           v32 = 0;
-          v80 = v30;
+          v79 = v30;
           do
           {
-            if (*v101 != v31)
+            if (*v100 != v31)
             {
               objc_enumerationMutation(v28);
             }
 
-            v33 = *(*(&v100 + 1) + 8 * v32);
+            v33 = *(*(&v99 + 1) + 8 * v32);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
-                v82 = v32;
+                v81 = v32;
                 identifier = [v33 identifier];
+                v95 = 0u;
                 v96 = 0u;
                 v97 = 0u;
                 v98 = 0u;
-                v99 = 0u;
                 memberIdentifiers = [v33 memberIdentifiers];
-                v36 = [memberIdentifiers countByEnumeratingWithState:&v96 objects:v117 count:16];
+                v36 = [memberIdentifiers countByEnumeratingWithState:&v95 objects:v116 count:16];
                 if (v36)
                 {
                   v37 = v36;
-                  v38 = *v97;
+                  v38 = *v96;
                   do
                   {
                     for (i = 0; i != v37; ++i)
                     {
-                      if (*v97 != v38)
+                      if (*v96 != v38)
                       {
                         objc_enumerationMutation(memberIdentifiers);
                       }
 
-                      v40 = [v26 objectForKey:*(*(&v96 + 1) + 8 * i)];
-                      v94[0] = MEMORY[0x277D85DD0];
-                      v94[1] = 3221225472;
-                      v94[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_29;
-                      v94[3] = &unk_27989F210;
+                      v40 = [v26 objectForKey:*(*(&v95 + 1) + 8 * i)];
+                      v93[0] = MEMORY[0x277D85DD0];
+                      v93[1] = 3221225472;
+                      v93[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_29;
+                      v93[3] = &unk_27989F210;
                       v41 = identifier;
-                      v95 = v41;
-                      v42 = [v40 objectsPassingTest:v94];
+                      v94 = v41;
+                      v42 = [v40 objectsPassingTest:v93];
 
                       if ([v42 count])
                       {
@@ -479,16 +472,16 @@ void __73__MGGroupsQueryAgent__performQueryExchangeUsingGroups_currentIdentifier
                       }
                     }
 
-                    v37 = [memberIdentifiers countByEnumeratingWithState:&v96 objects:v117 count:16];
+                    v37 = [memberIdentifiers countByEnumeratingWithState:&v95 objects:v116 count:16];
                   }
 
                   while (v37);
                 }
 
-                v31 = v77;
-                v28 = v78;
-                v30 = v80;
-                v32 = v82;
+                v31 = v76;
+                v28 = v77;
+                v30 = v79;
+                v32 = v81;
               }
             }
 
@@ -496,99 +489,97 @@ void __73__MGGroupsQueryAgent__performQueryExchangeUsingGroups_currentIdentifier
           }
 
           while (v32 != v30);
-          v30 = [v28 countByEnumeratingWithState:&v100 objects:v118 count:16];
+          v30 = [v28 countByEnumeratingWithState:&v99 objects:v117 count:16];
         }
 
         while (v30);
       }
 
-      v11 = v75;
-      [v75 setObject:v26 forKey:@"CONTAINMENT_MAP"];
-      if (v76 && ([v74 objectForKey:?], (v44 = objc_claimAutoreleasedReturnValue()) != 0))
+      v11 = v74;
+      [v74 setObject:v26 forKey:@"CONTAINMENT_MAP"];
+      if (v75 && ([v73 objectForKey:?], (v44 = objc_claimAutoreleasedReturnValue()) != 0))
       {
         null5 = v44;
-        [v75 setObject:v44 forKey:@"CURRENT_SOLO_GROUP"];
-        v115[0] = @"CURRENT_HOME";
+        [v74 setObject:v44 forKey:@"CURRENT_SOLO_GROUP"];
+        v114[0] = @"CURRENT_HOME";
         v46 = MEMORY[0x277CCAC30];
         type6 = [MEMORY[0x277D27470] type];
-        v79 = [v46 predicateWithFormat:@"SELF.type == %@", type6];
-        v116[0] = v79;
-        v115[1] = @"CURRENT_ROOM";
+        v78 = [v46 predicateWithFormat:@"SELF.type == %@", type6];
+        v115[0] = v78;
+        v114[1] = @"CURRENT_ROOM";
         v47 = MEMORY[0x277CCAC30];
         type7 = [MEMORY[0x277D274A8] type];
         v49 = [v47 predicateWithFormat:@"SELF.type == %@", type7];
-        v116[1] = v49;
-        v115[2] = @"CURRENT_MEDIA_SYSTEM";
+        v115[1] = v49;
+        v114[2] = @"CURRENT_MEDIA_SYSTEM";
         v50 = MEMORY[0x277CCAC30];
         type8 = [MEMORY[0x277D27498] type];
         v52 = [v50 predicateWithFormat:@"SELF.type == %@", type8];
-        v116[2] = v52;
-        v115[3] = @"CURRENT_ZONE";
+        v115[2] = v52;
+        v114[3] = @"CURRENT_ZONE";
         v53 = MEMORY[0x277CCAC30];
         type9 = [MEMORY[0x277D274C0] type];
         v55 = [v53 predicateWithFormat:@"SELF.type == %@", type9];
-        v116[3] = v55;
-        v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v116 forKeys:v115 count:4];
+        v115[3] = v55;
+        v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v115 forKeys:v114 count:4];
 
         v56 = MEMORY[0x277CCAC30];
         identifier2 = [null5 identifier];
         v58 = [v56 predicateWithFormat:@"$CONTAINMENT_MAP[%@] != nil", identifier2];
 
         v59 = MEMORY[0x277CCAC30];
-        v11 = v75;
+        v11 = v74;
         identifier3 = [null5 identifier];
         v61 = [v59 predicateWithFormat:@"SUBQUERY($CONTAINMENT_MAP[%@], $container, SELF.identifier IN $container)[SIZE] > 0", identifier3];
 
-        v90[0] = MEMORY[0x277D85DD0];
-        v90[1] = 3221225472;
-        v90[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_2_60;
-        v90[3] = &unk_27989F238;
-        v91 = v58;
-        v92 = v61;
-        v93 = v75;
+        v89[0] = MEMORY[0x277D85DD0];
+        v89[1] = 3221225472;
+        v89[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_2_60;
+        v89[3] = &unk_27989F238;
+        v90 = v58;
+        v91 = v61;
+        v92 = v74;
         v62 = v58;
         v63 = v61;
-        [v83 enumerateKeysAndObjectsUsingBlock:v90];
+        [v82 enumerateKeysAndObjectsUsingBlock:v89];
       }
 
       else
       {
         null = [MEMORY[0x277CBEB68] null];
-        [v75 setObject:null forKey:@"CURRENT_SOLO_GROUP"];
+        [v74 setObject:null forKey:@"CURRENT_SOLO_GROUP"];
 
         null2 = [MEMORY[0x277CBEB68] null];
-        [v75 setObject:null2 forKey:@"CURRENT_HOME"];
+        [v74 setObject:null2 forKey:@"CURRENT_HOME"];
 
         null3 = [MEMORY[0x277CBEB68] null];
-        [v75 setObject:null3 forKey:@"CURRENT_ROOM"];
+        [v74 setObject:null3 forKey:@"CURRENT_ROOM"];
 
         null4 = [MEMORY[0x277CBEB68] null];
-        [v75 setObject:null4 forKey:@"CURRENT_MEDIA_SYSTEM"];
+        [v74 setObject:null4 forKey:@"CURRENT_MEDIA_SYSTEM"];
 
         null5 = [MEMORY[0x277CBEB68] null];
-        [v75 setObject:null5 forKey:@"CURRENT_ZONE"];
+        [v74 setObject:null5 forKey:@"CURRENT_ZONE"];
       }
 
-      v84[0] = MEMORY[0x277D85DD0];
-      v84[1] = 3221225472;
-      v84[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_3_64;
-      v84[3] = &unk_27989F288;
-      v85 = v74;
-      v86 = selfCopy2;
-      v9 = v76;
-      v87 = v76;
-      v88 = v26;
-      v89 = v11;
-      [(MGGroupsQueryAgent *)selfCopy2 _withLock:v84];
+      v83[0] = MEMORY[0x277D85DD0];
+      v83[1] = 3221225472;
+      v83[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_3_64;
+      v83[3] = &unk_27989F288;
+      v84 = v73;
+      v85 = selfCopy2;
+      v9 = v75;
+      v86 = v75;
+      v87 = v26;
+      v88 = v11;
+      [(MGGroupsQueryAgent *)selfCopy2 _withLock:v83];
 
-      v27 = v85;
+      v27 = v84;
     }
 
-    v10 = v72;
-    v8 = v73;
+    v10 = v71;
+    v8 = v72;
   }
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke(uint64_t a1)
@@ -679,10 +670,10 @@ uint64_t __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_i
   }
 }
 
-void __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_3(void **a1, void *a2, uint64_t a3, _BYTE *a4)
+void __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_3(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = a2;
-  v6 = (*(a1[6] + 2))();
+  v6 = (*(a1[6] + 16))();
   *a4 = v6;
   if ((v6 & 1) == 0)
   {
@@ -692,15 +683,15 @@ void __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invok
 
 void __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_2_60(uint64_t a1, void *a2, void *a3)
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = MEMORY[0x277CCA920];
   v8 = *(a1 + 40);
-  v18[0] = *(a1 + 32);
-  v18[1] = v6;
-  v18[2] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+  v17[0] = *(a1 + 32);
+  v17[1] = v6;
+  v17[2] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
   v10 = [v7 andPredicateWithSubpredicates:v9];
 
   v11 = [v10 predicateWithSubstitutionVariables:*(a1 + 48)];
@@ -720,13 +711,11 @@ void __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invok
     v16 = [MEMORY[0x277CBEB68] null];
     [v14 setObject:v16 forKey:v5];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_3_64(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) groups];
   if ([v2 isEqualToDictionary:v3])
@@ -747,28 +736,28 @@ LABEL_9:
       {
         v14 = *(a1 + 40);
         *buf = 134218240;
-        v28 = v14;
-        v29 = 2048;
-        v30 = [v9 count];
+        v27 = v14;
+        v28 = 2048;
+        v29 = [v9 count];
         _os_log_impl(&dword_25863A000, v13, OS_LOG_TYPE_DEFAULT, "%p spawning %lu queries", buf, 0x16u);
       }
 
       v15 = [*(a1 + 40) operations];
       v16 = [v15 mutableCopy];
 
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_65;
-      v22[3] = &unk_27989F260;
-      v21 = *(a1 + 32);
-      v17 = v21.i64[0];
-      v23 = vextq_s8(v21, v21, 8uLL);
-      v24 = *(a1 + 64);
-      v25 = v16;
-      v26 = v12;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_65;
+      v21[3] = &unk_27989F260;
+      v20 = *(a1 + 32);
+      v17 = v20.i64[0];
+      v22 = vextq_s8(v20, v20, 8uLL);
+      v23 = *(a1 + 64);
+      v24 = v16;
+      v25 = v12;
       v18 = v12;
       v19 = v16;
-      [v9 enumerateKeysAndObjectsUsingBlock:v22];
+      [v9 enumerateKeysAndObjectsUsingBlock:v21];
       [*(a1 + 40) setOperations:v19];
 
       goto LABEL_12;
@@ -794,15 +783,13 @@ LABEL_9:
     v11 = *(a1 + 32);
     v10 = *(a1 + 40);
     *buf = 134218240;
-    v28 = v10;
-    v29 = 2048;
-    v30 = v11;
+    v27 = v10;
+    v28 = 2048;
+    v29 = v11;
     _os_log_impl(&dword_25863A000, v9, OS_LOG_TYPE_DEFAULT, "%p got a late update after %p", buf, 0x16u);
   }
 
 LABEL_12:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invoke_65(uint64_t a1, void *a2, void *a3)
@@ -856,8 +843,8 @@ void __59__MGGroupsQueryAgent__prepareWithGroups_currentIdentifier___block_invok
 
 void __52__MGGroupsQueryAgent__queryOperation_didFindGroups___block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v34 = [*(a1 + 32) identifier];
+  v44 = *MEMORY[0x277D85DE8];
+  v33 = [*(a1 + 32) identifier];
   v2 = [*(a1 + 40) isCancelled];
   *(*(*(a1 + 64) + 8) + 24) = v2;
   if (v2)
@@ -869,26 +856,26 @@ void __52__MGGroupsQueryAgent__queryOperation_didFindGroups___block_invoke(uint6
       v5 = [*(a1 + 56) count];
       *buf = 134218498;
       *&buf[4] = v4;
-      v41 = 2112;
-      v42 = v34;
-      v43 = 2048;
-      v44 = v5;
+      v40 = 2112;
+      v41 = v33;
+      v42 = 2048;
+      v43 = v5;
       _os_log_impl(&dword_25863A000, v3, OS_LOG_TYPE_DEFAULT, "%p canceled query %@ with %lu found items", buf, 0x20u);
     }
   }
 
   else
   {
-    v33 = [*(a1 + 48) operations];
+    v32 = [*(a1 + 48) operations];
     v6 = *(a1 + 40);
-    v7 = [v33 objectForKey:v34];
+    v7 = [v32 objectForKey:v33];
     *(*(*(a1 + 64) + 8) + 24) = v6 != v7;
 
     if (v6 == v7)
     {
-      v11 = [v33 mutableCopy];
-      [v11 removeObjectForKey:v34];
-      v32 = v11;
+      v11 = [v32 mutableCopy];
+      [v11 removeObjectForKey:v33];
+      v31 = v11;
       [*(a1 + 48) setOperations:v11];
       v12 = MGLogForCategory(4);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -897,10 +884,10 @@ void __52__MGGroupsQueryAgent__queryOperation_didFindGroups___block_invoke(uint6
         v14 = [*(a1 + 56) count];
         *buf = 134218498;
         *&buf[4] = v13;
-        v41 = 2112;
-        v42 = v34;
-        v43 = 2048;
-        v44 = v14;
+        v40 = 2112;
+        v41 = v33;
+        v42 = 2048;
+        v43 = v14;
         _os_log_impl(&dword_25863A000, v12, OS_LOG_TYPE_DEFAULT, "%p completed query %@ with %lu found items", buf, 0x20u);
       }
 
@@ -909,26 +896,26 @@ void __52__MGGroupsQueryAgent__queryOperation_didFindGroups___block_invoke(uint6
       v17 = *(v16 + 40);
       *(v16 + 40) = v15;
 
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       v18 = *(a1 + 56);
-      v19 = [v18 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v34 objects:v38 count:16];
       if (v19)
       {
-        v20 = *v36;
+        v20 = *v35;
         do
         {
           v21 = 0;
           do
           {
-            if (*v36 != v20)
+            if (*v35 != v20)
             {
               objc_enumerationMutation(v18);
             }
 
-            v22 = *(*(&v35 + 1) + 8 * v21);
+            v22 = *(*(&v34 + 1) + 8 * v21);
             *buf = 0;
             v23 = [v22 identifier];
             v24 = [*(a1 + 48) mediatorsByGroup];
@@ -952,7 +939,7 @@ void __52__MGGroupsQueryAgent__queryOperation_didFindGroups___block_invoke(uint6
           }
 
           while (v19 != v21);
-          v19 = [v18 countByEnumeratingWithState:&v35 objects:v39 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v34 objects:v38 count:16];
         }
 
         while (v19);
@@ -962,25 +949,23 @@ void __52__MGGroupsQueryAgent__queryOperation_didFindGroups___block_invoke(uint6
     else
     {
       v8 = MGLogForCategory(4);
-      v32 = v8;
+      v31 = v8;
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v9 = *(a1 + 48);
         v10 = [*(a1 + 56) count];
         *buf = 134218498;
         *&buf[4] = v9;
-        v41 = 2112;
-        v42 = v34;
-        v43 = 2048;
-        v44 = v10;
+        v40 = 2112;
+        v41 = v33;
+        v42 = 2048;
+        v43 = v10;
         _os_log_impl(&dword_25863A000, v8, OS_LOG_TYPE_DEFAULT, "%p subsumed query %@ with %lu found items", buf, 0x20u);
       }
     }
 
-    v3 = v33;
+    v3 = v32;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addOutstandingQuery:(id)query
@@ -1001,7 +986,7 @@ void __52__MGGroupsQueryAgent__queryOperation_didFindGroups___block_invoke(uint6
 
 void __42__MGGroupsQueryAgent_addOutstandingQuery___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) queries];
   v3 = [v2 objectForKey:*(a1 + 40)];
 
@@ -1036,15 +1021,13 @@ void __42__MGGroupsQueryAgent_addOutstandingQuery___block_invoke(uint64_t a1)
     {
       v17 = *(a1 + 32);
       v18 = *(a1 + 40);
-      v20 = 134218242;
-      v21 = v17;
-      v22 = 2112;
-      v23 = v18;
-      _os_log_impl(&dword_25863A000, v16, OS_LOG_TYPE_DEFAULT, "%p added query %@", &v20, 0x16u);
+      v19 = 134218242;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v18;
+      _os_log_impl(&dword_25863A000, v16, OS_LOG_TYPE_DEFAULT, "%p added query %@", &v19, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeOutstandingQuery:(id)query
@@ -1062,7 +1045,7 @@ void __42__MGGroupsQueryAgent_addOutstandingQuery___block_invoke(uint64_t a1)
 
 void __45__MGGroupsQueryAgent_removeOutstandingQuery___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) queries];
   v3 = [v2 objectForKey:*(a1 + 40)];
 
@@ -1076,11 +1059,11 @@ void __45__MGGroupsQueryAgent_removeOutstandingQuery___block_invoke(uint64_t a1)
     {
       v6 = *(a1 + 32);
       v7 = *(a1 + 40);
-      v16 = 134218242;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v7;
-      _os_log_impl(&dword_25863A000, v5, OS_LOG_TYPE_DEFAULT, "%p removed query %@", &v16, 0x16u);
+      v15 = 134218242;
+      v16 = v6;
+      v17 = 2112;
+      v18 = v7;
+      _os_log_impl(&dword_25863A000, v5, OS_LOG_TYPE_DEFAULT, "%p removed query %@", &v15, 0x16u);
     }
   }
 
@@ -1098,15 +1081,13 @@ void __45__MGGroupsQueryAgent_removeOutstandingQuery___block_invoke(uint64_t a1)
     {
       v13 = *(a1 + 32);
       v14 = *(a1 + 40);
-      v16 = 134218242;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v14;
-      _os_log_impl(&dword_25863A000, v12, OS_LOG_TYPE_DEFAULT, "%p canceled removed query %@", &v16, 0x16u);
+      v15 = 134218242;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v14;
+      _os_log_impl(&dword_25863A000, v12, OS_LOG_TYPE_DEFAULT, "%p canceled removed query %@", &v15, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)outstandingQueryForIdentifier:(id)identifier
@@ -1161,20 +1142,20 @@ void __52__MGGroupsQueryAgent_outstandingQueryForIdentifier___block_invoke(uint6
 
 void __53__MGGroupsQueryAgent_groupsMediator_didUpdateGroups___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = MGLogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v11 = 134218496;
-    v12 = v3;
-    v13 = 2048;
-    v14 = v4;
-    v15 = 2048;
-    v16 = v5;
-    _os_log_impl(&dword_25863A000, v2, OS_LOG_TYPE_DEFAULT, "%p received update %p from %p", &v11, 0x20u);
+    v10 = 134218496;
+    v11 = v3;
+    v12 = 2048;
+    v13 = v4;
+    v14 = 2048;
+    v15 = v5;
+    _os_log_impl(&dword_25863A000, v2, OS_LOG_TYPE_DEFAULT, "%p received update %p from %p", &v10, 0x20u);
   }
 
   v6 = [*(a1 + 48) identifier];
@@ -1186,8 +1167,6 @@ void __53__MGGroupsQueryAgent_groupsMediator_didUpdateGroups___block_invoke(uint
 
   [v9 setObject:*(a1 + 40) forKey:v6];
   [*(a1 + 32) setGroupsByMediator:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)groupsMediatorRemoved:(id)removed
@@ -1205,17 +1184,17 @@ void __53__MGGroupsQueryAgent_groupsMediator_didUpdateGroups___block_invoke(uint
 
 void __44__MGGroupsQueryAgent_groupsMediatorRemoved___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = MGLogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v10 = 134218240;
-    v11 = v3;
-    v12 = 2048;
-    v13 = v4;
-    _os_log_impl(&dword_25863A000, v2, OS_LOG_TYPE_DEFAULT, "%p dropping %p", &v10, 0x16u);
+    v9 = 134218240;
+    v10 = v3;
+    v11 = 2048;
+    v12 = v4;
+    _os_log_impl(&dword_25863A000, v2, OS_LOG_TYPE_DEFAULT, "%p dropping %p", &v9, 0x16u);
   }
 
   v5 = [*(a1 + 40) identifier];
@@ -1227,8 +1206,6 @@ void __44__MGGroupsQueryAgent_groupsMediatorRemoved___block_invoke(uint64_t a1)
 
   [v8 removeObjectForKey:v5];
   [*(a1 + 32) setGroupsByMediator:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (MGGroupsQueryAgentDelegate)delegate

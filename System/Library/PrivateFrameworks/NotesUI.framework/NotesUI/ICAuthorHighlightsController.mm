@@ -283,10 +283,10 @@ void __77__ICAuthorHighlightsController_setHighlightAnimation_forRange_inTextSto
 {
   v21 = a2;
   v7 = [[ICAuthorHighlightAnimationAttribute alloc] initWithStartDate:*(a1 + 32)];
-  v8 = [*(a1 + 40) duration];
+  v8 = objc_msgSend_duration(*(a1 + 40));
   if (v8)
   {
-    v9 = [*(a1 + 40) duration];
+    v9 = objc_msgSend_duration(*(a1 + 40));
     [v9 floatValue];
     [(ICAuthorHighlightAnimationAttribute *)v7 setDuration:v10];
   }
@@ -327,7 +327,7 @@ void __77__ICAuthorHighlightsController_setHighlightAnimation_forRange_inTextSto
     [*(a1 + 48) addAttribute:*MEMORY[0x1E69B7920] value:v7 range:{a3, a4}];
     if ([(ICAuthorHighlightAnimationAttribute *)v7 isRemovedOnCompletion])
     {
-      [(ICAuthorHighlightAnimationAttribute *)v7 duration];
+      objc_msgSend_duration(v7);
       if (v20 <= 0.0)
       {
         [*(a1 + 56) removeHighlightAnimationsForRange:a3 inTextStorage:{a4, *(a1 + 64)}];
@@ -659,28 +659,27 @@ LABEL_20:
 
 void __72__ICAuthorHighlightsController_rangeHasOrNeedsHighlights_inTextStorage___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v19 = a2;
+  v18 = a2;
   v8 = [*(a1 + 32) attributesAtIndex:a3 effectiveRange:0];
-  v9 = [v19 allKeys];
+  v9 = [v18 allKeys];
   v10 = [v9 containsObject:*MEMORY[0x1E69B7928]];
   v11 = [v9 containsObject:*MEMORY[0x1E69B7920]];
-  v12 = *MEMORY[0x1E69DB650];
-  v13 = [v19 objectForKeyedSubscript:*MEMORY[0x1E69DB650]];
-  if (v13)
+  v12 = objc_msgSend_objectForKeyedSubscript_(v18);
+  if (v12)
   {
-    v14 = [v19 objectForKeyedSubscript:v12];
-    v15 = [v8 objectForKeyedSubscript:*MEMORY[0x1E69B7960]];
-    v16 = v14 != v15;
+    v13 = objc_msgSend_objectForKeyedSubscript_(v18);
+    v14 = objc_msgSend_objectForKeyedSubscript_(v8);
+    v15 = v13 != v14;
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  v17 = [v9 containsObject:*MEMORY[0x1E69DB600]];
-  v18 = [v9 containsObject:*MEMORY[0x1E69B7930]];
-  *(*(*(a1 + 40) + 8) + 24) = (v10 | v11 | v16 | v17 | v18 | [v9 containsObject:*MEMORY[0x1E69B75D8]]) & 1;
+  v16 = [v9 containsObject:*MEMORY[0x1E69DB600]];
+  v17 = [v9 containsObject:*MEMORY[0x1E69B7930]];
+  *(*(*(a1 + 40) + 8) + 24) = (v10 | v11 | v15 | v16 | v17 | [v9 containsObject:*MEMORY[0x1E69B75D8]]) & 1;
   *a5 = *(*(*(a1 + 40) + 8) + 24);
 }
 
@@ -724,13 +723,13 @@ void __72__ICAuthorHighlightsController_rangeHasOrNeedsHighlights_inTextStorage_
   v22[2] = 0x3032000000;
   v22[3] = __Block_byref_object_copy__26;
   v22[4] = __Block_byref_object_dispose__26;
-  v23 = [v12 objectForKeyedSubscript:*MEMORY[0x1E69B7928]];
+  v23 = objc_msgSend_objectForKeyedSubscript_(v12);
   v20[0] = 0;
   v20[1] = v20;
   v20[2] = 0x3032000000;
   v20[3] = __Block_byref_object_copy__26;
   v20[4] = __Block_byref_object_dispose__26;
-  v21 = [v12 objectForKeyedSubscript:*MEMORY[0x1E69B7920]];
+  v21 = objc_msgSend_objectForKeyedSubscript_(v12);
   v13 = [(ICAuthorHighlightsController *)self highlightsAttributedStringForTextStorage:v10];
   if (reverseCopy)
   {
@@ -761,7 +760,7 @@ void __79__ICAuthorHighlightsController_extendHighlightsForRange_inTextStorage_r
   v7 = a2;
   v8 = *MEMORY[0x1E69B7928];
   v18 = v7;
-  v9 = [v7 objectForKeyedSubscript:*MEMORY[0x1E69B7928]];
+  v9 = objc_msgSend_objectForKeyedSubscript_(v7);
   v10 = *(*(a1 + 40) + 8);
   v11 = v9;
   if (!v9)
@@ -773,7 +772,7 @@ void __79__ICAuthorHighlightsController_extendHighlightsForRange_inTextStorage_r
 
   if (*(*(*(a1 + 40) + 8) + 40))
   {
-    v12 = [v18 objectForKeyedSubscript:v8];
+    v12 = objc_msgSend_objectForKeyedSubscript_(v18);
 
     if (!v12)
     {
@@ -782,7 +781,7 @@ void __79__ICAuthorHighlightsController_extendHighlightsForRange_inTextStorage_r
   }
 
   v13 = MEMORY[0x1E69B7920];
-  v14 = [v18 objectForKeyedSubscript:*MEMORY[0x1E69B7920]];
+  v14 = objc_msgSend_objectForKeyedSubscript_(v18);
   v15 = *(*(a1 + 48) + 8);
   v16 = v14;
   if (!v14)
@@ -794,7 +793,7 @@ void __79__ICAuthorHighlightsController_extendHighlightsForRange_inTextStorage_r
 
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    v17 = [v18 objectForKeyedSubscript:*v13];
+    v17 = objc_msgSend_objectForKeyedSubscript_(v18);
 
     if (!v17)
     {
@@ -1097,57 +1096,56 @@ LABEL_10:
 
 void __80__ICAuthorHighlightsController_updateHighlightAttributesForRange_inTextStorage___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v7 = *MEMORY[0x1E69B7928];
-  v8 = a2;
-  v27 = [v8 objectForKeyedSubscript:v7];
-  v9 = [v8 objectForKeyedSubscript:*MEMORY[0x1E69B7920]];
+  v7 = a2;
+  v26 = objc_msgSend_objectForKeyedSubscript_(v7);
+  v8 = objc_msgSend_objectForKeyedSubscript_(v7);
 
-  [v27 value];
-  v11 = v10;
-  v12 = [v9 color];
-  v13 = v12;
-  if (v12)
+  [v26 value];
+  v10 = v9;
+  v11 = [v8 color];
+  v12 = v11;
+  if (v11)
   {
-    v14 = v12;
+    v13 = v11;
   }
 
   else
   {
-    v14 = [v27 color];
+    v13 = [v26 color];
   }
 
-  v15 = v14;
+  v14 = v13;
 
-  if (v9)
+  if (v8)
   {
-    v16 = *(a1 + 32);
-    v17 = [v9 startDate];
-    [v16 timeIntervalSinceDate:v17];
-    v19 = v18;
+    v15 = *(a1 + 32);
+    v16 = [v8 startDate];
+    [v15 timeIntervalSinceDate:v16];
+    v18 = v17;
 
-    [v9 duration];
-    v21 = v19 / v20;
-    if (v21 < 0.0)
+    objc_msgSend_duration(v8);
+    v20 = v18 / v19;
+    if (v20 < 0.0)
     {
-      v21 = 0.0;
+      v20 = 0.0;
     }
 
-    v22 = fmin(v21, 1.0);
-    [v9 fromValue];
-    v24 = v23;
-    [v9 toValue];
-    v26 = v25 * v22 + v24 * (1.0 - v22);
-    if ([v9 isAboveExistingHighlights])
+    v21 = fmin(v20, 1.0);
+    [v8 fromValue];
+    v23 = v22;
+    [v8 toValue];
+    v25 = v24 * v21 + v23 * (1.0 - v21);
+    if ([v8 isAboveExistingHighlights])
     {
-      v11 = v11 + v26;
+      v10 = v10 + v25;
     }
 
     else
     {
-      v11 = v26;
+      v10 = v25;
     }
 
-    if (v22 < 1.0 && ([*(a1 + 40) shouldAnimateInTextStorage:*(a1 + 48)] & 1) != 0)
+    if (v21 < 1.0 && ([*(a1 + 40) shouldAnimateInTextStorage:*(a1 + 48)] & 1) != 0)
     {
       *(*(*(a1 + 64) + 8) + 24) = 1;
     }
@@ -1158,7 +1156,7 @@ void __80__ICAuthorHighlightsController_updateHighlightAttributesForRange_inText
     }
   }
 
-  [*(a1 + 40) setHighlightAttributesForHighlightValue:v15 highlightColor:a3 forRange:a4 inTextStorage:*(a1 + 48) editGroups:{*(a1 + 56), v11}];
+  [*(a1 + 40) setHighlightAttributesForHighlightValue:v14 highlightColor:a3 forRange:a4 inTextStorage:*(a1 + 48) editGroups:{*(a1 + 56), v10}];
 }
 
 - (void)setHighlightAttributesForHighlightValue:(double)value highlightColor:(id)color forRange:(_NSRange)range inTextStorage:(id)storage editGroups:(id)groups
@@ -1610,64 +1608,63 @@ void __97__ICAuthorHighlightsController_setCheckmarkHighlightValue_highlightColo
 
 void __108__ICAuthorHighlightsController_setTextHighlightValue_highlightColor_blendsTextColor_forRange_inTextStorage___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v7 = *MEMORY[0x1E69B7960];
-  v8 = a2;
-  v9 = [v8 objectForKeyedSubscript:v7];
-  v10 = v9;
-  if (v9)
+  v7 = a2;
+  v8 = objc_msgSend_objectForKeyedSubscript_(v7);
+  v9 = v8;
+  if (v8)
   {
-    v11 = v9;
+    v10 = v8;
   }
 
   else
   {
-    v11 = [MEMORY[0x1E69DC888] preferredDefaultFontColor];
+    v10 = [MEMORY[0x1E69DC888] preferredDefaultFontColor];
   }
 
-  v12 = v11;
+  v11 = v10;
 
-  v13 = [v8 objectForKeyedSubscript:*MEMORY[0x1E69B7930]];
+  v12 = objc_msgSend_objectForKeyedSubscript_(v7);
 
-  v14 = [v13 color];
-  v15 = v14;
-  if (v14)
+  v13 = [v12 color];
+  v14 = v13;
+  if (v13)
   {
-    v16 = v14;
+    v15 = v13;
   }
 
   else
   {
-    v16 = v12;
+    v15 = v11;
   }
 
-  v17 = v16;
+  v16 = v15;
 
-  v18 = [MEMORY[0x1E69DC888] preferredDefaultFontColor];
-  v19 = [v17 ic_colorBlendedWithColor:v18 fraction:fabs(*(a1 + 40))];
+  v17 = [MEMORY[0x1E69DC888] preferredDefaultFontColor];
+  v18 = [v16 ic_colorBlendedWithColor:v17 fraction:fabs(*(a1 + 40))];
 
-  v27 = [v19 colorWithAlphaComponent:*(a1 + 48)];
+  v26 = [v18 colorWithAlphaComponent:*(a1 + 48)];
 
-  [*(a1 + 32) addAttribute:*MEMORY[0x1E69DB650] value:v27 range:{a3, a4}];
-  v20 = [v13 underlineStyle];
-  v21 = *(a1 + 32);
-  v22 = *MEMORY[0x1E69DB758];
-  v23 = [MEMORY[0x1E696AD98] numberWithInteger:v20];
-  [v21 addAttribute:v22 value:v23 range:{a3, a4}];
+  [*(a1 + 32) addAttribute:*MEMORY[0x1E69DB650] value:v26 range:{a3, a4}];
+  v19 = [v12 underlineStyle];
+  v20 = *(a1 + 32);
+  v21 = *MEMORY[0x1E69DB758];
+  v22 = [MEMORY[0x1E696AD98] numberWithInteger:v19];
+  [v20 addAttribute:v21 value:v22 range:{a3, a4}];
 
-  v24 = [v13 underlineColor];
-  if (v24)
+  v23 = [v12 underlineColor];
+  if (v23)
   {
-    v25 = v24;
+    v24 = v23;
   }
 
   else
   {
-    v25 = v27;
+    v24 = v26;
   }
 
-  v26 = v25;
+  v25 = v24;
 
-  [*(a1 + 32) addAttribute:*MEMORY[0x1E69DB750] value:v26 range:{a3, a4}];
+  [*(a1 + 32) addAttribute:*MEMORY[0x1E69DB750] value:v25 range:{a3, a4}];
 }
 
 uint64_t __108__ICAuthorHighlightsController_setTextHighlightValue_highlightColor_blendsTextColor_forRange_inTextStorage___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1698,7 +1695,7 @@ uint64_t __108__ICAuthorHighlightsController_setTextHighlightValue_highlightColo
 void __108__ICAuthorHighlightsController_setTextHighlightValue_highlightColor_blendsTextColor_forRange_inTextStorage___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v39 = a2;
-  v7 = [v39 objectForKeyedSubscript:*MEMORY[0x1E69B7960]];
+  v7 = objc_msgSend_objectForKeyedSubscript_(v39);
   v8 = v7;
   if (v7)
   {
@@ -1714,7 +1711,7 @@ void __108__ICAuthorHighlightsController_setTextHighlightValue_highlightColor_bl
 
   v11 = *(a1 + 32);
   objc_opt_class();
-  v12 = [v39 objectForKeyedSubscript:*MEMORY[0x1E69B75D8]];
+  v12 = objc_msgSend_objectForKeyedSubscript_(v39);
   v13 = ICDynamicCast();
 
   v38 = v13;
@@ -1738,7 +1735,7 @@ void __108__ICAuthorHighlightsController_setTextHighlightValue_highlightColor_bl
   }
 
   v17 = a4;
-  v18 = [v39 objectForKeyedSubscript:*MEMORY[0x1E69B7930]];
+  v18 = objc_msgSend_objectForKeyedSubscript_(v39);
   if ([v18 type] == 1)
   {
     v19 = [*(a1 + 40) textViews];
@@ -1803,7 +1800,7 @@ void __108__ICAuthorHighlightsController_setTextHighlightValue_highlightColor_bl
 void __108__ICAuthorHighlightsController_setTextHighlightValue_highlightColor_blendsTextColor_forRange_inTextStorage___block_invoke_4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v28 = a2;
-  v7 = [v28 objectForKeyedSubscript:*MEMORY[0x1E69B7960]];
+  v7 = objc_msgSend_objectForKeyedSubscript_(v28);
   v8 = v7;
   if (v7)
   {
@@ -1818,7 +1815,7 @@ void __108__ICAuthorHighlightsController_setTextHighlightValue_highlightColor_bl
   v10 = v9;
 
   objc_opt_class();
-  v11 = [v28 objectForKeyedSubscript:*MEMORY[0x1E69B75D8]];
+  v11 = objc_msgSend_objectForKeyedSubscript_(v28);
   v12 = ICDynamicCast();
 
   [v12 intValue];
@@ -1844,7 +1841,7 @@ void __108__ICAuthorHighlightsController_setTextHighlightValue_highlightColor_bl
     v14 = 0;
   }
 
-  v15 = [v28 objectForKeyedSubscript:*MEMORY[0x1E69B7930]];
+  v15 = objc_msgSend_objectForKeyedSubscript_(v28);
   v16 = [v15 color];
   v17 = v16;
   if (v16)
@@ -1976,18 +1973,18 @@ void __108__ICAuthorHighlightsController_setTextHighlightValue_highlightColor_bl
   {
     objc_opt_class();
     v46 = *MEMORY[0x1E69DB650];
-    v47 = [v39 objectForKeyedSubscript:*MEMORY[0x1E69DB650]];
+    v47 = objc_msgSend_objectForKeyedSubscript_(v39);
     v48 = ICCheckedDynamicCast();
 
     objc_opt_class();
-    v49 = [v27 objectForKeyedSubscript:*MEMORY[0x1E69B7940]];
+    v49 = objc_msgSend_objectForKeyedSubscript_(v27);
     v50 = ICCheckedDynamicCast();
     [v50 floatValue];
     v52 = v51;
 
     if (fabs(v52) >= 0.00999999978)
     {
-      v53 = [v39 objectForKeyedSubscript:*MEMORY[0x1E69DB670]];
+      v53 = objc_msgSend_objectForKeyedSubscript_(v39);
 
       if (!v53)
       {
@@ -2007,13 +2004,13 @@ void __108__ICAuthorHighlightsController_setTextHighlightValue_highlightColor_bl
   }
 
   v40 = *MEMORY[0x1E69DB600];
-  v41 = [v27 objectForKeyedSubscript:*MEMORY[0x1E69DB600]];
+  v41 = objc_msgSend_objectForKeyedSubscript_(v27);
   [v39 setObject:v41 forKeyedSubscript:v40];
 
   if (v32)
   {
     v42 = *MEMORY[0x1E69DB650];
-    v43 = [v39 objectForKeyedSubscript:*MEMORY[0x1E69DB650]];
+    v43 = objc_msgSend_objectForKeyedSubscript_(v39);
     v72 = v42;
     v44 = [v43 colorWithAlphaComponent:0.8];
     v73[0] = v44;
@@ -2024,7 +2021,7 @@ void __108__ICAuthorHighlightsController_setTextHighlightValue_highlightColor_bl
 
   else
   {
-    v57 = [v39 objectForKeyedSubscript:*MEMORY[0x1E69DB670]];
+    v57 = objc_msgSend_objectForKeyedSubscript_(v39);
 
     if (v57)
     {
@@ -2032,20 +2029,20 @@ void __108__ICAuthorHighlightsController_setTextHighlightValue_highlightColor_bl
     }
 
     v58 = *MEMORY[0x1E69DB650];
-    v43 = [v27 objectForKeyedSubscript:*MEMORY[0x1E69DB650]];
+    v43 = objc_msgSend_objectForKeyedSubscript_(v27);
     [v39 setObject:v43 forKeyedSubscript:v58];
   }
 
 LABEL_24:
   v59 = *MEMORY[0x1E69DB758];
-  v60 = [v27 objectForKeyedSubscript:*MEMORY[0x1E69DB758]];
+  v60 = objc_msgSend_objectForKeyedSubscript_(v27);
   if (!v60)
   {
     goto LABEL_28;
   }
 
   v61 = v60;
-  v62 = [v27 objectForKeyedSubscript:v59];
+  v62 = objc_msgSend_objectForKeyedSubscript_(v27);
   v63 = [v62 isEqual:&unk_1F4FC3ED0];
 
   if (v63)
@@ -2053,11 +2050,11 @@ LABEL_24:
     goto LABEL_28;
   }
 
-  v64 = [v27 objectForKeyedSubscript:v59];
+  v64 = objc_msgSend_objectForKeyedSubscript_(v27);
   [v39 setObject:v64 forKeyedSubscript:v59];
 
   v65 = *MEMORY[0x1E69DB750];
-  v48 = [v27 objectForKeyedSubscript:*MEMORY[0x1E69DB750]];
+  v48 = objc_msgSend_objectForKeyedSubscript_(v27);
   [v39 setObject:v48 forKeyedSubscript:v65];
 LABEL_27:
 

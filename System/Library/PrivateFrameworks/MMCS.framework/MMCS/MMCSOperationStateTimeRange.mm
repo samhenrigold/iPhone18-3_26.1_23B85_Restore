@@ -60,7 +60,6 @@
   v3 = objc_opt_class();
   operationState = self->_operationState;
   [(MMCSOperationStateTimeRange *)self absoluteStart];
-  duration = self->_duration;
 
   return [v3 descriptionWithOperationState:operationState absoluteStart:? duration:?];
 }

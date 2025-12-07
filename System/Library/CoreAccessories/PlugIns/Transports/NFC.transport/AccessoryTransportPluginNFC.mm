@@ -25,6 +25,7 @@
 - (void)_handleIOHIDEvent:(__IOHIDEvent *)event;
 - (void)_handleNearFieldAccessoryEventNotification:(id)notification;
 - (void)_notifyAuthReadyAfterPowerPauseComplete;
+- (void)_pollTags:(unsigned int)tags;
 - (void)_requestPowerPause;
 - (void)_setProximityMonitoringEnabled:(BOOL)enabled;
 - (void)_setScreenStateMonitoringEnabled:(BOOL)enabled;
@@ -41,10 +42,64 @@
 
 - (void)initPlugin
 {
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2336E3000, MEMORY[0x277D86220], v0, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
+  init_logging();
+  v15.receiver = self;
+  v15.super_class = AccessoryTransportPluginNFC;
+  [(ACCTransportPlugin *)&v15 initPlugin];
+  if (gLogObjects)
+  {
+    v3 = gNumLogObjects < 1;
+  }
+
+  else
+  {
+    v3 = 1;
+  }
+
+  if (v3)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [AccessoryTransportPluginNFC initPlugin];
+    }
+
+    v5 = MEMORY[0x277D86220];
+    v4 = MEMORY[0x277D86220];
+  }
+
+  else
+  {
+    v5 = *gLogObjects;
+  }
+
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *v14 = 0;
+    _os_log_impl(&dword_2336E3000, v5, OS_LOG_TYPE_DEFAULT, "Initializing NFC transport plugin", v14, 2u);
+  }
+
+  readerSession = self->_readerSession;
+  self->_readerSession = 0;
+
+  polledTags = self->_polledTags;
+  self->_polledTags = 0;
+
+  polledSem = self->_polledSem;
+  self->_polledSem = 0;
+
+  self->_proximityOcclusionState = -1;
+  self->_screenState = -1;
+  self->_hidEventClient = 0;
+  v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  tagForConnectionUuid = self->_tagForConnectionUuid;
+  self->_tagForConnectionUuid = v9;
+
+  v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  connectionUuidForEndpointUuid = self->_connectionUuidForEndpointUuid;
+  self->_connectionUuidForEndpointUuid = v11;
+
+  lastRequestPowerPauseTime = self->_lastRequestPowerPauseTime;
+  self->_lastRequestPowerPauseTime = 0;
 }
 
 - (void)startPlugin
@@ -114,7 +169,7 @@
 
 - (void)stopPlugin
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v3 = gNumLogObjects < 1;
@@ -147,61 +202,61 @@
     _os_log_impl(&dword_2336E3000, v5, OS_LOG_TYPE_DEFAULT, "Stopping NFC transport plugin", buf, 2u);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   allKeys = [(NSMutableDictionary *)self->_connectionUuidForEndpointUuid allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v29;
+    v9 = *v28;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v29 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
+        v11 = *(*(&v27 + 1) + 8 * i);
         [(ACCTransportPlugin *)self destroyEndpointWithUUID:v11];
         [(NSMutableDictionary *)self->_connectionUuidForEndpointUuid removeObjectForKey:v11];
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v8);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   allKeys2 = [(NSMutableDictionary *)self->_tagForConnectionUuid allKeys];
-  v13 = [allKeys2 countByEnumeratingWithState:&v24 objects:v33 count:16];
+  v13 = [allKeys2 countByEnumeratingWithState:&v23 objects:v32 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v25;
+    v15 = *v24;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v25 != v15)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(allKeys2);
         }
 
-        v17 = *(*(&v24 + 1) + 8 * j);
+        v17 = *(*(&v23 + 1) + 8 * j);
         [(ACCTransportPlugin *)self destroyConnectionWithUUID:v17];
         [(NSMutableDictionary *)self->_tagForConnectionUuid removeObjectForKey:v17];
       }
 
-      v14 = [allKeys2 countByEnumeratingWithState:&v24 objects:v33 count:16];
+      v14 = [allKeys2 countByEnumeratingWithState:&v23 objects:v32 count:16];
     }
 
     while (v14);
@@ -221,16 +276,15 @@
   readerSession = self->_readerSession;
   self->_readerSession = 0;
 
-  v23.receiver = self;
-  v23.super_class = AccessoryTransportPluginNFC;
-  [(ACCTransportPlugin *)&v23 stopPlugin];
+  v22.receiver = self;
+  v22.super_class = AccessoryTransportPluginNFC;
+  [(ACCTransportPlugin *)&v22 stopPlugin];
   [(AccessoryTransportPluginNFC *)self setIsRunning:0];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)sendOutgoingData:(id)data forEndpointWithUUID:(id)d connectionUUID:(id)iD
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   dCopy = d;
   iDCopy = iD;
@@ -271,15 +325,15 @@
       if (os_signpost_enabled(v14))
       {
         *buf = 138412546;
-        v64 = dCopy;
-        v65 = 2048;
-        v66 = [dataCopy length];
+        v63 = dCopy;
+        v64 = 2048;
+        v65 = [dataCopy length];
         _os_signpost_emit_with_name_impl(&dword_2336E3000, v14, OS_SIGNPOST_EVENT, v16, "Endpoint SEND", "Send outgoing data! %@, %lu bytes", buf, 0x16u);
       }
     }
   }
 
-  v54 = dCopy;
+  v53 = dCopy;
   if (!self->_readerSession || !self->_connectedTag)
   {
     v35 = logObjectForModule();
@@ -302,9 +356,9 @@
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v53 = "NFC transport plugin: sendOutgoingData: !uuid || !equal";
+      v52 = "NFC transport plugin: sendOutgoingData: !uuid || !equal";
 LABEL_101:
-      _os_log_impl(&dword_2336E3000, v35, OS_LOG_TYPE_DEFAULT, v53, buf, 2u);
+      _os_log_impl(&dword_2336E3000, v35, OS_LOG_TYPE_DEFAULT, v52, buf, 2u);
     }
 
 LABEL_102:
@@ -325,7 +379,7 @@ LABEL_92:
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v53 = "NFC transport plugin: sendOutgoingData: !requestedTag";
+      v52 = "NFC transport plugin: sendOutgoingData: !requestedTag";
       goto LABEL_101;
     }
 
@@ -354,9 +408,9 @@ LABEL_92:
     connectedTagId = self->_connectedTagId;
     tagID = [v20 tagID];
     *buf = 138412546;
-    v64 = connectedTagId;
-    v65 = 2112;
-    v66 = tagID;
+    v63 = connectedTagId;
+    v64 = 2112;
+    v65 = tagID;
     _os_log_impl(&dword_2336E3000, v21, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: sendOutgoingData: sameTagId? %@ ?= %@", buf, 0x16u);
   }
 
@@ -384,7 +438,7 @@ LABEL_92:
     {
       _getpowerPauseStatus = [(AccessoryTransportPluginNFC *)self _getpowerPauseStatus];
       *buf = 67109120;
-      LODWORD(v64) = _getpowerPauseStatus;
+      LODWORD(v63) = _getpowerPauseStatus;
       _os_log_impl(&dword_2336E3000, v25, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: sendOutgoingData: powerPause:0->%d", buf, 8u);
     }
   }
@@ -394,18 +448,18 @@ LABEL_92:
 
   if (v29)
   {
-    v62 = 43520;
-    v61[0] = 0;
-    v58 = -256;
-    v30 = [MEMORY[0x277CBEB28] dataWithBytes:&v62 length:4];
-    v59 = [dataCopy length];
-    v60 = [dataCopy length] >> 8;
-    [(NSData *)v30 appendBytes:v61 length:1];
-    [(NSData *)v30 appendBytes:&v60 length:1];
+    v61 = 43520;
+    v60[0] = 0;
+    v57 = -256;
+    v30 = [MEMORY[0x277CBEB28] dataWithBytes:&v61 length:4];
+    v58 = [dataCopy length];
+    v59 = [dataCopy length] >> 8;
+    [(NSData *)v30 appendBytes:v60 length:1];
     [(NSData *)v30 appendBytes:&v59 length:1];
-    [(NSData *)v30 appendData:dataCopy];
-    [(NSData *)v30 appendBytes:&v58 + 1 length:1];
     [(NSData *)v30 appendBytes:&v58 length:1];
+    [(NSData *)v30 appendData:dataCopy];
+    [(NSData *)v30 appendBytes:&v57 + 1 length:1];
+    [(NSData *)v30 appendBytes:&v57 length:1];
     if (gLogObjects && gNumLogObjects >= 1)
     {
       v31 = *gLogObjects;
@@ -425,14 +479,14 @@ LABEL_92:
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v64 = v30;
+      v63 = v30;
       _os_log_impl(&dword_2336E3000, v31, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: sendOutgoingData: %@", buf, 0xCu);
     }
 
     readerSession = self->_readerSession;
-    v57 = 0;
-    v35 = [(NFAccessoryReaderSession *)readerSession transceive:v30 error:&v57];
-    v36 = v57;
+    v56 = 0;
+    v35 = [(NFAccessoryReaderSession *)readerSession transceive:v30 error:&v56];
+    v36 = v56;
   }
 
   else
@@ -447,9 +501,9 @@ LABEL_92:
     }
 
     v34 = self->_readerSession;
-    v56 = 0;
-    v35 = [(NFAccessoryReaderSession *)v34 sendAccessoryProtocolCommand:dataCopy outError:&v56];
-    v36 = v56;
+    v55 = 0;
+    v35 = [(NFAccessoryReaderSession *)v34 sendAccessoryProtocolCommand:dataCopy outError:&v55];
+    v36 = v55;
   }
 
   if (v36)
@@ -473,7 +527,7 @@ LABEL_92:
     if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v64 = v36;
+      v63 = v36;
       _os_log_impl(&dword_2336E3000, v39, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: cmdError: %@", buf, 0xCu);
     }
 
@@ -481,7 +535,7 @@ LABEL_92:
     if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v64 = v36;
+      v63 = v36;
       _os_log_impl(&dword_2336E3000, v44, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: sendOutgoingData failed: Error: %@", buf, 0xCu);
     }
 
@@ -532,7 +586,7 @@ LABEL_56:
     if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v64 = v35;
+      v63 = v35;
       _os_log_impl(&dword_2336E3000, v42, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: dataIn: %@", buf, 0xCu);
     }
 
@@ -557,11 +611,11 @@ LABEL_56:
     if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v64 = v48;
+      v63 = v48;
       _os_log_impl(&dword_2336E3000, v49, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: dataIn status: %@", buf, 0xCu);
     }
 
-    v45 = [(ACCTransportPlugin *)self processIncomingData:v47 forEndpointWithUUID:v54];
+    v45 = [(ACCTransportPlugin *)self processIncomingData:v47 forEndpointWithUUID:v53];
     v36 = 0;
     goto LABEL_92;
   }
@@ -570,7 +624,6 @@ LABEL_56:
   v45 = 1;
 LABEL_93:
 
-  v51 = *MEMORY[0x277D85DE8];
   return v45;
 }
 
@@ -598,7 +651,7 @@ LABEL_93:
 
 void __105__AccessoryTransportPluginNFC_propertiesDidChange_forEndpointWithUUID_previousProperties_connectionUUID___block_invoke(uint64_t a1)
 {
-  *&v42[5] = *MEMORY[0x277D85DE8];
+  *&v41[5] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) valueForKey:*MEMORY[0x277CFD310]];
   v3 = [v2 BOOLValue];
 
@@ -631,7 +684,7 @@ void __105__AccessoryTransportPluginNFC_propertiesDidChange_forEndpointWithUUID_
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v42[0] = v3;
+    v41[0] = v3;
     _os_log_impl(&dword_2336E3000, v6, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: propertiesDidChange, open = %d", buf, 8u);
   }
 
@@ -662,7 +715,7 @@ void __105__AccessoryTransportPluginNFC_propertiesDidChange_forEndpointWithUUID_
         {
           v22 = *(a1 + 48);
           *buf = 138412290;
-          *v42 = v22;
+          *v41 = v22;
           _os_log_impl(&dword_2336E3000, v8, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: propertiesDidChange, queued, uuid = %@", buf, 0xCu);
         }
 
@@ -699,18 +752,18 @@ void __105__AccessoryTransportPluginNFC_propertiesDidChange_forEndpointWithUUID_
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        v42[0] = 1;
-        LOWORD(v42[1]) = 1024;
-        *(&v42[1] + 2) = v11;
+        v41[0] = 1;
+        LOWORD(v41[1]) = 1024;
+        *(&v41[1] + 2) = v11;
         _os_log_impl(&dword_2336E3000, v12, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: propertiesDidChange, open:%d, success:%d", buf, 0xEu);
       }
 
       if (v11)
       {
         v19 = *(a1 + 40);
-        v39 = *MEMORY[0x277CFD318];
-        v40 = MEMORY[0x277CBEC38];
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+        v38 = *MEMORY[0x277CFD318];
+        v39 = MEMORY[0x277CBEC38];
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
         [v19 setProperties:v20 forEndpointWithUUID:*(a1 + 48)];
       }
     }
@@ -738,9 +791,9 @@ void __105__AccessoryTransportPluginNFC_propertiesDidChange_forEndpointWithUUID_
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      v42[0] = 0;
-      LOWORD(v42[1]) = 1024;
-      *(&v42[1] + 2) = v9;
+      v41[0] = 0;
+      LOWORD(v41[1]) = 1024;
+      *(&v41[1] + 2) = v9;
       _os_log_impl(&dword_2336E3000, v10, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: propertiesDidChange, open:%d, success:%d", buf, 0xEu);
     }
 
@@ -748,9 +801,9 @@ void __105__AccessoryTransportPluginNFC_propertiesDidChange_forEndpointWithUUID_
     {
       v14 = *(a1 + 40);
       v15 = *MEMORY[0x277CFD318];
-      v37 = *MEMORY[0x277CFD318];
-      v38 = MEMORY[0x277CBEC28];
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+      v36 = *MEMORY[0x277CFD318];
+      v37 = MEMORY[0x277CBEC28];
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
       [v14 setProperties:v16 forEndpointWithUUID:*(a1 + 48)];
 
       if (gLogObjects && gNumLogObjects >= 1)
@@ -773,7 +826,7 @@ void __105__AccessoryTransportPluginNFC_propertiesDidChange_forEndpointWithUUID_
       {
         v28 = *(*(a1 + 40) + 128);
         *buf = 138412290;
-        *v42 = v28;
+        *v41 = v28;
         _os_log_impl(&dword_2336E3000, v17, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: propertiesDidChange, queue:%@", buf, 0xCu);
       }
 
@@ -787,9 +840,9 @@ void __105__AccessoryTransportPluginNFC_propertiesDidChange_forEndpointWithUUID_
           if (v31 && [*(a1 + 40) _handleSessionOpen:1 forEndpointWithUUID:v30 connectionUUID:v31])
           {
             v32 = *(a1 + 40);
-            v35 = v15;
-            v36 = MEMORY[0x277CBEC38];
-            v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+            v34 = v15;
+            v35 = MEMORY[0x277CBEC38];
+            v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
             [v32 setProperties:v33 forEndpointWithUUID:v30];
           }
 
@@ -798,8 +851,6 @@ void __105__AccessoryTransportPluginNFC_propertiesDidChange_forEndpointWithUUID_
       }
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readerSessionDidEndUnexpectedly:(id)unexpectedly
@@ -818,7 +869,7 @@ void __105__AccessoryTransportPluginNFC_propertiesDidChange_forEndpointWithUUID_
 
 void __63__AccessoryTransportPluginNFC_readerSessionDidEndUnexpectedly___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _getpowerPauseStatus];
   if (gLogObjects)
   {
@@ -849,7 +900,7 @@ void __63__AccessoryTransportPluginNFC_readerSessionDidEndUnexpectedly___block_i
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v10 = v2;
+    v9 = v2;
     _os_log_impl(&dword_2336E3000, v5, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: Session ended unexpectedly: powerPause:%d", buf, 8u);
   }
 
@@ -861,8 +912,6 @@ void __63__AccessoryTransportPluginNFC_readerSessionDidEndUnexpectedly___block_i
   block[3] = &unk_2789EBE38;
   block[4] = *(a1 + 32);
   dispatch_async(v6, block);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__AccessoryTransportPluginNFC_readerSessionDidEndUnexpectedly___block_invoke_27(uint64_t a1)
@@ -904,7 +953,7 @@ uint64_t __63__AccessoryTransportPluginNFC_readerSessionDidEndUnexpectedly___blo
 
 - (void)readerSession:(id)session didDetectTags:(id)tags
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   tagsCopy = tags;
   if (gLogObjects)
@@ -935,9 +984,9 @@ uint64_t __63__AccessoryTransportPluginNFC_readerSessionDidEndUnexpectedly___blo
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = tagsCopy;
-    _os_log_impl(&dword_2336E3000, v10, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: didDetectTags: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = tagsCopy;
+    _os_log_impl(&dword_2336E3000, v10, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: didDetectTags: %@", &v13, 0xCu);
   }
 
   polledTags = self->_polledTags;
@@ -945,7 +994,6 @@ uint64_t __63__AccessoryTransportPluginNFC_readerSessionDidEndUnexpectedly___blo
   v12 = tagsCopy;
 
   dispatch_semaphore_signal(self->_polledSem);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_initXPC
@@ -1063,7 +1111,7 @@ uint64_t __63__AccessoryTransportPluginNFC_readerSessionDidEndUnexpectedly___blo
 
 void __39__AccessoryTransportPluginNFC__initXPC__block_invoke(int a1, xpc_object_t xdict)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   string = xpc_dictionary_get_string(xdict, *MEMORY[0x277D86430]);
   if (string)
   {
@@ -1096,18 +1144,16 @@ void __39__AccessoryTransportPluginNFC__initXPC__block_invoke(int a1, xpc_object
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = v3;
-      _os_log_impl(&dword_2336E3000, v6, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: Received %s", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = v3;
+      _os_log_impl(&dword_2336E3000, v6, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: Received %s", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __39__AccessoryTransportPluginNFC__initXPC__block_invoke_32(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x2383AA970]();
   if (v4 == MEMORY[0x277D86450])
@@ -1141,7 +1187,7 @@ void __39__AccessoryTransportPluginNFC__initXPC__block_invoke_32(uint64_t a1, vo
         goto LABEL_41;
       }
 
-      LOWORD(v15) = 0;
+      LOWORD(v14) = 0;
       v10 = "NFC transport plugin: Service interrupted: com.apple.accessoryd.nf-events";
     }
 
@@ -1168,9 +1214,9 @@ void __39__AccessoryTransportPluginNFC__initXPC__block_invoke_32(uint64_t a1, vo
 
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = 136315138;
+          v14 = 136315138;
           string_ptr = xpc_string_get_string_ptr(v7);
-          _os_log_impl(&dword_2336E3000, v11, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: listener connection error %s", &v15, 0xCu);
+          _os_log_impl(&dword_2336E3000, v11, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: listener connection error %s", &v14, 0xCu);
         }
 
         goto LABEL_41;
@@ -1199,11 +1245,11 @@ LABEL_41:
         goto LABEL_42;
       }
 
-      LOWORD(v15) = 0;
+      LOWORD(v14) = 0;
       v10 = "NFC transport plugin: Service not available: com.apple.accessoryd.nf-events";
     }
 
-    _os_log_impl(&dword_2336E3000, v7, OS_LOG_TYPE_DEFAULT, v10, &v15, 2u);
+    _os_log_impl(&dword_2336E3000, v7, OS_LOG_TYPE_DEFAULT, v10, &v14, 2u);
     goto LABEL_41;
   }
 
@@ -1226,20 +1272,18 @@ LABEL_41:
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136446210;
+    v14 = 136446210;
     string_ptr = v5;
-    _os_log_impl(&dword_2336E3000, v6, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: received error or other non-connection type in handler for listener: %{public}s.", &v15, 0xCu);
+    _os_log_impl(&dword_2336E3000, v6, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: received error or other non-connection type in handler for listener: %{public}s.", &v14, 0xCu);
   }
 
   free(v5);
 LABEL_42:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectPeer:(id)peer
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   dispatch_assert_queue_V2(self->_queue);
   if (gLogObjects)
@@ -1308,28 +1352,26 @@ LABEL_42:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v20 = v12;
+      v19 = v12;
       _os_log_impl(&dword_2336E3000, v13, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: unexpected number of peer connections %lu.", buf, 0xCu);
     }
   }
 
   xpc_connection_set_target_queue(peerCopy, self->_queue);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __44__AccessoryTransportPluginNFC__connectPeer___block_invoke;
-  v17[3] = &unk_2789EBEA8;
-  v17[4] = self;
-  v18 = peerCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __44__AccessoryTransportPluginNFC__connectPeer___block_invoke;
+  v16[3] = &unk_2789EBEA8;
+  v16[4] = self;
+  v17 = peerCopy;
   v15 = peerCopy;
-  xpc_connection_set_event_handler(v15, v17);
+  xpc_connection_set_event_handler(v15, v16);
   xpc_connection_activate(v15);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __44__AccessoryTransportPluginNFC__connectPeer___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x2383AA970]();
   if (v4 == MEMORY[0x277D86468])
@@ -1355,9 +1397,9 @@ void __44__AccessoryTransportPluginNFC__connectPeer___block_invoke(uint64_t a1, 
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 136315138;
-      *&v20[4] = string_ptr;
-      _os_log_impl(&dword_2336E3000, v9, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: event name:%s", v20, 0xCu);
+      *v19 = 136315138;
+      *&v19[4] = string_ptr;
+      _os_log_impl(&dword_2336E3000, v9, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: event name:%s", v19, 0xCu);
     }
 
     [*(a1 + 32) _handleNearFieldAccessoryEventNotification:0];
@@ -1398,7 +1440,7 @@ void __44__AccessoryTransportPluginNFC__connectPeer___block_invoke(uint64_t a1, 
         goto LABEL_30;
       }
 
-      *v20 = 0;
+      *v19 = 0;
       v14 = "NFC transport plugin: Unexpected data, invalidating the connection.";
       goto LABEL_29;
     }
@@ -1420,7 +1462,7 @@ void __44__AccessoryTransportPluginNFC__connectPeer___block_invoke(uint64_t a1, 
       {
         if (v12)
         {
-          v17 = *gLogObjects;
+          v16 = *gLogObjects;
         }
 
         else
@@ -1430,14 +1472,14 @@ void __44__AccessoryTransportPluginNFC__connectPeer___block_invoke(uint64_t a1, 
             [AccessoryTransportPluginNFC initPlugin];
           }
 
-          v17 = MEMORY[0x277D86220];
-          v19 = MEMORY[0x277D86220];
+          v16 = MEMORY[0x277D86220];
+          v18 = MEMORY[0x277D86220];
         }
 
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          *v20 = 0;
-          _os_log_impl(&dword_2336E3000, v17, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: disconnecting peer", v20, 2u);
+          *v19 = 0;
+          _os_log_impl(&dword_2336E3000, v16, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: disconnecting peer", v19, 2u);
         }
 
         goto LABEL_31;
@@ -1456,7 +1498,7 @@ void __44__AccessoryTransportPluginNFC__connectPeer___block_invoke(uint64_t a1, 
         }
 
         v13 = MEMORY[0x277D86220];
-        v18 = MEMORY[0x277D86220];
+        v17 = MEMORY[0x277D86220];
       }
 
       if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
@@ -1465,32 +1507,30 @@ LABEL_30:
 
         xpc_connection_cancel(*(a1 + 40));
 LABEL_31:
-        [*(*(a1 + 32) + 208) removeObjectIdenticalTo:{*(a1 + 40), *v20}];
+        [*(*(a1 + 32) + 208) removeObjectIdenticalTo:{*(a1 + 40), *v19}];
         goto LABEL_38;
       }
 
-      *v20 = 0;
+      *v19 = 0;
       v14 = "NFC transport plugin: Unexpected error dictionary, invalidating the connection.";
 LABEL_29:
-      _os_log_impl(&dword_2336E3000, v13, OS_LOG_TYPE_DEFAULT, v14, v20, 2u);
+      _os_log_impl(&dword_2336E3000, v13, OS_LOG_TYPE_DEFAULT, v14, v19, 2u);
       goto LABEL_30;
     }
   }
 
 LABEL_38:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyAuthReadyAfterPowerPauseComplete
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   __tp.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   __tp.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
   clock_gettime(_CLOCK_REALTIME, &__tp);
-  v16 = 0;
-  v3 = [(AccessoryTransportPluginNFC *)self _tagsHavePowerBits:48 uuid:&v16];
-  v4 = v16;
+  v15 = 0;
+  v3 = [(AccessoryTransportPluginNFC *)self _tagsHavePowerBits:48 uuid:&v15];
+  v4 = v15;
   if (v3)
   {
     _getNfcStateMachineState = [(AccessoryTransportPluginNFC *)self _getNfcStateMachineState];
@@ -1515,7 +1555,7 @@ LABEL_38:
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v19 = v4;
+        v18 = v4;
         _os_log_impl(&dword_2336E3000, v6, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _notifyAuthReadyAfterPowerPauseComplete: notify: %@", buf, 0xCu);
       }
 
@@ -1546,26 +1586,24 @@ LABEL_38:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v19) = v10;
+        LODWORD(v18) = v10;
         _os_log_impl(&dword_2336E3000, v11, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _notifyAuthReadyAfterPowerPauseComplete: delay due to nfcState:0x%x", buf, 8u);
       }
 
       v13 = dispatch_time(0, 200000000);
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __70__AccessoryTransportPluginNFC__notifyAuthReadyAfterPowerPauseComplete__block_invoke;
-      v15[3] = &unk_2789EBE38;
-      v15[4] = self;
-      dispatch_after(v13, MEMORY[0x277D85CD0], v15);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __70__AccessoryTransportPluginNFC__notifyAuthReadyAfterPowerPauseComplete__block_invoke;
+      v14[3] = &unk_2789EBE38;
+      v14[4] = self;
+      dispatch_after(v13, MEMORY[0x277D85CD0], v14);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNearFieldAccessoryEventNotification:(id)notification
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if (gLogObjects)
   {
@@ -1601,9 +1639,9 @@ LABEL_38:
 
   v7 = MEMORY[0x277CBEB18];
   sharedHardwareManager = [getNFAccessoryHardwareManagerClass() sharedHardwareManager];
-  v55 = 0;
-  v9 = [sharedHardwareManager getMultiTagState:&v55];
-  v41 = v55;
+  v54 = 0;
+  v9 = [sharedHardwareManager getMultiTagState:&v54];
+  v40 = v54;
   v10 = [v7 arrayWithArray:v9];
 
   if (gLogObjects && gNumLogObjects >= 1)
@@ -1629,40 +1667,40 @@ LABEL_38:
     _os_log_impl(&dword_2336E3000, v11, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: newTags=%@", &buf, 0xCu);
   }
 
-  v42 = [(AccessoryTransportPluginNFC *)self _tagsHavePowerBits:32 uuid:0];
+  v41 = [(AccessoryTransportPluginNFC *)self _tagsHavePowerBits:32 uuid:0];
   polledTags = self->_polledTags;
   self->_polledTags = 0;
 
   [(AccessoryTransportPluginNFC *)self _didNfcTagsListChange:v10];
   v14 = [(AccessoryTransportPluginNFC *)self _hasWalletOnClearCase2020:v10];
   tagForConnectionUuid = self->_tagForConnectionUuid;
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __74__AccessoryTransportPluginNFC__handleNearFieldAccessoryEventNotification___block_invoke;
-  v52[3] = &unk_2789EBEF8;
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __74__AccessoryTransportPluginNFC__handleNearFieldAccessoryEventNotification___block_invoke;
+  v51[3] = &unk_2789EBEF8;
   v16 = v10;
-  v53 = v16;
+  v52 = v16;
   selfCopy = self;
-  [(NSMutableDictionary *)tagForConnectionUuid enumerateKeysAndObjectsUsingBlock:v52];
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
+  [(NSMutableDictionary *)tagForConnectionUuid enumerateKeysAndObjectsUsingBlock:v51];
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v17 = v16;
-  v18 = [v17 countByEnumeratingWithState:&v48 objects:v60 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v47 objects:v59 count:16];
   if (v18)
   {
-    v19 = *v49;
+    v19 = *v48;
 LABEL_21:
     v20 = 0;
     while (1)
     {
-      if (*v49 != v19)
+      if (*v48 != v19)
       {
         objc_enumerationMutation(v17);
       }
 
-      tagID = [*(*(&v48 + 1) + 8 * v20) tagID];
+      tagID = [*(*(&v47 + 1) + 8 * v20) tagID];
       v22 = [(AccessoryTransportPluginNFC *)self _getAccessoryType:tagID];
 
       if (v22 == 86)
@@ -1672,7 +1710,7 @@ LABEL_21:
 
       if (v18 == ++v20)
       {
-        v18 = [v17 countByEnumeratingWithState:&v48 objects:v60 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v47 objects:v59 count:16];
         if (v18)
         {
           goto LABEL_21;
@@ -1743,23 +1781,23 @@ LABEL_21:
     {
       if (!v26)
       {
-        v56 = 0;
-        v57 = &v56;
-        v58 = 0x2020000000;
+        v55 = 0;
+        v56 = &v55;
+        v57 = 0x2020000000;
         v27 = getBKSHIDServicesRequestProximityStatusEventSymbolLoc_ptr;
-        v59 = getBKSHIDServicesRequestProximityStatusEventSymbolLoc_ptr;
+        v58 = getBKSHIDServicesRequestProximityStatusEventSymbolLoc_ptr;
         if (!getBKSHIDServicesRequestProximityStatusEventSymbolLoc_ptr)
         {
           *&buf = MEMORY[0x277D85DD0];
           *(&buf + 1) = 3221225472;
-          v62 = __getBKSHIDServicesRequestProximityStatusEventSymbolLoc_block_invoke;
-          v63 = &unk_2789EC038;
-          v64 = &v56;
+          v61 = __getBKSHIDServicesRequestProximityStatusEventSymbolLoc_block_invoke;
+          v62 = &unk_2789EC038;
+          v63 = &v55;
           __getBKSHIDServicesRequestProximityStatusEventSymbolLoc_block_invoke(&buf);
-          v27 = v57[3];
+          v27 = v56[3];
         }
 
-        _Block_object_dispose(&v56, 8);
+        _Block_object_dispose(&v55, 8);
         if (!v27)
         {
           [AccessoryTransportPluginNFC _handleNearFieldAccessoryEventNotification:];
@@ -1830,16 +1868,16 @@ LABEL_45:
   v30 = -1431655756000000;
 LABEL_71:
   self->_waitProxState = v29;
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __74__AccessoryTransportPluginNFC__handleNearFieldAccessoryEventNotification___block_invoke_48;
-  v44[3] = &unk_2789EBF20;
-  v44[4] = self;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __74__AccessoryTransportPluginNFC__handleNearFieldAccessoryEventNotification___block_invoke_48;
+  v43[3] = &unk_2789EBF20;
+  v43[4] = self;
   v36 = v17;
-  v45 = v36;
-  v46 = v14;
-  v47 = v42;
-  v37 = MEMORY[0x2383AA7A0](v44);
+  v44 = v36;
+  v45 = v14;
+  v46 = v41;
+  v37 = MEMORY[0x2383AA7A0](v43);
   v38 = v37;
   if (self->_waitProxState)
   {
@@ -1851,35 +1889,33 @@ LABEL_71:
   {
     (*(v37 + 16))(v37);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __74__AccessoryTransportPluginNFC__handleNearFieldAccessoryEventNotification___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v20 = a2;
+  v28 = *MEMORY[0x277D85DE8];
+  v19 = a2;
   v5 = a3;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v23 + 1) + 8 * i);
         v12 = [v11 tagID];
         v13 = [v5 tagID];
         v14 = [v12 isEqualToData:v13];
@@ -1887,12 +1923,12 @@ void __74__AccessoryTransportPluginNFC__handleNearFieldAccessoryEventNotificatio
         if (v14)
         {
           [*(a1 + 32) removeObject:v11];
-          v15 = v20;
+          v15 = v19;
           goto LABEL_11;
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v8)
       {
         continue;
@@ -1902,23 +1938,21 @@ void __74__AccessoryTransportPluginNFC__handleNearFieldAccessoryEventNotificatio
     }
   }
 
-  v15 = v20;
-  v16 = v20;
+  v15 = v19;
+  v16 = v19;
   v17 = *(a1 + 40);
   v18 = *(v17 + 56);
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __74__AccessoryTransportPluginNFC__handleNearFieldAccessoryEventNotification___block_invoke_2;
-  v21[3] = &unk_2789EBED0;
-  v22 = v16;
-  v23 = v17;
-  [v18 enumerateKeysAndObjectsUsingBlock:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __74__AccessoryTransportPluginNFC__handleNearFieldAccessoryEventNotification___block_invoke_2;
+  v20[3] = &unk_2789EBED0;
+  v21 = v16;
+  v22 = v17;
+  [v18 enumerateKeysAndObjectsUsingBlock:v20];
   [*(a1 + 40) destroyConnectionWithUUID:v16];
   [*(*(a1 + 40) + 48) removeObjectForKey:v16];
-  v6 = v22;
+  v6 = v21;
 LABEL_11:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __74__AccessoryTransportPluginNFC__handleNearFieldAccessoryEventNotification___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1930,7 +1964,7 @@ void __74__AccessoryTransportPluginNFC__handleNearFieldAccessoryEventNotificatio
   }
 }
 
-uint64_t __74__AccessoryTransportPluginNFC__handleNearFieldAccessoryEventNotification___block_invoke_48(uint64_t a1)
+void *__74__AccessoryTransportPluginNFC__handleNearFieldAccessoryEventNotification___block_invoke_48(uint64_t a1)
 {
   if (gLogObjects)
   {
@@ -1979,6 +2013,346 @@ uint64_t __74__AccessoryTransportPluginNFC__handleNearFieldAccessoryEventNotific
   }
 
   return result;
+}
+
+- (void)_pollTags:(unsigned int)tags
+{
+  v3 = *&tags;
+  v64 = *MEMORY[0x277D85DE8];
+  if (!self->_polledSem)
+  {
+    v5 = dispatch_semaphore_create(0);
+    polledSem = self->_polledSem;
+    self->_polledSem = v5;
+  }
+
+  if (self->_readerSession)
+  {
+    objc_initWeak(location, self);
+    readerSession = self->_readerSession;
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __41__AccessoryTransportPluginNFC__pollTags___block_invoke;
+    v54[3] = &unk_2789EBF48;
+    objc_copyWeak(&v55, location);
+    [(NFAccessoryReaderSession *)readerSession endSessionWithCompletion:v54];
+    v8 = self->_readerSession;
+    self->_readerSession = 0;
+
+    objc_destroyWeak(&v55);
+    objc_destroyWeak(location);
+  }
+
+  v9 = 3;
+  v10 = MEMORY[0x277D86220];
+  while (1)
+  {
+    if (!self->_readerSession)
+    {
+      *location = 0;
+      *&location[8] = location;
+      *&location[16] = 0x3032000000;
+      v57 = __Block_byref_object_copy_;
+      v58 = __Block_byref_object_dispose_;
+      v59 = dispatch_semaphore_create(0);
+      sharedHardwareManager = [getNFAccessoryHardwareManagerClass() sharedHardwareManager];
+      v53[0] = MEMORY[0x277D85DD0];
+      v53[1] = 3221225472;
+      v53[2] = __41__AccessoryTransportPluginNFC__pollTags___block_invoke_49;
+      v53[3] = &unk_2789EBF70;
+      v53[4] = self;
+      v53[5] = location;
+      v12 = [sharedHardwareManager startReaderSession:v53];
+
+      if (v12)
+      {
+        v13 = *(*&location[8] + 40);
+        v14 = dispatch_time(0, 2000000000);
+        if (dispatch_semaphore_wait(v13, v14))
+        {
+          v15 = gLogObjects;
+          v16 = gNumLogObjects;
+          if (gLogObjects && gNumLogObjects >= 1)
+          {
+            v17 = *gLogObjects;
+          }
+
+          else
+          {
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 134218240;
+              v61 = v15;
+              v62 = 1024;
+              v63 = v16;
+              _os_log_error_impl(&dword_2336E3000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+            }
+
+            v18 = v10;
+            v17 = v10;
+          }
+
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_2336E3000, v17, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: timed out waiting for session creation", buf, 2u);
+          }
+
+          [v12 endSessionWithCompletion:0];
+        }
+      }
+
+      _Block_object_dispose(location, 8);
+      if (!self->_readerSession)
+      {
+        v37 = gLogObjects;
+        v38 = gNumLogObjects;
+        if (gLogObjects && gNumLogObjects >= 1)
+        {
+          v25 = *gLogObjects;
+        }
+
+        else
+        {
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          {
+            *location = 134218240;
+            *&location[4] = v37;
+            *&location[12] = 1024;
+            *&location[14] = v38;
+            _os_log_error_impl(&dword_2336E3000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", location, 0x12u);
+          }
+
+          v46 = v10;
+          v25 = v10;
+        }
+
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        {
+          *location = 0;
+          _os_log_impl(&dword_2336E3000, v25, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: !_readerSession", location, 2u);
+        }
+
+        goto LABEL_67;
+      }
+    }
+
+    v19 = gLogObjects;
+    v20 = gNumLogObjects;
+    if (gLogObjects)
+    {
+      v21 = gNumLogObjects < 1;
+    }
+
+    else
+    {
+      v21 = 1;
+    }
+
+    if (v21)
+    {
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        *location = 134218240;
+        *&location[4] = v19;
+        *&location[12] = 1024;
+        *&location[14] = v20;
+        _os_log_error_impl(&dword_2336E3000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", location, 0x12u);
+      }
+
+      v22 = v10;
+      v23 = v10;
+    }
+
+    else
+    {
+      v23 = *gLogObjects;
+    }
+
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    {
+      *location = 0;
+      _os_log_impl(&dword_2336E3000, v23, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: startPollingForTechnology", location, 2u);
+    }
+
+    v24 = self->_readerSession;
+    v52 = 0;
+    [(NFAccessoryReaderSession *)v24 startPollingForTechnology:v3 error:&v52];
+    v25 = v52;
+    if (v25)
+    {
+      v26 = gLogObjects;
+      v27 = gNumLogObjects;
+      if (gLogObjects && gNumLogObjects >= 1)
+      {
+        v28 = *gLogObjects;
+      }
+
+      else
+      {
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          *location = 134218240;
+          *&location[4] = v26;
+          *&location[12] = 1024;
+          *&location[14] = v27;
+          _os_log_error_impl(&dword_2336E3000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", location, 0x12u);
+        }
+
+        v33 = v10;
+        v28 = v10;
+      }
+
+      if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_51;
+      }
+
+      *location = 138412290;
+      *&location[4] = v25;
+      v34 = v28;
+      v35 = "NFC transport plugin: startPollingForTechnology failed: %@";
+      v36 = 12;
+      goto LABEL_50;
+    }
+
+    v29 = self->_polledSem;
+    v30 = dispatch_time(0, 4000000000);
+    if (!dispatch_semaphore_wait(v29, v30))
+    {
+      goto LABEL_52;
+    }
+
+    v31 = gLogObjects;
+    v32 = gNumLogObjects;
+    if (gLogObjects && gNumLogObjects >= 1)
+    {
+      v28 = *gLogObjects;
+    }
+
+    else
+    {
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        *location = 134218240;
+        *&location[4] = v31;
+        *&location[12] = 1024;
+        *&location[14] = v32;
+        _os_log_error_impl(&dword_2336E3000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", location, 0x12u);
+      }
+
+      v39 = v10;
+      v28 = v10;
+    }
+
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    {
+      *location = 0;
+      v34 = v28;
+      v35 = "NFC transport plugin: timed out waiting for polling";
+      v36 = 2;
+LABEL_50:
+      _os_log_impl(&dword_2336E3000, v34, OS_LOG_TYPE_DEFAULT, v35, location, v36);
+    }
+
+LABEL_51:
+
+LABEL_52:
+    v40 = gLogObjects;
+    v41 = gNumLogObjects;
+    v42 = !gLogObjects || gNumLogObjects <= 0;
+    v43 = !v42;
+    if (self->_polledTags)
+    {
+      break;
+    }
+
+    if (v43)
+    {
+      v44 = *gLogObjects;
+    }
+
+    else
+    {
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        *location = 134218240;
+        *&location[4] = v40;
+        *&location[12] = 1024;
+        *&location[14] = v41;
+        _os_log_error_impl(&dword_2336E3000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", location, 0x12u);
+      }
+
+      v45 = v10;
+      v44 = v10;
+    }
+
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+    {
+      *location = 0;
+      _os_log_impl(&dword_2336E3000, v44, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _pollTags: !_polledTags", location, 2u);
+    }
+
+    usleep(0x186A0u);
+LABEL_67:
+
+    if (!--v9)
+    {
+      goto LABEL_82;
+    }
+  }
+
+  if (v43)
+  {
+    v47 = *gLogObjects;
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [AccessoryTransportPluginNFC initPlugin];
+    }
+
+    v47 = MEMORY[0x277D86220];
+    v48 = MEMORY[0x277D86220];
+  }
+
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+  {
+    *location = 0;
+    _os_log_impl(&dword_2336E3000, v47, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _pollTags: found tags", location, 2u);
+  }
+
+LABEL_82:
+  if (!self->_polledTags && self->_readerSession)
+  {
+    if (gLogObjects && gNumLogObjects >= 1)
+    {
+      v49 = *gLogObjects;
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [AccessoryTransportPluginNFC initPlugin];
+      }
+
+      v49 = MEMORY[0x277D86220];
+      v50 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+    {
+      *location = 0;
+      _os_log_impl(&dword_2336E3000, v49, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _pollTags: giving up", location, 2u);
+    }
+
+    [(NFAccessoryReaderSession *)self->_readerSession endSessionWithCompletion:0];
+    v51 = self->_readerSession;
+    self->_readerSession = 0;
+  }
 }
 
 void __41__AccessoryTransportPluginNFC__pollTags___block_invoke(uint64_t a1)
@@ -2103,16 +2477,16 @@ void __41__AccessoryTransportPluginNFC__pollTags___block_invoke_49(uint64_t a1, 
 
 - (void)_requestPowerPause
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   connect = -1431655766;
-  v23 = 0xAAAAAAAAAAAAAAAALL;
+  v22 = 0xAAAAAAAAAAAAAAAALL;
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v21 = v3;
-  v22 = v3;
-  *&v19[16] = v3;
   v20 = v3;
-  *v19 = v3;
+  v21 = v3;
+  *&v18[16] = v3;
+  v19 = v3;
+  *v18 = v3;
   if (gLogObjects)
   {
     v4 = gNumLogObjects < 1;
@@ -2157,11 +2531,11 @@ void __41__AccessoryTransportPluginNFC__pollTags___block_invoke_49(uint64_t a1, 
     }
 
     *buf = 0;
-    v16 = "NFC transport plugin: _requestPowerPause: !service";
-    v17 = p_super;
-    v18 = 2;
+    v15 = "NFC transport plugin: _requestPowerPause: !service";
+    v16 = p_super;
+    v17 = 2;
 LABEL_23:
-    _os_log_impl(&dword_2336E3000, v17, OS_LOG_TYPE_DEFAULT, v16, buf, v18);
+    _os_log_impl(&dword_2336E3000, v16, OS_LOG_TYPE_DEFAULT, v15, buf, v17);
     goto LABEL_15;
   }
 
@@ -2177,14 +2551,14 @@ LABEL_23:
     }
 
     *buf = 67109120;
-    v26 = v11;
-    v16 = "NFC transport plugin: _requestPowerPause: IOServiceOpen: 0x%x";
+    v25 = v11;
+    v15 = "NFC transport plugin: _requestPowerPause: IOServiceOpen: 0x%x";
     goto LABEL_22;
   }
 
-  *&v19[8] = xmmword_2336EFD20;
-  v19[0] = 1;
-  v12 = IOConnectCallStructMethod(connect, 3u, v19, 0x58uLL, 0, 0);
+  *&v18[8] = xmmword_2336EFD20;
+  v18[0] = 1;
+  v12 = IOConnectCallStructMethod(connect, 3u, v18, 0x58uLL, 0, 0);
   IOServiceClose(connect);
   if (v12)
   {
@@ -2195,11 +2569,11 @@ LABEL_23:
     }
 
     *buf = 67109120;
-    v26 = v12;
-    v16 = "NFC transport plugin: _requestPowerPause: 0x%x";
+    v25 = v12;
+    v15 = "NFC transport plugin: _requestPowerPause: 0x%x";
 LABEL_22:
-    v17 = p_super;
-    v18 = 8;
+    v16 = p_super;
+    v17 = 8;
     goto LABEL_23;
   }
 
@@ -2207,8 +2581,6 @@ LABEL_22:
   p_super = &self->_lastRequestPowerPauseTime->super;
   self->_lastRequestPowerPauseTime = date;
 LABEL_15:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_getTimeSinceLastRequestPowerPauseMs
@@ -2227,7 +2599,7 @@ LABEL_15:
 
 - (BOOL)_getpowerPauseStatus
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   connect = -1431655766;
   output = 0;
   outputCnt = 1;
@@ -2236,15 +2608,15 @@ LABEL_15:
   MatchingService = IOServiceGetMatchingService(v2, v3);
   if (!MatchingService)
   {
-    v10 = logObjectForModule();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = logObjectForModule();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v11 = "NFC transport plugin: _getpowerPauseStatus: !service";
-      v12 = v10;
-      v13 = 2;
+      v10 = "NFC transport plugin: _getpowerPauseStatus: !service";
+      v11 = v9;
+      v12 = 2;
 LABEL_12:
-      _os_log_impl(&dword_2336E3000, v12, OS_LOG_TYPE_DEFAULT, v11, buf, v13);
+      _os_log_impl(&dword_2336E3000, v11, OS_LOG_TYPE_DEFAULT, v10, buf, v12);
       goto LABEL_13;
     }
 
@@ -2256,43 +2628,40 @@ LABEL_12:
   IOObjectRelease(v5);
   if (v6)
   {
-    v10 = logObjectForModule();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = logObjectForModule();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v18 = v6;
-      v11 = "NFC transport plugin: _getpowerPauseStatus: IOServiceOpen: 0x%x";
+      v17 = v6;
+      v10 = "NFC transport plugin: _getpowerPauseStatus: IOServiceOpen: 0x%x";
 LABEL_11:
-      v12 = v10;
-      v13 = 8;
+      v11 = v9;
+      v12 = 8;
       goto LABEL_12;
     }
 
 LABEL_13:
 
-    goto LABEL_4;
+    return output != 0;
   }
 
   v7 = IOConnectCallScalarMethod(connect, 5u, 0, 0, &output, &outputCnt);
   IOServiceClose(connect);
   if (v7)
   {
-    v10 = logObjectForModule();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = logObjectForModule();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v18 = v7;
-      v11 = "NFC transport plugin: _getpowerPauseStatus: 0x%x";
+      v17 = v7;
+      v10 = "NFC transport plugin: _getpowerPauseStatus: 0x%x";
       goto LABEL_11;
     }
 
     goto LABEL_13;
   }
 
-LABEL_4:
-  result = output != 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return output != 0;
 }
 
 - (unsigned)_getNfcStateMachineState
@@ -2589,32 +2958,32 @@ LABEL_49:
 - (void)_createEndpointsForTags:(id)tags skipWalletAuth:(BOOL)auth
 {
   authCopy = auth;
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   obj = tags;
-  v5 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+  v5 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0x2812FF000uLL;
-    v8 = *v47;
-    v43 = *MEMORY[0x277CFD298];
-    v44 = *v47;
+    v8 = *v46;
+    v42 = *MEMORY[0x277CFD298];
+    v43 = *v46;
     do
     {
       v9 = 0;
-      v42 = v6;
+      v41 = v6;
       do
       {
-        if (*v47 != v8)
+        if (*v46 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v46 + 1) + 8 * v9);
+        v10 = *(*(&v45 + 1) + 8 * v9);
         tagID = [v10 tagID];
         if ([(AccessoryTransportPluginNFC *)self _checkLRC:tagID])
         {
@@ -2625,10 +2994,10 @@ LABEL_49:
           {
             clearMultiTagState = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", tagID];
             v15 = [(ACCTransportPlugin *)self createConnectionWithType:9 andIdentifier:clearMultiTagState];
-            v50 = v43;
+            v49 = v42;
             null = [MEMORY[0x277CBEB68] null];
-            v51 = null;
-            v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+            v50 = null;
+            v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
             [(ACCTransportPlugin *)self setProperties:v17 forConnectionWithUUID:v15];
 
             v18 = *(v7 + 1192);
@@ -2644,21 +3013,21 @@ LABEL_49:
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
                 *buf = 134218240;
-                v54 = v18;
-                v55 = 1024;
-                v56 = v19;
+                v53 = v18;
+                v54 = 1024;
+                v55 = v19;
                 _os_log_error_impl(&dword_2336E3000, v21, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
               }
 
               v22 = v21;
               v20 = v21;
-              v6 = v42;
+              v6 = v41;
             }
 
             if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v54 = clearMultiTagState;
+              v53 = clearMultiTagState;
               _os_log_impl(&dword_2336E3000, v20, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: tagID=%@", buf, 0xCu);
             }
 
@@ -2695,22 +3064,22 @@ LABEL_49:
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                 {
                   *buf = 134218240;
-                  v54 = v24;
-                  v55 = 1024;
-                  v56 = v25;
+                  v53 = v24;
+                  v54 = 1024;
+                  v55 = v25;
                   _os_log_error_impl(&dword_2336E3000, v27, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
                 }
 
                 v28 = v27;
                 v26 = v27;
-                v6 = v42;
+                v6 = v41;
               }
 
               v7 = 0x2812FF000;
               if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 67109120;
-                LODWORD(v54) = v23;
+                LODWORD(v53) = v23;
                 _os_log_impl(&dword_2336E3000, v26, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: protocol=%d", buf, 8u);
               }
 
@@ -2742,9 +3111,9 @@ LABEL_49:
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               *buf = 134218240;
-              v54 = v31;
-              v55 = 1024;
-              v56 = v32;
+              v53 = v31;
+              v54 = 1024;
+              v55 = v32;
               _os_log_error_impl(&dword_2336E3000, v33, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
             }
 
@@ -2778,27 +3147,27 @@ LABEL_49:
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                 {
                   *buf = 134218240;
-                  v54 = v36;
-                  v55 = 1024;
-                  v56 = v37;
+                  v53 = v36;
+                  v54 = 1024;
+                  v55 = v37;
                   _os_log_error_impl(&dword_2336E3000, v15, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
                 }
 
                 v38 = v15;
-                v6 = v42;
+                v6 = v41;
               }
 
               v7 = 0x2812FF000;
               if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v54 = clearMultiTagState;
+                v53 = clearMultiTagState;
                 _os_log_impl(&dword_2336E3000, v15, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: clearMultiTagState error: %@", buf, 0xCu);
               }
 
 LABEL_36:
 
-              v8 = v44;
+              v8 = v43;
             }
           }
         }
@@ -2807,7 +3176,7 @@ LABEL_36:
       }
 
       while (v6 != v9);
-      v39 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v39 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
       v6 = v39;
     }
 
@@ -2815,8 +3184,6 @@ LABEL_36:
   }
 
   self->_waitProxState = 0;
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setScreenStateMonitoringEnabled:(BOOL)enabled
@@ -2871,7 +3238,7 @@ LABEL_36:
 
 void __64__AccessoryTransportPluginNFC__setScreenStateMonitoringEnabled___block_invoke(uint64_t a1, int token)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   state64 = 0xAAAAAAAAAAAAAAAALL;
   if (!notify_get_state(token, &state64))
   {
@@ -2907,12 +3274,10 @@ void __64__AccessoryTransportPluginNFC__setScreenStateMonitoringEnabled___block_
     {
       v6 = *(*(a1 + 32) + 148);
       *buf = 67109120;
-      v10 = v6;
+      v9 = v6;
       _os_log_impl(&dword_2336E3000, v5, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: screen handler: _screenState=%d", buf, 8u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setProximityMonitoringEnabled:(BOOL)enabled
@@ -2936,42 +3301,35 @@ void __64__AccessoryTransportPluginNFC__setScreenStateMonitoringEnabled___block_
         [AccessoryTransportPluginNFC initPlugin];
       }
 
-      v9 = MEMORY[0x277D86220];
+      v6 = MEMORY[0x277D86220];
       v5 = MEMORY[0x277D86220];
     }
 
     else
     {
-      v9 = *gLogObjects;
+      v6 = *gLogObjects;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_2336E3000, v9, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _setProximityMonitoringEnabled", v14, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_2336E3000, v6, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _setProximityMonitoringEnabled", v7, 2u);
     }
 
     if (!self->_hidEventClient)
     {
-      v10 = *MEMORY[0x277CBECE8];
       self->_hidEventClient = IOHIDEventSystemClientCreateWithType();
       IOHIDEventSystemClientSetMatching();
-      hidEventClient = self->_hidEventClient;
       CFRunLoopGetMain();
-      v12 = *MEMORY[0x277CBF058];
       IOHIDEventSystemClientScheduleWithRunLoop();
-      v13 = self->_hidEventClient;
       IOHIDEventSystemClientRegisterEventCallback();
     }
   }
 
   else
   {
-    v6 = self->_hidEventClient;
     CFRunLoopGetMain();
-    v7 = *MEMORY[0x277CBF058];
     IOHIDEventSystemClientUnscheduleWithRunLoop();
-    v8 = self->_hidEventClient;
     IOHIDEventSystemClientUnregisterEventCallback();
     self->_hidEventClient = 0;
   }
@@ -2995,16 +3353,16 @@ void __64__AccessoryTransportPluginNFC__setScreenStateMonitoringEnabled___block_
 - (void)_didScreenStateChange:(BOOL)change
 {
   changeCopy = change;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   connect = -1431655766;
-  v24 = 0xAAAAAAAAAAAAAAAALL;
+  v23 = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v22 = v4;
-  v23 = v4;
-  v20 = v4;
   v21 = v4;
+  v22 = v4;
   v19 = v4;
+  v20 = v4;
+  v18 = v4;
   if (gLogObjects)
   {
     v5 = gNumLogObjects < 1;
@@ -3034,7 +3392,7 @@ void __64__AccessoryTransportPluginNFC__setScreenStateMonitoringEnabled___block_
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v27 = changeCopy;
+    v26 = changeCopy;
     _os_log_impl(&dword_2336E3000, v7, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _didScreenStateChange: %d", buf, 8u);
   }
 
@@ -3043,15 +3401,15 @@ void __64__AccessoryTransportPluginNFC__setScreenStateMonitoringEnabled___block_
   MatchingService = IOServiceGetMatchingService(v8, v9);
   if (!MatchingService)
   {
-    v15 = logObjectForModule();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = logObjectForModule();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v16 = "NFC transport plugin: _didScreenStateChange: !service";
-      v17 = v15;
-      v18 = 2;
+      v15 = "NFC transport plugin: _didScreenStateChange: !service";
+      v16 = v14;
+      v17 = 2;
 LABEL_22:
-      _os_log_impl(&dword_2336E3000, v17, OS_LOG_TYPE_DEFAULT, v16, buf, v18);
+      _os_log_impl(&dword_2336E3000, v16, OS_LOG_TYPE_DEFAULT, v15, buf, v17);
       goto LABEL_23;
     }
 
@@ -3063,58 +3421,55 @@ LABEL_22:
   IOObjectRelease(v11);
   if (v12)
   {
-    v15 = logObjectForModule();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = logObjectForModule();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v27 = v12;
-      v16 = "NFC transport plugin: _didScreenStateChange: IOServiceOpen: 0x%x";
+      v26 = v12;
+      v15 = "NFC transport plugin: _didScreenStateChange: IOServiceOpen: 0x%x";
 LABEL_21:
-      v17 = v15;
-      v18 = 8;
+      v16 = v14;
+      v17 = 8;
       goto LABEL_22;
     }
 
 LABEL_23:
 
-    goto LABEL_14;
+    return;
   }
 
-  *(&v19 + 1) = 1313227588;
-  *&v20 = changeCopy;
-  LOBYTE(v19) = 1;
-  v13 = IOConnectCallStructMethod(connect, 3u, &v19, 0x58uLL, 0, 0);
+  *(&v18 + 1) = 1313227588;
+  *&v19 = changeCopy;
+  LOBYTE(v18) = 1;
+  v13 = IOConnectCallStructMethod(connect, 3u, &v18, 0x58uLL, 0, 0);
   IOServiceClose(connect);
   if (v13)
   {
-    v15 = logObjectForModule();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = logObjectForModule();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v27 = v13;
-      v16 = "NFC transport plugin: _didScreenStateChange: 0x%x";
+      v26 = v13;
+      v15 = "NFC transport plugin: _didScreenStateChange: 0x%x";
       goto LABEL_21;
     }
 
     goto LABEL_23;
   }
-
-LABEL_14:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didNfcTagsListChange:(id)change
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   connect = -1431655766;
-  v40 = 0xAAAAAAAAAAAAAAAALL;
+  v39 = 0xAAAAAAAAAAAAAAAALL;
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v38 = v5;
-  v39 = v5;
-  v36 = v5;
   v37 = v5;
+  v38 = v5;
+  v35 = v5;
+  v36 = v5;
   inputStruct = v5;
   if (gLogObjects)
   {
@@ -3149,27 +3504,27 @@ LABEL_14:
   }
 
   v9 = [changeCopy count] << 24;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v10 = changeCopy;
-  v11 = [v10 countByEnumeratingWithState:&v31 objects:v44 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v30 objects:v43 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 0;
-    v14 = *v32;
+    v14 = *v31;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v32 != v14)
+        if (*v31 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v31 + 1) + 8 * i);
+        v16 = *(*(&v30 + 1) + 8 * i);
         tagID = [v16 tagID];
         if ([(AccessoryTransportPluginNFC *)self _checkLRC:tagID])
         {
@@ -3182,7 +3537,7 @@ LABEL_14:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v31 objects:v44 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v30 objects:v43 count:16];
     }
 
     while (v12);
@@ -3193,15 +3548,15 @@ LABEL_14:
   MatchingService = IOServiceGetMatchingService(v20, v21);
   if (!MatchingService)
   {
-    v27 = logObjectForModule();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v26 = logObjectForModule();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v28 = "NFC transport plugin: _didNfcTagsListChange: !service";
-      v29 = v27;
-      v30 = 2;
+      v27 = "NFC transport plugin: _didNfcTagsListChange: !service";
+      v28 = v26;
+      v29 = 2;
 LABEL_31:
-      _os_log_impl(&dword_2336E3000, v29, OS_LOG_TYPE_DEFAULT, v28, buf, v30);
+      _os_log_impl(&dword_2336E3000, v28, OS_LOG_TYPE_DEFAULT, v27, buf, v29);
       goto LABEL_32;
     }
 
@@ -3213,15 +3568,15 @@ LABEL_31:
   IOObjectRelease(v23);
   if (v24)
   {
-    v27 = logObjectForModule();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v26 = logObjectForModule();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v43 = v24;
-      v28 = "NFC transport plugin: _didNfcTagsListChange: IOServiceOpen: 0x%x";
+      v42 = v24;
+      v27 = "NFC transport plugin: _didNfcTagsListChange: IOServiceOpen: 0x%x";
 LABEL_30:
-      v29 = v27;
-      v30 = 8;
+      v28 = v26;
+      v29 = 8;
       goto LABEL_31;
     }
 
@@ -3231,18 +3586,18 @@ LABEL_32:
   }
 
   *(&inputStruct + 1) = 1313227604;
-  *&v36 = v9;
+  *&v35 = v9;
   LOBYTE(inputStruct) = 1;
   v25 = IOConnectCallStructMethod(connect, 3u, &inputStruct, 0x58uLL, 0, 0);
   IOServiceClose(connect);
   if (v25)
   {
-    v27 = logObjectForModule();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v26 = logObjectForModule();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v43 = v25;
-      v28 = "NFC transport plugin: _didNfcTagsListChange: 0x%x";
+      v42 = v25;
+      v27 = "NFC transport plugin: _didNfcTagsListChange: 0x%x";
       goto LABEL_30;
     }
 
@@ -3250,8 +3605,6 @@ LABEL_32:
   }
 
 LABEL_23:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_closeReaderSession
@@ -3407,7 +3760,7 @@ void __50__AccessoryTransportPluginNFC__closeReaderSession__block_invoke(uint64_
 
 - (BOOL)_handleSessionOpen:(BOOL)open forEndpointWithUUID:(id)d connectionUUID:(id)iD
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   if (!open)
@@ -3420,11 +3773,11 @@ LABEL_84:
 
   if (self->_connectedTag)
   {
-    v41 = logObjectForModule();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v40 = logObjectForModule();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2336E3000, v41, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _handleSessionOpen: _connectedTag", buf, 2u);
+      _os_log_impl(&dword_2336E3000, v40, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _handleSessionOpen: _connectedTag", buf, 2u);
     }
 
     v14 = 0;
@@ -3436,13 +3789,13 @@ LABEL_84:
   v12 = v11;
   if (!v11 || ([v11 isEqualToString:iDCopy] & 1) == 0)
   {
-    v41 = logObjectForModule();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v40 = logObjectForModule();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v42 = "NFC transport plugin: _handleSessionOpen: !uuid || !equal";
+      v41 = "NFC transport plugin: _handleSessionOpen: !uuid || !equal";
 LABEL_93:
-      _os_log_impl(&dword_2336E3000, v41, OS_LOG_TYPE_DEFAULT, v42, buf, 2u);
+      _os_log_impl(&dword_2336E3000, v40, OS_LOG_TYPE_DEFAULT, v41, buf, 2u);
     }
 
 LABEL_94:
@@ -3453,11 +3806,11 @@ LABEL_94:
   v13 = [(NSMutableDictionary *)self->_tagForConnectionUuid valueForKey:iDCopy];
   if (!v13)
   {
-    v41 = logObjectForModule();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v40 = logObjectForModule();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v42 = "NFC transport plugin: _handleSessionOpen: !knownTag";
+      v41 = "NFC transport plugin: _handleSessionOpen: !knownTag";
       goto LABEL_93;
     }
 
@@ -3513,7 +3866,7 @@ LABEL_94:
       {
         _getpowerPauseStatus = [(AccessoryTransportPluginNFC *)self _getpowerPauseStatus];
         *buf = 67109120;
-        v48 = _getpowerPauseStatus;
+        v47 = _getpowerPauseStatus;
         _os_log_impl(&dword_2336E3000, v17, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _handleSessionOpen: powerPause:0->%d", buf, 8u);
       }
     }
@@ -3658,11 +4011,11 @@ LABEL_79:
           goto LABEL_80;
         }
 
-        v41 = logObjectForModule();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v40 = logObjectForModule();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_2336E3000, v41, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _handleSessionOpen: !_polledTags", buf, 2u);
+          _os_log_impl(&dword_2336E3000, v40, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _handleSessionOpen: !_polledTags", buf, 2u);
         }
 
 LABEL_97:
@@ -3710,7 +4063,7 @@ LABEL_80:
 LABEL_98:
   if (gLogObjects && gNumLogObjects >= 1)
   {
-    v43 = *gLogObjects;
+    v42 = *gLogObjects;
   }
 
   else
@@ -3720,62 +4073,61 @@ LABEL_98:
       [AccessoryTransportPluginNFC initPlugin];
     }
 
+    v42 = MEMORY[0x277D86220];
     v43 = MEMORY[0x277D86220];
-    v44 = MEMORY[0x277D86220];
   }
 
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
-    v45 = self->_connectedTag != 0;
-    v46 = self->_connectedTagId != 0;
+    v44 = self->_connectedTag != 0;
+    v45 = self->_connectedTagId != 0;
     *buf = 67109632;
-    v48 = 0;
-    v49 = 1024;
-    v50 = v45;
-    v51 = 1024;
-    v52 = v46;
-    _os_log_impl(&dword_2336E3000, v43, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _connectToTagId failed: success:%d, _connectedTag:%d, _connectedTagId:%d", buf, 0x14u);
+    v47 = 0;
+    v48 = 1024;
+    v49 = v44;
+    v50 = 1024;
+    v51 = v45;
+    _os_log_impl(&dword_2336E3000, v42, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _connectToTagId failed: success:%d, _connectedTag:%d, _connectedTagId:%d", buf, 0x14u);
   }
 
   v38 = 0;
 LABEL_85:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
 - (BOOL)_hasWalletOnClearCase2020:(id)case2020
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   case2020Copy = case2020;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v5 = [case2020Copy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [case2020Copy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
     v8 = 0;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(case2020Copy);
         }
 
-        tagID = [*(*(&v16 + 1) + 8 * i) tagID];
+        tagID = [*(*(&v15 + 1) + 8 * i) tagID];
         v12 = [(AccessoryTransportPluginNFC *)self _getAccessoryType:tagID];
 
         v7 |= v12 == 67;
         v8 |= (v12 - 87) < 2;
       }
 
-      v6 = [case2020Copy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [case2020Copy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -3787,7 +4139,6 @@ LABEL_85:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13 & 1;
 }
 
@@ -3931,13 +4282,13 @@ LABEL_2:
 
 - (BOOL)_requiresMfi40Auth:(id)auth
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   authCopy = auth;
   v4 = authCopy;
   if (authCopy && [authCopy length] == 4)
   {
-    OUTLINED_FUNCTION_6(4, v5, v6, v7, v8, v9, v10, v11, v21, v22, 0);
-    v12 = v23 < 0;
+    OUTLINED_FUNCTION_6(4, v5, v6, v7, v8, v9, v10, v11, v20, v21, 0);
+    v12 = v22 < 0;
   }
 
   else
@@ -3964,9 +4315,9 @@ LABEL_2:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
-        v25 = v13;
-        v26 = 1024;
-        LODWORD(v27) = v14;
+        v24 = v13;
+        v25 = 1024;
+        LODWORD(v26) = v14;
         OUTLINED_FUNCTION_4(&dword_2336E3000, MEMORY[0x277D86220], v16, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
       }
 
@@ -3982,29 +4333,28 @@ LABEL_2:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v25 = "[AccessoryTransportPluginNFC _requiresMfi40Auth:]";
-      v26 = 2112;
-      v27 = @"ForceMFi4AuthOverNFC";
-      v28 = 1024;
-      v29 = v12;
-      v30 = 1024;
-      v31 = 1;
+      v24 = "[AccessoryTransportPluginNFC _requiresMfi40Auth:]";
+      v25 = 2112;
+      v26 = @"ForceMFi4AuthOverNFC";
+      v27 = 1024;
+      v28 = v12;
+      v29 = 1024;
+      v30 = 1;
       _os_log_impl(&dword_2336E3000, v18, OS_LOG_TYPE_DEFAULT, "%s: %@ requiresAuth %d -> %d", buf, 0x22u);
     }
 
     LOBYTE(v12) = 1;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (id)_decodeTagIdentifier:(id)identifier
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = identifierCopy;
-  v74 = 0;
+  v67 = 0;
   if (identifierCopy && [identifierCopy length] == 4)
   {
     v6 = objc_opt_new();
@@ -4012,7 +4362,7 @@ LABEL_2:
     if (v6)
     {
       [v6 setObject:v5 forKey:*MEMORY[0x277CFD320]];
-      [v5 getBytes:&v74 length:4];
+      [v5 getBytes:&v67 length:4];
       v8 = [(AccessoryTransportPluginNFC *)self _getAccessoryType:v5];
       if (v8)
       {
@@ -4027,21 +4377,20 @@ LABEL_2:
         [v7 setValue:v12 forKey:*MEMORY[0x277CFD330]];
 
         v13 = [MEMORY[0x277CCABB0] numberWithInt:{-[AccessoryTransportPluginNFC _getAccessoryFamily:](self, "_getAccessoryFamily:", v5)}];
-        v14 = *MEMORY[0x277CFD300];
         OUTLINED_FUNCTION_5();
 
-        v15 = BYTE1(v74);
-        LODWORD(v16) = BYTE1(v74) & 1;
+        v14 = BYTE1(v67);
+        LODWORD(v15) = BYTE1(v67) & 1;
+        v16 = 0;
         v17 = 0;
-        v18 = 0;
-        v19 = 16;
-        v20 = &colorWashTable0x53;
-        switch(v74)
+        v18 = 16;
+        v19 = &colorWashTable0x53;
+        switch(v67)
         {
           case 'A':
             OUTLINED_FUNCTION_2();
-            v19 = 2;
-            v20 = &colorWashTable0x41;
+            v18 = 2;
+            v19 = &colorWashTable0x41;
             goto LABEL_31;
           case 'B':
           case 'D':
@@ -4059,122 +4408,122 @@ LABEL_2:
             goto LABEL_79;
           case 'C':
             OUTLINED_FUNCTION_2();
-            if (v16)
+            if (v15)
             {
-              v20 = &colorWashTable0x43;
+              v19 = &colorWashTable0x43;
             }
 
             else
             {
-              v20 = 0;
+              v19 = 0;
             }
 
-            v19 = 2 * v16;
+            v18 = 2 * v15;
             goto LABEL_31;
           case 'L':
             OUTLINED_FUNCTION_2();
-            v19 = 7;
-            v20 = &colorWashTable0x4c;
+            v18 = 7;
+            v19 = &colorWashTable0x4c;
             goto LABEL_31;
           case 'M':
             OUTLINED_FUNCTION_2();
-            v19 = 11;
-            v20 = &colorWashTable0x4d;
+            v18 = 11;
+            v19 = &colorWashTable0x4d;
             goto LABEL_31;
           case 'N':
             OUTLINED_FUNCTION_2();
-            v19 = 6;
-            v20 = &colorWashTable0x4e;
+            v18 = 6;
+            v19 = &colorWashTable0x4e;
             goto LABEL_31;
           case 'S':
             goto LABEL_31;
           case 'T':
             OUTLINED_FUNCTION_2();
-            v19 = 32;
-            v20 = &colorWashTable0x54;
+            v18 = 32;
+            v19 = &colorWashTable0x54;
             goto LABEL_31;
           case 'U':
             OUTLINED_FUNCTION_2();
-            v19 = 13;
-            v20 = &colorWashTable0x55;
+            v18 = 13;
+            v19 = &colorWashTable0x55;
             goto LABEL_31;
           case 'V':
-            v18 = 1;
-            v17 = &colorWashTableSecondary0x56;
-            v19 = 6;
-            v20 = &colorWashTable0x56;
+            v17 = 1;
+            v16 = &colorWashTableSecondary0x56;
+            v18 = 6;
+            v19 = &colorWashTable0x56;
             goto LABEL_31;
           case 'W':
             OUTLINED_FUNCTION_2();
-            v19 = 19;
-            v20 = &colorWashTable0x57;
+            v18 = 19;
+            v19 = &colorWashTable0x57;
             goto LABEL_31;
           case 'X':
             OUTLINED_FUNCTION_2();
-            v19 = 6;
-            v20 = &colorWashTable0x58;
+            v18 = 6;
+            v19 = &colorWashTable0x58;
             goto LABEL_31;
           default:
-            switch(v74)
+            switch(v67)
             {
               case 0x60u:
                 OUTLINED_FUNCTION_2();
-                v19 = 7;
-                v20 = &colorWashTable0x60;
+                v18 = 7;
+                v19 = &colorWashTable0x60;
                 break;
               case 0x61u:
                 OUTLINED_FUNCTION_2();
-                v19 = 10;
-                v20 = &colorWashTable0x61;
+                v18 = 10;
+                v19 = &colorWashTable0x61;
                 break;
               case 0x72u:
                 OUTLINED_FUNCTION_2();
-                v19 = 2;
-                v20 = &colorWashTable0x72;
+                v18 = 2;
+                v19 = &colorWashTable0x72;
                 break;
               case 0x80u:
                 OUTLINED_FUNCTION_2();
-                v19 = 6;
-                v20 = &colorWashTable0x80;
+                v18 = 6;
+                v19 = &colorWashTable0x80;
                 break;
               case 0x81u:
                 OUTLINED_FUNCTION_2();
-                v19 = 13;
-                v20 = &colorWashTable0x81;
+                v18 = 13;
+                v19 = &colorWashTable0x81;
                 break;
               case 0x91u:
                 OUTLINED_FUNCTION_2();
-                v19 = 13;
-                v20 = &colorWashTable0x91;
+                v18 = 13;
+                v19 = &colorWashTable0x91;
                 break;
               default:
                 goto LABEL_79;
             }
 
 LABEL_31:
-            if (v16)
+            if (v15)
             {
-              v21 = BYTE2(v74) & 0x3F;
-              v22 = [MEMORY[0x277CCABB0] numberWithChar:v21];
-              [v7 setValue:v22 forKey:*MEMORY[0x277CFD340]];
+              v20 = BYTE2(v67) & 0x3F;
+              v21 = [MEMORY[0x277CCABB0] numberWithChar:v20];
+              [v7 setValue:v21 forKey:*MEMORY[0x277CFD340]];
 
-              if (v21)
+              if (v20)
               {
-                if (v19 > v21)
+                if (v18 > v20)
                 {
-                  v71 = v17;
-                  *&v23 = -1;
-                  *(&v23 + 1) = -1;
-                  v72 = v23;
-                  v73 = v23;
-                  v24 = +[ACCUserDefaults sharedDefaults];
-                  v25 = [v24 BOOLForKey:?];
+                  v64 = v16;
+                  *&v22 = -1;
+                  *(&v22 + 1) = -1;
+                  v65 = v22;
+                  v66 = v22;
+                  v23 = +[ACCUserDefaults sharedDefaults];
+                  v24 = [v23 BOOLForKey:?];
 
-                  v26 = gLogObjects;
-                  v27 = gNumLogObjects;
+                  v25 = gLogObjects;
+                  v26 = gNumLogObjects;
                   if (gLogObjects && gNumLogObjects >= 1)
                   {
-                    v28 = *gLogObjects;
+                    v27 = *gLogObjects;
                   }
 
                   else
@@ -4182,30 +4531,30 @@ LABEL_31:
                     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                     {
                       *buf = 134218240;
-                      *&buf[4] = v26;
+                      *&buf[4] = v25;
                       *&buf[12] = 1024;
-                      *&buf[14] = v27;
-                      OUTLINED_FUNCTION_4(&dword_2336E3000, MEMORY[0x277D86220], v29, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+                      *&buf[14] = v26;
+                      OUTLINED_FUNCTION_4(&dword_2336E3000, MEMORY[0x277D86220], v28, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
                     }
 
-                    v28 = MEMORY[0x277D86220];
-                    v30 = MEMORY[0x277D86220];
+                    v27 = MEMORY[0x277D86220];
+                    v29 = MEMORY[0x277D86220];
                   }
 
-                  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+                  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 67109120;
-                    *&buf[4] = v25;
-                    _os_log_impl(&dword_2336E3000, v28, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: allow override: %d", buf, 8u);
+                    *&buf[4] = v24;
+                    _os_log_impl(&dword_2336E3000, v27, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: allow override: %d", buf, 8u);
                   }
 
-                  if (v25 && (+[ACCUserDefaults sharedDefaults](ACCUserDefaults, "sharedDefaults"), v31 = objc_claimAutoreleasedReturnValue(), [v31 stringForKey:@"NFCColorOverride"], v32 = objc_claimAutoreleasedReturnValue(), v31, v32) && (v33 = parseColorString(v32, &v72), v32, v33))
+                  if (v24 && (+[ACCUserDefaults sharedDefaults](ACCUserDefaults, "sharedDefaults"), v30 = objc_claimAutoreleasedReturnValue(), [v30 stringForKey:@"NFCColorOverride"], v31 = objc_claimAutoreleasedReturnValue(), v30, v31) && (v32 = parseColorString(v31, &v65), v31, v32))
                   {
-                    v34 = gLogObjects;
-                    v35 = gNumLogObjects;
+                    v33 = gLogObjects;
+                    v34 = gNumLogObjects;
                     if (gLogObjects && gNumLogObjects >= 1)
                     {
-                      v36 = *gLogObjects;
+                      v35 = *gLogObjects;
                     }
 
                     else
@@ -4213,122 +4562,121 @@ LABEL_31:
                       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                       {
                         *buf = 134218240;
-                        *&buf[4] = v34;
+                        *&buf[4] = v33;
                         *&buf[12] = 1024;
-                        *&buf[14] = v35;
-                        OUTLINED_FUNCTION_4(&dword_2336E3000, MEMORY[0x277D86220], v38, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+                        *&buf[14] = v34;
+                        OUTLINED_FUNCTION_4(&dword_2336E3000, MEMORY[0x277D86220], v37, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
                       }
 
-                      v36 = MEMORY[0x277D86220];
-                      v39 = MEMORY[0x277D86220];
+                      v35 = MEMORY[0x277D86220];
+                      v38 = MEMORY[0x277D86220];
                     }
 
-                    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+                    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 134218496;
-                      *&buf[4] = v72;
+                      *&buf[4] = v65;
                       *&buf[12] = 2048;
-                      *&buf[14] = *(&v72 + 1);
+                      *&buf[14] = *(&v65 + 1);
                       *&buf[22] = 2048;
-                      *&buf[24] = v73;
-                      _os_log_impl(&dword_2336E3000, v36, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: override %f %f %f", buf, 0x20u);
+                      *&buf[24] = v66;
+                      _os_log_impl(&dword_2336E3000, v35, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: override %f %f %f", buf, 0x20u);
                     }
 
-                    v37 = &v72;
+                    v36 = &v65;
                   }
 
                   else
                   {
-                    v37 = &v20[32 * v21];
+                    v36 = &v19[32 * v20];
                   }
 
-                  v40 = [MEMORY[0x277CBEA90] dataWithBytes:v37 length:32];
-                  [v7 setValue:v40 forKey:*MEMORY[0x277CFD2E8]];
-                  if (v18)
+                  v39 = [MEMORY[0x277CBEA90] dataWithBytes:v36 length:32];
+                  [v7 setValue:v39 forKey:*MEMORY[0x277CFD2E8]];
+                  if (v17)
                   {
-                    *&v41 = -1;
-                    *(&v41 + 1) = -1;
-                    *buf = v41;
-                    *&buf[16] = v41;
-                    v42 = +[ACCUserDefaults sharedDefaults];
-                    v43 = [v42 BOOLForKey:@"AllowNFCColorOverride"];
+                    *&v40 = -1;
+                    *(&v40 + 1) = -1;
+                    *buf = v40;
+                    *&buf[16] = v40;
+                    v41 = +[ACCUserDefaults sharedDefaults];
+                    v42 = [v41 BOOLForKey:@"AllowNFCColorOverride"];
 
-                    v44 = gLogObjects;
-                    v45 = gNumLogObjects;
+                    v43 = gLogObjects;
+                    v44 = gNumLogObjects;
                     if (gLogObjects && gNumLogObjects >= 1)
                     {
-                      v46 = *gLogObjects;
+                      v45 = *gLogObjects;
                     }
 
                     else
                     {
                       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                       {
-                        *v75 = 134218240;
-                        v76 = v44;
-                        v77 = 1024;
-                        LODWORD(v78) = v45;
-                        OUTLINED_FUNCTION_4(&dword_2336E3000, MEMORY[0x277D86220], v47, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v75);
+                        *v68 = 134218240;
+                        v69 = v43;
+                        v70 = 1024;
+                        LODWORD(v71) = v44;
+                        OUTLINED_FUNCTION_4(&dword_2336E3000, MEMORY[0x277D86220], v46, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v68);
                       }
 
-                      v46 = MEMORY[0x277D86220];
-                      v48 = MEMORY[0x277D86220];
+                      v45 = MEMORY[0x277D86220];
+                      v47 = MEMORY[0x277D86220];
                     }
 
-                    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+                    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
                     {
-                      *v75 = 67109120;
-                      LODWORD(v76) = v43;
-                      _os_log_impl(&dword_2336E3000, v46, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: allow override: %d", v75, 8u);
+                      *v68 = 67109120;
+                      LODWORD(v69) = v42;
+                      _os_log_impl(&dword_2336E3000, v45, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: allow override: %d", v68, 8u);
                     }
 
-                    if (v43 && (+[ACCUserDefaults sharedDefaults](ACCUserDefaults, "sharedDefaults"), v49 = objc_claimAutoreleasedReturnValue(), [v49 stringForKey:@"NFCSecondaryColorOverride"], v50 = objc_claimAutoreleasedReturnValue(), v49, v50) && (v51 = parseColorString(v50, buf), v50, v51))
+                    if (v42 && (+[ACCUserDefaults sharedDefaults](ACCUserDefaults, "sharedDefaults"), v48 = objc_claimAutoreleasedReturnValue(), [v48 stringForKey:@"NFCSecondaryColorOverride"], v49 = objc_claimAutoreleasedReturnValue(), v48, v49) && (v50 = parseColorString(v49, buf), v49, v50))
                     {
-                      v52 = gLogObjects;
-                      v53 = gNumLogObjects;
+                      v51 = gLogObjects;
+                      v52 = gNumLogObjects;
                       if (gLogObjects && gNumLogObjects >= 1)
                       {
-                        v54 = *gLogObjects;
+                        v53 = *gLogObjects;
                       }
 
                       else
                       {
                         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                         {
-                          *v75 = 134218240;
-                          v76 = v52;
-                          v77 = 1024;
-                          LODWORD(v78) = v53;
-                          OUTLINED_FUNCTION_4(&dword_2336E3000, MEMORY[0x277D86220], v57, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v75);
+                          *v68 = 134218240;
+                          v69 = v51;
+                          v70 = 1024;
+                          LODWORD(v71) = v52;
+                          OUTLINED_FUNCTION_4(&dword_2336E3000, MEMORY[0x277D86220], v56, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v68);
                         }
 
-                        v54 = MEMORY[0x277D86220];
-                        v58 = MEMORY[0x277D86220];
+                        v53 = MEMORY[0x277D86220];
+                        v57 = MEMORY[0x277D86220];
                       }
 
-                      v56 = 0x277CBE000uLL;
-                      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+                      v55 = 0x277CBE000uLL;
+                      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
                       {
-                        *v75 = 134218496;
-                        v76 = *buf;
-                        v77 = 2048;
-                        v78 = *&buf[8];
-                        v79 = 2048;
-                        v80 = *&buf[16];
-                        _os_log_impl(&dword_2336E3000, v54, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: secondary override %f %f %f", v75, 0x20u);
+                        *v68 = 134218496;
+                        v69 = *buf;
+                        v70 = 2048;
+                        v71 = *&buf[8];
+                        v72 = 2048;
+                        v73 = *&buf[16];
+                        _os_log_impl(&dword_2336E3000, v53, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: secondary override %f %f %f", v68, 0x20u);
                       }
 
-                      v55 = buf;
+                      v54 = buf;
                     }
 
                     else
                     {
-                      v55 = &v71[32 * v21];
-                      v56 = 0x277CBE000;
+                      v54 = &v64[32 * v20];
+                      v55 = 0x277CBE000;
                     }
 
-                    v59 = [*(v56 + 2704) dataWithBytes:v55 length:32];
-                    v60 = *MEMORY[0x277CFD2F0];
+                    v58 = [*(v55 + 2704) dataWithBytes:v54 length:32];
                     OUTLINED_FUNCTION_5();
                   }
                 }
@@ -4336,16 +4684,15 @@ LABEL_31:
             }
 
 LABEL_79:
-            if ((v15 & 2) != 0)
+            if ((v14 & 2) != 0)
             {
-              v61 = [OUTLINED_FUNCTION_7() numberWithBool:?];
-              v62 = *MEMORY[0x277CFD308];
+              v59 = [OUTLINED_FUNCTION_7() numberWithBool:?];
               OUTLINED_FUNCTION_5();
 
-              if ((v15 & 4) == 0)
+              if ((v14 & 4) == 0)
               {
 LABEL_81:
-                if ((v15 & 0x10) == 0)
+                if ((v14 & 0x10) == 0)
                 {
                   goto LABEL_82;
                 }
@@ -4354,19 +4701,18 @@ LABEL_81:
               }
             }
 
-            else if ((v15 & 4) == 0)
+            else if ((v14 & 4) == 0)
             {
               goto LABEL_81;
             }
 
-            v63 = [OUTLINED_FUNCTION_7() numberWithBool:?];
-            v64 = *MEMORY[0x277CFD328];
+            v60 = [OUTLINED_FUNCTION_7() numberWithBool:?];
             OUTLINED_FUNCTION_5();
 
-            if ((v15 & 0x10) == 0)
+            if ((v14 & 0x10) == 0)
             {
 LABEL_82:
-              if ((v15 & 0x20) == 0)
+              if ((v14 & 0x20) == 0)
               {
                 break;
               }
@@ -4375,18 +4721,16 @@ LABEL_82:
             }
 
 LABEL_86:
-            v65 = [OUTLINED_FUNCTION_7() numberWithBool:?];
-            v66 = *MEMORY[0x277CFD2E0];
+            v61 = [OUTLINED_FUNCTION_7() numberWithBool:?];
             OUTLINED_FUNCTION_5();
 
-            if ((v15 & 0x20) == 0)
+            if ((v14 & 0x20) == 0)
             {
               break;
             }
 
 LABEL_87:
-            v67 = [OUTLINED_FUNCTION_7() numberWithBool:?];
-            v68 = *MEMORY[0x277CFD2D8];
+            v62 = [OUTLINED_FUNCTION_7() numberWithBool:?];
             OUTLINED_FUNCTION_5();
 
             break;
@@ -4400,21 +4744,19 @@ LABEL_87:
     v7 = 0;
   }
 
-  v69 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (BOOL)_connectToTagId:(id)id
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   idCopy = id;
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   connectedTagId = self->_polledTags;
-  v5 = [(NSArray *)connectedTagId countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v5 = [(NSArray *)connectedTagId countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (!v5)
   {
     v11 = 0;
@@ -4429,24 +4771,24 @@ LABEL_30:
 
   v7 = v5;
   v8 = 0;
-  v9 = *v37;
+  v9 = *v36;
   *&v6 = 134218240;
-  v29 = v6;
+  v28 = v6;
   obj = connectedTagId;
 LABEL_3:
   v10 = 0;
   while (1)
   {
-    if (*v37 != v9)
+    if (*v36 != v9)
     {
       objc_enumerationMutation(obj);
     }
 
-    v11 = *(*(&v36 + 1) + 8 * v10);
+    v11 = *(*(&v35 + 1) + 8 * v10);
     readerSession = self->_readerSession;
-    v35 = v8;
-    v13 = [(NFAccessoryReaderSession *)readerSession connectTag:v11 error:&v35, v29];
-    v14 = v35;
+    v34 = v8;
+    v13 = [(NFAccessoryReaderSession *)readerSession connectTag:v11 error:&v34, v28];
+    v14 = v34;
 
     if ((v13 & 1) == 0)
     {
@@ -4462,10 +4804,10 @@ LABEL_3:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          *buf = v29;
-          v42 = v19;
-          v43 = 1024;
-          v44 = v20;
+          *buf = v28;
+          v41 = v19;
+          v42 = 1024;
+          v43 = v20;
           _os_log_error_impl(&dword_2336E3000, v17, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -4475,7 +4817,7 @@ LABEL_3:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v42 = v14;
+        v41 = v14;
         _os_log_impl(&dword_2336E3000, v17, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: connectTag failed: %@", buf, 0xCu);
       }
 
@@ -4490,16 +4832,16 @@ LABEL_3:
     }
 
     v15 = self->_readerSession;
-    v34 = v14;
-    v16 = [(NFAccessoryReaderSession *)v15 readTypeIdentifier:&v34];
-    v17 = v34;
+    v33 = v14;
+    v16 = [(NFAccessoryReaderSession *)v15 readTypeIdentifier:&v33];
+    v17 = v33;
 
     if (!v16)
     {
       v22 = self->_readerSession;
-      v33 = v17;
-      [(NFAccessoryReaderSession *)v22 disconnectTag:&v33];
-      v8 = v33;
+      v32 = v17;
+      [(NFAccessoryReaderSession *)v22 disconnectTag:&v32];
+      v8 = v32;
       goto LABEL_21;
     }
 
@@ -4509,9 +4851,9 @@ LABEL_3:
     }
 
     v18 = self->_readerSession;
-    v32 = v17;
-    [(NFAccessoryReaderSession *)v18 disconnectTag:&v32];
-    v8 = v32;
+    v31 = v17;
+    [(NFAccessoryReaderSession *)v18 disconnectTag:&v31];
+    v8 = v31;
 
     v17 = v16;
 LABEL_21:
@@ -4519,7 +4861,7 @@ LABEL_21:
     if (v7 == ++v10)
     {
       connectedTagId = obj;
-      v7 = [(NSArray *)obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v7 = [(NSArray *)obj countByEnumeratingWithState:&v35 objects:v39 count:16];
       if (v7)
       {
         goto LABEL_3;
@@ -4549,112 +4891,108 @@ LABEL_28:
   v24 = 0;
 LABEL_31:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 void __49__AccessoryTransportPluginNFC__handleIOHIDEvent___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
+  v19 = *MEMORY[0x277D85DE8];
   IntegerValue = IOHIDEventGetIntegerValue();
-  v4 = (IntegerValue >> 10) & 1;
-  if (*(*(a1 + 32) + 152) == v4)
+  v3 = (IntegerValue >> 10) & 1;
+  if (*(*(a1 + 32) + 152) == v3)
   {
-    goto LABEL_18;
+    return;
   }
 
-  if (v4)
+  if (v3)
   {
     goto LABEL_5;
   }
 
-  memset(v20, 170, 16);
-  clock_gettime(_CLOCK_REALTIME, v20);
-  v5 = *(a1 + 32);
-  if (*(v5 + 184) != 1)
+  memset(v18, 170, 16);
+  clock_gettime(_CLOCK_REALTIME, v18);
+  v4 = *(a1 + 32);
+  if (*(v4 + 184) != 1)
   {
     goto LABEL_5;
   }
 
-  v6 = (v5 + 160);
-  if (*v20 < *v6)
+  v5 = (v4 + 160);
+  if (*v18 < *v5)
   {
     goto LABEL_5;
   }
 
-  if (*v20 == *v6)
+  if (*v18 == *v5)
   {
-    v19 = *&v20[8];
+    v17 = *&v18[8];
 LABEL_23:
-    v7 = v19 - v6[1] < 350000000;
+    v6 = v17 - v5[1] < 350000000;
     goto LABEL_6;
   }
 
-  if (*v20 == *v6 + 1)
+  if (*v18 == *v5 + 1)
   {
-    v19 = *&v20[8] + 1000000000;
+    v17 = *&v18[8] + 1000000000;
     goto LABEL_23;
   }
 
 LABEL_5:
-  v7 = 0;
+  v6 = 0;
 LABEL_6:
-  v8 = HIDWORD(gLogObjects);
-  v9 = gNumLogObjects;
+  v7 = gLogObjects;
+  v8 = gNumLogObjects;
   if (gLogObjects)
   {
-    v10 = gNumLogObjects < 1;
+    v9 = gNumLogObjects < 1;
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
-  if (v10)
+  if (v9)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *&v20[8] = v8;
-      *&v20[12] = 1024;
-      *&v20[14] = v9;
-      OUTLINED_FUNCTION_1(&dword_2336E3000, MEMORY[0x277D86220], v11, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v12, v13, v14, v15, 0);
+      *v18 = 134218240;
+      *&v18[4] = v7;
+      *&v18[12] = 1024;
+      *&v18[14] = v8;
+      OUTLINED_FUNCTION_1(&dword_2336E3000, MEMORY[0x277D86220], v10, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v11, v12, v13, v14, *v18, *&v18[8], *&v18[16], v19);
     }
 
-    v17 = MEMORY[0x277D86220];
     v16 = MEMORY[0x277D86220];
+    v15 = MEMORY[0x277D86220];
   }
 
   else
   {
-    v17 = *gLogObjects;
+    v16 = *gLogObjects;
   }
 
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    *v20 = 67109632;
-    *&v20[4] = (IntegerValue >> 10) & 1;
-    *&v20[8] = 1024;
-    *&v20[10] = IntegerValue;
-    *&v20[14] = 1024;
-    *&v20[16] = v7;
-    _os_log_impl(&dword_2336E3000, v17, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _handleIOHIDEvent: %d, %x, ignore=%d", v20, 0x14u);
+    *v18 = 67109632;
+    *&v18[4] = (IntegerValue >> 10) & 1;
+    *&v18[8] = 1024;
+    *&v18[10] = IntegerValue;
+    *&v18[14] = 1024;
+    *&v18[16] = v6;
+    _os_log_impl(&dword_2336E3000, v16, OS_LOG_TYPE_DEFAULT, "NFC transport plugin: _handleIOHIDEvent: %d, %x, ignore=%d", v18, 0x14u);
   }
 
-  if (!v7)
+  if (!v6)
   {
-    *(*(a1 + 32) + 152) = v4;
+    *(*(a1 + 32) + 152) = v3;
   }
-
-LABEL_18:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAccessoryPower:(BOOL)power
 {
   powerCopy = power;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   connect = 0;
   ServiceWithPrimaryPort = IOAccessoryManagerGetServiceWithPrimaryPort();
   if (!IOServiceOpen(ServiceWithPrimaryPort, *MEMORY[0x277D85F48], 0, &connect) && connect)
@@ -4684,9 +5022,9 @@ LABEL_18:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          *v15 = v7;
-          *&v15[8] = 1024;
-          v16 = v8;
+          *v14 = v7;
+          *&v14[8] = 1024;
+          v15 = v8;
           OUTLINED_FUNCTION_4(&dword_2336E3000, MEMORY[0x277D86220], v10, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
         }
 
@@ -4697,37 +5035,34 @@ LABEL_18:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109376;
-        *v15 = powerCopy;
-        *&v15[4] = 1024;
-        *&v15[6] = v6;
+        *v14 = powerCopy;
+        *&v14[4] = 1024;
+        *&v14[6] = v6;
         _os_log_error_impl(&dword_2336E3000, v9, OS_LOG_TYPE_ERROR, "NFC transport plugin: Set Feature Mask %d fail kernStatus:%02X", buf, 0xEu);
       }
     }
 
     IOServiceClose(connect);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendOutgoingData:(uint64_t)a1 forEndpointWithUUID:(int)a2 connectionUUID:.cold.1(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109632;
-  v3[1] = 3;
-  v4 = 2048;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2;
-  _os_log_error_impl(&dword_2336E3000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Make sure you have called init_logging_signposts() / init_logging()!\n module %d, gLogSignpostObjects: %p, gNumLogSignpostObjects: %d", v3, 0x18u);
-  v2 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109632;
+  v2[1] = 3;
+  v3 = 2048;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2;
+  _os_log_error_impl(&dword_2336E3000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Make sure you have called init_logging_signposts() / init_logging()!\n module %d, gLogSignpostObjects: %p, gNumLogSignpostObjects: %d", v2, 0x18u);
 }
 
-- (uint64_t)_handleNearFieldAccessoryEventNotification:.cold.6()
+- (void)_handleNearFieldAccessoryEventNotification:.cold.6()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [(AccessoryTransportPluginNFC *)v0 _getNfcStateMachineState];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [AccessoryTransportPluginNFC _getNfcStateMachineState];
 }
 
 - (void)_getNfcStateMachineState

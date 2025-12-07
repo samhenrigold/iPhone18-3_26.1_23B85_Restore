@@ -173,7 +173,7 @@ ATXUserNotificationDigestNotificationGroup *__70__ATXUserNotificationDigest_init
           }
 
           v27 = *(*(&v43 + 1) + 8 * i);
-          if (![(NSArray *)v20 containsObject:v27])
+          if ((objc_msgSend_containsObject_(v20) & 1) == 0)
           {
             if ([(NSArray *)v20 count]>= 2)
             {
@@ -254,14 +254,14 @@ ATXUserNotificationDigestNotificationGroup *__70__ATXUserNotificationDigest_init
 uint64_t __89__ATXUserNotificationDigest_initWithAppDigests_highlightedGroups_messageGroups_rankerId___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([*(a1 + 32) containsObject:v3])
+  if (objc_msgSend_containsObject_(*(a1 + 32)))
   {
     v4 = 0;
   }
 
   else
   {
-    v4 = [*(a1 + 40) containsObject:v3] ^ 1;
+    v4 = objc_msgSend_containsObject_(*(a1 + 40)) ^ 1;
   }
 
   return v4;
@@ -279,76 +279,76 @@ uint64_t __89__ATXUserNotificationDigest_initWithAppDigests_highlightedGroups_me
 
 - (id)allNotificationIds
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
-  v42 = 0u;
-  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   messageGroups = [(ATXUserNotificationDigest *)self messageGroups];
-  v48[0] = messageGroups;
+  v50[0] = messageGroups;
   highlightedGroups = [(ATXUserNotificationDigest *)self highlightedGroups];
-  v48[1] = highlightedGroups;
+  v50[1] = highlightedGroups;
   rankedGroups = [(ATXUserNotificationDigest *)self rankedGroups];
-  v48[2] = rankedGroups;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:3];
+  v50[2] = rankedGroups;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:3];
 
   obj = v7;
-  v25 = [v7 countByEnumeratingWithState:&v42 objects:v49 count:16];
-  if (v25)
+  v27 = [v7 countByEnumeratingWithState:&v44 objects:v51 count:16];
+  if (v27)
   {
-    v24 = *v43;
+    v26 = *v45;
     do
     {
       v8 = 0;
       do
       {
-        if (*v43 != v24)
+        if (*v45 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = v8;
-        v9 = *(*(&v42 + 1) + 8 * v8);
-        v38 = 0u;
-        v39 = 0u;
+        v28 = v8;
+        v9 = *(*(&v44 + 1) + 8 * v8);
         v40 = 0u;
         v41 = 0u;
-        v27 = v9;
-        v29 = [v27 countByEnumeratingWithState:&v38 objects:v47 count:16];
-        if (v29)
+        v42 = 0u;
+        v43 = 0u;
+        v29 = v9;
+        v31 = [v29 countByEnumeratingWithState:&v40 objects:v49 count:16];
+        if (v31)
         {
-          v28 = *v39;
+          v30 = *v41;
           do
           {
-            for (i = 0; i != v29; ++i)
+            for (i = 0; i != v31; ++i)
             {
-              if (*v39 != v28)
+              if (*v41 != v30)
               {
-                objc_enumerationMutation(v27);
+                objc_enumerationMutation(v29);
               }
 
-              v11 = *(*(&v38 + 1) + 8 * i);
-              v34 = 0u;
-              v35 = 0u;
+              v11 = *(*(&v40 + 1) + 8 * i);
               v36 = 0u;
               v37 = 0u;
+              v38 = 0u;
+              v39 = 0u;
               rankedNotifications = [v11 rankedNotifications];
-              v13 = [rankedNotifications countByEnumeratingWithState:&v34 objects:v46 count:16];
+              v13 = [rankedNotifications countByEnumeratingWithState:&v36 objects:v48 count:16];
               if (v13)
               {
                 v14 = v13;
-                v15 = *v35;
+                v15 = *v37;
                 do
                 {
                   for (j = 0; j != v14; ++j)
                   {
-                    if (*v35 != v15)
+                    if (*v37 != v15)
                     {
                       objc_enumerationMutation(rankedNotifications);
                     }
 
-                    v17 = *(*(&v34 + 1) + 8 * j);
+                    v17 = *(*(&v36 + 1) + 8 * j);
                     uuid = [v17 uuid];
 
                     if (uuid)
@@ -365,7 +365,7 @@ uint64_t __89__ATXUserNotificationDigest_initWithAppDigests_highlightedGroups_me
 
                       else
                       {
-                        uuid3 = __atxlog_handle_modes();
+                        uuid3 = __atxlog_handle_modes(v22);
                         if (os_log_type_enabled(uuid3, OS_LOG_TYPE_FAULT))
                         {
                           [(ATXUserNotificationDigest *)&buf allNotificationIds];
@@ -375,35 +375,35 @@ uint64_t __89__ATXUserNotificationDigest_initWithAppDigests_highlightedGroups_me
 
                     else
                     {
-                      uuid3 = __atxlog_handle_modes();
+                      uuid3 = __atxlog_handle_modes(v19);
                       if (os_log_type_enabled(uuid3, OS_LOG_TYPE_FAULT))
                       {
-                        [(ATXUserNotificationDigest *)&v32 allNotificationIds];
+                        [(ATXUserNotificationDigest *)&v34 allNotificationIds];
                       }
                     }
                   }
 
-                  v14 = [rankedNotifications countByEnumeratingWithState:&v34 objects:v46 count:16];
+                  v14 = [rankedNotifications countByEnumeratingWithState:&v36 objects:v48 count:16];
                 }
 
                 while (v14);
               }
             }
 
-            v29 = [v27 countByEnumeratingWithState:&v38 objects:v47 count:16];
+            v31 = [v29 countByEnumeratingWithState:&v40 objects:v49 count:16];
           }
 
-          while (v29);
+          while (v31);
         }
 
-        v8 = v26 + 1;
+        v8 = v28 + 1;
       }
 
-      while (v26 + 1 != v25);
-      v25 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
+      while (v28 + 1 != v27);
+      v27 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
     }
 
-    while (v25);
+    while (v27);
   }
 
   return v3;
@@ -593,29 +593,30 @@ uint64_t __89__ATXUserNotificationDigest_initWithAppDigests_highlightedGroups_me
 - (ATXUserNotificationDigest)initWithProto:(id)proto
 {
   protoCopy = proto;
-  v47.receiver = self;
-  v47.super_class = ATXUserNotificationDigest;
-  v5 = [(ATXUserNotificationDigest *)&v47 init];
+  v50.receiver = self;
+  v50.super_class = ATXUserNotificationDigest;
+  v5 = [(ATXUserNotificationDigest *)&v50 init];
   if (!v5)
   {
 LABEL_33:
-    v12 = v5;
+    v13 = v5;
     goto LABEL_34;
   }
 
   if (protoCopy)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v6 = protoCopy;
-      messageGroups = [v6 messageGroups];
+      v7 = protoCopy;
+      messageGroups = [v7 messageGroups];
       if (messageGroups)
       {
-        messageGroups2 = [v6 messageGroups];
-        v9 = [messageGroups2 _pas_mappedArrayWithTransform:&__block_literal_global_51];
+        messageGroups2 = [v7 messageGroups];
+        v10 = [messageGroups2 _pas_mappedArrayWithTransform:&__block_literal_global_51];
         messageGroups = v5->_messageGroups;
-        v5->_messageGroups = v9;
+        v5->_messageGroups = v10;
       }
 
       else
@@ -624,13 +625,13 @@ LABEL_33:
         v5->_messageGroups = MEMORY[0x1E695E0F0];
       }
 
-      highlightedGroups = [v6 highlightedGroups];
+      highlightedGroups = [v7 highlightedGroups];
       if (highlightedGroups)
       {
-        highlightedGroups2 = [v6 highlightedGroups];
-        v15 = [highlightedGroups2 _pas_mappedArrayWithTransform:&__block_literal_global_53];
+        highlightedGroups2 = [v7 highlightedGroups];
+        v16 = [highlightedGroups2 _pas_mappedArrayWithTransform:&__block_literal_global_53];
         highlightedGroups = v5->_highlightedGroups;
-        v5->_highlightedGroups = v15;
+        v5->_highlightedGroups = v16;
       }
 
       else
@@ -639,13 +640,13 @@ LABEL_33:
         v5->_highlightedGroups = MEMORY[0x1E695E0F0];
       }
 
-      rankedGroups = [v6 rankedGroups];
+      rankedGroups = [v7 rankedGroups];
       if (rankedGroups)
       {
-        rankedGroups2 = [v6 rankedGroups];
-        v19 = [rankedGroups2 _pas_mappedArrayWithTransform:&__block_literal_global_55];
+        rankedGroups2 = [v7 rankedGroups];
+        v20 = [rankedGroups2 _pas_mappedArrayWithTransform:&__block_literal_global_55];
         rankedGroups = v5->_rankedGroups;
-        v5->_rankedGroups = v19;
+        v5->_rankedGroups = v20;
       }
 
       else
@@ -654,13 +655,13 @@ LABEL_33:
         v5->_rankedGroups = MEMORY[0x1E695E0F0];
       }
 
-      appDigests = [v6 appDigests];
+      appDigests = [v7 appDigests];
       if (appDigests)
       {
-        appDigests2 = [v6 appDigests];
-        v23 = [appDigests2 _pas_mappedArrayWithTransform:&__block_literal_global_58];
+        appDigests2 = [v7 appDigests];
+        v24 = [appDigests2 _pas_mappedArrayWithTransform:&__block_literal_global_58];
         appDigests = v5->_appDigests;
-        v5->_appDigests = v23;
+        v5->_appDigests = v24;
       }
 
       else
@@ -669,70 +670,70 @@ LABEL_33:
         v5->_appDigests = MEMORY[0x1E695E0F0];
       }
 
-      [v6 timestamp];
-      v5->_creationTimestamp = v25;
-      v26 = objc_alloc(MEMORY[0x1E696AFB0]);
-      uuid = [v6 uuid];
-      v28 = [v26 initWithUUIDString:uuid];
+      [v7 timestamp];
+      v5->_creationTimestamp = v26;
+      v27 = objc_alloc(MEMORY[0x1E696AFB0]);
+      uuid = [v7 uuid];
+      v29 = [v27 initWithUUIDString:uuid];
       uuid = v5->_uuid;
-      v5->_uuid = v28;
+      v5->_uuid = v29;
 
-      rankerId = [v6 rankerId];
+      rankerId = [v7 rankerId];
       rankerId = v5->_rankerId;
       v5->_rankerId = rankerId;
 
-      modeId = [v6 modeId];
+      modeId = [v7 modeId];
       modeIdString = v5->_modeIdString;
       v5->_modeIdString = modeId;
 
-      sharedEngagementTracker = [v6 sharedEngagementTracker];
+      sharedEngagementTracker = [v7 sharedEngagementTracker];
 
       if (sharedEngagementTracker)
       {
-        sharedEngagementTracker2 = [v6 sharedEngagementTracker];
+        sharedEngagementTracker2 = [v7 sharedEngagementTracker];
         objc_opt_class();
-        isKindOfClass = objc_opt_isKindOfClass();
+        v37 = objc_opt_isKindOfClass();
 
-        if (isKindOfClass)
+        if (v37)
         {
-          v37 = [ATXSharedDigestEngagementTrackingMetrics alloc];
-          sharedEngagementTracker3 = [v6 sharedEngagementTracker];
-          v39 = [(ATXSharedDigestEngagementTrackingMetrics *)v37 initWithProto:sharedEngagementTracker3];
-          [(ATXUserNotificationDigest *)v5 setDigestEngagementTrackingMetrics:v39];
+          v39 = [ATXSharedDigestEngagementTrackingMetrics alloc];
+          sharedEngagementTracker3 = [v7 sharedEngagementTracker];
+          v41 = [(ATXSharedDigestEngagementTrackingMetrics *)v39 initWithProto:sharedEngagementTracker3];
+          [(ATXUserNotificationDigest *)v5 setDigestEngagementTrackingMetrics:v41];
         }
 
         else
         {
-          sharedEngagementTracker3 = __atxlog_handle_notification_management();
+          sharedEngagementTracker3 = __atxlog_handle_notification_management(v38);
           if (os_log_type_enabled(sharedEngagementTracker3, OS_LOG_TYPE_FAULT))
           {
-            [ATXMissedNotificationRanking initWithProto:];
+            [ATXMissedNotificationRanking initWithProto:v5];
           }
         }
       }
 
-      digestTimeline = [v6 digestTimeline];
+      digestTimeline = [v7 digestTimeline];
 
       if (digestTimeline)
       {
-        digestTimeline2 = [v6 digestTimeline];
+        digestTimeline2 = [v7 digestTimeline];
         objc_opt_class();
-        v42 = objc_opt_isKindOfClass();
+        v44 = objc_opt_isKindOfClass();
 
-        if (v42)
+        if (v44)
         {
-          v43 = [ATXDigestTimeline alloc];
-          digestTimeline3 = [v6 digestTimeline];
-          v45 = [(ATXDigestTimeline *)v43 initWithProto:digestTimeline3];
-          [(ATXUserNotificationDigest *)v5 setDigestTimeline:v45];
+          v46 = [ATXDigestTimeline alloc];
+          digestTimeline3 = [v7 digestTimeline];
+          v48 = [(ATXDigestTimeline *)v46 initWithProto:digestTimeline3];
+          [(ATXUserNotificationDigest *)v5 setDigestTimeline:v48];
         }
 
         else
         {
-          digestTimeline3 = __atxlog_handle_notification_management();
+          digestTimeline3 = __atxlog_handle_notification_management(v45);
           if (os_log_type_enabled(digestTimeline3, OS_LOG_TYPE_FAULT))
           {
-            [ATXMissedNotificationRanking initWithProto:];
+            [ATXMissedNotificationRanking initWithProto:v5];
           }
         }
       }
@@ -740,17 +741,17 @@ LABEL_33:
       goto LABEL_33;
     }
 
-    v11 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [ATXMissedNotificationRanking initWithProto:];
+      [ATXMissedNotificationRanking initWithProto:v5];
     }
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_34:
 
-  return v12;
+  return v13;
 }
 
 ATXUserNotificationDigestNotificationGroup *__43__ATXUserNotificationDigest_initWithProto___block_invoke(uint64_t a1, void *a2)

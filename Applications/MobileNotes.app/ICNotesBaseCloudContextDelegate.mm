@@ -579,7 +579,7 @@ LABEL_8:
   v3 = v2;
   if (v2)
   {
-    [v2 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v2);
   }
 
   v4 = [NSNumber numberWithInteger:0];

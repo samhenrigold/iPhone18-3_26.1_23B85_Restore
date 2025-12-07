@@ -52,7 +52,7 @@
 
 - (void)_transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -62,9 +62,9 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v31 = 138543362;
-    v32 = v14;
-    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling transaction updated", &v31, 0xCu);
+    v30 = 138543362;
+    v31 = v14;
+    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling transaction updated", &v30, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -131,8 +131,6 @@
 LABEL_20:
     [messageCopy respondWithSuccess];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelObjectWithChangeType:(unint64_t)type
@@ -289,18 +287,18 @@ LABEL_20:
 
 void __48__HMDSignificantTimeEvent__handleUpdateRequest___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
+  v3 = *(a1 + 32);
   if (a2)
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
 
-    [v3 respondWithError:a2];
+    [v4 respondWithError:a2];
   }
 
   else
   {
-    v4 = [*(a1 + 40) copy];
-    [v2 respondWithPayload:v4];
+    v5 = objc_msgSend_copy(*(a1 + 40));
+    [v3 respondWithPayload:v5];
   }
 }
 
@@ -330,7 +328,7 @@ void __48__HMDSignificantTimeEvent__handleUpdateRequest___block_invoke(uint64_t 
   v8 = encodeRootObject();
   [v5 setObject:v8 forKeyedSubscript:*MEMORY[0x277CD2680]];
 
-  v9 = [v5 copy];
+  v9 = objc_msgSend_copy(v5);
 
   return v9;
 }
@@ -374,7 +372,7 @@ void __48__HMDSignificantTimeEvent__handleUpdateRequest___block_invoke(uint64_t 
 
 + (id)nextTimerDateFromHomeLocation:(id)location signifiantEvent:(id)event offset:(id)offset loggingObject:(id)object
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   eventCopy = event;
   offsetCopy = offset;
@@ -389,7 +387,7 @@ void __48__HMDSignificantTimeEvent__handleUpdateRequest___block_invoke(uint64_t 
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v78 = v23;
+      v77 = v23;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to get next significant event fire date because home location is nil", buf, 0xCu);
     }
 
@@ -407,11 +405,11 @@ void __48__HMDSignificantTimeEvent__handleUpdateRequest___block_invoke(uint64_t 
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v78 = v17;
-    v79 = 2112;
-    v80 = locationCopy;
-    v81 = 2112;
-    v82 = v13;
+    v77 = v17;
+    v78 = 2112;
+    v79 = locationCopy;
+    v80 = 2112;
+    v81 = v13;
     _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Current Home Location & time : %@ / %@", buf, 0x20u);
   }
 
@@ -441,9 +439,9 @@ LABEL_13:
   {
     v29 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v78 = v29;
-    v79 = 2112;
-    v80 = v25;
+    v77 = v29;
+    v78 = 2112;
+    v79 = v25;
     _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@nextSunEventDates %@", buf, 0x16u);
   }
 
@@ -452,26 +450,26 @@ LABEL_13:
   v31 = v27;
   v32 = HMFGetOSLogHandle();
   v33 = v32;
-  v71 = v13;
+  v70 = v13;
   if (v25)
   {
-    v69 = eventCopy;
+    v68 = eventCopy;
     if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {
       v34 = HMFGetLogIdentifier();
       v35 = [v25 describeElements:&__block_literal_global_19_66981];
       *buf = 138543618;
-      v78 = v34;
-      v79 = 2112;
-      v80 = v35;
+      v77 = v34;
+      v78 = 2112;
+      v79 = v35;
       _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_INFO, "%{public}@Set of events to pick from %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v30);
-    v70 = v25;
+    v69 = v25;
     if (offsetCopy)
     {
-      v67 = objectCopy;
+      v66 = objectCopy;
       v36 = objc_autoreleasePoolPush();
       v37 = v31;
       v38 = HMFGetOSLogHandle();
@@ -479,49 +477,49 @@ LABEL_13:
       {
         v39 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v78 = v39;
-        v79 = 2112;
-        v80 = offsetCopy;
+        v77 = v39;
+        v78 = 2112;
+        v79 = offsetCopy;
         _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_INFO, "%{public}@Adding offset %@ to the sun event dates", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v36);
       array = [MEMORY[0x277CBEB18] array];
+      v71 = 0u;
       v72 = 0u;
       v73 = 0u;
       v74 = 0u;
-      v75 = 0u;
       v41 = v25;
-      v42 = [v41 countByEnumeratingWithState:&v72 objects:v76 count:16];
+      v42 = [v41 countByEnumeratingWithState:&v71 objects:v75 count:16];
       if (v42)
       {
         v43 = v42;
-        v44 = *v73;
+        v44 = *v72;
         do
         {
           for (i = 0; i != v43; ++i)
           {
-            if (*v73 != v44)
+            if (*v72 != v44)
             {
               objc_enumerationMutation(v41);
             }
 
-            v46 = *(*(&v72 + 1) + 8 * i);
+            v46 = *(*(&v71 + 1) + 8 * i);
             currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
             v48 = [currentCalendar dateByAddingComponents:offsetCopy toDate:v46 options:0];
 
             [array addObject:v48];
           }
 
-          v43 = [v41 countByEnumeratingWithState:&v72 objects:v76 count:16];
+          v43 = [v41 countByEnumeratingWithState:&v71 objects:v75 count:16];
         }
 
         while (v43);
       }
 
-      objectCopy = v67;
-      v25 = v70;
-      v13 = v71;
+      objectCopy = v66;
+      v25 = v69;
+      v13 = v70;
     }
 
     else
@@ -539,12 +537,12 @@ LABEL_13:
       v54 = HMFGetLogIdentifier();
       v55 = [array describeElements:&__block_literal_global_27_66987];
       *buf = 138543618;
-      v78 = v54;
-      v79 = 2112;
-      v80 = v55;
+      v77 = v54;
+      v78 = 2112;
+      v79 = v55;
       _os_log_impl(&dword_2531F8000, v53, OS_LOG_TYPE_INFO, "%{public}@Set of events to pick after offset & current time addition from %@", buf, 0x16u);
 
-      v25 = v70;
+      v25 = v69;
     }
 
     objc_autoreleasePoolPop(v51);
@@ -556,7 +554,7 @@ LABEL_13:
         v57 = [v50 objectAtIndex:v56 - 1];
 
         v58 = [v50 count];
-        if (v57 == v71)
+        if (v57 == v70)
         {
           break;
         }
@@ -564,7 +562,7 @@ LABEL_13:
         if (v56++ >= v58)
         {
           v24 = 0;
-          v25 = v70;
+          v25 = v69;
           goto LABEL_49;
         }
       }
@@ -574,12 +572,12 @@ LABEL_13:
         context = objc_autoreleasePoolPush();
         v60 = v52;
         v61 = HMFGetOSLogHandle();
-        v25 = v70;
+        v25 = v69;
         if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
         {
           v62 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v78 = v62;
+          v77 = v62;
           _os_log_impl(&dword_2531F8000, v61, OS_LOG_TYPE_ERROR, "%{public}@Unable to determine next timer event for Significant Event", buf, 0xCu);
         }
 
@@ -592,14 +590,14 @@ LABEL_13:
         context = objc_autoreleasePoolPush();
         v63 = v52;
         v61 = HMFGetOSLogHandle();
-        v25 = v70;
+        v25 = v69;
         if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
         {
           v64 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v78 = v64;
-          v79 = 2112;
-          v80 = v24;
+          v77 = v64;
+          v78 = 2112;
+          v79 = v24;
           _os_log_impl(&dword_2531F8000, v61, OS_LOG_TYPE_INFO, "%{public}@Event next fire date : %@", buf, 0x16u);
         }
       }
@@ -614,7 +612,7 @@ LABEL_13:
 
 LABEL_49:
 
-    eventCopy = v69;
+    eventCopy = v68;
   }
 
   else
@@ -623,7 +621,7 @@ LABEL_49:
     {
       v49 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v78 = v49;
+      v77 = v49;
       _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to get the sun event dates based on home location", buf, 0xCu);
     }
 
@@ -632,7 +630,6 @@ LABEL_49:
   }
 
 LABEL_51:
-  v65 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -651,12 +648,11 @@ LABEL_51:
 
 uint64_t __38__HMDSignificantTimeEvent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_66998;
-  logCategory__hmf_once_v1_66998 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_66998;
+  logCategory__hmf_once_v1_66998 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

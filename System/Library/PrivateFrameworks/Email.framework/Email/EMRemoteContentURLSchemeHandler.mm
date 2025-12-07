@@ -156,7 +156,7 @@ void __138__EMRemoteContentURLSchemeHandler_dataTaskForRequest_withSchemePrefix_
 
 - (void)webView:(id)view startURLSchemeTask:(id)task
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   taskCopy = task;
   v6 = _os_activity_create(&dword_1C6655000, "[EMRemoteContentURLSchemeHandler webView:startURLSchemeTask:]", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
@@ -174,44 +174,43 @@ void __138__EMRemoteContentURLSchemeHandler_dataTaskForRequest_withSchemePrefix_
     schemePrefix = self->_schemePrefix;
     session = self->_session;
     allowProxying = [(EMRemoteContentURLSchemeHandler *)self allowProxying];
-    v30 = 0;
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __62__EMRemoteContentURLSchemeHandler_webView_startURLSchemeTask___block_invoke;
-    v28[3] = &unk_1E826F6B8;
+    v29 = 0;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __62__EMRemoteContentURLSchemeHandler_webView_startURLSchemeTask___block_invoke;
+    v27[3] = &unk_1E826F6B8;
     v16 = taskCopy;
-    v29 = v16;
-    v17 = [v12 dataTaskForRequest:request withSchemePrefix:schemePrefix session:session scheduler:v11 allowProxying:allowProxying cancelationToken:&v30 completionHandler:v28];
-    v18 = v30;
+    v28 = v16;
+    v17 = [v12 dataTaskForRequest:request withSchemePrefix:schemePrefix session:session scheduler:v11 allowProxying:allowProxying cancelationToken:&v29 completionHandler:v27];
+    v18 = v29;
     objc_setAssociatedObject(v16, &kTokenKey, v18, 0x301);
     [v17 addSuccessBlock:&__block_literal_global_44];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __62__EMRemoteContentURLSchemeHandler_webView_startURLSchemeTask___block_invoke_3;
-    v24[3] = &unk_1E826DF38;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __62__EMRemoteContentURLSchemeHandler_webView_startURLSchemeTask___block_invoke_3;
+    v23[3] = &unk_1E826DF38;
     v19 = v18;
-    v25 = v19;
+    v24 = v19;
     v20 = v11;
-    v26 = v20;
-    v27 = v16;
-    [v17 addFailureBlock:v24];
+    v25 = v20;
+    v26 = v16;
+    [v17 addFailureBlock:v23];
 
-    v21 = v29;
+    v21 = v28;
   }
 
   else
   {
     v22 = MEMORY[0x1E696ABC0];
-    v32 = *MEMORY[0x1E696A980];
+    v31 = *MEMORY[0x1E696A980];
     v19 = [request URL];
-    v33[0] = v19;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v32[0] = v19;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     v21 = [v22 errorWithDomain:*MEMORY[0x1E696A978] code:-1000 userInfo:v20];
     [taskCopy didFailWithError:v21];
   }
 
   os_activity_scope_leave(&state);
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __62__EMRemoteContentURLSchemeHandler_webView_startURLSchemeTask___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)

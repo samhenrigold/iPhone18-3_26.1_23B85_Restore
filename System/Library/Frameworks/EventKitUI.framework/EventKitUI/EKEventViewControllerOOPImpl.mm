@@ -75,12 +75,12 @@
 
 - (CGSize)preferredContentSize
 {
-  v2 = EKUIContainedControllerIdealWidth();
+  EKUIContainedControllerIdealWidth();
   EKUIContainedControllerIdealHeight();
 
-  v4 = CGSizeMake(v3, v2);
-  result.height = v5;
-  result.width = v4;
+  CGSizeMake();
+  result.height = v3;
+  result.width = v2;
   return result;
 }
 
@@ -89,28 +89,28 @@
   v3 = self + OBJC_IVAR____TtC10EventKitUI28EKEventViewControllerOOPImpl_hostView;
   swift_beginAccess();
   v4 = *(v3 + 1);
-  v15[0] = *v3;
+  v16[0] = *v3;
   v5 = *(v3 + 3);
-  v15[2] = *(v3 + 2);
-  v15[3] = v5;
-  v16[0] = *(v3 + 4);
-  *(v16 + 15) = *(v3 + 79);
-  v15[1] = v4;
-  if (*(&v15[0] + 1))
+  v16[2] = *(v3 + 2);
+  v16[3] = v5;
+  v17[0] = *(v3 + 4);
+  *(v17 + 15) = *(v3 + 79);
+  v16[1] = v4;
+  if (*(&v16[0] + 1))
   {
-    v10 = v15[0];
+    v11 = v16[0];
     v6 = *(v3 + 4);
-    v13 = *(v3 + 3);
-    *v14 = v6;
-    *&v14[15] = *(v3 + 79);
+    v14 = *(v3 + 3);
+    *v15 = v6;
+    *&v15[15] = *(v3 + 79);
     v7 = *(v3 + 1);
-    v12 = *(v3 + 2);
-    v11 = v7;
+    v13 = *(v3 + 2);
+    v12 = v7;
     selfCopy = self;
-    sub_1D35D2934(v15, v9);
-    sub_1D35B4DD8();
+    v9 = sub_1D35D2934(v16, v10);
+    sub_1D35B4DD8(v9);
 
-    sub_1D35D14D8(v15);
+    sub_1D35D14D8(v16);
   }
 }
 
@@ -120,34 +120,36 @@
   v10 = v9;
   v11 = self + OBJC_IVAR____TtC10EventKitUI28EKEventViewControllerOOPImpl_hostView;
   swift_beginAccess();
-  v12 = *(v11 + 1);
-  v24[0] = *v11;
-  v13 = *(v11 + 3);
-  v24[2] = *(v11 + 2);
-  v24[3] = v13;
-  v25[0] = *(v11 + 4);
-  *(v25 + 15) = *(v11 + 79);
-  v24[1] = v12;
-  if (*(&v24[0] + 1))
+  v19 = *(v11 + 1);
+  v38[0] = *v11;
+  v20 = *(v11 + 3);
+  v38[2] = *(v11 + 2);
+  v38[3] = v20;
+  v39[0] = *(v11 + 4);
+  *(v39 + 15) = *(v11 + 79);
+  v38[1] = v19;
+  if (*(&v38[0] + 1))
   {
-    v19 = v24[0];
-    v14 = *(v11 + 4);
-    v22 = *(v11 + 3);
-    *v23 = v14;
-    *&v23[15] = *(v11 + 79);
-    v15 = *(v11 + 1);
-    v21 = *(v11 + 2);
-    v20 = v15;
+    v33 = v38[0];
+    v21 = *(v11 + 4);
+    v36 = *(v11 + 3);
+    *v37 = v21;
+    *&v37[15] = *(v11 + 79);
+    v22 = *(v11 + 1);
+    v35 = *(v11 + 2);
+    v34 = v22;
     untilCopy = until;
     selfCopy = self;
-    sub_1D35D2934(v24, v18);
+    sub_1D35D2934(v38, v32);
     sub_1D35B4F58(with, v8, v10, until);
 
-    sub_1D35D14D8(v24);
+    v10, v25, v26, v27, v28, v29, v30, v31;
+    sub_1D35D14D8(v38);
   }
 
   else
   {
+    v10, v12, v13, v14, v15, v16, v17, v18;
   }
 }
 

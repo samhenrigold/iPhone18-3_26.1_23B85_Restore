@@ -169,7 +169,7 @@ uint64_t __68__PLFrequentLocationProcessor_sortDescriptorsForLocationsOfInterest
         v17 = v13;
         v54 = [v16 dateByAddingTimeInterval:-7776000.0];
         v10[2](v10);
-        if (![v58 count])
+        if (!objc_msgSend_count(v58))
         {
           goto LABEL_25;
         }
@@ -227,7 +227,7 @@ LABEL_25:
             CLLocationCoordinate2DGetDistanceFrom();
             v31 = v30;
             sortedMoments = [v29 sortedMoments];
-            v33 = [sortedMoments count];
+            v33 = objc_msgSend_count(sortedMoments);
 
             if (v31 < 5000.0 && v33 > v23)
             {
@@ -298,7 +298,7 @@ void __69__PLFrequentLocationProcessor__coarseClustersForItems_progressBlock___b
 {
   v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  if ([a1[4] count])
+  if (objc_msgSend_count(a1[4]))
   {
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v14 = 0u;
@@ -329,7 +329,7 @@ LABEL_4:
         [v4 addObject:v10];
         v11 = [a1[5] objectForKeyedSubscript:v10];
         v12 = [v11 sortedMoments];
-        v13 = [v12 count];
+        v13 = objc_msgSend_count(v12);
 
         if (v13 >= 7)
         {
@@ -349,7 +349,7 @@ LABEL_4:
       }
     }
 
-    if ([v4 count])
+    if (objc_msgSend_count(v4))
     {
       [a1[4] removeObjectsInArray:v4];
       [a1[5] removeObjectsForKeys:v4];
@@ -391,7 +391,7 @@ LABEL_4:
         v10 = *(*(&v45 + 1) + 8 * v9);
         context = objc_autoreleasePoolPush();
         sortedMoments = [v10 sortedMoments];
-        v40 = [sortedMoments count];
+        v40 = objc_msgSend_count(sortedMoments);
         v34 = sortedMoments;
         if (v40 < 0x801)
         {
@@ -481,13 +481,13 @@ LABEL_4:
   return array;
 }
 
-uint64_t __78__PLFrequentLocationProcessor__finalClustersFromCoarseClusters_progressBlock___block_invoke(uint64_t a1, void *a2, void *a3)
+void __78__PLFrequentLocationProcessor__finalClustersFromCoarseClusters_progressBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v4 = a3;
   [a2 pl_coordinate];
   [v4 pl_coordinate];
 
-  return CLLocationCoordinate2DGetDistanceFrom();
+  CLLocationCoordinate2DGetDistanceFrom();
 }
 
 + (id)_clustersFromLocationsOfInterest:(id)interest forItems:(id)items remainingItemsToCluster:(id *)cluster progressBlock:(id)block
@@ -530,7 +530,7 @@ uint64_t __78__PLFrequentLocationProcessor__finalClustersFromCoarseClusters_prog
     while (v13);
   }
 
-  v18 = [itemsCopy count];
+  v18 = objc_msgSend_count(itemsCopy);
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
@@ -662,7 +662,7 @@ LABEL_26:
         }
 
         v40 = [strongToStrongObjectsMapTable objectForKey:{*(*(&v53 + 1) + 8 * m), clusterCopy}];
-        if ([v40 count])
+        if (objc_msgSend_count(v40))
         {
           v41 = [[PLFrequentLocation alloc] initWithSortedMoments:v40];
           [array3 addObject:v41];
@@ -743,7 +743,7 @@ LABEL_44:
   v15 = v8;
 LABEL_14:
 
-  v16 = [v5 count];
+  v16 = objc_msgSend_count(v5);
   return v15 / v16;
 }
 
@@ -771,7 +771,7 @@ LABEL_14:
   if (*(v36 + 24) != 1)
   {
     v16 = [MEMORY[0x1E695DF70] arrayWithArray:v13];
-    if ([v14 count])
+    if (objc_msgSend_count(v14))
     {
       v22 = v16;
       v28[0] = MEMORY[0x1E69E9820];
@@ -918,11 +918,11 @@ uint64_t __104__PLFrequentLocationProcessor_processFrequentLocationsWithItemSubs
   v5 = a3;
   v6 = MEMORY[0x1E696AD98];
   v7 = [v4 sortedMoments];
-  v8 = [v6 numberWithUnsignedInteger:{objc_msgSend(v7, "count")}];
+  v8 = [v6 numberWithUnsignedInteger:objc_msgSend_count(v7)];
 
   v9 = MEMORY[0x1E696AD98];
   v10 = [v5 sortedMoments];
-  v11 = [v9 numberWithUnsignedInteger:{objc_msgSend(v10, "count")}];
+  v11 = [v9 numberWithUnsignedInteger:objc_msgSend_count(v10)];
 
   v12 = [v11 compare:v8];
   if (!v12)
@@ -961,7 +961,7 @@ uint64_t __104__PLFrequentLocationProcessor_processFrequentLocationsWithItemSubs
   v124 = 0x2020000000;
   v125 = 0;
   array = [MEMORY[0x1E695DF70] array];
-  v11 = [momentsCopy count];
+  v11 = objc_msgSend_count(momentsCopy);
   firstObject = [momentsCopy firstObject];
   lastObject = [momentsCopy lastObject];
   pl_startDate = [firstObject pl_startDate];
@@ -1013,7 +1013,7 @@ uint64_t __104__PLFrequentLocationProcessor_processFrequentLocationsWithItemSubs
   v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v11];
   [array2 addObject:v22];
 
-  if ([array2 count] <= 2)
+  if (objc_msgSend_count(array2) <= 2)
   {
     v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v11];
     [array2 addObject:v23];
@@ -1036,7 +1036,7 @@ uint64_t __104__PLFrequentLocationProcessor_processFrequentLocationsWithItemSubs
   v26 = 1.0 / ceil(v25 / 15724800.0);
   v27 = v26;
   v28 = array;
-  while (v92 < [array2 count] - 2)
+  while (v92 < objc_msgSend_count(array2) - 2)
   {
     v87 = objc_autoreleasePoolPush();
     v29 = [array2 objectAtIndexedSubscript:v92];
@@ -1075,7 +1075,7 @@ uint64_t __104__PLFrequentLocationProcessor_processFrequentLocationsWithItemSubs
     v119 = v38;
     v120 = &v122;
     v39 = [self processFrequentLocationsWithItemSubset:v91 locationsOfInterest:interestCopy progressBlock:v118];
-    if ([v39 count])
+    if (objc_msgSend_count(v39))
     {
       if (*(v123 + 24) == 1)
       {
@@ -1094,7 +1094,7 @@ uint64_t __104__PLFrequentLocationProcessor_processFrequentLocationsWithItemSubs
         firstObject3 = [v39 firstObject];
         v82 = v39;
         momentsSet = [firstObject3 momentsSet];
-        v97 = [momentsSet count];
+        v97 = objc_msgSend_count(momentsSet);
 
         v43 = objc_alloc_init(MEMORY[0x1E695DFA8]);
         v116 = 0u;
@@ -1147,7 +1147,7 @@ LABEL_34:
             v50 = *(*(&v110 + 1) + 8 * v98);
             context = objc_autoreleasePoolPush();
             momentsSet3 = [v50 momentsSet];
-            v99 = [momentsSet3 count];
+            v99 = objc_msgSend_count(momentsSet3);
             v52 = v97;
             if (v97 <= 7)
             {
@@ -1334,7 +1334,7 @@ uint64_t __107__PLFrequentLocationProcessor_processFrequentLocationsWithSortedMo
 BOOL __107__PLFrequentLocationProcessor_processFrequentLocationsWithSortedMoments_locationsOfInterest_progressBlock___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = [a2 dateInterval];
-  [v2 duration];
+  objc_msgSend_duration(v2);
   v4 = v3 < 3888000.0;
 
   return v4;
@@ -1345,9 +1345,9 @@ BOOL __107__PLFrequentLocationProcessor_processFrequentLocationsWithSortedMoment
   v4 = a3;
   v5 = a2;
   v6 = [v5 momentsSet];
-  v7 = [v6 count];
+  v7 = objc_msgSend_count(v6);
   v8 = [v4 momentsSet];
-  v9 = [v8 count];
+  v9 = objc_msgSend_count(v8);
 
   if (v7 == v9)
   {
@@ -1365,9 +1365,9 @@ BOOL __107__PLFrequentLocationProcessor_processFrequentLocationsWithSortedMoment
   {
     v10 = [v5 momentsSet];
 
-    v17 = [v10 count];
+    v17 = objc_msgSend_count(v10);
     v11 = [v4 momentsSet];
-    v16 = v17 > [v11 count];
+    v16 = v17 > objc_msgSend_count(v11);
   }
 
   return v16;
@@ -1381,7 +1381,7 @@ BOOL __107__PLFrequentLocationProcessor_processFrequentLocationsWithSortedMoment
   blockCopy = block;
   v11 = _Block_copy(blockCopy);
   v12 = [MEMORY[0x1E695DFD8] set];
-  if ([itemsCopy count])
+  if (objc_msgSend_count(itemsCopy))
   {
     v13 = +[PLMediaMiningUtilities sortDescriptorsForSortingItemsByTime];
     v14 = [itemsCopy sortedArrayUsingDescriptors:v13];

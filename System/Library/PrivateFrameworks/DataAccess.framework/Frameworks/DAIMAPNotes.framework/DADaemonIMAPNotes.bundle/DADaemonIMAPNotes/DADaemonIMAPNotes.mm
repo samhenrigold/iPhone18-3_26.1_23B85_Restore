@@ -191,6 +191,37 @@ LABEL_9:
   }
 }
 
+void sub_B70C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void **a19, uint64_t a20, id (*a21)(uint64_t a1), void *a22, uint64_t a23, id a24, int buf, __int128 a26)
+{
+  if (a2 == 1)
+  {
+    v26 = objc_begin_catch(a1);
+    v27 = DALoggingwithCategory();
+    v28 = _CPLog_to_os_log_type[3];
+    if (os_log_type_enabled(v27, v28))
+    {
+      buf = 138412546;
+      WORD2(a26) = 2112;
+      *(&a26 + 6) = v26;
+      _os_log_impl(&dword_0, v27, v28, "Threw an exception while syncing notes folder with id %@.  Exception %@", &buf, 0x16u);
+    }
+
+    v29 = [NSError errorWithDomain:DAErrorDomain code:10 userInfo:0];
+    [a12 setObject:v29 forKeyedSubscript:@"error"];
+
+    a19 = _NSConcreteStackBlock;
+    a20 = 3221225472;
+    a21 = sub_B884;
+    a22 = &unk_1C668;
+    a24 = a12;
+    [DAIMAPNotesUtils drainWorkerThreadAndInvokeBlock:&a19];
+    v30 = v26;
+    objc_exception_throw(v26);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 id sub_BAA4(uint64_t a1, uint64_t a2, int a3)
 {
   v6 = DALoggingwithCategory();
@@ -242,16 +273,16 @@ void sub_DF74(id a1)
 {
   v1 = DAUserAgent();
   v2 = objc_msgSend(v1, "stringByReplacingOccurrencesOfString:withString:", CFSTR("("), CFSTR("\\("));
-  v5 = [v2 stringByReplacingOccurrencesOfString:@"" withString:?], @"\\"));
+  v5 = [v2 stringByReplacingOccurrencesOfString:@"" withString:?], @"\\""));
 
   v3 = [[NSString alloc] initWithFormat:@"%@ (%@)", @"1.0", v5];
   v4 = qword_22238;
   qword_22238 = v3;
 }
 
-void sub_EBFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_EBFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

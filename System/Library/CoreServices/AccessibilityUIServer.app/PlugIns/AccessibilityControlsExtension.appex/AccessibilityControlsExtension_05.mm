@@ -1,1623 +1,3 @@
-uint64_t sub_10009D50C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009D57C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009D5EC@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009D65C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009D6CC@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009D73C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009D7AC@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009D81C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009D88C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009D8FC@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009D96C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009D9DC@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009DA4C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009DABC@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009DB2C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009DBA0@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438E70, &qword_100519F28, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_10009DC30@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009DCA0@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009DD10@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009DD80@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009DDF0@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009DE60@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009DED0@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009DF40@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009DFB0@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E020@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E090@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E100@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E170@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E1E0@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E250@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E2C0@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E330@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E3A0@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E438@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E4A8@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E518@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E588@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E5F8@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E668@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E6D8@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E748@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E7B8@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E828@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E898@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E908@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E978@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009E9E8@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009EA58@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009EAC8@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009EB38@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009EBA8@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009EC18@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009EC88@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009ECF8@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009ED68@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009EDD8@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009EE48@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009EEB8@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009EF2C@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438E90, &qword_100519F68, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_10009EFBC@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F02C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F09C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F110@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438EE0, &qword_10051A008, sub_10002B754);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_10009F1A0@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F210@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F280@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F2F0@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F364@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438EF0, &qword_10051A028, sub_10002B754);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_10009F3F4@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F464@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F4D4@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F544@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F5B4@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F624@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F694@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F704@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F774@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F7E4@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F854@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F8C4@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009F938@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438EA0, &qword_100519F88, sub_100026144);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_10009F9CC@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438EB0, &qword_100519FA8, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_10009FA60@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438EC0, &qword_100519FC8, sub_1000261BC);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_10009FAF0@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009FB64@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438DA0, &qword_100519D88, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_10009FBF8@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438ED0, &qword_100519FE8, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_10009FC88@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009FCF8@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009FD6C@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438DB0, &qword_100519DA8, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_10009FDFC@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009FE6C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009FEDC@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009FF4C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_10009FFBC@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A002C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A009C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A010C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0180@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438F00, &qword_10051A048, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_1000A0210@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0280@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A02F0@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0364@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438DC0, &qword_100519DC8, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_1000A03F4@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0468@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438DD0, &qword_100519DE8, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_1000A04FC@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438DE0, &qword_100519E08, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_1000A058C@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0600@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438DF0, &qword_100519E28, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_1000A06F0@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0760@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A07D0@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A087C@<X0>(char *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X3>, uint64_t (*a5)(void)@<X4>, uint64_t a6@<X8>)
-{
-  result = sub_100078678(*a1, a2, a3, a4, a5);
-  *a6 = result;
-  *(a6 + 8) = v8;
-  *(a6 + 16) = v9 & 1;
-  *(a6 + 24) = v10;
-  return result;
-}
-
-uint64_t sub_1000A08D8@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0948@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A09B8@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0A28@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0A9C@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438E40, &qword_100519EC8, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_1000A0B30@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438E20, &qword_100519E88, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_1000A0BC4@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438E10, &qword_100519E68, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_1000A0C54@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0CC4@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0D34@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0DA4@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0E14@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0E84@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0EF4@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0F64@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A0FD4@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A1044@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A10B4@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A1124@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A1194@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A1204@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A1274@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A12E4@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A1354@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A13C4@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A1434@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A14A4@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A1514@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A1588@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438D90, &qword_100519D68, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_1000A1618@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A1688@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A16F8@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v6 = sub_1002D8910();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (*a1 != -1)
-  {
-    swift_once();
-  }
-
-  v11 = sub_10001EDB8(v6, a2);
-  (*(v7 + 16))(v10, v11, v6);
-  result = sub_1002D8B30();
-  *a3 = result;
-  *(a3 + 8) = v13;
-  *(a3 + 16) = v14 & 1;
-  *(a3 + 24) = v15;
-  return result;
-}
-
-uint64_t sub_1000A1814@<X0>(uint64_t *a1@<X8>)
-{
-
-  result = sub_1002D8BA0();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1000A18B0@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438D30, &qword_100519CA8, sub_10002B750);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_1000A196C@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078824(*a1, a2, &qword_100438D40, &qword_100519CC8, sub_10002B754);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_1000A1A00@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
-{
-  result = sub_1000789D0(*a1);
-  *a2 = result;
-  *(a2 + 8) = v4;
-  *(a2 + 16) = v5 & 1;
-  *(a2 + 24) = v6;
-  return result;
-}
-
-uint64_t sub_1000A1A60@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078B8C(*a1, a2, &qword_100438D60, &qword_100519D08, sub_100025CB8);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_1000A1AF4@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078B8C(*a1, a2, &qword_100438D70, &qword_100519D28, sub_100025D7C);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_1000A1B88@<X0>(void *a1@<X1>, void *a2@<X2>, void *a3@<X3>, uint64_t a4@<X8>)
-{
-  if (*a1 != -1)
-  {
-    v9 = a3;
-    v10 = a2;
-    swift_once();
-    a2 = v10;
-    a3 = v9;
-  }
-
-  v11 = *a2;
-  v12 = *a3;
-  sub_10002B218();
-
-  result = sub_1002D8B40();
-  *a4 = result;
-  *(a4 + 8) = v6;
-  *(a4 + 16) = v7 & 1;
-  *(a4 + 24) = v8;
-  return result;
-}
-
-uint64_t sub_1000A1C24@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = sub_100078B8C(*a1, a2, &qword_100438D80, &qword_100519D48, sub_100025E50);
-  *a3 = result;
-  *(a3 + 8) = v5;
-  *(a3 + 16) = v6 & 1;
-  *(a3 + 24) = v7;
-  return result;
-}
-
-uint64_t sub_1000A1C90()
-{
-  v0 = sub_1002D87A0();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin(v0);
-  v4 = &v23[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v5 = sub_10000321C(&qword_10043CF38, "f'\n");
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = &v23[-v7];
-  v9 = sub_10000321C(&qword_10043CF40, &unk_1002E04B0);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9 - 8);
-  v12 = &v23[-v11];
-  v13 = sub_10000321C(&qword_10043CA38, &qword_1002DF8F0);
-  v14 = *(*(v13 - 8) + 64);
-  __chkstk_darwin(v13 - 8);
-  v16 = &v23[-v15];
-  v17 = sub_1002D8910();
-  v18 = *(v17 - 8);
-  v19 = *(v18 + 64);
-  __chkstk_darwin(v17);
-  sub_10000321C(&qword_10043CF48, &qword_1002E04C0);
-  sub_1002D88F0();
-  (*(v18 + 56))(v16, 1, 1, v17);
-  v23[15] = 2;
-  v20 = sub_1002D8D60();
-  (*(*(v20 - 8) + 56))(v12, 1, 1, v20);
-  v21 = sub_1002D8570();
-  (*(*(v21 - 8) + 56))(v8, 1, 1, v21);
-  (*(v1 + 104))(v4, enum case for InputConnectionBehavior.default(_:), v0);
-  return sub_1002D85F0();
-}
-
-uint64_t sub_1000A1FC8()
-{
-  v1 = *(v0 + 16);
-  swift_unknownObjectRelease();
-
-  return _swift_deallocObject(v0, 33, 7);
-}
-
-uint64_t sub_1000A2000(uint64_t a1)
-{
-  v4 = *(v1 + 16);
-  v5 = *(v1 + 24);
-  v6 = *(v1 + 32);
-  v7 = swift_task_alloc();
-  *(v2 + 16) = v7;
-  *v7 = v2;
-  v7[1] = sub_10002B72C;
-
-  return sub_1000027BC(a1, v4, v5, v6);
-}
-
-uint64_t sub_1000A20B4()
-{
-  v1 = *(v0 + 16);
-  swift_unknownObjectRelease();
-
-  return _swift_deallocObject(v0, 32, 7);
-}
-
-uint64_t sub_1000A20EC()
-{
-  v3 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  *v4 = v1;
-  v4[1] = sub_100023140;
-
-  return sub_100002F80();
-}
-
-unint64_t sub_1000A2D48(uint64_t a1)
-{
-  result = sub_1000A2D70();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t sub_1000A2D70()
-{
-  result = qword_10043F860;
-  if (!qword_10043F860)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10043F860);
-  }
-
-  return result;
-}
-
-unint64_t sub_1000A2DC4(uint64_t a1)
-{
-  result = sub_1000A2DEC();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t sub_1000A2DEC()
-{
-  result = qword_10043F8B0;
-  if (!qword_10043F8B0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10043F8B0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1000A2E40(uint64_t a1)
-{
-  result = sub_1000A2E68();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t sub_1000A2E68()
-{
-  result = qword_10043F900;
-  if (!qword_10043F900)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10043F900);
-  }
-
-  return result;
-}
-
-unint64_t sub_1000A2EBC(uint64_t a1)
-{
-  result = sub_1000A2EE4();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t sub_1000A2EE4()
-{
-  result = qword_10043F958;
-  if (!qword_10043F958)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10043F958);
-  }
-
-  return result;
-}
-
-unint64_t sub_1000A2F38(uint64_t a1)
-{
-  result = sub_1000A2F60();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t sub_1000A2F60()
-{
-  result = qword_10043F9B0;
-  if (!qword_10043F9B0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10043F9B0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1000A2FB4(uint64_t a1)
-{
-  result = sub_1000A2FDC();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t sub_1000A2FDC()
-{
-  result = qword_10043FA00;
-  if (!qword_10043FA00)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10043FA00);
-  }
-
-  return result;
-}
-
-unint64_t sub_1000A3030(uint64_t a1)
-{
-  result = sub_1000A3058();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t sub_1000A3058()
-{
-  result = qword_10043FA50;
-  if (!qword_10043FA50)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10043FA50);
-  }
-
-  return result;
-}
-
-unint64_t sub_1000A30AC(uint64_t a1)
-{
-  result = sub_1000A30D4();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t sub_1000A30D4()
-{
-  result = qword_10043FAA0;
-  if (!qword_10043FAA0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10043FAA0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1000A3128(uint64_t a1)
-{
-  result = sub_1000A3150();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t sub_1000A3150()
-{
-  result = qword_10043FAF0;
-  if (!qword_10043FAF0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10043FAF0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1000A31A4(uint64_t a1)
-{
-  result = sub_1000A31CC();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t sub_1000A31CC()
-{
-  result = qword_10043FB40;
-  if (!qword_10043FB40)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10043FB40);
-  }
-
-  return result;
-}
-
-unint64_t sub_1000A3220(uint64_t a1)
-{
-  result = sub_1000A3248();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t sub_1000A3248()
-{
-  result = qword_10043FB90;
-  if (!qword_10043FB90)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10043FB90);
-  }
-
-  return result;
-}
-
-unint64_t sub_1000A329C(uint64_t a1)
-{
-  result = sub_1000A32C4();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t sub_1000A32C4()
-{
-  result = qword_10043FBE0;
-  if (!qword_10043FBE0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10043FBE0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1000A3318(uint64_t a1)
-{
-  result = sub_1000A3340();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t sub_1000A3340()
-{
-  result = qword_10043FC30;
-  if (!qword_10043FC30)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10043FC30);
-  }
-
-  return result;
-}
-
 unint64_t sub_1000A3398()
 {
   result = qword_10043FC38;
@@ -9998,4 +8378,3586 @@ unint64_t sub_1000B3F00()
   }
 
   return result;
+}
+
+unint64_t sub_1000B3F94()
+{
+  result = qword_100444490;
+  if (!qword_100444490)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_100444490);
+  }
+
+  return result;
+}
+
+unint64_t sub_1000B3FE8()
+{
+  result = qword_100444498;
+  if (!qword_100444498)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_100444498);
+  }
+
+  return result;
+}
+
+unint64_t sub_1000B407C()
+{
+  result = qword_1004444A0;
+  if (!qword_1004444A0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004444A0);
+  }
+
+  return result;
+}
+
+unint64_t sub_1000B40D0()
+{
+  result = qword_1004444A8;
+  if (!qword_1004444A8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004444A8);
+  }
+
+  return result;
+}
+
+unint64_t sub_1000B4164()
+{
+  result = qword_1004444B0;
+  if (!qword_1004444B0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004444B0);
+  }
+
+  return result;
+}
+
+unint64_t sub_1000B41B8()
+{
+  result = qword_1004444B8;
+  if (!qword_1004444B8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004444B8);
+  }
+
+  return result;
+}
+
+unint64_t sub_1000B424C()
+{
+  result = qword_1004444C0;
+  if (!qword_1004444C0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004444C0);
+  }
+
+  return result;
+}
+
+unint64_t sub_1000B42A0()
+{
+  result = qword_1004444C8;
+  if (!qword_1004444C8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004444C8);
+  }
+
+  return result;
+}
+
+unint64_t sub_1000B4334()
+{
+  result = qword_1004444D0;
+  if (!qword_1004444D0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004444D0);
+  }
+
+  return result;
+}
+
+unint64_t sub_1000B4388()
+{
+  result = qword_1004444D8;
+  if (!qword_1004444D8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004444D8);
+  }
+
+  return result;
+}
+
+unint64_t sub_1000B441C()
+{
+  result = qword_1004444E0;
+  if (!qword_1004444E0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004444E0);
+  }
+
+  return result;
+}
+
+unint64_t sub_1000B4470()
+{
+  result = qword_1004444E8;
+  if (!qword_1004444E8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004444E8);
+  }
+
+  return result;
+}
+
+uint64_t sub_1000B4504(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t, uint64_t), uint64_t (*a5)(void), uint64_t a6)
+{
+  a4(a1, a2, a3);
+  a5();
+  return swift_getOpaqueTypeConformance2();
+}
+
+unint64_t sub_1000B4568()
+{
+  result = qword_1004444F0;
+  if (!qword_1004444F0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004444F0);
+  }
+
+  return result;
+}
+
+unint64_t sub_1000B45BC()
+{
+  result = qword_1004444F8;
+  if (!qword_1004444F8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1004444F8);
+  }
+
+  return result;
+}
+
+uint64_t sub_1000B4928(uint64_t a1)
+{
+  v18[0] = a1;
+  v1 = sub_1002D8990();
+  __chkstk_darwin(v1 - 8);
+  v2 = sub_1002D8900();
+  __chkstk_darwin(v2 - 8);
+  v4 = v18 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_1002D8CF0();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_1002D8910();
+  v10 = *(v9 - 8);
+  v11 = __chkstk_darwin(v9);
+  v13 = v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
+  v15 = v18 - v14;
+  (*(v6 + 16))(v8, v18[0], v5);
+  sub_1000B4F14(v4);
+  sub_1002D8980();
+  sub_1002D8920();
+  (*(v10 + 16))(v13, v15, v9);
+  v16 = sub_1002D8D20();
+  (*(v10 + 8))(v15, v9);
+  return v16;
+}
+
+uint64_t sub_1000B4BC0()
+{
+  v0 = sub_1002D8A20();
+  sub_10001EDF0(v0, qword_10051C678);
+  sub_10001EDB8(v0, qword_10051C678);
+  return sub_1002D8A10();
+}
+
+uint64_t sub_1000B4C40()
+{
+  type metadata accessor for NowPlayingObserver();
+  v0 = swift_allocObject();
+  result = sub_1000B4C7C();
+  qword_10051C690 = v0;
+  return result;
+}
+
+uint64_t sub_1000B4C7C()
+{
+  *(v0 + 16) = 1;
+  v1 = [objc_opt_self() sharedInstance];
+  v2 = swift_allocObject();
+  swift_weakInit();
+  v5[4] = sub_1000B4EF4;
+  v5[5] = v2;
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 1107296256;
+  v5[2] = sub_1000B4E44;
+  v5[3] = &unk_100427B28;
+  v3 = _Block_copy(v5);
+
+  [v1 registerUpdateBlock:v3 forRetrieveSelector:sub_1002D89A0() withListener:v0];
+  _Block_release(v3);
+
+  return v0;
+}
+
+uint64_t sub_1000B4DAC(uint64_t a1)
+{
+  swift_beginAccess();
+  result = swift_weakLoadStrong();
+  if (result)
+  {
+    v2 = result;
+    v3 = [objc_opt_self() sharedInstance];
+    v4 = [v3 hapticMusicTrackAvailable];
+
+    *(v2 + 16) = v4;
+  }
+
+  return result;
+}
+
+uint64_t sub_1000B4E44(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+
+  v1(v2);
+}
+
+uint64_t sub_1000B4EBC()
+{
+  swift_weakDestroy();
+
+  return _swift_deallocObject(v0, 24, 7);
+}
+
+uint64_t sub_1000B4EFC(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 40);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = v2;
+}
+
+uint64_t sub_1000B4F14@<X0>(uint64_t a2@<X8>)
+{
+  v3 = sub_1002D8970();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1002D8930();
+
+  v7 = objc_allocWithZone(NSBundle);
+  sub_1002D8940(v8);
+  v10 = v9;
+  v11 = [v7 initWithURL:v9];
+
+  (*(v4 + 8))(v6, v3);
+  if (!v11)
+  {
+    v11 = [objc_opt_self() mainBundle];
+  }
+
+  v12 = [v11 bundleURL];
+  sub_1002D8950();
+
+  v13 = enum case for LocalizedStringResource.BundleDescription.atURL(_:);
+  v14 = sub_1002D8900();
+  return (*(*(v14 - 8) + 104))(a2, v13, v14);
+}
+
+uint64_t sub_1000B5150(uint64_t a1)
+{
+  __chkstk_darwin(a1);
+  v807 = v1;
+  v797 = sub_10000321C(&qword_100445F28, &qword_1002F69B8);
+  __chkstk_darwin(v797);
+  v796 = &v796 - v2;
+  v3 = sub_10000321C(&qword_100445F30, &qword_1002F69C0);
+  v805 = *(v3 - 8);
+  v806 = v3;
+  v4 = __chkstk_darwin(v3);
+  v971 = &v796 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v824 = (&v796 - v6);
+  v804 = sub_10000321C(&qword_100445F38, &qword_1002F69C8);
+  v936 = *(v804 - 8);
+  v7 = __chkstk_darwin(v804);
+  v970 = &v796 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v1116 = &v796 - v9;
+  v1123 = sub_10000321C(&qword_100445F40, &qword_1002F69D0);
+  v1418 = *(v1123 - 8);
+  v10 = __chkstk_darwin(v1123);
+  v969 = &v796 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10);
+  v1115 = &v796 - v12;
+  v1122 = sub_10000321C(&qword_100445F48, &qword_1002F69D8);
+  v1417 = *(v1122 - 8);
+  v13 = __chkstk_darwin(v1122);
+  v968 = &v796 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v13);
+  v1114 = &v796 - v15;
+  v1121 = sub_10000321C(&qword_100445F50, &qword_1002F69E0);
+  v1416 = *(v1121 - 8);
+  v16 = __chkstk_darwin(v1121);
+  v967 = &v796 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v16);
+  v1113 = &v796 - v18;
+  v1120 = sub_10000321C(&qword_100445F58, &qword_1002F69E8);
+  v1415 = *(v1120 - 8);
+  v19 = __chkstk_darwin(v1120);
+  v966 = &v796 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v19);
+  v1112 = &v796 - v21;
+  v1119 = sub_10000321C(&qword_100445F60, &qword_1002F69F0);
+  v1414 = *(v1119 - 8);
+  v22 = __chkstk_darwin(v1119);
+  v965 = &v796 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v22);
+  v1111 = &v796 - v24;
+  v1118 = sub_10000321C(&qword_100445F68, &qword_1002F69F8);
+  v1413 = *(v1118 - 8);
+  v25 = __chkstk_darwin(v1118);
+  v964 = &v796 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v25);
+  v1110 = &v796 - v27;
+  v1117 = sub_10000321C(&qword_100445F70, &qword_1002F6A00);
+  v1412 = *(v1117 - 8);
+  v28 = __chkstk_darwin(v1117);
+  v963 = &v796 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v28);
+  v1109 = &v796 - v30;
+  v1171 = sub_10000321C(&qword_100445F78, &qword_1002F6A08);
+  v1411 = *(v1171 - 8);
+  v31 = __chkstk_darwin(v1171);
+  v962 = &v796 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v31);
+  v1108 = &v796 - v33;
+  v1170 = sub_10000321C(&qword_100445F80, &qword_1002F6A10);
+  v1410 = *(v1170 - 8);
+  v34 = __chkstk_darwin(v1170);
+  v961 = &v796 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v34);
+  v1107 = &v796 - v36;
+  v1169 = sub_10000321C(&qword_100445F88, &qword_1002F6A18);
+  v1409 = *(v1169 - 8);
+  v37 = __chkstk_darwin(v1169);
+  v960 = &v796 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v37);
+  v1106 = &v796 - v39;
+  v1168 = sub_10000321C(&qword_100445F90, &qword_1002F6A20);
+  v1408 = *(v1168 - 8);
+  v40 = __chkstk_darwin(v1168);
+  v959 = &v796 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v40);
+  v1105 = &v796 - v42;
+  v1167 = sub_10000321C(&qword_100445F98, &qword_1002F6A28);
+  v1407 = *(v1167 - 8);
+  v43 = __chkstk_darwin(v1167);
+  v958 = &v796 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v43);
+  v1104 = &v796 - v45;
+  v1166 = sub_10000321C(&qword_100445FA0, &qword_1002F6A30);
+  v1406 = *(v1166 - 8);
+  v46 = __chkstk_darwin(v1166);
+  v957 = &v796 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v46);
+  v1103 = &v796 - v48;
+  v1165 = sub_10000321C(&qword_100445FA8, &qword_1002F6A38);
+  v1405 = *(v1165 - 8);
+  v49 = __chkstk_darwin(v1165);
+  v956 = &v796 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v49);
+  v1102 = &v796 - v51;
+  v1164 = sub_10000321C(&qword_100445FB0, &qword_1002F6A40);
+  v1404 = *(v1164 - 8);
+  v52 = __chkstk_darwin(v1164);
+  v955 = &v796 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v52);
+  v1101 = &v796 - v54;
+  v1163 = sub_10000321C(&qword_100445FB8, &qword_1002F6A48);
+  v1403 = *(v1163 - 8);
+  v55 = __chkstk_darwin(v1163);
+  v954 = &v796 - ((v56 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v55);
+  v1100 = &v796 - v57;
+  v1162 = sub_10000321C(&qword_100445FC0, &qword_1002F6A50);
+  v1402 = *(v1162 - 8);
+  v58 = __chkstk_darwin(v1162);
+  v953 = &v796 - ((v59 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v58);
+  v1099 = &v796 - v60;
+  v1161 = sub_10000321C(&qword_100445FC8, &qword_1002F6A58);
+  v1401 = *(v1161 - 8);
+  v61 = __chkstk_darwin(v1161);
+  v952 = &v796 - ((v62 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v61);
+  v1098 = &v796 - v63;
+  v1160 = sub_10000321C(&qword_100445FD0, &qword_1002F6A60);
+  v1400 = *(v1160 - 8);
+  v64 = __chkstk_darwin(v1160);
+  v951 = &v796 - ((v65 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v64);
+  v1097 = &v796 - v66;
+  v1159 = sub_10000321C(&qword_100445FD8, &qword_1002F6A68);
+  v1399 = *(v1159 - 8);
+  v67 = __chkstk_darwin(v1159);
+  v950 = &v796 - ((v68 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v67);
+  v1096 = &v796 - v69;
+  v1158 = sub_10000321C(&qword_100445FE0, &qword_1002F6A70);
+  v1398 = *(v1158 - 8);
+  v70 = __chkstk_darwin(v1158);
+  v949 = &v796 - ((v71 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v70);
+  v1095 = &v796 - v72;
+  v1157 = sub_10000321C(&qword_100445FE8, &qword_1002F6A78);
+  v1397 = *(v1157 - 8);
+  v73 = __chkstk_darwin(v1157);
+  v948 = &v796 - ((v74 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v73);
+  v1094 = &v796 - v75;
+  v1156 = sub_10000321C(&qword_100445FF0, &qword_1002F6A80);
+  v1396 = *(v1156 - 8);
+  v76 = __chkstk_darwin(v1156);
+  v947 = &v796 - ((v77 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v76);
+  v1093 = &v796 - v78;
+  v1155 = sub_10000321C(&qword_100445FF8, &qword_1002F6A88);
+  v1395 = *(v1155 - 8);
+  v79 = __chkstk_darwin(v1155);
+  v946 = &v796 - ((v80 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v79);
+  v1092 = &v796 - v81;
+  v1154 = sub_10000321C(&qword_100446000, &qword_1002F6A90);
+  v1394 = *(v1154 - 8);
+  v82 = __chkstk_darwin(v1154);
+  v945 = &v796 - ((v83 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v82);
+  v1091 = &v796 - v84;
+  v1153 = sub_10000321C(&qword_100446008, &qword_1002F6A98);
+  v1393 = *(v1153 - 8);
+  v85 = __chkstk_darwin(v1153);
+  v944 = &v796 - ((v86 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v85);
+  v1090 = &v796 - v87;
+  v1152 = sub_10000321C(&qword_100446010, &qword_1002F6AA0);
+  v1392 = *(v1152 - 8);
+  v88 = __chkstk_darwin(v1152);
+  v943 = &v796 - ((v89 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v88);
+  v1089 = &v796 - v90;
+  v1151 = sub_10000321C(&qword_100446018, &qword_1002F6AA8);
+  v1391 = *(v1151 - 8);
+  v91 = __chkstk_darwin(v1151);
+  v942 = &v796 - ((v92 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v91);
+  v1088 = &v796 - v93;
+  v1150 = sub_10000321C(&qword_100446020, &qword_1002F6AB0);
+  v1390 = *(v1150 - 8);
+  v94 = __chkstk_darwin(v1150);
+  v941 = &v796 - ((v95 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v94);
+  v1087 = &v796 - v96;
+  v1149 = sub_10000321C(&qword_100446028, &qword_1002F6AB8);
+  v1389 = *(v1149 - 8);
+  v97 = __chkstk_darwin(v1149);
+  v940 = &v796 - ((v98 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v97);
+  v1086 = &v796 - v99;
+  v1148 = sub_10000321C(&qword_100446030, &qword_1002F6AC0);
+  v1388 = *(v1148 - 8);
+  v100 = __chkstk_darwin(v1148);
+  v939 = &v796 - ((v101 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v100);
+  v1085 = &v796 - v102;
+  v1147 = sub_10000321C(&qword_100446038, &qword_1002F6AC8);
+  v1387 = *(v1147 - 8);
+  v103 = __chkstk_darwin(v1147);
+  v938 = &v796 - ((v104 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v103);
+  v1084 = &v796 - v105;
+  v1146 = sub_10000321C(&qword_100446040, &qword_1002F6AD0);
+  v1386 = *(v1146 - 8);
+  v106 = __chkstk_darwin(v1146);
+  v937 = &v796 - ((v107 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v106);
+  v1083 = &v796 - v108;
+  v1145 = sub_10000321C(&qword_100446048, &qword_1002F6AD8);
+  v1385 = *(v1145 - 8);
+  v109 = __chkstk_darwin(v1145);
+  v935 = &v796 - ((v110 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v109);
+  v1082 = &v796 - v111;
+  v1144 = sub_10000321C(&qword_100446050, &qword_1002F6AE0);
+  v1384 = *(v1144 - 8);
+  v112 = __chkstk_darwin(v1144);
+  v934 = &v796 - ((v113 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v112);
+  v1081 = &v796 - v114;
+  v1143 = sub_10000321C(&qword_100446058, &qword_1002F6AE8);
+  v1383 = *(v1143 - 8);
+  v115 = __chkstk_darwin(v1143);
+  v933 = &v796 - ((v116 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v115);
+  v1080 = &v796 - v117;
+  v1142 = sub_10000321C(&qword_100446060, &qword_1002F6AF0);
+  v1382 = *(v1142 - 8);
+  v118 = __chkstk_darwin(v1142);
+  v932 = &v796 - ((v119 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v118);
+  v1079 = &v796 - v120;
+  v1141 = sub_10000321C(&qword_100446068, &qword_1002F6AF8);
+  v1381 = *(v1141 - 8);
+  v121 = __chkstk_darwin(v1141);
+  v931 = &v796 - ((v122 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v121);
+  v1078 = &v796 - v123;
+  v1140 = sub_10000321C(&qword_100446070, &qword_1002F6B00);
+  v1380 = *(v1140 - 8);
+  v124 = __chkstk_darwin(v1140);
+  v930 = &v796 - ((v125 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v124);
+  v1077 = &v796 - v126;
+  v1139 = sub_10000321C(&qword_100446078, &qword_1002F6B08);
+  v1379 = *(v1139 - 8);
+  v127 = __chkstk_darwin(v1139);
+  v929 = &v796 - ((v128 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v127);
+  v1076 = &v796 - v129;
+  v1138 = sub_10000321C(&qword_100446080, &qword_1002F6B10);
+  v1378 = *(v1138 - 8);
+  v130 = __chkstk_darwin(v1138);
+  v928 = &v796 - ((v131 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v130);
+  v1075 = &v796 - v132;
+  v1137 = sub_10000321C(&qword_100446088, &qword_1002F6B18);
+  v1377 = *(v1137 - 8);
+  v133 = __chkstk_darwin(v1137);
+  v927 = &v796 - ((v134 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v133);
+  v1074 = &v796 - v135;
+  v1136 = sub_10000321C(&qword_100446090, &qword_1002F6B20);
+  v1376 = *(v1136 - 8);
+  v136 = __chkstk_darwin(v1136);
+  v926 = &v796 - ((v137 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v136);
+  v1073 = &v796 - v138;
+  v1135 = sub_10000321C(&qword_100446098, &qword_1002F6B28);
+  v1375 = *(v1135 - 8);
+  v139 = __chkstk_darwin(v1135);
+  v925 = &v796 - ((v140 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v139);
+  v1072 = &v796 - v141;
+  v1134 = sub_10000321C(&qword_1004460A0, &qword_1002F6B30);
+  v1374 = *(v1134 - 8);
+  v142 = __chkstk_darwin(v1134);
+  v924 = &v796 - ((v143 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v142);
+  v1071 = &v796 - v144;
+  v1133 = sub_10000321C(&qword_1004460A8, &qword_1002F6B38);
+  v1373 = *(v1133 - 8);
+  v145 = __chkstk_darwin(v1133);
+  v923 = &v796 - ((v146 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v145);
+  v1070 = &v796 - v147;
+  v1132 = sub_10000321C(&qword_1004460B0, &qword_1002F6B40);
+  v1372 = *(v1132 - 8);
+  v148 = __chkstk_darwin(v1132);
+  v922 = &v796 - ((v149 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v148);
+  v1069 = &v796 - v150;
+  v1131 = sub_10000321C(&qword_1004460B8, &qword_1002F6B48);
+  v1371 = *(v1131 - 8);
+  v151 = __chkstk_darwin(v1131);
+  v921 = &v796 - ((v152 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v151);
+  v1068 = &v796 - v153;
+  v1130 = sub_10000321C(&qword_1004460C0, &qword_1002F6B50);
+  v1370 = *(v1130 - 8);
+  v154 = __chkstk_darwin(v1130);
+  v920 = &v796 - ((v155 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v154);
+  v1067 = &v796 - v156;
+  v1129 = sub_10000321C(&qword_1004460C8, &qword_1002F6B58);
+  v1369 = *(v1129 - 8);
+  v157 = __chkstk_darwin(v1129);
+  v919 = &v796 - ((v158 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v157);
+  v1066 = &v796 - v159;
+  v1128 = sub_10000321C(&qword_1004460D0, &qword_1002F6B60);
+  v1368 = *(v1128 - 8);
+  v160 = __chkstk_darwin(v1128);
+  v918 = &v796 - ((v161 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v160);
+  v1065 = &v796 - v162;
+  v1127 = sub_10000321C(&qword_1004460D8, &qword_1002F6B68);
+  v1367 = *(v1127 - 8);
+  v163 = __chkstk_darwin(v1127);
+  v917 = &v796 - ((v164 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v163);
+  v1064 = &v796 - v165;
+  v1126 = sub_10000321C(&qword_1004460E0, &qword_1002F6B70);
+  v1366 = *(v1126 - 8);
+  v166 = __chkstk_darwin(v1126);
+  v916 = &v796 - ((v167 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v166);
+  v1063 = &v796 - v168;
+  v1125 = sub_10000321C(&qword_1004460E8, &qword_1002F6B78);
+  v1365 = *(v1125 - 8);
+  v169 = __chkstk_darwin(v1125);
+  v915 = &v796 - ((v170 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v169);
+  v1062 = &v796 - v171;
+  v1124 = sub_10000321C(&qword_1004460F0, &qword_1002F6B80);
+  v1364 = *(v1124 - 8);
+  v172 = __chkstk_darwin(v1124);
+  v914 = &v796 - ((v173 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v172);
+  v1061 = &v796 - v174;
+  v1230 = sub_10000321C(&qword_1004460F8, &qword_1002F6B88);
+  v1363 = *(v1230 - 8);
+  v175 = __chkstk_darwin(v1230);
+  v913 = &v796 - ((v176 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v175);
+  v1060 = &v796 - v177;
+  v1229 = sub_10000321C(&qword_100446100, &qword_1002F6B90);
+  v1362 = *(v1229 - 8);
+  v178 = __chkstk_darwin(v1229);
+  v912 = &v796 - ((v179 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v178);
+  v1059 = &v796 - v180;
+  v1228 = sub_10000321C(&qword_100446108, &qword_1002F6B98);
+  v1361 = *(v1228 - 8);
+  v181 = __chkstk_darwin(v1228);
+  v911 = &v796 - ((v182 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v181);
+  v1058 = &v796 - v183;
+  v1227 = sub_10000321C(&qword_100446110, &qword_1002F6BA0);
+  v1360 = *(v1227 - 8);
+  v184 = __chkstk_darwin(v1227);
+  v910 = &v796 - ((v185 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v184);
+  v1057 = &v796 - v186;
+  v1226 = sub_10000321C(&qword_100446118, &qword_1002F6BA8);
+  v1359 = *(v1226 - 8);
+  v187 = __chkstk_darwin(v1226);
+  v909 = &v796 - ((v188 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v187);
+  v1056 = &v796 - v189;
+  v1225 = sub_10000321C(&qword_100446120, &qword_1002F6BB0);
+  v1358 = *(v1225 - 8);
+  v190 = __chkstk_darwin(v1225);
+  v908 = &v796 - ((v191 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v190);
+  v1055 = &v796 - v192;
+  v1224 = sub_10000321C(&qword_100446128, &qword_1002F6BB8);
+  v1357 = *(v1224 - 8);
+  v193 = __chkstk_darwin(v1224);
+  v907 = &v796 - ((v194 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v193);
+  v1054 = &v796 - v195;
+  v1223 = sub_10000321C(&qword_100446130, &qword_1002F6BC0);
+  v1356 = *(v1223 - 8);
+  v196 = __chkstk_darwin(v1223);
+  v906 = &v796 - ((v197 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v196);
+  v1053 = &v796 - v198;
+  v1222 = sub_10000321C(&qword_100446138, &qword_1002F6BC8);
+  v1355 = *(v1222 - 8);
+  v199 = __chkstk_darwin(v1222);
+  v905 = &v796 - ((v200 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v199);
+  v1052 = &v796 - v201;
+  v1221 = sub_10000321C(&qword_100446140, &qword_1002F6BD0);
+  v1354 = *(v1221 - 8);
+  v202 = __chkstk_darwin(v1221);
+  v904 = &v796 - ((v203 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v202);
+  v1051 = &v796 - v204;
+  v1220 = sub_10000321C(&qword_100446148, &qword_1002F6BD8);
+  v1353 = *(v1220 - 8);
+  v205 = __chkstk_darwin(v1220);
+  v903 = &v796 - ((v206 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v205);
+  v1050 = &v796 - v207;
+  v1219 = sub_10000321C(&qword_100446150, &qword_1002F6BE0);
+  v1352 = *(v1219 - 8);
+  v208 = __chkstk_darwin(v1219);
+  v902 = &v796 - ((v209 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v208);
+  v1049 = &v796 - v210;
+  v1218 = sub_10000321C(&qword_100446158, &qword_1002F6BE8);
+  v1351 = *(v1218 - 8);
+  v211 = __chkstk_darwin(v1218);
+  v901 = &v796 - ((v212 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v211);
+  v1048 = &v796 - v213;
+  v1217 = sub_10000321C(&qword_100446160, &qword_1002F6BF0);
+  v1350 = *(v1217 - 8);
+  v214 = __chkstk_darwin(v1217);
+  v900 = &v796 - ((v215 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v214);
+  v1047 = &v796 - v216;
+  v1216 = sub_10000321C(&qword_100446168, &qword_1002F6BF8);
+  v1349 = *(v1216 - 8);
+  v217 = __chkstk_darwin(v1216);
+  v899 = &v796 - ((v218 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v217);
+  v1046 = &v796 - v219;
+  v1215 = sub_10000321C(&qword_100446170, &qword_1002F6C00);
+  v1348 = *(v1215 - 8);
+  v220 = __chkstk_darwin(v1215);
+  v898 = &v796 - ((v221 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v220);
+  v1045 = &v796 - v222;
+  v1214 = sub_10000321C(&qword_100446178, &qword_1002F6C08);
+  v1347 = *(v1214 - 8);
+  v223 = __chkstk_darwin(v1214);
+  v897 = &v796 - ((v224 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v223);
+  v1044 = &v796 - v225;
+  v1213 = sub_10000321C(&qword_100446180, &qword_1002F6C10);
+  v1346 = *(v1213 - 8);
+  v226 = __chkstk_darwin(v1213);
+  v896 = &v796 - ((v227 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v226);
+  v1043 = &v796 - v228;
+  v1212 = sub_10000321C(&qword_100446188, &qword_1002F6C18);
+  v1345 = *(v1212 - 8);
+  v229 = __chkstk_darwin(v1212);
+  v895 = &v796 - ((v230 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v229);
+  v1042 = &v796 - v231;
+  v1211 = sub_10000321C(&qword_100446190, &qword_1002F6C20);
+  v1344 = *(v1211 - 8);
+  v232 = __chkstk_darwin(v1211);
+  v894 = &v796 - ((v233 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v232);
+  v1041 = &v796 - v234;
+  v1210 = sub_10000321C(&qword_100446198, &qword_1002F6C28);
+  v1343 = *(v1210 - 8);
+  v235 = __chkstk_darwin(v1210);
+  v893 = &v796 - ((v236 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v235);
+  v1040 = &v796 - v237;
+  v1209 = sub_10000321C(&qword_1004461A0, &qword_1002F6C30);
+  v1342 = *(v1209 - 8);
+  v238 = __chkstk_darwin(v1209);
+  v892 = &v796 - ((v239 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v238);
+  v1039 = &v796 - v240;
+  v1208 = sub_10000321C(&qword_1004461A8, &qword_1002F6C38);
+  v1341 = *(v1208 - 8);
+  v241 = __chkstk_darwin(v1208);
+  v891 = &v796 - ((v242 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v241);
+  v1038 = &v796 - v243;
+  v1207 = sub_10000321C(&qword_1004461B0, &qword_1002F6C40);
+  v1340 = *(v1207 - 8);
+  v244 = __chkstk_darwin(v1207);
+  v890 = &v796 - ((v245 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v244);
+  v1037 = &v796 - v246;
+  v1206 = sub_10000321C(&qword_1004461B8, &qword_1002F6C48);
+  v1339 = *(v1206 - 8);
+  v247 = __chkstk_darwin(v1206);
+  v889 = &v796 - ((v248 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v247);
+  v1036 = &v796 - v249;
+  v1205 = sub_10000321C(&qword_1004461C0, &qword_1002F6C50);
+  v1338 = *(v1205 - 8);
+  v250 = __chkstk_darwin(v1205);
+  v888 = &v796 - ((v251 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v250);
+  v1035 = &v796 - v252;
+  v1204 = sub_10000321C(&qword_1004461C8, &qword_1002F6C58);
+  v1337 = *(v1204 - 8);
+  v253 = __chkstk_darwin(v1204);
+  v887 = &v796 - ((v254 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v253);
+  v1034 = &v796 - v255;
+  v1203 = sub_10000321C(&qword_1004461D0, &qword_1002F6C60);
+  v1336 = *(v1203 - 8);
+  v256 = __chkstk_darwin(v1203);
+  v886 = &v796 - ((v257 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v256);
+  v1033 = &v796 - v258;
+  v1202 = sub_10000321C(&qword_1004461D8, &qword_1002F6C68);
+  v1335 = *(v1202 - 8);
+  v259 = __chkstk_darwin(v1202);
+  v885 = &v796 - ((v260 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v259);
+  v1032 = &v796 - v261;
+  v1201 = sub_10000321C(&qword_1004461E0, &qword_1002F6C70);
+  v1334 = *(v1201 - 8);
+  v262 = __chkstk_darwin(v1201);
+  v884 = &v796 - ((v263 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v262);
+  v1031 = &v796 - v264;
+  v1200 = sub_10000321C(&qword_1004461E8, &qword_1002F6C78);
+  v1333 = *(v1200 - 8);
+  v265 = __chkstk_darwin(v1200);
+  v883 = &v796 - ((v266 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v265);
+  v1030 = &v796 - v267;
+  v1199 = sub_10000321C(&qword_1004461F0, &qword_1002F6C80);
+  v1332 = *(v1199 - 8);
+  v268 = __chkstk_darwin(v1199);
+  v882 = &v796 - ((v269 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v268);
+  v1029 = &v796 - v270;
+  v1198 = sub_10000321C(&qword_1004461F8, &qword_1002F6C88);
+  v1331 = *(v1198 - 8);
+  v271 = __chkstk_darwin(v1198);
+  v881 = &v796 - ((v272 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v271);
+  v1028 = &v796 - v273;
+  v1197 = sub_10000321C(&qword_100446200, &qword_1002F6C90);
+  v1330 = *(v1197 - 8);
+  v274 = __chkstk_darwin(v1197);
+  v880 = &v796 - ((v275 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v274);
+  v1027 = &v796 - v276;
+  v1196 = sub_10000321C(&qword_100446208, &qword_1002F6C98);
+  v1329 = *(v1196 - 8);
+  v277 = __chkstk_darwin(v1196);
+  v879 = &v796 - ((v278 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v277);
+  v1026 = &v796 - v279;
+  v1195 = sub_10000321C(&qword_100446210, &qword_1002F6CA0);
+  v1328 = *(v1195 - 8);
+  v280 = __chkstk_darwin(v1195);
+  v878 = &v796 - ((v281 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v280);
+  v1025 = &v796 - v282;
+  v1194 = sub_10000321C(&qword_100446218, &qword_1002F6CA8);
+  v1327 = *(v1194 - 8);
+  v283 = __chkstk_darwin(v1194);
+  v877 = &v796 - ((v284 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v283);
+  v1024 = &v796 - v285;
+  v1193 = sub_10000321C(&qword_100446220, &qword_1002F6CB0);
+  v1326 = *(v1193 - 8);
+  v286 = __chkstk_darwin(v1193);
+  v876 = &v796 - ((v287 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v286);
+  v1023 = &v796 - v288;
+  v1192 = sub_10000321C(&qword_100446228, &qword_1002F6CB8);
+  v1325 = *(v1192 - 8);
+  v289 = __chkstk_darwin(v1192);
+  v875 = &v796 - ((v290 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v289);
+  v1022 = &v796 - v291;
+  v1191 = sub_10000321C(&qword_100446230, &qword_1002F6CC0);
+  v1324 = *(v1191 - 8);
+  v292 = __chkstk_darwin(v1191);
+  v874 = &v796 - ((v293 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v292);
+  v1021 = &v796 - v294;
+  v1190 = sub_10000321C(&qword_100446238, &qword_1002F6CC8);
+  v1323 = *(v1190 - 8);
+  v295 = __chkstk_darwin(v1190);
+  v873 = &v796 - ((v296 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v295);
+  v1020 = &v796 - v297;
+  v1189 = sub_10000321C(&qword_100446240, &qword_1002F6CD0);
+  v1322 = *(v1189 - 8);
+  v298 = __chkstk_darwin(v1189);
+  v872 = &v796 - ((v299 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v298);
+  v1019 = &v796 - v300;
+  v1188 = sub_10000321C(&qword_100446248, &qword_1002F6CD8);
+  v1321 = *(v1188 - 8);
+  v301 = __chkstk_darwin(v1188);
+  v871 = &v796 - ((v302 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v301);
+  v1018 = &v796 - v303;
+  v1187 = sub_10000321C(&qword_100446250, &qword_1002F6CE0);
+  v1320 = *(v1187 - 8);
+  v304 = __chkstk_darwin(v1187);
+  v870 = &v796 - ((v305 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v304);
+  v1017 = &v796 - v306;
+  v1186 = sub_10000321C(&qword_100446258, &qword_1002F6CE8);
+  v1319 = *(v1186 - 8);
+  v307 = __chkstk_darwin(v1186);
+  v869 = &v796 - ((v308 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v307);
+  v1016 = &v796 - v309;
+  v1185 = sub_10000321C(&qword_100446260, &qword_1002F6CF0);
+  v1318 = *(v1185 - 8);
+  v310 = __chkstk_darwin(v1185);
+  v868 = &v796 - ((v311 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v310);
+  v1015 = &v796 - v312;
+  v1184 = sub_10000321C(&qword_100446268, &qword_1002F6CF8);
+  v1317 = *(v1184 - 8);
+  v313 = __chkstk_darwin(v1184);
+  v867 = &v796 - ((v314 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v313);
+  v1014 = &v796 - v315;
+  v1183 = sub_10000321C(&qword_100446270, &qword_1002F6D00);
+  v1316 = *(v1183 - 8);
+  v316 = __chkstk_darwin(v1183);
+  v866 = &v796 - ((v317 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v316);
+  v1013 = &v796 - v318;
+  v1182 = sub_10000321C(&qword_100446278, &qword_1002F6D08);
+  v1315 = *(v1182 - 8);
+  v319 = __chkstk_darwin(v1182);
+  v865 = &v796 - ((v320 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v319);
+  v1012 = &v796 - v321;
+  v1181 = sub_10000321C(&qword_100446280, &qword_1002F6D10);
+  v1314 = *(v1181 - 8);
+  v322 = __chkstk_darwin(v1181);
+  v864 = &v796 - ((v323 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v322);
+  v1011 = &v796 - v324;
+  v1180 = sub_10000321C(&qword_100446288, &qword_1002F6D18);
+  v1313 = *(v1180 - 8);
+  v325 = __chkstk_darwin(v1180);
+  v863 = &v796 - ((v326 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v325);
+  v1010 = &v796 - v327;
+  v1179 = sub_10000321C(&qword_100446290, &qword_1002F6D20);
+  v1312 = *(v1179 - 8);
+  v328 = __chkstk_darwin(v1179);
+  v862 = &v796 - ((v329 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v328);
+  v1009 = &v796 - v330;
+  v1178 = sub_10000321C(&qword_100446298, &qword_1002F6D28);
+  v1311 = *(v1178 - 8);
+  v331 = __chkstk_darwin(v1178);
+  v861 = &v796 - ((v332 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v331);
+  v1008 = &v796 - v333;
+  v1177 = sub_10000321C(&qword_1004462A0, &qword_1002F6D30);
+  v1310 = *(v1177 - 8);
+  v334 = __chkstk_darwin(v1177);
+  v860 = &v796 - ((v335 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v334);
+  v1007 = &v796 - v336;
+  v1176 = sub_10000321C(&qword_1004462A8, &qword_1002F6D38);
+  v1309 = *(v1176 - 8);
+  v337 = __chkstk_darwin(v1176);
+  v859 = &v796 - ((v338 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v337);
+  v1006 = &v796 - v339;
+  v1175 = sub_10000321C(&qword_1004462B0, &qword_1002F6D40);
+  v1308 = *(v1175 - 8);
+  v340 = __chkstk_darwin(v1175);
+  v858 = &v796 - ((v341 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v340);
+  v1005 = &v796 - v342;
+  v1174 = sub_10000321C(&qword_1004462B8, &qword_1002F6D48);
+  v1307 = *(v1174 - 8);
+  v343 = __chkstk_darwin(v1174);
+  v857 = &v796 - ((v344 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v343);
+  v1004 = &v796 - v345;
+  v1173 = sub_10000321C(&qword_1004462C0, &qword_1002F6D50);
+  v1306 = *(v1173 - 8);
+  v346 = __chkstk_darwin(v1173);
+  v856 = &v796 - ((v347 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v346);
+  v1003 = &v796 - v348;
+  v1172 = sub_10000321C(&qword_1004462C8, &qword_1002F6D58);
+  v1305 = *(v1172 - 8);
+  v349 = __chkstk_darwin(v1172);
+  v855 = &v796 - ((v350 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v349);
+  v1002 = &v796 - v351;
+  v1269 = sub_10000321C(&qword_1004462D0, &qword_1002F6D60);
+  v1304 = *(v1269 - 8);
+  v352 = __chkstk_darwin(v1269);
+  v854 = &v796 - ((v353 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v352);
+  v1001 = &v796 - v354;
+  v1268 = sub_10000321C(&qword_1004462D8, &qword_1002F6D68);
+  v1303 = *(v1268 - 8);
+  v355 = __chkstk_darwin(v1268);
+  v853 = &v796 - ((v356 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v355);
+  v1000 = &v796 - v357;
+  v1267 = sub_10000321C(&qword_1004462E0, &qword_1002F6D70);
+  v1302 = *(v1267 - 8);
+  v358 = __chkstk_darwin(v1267);
+  v852 = &v796 - ((v359 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v358);
+  v999 = &v796 - v360;
+  v1266 = sub_10000321C(&qword_1004462E8, &qword_1002F6D78);
+  v1301 = *(v1266 - 8);
+  v361 = __chkstk_darwin(v1266);
+  v851 = &v796 - ((v362 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v361);
+  v998 = &v796 - v363;
+  v1265 = sub_10000321C(&qword_1004462F0, &qword_1002F6D80);
+  v1300 = *(v1265 - 8);
+  v364 = __chkstk_darwin(v1265);
+  v850 = &v796 - ((v365 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v364);
+  v997 = &v796 - v366;
+  v1264 = sub_10000321C(&qword_1004462F8, &qword_1002F6D88);
+  v1299 = *(v1264 - 8);
+  v367 = __chkstk_darwin(v1264);
+  v849 = &v796 - ((v368 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v367);
+  v996 = &v796 - v369;
+  v1263 = sub_10000321C(&qword_100446300, &qword_1002F6D90);
+  v1298 = *(v1263 - 8);
+  v370 = __chkstk_darwin(v1263);
+  v848 = &v796 - ((v371 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v370);
+  v995 = &v796 - v372;
+  v1262 = sub_10000321C(&qword_100446308, &qword_1002F6D98);
+  v1297 = *(v1262 - 8);
+  v373 = __chkstk_darwin(v1262);
+  v847 = &v796 - ((v374 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v373);
+  v994 = &v796 - v375;
+  v1261 = sub_10000321C(&qword_100446310, &qword_1002F6DA0);
+  v1296 = *(v1261 - 8);
+  v376 = __chkstk_darwin(v1261);
+  v846 = &v796 - ((v377 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v376);
+  v993 = &v796 - v378;
+  v1260 = sub_10000321C(&qword_100446318, &qword_1002F6DA8);
+  v1295 = *(v1260 - 8);
+  v379 = __chkstk_darwin(v1260);
+  v845 = &v796 - ((v380 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v379);
+  v992 = &v796 - v381;
+  v1259 = sub_10000321C(&qword_100446320, &qword_1002F6DB0);
+  v1294 = *(v1259 - 8);
+  v382 = __chkstk_darwin(v1259);
+  v844 = &v796 - ((v383 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v382);
+  v991 = &v796 - v384;
+  v1258 = sub_10000321C(&qword_100446328, &qword_1002F6DB8);
+  v1293 = *(v1258 - 8);
+  v385 = __chkstk_darwin(v1258);
+  v843 = &v796 - ((v386 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v385);
+  v990 = &v796 - v387;
+  v1257 = sub_10000321C(&qword_100446330, &qword_1002F6DC0);
+  v1292 = *(v1257 - 8);
+  v388 = __chkstk_darwin(v1257);
+  v842 = &v796 - ((v389 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v388);
+  v989 = &v796 - v390;
+  v1256 = sub_10000321C(&qword_100446338, &qword_1002F6DC8);
+  v1291 = *(v1256 - 8);
+  v391 = __chkstk_darwin(v1256);
+  v841 = &v796 - ((v392 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v391);
+  v988 = &v796 - v393;
+  v1255 = sub_10000321C(&qword_100446340, &qword_1002F6DD0);
+  v1290 = *(v1255 - 8);
+  v394 = __chkstk_darwin(v1255);
+  v840 = &v796 - ((v395 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v394);
+  v987 = &v796 - v396;
+  v1254 = sub_10000321C(&qword_100446348, &qword_1002F6DD8);
+  v1289 = *(v1254 - 8);
+  v397 = __chkstk_darwin(v1254);
+  v839 = &v796 - ((v398 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v397);
+  v986 = &v796 - v399;
+  v1253 = sub_10000321C(&qword_100446350, &qword_1002F6DE0);
+  v1288 = *(v1253 - 8);
+  v400 = __chkstk_darwin(v1253);
+  v838 = &v796 - ((v401 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v400);
+  v985 = &v796 - v402;
+  v1252 = sub_10000321C(&qword_100446358, &qword_1002F6DE8);
+  v1287 = *(v1252 - 8);
+  v403 = __chkstk_darwin(v1252);
+  v837 = &v796 - ((v404 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v403);
+  v984 = &v796 - v405;
+  v1251 = sub_10000321C(&qword_100446360, &qword_1002F6DF0);
+  v1286 = *(v1251 - 8);
+  v406 = __chkstk_darwin(v1251);
+  v836 = &v796 - ((v407 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v406);
+  v983 = &v796 - v408;
+  v1250 = sub_10000321C(&qword_100446368, &qword_1002F6DF8);
+  v1285 = *(v1250 - 8);
+  v409 = __chkstk_darwin(v1250);
+  v835 = &v796 - ((v410 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v409);
+  v982 = &v796 - v411;
+  v1249 = sub_10000321C(&qword_100446370, &qword_1002F6E00);
+  v1284 = *(v1249 - 8);
+  v412 = __chkstk_darwin(v1249);
+  v834 = &v796 - ((v413 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v412);
+  v981 = &v796 - v414;
+  v1248 = sub_10000321C(&qword_100446378, &qword_1002F6E08);
+  v1283 = *(v1248 - 8);
+  v415 = __chkstk_darwin(v1248);
+  v833 = &v796 - ((v416 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v415);
+  v980 = &v796 - v417;
+  v1247 = sub_10000321C(&qword_100446380, &qword_1002F6E10);
+  v1282 = *(v1247 - 8);
+  v418 = __chkstk_darwin(v1247);
+  v832 = &v796 - ((v419 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v418);
+  v979 = &v796 - v420;
+  v1246 = sub_10000321C(&qword_100446388, &qword_1002F6E18);
+  v1281 = *(v1246 - 8);
+  v421 = __chkstk_darwin(v1246);
+  v831 = &v796 - ((v422 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v421);
+  v978 = &v796 - v423;
+  v1245 = sub_10000321C(&qword_100446390, &qword_1002F6E20);
+  v1280 = *(v1245 - 8);
+  v424 = __chkstk_darwin(v1245);
+  v830 = &v796 - ((v425 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v424);
+  v977 = &v796 - v426;
+  v1244 = sub_10000321C(&qword_100446398, &qword_1002F6E28);
+  v1279 = *(v1244 - 8);
+  v427 = __chkstk_darwin(v1244);
+  v829 = &v796 - ((v428 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v427);
+  v976 = &v796 - v429;
+  v1243 = sub_10000321C(&qword_1004463A0, &qword_1002F6E30);
+  v1278 = *(v1243 - 8);
+  v430 = __chkstk_darwin(v1243);
+  v828 = &v796 - ((v431 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v430);
+  v975 = &v796 - v432;
+  v1242 = sub_10000321C(&qword_1004463A8, &qword_1002F6E38);
+  v1277 = *(v1242 - 8);
+  v433 = __chkstk_darwin(v1242);
+  v827 = &v796 - ((v434 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v433);
+  v974 = &v796 - v435;
+  v1241 = sub_10000321C(&qword_1004463B0, &qword_1002F6E40);
+  v1276 = *(v1241 - 8);
+  v436 = __chkstk_darwin(v1241);
+  v826 = &v796 - ((v437 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v436);
+  v973 = &v796 - v438;
+  v1240 = sub_10000321C(&qword_1004463B8, &qword_1002F6E48);
+  v1275 = *(v1240 - 8);
+  v439 = __chkstk_darwin(v1240);
+  v825 = &v796 - ((v440 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v439);
+  v972 = &v796 - v441;
+  v1239 = sub_10000321C(&qword_1004463C0, &qword_1002F6E50);
+  v1274 = *(v1239 - 8);
+  v442 = __chkstk_darwin(v1239);
+  v823 = &v796 - ((v443 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v442);
+  v445 = (&v796 - v444);
+  v1238 = sub_10000321C(&qword_1004463C8, &qword_1002F6E58);
+  v1273 = *(v1238 - 8);
+  v446 = __chkstk_darwin(v1238);
+  v822 = &v796 - ((v447 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v446);
+  v449 = &v796 - v448;
+  v1237 = sub_10000321C(&qword_1004463D0, &qword_1002F6E60);
+  v1272 = *(v1237 - 8);
+  v450 = __chkstk_darwin(v1237);
+  v821 = &v796 - ((v451 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v450);
+  v810 = &v796 - v452;
+  v1236 = sub_10000321C(&qword_1004463D8, &qword_1002F6E68);
+  v1271 = *(v1236 - 8);
+  v453 = __chkstk_darwin(v1236);
+  v820 = &v796 - ((v454 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v453);
+  v456 = &v796 - v455;
+  v1235 = sub_10000321C(&qword_1004463E0, &qword_1002F6E70);
+  v1270 = *(v1235 - 8);
+  v457 = __chkstk_darwin(v1235);
+  v819 = &v796 - ((v458 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v457);
+  v809 = &v796 - v459;
+  v1234 = sub_10000321C(&qword_1004463E8, &qword_1002F6E78);
+  v818 = *(v1234 - 8);
+  v460 = __chkstk_darwin(v1234);
+  v817 = &v796 - ((v461 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v460);
+  v808 = &v796 - v462;
+  v1233 = sub_10000321C(&qword_1004463F0, &qword_1002F6E80);
+  v816 = *(v1233 - 8);
+  v463 = __chkstk_darwin(v1233);
+  v815 = &v796 - ((v464 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v463);
+  v466 = &v796 - v465;
+  v1232 = sub_10000321C(&qword_1004463F8, &qword_1002F6E88);
+  v814 = *(v1232 - 8);
+  v467 = __chkstk_darwin(v1232);
+  v813 = &v796 - ((v468 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v467);
+  v470 = &v796 - v469;
+  v1231 = sub_10000321C(&qword_100446400, &qword_1002F6E90);
+  v812 = *(v1231 - 8);
+  v471 = __chkstk_darwin(v1231);
+  v811 = &v796 - ((v472 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v471);
+  v474 = &v796 - v473;
+  sub_1000A2D70();
+  sub_1002D8AE0();
+  sub_1000A2DEC();
+  sub_1002D8AE0();
+  sub_1000A2E68();
+  sub_1002D8AE0();
+  sub_1000A2EE4();
+  sub_1002D8AE0();
+  sub_1000A2F60();
+  sub_1002D8AE0();
+  sub_1000A2FDC();
+  sub_1002D8AE0();
+  sub_1000A3058();
+  sub_1002D8AE0();
+  sub_1000A30D4();
+  sub_1002D8AE0();
+  sub_1000A3150();
+  sub_1002D8AE0();
+  sub_1000A31CC();
+  sub_1002D8AE0();
+  sub_1000A3248();
+  sub_1002D8AE0();
+  sub_1000A32C4();
+  sub_1002D8AE0();
+  sub_1000A3340();
+  v475 = v796;
+  sub_1002D8AE0();
+  sub_1000A3544();
+  v476 = v797;
+  sub_1002D8AE0();
+  sub_1000A35C0();
+  sub_1002D8AE0();
+  sub_1000A363C();
+  sub_1002D8AE0();
+  sub_1000A3840();
+  sub_1002D8AE0();
+  sub_1000A38BC();
+  sub_1002D8AE0();
+  sub_1000A3938();
+  sub_1002D8AE0();
+  sub_1000A39B4();
+  sub_1002D8AE0();
+  sub_1000A3A30();
+  sub_1002D8AE0();
+  sub_1000A3AAC();
+  sub_1002D8AE0();
+  sub_1000A3B28();
+  sub_1002D8AE0();
+  sub_1000A3BA4();
+  sub_1002D8AE0();
+  sub_1000A3C20();
+  sub_1002D8AE0();
+  sub_1000A3C9C();
+  sub_1002D8AE0();
+  sub_1000A3D18();
+  sub_1002D8AE0();
+  sub_1000A3D94();
+  sub_1002D8AE0();
+  sub_1000A3E10();
+  sub_1002D8AE0();
+  sub_1000A3E8C();
+  sub_1002D8AE0();
+  sub_1000A4090();
+  sub_1002D8AE0();
+  sub_1000A410C();
+  sub_1002D8AE0();
+  sub_1000A4188();
+  sub_1002D8AE0();
+  sub_1000A4204();
+  sub_1002D8AE0();
+  sub_1000A4280();
+  sub_1002D8AE0();
+  sub_1000A42FC();
+  sub_1002D8AE0();
+  sub_1000A4378();
+  sub_1002D8AE0();
+  sub_1000A43F4();
+  sub_1002D8AE0();
+  sub_1000A4470();
+  sub_1002D8AE0();
+  sub_1000A44EC();
+  sub_1002D8AE0();
+  sub_1000A4568();
+  sub_1002D8AE0();
+  sub_1000A45E4();
+  sub_1002D8AE0();
+  sub_1000A4660();
+  sub_1002D8AE0();
+  sub_1000A46DC();
+  sub_1002D8AE0();
+  sub_1000A4758();
+  sub_1002D8AE0();
+  sub_1000A495C();
+  sub_1002D8AE0();
+  sub_1000A49D8();
+  sub_1002D8AE0();
+  sub_1000A4A54();
+  sub_1002D8AE0();
+  sub_1000A4AD0();
+  sub_1002D8AE0();
+  sub_1000A4B4C();
+  sub_1002D8AE0();
+  sub_1000A4BC8();
+  sub_1002D8AE0();
+  sub_1000A4C44();
+  sub_1002D8AE0();
+  sub_1000A4CC0();
+  sub_1002D8AE0();
+  sub_1000A4D3C();
+  sub_1002D8AE0();
+  sub_1000A4DB8();
+  sub_1002D8AE0();
+  sub_1000A4E34();
+  sub_1002D8AE0();
+  sub_1000A4EB0();
+  sub_1002D8AE0();
+  sub_1000A4F2C();
+  sub_1002D8AE0();
+  sub_1000A4FA8();
+  sub_1002D8AE0();
+  sub_1000A5024();
+  sub_1002D8AE0();
+  sub_1000A50A0();
+  sub_1002D8AE0();
+  sub_1000A511C();
+  sub_1002D8AE0();
+  sub_1000A5198();
+  sub_1002D8AE0();
+  sub_1000A5394();
+  sub_1002D8AE0();
+  sub_1000A5410();
+  sub_1002D8AE0();
+  sub_1000A548C();
+  sub_1002D8AE0();
+  sub_1000A5508();
+  sub_1002D8AE0();
+  sub_1000A5584();
+  sub_1002D8AE0();
+  sub_1000A5600();
+  sub_1002D8AE0();
+  sub_1000A567C();
+  sub_1002D8AE0();
+  sub_1000A56F8();
+  sub_1002D8AE0();
+  sub_1000A5774();
+  sub_1002D8AE0();
+  sub_1000A57F0();
+  sub_1002D8AE0();
+  sub_1000A586C();
+  sub_1002D8AE0();
+  sub_1000A58E8();
+  sub_1002D8AE0();
+  sub_1000A5964();
+  sub_1002D8AE0();
+  sub_1000A59E0();
+  sub_1002D8AE0();
+  sub_1000A5A5C();
+  sub_1002D8AE0();
+  sub_1000A5AD8();
+  sub_1002D8AE0();
+  sub_1000A5B54();
+  sub_1002D8AE0();
+  sub_1000A5BD0();
+  sub_1002D8AE0();
+  sub_1000A5C4C();
+  sub_1002D8AE0();
+  sub_1000A5CC8();
+  sub_1002D8AE0();
+  sub_1000A5D44();
+  sub_1002D8AE0();
+  sub_1000A5DC0();
+  sub_1002D8AE0();
+  sub_1000A5E3C();
+  sub_1002D8AE0();
+  sub_1000A5EB8();
+  sub_1002D8AE0();
+  sub_1000A5F34();
+  sub_1002D8AE0();
+  sub_1000A6138();
+  sub_1002D8AE0();
+  sub_1000A61B4();
+  sub_1002D8AE0();
+  sub_1000A6230();
+  sub_1002D8AE0();
+  sub_1000A6434();
+  sub_1002D8AE0();
+  sub_1000A64B0();
+  sub_1002D8AE0();
+  sub_1000A652C();
+  sub_1002D8AE0();
+  sub_1000A65A8();
+  sub_1002D8AE0();
+  sub_1000A67AC();
+  sub_1002D8AE0();
+  sub_1000A6828();
+  sub_1002D8AE0();
+  sub_1000A68A4();
+  sub_1002D8AE0();
+  sub_1000A6920();
+  sub_1002D8AE0();
+  sub_1000A699C();
+  sub_1002D8AE0();
+  sub_1000A6A18();
+  sub_1002D8AE0();
+  sub_1000A6A94();
+  sub_1002D8AE0();
+  sub_1000A6B10();
+  sub_1002D8AE0();
+  sub_1000A6B8C();
+  sub_1002D8AE0();
+  sub_1000A6C08();
+  sub_1002D8AE0();
+  sub_1000A6C84();
+  sub_1002D8AE0();
+  sub_1000A6D00();
+  sub_1002D8AE0();
+  sub_1000A7214();
+  sub_1002D8AE0();
+  sub_1000A754C();
+  sub_1002D8AE0();
+  sub_1000A75C8();
+  sub_1002D8AE0();
+  sub_1000A77CC();
+  sub_1002D8AE0();
+  sub_1000A7848();
+  sub_1002D8AE0();
+  sub_1000A78C4();
+  sub_1002D8AE0();
+  sub_1000A7940();
+  sub_1002D8AE0();
+  sub_1000A79BC();
+  sub_1002D8AE0();
+  sub_1000A7A38();
+  sub_1002D8AE0();
+  sub_1000A7AB4();
+  sub_1002D8AE0();
+  sub_1000A7B30();
+  sub_1002D8AE0();
+  sub_1000A7D34();
+  sub_1002D8AE0();
+  sub_1000A7DB0();
+  sub_1002D8AE0();
+  sub_1000A7E2C();
+  sub_1002D8AE0();
+  sub_1000A8030();
+  sub_1002D8AE0();
+  sub_1000A83BC();
+  sub_1002D8AE0();
+  sub_1000A8748();
+  sub_1002D8AE0();
+  sub_1000A87C4();
+  sub_1002D8AE0();
+  sub_1000A8840();
+  sub_1002D8AE0();
+  sub_1000A8A44();
+  sub_1002D8AE0();
+  sub_1000A8AC0();
+  sub_1002D8AE0();
+  sub_1000A8B3C();
+  sub_1002D8AE0();
+  sub_1000A8BB8();
+  sub_1002D8AE0();
+  sub_1000A90CC();
+  sub_1002D8AE0();
+  sub_1000A9148();
+  sub_1002D8AE0();
+  sub_1000A91C4();
+  sub_1002D8AE0();
+  sub_1000A9240();
+  sub_1002D8AE0();
+  sub_1000A92BC();
+  sub_1002D8AE0();
+  sub_1000A9338();
+  sub_1002D8AE0();
+  sub_1000A93B4();
+  sub_1002D8AE0();
+  sub_1000A9430();
+  sub_1002D8AE0();
+  sub_1000A94AC();
+  sub_1002D8AE0();
+  sub_1000A9528();
+  sub_1002D8AE0();
+  sub_1000A95A4();
+  sub_1002D8AE0();
+  sub_1000A9620();
+  sub_1002D8AE0();
+  sub_1000A969C();
+  sub_1002D8AE0();
+  sub_1000A9718();
+  sub_1002D8AE0();
+  sub_1000A9794();
+  sub_1002D8AE0();
+  sub_1000A9810();
+  sub_1002D8AE0();
+  sub_1000A988C();
+  sub_1002D8AE0();
+  sub_1000A9908();
+  sub_1002D8AE0();
+  sub_1000A9984();
+  sub_1002D8AE0();
+  sub_1000A9A00();
+  sub_1002D8AE0();
+  sub_1000A9A7C();
+  sub_1002D8AE0();
+  sub_1000A9C80();
+  sub_1002D8AE0();
+  sub_1000A9CFC();
+  sub_1002D8AE0();
+  sub_1000A9D78();
+  sub_1002D8AE0();
+  sub_10002BFA0(v824);
+  v477 = v811;
+  v478 = *(v812 + 16);
+  v798 = v474;
+  v478(v811, v474, v1231);
+  v1419[0] = v477;
+  v479 = v813;
+  v480 = *(v814 + 16);
+  v799 = v470;
+  v480(v813, v470, v1232);
+  v1419[1] = v479;
+  v481 = v815;
+  v482 = *(v816 + 16);
+  v800 = v466;
+  v482(v815, v466, v1233);
+  v1419[2] = v481;
+  v483 = v817;
+  (*(v818 + 16))(v817, v808, v1234);
+  v1419[3] = v483;
+  v484 = v819;
+  (*(v1270 + 16))(v819, v809, v1235);
+  v1419[4] = v484;
+  v485 = *(v1271 + 16);
+  v486 = v820;
+  v801 = v456;
+  v485(v820, v456, v1236);
+  v1419[5] = v486;
+  v487 = v821;
+  (*(v1272 + 16))(v821, v810, v1237);
+  v1419[6] = v487;
+  v488 = *(v1273 + 16);
+  v489 = v822;
+  v802 = v449;
+  v488(v822, v449, v1238);
+  v1419[7] = v489;
+  v490 = *(v1274 + 16);
+  v491 = v823;
+  v803 = v445;
+  v490(v823, v445, v1239);
+  v1419[8] = v491;
+  v492 = v825;
+  (*(v1275 + 16))(v825, v972, v1240);
+  v1419[9] = v492;
+  v493 = v826;
+  (*(v1276 + 16))(v826, v973, v1241);
+  v1419[10] = v493;
+  v494 = v827;
+  (*(v1277 + 16))(v827, v974, v1242);
+  v1419[11] = v494;
+  v495 = v828;
+  (*(v1278 + 16))(v828, v975, v1243);
+  v1419[12] = v495;
+  v496 = v829;
+  (*(v1279 + 16))(v829, v976, v1244);
+  v1419[14] = v496;
+  v497 = v830;
+  (*(v1280 + 16))(v830, v977, v1245);
+  v1419[15] = v497;
+  v498 = v831;
+  (*(v1281 + 16))(v831, v978, v1246);
+  v1419[16] = v498;
+  v499 = v832;
+  (*(v1282 + 16))(v832, v979, v1247);
+  v1419[18] = v499;
+  v500 = v833;
+  (*(v1283 + 16))(v833, v980, v1248);
+  v1419[19] = v500;
+  v501 = v834;
+  (*(v1284 + 16))(v834, v981, v1249);
+  v1419[20] = v501;
+  v502 = v835;
+  (*(v1285 + 16))(v835, v982, v1250);
+  v1419[21] = v502;
+  v503 = v836;
+  (*(v1286 + 16))(v836, v983, v1251);
+  v1419[22] = v503;
+  v504 = v837;
+  (*(v1287 + 16))(v837, v984, v1252);
+  v1419[23] = v504;
+  v505 = v838;
+  (*(v1288 + 16))(v838, v985, v1253);
+  v1419[24] = v505;
+  v506 = v839;
+  (*(v1289 + 16))(v839, v986, v1254);
+  v1419[25] = v506;
+  v507 = v840;
+  (*(v1290 + 16))(v840, v987, v1255);
+  v1419[26] = v507;
+  v508 = v841;
+  (*(v1291 + 16))(v841, v988, v1256);
+  v1419[27] = v508;
+  v509 = v842;
+  (*(v1292 + 16))(v842, v989, v1257);
+  v1419[28] = v509;
+  v510 = v843;
+  (*(v1293 + 16))(v843, v990, v1258);
+  v1419[29] = v510;
+  v511 = v844;
+  (*(v1294 + 16))(v844, v991, v1259);
+  v1419[30] = v511;
+  v512 = v845;
+  (*(v1295 + 16))(v845, v992, v1260);
+  v1419[31] = v512;
+  v513 = v846;
+  (*(v1296 + 16))(v846, v993, v1261);
+  v1419[33] = v513;
+  v514 = v847;
+  (*(v1297 + 16))(v847, v994, v1262);
+  v1419[34] = v514;
+  v515 = v848;
+  (*(v1298 + 16))(v848, v995, v1263);
+  v1419[35] = v515;
+  v516 = v849;
+  (*(v1299 + 16))(v849, v996, v1264);
+  v1419[36] = v516;
+  v517 = v850;
+  (*(v1300 + 16))(v850, v997, v1265);
+  v1419[37] = v517;
+  v518 = v851;
+  (*(v1301 + 16))(v851, v998, v1266);
+  v1419[38] = v518;
+  v519 = v852;
+  (*(v1302 + 16))(v852, v999, v1267);
+  v1419[39] = v519;
+  v520 = v853;
+  (*(v1303 + 16))(v853, v1000, v1268);
+  v1419[40] = v520;
+  v521 = v854;
+  (*(v1304 + 16))(v854, v1001, v1269);
+  v1419[41] = v521;
+  v522 = v855;
+  (*(v1305 + 16))(v855, v1002, v1172);
+  v1419[42] = v522;
+  v523 = v856;
+  (*(v1306 + 16))(v856, v1003, v1173);
+  v1419[43] = v523;
+  v524 = v857;
+  (*(v1307 + 16))(v857, v1004, v1174);
+  v1419[44] = v524;
+  v525 = v858;
+  (*(v1308 + 16))(v858, v1005, v1175);
+  v1419[45] = v525;
+  v526 = v859;
+  (*(v1309 + 16))(v859, v1006, v1176);
+  v1419[46] = v526;
+  v527 = v860;
+  (*(v1310 + 16))(v860, v1007, v1177);
+  v1419[47] = v527;
+  v528 = v861;
+  (*(v1311 + 16))(v861, v1008, v1178);
+  v1419[49] = v528;
+  v529 = v862;
+  (*(v1312 + 16))(v862, v1009, v1179);
+  v1419[50] = v529;
+  v530 = v863;
+  (*(v1313 + 16))(v863, v1010, v1180);
+  v1419[51] = v530;
+  v531 = v864;
+  (*(v1314 + 16))(v864, v1011, v1181);
+  v1419[52] = v531;
+  v532 = v865;
+  (*(v1315 + 16))(v865, v1012, v1182);
+  v1419[53] = v532;
+  v533 = v866;
+  (*(v1316 + 16))(v866, v1013, v1183);
+  v1419[54] = v533;
+  v534 = v867;
+  (*(v1317 + 16))(v867, v1014, v1184);
+  v1419[55] = v534;
+  v535 = v868;
+  (*(v1318 + 16))(v868, v1015, v1185);
+  v1419[56] = v535;
+  v536 = v869;
+  (*(v1319 + 16))(v869, v1016, v1186);
+  v1419[57] = v536;
+  v537 = v870;
+  (*(v1320 + 16))(v870, v1017, v1187);
+  v1419[58] = v537;
+  v538 = v871;
+  (*(v1321 + 16))(v871, v1018, v1188);
+  v1419[59] = v538;
+  v539 = v872;
+  (*(v1322 + 16))(v872, v1019, v1189);
+  v1419[60] = v539;
+  v540 = v873;
+  (*(v1323 + 16))(v873, v1020, v1190);
+  v1419[61] = v540;
+  v541 = v874;
+  (*(v1324 + 16))(v874, v1021, v1191);
+  v1419[62] = v541;
+  v542 = v875;
+  (*(v1325 + 16))(v875, v1022, v1192);
+  v1419[63] = v542;
+  v543 = v876;
+  (*(v1326 + 16))(v876, v1023, v1193);
+  v1419[64] = v543;
+  v544 = v877;
+  (*(v1327 + 16))(v877, v1024, v1194);
+  v1419[65] = v544;
+  v545 = v878;
+  (*(v1328 + 16))(v878, v1025, v1195);
+  v1419[66] = v545;
+  v546 = v879;
+  (*(v1329 + 16))(v879, v1026, v1196);
+  v1419[68] = v546;
+  v547 = v880;
+  (*(v1330 + 16))(v880, v1027, v1197);
+  v1419[69] = v547;
+  v548 = v881;
+  (*(v1331 + 16))(v881, v1028, v1198);
+  v1419[70] = v548;
+  v549 = v882;
+  (*(v1332 + 16))(v882, v1029, v1199);
+  v1419[71] = v549;
+  v550 = v883;
+  (*(v1333 + 16))(v883, v1030, v1200);
+  v1419[72] = v550;
+  v551 = v884;
+  (*(v1334 + 16))(v884, v1031, v1201);
+  v1419[73] = v551;
+  v552 = v885;
+  (*(v1335 + 16))(v885, v1032, v1202);
+  v1419[74] = v552;
+  v553 = v886;
+  (*(v1336 + 16))(v886, v1033, v1203);
+  v1419[75] = v553;
+  v554 = v887;
+  (*(v1337 + 16))(v887, v1034, v1204);
+  v1419[76] = v554;
+  v555 = v888;
+  (*(v1338 + 16))(v888, v1035, v1205);
+  v1419[77] = v555;
+  v556 = v889;
+  (*(v1339 + 16))(v889, v1036, v1206);
+  v1419[78] = v556;
+  v557 = v890;
+  (*(v1340 + 16))(v890, v1037, v1207);
+  v1419[79] = v557;
+  v558 = v891;
+  (*(v1341 + 16))(v891, v1038, v1208);
+  v1419[80] = v558;
+  v559 = v892;
+  (*(v1342 + 16))(v892, v1039, v1209);
+  v1419[81] = v559;
+  v560 = v893;
+  (*(v1343 + 16))(v893, v1040, v1210);
+  v1419[82] = v560;
+  v561 = v894;
+  (*(v1344 + 16))(v894, v1041, v1211);
+  v1419[83] = v561;
+  v562 = v895;
+  (*(v1345 + 16))(v895, v1042, v1212);
+  v1419[84] = v562;
+  v563 = v896;
+  (*(v1346 + 16))(v896, v1043, v1213);
+  v1419[85] = v563;
+  v564 = v897;
+  (*(v1347 + 16))(v897, v1044, v1214);
+  v1419[86] = v564;
+  v565 = v898;
+  (*(v1348 + 16))(v898, v1045, v1215);
+  v1419[87] = v565;
+  v566 = v899;
+  (*(v1349 + 16))(v899, v1046, v1216);
+  v1419[88] = v566;
+  v567 = v900;
+  (*(v1350 + 16))(v900, v1047, v1217);
+  v1419[89] = v567;
+  v568 = v901;
+  (*(v1351 + 16))(v901, v1048, v1218);
+  v1419[90] = v568;
+  v569 = v902;
+  (*(v1352 + 16))(v902, v1049, v1219);
+  v1419[91] = v569;
+  v570 = v903;
+  (*(v1353 + 16))(v903, v1050, v1220);
+  v1419[92] = v570;
+  v571 = v904;
+  (*(v1354 + 16))(v904, v1051, v1221);
+  v1419[94] = v571;
+  v572 = v905;
+  (*(v1355 + 16))(v905, v1052, v1222);
+  v1419[95] = v572;
+  v573 = v906;
+  (*(v1356 + 16))(v906, v1053, v1223);
+  v1419[96] = v573;
+  v574 = v907;
+  (*(v1357 + 16))(v907, v1054, v1224);
+  v1419[98] = v574;
+  v575 = v908;
+  (*(v1358 + 16))(v908, v1055, v1225);
+  v1419[99] = v575;
+  v576 = v909;
+  (*(v1359 + 16))(v909, v1056, v1226);
+  v1419[100] = v576;
+  v577 = v910;
+  (*(v1360 + 16))(v910, v1057, v1227);
+  v1419[101] = v577;
+  v578 = v911;
+  (*(v1361 + 16))(v911, v1058, v1228);
+  v1419[103] = v578;
+  v579 = v912;
+  (*(v1362 + 16))(v912, v1059, v1229);
+  v1419[104] = v579;
+  v580 = v913;
+  (*(v1363 + 16))(v913, v1060, v1230);
+  v1419[105] = v580;
+  v581 = v914;
+  (*(v1364 + 16))(v914, v1061, v1124);
+  v1419[106] = v581;
+  v582 = v915;
+  (*(v1365 + 16))(v915, v1062, v1125);
+  v1419[107] = v582;
+  v583 = v916;
+  (*(v1366 + 16))(v916, v1063, v1126);
+  v1419[108] = v583;
+  v584 = v917;
+  (*(v1367 + 16))(v917, v1064, v1127);
+  v1419[109] = v584;
+  v585 = v918;
+  (*(v1368 + 16))(v918, v1065, v1128);
+  v1419[110] = v585;
+  v586 = v919;
+  (*(v1369 + 16))(v919, v1066, v1129);
+  v1419[111] = v586;
+  v587 = v920;
+  (*(v1370 + 16))(v920, v1067, v1130);
+  v1419[112] = v587;
+  v588 = v921;
+  (*(v1371 + 16))(v921, v1068, v1131);
+  v1419[113] = v588;
+  v589 = v922;
+  (*(v1372 + 16))(v922, v1069, v1132);
+  v1419[114] = v589;
+  v590 = v923;
+  (*(v1373 + 16))(v923, v1070, v1133);
+  v1419[118] = v590;
+  v591 = v924;
+  (*(v1374 + 16))(v924, v1071, v1134);
+  v1419[121] = v591;
+  v592 = v925;
+  (*(v1375 + 16))(v925, v1072, v1135);
+  v1419[122] = v592;
+  v593 = v926;
+  (*(v1376 + 16))(v926, v1073, v1136);
+  v1419[124] = v593;
+  v594 = v927;
+  (*(v1377 + 16))(v927, v1074, v1137);
+  v1419[125] = v594;
+  v595 = v928;
+  (*(v1378 + 16))(v928, v1075, v1138);
+  v1419[126] = v595;
+  v596 = v929;
+  (*(v1379 + 16))(v929, v1076, v1139);
+  v1419[127] = v596;
+  v597 = v930;
+  (*(v1380 + 16))(v930, v1077, v1140);
+  v1419[128] = v597;
+  v598 = v931;
+  (*(v1381 + 16))(v931, v1078, v1141);
+  v1419[129] = v598;
+  v599 = v932;
+  (*(v1382 + 16))(v932, v1079, v1142);
+  v1419[130] = v599;
+  v600 = v933;
+  (*(v1383 + 16))(v933, v1080, v1143);
+  v1419[131] = v600;
+  v601 = v934;
+  (*(v1384 + 16))(v934, v1081, v1144);
+  v1419[133] = v601;
+  v602 = v935;
+  (*(v1385 + 16))(v935, v1082, v1145);
+  v1419[134] = v602;
+  v603 = v937;
+  (*(v1386 + 16))(v937, v1083, v1146);
+  v1419[135] = v603;
+  v604 = v938;
+  (*(v1387 + 16))(v938, v1084, v1147);
+  v1419[137] = v604;
+  v605 = v939;
+  (*(v1388 + 16))(v939, v1085, v1148);
+  v1419[140] = v605;
+  v606 = v940;
+  (*(v1389 + 16))(v940, v1086, v1149);
+  v1419[143] = v606;
+  v607 = v941;
+  (*(v1390 + 16))(v941, v1087, v1150);
+  v1419[144] = v607;
+  v608 = v942;
+  (*(v1391 + 16))(v942, v1088, v1151);
+  v1419[145] = v608;
+  v609 = v943;
+  (*(v1392 + 16))(v943, v1089, v1152);
+  v1419[147] = v609;
+  v610 = v944;
+  (*(v1393 + 16))(v944, v1090, v1153);
+  v1419[148] = v610;
+  v611 = v945;
+  (*(v1394 + 16))(v945, v1091, v1154);
+  v1419[149] = v611;
+  v612 = v946;
+  (*(v1395 + 16))(v946, v1092, v1155);
+  v1419[150] = v612;
+  v613 = v947;
+  (*(v1396 + 16))(v947, v1093, v1156);
+  v1419[154] = v613;
+  v614 = v948;
+  (*(v1397 + 16))(v948, v1094, v1157);
+  v1419[155] = v614;
+  v615 = v949;
+  (*(v1398 + 16))(v949, v1095, v1158);
+  v1419[156] = v615;
+  v616 = v950;
+  (*(v1399 + 16))(v950, v1096, v1159);
+  v1419[157] = v616;
+  v617 = v951;
+  (*(v1400 + 16))(v951, v1097, v1160);
+  v1419[158] = v617;
+  v618 = v952;
+  (*(v1401 + 16))(v952, v1098, v1161);
+  v1419[159] = v618;
+  v619 = v953;
+  (*(v1402 + 16))(v953, v1099, v1162);
+  v1419[160] = v619;
+  v620 = v954;
+  (*(v1403 + 16))(v954, v1100, v1163);
+  v1419[161] = v620;
+  v621 = v955;
+  (*(v1404 + 16))(v955, v1101, v1164);
+  v1419[162] = v621;
+  v622 = v956;
+  (*(v1405 + 16))(v956, v1102, v1165);
+  v1419[163] = v622;
+  v623 = v957;
+  (*(v1406 + 16))(v957, v1103, v1166);
+  v1419[164] = v623;
+  v624 = v958;
+  (*(v1407 + 16))(v958, v1104, v1167);
+  v1419[165] = v624;
+  v625 = v959;
+  (*(v1408 + 16))(v959, v1105, v1168);
+  v1419[166] = v625;
+  v626 = v960;
+  (*(v1409 + 16))(v960, v1106, v1169);
+  v1419[167] = v626;
+  v627 = v961;
+  (*(v1410 + 16))(v961, v1107, v1170);
+  v1419[168] = v627;
+  v628 = v962;
+  (*(v1411 + 16))(v962, v1108, v1171);
+  v1419[169] = v628;
+  v629 = v963;
+  (*(v1412 + 16))(v963, v1109, v1117);
+  v1419[170] = v629;
+  v630 = v964;
+  (*(v1413 + 16))(v964, v1110, v1118);
+  v1419[171] = v630;
+  v631 = v965;
+  (*(v1414 + 16))(v965, v1111, v1119);
+  v1419[172] = v631;
+  v632 = v966;
+  (*(v1415 + 16))(v966, v1112, v1120);
+  v1419[173] = v632;
+  v633 = v967;
+  (*(v1416 + 16))(v967, v1113, v1121);
+  v1419[174] = v633;
+  v634 = v968;
+  (*(v1417 + 16))(v968, v1114, v1122);
+  v1419[176] = v634;
+  v635 = v969;
+  (*(v1418 + 16))(v969, v1115, v1123);
+  v1419[177] = v635;
+  v636 = v970;
+  v637 = v804;
+  (*(v936 + 16))(v970, v1116);
+  v1419[178] = v636;
+  v638 = v805;
+  v639 = v971;
+  v640 = v824;
+  v641 = v806;
+  v805[2](v971);
+  v642 = 0;
+  v1419[187] = v639;
+  v643 = 32;
+  do
+  {
+    switch(v642)
+    {
+      case 0:
+        sub_10002B6E4(&qword_100446408, &qword_100446400, &qword_1002F6E90, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1231;
+        break;
+      case 1:
+        sub_10002B6E4(&qword_100446410, &qword_1004463F8, &qword_1002F6E88, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1232;
+        break;
+      case 2:
+        sub_10002B6E4(&qword_100446418, &qword_1004463F0, &qword_1002F6E80, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1233;
+        break;
+      case 3:
+        sub_10002B6E4(&qword_100446420, &qword_1004463E8, &qword_1002F6E78, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1234;
+        break;
+      case 4:
+        sub_10002B6E4(&qword_100446428, &qword_1004463E0, &qword_1002F6E70, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1235;
+        break;
+      case 5:
+        sub_10002B6E4(&qword_100446430, &qword_1004463D8, &qword_1002F6E68, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1236;
+        break;
+      case 6:
+        sub_10002B6E4(&qword_100446438, &qword_1004463D0, &qword_1002F6E60, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1237;
+        break;
+      case 7:
+        sub_10002B6E4(&qword_100446440, &qword_1004463C8, &qword_1002F6E58, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1238;
+        break;
+      case 8:
+        sub_10002B6E4(&qword_100446448, &qword_1004463C0, &qword_1002F6E50, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1239;
+        break;
+      case 9:
+        sub_10002B6E4(&qword_100446450, &qword_1004463B8, &qword_1002F6E48, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1240;
+        break;
+      case 10:
+        sub_10002B6E4(&qword_100446458, &qword_1004463B0, &qword_1002F6E40, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1241;
+        break;
+      case 11:
+        sub_10002B6E4(&qword_100446460, &qword_1004463A8, &qword_1002F6E38, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1242;
+        break;
+      case 12:
+        sub_10002B6E4(&qword_100446468, &qword_1004463A0, &qword_1002F6E30, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1243;
+        break;
+      case 13:
+        sub_1000A34C8();
+        v644 = &type metadata for AccessibilityBackgroundSoundsSoundSelectorWidget;
+        break;
+      case 14:
+        sub_10002B6E4(&qword_100446470, &qword_100446398, &qword_1002F6E28, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1244;
+        break;
+      case 15:
+        sub_10002B6E4(&qword_100446478, &qword_100446390, &qword_1002F6E20, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1245;
+        break;
+      case 16:
+        sub_10002B6E4(&qword_100446480, &qword_100446388, &qword_1002F6E18, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1246;
+        break;
+      case 17:
+        sub_1000A37C4();
+        v644 = &type metadata for AccessibilityVoiceOverBrailleStatusCellsPositionWidget;
+        break;
+      case 18:
+        sub_10002B6E4(&qword_100446488, &qword_100446380, &qword_1002F6E10, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1247;
+        break;
+      case 19:
+        sub_10002B6E4(&qword_100446490, &qword_100446378, &qword_1002F6E08, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1248;
+        break;
+      case 20:
+        sub_10002B6E4(&qword_100446498, &qword_100446370, &qword_1002F6E00, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1249;
+        break;
+      case 21:
+        sub_10002B6E4(&qword_1004464A0, &qword_100446368, &qword_1002F6DF8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1250;
+        break;
+      case 22:
+        sub_10002B6E4(&qword_1004464A8, &qword_100446360, &qword_1002F6DF0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1251;
+        break;
+      case 23:
+        sub_10002B6E4(&qword_1004464B0, &qword_100446358, &qword_1002F6DE8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1252;
+        break;
+      case 24:
+        sub_10002B6E4(&qword_1004464B8, &qword_100446350, &qword_1002F6DE0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1253;
+        break;
+      case 25:
+        sub_10002B6E4(&qword_1004464C0, &qword_100446348, &qword_1002F6DD8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1254;
+        break;
+      case 26:
+        sub_10002B6E4(&qword_1004464C8, &qword_100446340, &qword_1002F6DD0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1255;
+        break;
+      case 27:
+        sub_10002B6E4(&qword_1004464D0, &qword_100446338, &qword_1002F6DC8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1256;
+        break;
+      case 28:
+        sub_10002B6E4(&qword_1004464D8, &qword_100446330, &qword_1002F6DC0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1257;
+        break;
+      case 29:
+        sub_10002B6E4(&qword_1004464E0, &qword_100446328, &qword_1002F6DB8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1258;
+        break;
+      case 30:
+        sub_10002B6E4(&qword_1004464E8, &qword_100446320, &qword_1002F6DB0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1259;
+        break;
+      case 31:
+        sub_10002B6E4(&qword_1004464F0, &qword_100446318, &qword_1002F6DA8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1260;
+        break;
+      case 32:
+        sub_1000A4014();
+        v644 = &type metadata for AccessibilityVoiceOverBrailleBrailleScreenInputModeAnnouncementsWidget;
+        break;
+      case 33:
+        sub_10002B6E4(&qword_1004464F8, &qword_100446310, &qword_1002F6DA0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1261;
+        break;
+      case 34:
+        sub_10002B6E4(&qword_100446500, &qword_100446308, &qword_1002F6D98, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1262;
+        break;
+      case 35:
+        sub_10002B6E4(&qword_100446508, &qword_100446300, &qword_1002F6D90, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1263;
+        break;
+      case 36:
+        sub_10002B6E4(&qword_100446510, &qword_1004462F8, &qword_1002F6D88, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1264;
+        break;
+      case 37:
+        sub_10002B6E4(&qword_100446518, &qword_1004462F0, &qword_1002F6D80, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1265;
+        break;
+      case 38:
+        sub_10002B6E4(&qword_100446520, &qword_1004462E8, &qword_1002F6D78, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1266;
+        break;
+      case 39:
+        sub_10002B6E4(&qword_100446528, &qword_1004462E0, &qword_1002F6D70, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1267;
+        break;
+      case 40:
+        sub_10002B6E4(&qword_100446530, &qword_1004462D8, &qword_1002F6D68, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1268;
+        break;
+      case 41:
+        sub_10002B6E4(&qword_100446538, &qword_1004462D0, &qword_1002F6D60, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+        v644 = v1269;
+        break;
+      default:
+        switch(v642)
+        {
+          case '*':
+            sub_10002B6E4(&qword_100446540, &qword_1004462C8, &qword_1002F6D58, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1172;
+            break;
+          case '+':
+            sub_10002B6E4(&qword_100446548, &qword_1004462C0, &qword_1002F6D50, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1173;
+            break;
+          case ',':
+            sub_10002B6E4(&qword_100446550, &qword_1004462B8, &qword_1002F6D48, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1174;
+            break;
+          case '-':
+            sub_10002B6E4(&qword_100446558, &qword_1004462B0, &qword_1002F6D40, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1175;
+            break;
+          case '.':
+            sub_10002B6E4(&qword_100446560, &qword_1004462A8, &qword_1002F6D38, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1176;
+            break;
+          case '/':
+            sub_10002B6E4(&qword_100446568, &qword_1004462A0, &qword_1002F6D30, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1177;
+            break;
+          case '0':
+            sub_1000A48E0();
+            v644 = &type metadata for AccessibilityColorFiltersPickerWidget;
+            break;
+          case '1':
+            sub_10002B6E4(&qword_100446570, &qword_100446298, &qword_1002F6D28, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1178;
+            break;
+          case '2':
+            sub_10002B6E4(&qword_100446578, &qword_100446290, &qword_1002F6D20, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1179;
+            break;
+          case '3':
+            sub_10002B6E4(&qword_100446580, &qword_100446288, &qword_1002F6D18, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1180;
+            break;
+          case '4':
+            sub_10002B6E4(&qword_100446588, &qword_100446280, &qword_1002F6D10, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1181;
+            break;
+          case '5':
+            sub_10002B6E4(&qword_100446590, &qword_100446278, &qword_1002F6D08, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1182;
+            break;
+          case '6':
+            sub_10002B6E4(&qword_100446598, &qword_100446270, &qword_1002F6D00, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1183;
+            break;
+          case '7':
+            sub_10002B6E4(&qword_1004465A0, &qword_100446268, &qword_1002F6CF8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1184;
+            break;
+          case '8':
+            sub_10002B6E4(&qword_1004465A8, &qword_100446260, &qword_1002F6CF0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1185;
+            break;
+          case '9':
+            sub_10002B6E4(&qword_1004465B0, &qword_100446258, &qword_1002F6CE8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1186;
+            break;
+          case ':':
+            sub_10002B6E4(&qword_1004465B8, &qword_100446250, &qword_1002F6CE0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1187;
+            break;
+          case ';':
+            sub_10002B6E4(&qword_1004465C0, &qword_100446248, &qword_1002F6CD8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1188;
+            break;
+          case '<':
+            sub_10002B6E4(&qword_1004465C8, &qword_100446240, &qword_1002F6CD0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1189;
+            break;
+          case '=':
+            sub_10002B6E4(&qword_1004465D0, &qword_100446238, &qword_1002F6CC8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1190;
+            break;
+          case '>':
+            sub_10002B6E4(&qword_1004465D8, &qword_100446230, &qword_1002F6CC0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1191;
+            break;
+          case '?':
+            sub_10002B6E4(&qword_1004465E0, &qword_100446228, &qword_1002F6CB8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1192;
+            break;
+          case '@':
+            sub_10002B6E4(&qword_1004465E8, &qword_100446220, &qword_1002F6CB0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1193;
+            break;
+          case 'A':
+            sub_10002B6E4(&qword_1004465F0, &qword_100446218, &qword_1002F6CA8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1194;
+            break;
+          case 'B':
+            sub_10002B6E4(&qword_1004465F8, &qword_100446210, &qword_1002F6CA0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1195;
+            break;
+          case 'C':
+            sub_1000A5318();
+            v644 = &type metadata for AXFullKeyboardAccessFocusRingColorWidget;
+            break;
+          case 'D':
+            sub_10002B6E4(&qword_100446600, &qword_100446208, &qword_1002F6C98, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1196;
+            break;
+          case 'E':
+            sub_10002B6E4(&qword_100446608, &qword_100446200, &qword_1002F6C90, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1197;
+            break;
+          case 'F':
+            sub_10002B6E4(&qword_100446610, &qword_1004461F8, &qword_1002F6C88, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1198;
+            break;
+          case 'G':
+            sub_10002B6E4(&qword_100446618, &qword_1004461F0, &qword_1002F6C80, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1199;
+            break;
+          case 'H':
+            sub_10002B6E4(&qword_100446620, &qword_1004461E8, &qword_1002F6C78, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1200;
+            break;
+          case 'I':
+            sub_10002B6E4(&qword_100446628, &qword_1004461E0, &qword_1002F6C70, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1201;
+            break;
+          case 'J':
+            sub_10002B6E4(&qword_100446630, &qword_1004461D8, &qword_1002F6C68, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1202;
+            break;
+          case 'K':
+            sub_10002B6E4(&qword_100446638, &qword_1004461D0, &qword_1002F6C60, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1203;
+            break;
+          case 'L':
+            sub_10002B6E4(&qword_100446640, &qword_1004461C8, &qword_1002F6C58, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1204;
+            break;
+          case 'M':
+            sub_10002B6E4(&qword_100446648, &qword_1004461C0, &qword_1002F6C50, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1205;
+            break;
+          case 'N':
+            sub_10002B6E4(&qword_100446650, &qword_1004461B8, &qword_1002F6C48, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1206;
+            break;
+          case 'O':
+            sub_10002B6E4(&qword_100446658, &qword_1004461B0, &qword_1002F6C40, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1207;
+            break;
+          case 'P':
+            sub_10002B6E4(&qword_100446660, &qword_1004461A8, &qword_1002F6C38, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1208;
+            break;
+          case 'Q':
+            sub_10002B6E4(&qword_100446668, &qword_1004461A0, &qword_1002F6C30, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1209;
+            break;
+          case 'R':
+            sub_10002B6E4(&qword_100446670, &qword_100446198, &qword_1002F6C28, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1210;
+            break;
+          case 'S':
+            sub_10002B6E4(&qword_100446678, &qword_100446190, &qword_1002F6C20, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1211;
+            break;
+          case 'T':
+            sub_10002B6E4(&qword_100446680, &qword_100446188, &qword_1002F6C18, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1212;
+            break;
+          case 'U':
+            sub_10002B6E4(&qword_100446688, &qword_100446180, &qword_1002F6C10, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1213;
+            break;
+          case 'V':
+            sub_10002B6E4(&qword_100446690, &qword_100446178, &qword_1002F6C08, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1214;
+            break;
+          case 'W':
+            sub_10002B6E4(&qword_100446698, &qword_100446170, &qword_1002F6C00, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1215;
+            break;
+          case 'X':
+            sub_10002B6E4(&qword_1004466A0, &qword_100446168, &qword_1002F6BF8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1216;
+            break;
+          case 'Y':
+            sub_10002B6E4(&qword_1004466A8, &qword_100446160, &qword_1002F6BF0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1217;
+            break;
+          case 'Z':
+            sub_10002B6E4(&qword_1004466B0, &qword_100446158, &qword_1002F6BE8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1218;
+            break;
+          case '[':
+            sub_10002B6E4(&qword_1004466B8, &qword_100446150, &qword_1002F6BE0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1219;
+            break;
+          case '\\':
+            sub_10002B6E4(&qword_1004466C0, &qword_100446148, &qword_1002F6BD8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1220;
+            break;
+          case ']':
+            sub_1000A60BC();
+            v644 = &type metadata for AccessibilitySideButtonClickSpeedWidget;
+            break;
+          case '^':
+            sub_10002B6E4(&qword_1004466C8, &qword_100446140, &qword_1002F6BD0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1221;
+            break;
+          case '_':
+            sub_10002B6E4(&qword_1004466D0, &qword_100446138, &qword_1002F6BC8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1222;
+            break;
+            sub_10002B6E4(&qword_1004466D8, &qword_100446130, &qword_1002F6BC0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1223;
+            break;
+          case 'a':
+            sub_1000A63B8();
+            v644 = &type metadata for AccessibilitySiriPauseTimeWidget;
+            break;
+          case 'b':
+            sub_10002B6E4(&qword_1004466E0, &qword_100446128, &qword_1002F6BB8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1224;
+            break;
+          case 'c':
+            sub_10002B6E4(&qword_1004466E8, &qword_100446120, &qword_1002F6BB0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1225;
+            break;
+          case 'd':
+            sub_10002B6E4(&qword_1004466F0, &qword_100446118, &qword_1002F6BA8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1226;
+            break;
+          case 'e':
+            sub_10002B6E4(&qword_1004466F8, &qword_100446110, &qword_1002F6BA0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1227;
+            break;
+          case 'f':
+            sub_1000A6730();
+            v644 = &type metadata for AccessibilitySiriSpokenResponsesWidget;
+            break;
+          case 'g':
+            sub_10002B6E4(&qword_100446700, &qword_100446108, &qword_1002F6B98, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1228;
+            break;
+          case 'h':
+            sub_10002B6E4(&qword_100446708, &qword_100446100, &qword_1002F6B90, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1229;
+            break;
+          case 'i':
+            sub_10002B6E4(&qword_100446710, &qword_1004460F8, &qword_1002F6B88, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+            v644 = v1230;
+            break;
+          default:
+            switch(v642)
+            {
+              case 106:
+                sub_10002B6E4(&qword_100446718, &qword_1004460F0, &qword_1002F6B80, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1124;
+                break;
+              case 107:
+                sub_10002B6E4(&qword_100446720, &qword_1004460E8, &qword_1002F6B78, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1125;
+                break;
+              case 108:
+                sub_10002B6E4(&qword_100446728, &qword_1004460E0, &qword_1002F6B70, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1126;
+                break;
+              case 109:
+                sub_10002B6E4(&qword_100446730, &qword_1004460D8, &qword_1002F6B68, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1127;
+                break;
+              case 110:
+                sub_10002B6E4(&qword_100446738, &qword_1004460D0, &qword_1002F6B60, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1128;
+                break;
+              case 111:
+                sub_10002B6E4(&qword_100446740, &qword_1004460C8, &qword_1002F6B58, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1129;
+                break;
+              case 112:
+                sub_10002B6E4(&qword_100446748, &qword_1004460C0, &qword_1002F6B50, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1130;
+                break;
+              case 113:
+                sub_10002B6E4(&qword_100446750, &qword_1004460B8, &qword_1002F6B48, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1131;
+                break;
+              case 114:
+                sub_10002B6E4(&qword_100446758, &qword_1004460B0, &qword_1002F6B40, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1132;
+                break;
+              case 115:
+                sub_1000A6E88();
+                v644 = &type metadata for AccessibilitySwitchControlModeWidget;
+                break;
+              case 116:
+                sub_1000A7010();
+                v644 = &type metadata for AccessibilitySwitchControlTapBehaviorWidget;
+                break;
+              case 117:
+                sub_1000A7198();
+                v644 = &type metadata for AccessibilitySwitchControlGlidingCursorSelectionModeWidget;
+                break;
+              case 118:
+                sub_10002B6E4(&qword_100446760, &qword_1004460A8, &qword_1002F6B38, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1133;
+                break;
+              case 119:
+                sub_1000A7348();
+                v644 = &type metadata for AXSwitchControlCursorColorWidget;
+                break;
+              case 120:
+                sub_1000A74D0();
+                v644 = &type metadata for AccessibilitySwitchControlScanningStyleWidget;
+                break;
+              case 121:
+                sub_10002B6E4(&qword_100446768, &qword_1004460A0, &qword_1002F6B30, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1134;
+                break;
+              case 122:
+                sub_10002B6E4(&qword_100446770, &qword_100446098, &qword_1002F6B28, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1135;
+                break;
+              case 123:
+                sub_1000A7750();
+                v644 = &type metadata for AccessibilityHapticTouchDurationWidget;
+                break;
+              case 124:
+                sub_10002B6E4(&qword_100446778, &qword_100446090, &qword_1002F6B20, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1136;
+                break;
+              case 125:
+                sub_10002B6E4(&qword_100446780, &qword_100446088, &qword_1002F6B18, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1137;
+                break;
+              case 126:
+                sub_10002B6E4(&qword_100446788, &qword_100446080, &qword_1002F6B10, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1138;
+                break;
+              case 127:
+                sub_10002B6E4(&qword_100446790, &qword_100446078, &qword_1002F6B08, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1139;
+                break;
+              case 128:
+                sub_10002B6E4(&qword_100446798, &qword_100446070, &qword_1002F6B00, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1140;
+                break;
+              case 129:
+                sub_10002B6E4(&qword_1004467A0, &qword_100446068, &qword_1002F6AF8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1141;
+                break;
+              case 130:
+                sub_10002B6E4(&qword_1004467A8, &qword_100446060, &qword_1002F6AF0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1142;
+                break;
+              case 131:
+                sub_10002B6E4(&qword_1004467B0, &qword_100446058, &qword_1002F6AE8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1143;
+                break;
+              case 132:
+                sub_1000A7CB8();
+                v644 = &type metadata for AccessibilityVoiceControlOverlayWidget;
+                break;
+              case 133:
+                sub_10002B6E4(&qword_1004467B8, &qword_100446050, &qword_1002F6AE0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1144;
+                break;
+              case 134:
+                sub_10002B6E4(&qword_1004467C0, &qword_100446048, &qword_1002F6AD8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1145;
+                break;
+              case 135:
+                sub_10002B6E4(&qword_1004467C8, &qword_100446040, &qword_1002F6AD0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1146;
+                break;
+              case 136:
+                sub_1000A7FB4();
+                v644 = &type metadata for AccessibilityVoiceOverNeuralFeedbackStyleWidget;
+                break;
+              case 137:
+                sub_10002B6E4(&qword_1004467D0, &qword_100446038, &qword_1002F6AC8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1147;
+                break;
+              case 138:
+                sub_1000A81B8();
+                v644 = &type metadata for AXVerbosityCapitalLettersWidget;
+                break;
+              case 139:
+                sub_1000A8340();
+                v644 = &type metadata for AXVerbosityDeletingTextWidget;
+                break;
+              case 140:
+                sub_10002B6E4(&qword_1004467D8, &qword_100446030, &qword_1002F6AC0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1148;
+                break;
+              case 141:
+                sub_1000A8544();
+                v644 = &type metadata for AccessibilityVoiceOverImageDescriptionsSensitiveContentOutputWidget;
+                break;
+              case 142:
+                sub_1000A86CC();
+                v644 = &type metadata for AXVerbosityNumberFeedbackWidget;
+                break;
+              case 143:
+                sub_10002B6E4(&qword_1004467E0, &qword_100446028, &qword_1002F6AB8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1149;
+                break;
+              case 144:
+                sub_10002B6E4(&qword_1004467E8, &qword_100446020, &qword_1002F6AB0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1150;
+                break;
+              case 145:
+                sub_10002B6E4(&qword_1004467F0, &qword_100446018, &qword_1002F6AA8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1151;
+                break;
+              case 146:
+                sub_1000A89C8();
+                v644 = &type metadata for AccessibilityVoiceOverNavigationStyleWidget;
+                break;
+              case 147:
+                sub_10002B6E4(&qword_1004467F8, &qword_100446010, &qword_1002F6AA0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1152;
+                break;
+              case 148:
+                sub_10002B6E4(&qword_100446800, &qword_100446008, &qword_1002F6A98, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1153;
+                break;
+              case 149:
+                sub_10002B6E4(&qword_100446808, &qword_100446000, &qword_1002F6A90, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1154;
+                break;
+              case 150:
+                sub_10002B6E4(&qword_100446810, &qword_100445FF8, &qword_1002F6A88, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1155;
+                break;
+              case 151:
+                sub_1000A8D40();
+                v644 = &type metadata for AccessibilityVoiceOverAudioDuckingModeWidget;
+                break;
+              case 152:
+                sub_1000A8EC8();
+                v644 = &type metadata for AXTypingPhoneticFeedbackWidget;
+                break;
+              case 153:
+                sub_1000A9050();
+                v644 = &type metadata for AXTypingStyleWidget;
+                break;
+              case 154:
+                sub_10002B6E4(&qword_100446818, &qword_100445FF0, &qword_1002F6A80, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1156;
+                break;
+              case 155:
+                sub_10002B6E4(&qword_100446820, &qword_100445FE8, &qword_1002F6A78, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1157;
+                break;
+              case 156:
+                sub_10002B6E4(&qword_100446828, &qword_100445FE0, &qword_1002F6A70, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1158;
+                break;
+              case 157:
+                sub_10002B6E4(&qword_100446830, &qword_100445FD8, &qword_1002F6A68, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1159;
+                break;
+              case 158:
+                sub_10002B6E4(&qword_100446838, &qword_100445FD0, &qword_1002F6A60, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1160;
+                break;
+              case 159:
+                sub_10002B6E4(&qword_100446840, &qword_100445FC8, &qword_1002F6A58, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1161;
+                break;
+              case 160:
+                sub_10002B6E4(&qword_100446848, &qword_100445FC0, &qword_1002F6A50, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1162;
+                break;
+              case 161:
+                sub_10002B6E4(&qword_100446850, &qword_100445FB8, &qword_1002F6A48, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1163;
+                break;
+              case 162:
+                sub_10002B6E4(&qword_100446858, &qword_100445FB0, &qword_1002F6A40, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1164;
+                break;
+              case 163:
+                sub_10002B6E4(&qword_100446860, &qword_100445FA8, &qword_1002F6A38, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1165;
+                break;
+              case 164:
+                sub_10002B6E4(&qword_100446868, &qword_100445FA0, &qword_1002F6A30, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1166;
+                break;
+              case 165:
+                sub_10002B6E4(&qword_100446870, &qword_100445F98, &qword_1002F6A28, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1167;
+                break;
+              case 166:
+                sub_10002B6E4(&qword_100446878, &qword_100445F90, &qword_1002F6A20, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1168;
+                break;
+              case 167:
+                sub_10002B6E4(&qword_100446880, &qword_100445F88, &qword_1002F6A18, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1169;
+                break;
+              case 168:
+                sub_10002B6E4(&qword_100446888, &qword_100445F80, &qword_1002F6A10, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1170;
+                break;
+              case 169:
+                sub_10002B6E4(&qword_100446890, &qword_100445F78, &qword_1002F6A08, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                v644 = v1171;
+                break;
+              default:
+                switch(v642)
+                {
+                  case 171:
+                    sub_10002B6E4(&qword_1004468A0, &qword_100445F68, &qword_1002F69F8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                    v644 = v1118;
+                    break;
+                  case 172:
+                    sub_10002B6E4(&qword_1004468A8, &qword_100445F60, &qword_1002F69F0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                    v644 = v1119;
+                    break;
+                  case 173:
+                    sub_10002B6E4(&qword_1004468B0, &qword_100445F58, &qword_1002F69E8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                    v644 = v1120;
+                    break;
+                  case 174:
+                    sub_10002B6E4(&qword_1004468B8, &qword_100445F50, &qword_1002F69E0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                    v644 = v1121;
+                    break;
+                  case 175:
+                    sub_1000A9C04();
+                    v644 = &type metadata for AccessibilityZoomPanningStyleWidget;
+                    break;
+                  case 176:
+                    sub_10002B6E4(&qword_1004468C0, &qword_100445F48, &qword_1002F69D8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                    v644 = v1122;
+                    break;
+                  case 177:
+                    sub_10002B6E4(&qword_1004468C8, &qword_100445F40, &qword_1002F69D0, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                    v644 = v1123;
+                    break;
+                  case 178:
+                    sub_10002B6E4(&qword_1004468D0, &qword_100445F38, &qword_1002F69C8, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                    v644 = v637;
+                    break;
+                  case 179:
+                    sub_1000A9EF8();
+                    v644 = &type metadata for AccessibilityZoomControllerSingleTapActionWidget;
+                    break;
+                  case 180:
+                    sub_1000AA02C();
+                    v644 = &type metadata for AccessibilityZoomControllerDoubleTapActionWidget;
+                    break;
+                  case 181:
+                    sub_1000AA158();
+                    v644 = &type metadata for AccessibilityZoomControllerTripleTapActionWidget;
+                    break;
+                  case 182:
+                    sub_1000AA2E0();
+                    v644 = &type metadata for AccessibilityZoomControllerColorWidget;
+                    break;
+                  case 183:
+                    sub_1000AA468();
+                    v644 = &type metadata for AccessibilityZoomLensModeWidget;
+                    break;
+                  case 184:
+                    sub_1000AA5F0();
+                    v644 = &type metadata for AccessibilityZoomLensModeiPadWidget;
+                    break;
+                  case 185:
+                    sub_1000AA778();
+                    v644 = &type metadata for AccessibilityZoomDockPositionWidget;
+                    break;
+                  case 186:
+                    sub_1000AA900();
+                    v644 = &type metadata for AccessibilityZoomLensEffectWidget;
+                    break;
+                  case 187:
+                    sub_10002B6E4(&qword_1004468D8, &qword_100445F30, &qword_1002F69C0, &protocol conformance descriptor for TupleWidget<A>);
+                    v644 = v641;
+                    break;
+                  default:
+                    sub_10002B6E4(&qword_100446898, &qword_100445F70, &qword_1002F6A00, &protocol conformance descriptor for _ControlWidgetAdaptor<A>);
+                    v644 = v1117;
+                    break;
+                }
+
+                break;
+            }
+
+            break;
+        }
+
+        break;
+    }
+
+    (*(v644[-1].Description + 2))(&v475[*(v476 + v643)], v1419[v642++]);
+    v643 += 16;
+  }
+
+  while (v642 != 188);
+  sub_1002D8A30();
+  v807 = v638[1];
+  (v807)(v640, v641);
+  v936 = *(v936 + 8);
+  (v936)(v1116, v637);
+  v645 = *(v1418 + 8);
+  v1418 += 8;
+  v1116 = v645;
+  (v645)(v1115, v1123);
+  v646 = *(v1417 + 8);
+  v1417 += 8;
+  v1115 = v646;
+  (v646)(v1114, v1122);
+  v647 = *(v1416 + 8);
+  v1416 += 8;
+  v1114 = v647;
+  (v647)(v1113, v1121);
+  v648 = *(v1415 + 8);
+  v1415 += 8;
+  v1113 = v648;
+  (v648)(v1112, v1120);
+  v649 = *(v1414 + 8);
+  v1414 += 8;
+  v1112 = v649;
+  (v649)(v1111, v1119);
+  v650 = *(v1413 + 8);
+  v1413 += 8;
+  v1111 = v650;
+  (v650)(v1110, v1118);
+  v651 = *(v1412 + 8);
+  v1412 += 8;
+  v1110 = v651;
+  (v651)(v1109, v1117);
+  v652 = *(v1411 + 8);
+  v1411 += 8;
+  v1109 = v652;
+  (v652)(v1108, v1171);
+  v653 = *(v1410 + 8);
+  v1410 += 8;
+  v1108 = v653;
+  (v653)(v1107, v1170);
+  v654 = *(v1409 + 8);
+  v1409 += 8;
+  v1107 = v654;
+  (v654)(v1106, v1169);
+  v655 = *(v1408 + 8);
+  v1408 += 8;
+  v1106 = v655;
+  (v655)(v1105, v1168);
+  v656 = *(v1407 + 8);
+  v1407 += 8;
+  v1105 = v656;
+  (v656)(v1104, v1167);
+  v657 = *(v1406 + 8);
+  v1406 += 8;
+  v1104 = v657;
+  (v657)(v1103, v1166);
+  v658 = *(v1405 + 8);
+  v1405 += 8;
+  v1103 = v658;
+  (v658)(v1102, v1165);
+  v659 = *(v1404 + 8);
+  v1404 += 8;
+  v1102 = v659;
+  (v659)(v1101, v1164);
+  v660 = *(v1403 + 8);
+  v1403 += 8;
+  v1101 = v660;
+  (v660)(v1100, v1163);
+  v661 = *(v1402 + 8);
+  v1402 += 8;
+  v1100 = v661;
+  (v661)(v1099, v1162);
+  v662 = *(v1401 + 8);
+  v1401 += 8;
+  v1099 = v662;
+  (v662)(v1098, v1161);
+  v663 = *(v1400 + 8);
+  v1400 += 8;
+  v1098 = v663;
+  (v663)(v1097, v1160);
+  v664 = *(v1399 + 8);
+  v1399 += 8;
+  v1097 = v664;
+  (v664)(v1096, v1159);
+  v665 = *(v1398 + 8);
+  v1398 += 8;
+  v1096 = v665;
+  (v665)(v1095, v1158);
+  v666 = *(v1397 + 8);
+  v1397 += 8;
+  v1095 = v666;
+  (v666)(v1094, v1157);
+  v667 = *(v1396 + 8);
+  v1396 += 8;
+  v1094 = v667;
+  (v667)(v1093, v1156);
+  v668 = *(v1395 + 8);
+  v1395 += 8;
+  v1093 = v668;
+  (v668)(v1092, v1155);
+  v669 = *(v1394 + 8);
+  v1394 += 8;
+  v1092 = v669;
+  (v669)(v1091, v1154);
+  v670 = *(v1393 + 8);
+  v1393 += 8;
+  v1091 = v670;
+  (v670)(v1090, v1153);
+  v671 = *(v1392 + 8);
+  v1392 += 8;
+  v1090 = v671;
+  (v671)(v1089, v1152);
+  v672 = *(v1391 + 8);
+  v1391 += 8;
+  v1089 = v672;
+  (v672)(v1088, v1151);
+  v673 = *(v1390 + 8);
+  v1390 += 8;
+  v1088 = v673;
+  (v673)(v1087, v1150);
+  v674 = *(v1389 + 8);
+  v1389 += 8;
+  v1087 = v674;
+  (v674)(v1086, v1149);
+  v675 = *(v1388 + 8);
+  v1388 += 8;
+  v1086 = v675;
+  (v675)(v1085, v1148);
+  v676 = *(v1387 + 8);
+  v1387 += 8;
+  v1085 = v676;
+  (v676)(v1084, v1147);
+  v677 = *(v1386 + 8);
+  v1386 += 8;
+  v1084 = v677;
+  (v677)(v1083, v1146);
+  v678 = *(v1385 + 8);
+  v1385 += 8;
+  v1083 = v678;
+  (v678)(v1082, v1145);
+  v679 = *(v1384 + 8);
+  v1384 += 8;
+  v1082 = v679;
+  (v679)(v1081, v1144);
+  v680 = *(v1383 + 8);
+  v1383 += 8;
+  v1081 = v680;
+  (v680)(v1080, v1143);
+  v681 = *(v1382 + 8);
+  v1382 += 8;
+  v1080 = v681;
+  (v681)(v1079, v1142);
+  v682 = *(v1381 + 8);
+  v1381 += 8;
+  v1079 = v682;
+  (v682)(v1078, v1141);
+  v683 = *(v1380 + 8);
+  v1380 += 8;
+  v1078 = v683;
+  (v683)(v1077, v1140);
+  v684 = *(v1379 + 8);
+  v1379 += 8;
+  v1077 = v684;
+  (v684)(v1076, v1139);
+  v685 = *(v1378 + 8);
+  v1378 += 8;
+  v1076 = v685;
+  (v685)(v1075, v1138);
+  v686 = *(v1377 + 8);
+  v1377 += 8;
+  v1075 = v686;
+  (v686)(v1074, v1137);
+  v687 = *(v1376 + 8);
+  v1376 += 8;
+  v1074 = v687;
+  (v687)(v1073, v1136);
+  v688 = *(v1375 + 8);
+  v1375 += 8;
+  v1073 = v688;
+  (v688)(v1072, v1135);
+  v689 = *(v1374 + 8);
+  v1374 += 8;
+  v1072 = v689;
+  (v689)(v1071, v1134);
+  v690 = *(v1373 + 8);
+  v1373 += 8;
+  v1071 = v690;
+  (v690)(v1070, v1133);
+  v691 = *(v1372 + 8);
+  v1372 += 8;
+  v1070 = v691;
+  (v691)(v1069, v1132);
+  v692 = *(v1371 + 8);
+  v1371 += 8;
+  v1069 = v692;
+  (v692)(v1068, v1131);
+  v693 = *(v1370 + 8);
+  v1370 += 8;
+  v1068 = v693;
+  (v693)(v1067, v1130);
+  v694 = *(v1369 + 8);
+  v1369 += 8;
+  v1067 = v694;
+  (v694)(v1066, v1129);
+  v695 = *(v1368 + 8);
+  v1368 += 8;
+  v1066 = v695;
+  (v695)(v1065, v1128);
+  v696 = *(v1367 + 8);
+  v1367 += 8;
+  v1065 = v696;
+  (v696)(v1064, v1127);
+  v697 = *(v1366 + 8);
+  v1366 += 8;
+  v1064 = v697;
+  (v697)(v1063, v1126);
+  v698 = *(v1365 + 8);
+  v1365 += 8;
+  v1063 = v698;
+  (v698)(v1062, v1125);
+  v699 = *(v1364 + 8);
+  v1364 += 8;
+  v1062 = v699;
+  (v699)(v1061, v1124);
+  v700 = *(v1363 + 8);
+  v1363 += 8;
+  v1061 = v700;
+  (v700)(v1060, v1230);
+  v701 = *(v1362 + 8);
+  v1362 += 8;
+  v1060 = v701;
+  (v701)(v1059, v1229);
+  v702 = *(v1361 + 8);
+  v1361 += 8;
+  v1059 = v702;
+  (v702)(v1058, v1228);
+  v703 = *(v1360 + 8);
+  v1360 += 8;
+  v1058 = v703;
+  (v703)(v1057, v1227);
+  v704 = *(v1359 + 8);
+  v1359 += 8;
+  v1057 = v704;
+  (v704)(v1056, v1226);
+  v705 = *(v1358 + 8);
+  v1358 += 8;
+  v1056 = v705;
+  (v705)(v1055, v1225);
+  v706 = *(v1357 + 8);
+  v1357 += 8;
+  v1055 = v706;
+  (v706)(v1054, v1224);
+  v707 = *(v1356 + 8);
+  v1356 += 8;
+  v1054 = v707;
+  (v707)(v1053, v1223);
+  v708 = *(v1355 + 8);
+  v1355 += 8;
+  v1053 = v708;
+  (v708)(v1052, v1222);
+  v709 = *(v1354 + 8);
+  v1354 += 8;
+  v1052 = v709;
+  (v709)(v1051, v1221);
+  v710 = *(v1353 + 8);
+  v1353 += 8;
+  v1051 = v710;
+  (v710)(v1050, v1220);
+  v711 = *(v1352 + 8);
+  v1352 += 8;
+  v1050 = v711;
+  (v711)(v1049, v1219);
+  v712 = *(v1351 + 8);
+  v1351 += 8;
+  v1049 = v712;
+  (v712)(v1048, v1218);
+  v713 = *(v1350 + 8);
+  v1350 += 8;
+  v1048 = v713;
+  (v713)(v1047, v1217);
+  v714 = *(v1349 + 8);
+  v1349 += 8;
+  v1047 = v714;
+  (v714)(v1046, v1216);
+  v715 = *(v1348 + 8);
+  v1348 += 8;
+  v1046 = v715;
+  (v715)(v1045, v1215);
+  v716 = *(v1347 + 8);
+  v1347 += 8;
+  v1045 = v716;
+  (v716)(v1044, v1214);
+  v717 = *(v1346 + 8);
+  v1346 += 8;
+  v1044 = v717;
+  (v717)(v1043, v1213);
+  v718 = *(v1345 + 8);
+  v1345 += 8;
+  v1043 = v718;
+  (v718)(v1042, v1212);
+  v719 = *(v1344 + 8);
+  v1344 += 8;
+  v1042 = v719;
+  (v719)(v1041, v1211);
+  v720 = *(v1343 + 8);
+  v1343 += 8;
+  v1041 = v720;
+  (v720)(v1040, v1210);
+  v721 = *(v1342 + 8);
+  v1342 += 8;
+  v1040 = v721;
+  (v721)(v1039, v1209);
+  v722 = *(v1341 + 8);
+  v1341 += 8;
+  v1039 = v722;
+  (v722)(v1038, v1208);
+  v723 = *(v1340 + 8);
+  v1340 += 8;
+  v1038 = v723;
+  (v723)(v1037, v1207);
+  v724 = *(v1339 + 8);
+  v1339 += 8;
+  v1037 = v724;
+  (v724)(v1036, v1206);
+  v725 = *(v1338 + 8);
+  v1338 += 8;
+  v1036 = v725;
+  (v725)(v1035, v1205);
+  v726 = *(v1337 + 8);
+  v1337 += 8;
+  v1035 = v726;
+  (v726)(v1034, v1204);
+  v727 = *(v1336 + 8);
+  v1336 += 8;
+  v1034 = v727;
+  (v727)(v1033, v1203);
+  v728 = *(v1335 + 8);
+  v1335 += 8;
+  v1033 = v728;
+  (v728)(v1032, v1202);
+  v729 = *(v1334 + 8);
+  v1334 += 8;
+  v1032 = v729;
+  (v729)(v1031, v1201);
+  v730 = *(v1333 + 8);
+  v1333 += 8;
+  v1031 = v730;
+  (v730)(v1030, v1200);
+  v731 = *(v1332 + 8);
+  v1332 += 8;
+  v1030 = v731;
+  (v731)(v1029, v1199);
+  v732 = *(v1331 + 8);
+  v1331 += 8;
+  v1029 = v732;
+  (v732)(v1028, v1198);
+  v733 = *(v1330 + 8);
+  v1330 += 8;
+  v1028 = v733;
+  (v733)(v1027, v1197);
+  v734 = *(v1329 + 8);
+  v1329 += 8;
+  v1027 = v734;
+  (v734)(v1026, v1196);
+  v735 = *(v1328 + 8);
+  v1328 += 8;
+  v1026 = v735;
+  (v735)(v1025, v1195);
+  v736 = *(v1327 + 8);
+  v1327 += 8;
+  v1025 = v736;
+  (v736)(v1024, v1194);
+  v737 = *(v1326 + 8);
+  v1326 += 8;
+  v1024 = v737;
+  (v737)(v1023, v1193);
+  v738 = *(v1325 + 8);
+  v1325 += 8;
+  v1023 = v738;
+  (v738)(v1022, v1192);
+  v739 = *(v1324 + 8);
+  v1324 += 8;
+  v1022 = v739;
+  (v739)(v1021, v1191);
+  v740 = *(v1323 + 8);
+  v1323 += 8;
+  v1021 = v740;
+  (v740)(v1020, v1190);
+  v741 = *(v1322 + 8);
+  v1322 += 8;
+  v1020 = v741;
+  (v741)(v1019, v1189);
+  v742 = *(v1321 + 8);
+  v1321 += 8;
+  v1019 = v742;
+  (v742)(v1018, v1188);
+  v743 = *(v1320 + 8);
+  v1320 += 8;
+  v1018 = v743;
+  (v743)(v1017, v1187);
+  v744 = *(v1319 + 8);
+  v1319 += 8;
+  v1017 = v744;
+  (v744)(v1016, v1186);
+  v745 = *(v1318 + 8);
+  v1318 += 8;
+  v1016 = v745;
+  (v745)(v1015, v1185);
+  v746 = *(v1317 + 8);
+  v1317 += 8;
+  v1015 = v746;
+  (v746)(v1014, v1184);
+  v747 = *(v1316 + 8);
+  v1316 += 8;
+  v1014 = v747;
+  (v747)(v1013, v1183);
+  v748 = *(v1315 + 8);
+  v1315 += 8;
+  v1013 = v748;
+  (v748)(v1012, v1182);
+  v749 = *(v1314 + 8);
+  v1314 += 8;
+  v1012 = v749;
+  (v749)(v1011, v1181);
+  v750 = *(v1313 + 8);
+  v1313 += 8;
+  v1011 = v750;
+  (v750)(v1010, v1180);
+  v751 = *(v1312 + 8);
+  v1312 += 8;
+  v1010 = v751;
+  (v751)(v1009, v1179);
+  v752 = *(v1311 + 8);
+  v1311 += 8;
+  v1009 = v752;
+  (v752)(v1008, v1178);
+  v753 = *(v1310 + 8);
+  v1310 += 8;
+  v1008 = v753;
+  (v753)(v1007, v1177);
+  v754 = *(v1309 + 8);
+  v1309 += 8;
+  v1007 = v754;
+  (v754)(v1006, v1176);
+  v755 = *(v1308 + 8);
+  v1308 += 8;
+  v1006 = v755;
+  (v755)(v1005, v1175);
+  v756 = *(v1307 + 8);
+  v1307 += 8;
+  v1005 = v756;
+  (v756)(v1004, v1174);
+  v757 = *(v1306 + 8);
+  v1306 += 8;
+  v1004 = v757;
+  (v757)(v1003, v1173);
+  v758 = *(v1305 + 8);
+  v1305 += 8;
+  v1003 = v758;
+  (v758)(v1002, v1172);
+  v759 = *(v1304 + 8);
+  v1304 += 8;
+  v1002 = v759;
+  (v759)(v1001, v1269);
+  v760 = *(v1303 + 8);
+  v1303 += 8;
+  v1001 = v760;
+  (v760)(v1000, v1268);
+  v761 = *(v1302 + 8);
+  v1302 += 8;
+  v1000 = v761;
+  (v761)(v999, v1267);
+  v762 = *(v1301 + 8);
+  v1301 += 8;
+  v999 = v762;
+  (v762)(v998, v1266);
+  v763 = *(v1300 + 8);
+  v1300 += 8;
+  v998 = v763;
+  (v763)(v997, v1265);
+  v764 = *(v1299 + 8);
+  v1299 += 8;
+  v997 = v764;
+  (v764)(v996, v1264);
+  v765 = *(v1298 + 8);
+  v1298 += 8;
+  v996 = v765;
+  (v765)(v995, v1263);
+  v766 = *(v1297 + 8);
+  v1297 += 8;
+  v995 = v766;
+  (v766)(v994, v1262);
+  v767 = *(v1296 + 8);
+  v1296 += 8;
+  v994 = v767;
+  (v767)(v993, v1261);
+  v768 = *(v1295 + 8);
+  v1295 += 8;
+  v993 = v768;
+  (v768)(v992, v1260);
+  v769 = *(v1294 + 8);
+  v1294 += 8;
+  v992 = v769;
+  (v769)(v991, v1259);
+  v770 = *(v1293 + 8);
+  v1293 += 8;
+  v991 = v770;
+  (v770)(v990, v1258);
+  v771 = *(v1292 + 8);
+  v1292 += 8;
+  v990 = v771;
+  (v771)(v989, v1257);
+  v772 = *(v1291 + 8);
+  v1291 += 8;
+  v989 = v772;
+  (v772)(v988, v1256);
+  v773 = *(v1290 + 8);
+  v1290 += 8;
+  v988 = v773;
+  (v773)(v987, v1255);
+  v774 = *(v1289 + 8);
+  v1289 += 8;
+  v987 = v774;
+  (v774)(v986, v1254);
+  v775 = *(v1288 + 8);
+  v1288 += 8;
+  v986 = v775;
+  (v775)(v985, v1253);
+  v776 = *(v1287 + 8);
+  v1287 += 8;
+  v985 = v776;
+  (v776)(v984, v1252);
+  v777 = *(v1286 + 8);
+  v1286 += 8;
+  v984 = v777;
+  (v777)(v983, v1251);
+  v778 = *(v1285 + 8);
+  v1285 += 8;
+  v983 = v778;
+  (v778)(v982, v1250);
+  v779 = *(v1284 + 8);
+  v1284 += 8;
+  v982 = v779;
+  (v779)(v981, v1249);
+  v780 = *(v1283 + 8);
+  v1283 += 8;
+  v981 = v780;
+  (v780)(v980, v1248);
+  v781 = *(v1282 + 8);
+  v1282 += 8;
+  v980 = v781;
+  (v781)(v979, v1247);
+  v782 = *(v1281 + 8);
+  v1281 += 8;
+  v979 = v782;
+  (v782)(v978, v1246);
+  v783 = *(v1280 + 8);
+  v1280 += 8;
+  v978 = v783;
+  (v783)(v977, v1245);
+  v784 = *(v1279 + 8);
+  v1279 += 8;
+  v977 = v784;
+  (v784)(v976, v1244);
+  v785 = *(v1278 + 8);
+  v1278 += 8;
+  v976 = v785;
+  (v785)(v975, v1243);
+  v786 = *(v1277 + 8);
+  v1277 += 8;
+  v975 = v786;
+  (v786)(v974, v1242);
+  v787 = *(v1276 + 8);
+  v1276 += 8;
+  v974 = v787;
+  (v787)(v973, v1241);
+  v788 = *(v1275 + 8);
+  v1275 += 8;
+  v973 = v788;
+  (v788)(v972, v1240);
+  v789 = *(v1274 + 8);
+  v1274 += 8;
+  v972 = v789;
+  (v789)(v803, v1239);
+  v790 = *(v1273 + 8);
+  v1273 += 8;
+  v824 = v790;
+  v790(v802, v1238);
+  v791 = *(v1272 + 8);
+  v1272 += 8;
+  v805 = v791;
+  (v791)(v810, v1237);
+  v792 = *(v1271 + 8);
+  v1271 += 8;
+  v810 = v792;
+  (v792)(v801, v1236);
+  v793 = *(v1270 + 8);
+  v1270 += 8;
+  v803 = v793;
+  v793(v809, v1235);
+  v818 = *(v818 + 8);
+  (v818)(v808, v1234);
+  v816 = *(v816 + 8);
+  (v816)(v800, v1233);
+  v814 = *(v814 + 8);
+  (v814)(v799, v1232);
+  v794 = *(v812 + 8);
+  v794(v798, v1231);
+  (v807)(v971, v641);
+  (v936)(v970, v637);
+  (v1116)(v969, v1123);
+  (v1115)(v968, v1122);
+  (v1114)(v967, v1121);
+  (v1113)(v966, v1120);
+  (v1112)(v965, v1119);
+  (v1111)(v964, v1118);
+  (v1110)(v963, v1117);
+  (v1109)(v962, v1171);
+  (v1108)(v961, v1170);
+  (v1107)(v960, v1169);
+  (v1106)(v959, v1168);
+  (v1105)(v958, v1167);
+  (v1104)(v957, v1166);
+  (v1103)(v956, v1165);
+  (v1102)(v955, v1164);
+  (v1101)(v954, v1163);
+  (v1100)(v953, v1162);
+  (v1099)(v952, v1161);
+  (v1098)(v951, v1160);
+  (v1097)(v950, v1159);
+  (v1096)(v949, v1158);
+  (v1095)(v948, v1157);
+  (v1094)(v947, v1156);
+  (v1093)(v946, v1155);
+  (v1092)(v945, v1154);
+  (v1091)(v944, v1153);
+  (v1090)(v943, v1152);
+  (v1089)(v942, v1151);
+  (v1088)(v941, v1150);
+  (v1087)(v940, v1149);
+  (v1086)(v939, v1148);
+  (v1085)(v938, v1147);
+  (v1084)(v937, v1146);
+  (v1083)(v935, v1145);
+  (v1082)(v934, v1144);
+  (v1081)(v933, v1143);
+  (v1080)(v932, v1142);
+  (v1079)(v931, v1141);
+  (v1078)(v930, v1140);
+  (v1077)(v929, v1139);
+  (v1076)(v928, v1138);
+  (v1075)(v927, v1137);
+  (v1074)(v926, v1136);
+  (v1073)(v925, v1135);
+  (v1072)(v924, v1134);
+  (v1071)(v923, v1133);
+  (v1070)(v922, v1132);
+  (v1069)(v921, v1131);
+  (v1068)(v920, v1130);
+  (v1067)(v919, v1129);
+  (v1066)(v918, v1128);
+  (v1065)(v917, v1127);
+  (v1064)(v916, v1126);
+  (v1063)(v915, v1125);
+  (v1062)(v914, v1124);
+  (v1061)(v913, v1230);
+  (v1060)(v912, v1229);
+  (v1059)(v911, v1228);
+  (v1058)(v910, v1227);
+  (v1057)(v909, v1226);
+  (v1056)(v908, v1225);
+  (v1055)(v907, v1224);
+  (v1054)(v906, v1223);
+  (v1053)(v905, v1222);
+  (v1052)(v904, v1221);
+  (v1051)(v903, v1220);
+  (v1050)(v902, v1219);
+  (v1049)(v901, v1218);
+  (v1048)(v900, v1217);
+  (v1047)(v899, v1216);
+  (v1046)(v898, v1215);
+  (v1045)(v897, v1214);
+  (v1044)(v896, v1213);
+  (v1043)(v895, v1212);
+  (v1042)(v894, v1211);
+  (v1041)(v893, v1210);
+  (v1040)(v892, v1209);
+  (v1039)(v891, v1208);
+  (v1038)(v890, v1207);
+  (v1037)(v889, v1206);
+  (v1036)(v888, v1205);
+  (v1035)(v887, v1204);
+  (v1034)(v886, v1203);
+  (v1033)(v885, v1202);
+  (v1032)(v884, v1201);
+  (v1031)(v883, v1200);
+  (v1030)(v882, v1199);
+  (v1029)(v881, v1198);
+  (v1028)(v880, v1197);
+  (v1027)(v879, v1196);
+  (v1026)(v878, v1195);
+  (v1025)(v877, v1194);
+  (v1024)(v876, v1193);
+  (v1023)(v875, v1192);
+  (v1022)(v874, v1191);
+  (v1021)(v873, v1190);
+  (v1020)(v872, v1189);
+  (v1019)(v871, v1188);
+  (v1018)(v870, v1187);
+  (v1017)(v869, v1186);
+  (v1016)(v868, v1185);
+  (v1015)(v867, v1184);
+  (v1014)(v866, v1183);
+  (v1013)(v865, v1182);
+  (v1012)(v864, v1181);
+  (v1011)(v863, v1180);
+  (v1010)(v862, v1179);
+  (v1009)(v861, v1178);
+  (v1008)(v860, v1177);
+  (v1007)(v859, v1176);
+  (v1006)(v858, v1175);
+  (v1005)(v857, v1174);
+  (v1004)(v856, v1173);
+  (v1003)(v855, v1172);
+  (v1002)(v854, v1269);
+  (v1001)(v853, v1268);
+  (v1000)(v852, v1267);
+  (v999)(v851, v1266);
+  (v998)(v850, v1265);
+  (v997)(v849, v1264);
+  (v996)(v848, v1263);
+  (v995)(v847, v1262);
+  (v994)(v846, v1261);
+  (v993)(v845, v1260);
+  (v992)(v844, v1259);
+  (v991)(v843, v1258);
+  (v990)(v842, v1257);
+  (v989)(v841, v1256);
+  (v988)(v840, v1255);
+  (v987)(v839, v1254);
+  (v986)(v838, v1253);
+  (v985)(v837, v1252);
+  (v984)(v836, v1251);
+  (v983)(v835, v1250);
+  (v982)(v834, v1249);
+  (v981)(v833, v1248);
+  (v980)(v832, v1247);
+  (v979)(v831, v1246);
+  (v978)(v830, v1245);
+  (v977)(v829, v1244);
+  (v976)(v828, v1243);
+  (v975)(v827, v1242);
+  (v974)(v826, v1241);
+  (v973)(v825, v1240);
+  (v972)(v823, v1239);
+  v824(v822, v1238);
+  (v805)(v821, v1237);
+  (v810)(v820, v1236);
+  v803(v819, v1235);
+  (v818)(v817, v1234);
+  (v816)(v815, v1233);
+  (v814)(v813, v1232);
+  return (v794)(v811, v1231);
 }

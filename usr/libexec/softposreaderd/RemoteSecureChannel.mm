@@ -10,17 +10,16 @@
   forceCopy = force;
   v8 = type metadata accessor for URLRequest();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(reply);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(reply);
   static URLRequest._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
   selfCopy = self;
-  sub_100192AE0(v12, forceCopy, sub_100193210, v14);
+  sub_100192AE0(v11, forceCopy, sub_100193210, v13);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (_TtC14softposreaderd19RemoteSecureChannel)init

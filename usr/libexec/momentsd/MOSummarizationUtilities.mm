@@ -3177,20 +3177,7 @@ LABEL_27:
   v29 = [v19 keysSortedByValueUsingComparator:&__block_literal_global_451];
   v30 = [v29 objectAtIndexedSubscript:{objc_msgSend(v29, "count") - 1}];
   v31 = [v29 objectAtIndexedSubscript:{objc_msgSend(v29, "count") - 2}];
-  if ((![v30 isEqualToString:@"activity"] || (objc_msgSend(v31, "isEqualToString:", @"outing") & 1) == 0) && (!objc_msgSend(v30, "isEqualToString:", @"outing", v43) || !objc_msgSend(v31, "isEqualToString:", @"activity")))
-  {
-    goto LABEL_24;
-  }
-
-  v32 = [v19 objectForKey:{@"activity", v43}];
-  [v32 doubleValue];
-  v34 = v33;
-
-  v35 = [v19 objectForKey:@"outing"];
-  [v35 doubleValue];
-  v37 = v36;
-
-  if (v37 > 0.0)
+  if (([v30 isEqualToString:@"activity"] && (objc_msgSend(v31, "isEqualToString:", @"outing") & 1) != 0 || objc_msgSend(v30, "isEqualToString:", @"outing", v43) && objc_msgSend(v31, "isEqualToString:", @"activity")) && (objc_msgSend(v19, "objectForKey:", @"activity", v43), v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v32, "doubleValue"), v34 = v33, v32, objc_msgSend(v19, "objectForKey:", @"outing"), v35 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v35, "doubleValue"), v37 = v36, v35, v37 > 0.0))
   {
     v38 = parametersCopy;
     [parametersCopy dominantBundle_mainActionSelectionThreshold];
@@ -3200,7 +3187,6 @@ LABEL_27:
 
   else
   {
-LABEL_24:
     v41 = 0;
     v40 = v43;
     v38 = parametersCopy;
@@ -4744,38 +4730,28 @@ LABEL_13:
   dayCopy = day;
   v4 = +[NSCalendar currentCalendar];
   time = [dayCopy time];
-  if (!time)
+  if (time && (v6 = time, [dayCopy time], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "timeZone"), v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v6, v8))
   {
-    goto LABEL_4;
-  }
-
-  v6 = time;
-  time2 = [dayCopy time];
-  timeZone = [time2 timeZone];
-
-  if (timeZone)
-  {
-    time3 = [dayCopy time];
-    timeZone2 = [time3 timeZone];
-    v11 = [NSTimeZone timeZoneWithName:timeZone2];
+    time2 = [dayCopy time];
+    timeZone = [time2 timeZone];
+    v11 = [NSTimeZone timeZoneWithName:timeZone];
     startDate = [dayCopy startDate];
     v13 = [v4 componentsInTimeZone:v11 fromDate:startDate];
 
-    time4 = [dayCopy time];
-    timeZone3 = [time4 timeZone];
-    v16 = [NSTimeZone timeZoneWithName:timeZone3];
+    time3 = [dayCopy time];
+    timeZone2 = [time3 timeZone];
+    v16 = [NSTimeZone timeZoneWithName:timeZone2];
     endDate = [dayCopy endDate];
     v18 = [v4 componentsInTimeZone:v16 fromDate:endDate];
   }
 
   else
   {
-LABEL_4:
     startDate2 = [dayCopy startDate];
     v13 = [v4 components:28 fromDate:startDate2];
 
-    time4 = [dayCopy endDate];
-    v18 = [v4 components:28 fromDate:time4];
+    time3 = [dayCopy endDate];
+    v18 = [v4 components:28 fromDate:time3];
   }
 
   v20 = [v13 day];
@@ -4854,29 +4830,19 @@ LABEL_13:
   dayCopy = day;
   v39 = +[NSCalendar currentCalendar];
   time = [dayCopy time];
-  if (!time)
+  if (time && (v5 = time, [dayCopy time], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "timeZone"), v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v5, v7))
   {
-    goto LABEL_4;
-  }
-
-  v5 = time;
-  time2 = [dayCopy time];
-  timeZone = [time2 timeZone];
-
-  if (timeZone)
-  {
-    time3 = [dayCopy time];
-    timeZone2 = [time3 timeZone];
-    v10 = [NSTimeZone timeZoneWithName:timeZone2];
+    time2 = [dayCopy time];
+    timeZone = [time2 timeZone];
+    v10 = [NSTimeZone timeZoneWithName:timeZone];
     startDate = [dayCopy startDate];
     v12 = [v39 componentsInTimeZone:v10 fromDate:startDate];
   }
 
   else
   {
-LABEL_4:
-    time3 = [dayCopy startDate];
-    v12 = [v39 components:28 fromDate:time3];
+    time2 = [dayCopy startDate];
+    v12 = [v39 components:28 fromDate:time2];
   }
 
   v42 = 0u;
@@ -4907,21 +4873,12 @@ LABEL_4:
 
           if (photoCreationDate)
           {
-            time4 = [dayCopy time];
-            if (!time4)
+            time3 = [dayCopy time];
+            if (time3 && (v21 = time3, [dayCopy time], v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "timeZone"), v23 = objc_claimAutoreleasedReturnValue(), v23, v22, v21, v23))
             {
-              goto LABEL_15;
-            }
-
-            v21 = time4;
-            time5 = [dayCopy time];
-            timeZone3 = [time5 timeZone];
-
-            if (timeZone3)
-            {
-              time6 = [dayCopy time];
-              timeZone4 = [time6 timeZone];
-              v26 = [NSTimeZone timeZoneWithName:timeZone4];
+              time4 = [dayCopy time];
+              timeZone2 = [time4 timeZone];
+              v26 = [NSTimeZone timeZoneWithName:timeZone2];
               [v18 photoCreationDate];
               v27 = v16;
               v28 = v12;
@@ -4938,9 +4895,8 @@ LABEL_4:
 
             else
             {
-LABEL_15:
-              time6 = [v18 photoCreationDate];
-              v32 = [v39 components:28 fromDate:time6];
+              time4 = [v18 photoCreationDate];
+              v32 = [v39 components:28 fromDate:time4];
             }
 
             v33 = [v12 day];
@@ -4981,55 +4937,35 @@ LABEL_24:
   {
     v8 = +[NSCalendar currentCalendar];
     time = [bundleCopy time];
-    if (!time)
+    if (time && (v10 = time, [bundleCopy time], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "timeZone"), v12 = objc_claimAutoreleasedReturnValue(), v12, v11, v10, v12))
     {
-      goto LABEL_7;
-    }
-
-    v10 = time;
-    time2 = [bundleCopy time];
-    timeZone = [time2 timeZone];
-
-    if (timeZone)
-    {
-      time3 = [bundleCopy time];
-      timeZone2 = [time3 timeZone];
-      v15 = [NSTimeZone timeZoneWithName:timeZone2];
+      time2 = [bundleCopy time];
+      timeZone = [time2 timeZone];
+      v15 = [NSTimeZone timeZoneWithName:timeZone];
       startDate = [bundleCopy startDate];
       v17 = [v8 componentsInTimeZone:v15 fromDate:startDate];
     }
 
     else
     {
-LABEL_7:
-      time3 = [bundleCopy startDate];
-      v17 = [v8 components:28 fromDate:time3];
+      time2 = [bundleCopy startDate];
+      v17 = [v8 components:28 fromDate:time2];
     }
 
-    time4 = [otherBundleCopy time];
-    if (!time4)
+    time3 = [otherBundleCopy time];
+    if (time3 && (v20 = time3, [otherBundleCopy time], v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "timeZone"), v22 = objc_claimAutoreleasedReturnValue(), v22, v21, v20, v22))
     {
-      goto LABEL_11;
-    }
-
-    v20 = time4;
-    time5 = [otherBundleCopy time];
-    timeZone3 = [time5 timeZone];
-
-    if (timeZone3)
-    {
-      time6 = [bundleCopy time];
-      timeZone4 = [time6 timeZone];
-      v25 = [NSTimeZone timeZoneWithName:timeZone4];
+      time4 = [bundleCopy time];
+      timeZone2 = [time4 timeZone];
+      v25 = [NSTimeZone timeZoneWithName:timeZone2];
       startDate2 = [otherBundleCopy startDate];
       v27 = [v8 componentsInTimeZone:v25 fromDate:startDate2];
     }
 
     else
     {
-LABEL_11:
-      time6 = [otherBundleCopy startDate];
-      v27 = [v8 components:28 fromDate:time6];
+      time4 = [otherBundleCopy startDate];
+      v27 = [v8 components:28 fromDate:time4];
     }
 
     v28 = [v17 day];
@@ -5117,29 +5053,19 @@ LABEL_11:
         v14 = *(*(&v78 + 1) + 8 * v13);
         v15 = +[NSCalendar currentCalendar];
         time = [v14 time];
-        if (!time)
+        if (time && (v17 = time, [v14 time], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "timeZone"), v19 = objc_claimAutoreleasedReturnValue(), v19, v18, v17, v19))
         {
-          goto LABEL_14;
-        }
-
-        v17 = time;
-        time2 = [v14 time];
-        timeZone = [time2 timeZone];
-
-        if (timeZone)
-        {
-          time3 = [v14 time];
-          timeZone2 = [time3 timeZone];
-          v22 = [NSTimeZone timeZoneWithName:timeZone2];
+          time2 = [v14 time];
+          timeZone = [time2 timeZone];
+          v22 = [NSTimeZone timeZoneWithName:timeZone];
           startDate = [v14 startDate];
           v24 = [v15 componentsInTimeZone:v22 fromDate:startDate];
         }
 
         else
         {
-LABEL_14:
-          time3 = [v14 startDate];
-          v24 = [v15 components:28 fromDate:time3];
+          time2 = [v14 startDate];
+          v24 = [v15 components:28 fromDate:time2];
         }
 
         v25 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%ld", [v24 year]);
@@ -5927,520 +5853,512 @@ LABEL_32:
 {
   bundleCopy = bundle;
   activityBundleCopy = activityBundle;
-  v7 = &GEOPOICategoryGasStation_ptr;
-  v8 = objc_opt_new();
+  v7 = objc_opt_new();
   resources = [activityBundleCopy resources];
-  v170 = v8;
-  [v8 addObjectsFromArray:resources];
+  v166 = v7;
+  [v7 addObjectsFromArray:resources];
 
-  v10 = &GEOPOICategoryGasStation_ptr;
-  v11 = [NSPredicate predicateWithFormat:@"type == %lu", 2];
+  v9 = &GEOPOICategoryGasStation_ptr;
+  v10 = [NSPredicate predicateWithFormat:@"type == %lu", 2];
   resources2 = [activityBundleCopy resources];
-  v13 = [resources2 filteredArrayUsingPredicate:v11];
+  v12 = [resources2 filteredArrayUsingPredicate:v10];
 
   resources3 = [bundleCopy resources];
-  v164 = v11;
-  v15 = [resources3 filteredArrayUsingPredicate:v11];
+  v160 = v10;
+  v14 = [resources3 filteredArrayUsingPredicate:v10];
 
-  v165 = [[NSSortDescriptor alloc] initWithKey:@"priorityScore" ascending:1];
-  if ([v15 count] && !objc_msgSend(v13, "count"))
+  v161 = [[NSSortDescriptor alloc] initWithKey:@"priorityScore" ascending:1];
+  if ([v14 count] && !objc_msgSend(v12, "count"))
   {
-    v224 = v165;
-    v16 = [NSArray arrayWithObjects:&v224 count:1];
-    v17 = [v15 sortedArrayUsingDescriptors:v16];
-
-    v205 = 0u;
-    v206 = 0u;
-    v203 = 0u;
-    v204 = 0u;
-    v18 = v17;
-    v19 = [v18 countByEnumeratingWithState:&v203 objects:v223 count:16];
-    if (v19)
-    {
-      v20 = v19;
-      v21 = *v204;
-      v22 = 202.0;
-      do
-      {
-        for (i = 0; i != v20; i = i + 1)
-        {
-          if (*v204 != v21)
-          {
-            objc_enumerationMutation(v18);
-          }
-
-          v24 = *(*(&v203 + 1) + 8 * i);
-          [v24 setPriorityScore:v22];
-          v22 = v22 + 1.0;
-          [v170 addObject:v24];
-        }
-
-        v20 = [v18 countByEnumeratingWithState:&v203 objects:v223 count:16];
-      }
-
-      while (v20);
-    }
-
-    v7 = &GEOPOICategoryGasStation_ptr;
-    v10 = &GEOPOICategoryGasStation_ptr;
-  }
-
-  v159 = v15;
-  v160 = v13;
-  v162 = activityBundleCopy;
-  if ([v15 count] && objc_msgSend(v13, "count"))
-  {
-    v222 = v165;
-    v25 = [NSArray arrayWithObjects:&v222 count:1];
-    v26 = [v13 sortedArrayUsingDescriptors:v25];
-
-    v221 = v165;
-    v27 = [NSArray arrayWithObjects:&v221 count:1];
-    v28 = [v15 sortedArrayUsingDescriptors:v27];
-
-    v29 = objc_opt_new();
-    lastObject = [v26 lastObject];
-    [lastObject priorityScore];
-    v32 = v31;
+    v220 = v161;
+    v15 = [NSArray arrayWithObjects:&v220 count:1];
+    v16 = [v14 sortedArrayUsingDescriptors:v15];
 
     v201 = 0u;
     v202 = 0u;
     v199 = 0u;
     v200 = 0u;
-    v33 = v26;
-    v34 = [v33 countByEnumeratingWithState:&v199 objects:v220 count:16];
-    if (v34)
+    v17 = v16;
+    v18 = [v17 countByEnumeratingWithState:&v199 objects:v219 count:16];
+    if (v18)
     {
-      v35 = v34;
-      v36 = *v200;
+      v19 = v18;
+      v20 = *v200;
+      v21 = 202.0;
       do
       {
-        for (j = 0; j != v35; j = j + 1)
+        for (i = 0; i != v19; i = i + 1)
         {
-          if (*v200 != v36)
+          if (*v200 != v20)
           {
-            objc_enumerationMutation(v33);
+            objc_enumerationMutation(v17);
           }
 
-          assets = [*(*(&v199 + 1) + 8 * j) assets];
-          [v29 addObject:assets];
+          v23 = *(*(&v199 + 1) + 8 * i);
+          [v23 setPriorityScore:v21];
+          v21 = v21 + 1.0;
+          [v166 addObject:v23];
         }
 
-        v35 = [v33 countByEnumeratingWithState:&v199 objects:v220 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v199 objects:v219 count:16];
       }
 
-      while (v35);
+      while (v19);
     }
 
-    v39 = bundleCopy;
+    v9 = &GEOPOICategoryGasStation_ptr;
+  }
+
+  v155 = v14;
+  v156 = v12;
+  v158 = activityBundleCopy;
+  if ([v14 count] && objc_msgSend(v12, "count"))
+  {
+    v218 = v161;
+    v24 = [NSArray arrayWithObjects:&v218 count:1];
+    v25 = [v12 sortedArrayUsingDescriptors:v24];
+
+    v217 = v161;
+    v26 = [NSArray arrayWithObjects:&v217 count:1];
+    v27 = [v14 sortedArrayUsingDescriptors:v26];
+
+    v28 = objc_opt_new();
+    lastObject = [v25 lastObject];
+    [lastObject priorityScore];
+    v31 = v30;
 
     v197 = 0u;
     v198 = 0u;
     v195 = 0u;
     v196 = 0u;
-    v40 = v28;
-    v41 = [v40 countByEnumeratingWithState:&v195 objects:v219 count:16];
-    if (v41)
+    v32 = v25;
+    v33 = [v32 countByEnumeratingWithState:&v195 objects:v216 count:16];
+    if (v33)
     {
-      v42 = v41;
-      v43 = v32 + 1.0;
-      v44 = *v196;
+      v34 = v33;
+      v35 = *v196;
       do
       {
-        for (k = 0; k != v42; k = k + 1)
+        for (j = 0; j != v34; j = j + 1)
         {
-          if (*v196 != v44)
+          if (*v196 != v35)
           {
-            objc_enumerationMutation(v40);
+            objc_enumerationMutation(v32);
           }
 
-          v46 = *(*(&v195 + 1) + 8 * k);
-          assets2 = [v46 assets];
-          v48 = [v29 containsObject:assets2];
-
-          if ((v48 & 1) == 0)
-          {
-            [v46 setPriorityScore:v43];
-            v43 = v43 + 1.0;
-            assets3 = [v46 assets];
-            [v29 addObject:assets3];
-
-            [v170 addObject:v46];
-          }
+          assets = [*(*(&v195 + 1) + 8 * j) assets];
+          [v28 addObject:assets];
         }
 
-        v42 = [v40 countByEnumeratingWithState:&v195 objects:v219 count:16];
+        v34 = [v32 countByEnumeratingWithState:&v195 objects:v216 count:16];
       }
 
-      while (v42);
+      while (v34);
     }
 
-    bundleCopy = v39;
-    activityBundleCopy = v162;
-    v7 = &GEOPOICategoryGasStation_ptr;
-    v10 = &GEOPOICategoryGasStation_ptr;
-  }
-
-  v50 = [v10[193] predicateWithFormat:@"type == %lu", 3];
-  resources4 = [activityBundleCopy resources];
-  v52 = [resources4 filteredArrayUsingPredicate:v50];
-
-  resources5 = [bundleCopy resources];
-  v158 = v50;
-  v54 = [resources5 filteredArrayUsingPredicate:v50];
-
-  if ([v54 count] && !objc_msgSend(v52, "count"))
-  {
-    v218 = v165;
-    v55 = [NSArray arrayWithObjects:&v218 count:1];
-    v56 = [v54 sortedArrayUsingDescriptors:v55];
+    v38 = bundleCopy;
 
     v193 = 0u;
     v194 = 0u;
     v191 = 0u;
     v192 = 0u;
-    v57 = v56;
-    v58 = [v57 countByEnumeratingWithState:&v191 objects:v217 count:16];
-    if (v58)
+    v39 = v27;
+    v40 = [v39 countByEnumeratingWithState:&v191 objects:v215 count:16];
+    if (v40)
     {
-      v59 = v58;
-      v60 = *v192;
-      v61 = 300.0;
+      v41 = v40;
+      v42 = v31 + 1.0;
+      v43 = *v192;
       do
       {
-        for (m = 0; m != v59; m = m + 1)
+        for (k = 0; k != v41; k = k + 1)
         {
-          if (*v192 != v60)
+          if (*v192 != v43)
           {
-            objc_enumerationMutation(v57);
+            objc_enumerationMutation(v39);
           }
 
-          v63 = *(*(&v191 + 1) + 8 * m);
-          [v63 setPriorityScore:v61];
-          v61 = v61 + 1.0;
-          [v170 addObject:v63];
+          v45 = *(*(&v191 + 1) + 8 * k);
+          assets2 = [v45 assets];
+          v47 = [v28 containsObject:assets2];
+
+          if ((v47 & 1) == 0)
+          {
+            [v45 setPriorityScore:v42];
+            v42 = v42 + 1.0;
+            assets3 = [v45 assets];
+            [v28 addObject:assets3];
+
+            [v166 addObject:v45];
+          }
         }
 
-        v59 = [v57 countByEnumeratingWithState:&v191 objects:v217 count:16];
+        v41 = [v39 countByEnumeratingWithState:&v191 objects:v215 count:16];
       }
 
-      while (v59);
+      while (v41);
     }
 
-    v7 = &GEOPOICategoryGasStation_ptr;
-    v10 = &GEOPOICategoryGasStation_ptr;
+    bundleCopy = v38;
+    activityBundleCopy = v158;
+    v9 = &GEOPOICategoryGasStation_ptr;
   }
 
-  v156 = v54;
-  v157 = v52;
-  if ([v54 count] && objc_msgSend(v52, "count"))
+  v49 = [v9[193] predicateWithFormat:@"type == %lu", 3];
+  resources4 = [activityBundleCopy resources];
+  v51 = [resources4 filteredArrayUsingPredicate:v49];
+
+  resources5 = [bundleCopy resources];
+  v154 = v49;
+  v53 = [resources5 filteredArrayUsingPredicate:v49];
+
+  if ([v53 count] && !objc_msgSend(v51, "count"))
   {
-    v216 = v165;
-    v64 = [NSArray arrayWithObjects:&v216 count:1];
-    v65 = [v52 sortedArrayUsingDescriptors:v64];
-
-    v215 = v165;
-    v66 = [NSArray arrayWithObjects:&v215 count:1];
-    v67 = [v54 sortedArrayUsingDescriptors:v66];
-
-    v68 = v7[233];
-    v69 = objc_opt_new();
-    lastObject2 = [v65 lastObject];
-    [lastObject2 priorityScore];
-    v72 = v71 + 1.0;
-
-    lastObject3 = [v65 lastObject];
-    [lastObject3 priorityScore];
-    v75 = v74;
-
-    if (v75 == 201.0)
-    {
-      v76 = 300.0;
-    }
-
-    else
-    {
-      v76 = v72;
-    }
+    v214 = v161;
+    v54 = [NSArray arrayWithObjects:&v214 count:1];
+    v55 = [v53 sortedArrayUsingDescriptors:v54];
 
     v189 = 0u;
     v190 = 0u;
     v187 = 0u;
     v188 = 0u;
-    v77 = v65;
-    v78 = [v77 countByEnumeratingWithState:&v187 objects:v214 count:16];
-    if (v78)
+    v56 = v55;
+    v57 = [v56 countByEnumeratingWithState:&v187 objects:v213 count:16];
+    if (v57)
     {
-      v79 = v78;
-      v80 = *v188;
+      v58 = v57;
+      v59 = *v188;
+      v60 = 300.0;
       do
       {
-        for (n = 0; n != v79; n = n + 1)
+        for (m = 0; m != v58; m = m + 1)
         {
-          if (*v188 != v80)
+          if (*v188 != v59)
           {
-            objc_enumerationMutation(v77);
+            objc_enumerationMutation(v56);
           }
 
-          name = [*(*(&v187 + 1) + 8 * n) name];
-          [v69 addObject:name];
+          v62 = *(*(&v187 + 1) + 8 * m);
+          [v62 setPriorityScore:v60];
+          v60 = v60 + 1.0;
+          [v166 addObject:v62];
         }
 
-        v79 = [v77 countByEnumeratingWithState:&v187 objects:v214 count:16];
+        v58 = [v56 countByEnumeratingWithState:&v187 objects:v213 count:16];
       }
 
-      while (v79);
+      while (v58);
     }
 
-    v83 = bundleCopy;
+    v9 = &GEOPOICategoryGasStation_ptr;
+  }
+
+  v152 = v53;
+  v153 = v51;
+  if ([v53 count] && objc_msgSend(v51, "count"))
+  {
+    v212 = v161;
+    v63 = [NSArray arrayWithObjects:&v212 count:1];
+    v64 = [v51 sortedArrayUsingDescriptors:v63];
+
+    v211 = v161;
+    v65 = [NSArray arrayWithObjects:&v211 count:1];
+    v66 = [v53 sortedArrayUsingDescriptors:v65];
+
+    v67 = objc_opt_new();
+    lastObject2 = [v64 lastObject];
+    [lastObject2 priorityScore];
+    v70 = v69 + 1.0;
+
+    lastObject3 = [v64 lastObject];
+    [lastObject3 priorityScore];
+    v73 = v72;
+
+    if (v73 == 201.0)
+    {
+      v74 = 300.0;
+    }
+
+    else
+    {
+      v74 = v70;
+    }
 
     v185 = 0u;
     v186 = 0u;
     v183 = 0u;
     v184 = 0u;
-    v84 = v67;
-    v85 = [v84 countByEnumeratingWithState:&v183 objects:v213 count:16];
-    if (v85)
+    v75 = v64;
+    v76 = [v75 countByEnumeratingWithState:&v183 objects:v210 count:16];
+    if (v76)
     {
-      v86 = v85;
-      v87 = *v184;
+      v77 = v76;
+      v78 = *v184;
       do
       {
-        for (ii = 0; ii != v86; ii = ii + 1)
+        for (n = 0; n != v77; n = n + 1)
         {
-          if (*v184 != v87)
+          if (*v184 != v78)
           {
-            objc_enumerationMutation(v84);
+            objc_enumerationMutation(v75);
           }
 
-          v89 = *(*(&v183 + 1) + 8 * ii);
-          name2 = [v89 name];
-          v91 = [v69 containsObject:name2];
+          name = [*(*(&v183 + 1) + 8 * n) name];
+          [v67 addObject:name];
+        }
 
-          if ((v91 & 1) == 0)
+        v77 = [v75 countByEnumeratingWithState:&v183 objects:v210 count:16];
+      }
+
+      while (v77);
+    }
+
+    v81 = bundleCopy;
+
+    v181 = 0u;
+    v182 = 0u;
+    v179 = 0u;
+    v180 = 0u;
+    v82 = v66;
+    v83 = [v82 countByEnumeratingWithState:&v179 objects:v209 count:16];
+    if (v83)
+    {
+      v84 = v83;
+      v85 = *v180;
+      do
+      {
+        for (ii = 0; ii != v84; ii = ii + 1)
+        {
+          if (*v180 != v85)
           {
-            [v89 setPriorityScore:v76];
-            v76 = v76 + 1.0;
-            name3 = [v89 name];
-            [v69 addObject:name3];
+            objc_enumerationMutation(v82);
+          }
 
-            [v170 addObject:v89];
+          v87 = *(*(&v179 + 1) + 8 * ii);
+          name2 = [v87 name];
+          v89 = [v67 containsObject:name2];
+
+          if ((v89 & 1) == 0)
+          {
+            [v87 setPriorityScore:v74];
+            v74 = v74 + 1.0;
+            name3 = [v87 name];
+            [v67 addObject:name3];
+
+            [v166 addObject:v87];
           }
         }
 
-        v86 = [v84 countByEnumeratingWithState:&v183 objects:v213 count:16];
+        v84 = [v82 countByEnumeratingWithState:&v179 objects:v209 count:16];
       }
 
-      while (v86);
+      while (v84);
     }
 
-    bundleCopy = v83;
-    activityBundleCopy = v162;
-    v7 = &GEOPOICategoryGasStation_ptr;
-    v10 = &GEOPOICategoryGasStation_ptr;
+    bundleCopy = v81;
+    activityBundleCopy = v158;
+    v9 = &GEOPOICategoryGasStation_ptr;
   }
 
-  v93 = [v170 filteredArrayUsingPredicate:v164];
-  if ([v93 count])
+  v91 = [v166 filteredArrayUsingPredicate:v160];
+  if ([v91 count])
   {
     action = [activityBundleCopy action];
     actionSubtype = [action actionSubtype];
 
     if (actionSubtype == 2)
     {
-      v212 = v165;
-      v96 = [NSArray arrayWithObjects:&v212 count:1];
-      v97 = [v93 sortedArrayUsingDescriptors:v96];
+      v208 = v161;
+      v94 = [NSArray arrayWithObjects:&v208 count:1];
+      v95 = [v91 sortedArrayUsingDescriptors:v94];
 
-      firstObject = [v97 firstObject];
+      firstObject = [v95 firstObject];
       [firstObject setPriorityScore:99.0];
     }
   }
 
-  v155 = v93;
-  v99 = [v10[193] predicateWithFormat:@"%K = %lu", @"category", 24];
-  v153 = [v10[193] predicateWithFormat:@"%K = %lu", @"provider", 1];
-  v154 = v99;
-  v211[0] = v99;
-  v211[1] = v153;
-  v100 = [NSArray arrayWithObjects:v211 count:2];
-  v101 = [NSCompoundPredicate andPredicateWithSubpredicates:v100];
+  v151 = v91;
+  v97 = [v9[193] predicateWithFormat:@"%K = %lu", @"category", 24];
+  v149 = [v9[193] predicateWithFormat:@"%K = %lu", @"provider", 1];
+  v150 = v97;
+  v207[0] = v97;
+  v207[1] = v149;
+  v98 = [NSArray arrayWithObjects:v207 count:2];
+  v99 = [NSCompoundPredicate andPredicateWithSubpredicates:v98];
 
-  v102 = v7[233];
-  v169 = objc_opt_new();
+  v165 = objc_opt_new();
   events = [activityBundleCopy events];
-  v163 = v101;
-  v104 = [events filteredArrayUsingPredicate:v101];
+  v159 = v99;
+  v101 = [events filteredArrayUsingPredicate:v99];
 
-  v105 = v7[233];
-  v106 = objc_opt_new();
-  v179 = 0u;
-  v180 = 0u;
-  v181 = 0u;
-  v182 = 0u;
-  obj = v104;
-  v107 = [obj countByEnumeratingWithState:&v179 objects:v210 count:16];
-  if (v107)
+  v102 = objc_opt_new();
+  v175 = 0u;
+  v176 = 0u;
+  v177 = 0u;
+  v178 = 0u;
+  obj = v101;
+  v103 = [obj countByEnumeratingWithState:&v175 objects:v206 count:16];
+  if (v103)
   {
-    v108 = v107;
-    v109 = *v180;
+    v104 = v103;
+    v105 = *v176;
     do
     {
-      for (jj = 0; jj != v108; jj = jj + 1)
+      for (jj = 0; jj != v104; jj = jj + 1)
       {
-        if (*v180 != v109)
+        if (*v176 != v105)
         {
           objc_enumerationMutation(obj);
         }
 
-        v111 = *(*(&v179 + 1) + 8 * jj);
-        identifierFromProvider = [v111 identifierFromProvider];
-        v113 = [v106 containsObject:identifierFromProvider];
+        v107 = *(*(&v175 + 1) + 8 * jj);
+        identifierFromProvider = [v107 identifierFromProvider];
+        v109 = [v102 containsObject:identifierFromProvider];
 
-        if ((v113 & 1) == 0)
+        if ((v109 & 1) == 0)
         {
-          identifierFromProvider2 = [v111 identifierFromProvider];
-          [v106 addObject:identifierFromProvider2];
+          identifierFromProvider2 = [v107 identifierFromProvider];
+          [v102 addObject:identifierFromProvider2];
 
-          [v169 addObject:v111];
+          [v165 addObject:v107];
         }
       }
 
-      v108 = [obj countByEnumeratingWithState:&v179 objects:v210 count:16];
+      v104 = [obj countByEnumeratingWithState:&v175 objects:v206 count:16];
     }
 
-    while (v108);
+    while (v104);
   }
 
   events2 = [bundleCopy events];
-  v116 = [events2 filteredArrayUsingPredicate:v163];
+  v112 = [events2 filteredArrayUsingPredicate:v159];
 
-  v177 = 0u;
-  v178 = 0u;
-  v175 = 0u;
-  v176 = 0u;
-  v166 = v116;
-  v117 = [v166 countByEnumeratingWithState:&v175 objects:v209 count:16];
-  if (v117)
-  {
-    v118 = v117;
-    v119 = *v176;
-    do
-    {
-      for (kk = 0; kk != v118; kk = kk + 1)
-      {
-        if (*v176 != v119)
-        {
-          objc_enumerationMutation(v166);
-        }
-
-        v121 = *(*(&v175 + 1) + 8 * kk);
-        identifierFromProvider3 = [v121 identifierFromProvider];
-        v123 = [v106 containsObject:identifierFromProvider3];
-
-        if ((v123 & 1) == 0)
-        {
-          [v169 addObject:v121];
-        }
-      }
-
-      v118 = [v166 countByEnumeratingWithState:&v175 objects:v209 count:16];
-    }
-
-    while (v118);
-  }
-
-  v161 = bundleCopy;
-
-  v152 = [[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:0];
-  v208 = v152;
-  v124 = [NSArray arrayWithObjects:&v208 count:1];
-  v125 = [v169 sortedArrayUsingDescriptors:v124];
-
-  v126 = objc_opt_new();
-  v171 = 0u;
-  v172 = 0u;
   v173 = 0u;
   v174 = 0u;
-  v127 = v125;
-  v128 = [v127 countByEnumeratingWithState:&v171 objects:v207 count:16];
-  if (v128)
+  v171 = 0u;
+  v172 = 0u;
+  v162 = v112;
+  v113 = [v162 countByEnumeratingWithState:&v171 objects:v205 count:16];
+  if (v113)
   {
-    v129 = v128;
-    v168 = *v172;
+    v114 = v113;
+    v115 = *v172;
     do
     {
-      for (mm = 0; mm != v129; mm = mm + 1)
+      for (kk = 0; kk != v114; kk = kk + 1)
       {
-        if (*v172 != v168)
+        if (*v172 != v115)
         {
-          objc_enumerationMutation(v127);
+          objc_enumerationMutation(v162);
         }
 
-        v131 = *(*(&v171 + 1) + 8 * mm);
-        startDate = [v131 startDate];
-        [startDate timeIntervalSince1970];
-        v133 = [NSNumber numberWithDouble:?];
-        [v126 setObject:v133 forKey:@"MOStateOfMindMetaDataKeyStartDate"];
+        v117 = *(*(&v171 + 1) + 8 * kk);
+        identifierFromProvider3 = [v117 identifierFromProvider];
+        v119 = [v102 containsObject:identifierFromProvider3];
 
-        endDate = [v131 endDate];
-        [endDate timeIntervalSince1970];
-        v135 = [NSNumber numberWithDouble:?];
-        [v126 setObject:v135 forKey:@"MOStateOfMindMetaDataKeyEndDate"];
-
-        stateOfMindEvent = [v131 stateOfMindEvent];
-        labels = [stateOfMindEvent labels];
-        [v126 setObject:labels forKey:@"MOStateOfMindMetaDataKeyLabel"];
-
-        stateOfMindEvent2 = [v131 stateOfMindEvent];
-        domains = [stateOfMindEvent2 domains];
-        [v126 setObject:domains forKey:@"MOStateOfMindMetaDataKeyDomain"];
-
-        stateOfMindEvent3 = [v131 stateOfMindEvent];
-        [stateOfMindEvent3 reflectiveInterval];
-        v141 = [NSNumber numberWithDouble:?];
-        [v126 setObject:v141 forKey:@"MOStateOfMindMetaDataKeyReflectiveInterval"];
-
-        stateOfMindEvent4 = [v131 stateOfMindEvent];
-        [stateOfMindEvent4 valence];
-        v143 = [NSNumber numberWithDouble:?];
-        [v126 setObject:v143 forKey:@"MOStateOfMindMetaDataKeyValence"];
-
-        stateOfMindEvent5 = [v131 stateOfMindEvent];
-        [stateOfMindEvent5 valenceClassification];
-        v145 = [NSNumber numberWithDouble:?];
-        [v126 setObject:v145 forKey:@"MOStateOfMindMetaDataKeyValenceClassification"];
-
-        identifierFromProvider4 = [v131 identifierFromProvider];
-        [v126 setObject:identifierFromProvider4 forKey:@"MOStateOfMindMetaDataKeyStateOfMindID"];
-
-        v147 = [[MOResource alloc] initWithName:@"StateOfMind" type:16 dict:v126 value:0.0];
-        identifierFromProvider5 = [v131 identifierFromProvider];
-        [(MOResource *)v147 setAssets:identifierFromProvider5];
-
-        eventIdentifier = [v131 eventIdentifier];
-        [(MOResource *)v147 setSourceEventIdentifier:eventIdentifier];
-
-        [(MOResource *)v147 setSourceEventAccessType:8];
-        firstObject2 = [v127 firstObject];
-
-        if (firstObject2 == v131)
+        if ((v119 & 1) == 0)
         {
-          [(MOResource *)v147 setPriorityScore:202.0];
+          [v165 addObject:v117];
         }
-
-        [v170 addObject:v147];
       }
 
-      v129 = [v127 countByEnumeratingWithState:&v171 objects:v207 count:16];
+      v114 = [v162 countByEnumeratingWithState:&v171 objects:v205 count:16];
     }
 
-    while (v129);
+    while (v114);
   }
 
-  [MOContextAnnotationUtilities addStateOfMindMetaDataForRankForBundle:v162 withEmotionEvents:v169];
+  v157 = bundleCopy;
 
-  return v170;
+  v148 = [[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:0];
+  v204 = v148;
+  v120 = [NSArray arrayWithObjects:&v204 count:1];
+  v121 = [v165 sortedArrayUsingDescriptors:v120];
+
+  v122 = objc_opt_new();
+  v167 = 0u;
+  v168 = 0u;
+  v169 = 0u;
+  v170 = 0u;
+  v123 = v121;
+  v124 = [v123 countByEnumeratingWithState:&v167 objects:v203 count:16];
+  if (v124)
+  {
+    v125 = v124;
+    v164 = *v168;
+    do
+    {
+      for (mm = 0; mm != v125; mm = mm + 1)
+      {
+        if (*v168 != v164)
+        {
+          objc_enumerationMutation(v123);
+        }
+
+        v127 = *(*(&v167 + 1) + 8 * mm);
+        startDate = [v127 startDate];
+        [startDate timeIntervalSince1970];
+        v129 = [NSNumber numberWithDouble:?];
+        [v122 setObject:v129 forKey:@"MOStateOfMindMetaDataKeyStartDate"];
+
+        endDate = [v127 endDate];
+        [endDate timeIntervalSince1970];
+        v131 = [NSNumber numberWithDouble:?];
+        [v122 setObject:v131 forKey:@"MOStateOfMindMetaDataKeyEndDate"];
+
+        stateOfMindEvent = [v127 stateOfMindEvent];
+        labels = [stateOfMindEvent labels];
+        [v122 setObject:labels forKey:@"MOStateOfMindMetaDataKeyLabel"];
+
+        stateOfMindEvent2 = [v127 stateOfMindEvent];
+        domains = [stateOfMindEvent2 domains];
+        [v122 setObject:domains forKey:@"MOStateOfMindMetaDataKeyDomain"];
+
+        stateOfMindEvent3 = [v127 stateOfMindEvent];
+        [stateOfMindEvent3 reflectiveInterval];
+        v137 = [NSNumber numberWithDouble:?];
+        [v122 setObject:v137 forKey:@"MOStateOfMindMetaDataKeyReflectiveInterval"];
+
+        stateOfMindEvent4 = [v127 stateOfMindEvent];
+        [stateOfMindEvent4 valence];
+        v139 = [NSNumber numberWithDouble:?];
+        [v122 setObject:v139 forKey:@"MOStateOfMindMetaDataKeyValence"];
+
+        stateOfMindEvent5 = [v127 stateOfMindEvent];
+        [stateOfMindEvent5 valenceClassification];
+        v141 = [NSNumber numberWithDouble:?];
+        [v122 setObject:v141 forKey:@"MOStateOfMindMetaDataKeyValenceClassification"];
+
+        identifierFromProvider4 = [v127 identifierFromProvider];
+        [v122 setObject:identifierFromProvider4 forKey:@"MOStateOfMindMetaDataKeyStateOfMindID"];
+
+        v143 = [[MOResource alloc] initWithName:@"StateOfMind" type:16 dict:v122 value:0.0];
+        identifierFromProvider5 = [v127 identifierFromProvider];
+        [(MOResource *)v143 setAssets:identifierFromProvider5];
+
+        eventIdentifier = [v127 eventIdentifier];
+        [(MOResource *)v143 setSourceEventIdentifier:eventIdentifier];
+
+        [(MOResource *)v143 setSourceEventAccessType:8];
+        firstObject2 = [v123 firstObject];
+
+        if (firstObject2 == v127)
+        {
+          [(MOResource *)v143 setPriorityScore:202.0];
+        }
+
+        [v166 addObject:v143];
+      }
+
+      v125 = [v123 countByEnumeratingWithState:&v167 objects:v203 count:16];
+    }
+
+    while (v125);
+  }
+
+  [MOContextAnnotationUtilities addStateOfMindMetaDataForRankForBundle:v158 withEmotionEvents:v165];
+
+  return v166;
 }
 
 + (BOOL)isFlightBundle:(id)bundle
@@ -7327,7 +7245,11 @@ LABEL_93:
 {
   v2 = [a1 assets];
   [a1 priorityScore];
-  OUTLINED_FUNCTION_2(&_mh_execute_header, v3, v4, "secondary photo asset, %@, priority score, %f", v5, v6, v7, v8, 2u);
+  *v10 = 138412546;
+  *&v10[4] = v2;
+  *&v10[12] = 2048;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_2(&_mh_execute_header, v4, v5, "secondary photo asset, %@, priority score, %f", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 + (void)getWorkoutActionsByActionSubtypeFromBundles:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
@@ -7340,8 +7262,12 @@ LABEL_93:
 
 + (void)getActionsFromBundles:(uint64_t)a1 withDominantAction:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v8 = [a2 firstObject];
-  OUTLINED_FUNCTION_2(&_mh_execute_header, v2, v3, "The dominant action added for visit, %@, added, %@", v4, v5, v6, v7, 2u);
+  v3 = [a2 firstObject];
+  *v10 = 138412546;
+  *&v10[4] = a1;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_2(&_mh_execute_header, v4, v5, "The dominant action added for visit, %@, added, %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 + (void)getActionsFromBundles:(uint64_t)a1 withDominantAction:(uint64_t)a2 .cold.3(uint64_t a1, uint64_t a2)

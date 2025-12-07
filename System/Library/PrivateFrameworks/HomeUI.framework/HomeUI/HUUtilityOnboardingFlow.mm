@@ -571,7 +571,7 @@ LABEL_27:
 LABEL_90:
       v13 = 1;
 LABEL_91:
-      [(HUUtilityOnboardingFlow *)self updateState:v13, *v61, *&v61[16]];
+      [(HUUtilityOnboardingFlow *)self updateState:v13, *v61, *&v61[8]];
       v57 = [(HUUtilityOnboardingFlow *)self determineNextViewControllerFromResults:stateCopy];
 
       return v57;

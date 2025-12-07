@@ -223,75 +223,74 @@ LABEL_35:
 
 - (id)rebuildPersistentOverlays
 {
-  v23 = +[NSMutableArray array];
+  v22 = +[NSMutableArray array];
   v3 = +[NSFileManager defaultManager];
   selfCopy = self;
   v4 = [v3 enumeratorAtPath:self->_rootPersistencePath];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v5 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v28;
+    v8 = *v27;
     *&v6 = 138543618;
-    v22 = v6;
+    v21 = v6;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
-        if ([v10 hasSuffix:{@"libitmap", v22}])
+        v10 = *(*(&v26 + 1) + 8 * i);
+        if ([v10 hasSuffix:{@"libitmap", v21}])
         {
           v11 = [(NSString *)selfCopy->_rootPersistencePath stringByAppendingPathComponent:v10];
           v12 = [NSData alloc];
-          v26 = 0;
-          v13 = [v12 initWithContentsOfFile:v11 options:8 error:&v26];
-          v14 = v26;
+          v25 = 0;
+          v13 = [v12 initWithContentsOfFile:v11 options:8 error:&v25];
+          v14 = v25;
           v15 = +[_BKDisplayRenderOverlayPersistenceData classesRequiredToDecode];
           v16 = [_BKDisplayRenderOverlayPersistenceData bs_secureDecodedFromData:v13 withAdditionalClasses:v15];
 
           overlayType = [v16 overlayType];
           if (overlayType <= 4)
           {
-            v18 = *(&off_1000FB8E0)[overlayType];
             overlayType = objc_opt_class();
           }
 
-          v19 = [[overlayType alloc] _initWithPersistenceData:v16];
-          if (v19)
+          v18 = [[overlayType alloc] _initWithPersistenceData:v16];
+          if (v18)
           {
-            v20 = BKLogDisplay();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+            v19 = BKLogDisplay();
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v22;
-              v32 = v19;
-              v33 = 2114;
-              v34 = v11;
-              _os_log_debug_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "[BKDisplayRenderOverlayPersistenceCoordinator] Loaded overlay from persistence: %{public}@ from location: %{public}@", buf, 0x16u);
+              *buf = v21;
+              v31 = v18;
+              v32 = 2114;
+              v33 = v11;
+              _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "[BKDisplayRenderOverlayPersistenceCoordinator] Loaded overlay from persistence: %{public}@ from location: %{public}@", buf, 0x16u);
             }
 
-            [v23 addObject:v19];
+            [v22 addObject:v18];
           }
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v7 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v7);
   }
 
-  return v23;
+  return v22;
 }
 
 - (BKDisplayRenderOverlayPersistenceCoordinator)init

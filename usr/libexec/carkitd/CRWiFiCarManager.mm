@@ -61,7 +61,6 @@
   if (self->_wifiManager)
   {
     WiFiManagerClientRegisterServerRestartCallback();
-    wifiManager = self->_wifiManager;
     WiFiManagerClientRegisterDeviceAttachmentCallback();
     CFRelease(self->_wifiManager);
     self->_wifiManager = 0;
@@ -733,9 +732,7 @@ LABEL_4:
         WiFiManagerClientScheduleWithRunLoop();
         Current = CFRunLoopGetCurrent();
         CFRunLoopWakeUp(Current);
-        wifiManager = self->_wifiManager;
         WiFiManagerClientRegisterServerRestartCallback();
-        v7 = self->_wifiManager;
         WiFiManagerClientRegisterDeviceAttachmentCallback();
         [(CRWiFiCarManager *)self _updateWiFiDevice];
         return self->_wifiManager;

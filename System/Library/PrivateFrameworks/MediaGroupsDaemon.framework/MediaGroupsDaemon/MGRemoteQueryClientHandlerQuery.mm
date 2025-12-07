@@ -96,7 +96,7 @@
 
 - (id)handleCompleteResponse:(id)response jsonPayload:(id)payload
 {
-  v52[1] = *MEMORY[0x277D85DE8];
+  v51[1] = *MEMORY[0x277D85DE8];
   v5 = [MGRemoteQueryReply rq_instanceFromCoded:payload];
   v6 = v5;
   if (v5)
@@ -109,16 +109,16 @@
       {
         *buf = 134218242;
         selfCopy3 = self;
-        v45 = 2112;
-        v46 = 0;
+        v44 = 2112;
+        v45 = 0;
         _os_log_error_impl(&dword_25863A000, v8, OS_LOG_TYPE_ERROR, "%p client handler received error in query reply %@", buf, 0x16u);
       }
 
       v9 = MEMORY[0x277CCA9B8];
       v10 = *MEMORY[0x277CCA5B8];
-      v51 = *MEMORY[0x277CCA7E8];
-      v52[0] = error;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+      v50 = *MEMORY[0x277CCA7E8];
+      v51[0] = error;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:&v50 count:1];
       v12 = [v9 errorWithDomain:v10 code:104 userInfo:v11];
 
       v13 = v12;
@@ -133,70 +133,70 @@
       {
         *buf = 134218754;
         selfCopy3 = self;
-        v45 = 2048;
-        v46 = [groups count];
-        v47 = 2048;
-        v48 = groupsMediator;
-        v49 = 2112;
-        v50 = groups;
+        v44 = 2048;
+        v45 = [groups count];
+        v46 = 2048;
+        v47 = groupsMediator;
+        v48 = 2112;
+        v49 = groups;
         _os_log_impl(&dword_25863A000, v17, OS_LOG_TYPE_DEFAULT, "%p client handler receiving %lu groups into %p: %@", buf, 0x2Au);
       }
 
       currentGroups = [groupsMediator currentGroups];
       v19 = [groupsMediator startActivityWithName:@"Remote Query"];
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
       allValues = [currentGroups allValues];
-      v21 = [allValues countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v21 = [allValues countByEnumeratingWithState:&v36 objects:v41 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v38;
+        v23 = *v37;
         do
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v38 != v23)
+            if (*v37 != v23)
             {
               objc_enumerationMutation(allValues);
             }
 
-            [groupsMediator removeGroup:*(*(&v37 + 1) + 8 * i)];
+            [groupsMediator removeGroup:*(*(&v36 + 1) + 8 * i)];
           }
 
-          v22 = [allValues countByEnumeratingWithState:&v37 objects:v42 count:16];
+          v22 = [allValues countByEnumeratingWithState:&v36 objects:v41 count:16];
         }
 
         while (v22);
       }
 
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v25 = groups;
-      v26 = [v25 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v26 = [v25 countByEnumeratingWithState:&v32 objects:v40 count:16];
       if (v26)
       {
         v27 = v26;
-        v28 = *v34;
+        v28 = *v33;
         do
         {
           for (j = 0; j != v27; ++j)
           {
-            if (*v34 != v28)
+            if (*v33 != v28)
             {
               objc_enumerationMutation(v25);
             }
 
-            v30 = *(*(&v33 + 1) + 8 * j);
-            [v30 rq_setSourcedRemotely:{1, v33}];
+            v30 = *(*(&v32 + 1) + 8 * j);
+            [v30 rq_setSourcedRemotely:{1, v32}];
             [groupsMediator addGroup:v30];
           }
 
-          v27 = [v25 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v27 = [v25 countByEnumeratingWithState:&v32 objects:v40 count:16];
         }
 
         while (v27);
@@ -219,8 +219,6 @@
 
     v13 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:94 userInfo:0];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

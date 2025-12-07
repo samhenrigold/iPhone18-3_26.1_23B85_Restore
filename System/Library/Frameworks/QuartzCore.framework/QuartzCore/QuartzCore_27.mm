@@ -1698,7 +1698,7 @@ void X::small_vector_base<unsigned long>::resize(void *a1, unint64_t a2)
   a1[1] = v7;
 }
 
-const void *CA::WindowServer::copy_display_property(CA::WindowServer *this, CFStringRef key, const __CFString *a3)
+CFTypeRef CA::WindowServer::copy_display_property(CA::WindowServer *this, CFStringRef key, const __CFString *a3)
 {
   if (!*(this + 3212) || (v6 = IOMobileFramebufferCopyProperty()) == 0)
   {
@@ -2029,7 +2029,7 @@ void CA::WindowServer::AppleDisplay::~AppleDisplay(CA::WindowServer::AppleDispla
   CA::WindowServer::IOMFBDisplay::~IOMFBDisplay(this);
 }
 
-uint64_t CA::WindowServer::AppleExternalDisplay::detachable_layer_impl(_DWORD *a1, int *a2, float64x2_t *a3, _DWORD *a4, float64x2_t *a5, float64x2_t *a6, int *a7)
+uint64_t CA::WindowServer::AppleExternalDisplay::detachable_layer_impl(_DWORD *a1, unsigned int *a2, float64x2_t *a3, _DWORD *a4, float64x2_t *a5, float64x2_t *a6, int *a7)
 {
   if ((*(*a1 + 1576))(a1))
   {
@@ -2165,7 +2165,7 @@ LABEL_37:
   return result;
 }
 
-const void *CA::WindowServer::AppleExternalDisplay::is_update_display_limits_requested(CA::WindowServer::AppleExternalDisplay *this)
+CFTypeRef CA::WindowServer::AppleExternalDisplay::is_update_display_limits_requested(CA::WindowServer::AppleExternalDisplay *this)
 {
   TypeID = CFBooleanGetTypeID();
   result = CA::WindowServer::copy_display_property(this, @"IOMFBHotplugKeysChangedKey", TypeID);
@@ -2817,7 +2817,7 @@ void *CA::WindowServer::AppleWirelessDisplay::open(CA::WindowServer::AppleWirele
   return CA::WindowServer::create_display_of_type(2, this, &__block_literal_global_168);
 }
 
-uint64_t ___ZN2CA12WindowServer20AppleWirelessDisplay4openEm_block_invoke_2()
+_BYTE *___ZN2CA12WindowServer20AppleWirelessDisplay4openEm_block_invoke_2()
 {
   if (x_malloc_get_zone::once != -1)
   {
@@ -3508,7 +3508,8 @@ void CAML::ObjCCAColorMatrix::end(CAML::ObjCCAColorMatrix *this, CAML::Context *
   *v32 = 1065353216;
   *&v32[72] = 1065353216;
   v8 = (a4 + a5);
-  *&v32[4] = 0uLL;
+  *&v32[12] = 0;
+  *&v32[4] = 0;
   *&v32[20] = 0x3F80000000000000;
   *&v32[28] = 0uLL;
   *&v32[44] = 0x3F80000000000000uLL;
@@ -4014,10 +4015,10 @@ BOOL CA::CG::DeviceColor::Pattern::operator==(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void *CA::CG::DeviceColor::DeviceColor(void *a1, CGColor *a2, uint64_t a3, uint64_t a4, const double *a5, uint64_t *a6)
+double *CA::CG::DeviceColor::DeviceColor(double *a1, CGColor *a2, uint64_t a3, uint64_t a4, const double *a5, uint64_t *a6)
 {
   v39[1] = *MEMORY[0x1E69E9840];
-  *a1 = 0;
+  *a1 = 0.0;
   if (!a2)
   {
     goto LABEL_16;
@@ -4027,15 +4028,15 @@ void *CA::CG::DeviceColor::DeviceColor(void *a1, CGColor *a2, uint64_t a3, uint6
   v11 = &a5[4 * (Identifier & 7) + 6];
   if (*v11 == Identifier)
   {
-    v12 = *(v11 + 8);
+    v12 = *(v11 + 1);
 LABEL_17:
-    a1[1] = v12;
+    *(a1 + 1) = v12;
     return a1;
   }
 
   v13 = Identifier;
-  v14 = (v11 + 16);
-  if (*(v11 + 16) != Identifier)
+  v14 = v11 + 2;
+  if (*(v11 + 4) != Identifier)
   {
     Pattern = CGColorGetPattern(a2);
     if (!Pattern)
@@ -4046,11 +4047,11 @@ LABEL_17:
       v35 = v34;
       CGGStateGetEDRTargetHeadroom();
       CA::CG::ContextDelegate::device_color(v39, a5, Components, v35, v36, ColorSpace);
-      a1[1] = v39[0];
-      *(v11 + 16) = *v11;
-      *(v11 + 24) = *(v11 + 8);
+      a1[1] = *v39;
+      *(v11 + 4) = *v11;
+      v11[3] = v11[1];
       *v11 = v13;
-      *(v11 + 8) = a1[1];
+      v11[1] = a1[1];
       return a1;
     }
 
@@ -4103,14 +4104,14 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v15 = *(v11 + 24);
-  a1[1] = v15;
+  v15 = *(v11 + 3);
+  *(a1 + 1) = v15;
   v16 = *v11;
-  v17 = *(v11 + 8);
+  v17 = *(v11 + 1);
   *v11 = *v14;
-  *(v11 + 8) = v15;
+  *(v11 + 1) = v15;
   *v14 = v16;
-  *(v11 + 24) = v17;
+  *(v11 + 3) = v17;
   return a1;
 }
 
@@ -5485,9 +5486,9 @@ uint64_t ___Z37CADisplaySupportedHDRModeWithCriteriaRKN2CA12WindowServer7Display
   return v7 & 1;
 }
 
-void sub_183C35AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_183C35AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   CA::WindowServer::Display::ModeSet::~ModeSet(va);
   _Unwind_Resume(a1);
 }
@@ -5510,7 +5511,7 @@ void sub_183C37A24(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZL15ensure_displaysv_block_invoke()
+void *___ZL15ensure_displaysv_block_invoke()
 {
   v10 = *MEMORY[0x1E69E9840];
   v6 = 0u;
@@ -5533,7 +5534,8 @@ uint64_t ___ZL15ensure_displaysv_block_invoke()
           objc_enumerationMutation(v0);
         }
 
-        [*(*(&v6 + 1) + 8 * v4++) update];
+        [*(*(&v6 + 1) + 8 * v4) update];
+        v4 = v4 + 1;
       }
 
       while (v2 != v4);
@@ -5664,7 +5666,7 @@ void CA::Display::MetalLinkItem::dispatch_(uint64_t a1, void *a2)
   }
 }
 
-void CA::Display::MetalLinkItem::get_link(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+void CA::Display::MetalLinkItem::get_link(uint64_t a1@<X0>, __CFRunLoop *a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   v6[5] = *MEMORY[0x1E69E9840];
   v6[0] = MEMORY[0x1E69E9820];
@@ -5741,7 +5743,7 @@ uint64_t CA::Display::MetalLinkItem::needs_update_link(CA::Display::MetalLinkIte
 
       if (result != *(*(this + 2) + 104))
       {
-        v5 = *(CADisplayLookupFromDisplayId(result) + 1);
+        v5 = *(CADisplayLookupFromDisplayId(result) + 8);
         os_unfair_lock_lock(this + 2);
         CA::Display::DisplayLinkItem::hot_swap_display(this, v5);
         os_unfair_lock_unlock(this + 2);
@@ -5754,7 +5756,7 @@ uint64_t CA::Display::MetalLinkItem::needs_update_link(CA::Display::MetalLinkIte
   return 0;
 }
 
-void *CADisplayLookupFromDisplayId(int a1)
+uint64_t CADisplayLookupFromDisplayId(int a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   v2 = +[CADisplay displays];
@@ -5809,9 +5811,9 @@ LABEL_9:
   return v7;
 }
 
-id CA::Display::DisplayLinkItem::hot_swap_display(id this, id *a2)
+void *CA::Display::DisplayLinkItem::hot_swap_display(void *this, id *a2)
 {
-  v2 = *(this + 2);
+  v2 = this[2];
   if (v2 != a2)
   {
     v4 = this;
@@ -6487,7 +6489,7 @@ _BYTE *CADisplayPrintDisplays(int a1)
             v141 = 0u;
             if (v135)
             {
-              [v135 _availableModesInternal];
+              objc_msgSend__availableModesInternal(v135);
               if (__p[1] != __p[0])
               {
                 X::Stream::printf(v139, "\tinternal modes:\n");
@@ -7154,32 +7156,32 @@ void ___ZN2CA2CG8Renderer22flush_released_objectsEv_block_invoke(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void CA::CG::Renderer::pop_transparency_layer(CA::CG::Renderer *this, CA::CG::TransparencyLayer *a2)
+void CA::CG::Renderer::pop_transparency_layer(uint64_t this, CA::CG::TransparencyLayer *a2)
 {
-  if (*(this + 177) == a2)
+  if (*(this + 1416) == a2)
   {
     if (*(a2 + 246) == 1)
     {
-      v4 = *(this + 1);
+      v4 = *(this + 8);
       CA::OGL::Context::set_gstate(v4, **(v4 + 656));
-      CA::OGL::Context::pop_surface(v4);
-      v5 = *(v4 + 1384) & 0x8FFF | ((*(a2 + 224) & 7) << 12);
-      *(v4 + 1384) = v5;
+      CA::OGL::Context::pop_surface(v4, v5, v6, v7, v8, v9, v10, v11);
+      v12 = *(v4 + 1384) & 0x8FFF | ((*(a2 + 224) & 7) << 12);
+      *(v4 + 1384) = v12;
       if (*(a2 + 247))
       {
-        v6 = 4;
+        v13 = 4;
       }
 
       else
       {
-        v6 = 0;
+        v13 = 0;
       }
 
-      *(v4 + 1384) = v5 & 0xFFFB | v6;
+      *(v4 + 1384) = v12 & 0xFFFB | v13;
       *(a2 + 246) = 0;
     }
 
-    *(this + 177) = 0;
+    *(this + 1416) = 0;
   }
 }
 
@@ -8132,7 +8134,7 @@ LABEL_103:
                       else
                       {
                         *buffer = &v111;
-                        if (*(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,CA::WindowServer::VirtualDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::VirtualDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(v103 + 3223, v54) + 8) >= v101)
+                        if (*(std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,CA::WindowServer::VirtualDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::VirtualDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(v103 + 6446, v54, buffer) + 8) >= v101)
                         {
                           goto LABEL_61;
                         }
@@ -8151,7 +8153,7 @@ LABEL_103:
 
                       v62 = v52 + v101;
                       *buffer = &v111;
-                      v63 = std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,CA::WindowServer::VirtualDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::VirtualDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(v103 + 3223, v111);
+                      v63 = std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,CA::WindowServer::VirtualDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::VirtualDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(v103 + 6446, v111, buffer);
                       v63[6] = Int;
                       v63[7] = v61;
                       v63[8] = v101;
@@ -8321,90 +8323,90 @@ LABEL_134:
   return v82 | v94;
 }
 
-void *std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,CA::WindowServer::VirtualDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::VirtualDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,std::__unordered_map_hasher<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,CA::WindowServer::VirtualDisplay::ModeHash,std::equal_to<CA::WindowServer::Display::Mode>,true>,std::__unordered_map_equal<CA::WindowServer::Display::Mode,std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>,std::equal_to<CA::WindowServer::Display::Mode>,CA::WindowServer::VirtualDisplay::ModeHash,true>,std::allocator<std::__hash_value_type<CA::WindowServer::Display::Mode,CA::WindowServer::VirtualDisplay::ModeInfo>>>::__emplace_unique_key_args<CA::WindowServer::Display::Mode,std::piecewise_construct_t const&,std::tuple<CA::WindowServer::Display::Mode const&>,std::tuple<>>(float *a1, uint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_20;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  v4 = v3.u32[0];
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  v5 = v4.u32[0];
+  if (v4.u32[0] > 1uLL)
   {
-    v5 = a2;
-    if (a2 >= v2)
+    v6 = a2;
+    if (a2 >= v3)
     {
-      v5 = a2 % v2;
+      v6 = a2 % v3;
     }
   }
 
   else
   {
-    v5 = (v2 - 1) & a2;
+    v6 = (v3 - 1) & a2;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_20:
     operator new();
   }
 
-  v8 = vdupq_n_s64(0x3F59000000000000uLL);
-  v9 = vdupq_n_s64(0x40847AE147AE147BuLL);
-  v10 = vdupq_n_s64(0x3FFFFFE0000000uLL);
+  v9 = vdupq_n_s64(0x3F59000000000000uLL);
+  v10 = vdupq_n_s64(0x40847AE147AE147BuLL);
+  v11 = vdupq_n_s64(0x3FFFFFE0000000uLL);
   while (1)
   {
-    v11 = v7[1];
-    if (v11 == a2)
+    v12 = v8[1];
+    if (v12 == a2)
     {
       break;
     }
 
-    if (v4 > 1)
+    if (v5 > 1)
     {
-      if (v11 >= v2)
+      if (v12 >= v3)
       {
-        v11 %= v2;
+        v12 %= v3;
       }
     }
 
     else
     {
-      v11 &= v2 - 1;
+      v12 &= v3 - 1;
     }
 
-    if (v11 != v5)
+    if (v12 != v6)
     {
       goto LABEL_20;
     }
 
 LABEL_19:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_20;
     }
   }
 
-  if (v7[2] != a2)
+  if (v8[2] != a2)
   {
-    v12.i64[0] = v7[2];
-    v12.i64[1] = a2;
-    v13 = vshrn_n_s64(v12, 0x1DuLL);
-    v14.i64[0] = v13.i32[0] & 0x1FFFFFF;
-    v14.i64[1] = v13.i32[1] & 0x1FFFFFF;
-    v15 = vbslq_s8(v10, vshlq_n_s64(vcvtq_u64_f64(vmulq_f64(vrndaq_f64(vmulq_f64(vcvtq_f64_u64(v14), v8)), v9)), 0x1DuLL), v12);
-    if ((vmovn_s64(vceqq_s64(v15, vdupq_laneq_s64(v15, 1))).u8[0] & 1) == 0)
+    v13.i64[0] = v8[2];
+    v13.i64[1] = a2;
+    v14 = vshrn_n_s64(v13, 0x1DuLL);
+    v15.i64[0] = v14.i32[0] & 0x1FFFFFF;
+    v15.i64[1] = v14.i32[1] & 0x1FFFFFF;
+    v16 = vbslq_s8(v11, vshlq_n_s64(vcvtq_u64_f64(vmulq_f64(vrndaq_f64(vmulq_f64(vcvtq_f64_u64(v15), v9)), v10)), 0x1DuLL), v13);
+    if ((vmovn_s64(vceqq_s64(v16, vdupq_laneq_s64(v16, 1))).u8[0] & 1) == 0)
     {
       goto LABEL_19;
     }
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t CA::WindowServer::VirtualDisplay::release_resources(CA::WindowServer::VirtualDisplay *this)
@@ -8507,7 +8509,7 @@ uint64_t CA::WindowServer::VirtualDisplay::set_display_state_locked(CA::WindowSe
   return 255;
 }
 
-uint64_t CA::WindowServer::VirtualDisplay::new_server(const __CFString **this)
+CA::WindowServer::Server *CA::WindowServer::VirtualDisplay::new_server(const __CFString **this)
 {
   if (x_malloc_get_zone::once != -1)
   {
@@ -8964,7 +8966,7 @@ double CA::WindowServer::Display::detaching_rect@<D0>(_OWORD *a1@<X8>)
   return result;
 }
 
-_DWORD *CA::WindowServer::VirtualDisplay::update_surface(CA::WindowServer::VirtualDisplay *this, int a2, char a3, uint64_t a4, BOOL a5, int a6)
+_DWORD *CA::WindowServer::VirtualDisplay::update_surface(CA::WindowServer::VirtualDisplay *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
 {
   v6 = *(this + 2 * *(this + 25752) + 3209);
   if (!v6)
@@ -8972,10 +8974,12 @@ _DWORD *CA::WindowServer::VirtualDisplay::update_surface(CA::WindowServer::Virtu
     return 0;
   }
 
+  v9 = a3;
+  v10 = a2;
   v12 = *(this + 52);
   v13 = *(this + 53);
   surface = *(v6 + 24);
-  v15 = (*(*this + 208))(this);
+  v15 = (*(*this + 208))(this, a2, a3, a4, a5);
   if ((byte_1ED4E984A & 1) != 0 || (v16 = v15, CA::WindowServer::Display::Mode::is_hdr((this + 25776))) || a6)
   {
     v16 = 1380411457;
@@ -8993,7 +8997,7 @@ _DWORD *CA::WindowServer::VirtualDisplay::update_surface(CA::WindowServer::Virtu
       dispatch_once(&CADeviceSupportsUniversalCompression::once, &__block_literal_global_31);
     }
 
-    if (CADeviceSupportsUniversalCompression::universal == 1 && (BYTE3(xmmword_1ED4E980C) & 1) == 0 && (a3 & 1) == 0)
+    if (CADeviceSupportsUniversalCompression::universal == 1 && (BYTE3(xmmword_1ED4E980C) & 1) == 0 && (v9 & 1) == 0)
     {
       v16 = CA::Render::fourcc_compressed_of_type(v16, 3, 0);
     }
@@ -9009,7 +9013,7 @@ _DWORD *CA::WindowServer::VirtualDisplay::update_surface(CA::WindowServer::Virtu
     goto LABEL_22;
   }
 
-  if (!a2)
+  if (!v10)
   {
     return 0;
   }
@@ -9141,7 +9145,7 @@ LABEL_5:
   }
 
   v5 = v3 + 16 * *(v3 + 25752);
-  v6 = *(v3 + 25712);
+  v6 = *(v3 + 3214);
   if (v6)
   {
     v7 = *(a2 + 2);
@@ -9158,11 +9162,11 @@ LABEL_5:
     while (v6);
   }
 
-  buffer = CA::WindowServer::VirtualDisplay::allocate_buffer(v3, v5 + 25664, *(a2 + 40));
+  buffer = CA::WindowServer::VirtualDisplay::allocate_buffer(v3, (v5 + 25664), *(a2 + 40));
   v9 = *(buffer + 2);
   if (!v9 || !*(buffer + 3))
   {
-    v9 = *(v3 + 216);
+    v9 = *(v3 + 27);
   }
 
   return CA::Render::Update::set_shape(a2, v9);
@@ -9525,7 +9529,7 @@ void pattern_draw(CGImage *a1, CGContext *a2)
   CGContextDrawImage(a2, *&v6, a1);
 }
 
-uint64_t ___ZL26iosurface_property_classesv_block_invoke()
+void *___ZL26iosurface_property_classesv_block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   v1 = objc_opt_class();
@@ -9536,7 +9540,7 @@ uint64_t ___ZL26iosurface_property_classesv_block_invoke()
   return result;
 }
 
-uint64_t ___ZL31iosurface_plane_keys_allow_listv_block_invoke()
+void *___ZL31iosurface_plane_keys_allow_listv_block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DEC8]);
   result = [v0 initWithObjects:{*MEMORY[0x1E696D0B0], *MEMORY[0x1E696D0C8], *MEMORY[0x1E696D090], *MEMORY[0x1E696CFE8], *MEMORY[0x1E696CFE0], *MEMORY[0x1E696D060], *MEMORY[0x1E696D058], *MEMORY[0x1E696CE28], *MEMORY[0x1E696D048], *MEMORY[0x1E696D038], *MEMORY[0x1E696D030], *MEMORY[0x1E696CFF8], *MEMORY[0x1E696D000], *MEMORY[0x1E696CFD8], *MEMORY[0x1E696D0D0], *MEMORY[0x1E696D098], *MEMORY[0x1E696CFF0], *MEMORY[0x1E696D080], *MEMORY[0x1E696D020], *MEMORY[0x1E696D028], *MEMORY[0x1E696D040], 0}];
@@ -9544,7 +9548,7 @@ uint64_t ___ZL31iosurface_plane_keys_allow_listv_block_invoke()
   return result;
 }
 
-uint64_t ___ZL25iosurface_keys_allow_listv_block_invoke()
+void *___ZL25iosurface_keys_allow_listv_block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DEC8]);
   result = [v0 initWithObjects:{*MEMORY[0x1E696CE30], *MEMORY[0x1E696D130], *MEMORY[0x1E696CF58], *MEMORY[0x1E696CFC0], *MEMORY[0x1E696CE58], *MEMORY[0x1E696CE50], *MEMORY[0x1E696CF10], *MEMORY[0x1E696CF08], 0}];
@@ -9552,7 +9556,7 @@ uint64_t ___ZL25iosurface_keys_allow_listv_block_invoke()
   return result;
 }
 
-uint64_t ___ZL22iosurface_info_classesv_block_invoke()
+void *___ZL22iosurface_info_classesv_block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   v1 = objc_opt_class();
@@ -9563,7 +9567,7 @@ uint64_t ___ZL22iosurface_info_classesv_block_invoke()
   return result;
 }
 
-uint64_t ___ZL24iosurface_property_namesv_block_invoke()
+void *___ZL24iosurface_property_namesv_block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DEC8]);
   result = [v0 initWithObjects:{*MEMORY[0x1E696CEE0], *MEMORY[0x1E696CF28], *MEMORY[0x1E696CF60], *MEMORY[0x1E696D138], *MEMORY[0x1E696CEC0], *MEMORY[0x1E696D118], *MEMORY[0x1E696CEB0], *MEMORY[0x1E696CF18], *MEMORY[0x1E696CF20], *MEMORY[0x1E696CFB0], *MEMORY[0x1E696CE70], *MEMORY[0x1E696CE68], *MEMORY[0x1E696CEA8], 0}];
@@ -9688,7 +9692,7 @@ void ___Z29create_cgimage_from_iosurfaceP11__IOSurface_block_invoke()
   create_cgimage_from_iosurface(__IOSurface *)::ctx = CA::OGL::new_metal_context(v0, 0, 0, 0, 0, @"com.apple.coreanimation.CACoding");
 }
 
-uint64_t coding_init(void)
+void *coding_init(void)
 {
   result = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   self_bundle = result;
@@ -9716,22 +9720,14 @@ CFTypeRef cache_retain(const __CFAllocator *a1, CFTypeRef cf)
   }
 }
 
-IMP ___ZL28class_supports_secure_codingP10objc_class_block_invoke(objc_class *a1, const char *a2)
+unint64_t ___ZL28class_supports_secure_codingP10objc_class_block_invoke(objc_class *a1, const char *a2)
 {
   result = class_getMethodImplementation(a1, a2);
   if (result)
   {
     v5 = result;
     Superclass = class_getSuperclass(a1);
-    if (Superclass)
-    {
-      return (class_getMethodImplementation(Superclass, a2) != v5);
-    }
-
-    else
-    {
-      return IMP_BOOSTED;
-    }
+    return !Superclass || class_getMethodImplementation(Superclass, a2) != v5;
   }
 
   return result;

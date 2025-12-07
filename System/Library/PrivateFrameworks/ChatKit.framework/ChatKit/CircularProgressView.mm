@@ -19,7 +19,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_19093BFDC();
+  sub_19093BFDC(selfCopy, v2, v3);
 }
 
 @end

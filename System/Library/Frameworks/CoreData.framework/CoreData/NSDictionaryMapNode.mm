@@ -24,27 +24,26 @@
 
 - (NSDictionaryMapNode)initWithCoder:(id)coder
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = NSDictionaryMapNode;
-  v4 = [(NSStoreMapNode *)&v9 initWithCoder:?];
+  v9[2] = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = NSDictionaryMapNode;
+  v4 = [(NSStoreMapNode *)&v8 initWithCoder:?];
   allowedClasses = [coder allowedClasses];
-  v10[0] = objc_opt_class();
-  v10[1] = objc_opt_class();
-  v6 = [coder decodeObjectOfClasses:objc_msgSend(allowedClasses forKey:{"setByAddingObjectsFromArray:", objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v10, 2)), @"NSAttributeValues"}];
+  v9[0] = objc_opt_class();
+  v9[1] = objc_opt_class();
+  v6 = [coder decodeObjectOfClasses:objc_msgSend(allowedClasses forKey:{"setByAddingObjectsFromArray:", objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v9, 2)), @"NSAttributeValues"}];
   v4->_attributesAsEncoded = v6;
   if (!v6)
   {
     v4->_attributesAsEncoded = [coder decodeObjectOfClasses:objc_msgSend(coder forKey:{"allowedClasses"), @"NSAttributes"}];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)_doAttributeDecoding
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (self && self[7])
   {
     v2 = [objc_msgSend(self "entity")];
@@ -71,7 +70,7 @@
             v9 = -[NSEntityDescription _attributeNamed:]([selfCopy entity], *(objc_msgSend(objc_msgSend(objc_msgSend(selfCopy, "entity"), "_propertySearchMapping"), "keys") + 8 * i));
             if ([v9 attributeType] == 2200)
             {
-              v32 = 0;
+              v31 = 0;
               v10 = selfCopy[1];
               if (v10)
               {
@@ -83,7 +82,7 @@
                 v11 = 0;
               }
 
-              v12 = [v9 decode:v4[i] withRegistry:objc_msgSend(objc_msgSend(v11 error:{"persistentStoreCoordinator"), "codableAdapterRegistry"), &v32}];
+              v12 = [v9 decode:v4[i] withRegistry:objc_msgSend(objc_msgSend(v11 error:{"persistentStoreCoordinator"), "codableAdapterRegistry"), &v31}];
               v4[i] = v12;
             }
 
@@ -100,26 +99,26 @@
 
     else
     {
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
-      v14 = [v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v14 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v29;
+        v16 = *v28;
         do
         {
           v17 = 0;
           do
           {
-            if (*v29 != v16)
+            if (*v28 != v16)
             {
               objc_enumerationMutation(v7);
             }
 
-            v18 = *(*(&v28 + 1) + 8 * v17);
+            v18 = *(*(&v27 + 1) + 8 * v17);
             v19 = [v2 fastIndexForKnownKey:v18];
             v20 = [v7 objectForKey:v18];
             if (v20 != null)
@@ -127,7 +126,7 @@
               v21 = -[NSEntityDescription _attributeNamed:]([selfCopy entity], v18);
               if ([v21 attributeType] == 2200)
               {
-                v32 = 0;
+                v31 = 0;
                 v22 = selfCopy[1];
                 if (v22)
                 {
@@ -139,7 +138,7 @@
                   v23 = 0;
                 }
 
-                v20 = [v21 decode:v4[v19] withRegistry:objc_msgSend(objc_msgSend(v23 error:{"persistentStoreCoordinator"), "codableAdapterRegistry"), &v32}];
+                v20 = [v21 decode:v4[v19] withRegistry:objc_msgSend(objc_msgSend(v23 error:{"persistentStoreCoordinator"), "codableAdapterRegistry"), &v31}];
               }
             }
 
@@ -158,7 +157,7 @@
           }
 
           while (v15 != v17);
-          v25 = [v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
+          v25 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
           v15 = v25;
         }
 
@@ -169,15 +168,13 @@
     selfCopy[7] = 0;
     selfCopy[6] = v4;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v20.receiver = self;
-  v20.super_class = NSDictionaryMapNode;
-  [(NSStoreMapNode *)&v20 encodeWithCoder:?];
+  v21.receiver = self;
+  v21.super_class = NSDictionaryMapNode;
+  [(NSStoreMapNode *)&v21 encodeWithCoder:?];
   if (self->_attributesAsEncoded)
   {
     [(NSDictionaryMapNode *)&self->super.super.isa _doAttributeDecoding];
@@ -208,14 +205,15 @@
       v7[i] = v13;
       if ([v11 attributeType] == 2200 && self->_attributes[i])
       {
-        v19 = 0;
+        v20 = 0;
         map = self->super._map;
         v15 = map ? map->_store : 0;
-        v16 = [v12 encode:self->_attributes[i] withRegistry:-[NSPersistentStoreCoordinator codableAdapterRegistry](-[NSPersistentStore persistentStoreCoordinator](v15 error:{"persistentStoreCoordinator"), "codableAdapterRegistry"), &v19}];
+        v16 = [v12 encode:self->_attributes[i] withRegistry:-[NSPersistentStoreCoordinator codableAdapterRegistry](-[NSPersistentStore persistentStoreCoordinator](v15 error:{"persistentStoreCoordinator"), "codableAdapterRegistry"), &v20}];
         v7[i] = v16;
         if (!v16)
         {
-          objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Failed to encode %@: %@", self->_attributes[i], v19), 0}]);
+          v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{self->_attributes[i], v20), 0}];
+          objc_exception_throw(v19);
         }
       }
     }
@@ -298,7 +296,7 @@ LABEL_8:
   }
 
   v13 = *(v7 + 8 * v10);
-  v14 = [(NSMutableDictionary *)self->super._relatedNodes valueForKey:key];
+  v14 = objc_msgSend_valueForKey_(self->super._relatedNodes);
   if (![v13 isToMany])
   {
     if ([v14 count])

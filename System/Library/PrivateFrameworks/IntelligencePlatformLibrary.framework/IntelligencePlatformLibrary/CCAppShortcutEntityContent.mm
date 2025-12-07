@@ -259,7 +259,6 @@ LABEL_38:
 
             v26 = objc_opt_class();
             v23 = NSStringFromClass(v26);
-            v27 = *&v5[*v10];
             v8 = CCSkipFieldErrorForMessage();
 LABEL_37:
 
@@ -317,44 +316,42 @@ LABEL_37:
 LABEL_44:
   v8 = 0;
 LABEL_45:
-  v28 = [v9 copy];
+  v27 = [v9 copy];
   entitySynonyms = self->_entitySynonyms;
-  self->_entitySynonyms = v28;
+  self->_entitySynonyms = v27;
 
   if (v8)
   {
     CCSetError();
-    v30 = 0;
-    v31 = dataCopy;
+    v29 = 0;
+    v30 = dataCopy;
   }
 
   else
   {
-    v32 = MEMORY[0x1E6993AA8];
-    v31 = dataCopy;
+    v30 = dataCopy;
     if (*&v5[*MEMORY[0x1E6993AA8]])
     {
-      v33 = objc_opt_class();
-      v34 = NSStringFromClass(v33);
-      v35 = *&v5[*v32];
-      v36 = CCInvalidBufferErrorForMessage();
+      v31 = objc_opt_class();
+      v32 = NSStringFromClass(v31);
+      v33 = CCInvalidBufferErrorForMessage();
       CCSetError();
 
-      v30 = 0;
+      v29 = 0;
     }
 
     else
     {
-      v30 = 1;
+      v29 = 1;
     }
   }
 
-  return v30;
+  return v29;
 }
 
 - (CCAppShortcutEntityContent)initWithEntityTitle:(id)title entityInstanceIdentifier:(id)identifier entityTypeIdentifier:(id)typeIdentifier providerClass:(id)class entitySynonyms:(id)synonyms error:(id *)error
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   titleCopy = title;
   identifierCopy = identifier;
   typeIdentifierCopy = typeIdentifier;
@@ -369,7 +366,7 @@ LABEL_5:
     if (identifierCopy)
     {
       objc_opt_class();
-      v46 = v20;
+      v44 = v20;
       IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
       v22 = v20;
 
@@ -402,7 +399,7 @@ LABEL_8:
     }
 
     objc_opt_class();
-    v45 = v22;
+    v43 = v22;
     v25 = CCValidateIsInstanceOfExpectedClass();
     v20 = v22;
 
@@ -419,7 +416,7 @@ LABEL_28:
     {
 LABEL_9:
       objc_opt_class();
-      v44 = v20;
+      v42 = v20;
       v23 = CCValidateIsInstanceOfExpectedClass();
       v22 = v20;
 
@@ -459,46 +456,45 @@ LABEL_17:
 
 LABEL_18:
     objc_opt_class();
-    v43 = v22;
+    v41 = v22;
     v26 = CCValidateArrayValues();
     v20 = v22;
 
     if (v26)
     {
-      v41 = 0u;
-      v42 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v36 = synonymsCopy;
+      v37 = 0u;
+      v38 = 0u;
+      v34 = synonymsCopy;
       v27 = synonymsCopy;
-      v28 = [v27 countByEnumeratingWithState:&v39 objects:v48 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v37 objects:v46 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v40;
+        v30 = *v38;
         do
         {
           v31 = 0;
           do
           {
-            if (*v40 != v30)
+            if (*v38 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            v32 = *(*(&v39 + 1) + 8 * v31);
             CCPBDataWriterWriteStringField();
             ++v31;
           }
 
           while (v29 != v31);
-          v29 = [v27 countByEnumeratingWithState:&v39 objects:v48 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v37 objects:v46 count:16];
         }
 
         while (v29);
       }
 
-      synonymsCopy = v36;
+      synonymsCopy = v34;
       goto LABEL_27;
     }
 
@@ -506,7 +502,7 @@ LABEL_18:
   }
 
   objc_opt_class();
-  v47 = 0;
+  v45 = 0;
   v19 = CCValidateIsInstanceOfExpectedClass();
   v20 = 0;
   if (v19)
@@ -519,7 +515,6 @@ LABEL_18:
   selfCopy2 = 0;
 LABEL_30:
 
-  v34 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 

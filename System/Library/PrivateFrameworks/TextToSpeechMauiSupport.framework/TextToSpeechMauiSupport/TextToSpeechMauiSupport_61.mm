@@ -1,4 +1,4 @@
-uint64_t opus_decode(int *a1, char *a2, int a3, uint64_t a4, uint64_t a5, unsigned int a6)
+uint64_t opus_decode(int *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6)
 {
   if (a5 < 1)
   {
@@ -11,7 +11,7 @@ uint64_t opus_decode(int *a1, char *a2, int a3, uint64_t a4, uint64_t a5, unsign
   }
 }
 
-uint64_t opus_decoder_ctl(int *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int *a9)
+uint64_t opus_decoder_ctl(int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int *a9)
 {
   v10 = *a1;
   v11 = a1[1];
@@ -147,7 +147,7 @@ LABEL_28:
   return result;
 }
 
-uint64_t smooth_fade(uint64_t result, uint64_t a2, uint64_t a3, int a4, int a5, __int16 *a6, int a7)
+uint64_t smooth_fade(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, __int16 *a6, int a7)
 {
   if (a5 >= 1)
   {
@@ -199,7 +199,7 @@ uint64_t opus_multistream_decoder_get_size(int a1, unsigned int a2)
   return result;
 }
 
-uint64_t opus_multistream_decoder_init(unsigned int *a1, int a2, unsigned int a3, int a4, int a5, char *a6)
+uint64_t opus_multistream_decoder_init(unsigned int *a1, uint64_t a2, unsigned int a3, int a4, int a5, char *a6)
 {
   if (a3 - 256 < 0xFFFFFF01 || a5 > a4)
   {
@@ -217,7 +217,8 @@ uint64_t opus_multistream_decoder_init(unsigned int *a1, int a2, unsigned int a3
     do
     {
       v12 = *a6++;
-      *v10++ = v12;
+      *v10 = v12;
+      v10 = (v10 + 1);
       --v11;
     }
 
@@ -241,7 +242,7 @@ LABEL_19:
           v18 = ((v15 + 7) & 0xFFFFFFF8);
           do
           {
-            result = opus_decoder_init(v13, a2, 1u);
+            result = opus_decoder_init(v13, a2, 1);
             if (result)
             {
               break;
@@ -261,7 +262,7 @@ LABEL_19:
         v17 = ((size + 7) & 0xFFFFFFF8);
         while (1)
         {
-          result = opus_decoder_init(v13, a2, 2u);
+          result = opus_decoder_init(v13, a2, 2);
           if (result)
           {
             break;
@@ -285,7 +286,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t opus_multistream_decoder_create(void *a1, int a2, unsigned int a3, int a4, signed int a5, char *a6, int *a7)
+uint64_t opus_multistream_decoder_create(void *a1, uint64_t a2, unsigned int a3, int a4, signed int a5, char *a6, int *a7)
 {
   v8 = a3 - 256 >= 0xFFFFFF01 && a5 <= a4;
   if (!v8 || a5 < 0 || a4 < 1 || a5 + a4 >= 256)
@@ -356,7 +357,7 @@ uint64_t opus_multistream_decode_native(int *a1, char *a2, uint64_t a3, uint64_t
   bzero(v14, v13);
   size = opus_decoder_get_size(2);
   v41 = opus_decoder_get_size(1);
-  if (v11 < 0)
+  if ((v11 & 0x80000000) != 0)
   {
     return 0xFFFFFFFFLL;
   }
@@ -525,10 +526,10 @@ LABEL_38:
 
       v23 = (v23 + ((v43 + 7) & 0xFFFFFFF8));
       v44 += v26;
-      v24 -= v26;
+      v24 = (v24 - v26);
       ++v22;
       v21 = a1[1];
-      v11 = HIDWORD(v39);
+      LODWORD(v11) = HIDWORD(v39);
       if (v22 >= v21)
       {
         goto LABEL_38;
@@ -539,7 +540,7 @@ LABEL_38:
   return v8;
 }
 
-uint64_t opus_copy_channel_out_short(uint64_t result, int a2, int a3, _WORD *a4, int a5, int a6)
+uint64_t opus_copy_channel_out_short(uint64_t result, int a2, int a3, _WORD *a4, int a5, unsigned int a6)
 {
   if (a4)
   {
@@ -619,7 +620,7 @@ uint64_t opus_copy_channel_out_short(uint64_t result, int a2, int a3, _WORD *a4,
   return result;
 }
 
-uint64_t opus_copy_channel_out_float(uint64_t result, int a2, int a3, __int16 *a4, int a5, int a6)
+uint64_t opus_copy_channel_out_float(uint64_t result, int a2, int a3, __int16 *a4, int a5, unsigned int a6)
 {
   if (a4)
   {
@@ -678,7 +679,7 @@ uint64_t opus_copy_channel_out_float(uint64_t result, int a2, int a3, __int16 *a
   return result;
 }
 
-uint64_t opus_multistream_decoder_ctl(_DWORD *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t opus_multistream_decoder_ctl(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v43 = &a9;
   size = opus_decoder_get_size(2);
@@ -891,7 +892,7 @@ LABEL_33:
   return result;
 }
 
-uint64_t opus_repacketizer_cat_impl(char *a1, char *a2, int a3, int a4)
+uint64_t opus_repacketizer_cat_impl(char *a1, char *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 < 1)
   {
@@ -900,6 +901,8 @@ uint64_t opus_repacketizer_cat_impl(char *a1, char *a2, int a3, int a4)
 
   v15 = v4;
   v16 = v5;
+  v6 = a4;
+  v7 = a3;
   if (*(a1 + 1))
   {
     if ((*a2 ^ *a1) > 3)
@@ -914,7 +917,7 @@ uint64_t opus_repacketizer_cat_impl(char *a1, char *a2, int a3, int a4)
     *(a1 + 122) = opus_packet_get_samples_per_frame(a2, 8000);
   }
 
-  nb_frames = opus_packet_get_nb_frames(a2, a3);
+  nb_frames = opus_packet_get_nb_frames(a2, v7);
   if (nb_frames < 1)
   {
     return 4294967292;
@@ -928,7 +931,7 @@ uint64_t opus_repacketizer_cat_impl(char *a1, char *a2, int a3, int a4)
   }
 
   v14 = 0;
-  result = opus_packet_parse_impl(a2, a3, a4, &v14, &a1[8 * v13 + 8], &a1[2 * v13 + 392], 0, 0);
+  result = opus_packet_parse_impl(a2, v7, v6, &v14, &a1[8 * v13 + 8], &a1[2 * v13 + 392], 0, 0);
   if (result >= 1)
   {
     result = 0;
@@ -938,15 +941,15 @@ uint64_t opus_repacketizer_cat_impl(char *a1, char *a2, int a3, int a4)
   return result;
 }
 
-uint64_t opus_repacketizer_out_range_impl(uint64_t a1, unsigned int a2, int a3, _BYTE *a4, uint64_t a5, int a6, int a7)
+uint64_t opus_repacketizer_out_range_impl(uint64_t a1, int a2, int a3, _BYTE *a4, uint64_t a5, int a6, int a7)
 {
   v7 = 0xFFFFFFFFLL;
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     return v7;
   }
 
-  v9 = a3 - a2;
+  v9 = (a3 - a2);
   if (a3 <= a2 || *(a1 + 4) < a3)
   {
     return v7;
@@ -1213,7 +1216,7 @@ LABEL_63:
   return v7;
 }
 
-uint64_t opus_packet_pad(char *__src, size_t __len, uint64_t a3)
+uint64_t opus_packet_pad(char *__src, uint64_t __len, uint64_t a3)
 {
   if (__len < 1)
   {
@@ -1222,7 +1225,6 @@ uint64_t opus_packet_pad(char *__src, size_t __len, uint64_t a3)
 
   v12 = v3;
   v13 = v4;
-  v6 = __len;
   if (__len == a3)
   {
     return 0;
@@ -1236,7 +1238,7 @@ uint64_t opus_packet_pad(char *__src, size_t __len, uint64_t a3)
   v9 = &__src[a3 - __len];
   memset(v11, 0, sizeof(v11));
   memmove(v9, __src, __len);
-  opus_repacketizer_cat_impl(v11, v9, v6, 0);
+  opus_repacketizer_cat_impl(v11, v9, __len, 0);
   v10 = opus_repacketizer_out_range_impl(v11, 0, SDWORD1(v11[0]), __src, a3, 0, 1);
   return v10 & (v10 >> 31);
 }
@@ -1260,7 +1262,7 @@ uint64_t opus_packet_unpad(char *a1, uint64_t a2)
   return result;
 }
 
-uint64_t opus_multistream_packet_pad(char *__src, size_t __len, int a3, int a4)
+uint64_t opus_multistream_packet_pad(char *__src, uint64_t __len, int a3, int a4)
 {
   v12 = *MEMORY[0x277D85DE8];
   if (__len < 1)
@@ -1352,7 +1354,7 @@ uint64_t opus_multistream_packet_unpad(_BYTE *a1, uint64_t a2, int a3)
     v6 = (v8 + v6);
     v5 += v8;
     v7 += v11;
-    v4 = (v4 - v11);
+    v4 = v4 - v11;
     if (!--v3)
     {
       return v6;
@@ -1995,10 +1997,11 @@ uint64_t validate_layout(unsigned int *a1)
   v3 = *a1;
   if (v3 >= 1)
   {
-    v4 = (a1 + 3);
+    v4 = a1 + 3;
     while (1)
     {
-      v6 = *v4++;
+      v6 = *v4;
+      v4 = (v4 + 1);
       v5 = v6;
       if (v6 != 255 && v1 <= v5)
       {
@@ -2295,7 +2298,7 @@ uint64_t ogg_stream_destroy(void *a1)
   return 0;
 }
 
-uint64_t ogg_page_checksum_set(uint64_t result)
+unsigned int *ogg_page_checksum_set(unsigned int *result)
 {
   if (result)
   {
@@ -2305,8 +2308,8 @@ uint64_t ogg_page_checksum_set(uint64_t result)
     *(*result + 24) = 0;
     *(*result + 25) = 0;
     v2 = *result;
-    updated = _os_update_crc(0, *result, *(result + 8));
-    result = _os_update_crc(updated, *(v1 + 16), *(v1 + 24));
+    updated = _os_update_crc(0, *result, result[2]);
+    result = _os_update_crc(updated, *(v1 + 2), v1[6]);
     *(v2 + 22) = result;
     *(*v1 + 23) = BYTE1(result);
     *(*v1 + 24) = BYTE2(result);
@@ -2316,7 +2319,7 @@ uint64_t ogg_page_checksum_set(uint64_t result)
   return result;
 }
 
-uint64_t _os_update_crc(uint64_t result, unsigned __int8 *a2, int a3)
+uint64_t _os_update_crc(uint64_t result, unsigned __int8 *a2, unsigned int a3)
 {
   if (a3 < 8)
   {
@@ -2350,7 +2353,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t ogg_stream_iovecin(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
+uint64_t ogg_stream_iovecin(char **a1, uint64_t a2, unsigned int a3, uint64_t a4, char *a5)
 {
   if (!a1)
   {
@@ -2373,17 +2376,17 @@ uint64_t ogg_stream_iovecin(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint6
   {
     v11 = 0;
 LABEL_12:
-    v17 = *(a1 + 24);
+    v17 = a1[3];
     if (v17)
     {
-      v18 = *(a1 + 16);
-      *(a1 + 16) = v18 - v17;
+      v18 = a1[2];
+      a1[2] = (v18 - v17);
       if (v18 != v17)
       {
-        memmove(v6, &v6[v17], v18 - v17);
+        memmove(v6, &v17[v6], v18 - v17);
       }
 
-      *(a1 + 24) = 0;
+      a1[3] = 0;
     }
 
     if (_os_body_expand(a1, v11) || _os_lacing_expand(a1, v11 / 0xFF + 1))
@@ -2394,13 +2397,13 @@ LABEL_12:
     if (v10 >= 1)
     {
       v10 = v10;
-      v19 = *(a1 + 16);
+      v19 = a1[2];
       v20 = (a2 + 8);
       do
       {
-        memcpy((*a1 + v19), *(v20 - 1), *v20);
-        v19 = *v20 + *(a1 + 16);
-        *(a1 + 16) = v19;
+        memcpy(&v19[*a1], *(v20 - 1), *v20);
+        v19 = &a1[2][*v20];
+        a1[2] = v19;
         v20 += 2;
         --v10;
       }
@@ -2408,18 +2411,18 @@ LABEL_12:
       while (v10);
     }
 
-    v21 = *(a1 + 32);
-    v22 = *(a1 + 56);
+    v21 = a1[4];
+    v22 = a1[7];
     if (v11 > 0xFE)
     {
-      v24 = *(a1 + 40);
-      v25 = *(a1 + 400);
+      v24 = a1[5];
+      v25 = a1[50];
       v26 = v11 / 0xFF;
-      v27 = *(a1 + 56);
+      v27 = a1[7];
       do
       {
-        *(v21 + 4 * v27) = 255;
-        *(v24 + 8 * v27++) = v25;
+        *&v21[4 * v27] = 255;
+        *&v24[8 * v27++] = v25;
         --v26;
       }
 
@@ -2430,20 +2433,20 @@ LABEL_12:
     else
     {
       v23 = 0;
-      v24 = *(a1 + 40);
+      v24 = a1[5];
     }
 
-    v28 = (v21 + 4 * v22);
-    v28[v23] = v11 % 0xFF;
-    *(v24 + 8 * v22 + 8 * v23) = a5;
+    v28 = &v21[4 * v22];
+    *&v28[4 * v23] = v11 % 0xFF;
+    *&v24[8 * v22 + 8 * v23] = a5;
     *v28 |= 0x100u;
-    *(a1 + 56) = v22 + v11 / 0xFF + 1;
-    ++*(a1 + 392);
-    *(a1 + 400) = a5;
+    a1[7] = &v22[v11 / 0xFF + 1];
+    ++a1[49];
+    a1[50] = a5;
     if (a4)
     {
       v14 = 0;
-      *(a1 + 368) = 1;
+      *(a1 + 92) = 1;
       return v14;
     }
 
@@ -2522,15 +2525,15 @@ uint64_t _os_lacing_expand(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t ogg_stream_packetin(uint64_t a1, void *a2)
+uint64_t ogg_stream_packetin(char **a1, uint64_t a2)
 {
-  v2 = a2[1];
+  v2 = *(a2 + 8);
   v4[0] = *a2;
   v4[1] = v2;
-  return ogg_stream_iovecin(a1, v4, 1, a2[3], a2[4]);
+  return ogg_stream_iovecin(a1, v4, 1u, *(a2 + 24), *(a2 + 32));
 }
 
-uint64_t ogg_stream_flush_i(uint64_t *a1, void *a2, int a3, int a4)
+uint64_t ogg_stream_flush_i(uint64_t *a1, uint64_t a2, int a3, int a4)
 {
   v4 = a1[7];
   if (v4 >= 255)
@@ -2756,9 +2759,9 @@ LABEL_31:
 
   *(a1 + 91) = v25 + 27;
   *a2 = a1 + 10;
-  a2[1] = v25 + 27;
-  a2[2] = v6 + a1[3];
-  a2[3] = v32;
+  *(a2 + 8) = v25 + 27;
+  *(a2 + 16) = v6 + a1[3];
+  *(a2 + 24) = v32;
   v37 = v4 - v25;
   a1[7] = v37;
   memmove(v22, &v22[v25], 4 * v37);
@@ -2768,7 +2771,7 @@ LABEL_31:
   return 1;
 }
 
-uint64_t ogg_stream_pageout(uint64_t a1, void *a2)
+uint64_t ogg_stream_pageout(uint64_t a1, uint64_t a2)
 {
   if (!a1 || !*a1)
   {
@@ -2798,7 +2801,7 @@ LABEL_5:
   return ogg_stream_flush_i(a1, a2, v3, 4096);
 }
 
-uint64_t ogg_stream_pageout_fill(uint64_t a1, void *a2, int a3)
+uint64_t ogg_stream_pageout_fill(uint64_t a1, uint64_t a2, int a3)
 {
   if (a1 && *a1)
   {
@@ -3089,7 +3092,7 @@ uint64_t ogg_sync_pageout(uint64_t a1, void *a2)
   return 1;
 }
 
-uint64_t ogg_stream_pagein(uint64_t a1, void *a2)
+uint64_t ogg_stream_pagein(char **a1, void *a2)
 {
   v3 = *a2;
   v5 = a2[2];
@@ -3112,75 +3115,75 @@ uint64_t ogg_stream_pagein(uint64_t a1, void *a2)
   v11 = *(v3 + 14);
   v12 = *(v3 + 18);
   v42 = *(v3 + 26);
-  v13 = *(a1 + 72);
-  v14 = *(a1 + 24);
+  v13 = a1[9];
+  v14 = a1[3];
   if (v14)
   {
-    v15 = *(a1 + 16);
-    *(a1 + 16) = v15 - v14;
+    v15 = a1[2];
+    a1[2] = (v15 - v14);
     if (v15 != v14)
     {
-      memmove(v10, &v10[v14], v15 - v14);
+      memmove(v10, &v14[v10], v15 - v14);
     }
 
-    *(a1 + 24) = 0;
+    a1[3] = 0;
   }
 
   if (v13)
   {
     v16 = v13;
-    v17 = *(a1 + 56) - v13;
+    v17 = (a1[7] - v13);
     if (v17)
     {
-      memmove(*(a1 + 32), (*(a1 + 32) + 4 * v13), 4 * v17);
-      memmove(*(a1 + 40), (*(a1 + 40) + 8 * v13), 8 * (*(a1 + 56) - v13));
-      v16 = *(a1 + 56);
+      memmove(a1[4], &a1[4][4 * v13], 4 * v17);
+      memmove(a1[5], &a1[5][8 * v13], 8 * (a1[7] - v13));
+      v16 = a1[7];
     }
 
-    v18 = *(a1 + 64) - v13;
-    *(a1 + 56) = v16 - v13;
-    *(a1 + 64) = v18;
-    *(a1 + 72) = 0;
+    v18 = (a1[8] - v13);
+    a1[7] = (v16 - v13);
+    a1[8] = v18;
+    a1[9] = 0;
   }
 
-  v19 = *(a1 + 376) == v11 && v6 == 0;
+  v19 = a1[47] == v11 && v6 == 0;
   if (!v19 || _os_lacing_expand(a1, v42 + 1))
   {
     return 0xFFFFFFFFLL;
   }
 
   v21 = v7 & 2;
-  v22 = *(a1 + 384);
+  v22 = a1[48];
   if (v22 != v12)
   {
-    v24 = *(a1 + 56);
-    v23 = *(a1 + 64);
+    v24 = a1[7];
+    v23 = a1[8];
     if (v24 > v23)
     {
       v25 = v23;
-      v26 = *(a1 + 16);
+      v26 = a1[2];
       do
       {
-        v26 -= *(*(a1 + 32) + 4 * v25++);
+        v26 -= a1[4][4 * v25++];
       }
 
       while (v24 > v25);
-      *(a1 + 16) = v26;
+      a1[2] = v26;
     }
 
-    *(a1 + 56) = v23;
+    a1[7] = v23;
     if (v22 != -1)
     {
-      *(*(a1 + 32) + 4 * v23) = 1024;
-      *(a1 + 56) = v23 + 1;
-      *(a1 + 64) = v23 + 1;
+      *&a1[4][4 * v23] = 1024;
+      a1[7] = v23 + 1;
+      a1[8] = v23 + 1;
     }
   }
 
   if (v7)
   {
-    v27 = *(a1 + 56);
-    if (v27 < 1 || *(*(a1 + 32) + 4 * v27 - 4) != 0xFF)
+    v27 = a1[7];
+    if (v27 < 1 || a1[4][4 * v27 - 4] != 0xFF)
     {
       v28 = v42;
       if (v42)
@@ -3233,17 +3236,17 @@ LABEL_36:
       return 0xFFFFFFFFLL;
     }
 
-    memcpy((*a1 + *(a1 + 16)), v5, v4);
-    *(a1 + 16) += v4;
+    memcpy(&a1[2][*a1], v5, v4);
+    a1[2] += v4;
   }
 
 LABEL_38:
   if (v30 < v42)
   {
     v32 = v21 == 0;
-    v33 = *(a1 + 32);
-    v34 = *(a1 + 40);
-    v35 = *(a1 + 56);
+    v33 = a1[4];
+    v34 = a1[5];
+    v35 = a1[7];
     v36 = (v3 + v30 + 27);
     v37 = v42 - v30;
     v38 = -1;
@@ -3251,11 +3254,11 @@ LABEL_38:
     {
       v40 = *v36++;
       v39 = v40;
-      *(v33 + 4 * v35) = v40;
-      *(v34 + 8 * v35) = -1;
+      *&v33[4 * v35] = v40;
+      *&v34[8 * v35] = -1;
       if (!v32)
       {
-        *(v33 + 4 * v35) = v39 | 0x100;
+        *&v33[4 * v35] = v39 | 0x100;
       }
 
       if (v39 == 255)
@@ -3266,10 +3269,10 @@ LABEL_38:
       else
       {
         v38 = v35++;
-        *(a1 + 64) = v35;
+        a1[8] = v35;
       }
 
-      *(a1 + 56) = v35;
+      a1[7] = v35;
       v32 = 1;
       --v37;
     }
@@ -3277,22 +3280,22 @@ LABEL_38:
     while (v37);
     if (v38 != -1)
     {
-      *(*(a1 + 40) + 8 * v38) = v9;
+      *&a1[5][8 * v38] = v9;
     }
   }
 
   if ((v7 & 4) != 0)
   {
-    *(a1 + 368) = 1;
-    v41 = *(a1 + 56);
+    *(a1 + 92) = 1;
+    v41 = a1[7];
     if (v41 >= 1)
     {
-      *(*(a1 + 32) + 4 * v41 - 4) |= 0x200u;
+      *&a1[4][4 * v41 - 4] |= 0x200u;
     }
   }
 
   result = 0;
-  *(a1 + 384) = v12 + 1;
+  a1[48] = v12 + 1;
   return result;
 }
 
@@ -3897,7 +3900,7 @@ double oggpackB_readinit(uint64_t a1, uint64_t a2, int a3)
   return result;
 }
 
-uint64_t oggpack_look(uint64_t a1, unsigned int a2)
+unint64_t oggpack_look(uint64_t a1, unsigned int a2)
 {
   if (a2 > 0x20)
   {
@@ -4289,7 +4292,7 @@ uint64_t oggpackB_bytes(uint64_t a1)
   return *a1 + (v4 >> 3);
 }
 
-uint64_t opus_granule_sample(uint64_t a1, unint64_t a2)
+unint64_t opus_granule_sample(uint64_t a1, unint64_t a2)
 {
   v3 = a2;
   if (a2 == -1)
@@ -4305,7 +4308,7 @@ uint64_t opus_granule_sample(uint64_t a1, unint64_t a2)
   return v3;
 }
 
-uint64_t op_test_callbacks(uint64_t a1, uint64_t a2, const void *a3, size_t a4, int *a5)
+void *op_test_callbacks(uint64_t a1, uint64_t a2, const void *a3, size_t a4, int *a5)
 {
   v10 = malloc(0x3260uLL);
   if (!v10)
@@ -4447,18 +4450,18 @@ uint64_t op_open2(void *a1, _DWORD *a2)
     }
 
     v8 = v7;
-    v134 = *(v4 + 88);
-    v135 = *(v4 + 104);
-    memcpy(__dst, (v4 + 168), sizeof(__dst));
-    v9 = *(v4 + 144);
-    v10 = *(v4 + 72);
-    memcpy(v8, (v4 + 576), 48 * v6);
-    ogg_sync_init((v4 + 88));
-    ogg_stream_init(v4 + 168, -1);
-    (*(v4 + 8))(*(v4 + 32), 0, 2);
-    v11 = (*(v4 + 16))(*(v4 + 32));
-    *(v4 + 72) = v11;
-    *(v4 + 80) = v11;
+    v134 = *(v4 + 22);
+    v135 = *(v4 + 26);
+    memcpy(__dst, v4 + 42, sizeof(__dst));
+    v9 = *(v4 + 18);
+    v10 = *(v4 + 9);
+    memcpy(v8, v4 + 144, 48 * v6);
+    ogg_sync_init(v4 + 22);
+    ogg_stream_init((v4 + 42), -1);
+    (*(v4 + 1))(*(v4 + 4), 0, 2);
+    v11 = (*(v4 + 2))(*(v4 + 4));
+    *(v4 + 9) = v11;
+    *(v4 + 10) = v11;
     v102 = 48 * v6;
     v103 = a1;
     v100 = v6;
@@ -4471,7 +4474,7 @@ uint64_t op_open2(void *a1, _DWORD *a2)
       goto LABEL_152;
     }
 
-    v12 = *(v4 + 48);
+    v12 = *(v4 + 6);
     if (v11 < *(v12 + 8))
     {
       goto LABEL_159;
@@ -4481,10 +4484,10 @@ uint64_t op_open2(void *a1, _DWORD *a2)
     v119 = *(v12 + 8);
     v14 = 0;
     v132 = *(v12 + 48);
-    v15 = *(v4 + 64);
-    v105 = (v4 + 64);
-    v16 = *(v4 + 56);
-    v106 = (v4 + 56);
+    v15 = *(v4 + 8);
+    v105 = (v4 + 16);
+    v16 = v4[14];
+    v106 = v4 + 14;
     v137 = 0u;
     v138 = 0u;
     v130 = v15;
@@ -4506,7 +4509,7 @@ LABEL_157:
       goto LABEL_152;
     }
 
-    if (*(v4 + 72) >= v20)
+    if (*(v4 + 9) >= v20)
     {
       if (v125 >= 1)
       {
@@ -4537,7 +4540,7 @@ LABEL_157:
 
 LABEL_40:
         v32 = v25 + v3;
-        *(v4 + 80) = v32;
+        *(v4 + 10) = v32;
         if (v32 < v31)
         {
           goto LABEL_159;
@@ -4546,9 +4549,9 @@ LABEL_40:
         v33 = v4;
         v137 = 0u;
         v138 = 0u;
-        v34 = *(v4 + 44);
+        v34 = v4[11];
         v35 = v34;
-        __ptr = *(v4 + 48);
+        __ptr = *(v4 + 6);
         *&v136[0] = 0;
         v36 = 1;
         while (2)
@@ -4718,15 +4721,15 @@ LABEL_126:
                 }
 
                 v92 = &__ptr[376 * v90];
-                final_pcm_offset = op_fetch_headers(v4, (v92 + 52), (v92 + 344), v105, v106, (v4 + 60), v91);
+                final_pcm_offset = op_fetch_headers(v4, (v92 + 52), (v92 + 344), v105, v106, v4 + 15, v91);
                 if ((final_pcm_offset & 0x80000000) != 0)
                 {
                   goto LABEL_157;
                 }
 
                 *v92 = v88;
-                *(v92 + 8) = *(v4 + 72);
-                *(v92 + 48) = *(v4 + 544);
+                *(v92 + 8) = *(v4 + 9);
+                *(v92 + 48) = *(v4 + 68);
                 *(v92 + 32) = -1;
                 final_pcm_offset = op_find_initial_pcm_offset(v4, v92, 0);
                 if ((final_pcm_offset & 0x80000000) != 0)
@@ -4736,9 +4739,9 @@ LABEL_126:
 
                 v33 = v4;
                 *(v92 + 24) = *&v136[0];
-                v31 = *(v4 + 72);
+                v31 = *(v4 + 9);
                 v35 = v109 + 1;
-                *(v4 + 44) = v109 + 1;
+                v4[11] = v109 + 1;
                 v34 = v104;
                 continue;
               }
@@ -4997,23 +5000,23 @@ LABEL_151:
         }
 
 LABEL_152:
-        ogg_stream_clear(v4 + 168);
-        ogg_sync_clear(v4 + 88);
-        *(v4 + 88) = v134;
-        *(v4 + 104) = v135;
-        memcpy((v4 + 168), __dst, 0x198uLL);
-        *(v4 + 72) = v99;
-        *(v4 + 12820) = v100;
-        memcpy((v4 + 576), v101, v102);
+        ogg_stream_clear((v4 + 42));
+        ogg_sync_clear((v4 + 22));
+        *(v4 + 22) = v134;
+        *(v4 + 26) = v135;
+        memcpy(v4 + 42, __dst, 0x198uLL);
+        *(v4 + 9) = v99;
+        v4[3205] = v100;
+        memcpy(v4 + 144, v101, v102);
         free(v101);
-        v95 = *(v4 + 48);
-        *(v4 + 136) = *(v95 + 40);
-        *(v4 + 144) = v98;
-        *(v4 + 128) = *(v95 + 60);
+        v95 = *(v4 + 6);
+        *(v4 + 17) = *(v95 + 40);
+        *(v4 + 18) = v98;
+        v4[32] = *(v95 + 60);
         a1 = v103;
         if ((v2 & 0x80000000) == 0)
         {
-          if (((*(v4 + 8))(*(v4 + 32), v99 + *(v4 + 100) - *(v4 + 104), 0) & 0x80000000) == 0)
+          if (((*(v4 + 1))(*(v4 + 4), v99 + v4[25] - v4[26], 0) & 0x80000000) == 0)
           {
             goto LABEL_154;
           }
@@ -5022,7 +5025,7 @@ LABEL_152:
         }
 
 LABEL_4:
-        *(v4 + 24) = 0;
+        *(v4 + 3) = 0;
         op_clear(a1, v4);
         return v2;
       }
@@ -5092,7 +5095,7 @@ LABEL_159:
       v27 = ogg_page_serialno(v136);
       *&v140 = v24;
       *(&v140 + 1) = v2;
-      v3 = *(v127 + 72) - v2;
+      v3 = v127[18] - v2;
       *&v141[0] = __PAIR64__(v27, v3);
       *(&v141[0] + 1) = ogg_page_granulepos(v136);
       if (v27 == v132)
@@ -5116,7 +5119,7 @@ LABEL_22:
       v24 = v2 + 1;
       v23 = v127;
       v22 = v2;
-      if (*(v127 + 72) >= v20)
+      if (*(v127 + 9) >= v20)
       {
         goto LABEL_27;
       }
@@ -5143,7 +5146,7 @@ LABEL_21:
   }
 
 LABEL_154:
-  *(v4 + 120) = 3;
+  v4[30] = 3;
   decode_ready = op_make_decode_ready(a1, v4);
   if ((decode_ready & 0x80000000) != 0)
   {
@@ -5154,7 +5157,7 @@ LABEL_154:
   return 0;
 }
 
-_DWORD *op_open_memory(void *a1, uint64_t a2, uint64_t a3, int *a4)
+void *op_open_memory(void *a1, uint64_t a2, uint64_t a3, int *a4)
 {
   v9 = 0u;
   v10 = 0u;
@@ -5182,7 +5185,7 @@ _DWORD *op_open_memory(void *a1, uint64_t a2, uint64_t a3, int *a4)
   return result;
 }
 
-uint64_t op_test_memory(uint64_t a1, uint64_t a2, int *a3)
+void *op_test_memory(uint64_t a1, uint64_t a2, int *a3)
 {
   v7 = 0u;
   v8 = 0u;
@@ -5530,7 +5533,7 @@ LABEL_43:
     }
 
 LABEL_14:
-    ogg_stream_pagein(a1 + 168, &v57);
+    ogg_stream_pagein((a1 + 168), &v57);
     if (*(a1 + 120) < 4)
     {
       goto LABEL_92;
@@ -5949,7 +5952,7 @@ LABEL_10:
   return opus_multistream_decoder_ctl(*(v10 + 12824), 4034, a3, a4, a5, a6, a7, a8, v17);
 }
 
-uint64_t op_stereo_filter(int a1, char *__dst, int a3, char *__src, int a5, int a6)
+uint64_t op_stereo_filter(int a1, char *__dst, int a3, char *__src, int a5, unsigned int a6)
 {
   if (a3 >> 1 >= a5)
   {
@@ -5978,7 +5981,7 @@ uint64_t op_stereo_filter(int a1, char *__dst, int a3, char *__src, int a5, int 
         __src += 2;
         *v7 = v9;
         *(v7 - 1) = v9;
-        v7 += 2;
+        v7 += 4;
         --v8;
       }
 
@@ -6001,11 +6004,12 @@ uint64_t op_stereo_filter(int a1, char *__dst, int a3, char *__src, int a5, int 
         v11 = 0;
         v12 = 0;
         v13 = a6;
-        v14 = (&OP_STEREO_DOWNMIX_Q14 + 32 * a6 - 94);
+        v14 = (&OP_STEREO_DOWNMIX_Q14 + 32 * (a6 - 3) + 2);
         v15 = __src;
         do
         {
-          v16 = *v15++;
+          v16 = *v15;
+          v15 += 2;
           v12 += *(v14 - 1) * v16;
           v11 += *v14 * v16;
           v14 += 2;
@@ -6072,7 +6076,7 @@ float op_short2float_filter(uint64_t a1, float *a2, int a3, __int16 *a4, int a5,
   return result;
 }
 
-uint64_t op_short2float_stereo_filter(int a1, float *a2, int a3, char *__dst, int a5, int a6)
+uint64_t op_short2float_stereo_filter(int a1, float *a2, int a3, char *__dst, int a5, unsigned int a6)
 {
   v6 = __dst;
   v7 = a2;
@@ -6333,11 +6337,11 @@ uint64_t op_rescale64(uint64_t a1, uint64_t a2, uint64_t a3)
   return a3;
 }
 
-uint64_t op_get_link_from_serialno(uint64_t a1, unsigned int a2, uint64_t a3, int a4)
+uint64_t op_get_link_from_serialno(uint64_t a1, int a2, uint64_t a3, int a4)
 {
   v4 = *(a1 + 48);
   v5 = a2 + 1;
-  if ((a2 + 1) >= *(a1 + 44) || *(v4 + 376 * v5) <= a3)
+  if (a2 + 1 >= *(a1 + 44) || *(v4 + 376 * v5) <= a3)
   {
     v5 = *(a1 + 44);
   }
@@ -6358,7 +6362,7 @@ uint64_t op_get_link_from_serialno(uint64_t a1, unsigned int a2, uint64_t a3, in
     a2 = v6 + ((v5 - v6) >> 1);
   }
 
-  while ((v5 - v6) > 1);
+  while (v5 - v6 > 1);
   if (*(v4 + 376 * a2 + 48) == a4)
   {
     return a2;
@@ -6373,7 +6377,7 @@ uint64_t op_get_link_from_serialno(uint64_t a1, unsigned int a2, uint64_t a3, in
 uint64_t op_buffer_continued_data(uint64_t a1, void *a2)
 {
   memset(v4, 0, sizeof(v4));
-  ogg_stream_pagein(a1 + 168, a2);
+  ogg_stream_pagein((a1 + 168), a2);
   do
   {
     result = ogg_stream_packetout((a1 + 168), v4);
@@ -6439,7 +6443,7 @@ void OUTLINED_FUNCTION_0_1()
   *(v0 + 144) = -1;
 }
 
-uint64_t opus_head_parse(unsigned int *a1, uint64_t a2, unint64_t a3)
+uint64_t opus_head_parse(unsigned int *a1, uint64_t a2, size_t a3)
 {
   if (a3 >= 8 && *a2 == 0x646165487375704FLL)
   {
@@ -6727,12 +6731,13 @@ LABEL_8:
   return v11;
 }
 
-uint64_t opus_tagncompare(char *a1, int a2, char *a3)
+uint64_t opus_tagncompare(char *a1, uint64_t a2, char *a3)
 {
+  v4 = a2;
   result = op_strncasecmp(a1, a3, a2);
   if (!result)
   {
-    return (61 - a3[a2]);
+    return (61 - a3[v4]);
   }
 
   return result;
@@ -6779,7 +6784,7 @@ uint64_t opus_tags_get_gain(uint64_t *a1, int *a2, char *a3)
   while (1)
   {
     v8 = *(v7 + 8 * v6);
-    if (!op_strncasecmp(a3, v8, 15) && v8[15] == 61)
+    if (!op_strncasecmp(a3, v8, 0xFu) && v8[15] == 61)
     {
       v9 = *(v7 + 8 * v6);
       v10 = (v9 + 17);
@@ -6866,7 +6871,7 @@ LABEL_23:
 
 uint64_t opus_picture_tag_parse(uint64_t a1, char *a2)
 {
-  if (op_strncasecmp("METADATA_BLOCK_PICTURE", a2, 22))
+  if (op_strncasecmp("METADATA_BLOCK_PICTURE", a2, 0x16u))
   {
     v4 = 0;
   }
@@ -7078,7 +7083,7 @@ LABEL_101:
               {
                 if (v24 == 10)
                 {
-                  v43 = op_strncasecmp(v22, "image/jpeg", 10);
+                  v43 = op_strncasecmp(v22, "image/jpeg", 0xAu);
                   v40 = -1;
                   v41 = 1;
                   if (v57 >= 3 && !v43)
@@ -7158,9 +7163,9 @@ LABEL_98:
                 goto LABEL_100;
               }
 
-              if (op_strncasecmp(v22, "image/png", 9))
+              if (op_strncasecmp(v22, "image/png", 9u))
               {
-                if (!op_strncasecmp(v22, "image/gif", 9))
+                if (!op_strncasecmp(v22, "image/gif", 9u))
                 {
                   v49 = (v13 + v42);
                   v37 = v57;
@@ -7215,7 +7220,7 @@ LABEL_68:
               goto LABEL_69;
             }
 
-            v48 = op_strncasecmp(v22, "image/", 6);
+            v48 = op_strncasecmp(v22, "image/", 6u);
             v38 = v42;
             v37 = v57;
             if (v48)
@@ -7469,7 +7474,7 @@ BOOL op_extract_gif_params(uint64_t a1, unint64_t a2, _DWORD *a3, _DWORD *a4, _D
   return result;
 }
 
-uint64_t op_strncasecmp(char *a1, char *a2, int a3)
+uint64_t op_strncasecmp(char *a1, char *a2, unsigned int a3)
 {
   if (a3 < 1)
   {
@@ -7529,7 +7534,7 @@ void *op_mem_stream_create(_OWORD *a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t op_mem_read(void *a1, void *__dst, int a3)
+uint64_t op_mem_read(void *a1, void *__dst, unsigned int a3)
 {
   if (a3 < 1)
   {
@@ -7664,7 +7669,7 @@ uint64_t opus_fft(uint64_t result, uint64_t a2, uint64_t a3)
           v159 = 2 * v14;
           v160 = 8 * v158;
           v161 = 12 * v158;
-          v162 = *(v208 + 48) + 2;
+          v162 = *&v208[6] + 2;
           v163 = 4 * v158;
           do
           {
@@ -7754,11 +7759,11 @@ uint64_t opus_fft(uint64_t result, uint64_t a2, uint64_t a3)
         {
           v60 = 0;
           v61 = (v216 << v207);
-          v62 = *(v208 + 48);
+          v62 = v208[6];
           v63 = v61 * v14;
-          v64 = (v62 + 8 * v63);
+          v64 = (*&v62 + 8 * v63);
           v65 = v64[1];
-          v66 = (v62 + 4 * v63);
+          v66 = (*&v62 + 4 * v63);
           v67 = v66[1];
           v219 = *v66;
           v225 = *v64;
@@ -7769,7 +7774,7 @@ uint64_t opus_fft(uint64_t result, uint64_t a2, uint64_t a3)
           v69 = a3 + 32 * v14;
           v214 = 8 * v211;
           v215 = v14;
-          v212 = (v62 + 2);
+          v212 = (*&v62 + 2);
           v70 = a3 + 24 * v14;
           v71 = a3 + 8 * v14;
           v72 = a3;
@@ -7920,7 +7925,7 @@ uint64_t opus_fft(uint64_t result, uint64_t a2, uint64_t a3)
       if (v138 >= 1)
       {
         v139 = 0;
-        v140 = *(v208 + 48) + 2;
+        v140 = *&v208[6] + 2;
         v141 = v206;
         do
         {
@@ -7971,7 +7976,7 @@ uint64_t opus_fft(uint64_t result, uint64_t a2, uint64_t a3)
       {
         v19 = 0;
         v20 = (v18 << v207);
-        v21 = *(v208 + 48);
+        v21 = v208[6];
         v22 = v21[2 * v20 * v14 + 1];
         v23 = 8 * v20;
         v24 = 2 * v22;
@@ -8072,7 +8077,7 @@ unint64_t opus_ifft(unint64_t result, uint64_t a2, uint64_t a3)
   v200 = v3 & ~(v3 >> 31);
   v5 = 1;
   v232[0] = 1;
-  v6 = (result + 8);
+  v6 = result + 8;
   v201 = result;
   v7 = (result + 10);
   v8 = -1;
@@ -8088,17 +8093,17 @@ unint64_t opus_ifft(unint64_t result, uint64_t a2, uint64_t a3)
   }
 
   while (v10 != 1);
-  v204 = *(v6 + v8);
-  v199 = (a3 + 4);
+  v204 = *(v6 + 2 * v8);
+  v199 = a3 + 4;
   v11 = v5 - 2;
-  v202 = (result + 8);
+  v202 = result + 8;
   do
   {
     v12 = v204;
     if (v11)
     {
-      v13 = v11;
-      v14 = *(v6 + (2 * v11 - 1));
+      v13 = 2 * v11;
+      v14 = *(v6 + 2 * (2 * v11 - 1));
     }
 
     else
@@ -8109,7 +8114,7 @@ unint64_t opus_ifft(unint64_t result, uint64_t a2, uint64_t a3)
 
     v203 = v11;
     v204 = v14;
-    v15 = LOWORD(v6[v13]);
+    v15 = *(v6 + 2 * v13);
     if (v15 > 3)
     {
       v210 = v12;
@@ -8495,7 +8500,7 @@ unint64_t opus_ifft(unint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t compute_allocation(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, int *a7, int *a8, int a9, unsigned int *a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, int a15, uint64_t *a16, int a17, int a18, unsigned int a19)
+uint64_t compute_allocation(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, int *a7, int *a8, int a9, unsigned int *a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, int a15, uint64_t *a16, int a17, int a18, int a19)
 {
   v198 = a8;
   v204 = a7;

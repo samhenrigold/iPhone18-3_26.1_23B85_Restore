@@ -18,29 +18,29 @@
 
 - (void)loadRepresentationForArtworkCatalog:(MPArtworkCatalog *)catalog completionHandler:(id)handler
 {
-  v7 = sub_100009DCC(&qword_1006E6420);
-  __chkstk_darwin(v7 - 8);
-  v9 = &v17 - v8;
-  v10 = _Block_copy(handler);
-  v11 = swift_allocObject();
-  v11[2] = catalog;
-  v11[3] = v10;
-  v11[4] = self;
-  v12 = sub_100572F48();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  sub_100009DCC(&qword_1006E6420, &qword_100586E50);
+  __chkstk_darwin();
+  v8 = &v16 - v7;
+  v9 = _Block_copy(handler);
+  v10 = swift_allocObject();
+  v10[2] = catalog;
+  v10[3] = v9;
+  v10[4] = self;
+  v11 = sub_100572F48();
+  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_1005928A8;
+  v12[5] = v10;
   v13 = swift_allocObject();
   v13[2] = 0;
   v13[3] = 0;
-  v13[4] = &unk_1005928A8;
-  v13[5] = v11;
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &unk_1005928B8;
-  v14[5] = v13;
+  v13[4] = &unk_1005928B8;
+  v13[5] = v12;
   catalogCopy = catalog;
   selfCopy = self;
-  sub_1002D854C(0, 0, v9, &unk_1005928C8, v14);
+  sub_1002D854C(0, 0, v8, &unk_1005928C8, v13);
 }
 
 - (id)visualIdenticalityIdentifierForCatalog:(id)catalog

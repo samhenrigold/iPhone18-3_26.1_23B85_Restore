@@ -18,7 +18,7 @@
 
 - (void)locationSearchModel:(id)model updatedSearchTypes:(unint64_t)types
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4679C0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4679C0, &qword_1CAD5A400);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v12 - v7;
   modelCopy = model;

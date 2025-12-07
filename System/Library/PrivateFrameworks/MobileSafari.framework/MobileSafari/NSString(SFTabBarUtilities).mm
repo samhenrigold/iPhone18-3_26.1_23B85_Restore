@@ -77,7 +77,7 @@
         break;
       }
 
-      v27 = deleteOneWord(selfCopy2, v19 - v24, 0);
+      v27 = deleteOneWord(selfCopy2, (v19 - v24), 0);
       if (!v27)
       {
         break;

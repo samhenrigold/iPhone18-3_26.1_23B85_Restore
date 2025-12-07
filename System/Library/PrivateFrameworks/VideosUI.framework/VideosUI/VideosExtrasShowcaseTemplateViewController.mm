@@ -699,7 +699,7 @@ LABEL_44:
 LABEL_45:
 }
 
-uint64_t __152__VideosExtrasShowcaseTemplateViewController_carouselViewController_configureCarouselCollectionViewCell_forItemAtIndex_withThumbnailImageContainerSize___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__152__VideosExtrasShowcaseTemplateViewController_carouselViewController_configureCarouselCollectionViewCell_forItemAtIndex_withThumbnailImageContainerSize___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   if (a3)
   {
@@ -760,7 +760,7 @@ void __108__VideosExtrasShowcaseTemplateViewController_carouselViewController_di
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __108__VideosExtrasShowcaseTemplateViewController_carouselViewController_didSelectItemAtIndex_completionHandler___block_invoke_2(uint64_t a1)
+void *__108__VideosExtrasShowcaseTemplateViewController_carouselViewController_didSelectItemAtIndex_completionHandler___block_invoke_2(uint64_t a1)
 {
   if (*(a1 + 56))
   {

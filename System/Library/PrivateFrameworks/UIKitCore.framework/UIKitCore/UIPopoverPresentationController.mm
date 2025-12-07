@@ -1088,7 +1088,7 @@ void __66__UIPopoverPresentationController_presentationTransitionWillBegin__bloc
   }
 
   _bottomAlignsPopoverIfSourceViewNotSet = [(UIPopoverPresentationController *)self _centersPopoverIfSourceViewNotSet]|| [(UIPopoverPresentationController *)self _bottomAlignsPopoverIfSourceViewNotSet];
-  return ((v6 || _bottomAlignsPopoverIfSourceViewNotSet) && v4) & (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UseNewPopoverAnimations, @"UseNewPopoverAnimations", _UIInternalPreferenceUpdateBool) | (byte_1EA95E254 != 0)) & 1;
+  return ((v6 || _bottomAlignsPopoverIfSourceViewNotSet) && v4) & (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UseNewPopoverAnimations, @"UseNewPopoverAnimations", _UIInternalPreferenceUpdateBool) || byte_1EA95E254 != 0) & 1;
 }
 
 - (void)_startWatchingForScrollViewNotifications
@@ -1357,7 +1357,7 @@ LABEL_25:
 LABEL_7:
 }
 
-uint64_t __66__UIPopoverPresentationController_containerViewWillLayoutSubviews__block_invoke(uint64_t a1)
+void *__66__UIPopoverPresentationController_containerViewWillLayoutSubviews__block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 496) setContainingFrame:{*(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64)}];
   result = [*(*(a1 + 32) + 496) setSourceViewRect:{*(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 96)}];
@@ -1538,7 +1538,7 @@ uint64_t __66__UIPopoverPresentationController_containerViewWillLayoutSubviews__
     v5->_shadowView = v13;
 
     [(UIView *)v5->_shadowView setUserInteractionEnabled:0];
-    if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UseAutoLayoutToPositionPopover, @"UseAutoLayoutToPositionPopover", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48AB4C && dyld_program_sdk_at_least())
+    if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UseAutoLayoutToPositionPopover, @"UseAutoLayoutToPositionPopover", _UIInternalPreferenceUpdateBool) && byte_1ED48AB4C && dyld_program_sdk_at_least())
     {
       v15 = objc_alloc_init(UIView);
       sourceOverlayView = v5->_sourceOverlayView;
@@ -2781,7 +2781,7 @@ uint64_t __59__UIPopoverPresentationController_setPopoverLayoutMargins___block_i
           dimmingView = self->_dimmingView;
           if (dimmingView)
           {
-            [(UIView *)dimmingView transform];
+            objc_msgSend_transform(dimmingView);
           }
 
           [windowCopy convertRect:0 fromWindow:{x, y, width, height}];
@@ -3889,9 +3889,9 @@ void __86__UIPopoverPresentationController_viewWillTransitionToSize_withTransiti
     {
       window = [_realSourceView window];
       window2 = [v8 window];
-      v11 = [window isEqual:window2];
+      isEqual = objc_msgSend_isEqual_(window);
 
-      if (v11)
+      if (isEqual)
       {
         leftAnchor = [_realSourceView leftAnchor];
         leftAnchor2 = [v8 leftAnchor];
@@ -4014,7 +4014,7 @@ LABEL_2:
 
   v8 = _UIMainBundleIdentifier();
   v9 = v8;
-  if (_AlwaysAllowPopoverPresentations & 1) != 0 || !self->_adaptivityEnabled || ([v8 isEqualToString:@"com.apple.itunesu"])
+  if (_AlwaysAllowPopoverPresentations & 1) != 0 || !self->_adaptivityEnabled || (objc_msgSend_isEqualToString_(v8))
   {
     v6 = -1;
   }

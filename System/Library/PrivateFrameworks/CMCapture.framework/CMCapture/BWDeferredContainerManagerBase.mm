@@ -96,7 +96,7 @@ uint64_t __89__BWDeferredContainerManagerBase__insertUniqueManifestIntoTimeSorte
   v14 = 0;
   if (!d)
   {
-    [BWDeferredContainerManagerBase manifestForApplicationID:captureRequestIdentifier:err:];
+    [(BWDeferredContainerManagerBase *)self manifestForApplicationID:a2 captureRequestIdentifier:0 err:identifier];
     identifierCopy = 0;
     goto LABEL_5;
   }
@@ -104,7 +104,7 @@ uint64_t __89__BWDeferredContainerManagerBase__insertUniqueManifestIntoTimeSorte
   identifierCopy = identifier;
   if (!identifier)
   {
-    [BWDeferredContainerManagerBase manifestForApplicationID:captureRequestIdentifier:err:];
+    [BWDeferredContainerManagerBase manifestForApplicationID:a2 captureRequestIdentifier:? err:?];
     goto LABEL_5;
   }
 
@@ -166,19 +166,19 @@ LABEL_10:
 
     else
     {
-      [BWDeferredContainerManagerBase deleteContainerForApplicationID:captureRequestIdentifier:];
+      [BWDeferredContainerManagerBase deleteContainerForApplicationID:a2 captureRequestIdentifier:?];
     }
   }
 
   else
   {
-    [BWDeferredContainerManagerBase deleteContainerForApplicationID:captureRequestIdentifier:];
+    [(BWDeferredContainerManagerBase *)self deleteContainerForApplicationID:a2 captureRequestIdentifier:0, identifier];
   }
 
   return 0;
 }
 
-uint64_t __91__BWDeferredContainerManagerBase_deleteContainerForApplicationID_captureRequestIdentifier___block_invoke(uint64_t a1)
+double __91__BWDeferredContainerManagerBase_deleteContainerForApplicationID_captureRequestIdentifier___block_invoke(uint64_t a1)
 {
   if (dword_1EB58E460)
   {
@@ -192,14 +192,14 @@ uint64_t __91__BWDeferredContainerManagerBase_deleteContainerForApplicationID_ca
   *type = 66565;
   v8 = 0;
   fsctl([objc_msgSend(*(a1 + 48) path], 0xC0084A44uLL, type, 0);
-  result = [objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")];
+  [objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")];
   if (v8)
   {
     if (dword_1EB58E460)
     {
       v4 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-      return fig_log_call_emit_and_clean_up_after_send_and_compose();
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
@@ -214,13 +214,13 @@ uint64_t __91__BWDeferredContainerManagerBase_deleteContainerForApplicationID_ca
   }
 
   lastPathComponent = a2;
-  v32 = @"/var/mobile/Media/Deferred/CaptureContainers";
-  v33 = a2;
+  v34 = @"/var/mobile/Media/Deferred/CaptureContainers";
+  v35 = a2;
   dCopy3 = d;
-  v13 = [MEMORY[0x1E695DFF8] fileURLWithPathComponents:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v32, 3)}];
+  v13 = [MEMORY[0x1E695DFF8] fileURLWithPathComponents:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v34, 3)}];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v42[0] = 0;
-  if ([defaultManager fileExistsAtPath:objc_msgSend(v13 isDirectory:{"path"), v42}])
+  v44[0] = 0;
+  if ([defaultManager fileExistsAtPath:objc_msgSend(v13 isDirectory:{"path"), v44}])
   {
     v15 = 1;
 LABEL_24:
@@ -228,7 +228,7 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  if ([lastPathComponent isEqualToString:0x1F216ED50])
+  if (objc_msgSend_isEqualToString_(lastPathComponent))
   {
     if (!identifier)
     {
@@ -236,48 +236,48 @@ LABEL_24:
     }
   }
 
-  else if (![lastPathComponent isEqualToString:0x1F2185190] || (identifier & 1) == 0)
+  else if (!objc_msgSend_isEqualToString_(lastPathComponent) || (identifier & 1) == 0)
   {
     identifierCopy2 = identifier;
-    v29 = lastPathComponent;
+    v31 = lastPathComponent;
     containerCopy2 = container;
     directoryCopy2 = directory;
     goto LABEL_21;
   }
 
   identifierCopy2 = identifier;
-  v29 = lastPathComponent;
+  v31 = lastPathComponent;
   containerCopy2 = container;
   directoryCopy2 = directory;
   defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
   v17 = [MEMORY[0x1E695DFF8] fileURLWithPath:@"/var/mobile/Media/Deferred/CaptureContainers"];
   v18 = [defaultManager2 enumeratorAtURL:v17 includingPropertiesForKeys:MEMORY[0x1E695E0F0] options:5 errorHandler:0];
-  v38 = 0u;
-  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v19 = [v18 countByEnumeratingWithState:&v38 objects:v37 count:16];
+  v42 = 0u;
+  v43 = 0u;
+  v19 = [v18 countByEnumeratingWithState:&v40 objects:v39 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v39;
+    v21 = *v41;
     while (2)
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v39 != v21)
+        if (*v41 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        lastPathComponent = [*(*(&v38 + 1) + 8 * i) lastPathComponent];
-        if (([lastPathComponent isEqualToString:0x1F216ED50] & 1) == 0)
+        lastPathComponent = [*(*(&v40 + 1) + 8 * i) lastPathComponent];
+        if ((objc_msgSend_isEqualToString_(lastPathComponent) & 1) == 0)
         {
-          v32 = @"/var/mobile/Media/Deferred/CaptureContainers";
-          v33 = lastPathComponent;
+          v34 = @"/var/mobile/Media/Deferred/CaptureContainers";
+          v35 = lastPathComponent;
           dCopy3 = d;
-          v13 = [MEMORY[0x1E695DFF8] fileURLWithPathComponents:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v32, 3)}];
-          if ([defaultManager fileExistsAtPath:objc_msgSend(v13 isDirectory:{"path"), v42}])
+          v13 = [MEMORY[0x1E695DFF8] fileURLWithPathComponents:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v34, 3)}];
+          if ([defaultManager fileExistsAtPath:objc_msgSend(v13 isDirectory:{"path"), v44}])
           {
             v15 = 1;
             container = containerCopy2;
@@ -286,7 +286,7 @@ LABEL_24:
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v38 objects:v37 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v40 objects:v39 count:16];
       if (v20)
       {
         continue;
@@ -299,14 +299,14 @@ LABEL_24:
 LABEL_21:
   container = containerCopy2;
   directory = directoryCopy2;
-  lastPathComponent = v29;
+  lastPathComponent = v31;
   if ((identifierCopy2 & 1) == 0)
   {
 LABEL_23:
-    v32 = @"/var/mobile/Media/Deferred/CaptureContainers";
-    v33 = lastPathComponent;
+    v34 = @"/var/mobile/Media/Deferred/CaptureContainers";
+    v35 = lastPathComponent;
     dCopy3 = d;
-    v13 = [MEMORY[0x1E695DFF8] fileURLWithPathComponents:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v32, 3)}];
+    v13 = [MEMORY[0x1E695DFF8] fileURLWithPathComponents:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v34, 3)}];
     v15 = 0;
     goto LABEL_24;
   }
@@ -316,23 +316,23 @@ LABEL_23:
 LABEL_25:
   if (dword_1EB58E460)
   {
-    v36 = 0;
+    v38 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v25 = v36;
+    v25 = v38;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
-      v26 = v25;
+      v28 = v25;
     }
 
     else
     {
-      v26 = v25 & 0xFFFFFFFE;
+      v28 = v25 & 0xFFFFFFFE;
     }
 
-    if (v26)
+    if (v28)
     {
-      OUTLINED_FUNCTION_21();
+      OUTLINED_FUNCTION_21(v28, v26, &v34, v27, &dword_1AC90E000);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -345,7 +345,7 @@ LABEL_25:
 
   if (exists)
   {
-    *exists = v42[0];
+    *exists = v44[0];
   }
 
   if (directory)
@@ -362,7 +362,7 @@ LABEL_25:
   {
     OUTLINED_FUNCTION_25_10();
     v3 = v1;
-    if (v1 && (v4 = v2) != 0 && ((v5 = [v2 indexOfObject:v1 inSortedRange:0 options:objc_msgSend(v2 usingComparator:{"count"), 1280, &__block_literal_global_59}], v5 >= objc_msgSend(v4, "count")) || !objc_msgSend(+[BWDeferredCaptureContainer captureRequestIdentifierForManifest:](BWDeferredCaptureContainer, "captureRequestIdentifierForManifest:", v3), "isEqualToString:", +[BWDeferredCaptureContainer captureRequestIdentifierForManifest:](BWDeferredCaptureContainer, "captureRequestIdentifierForManifest:", objc_msgSend(v4, "objectAtIndexedSubscript:", v5)))))
+    if (v1 && (v4 = v2) != 0 && ((v5 = [v2 indexOfObject:v1 inSortedRange:0 options:objc_msgSend(v2 usingComparator:{"count"), 1280, &__block_literal_global_59}], v5 >= objc_msgSend(v4, "count")) || (v6 = +[BWDeferredCaptureContainer captureRequestIdentifierForManifest:](BWDeferredCaptureContainer, "captureRequestIdentifierForManifest:", v3), +[BWDeferredCaptureContainer captureRequestIdentifierForManifest:](BWDeferredCaptureContainer, "captureRequestIdentifierForManifest:", objc_msgSend(v4, "objectAtIndexedSubscript:", v5)), !objc_msgSend_isEqualToString_(v6))))
     {
       [v4 insertObject:v3 atIndex:v5];
     }
@@ -370,7 +370,7 @@ LABEL_25:
     else
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     OUTLINED_FUNCTION_24_12();

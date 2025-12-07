@@ -72,6 +72,7 @@
 - (void)_determineCacheFiles;
 - (void)_dumpCaches:(id)caches metadata:(id)metadata;
 - (void)_endActiveAssertion:(id)assertion;
+- (void)_fetchHomeConfigurationWithRefreshRequested:(BOOL)requested completion:(id)completion;
 - (void)_forceBatchNotificationsEnd;
 - (void)_handleAccessAllowedWhenLockedUpdatedNotification:(id)notification;
 - (void)_handleCurrentHomeChangedNotification:(id)notification;
@@ -97,6 +98,7 @@
 - (void)_mergeNewAppData:(id)data;
 - (void)_notifyAccessAllowedWhenLockedUpdated:(BOOL)updated;
 - (void)_notifyDelegateOfAppDataUpdate;
+- (void)_pingDeviceWithUUID:(id)d monitor:(BOOL)monitor secure:(BOOL)secure restrictToLocalNetwork:(BOOL)network completionHandler:(id)handler;
 - (void)_processHomeAddedPayload:(id)payload completionHandler:(id)handler;
 - (void)_processHomeConfigurationResponse:(id)response refreshRequested:(BOOL)requested;
 - (void)_recomputeAssistantIdentifiers;
@@ -135,7 +137,10 @@
 - (void)deleteCountersBeforeDate:(id)date afterDate:(id)afterDate completion:(id)completion;
 - (void)deleteDatabaseEntityWithModelID:(id)d completion:(id)completion;
 - (void)deleteEphemeralContainerWithName:(id)name completion:(id)completion;
+- (void)dumpCloudDatabase:(BOOL)database localDatabase:(BOOL)localDatabase workingDatabase:(BOOL)workingDatabase fakeCloudModels:(BOOL)models completion:(id)completion;
 - (void)dumpState:(id)state dataPrivacyLevel:(unint64_t)level payload:(id)payload completion:(id)completion;
+- (void)enableUARPPacketCapture:(BOOL)capture capturePath:(id)path completionHandler:(id)handler;
+- (void)eraseHomeDataAndDeleteMetadata:(BOOL)metadata completionHandler:(id)handler;
 - (void)fetchAppleMediaAccesoryDiagnosticInfo:(id)info options:(unint64_t)options filteringKeyPaths:(id)paths completion:(id)completion;
 - (void)fetchDevicesWithCompletionHandler:(id)handler;
 - (void)fetchDiagnosticInfoWithCompletionHandler:(id)handler;
@@ -190,8 +195,12 @@
 - (void)startupEphemeralContainerWithName:(id)name completion:(id)completion;
 - (void)submitLogEventDailySchedulerRegisteredBlocksWithCompletion:(id)completion;
 - (void)timerDidFire:(id)fire;
+- (void)updateAccessAllowedWhenLocked:(BOOL)locked completionHandler:(id)handler;
 - (void)updateApplicationData:(id)data completionHandler:(id)handler;
+- (void)updateMobileAssetsAndForce:(BOOL)force completion:(id)completion;
 - (void)updatePrimaryHome:(HMHome *)home completionHandler:(void *)completion;
+- (void)updateResidentEnabledForThisDevice:(BOOL)device completionHandler:(id)handler;
+- (void)updateiCloudSwitchState:(BOOL)state completionHandler:(id)handler;
 @end
 
 @implementation HMHomeManager
@@ -236,14 +245,16 @@
 
 uint64_t __50__HMHomeManager_InstanceTracking__instanceTracker__block_invoke()
 {
-  instanceTracker_instanceTracker = [MEMORY[0x1E696AC70] weakObjectsHashTable];
+  v0 = [MEMORY[0x1E696AC70] weakObjectsHashTable];
+  v1 = instanceTracker_instanceTracker;
+  instanceTracker_instanceTracker = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)checkAndLogMultipleInstanceWarning
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if (isInternalBuild())
   {
     os_unfair_lock_lock_with_options();
@@ -253,28 +264,28 @@ uint64_t __50__HMHomeManager_InstanceTracking__instanceTracker__block_invoke()
 
     if (v4 >= 2)
     {
-      v33 = [@"Having multiple HMHomeManager instances will increase your memory usage and possibly jetsam your process. Please use 1 HMHomeManager if possible. Current home managers:\n" mutableCopy];
-      v32 = [@"Multiple HMHomeManager instances:" mutableCopy];
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
+      v32 = [@"Having multiple HMHomeManager instances will increase your memory usage and possibly jetsam your process. Please use 1 HMHomeManager if possible. Current home managers:\n" mutableCopy];
+      v31 = [@"Multiple HMHomeManager instances:" mutableCopy];
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       instanceTracker2 = [objc_opt_class() instanceTracker];
-      v6 = [instanceTracker2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v6 = [instanceTracker2 countByEnumeratingWithState:&v33 objects:v41 count:16];
       if (v6)
       {
         obj = instanceTracker2;
-        v31 = *v35;
+        v30 = *v34;
         do
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v35 != v31)
+            if (*v34 != v30)
             {
               objc_enumerationMutation(obj);
             }
 
-            v8 = *(*(&v34 + 1) + 8 * i);
+            v8 = *(*(&v33 + 1) + 8 * i);
             context = [v8 context];
             xpcClient = [context xpcClient];
             uUID = [xpcClient UUID];
@@ -283,18 +294,18 @@ uint64_t __50__HMHomeManager_InstanceTracking__instanceTracker__block_invoke()
             v13 = [v12 numberWithDouble:?];
             configuration = [v8 configuration];
             v15 = HMHomeManagerOptionsToString([configuration options]);
-            [v33 appendFormat:@"[%@/%@/%@]\n", uUID, v13, v15];
+            [v32 appendFormat:@"[%@/%@/%@]\n", uUID, v13, v15];
 
             configuration2 = [v8 configuration];
             options = [configuration2 options];
             v18 = MEMORY[0x1E696AD98];
             [v8 homeManagerCreationTimeStamp];
             v19 = [v18 numberWithDouble:?];
-            [v32 appendFormat:@"[o:0x%lx, t:%ld]", options, objc_msgSend(v19, "longValue")];
+            [v31 appendFormat:@"[o:0x%lx, t:%ld]", options, objc_msgSend(v19, "longValue")];
           }
 
           instanceTracker2 = obj;
-          v6 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+          v6 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
         }
 
         while (v6);
@@ -307,9 +318,9 @@ uint64_t __50__HMHomeManager_InstanceTracking__instanceTracker__block_invoke()
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v39 = v23;
-        v40 = 2112;
-        v41 = v33;
+        v38 = v23;
+        v39 = 2112;
+        v40 = v32;
         _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@%@", buf, 0x16u);
       }
 
@@ -321,9 +332,9 @@ uint64_t __50__HMHomeManager_InstanceTracking__instanceTracker__block_invoke()
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v39 = v27;
-        v40 = 2112;
-        v41 = v32;
+        v38 = v27;
+        v39 = 2112;
+        v40 = v31;
         _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
       }
 
@@ -332,28 +343,25 @@ uint64_t __50__HMHomeManager_InstanceTracking__instanceTracker__block_invoke()
 
     os_unfair_lock_unlock(&instanceTrackerLock);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__preconfigure
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Pre-configuring home manager", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Pre-configuring home manager", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMHomeManager *)selfCopy configureCoreAnalyticsMetricEventDispatcherWithFactory:selfCopy];
   [(HMHomeManager *)selfCopy configureAccessorySettingsMetricsDispatcherWithFactory:selfCopy];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (id)logCategory
@@ -370,10 +378,11 @@ uint64_t __50__HMHomeManager_InstanceTracking__instanceTracker__block_invoke()
 
 uint64_t __28__HMHomeManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  logCategory__hmf_once_v302 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v302;
+  logCategory__hmf_once_v302 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)logIdentifier
@@ -395,7 +404,7 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
 
 - (void)__start
 {
-  v172 = *MEMORY[0x1E69E9840];
+  v171 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -469,7 +478,7 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
         v29 = 0;
         if (v27 && (v28 & 1) == 0)
         {
-          v150 = v15;
+          v149 = v15;
           v30 = objc_autoreleasePoolPush();
           v31 = v24;
           v32 = HMFGetOSLogHandle();
@@ -493,17 +502,17 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
           *buf = objc_opt_class();
           *&buf[8] = objc_opt_class();
           *&buf[16] = objc_opt_class();
+          v168 = objc_opt_class();
           v169 = objc_opt_class();
-          v170 = objc_opt_class();
           v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:buf count:5];
           v40 = [v38 setWithArray:v39];
 
-          v161 = 0;
+          v160 = 0;
           context = v40;
-          v154 = v37;
-          v41 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v40 fromData:v37 error:&v161];
-          v42 = v161;
-          v143 = v42;
+          v153 = v37;
+          v41 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v40 fromData:v37 error:&v160];
+          v42 = v160;
+          v142 = v42;
           if (v41)
           {
             v43 = v41;
@@ -523,28 +532,28 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
 
             if (v44)
             {
-              v156 = [v43 hmf_numberForKey:@"kHAPMetadataVersionKey"];
-              v141 = [v43 hmf_dataForKey:@"kHAPMetadataDataKey"];
+              v155 = [v43 hmf_numberForKey:@"kHAPMetadataVersionKey"];
+              v140 = [v43 hmf_dataForKey:@"kHAPMetadataDataKey"];
               v47 = objc_autoreleasePoolPush();
               v48 = v31;
               v49 = HMFGetOSLogHandle();
-              v15 = v150;
+              v15 = v149;
               if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
               {
                 HMFGetLogIdentifier();
-                v50 = v140 = v46;
-                *v162 = 138543618;
-                v163 = v50;
-                v164 = 2112;
-                v165 = v156;
-                _os_log_impl(&dword_19BB39000, v49, OS_LOG_TYPE_INFO, "%{public}@Loading the cached metadata with version: %@", v162, 0x16u);
+                v50 = v139 = v46;
+                *v161 = 138543618;
+                v162 = v50;
+                v163 = 2112;
+                v164 = v155;
+                _os_log_impl(&dword_19BB39000, v49, OS_LOG_TYPE_INFO, "%{public}@Loading the cached metadata with version: %@", v161, 0x16u);
 
-                v46 = v140;
+                v46 = v139;
               }
 
               objc_autoreleasePoolPop(v47);
               v51 = +[HMHAPMetadata getSharedInstance];
-              v52 = [v51 applyProtoBufData:v141];
+              v52 = [v51 applyProtoBufData:v140];
 
               if (v52)
               {
@@ -554,21 +563,21 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
                 if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
                 {
                   HMFGetLogIdentifier();
-                  v56 = v140 = v46;
-                  *v162 = 138543618;
-                  v163 = v56;
-                  v164 = 2112;
-                  v165 = v156;
-                  _os_log_impl(&dword_19BB39000, v55, OS_LOG_TYPE_INFO, "%{public}@Successfully loaded the cached metadata with version: %@", v162, 0x16u);
+                  v56 = v139 = v46;
+                  *v161 = 138543618;
+                  v162 = v56;
+                  v163 = 2112;
+                  v164 = v155;
+                  _os_log_impl(&dword_19BB39000, v55, OS_LOG_TYPE_INFO, "%{public}@Successfully loaded the cached metadata with version: %@", v161, 0x16u);
 
-                  v46 = v140;
+                  v46 = v139;
                 }
 
                 objc_autoreleasePoolPop(v53);
-                [v54 setMetadataVersion:{objc_msgSend(v156, "unsignedIntegerValue")}];
+                [v54 setMetadataVersion:{objc_msgSend(v155, "unsignedIntegerValue")}];
               }
 
-              v29 = v156;
+              v29 = v155;
             }
 
             else
@@ -576,22 +585,22 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
               v71 = objc_autoreleasePoolPush();
               v72 = v31;
               v73 = HMFGetOSLogHandle();
-              v15 = v150;
+              v15 = v149;
               if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
               {
                 HMFGetLogIdentifier();
-                v157 = v140 = v46;
+                v156 = v139 = v46;
                 v74 = objc_opt_class();
-                *v162 = 138543618;
-                v163 = v157;
-                v164 = 2112;
-                v165 = v74;
+                *v161 = 138543618;
+                v162 = v156;
+                v163 = 2112;
+                v164 = v74;
                 v75 = v71;
                 v76 = v74;
-                _os_log_impl(&dword_19BB39000, v73, OS_LOG_TYPE_ERROR, "%{public}@Cached metadata configuration is not a dictionary but of type %@", v162, 0x16u);
+                _os_log_impl(&dword_19BB39000, v73, OS_LOG_TYPE_ERROR, "%{public}@Cached metadata configuration is not a dictionary but of type %@", v161, 0x16u);
 
                 v71 = v75;
-                v46 = v140;
+                v46 = v139;
               }
 
               objc_autoreleasePoolPop(v71);
@@ -608,16 +617,16 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
             if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
             {
               v70 = HMFGetLogIdentifier();
-              *v162 = 138543618;
-              v163 = v70;
-              v164 = 2112;
-              v165 = v66;
-              _os_log_impl(&dword_19BB39000, v69, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive cached metadata configuration from serialized metadata configuration: %@", v162, 0x16u);
+              *v161 = 138543618;
+              v162 = v70;
+              v163 = 2112;
+              v164 = v66;
+              _os_log_impl(&dword_19BB39000, v69, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive cached metadata configuration from serialized metadata configuration: %@", v161, 0x16u);
             }
 
             objc_autoreleasePoolPop(v67);
             v29 = 0;
-            v15 = v150;
+            v15 = v149;
           }
         }
 
@@ -641,16 +650,16 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
         v29 = 0;
       }
 
-      [v19 markWithReason:{@"Starting home load", v140}];
+      [v19 markWithReason:{@"Starting home load", v139}];
       homeDataCache = [v21 homeDataCache];
 
       if (homeDataCache)
       {
-        v160 = 0;
+        v159 = 0;
         defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
         homeDataCache2 = [v21 homeDataCache];
-        v80 = [defaultManager2 fileExistsAtPath:homeDataCache2 isDirectory:&v160];
-        v81 = v160;
+        v80 = [defaultManager2 fileExistsAtPath:homeDataCache2 isDirectory:&v159];
+        v81 = v159;
 
         v82 = objc_autoreleasePoolPush();
         v83 = v21;
@@ -691,20 +700,20 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
             goto LABEL_90;
           }
 
-          v158 = v29;
+          v157 = v29;
           v91 = MEMORY[0x1E695DFD8];
           *buf = objc_opt_class();
           *&buf[8] = objc_opt_class();
           *&buf[16] = objc_opt_class();
+          v168 = objc_opt_class();
           v169 = objc_opt_class();
           v170 = objc_opt_class();
-          v171 = objc_opt_class();
           v92 = [MEMORY[0x1E695DEC8] arrayWithObjects:buf count:6];
           v93 = [v91 setWithArray:v92];
 
-          v161 = 0;
-          v94 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v93 fromData:v90 error:&v161];
-          v155 = v161;
+          v160 = 0;
+          v94 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v93 fromData:v90 error:&v160];
+          v154 = v160;
           if (v94)
           {
             v95 = v94;
@@ -727,8 +736,8 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
               if ([v83 _isValidCachedHomeConfiguration:v95])
               {
                 v99 = [v95 hmf_numberForKey:@"kHAPMetadataVersionKey"];
-                v151 = v99;
-                if (([v83 options] & 0x9701) != 0 && (!v158 || objc_msgSend(v99, "compare:", v158) == 1))
+                v150 = v99;
+                if (([v83 options] & 0x9701) != 0 && (!v157 || objc_msgSend(v99, "compare:", v157) == 1))
                 {
                   v100 = objc_autoreleasePoolPush();
                   v101 = v83;
@@ -737,20 +746,20 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
                   {
                     HMFGetLogIdentifier();
                     v103 = contextb = v100;
-                    *v162 = 138543874;
-                    v163 = v103;
-                    v164 = 2112;
-                    v165 = v158;
-                    v166 = 2112;
-                    v167 = v151;
-                    _os_log_impl(&dword_19BB39000, v102, OS_LOG_TYPE_ERROR, "%{public}@Metadata version %@ is lower than home data version: %@", v162, 0x20u);
+                    *v161 = 138543874;
+                    v162 = v103;
+                    v163 = 2112;
+                    v164 = v157;
+                    v165 = 2112;
+                    v166 = v150;
+                    _os_log_impl(&dword_19BB39000, v102, OS_LOG_TYPE_ERROR, "%{public}@Metadata version %@ is lower than home data version: %@", v161, 0x20u);
 
                     v100 = contextb;
                   }
 
                   objc_autoreleasePoolPop(v100);
                   [v101 _removeCacheFiles];
-                  v104 = v151;
+                  v104 = v150;
                 }
 
                 else
@@ -759,23 +768,23 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
                   contexta = objc_autoreleasePoolPush();
                   v131 = v83;
                   v132 = HMFGetOSLogHandle();
-                  v144 = v130;
+                  v143 = v130;
                   if (os_log_type_enabled(v132, OS_LOG_TYPE_INFO))
                   {
                     HMFGetLogIdentifier();
                     v134 = v133 = v93;
-                    *v162 = 138543618;
-                    v163 = v134;
-                    v164 = 2112;
-                    v165 = v144;
-                    _os_log_impl(&dword_19BB39000, v132, OS_LOG_TYPE_INFO, "%{public}@Loading the cached home with generation counter: %@", v162, 0x16u);
+                    *v161 = 138543618;
+                    v162 = v134;
+                    v163 = 2112;
+                    v164 = v143;
+                    _os_log_impl(&dword_19BB39000, v132, OS_LOG_TYPE_INFO, "%{public}@Loading the cached home with generation counter: %@", v161, 0x16u);
 
                     v93 = v133;
-                    v130 = v144;
+                    v130 = v143;
                   }
 
                   objc_autoreleasePoolPop(contexta);
-                  v142 = objc_autoreleasePoolPush();
+                  v141 = objc_autoreleasePoolPush();
                   v135 = [v131 _loadHH2MigrationInfoFromHMCache:v130];
                   if (v135)
                   {
@@ -788,10 +797,10 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
                     v95 = v137;
                   }
 
-                  v104 = v151;
+                  v104 = v150;
                   [v131 _processHomeConfigurationResponse:v95 refreshRequested:0];
 
-                  objc_autoreleasePoolPop(v142);
+                  objc_autoreleasePoolPop(v141);
                 }
               }
 
@@ -803,17 +812,17 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
                 if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
                 {
                   HMFGetLogIdentifier();
-                  v128 = v153 = v125;
+                  v128 = v152 = v125;
                   [v95 shortDescription];
                   v129 = contextc = v93;
-                  *v162 = 138543618;
-                  v163 = v128;
-                  v164 = 2112;
-                  v165 = v129;
-                  _os_log_impl(&dword_19BB39000, v127, OS_LOG_TYPE_ERROR, "%{public}@Cached home configuration is not valid; removing cache: %@", v162, 0x16u);
+                  *v161 = 138543618;
+                  v162 = v128;
+                  v163 = 2112;
+                  v164 = v129;
+                  _os_log_impl(&dword_19BB39000, v127, OS_LOG_TYPE_ERROR, "%{public}@Cached home configuration is not valid; removing cache: %@", v161, 0x16u);
 
                   v93 = contextc;
-                  v125 = v153;
+                  v125 = v152;
                 }
 
                 objc_autoreleasePoolPop(v125);
@@ -829,18 +838,18 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
             if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
             {
               HMFGetLogIdentifier();
-              v121 = v152 = v119;
+              v121 = v151 = v119;
               v122 = objc_opt_class();
-              *v162 = 138543618;
-              v163 = v121;
-              v164 = 2112;
-              v165 = v122;
+              *v161 = 138543618;
+              v162 = v121;
+              v163 = 2112;
+              v164 = v122;
               v123 = v93;
               v124 = v122;
-              _os_log_impl(&dword_19BB39000, v120, OS_LOG_TYPE_ERROR, "%{public}@Cached home configuration is not a dictionary but of type %@", v162, 0x16u);
+              _os_log_impl(&dword_19BB39000, v120, OS_LOG_TYPE_ERROR, "%{public}@Cached home configuration is not a dictionary but of type %@", v161, 0x16u);
 
               v93 = v123;
-              v119 = v152;
+              v119 = v151;
             }
 
             v118 = v119;
@@ -854,11 +863,11 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
             if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
             {
               v117 = HMFGetLogIdentifier();
-              *v162 = 138543618;
-              v163 = v117;
-              v164 = 2112;
-              v165 = v155;
-              _os_log_impl(&dword_19BB39000, v116, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive cached home configuration from serialized home configuration data: %@", v162, 0x16u);
+              *v161 = 138543618;
+              v162 = v117;
+              v163 = 2112;
+              v164 = v154;
+              _os_log_impl(&dword_19BB39000, v116, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive cached home configuration from serialized home configuration data: %@", v161, 0x16u);
             }
 
             v118 = v114;
@@ -868,7 +877,7 @@ uint64_t __28__HMHomeManager_logCategory__block_invoke()
           [v115 _removeCacheFiles];
 LABEL_89:
 
-          v29 = v158;
+          v29 = v157;
 LABEL_90:
 
           goto LABEL_91;
@@ -948,8 +957,6 @@ LABEL_92:
   block[3] = &unk_1E754E2A8;
   block[4] = v16;
   dispatch_async(queue, block);
-
-  v139 = *MEMORY[0x1E69E9840];
 }
 
 - (HMHomeManagerConfiguration)configuration
@@ -984,7 +991,7 @@ void __24__HMHomeManager___start__block_invoke(uint64_t a1)
 
 void __24__HMHomeManager___start__block_invoke_2(uint64_t a1, int a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = 5;
@@ -1014,15 +1021,15 @@ void __24__HMHomeManager___start__block_invoke_2(uint64_t a1, int a2)
       {
         v6 = [v4 context];
         v7 = [v6 delegateCaller];
-        *v37 = MEMORY[0x1E69E9820];
-        *&v37[8] = 3221225472;
-        *&v37[16] = ____HMHomeManagerSetAuthorizationStatus_block_invoke;
-        v38 = &unk_1E754E120;
+        *v36 = MEMORY[0x1E69E9820];
+        *&v36[8] = 3221225472;
+        *&v36[16] = ____HMHomeManagerSetAuthorizationStatus_block_invoke;
+        v37 = &unk_1E754E120;
         WeakRetained = WeakRetained;
-        v39 = WeakRetained;
-        v40 = v4;
-        v41 = v3;
-        [v7 invokeBlock:v37];
+        v38 = WeakRetained;
+        v39 = v4;
+        v40 = v3;
+        [v7 invokeBlock:v36];
       }
     }
   }
@@ -1045,16 +1052,16 @@ LABEL_11:
     if (([(os_unfair_lock_s *)v8 shouldConnect]& 1) == 0 && [(os_unfair_lock_s *)v8 serverGenerationCounterDelayedConnectionToken]== -1)
     {
       objc_initWeak(&location, v8);
-      v31 = 0;
+      v30 = 0;
       v9 = [(os_unfair_lock_s *)v8 darwinNotificationProvider];
       v10 = [(os_unfair_lock_s *)v8 context];
       v11 = [v10 queue];
-      *v37 = MEMORY[0x1E69E9820];
-      *&v37[8] = 3221225472;
-      *&v37[16] = ____HMHomeManagerRegisterForGenerationCounterNotifications_block_invoke;
-      v38 = &unk_1E754C980;
-      objc_copyWeak(&v39, &location);
-      v12 = [v9 notifyRegisterDispatch:"com.apple.HomeKit.generation-counter-updated" outToken:&v31 queue:v11 handler:v37];
+      *v36 = MEMORY[0x1E69E9820];
+      *&v36[8] = 3221225472;
+      *&v36[16] = ____HMHomeManagerRegisterForGenerationCounterNotifications_block_invoke;
+      v37 = &unk_1E754C980;
+      objc_copyWeak(&v38, &location);
+      v12 = [v9 notifyRegisterDispatch:"com.apple.HomeKit.generation-counter-updated" outToken:&v30 queue:v11 handler:v36];
 
       if (v12)
       {
@@ -1065,9 +1072,9 @@ LABEL_11:
         {
           v16 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v34 = v16;
-          v35 = 1024;
-          v36 = v12;
+          v33 = v16;
+          v34 = 1024;
+          v35 = v12;
           _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to register for generation counter change notifications: %d", buf, 0x12u);
         }
 
@@ -1076,10 +1083,10 @@ LABEL_11:
 
       else
       {
-        [(os_unfair_lock_s *)v8 setServerGenerationCounterDelayedConnectionToken:v31];
+        [(os_unfair_lock_s *)v8 setServerGenerationCounterDelayedConnectionToken:v30];
       }
 
-      objc_destroyWeak(&v39);
+      objc_destroyWeak(&v38);
       objc_destroyWeak(&location);
     }
 
@@ -1092,11 +1099,11 @@ LABEL_11:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     v22 = HMFGetLogIdentifier();
-    *v37 = 138543618;
-    *&v37[4] = v22;
-    *&v37[12] = 1024;
-    *&v37[14] = v18;
-    _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to register for generation counter state: %d", v37, 0x12u);
+    *v36 = 138543618;
+    *&v36[4] = v22;
+    *&v36[12] = 1024;
+    *&v36[14] = v18;
+    _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to register for generation counter state: %d", v36, 0x12u);
   }
 
   objc_autoreleasePoolPop(v19);
@@ -1110,14 +1117,14 @@ LABEL_24:
     [v23 _registerNotificationHandlers];
     objc_initWeak(buf, v24);
     v25 = [v24[40] xpcClient];
-    *v37 = MEMORY[0x1E69E9820];
-    *&v37[8] = 3221225472;
-    *&v37[16] = ____HMHomeManagerRegisterForNotifications_block_invoke;
-    v38 = &unk_1E754E540;
-    objc_copyWeak(&v39, buf);
-    [v25 registerReconnectionHandler:v37];
+    *v36 = MEMORY[0x1E69E9820];
+    *&v36[8] = 3221225472;
+    *&v36[16] = ____HMHomeManagerRegisterForNotifications_block_invoke;
+    v37 = &unk_1E754E540;
+    objc_copyWeak(&v38, buf);
+    [v25 registerReconnectionHandler:v36];
 
-    objc_destroyWeak(&v39);
+    objc_destroyWeak(&v38);
     objc_destroyWeak(buf);
   }
 
@@ -1129,8 +1136,6 @@ LABEL_24:
 
   v29 = [*v26 predictionProvider];
   [v29 configure];
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerNotificationHandlers
@@ -1185,7 +1190,7 @@ LABEL_24:
 
 - (unint64_t)serverGenerationCounter
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   selfCopy = self;
   os_unfair_lock_lock_with_options();
   if ([(HMHomeManager *)selfCopy serverGenerationCounterToken]!= -1)
@@ -1194,16 +1199,16 @@ LABEL_2:
     if (![(HMHomeManager *)selfCopy shouldConnect]&& [(HMHomeManager *)selfCopy serverGenerationCounterDelayedConnectionToken]== -1)
     {
       objc_initWeak(&location, selfCopy);
-      v26 = 0;
+      v25 = 0;
       darwinNotificationProvider = [(HMHomeManager *)selfCopy darwinNotificationProvider];
       context = [(HMHomeManager *)selfCopy context];
       queue = [context queue];
-      *v31 = MEMORY[0x1E69E9820];
-      *&v31[8] = 3221225472;
-      *&v31[16] = ____HMHomeManagerRegisterForGenerationCounterNotifications_block_invoke;
-      v32 = &unk_1E754C980;
-      objc_copyWeak(v33, &location);
-      v6 = [darwinNotificationProvider notifyRegisterDispatch:"com.apple.HomeKit.generation-counter-updated" outToken:&v26 queue:queue handler:v31];
+      *v30 = MEMORY[0x1E69E9820];
+      *&v30[8] = 3221225472;
+      *&v30[16] = ____HMHomeManagerRegisterForGenerationCounterNotifications_block_invoke;
+      v31 = &unk_1E754C980;
+      objc_copyWeak(v32, &location);
+      v6 = [darwinNotificationProvider notifyRegisterDispatch:"com.apple.HomeKit.generation-counter-updated" outToken:&v25 queue:queue handler:v30];
 
       if (v6)
       {
@@ -1215,8 +1220,8 @@ LABEL_2:
           v10 = HMFGetLogIdentifier();
           *buf = 138543618;
           *&buf[4] = v10;
-          v29 = 1024;
-          v30 = v6;
+          v28 = 1024;
+          v29 = v6;
           _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to register for generation counter change notifications: %d", buf, 0x12u);
         }
 
@@ -1225,10 +1230,10 @@ LABEL_2:
 
       else
       {
-        [(HMHomeManager *)selfCopy setServerGenerationCounterDelayedConnectionToken:v26];
+        [(HMHomeManager *)selfCopy setServerGenerationCounterDelayedConnectionToken:v25];
       }
 
-      objc_destroyWeak(v33);
+      objc_destroyWeak(v32);
       objc_destroyWeak(&location);
     }
 
@@ -1251,11 +1256,11 @@ LABEL_2:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     v16 = HMFGetLogIdentifier();
-    *v31 = 138543618;
-    *&v31[4] = v16;
-    *&v31[12] = 1024;
-    *&v31[14] = v12;
-    _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to register for generation counter state: %d", v31, 0x12u);
+    *v30 = 138543618;
+    *&v30[4] = v16;
+    *&v30[12] = 1024;
+    *&v30[14] = v12;
+    _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to register for generation counter state: %d", v30, 0x12u);
   }
 
   objc_autoreleasePoolPop(v13);
@@ -1269,32 +1274,26 @@ LABEL_15:
   darwinNotificationProvider3 = [(HMHomeManager *)selfCopy darwinNotificationProvider];
   v19 = [darwinNotificationProvider3 notifyGetState:serverGenerationCounterToken state:buf];
 
-  if (v19)
+  if (!v19)
   {
-    v20 = objc_autoreleasePoolPush();
-    v21 = selfCopy;
-    v22 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-    {
-      v23 = HMFGetLogIdentifier();
-      *v31 = 138543618;
-      *&v31[4] = v23;
-      *&v31[12] = 1024;
-      *&v31[14] = v19;
-      _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to get state for token: %d", v31, 0x12u);
-    }
-
-    objc_autoreleasePoolPop(v20);
-    result = 0;
+    return *buf;
   }
 
-  else
+  v20 = objc_autoreleasePoolPush();
+  v21 = selfCopy;
+  v22 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
-    result = *buf;
+    v23 = HMFGetLogIdentifier();
+    *v30 = 138543618;
+    *&v30[4] = v23;
+    *&v30[12] = 1024;
+    *&v30[14] = v19;
+    _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to get state for token: %d", v30, 0x12u);
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-  return result;
+  objc_autoreleasePoolPop(v20);
+  return 0;
 }
 
 - (void)_setShouldConnectToDaemon
@@ -1314,16 +1313,16 @@ LABEL_15:
 
 - (id)createAccessorySettingsController
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v6;
-    _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Creating accessory settings controller", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v6;
+    _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Creating accessory settings controller", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -1339,14 +1338,13 @@ LABEL_15:
   v11 = [(HMAccessorySettingsController *)v9 initWithContext:context messengerFactory:selfCopy metricsDispatcher:v8];
 
   [(HMAccessorySettingsController *)v11 setDataSource:selfCopy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (id)createMultiuserSettingsMessenger
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   currentAccessory = [(HMHomeManager *)self currentAccessory];
   home = [currentAccessory home];
   uuid = [home uuid];
@@ -1357,11 +1355,11 @@ LABEL_15:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v20 = 138543618;
-    v21 = v9;
-    v22 = 2112;
-    v23 = uuid;
-    _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@Creating multiuser settings messenger with home uuid %@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v9;
+    v21 = 2112;
+    v22 = uuid;
+    _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@Creating multiuser settings messenger with home uuid %@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -1381,25 +1379,23 @@ LABEL_15:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v17;
-      v22 = 2112;
-      v23 = 0;
-      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@No current accessory home for home uuid: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2112;
+      v22 = 0;
+      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@No current accessory home for home uuid: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
     v13 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (BOOL)accessoryInfoDataProvider:(id)provider transformHomeUUID:(id)d accessoryUUID:(id)iD toClientHomeIdentifier:(id *)identifier clientAccessoryIdentifier:(id *)accessoryIdentifier
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   dCopy = d;
   iDCopy = iD;
@@ -1431,13 +1427,13 @@ LABEL_15:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         v26 = HMFGetLogIdentifier();
-        v29 = 138543874;
-        v30 = v26;
-        v31 = 2112;
-        v32 = iDCopy;
-        v33 = 2112;
-        v34 = v16;
-        _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to transform to client identifiers due to no accessory with uuid: %@ home: %@", &v29, 0x20u);
+        v28 = 138543874;
+        v29 = v26;
+        v30 = 2112;
+        v31 = iDCopy;
+        v32 = 2112;
+        v33 = v16;
+        _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to transform to client identifiers due to no accessory with uuid: %@ home: %@", &v28, 0x20u);
       }
 
       objc_autoreleasePoolPop(v23);
@@ -1452,18 +1448,17 @@ LABEL_15:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v22 = HMFGetLogIdentifier();
-      v29 = 138543618;
-      v30 = v22;
-      v31 = 2112;
-      v32 = dCopy;
-      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to transform to client identifiers due to no home with uuid: %@", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v22;
+      v30 = 2112;
+      v31 = dCopy;
+      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to transform to client identifiers due to no home with uuid: %@", &v28, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
     v18 = 0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -1497,28 +1492,28 @@ LABEL_15:
 
 - (BOOL)isHomeRemovedPermanently:(id)permanently
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   permanentlyCopy = permanently;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   homes = [(HMHomeManager *)self homes];
-  v6 = [homes countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v6 = [homes countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(homes);
         }
 
-        uuid = [*(*(&v22 + 1) + 8 * i) uuid];
+        uuid = [*(*(&v21 + 1) + 8 * i) uuid];
         v11 = [uuid hmf_isEqualToUUID:permanentlyCopy];
 
         if (v11)
@@ -1528,7 +1523,7 @@ LABEL_15:
         }
       }
 
-      v7 = [homes countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v7 = [homes countByEnumeratingWithState:&v21 objects:v29 count:16];
       if (v7)
       {
         continue;
@@ -1551,9 +1546,9 @@ LABEL_15:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v18;
-      v28 = 2112;
-      v29 = permanentlyCopy;
+      v26 = v18;
+      v27 = 2112;
+      v28 = permanentlyCopy;
       _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_INFO, "%{public}@Home: %@ is not removed permanently", buf, 0x16u);
     }
 
@@ -1567,13 +1562,12 @@ LABEL_14:
     v19 = 1;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (void)launchHomeUIServiceToResumeSetupWithUserInfo:(id)info completionHandler:(id)handler
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
@@ -1582,44 +1576,42 @@ LABEL_14:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2112;
-    v17 = infoCopy;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Launching HomeUIService with userInfo: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2112;
+    v16 = infoCopy;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Launching HomeUIService with userInfo: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = objc_alloc_init(HMAccessorySetupManager);
   [(HMAccessorySetupManager *)v12 resumeAccessorySetupWithUserInfo:infoCopy completionHandler:handlerCopy];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addAndSetupAccessoriesWithPayload:(id)payload completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   handlerCopy = handler;
   if (!handlerCopy)
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager addAndSetupAccessoriesWithPayload:completionHandler:]", @"completion"];
-    v21 = objc_autoreleasePoolPush();
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager addAndSetupAccessoriesWithPayload:completionHandler:]", @"completion"];
+    v20 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v23 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v22 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v24 = HMFGetLogIdentifier();
+      v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v24;
-      v31 = 2112;
-      v32 = v20;
-      _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v29 = v23;
+      v30 = 2112;
+      v31 = v19;
+      _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v21);
-    v25 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v20 userInfo:0];
-    objc_exception_throw(v25);
+    objc_autoreleasePoolPop(v20);
+    v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v19 userInfo:0];
+    objc_exception_throw(v24);
   }
 
   v8 = handlerCopy;
@@ -1631,9 +1623,9 @@ LABEL_14:
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v30 = v13;
-    v31 = 2112;
-    v32 = payloadCopy;
+    v29 = v13;
+    v30 = 2112;
+    v31 = payloadCopy;
     _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Adding and setting up accessories with setup accessory payload: %@", buf, 0x16u);
   }
 
@@ -1643,35 +1635,33 @@ LABEL_14:
   [(HMAccessorySetupRequest *)v14 setPayload:v15];
 
   v16 = objc_alloc_init(HMAccessorySetupManager);
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __69__HMHomeManager_addAndSetupAccessoriesWithPayload_completionHandler___block_invoke;
-  v26[3] = &unk_1E754AB90;
-  v26[4] = selfCopy2;
-  v27 = context;
-  v28 = v8;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __69__HMHomeManager_addAndSetupAccessoriesWithPayload_completionHandler___block_invoke;
+  v25[3] = &unk_1E754AB90;
+  v25[4] = selfCopy2;
+  v26 = context;
+  v27 = v8;
   v17 = v8;
   v18 = context;
-  [(HMAccessorySetupManager *)v16 performAccessorySetupUsingRequest:v14 completionHandler:v26];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [(HMAccessorySetupManager *)v16 performAccessorySetupUsingRequest:v14 completionHandler:v25];
 }
 
 void __69__HMHomeManager_addAndSetupAccessoriesWithPayload_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
     v7 = [v5 accessoryUniqueIdentifiers];
-    v16 = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = __69__HMHomeManager_addAndSetupAccessoriesWithPayload_completionHandler___block_invoke_871;
-    v19 = &unk_1E754AB68;
-    v20 = *(a1 + 32);
-    v21 = v5;
-    v8 = [v7 na_map:&v16];
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __69__HMHomeManager_addAndSetupAccessoriesWithPayload_completionHandler___block_invoke_871;
+    v18 = &unk_1E754AB68;
+    v19 = *(a1 + 32);
+    v20 = v5;
+    v8 = [v7 na_map:&v15];
 
     v9 = [*(a1 + 40) delegateCaller];
     [v9 callCompletion:*(a1 + 48) error:0 array:v8];
@@ -1686,9 +1676,9 @@ void __69__HMHomeManager_addAndSetupAccessoriesWithPayload_completionHandler___b
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v13;
-      v24 = 2112;
-      v25 = v6;
+      v22 = v13;
+      v23 = 2112;
+      v24 = v6;
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to perform accessory setup with suggested room name: %@", buf, 0x16u);
     }
 
@@ -1696,8 +1686,6 @@ void __69__HMHomeManager_addAndSetupAccessoriesWithPayload_completionHandler___b
     v14 = [*(a1 + 40) delegateCaller];
     [v14 callCompletion:*(a1 + 48) error:v6 array:0];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 id __69__HMHomeManager_addAndSetupAccessoriesWithPayload_completionHandler___block_invoke_871(uint64_t a1, void *a2)
@@ -1715,32 +1703,30 @@ id __69__HMHomeManager_addAndSetupAccessoriesWithPayload_completionHandler___blo
 
 - (void)sendSetupModeMessage:(unint64_t)message
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   context = [(HMHomeManager *)self context];
   v6 = MEMORY[0x1E69A2A10];
   v7 = objc_alloc(MEMORY[0x1E69A2A00]);
   uuid = [(HMHomeManager *)self uuid];
   v9 = [v7 initWithTarget:uuid];
-  v18 = @"mode";
+  v17 = @"mode";
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:message];
-  v19[0] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v18[0] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
   v12 = [v6 messageWithName:@"HMHM.setupMode" destination:v9 payload:v11];
 
   objc_initWeak(&location, self);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __38__HMHomeManager_sendSetupModeMessage___block_invoke;
-  v15[3] = &unk_1E754CD70;
-  objc_copyWeak(&v16, &location);
-  [v12 setResponseHandler:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __38__HMHomeManager_sendSetupModeMessage___block_invoke;
+  v14[3] = &unk_1E754CD70;
+  objc_copyWeak(&v15, &location);
+  [v12 setResponseHandler:v14];
   messageDispatcher = [context messageDispatcher];
   [messageDispatcher sendMessage:v12];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __38__HMHomeManager_sendSetupModeMessage___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1757,27 +1743,27 @@ void __38__HMHomeManager_sendSetupModeMessage___block_invoke(uint64_t a1, void *
 
 - (void)setSetupMode:(unint64_t)mode completion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
-    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager setSetupMode:completion:]", @"completion"];
-    v24 = objc_autoreleasePoolPush();
+    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager setSetupMode:completion:]", @"completion"];
+    v23 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v26 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v25 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v27 = HMFGetLogIdentifier();
+      v26 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v27;
-      v31 = 2112;
-      modeCopy = v23;
-      _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v29 = v26;
+      v30 = 2112;
+      modeCopy = v22;
+      _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v24);
-    v28 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v23 userInfo:0];
-    objc_exception_throw(v28);
+    objc_autoreleasePoolPop(v23);
+    v27 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v22 userInfo:0];
+    objc_exception_throw(v27);
   }
 
   v7 = completionCopy;
@@ -1792,8 +1778,8 @@ void __38__HMHomeManager_sendSetupModeMessage___block_invoke(uint64_t a1, void *
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v13;
-      v31 = 2048;
+      v29 = v13;
+      v30 = 2048;
       modeCopy = mode;
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Attempt to set setup mode %lu", buf, 0x16u);
     }
@@ -1810,7 +1796,7 @@ void __38__HMHomeManager_sendSetupModeMessage___block_invoke(uint64_t a1, void *
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v30 = v17;
+        v29 = v17;
         _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Can only have one operation in flight", buf, 0xCu);
       }
 
@@ -1837,20 +1823,18 @@ void __38__HMHomeManager_sendSetupModeMessage___block_invoke(uint64_t a1, void *
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v30 = v19;
+      v29 = v19;
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Setup mode switch is not enabled short circuiting as success", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
     v7[2](v7, 0);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleSetupModeMessageResponse:(id)response error:(id)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   errorCopy = error;
   context = [(HMHomeManager *)self context];
@@ -1869,9 +1853,9 @@ void __38__HMHomeManager_sendSetupModeMessage___block_invoke(uint64_t a1, void *
       if (v14)
       {
         v15 = HMFGetLogIdentifier();
-        v20 = 138543362;
-        v21 = v15;
-        _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@A setup mode number was returned", &v20, 0xCu);
+        v19 = 138543362;
+        v20 = v15;
+        _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@A setup mode number was returned", &v19, 0xCu);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -1882,9 +1866,9 @@ void __38__HMHomeManager_sendSetupModeMessage___block_invoke(uint64_t a1, void *
       if (v14)
       {
         v16 = HMFGetLogIdentifier();
-        v20 = 138543362;
-        v21 = v16;
-        _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Calling setup mode completion", &v20, 0xCu);
+        v19 = 138543362;
+        v20 = v16;
+        _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Calling setup mode completion", &v19, 0xCu);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -1898,13 +1882,11 @@ void __38__HMHomeManager_sendSetupModeMessage___block_invoke(uint64_t a1, void *
       os_unfair_lock_unlock(&self->_lock);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleDaemonReconnectedNotification:(id)notification
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   os_unfair_lock_lock_with_options();
   v5 = _Block_copy(self->_pendingChangeSetupModeOperation);
@@ -1918,16 +1900,14 @@ void __38__HMHomeManager_sendSetupModeMessage___block_invoke(uint64_t a1, void *
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Sending setup mode message on reconnecting", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Sending setup mode message on reconnecting", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     [(HMHomeManager *)selfCopy sendSetupModeMessage:pendingChangeSetupMode];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)attemptHH2AutoMigrationWithCompletionHandler:(id)handler
@@ -1963,21 +1943,21 @@ void __62__HMHomeManager_attemptHH2AutoMigrationWithCompletionHandler___block_in
 
 - (void)_saveMigrationProgressToHMCache:(BOOL)cache error:(id)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   cacheManager = [(HMHomeManager *)self cacheManager];
 
   if (cacheManager)
   {
     cacheManager2 = [(HMHomeManager *)self cacheManager];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __55__HMHomeManager__saveMigrationProgressToHMCache_error___block_invoke;
-    v14[3] = &unk_1E754AB40;
-    v14[4] = self;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __55__HMHomeManager__saveMigrationProgressToHMCache_error___block_invoke;
+    v13[3] = &unk_1E754AB40;
+    v13[4] = self;
     cacheCopy = cache;
-    v15 = errorCopy;
-    [cacheManager2 cacheWithName:@"HMHM.HH2MigrationCacheName" completion:v14];
+    v14 = errorCopy;
+    [cacheManager2 cacheWithName:@"HMHM.HH2MigrationCacheName" completion:v13];
   }
 
   else
@@ -1989,19 +1969,17 @@ void __62__HMHomeManager_attemptHH2AutoMigrationWithCompletionHandler___block_in
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v12;
+      v17 = v12;
       _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@This client is not running with cache configuration so not going to store migration info.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __55__HMHomeManager__saveMigrationProgressToHMCache_error___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -2009,11 +1987,11 @@ void __55__HMHomeManager__saveMigrationProgressToHMCache_error___block_invoke(ui
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v19 = 138543618;
-    v20 = v7;
-    v21 = 2112;
-    v22 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Got a new cache with [%@]", &v19, 0x16u);
+    v18 = 138543618;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Got a new cache with [%@]", &v18, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -2036,11 +2014,11 @@ void __55__HMHomeManager__saveMigrationProgressToHMCache_error___block_invoke(ui
       {
         v15 = HMFGetLogIdentifier();
         v16 = *(a1 + 40);
-        v19 = 138543618;
-        v20 = v15;
-        v21 = 2112;
-        v22 = v16;
-        _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_INFO, "%{public}@HH2 Migration failed error code: %@", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v15;
+        v20 = 2112;
+        v21 = v16;
+        _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_INFO, "%{public}@HH2 Migration failed error code: %@", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -2050,8 +2028,6 @@ void __55__HMHomeManager__saveMigrationProgressToHMCache_error___block_invoke(ui
 
   v17 = [*(a1 + 32) cacheManager];
   [v17 forceFlushToDisk];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)postHH2UpdateRequiredCarPlayNotificationWithCompletion:(id)completion
@@ -2100,29 +2076,29 @@ void __72__HMHomeManager_postHH2UpdateRequiredCarPlayNotificationWithCompletion_
 
 - (void)fetchAppleMediaAccesoryDiagnosticInfo:(id)info options:(unint64_t)options filteringKeyPaths:(id)paths completion:(id)completion
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   pathsCopy = paths;
   completionCopy = completion;
   if (!completionCopy)
   {
-    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager fetchAppleMediaAccesoryDiagnosticInfo:options:filteringKeyPaths:completion:]", @"completionHandler"];
-    v33 = objc_autoreleasePoolPush();
+    v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager fetchAppleMediaAccesoryDiagnosticInfo:options:filteringKeyPaths:completion:]", @"completionHandler"];
+    v32 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v35 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v34 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      v36 = HMFGetLogIdentifier();
+      v35 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v45 = v36;
-      v46 = 2112;
-      v47 = v32;
-      _os_log_impl(&dword_19BB39000, v35, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v44 = v35;
+      v45 = 2112;
+      v46 = v31;
+      _os_log_impl(&dword_19BB39000, v34, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v33);
-    v37 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v32 userInfo:0];
-    objc_exception_throw(v37);
+    objc_autoreleasePoolPop(v32);
+    v36 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v31 userInfo:0];
+    objc_exception_throw(v36);
   }
 
   v13 = completionCopy;
@@ -2134,33 +2110,33 @@ void __72__HMHomeManager_postHH2UpdateRequiredCarPlayNotificationWithCompletion_
     v17 = objc_alloc(MEMORY[0x1E69A2A00]);
     uuid2 = [(HMHomeManager *)self uuid];
     v19 = [v17 initWithTarget:uuid2];
-    v42[0] = @"options";
+    v41[0] = @"options";
     v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:options];
-    v43[0] = v20;
-    v43[1] = pathsCopy;
-    v42[1] = @"filteringFetchKeyPaths";
-    v42[2] = @"accessoryUUID";
-    v43[2] = uuid;
-    [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:3];
-    v38 = infoCopy;
+    v42[0] = v20;
+    v42[1] = pathsCopy;
+    v41[1] = @"filteringFetchKeyPaths";
+    v41[2] = @"accessoryUUID";
+    v42[2] = uuid;
+    [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:3];
+    v37 = infoCopy;
     v22 = v21 = pathsCopy;
     delegateCaller = [v16 messageWithName:@"HMHM.accessoryDiagnosticInfo" destination:v19 payload:v22];
 
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __92__HMHomeManager_fetchAppleMediaAccesoryDiagnosticInfo_options_filteringKeyPaths_completion___block_invoke;
-    v39[3] = &unk_1E754DE00;
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __92__HMHomeManager_fetchAppleMediaAccesoryDiagnosticInfo_options_filteringKeyPaths_completion___block_invoke;
+    v38[3] = &unk_1E754DE00;
     v24 = context;
-    v40 = v24;
-    v41 = v13;
-    [delegateCaller setResponseHandler:v39];
+    v39 = v24;
+    v40 = v13;
+    [delegateCaller setResponseHandler:v38];
     messageDispatcher = [v24 messageDispatcher];
     [messageDispatcher sendMessage:delegateCaller completionHandler:0];
 
     pathsCopy = v21;
-    infoCopy = v38;
+    infoCopy = v37;
 
-    v26 = v40;
+    v26 = v39;
   }
 
   else
@@ -2172,7 +2148,7 @@ void __72__HMHomeManager_postHH2UpdateRequiredCarPlayNotificationWithCompletion_
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v30;
+      v44 = v30;
       _os_log_impl(&dword_19BB39000, v29, OS_LOG_TYPE_ERROR, "%{public}@Could not determine accessory UUID", buf, 0xCu);
     }
 
@@ -2181,8 +2157,6 @@ void __72__HMHomeManager_postHH2UpdateRequiredCarPlayNotificationWithCompletion_
     v26 = [MEMORY[0x1E696ABC0] hmErrorWithCode:2];
     [delegateCaller callCompletion:v13 obj:0 error:v26];
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __92__HMHomeManager_fetchAppleMediaAccesoryDiagnosticInfo_options_filteringKeyPaths_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2205,28 +2179,28 @@ void __92__HMHomeManager_fetchAppleMediaAccesoryDiagnosticInfo_options_filtering
 
 - (void)clearMobileAssetsLocalInfoWithCompletion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager clearMobileAssetsLocalInfoWithCompletion:]", @"completion"];
-    v17 = v16 = self;
-    v18 = objc_autoreleasePoolPush();
-    v19 = v16;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v16 = v15 = self;
+    v17 = objc_autoreleasePoolPush();
+    v18 = v15;
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v5 = completionCopy;
@@ -2237,19 +2211,17 @@ void __92__HMHomeManager_fetchAppleMediaAccesoryDiagnosticInfo_options_filtering
   v10 = [v8 initWithTarget:uuid];
   v11 = [v7 messageWithName:@"HMHM.clearMobileAssetsInfo" destination:v10 payload:0];
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __58__HMHomeManager_clearMobileAssetsLocalInfoWithCompletion___block_invoke;
-  v23[3] = &unk_1E754DE00;
-  v24 = context;
-  v25 = v5;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __58__HMHomeManager_clearMobileAssetsLocalInfoWithCompletion___block_invoke;
+  v22[3] = &unk_1E754DE00;
+  v23 = context;
+  v24 = v5;
   v12 = v5;
   v13 = context;
-  [v11 setResponseHandler:v23];
+  [v11 setResponseHandler:v22];
   messageDispatcher = [v13 messageDispatcher];
   [messageDispatcher sendMessage:v11 completionHandler:0];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __58__HMHomeManager_clearMobileAssetsLocalInfoWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -2265,6 +2237,57 @@ void __58__HMHomeManager_clearMobileAssetsLocalInfoWithCompletion___block_invoke
   v9 = v5;
   v6 = v3;
   [v4 invokeBlock:v7];
+}
+
+- (void)updateMobileAssetsAndForce:(BOOL)force completion:(id)completion
+{
+  forceCopy = force;
+  v34 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  if (!completionCopy)
+  {
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager updateMobileAssetsAndForce:completion:]", @"completion"];
+    v20 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v22 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      v23 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v31 = v23;
+      v32 = 2112;
+      v33 = v19;
+      _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v20);
+    v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v19 userInfo:0];
+    objc_exception_throw(v24);
+  }
+
+  v7 = completionCopy;
+  context = [(HMHomeManager *)self context];
+  v9 = MEMORY[0x1E69A2A10];
+  v10 = objc_alloc(MEMORY[0x1E69A2A00]);
+  uuid = [(HMHomeManager *)self uuid];
+  v12 = [v10 initWithTarget:uuid];
+  v28 = @"HMHomeManagerForceUpdateMobileAssetMessageKey";
+  v13 = [MEMORY[0x1E696AD98] numberWithBool:forceCopy];
+  v29 = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+  v15 = [v9 messageWithName:@"HMHM.updateMobileAssets" destination:v12 payload:v14];
+
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __55__HMHomeManager_updateMobileAssetsAndForce_completion___block_invoke;
+  v25[3] = &unk_1E754DE00;
+  v26 = context;
+  v27 = v7;
+  v16 = v7;
+  v17 = context;
+  [v15 setResponseHandler:v25];
+  messageDispatcher = [v17 messageDispatcher];
+  [messageDispatcher sendMessage:v15 completionHandler:0];
 }
 
 void __55__HMHomeManager_updateMobileAssetsAndForce_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2299,30 +2322,30 @@ void __55__HMHomeManager_updateMobileAssetsAndForce_completion___block_invoke(ui
 
 - (void)fetchNetworkMismatchInfoWithCompletionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(HMHomeManager *)self context];
   if (context)
   {
     if (!handlerCopy)
     {
-      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager fetchNetworkMismatchInfoWithCompletionHandler:]", @"completionHandler"];
-      v19 = objc_autoreleasePoolPush();
+      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager fetchNetworkMismatchInfoWithCompletionHandler:]", @"completionHandler"];
+      v18 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v21 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v20 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v22 = HMFGetLogIdentifier();
+        v21 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v28 = v22;
-        v29 = 2112;
-        v30 = v18;
-        _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+        v27 = v21;
+        v28 = 2112;
+        v29 = v17;
+        _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v19);
-      v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
-      objc_exception_throw(v23);
+      objc_autoreleasePoolPop(v18);
+      v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
+      objc_exception_throw(v22);
     }
 
     v6 = MEMORY[0x1E69A2A10];
@@ -2331,14 +2354,14 @@ void __55__HMHomeManager_updateMobileAssetsAndForce_completion___block_invoke(ui
     v9 = [v7 initWithTarget:uuid];
     v10 = [v6 messageWithName:@"HMHM.networkMismatchInfo" destination:v9 payload:0];
 
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __63__HMHomeManager_fetchNetworkMismatchInfoWithCompletionHandler___block_invoke;
-    v24[3] = &unk_1E754DE00;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __63__HMHomeManager_fetchNetworkMismatchInfoWithCompletionHandler___block_invoke;
+    v23[3] = &unk_1E754DE00;
     v11 = context;
-    v25 = v11;
-    v26 = handlerCopy;
-    [v10 setResponseHandler:v24];
+    v24 = v11;
+    v25 = handlerCopy;
+    [v10 setResponseHandler:v23];
     messageDispatcher = [v11 messageDispatcher];
     [messageDispatcher sendMessage:v10 completionHandler:0];
   }
@@ -2352,16 +2375,14 @@ void __55__HMHomeManager_updateMobileAssetsAndForce_completion___block_invoke(ui
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v16;
-      v29 = 2080;
-      v30 = "[HMHomeManager fetchNetworkMismatchInfoWithCompletionHandler:]";
+      v27 = v16;
+      v28 = 2080;
+      v29 = "[HMHomeManager fetchNetworkMismatchInfoWithCompletionHandler:]";
       _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __63__HMHomeManager_fetchNetworkMismatchInfoWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -2374,28 +2395,28 @@ void __63__HMHomeManager_fetchNetworkMismatchInfoWithCompletionHandler___block_i
 
 - (void)fetchDiagnosticInfoWithCompletionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager fetchDiagnosticInfoWithCompletionHandler:]", @"completionHandler"];
-    v17 = v16 = self;
-    v18 = objc_autoreleasePoolPush();
-    v19 = v16;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v16 = v15 = self;
+    v17 = objc_autoreleasePoolPush();
+    v18 = v15;
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v5 = handlerCopy;
@@ -2406,19 +2427,17 @@ void __63__HMHomeManager_fetchNetworkMismatchInfoWithCompletionHandler___block_i
   v10 = [v8 initWithTarget:uuid];
   v11 = [v7 messageWithName:@"HMHM.currentDeviceDiagnosticInfo" destination:v10 payload:0];
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __58__HMHomeManager_fetchDiagnosticInfoWithCompletionHandler___block_invoke;
-  v23[3] = &unk_1E754DE00;
-  v24 = context;
-  v25 = v5;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __58__HMHomeManager_fetchDiagnosticInfoWithCompletionHandler___block_invoke;
+  v22[3] = &unk_1E754DE00;
+  v23 = context;
+  v24 = v5;
   v12 = v5;
   v13 = context;
-  [v11 setResponseHandler:v23];
+  [v11 setResponseHandler:v22];
   messageDispatcher = [v13 messageDispatcher];
   [messageDispatcher sendMessage:v11 completionHandler:0];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __58__HMHomeManager_fetchDiagnosticInfoWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2432,28 +2451,28 @@ void __58__HMHomeManager_fetchDiagnosticInfoWithCompletionHandler___block_invoke
 
 - (void)_testHH2MigrationWithCompletionHandler:(id)handler payload:(id)payload
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   payloadCopy = payload;
   if (!handlerCopy)
   {
-    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager _testHH2MigrationWithCompletionHandler:payload:]", @"completion"];
-    v24 = objc_autoreleasePoolPush();
+    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager _testHH2MigrationWithCompletionHandler:payload:]", @"completion"];
+    v23 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v26 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v25 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v27 = HMFGetLogIdentifier();
+      v26 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v27;
-      v34 = 2112;
-      v35 = v23;
-      _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v32 = v26;
+      v33 = 2112;
+      v34 = v22;
+      _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v24);
-    v28 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v23 userInfo:0];
-    objc_exception_throw(v28);
+    objc_autoreleasePoolPop(v23);
+    v27 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v22 userInfo:0];
+    objc_exception_throw(v27);
   }
 
   v8 = payloadCopy;
@@ -2466,18 +2485,18 @@ void __58__HMHomeManager_fetchDiagnosticInfoWithCompletionHandler___block_invoke
     v13 = [v11 initWithTarget:uuid];
     delegateCaller = [v10 messageWithName:@"HMHM.testHH2Migration" destination:v13 payload:v8];
 
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __64__HMHomeManager__testHH2MigrationWithCompletionHandler_payload___block_invoke;
-    v29[3] = &unk_1E754DE00;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __64__HMHomeManager__testHH2MigrationWithCompletionHandler_payload___block_invoke;
+    v28[3] = &unk_1E754DE00;
     v15 = context;
-    v30 = v15;
-    v31 = handlerCopy;
-    [delegateCaller setResponseHandler:v29];
+    v29 = v15;
+    v30 = handlerCopy;
+    [delegateCaller setResponseHandler:v28];
     messageDispatcher = [v15 messageDispatcher];
     [messageDispatcher sendMessage:delegateCaller completionHandler:0];
 
-    v17 = v30;
+    v17 = v29;
   }
 
   else
@@ -2489,7 +2508,7 @@ void __58__HMHomeManager_fetchDiagnosticInfoWithCompletionHandler___block_invoke
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v21;
+      v32 = v21;
       _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_FAULT, "%{public}@Not allowed to run in production / customer builds", buf, 0xCu);
     }
 
@@ -2498,8 +2517,6 @@ void __58__HMHomeManager_fetchDiagnosticInfoWithCompletionHandler___block_invoke
     v17 = [MEMORY[0x1E696ABC0] hmErrorWithCode:-1];
     [delegateCaller callCompletion:handlerCopy error:v17];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __64__HMHomeManager__testHH2MigrationWithCompletionHandler_payload___block_invoke(uint64_t a1, void *a2)
@@ -2512,28 +2529,28 @@ void __64__HMHomeManager__testHH2MigrationWithCompletionHandler_payload___block_
 
 - (void)_upgradeToHH2WithCompletionHandler:(id)handler payload:(id)payload
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   payloadCopy = payload;
   if (!handlerCopy)
   {
-    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager _upgradeToHH2WithCompletionHandler:payload:]", @"completion"];
-    v20 = objc_autoreleasePoolPush();
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager _upgradeToHH2WithCompletionHandler:payload:]", @"completion"];
+    v19 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v22 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v23 = HMFGetLogIdentifier();
+      v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v23;
-      v30 = 2112;
-      v31 = v19;
-      _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v28 = v22;
+      v29 = 2112;
+      v30 = v18;
+      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v20);
-    v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v19 userInfo:0];
-    objc_exception_throw(v24);
+    objc_autoreleasePoolPop(v19);
+    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
+    objc_exception_throw(v23);
   }
 
   v8 = payloadCopy;
@@ -2544,25 +2561,23 @@ void __64__HMHomeManager__testHH2MigrationWithCompletionHandler_payload___block_
   v13 = [v11 initWithTarget:uuid];
   v14 = [v10 messageWithName:@"HMHM.upgradeToHH2" destination:v13 payload:v8];
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __60__HMHomeManager__upgradeToHH2WithCompletionHandler_payload___block_invoke;
-  v25[3] = &unk_1E754E480;
-  v25[4] = self;
-  v26 = context;
-  v27 = handlerCopy;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __60__HMHomeManager__upgradeToHH2WithCompletionHandler_payload___block_invoke;
+  v24[3] = &unk_1E754E480;
+  v24[4] = self;
+  v25 = context;
+  v26 = handlerCopy;
   v15 = handlerCopy;
   v16 = context;
-  [v14 setResponseHandler:v25];
+  [v14 setResponseHandler:v24];
   messageDispatcher = [v16 messageDispatcher];
   [messageDispatcher sendMessage:v14 completionHandler:0];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __60__HMHomeManager__upgradeToHH2WithCompletionHandler_payload___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -2571,11 +2586,11 @@ void __60__HMHomeManager__upgradeToHH2WithCompletionHandler_payload___block_invo
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v23 = 138543618;
-    v24 = v10;
-    v25 = 2112;
-    v26 = v5;
-    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Upgrade to HH2 request finished with error : %@", &v23, 0x16u);
+    v22 = 138543618;
+    v23 = v10;
+    v24 = 2112;
+    v25 = v5;
+    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Upgrade to HH2 request finished with error : %@", &v22, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -2599,8 +2614,6 @@ void __60__HMHomeManager__upgradeToHH2WithCompletionHandler_payload___block_invo
 
   v21 = [*(a1 + 32) migrationBoost];
   [v21 startBoost];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)timerDidFire:(id)fire
@@ -2663,56 +2676,56 @@ void __76__HMHomeManager__addKeysToRepairListIfUnique_includePrivateKeys_repairL
 
 - (id)fetchPairingIdentitiesInRankOrder:(id)order error:(id *)error
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   orderCopy = order;
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x2050000000;
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x2050000000;
   v5 = getHAPSystemKeychainStoreClass_softClass;
-  v60 = getHAPSystemKeychainStoreClass_softClass;
+  v59 = getHAPSystemKeychainStoreClass_softClass;
   if (!getHAPSystemKeychainStoreClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getHAPSystemKeychainStoreClass_block_invoke;
-    v64 = &unk_1E754CB30;
-    v65 = &v57;
+    v63 = &unk_1E754CB30;
+    v64 = &v56;
     __getHAPSystemKeychainStoreClass_block_invoke(buf);
-    v5 = v58[3];
+    v5 = v57[3];
   }
 
   v6 = v5;
-  _Block_object_dispose(&v57, 8);
+  _Block_object_dispose(&v56, 8);
   systemStore = [v5 systemStore];
   array = [MEMORY[0x1E695DF70] array];
-  v55 = 0u;
-  v56 = 0u;
   v54 = 0u;
+  v55 = 0u;
   v53 = 0u;
+  v52 = 0u;
   obj = orderCopy;
-  v40 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
-  if (v40)
+  v39 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
+  if (v39)
   {
-    v37 = *v54;
+    v36 = *v53;
     do
     {
-      for (i = 0; i != v40; ++i)
+      for (i = 0; i != v39; ++i)
       {
-        if (*v54 != v37)
+        if (*v53 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v53 + 1) + 8 * i);
-        v52 = 0;
-        v44 = v8;
-        v42 = [systemStore allKeysForType:? error:?];
-        v41 = v52;
+        v8 = *(*(&v52 + 1) + 8 * i);
+        v51 = 0;
+        v43 = v8;
+        v41 = [systemStore allKeysForType:? error:?];
+        v40 = v51;
         v9 = objc_autoreleasePoolPush();
         selfCopy = self;
         v10 = HMFGetOSLogHandle();
         v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
-        if (v41)
+        if (v40)
         {
           if (v11)
           {
@@ -2720,9 +2733,9 @@ void __76__HMHomeManager__addKeysToRepairListIfUnique_includePrivateKeys_repairL
             *buf = 138543874;
             *&buf[4] = v12;
             *&buf[12] = 2112;
-            *&buf[14] = v44;
+            *&buf[14] = v43;
             *&buf[22] = 2112;
-            v64 = v41;
+            v63 = v40;
             _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Unable to find pairing identity for type %@: %@", buf, 0x20u);
           }
 
@@ -2737,45 +2750,45 @@ void __76__HMHomeManager__addKeysToRepairListIfUnique_includePrivateKeys_repairL
             *buf = 138543874;
             *&buf[4] = v13;
             *&buf[12] = 2112;
-            *&buf[14] = v42;
+            *&buf[14] = v41;
             *&buf[22] = 2112;
-            v64 = v44;
+            v63 = v43;
             _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Found [%@] of type : %@", buf, 0x20u);
           }
 
           objc_autoreleasePoolPop(v9);
-          v50 = 0u;
-          v51 = 0u;
-          v48 = 0u;
           v49 = 0u;
-          v14 = v42;
-          v15 = [v14 countByEnumeratingWithState:&v48 objects:v61 count:16];
+          v50 = 0u;
+          v47 = 0u;
+          v48 = 0u;
+          v14 = v41;
+          v15 = [v14 countByEnumeratingWithState:&v47 objects:v60 count:16];
           if (v15)
           {
-            v16 = *v49;
+            v16 = *v48;
             do
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v49 != v16)
+                if (*v48 != v16)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                v18 = *(*(&v48 + 1) + 8 * j);
+                v18 = *(*(&v47 + 1) + 8 * j);
                 v19 = objc_alloc(MEMORY[0x1E69A2A30]);
                 identifier = [v18 identifier];
                 publicKey = [v18 publicKey];
                 privateKey = [v18 privateKey];
                 v23 = [v19 initWithIdentifier:identifier publicKey:publicKey privateKey:privateKey];
 
-                v46[0] = MEMORY[0x1E69E9820];
-                v46[1] = 3221225472;
-                v46[2] = __57__HMHomeManager_fetchPairingIdentitiesInRankOrder_error___block_invoke;
-                v46[3] = &unk_1E754AAC8;
+                v45[0] = MEMORY[0x1E69E9820];
+                v45[1] = 3221225472;
+                v45[2] = __57__HMHomeManager_fetchPairingIdentitiesInRankOrder_error___block_invoke;
+                v45[3] = &unk_1E754AAC8;
                 v24 = v23;
-                v47 = v24;
-                if ([array na_any:v46])
+                v46 = v24;
+                if ([array na_any:v45])
                 {
                   v25 = objc_autoreleasePoolPush();
                   v26 = selfCopy;
@@ -2788,7 +2801,7 @@ void __76__HMHomeManager__addKeysToRepairListIfUnique_includePrivateKeys_repairL
                     *&buf[12] = 2112;
                     *&buf[14] = v24;
                     *&buf[22] = 2112;
-                    v64 = v44;
+                    v63 = v43;
                     _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_INFO, "%{public}@Not adding key [%@] [%@] as it already exist in final list", buf, 0x20u);
                   }
 
@@ -2801,7 +2814,7 @@ void __76__HMHomeManager__addKeysToRepairListIfUnique_includePrivateKeys_repairL
                 }
               }
 
-              v15 = [v14 countByEnumeratingWithState:&v48 objects:v61 count:16];
+              v15 = [v14 countByEnumeratingWithState:&v47 objects:v60 count:16];
             }
 
             while (v15);
@@ -2809,10 +2822,10 @@ void __76__HMHomeManager__addKeysToRepairListIfUnique_includePrivateKeys_repairL
         }
       }
 
-      v40 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
+      v39 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
     }
 
-    while (v40);
+    while (v39);
   }
 
   v29 = objc_autoreleasePoolPush();
@@ -2831,49 +2844,47 @@ void __76__HMHomeManager__addKeysToRepairListIfUnique_includePrivateKeys_repairL
   objc_autoreleasePoolPop(v29);
   v33 = [array copy];
 
-  v34 = *MEMORY[0x1E69E9840];
-
   return v33;
 }
 
 - (void)currentUserPairingIdentityForHomeContainingAccessoryWithUniqueIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   if (!identifierCopy)
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager currentUserPairingIdentityForHomeContainingAccessoryWithUniqueIdentifier:completionHandler:]", @"accessoryUniqueIdentifier"];
-    v21 = objc_autoreleasePoolPush();
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager currentUserPairingIdentityForHomeContainingAccessoryWithUniqueIdentifier:completionHandler:]", @"accessoryUniqueIdentifier"];
+    v20 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v23 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v22 = HMFGetOSLogHandle();
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_8;
     }
 
 LABEL_7:
-    v24 = HMFGetLogIdentifier();
+    v23 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v32 = v24;
-    v33 = 2112;
-    v34 = v20;
-    _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+    v31 = v23;
+    v32 = 2112;
+    v33 = v19;
+    _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
 
 LABEL_8:
-    objc_autoreleasePoolPop(v21);
-    v25 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v20 userInfo:0];
-    objc_exception_throw(v25);
+    objc_autoreleasePoolPop(v20);
+    v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v19 userInfo:0];
+    objc_exception_throw(v24);
   }
 
   v8 = handlerCopy;
   if (!handlerCopy)
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager currentUserPairingIdentityForHomeContainingAccessoryWithUniqueIdentifier:completionHandler:]", @"completion"];
-    v21 = objc_autoreleasePoolPush();
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager currentUserPairingIdentityForHomeContainingAccessoryWithUniqueIdentifier:completionHandler:]", @"completion"];
+    v20 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v23 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v22 = HMFGetOSLogHandle();
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_8;
     }
@@ -2882,34 +2893,32 @@ LABEL_8:
   }
 
   context = [(HMHomeManager *)self context];
-  v29 = @"kIdentifierKey";
-  v30 = identifierCopy;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+  v28 = @"kIdentifierKey";
+  v29 = identifierCopy;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
   v11 = objc_alloc(MEMORY[0x1E69A2A10]);
   v12 = objc_alloc(MEMORY[0x1E69A2A00]);
   uuid = [(HMHomeManager *)self uuid];
   v14 = [v12 initWithTarget:uuid];
   v15 = [v11 initWithName:@"HMHM.cuacpi" destination:v14 payload:v10];
 
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __108__HMHomeManager_currentUserPairingIdentityForHomeContainingAccessoryWithUniqueIdentifier_completionHandler___block_invoke;
-  v26[3] = &unk_1E754E480;
-  v26[4] = self;
-  v27 = identifierCopy;
-  v28 = v8;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __108__HMHomeManager_currentUserPairingIdentityForHomeContainingAccessoryWithUniqueIdentifier_completionHandler___block_invoke;
+  v25[3] = &unk_1E754E480;
+  v25[4] = self;
+  v26 = identifierCopy;
+  v27 = v8;
   v16 = v8;
   v17 = identifierCopy;
-  [v15 setResponseHandler:v26];
+  [v15 setResponseHandler:v25];
   messageDispatcher = [context messageDispatcher];
   [messageDispatcher sendMessage:v15];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __108__HMHomeManager_currentUserPairingIdentityForHomeContainingAccessoryWithUniqueIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -2923,11 +2932,11 @@ void __108__HMHomeManager_currentUserPairingIdentityForHomeContainingAccessoryWi
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 40);
       *buf = 138543874;
-      v35 = v11;
-      v36 = 2112;
-      v37 = v12;
-      v38 = 2112;
-      v39 = v5;
+      v34 = v11;
+      v35 = 2112;
+      v36 = v12;
+      v37 = 2112;
+      v38 = v5;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@There was an error while retrieving pairing identity for a user in the home with accessory %@ : %@", buf, 0x20u);
     }
 
@@ -2940,9 +2949,9 @@ void __108__HMHomeManager_currentUserPairingIdentityForHomeContainingAccessoryWi
     v13 = [v6 hmf_dataForKey:@"HM.pairingIdentity"];
     if (v13)
     {
-      v33 = 0;
-      v14 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v13 error:&v33];
-      v15 = v33;
+      v32 = 0;
+      v14 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v13 error:&v32];
+      v15 = v32;
       v16 = objc_autoreleasePoolPush();
       v17 = *(a1 + 32);
       v18 = HMFGetOSLogHandle();
@@ -2954,11 +2963,11 @@ void __108__HMHomeManager_currentUserPairingIdentityForHomeContainingAccessoryWi
           v20 = HMFGetLogIdentifier();
           v21 = *(a1 + 40);
           *buf = 138543874;
-          v35 = v20;
-          v36 = 2112;
-          v37 = v14;
-          v38 = 2112;
-          v39 = v21;
+          v34 = v20;
+          v35 = 2112;
+          v36 = v14;
+          v37 = 2112;
+          v38 = v21;
           _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_INFO, "%{public}@HM: Fetched pairing identity [%@] for a user in the home with accessory : %@", buf, 0x20u);
         }
 
@@ -2973,11 +2982,11 @@ void __108__HMHomeManager_currentUserPairingIdentityForHomeContainingAccessoryWi
           v28 = HMFGetLogIdentifier();
           v29 = *(a1 + 40);
           *buf = 138543874;
-          v35 = v28;
-          v36 = 2112;
-          v37 = v29;
-          v38 = 2112;
-          v39 = v15;
+          v34 = v28;
+          v35 = 2112;
+          v36 = v29;
+          v37 = 2112;
+          v38 = v15;
           _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive pairing identity a user in the home with accessory from encoded pairing identity: %@, %@", buf, 0x20u);
         }
 
@@ -2998,9 +3007,9 @@ void __108__HMHomeManager_currentUserPairingIdentityForHomeContainingAccessoryWi
         v25 = HMFGetLogIdentifier();
         v26 = *(a1 + 40);
         *buf = 138543618;
-        v35 = v25;
-        v36 = 2112;
-        v37 = v26;
+        v34 = v25;
+        v35 = 2112;
+        v36 = v26;
         _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@HomeKitDaemon did not send any pairing identity a user in the home with accessory : %@", buf, 0x16u);
       }
 
@@ -3010,48 +3019,46 @@ void __108__HMHomeManager_currentUserPairingIdentityForHomeContainingAccessoryWi
       (*(v27 + 16))(v27, 0, v15);
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pairingIdentityForAccessoryWithIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   if (!identifierCopy)
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager pairingIdentityForAccessoryWithIdentifier:completionHandler:]", @"accessoryIdentifier"];
-    v21 = objc_autoreleasePoolPush();
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager pairingIdentityForAccessoryWithIdentifier:completionHandler:]", @"accessoryIdentifier"];
+    v20 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v23 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v22 = HMFGetOSLogHandle();
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_8;
     }
 
 LABEL_7:
-    v24 = HMFGetLogIdentifier();
+    v23 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v32 = v24;
-    v33 = 2112;
-    v34 = v20;
-    _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+    v31 = v23;
+    v32 = 2112;
+    v33 = v19;
+    _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
 
 LABEL_8:
-    objc_autoreleasePoolPop(v21);
-    v25 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v20 userInfo:0];
-    objc_exception_throw(v25);
+    objc_autoreleasePoolPop(v20);
+    v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v19 userInfo:0];
+    objc_exception_throw(v24);
   }
 
   v8 = handlerCopy;
   if (!handlerCopy)
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager pairingIdentityForAccessoryWithIdentifier:completionHandler:]", @"completion"];
-    v21 = objc_autoreleasePoolPush();
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager pairingIdentityForAccessoryWithIdentifier:completionHandler:]", @"completion"];
+    v20 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v23 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v22 = HMFGetOSLogHandle();
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_8;
     }
@@ -3060,34 +3067,32 @@ LABEL_8:
   }
 
   context = [(HMHomeManager *)self context];
-  v29 = @"kIdentifierKey";
-  v30 = identifierCopy;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+  v28 = @"kIdentifierKey";
+  v29 = identifierCopy;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
   v11 = objc_alloc(MEMORY[0x1E69A2A10]);
   v12 = objc_alloc(MEMORY[0x1E69A2A00]);
   uuid = [(HMHomeManager *)self uuid];
   v14 = [v12 initWithTarget:uuid];
   v15 = [v11 initWithName:@"HMHM.acpi" destination:v14 payload:v10];
 
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __77__HMHomeManager_pairingIdentityForAccessoryWithIdentifier_completionHandler___block_invoke;
-  v26[3] = &unk_1E754E480;
-  v26[4] = self;
-  v27 = identifierCopy;
-  v28 = v8;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __77__HMHomeManager_pairingIdentityForAccessoryWithIdentifier_completionHandler___block_invoke;
+  v25[3] = &unk_1E754E480;
+  v25[4] = self;
+  v26 = identifierCopy;
+  v27 = v8;
   v16 = v8;
   v17 = identifierCopy;
-  [v15 setResponseHandler:v26];
+  [v15 setResponseHandler:v25];
   messageDispatcher = [context messageDispatcher];
   [messageDispatcher sendMessage:v15];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __77__HMHomeManager_pairingIdentityForAccessoryWithIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -3101,11 +3106,11 @@ void __77__HMHomeManager_pairingIdentityForAccessoryWithIdentifier_completionHan
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 40);
       *buf = 138543874;
-      v35 = v11;
-      v36 = 2112;
-      v37 = v12;
-      v38 = 2112;
-      v39 = v5;
+      v34 = v11;
+      v35 = 2112;
+      v36 = v12;
+      v37 = 2112;
+      v38 = v5;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@There was an error while retrieving pairing identity for %@ : %@", buf, 0x20u);
     }
 
@@ -3118,9 +3123,9 @@ void __77__HMHomeManager_pairingIdentityForAccessoryWithIdentifier_completionHan
     v13 = [v6 hmf_dataForKey:@"HM.pairingIdentity"];
     if (v13)
     {
-      v33 = 0;
-      v14 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v13 error:&v33];
-      v15 = v33;
+      v32 = 0;
+      v14 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v13 error:&v32];
+      v15 = v32;
       v16 = objc_autoreleasePoolPush();
       v17 = *(a1 + 32);
       v18 = HMFGetOSLogHandle();
@@ -3132,11 +3137,11 @@ void __77__HMHomeManager_pairingIdentityForAccessoryWithIdentifier_completionHan
           v20 = HMFGetLogIdentifier();
           v21 = *(a1 + 40);
           *buf = 138543874;
-          v35 = v20;
-          v36 = 2112;
-          v37 = v14;
-          v38 = 2112;
-          v39 = v21;
+          v34 = v20;
+          v35 = 2112;
+          v36 = v14;
+          v37 = 2112;
+          v38 = v21;
           _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_INFO, "%{public}@HM: Fetched pairing identity [%@] for accessory : %@", buf, 0x20u);
         }
 
@@ -3151,11 +3156,11 @@ void __77__HMHomeManager_pairingIdentityForAccessoryWithIdentifier_completionHan
           v28 = HMFGetLogIdentifier();
           v29 = *(a1 + 40);
           *buf = 138543874;
-          v35 = v28;
-          v36 = 2112;
-          v37 = v29;
-          v38 = 2112;
-          v39 = v15;
+          v34 = v28;
+          v35 = 2112;
+          v36 = v29;
+          v37 = 2112;
+          v38 = v15;
           _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive pairing identity from encoded pairing identity: %@, %@", buf, 0x20u);
         }
 
@@ -3176,9 +3181,9 @@ void __77__HMHomeManager_pairingIdentityForAccessoryWithIdentifier_completionHan
         v25 = HMFGetLogIdentifier();
         v26 = *(a1 + 40);
         *buf = 138543618;
-        v35 = v25;
-        v36 = 2112;
-        v37 = v26;
+        v34 = v25;
+        v35 = 2112;
+        v36 = v26;
         _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@HomeKitDaemon did not send any pairing identity for accessory : %@", buf, 0x16u);
       }
 
@@ -3188,8 +3193,6 @@ void __77__HMHomeManager_pairingIdentityForAccessoryWithIdentifier_completionHan
       (*(v27 + 16))(v27, 0, v15);
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleResidentProvisioningStatusChanged:(id)changed
@@ -3211,11 +3214,11 @@ void __77__HMHomeManager_pairingIdentityForAccessoryWithIdentifier_completionHan
 
 - (void)_handleDevicesUpdatedMessage:(id)message
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v28[0] = objc_opt_class();
-  v28[1] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+  v27[0] = objc_opt_class();
+  v27[1] = objc_opt_class();
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
   v6 = [messageCopy unarchivedObjectForKey:@"HMHM.devices" ofClasses:v5];
 
   v7 = objc_autoreleasePoolPush();
@@ -3228,7 +3231,7 @@ void __77__HMHomeManager_pairingIdentityForAccessoryWithIdentifier_completionHan
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v11;
+      v24 = v11;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Devices updated", buf, 0xCu);
     }
 
@@ -3250,14 +3253,14 @@ void __77__HMHomeManager_pairingIdentityForAccessoryWithIdentifier_completionHan
     {
       context = [(HMHomeManager *)selfCopy context];
       delegateCaller = [context delegateCaller];
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __46__HMHomeManager__handleDevicesUpdatedMessage___block_invoke;
-      v20[3] = &unk_1E754E5E8;
-      v21 = v14;
-      v22 = selfCopy;
-      v23 = v6;
-      [delegateCaller invokeBlock:v20];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __46__HMHomeManager__handleDevicesUpdatedMessage___block_invoke;
+      v19[3] = &unk_1E754E5E8;
+      v20 = v14;
+      v21 = selfCopy;
+      v22 = v6;
+      [delegateCaller invokeBlock:v19];
     }
   }
 
@@ -3268,16 +3271,14 @@ void __77__HMHomeManager_pairingIdentityForAccessoryWithIdentifier_completionHan
       v17 = HMFGetLogIdentifier();
       messagePayload = [messageCopy messagePayload];
       *buf = 138543618;
-      v25 = v17;
-      v26 = 2112;
-      v27 = messagePayload;
+      v24 = v17;
+      v25 = 2112;
+      v26 = messagePayload;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not find devices in devices updated message payload: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleResidentEnabledForThisDeviceUpdatedNotification:(id)notification
@@ -3335,28 +3336,28 @@ LABEL_7:
 
 - (void)_updateInvitation:(id)invitation presenceAuthStatus:(unint64_t)status invitationState:(int64_t)state invitationOptions:(int64_t)options completionHandler:(id)handler
 {
-  v44[5] = *MEMORY[0x1E69E9840];
+  v43[5] = *MEMORY[0x1E69E9840];
   invitationCopy = invitation;
   handlerCopy = handler;
   context = [(HMHomeManager *)self context];
-  v43[0] = @"kInvitationIdentifierKey";
+  v42[0] = @"kInvitationIdentifierKey";
   identifier = [invitationCopy identifier];
   uUIDString = [identifier UUIDString];
-  v44[0] = uUIDString;
-  v43[1] = @"kInvitationStateKey";
+  v43[0] = uUIDString;
+  v42[1] = @"kInvitationStateKey";
   v15 = [MEMORY[0x1E696AD98] numberWithInteger:state];
-  v44[1] = v15;
-  v43[2] = @"kInvitationResponseOptionsKey";
+  v43[1] = v15;
+  v42[2] = @"kInvitationResponseOptionsKey";
   v16 = [MEMORY[0x1E696AD98] numberWithInteger:options];
-  v44[2] = v16;
-  v43[3] = @"kUserPresenceAuthorizationStatusKey";
+  v43[2] = v16;
+  v42[3] = @"kUserPresenceAuthorizationStatusKey";
   v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:status];
-  v44[3] = v17;
-  v43[4] = @"kHomeUUID";
+  v43[3] = v17;
+  v42[4] = @"kHomeUUID";
   homeUUID = [invitationCopy homeUUID];
   uUIDString2 = [homeUUID UUIDString];
-  v44[4] = uUIDString2;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:5];
+  v43[4] = uUIDString2;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:5];
 
   v21 = objc_alloc(MEMORY[0x1E69A2A10]);
   v22 = objc_alloc(MEMORY[0x1E69A2A00]);
@@ -3364,15 +3365,15 @@ LABEL_7:
   v24 = [v22 initWithTarget:uuid];
   v25 = [v21 initWithName:@"kUpdateInvitationStateRequestKey" destination:v24 payload:v20];
 
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __106__HMHomeManager__updateInvitation_presenceAuthStatus_invitationState_invitationOptions_completionHandler___block_invoke;
-  v36[3] = &unk_1E754DE00;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __106__HMHomeManager__updateInvitation_presenceAuthStatus_invitationState_invitationOptions_completionHandler___block_invoke;
+  v35[3] = &unk_1E754DE00;
   v26 = context;
-  v37 = v26;
+  v36 = v26;
   v27 = handlerCopy;
-  v38 = v27;
-  [v25 setResponseHandler:v36];
+  v37 = v27;
+  [v25 setResponseHandler:v35];
   v28 = objc_autoreleasePoolPush();
   selfCopy = self;
   v30 = HMFGetOSLogHandle();
@@ -3380,17 +3381,15 @@ LABEL_7:
   {
     v31 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v40 = v31;
-    v41 = 2112;
-    v42 = v25;
+    v39 = v31;
+    v40 = 2112;
+    v41 = v25;
     _os_log_impl(&dword_19BB39000, v30, OS_LOG_TYPE_INFO, "%{public}@update invitation: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v28);
   messageDispatcher = [v26 messageDispatcher];
   [messageDispatcher sendMessage:v25];
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __106__HMHomeManager__updateInvitation_presenceAuthStatus_invitationState_invitationOptions_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -3447,7 +3446,7 @@ LABEL_9:
 
 - (void)_handleMetadataUpdatedNotification:(id)notification
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   context = [(HMHomeManager *)self context];
   pendingRequests = [context pendingRequests];
@@ -3468,11 +3467,11 @@ LABEL_9:
         if (unsignedIntegerValue >= [(HMHomeManager *)self metadataVersion])
         {
           -[HMHomeManager setMetadataVersion:](self, "setMetadataVersion:", [v9 unsignedIntegerValue]);
-          v26 = [notificationCopy dataForKey:@"kHAPMetadataDataKey"];
-          if (v26)
+          v25 = [notificationCopy dataForKey:@"kHAPMetadataDataKey"];
+          if (v25)
           {
-            v27 = +[HMHAPMetadata getSharedInstance];
-            [v27 applyProtoBufData:v26];
+            v26 = +[HMHAPMetadata getSharedInstance];
+            [v26 applyProtoBufData:v25];
 
             v22 = 0;
           }
@@ -3503,14 +3502,14 @@ LABEL_9:
       {
         v20 = HMFGetLogIdentifier();
         HMHomeManagerOptionsToString([(HMHomeManager *)selfCopy options]);
-        v21 = v28 = v17;
+        v21 = v27 = v17;
         *buf = 138543618;
-        v30 = v20;
-        v31 = 2112;
-        v32 = v21;
+        v29 = v20;
+        v30 = 2112;
+        v31 = v21;
         _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_INFO, "%{public}@Client has not requested access to HAP accessories (options %@) - dropping metadata update", buf, 0x16u);
 
-        v17 = v28;
+        v17 = v27;
       }
 
       objc_autoreleasePoolPop(v17);
@@ -3542,39 +3541,37 @@ LABEL_13:
   }
 
 LABEL_15:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleUserInvitationsUpdatedNotification:(id)notification
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
-  v38 = [notificationCopy dataForKey:@"kInvitationsDataKey"];
+  v37 = [notificationCopy dataForKey:@"kInvitationsDataKey"];
   selfCopy = self;
   v4 = [HMIncomingHomeInvitation incomingHomeInvitationFromEncodedData:"incomingHomeInvitationFromEncodedData:homeManager:" homeManager:?];
   v5 = [v4 mutableCopy];
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obj = [v5 copy];
-  v44 = [obj countByEnumeratingWithState:&v49 objects:v59 count:16];
-  if (v44)
+  v43 = [obj countByEnumeratingWithState:&v48 objects:v58 count:16];
+  if (v43)
   {
-    v42 = *v50;
-    v40 = v5;
+    v41 = *v49;
+    v39 = v5;
     do
     {
-      for (i = 0; i != v44; ++i)
+      for (i = 0; i != v43; ++i)
       {
-        if (*v50 != v42)
+        if (*v49 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v49 + 1) + 8 * i);
+        v7 = *(*(&v48 + 1) + 8 * i);
         v8 = objc_autoreleasePoolPush();
         v9 = selfCopy;
         v10 = HMFGetOSLogHandle();
@@ -3582,9 +3579,9 @@ LABEL_15:
         {
           v11 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v54 = v11;
-          v55 = 2112;
-          v56 = v7;
+          v53 = v11;
+          v54 = 2112;
+          v55 = v7;
           _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Processing invitation: %@", buf, 0x16u);
         }
 
@@ -3610,14 +3607,14 @@ LABEL_15:
               v21 = HMFGetLogIdentifier();
               uniqueIdentifier = [v14 uniqueIdentifier];
               *buf = 138543618;
-              v54 = v21;
-              v55 = 2112;
-              v56 = uniqueIdentifier;
+              v53 = v21;
+              v54 = 2112;
+              v55 = uniqueIdentifier;
               _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Removed invitation %@", buf, 0x16u);
             }
 
             objc_autoreleasePoolPop(v18);
-            v5 = v40;
+            v5 = v39;
           }
 
           [v14 _updateInvitationState:v16];
@@ -3632,11 +3629,11 @@ LABEL_15:
             uniqueIdentifier2 = [v14 uniqueIdentifier];
             v28 = +[HMHomeInvitationData homeInvitationStateDescription:](HMHomeInvitationData, "homeInvitationStateDescription:", [v14 invitationState]);
             *buf = 138543874;
-            v54 = v26;
-            v55 = 2112;
-            v56 = uniqueIdentifier2;
-            v57 = 2112;
-            v58 = v28;
+            v53 = v26;
+            v54 = 2112;
+            v55 = uniqueIdentifier2;
+            v56 = 2112;
+            v57 = v28;
             _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_INFO, "%{public}@Updated invitation state for invitation %@ to %@", buf, 0x20u);
           }
 
@@ -3662,9 +3659,9 @@ LABEL_20:
             v32 = HMFGetLogIdentifier();
             uniqueIdentifier3 = [v7 uniqueIdentifier];
             *buf = 138543618;
-            v54 = v32;
-            v55 = 2112;
-            v56 = uniqueIdentifier3;
+            v53 = v32;
+            v54 = 2112;
+            v55 = uniqueIdentifier3;
             _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_INFO, "%{public}@Added invitation: %@", buf, 0x16u);
           }
 
@@ -3674,10 +3671,10 @@ LABEL_20:
 LABEL_21:
       }
 
-      v44 = [obj countByEnumeratingWithState:&v49 objects:v59 count:16];
+      v43 = [obj countByEnumeratingWithState:&v48 objects:v58 count:16];
     }
 
-    while (v44);
+    while (v43);
   }
 
   _privateDelegate = [(HMHomeManager *)selfCopy _privateDelegate];
@@ -3685,22 +3682,20 @@ LABEL_21:
   {
     context2 = [(HMHomeManager *)selfCopy context];
     delegateCaller = [context2 delegateCaller];
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __59__HMHomeManager__handleUserInvitationsUpdatedNotification___block_invoke;
-    v45[3] = &unk_1E754E5E8;
-    v46 = _privateDelegate;
-    v47 = selfCopy;
-    v48 = v5;
-    [delegateCaller invokeBlock:v45];
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __59__HMHomeManager__handleUserInvitationsUpdatedNotification___block_invoke;
+    v44[3] = &unk_1E754E5E8;
+    v45 = _privateDelegate;
+    v46 = selfCopy;
+    v47 = v5;
+    [delegateCaller invokeBlock:v44];
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleHomesDidUpdateNotification:(id)notification
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -3709,25 +3704,23 @@ LABEL_21:
   {
     v8 = HMFGetLogIdentifier();
     shortDescription = [notificationCopy shortDescription];
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = shortDescription;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Fetching home configuration in response to homes did update message: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = shortDescription;
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Fetching home configuration in response to homes did update message: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMHomeManager *)selfCopy _fetchHomeConfigurationWithRefreshRequested:0];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleCurrentHomeChangedNotification:(id)notification
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v5 = [notificationCopy uuidForKey:@"kCurrentHomeUUIDKey"];
-  if (v5 || ((LOBYTE(v14) = 0, v6 = [notificationCopy BOOLForKey:@"kNoCurrentHomeKey" keyPresent:&v14], v14 == 1) ? (v7 = v6 == 0) : (v7 = 1), !v7))
+  if (v5 || ((LOBYTE(v13) = 0, v6 = [notificationCopy BOOLForKey:@"kNoCurrentHomeKey" keyPresent:&v13], v13 == 1) ? (v7 = v6 == 0) : (v7 = 1), !v7))
   {
     [(HMHomeManager *)self _updateCurrentHome:v5];
     v8 = objc_autoreleasePoolPush();
@@ -3737,22 +3730,20 @@ LABEL_21:
     {
       v11 = HMFGetLogIdentifier();
       currentHome = [(HMHomeManager *)selfCopy currentHome];
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = currentHome;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Updated current home: %@ due to current home changed notification", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = currentHome;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Updated current home: %@ due to current home changed notification", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processHomeAddedPayload:(id)payload completionHandler:(id)handler
 {
-  v88[2] = *MEMORY[0x1E69E9840];
+  v87[2] = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   handlerCopy = handler;
   context = [(HMHomeManager *)self context];
@@ -3763,20 +3754,20 @@ LABEL_21:
   v11 = [payloadCopy hmf_dataForKey:@"kHomeDataKey"];
   if (v11)
   {
-    v69 = 0;
-    v66 = v11;
-    delegateCaller2 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v11 error:&v69];
-    v13 = v69;
+    v68 = 0;
+    v65 = v11;
+    delegateCaller2 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v11 error:&v68];
+    v13 = v68;
     [delegateCaller2 _allowDecodingCyclesInSecureMode];
     v14 = MEMORY[0x1E695DFD8];
-    v88[0] = objc_opt_class();
-    v88[1] = objc_opt_class();
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v88 count:2];
+    v87[0] = objc_opt_class();
+    v87[1] = objc_opt_class();
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v87 count:2];
     v16 = [v14 setWithArray:v15];
     v17 = *MEMORY[0x1E696A508];
-    v68 = v13;
-    v18 = [delegateCaller2 decodeTopLevelObjectOfClasses:v16 forKey:v17 error:&v68];
-    v67 = v68;
+    v67 = v13;
+    v18 = [delegateCaller2 decodeTopLevelObjectOfClasses:v16 forKey:v17 error:&v67];
+    v66 = v67;
 
     v19 = v18;
     objc_opt_class();
@@ -3805,35 +3796,35 @@ LABEL_21:
         v26 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
-          v58 = HMFGetLogIdentifier();
+          v57 = HMFGetLogIdentifier();
           currentUser = [v21 currentUser];
           currentUser2 = [v21 currentUser];
           uuid2 = [currentUser2 uuid];
           currentUser3 = [context4 currentUser];
           currentUser4 = [context4 currentUser];
           [currentUser4 uuid];
-          v28 = v63 = v24;
+          v28 = v62 = v24;
           *buf = 138545410;
-          v71 = v58;
-          v72 = 2048;
-          v73 = v21;
-          v74 = 2112;
-          v75 = v21;
-          v76 = 2048;
-          v77 = context4;
-          v78 = 2112;
-          v79 = context4;
-          v80 = 2112;
-          v81 = currentUser;
-          v82 = 2112;
-          v83 = uuid2;
-          v84 = 2112;
-          v85 = currentUser3;
-          v86 = 2112;
-          v87 = v28;
+          v70 = v57;
+          v71 = 2048;
+          v72 = v21;
+          v73 = 2112;
+          v74 = v21;
+          v75 = 2048;
+          v76 = context4;
+          v77 = 2112;
+          v78 = context4;
+          v79 = 2112;
+          v80 = currentUser;
+          v81 = 2112;
+          v82 = uuid2;
+          v83 = 2112;
+          v84 = currentUser3;
+          v85 = 2112;
+          v86 = v28;
           _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_INFO, "%{public}@Not adding unarchived home %p/%@ to the home graph as a matching home already exist: %p/%@, [%@/%@] [%@/%@]", buf, 0x5Cu);
 
-          v24 = v63;
+          v24 = v62;
         }
 
         v29 = context4;
@@ -3853,29 +3844,29 @@ LABEL_21:
         v44 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
-          v64 = HMFGetLogIdentifier();
-          v62 = HMFBooleanToString();
+          v63 = HMFGetLogIdentifier();
+          v61 = HMFBooleanToString();
           currentUser5 = [v21 currentUser];
           [v21 currentUser];
-          v45 = v57 = v42;
+          v45 = v56 = v42;
           [v45 uuid];
-          v46 = v59 = v10;
+          v46 = v58 = v10;
           *buf = 138544642;
-          v71 = v64;
-          v72 = 2048;
-          v73 = v21;
-          v74 = 2112;
-          v75 = v21;
-          v76 = 2112;
-          v77 = v62;
-          v78 = 2112;
-          v79 = currentUser5;
-          v80 = 2112;
-          v81 = v46;
+          v70 = v63;
+          v71 = 2048;
+          v72 = v21;
+          v73 = 2112;
+          v74 = v21;
+          v75 = 2112;
+          v76 = v61;
+          v77 = 2112;
+          v78 = currentUser5;
+          v79 = 2112;
+          v80 = v46;
           _os_log_impl(&dword_19BB39000, v44, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully added home %p/%@ with isPrimary: %@, current user: %@/%@", buf, 0x3Eu);
 
-          v10 = v59;
-          v42 = v57;
+          v10 = v58;
+          v42 = v56;
         }
 
         objc_autoreleasePoolPop(v42);
@@ -3894,11 +3885,11 @@ LABEL_21:
           v50 = v24;
           v51 = _Block_copy(aBlock);
           *buf = 138543874;
-          v71 = v49;
-          v72 = 2112;
-          v73 = v51;
-          v74 = 2112;
-          v75 = v21;
+          v70 = v49;
+          v71 = 2112;
+          v72 = v51;
+          v73 = 2112;
+          v74 = v21;
           _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_INFO, "%{public}@Calling completion %@ with newly added Home: %@", buf, 0x20u);
 
           v24 = v50;
@@ -3913,8 +3904,8 @@ LABEL_21:
       handlerCopy = aBlock;
       [delegateCaller callCompletion:aBlock home:v29 error:0];
 
-      v11 = v66;
-      context5 = v67;
+      v11 = v65;
+      context5 = v66;
     }
 
     else
@@ -3926,17 +3917,17 @@ LABEL_21:
       {
         v38 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v71 = v38;
-        v72 = 2112;
-        v73 = v67;
+        v70 = v38;
+        v71 = 2112;
+        v72 = v66;
         _os_log_impl(&dword_19BB39000, v37, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive home from home data: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v35);
       context4 = [(HMHomeManager *)selfCopy3 context];
       context3 = [context4 delegateCaller];
-      context5 = v67;
-      [context3 callCompletion:handlerCopy home:0 error:v67];
+      context5 = v66;
+      [context3 callCompletion:handlerCopy home:0 error:v66];
     }
   }
 
@@ -3949,9 +3940,9 @@ LABEL_21:
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v71 = v33;
-      v72 = 2112;
-      v73 = payloadCopy;
+      v70 = v33;
+      v71 = 2112;
+      v72 = payloadCopy;
       _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@Could not find home data in add home response payload: %@", buf, 0x16u);
     }
 
@@ -3961,8 +3952,6 @@ LABEL_21:
     v19 = [MEMORY[0x1E696ABC0] hmErrorWithCode:-1];
     [delegateCaller2 callCompletion:handlerCopy home:0 error:v19];
   }
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_homeWithUUID:(id)d
@@ -4081,7 +4070,7 @@ LABEL_21:
 
 void __39__HMHomeManager__mergeHomeInvitations___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -4089,20 +4078,19 @@ void __39__HMHomeManager__mergeHomeInvitations___block_invoke(uint64_t a1, void 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed invitation via merge: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed invitation via merge: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __39__HMHomeManager__mergeHomeInvitations___block_invoke_812(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -4110,15 +4098,14 @@ void __39__HMHomeManager__mergeHomeInvitations___block_invoke_812(uint64_t a1, v
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added invitation via merge: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added invitation via merge: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __39__HMHomeManager__mergeHomeInvitations___block_invoke_814(id *a1)
@@ -4139,13 +4126,13 @@ void __39__HMHomeManager__mergeHomeInvitations___block_invoke_814(id *a1)
 
 - (void)_mergeCurrentHomesWithNewHomes:(id)homes newPrimaryHome:(id)home newCurrentHome:(id)currentHome newInvitations:(id)invitations newAppData:(id)data refreshRequested:(BOOL)requested
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   homesCopy = homes;
   homeCopy = home;
   currentHomeCopy = currentHome;
   invitationsCopy = invitations;
   dataCopy = data;
-  v60 = [MEMORY[0x1E695DF00] now];
+  v59 = [MEMORY[0x1E695DF00] now];
   v14 = objc_autoreleasePoolPush();
   selfCopy = self;
   v16 = HMFGetOSLogHandle();
@@ -4154,9 +4141,9 @@ void __39__HMHomeManager__mergeHomeInvitations___block_invoke_814(id *a1)
     v17 = HMFGetLogIdentifier();
     v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HMHomeManager generationCounter](selfCopy, "generationCounter")}];
     *buf = 138543618;
-    v81 = v17;
-    v82 = 2112;
-    v83 = v18;
+    v80 = v17;
+    v81 = 2112;
+    v82 = v18;
     _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_INFO, "%{public}@Framework merge started for generation counter: %@", buf, 0x16u);
   }
 
@@ -4173,7 +4160,7 @@ void __39__HMHomeManager__mergeHomeInvitations___block_invoke_814(id *a1)
   block[3] = &unk_1E754E5C0;
   block[4] = selfCopy;
   v24 = v21;
-  v79 = v24;
+  v78 = v24;
   dispatch_async(queue, block);
 
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -4185,73 +4172,73 @@ void __39__HMHomeManager__mergeHomeInvitations___block_invoke_814(id *a1)
   v26 = [HMObjectMergeCollection alloc];
   currentHomes = [(HMHomeManager *)selfCopy currentHomes];
   array = [currentHomes array];
-  v59 = homesCopy;
+  v58 = homesCopy;
   v29 = [(HMObjectMergeCollection *)v26 initWithCurrentObjects:array newObjects:homesCopy commonObjectPredicate:v25];
 
   removedObjects = [(HMObjectMergeCollection *)v29 removedObjects];
-  v76[0] = MEMORY[0x1E69E9820];
-  v76[1] = 3221225472;
-  v76[2] = __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_798;
-  v76[3] = &unk_1E754AA78;
-  v76[4] = selfCopy;
-  [removedObjects hmf_enumerateWithAutoreleasePoolUsingBlock:v76];
-
-  addedObjects = [(HMObjectMergeCollection *)v29 addedObjects];
   v75[0] = MEMORY[0x1E69E9820];
   v75[1] = 3221225472;
-  v75[2] = __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_800;
+  v75[2] = __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_798;
   v75[3] = &unk_1E754AA78;
   v75[4] = selfCopy;
-  [addedObjects hmf_enumerateWithAutoreleasePoolUsingBlock:v75];
+  [removedObjects hmf_enumerateWithAutoreleasePoolUsingBlock:v75];
+
+  addedObjects = [(HMObjectMergeCollection *)v29 addedObjects];
+  v74[0] = MEMORY[0x1E69E9820];
+  v74[1] = 3221225472;
+  v74[2] = __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_800;
+  v74[3] = &unk_1E754AA78;
+  v74[4] = selfCopy;
+  [addedObjects hmf_enumerateWithAutoreleasePoolUsingBlock:v74];
 
   [(HMObjectMergeCollection *)v29 mergeCommonObjects];
   finalObjects = [(HMObjectMergeCollection *)v29 finalObjects];
   currentHomes2 = [(HMHomeManager *)selfCopy currentHomes];
   [currentHomes2 setArray:finalObjects];
 
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
   homes = [(HMHomeManager *)selfCopy homes];
-  v35 = [homes countByEnumeratingWithState:&v71 objects:v86 count:16];
+  v35 = [homes countByEnumeratingWithState:&v70 objects:v85 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v72;
+    v37 = *v71;
     do
     {
       for (i = 0; i != v36; ++i)
       {
-        if (*v72 != v37)
+        if (*v71 != v37)
         {
           objc_enumerationMutation(homes);
         }
 
-        [*(*(&v71 + 1) + 8 * i) postConfigure];
+        [*(*(&v70 + 1) + 8 * i) postConfigure];
       }
 
-      v36 = [homes countByEnumeratingWithState:&v71 objects:v86 count:16];
+      v36 = [homes countByEnumeratingWithState:&v70 objects:v85 count:16];
     }
 
     while (v36);
   }
 
   removedObjects2 = [(HMObjectMergeCollection *)v29 removedObjects];
-  v70[0] = MEMORY[0x1E69E9820];
-  v70[1] = 3221225472;
-  v70[2] = __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_801;
-  v70[3] = &unk_1E754AA78;
-  v70[4] = selfCopy;
-  [removedObjects2 hmf_enumerateWithAutoreleasePoolUsingBlock:v70];
-
-  addedObjects2 = [(HMObjectMergeCollection *)v29 addedObjects];
   v69[0] = MEMORY[0x1E69E9820];
   v69[1] = 3221225472;
-  v69[2] = __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_804;
+  v69[2] = __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_801;
   v69[3] = &unk_1E754AA78;
   v69[4] = selfCopy;
-  [addedObjects2 hmf_enumerateWithAutoreleasePoolUsingBlock:v69];
+  [removedObjects2 hmf_enumerateWithAutoreleasePoolUsingBlock:v69];
+
+  addedObjects2 = [(HMObjectMergeCollection *)v29 addedObjects];
+  v68[0] = MEMORY[0x1E69E9820];
+  v68[1] = 3221225472;
+  v68[2] = __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_804;
+  v68[3] = &unk_1E754AA78;
+  v68[4] = selfCopy;
+  [addedObjects2 hmf_enumerateWithAutoreleasePoolUsingBlock:v68];
 
   [(HMHomeManager *)selfCopy _mergeHomeInvitations:invitationsCopy];
   [(HMHomeManager *)selfCopy _mergeNewAppData:dataCopy];
@@ -4265,26 +4252,26 @@ void __39__HMHomeManager__mergeHomeInvitations___block_invoke_814(id *a1)
   {
     context2 = [(HMHomeManager *)selfCopy context];
     queue2 = [context2 queue];
-    v67[0] = MEMORY[0x1E69E9820];
-    v67[1] = 3221225472;
-    v67[2] = __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_808;
-    v67[3] = &unk_1E754E5C0;
-    v67[4] = selfCopy;
-    v68 = currentHomeCopy;
-    dispatch_async(queue2, v67);
+    v66[0] = MEMORY[0x1E69E9820];
+    v66[1] = 3221225472;
+    v66[2] = __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_808;
+    v66[3] = &unk_1E754E5C0;
+    v66[4] = selfCopy;
+    v67 = currentHomeCopy;
+    dispatch_async(queue2, v66);
   }
 
   context3 = [(HMHomeManager *)selfCopy context];
   queue3 = [context3 queue];
-  v64[0] = MEMORY[0x1E69E9820];
-  v64[1] = 3221225472;
-  v64[2] = __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_810;
-  v64[3] = &unk_1E754DC70;
+  v63[0] = MEMORY[0x1E69E9820];
+  v63[1] = 3221225472;
+  v63[2] = __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_810;
+  v63[3] = &unk_1E754DC70;
   requestedCopy = requested;
-  v64[4] = selfCopy;
+  v63[4] = selfCopy;
   v49 = v24;
-  v65 = v49;
-  dispatch_async(queue3, v64);
+  v64 = v49;
+  dispatch_async(queue3, v63);
 
   v50 = objc_autoreleasePoolPush();
   v51 = selfCopy;
@@ -4293,25 +4280,24 @@ void __39__HMHomeManager__mergeHomeInvitations___block_invoke_814(id *a1)
   {
     v53 = HMFGetLogIdentifier();
     v54 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HMHomeManager generationCounter](v51, "generationCounter")}];
-    [v60 timeIntervalSinceNow];
+    [v59 timeIntervalSinceNow];
     *buf = 138543874;
-    v81 = v53;
-    v82 = 2112;
-    v83 = v54;
-    v84 = 2048;
-    v85 = -v55;
+    v80 = v53;
+    v81 = 2112;
+    v82 = v54;
+    v83 = 2048;
+    v84 = -v55;
     _os_log_impl(&dword_19BB39000, v52, OS_LOG_TYPE_INFO, "%{public}@Framework merge finished for generation counter: %@, %f seconds", buf, 0x20u);
 
     v43 = currentHomeCopy;
   }
 
   objc_autoreleasePoolPop(v50);
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v5 uniqueIdentifier];
@@ -4350,13 +4336,13 @@ uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newC
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       v21 = HMFGetLogIdentifier();
-      v24 = 138543874;
-      v25 = v21;
-      v26 = 2112;
-      v27 = v5;
-      v28 = 2112;
-      v29 = v6;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Found different current user unique identifiers, so not considering homes to be the same even though they have the same unique identifier. Current home: %@, new home: %@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v21;
+      v25 = 2112;
+      v26 = v5;
+      v27 = 2112;
+      v28 = v6;
+      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Found different current user unique identifiers, so not considering homes to be the same even though they have the same unique identifier. Current home: %@, new home: %@", &v23, 0x20u);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -4369,11 +4355,33 @@ LABEL_6:
   v17 = 1;
 LABEL_11:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 void __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_798(uint64_t a1, void *a2)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v4 = objc_autoreleasePoolPush();
+  v5 = *(a1 + 32);
+  v6 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    v7 = HMFGetLogIdentifier();
+    v8 = 138543874;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    v12 = 2048;
+    v13 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed home via merge: %@ (%p)", &v8, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v4);
+  [v3 unconfigure];
+}
+
+void __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_800(uint64_t a1, void *a2)
 {
   v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -4389,39 +4397,12 @@ void __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurre
     v12 = v3;
     v13 = 2048;
     v14 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed home via merge: %@ (%p)", &v9, 0x20u);
-  }
-
-  objc_autoreleasePoolPop(v4);
-  [v3 unconfigure];
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_800(uint64_t a1, void *a2)
-{
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = objc_autoreleasePoolPush();
-  v5 = *(a1 + 32);
-  v6 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-  {
-    v7 = HMFGetLogIdentifier();
-    v10 = 138543874;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    v14 = 2048;
-    v15 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added home via merge: %@ (%p)", &v10, 0x20u);
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added home via merge: %@ (%p)", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
   v8 = [*(a1 + 32) context];
   [v3 __configureWithContext:v8 homeManager:*(a1 + 32)];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_801(uint64_t a1, void *a2)
@@ -4491,7 +4472,7 @@ uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newC
 
 void __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_2_809(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _updateCurrentHome:*(a1 + 40)];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
@@ -4500,15 +4481,14 @@ void __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurre
   {
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 32) currentHome];
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Updated current home: %@ due to current home merge", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Updated current home: %@ due to current home merge", &v7, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_2_806(uint64_t a1)
@@ -4528,7 +4508,7 @@ void __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurre
 
 uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_3_807(id *a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = a1[4];
   v4 = HMFGetOSLogHandle();
@@ -4540,25 +4520,23 @@ uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newC
     v8 = [v6 currentUser];
     v9 = [a1[5] currentUser];
     v10 = [v9 uuid];
-    v13 = 138544642;
-    v14 = v5;
-    v15 = 2048;
-    v16 = v6;
-    v17 = 2112;
-    v18 = v6;
-    v19 = 2112;
-    v20 = v7;
-    v21 = 2112;
-    v22 = v8;
-    v23 = 2112;
-    v24 = v10;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Notifying client of did add home: %p/%@ delegate: %@ with current user : %@ / %@", &v13, 0x3Eu);
+    v12 = 138544642;
+    v13 = v5;
+    v14 = 2048;
+    v15 = v6;
+    v16 = 2112;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v8;
+    v22 = 2112;
+    v23 = v10;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Notifying client of did add home: %p/%@ delegate: %@ with current user : %@ / %@", &v12, 0x3Eu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [a1[6] homeManager:a1[4] didAddHome:a1[5]];
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return [a1[6] homeManager:a1[4] didAddHome:a1[5]];
 }
 
 void __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_2_803(uint64_t a1)
@@ -4578,7 +4556,7 @@ void __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurre
 
 uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newCurrentHome_newInvitations_newAppData_refreshRequested___block_invoke_3(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -4586,24 +4564,22 @@ uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newC
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v9 = 138543874;
-    v10 = v5;
-    v11 = 2048;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Notifying client of removed home: %p / %@", &v9, 0x20u);
+    v8 = 138543874;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Notifying client of removed home: %p / %@", &v8, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 48) homeManager:*(a1 + 32) didRemoveHome:*(a1 + 40)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 48) homeManager:*(a1 + 32) didRemoveHome:*(a1 + 40)];
 }
 
 - (void)notifyDelegateOfBatchNotificationsEndWithReason:(id)reason
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   os_unfair_lock_lock_with_options();
   [(NSCountedSet *)self->_batchNotificationReasons removeObject:reasonCopy];
@@ -4616,57 +4592,55 @@ uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newC
   {
     [(HMFTimer *)batchNotificationEndTimer suspend];
     os_unfair_lock_unlock(&self->_lock);
-    v7 = objc_autoreleasePoolPush();
+    v6 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v8 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v10 = HMFGetLogIdentifier();
+      v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v10;
-      v24 = 2112;
-      v25 = reasonCopy;
-      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Calling batch notification end: %@", buf, 0x16u);
+      v22 = v9;
+      v23 = 2112;
+      v24 = reasonCopy;
+      _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@Calling batch notification end: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v7);
+    objc_autoreleasePoolPop(v6);
     delegate = [(HMHomeManager *)selfCopy delegate];
-    v12 = objc_opt_respondsToSelector();
+    v11 = objc_opt_respondsToSelector();
 
-    if (v12)
+    if (v11)
     {
       delegate2 = [(HMHomeManager *)selfCopy delegate];
       if ([delegate2 conformsToProtocol:&unk_1F0F63540])
       {
-        v14 = delegate2;
+        v13 = delegate2;
       }
 
       else
       {
-        v14 = 0;
+        v13 = 0;
       }
 
-      v15 = v14;
+      v14 = v13;
 
       context = [(HMHomeManager *)selfCopy context];
       delegateCaller = [context delegateCaller];
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __65__HMHomeManager_notifyDelegateOfBatchNotificationsEndWithReason___block_invoke;
-      v19[3] = &unk_1E754E5C0;
-      v20 = v15;
-      v21 = selfCopy;
-      v18 = v15;
-      [delegateCaller invokeBlock:v19];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __65__HMHomeManager_notifyDelegateOfBatchNotificationsEndWithReason___block_invoke;
+      v18[3] = &unk_1E754E5C0;
+      v19 = v14;
+      v20 = selfCopy;
+      v17 = v14;
+      [delegateCaller invokeBlock:v18];
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyDelegateOfBatchNotificationsStartWithReason:(id)reason
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   context = [(HMHomeManager *)self context];
   os_unfair_lock_lock_with_options();
@@ -4704,9 +4678,9 @@ uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newC
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v16;
-      v30 = 2112;
-      v31 = reasonCopy;
+      v28 = v16;
+      v29 = 2112;
+      v30 = reasonCopy;
       _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@Calling batch notification start: %@", buf, 0x16u);
     }
 
@@ -4730,23 +4704,21 @@ uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newC
       v21 = v20;
 
       delegateCaller = [context delegateCaller];
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __67__HMHomeManager_notifyDelegateOfBatchNotificationsStartWithReason___block_invoke;
-      v25[3] = &unk_1E754E5C0;
-      v26 = v21;
-      v27 = selfCopy;
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __67__HMHomeManager_notifyDelegateOfBatchNotificationsStartWithReason___block_invoke;
+      v24[3] = &unk_1E754E5C0;
+      v25 = v21;
+      v26 = selfCopy;
       v23 = v21;
-      [delegateCaller invokeBlock:v25];
+      [delegateCaller invokeBlock:v24];
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_forceBatchNotificationsEnd
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock_with_options();
   allObjects = [(NSCountedSet *)self->_batchNotificationReasons allObjects];
   [(NSCountedSet *)self->_batchNotificationReasons removeAllObjects];
@@ -4759,9 +4731,9 @@ uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newC
     v7 = HMFGetLogIdentifier();
     v8 = [allObjects componentsJoinedByString:{@", "}];
     *buf = 138543618;
-    v22 = v7;
-    v23 = 2112;
-    v24 = v8;
+    v21 = v7;
+    v22 = 2112;
+    v23 = v8;
     _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Batch notifications '%@' did not complete - force-ending", buf, 0x16u);
   }
 
@@ -4786,17 +4758,15 @@ uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newC
 
     context = [(HMHomeManager *)selfCopy context];
     delegateCaller = [context delegateCaller];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __44__HMHomeManager__forceBatchNotificationsEnd__block_invoke;
-    v18[3] = &unk_1E754E5C0;
-    v19 = v13;
-    v20 = selfCopy;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __44__HMHomeManager__forceBatchNotificationsEnd__block_invoke;
+    v17[3] = &unk_1E754E5C0;
+    v18 = v13;
+    v19 = selfCopy;
     v16 = v13;
-    [delegateCaller invokeBlock:v18];
+    [delegateCaller invokeBlock:v17];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyDelegateOfAppDataUpdate
@@ -4818,34 +4788,34 @@ uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newC
 
 - (void)_setInitialHomes:(id)homes
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   homesCopy = homes;
   [(HMHomeManager *)self setPrimaryHome:0];
-  v39 = 0u;
-  v40 = 0u;
   v38 = 0u;
+  v39 = 0u;
   v37 = 0u;
+  v36 = 0u;
   v5 = homesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v37 objects:v46 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v36 objects:v45 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v38;
+    v8 = *v37;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v38 != v8)
+        if (*v37 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v37 + 1) + 8 * i);
+        v10 = *(*(&v36 + 1) + 8 * i);
         context = [(HMHomeManager *)self context];
         [v10 __configureWithContext:context homeManager:self];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v37 objects:v46 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v36 objects:v45 count:16];
     }
 
     while (v7);
@@ -4854,26 +4824,26 @@ uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newC
   currentHomes = [(HMHomeManager *)self currentHomes];
   [currentHomes setArray:v5];
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v13 = v5;
-  v14 = [v13 countByEnumeratingWithState:&v33 objects:v45 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v32 objects:v44 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v34;
+    v16 = *v33;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v34 != v16)
+        if (*v33 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v33 + 1) + 8 * j);
+        v18 = *(*(&v32 + 1) + 8 * j);
         [v18 postConfigure];
         if ([v18 isPrimary])
         {
@@ -4881,7 +4851,7 @@ uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newC
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v33 objects:v45 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v32 objects:v44 count:16];
     }
 
     while (v15);
@@ -4898,9 +4868,9 @@ uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newC
   {
     v23 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v42 = v23;
-    v43 = 2112;
-    v44 = WeakRetained;
+    v41 = v23;
+    v42 = 2112;
+    v43 = WeakRetained;
     _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Notifying client did update homes for delegate: %@", buf, 0x16u);
   }
 
@@ -4911,18 +4881,16 @@ uint64_t __121__HMHomeManager__mergeCurrentHomesWithNewHomes_newPrimaryHome_newC
     [currentActivity markWithReason:@"Notifying delegate homes did update"];
     context2 = [(HMHomeManager *)selfCopy context];
     delegateCaller = [context2 delegateCaller];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __34__HMHomeManager__setInitialHomes___block_invoke;
-    v29[3] = &unk_1E754E5E8;
-    v30 = WeakRetained;
-    v31 = selfCopy;
-    v32 = currentActivity;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __34__HMHomeManager__setInitialHomes___block_invoke;
+    v28[3] = &unk_1E754E5E8;
+    v29 = WeakRetained;
+    v30 = selfCopy;
+    v31 = currentActivity;
     v27 = currentActivity;
-    [delegateCaller invokeBlock:v29];
+    [delegateCaller invokeBlock:v28];
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __34__HMHomeManager__setInitialHomes___block_invoke(uint64_t a1)
@@ -4935,7 +4903,7 @@ uint64_t __34__HMHomeManager__setInitialHomes___block_invoke(uint64_t a1)
 
 - (void)_updateCurrentHome:(id)home
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   homeCopy = home;
   v5 = [(HMHomeManager *)self _homeWithUUID:homeCopy];
   [(HMHomeManager *)self setCurrentHome:v5];
@@ -4951,25 +4919,23 @@ uint64_t __34__HMHomeManager__setInitialHomes___block_invoke(uint64_t a1)
       v10 = HMFGetLogIdentifier();
       currentHome = [(HMHomeManager *)selfCopy currentHome];
       *buf = 138543618;
-      v19 = v10;
-      v20 = 2112;
-      v21 = currentHome;
+      v18 = v10;
+      v19 = 2112;
+      v20 = currentHome;
       _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Notifying client of updated current home: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     context = [(HMHomeManager *)selfCopy context];
     delegateCaller = [context delegateCaller];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __36__HMHomeManager__updateCurrentHome___block_invoke;
-    v15[3] = &unk_1E754E5C0;
-    v16 = _privateDelegate;
-    v17 = selfCopy;
-    [delegateCaller invokeBlock:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __36__HMHomeManager__updateCurrentHome___block_invoke;
+    v14[3] = &unk_1E754E5C0;
+    v15 = _privateDelegate;
+    v16 = selfCopy;
+    [delegateCaller invokeBlock:v14];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updatePrimaryHome:(id)home notifyDelegate:(BOOL)delegate
@@ -5016,7 +4982,7 @@ uint64_t __34__HMHomeManager__setInitialHomes___block_invoke(uint64_t a1)
 
 void __51__HMHomeManager__updatePrimaryHome_notifyDelegate___block_invoke(id *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = a1[4];
   v4 = HMFGetOSLogHandle();
@@ -5024,23 +4990,21 @@ void __51__HMHomeManager__updatePrimaryHome_notifyDelegate___block_invoke(id *a1
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v14 = v5;
+    v13 = v5;
     _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Notifying client of updated primary home", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   v6 = [a1[5] delegateCaller];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __51__HMHomeManager__updatePrimaryHome_notifyDelegate___block_invoke_779;
-  v10[3] = &unk_1E754E5C0;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __51__HMHomeManager__updatePrimaryHome_notifyDelegate___block_invoke_779;
+  v9[3] = &unk_1E754E5C0;
   v7 = a1[6];
   v8 = a1[4];
-  v11 = v7;
-  v12 = v8;
-  [v6 invokeBlock:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = v7;
+  v11 = v8;
+  [v6 invokeBlock:v9];
 }
 
 - (void)_handleRuntimeStateUpdateNotification:(id)notification
@@ -5058,14 +5022,14 @@ void __51__HMHomeManager__updatePrimaryHome_notifyDelegate___block_invoke(id *a1
 
 - (void)_requestRuntimeUpdate:(id)update
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   updateCopy = update;
   context = [(HMHomeManager *)self context];
   if (updateCopy)
   {
-    v21 = @"options";
-    v22[0] = updateCopy;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = @"options";
+    v21[0] = updateCopy;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
   }
 
   else
@@ -5084,25 +5048,23 @@ void __51__HMHomeManager__updatePrimaryHome_notifyDelegate___block_invoke(id *a1
   identifier = [v11 identifier];
   v15 = [v12 stringWithFormat:@"HomeManager-%@-%@", name, identifier];
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __39__HMHomeManager__requestRuntimeUpdate___block_invoke;
-  v19[3] = &unk_1E754E570;
-  v19[4] = self;
-  v20 = v15;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __39__HMHomeManager__requestRuntimeUpdate___block_invoke;
+  v18[3] = &unk_1E754E570;
+  v18[4] = self;
+  v19 = v15;
   v16 = v15;
-  [v11 setResponseHandler:v19];
+  [v11 setResponseHandler:v18];
   messageDispatcher = [context messageDispatcher];
   [messageDispatcher sendMessage:v11];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __39__HMHomeManager__requestRuntimeUpdate___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__39__HMHomeManager__requestRuntimeUpdate___block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    return [*(result + 32) _handleRuntimeStateUpdatePayload:a3 reason:*(result + 40)];
+    return [result[4] _handleRuntimeStateUpdatePayload:a3 reason:result[5]];
   }
 
   return result;
@@ -5110,31 +5072,31 @@ uint64_t __39__HMHomeManager__requestRuntimeUpdate___block_invoke(uint64_t resul
 
 - (void)_handleRuntimeStateUpdatePayload:(id)payload reason:(id)reason
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   reasonCopy = reason;
   [(HMHomeManager *)self notifyDelegateOfBatchNotificationsStartWithReason:?];
   [(HMHomeManager *)self __handleHomeManagerState:payloadCopy];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   allKeys = [payloadCopy allKeys];
-  v8 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         v13 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v12];
         v14 = [(HMHomeManager *)self _homeWithUUID:v13];
         v15 = [payloadCopy hmf_dictionaryForKey:v12];
@@ -5155,21 +5117,20 @@ uint64_t __39__HMHomeManager__requestRuntimeUpdate___block_invoke(uint64_t resul
         }
       }
 
-      v9 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
 
   [(HMHomeManager *)self notifyDelegateOfBatchNotificationsEndWithReason:reasonCopy];
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_writeCaches:(id)caches homeData:(BOOL)data metadata:(BOOL)metadata
 {
   metadataCopy = metadata;
   dataCopy = data;
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   cachesCopy = caches;
   if (!dataCopy && !metadataCopy)
   {
@@ -5184,13 +5145,13 @@ uint64_t __39__HMHomeManager__requestRuntimeUpdate___block_invoke(uint64_t resul
     homeCacheDir = [(HMHomeManager *)self homeCacheDir];
     if (homeCacheDir)
     {
-      v57 = 0;
+      v56 = 0;
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-      v13 = [defaultManager fileExistsAtPath:homeCacheDir isDirectory:&v57];
+      v13 = [defaultManager fileExistsAtPath:homeCacheDir isDirectory:&v56];
 
       if (v13)
       {
-        if ((v57 & 1) == 0)
+        if ((v56 & 1) == 0)
         {
           v14 = objc_autoreleasePoolPush();
           selfCopy = self;
@@ -5199,9 +5160,9 @@ uint64_t __39__HMHomeManager__requestRuntimeUpdate___block_invoke(uint64_t resul
           {
             v17 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v61 = v17;
-            v62 = 2112;
-            v63 = homeCacheDir;
+            v60 = v17;
+            v61 = 2112;
+            v62 = homeCacheDir;
             _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@The cache location %@ is not a directory", buf, 0x16u);
           }
 
@@ -5213,9 +5174,9 @@ uint64_t __39__HMHomeManager__requestRuntimeUpdate___block_invoke(uint64_t resul
       else
       {
         defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-        v56 = 0;
-        v19 = [defaultManager2 createDirectoryAtPath:homeCacheDir withIntermediateDirectories:1 attributes:0 error:&v56];
-        v20 = v56;
+        v55 = 0;
+        v19 = [defaultManager2 createDirectoryAtPath:homeCacheDir withIntermediateDirectories:1 attributes:0 error:&v55];
+        v20 = v55;
 
         if ((v19 & 1) == 0)
         {
@@ -5225,11 +5186,11 @@ uint64_t __39__HMHomeManager__requestRuntimeUpdate___block_invoke(uint64_t resul
           {
             v23 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v61 = v23;
-            v62 = 2112;
-            v63 = homeCacheDir;
-            v64 = 2112;
-            v65 = v20;
+            v60 = v23;
+            v61 = 2112;
+            v62 = homeCacheDir;
+            v63 = 2112;
+            v64 = v20;
             _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@Unable to make directory %@ (%@).", buf, 0x20u);
           }
 
@@ -5246,10 +5207,10 @@ uint64_t __39__HMHomeManager__requestRuntimeUpdate___block_invoke(uint64_t resul
         configuration2 = [(HMHomeManager *)self configuration];
         v28 = [v26 stringWithFormat:@"%@/%@.%lu.%lu.%@", homeCacheDir, @"homeData", 5, objc_msgSend(configuration2, "options"), @"config"];
 
-        v55 = 0;
-        v50 = v25;
-        LOBYTE(configuration2) = [v25 writeToFile:v28 options:1 error:&v55];
-        v52 = v55;
+        v54 = 0;
+        v49 = v25;
+        LOBYTE(configuration2) = [v25 writeToFile:v28 options:1 error:&v54];
+        v51 = v54;
         v29 = objc_autoreleasePoolPush();
         selfCopy2 = self;
         v31 = HMFGetOSLogHandle();
@@ -5260,9 +5221,9 @@ uint64_t __39__HMHomeManager__requestRuntimeUpdate___block_invoke(uint64_t resul
           {
             v33 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v61 = v33;
-            v62 = 2112;
-            v63 = v28;
+            v60 = v33;
+            v61 = 2112;
+            v62 = v28;
             _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_INFO, "%{public}@Wrote Home Configuration cache to %@", buf, 0x16u);
           }
 
@@ -5275,9 +5236,9 @@ uint64_t __39__HMHomeManager__requestRuntimeUpdate___block_invoke(uint64_t resul
           {
             v34 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v61 = v34;
-            v62 = 2112;
-            v63 = v52;
+            v60 = v34;
+            v61 = 2112;
+            v62 = v51;
             _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to write Home Configuration cache file with error %@", buf, 0x16u);
           }
 
@@ -5290,21 +5251,21 @@ uint64_t __39__HMHomeManager__requestRuntimeUpdate___block_invoke(uint64_t resul
       {
         v35 = [cachesCopy hmf_dataForKey:@"kHAPMetadataDataKey"];
         v36 = [cachesCopy hmf_numberForKey:@"kHAPMetadataVersionKey"];
-        v58[0] = @"kHAPMetadataDataKey";
-        v58[1] = @"kHAPMetadataVersionKey";
-        v51 = v36;
-        v53 = v35;
-        v59[0] = v35;
-        v59[1] = v36;
-        v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:2];
+        v57[0] = @"kHAPMetadataDataKey";
+        v57[1] = @"kHAPMetadataVersionKey";
+        v50 = v36;
+        v52 = v35;
+        v58[0] = v35;
+        v58[1] = v36;
+        v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:2];
         v38 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v37 requiringSecureCoding:1 error:0];
         v39 = MEMORY[0x1E696AEC0];
         homeCacheDir2 = [(HMHomeManager *)self homeCacheDir];
         v41 = [v39 stringWithFormat:@"%@/%@.%lu.%@", homeCacheDir2, @"metadata", 5, @"config"];
 
-        v54 = 0;
-        LOBYTE(v35) = [v38 writeToFile:v41 options:1 error:&v54];
-        v42 = v54;
+        v53 = 0;
+        LOBYTE(v35) = [v38 writeToFile:v41 options:1 error:&v53];
+        v42 = v53;
         v43 = objc_autoreleasePoolPush();
         selfCopy3 = self;
         v45 = HMFGetOSLogHandle();
@@ -5315,9 +5276,9 @@ uint64_t __39__HMHomeManager__requestRuntimeUpdate___block_invoke(uint64_t resul
           {
             v47 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v61 = v47;
-            v62 = 2112;
-            v63 = v41;
+            v60 = v47;
+            v61 = 2112;
+            v62 = v41;
             _os_log_impl(&dword_19BB39000, v46, OS_LOG_TYPE_INFO, "%{public}@Writing metadata cache to %@", buf, 0x16u);
           }
 
@@ -5330,9 +5291,9 @@ uint64_t __39__HMHomeManager__requestRuntimeUpdate___block_invoke(uint64_t resul
           {
             v48 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v61 = v48;
-            v62 = 2112;
-            v63 = v42;
+            v60 = v48;
+            v61 = 2112;
+            v62 = v42;
             _os_log_impl(&dword_19BB39000, v46, OS_LOG_TYPE_ERROR, "%{public}@Failed to write metadata cache file with error %@", buf, 0x16u);
           }
 
@@ -5344,13 +5305,11 @@ uint64_t __39__HMHomeManager__requestRuntimeUpdate___block_invoke(uint64_t resul
 
 LABEL_33:
   }
-
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dumpCaches:(id)caches metadata:(id)metadata
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   cachesCopy = caches;
   metadataCopy = metadata;
   if (_dumpCaches_metadata__onceToken != -1)
@@ -5358,31 +5317,31 @@ LABEL_33:
     dispatch_once(&_dumpCaches_metadata__onceToken, &__block_literal_global_763);
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v7 = cachesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v50 objects:v60 count:16];
-  v48 = v7;
+  v8 = [v7 countByEnumeratingWithState:&v49 objects:v59 count:16];
+  v47 = v7;
   if (v8)
   {
     v9 = v8;
-    v10 = *v51;
+    v10 = *v50;
     v11 = &unk_1EAFEF000;
     selfCopy = self;
     do
     {
       v12 = 0;
-      v49 = v9;
+      v48 = v9;
       do
       {
-        if (*v51 != v10)
+        if (*v50 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v50 + 1) + 8 * v12);
+        v13 = *(*(&v49 + 1) + 8 * v12);
         if ([v11[385] containsObject:{v13, metadataCopy}])
         {
           v14 = v10;
@@ -5410,11 +5369,11 @@ LABEL_33:
               v21 = HMFGetLogIdentifier();
               v22 = [v17 length];
               *buf = 138543874;
-              v55 = v21;
-              v56 = 2112;
-              v57 = v13;
-              v58 = 2048;
-              v59 = v22;
+              v54 = v21;
+              v55 = 2112;
+              v56 = v13;
+              v57 = 2048;
+              v58 = v22;
               _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@  %@ = <NSData: %lu bytes>", buf, 0x20u);
             }
 
@@ -5450,11 +5409,11 @@ LABEL_33:
                 v29 = HMFGetLogIdentifier();
                 v30 = [v25 count];
                 *buf = 138543874;
-                v55 = v29;
-                v56 = 2112;
-                v57 = v13;
-                v58 = 2048;
-                v59 = v30;
+                v54 = v29;
+                v55 = 2112;
+                v56 = v13;
+                v57 = 2048;
+                v58 = v30;
                 _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_INFO, "%{public}@  %@ = <NSDictionary: %lu entries>", buf, 0x20u);
 
                 v11 = &unk_1EAFEF000;
@@ -5472,11 +5431,11 @@ LABEL_33:
               {
                 v31 = HMFGetLogIdentifier();
                 *buf = 138543874;
-                v55 = v31;
-                v56 = 2112;
-                v57 = v13;
-                v58 = 2112;
-                v59 = v23;
+                v54 = v31;
+                v55 = 2112;
+                v56 = v13;
+                v57 = 2112;
+                v58 = v23;
                 _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_INFO, "%{public}@  %@ = %@", buf, 0x20u);
               }
 
@@ -5485,15 +5444,15 @@ LABEL_33:
             }
           }
 
-          v7 = v48;
-          v9 = v49;
+          v7 = v47;
+          v9 = v48;
         }
 
         ++v12;
       }
 
       while (v9 != v12);
-      v9 = [v7 countByEnumeratingWithState:&v50 objects:v60 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v49 objects:v59 count:16];
     }
 
     while (v9);
@@ -5511,11 +5470,11 @@ LABEL_33:
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v55 = v38;
-      v56 = 2112;
-      v57 = @"kHAPMetadataVersionKey";
-      v58 = 2112;
-      v59 = v33;
+      v54 = v38;
+      v55 = 2112;
+      v56 = @"kHAPMetadataVersionKey";
+      v57 = 2112;
+      v58 = v33;
       _os_log_impl(&dword_19BB39000, v37, OS_LOG_TYPE_INFO, "%{public}@  %@ = %@", buf, 0x20u);
     }
 
@@ -5528,72 +5487,68 @@ LABEL_33:
       v42 = HMFGetLogIdentifier();
       v43 = [v34 length];
       *buf = 138543874;
-      v55 = v42;
-      v56 = 2112;
-      v57 = @"kHAPMetadataDataKey";
-      v58 = 2048;
-      v59 = v43;
+      v54 = v42;
+      v55 = 2112;
+      v56 = @"kHAPMetadataDataKey";
+      v57 = 2048;
+      v58 = v43;
       _os_log_impl(&dword_19BB39000, v41, OS_LOG_TYPE_INFO, "%{public}@  %@ = <NSData: %lu bytes>", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v39);
     v32 = metadataCopy;
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 void __38__HMHomeManager__dumpCaches_metadata___block_invoke()
 {
-  v3[11] = *MEMORY[0x1E69E9840];
-  v3[0] = @"kAccessAllowedWhenLockedKey";
-  v3[1] = @"kCanUseCachedHomeConfigurationKey";
-  v3[2] = @"kConfigGenerationCounterKey";
-  v3[3] = @"kHAPMetadataVersionKey";
-  v3[4] = @"kHomeCountKey";
-  v3[5] = @"kHomeDataKey";
-  v3[6] = @"kPrimaryHomeUUIDKey";
-  v3[7] = @"dataSyncState";
-  v3[8] = @"status";
-  v3[9] = @"kProvisioningStatusKey";
-  v3[10] = @"multiUserStatus";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:11];
+  v2[11] = *MEMORY[0x1E69E9840];
+  v2[0] = @"kAccessAllowedWhenLockedKey";
+  v2[1] = @"kCanUseCachedHomeConfigurationKey";
+  v2[2] = @"kConfigGenerationCounterKey";
+  v2[3] = @"kHAPMetadataVersionKey";
+  v2[4] = @"kHomeCountKey";
+  v2[5] = @"kHomeDataKey";
+  v2[6] = @"kPrimaryHomeUUIDKey";
+  v2[7] = @"dataSyncState";
+  v2[8] = @"status";
+  v2[9] = @"kProvisioningStatusKey";
+  v2[10] = @"multiUserStatus";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:11];
   v1 = _dumpCaches_metadata__keysToDump;
   _dumpCaches_metadata__keysToDump = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isValidCachedHomeConfiguration:(id)configuration
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   if (_isValidCachedHomeConfiguration__onceToken != -1)
   {
     dispatch_once(&_isValidCachedHomeConfiguration__onceToken, &__block_literal_global_761);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v5 = _isValidCachedHomeConfiguration__requiredKeys;
-  v6 = [v5 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v25;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
-        v11 = [configurationCopy objectForKey:{v10, v25}];
+        v10 = *(*(&v24 + 1) + 8 * i);
+        v11 = [configurationCopy objectForKey:{v10, v24}];
 
         if (!v11)
         {
@@ -5604,9 +5559,9 @@ void __38__HMHomeManager__dumpCaches_metadata___block_invoke()
           {
             v18 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v30 = v18;
-            v31 = 2112;
-            v32 = v10;
+            v29 = v18;
+            v30 = 2112;
+            v31 = v10;
             _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_INFO, "%{public}@Cached home configuration does not contain required key '%@' - discarding cache", buf, 0x16u);
           }
 
@@ -5615,7 +5570,7 @@ void __38__HMHomeManager__dumpCaches_metadata___block_invoke()
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v24 objects:v32 count:16];
       if (v7)
       {
         continue;
@@ -5635,50 +5590,47 @@ void __38__HMHomeManager__dumpCaches_metadata___block_invoke()
 
   else
   {
-    v21 = objc_autoreleasePoolPush();
+    v20 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v23 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v22 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v24 = HMFGetLogIdentifier();
+      v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v30 = v24;
-      _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_INFO, "%{public}@Cached home configuration contains zero length Home Data - discarding cache", buf, 0xCu);
+      v29 = v23;
+      _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_INFO, "%{public}@Cached home configuration contains zero length Home Data - discarding cache", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v21);
+    objc_autoreleasePoolPop(v20);
 LABEL_16:
     v14 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 void __49__HMHomeManager__isValidCachedHomeConfiguration___block_invoke()
 {
-  v3[6] = *MEMORY[0x1E69E9840];
-  v3[0] = @"kConfigGenerationCounterKey";
-  v3[1] = @"kHAPMetadataVersionKey";
-  v3[2] = @"kIdentifierSaltKey";
-  v3[3] = @"kAccessAllowedWhenLockedKey";
-  v3[4] = @"kHomeCountKey";
-  v3[5] = @"kHomeDataKey";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:6];
+  v2[6] = *MEMORY[0x1E69E9840];
+  v2[0] = @"kConfigGenerationCounterKey";
+  v2[1] = @"kHAPMetadataVersionKey";
+  v2[2] = @"kIdentifierSaltKey";
+  v2[3] = @"kAccessAllowedWhenLockedKey";
+  v2[4] = @"kHomeCountKey";
+  v2[5] = @"kHomeDataKey";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:6];
   v1 = _isValidCachedHomeConfiguration__requiredKeys;
   _isValidCachedHomeConfiguration__requiredKeys = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeCacheFileAtPath:(id)path
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v13 = 0;
-  v6 = [defaultManager removeItemAtPath:pathCopy error:&v13];
-  v7 = v13;
+  v12 = 0;
+  v6 = [defaultManager removeItemAtPath:pathCopy error:&v12];
+  v7 = v12;
 
   if ((v6 & 1) == 0)
   {
@@ -5689,61 +5641,59 @@ void __49__HMHomeManager__isValidCachedHomeConfiguration___block_invoke()
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v15 = v11;
-      v16 = 2112;
-      v17 = pathCopy;
-      v18 = 2112;
-      v19 = v7;
+      v14 = v11;
+      v15 = 2112;
+      v16 = pathCopy;
+      v17 = 2112;
+      v18 = v7;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove cache file %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeCacheFiles
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   homeCacheDir = [(HMHomeManager *)self homeCacheDir];
-  v33 = 0;
-  v5 = [defaultManager contentsOfDirectoryAtPath:homeCacheDir error:&v33];
-  v6 = v33;
+  v32 = 0;
+  v5 = [defaultManager contentsOfDirectoryAtPath:homeCacheDir error:&v32];
+  v6 = v32;
 
   if (v5)
   {
-    v26 = v6;
+    v25 = v6;
     v7 = MEMORY[0x1E696AEC0];
     configuration = [(HMHomeManager *)self configuration];
-    v28 = [v7 stringWithFormat:@"%lu.%@", objc_msgSend(configuration, "options"), @"config"];
+    v27 = [v7 stringWithFormat:@"%lu.%@", objc_msgSend(configuration, "options"), @"config"];
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
-    v27 = v5;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v26 = v5;
     v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v29 objects:v38 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v28 objects:v37 count:16];
     if (!v10)
     {
       goto LABEL_19;
     }
 
     v11 = v10;
-    v12 = *v30;
+    v12 = *v29;
     while (1)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * i);
-        if ([v14 hasPrefix:@"homeData"] && objc_msgSend(v14, "hasSuffix:", v28))
+        v14 = *(*(&v28 + 1) + 8 * i);
+        if ([v14 hasPrefix:@"homeData"] && objc_msgSend(v14, "hasSuffix:", v27))
         {
           homeCacheDir2 = [(HMHomeManager *)self homeCacheDir];
           v16 = [homeCacheDir2 stringByAppendingPathComponent:v14];
@@ -5755,9 +5705,9 @@ void __49__HMHomeManager__isValidCachedHomeConfiguration___block_invoke()
           {
             v20 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v35 = v20;
-            v36 = 2112;
-            v37 = v16;
+            v34 = v20;
+            v35 = 2112;
+            v36 = v16;
             v21 = v19;
             v22 = "%{public}@Removing home data cache file: %@";
             goto LABEL_15;
@@ -5778,9 +5728,9 @@ void __49__HMHomeManager__isValidCachedHomeConfiguration___block_invoke()
           {
             v20 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v35 = v20;
-            v36 = 2112;
-            v37 = v16;
+            v34 = v20;
+            v35 = 2112;
+            v36 = v16;
             v21 = v19;
             v22 = "%{public}@Removing metadata cache file: %@";
 LABEL_15:
@@ -5796,24 +5746,22 @@ LABEL_16:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v28 objects:v37 count:16];
       if (!v11)
       {
 LABEL_19:
 
-        v6 = v26;
-        v5 = v27;
+        v6 = v25;
+        v5 = v26;
         break;
       }
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_determineCacheFiles
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   homeCacheDir = [(HMHomeManager *)self homeCacheDir];
 
   if (homeCacheDir)
@@ -5826,9 +5774,9 @@ LABEL_19:
     {
       defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
       homeCacheDir3 = [(HMHomeManager *)self homeCacheDir];
-      v80 = 0;
-      v9 = [defaultManager2 createDirectoryAtPath:homeCacheDir3 withIntermediateDirectories:1 attributes:0 error:&v80];
-      v10 = v80;
+      v79 = 0;
+      v9 = [defaultManager2 createDirectoryAtPath:homeCacheDir3 withIntermediateDirectories:1 attributes:0 error:&v79];
+      v10 = v79;
 
       if ((v9 & 1) == 0)
       {
@@ -5840,37 +5788,37 @@ LABEL_19:
           v64 = HMFGetLogIdentifier();
           homeCacheDir4 = [(HMHomeManager *)selfCopy homeCacheDir];
           *buf = 138543874;
-          v82 = v64;
-          v83 = 2112;
-          v84 = homeCacheDir4;
-          v85 = 2112;
-          v86 = v10;
+          v81 = v64;
+          v82 = 2112;
+          v83 = homeCacheDir4;
+          v84 = 2112;
+          v85 = v10;
           _os_log_impl(&dword_19BB39000, v63, OS_LOG_TYPE_ERROR, "%{public}@Unable to create directory %@: %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v61);
 LABEL_43:
 
-        goto LABEL_44;
+        return;
       }
     }
 
     homeCacheDir5 = [(HMHomeManager *)self homeCacheDir];
-    v79 = 0;
-    v12 = [defaultManager contentsOfDirectoryAtPath:homeCacheDir5 error:&v79];
-    v10 = v79;
+    v78 = 0;
+    v12 = [defaultManager contentsOfDirectoryAtPath:homeCacheDir5 error:&v78];
+    v10 = v78;
 
     if (v12)
     {
-      v68 = v10;
-      v69 = defaultManager;
-      v77 = 0u;
-      v78 = 0u;
-      v75 = 0u;
+      v67 = v10;
+      v68 = defaultManager;
       v76 = 0u;
-      v67 = v12;
+      v77 = 0u;
+      v74 = 0u;
+      v75 = 0u;
+      v66 = v12;
       v13 = v12;
-      v14 = [v13 countByEnumeratingWithState:&v75 objects:v89 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v74 objects:v88 count:16];
       if (!v14)
       {
         goto LABEL_35;
@@ -5878,19 +5826,19 @@ LABEL_43:
 
       v15 = v14;
       selfCopy2 = self;
-      v17 = *v76;
+      v17 = *v75;
       selfCopy3 = self;
-      v74 = v13;
+      v73 = v13;
       while (1)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v76 != v17)
+          if (*v75 != v17)
           {
             objc_enumerationMutation(v13);
           }
 
-          v19 = *(*(&v75 + 1) + 8 * i);
+          v19 = *(*(&v74 + 1) + 8 * i);
           v20 = [v19 componentsSeparatedByString:@"."];
           lastObject = [v20 lastObject];
           v22 = [lastObject isEqualToString:@"config"];
@@ -5932,9 +5880,9 @@ LABEL_43:
                     [(HMHomeManager *)v35 homeDataCache];
                     v38 = contextb = v34;
                     *buf = 138543618;
-                    v82 = v37;
-                    v83 = 2112;
-                    v84 = v38;
+                    v81 = v37;
+                    v82 = 2112;
+                    v83 = v38;
                     _os_log_impl(&dword_19BB39000, v36, OS_LOG_TYPE_DEBUG, "%{public}@Determined home data cache file: %@", buf, 0x16u);
 
                     v34 = contextb;
@@ -5954,13 +5902,13 @@ LABEL_43:
                   {
                     v52 = HMFGetLogIdentifier();
                     *buf = 138544130;
-                    v82 = v52;
-                    v83 = 2112;
-                    v84 = v30;
-                    v85 = 2048;
-                    v86 = 5;
-                    v87 = 2112;
-                    v88 = v33;
+                    v81 = v52;
+                    v82 = 2112;
+                    v83 = v30;
+                    v84 = 2048;
+                    v85 = 5;
+                    v86 = 2112;
+                    v87 = v33;
                     _os_log_impl(&dword_19BB39000, v51, OS_LOG_TYPE_INFO, "%{public}@Removing home data cache file with version %@ not equal to current version %ld: %@", buf, 0x2Au);
 
                     selfCopy2 = selfCopy3;
@@ -5997,9 +5945,9 @@ LABEL_43:
                   v48 = HMFGetLogIdentifier();
                   metadataCache = [(HMHomeManager *)v46 metadataCache];
                   *buf = 138543618;
-                  v82 = v48;
-                  v83 = 2112;
-                  v84 = metadataCache;
+                  v81 = v48;
+                  v82 = 2112;
+                  v83 = metadataCache;
                   _os_log_impl(&dword_19BB39000, v47, OS_LOG_TYPE_DEBUG, "%{public}@Determined metadata cache file: %@", buf, 0x16u);
 
                   selfCopy2 = selfCopy3;
@@ -6019,13 +5967,13 @@ LABEL_43:
                 {
                   v55 = HMFGetLogIdentifier();
                   *buf = 138544130;
-                  v82 = v55;
-                  v83 = 2112;
-                  v84 = v25;
-                  v85 = 2048;
-                  v86 = 5;
-                  v87 = 2112;
-                  v88 = v44;
+                  v81 = v55;
+                  v82 = 2112;
+                  v83 = v25;
+                  v84 = 2048;
+                  v85 = 5;
+                  v86 = 2112;
+                  v87 = v44;
                   _os_log_impl(&dword_19BB39000, v54, OS_LOG_TYPE_INFO, "%{public}@Removing metadata cache file with version %@ not equal to current version %ld: %@", buf, 0x2Au);
 
                   selfCopy2 = selfCopy3;
@@ -6036,21 +5984,21 @@ LABEL_43:
               }
 
 LABEL_32:
-              v13 = v74;
+              v13 = v73;
             }
           }
 
 LABEL_33:
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v75 objects:v89 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v74 objects:v88 count:16];
         if (!v15)
         {
 LABEL_35:
 
-          v10 = v68;
-          defaultManager = v69;
-          v12 = v67;
+          v10 = v67;
+          defaultManager = v68;
+          v12 = v66;
           goto LABEL_39;
         }
       }
@@ -6064,11 +6012,11 @@ LABEL_35:
       v59 = HMFGetLogIdentifier();
       homeCacheDir8 = [(HMHomeManager *)selfCopy4 homeCacheDir];
       *buf = 138543874;
-      v82 = v59;
-      v83 = 2112;
-      v84 = homeCacheDir8;
-      v85 = 2112;
-      v86 = v10;
+      v81 = v59;
+      v82 = 2112;
+      v83 = homeCacheDir8;
+      v84 = 2112;
+      v85 = v10;
       _os_log_impl(&dword_19BB39000, v58, OS_LOG_TYPE_ERROR, "%{public}@Failed to enumerate the contents of cache directory %@: %@", buf, 0x20u);
     }
 
@@ -6077,9 +6025,6 @@ LABEL_39:
 
     goto LABEL_43;
   }
-
-LABEL_44:
-  v66 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_shouldWeMergeLatestHomeGraphFromDaemonResponse:(id)response
@@ -6106,17 +6051,17 @@ LABEL_44:
 - (void)_processHomeConfigurationResponse:(id)response refreshRequested:(BOOL)requested
 {
   requestedCopy = requested;
-  v198 = *MEMORY[0x1E69E9840];
+  v197 = *MEMORY[0x1E69E9840];
   responseCopy = response;
-  v131 = [objc_alloc(MEMORY[0x1E69A29C0]) initWithName:@"Process home configuration"];
-  v134 = responseCopy;
-  v138 = [responseCopy hmf_numberForKey:@"kConfigGenerationCounterKey"];
-  v133 = [responseCopy hmf_numberForKey:@"kHAPMetadataVersionKey"];
+  v130 = [objc_alloc(MEMORY[0x1E69A29C0]) initWithName:@"Process home configuration"];
+  v133 = responseCopy;
+  v137 = [responseCopy hmf_numberForKey:@"kConfigGenerationCounterKey"];
+  v132 = [responseCopy hmf_numberForKey:@"kHAPMetadataVersionKey"];
   v7 = [responseCopy hmf_dataForKey:@"kIdentifierSaltKey"];
-  v132 = v7;
-  if (v138)
+  v131 = v7;
+  if (v137)
   {
-    v8 = v133 == 0;
+    v8 = v132 == 0;
   }
 
   else
@@ -6137,21 +6082,21 @@ LABEL_44:
       *buf = 138543874;
       *&buf[4] = v14;
       *&buf[12] = 2112;
-      *&buf[14] = v138;
+      *&buf[14] = v137;
       *&buf[22] = 2112;
-      v196 = v133;
+      v195 = v132;
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@Processing home configuration response with generation counter: %@ metadata version: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
-    [(HMHomeManager *)selfCopy _handleHH2StateWithPayload:v134];
-    [(HMHomeManager *)selfCopy _handleHH2ManualMigrationEnabledStateWithPayload:v134];
-    [(HMHomeManager *)selfCopy _handleHomeSafetySecurityEnabledStateWithPayload:v134];
-    [(HMHomeManager *)selfCopy _handleHH2UpgradeRecommendationRequired:v134];
-    [(HMHomeManager *)selfCopy _handleHH2MigrationProgressStateWithPayload:v134];
-    [MEMORY[0x1E696AFB0] hm_setIdentifierSalt:v132];
-    v130 = [v134 hmf_dataForKey:@"HMHM.assistantIdentifier"];
-    if (v130 && [MEMORY[0x1E696AFB0] hm_setAssistantIdentifierSalt:v130])
+    [(HMHomeManager *)selfCopy _handleHH2StateWithPayload:v133];
+    [(HMHomeManager *)selfCopy _handleHH2ManualMigrationEnabledStateWithPayload:v133];
+    [(HMHomeManager *)selfCopy _handleHomeSafetySecurityEnabledStateWithPayload:v133];
+    [(HMHomeManager *)selfCopy _handleHH2UpgradeRecommendationRequired:v133];
+    [(HMHomeManager *)selfCopy _handleHH2MigrationProgressStateWithPayload:v133];
+    [MEMORY[0x1E696AFB0] hm_setIdentifierSalt:v131];
+    v129 = [v133 hmf_dataForKey:@"HMHM.assistantIdentifier"];
+    if (v129 && [MEMORY[0x1E696AFB0] hm_setAssistantIdentifierSalt:v129])
     {
       v15 = objc_autoreleasePoolPush();
       v16 = selfCopy;
@@ -6162,7 +6107,7 @@ LABEL_44:
         *buf = 138543618;
         *&buf[4] = v18;
         *&buf[12] = 2112;
-        *&buf[14] = v130;
+        *&buf[14] = v129;
         _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_INFO, "%{public}@Assistant identifier salt changed to %@", buf, 0x16u);
       }
 
@@ -6172,11 +6117,11 @@ LABEL_44:
 
     if (([(HMHomeManager *)selfCopy options]& 0x9701) != 0)
     {
-      unsignedIntegerValue = [v133 unsignedIntegerValue];
+      unsignedIntegerValue = [v132 unsignedIntegerValue];
       if (unsignedIntegerValue > [(HMHomeManager *)selfCopy metadataVersion])
       {
-        -[HMHomeManager setMetadataVersion:](selfCopy, "setMetadataVersion:", [v133 unsignedIntegerValue]);
-        v20 = [v134 hmf_dataForKey:@"kHAPMetadataDataKey"];
+        -[HMHomeManager setMetadataVersion:](selfCopy, "setMetadataVersion:", [v132 unsignedIntegerValue]);
+        v20 = [v133 hmf_dataForKey:@"kHAPMetadataDataKey"];
         if (v20)
         {
           v21 = +[HMHAPMetadata getSharedInstance];
@@ -6204,7 +6149,7 @@ LABEL_44:
       objc_autoreleasePoolPop(v23);
     }
 
-    unsignedIntegerValue2 = [v138 unsignedIntegerValue];
+    unsignedIntegerValue2 = [v137 unsignedIntegerValue];
     if (unsignedIntegerValue2 == [(HMHomeManager *)selfCopy generationCounter])
     {
       if (requestedCopy)
@@ -6215,38 +6160,38 @@ LABEL_44:
 
     else
     {
-      -[HMHomeManager setGenerationCounter:](selfCopy, "setGenerationCounter:", [v138 unsignedIntegerValue]);
+      -[HMHomeManager setGenerationCounter:](selfCopy, "setGenerationCounter:", [v137 unsignedIntegerValue]);
       context = objc_autoreleasePoolPush();
-      v128 = [v134 hmf_dataForKey:@"kHomeDataKey"];
-      v125 = [v134 hmf_UUIDForKey:@"kPrimaryHomeUUIDKey"];
-      v127 = [v134 hmf_UUIDForKey:@"kCurrentHomeUUIDKey"];
-      v129 = [v134 hmf_UUIDForKey:@"HMHM.lastRemovedCurrentAccessory"];
-      if (v128)
+      v127 = [v133 hmf_dataForKey:@"kHomeDataKey"];
+      v124 = [v133 hmf_UUIDForKey:@"kPrimaryHomeUUIDKey"];
+      v126 = [v133 hmf_UUIDForKey:@"kCurrentHomeUUIDKey"];
+      v128 = [v133 hmf_UUIDForKey:@"HMHM.lastRemovedCurrentAccessory"];
+      if (v127)
       {
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v196 = __Block_byref_object_copy__33380;
-        *&v197 = __Block_byref_object_dispose__33381;
-        *(&v197 + 1) = 0;
-        v180 = 0;
-        v181 = &v180;
-        v182 = 0x3032000000;
-        v183 = __Block_byref_object_copy__33380;
-        v184 = __Block_byref_object_dispose__33381;
-        v185 = 0;
+        v195 = __Block_byref_object_copy__33380;
+        *&v196 = __Block_byref_object_dispose__33381;
+        *(&v196 + 1) = 0;
+        v179 = 0;
+        v180 = &v179;
+        v181 = 0x3032000000;
+        v182 = __Block_byref_object_copy__33380;
+        v183 = __Block_byref_object_dispose__33381;
+        v184 = 0;
         v29 = MEMORY[0x1E69A29C0];
-        v175[0] = MEMORY[0x1E69E9820];
-        v175[1] = 3221225472;
-        v175[2] = __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___block_invoke;
-        v175[3] = &unk_1E754A9D8;
-        v30 = v128;
-        v178 = &v180;
-        v179 = buf;
-        v176 = v30;
-        v177 = selfCopy;
-        [v29 activityWithName:@"Unarchive homes" block:v175];
-        v31 = v181[5];
+        v174[0] = MEMORY[0x1E69E9820];
+        v174[1] = 3221225472;
+        v174[2] = __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___block_invoke;
+        v174[3] = &unk_1E754A9D8;
+        v30 = v127;
+        v177 = &v179;
+        v178 = buf;
+        v175 = v30;
+        v176 = selfCopy;
+        [v29 activityWithName:@"Unarchive homes" block:v174];
+        v31 = v180[5];
         if (v31)
         {
           v32 = objc_autoreleasePoolPush();
@@ -6255,16 +6200,16 @@ LABEL_44:
           if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             v35 = HMFGetLogIdentifier();
-            v36 = v181[5];
-            *v191 = 138543618;
-            v192 = v35;
-            v193 = 2112;
-            v194 = v36;
-            _os_log_impl(&dword_19BB39000, v34, OS_LOG_TYPE_ERROR, "%{public}@Failed to deserialize homes from home configuration data: %@", v191, 0x16u);
+            v36 = v180[5];
+            *v190 = 138543618;
+            v191 = v35;
+            v192 = 2112;
+            v193 = v36;
+            _os_log_impl(&dword_19BB39000, v34, OS_LOG_TYPE_ERROR, "%{public}@Failed to deserialize homes from home configuration data: %@", v190, 0x16u);
           }
 
           objc_autoreleasePoolPop(v32);
-          v126 = 0;
+          v125 = 0;
         }
 
         else
@@ -6281,10 +6226,10 @@ LABEL_44:
             v38 = 0;
           }
 
-          v126 = v38;
+          v125 = v38;
         }
 
-        _Block_object_dispose(&v180, 8);
+        _Block_object_dispose(&v179, 8);
         _Block_object_dispose(buf, 8);
 
         if (v31)
@@ -6299,21 +6244,21 @@ LABEL_124:
 
       else
       {
-        v126 = 0;
+        v125 = 0;
       }
 
-      v123 = [v134 hmf_dataForKey:@"kIncomingHomeInvitationsKey"];
-      if (v123)
+      v122 = [v133 hmf_dataForKey:@"kIncomingHomeInvitationsKey"];
+      if (v122)
       {
         v39 = MEMORY[0x1E695DFD8];
-        v190[0] = objc_opt_class();
-        v190[1] = objc_opt_class();
-        v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v190 count:2];
+        v189[0] = objc_opt_class();
+        v189[1] = objc_opt_class();
+        v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v189 count:2];
         v41 = [v39 setWithArray:v40];
 
-        v174 = 0;
-        v42 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v41 fromData:v123 error:&v174];
-        v43 = v174;
+        v173 = 0;
+        v42 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v41 fromData:v122 error:&v173];
+        v43 = v173;
         if (!v42)
         {
           v44 = objc_autoreleasePoolPush();
@@ -6332,15 +6277,15 @@ LABEL_124:
           objc_autoreleasePoolPop(v44);
         }
 
-        v172 = 0u;
-        v173 = 0u;
-        v170 = 0u;
         v171 = 0u;
-        v124 = v42;
+        v172 = 0u;
+        v169 = 0u;
+        v170 = 0u;
+        v123 = v42;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v48 = v124;
+          v48 = v123;
         }
 
         else
@@ -6350,25 +6295,25 @@ LABEL_124:
 
         v49 = v48;
 
-        v50 = [v49 countByEnumeratingWithState:&v170 objects:v189 count:16];
+        v50 = [v49 countByEnumeratingWithState:&v169 objects:v188 count:16];
         if (v50)
         {
-          v51 = *v171;
+          v51 = *v170;
           do
           {
             for (i = 0; i != v50; ++i)
             {
-              if (*v171 != v51)
+              if (*v170 != v51)
               {
                 objc_enumerationMutation(v49);
               }
 
-              v53 = *(*(&v170 + 1) + 8 * i);
+              v53 = *(*(&v169 + 1) + 8 * i);
               context = [(HMHomeManager *)selfCopy context];
               [v53 __configureWithContext:context homeManager:selfCopy];
             }
 
-            v50 = [v49 countByEnumeratingWithState:&v170 objects:v189 count:16];
+            v50 = [v49 countByEnumeratingWithState:&v169 objects:v188 count:16];
           }
 
           while (v50);
@@ -6377,10 +6322,10 @@ LABEL_124:
 
       else
       {
-        v124 = 0;
+        v123 = 0;
       }
 
-      v55 = [v134 hmf_dictionaryForKey:@"kAppDataInformationKey"];
+      v55 = [v133 hmf_dictionaryForKey:@"kAppDataInformationKey"];
       v56 = v55;
       v57 = MEMORY[0x1E695E0F8];
       if (v55)
@@ -6388,26 +6333,26 @@ LABEL_124:
         v57 = v55;
       }
 
-      v121 = v57;
+      v120 = v57;
 
-      v120 = [[HMApplicationData alloc] initWithDictionary:v121];
+      v119 = [[HMApplicationData alloc] initWithDictionary:v120];
       if ([(HMHomeManager *)selfCopy isInitialMergeComplete])
       {
-        if ([(HMHomeManager *)selfCopy _shouldWeMergeLatestHomeGraphFromDaemonResponse:v134])
+        if ([(HMHomeManager *)selfCopy _shouldWeMergeLatestHomeGraphFromDaemonResponse:v133])
         {
           v58 = MEMORY[0x1E69A29C0];
-          v163[0] = MEMORY[0x1E69E9820];
-          v163[1] = 3221225472;
-          v163[2] = __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___block_invoke_740;
-          v163[3] = &unk_1E754AA00;
-          v163[4] = selfCopy;
-          v164 = v126;
-          v165 = v125;
-          v166 = v127;
-          v167 = v124;
-          v168 = v120;
-          v169 = requestedCopy;
-          [v58 activityWithName:@"Merge homes" block:v163];
+          v162[0] = MEMORY[0x1E69E9820];
+          v162[1] = 3221225472;
+          v162[2] = __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___block_invoke_740;
+          v162[3] = &unk_1E754AA00;
+          v162[4] = selfCopy;
+          v163 = v125;
+          v164 = v124;
+          v165 = v126;
+          v166 = v123;
+          v167 = v119;
+          v168 = requestedCopy;
+          [v58 activityWithName:@"Merge homes" block:v162];
         }
 
         else
@@ -6418,7 +6363,7 @@ LABEL_124:
           if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
           {
             v67 = HMFGetLogIdentifier();
-            v68 = HMHomeManagerDataSyncStateToString([(HMHomeManager *)v65 _dataSyncStateFromPayload:v134]);
+            v68 = HMHomeManagerDataSyncStateToString([(HMHomeManager *)v65 _dataSyncStateFromPayload:v133]);
             *buf = 138543618;
             *&buf[4] = v67;
             *&buf[12] = 2112;
@@ -6441,25 +6386,25 @@ LABEL_124:
           *buf = 138543874;
           *&buf[4] = v62;
           *&buf[12] = 2112;
-          *&buf[14] = v126;
+          *&buf[14] = v125;
           *&buf[22] = 2112;
-          v196 = v127;
+          v195 = v126;
           _os_log_impl(&dword_19BB39000, v61, OS_LOG_TYPE_INFO, "%{public}@Updating homes: %@, Current home UUID: %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v59);
         v63 = MEMORY[0x1E69A29C0];
-        v156[0] = MEMORY[0x1E69E9820];
-        v156[1] = 3221225472;
-        v156[2] = __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___block_invoke_744;
-        v156[3] = &unk_1E754AA28;
-        v157 = v126;
-        v158 = v125;
-        v159 = v60;
-        v160 = v124;
-        v161 = v120;
-        v162 = v127;
-        [v63 activityWithName:@"Update homes" block:v156];
+        v155[0] = MEMORY[0x1E69E9820];
+        v155[1] = 3221225472;
+        v155[2] = __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___block_invoke_744;
+        v155[3] = &unk_1E754AA28;
+        v156 = v125;
+        v157 = v124;
+        v158 = v60;
+        v159 = v123;
+        v160 = v119;
+        v161 = v126;
+        [v63 activityWithName:@"Update homes" block:v155];
       }
 
       predictionProvider = [(HMHomeManager *)selfCopy predictionProvider];
@@ -6467,14 +6412,14 @@ LABEL_124:
 
       [(HMHomeManager *)selfCopy setGenerationCounterPostHomeGraphUpdate:[(HMHomeManager *)selfCopy generationCounter]];
       os_unfair_lock_lock_with_options();
-      if (([(NSUUID *)selfCopy->_lastRemovedCurrentAccessoryUUID hmf_isEqualToUUID:v129]& 1) != 0)
+      if (([(NSUUID *)selfCopy->_lastRemovedCurrentAccessoryUUID hmf_isEqualToUUID:v128]& 1) != 0)
       {
         os_unfair_lock_unlock(&selfCopy->_lock);
       }
 
       else
       {
-        v70 = [v129 copy];
+        v70 = [v128 copy];
         lastRemovedCurrentAccessoryUUID = selfCopy->_lastRemovedCurrentAccessoryUUID;
         selfCopy->_lastRemovedCurrentAccessoryUUID = v70;
 
@@ -6507,34 +6452,34 @@ LABEL_124:
             block[2] = __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___block_invoke_746;
             block[3] = &unk_1E754E5C0;
             block[4] = v74;
-            v155 = _privateDelegate;
+            v154 = _privateDelegate;
             dispatch_async(queue, block);
           }
         }
       }
 
-      v137 = [v134 hmf_arrayForKey:@"HMHM.SharedHomeUUIDsNotYetMigrated"];
-      v136 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](selfCopy->_sharedHomeUUIDsNotYetMigrated, "count")}];
+      v136 = [v133 hmf_arrayForKey:@"HMHM.SharedHomeUUIDsNotYetMigrated"];
+      v135 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](selfCopy->_sharedHomeUUIDsNotYetMigrated, "count")}];
       os_unfair_lock_lock_with_options();
-      v152 = 0u;
-      v153 = 0u;
-      v150 = 0u;
       v151 = 0u;
+      v152 = 0u;
+      v149 = 0u;
+      v150 = 0u;
       v81 = selfCopy->_sharedHomeUUIDsNotYetMigrated;
-      v82 = [(NSArray *)v81 countByEnumeratingWithState:&v150 objects:v188 count:16];
+      v82 = [(NSArray *)v81 countByEnumeratingWithState:&v149 objects:v187 count:16];
       if (v82)
       {
-        v83 = *v151;
+        v83 = *v150;
         do
         {
           for (j = 0; j != v82; ++j)
           {
-            if (*v151 != v83)
+            if (*v150 != v83)
             {
               objc_enumerationMutation(v81);
             }
 
-            v85 = *(*(&v150 + 1) + 8 * j);
+            v85 = *(*(&v149 + 1) + 8 * j);
             v86 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v85];
             v87 = [(HMHomeManager *)selfCopy _homeWithUUID:v86];
 
@@ -6548,9 +6493,9 @@ LABEL_124:
               v88 = 0;
             }
 
-            if (v88 && ([v137 containsObject:v85] & 1) == 0)
+            if (v88 && ([v136 containsObject:v85] & 1) == 0)
             {
-              [v136 addObject:v85];
+              [v135 addObject:v85];
               v89 = objc_autoreleasePoolPush();
               v90 = selfCopy;
               v91 = HMFGetOSLogHandle();
@@ -6568,54 +6513,54 @@ LABEL_124:
             }
           }
 
-          v82 = [(NSArray *)v81 countByEnumeratingWithState:&v150 objects:v188 count:16];
+          v82 = [(NSArray *)v81 countByEnumeratingWithState:&v149 objects:v187 count:16];
         }
 
         while (v82);
       }
 
-      v93 = [v137 copy];
+      v93 = [v136 copy];
       sharedHomeUUIDsNotYetMigrated = selfCopy->_sharedHomeUUIDsNotYetMigrated;
       selfCopy->_sharedHomeUUIDsNotYetMigrated = v93;
 
       os_unfair_lock_unlock(&selfCopy->_lock);
-      if ([v136 count])
+      if ([v135 count])
       {
         _privateDelegate2 = [(HMHomeManager *)selfCopy _privateDelegate];
         if (objc_opt_respondsToSelector())
         {
-          v148 = 0u;
-          v149 = 0u;
-          v146 = 0u;
           v147 = 0u;
-          obj = v136;
-          v96 = [obj countByEnumeratingWithState:&v146 objects:v187 count:16];
+          v148 = 0u;
+          v145 = 0u;
+          v146 = 0u;
+          obj = v135;
+          v96 = [obj countByEnumeratingWithState:&v145 objects:v186 count:16];
           if (v96)
           {
-            v97 = *v147;
+            v97 = *v146;
             do
             {
               for (k = 0; k != v96; ++k)
               {
-                if (*v147 != v97)
+                if (*v146 != v97)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v99 = *(*(&v146 + 1) + 8 * k);
+                v99 = *(*(&v145 + 1) + 8 * k);
                 context3 = [(HMHomeManager *)selfCopy context];
                 queue2 = [context3 queue];
-                v144[0] = MEMORY[0x1E69E9820];
-                v144[1] = 3221225472;
-                v144[2] = __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___block_invoke_748;
-                v144[3] = &unk_1E754E5E8;
-                v144[4] = selfCopy;
-                v144[5] = v99;
-                v145 = _privateDelegate2;
-                dispatch_async(queue2, v144);
+                v143[0] = MEMORY[0x1E69E9820];
+                v143[1] = 3221225472;
+                v143[2] = __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___block_invoke_748;
+                v143[3] = &unk_1E754E5E8;
+                v143[4] = selfCopy;
+                v143[5] = v99;
+                v144 = _privateDelegate2;
+                dispatch_async(queue2, v143);
               }
 
-              v96 = [obj countByEnumeratingWithState:&v146 objects:v187 count:16];
+              v96 = [obj countByEnumeratingWithState:&v145 objects:v186 count:16];
             }
 
             while (v96);
@@ -6626,7 +6571,7 @@ LABEL_124:
       objc_autoreleasePoolPop(context);
     }
 
-    v102 = [v134 hmf_numberForKey:@"status"];
+    v102 = [v133 hmf_numberForKey:@"status"];
     v103 = objc_autoreleasePoolPush();
     v104 = selfCopy;
     v105 = HMFGetOSLogHandle();
@@ -6642,9 +6587,9 @@ LABEL_124:
     }
 
     objc_autoreleasePoolPop(v103);
-    [v104 _updateStatusWithPayload:v134 sourceIsFetch:1];
+    [v104 _updateStatusWithPayload:v133 sourceIsFetch:1];
     serverGenerationCounter = [v104 serverGenerationCounter];
-    if ([v138 unsignedIntegerValue] == serverGenerationCounter)
+    if ([v137 unsignedIntegerValue] == serverGenerationCounter)
     {
       v109 = objc_autoreleasePoolPush();
       v110 = v104;
@@ -6660,40 +6605,40 @@ LABEL_124:
       objc_autoreleasePoolPop(v109);
     }
 
-    v142 = 0u;
-    v143 = 0u;
-    v140 = 0u;
     v141 = 0u;
+    v142 = 0u;
+    v139 = 0u;
+    v140 = 0u;
     v113 = v104[4];
-    v114 = [v113 countByEnumeratingWithState:&v140 objects:v186 count:16];
+    v114 = [v113 countByEnumeratingWithState:&v139 objects:v185 count:16];
     if (v114)
     {
-      v115 = *v141;
+      v115 = *v140;
       do
       {
         for (m = 0; m != v114; ++m)
         {
-          if (*v141 != v115)
+          if (*v140 != v115)
           {
             objc_enumerationMutation(v113);
           }
 
-          v117 = *(*(&v140 + 1) + 8 * m);
-          unsignedIntegerValue3 = [v138 unsignedIntegerValue];
+          v117 = *(*(&v139 + 1) + 8 * m);
+          unsignedIntegerValue3 = [v137 unsignedIntegerValue];
           if (unsignedIntegerValue3 >= [v117 generationCounter])
           {
             [v117 finish];
           }
         }
 
-        v114 = [v113 countByEnumeratingWithState:&v140 objects:v186 count:16];
+        v114 = [v113 countByEnumeratingWithState:&v139 objects:v185 count:16];
       }
 
       while (v114);
     }
 
-    [v104 __handleHomeManagerState:v134];
-    [v131 invalidate];
+    [v104 __handleHomeManagerState:v133];
+    [v130 invalidate];
 
     goto LABEL_124;
   }
@@ -6704,28 +6649,26 @@ LABEL_124:
     *buf = 138544130;
     *&buf[4] = v22;
     *&buf[12] = 2112;
-    *&buf[14] = v138;
+    *&buf[14] = v137;
     *&buf[22] = 2112;
-    v196 = v133;
-    LOWORD(v197) = 2112;
-    *(&v197 + 2) = v132;
+    v195 = v132;
+    LOWORD(v196) = 2112;
+    *(&v196 + 2) = v131;
     _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Cannot process home configuration response missing generation counter (%@) or metadata version (%@) or identifier salt (%@)", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v11);
 LABEL_125:
-
-  v119 = *MEMORY[0x1E69E9840];
 }
 
 void __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___block_invoke(uint64_t a1)
 {
-  v26[3] = *MEMORY[0x1E69E9840];
+  v25[3] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v26[2] = objc_opt_class();
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:3];
+  v25[0] = objc_opt_class();
+  v25[1] = objc_opt_class();
+  v25[2] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:3];
   v4 = [v2 setWithArray:v3];
 
   v5 = objc_alloc(MEMORY[0x1E696ACD0]);
@@ -6737,9 +6680,9 @@ void __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___bl
   [v8 _allowDecodingCyclesInSecureMode];
   v9 = *MEMORY[0x1E696A508];
   v10 = *(*(a1 + 48) + 8);
-  v20 = *(v10 + 40);
-  v11 = [v8 decodeTopLevelObjectOfClasses:v4 forKey:v9 error:&v20];
-  objc_storeStrong((v10 + 40), v20);
+  v19 = *(v10 + 40);
+  v11 = [v8 decodeTopLevelObjectOfClasses:v4 forKey:v9 error:&v19];
+  objc_storeStrong((v10 + 40), v19);
   v12 = *(*(a1 + 56) + 8);
   v13 = *(v12 + 40);
   *(v12 + 40) = v11;
@@ -6754,46 +6697,44 @@ void __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___bl
       v17 = HMFGetLogIdentifier();
       v18 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 138543618;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v18;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v18;
       _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive homes from home data: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___block_invoke_744(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v7 uuid];
         [v7 setPrimary:{objc_msgSend(v8, "isEqual:", *(a1 + 40))}];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -6804,9 +6745,7 @@ uint64_t __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested_
 
   [*(a1 + 48) _updateAppData:*(a1 + 64)];
   [*(a1 + 48) _setInitialHomes:*(a1 + 32)];
-  result = [*(a1 + 48) _updateCurrentHome:*(a1 + 72)];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 48) _updateCurrentHome:*(a1 + 72)];
 }
 
 void __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___block_invoke_746(uint64_t a1)
@@ -6838,7 +6777,7 @@ void __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___bl
 
 void __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___block_invoke_2_749(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -6846,11 +6785,11 @@ void __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___bl
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v11 = 138543618;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Notifying client that home: %@ has been removed permanently.", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Notifying client that home: %@ has been removed permanently.", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -6858,33 +6797,29 @@ void __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___bl
   v8 = *(a1 + 32);
   v9 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:*(a1 + 40)];
   [v7 homeManager:v8 didRemoveHomePermanently:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Notifying client that current accessory was removed.", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Notifying client that current accessory was removed.", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 40) homeManagerDidRemoveCurrentAccessory:*(a1 + 32)];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) homeManagerDidRemoveCurrentAccessory:*(a1 + 32)];
 }
 
 - (void)_handleHH2UpgradeRecommendationRequired:(id)required
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   requiredCopy = required;
   v5 = [requiredCopy hmf_BOOLForKey:@"HMHM.shouldPostHH2UpgradeRequired"];
   if (v5 != [(HMHomeManager *)self shouldPostHH2UpgradeRequired])
@@ -6895,25 +6830,23 @@ uint64_t __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543874;
-      v12 = v9;
-      v13 = 1024;
+      v10 = 138543874;
+      v11 = v9;
+      v12 = 1024;
       shouldPostHH2UpgradeRequired = [(HMHomeManager *)selfCopy shouldPostHH2UpgradeRequired];
-      v15 = 1024;
-      v16 = v5;
-      _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@shouldPostHH2UpgradeRequired from %{BOOL}d to %{BOOL}d", &v11, 0x18u);
+      v14 = 1024;
+      v15 = v5;
+      _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@shouldPostHH2UpgradeRequired from %{BOOL}d to %{BOOL}d", &v10, 0x18u);
     }
 
     objc_autoreleasePoolPop(v6);
     [(HMHomeManager *)selfCopy setShouldPostHH2UpgradeRequired:v5];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleHomeSafetySecurityEnabledStateWithPayload:(id)payload
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v5 = [payloadCopy hmf_BOOLForKey:@"HMHM.homeSafetySecurityEnabled"];
   if (v5 != [(HMHomeManager *)self homeSafetySecurityEnabled])
@@ -6943,23 +6876,23 @@ uint64_t __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested_
         [(HMHomeManager *)selfCopy homeSafetySecurityEnabled];
         v13 = HMFBooleanToString();
         *buf = 138543618;
-        v27 = v12;
-        v28 = 2112;
-        v29 = v13;
+        v26 = v12;
+        v27 = 2112;
+        v28 = v13;
         _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying client about updated Home Safety and Security enablement state : %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
       context = [(HMHomeManager *)selfCopy context];
       delegateCaller = [context delegateCaller];
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __66__HMHomeManager__handleHomeSafetySecurityEnabledStateWithPayload___block_invoke;
-      v22[3] = &unk_1E754DC70;
-      v23 = v8;
-      v24 = selfCopy;
-      v25 = v5;
-      [delegateCaller invokeBlock:v22];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __66__HMHomeManager__handleHomeSafetySecurityEnabledStateWithPayload___block_invoke;
+      v21[3] = &unk_1E754DC70;
+      v22 = v8;
+      v23 = selfCopy;
+      v24 = v5;
+      [delegateCaller invokeBlock:v21];
     }
 
     v16 = objc_autoreleasePoolPush();
@@ -6971,21 +6904,19 @@ uint64_t __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested_
       [(HMHomeManager *)selfCopy2 homeSafetySecurityEnabled];
       v20 = HMFBooleanToString();
       *buf = 138543618;
-      v27 = v19;
-      v28 = 2112;
-      v29 = v20;
+      v26 = v19;
+      v27 = 2112;
+      v28 = v20;
       _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_INFO, "%{public}@Daemon Home Safety and Security status: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleHH2ManualMigrationEnabledStateWithPayload:(id)payload
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v5 = [payloadCopy hmf_BOOLForKey:@"HMHM.hh2ManualMigrationEnabled"];
   if (v5 == [(HMHomeManager *)self isHH2MigrationAvailable])
@@ -6999,9 +6930,9 @@ uint64_t __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested_
       [(HMHomeManager *)selfCopy isHH2MigrationAvailable];
       v25 = HMFBooleanToString();
       *buf = 138543618;
-      v32 = v24;
-      v33 = 2112;
-      v34 = v25;
+      v31 = v24;
+      v32 = 2112;
+      v33 = v25;
       _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_INFO, "%{public}@isHH2MigrationAvailable didn't change. %@", buf, 0x16u);
     }
 
@@ -7035,23 +6966,23 @@ uint64_t __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested_
         [(HMHomeManager *)selfCopy2 isHH2MigrationAvailable];
         v13 = HMFBooleanToString();
         *buf = 138543618;
-        v32 = v12;
-        v33 = 2112;
-        v34 = v13;
+        v31 = v12;
+        v32 = 2112;
+        v33 = v13;
         _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying client about updated HH2 migration enablement : %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
       context = [(HMHomeManager *)selfCopy2 context];
       delegateCaller = [context delegateCaller];
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __66__HMHomeManager__handleHH2ManualMigrationEnabledStateWithPayload___block_invoke;
-      v27[3] = &unk_1E754DC70;
-      v28 = v8;
-      v29 = selfCopy2;
-      v30 = v5;
-      [delegateCaller invokeBlock:v27];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __66__HMHomeManager__handleHH2ManualMigrationEnabledStateWithPayload___block_invoke;
+      v26[3] = &unk_1E754DC70;
+      v27 = v8;
+      v28 = selfCopy2;
+      v29 = v5;
+      [delegateCaller invokeBlock:v26];
     }
 
     v16 = objc_autoreleasePoolPush();
@@ -7063,21 +6994,19 @@ uint64_t __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested_
       [(HMHomeManager *)selfCopy3 isHH2MigrationAvailable];
       v20 = HMFBooleanToString();
       *buf = 138543618;
-      v32 = v19;
-      v33 = 2112;
-      v34 = v20;
+      v31 = v19;
+      v32 = 2112;
+      v33 = v20;
       _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_INFO, "%{public}@Daemon HH2 migration enabled status: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleHH2MigrationProgressStateWithPayload:(id)payload
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v5 = [payloadCopy hmf_BOOLForKey:@"HMHM.HH2MigrationInProgress"];
   v6 = [payloadCopy hmf_errorForKey:@"HMHM.HH2MigrationFailedError"];
@@ -7094,13 +7023,13 @@ uint64_t __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested_
     v12 = HMFBooleanToString();
     hh2MigrationFailedError = [(HMHomeManager *)selfCopy hh2MigrationFailedError];
     *buf = 138544130;
-    v30 = v10;
-    v31 = 2112;
-    v32 = v11;
-    v33 = 2112;
-    v34 = v12;
-    v35 = 2112;
-    v36 = hh2MigrationFailedError;
+    v29 = v10;
+    v30 = 2112;
+    v31 = v11;
+    v32 = 2112;
+    v33 = v12;
+    v34 = 2112;
+    v35 = hh2MigrationFailedError;
     _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@>>> MIP: %@, new MIP: %@, error: %@", buf, 0x2Au);
   }
 
@@ -7132,32 +7061,30 @@ uint64_t __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested_
         [(HMHomeManager *)v18 isHH2MigrationInProgress];
         v21 = HMFBooleanToString();
         *buf = 138543618;
-        v30 = v20;
-        v31 = 2112;
-        v32 = v21;
+        v29 = v20;
+        v30 = 2112;
+        v31 = v21;
         _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_INFO, "%{public}@Notifying client of HH2 migration updated status : %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
       context = [(HMHomeManager *)v18 context];
       delegateCaller = [context delegateCaller];
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __61__HMHomeManager__handleHH2MigrationProgressStateWithPayload___block_invoke;
-      v25[3] = &unk_1E754DC70;
-      v26 = v16;
-      v27 = v18;
-      v28 = v5;
-      [delegateCaller invokeBlock:v25];
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __61__HMHomeManager__handleHH2MigrationProgressStateWithPayload___block_invoke;
+      v24[3] = &unk_1E754DC70;
+      v25 = v16;
+      v26 = v18;
+      v27 = v5;
+      [delegateCaller invokeBlock:v24];
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleHH2StateWithPayload:(id)payload
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   -[HMHomeManager setDaemonRunningWithROARFramework:](self, "setDaemonRunningWithROARFramework:", [payloadCopy hmf_BOOLForKey:@"HMHM.daemonROARFramework"]);
   v5 = [payloadCopy hmf_BOOLForKey:@"HMHM.userOptedToHH2"];
@@ -7189,23 +7116,23 @@ uint64_t __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested_
         [(HMHomeManager *)selfCopy hasOptedToHH2];
         v13 = HMFBooleanToString();
         *buf = 138543618;
-        v27 = v12;
-        v28 = 2112;
-        v29 = v13;
+        v26 = v12;
+        v27 = 2112;
+        v28 = v13;
         _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying client of HH2 updated status : %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
       context = [(HMHomeManager *)selfCopy context];
       delegateCaller = [context delegateCaller];
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __44__HMHomeManager__handleHH2StateWithPayload___block_invoke;
-      v22[3] = &unk_1E754DC70;
-      v23 = v8;
-      v24 = selfCopy;
-      v25 = v5;
-      [delegateCaller invokeBlock:v22];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __44__HMHomeManager__handleHH2StateWithPayload___block_invoke;
+      v21[3] = &unk_1E754DC70;
+      v22 = v8;
+      v23 = selfCopy;
+      v24 = v5;
+      [delegateCaller invokeBlock:v21];
     }
   }
 
@@ -7218,54 +7145,53 @@ uint64_t __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested_
     [(HMHomeManager *)selfCopy2 isDaemonRunningWithROARFramework];
     v20 = HMFBooleanToString();
     *buf = 138543618;
-    v27 = v19;
-    v28 = 2112;
-    v29 = v20;
+    v26 = v19;
+    v27 = 2112;
+    v28 = v20;
     _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_INFO, "%{public}@Daemon HH2 status: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v16);
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_recomputeAssistantIdentifiers
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = dispatch_group_create();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   homes = [(HMHomeManager *)self homes];
-  v5 = [homes countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [homes countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       v8 = 0;
       do
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(homes);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * v8);
+        v9 = *(*(&v17 + 1) + 8 * v8);
         dispatch_group_enter(v3);
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __47__HMHomeManager__recomputeAssistantIdentifiers__block_invoke;
-        v16[3] = &unk_1E754E2A8;
-        v17 = v3;
-        [v9 recomputeAssistantIdentifiersWithCompletion:v16];
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __47__HMHomeManager__recomputeAssistantIdentifiers__block_invoke;
+        v15[3] = &unk_1E754E2A8;
+        v16 = v3;
+        [v9 recomputeAssistantIdentifiersWithCompletion:v15];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [homes countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [homes countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
@@ -7278,16 +7204,14 @@ uint64_t __68__HMHomeManager__processHomeConfigurationResponse_refreshRequested_
   block[2] = __47__HMHomeManager__recomputeAssistantIdentifiers__block_invoke_2;
   block[3] = &unk_1E754E5C0;
   block[4] = self;
-  v15 = context;
+  v14 = context;
   v12 = context;
   dispatch_group_notify(v3, queue, block);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __47__HMHomeManager__recomputeAssistantIdentifiers__block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _privateDelegate];
   if (objc_opt_respondsToSelector())
   {
@@ -7298,33 +7222,31 @@ void __47__HMHomeManager__recomputeAssistantIdentifiers__block_invoke_2(uint64_t
     {
       v6 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v15 = v6;
+      v14 = v6;
       _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Notifying client of assistant identifier update", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
     v7 = [*(a1 + 40) delegateCaller];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __47__HMHomeManager__recomputeAssistantIdentifiers__block_invoke_722;
-    v11[3] = &unk_1E754E5C0;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __47__HMHomeManager__recomputeAssistantIdentifiers__block_invoke_722;
+    v10[3] = &unk_1E754E5C0;
     v8 = v2;
     v9 = *(a1 + 32);
-    v12 = v8;
-    v13 = v9;
-    [v7 invokeBlock:v11];
+    v11 = v8;
+    v12 = v9;
+    [v7 invokeBlock:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__handleHomeManagerState:(id)state
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   stateCopy = state;
-  v19 = 0;
-  v5 = [stateCopy hmf_BOOLForKey:@"kResidentCapableDeviceKey" isPresent:&v19];
-  if (v19 == 1)
+  v18 = 0;
+  v5 = [stateCopy hmf_BOOLForKey:@"kResidentCapableDeviceKey" isPresent:&v18];
+  if (v18 == 1)
   {
     v6 = v5;
     if (v5 != [(HMHomeManager *)self isThisDeviceResidentCapable])
@@ -7334,9 +7256,9 @@ void __47__HMHomeManager__recomputeAssistantIdentifiers__block_invoke_2(uint64_t
     }
   }
 
-  v19 = 0;
-  v7 = [stateCopy hmf_BOOLForKey:@"kResidentEnabledKey" isPresent:&v19];
-  if (v19 == 1)
+  v18 = 0;
+  v7 = [stateCopy hmf_BOOLForKey:@"kResidentEnabledKey" isPresent:&v18];
+  if (v18 == 1)
   {
     v8 = v7;
     if (v7 != [(HMHomeManager *)self isResidentEnabledForThisDevice])
@@ -7346,9 +7268,9 @@ void __47__HMHomeManager__recomputeAssistantIdentifiers__block_invoke_2(uint64_t
     }
   }
 
-  v19 = 0;
-  v9 = [stateCopy hmf_BOOLForKey:@"kAccessAllowedWhenLockedKey" isPresent:&v19];
-  if (v19 == 1)
+  v18 = 0;
+  v9 = [stateCopy hmf_BOOLForKey:@"kAccessAllowedWhenLockedKey" isPresent:&v18];
+  if (v18 == 1)
   {
     v10 = v9;
     if (v9 != [(HMHomeManager *)self isAccessAllowedWhenLocked])
@@ -7358,9 +7280,9 @@ void __47__HMHomeManager__recomputeAssistantIdentifiers__block_invoke_2(uint64_t
     }
   }
 
-  v19 = 0;
+  v18 = 0;
   v11 = [stateCopy hmf_UUIDForKey:@"kCurrentHomeUUIDKey"];
-  if (v11 || (v12 = [stateCopy hmf_BOOLForKey:@"kNoCurrentHomeKey" isPresent:&v19], v19 == 1) && v12)
+  if (v11 || (v12 = [stateCopy hmf_BOOLForKey:@"kNoCurrentHomeKey" isPresent:&v18], v18 == 1) && v12)
   {
     [(HMHomeManager *)self _updateCurrentHome:v11];
     v13 = objc_autoreleasePoolPush();
@@ -7371,43 +7293,41 @@ void __47__HMHomeManager__recomputeAssistantIdentifiers__block_invoke_2(uint64_t
       v16 = HMFGetLogIdentifier();
       currentHome = [(HMHomeManager *)selfCopy currentHome];
       *buf = 138543618;
-      v21 = v16;
-      v22 = 2112;
-      v23 = currentHome;
+      v20 = v16;
+      v21 = 2112;
+      v22 = currentHome;
       _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Updated current home: %@ due to home manager state", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__processSyncResponse:(id)response refreshRequested:(BOOL)requested completionHandler:(id)handler
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   handlerCopy = handler;
   if (!handlerCopy)
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager __processSyncResponse:refreshRequested:completionHandler:]", @"completionHandler"];
-    v18 = v17 = self;
-    v19 = objc_autoreleasePoolPush();
-    v20 = v17;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v17 = v16 = self;
+    v18 = objc_autoreleasePoolPush();
+    v19 = v16;
+    v20 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v22 = HMFGetLogIdentifier();
+      v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v22;
-      v32 = 2112;
-      v33 = v18;
-      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v30 = v21;
+      v31 = 2112;
+      v32 = v17;
+      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v19);
-    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
-    objc_exception_throw(v23);
+    objc_autoreleasePoolPop(v18);
+    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
+    objc_exception_throw(v22);
   }
 
   v10 = handlerCopy;
@@ -7417,22 +7337,20 @@ void __47__HMHomeManager__recomputeAssistantIdentifiers__block_invoke_2(uint64_t
   block[1] = 3221225472;
   block[2] = __74__HMHomeManager___processSyncResponse_refreshRequested_completionHandler___block_invoke;
   block[3] = &unk_1E754A988;
-  v25 = responseCopy;
+  v24 = responseCopy;
   selfCopy = self;
   requestedCopy = requested;
-  v27 = context;
-  v28 = v10;
+  v26 = context;
+  v27 = v10;
   v13 = v10;
   v14 = context;
   v15 = responseCopy;
   dispatch_async(queue, block);
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __74__HMHomeManager___processSyncResponse_refreshRequested_completionHandler___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) hmf_numberForKey:@"kProvisioningStatusKey"];
   v3 = v2;
   v4 = &unk_1F0EFD0A0;
@@ -7465,9 +7383,9 @@ void __74__HMHomeManager___processSyncResponse_refreshRequested_completionHandle
       v15 = HMFGetLogIdentifier();
       v16 = HMHomeManagerOptionsToString([*(a1 + 40) options]);
       *buf = 138543618;
-      v30 = v15;
-      v31 = 2112;
-      v32 = v16;
+      v29 = v15;
+      v30 = 2112;
+      v31 = v16;
       _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Client has not requested access to HAP accessories (options %@) - not going to write synced metadata to cache", buf, 0x16u);
     }
 
@@ -7489,11 +7407,11 @@ void __74__HMHomeManager___processSyncResponse_refreshRequested_completionHandle
     block[1] = 3221225472;
     block[2] = __74__HMHomeManager___processSyncResponse_refreshRequested_completionHandler___block_invoke_719;
     block[3] = &unk_1E754A960;
-    v24 = *(a1 + 32);
-    v20 = v24.i64[0];
-    v26 = vextq_s8(v24, v24, 8uLL);
-    v27 = v17;
-    v28 = v11;
+    v23 = *(a1 + 32);
+    v20 = v23.i64[0];
+    v25 = vextq_s8(v23, v23, 8uLL);
+    v26 = v17;
+    v27 = v11;
     dispatch_async(v19, block);
   }
 
@@ -7505,8 +7423,151 @@ void __74__HMHomeManager___processSyncResponse_refreshRequested_completionHandle
   {
     (*(v22 + 16))(v22, 0);
   }
+}
 
-  v23 = *MEMORY[0x1E69E9840];
+- (void)_fetchHomeConfigurationWithRefreshRequested:(BOOL)requested completion:(id)completion
+{
+  requestedCopy = requested;
+  v49 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  context = [(HMHomeManager *)self context];
+  queue = [context queue];
+  dispatch_assert_queue_V2(queue);
+
+  if (([(HMHomeManager *)self authorizationStatus]& 4) == 0)
+  {
+    v9 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v11 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v12 = HMFGetLogIdentifier();
+      v39 = 138543618;
+      v40 = v12;
+      v41 = 2048;
+      authorizationStatus = [(HMHomeManager *)selfCopy authorizationStatus];
+      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@This client cannot access home data with current authorization status: %lu", &v39, 0x16u);
+    }
+
+    v13 = v9;
+LABEL_5:
+    objc_autoreleasePoolPop(v13);
+    completionCopy[2](completionCopy);
+    goto LABEL_23;
+  }
+
+  generationCounter = [(HMHomeManager *)self generationCounter];
+  serverGenerationCounter = [(HMHomeManager *)self serverGenerationCounter];
+  currentThread = [MEMORY[0x1E696AF00] currentThread];
+  qualityOfService = [currentThread qualityOfService];
+
+  v18 = 17;
+  if (qualityOfService == -1)
+  {
+    v18 = -1;
+  }
+
+  if (qualityOfService == 25)
+  {
+    v19 = 25;
+  }
+
+  else
+  {
+    v19 = v18;
+  }
+
+  if (generationCounter == serverGenerationCounter)
+  {
+    shouldConnect = [(HMHomeManager *)self shouldConnect];
+    v21 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v23 = HMFGetOSLogHandle();
+    v24 = os_log_type_enabled(v23, OS_LOG_TYPE_INFO);
+    if (!shouldConnect)
+    {
+      if (v24)
+      {
+        v38 = HMFGetLogIdentifier();
+        v39 = 138543618;
+        v40 = v38;
+        v41 = 2048;
+        authorizationStatus = generationCounter;
+        _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_INFO, "%{public}@Deferring configuration request with generation counter: %tu", &v39, 0x16u);
+      }
+
+      v13 = v21;
+      goto LABEL_5;
+    }
+
+    if (v24)
+    {
+      v25 = HMFGetLogIdentifier();
+      v39 = 138543362;
+      v40 = v25;
+      _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_INFO, "%{public}@Connecting and requesting configuration from the server", &v39, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v21);
+  }
+
+  else
+  {
+    v26 = objc_autoreleasePoolPush();
+    selfCopy3 = self;
+    v28 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+    {
+      v29 = HMFGetLogIdentifier();
+      v39 = 138543874;
+      v40 = v29;
+      v41 = 2048;
+      authorizationStatus = generationCounter;
+      v43 = 2048;
+      v44 = serverGenerationCounter;
+      _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_INFO, "%{public}@The client generation counter %tu does not match the server generation counter: %tu", &v39, 0x20u);
+    }
+
+    objc_autoreleasePoolPop(v26);
+    if (generationCounter == -1)
+    {
+      v19 = 25;
+    }
+  }
+
+  [(HMHomeManager *)self setPendingSyncGenerationCounter:serverGenerationCounter];
+  v30 = [[__HMHomeDataSyncOperation alloc] initWithHomeManager:self];
+  [(HMFOperation *)v30 setQualityOfService:v19];
+  v31 = [objc_alloc(MEMORY[0x1E69A29C0]) initWithName:@"Fetch home configuration"];
+  [(HMFOperation *)v30 setActivity:v31];
+
+  [(__HMHomeDataSyncOperation *)v30 setRefresh:requestedCopy];
+  [(__HMHomeDataSyncOperation *)v30 setCompletionBlock:completionCopy];
+  v32 = objc_autoreleasePoolPush();
+  selfCopy4 = self;
+  v34 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  {
+    v35 = HMFGetLogIdentifier();
+    v36 = HMFQualityOfServiceToString();
+    v39 = 138544386;
+    v40 = v35;
+    v41 = 2048;
+    authorizationStatus = generationCounter;
+    v43 = 2048;
+    v44 = serverGenerationCounter;
+    v45 = 2112;
+    v46 = v36;
+    v47 = 2112;
+    v48 = v30;
+    _os_log_impl(&dword_19BB39000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@Requesting home configuration with client generation counter: %tu, server generation counter: %tu, QoS: %@, operation: %@", &v39, 0x34u);
+  }
+
+  objc_autoreleasePoolPop(v32);
+  syncOperationQueue = [(HMHomeManager *)selfCopy4 syncOperationQueue];
+  [syncOperationQueue addOperation:v30];
+
+LABEL_23:
 }
 
 - (void)fetchHomeConfigurationWithCompletion:(id)completion
@@ -7526,27 +7587,25 @@ void __74__HMHomeManager___processSyncResponse_refreshRequested_completionHandle
 
 uint64_t __54__HMHomeManager_fetchHomeConfigurationWithCompletion___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Force-fetching home configuration.", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Force-fetching home configuration.", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _fetchHomeConfigurationWithRefreshRequested:0 completion:*(a1 + 40)];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _fetchHomeConfigurationWithRefreshRequested:0 completion:*(a1 + 40)];
 }
 
 - (void)_requestRefresh
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -7554,47 +7613,45 @@ uint64_t __54__HMHomeManager_fetchHomeConfigurationWithCompletion___block_invoke
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v20 = v6;
+    v19 = v6;
     _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Refresh requested - re-enabling notifications/media accessory control for client", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   homes = [(HMHomeManager *)selfCopy homes];
-  v8 = [homes countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [homes countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(homes);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
+        v12 = *(*(&v13 + 1) + 8 * i);
         [v12 reenableNotifications];
         [v12 reRegisterHMMMHandlers];
       }
 
-      v9 = [homes countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [homes countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_loadHH2MigrationInfoFromHMCache:(id)cache
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
   cacheManager = [(HMHomeManager *)self cacheManager];
 
@@ -7616,9 +7673,9 @@ uint64_t __54__HMHomeManager_fetchHomeConfigurationWithCompletion___block_invoke
         v11 = [v8 dataForKey:@"HMHM.HH2MigrationFailedError"];
         if (v11)
         {
-          v24 = 0;
-          v12 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v11 error:&v24];
-          v13 = v24;
+          v23 = 0;
+          v12 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v11 error:&v23];
+          v13 = v23;
           if (!v12)
           {
             context = objc_autoreleasePoolPush();
@@ -7626,11 +7683,11 @@ uint64_t __54__HMHomeManager_fetchHomeConfigurationWithCompletion___block_invoke
             v15 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
-              v22 = HMFGetLogIdentifier();
+              v21 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v26 = v22;
-              v27 = 2112;
-              v28 = v13;
+              v25 = v21;
+              v26 = 2112;
+              v27 = v13;
               _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Unable to unarchive HH2 migration error from the stored cache. : %@", buf, 0x16u);
             }
 
@@ -7647,9 +7704,9 @@ uint64_t __54__HMHomeManager_fetchHomeConfigurationWithCompletion___block_invoke
         {
           v19 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v26 = v19;
-          v27 = 2112;
-          v28 = dictionary;
+          v25 = v19;
+          v26 = 2112;
+          v27 = dictionary;
           _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_INFO, "%{public}@HH2 Migration Status: %@", buf, 0x16u);
         }
 
@@ -7667,8 +7724,6 @@ uint64_t __54__HMHomeManager_fetchHomeConfigurationWithCompletion___block_invoke
 LABEL_16:
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return dictionary;
 }
 
@@ -7681,6 +7736,88 @@ LABEL_16:
   return path;
 }
 
+- (void)_pingDeviceWithUUID:(id)d monitor:(BOOL)monitor secure:(BOOL)secure restrictToLocalNetwork:(BOOL)network completionHandler:(id)handler
+{
+  networkCopy = network;
+  secureCopy = secure;
+  monitorCopy = monitor;
+  v44 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  handlerCopy = handler;
+  if (!dCopy)
+  {
+    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager _pingDeviceWithUUID:monitor:secure:restrictToLocalNetwork:completionHandler:]", @"deviceUUID"];
+    v30 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v32 = HMFGetOSLogHandle();
+    if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_8;
+    }
+
+LABEL_7:
+    v33 = HMFGetLogIdentifier();
+    *buf = 138543618;
+    v41 = v33;
+    v42 = 2112;
+    v43 = v29;
+    _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+
+LABEL_8:
+    objc_autoreleasePoolPop(v30);
+    v34 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v29 userInfo:0];
+    objc_exception_throw(v34);
+  }
+
+  v14 = handlerCopy;
+  if (!handlerCopy)
+  {
+    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager _pingDeviceWithUUID:monitor:secure:restrictToLocalNetwork:completionHandler:]", @"completionHandler"];
+    v30 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v32 = HMFGetOSLogHandle();
+    if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_7;
+  }
+
+  context = [(HMHomeManager *)self context];
+  v38[0] = @"kIdentifierKey";
+  uUIDString = [dCopy UUIDString];
+  v39[0] = uUIDString;
+  v38[1] = @"monitor";
+  v17 = [MEMORY[0x1E696AD98] numberWithBool:monitorCopy];
+  v39[1] = v17;
+  v38[2] = @"secure";
+  v18 = [MEMORY[0x1E696AD98] numberWithBool:secureCopy];
+  v39[2] = v18;
+  v38[3] = @"localNetwork";
+  v19 = [MEMORY[0x1E696AD98] numberWithBool:networkCopy];
+  v39[3] = v19;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:4];
+
+  v21 = objc_alloc(MEMORY[0x1E69A2A10]);
+  v22 = objc_alloc(MEMORY[0x1E69A2A00]);
+  uuid = [(HMHomeManager *)self uuid];
+  v24 = [v22 initWithTarget:uuid];
+  v25 = [v21 initWithName:@"kPingInternalRequestKey" destination:v24 payload:v20];
+
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __93__HMHomeManager__pingDeviceWithUUID_monitor_secure_restrictToLocalNetwork_completionHandler___block_invoke;
+  v35[3] = &unk_1E754DE00;
+  v36 = context;
+  v37 = v14;
+  v26 = v14;
+  v27 = context;
+  [v25 setResponseHandler:v35];
+  messageDispatcher = [v27 messageDispatcher];
+  [messageDispatcher sendMessage:v25];
+}
+
 void __93__HMHomeManager__pingDeviceWithUUID_monitor_secure_restrictToLocalNetwork_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
@@ -7691,42 +7828,42 @@ void __93__HMHomeManager__pingDeviceWithUUID_monitor_secure_restrictToLocalNetwo
 
 - (void)__removeAccountWithHandle:(id)handle completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   handlerCopy = handler;
   if (!handleCopy)
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager __removeAccountWithHandle:completionHandler:]", @"accountHandle"];
-    v21 = objc_autoreleasePoolPush();
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager __removeAccountWithHandle:completionHandler:]", @"accountHandle"];
+    v20 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v23 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v22 = HMFGetOSLogHandle();
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_8;
     }
 
 LABEL_7:
-    v24 = HMFGetLogIdentifier();
+    v23 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v32 = v24;
-    v33 = 2112;
-    v34 = v20;
-    _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+    v31 = v23;
+    v32 = 2112;
+    v33 = v19;
+    _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
 
 LABEL_8:
-    objc_autoreleasePoolPop(v21);
-    v25 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v20 userInfo:0];
-    objc_exception_throw(v25);
+    objc_autoreleasePoolPop(v20);
+    v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v19 userInfo:0];
+    objc_exception_throw(v24);
   }
 
   v8 = handlerCopy;
   if (!handlerCopy)
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager __removeAccountWithHandle:completionHandler:]", @"completionHandler"];
-    v21 = objc_autoreleasePoolPush();
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager __removeAccountWithHandle:completionHandler:]", @"completionHandler"];
+    v20 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v23 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v22 = HMFGetOSLogHandle();
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_8;
     }
@@ -7735,28 +7872,26 @@ LABEL_8:
   }
 
   context = [(HMHomeManager *)self context];
-  v29 = @"destination";
-  v30 = handleCopy;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+  v28 = @"destination";
+  v29 = handleCopy;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
   v11 = objc_alloc(MEMORY[0x1E69A2A10]);
   v12 = objc_alloc(MEMORY[0x1E69A2A00]);
   uuid = [(HMHomeManager *)self uuid];
   v14 = [v12 initWithTarget:uuid];
   v15 = [v11 initWithName:@"HMHM.rma" destination:v14 payload:v10];
 
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __61__HMHomeManager___removeAccountWithHandle_completionHandler___block_invoke;
-  v26[3] = &unk_1E754DE00;
-  v27 = context;
-  v28 = v8;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __61__HMHomeManager___removeAccountWithHandle_completionHandler___block_invoke;
+  v25[3] = &unk_1E754DE00;
+  v26 = context;
+  v27 = v8;
   v16 = v8;
   v17 = context;
-  [v15 setResponseHandler:v26];
+  [v15 setResponseHandler:v25];
   messageDispatcher = [v17 messageDispatcher];
   [messageDispatcher sendMessage:v15];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __61__HMHomeManager___removeAccountWithHandle_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -7769,92 +7904,12 @@ void __61__HMHomeManager___removeAccountWithHandle_completionHandler___block_inv
 
 - (void)__removeAccountWithIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   if (!identifierCopy)
   {
-    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager __removeAccountWithIdentifier:completionHandler:]", @"accountIdentifier"];
-    v22 = objc_autoreleasePoolPush();
-    selfCopy2 = self;
-    v24 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_8;
-    }
-
-LABEL_7:
-    v25 = HMFGetLogIdentifier();
-    *buf = 138543618;
-    v33 = v25;
-    v34 = 2112;
-    v35 = v21;
-    _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
-
-LABEL_8:
-    objc_autoreleasePoolPop(v22);
-    v26 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v21 userInfo:0];
-    objc_exception_throw(v26);
-  }
-
-  v8 = handlerCopy;
-  if (!handlerCopy)
-  {
-    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager __removeAccountWithIdentifier:completionHandler:]", @"completionHandler"];
-    v22 = objc_autoreleasePoolPush();
-    selfCopy2 = self;
-    v24 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_8;
-    }
-
-    goto LABEL_7;
-  }
-
-  context = [(HMHomeManager *)self context];
-  v30 = @"kIdentifierKey";
-  uUIDString = [identifierCopy UUIDString];
-  v31 = uUIDString;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-
-  v12 = objc_alloc(MEMORY[0x1E69A2A10]);
-  v13 = objc_alloc(MEMORY[0x1E69A2A00]);
-  uuid = [(HMHomeManager *)self uuid];
-  v15 = [v13 initWithTarget:uuid];
-  v16 = [v12 initWithName:@"HMHM.rma" destination:v15 payload:v11];
-
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __65__HMHomeManager___removeAccountWithIdentifier_completionHandler___block_invoke;
-  v27[3] = &unk_1E754DE00;
-  v28 = context;
-  v29 = v8;
-  v17 = v8;
-  v18 = context;
-  [v16 setResponseHandler:v27];
-  messageDispatcher = [v18 messageDispatcher];
-  [messageDispatcher sendMessage:v16];
-
-  v20 = *MEMORY[0x1E69E9840];
-}
-
-void __65__HMHomeManager___removeAccountWithIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
-{
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [v3 delegateCaller];
-  [v5 callCompletion:*(a1 + 40) error:v4];
-}
-
-- (void)__resolveAccountHandle:(id)handle completionHandler:(id)handler
-{
-  v35 = *MEMORY[0x1E69E9840];
-  handleCopy = handle;
-  handlerCopy = handler;
-  if (!handleCopy)
-  {
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager __resolveAccountHandle:completionHandler:]", @"accountHandle"];
+    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager __removeAccountWithIdentifier:completionHandler:]", @"accountIdentifier"];
     v21 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v23 = HMFGetOSLogHandle();
@@ -7880,7 +7935,7 @@ LABEL_8:
   v8 = handlerCopy;
   if (!handlerCopy)
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager __resolveAccountHandle:completionHandler:]", @"completionHandler"];
+    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager __removeAccountWithIdentifier:completionHandler:]", @"completionHandler"];
     v21 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v23 = HMFGetOSLogHandle();
@@ -7893,28 +7948,104 @@ LABEL_8:
   }
 
   context = [(HMHomeManager *)self context];
-  v29 = @"destination";
-  v30 = handleCopy;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+  v29 = @"kIdentifierKey";
+  uUIDString = [identifierCopy UUIDString];
+  v30 = uUIDString;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+
+  v12 = objc_alloc(MEMORY[0x1E69A2A10]);
+  v13 = objc_alloc(MEMORY[0x1E69A2A00]);
+  uuid = [(HMHomeManager *)self uuid];
+  v15 = [v13 initWithTarget:uuid];
+  v16 = [v12 initWithName:@"HMHM.rma" destination:v15 payload:v11];
+
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __65__HMHomeManager___removeAccountWithIdentifier_completionHandler___block_invoke;
+  v26[3] = &unk_1E754DE00;
+  v27 = context;
+  v28 = v8;
+  v17 = v8;
+  v18 = context;
+  [v16 setResponseHandler:v26];
+  messageDispatcher = [v18 messageDispatcher];
+  [messageDispatcher sendMessage:v16];
+}
+
+void __65__HMHomeManager___removeAccountWithIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
+{
+  v3 = *(a1 + 32);
+  v4 = a2;
+  v5 = [v3 delegateCaller];
+  [v5 callCompletion:*(a1 + 40) error:v4];
+}
+
+- (void)__resolveAccountHandle:(id)handle completionHandler:(id)handler
+{
+  v34 = *MEMORY[0x1E69E9840];
+  handleCopy = handle;
+  handlerCopy = handler;
+  if (!handleCopy)
+  {
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager __resolveAccountHandle:completionHandler:]", @"accountHandle"];
+    v20 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v22 = HMFGetOSLogHandle();
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_8;
+    }
+
+LABEL_7:
+    v23 = HMFGetLogIdentifier();
+    *buf = 138543618;
+    v31 = v23;
+    v32 = 2112;
+    v33 = v19;
+    _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+
+LABEL_8:
+    objc_autoreleasePoolPop(v20);
+    v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v19 userInfo:0];
+    objc_exception_throw(v24);
+  }
+
+  v8 = handlerCopy;
+  if (!handlerCopy)
+  {
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager __resolveAccountHandle:completionHandler:]", @"completionHandler"];
+    v20 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v22 = HMFGetOSLogHandle();
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_7;
+  }
+
+  context = [(HMHomeManager *)self context];
+  v28 = @"destination";
+  v29 = handleCopy;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
   v11 = objc_alloc(MEMORY[0x1E69A2A10]);
   v12 = objc_alloc(MEMORY[0x1E69A2A00]);
   uuid = [(HMHomeManager *)self uuid];
   v14 = [v12 initWithTarget:uuid];
   v15 = [v11 initWithName:@"HMHM.rsa" destination:v14 payload:v10];
 
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __58__HMHomeManager___resolveAccountHandle_completionHandler___block_invoke;
-  v26[3] = &unk_1E754DE00;
-  v27 = context;
-  v28 = v8;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __58__HMHomeManager___resolveAccountHandle_completionHandler___block_invoke;
+  v25[3] = &unk_1E754DE00;
+  v26 = context;
+  v27 = v8;
   v16 = v8;
   v17 = context;
-  [v15 setResponseHandler:v26];
+  [v15 setResponseHandler:v25];
   messageDispatcher = [v17 messageDispatcher];
   [messageDispatcher sendMessage:v15];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __58__HMHomeManager___resolveAccountHandle_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -7938,27 +8069,27 @@ void __58__HMHomeManager___resolveAccountHandle_completionHandler___block_invoke
 
 - (void)fetchDevicesWithCompletionHandler:(id)handler
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
-    v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager fetchDevicesWithCompletionHandler:]", @"completionHandler"];
-    v25 = objc_autoreleasePoolPush();
+    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager fetchDevicesWithCompletionHandler:]", @"completionHandler"];
+    v24 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v27 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v26 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v28 = HMFGetLogIdentifier();
+      v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v28;
-      v36 = 2112;
-      v37 = v24;
-      _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v34 = v27;
+      v35 = 2112;
+      v36 = v23;
+      _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v25);
-    v29 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v24 userInfo:0];
-    objc_exception_throw(v29);
+    objc_autoreleasePoolPop(v24);
+    v28 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v23 userInfo:0];
+    objc_exception_throw(v28);
   }
 
   v5 = handlerCopy;
@@ -7973,9 +8104,9 @@ void __58__HMHomeManager___resolveAccountHandle_completionHandler___block_invoke
     identifier = [v7 identifier];
     shortDescription = [identifier shortDescription];
     *buf = 138543618;
-    v35 = v11;
-    v36 = 2114;
-    v37 = shortDescription;
+    v34 = v11;
+    v35 = 2114;
+    v36 = shortDescription;
     _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Fetching devices", buf, 0x16u);
   }
 
@@ -7986,32 +8117,30 @@ void __58__HMHomeManager___resolveAccountHandle_completionHandler___block_invoke
   v17 = [v15 initWithTarget:uuid];
   v18 = [v14 initWithName:@"HMHM.fetchDevices" destination:v17 payload:0];
 
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __51__HMHomeManager_fetchDevicesWithCompletionHandler___block_invoke;
-  v30[3] = &unk_1E754D030;
-  v30[4] = selfCopy2;
-  v31 = v7;
-  v32 = context;
-  v33 = v5;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __51__HMHomeManager_fetchDevicesWithCompletionHandler___block_invoke;
+  v29[3] = &unk_1E754D030;
+  v29[4] = selfCopy2;
+  v30 = v7;
+  v31 = context;
+  v32 = v5;
   v19 = v5;
   v20 = context;
   v21 = v7;
-  [v18 setResponseHandler:v30];
+  [v18 setResponseHandler:v29];
   messageDispatcher = [v20 messageDispatcher];
   [messageDispatcher sendMessage:v18];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __51__HMHomeManager_fetchDevicesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v31[0] = objc_opt_class();
-  v31[1] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+  v30[0] = objc_opt_class();
+  v30[1] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
   v8 = [v6 hmf_unarchivedObjectForKey:@"HMHM.devices" ofClasses:v7];
 
   v9 = objc_autoreleasePoolPush();
@@ -8025,13 +8154,13 @@ void __51__HMHomeManager_fetchDevicesWithCompletionHandler___block_invoke(uint64
       v13 = HMFGetLogIdentifier();
       v14 = [*(a1 + 40) identifier];
       v15 = [v14 shortDescription];
-      v25 = 138543874;
-      v26 = v13;
-      v27 = 2114;
-      v28 = v15;
-      v29 = 2112;
-      v30 = v8;
-      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully fetched devices: %@", &v25, 0x20u);
+      v24 = 138543874;
+      v25 = v13;
+      v26 = 2114;
+      v27 = v15;
+      v28 = 2112;
+      v29 = v8;
+      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully fetched devices: %@", &v24, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -8049,13 +8178,13 @@ void __51__HMHomeManager_fetchDevicesWithCompletionHandler___block_invoke(uint64
       v21 = HMFGetLogIdentifier();
       v22 = [*(a1 + 40) identifier];
       v23 = [v22 shortDescription];
-      v25 = 138543874;
-      v26 = v21;
-      v27 = 2114;
-      v28 = v23;
-      v29 = 2112;
-      v30 = v5;
-      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to fetch devices: %@", &v25, 0x20u);
+      v24 = 138543874;
+      v25 = v21;
+      v26 = 2114;
+      v27 = v23;
+      v28 = 2112;
+      v29 = v5;
+      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to fetch devices: %@", &v24, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -8067,35 +8196,33 @@ void __51__HMHomeManager_fetchDevicesWithCompletionHandler___block_invoke(uint64
   }
 
   [v16 callCompletion:v18 obj:v19 error:v20];
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkName:(id)name inHome:(id)home withValidationOptions:(unint64_t)options completionHandler:(id)handler
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   homeCopy = home;
   handlerCopy = handler;
   if (!handlerCopy)
   {
-    v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager checkName:inHome:withValidationOptions:completionHandler:]", @"completionHandler"];
-    v35 = objc_autoreleasePoolPush();
+    v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager checkName:inHome:withValidationOptions:completionHandler:]", @"completionHandler"];
+    v34 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v37 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v36 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      v38 = HMFGetLogIdentifier();
+      v37 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v43 = v38;
-      v44 = 2112;
-      v45 = v34;
-      _os_log_impl(&dword_19BB39000, v37, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v42 = v37;
+      v43 = 2112;
+      v44 = v33;
+      _os_log_impl(&dword_19BB39000, v36, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v35);
-    v39 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v34 userInfo:0];
-    objc_exception_throw(v39);
+    objc_autoreleasePoolPop(v34);
+    v38 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v33 userInfo:0];
+    objc_exception_throw(v38);
   }
 
   v13 = handlerCopy;
@@ -8126,7 +8253,7 @@ LABEL_10:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v43 = v19;
+      v42 = v19;
       _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@Home name is longer than the pre-defined max length", buf, 0xCu);
     }
 
@@ -8155,17 +8282,16 @@ LABEL_10:
   v30 = [v28 initWithTarget:uuid2];
   v31 = [v27 initWithName:@"HMHM.qns" destination:v30 payload:v23];
 
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __74__HMHomeManager_checkName_inHome_withValidationOptions_completionHandler___block_invoke;
-  v40[3] = &unk_1E754C0F0;
-  v41 = v13;
-  [v31 setResponseHandler:v40];
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __74__HMHomeManager_checkName_inHome_withValidationOptions_completionHandler___block_invoke;
+  v39[3] = &unk_1E754C0F0;
+  v40 = v13;
+  [v31 setResponseHandler:v39];
   messageDispatcher = [context messageDispatcher];
   [messageDispatcher sendMessage:v31];
 
 LABEL_14:
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __74__HMHomeManager_checkName_inHome_withValidationOptions_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -8177,28 +8303,28 @@ void __74__HMHomeManager_checkName_inHome_withValidationOptions_completionHandle
 
 - (void)generateFirewallRuleTLVsFromNetworkDeclarations:(id)declarations completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   declarationsCopy = declarations;
   handlerCopy = handler;
   if (!handlerCopy)
   {
-    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager generateFirewallRuleTLVsFromNetworkDeclarations:completionHandler:]", @"completionHandler"];
-    v20 = objc_autoreleasePoolPush();
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager generateFirewallRuleTLVsFromNetworkDeclarations:completionHandler:]", @"completionHandler"];
+    v19 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v22 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v23 = HMFGetLogIdentifier();
+      v22 = HMFGetLogIdentifier();
       *location = 138543618;
-      *&location[4] = v23;
-      v31 = 2112;
-      v32 = v19;
-      _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@%@", location, 0x16u);
+      *&location[4] = v22;
+      v30 = 2112;
+      v31 = v18;
+      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", location, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v20);
-    v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v19 userInfo:0];
-    objc_exception_throw(v24);
+    objc_autoreleasePoolPop(v19);
+    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
+    objc_exception_throw(v23);
   }
 
   v8 = handlerCopy;
@@ -8208,27 +8334,25 @@ void __74__HMHomeManager_checkName_inHome_withValidationOptions_completionHandle
   v12 = [v10 initWithTarget:messageTargetUUID];
 
   v13 = objc_alloc(MEMORY[0x1E69A2A10]);
-  v28 = @"jsonData";
-  v29 = declarationsCopy;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+  v27 = @"jsonData";
+  v28 = declarationsCopy;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
   v15 = [v13 initWithName:@"HMHM.convertFirewallRules" destination:v12 payload:v14];
 
   objc_initWeak(location, self);
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __83__HMHomeManager_generateFirewallRuleTLVsFromNetworkDeclarations_completionHandler___block_invoke;
-  v25[3] = &unk_1E754CFF8;
-  objc_copyWeak(&v27, location);
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __83__HMHomeManager_generateFirewallRuleTLVsFromNetworkDeclarations_completionHandler___block_invoke;
+  v24[3] = &unk_1E754CFF8;
+  objc_copyWeak(&v26, location);
   v16 = v8;
-  v26 = v16;
-  [v15 setResponseHandler:v25];
+  v25 = v16;
+  [v15 setResponseHandler:v24];
   messageDispatcher = [context messageDispatcher];
   [messageDispatcher sendMessage:v15];
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(location);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __83__HMHomeManager_generateFirewallRuleTLVsFromNetworkDeclarations_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -8259,9 +8383,61 @@ LABEL_3:
 LABEL_6:
 }
 
+- (void)updateAccessAllowedWhenLocked:(BOOL)locked completionHandler:(id)handler
+{
+  lockedCopy = locked;
+  v33 = *MEMORY[0x1E69E9840];
+  handlerCopy = handler;
+  if (!handlerCopy)
+  {
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager updateAccessAllowedWhenLocked:completionHandler:]", @"completionHandler"];
+    v19 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v21 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      v22 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v30 = v22;
+      v31 = 2112;
+      v32 = v18;
+      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v19);
+    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
+    objc_exception_throw(v23);
+  }
+
+  v7 = handlerCopy;
+  context = [(HMHomeManager *)self context];
+  v9 = objc_alloc(MEMORY[0x1E69A2A00]);
+  uuid = [(HMHomeManager *)self uuid];
+  v11 = [v9 initWithTarget:uuid];
+
+  v12 = MEMORY[0x1E69A2A10];
+  v27 = @"kAccessAllowedWhenLockedKey";
+  v13 = [MEMORY[0x1E696AD98] numberWithBool:lockedCopy];
+  v28 = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+  v15 = [v12 messageWithName:@"kUpdateAccessAllowedWhenLockedRequestKey" destination:v11 payload:v14];
+
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __65__HMHomeManager_updateAccessAllowedWhenLocked_completionHandler___block_invoke;
+  v24[3] = &unk_1E754A910;
+  v24[4] = self;
+  v25 = v7;
+  v26 = lockedCopy;
+  v16 = v7;
+  [v15 setResponseHandler:v24];
+  messageDispatcher = [context messageDispatcher];
+  [messageDispatcher sendMessage:v15 completionHandler:0];
+}
+
 void __65__HMHomeManager_updateAccessAllowedWhenLocked_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -8271,15 +8447,15 @@ void __65__HMHomeManager_updateAccessAllowedWhenLocked_completionHandler___block
   {
     v10 = HMFGetLogIdentifier();
     v11 = _Block_copy(*(a1 + 40));
-    v18 = 138544130;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v6;
-    v22 = 2112;
-    v23 = v11;
-    v24 = 2112;
-    v25 = v5;
-    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Update access allowed when locked : %@, completionHandler: %@ error %@", &v18, 0x2Au);
+    v17 = 138544130;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v6;
+    v21 = 2112;
+    v22 = v11;
+    v23 = 2112;
+    v24 = v5;
+    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Update access allowed when locked : %@, completionHandler: %@ error %@", &v17, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -8303,8 +8479,65 @@ void __65__HMHomeManager_updateAccessAllowedWhenLocked_completionHandler___block
   }
 
   [v13 callCompletion:v15 error:v16];
+}
 
-  v17 = *MEMORY[0x1E69E9840];
+- (void)updateResidentEnabledForThisDevice:(BOOL)device completionHandler:(id)handler
+{
+  deviceCopy = device;
+  v39 = *MEMORY[0x1E69E9840];
+  handlerCopy = handler;
+  if (!handlerCopy)
+  {
+    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager updateResidentEnabledForThisDevice:completionHandler:]", @"completionHandler"];
+    v24 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v26 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      v27 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v36 = v27;
+      v37 = 2112;
+      v38 = v23;
+      _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v24);
+    v28 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v23 userInfo:0];
+    objc_exception_throw(v28);
+  }
+
+  v7 = handlerCopy;
+  context = [(HMHomeManager *)self context];
+  v33 = @"kResidentEnabledKey";
+  v9 = [MEMORY[0x1E696AD98] numberWithBool:deviceCopy];
+  v34 = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+
+  v11 = objc_alloc(MEMORY[0x1E69A2A10]);
+  v12 = objc_alloc(MEMORY[0x1E69A2A00]);
+  uuid = [(HMHomeManager *)self uuid];
+  v14 = [v12 initWithTarget:uuid];
+  v15 = [v11 initWithName:@"kUpdateResidentEnabledOnThisDeviceRequestKey" destination:v14 payload:v10];
+
+  pendingRequests = [context pendingRequests];
+  identifier = [v15 identifier];
+  v18 = _Block_copy(v7);
+  [pendingRequests addCompletionBlock:v18 forIdentifier:identifier];
+
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __70__HMHomeManager_updateResidentEnabledForThisDevice_completionHandler___block_invoke;
+  v29[3] = &unk_1E754E0A8;
+  v30 = pendingRequests;
+  v31 = identifier;
+  v32 = context;
+  v19 = context;
+  v20 = identifier;
+  v21 = pendingRequests;
+  [v15 setResponseHandler:v29];
+  messageDispatcher = [v19 messageDispatcher];
+  [messageDispatcher sendMessage:v15];
 }
 
 void __70__HMHomeManager_updateResidentEnabledForThisDevice_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -8322,28 +8555,28 @@ void __70__HMHomeManager_updateResidentEnabledForThisDevice_completionHandler___
 
 - (void)updateApplicationData:(id)data completionHandler:(id)handler
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   handlerCopy = handler;
   if (!handlerCopy)
   {
-    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager updateApplicationData:completionHandler:]", @"completion"];
-    v30 = objc_autoreleasePoolPush();
+    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager updateApplicationData:completionHandler:]", @"completion"];
+    v29 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v32 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v31 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      v33 = HMFGetLogIdentifier();
+      v32 = HMFGetLogIdentifier();
       *location = 138543618;
-      *&location[4] = v33;
-      v45 = 2112;
-      v46 = v29;
-      _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@%@", location, 0x16u);
+      *&location[4] = v32;
+      v44 = 2112;
+      v45 = v28;
+      _os_log_impl(&dword_19BB39000, v31, OS_LOG_TYPE_ERROR, "%{public}@%@", location, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v30);
-    v34 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v29 userInfo:0];
-    objc_exception_throw(v34);
+    objc_autoreleasePoolPop(v29);
+    v33 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v28 userInfo:0];
+    objc_exception_throw(v33);
   }
 
   v8 = handlerCopy;
@@ -8368,11 +8601,11 @@ void __70__HMHomeManager_updateResidentEnabledForThisDevice_completionHandler___
   aBlock[1] = 3221225472;
   aBlock[2] = __57__HMHomeManager_updateApplicationData_completionHandler___block_invoke;
   aBlock[3] = &unk_1E754D988;
-  objc_copyWeak(&v43, location);
+  objc_copyWeak(&v42, location);
   v17 = dataCopy;
-  v41 = v17;
+  v40 = v17;
   v18 = v8;
-  v42 = v18;
+  v41 = v18;
   v19 = _Block_copy(aBlock);
   context2 = [(HMHomeManager *)self context];
   pendingRequests = [context2 pendingRequests];
@@ -8381,24 +8614,22 @@ void __70__HMHomeManager_updateResidentEnabledForThisDevice_completionHandler___
   v23 = _Block_copy(v19);
   [pendingRequests addCompletionBlock:v23 forIdentifier:identifier];
 
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __57__HMHomeManager_updateApplicationData_completionHandler___block_invoke_2;
-  v36[3] = &unk_1E754E480;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __57__HMHomeManager_updateApplicationData_completionHandler___block_invoke_2;
+  v35[3] = &unk_1E754E480;
   v24 = pendingRequests;
-  v37 = v24;
+  v36 = v24;
   v25 = identifier;
-  v38 = v25;
+  v37 = v25;
   v26 = v19;
-  v39 = v26;
-  [v16 setResponseHandler:v36];
+  v38 = v26;
+  [v16 setResponseHandler:v35];
   messageDispatcher = [context messageDispatcher];
   [messageDispatcher sendMessage:v16 completionHandler:0];
 
-  objc_destroyWeak(&v43);
+  objc_destroyWeak(&v42);
   objc_destroyWeak(location);
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __57__HMHomeManager_updateApplicationData_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -8427,29 +8658,79 @@ void __57__HMHomeManager_updateApplicationData_completionHandler___block_invoke_
   }
 }
 
-- (void)queryiCloudSwitchStateWithCompletionHandler:(id)handler
+- (void)updateiCloudSwitchState:(BOOL)state completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  stateCopy = state;
+  v32 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager queryiCloudSwitchStateWithCompletionHandler:]", @"completion"];
-    v16 = objc_autoreleasePoolPush();
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager updateiCloudSwitchState:completionHandler:]", @"completion"];
+    v19 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v18 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v21 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v19 = HMFGetLogIdentifier();
+      v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v19;
-      v25 = 2112;
-      v26 = v15;
-      _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v29 = v22;
+      v30 = 2112;
+      v31 = v18;
+      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v16);
-    v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v15 userInfo:0];
-    objc_exception_throw(v20);
+    objc_autoreleasePoolPop(v19);
+    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
+    objc_exception_throw(v23);
+  }
+
+  v7 = handlerCopy;
+  context = [(HMHomeManager *)self context];
+  v26 = @"kiCloudSwitchStateKey";
+  v9 = [MEMORY[0x1E696AD98] numberWithBool:stateCopy];
+  v27 = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+
+  v11 = objc_alloc(MEMORY[0x1E69A2A10]);
+  v12 = objc_alloc(MEMORY[0x1E69A2A00]);
+  uuid = [(HMHomeManager *)self uuid];
+  v14 = [v12 initWithTarget:uuid];
+  v15 = [v11 initWithName:@"HMHM.updateiCloudSwitchState" destination:v14 payload:v10];
+
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __59__HMHomeManager_updateiCloudSwitchState_completionHandler___block_invoke;
+  v24[3] = &unk_1E754C0F0;
+  v25 = v7;
+  v16 = v7;
+  [v15 setResponseHandler:v24];
+  messageDispatcher = [context messageDispatcher];
+  [messageDispatcher sendMessage:v15];
+}
+
+- (void)queryiCloudSwitchStateWithCompletionHandler:(id)handler
+{
+  v26 = *MEMORY[0x1E69E9840];
+  handlerCopy = handler;
+  if (!handlerCopy)
+  {
+    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager queryiCloudSwitchStateWithCompletionHandler:]", @"completion"];
+    v15 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v17 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      v18 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v23 = v18;
+      v24 = 2112;
+      v25 = v14;
+      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v15);
+    v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v14 userInfo:0];
+    objc_exception_throw(v19);
   }
 
   v5 = handlerCopy;
@@ -8460,17 +8741,15 @@ void __57__HMHomeManager_updateApplicationData_completionHandler___block_invoke_
   v10 = [v8 initWithTarget:uuid];
   v11 = [v7 initWithName:@"HMHM.queryiCloudSwitchState" destination:v10 payload:0];
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __61__HMHomeManager_queryiCloudSwitchStateWithCompletionHandler___block_invoke;
-  v21[3] = &unk_1E754C0F0;
-  v22 = v5;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __61__HMHomeManager_queryiCloudSwitchStateWithCompletionHandler___block_invoke;
+  v20[3] = &unk_1E754C0F0;
+  v21 = v5;
   v12 = v5;
-  [v11 setResponseHandler:v21];
+  [v11 setResponseHandler:v20];
   messageDispatcher = [context messageDispatcher];
   [messageDispatcher sendMessage:v11];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __61__HMHomeManager_queryiCloudSwitchStateWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -8486,37 +8765,37 @@ void __61__HMHomeManager_queryiCloudSwitchStateWithCompletionHandler___block_inv
 
 - (void)setMetadata:(id)metadata completionHandler:(id)handler
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   handlerCopy = handler;
   if (!handlerCopy)
   {
-    v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager setMetadata:completionHandler:]", @"completion"];
-    v25 = objc_autoreleasePoolPush();
+    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager setMetadata:completionHandler:]", @"completion"];
+    v24 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v27 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v26 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v28 = HMFGetLogIdentifier();
+      v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v37 = v28;
-      v38 = 2112;
-      v39 = v24;
-      _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v36 = v27;
+      v37 = 2112;
+      v38 = v23;
+      _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v25);
-    v29 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v24 userInfo:0];
-    objc_exception_throw(v29);
+    objc_autoreleasePoolPop(v24);
+    v28 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v23 userInfo:0];
+    objc_exception_throw(v28);
   }
 
   v8 = handlerCopy;
   context = [(HMHomeManager *)self context];
   if (metadataCopy)
   {
-    v34 = @"kMetadataPlistPathKey";
-    v35 = metadataCopy;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    v33 = @"kMetadataPlistPathKey";
+    v34 = metadataCopy;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
   }
 
   else
@@ -8536,21 +8815,19 @@ void __61__HMHomeManager_queryiCloudSwitchStateWithCompletionHandler___block_inv
   v18 = _Block_copy(v8);
   [pendingRequests addCompletionBlock:v18 forIdentifier:identifier];
 
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __47__HMHomeManager_setMetadata_completionHandler___block_invoke;
-  v30[3] = &unk_1E754E0A8;
-  v31 = pendingRequests;
-  v32 = identifier;
-  v33 = context;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __47__HMHomeManager_setMetadata_completionHandler___block_invoke;
+  v29[3] = &unk_1E754E0A8;
+  v30 = pendingRequests;
+  v31 = identifier;
+  v32 = context;
   v19 = context;
   v20 = identifier;
   v21 = pendingRequests;
-  [v14 setResponseHandler:v30];
+  [v14 setResponseHandler:v29];
   messageDispatcher = [v19 messageDispatcher];
   [messageDispatcher sendMessage:v14 completionHandler:0];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __47__HMHomeManager_setMetadata_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -8592,7 +8869,7 @@ void __47__HMHomeManager_setMetadata_completionHandler___block_invoke(uint64_t a
 
 void __49__HMHomeManager_queryMetadata_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -8603,13 +8880,13 @@ void __49__HMHomeManager_queryMetadata_completionHandler___block_invoke(uint64_t
     {
       v9 = HMFGetLogIdentifier();
       v10 = *(a1 + 32);
-      v16 = 138543874;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v10;
-      v20 = 2112;
-      v21 = v5;
-      _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_ERROR, "%{public}@queryMetadata '%@' failed with error %@", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v5;
+      _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_ERROR, "%{public}@queryMetadata '%@' failed with error %@", &v15, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -8620,8 +8897,6 @@ void __49__HMHomeManager_queryMetadata_completionHandler___block_invoke(uint64_t
   v13 = *(a1 + 48);
   v14 = [v6 hmf_dictionaryForKey:@"kMetadataDictionaryKey"];
   [v12 callCompletion:v13 error:v5 dictionary:v14];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetLastTTRTimeWithCompletionHandler:(id)handler
@@ -9128,29 +9403,29 @@ void __140__HMHomeManager_readCountersForGroup_homeUUIDString_accessoryUUIDStrin
 
 - (void)dumpState:(id)state dataPrivacyLevel:(unint64_t)level payload:(id)payload completion:(id)completion
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   payloadCopy = payload;
   completionCopy = completion;
   if (!completionCopy)
   {
-    v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager dumpState:dataPrivacyLevel:payload:completion:]", @"completion"];
-    v31 = objc_autoreleasePoolPush();
+    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager dumpState:dataPrivacyLevel:payload:completion:]", @"completion"];
+    v30 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v33 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v32 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      v34 = HMFGetLogIdentifier();
+      v33 = HMFGetLogIdentifier();
       *location = 138543618;
-      *&location[4] = v34;
-      v40 = 2112;
-      v41 = v30;
-      _os_log_impl(&dword_19BB39000, v33, OS_LOG_TYPE_ERROR, "%{public}@%@", location, 0x16u);
+      *&location[4] = v33;
+      v39 = 2112;
+      v40 = v29;
+      _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@%@", location, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v31);
-    v35 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v30 userInfo:0];
-    objc_exception_throw(v35);
+    objc_autoreleasePoolPop(v30);
+    v34 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v29 userInfo:0];
+    objc_exception_throw(v34);
   }
 
   v13 = completionCopy;
@@ -9165,8 +9440,8 @@ void __140__HMHomeManager_readCountersForGroup_homeUUIDString_accessoryUUIDStrin
       v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:level];
       *location = 138543618;
       *&location[4] = v27;
-      v40 = 2112;
-      v41 = v28;
+      v39 = 2112;
+      v40 = v28;
       _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@Invalid privacy level specified : %@", location, 0x16u);
     }
 
@@ -9191,22 +9466,20 @@ void __140__HMHomeManager_readCountersForGroup_homeUUIDString_accessoryUUIDStrin
     v21 = [v19 messageWithName:@"HMHM.ds" destination:v18 payload:v20];
 
     objc_initWeak(location, self);
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __63__HMHomeManager_dumpState_dataPrivacyLevel_payload_completion___block_invoke;
-    v36[3] = &unk_1E754CFF8;
-    objc_copyWeak(&v38, location);
-    v37 = v13;
-    [v21 setResponseHandler:v36];
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __63__HMHomeManager_dumpState_dataPrivacyLevel_payload_completion___block_invoke;
+    v35[3] = &unk_1E754CFF8;
+    objc_copyWeak(&v37, location);
+    v36 = v13;
+    [v21 setResponseHandler:v35];
     context = [(HMHomeManager *)self context];
     messageDispatcher = [context messageDispatcher];
     [messageDispatcher sendMessage:v21];
 
-    objc_destroyWeak(&v38);
+    objc_destroyWeak(&v37);
     objc_destroyWeak(location);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __63__HMHomeManager_dumpState_dataPrivacyLevel_payload_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -9221,27 +9494,27 @@ void __63__HMHomeManager_dumpState_dataPrivacyLevel_payload_completion___block_i
 
 - (void)queryVersionWithCompletionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager queryVersionWithCompletionHandler:]", @"completion"];
-    v15 = objc_autoreleasePoolPush();
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager queryVersionWithCompletionHandler:]", @"completion"];
+    v14 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v17 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = HMFGetLogIdentifier();
+      v17 = HMFGetLogIdentifier();
       *location = 138543618;
-      *&location[4] = v18;
-      v24 = 2112;
-      v25 = v14;
-      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@%@", location, 0x16u);
+      *&location[4] = v17;
+      v23 = 2112;
+      v24 = v13;
+      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@%@", location, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v15);
-    v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v14 userInfo:0];
-    objc_exception_throw(v19);
+    objc_autoreleasePoolPop(v14);
+    v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v13 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   v5 = handlerCopy;
@@ -9251,22 +9524,20 @@ void __63__HMHomeManager_dumpState_dataPrivacyLevel_payload_completion___block_i
 
   v9 = [MEMORY[0x1E69A2A10] messageWithName:@"HMHM.qv" destination:v8 payload:0];
   objc_initWeak(location, self);
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __51__HMHomeManager_queryVersionWithCompletionHandler___block_invoke;
-  v20[3] = &unk_1E754CFF8;
-  objc_copyWeak(&v22, location);
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __51__HMHomeManager_queryVersionWithCompletionHandler___block_invoke;
+  v19[3] = &unk_1E754CFF8;
+  objc_copyWeak(&v21, location);
   v10 = v5;
-  v21 = v10;
-  [v9 setResponseHandler:v20];
+  v20 = v10;
+  [v9 setResponseHandler:v19];
   context = [(HMHomeManager *)self context];
   messageDispatcher = [context messageDispatcher];
   [messageDispatcher sendMessage:v9];
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(location);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __51__HMHomeManager_queryVersionWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -9310,27 +9581,27 @@ void __51__HMHomeManager_queryVersionWithCompletionHandler___block_invoke(uint64
 
 - (void)queryHomeKitUsageStateWithCompletionHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager queryHomeKitUsageStateWithCompletionHandler:]", @"completion"];
-    v16 = objc_autoreleasePoolPush();
+    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager queryHomeKitUsageStateWithCompletionHandler:]", @"completion"];
+    v15 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v18 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v19 = HMFGetLogIdentifier();
+      v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v19;
-      v25 = 2112;
-      v26 = v15;
-      _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v23 = v18;
+      v24 = 2112;
+      v25 = v14;
+      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v16);
-    v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v15 userInfo:0];
-    objc_exception_throw(v20);
+    objc_autoreleasePoolPop(v15);
+    v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v14 userInfo:0];
+    objc_exception_throw(v19);
   }
 
   v5 = handlerCopy;
@@ -9340,19 +9611,17 @@ void __51__HMHomeManager_queryVersionWithCompletionHandler___block_invoke(uint64
   v9 = [v7 initWithTarget:uuid];
   v10 = [v6 initWithName:@"kQueryHomeKitUsageStateRequestKey" destination:v9 payload:0];
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __61__HMHomeManager_queryHomeKitUsageStateWithCompletionHandler___block_invoke;
-  v21[3] = &unk_1E754DE00;
-  v21[4] = self;
-  v22 = v5;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __61__HMHomeManager_queryHomeKitUsageStateWithCompletionHandler___block_invoke;
+  v20[3] = &unk_1E754DE00;
+  v20[4] = self;
+  v21 = v5;
   v11 = v5;
-  [v10 setResponseHandler:v21];
+  [v10 setResponseHandler:v20];
   context = [(HMHomeManager *)self context];
   messageDispatcher = [context messageDispatcher];
   [messageDispatcher sendMessage:v10];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __61__HMHomeManager_queryHomeKitUsageStateWithCompletionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -9371,6 +9640,60 @@ void __61__HMHomeManager_queryHomeKitUsageStateWithCompletionHandler___block_inv
   {
     [v6 _handleQueryHomeKitUsageStateResponse:a3 completionHandler:*(a1 + 40)];
   }
+}
+
+- (void)eraseHomeDataAndDeleteMetadata:(BOOL)metadata completionHandler:(id)handler
+{
+  metadataCopy = metadata;
+  v32 = *MEMORY[0x1E69E9840];
+  handlerCopy = handler;
+  context = [(HMHomeManager *)self context];
+  if (!handlerCopy)
+  {
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager eraseHomeDataAndDeleteMetadata:completionHandler:]", @"completion"];
+    v19 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v21 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      v22 = HMFGetLogIdentifier();
+      *location = 138543618;
+      *&location[4] = v22;
+      v30 = 2112;
+      v31 = v18;
+      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", location, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v19);
+    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
+    objc_exception_throw(v23);
+  }
+
+  v8 = context;
+  v9 = objc_alloc(MEMORY[0x1E69A2A00]);
+  uuid = [(HMHomeManager *)self uuid];
+  v11 = [v9 initWithTarget:uuid];
+
+  v12 = MEMORY[0x1E69A29F8];
+  v27 = @"kResetConfigMetadataKey";
+  v13 = [MEMORY[0x1E696AD98] numberWithBool:metadataCopy];
+  v28 = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+  v15 = [v12 messageWithName:@"kResetConfigRequestKey" qualityOfService:25 destination:v11 payload:v14];
+
+  objc_initWeak(location, self);
+  messageDispatcher = [v8 messageDispatcher];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __66__HMHomeManager_eraseHomeDataAndDeleteMetadata_completionHandler___block_invoke;
+  v24[3] = &unk_1E754D910;
+  objc_copyWeak(&v26, location);
+  v17 = handlerCopy;
+  v25 = v17;
+  [messageDispatcher sendMessage:v15 completionHandler:v24];
+
+  objc_destroyWeak(&v26);
+  objc_destroyWeak(location);
 }
 
 void __66__HMHomeManager_eraseHomeDataAndDeleteMetadata_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -9397,29 +9720,29 @@ void __66__HMHomeManager_eraseHomeDataAndDeleteMetadata_completionHandler___bloc
 
 - (void)removeHome:(HMHome *)home completionHandler:(void *)completion
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v6 = home;
   v7 = completion;
   context = [(HMHomeManager *)self context];
   if (!v7)
   {
-    v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager removeHome:completionHandler:]", @"completion"];
-    v48 = objc_autoreleasePoolPush();
+    v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager removeHome:completionHandler:]", @"completion"];
+    v47 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v50 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+    v49 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
-      v51 = HMFGetLogIdentifier();
+      v50 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v63 = v51;
-      v64 = 2112;
-      v65 = v47;
-      _os_log_impl(&dword_19BB39000, v50, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v62 = v50;
+      v63 = 2112;
+      v64 = v46;
+      _os_log_impl(&dword_19BB39000, v49, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v48);
-    v52 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v47 userInfo:0];
-    objc_exception_throw(v52);
+    objc_autoreleasePoolPop(v47);
+    v51 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v46 userInfo:0];
+    objc_exception_throw(v51);
   }
 
   v9 = context;
@@ -9433,11 +9756,11 @@ void __66__HMHomeManager_eraseHomeDataAndDeleteMetadata_completionHandler___bloc
     identifier = [v10 identifier];
     shortDescription = [identifier shortDescription];
     *buf = 138543874;
-    v63 = v14;
-    v64 = 2114;
-    v65 = shortDescription;
-    v66 = 2112;
-    v67 = v6;
+    v62 = v14;
+    v63 = 2114;
+    v64 = shortDescription;
+    v65 = 2112;
+    v66 = v6;
     _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Removing home: %@", buf, 0x20u);
   }
 
@@ -9447,42 +9770,42 @@ void __66__HMHomeManager_eraseHomeDataAndDeleteMetadata_completionHandler___bloc
     currentHomes = [(HMHomeManager *)selfCopy2 currentHomes];
     v18 = [currentHomes containsObject:v6];
 
-    v54 = v10;
+    v53 = v10;
     if (v18)
     {
-      v53 = MEMORY[0x1E69A2A10];
+      v52 = MEMORY[0x1E69A2A10];
       v19 = objc_alloc(MEMORY[0x1E69A2A00]);
       uuid = [(HMHomeManager *)selfCopy2 uuid];
       v21 = [v19 initWithTarget:uuid];
-      v60 = @"kHomeUUID";
+      v59 = @"kHomeUUID";
       uuid2 = [(HMHome *)v6 uuid];
       uUIDString = [uuid2 UUIDString];
-      v61 = uUIDString;
-      [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+      v60 = uUIDString;
+      [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
       v24 = v6;
       v25 = v7;
       v27 = v26 = v9;
-      delegateCaller = [v53 messageWithName:@"kRemoveHomeRequestKey" destination:v21 payload:v27];
+      delegateCaller = [v52 messageWithName:@"kRemoveHomeRequestKey" destination:v21 payload:v27];
 
       v9 = v26;
       v7 = v25;
       v6 = v24;
 
-      v55[0] = MEMORY[0x1E69E9820];
-      v55[1] = 3221225472;
-      v55[2] = __46__HMHomeManager_removeHome_completionHandler___block_invoke;
-      v55[3] = &unk_1E754B6C8;
-      v55[4] = selfCopy2;
-      v56 = v54;
+      v54[0] = MEMORY[0x1E69E9820];
+      v54[1] = 3221225472;
+      v54[2] = __46__HMHomeManager_removeHome_completionHandler___block_invoke;
+      v54[3] = &unk_1E754B6C8;
+      v54[4] = selfCopy2;
+      v55 = v53;
       v29 = v9;
-      v57 = v29;
-      v59 = v7;
-      v58 = v6;
-      [delegateCaller setResponseHandler:v55];
+      v56 = v29;
+      v58 = v7;
+      v57 = v6;
+      [delegateCaller setResponseHandler:v54];
       messageDispatcher = [v29 messageDispatcher];
       [messageDispatcher sendMessage:delegateCaller];
 
-      v10 = v54;
+      v10 = v53;
     }
 
     else
@@ -9497,11 +9820,11 @@ void __66__HMHomeManager_eraseHomeDataAndDeleteMetadata_completionHandler___bloc
         shortDescription2 = [identifier2 shortDescription];
         currentHomes2 = [(HMHomeManager *)v39 currentHomes];
         *buf = 138543874;
-        v63 = v41;
-        v64 = 2114;
-        v65 = shortDescription2;
-        v66 = 2112;
-        v67 = currentHomes2;
+        v62 = v41;
+        v63 = 2114;
+        v64 = shortDescription2;
+        v65 = 2112;
+        v66 = currentHomes2;
         _os_log_impl(&dword_19BB39000, v40, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Asked to remove home that doesn't exist in current homes: %@", buf, 0x20u);
       }
 
@@ -9510,7 +9833,7 @@ void __66__HMHomeManager_eraseHomeDataAndDeleteMetadata_completionHandler___bloc
       v45 = [MEMORY[0x1E696ABC0] hmErrorWithCode:2];
       [delegateCaller callCompletion:v7 error:v45];
 
-      v10 = v54;
+      v10 = v53;
     }
   }
 
@@ -9525,9 +9848,9 @@ void __66__HMHomeManager_eraseHomeDataAndDeleteMetadata_completionHandler___bloc
       identifier3 = [v10 identifier];
       shortDescription3 = [identifier3 shortDescription];
       *buf = 138543618;
-      v63 = v34;
-      v64 = 2114;
-      v65 = shortDescription3;
+      v62 = v34;
+      v63 = 2114;
+      v64 = shortDescription3;
       _os_log_impl(&dword_19BB39000, v33, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Asked to remove nil home", buf, 0x16u);
     }
 
@@ -9536,13 +9859,11 @@ void __66__HMHomeManager_eraseHomeDataAndDeleteMetadata_completionHandler___bloc
     v37 = [MEMORY[0x1E696ABC0] hmErrorWithCode:20];
     [delegateCaller callCompletion:v7 error:v37];
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 void __46__HMHomeManager_removeHome_completionHandler___block_invoke(id *a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -9556,11 +9877,11 @@ void __46__HMHomeManager_removeHome_completionHandler___block_invoke(id *a1, voi
       v11 = [a1[5] identifier];
       v12 = [v11 shortDescription];
       *buf = 138543874;
-      v26 = v10;
-      v27 = 2114;
-      v28 = v12;
-      v29 = 2112;
-      v30 = v5;
+      v25 = v10;
+      v26 = 2114;
+      v27 = v12;
+      v28 = 2112;
+      v29 = v5;
       _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to remove home: %@", buf, 0x20u);
     }
 
@@ -9576,24 +9897,22 @@ void __46__HMHomeManager_removeHome_completionHandler___block_invoke(id *a1, voi
     block[1] = 3221225472;
     block[2] = __46__HMHomeManager_removeHome_completionHandler___block_invoke_653;
     block[3] = &unk_1E754D7A8;
-    v20 = *(a1 + 2);
-    v15 = *(&v20 + 1);
+    v19 = *(a1 + 2);
+    v15 = *(&v19 + 1);
     v16 = a1[7];
     v17 = a1[6];
     *&v18 = v16;
     *(&v18 + 1) = v17;
-    v22 = v20;
-    v23 = v18;
-    v24 = a1[8];
+    v21 = v19;
+    v22 = v18;
+    v23 = a1[8];
     dispatch_async(v14, block);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __46__HMHomeManager_removeHome_completionHandler___block_invoke_653(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -9602,11 +9921,11 @@ void __46__HMHomeManager_removeHome_completionHandler___block_invoke_653(uint64_
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 40) identifier];
     v7 = [v6 shortDescription];
-    v11 = 138543618;
-    v12 = v5;
-    v13 = 2114;
-    v14 = v7;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully removed home", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v5;
+    v12 = 2114;
+    v13 = v7;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully removed home", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -9616,35 +9935,33 @@ void __46__HMHomeManager_removeHome_completionHandler___block_invoke_653(uint64_
   [*(a1 + 48) unconfigure];
   v9 = [*(a1 + 56) delegateCaller];
   [v9 callCompletion:*(a1 + 64) error:0];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addHomeWithName:(NSString *)homeName completionHandler:(void *)completion
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v6 = homeName;
   v7 = completion;
   context = [(HMHomeManager *)self context];
   if (!v7)
   {
-    v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager addHomeWithName:completionHandler:]", @"completion"];
-    v41 = objc_autoreleasePoolPush();
+    v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager addHomeWithName:completionHandler:]", @"completion"];
+    v40 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v43 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v42 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
-      v44 = HMFGetLogIdentifier();
+      v43 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v53 = v44;
-      v54 = 2112;
-      v55 = v40;
-      _os_log_impl(&dword_19BB39000, v43, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v52 = v43;
+      v53 = 2112;
+      v54 = v39;
+      _os_log_impl(&dword_19BB39000, v42, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v41);
-    v45 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v40 userInfo:0];
-    objc_exception_throw(v45);
+    objc_autoreleasePoolPop(v40);
+    v44 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v39 userInfo:0];
+    objc_exception_throw(v44);
   }
 
   v9 = context;
@@ -9658,11 +9975,11 @@ void __46__HMHomeManager_removeHome_completionHandler___block_invoke_653(uint64_
     identifier = [v10 identifier];
     shortDescription = [identifier shortDescription];
     *buf = 138543874;
-    v53 = v14;
-    v54 = 2114;
-    v55 = shortDescription;
-    v56 = 2112;
-    v57 = v6;
+    v52 = v14;
+    v53 = 2114;
+    v54 = shortDescription;
+    v55 = 2112;
+    v56 = v6;
     _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Adding home with name: %@", buf, 0x20u);
   }
 
@@ -9681,21 +9998,21 @@ void __46__HMHomeManager_removeHome_completionHandler___block_invoke_653(uint64_
       v33 = objc_alloc(MEMORY[0x1E69A2A00]);
       uuid = [(HMHomeManager *)selfCopy2 uuid];
       v35 = [v33 initWithTarget:uuid];
-      v50 = @"kHomeName";
-      v51 = v6;
-      v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+      v49 = @"kHomeName";
+      v50 = v6;
+      v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
       delegateCaller = [v32 messageWithName:@"kAddHomeRequestKey" destination:v35 payload:v36];
 
-      v46[0] = MEMORY[0x1E69E9820];
-      v46[1] = 3221225472;
-      v46[2] = __51__HMHomeManager_addHomeWithName_completionHandler___block_invoke;
-      v46[3] = &unk_1E754D030;
-      v46[4] = selfCopy2;
-      v47 = v10;
+      v45[0] = MEMORY[0x1E69E9820];
+      v45[1] = 3221225472;
+      v45[2] = __51__HMHomeManager_addHomeWithName_completionHandler___block_invoke;
+      v45[3] = &unk_1E754D030;
+      v45[4] = selfCopy2;
+      v46 = v10;
       v37 = v9;
-      v48 = v37;
-      v49 = v7;
-      [delegateCaller setResponseHandler:v46];
+      v47 = v37;
+      v48 = v7;
+      [delegateCaller setResponseHandler:v45];
       messageDispatcher = [v37 messageDispatcher];
       [messageDispatcher sendMessage:delegateCaller];
 
@@ -9709,7 +10026,7 @@ void __46__HMHomeManager_removeHome_completionHandler___block_invoke_653(uint64_
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v53 = v21;
+      v52 = v21;
       _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Home name is longer than the pre-defined max length", buf, 0xCu);
     }
 
@@ -9730,9 +10047,9 @@ void __46__HMHomeManager_removeHome_completionHandler___block_invoke_653(uint64_
       identifier2 = [v10 identifier];
       shortDescription2 = [identifier2 shortDescription];
       *buf = 138543618;
-      v53 = v28;
-      v54 = 2114;
-      v55 = shortDescription2;
+      v52 = v28;
+      v53 = 2114;
+      v54 = shortDescription2;
       _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Asked to add home with nil name", buf, 0x16u);
     }
 
@@ -9746,12 +10063,11 @@ void __46__HMHomeManager_removeHome_completionHandler___block_invoke_653(uint64_
   [delegateCaller callCompletion:v7 home:0 error:v31];
 
 LABEL_16:
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 void __51__HMHomeManager_addHomeWithName_completionHandler___block_invoke(id *a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -9765,11 +10081,11 @@ void __51__HMHomeManager_addHomeWithName_completionHandler___block_invoke(id *a1
       v11 = [a1[5] identifier];
       v12 = [v11 shortDescription];
       *buf = 138543874;
-      v21 = v10;
-      v22 = 2114;
-      v23 = v12;
-      v24 = 2112;
-      v25 = v5;
+      v20 = v10;
+      v21 = 2114;
+      v22 = v12;
+      v23 = 2112;
+      v24 = v5;
       _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to add home: %@", buf, 0x20u);
     }
 
@@ -9787,39 +10103,37 @@ void __51__HMHomeManager_addHomeWithName_completionHandler___block_invoke(id *a1
     block[2] = __51__HMHomeManager_addHomeWithName_completionHandler___block_invoke_649;
     block[3] = &unk_1E754E0F8;
     block[4] = a1[4];
-    v18 = v6;
-    v19 = a1[7];
+    v17 = v6;
+    v18 = a1[7];
     dispatch_async(v15, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updatePrimaryHome:(HMHome *)home completionHandler:(void *)completion
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v6 = home;
   v7 = completion;
   context = [(HMHomeManager *)self context];
   if (!v7)
   {
-    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager updatePrimaryHome:completionHandler:]", @"completion"];
-    v29 = objc_autoreleasePoolPush();
+    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager updatePrimaryHome:completionHandler:]", @"completion"];
+    v28 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v31 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v30 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      v32 = HMFGetLogIdentifier();
+      v31 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v42 = v32;
-      v43 = 2112;
-      v44 = v28;
-      _os_log_impl(&dword_19BB39000, v31, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v41 = v31;
+      v42 = 2112;
+      v43 = v27;
+      _os_log_impl(&dword_19BB39000, v30, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v29);
-    v33 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v28 userInfo:0];
-    objc_exception_throw(v33);
+    objc_autoreleasePoolPop(v28);
+    v32 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v27 userInfo:0];
+    objc_exception_throw(v32);
   }
 
   v9 = context;
@@ -9855,20 +10169,20 @@ LABEL_14:
     if ([delegateCaller2 isAccessAllowed])
     {
       uuid = [(HMHomeManager *)self uuid];
-      v39 = @"kHomeUUID";
-      v40 = delegateCaller;
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __53__HMHomeManager_updatePrimaryHome_completionHandler___block_invoke;
-      v34[3] = &unk_1E754D030;
-      v35 = v9;
-      v38 = v7;
+      v38 = @"kHomeUUID";
+      v39 = delegateCaller;
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __53__HMHomeManager_updatePrimaryHome_completionHandler___block_invoke;
+      v33[3] = &unk_1E754D030;
+      v34 = v9;
+      v37 = v7;
       selfCopy2 = self;
-      v37 = delegateCaller;
-      [(_HMContext *)v35 sendMessage:uuid target:v20 payload:v34 responseHandler:?];
+      v36 = delegateCaller;
+      [(_HMContext *)v34 sendMessage:uuid target:v20 payload:v33 responseHandler:?];
 
-      delegateCaller3 = v35;
+      delegateCaller3 = v34;
     }
 
     else
@@ -9881,11 +10195,11 @@ LABEL_14:
         v24 = HMFGetLogIdentifier();
         v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(delegateCaller2, "accessNotAllowedReasonCode")}];
         *buf = 138543874;
-        v42 = v24;
-        v43 = 2112;
-        v44 = v6;
-        v45 = 2112;
-        v46 = v25;
+        v41 = v24;
+        v42 = 2112;
+        v43 = v6;
+        v44 = 2112;
+        v45 = v25;
         _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@Cannot set the primary home. Access to the home [%@] is not allowed due to reason: %@", buf, 0x20u);
       }
 
@@ -9906,8 +10220,6 @@ LABEL_14:
 LABEL_7:
   [delegateCaller4 callCompletion:v15 error:v16];
 LABEL_15:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __53__HMHomeManager_updatePrimaryHome_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -9935,7 +10247,7 @@ void __53__HMHomeManager_updatePrimaryHome_completionHandler___block_invoke(uint
 
 - (id)_refreshBeforeDate:(id)date completionHandler:(id)handler
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   handlerCopy = handler;
   v8 = 0.0;
@@ -9952,14 +10264,14 @@ LABEL_10:
     v17 = [[__HMHomeManagerRefreshRequest alloc] initWithGenerationCounter:[(HMHomeManager *)self serverGenerationCounter] timeout:v8];
     objc_initWeak(&location, self);
     objc_initWeak(&from, v17);
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __54__HMHomeManager__refreshBeforeDate_completionHandler___block_invoke;
-    v30[3] = &unk_1E754A8C8;
-    objc_copyWeak(&v32, &location);
-    objc_copyWeak(&v33, &from);
-    v31 = handlerCopy;
-    [(__HMHomeManagerRefreshRequest *)v17 setCompletionBlock:v30];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __54__HMHomeManager__refreshBeforeDate_completionHandler___block_invoke;
+    v29[3] = &unk_1E754A8C8;
+    objc_copyWeak(&v31, &location);
+    objc_copyWeak(&v32, &from);
+    v30 = handlerCopy;
+    [(__HMHomeManagerRefreshRequest *)v17 setCompletionBlock:v29];
     v18 = objc_autoreleasePoolPush();
     selfCopy = self;
     v20 = HMFGetOSLogHandle();
@@ -9967,7 +10279,7 @@ LABEL_10:
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v37 = v21;
+      v36 = v21;
       _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Starting refresh request", buf, 0xCu);
     }
 
@@ -9981,14 +10293,14 @@ LABEL_10:
     block[3] = &unk_1E754E5C0;
     block[4] = selfCopy;
     v24 = v17;
-    v29 = v24;
+    v28 = v24;
     dispatch_async(queue, block);
 
-    v25 = v29;
+    v25 = v28;
     v16 = v24;
 
-    objc_destroyWeak(&v33);
     objc_destroyWeak(&v32);
+    objc_destroyWeak(&v31);
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
     goto LABEL_13;
@@ -10009,11 +10321,11 @@ LABEL_10:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v37 = v14;
-    v38 = 2048;
-    v39 = v8;
-    v40 = 2112;
-    v41 = dateCopy;
+    v36 = v14;
+    v37 = 2048;
+    v38 = v8;
+    v39 = 2112;
+    v40 = dateCopy;
     _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Cannot refresh before date %fs in the past: %@", buf, 0x20u);
   }
 
@@ -10027,14 +10339,12 @@ LABEL_10:
   v16 = 0;
 LABEL_13:
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 void __54__HMHomeManager__refreshBeforeDate_completionHandler___block_invoke(id *a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(a1 + 5);
   v3 = objc_loadWeakRetained(a1 + 6);
   v4 = [v3 error];
@@ -10087,9 +10397,9 @@ void __54__HMHomeManager__refreshBeforeDate_completionHandler___block_invoke(id 
   {
     v15 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v31 = v15;
-    v32 = 2112;
-    v33 = v4;
+    v30 = v15;
+    v31 = 2112;
+    v32 = v4;
     _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_INFO, "%{public}@Completed refresh request with error: %@", buf, 0x16u);
   }
 
@@ -10100,9 +10410,9 @@ void __54__HMHomeManager__refreshBeforeDate_completionHandler___block_invoke(id 
   block[1] = 3221225472;
   block[2] = __54__HMHomeManager__refreshBeforeDate_completionHandler___block_invoke_634;
   block[3] = &unk_1E754E458;
-  v29 = a1[4];
+  v28 = a1[4];
   v17 = v4;
-  v28 = v17;
+  v27 = v17;
   v18 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v16, 0, block);
   v19 = v18;
   if (v13)
@@ -10115,13 +10425,13 @@ void __54__HMHomeManager__refreshBeforeDate_completionHandler___block_invoke(id 
     {
       v22 = [v13 context];
       v23 = [v22 queue];
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __54__HMHomeManager__refreshBeforeDate_completionHandler___block_invoke_2;
-      v25[3] = &unk_1E754E5C0;
-      v25[4] = v13;
-      v26 = v3;
-      dispatch_async(v23, v25);
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __54__HMHomeManager__refreshBeforeDate_completionHandler___block_invoke_2;
+      v24[3] = &unk_1E754E5C0;
+      v24[4] = v13;
+      v25 = v3;
+      dispatch_async(v23, v24);
     }
   }
 
@@ -10129,13 +10439,11 @@ void __54__HMHomeManager__refreshBeforeDate_completionHandler___block_invoke(id 
   {
     (*(v18 + 2))(v18);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __54__HMHomeManager__refreshBeforeDate_completionHandler___block_invoke_635(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) generationCounter];
   v3 = [*(a1 + 32) serverGenerationCounter];
   v4 = v3;
@@ -10147,63 +10455,64 @@ void __54__HMHomeManager__refreshBeforeDate_completionHandler___block_invoke_635
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v25 = 138543874;
-      v26 = v10;
+      v23 = 138543874;
+      v24 = v10;
+      v25 = 2048;
+      v26 = v2;
       v27 = 2048;
-      v28 = v2;
-      v29 = 2048;
-      v30 = v4;
-      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Informing client a refresh is not needed (%tu-%tu)", &v25, 0x20u);
+      v28 = v4;
+      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Informing client a refresh is not needed (%tu-%tu)", &v23, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
     [*(a1 + 40) finish];
-    goto LABEL_22;
-  }
-
-  v6 = *(*(a1 + 32) + 32);
-  if (v6)
-  {
-    [v6 addObject:*(a1 + 40)];
   }
 
   else
   {
-    v11 = [MEMORY[0x1E695DF70] arrayWithObject:*(a1 + 40)];
-    v12 = *(a1 + 32);
-    v13 = *(v12 + 32);
-    *(v12 + 32) = v11;
-  }
-
-  v14 = [*(a1 + 32) pendingSyncGenerationCounter];
-  if (v14 >= v4 && v14 != -1)
-  {
-    v18 = v14;
-    v19 = objc_autoreleasePoolPush();
-    v20 = *(a1 + 32);
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v6 = *(*(a1 + 32) + 32);
+    if (v6)
     {
-      v23 = HMFGetLogIdentifier();
-      v25 = 138543874;
-      v26 = v23;
-      v27 = 2048;
-      v28 = v18;
-      v29 = 2048;
-      v30 = v4;
-      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_INFO, "%{public}@Not performing new fetch request, data sync is already in progress pendingSyncGenerationCounter: %tu serverGenerationCounter: %tu", &v25, 0x20u);
+      [v6 addObject:*(a1 + 40)];
     }
 
-    objc_autoreleasePoolPop(v19);
-LABEL_22:
-    v24 = *MEMORY[0x1E69E9840];
-    return;
+    else
+    {
+      v11 = [MEMORY[0x1E695DF70] arrayWithObject:*(a1 + 40)];
+      v12 = *(a1 + 32);
+      v13 = *(v12 + 32);
+      *(v12 + 32) = v11;
+    }
+
+    v14 = [*(a1 + 32) pendingSyncGenerationCounter];
+    if (v14 < v4 || v14 == -1)
+    {
+      v16 = *(a1 + 32);
+
+      [v16 _fetchHomeConfigurationWithRefreshRequested:0];
+    }
+
+    else
+    {
+      v17 = v14;
+      v18 = objc_autoreleasePoolPush();
+      v19 = *(a1 + 32);
+      v20 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      {
+        v22 = HMFGetLogIdentifier();
+        v23 = 138543874;
+        v24 = v22;
+        v25 = 2048;
+        v26 = v17;
+        v27 = 2048;
+        v28 = v4;
+        _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Not performing new fetch request, data sync is already in progress pendingSyncGenerationCounter: %tu serverGenerationCounter: %tu", &v23, 0x20u);
+      }
+
+      objc_autoreleasePoolPop(v18);
+    }
   }
-
-  v16 = *(a1 + 32);
-  v17 = *MEMORY[0x1E69E9840];
-
-  [v16 _fetchHomeConfigurationWithRefreshRequested:0];
 }
 
 uint64_t __54__HMHomeManager__refreshBeforeDate_completionHandler___block_invoke_634(uint64_t a1)
@@ -10343,26 +10652,23 @@ void __54__HMHomeManager__refreshBeforeDate_completionHandler___block_invoke_2(u
 
 uint64_t __55__HMHomeManager__notifyAccessAllowedWhenLockedUpdated___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v6 = *(a1 + 48);
-    v7 = HMFBooleanToString();
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didUpdateAccessAllowedWhenLocked with : %@", &v10, 0x16u);
+    v6 = HMFBooleanToString();
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didUpdateAccessAllowedWhenLocked with : %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 40) homeManager:*(a1 + 32) didUpdateAccessAllowedWhenLocked:*(a1 + 48)];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) homeManager:*(a1 + 32) didUpdateAccessAllowedWhenLocked:*(a1 + 48)];
 }
 
 - (void)setAccessAllowedWhenLocked:(BOOL)locked
@@ -10460,7 +10766,7 @@ uint64_t __55__HMHomeManager__notifyAccessAllowedWhenLockedUpdated___block_invok
 - (void)_updateStatusWithPayload:(id)payload sourceIsFetch:(BOOL)fetch
 {
   fetchCopy = fetch;
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v7 = [payloadCopy hmf_numberForKey:@"status"];
   v8 = v7;
@@ -10478,11 +10784,11 @@ uint64_t __55__HMHomeManager__notifyAccessAllowedWhenLockedUpdated___block_invok
       v15 = HMHomeManagerStatusToString([(HMHomeManager *)selfCopy status]);
       v16 = HMHomeManagerStatusToString(unsignedIntegerValue);
       *buf = 138543874;
-      v43 = v14;
-      v44 = 2112;
-      v45 = v15;
-      v46 = 2112;
-      v47 = v16;
+      v42 = v14;
+      v43 = 2112;
+      v44 = v15;
+      v45 = 2112;
+      v46 = v16;
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Updating status from %@ -> %@", buf, 0x20u);
 
       fetchCopy = v13;
@@ -10494,7 +10800,7 @@ uint64_t __55__HMHomeManager__notifyAccessAllowedWhenLockedUpdated___block_invok
     {
       [(HMHomeManager *)selfCopy setStatus:unsignedIntegerValue];
       status = [(HMHomeManager *)selfCopy status];
-      v37 = fetchCopy;
+      v36 = fetchCopy;
       if (status != unsignedIntegerValue)
       {
         v18 = objc_autoreleasePoolPush();
@@ -10504,16 +10810,16 @@ uint64_t __55__HMHomeManager__notifyAccessAllowedWhenLockedUpdated___block_invok
         {
           v21 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v43 = v21;
-          v44 = 2048;
-          v45 = unsignedIntegerValue;
-          v46 = 2048;
-          v47 = status;
+          v42 = v21;
+          v43 = 2048;
+          v44 = unsignedIntegerValue;
+          v45 = 2048;
+          v46 = status;
           _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Framework merge not completed - overriding the status from daemon %tu with %tu", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v18);
-        fetchCopy = v37;
+        fetchCopy = v36;
       }
 
       delegate = [(HMHomeManager *)selfCopy delegate];
@@ -10539,25 +10845,25 @@ uint64_t __55__HMHomeManager__notifyAccessAllowedWhenLockedUpdated___block_invok
           v28 = HMFGetLogIdentifier();
           v29 = HMHomeManagerStatusToString(unsignedIntegerValue);
           *buf = 138543618;
-          v43 = v28;
-          v44 = 2112;
-          v45 = v29;
+          v42 = v28;
+          v43 = 2112;
+          v44 = v29;
           _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_INFO, "%{public}@Notifying client of updated status: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v25);
         context = [(HMHomeManager *)v26 context];
         delegateCaller = [context delegateCaller];
-        v38[0] = MEMORY[0x1E69E9820];
-        v38[1] = 3221225472;
-        v38[2] = __56__HMHomeManager__updateStatusWithPayload_sourceIsFetch___block_invoke;
-        v38[3] = &unk_1E754E120;
-        v39 = v24;
-        v40 = v26;
-        v41 = status;
-        [delegateCaller invokeBlock:v38];
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = __56__HMHomeManager__updateStatusWithPayload_sourceIsFetch___block_invoke;
+        v37[3] = &unk_1E754E120;
+        v38 = v24;
+        v39 = v26;
+        v40 = status;
+        [delegateCaller invokeBlock:v37];
 
-        fetchCopy = v37;
+        fetchCopy = v36;
       }
     }
   }
@@ -10573,13 +10879,11 @@ uint64_t __55__HMHomeManager__notifyAccessAllowedWhenLockedUpdated___block_invok
       [(HMHomeManager *)self setMultiUserStatus:unsignedIntegerValue2];
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleStatusUpdated:(id)updated
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   messagePayload = [updatedCopy messagePayload];
   v6 = [updatedCopy numberForKey:@"kConfigGenerationCounterKey"];
@@ -10596,11 +10900,11 @@ uint64_t __55__HMHomeManager__notifyAccessAllowedWhenLockedUpdated___block_invok
       v13 = HMFGetLogIdentifier();
       v14 = HMHomeManagerStatusToString(unsignedIntegerValue);
       *buf = 138543874;
-      v41 = v13;
-      v42 = 2112;
-      v43 = v6;
-      v44 = 2112;
-      v45 = v14;
+      v40 = v13;
+      v41 = 2112;
+      v42 = v6;
+      v43 = 2112;
+      v44 = v14;
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Handling status updated message with generation counter: %@, status: %@", buf, 0x20u);
     }
 
@@ -10624,22 +10928,22 @@ uint64_t __55__HMHomeManager__notifyAccessAllowedWhenLockedUpdated___block_invok
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v20 = v39 = unsignedIntegerValue;
+        v20 = v38 = unsignedIntegerValue;
         v21 = messagePayload;
         v22 = v17;
         unsignedIntegerValue2 = [v6 unsignedIntegerValue];
         generationCounter2 = [(HMHomeManager *)v18 generationCounter];
         *buf = 138543874;
-        v41 = v20;
-        v42 = 2048;
-        v43 = unsignedIntegerValue2;
+        v40 = v20;
+        v41 = 2048;
+        v42 = unsignedIntegerValue2;
         v17 = v22;
         messagePayload = v21;
-        v44 = 2048;
-        v45 = generationCounter2;
+        v43 = 2048;
+        v44 = generationCounter2;
         _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_INFO, "%{public}@Adding busy status to updated status because home manager generation counter %lu does not match client's value of %lu", buf, 0x20u);
 
-        unsignedIntegerValue = v39;
+        unsignedIntegerValue = v38;
       }
 
       objc_autoreleasePoolPop(v17);
@@ -10661,7 +10965,7 @@ uint64_t __55__HMHomeManager__notifyAccessAllowedWhenLockedUpdated___block_invok
     {
       v37 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v41 = v37;
+      v40 = v37;
       _os_log_impl(&dword_19BB39000, v36, OS_LOG_TYPE_INFO, "%{public}@Force-fetching home configuration after homeManager status is good", buf, 0xCu);
     }
 
@@ -10679,9 +10983,9 @@ uint64_t __55__HMHomeManager__notifyAccessAllowedWhenLockedUpdated___block_invok
       v32 = HMFGetLogIdentifier();
       messagePayload3 = [updatedCopy messagePayload];
       *buf = 138543618;
-      v41 = v32;
-      v42 = 2112;
-      v43 = messagePayload3;
+      v40 = v32;
+      v41 = 2112;
+      v42 = messagePayload3;
       _os_log_impl(&dword_19BB39000, v31, OS_LOG_TYPE_ERROR, "%{public}@Status update message payload missing generation counter and/or status number: %@", buf, 0x16u);
     }
 
@@ -10689,13 +10993,11 @@ uint64_t __55__HMHomeManager__notifyAccessAllowedWhenLockedUpdated___block_invok
   }
 
 LABEL_18:
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setStatus:(unint64_t)status
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock_with_options();
   initialMergeComplete = self->_initialMergeComplete;
   v6 = objc_autoreleasePoolPush();
@@ -10707,23 +11009,21 @@ LABEL_18:
     v10 = HMFGetLogIdentifier();
     v11 = HMHomeManagerStatusToString(selfCopy->_status);
     v12 = HMHomeManagerStatusToString(v8);
-    v13 = self->_initialMergeComplete;
-    v14 = HMFBooleanToString();
-    v16 = 138544130;
-    v17 = v10;
+    v13 = HMFBooleanToString();
+    v14 = 138544130;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v11;
     v18 = 2112;
-    v19 = v11;
+    v19 = v12;
     v20 = 2112;
-    v21 = v12;
-    v22 = 2112;
-    v23 = v14;
-    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Updating status from %@ -> %@ (initial merge complete: %@)", &v16, 0x2Au);
+    v21 = v13;
+    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Updating status from %@ -> %@ (initial merge complete: %@)", &v14, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v6);
   selfCopy->_status = v8;
   os_unfair_lock_unlock(&self->_lock);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)status
@@ -10744,7 +11044,7 @@ LABEL_18:
 
 - (void)_updateDataSyncState:(id)state
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   v5 = [(HMHomeManager *)self _dataSyncStateFromPayload:stateCopy];
   if (v5)
@@ -10758,9 +11058,9 @@ LABEL_18:
       v10 = HMFGetLogIdentifier();
       v11 = HMHomeManagerDataSyncStateToString(v6);
       *buf = 138543618;
-      v39 = v10;
-      v40 = 2112;
-      v41 = v11;
+      v38 = v10;
+      v39 = 2112;
+      v40 = v11;
       _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Got data sync state update from daemon: %@", buf, 0x16u);
     }
 
@@ -10777,9 +11077,9 @@ LABEL_18:
         v16 = HMFGetLogIdentifier();
         v17 = HMHomeManagerDataSyncStateToString(v6);
         *buf = 138543618;
-        v39 = v16;
-        v40 = 2112;
-        v41 = v17;
+        v38 = v16;
+        v39 = 2112;
+        v40 = v17;
         _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@Updating data sync state to: %@", buf, 0x16u);
       }
 
@@ -10794,22 +11094,22 @@ LABEL_18:
         {
           v22 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v39 = v22;
-          v40 = 2112;
-          v41 = _privateDelegate;
+          v38 = v22;
+          v39 = 2112;
+          v40 = _privateDelegate;
           _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate of updated data sync state: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v19);
         context = [(HMHomeManager *)v20 context];
         delegateCaller = [context delegateCaller];
-        v35[0] = MEMORY[0x1E69E9820];
-        v35[1] = 3221225472;
-        v35[2] = __38__HMHomeManager__updateDataSyncState___block_invoke;
-        v35[3] = &unk_1E754E5C0;
-        v36 = _privateDelegate;
-        v37 = v20;
-        [delegateCaller invokeBlock:v35];
+        v34[0] = MEMORY[0x1E69E9820];
+        v34[1] = 3221225472;
+        v34[2] = __38__HMHomeManager__updateDataSyncState___block_invoke;
+        v34[3] = &unk_1E754E5C0;
+        v35 = _privateDelegate;
+        v36 = v20;
+        [delegateCaller invokeBlock:v34];
       }
 
       if (v12 != [HMHomeManager dataSyncInProgressFromDataSyncState:[(HMHomeManager *)v14 dataSyncState]]&& (objc_opt_respondsToSelector() & 1) != 0)
@@ -10821,27 +11121,25 @@ LABEL_18:
         {
           v28 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v39 = v28;
-          v40 = 2112;
-          v41 = _privateDelegate;
+          v38 = v28;
+          v39 = 2112;
+          v40 = _privateDelegate;
           _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate of updated data sync in progress: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v25);
         context2 = [(HMHomeManager *)v26 context];
         delegateCaller2 = [context2 delegateCaller];
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __38__HMHomeManager__updateDataSyncState___block_invoke_539;
-        v32[3] = &unk_1E754E5C0;
-        v33 = _privateDelegate;
-        v34 = v26;
-        [delegateCaller2 invokeBlock:v32];
+        v31[0] = MEMORY[0x1E69E9820];
+        v31[1] = 3221225472;
+        v31[2] = __38__HMHomeManager__updateDataSyncState___block_invoke_539;
+        v31[3] = &unk_1E754E5C0;
+        v32 = _privateDelegate;
+        v33 = v26;
+        [delegateCaller2 invokeBlock:v31];
       }
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)_dataSyncStateFromPayload:(id)payload
@@ -10879,11 +11177,10 @@ LABEL_18:
 
 - (void)setMultiUserStatus:(int64_t)status
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock_with_options();
   if (self->_multiUserStatus == status)
   {
-    v5 = *MEMORY[0x1E69E9840];
 
     os_unfair_lock_unlock(&self->_lock);
   }
@@ -10892,60 +11189,58 @@ LABEL_18:
   {
     self->_multiUserStatus = status;
     os_unfair_lock_unlock(&self->_lock);
-    v6 = objc_autoreleasePoolPush();
+    v5 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v8 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v7 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v9 = HMFGetLogIdentifier();
-      v10 = [MEMORY[0x1E696AD98] numberWithInteger:status];
-      *v19 = 138543618;
-      *&v19[4] = v9;
-      *&v19[12] = 2112;
-      *&v19[14] = v10;
-      _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@Multi user status changed to %@", v19, 0x16u);
+      v8 = HMFGetLogIdentifier();
+      v9 = [MEMORY[0x1E696AD98] numberWithInteger:status];
+      *v17 = 138543618;
+      *&v17[4] = v8;
+      *&v17[12] = 2112;
+      *&v17[14] = v9;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Multi user status changed to %@", v17, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v6);
+    objc_autoreleasePoolPop(v5);
     _privateDelegate = [(HMHomeManager *)selfCopy _privateDelegate];
     if (objc_opt_respondsToSelector())
     {
       context = [(HMHomeManager *)selfCopy context];
       delegateCaller = [context delegateCaller];
-      *v19 = MEMORY[0x1E69E9820];
-      *&v19[8] = 3221225472;
-      *&v19[16] = __53__HMHomeManager__notifyClientOfMultiUserStateChange___block_invoke;
-      v20 = &unk_1E754A938;
-      v21 = selfCopy;
+      *v17 = MEMORY[0x1E69E9820];
+      *&v17[8] = 3221225472;
+      *&v17[16] = __53__HMHomeManager__notifyClientOfMultiUserStateChange___block_invoke;
+      v18 = &unk_1E754A938;
+      v19 = selfCopy;
       statusCopy = status;
-      v22 = _privateDelegate;
-      v23 = 0;
-      [delegateCaller invokeBlock:v19];
+      v20 = _privateDelegate;
+      v21 = 0;
+      [delegateCaller invokeBlock:v17];
     }
 
     else
     {
-      v14 = objc_autoreleasePoolPush();
-      v15 = selfCopy;
-      v16 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v13 = objc_autoreleasePoolPush();
+      v14 = selfCopy;
+      v15 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v17 = HMFGetLogIdentifier();
-        *v19 = 138543362;
-        *&v19[4] = v17;
-        _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_INFO, "%{public}@Registered client does not respond to multi-user state change delegate", v19, 0xCu);
+        v16 = HMFGetLogIdentifier();
+        *v17 = 138543362;
+        *&v17[4] = v16;
+        _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@Registered client does not respond to multi-user state change delegate", v17, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v14);
+      objc_autoreleasePoolPop(v13);
     }
-
-    v18 = *MEMORY[0x1E69E9840];
   }
 }
 
 uint64_t __53__HMHomeManager__notifyClientOfMultiUserStateChange___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -10953,17 +11248,15 @@ uint64_t __53__HMHomeManager__notifyClientOfMultiUserStateChange___block_invoke(
   {
     v5 = HMFGetLogIdentifier();
     v6 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 56)];
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Notifying client of multi user state change %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Notifying client of multi user state change %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 40) homeManager:*(a1 + 32) didUpdateMultiUserStatus:*(a1 + 56) reason:*(a1 + 48)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) homeManager:*(a1 + 32) didUpdateMultiUserStatus:*(a1 + 56) reason:*(a1 + 48)];
 }
 
 - (void)setHomeSafetySecurityEnabled:(BOOL)enabled
@@ -11110,47 +11403,47 @@ uint64_t __53__HMHomeManager__notifyClientOfMultiUserStateChange___block_invoke(
 
 - (HMAccessory)currentAccessory
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   homes = [(HMHomeManager *)self homes];
-  v3 = [homes countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v3 = [homes countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v22;
+    v5 = *v21;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v22 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(homes);
         }
 
-        v7 = *(*(&v21 + 1) + 8 * i);
+        v7 = *(*(&v20 + 1) + 8 * i);
+        v16 = 0u;
         v17 = 0u;
         v18 = 0u;
         v19 = 0u;
-        v20 = 0u;
         accessories = [v7 accessories];
-        v9 = [accessories countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v9 = [accessories countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v18;
+          v11 = *v17;
           while (2)
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v18 != v11)
+              if (*v17 != v11)
               {
                 objc_enumerationMutation(accessories);
               }
 
-              v13 = *(*(&v17 + 1) + 8 * j);
+              v13 = *(*(&v16 + 1) + 8 * j);
               if ([v13 isCurrentAccessory])
               {
                 v14 = v13;
@@ -11159,7 +11452,7 @@ uint64_t __53__HMHomeManager__notifyClientOfMultiUserStateChange___block_invoke(
               }
             }
 
-            v10 = [accessories countByEnumeratingWithState:&v17 objects:v25 count:16];
+            v10 = [accessories countByEnumeratingWithState:&v16 objects:v24 count:16];
             if (v10)
             {
               continue;
@@ -11170,7 +11463,7 @@ uint64_t __53__HMHomeManager__notifyClientOfMultiUserStateChange___block_invoke(
         }
       }
 
-      v4 = [homes countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v4 = [homes countByEnumeratingWithState:&v20 objects:v25 count:16];
       v14 = 0;
     }
 
@@ -11184,14 +11477,12 @@ uint64_t __53__HMHomeManager__notifyClientOfMultiUserStateChange___block_invoke(
 
 LABEL_19:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (void)setCurrentHome:(id)home
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   homeCopy = home;
   os_unfair_lock_lock_with_options();
   objc_storeStrong(&self->_currentHome, home);
@@ -11202,17 +11493,16 @@ LABEL_19:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543874;
-    v12 = v9;
-    v13 = 2112;
-    v14 = homeCopy;
-    v15 = 2048;
-    v16 = selfCopy;
-    _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Set current home to: %@ with self: %p", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v9;
+    v12 = 2112;
+    v13 = homeCopy;
+    v14 = 2048;
+    v15 = selfCopy;
+    _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Set current home to: %@ with self: %p", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (HMHome)currentHome
@@ -11253,7 +11543,7 @@ LABEL_19:
 
 - (void)setDelegate:(id)delegate
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = delegate;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -11262,9 +11552,9 @@ LABEL_19:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v22 = v8;
-    v23 = 2112;
-    v24 = v4;
+    v21 = v8;
+    v22 = 2112;
+    v23 = v4;
     _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Setting HMHomeManager delegate to %@", buf, 0x16u);
   }
 
@@ -11291,9 +11581,9 @@ LABEL_19:
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v22 = v14;
-        v23 = 2112;
-        v24 = v4;
+        v21 = v14;
+        v22 = 2112;
+        v23 = v4;
         _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Notifying client did update homes for delegate: %@", buf, 0x16u);
       }
 
@@ -11302,18 +11592,16 @@ LABEL_19:
       {
         context = [(HMHomeManager *)v12 context];
         delegateCaller = [context delegateCaller];
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = __29__HMHomeManager_setDelegate___block_invoke;
-        v18[3] = &unk_1E754E5C0;
-        v19 = v4;
-        v20 = v12;
-        [delegateCaller invokeBlock:v18];
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 3221225472;
+        v17[2] = __29__HMHomeManager_setDelegate___block_invoke;
+        v17[3] = &unk_1E754E5C0;
+        v18 = v4;
+        v19 = v12;
+        [delegateCaller invokeBlock:v17];
       }
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)delegate
@@ -11327,7 +11615,7 @@ LABEL_19:
 
 - (id)eventRouter
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock_with_options();
   if (!self->_eventStoreStarted)
   {
@@ -11347,9 +11635,9 @@ LABEL_19:
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           v7 = HMFGetLogIdentifier();
-          v12 = 138543362;
-          v13 = v7;
-          _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error starting event store!", &v12, 0xCu);
+          v11 = 138543362;
+          v12 = v7;
+          _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error starting event store!", &v11, 0xCu);
         }
 
         objc_autoreleasePoolPop(v4);
@@ -11360,8 +11648,6 @@ LABEL_19:
   os_unfair_lock_unlock(&self->_lock);
   xpcEventRouterClient = [(HMHomeManager *)self xpcEventRouterClient];
   eventRouter = [xpcEventRouterClient eventRouter];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return eventRouter;
 }
@@ -11377,7 +11663,7 @@ LABEL_19:
 
 - (void)dealloc
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -11385,7 +11671,7 @@ LABEL_19:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v18 = v6;
+    v17 = v6;
     _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@HMHomeManager deallocated", buf, 0xCu);
   }
 
@@ -11399,9 +11685,9 @@ LABEL_19:
   block[2] = __24__HMHomeManager_dealloc__block_invoke;
   block[3] = &unk_1E754E5C0;
   v10 = homes;
-  v15 = v10;
+  v14 = v10;
   v11 = incomingHomeInvitations;
-  v16 = v11;
+  v15 = v11;
   dispatch_async(queue, block);
 
   if (selfCopy->_serverGenerationCounterToken != -1)
@@ -11414,81 +11700,78 @@ LABEL_19:
     [(HMDarwinNotificationProvider *)selfCopy->_darwinNotificationProvider notifyCancel:?];
   }
 
-  v13.receiver = selfCopy;
-  v13.super_class = HMHomeManager;
-  [(HMHomeManager *)&v13 dealloc];
-  v12 = *MEMORY[0x1E69E9840];
+  v12.receiver = selfCopy;
+  v12.super_class = HMHomeManager;
+  [(HMHomeManager *)&v12 dealloc];
 }
 
 void __24__HMHomeManager_dealloc__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v18;
+    v5 = *v17;
     do
     {
       v6 = 0;
       do
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v17 + 1) + 8 * v6++) _unconfigure];
+        [*(*(&v16 + 1) + 8 * v6++) _unconfigure];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v4);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = *(a1 + 40);
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) _unconfigure];
+        [*(*(&v12 + 1) + 8 * v11++) _unconfigure];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (HMHomeManager)initWithUUID:(id)d configuration:(id)configuration context:(id)context xpcEventRouterClient:(id)client lastEventStore:(id)store timerFactory:(id)factory darwinNotificationProvider:(id)provider privacySettingsProvider:(id)self0
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   dCopy = d;
   configurationCopy = configuration;
   contextCopy = context;
@@ -11502,9 +11785,9 @@ void __24__HMHomeManager_dealloc__block_invoke(uint64_t a1)
   v20 = MEMORY[0x19EAEB2A0](self, a2);
   v21 = [v19 initWithName:v20];
 
-  v83.receiver = self;
-  v83.super_class = HMHomeManager;
-  v22 = [(HMHomeManager *)&v83 init];
+  v82.receiver = self;
+  v82.super_class = HMHomeManager;
+  v22 = [(HMHomeManager *)&v82 init];
   if (v22)
   {
     v23 = [configurationCopy copy];
@@ -11520,7 +11803,7 @@ void __24__HMHomeManager_dealloc__block_invoke(uint64_t a1)
     *(v22 + 33) = v25;
 
     objc_storeStrong(v22 + 27, settingsProvider);
-    v73 = factoryCopy;
+    v72 = factoryCopy;
     if (initializeMappingsAndPaths_pred != -1)
     {
       dispatch_once(&initializeMappingsAndPaths_pred, &__block_literal_global_25877);
@@ -11620,7 +11903,7 @@ void __24__HMHomeManager_dealloc__block_invoke(uint64_t a1)
       {
         v68 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v85 = v68;
+        v84 = v68;
         _os_log_impl(&dword_19BB39000, v67, OS_LOG_TYPE_DEFAULT, "%{public}@Deferring starting for discretionary client", buf, 0xCu);
       }
 
@@ -11629,31 +11912,30 @@ void __24__HMHomeManager_dealloc__block_invoke(uint64_t a1)
       block[1] = 3221225472;
       block[2] = __152__HMHomeManager_initWithUUID_configuration_context_xpcEventRouterClient_lastEventStore_timerFactory_darwinNotificationProvider_privacySettingsProvider___block_invoke;
       block[3] = &unk_1E754E2A8;
-      v82 = v66;
+      v81 = v66;
       v69 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_BACKGROUND, 0, block);
       queue = [*(v22 + 40) queue];
       dispatch_async(queue, v69);
 
-      factoryCopy = v73;
+      factoryCopy = v72;
       configurationCopy = v64;
     }
 
     else
     {
       [v22 __start];
-      factoryCopy = v73;
+      factoryCopy = v72;
     }
   }
 
   [v21 invalidate];
 
-  v71 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (HMHomeManager)initWithConfiguration:(id)configuration
 {
-  v43[3] = *MEMORY[0x1E69E9840];
+  v42[3] = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   v5 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"1CAEDC10-E3E5-41A4-BB17-A9EEBA14A938"];
   v6 = [[HMDelegateCaller alloc] initWithQueue:0];
@@ -11661,7 +11943,7 @@ void __24__HMHomeManager_dealloc__block_invoke(uint64_t a1)
   mainQueue = [MEMORY[0x1E696ADC8] mainQueue];
   v9 = [delegateQueue isEqual:mainQueue];
 
-  v40 = delegateQueue;
+  v39 = delegateQueue;
   if ((v9 & 1) == 0)
   {
     v10 = [HMDelegateCaller delegateCallerWithOperationQueue:delegateQueue];
@@ -11677,21 +11959,21 @@ void __24__HMHomeManager_dealloc__block_invoke(uint64_t a1)
   v15 = dispatch_queue_create(uTF8String, v14);
   [(HMXPCMessageTransportConfiguration *)v11 setQueue:v15];
 
-  v42[0] = @"HMPrincipalClassKey";
+  v41[0] = @"HMPrincipalClassKey";
   v16 = objc_opt_class();
   v17 = NSStringFromClass(v16);
-  v43[0] = v17;
-  v42[1] = @"inactiveUpdatingLevel";
+  v42[0] = v17;
+  v41[1] = @"inactiveUpdatingLevel";
   v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(configurationCopy, "inactiveUpdatingLevel")}];
-  v43[1] = v18;
-  v42[2] = @"options";
+  v42[1] = v18;
+  v41[2] = @"options";
   v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(configurationCopy, "options")}];
-  v43[2] = v19;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:3];
+  v42[2] = v19;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:3];
 
-  v38 = v11;
+  v37 = v11;
   v21 = [[HMXPCClient alloc] initWithConfiguration:v11 userInfo:v20];
-  v41 = v6;
+  v40 = v6;
   v22 = [[_HMContext alloc] initWithXPCClient:v21 delegateCaller:v6];
   if (HMIsCurrentProcessSPIEntitled_spiEntitledOnceToken != -1)
   {
@@ -11726,8 +12008,8 @@ LABEL_11:
     v28 = [HMXPCEventRouterClient alloc];
     queue = [(_HMContext *)v22 queue];
     messageDispatcher = [(_HMContext *)v22 messageDispatcher];
-    LOBYTE(v37) = v27;
-    v31 = [(HMXPCEventRouterClient *)v28 initWithMessageTargetUUID:v5 queue:queue messageDispatcher:messageDispatcher changeRegistrationsMessageName:@"hm.evt.reg.change" updateMessageName:@"hm.evt.updates" storeReadHandle:initInMemoryStore storeWriteHandle:initInMemoryStore useBackgroundTaskAssertion:v37];
+    LOBYTE(v36) = v27;
+    v31 = [(HMXPCEventRouterClient *)v28 initWithMessageTargetUUID:v5 queue:queue messageDispatcher:messageDispatcher changeRegistrationsMessageName:@"hm.evt.reg.change" updateMessageName:@"hm.evt.updates" storeReadHandle:initInMemoryStore storeWriteHandle:initInMemoryStore useBackgroundTaskAssertion:v36];
   }
 
   else
@@ -11740,7 +12022,6 @@ LABEL_11:
   v33 = objc_alloc_init(_HMPrivacySettingsProvider);
   v34 = [(HMHomeManager *)selfCopy initWithUUID:v5 configuration:configurationCopy context:v22 xpcEventRouterClient:v31 lastEventStore:initInMemoryStore timerFactory:&__block_literal_global_33524 darwinNotificationProvider:v32 privacySettingsProvider:v33];
 
-  v35 = *MEMORY[0x1E69E9840];
   return v34;
 }
 
@@ -11769,27 +12050,27 @@ id __39__HMHomeManager_initWithConfiguration___block_invoke(double a1, uint64_t 
 
 + (void)fetchSetupModeWithCompletion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "+[HMHomeManager fetchSetupModeWithCompletion:]", @"completion"];
-    v16 = objc_autoreleasePoolPush();
+    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "+[HMHomeManager fetchSetupModeWithCompletion:]", @"completion"];
+    v15 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v18 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v19 = HMFGetLogIdentifier();
+      v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v19;
-      v25 = 2112;
-      v26 = v15;
-      _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v23 = v18;
+      v24 = 2112;
+      v25 = v14;
+      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v16);
-    v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v15 userInfo:0];
-    objc_exception_throw(v20);
+    objc_autoreleasePoolPop(v15);
+    v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v14 userInfo:0];
+    objc_exception_throw(v19);
   }
 
   v5 = completionCopy;
@@ -11800,17 +12081,15 @@ id __39__HMHomeManager_initWithConfiguration___block_invoke(double a1, uint64_t 
   v10 = [v8 initWithTarget:v9];
   v11 = [v7 messageWithName:@"HMHM.fetchSetupMode" destination:v10 payload:0];
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __46__HMHomeManager_fetchSetupModeWithCompletion___block_invoke;
-  v21[3] = &unk_1E754C0F0;
-  v22 = v5;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __46__HMHomeManager_fetchSetupModeWithCompletion___block_invoke;
+  v20[3] = &unk_1E754C0F0;
+  v21 = v5;
   v12 = v5;
-  [v11 setResponseHandler:v21];
+  [v11 setResponseHandler:v20];
   messageDispatcher = [(_HMContext *)v6 messageDispatcher];
   [messageDispatcher sendMessage:v11];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __46__HMHomeManager_fetchSetupModeWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -11850,7 +12129,7 @@ void __33__HMHomeManager_sharedEventStore__block_invoke()
 
 - (BOOL)removeAllHomeKitPairingIdentities
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   context = [(HMHomeManager *)self context];
   if (context)
   {
@@ -11870,23 +12149,23 @@ void __33__HMHomeManager_sharedEventStore__block_invoke()
     objc_autoreleasePoolPop(v5);
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v36 = 0x2020000000;
-    v37 = 0;
+    v35 = 0x2020000000;
+    v36 = 0;
     v9 = objc_alloc(MEMORY[0x1E69A2A10]);
     v10 = objc_alloc(MEMORY[0x1E69A2A00]);
     uuid = [(HMHomeManager *)selfCopy uuid];
     v12 = [v10 initWithTarget:uuid];
     v13 = [v9 initWithName:@"HMHM.RemoveAllPairingIdentities" destination:v12 payload:MEMORY[0x1E695E0F8]];
 
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __67__HMHomeManager_PairingIdentity__removeAllHomeKitPairingIdentities__block_invoke;
-    v30[3] = &unk_1E754ABB8;
-    v30[4] = selfCopy;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __67__HMHomeManager_PairingIdentity__removeAllHomeKitPairingIdentities__block_invoke;
+    v29[3] = &unk_1E754ABB8;
+    v29[4] = selfCopy;
     p_buf = &buf;
     v14 = v4;
-    v31 = v14;
-    [v13 setResponseHandler:v30];
+    v30 = v14;
+    [v13 setResponseHandler:v29];
     messageDispatcher = [context messageDispatcher];
     [messageDispatcher sendMessage:v13];
 
@@ -11900,9 +12179,9 @@ void __33__HMHomeManager_sharedEventStore__block_invoke()
       if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         v27 = HMFGetLogIdentifier();
-        *v33 = 138543362;
-        v34 = v27;
-        _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_INFO, "%{public}@Going to delete all the HomeKit Pairing Identities before TTSU... End", v33, 0xCu);
+        *v32 = 138543362;
+        v33 = v27;
+        _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_INFO, "%{public}@Going to delete all the HomeKit Pairing Identities before TTSU... End", v32, 0xCu);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -11915,9 +12194,9 @@ void __33__HMHomeManager_sharedEventStore__block_invoke()
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v20 = HMFGetLogIdentifier();
-        *v33 = 138543362;
-        v34 = v20;
-        _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Timed out while deleting the HomeKit pairing identities.", v33, 0xCu);
+        *v32 = 138543362;
+        v33 = v20;
+        _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Timed out while deleting the HomeKit pairing identities.", v32, 0xCu);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -11944,13 +12223,12 @@ void __33__HMHomeManager_sharedEventStore__block_invoke()
     v21 = 0;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v21 & 1;
 }
 
 void __67__HMHomeManager_PairingIdentity__removeAllHomeKitPairingIdentities__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -11962,11 +12240,11 @@ void __67__HMHomeManager_PairingIdentity__removeAllHomeKitPairingIdentities__blo
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Removing of all the HomeKit Pairing Identities finished with error : %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Removing of all the HomeKit Pairing Identities finished with error : %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -11977,9 +12255,9 @@ void __67__HMHomeManager_PairingIdentity__removeAllHomeKitPairingIdentities__blo
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Successfully removed all the HomeKit Pairing Identities.", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Successfully removed all the HomeKit Pairing Identities.", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -11987,35 +12265,33 @@ void __67__HMHomeManager_PairingIdentity__removeAllHomeKitPairingIdentities__blo
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteDatabaseEntityWithModelID:(id)d completion:(id)completion
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   context = [(HMHomeManager *)self context];
   if (!completionCopy)
   {
-    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager(HMHomeManagerAdaptive) deleteDatabaseEntityWithModelID:completion:]", @"completion"];
-    v24 = objc_autoreleasePoolPush();
+    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager(HMHomeManagerAdaptive) deleteDatabaseEntityWithModelID:completion:]", @"completion"];
+    v23 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v26 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v25 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v27 = HMFGetLogIdentifier();
+      v26 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v27;
-      v36 = 2112;
-      v37 = v23;
-      _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v34 = v26;
+      v35 = 2112;
+      v36 = v22;
+      _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v24);
-    v28 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v23 userInfo:0];
-    objc_exception_throw(v28);
+    objc_autoreleasePoolPop(v23);
+    v27 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v22 userInfo:0];
+    objc_exception_throw(v27);
   }
 
   v9 = context;
@@ -12025,19 +12301,19 @@ void __67__HMHomeManager_PairingIdentity__removeAllHomeKitPairingIdentities__blo
     v11 = objc_alloc(MEMORY[0x1E69A2A00]);
     uuid = [(HMHomeManager *)self uuid];
     v13 = [v11 initWithTarget:uuid];
-    v32 = @"modelId";
-    v33 = dCopy;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v31 = @"modelId";
+    v32 = dCopy;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
     v15 = [v10 messageWithName:@"HMHM.deleteHH2Entity" destination:v13 payload:v14];
 
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __83__HMHomeManager_HMHomeManagerAdaptive__deleteDatabaseEntityWithModelID_completion___block_invoke;
-    v29[3] = &unk_1E754DE00;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __83__HMHomeManager_HMHomeManagerAdaptive__deleteDatabaseEntityWithModelID_completion___block_invoke;
+    v28[3] = &unk_1E754DE00;
     v16 = v9;
-    v30 = v16;
-    v31 = completionCopy;
-    [v15 setResponseHandler:v29];
+    v29 = v16;
+    v30 = completionCopy;
+    [v15 setResponseHandler:v28];
     messageDispatcher = [v16 messageDispatcher];
     [messageDispatcher sendMessage:v15 completionHandler:0];
   }
@@ -12051,9 +12327,9 @@ void __67__HMHomeManager_PairingIdentity__removeAllHomeKitPairingIdentities__blo
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v21;
-      v36 = 2080;
-      v37 = "[HMHomeManager(HMHomeManagerAdaptive) deleteDatabaseEntityWithModelID:completion:]";
+      v34 = v21;
+      v35 = 2080;
+      v36 = "[HMHomeManager(HMHomeManagerAdaptive) deleteDatabaseEntityWithModelID:completion:]";
       _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -12061,8 +12337,6 @@ void __67__HMHomeManager_PairingIdentity__removeAllHomeKitPairingIdentities__blo
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(completionCopy + 2))(completionCopy, 0, v15);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __83__HMHomeManager_HMHomeManagerAdaptive__deleteDatabaseEntityWithModelID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -12084,28 +12358,28 @@ void __83__HMHomeManager_HMHomeManagerAdaptive__deleteDatabaseEntityWithModelID_
 
 - (void)checkIsUsingProductionObjectModelWithCompletion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   context = [(HMHomeManager *)self context];
   if (!completionCopy)
   {
-    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager(HMHomeManagerAdaptive) checkIsUsingProductionObjectModelWithCompletion:]", @"completion"];
-    v20 = objc_autoreleasePoolPush();
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager(HMHomeManagerAdaptive) checkIsUsingProductionObjectModelWithCompletion:]", @"completion"];
+    v19 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v22 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v23 = HMFGetLogIdentifier();
+      v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v23;
-      v30 = 2112;
-      v31 = v19;
-      _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v28 = v22;
+      v29 = 2112;
+      v30 = v18;
+      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v20);
-    v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v19 userInfo:0];
-    objc_exception_throw(v24);
+    objc_autoreleasePoolPop(v19);
+    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
+    objc_exception_throw(v23);
   }
 
   v6 = context;
@@ -12117,14 +12391,14 @@ void __83__HMHomeManager_HMHomeManagerAdaptive__deleteDatabaseEntityWithModelID_
     v10 = [v8 initWithTarget:uuid];
     v11 = [v7 messageWithName:@"HMHM.checkIsUsingProductionObjectModel" destination:v10 payload:0];
 
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __88__HMHomeManager_HMHomeManagerAdaptive__checkIsUsingProductionObjectModelWithCompletion___block_invoke;
-    v25[3] = &unk_1E754DE00;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __88__HMHomeManager_HMHomeManagerAdaptive__checkIsUsingProductionObjectModelWithCompletion___block_invoke;
+    v24[3] = &unk_1E754DE00;
     v12 = v6;
-    v26 = v12;
-    v27 = completionCopy;
-    [v11 setResponseHandler:v25];
+    v25 = v12;
+    v26 = completionCopy;
+    [v11 setResponseHandler:v24];
     messageDispatcher = [v12 messageDispatcher];
     [messageDispatcher sendMessage:v11 completionHandler:0];
   }
@@ -12138,9 +12412,9 @@ void __83__HMHomeManager_HMHomeManagerAdaptive__deleteDatabaseEntityWithModelID_
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v17;
-      v30 = 2080;
-      v31 = "[HMHomeManager(HMHomeManagerAdaptive) checkIsUsingProductionObjectModelWithCompletion:]";
+      v28 = v17;
+      v29 = 2080;
+      v30 = "[HMHomeManager(HMHomeManagerAdaptive) checkIsUsingProductionObjectModelWithCompletion:]";
       _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -12148,8 +12422,6 @@ void __83__HMHomeManager_HMHomeManagerAdaptive__deleteDatabaseEntityWithModelID_
     v11 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(completionCopy + 2))(completionCopy, 0, v11);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __88__HMHomeManager_HMHomeManagerAdaptive__checkIsUsingProductionObjectModelWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -12177,6 +12449,69 @@ void __88__HMHomeManager_HMHomeManagerAdaptive__checkIsUsingProductionObjectMode
   [v5 callCompletion:v7 value:v8 error:v9];
 }
 
+- (void)dumpCloudDatabase:(BOOL)database localDatabase:(BOOL)localDatabase workingDatabase:(BOOL)workingDatabase fakeCloudModels:(BOOL)models completion:(id)completion
+{
+  modelsCopy = models;
+  workingDatabaseCopy = workingDatabase;
+  localDatabaseCopy = localDatabase;
+  databaseCopy = database;
+  v43 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  if (!completionCopy)
+  {
+    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager(HMHomeManagerAdaptive) dumpCloudDatabase:localDatabase:workingDatabase:fakeCloudModels:completion:]", @"completion"];
+    v28 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v30 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    {
+      v31 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v40 = v31;
+      v41 = 2112;
+      v42 = v27;
+      _os_log_impl(&dword_19BB39000, v30, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v28);
+    v32 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v27 userInfo:0];
+    objc_exception_throw(v32);
+  }
+
+  v13 = completionCopy;
+  context = [(HMHomeManager *)self context];
+  v14 = MEMORY[0x1E69A2A10];
+  v15 = objc_alloc(MEMORY[0x1E69A2A00]);
+  uuid = [(HMHomeManager *)self uuid];
+  v17 = [v15 initWithTarget:uuid];
+  v37[0] = @"c";
+  v18 = [MEMORY[0x1E696AD98] numberWithBool:databaseCopy];
+  v38[0] = v18;
+  v37[1] = @"f";
+  v19 = [MEMORY[0x1E696AD98] numberWithBool:modelsCopy];
+  v38[1] = v19;
+  v37[2] = @"l";
+  v20 = [MEMORY[0x1E696AD98] numberWithBool:localDatabaseCopy];
+  v38[2] = v20;
+  v37[3] = @"w";
+  v21 = [MEMORY[0x1E696AD98] numberWithBool:workingDatabaseCopy];
+  v38[3] = v21;
+  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:4];
+  v23 = [v14 messageWithName:@"HMHM.dumpDatabase" destination:v17 payload:v22];
+
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __115__HMHomeManager_HMHomeManagerAdaptive__dumpCloudDatabase_localDatabase_workingDatabase_fakeCloudModels_completion___block_invoke;
+  v34[3] = &unk_1E754DE00;
+  v35 = context;
+  v36 = v13;
+  v24 = v13;
+  v25 = context;
+  [v23 setResponseHandler:v34];
+  messageDispatcher = [v25 messageDispatcher];
+  [messageDispatcher sendMessage:v23 completionHandler:0];
+}
+
 void __115__HMHomeManager_HMHomeManagerAdaptive__dumpCloudDatabase_localDatabase_workingDatabase_fakeCloudModels_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -12201,6 +12536,67 @@ LABEL_6:
   [v7 callCompletion:*(a1 + 40) obj:v6 error:v8];
 }
 
+- (void)enableUARPPacketCapture:(BOOL)capture capturePath:(id)path completionHandler:(id)handler
+{
+  captureCopy = capture;
+  v39 = *MEMORY[0x1E69E9840];
+  pathCopy = path;
+  handlerCopy = handler;
+  if (!handlerCopy)
+  {
+    v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager(HMHomeManagerAdaptive) enableUARPPacketCapture:capturePath:completionHandler:]", @"completion"];
+    v26 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v28 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      v29 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v36 = v29;
+      v37 = 2112;
+      v38 = v25;
+      _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v26);
+    v30 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v25 userInfo:0];
+    objc_exception_throw(v30);
+  }
+
+  v10 = handlerCopy;
+  v33[0] = @"HMHomeManagerEnableUARPPacketCaptureEnableMessageKey";
+  v11 = [MEMORY[0x1E696AD98] numberWithBool:captureCopy];
+  v33[1] = @"HMHomeManagerEnableUARPPacketCapturePathMessageKey";
+  v34[0] = v11;
+  v34[1] = pathCopy;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
+
+  v13 = objc_alloc(MEMORY[0x1E69A2A10]);
+  v14 = objc_alloc(MEMORY[0x1E69A2A00]);
+  uuid = [(HMHomeManager *)self uuid];
+  v16 = [v14 initWithTarget:uuid];
+  v17 = [v13 initWithName:@"HMHomeManagerEnableUARPPacketCaptureMessage" destination:v16 payload:v12];
+
+  context = [(HMHomeManager *)self context];
+  pendingRequests = [context pendingRequests];
+
+  identifier = [v17 identifier];
+  v21 = _Block_copy(v10);
+  [pendingRequests addCompletionBlock:v21 forIdentifier:identifier];
+
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __94__HMHomeManager_HMHomeManagerAdaptive__enableUARPPacketCapture_capturePath_completionHandler___block_invoke;
+  v31[3] = &unk_1E754DE00;
+  v31[4] = self;
+  v32 = v10;
+  v22 = v10;
+  [v17 setResponseHandler:v31];
+  context2 = [(HMHomeManager *)self context];
+  messageDispatcher = [context2 messageDispatcher];
+  [messageDispatcher sendMessage:v17];
+}
+
 void __94__HMHomeManager_HMHomeManagerAdaptive__enableUARPPacketCapture_capturePath_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
@@ -12212,7 +12608,7 @@ void __94__HMHomeManager_HMHomeManagerAdaptive__enableUARPPacketCapture_captureP
 
 - (void)_endActiveAssertion:(id)assertion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -12229,8 +12625,8 @@ void __94__HMHomeManager_HMHomeManagerAdaptive__enableUARPPacketCapture_captureP
 
   if (!v6)
   {
-    v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Invalid assertion object" userInfo:0];
-    objc_exception_throw(v12);
+    v11 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Invalid assertion object" userInfo:0];
+    objc_exception_throw(v11);
   }
 
   v7 = objc_autoreleasePoolPush();
@@ -12239,22 +12635,20 @@ void __94__HMHomeManager_HMHomeManagerAdaptive__enableUARPPacketCapture_captureP
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v10;
-    v15 = 2112;
-    v16 = assertionCopy;
-    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Ending active assertion: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v10;
+    v14 = 2112;
+    v15 = assertionCopy;
+    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Ending active assertion: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   [v6 invalidate];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_beginActiveAssertionWithReason:(id)reason
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -12263,9 +12657,9 @@ void __94__HMHomeManager_HMHomeManagerAdaptive__enableUARPPacketCapture_captureP
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v21 = v8;
-    v22 = 2112;
-    v23 = reasonCopy;
+    v20 = v8;
+    v21 = 2112;
+    v22 = reasonCopy;
     _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Taking active assertion with reason: %@", buf, 0x16u);
   }
 
@@ -12284,14 +12678,13 @@ void __94__HMHomeManager_HMHomeManagerAdaptive__enableUARPPacketCapture_captureP
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v21 = v17;
-    v22 = 2112;
-    v23 = v13;
+    v20 = v17;
+    v21 = 2112;
+    v22 = v13;
     _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_INFO, "%{public}@Took active assertion: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v14);
-  v18 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -12329,7 +12722,7 @@ void __82__HMHomeManager_DiagnosticExtension__prepareForDiagnosticExtensionWithC
 
 - (BOOL)accessorySettingsDataSource:(id)source transformHomeUUID:(id)d mediaSystemUUID:(id)iD toClientHomeIdentifier:(id *)identifier clientMediaSystemIdentifier:(id *)systemIdentifier
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   dCopy = d;
   iDCopy = iD;
@@ -12361,13 +12754,13 @@ void __82__HMHomeManager_DiagnosticExtension__prepareForDiagnosticExtensionWithC
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         v26 = HMFGetLogIdentifier();
-        v29 = 138543874;
-        v30 = v26;
-        v31 = 2112;
-        v32 = iDCopy;
-        v33 = 2112;
-        v34 = v16;
-        _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to transform to client identifiers due to no media system with uuid: %@ home: %@", &v29, 0x20u);
+        v28 = 138543874;
+        v29 = v26;
+        v30 = 2112;
+        v31 = iDCopy;
+        v32 = 2112;
+        v33 = v16;
+        _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to transform to client identifiers due to no media system with uuid: %@ home: %@", &v28, 0x20u);
       }
 
       objc_autoreleasePoolPop(v23);
@@ -12382,24 +12775,23 @@ void __82__HMHomeManager_DiagnosticExtension__prepareForDiagnosticExtensionWithC
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v22 = HMFGetLogIdentifier();
-      v29 = 138543618;
-      v30 = v22;
-      v31 = 2112;
-      v32 = dCopy;
-      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to transform to client identifiers due to no home with uuid: %@", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v22;
+      v30 = 2112;
+      v31 = dCopy;
+      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to transform to client identifiers due to no home with uuid: %@", &v28, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
     v18 = 0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (BOOL)accessorySettingsDataSource:(id)source transformHomeUUID:(id)d accessoryUUID:(id)iD toClientHomeIdentifier:(id *)identifier clientAccessoryIdentifier:(id *)accessoryIdentifier
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   dCopy = d;
   iDCopy = iD;
@@ -12431,13 +12823,13 @@ void __82__HMHomeManager_DiagnosticExtension__prepareForDiagnosticExtensionWithC
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         v26 = HMFGetLogIdentifier();
-        v29 = 138543874;
-        v30 = v26;
-        v31 = 2112;
-        v32 = iDCopy;
-        v33 = 2112;
-        v34 = v16;
-        _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to transform to client identifiers due to no accessory with uuid: %@ home: %@", &v29, 0x20u);
+        v28 = 138543874;
+        v29 = v26;
+        v30 = 2112;
+        v31 = iDCopy;
+        v32 = 2112;
+        v33 = v16;
+        _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to transform to client identifiers due to no accessory with uuid: %@ home: %@", &v28, 0x20u);
       }
 
       objc_autoreleasePoolPop(v23);
@@ -12452,24 +12844,23 @@ void __82__HMHomeManager_DiagnosticExtension__prepareForDiagnosticExtensionWithC
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v22 = HMFGetLogIdentifier();
-      v29 = 138543618;
-      v30 = v22;
-      v31 = 2112;
-      v32 = dCopy;
-      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to transform to client identifiers due to no home with uuid: %@", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v22;
+      v30 = 2112;
+      v31 = dCopy;
+      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to transform to client identifiers due to no home with uuid: %@", &v28, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
     v18 = 0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (id)createAccessorySettingsMessengerWithHomeUUID:(id)d
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -12477,11 +12868,11 @@ void __82__HMHomeManager_DiagnosticExtension__prepareForDiagnosticExtensionWithC
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v8;
-    v20 = 2112;
-    v21 = dCopy;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Creating accessory settings messenger with home uuid: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v8;
+    v19 = 2112;
+    v20 = dCopy;
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Creating accessory settings messenger with home uuid: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -12498,8 +12889,6 @@ void __82__HMHomeManager_DiagnosticExtension__prepareForDiagnosticExtensionWithC
   messageDispatcher = [context messageDispatcher];
   v15 = [(HMAccessorySettingsMessenger *)v12 initWithMessageDispatcher:messageDispatcher messageTargetUUID:v11 metricsDispatcher:v10];
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
@@ -12513,7 +12902,7 @@ void __82__HMHomeManager_DiagnosticExtension__prepareForDiagnosticExtensionWithC
 
 - (void)configureAccessorySettingsMetricsDispatcherWithFactory:(id)factory
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   factoryCopy = factory;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -12521,9 +12910,9 @@ void __82__HMHomeManager_DiagnosticExtension__prepareForDiagnosticExtensionWithC
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v8;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Configuring accessory settings metrics dispatcher", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v8;
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Configuring accessory settings metrics dispatcher", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -12536,13 +12925,11 @@ void __82__HMHomeManager_DiagnosticExtension__prepareForDiagnosticExtensionWithC
   v10 = coreAnalyticsMetricEventDispatcher;
   v11 = [factoryCopy createAccessorySettingsMetricsDispatcherWithCoreAnalyticsMetricDispatcher:coreAnalyticsMetricEventDispatcher];
   [(HMHomeManager *)selfCopy setAccessorySettingsMetricsDispatcher:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createAutoAddWalletKeySupressionAssertionWithIncomingInvitation:(id)invitation completion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   invitationCopy = invitation;
   completionCopy = completion;
   homeUUID = [invitationCopy homeUUID];
@@ -12555,34 +12942,32 @@ void __82__HMHomeManager_DiagnosticExtension__prepareForDiagnosticExtensionWithC
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v24 = v14;
-    v25 = 2112;
-    v26 = homeUUID;
-    v27 = 2112;
-    v28 = identifier;
+    v23 = v14;
+    v24 = 2112;
+    v25 = homeUUID;
+    v26 = 2112;
+    v27 = identifier;
     _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@Acquiring auto add wallet key suppression assertion for home: %@ invitation: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v11);
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __100__HMHomeManager_Wallet__createAutoAddWalletKeySupressionAssertionWithIncomingInvitation_completion___block_invoke;
-  v19[3] = &unk_1E754C7E8;
-  v19[4] = selfCopy;
-  v20 = identifier;
-  v21 = v10;
-  v22 = completionCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __100__HMHomeManager_Wallet__createAutoAddWalletKeySupressionAssertionWithIncomingInvitation_completion___block_invoke;
+  v18[3] = &unk_1E754C7E8;
+  v18[4] = selfCopy;
+  v19 = identifier;
+  v20 = v10;
+  v21 = completionCopy;
   v15 = v10;
   v16 = completionCopy;
   v17 = identifier;
-  [(HMAutoAddWalletKeySupressionAssertion *)v15 acquireWithCompletion:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [(HMAutoAddWalletKeySupressionAssertion *)v15 acquireWithCompletion:v18];
 }
 
 void __100__HMHomeManager_Wallet__createAutoAddWalletKeySupressionAssertionWithIncomingInvitation_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -12594,67 +12979,56 @@ void __100__HMHomeManager_Wallet__createAutoAddWalletKeySupressionAssertionWithI
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 40);
-      v15 = 138543874;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v3;
-      v19 = 2112;
-      v20 = v9;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to acquire auto add wallet key suppression assertion for invitation %@:%@", &v15, 0x20u);
+      v12 = 138543874;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v3;
+      v16 = 2112;
+      v17 = v9;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to acquire auto add wallet key suppression assertion for invitation %@:%@", &v12, 0x20u);
     }
-
-    objc_autoreleasePoolPop(v4);
-    v10 = *(*(a1 + 56) + 16);
   }
 
-  else
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-    {
-      v11 = HMFGetLogIdentifier();
-      v12 = *(a1 + 40);
-      v15 = 138543618;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v12;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Successfully acquired auto add wallet key suppression assertion for invitation: %@", &v15, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v4);
-    v13 = *(a1 + 48);
-    v10 = *(*(a1 + 56) + 16);
+    v10 = HMFGetLogIdentifier();
+    v11 = *(a1 + 40);
+    v12 = 138543618;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v11;
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Successfully acquired auto add wallet key suppression assertion for invitation: %@", &v12, 0x16u);
   }
 
-  v10();
-
-  v14 = *MEMORY[0x1E69E9840];
+  objc_autoreleasePoolPop(v4);
+  (*(*(a1 + 56) + 16))();
 }
 
 - (void)findVendorAccessoryWithHAPPublicKey:(id)key completionHandler:(id)handler
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   handlerCopy = handler;
   context = [(HMHomeManager *)self context];
   if (!handlerCopy)
   {
-    v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager(Vendor) findVendorAccessoryWithHAPPublicKey:completionHandler:]", @"completion"];
-    v42 = objc_autoreleasePoolPush();
+    v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMHomeManager(Vendor) findVendorAccessoryWithHAPPublicKey:completionHandler:]", @"completion"];
+    v41 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v44 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v43 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      v45 = HMFGetLogIdentifier();
+      v44 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v55 = v45;
-      v56 = 2112;
-      v57 = v41;
-      _os_log_impl(&dword_19BB39000, v44, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v54 = v44;
+      v55 = 2112;
+      v56 = v40;
+      _os_log_impl(&dword_19BB39000, v43, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v42);
-    v46 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v41 userInfo:0];
-    objc_exception_throw(v46);
+    objc_autoreleasePoolPop(v41);
+    v45 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v40 userInfo:0];
+    objc_exception_throw(v45);
   }
 
   v10 = context;
@@ -12666,7 +13040,7 @@ void __100__HMHomeManager_Wallet__createAutoAddWalletKeySupressionAssertionWithI
       v12 = MEMORY[0x1E696AEC0];
       v13 = MEMORY[0x19EAEB2A0](self, a2);
       v14 = [v12 stringWithFormat:@"%@, %s:%ld", v13, "/Library/Caches/com.apple.xbs/Sources/HomeKit/Sources/HomeKit/Vendor/HMHomeManager+Vendor.m", 39];
-      v51 = [v11 initWithName:v14];
+      v50 = [v11 initWithName:v14];
 
       v15 = objc_autoreleasePoolPush();
       selfCopy2 = self;
@@ -12674,14 +13048,14 @@ void __100__HMHomeManager_Wallet__createAutoAddWalletKeySupressionAssertionWithI
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         v18 = HMFGetLogIdentifier();
-        identifier = [v51 identifier];
+        identifier = [v50 identifier];
         shortDescription = [identifier shortDescription];
         *buf = 138543874;
-        v55 = v18;
-        v56 = 2114;
-        v57 = shortDescription;
-        v58 = 2112;
-        v59 = keyCopy;
+        v54 = v18;
+        v55 = 2114;
+        v56 = shortDescription;
+        v57 = 2112;
+        v58 = keyCopy;
         _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Find vendor accessory with HAP LTPK %@", buf, 0x20u);
       }
 
@@ -12690,21 +13064,21 @@ void __100__HMHomeManager_Wallet__createAutoAddWalletKeySupressionAssertionWithI
       v22 = objc_alloc(MEMORY[0x1E69A2A00]);
       uuid = [(HMHomeManager *)selfCopy2 uuid];
       v24 = [v22 initWithTarget:uuid];
-      v52 = @"kAccessoryPublicKey";
-      v53 = keyCopy;
-      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+      v51 = @"kAccessoryPublicKey";
+      v52 = keyCopy;
+      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
       v26 = [v21 messageWithName:@"HMHM.findVendorAccessory" destination:v24 payload:v25];
 
-      v47[0] = MEMORY[0x1E69E9820];
-      v47[1] = 3221225472;
-      v47[2] = __79__HMHomeManager_Vendor__findVendorAccessoryWithHAPPublicKey_completionHandler___block_invoke;
-      v47[3] = &unk_1E754D030;
-      v47[4] = selfCopy2;
-      v48 = v51;
+      v46[0] = MEMORY[0x1E69E9820];
+      v46[1] = 3221225472;
+      v46[2] = __79__HMHomeManager_Vendor__findVendorAccessoryWithHAPPublicKey_completionHandler___block_invoke;
+      v46[3] = &unk_1E754D030;
+      v46[4] = selfCopy2;
+      v47 = v50;
       v27 = v10;
-      v49 = v27;
-      v50 = handlerCopy;
-      [v26 setResponseHandler:v47];
+      v48 = v27;
+      v49 = handlerCopy;
+      [v26 setResponseHandler:v46];
       messageDispatcher = [v27 messageDispatcher];
       [messageDispatcher sendMessage:v26];
 
@@ -12720,7 +13094,7 @@ void __100__HMHomeManager_Wallet__createAutoAddWalletKeySupressionAssertionWithI
       {
         v37 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v55 = v37;
+        v54 = v37;
         _os_log_impl(&dword_19BB39000, v36, OS_LOG_TYPE_ERROR, "%{public}@findVendorAccessory... called before homeManagerDidUpdateHomes:", buf, 0xCu);
       }
 
@@ -12740,9 +13114,9 @@ void __100__HMHomeManager_Wallet__createAutoAddWalletKeySupressionAssertionWithI
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v55 = v32;
-      v56 = 2080;
-      v57 = "[HMHomeManager(Vendor) findVendorAccessoryWithHAPPublicKey:completionHandler:]";
+      v54 = v32;
+      v55 = 2080;
+      v56 = "[HMHomeManager(Vendor) findVendorAccessoryWithHAPPublicKey:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v31, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -12750,13 +13124,11 @@ void __100__HMHomeManager_Wallet__createAutoAddWalletKeySupressionAssertionWithI
     v33 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(handlerCopy + 2))(handlerCopy, 0, v33);
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void __79__HMHomeManager_Vendor__findVendorAccessoryWithHAPPublicKey_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -12771,11 +13143,11 @@ void __79__HMHomeManager_Vendor__findVendorAccessoryWithHAPPublicKey_completionH
       v12 = [*(a1 + 40) identifier];
       v13 = [v12 shortDescription];
       *buf = 138543874;
-      v39 = v11;
-      v40 = 2114;
-      v41 = v13;
-      v42 = 2112;
-      v43 = v5;
+      v38 = v11;
+      v39 = 2114;
+      v40 = v13;
+      v41 = 2112;
+      v42 = v5;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Find vendor accessory failed: %@", buf, 0x20u);
     }
 
@@ -12797,21 +13169,21 @@ void __79__HMHomeManager_Vendor__findVendorAccessoryWithHAPPublicKey_completionH
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         v22 = HMFGetLogIdentifier();
-        v35 = [*(a1 + 40) identifier];
-        [v35 shortDescription];
-        v23 = v34 = v20;
+        v34 = [*(a1 + 40) identifier];
+        [v34 shortDescription];
+        v23 = v33 = v20;
         [v18 shortDescription];
-        v24 = v36 = v19;
+        v24 = v35 = v19;
         *buf = 138543874;
-        v39 = v22;
-        v40 = 2114;
-        v41 = v23;
-        v42 = 2112;
-        v43 = v24;
+        v38 = v22;
+        v39 = 2114;
+        v40 = v23;
+        v41 = 2112;
+        v42 = v24;
         _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Found accessory %@", buf, 0x20u);
 
-        v19 = v36;
-        v20 = v34;
+        v19 = v35;
+        v20 = v33;
       }
 
       objc_autoreleasePoolPop(v19);
@@ -12829,16 +13201,16 @@ void __79__HMHomeManager_Vendor__findVendorAccessoryWithHAPPublicKey_completionH
         v29 = HMFGetLogIdentifier();
         v30 = [*(a1 + 40) identifier];
         [v30 shortDescription];
-        v37 = v26;
+        v36 = v26;
         v32 = v31 = v16;
         *buf = 138543618;
-        v39 = v29;
-        v40 = 2114;
-        v41 = v32;
+        v38 = v29;
+        v39 = 2114;
+        v40 = v32;
         _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] No accessory found", buf, 0x16u);
 
         v16 = v31;
-        v26 = v37;
+        v26 = v36;
       }
 
       objc_autoreleasePoolPop(v26);
@@ -12846,13 +13218,11 @@ void __79__HMHomeManager_Vendor__findVendorAccessoryWithHAPPublicKey_completionH
       [v18 callCompletion:*(a1 + 56) obj:0 error:0];
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (id)createAccessorySettingsDataSource
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -12860,7 +13230,7 @@ void __79__HMHomeManager_Vendor__findVendorAccessoryWithHAPPublicKey_completionH
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v19 = v6;
+    v18 = v6;
     _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Creating accessory settings data source", buf, 0xCu);
   }
 
@@ -12881,14 +13251,13 @@ void __79__HMHomeManager_Vendor__findVendorAccessoryWithHAPPublicKey_completionH
   v15 = [(HMAccessorySettingsDataSource *)v9 initWithContext:context localizationManager:v11 messengerFactory:selfCopy subscriptionProvider:eventRouter lastEventStoreReadHandle:lastEventStore eventRouterXPCClient:xpcEventRouterClient metricsDispatcher:v8];
 
   [(HMAccessorySettingsDataSource *)v15 setDataSource:selfCopy];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (void)configureCoreAnalyticsMetricEventDispatcherWithFactory:(id)factory
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   factoryCopy = factory;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -12896,16 +13265,14 @@ void __79__HMHomeManager_Vendor__findVendorAccessoryWithHAPPublicKey_completionH
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Configuring core analytics metric event dispatcher", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Configuring core analytics metric event dispatcher", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   createCoreAnalyticsMetricEventDispatcher = [factoryCopy createCoreAnalyticsMetricEventDispatcher];
   [(HMHomeManager *)selfCopy setCoreAnalyticsMetricEventDispatcher:createCoreAnalyticsMetricEventDispatcher];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleInstanceDestroyed

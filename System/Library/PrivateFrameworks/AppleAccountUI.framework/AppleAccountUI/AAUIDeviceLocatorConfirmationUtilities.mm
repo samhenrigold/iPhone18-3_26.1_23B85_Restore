@@ -142,107 +142,108 @@ void __72__AAUIDeviceLocatorConfirmationUtilities_checkIfWatchHasAppleIDAccount_
 
 void __72__AAUIDeviceLocatorConfirmationUtilities_checkIfWatchHasAppleIDAccount___block_invoke_119(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v24 = a2;
-  v23 = a3;
-  if (v23)
+  v40 = *MEMORY[0x1E69E9840];
+  v25 = a2;
+  v4 = a3;
+  v24 = v4;
+  if (v4)
   {
-    v4 = _AAUILogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _AAUILogSystem(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v23;
-      _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "Error getting Watch Account: %@", &buf, 0xCu);
+      *(&buf + 4) = v24;
+      _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Error getting Watch Account: %@", &buf, 0xCu);
     }
 
     goto LABEL_27;
   }
 
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v5 = getkNSSiCloudAccountsKeySymbolLoc_ptr;
-  v33 = getkNSSiCloudAccountsKeySymbolLoc_ptr;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v6 = getkNSSiCloudAccountsKeySymbolLoc_ptr;
+  v34 = getkNSSiCloudAccountsKeySymbolLoc_ptr;
   if (!getkNSSiCloudAccountsKeySymbolLoc_ptr)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v36 = __getkNSSiCloudAccountsKeySymbolLoc_block_invoke;
-    v37 = &unk_1E820BE08;
-    v38 = &v30;
-    v6 = NanoSystemSettingsLibrary();
-    v7 = dlsym(v6, "kNSSiCloudAccountsKey");
-    *(v38[1] + 24) = v7;
-    getkNSSiCloudAccountsKeySymbolLoc_ptr = *(v38[1] + 24);
-    v5 = v31[3];
+    v37 = __getkNSSiCloudAccountsKeySymbolLoc_block_invoke;
+    v38 = &unk_1E820BE08;
+    v39 = &v31;
+    v7 = NanoSystemSettingsLibrary();
+    v8 = dlsym(v7, "kNSSiCloudAccountsKey");
+    *(v39[1] + 24) = v8;
+    getkNSSiCloudAccountsKeySymbolLoc_ptr = *(v39[1] + 24);
+    v6 = v32[3];
   }
 
-  _Block_object_dispose(&v30, 8);
-  if (!v5)
+  _Block_object_dispose(&v31, 8);
+  if (!v6)
   {
     __72__AAUIDeviceLocatorConfirmationUtilities_checkIfWatchHasAppleIDAccount___block_invoke_119_cold_1();
     goto LABEL_31;
   }
 
-  v8 = [v24 objectForKeyedSubscript:*v5];
-  v9 = [*(*(*(a1 + 40) + 8) + 40) aa_personID];
-  v28 = 0u;
+  v9 = [v25 objectForKeyedSubscript:*v6];
+  v10 = [*(*(*(a1 + 40) + 8) + 40) aa_personID];
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v4 = v8;
-  v10 = [v4 countByEnumeratingWithState:&v26 objects:v34 count:16];
-  if (!v10)
+  v28 = 0u;
+  v5 = v9;
+  v11 = [v5 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  if (!v11)
   {
     goto LABEL_26;
   }
 
-  v11 = *v27;
+  v12 = *v28;
 LABEL_9:
-  v12 = 0;
+  v13 = 0;
   while (1)
   {
-    if (*v27 != v11)
+    if (*v28 != v12)
     {
-      objc_enumerationMutation(v4);
+      objc_enumerationMutation(v5);
     }
 
-    v13 = *(*(&v26 + 1) + 8 * v12);
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2020000000;
-    v14 = getkNSSiCloudPersonIDKeySymbolLoc_ptr;
-    v33 = getkNSSiCloudPersonIDKeySymbolLoc_ptr;
+    v14 = *(*(&v27 + 1) + 8 * v13);
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2020000000;
+    v15 = getkNSSiCloudPersonIDKeySymbolLoc_ptr;
+    v34 = getkNSSiCloudPersonIDKeySymbolLoc_ptr;
     if (!getkNSSiCloudPersonIDKeySymbolLoc_ptr)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v36 = __getkNSSiCloudPersonIDKeySymbolLoc_block_invoke;
-      v37 = &unk_1E820BE08;
-      v38 = &v30;
-      v15 = NanoSystemSettingsLibrary();
-      v16 = dlsym(v15, "kNSSiCloudPersonIDKey");
-      *(v38[1] + 24) = v16;
-      getkNSSiCloudPersonIDKeySymbolLoc_ptr = *(v38[1] + 24);
-      v14 = v31[3];
+      v37 = __getkNSSiCloudPersonIDKeySymbolLoc_block_invoke;
+      v38 = &unk_1E820BE08;
+      v39 = &v31;
+      v16 = NanoSystemSettingsLibrary();
+      v17 = dlsym(v16, "kNSSiCloudPersonIDKey");
+      *(v39[1] + 24) = v17;
+      getkNSSiCloudPersonIDKeySymbolLoc_ptr = *(v39[1] + 24);
+      v15 = v32[3];
     }
 
-    _Block_object_dispose(&v30, 8);
-    if (!v14)
+    _Block_object_dispose(&v31, 8);
+    if (!v15)
     {
       goto LABEL_30;
     }
 
-    v17 = [v13 objectForKeyedSubscript:*v14];
-    if ([v17 isEqualToString:v9])
+    v18 = [v14 objectForKeyedSubscript:*v15];
+    if ([v18 isEqualToString:v10])
     {
       break;
     }
 
-    if (v10 == ++v12)
+    if (v11 == ++v13)
     {
-      v10 = [v4 countByEnumeratingWithState:&v26 objects:v34 count:16];
-      if (!v10)
+      v11 = [v5 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      if (!v11)
       {
         goto LABEL_26;
       }
@@ -251,27 +252,27 @@ LABEL_9:
     }
   }
 
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v18 = getkNSSiCloudIsAuthenticatedKeySymbolLoc_ptr;
-  v33 = getkNSSiCloudIsAuthenticatedKeySymbolLoc_ptr;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v19 = getkNSSiCloudIsAuthenticatedKeySymbolLoc_ptr;
+  v34 = getkNSSiCloudIsAuthenticatedKeySymbolLoc_ptr;
   if (!getkNSSiCloudIsAuthenticatedKeySymbolLoc_ptr)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v36 = __getkNSSiCloudIsAuthenticatedKeySymbolLoc_block_invoke;
-    v37 = &unk_1E820BE08;
-    v38 = &v30;
-    v19 = NanoSystemSettingsLibrary();
-    v20 = dlsym(v19, "kNSSiCloudIsAuthenticatedKey");
-    *(v38[1] + 24) = v20;
-    getkNSSiCloudIsAuthenticatedKeySymbolLoc_ptr = *(v38[1] + 24);
-    v18 = v31[3];
+    v37 = __getkNSSiCloudIsAuthenticatedKeySymbolLoc_block_invoke;
+    v38 = &unk_1E820BE08;
+    v39 = &v31;
+    v20 = NanoSystemSettingsLibrary();
+    v21 = dlsym(v20, "kNSSiCloudIsAuthenticatedKey");
+    *(v39[1] + 24) = v21;
+    getkNSSiCloudIsAuthenticatedKeySymbolLoc_ptr = *(v39[1] + 24);
+    v19 = v32[3];
   }
 
-  _Block_object_dispose(&v30, 8);
-  if (!v18)
+  _Block_object_dispose(&v31, 8);
+  if (!v19)
   {
 LABEL_30:
     __72__AAUIDeviceLocatorConfirmationUtilities_checkIfWatchHasAppleIDAccount___block_invoke_119_cold_1();
@@ -279,9 +280,9 @@ LABEL_31:
     __break(1u);
   }
 
-  v21 = [v13 objectForKeyedSubscript:*v18];
-  v22 = v21;
-  if (!v21 || [v21 BOOLValue])
+  v22 = [v14 objectForKeyedSubscript:*v19];
+  v23 = v22;
+  if (!v22 || [v22 BOOLValue])
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
@@ -385,81 +386,82 @@ void __141__AAUIDeviceLocatorConfirmationUtilities_showDisableAlertForAccount_wi
   account = [contextCopy account];
   message = [contextCopy message];
   buttonTitle = [contextCopy buttonTitle];
+  v16 = buttonTitle;
   if (cCopy)
   {
-    v16 = objc_alloc_init(MEMORY[0x1E698DE80]);
+    v17 = objc_alloc_init(MEMORY[0x1E698DE80]);
     if ([self shouldShowTnLCoverageLoss] && availableCopy && (objc_msgSend(contextCopy, "skipTnLScreen") & 1) == 0 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
-      v17 = v16;
-      v18 = controllerCopy;
+      v18 = v17;
+      v19 = controllerCopy;
     }
 
     else
     {
-      v17 = v16;
-      v18 = cCopy;
+      v18 = v17;
+      v19 = cCopy;
     }
 
-    [v17 setPresentingViewController:v18];
-    [v16 setForceInlinePresentation:1];
+    [v18 setPresentingViewController:v19];
+    [v17 setForceInlinePresentation:1];
   }
 
   else
   {
-    v19 = _AAUILogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = _AAUILogSystem(buttonTitle);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      *v32 = 0;
-      _os_log_impl(&dword_1C5355000, v19, OS_LOG_TYPE_DEFAULT, "AAUIDeviceLocatorConfirmationUtilities: Warning! Caller has not provided a presenting VC.", v32, 2u);
+      *v34 = 0;
+      _os_log_impl(&dword_1C5355000, v20, OS_LOG_TYPE_DEFAULT, "AAUIDeviceLocatorConfirmationUtilities: Warning! Caller has not provided a presenting VC.", v34, 2u);
     }
 
-    v16 = objc_alloc_init(MEMORY[0x1E698DCB8]);
-    [v16 _setProxyingForApp:1];
+    v17 = objc_alloc_init(MEMORY[0x1E698DCB8]);
+    [v17 _setProxyingForApp:1];
   }
 
   username = [account username];
-  [v16 setUsername:username];
+  [v17 setUsername:username];
 
   aa_altDSID = [account aa_altDSID];
-  [v16 setAltDSID:aa_altDSID];
+  [v17 setAltDSID:aa_altDSID];
 
-  [v16 setReason:message];
-  [v16 setShouldPromptForPasswordOnly:1];
-  [v16 setAuthenticationType:2];
-  [v16 setIsEphemeral:1];
-  [v16 setIsUsernameEditable:0];
-  [v16 setDefaultButtonString:buttonTitle];
-  [v16 setMaximumLoginAttempts:2];
-  [v16 setEnablePasscodeAuth:0];
+  [v17 setReason:message];
+  [v17 setShouldPromptForPasswordOnly:1];
+  [v17 setAuthenticationType:2];
+  [v17 setIsEphemeral:1];
+  [v17 setIsUsernameEditable:0];
+  [v17 setDefaultButtonString:v16];
+  [v17 setMaximumLoginAttempts:2];
+  [v17 setEnablePasscodeAuth:0];
   clientID = [contextCopy clientID];
 
   if (clientID)
   {
-    v23 = _AAUILogSystem();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v25 = _AAUILogSystem(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      [AAUIDeviceLocatorConfirmationUtilities _authContextForPresentingVC:contextCopy navController:v23 theftAndLossViewControllerAvailable:? context:?];
+      [AAUIDeviceLocatorConfirmationUtilities _authContextForPresentingVC:contextCopy navController:v25 theftAndLossViewControllerAvailable:? context:?];
     }
 
     clientID2 = [contextCopy clientID];
-    [v16 setAppProvidedContext:clientID2];
+    [v17 setAppProvidedContext:clientID2];
   }
 
   if (+[AAUIFeatureFlags isSignOutRedesignEnabled])
   {
-    v25 = MEMORY[0x1E69DCAB8];
-    v26 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v27 = [v25 imageNamed:@"AppleAccount_Icon_Blue" inBundle:v26];
+    v27 = MEMORY[0x1E69DCAB8];
+    v28 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v29 = [v27 imageNamed:@"AppleAccount_Icon_Blue" inBundle:v28];
 
-    v28 = UIImagePNGRepresentation(v27);
-    [v16 setDisplayImageData:v28];
+    v30 = UIImagePNGRepresentation(v29);
+    [v17 setDisplayImageData:v30];
 
-    v29 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v30 = [v29 localizedStringForKey:@"CONFIRM_PASSWORD" value:&stru_1F447F790 table:@"Localizable"];
-    [v16 setTitle:v30];
+    v31 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v32 = [v31 localizedStringForKey:@"CONFIRM_PASSWORD" value:&stru_1F447F790 table:@"Localizable"];
+    [v17 setTitle:v32];
   }
 
-  return v16;
+  return v17;
 }
 
 + (void)showDisableAlertForContext:(id)context withCompletion:(id)completion
@@ -676,13 +678,14 @@ uint64_t __84__AAUIDeviceLocatorConfirmationUtilities_showDisableAlertForContext
 
 void __84__AAUIDeviceLocatorConfirmationUtilities_showDisableAlertForContext_withCompletion___block_invoke_7(uint64_t a1, void *a2, void *a3)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (!v5)
   {
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       __84__AAUIDeviceLocatorConfirmationUtilities_showDisableAlertForContext_withCompletion___block_invoke_7_cold_4();
     }
@@ -693,8 +696,8 @@ void __84__AAUIDeviceLocatorConfirmationUtilities_showDisableAlertForContext_wit
   *(*(*(a1 + 56) + 8) + 24) = 1;
   if (!*(a1 + 32))
   {
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       __84__AAUIDeviceLocatorConfirmationUtilities_showDisableAlertForContext_withCompletion___block_invoke_7_cold_3();
     }
@@ -706,18 +709,19 @@ LABEL_12:
   }
 
   objc_opt_class();
-  v7 = *(a1 + 32);
-  if (objc_opt_isKindOfClass())
+  v8 = *(a1 + 32);
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    if (v7)
+    if (v8)
     {
-      v8 = _AAUILogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v10 = _AAUILogSystem(isKindOfClass);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         __84__AAUIDeviceLocatorConfirmationUtilities_showDisableAlertForContext_withCompletion___block_invoke_7_cold_1();
       }
 
-      [v7 pushViewController:v5 animated:1];
+      [v8 pushViewController:v5 animated:1];
       goto LABEL_17;
     }
   }
@@ -726,16 +730,16 @@ LABEL_12:
   {
   }
 
-  v10 = _AAUILogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v12 = _AAUILogSystem(isKindOfClass);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     __84__AAUIDeviceLocatorConfirmationUtilities_showDisableAlertForContext_withCompletion___block_invoke_7_cold_2();
   }
 
-  v11 = *(a1 + 40);
-  v13[0] = v5;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
-  [v11 setViewControllers:v12 animated:1];
+  v13 = *(a1 + 40);
+  v15[0] = v5;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  [v13 setViewControllers:v14 animated:1];
 
   [*(a1 + 32) presentViewController:*(a1 + 40) animated:1 completion:0];
 LABEL_17:
@@ -783,21 +787,22 @@ void __90__AAUIDeviceLocatorConfirmationUtilities__performFMIPAuthenticationForC
 
 + (void)_handleFMIPAuthenticationResponse:(id)response withError:(id)error forContext:(id)context completion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   errorCopy = error;
   contextCopy = context;
   completionCopy = completion;
-  if (!responseCopy || errorCopy || ([responseCopy error], v14 = objc_claimAutoreleasedReturnValue(), v14, v14))
+  v14 = completionCopy;
+  if (!responseCopy || errorCopy || ([responseCopy error], v15 = objc_claimAutoreleasedReturnValue(), v15, v15))
   {
-    v15 = _AAUILogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _AAUILogSystem(completionCopy);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v25 = responseCopy;
-      v26 = 2112;
-      v27 = errorCopy;
-      _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "Failed to obtain an FMiP wipe token. Response: %@ and Error: %@", buf, 0x16u);
+      v26 = responseCopy;
+      v27 = 2112;
+      v28 = errorCopy;
+      _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "Failed to obtain an FMiP wipe token. Response: %@ and Error: %@", buf, 0x16u);
     }
 
     aBlock[0] = MEMORY[0x1E69E9820];
@@ -805,24 +810,24 @@ void __90__AAUIDeviceLocatorConfirmationUtilities__performFMIPAuthenticationForC
     aBlock[2] = __108__AAUIDeviceLocatorConfirmationUtilities__handleFMIPAuthenticationResponse_withError_forContext_completion___block_invoke;
     aBlock[3] = &unk_1E820BDB8;
     selfCopy = self;
-    v16 = contextCopy;
-    v21 = v16;
-    v22 = completionCopy;
-    v17 = _Block_copy(aBlock);
-    account = [v16 account];
-    [self _showErrorUserNotificationForAccount:account error:errorCopy withCompletion:v17];
+    v17 = contextCopy;
+    v22 = v17;
+    v23 = v14;
+    v18 = _Block_copy(aBlock);
+    account = [v17 account];
+    [self _showErrorUserNotificationForAccount:account error:errorCopy withCompletion:v18];
   }
 
   else
   {
-    v19 = _AAUILogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = _AAUILogSystem(completionCopy);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v19, OS_LOG_TYPE_DEFAULT, "FMIPAuthenticationRequest succeeded!", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v20, OS_LOG_TYPE_DEFAULT, "FMIPAuthenticationRequest succeeded!", buf, 2u);
     }
 
-    (*(completionCopy + 2))(completionCopy, 0, responseCopy);
+    (v14)[2](v14, 0, responseCopy);
   }
 }
 
@@ -953,11 +958,11 @@ void __100__AAUIDeviceLocatorConfirmationUtilities__showErrorUserNotificationFor
   }
 }
 
-uint64_t __72__AAUIDeviceLocatorConfirmationUtilities_checkIfWatchHasAppleIDAccount___block_invoke_119_cold_1()
+void __72__AAUIDeviceLocatorConfirmationUtilities_checkIfWatchHasAppleIDAccount___block_invoke_119_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [AAUIDeviceLocatorConfirmationUtilities _authContextForPresentingVC:v0 navController:? theftAndLossViewControllerAvailable:? context:?];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [AAUIDeviceLocatorConfirmationUtilities _authContextForPresentingVC:v1 navController:v2 theftAndLossViewControllerAvailable:? context:?];
 }
 
 + (void)_authContextForPresentingVC:(void *)a1 navController:(NSObject *)a2 theftAndLossViewControllerAvailable:context:.cold.1(void *a1, NSObject *a2)

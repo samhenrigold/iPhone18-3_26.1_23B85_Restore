@@ -13,6 +13,8 @@
 - (void)onqueue_start;
 - (void)sendKeyDeviceLocked;
 - (void)sendSetupCreateEscrowRecordStepData:(id)data error:(id)error;
+- (void)sendSetupSessionCreatedWithLocalAttestedKey:(id)key stepData:(id)data error:(id)error failureReason:(unsigned int)reason;
+- (void)sendSetupSessionCreatedWithLocalKey:(id)key stepData:(id)data error:(id)error failureReason:(unsigned int)reason ltkSyncing:(id)syncing;
 - (void)start;
 - (void)transport:(id)transport didReceivePayload:(id)payload type:(unsigned __int16)type deviceID:(id)d;
 - (void)watchLTKsChanged:(id)changed;
@@ -525,6 +527,160 @@ LABEL_34:
   }
 
   v10 = [transport sendAutoUnlockPayload:data toDevice:deviceID type:v9 sessionID:sessionID queueOneID:0 timeout:v8 completion:&stru_1008CE068];
+}
+
+- (void)sendSetupSessionCreatedWithLocalKey:(id)key stepData:(id)data error:(id)error failureReason:(unsigned int)reason ltkSyncing:(id)syncing
+{
+  v8 = *&reason;
+  keyCopy = key;
+  dataCopy = data;
+  errorCopy = error;
+  syncingCopy = syncing;
+  if (sub_10000C1F8(@"AUUseOldProtocolVersion", 0))
+  {
+    v12 = 1;
+  }
+
+  else
+  {
+    v12 = 2;
+  }
+
+  if (sub_10000C1F8(@"AUUseNewWatchVersion", 0))
+  {
+    v13 = 3;
+  }
+
+  else
+  {
+    v13 = v12;
+  }
+
+  v14 = +[SDStatusMonitor sharedMonitor];
+  deviceRequiresNewRanging = [v14 deviceRequiresNewRanging];
+
+  if (deviceRequiresNewRanging)
+  {
+    v16 = 3;
+  }
+
+  else
+  {
+    v16 = v13;
+  }
+
+  v17 = auto_unlock_log();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    v18 = @"NO";
+    if (deviceRequiresNewRanging)
+    {
+      v18 = @"YES";
+    }
+
+    *buf = 138412290;
+    v43 = v18;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Device using new ranging: %@", buf, 0xCu);
+  }
+
+  v19 = +[SDAutoUnlockAKSManager sharedManager];
+  deviceID = [(SDAutoUnlockPairingSession *)self deviceID];
+  request = [(SDAutoUnlockPairingKeySession *)self request];
+  ltkHash = [request ltkHash];
+  v23 = [v19 ltkSyncStatusForDeviceID:deviceID hash:ltkHash modern:0];
+
+  v24 = +[SDAutoUnlockAKSManager sharedManager];
+  deviceID2 = [(SDAutoUnlockPairingSession *)self deviceID];
+  request2 = [(SDAutoUnlockPairingKeySession *)self request];
+  ltkHash2 = [request2 ltkHash];
+  v28 = [v24 ltkSyncStatusForDeviceID:deviceID2 hash:ltkHash2 modern:1];
+
+  v29 = +[SDAutoUnlockAKSManager sharedManager];
+  ltkHashForLocalLTK = [v29 ltkHashForLocalLTK];
+
+  v31 = objc_alloc_init(SDUnlockSetupSessionCreated);
+  [(SDUnlockSetupSessionCreated *)v31 setVersion:v16];
+  if (keyCopy)
+  {
+    [(SDUnlockSetupSessionCreated *)v31 setLongTermKey:keyCopy];
+  }
+
+  if (dataCopy)
+  {
+    [(SDUnlockSetupSessionCreated *)v31 setToken:?];
+  }
+
+  if (errorCopy)
+  {
+    -[SDUnlockSetupSessionCreated setErrorCode:](v31, "setErrorCode:", [errorCopy code]);
+  }
+
+  if (v8)
+  {
+    [(SDUnlockSetupSessionCreated *)v31 setFailureReasons:v8];
+  }
+
+  if (syncingCopy)
+  {
+    -[SDUnlockSetupSessionCreated setLtkSyncing:](v31, "setLtkSyncing:", [syncingCopy BOOLValue]);
+  }
+
+  if (ltkHashForLocalLTK)
+  {
+    [(SDUnlockSetupSessionCreated *)v31 setLtkHash:ltkHashForLocalLTK];
+  }
+
+  [(SDUnlockSetupSessionCreated *)v31 setWatchOldLTKSyncStatus:v23];
+  [(SDUnlockSetupSessionCreated *)v31 setWatchNewLTKSyncStatus:v28];
+  v32 = +[SDAutoUnlockTransport sharedTransport];
+  data = [(SDUnlockSetupSessionCreated *)v31 data];
+  deviceID3 = [(SDAutoUnlockPairingSession *)self deviceID];
+  sessionID = [(SDAutoUnlockPairingSession *)self sessionID];
+  v36 = [NSNumber numberWithInteger:45];
+  v41[0] = _NSConcreteStackBlock;
+  v41[1] = 3221225472;
+  v41[2] = sub_10006D960;
+  v41[3] = &unk_1008CDF90;
+  v41[4] = self;
+  [v32 sendPayload:data toDevice:deviceID3 type:102 sessionID:sessionID timeout:v36 errorHandler:v41];
+
+  [(SDAutoUnlockPairingSession *)self restartResponseTimer:sub_1001F0530(60)];
+}
+
+- (void)sendSetupSessionCreatedWithLocalAttestedKey:(id)key stepData:(id)data error:(id)error failureReason:(unsigned int)reason
+{
+  v6 = *&reason;
+  errorCopy = error;
+  dataCopy = data;
+  keyCopy = key;
+  v13 = objc_alloc_init(SDUnlockSetupSessionCreated);
+  [(SDUnlockSetupSessionCreated *)v13 setVersion:4];
+  [(SDUnlockSetupSessionCreated *)v13 setLongTermKey:keyCopy];
+
+  [(SDUnlockSetupSessionCreated *)v13 setToken:dataCopy];
+  if (errorCopy)
+  {
+    -[SDUnlockSetupSessionCreated setErrorCode:](v13, "setErrorCode:", [errorCopy code]);
+  }
+
+  if (v6)
+  {
+    [(SDUnlockSetupSessionCreated *)v13 setFailureReasons:v6];
+  }
+
+  transport = [(SDAutoUnlockPairingSession *)self transport];
+  data = [(SDUnlockSetupSessionCreated *)v13 data];
+  deviceID = [(SDAutoUnlockPairingSession *)self deviceID];
+  sessionID = [(SDAutoUnlockPairingSession *)self sessionID];
+  v18 = [NSNumber numberWithInteger:45];
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_10006DC28;
+  v20[3] = &unk_1008CE090;
+  v20[4] = self;
+  v19 = [transport sendAutoUnlockPayload:data toDevice:deviceID type:2002 sessionID:sessionID queueOneID:0 timeout:v18 completion:v20];
+
+  [(SDAutoUnlockPairingSession *)self restartResponseTimer:sub_1001F0530(60)];
 }
 
 - (void)sendSetupCreateEscrowRecordStepData:(id)data error:(id)error

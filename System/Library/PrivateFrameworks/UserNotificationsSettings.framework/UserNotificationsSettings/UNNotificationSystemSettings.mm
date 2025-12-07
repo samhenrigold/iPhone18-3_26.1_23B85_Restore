@@ -177,21 +177,21 @@
 
 - (id)_stringForScheduledDeliveryTimes:(id)times
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   timesCopy = times;
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
   v5 = objc_alloc_init(MEMORY[0x277CCA968]);
   [v5 setDateFormat:@"HH:mm"];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = timesCopy;
-  v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     v9 = @"[";
     do
     {
@@ -199,12 +199,12 @@
       v11 = v9;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = [currentCalendar dateFromComponents:*(*(&v20 + 1) + 8 * v10)];
+        v12 = [currentCalendar dateFromComponents:*(*(&v19 + 1) + 8 * v10)];
         v13 = MEMORY[0x277CCACA8];
         v14 = [v5 stringFromDate:v12];
         v15 = [v13 stringWithFormat:@" %@, ", v14];
@@ -216,7 +216,7 @@
       }
 
       while (v7 != v10);
-      v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
@@ -228,8 +228,6 @@
   }
 
   v16 = [(__CFString *)v9 stringByAppendingString:@" ]"];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

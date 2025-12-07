@@ -47,7 +47,7 @@
 
 - (void)addSQLEntityToCreate:(uint64_t)create
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (create)
   {
     [*(create + 16) addObject:a2];
@@ -71,10 +71,10 @@
     v7 = 0;
 LABEL_7:
     v8 = [v4 initWithCapacity:{objc_msgSend(v7, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     if (a2)
     {
       v9 = a2;
@@ -92,33 +92,31 @@ LABEL_7:
 
     v11 = 0;
 LABEL_12:
-    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [v8 addObject:{objc_msgSend(*(*(&v17 + 1) + 8 * i), "columnName", v17)}];
+          [v8 addObject:{objc_msgSend(*(*(&v16 + 1) + 8 * i), "columnName", v16)}];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v13);
     }
 
-    [create addColumnNames:v8 forTableName:{objc_msgSend(a2, "tableName", v17)}];
+    [create addColumnNames:v8 forTableName:{objc_msgSend(a2, "tableName", v16)}];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

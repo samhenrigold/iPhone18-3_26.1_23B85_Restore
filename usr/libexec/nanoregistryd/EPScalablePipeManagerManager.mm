@@ -30,24 +30,24 @@
 
 - (void)destroyResource
 {
-  v8.receiver = self;
-  v8.super_class = EPScalablePipeManagerManager;
-  [(EPResourceManager *)&v8 destroyResource];
+  v10.receiver = self;
+  v10.super_class = EPScalablePipeManagerManager;
+  destroyResource = [(EPResourceManager *)&v10 destroyResource];
   if (self->_didRequestEndpoint)
   {
     self->_didRequestEndpoint = 0;
-    v3 = sub_1000A98C0();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    v4 = sub_1000A98C0(destroyResource);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-    if (v4)
+    if (v5)
     {
-      v5 = sub_1000A98C0();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_1000A98C0(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         name = self->_name;
         *buf = 138412290;
-        v10 = name;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "EPScalablePipeManagerManager: Calling CoreBluetooth unregisterEndpoint: %@", buf, 0xCu);
+        v12 = name;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "EPScalablePipeManagerManager: Calling CoreBluetooth unregisterEndpoint: %@", buf, 0xCu);
       }
     }
 
@@ -109,20 +109,21 @@
     if (self->_endpointIsRegistered)
     {
       self->_endpointIsRegistered = 0;
-      if ([(CBScalablePipeManager *)self->_manager state]== 5 || [(CBScalablePipeManager *)self->_manager state]== 10)
+      state = [(CBScalablePipeManager *)self->_manager state];
+      if (state == 5 || (state = [(CBScalablePipeManager *)self->_manager state], state == 10))
       {
-        v11 = sub_1000A98C0();
-        v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+        v13 = sub_1000A98C0(state);
+        v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-        if (v12)
+        if (v14)
         {
-          v13 = sub_1000A98C0();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v16 = sub_1000A98C0(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             name = self->_name;
             *buf = 138412290;
-            v24 = name;
-            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "EPScalablePipeManagerManager: Calling CoreBluetooth unregisterEndpoint: %@", buf, 0xCu);
+            v27 = name;
+            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "EPScalablePipeManagerManager: Calling CoreBluetooth unregisterEndpoint: %@", buf, 0xCu);
           }
         }
 
@@ -133,22 +134,22 @@
     return;
   }
 
-  state = [(CBScalablePipeManager *)self->_manager state];
+  state2 = [(CBScalablePipeManager *)self->_manager state];
   v4 = 0;
-  if (state <= 3)
+  if (state2 <= 3)
   {
-    if (state == 2)
+    if (state2 == 2)
     {
-      v19 = NSLocalizedDescriptionKey;
-      v20 = @"Bluetooth is not supported";
-      v15 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-      v16 = 3;
+      v22 = NSLocalizedDescriptionKey;
+      v23 = @"Bluetooth is not supported";
+      v18 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v19 = 3;
     }
 
     else
     {
       v6 = 0;
-      if (state != 3)
+      if (state2 != 3)
       {
 LABEL_29:
         self->_didRequestEndpoint = 0;
@@ -159,29 +160,29 @@ LABEL_29:
         return;
       }
 
-      v17 = NSLocalizedDescriptionKey;
-      v18 = @"Bluetooth is unauthorized";
-      v15 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-      v16 = 4;
+      v20 = NSLocalizedDescriptionKey;
+      v21 = @"Bluetooth is unauthorized";
+      v18 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v19 = 4;
     }
 
 LABEL_28:
-    v4 = [NSError errorWithDomain:@"com.apple.extensiblepair.corebluetooth.scalablepipemanager" code:v16 userInfo:v15];
+    v4 = [NSError errorWithDomain:@"com.apple.extensiblepair.corebluetooth.scalablepipemanager" code:v19 userInfo:v18];
 
     v6 = 2;
     goto LABEL_29;
   }
 
-  if (state == 4)
+  if (state2 == 4)
   {
-    v21 = NSLocalizedDescriptionKey;
-    v22 = @"Bluetooth is powered off";
-    v15 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-    v16 = 2;
+    v24 = NSLocalizedDescriptionKey;
+    v25 = @"Bluetooth is powered off";
+    v18 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v19 = 2;
     goto LABEL_28;
   }
 
-  v5 = state == 10 || state == 5;
+  v5 = state2 == 10 || state2 == 5;
   v6 = 0;
   if (!v5)
   {
@@ -191,18 +192,18 @@ LABEL_28:
   if (!self->_didRequestEndpoint)
   {
     self->_didRequestEndpoint = 1;
-    v7 = sub_1000A98C0();
+    v7 = sub_1000A98C0(state2);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
     if (v8)
     {
-      v9 = sub_1000A98C0();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_1000A98C0(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = self->_name;
+        v11 = self->_name;
         *buf = 138412290;
-        v24 = v10;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "EPScalablePipeManagerManager: Calling CoreBluetooth registerEndpoint:type:priority: %@", buf, 0xCu);
+        v27 = v11;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "EPScalablePipeManagerManager: Calling CoreBluetooth registerEndpoint:type:priority: %@", buf, 0xCu);
       }
     }
 
@@ -309,49 +310,50 @@ LABEL_28:
   managerCopy = manager;
   endpointCopy = endpoint;
   errorCopy = error;
-  if ([endpointCopy isEqual:self->_name])
+  v11 = [endpointCopy isEqual:self->_name];
+  if (v11)
   {
     if (errorCopy)
     {
-      v11 = sub_1000A98C0();
-      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
+      v12 = sub_1000A98C0(v11);
+      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
 
-      if (v12)
+      if (v13)
       {
-        v13 = sub_1000A98C0();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = sub_1000A98C0(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          sub_1001035F0(endpointCopy, errorCopy, v13);
+          sub_1001035F0(endpointCopy, errorCopy, v15);
         }
       }
 
       selfCopy2 = self;
-      v15 = 2;
-      v16 = errorCopy;
+      v17 = 2;
+      v18 = errorCopy;
     }
 
     else
     {
       self->_endpointIsRegistered = 1;
       selfCopy2 = self;
-      v15 = 1;
-      v16 = 0;
+      v17 = 1;
+      v18 = 0;
     }
 
-    [(EPResourceManager *)selfCopy2 setAvailability:v15 withError:v16];
+    [(EPResourceManager *)selfCopy2 setAvailability:v17 withError:v18];
   }
 
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_1000CC30C;
-  v20[3] = &unk_1001759C0;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_1000CC30C;
+  v22[3] = &unk_1001759C0;
+  v23 = managerCopy;
+  v24 = endpointCopy;
+  v25 = errorCopy;
+  v19 = errorCopy;
+  v20 = endpointCopy;
   v21 = managerCopy;
-  v22 = endpointCopy;
-  v23 = errorCopy;
-  v17 = errorCopy;
-  v18 = endpointCopy;
-  v19 = managerCopy;
-  [(EPResourceManager *)self enumerateResourcesWithBlock:v20];
+  [(EPResourceManager *)self enumerateResourcesWithBlock:v22];
 }
 
 @end

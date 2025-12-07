@@ -44,7 +44,7 @@
 - (void)setAggregateZonePCSCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -75,7 +75,7 @@ LABEL_9:
 
 - (id)aggregateZonePCSCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -154,68 +154,61 @@ LABEL_9:
 
 - (BOOL)CKOperationShouldRun:(id *)run
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_database(self, a2, run);
   v8 = objc_msgSend_scope(v5, v6, v7);
 
-  if (v8 != 1)
+  if (v8 == 1)
   {
-    v14 = objc_msgSend_sourceZoneIDs(self, v9, v10);
-    if (objc_msgSend_count(v14, v15, v16))
+    if (run)
     {
-      v19 = objc_msgSend_targetZone(self, v17, v18);
+      v11 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v9, @"CKErrorDomain", 12, @"You can't execute this operation in the public database");
+      v12 = v11;
+      result = 0;
+      *run = v11;
+      return result;
+    }
 
-      if (!v19)
-      {
-        goto LABEL_17;
-      }
+    return 0;
+  }
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
-      v39 = 0u;
-      v14 = objc_msgSend_sourceZoneIDs(self, v20, v21);
-      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v22, &v38, v42, 16);
-      if (!v23)
-      {
-LABEL_14:
+  v14 = objc_msgSend_sourceZoneIDs(self, v9, v10);
+  if (!objc_msgSend_count(v14, v15, v16))
+  {
+    goto LABEL_16;
+  }
 
-        v30 = objc_msgSend_targetZone(self, v28, v29);
-        v33 = objc_msgSend_zoneID(v30, v31, v32);
-        v35 = objc_msgSend_zoneIDHasCorrectDatabaseScope_error_(self, v34, v33, run);
+  v19 = objc_msgSend_targetZone(self, v17, v18);
 
-        if (v35)
-        {
-          v37.receiver = self;
-          v37.super_class = CKAggregateZonePCSOperation;
-          result = [(CKDatabaseOperation *)&v37 CKOperationShouldRun:run];
-          goto LABEL_18;
-        }
-
-LABEL_17:
-        result = 0;
-        goto LABEL_18;
-      }
-
+  if (v19)
+  {
+    v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v14 = objc_msgSend_sourceZoneIDs(self, v20, v21);
+    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v22, &v37, v41, 16);
+    if (v23)
+    {
       v25 = v23;
-      v26 = *v39;
+      v26 = *v38;
 LABEL_8:
       v27 = 0;
       while (1)
       {
-        if (*v39 != v26)
+        if (*v38 != v26)
         {
           objc_enumerationMutation(v14);
         }
 
-        if (!objc_msgSend_zoneIDHasCorrectDatabaseScope_error_(self, v24, *(*(&v38 + 1) + 8 * v27), run))
+        if (!objc_msgSend_zoneIDHasCorrectDatabaseScope_error_(self, v24, *(*(&v37 + 1) + 8 * v27), run))
         {
           break;
         }
 
         if (v25 == ++v27)
         {
-          v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v24, &v38, v42, 16);
+          v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v24, &v37, v41, 16);
           if (v25)
           {
             goto LABEL_8;
@@ -224,23 +217,27 @@ LABEL_8:
           goto LABEL_14;
         }
       }
+
+LABEL_16:
+
+      return 0;
     }
 
-    goto LABEL_17;
+LABEL_14:
+
+    v30 = objc_msgSend_targetZone(self, v28, v29);
+    v33 = objc_msgSend_zoneID(v30, v31, v32);
+    v35 = objc_msgSend_zoneIDHasCorrectDatabaseScope_error_(self, v34, v33, run);
+
+    if (v35)
+    {
+      v36.receiver = self;
+      v36.super_class = CKAggregateZonePCSOperation;
+      return [(CKDatabaseOperation *)&v36 CKOperationShouldRun:run];
+    }
   }
 
-  if (!run)
-  {
-    goto LABEL_17;
-  }
-
-  v11 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v9, @"CKErrorDomain", 12, @"You can't execute this operation in the public database");
-  v12 = v11;
-  result = 0;
-  *run = v11;
-LABEL_18:
-  v36 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
@@ -341,7 +338,7 @@ LABEL_18:
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -394,28 +391,26 @@ LABEL_18:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKAggregateZonePCSOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKAggregateZonePCSOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -459,13 +454,11 @@ LABEL_18:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKAggregateZonePCSOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKAggregateZonePCSOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

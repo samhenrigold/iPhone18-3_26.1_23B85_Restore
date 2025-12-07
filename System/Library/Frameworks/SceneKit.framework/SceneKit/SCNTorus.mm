@@ -83,8 +83,8 @@
   self->_torusringRadius = C3DParametricGeometryGetFloatValue(model, 9);
   self->_toruspipeRadius = C3DParametricGeometryGetFloatValue(model, 10);
   self->_torusradialSpan = C3DParametricGeometryGetFloatValue(model, 21);
-  self->_torusringSegmentCount = C3DParametricGeometryGetRingSegmentCount(model);
-  self->_toruspipeSegmentCount = C3DParametricGeometryGetPipeSegmentCount(model);
+  self->_torusringSegmentCount = C3DParametricGeometryGetRingSegmentCount(model, v5);
+  self->_toruspipeSegmentCount = C3DParametricGeometryGetPipeSegmentCount(model, v6);
   self->_torusprimitiveType = C3DParametricGeometryGetIntValue(model, 20);
 }
 
@@ -96,16 +96,17 @@
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  PipeRadius = C3DParametricGeometryGetPipeRadius([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  PipeRadius = C3DParametricGeometryGetPipeRadius(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return PipeRadius;
@@ -113,10 +114,11 @@
 
 - (void)setPipeRadius:(CGFloat)pipeRadius
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNTorus setPipeRadius:];
     }
@@ -126,22 +128,22 @@
   {
     self->_toruspipeRadius = pipeRadius;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __26__SCNTorus_setPipeRadius___block_invoke;
-    v7[3] = &unk_2782FB7D0;
-    v7[4] = self;
-    *&v7[5] = pipeRadius;
-    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"pipeRadius" applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __26__SCNTorus_setPipeRadius___block_invoke;
+    v9[3] = &unk_2782FB7D0;
+    v9[4] = self;
+    *&v9[5] = pipeRadius;
+    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"pipeRadius" applyBlock:v9];
   }
 }
 
 void __26__SCNTorus_setPipeRadius___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) geometryRef];
-  v3 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  C3DParametricGeometrySetPipeRadius(v2, v3);
+  C3DParametricGeometrySetPipeRadius(v2, v3, v4);
 }
 
 - (NSInteger)pipeSegmentCount
@@ -152,16 +154,17 @@ void __26__SCNTorus_setPipeRadius___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  PipeSegmentCount = C3DParametricGeometryGetPipeSegmentCount([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  PipeSegmentCount = C3DParametricGeometryGetPipeSegmentCount(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return PipeSegmentCount;
@@ -169,10 +172,11 @@ void __26__SCNTorus_setPipeRadius___block_invoke(uint64_t a1)
 
 - (void)setPipeSegmentCount:(NSInteger)pipeSegmentCount
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNTorus setPipeSegmentCount:];
     }
@@ -182,13 +186,13 @@ void __26__SCNTorus_setPipeRadius___block_invoke(uint64_t a1)
   {
     self->_toruspipeSegmentCount = pipeSegmentCount;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __32__SCNTorus_setPipeSegmentCount___block_invoke;
-    v7[3] = &unk_2782FB7D0;
-    v7[4] = self;
-    v7[5] = pipeSegmentCount;
-    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"pipeSegmentCount" applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __32__SCNTorus_setPipeSegmentCount___block_invoke;
+    v9[3] = &unk_2782FB7D0;
+    v9[4] = self;
+    v9[5] = pipeSegmentCount;
+    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"pipeSegmentCount" applyBlock:v9];
   }
 }
 
@@ -208,16 +212,17 @@ void __32__SCNTorus_setPipeSegmentCount___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  PrimitiveType = C3DParametricGeometryGetPrimitiveType([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  PrimitiveType = C3DParametricGeometryGetPrimitiveType(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return PrimitiveType;
@@ -225,10 +230,11 @@ void __32__SCNTorus_setPipeSegmentCount___block_invoke(uint64_t a1)
 
 - (void)setPrimitiveType:(int64_t)type
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNTorus setPrimitiveType:];
     }
@@ -238,13 +244,13 @@ void __32__SCNTorus_setPipeSegmentCount___block_invoke(uint64_t a1)
   {
     self->_torusprimitiveType = type;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __29__SCNTorus_setPrimitiveType___block_invoke;
-    v7[3] = &unk_2782FB7D0;
-    v7[4] = self;
-    v7[5] = type;
-    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __29__SCNTorus_setPrimitiveType___block_invoke;
+    v9[3] = &unk_2782FB7D0;
+    v9[4] = self;
+    v9[5] = type;
+    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v9];
   }
 }
 
@@ -264,16 +270,17 @@ void __29__SCNTorus_setPrimitiveType___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  RadialSpan = C3DParametricGeometryGetRadialSpan([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  RadialSpan = C3DParametricGeometryGetRadialSpan(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return RadialSpan;
@@ -281,10 +288,11 @@ void __29__SCNTorus_setPrimitiveType___block_invoke(uint64_t a1)
 
 - (void)setRadialSpan:(double)span
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNTorus setRadialSpan:];
     }
@@ -294,22 +302,22 @@ void __29__SCNTorus_setPrimitiveType___block_invoke(uint64_t a1)
   {
     self->_torusradialSpan = span;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __26__SCNTorus_setRadialSpan___block_invoke;
-    v7[3] = &unk_2782FB7D0;
-    v7[4] = self;
-    *&v7[5] = span;
-    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"radialSpan" applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __26__SCNTorus_setRadialSpan___block_invoke;
+    v9[3] = &unk_2782FB7D0;
+    v9[4] = self;
+    *&v9[5] = span;
+    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"radialSpan" applyBlock:v9];
   }
 }
 
 void __26__SCNTorus_setRadialSpan___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) geometryRef];
-  v3 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  C3DParametricGeometrySetRadialSpan(v2, v3);
+  C3DParametricGeometrySetRadialSpan(v2, v3, v4);
 }
 
 - (CGFloat)ringRadius
@@ -320,16 +328,17 @@ void __26__SCNTorus_setRadialSpan___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  RingRadius = C3DParametricGeometryGetRingRadius([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  RingRadius = C3DParametricGeometryGetRingRadius(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return RingRadius;
@@ -337,10 +346,11 @@ void __26__SCNTorus_setRadialSpan___block_invoke(uint64_t a1)
 
 - (void)setRingRadius:(CGFloat)ringRadius
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNTorus setRingRadius:];
     }
@@ -350,22 +360,22 @@ void __26__SCNTorus_setRadialSpan___block_invoke(uint64_t a1)
   {
     self->_torusringRadius = ringRadius;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __26__SCNTorus_setRingRadius___block_invoke;
-    v7[3] = &unk_2782FB7D0;
-    v7[4] = self;
-    *&v7[5] = ringRadius;
-    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"ringRadius" applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __26__SCNTorus_setRingRadius___block_invoke;
+    v9[3] = &unk_2782FB7D0;
+    v9[4] = self;
+    *&v9[5] = ringRadius;
+    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"ringRadius" applyBlock:v9];
   }
 }
 
 void __26__SCNTorus_setRingRadius___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) geometryRef];
-  v3 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  C3DParametricGeometrySetRingRadius(v2, v3);
+  C3DParametricGeometrySetRingRadius(v2, v3, v4);
 }
 
 - (NSInteger)ringSegmentCount
@@ -376,16 +386,17 @@ void __26__SCNTorus_setRingRadius___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  RingSegmentCount = C3DParametricGeometryGetRingSegmentCount([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  RingSegmentCount = C3DParametricGeometryGetRingSegmentCount(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return RingSegmentCount;
@@ -393,10 +404,11 @@ void __26__SCNTorus_setRingRadius___block_invoke(uint64_t a1)
 
 - (void)setRingSegmentCount:(NSInteger)ringSegmentCount
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNTorus setRingSegmentCount:];
     }
@@ -406,13 +418,13 @@ void __26__SCNTorus_setRingRadius___block_invoke(uint64_t a1)
   {
     self->_torusringSegmentCount = ringSegmentCount;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __32__SCNTorus_setRingSegmentCount___block_invoke;
-    v7[3] = &unk_2782FB7D0;
-    v7[4] = self;
-    v7[5] = ringSegmentCount;
-    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"ringSegmentCount" applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __32__SCNTorus_setRingSegmentCount___block_invoke;
+    v9[3] = &unk_2782FB7D0;
+    v9[4] = self;
+    v9[5] = ringSegmentCount;
+    [SCNTransaction postCommandWithContext:sceneRef object:self key:@"ringSegmentCount" applyBlock:v9];
   }
 }
 
@@ -426,24 +438,24 @@ void __32__SCNTorus_setRingSegmentCount___block_invoke(uint64_t a1)
 
 - (BOOL)getBoundingBoxMin:(SCNVector3 *)min max:(SCNVector3 *)max
 {
+  v26 = 0.0;
+  v25 = 0;
   v24 = 0.0;
   v23 = 0;
-  v22 = 0.0;
-  v21 = 0;
   if ([(SCNGeometry *)self isPresentationInstance])
   {
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v8 = sceneRef;
+    v9 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v8);
     }
 
     if ([(SCNGeometry *)self geometryRef])
     {
-      C3DTorusGetBoundingBox([(SCNGeometry *)self geometryRef], &v23, &v21);
-      v10 = v9;
-      if (!v8)
+      C3DTorusGetBoundingBox([(SCNGeometry *)self geometryRef], &v25, &v23);
+      v12 = v11;
+      if (!v9)
       {
         goto LABEL_12;
       }
@@ -451,11 +463,11 @@ void __32__SCNTorus_setRingSegmentCount___block_invoke(uint64_t a1)
       goto LABEL_11;
     }
 
-    v10 = 0;
-    if (v8)
+    v12 = 0;
+    if (v9)
     {
 LABEL_11:
-      C3DSceneUnlock(v8);
+      C3DSceneUnlock(v9, v10);
     }
   }
 
@@ -463,102 +475,102 @@ LABEL_11:
   {
     if ([(SCNGeometry *)self _hasFixedBoundingBoxExtrema])
     {
-      v20.receiver = self;
-      v20.super_class = SCNTorus;
-      return [(SCNGeometry *)&v20 getBoundingBoxMin:min max:max];
+      v22.receiver = self;
+      v22.super_class = SCNTorus;
+      return [(SCNGeometry *)&v22 getBoundingBoxMin:min max:max];
     }
 
     [(SCNTorus *)self ringRadius];
-    v12 = v11;
-    [(SCNTorus *)self pipeRadius];
     v14 = v13;
-    v15.i64[0] = v12;
-    C3DTorusGetBoundingBoxForTorusParameters(&v23, &v21, v15, v14);
-    v10 = v16;
+    [(SCNTorus *)self pipeRadius];
+    v16 = v15;
+    v17.i64[0] = v14;
+    C3DTorusGetBoundingBoxForTorusParameters(&v25, &v23, v17, v16);
+    v12 = v18;
   }
 
 LABEL_12:
   if (min)
   {
-    v17 = v24;
-    *&min->x = v23;
-    min->z = v17;
+    v19 = v26;
+    *&min->x = v25;
+    min->z = v19;
   }
 
   if (max)
   {
-    v18 = v22;
-    *&max->x = v21;
-    max->z = v18;
+    v20 = v24;
+    *&max->x = v23;
+    max->z = v20;
   }
 
-  return v10;
+  return v12;
 }
 
 - (BOOL)getBoundingSphereCenter:(SCNVector3 *)center radius:(double *)radius
 {
-  v16 = 0uLL;
+  v18 = 0uLL;
   if ([(SCNGeometry *)self isPresentationInstance])
   {
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v8 = sceneRef;
+    v9 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v8);
     }
 
-    if ([(SCNGeometry *)self geometryRef]&& C3DTorusGetBoundingSphere([(SCNGeometry *)self geometryRef], &v16))
+    if ([(SCNGeometry *)self geometryRef]&& C3DTorusGetBoundingSphere([(SCNGeometry *)self geometryRef], &v18))
     {
       if (center)
       {
-        v9 = *(&v16 + 2);
-        *&center->x = v16;
-        center->z = v9;
+        v11 = *(&v18 + 2);
+        *&center->x = v18;
+        center->z = v11;
       }
 
       if (radius)
       {
-        *radius = *(&v16 + 3);
+        *radius = *(&v18 + 3);
       }
 
-      v10 = 1;
-      if (!v8)
+      v12 = 1;
+      if (!v9)
       {
-        return v10;
+        return v12;
       }
     }
 
     else
     {
-      v10 = 0;
-      if (!v8)
+      v12 = 0;
+      if (!v9)
       {
-        return v10;
+        return v12;
       }
     }
 
-    C3DSceneUnlock(v8);
-    return v10;
+    C3DSceneUnlock(v9, v10);
+    return v12;
   }
 
   [(SCNTorus *)self ringRadius];
-  v12 = v11;
+  v14 = v13;
   [(SCNTorus *)self pipeRadius];
-  if (!C3DTorusGetBoundingSphereForTorusParameters(&v16, v12, v13))
+  if (!C3DTorusGetBoundingSphereForTorusParameters(&v18, v14, v15))
   {
     return 0;
   }
 
   if (center)
   {
-    v14 = *(&v16 + 2);
-    *&center->x = v16;
-    center->z = v14;
+    v16 = *(&v18 + 2);
+    *&center->x = v18;
+    center->z = v16;
   }
 
   if (radius)
   {
-    *radius = *(&v16 + 3);
+    *radius = *(&v18 + 3);
   }
 
   return 1;
@@ -654,44 +666,50 @@ LABEL_12:
 
 - (void)setPipeRadius:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setPipeSegmentCount:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setPrimitiveType:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setRadialSpan:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setRingRadius:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setRingSegmentCount:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 @end

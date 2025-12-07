@@ -1,5 +1,6 @@
 @interface AWDWiFiNWActivityPerACTxCompletions
 - (BOOL)isEqual:(id)equal;
+- (id)acAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -39,6 +40,19 @@
   else
   {
     return 0;
+  }
+}
+
+- (id)acAsString:(int)string
+{
+  if (string >= 6)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE332E0[string];
   }
 }
 
@@ -563,7 +577,6 @@ LABEL_22:
   has = self->_has;
   if (*&has)
   {
-    ac = self->_ac;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((*&has & 0x8000) == 0)
@@ -583,7 +596,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  success = self->_success;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -598,7 +610,6 @@ LABEL_4:
   }
 
 LABEL_21:
-  durSinceLastSuccessfulComp = self->_durSinceLastSuccessfulComp;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -613,7 +624,6 @@ LABEL_5:
   }
 
 LABEL_22:
-  failedComp = self->_failedComp;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -628,7 +638,6 @@ LABEL_6:
   }
 
 LABEL_23:
-  durSinceLastFailedComp = self->_durSinceLastFailedComp;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -643,7 +652,6 @@ LABEL_7:
   }
 
 LABEL_24:
-  expiredComp = self->_expiredComp;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -658,7 +666,6 @@ LABEL_8:
   }
 
 LABEL_25:
-  noAckComp = self->_noAckComp;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -673,7 +680,6 @@ LABEL_9:
   }
 
 LABEL_26:
-  otherErrComp = self->_otherErrComp;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -688,7 +694,6 @@ LABEL_10:
   }
 
 LABEL_27:
-  durSinceLastEnqueue = self->_durSinceLastEnqueue;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -703,7 +708,6 @@ LABEL_11:
   }
 
 LABEL_28:
-  qeuedPackets = self->_qeuedPackets;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -718,7 +722,6 @@ LABEL_12:
   }
 
 LABEL_29:
-  sinceLastEnqueueHowManyFailed = self->_sinceLastEnqueueHowManyFailed;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -733,7 +736,6 @@ LABEL_13:
   }
 
 LABEL_30:
-  sinceLastEnqueueHowManySuccess = self->_sinceLastEnqueueHowManySuccess;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -748,7 +750,6 @@ LABEL_14:
   }
 
 LABEL_31:
-  sinceLastSuccessHowManyFailed = self->_sinceLastSuccessHowManyFailed;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -763,7 +764,6 @@ LABEL_15:
   }
 
 LABEL_32:
-  durSinceLastEnqueueAtLastCheck = self->_durSinceLastEnqueueAtLastCheck;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -775,7 +775,6 @@ LABEL_16:
     }
 
 LABEL_34:
-    failedCompletionsAtLastCheck = self->_failedCompletionsAtLastCheck;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -786,7 +785,6 @@ LABEL_34:
   }
 
 LABEL_33:
-  successfulCompletionsAtLastCheck = self->_successfulCompletionsAtLastCheck;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) != 0)
@@ -801,7 +799,6 @@ LABEL_17:
   }
 
 LABEL_35:
-  dpsNotifications = self->_dpsNotifications;
 
   PBDataWriterWriteUint32Field();
 }

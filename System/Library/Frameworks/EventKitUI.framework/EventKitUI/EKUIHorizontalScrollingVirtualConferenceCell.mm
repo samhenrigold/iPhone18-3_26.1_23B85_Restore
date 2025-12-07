@@ -55,28 +55,28 @@
     v21 = NSStringFromClass(v20);
     [(UICollectionView *)v18 registerClass:v19 forCellWithReuseIdentifier:v21];
 
-    contentView = [(EKUIHorizontalScrollingVirtualConferenceCell *)v4 contentView];
-    [contentView addSubview:v4->_items];
+    v22 = objc_msgSend_contentView(v4);
+    [v22 addSubview:v4->_items];
 
     v35 = MEMORY[0x1E696ACD8];
     leadingAnchor = [(UICollectionView *)v4->_items leadingAnchor];
-    contentView2 = [(EKUIHorizontalScrollingVirtualConferenceCell *)v4 contentView];
-    leadingAnchor2 = [contentView2 leadingAnchor];
+    v43 = objc_msgSend_contentView(v4);
+    leadingAnchor2 = [v43 leadingAnchor];
     v40 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
     v52[0] = v40;
     topAnchor = [(UICollectionView *)v4->_items topAnchor];
-    contentView3 = [(EKUIHorizontalScrollingVirtualConferenceCell *)v4 contentView];
-    topAnchor2 = [contentView3 topAnchor];
+    v39 = objc_msgSend_contentView(v4);
+    topAnchor2 = [v39 topAnchor];
     v36 = [topAnchor constraintEqualToAnchor:topAnchor2];
     v52[1] = v36;
     bottomAnchor = [(UICollectionView *)v4->_items bottomAnchor];
-    contentView4 = [(EKUIHorizontalScrollingVirtualConferenceCell *)v4 contentView];
-    bottomAnchor2 = [contentView4 bottomAnchor];
+    v34 = objc_msgSend_contentView(v4);
+    bottomAnchor2 = [v34 bottomAnchor];
     v24 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
     v52[2] = v24;
     trailingAnchor = [(UICollectionView *)v4->_items trailingAnchor];
-    contentView5 = [(EKUIHorizontalScrollingVirtualConferenceCell *)v4 contentView];
-    trailingAnchor2 = [contentView5 trailingAnchor];
+    v26 = objc_msgSend_contentView(v4);
+    trailingAnchor2 = [v26 trailingAnchor];
     v28 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
     v52[3] = v28;
     heightAnchor = [(UICollectionView *)v4->_items heightAnchor];

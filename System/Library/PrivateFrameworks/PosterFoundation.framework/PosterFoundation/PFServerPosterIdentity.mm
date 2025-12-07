@@ -11,10 +11,10 @@
 - (NSString)debugDescription;
 - (NSString)description;
 - (NSString)stablePersistenceIdentifier;
+- (PFServerPosterIdentity)_initWithProvider:(int64_t)provider type:(void *)type role:(void *)role posterUUID:(unint64_t)d version:(unint64_t)version supplement:(void *)supplement descriptorIdentifier:(BOOL)identifier isIncomingConfiguration:;
 - (PFServerPosterIdentity)init;
 - (PFServerPosterIdentity)initWithBSXPCCoder:(id)coder;
 - (PFServerPosterIdentity)initWithCoder:(id)coder;
-- (id)_initWithProvider:(uint64_t)provider type:(void *)type role:(void *)role posterUUID:(uint64_t)d version:(uint64_t)version supplement:(void *)supplement descriptorIdentifier:(char)identifier isIncomingConfiguration:;
 - (int64_t)compare:(id)compare;
 - (uint64_t)_isRootEqual:(uint64_t)equal;
 - (unint64_t)hash;
@@ -59,7 +59,7 @@
   return result;
 }
 
-- (id)_initWithProvider:(uint64_t)provider type:(void *)type role:(void *)role posterUUID:(uint64_t)d version:(uint64_t)version supplement:(void *)supplement descriptorIdentifier:(char)identifier isIncomingConfiguration:
+- (PFServerPosterIdentity)_initWithProvider:(int64_t)provider type:(void *)type role:(void *)role posterUUID:(unint64_t)d version:(unint64_t)version supplement:(void *)supplement descriptorIdentifier:(BOOL)identifier isIncomingConfiguration:
 {
   v16 = a2;
   typeCopy = type;
@@ -84,29 +84,29 @@
 
     v34.receiver = self;
     v34.super_class = PFServerPosterIdentity;
-    self = objc_msgSendSuper2(&v34, sel_init);
+    self = [(PFServerPosterIdentity *)&v34 init];
     if (self)
     {
       v20 = [v16 copy];
-      v21 = *(self + 2);
-      *(self + 2) = v20;
+      provider = self->_provider;
+      self->_provider = v20;
 
-      *(self + 3) = provider;
+      self->_type = provider;
       v22 = [typeCopy copy];
-      v23 = *(self + 8);
-      *(self + 8) = v22;
+      role = self->_role;
+      self->_role = v22;
 
       v24 = [roleCopy copy];
-      v25 = *(self + 4);
-      *(self + 4) = v24;
+      posterUUID = self->_posterUUID;
+      self->_posterUUID = v24;
 
-      *(self + 5) = d;
-      *(self + 6) = version;
+      self->_version = d;
+      self->_supplement = version;
       v26 = [supplementCopy copy];
-      v27 = *(self + 7);
-      *(self + 7) = v26;
+      descriptorIdentifier = self->_descriptorIdentifier;
+      self->_descriptorIdentifier = v26;
 
-      *(self + 8) = identifier;
+      self->_isIncomingConfiguration = identifier;
       if ((__disableUniquing & 1) == 0)
       {
         os_unfair_lock_lock(&__allIdentitiesLock);
@@ -254,7 +254,7 @@
 
 + (id)configurationIdentityWithProvider:(id)provider identifier:(id)identifier role:(id)role posterUUID:(id)d version:(unint64_t)version supplement:(unint64_t)supplement
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   identifierCopy = identifier;
   roleCopy = role;
@@ -301,17 +301,17 @@
   else
   {
     v21 = PFPosterDefaultRoleForBundleIdentifier(v18);
-    v22 = PFLogPosterContents();
+    v22 = PFLogPosterContents(v21);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446978;
-      v28 = "+[PFServerPosterIdentity configurationIdentityWithProvider:identifier:role:posterUUID:version:supplement:]";
-      v29 = 2114;
-      v30 = roleCopy;
-      v31 = 2114;
-      v32 = v21;
-      v33 = 2114;
-      v34 = v18;
+      v27 = "+[PFServerPosterIdentity configurationIdentityWithProvider:identifier:role:posterUUID:version:supplement:]";
+      v28 = 2114;
+      v29 = roleCopy;
+      v30 = 2114;
+      v31 = v21;
+      v32 = 2114;
+      v33 = v18;
       _os_log_error_impl(&dword_1C269D000, v22, OS_LOG_TYPE_ERROR, "[Invalid Role][%{public}s] role %{public}@ was invalid, recovered: %{public}@ for provider: %{public}@", buf, 0x2Au);
     }
   }
@@ -329,7 +329,6 @@
   }
 
   v24 = [[PFServerPosterIdentity alloc] _initWithProvider:v18 type:3 role:v23 posterUUID:v20 version:version supplement:supplement descriptorIdentifier:v19];
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -518,11 +517,11 @@ LABEL_5:
 
 - (BOOL)setupPersistenceForPathContainerURL:(id)l error:(id *)error
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   lCopy = l;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   provider = [(PFServerPosterIdentity *)self provider];
-  v67 = lCopy;
+  v70 = lCopy;
   v7 = [lCopy URLByAppendingPathComponent:provider];
 
   v8 = MEMORY[0x1E695DFF8];
@@ -536,13 +535,13 @@ LABEL_5:
   v15 = [v12 pf_posterPathInstanceURLForProviderURL:v7 type:type2 posterUUID:posterUUID2 version:{-[PFServerPosterIdentity version](self, "version")}];
 
   v16 = [MEMORY[0x1E695DFF8] pf_roleIdentifierURLForType:-[PFServerPosterIdentity type](self identifierURL:{"type"), v11}];
-  v66 = v11;
+  v69 = v11;
   v17 = [MEMORY[0x1E695DFF8] pf_descriptorIdentifierURLForType:-[PFServerPosterIdentity type](self identifierURL:{"type"), v11}];
   role = [(PFServerPosterIdentity *)self role];
   if ([v16 checkResourceIsReachableAndReturnError:0])
   {
 LABEL_4:
-    v64 = role;
+    v67 = role;
     descriptorIdentifier = [(PFServerPosterIdentity *)self descriptorIdentifier];
     if (([v17 checkResourceIsReachableAndReturnError:0] & 1) == 0)
     {
@@ -550,15 +549,15 @@ LABEL_4:
       v25 = v15;
       v19 = descriptorIdentifier;
       v22 = [descriptorIdentifier dataUsingEncoding:4];
-      v79 = 0;
-      v26 = [v22 writeToURL:v17 options:268435457 error:&v79];
-      v27 = v79;
+      v82 = 0;
+      v26 = [v22 writeToURL:v17 options:268435457 error:&v82];
+      v27 = v82;
       v28 = v27;
       if ((v26 & 1) == 0)
       {
-        v52 = v17;
-        v53 = PFLogCommon();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+        v56 = v17;
+        v57 = PFLogCommon(v27);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
           [PFServerPosterIdentity setupPersistenceForPathContainerURL:error:];
         }
@@ -566,19 +565,19 @@ LABEL_4:
         v15 = v25;
         if (error)
         {
-          v54 = v28;
-          v44 = 0;
+          v58 = v28;
+          v48 = 0;
           *error = v28;
         }
 
         else
         {
-          v44 = 0;
+          v48 = 0;
         }
 
         v7 = v24;
-        v17 = v52;
-        v49 = v66;
+        v17 = v56;
+        v53 = v69;
         goto LABEL_54;
       }
 
@@ -589,167 +588,169 @@ LABEL_4:
 
     v19 = descriptorIdentifier;
     v22 = [MEMORY[0x1E695DFF8] pf_posterPathScratchURLForInstanceURL:v15];
-    if (([v22 checkResourceIsReachableAndReturnError:0] & 1) == 0)
+    v29 = [v22 checkResourceIsReachableAndReturnError:0];
+    if ((v29 & 1) == 0)
     {
-      v62 = v17;
-      v29 = v7;
-      v30 = v15;
-      v31 = PFFileProtectionNoneAttributes();
-      v78 = 0;
-      v32 = [defaultManager createDirectoryAtURL:v22 withIntermediateDirectories:1 attributes:v31 error:&v78];
-      v28 = v78;
+      v65 = v17;
+      v30 = v7;
+      v31 = v15;
+      v32 = PFFileProtectionNoneAttributes(v29);
+      v81 = 0;
+      v33 = [defaultManager createDirectoryAtURL:v22 withIntermediateDirectories:1 attributes:v32 error:&v81];
+      v28 = v81;
 
-      if ((v32 & 1) == 0)
+      if ((v33 & 1) == 0)
       {
-        v55 = PFLogCommon();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+        v59 = PFLogCommon(v34);
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
         {
           [PFServerPosterIdentity setupPersistenceForPathContainerURL:error:];
         }
 
-        v15 = v30;
-        v49 = v66;
+        v15 = v31;
+        v53 = v69;
         if (error)
         {
-          v56 = v28;
-          v44 = 0;
+          v60 = v28;
+          v48 = 0;
           *error = v28;
         }
 
         else
         {
-          v44 = 0;
+          v48 = 0;
         }
 
-        v7 = v29;
-        v17 = v62;
+        v7 = v30;
+        v17 = v65;
         goto LABEL_54;
       }
 
-      v15 = v30;
-      v7 = v29;
-      v17 = v62;
+      v15 = v31;
+      v7 = v30;
+      v17 = v65;
     }
 
-    v33 = MEMORY[0x1E695DFF8];
+    v35 = MEMORY[0x1E695DFF8];
     supplement = [(PFServerPosterIdentity *)self supplement];
-    v63 = v15;
-    v28 = [v33 pf_posterPathSupplementURLForInstanceURL:v15 supplement:supplement];
-    if (([v28 checkResourceIsReachableAndReturnError:0] & 1) == 0)
+    v66 = v15;
+    v28 = [v35 pf_posterPathSupplementURLForInstanceURL:v15 supplement:supplement];
+    v37 = [v28 checkResourceIsReachableAndReturnError:0];
+    if ((v37 & 1) == 0)
     {
-      v35 = v17;
-      v36 = PFFileProtectionNoneAttributes();
-      v77 = 0;
-      v37 = [defaultManager createDirectoryAtURL:v28 withIntermediateDirectories:1 attributes:v36 error:&v77];
-      v38 = v77;
+      v38 = v17;
+      v39 = PFFileProtectionNoneAttributes(v37);
+      v80 = 0;
+      v40 = [defaultManager createDirectoryAtURL:v28 withIntermediateDirectories:1 attributes:v39 error:&v80];
+      v41 = v80;
 
-      if ((v37 & 1) == 0)
+      if ((v40 & 1) == 0)
       {
-        v57 = PFLogCommon();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+        v61 = PFLogCommon(v42);
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
         {
           [PFServerPosterIdentity setupPersistenceForPathContainerURL:error:];
         }
 
-        v49 = v66;
+        v53 = v69;
         if (error)
         {
-          v58 = v38;
-          v44 = 0;
-          *error = v38;
+          v62 = v41;
+          v48 = 0;
+          *error = v41;
         }
 
         else
         {
-          v44 = 0;
+          v48 = 0;
         }
 
-        v15 = v63;
+        v15 = v66;
         goto LABEL_53;
       }
 
-      v17 = v35;
+      v17 = v38;
     }
 
-    v75 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     v76 = 0u;
-    v73 = 0u;
+    v77 = 0u;
+    v86[0] = v16;
+    v86[1] = v17;
+    v38 = v17;
+    v86[2] = v28;
+    v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v86 count:3];
+    v44 = [v43 countByEnumeratingWithState:&v76 objects:v87 count:16];
+    if (v44)
+    {
+      v45 = v44;
+      v46 = *v77;
+      do
+      {
+        for (i = 0; i != v45; ++i)
+        {
+          if (*v77 != v46)
+          {
+            objc_enumerationMutation(v43);
+          }
+
+          [*(*(&v76 + 1) + 8 * i) pf_setExcludedFromBackup:0 error:0];
+        }
+
+        v45 = [v43 countByEnumeratingWithState:&v76 objects:v87 count:16];
+      }
+
+      while (v45);
+    }
+
     v74 = 0u;
-    v83[0] = v16;
-    v83[1] = v17;
-    v35 = v17;
-    v83[2] = v28;
-    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:3];
-    v40 = [v39 countByEnumeratingWithState:&v73 objects:v84 count:16];
-    if (v40)
-    {
-      v41 = v40;
-      v42 = *v74;
-      do
-      {
-        for (i = 0; i != v41; ++i)
-        {
-          if (*v74 != v42)
-          {
-            objc_enumerationMutation(v39);
-          }
-
-          [*(*(&v73 + 1) + 8 * i) pf_setExcludedFromBackup:0 error:0];
-        }
-
-        v41 = [v39 countByEnumeratingWithState:&v73 objects:v84 count:16];
-      }
-
-      while (v41);
-    }
-
-    v71 = 0u;
+    v75 = 0u;
     v72 = 0u;
-    v69 = 0u;
-    v70 = 0u;
-    v81 = v22;
-    v44 = 1;
-    v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v81 count:1];
-    v45 = [v38 countByEnumeratingWithState:&v69 objects:v82 count:16];
-    if (v45)
+    v73 = 0u;
+    v84 = v22;
+    v48 = 1;
+    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v84 count:1];
+    v49 = [v41 countByEnumeratingWithState:&v72 objects:v85 count:16];
+    if (v49)
     {
-      v46 = v45;
-      v47 = *v70;
+      v50 = v49;
+      v51 = *v73;
       do
       {
-        for (j = 0; j != v46; ++j)
+        for (j = 0; j != v50; ++j)
         {
-          if (*v70 != v47)
+          if (*v73 != v51)
           {
-            objc_enumerationMutation(v38);
+            objc_enumerationMutation(v41);
           }
 
-          [*(*(&v69 + 1) + 8 * j) pf_setExcludedFromBackup:1 error:0];
+          [*(*(&v72 + 1) + 8 * j) pf_setExcludedFromBackup:1 error:0];
         }
 
-        v46 = [v38 countByEnumeratingWithState:&v69 objects:v82 count:16];
+        v50 = [v41 countByEnumeratingWithState:&v72 objects:v85 count:16];
       }
 
-      while (v46);
-      v44 = 1;
+      while (v50);
+      v48 = 1;
     }
 
-    v15 = v63;
-    v49 = v66;
+    v15 = v66;
+    v53 = v69;
 LABEL_53:
 
-    v17 = v35;
+    v17 = v38;
 LABEL_54:
 
-    v59 = v67;
-    role = v64;
+    v63 = v70;
+    role = v67;
     goto LABEL_55;
   }
 
   v19 = [role dataUsingEncoding:4];
-  v80 = 0;
-  v20 = [v19 writeToURL:v16 options:268435457 error:&v80];
-  v21 = v80;
+  v83 = 0;
+  v20 = [v19 writeToURL:v16 options:268435457 error:&v83];
+  v21 = v83;
   v22 = v21;
   if (v20)
   {
@@ -757,35 +758,34 @@ LABEL_54:
     goto LABEL_4;
   }
 
-  v50 = PFLogCommon();
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+  v54 = PFLogCommon(v21);
+  if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
   {
     [PFServerPosterIdentity setupPersistenceForPathContainerURL:error:];
   }
 
-  v49 = v66;
+  v53 = v69;
   if (error)
   {
-    v51 = v22;
-    v44 = 0;
+    v55 = v22;
+    v48 = 0;
     *error = v22;
   }
 
   else
   {
-    v44 = 0;
+    v48 = 0;
   }
 
-  v59 = v67;
+  v63 = v70;
 LABEL_55:
 
-  v60 = *MEMORY[0x1E69E9840];
-  return v44;
+  return v48;
 }
 
 + (id)debugDescription
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   os_unfair_lock_lock(&__allIdentitiesLock);
   allObjects = [__allIdentities allObjects];
@@ -793,32 +793,32 @@ LABEL_55:
 
   os_unfair_lock_unlock(&__allIdentitiesLock);
   v5 = [MEMORY[0x1E696AD60] stringWithFormat:@"allIdentities = %llu {", objc_msgSend(v4, "count")];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         [v5 appendString:@"\n\t"];
         v12 = [v11 debugDescription];
         [v5 appendString:v12];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -826,7 +826,6 @@ LABEL_55:
 
   [v5 appendString:@"\n}"];
   objc_autoreleasePoolPop(v2);
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -846,7 +845,7 @@ LABEL_55:
 
 - (PFServerPosterIdentity)initWithBSXPCCoder:(id)coder
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeStringForKey:@"p"];
   v6 = [coderCopy decodeInt64ForKey:@"t"];
@@ -868,17 +867,17 @@ LABEL_55:
   }
 
   v12 = PFPosterDefaultRoleForBundleIdentifier(v5);
-  v13 = PFLogPosterContents();
+  v13 = PFLogPosterContents(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446978;
-    v18 = "[PFServerPosterIdentity initWithBSXPCCoder:]";
-    v19 = 2114;
-    v20 = v11;
-    v21 = 2114;
-    v22 = v12;
-    v23 = 2114;
-    v24 = v5;
+    v17 = "[PFServerPosterIdentity initWithBSXPCCoder:]";
+    v18 = 2114;
+    v19 = v11;
+    v20 = 2114;
+    v21 = v12;
+    v22 = 2114;
+    v23 = v5;
     _os_log_error_impl(&dword_1C269D000, v13, OS_LOG_TYPE_ERROR, "[Invalid Role][%{public}s] role %{public}@ was invalid, recovered: %{public}@ for provider: %{public}@", buf, 0x2Au);
   }
 
@@ -894,7 +893,6 @@ LABEL_7:
 LABEL_10:
   v14 = [(PFServerPosterIdentity *)self _initWithProvider:v5 type:v6 role:v12 posterUUID:v7 version:v8 supplement:v9 descriptorIdentifier:v10];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -913,7 +911,7 @@ LABEL_10:
 
 - (PFServerPosterIdentity)initWithCoder:(id)coder
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"p"];
   v6 = [coderCopy decodeInt64ForKey:@"t"];
@@ -935,17 +933,17 @@ LABEL_10:
   }
 
   v12 = PFPosterDefaultRoleForBundleIdentifier(v5);
-  v13 = PFLogPosterContents();
+  v13 = PFLogPosterContents(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446978;
-    v18 = "[PFServerPosterIdentity initWithCoder:]";
-    v19 = 2114;
-    v20 = v11;
-    v21 = 2114;
-    v22 = v12;
-    v23 = 2114;
-    v24 = v5;
+    v17 = "[PFServerPosterIdentity initWithCoder:]";
+    v18 = 2114;
+    v19 = v11;
+    v20 = 2114;
+    v21 = v12;
+    v22 = 2114;
+    v23 = v5;
     _os_log_error_impl(&dword_1C269D000, v13, OS_LOG_TYPE_ERROR, "[Invalid Role][%{public}s] role %{public}@ was invalid, recovered: %{public}@ for provider: %{public}@", buf, 0x2Au);
   }
 
@@ -958,7 +956,6 @@ LABEL_7:
 LABEL_8:
   v14 = [(PFServerPosterIdentity *)self _initWithProvider:v5 type:v6 role:v12 posterUUID:v7 version:v8 supplement:v9 descriptorIdentifier:v10];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -978,19 +975,18 @@ LABEL_8:
   provider = self->_provider;
   v6 = NSStringFromPFServerPosterType(self->_type);
   v7 = v6;
-  version = self->_version;
   if (descriptorIdentifier)
   {
-    [v4 stringWithFormat:@"%@:%@:%@(%@)/%@/%llu-%llu", provider, v6, self->_descriptorIdentifier, self->_posterUUID, self->_role, version, self->_supplement];
+    [v4 stringWithFormat:@"%@:%@:%@(%@)/%@/%llu-%llu", provider, v6, self->_descriptorIdentifier, self->_posterUUID, self->_role, self->_version, self->_supplement];
   }
 
   else
   {
-    [v4 stringWithFormat:@"%@:%@:%@/%@/%llu-%llu", provider, v6, self->_posterUUID, self->_role, version, self->_supplement, v11];
+    [v4 stringWithFormat:@"%@:%@:%@/%@/%llu-%llu", provider, v6, self->_posterUUID, self->_role, self->_version, self->_supplement, v10];
   }
-  v9 = ;
+  v8 = ;
 
-  return v9;
+  return v8;
 }
 
 - (NSString)stablePersistenceIdentifier
@@ -1000,19 +996,18 @@ LABEL_8:
   provider = self->_provider;
   v6 = NSStringFromPFServerPosterType(self->_type);
   v7 = v6;
-  version = self->_version;
   if (descriptorIdentifier)
   {
-    [v4 stringWithFormat:@"%@_%@_%@(%@)_%@_%llu-%llu", provider, v6, self->_descriptorIdentifier, self->_posterUUID, self->_role, version, self->_supplement];
+    [v4 stringWithFormat:@"%@_%@_%@(%@)_%@_%llu-%llu", provider, v6, self->_descriptorIdentifier, self->_posterUUID, self->_role, self->_version, self->_supplement];
   }
 
   else
   {
-    [v4 stringWithFormat:@"%@_%@_%@_%@_%llu-%llu", provider, v6, self->_posterUUID, self->_role, version, self->_supplement, v11];
+    [v4 stringWithFormat:@"%@_%@_%@_%@_%llu-%llu", provider, v6, self->_posterUUID, self->_role, self->_version, self->_supplement, v10];
   }
-  v9 = ;
+  v8 = ;
 
-  return v9;
+  return v8;
 }
 
 - (NSString)debugDescription
@@ -1040,7 +1035,7 @@ LABEL_8:
     else
     {
       v5 = objc_opt_class();
-      if (v5 == objc_opt_class() && (*(equal + 24) == 3 || (v7 = *(equal + 56), v8 = v4[7], BSEqualStrings())) && (v9 = *(equal + 16), v10 = v4[2], BSEqualStrings()) && *(equal + 24) == v4[3] && (v11 = *(equal + 32), v12 = v4[4], BSEqualObjects()))
+      if (v5 == objc_opt_class() && (*(equal + 24) == 3 || BSEqualStrings()) && BSEqualStrings() && *(equal + 24) == v4[3] && BSEqualObjects())
       {
         equal = [*(equal + 64) isEqualToString:v4[8]];
       }
@@ -1065,7 +1060,7 @@ LABEL_8:
 
 - (void)_initWithProvider:(char *)a1 type:role:posterUUID:version:supplement:descriptorIdentifier:isIncomingConfiguration:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"PFServerPosterTypeIsValid(type)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1073,7 +1068,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"PFServerPosterTypeIsValid(type)", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1083,7 +1078,7 @@ LABEL_8:
 
 - (void)_initWithProvider:(char *)a1 type:role:posterUUID:version:supplement:descriptorIdentifier:isIncomingConfiguration:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"role"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1091,7 +1086,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"role", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1101,7 +1096,7 @@ LABEL_8:
 
 - (void)_initWithProvider:(char *)a1 type:role:posterUUID:version:supplement:descriptorIdentifier:isIncomingConfiguration:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"provider"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1109,7 +1104,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"provider", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1119,7 +1114,7 @@ LABEL_8:
 
 + (void)staticDescriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1127,7 +1122,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1137,7 +1132,7 @@ LABEL_8:
 
 + (void)staticDescriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1145,7 +1140,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1155,7 +1150,7 @@ LABEL_8:
 
 + (void)staticDescriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSUUIDClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1163,7 +1158,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSUUIDClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1173,7 +1168,7 @@ LABEL_8:
 
 + (void)staticDescriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1181,7 +1176,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1191,7 +1186,7 @@ LABEL_8:
 
 + (void)staticDescriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1199,7 +1194,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1209,7 +1204,7 @@ LABEL_8:
 
 + (void)staticDescriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1217,7 +1212,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1227,7 +1222,7 @@ LABEL_8:
 
 + (void)descriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1235,7 +1230,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1245,7 +1240,7 @@ LABEL_8:
 
 + (void)descriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1253,7 +1248,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1263,7 +1258,7 @@ LABEL_8:
 
 + (void)descriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSUUIDClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1271,7 +1266,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSUUIDClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1281,7 +1276,7 @@ LABEL_8:
 
 + (void)descriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1289,7 +1284,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1299,7 +1294,7 @@ LABEL_8:
 
 + (void)descriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1307,7 +1302,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1317,7 +1312,7 @@ LABEL_8:
 
 + (void)descriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1325,7 +1320,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1335,7 +1330,7 @@ LABEL_8:
 
 + (void)configurationIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:supplement:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1343,7 +1338,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1353,7 +1348,7 @@ LABEL_8:
 
 + (void)configurationIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:supplement:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1361,7 +1356,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1371,7 +1366,7 @@ LABEL_8:
 
 + (void)configurationIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:supplement:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSUUIDClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1379,7 +1374,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSUUIDClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1389,7 +1384,7 @@ LABEL_8:
 
 + (void)configurationIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:supplement:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1397,7 +1392,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1407,7 +1402,7 @@ LABEL_8:
 
 + (void)configurationIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:supplement:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1415,7 +1410,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1425,7 +1420,7 @@ LABEL_8:
 
 + (void)configurationIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:supplement:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1433,7 +1428,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1443,7 +1438,7 @@ LABEL_8:
 
 + (void)configurationIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:supplement:.cold.7(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1451,7 +1446,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1461,7 +1456,7 @@ LABEL_8:
 
 + (void)incomingConfigurationIdentityWithProvider:(char *)a1 role:posterUUID:version:supplement:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1469,7 +1464,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1479,7 +1474,7 @@ LABEL_8:
 
 + (void)incomingConfigurationIdentityWithProvider:(char *)a1 role:posterUUID:version:supplement:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSUUIDClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1487,7 +1482,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSUUIDClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1497,7 +1492,7 @@ LABEL_8:
 
 + (void)incomingConfigurationIdentityWithProvider:(char *)a1 role:posterUUID:version:supplement:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1505,7 +1500,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1515,7 +1510,7 @@ LABEL_8:
 
 + (void)incomingConfigurationIdentityWithProvider:(char *)a1 role:posterUUID:version:supplement:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1523,7 +1518,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1533,7 +1528,7 @@ LABEL_8:
 
 + (void)suggestionDescriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1541,7 +1536,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1551,7 +1546,7 @@ LABEL_8:
 
 + (void)suggestionDescriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1559,7 +1554,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1569,7 +1564,7 @@ LABEL_8:
 
 + (void)suggestionDescriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSUUIDClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1577,7 +1572,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSUUIDClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1587,7 +1582,7 @@ LABEL_8:
 
 + (void)suggestionDescriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1595,7 +1590,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1605,7 +1600,7 @@ LABEL_8:
 
 + (void)suggestionDescriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1613,7 +1608,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1623,7 +1618,7 @@ LABEL_8:
 
 + (void)suggestionDescriptorIdentityWithProvider:(char *)a1 identifier:role:posterUUID:version:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1631,7 +1626,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1641,7 +1636,7 @@ LABEL_8:
 
 - (void)compare:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"other"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1649,7 +1644,7 @@ LABEL_8:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"other", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1660,49 +1655,37 @@ LABEL_8:
 - (void)setupPersistenceForPathContainerURL:error:.cold.1()
 {
   OUTLINED_FUNCTION_5_1();
-  v10 = *MEMORY[0x1E69E9840];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_4(&dword_1C269D000, v2, v3, "[%{public}@ setupPersistenceForPathContainerURL:error:]> could not setup role URL: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_4(&dword_1C269D000, v2, v3, "[%{public}@ setupPersistenceForPathContainerURL:error:]> could not setup role URL: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)setupPersistenceForPathContainerURL:error:.cold.2()
 {
   OUTLINED_FUNCTION_5_1();
-  v10 = *MEMORY[0x1E69E9840];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_4(&dword_1C269D000, v2, v3, "[%{public}@ setupPersistenceForPathContainerURL:error:]> could not setup descriptor URL: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_4(&dword_1C269D000, v2, v3, "[%{public}@ setupPersistenceForPathContainerURL:error:]> could not setup descriptor URL: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)setupPersistenceForPathContainerURL:error:.cold.3()
 {
   OUTLINED_FUNCTION_5_1();
-  v10 = *MEMORY[0x1E69E9840];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_4(&dword_1C269D000, v2, v3, "[%{public}@ setupPersistenceForPathContainerURL:error:]> could not setup scratch URL: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_4(&dword_1C269D000, v2, v3, "[%{public}@ setupPersistenceForPathContainerURL:error:]> could not setup scratch URL: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)setupPersistenceForPathContainerURL:error:.cold.4()
 {
   OUTLINED_FUNCTION_5_1();
-  v10 = *MEMORY[0x1E69E9840];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_4(&dword_1C269D000, v2, v3, "[%{public}@ setupPersistenceForPathContainerURL:error:]> could not setup supplementURL: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_4(&dword_1C269D000, v2, v3, "[%{public}@ setupPersistenceForPathContainerURL:error:]> could not setup supplementURL: %{public}@", v4, v5, v6, v7);
 }
 
 @end

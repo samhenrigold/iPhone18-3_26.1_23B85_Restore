@@ -17,7 +17,7 @@
 
 - (RTInferredMapItem)initWithMapItem:(id)item confidence:(double)confidence source:(unint64_t)source
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   if (!itemCopy)
   {
@@ -25,9 +25,9 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTInferredMapItem initWithMapItem:confidence:source:]";
-      v21 = 1024;
-      v22 = 47;
+      v19 = "[RTInferredMapItem initWithMapItem:confidence:source:]";
+      v20 = 1024;
+      v21 = 47;
       _os_log_error_impl(&dword_1BF1C4000, v10, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: mapItem (in %s:%d)", buf, 0x12u);
     }
   }
@@ -38,9 +38,9 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTInferredMapItem initWithMapItem:confidence:source:]";
-      v21 = 1024;
-      v22 = 49;
+      v19 = "[RTInferredMapItem initWithMapItem:confidence:source:]";
+      v20 = 1024;
+      v21 = 49;
       _os_log_error_impl(&dword_1BF1C4000, v12, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: kRTInferredMapItemConfidenceMin <= confidence && confidence <= kRTInferredMapItemConfidenceMax (in %s:%d)", buf, 0x12u);
     }
   }
@@ -48,9 +48,9 @@
   selfCopy = 0;
   if (itemCopy && confidence >= 0.0 && confidence <= 1.0 && (source & 0xFFFFFFFFFFC00020) == 0)
   {
-    v18.receiver = self;
-    v18.super_class = RTInferredMapItem;
-    v14 = [(RTInferredMapItem *)&v18 init];
+    v17.receiver = self;
+    v17.super_class = RTInferredMapItem;
+    v14 = [(RTInferredMapItem *)&v17 init];
     v15 = v14;
     if (v14)
     {
@@ -63,7 +63,6 @@
     selfCopy = self;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -106,7 +105,7 @@ uint64_t __38__RTInferredMapItem_hasKnownTypeItem___block_invoke(uint64_t a1, vo
 
 + (double)consolidatedConfidenceFromConfidences:(id)confidences
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   confidencesCopy = confidences;
   v4 = 0.0;
   if ([confidencesCopy count])
@@ -120,28 +119,28 @@ uint64_t __38__RTInferredMapItem_hasKnownTypeItem___block_invoke(uint64_t a1, vo
 
     else
     {
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       v7 = confidencesCopy;
-      v8 = [v7 countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v21 objects:v31 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v23;
+        v10 = *v22;
         v11 = 1.0;
         v12 = 1.0;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v23 != v10)
+            if (*v22 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v14 = *(*(&v22 + 1) + 8 * i);
+            v14 = *(*(&v21 + 1) + 8 * i);
             [v14 doubleValue];
             if (v15 < 0.0 || ([v14 doubleValue], v16 > 1.0))
             {
@@ -149,11 +148,11 @@ uint64_t __38__RTInferredMapItem_hasKnownTypeItem___block_invoke(uint64_t a1, vo
               if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412802;
-                v27 = v14;
-                v28 = 2080;
-                v29 = "+[RTInferredMapItem consolidatedConfidenceFromConfidences:]";
-                v30 = 1024;
-                v31 = 117;
+                v26 = v14;
+                v27 = 2080;
+                v28 = "+[RTInferredMapItem consolidatedConfidenceFromConfidences:]";
+                v29 = 1024;
+                v30 = 117;
                 _os_log_error_impl(&dword_1BF1C4000, v17, OS_LOG_TYPE_ERROR, "invalid confidence, %@ (in %s:%d)", buf, 0x1Cu);
               }
             }
@@ -164,7 +163,7 @@ uint64_t __38__RTInferredMapItem_hasKnownTypeItem___block_invoke(uint64_t a1, vo
             v11 = v11 * (1.0 - v19);
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v22 objects:v32 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v21 objects:v31 count:16];
         }
 
         while (v9);
@@ -183,37 +182,36 @@ uint64_t __38__RTInferredMapItem_hasKnownTypeItem___block_invoke(uint64_t a1, vo
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 + (unint64_t)consolidatedSourceFromInferredMapItems:(id)items
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [itemsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [itemsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(itemsCopy);
         }
 
-        v6 |= [*(*(&v11 + 1) + 8 * i) source];
+        v6 |= [*(*(&v10 + 1) + 8 * i) source];
       }
 
-      v5 = [itemsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [itemsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -224,13 +222,12 @@ uint64_t __38__RTInferredMapItem_hasKnownTypeItem___block_invoke(uint64_t a1, vo
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 + (id)dedupeInferredMapItems:(id)items
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   if ([itemsCopy count] <= 1)
   {
@@ -239,47 +236,47 @@ uint64_t __38__RTInferredMapItem_hasKnownTypeItem___block_invoke(uint64_t a1, vo
   }
 
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(itemsCopy, "count")}];
-  v56 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(itemsCopy, "count")}];
+  v55 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(itemsCopy, "count")}];
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
-  v51 = itemsCopy;
+  v50 = itemsCopy;
   v6 = itemsCopy;
-  v53 = v6;
-  v55 = [v6 countByEnumeratingWithState:&v65 objects:v70 count:16];
-  if (!v55)
+  v52 = v6;
+  v54 = [v6 countByEnumeratingWithState:&v64 objects:v69 count:16];
+  if (!v54)
   {
     goto LABEL_23;
   }
 
-  v7 = *v66;
-  v54 = v5;
-  v52 = *v66;
+  v7 = *v65;
+  v53 = v5;
+  v51 = *v65;
   do
   {
-    for (i = 0; i != v55; ++i)
+    for (i = 0; i != v54; ++i)
     {
-      if (*v66 != v7)
+      if (*v65 != v7)
       {
         objc_enumerationMutation(v6);
       }
 
-      v9 = *(*(&v65 + 1) + 8 * i);
+      v9 = *(*(&v64 + 1) + 8 * i);
       mapItem = [v9 mapItem];
-      v63[0] = MEMORY[0x1E69E9820];
-      v63[1] = 3221225472;
-      v63[2] = __44__RTInferredMapItem_dedupeInferredMapItems___block_invoke;
-      v63[3] = &unk_1E80B48F8;
+      v62[0] = MEMORY[0x1E69E9820];
+      v62[1] = 3221225472;
+      v62[2] = __44__RTInferredMapItem_dedupeInferredMapItems___block_invoke;
+      v62[3] = &unk_1E80B48F8;
       v11 = mapItem;
-      v64 = v11;
-      v12 = [v5 indexOfObjectPassingTest:v63];
+      v63 = v11;
+      v12 = [v5 indexOfObjectPassingTest:v62];
       if (v12 == 0x7FFFFFFFFFFFFFFFLL)
       {
         [v5 addObject:v11];
         v13 = [MEMORY[0x1E695DF70] arrayWithObject:v9];
         identifier = [v11 identifier];
-        [v56 setObject:v13 forKeyedSubscript:identifier];
+        [v55 setObject:v13 forKeyedSubscript:identifier];
       }
 
       else
@@ -287,7 +284,7 @@ uint64_t __38__RTInferredMapItem_hasKnownTypeItem___block_invoke(uint64_t a1, vo
         v15 = v12;
         v13 = [v5 objectAtIndexedSubscript:v12];
         identifier2 = [v13 identifier];
-        v17 = [v56 objectForKeyedSubscript:identifier2];
+        v17 = [v55 objectForKeyedSubscript:identifier2];
         [v17 addObject:v9];
 
         source = [v13 source];
@@ -333,51 +330,51 @@ uint64_t __38__RTInferredMapItem_hasKnownTypeItem___block_invoke(uint64_t a1, vo
         if ((v30 & 1) == 0)
         {
           identifier5 = [v13 identifier];
-          v32 = [v56 objectForKeyedSubscript:identifier5];
-          v33 = [v54 objectAtIndexedSubscript:v15];
+          v32 = [v55 objectForKeyedSubscript:identifier5];
+          v33 = [v53 objectAtIndexedSubscript:v15];
           identifier6 = [v33 identifier];
-          [v56 setObject:v32 forKeyedSubscript:identifier6];
+          [v55 setObject:v32 forKeyedSubscript:identifier6];
         }
 
-        v6 = v53;
-        v5 = v54;
-        v7 = v52;
+        v6 = v52;
+        v5 = v53;
+        v7 = v51;
       }
 
 LABEL_21:
     }
 
-    v55 = [v6 countByEnumeratingWithState:&v65 objects:v70 count:16];
+    v54 = [v6 countByEnumeratingWithState:&v64 objects:v69 count:16];
   }
 
-  while (v55);
+  while (v54);
 LABEL_23:
 
   v35 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v5, "count")}];
   v36 = v5;
   v4 = v35;
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
   v37 = v36;
-  v38 = [v37 countByEnumeratingWithState:&v59 objects:v69 count:16];
+  v38 = [v37 countByEnumeratingWithState:&v58 objects:v68 count:16];
   if (v38)
   {
     v39 = v38;
-    v40 = *v60;
+    v40 = *v59;
     do
     {
       for (j = 0; j != v39; ++j)
       {
-        if (*v60 != v40)
+        if (*v59 != v40)
         {
           objc_enumerationMutation(v37);
         }
 
-        v42 = *(*(&v59 + 1) + 8 * j);
+        v42 = *(*(&v58 + 1) + 8 * j);
         identifier7 = [v42 identifier];
-        v44 = [v56 objectForKeyedSubscript:identifier7];
+        v44 = [v55 objectForKeyedSubscript:identifier7];
 
         if ([v44 count] == 1)
         {
@@ -394,32 +391,30 @@ LABEL_23:
         }
       }
 
-      v39 = [v37 countByEnumeratingWithState:&v59 objects:v69 count:16];
+      v39 = [v37 countByEnumeratingWithState:&v58 objects:v68 count:16];
     }
 
     while (v39);
   }
 
-  v48 = [v53 count];
+  v48 = [v52 count];
   if (v48 != [v4 count])
   {
-    v57[0] = MEMORY[0x1E69E9820];
-    v57[1] = 3221225472;
-    v57[2] = __44__RTInferredMapItem_dedupeInferredMapItems___block_invoke_2;
-    v57[3] = &unk_1E80B4920;
-    v58 = v56;
-    [v4 enumerateObjectsUsingBlock:v57];
+    v56[0] = MEMORY[0x1E69E9820];
+    v56[1] = 3221225472;
+    v56[2] = __44__RTInferredMapItem_dedupeInferredMapItems___block_invoke_2;
+    v56[3] = &unk_1E80B4920;
+    v57 = v55;
+    [v4 enumerateObjectsUsingBlock:v56];
   }
 
-  itemsCopy = v51;
+  itemsCopy = v50;
 LABEL_36:
-
-  v49 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
-uint64_t __44__RTInferredMapItem_dedupeInferredMapItems___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__44__RTInferredMapItem_dedupeInferredMapItems___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isEqualToMapItem:*(a1 + 32)];
   if (result)
@@ -432,7 +427,7 @@ uint64_t __44__RTInferredMapItem_dedupeInferredMapItems___block_invoke(uint64_t 
 
 void __44__RTInferredMapItem_dedupeInferredMapItems___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
@@ -444,22 +439,20 @@ void __44__RTInferredMapItem_dedupeInferredMapItems___block_invoke_2(uint64_t a1
       v9 = [v5 mapItem];
       v10 = [v9 identifier];
       v11 = [v8 objectForKeyedSubscript:v10];
-      v13 = 134218498;
-      v14 = v7;
-      v15 = 2048;
-      v16 = [v11 count];
-      v17 = 2112;
-      v18 = v5;
-      _os_log_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_INFO, "de-duped mapItem %lu (from %lu mapItems), %@", &v13, 0x20u);
+      v12 = 134218498;
+      v13 = v7;
+      v14 = 2048;
+      v15 = [v11 count];
+      v16 = 2112;
+      v17 = v5;
+      _os_log_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_INFO, "de-duped mapItem %lu (from %lu mapItems), %@", &v12, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)heaviestMapItemFrom:(id)from closestToLocation:(id)location distanceCalculator:(id)calculator error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   locationCopy = location;
   calculatorCopy = calculator;
@@ -474,26 +467,26 @@ void __44__RTInferredMapItem_dedupeInferredMapItems___block_invoke_2(uint64_t a1
 
     else
     {
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v15 = fromCopy;
-      firstObject = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      firstObject = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (firstObject)
       {
-        v22 = v13;
-        v16 = *v24;
+        v21 = v13;
+        v16 = *v23;
         while (2)
         {
           for (i = 0; i != firstObject; i = i + 1)
           {
-            if (*v24 != v16)
+            if (*v23 != v16)
             {
               objc_enumerationMutation(v15);
             }
 
-            v18 = *(*(&v23 + 1) + 8 * i);
+            v18 = *(*(&v22 + 1) + 8 * i);
             mapItem = [v18 mapItem];
 
             if (mapItem == v14)
@@ -503,7 +496,7 @@ void __44__RTInferredMapItem_dedupeInferredMapItems___block_invoke_2(uint64_t a1
             }
           }
 
-          firstObject = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          firstObject = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (firstObject)
           {
             continue;
@@ -513,7 +506,7 @@ void __44__RTInferredMapItem_dedupeInferredMapItems___block_invoke_2(uint64_t a1
         }
 
 LABEL_15:
-        v13 = v22;
+        v13 = v21;
       }
     }
   }
@@ -522,8 +515,6 @@ LABEL_15:
   {
     firstObject = [fromCopy firstObject];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }

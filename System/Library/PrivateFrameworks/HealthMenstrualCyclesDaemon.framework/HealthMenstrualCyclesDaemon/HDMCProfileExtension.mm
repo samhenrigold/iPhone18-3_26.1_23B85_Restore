@@ -14,12 +14,12 @@
 
 - (HDMCProfileExtension)initWithProfile:(id)profile settingsManager:(id)manager
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   managerCopy = manager;
-  v108.receiver = self;
-  v108.super_class = HDMCProfileExtension;
-  v8 = [(HDMCProfileExtension *)&v108 init];
+  v105.receiver = self;
+  v105.super_class = HDMCProfileExtension;
+  v8 = [(HDMCProfileExtension *)&v105 init];
   v9 = v8;
   if (!v8)
   {
@@ -118,34 +118,32 @@
   pregnancyFeatureAdjustmentManager = v9->_pregnancyFeatureAdjustmentManager;
   v9->_pregnancyFeatureAdjustmentManager = v64;
 
-  v66 = [HDMCAnalysisManager alloc];
-  v67 = v9->_deviceScopedStorageManager;
-  v68 = [(HDMCAnalysisManager *)v66 initWithProfile:profileCopy settingsManager:v9->_settingsManager featureAvailabilityManager:v9->_featureAvailabilityManager heartRateAvailabilityManager:v9->_heartRateFeatureAvailabilityManager wristTemperatureAvailabilityManager:v9->_wristTemperatureInputAvailabilityManager deviationsAvailabilityManager:v9->_deviationsFeatureAvailabilityManager deviceScopedStorageManager:v67 calendarCache:v9->_calendarCache];
+  v66 = [[HDMCAnalysisManager alloc] initWithProfile:profileCopy settingsManager:v9->_settingsManager featureAvailabilityManager:v9->_featureAvailabilityManager heartRateAvailabilityManager:v9->_heartRateFeatureAvailabilityManager wristTemperatureAvailabilityManager:v9->_wristTemperatureInputAvailabilityManager deviationsAvailabilityManager:v9->_deviationsFeatureAvailabilityManager deviceScopedStorageManager:v9->_deviceScopedStorageManager calendarCache:v9->_calendarCache];
   analysisManager = v9->_analysisManager;
-  v9->_analysisManager = v68;
+  v9->_analysisManager = v66;
 
-  v70 = [[HDMCNotificationSyncManager alloc] initWithProfile:profileCopy];
+  v68 = [[HDMCNotificationSyncManager alloc] initWithProfile:profileCopy];
   notificationSyncManager = v9->_notificationSyncManager;
-  v9->_notificationSyncManager = v70;
+  v9->_notificationSyncManager = v68;
 
-  v72 = [[HDMCNotificationManager alloc] initWithProfile:profileCopy analysisManager:v9->_analysisManager settingsManager:v9->_settingsManager deviceScopedStorageManager:v9->_deviceScopedStorageManager notificationSyncManager:v9->_notificationSyncManager];
+  v70 = [[HDMCNotificationManager alloc] initWithProfile:profileCopy analysisManager:v9->_analysisManager settingsManager:v9->_settingsManager deviceScopedStorageManager:v9->_deviceScopedStorageManager notificationSyncManager:v9->_notificationSyncManager];
   notificationManager = v9->_notificationManager;
-  v9->_notificationManager = v72;
+  v9->_notificationManager = v70;
 
   if ((HDIsUnitTesting() & 1) == 0)
   {
     [(HDMCNotificationManager *)v9->_notificationManager start];
   }
 
-  v74 = [HDMCAnalysisScheduler alloc];
+  v72 = [HDMCAnalysisScheduler alloc];
   daemon3 = [profileCopy daemon];
-  v76 = [(HDMCAnalysisScheduler *)v74 initWithDaemon:daemon3 analysisManager:v9->_analysisManager settingsManager:v9->_settingsManager];
+  v74 = [(HDMCAnalysisScheduler *)v72 initWithDaemon:daemon3 analysisManager:v9->_analysisManager settingsManager:v9->_settingsManager];
   analysisScheduler = v9->_analysisScheduler;
-  v9->_analysisScheduler = v76;
+  v9->_analysisScheduler = v74;
 
-  v78 = [[_TtC27HealthMenstrualCyclesDaemon27HDMCWidgetSchedulingManager alloc] initWithProfile:profileCopy];
+  v76 = [[_TtC27HealthMenstrualCyclesDaemon27HDMCWidgetSchedulingManager alloc] initWithProfile:profileCopy];
   widgetSchedulingManager = v9->_widgetSchedulingManager;
-  v9->_widgetSchedulingManager = v78;
+  v9->_widgetSchedulingManager = v76;
 
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   if ([mEMORY[0x277CCDD30] isAppleWatch])
@@ -153,28 +151,28 @@
     goto LABEL_11;
   }
 
-  v81 = objc_loadWeakRetained(&v9->_profile);
-  profileType = [v81 profileType];
+  v79 = objc_loadWeakRetained(&v9->_profile);
+  profileType = [v79 profileType];
 
   if (profileType == 1)
   {
-    v83 = [[HDMCAnalyticsManager alloc] initWithProfile:profileCopy analysisManager:v9->_analysisManager heartRateFeatureAvailabilityManager:v9->_heartRateFeatureAvailabilityManager deviationDetectionFeatureAvailabilityManager:v9->_deviationsFeatureAvailabilityManager wristTemperatureInputFeatureAvailabilityManager:v9->_wristTemperatureInputAvailabilityManager pregnancyManager:v9->_pregnancyManager];
+    v81 = [[HDMCAnalyticsManager alloc] initWithProfile:profileCopy analysisManager:v9->_analysisManager heartRateFeatureAvailabilityManager:v9->_heartRateFeatureAvailabilityManager deviationDetectionFeatureAvailabilityManager:v9->_deviationsFeatureAvailabilityManager wristTemperatureInputFeatureAvailabilityManager:v9->_wristTemperatureInputAvailabilityManager pregnancyManager:v9->_pregnancyManager];
     analyticsManager = v9->_analyticsManager;
-    v9->_analyticsManager = v83;
+    v9->_analyticsManager = v81;
 
     mEMORY[0x277CCDD30] = [objc_alloc(MEMORY[0x277CCCFE8]) initWithLoggingCategory:*v28 healthDataSource:profileCopy];
-    v85 = v9->_analysisManager;
-    v86 = objc_alloc(MEMORY[0x277D105B0]);
-    v87 = *v28;
-    v106[0] = MEMORY[0x277D85DD0];
-    v106[1] = 3221225472;
-    v106[2] = __56__HDMCProfileExtension_initWithProfile_settingsManager___block_invoke;
-    v106[3] = &unk_27865B418;
-    v107 = v85;
-    v88 = v85;
-    v89 = [v86 initWithProfile:profileCopy eventSubmissionManager:mEMORY[0x277CCDD30] logCategory:v87 eventConstructor:v106];
+    v83 = v9->_analysisManager;
+    v84 = objc_alloc(MEMORY[0x277D105B0]);
+    v85 = *v28;
+    v103[0] = MEMORY[0x277D85DD0];
+    v103[1] = 3221225472;
+    v103[2] = __56__HDMCProfileExtension_initWithProfile_settingsManager___block_invoke;
+    v103[3] = &unk_27865B418;
+    v104 = v83;
+    v86 = v83;
+    v87 = [v84 initWithProfile:profileCopy eventSubmissionManager:mEMORY[0x277CCDD30] logCategory:v85 eventConstructor:v103];
     wristTemperatureDailyEventManager = v9->_wristTemperatureDailyEventManager;
-    v9->_wristTemperatureDailyEventManager = v89;
+    v9->_wristTemperatureDailyEventManager = v87;
 
 LABEL_11:
   }
@@ -184,33 +182,32 @@ LABEL_11:
 
   if (isCompanionCapable3)
   {
-    v93 = objc_alloc(MEMORY[0x277D10858]);
-    v94 = objc_loadWeakRetained(&v9->_profile);
+    v91 = objc_alloc(MEMORY[0x277D10858]);
+    v92 = objc_loadWeakRetained(&v9->_profile);
     userDefaults = [managerCopy userDefaults];
-    v96 = [v93 initWithProfile:v94 userDefaults:userDefaults delegate:v9];
+    v94 = [v91 initWithProfile:v92 userDefaults:userDefaults delegate:v9];
     settingsMigrationManager = v9->_settingsMigrationManager;
-    v9->_settingsMigrationManager = v96;
+    v9->_settingsMigrationManager = v94;
   }
 
-  v98 = [[HDMCPostInstallUpdateManager alloc] initWithProfileExtension:v9];
+  v96 = [[HDMCPostInstallUpdateManager alloc] initWithProfileExtension:v9];
   postInstallUpdateManager = v9->_postInstallUpdateManager;
-  v9->_postInstallUpdateManager = v98;
+  v9->_postInstallUpdateManager = v96;
 
   _HKInitializeLogging();
-  v100 = *v28;
+  v98 = *v28;
   if (os_log_type_enabled(*v28, OS_LOG_TYPE_DEFAULT))
   {
-    v101 = v100;
-    v102 = objc_opt_class();
+    v99 = v98;
+    v100 = objc_opt_class();
     *buf = 138543362;
-    v110 = v102;
-    v103 = v102;
-    _os_log_impl(&dword_2293D1000, v101, OS_LOG_TYPE_DEFAULT, "[%{public}@] Plugin loaded", buf, 0xCu);
+    v107 = v100;
+    v101 = v100;
+    _os_log_impl(&dword_2293D1000, v99, OS_LOG_TYPE_DEFAULT, "[%{public}@] Plugin loaded", buf, 0xCu);
   }
 
 LABEL_16:
 
-  v104 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -272,16 +269,16 @@ LABEL_10:
 - (void)settingsMigrationManagerDidCompleteMigration:(id)migration didRunMigrationSteps:(BOOL)steps
 {
   stepsCopy = steps;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
-    v21 = 138543362;
-    v22 = objc_opt_class();
-    v8 = v22;
-    _os_log_impl(&dword_2293D1000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Settings migration finished, initiating watch settings managers", &v21, 0xCu);
+    v20 = 138543362;
+    v21 = objc_opt_class();
+    v8 = v21;
+    _os_log_impl(&dword_2293D1000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Settings migration finished, initiating watch settings managers", &v20, 0xCu);
   }
 
   settingsMigrationManager = self->_settingsMigrationManager;
@@ -307,8 +304,6 @@ LABEL_10:
   {
     [(HDMCProfileExtension *)self _triggerImmediateSyncWithReason:@"settingsMigrationManagerDidRunMigrationSteps"];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)watchSettingsCompatibilityManager:(id)manager didChangeUserDefaultsKeys:(id)keys
@@ -316,7 +311,6 @@ LABEL_10:
   keysCopy = keys;
   if ([keysCopy count])
   {
-    v4 = *MEMORY[0x277D11898];
     HKSynchronizeNanoPreferencesUserDefaults();
   }
 }
@@ -330,10 +324,9 @@ LABEL_10:
   v11 = keysCopy;
   if (defaultCopy)
   {
-    v12 = *MEMORY[0x277D11898];
-    v13 = MEMORY[0x277CBEB98];
+    v12 = MEMORY[0x277CBEB98];
     defaultsEnabledKey = [keysCopy defaultsEnabledKey];
-    v15 = [v13 setWithObject:defaultsEnabledKey];
+    v14 = [v12 setWithObject:defaultsEnabledKey];
     HKSynchronizeNanoPreferencesUserDefaults();
   }
 
@@ -363,7 +356,7 @@ LABEL_10:
 
 void __56__HDMCProfileExtension__triggerImmediateSyncWithReason___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2E8];
@@ -372,16 +365,15 @@ void __56__HDMCProfileExtension__triggerImmediateSyncWithReason___block_invoke(u
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v10 = objc_opt_class();
-      v11 = *(a1 + 40);
-      v14 = 138543618;
+      v8 = v6;
+      v9 = objc_opt_class();
+      v10 = *(a1 + 40);
+      v12 = 138543618;
+      v13 = v9;
+      v14 = 2114;
       v15 = v10;
-      v16 = 2114;
-      v17 = v11;
-      v12 = v10;
-      _os_log_impl(&dword_2293D1000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cloud sync request completed for %{public}@", &v14, 0x16u);
+      v11 = v9;
+      _os_log_impl(&dword_2293D1000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cloud sync request completed for %{public}@", &v12, 0x16u);
     }
   }
 
@@ -389,8 +381,6 @@ void __56__HDMCProfileExtension__triggerImmediateSyncWithReason___block_invoke(u
   {
     __73__HDMCOvulationConfirmationStateManager__triggerImmediateSyncWithReason___block_invoke_cold_1(a1, v6, v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)evaluatorForRequirement:(id)requirement

@@ -325,32 +325,32 @@
 - (int)StringAsRequestor:(id)requestor
 {
   requestorCopy = requestor;
-  if ([requestorCopy isEqualToString:@"DEFAULT"])
+  if (objc_msgSend_isEqualToString_(requestorCopy))
   {
     v4 = 0;
   }
 
-  else if ([requestorCopy isEqualToString:@"ITUNES"])
+  else if (objc_msgSend_isEqualToString_(requestorCopy))
   {
     v4 = 1;
   }
 
-  else if ([requestorCopy isEqualToString:@"APP_STORE"])
+  else if (objc_msgSend_isEqualToString_(requestorCopy))
   {
     v4 = 2;
   }
 
-  else if ([requestorCopy isEqualToString:@"APPLE_MUSIC"])
+  else if (objc_msgSend_isEqualToString_(requestorCopy))
   {
     v4 = 3;
   }
 
-  else if ([requestorCopy isEqualToString:@"APPLE_NEWS"])
+  else if (objc_msgSend_isEqualToString_(requestorCopy))
   {
     v4 = 4;
   }
 
-  else if ([requestorCopy isEqualToString:@"APPLE_BOOKS"])
+  else if (objc_msgSend_isEqualToString_(requestorCopy))
   {
     v4 = 5;
   }
@@ -409,47 +409,47 @@
 - (int)StringAsConfirmationStyle:(id)style
 {
   styleCopy = style;
-  if ([styleCopy isEqualToString:@"PAY"])
+  if (objc_msgSend_isEqualToString_(styleCopy))
   {
     v4 = 0;
   }
 
-  else if ([styleCopy isEqualToString:@"CONFIRM"])
+  else if (objc_msgSend_isEqualToString_(styleCopy))
   {
     v4 = 1;
   }
 
-  else if ([styleCopy isEqualToString:@"GET"])
+  else if (objc_msgSend_isEqualToString_(styleCopy))
   {
     v4 = 2;
   }
 
-  else if ([styleCopy isEqualToString:@"INSTALL"])
+  else if (objc_msgSend_isEqualToString_(styleCopy))
   {
     v4 = 3;
   }
 
-  else if ([styleCopy isEqualToString:@"RENT"])
+  else if (objc_msgSend_isEqualToString_(styleCopy))
   {
     v4 = 4;
   }
 
-  else if ([styleCopy isEqualToString:@"REDEEM"])
+  else if (objc_msgSend_isEqualToString_(styleCopy))
   {
     v4 = 5;
   }
 
-  else if ([styleCopy isEqualToString:@"ADD"])
+  else if (objc_msgSend_isEqualToString_(styleCopy))
   {
     v4 = 6;
   }
 
-  else if ([styleCopy isEqualToString:@"SUBSCRIBE"])
+  else if (objc_msgSend_isEqualToString_(styleCopy))
   {
     v4 = 7;
   }
 
-  else if ([styleCopy isEqualToString:@"SUBSCRIBE_AND_INSTALL"])
+  else if (objc_msgSend_isEqualToString_(styleCopy))
   {
     v4 = 8;
   }
@@ -508,82 +508,82 @@
 - (int)StringAsRequestType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"APPLE_PAY"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"CARD_ON_FILE"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"ACCOUNT_SERVICE"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"AMP_ENROLLMENT"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 3;
   }
 
-  else if ([typeCopy isEqualToString:@"PHYSICAL_CARD_ACTION"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 4;
   }
 
-  else if ([typeCopy isEqualToString:@"INSTALLMENT"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 5;
   }
 
-  else if ([typeCopy isEqualToString:@"ACCESSIBILITY_ENROLLMENT"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 6;
   }
 
-  else if ([typeCopy isEqualToString:@"EXTERNAL_CONTEXT_AUTHORIZATION"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 7;
   }
 
-  else if ([typeCopy isEqualToString:@"SERVICE_PROVIDER"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 8;
   }
 
-  else if ([typeCopy isEqualToString:@"PEER_PAYMENT"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 9;
   }
 
-  else if ([typeCopy isEqualToString:@"DISBURSEMENT"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 10;
   }
 
-  else if ([typeCopy isEqualToString:@"PAY_LATER"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 11;
   }
 
-  else if ([typeCopy isEqualToString:@"VIRTUAL_CARD_ENROLLMENT"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 12;
   }
 
-  else if ([typeCopy isEqualToString:@"IDENTITY_IN_APP"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 13;
   }
 
-  else if ([typeCopy isEqualToString:@"VIRTUAL_CARD_REFRESH"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 14;
   }
 
-  else if ([typeCopy isEqualToString:@"ALTERNATIVE_APP_DISTRIBUTION"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 15;
   }
@@ -683,17 +683,17 @@
 - (int)StringAsRequestorDeviceType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"DEFAULT"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
-    v4 = 0;
+    isEqualToString = 0;
   }
 
   else
   {
-    v4 = [typeCopy isEqualToString:@"TV"];
+    isEqualToString = objc_msgSend_isEqualToString_(typeCopy);
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 - (void)setHasMerchantCategoryCode:(BOOL)code

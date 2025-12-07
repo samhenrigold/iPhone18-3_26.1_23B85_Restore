@@ -11,7 +11,7 @@
 {
   *(&self->super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin32InteractiveTimelineDateIndicator_alwaysFormatForCurrentYear) = 0;
   v4 = OBJC_IVAR____TtC24MenstrualCyclesAppPlugin32InteractiveTimelineDateIndicator_dateLabel;
-  sub_29DE9408C(0, &qword_2A1820010);
+  sub_29DE9408C(0, &qword_2A1820010, 0x29EDC7B38);
   *(&self->super.super.super.isa + v4) = sub_29E230AF4();
   v5 = OBJC_IVAR____TtC24MenstrualCyclesAppPlugin32InteractiveTimelineDateIndicator_cachedStartOfCurrentYear;
   v6 = sub_29E2BCBB4();

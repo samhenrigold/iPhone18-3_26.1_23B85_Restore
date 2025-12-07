@@ -38,7 +38,7 @@
     v6 = objc_opt_class();
     if (infoCopy)
     {
-      [infoCopy hardwareInfo];
+      objc_msgSend_hardwareInfo(infoCopy);
     }
 
     else

@@ -7,7 +7,7 @@
 
 - (NLPMLSequenceModel)initWithModelDescription:(id)description parameterDictionary:(id)dictionary error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   dictionaryCopy = dictionary;
   outputDescriptionsByName = [descriptionCopy outputDescriptionsByName];
@@ -29,14 +29,14 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v24 = [allKeys containsObject:@"lengths"];
+  v23 = [allKeys containsObject:@"lengths"];
 
-  if (v24)
+  if (v23)
   {
     v17 = [dictionaryCopy objectForKey:@"modelData"];
-    v25.receiver = self;
-    v25.super_class = NLPMLSequenceModel;
-    v18 = [(NLModel *)&v25 initWithData:v17 error:error];
+    v24.receiver = self;
+    v24.super_class = NLPMLSequenceModel;
+    v18 = [(NLModel *)&v24 initWithData:v17 error:error];
     v19 = v18;
     if (v18)
     {
@@ -56,21 +56,20 @@ LABEL_12:
   }
 
   v21 = MEMORY[0x1E696ABC0];
-  v26 = *MEMORY[0x1E696A578];
-  v27[0] = @"Failed to load model file";
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+  v25 = *MEMORY[0x1E696A578];
+  v26[0] = @"Failed to load model file";
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
   [v21 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:2 userInfo:v17];
   *error = selfCopy = 0;
 LABEL_14:
 
 LABEL_16:
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (id)predictionFromFeatures:(id)features options:(id)options error:(id *)error
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   modelDescription = self->_modelDescription;
   featuresCopy = features;
   inputDescriptionsByName = [(MLModelDescription *)modelDescription inputDescriptionsByName];
@@ -104,42 +103,42 @@ LABEL_16:
       v22 = [MEMORY[0x1E695FF10] sequenceWithInt64Array:array2];
     }
 
-    v33 = array2;
+    v32 = array2;
     v23 = 0;
-    v36 = stringValue;
-    v37 = v11;
-    v35 = array;
+    v35 = stringValue;
+    v36 = v11;
+    v34 = array;
     if (array3 && v20)
     {
       v23 = [MEMORY[0x1E695FF10] sequenceWithInt64Array:array3];
     }
 
     v24 = objc_alloc(MEMORY[0x1E695FE48]);
-    v38[0] = @"labels";
+    v37[0] = @"labels";
     v25 = [MEMORY[0x1E695FE60] featureValueWithSequence:v21];
-    v39[0] = v25;
-    v38[1] = @"locations";
+    v38[0] = v25;
+    v37[1] = @"locations";
     v26 = [MEMORY[0x1E695FE60] featureValueWithSequence:v22];
-    v39[1] = v26;
-    v38[2] = @"lengths";
+    v38[1] = v26;
+    v37[2] = @"lengths";
     v27 = [MEMORY[0x1E695FE60] featureValueWithSequence:v23];
-    v39[2] = v27;
-    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:3];
+    v38[2] = v27;
+    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:3];
     v29 = [v24 initWithDictionary:v28 error:errorCopy];
 
-    stringValue = v36;
-    v11 = v37;
-    array = v35;
-    array2 = v33;
+    stringValue = v35;
+    v11 = v36;
+    array = v34;
+    array2 = v32;
     goto LABEL_14;
   }
 
   if (error)
   {
     v30 = MEMORY[0x1E696ABC0];
-    v40 = *MEMORY[0x1E696A578];
-    v41[0] = @"Prediction failed due to missing input";
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+    v39 = *MEMORY[0x1E696A578];
+    v40[0] = @"Prediction failed due to missing input";
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
     [v30 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:4 userInfo:v21];
     *error = v29 = 0;
 LABEL_14:
@@ -149,8 +148,6 @@ LABEL_14:
 
   v29 = 0;
 LABEL_15:
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v29;
 }

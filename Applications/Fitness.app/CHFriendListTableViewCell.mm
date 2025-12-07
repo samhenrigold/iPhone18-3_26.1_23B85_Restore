@@ -19,63 +19,63 @@
   contentView = [(CHFriendListTableViewCell *)self contentView];
   [contentView setBackgroundColor:v4];
 
-  v6 = sub_10013A904();
+  v7 = sub_10013A904(v6);
   contentView2 = [(CHFriendListTableViewCell *)self contentView];
   layer = [contentView2 layer];
-  [layer setCornerRadius:v6];
+  [layer setCornerRadius:v7];
 
-  v9 = +[UIColor labelColor];
+  v10 = +[UIColor labelColor];
   textLabel = [(CHFriendListTableViewCell *)self textLabel];
-  [textLabel setTextColor:v9];
+  [textLabel setTextColor:v10];
 
   textLabel2 = [(CHFriendListTableViewCell *)self textLabel];
   [textLabel2 setLineBreakMode:4];
 
-  v12 = [UILabel alloc];
+  v13 = [UILabel alloc];
   y = CGRectZero.origin.y;
   width = CGRectZero.size.width;
   height = CGRectZero.size.height;
-  v16 = [v12 initWithFrame:{CGRectZero.origin.x, y, width, height}];
+  v17 = [v13 initWithFrame:{CGRectZero.origin.x, y, width, height}];
   detailLineOneLabel = self->_detailLineOneLabel;
-  self->_detailLineOneLabel = v16;
+  self->_detailLineOneLabel = v17;
 
   contentView3 = [(CHFriendListTableViewCell *)self contentView];
   detailLineOneLabel = [(CHFriendListTableViewCell *)self detailLineOneLabel];
   [contentView3 addSubview:detailLineOneLabel];
 
-  v20 = [[UILabel alloc] initWithFrame:{CGRectZero.origin.x, y, width, height}];
+  v21 = [[UILabel alloc] initWithFrame:{CGRectZero.origin.x, y, width, height}];
   detailLineTwoLabel = self->_detailLineTwoLabel;
-  self->_detailLineTwoLabel = v20;
+  self->_detailLineTwoLabel = v21;
 
   contentView4 = [(CHFriendListTableViewCell *)self contentView];
   [contentView4 addSubview:self->_detailLineTwoLabel];
 
-  v23 = [ARUIRingsView alloc];
-  v24 = [ARUIRingGroup activityRingGroupForRingType:3];
-  forCompanion = [v24 forCompanion];
-  v26 = [v23 initWithRingGroup:forCompanion];
+  v24 = [ARUIRingsView alloc];
+  v25 = [ARUIRingGroup activityRingGroupForRingType:3];
+  forCompanion = [v25 forCompanion];
+  v27 = [v24 initWithRingGroup:forCompanion];
   ringsView = self->_ringsView;
-  self->_ringsView = v26;
+  self->_ringsView = v27;
 
   [(CHFriendListTableViewCell *)self valueForSmallWidth:0.788 mediumWidth:0.923 largeWidth:1.0];
-  v29 = v28;
-  *&y = v28 * 52.0;
+  v30 = v29;
+  *&y = v29 * 52.0;
   ringGroup = [(ARUIRingsView *)self->_ringsView ringGroup];
-  LODWORD(v31) = LODWORD(y);
-  [ringGroup setGroupDiameter:v31];
+  LODWORD(v32) = LODWORD(y);
+  [ringGroup setGroupDiameter:v32];
 
   ringGroup2 = [(ARUIRingsView *)self->_ringsView ringGroup];
-  *&y = v29 * 6.0;
-  LODWORD(v33) = LODWORD(y);
-  [ringGroup2 setThickness:v33];
+  *&y = v30 * 6.0;
+  LODWORD(v34) = LODWORD(y);
+  [ringGroup2 setThickness:v34];
 
   ringGroup3 = [(ARUIRingsView *)self->_ringsView ringGroup];
-  *&v29 = v29 * 1.0;
-  LODWORD(v35) = LODWORD(v29);
-  [ringGroup3 setInterspacing:v35];
+  *&v30 = v30 * 1.0;
+  LODWORD(v36) = LODWORD(v30);
+  [ringGroup3 setInterspacing:v36];
 
-  v36 = +[UIColor clearColor];
-  [(ARUIRingsView *)self->_ringsView setBackgroundColor:v36];
+  v37 = +[UIColor clearColor];
+  [(ARUIRingsView *)self->_ringsView setBackgroundColor:v37];
 
   contentView5 = [(CHFriendListTableViewCell *)self contentView];
   [contentView5 addSubview:self->_ringsView];

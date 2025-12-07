@@ -386,7 +386,7 @@ void __46__CKRemoteItemForSending_beginPreviewCreation__block_invoke(uint64_t a1
   [(CKRemoteItemForSending *)self setBlockSet:v7];
 }
 
-void *__45__CKRemoteItemForSending__setPreviewUIImage___block_invoke()
+uint64_t (*__45__CKRemoteItemForSending__setPreviewUIImage___block_invoke())(void, void, void)
 {
   result = MEMORY[0x193AF5ED0]("SBFCreateIOSurfaceForImage", @"SpringBoardFoundation");
   _setPreviewUIImage___SBFCreateIOSurfaceForImage = result;

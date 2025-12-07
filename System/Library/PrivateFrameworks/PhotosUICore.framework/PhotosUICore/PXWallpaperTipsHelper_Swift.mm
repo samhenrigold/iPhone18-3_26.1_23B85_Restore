@@ -1,8 +1,8 @@
 @interface PXWallpaperTipsHelper_Swift
 + (PXWallpaperTipsHelper_Swift)shared;
++ (double)startObservingTips;
 + (void)dismissTip:(id)tip;
 + (void)removeAllPresentationDelegates;
-+ (void)startObservingTips;
 - (PXWallpaperTipsHelper_Swift)init;
 @end
 
@@ -54,11 +54,11 @@
   return [(PXTipsHelper_Swift *)&v5 init];
 }
 
-+ (void)startObservingTips
++ (double)startObservingTips
 {
-  sub_1A3DB4F20();
-  MEMORY[0x1EEE9AC00](v0 - 8);
-  v2 = &v7 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1A3DB4F20(0);
+  result = MEMORY[0x1EEE9AC00](v0 - 8);
+  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_1EB16A3D0 != -1)
   {
     swift_once();
@@ -67,16 +67,18 @@
   if ((*(qword_1EB16A3D8 + OBJC_IVAR___PXWallpaperTipsHelper_Swift_hasStartedTips) & 1) == 0)
   {
     *(qword_1EB16A3D8 + OBJC_IVAR___PXWallpaperTipsHelper_Swift_hasStartedTips) = 1;
-    v3 = sub_1A524CCB4();
-    (*(*(v3 - 8) + 56))(v2, 1, 1, v3);
+    v4 = sub_1A524CCB4();
+    (*(*(v4 - 8) + 56))(v3, 1, 1, v4);
     sub_1A524CC54();
-    v4 = sub_1A524CC44();
-    v5 = swift_allocObject();
-    v6 = MEMORY[0x1E69E85E0];
-    *(v5 + 16) = v4;
-    *(v5 + 24) = v6;
-    sub_1A3D4D930(0, 0, v2, &unk_1A532E9C0, v5);
+    v5 = sub_1A524CC44();
+    v6 = swift_allocObject();
+    v7 = MEMORY[0x1E69E85E0];
+    *(v6 + 16) = v5;
+    *(v6 + 24) = v7;
+    sub_1A3D4D930(0, 0, v3, &unk_1A532E9C0, v6);
   }
+
+  return result;
 }
 
 @end

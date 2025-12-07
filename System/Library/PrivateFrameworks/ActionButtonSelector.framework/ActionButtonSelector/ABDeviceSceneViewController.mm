@@ -12,17 +12,19 @@
 - (void)devicePerspectiveTransform;
 - (void)renderWithTargetTimestamp:(double)timestamp duration:(double)duration renderInputs:;
 - (void)renderer:(id)renderer willRenderScene:(id)scene atTime:(double)time;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewIsAppearing:(BOOL)appearing;
 @end
 
 @implementation ABDeviceSceneViewController
 
 - (void)viewDidLoad
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = ABDeviceSceneViewController;
-  [(ABDeviceSceneViewController *)&v8 viewDidLoad];
+  v12 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = ABDeviceSceneViewController;
+  [(ABDeviceSceneViewController *)&v7 viewDidLoad];
   v3 = ABLogger();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -36,18 +38,37 @@
 
     *buf = 138543618;
     selfCopy = self;
-    v11 = 2114;
-    v12 = v6;
+    v10 = 2114;
+    v11 = v6;
     _os_log_impl(&dword_23DE18000, v3, OS_LOG_TYPE_DEFAULT, "(%{public}@) loading the view; scene resources are ready: %{public}@", buf, 0x16u);
   }
 
   [(ABDeviceSceneViewController *)self _setupSceneIfNeeded];
-  v7 = *MEMORY[0x277D85DE8];
+}
+
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  v7.receiver = self;
+  v7.super_class = ABDeviceSceneViewController;
+  [(ABDeviceSceneViewController *)&v7 viewIsAppearing:appearing];
+  v4 = MEMORY[0x277CCABB0];
+  date = [MEMORY[0x277CBEAA8] date];
+  [date timeIntervalSinceReferenceDate];
+  v6 = [v4 numberWithDouble:?];
+  [(ABDeviceSceneViewController *)self setScenePresentationBarrier:v6];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ABDeviceSceneViewController;
+  [(ABDeviceSceneViewController *)&v4 viewDidAppear:appear];
+  [(ABDeviceSceneViewController *)self setScenePresentationBarrier:0];
 }
 
 - (void)renderWithTargetTimestamp:(double)timestamp duration:(double)duration renderInputs:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v8 = +[ABDeviceSceneResourceLoader sharedLoader];
@@ -56,28 +77,28 @@
     if (areResourcesLoaded)
     {
       v10 = *(a2 + 168);
-      v24 = *(a2 + 160);
+      v23 = *(a2 + 160);
       v11 = *(a2 + 144);
-      v23[8] = *(a2 + 128);
-      v23[9] = v11;
+      v22[8] = *(a2 + 128);
+      v22[9] = v11;
       v12 = *(a2 + 80);
-      v23[4] = *(a2 + 64);
-      v23[5] = v12;
+      v22[4] = *(a2 + 64);
+      v22[5] = v12;
       v13 = *(a2 + 112);
-      v23[6] = *(a2 + 96);
-      v23[7] = v13;
+      v22[6] = *(a2 + 96);
+      v22[7] = v13;
       v14 = *(a2 + 16);
-      v23[0] = *a2;
-      v23[1] = v14;
+      v22[0] = *a2;
+      v22[1] = v14;
       v15 = *(a2 + 48);
-      v23[2] = *(a2 + 32);
-      v23[3] = v15;
+      v22[2] = *(a2 + 32);
+      v22[3] = v15;
       v16 = v10;
       v17 = *(a2 + 176);
-      v25 = v16;
-      v26 = v17;
-      v27 = *(a2 + 184);
-      [self _renderWithTargetTimestamp:v23 duration:timestamp renderInputs:duration];
+      v24 = v16;
+      v25 = v17;
+      v26 = *(a2 + 184);
+      [self _renderWithTargetTimestamp:v22 duration:timestamp renderInputs:duration];
     }
 
     else if (!self[144])
@@ -96,23 +117,19 @@
       self[144] = v20;
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __79__ABDeviceSceneViewController_renderWithTargetTimestamp_duration_renderInputs___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = ABLogger();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-    v6 = 138543362;
-    v7 = v4;
-    _os_log_impl(&dword_23DE18000, v3, OS_LOG_TYPE_DEFAULT, "Finished resource loading, isSuccess: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_impl(&dword_23DE18000, v3, OS_LOG_TYPE_DEFAULT, "Finished resource loading, isSuccess: %{public}@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)devicePerspectiveTransform
@@ -125,7 +142,7 @@ void __79__ABDeviceSceneViewController_renderWithTargetTimestamp_duration_render
     v6 = camera;
     if (camera)
     {
-      [camera projectionTransform];
+      objc_msgSend_projectionTransform(camera);
     }
 
     else
@@ -136,7 +153,7 @@ void __79__ABDeviceSceneViewController_renderWithTargetTimestamp_duration_render
     memset(&v18, 0, sizeof(v18));
     if (pointOfView)
     {
-      [pointOfView worldTransform];
+      objc_msgSend_worldTransform(pointOfView);
     }
 
     memset(&v17, 0, sizeof(v17));
@@ -168,14 +185,14 @@ void __79__ABDeviceSceneViewController_renderWithTargetTimestamp_duration_render
 
   else
   {
-    *(a2 + 96) = 0u;
-    *(a2 + 112) = 0u;
-    *(a2 + 64) = 0u;
-    *(a2 + 80) = 0u;
-    *(a2 + 32) = 0u;
-    *(a2 + 48) = 0u;
+    a2[6] = 0u;
+    a2[7] = 0u;
+    a2[4] = 0u;
+    a2[5] = 0u;
+    a2[2] = 0u;
+    a2[3] = 0u;
     *a2 = 0u;
-    *(a2 + 16) = 0u;
+    a2[1] = 0u;
   }
 }
 
@@ -183,56 +200,56 @@ void __79__ABDeviceSceneViewController_renderWithTargetTimestamp_duration_render
 {
   if (result)
   {
+    v20 = 0uLL;
+    v21 = 0uLL;
     v18 = 0uLL;
     v19 = 0uLL;
     v16 = 0uLL;
     v17 = 0uLL;
     v14 = 0uLL;
     v15 = 0uLL;
-    v12 = 0uLL;
-    v13 = 0uLL;
     m43 = result[7].m43;
     if (m43 == 0.0)
     {
-      memset(&v11, 0, 64);
+      memset(&v13, 0, 64);
     }
 
     else
     {
-      [*&m43 transform];
+      objc_msgSend_transform(*&m43, a2);
     }
 
-    CATransform3DFromSCNMatrix4(&v11, &v12);
-    memset(&v11, 0, sizeof(v11));
-    v4 = ABDegreesToRadians(-90.0);
-    CATransform3DMakeRotation(&v11, v4, 0.0, 1.0, 0.0);
-    ABButtonOffsetFromDeviceCenter();
-    memset(&v10, 0, sizeof(v10));
-    CATransform3DMakeTranslation(&v10, v5, v6, 0.0);
-    a = v11;
-    v7 = v10;
-    CATransform3DConcat(&v9, &a, &v7);
-    *&a.m31 = v16;
-    *&a.m33 = v17;
-    *&a.m41 = v18;
-    *&a.m43 = v19;
-    *&a.m11 = v12;
-    *&a.m13 = v13;
-    *&a.m21 = v14;
-    *&a.m23 = v15;
-    return CATransform3DConcat(a2, &v9, &a);
+    CATransform3DFromSCNMatrix4(&v13, &v14);
+    memset(&v13, 0, sizeof(v13));
+    v5 = ABDegreesToRadians(-90.0);
+    v6 = CATransform3DMakeRotation(&v13, v5, 0.0, 1.0, 0.0);
+    ABButtonOffsetFromDeviceCenter(v6);
+    memset(&v12, 0, sizeof(v12));
+    CATransform3DMakeTranslation(&v12, v7, v8, 0.0);
+    a = v13;
+    v9 = v12;
+    CATransform3DConcat(&v11, &a, &v9);
+    *&a.m31 = v18;
+    *&a.m33 = v19;
+    *&a.m41 = v20;
+    *&a.m43 = v21;
+    *&a.m11 = v14;
+    *&a.m13 = v15;
+    *&a.m21 = v16;
+    *&a.m23 = v17;
+    return CATransform3DConcat(a3, &v11, &a);
   }
 
   else
   {
-    *(a2 + 96) = 0uLL;
-    *(a2 + 112) = 0uLL;
-    *(a2 + 64) = 0uLL;
-    *(a2 + 80) = 0uLL;
-    *(a2 + 32) = 0uLL;
-    *(a2 + 48) = 0uLL;
-    *a2 = 0uLL;
-    *(a2 + 16) = 0uLL;
+    *(a3 + 96) = 0uLL;
+    *(a3 + 112) = 0uLL;
+    *(a3 + 64) = 0uLL;
+    *(a3 + 80) = 0uLL;
+    *(a3 + 32) = 0uLL;
+    *(a3 + 48) = 0uLL;
+    *a3 = 0uLL;
+    *(a3 + 16) = 0uLL;
   }
 
   return result;
@@ -312,17 +329,18 @@ void __63__ABDeviceSceneViewController_renderer_willRenderScene_atTime___block_i
 
   buttonPressProgress = inputs->buttonPressProgress;
   v12 = ABButtonPressDepth();
-  LOBYTE(lightingEnvironment) = ABDeviceIsD23();
-  IsV5x = ABDeviceIsV5x();
-  v14 = -(v12 * buttonPressProgress);
-  v15 = IsV5x | lightingEnvironment;
+  IsD23 = ABDeviceIsD23(v13);
+  LOBYTE(lightingEnvironment) = IsD23;
+  IsV5x = ABDeviceIsV5x(IsD23);
+  v16 = -(v12 * buttonPressProgress);
+  v17 = IsV5x | lightingEnvironment;
   capNode = self->_sceneModel.buttonModel.capNode;
-  if (v15)
+  if (v17)
   {
-    v14 = -v14;
+    v16 = -v16;
   }
 
-  v17 = v14;
+  v19 = v16;
   a.m11 = 1.0;
   *&a.m14 = 0;
   *&a.m12 = 0;
@@ -330,7 +348,7 @@ void __63__ABDeviceSceneViewController_renderer_willRenderScene_atTime___block_i
   *&a.m23 = 0;
   *&a.m31 = 0;
   *&a.m33 = 1065353216;
-  a.m41 = v17;
+  a.m41 = v19;
   a.m42 = 0.0;
   a.m43 = 0.0;
   a.m44 = 1.0;
@@ -343,18 +361,18 @@ void __63__ABDeviceSceneViewController_renderer_willRenderScene_atTime___block_i
   *&a.m23 = 0;
   *&a.m31 = 0;
   *&a.m33 = 1065353216;
-  a.m41 = v17;
+  a.m41 = v19;
   a.m42 = 0.0;
   a.m43 = 0.0;
   a.m44 = 1.0;
   [(SCNNode *)sidesNode setTransform:&a];
-  v19 = *&self->_sceneModel.buttonModel.highlightTransform.m21;
+  v21 = *&self->_sceneModel.buttonModel.highlightTransform.m21;
   *&a.m11 = *&self->_sceneModel.buttonModel.highlightTransform.m11;
-  v20 = *&self->_sceneModel.buttonModel.highlightTransform.m31;
-  v21 = *&self->_sceneModel.buttonModel.highlightTransform.m41;
-  *&a.m21 = v19;
-  *&a.m31 = v20;
-  *&a.m41 = v21;
+  v22 = *&self->_sceneModel.buttonModel.highlightTransform.m31;
+  v23 = *&self->_sceneModel.buttonModel.highlightTransform.m41;
+  *&a.m21 = v21;
+  *&a.m31 = v22;
+  *&a.m41 = v23;
   *&b.m14 = 0;
   *&b.m12 = 0;
   b.m11 = 1.0;
@@ -362,57 +380,57 @@ void __63__ABDeviceSceneViewController_renderer_willRenderScene_atTime___block_i
   *&b.m23 = 0;
   *&b.m31 = 0;
   *&b.m33 = 1065353216;
-  b.m41 = v17;
+  b.m41 = v19;
+  *&b.m42 = 0;
+  b.m44 = 1.0;
+  SCNMatrix4Mult(&v45, &a, &b);
+  capNodeHighlight = self->_sceneModel.buttonModel.capNodeHighlight;
+  a = v45;
+  [(SCNNode *)capNodeHighlight setTransform:&a];
+  v25 = *&self->_sceneModel.buttonModel.highlightTransform.m21;
+  *&a.m11 = *&self->_sceneModel.buttonModel.highlightTransform.m11;
+  v26 = *&self->_sceneModel.buttonModel.highlightTransform.m31;
+  v27 = *&self->_sceneModel.buttonModel.highlightTransform.m41;
+  *&a.m21 = v25;
+  *&a.m31 = v26;
+  *&a.m41 = v27;
+  *&b.m14 = 0;
+  *&b.m12 = 0;
+  b.m11 = 1.0;
+  b.m22 = 1.0;
+  *&b.m23 = 0;
+  *&b.m31 = 0;
+  *&b.m33 = 1065353216;
+  b.m41 = v19;
   *&b.m42 = 0;
   b.m44 = 1.0;
   SCNMatrix4Mult(&v43, &a, &b);
-  capNodeHighlight = self->_sceneModel.buttonModel.capNodeHighlight;
-  a = v43;
-  [(SCNNode *)capNodeHighlight setTransform:&a];
-  v23 = *&self->_sceneModel.buttonModel.highlightTransform.m21;
-  *&a.m11 = *&self->_sceneModel.buttonModel.highlightTransform.m11;
-  v24 = *&self->_sceneModel.buttonModel.highlightTransform.m31;
-  v25 = *&self->_sceneModel.buttonModel.highlightTransform.m41;
-  *&a.m21 = v23;
-  *&a.m31 = v24;
-  *&a.m41 = v25;
-  *&b.m14 = 0;
-  *&b.m12 = 0;
-  b.m11 = 1.0;
-  b.m22 = 1.0;
-  *&b.m23 = 0;
-  *&b.m31 = 0;
-  *&b.m33 = 1065353216;
-  b.m41 = v17;
-  *&b.m42 = 0;
-  b.m44 = 1.0;
-  SCNMatrix4Mult(&v41, &a, &b);
   sidesNodeHighlight = self->_sceneModel.buttonModel.sidesNodeHighlight;
-  a = v41;
+  a = v43;
   [(SCNNode *)sidesNodeHighlight setTransform:&a];
-  v27 = *&inputs->modelTransform.m31;
-  v28 = *&inputs->modelTransform.m41;
-  v29 = *&inputs->modelTransform.m43;
-  v37 = *&inputs->modelTransform.m33;
-  v38 = v28;
-  v39 = v29;
-  v30 = *&inputs->modelTransform.m13;
+  v29 = *&inputs->modelTransform.m31;
+  v30 = *&inputs->modelTransform.m41;
+  v31 = *&inputs->modelTransform.m43;
+  v39 = *&inputs->modelTransform.m33;
+  v40 = v30;
+  v41 = v31;
+  v32 = *&inputs->modelTransform.m13;
   *&a.m11 = *&inputs->modelTransform.m11;
-  v31 = *&inputs->modelTransform.m21;
-  v32 = *&inputs->modelTransform.m23;
-  *&a.m21 = v30;
-  *&a.m31 = v31;
-  *&a.m41 = v32;
-  v36 = v27;
-  SCNMatrix4FromCATransform3D(&a, v40);
+  v33 = *&inputs->modelTransform.m21;
+  v34 = *&inputs->modelTransform.m23;
+  *&a.m21 = v32;
+  *&a.m31 = v33;
+  *&a.m41 = v34;
+  v38 = v29;
+  SCNMatrix4FromCATransform3D(&a, v42);
   deviceNode = self->_sceneModel.deviceNode;
-  *&a.m11 = v40[0];
-  *&a.m21 = v40[1];
-  *&a.m31 = v40[2];
-  *&a.m41 = v40[3];
+  *&a.m11 = v42[0];
+  *&a.m21 = v42[1];
+  *&a.m31 = v42[2];
+  *&a.m41 = v42[3];
   [(SCNNode *)deviceNode setTransform:&a];
-  __copy_constructor_8_8_s0_s8_s16_s24_s32_s40_s48_t56w64(v34, &self->_sceneModel.buttonModel);
-  ABDeviceSceneButtonModelSetColor(v34, inputs->buttonHighlight.color, inputs->buttonHighlight.opacity);
+  __copy_constructor_8_8_s0_s8_s16_s24_s32_s40_s48_t56w64(v36, &self->_sceneModel.buttonModel);
+  ABDeviceSceneButtonModelSetColor(v36, inputs->buttonHighlight.color, inputs->buttonHighlight.opacity);
   [(ABDeviceDisplayView *)&self->_displayView->super.super.super.isa setIslandMode:?];
   [(ABDeviceSceneViewController *)self _subscribeToFramePresentationIfNeeded];
 }
@@ -442,7 +460,7 @@ void __68__ABDeviceSceneViewController__subscribeToFramePresentationIfNeeded__bl
 
 - (void)_didPresentFrame
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = ABLogger();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -477,8 +495,6 @@ void __68__ABDeviceSceneViewController__subscribeToFramePresentationIfNeeded__bl
 
     [(ABDeviceSceneViewController *)self setScenePresentationBarrier:0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (double)actionButtonTranslationWithPressProgress:(uint64_t)progress

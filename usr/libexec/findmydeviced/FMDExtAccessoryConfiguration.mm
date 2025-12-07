@@ -13,9 +13,9 @@
 - (FMDExtAccessoryConfiguration)initWithConfigurationInfo:(id)info
 {
   infoCopy = info;
-  v20.receiver = self;
-  v20.super_class = FMDExtAccessoryConfiguration;
-  v5 = [(FMDExtAccessoryConfiguration *)&v20 init];
+  v22.receiver = self;
+  v22.super_class = FMDExtAccessoryConfiguration;
+  v5 = [(FMDExtAccessoryConfiguration *)&v22 init];
   if (!v5)
   {
     goto LABEL_7;
@@ -23,60 +23,61 @@
 
   v6 = [infoCopy objectForKeyedSubscript:@"config"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v17 = sub_10000BE38();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_10000BE38(isKindOfClass);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = infoCopy;
-      v18 = "Invalid configuration type %@";
+      v24 = infoCopy;
+      v20 = "Invalid configuration type %@";
 LABEL_12:
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v18, buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, v20, buf, 0xCu);
     }
 
 LABEL_13:
 
-    v16 = 0;
+    v18 = 0;
     goto LABEL_14;
   }
 
-  v7 = [v6 objectForKeyedSubscript:@"type"];
+  v8 = [v6 objectForKeyedSubscript:@"type"];
   accessoryType = v5->_accessoryType;
-  v5->_accessoryType = v7;
+  v5->_accessoryType = v8;
 
-  v9 = [v6 objectForKeyedSubscript:@"version"];
+  v10 = [v6 objectForKeyedSubscript:@"version"];
   version = v5->_version;
-  v5->_version = v9;
+  v5->_version = v10;
 
-  v11 = [v6 objectForKeyedSubscript:@"features"];
+  v12 = [v6 objectForKeyedSubscript:@"features"];
   features = v5->_features;
-  v5->_features = v11;
+  v5->_features = v12;
 
   if (!v5->_accessoryType || !v5->_version || !v5->_features)
   {
-    v17 = sub_10000BE38();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_10000BE38(v14);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = infoCopy;
-      v18 = "Partial configuration received %@";
+      v24 = infoCopy;
+      v20 = "Partial configuration received %@";
       goto LABEL_12;
     }
 
     goto LABEL_13;
   }
 
-  v13 = [(FMDExtAccessoryConfiguration *)v5 infoForFeature:@"lastKnownLocation"];
-  v14 = [[FMDSupportedAccessory alloc] initWithType:v5->_accessoryType locationInfo:v13];
+  v15 = [(FMDExtAccessoryConfiguration *)v5 infoForFeature:@"lastKnownLocation"];
+  v16 = [[FMDSupportedAccessory alloc] initWithType:v5->_accessoryType locationInfo:v15];
   supportedAccessory = v5->_supportedAccessory;
-  v5->_supportedAccessory = v14;
+  v5->_supportedAccessory = v16;
 
 LABEL_7:
-  v16 = v5;
+  v18 = v5;
 LABEL_14:
 
-  return v16;
+  return v18;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -70,7 +70,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_21B65CD64();
+  sub_21B65CD64(selfCopy, v2);
 }
 
 - (void)posterPairDidUpdateLocalizedTitle:(id)title

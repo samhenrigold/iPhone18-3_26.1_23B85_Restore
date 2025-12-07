@@ -13,6 +13,7 @@
 - (void)layoutSubviews;
 - (void)setAuthKitSignInView:(id)view;
 - (void)setServiceType:(int64_t)type;
+- (void)setSigningIn:(BOOL)in;
 @end
 
 @implementation CNFRegSigninLearnMoreView
@@ -60,6 +61,38 @@
   [(UIView *)self->_authKitSignInView setBackgroundColor:v5];
 
   [(CNFRegSigninLearnMoreView *)self addSubview:self->_authKitSignInView];
+}
+
+- (void)setSigningIn:(BOOL)in
+{
+  inCopy = in;
+  [MEMORY[0x277CD9FF0] flush];
+  [MEMORY[0x277CD9FF0] begin];
+  [MEMORY[0x277CD9FF0] setAnimationDuration:0.0];
+  [(UIView *)self->_authKitSignInView setHidden:inCopy];
+  signingInLabel = [(CNFRegSigninLearnMoreView *)self signingInLabel];
+  v6 = inCopy ^ 1;
+  [signingInLabel setHidden:v6];
+
+  signingInSpinner = [(CNFRegSigninLearnMoreView *)self signingInSpinner];
+  [signingInSpinner setHidden:v6];
+
+  signingInSpinner2 = [(CNFRegSigninLearnMoreView *)self signingInSpinner];
+  v9 = signingInSpinner2;
+  if (v6)
+  {
+    [signingInSpinner2 stopAnimating];
+  }
+
+  else
+  {
+    [signingInSpinner2 startAnimating];
+  }
+
+  [(CNFRegSigninLearnMoreView *)self setNeedsDisplay];
+  v10 = MEMORY[0x277CD9FF0];
+
+  [v10 commit];
 }
 
 - (id)_splashImage
@@ -548,7 +581,7 @@
 - (void)_learnMorePressed:(id)pressed
 {
   v3 = *MEMORY[0x277D76620];
-  v4 = CNFRegLocalizedSplashScreenURL();
+  v4 = CNFRegLocalizedSplashScreenURL(self, a2);
   [v3 openURL:v4 withCompletionHandler:0];
 }
 

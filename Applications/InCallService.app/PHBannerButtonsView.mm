@@ -68,7 +68,7 @@
 
 - (void)setState:(unint64_t)state
 {
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 134218240;
@@ -88,7 +88,7 @@
 - (void)setGameControllerContext:(id)context
 {
   contextCopy = context;
-  v6 = sub_100004F84();
+  v6 = sub_100004F84(contextCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v14 = 0;
@@ -131,7 +131,7 @@
 - (void)setAudioRouteButtonSelected:(BOOL)selected
 {
   selectedCopy = selected;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     leftButton = [(PHBannerButtonsView *)self leftButton];
@@ -353,11 +353,11 @@
 
   if (rightButton)
   {
-    v4 = sub_100004F84();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004F84(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Transitioning the banner buttons from an incoming call to ongoing", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Transitioning the banner buttons from an incoming call to ongoing", v6, 2u);
     }
 
     [(PHBannerButtonsView *)self transitionLeftButtonFromIncomingToOngoingCallState];
@@ -443,27 +443,27 @@
   imageView2 = [leftButton2 imageView];
   [imageView2 setContentMode:4];
 
-  v7 = sub_100004F84();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100004F84(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v46 = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Updating the left banner button to handle audio routes", v46, 2u);
+    *v47 = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Updating the left banner button to handle audio routes", v47, 2u);
   }
 
   leftButton3 = [(PHBannerButtonsView *)self leftButton];
   [leftButton3 setAction:22];
 
-  v9 = +[UIColor clearColor];
+  v10 = +[UIColor clearColor];
   leftButton4 = [(PHBannerButtonsView *)self leftButton];
-  [leftButton4 setBackgroundColor:v9];
+  [leftButton4 setBackgroundColor:v10];
 
   leftButton5 = [(PHBannerButtonsView *)self leftButton];
-  v12 = [NSBundle bundleForClass:objc_opt_class()];
-  v13 = [v12 localizedStringForKey:@"AUDIO" value:&stru_100361FD0 table:@"BottomBar"];
-  [leftButton5 setAccessibilityIdentifier:v13];
+  v13 = [NSBundle bundleForClass:objc_opt_class()];
+  v14 = [v13 localizedStringForKey:@"AUDIO" value:&stru_100361FD0 table:@"BottomBar"];
+  [leftButton5 setAccessibilityIdentifier:v14];
 
-  v14 = +[TUCallCenter sharedInstance];
-  routeController = [v14 routeController];
+  v15 = +[TUCallCenter sharedInstance];
+  routeController = [v15 routeController];
   pickedRoute = [routeController pickedRoute];
 
   if ([pickedRoute isAuxiliary])
@@ -478,27 +478,27 @@
 
   [(PHBannerButtonsView *)self setAudioRouteButtonSelected:isSpeaker];
   [(PHBannerButtonsView *)self updateAudioRouteButtonImage];
-  v18 = [UIBlurEffect effectWithStyle:8];
-  v19 = [UIVibrancyEffect effectForBlurEffect:v18 style:6];
-  v20 = [[UIVisualEffectView alloc] initWithEffect:v19];
-  [(PHBannerButtonsView *)self setAudioRouteVibrancyView:v20];
+  v19 = [UIBlurEffect effectWithStyle:8];
+  v20 = [UIVibrancyEffect effectForBlurEffect:v19 style:6];
+  v21 = [[UIVisualEffectView alloc] initWithEffect:v20];
+  [(PHBannerButtonsView *)self setAudioRouteVibrancyView:v21];
 
   leftButton6 = [(PHBannerButtonsView *)self leftButton];
   [leftButton6 bounds];
-  v23 = v22;
-  v25 = v24;
-  v27 = v26;
-  v29 = v28;
+  v24 = v23;
+  v26 = v25;
+  v28 = v27;
+  v30 = v29;
   audioRouteVibrancyView = [(PHBannerButtonsView *)self audioRouteVibrancyView];
-  [audioRouteVibrancyView setFrame:{v23, v25, v27, v29}];
+  [audioRouteVibrancyView setFrame:{v24, v26, v28, v30}];
 
   leftButton7 = [(PHBannerButtonsView *)self leftButton];
   layer = [leftButton7 layer];
   [layer cornerRadius];
-  v34 = v33;
+  v35 = v34;
   audioRouteVibrancyView2 = [(PHBannerButtonsView *)self audioRouteVibrancyView];
   layer2 = [audioRouteVibrancyView2 layer];
-  [layer2 setCornerRadius:v34];
+  [layer2 setCornerRadius:v35];
 
   audioRouteVibrancyView3 = [(PHBannerButtonsView *)self audioRouteVibrancyView];
   [audioRouteVibrancyView3 setClipsToBounds:1];
@@ -506,10 +506,10 @@
   audioRouteVibrancyView4 = [(PHBannerButtonsView *)self audioRouteVibrancyView];
   [audioRouteVibrancyView4 setUserInteractionEnabled:0];
 
-  v39 = +[UIColor whiteColor];
+  v40 = +[UIColor whiteColor];
   audioRouteVibrancyView5 = [(PHBannerButtonsView *)self audioRouteVibrancyView];
   contentView = [audioRouteVibrancyView5 contentView];
-  [contentView setBackgroundColor:v39];
+  [contentView setBackgroundColor:v40];
 
   leftButton8 = [(PHBannerButtonsView *)self leftButton];
   audioRouteVibrancyView6 = [(PHBannerButtonsView *)self audioRouteVibrancyView];
@@ -572,30 +572,30 @@
 
   if (isAuxiliary)
   {
-    v9 = +[TUCallCenter sharedInstance];
-    routeController2 = [v9 routeController];
+    v10 = +[TUCallCenter sharedInstance];
+    routeController2 = [v10 routeController];
     pickedRoute2 = [routeController2 pickedRoute];
     audioRouteButtonImageColor = [(PHBannerButtonsView *)self audioRouteButtonImageColor];
-    v13 = [pickedRoute2 audioRouteGlyphForRoutePickerWithColor:audioRouteButtonImageColor];
-    v14 = v13;
-    if (v13)
+    v14 = [pickedRoute2 audioRouteGlyphForRoutePickerWithColor:audioRouteButtonImageColor];
+    v15 = v14;
+    if (v14)
     {
-      v15 = v13;
+      v16 = v14;
     }
 
     else
     {
-      v15 = icon;
+      v16 = icon;
     }
 
-    leftButton2 = v15;
+    leftButton2 = v16;
 
-    v17 = sub_100004F84();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_100004F84(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412290;
-      v21 = leftButton2;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Setting audio route button image to %@", &v20, 0xCu);
+      v22 = 138412290;
+      v23 = leftButton2;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Setting audio route button image to %@", &v22, 0xCu);
     }
 
     leftButton = [(PHBannerButtonsView *)self leftButton];
@@ -604,12 +604,12 @@
 
   else
   {
-    v19 = sub_100004F84();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = sub_100004F84(v9);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412290;
-      v21 = icon;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Setting audio route button image to %@", &v20, 0xCu);
+      v22 = 138412290;
+      v23 = icon;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Setting audio route button image to %@", &v22, 0xCu);
     }
 
     leftButton2 = [(PHBannerButtonsView *)self leftButton];
@@ -669,15 +669,15 @@
 
   if (action == 22)
   {
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004F84(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Audio routes changed, updating audio route banner button", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Audio routes changed, updating audio route banner button", v12, 2u);
     }
 
-    v7 = +[TUCallCenter sharedInstance];
-    routeController = [v7 routeController];
+    v8 = +[TUCallCenter sharedInstance];
+    routeController = [v8 routeController];
     pickedRoute = [routeController pickedRoute];
 
     if ([pickedRoute isAuxiliary])

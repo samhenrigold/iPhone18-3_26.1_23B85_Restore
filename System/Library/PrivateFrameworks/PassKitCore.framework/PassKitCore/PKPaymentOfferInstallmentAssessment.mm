@@ -89,68 +89,68 @@ LABEL_40:
     goto LABEL_41;
   }
 
-  v21 = [(__CFString *)v19 isEqualToString:@"eligible"];
+  isEqualToString = objc_msgSend_isEqualToString_(v19);
 
-  if ((v21 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v23 = v20;
-    if (v23 == @"notEligible" || (v24 = v23, v25 = [(__CFString *)v23 isEqualToString:@"notEligible"], v24, (v25 & 1) != 0))
+    if (v23 == @"notEligible" || (v24 = v23, v25 = objc_msgSend_isEqualToString_(v23), v24, (v25 & 1) != 0))
     {
       v22 = 2;
       goto LABEL_41;
     }
 
     v26 = v24;
-    if (v26 == @"insufficientCredit" || (v27 = v26, v28 = [(__CFString *)v26 isEqualToString:@"insufficientCredit"], v27, (v28 & 1) != 0))
+    if (v26 == @"insufficientCredit" || (v27 = v26, v28 = objc_msgSend_isEqualToString_(v26), v27, (v28 & 1) != 0))
     {
       v22 = 3;
       goto LABEL_41;
     }
 
     v29 = v27;
-    if (v29 == @"merchantNotSupported" || (v30 = v29, v31 = [(__CFString *)v29 isEqualToString:@"merchantNotSupported"], v30, (v31 & 1) != 0))
+    if (v29 == @"merchantNotSupported" || (v30 = v29, v31 = objc_msgSend_isEqualToString_(v29), v30, (v31 & 1) != 0))
     {
       v22 = 4;
       goto LABEL_41;
     }
 
     v32 = v30;
-    if (v32 == @"purchaseAmountIneligible" || (v33 = v32, v34 = [(__CFString *)v32 isEqualToString:@"purchaseAmountIneligible"], v33, (v34 & 1) != 0))
+    if (v32 == @"purchaseAmountIneligible" || (v33 = v32, v34 = objc_msgSend_isEqualToString_(v32), v33, (v34 & 1) != 0))
     {
       v22 = 5;
       goto LABEL_41;
     }
 
     v35 = v33;
-    if (v35 == @"accountRestricted" || (v36 = v35, v37 = [(__CFString *)v35 isEqualToString:@"accountRestricted"], v36, (v37 & 1) != 0))
+    if (v35 == @"accountRestricted" || (v36 = v35, v37 = objc_msgSend_isEqualToString_(v35), v36, (v37 & 1) != 0))
     {
       v22 = 6;
       goto LABEL_41;
     }
 
     v38 = v36;
-    if (v38 == @"userIneligible" || (v39 = v38, v40 = [(__CFString *)v38 isEqualToString:@"userIneligible"], v39, (v40 & 1) != 0))
+    if (v38 == @"userIneligible" || (v39 = v38, v40 = objc_msgSend_isEqualToString_(v38), v39, (v40 & 1) != 0))
     {
       v22 = 7;
       goto LABEL_41;
     }
 
     v41 = v39;
-    if (v41 == @"fraudSuspected" || (v42 = v41, v43 = [(__CFString *)v41 isEqualToString:@"fraudSuspected"], v42, (v43 & 1) != 0))
+    if (v41 == @"fraudSuspected" || (v42 = v41, v43 = objc_msgSend_isEqualToString_(v41), v42, (v43 & 1) != 0))
     {
       v22 = 8;
       goto LABEL_41;
     }
 
     v44 = v42;
-    if (v44 == @"notSupportedForCard" || (v45 = v44, v46 = [(__CFString *)v44 isEqualToString:@"notSupportedForCard"], v45, (v46 & 1) != 0))
+    if (v44 == @"notSupportedForCard" || (v45 = v44, v46 = objc_msgSend_isEqualToString_(v44), v45, (v46 & 1) != 0))
     {
       v22 = 9;
       goto LABEL_41;
     }
 
     v47 = v45;
-    if (v47 == @"systemError" || (v48 = v47, v49 = [(__CFString *)v47 isEqualToString:@"systemError"], v48, v49))
+    if (v47 == @"systemError" || (v48 = v47, v49 = objc_msgSend_isEqualToString_(v47), v48, v49))
     {
       v22 = 10;
       goto LABEL_41;
@@ -252,19 +252,19 @@ uint64_t __70__PKPaymentOfferInstallmentAssessment_installmentOfferWithIdentifie
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (void)populatePreferredLanguage:(id)language
@@ -371,9 +371,9 @@ LABEL_7:
             goto LABEL_34;
           }
 
-          v11 = [(NSString *)v8 isEqualToString:v9];
+          isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-          if (!v11)
+          if (!isEqualToString)
           {
             goto LABEL_35;
           }
@@ -394,7 +394,7 @@ LABEL_7:
             goto LABEL_34;
           }
 
-          v15 = [(NSString *)v8 isEqualToString:v14];
+          v15 = objc_msgSend_isEqualToString_(v8);
 
           if (!v15)
           {
@@ -462,7 +462,7 @@ LABEL_39:
 
         if (v8 && v21)
         {
-          v22 = [(NSString *)v8 isEqualToString:v21];
+          v22 = objc_msgSend_isEqualToString_(v8);
 
           if (v22)
           {

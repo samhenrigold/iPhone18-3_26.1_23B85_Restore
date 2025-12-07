@@ -89,7 +89,7 @@
         }
 
         v7 = *(*(&v33 + 1) + 8 * v6);
-        if (sub_10000A2E8(v7))
+        if (sub_10000A2E8())
         {
           allCalendars = [v7 allCalendars];
           v29 = 0u;

@@ -3,6 +3,7 @@
 - (BOOL)isPunctuationInput;
 - (BOOL)selectedCandidateIsEnglish;
 - (BOOL)supportsNumberKeySelection;
+- (BOOL)updateCandidatesWithTIWordSearch:(id)search predictionEnabled:(BOOL)enabled;
 - (id)cangjieAlphabetSet;
 - (id)cangjieSet;
 - (id)deleteFromInput:(unint64_t *)input;
@@ -13,6 +14,7 @@
 - (unint64_t)cangjieInputType:(id)type fromPopupVariant:(BOOL)variant;
 - (void)addInput:(id)input withContext:(id)context;
 - (void)notifyUpdateCandidates:(id)candidates forOperation:(id)operation;
+- (void)syncToKeyboardState:(id)state from:(id)from afterContextChange:(BOOL)change;
 - (void)syncToLayoutState:(id)state;
 - (void)syncWordSearch;
 - (void)updateMarkedText;
@@ -146,6 +148,19 @@ LABEL_5:
   v7 = [v6 stringByAppendingString:@"☻"];
 
   return v7;
+}
+
+- (BOOL)updateCandidatesWithTIWordSearch:(id)search predictionEnabled:(BOOL)enabled
+{
+  v7.receiver = self;
+  v7.super_class = TIKeyboardInputManagerCangjie;
+  v5 = [(TIKeyboardInputManagerShapeBased *)&v7 updateCandidatesWithTIWordSearch:search predictionEnabled:enabled];
+  if (v5)
+  {
+    [(TIKeyboardInputManagerCangjie *)self updateMarkedText];
+  }
+
+  return v5;
 }
 
 - (void)notifyUpdateCandidates:(id)candidates forOperation:(id)operation
@@ -292,6 +307,22 @@ LABEL_13:
   v4 = [(TIKeyboardInputManagerShapeBased *)&v6 deleteFromInput:input];
   [(TIKeyboardInputManagerCangjie *)self updateMarkedText];
   return 0;
+}
+
+- (void)syncToKeyboardState:(id)state from:(id)from afterContextChange:(BOOL)change
+{
+  v8.receiver = self;
+  v8.super_class = TIKeyboardInputManagerCangjie;
+  [(TIKeyboardInputManagerChinese *)&v8 syncToKeyboardState:state from:from afterContextChange:change];
+  [(TIKeyboardInputManagerCangjie *)self syncWordSearch];
+  keyboardState = [(TIKeyboardInputManagerCangjie *)self keyboardState];
+  currentCandidate = [keyboardState currentCandidate];
+
+  if (currentCandidate)
+  {
+    [(TIKeyboardInputManagerCangjie *)self updateMarkedText];
+    [(TIKeyboardInputManagerCangjie *)self setMarkedText];
+  }
 }
 
 - (void)addInput:(id)input withContext:(id)context

@@ -51,7 +51,7 @@ LABEL_7:
   }
 
   entryComments = [(PLCloudFeedCommentsEntry *)self entryComments];
-  if ([entryComments count])
+  if (objc_msgSend_count(entryComments))
   {
     v4 = 0;
   }
@@ -59,7 +59,7 @@ LABEL_7:
   else
   {
     entryLikeComments = [(PLCloudFeedCommentsEntry *)self entryLikeComments];
-    v4 = [entryLikeComments count] == 0;
+    v4 = objc_msgSend_count(entryLikeComments) == 0;
   }
 
   return v4;

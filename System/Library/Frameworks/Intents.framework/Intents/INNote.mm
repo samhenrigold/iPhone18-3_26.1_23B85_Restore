@@ -56,81 +56,78 @@
 uint64_t __68__INNote_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) _setContents:a2];
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 40) + 16);
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v3();
 }
 
 - (void)_intents_updateContainerWithCache:(id)cache
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   contents = [(INNote *)self contents];
-  v6 = [contents countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [contents countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(contents);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) _intents_updateContainerWithCache:cacheCopy];
+        [*(*(&v10 + 1) + 8 * v9++) _intents_updateContainerWithCache:cacheCopy];
       }
 
       while (v7 != v9);
-      v7 = [contents countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [contents countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_intents_cacheableObjects
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   contents = [(INNote *)self contents];
-  v5 = [contents countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [contents countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(contents);
         }
 
-        _intents_cacheableObjects = [*(*(&v14 + 1) + 8 * v8) _intents_cacheableObjects];
+        _intents_cacheableObjects = [*(*(&v13 + 1) + 8 * v8) _intents_cacheableObjects];
         [v3 unionSet:_intents_cacheableObjects];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [contents countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [contents countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -148,24 +145,23 @@ uint64_t __68__INNote_INImageProxyInjecting___injectProxiesForImages_completion_
 
   v11 = v10;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)_dictionaryRepresentation
 {
-  v25[7] = *MEMORY[0x1E69E9840];
+  v24[7] = *MEMORY[0x1E69E9840];
   title = self->_title;
-  v23 = title;
-  v24[0] = @"title";
+  v22 = title;
+  v23[0] = @"title";
   if (!title)
   {
     title = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = title;
-  v25[0] = title;
-  v24[1] = @"contents";
+  v21 = title;
+  v24[0] = title;
+  v23[1] = @"contents";
   contents = self->_contents;
   null = contents;
   if (!contents)
@@ -173,9 +169,9 @@ uint64_t __68__INNote_INImageProxyInjecting___injectProxiesForImages_completion_
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v25[1] = null;
-  v24[2] = @"groupName";
+  v20 = null;
+  v24[1] = null;
+  v23[2] = @"groupName";
   groupName = self->_groupName;
   null2 = groupName;
   if (!groupName)
@@ -183,9 +179,9 @@ uint64_t __68__INNote_INImageProxyInjecting___injectProxiesForImages_completion_
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null2;
-  v25[2] = null2;
-  v24[3] = @"createdDateComponents";
+  v19 = null2;
+  v24[2] = null2;
+  v23[3] = @"createdDateComponents";
   createdDateComponents = self->_createdDateComponents;
   null3 = createdDateComponents;
   if (!createdDateComponents)
@@ -193,9 +189,9 @@ uint64_t __68__INNote_INImageProxyInjecting___injectProxiesForImages_completion_
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = null3;
-  v25[3] = null3;
-  v24[4] = @"modifiedDateComponents";
+  v18 = null3;
+  v24[3] = null3;
+  v23[4] = @"modifiedDateComponents";
   modifiedDateComponents = self->_modifiedDateComponents;
   null4 = modifiedDateComponents;
   if (!modifiedDateComponents)
@@ -203,8 +199,8 @@ uint64_t __68__INNote_INImageProxyInjecting___injectProxiesForImages_completion_
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[4] = null4;
-  v24[5] = @"identifier";
+  v24[4] = null4;
+  v23[5] = @"identifier";
   identifier = self->_identifier;
   null5 = identifier;
   if (!identifier)
@@ -212,8 +208,8 @@ uint64_t __68__INNote_INImageProxyInjecting___injectProxiesForImages_completion_
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[5] = null5;
-  v24[6] = @"accountIdentifier";
+  v24[5] = null5;
+  v23[6] = @"accountIdentifier";
   accountIdentifier = self->_accountIdentifier;
   null6 = accountIdentifier;
   if (!accountIdentifier)
@@ -221,8 +217,8 @@ uint64_t __68__INNote_INImageProxyInjecting___injectProxiesForImages_completion_
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[6] = null6;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:7];
+  v24[6] = null6;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:7];
   if (accountIdentifier)
   {
     if (identifier)
@@ -293,11 +289,9 @@ LABEL_20:
 LABEL_31:
 
 LABEL_21:
-  if (!v23)
+  if (!v22)
   {
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -360,13 +354,13 @@ LABEL_21:
 
 - (INNote)initWithCoder:(id)coder
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"title"];
+  v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"title"];
   v4 = MEMORY[0x1E695DFD8];
-  v24[0] = objc_opt_class();
-  v24[1] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+  v23[0] = objc_opt_class();
+  v23[1] = objc_opt_class();
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
   v6 = [v4 setWithArray:v5];
   v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"contents"];
 
@@ -383,8 +377,7 @@ LABEL_21:
   v17 = [v15 setWithObjects:{v16, objc_opt_class(), 0}];
   v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"accountIdentifier"];
 
-  v19 = [(INNote *)self initWithTitle:v22 contents:v7 groupName:v8 createdDateComponents:v9 modifiedDateComponents:v10 identifier:v14 accountIdentifier:v18];
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = [(INNote *)self initWithTitle:v21 contents:v7 groupName:v8 createdDateComponents:v9 modifiedDateComponents:v10 identifier:v14 accountIdentifier:v18];
   return v19;
 }
 

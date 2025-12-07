@@ -10,13 +10,13 @@
 
 - (BDSSaltVersionIdentifierManager)initWithZoneDataManager:(id)manager tokenController:(id)controller databaseController:(id)databaseController
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   controllerCopy = controller;
   databaseControllerCopy = databaseController;
-  v22.receiver = self;
-  v22.super_class = BDSSaltVersionIdentifierManager;
-  v11 = [(BDSSaltVersionIdentifierManager *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = BDSSaltVersionIdentifierManager;
+  v11 = [(BDSSaltVersionIdentifierManager *)&v21 init];
   v12 = v11;
   if (v11)
   {
@@ -27,40 +27,38 @@
     zoneName = v12->_zoneName;
     v12->_zoneName = v14;
 
-    [databaseControllerCopy addObserver:v12 zoneID:v12->_zoneName];
-    v16 = BDSCloudKitSyncLog();
+    v16 = BDSCloudKitSyncLog([databaseControllerCopy addObserver:v12 zoneID:v12->_zoneName]);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       WeakRetained = objc_loadWeakRetained(&v12->_zoneDataManager);
       v18 = objc_loadWeakRetained(&v12->_tokenController);
       v19 = v12->_zoneName;
       *buf = 138412802;
-      v24 = WeakRetained;
-      v25 = 2112;
-      v26 = v18;
-      v27 = 2112;
-      v28 = v19;
+      v23 = WeakRetained;
+      v24 = 2112;
+      v25 = v18;
+      v26 = 2112;
+      v27 = v19;
       _os_log_impl(&dword_1E45E0000, v16, OS_LOG_TYPE_INFO, "[BDSSaltVersionIdentifierManager] init with %@ %@. Adding to zone:(%@)", buf, 0x20u);
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (void)handleSaltVersionIdentifierChange:(id)change completion:(id)completion
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   completionCopy = completion;
   zoneName = [(BDSSaltVersionIdentifierManager *)self zoneName];
-  v9 = BDSCloudKitSyncLog();
+  v9 = BDSCloudKitSyncLog(zoneName);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v31 = zoneName;
-    v32 = 2112;
-    v33 = changeCopy;
+    v30 = zoneName;
+    v31 = 2112;
+    v32 = changeCopy;
     _os_log_impl(&dword_1E45E0000, v9, OS_LOG_TYPE_DEFAULT, "[BDSSaltVersionIdentifierManager] #saltVersionIdentifierChanged - %@ ---1. %@  ", buf, 0x16u);
   }
 
@@ -70,29 +68,27 @@
   aBlock[3] = &unk_1E8759CE0;
   aBlock[4] = self;
   v10 = zoneName;
-  v27 = v10;
+  v26 = v10;
   v11 = changeCopy;
-  v28 = v11;
+  v27 = v11;
   v12 = completionCopy;
-  v29 = v12;
+  v28 = v12;
   v13 = _Block_copy(aBlock);
   tokenController = [(BDSSaltVersionIdentifierManager *)self tokenController];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = sub_1E4601A30;
-  v20[3] = &unk_1E8759D30;
-  v24 = v13;
-  v25 = v12;
-  v21 = v10;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = sub_1E4601A30;
+  v19[3] = &unk_1E8759D30;
+  v23 = v13;
+  v24 = v12;
+  v20 = v10;
   selfCopy = self;
-  v23 = v11;
+  v22 = v11;
   v15 = v11;
   v16 = v12;
   v17 = v13;
   v18 = v10;
-  [tokenController zoneNeedsUpdate:v15 completion:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [tokenController zoneNeedsUpdate:v15 completion:v19];
 }
 
 - (NSString)description

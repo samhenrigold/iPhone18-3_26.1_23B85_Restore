@@ -8,7 +8,7 @@
 
 - (VMBiomeClient)init
 {
-  v3 = sub_10003DD84();
+  v3 = sub_10003DD84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
@@ -44,7 +44,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_10003DD84();
+  v3 = sub_10003DD84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;

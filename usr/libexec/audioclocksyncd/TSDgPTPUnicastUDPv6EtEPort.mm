@@ -1,5 +1,6 @@
 @interface TSDgPTPUnicastUDPv6EtEPort
 + (id)diagnosticInfoForService:(id)service;
+- (TSDgPTPUnicastUDPv6EtEPort)initWithService:(id)service pid:(int)pid;
 - (id)_destinationAddressString;
 - (id)_destinationIPv6Address;
 - (id)_sourceAddressString;
@@ -7,6 +8,22 @@
 @end
 
 @implementation TSDgPTPUnicastUDPv6EtEPort
+
+- (TSDgPTPUnicastUDPv6EtEPort)initWithService:(id)service pid:(int)pid
+{
+  v9.receiver = self;
+  v9.super_class = TSDgPTPUnicastUDPv6EtEPort;
+  v4 = [(TSDgPTPFDEtEPort *)&v9 initWithService:service pid:*&pid];
+  v5 = v4;
+  if (v4)
+  {
+    _destinationIPv6Address = [(TSDgPTPUnicastUDPv6EtEPort *)v4 _destinationIPv6Address];
+    destinationIPv6Address = v5->_destinationIPv6Address;
+    v5->_destinationIPv6Address = _destinationIPv6Address;
+  }
+
+  return v5;
+}
 
 - (id)_sourceAddressString
 {

@@ -1,10 +1,37 @@
 @interface GKTurbulenceNoiseModifier
+- (GKTurbulenceNoiseModifier)initWithFrequency:(double)frequency power:(double)power roughness:(double)roughness seed:(int)seed;
 - (double)valueAt:(GKTurbulenceNoiseModifier *)self;
 - (id)cloneModule;
 - (void)dealloc;
 @end
 
 @implementation GKTurbulenceNoiseModifier
+
+- (GKTurbulenceNoiseModifier)initWithFrequency:(double)frequency power:(double)power roughness:(double)roughness seed:(int)seed
+{
+  v6 = *&seed;
+  v19.receiver = self;
+  v19.super_class = GKTurbulenceNoiseModifier;
+  v10 = [(GKNoiseModifier *)&v19 initWithInputModuleCount:1];
+  v11 = v10;
+  if (v10)
+  {
+    v10->_power = power;
+    v12 = [[GKPerlinNoiseSource alloc] initWithFrequency:roughness octaveCount:v6 persistence:frequency lacunarity:0.5 seed:0.5];
+    v13 = v11->_perlin[0];
+    v11->_perlin[0] = v12;
+
+    v14 = [[GKPerlinNoiseSource alloc] initWithFrequency:roughness octaveCount:(v6 + 1) persistence:frequency lacunarity:0.5 seed:0.5];
+    v15 = v11->_perlin[1];
+    v11->_perlin[1] = v14;
+
+    v16 = [[GKPerlinNoiseSource alloc] initWithFrequency:roughness octaveCount:(v6 + 2) persistence:frequency lacunarity:0.5 seed:0.5];
+    v17 = v11->_perlin[2];
+    v11->_perlin[2] = v16;
+  }
+
+  return v11;
+}
 
 - (void)dealloc
 {

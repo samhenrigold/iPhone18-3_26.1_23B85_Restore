@@ -117,10 +117,7 @@ LABEL_10:
 
 uint64_t __54__AVTAvatarRecordRendering_avatarDescriptorForRecord___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = [*(a1 + 40) memojiDescriptorForRecord:a2];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [*(a1 + 40) memojiDescriptorForRecord:a2];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -220,61 +217,58 @@ LABEL_8:
 
 + (void)preloadAvatarsWithIdentifiers:(id)identifiers store:(id)store environment:(id)environment completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   storeCopy = store;
   environmentCopy = environment;
   handlerCopy = handler;
   array = [MEMORY[0x277CBEB18] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v14 = identifiersCopy;
-  v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       v18 = 0;
       do
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [AVTAvatarFetchRequest requestForAvatarWithIdentifier:*(*(&v22 + 1) + 8 * v18)];
+        v19 = [AVTAvatarFetchRequest requestForAvatarWithIdentifier:*(*(&v21 + 1) + 8 * v18)];
         [array addObject:v19];
 
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v16);
   }
 
   [self preloadAvatarsWithFetchRequests:array store:storeCopy environment:environmentCopy completionHandler:handlerCopy];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (void)preloadAllAvatarsWithStore:(id)store environment:(id)environment completionHandler:(id)handler
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   environmentCopy = environment;
   storeCopy = store;
   v11 = +[AVTAvatarFetchRequest requestForAllAvatars];
-  v14[0] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   [self preloadAvatarsWithFetchRequests:v12 store:storeCopy environment:environmentCopy completionHandler:handlerCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (void)preloadAvatarsWithFetchRequests:(id)requests store:(id)store environment:(id)environment completionHandler:(id)handler
@@ -305,59 +299,59 @@ LABEL_8:
 
 uint64_t __96__AVTAvatarRecordRendering_preloadAvatarsWithFetchRequests_store_environment_completionHandler___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v2 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v35;
-    v23 = *v35;
+    v4 = *v34;
+    v22 = *v34;
     do
     {
       v5 = 0;
-      v24 = v3;
+      v23 = v3;
       do
       {
-        if (*v35 != v4)
+        if (*v34 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v34 + 1) + 8 * v5);
+        v6 = *(*(&v33 + 1) + 8 * v5);
         v7 = *(a1 + 40);
-        v33 = 0;
-        v8 = [v7 avatarsForFetchRequest:v6 error:{&v33, v23}];
-        v9 = v33;
+        v32 = 0;
+        v8 = [v7 avatarsForFetchRequest:v6 error:{&v32, v22}];
+        v9 = v32;
         if (v8)
         {
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
           v30 = 0u;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
           v10 = v8;
-          v11 = [v10 countByEnumeratingWithState:&v29 objects:v38 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v28 objects:v37 count:16];
           if (v11)
           {
             v12 = v11;
-            v26 = v9;
-            v27 = v8;
-            v28 = v5;
-            v13 = *v30;
+            v25 = v9;
+            v26 = v8;
+            v27 = v5;
+            v13 = *v29;
             do
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v30 != v13)
+                if (*v29 != v13)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v15 = *(*(&v29 + 1) + 8 * i);
+                v15 = *(*(&v28 + 1) + 8 * i);
                 v16 = objc_autoreleasePoolPush();
                 v17 = [*(a1 + 72) avatarForRecord:v15];
                 v18 = *(a1 + 56);
@@ -370,15 +364,15 @@ uint64_t __96__AVTAvatarRecordRendering_preloadAvatarsWithFetchRequests_store_en
                 objc_autoreleasePoolPop(v16);
               }
 
-              v12 = [v10 countByEnumeratingWithState:&v29 objects:v38 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v28 objects:v37 count:16];
             }
 
             while (v12);
-            v4 = v23;
-            v3 = v24;
-            v8 = v27;
-            v5 = v28;
-            v9 = v26;
+            v4 = v22;
+            v3 = v23;
+            v8 = v26;
+            v5 = v27;
+            v9 = v25;
           }
         }
 
@@ -393,7 +387,7 @@ uint64_t __96__AVTAvatarRecordRendering_preloadAvatarsWithFetchRequests_store_en
       }
 
       while (v5 != v3);
-      v3 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v3 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v3);
@@ -402,20 +396,18 @@ uint64_t __96__AVTAvatarRecordRendering_preloadAvatarsWithFetchRequests_store_en
   result = *(a1 + 64);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 + (void)memojiDescriptorForRecord:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_241932000, a2, OS_LOG_TYPE_FAULT, "Can't decode Memoji descriptor! Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_241932000, a2, OS_LOG_TYPE_FAULT, "Can't decode Memoji descriptor! Error: %@", &v2, 0xCu);
 }
 
 @end

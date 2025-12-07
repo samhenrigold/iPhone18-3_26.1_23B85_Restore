@@ -17,17 +17,15 @@
 
 + (id)supportedFeatures
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v2 = [REFeatureSet alloc];
   v3 = +[REFeature locationOfInterestFeature];
   v4 = +[REFeature knownLocationOfInterestFeature];
-  v10[1] = v4;
+  v9[1] = v4;
   v5 = +[REFeature travelingFeature];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
   v7 = [(REFeatureSet *)v2 initWithFeatures:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -39,7 +37,7 @@
   _init = [(REPredictor *)&v14 _init];
   if (_init)
   {
-    if (CoreRoutineLibraryCore())
+    if (CoreRoutineLibraryCore(0))
     {
       v16 = 0;
       v17 = &v16;
@@ -82,7 +80,7 @@
 
 - (id)featureValueForFeature:(id)feature element:(id)element engine:(id)engine trainingContext:(id)context
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   featureCopy = feature;
   elementCopy = element;
   engineCopy = engine;
@@ -121,26 +119,26 @@
     {
       locationsOfInterest = [v14 locationsOfInterest];
       [locationsOfInterest firstObject];
-      v30 = contextCopy;
-      v32 = v31 = elementCopy;
+      v29 = contextCopy;
+      v31 = v30 = elementCopy;
 
-      identifier = [v32 identifier];
+      identifier = [v31 identifier];
       uUIDString = [identifier UUIDString];
-      v35 = uUIDString;
+      v34 = uUIDString;
       if (uUIDString)
       {
-        v36 = uUIDString;
+        v35 = uUIDString;
       }
 
       else
       {
-        v36 = &stru_283B97458;
+        v35 = &stru_283B97458;
       }
 
-      v26 = [REFeatureValue featureValueWithString:v36];
+      v26 = [REFeatureValue featureValueWithString:v35];
 
-      elementCopy = v31;
-      contextCopy = v30;
+      elementCopy = v30;
+      contextCopy = v29;
       v17 = 0;
       goto LABEL_13;
     }
@@ -164,55 +162,55 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v50 = elementCopy;
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
+    v49 = elementCopy;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     locationsOfInterest2 = [v14 locationsOfInterest];
-    v38 = locationsOfInterest2;
-    v39 = MEMORY[0x277CBEBF8];
+    v37 = locationsOfInterest2;
+    v38 = MEMORY[0x277CBEBF8];
     if (locationsOfInterest2)
     {
-      v39 = locationsOfInterest2;
+      v38 = locationsOfInterest2;
     }
 
-    v40 = v39;
+    v39 = v38;
 
-    v41 = [v40 countByEnumeratingWithState:&v51 objects:v55 count:16];
-    if (v41)
+    v40 = [v39 countByEnumeratingWithState:&v50 objects:v54 count:16];
+    if (v40)
     {
-      v42 = v41;
-      v49 = contextCopy;
-      v43 = 0;
-      v44 = *v52;
+      v41 = v40;
+      v48 = contextCopy;
+      v42 = 0;
+      v43 = *v51;
       do
       {
-        for (i = 0; i != v42; ++i)
+        for (i = 0; i != v41; ++i)
         {
-          if (*v52 != v44)
+          if (*v51 != v43)
           {
-            objc_enumerationMutation(v40);
+            objc_enumerationMutation(v39);
           }
 
-          v46 = *(*(&v51 + 1) + 8 * i);
-          if ([v46 type] != -1)
+          v45 = *(*(&v50 + 1) + 8 * i);
+          if ([v45 type] != -1)
           {
-            v47 = v46;
+            v46 = v45;
 
-            v43 = v47;
+            v42 = v46;
           }
         }
 
-        v42 = [v40 countByEnumeratingWithState:&v51 objects:v55 count:16];
+        v41 = [v39 countByEnumeratingWithState:&v50 objects:v54 count:16];
       }
 
-      while (v42);
+      while (v41);
 
-      contextCopy = v49;
-      if (v43)
+      contextCopy = v48;
+      if (v42)
       {
-        type = [v43 type];
+        type = [v42 type];
       }
 
       else
@@ -220,14 +218,14 @@ LABEL_12:
         type = -1;
       }
 
-      elementCopy = v50;
+      elementCopy = v49;
       v17 = 0;
     }
 
     else
     {
 
-      v43 = 0;
+      v42 = 0;
       type = -1;
     }
 
@@ -241,90 +239,88 @@ LABEL_12:
 
 LABEL_13:
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v26;
 }
 
 - (void)update
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v46[0] = 0;
-  v46[1] = v46;
-  v46[2] = 0x2020000000;
-  v47 = 0;
+  v48 = *MEMORY[0x277D85DE8];
+  v45[0] = 0;
+  v45[1] = v45;
+  v45[2] = 0x2020000000;
+  v46 = 0;
   v3 = dispatch_group_create();
   [(REPredictor *)self beginFetchingData];
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   engines = [(REPredictor *)self engines];
-  v5 = [engines countByEnumeratingWithState:&v42 objects:v48 count:16];
+  v5 = [engines countByEnumeratingWithState:&v41 objects:v47 count:16];
   if (v5)
   {
-    v23 = *v43;
+    v22 = *v42;
     obj = engines;
     do
     {
       v6 = 0;
-      v22 = v5;
+      v21 = v5;
       do
       {
-        if (*v43 != v23)
+        if (*v42 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v42 + 1) + 8 * v6);
-        v41[0] = 0;
-        v41[1] = v41;
-        v41[2] = 0x2020000000;
-        v41[3] = 0;
-        v39[0] = 0;
-        v39[1] = v39;
-        v39[2] = 0x3032000000;
-        v39[3] = __Block_byref_object_copy__29;
-        v39[4] = __Block_byref_object_dispose__29;
-        v40 = 0;
+        v7 = *(*(&v41 + 1) + 8 * v6);
+        v40[0] = 0;
+        v40[1] = v40;
+        v40[2] = 0x2020000000;
+        v40[3] = 0;
+        v38[0] = 0;
+        v38[1] = v38;
+        v38[2] = 0x3032000000;
+        v38[3] = __Block_byref_object_copy__29;
+        v38[4] = __Block_byref_object_dispose__29;
+        v39 = 0;
         v8 = dispatch_group_create();
         locationManager = [v7 locationManager];
         currentLocation = [locationManager currentLocation];
 
         if (currentLocation)
         {
-          v37[0] = MEMORY[0x277D85DD0];
-          v37[1] = 3221225472;
-          v37[2] = __29__RELocationPredictor_update__block_invoke;
-          v37[3] = &unk_2785FDC60;
+          v36[0] = MEMORY[0x277D85DD0];
+          v36[1] = 3221225472;
+          v36[2] = __29__RELocationPredictor_update__block_invoke;
+          v36[3] = &unk_2785FDC60;
           v11 = currentLocation;
-          v38 = v11;
-          v12 = MEMORY[0x22AABC5E0](v37);
+          v37 = v11;
+          v12 = MEMORY[0x22AABC5E0](v36);
           dispatch_group_enter(v8);
           manager = self->_manager;
-          v34[0] = MEMORY[0x277D85DD0];
-          v34[1] = 3221225472;
-          v34[2] = __29__RELocationPredictor_update__block_invoke_2;
-          v34[3] = &unk_2785FDC88;
-          v36 = v41;
+          v33[0] = MEMORY[0x277D85DD0];
+          v33[1] = 3221225472;
+          v33[2] = __29__RELocationPredictor_update__block_invoke_2;
+          v33[3] = &unk_2785FDC88;
+          v35 = v40;
           selfCopy = self;
           v15 = v8;
-          v35 = v15;
-          [(RTRoutineManager *)manager fetchRoutineModeFromLocation:v11 withHandler:v34];
+          v34 = v15;
+          [(RTRoutineManager *)manager fetchRoutineModeFromLocation:v11 withHandler:v33];
           dispatch_group_enter(v15);
           v16 = selfCopy->_manager;
-          v30[0] = MEMORY[0x277D85DD0];
-          v30[1] = 3221225472;
-          v30[2] = __29__RELocationPredictor_update__block_invoke_49;
-          v30[3] = &unk_2785FDCB0;
-          v33 = v39;
+          v29[0] = MEMORY[0x277D85DD0];
+          v29[1] = 3221225472;
+          v29[2] = __29__RELocationPredictor_update__block_invoke_49;
+          v29[3] = &unk_2785FDCB0;
+          v32 = v38;
           v17 = v12;
-          v32 = v17;
-          v31 = v15;
-          [(RTRoutineManager *)v16 fetchLocationsOfInterestWithinDistance:v11 ofLocation:v30 withHandler:1000.0];
+          v31 = v17;
+          v30 = v15;
+          [(RTRoutineManager *)v16 fetchLocationsOfInterestWithinDistance:v11 ofLocation:v29 withHandler:1000.0];
 
           self = selfCopy;
-          v5 = v22;
+          v5 = v21;
         }
 
         dispatch_group_enter(v3);
@@ -333,38 +329,37 @@ LABEL_13:
         block[1] = 3221225472;
         block[2] = __29__RELocationPredictor_update__block_invoke_2_54;
         block[3] = &unk_2785FDCD8;
-        v27 = v41;
-        v28 = v39;
+        v26 = v40;
+        v27 = v38;
         block[4] = self;
         block[5] = v7;
-        v29 = v46;
-        v26 = v3;
+        v28 = v45;
+        v25 = v3;
         dispatch_group_notify(v8, queue, block);
 
-        _Block_object_dispose(v39, 8);
-        _Block_object_dispose(v41, 8);
+        _Block_object_dispose(v38, 8);
+        _Block_object_dispose(v40, 8);
         ++v6;
       }
 
       while (v5 != v6);
       engines = obj;
-      v5 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v5 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
     }
 
     while (v5);
   }
 
   queue2 = [(REPredictor *)self queue];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __29__RELocationPredictor_update__block_invoke_3;
-  v24[3] = &unk_2785FADE0;
-  v24[4] = self;
-  v24[5] = v46;
-  dispatch_group_notify(v3, queue2, v24);
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __29__RELocationPredictor_update__block_invoke_3;
+  v23[3] = &unk_2785FADE0;
+  v23[4] = self;
+  v23[5] = v45;
+  dispatch_group_notify(v3, queue2, v23);
 
-  _Block_object_dispose(v46, 8);
-  v20 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v45, 8);
 }
 
 double __29__RELocationPredictor_update__block_invoke(uint64_t a1, void *a2)
@@ -462,7 +457,7 @@ void __29__RELocationPredictor_update__block_invoke_2_54(uint64_t a1)
   dispatch_group_leave(*(a1 + 48));
 }
 
-uint64_t __29__RELocationPredictor_update__block_invoke_3(uint64_t a1)
+void *__29__RELocationPredictor_update__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) finishFetchingData];
   if (*(*(*(a1 + 40) + 8) + 24) == 1)
@@ -509,14 +504,14 @@ uint64_t __29__RELocationPredictor_update__block_invoke_3(uint64_t a1)
   [locationManager removeObserver:self];
 }
 
-uint64_t __45__RELocationPredictor_removeRelevanceEngine___block_invoke(uint64_t result)
+void *__45__RELocationPredictor_removeRelevanceEngine___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    [*(*(result + 40) + 88) lock];
-    [*(*(v1 + 40) + 72) removeObjectForKey:*(v1 + 32)];
-    v2 = *(*(v1 + 40) + 88);
+    [*(result[5] + 88) lock];
+    [*(v1[5] + 72) removeObjectForKey:v1[4]];
+    v2 = *(v1[5] + 88);
 
     return [v2 lock];
   }
@@ -526,13 +521,13 @@ uint64_t __45__RELocationPredictor_removeRelevanceEngine___block_invoke(uint64_t
 
 - (id)locationForEngine:(id)engine userLocation:(int64_t)location
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   engineCopy = engine;
   [(NSLock *)self->_routineDataLock lock];
   v7 = [(NSMapTable *)self->_routineData objectForKey:engineCopy];
   [(NSLock *)self->_routineDataLock unlock];
+  v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   if ((location + 1) >= 5)
   {
     locationCopy = 0;
@@ -543,23 +538,23 @@ uint64_t __45__RELocationPredictor_removeRelevanceEngine___block_invoke(uint64_t
     locationCopy = location;
   }
 
-  *(&v22 + 1) = 0;
-  v23 = 0uLL;
+  *(&v21 + 1) = 0;
+  v22 = 0uLL;
   locationsOfInterest = [v7 locationsOfInterest];
-  v10 = [locationsOfInterest countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [locationsOfInterest countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
-    v11 = *v23;
+    v11 = *v22;
     while (2)
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(locationsOfInterest);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         if ([v13 type] == locationCopy)
         {
           v14 = objc_alloc(MEMORY[0x277CE41F8]);
@@ -574,7 +569,7 @@ uint64_t __45__RELocationPredictor_removeRelevanceEngine___block_invoke(uint64_t
         }
       }
 
-      v10 = [locationsOfInterest countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [locationsOfInterest countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v10)
       {
         continue;
@@ -585,8 +580,6 @@ uint64_t __45__RELocationPredictor_removeRelevanceEngine___block_invoke(uint64_t
   }
 
 LABEL_14:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -668,35 +661,35 @@ void __54__RELocationPredictor__setOverrideLocation_forEngine___block_invoke(uin
 
 - (NSDictionary)routineDataByEngine
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_routineDataLock lock];
   v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSMapTable count](self->_routineData, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   keyEnumerator = [(NSMapTable *)self->_routineData keyEnumerator];
-  v5 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [keyEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = [(NSMapTable *)self->_routineData objectForKey:v9];
         name = [v9 name];
         [v3 setObject:v10 forKeyedSubscript:name];
       }
 
-      v6 = [keyEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [keyEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -705,27 +698,23 @@ void __54__RELocationPredictor__setOverrideLocation_forEngine___block_invoke(uin
   [(NSLock *)self->_routineDataLock unlock];
   v12 = [v3 copy];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 void __29__RELocationPredictor_update__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Encountered CR error getting routine mode: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Encountered CR error getting routine mode: %@", &v2, 0xCu);
 }
 
 void __29__RELocationPredictor_update__block_invoke_49_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Encountered CR error getting LOIs: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Encountered CR error getting LOIs: %@", &v2, 0xCu);
 }
 
 @end

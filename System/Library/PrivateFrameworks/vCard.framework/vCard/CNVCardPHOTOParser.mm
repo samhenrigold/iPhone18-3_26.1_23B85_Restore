@@ -66,7 +66,7 @@
 
 + (id)clipRectInfoFromString:(id)string
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   v3 = [string componentsSeparatedByString:@"&"];
   if ([v3 count] >= 6)
   {
@@ -93,13 +93,13 @@
     {
       if (v14 && _cn_decodeBase64 != 0)
       {
-        v21[0] = @"kABImageInfoImageTypeKey";
-        v21[1] = @"kABImageInfoClipRectKey";
-        v22[0] = v5;
-        v22[1] = v14;
-        v21[2] = @"kABImageInfoHashKey";
-        v22[2] = _cn_decodeBase64;
-        v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+        v20[0] = @"kABImageInfoImageTypeKey";
+        v20[1] = @"kABImageInfoClipRectKey";
+        v21[0] = v5;
+        v21[1] = v14;
+        v20[2] = @"kABImageInfoHashKey";
+        v21[2] = _cn_decodeBase64;
+        v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
       }
     }
   }
@@ -108,8 +108,6 @@
   {
     v4 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

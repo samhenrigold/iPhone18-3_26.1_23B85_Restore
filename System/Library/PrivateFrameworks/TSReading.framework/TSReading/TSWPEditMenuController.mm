@@ -55,40 +55,40 @@ uint64_t __52__TSWPEditMenuController_p_sharedEditMenuController__block_invoke()
   v15 = v14;
   v17 = v16;
   v19 = v18;
-  v44.origin.x = x;
-  v44.origin.y = y;
-  v44.size.width = width;
-  v44.size.height = height;
-  v53.origin.x = v13;
-  v53.origin.y = v15;
-  v53.size.width = v17;
-  v53.size.height = v19;
-  v45 = CGRectIntersection(v44, v53);
-  v41 = v45.origin.x;
-  v42 = v45.size.height;
-  v20 = v45.origin.y;
-  v21 = v45.size.width;
-  [mEMORY[0x277D75718] setArrowDirection:0];
-  v46.origin.x = v41;
-  v46.size.height = v42;
-  v46.origin.y = v20;
-  v46.size.width = v21;
-  MinY = CGRectGetMinY(v46);
-  v47.origin.x = v13;
-  v47.origin.y = v15;
-  v47.size.width = v17;
-  v47.size.height = v19;
-  v23 = CGRectGetMinY(v47);
+  v39.origin.x = x;
+  v39.origin.y = y;
+  v39.size.width = width;
+  v39.size.height = height;
   v48.origin.x = v13;
   v48.origin.y = v15;
   v48.size.width = v17;
   v48.size.height = v19;
-  MaxY = CGRectGetMaxY(v48);
-  v49.origin.x = v41;
-  v49.size.height = v42;
-  v49.origin.y = v20;
-  v49.size.width = v21;
-  v25 = CGRectGetMaxY(v49);
+  v40 = CGRectIntersection(v39, v48);
+  v36 = v40.origin.x;
+  v37 = v40.size.height;
+  v20 = v40.origin.y;
+  v21 = v40.size.width;
+  [mEMORY[0x277D75718] setArrowDirection:0];
+  v41.origin.x = v36;
+  v41.size.height = v37;
+  v41.origin.y = v20;
+  v41.size.width = v21;
+  MinY = CGRectGetMinY(v41);
+  v42.origin.x = v13;
+  v42.origin.y = v15;
+  v42.size.width = v17;
+  v42.size.height = v19;
+  v23 = CGRectGetMinY(v42);
+  v43.origin.x = v13;
+  v43.origin.y = v15;
+  v43.size.width = v17;
+  v43.size.height = v19;
+  MaxY = CGRectGetMaxY(v43);
+  v44.origin.x = v36;
+  v44.size.height = v37;
+  v44.origin.y = v20;
+  v44.size.width = v21;
+  v25 = CGRectGetMaxY(v44);
   v26 = MinY - v23;
   v27 = MaxY - v25;
   if (MinY - v23 < 55.0 || v27 < 55.0)
@@ -97,36 +97,34 @@ uint64_t __52__TSWPEditMenuController_p_sharedEditMenuController__block_invoke()
     {
       if (v26 < 55.0)
       {
-        v33 = 1;
+        v28 = 1;
       }
 
       else
       {
-        v33 = 2;
+        v28 = 2;
       }
 
-      [mEMORY[0x277D75718] setArrowDirection:v33];
+      [mEMORY[0x277D75718] setArrowDirection:v28];
     }
 
     else if (dCopy)
     {
-      v28.n128_f64[0] = TSDCenterOfRect(v41, v20, v21, v42);
-      v29.n128_u64[0] = *MEMORY[0x277CBF3A8];
-      v30.n128_u64[0] = *(MEMORY[0x277CBF3A8] + 8);
-      v50.origin.x = TSDRectWithOriginAndSize(v31, v28, v32, v29, v30);
-      v51 = CGRectInset(v50, -0.5, -0.5);
-      v41 = v51.origin.x;
-      v42 = v51.size.height;
-      v20 = v51.origin.y;
-      v21 = v51.size.width;
+      TSDCenterOfRect(v36, v20, v21, v37);
+      TSDRectWithOriginAndSize();
+      v46 = CGRectInset(v45, -0.5, -0.5);
+      v36 = v46.origin.x;
+      v37 = v46.size.height;
+      v20 = v46.origin.y;
+      v21 = v46.size.width;
     }
   }
 
-  v52.origin.x = v41;
-  v52.size.height = v42;
-  v52.origin.y = v20;
-  v52.size.width = v21;
-  if (CGRectGetHeight(v52) != 0.0)
+  v47.origin.x = v36;
+  v47.size.height = v37;
+  v47.origin.y = v20;
+  v47.size.width = v21;
+  if (CGRectGetHeight(v47) != 0.0)
   {
     if (v21 == 0.0)
     {
@@ -143,7 +141,7 @@ uint64_t __52__TSWPEditMenuController_p_sharedEditMenuController__block_invoke()
     canvasView = [layerHost2 canvasView];
 
     p_sharedEditMenuController = [self p_sharedEditMenuController];
-    [p_sharedEditMenuController setTargetRect:{v41, v20, v21, v42}];
+    [p_sharedEditMenuController setTargetRect:{v36, v20, v21, v37}];
     [p_sharedEditMenuController setTargetView:canvasView];
     [p_sharedEditMenuController p_setMenuVisible:MEMORY[0x277CBEC38]];
   }

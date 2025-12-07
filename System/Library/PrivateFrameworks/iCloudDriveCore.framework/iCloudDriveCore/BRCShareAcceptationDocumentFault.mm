@@ -95,10 +95,22 @@
 
 - (void)deleteShareAcceptationFault
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_1(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: only share acceptation fault can be deleted; %@%@");
-  v2 = *MEMORY[0x277D85DE8];
+  if ([(BRCShareAcceptationDocumentFault *)self isShareAcceptationFault])
+  {
+    [(BRCDocumentItem *)self markDead];
+
+    [(BRCLocalItem *)self saveToDB];
+  }
+
+  else
+  {
+    v3 = brc_bread_crumbs();
+    v4 = brc_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    {
+      [BRCShareAcceptationDocumentFault deleteShareAcceptationFault];
+    }
+  }
 }
 
 - (BOOL)_updateInDB:(id)b diffs:(unint64_t)diffs

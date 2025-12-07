@@ -8,7 +8,7 @@
 {
   type metadata accessor for AssistiveAccessApplicationSceneSpecificationWrapper();
   static AssistiveAccessApplicationSceneSpecificationWrapper.specificationClass.getter();
-  sub_10002C9FC(0, &qword_10032DCD0);
+  sub_10002C9FC(0, &qword_10032DCD0, FBSSceneSpecification_ptr);
   if (swift_dynamicCastMetatype())
   {
 

@@ -32,9 +32,9 @@
 {
   depotCopy = depot;
   registerCopy = register;
-  v57.receiver = self;
-  v57.super_class = NavdMapsSuggestionsController;
-  v9 = [(NavdMapsSuggestionsController *)&v57 init];
+  v55.receiver = self;
+  v55.super_class = NavdMapsSuggestionsController;
+  v9 = [(NavdMapsSuggestionsController *)&v55 init];
   v10 = v9;
   if (v9)
   {
@@ -52,78 +52,76 @@
     v10->_routeGenius = v17;
 
     [(NavdRouteGeniusServer *)v10->_routeGeniusServer setActivatable:v10->_routeGenius];
-    v19 = MapsFeaturesConfig_LocationIntelligenceMaps[1];
-    v20 = dispatch_get_global_queue(21, 0);
+    v19 = dispatch_get_global_queue(21, 0);
     MapsFeature_AddDelegateListener();
 
-    v21 = +[MapsSuggestionsDestinationdTrigger description];
-    v22 = [registerCopy objectForKeyedSubscript:v21];
+    v20 = +[MapsSuggestionsDestinationdTrigger description];
+    v21 = [registerCopy objectForKeyedSubscript:v20];
 
-    if (v22)
+    if (v21)
     {
-      [v22 addIgnoredClientProcess:@"GeneralMapsWidget"];
+      [v21 addIgnoredClientProcess:@"GeneralMapsWidget"];
     }
 
     if (!v10->_venueAnnouncer)
     {
-      v23 = [[NavdVenueAnnouncer alloc] initFromResourceDepot:v10->_resourceDepot sharedRegister:registerCopy];
+      v22 = [[NavdVenueAnnouncer alloc] initFromResourceDepot:v10->_resourceDepot sharedRegister:registerCopy];
       venueAnnouncer = v10->_venueAnnouncer;
-      v10->_venueAnnouncer = v23;
+      v10->_venueAnnouncer = v22;
     }
 
     if (!v10->_avocadoUpdater)
     {
-      v25 = [[NavdAvocadoUpdater alloc] initFromResourceDepot:v10->_resourceDepot sharedRegister:registerCopy];
+      v24 = [[NavdAvocadoUpdater alloc] initFromResourceDepot:v10->_resourceDepot sharedRegister:registerCopy];
       avocadoUpdater = v10->_avocadoUpdater;
-      v10->_avocadoUpdater = v25;
+      v10->_avocadoUpdater = v24;
     }
 
-    v27 = [[MapsSuggestionsBluetoothVehicleConnectionTrigger alloc] initFireOnConnect:1 disconnect:0 exit:0];
-    v28 = [[MapsSuggestionsBluetoothVehicleConnectionTrigger alloc] initFireOnConnect:0 disconnect:1 exit:1];
-    v45 = objc_alloc_init(MapsSuggestionsMapsAppVisibleChangedTrigger);
-    v29 = [MapsSuggestionsCarplayDisconnectedCondition alloc];
-    v30 = GEOConfigNavdCarplayDisconnectDelay[1];
+    v26 = [[MapsSuggestionsBluetoothVehicleConnectionTrigger alloc] initFireOnConnect:1 disconnect:0 exit:0];
+    v27 = [[MapsSuggestionsBluetoothVehicleConnectionTrigger alloc] initFireOnConnect:0 disconnect:1 exit:1];
+    v43 = objc_alloc_init(MapsSuggestionsMapsAppVisibleChangedTrigger);
+    v28 = [MapsSuggestionsCarplayDisconnectedCondition alloc];
     GEOConfigGetDouble();
-    v44 = [v29 initWithDisconnectDelay:{v28, v27}];
+    v42 = [v28 initWithDisconnectDelay:{v27, v26}];
     objc_initWeak(&location, v10);
-    v31 = [MapsSuggestionsBlockCondition alloc];
-    v54[0] = _NSConcreteStackBlock;
-    v54[1] = 3221225472;
-    v54[2] = sub_10001DEE0;
-    v54[3] = &unk_100065B50;
-    objc_copyWeak(&v55, &location);
-    v32 = [v31 initWithName:@"FRAuthorizationCheck" block:v54];
-    v33 = dispatch_get_global_queue(17, 0);
+    v29 = [MapsSuggestionsBlockCondition alloc];
+    v52[0] = _NSConcreteStackBlock;
+    v52[1] = 3221225472;
+    v52[2] = sub_10001DEE0;
+    v52[3] = &unk_100065B50;
+    objc_copyWeak(&v53, &location);
+    v30 = [v29 initWithName:@"FRAuthorizationCheck" block:v52];
+    v31 = dispatch_get_global_queue(17, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10001E010;
     block[3] = &unk_100065B78;
-    objc_copyWeak(&v53, &location);
-    v34 = v27;
-    v47 = v34;
-    v35 = v28;
-    v48 = v35;
-    v49 = registerCopy;
-    v36 = v45;
+    objc_copyWeak(&v51, &location);
+    v32 = v26;
+    v45 = v32;
+    v33 = v27;
+    v46 = v33;
+    v47 = registerCopy;
+    v34 = v43;
+    v48 = v34;
+    v35 = v42;
+    v49 = v35;
+    v36 = v30;
     v50 = v36;
-    v37 = v44;
-    v51 = v37;
-    v38 = v32;
-    v52 = v38;
-    dispatch_async(v33, block);
+    dispatch_async(v31, block);
 
-    v39 = [[MapsSuggestionsDOoMEngineWrapper alloc] initWithResourceDepot:depotCopy conditions:&__NSArray0__struct];
+    v37 = [[MapsSuggestionsDOoMEngineWrapper alloc] initWithResourceDepot:depotCopy conditions:&__NSArray0__struct];
     doomEngineWrapper = v10->_doomEngineWrapper;
-    v10->_doomEngineWrapper = v39;
+    v10->_doomEngineWrapper = v37;
 
-    v41 = [[MapsSuggestionsCommuteWindowServer alloc] initWithResourceDepot:v10->_resourceDepot conditions:&__NSArray0__struct engine:v10->_doomEngineWrapper];
+    v39 = [[MapsSuggestionsCommuteWindowServer alloc] initWithResourceDepot:v10->_resourceDepot conditions:&__NSArray0__struct engine:v10->_doomEngineWrapper];
     commuteWindowServer = v10->_commuteWindowServer;
-    v10->_commuteWindowServer = v41;
+    v10->_commuteWindowServer = v39;
 
     [(NavdMapsSuggestionsController *)v10 startDoomIfNotStarted];
-    objc_destroyWeak(&v53);
+    objc_destroyWeak(&v51);
 
-    objc_destroyWeak(&v55);
+    objc_destroyWeak(&v53);
     objc_destroyWeak(&location);
   }
 

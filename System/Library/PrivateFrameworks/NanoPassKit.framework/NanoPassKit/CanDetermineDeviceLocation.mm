@@ -29,14 +29,4 @@ void ___CanDetermineDeviceLocation_block_invoke(uint64_t a1)
   dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
-uint64_t ___CanDetermineDeviceLocation_block_invoke_2(uint64_t a1)
-{
-  if (*(a1 + 44) == 1)
-  {
-    v1 = (*(a1 + 40) - 3) < 0xFFFFFFFE;
-  }
-
-  return (*(*(a1 + 32) + 16))();
-}
-
 @end

@@ -13,7 +13,7 @@
   [defaultCenter removeObserver:selfCopy];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for PostersNotificationHandlerService();
+  v6.super_class = type metadata accessor for PostersNotificationHandlerService(0);
   [(PostersNotificationHandlerService *)&v6 dealloc];
 }
 

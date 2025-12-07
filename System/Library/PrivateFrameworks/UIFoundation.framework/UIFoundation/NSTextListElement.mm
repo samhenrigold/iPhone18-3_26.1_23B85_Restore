@@ -298,7 +298,7 @@ LABEL_3:
   return v8;
 }
 
-uint64_t __83__NSTextListElement__createUpdatedTextTabsForTextTabs_markerLocation_listLocation___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__83__NSTextListElement__createUpdatedTextTabsForTextTabs_markerLocation_listLocation___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 location];
   if (v7 <= *(a1 + 40))

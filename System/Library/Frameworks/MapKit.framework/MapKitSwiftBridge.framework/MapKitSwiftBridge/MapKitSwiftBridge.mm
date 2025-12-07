@@ -1,11 +1,11 @@
 Swift::Void __swiftcall UIView.setGlassBackground()()
 {
-  v0 = *(*(sub_238DACFEC() - 8) + 64);
+  sub_238DACFEC();
   MEMORY[0x28223BE20]();
   sub_238DACFDC();
-  v1[3] = sub_238DACFFC();
-  v1[4] = MEMORY[0x277D74E20];
-  __swift_allocate_boxed_opaque_existential_1(v1);
+  v0[3] = sub_238DACFFC();
+  v0[4] = MEMORY[0x277D74E20];
+  __swift_allocate_boxed_opaque_existential_1(v0);
   sub_238DAD00C();
   sub_238DAD04C();
 }
@@ -23,7 +23,7 @@ uint64_t *__swift_allocate_boxed_opaque_existential_1(uint64_t *result)
 
 void sub_238DACDB8(void *a1)
 {
-  v2 = *(*(sub_238DACFEC() - 8) + 64);
+  sub_238DACFEC();
   MEMORY[0x28223BE20]();
   sub_238DAD03C();
   sub_238DAD02C();
@@ -33,11 +33,11 @@ void sub_238DACDB8(void *a1)
     swift_task_reportUnexpectedExecutor();
   }
 
-  v3 = a1;
+  v2 = a1;
   sub_238DACFDC();
-  v4[3] = sub_238DACFFC();
-  v4[4] = MEMORY[0x277D74E20];
-  __swift_allocate_boxed_opaque_existential_1(v4);
+  v3[3] = sub_238DACFFC();
+  v3[4] = MEMORY[0x277D74E20];
+  __swift_allocate_boxed_opaque_existential_1(v3);
   sub_238DAD00C();
   sub_238DAD04C();
 }

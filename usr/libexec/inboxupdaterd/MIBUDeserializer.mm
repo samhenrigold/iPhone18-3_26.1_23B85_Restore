@@ -497,10 +497,10 @@ LABEL_27:
   v17 = objc_opt_new();
   tagValDict = [(MIBUDeserializer *)self tagValDict];
 
-  v62 = descriptionTagCopy;
-  v63 = tagCopy;
-  v60 = errorTagCopy;
-  v61 = domainTagCopy;
+  v57 = descriptionTagCopy;
+  v58 = tagCopy;
+  v55 = errorTagCopy;
+  v56 = domainTagCopy;
   if (!tagValDict)
   {
     if (qword_1000B84A8[0] != -1)
@@ -509,12 +509,13 @@ LABEL_27:
     }
 
     errorCopy5 = error;
-    if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
     {
-      sub_1000203E0(&_mh_execute_header, v37, v38, "Data must be deserialized before deserializing error", v39, v40, v41, v42, v55, v56, v58, error, errorTagCopy, domainTagCopy, descriptionTagCopy, tagCopy, 0);
+      goto LABEL_34;
     }
 
-    goto LABEL_35;
+    v43 = "Data must be deserialized before deserializing error";
+    goto LABEL_43;
   }
 
   tagValDict2 = [(MIBUDeserializer *)self tagValDict];
@@ -528,15 +529,18 @@ LABEL_27:
     }
 
     errorCopy5 = error;
-    if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
     {
-      sub_1000203E0(&_mh_execute_header, v43, v44, "Failed to convert error code data to number", v45, v46, v47, v48, v55, v56, v58, error, errorTagCopy, domainTagCopy, descriptionTagCopy, tagCopy, 0);
+      goto LABEL_34;
     }
 
-LABEL_35:
+    v43 = "Failed to convert error code data to number";
+LABEL_43:
+    sub_1000203E0(&_mh_execute_header, v37, v38, v43, v39, v40, v41, v42, v50, v51, v53, error, errorTagCopy, domainTagCopy, descriptionTagCopy, tagCopy);
+LABEL_34:
     sub_10002035C();
     v20 = 0;
-LABEL_42:
+LABEL_41:
     v34 = 0;
     v33 = 0;
     goto LABEL_24;
@@ -564,11 +568,11 @@ LABEL_42:
     errorCopy5 = error;
     if (os_log_type_enabled(qword_1000B84A0, OS_LOG_TYPE_ERROR))
     {
-      sub_1000203E0(&_mh_execute_header, v49, v50, "Failed to convert error domain data to string", v51, v52, v53, v54, v55, v56, v58, error, errorTagCopy, domainTagCopy, descriptionTagCopy, tagCopy, 0);
+      sub_1000203E0(&_mh_execute_header, v44, v45, "Failed to convert error domain data to string", v46, v47, v48, v49, v50, v51, v53, error, errorTagCopy, domainTagCopy, descriptionTagCopy, tagCopy);
     }
 
     sub_10002035C();
-    goto LABEL_42;
+    goto LABEL_41;
   }
 
   tagValDict4 = [(MIBUDeserializer *)self tagValDict];
@@ -585,7 +589,7 @@ LABEL_42:
     if (v25)
     {
       v26 = [v25 objectForKeyedSubscript:domainTagCopy];
-      v27 = [tagCopy objectForKeyedSubscript:v63];
+      v27 = [tagCopy objectForKeyedSubscript:v58];
       v28 = v27;
       domainTagCopy = 0;
       v29 = &stru_1000A6A10;
@@ -594,11 +598,11 @@ LABEL_42:
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
-          v30 = [tagCopy objectForKeyedSubscript:v62];
+          v30 = [tagCopy objectForKeyedSubscript:v57];
 
           if (v30)
           {
-            v29 = [tagCopy objectForKeyedSubscript:v62];
+            v29 = [tagCopy objectForKeyedSubscript:v57];
           }
 
           else
@@ -607,10 +611,10 @@ LABEL_42:
           }
 
           integerValue = [v28 integerValue];
-          v64 = NSLocalizedDescriptionKey;
-          v65 = v29;
-          v57 = [NSDictionary dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-          domainTagCopy = [NSError errorWithDomain:v26 code:integerValue userInfo:v57];
+          v59 = NSLocalizedDescriptionKey;
+          v60 = v29;
+          v52 = [NSDictionary dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+          domainTagCopy = [NSError errorWithDomain:v26 code:integerValue userInfo:v52];
         }
 
         else

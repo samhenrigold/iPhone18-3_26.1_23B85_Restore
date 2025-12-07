@@ -39,7 +39,7 @@ void __27__PHDevice_isGeminiCapable__block_invoke()
 
   else
   {
-    v2 = PHDefaultLog();
+    v2 = PHDefaultLog(0);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __27__PHDevice_isGeminiCapable__block_invoke_cold_2(v2);
@@ -92,7 +92,7 @@ uint64_t __25__PHDevice_currentDevice__block_invoke()
   return v2;
 }
 
-uint64_t __16__PHDevice_init__block_invoke(uint64_t a1)
+void *__16__PHDevice_init__block_invoke(uint64_t a1)
 {
   v2 = objc_alloc(MEMORY[0x277CEC5D0]);
   v3 = [*(a1 + 32) dispatchQueue];
@@ -312,12 +312,11 @@ void __47__PHDevice_registerForRingerStateNotifications__block_invoke(uint64_t a
 
 void __27__PHDevice_isGeminiCapable__block_invoke_cold_1(int *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_2429BC000, a2, OS_LOG_TYPE_ERROR, "Could not retreive Dual SIM activation policy, mobileGestaltErrorCode: %d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_2429BC000, a2, OS_LOG_TYPE_ERROR, "Could not retreive Dual SIM activation policy, mobileGestaltErrorCode: %d", v3, 8u);
 }
 
 @end

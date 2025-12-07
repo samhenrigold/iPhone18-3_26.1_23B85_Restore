@@ -33,7 +33,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for SuggestedRouteBannerViewController();
+  v5.super_class = type metadata accessor for SuggestedRouteBannerViewController(0);
   v4 = v5.receiver;
   [(SuggestedRouteBannerViewController *)&v5 viewDidAppear:appearCopy];
   v4[OBJC_IVAR____TtC13MediaRemoteUI34SuggestedRouteBannerViewController_isOnScreen] = 1;
@@ -43,7 +43,7 @@
 {
   disappearCopy = disappear;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for SuggestedRouteBannerViewController();
+  v6.super_class = type metadata accessor for SuggestedRouteBannerViewController(0);
   v4 = v6.receiver;
   [(SuggestedRouteBannerViewController *)&v6 viewDidDisappear:disappearCopy];
   if (*&v4[OBJC_IVAR____TtC13MediaRemoteUI34SuggestedRouteBannerViewController_userInterfaceStyleTraitChangeRegistration])

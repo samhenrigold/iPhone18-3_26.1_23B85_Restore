@@ -105,10 +105,9 @@ void __52__GTLoopbackServiceXPCProxy_echo_completionHandler___block_invoke(uint6
 
   else
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 32) + 16);
+    v3 = *(*(a1 + 32) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -167,10 +166,9 @@ void __59__GTLoopbackServiceXPCProxy_echo_repeat_callback_complete___block_invok
 
   else
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 }
 

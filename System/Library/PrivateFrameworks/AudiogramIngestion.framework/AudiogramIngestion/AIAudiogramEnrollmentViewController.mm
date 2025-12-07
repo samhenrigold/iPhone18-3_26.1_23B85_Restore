@@ -1242,16 +1242,16 @@ void __83__AIAudiogramEnrollmentViewController__presentCameraAuthorizationStatus
   }
 }
 
-uint64_t __57__AIAudiogramEnrollmentViewController__openCameraTapped___block_invoke(uint64_t result, uint64_t a2)
+id *__57__AIAudiogramEnrollmentViewController__openCameraTapped___block_invoke(id *result, uint64_t a2)
 {
   if (a2 == 2)
   {
-    return [*(result + 32) _presentCameraAuthorizationStatusDeniedAlert];
+    return [result[4] _presentCameraAuthorizationStatusDeniedAlert];
   }
 
   if (a2 == 3)
   {
-    return [*(result + 32) _openCamera];
+    return [result[4] _openCamera];
   }
 
   return result;
@@ -2043,42 +2043,42 @@ void __75__AIAudiogramEnrollmentViewController_showFrequencySelectionViewControl
     array = [MEMORY[0x277CBEB18] array];
     audiogram3 = [(AIAudiogramEnrollmentViewController *)self audiogram];
     sensitivityPoints = [audiogram3 sensitivityPoints];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __69__AIAudiogramEnrollmentViewController_updateFrequencyViewControllers__block_invoke;
-    v23[3] = &unk_278CED048;
-    v23[4] = self;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __69__AIAudiogramEnrollmentViewController_updateFrequencyViewControllers__block_invoke;
+    v26[3] = &unk_278CED048;
+    v26[4] = self;
     v8 = array;
-    v24 = v8;
-    [sensitivityPoints enumerateObjectsUsingBlock:v23];
+    v27 = v8;
+    [sensitivityPoints enumerateObjectsUsingBlock:v26];
 
     if ([v8 count])
     {
       HKAudiogramSampleClass_0 = getHKAudiogramSampleClass_0();
       startDate = [audiogram2 startDate];
       endDate = [audiogram2 endDate];
-      v12 = metadataForHKAudiogramSample();
-      v13 = [HKAudiogramSampleClass_0 audiogramSampleWithSensitivityPoints:v8 startDate:startDate endDate:endDate metadata:v12];
+      v15 = metadataForHKAudiogramSample(endDate, v12, v13, v14);
+      v16 = [HKAudiogramSampleClass_0 audiogramSampleWithSensitivityPoints:v8 startDate:startDate endDate:endDate metadata:v15];
     }
 
     else
     {
-      v13 = 0;
+      v16 = 0;
     }
 
-    [(AIAudiogramEnrollmentViewController *)self setAudiogram:v13];
+    [(AIAudiogramEnrollmentViewController *)self setAudiogram:v16];
     array2 = [MEMORY[0x277CBEB18] array];
     childViewControllers = [(AIAudiogramEnrollmentViewController *)self childViewControllers];
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __69__AIAudiogramEnrollmentViewController_updateFrequencyViewControllers__block_invoke_2;
-    v20 = &unk_278CED070;
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __69__AIAudiogramEnrollmentViewController_updateFrequencyViewControllers__block_invoke_2;
+    v23 = &unk_278CED070;
     selfCopy = self;
-    v22 = array2;
-    v16 = array2;
-    [childViewControllers enumerateObjectsUsingBlock:&v17];
+    v25 = array2;
+    v19 = array2;
+    [childViewControllers enumerateObjectsUsingBlock:&v20];
 
-    [(OBNavigationController *)self setViewControllers:v16, v17, v18, v19, v20, selfCopy];
+    [(OBNavigationController *)self setViewControllers:v19, v20, v21, v22, v23, selfCopy];
   }
 }
 
@@ -2276,27 +2276,27 @@ LABEL_5:
 
   v17 = [v12 arrayWithArray:v16];
 
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __78__AIAudiogramEnrollmentViewController__addInitialSensitivityPointAtFrequency___block_invoke;
-  v48[3] = &unk_278CED098;
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __78__AIAudiogramEnrollmentViewController__addInitialSensitivityPointAtFrequency___block_invoke;
+  v51[3] = &unk_278CED098;
   v18 = hertzUnit;
-  v49 = v18;
+  v52 = v18;
   v19 = frequencyCopy;
-  v50 = v19;
-  if ([v17 indexOfObjectPassingTest:v48] == 0x7FFFFFFFFFFFFFFFLL)
+  v53 = v19;
+  if ([v17 indexOfObjectPassingTest:v51] == 0x7FFFFFFFFFFFFFFFLL)
   {
     array = [MEMORY[0x277CBEB18] array];
-    v42 = v11;
+    v45 = v11;
     if ([(AIAudiogramEnrollmentViewController *)self hasLeftSymbols])
     {
       v21 = objc_alloc(getHKAudiogramSensitivityTestClass_1());
       v22 = decibelHearingLevelUnit;
       v23 = [getHKQuantityClass_2() quantityWithUnit:decibelHearingLevelUnit doubleValue:0.0];
       selectedSymbols = [(AIAudiogramEnrollmentViewController *)self selectedSymbols];
-      v47 = 0;
-      v25 = [v21 initWithSensitivity:v23 type:0 masked:objc_msgSend(selectedSymbols side:"containsObject:" clampingRange:&unk_285365818) ^ 1 error:{0, 0, &v47}];
-      v26 = v47;
+      v50 = 0;
+      v25 = [v21 initWithSensitivity:v23 type:0 masked:objc_msgSend(selectedSymbols side:"containsObject:" clampingRange:&unk_285365818) ^ 1 error:{0, 0, &v50}];
+      v26 = v50;
 
       if (v25 && !v26)
       {
@@ -2304,7 +2304,7 @@ LABEL_5:
       }
 
       decibelHearingLevelUnit = v22;
-      v11 = v42;
+      v11 = v45;
     }
 
     else
@@ -2316,45 +2316,45 @@ LABEL_5:
     {
 
       v27 = objc_alloc(getHKAudiogramSensitivityTestClass_1());
-      v41 = decibelHearingLevelUnit;
+      v44 = decibelHearingLevelUnit;
       v28 = [getHKQuantityClass_2() quantityWithUnit:decibelHearingLevelUnit doubleValue:0.0];
       selectedSymbols2 = [(AIAudiogramEnrollmentViewController *)self selectedSymbols];
-      v46 = 0;
-      v30 = [v27 initWithSensitivity:v28 type:0 masked:objc_msgSend(selectedSymbols2 side:"containsObject:" clampingRange:&unk_285365848) ^ 1 error:{1, 0, &v46}];
-      v26 = v46;
+      v49 = 0;
+      v30 = [v27 initWithSensitivity:v28 type:0 masked:objc_msgSend(selectedSymbols2 side:"containsObject:" clampingRange:&unk_285365848) ^ 1 error:{1, 0, &v49}];
+      v26 = v49;
 
       if (v30 && !v26)
       {
         [array addObject:v30];
       }
 
-      decibelHearingLevelUnit = v41;
-      v11 = v42;
+      decibelHearingLevelUnit = v44;
+      v11 = v45;
     }
 
     if ([array count])
     {
-      v52 = 0;
-      v53 = &v52;
-      v54 = 0x2050000000;
+      v55 = 0;
+      v56 = &v55;
+      v57 = 0x2050000000;
       v31 = getHKAudiogramSensitivityPointClass_softClass_2;
-      v55 = getHKAudiogramSensitivityPointClass_softClass_2;
+      v58 = getHKAudiogramSensitivityPointClass_softClass_2;
       if (!getHKAudiogramSensitivityPointClass_softClass_2)
       {
-        v51[0] = MEMORY[0x277D85DD0];
-        v51[1] = 3221225472;
-        v51[2] = __getHKAudiogramSensitivityPointClass_block_invoke_2;
-        v51[3] = &unk_278CEC150;
-        v51[4] = &v52;
-        __getHKAudiogramSensitivityPointClass_block_invoke_2(v51);
-        v31 = v53[3];
+        v54[0] = MEMORY[0x277D85DD0];
+        v54[1] = 3221225472;
+        v54[2] = __getHKAudiogramSensitivityPointClass_block_invoke_2;
+        v54[3] = &unk_278CEC150;
+        v54[4] = &v55;
+        __getHKAudiogramSensitivityPointClass_block_invoke_2(v54);
+        v31 = v56[3];
       }
 
       v32 = v31;
-      _Block_object_dispose(&v52, 8);
-      v45 = v26;
-      v33 = [v31 sensitivityPointWithFrequency:v11 tests:array error:&v45];
-      v34 = v45;
+      _Block_object_dispose(&v55, 8);
+      v48 = v26;
+      v33 = [v31 sensitivityPointWithFrequency:v11 tests:array error:&v48];
+      v34 = v48;
 
       [v17 addObject:v33];
       v26 = v34;
@@ -2362,24 +2362,24 @@ LABEL_5:
 
     if ([v17 count])
     {
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __78__AIAudiogramEnrollmentViewController__addInitialSensitivityPointAtFrequency___block_invoke_2;
-      v43[3] = &unk_278CED0C0;
-      v44 = v18;
-      v35 = [v17 sortedArrayUsingComparator:v43];
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = __78__AIAudiogramEnrollmentViewController__addInitialSensitivityPointAtFrequency___block_invoke_2;
+      v46[3] = &unk_278CED0C0;
+      v47 = v18;
+      v35 = [v17 sortedArrayUsingComparator:v46];
       v36 = [v35 mutableCopy];
 
       pickedDate = [(AIAudiogramEnrollmentViewController *)self pickedDate];
       HKAudiogramSampleClass_0 = getHKAudiogramSampleClass_0();
-      v39 = metadataForHKAudiogramSample();
-      v40 = [HKAudiogramSampleClass_0 audiogramSampleWithSensitivityPoints:v36 startDate:pickedDate endDate:pickedDate metadata:v39];
-      [(AIAudiogramEnrollmentViewController *)self setAudiogram:v40];
+      v42 = metadataForHKAudiogramSample(HKAudiogramSampleClass_0, v39, v40, v41);
+      v43 = [HKAudiogramSampleClass_0 audiogramSampleWithSensitivityPoints:v36 startDate:pickedDate endDate:pickedDate metadata:v42];
+      [(AIAudiogramEnrollmentViewController *)self setAudiogram:v43];
 
       v17 = v36;
     }
 
-    v11 = v42;
+    v11 = v45;
   }
 
   else
@@ -2459,9 +2459,9 @@ uint64_t __78__AIAudiogramEnrollmentViewController__addInitialSensitivityPointAt
     HKAudiogramSampleClass_0 = getHKAudiogramSampleClass_0();
     audiogram2 = [(AIAudiogramEnrollmentViewController *)self audiogram];
     sensitivityPoints2 = [audiogram2 sensitivityPoints];
-    v10 = metadataForHKAudiogramSample();
-    v11 = [HKAudiogramSampleClass_0 audiogramSampleWithSensitivityPoints:sensitivityPoints2 startDate:dateCopy endDate:dateCopy metadata:v10];
-    [(AIAudiogramEnrollmentViewController *)self setAudiogram:v11];
+    v13 = metadataForHKAudiogramSample(sensitivityPoints2, v10, v11, v12);
+    v14 = [HKAudiogramSampleClass_0 audiogramSampleWithSensitivityPoints:sensitivityPoints2 startDate:dateCopy endDate:dateCopy metadata:v13];
+    [(AIAudiogramEnrollmentViewController *)self setAudiogram:v14];
 
     [(AIAudiogramEnrollmentViewController *)self updateFrequencyViewControllers];
     [(AIAudiogramEnrollmentViewController *)self refreshFinalConfirmationView];

@@ -3,15 +3,15 @@
 
 @implementation RESET
 
-uint64_t __quic_frame_acknowledged_RESET_STREAM_block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __quic_frame_acknowledged_RESET_STREAM_block_invoke(uint64_t a1, uint64_t *a2)
 {
   v34 = *MEMORY[0x1E69E9840];
-  v4 = (a2 + 250);
+  v4 = a2 + 250;
   if (*(a2 + 250) == 2 && ((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_DEFAULT)) && *(*(a1 + 32) + 1112))
   {
     v5 = _os_log_pack_size();
     v33 = &v31;
-    v6 = MEMORY[0x1EEE9AC00](v5, v5);
+    v6 = MEMORY[0x1EEE9AC00](v5);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v32 = &v31 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
     v7 = _os_log_pack_fill();
@@ -120,7 +120,7 @@ uint64_t __quic_frame_acknowledged_RESET_STREAM_block_invoke(uint64_t a1, uint64
     }
 
     v26 = *a2;
-    v27 = (*(a2 + 352) >> 17) & 1;
+    v27 = (*(a2 + 88) >> 17) & 1;
     *v7 = 136447490;
     *(v7 + 4) = "quic_frame_acknowledged_RESET_STREAM_block_invoke";
     *(v7 + 12) = 2082;
@@ -139,7 +139,7 @@ uint64_t __quic_frame_acknowledged_RESET_STREAM_block_invoke(uint64_t a1, uint64
 
   quic_fsm_send_stream_change(v4, 6);
   posix_error = nw_error_create_posix_error();
-  quic_stream_close(*(a1 + 32), a2);
+  quic_stream_close(*(a1 + 32), a2, posix_error);
   if (posix_error)
   {
     nw_release(posix_error);
@@ -151,12 +151,12 @@ uint64_t __quic_frame_acknowledged_RESET_STREAM_block_invoke(uint64_t a1, uint64
 BOOL __quic_frame_process_RESET_STREAM_block_invoke(uint64_t a1, uint64_t a2)
 {
   v82 = *MEMORY[0x1E69E9840];
-  quic_stream_set_application_error(a2);
+  quic_stream_set_application_error(a2, *(*(a1 + 32) + 24));
   if (((qlog_debug_enabled & 1) != 0 || (qlog_nwlog_enabled & 1) != 0 || os_log_type_enabled(qlog_log, OS_LOG_TYPE_INFO)) && *(*(a1 + 40) + 1112))
   {
     v4 = _os_log_pack_size();
     v81 = &v79;
-    v5 = &v79 - ((MEMORY[0x1EEE9AC00](v4, v4) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v5 = &v79 - ((MEMORY[0x1EEE9AC00](v4) + 15) & 0xFFFFFFFFFFFFFFF0);
     _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
     v6 = _os_log_pack_fill();
     v7 = *(a1 + 40);
@@ -315,7 +315,7 @@ BOOL __quic_frame_process_RESET_STREAM_block_invoke(uint64_t a1, uint64_t a2)
       }
 
       v39 = _os_log_pack_size();
-      v40 = &v79 - ((MEMORY[0x1EEE9AC00](v39, v39) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v40 = &v79 - ((MEMORY[0x1EEE9AC00](v39) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v41 = _os_log_pack_fill();
       v42 = *(*(a1 + 40) + 928);
@@ -338,7 +338,7 @@ BOOL __quic_frame_process_RESET_STREAM_block_invoke(uint64_t a1, uint64_t a2)
     {
 LABEL_41:
       v43 = _os_log_pack_size();
-      v44 = &v79 - ((MEMORY[0x1EEE9AC00](v43, v43) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v44 = &v79 - ((MEMORY[0x1EEE9AC00](v43) + 15) & 0xFFFFFFFFFFFFFFF0);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v45 = _os_log_pack_fill();
       v46 = *a2;
@@ -382,7 +382,7 @@ LABEL_42:
     {
       v53 = _os_log_pack_size();
       v81 = &v79;
-      v54 = MEMORY[0x1EEE9AC00](v53, v53);
+      v54 = MEMORY[0x1EEE9AC00](v53);
       _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
       v80 = &v79 - ((v54 + 15) & 0xFFFFFFFFFFFFFFF0);
       v55 = _os_log_pack_fill();
@@ -531,7 +531,7 @@ LABEL_42:
       quic_fsm_recv_stream_change((a2 + 251), 4);
       if ((*a2 & 2) != 0 && ((*(*(a1 + 40) + 1380) & 1) == 0) != ((*a2 & 1) == 0) || (*(a2 + 353) & 0x80) != 0 || (v77 = *(a2 + 250), v77 == 5) || v77 == 3)
       {
-        quic_stream_close(*(a1 + 40), a2);
+        quic_stream_close(*(a1 + 40), a2, posix_error);
       }
 
       if (posix_error)

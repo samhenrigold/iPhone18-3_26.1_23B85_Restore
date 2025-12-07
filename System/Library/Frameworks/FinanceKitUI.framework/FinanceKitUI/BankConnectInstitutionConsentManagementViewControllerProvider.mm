@@ -17,7 +17,7 @@
 
   v3 = sub_23875EA80();
   v5 = v4;
-  v6 = objc_allocWithZone(type metadata accessor for BankConnectInstitutionConsentManagementViewController());
+  v6 = objc_allocWithZone(type metadata accessor for BankConnectInstitutionConsentManagementViewController(0));
   v7 = sub_2385B8D10(v3, v5);
 
   return v7;

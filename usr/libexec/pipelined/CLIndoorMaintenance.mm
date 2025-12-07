@@ -4,6 +4,7 @@
 - (void)numFloors:(id)floors;
 - (void)onQueueEraseEverything:(id)everything;
 - (void)onQueueNumFloors:(id)floors;
+- (void)onQueuePrefetch:(id)prefetch callback:(id)callback when:(unsigned __int8)when;
 - (void)onQueueShutdown;
 - (void)prefetch:(id)prefetch;
 - (void)prefetchSynchronous:(id)synchronous;
@@ -73,6 +74,27 @@
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "Prefetch request finished", buf, 2u);
   }
+}
+
+- (void)onQueuePrefetch:(id)prefetch callback:(id)callback when:(unsigned __int8)when
+{
+  whenCopy = when;
+  prefetchCopy = prefetch;
+  callbackCopy = callback;
+  if (whenCopy == 1)
+  {
+    v9 = @"prefetchSynchronous:";
+  }
+
+  else
+  {
+    v9 = @"prefetch:";
+  }
+
+  connection = self->super._connection;
+  v11 = [(CLIndoorXPCProvider *)self _defaultErrHandler:callbackCopy forCaller:v9];
+  v12 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v11];
+  [v12 prefetch:prefetchCopy callback:callbackCopy when:whenCopy];
 }
 
 - (void)prefetchSynchronous:(id)synchronous

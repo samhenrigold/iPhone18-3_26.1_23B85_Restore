@@ -48,16 +48,18 @@ void __49___SBSDisplayIdentifiersCache_displayIdentifiers__block_invoke(uint64_t
 
 uint64_t __45___SBSDisplayIdentifiersCache_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance___sharedInstance = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  sharedInstance___sharedInstance = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1);
 }
 
 uint64_t __52___SBSDisplayIdentifiersCache_registerChangedBlock___block_invoke(uint64_t a1)
 {
-  *(*(a1 + 32) + 32) = [*(a1 + 40) copy];
+  v2 = [*(a1 + 40) copy];
+  *(*(a1 + 32) + 32) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2);
 }
 
 @end

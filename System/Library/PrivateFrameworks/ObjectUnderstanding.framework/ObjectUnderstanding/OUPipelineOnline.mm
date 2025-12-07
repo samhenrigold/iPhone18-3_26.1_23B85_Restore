@@ -61,11 +61,11 @@
   ou3dod = self->ou3dod_;
   self->ou3dod_ = v8;
 
-  v10 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v12 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v10, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_25D1DB000, v10, OS_LOG_TYPE_INFO, "Init 3D Object Detection online [done].", buf, 2u);
+    _os_log_impl(&dword_25D1DB000, v12, OS_LOG_TYPE_INFO, "Init 3D Object Detection online [done].", buf, 2u);
   }
 
   if (self->enable_3dor_)
@@ -74,9 +74,9 @@
   }
 
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v12 = [standardUserDefaults BOOLForKey:@"com.apple.ObjectUnderstanding.write_debug_data"];
+  v14 = [standardUserDefaults BOOLForKey:@"com.apple.ObjectUnderstanding.write_debug_data"];
 
-  self->write_debug_output_ = v12;
+  self->write_debug_output_ = v14;
 }
 
 - (void)clear
@@ -151,59 +151,58 @@ LABEL_10:
   v37 = *MEMORY[0x277D85DE8];
   v8 = a7;
   kdebug_trace();
-  v9 = *(self + 200);
   CameraPCFromARFrameSceneCamera(v8, 4u, &v31);
   camera = [v8 camera];
   SampleSemantics(&v31, camera, [v8 semanticLabelBuffer], objc_msgSend(v8, "semanticConfidenceBuffer"), v28, a2, frame, pose, a5);
 
-  v11 = v31;
-  v12 = v32;
+  v10 = v31;
+  v11 = v32;
   if (v31 == v32)
   {
-    v13 = v31;
+    v12 = v31;
   }
 
   else
   {
     do
     {
-      *v11->f32 = vaddq_f32(a5, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, COERCE_FLOAT(*v11->f32)), frame, *v11, 1), pose, *v11->f32, 2));
-      v11 += 2;
+      *v10->f32 = vaddq_f32(a5, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, COERCE_FLOAT(*v10->f32)), frame, *v10, 1), pose, *v10->f32, 2));
+      v10 += 2;
     }
 
-    while (v11 != v12);
-    v11 = v31;
-    v13 = v32;
+    while (v10 != v11);
+    v10 = v31;
+    v12 = v32;
   }
 
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEEC2B8ne200100Em(__p, (v13 - v11) >> 4);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEEC2B8ne200100Em(__p, (v12 - v10) >> 4);
   if (v32 != v31)
   {
-    v14 = 0;
+    v13 = 0;
     do
     {
-      *(__p[0] + v14++) = xmmword_25D277BC0;
+      *(__p[0] + v13++) = xmmword_25D277BC0;
     }
 
-    while (v14 < (v32 - v31) >> 4);
+    while (v13 < (v32 - v31) >> 4);
   }
 
-  v15 = [OUPointCloud alloc];
-  v16 = [OUPointCloud initWithCount:v15 points:"initWithCount:points:semanticLabels:semanticVotes:colors:" semanticLabels:(v32 - v31) >> 4 semanticVotes:? colors:?];
-  v17 = *(self + 184);
-  *(self + 184) = v16;
+  v14 = [OUPointCloud alloc];
+  v15 = [OUPointCloud initWithCount:v14 points:"initWithCount:points:semanticLabels:semanticVotes:colors:" semanticLabels:(v32 - v31) >> 4 semanticVotes:? colors:?];
+  v16 = *(self + 184);
+  *(self + 184) = v15;
 
-  v18 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  v19 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v17, v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     [v8 timestamp];
-    v20 = v19;
-    v21 = [*(self + 184) count];
+    v21 = v20;
+    v22 = [*(self + 184) count];
     *buf = 134218240;
-    v34 = v20;
+    v34 = v21;
     v35 = 2048;
-    v36 = v21;
-    _os_log_impl(&dword_25D1DB000, v18, OS_LOG_TYPE_INFO, "Updating world point cloud with frame at time %f with %zu points.", buf, 0x16u);
+    v36 = v22;
+    _os_log_impl(&dword_25D1DB000, v19, OS_LOG_TYPE_INFO, "Updating world point cloud with frame at time %f with %zu points.", buf, 0x16u);
   }
 
   kdebug_trace();
@@ -230,38 +229,36 @@ LABEL_10:
     v32 = v31;
     operator delete(v31);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)updateWorldPCWithKeyframes:(id)keyframes
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v26 = 0u;
+  v32 = *MEMORY[0x277D85DE8];
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
   obj = keyframes;
-  v4 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v4 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v4)
   {
-    v5 = *v27;
+    v5 = *v28;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v27 != v5)
+        if (*v28 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v26 + 1) + 8 * i);
+        v7 = *(*(&v27 + 1) + 8 * i);
         pointsToWorld = [v7 pointsToWorld];
         pointsToWorld2 = [v7 pointsToWorld];
         v10 = [v7 count];
         __p = 0;
-        v24 = 0;
         v25 = 0;
+        v26 = 0;
         _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(&__p, pointsToWorld, pointsToWorld2 + 16 * v10, (pointsToWorld2 + 16 * v10 - pointsToWorld) >> 4);
         v11 = [OUPointCloud alloc];
         v12 = [v7 count];
@@ -272,12 +269,12 @@ LABEL_10:
 
         if (__p)
         {
-          v24 = __p;
+          v25 = __p;
           operator delete(__p);
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v4 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v4);
@@ -291,14 +288,13 @@ LABEL_10:
 
   if (v18)
   {
-    v19 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v21 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v19, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      [OUPipelineOnline updateWorldPCWithKeyframes:v19];
+      [OUPipelineOnline updateWorldPCWithKeyframes:v21];
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18 ^ 1;
 }
 
@@ -405,11 +401,10 @@ LABEL_13:
 
 - (void)updateWorldPCWithKeyframes:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"3dod_earlyout_accumulation";
-  _os_log_debug_impl(&dword_25D1DB000, log, OS_LOG_TYPE_DEBUG, "pnp measurement: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"3dod_earlyout_accumulation";
+  _os_log_debug_impl(&dword_25D1DB000, log, OS_LOG_TYPE_DEBUG, "pnp measurement: %@", &v1, 0xCu);
 }
 
 @end

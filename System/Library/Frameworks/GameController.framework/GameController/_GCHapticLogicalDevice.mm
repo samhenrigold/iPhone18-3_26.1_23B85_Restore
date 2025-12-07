@@ -48,17 +48,15 @@
 
 - (void)stopAllHaptics
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = getGCHapticsLogger();
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = getGCHapticsLogger(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(self + 16);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_INFO, "Stop all haptics for %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_INFO, "Stop all haptics for %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

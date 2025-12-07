@@ -1,36 +1,39 @@
 @interface FigCaptureAudioDataSinkPipeline
 - (id)_buildAudioDataSinkPipeline:(void *)pipeline graph:(uint64_t)graph sourceAudioOutput:(_OWORD *)output clientAuditToken:(uint64_t)token renderDelegate:;
-- (void)initWithConfiguration:(void *)configuration graph:(uint64_t)graph name:(uint64_t)name sourceAudioOutput:(_OWORD *)output clientAuditToken:(uint64_t)token renderDelegate:;
+- (void)initWithConfiguration:(void *)configuration graph:(uint64_t)graph name:(uint64_t)name sourceAudioOutput:(__int128 *)output clientAuditToken:(uint64_t)token renderDelegate:;
 @end
 
 @implementation FigCaptureAudioDataSinkPipeline
 
-- (void)initWithConfiguration:(void *)configuration graph:(uint64_t)graph name:(uint64_t)name sourceAudioOutput:(_OWORD *)output clientAuditToken:(uint64_t)token renderDelegate:
+- (void)initWithConfiguration:(void *)configuration graph:(uint64_t)graph name:(uint64_t)name sourceAudioOutput:(__int128 *)output clientAuditToken:(uint64_t)token renderDelegate:
 {
   if (!self)
   {
     return 0;
   }
 
-  v17.receiver = self;
-  v17.super_class = FigCaptureAudioDataSinkPipeline;
-  v12 = objc_msgSendSuper2(&v17, sel_initWithGraph_name_sinkID_, configuration, graph, [objc_msgSend(a2 "sinkConfiguration")]);
-  v13 = v12;
-  if (v12)
+  v22.receiver = self;
+  v22.super_class = FigCaptureAudioDataSinkPipeline;
+  v13 = objc_msgSendSuper2(&v22, sel_initWithGraph_name_sinkID_, configuration, graph, [objc_msgSend(a2 "sinkConfiguration")]);
+  v14 = v13;
+  if (v13)
   {
-    v15 = output[1];
-    v16[0] = *output;
-    v16[1] = v15;
-    if ([(FigCaptureAudioDataSinkPipeline *)v12 _buildAudioDataSinkPipeline:a2 graph:configuration sourceAudioOutput:name clientAuditToken:v16 renderDelegate:token])
+    v16 = output[1];
+    v20 = *output;
+    v21 = v16;
+    v17 = [(FigCaptureAudioDataSinkPipeline *)v13 _buildAudioDataSinkPipeline:a2 graph:configuration sourceAudioOutput:name clientAuditToken:&v20 renderDelegate:token];
+    if (v17)
     {
+      v18 = v17;
       fig_log_get_emitter();
-      FigDebugAssert3();
+      v19 = v18;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v19, v7, v20, *(&v20 + 1), v21, *(&v21 + 1), v22.receiver, LODWORD(v22.super_class));
 
       return 0;
     }
   }
 
-  return v13;
+  return v14;
 }
 
 - (id)_buildAudioDataSinkPipeline:(void *)pipeline graph:(uint64_t)graph sourceAudioOutput:(_OWORD *)output clientAuditToken:(uint64_t)token renderDelegate:
@@ -63,22 +66,23 @@
         {
           [pipeline enableDeferredPrepareForNodesNotInPathOfSinkNode:v15];
         }
-
-        goto LABEL_7;
       }
 
-      fig_log_get_emitter();
-      OUTLINED_FUNCTION_0_5();
+      else
+      {
+        fig_log_get_emitter();
+        OUTLINED_FUNCTION_0_5();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+      }
     }
 
     else
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_5();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
-    FigDebugAssert3();
-LABEL_7:
     result = v20;
     if (v20)
     {

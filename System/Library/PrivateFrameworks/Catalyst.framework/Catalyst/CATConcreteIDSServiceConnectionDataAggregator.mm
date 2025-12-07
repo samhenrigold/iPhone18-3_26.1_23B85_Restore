@@ -42,12 +42,11 @@
 
 - (id)missingSequenceNumbers
 {
-  v3 = self->mGreatestExpectedSequenceNumber - self->mNextExpectedSequenceNumber;
-  v4 = [MEMORY[0x277CCAB58] indexSetWithIndexesInRange:?];
-  [v4 removeIndexes:self->mPendingSequenceNumbers];
-  v5 = [MEMORY[0x277CBEA60] cat_arrayFromIndexSet:v4];
+  v3 = [MEMORY[0x277CCAB58] indexSetWithIndexesInRange:?];
+  [v3 removeIndexes:self->mPendingSequenceNumbers];
+  v4 = [MEMORY[0x277CBEA60] cat_arrayFromIndexSet:v3];
 
-  return v5;
+  return v4;
 }
 
 - (void)receiveDataContent:(id)content

@@ -7,7 +7,7 @@
 
 + (id)_gkPreferredFontForTextStyle:()GKDashboardUtils symbolicTraits:
 {
-  v5 = [MEMORY[0x277D74310] preferredFontDescriptorWithTextStyle:?];
+  v5 = [MEMORY[0x277D74310] preferredFontDescriptorWithTextStyle:a3];
   v6 = [v5 fontDescriptorWithSymbolicTraits:a4];
 
   v7 = [MEMORY[0x277D74300] fontWithDescriptor:v6 size:0.0];

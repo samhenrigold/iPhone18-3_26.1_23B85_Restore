@@ -241,19 +241,17 @@ __CFString *__32__NDDownloadRequest_description__block_invoke(uint64_t a1)
 
 void __47__NDDownloadRequest_initWithContentID_options___block_invoke_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v1 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"unknown content type for identifier: %@", *a1];
   *buf = 136315906;
-  v4 = "[NDDownloadRequest initWithContentID:options:]_block_invoke";
-  v5 = 2080;
-  v6 = "NDDownloadRequest.m";
-  v7 = 1024;
-  v8 = 49;
-  v9 = 2114;
-  v10 = v1;
+  v3 = "[NDDownloadRequest initWithContentID:options:]_block_invoke";
+  v4 = 2080;
+  v5 = "NDDownloadRequest.m";
+  v6 = 1024;
+  v7 = 49;
+  v8 = 2114;
+  v9 = v1;
   _os_log_error_impl(&dword_25BE24000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

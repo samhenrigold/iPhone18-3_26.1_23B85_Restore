@@ -1,8 +1,8 @@
 @interface NSMutableArray(PosterFuturesKit)
-- (uint64_t)pft_addObject:()PosterFuturesKit count:;
 - (uint64_t)pft_addObject:()PosterFuturesKit orPlaceholder:;
 - (void)pft_addNonNilObject:()PosterFuturesKit;
 - (void)pft_addNonNilObjectIfNotPresent:()PosterFuturesKit;
+- (void)pft_addObject:()PosterFuturesKit count:;
 - (void)pft_insertNonNilObject:()PosterFuturesKit atIndex:;
 - (void)pft_removeObjectsPassingTest:()PosterFuturesKit;
 - (void)pft_reverseObjectsInRange:()PosterFuturesKit;
@@ -15,10 +15,10 @@
 {
   if (a3)
   {
-    return [self addObject:?];
+    return [result addObject:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)pft_addNonNilObjectIfNotPresent:()PosterFuturesKit
@@ -40,7 +40,7 @@
   return [self addObject:a3];
 }
 
-- (uint64_t)pft_addObject:()PosterFuturesKit count:
+- (void)pft_addObject:()PosterFuturesKit count:
 {
   if (a4)
   {
@@ -62,10 +62,10 @@
 {
   if (a3)
   {
-    return [self insertObject:? atIndex:?];
+    return [result insertObject:? atIndex:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)pft_removeObjectsPassingTest:()PosterFuturesKit

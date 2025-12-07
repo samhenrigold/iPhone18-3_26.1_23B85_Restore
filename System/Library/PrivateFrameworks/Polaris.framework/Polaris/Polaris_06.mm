@@ -1,727 +1,3 @@
-void sub_25EAE79A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, const void **a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-const void **std::__hash_table<std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::ResourceOptions>>>::__emplace_unique_key_args<std::string,std::string,PSSG::ResourceOptions>(void *a1, const void **a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-void sub_25EAE7ED4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,PSSG::ResourceOptions>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,PSSG::ResourceOptions>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-__n128 std::vector<std::pair<unsigned int,unsigned int>>::__move_assign(uint64_t a1, __n128 *a2)
-{
-  v4 = *a1;
-  if (v4)
-  {
-    *(a1 + 8) = v4;
-    operator delete(v4);
-    *a1 = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-  }
-
-  result = *a2;
-  *a1 = *a2;
-  *(a1 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
-  return result;
-}
-
-uint64_t std::unordered_map<std::string,PSSG::ResourceOptions>::unordered_map(uint64_t a1, uint64_t a2)
-{
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = *(a2 + 32);
-  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::__rehash<true>(a1, *(a2 + 8));
-  for (i = *(a2 + 16); i; i = *i)
-  {
-    std::__hash_table<std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::ResourceOptions>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,PSSG::ResourceOptions> const&>(a1, i + 2);
-  }
-
-  return a1;
-}
-
-const void **std::__hash_table<std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::ResourceOptions>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,PSSG::ResourceOptions> const&>(void *a1, const void **a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    std::__hash_table<std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSG::ResourceOptions>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSG::ResourceOptions>>>::__construct_node_hash<std::pair<std::string const,PSSG::ResourceOptions> const&>();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-void sub_25EAE81FC(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,PSSG::ResourceOptions>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,PSSG::ResourceOptions>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t a1, char *__dst, char *__src, char *a4, int64_t __len)
-{
-  v5 = __dst;
-  if (__len < 1)
-  {
-    return v5;
-  }
-
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
-  if (v9 - v10 < __len)
-  {
-    v11 = *a1;
-    v12 = &v10[__len - *a1];
-    if (v12 < 0)
-    {
-      std::vector<unsigned int>::__throw_length_error[abi:ne200100]();
-    }
-
-    v13 = (__dst - v11);
-    v14 = v9 - v11;
-    if (2 * v14 > v12)
-    {
-      v12 = 2 * v14;
-    }
-
-    if (v14 >= 0x3FFFFFFFFFFFFFFFLL)
-    {
-      v15 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v15 = v12;
-    }
-
-    if (v15)
-    {
-      operator new();
-    }
-
-    v31 = (__dst - v11);
-    memcpy(v13, __src, __len);
-    v32 = &v13[__len];
-    v33 = v10 - v5;
-    memcpy(v32, v5, v10 - v5);
-    *(a1 + 8) = v5;
-    v34 = &v13[v11 - v5];
-    memcpy(v34, v11, v31);
-    *a1 = v34;
-    *(a1 + 8) = &v32[v33];
-    *(a1 + 16) = 0;
-    if (v11)
-    {
-      operator delete(v11);
-    }
-
-    return v13;
-  }
-
-  v16 = v10 - __dst;
-  if (v10 - __dst >= __len)
-  {
-    v27 = &__dst[__len];
-    v28 = &v10[-__len];
-    v29 = *(a1 + 8);
-    if (v10 >= __len)
-    {
-      do
-      {
-        v30 = *v28++;
-        *v29++ = v30;
-      }
-
-      while (v28 != v10);
-    }
-
-    *(a1 + 8) = v29;
-    if (v10 != v27)
-    {
-      memmove(&__dst[__len], __dst, v10 - v27);
-    }
-
-    v24 = v5;
-    v25 = __src;
-    v26 = __len;
-    goto LABEL_27;
-  }
-
-  v18 = a4 - &__src[v16];
-  if (a4 != &__src[v16])
-  {
-    memmove(*(a1 + 8), &__src[v16], a4 - &__src[v16]);
-  }
-
-  v19 = &v10[v18];
-  *(a1 + 8) = &v10[v18];
-  if (v16 >= 1)
-  {
-    v20 = &v5[__len];
-    v21 = &v10[v18];
-    if (&v19[-__len] < v10)
-    {
-      v22 = v5 - &__src[__len];
-      v23 = v5 - __src;
-      do
-      {
-        a4[v23++] = a4[v22++];
-      }
-
-      while (&a4[v22] < v10);
-      v21 = &a4[v23];
-    }
-
-    *(a1 + 8) = v21;
-    if (v19 != v20)
-    {
-      memmove(&v5[__len], v5, v19 - v20);
-    }
-
-    v24 = v5;
-    v25 = __src;
-    v26 = v10 - v5;
-LABEL_27:
-    memmove(v24, v25, v26);
-  }
-
-  return v5;
-}
-
-char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t __len)
-{
-  v5 = __dst;
-  if (__len < 1)
-  {
-    return v5;
-  }
-
-  v6 = __len;
-  v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
-  if (v9 - v10 < __len)
-  {
-    v11 = *a1;
-    v12 = &v10[__len - *a1];
-    if (v12 < 0)
-    {
-      std::vector<unsigned int>::__throw_length_error[abi:ne200100]();
-    }
-
-    v13 = v9 - v11;
-    if (2 * v13 > v12)
-    {
-      v12 = 2 * v13;
-    }
-
-    if (v13 >= 0x3FFFFFFFFFFFFFFFLL)
-    {
-      v14 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v14 = v12;
-    }
-
-    if (v14)
-    {
-      operator new();
-    }
-
-    v30 = (__dst - v11);
-    v31 = (__dst - v11 + __len);
-    v32 = (__dst - v11);
-    do
-    {
-      v33 = *v7++;
-      *v32++ = v33;
-      --v6;
-    }
-
-    while (v6);
-    v34 = *(a1 + 8) - __dst;
-    memcpy(v31, __dst, v34);
-    v35 = &v31[v34];
-    *(a1 + 8) = v5;
-    v36 = *a1;
-    v37 = &v30[*a1 - v5];
-    memcpy(v37, *a1, &v5[-*a1]);
-    *a1 = v37;
-    *(a1 + 8) = v35;
-    *(a1 + 16) = 0;
-    if (v36)
-    {
-      operator delete(v36);
-    }
-
-    return v30;
-  }
-
-  v15 = v10 - __dst;
-  if (v10 - __dst >= __len)
-  {
-    v26 = &__dst[__len];
-    v27 = &v10[-__len];
-    v28 = *(a1 + 8);
-    if (v10 >= __len)
-    {
-      do
-      {
-        v29 = *v27++;
-        *v28++ = v29;
-      }
-
-      while (v27 != v10);
-    }
-
-    *(a1 + 8) = v28;
-    if (v10 != v26)
-    {
-      memmove(&__dst[__len], __dst, v10 - v26);
-    }
-
-    v23 = v5;
-    v24 = v7;
-    v25 = v6;
-    goto LABEL_27;
-  }
-
-  v17 = a4 - &__src[v15];
-  if (a4 != &__src[v15])
-  {
-    memmove(*(a1 + 8), &__src[v15], a4 - &__src[v15]);
-  }
-
-  v18 = &v10[v17];
-  *(a1 + 8) = &v10[v17];
-  if (v15 >= 1)
-  {
-    v19 = &v5[v6];
-    v20 = &v10[v17];
-    if (&v18[-v6] < v10)
-    {
-      v21 = a4 - &v7[v6];
-      v22 = a4 - v7;
-      do
-      {
-        v5[v22++] = v5[v21++];
-      }
-
-      while (&v5[v21] < v10);
-      v20 = &v5[v22];
-    }
-
-    *(a1 + 8) = v20;
-    if (v18 != v19)
-    {
-      memmove(&v5[v6], v5, v18 - v19);
-    }
-
-    v23 = v5;
-    v24 = v7;
-    v25 = v10 - v5;
-LABEL_27:
-    memmove(v23, v24, v25);
-  }
-
-  return v5;
-}
-
-const void **std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::string,unsigned char &>(void *a1, const void **a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-uint64_t std::unordered_map<std::string,unsigned char>::unordered_map(uint64_t a1, uint64_t a2)
-{
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = *(a2 + 32);
-  std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::__rehash<true>(a1, *(a2 + 8));
-  for (i = *(a2 + 16); i; i = *i)
-  {
-    std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned char> const&>(a1, i + 2);
-  }
-
-  return a1;
-}
-
-const void **std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,unsigned char> const&>(void *a1, const void **a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    std::__hash_table<std::__hash_value_type<std::string,unsigned char>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned char>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned char>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned char>>>::__construct_node_hash<std::pair<std::string const,unsigned char> const&>();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
 void sub_25EAE8C1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
 {
   if (__p)
@@ -739,21 +15,21 @@ void sub_25EAE8CE4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<PSSG::ResourceStridesEntry>::__emplace_back_slow_path<char (&)[256],unsigned int &,char (&)[256]>(uint64_t *a1, char *a2, _DWORD *a3, char *a4)
+uint64_t std::vector<PSSG::ResourceStridesEntry>::__emplace_back_slow_path<char (&)[256],unsigned int &,char (&)[256]>(uint64_t a1, char *a2, _DWORD *a3, char *a4)
 {
-  v4 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
+  v4 = 0x6DB6DB6DB6DB6DB7 * ((*(a1 + 8) - *a1) >> 3);
   v5 = v4 + 1;
   if ((v4 + 1) > 0x492492492492492)
   {
     std::vector<unsigned int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 3) > v5)
+  if (0xDB6DB6DB6DB6DB6ELL * ((*(a1 + 16) - *a1) >> 3) > v5)
   {
-    v5 = 0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 3);
+    v5 = 0xDB6DB6DB6DB6DB6ELL * ((*(a1 + 16) - *a1) >> 3);
   }
 
-  if ((0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 3)) >= 0x249249249249249)
+  if ((0x6DB6DB6DB6DB6DB7 * ((*(a1 + 16) - *a1) >> 3)) >= 0x249249249249249)
   {
     v8 = 0x492492492492492;
   }
@@ -773,14 +49,14 @@ uint64_t std::vector<PSSG::ResourceStridesEntry>::__emplace_back_slow_path<char 
   v16 = 56 * v4;
   std::allocator<PSSG::ResourceStridesEntry>::construct[abi:ne200100]<PSSG::ResourceStridesEntry,char (&)[256],unsigned int &,char (&)[256]>(a1, (56 * v4), a2, a3, a4);
   v17 = (56 * v4 + 56);
-  v9 = a1[1];
+  v9 = *(a1 + 8);
   v10 = 56 * v4 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<PSSG::ResourceStridesEntry>,PSSG::ResourceStridesEntry*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = a1[2];
+  v12 = *(a1 + 16);
   v14 = v17;
-  *(a1 + 1) = v17;
+  *(a1 + 8) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -789,9 +65,9 @@ uint64_t std::vector<PSSG::ResourceStridesEntry>::__emplace_back_slow_path<char 
   return v14;
 }
 
-void sub_25EAE8E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25EAE8E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<PSSG::ResourceStridesEntry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -828,9 +104,9 @@ void sub_25EAE8EEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25EAEA8E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25EAEA8E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1070,9 +346,9 @@ uint64_t isResourceShared(void *a1, void *a2, void *a3)
 
 id populateAddedGraphsInfo(void *a1, void *a2, void *a3, void *a4)
 {
-  v115 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   v7 = a1;
-  v77 = a2;
+  v76 = a2;
   v8 = a3;
   v9 = a4;
   v10 = xpc_dictionary_create(0, 0, 0);
@@ -1089,51 +365,51 @@ id populateAddedGraphsInfo(void *a1, void *a2, void *a3, void *a4)
   xarray = xpc_array_create_empty();
   value = xpc_array_create_empty();
   empty = xpc_array_create_empty();
-  v86 = xpc_array_create_empty();
   v85 = xpc_array_create_empty();
+  v84 = xpc_array_create_empty();
+  v105 = 0u;
   v106 = 0u;
   v107 = 0u;
   v108 = 0u;
-  v109 = 0u;
-  v79 = v7;
+  v78 = v7;
   obj = [v7 tasks];
-  v82 = [obj countByEnumeratingWithState:&v106 objects:v114 count:16];
-  if (v82)
+  v81 = [obj countByEnumeratingWithState:&v105 objects:v113 count:16];
+  if (v81)
   {
-    v81 = *v107;
+    v80 = *v106;
     do
     {
       v14 = 0;
       do
       {
-        if (*v107 != v81)
+        if (*v106 != v80)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v106 + 1) + 8 * v14);
+        v15 = *(*(&v105 + 1) + 8 * v14);
+        v101 = 0u;
         v102 = 0u;
         v103 = 0u;
         v104 = 0u;
-        v105 = 0u;
-        v83 = v15;
-        v84 = v14;
+        v82 = v15;
+        v83 = v14;
         v16 = [v15 inputs];
-        v17 = [v16 countByEnumeratingWithState:&v102 objects:v113 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v101 objects:v112 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v103;
+          v19 = *v102;
           do
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v103 != v19)
+              if (*v102 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v21 = *(*(&v102 + 1) + 8 * i);
+              v21 = *(*(&v101 + 1) + 8 * i);
               v22 = [v21 resourceKey];
               v23 = xpc_string_create([v22 UTF8String]);
               xpc_array_append_value(xarray, v23);
@@ -1156,35 +432,35 @@ id populateAddedGraphsInfo(void *a1, void *a2, void *a3, void *a4)
               xpc_array_append_value(empty, v27);
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v102 objects:v113 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v101 objects:v112 count:16];
           }
 
           while (v18);
         }
 
-        v100 = 0u;
-        v101 = 0u;
-        v98 = 0u;
         v99 = 0u;
-        v28 = [v83 outputs];
-        v29 = [v28 countByEnumeratingWithState:&v98 objects:v112 count:16];
+        v100 = 0u;
+        v97 = 0u;
+        v98 = 0u;
+        v28 = [v82 outputs];
+        v29 = [v28 countByEnumeratingWithState:&v97 objects:v111 count:16];
         if (v29)
         {
           v30 = v29;
-          v31 = *v99;
+          v31 = *v98;
           do
           {
             for (j = 0; j != v30; ++j)
             {
-              if (*v99 != v31)
+              if (*v98 != v31)
               {
                 objc_enumerationMutation(v28);
               }
 
-              v33 = *(*(&v98 + 1) + 8 * j);
+              v33 = *(*(&v97 + 1) + 8 * j);
               v34 = [v33 resourceKey];
               v35 = xpc_string_create([v34 UTF8String]);
-              xpc_array_append_value(v86, v35);
+              xpc_array_append_value(v85, v35);
 
               v36 = [v33 resourceKey];
               if (isResourceShared(v36, v8, v9))
@@ -1198,45 +474,45 @@ id populateAddedGraphsInfo(void *a1, void *a2, void *a3, void *a4)
               }
 
               v38 = xpc_uint64_create(v37);
-              xpc_array_append_value(v85, v38);
+              xpc_array_append_value(v84, v38);
             }
 
-            v30 = [v28 countByEnumeratingWithState:&v98 objects:v112 count:16];
+            v30 = [v28 countByEnumeratingWithState:&v97 objects:v111 count:16];
           }
 
           while (v30);
         }
 
-        v14 = v84 + 1;
+        v14 = v83 + 1;
       }
 
-      while (v84 + 1 != v82);
-      v82 = [obj countByEnumeratingWithState:&v106 objects:v114 count:16];
+      while (v83 + 1 != v81);
+      v81 = [obj countByEnumeratingWithState:&v105 objects:v113 count:16];
     }
 
-    while (v82);
+    while (v81);
   }
 
-  v96 = 0u;
-  v97 = 0u;
-  v94 = 0u;
   v95 = 0u;
-  v39 = [v79 readers];
-  v40 = [v39 countByEnumeratingWithState:&v94 objects:v111 count:16];
+  v96 = 0u;
+  v93 = 0u;
+  v94 = 0u;
+  v39 = [v78 readers];
+  v40 = [v39 countByEnumeratingWithState:&v93 objects:v110 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v95;
+    v42 = *v94;
     do
     {
       for (k = 0; k != v41; ++k)
       {
-        if (*v95 != v42)
+        if (*v94 != v42)
         {
           objc_enumerationMutation(v39);
         }
 
-        v44 = *(*(&v94 + 1) + 8 * k);
+        v44 = *(*(&v93 + 1) + 8 * k);
         v45 = [v44 input];
         v46 = [v45 resourceKey];
         v47 = xpc_string_create([v46 UTF8String]);
@@ -1262,36 +538,36 @@ id populateAddedGraphsInfo(void *a1, void *a2, void *a3, void *a4)
         xpc_array_append_value(empty, v53);
       }
 
-      v41 = [v39 countByEnumeratingWithState:&v94 objects:v111 count:16];
+      v41 = [v39 countByEnumeratingWithState:&v93 objects:v110 count:16];
     }
 
     while (v41);
   }
 
-  v92 = 0u;
-  v93 = 0u;
-  v90 = 0u;
   v91 = 0u;
-  v54 = [v79 writers];
-  v55 = [v54 countByEnumeratingWithState:&v90 objects:v110 count:16];
+  v92 = 0u;
+  v89 = 0u;
+  v90 = 0u;
+  v54 = [v78 writers];
+  v55 = [v54 countByEnumeratingWithState:&v89 objects:v109 count:16];
   if (v55)
   {
     v56 = v55;
-    v57 = *v91;
+    v57 = *v90;
     do
     {
       for (m = 0; m != v56; ++m)
       {
-        if (*v91 != v57)
+        if (*v90 != v57)
         {
           objc_enumerationMutation(v54);
         }
 
-        v59 = *(*(&v90 + 1) + 8 * m);
+        v59 = *(*(&v89 + 1) + 8 * m);
         v60 = [v59 output];
         v61 = [v60 resourceKey];
         v62 = xpc_string_create([v61 UTF8String]);
-        xpc_array_append_value(v86, v62);
+        xpc_array_append_value(v85, v62);
 
         v63 = [v59 output];
         v64 = [v63 resourceKey];
@@ -1306,10 +582,10 @@ id populateAddedGraphsInfo(void *a1, void *a2, void *a3, void *a4)
         }
 
         v66 = xpc_uint64_create(v65);
-        xpc_array_append_value(v85, v66);
+        xpc_array_append_value(v84, v66);
       }
 
-      v56 = [v54 countByEnumeratingWithState:&v90 objects:v110 count:16];
+      v56 = [v54 countByEnumeratingWithState:&v89 objects:v109 count:16];
     }
 
     while (v56);
@@ -1319,29 +595,27 @@ id populateAddedGraphsInfo(void *a1, void *a2, void *a3, void *a4)
   xpc_dictionary_set_value(xdict, "input_names_array", xarray);
   xpc_dictionary_set_value(xdict, "input_types_array", value);
   xpc_dictionary_set_value(xdict, "input_storage_modes_array", empty);
-  xpc_dictionary_set_value(xdict, "output_names_array", v86);
-  xpc_dictionary_set_value(xdict, "output_storage_modes_array", v85);
-  v68 = xpc_dictionary_get_value(v77, "graphs_added_array");
+  xpc_dictionary_set_value(xdict, "output_names_array", v85);
+  xpc_dictionary_set_value(xdict, "output_storage_modes_array", v84);
+  v68 = xpc_dictionary_get_value(v76, "graphs_added_array");
   v69 = v68;
   if (v68)
   {
     xpc_array_append_value(v68, xdict);
     v70 = 0;
-    v71 = v79;
+    v71 = v78;
   }
 
   else
   {
     v72 = MEMORY[0x277CCACA8];
-    v71 = v79;
-    v73 = [v79 name];
+    v71 = v78;
+    v73 = [v78 name];
     v74 = [v72 stringWithFormat:@"Failed to find graphsAddedArray XPC array for graph %@", v73];
 
     v67 = xdict;
     v70 = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-3 description:v74 recoverySuggestion:0];
   }
-
-  v75 = *MEMORY[0x277D85DE8];
 
   return v70;
 }
@@ -1386,35 +660,35 @@ id createSupportedStridesInfo()
 
 void populateSupportedStridesInfo(void *a1, void *a2, void *a3, void *a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   xdict = a1;
   v7 = a2;
   v8 = a3;
-  v23 = a4;
+  v22 = a4;
   v9 = xpc_dictionary_create(0, 0, 0);
   empty = xpc_array_create_empty();
   v11 = xpc_array_create_empty();
   xpc_dictionary_set_string(v9, "resource_key", [v7 UTF8String]);
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v12 = v8;
-  v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v26;
+    v15 = *v25;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v26 != v15)
+        if (*v25 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v25 + 1) + 8 * i);
+        v17 = *(*(&v24 + 1) + 8 * i);
         v18 = xpc_uint64_create([v17 unsignedIntValue]);
         xpc_array_append_value(empty, v18);
 
@@ -1423,7 +697,7 @@ void populateSupportedStridesInfo(void *a1, void *a2, void *a3, void *a4)
         xpc_array_append_value(v11, v20);
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v14);
@@ -1431,11 +705,9 @@ void populateSupportedStridesInfo(void *a1, void *a2, void *a3, void *a4)
 
   xpc_dictionary_set_value(v9, "supported_strides_array", empty);
   xpc_dictionary_set_value(v9, "supported_offsets_array", v11);
-  xpc_dictionary_set_uint64(v9, "default_stride", [v23 unsignedIntValue]);
+  xpc_dictionary_set_uint64(v9, "default_stride", [v22 unsignedIntValue]);
   v21 = xpc_dictionary_get_value(xdict, "resource_info_array");
   xpc_array_append_value(v21, v9);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void populateTelemetryReaderInfo(void *a1, void *a2, const char *a3, int a4, const char *a5, const char *a6)
@@ -1558,100 +830,100 @@ void PSSH::SysProcessMonitor::~SysProcessMonitor(dispatch_group_t *this)
   std::__hash_table<std::__hash_value_type<std::string,service_support>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,service_support>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,service_support>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,service_support>>>::~__hash_table(this);
 }
 
-void PSSH::SysProcessMonitor::handleProcessRegisterDispatched(PSSH::SysProcessMonitor *this, int pid)
+void PSSH::SysProcessMonitor::handleProcessRegisterDispatched(PSSH::SysProcessMonitor *this, uint64_t pid)
 {
-  v26[6] = *MEMORY[0x277D85DE8];
-  v18 = 0;
-  v19 = 0;
-  v20 = 0;
-  memset(v21, 0, sizeof(v21));
+  v2 = pid;
+  v32[6] = *MEMORY[0x277D85DE8];
+  v23 = 0;
+  v24 = 0;
+  v25 = 0;
+  memset(v26, 0, sizeof(v26));
   __p[0] = 0;
   __p[1] = 0;
-  v17 = 0;
-  if (proc_pidinfo(pid, 13, 0, buffer, 64) == 64 && buffer[0] == pid)
+  v22 = 0;
+  v4 = proc_pidinfo(pid, 13, 0, buffer, 64);
+  if (v4 == 64 && buffer[0] == v2)
   {
-    MEMORY[0x25F8C7A80](__p, v26);
-    v4 = __PSSysHealthLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = MEMORY[0x25F8C7A80](__p, v32);
+    v8 = __PSSysHealthLogSharedInstance(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = __p;
-      if (v17 < 0)
+      v9 = __p;
+      if (v22 < 0)
       {
-        v5 = __p[0];
+        v9 = __p[0];
       }
 
       *buf = 136315650;
       *&buf[4] = "handleProcessRegisterDispatched";
-      v23 = 1024;
-      LODWORD(v24[0]) = pid;
-      WORD2(v24[0]) = 2080;
-      *(v24 + 6) = v5;
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEFAULT, "%s() pid %d --> (%s)", buf, 0x1Cu);
+      v29 = 1024;
+      LODWORD(v30[0]) = v2;
+      WORD2(v30[0]) = 2080;
+      *(v30 + 6) = v9;
+      _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEFAULT, "%s() pid %d --> (%s)", buf, 0x1Cu);
     }
 
-    if (PSSH::processHasDeathParams(__p) || PSSH::isKillDaemon(__p))
+    if (PSSH::processHasDeathParams(__p) || (isKillDaemon = PSSH::isKillDaemon(__p), isKillDaemon))
     {
       *buf = __p;
-      *(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, __p) + 22) = pid;
+      *(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, __p, &std::piecewise_construct, buf, &v27) + 22) = v2;
       *buf = __p;
-      v6 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, __p);
-      *(v6 + 100) = 1;
-      v7 = PSSH::PSProcessMonitorEventLog(v6);
-      v8 = __p;
-      if (v17 < 0)
+      v12 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, __p, &std::piecewise_construct, buf, &v27);
+      *(v12 + 100) = 1;
+      v13 = PSSH::PSProcessMonitorEventLog(v12);
+      v14 = __p;
+      if (v22 < 0)
       {
-        v8 = __p[0];
+        v14 = __p[0];
       }
 
-      v9 = *v8;
-      v10 = mach_absolute_time();
-      v11 = *v7;
-      v12 = &v7[12 * *v7];
-      *(v12 + 6) = 1;
-      *(v12 + 1) = v10;
-      *(v12 + 2) = v9;
-      *v7 = v11 + 1 - 100 * ((42949673 * (v11 + 1)) >> 32);
+      v15 = *v14;
+      v16 = mach_absolute_time();
+      v17 = *v13;
+      v18 = &v13[12 * *v13];
+      *(v18 + 6) = 1;
+      *(v18 + 1) = v16;
+      *(v18 + 2) = v15;
+      *v13 = v17 + 1 - 100 * ((42949673 * (v17 + 1)) >> 32);
     }
 
     else
     {
-      v14 = __PSSysHealthLogSharedInstance();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v19 = __PSSysHealthLogSharedInstance(isKillDaemon, v11);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = __p;
-        if (v17 < 0)
+        v20 = __p;
+        if (v22 < 0)
         {
-          v15 = __p[0];
+          v20 = __p[0];
         }
 
         *buf = 136315394;
         *&buf[4] = "handleProcessRegisterDispatched";
-        v23 = 2080;
-        v24[0] = v15;
-        _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_DEFAULT, "%s() process [%s] is not monitored or a killDaemon. Ignoring.", buf, 0x16u);
+        v29 = 2080;
+        v30[0] = v20;
+        _os_log_impl(&dword_25EA3A000, v19, OS_LOG_TYPE_DEFAULT, "%s() process [%s] is not monitored or a killDaemon. Ignoring.", buf, 0x16u);
       }
     }
   }
 
   else
   {
-    __PSSysHealthLogSharedInstance();
+    __PSSysHealthLogSharedInstance(v4, v5);
     PSSH::SysProcessMonitor::handleProcessRegisterDispatched();
   }
 
-  if (SHIBYTE(v17) < 0)
+  if (SHIBYTE(v22) < 0)
   {
     operator delete(__p[0]);
   }
 
-  *buf = v21;
+  *buf = v26;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](buf);
-  if (SHIBYTE(v20) < 0)
+  if (SHIBYTE(v25) < 0)
   {
-    operator delete(v18);
+    operator delete(v23);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void PSSH::ProcessDeathParams::~ProcessDeathParams(void **this)
@@ -1679,184 +951,187 @@ void PSSH::SysProcessMonitor::handleProcessRegister(PSSH::SysProcessMonitor *thi
 
 void PSSH::SysProcessMonitor::handleKillDaemons(void *a1, uint64_t a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = *(a3 + 56);
   for (i = *(a3 + 64); v3 != i; v3 += 24)
   {
     if (std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,service_support>>>>::find<std::string>(a1, v3))
     {
       *__str = v3;
-      if (*(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, v3) + 100))
+      v8 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, v3, &std::piecewise_construct, __str, &v21);
+      if (*(v8 + 100))
       {
-        v7 = v3;
-        if (*(v3 + 23) < 0)
-        {
-          v7 = *v3;
-        }
-
-        v8 = a2;
-        if (*(a2 + 23) < 0)
-        {
-          v8 = *a2;
-        }
-
-        snprintf(__str, 0xC8uLL, "PolarisD ProcessMonitor::Terminating [%s] Reason Critical Daemon crashed - [%s]", v7, v8);
-        v9 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, v3);
         v10 = v3;
         if (*(v3 + 23) < 0)
         {
           v10 = *v3;
         }
 
-        ps_system_action_kill_process(*(v9 + 22), __str, 2, 0, v10);
+        v11 = a2;
+        if (*(a2 + 23) < 0)
+        {
+          v11 = *a2;
+        }
+
+        snprintf(__str, 0xC8uLL, "PolarisD ProcessMonitor::Terminating [%s] Reason Critical Daemon crashed - [%s]", v10, v11);
+        v21 = v3;
+        v12 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, v3, &std::piecewise_construct, &v21, &v20);
+        v13 = v3;
+        if (*(v3 + 23) < 0)
+        {
+          v13 = *v3;
+        }
+
+        ps_system_action_kill_process(*(v12 + 22), __str, 2, 0, v13);
         continue;
       }
 
-      v15 = __PSSysHealthLogSharedInstance();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v18 = __PSSysHealthLogSharedInstance(v8, v9);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = v3;
+        v19 = v3;
         if (*(v3 + 23) < 0)
         {
-          v16 = *v3;
+          v19 = *v3;
         }
 
         *__str = 136315394;
         *&__str[4] = "handleKillDaemons";
-        v19 = 2080;
-        v20 = v16;
-        v13 = v15;
-        v14 = "%s() Daemon [%s] already dead. Ignoring";
+        v23 = 2080;
+        v24 = v19;
+        v16 = v18;
+        v17 = "%s() Daemon [%s] already dead. Ignoring";
 LABEL_19:
-        _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_DEFAULT, v14, __str, 0x16u);
+        _os_log_impl(&dword_25EA3A000, v16, OS_LOG_TYPE_DEFAULT, v17, __str, 0x16u);
       }
     }
 
     else
     {
-      v11 = __PSSysHealthLogSharedInstance();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v14 = __PSSysHealthLogSharedInstance(0, v7);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = v3;
+        v15 = v3;
         if (*(v3 + 23) < 0)
         {
-          v12 = *v3;
+          v15 = *v3;
         }
 
         *__str = 136315394;
         *&__str[4] = "handleKillDaemons";
-        v19 = 2080;
-        v20 = v12;
-        v13 = v11;
-        v14 = "%s() Daemon [%s] not registered. Ignoring";
+        v23 = 2080;
+        v24 = v15;
+        v16 = v14;
+        v17 = "%s() Daemon [%s] not registered. Ignoring";
         goto LABEL_19;
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-const void **PSSH::SysProcessMonitor::handleProcessDeathCount(void *a1, int a2, uint64_t a3, unint64_t *a4, const void *a5)
+const void **PSSH::SysProcessMonitor::handleProcessDeathCount(void *a1, int a2, char *a3, unint64_t *a4, uint64_t a5)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   *buf = a3;
-  v10 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3)[5];
-  if (v10)
+  v10 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3, &std::piecewise_construct, buf, &v28);
+  v12 = v10[5];
+  if (v12)
   {
-    v11 = (a1[5] * (a5 - v10)) / a1[6];
+    v13 = (a1[5] * (a5 - v12)) / a1[6];
   }
 
   else
   {
-    v11 = 0;
+    v13 = 0;
   }
 
-  v12 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v14 = __PSSysHealthLogSharedInstance(v10, v11);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
     *&buf[4] = "handleProcessDeathCount";
-    v24 = 2048;
-    v25 = v11;
-    _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_INFO, "%s() deltaMSec: %llu", buf, 0x16u);
+    v30 = 2048;
+    v31 = v13;
+    _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_INFO, "%s() deltaMSec: %llu", buf, 0x16u);
   }
 
   *buf = a3;
-  std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3)[8] = v11;
+  std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3, &std::piecewise_construct, buf, &v28)[8] = v13;
   *buf = a3;
-  v13 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3);
-  v13[9] = v13[9] + 1;
-  if (v11 && v11 < *a4)
+  v15 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3, &std::piecewise_construct, buf, &v28);
+  v15[9] = v15[9] + 1;
+  if (v13 && v13 < *a4)
   {
     *buf = a3;
-    v14 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3);
-    v14[7] = v14[7] + 1;
+    v16 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3, &std::piecewise_construct, buf, &v28);
+    v16[7] = v16[7] + 1;
   }
 
   else
   {
     *buf = a3;
-    std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3)[7] = 1;
+    std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3, &std::piecewise_construct, buf, &v28)[7] = 1;
     *buf = a3;
-    std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3)[6] = a5;
+    std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3, &std::piecewise_construct, buf, &v28)[6] = a5;
   }
 
   *buf = a3;
-  std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3)[5] = a5;
-  v15 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v17 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3, &std::piecewise_construct, buf, &v28);
+  v17[5] = a5;
+  v19 = __PSSysHealthLogSharedInstance(v17, v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    v16 = a3;
-    if (*(a3 + 23) < 0)
+    v20 = a3;
+    if (a3[23] < 0)
     {
-      v16 = *a3;
+      v20 = *a3;
     }
 
     *buf = a3;
-    v17 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3)[7];
+    v21 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3, &std::piecewise_construct, buf, &v28)[7];
     *buf = 136315650;
     *&buf[4] = "handleProcessDeathCount";
-    v24 = 2080;
-    v25 = v16;
-    v26 = 2048;
-    v27 = v17;
-    _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_DEBUG, "%s() process [%s] death count %llu", buf, 0x20u);
+    v30 = 2080;
+    v31 = v20;
+    v32 = 2048;
+    v33 = v21;
+    _os_log_impl(&dword_25EA3A000, v19, OS_LOG_TYPE_DEBUG, "%s() process [%s] death count %llu", buf, 0x20u);
   }
 
   *buf = a3;
-  result = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3);
+  result = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3, &std::piecewise_construct, buf, &v28);
   if (result[7] > a4[1])
   {
-    v19 = a3;
-    if (*(a3 + 23) < 0)
+    v23 = a3;
+    if (a3[23] < 0)
     {
-      v19 = *a3;
+      v23 = *a3;
     }
 
     *buf = a3;
-    v20 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3)[7];
+    v24 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3, &std::piecewise_construct, buf, &v28)[7];
     *buf = a3;
-    v21 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3);
-    snprintf(buf, 0xC8uLL, "PolarisD Triggered Panic - Reason Critical Process crashloop [%s] (PID: %u) Crash count: %llu; First crash: %llu[ms]; Last crash: %llu[ms]; Interval between crashes %llu[ms];", v19, a2, v20, a1[5] * v21[6] / a1[6], a1[5] * a5 / a1[6], v11);
-    ps_system_action_trigger_panic(buf);
-    result = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3);
+    v25 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3, &std::piecewise_construct, buf, &v28);
+    snprintf(buf, 0xC8uLL, "PolarisD Triggered Panic - Reason Critical Process crashloop [%s] (PID: %u) Crash count: %llu; First crash: %llu[ms]; Last crash: %llu[ms]; Interval between crashes %llu[ms];", v23, a2, v24, a1[5] * v25[6] / a1[6], (a1[5] * a5) / a1[6], v13);
+    ps_system_action_trigger_panic(buf, v26);
+    v28 = a3;
+    result = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a3, &std::piecewise_construct, &v28, &v27);
     result[7] = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void PSSH::SysProcessMonitor::handleProcessDiedDispatched(PSSH::SysProcessMonitor *this, int a2)
+void PSSH::SysProcessMonitor::handleProcessDiedDispatched(PSSH::SysProcessMonitor *this, uint64_t a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v24 = 0;
-  v25 = 0;
-  v26 = 0;
-  memset(v29, 0, sizeof(v29));
+  v2 = a2;
+  v43 = *MEMORY[0x277D85DE8];
+  v31 = 0;
+  v32 = 0;
+  v33 = 0;
+  memset(v36, 0, sizeof(v36));
   v4 = mach_continuous_time();
-  std::string::basic_string[abi:ne200100]<0>(&v22, "");
+  std::string::basic_string[abi:ne200100]<0>(&v29, "");
   v5 = this + 16;
   while (1)
   {
@@ -1866,142 +1141,139 @@ void PSSH::SysProcessMonitor::handleProcessDiedDispatched(PSSH::SysProcessMonito
       break;
     }
 
-    if (*(v5 + 22) == a2)
+    if (*(v5 + 22) == v2)
     {
-      std::string::operator=(&v22, (v5 + 16));
+      std::string::operator=(&v29, (v5 + 16));
       break;
     }
   }
 
-  if (!std::string::compare(&v22, ""))
+  v6 = std::string::compare(&v29, "");
+  if (v6)
   {
-    __PSSysHealthLogSharedInstance();
-    PSSH::SysProcessMonitor::handleProcessDiedDispatched();
-  }
-
-  else
-  {
-    v6 = __PSSysHealthLogSharedInstance();
-    v7 = os_signpost_enabled(v6);
-    if (v7)
+    v8 = __PSSysHealthLogSharedInstance(v6, v7);
+    v9 = os_signpost_enabled(v8);
+    if (v9)
     {
-      v8 = &v22;
-      if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v10 = &v29;
+      if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v8 = v22.__r_.__value_.__r.__words[0];
+        v10 = v29.__r_.__value_.__r.__words[0];
       }
 
-      *v30 = 136315650;
-      *&v30[4] = "handleProcessDiedDispatched";
-      v31 = 2080;
-      v32 = v8;
-      v33 = 1024;
-      v34 = a2;
-      v7 = _os_signpost_emit_unreliably_with_name_impl();
+      *v38 = 136315650;
+      *&v38[4] = "handleProcessDiedDispatched";
+      v39 = 2080;
+      v40 = v10;
+      v41 = 1024;
+      v42 = v2;
+      v9 = _os_signpost_emit_unreliably_with_name_impl(&dword_25EA3A000, v8, 0, 0xEEEEB0B5B2B2EEEELL, "PSSH Log", "%s() process [%s] pid: %u died.", __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, LODWORD(__p.__r_.__value_.__r.__words[2]));
     }
 
-    v9 = PSSH::PSProcessMonitorEventLog(v7);
-    if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v11 = PSSH::PSProcessMonitorEventLog(v9);
+    if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v10 = &v22;
+      v12 = &v29;
     }
 
     else
     {
-      v10 = v22.__r_.__value_.__r.__words[0];
+      v12 = v29.__r_.__value_.__r.__words[0];
     }
 
-    v11 = v10->__r_.__value_.__r.__words[0];
-    v12 = mach_absolute_time();
-    v13 = *v9;
-    v14 = &v9[12 * *v9];
-    *(v14 + 6) = 2;
-    *(v14 + 1) = v12;
-    *(v14 + 2) = v11;
-    *v9 = v13 + 1 - 100 * ((42949673 * (v13 + 1)) >> 32);
-    *v30 = &v22;
-    if (*(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, &v22.__r_.__value_.__l.__data_) + 100))
+    v13 = v12->__r_.__value_.__r.__words[0];
+    v14 = mach_absolute_time();
+    v15 = *v11;
+    v16 = &v11[12 * *v11];
+    *(v16 + 6) = 2;
+    *(v16 + 1) = v14;
+    *(v16 + 2) = v13;
+    *v11 = v15 + 1 - 100 * ((42949673 * (v15 + 1)) >> 32);
+    *v38 = &v29;
+    v17 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, &v29, &std::piecewise_construct, v38, &v37);
+    if (*(v17 + 100))
     {
-      *v30 = &v22;
-      *(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, &v22.__r_.__value_.__l.__data_) + 100) = 0;
-      *v30 = &v22;
-      *(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, &v22.__r_.__value_.__l.__data_) + 23) = 0;
-      if (PSSH::getProcessDeathParams(&v22, v23))
+      *v38 = &v29;
+      *(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, &v29, &std::piecewise_construct, v38, &v37) + 100) = 0;
+      *v38 = &v29;
+      *(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, &v29, &std::piecewise_construct, v38, &v37) + 23) = 0;
+      ProcessDeathParams = PSSH::getProcessDeathParams(&v29, v30);
+      if (ProcessDeathParams)
       {
-        v17 = __PSSysHealthLogSharedInstance();
-        PSSH::SysProcessMonitor::handleProcessDiedDispatched(v17, &v22.__r_.__value_.__r.__words[2] + 7, &v22);
+        v24 = __PSSysHealthLogSharedInstance(ProcessDeathParams, v20);
+        PSSH::SysProcessMonitor::handleProcessDiedDispatched(v24, &v29.__r_.__value_.__r.__words[2] + 7, &v29);
       }
 
       else
       {
-        ps_system_action_pause(v27);
-        if (v28 == 1)
+        v21 = ps_system_action_pause(v34, v20);
+        if (v35 == 1)
         {
-          ps_system_action_lock_apple_pay();
+          ps_system_action_lock_apple_pay(v21, v22);
         }
 
-        if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&v21, v22.__r_.__value_.__l.__data_, v22.__r_.__value_.__l.__size_);
-        }
-
-        else
-        {
-          v21 = v22;
-        }
-
-        *v30 = &v22;
-        *(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, &v22.__r_.__value_.__l.__data_) + 101) = 0;
-        if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v21.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
-        {
-          std::string::__init_copy_ctor_external(&v20, v22.__r_.__value_.__l.__data_, v22.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&v28, v29.__r_.__value_.__l.__data_, v29.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v20 = v22;
+          v28 = v29;
         }
 
-        PSSH::SysProcessMonitor::handleProcessDeathCount(this, a2, &v20, v23, v4);
-        if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+        *v38 = &v29;
+        *(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, &v29, &std::piecewise_construct, v38, &v37) + 101) = 0;
+        if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v20.__r_.__value_.__l.__data_);
+          operator delete(v28.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&v19, v22.__r_.__value_.__l.__data_, v22.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&v27, v29.__r_.__value_.__l.__data_, v29.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v19 = v22;
+          v27 = v29;
         }
 
-        *v30 = &v22;
-        v15 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, &v22.__r_.__value_.__l.__data_);
-        PSSH::SysProcessMonitor::submitCADeathReport(v15, &v19, (v15 + 5));
-        if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+        PSSH::SysProcessMonitor::handleProcessDeathCount(this, v2, &v27, v30, v4);
+        if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v19.__r_.__value_.__l.__data_);
+          operator delete(v27.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p, v22.__r_.__value_.__l.__data_, v22.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&v26, v29.__r_.__value_.__l.__data_, v29.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          __p = v22;
+          v26 = v29;
         }
 
-        PSSH::SysProcessMonitor::handleKillDaemons(this, &__p, v23);
+        *v38 = &v29;
+        v23 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this, &v29, &std::piecewise_construct, v38, &v37);
+        PSSH::SysProcessMonitor::submitCADeathReport(v23, &v26, (v23 + 5));
+        if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v26.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+        {
+          std::string::__init_copy_ctor_external(&__p, v29.__r_.__value_.__l.__data_, v29.__r_.__value_.__l.__size_);
+        }
+
+        else
+        {
+          __p = v29;
+        }
+
+        PSSH::SysProcessMonitor::handleKillDaemons(this, &__p, v30);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -2011,24 +1283,28 @@ void PSSH::SysProcessMonitor::handleProcessDiedDispatched(PSSH::SysProcessMonito
 
     else
     {
-      __PSSysHealthLogSharedInstance();
+      __PSSysHealthLogSharedInstance(v17, v18);
       PSSH::SysProcessMonitor::handleProcessDiedDispatched();
     }
   }
 
-  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+  else
   {
-    operator delete(v22.__r_.__value_.__l.__data_);
+    __PSSysHealthLogSharedInstance(v6, v7);
+    PSSH::SysProcessMonitor::handleProcessDiedDispatched();
   }
 
-  *v30 = v29;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v30);
-  if (SHIBYTE(v26) < 0)
+  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v24);
+    operator delete(v29.__r_.__value_.__l.__data_);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  *v38 = v36;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v38);
+  if (SHIBYTE(v33) < 0)
+  {
+    operator delete(v31);
+  }
 }
 
 void sub_25EAEE02C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43)
@@ -2044,25 +1320,21 @@ void sub_25EAEE02C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t PSSH::SysProcessMonitor::submitCADeathReport(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v6 = *(a3 + 16);
+  v8 = *MEMORY[0x277D85DE8];
+  v7 = 0;
   v3 = *(a3 + 52);
-  v7 = *(a3 + 56);
-  v8[1] = 0;
-  v8[0] = 0;
-  v9 = 0;
-  LODWORD(v10) = v3;
-  BYTE4(v10) = *(a3 + 61);
+  v5[1] = 0;
+  v5[0] = 0;
+  v6 = 0;
+  LODWORD(v7) = v3;
+  BYTE4(v7) = *(a3 + 61);
   if (a2[23] < 0)
   {
     a2 = *a2;
   }
 
-  strlcpy(v8, a2, 0x14uLL);
-  result = pbs_ringbufferlogger_shared_write();
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  strlcpy(v5, a2, 0x14uLL);
+  return pbs_ringbufferlogger_shared_write();
 }
 
 void PSSH::SysProcessMonitor::handleProcessDied(PSSH::SysProcessMonitor *this, int a2)
@@ -2078,14 +1350,15 @@ void PSSH::SysProcessMonitor::handleProcessDied(PSSH::SysProcessMonitor *this, i
   dispatch_group_async(v2, v3, v4);
 }
 
-void PSSH::SysProcessMonitor::handleSystemActionKillProcessDispatched(void *a1, int a2, int a3)
+void PSSH::SysProcessMonitor::handleSystemActionKillProcessDispatched(void *a1, uint64_t a2, int a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:ne200100]<0>(&v27, "");
-  v23 = 0;
-  v24 = 0;
-  v25 = 0;
-  memset(v26, 0, sizeof(v26));
+  v4 = a2;
+  v41 = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:ne200100]<0>(&v32, "");
+  v28 = 0;
+  v29 = 0;
+  v30 = 0;
+  memset(v31, 0, sizeof(v31));
   v6 = a1 + 2;
   while (1)
   {
@@ -2095,121 +1368,118 @@ void PSSH::SysProcessMonitor::handleSystemActionKillProcessDispatched(void *a1, 
       break;
     }
 
-    if (*(v6 + 22) == a2)
+    if (*(v6 + 22) == v4)
     {
-      std::string::operator=(&v27, (v6 + 2));
+      std::string::operator=(&v32, (v6 + 2));
       break;
     }
   }
 
-  if (!std::string::compare(&v27, ""))
+  v7 = std::string::compare(&v32, "");
+  if (v7)
   {
-    __PSSysHealthLogSharedInstance();
-    PSSH::SysProcessMonitor::handleSystemActionKillProcessDispatched();
-  }
-
-  else
-  {
-    v7 = __PSSysHealthLogSharedInstance();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    v9 = __PSSysHealthLogSharedInstance(v7, v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      v9 = &v27;
-      if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v11 = &v32;
+      if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v9 = v27.__r_.__value_.__r.__words[0];
+        v11 = v32.__r_.__value_.__r.__words[0];
       }
 
       *buf = 136315906;
       *&buf[4] = "handleSystemActionKillProcessDispatched";
-      v29 = 2080;
-      v30 = v9;
-      v31 = 1024;
-      v32 = a2;
-      v33 = 1024;
-      v34 = a3;
-      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEFAULT, "%s() process [%s] pid: %u was killed by system action. deathReason: %u", buf, 0x22u);
+      v35 = 2080;
+      v36 = v11;
+      v37 = 1024;
+      v38 = v4;
+      v39 = 1024;
+      v40 = a3;
+      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEFAULT, "%s() process [%s] pid: %u was killed by system action. deathReason: %u", buf, 0x22u);
     }
 
-    v10 = PSSH::PSProcessMonitorEventLog(v8);
-    if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v12 = PSSH::PSProcessMonitorEventLog(v10);
+    if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v11 = &v27;
+      v13 = &v32;
     }
 
     else
     {
-      v11 = v27.__r_.__value_.__r.__words[0];
+      v13 = v32.__r_.__value_.__r.__words[0];
     }
 
-    v12 = v11->__r_.__value_.__r.__words[0];
-    v13 = mach_absolute_time();
-    v14 = *v10;
-    v15 = &v10[12 * *v10];
-    *(v15 + 6) = 2;
-    *(v15 + 1) = v13;
-    *(v15 + 2) = v12;
-    *v10 = v14 + 1 - 100 * ((42949673 * (v14 + 1)) >> 32);
-    *buf = &v27;
-    if (*(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v27.__r_.__value_.__l.__data_) + 100))
+    v14 = v13->__r_.__value_.__r.__words[0];
+    v15 = mach_absolute_time();
+    v16 = *v12;
+    v17 = &v12[12 * *v12];
+    *(v17 + 6) = 2;
+    *(v17 + 1) = v15;
+    *(v17 + 2) = v14;
+    *v12 = v16 + 1 - 100 * ((42949673 * (v16 + 1)) >> 32);
+    *buf = &v32;
+    v18 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v32, &std::piecewise_construct, buf, &v33);
+    if (*(v18 + 100))
     {
-      *buf = &v27;
-      *(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v27.__r_.__value_.__l.__data_) + 100) = 0;
-      *buf = &v27;
-      std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v27.__r_.__value_.__l.__data_)[7] = 1;
-      *buf = &v27;
-      std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v27.__r_.__value_.__l.__data_)[5] = 0;
-      *buf = &v27;
-      *(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v27.__r_.__value_.__l.__data_) + 23) = a3;
-      if (!PSSH::getProcessDeathParams(&v27, &v22))
+      *buf = &v32;
+      *(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v32, &std::piecewise_construct, buf, &v33) + 100) = 0;
+      *buf = &v32;
+      std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v32, &std::piecewise_construct, buf, &v33)[7] = 1;
+      *buf = &v32;
+      std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v32, &std::piecewise_construct, buf, &v33)[5] = 0;
+      *buf = &v32;
+      *(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v32, &std::piecewise_construct, buf, &v33) + 23) = a3;
+      ProcessDeathParams = PSSH::getProcessDeathParams(&v32, v27);
+      if (!ProcessDeathParams)
       {
-        v16 = __PSSysHealthLogSharedInstance();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v22 = __PSSysHealthLogSharedInstance(ProcessDeathParams, v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = &v27;
-          if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          v23 = &v32;
+          if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v17 = v27.__r_.__value_.__r.__words[0];
+            v23 = v32.__r_.__value_.__r.__words[0];
           }
 
           *buf = 136315394;
           *&buf[4] = "handleSystemActionKillProcessDispatched";
-          v29 = 2080;
-          v30 = v17;
-          _os_log_impl(&dword_25EA3A000, v16, OS_LOG_TYPE_DEFAULT, "%s() Handle killed daemon [%s] PST Transition", buf, 0x16u);
+          v35 = 2080;
+          v36 = v23;
+          _os_log_impl(&dword_25EA3A000, v22, OS_LOG_TYPE_DEFAULT, "%s() Handle killed daemon [%s] PST Transition", buf, 0x16u);
         }
 
-        if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&v21, v27.__r_.__value_.__l.__data_, v27.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&v26, v32.__r_.__value_.__l.__data_, v32.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v21 = v27;
+          v26 = v32;
         }
 
-        *buf = &v27;
-        *(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v27.__r_.__value_.__l.__data_) + 101) = 0;
-        if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+        *buf = &v32;
+        *(std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v32, &std::piecewise_construct, buf, &v33) + 101) = 0;
+        if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v21.__r_.__value_.__l.__data_);
+          operator delete(v26.__r_.__value_.__l.__data_);
         }
       }
 
-      if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p, v27.__r_.__value_.__l.__data_, v27.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&__p, v32.__r_.__value_.__l.__data_, v32.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        __p = v27;
+        __p = v32;
       }
 
-      *buf = &v27;
-      v18 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v27.__r_.__value_.__l.__data_);
-      PSSH::SysProcessMonitor::submitCADeathReport(v18, &__p, (v18 + 5));
+      *buf = &v32;
+      v24 = std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, &v32, &std::piecewise_construct, buf, &v33);
+      PSSH::SysProcessMonitor::submitCADeathReport(v24, &__p, (v24 + 5));
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -2218,24 +1488,28 @@ void PSSH::SysProcessMonitor::handleSystemActionKillProcessDispatched(void *a1, 
 
     else
     {
-      __PSSysHealthLogSharedInstance();
+      __PSSysHealthLogSharedInstance(v18, v19);
       PSSH::SysProcessMonitor::handleSystemActionKillProcessDispatched();
     }
   }
 
-  *buf = v26;
+  else
+  {
+    __PSSysHealthLogSharedInstance(v7, v8);
+    PSSH::SysProcessMonitor::handleSystemActionKillProcessDispatched();
+  }
+
+  *buf = v31;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](buf);
-  if (SHIBYTE(v25) < 0)
+  if (SHIBYTE(v30) < 0)
   {
-    operator delete(v23);
+    operator delete(v28);
   }
 
-  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v27.__r_.__value_.__l.__data_);
+    operator delete(v32.__r_.__value_.__l.__data_);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25EAEE618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38)
@@ -2249,18 +1523,17 @@ void sub_25EAEE618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void PSSH::SysProcessMonitor::getProcessMonitorStatisticsDispatched(uint64_t a1)
+void PSSH::SysProcessMonitor::getProcessMonitorStatisticsDispatched(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v2 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = __PSSysHealthLogSharedInstance(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
     v5 = "getProcessMonitorStatisticsDispatched";
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v3 = *(a1 + 24);
   operator new[]();
 }
 
@@ -2314,8 +1587,7 @@ void ___ZN4PSSH17SysProcessMonitor27getProcessMonitorStatisticsENSt3__112basic_s
     __p = *(a1 + 48);
   }
 
-  v3 = *(a1 + 32);
-  PSSH::SysProcessMonitor::getProcessMonitorStatisticsDispatched(v2);
+  PSSH::SysProcessMonitor::getProcessMonitorStatisticsDispatched(v2, &__p, *(a1 + 32));
 }
 
 void sub_25EAEE998(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -2351,20 +1623,20 @@ void __destroy_helper_block_e8_48c66_ZTSNSt3__112basic_stringIcNS_11char_traitsI
   }
 }
 
-void PSSH::SysProcessMonitor::getSystemActionStatisticsDispatched()
+void PSSH::SysProcessMonitor::getSystemActionStatisticsDispatched(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v0 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = __PSSysHealthLogSharedInstance(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
     *&buf[4] = "getSystemActionStatisticsDispatched";
-    _os_log_impl(&dword_25EA3A000, v0, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v1 = 0;
+  v4 = 0;
   *buf = 0;
-  ps_system_action_get_stats(buf, &v1);
+  ps_system_action_get_stats(buf, &v4);
 }
 
 void sub_25EAEEB24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -2416,8 +1688,7 @@ void ___ZN4PSSH17SysProcessMonitor25getSystemActionStatisticsENSt3__112basic_str
     __p = *(a1 + 48);
   }
 
-  v2 = *(a1 + 32);
-  PSSH::SysProcessMonitor::getSystemActionStatisticsDispatched();
+  PSSH::SysProcessMonitor::getSystemActionStatisticsDispatched(a1, &__p, *(a1 + 32));
 }
 
 void sub_25EAEEC80(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -2430,15 +1701,15 @@ void sub_25EAEEC80(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PSSH::SysProcessMonitor::getProcessMonitorEventLogDispatched()
+void PSSH::SysProcessMonitor::getProcessMonitorEventLogDispatched(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v0 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = __PSSysHealthLogSharedInstance(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v2 = "getProcessMonitorEventLogDispatched";
-    _os_log_impl(&dword_25EA3A000, v0, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+    v5 = "getProcessMonitorEventLogDispatched";
+    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   operator new();
@@ -2493,8 +1764,7 @@ void ___ZN4PSSH17SysProcessMonitor25getProcessMonitorEventLogENSt3__112basic_str
     __p = *(a1 + 48);
   }
 
-  v2 = *(a1 + 32);
-  PSSH::SysProcessMonitor::getProcessMonitorEventLogDispatched();
+  PSSH::SysProcessMonitor::getProcessMonitorEventLogDispatched(a1, &__p, *(a1 + 32));
 }
 
 void sub_25EAEEFB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -2507,35 +1777,35 @@ void sub_25EAEEFB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::SysProcessMonitor::ProcessInfo>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -2543,44 +1813,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_25EAEF228(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -2600,220 +1870,214 @@ void sub_25EAEF300(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t ps_system_action_pause(uint64_t a1)
+uint64_t ps_system_action_pause(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = __PSSysHealthLogSharedInstance(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v6 = 136315394;
     v7 = "ps_system_action_pause";
     v8 = 2048;
     v9 = a1;
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEBUG, "%s() pauseDurationMs: %llu", &v6, 0x16u);
+    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEBUG, "%s() pauseDurationMs: %llu", &v6, 0x16u);
   }
 
-  v3 = mach_continuous_time();
+  v4 = mach_continuous_time();
   result = mach_timebase_info(&v6);
-  atomic_store(1000000 * a1 * v7 / v6 + v3, &pauseActionMachTime);
-  v5 = *MEMORY[0x277D85DE8];
+  atomic_store(1000000 * a1 * v7 / v6 + v4, &pauseActionMachTime);
   return result;
 }
 
-void ps_system_action_stop()
+void ps_system_action_stop(uint64_t a1, uint64_t a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v0 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = __PSSysHealthLogSharedInstance(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v2 = 136315138;
-    v3 = "ps_system_action_stop";
-    _os_log_impl(&dword_25EA3A000, v0, OS_LOG_TYPE_DEBUG, "%s()", &v2, 0xCu);
+    v3 = 136315138;
+    v4 = "ps_system_action_stop";
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEBUG, "%s()", &v3, 0xCu);
   }
 
   atomic_store(1u, gStopSystemAction);
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void ps_system_action_handle_graph_hang(char *a1, char *a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6)
 {
-  v58 = *MEMORY[0x277D85DE8];
-  v41 = 0;
+  v66 = *MEMORY[0x277D85DE8];
+  v49 = 0;
   v12 = mach_absolute_time();
   v13 = ps_util_mach_time_to_ns(v12);
   v14 = mach_continuous_time();
-  v40 = 0;
+  v48 = 0;
   if (a6)
   {
     v15 = (v13 - a6) / 0xF4240;
-    snprintf(__str, 0xC8uLL, "PolarisD SystemAction::Reason Critical Graph:[%s] session:[%s] pid:[%u] qos:[%llu] lastExecNs:[%llu] currentNs:[%llu] hungTimeMs:[%llu]", a2, a1, a3, a4, a6, v13, v15);
-    v16 = __PSSysHealthLogSharedInstance();
-    if (os_signpost_enabled(v16))
+    v16 = snprintf(__str, 0xC8uLL, "PolarisD SystemAction::Reason Critical Graph:[%s] session:[%s] pid:[%u] qos:[%llu] lastExecNs:[%llu] currentNs:[%llu] hungTimeMs:[%llu]", a2, a1, a3, a4, a6, v13, v15);
+    v18 = __PSSysHealthLogSharedInstance(v16, v17);
+    if (os_signpost_enabled(v18))
     {
-      v17 = ps_util_ns_to_mach_time(a6);
+      v19 = ps_util_ns_to_mach_time(a6);
       *buf = 134351106;
-      *&buf[4] = ps_util_mat_to_mct(v17);
-      v43 = 2050;
-      v44 = v14;
-      v45 = 2080;
-      v46 = a2;
-      v47 = 2080;
-      *v48 = a1;
-      *&v48[8] = 1024;
-      *&v48[10] = a3;
-      v49 = 2048;
-      v50 = a4;
-      v51 = 2048;
-      v52 = a6;
-      v53 = 2048;
-      v54 = v13;
-      v55 = 2048;
-      v56 = (v13 - a6) / 0xF4240;
-      _os_signpost_emit_with_name_impl(&dword_25EA3A000, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GraphHang", "%{public, signpost.description:begin_time}llu %{public, signpost.description:end_time}llu PolarisD SystemAction::Reason Critical Graph:[%s] session:[%s] pid:[%u] qos:[%llu] lastExecNs:[%llu] currentNs:[%llu] hungTimeMs:[%llu]", buf, 0x58u);
+      *&buf[4] = ps_util_mat_to_mct(v19);
+      v51 = 2050;
+      v52 = v14;
+      v53 = 2080;
+      v54 = a2;
+      v55 = 2080;
+      *v56 = a1;
+      *&v56[8] = 1024;
+      *&v56[10] = a3;
+      v57 = 2048;
+      v58 = a4;
+      v59 = 2048;
+      v60 = a6;
+      v61 = 2048;
+      v62 = v13;
+      v63 = 2048;
+      v64 = (v13 - a6) / 0xF4240;
+      _os_signpost_emit_with_name_impl(&dword_25EA3A000, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GraphHang", "%{public, signpost.description:begin_time}llu %{public, signpost.description:end_time}llu PolarisD SystemAction::Reason Critical Graph:[%s] session:[%s] pid:[%u] qos:[%llu] lastExecNs:[%llu] currentNs:[%llu] hungTimeMs:[%llu]", buf, 0x58u);
     }
   }
 
   else
   {
-    snprintf(__str, 0xC8uLL, "PolarisD SystemAction::Reason Critical Graph:[%s] session:[%s] pid:[%u] qos:[%llu] lastExecNs:[%llu] currentNs:[%llu], creationTimeNs:[%llu]; graph did not run", a2, a1, a3, a4, 0, v13, a5);
-    v18 = __PSSysHealthLogSharedInstance();
-    if (os_signpost_enabled(v18))
+    v20 = snprintf(__str, 0xC8uLL, "PolarisD SystemAction::Reason Critical Graph:[%s] session:[%s] pid:[%u] qos:[%llu] lastExecNs:[%llu] currentNs:[%llu], creationTimeNs:[%llu]; graph did not run", a2, a1, a3, a4, 0, v13, a5);
+    v22 = __PSSysHealthLogSharedInstance(v20, v21);
+    if (os_signpost_enabled(v22))
     {
-      v19 = ps_util_ns_to_mach_time(0);
+      v23 = ps_util_ns_to_mach_time(0);
       *buf = 134351106;
-      *&buf[4] = ps_util_mat_to_mct(v19);
-      v43 = 2050;
-      v44 = v14;
-      v45 = 2080;
-      v46 = a2;
-      v47 = 2080;
-      *v48 = a1;
-      *&v48[8] = 1024;
-      *&v48[10] = a3;
-      v49 = 2048;
-      v50 = a4;
-      v51 = 2048;
-      v52 = 0;
-      v53 = 2048;
-      v54 = v13;
-      v55 = 2048;
-      v56 = a5;
-      _os_signpost_emit_with_name_impl(&dword_25EA3A000, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GraphHang", "%{public, signpost.description:begin_time}llu %{public, signpost.description:end_time}llu PolarisD SystemAction::Reason Critical Graph:[%s] session:[%s] pid:[%u] qos:[%llu] lastExecNs:[%llu] currentNs:[%llu], creationTimeNs:[%llu]; graph did not run", buf, 0x58u);
+      *&buf[4] = ps_util_mat_to_mct(v23);
+      v51 = 2050;
+      v52 = v14;
+      v53 = 2080;
+      v54 = a2;
+      v55 = 2080;
+      *v56 = a1;
+      *&v56[8] = 1024;
+      *&v56[10] = a3;
+      v57 = 2048;
+      v58 = a4;
+      v59 = 2048;
+      v60 = 0;
+      v61 = 2048;
+      v62 = v13;
+      v63 = 2048;
+      v64 = a5;
+      _os_signpost_emit_with_name_impl(&dword_25EA3A000, v22, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GraphHang", "%{public, signpost.description:begin_time}llu %{public, signpost.description:end_time}llu PolarisD SystemAction::Reason Critical Graph:[%s] session:[%s] pid:[%u] qos:[%llu] lastExecNs:[%llu] currentNs:[%llu], creationTimeNs:[%llu]; graph did not run", buf, 0x58u);
     }
 
     v15 = (v13 - a5) / 0xF4240;
   }
 
-  v20 = mach_continuous_time();
-  v21 = atomic_load(&pauseActionMachTime);
-  if (v20 <= v21)
+  v24 = mach_continuous_time();
+  v26 = atomic_load(&pauseActionMachTime);
+  if (v24 <= v26)
   {
-    ps_system_action_handle_graph_hang_cold_1();
+    ps_system_action_handle_graph_hang_cold_1(v24, v25);
+    return;
   }
 
-  else
+  std::string::basic_string[abi:ne200100]<0>(buf, a1);
+  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  GraphRecoveryAction = PSSH::getGraphRecoveryAction(buf, __p, &v49, &v48);
+  v29 = GraphRecoveryAction;
+  if (v47 < 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(buf, a1);
-    std::string::basic_string[abi:ne200100]<0>(__p, a2);
-    GraphRecoveryAction = PSSH::getGraphRecoveryAction(buf, __p, &v41, &v40);
-    if (v39 < 0)
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v53) < 0)
+  {
+    operator delete(*buf);
+  }
+
+  if (!v29)
+  {
+    v30 = __PSSysHealthLogSharedInstance(GraphRecoveryAction, v28);
+    v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG);
+    if (v31)
     {
-      operator delete(__p[0]);
+      *buf = 136316162;
+      *&buf[4] = "ps_system_action_handle_graph_hang";
+      v51 = 2080;
+      v52 = a1;
+      v53 = 2080;
+      v54 = a2;
+      v55 = 1024;
+      *v56 = v49;
+      *&v56[4] = 2048;
+      *&v56[6] = v48;
+      _os_log_impl(&dword_25EA3A000, v30, OS_LOG_TYPE_DEBUG, "%s => getGraphRecoveryAction(sessionName=%s, graphName=%s, action=%d, waitTimeBeforeKillMs=%llu)", buf, 0x30u);
     }
 
-    if (SHIBYTE(v45) < 0)
+    if (v49 == 2)
     {
-      operator delete(*buf);
-    }
-
-    if (!GraphRecoveryAction)
-    {
-      v23 = __PSSysHealthLogSharedInstance();
-      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG);
-      if (v24)
+      v33 = __PSSysHealthLogSharedInstance(v31, v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
-        *buf = 136316162;
+        *buf = 136315138;
         *&buf[4] = "ps_system_action_handle_graph_hang";
-        v43 = 2080;
-        v44 = a1;
-        v45 = 2080;
-        v46 = a2;
-        v47 = 1024;
-        *v48 = v41;
-        *&v48[4] = 2048;
-        *&v48[6] = v40;
-        _os_log_impl(&dword_25EA3A000, v23, OS_LOG_TYPE_DEBUG, "%s => getGraphRecoveryAction(sessionName=%s, graphName=%s, action=%d, waitTimeBeforeKillMs=%llu)", buf, 0x30u);
+        _os_log_impl(&dword_25EA3A000, v33, OS_LOG_TYPE_INFO, "%s() ignoring", buf, 0xCu);
       }
 
-      if (v41 == 2)
+      GraphHangStats = getGraphHangStats();
+      std::string::basic_string[abi:ne200100]<0>(buf, a2);
+      __p[0] = buf;
+      v35 = std::__hash_table<std::__hash_value_type<std::string,GraphHangInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,GraphHangInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(GraphHangStats, buf, &std::piecewise_construct, __p);
+      v35[7] = v35[7] + 1;
+    }
+
+    else
+    {
+      v36 = PSSH::PSProcessMonitorEventLog(v31);
+      v37 = *a2;
+      v38 = mach_absolute_time();
+      v40 = *v36;
+      v41 = &v36[12 * *v36];
+      *(v41 + 6) = 5;
+      *(v41 + 1) = v38;
+      *(v41 + 2) = v37;
+      *v36 = v40 + 1 - 100 * ((42949673 * (v40 + 1)) >> 32);
+      if (v48 && v15 <= v48)
       {
-        v25 = __PSSysHealthLogSharedInstance();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        ps_system_action_handle_graph_hang_cold_3(a2, &v48);
+        return;
+      }
+
+      if (v49)
+      {
+        if (v49 != 1)
         {
-          *buf = 136315138;
-          *&buf[4] = "ps_system_action_handle_graph_hang";
-          _os_log_impl(&dword_25EA3A000, v25, OS_LOG_TYPE_INFO, "%s() ignoring", buf, 0xCu);
+          ps_system_action_handle_graph_hang_cold_2();
         }
 
-        GraphHangStats = getGraphHangStats();
+        ps_system_action_trigger_panic(__str, v39);
+        v42 = getGraphHangStats();
         std::string::basic_string[abi:ne200100]<0>(buf, a2);
         __p[0] = buf;
-        v27 = std::__hash_table<std::__hash_value_type<std::string,GraphHangInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,GraphHangInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(GraphHangStats, buf);
-        v27[7] = v27[7] + 1;
+        v43 = std::__hash_table<std::__hash_value_type<std::string,GraphHangInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,GraphHangInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v42, buf, &std::piecewise_construct, __p);
+        v43[6] = v43[6] + 1;
       }
 
       else
       {
-        v28 = PSSH::PSProcessMonitorEventLog(v24);
-        v29 = *a2;
-        v30 = mach_absolute_time();
-        v31 = *v28;
-        v32 = &v28[12 * *v28];
-        *(v32 + 6) = 5;
-        *(v32 + 1) = v30;
-        *(v32 + 2) = v29;
-        *v28 = v31 + 1 - 100 * ((42949673 * (v31 + 1)) >> 32);
-        if (v40 && v15 <= v40)
-        {
-          ps_system_action_handle_graph_hang_cold_3(a2, &v40);
-          goto LABEL_27;
-        }
-
-        if (v41)
-        {
-          if (v41 != 1)
-          {
-            ps_system_action_handle_graph_hang_cold_2();
-          }
-
-          ps_system_action_trigger_panic(__str);
-          v33 = getGraphHangStats();
-          std::string::basic_string[abi:ne200100]<0>(buf, a2);
-          __p[0] = buf;
-          v34 = std::__hash_table<std::__hash_value_type<std::string,GraphHangInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,GraphHangInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v33, buf);
-          v34[6] = v34[6] + 1;
-        }
-
-        else
-        {
-          ps_system_action_kill_process(a3, __str, 1, 1, "");
-          v35 = getGraphHangStats();
-          std::string::basic_string[abi:ne200100]<0>(buf, a2);
-          __p[0] = buf;
-          v36 = std::__hash_table<std::__hash_value_type<std::string,GraphHangInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,GraphHangInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v35, buf);
-          v36[5] = v36[5] + 1;
-        }
-      }
-
-      if (SHIBYTE(v45) < 0)
-      {
-        operator delete(*buf);
+        ps_system_action_kill_process(a3, __str, 1, 1, "");
+        v44 = getGraphHangStats();
+        std::string::basic_string[abi:ne200100]<0>(buf, a2);
+        __p[0] = buf;
+        v45 = std::__hash_table<std::__hash_value_type<std::string,GraphHangInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,GraphHangInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v44, buf, &std::piecewise_construct, __p);
+        v45[5] = v45[5] + 1;
       }
     }
-  }
 
-LABEL_27:
-  v37 = *MEMORY[0x277D85DE8];
+    if (SHIBYTE(v53) < 0)
+    {
+      operator delete(*buf);
+    }
+  }
 }
 
 void sub_25EAEFA30(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -2835,183 +2099,178 @@ uint64_t getGraphHangStats(void)
   return getGraphHangStats(void)::_graphHangStats;
 }
 
-void ps_system_action_trigger_panic(const char *a1)
+void ps_system_action_trigger_panic(const char *a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v2 = atomic_load(gStopSystemAction);
-  v3 = __PSSysHealthLogSharedInstance();
-  v4 = v3;
-  if (v2)
+  v29 = *MEMORY[0x277D85DE8];
+  v3 = atomic_load(gStopSystemAction);
+  v4 = __PSSysHealthLogSharedInstance(a1, a2);
+  v5 = v4;
+  if (v3)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 136315138;
-      v24 = "ps_system_action_trigger_panic";
-      v5 = "%s() Disabled Panic ";
-      v6 = v4;
-      v7 = OS_LOG_TYPE_DEFAULT;
-      v8 = 12;
-LABEL_10:
-      _os_log_impl(&dword_25EA3A000, v6, v7, v5, buf, v8);
-      goto LABEL_11;
+      return;
     }
 
-    goto LABEL_11;
+    *buf = 136315138;
+    v26 = "ps_system_action_trigger_panic";
+    v6 = "%s() Disabled Panic ";
+    v7 = v5;
+    v8 = OS_LOG_TYPE_DEFAULT;
+    v9 = 12;
+    goto LABEL_10;
   }
 
-  v9 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
-  if (v9)
+  v10 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
+  if (v10)
   {
     *buf = 136315394;
-    v24 = "ps_system_action_trigger_panic";
-    v25 = 2080;
-    v26 = a1;
-    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_INFO, "%s() panicMessage: [%s]", buf, 0x16u);
+    v26 = "ps_system_action_trigger_panic";
+    v27 = 2080;
+    v28 = a1;
+    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_INFO, "%s() panicMessage: [%s]", buf, 0x16u);
   }
 
-  v10 = PSSH::PSProcessMonitorEventLog(v9);
-  v11 = mach_absolute_time();
-  v12 = *v10;
-  v13 = &v10[12 * *v10];
-  *(v13 + 6) = 8;
-  *(v13 + 1) = v11;
-  *(v13 + 2) = 888;
-  *v10 = v12 + 1 - 100 * ((42949673 * (v12 + 1)) >> 32);
-  v22 = 0;
-  if (PSSH::checkIsPanicEnabled(&v22, v14) || v22 != 1)
+  v11 = PSSH::PSProcessMonitorEventLog(v10);
+  v12 = mach_absolute_time();
+  v13 = *v11;
+  v14 = &v11[12 * *v11];
+  *(v14 + 6) = 8;
+  *(v14 + 1) = v12;
+  *(v14 + 2) = 888;
+  *v11 = v13 + 1 - 100 * ((42949673 * (v13 + 1)) >> 32);
+  v24 = 0;
+  v16 = PSSH::checkIsPanicEnabled(&v24, v15);
+  if (!v16 && v24 == 1)
   {
-    v15 = __PSSysHealthLogSharedInstance();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      v5 = "Panic not enabled in config file. Skipping";
-      v6 = v15;
-      v7 = OS_LOG_TYPE_INFO;
-      v8 = 2;
-      goto LABEL_10;
-    }
-
-LABEL_11:
-    v16 = *MEMORY[0x277D85DE8];
+    v19 = ps_system_action_trigger_panic(buf, a1);
+    ps_system_action_kill_process(v19, v20, v21, v22, v23);
     return;
   }
 
-  v17 = ps_system_action_trigger_panic(buf, a1);
-  ps_system_action_kill_process(v17, v18, v19, v20, v21);
+  v18 = __PSSysHealthLogSharedInstance(v16, v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    v6 = "Panic not enabled in config file. Skipping";
+    v7 = v18;
+    v8 = OS_LOG_TYPE_INFO;
+    v9 = 2;
+LABEL_10:
+    _os_log_impl(&dword_25EA3A000, v7, v8, v6, buf, v9);
+  }
 }
 
-void ps_system_action_kill_process(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+void ps_system_action_kill_process(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t *a5)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v9 = atomic_load(gStopSystemAction);
-  v10 = __PSSysHealthLogSharedInstance();
+  v10 = __PSSysHealthLogSharedInstance(a1, a2);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (v9)
   {
-    if (v11)
+    if (!v11)
     {
-      v29 = 136315138;
-      v30 = "ps_system_action_kill_process";
-      v12 = "%s() Disabled Kill Process ";
-      v13 = v10;
-      v14 = OS_LOG_TYPE_DEFAULT;
-      v15 = 12;
-LABEL_17:
-      _os_log_impl(&dword_25EA3A000, v13, v14, v12, &v29, v15);
+      return;
+    }
+
+    v31 = 136315138;
+    v32 = "ps_system_action_kill_process";
+    v12 = "%s() Disabled Kill Process ";
+    v13 = v10;
+    v14 = OS_LOG_TYPE_DEFAULT;
+    v15 = 12;
+    goto LABEL_17;
+  }
+
+  if (v11)
+  {
+    v31 = 136315394;
+    v32 = "ps_system_action_kill_process";
+    v33 = 2080;
+    v34 = a2;
+    _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_DEFAULT, "%s() killReason: [%s]", &v31, 0x16u);
+  }
+
+  v16 = PSSH::PSProcessMonitorEventLog(v11);
+  v17 = *a5;
+  v18 = mach_absolute_time();
+  v20 = *v16;
+  v21 = &v16[12 * *v16];
+  *(v21 + 6) = 7;
+  *(v21 + 1) = v18;
+  *(v21 + 2) = v17;
+  *v16 = v20 + 1 - 100 * ((42949673 * (v20 + 1)) >> 32);
+  if (gKillProcessReportBlock)
+  {
+    v18 = (*(gKillProcessReportBlock + 16))(gKillProcessReportBlock, a1, a3);
+  }
+
+  v22 = __PSSysHealthLogSharedInstance(v18, v19);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  {
+    v31 = 136315138;
+    v32 = "ps_system_action_kill_process";
+    _os_log_impl(&dword_25EA3A000, v22, OS_LOG_TYPE_DEBUG, "%s() requesting logd to flush accumulated buffers", &v31, 0xCu);
+  }
+
+  v23 = OSLogFlushBuffers();
+  if (v23)
+  {
+    v25 = v23;
+    v26 = __PSSysHealthLogSharedInstance(v23, v24);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      v31 = 136315394;
+      v32 = "ps_system_action_kill_process";
+      v33 = 1024;
+      LODWORD(v34) = v25;
+      _os_log_impl(&dword_25EA3A000, v26, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v31, 0x12u);
     }
   }
 
   else
   {
-    if (v11)
-    {
-      v29 = 136315394;
-      v30 = "ps_system_action_kill_process";
-      v31 = 2080;
-      v32 = a2;
-      _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_DEFAULT, "%s() killReason: [%s]", &v29, 0x16u);
-    }
-
-    v16 = PSSH::PSProcessMonitorEventLog(v11);
-    v17 = *a5;
-    v18 = mach_absolute_time();
-    v19 = *v16;
-    v20 = &v16[12 * *v16];
-    *(v20 + 6) = 7;
-    *(v20 + 1) = v18;
-    *(v20 + 2) = v17;
-    *v16 = v19 + 1 - 100 * ((42949673 * (v19 + 1)) >> 32);
-    if (gKillProcessReportBlock)
-    {
-      (*(gKillProcessReportBlock + 16))(gKillProcessReportBlock, a1, a3);
-    }
-
-    v21 = __PSSysHealthLogSharedInstance();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
-    {
-      v29 = 136315138;
-      v30 = "ps_system_action_kill_process";
-      _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_DEBUG, "%s() requesting logd to flush accumulated buffers", &v29, 0xCu);
-    }
-
-    v22 = OSLogFlushBuffers();
-    if (v22)
-    {
-      v23 = v22;
-      v24 = __PSSysHealthLogSharedInstance();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-      {
-        v29 = 136315394;
-        v30 = "ps_system_action_kill_process";
-        v31 = 1024;
-        LODWORD(v32) = v23;
-        _os_log_impl(&dword_25EA3A000, v24, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v29, 0x12u);
-      }
-    }
-
-    else
-    {
-      usleep(0x1E8480u);
-    }
-
-    v25 = terminate_with_reason();
-    if (v25)
-    {
-      v26 = v25;
-      v27 = __PSSysHealthLogSharedInstance();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-      {
-        v29 = 136315394;
-        v30 = "ps_system_action_kill_process";
-        v31 = 1024;
-        LODWORD(v32) = v26;
-        v12 = "%s() terminate_with_reason() failed with %d";
-        v13 = v27;
-        v14 = OS_LOG_TYPE_ERROR;
-        v15 = 18;
-        goto LABEL_17;
-      }
-    }
+    usleep(0x1E8480u);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = terminate_with_reason();
+  if (v27)
+  {
+    v29 = v27;
+    v30 = __PSSysHealthLogSharedInstance(v27, v28);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    {
+      v31 = 136315394;
+      v32 = "ps_system_action_kill_process";
+      v33 = 1024;
+      LODWORD(v34) = v29;
+      v12 = "%s() terminate_with_reason() failed with %d";
+      v13 = v30;
+      v14 = OS_LOG_TYPE_ERROR;
+      v15 = 18;
+LABEL_17:
+      _os_log_impl(&dword_25EA3A000, v13, v14, v12, &v31, v15);
+    }
+  }
 }
 
-uint64_t ps_system_action_lock_apple_pay(void)
+uint64_t ps_system_action_lock_apple_pay(uint64_t a1, uint64_t a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v0 = __PSSysHealthLogSharedInstance();
-  result = os_signpost_enabled(v0);
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = __PSSysHealthLogSharedInstance(a1, a2);
+  result = os_signpost_enabled(v2);
   if (result)
   {
-    result = _os_signpost_emit_unreliably_with_name_impl();
+    *v4 = 136315138;
+    *&v4[4] = "ps_system_action_lock_apple_pay";
+    return _os_signpost_emit_unreliably_with_name_impl(&dword_25EA3A000, v2, 0, 0xEEEEB0B5B2B2EEEELL, "PSSH Log", "%s() not supported on platform. Ignoring", *v4);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void ps_system_action_get_stats(uint64_t a1, unint64_t *a2)
+void ps_system_action_get_stats(void *a1, unint64_t *a2)
 {
   v3 = *(getGraphHangStats() + 24);
   *a2 = v3;
@@ -3019,35 +2278,35 @@ void ps_system_action_get_stats(uint64_t a1, unint64_t *a2)
   operator new[]();
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,GraphHangInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,GraphHangInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,GraphHangInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,GraphHangInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,GraphHangInfo>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, __int128 **a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -3055,44 +2314,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
 void PSSH::SysHealthData::SysHealthData(PSSH::SysHealthData *this)
@@ -3164,18 +2423,18 @@ __n128 PSSH::SysHealthData::getCurrSystemHealth(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t PSSH::SysHealthData::getSessionFromStore(PSSH::SysHealthData *this)
+uint64_t PSSH::SysHealthData::getSessionFromStore(PSSH::SysHealthData *this, uint64_t a2)
 {
-  v3 = *(this + 14);
-  if (v3 > 0x3F)
+  v4 = *(this + 14);
+  if (v4 > 0x3F)
   {
-    v8 = v1;
     v9 = v2;
-    v6 = __PSSysHealthLogSharedInstance();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v10 = v3;
+    v7 = __PSSysHealthLogSharedInstance(this, a2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "No more entries in session store", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "No more entries in session store", v8, 2u);
     }
 
     return 0;
@@ -3183,100 +2442,98 @@ uint64_t PSSH::SysHealthData::getSessionFromStore(PSSH::SysHealthData *this)
 
   else
   {
-    v4 = *(this + 6);
-    *(this + 14) = v3 + 1;
-    return v4 + 72 * v3;
+    v5 = *(this + 6);
+    *(this + 14) = v4 + 1;
+    return v5 + 72 * v4;
   }
 }
 
-void PSSH::SysHealthData::updateSession(uint64_t a1, uint64_t a2, uint64_t a3)
+void PSSH::SysHealthData::updateSession(PSSH::SysHealthData *a1, uint64_t a2, uint64_t a3)
 {
-  buf[3] = *MEMORY[0x277D85DE8];
-  buf[0] = a2;
-  v6 = std::__hash_table<std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a2)[5];
-  if (!v6)
+  v20 = *MEMORY[0x277D85DE8];
+  *buf = a2;
+  v7 = std::__hash_table<std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a2, &std::piecewise_construct, buf, &v18)[5];
+  if (!v7)
   {
-    SessionFromStore = PSSH::SysHealthData::getSessionFromStore(a1);
+    SessionFromStore = PSSH::SysHealthData::getSessionFromStore(a1, v6);
     if (!SessionFromStore)
     {
-      std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__erase_unique<std::string>(a1, a2);
-      v14 = __PSSysHealthLogSharedInstance();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v14 = std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__erase_unique<std::string>(a1, a2);
+      v16 = __PSSysHealthLogSharedInstance(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         if (*(a2 + 23) >= 0)
         {
-          v15 = a2;
+          v17 = a2;
         }
 
         else
         {
-          v15 = *a2;
+          v17 = *a2;
         }
 
-        LODWORD(buf[0]) = 136315138;
-        *(buf + 4) = v15;
-        _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_ERROR, "No memory for session: %s\n", buf, 0xCu);
+        *buf = 136315138;
+        *&buf[4] = v17;
+        _os_log_impl(&dword_25EA3A000, v16, OS_LOG_TYPE_ERROR, "No memory for session: %s\n", buf, 0xCu);
       }
 
-      goto LABEL_16;
+      return;
     }
 
-    v6 = SessionFromStore;
+    v7 = SessionFromStore;
     std::string::operator=(SessionFromStore + 2, a2);
-    buf[0] = a2;
-    std::__hash_table<std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a2)[5] = v6;
+    *buf = a2;
+    std::__hash_table<std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a2, &std::piecewise_construct, buf, &v18)[5] = v7;
   }
 
-  v8 = v6[1].__r_.__value_.__r.__words[2];
-  (*(a3 + 16))(a3, v6);
-  v9 = v6[1].__r_.__value_.__r.__words[2];
-  if (v9)
+  v9 = v7[1].__r_.__value_.__r.__words[2];
+  (*(a3 + 16))(a3, v7);
+  v10 = v7[1].__r_.__value_.__r.__words[2];
+  if (v10)
   {
-    v10 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v10 = v8 == 0;
+    v11 = v9 == 0;
   }
 
-  if (!v10)
+  if (!v11)
   {
-    v12 = *(a1 + 40) - 1;
+    v13 = *(a1 + 10) - 1;
 LABEL_15:
-    *(a1 + 40) = v12;
-    goto LABEL_16;
+    *(a1 + 10) = v13;
+    return;
   }
 
-  if (v9)
+  if (v10)
   {
-    v11 = v8 == 0;
+    v12 = v9 == 0;
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  if (v11)
+  if (v12)
   {
-    v12 = *(a1 + 40) + 1;
+    v13 = *(a1 + 10) + 1;
     goto LABEL_15;
   }
-
-LABEL_16:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t *PSSH::SysHealthData::updateSessionGraphForKey(uint64_t a1, void *a2, const void **a3, uint64_t a4)
+const void **PSSH::SysHealthData::updateSessionGraphForKey(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4)
 {
   *buf = a3;
-  v8 = std::__hash_table<std::__hash_value_type<std::string,pssh_graph_state_s *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,pssh_graph_state_s *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,pssh_graph_state_s *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,pssh_graph_state_s *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, a3)[5];
-  if (v8)
+  v8 = std::__hash_table<std::__hash_value_type<std::string,pssh_graph_state_s *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,pssh_graph_state_s *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,pssh_graph_state_s *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,pssh_graph_state_s *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, a3, &std::piecewise_construct, buf, &v15);
+  v10 = v8[5];
+  if (v10)
   {
 LABEL_6:
-    result = (*(a4 + 16))(a4, v8);
-    if (v8[324])
+    result = (*(a4 + 16))(a4, v10);
+    if (v10[324])
     {
       return result;
     }
@@ -3284,15 +2541,15 @@ LABEL_6:
     return std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__erase_unique<std::string>(a2, a3);
   }
 
-  v9 = *(a1 + 72);
-  v8 = *(a1 + 64);
-  if (v9 >= 0x200)
+  v11 = *(a1 + 72);
+  v10 = *(a1 + 64);
+  if (v11 >= 0x200)
   {
-    v11 = 512;
-    while ((v8[324] & 1) != 0)
+    v13 = 512;
+    while ((v10[324] & 1) != 0)
     {
-      v8 += 376;
-      if (!--v11)
+      v10 += 376;
+      if (!--v13)
       {
         goto LABEL_12;
       }
@@ -3301,22 +2558,22 @@ LABEL_6:
     goto LABEL_5;
   }
 
-  *(a1 + 72) = v9 + 1;
-  if (v8)
+  *(a1 + 72) = v11 + 1;
+  if (v10)
   {
-    v8 += 376 * v9;
+    v10 += 376 * v11;
 LABEL_5:
     *buf = a3;
-    std::__hash_table<std::__hash_value_type<std::string,pssh_graph_state_s *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,pssh_graph_state_s *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,pssh_graph_state_s *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,pssh_graph_state_s *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, a3)[5] = v8;
+    std::__hash_table<std::__hash_value_type<std::string,pssh_graph_state_s *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,pssh_graph_state_s *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,pssh_graph_state_s *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,pssh_graph_state_s *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, a3, &std::piecewise_construct, buf, &v15)[5] = v10;
     goto LABEL_6;
   }
 
 LABEL_12:
-  v12 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v14 = __PSSysHealthLogSharedInstance(v8, v9);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_ERROR, "No more free memory for graph data.", buf, 2u);
+    _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_ERROR, "No more free memory for graph data.", buf, 2u);
   }
 
   return std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::__erase_unique<std::string>(a2, a3);
@@ -3396,86 +2653,11 @@ uint64_t PSSH::SysHealthData::_for_each_active_liveness_node(uint64_t result, ui
   return result;
 }
 
-void *std::__hash_table<pssh_graph_state_s const*,std::hash<pssh_graph_state_s const*>,std::equal_to<pssh_graph_state_s const*>,std::allocator<pssh_graph_state_s const*>>::__emplace_unique_key_args<pssh_graph_state_s const*,pssh_graph_state_s const* const&>(void *a1, void *a2)
+void *std::__hash_table<pssh_graph_state_s const*,std::hash<pssh_graph_state_s const*>,std::equal_to<pssh_graph_state_s const*>,std::allocator<pssh_graph_state_s const*>>::__emplace_unique_key_args<pssh_graph_state_s const*,pssh_graph_state_s const* const&>(void *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
-  {
-    goto LABEL_18;
-  }
-
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
-  {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
-    {
-      v7 = v4 % *&v5;
-    }
-  }
-
-  else
-  {
-    v7 = v4 & (*&v5 - 1);
-  }
-
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v10 = v9[1];
-    if (v10 == v4)
-    {
-      break;
-    }
-
-    if (v6.u32[0] > 1uLL)
-    {
-      if (v10 >= *&v5)
-      {
-        v10 %= *&v5;
-      }
-    }
-
-    else
-    {
-      v10 &= *&v5 - 1;
-    }
-
-    if (v10 != v7)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v9 = *v9;
-    if (!v9)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (v9[2] != *a2)
-  {
-    goto LABEL_17;
-  }
-
-  return v9;
-}
-
-const void **std::__hash_table<std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
   v6 = a1[1];
   if (!*&v6)
   {
@@ -3484,23 +2666,98 @@ const void **std::__hash_table<std::__hash_value_type<std::string,PSSH::pssh_ses
 
   v7 = vcnt_s8(v6);
   v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
   if (v7.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v9 = v4 % *&v6;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v11 = v10[1];
+    if (v11 == v5)
+    {
+      break;
+    }
+
+    if (v7.u32[0] > 1uLL)
+    {
+      if (v11 >= *&v6)
+      {
+        v11 %= *&v6;
+      }
+    }
+
+    else
+    {
+      v11 &= *&v6 - 1;
+    }
+
+    if (v11 != v8)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v10 = *v10;
+    if (!v10)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (v10[2] != *a2)
+  {
+    goto LABEL_17;
+  }
+
+  return v10;
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
+  {
+    goto LABEL_18;
+  }
+
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
+  {
+    v12 = v7;
+    if (v7 >= *&v9)
+    {
+      v12 = v7 % *&v9;
+    }
+  }
+
+  else
+  {
+    v12 = (*&v9 - 1) & v7;
+  }
+
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PSSH::pssh_session_state_s *>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -3508,44 +2765,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_25EAF0F78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -3565,35 +2822,35 @@ void sub_25EAF1040(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,pssh_graph_state_s *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,pssh_graph_state_s *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,pssh_graph_state_s *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,pssh_graph_state_s *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,pssh_graph_state_s *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,pssh_graph_state_s *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,pssh_graph_state_s *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,pssh_graph_state_s *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,pssh_graph_state_s *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,pssh_graph_state_s *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,pssh_graph_state_s *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,pssh_graph_state_s *>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -3601,44 +2858,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_25EAF12B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -3718,7 +2975,7 @@ LABEL_9:
   }
 }
 
-void PSSH::SysHealthManager::remoteHasUpdatedGraphs(PSSH::SysHealthManager *this, const pssh_graph_state_s *a2, int a3)
+void PSSH::SysHealthManager::remoteHasUpdatedGraphs(PSSH::SysHealthData **this, const pssh_graph_state_s *a2, int a3)
 {
   v6 = *this;
   std::string::basic_string[abi:ne200100]<0>(__p, a2->var1);
@@ -3824,22 +3081,22 @@ void ___ZN4PSSH16SysHealthManager22remoteHasUpdatedGraphsEPK18pssh_graph_state_s
   dispatch_group_async(v5, v6, v7);
 }
 
-void PSSH::SysHealthManager::remoteHasRequestedGraphs()
+void PSSH::SysHealthManager::remoteHasRequestedGraphs(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v0[0] = 0;
-  v0[1] = v0;
-  v0[2] = 0x2000000000;
+  v3[0] = 0;
+  v3[1] = v3;
+  v3[2] = 0x2000000000;
   operator new[]();
 }
 
-void sub_25EAF1954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25EAF1954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3856,48 +3113,48 @@ void *___ZN4PSSH16SysHealthManager24remoteHasRequestedGraphsERKNSt3__112basic_st
 
 void PSSH::SysHealthManager::remoteHasUpdatedSystemHealth(uint64_t *a1, __int128 *a2)
 {
-  v14[0] = 0;
-  v14[1] = v14;
-  v14[2] = 0x3802000000;
-  v14[3] = __Block_byref_object_copy__2;
-  v14[4] = __Block_byref_object_dispose__2;
-  v15 = *a2;
+  v16[0] = 0;
+  v16[1] = v16;
+  v16[2] = 0x3802000000;
+  v16[3] = __Block_byref_object_copy__2;
+  v16[4] = __Block_byref_object_dispose__2;
+  v17 = *a2;
   v4 = a1[2];
   v5 = a1[3];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 0x40000000;
   block[2] = ___ZN4PSSH16SysHealthManager28remoteHasUpdatedSystemHealthEPK19pssh_health_state_s_block_invoke;
   block[3] = &unk_279A49350;
-  block[4] = v14;
+  block[4] = v16;
   block[5] = a1;
   dispatch_group_async(v4, v5, block);
   if (*(a2 + 3))
   {
     v6 = *a1;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 0x40000000;
-    v12[2] = ___ZN4PSSH16SysHealthManager28remoteHasUpdatedSystemHealthEPK19pssh_health_state_s_block_invoke_3;
-    v12[3] = &__block_descriptor_tmp_10;
-    v12[4] = a1;
-    PSSH::SysHealthData::_for_each_active_graph(v6, v12);
-    v7 = __PSSysHealthLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 0x40000000;
+    v14[2] = ___ZN4PSSH16SysHealthManager28remoteHasUpdatedSystemHealthEPK19pssh_health_state_s_block_invoke_3;
+    v14[3] = &__block_descriptor_tmp_10;
+    v14[4] = a1;
+    active = PSSH::SysHealthData::_for_each_active_graph(v6, v14);
+    v9 = __PSSysHealthLogSharedInstance(active, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEBUG, "Starting poll..", buf, 2u);
+      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEBUG, "Starting poll..", buf, 2u);
     }
 
-    v8 = a1[2];
-    v9 = a1[3];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 0x40000000;
-    v10[2] = ___ZN4PSSH16SysHealthManager28remoteHasUpdatedSystemHealthEPK19pssh_health_state_s_block_invoke_11;
-    v10[3] = &__block_descriptor_tmp_12;
-    v10[4] = a1;
-    dispatch_group_async(v8, v9, v10);
+    v10 = a1[2];
+    v11 = a1[3];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 0x40000000;
+    v12[2] = ___ZN4PSSH16SysHealthManager28remoteHasUpdatedSystemHealthEPK19pssh_health_state_s_block_invoke_11;
+    v12[3] = &__block_descriptor_tmp_12;
+    v12[4] = a1;
+    dispatch_group_async(v10, v11, v12);
   }
 
-  _Block_object_dispose(v14, 8);
+  _Block_object_dispose(v16, 8);
 }
 
 __n128 __Block_byref_object_copy__2(uint64_t a1, uint64_t a2)
@@ -3942,125 +3199,123 @@ void ___ZN4PSSH16SysHealthManager28remoteHasUpdatedSystemHealthEPK19pssh_health_
 
 void PSSH::SysHealthManager::monitorLiveness(dispatch_group_t *this)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x4002000000;
-  v18 = __Block_byref_object_copy__13;
-  v19 = __Block_byref_object_dispose__14;
+  v30 = *MEMORY[0x277D85DE8];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x4002000000;
+  v21 = __Block_byref_object_copy__13;
+  v22 = __Block_byref_object_dispose__14;
   __p = 0;
-  v21 = 0;
-  v22 = 0;
+  v24 = 0;
+  v25 = 0;
   v2 = mach_absolute_time();
   dispatch_group_enter(this[2]);
-  PSSH::SysHealthData::getCurrSystemHealth(*this, &v23);
-  if (v23.n128_u32[3])
+  PSSH::SysHealthData::getCurrSystemHealth(*this, &v26);
+  if (v26.n128_u32[3])
   {
-    v3 = *this;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 0x40000000;
-    v14[2] = ___ZN4PSSH16SysHealthManager15monitorLivenessEv_block_invoke;
-    v14[3] = &unk_279A49400;
-    v14[4] = &v15;
-    v14[5] = this;
-    PSSH::SysHealthData::_for_each_active_liveness_node(v3, v14);
-    if ((*(v16 + 63) & 0x8000000000000000) != 0)
+    v5 = *this;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 0x40000000;
+    v17[2] = ___ZN4PSSH16SysHealthManager15monitorLivenessEv_block_invoke;
+    v17[3] = &unk_279A49400;
+    v17[4] = &v18;
+    v17[5] = this;
+    active = PSSH::SysHealthData::_for_each_active_liveness_node(v5, v17);
+    if ((*(v19 + 63) & 0x8000000000000000) != 0)
     {
-      if (!v16[6])
+      if (!v19[6])
       {
 LABEL_21:
-        v8 = __PSSysHealthLogSharedInstance();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v12 = __PSSysHealthLogSharedInstance(active, v7);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
-          *&buf[4] = v23.n128_u32[3];
-          _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEBUG, "Polling for liveness. Next poll in %d secs", buf, 8u);
+          *&buf[4] = v26.n128_u32[3];
+          _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_DEBUG, "Polling for liveness. Next poll in %d secs", buf, 8u);
         }
 
-        v9 = dispatch_time(0, 1000000000 * v23.n128_u32[3]);
-        v10 = this[3];
+        v13 = dispatch_time(0, 1000000000 * v26.n128_u32[3]);
+        v14 = this[3];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 0x40000000;
         block[2] = ___ZN4PSSH16SysHealthManager15monitorLivenessEv_block_invoke_22;
         block[3] = &__block_descriptor_tmp_23;
         block[4] = this;
-        dispatch_after(v9, v10, block);
+        dispatch_after(v13, v14, block);
         goto LABEL_24;
       }
     }
 
-    else if (!*(v16 + 63))
+    else if (!*(v19 + 63))
     {
       goto LABEL_21;
     }
 
     std::string::basic_string[abi:ne200100]<0>(buf, "\n");
-    if ((v26 & 0x80u) == 0)
+    if ((v29 & 0x80u) == 0)
     {
-      v5 = buf;
+      v9 = buf;
     }
 
     else
     {
-      v5 = *buf;
+      v9 = *buf;
     }
 
-    if ((v26 & 0x80u) == 0)
+    if ((v29 & 0x80u) == 0)
     {
-      v6 = v26;
+      v10 = v29;
     }
 
     else
     {
-      v6 = v25;
+      v10 = v28;
     }
 
-    std::string::append((v16 + 5), v5, v6);
-    if (v26 < 0)
+    std::string::append((v19 + 5), v9, v10);
+    if (v29 < 0)
     {
       operator delete(*buf);
     }
 
-    v7 = this[1];
-    if (*(v16 + 63) < 0)
+    v11 = this[1];
+    if (*(v19 + 63) < 0)
     {
-      std::string::__init_copy_ctor_external(&v13, v16[5], v16[6]);
+      std::string::__init_copy_ctor_external(&v16, v19[5], v19[6]);
     }
 
     else
     {
-      v13 = *(v16 + 5);
+      v16 = *(v19 + 5);
     }
 
-    PSSH::SysHealthServer::reportEvent(v7, 0, v2, &v13);
-    if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
+    PSSH::SysHealthServer::reportEvent(v11, 0, v2, &v16.__r_.__value_.__l.__data_);
+    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v13.__r_.__value_.__l.__data_);
+      operator delete(v16.__r_.__value_.__l.__data_);
     }
 
     goto LABEL_21;
   }
 
   *(this + 32) = 0;
-  v4 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v8 = __PSSysHealthLogSharedInstance(v3, v4);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEBUG, "Stopping poll for liveness health", buf, 2u);
+    _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEBUG, "Stopping poll for liveness health", buf, 2u);
   }
 
 LABEL_24:
   dispatch_group_leave(this[2]);
-  _Block_object_dispose(&v15, 8);
-  if (SHIBYTE(v22) < 0)
+  _Block_object_dispose(&v18, 8);
+  if (SHIBYTE(v25) < 0)
   {
     operator delete(__p);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25EAF1F70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38)
+void sub_25EAF1F70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38)
 {
   _Block_object_dispose(&a28, 8);
   if (a38 < 0)
@@ -4157,15 +3412,15 @@ void PSSH::SysHealthManager::remoteHasDied(PSSH::SysHealthManager *this, int a2)
   }
 
   v12 = mach_absolute_time();
-  v13 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = __PSSysHealthLogSharedInstance(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     LODWORD(v33.__r_.__value_.__l.__data_) = 67109120;
     HIDWORD(v33.__r_.__value_.__r.__words[0]) = a2;
-    _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_INFO, "Recording pid [%d] has died", &v33, 8u);
+    _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_INFO, "Recording pid [%d] has died", &v33, 8u);
   }
 
-  v14 = *this;
+  v15 = *this;
   v20[0] = MEMORY[0x277D85DD0];
   v20[1] = 0x40000000;
   v20[2] = ___ZN4PSSH16SysHealthManager13remoteHasDiedEi_block_invoke;
@@ -4173,35 +3428,35 @@ void PSSH::SysHealthManager::remoteHasDied(PSSH::SysHealthManager *this, int a2)
   v21 = a2;
   v20[4] = &v26;
   v20[5] = this;
-  PSSH::SysHealthData::_for_each_active_session(v14, v20);
+  PSSH::SysHealthData::_for_each_active_session(v15, v20);
   std::string::basic_string[abi:ne200100]<0>(&v33, "\n");
   if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v15 = &v33;
+    v16 = &v33;
   }
 
   else
   {
-    v15 = v33.__r_.__value_.__r.__words[0];
+    v16 = v33.__r_.__value_.__r.__words[0];
   }
 
   if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v16 = HIBYTE(v33.__r_.__value_.__r.__words[2]);
+    v17 = HIBYTE(v33.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v16 = v33.__r_.__value_.__l.__size_;
+    v17 = v33.__r_.__value_.__l.__size_;
   }
 
-  std::string::append((v27 + 5), v15, v16);
+  std::string::append((v27 + 5), v16, v17);
   if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v33.__r_.__value_.__l.__data_);
   }
 
-  v17 = *(this + 1);
+  v18 = *(this + 1);
   if (*(v27 + 63) < 0)
   {
     std::string::__init_copy_ctor_external(&v19, v27[5], v27[6]);
@@ -4212,7 +3467,7 @@ void PSSH::SysHealthManager::remoteHasDied(PSSH::SysHealthManager *this, int a2)
     v19 = *(v27 + 5);
   }
 
-  PSSH::SysHealthServer::reportEvent(v17, 1, v12, &v19);
+  PSSH::SysHealthServer::reportEvent(v18, 1, v12, &v19.__r_.__value_.__l.__data_);
   if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v19.__r_.__value_.__l.__data_);
@@ -4223,8 +3478,6 @@ void PSSH::SysHealthManager::remoteHasDied(PSSH::SysHealthManager *this, int a2)
   {
     operator delete(v31);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25EAF22BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, int a37, __int16 a38, char a39, char a40)
@@ -4378,76 +3631,75 @@ void sub_25EAF24E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN4PSSH16SysHealthManager15monitorLivenessEv_block_invoke(uint64_t a1, uint64_t a2)
+void ___ZN4PSSH16SysHealthManager15monitorLivenessEv_block_invoke(uint64_t a1, char *a2)
 {
   v19 = *MEMORY[0x277D85DE8];
-  v4 = *(a2 + 372);
   if (PSSH::SysHealthServer::checkDeadlineMisses(*(*(a1 + 40) + 8)))
   {
-    std::string::basic_string[abi:ne200100]<0>(v15, a2);
-    v5 = __PSSysHealthLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v4 = std::string::basic_string[abi:ne200100]<0>(v15, a2);
+    v6 = __PSSysHealthLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v6 = v15;
+      v7 = v15;
       if ((v16 & 0x80u) != 0)
       {
-        v6 = v15[0];
+        v7 = v15[0];
       }
 
       *buf = 136315138;
-      *&buf[4] = v6;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEBUG, "Deadline missed: %s", buf, 0xCu);
+      *&buf[4] = v7;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEBUG, "Deadline missed: %s", buf, 0xCu);
     }
 
     std::string::basic_string[abi:ne200100]<0>(&__p, " , ");
     if ((v16 & 0x80u) == 0)
     {
-      v7 = v15;
+      v8 = v15;
     }
 
     else
     {
-      v7 = v15[0];
+      v8 = v15[0];
     }
 
     if ((v16 & 0x80u) == 0)
     {
-      v8 = v16;
+      v9 = v16;
     }
 
     else
     {
-      v8 = v15[1];
+      v9 = v15[1];
     }
 
-    v9 = std::string::insert(&__p, 0, v7, v8);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v18 = v9->__r_.__value_.__r.__words[2];
-    *buf = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
+    v10 = std::string::insert(&__p, 0, v8, v9);
+    v11 = *&v10->__r_.__value_.__l.__data_;
+    v18 = v10->__r_.__value_.__r.__words[2];
+    *buf = v11;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
     if (v18 >= 0)
     {
-      v11 = buf;
+      v12 = buf;
     }
 
     else
     {
-      v11 = *buf;
+      v12 = *buf;
     }
 
     if (v18 >= 0)
     {
-      v12 = HIBYTE(v18);
+      v13 = HIBYTE(v18);
     }
 
     else
     {
-      v12 = *&buf[8];
+      v13 = *&buf[8];
     }
 
-    std::string::append((*(*(a1 + 32) + 8) + 40), v11, v12);
+    std::string::append((*(*(a1 + 32) + 8) + 40), v12, v13);
     if (SHIBYTE(v18) < 0)
     {
       operator delete(*buf);
@@ -4463,8 +3715,6 @@ void ___ZN4PSSH16SysHealthManager15monitorLivenessEv_block_invoke(uint64_t a1, u
       operator delete(v15[0]);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25EAF269C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -4528,19 +3778,20 @@ void *PSSH::SysHealthServer::reportEventTo(uint64_t a1, void *a2, void *aBlock)
   return result;
 }
 
-void PSSH::SysHealthServer::reportEvent(uint64_t a1, int a2, uint64_t a3, uint64_t *a4)
+void PSSH::SysHealthServer::reportEvent(uint64_t a1, uint64_t a2, uint64_t a3, const std::string::value_type **a4)
 {
   v4 = a4;
-  v22 = *MEMORY[0x277D85DE8];
+  v6 = a2;
+  v21 = *MEMORY[0x277D85DE8];
   if (*(a1 + 40) && (v7 = *(a1 + 24)) != 0)
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 1174405120;
-    v11[2] = ___ZN4PSSH15SysHealthServer11reportEventENS_11pssh_reportEyNSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEE_block_invoke;
-    v11[3] = &__block_descriptor_tmp_30;
-    v13 = a2;
-    v11[4] = a1;
-    v11[5] = a3;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 1174405120;
+    v10[2] = ___ZN4PSSH15SysHealthServer11reportEventENS_11pssh_reportEyNSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEE_block_invoke;
+    v10[3] = &__block_descriptor_tmp_30;
+    v12 = a2;
+    v10[4] = a1;
+    v10[5] = a3;
     if (*(a4 + 23) < 0)
     {
       std::string::__init_copy_ctor_external(&__p, *a4, a4[1]);
@@ -4551,7 +3802,7 @@ void PSSH::SysHealthServer::reportEvent(uint64_t a1, int a2, uint64_t a3, uint64
       __p = *a4;
     }
 
-    dispatch_async(v7, v11);
+    dispatch_async(v7, v10);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -4565,7 +3816,7 @@ void PSSH::SysHealthServer::reportEvent(uint64_t a1, int a2, uint64_t a3, uint64
     v8 = 0;
   }
 
-  v9 = __PSSysHealthLogSharedInstance();
+  v9 = __PSSysHealthLogSharedInstance(a1, a2);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     if (*(v4 + 23) < 0)
@@ -4574,17 +3825,15 @@ void PSSH::SysHealthServer::reportEvent(uint64_t a1, int a2, uint64_t a3, uint64
     }
 
     *buf = 134218754;
-    v15 = a3;
-    v16 = 1024;
-    v17 = a2;
-    v18 = 2080;
-    v19 = v4;
-    v20 = 1024;
-    v21 = v8;
+    v14 = a3;
+    v15 = 1024;
+    v16 = v6;
+    v17 = 2080;
+    v18 = v4;
+    v19 = 1024;
+    v20 = v8;
     _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_INFO, "Machtime: %llu event: %d reason: %s reported: %d", buf, 0x22u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZN4PSSH15SysHealthServer11reportEventENS_11pssh_reportEyNSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEE_block_invoke(uint64_t a1)
@@ -4628,11 +3877,17 @@ void PSSH::SysHealthServer::handleMessageNotifyClientDeath(PSSH::SysHealthManage
   PSSH::SysProcessMonitor::handleProcessDied(v4, v5);
 }
 
-void PSSH::SysHealthServer::handleRequestAllGraphs(uint64_t a1, PSSG::MessageSHRequestAllGraphs *this)
+void PSSH::SysHealthServer::handleRequestAllGraphs(uint64_t a1, PSSG::MessageSHRequestAllGraphs *this, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  PSSG::MessageSHRequestAllGraphs::getFilter(this, &__p);
-  PSSH::SysHealthManager::remoteHasRequestedGraphs();
+  v5 = *(a1 + 8);
+  PSSG::MessageSHRequestAllGraphs::getFilter(this, __p);
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 0x40000000;
+  v6[2] = ___ZN4PSSH15SysHealthServer22handleRequestAllGraphsERKN4PSSG25MessageSHRequestAllGraphsEU13block_pointerFvRKNSt3__112basic_stringIcNS5_11char_traitsIcEENS5_9allocatorIcEEEERNS1_7MessageEE_block_invoke;
+  v6[3] = &unk_279A49448;
+  v6[4] = a3;
+  v6[5] = this;
+  PSSH::SysHealthManager::remoteHasRequestedGraphs(v5, __p, v6);
 }
 
 void sub_25EAF2BC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -4648,16 +3903,16 @@ void sub_25EAF2BC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void ___ZN4PSSH15SysHealthServer22handleRequestAllGraphsERKN4PSSG25MessageSHRequestAllGraphsEU13block_pointerFvRKNSt3__112basic_stringIcNS5_11char_traitsIcEENS5_9allocatorIcEEEERNS1_7MessageEE_block_invoke(uint64_t a1, uint64_t a2, int a3)
 {
   v15[62] = *MEMORY[0x277D85DE8];
-  PSSG::MessageBase::MessageBase(v15, 33, (*(a1 + 40) + 16), a2, 376 * a3);
+  v4 = PSSG::MessageBase::MessageBase(v15, 33, (*(a1 + 40) + 16), a2, 376 * a3);
   v15[0] = &unk_2870BB7B8;
-  v4 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v6 = __PSSysHealthLogSharedInstance(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(a1 + 40);
-    v6 = (v5 + 16);
-    if (*(v5 + 39) < 0)
+    v7 = *(a1 + 40);
+    v8 = (v7 + 16);
+    if (*(v7 + 39) < 0)
     {
-      v6 = *v6;
+      v8 = *v8;
     }
 
     PSSG::MessageSHPublishAllGraphs::description(v15, &__p);
@@ -4672,25 +3927,23 @@ void ___ZN4PSSH15SysHealthServer22handleRequestAllGraphsERKN4PSSG25MessageSHRequ
     }
 
     *buf = 136315394;
-    v12 = v6;
+    v12 = v8;
     v13 = 2080;
     v14 = p_p;
-    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEBUG, "%s <-- %s", buf, 0x16u);
+    _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEBUG, "%s <-- %s", buf, 0x16u);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
 
-  v8 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
   PSSG::MessageBase::~MessageBase(v15);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25EAF2D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25EAF2D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   PSSG::MessageBase::~MessageBase(va);
   _Unwind_Resume(a1);
 }
@@ -4732,48 +3985,47 @@ void sub_25EAF2E1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4PSSH15SysHealthServer32handleRequestProcessMonitorStatsERKN4PSSG35MessageSHRequestProcessMonitorStatsEU13block_pointerFvRKNSt3__112basic_stringIcNS5_11char_traitsIcEENS5_9allocatorIcEEEERNS1_7MessageEE_block_invoke(uint64_t a1, __int128 *a2, uint64_t a3, int a4)
 {
-  v16[62] = *MEMORY[0x277D85DE8];
-  PSSG::MessageBase::MessageBase(v16, 34, a2, a3, 144 * a4);
-  v16[0] = &unk_2870BB9C0;
-  v6 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v17[62] = *MEMORY[0x277D85DE8];
+  v6 = PSSG::MessageBase::MessageBase(v17, 34, a2, a3, 144 * a4);
+  v17[0] = &unk_2870BB9C0;
+  v8 = __PSSysHealthLogSharedInstance(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v7 = a2;
+    v9 = a2;
     if (*(a2 + 23) < 0)
     {
-      v7 = *a2;
+      v9 = *a2;
     }
 
     std::string::basic_string[abi:ne200100]<0>(__p, "Report Process Monitor statistics");
-    if (v11 >= 0)
+    if (v12 >= 0)
     {
-      v8 = __p;
+      v10 = __p;
     }
 
     else
     {
-      v8 = __p[0];
+      v10 = __p[0];
     }
 
     *buf = 136315394;
-    v13 = v7;
-    v14 = 2080;
-    v15 = v8;
-    _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEBUG, "%s <-- %s", buf, 0x16u);
-    if (v11 < 0)
+    v14 = v9;
+    v15 = 2080;
+    v16 = v10;
+    _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEBUG, "%s <-- %s", buf, 0x16u);
+    if (v12 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-  PSSG::MessageBase::~MessageBase(v16);
-  v9 = *MEMORY[0x277D85DE8];
+  PSSG::MessageBase::~MessageBase(v17);
 }
 
-void sub_25EAF2F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25EAF2F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   PSSG::MessageBase::~MessageBase(va);
   _Unwind_Resume(a1);
 }
@@ -4815,48 +4067,47 @@ void sub_25EAF3090(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4PSSH15SysHealthServer30handleRequestSystemActionStatsERKN4PSSG33MessageSHRequestSystemActionStatsEU13block_pointerFvRKNSt3__112basic_stringIcNS5_11char_traitsIcEENS5_9allocatorIcEEEERNS1_7MessageEE_block_invoke(uint64_t a1, __int128 *a2, uint64_t a3, int a4)
 {
-  v16[62] = *MEMORY[0x277D85DE8];
-  PSSG::MessageBase::MessageBase(v16, 35, a2, a3, 152 * a4);
-  v16[0] = &unk_2870BBA08;
-  v6 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v17[62] = *MEMORY[0x277D85DE8];
+  v6 = PSSG::MessageBase::MessageBase(v17, 35, a2, a3, 152 * a4);
+  v17[0] = &unk_2870BBA08;
+  v8 = __PSSysHealthLogSharedInstance(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v7 = a2;
+    v9 = a2;
     if (*(a2 + 23) < 0)
     {
-      v7 = *a2;
+      v9 = *a2;
     }
 
     std::string::basic_string[abi:ne200100]<0>(__p, "Report System Action statistics");
-    if (v11 >= 0)
+    if (v12 >= 0)
     {
-      v8 = __p;
+      v10 = __p;
     }
 
     else
     {
-      v8 = __p[0];
+      v10 = __p[0];
     }
 
     *buf = 136315394;
-    v13 = v7;
-    v14 = 2080;
-    v15 = v8;
-    _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEBUG, "%s <-- %s", buf, 0x16u);
-    if (v11 < 0)
+    v14 = v9;
+    v15 = 2080;
+    v16 = v10;
+    _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEBUG, "%s <-- %s", buf, 0x16u);
+    if (v12 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-  PSSG::MessageBase::~MessageBase(v16);
-  v9 = *MEMORY[0x277D85DE8];
+  PSSG::MessageBase::~MessageBase(v17);
 }
 
-void sub_25EAF320C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25EAF320C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   PSSG::MessageBase::~MessageBase(va);
   _Unwind_Resume(a1);
 }
@@ -4898,48 +4149,47 @@ void sub_25EAF3304(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4PSSH15SysHealthServer35handleRequestProcessMonitorEventLogERKN4PSSG38MessageSHRequestProcessMonitorEventLogEU13block_pointerFvRKNSt3__112basic_stringIcNS5_11char_traitsIcEENS5_9allocatorIcEEEERNS1_7MessageEE_block_invoke(uint64_t a1, __int128 *a2, uint64_t a3)
 {
-  v15[62] = *MEMORY[0x277D85DE8];
-  PSSG::MessageBase::MessageBase(v15, 36, a2, a3, 4800);
-  v15[0] = &unk_2870BBA50;
-  v5 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v16[62] = *MEMORY[0x277D85DE8];
+  v5 = PSSG::MessageBase::MessageBase(v16, 36, a2, a3, 4800);
+  v16[0] = &unk_2870BBA50;
+  v7 = __PSSysHealthLogSharedInstance(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v6 = a2;
+    v8 = a2;
     if (*(a2 + 23) < 0)
     {
-      v6 = *a2;
+      v8 = *a2;
     }
 
     std::string::basic_string[abi:ne200100]<0>(__p, "Report Process Monitor event log");
-    if (v10 >= 0)
+    if (v11 >= 0)
     {
-      v7 = __p;
+      v9 = __p;
     }
 
     else
     {
-      v7 = __p[0];
+      v9 = __p[0];
     }
 
     *buf = 136315394;
-    v12 = v6;
-    v13 = 2080;
-    v14 = v7;
-    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEBUG, "%s <-- %s", buf, 0x16u);
-    if (v10 < 0)
+    v13 = v8;
+    v14 = 2080;
+    v15 = v9;
+    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEBUG, "%s <-- %s", buf, 0x16u);
+    if (v11 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-  PSSG::MessageBase::~MessageBase(v15);
-  v8 = *MEMORY[0x277D85DE8];
+  PSSG::MessageBase::~MessageBase(v16);
 }
 
-void sub_25EAF3478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25EAF3478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   PSSG::MessageBase::~MessageBase(va);
   _Unwind_Resume(a1);
 }
@@ -5089,40 +4339,38 @@ LABEL_30:
 void ___ZN4PSSH15SysHealthServer23handleCollectDPTailspinERKN4PSSG24MessageCollectDPTailspinE_block_invoke(uint64_t a1)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v3 = a1 + 32;
-  v2 = *(a1 + 32);
+  v2 = a1 + 32;
   if (*(a1 + 55) >= 0)
   {
-    v4 = a1 + 32;
+    v3 = a1 + 32;
   }
 
   else
   {
-    v4 = *(a1 + 32);
+    v3 = *(a1 + 32);
   }
 
-  if ((PSUtilitiesDiagnosticPipelineRequestTailspin(1, v4) & 1) == 0)
+  v4 = PSUtilitiesDiagnosticPipelineRequestTailspin(1, v3);
+  if ((v4 & 1) == 0)
   {
-    v5 = __PSSysHealthLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __PSSysHealthLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       if (*(a1 + 55) >= 0)
       {
-        v6 = v3;
+        v7 = v2;
       }
 
       else
       {
-        v6 = *(a1 + 32);
+        v7 = *(a1 + 32);
       }
 
       v8 = 136315138;
-      v9 = v6;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "Could not produce a Diagnostic Pipeline tailspin for %s.", &v8, 0xCu);
+      v9 = v7;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "Could not produce a Diagnostic Pipeline tailspin for %s.", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __copy_helper_block_e8_32c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE(uint64_t a1, uint64_t a2)
@@ -5169,11 +4417,11 @@ void PSSG::MessageSHReportProcessMonitorEventLog::~MessageSHReportProcessMonitor
   JUMPOUT(0x25F8C7C50);
 }
 
-void ps_syshealth_create_server(uint64_t a1)
+void ps_syshealth_create_server(uint64_t a1, void *a2, uint64_t a3)
 {
   serverComms = a1;
-  v1 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  pssh_global_queue = dispatch_queue_create("PSSH-dispatch", v1);
+  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  pssh_global_queue = dispatch_queue_create("PSSH-dispatch", v3);
   operator new();
 }
 
@@ -5209,7 +4457,7 @@ uint64_t ps_syshealth_release_server()
   return result;
 }
 
-void ps_telemetry_setup_filter_buffer()
+void ps_telemetry_setup_filter_buffer(uint64_t result, uint64_t a2)
 {
   if (qword_27FD132F8 != -1)
   {
@@ -5249,48 +4497,47 @@ void ps_telemetry_init_daemon()
   context[v1] = ps_buffer_create_group_writer_with_options();
   MEMORY[0x25F8C8900]();
   MEMORY[0x25F8C8C70](context[v1]);
-  v2 = context[v1];
-  v3 = ps_buffer_get_write_buffers();
-  context[12300] = v3;
-  v4 = *(v3 + 8);
-  v5 = 0x300Bu;
-  context[v5] = v4;
-  v6 = 0x300Du;
-  v7 = context[v6] + 1;
-  context[v6] = v7;
-  *v4 = v7;
-  *(context[v5] + 8) = 0;
+  v2 = ps_buffer_get_write_buffers();
+  context[12300] = v2;
+  v3 = *(v2 + 8);
+  v4 = 0x300Bu;
+  context[v4] = v3;
+  v5 = 0x300Du;
+  v6 = context[v5] + 1;
+  context[v5] = v6;
+  *v3 = v6;
+  *(context[v4] + 8) = 0;
   context[12302] = 0;
-  memset(&v13, 0, 32);
-  v13.compare = compare_timestamps;
-  context[12296] = CFBinaryHeapCreate(0, 4096, &v13, 0);
-  v8 = ps_gsm_map_shared();
-  context[12307] = v8;
-  context[12308] = ps_gsm_create_source(v8, 1, "polaris.telemetry");
-  serial_dispatch_queue = ps_util_create_serial_dispatch_queue("polaris.telemetry.daemon");
+  memset(&v12, 0, 32);
+  v12.compare = compare_timestamps;
+  context[12296] = CFBinaryHeapCreate(0, 4096, &v12, 0);
+  v7 = ps_gsm_map_shared();
+  context[12307] = v7;
+  context[12308] = ps_gsm_create_source(v7, 1, "polaris.telemetry");
+  serial_dispatch_queue = ps_util_create_serial_dispatch_queue("polaris.telemetry.daemon", 37);
   context[12304] = serial_dispatch_queue;
-  v10 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, serial_dispatch_queue);
-  v11 = 0x300Fu;
-  context[v11] = v10;
-  dispatch_source_set_timer(v10, 0, 0x5F5E100uLL, 0x989680uLL);
-  dispatch_source_set_event_handler_f(context[v11], process_thread_buffers);
-  v12 = 0x3015u;
-  context[v12] = xpc_connection_create_mach_service("com.apple.polaris.telemetry", 0, 1uLL);
+  v9 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, serial_dispatch_queue);
+  v10 = 0x300Fu;
+  context[v10] = v9;
+  dispatch_source_set_timer(v9, 0, 0x5F5E100uLL, 0x989680uLL);
+  dispatch_source_set_event_handler_f(context[v10], process_thread_buffers);
+  v11 = 0x3015u;
+  context[v11] = xpc_connection_create_mach_service("com.apple.polaris.telemetry", 0, 1uLL);
   context[12310] = dispatch_queue_create("telemetry.enablementQueue", 0);
   context[12311] = CFSetCreateMutable(0, 0, 0);
-  xpc_connection_set_event_handler(context[v12], &__block_literal_global_26);
-  xpc_connection_activate(context[v12]);
+  xpc_connection_set_event_handler(context[v11], &__block_literal_global_26);
+  xpc_connection_activate(context[v11]);
 }
 
-void ps_telemetry_destroy_daemon()
+void ps_telemetry_destroy_daemon(uint64_t a1, uint64_t a2)
 {
-  if (context[0] && (v0 = atomic_load(context[0]), (v0 & 1) != 0))
+  if (context[0] && (v2 = atomic_load(context[0]), (v2 & 1) != 0))
   {
-    v1 = __PSTelemetryLogSharedInstance();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v3 = __PSTelemetryLogSharedInstance(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      *v3 = 0;
-      _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_ERROR, "Daemon destroyed while telemetry was enabled", v3, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_ERROR, "Daemon destroyed while telemetry was enabled", v5, 2u);
     }
   }
 
@@ -5352,11 +4599,11 @@ void ps_telemetry_destroy_daemon()
       ps_gsm_remove_source(qword_27FD2B398, qword_27FD2B3A0);
     }
 
-    v2 = qword_27FD2B398;
+    v4 = qword_27FD2B398;
     if (qword_27FD2B398)
     {
 
-      ps_gsm_remove_gsm(v2);
+      ps_gsm_remove_gsm(v4);
     }
   }
 }
@@ -5395,12 +4642,12 @@ uint64_t compare_timestamps(uint64_t a1, uint64_t a2)
 
 unint64_t **process_thread_buffers()
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v33 = 0u;
+  v34 = *MEMORY[0x277D85DE8];
   v32 = 0u;
-  v31 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+  v31 = 0u;
+  v30 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
   qword_27FD2B330 = qword_27FD2B338;
-  qword_27FD2B338 = v31;
+  qword_27FD2B338 = v30;
   v0 = atomic_load(qword_27FD2B348);
   byte_27FD2B30A = v0;
   if (v0)
@@ -5457,7 +4704,7 @@ unint64_t **process_thread_buffers()
     do
     {
       Minimum = CFBinaryHeapGetMinimum(qword_27FD2B340);
-      *&v32 = v32 + 1;
+      *&v31 = v31 + 1;
       v12 = *(Minimum + 1) + *(Minimum + 2);
       v13 = qword_27FD2B370;
       v14 = ps_telemetry_padding_for_alignment(qword_27FD2B370, 8) + 48;
@@ -5508,7 +4755,7 @@ unint64_t **process_thread_buffers()
         qword_27FD2B370 += v26;
       }
 
-      *(&v32 + 1) += v15;
+      *(&v31 + 1) += v15;
       CFBinaryHeapRemoveMinimumValue(qword_27FD2B340);
       v27 = ps_telemetry_total_size(*(Minimum + 2), *(*(Minimum + 1) + *(Minimum + 2) + 48));
       atomic_fetch_add(*(Minimum + 1), -v27);
@@ -5520,16 +4767,14 @@ unint64_t **process_thread_buffers()
   }
 
   v28 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-  *&v33 = qword_27FD2B370;
-  *(&v33 + 1) = v28;
+  *&v32 = qword_27FD2B370;
+  *(&v32 + 1) = v28;
   if (qword_27FD2B370)
   {
     swap_global_buffer_and_notify();
   }
 
-  result = ps_telemetry_emit_event_internal(6, &v31, 0x28uLL, 8);
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
+  return ps_telemetry_emit_event_internal(6, &v30, 0x28uLL, 8);
 }
 
 void test_and_add_to_heap(void *value)
@@ -5566,96 +4811,107 @@ uint64_t swap_global_buffer_and_notify()
   return result;
 }
 
-void __create_enablement_xpc_service_block_invoke(int a1, xpc_connection_t connection)
+void __create_enablement_xpc_service_block_invoke(uint64_t a1, xpc_connection_t connection)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (connection == MEMORY[0x277D863F8])
   {
-    v7 = __PSTelemetryLogSharedInstance();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v12 = __PSTelemetryLogSharedInstance(a1, connection);
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_14;
+      return;
     }
 
     *buf = 0;
-    v8 = "Daemon received XPC_ERROR_CONNECTION_INVALID";
-    v9 = v7;
-    v10 = OS_LOG_TYPE_DEFAULT;
-    v11 = 2;
-LABEL_13:
-    _os_log_impl(&dword_25EA3A000, v9, v10, v8, buf, v11);
-    goto LABEL_14;
+    v13 = "Daemon received XPC_ERROR_CONNECTION_INVALID";
+    v14 = v12;
+    v15 = OS_LOG_TYPE_DEFAULT;
+    v16 = 2;
+    goto LABEL_13;
   }
 
   pid = xpc_connection_get_pid(connection);
-  v4 = xpc_connection_copy_entitlement_value();
-  if (!v4 || (v5 = v4, MEMORY[0x25F8C9F10]() != MEMORY[0x277D86448]) || !xpc_BOOL_get_value(v5))
+  value = xpc_connection_copy_entitlement_value();
+  if (value)
   {
-    v6 = __PSTelemetryLogSharedInstance();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v6 = value;
+    value = MEMORY[0x25F8C9F10]();
+    if (value == MEMORY[0x277D86448])
     {
-      *buf = 134218240;
-      v17 = connection;
-      v18 = 1024;
-      v19 = pid;
-      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEFAULT, "connection %p (pid %d) does not have the correct entitlements to access Telemetry Server", buf, 0x12u);
-    }
-
-    if ((ps_util_is_internal_build() & 1) == 0)
-    {
-      v12 = __PSTelemetryLogSharedInstance();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      value = xpc_BOOL_get_value(v6);
+      if (value)
       {
-        goto LABEL_14;
+        goto LABEL_8;
       }
-
-      *buf = 134218240;
-      v17 = connection;
-      v18 = 1024;
-      v19 = pid;
-      v8 = "Rejecting connection %p (pid %d)";
-      v9 = v12;
-      v10 = OS_LOG_TYPE_ERROR;
-      v11 = 18;
-      goto LABEL_13;
     }
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 0x40000000;
-  v14[2] = __create_enablement_xpc_service_block_invoke_14;
-  v14[3] = &__block_descriptor_tmp_16_0;
-  v14[4] = connection;
-  v15 = pid;
-  xpc_connection_set_event_handler(connection, v14);
-  xpc_connection_set_target_queue(connection, qword_27FD2B3B0);
-  xpc_connection_activate(connection);
-LABEL_14:
-  v13 = *MEMORY[0x277D85DE8];
+  v7 = __PSTelemetryLogSharedInstance(value, v5);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v8)
+  {
+    *buf = 134218240;
+    v21 = connection;
+    v22 = 1024;
+    v23 = pid;
+    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEFAULT, "connection %p (pid %d) does not have the correct entitlements to access Telemetry Server", buf, 0x12u);
+  }
+
+  is_internal_build = ps_util_is_internal_build(v8, v9);
+  if (is_internal_build)
+  {
+LABEL_8:
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 0x40000000;
+    v18[2] = __create_enablement_xpc_service_block_invoke_14;
+    v18[3] = &__block_descriptor_tmp_16_0;
+    v18[4] = connection;
+    v19 = pid;
+    xpc_connection_set_event_handler(connection, v18);
+    xpc_connection_set_target_queue(connection, qword_27FD2B3B0);
+    xpc_connection_activate(connection);
+    return;
+  }
+
+  v17 = __PSTelemetryLogSharedInstance(is_internal_build, v11);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 134218240;
+    v21 = connection;
+    v22 = 1024;
+    v23 = pid;
+    v13 = "Rejecting connection %p (pid %d)";
+    v14 = v17;
+    v15 = OS_LOG_TYPE_ERROR;
+    v16 = 18;
+LABEL_13:
+    _os_log_impl(&dword_25EA3A000, v14, v15, v13, buf, v16);
+  }
 }
 
 void __create_enablement_xpc_service_block_invoke_14(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (a2 != MEMORY[0x277D863F8])
   {
-    if (MEMORY[0x25F8C9F10](a2) != MEMORY[0x277D86468])
+    v4 = MEMORY[0x25F8C9F10](a2);
+    if (v4 != MEMORY[0x277D86468])
     {
-      v4 = __PSTelemetryLogSharedInstance();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v6 = __PSTelemetryLogSharedInstance(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v5 = *(a1 + 32);
-        v6 = *(a1 + 40);
-        v23 = 134218498;
-        v24 = v5;
-        v25 = 1024;
-        v26 = v6;
-        v27 = 2080;
-        v28 = MEMORY[0x25F8C9E20](a2);
-        _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "connection %p (pid %d) got unexpected message %s", &v23, 0x1Cu);
+        v7 = *(a1 + 32);
+        v8 = *(a1 + 40);
+        v27 = 134218498;
+        v28 = v7;
+        v29 = 1024;
+        v30 = v8;
+        v31 = 2080;
+        v32 = MEMORY[0x25F8C9E20](a2);
+        _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "connection %p (pid %d) got unexpected message %s", &v27, 0x1Cu);
       }
 
-      goto LABEL_23;
+      return;
     }
 
     if (xpc_dictionary_get_string(a2, PSTelemetrySessionEventTypeKey[0]))
@@ -5663,103 +4919,101 @@ void __create_enablement_xpc_service_block_invoke_14(uint64_t a1, void *a2)
       CFSetApplyFunction(qword_27FD2B3B8, MEMORY[0x277D864E0], a2);
     }
 
-    v10 = xpc_dictionary_get_BOOL(a2, "telemetryWanted");
-    v11 = __PSTelemetryLogSharedInstance();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-    if (v10)
+    v12 = xpc_dictionary_get_BOOL(a2, "telemetryWanted");
+    v13 = v12;
+    v15 = __PSTelemetryLogSharedInstance(v12, v14);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    if (v13)
     {
-      if (v12)
+      if (v16)
       {
-        v13 = *(a1 + 32);
-        v14 = *(a1 + 40);
-        v23 = 134218240;
-        v24 = v13;
-        v25 = 1024;
-        v26 = v14;
-        _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_DEFAULT, "connection %p (pid %d) wants telemetry", &v23, 0x12u);
+        v17 = *(a1 + 32);
+        v18 = *(a1 + 40);
+        v27 = 134218240;
+        v28 = v17;
+        v29 = 1024;
+        v30 = v18;
+        _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_DEFAULT, "connection %p (pid %d) wants telemetry", &v27, 0x12u);
       }
 
-      v15 = *(a1 + 32);
+      v19 = *(a1 + 32);
       Count = CFSetGetCount(qword_27FD2B3B8);
-      v17 = __PSTelemetryLogSharedInstance();
-      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+      v22 = __PSTelemetryLogSharedInstance(Count, v21);
+      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
       if (Count)
       {
-        if (v18)
+        if (v23)
         {
-          v19 = CFSetGetCount(qword_27FD2B3B8);
-          v23 = 134217984;
-          v24 = v19;
-          _os_log_impl(&dword_25EA3A000, v17, OS_LOG_TYPE_DEFAULT, "Telemetry already active with count: %ld", &v23, 0xCu);
+          v24 = CFSetGetCount(qword_27FD2B3B8);
+          v27 = 134217984;
+          v28 = v24;
+          _os_log_impl(&dword_25EA3A000, v22, OS_LOG_TYPE_DEFAULT, "Telemetry already active with count: %ld", &v27, 0xCu);
         }
       }
 
       else
       {
-        if (v18)
+        if (v23)
         {
-          LOWORD(v23) = 0;
-          _os_log_impl(&dword_25EA3A000, v17, OS_LOG_TYPE_DEFAULT, "Enabling telemetry", &v23, 2u);
+          LOWORD(v27) = 0;
+          _os_log_impl(&dword_25EA3A000, v22, OS_LOG_TYPE_DEFAULT, "Enabling telemetry", &v27, 2u);
         }
 
         atomic_store(1u, context[0]);
         dispatch_resume(context[12303]);
       }
 
-      CFSetAddValue(qword_27FD2B3B8, v15);
-      goto LABEL_23;
+      CFSetAddValue(qword_27FD2B3B8, v19);
+      return;
     }
 
-    if (v12)
+    if (v16)
     {
-      v20 = *(a1 + 32);
-      v21 = *(a1 + 40);
-      v23 = 134218240;
-      v24 = v20;
-      v25 = 1024;
-      v26 = v21;
-      _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_DEFAULT, "connection %p (pid %d) no longer wants telemetry", &v23, 0x12u);
+      v25 = *(a1 + 32);
+      v26 = *(a1 + 40);
+      v27 = 134218240;
+      v28 = v25;
+      v29 = 1024;
+      v30 = v26;
+      _os_log_impl(&dword_25EA3A000, v15, OS_LOG_TYPE_DEFAULT, "connection %p (pid %d) no longer wants telemetry", &v27, 0x12u);
     }
 
 LABEL_8:
     connection_no_longer_wants_telemetry(*(a1 + 32));
-    goto LABEL_23;
+    return;
   }
 
-  v7 = __PSTelemetryLogSharedInstance();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9 = __PSTelemetryLogSharedInstance(a1, a2);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v23 = 134218240;
-    v24 = v8;
-    v25 = 1024;
-    v26 = v9;
-    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEFAULT, "connection %p (pid %d) invalidated", &v23, 0x12u);
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v27 = 134218240;
+    v28 = v10;
+    v29 = 1024;
+    v30 = v11;
+    _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEFAULT, "connection %p (pid %d) invalidated", &v27, 0x12u);
   }
 
   if (CFSetContainsValue(qword_27FD2B3B8, *(a1 + 32)))
   {
     goto LABEL_8;
   }
-
-LABEL_23:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void connection_no_longer_wants_telemetry(void *value)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (CFSetContainsValue(qword_27FD2B3B8, value))
   {
     CFSetRemoveValue(qword_27FD2B3B8, value);
     if (!CFSetGetCount(qword_27FD2B3B8))
     {
-      v2 = __PSTelemetryLogSharedInstance();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+      v3 = __PSTelemetryLogSharedInstance(0, v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v6) = 0;
-        _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEFAULT, "No more active clients; disabling telemetry", &v6, 2u);
+        LOWORD(v7) = 0;
+        _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEFAULT, "No more active clients; disabling telemetry", &v7, 2u);
       }
 
       atomic_store(0, context[0]);
@@ -5770,22 +5024,20 @@ void connection_no_longer_wants_telemetry(void *value)
 
   else
   {
-    v3 = MEMORY[0x25F8C9E20](value);
-    v4 = __PSTelemetryLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = MEMORY[0x25F8C9E20](value);
+    v6 = __PSTelemetryLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = v3;
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "Call to connection_no_longer_wants_telemetry for a connection not present in connectionsWantingTelemetry: %s", &v6, 0xCu);
+      v7 = 136315138;
+      v8 = v4;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "Call to connection_no_longer_wants_telemetry for a connection not present in connectionsWantingTelemetry: %s", &v7, 0xCu);
     }
 
-    free(v3);
+    free(v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __PSTelemetryLogSharedInstance()
+uint64_t __PSTelemetryLogSharedInstance(uint64_t a1, uint64_t a2)
 {
   if (__PSTelemetryLogSharedInstance_onceToken != -1)
   {
@@ -5795,89 +5047,90 @@ uint64_t __PSTelemetryLogSharedInstance()
   return sharedInstance_4;
 }
 
-void ps_telemetry_init_reader()
+void ps_telemetry_init_reader(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  ps_telemetry_setup_filter_buffer();
+  v23 = *MEMORY[0x277D85DE8];
+  ps_telemetry_setup_filter_buffer(a1, a2);
   context_0[0] = ps_buffer_create_group_reader();
   qword_27FD2B3D8 = 0;
   qword_27FD2B4F0 = ps_buffer_create_serial_data_reader();
   qword_27FD2B3E0 = ps_buffer_get_serial_data_read_buffer();
-  v0 = getpid();
-  if (!proc_name(v0, xmmword_27FD2B658, 0x80u))
+  v2 = getpid();
+  if (!proc_name(v2, xmmword_27FD2B658, 0x80u))
   {
     strcpy(xmmword_27FD2B658, "Unknown Process");
   }
 
   error_out = 0;
-  v1 = getpid();
-  if (snprintf(xmmword_27FD2B658, 0x80uLL, "%s-%d", xmmword_27FD2B658, v1) >= 0x80)
+  v3 = getpid();
+  v4 = snprintf(xmmword_27FD2B658, 0x80uLL, "%s-%d", xmmword_27FD2B658, v3);
+  if (v4 >= 0x80)
   {
-    v2 = __PSTelemetryLogSharedInstance();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v6 = __PSTelemetryLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = xmmword_27FD2B658;
-      v16 = 1024;
-      v17 = getpid();
-      _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_ERROR, "Context Session Name for telemetry reader %s client pid %d has beentruncated", buf, 0x12u);
+      v20 = xmmword_27FD2B658;
+      v21 = 1024;
+      v22 = getpid();
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "Context Session Name for telemetry reader %s client pid %d has beentruncated", buf, 0x12u);
     }
   }
 
-  qword_27FD2B650 = xpc_session_create_mach_service("com.apple.polaris.systemgraph_v2", 0, XPC_SESSION_CREATE_NONE, &error_out);
+  v7 = xpc_session_create_mach_service("com.apple.polaris.systemgraph_v2", 0, XPC_SESSION_CREATE_NONE, &error_out);
+  qword_27FD2B650 = v7;
   if (error_out)
   {
     ps_telemetry_init_reader_cold_1(buf, error_out);
   }
 
-  v3 = __PSTelemetryLogSharedInstance();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v8 = __PSTelemetryLogSharedInstance(v7, 0);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = xmmword_27FD2B658;
-    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEFAULT, "Telemetry client %s was able to establish connection withPS_POLARISD_SYSGRAPH_XPC_SERVICE", buf, 0xCu);
+    v20 = xmmword_27FD2B658;
+    _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEFAULT, "Telemetry client %s was able to establish connection withPS_POLARISD_SYSGRAPH_XPC_SERVICE", buf, 0xCu);
   }
 
   qword_27FD2B608 = ps_gsm_map_shared();
   ps_gsm_assign_system_graph_session(qword_27FD2B608, qword_27FD2B650);
-  v13 = 0;
-  v4 = xpc_dictionary_create(0, 0, 0);
-  v5 = xpc_dictionary_create(0, 0, 0);
-  v6 = getpid();
-  populateTelemetryReaderInfo(v4, v5, xmmword_27FD2B658, v6, "polaris.telemetry", "polaris.telemetry");
-  v7 = xpc_session_send_message_with_reply_sync(qword_27FD2B650, v4, &v13);
-  if (!v7 && v13)
+  v18 = 0;
+  v9 = xpc_dictionary_create(0, 0, 0);
+  v10 = xpc_dictionary_create(0, 0, 0);
+  v11 = getpid();
+  populateTelemetryReaderInfo(v9, v10, xmmword_27FD2B658, v11, "polaris.telemetry", "polaris.telemetry");
+  v12 = xpc_session_send_message_with_reply_sync(qword_27FD2B650, v9, &v18);
+  if (!v12 && v18)
   {
-    ps_telemetry_init_reader_cold_3(buf, v13);
+    ps_telemetry_init_reader_cold_3(buf, v18);
   }
 
-  value = xpc_dictionary_get_value(v7, "polaris.telemetry");
+  value = xpc_dictionary_get_value(v12, "polaris.telemetry");
   if (!value)
   {
     ps_telemetry_init_reader_cold_2(buf);
   }
 
   uint64 = xpc_dictionary_get_uint64(value, "gst_idx");
-  v10 = __PSTelemetryLogSharedInstance();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v16 = __PSTelemetryLogSharedInstance(uint64, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v15 = uint64;
-    _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_DEBUG, "Received a reply for reserving GST, gstIndex = %llu", buf, 0xCu);
+    v20 = uint64;
+    _os_log_impl(&dword_25EA3A000, v16, OS_LOG_TYPE_DEBUG, "Received a reply for reserving GST, gstIndex = %llu", buf, 0xCu);
   }
 
   qword_27FD2B610 = ps_gsm_get_gst(qword_27FD2B608, uint64);
-  xpc_release(v5);
-  xpc_release(v4);
+  xpc_release(v10);
+  xpc_release(v9);
   qword_27FD2B620 = dispatch_queue_create("com.apple.polaris.telemetry", 0);
   qword_27FD2B628 = xpc_connection_create_mach_service("com.apple.polaris.telemetry", qword_27FD2B620, 0);
   xpc_connection_set_event_handler(qword_27FD2B628, &__block_literal_global_42);
   xpc_connection_activate(qword_27FD2B628);
   byte_27FD2B4E8 = 1;
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-const char *ps_telemetry_get_string(unsigned int a1, unsigned int a2)
+const char *ps_telemetry_get_string(unsigned int a1, uint64_t a2)
 {
   if (a1 == 0xFFFF)
   {
@@ -5964,11 +5217,11 @@ void __ps_telemetry_start_reader_block_invoke(uint64_t a1, unint64_t a2, unint64
     {
       qword_27FD2B3D8 = v4;
       buffers_with_frameid = ps_buffer_get_read_buffers_with_frameid();
-      v10 = buffers_with_frameid == 0;
+      v11 = buffers_with_frameid == 0;
       if (buffers_with_frameid)
       {
-        v11 = *(buffers_with_frameid + 8);
-        if (qword_27FD2B3D8 != *v11)
+        v12 = *(buffers_with_frameid + 8);
+        if (qword_27FD2B3D8 != *v12)
         {
           __ps_telemetry_start_reader_block_invoke_cold_1();
         }
@@ -5983,19 +5236,19 @@ void __ps_telemetry_start_reader_block_invoke(uint64_t a1, unint64_t a2, unint64
         block[4] = v8;
         v17 = v6;
         v18 = v7;
-        v19 = v11;
+        v19 = v12;
         dispatch_async_and_wait(qword_27FD2B5F8, block);
         ps_buffer_release_read_buffers();
       }
 
       else
       {
-        v12 = __PSTelemetryLogSharedInstance();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = __PSTelemetryLogSharedInstance(0, v10);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
           v22 = v4;
-          _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_ERROR, "Dropped global telemetry buffer %llu", buf, 0xCu);
+          _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_ERROR, "Dropped global telemetry buffer %llu", buf, 0xCu);
         }
 
         v7 = v4;
@@ -6008,13 +5261,11 @@ void __ps_telemetry_start_reader_block_invoke(uint64_t a1, unint64_t a2, unint64
       }
 
       ++v4;
-      v5 = v10;
+      v5 = v11;
     }
 
     while (v4 <= a3);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t workloop(void (**a1)(void, void))
@@ -6023,47 +5274,46 @@ uint64_t workloop(void (**a1)(void, void))
   v2 = pthread_setname_np("Telemetry workloop");
   if (v2)
   {
-    v3 = v2;
-    v4 = __PSTelemetryLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = v2;
+    v5 = __PSTelemetryLogSharedInstance(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *v12 = 136315394;
       *&v12[4] = "Telemetry workloop";
       v13 = 1024;
-      v14 = v3;
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "pthread_setname_np failed with name %s and return code %d", v12, 0x12u);
+      v14 = v4;
+      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "pthread_setname_np failed with name %s and return code %d", v12, 0x12u);
     }
   }
 
   *v12 = 0;
-  v5 = 0x26906FC00020C49BLL;
-  if (ps_gsm_wait_gst(qword_27FD2B608, qword_27FD2B610, v12, v5) != 1)
+  v6 = 0x26906FC00020C49BLL;
+  if (ps_gsm_wait_gst(qword_27FD2B608, qword_27FD2B610, v12, v6) != 1)
   {
-    v6 = 1;
+    v7 = 1;
     do
     {
-      if (v6)
+      if (v7)
       {
-        v7 = *v12 & 0xFFFFFFFFFFFFLL;
+        v8 = *v12 & 0xFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v7 = qword_27FD2B3D8 + 1;
+        v8 = qword_27FD2B3D8 + 1;
       }
 
-      a1[2](a1, v7);
+      a1[2](a1, v8);
       *v12 = 0;
-      v8 = 0x26906FC00020C49BLL;
-      v9 = ps_gsm_wait_gst(qword_27FD2B608, qword_27FD2B610, v12, v8);
-      v6 = 0;
+      v9 = 0x26906FC00020C49BLL;
+      v10 = ps_gsm_wait_gst(qword_27FD2B608, qword_27FD2B610, v12, v9);
+      v7 = 0;
     }
 
-    while (v9 != 1);
+    while (v10 != 1);
   }
 
   _Block_release(a1);
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -6084,13 +5334,13 @@ void remove_remote_gst()
   populateGraphSetInfo(v0, 2uLL, xmmword_27FD2B658, v1);
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v2, "graph_name", "polaris.telemetry");
-  gst_index = ps_gsm_get_gst_index(qword_27FD2B610);
+  gst_index = ps_gsm_get_gst_index(qword_27FD2B610, v3);
   xpc_dictionary_set_uint64(v2, "gst_idx", gst_index);
   appendGraphInfotoGraphSetInfo(v2, v0);
-  v4 = xpc_session_send_message(qword_27FD2B650, v0);
-  if (v4)
+  v5 = xpc_session_send_message(qword_27FD2B650, v0);
+  if (v5)
   {
-    remove_remote_gst_cold_1(&v5, v4);
+    remove_remote_gst_cold_1(&v6, v5);
   }
 
   xpc_release(v2);
@@ -6146,32 +5396,33 @@ uint64_t __process_buffers_in_range_reader_block_invoke(uint64_t result)
 
 void __setup_xpc_connection_block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (a2 == MEMORY[0x277D863F8])
   {
     __setup_xpc_connection_block_invoke_cold_1();
   }
 
-  if (MEMORY[0x25F8C9F10](a2) == MEMORY[0x277D86468])
+  v3 = MEMORY[0x25F8C9F10](a2);
+  if (v3 == MEMORY[0x277D86468])
   {
     value = xpc_dictionary_get_value(a2, PSTelemetrySessionEventTypeKey[0]);
     if (value)
     {
-      v5 = xpc_uint64_get_value(value);
+      v7 = xpc_uint64_get_value(value);
       if (qword_27FD2B630)
       {
-        v6 = v5;
-        v7 = xpc_dictionary_get_value(a2, PSTelemetrySessionEventKey[0]);
-        v8 = xpc_dictionary_get_value(a2, PSTelemetrySessionEventSessionNameKey);
-        xpc_retain(v7);
-        xpc_retain(v8);
+        v8 = v7;
+        v9 = xpc_dictionary_get_value(a2, PSTelemetrySessionEventKey[0]);
+        v10 = xpc_dictionary_get_value(a2, PSTelemetrySessionEventSessionNameKey);
+        xpc_retain(v9);
+        xpc_retain(v10);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 0x40000000;
         block[2] = __setup_xpc_connection_block_invoke_44;
         block[3] = &__block_descriptor_tmp_45;
-        block[4] = v8;
-        block[5] = v7;
-        block[6] = v6;
+        block[4] = v10;
+        block[5] = v9;
+        block[6] = v8;
         dispatch_async(qword_27FD2B630, block);
       }
     }
@@ -6179,18 +5430,16 @@ void __setup_xpc_connection_block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    v3 = __PSTelemetryLogSharedInstance();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = __PSTelemetryLogSharedInstance(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218242;
-      v12 = qword_27FD2B628;
-      v13 = 2080;
-      v14 = MEMORY[0x25F8C9E20](a2);
-      _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_ERROR, "connection %p got unexpected message %s", buf, 0x16u);
+      v13 = qword_27FD2B628;
+      v14 = 2080;
+      v15 = MEMORY[0x25F8C9E20](a2);
+      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "connection %p got unexpected message %s", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __setup_xpc_connection_block_invoke_44(uint64_t a1)
@@ -6212,10 +5461,11 @@ char *OUTLINED_FUNCTION_3_10(void *a1, xpc_rich_error_t error)
   return xpc_rich_error_copy_description(error);
 }
 
-void OUTLINED_FUNCTION_4_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0x1Cu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0x1Cu);
 }
 
 uint64_t ps_telemetry_total_size(uint64_t a1, uint64_t a2)
@@ -6231,7 +5481,7 @@ uint64_t ps_telemetry_total_size(uint64_t a1, uint64_t a2)
   return v4 + a2 + 48;
 }
 
-void ps_telemetry_init_process()
+void ps_telemetry_init_process(uint64_t result, uint64_t a2)
 {
   if (ps_telemetry_init_process_onceToken != -1)
   {
@@ -6241,35 +5491,36 @@ void ps_telemetry_init_process()
 
 void __ps_telemetry_init_process_block_invoke()
 {
-  v15 = *MEMORY[0x277D85DE8];
-  dword_27FD2EE80 = getpid();
-  ps_telemetry_setup_filter_buffer();
+  v16 = *MEMORY[0x277D85DE8];
+  v0 = getpid();
+  dword_27FD2EE80 = v0;
+  ps_telemetry_setup_filter_buffer(v0, v1);
   proc_name(dword_27FD2EE80, setup_clientid_and_perProcess_buffers_name, 0x20u);
   qword_27FD2EEA0 = ps_buffer_create_serial_data_reader();
   buffer = ps_buffer_get_serial_data_read_buffer();
-  v1 = atomic_load(buffer);
-  v2 = buffer + 1;
-  if (v1)
+  v3 = atomic_load(buffer);
+  v4 = buffer + 1;
+  if (v3)
   {
-    v3 = 0;
+    v5 = 0;
     if (!strncmp(setup_clientid_and_perProcess_buffers_name, (buffer + 3), 0x20uLL))
     {
 LABEL_7:
-      ps_telemetry_writer_context[0] = v2 + 34 * v3;
+      ps_telemetry_writer_context[0] = v4 + 34 * v5;
       qword_27FD2EE98 = ps_buffer_create_serial_data_reader();
       qword_27FD2DE78 = ps_buffer_get_serial_data_read_buffer();
       goto LABEL_9;
     }
 
-    v4 = (buffer + 37);
-    while (v1 - 1 != v3)
+    v6 = (buffer + 37);
+    while (v3 - 1 != v5)
     {
-      v5 = strncmp(setup_clientid_and_perProcess_buffers_name, v4, 0x20uLL);
-      v4 += 34;
-      ++v3;
-      if (!v5)
+      v7 = strncmp(setup_clientid_and_perProcess_buffers_name, v6, 0x20uLL);
+      v6 += 34;
+      ++v5;
+      if (!v7)
       {
-        if (v3 >= v1)
+        if (v5 >= v3)
         {
           break;
         }
@@ -6280,39 +5531,38 @@ LABEL_7:
   }
 
   add = atomic_fetch_add(buffer, 1u);
-  ps_telemetry_writer_context[0] = v2 + 34 * add;
+  ps_telemetry_writer_context[0] = v4 + 34 * add;
   qword_27FD2EE90 = ps_buffer_create_serial_data_writer();
   qword_27FD2DE78 = ps_buffer_get_serial_data_write_buffer();
   atomic_store(0, qword_27FD2DE78);
   strlcpy((ps_telemetry_writer_context[0] + 2), setup_clientid_and_perProcess_buffers_name, 0x20uLL);
-  v7 = ps_telemetry_writer_context[0];
+  v9 = ps_telemetry_writer_context[0];
   atomic_store(add, (ps_telemetry_writer_context[0] + 1));
-  atomic_store(0, v7);
+  atomic_store(0, v9);
 LABEL_9:
   qword_27FD2EE88 = dispatch_queue_create("polaris.telemetry.bufferAllocation", 0);
-  v8 = atomic_load(ps_telemetry_writer_context[0]);
-  if (v8)
+  v10 = atomic_load(ps_telemetry_writer_context[0]);
+  if (v10)
   {
-    v9 = 0;
-    v10 = &qword_27FD2DE88;
+    v11 = 0;
+    v12 = &qword_27FD2DE88;
     do
     {
-      v11 = atomic_load((ps_telemetry_writer_context[0] + 1));
-      snprintf(__str, 0x1DuLL, "group.pls.local.%d.", v11);
+      v13 = atomic_load((ps_telemetry_writer_context[0] + 1));
+      snprintf(__str, 0x1DuLL, "group.pls.local.%d.", v13);
       serial_data_reader = ps_buffer_create_serial_data_reader();
-      *(v10 - 1) = ps_buffer_get_serial_data_read_buffer();
-      *v10 = 0;
-      v10[2] = serial_data_reader;
-      ++v9;
-      v10 += 4;
+      *(v12 - 1) = ps_buffer_get_serial_data_read_buffer();
+      *v12 = 0;
+      v12[2] = serial_data_reader;
+      ++v11;
+      v12 += 4;
     }
 
-    while (v8 != v9);
+    while (v10 != v11);
   }
 
   dispatch_async(qword_27FD2EE88, &__block_literal_global_11_0);
   atomic_store(1u, byte_27FD2EE84);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ps_telemetry_acquire_thread_buffer(uint64_t a1)
@@ -6344,19 +5594,20 @@ uint64_t ps_telemetry_acquire_thread_buffer(uint64_t a1)
   return v2;
 }
 
-void __ps_telemetry_acquire_thread_buffer_block_invoke(uint64_t a1)
+void __ps_telemetry_acquire_thread_buffer_block_invoke(uint64_t *thread_buffer, uint64_t a2)
 {
+  v2 = thread_buffer;
   *&v19[5] = *MEMORY[0x277D85DE8];
-  v2 = atomic_load(ps_telemetry_writer_context[0]);
-  if (v2)
+  v3 = atomic_load(ps_telemetry_writer_context[0]);
+  if (v3)
   {
-    v3 = v2 + 1;
-    v4 = &ps_telemetry_writer_context[4 * v2 - 2];
-    while (v4[1] || atomic_load(*v4))
+    v4 = v3 + 1;
+    v5 = &ps_telemetry_writer_context[4 * v3 - 2];
+    while (v5[1] || atomic_load(*v5))
     {
-      --v3;
-      v4 -= 4;
-      if (v3 <= 1)
+      --v4;
+      v5 -= 4;
+      if (v4 <= 1)
       {
         goto LABEL_6;
       }
@@ -6366,60 +5617,53 @@ void __ps_telemetry_acquire_thread_buffer_block_invoke(uint64_t a1)
   else
   {
 LABEL_6:
-    v4 = 0;
+    v5 = 0;
   }
 
-  *(*(*(a1 + 32) + 8) + 24) = v4;
-  v6 = *(*(*(a1 + 32) + 8) + 24);
-  if (!v6)
+  *(*(thread_buffer[4] + 8) + 24) = v5;
+  v7 = *(*(thread_buffer[4] + 8) + 24);
+  if (v7 || (thread_buffer = allocate_thread_buffer(), *(*(v2[4] + 8) + 24) = thread_buffer, (v7 = *(*(v2[4] + 8) + 24)) != 0))
   {
-    *(*(*(a1 + 32) + 8) + 24) = allocate_thread_buffer();
-    v6 = *(*(*(a1 + 32) + 8) + 24);
-    if (!v6)
+    if (atomic_load(*v7))
     {
-      v16 = __PSTelemetryLogSharedInstance();
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_13;
-      }
+      __ps_telemetry_acquire_thread_buffer_block_invoke_cold_1();
+    }
 
-      v17 = *(a1 + 40);
-      v18 = 134217984;
-      *v19 = v17;
-      v11 = "unable to acquire buffer for thread %llu";
-      v12 = v16;
-      v13 = OS_LOG_TYPE_ERROR;
-      v14 = 12;
-      goto LABEL_12;
+    atomic_store(1u, (**(*(v2[4] + 8) + 24) + 8));
+    *(*(*(v2[4] + 8) + 24) + 8) = v2[5];
+    v9 = __PSTelemetryLogSharedInstance(thread_buffer, a2);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v2[5];
+      v11 = *(**(*(v2[4] + 8) + 24) + 9);
+      v18 = 67109376;
+      v19[0] = v11;
+      LOWORD(v19[1]) = 2048;
+      *(&v19[1] + 2) = v10;
+      v12 = "acquired buffer %d for thread %llu";
+      v13 = v9;
+      v14 = OS_LOG_TYPE_DEFAULT;
+      v15 = 18;
+LABEL_12:
+      _os_log_impl(&dword_25EA3A000, v13, v14, v12, &v18, v15);
     }
   }
 
-  if (atomic_load(*v6))
+  else
   {
-    __ps_telemetry_acquire_thread_buffer_block_invoke_cold_1();
+    v16 = __PSTelemetryLogSharedInstance(thread_buffer, a2);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v17 = v2[5];
+      v18 = 134217984;
+      *v19 = v17;
+      v12 = "unable to acquire buffer for thread %llu";
+      v13 = v16;
+      v14 = OS_LOG_TYPE_ERROR;
+      v15 = 12;
+      goto LABEL_12;
+    }
   }
-
-  atomic_store(1u, (**(*(*(a1 + 32) + 8) + 24) + 8));
-  *(*(*(*(a1 + 32) + 8) + 24) + 8) = *(a1 + 40);
-  v8 = __PSTelemetryLogSharedInstance();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-  {
-    v9 = *(a1 + 40);
-    v10 = *(**(*(*(a1 + 32) + 8) + 24) + 9);
-    v18 = 67109376;
-    v19[0] = v10;
-    LOWORD(v19[1]) = 2048;
-    *(&v19[1] + 2) = v9;
-    v11 = "acquired buffer %d for thread %llu";
-    v12 = v8;
-    v13 = OS_LOG_TYPE_DEFAULT;
-    v14 = 18;
-LABEL_12:
-    _os_log_impl(&dword_25EA3A000, v12, v13, v11, &v18, v14);
-  }
-
-LABEL_13:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t *allocate_thread_buffer()
@@ -6428,35 +5672,31 @@ uint64_t *allocate_thread_buffer()
   v0 = atomic_load(ps_telemetry_writer_context[0]);
   if (v0 == 128)
   {
-    v1 = 0;
+    return 0;
   }
 
-  else
+  v2 = atomic_load((ps_telemetry_writer_context[0] + 1));
+  snprintf(__str, 0x1DuLL, "group.pls.local.%d.", v2);
+  v3 = &ps_telemetry_writer_context[4 * v0];
+  v3[4] = ps_buffer_create_serial_data_writer();
+  v4 = ps_buffer_get_serial_data_write_buffer();
+  v3[2] = v4;
+  v1 = v3 + 2;
+  *(v4 + 9) = v0;
+  atomic_store(0, *v1);
+  atomic_store(1u, (*v1 + 8));
+  v1[1] = 0;
+  atomic_fetch_add(ps_telemetry_writer_context[0], 1u);
+  v6 = __PSTelemetryLogSharedInstance(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v2 = atomic_load((ps_telemetry_writer_context[0] + 1));
-    snprintf(__str, 0x1DuLL, "group.pls.local.%d.", v2);
-    v3 = &ps_telemetry_writer_context[4 * v0];
-    v3[4] = ps_buffer_create_serial_data_writer();
-    v4 = ps_buffer_get_serial_data_write_buffer();
-    v3[2] = v4;
-    v1 = v3 + 2;
-    *(v4 + 9) = v0;
-    atomic_store(0, *v1);
-    atomic_store(1u, (*v1 + 8));
-    v1[1] = 0;
-    atomic_fetch_add(ps_telemetry_writer_context[0], 1u);
-    v5 = __PSTelemetryLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 136315394;
-      v9 = __str;
-      v10 = 1024;
-      v11 = v0;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_DEBUG, "allocated local buffer with key: %s id: %d", buf, 0x12u);
-    }
+    *buf = 136315394;
+    v9 = __str;
+    v10 = 1024;
+    v11 = v0;
+    _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEBUG, "allocated local buffer with key: %s id: %d", buf, 0x12u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
@@ -6470,123 +5710,120 @@ void ps_telemetry_release_thread_buffer(uint64_t a1)
   dispatch_async_and_wait(qword_27FD2EE88, block);
 }
 
-void __ps_telemetry_release_thread_buffer_block_invoke(uint64_t a1)
+void __ps_telemetry_release_thread_buffer_block_invoke(uint64_t a1, uint64_t a2)
 {
   v6 = *MEMORY[0x277D85DE8];
   ps_telemetry_writer_context[4 * *(*(a1 + 32) + 9) + 3] = 0;
-  v2 = __PSTelemetryLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = __PSTelemetryLogSharedInstance(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(a1 + 32) + 9);
+    v4 = *(*(a1 + 32) + 9);
     v5[0] = 67109120;
-    v5[1] = v3;
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_DEFAULT, "released buffer %d", v5, 8u);
+    v5[1] = v4;
+    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEFAULT, "released buffer %d", v5, 8u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-void __manage_thread_buffer_watermark_block_invoke()
+void __manage_thread_buffer_watermark_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v0 = atomic_load(ps_telemetry_writer_context[0]);
-  v1 = __PSTelemetryLogSharedInstance();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+  v18 = *MEMORY[0x277D85DE8];
+  v2 = atomic_load(ps_telemetry_writer_context[0]);
+  v3 = __PSTelemetryLogSharedInstance(a1, a2);
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
+  if (v4)
   {
-    v9 = 67109376;
-    v10 = v0;
-    v11 = 1024;
-    v12 = 128;
-    _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_DEBUG, "thread buffer count: %d, max: %d", &v9, 0xEu);
+    v14 = 67109376;
+    v15 = v2;
+    v16 = 1024;
+    v17 = 128;
+    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEBUG, "thread buffer count: %d, max: %d", &v14, 0xEu);
   }
 
-  if (v0)
+  if (v2)
   {
-    if (v0 == 128)
+    if (v2 == 128)
     {
-      goto LABEL_23;
+      return;
     }
 
-    v2 = 0;
-    v3 = &qword_27FD2DE88;
-    v4 = v0;
+    v6 = 0;
+    v7 = &qword_27FD2DE88;
+    v8 = v2;
     do
     {
-      if (!*v3 && !atomic_load(*(v3 - 1)))
+      if (!*v7 && !atomic_load(*(v7 - 1)))
       {
-        ++v2;
+        ++v6;
       }
 
-      v3 += 4;
-      --v4;
+      v7 += 4;
+      --v8;
     }
 
-    while (v4);
+    while (v8);
   }
 
   else
   {
-    v2 = 0;
+    v6 = 0;
   }
 
-  v6 = __PSTelemetryLogSharedInstance();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v10 = __PSTelemetryLogSharedInstance(v4, v5);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+  if (v11)
   {
-    v9 = 67109376;
-    v10 = v2;
-    v11 = 1024;
-    v12 = 4;
-    _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEBUG, "free buffer count: %d, watermark: %d", &v9, 0xEu);
+    v14 = 67109376;
+    v15 = v6;
+    v16 = 1024;
+    v17 = 4;
+    _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_DEBUG, "free buffer count: %d, watermark: %d", &v14, 0xEu);
   }
 
-  if (v2 <= 3u)
+  if (v6 <= 3u)
   {
-    if (128 - v0 >= (4 - v2))
+    if (128 - v2 >= (4 - v6))
     {
-      LOBYTE(v0) = 4 - v2;
+      LOBYTE(v2) = 4 - v6;
     }
 
     else
     {
-      LOBYTE(v0) = 0x80 - v0;
+      LOBYTE(v2) = 0x80 - v2;
     }
 
-    v7 = __PSTelemetryLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v13 = __PSTelemetryLogSharedInstance(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      LODWORD(v0) = v0;
-      v9 = 67109120;
-      v10 = v0;
-      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEBUG, "will allocate %d to meet watermark", &v9, 8u);
-      if (!v0)
+      LODWORD(v2) = v2;
+      v14 = 67109120;
+      v15 = v2;
+      _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_DEBUG, "will allocate %d to meet watermark", &v14, 8u);
+      if (!v2)
       {
-        goto LABEL_23;
+        return;
       }
     }
 
     else
     {
-      LODWORD(v0) = v0;
-      if (!v0)
+      LODWORD(v2) = v2;
+      if (!v2)
       {
-        goto LABEL_23;
+        return;
       }
     }
 
     do
     {
       allocate_thread_buffer();
-      LODWORD(v0) = v0 - 1;
+      LODWORD(v2) = v2 - 1;
     }
 
-    while (v0);
+    while (v2);
   }
-
-LABEL_23:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-unint64_t **ps_telemetry_emit_event_internal(uint64_t a1, char *a2, unint64_t a3, uint64_t a4)
+unint64_t **ps_telemetry_emit_event_internal(uint64_t a1, char *a2, size_t a3, uint64_t a4)
 {
   if (a3 >= 0x7FC1)
   {
@@ -6596,58 +5833,59 @@ unint64_t **ps_telemetry_emit_event_internal(uint64_t a1, char *a2, unint64_t a3
   result = ps_telemetry_is_enabled();
   if (result)
   {
-    v9 = atomic_load(&ps_telemetry_writer_context[514] + 4);
-    if ((v9 & 1) == 0)
+    v10 = atomic_load(&ps_telemetry_writer_context[514] + 4);
+    if ((v10 & 1) == 0)
     {
-      ps_telemetry_init_process();
+      ps_telemetry_init_process(result, v9);
     }
 
-    v10 = threadState();
-    if ((*v10 & 1) == 0)
+    v11 = threadState();
+    v13 = v11;
+    if ((*v11 & 1) == 0)
     {
-      ps_telemetry_init_thread();
+      ps_telemetry_init_thread(v11, v12);
     }
 
     result = buffer();
     if (*result)
     {
-      v11 = result;
-      if (*(v10 + 28))
+      v14 = result;
+      if (*(v13 + 7))
       {
-        v12 = ps_telemetry_total_size(*(v10 + 8), 32);
-        v16 = atomic_load(*v11);
-        if (v16 + v12 > 0x7FF0)
+        v15 = ps_telemetry_total_size(*(v13 + 1), 32);
+        v19 = atomic_load(*v14);
+        if (v19 + v15 > 0x7FF0)
         {
-          result = ps_telemetry_total_size(*(v10 + 8), a3);
-          *(v10 + 24) = vadd_s32(*(v10 + 24), (result | 0x100000000));
+          result = ps_telemetry_total_size(*(v13 + 1), a3);
+          *(v13 + 3) = vadd_s32(*(v13 + 24), (result | 0x100000000));
           return result;
         }
 
-        v24 = 0;
-        v22 = *(v10 + 16);
-        v17 = *(v10 + 24);
-        v18.i64[0] = v17;
-        v18.i64[1] = HIDWORD(v17);
-        v23 = vextq_s8(v18, v18, 8uLL);
-        LOWORD(v24) = *threadNameID(&threadNameID, v13, v14, v15);
-        write_all(7, &v22, 0x20uLL, 8, v19);
-        *(v10 + 24) = 0;
+        v27 = 0;
+        v25 = *(v13 + 2);
+        v20 = *(v13 + 3);
+        v21.i64[0] = v20;
+        v21.i64[1] = HIDWORD(v20);
+        v26 = vextq_s8(v21, v21, 8uLL);
+        LOWORD(v27) = *threadNameID(&threadNameID, v16, v17, v18);
+        write_all(7, &v25, 0x20uLL, 8, v22);
+        *(v13 + 3) = 0;
       }
 
-      v20 = ps_telemetry_total_size(*(v10 + 8), a3);
-      v21 = atomic_load(*v11);
-      if (v21 + v20 >= 0x7FF1)
+      v23 = ps_telemetry_total_size(*(v13 + 1), a3);
+      v24 = atomic_load(*v14);
+      if (v24 + v23 >= 0x7FF1)
       {
-        *(v10 + 24) = v20;
-        *(v10 + 28) = 1;
+        *(v13 + 6) = v23;
+        *(v13 + 7) = 1;
         result = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-        *(v10 + 16) = result;
+        *(v13 + 2) = result;
       }
 
       else
       {
 
-        return write_all(a1, a2, a3, a4, v20);
+        return write_all(a1, a2, a3, a4, v23);
       }
     }
   }
@@ -6655,7 +5893,7 @@ unint64_t **ps_telemetry_emit_event_internal(uint64_t a1, char *a2, unint64_t a3
   return result;
 }
 
-_BYTE *ps_telemetry_init_thread()
+_BYTE *ps_telemetry_init_thread(uint64_t a1, uint64_t a2)
 {
   result = ps_telemetry_is_enabled();
   if (result)
@@ -6666,7 +5904,7 @@ _BYTE *ps_telemetry_init_thread()
   return result;
 }
 
-void *write_all(uint64_t a1, char *a2, unint64_t a3, uint64_t a4, unint64_t a5)
+void *write_all(uint64_t a1, char *a2, size_t a3, uint64_t a4, unint64_t a5)
 {
   v10 = threadState();
   if ((*(v10 + 8) - 32705) <= 0xFFFFFFFFFFFF800ELL)
@@ -6708,7 +5946,7 @@ void *write_all(uint64_t a1, char *a2, unint64_t a3, uint64_t a4, unint64_t a5)
   return result;
 }
 
-void ps_telemetry_deinit_thread()
+void ps_telemetry_deinit_thread(uint64_t a1, uint64_t a2)
 {
   if (ps_telemetry_is_enabled())
   {
@@ -6732,17 +5970,17 @@ uint64_t PLSSettingsEnableFastTransition()
   return v1;
 }
 
-uint64_t PLSSettingsSupportsVirtualFrameID()
+uint64_t PLSSettingsSupportsVirtualFrameID(uint64_t a1, uint64_t a2)
 {
   if (MGGetProductType() != 1036038801)
   {
     return 0;
   }
 
-  v0 = +[PLSSettings currentSettings];
-  v1 = ([v0 camDispConfig] >> 6) & 1;
+  v2 = +[PLSSettings currentSettings];
+  v3 = ([v2 camDispConfig] >> 6) & 1;
 
-  return v1;
+  return v3;
 }
 
 uint64_t ps_is_virtual_device()
@@ -6766,23 +6004,21 @@ uint64_t ps_is_virtual_device()
   return v0;
 }
 
-void __ps_is_virtual_device_block_invoke(uint64_t a1)
+void __ps_is_virtual_device_block_invoke(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = MGGetProductType();
-  *(*(*(a1 + 32) + 8) + 24) = v2 == 2141052862;
-  v3 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = MGGetProductType();
+  *(*(*(a1 + 32) + 8) + 24) = v3 == 2141052862;
+  v4 = __PLSLogSharedInstance(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(*(*(a1 + 32) + 8) + 24);
+    v5 = *(*(*(a1 + 32) + 8) + 24);
     v6 = 134218240;
-    v7 = v2;
+    v7 = v3;
     v8 = 1024;
-    v9 = v4;
-    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEFAULT, "MGGetProductType:%ld, isVirtualDevice:%d", &v6, 0x12u);
+    v9 = v5;
+    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEFAULT, "MGGetProductType:%ld, isVirtualDevice:%d", &v6, 0x12u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sourceTypeFromString(void *a1)
@@ -6802,21 +6038,21 @@ uint64_t sourceTypeFromString(void *a1)
   return v2;
 }
 
-id __PLSLogSharedInstance()
+id __PLSLogSharedInstance(uint64_t a1)
 {
   if (__PLSLogSharedInstance_onceToken != -1)
   {
     __PLSLogSharedInstance_cold_1();
   }
 
-  v1 = sharedInstance_5;
+  v2 = sharedInstance_5;
 
-  return v1;
+  return v2;
 }
 
 void ps_gsm_death_notifier_callback(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4)
 {
-  if (death_notifier_callback_queue && (+[PLSSettings currentSettings](PLSSettings, "currentSettings"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 enableFastTransition], v6, v7))
+  if (death_notifier_callback_queue && (+[PLSSettings currentSettings](PLSSettings, "currentSettings", a3), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 enableFastTransition], v6, v7))
   {
     v8[0] = MEMORY[0x277D85DD0];
     v8[1] = 3221225472;
@@ -6845,13 +6081,10 @@ uint64_t sub_25EAFA458()
 
 id sub_25EAFA504(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = (a1 + *a3);
-  v4 = *v3;
-  v5 = v3[1];
 
-  v6 = sub_25EB6E258();
+  v3 = sub_25EB6E258();
 
-  return v6;
+  return v3;
 }
 
 id PSCStrideConfig.init(graphName:sessionName:stride:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
@@ -6953,34 +6186,28 @@ uint64_t sub_25EAFA7F4(_BYTE *a1, _BYTE *a2)
 
 uint64_t sub_25EAFA900()
 {
-  v1 = *v0;
   sub_25EB6EA28();
   sub_25EB6E2D8();
 
   return sub_25EB6EA58();
 }
 
-uint64_t sub_25EAFA9AC()
+uint64_t sub_25EAFA9AC(uint64_t a1)
 {
-  *v0;
-  *v0;
   sub_25EB6E2D8();
 }
 
-uint64_t sub_25EAFAA44()
+uint64_t sub_25EAFAA44(uint64_t a1)
 {
-  v1 = *v0;
   sub_25EB6EA28();
   sub_25EB6E2D8();
 
   return sub_25EB6EA58();
 }
 
-uint64_t sub_25EAFAAEC@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+unint64_t sub_25EAFAAEC@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v4 = *a1;
-  v3 = a1[1];
-  result = sub_25EAFD8F4();
+  result = sub_25EAFD8F4(*a1, a1[1]);
   *a2 = result;
   return result;
 }
@@ -7036,10 +6263,10 @@ uint64_t sub_25EAFAB84()
   }
 }
 
-uint64_t sub_25EAFABE8@<X0>(_BYTE *a1@<X8>)
+unint64_t sub_25EAFABE8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_25EAFD8F4();
-  *a1 = result;
+  result = sub_25EAFD8F4(a1, a2);
+  *a3 = result;
   return result;
 }
 
@@ -7062,38 +6289,36 @@ uint64_t sub_25EAFACA0(void *a1)
   v3 = v1;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11B40, &qword_25EB78620);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v15[-v8];
-  v10 = a1[4];
+  v8 = &v13[-v7];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_25EAFAF7C();
   sub_25EB6EA78();
-  v11 = [v3 graphName];
+  v9 = [v3 graphName];
   sub_25EB6E268();
 
-  v15[15] = 0;
+  v13[15] = 0;
   sub_25EB6E928();
   if (v2)
   {
-    (*(v6 + 8))(v9, v5);
+    (*(v6 + 8))(v8, v5);
   }
 
   else
   {
 
-    v12 = [v3 sessionName];
+    v10 = [v3 sessionName];
     sub_25EB6E268();
 
-    v15[14] = 1;
+    v13[14] = 1;
     sub_25EB6E928();
 
-    v13 = [v3 stride];
-    [v13 integerValue];
+    v11 = [v3 stride];
+    [v11 integerValue];
 
-    v15[13] = 2;
+    v13[13] = 2;
     sub_25EB6E938();
-    return (*(v6 + 8))(v9, v5);
+    return (*(v6 + 8))(v8, v5);
   }
 }
 
@@ -7102,7 +6327,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -7132,16 +6356,14 @@ unint64_t sub_25EAFAF7C()
   return result;
 }
 
-void *StrideConfig.init(from:)(uint64_t *a1)
+void *StrideConfig.init(from:)(void *a1)
 {
   v3 = v1;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11B50, &qword_25EB78628);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v17 - v8;
-  v10 = a1[4];
-  v11 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  v8 = &v15 - v7;
+  v9 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_25EAFAF7C();
   sub_25EB6EA68();
   if (v2)
@@ -7153,29 +6375,29 @@ void *StrideConfig.init(from:)(uint64_t *a1)
 
   else
   {
-    v20 = 0;
-    v18 = sub_25EB6E8D8();
-    v20 = 1;
-    v17 = sub_25EB6E8D8();
-    v20 = 2;
+    v18 = 0;
+    v16 = sub_25EB6E8D8();
+    v18 = 1;
+    v15 = sub_25EB6E8D8();
+    v18 = 2;
     sub_25EB6E8E8();
-    v18 = sub_25EB6E258();
+    v16 = sub_25EB6E258();
 
-    v13 = sub_25EB6E258();
+    v11 = sub_25EB6E258();
 
     sub_25EAFCC70(0, &qword_27FD11B58, 0x277CCABB0);
-    v14 = sub_25EB6E4F8();
-    v15 = type metadata accessor for StrideConfig();
-    v19.receiver = v3;
-    v19.super_class = v15;
-    v16 = v18;
-    v11 = objc_msgSendSuper2(&v19, sel_initWithGraphName_sessionName_stride_, v18, v13, v14);
+    v12 = sub_25EB6E4F8();
+    v13 = type metadata accessor for StrideConfig();
+    v17.receiver = v3;
+    v17.super_class = v13;
+    v14 = v16;
+    v9 = objc_msgSendSuper2(&v17, sel_initWithGraphName_sessionName_stride_, v16, v11, v12);
 
-    (*(v6 + 8))(v9, v5);
+    (*(v6 + 8))(v8, v5);
     __swift_destroy_boxed_opaque_existential_1Tm(a1);
   }
 
-  return v11;
+  return v9;
 }
 
 id StrideConfig.__allocating_init(graphName:sessionName:stride:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
@@ -7217,7 +6439,7 @@ id StrideConfig.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-void *sub_25EAFB578@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void *sub_25EAFB578@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v5 = objc_allocWithZone(type metadata accessor for StrideConfig());
   result = StrideConfig.init(from:)(a1);
@@ -7249,65 +6471,60 @@ void PolarisSystemConfig.init(fromPlistAtPath:)(uint64_t a1, uint64_t a2)
   v3 = v2;
   v5 = sub_25EB6E058();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v39 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11B60, &qword_25EB78630);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10 - 8);
-  v13 = &v39 - v12;
-  v14 = sub_25EB6E098();
-  v43 = *(v14 - 8);
-  v15 = *(v43 + 64);
-  v16 = MEMORY[0x28223BE20](v14);
-  v41 = &v39 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = MEMORY[0x28223BE20](v16);
-  MEMORY[0x28223BE20](v18);
-  v20 = &v39 - v19;
+  v8 = &v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11B60, &qword_25EB78630);
+  MEMORY[0x28223BE20](v9 - 8);
+  v11 = &v33 - v10;
+  v12 = sub_25EB6E098();
+  v37 = *(v12 - 8);
+  v13 = MEMORY[0x28223BE20](v12);
+  v35 = &v33 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x28223BE20](v13);
+  MEMORY[0x28223BE20](v15);
+  v17 = &v33 - v16;
   if (a2)
   {
     goto LABEL_5;
   }
 
-  v40 = v14;
-  v21 = MGGetProductType();
-  if (v21 == 1608945770)
+  v34 = v12;
+  v18 = MGGetProductType();
+  if (v18 == 1608945770)
   {
-    v42 = v3;
+    v36 = v3;
     swift_getObjectType();
     ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-    v23 = [objc_opt_self() bundleForClass_];
-    v24 = sub_25EB6E258();
-    v25 = sub_25EB6E258();
-    v26 = [v23 pathForResource:v24 ofType:v25];
+    v20 = [objc_opt_self() bundleForClass_];
+    v21 = sub_25EB6E258();
+    v22 = sub_25EB6E258();
+    v23 = [v20 pathForResource:v21 ofType:v22];
 
-    if (v26)
+    if (v23)
     {
       sub_25EB6E268();
 
-      v3 = v42;
-      v14 = v40;
+      v3 = v36;
+      v12 = v34;
 LABEL_5:
-      (*(v43 + 56))(v13, 1, 1, v14);
-      (*(v6 + 104))(v9, *MEMORY[0x277CC91D8], v5);
+      (*(v37 + 56))(v11, 1, 1, v12);
+      (*(v6 + 104))(v8, *MEMORY[0x277CC91D8], v5);
       sub_25EB6E088();
-      v27 = sub_25EB6E0A8();
-      v29 = v28;
-      v30 = sub_25EB6E028();
-      v31 = *(v30 + 48);
-      v32 = *(v30 + 52);
+      v24 = sub_25EB6E0A8();
+      v26 = v25;
+      sub_25EB6E028();
       swift_allocObject();
       sub_25EB6E018();
       __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11B68, &qword_25EB78638);
       sub_25EAFC420();
       sub_25EB6E008();
-      (*(v43 + 8))(v20, v14);
+      (*(v37 + 8))(v17, v12);
 
-      sub_25EAFC5CC(v27, v29);
-      *&v3[OBJC_IVAR___PolarisSystemConfig_strideConfigsForModes] = v45;
-      v44.receiver = v3;
-      v44.super_class = PolarisSystemConfig;
-      objc_msgSendSuper2(&v44, sel_init);
+      sub_25EAFC5CC(v24, v26);
+      *&v3[OBJC_IVAR___PolarisSystemConfig_strideConfigsForModes] = v39[0];
+      v38.receiver = v3;
+      v38.super_class = PolarisSystemConfig;
+      objc_msgSendSuper2(&v38, sel_init);
       return;
     }
 
@@ -7316,26 +6533,26 @@ LABEL_5:
 
   else
   {
-    v33 = v21;
+    v27 = v18;
     if (qword_27FD11B18 != -1)
     {
       swift_once();
     }
 
-    v34 = sub_25EB6E1B8();
-    __swift_project_value_buffer(v34, qword_27FD2EEA8);
-    v35 = sub_25EB6E198();
-    v36 = sub_25EB6E498();
-    if (os_log_type_enabled(v35, v36))
+    v28 = sub_25EB6E1B8();
+    __swift_project_value_buffer(v28, qword_27FD2EEA8);
+    v29 = sub_25EB6E198();
+    v30 = sub_25EB6E498();
+    if (os_log_type_enabled(v29, v30))
     {
-      v37 = swift_slowAlloc();
-      *v37 = 134217984;
-      *(v37 + 4) = v33;
-      _os_log_impl(&dword_25EA3A000, v35, v36, "Unsupported product type: %ld", v37, 0xCu);
-      MEMORY[0x25F8C9C00](v37, -1, -1);
+      v31 = swift_slowAlloc();
+      *v31 = 134217984;
+      *(v31 + 4) = v27;
+      _os_log_impl(&dword_25EA3A000, v29, v30, "Unsupported product type: %ld", v31, 0xCu);
+      MEMORY[0x25F8C9C00](v31, -1, -1);
     }
 
-    type metadata accessor for PolarisSystemConfig(v38);
+    type metadata accessor for PolarisSystemConfig(v32);
     swift_deallocPartialClassInstance();
   }
 }
@@ -7350,7 +6567,7 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t PolarisSystemConfig.strideConfigs(for:)(uint64_t a1)
+unint64_t PolarisSystemConfig.strideConfigs(for:)(uint64_t a1)
 {
   v2 = 0xEA00000000005453;
   v3 = 0x41465F53444E4148;
@@ -7442,7 +6659,7 @@ void *sub_25EAFC324@<X0>(void *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_25EAFC354(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_25EAFC354(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_25EAFC620(v11, 0, 0, 1, a1, a2);
@@ -7497,7 +6714,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -7532,13 +6748,13 @@ unint64_t sub_25EAFC578()
   return result;
 }
 
-uint64_t sub_25EAFC5CC(uint64_t a1, unint64_t a2)
+uint64_t sub_25EAFC5CC(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -7605,16 +6821,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_25EAFC72C(uint64_t a1, unint64_t a2)
+void *sub_25EAFC72C(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_25EAFC778(a1, a2);
+  v3 = sub_25EAFC778(a1, a2);
   sub_25EAFC8A8(&unk_2870BBCD0);
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t sub_25EAFC778(uint64_t a1, unint64_t a2)
+void *sub_25EAFC778(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -7711,7 +6925,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -7725,15 +6938,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_25EAFC994(result, v12, 1, v3);
+  result = sub_25EAFC994(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -7748,15 +6961,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -7765,12 +6978,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -7854,7 +7067,6 @@ char *sub_25EAFC994(char *result, int64_t a2, char a3, char *a4)
 
 unint64_t sub_25EAFCA88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = *(v4 + 40);
   sub_25EB6EA28();
   sub_25EB6E2D8();
   sub_25EB6EA48();
@@ -7863,38 +7075,35 @@ unint64_t sub_25EAFCA88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     sub_25EB6E2D8();
   }
 
-  v10 = sub_25EB6EA58();
+  v8 = sub_25EB6EA58();
 
-  return sub_25EAFD228(a1, a2, a3, a4, v10);
+  return sub_25EAFD228(a1, a2, a3, a4, v8);
 }
 
 unint64_t sub_25EAFCB44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = *(v4 + 40);
   sub_25EB6EA28();
   sub_25EB6E2D8();
   sub_25EB6E2D8();
-  v10 = sub_25EB6EA58();
+  v8 = sub_25EB6EA58();
 
-  return sub_25EAFD334(a1, a2, a3, a4, v10);
+  return sub_25EAFD334(a1, a2, a3, a4, v8);
 }
 
 unint64_t sub_25EAFCBE4(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_25EB6EA28();
   sub_25EB6E2D8();
-  v6 = sub_25EB6EA58();
+  v4 = sub_25EB6EA58();
 
-  return sub_25EAFD434(a1, a2, v6);
+  return sub_25EAFD434(a1, a2, v4);
 }
 
-uint64_t sub_25EAFCC70(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_25EAFCC70(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -7903,12 +7112,12 @@ uint64_t sub_25EAFCC70(uint64_t a1, unint64_t *a2, uint64_t *a3)
   return result;
 }
 
-void sub_25EAFCD7C(uint64_t a1, unint64_t *a2)
+void sub_25EAFCD7C(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -8115,48 +7324,27 @@ unint64_t sub_25EAFCFEC()
 
 unint64_t sub_25EAFD040(uint64_t a1)
 {
-  v2 = v1;
-  v4 = *(v2 + 40);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11BF0, &qword_25EB78980);
-  sub_25EAFD940(&qword_27FD11BD8);
-  v5 = sub_25EB6E228();
+  sub_25EAFD940(&qword_27FD11BD8, MEMORY[0x277D3E7B0]);
+  v2 = sub_25EB6E228();
 
-  return sub_25EAFD4EC(a1, v5);
+  return sub_25EAFD4EC(a1, v2);
 }
 
 unint64_t sub_25EAFD0D0(uint64_t a1)
 {
-  v2 = v1;
-  v4 = *(v2 + 40);
-  v5 = sub_25EB6E508();
+  v2 = sub_25EB6E508();
 
-  return sub_25EAFD6A0(a1, v5);
-}
-
-unint64_t sub_25EAFD114(uint64_t a1)
-{
-  v2 = v1;
-  v4 = *(v2 + 40);
-  v5 = sub_25EB6E508();
-  return sub_25EAFD774(a1, v5, type metadata accessor for PSSGResourceID);
-}
-
-unint64_t sub_25EAFD168(uint64_t a1)
-{
-  v2 = v1;
-  v4 = *(v2 + 40);
-  v5 = sub_25EB6E508();
-  return sub_25EAFD774(a1, v5, type metadata accessor for PSSGGraphID);
+  return sub_25EAFD6A0(a1, v2);
 }
 
 unint64_t sub_25EAFD1BC(uint64_t a1)
 {
-  v3 = *(v1 + 40);
   sub_25EB6EA28();
-  sub_25EB2F4F0(v6, a1);
-  v4 = sub_25EB6EA58();
+  sub_25EB2F4F0(v4, a1);
+  v2 = sub_25EB6EA58();
 
-  return sub_25EAFD83C(a1, v4);
+  return sub_25EAFD83C(a1, v2);
 }
 
 unint64_t sub_25EAFD228(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -8267,41 +7455,40 @@ unint64_t sub_25EAFD434(uint64_t a1, uint64_t a2, uint64_t a3)
 
 unint64_t sub_25EAFD4EC(uint64_t a1, uint64_t a2)
 {
-  v20 = a1;
+  v19 = a1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11BF0, &qword_25EB78980);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v18 - v7;
-  v21 = v2;
-  v9 = -1 << *(v2 + 32);
-  v10 = a2 & ~v9;
-  v19 = v2 + 64;
-  if ((*(v2 + 64 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10))
+  v7 = &v17 - v6;
+  v20 = v2;
+  v8 = -1 << *(v2 + 32);
+  v9 = a2 & ~v8;
+  v18 = v2 + 64;
+  if ((*(v2 + 64 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9))
   {
-    v11 = ~v9;
-    v14 = *(v5 + 16);
-    v13 = v5 + 16;
-    v12 = v14;
-    v15 = *(v13 + 56);
+    v10 = ~v8;
+    v13 = *(v5 + 16);
+    v12 = v5 + 16;
+    v11 = v13;
+    v14 = *(v12 + 56);
     do
     {
-      v12(v8, *(v21 + 48) + v15 * v10, v4);
-      sub_25EAFD940(&qword_27FD11F30);
-      v16 = sub_25EB6E248();
-      (*(v13 - 8))(v8, v4);
-      if (v16)
+      v11(v7, *(v20 + 48) + v14 * v9, v4);
+      sub_25EAFD940(&qword_27FD11F30, MEMORY[0x277D3E7B8]);
+      v15 = sub_25EB6E248();
+      (*(v12 - 8))(v7, v4);
+      if (v15)
       {
         break;
       }
 
-      v10 = (v10 + 1) & v11;
+      v9 = (v9 + 1) & v10;
     }
 
-    while (((*(v19 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) != 0);
+    while (((*(v18 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) != 0);
   }
 
-  return v10;
+  return v9;
 }
 
 unint64_t sub_25EAFD6A0(uint64_t a1, uint64_t a2)
@@ -8367,12 +7554,11 @@ unint64_t sub_25EAFD83C(uint64_t a1, uint64_t a2)
     v6 = ~v3;
     do
     {
-      v7 = *(*(v2 + 48) + 8 * v4);
 
-      sub_25EB24B58(v8, a1);
-      v10 = v9;
+      sub_25EB24B58(v7, a1);
+      v9 = v8;
 
-      if (v10)
+      if (v9)
       {
         break;
       }
@@ -8386,22 +7572,22 @@ unint64_t sub_25EAFD83C(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-uint64_t sub_25EAFD8F4()
+unint64_t sub_25EAFD8F4(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_25EB6E8A8();
+  v2 = sub_25EB6E8A8();
 
-  if (v0 >= 3)
+  if (v2 >= 3)
   {
     return 3;
   }
 
   else
   {
-    return v0;
+    return v2;
   }
 }
 
-uint64_t sub_25EAFD940(unint64_t *a1)
+uint64_t sub_25EAFD940(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -8414,15 +7600,17 @@ uint64_t sub_25EAFD940(unint64_t *a1)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1Tm(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1Tm(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_25EAFD9DC(uint64_t a1, uint64_t a2)
@@ -8435,14 +7623,11 @@ uint64_t sub_25EAFD9DC(uint64_t a1, uint64_t a2)
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -8452,33 +7637,32 @@ unsigned __int8 *Key<>.init(_:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11BF0, &qword_25EB78980);
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   result = MEMORY[0x28223BE20](v6);
-  v11 = (&v37[-1] - v10);
-  v12 = HIBYTE(a2) & 0xF;
-  v13 = a1 & 0xFFFFFFFFFFFFLL;
+  v10 = (&v36[-1] - v9);
+  v11 = HIBYTE(a2) & 0xF;
+  v12 = a1 & 0xFFFFFFFFFFFFLL;
   if ((a2 & 0x2000000000000000) != 0)
   {
-    v14 = HIBYTE(a2) & 0xF;
+    v13 = HIBYTE(a2) & 0xF;
   }
 
   else
   {
-    v14 = a1 & 0xFFFFFFFFFFFFLL;
+    v13 = a1 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v14)
+  if (!v13)
   {
 
-    v35 = 1;
-    return (*(v7 + 56))(a3, v35, 1, v6);
+    v34 = 1;
+    return (*(v7 + 56))(a3, v34, 1, v6);
   }
 
   if ((a2 & 0x1000000000000000) != 0)
   {
-    v16 = sub_25EB06B64(a1, a2, 10);
+    v15 = sub_25EB06B64(a1, a2, 10);
 
-    if ((v16 & 0x100000000) != 0)
+    if ((v15 & 0x100000000) != 0)
     {
       goto LABEL_63;
     }
@@ -8498,40 +7682,40 @@ unsigned __int8 *Key<>.init(_:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64
       result = sub_25EB6E6E8();
     }
 
-    v15 = *result;
-    if (v15 == 43)
+    v14 = *result;
+    if (v14 == 43)
     {
-      if (v13 >= 1)
+      if (v12 >= 1)
       {
-        v12 = v13 - 1;
-        if (v13 != 1)
+        v11 = v12 - 1;
+        if (v12 != 1)
         {
-          LODWORD(v16) = 0;
+          LODWORD(v15) = 0;
           if (result)
           {
-            v23 = result + 1;
+            v22 = result + 1;
             while (1)
             {
-              v24 = *v23 - 48;
-              if (v24 > 9)
+              v23 = *v22 - 48;
+              if (v23 > 9)
               {
                 goto LABEL_61;
               }
 
-              v25 = 10 * v16;
-              if ((v25 & 0xFFFFFFFF00000000) != 0)
+              v24 = 10 * v15;
+              if ((v24 & 0xFFFFFFFF00000000) != 0)
               {
                 goto LABEL_61;
               }
 
-              LODWORD(v16) = v25 + v24;
-              if (__CFADD__(v25, v24))
+              LODWORD(v15) = v24 + v23;
+              if (__CFADD__(v24, v23))
               {
                 goto LABEL_61;
               }
 
-              ++v23;
-              if (!--v12)
+              ++v22;
+              if (!--v11)
               {
                 goto LABEL_62;
               }
@@ -8547,35 +7731,35 @@ unsigned __int8 *Key<>.init(_:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64
       goto LABEL_71;
     }
 
-    if (v15 != 45)
+    if (v14 != 45)
     {
-      if (v13)
+      if (v12)
       {
-        LODWORD(v16) = 0;
+        LODWORD(v15) = 0;
         if (result)
         {
           while (1)
           {
-            v29 = *result - 48;
-            if (v29 > 9)
+            v28 = *result - 48;
+            if (v28 > 9)
             {
               goto LABEL_61;
             }
 
-            v30 = 10 * v16;
-            if ((v30 & 0xFFFFFFFF00000000) != 0)
+            v29 = 10 * v15;
+            if ((v29 & 0xFFFFFFFF00000000) != 0)
             {
               goto LABEL_61;
             }
 
-            LODWORD(v16) = v30 + v29;
-            if (__CFADD__(v30, v29))
+            LODWORD(v15) = v29 + v28;
+            if (__CFADD__(v29, v28))
             {
               goto LABEL_61;
             }
 
             ++result;
-            if (!--v13)
+            if (!--v12)
             {
               goto LABEL_53;
             }
@@ -8586,58 +7770,58 @@ unsigned __int8 *Key<>.init(_:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64
       }
 
 LABEL_61:
-      LODWORD(v16) = 0;
-      LOBYTE(v12) = 1;
+      LODWORD(v15) = 0;
+      LOBYTE(v11) = 1;
 LABEL_62:
-      v38 = v12;
-      v34 = v12;
+      v37 = v11;
+      v33 = v11;
 
-      if (v34)
+      if (v33)
       {
 LABEL_63:
-        v35 = 1;
-        return (*(v7 + 56))(a3, v35, 1, v6);
+        v34 = 1;
+        return (*(v7 + 56))(a3, v34, 1, v6);
       }
 
 LABEL_66:
-      *v11 = v16;
-      (*(v7 + 104))(v11, *MEMORY[0x277D3E7A8], v6);
-      (*(v7 + 32))(a3, v11, v6);
-      v35 = 0;
-      return (*(v7 + 56))(a3, v35, 1, v6);
+      *v10 = v15;
+      (*(v7 + 104))(v10, *MEMORY[0x277D3E7A8], v6);
+      (*(v7 + 32))(a3, v10, v6);
+      v34 = 0;
+      return (*(v7 + 56))(a3, v34, 1, v6);
     }
 
-    if (v13 >= 1)
+    if (v12 >= 1)
     {
-      v12 = v13 - 1;
-      if (v13 != 1)
+      v11 = v12 - 1;
+      if (v12 != 1)
       {
-        LODWORD(v16) = 0;
+        LODWORD(v15) = 0;
         if (result)
         {
-          v17 = result + 1;
+          v16 = result + 1;
           while (1)
           {
-            v18 = *v17 - 48;
-            if (v18 > 9)
+            v17 = *v16 - 48;
+            if (v17 > 9)
             {
               goto LABEL_61;
             }
 
-            v19 = 10 * v16;
-            if ((v19 & 0xFFFFFFFF00000000) != 0)
+            v18 = 10 * v15;
+            if ((v18 & 0xFFFFFFFF00000000) != 0)
             {
               goto LABEL_61;
             }
 
-            LODWORD(v16) = v19 - v18;
-            if (v19 < v18)
+            LODWORD(v15) = v18 - v17;
+            if (v18 < v17)
             {
               goto LABEL_61;
             }
 
-            ++v17;
-            if (!--v12)
+            ++v16;
+            if (!--v11)
             {
               goto LABEL_62;
             }
@@ -8645,7 +7829,7 @@ LABEL_66:
         }
 
 LABEL_53:
-        LOBYTE(v12) = 0;
+        LOBYTE(v11) = 0;
         goto LABEL_62;
       }
 
@@ -8660,38 +7844,38 @@ LABEL_71:
     goto LABEL_72;
   }
 
-  v37[0] = a1;
-  v37[1] = a2 & 0xFFFFFFFFFFFFFFLL;
+  v36[0] = a1;
+  v36[1] = a2 & 0xFFFFFFFFFFFFFFLL;
   if (a1 != 43)
   {
     if (a1 != 45)
     {
-      if (v12)
+      if (v11)
       {
-        LODWORD(v16) = 0;
-        v31 = v37;
+        LODWORD(v15) = 0;
+        v30 = v36;
         while (1)
         {
-          v32 = *v31 - 48;
-          if (v32 > 9)
+          v31 = *v30 - 48;
+          if (v31 > 9)
           {
             break;
           }
 
-          v33 = 10 * v16;
-          if ((v33 & 0xFFFFFFFF00000000) != 0)
+          v32 = 10 * v15;
+          if ((v32 & 0xFFFFFFFF00000000) != 0)
           {
             break;
           }
 
-          LODWORD(v16) = v33 + v32;
-          if (__CFADD__(v33, v32))
+          LODWORD(v15) = v32 + v31;
+          if (__CFADD__(v32, v31))
           {
             break;
           }
 
-          ++v31;
-          if (!--v12)
+          ++v30;
+          if (!--v11)
           {
             goto LABEL_62;
           }
@@ -8701,34 +7885,34 @@ LABEL_71:
       goto LABEL_61;
     }
 
-    if (v12)
+    if (v11)
     {
-      if (--v12)
+      if (--v11)
       {
-        LODWORD(v16) = 0;
-        v20 = v37 + 1;
+        LODWORD(v15) = 0;
+        v19 = v36 + 1;
         while (1)
         {
-          v21 = *v20 - 48;
-          if (v21 > 9)
+          v20 = *v19 - 48;
+          if (v20 > 9)
           {
             break;
           }
 
-          v22 = 10 * v16;
-          if ((v22 & 0xFFFFFFFF00000000) != 0)
+          v21 = 10 * v15;
+          if ((v21 & 0xFFFFFFFF00000000) != 0)
           {
             break;
           }
 
-          LODWORD(v16) = v22 - v21;
-          if (v22 < v21)
+          LODWORD(v15) = v21 - v20;
+          if (v21 < v20)
           {
             break;
           }
 
-          ++v20;
-          if (!--v12)
+          ++v19;
+          if (!--v11)
           {
             goto LABEL_62;
           }
@@ -8741,34 +7925,34 @@ LABEL_71:
     goto LABEL_70;
   }
 
-  if (v12)
+  if (v11)
   {
-    if (--v12)
+    if (--v11)
     {
-      LODWORD(v16) = 0;
-      v26 = v37 + 1;
+      LODWORD(v15) = 0;
+      v25 = v36 + 1;
       while (1)
       {
-        v27 = *v26 - 48;
-        if (v27 > 9)
+        v26 = *v25 - 48;
+        if (v26 > 9)
         {
           break;
         }
 
-        v28 = 10 * v16;
-        if ((v28 & 0xFFFFFFFF00000000) != 0)
+        v27 = 10 * v15;
+        if ((v27 & 0xFFFFFFFF00000000) != 0)
         {
           break;
         }
 
-        LODWORD(v16) = v28 + v27;
-        if (__CFADD__(v28, v27))
+        LODWORD(v15) = v27 + v26;
+        if (__CFADD__(v27, v26))
         {
           break;
         }
 
-        ++v26;
-        if (!--v12)
+        ++v25;
+        if (!--v11)
         {
           goto LABEL_62;
         }
@@ -8788,771 +7972,735 @@ uint64_t sub_25EAFDE80(uint64_t *a1, uint64_t *a2)
   v2 = *a1;
   v3 = *a2;
   swift_beginAccess();
-  v4 = *(v3 + 16);
   *(v3 + 16) = v2;
-}
-
-uint64_t sub_25EAFDEE0()
-{
-  swift_beginAccess();
-  v1 = *(v0 + 16);
 }
 
 uint64_t sub_25EAFDF18(uint64_t a1)
 {
   swift_beginAccess();
-  v3 = *(v1 + 16);
   *(v1 + 16) = a1;
 }
 
 void sub_25EAFDFE8(uint64_t a1, uint64_t a2)
 {
-  v207 = a1;
-  v244[9] = *MEMORY[0x277D85DE8];
+  v187 = a1;
+  v225 = *MEMORY[0x277D85DE8];
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11BF8, &qword_25EB78988);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4 - 8);
-  v218 = v206 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v235 = (v206 - v8);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FD11C00, &qword_25EB78990);
-  v10 = *(*(v9 - 8) + 64);
-  v11 = MEMORY[0x28223BE20](v9 - 8);
-  v208 = v206 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = MEMORY[0x28223BE20](v11);
-  v223 = v206 - v14;
-  MEMORY[0x28223BE20](v13);
-  v234 = v206 - v15;
-  v16 = sub_25EB6E138();
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 64);
-  v19 = MEMORY[0x28223BE20](v16);
-  v213 = v206 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = MEMORY[0x28223BE20](v19);
-  v212 = v206 - v22;
-  v23 = MEMORY[0x28223BE20](v21);
-  v217 = v206 - v24;
-  v25 = MEMORY[0x28223BE20](v23);
-  v222 = v206 - v26;
-  v27 = MEMORY[0x28223BE20](v25);
-  v220 = v206 - v28;
-  MEMORY[0x28223BE20](v27);
-  v233 = v206 - v29;
-  v238 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11BF0, &qword_25EB78980);
-  v30 = *(v238 - 8);
-  v31 = *(v30 + 64);
-  v32 = MEMORY[0x28223BE20](v238);
-  v211 = v206 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = MEMORY[0x28223BE20](v4 - 8);
+  v198 = v186 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v215 = (v186 - v7);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FD11C00, &qword_25EB78990);
+  v9 = MEMORY[0x28223BE20](v8 - 8);
+  v188 = v186 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = MEMORY[0x28223BE20](v9);
+  v203 = v186 - v12;
+  MEMORY[0x28223BE20](v11);
+  v214 = v186 - v13;
+  v14 = sub_25EB6E138();
+  v15 = *(v14 - 8);
+  v16 = MEMORY[0x28223BE20](v14);
+  v193 = v186 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = MEMORY[0x28223BE20](v16);
+  v192 = v186 - v19;
+  v20 = MEMORY[0x28223BE20](v18);
+  v197 = v186 - v21;
+  v22 = MEMORY[0x28223BE20](v20);
+  v202 = v186 - v23;
+  v24 = MEMORY[0x28223BE20](v22);
+  v200 = v186 - v25;
+  MEMORY[0x28223BE20](v24);
+  v213 = v186 - v26;
+  v218 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11BF0, &qword_25EB78980);
+  v27 = *(v218 - 8);
+  v28 = MEMORY[0x28223BE20](v218);
+  v191 = v186 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v30 = MEMORY[0x28223BE20](v28);
+  v189 = v186 - v31;
+  v32 = MEMORY[0x28223BE20](v30);
+  v196 = v186 - v33;
   v34 = MEMORY[0x28223BE20](v32);
-  v209 = v206 - v35;
+  v194 = v186 - v35;
   v36 = MEMORY[0x28223BE20](v34);
-  v216 = v206 - v37;
+  v201 = v186 - v37;
   v38 = MEMORY[0x28223BE20](v36);
-  v214 = v206 - v39;
+  v199 = v186 - v39;
   v40 = MEMORY[0x28223BE20](v38);
-  v221 = v206 - v41;
+  v206 = v186 - v41;
   v42 = MEMORY[0x28223BE20](v40);
-  v219 = v206 - v43;
-  v44 = MEMORY[0x28223BE20](v42);
-  v226 = v206 - v45;
-  v46 = MEMORY[0x28223BE20](v44);
-  v215 = v206 - v47;
-  MEMORY[0x28223BE20](v46);
-  v49 = v206 - v48;
-  v50 = *(a2 + 16);
-  v240 = v16;
-  v237 = v17;
-  v224 = v30;
-  v206[1] = a2;
-  v210 = v50;
-  if (v50)
+  v195 = v186 - v43;
+  MEMORY[0x28223BE20](v42);
+  v45 = v186 - v44;
+  v46 = *(a2 + 16);
+  v220 = v14;
+  v217 = v15;
+  v204 = v27;
+  v186[1] = a2;
+  v190 = v46;
+  if (v46)
   {
-    v51 = a2 + ((*(v30 + 80) + 32) & ~*(v30 + 80));
+    v47 = a2 + ((*(v27 + 80) + 32) & ~*(v27 + 80));
     swift_beginAccess();
-    v53 = *(v30 + 16);
-    v52 = (v30 + 16);
-    v230 = v52[7];
-    v231 = v53;
-    v232 = v52;
-    v228 = (v17 + 48);
-    *&v229 = v52 - 1;
-    v236 = MEMORY[0x277D84F90];
-    *&v227 = v17 + 32;
-    v54 = v50;
+    v49 = *(v27 + 16);
+    v48 = (v27 + 16);
+    v210 = v48[7];
+    v211 = v49;
+    v212 = v48;
+    v208 = (v15 + 48);
+    *&v209 = v48 - 1;
+    v216 = MEMORY[0x277D84F90];
+    *&v207 = v15 + 32;
+    v50 = v46;
     do
     {
-      v55 = v238;
-      v56 = (v231)(v49, v51, v238);
-      v57 = v2;
-      v58 = *(v2 + 16);
-      MEMORY[0x28223BE20](v56);
+      v51 = v218;
+      v52 = (v211)(v45, v47, v218);
+      v53 = v2;
+      v54 = *(v2 + 16);
+      MEMORY[0x28223BE20](v52);
 
-      v59 = v234;
-      v60 = v239;
-      sub_25EAFF930(sub_25EB0EE44, v58, v234);
-      v239 = v60;
+      v55 = v214;
+      v56 = v219;
+      sub_25EAFF930(sub_25EB0EE44, v54, v214);
+      v219 = v56;
 
-      (*v229)(v49, v55);
-      v61 = v240;
-      if ((*v228)(v59, 1, v240) == 1)
+      (*v209)(v45, v51);
+      v57 = v220;
+      if ((*v208)(v55, 1, v220) == 1)
       {
-        sub_25EB0D660(v59, &unk_27FD11C00, &qword_25EB78990);
+        sub_25EB0D660(v55, &unk_27FD11C00, &qword_25EB78990);
       }
 
       else
       {
-        v62 = *v227;
-        (*v227)(v233, v59, v61);
-        v63 = v236;
+        v58 = *v207;
+        (*v207)(v213, v55, v57);
+        v59 = v216;
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v63 = sub_25EB064D0(0, v63[2] + 1, 1, v63);
+          v59 = sub_25EB064D0(0, v59[2] + 1, 1, v59);
         }
 
-        v65 = v63[2];
-        v64 = v63[3];
-        if (v65 >= v64 >> 1)
+        v61 = v59[2];
+        v60 = v59[3];
+        if (v61 >= v60 >> 1)
         {
-          v63 = sub_25EB064D0(v64 > 1, v65 + 1, 1, v63);
+          v59 = sub_25EB064D0((v60 > 1), v61 + 1, 1, v59);
         }
 
-        v63[2] = v65 + 1;
-        v66 = (*(v237 + 80) + 32) & ~*(v237 + 80);
-        v236 = v63;
-        v62(v63 + v66 + *(v237 + 72) * v65, v233, v240);
+        v59[2] = v61 + 1;
+        v62 = (*(v217 + 80) + 32) & ~*(v217 + 80);
+        v216 = v59;
+        v58(v59 + v62 + *(v217 + 72) * v61, v213, v220);
       }
 
-      v51 += v230;
-      --v54;
-      v2 = v57;
+      v47 += v210;
+      --v50;
+      v2 = v53;
     }
 
-    while (v54);
+    while (v50);
   }
 
   else
   {
-    v236 = MEMORY[0x277D84F90];
+    v216 = MEMORY[0x277D84F90];
   }
 
-  v67 = v236;
-  if (v236[2] != v210)
+  v63 = v216;
+  if (v216[2] != v190)
   {
 
-    *&v229 = sub_25EB0C8D4(v87);
+    *&v209 = sub_25EB0C8D4(v83);
 
-    v88 = v67;
-    v234 = v67[2];
-    if (v234)
+    v84 = v63;
+    v214 = v63[2];
+    if (v214)
     {
-      v89 = 0;
-      v90 = (v224 + 32);
-      v232 = (v224 + 56);
-      v233 = (v237 + 16);
-      v230 = v224 + 48;
-      v231 = (v237 + 8);
-      v239 = MEMORY[0x277D84F90];
-      while (v89 < v88[2])
+      v85 = 0;
+      v86 = (v204 + 32);
+      v212 = (v204 + 56);
+      v213 = (v217 + 16);
+      v210 = v204 + 48;
+      v211 = (v217 + 8);
+      v219 = MEMORY[0x277D84F90];
+      while (v85 < v84[2])
       {
-        v91 = v237;
-        v92 = v220;
-        v93 = v240;
-        (*(v237 + 16))(v220, v88 + ((*(v91 + 80) + 32) & ~*(v91 + 80)) + *(v91 + 72) * v89, v240);
-        v94 = v226;
+        v87 = v217;
+        v88 = v200;
+        v89 = v220;
+        (*(v217 + 16))(v200, v84 + ((*(v87 + 80) + 32) & ~*(v87 + 80)) + *(v87 + 72) * v85, v220);
+        v90 = v206;
         sub_25EB6E128();
-        v95 = *v90;
-        v96 = v238;
-        (*v90)(v235, v94, v238);
-        (*v232)(v235, 0, 1, v96);
-        v97 = v235;
-        (*(v91 + 8))(v92, v93);
-        if ((*v230)(v97, 1, v96) == 1)
+        v91 = *v86;
+        v92 = v218;
+        (*v86)(v215, v90, v218);
+        (*v212)(v215, 0, 1, v92);
+        v93 = v215;
+        (*(v87 + 8))(v88, v89);
+        if ((*v210)(v93, 1, v92) == 1)
         {
-          sub_25EB0D660(v97, &qword_27FD11BF8, &qword_25EB78988);
+          sub_25EB0D660(v93, &qword_27FD11BF8, &qword_25EB78988);
         }
 
         else
         {
-          v98 = v215;
-          v95(v215, v97, v96);
-          v95(v219, v98, v96);
+          v94 = v195;
+          v91(v195, v93, v92);
+          v91(v199, v94, v92);
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v239 = sub_25EB062E0(0, v239[2] + 1, 1, v239);
+            v219 = sub_25EB062E0(0, v219[2] + 1, 1, v219);
           }
 
-          v100 = v239[2];
-          v99 = v239[3];
-          if (v100 >= v99 >> 1)
+          v96 = v219[2];
+          v95 = v219[3];
+          if (v96 >= v95 >> 1)
           {
-            v239 = sub_25EB062E0(v99 > 1, v100 + 1, 1, v239);
+            v219 = sub_25EB062E0((v95 > 1), v96 + 1, 1, v219);
           }
 
-          v101 = v238;
-          v102 = v239;
-          v239[2] = v100 + 1;
-          v95(&v102[((*(v224 + 80) + 32) & ~*(v224 + 80)) + *(v224 + 72) * v100], v219, v101);
+          v97 = v218;
+          v98 = v219;
+          v219[2] = v96 + 1;
+          v91(&v98[((*(v204 + 80) + 32) & ~*(v204 + 80)) + *(v204 + 72) * v96], v199, v97);
         }
 
-        ++v89;
-        v88 = v236;
-        if (v234 == v89)
+        ++v85;
+        v84 = v216;
+        if (v214 == v85)
         {
           goto LABEL_51;
         }
       }
 
       __break(1u);
-LABEL_94:
-      __break(1u);
-LABEL_95:
-      __break(1u);
-LABEL_96:
-      __break(1u);
-LABEL_97:
-      __break(1u);
-LABEL_98:
-      __break(1u);
-LABEL_99:
-      __break(1u);
-LABEL_100:
-      __break(1u);
-LABEL_101:
-      __break(1u);
-LABEL_102:
-      __break(1u);
-LABEL_103:
-      __break(1u);
-LABEL_104:
-      __break(1u);
+      goto LABEL_93;
     }
 
-    v239 = MEMORY[0x277D84F90];
+    v219 = MEMORY[0x277D84F90];
 LABEL_51:
 
-    v127 = v239;
+    v123 = v219;
 LABEL_69:
-    sub_25EB07554(v127, v229);
+    sub_25EB07554(v123, v209);
 
-    sub_25EAFD940(&qword_27FD11BD8);
-    v164 = sub_25EB6E448();
-    v166 = v165;
+    sub_25EAFD940(&qword_27FD11BD8, MEMORY[0x277D3E7B0]);
+    v153 = sub_25EB6E448();
+    v155 = v154;
 
     sub_25EB0CA68();
     swift_allocError();
-    *v167 = v164;
-    *(v167 + 8) = v166;
-    *(v167 + 16) = 1;
+    *v156 = v153;
+    *(v156 + 8) = v155;
+    *(v156 + 16) = 1;
     swift_willThrow();
-    goto LABEL_70;
+    return;
   }
 
-  v68 = *(v207 + 16);
-  v69 = v237;
-  v70 = v224;
-  v225 = v2;
-  *&v229 = v68;
-  if (v68)
+  v64 = *(v187 + 16);
+  v65 = v217;
+  v66 = v204;
+  v205 = v2;
+  *&v209 = v64;
+  if (v64)
   {
-    v71 = v207 + ((*(v224 + 80) + 32) & ~*(v224 + 80));
+    v67 = v187 + ((*(v204 + 80) + 32) & ~*(v204 + 80));
     swift_beginAccess();
-    v73 = *(v70 + 16);
-    v72 = v70 + 16;
-    v232 = *(v72 + 56);
-    v233 = v73;
-    v234 = v72;
-    v231 = (v72 - 8);
-    v74 = (v69 + 48);
-    v235 = MEMORY[0x277D84F90];
-    v230 = v69 + 32;
+    v69 = *(v66 + 16);
+    v68 = v66 + 16;
+    v212 = *(v68 + 56);
+    v213 = v69;
+    v214 = v68;
+    v211 = (v68 - 8);
+    v70 = (v65 + 48);
+    v215 = MEMORY[0x277D84F90];
+    v210 = v65 + 32;
     do
     {
-      v75 = v221;
-      v76 = v238;
-      v77 = (v233)(v221, v71, v238);
-      v78 = *(v225 + 16);
-      MEMORY[0x28223BE20](v77);
+      v71 = v201;
+      v72 = v218;
+      v73 = (v213)(v201, v67, v218);
+      v74 = *(v205 + 16);
+      MEMORY[0x28223BE20](v73);
 
-      v79 = v223;
-      v80 = v239;
-      sub_25EAFF930(sub_25EB0CABC, v78, v223);
-      v239 = v80;
+      v75 = v203;
+      v76 = v219;
+      sub_25EAFF930(sub_25EB0CABC, v74, v203);
+      v219 = v76;
 
-      (*v231)(v75, v76);
-      v81 = v240;
-      if ((*v74)(v79, 1, v240) == 1)
+      (*v211)(v71, v72);
+      v77 = v220;
+      if ((*v70)(v75, 1, v220) == 1)
       {
-        sub_25EB0D660(v79, &unk_27FD11C00, &qword_25EB78990);
+        sub_25EB0D660(v75, &unk_27FD11C00, &qword_25EB78990);
       }
 
       else
       {
-        v82 = *v230;
-        (*v230)(v222, v79, v81);
+        v78 = *v210;
+        (*v210)(v202, v75, v77);
         if (swift_isUniquelyReferenced_nonNull_native())
         {
-          v83 = v235;
+          v79 = v215;
         }
 
         else
         {
-          v83 = sub_25EB064D0(0, v235[2] + 1, 1, v235);
+          v79 = sub_25EB064D0(0, v215[2] + 1, 1, v215);
         }
 
-        v85 = v83[2];
-        v84 = v83[3];
-        if (v85 >= v84 >> 1)
+        v81 = v79[2];
+        v80 = v79[3];
+        if (v81 >= v80 >> 1)
         {
-          v83 = sub_25EB064D0(v84 > 1, v85 + 1, 1, v83);
+          v79 = sub_25EB064D0((v80 > 1), v81 + 1, 1, v79);
         }
 
-        v83[2] = v85 + 1;
-        v86 = (*(v237 + 80) + 32) & ~*(v237 + 80);
-        v235 = v83;
-        v82((v83 + v86 + *(v237 + 72) * v85), v222, v240);
+        v79[2] = v81 + 1;
+        v82 = (*(v217 + 80) + 32) & ~*(v217 + 80);
+        v215 = v79;
+        v78((v79 + v82 + *(v217 + 72) * v81), v202, v220);
       }
 
-      v71 += v232;
-      --v68;
+      v67 += v212;
+      --v64;
     }
 
-    while (v68);
+    while (v64);
   }
 
   else
   {
-    v235 = MEMORY[0x277D84F90];
+    v215 = MEMORY[0x277D84F90];
   }
 
-  v103 = v235;
-  if (v235[2] != v229)
+  v99 = v215;
+  if (v215[2] != v209)
   {
 
-    *&v229 = sub_25EB0C8D4(v108);
+    *&v209 = sub_25EB0C8D4(v104);
 
-    v109 = v240;
-    v110 = v103;
-    v234 = v103[2];
-    if (v234)
+    v105 = v220;
+    v106 = v99;
+    v214 = v99[2];
+    if (v214)
     {
-      v111 = 0;
-      v112 = (v224 + 32);
-      v232 = (v224 + 56);
-      v233 = (v237 + 16);
-      v230 = v224 + 48;
-      v231 = (v237 + 8);
-      v236 = MEMORY[0x277D84F90];
-      while (v111 < v110[2])
+      v107 = 0;
+      v108 = (v204 + 32);
+      v212 = (v204 + 56);
+      v213 = (v217 + 16);
+      v210 = v204 + 48;
+      v211 = (v217 + 8);
+      v216 = MEMORY[0x277D84F90];
+      while (v107 < v106[2])
       {
-        v114 = v237;
-        v115 = v110 + ((*(v114 + 80) + 32) & ~*(v114 + 80));
-        v116 = *(v237 + 72);
-        v239 = v111;
-        v117 = v217;
-        (*(v237 + 16))(v217, &v115[v116 * v111], v109);
-        v118 = v226;
+        v110 = v217;
+        v111 = v106 + ((*(v110 + 80) + 32) & ~*(v110 + 80));
+        v112 = *(v217 + 72);
+        v219 = v107;
+        v113 = v197;
+        (*(v217 + 16))(v197, &v111[v112 * v107], v105);
+        v114 = v206;
         sub_25EB6E128();
-        v119 = *v112;
-        v120 = v218;
-        v121 = v238;
-        (*v112)(v218, v118, v238);
-        (*v232)(v120, 0, 1, v121);
-        (*(v114 + 8))(v117, v109);
-        if ((*v230)(v120, 1, v121) == 1)
+        v115 = *v108;
+        v116 = v198;
+        v117 = v218;
+        (*v108)(v198, v114, v218);
+        (*v212)(v116, 0, 1, v117);
+        (*(v110 + 8))(v113, v105);
+        if ((*v210)(v116, 1, v117) == 1)
         {
-          sub_25EB0D660(v120, &qword_27FD11BF8, &qword_25EB78988);
-          v113 = v239;
+          sub_25EB0D660(v116, &qword_27FD11BF8, &qword_25EB78988);
+          v109 = v219;
         }
 
         else
         {
-          v122 = v214;
-          v119(v214, v120, v121);
-          v119(v216, v122, v121);
-          v123 = v119;
+          v118 = v194;
+          v115(v194, v116, v117);
+          v115(v196, v118, v117);
+          v119 = v115;
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v236 = sub_25EB062E0(0, v236[2] + 1, 1, v236);
+            v216 = sub_25EB062E0(0, v216[2] + 1, 1, v216);
           }
 
-          v113 = v239;
-          v125 = v236[2];
-          v124 = v236[3];
-          if (v125 >= v124 >> 1)
+          v109 = v219;
+          v121 = v216[2];
+          v120 = v216[3];
+          if (v121 >= v120 >> 1)
           {
-            v236 = sub_25EB062E0(v124 > 1, v125 + 1, 1, v236);
+            v216 = sub_25EB062E0((v120 > 1), v121 + 1, 1, v216);
           }
 
-          v126 = v236;
-          v236[2] = v125 + 1;
-          v123(&v126[((*(v224 + 80) + 32) & ~*(v224 + 80)) + *(v224 + 72) * v125], v216, v238);
+          v122 = v216;
+          v216[2] = v121 + 1;
+          v119(&v122[((*(v204 + 80) + 32) & ~*(v204 + 80)) + *(v204 + 72) * v121], v196, v218);
         }
 
-        v111 = v113 + 1;
-        v110 = v235;
-        v109 = v240;
-        if (v234 == v111)
+        v107 = v109 + 1;
+        v106 = v215;
+        v105 = v220;
+        if (v214 == v107)
         {
           goto LABEL_68;
         }
       }
 
+LABEL_93:
+      __break(1u);
       goto LABEL_94;
     }
 
-    v236 = MEMORY[0x277D84F90];
+    v216 = MEMORY[0x277D84F90];
 LABEL_68:
 
-    v127 = v236;
+    v123 = v216;
     goto LABEL_69;
   }
 
-  v104 = v225;
-  os_unfair_lock_lock((v225 + 24));
-  v105 = v239;
-  sub_25EAFFFB0((v104 + 32), v103, v244);
-  v106 = v240;
-  v107 = v237;
-  if (v105)
+  v100 = v205;
+  os_unfair_lock_lock((v205 + 24));
+  v101 = v219;
+  sub_25EAFFFB0((v100 + 32), v99, v224);
+  v102 = v220;
+  v103 = v217;
+  if (v101)
   {
 
-    os_unfair_lock_unlock((v104 + 24));
-    goto LABEL_70;
+    os_unfair_lock_unlock((v100 + 24));
+    return;
   }
 
-  v239 = 0;
-  os_unfair_lock_unlock((v104 + 24));
-  v128 = v236[2];
+  v219 = 0;
+  os_unfair_lock_unlock((v100 + 24));
+  v124 = v216[2];
   swift_beginAccess();
   swift_beginAccess();
-  v231 = v128;
-  if (v128)
+  v211 = v124;
+  if (v124)
   {
-    v129 = 0;
-    v230 = v107 + 16;
-    v233 = (v224 + 8);
-    v228 = (v107 + 8);
-    v229 = xmmword_25EB78950;
-    v227 = xmmword_25EB78960;
-    v130 = v212;
-    while (1)
+    v125 = 0;
+    v210 = v103 + 16;
+    v213 = (v204 + 8);
+    v208 = (v103 + 8);
+    v209 = xmmword_25EB78950;
+    v207 = xmmword_25EB78960;
+    v126 = v192;
+    while (v125 < v216[2])
     {
-      if (v129 >= v236[2])
+      (*(v103 + 16))(v126, v216 + ((*(v103 + 80) + 32) & ~*(v103 + 80)) + *(v103 + 72) * v125, v102);
+      v128 = v189;
+      sub_25EB6E128();
+      v129 = *(v205 + 56);
+      if (!*(v129 + 16))
       {
         goto LABEL_95;
       }
 
-      (*(v107 + 16))(v130, v236 + ((*(v107 + 80) + 32) & ~*(v107 + 80)) + *(v107 + 72) * v129, v106);
-      v132 = v209;
-      sub_25EB6E128();
-      v133 = *(v225 + 56);
-      if (!*(v133 + 16))
+      v130 = sub_25EAFD040(v128);
+      if ((v131 & 1) == 0)
       {
         goto LABEL_96;
       }
 
-      v134 = *(v225 + 56);
+      v214 = v125;
+      v132 = *(*(v129 + 56) + 8 * v130);
+      v133 = *(v204 + 8);
 
-      v135 = sub_25EAFD040(v132);
-      if ((v136 & 1) == 0)
-      {
-        goto LABEL_97;
-      }
-
-      v234 = v129;
-      v137 = *(*(v133 + 56) + 8 * v135);
-      v138 = v224;
-      v139 = *(v224 + 8);
-
-      v140 = v139;
-      v139(v132, v238);
+      v134 = v133;
+      v133(v128, v218);
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FD123C0, &qword_25EB78998);
-      v141 = *(v138 + 72);
-      v142 = (*(v138 + 80) + 32) & ~*(v138 + 80);
-      *(swift_allocObject() + 16) = v229;
+      *(swift_allocObject() + 16) = v209;
       sub_25EB6E128();
-      v143 = v137 + OBJC_IVAR____TtCC7Polaris12GraphManager22HashableEndpointServer_endpointServer;
-      os_unfair_lock_lock((v137 + OBJC_IVAR____TtCC7Polaris12GraphManager22HashableEndpointServer_endpointServer));
-      v144 = *(v143 + 40);
-      __swift_project_boxed_opaque_existential_1((v143 + 8), *(v143 + 32));
-      v145 = v239;
+      v135 = v132 + OBJC_IVAR____TtCC7Polaris12GraphManager22HashableEndpointServer_endpointServer;
+      os_unfair_lock_lock((v132 + OBJC_IVAR____TtCC7Polaris12GraphManager22HashableEndpointServer_endpointServer));
+      __swift_project_boxed_opaque_existential_1((v135 + 8), *(v135 + 32));
+      v136 = v219;
       sub_25EB6E158();
-      v239 = v145;
-      if (v145)
+      v219 = v136;
+      if (v136)
       {
-        break;
+
+        os_unfair_lock_unlock(v135);
+
+        (*v208)(v126, v220);
+        return;
       }
 
-      os_unfair_lock_unlock(v143);
+      os_unfair_lock_unlock(v135);
 
-      v146 = v225;
-      os_unfair_lock_lock((v225 + 24));
-      v147 = v208;
-      sub_25EB09BDC(v130, v208);
-      sub_25EB0D660(v147, &unk_27FD11C00, &qword_25EB78990);
-      os_unfair_lock_unlock((v146 + 24));
-      v148 = *(v146 + 40);
-      v106 = v240;
-      v149 = v213;
-      v107 = v237;
-      if (v148)
+      v137 = v205;
+      os_unfair_lock_lock((v205 + 24));
+      v138 = v188;
+      sub_25EB09BDC(v126, v188);
+      sub_25EB0D660(v138, &unk_27FD11C00, &qword_25EB78990);
+      os_unfair_lock_unlock((v137 + 24));
+      v139 = *(v137 + 40);
+      v102 = v220;
+      v140 = v193;
+      v103 = v217;
+      if (v139)
       {
-        v150 = MEMORY[0x277D84F90];
-        v151 = v226;
-        v232 = v148;
+        v141 = MEMORY[0x277D84F90];
+        v142 = v206;
+        v212 = v139;
         if (MEMORY[0x277D84F90] >> 62 && sub_25EB6E5F8())
         {
-          sub_25EB0CADC(v150);
+          sub_25EB0CADC(v141);
         }
 
         sub_25EAFCC70(0, &qword_27FD11C20, 0x277D3E698);
         sub_25EB0D6C0(&qword_27FD11C28, &qword_27FD11C20, 0x277D3E698);
-        v152 = sub_25EB6E428();
+        v143 = sub_25EB6E428();
 
         __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11C30, &qword_25EB789A0);
         inited = swift_initStackObject();
-        *(inited + 16) = v227;
+        *(inited + 16) = v207;
         sub_25EB6E128();
-        v154 = *(v225 + 64);
-        if (!*(v154 + 16))
+        v145 = *(v205 + 64);
+        if (!*(v145 + 16))
+        {
+          goto LABEL_100;
+        }
+
+        v146 = sub_25EAFD040(v142);
+        if ((v147 & 1) == 0)
         {
           goto LABEL_101;
         }
 
-        v155 = *(v225 + 64);
+        v148 = *(*(v145 + 56) + 8 * v146);
+        v149 = v142;
+        v150 = v148;
+        v134(v149, v218);
 
-        v156 = sub_25EAFD040(v151);
-        if ((v157 & 1) == 0)
-        {
-          goto LABEL_102;
-        }
-
-        v158 = *(*(v154 + 56) + 8 * v156);
-        v159 = v151;
-        v160 = v158;
-        v140(v159, v238);
-
-        *(inited + 32) = v160;
+        *(inited + 32) = v150;
         sub_25EB0CADC(inited);
         swift_setDeallocating();
-        v161 = *(inited + 16);
         swift_arrayDestroy();
-        v162 = sub_25EB6E428();
+        v151 = sub_25EB6E428();
 
-        v243[0] = 0;
-        LODWORD(v160) = [v232 commitRemoteGraphs:v152 removedGraphs:v162 option:1 error:v243];
+        v223[0] = 0;
+        LODWORD(v150) = [v212 commitRemoteGraphs:v143 removedGraphs:v151 option:1 error:v223];
 
-        if (!v160)
+        if (!v150)
         {
-          v202 = v243[0];
-          v203 = sub_25EB6E048();
+          v182 = v223[0];
+          v183 = sub_25EB6E048();
 
           swift_willThrow();
-          v243[0] = 0;
-          v243[1] = 0xE000000000000000;
+          v223[0] = 0;
+          v223[1] = 0xE000000000000000;
           sub_25EB6E6B8();
           MEMORY[0x25F8C69B0](0xD000000000000022, 0x800000025EB8D700);
-          v242[7] = v203;
+          v222[7] = v183;
           __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11C38, &qword_25EB789A8);
           sub_25EB6E748();
-          goto LABEL_107;
+          goto LABEL_106;
         }
 
-        v163 = v243[0];
-        v106 = v240;
-        v130 = v212;
-        v149 = v213;
+        v152 = v223[0];
+        v102 = v220;
+        v126 = v192;
+        v140 = v193;
       }
 
-      v129 = v234 + 1;
-      (*v228)(v130, v106);
-      v131 = v235;
-      if (v231 == v129)
+      v125 = v214 + 1;
+      (*v208)(v126, v102);
+      v127 = v215;
+      if (v211 == v125)
       {
-        goto LABEL_72;
+        goto LABEL_71;
       }
     }
 
-    os_unfair_lock_unlock(v143);
+LABEL_94:
+    __break(1u);
+LABEL_95:
+    __break(1u);
+LABEL_96:
+    __break(1u);
+LABEL_97:
+    __break(1u);
+LABEL_98:
+    __break(1u);
+LABEL_99:
+    __break(1u);
+LABEL_100:
+    __break(1u);
+LABEL_101:
+    __break(1u);
+LABEL_102:
+    __break(1u);
+LABEL_103:
+    __break(1u);
+  }
 
-    (*v228)(v130, v240);
-LABEL_70:
-    v168 = *MEMORY[0x277D85DE8];
+  v140 = v193;
+  v127 = v215;
+LABEL_71:
+  v212 = v127[2];
+  if (!v212)
+  {
+LABEL_91:
+
     return;
   }
 
-  v149 = v213;
-  v131 = v235;
-LABEL_72:
-  v232 = v131[2];
-  if (!v232)
-  {
-LABEL_92:
-
-    goto LABEL_70;
-  }
-
-  v169 = v225;
-  v234 = *(v225 + 40);
-  v231 = v131 + ((*(v107 + 80) + 32) & ~*(v107 + 80));
+  v157 = v205;
+  v214 = *(v205 + 40);
+  v211 = v127 + ((*(v103 + 80) + 32) & ~*(v103 + 80));
   swift_beginAccess();
   swift_beginAccess();
-  v170 = 0;
-  v230 = v107 + 16;
-  v233 = (v224 + 8);
-  v228 = (v107 + 8);
-  v229 = xmmword_25EB78950;
-  v227 = xmmword_25EB78960;
-  v171 = v211;
+  v158 = 0;
+  v210 = v103 + 16;
+  v213 = (v204 + 8);
+  v208 = (v103 + 8);
+  v209 = xmmword_25EB78950;
+  v207 = xmmword_25EB78960;
+  v159 = v191;
   while (1)
   {
-    if (v170 >= v235[2])
+    if (v158 >= v215[2])
     {
-      goto LABEL_98;
+      goto LABEL_97;
     }
 
-    (*(v107 + 16))(v149, &v231[*(v107 + 72) * v170], v106);
-    if (v234)
+    (*(v103 + 16))(v140, &v211[*(v103 + 72) * v158], v102);
+    if (v214)
     {
       break;
     }
 
-LABEL_82:
+LABEL_81:
     sub_25EB6E128();
-    v189 = *(v169 + 56);
-    if (!*(v189 + 16))
+    v175 = *(v157 + 56);
+    if (!*(v175 + 16))
+    {
+      goto LABEL_98;
+    }
+
+    v176 = sub_25EAFD040(v159);
+    if ((v177 & 1) == 0)
     {
       goto LABEL_99;
     }
 
-    v190 = *(v169 + 56);
+    v178 = *(*(v175 + 56) + 8 * v176);
+    v179 = *(v204 + 8);
 
-    v191 = sub_25EAFD040(v171);
-    if ((v192 & 1) == 0)
-    {
-      goto LABEL_100;
-    }
-
-    v193 = v170;
-    v194 = *(*(v189 + 56) + 8 * v191);
-    v195 = v224;
-    v196 = *(v224 + 8);
-
-    v196(v171, v238);
+    v179(v159, v218);
 
     __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FD123C0, &qword_25EB78998);
-    v197 = *(v195 + 72);
-    v198 = (*(v195 + 80) + 32) & ~*(v195 + 80);
-    *(swift_allocObject() + 16) = v229;
+    *(swift_allocObject() + 16) = v209;
     sub_25EB6E128();
-    v199 = v194 + OBJC_IVAR____TtCC7Polaris12GraphManager22HashableEndpointServer_endpointServer;
-    os_unfair_lock_lock((v194 + OBJC_IVAR____TtCC7Polaris12GraphManager22HashableEndpointServer_endpointServer));
-    v200 = *(v199 + 40);
-    __swift_project_boxed_opaque_existential_1((v199 + 8), *(v199 + 32));
-    v201 = v239;
+    v180 = v178 + OBJC_IVAR____TtCC7Polaris12GraphManager22HashableEndpointServer_endpointServer;
+    os_unfair_lock_lock((v178 + OBJC_IVAR____TtCC7Polaris12GraphManager22HashableEndpointServer_endpointServer));
+    __swift_project_boxed_opaque_existential_1((v180 + 8), *(v180 + 32));
+    v181 = v219;
     sub_25EB6E158();
-    if (v201)
+    if (v181)
     {
 
-      os_unfair_lock_unlock(v199);
+      os_unfair_lock_unlock(v180);
 
-      (*v228)(v149, v240);
-      goto LABEL_70;
+      (*v208)(v140, v220);
+      return;
     }
 
-    v239 = 0;
-    v170 = v193 + 1;
+    v219 = 0;
+    ++v158;
 
-    os_unfair_lock_unlock(v199);
+    os_unfair_lock_unlock(v180);
 
-    v106 = v240;
-    (*v228)(v149, v240);
-    v171 = v211;
-    v107 = v237;
-    v169 = v225;
-    if (v232 == v170)
+    v102 = v220;
+    (*v208)(v140, v220);
+    v159 = v191;
+    v103 = v217;
+    v157 = v205;
+    if (v212 == v158)
     {
-      goto LABEL_92;
+      goto LABEL_91;
     }
   }
 
-  v172 = v170;
+  v160 = v158;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11C30, &qword_25EB789A0);
-  v173 = swift_initStackObject();
-  *(v173 + 16) = v227;
-  v174 = v169;
-  v175 = v226;
+  v161 = swift_initStackObject();
+  *(v161 + 16) = v207;
+  v162 = v157;
+  v163 = v206;
   sub_25EB6E128();
-  v176 = *(v174 + 64);
-  if (!*(v176 + 16))
+  v164 = *(v162 + 64);
+  if (!*(v164 + 16))
+  {
+    goto LABEL_102;
+  }
+
+  v165 = v162;
+
+  v166 = sub_25EAFD040(v163);
+  if ((v167 & 1) == 0)
   {
     goto LABEL_103;
   }
 
-  v177 = v174;
-  v178 = *(v174 + 64);
+  v168 = *v213;
+  v169 = *(*(v164 + 56) + 8 * v166);
+  v168(v163, v218);
 
-  v179 = sub_25EAFD040(v175);
-  if ((v180 & 1) == 0)
-  {
-    goto LABEL_104;
-  }
-
-  v181 = *v233;
-  v182 = *(*(v176 + 56) + 8 * v179);
-  v181(v175, v238);
-
-  *(v173 + 32) = v182;
-  sub_25EB0CADC(v173);
+  *(v161 + 32) = v169;
+  sub_25EB0CADC(v161);
   swift_setDeallocating();
-  v183 = *(v173 + 16);
   swift_arrayDestroy();
   sub_25EAFCC70(0, &qword_27FD11C20, 0x277D3E698);
   sub_25EB0D6C0(&qword_27FD11C28, &qword_27FD11C20, 0x277D3E698);
-  v184 = sub_25EB6E428();
+  v170 = sub_25EB6E428();
 
-  v185 = MEMORY[0x277D84F90];
+  v171 = MEMORY[0x277D84F90];
   if (MEMORY[0x277D84F90] >> 62)
   {
-    v169 = v177;
+    v157 = v165;
     if (sub_25EB6E5F8())
     {
-      sub_25EB0CADC(v185);
+      sub_25EB0CADC(v171);
     }
   }
 
   else
   {
-    v169 = v177;
+    v157 = v165;
   }
 
-  v186 = sub_25EB6E428();
+  v172 = sub_25EB6E428();
 
-  v242[0] = 0;
-  v187 = [v234 commitRemoteGraphs:v184 removedGraphs:v186 option:1 error:v242];
+  v222[0] = 0;
+  v173 = [v214 commitRemoteGraphs:v170 removedGraphs:v172 option:1 error:v222];
 
-  if (v187)
+  if (v173)
   {
-    v170 = v172;
-    v188 = v242[0];
-    v149 = v213;
-    v171 = v211;
-    goto LABEL_82;
+    v158 = v160;
+    v174 = v222[0];
+    v140 = v193;
+    v159 = v191;
+    goto LABEL_81;
   }
 
-  v204 = v242[0];
-  v205 = sub_25EB6E048();
+  v184 = v222[0];
+  v185 = sub_25EB6E048();
 
   swift_willThrow();
-  v242[0] = 0;
-  v242[1] = 0xE000000000000000;
+  v222[0] = 0;
+  v222[1] = 0xE000000000000000;
   sub_25EB6E6B8();
   MEMORY[0x25F8C69B0](0xD000000000000022, 0x800000025EB8D700);
-  v241 = v205;
+  v221 = v185;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11C38, &qword_25EB789A8);
   sub_25EB6E748();
-LABEL_107:
+LABEL_106:
   sub_25EB6E838();
   __break(1u);
 }
@@ -9560,72 +8708,71 @@ LABEL_107:
 uint64_t sub_25EAFF930@<X0>(uint64_t (*a1)(char *)@<X0>, uint64_t a2@<X2>, char *a3@<X8>)
 {
   v4 = v3;
-  v33 = a1;
-  v29 = a3;
-  v39 = sub_25EB6E138();
-  v6 = *(*(v39 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v39);
-  v38 = &v29 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v32 = &v29 - v10;
-  v11 = a2 + 56;
-  v12 = 1 << *(a2 + 32);
-  v13 = -1;
-  if (v12 < 64)
+  v32 = a1;
+  v28 = a3;
+  v38 = sub_25EB6E138();
+  v6 = MEMORY[0x28223BE20](v38);
+  v37 = &v28 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v31 = &v28 - v9;
+  v10 = a2 + 56;
+  v11 = 1 << *(a2 + 32);
+  v12 = -1;
+  if (v11 < 64)
   {
-    v13 = ~(-1 << v12);
+    v12 = ~(-1 << v11);
   }
 
-  v14 = v13 & *(a2 + 56);
-  v15 = (v12 + 63) >> 6;
-  v34 = v9 + 32;
-  v35 = v9;
-  v30 = (v9 + 8);
-  v31 = v9 + 16;
-  v36 = a2;
+  v13 = v12 & *(a2 + 56);
+  v14 = (v11 + 63) >> 6;
+  v33 = v8 + 32;
+  v34 = v8;
+  v29 = (v8 + 8);
+  v30 = v8 + 16;
+  v35 = a2;
 
-  v17 = 0;
-  v18 = v32;
-  if (v14)
+  v16 = 0;
+  v17 = v31;
+  if (v13)
   {
     while (1)
     {
-      v37 = v4;
-      v19 = v17;
+      v36 = v4;
+      v18 = v16;
 LABEL_9:
-      v20 = v35;
-      v21 = v39;
-      (*(v35 + 16))(v18, *(v36 + 48) + *(v35 + 72) * (__clz(__rbit64(v14)) | (v19 << 6)), v39);
-      v22 = *(v20 + 32);
-      v23 = v38;
-      v22(v38, v18, v21);
-      v24 = v37;
-      v25 = v33(v23);
-      v4 = v24;
-      if (v24)
+      v19 = v34;
+      v20 = v38;
+      (*(v34 + 16))(v17, *(v35 + 48) + *(v34 + 72) * (__clz(__rbit64(v13)) | (v18 << 6)), v38);
+      v21 = *(v19 + 32);
+      v22 = v37;
+      v21(v37, v17, v20);
+      v23 = v36;
+      v24 = v32(v22);
+      v4 = v23;
+      if (v23)
       {
-        (*v30)(v38, v39);
+        (*v29)(v37, v38);
       }
 
-      if (v25)
+      if (v24)
       {
         break;
       }
 
-      v14 &= v14 - 1;
-      result = (*v30)(v38, v39);
-      v17 = v19;
-      if (!v14)
+      v13 &= v13 - 1;
+      result = (*v29)(v37, v38);
+      v16 = v18;
+      if (!v13)
       {
         goto LABEL_5;
       }
     }
 
-    v28 = v29;
-    v22(v29, v38, v39);
     v27 = v28;
-    v26 = 0;
-    return (*(v35 + 56))(v27, v26, 1, v39);
+    v21(v28, v37, v38);
+    v26 = v27;
+    v25 = 0;
+    return (*(v34 + 56))(v26, v25, 1, v38);
   }
 
   else
@@ -9633,25 +8780,25 @@ LABEL_9:
 LABEL_5:
     while (1)
     {
-      v19 = v17 + 1;
-      if (__OFADD__(v17, 1))
+      v18 = v16 + 1;
+      if (__OFADD__(v16, 1))
       {
         break;
       }
 
-      if (v19 >= v15)
+      if (v18 >= v14)
       {
 
-        v26 = 1;
-        v27 = v29;
-        return (*(v35 + 56))(v27, v26, 1, v39);
+        v25 = 1;
+        v26 = v28;
+        return (*(v34 + 56))(v26, v25, 1, v38);
       }
 
-      v14 = *(v11 + 8 * v19);
-      ++v17;
-      if (v14)
+      v13 = *(v10 + 8 * v18);
+      ++v16;
+      if (v13)
       {
-        v37 = v4;
+        v36 = v4;
         goto LABEL_9;
       }
     }
@@ -9662,7 +8809,7 @@ LABEL_5:
   return result;
 }
 
-void sub_25EAFFC80(unint64_t a1, uint64_t (*a2)(void), unint64_t *a3, void (*a4)(uint64_t), void (*a5)(id *))
+void sub_25EAFFC80(unint64_t a1, uint64_t (*a2)(void), unint64_t *a3, uint64_t (*a4)(uint64_t), void (*a5)(id *))
 {
   v9 = a1;
   v10 = a1 & 0xC000000000000001;
@@ -9677,7 +8824,7 @@ void sub_25EAFFC80(unint64_t a1, uint64_t (*a2)(void), unint64_t *a3, void (*a4)
   }
 
   v12 = a2(0);
-  v13 = sub_25EB0D618(a3, a4);
+  v13 = sub_25EB0D618(a3, a4, MEMORY[0x277D85378]);
   v24[1] = MEMORY[0x25F8C6B20](v11, v12, v13);
   if (v10)
   {
@@ -9712,7 +8859,7 @@ void sub_25EAFFC80(unint64_t a1, uint64_t (*a2)(void), unint64_t *a3, void (*a4)
     if (!sub_25EB6E808() || (swift_dynamicCast(), !v24[0]))
     {
 LABEL_21:
-      sub_25EB0EC08();
+      sub_25EB0EC08(v9);
       return;
     }
 
@@ -9760,15 +8907,1656 @@ LABEL_17:
   __break(1u);
 }
 
-uint64_t sub_25EAFFEA4()
+uint64_t sub_25EAFFEA4(uint64_t a1, uint64_t a2)
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11BF0, &qword_25EB78980);
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x28223BE20](v0);
-  v4 = &v7 - v3;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11BF0, &qword_25EB78980);
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = &v8 - v4;
   sub_25EB6E128();
-  v5 = sub_25EB6E178();
-  (*(v1 + 8))(v4, v0);
-  return v5 & 1;
+  v6 = sub_25EB6E178();
+  (*(v3 + 8))(v5, v2);
+  return v6 & 1;
+}
+
+uint64_t sub_25EAFFFB0(uint64_t *a1, uint64_t a2, uint64_t *a3)
+{
+  v45 = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11BF0, &qword_25EB78980);
+  v43 = *(v5 - 8);
+  v44 = v5;
+  MEMORY[0x28223BE20](v5);
+  v42 = &v41 - v6;
+  v7 = sub_25EB6E138();
+  v8 = *(v7 - 8);
+  v9 = MEMORY[0x28223BE20](v7);
+  v48 = &v41 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = MEMORY[0x28223BE20](v9);
+  v13 = &v41 - v12;
+  result = MEMORY[0x28223BE20](v11);
+  v16 = &v41 - v15;
+  v47 = *(a2 + 16);
+  if (v47)
+  {
+    v17 = 0;
+    v20 = *(v8 + 16);
+    v18 = v8 + 16;
+    v19 = v20;
+    v49 = a2 + ((*(v18 + 64) + 32) & ~*(v18 + 64));
+    v21 = *(v18 + 56);
+    v52 = v20;
+    v53 = v21;
+    v54 = (v18 - 8);
+    v46 = a1;
+    while (1)
+    {
+      v50 = v17;
+      v19(v16, v49 + v53 * v17, v7);
+      v25 = *a1;
+      if (*(*a1 + 16))
+      {
+        sub_25EB0D618(&unk_27FD11F50, MEMORY[0x277D3E738], MEMORY[0x277D3E740]);
+        v26 = sub_25EB6E228();
+        v27 = -1 << *(v25 + 32);
+        v28 = v26 & ~v27;
+        v51 = v25 + 56;
+        if ((*(v25 + 56 + ((v28 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v28))
+        {
+          break;
+        }
+      }
+
+LABEL_3:
+      v17 = v50 + 1;
+      v22 = v48;
+      v19 = v52;
+      v52(v48, v16, v7);
+      v23 = v22;
+      a1 = v46;
+      sub_25EB25C78(v13, v23);
+      v24 = *v54;
+      (*v54)(v13, v7);
+      result = (v24)(v16, v7);
+      if (v17 == v47)
+      {
+        return result;
+      }
+    }
+
+    v29 = ~v27;
+    while (1)
+    {
+      v30 = v18;
+      v52(v13, *(v25 + 48) + v28 * v53, v7);
+      sub_25EB0D618(&unk_27FD124E0, MEMORY[0x277D3E738], MEMORY[0x277D3E748]);
+      v31 = v16;
+      v32 = sub_25EB6E248();
+      v33 = *v54;
+      (*v54)(v13, v7);
+      if (v32)
+      {
+        break;
+      }
+
+      v28 = (v28 + 1) & v29;
+      v16 = v31;
+      v18 = v30;
+      if (((*(v51 + ((v28 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v28) & 1) == 0)
+      {
+        goto LABEL_3;
+      }
+    }
+
+    v34 = v42;
+    sub_25EB6E128();
+    v35 = v44;
+    v36 = sub_25EB6E168();
+    v38 = v37;
+    (*(v43 + 8))(v34, v35);
+    sub_25EB0CA68();
+    v39 = swift_allocError();
+    *v40 = v36;
+    *(v40 + 8) = v38;
+    *(v40 + 16) = 3;
+    swift_willThrow();
+    result = (v33)(v31, v7);
+    *v45 = v39;
+  }
+
+  return result;
+}
+
+uint64_t _s7Polaris12GraphManagerC16graphDeployments8withName0F16ResourceDelegate010autoManageB9LifecycleACSay0A7Runtime14EndpointServer_pG_SSAA0bchI0_pSgSbtAC5ErrorOYKcfC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6)
+{
+  v9 = swift_allocObject();
+  *(v9 + 24) = 0;
+  v10 = MEMORY[0x277D84FA0];
+  *(v9 + 32) = MEMORY[0x277D84FA0];
+  v11 = MEMORY[0x277D84F90];
+  *(v9 + 48) = sub_25EB0D1DC(MEMORY[0x277D84F90]);
+  *(v9 + 56) = sub_25EB0D408(v11, &qword_27FD11F70, &qword_25EB78DD0, &qword_27FD11F78, &qword_25EB78DD8);
+  *(v9 + 64) = sub_25EB0D408(v11, &unk_27FD11F60, &qword_25EB78DC0, &unk_27FD123D0, &qword_25EB78DC8);
+  if (*(a1 + 16))
+  {
+    v12 = a6;
+    *(v9 + 16) = v10;
+    v13 = objc_opt_self();
+    v14 = sub_25EB6E258();
+
+    v15 = [v13 uniqueSessionWithName_];
+
+    *(v9 + 40) = v15;
+    if (v15)
+    {
+      [v15 setRemoteSession_];
+    }
+
+    sub_25EB0EDAC(a4, v9 + 72, &qword_27FD11C40, &qword_25EB789B0);
+    *(v9 + 112) = a5 & 1;
+    v16 = v22;
+    sub_25EB00E80(a1, &v20);
+    sub_25EB0D660(a4, &qword_27FD11C40, &qword_25EB789B0);
+
+    if (v16)
+    {
+      v17 = v21;
+      *v12 = v20;
+      *(v12 + 16) = v17;
+    }
+  }
+
+  else
+  {
+
+    *a6 = 0;
+    *(a6 + 8) = 0;
+    *(a6 + 16) = 4;
+    v20 = 0uLL;
+    v21 = 4;
+    sub_25EB0CA68();
+    swift_willThrowTypedImpl();
+    sub_25EB0D660(a4, &qword_27FD11C40, &qword_25EB789B0);
+    sub_25EB0D660(v9 + 32, &qword_27FD11C48, &qword_25EB789B8);
+
+    swift_deallocPartialClassInstance();
+  }
+
+  return v9;
+}
+
+uint64_t _s7Polaris12GraphManagerC16graphDeployments8withName0F16ResourceDelegate010autoManageB9LifecycleACSay0A7Runtime14EndpointServer_pG_SSAA0bchI0_pSgSbtAC5ErrorOYKcfc(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6)
+{
+  v10 = MEMORY[0x277D84FA0];
+  *(v6 + 32) = MEMORY[0x277D84FA0];
+  *(v6 + 24) = 0;
+  v11 = MEMORY[0x277D84F90];
+  *(v6 + 48) = sub_25EB0D1DC(MEMORY[0x277D84F90]);
+  *(v6 + 56) = sub_25EB0D408(v11, &qword_27FD11F70, &qword_25EB78DD0, &qword_27FD11F78, &qword_25EB78DD8);
+  *(v6 + 64) = sub_25EB0D408(v11, &unk_27FD11F60, &qword_25EB78DC0, &unk_27FD123D0, &qword_25EB78DC8);
+  if (*(a1 + 16))
+  {
+    *(v6 + 16) = v10;
+    v12 = objc_opt_self();
+    v13 = sub_25EB6E258();
+
+    v14 = [v12 uniqueSessionWithName_];
+
+    *(v6 + 40) = v14;
+    if (v14)
+    {
+      [v14 setRemoteSession_];
+    }
+
+    sub_25EB0EDAC(a4, v6 + 72, &qword_27FD11C40, &qword_25EB789B0);
+    *(v6 + 112) = a5 & 1;
+    sub_25EB00E80(a1, &v19);
+    sub_25EB0D660(a4, &qword_27FD11C40, &qword_25EB789B0);
+
+    if (v18)
+    {
+      v15 = v20;
+      *a6 = v19;
+      *(a6 + 16) = v15;
+    }
+  }
+
+  else
+  {
+
+    *a6 = 0;
+    *(a6 + 8) = 0;
+    *(a6 + 16) = 4;
+    v19 = 0uLL;
+    v20 = 4;
+    sub_25EB0CA68();
+    swift_willThrowTypedImpl();
+    sub_25EB0D660(a4, &qword_27FD11C40, &qword_25EB789B0);
+    sub_25EB0D660(v6 + 32, &qword_27FD11C48, &qword_25EB789B8);
+
+    type metadata accessor for GraphManager();
+    swift_deallocPartialClassInstance();
+  }
+
+  return v6;
+}
+
+uint64_t _s7Polaris12GraphManagerC16graphDeployments7withKey0F16ResourceDelegate010autoManageB9LifecycleACSay0A7Runtime14EndpointServer_pG_So018PSExecutionSessionG0aSgAA0bchI0_pSgSbtAC5ErrorOYKcfC(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
+{
+  v9 = swift_allocObject();
+  *(v9 + 24) = 0;
+  v10 = MEMORY[0x277D84FA0];
+  *(v9 + 32) = MEMORY[0x277D84FA0];
+  v11 = MEMORY[0x277D84F90];
+  *(v9 + 48) = sub_25EB0D1DC(MEMORY[0x277D84F90]);
+  *(v9 + 56) = sub_25EB0D408(v11, &qword_27FD11F70, &qword_25EB78DD0, &qword_27FD11F78, &qword_25EB78DD8);
+  *(v9 + 64) = sub_25EB0D408(v11, &unk_27FD11F60, &qword_25EB78DC0, &unk_27FD123D0, &qword_25EB78DC8);
+  if (*(a1 + 16))
+  {
+    *(v9 + 16) = v10;
+    if ((a2 & 0x100000000) != 0)
+    {
+      *(v9 + 40) = 0;
+    }
+
+    else
+    {
+      v12 = [objc_opt_self() sharedInstanceForExecutionSessionKey_];
+      *(v9 + 40) = v12;
+      if (v12)
+      {
+        [v12 setRemoteSession_];
+      }
+    }
+
+    sub_25EB0EDAC(a3, v9 + 72, &qword_27FD11C40, &qword_25EB789B0);
+    *(v9 + 112) = a4 & 1;
+    v13 = v19;
+    sub_25EB00E80(a1, &v17);
+    sub_25EB0D660(a3, &qword_27FD11C40, &qword_25EB789B0);
+
+    if (v13)
+    {
+      v14 = v18;
+      *a5 = v17;
+      *(a5 + 16) = v14;
+    }
+  }
+
+  else
+  {
+
+    *a5 = 0;
+    *(a5 + 8) = 0;
+    *(a5 + 16) = 4;
+    v17 = 0uLL;
+    v18 = 4;
+    sub_25EB0CA68();
+    swift_willThrowTypedImpl();
+    sub_25EB0D660(a3, &qword_27FD11C40, &qword_25EB789B0);
+    sub_25EB0D660(v9 + 32, &qword_27FD11C48, &qword_25EB789B8);
+
+    swift_deallocPartialClassInstance();
+  }
+
+  return v9;
+}
+
+uint64_t _s7Polaris12GraphManagerC16graphDeployments7withKey0F16ResourceDelegate010autoManageB9LifecycleACSay0A7Runtime14EndpointServer_pG_So018PSExecutionSessionG0aSgAA0bchI0_pSgSbtAC5ErrorOYKcfc(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
+{
+  v11 = MEMORY[0x277D84FA0];
+  *(v5 + 32) = MEMORY[0x277D84FA0];
+  *(v5 + 24) = 0;
+  v12 = MEMORY[0x277D84F90];
+  *(v5 + 48) = sub_25EB0D1DC(MEMORY[0x277D84F90]);
+  *(v5 + 56) = sub_25EB0D408(v12, &qword_27FD11F70, &qword_25EB78DD0, &qword_27FD11F78, &qword_25EB78DD8);
+  *(v5 + 64) = sub_25EB0D408(v12, &unk_27FD11F60, &qword_25EB78DC0, &unk_27FD123D0, &qword_25EB78DC8);
+  if (*(a1 + 16))
+  {
+    *(v5 + 16) = v11;
+    if ((a2 & 0x100000000) != 0)
+    {
+      *(v5 + 40) = 0;
+    }
+
+    else
+    {
+      v13 = [objc_opt_self() sharedInstanceForExecutionSessionKey_];
+      *(v5 + 40) = v13;
+      if (v13)
+      {
+        [v13 setRemoteSession_];
+      }
+    }
+
+    sub_25EB0EDAC(a3, v5 + 72, &qword_27FD11C40, &qword_25EB789B0);
+    *(v5 + 112) = a4 & 1;
+    sub_25EB00E80(a1, &v17);
+    sub_25EB0D660(a3, &qword_27FD11C40, &qword_25EB789B0);
+
+    if (v16)
+    {
+      v14 = v18;
+      *a5 = v17;
+      *(a5 + 16) = v14;
+    }
+  }
+
+  else
+  {
+
+    *a5 = 0;
+    *(a5 + 8) = 0;
+    *(a5 + 16) = 4;
+    v17 = 0uLL;
+    v18 = 4;
+    sub_25EB0CA68();
+    swift_willThrowTypedImpl();
+    sub_25EB0D660(a3, &qword_27FD11C40, &qword_25EB789B0);
+    sub_25EB0D660(v5 + 32, &qword_27FD11C48, &qword_25EB789B8);
+
+    type metadata accessor for GraphManager();
+    swift_deallocPartialClassInstance();
+  }
+
+  return v5;
+}
+
+uint64_t _s7Polaris12GraphManagerC26graphDeploymentsForTesting010autoManageB9LifecycleACSay0A7Runtime14EndpointServer_pG_SbtAC5ErrorOYKcfC(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (*(a1 + 16))
+  {
+    result = (*(v3 + 184))();
+    if (v4)
+    {
+      *a3 = v7;
+      *(a3 + 16) = v8;
+    }
+  }
+
+  else
+  {
+
+    *a3 = 0;
+    *(a3 + 8) = 0;
+    *(a3 + 16) = 4;
+    sub_25EB0CA68();
+    return swift_willThrowTypedImpl();
+  }
+
+  return result;
+}
+
+uint64_t sub_25EB00E80(uint64_t a1, _OWORD *a2)
+{
+  v79 = a2;
+  v4 = v3;
+  v90 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11BF0, &qword_25EB78980);
+  v86 = *(v90 - 8);
+  MEMORY[0x28223BE20](v90);
+  v97 = &v78 - v6;
+  v7 = sub_25EB6E138();
+  v93 = *(v7 - 8);
+  v8 = MEMORY[0x28223BE20](v7);
+  v80 = &v78 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v78 - v10;
+  v12 = *(v2 + 40);
+  if (v12)
+  {
+    v13 = type metadata accessor for GraphManager.GraphManagerExecutionSessionDelegate();
+    v14 = objc_allocWithZone(v13);
+    *&v14[OBJC_IVAR____TtCC7Polaris12GraphManagerP33_8AAE28825E74C265BC34075E2BD49E3336GraphManagerExecutionSessionDelegate_graphManager] = v2;
+    swift_unownedRetain();
+    v98.receiver = v14;
+    v98.super_class = v13;
+    v15 = objc_msgSendSuper2(&v98, sel_init);
+    [v12 setDelegate:v15 delegateQueue:0];
+  }
+
+  v16 = *(a1 + 16);
+  swift_beginAccess();
+  v17 = v2;
+  v81 = v16;
+  if (v16)
+  {
+    v18 = 0;
+    v82 = a1 + 32;
+    v92 = v93 + 16;
+    v85 = v86 + 16;
+    v88 = v2;
+    v89 = (v86 + 8);
+    v91 = (v93 + 8);
+    v96 = v7;
+    while (2)
+    {
+      sub_25EB0ECC8(v82 + 40 * v18, &v99);
+      type metadata accessor for GraphManager.HashableEndpointServer(0);
+      v19 = swift_allocObject();
+      sub_25EB6E0D8();
+      v20 = v19 + OBJC_IVAR____TtCC7Polaris12GraphManager22HashableEndpointServer_endpointServer;
+      *v20 = 0;
+      *(v20 + 24) = 0u;
+      *(v20 + 40) = 0;
+      *(v20 + 8) = 0u;
+      sub_25EB0ED2C(&v99, v20 + 8);
+      v21 = sub_25EB03CC4(&v99);
+      if (v4)
+      {
+
+        goto LABEL_31;
+      }
+
+      v22 = v21;
+      v84 = 0;
+      v83 = v18 + 1;
+      v23 = (v21 + 56);
+      v24 = 1 << *(v21 + 32);
+      if (v24 < 64)
+      {
+        v25 = ~(-1 << v24);
+      }
+
+      else
+      {
+        v25 = -1;
+      }
+
+      v26 = v25 & *(v21 + 56);
+      v27 = (v24 + 63) >> 6;
+
+      v29 = 0;
+      v94 = v27;
+      v95 = v23;
+      v87 = v28;
+      while (v26)
+      {
+LABEL_17:
+        (*(v93 + 16))(v11, *(v22 + 48) + *(v93 + 72) * (__clz(__rbit64(v26)) | (v29 << 6)), v7);
+        v31 = v97;
+        sub_25EB6E128();
+        swift_beginAccess();
+
+        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+        v101 = *(v17 + 56);
+        v33 = v101;
+        *(v17 + 56) = 0x8000000000000000;
+        v35 = sub_25EAFD040(v31);
+        v36 = *(v33 + 2);
+        v37 = (v34 & 1) == 0;
+        v38 = v36 + v37;
+        if (__OFADD__(v36, v37))
+        {
+LABEL_48:
+          __break(1u);
+LABEL_49:
+          __break(1u);
+LABEL_50:
+          __break(1u);
+LABEL_51:
+          sub_25EB6E9B8();
+          __break(1u);
+LABEL_52:
+
+          __break(1u);
+          return result;
+        }
+
+        v39 = v34;
+        if (*(v33 + 3) >= v38)
+        {
+          if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+          {
+            sub_25EB2D340();
+          }
+        }
+
+        else
+        {
+          sub_25EB2A9FC(v38, isUniquelyReferenced_nonNull_native);
+          v40 = sub_25EAFD040(v97);
+          if ((v39 & 1) != (v41 & 1))
+          {
+            goto LABEL_51;
+          }
+
+          v35 = v40;
+        }
+
+        v7 = v96;
+        v42 = v101;
+        if (v39)
+        {
+          *(*(v101 + 7) + 8 * v35) = v19;
+
+          (*v89)(v97, v90);
+        }
+
+        else
+        {
+          v43 = v11;
+          *&v101[8 * (v35 >> 6) + 64] |= 1 << v35;
+          v44 = v86;
+          v45 = v97;
+          v46 = v90;
+          (*(v86 + 16))(*(v42 + 6) + *(v86 + 72) * v35, v97, v90);
+          *(*(v42 + 7) + 8 * v35) = v19;
+          (*(v44 + 8))(v45, v46);
+          v47 = *(v42 + 2);
+          v48 = __OFADD__(v47, 1);
+          v49 = v47 + 1;
+          if (v48)
+          {
+            goto LABEL_49;
+          }
+
+          *(v42 + 2) = v49;
+          v11 = v43;
+          v7 = v96;
+          v22 = v87;
+        }
+
+        v26 &= v26 - 1;
+        v17 = v88;
+        *(v88 + 56) = v42;
+
+        swift_endAccess();
+        (*v91)(v11, v7);
+        v27 = v94;
+        v23 = v95;
+      }
+
+      while (1)
+      {
+        v30 = v29 + 1;
+        if (__OFADD__(v29, 1))
+        {
+          __break(1u);
+          goto LABEL_48;
+        }
+
+        if (v30 >= v27)
+        {
+          break;
+        }
+
+        v26 = v23[v30];
+        ++v29;
+        if (v26)
+        {
+          v29 = v30;
+          goto LABEL_17;
+        }
+      }
+
+      v50 = *(v17 + 16);
+
+      v51 = v17;
+      v52 = *(sub_25EB0B09C(v22, v50) + 16);
+
+      if (v52)
+      {
+        v56 = v19;
+        *&v99 = 0;
+        *(&v99 + 1) = 0xE000000000000000;
+        sub_25EB6E6B8();
+        MEMORY[0x25F8C69B0](0xD000000000000035, 0x800000025EB8DBB0);
+        v23 = *(v51 + 16);
+
+        v57 = sub_25EB0B09C(v22, v23);
+
+        KeyPath = swift_getKeyPath();
+        v59 = v57 + 56;
+        v60 = 1 << *(v57 + 32);
+        v61 = -1;
+        if (v60 < 64)
+        {
+          v61 = ~(-1 << v60);
+        }
+
+        v62 = v61 & *(v57 + 56);
+        v63 = (v60 + 63) >> 6;
+        v97 = KeyPath;
+
+        v95 = v57;
+
+        v64 = 0;
+        v65 = MEMORY[0x277D84F90];
+        v78 = v56;
+        if (v62)
+        {
+          goto LABEL_39;
+        }
+
+        while (1)
+        {
+          v66 = v64 + 1;
+          if (__OFADD__(v64, 1))
+          {
+            goto LABEL_50;
+          }
+
+          if (v66 >= v63)
+          {
+
+            v101 = v65;
+
+            v23 = v84;
+            sub_25EB0A814(&v101);
+            if (v23)
+            {
+              goto LABEL_52;
+            }
+
+            v73 = MEMORY[0x25F8C6AB0](v101, MEMORY[0x277D84CC0]);
+            v75 = v74;
+
+            MEMORY[0x25F8C69B0](v73, v75);
+
+            v76 = v99;
+            v77 = v79;
+            *v79 = v99;
+            *(v77 + 16) = 2;
+            v99 = v76;
+            v100 = 2;
+            sub_25EB0CA68();
+            swift_willThrowTypedImpl();
+          }
+
+          v62 = *(v59 + 8 * v66);
+          ++v64;
+          if (v62)
+          {
+            v64 = v66;
+            do
+            {
+LABEL_39:
+              v67 = v96;
+              v68 = v93;
+              v69 = v80;
+              (*(v93 + 16))(v80, v95[6] + *(v93 + 72) * (__clz(__rbit64(v62)) | (v64 << 6)), v96);
+              swift_getAtKeyPath();
+              v70 = v101;
+              (*(v68 + 8))(v69, v67);
+              if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+              {
+                v65 = sub_25EB067AC(0, *(v65 + 2) + 1, 1, v65);
+              }
+
+              v72 = *(v65 + 2);
+              v71 = *(v65 + 3);
+              if (v72 >= v71 >> 1)
+              {
+                v65 = sub_25EB067AC((v71 > 1), v72 + 1, 1, v65);
+              }
+
+              v62 &= v62 - 1;
+              *(v65 + 2) = v72 + 1;
+              *&v65[4 * v72 + 32] = v70;
+            }
+
+            while (v62);
+          }
+        }
+      }
+
+      swift_beginAccess();
+      sub_25EB0F088(v22);
+      swift_endAccess();
+
+      v18 = v83;
+      v4 = v84;
+      v17 = v51;
+      if (v83 != v81)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  result = sub_25EB01C40(&v99);
+  if (v4)
+  {
+LABEL_31:
+    v54 = v100;
+    v55 = v79;
+    *v79 = v99;
+    *(v55 + 16) = v54;
+  }
+
+  return result;
+}
+
+uint64_t GraphManager.deinit()
+{
+  v11 = *MEMORY[0x277D85DE8];
+  v1 = *(v0 + 40);
+  if (v1)
+  {
+    v9 = 0;
+    if ([v1 stopRemoteGraphs:1 error:&v9])
+    {
+      v2 = v9;
+    }
+
+    else
+    {
+      v3 = v9;
+      v4 = sub_25EB6E048();
+
+      swift_willThrow();
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11C50, &unk_25EB789C0);
+      v5 = swift_allocObject();
+      *(v5 + 16) = xmmword_25EB78950;
+      v9 = 0;
+      v10 = 0xE000000000000000;
+      sub_25EB6E6B8();
+      MEMORY[0x25F8C69B0](0xD00000000000003ALL, 0x800000025EB8D730);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11C38, &qword_25EB789A8);
+      sub_25EB6E748();
+      v6 = v9;
+      v7 = v10;
+      *(v5 + 56) = MEMORY[0x277D837D0];
+      *(v5 + 32) = v6;
+      *(v5 + 40) = v7;
+      sub_25EB6EA18();
+    }
+  }
+
+  sub_25EB0D660(v0 + 32, &qword_27FD11C48, &qword_25EB789B8);
+
+  sub_25EB0D660(v0 + 72, &qword_27FD11C40, &qword_25EB789B0);
+  return v0;
+}
+
+uint64_t GraphManager.__deallocating_deinit()
+{
+  GraphManager.deinit();
+
+  return swift_deallocClassInstance();
+}
+
+void *GraphManager.executionSession.getter()
+{
+  v1 = *(v0 + 40);
+  v2 = v1;
+  return v1;
+}
+
+uint64_t sub_25EB019AC(uint64_t *a1, uint64_t *a2)
+{
+  v2 = *a1;
+  v3 = *a2;
+  swift_beginAccess();
+  *(v3 + 48) = v2;
+}
+
+uint64_t sub_25EB01A44(uint64_t a1)
+{
+  swift_beginAccess();
+  *(v1 + 48) = a1;
+}
+
+uint64_t sub_25EB01AE0(uint64_t *a1, uint64_t *a2)
+{
+  v2 = *a1;
+  v3 = *a2;
+  swift_beginAccess();
+  *(v3 + 56) = v2;
+}
+
+uint64_t sub_25EB01B78(uint64_t a1)
+{
+  swift_beginAccess();
+  *(v1 + 56) = a1;
+}
+
+uint64_t sub_25EB01C40(uint64_t a1)
+{
+  v225[0] = a1;
+  v2 = v1;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FD11C00, &qword_25EB78990);
+  v4 = MEMORY[0x28223BE20](v3 - 8);
+  v233 = v225 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v237 = v225 - v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11BF0, &qword_25EB78980);
+  v8 = *(v7 - 8);
+  v9 = MEMORY[0x28223BE20](v7);
+  v256 = v225 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = MEMORY[0x28223BE20](v9);
+  v13 = v225 - v12;
+  v14 = MEMORY[0x28223BE20](v11);
+  v239 = v225 - v15;
+  v16 = MEMORY[0x28223BE20](v14);
+  v242 = v225 - v17;
+  v18 = MEMORY[0x28223BE20](v16);
+  v243 = v225 - v19;
+  v20 = MEMORY[0x28223BE20](v18);
+  v262 = v225 - v21;
+  v22 = MEMORY[0x28223BE20](v20);
+  v236 = v225 - v23;
+  v24 = MEMORY[0x28223BE20](v22);
+  v261 = v225 - v25;
+  MEMORY[0x28223BE20](v24);
+  v245 = v225 - v26;
+  v267 = sub_25EB6E138();
+  v27 = *(v267 - 8);
+  v28 = MEMORY[0x28223BE20](v267);
+  v253 = v225 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v30 = MEMORY[0x28223BE20](v28);
+  v251 = v225 - v31;
+  v32 = MEMORY[0x28223BE20](v30);
+  v226 = v225 - v33;
+  v34 = MEMORY[0x28223BE20](v32);
+  v257 = v225 - v35;
+  v36 = MEMORY[0x28223BE20](v34);
+  v255 = v225 - v37;
+  MEMORY[0x28223BE20](v36);
+  v229 = v225 - v38;
+  swift_beginAccess();
+  v39 = *(v2 + 16);
+  v40 = v39 + 56;
+  v41 = 1 << *(v39 + 32);
+  if (v41 < 64)
+  {
+    v42 = ~(-1 << v41);
+  }
+
+  else
+  {
+    v42 = -1;
+  }
+
+  v43 = v42 & *(v39 + 56);
+  v44 = (v41 + 63) >> 6;
+  v258 = v27 + 16;
+  v252 = v27 + 32;
+  v254 = v8 + 32;
+  v241 = (v27 + 56);
+  v240 = (v27 + 40);
+  v263 = v8;
+  v266 = (v8 + 8);
+  v235 = v27;
+  v234 = (v27 + 8);
+  v230 = v39;
+
+  v45 = 0;
+  v244 = xmmword_25EB78950;
+  v268 = v7;
+  v246 = v13;
+  v264 = v2;
+  v265 = v8 + 16;
+  v228 = v40;
+  v227 = v44;
+LABEL_6:
+  if (v43)
+  {
+    v60 = v45;
+LABEL_11:
+    v232 = (v43 - 1) & v43;
+    v231 = v60;
+    v61 = *(v230 + 48);
+    v62 = v235;
+    v249 = *(v235 + 72);
+    v63 = v229;
+    v64 = v267;
+    v250 = *(v235 + 16);
+    v250(v229, v61 + v249 * (__clz(__rbit64(v43)) | (v60 << 6)), v267);
+    v238 = *(v62 + 32);
+    v238(v255, v63, v64);
+    v65 = sub_25EB6E108();
+    v67 = v65 + 56;
+    v66 = *(v65 + 56);
+    v259 = v65;
+    v68 = 1 << *(v65 + 32);
+    if (v68 < 64)
+    {
+      v69 = ~(-1 << v68);
+    }
+
+    else
+    {
+      v69 = -1;
+    }
+
+    v70 = v69 & v66;
+    swift_beginAccess();
+    v71 = 0;
+    v72 = (v68 + 63) >> 6;
+    v73 = v261;
+    v248 = v67;
+    v247 = v72;
+    while (v70)
+    {
+LABEL_20:
+      v75 = *(v259 + 48);
+      v76 = v263;
+      v260 = *(v263 + 72);
+      v77 = *(v263 + 16);
+      v78 = v245;
+      v79 = v268;
+      v77(v245, v75 + v260 * (__clz(__rbit64(v70)) | (v71 << 6)), v268);
+      (*(v76 + 32))(v73, v78, v79);
+      if (*(v2 + 112) == 1)
+      {
+        v80 = *(v2 + 48);
+        if (*(v80 + 16))
+        {
+
+          v81 = sub_25EAFD040(v73);
+          if (v82)
+          {
+            v202 = v237;
+            v203 = v73;
+            v204 = v267;
+            v250(v237, *(v80 + 56) + v81 * v249, v267);
+
+            (*v241)(v202, 0, 1, v204);
+            sub_25EB0D660(v202, &unk_27FD11C00, &qword_25EB78990);
+            v272 = 0;
+            v273 = 0xE000000000000000;
+            sub_25EB6E6B8();
+            MEMORY[0x25F8C69B0](0xD000000000000025, 0x800000025EB8DB40);
+            v205 = v236;
+            v206 = v255;
+            sub_25EB6E128();
+            sub_25EAFD940(&qword_27FD11E78, MEMORY[0x277D3E7C0]);
+            v207 = v268;
+            v208 = sub_25EB6E968();
+            MEMORY[0x25F8C69B0](v208);
+
+            v209 = *v266;
+            (*v266)(v205, v207);
+            MEMORY[0x25F8C69B0](0xD000000000000031, 0x800000025EB8DB70);
+            v210 = sub_25EB6E168();
+            MEMORY[0x25F8C69B0](v210);
+
+            MEMORY[0x25F8C69B0](46, 0xE100000000000000);
+            v211 = v272;
+            v212 = v273;
+            v213 = v225[0];
+            *v225[0] = v272;
+            *(v213 + 8) = v212;
+            *(v213 + 16) = 0;
+            v272 = v211;
+            v273 = v212;
+            v274 = 0;
+            sub_25EB0CA68();
+            swift_willThrowTypedImpl();
+
+            v209(v203, v207);
+            return (*v234)(v206, v204);
+          }
+        }
+
+        v83 = v237;
+        (*v241)(v237, 1, 1, v267);
+        sub_25EB0D660(v83, &unk_27FD11C00, &qword_25EB78990);
+        v79 = v268;
+      }
+
+      v84 = v262;
+      v77(v262, v73, v79);
+      swift_beginAccess();
+      v250(v257, v255, v267);
+      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+      *&v269 = *(v2 + 48);
+      v86 = v269;
+      *(v2 + 48) = 0x8000000000000000;
+      v87 = sub_25EAFD040(v84);
+      v89 = *(v86 + 16);
+      v90 = (v88 & 1) == 0;
+      v91 = __OFADD__(v89, v90);
+      v92 = v89 + v90;
+      if (v91)
+      {
+        goto LABEL_112;
+      }
+
+      v93 = v88;
+      if (*(v86 + 24) >= v92)
+      {
+        if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+        {
+          v115 = v87;
+          sub_25EB2CFE4();
+          v87 = v115;
+        }
+      }
+
+      else
+      {
+        sub_25EB2A550(v92, isUniquelyReferenced_nonNull_native);
+        v87 = sub_25EAFD040(v262);
+        if ((v93 & 1) != (v94 & 1))
+        {
+          goto LABEL_116;
+        }
+      }
+
+      v95 = v269;
+      if (v93)
+      {
+        (*v240)(*(v269 + 56) + v87 * v249, v257, v267);
+        v96 = v268;
+      }
+
+      else
+      {
+        *(v269 + 8 * (v87 >> 6) + 64) |= 1 << v87;
+        v97 = v87;
+        v96 = v268;
+        v77((v95[6] + v87 * v260), v262, v268);
+        v238((v95[7] + v97 * v249), v257, v267);
+        v98 = v95[2];
+        v91 = __OFADD__(v98, 1);
+        v99 = v98 + 1;
+        if (v91)
+        {
+          goto LABEL_114;
+        }
+
+        v95[2] = v99;
+      }
+
+      v70 &= v70 - 1;
+      v260 = *v266;
+      v260(v262, v96);
+      v100 = v264;
+      *(v264 + 48) = v95;
+
+      swift_endAccess();
+      v101 = [objc_allocWithZone(MEMORY[0x277D3E6B8]) init];
+      [v101 setType_];
+      sub_25EB6E188();
+      LODWORD(v269) = v272;
+      sub_25EB6E968();
+      v102 = sub_25EB6E258();
+
+      [v101 setKey_];
+
+      v103 = [objc_allocWithZone(MEMORY[0x277CCABB0]) initWithInteger_];
+      [v101 setDefaultStride_];
+
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD11CD0, &qword_25EB789D8);
+      inited = swift_initStackObject();
+      *(inited + 16) = v244;
+      sub_25EAFCC70(0, &qword_27FD11B58, 0x277CCABB0);
+      *(inited + 32) = sub_25EB6E4F8();
+      *(inited + 40) = [objc_allocWithZone(MEMORY[0x277D3E6C0]) initWithOffset_];
+      sub_25EB0E264(inited, &qword_27FD11F20, &qword_25EB78D48, sub_25EAFD0D0);
+      swift_setDeallocating();
+      sub_25EB0D660(inited + 32, &qword_27FD11CD8, &qword_25EB789E0);
+      sub_25EAFCC70(0, &qword_27FD11CE0, 0x277D3E6C0);
+      sub_25EB0D6C0(&qword_27FD11CE8, &qword_27FD11B58, 0x277CCABB0);
+      v105 = sub_25EB6E1F8();
+
+      [v101 setSupportedStrides_];
+
+      [v101 setOptions_];
+      sub_25EB0EDAC(v100 + 72, &v269, &qword_27FD11C40, &qword_25EB789B0);
+      if (v271)
+      {
+        sub_25EB0ED2C(&v269, &v272);
+        v106 = *(v100 + 40);
+        if (v106)
+        {
+          v107 = [v106 context];
+          v109 = v275;
+          v108 = v276;
+          __swift_project_boxed_opaque_existential_1(&v272, v275);
+          v110 = *(v108 + 8);
+          v111 = v101;
+          v112 = v110(v109, v108);
+          v7 = v268;
+          [v107 addResourceStream:v111 withInitialAvailability:v112];
+
+          v73 = v261;
+          v260(v261, v7);
+        }
+
+        else
+        {
+          v73 = v261;
+          v7 = v268;
+          v260(v261, v268);
+        }
+
+        v67 = v248;
+        v72 = v247;
+        __swift_destroy_boxed_opaque_existential_1Tm(&v272);
+        v2 = v264;
+      }
+
+      else
+      {
+        sub_25EB0D660(&v269, &qword_27FD11C40, &qword_25EB789B0);
+        v113 = *(v100 + 40);
+        if (v113)
+        {
+          v114 = [v113 context];
+          [v114 addResourceStream_];
+
+          v73 = v261;
+          v7 = v268;
+          v260(v261, v268);
+        }
+
+        else
+        {
+          v73 = v261;
+          v7 = v268;
+          v260(v261, v268);
+        }
+
+        v2 = v264;
+        v67 = v248;
+        v72 = v247;
+      }
+    }
+
+    while (1)
+    {
+      v74 = v71 + 1;
+      if (__OFADD__(v71, 1))
+      {
+        __break(1u);
+        goto LABEL_107;
+      }
+
+      if (v74 >= v72)
+      {
+        break;
+      }
+
+      v70 = *(v67 + 8 * v74);
+      ++v71;
+      if (v70)
+      {
+        v71 = v74;
+        goto LABEL_20;
+      }
+    }
+
+    v116 = v236;
+    sub_25EB6E128();
+    sub_25EB6E188();
+    v260 = *v266;
+    v260(v116, v7);
+    LODWORD(v269) = v272;
+    v272 = sub_25EB6E968();
+    v273 = v117;
+
+    MEMORY[0x25F8C69B0](0x6B7361545FLL, 0xE500000000000000);
+
+    v118 = objc_allocWithZone(MEMORY[0x277D3E6D0]);
+    v119 = sub_25EB6E258();
+
+    v259 = [v118 initWithName_];
+
+    v120 = sub_25EB6E118();
+    v121 = v120;
+    v122 = 0;
+    v123 = v120 + 56;
+    v124 = 1 << *(v120 + 32);
+    if (v124 < 64)
+    {
+      v125 = ~(-1 << v124);
+    }
+
+    else
+    {
+      v125 = -1;
+    }
+
+    v126 = v125 & *(v120 + 56);
+    v127 = (v124 + 63) >> 6;
+    while (v126)
+    {
+      v128 = v122;
+LABEL_53:
+      v129 = __clz(__rbit64(v126));
+      v126 &= v126 - 1;
+      v130 = v243;
+      v131 = v268;
+      (*(v263 + 16))(v243, *(v121 + 48) + *(v263 + 72) * (v129 | (v128 << 6)), v268);
+      sub_25EB6E188();
+      LODWORD(v269) = v272;
+      sub_25EB6E968();
+      v132 = sub_25EB6E258();
+
+      v133 = [objc_opt_self() inputWithKey_];
+
+      [v259 addInput_];
+      v260(v130, v131);
+    }
+
+    while (1)
+    {
+      v128 = v122 + 1;
+      if (__OFADD__(v122, 1))
+      {
+        break;
+      }
+
+      if (v128 >= v127)
+      {
+
+        v134 = sub_25EB6E108();
+        v135 = v134;
+        v136 = 0;
+        v137 = v134 + 56;
+        v138 = 1 << *(v134 + 32);
+        if (v138 < 64)
+        {
+          v139 = ~(-1 << v138);
+        }
+
+        else
+        {
+          v139 = -1;
+        }
+
+        v140 = v139 & *(v134 + 56);
+        v141 = (v138 + 63) >> 6;
+        while (v140)
+        {
+          v142 = v136;
+LABEL_64:
+          v143 = __clz(__rbit64(v140));
+          v140 &= v140 - 1;
+          v144 = v242;
+          v145 = v268;
+          (*(v263 + 16))(v242, *(v135 + 48) + *(v263 + 72) * (v143 | (v142 << 6)), v268);
+          sub_25EB6E188();
+          LODWORD(v269) = v272;
+          sub_25EB6E968();
+          v146 = sub_25EB6E2B8();
+
+          v147 = [objc_allocWithZone(MEMORY[0x277D3E6E0]) initWithKey_];
+
+          [v259 addOutput_];
+
+          v260(v144, v145);
+        }
+
+        while (1)
+        {
+          v142 = v136 + 1;
+          if (__OFADD__(v136, 1))
+          {
+            goto LABEL_108;
+          }
+
+          if (v142 >= v141)
+          {
+
+            v46 = v236;
+            v47 = v255;
+            sub_25EB6E128();
+            v48 = v268;
+            sub_25EB6E188();
+            v49 = v260;
+            v260(v46, v48);
+            LODWORD(v269) = v272;
+            sub_25EB6E968();
+            v50 = objc_allocWithZone(MEMORY[0x277D3E698]);
+            v51 = sub_25EB6E258();
+
+            v52 = v50;
+            v7 = v48;
+            v53 = [v52 initWithName_];
+
+            v54 = [objc_opt_self() fixedFrequency_];
+            [v53 setGraphFrequency_];
+
+            v55 = v259;
+            [v53 addTask_];
+            sub_25EB6E128();
+            v56 = v264;
+            swift_beginAccess();
+            v57 = v53;
+            v2 = v56;
+            v58 = v57;
+            v59 = swift_isUniquelyReferenced_nonNull_native();
+            *&v269 = *(v56 + 64);
+            *(v56 + 64) = 0x8000000000000000;
+            sub_25EB2C628(v58, v46, v59);
+            v49(v46, v7);
+            *(v56 + 64) = v269;
+            swift_endAccess();
+
+            (*v234)(v47, v267);
+            v45 = v231;
+            v13 = v246;
+            v40 = v228;
+            v44 = v227;
+            v43 = v232;
+            goto LABEL_6;
+          }
+
+          v140 = *(v137 + 8 * v142);
+          ++v136;
+          if (v140)
+          {
+            v136 = v142;
+            goto LABEL_64;
+          }
+        }
+      }
+
+      v126 = *(v123 + 8 * v128);
+      ++v122;
+      if (v126)
+      {
+        v122 = v128;
+        goto LABEL_53;
+      }
+    }
+
+LABEL_107:
+    __break(1u);
+LABEL_108:
+    __break(1u);
+LABEL_109:
+    __break(1u);
+  }
+
+  else
+  {
+    while (1)
+    {
+      v60 = v45 + 1;
+      if (__OFADD__(v45, 1))
+      {
+        break;
+      }
+
+      if (v60 >= v44)
+      {
+
+        [*(v2 + 40) publishContext];
+        v148 = *(v2 + 16);
+        v151 = *(v148 + 56);
+        v150 = (v148 + 56);
+        v149 = v151;
+        v152 = 1 << *(*(v2 + 16) + 32);
+        if (v152 < 64)
+        {
+          v153 = ~(-1 << v152);
+        }
+
+        else
+        {
+          v153 = -1;
+        }
+
+        v154 = v153 & v149;
+        v155 = (v152 + 63) >> 6;
+        v247 = *(v2 + 16);
+
+        v156 = 0;
+        v245 = v150;
+        *&v244 = v155;
+LABEL_71:
+        if (v154)
+        {
+          v157 = v156;
+LABEL_76:
+          v158 = __clz(__rbit64(v154));
+          v249 = (v154 - 1) & v154;
+          v248 = v157;
+          v159 = *(v247 + 48);
+          v160 = v235;
+          v259 = *(v235 + 72);
+          v161 = v226;
+          v162 = v267;
+          v260 = *(v235 + 16);
+          (v260)(v226, v159 + v259 * (v158 | (v157 << 6)), v267);
+          v250 = *(v160 + 32);
+          v250(v251, v161, v162);
+          v163 = sub_25EB6E0F8();
+          v165 = (v163 + 56);
+          v164 = *(v163 + 56);
+          v261 = v163;
+          v166 = 1 << *(v163 + 32);
+          if (v166 < 64)
+          {
+            v167 = ~(-1 << v166);
+          }
+
+          else
+          {
+            v167 = -1;
+          }
+
+          v168 = v167 & v164;
+          swift_beginAccess();
+          v169 = 0;
+          v170 = (v166 + 63) >> 6;
+          v257 = v165;
+          v255 = v170;
+          while (v168)
+          {
+            v173 = v264;
+LABEL_89:
+            v175 = *(v261 + 6);
+            v176 = v263;
+            v262 = *(v263 + 72);
+            v177 = *(v263 + 16);
+            v178 = v239;
+            v179 = v268;
+            v177(v239, v175 + v262 * (__clz(__rbit64(v168)) | (v169 << 6)), v268);
+            (*(v176 + 32))(v13, v178, v179);
+            if (*(v173 + 112))
+            {
+              v180 = *(v173 + 48);
+              if (*(v180 + 16))
+              {
+
+                v181 = sub_25EAFD040(v13);
+                if (v182)
+                {
+                  v214 = v233;
+                  v215 = v267;
+                  (v260)(v233, *(v180 + 56) + v181 * v259, v267);
+
+                  (*v241)(v214, 0, 1, v215);
+                  sub_25EB0D660(v214, &unk_27FD11C00, &qword_25EB78990);
+                  *&v269 = 0;
+                  *(&v269 + 1) = 0xE000000000000000;
+                  sub_25EB6E6B8();
+                  MEMORY[0x25F8C69B0](0xD000000000000025, 0x800000025EB8DB40);
+                  v216 = v236;
+                  v217 = v251;
+                  sub_25EB6E128();
+                  sub_25EAFD940(&qword_27FD11E78, MEMORY[0x277D3E7C0]);
+                  v218 = v13;
+                  v219 = v268;
+                  v220 = sub_25EB6E968();
+                  MEMORY[0x25F8C69B0](v220);
+
+                  v221 = *v266;
+                  (*v266)(v216, v219);
+                  MEMORY[0x25F8C69B0](0xD000000000000031, 0x800000025EB8DB70);
+                  v222 = sub_25EB6E168();
+                  MEMORY[0x25F8C69B0](v222);
+
+                  MEMORY[0x25F8C69B0](46, 0xE100000000000000);
+                  v223 = v269;
+                  v224 = v225[0];
+                  *v225[0] = v269;
+                  *(v224 + 16) = 0;
+                  v269 = v223;
+                  v270 = 0;
+                  sub_25EB0CA68();
+                  swift_willThrowTypedImpl();
+
+                  v221(v218, v219);
+                  return (*v234)(v217, v215);
+                }
+              }
+
+              v183 = v233;
+              (*v241)(v233, 1, 1, v267);
+              sub_25EB0D660(v183, &unk_27FD11C00, &qword_25EB78990);
+              v179 = v268;
+            }
+
+            v184 = v256;
+            v177(v256, v13, v179);
+            swift_beginAccess();
+            (v260)(v253, v251, v267);
+            v185 = swift_isUniquelyReferenced_nonNull_native();
+            v277 = *(v173 + 48);
+            v186 = v277;
+            *(v173 + 48) = 0x8000000000000000;
+            v188 = sub_25EAFD040(v184);
+            v189 = v186[2];
+            v190 = (v187 & 1) == 0;
+            v191 = v189 + v190;
+            if (__OFADD__(v189, v190))
+            {
+              goto LABEL_113;
+            }
+
+            v192 = v187;
+            if (v186[3] >= v191)
+            {
+              if ((v185 & 1) == 0)
+              {
+                sub_25EB2CFE4();
+              }
+            }
+
+            else
+            {
+              sub_25EB2A550(v191, v185);
+              v193 = sub_25EAFD040(v256);
+              if ((v192 & 1) != (v194 & 1))
+              {
+                goto LABEL_116;
+              }
+
+              v188 = v193;
+            }
+
+            v195 = v277;
+            v196 = v266;
+            if (v192)
+            {
+              (*v240)(v277[7] + v188 * v259, v253, v267);
+              v171 = *v196;
+              v172 = v268;
+              (*v196)(v256, v268);
+            }
+
+            else
+            {
+              v277[(v188 >> 6) + 8] |= 1 << v188;
+              v197 = v256;
+              v198 = v268;
+              v177((v195[6] + v188 * v262), v256, v268);
+              v250((v195[7] + v188 * v259), v253, v267);
+              v171 = *v196;
+              (*v196)(v197, v198);
+              v199 = v195[2];
+              v91 = __OFADD__(v199, 1);
+              v200 = v199 + 1;
+              if (v91)
+              {
+                goto LABEL_115;
+              }
+
+              v195[2] = v200;
+              v172 = v268;
+            }
+
+            v168 &= v168 - 1;
+            *(v264 + 48) = v195;
+
+            swift_endAccess();
+            v13 = v246;
+            v171(v246, v172);
+            v165 = v257;
+            v170 = v255;
+          }
+
+          v173 = v264;
+          while (1)
+          {
+            v174 = v169 + 1;
+            if (__OFADD__(v169, 1))
+            {
+              goto LABEL_109;
+            }
+
+            if (v174 >= v170)
+            {
+              (*v234)(v251, v267);
+
+              v156 = v248;
+              v150 = v245;
+              v155 = v244;
+              v154 = v249;
+              goto LABEL_71;
+            }
+
+            v168 = *&v165[8 * v174];
+            ++v169;
+            if (v168)
+            {
+              v169 = v174;
+              goto LABEL_89;
+            }
+          }
+        }
+
+        while (1)
+        {
+          v157 = v156 + 1;
+          if (__OFADD__(v156, 1))
+          {
+            goto LABEL_111;
+          }
+
+          if (v157 >= v155)
+          {
+          }
+
+          v154 = *&v150[8 * v157];
+          ++v156;
+          if (v154)
+          {
+            goto LABEL_76;
+          }
+        }
+      }
+
+      v43 = *(v40 + 8 * v60);
+      ++v45;
+      if (v43)
+      {
+        goto LABEL_11;
+      }
+    }
+  }
+
+  __break(1u);
+LABEL_111:
+  __break(1u);
+LABEL_112:
+  __break(1u);
+LABEL_113:
+  __break(1u);
+LABEL_114:
+  __break(1u);
+LABEL_115:
+  __break(1u);
+LABEL_116:
+  result = sub_25EB6E9B8();
+  __break(1u);
+  return result;
 }

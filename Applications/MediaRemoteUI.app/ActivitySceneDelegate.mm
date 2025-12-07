@@ -16,28 +16,28 @@
   sessionCopy = session;
   optionsCopy = options;
   selfCopy = self;
-  sub_10001B5BC(sceneCopy);
+  sub_10001B5BC(sceneCopy, v11);
 }
 
 - (void)sceneDidDisconnect:(id)disconnect
 {
   disconnectCopy = disconnect;
   selfCopy = self;
-  sub_100019220(disconnectCopy);
+  sub_100019220(disconnectCopy, v5);
 }
 
 - (void)sceneWillEnterForeground:(id)foreground
 {
   foregroundCopy = foreground;
   selfCopy = self;
-  sub_100019AEC(foregroundCopy);
+  sub_100019AEC(foregroundCopy, v5);
 }
 
 - (void)sceneDidEnterBackground:(id)background
 {
   backgroundCopy = background;
   selfCopy = self;
-  sub_10001A32C(backgroundCopy);
+  sub_10001A32C(backgroundCopy, v5);
 }
 
 - (void)lockscreenViewController:(id)controller didUpdatePreferredContentSize:(CGSize)size
@@ -46,12 +46,12 @@
   width = size.width;
   controllerCopy = controller;
   selfCopy = self;
-  sub_10001AEEC(controllerCopy, width, height);
+  sub_10001AEEC(controllerCopy, selfCopy, width, height);
 }
 
 - (void)lockscreenViewController:(id)controller didUpdateRestrictedRects:(id)rects
 {
-  sub_100006334(0, &qword_1000711C0);
+  sub_100006334(0, &qword_1000711C0, NSValue_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
@@ -60,10 +60,11 @@
 
 - (void)lockscreenViewController:(id)controller viewWillTransitionToSize:(CGSize)size
 {
+  height = size.height;
   width = size.width;
   controllerCopy = controller;
   selfCopy = self;
-  sub_10001B484(controllerCopy, width);
+  sub_10001B484(controllerCopy, selfCopy, width, height);
 }
 
 @end

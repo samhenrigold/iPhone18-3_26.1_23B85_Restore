@@ -29,6 +29,7 @@
 - (void)sendMessage:(id)message toWatchDevicesWithDomain:(id)domain withPriority:(unint64_t)priority;
 - (void)sendMessage:(id)message withDomain:(id)domain toDevices:(id)devices withPriority:(unint64_t)priority;
 - (void)sendSCIDSMessage:(id)message toDevice:(id)device;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context;
 - (void)service:(id)service devicesChanged:(id)changed;
 - (void)setAvailableDevices:(id)devices;
@@ -141,9 +142,11 @@ void __35__HUNearbyController_nearbyDevices__block_invoke(uint64_t a1)
 
 uint64_t __36__HUNearbyController_sharedInstance__block_invoke()
 {
-  sharedInstance_NearbyController_0 = objc_alloc_init(HUNearbyController);
+  v0 = objc_alloc_init(HUNearbyController);
+  v1 = sharedInstance_NearbyController_0;
+  sharedInstance_NearbyController_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (HUNearbyController)init
@@ -214,16 +217,16 @@ uint64_t __36__HUNearbyController_sharedInstance__block_invoke()
 
 - (void)logMessageWithDomain:(id)domain message:(id)message
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   v6 = MEMORY[0x1E696AEC0];
   messageCopy = message;
-  v8 = [[v6 alloc] initWithFormat:messageCopy locale:0 arguments:&v16];
+  v8 = [[v6 alloc] initWithFormat:messageCopy locale:0 arguments:&v15];
 
   if (domainCopy)
   {
-    v11 = domainCopy;
-    v12 = v8;
+    v10 = domainCopy;
+    v11 = v8;
     AX_PERFORM_WITH_LOCK();
   }
 
@@ -233,12 +236,10 @@ uint64_t __36__HUNearbyController_sharedInstance__block_invoke()
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = v8;
+      v13 = v8;
       _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __51__HUNearbyController_logMessageWithDomain_message___block_invoke(uint64_t a1)
@@ -298,38 +299,38 @@ void __51__HUNearbyController_logMessageWithDomain_message___block_invoke_2(uint
 
 - (void)logIDSDevices:(id)devices withTitle:(id)title
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   titleCopy = title;
   v8 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = devicesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [(HUNearbyController *)self descriptionForIDSDevice:*(*(&v17 + 1) + 8 * v13)];
+        v14 = [(HUNearbyController *)self descriptionForIDSDevice:*(*(&v16 + 1) + 8 * v13)];
         [v8 addObject:v14];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
@@ -337,44 +338,42 @@ void __51__HUNearbyController_logMessageWithDomain_message___block_invoke_2(uint
 
   v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v9, "count")}];
   [(HUNearbyController *)self logMessageWithDomain:0 message:@"%@ count: %@, %@", titleCopy, v15, v8];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logNearbyDevices:(id)devices withTitle:(id)title
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   titleCopy = title;
   v8 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = devicesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v17 + 1) + 8 * v13) description];
+        v14 = [*(*(&v16 + 1) + 8 * v13) description];
         [v8 addObject:v14];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
@@ -382,8 +381,6 @@ void __51__HUNearbyController_logMessageWithDomain_message___block_invoke_2(uint
 
   v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v9, "count")}];
   [(HUNearbyController *)self logMessageWithDomain:0 message:@"%@ count: %@, %@", titleCopy, v15, v8];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)discoverNearbyDevicesWithDomain:(id)domain
@@ -631,37 +628,35 @@ LABEL_5:
 
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v22 = 0;
+  v21 = 0;
   messageCopy = message;
-  v11 = [(HUNearbyController *)self nearbyDeviceWithIdentifier:dCopy justCreated:&v22];
+  v11 = [(HUNearbyController *)self nearbyDeviceWithIdentifier:dCopy justCreated:&v21];
   v12 = v11;
-  if (v22 == 1 && v11 != 0)
+  if (v21 == 1 && v11 != 0)
   {
     [(HUNearbyController *)self logMessageWithDomain:0 message:@"Incoming message creating: %@", v11];
     availableDevices = [(HUNearbyController *)self availableDevices];
     v15 = [availableDevices arrayByAddingObject:v12];
     [(HUNearbyController *)self setAvailableDevices:v15];
 
-    v23[0] = v12;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+    v22[0] = v12;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
     [(HUNearbyController *)self nearbyDevicesDidUpdateWithNewDevices:v16 forDomain:0];
   }
 
   [(HUNearbyController *)self logMessageWithDomain:0 message:@"Incoming message %@ - %@ - %@", dCopy, messageCopy, v12];
   v17 = [HUUtilities objectFromXDCObject:messageCopy];
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __69__HUNearbyController_service_account_incomingMessage_fromID_context___block_invoke;
-  v20[3] = &unk_1E85CBD80;
-  v20[4] = self;
-  v21 = v12;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __69__HUNearbyController_service_account_incomingMessage_fromID_context___block_invoke;
+  v19[3] = &unk_1E85CBD80;
+  v19[4] = self;
+  v20 = v12;
   v18 = v12;
-  [v17 enumerateKeysAndObjectsUsingBlock:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [v17 enumerateKeysAndObjectsUsingBlock:v19];
 }
 
 void __69__HUNearbyController_service_account_incomingMessage_fromID_context___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -742,6 +737,14 @@ void __69__HUNearbyController_service_account_incomingMessage_fromID_context___b
   v11 = [v10 deviceType];
   v12 = [*(a1 + 40) deviceTypeDescription];
   [v7 incomingIDSMessage:v9 domain:v8 deviceType:v11 deviceTypeDescription:v12];
+}
+
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
+{
+  if (!identifier || error || !success)
+  {
+    [(HUNearbyController *)self logMessageWithDomain:0 message:@"IDS didSendWithSuccess GUID %@, success %d, error: %@", identifier, success, error];
+  }
 }
 
 - (void)service:(id)service devicesChanged:(id)changed
@@ -910,7 +913,7 @@ uint64_t __69__HUNearbyController_nearbyDevicesDidUpdateWithNewDevices_forDomain
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 void __69__HUNearbyController_nearbyDevicesDidUpdateWithNewDevices_forDomain___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1123,16 +1126,16 @@ uint64_t __87__HUNearbyController_sendMessage_toWatchDevicesWithDomain_excluding
 
 void __68__HUNearbyController_sendMessage_withDomain_toDevices_withPriority___block_invoke(uint64_t a1)
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DFA8] set];
   v3 = *(a1 + 32);
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __68__HUNearbyController_sendMessage_withDomain_toDevices_withPriority___block_invoke_2;
-  v25[3] = &unk_1E85CBE70;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __68__HUNearbyController_sendMessage_withDomain_toDevices_withPriority___block_invoke_2;
+  v23[3] = &unk_1E85CBE70;
   v4 = v2;
-  v26 = v4;
-  [v3 enumerateObjectsUsingBlock:v25];
+  v24 = v4;
+  [v3 enumerateObjectsUsingBlock:v23];
   if ([v4 count])
   {
     [*(a1 + 40) setMessagesCount:{objc_msgSend(*(a1 + 40), "messagesCount") + 1}];
@@ -1140,61 +1143,58 @@ void __68__HUNearbyController_sendMessage_withDomain_toDevices_withPriority___bl
     v6 = *(a1 + 48);
     v7 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v5, "messagesCount")}];
     v8 = [*(a1 + 40) _sanitizedDictionaryForLoggingWithMessage:*(a1 + 56)];
-    v9 = *(a1 + 48);
-    [v5 logMessageWithDomain:v6 message:{@"IDS Sending(%@) %@ to %{sensitive}@ with %@, priority: %@", v7, v8, *(a1 + 32), v9, *(a1 + 64)}];
+    [v5 logMessageWithDomain:v6 message:{@"IDS Sending(%@) %@ to %{sensitive}@ with %@, priority: %@", v7, v8, *(a1 + 32), *(a1 + 48), *(a1 + 64)}];
 
-    v10 = +[HUNearbySettings sharedInstance];
-    [v10 sentIDSMessage:*(a1 + 56) domain:*(a1 + 48) priority:*(a1 + 72) priorityDescription:*(a1 + 64)];
+    v9 = +[HUNearbySettings sharedInstance];
+    [v9 sentIDSMessage:*(a1 + 56) domain:*(a1 + 48) priority:*(a1 + 72) priorityDescription:*(a1 + 64)];
 
-    v11 = *(a1 + 56);
-    v27 = *(a1 + 48);
-    v28[0] = v11;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v10 = *(a1 + 56);
+    v25 = *(a1 + 48);
+    v26[0] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
     if (*(a1 + 72) == 2)
     {
-      v13 = [MEMORY[0x1E695DF90] dictionary];
-      [v13 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E69A47C0]];
-      [v13 setObject:&unk_1F5623D70 forKeyedSubscript:*MEMORY[0x1E69A47D0]];
+      v12 = [MEMORY[0x1E695DF90] dictionary];
+      [v12 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E69A47C0]];
+      [v12 setObject:&unk_1F5623D70 forKeyedSubscript:*MEMORY[0x1E69A47D0]];
     }
 
     else
     {
-      v13 = 0;
+      v12 = 0;
     }
 
-    v14 = [*(a1 + 40) service];
-    v15 = [HUUtilities XDCObjectFromObject:v12];
+    v13 = [*(a1 + 40) service];
+    v14 = [HUUtilities XDCObjectFromObject:v11];
     if ((*(a1 + 72) - 1) >= 2)
     {
-      v16 = 200;
+      v15 = 200;
     }
 
     else
     {
-      v16 = 300;
+      v15 = 300;
     }
 
-    v23 = 0;
-    v24 = 0;
-    [v14 sendMessage:v15 toDestinations:v4 priority:v16 options:v13 identifier:&v24 error:&v23];
-    v17 = v24;
-    v18 = v23;
-
-    if (v18)
-    {
-      [*(a1 + 40) logMessageWithDomain:*(a1 + 48) message:{@"Error sending %@", v18}];
-    }
+    v21 = 0;
+    v22 = 0;
+    [v13 sendMessage:v14 toDestinations:v4 priority:v15 options:v12 identifier:&v22 error:&v21];
+    v16 = v22;
+    v17 = v21;
 
     if (v17)
     {
-      v20 = *(a1 + 40);
-      v19 = *(a1 + 48);
-      v21 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v20, "messagesCount")}];
-      [v20 logMessageWithDomain:v19 message:{@"IDS sent message: %@, GUID: %@", v21, v17}];
+      [*(a1 + 40) logMessageWithDomain:*(a1 + 48) message:{@"Error sending %@", v17}];
+    }
+
+    if (v16)
+    {
+      v19 = *(a1 + 40);
+      v18 = *(a1 + 48);
+      v20 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v19, "messagesCount")}];
+      [v19 logMessageWithDomain:v18 message:{@"IDS sent message: %@, GUID: %@", v20, v16}];
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __68__HUNearbyController_sendMessage_withDomain_toDevices_withPriority___block_invoke_2(uint64_t a1, void *a2)
@@ -1362,9 +1362,9 @@ void __74__HUNearbyController_discoverSCIDSServiceWithDevicesUpdates_messageBloc
   dispatch_after(v10, MEMORY[0x1E69E96A0], v11);
 }
 
-uint64_t __74__HUNearbyController_discoverSCIDSServiceWithDevicesUpdates_messageBlock___block_invoke_152(uint64_t a1)
+void *__74__HUNearbyController_discoverSCIDSServiceWithDevicesUpdates_messageBlock___block_invoke_152(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setScIDSServiceMessageBlock:*(a1 + 48)];
   [*(a1 + 32) setScIDSServiceDevicesUpdatesBlock:*(a1 + 56)];
   [*(a1 + 32) setScIDSServiceHasPeers:{objc_msgSend(*(a1 + 40), "count") != 0}];
@@ -1372,33 +1372,30 @@ uint64_t __74__HUNearbyController_discoverSCIDSServiceWithDevicesUpdates_message
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) scIDSServiceHasPeers];
-    v6[0] = 67109120;
-    v6[1] = v3;
-    _os_log_impl(&dword_1DA5E2000, v2, OS_LOG_TYPE_DEFAULT, "SC IDS Service has peers %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v3;
+    _os_log_impl(&dword_1DA5E2000, v2, OS_LOG_TYPE_DEFAULT, "SC IDS Service has peers %d", v5, 8u);
   }
 
   result = [*(a1 + 40) count];
   if (result)
   {
-    result = [*(a1 + 32) didUpdateDevices:*(a1 + 40)];
+    return [*(a1 + 32) didUpdateDevices:*(a1 + 40)];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)checkSCIDSServiceDevices
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:self];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_DEBUG, "SC IDS Service has devices %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_DEBUG, "SC IDS Service has devices %@", &v4, 0xCu);
 }
 
-uint64_t __46__HUNearbyController_checkSCIDSServiceDevices__block_invoke(uint64_t a1)
+void *__46__HUNearbyController_checkSCIDSServiceDevices__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) scIDSServiceHasPeers];
   if (((result ^ (*(a1 + 48) < 1)) & 1) == 0)
@@ -1461,16 +1458,16 @@ void __49__HUNearbyController_stopDiscoveringSCIDSService__block_invoke_154(uint
 
 - (void)didReceiveHearingAidsMessage:(id)message fromDevice:(id)device
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   deviceCopy = device;
   v8 = HCLogHearingHandoff();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v17 = messageCopy;
-    v18 = 2112;
-    v19 = deviceCopy;
+    v16 = messageCopy;
+    v17 = 2112;
+    v18 = deviceCopy;
     _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_DEFAULT, "SC IDS Service didReceiveHearingAidsMessage %@ from device: %@", buf, 0x16u);
   }
 
@@ -1480,13 +1477,11 @@ void __49__HUNearbyController_stopDiscoveringSCIDSService__block_invoke_154(uint
   block[2] = __62__HUNearbyController_didReceiveHearingAidsMessage_fromDevice___block_invoke;
   block[3] = &unk_1E85CA468;
   block[4] = self;
-  v14 = deviceCopy;
-  v15 = messageCopy;
+  v13 = deviceCopy;
+  v14 = messageCopy;
   v10 = messageCopy;
   v11 = deviceCopy;
   dispatch_async(nearbyUpdatesQueue, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __62__HUNearbyController_didReceiveHearingAidsMessage_fromDevice___block_invoke(uint64_t a1)
@@ -1507,55 +1502,53 @@ void __62__HUNearbyController_didReceiveHearingAidsMessage_fromDevice___block_in
 
 - (void)didUpdateDevices:(id)devices
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   v5 = HCLogHearingHandoff();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(devicesCopy, "count")}];
     *buf = 138412290;
-    v13 = v6;
+    v12 = v6;
     _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "SC IDS Service didUpdateDevices: %@", buf, 0xCu);
   }
 
   nearbyUpdatesQueue = [(HUNearbyController *)self nearbyUpdatesQueue];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __39__HUNearbyController_didUpdateDevices___block_invoke;
-  v10[3] = &unk_1E85C9F38;
-  v10[4] = self;
-  v11 = devicesCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __39__HUNearbyController_didUpdateDevices___block_invoke;
+  v9[3] = &unk_1E85C9F38;
+  v9[4] = self;
+  v10 = devicesCopy;
   v8 = devicesCopy;
-  dispatch_async(nearbyUpdatesQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(nearbyUpdatesQueue, v9);
 }
 
 void __39__HUNearbyController_didUpdateDevices___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setScIDSServiceHasPeers:{objc_msgSend(*(a1 + 40), "count") != 0}];
   v2 = objc_opt_new();
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v3 = [*(a1 + 32) scIDSDevices];
-  v4 = [v3 countByEnumeratingWithState:&v34 objects:v41 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v33 objects:v40 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v35;
+    v6 = *v34;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v35 != v6)
+        if (*v34 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v34 + 1) + 8 * i);
+        v8 = *(*(&v33 + 1) + 8 * i);
         v9 = *(a1 + 40);
         v10 = [v8 idsDevice];
         LOBYTE(v9) = [v9 containsObject:v10];
@@ -1566,7 +1559,7 @@ void __39__HUNearbyController_didUpdateDevices___block_invoke(uint64_t a1)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v34 objects:v41 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v33 objects:v40 count:16];
     }
 
     while (v5);
@@ -1584,35 +1577,35 @@ void __39__HUNearbyController_didUpdateDevices___block_invoke(uint64_t a1)
   }
 
   v15 = objc_opt_new();
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v16 = *(a1 + 40);
-  v17 = [v16 countByEnumeratingWithState:&v30 objects:v40 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v29 objects:v39 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v31;
+    v19 = *v30;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v31 != v19)
+        if (*v30 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v30 + 1) + 8 * j);
+        v21 = *(*(&v29 + 1) + 8 * j);
         buf[0] = 0;
-        v22 = [*(a1 + 32) nearbyDeviceWithSCIDSDevice:v21 justCreated:{buf, v30}];
+        v22 = [*(a1 + 32) nearbyDeviceWithSCIDSDevice:v21 justCreated:{buf, v29}];
         if (v22 && buf[0] == 1)
         {
           [v15 addObject:v22];
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v30 objects:v40 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v29 objects:v39 count:16];
     }
 
     while (v18);
@@ -1624,7 +1617,7 @@ void __39__HUNearbyController_didUpdateDevices___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v39 = v2;
+      v38 = v2;
       _os_log_impl(&dword_1DA5E2000, v23, OS_LOG_TYPE_DEFAULT, "SC IDS Service Removed devices: %@", buf, 0xCu);
     }
 
@@ -1632,7 +1625,7 @@ void __39__HUNearbyController_didUpdateDevices___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v39 = v15;
+      v38 = v15;
       _os_log_impl(&dword_1DA5E2000, v24, OS_LOG_TYPE_DEFAULT, "SC IDS Service Added devices: %@", buf, 0xCu);
     }
 
@@ -1641,7 +1634,7 @@ void __39__HUNearbyController_didUpdateDevices___block_invoke(uint64_t a1)
     {
       v26 = [*(a1 + 32) scIDSDevices];
       *buf = 138412290;
-      v39 = v26;
+      v38 = v26;
       _os_log_impl(&dword_1DA5E2000, v25, OS_LOG_TYPE_DEFAULT, "SC IDS Service Updated Devices: %@", buf, 0xCu);
     }
 
@@ -1653,13 +1646,11 @@ void __39__HUNearbyController_didUpdateDevices___block_invoke(uint64_t a1)
       (v28)[2](v28, v2, v15);
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendSCIDSMessage:(id)message toDevice:(id)device
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   deviceCopy = device;
   if (!_AXSIsNonUIBuild())
@@ -1669,9 +1660,9 @@ void __39__HUNearbyController_didUpdateDevices___block_invoke(uint64_t a1)
     {
       name = [deviceCopy name];
       *buf = 138412546;
-      v15 = messageCopy;
-      v16 = 2112;
-      v17 = name;
+      v14 = messageCopy;
+      v15 = 2112;
+      v16 = name;
       _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_DEFAULT, "SC IDS Service sending message %@ to device: %@", buf, 0x16u);
     }
 
@@ -1680,26 +1671,22 @@ void __39__HUNearbyController_didUpdateDevices___block_invoke(uint64_t a1)
     block[2] = __48__HUNearbyController_sendSCIDSMessage_toDevice___block_invoke;
     block[3] = &unk_1E85CA468;
     block[4] = self;
-    v12 = messageCopy;
-    v13 = deviceCopy;
+    v11 = messageCopy;
+    v12 = deviceCopy;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __48__HUNearbyController_sendSCIDSMessage_toDevice___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) interDeviceCommunicator];
   v3 = *(a1 + 40);
-  v7 = @"com.apple.hearing.hearingaids";
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"com.apple.hearing.hearingaids";
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v5 = [*(a1 + 48) idsDevice];
   [v2 sendHearingAidsMessage:v4 toDevice:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)nearbyDeviceWithSCIDSDevice:(id)device justCreated:(BOOL *)created
@@ -1714,56 +1701,56 @@ void __48__HUNearbyController_sendSCIDSMessage_toDevice___block_invoke(uint64_t 
 
 - (void)logSCIDSDeviceFromDevices:(id)devices
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = devices;
-  v21 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
-  if (v21)
+  v20 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
+  if (v20)
   {
-    v19 = *v28;
+    v18 = *v27;
     do
     {
       v3 = 0;
       do
       {
-        if (*v28 != v19)
+        if (*v27 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = v3;
-        v4 = *(*(&v27 + 1) + 8 * v3);
+        v21 = v3;
+        v4 = *(*(&v26 + 1) + 8 * v3);
         v5 = HCLogHearingHandoff();
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v33 = v4;
+          v32 = v4;
           _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "SC IDS Service device: %@", buf, 0xCu);
         }
 
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
         v24 = 0u;
+        v25 = 0u;
+        v22 = 0u;
+        v23 = 0u;
         availableDevices = [(HUNearbyController *)self availableDevices];
-        v7 = [availableDevices countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v7 = [availableDevices countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v24;
+          v9 = *v23;
           while (2)
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v24 != v9)
+              if (*v23 != v9)
               {
                 objc_enumerationMutation(availableDevices);
               }
 
-              v11 = *(*(&v23 + 1) + 8 * i);
+              v11 = *(*(&v22 + 1) + 8 * i);
               idsDevice = [v11 idsDevice];
               uniqueIDOverride = [idsDevice uniqueIDOverride];
               uniqueIDOverride2 = [v4 uniqueIDOverride];
@@ -1775,7 +1762,7 @@ void __48__HUNearbyController_sendSCIDSMessage_toDevice___block_invoke(uint64_t 
                 if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v33 = v11;
+                  v32 = v11;
                   _os_log_impl(&dword_1DA5E2000, v16, OS_LOG_TYPE_DEFAULT, "SC IDS Service Nearby device %@", buf, 0xCu);
                 }
 
@@ -1783,7 +1770,7 @@ void __48__HUNearbyController_sendSCIDSMessage_toDevice___block_invoke(uint64_t 
               }
             }
 
-            v8 = [availableDevices countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v8 = [availableDevices countByEnumeratingWithState:&v22 objects:v30 count:16];
             if (v8)
             {
               continue;
@@ -1795,17 +1782,15 @@ void __48__HUNearbyController_sendSCIDSMessage_toDevice___block_invoke(uint64_t 
 
 LABEL_20:
 
-        v3 = v22 + 1;
+        v3 = v21 + 1;
       }
 
-      while (v22 + 1 != v21);
-      v21 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
+      while (v21 + 1 != v20);
+      v20 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_sanitizedDictionaryForLoggingWithMessage:(id)message

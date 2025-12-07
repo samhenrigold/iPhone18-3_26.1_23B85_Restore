@@ -32,7 +32,7 @@
   v6 = DOCSymbolImageBarButtonItem.isEqual(_:)(v8);
 
   outlined destroy of Any?(v8);
-  return v6 & 1;
+  return v6;
 }
 
 - (_TtC26DocumentManagerExecutables27DOCSymbolImageBarButtonItem)init

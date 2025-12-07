@@ -61,7 +61,7 @@
   observerCopy = observer;
   if (!observerCopy)
   {
-    [FBSSceneObserver initWithObserver:a2];
+    [(FBSSceneObserver *)a2 initWithObserver:?];
   }
 
   v6 = observerCopy;
@@ -247,7 +247,7 @@ LABEL_6:
         v13 = NSSelectorFromString(v12);
         if (!v13)
         {
-          [(FBSSceneObserver *)v12 settingNames:a2];
+          [(FBSSceneObserver *)v12 settingNames:a2, self];
         }
 
         v14 = v13;
@@ -255,7 +255,7 @@ LABEL_6:
         v16 = FBSSettingForExtensionSelector(v15, v14);
         if (!v16)
         {
-          [(FBSSceneObserver *)v14 settingNames:a2];
+          [(FBSSceneObserver *)v14 settingNames:a2, self];
         }
 
         v17 = v16;
@@ -306,7 +306,7 @@ LABEL_6:
         v13 = NSSelectorFromString(v12);
         if (!v13)
         {
-          [(FBSSceneObserver *)v12 clientSettingNames:a2];
+          [(FBSSceneObserver *)v12 clientSettingNames:a2, self];
         }
 
         v14 = v13;
@@ -314,7 +314,7 @@ LABEL_6:
         v16 = FBSSettingForExtensionSelector(v15, v14);
         if (!v16)
         {
-          [(FBSSceneObserver *)v14 clientSettingNames:a2];
+          [(FBSSceneObserver *)v14 clientSettingNames:a2, self];
         }
 
         v17 = v16;
@@ -702,89 +702,89 @@ LABEL_7:
   return v9;
 }
 
-- (void)initWithObserver:(const char *)a1 .cold.1(const char *a1)
+- (void)initWithObserver:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"observer != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
-    OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"observer != ((void *)0)", v11, v12);
-  }
-
-  [v2 UTF8String];
-  _bs_set_crash_log_message();
-}
-
-- (void)settingNames:(const char *)a1 .cold.1(const char *a1, const char *a2)
-{
-  v3 = MEMORY[0x1E696AEC0];
-  v13 = NSStringFromSelector(a1);
-  v4 = [v3 stringWithFormat:@"No known setting for selector: %@"];
-
-  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-  {
-    v5 = NSStringFromSelector(a2);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    OUTLINED_FUNCTION_12_0();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, v15);
-  }
-
-  [v4 UTF8String];
-  _bs_set_crash_log_message();
-}
-
-- (void)settingNames:(uint64_t)a1 .cold.2(uint64_t a1, const char *a2)
-{
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No known selector for setting name: %@"];
-  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-  {
-    v4 = NSStringFromSelector(a2);
+    v4 = NSStringFromSelector(a1);
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, a1, v13, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v3 UTF8String];
   _bs_set_crash_log_message();
 }
 
-- (void)clientSettingNames:(const char *)a1 .cold.1(const char *a1, const char *a2)
+- (void)settingNames:(uint64_t)a3 .cold.1(const char *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v13 = NSStringFromSelector(a1);
-  v4 = [v3 stringWithFormat:@"No known setting for selector: %@"];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = NSStringFromSelector(a1);
+  v6 = [v4 stringWithFormat:@"No known setting for selector: %@", v5];
 
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v7 = NSStringFromSelector(a2);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    OUTLINED_FUNCTION_12_0();
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
+  }
+
+  [v6 UTF8String];
+  _bs_set_crash_log_message();
+}
+
+- (void)settingNames:(uint64_t)a3 .cold.2(uint64_t a1, const char *a2, uint64_t a3)
+{
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No known selector for setting name: %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
-    OUTLINED_FUNCTION_12_0();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, v15);
+    OUTLINED_FUNCTION_8();
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v4 UTF8String];
   _bs_set_crash_log_message();
 }
 
-- (void)clientSettingNames:(uint64_t)a1 .cold.2(uint64_t a1, const char *a2)
+- (void)clientSettingNames:(uint64_t)a3 .cold.1(const char *a1, const char *a2, uint64_t a3)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No known selector for setting name: %@"];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = NSStringFromSelector(a1);
+  v6 = [v4 stringWithFormat:@"No known setting for selector: %@", v5];
+
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(a2);
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
-    OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, a1, v13, v14);
+    v7 = NSStringFromSelector(a2);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    OUTLINED_FUNCTION_12_0();
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v3 UTF8String];
+  [v6 UTF8String];
+  _bs_set_crash_log_message();
+}
+
+- (void)clientSettingNames:(uint64_t)a3 .cold.2(uint64_t a1, const char *a2, uint64_t a3)
+{
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No known selector for setting name: %@", a1];
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = NSStringFromSelector(a2);
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    OUTLINED_FUNCTION_8();
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
+  }
+
+  [v4 UTF8String];
   _bs_set_crash_log_message();
 }
 

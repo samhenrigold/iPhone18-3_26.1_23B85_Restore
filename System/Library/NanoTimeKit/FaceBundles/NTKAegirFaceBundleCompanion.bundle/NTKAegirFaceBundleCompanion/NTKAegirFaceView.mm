@@ -48,9 +48,10 @@
 - (void)_layoutPhaseLabel;
 - (void)_layoutSpheroidLabel:(int)label;
 - (void)_loadSnapshotContentViews;
-- (void)_physicalButtonDelayedBlockFired;
 - (void)_prepareForEditing;
 - (void)_prepareToZoom;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
+- (void)_setComplicationsInteractionEnabled:(BOOL)enabled;
 - (void)_setElementOrder:(unint64_t)order;
 - (void)_setFaceViewModeActive;
 - (void)_setFaceViewModeDeactive;
@@ -63,11 +64,14 @@
 - (void)_shuffleStyleIfNecessary;
 - (void)_shuffleVistaIfNecessary;
 - (void)_unloadSnapshotContentViews;
+- (void)_updateLocaleAnimated:(BOOL)animated;
 - (void)_wheelDelayedBlockFired;
 - (void)astronomyVistaControllerWillEnterInteractiveMode:(id)mode;
 - (void)dealloc;
 - (void)exitInteractiveModeAnimated:(BOOL)animated completion:(id)completion;
 - (void)layoutSubviews;
+- (void)screenDidTurnOffAnimated:(BOOL)animated;
+- (void)screenWillTurnOnAnimated:(BOOL)animated;
 - (void)setOverrideDate:(id)date duration:(double)duration;
 - (void)setTimeOffset:(double)offset;
 @end
@@ -115,6 +119,25 @@
   v4.receiver = self;
   v4.super_class = NTKAegirFaceView;
   [(NTKAegirFaceView *)&v4 dealloc];
+}
+
+- (void)screenDidTurnOffAnimated:(BOOL)animated
+{
+  v3.receiver = self;
+  v3.super_class = NTKAegirFaceView;
+  [(NTKAegirFaceView *)&v3 screenDidTurnOffAnimated:animated];
+}
+
+- (void)screenWillTurnOnAnimated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = NTKAegirFaceView;
+  [(NTKAegirFaceView *)&v5 screenWillTurnOnAnimated:animated];
+  if ([(NTKAegirFaceView *)self _styleOptionIsRandom])
+  {
+    vistaView = [(NUNIAstronomyVistaController *)self->_astronomyController vistaView];
+    [vistaView setFrameInterval:0];
+  }
 }
 
 - (void)_loadSnapshotContentViews
@@ -481,10 +504,8 @@
   vistaView = [(NUNIAstronomyVistaController *)self->_astronomyController vistaView];
   [vistaView setAlpha:v7];
 
-  self->_elementOrder;
   CLKInterpolateBetweenFloatsClipped();
   [(NTKDigitalTimeLabel *)self->_centerTimeLabelFront setAlpha:?];
-  self->_elementOrder;
   CLKInterpolateBetweenFloatsClipped();
   [(NTKDigitalTimeLabel *)self->_centerTimeLabelBack setAlpha:?];
   [(NTKAegirFaceView *)self _vistaOptionIsRandom];
@@ -901,6 +922,26 @@ LABEL_13:
   return style;
 }
 
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v10.receiver = self;
+  v10.super_class = NTKAegirFaceView;
+  groupCopy = group;
+  [(NTKAegirFaceView *)&v10 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  v7 = _NTKLoggingObjectForDomain();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = [(NTKAegirFaceView *)self dataMode:v10.receiver];
+    *buf = 134217984;
+    v12 = v8;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "_renderSynchronouslyWithImageQueueDiscard: dataMode=%ld", buf, 0xCu);
+  }
+
+  vistaView = [(NUNIAstronomyVistaController *)self->_astronomyController vistaView];
+  [vistaView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+}
+
 - (void)_applyShowContentForUnadornedSnapshot
 {
   [(NTKDigitalTimeLabel *)self->_centerTimeLabelFront setHidden:[(NTKAegirFaceView *)self showContentForUnadornedSnapshot]];
@@ -950,7 +991,7 @@ LABEL_13:
 
   text = [(CLKUIColoringLabel *)self->_travelTimeLabel text];
   travelTimeLabel = self->_travelTimeLabel;
-  v27 = sub_4820();
+  v27 = sub_4820(text);
   [(CLKUIColoringLabel *)travelTimeLabel setText:v27];
 
   [(CLKUIColoringLabel *)self->_travelTimeLabel sizeToFit];
@@ -1033,6 +1074,26 @@ LABEL_13:
   dispatch_async(&_dispatch_main_q, v2);
   objc_destroyWeak(&v3);
   objc_destroyWeak(&location);
+}
+
+- (void)_updateLocaleAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v6 = +[NSLocale currentLocale];
+  if (CLKLocaleIs24HourMode())
+  {
+    v5 = @"H:mm";
+  }
+
+  else
+  {
+    v5 = @"h:mm a";
+  }
+
+  [(NSDateFormatter *)self->_scrubDateFormatter[0] setLocalizedDateFormatFromTemplate:v5];
+  [(NSDateFormatter *)self->_scrubDateFormatter[1] setLocalizedDateFormatFromTemplate:@"MMM d"];
+  [(NSDateFormatter *)self->_scrubDateFormatter[2] setLocalizedDateFormatFromTemplate:@"MM/dd/y"];
+  [(NUNIAstronomyVistaController *)self->_astronomyController updateTimeAnimated:animatedCopy];
 }
 
 - (id)topComplicationFont
@@ -1159,26 +1220,25 @@ LABEL_13:
 
 - (void)_invalidateTimeLabelStyles
 {
-  v9 = [(NTKAegirFaceView *)self _centerTimeLabelStyleForViewMode:self->_viewMode];
-  [(NTKDigitalTimeLabel *)self->_centerTimeLabelFront setStyle:v9];
-  [(NTKDigitalTimeLabel *)self->_centerTimeLabelBack setStyle:v9];
+  v8 = [(NTKAegirFaceView *)self _centerTimeLabelStyleForViewMode:self->_viewMode];
+  [(NTKDigitalTimeLabel *)self->_centerTimeLabelFront setStyle:v8];
+  [(NTKDigitalTimeLabel *)self->_centerTimeLabelBack setStyle:v8];
   cornerTimeLabel = self->_cornerTimeLabel;
   v4 = [(NTKAegirFaceView *)self _cornerTimeLabelStyleForViewMode:self->_viewMode];
   [(NTKDigitalTimeLabel *)cornerTimeLabel setStyle:v4];
 
-  numeralOption = self->_numeralOption;
-  v6 = CLKLocaleNumberSystemFromNumeralOption();
+  v5 = CLKLocaleNumberSystemFromNumeralOption();
   device = [(NTKAegirFaceView *)self device];
-  v8 = NTKShowIndicScriptNumerals();
+  v7 = NTKShowIndicScriptNumerals();
 
-  if (!v8)
+  if (!v7)
   {
-    v6 = -1;
+    v5 = -1;
   }
 
-  [(NTKDigitalTimeLabel *)self->_centerTimeLabelFront setForcedNumberSystem:v6];
-  [(NTKDigitalTimeLabel *)self->_centerTimeLabelBack setForcedNumberSystem:v6];
-  [(NTKDigitalTimeLabel *)self->_cornerTimeLabel setForcedNumberSystem:v6];
+  [(NTKDigitalTimeLabel *)self->_centerTimeLabelFront setForcedNumberSystem:v5];
+  [(NTKDigitalTimeLabel *)self->_centerTimeLabelBack setForcedNumberSystem:v5];
+  [(NTKDigitalTimeLabel *)self->_cornerTimeLabel setForcedNumberSystem:v5];
   [(NTKAegirFaceView *)self setNeedsLayout];
 }
 
@@ -1352,13 +1412,6 @@ LABEL_10:
 
     [(NTKAegirFaceView *)self _animateTransitionToViewMode:2];
   }
-}
-
-- (void)_physicalButtonDelayedBlockFired
-{
-  physicalButtonDelayedBlock = self->_physicalButtonDelayedBlock;
-  self->_physicalButtonDelayedBlock = 0;
-  _objc_release_x1();
 }
 
 - (void)_enableCrownForAegirVista:(unint64_t)vista
@@ -1794,121 +1847,109 @@ LABEL_16:
   {
     device2 = [(NTKAegirFaceView *)self device];
     [device2 screenBounds];
-    v12 = v11 - *&dword_1A238;
+    v10 = v9 - *&dword_1A238;
   }
 
   else
   {
-    v12 = *&dword_1A238;
+    v10 = *&dword_1A238;
   }
 
-  v13 = v12;
-  v14 = 80;
-  v15 = 8;
+  v11 = v10;
+  v12 = 80;
+  v13 = 8;
   do
   {
-    v16 = *&self->NTKFaceView_opaque[v14];
-    if (v16)
+    v14 = *&self->NTKFaceView_opaque[v12];
+    if (v14)
     {
-      var1 = pose->var1;
-      v18 = toPose->var1;
-      v19 = v16;
+      v15 = v14;
       CLKInterpolateBetweenFloatsClipped();
-      [v19 setAlpha:?];
-      [v19 frame];
+      [v15 setAlpha:?];
+      [v15 frame];
+      v17 = v16;
+      v19 = v18;
       v21 = v20;
-      v23 = v22;
-      v25 = v24;
-      var0 = pose->var0;
-      v27 = toPose->var0;
       CLKInterpolateBetweenFloatsClipped();
       if (IsRTL)
       {
-        v28 = -v28 - v23;
+        v22 = -v22 - v19;
       }
 
-      [v19 setFrame:{v28 + v13, v21, v23, v25}];
+      [v15 setFrame:{v22 + v11, v17, v19, v21}];
     }
 
-    v14 += 8;
-    --v15;
+    v12 += 8;
+    --v13;
   }
 
-  while (v15);
+  while (v13);
   if (([(NTKAegirFaceView *)self editing]& 1) == 0)
   {
-    var4 = pose->var4;
-    v30 = toPose->var4;
     CLKInterpolateBetweenFloatsClipped();
-    v32 = v31;
+    v24 = v23;
     [(CLKUIColoringLabel *)self->_travelTimeLabel setAlpha:?];
-    [(CLKUIColoringLabel *)self->_scrubLabel setAlpha:v32];
-    var3 = pose->var3;
-    v34 = toPose->var3;
+    [(CLKUIColoringLabel *)self->_scrubLabel setAlpha:v24];
     CLKInterpolateBetweenFloatsClipped();
-    if (v32 <= v35)
+    if (v24 <= v25)
     {
-      v36 = v35;
+      v26 = v25;
     }
 
     else
     {
-      v36 = 0.0;
+      v26 = 0.0;
     }
 
-    v37 = fmax(v32, v35);
-    if (v32 <= v35 || v37 <= 0.0)
+    v27 = fmax(v24, v25);
+    if (v24 <= v25 || v27 <= 0.0)
     {
-      v39 = 0.0;
+      v29 = 0.0;
     }
 
     else
     {
-      v39 = v32;
+      v29 = v24;
     }
 
-    if (v37 <= 0.0)
+    if (v27 <= 0.0)
     {
-      v40 = 0.0;
+      v30 = 0.0;
     }
 
     else
     {
-      v40 = v36;
+      v30 = v26;
     }
 
-    [(NTKDigitalTimeLabel *)self->_cornerTimeLabel setAlpha:v39];
-    v41 = fmin(v40, self->_homeScreenAlphaOverride);
+    [(NTKDigitalTimeLabel *)self->_cornerTimeLabel setAlpha:v29];
+    v31 = fmin(v30, self->_homeScreenAlphaOverride);
     if (self->_elementOrder)
     {
-      v42 = 0.0;
+      v32 = 0.0;
     }
 
     else
     {
-      v42 = 1.0;
+      v32 = 1.0;
     }
 
-    [(NTKDigitalTimeLabel *)self->_centerTimeLabelFront setAlpha:v41 * v42];
+    [(NTKDigitalTimeLabel *)self->_centerTimeLabelFront setAlpha:v31 * v32];
     if (self->_elementOrder == 1)
     {
-      v43 = 1.0;
+      v33 = 1.0;
     }
 
     else
     {
-      v43 = 0.0;
+      v33 = 0.0;
     }
 
-    [(NTKDigitalTimeLabel *)self->_centerTimeLabelBack setAlpha:v41 * v43];
+    [(NTKDigitalTimeLabel *)self->_centerTimeLabelBack setAlpha:v31 * v33];
     phaseLabel = self->_phaseLabel;
-    var6 = pose->var6;
-    v46 = toPose->var6;
     CLKInterpolateBetweenFloatsClipped();
     [(CLKUIColoringLabel *)phaseLabel setAlpha:?];
     complicationFactory = self->_complicationFactory;
-    var2 = pose->var2;
-    v49 = toPose->var2;
     CLKInterpolateBetweenFloatsClipped();
 
     [(NTKAegirFaceViewComplicationFactory *)complicationFactory setAlpha:self faceView:?];
@@ -1940,6 +1981,13 @@ LABEL_16:
   v6 = overrideDate2;
 
   return v6;
+}
+
+- (void)_setComplicationsInteractionEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v4 = [(NTKAegirFaceView *)self _complicationContainerViewForSlot:0];
+  [v4 setUserInteractionEnabled:enabledCopy];
 }
 
 - (void)_animateTransitionToViewMode:(int64_t)mode completion:(id)completion
@@ -2060,10 +2108,10 @@ LABEL_13:
 - (void)_setFaceViewModeSupplemental
 {
   [(NTKAegirFaceView *)self _setComplicationsInteractionEnabled:0];
-  [(NTKAegirFaceView *)self _disableCrown];
+  _disableCrown = [(NTKAegirFaceView *)self _disableCrown];
   travelTimeLabel = self->_travelTimeLabel;
-  v4 = sub_4820();
-  [(CLKUIColoringLabel *)travelTimeLabel setText:v4];
+  v5 = sub_4820(_disableCrown);
+  [(CLKUIColoringLabel *)travelTimeLabel setText:v5];
 
   [(CLKUIColoringLabel *)self->_scrubLabel setText:&stru_14CD0];
   phaseLabel = self->_phaseLabel;
@@ -2076,17 +2124,17 @@ LABEL_13:
   [(NTKAegirFaceView *)self _setComplicationsInteractionEnabled:1];
   if (NTKStarbearEnabled())
   {
-    [(NTKAegirFaceView *)self _disableCrown];
+    _disableCrown = [(NTKAegirFaceView *)self _disableCrown];
   }
 
   else
   {
-    [(NTKAegirFaceView *)self _enableCrownForAegirVista:[(NUNIAstronomyVistaController *)self->_astronomyController vista]];
+    _disableCrown = [(NTKAegirFaceView *)self _enableCrownForAegirVista:[(NUNIAstronomyVistaController *)self->_astronomyController vista]];
   }
 
   travelTimeLabel = self->_travelTimeLabel;
-  v4 = sub_4820();
-  [(CLKUIColoringLabel *)travelTimeLabel setText:v4];
+  v5 = sub_4820(_disableCrown);
+  [(CLKUIColoringLabel *)travelTimeLabel setText:v5];
 
   [(CLKUIColoringLabel *)self->_scrubLabel setText:&stru_14CD0];
   phaseLabel = self->_phaseLabel;
@@ -2097,10 +2145,10 @@ LABEL_13:
 - (void)_setFaceViewModeDeactive
 {
   [(NTKAegirFaceView *)self _setComplicationsInteractionEnabled:0];
-  [(NTKAegirFaceView *)self _disableCrown];
+  _disableCrown = [(NTKAegirFaceView *)self _disableCrown];
   travelTimeLabel = self->_travelTimeLabel;
-  v4 = sub_4820();
-  [(CLKUIColoringLabel *)travelTimeLabel setText:v4];
+  v5 = sub_4820(_disableCrown);
+  [(CLKUIColoringLabel *)travelTimeLabel setText:v5];
 
   [(CLKUIColoringLabel *)self->_scrubLabel setText:&stru_14CD0];
   phaseLabel = self->_phaseLabel;

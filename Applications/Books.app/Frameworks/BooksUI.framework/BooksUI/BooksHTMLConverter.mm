@@ -35,26 +35,26 @@
 
 - (void)parser:(id)parser didFindCharacters:(id)characters
 {
-  sub_264460();
+  v6 = sub_264460();
+  v8 = v7;
   parserCopy = parser;
   selfCopy = self;
-  sub_19D124();
+  sub_19D124(v6, v8);
 }
 
 - (void)parserDidFindNewline:(id)newline
 {
   v4 = sub_25FF40();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   sub_25FF10();
   swift_beginAccess();
   sub_25FF30();
   swift_endAccess();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)parser:(id)parser parseErrorOccurred:(id)occurred
@@ -62,7 +62,7 @@
   parserCopy = parser;
   occurredCopy = occurred;
   selfCopy = self;
-  sub_19D6C0();
+  sub_19D6C0(occurredCopy);
 }
 
 @end

@@ -1,9 +1,9 @@
 @interface SceneDelegate
 - (BOOL)tabBarController:(id)controller shouldSelectViewController:(id)viewController;
+- (double)sceneDidDisconnect:;
 - (void)scene:(id)scene openURLContexts:(id)contexts;
 - (void)scene:(id)scene willConnectToSession:(id)session options:(id)options;
 - (void)sceneDidBecomeActive:(id)active;
-- (void)sceneDidDisconnect:;
 - (void)sceneWillEnterForeground:(id)foreground;
 - (void)sceneWillResignActive:(id)active;
 - (void)setWindow:(id)window;
@@ -52,8 +52,8 @@
 
 - (void)scene:(id)scene openURLContexts:(id)contexts
 {
-  sub_10000A2CC(0, &qword_1003B8CC8);
-  sub_1000819A8(&unk_1003B8CD0, &qword_1003B8CC8);
+  sub_10000A2CC(0, &qword_1003B8CC8, UIOpenURLContext_ptr);
+  sub_1000819A8(&unk_1003B8CD0, &qword_1003B8CC8, UIOpenURLContext_ptr, &protocol conformance descriptor for NSObject);
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   sceneCopy = scene;
   selfCopy = self;
@@ -89,7 +89,7 @@
   sub_100220500(controllerCopy);
 }
 
-- (void)sceneDidDisconnect:
+- (double)sceneDidDisconnect:
 {
   if (qword_1003A9200 != -1)
   {
@@ -107,19 +107,21 @@
     _os_log_impl(&_mh_execute_header, v1, v2, "Scene did disconnect", v3, 2u);
   }
 
-  sub_10000A2CC(0, &qword_1003BB780);
+  sub_10000A2CC(0, &qword_1003BB780, UIApplication_ptr);
   v4 = sub_10000B55C();
   if (v4)
   {
-    v5 = *(v4 + OBJC_IVAR____TtC17SequoiaTranslator11AppDelegate_interruptionController);
-    v6 = v4;
+    v6 = *(v4 + OBJC_IVAR____TtC17SequoiaTranslator11AppDelegate_interruptionController);
+    v7 = v4;
 
-    if (v5)
+    if (v6)
     {
-      *(v5 + 24) = 0;
+      *(v6 + 24) = 0;
       swift_unknownObjectWeakAssign();
     }
   }
+
+  return result;
 }
 
 @end

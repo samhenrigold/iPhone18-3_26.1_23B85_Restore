@@ -52,24 +52,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_requestIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    success = self->_success;
     PBDataWriterWriteBOOLField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_launchError)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -216,18 +215,28 @@ LABEL_10:
   v6 = *(fromCopy + 1);
   if (launchError)
   {
-    if (v6)
+    if (!v6)
     {
-      [(HDCodableError *)launchError mergeFrom:?];
+      goto LABEL_11;
     }
+
+    launchError = [(HDCodableError *)launchError mergeFrom:?];
   }
 
-  else if (v6)
+  else
   {
-    [(HDCodableStartWorkoutAppResponse *)self setLaunchError:?];
+    if (!v6)
+    {
+      goto LABEL_11;
+    }
+
+    launchError = [(HDCodableStartWorkoutAppResponse *)self setLaunchError:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  fromCopy = v7;
+LABEL_11:
+
+  MEMORY[0x2821F96F8](launchError, fromCopy);
 }
 
 @end

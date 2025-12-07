@@ -288,7 +288,7 @@ LABEL_11:
   identifierCopy = identifier;
   responseCopy = response;
   errorCopy = error;
-  v10 = [(NSMutableDictionary *)self->_completions objectForKey:identifierCopy];
+  v10 = objc_msgSend_objectForKey_(self->_completions);
   if (errorCopy || ![responseCopy isResponse])
   {
     v13 = 0;
@@ -300,7 +300,7 @@ LABEL_11:
     goto LABEL_6;
   }
 
-  v11 = objc_alloc([(NSMutableDictionary *)self->_responseClasses objectForKey:identifierCopy]);
+  v11 = objc_alloc(objc_msgSend_objectForKey_(self->_responseClasses));
   data = [responseCopy data];
   v13 = [v11 initWithData:data];
 

@@ -67,68 +67,68 @@
 
 + (id)nextMessage:(id)message entity:(id)entity
 {
-  v72[2] = *MEMORY[0x277D85DE8];
+  v71[2] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   entityCopy = entity;
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x3032000000;
-  v69 = __Block_byref_object_copy__9240;
-  v70 = __Block_byref_object_dispose__9241;
-  v7 = messageCopy;
-  v71 = v7;
-  v63 = 0;
-  v64[0] = &v63;
-  v64[1] = 0x3032000000;
-  v64[2] = __Block_byref_object_copy__9240;
-  v64[3] = __Block_byref_object_dispose__9241;
   v65 = 0;
-  v60 = 0;
-  v61[0] = &v60;
-  v61[1] = 0x3032000000;
-  v61[2] = __Block_byref_object_copy__9240;
-  v61[3] = __Block_byref_object_dispose__9241;
+  v66 = &v65;
+  v67 = 0x3032000000;
+  v68 = __Block_byref_object_copy__9240;
+  v69 = __Block_byref_object_dispose__9241;
+  v7 = messageCopy;
+  v70 = v7;
   v62 = 0;
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = __Block_byref_object_copy__9240;
-  v58 = __Block_byref_object_dispose__9241;
+  v63[0] = &v62;
+  v63[1] = 0x3032000000;
+  v63[2] = __Block_byref_object_copy__9240;
+  v63[3] = __Block_byref_object_dispose__9241;
+  v64 = 0;
   v59 = 0;
+  v60[0] = &v59;
+  v60[1] = 0x3032000000;
+  v60[2] = __Block_byref_object_copy__9240;
+  v60[3] = __Block_byref_object_dispose__9241;
+  v61 = 0;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x3032000000;
+  v56 = __Block_byref_object_copy__9240;
+  v57 = __Block_byref_object_dispose__9241;
+  v58 = 0;
   v8 = +[SGMailPatterns replyAttributionPattern];
-  v9 = v67[5];
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __37__SGThreadParser_nextMessage_entity___block_invoke;
-  v53[3] = &unk_27894FD80;
-  v53[4] = &v63;
-  [v8 enumerateMatchesInString:v9 ngroups:0 block:v53];
-
-  v10 = [SGMailPatterns headerPattern:@"From"];
-  v11 = v67[5];
+  v9 = v66[5];
   v52[0] = MEMORY[0x277D85DD0];
   v52[1] = 3221225472;
-  v52[2] = __37__SGThreadParser_nextMessage_entity___block_invoke_2;
+  v52[2] = __37__SGThreadParser_nextMessage_entity___block_invoke;
   v52[3] = &unk_27894FD80;
-  v52[4] = &v60;
-  [v10 enumerateMatchesInString:v11 ngroups:0 block:v52];
+  v52[4] = &v62;
+  [v8 enumerateMatchesInString:v9 ngroups:0 block:v52];
 
-  v12 = +[SGMailPatterns quotedRegionStartPattern];
-  v13 = v67[5];
+  v10 = [SGMailPatterns headerPattern:@"From"];
+  v11 = v66[5];
   v51[0] = MEMORY[0x277D85DD0];
   v51[1] = 3221225472;
-  v51[2] = __37__SGThreadParser_nextMessage_entity___block_invoke_3;
+  v51[2] = __37__SGThreadParser_nextMessage_entity___block_invoke_2;
   v51[3] = &unk_27894FD80;
-  v51[4] = &v54;
-  [v12 enumerateMatchesInString:v13 ngroups:0 block:v51];
+  v51[4] = &v59;
+  [v10 enumerateMatchesInString:v11 ngroups:0 block:v51];
 
-  v14 = *(v64[0] + 40);
+  v12 = +[SGMailPatterns quotedRegionStartPattern];
+  v13 = v66[5];
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __37__SGThreadParser_nextMessage_entity___block_invoke_3;
+  v50[3] = &unk_27894FD80;
+  v50[4] = &v53;
+  [v12 enumerateMatchesInString:v13 ngroups:0 block:v50];
+
+  v14 = *(v63[0] + 40);
   if (!v14)
   {
-    v16 = *(v61[0] + 40);
+    v16 = *(v60[0] + 40);
     if (!v16)
     {
-      if (!v55[5])
+      if (!v54[5])
       {
         v47 = 0;
         goto LABEL_28;
@@ -145,7 +145,7 @@ LABEL_6:
   }
 
   rangeValue2 = [v14 rangeValue];
-  v16 = *(v61[0] + 40);
+  v16 = *(v60[0] + 40);
   if (v16)
   {
     goto LABEL_6;
@@ -154,17 +154,17 @@ LABEL_6:
 LABEL_9:
   rangeValue = -1;
 LABEL_10:
-  v18 = v55[5];
+  v18 = v54[5];
   if (v18 && (v19 = [v18 rangeValue], v19 < rangeValue2) && v19 < rangeValue)
   {
     v20 = objc_autoreleasePoolPush();
-    v21 = [v67[5] substringFromIndex:{objc_msgSend(v55[5], "rangeValue")}];
-    v22 = v67[5];
-    v67[5] = v21;
+    v21 = [v66[5] substringFromIndex:{objc_msgSend(v54[5], "rangeValue")}];
+    v22 = v66[5];
+    v66[5] = v21;
 
-    v23 = [SGThreadParser stripChevrons:v67[5]];
-    v24 = v67[5];
-    v67[5] = v23;
+    v23 = [SGThreadParser stripChevrons:v66[5]];
+    v24 = v66[5];
+    v66[5] = v23;
 
     objc_autoreleasePoolPop(v20);
     v25 = &stru_284703F00;
@@ -173,44 +173,44 @@ LABEL_10:
   else
   {
     v26 = objc_autoreleasePoolPush();
-    v27 = v64;
+    v27 = v63;
     if (rangeValue2 >= rangeValue)
     {
-      v27 = v61;
+      v27 = v60;
     }
 
     v28 = *(*v27 + 40);
-    v29 = v67[5];
+    v29 = v66[5];
     rangeValue3 = [v28 rangeValue];
     v32 = [v29 substringWithRange:{rangeValue3, v31}];
-    v33 = v67[5];
+    v33 = v66[5];
     rangeValue4 = [v28 rangeValue];
     [v28 rangeValue];
     v36 = [v33 substringFromIndex:v35 + rangeValue4];
-    v37 = v67[5];
-    v67[5] = v36;
+    v37 = v66[5];
+    v66[5] = v36;
 
-    if (v28 == *(v61[0] + 40))
+    if (v28 == *(v60[0] + 40))
     {
       v38 = +[SGMailPatterns headersPattern];
-      v39 = v67[5];
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __37__SGThreadParser_nextMessage_entity___block_invoke_4;
-      v50[3] = &unk_27894FD80;
-      v50[4] = &v66;
-      [v38 enumerateMatchesInString:v39 ngroups:0 block:v50];
+      v39 = v66[5];
+      v49[0] = MEMORY[0x277D85DD0];
+      v49[1] = 3221225472;
+      v49[2] = __37__SGThreadParser_nextMessage_entity___block_invoke_4;
+      v49[3] = &unk_27894FD80;
+      v49[4] = &v65;
+      [v38 enumerateMatchesInString:v39 ngroups:0 block:v49];
     }
 
     v40 = patterns();
     v41 = [v40 regex2ForKey:@"NextLineQuoted"];
-    v42 = [v41 existsInString:v67[5]];
+    v42 = [v41 existsInString:v66[5]];
 
     if (v42)
     {
-      v43 = [SGThreadParser stripChevrons:v67[5]];
-      v44 = v67[5];
-      v67[5] = v43;
+      v43 = [SGThreadParser stripChevrons:v66[5]];
+      v44 = v66[5];
+      v66[5] = v43;
     }
 
     v45 = [SGThreadParser emailFrom:v32 entity:entityCopy];
@@ -228,11 +228,11 @@ LABEL_10:
     objc_autoreleasePoolPop(v26);
   }
 
-  if ([v67[5] length])
+  if ([v66[5] length])
   {
-    v72[0] = v67[5];
-    v72[1] = v25;
-    v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
+    v71[0] = v66[5];
+    v71[1] = v25;
+    v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
   }
 
   else
@@ -241,13 +241,12 @@ LABEL_10:
   }
 
 LABEL_28:
-  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v53, 8);
 
-  _Block_object_dispose(&v60, 8);
-  _Block_object_dispose(&v63, 8);
+  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v62, 8);
 
-  _Block_object_dispose(&v66, 8);
-  v48 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v65, 8);
 
   return v47;
 }
@@ -469,46 +468,46 @@ uint64_t __35__SGThreadParser_emailFrom_entity___block_invoke(uint64_t a1, void 
 
 + (id)stripChevrons:(id)chevrons
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   chevronsCopy = chevrons;
   context = objc_autoreleasePoolPush();
   v4 = patterns();
-  v21 = [v4 regex2ForKey:@"NonQuotedLinePart"];
+  v20 = [v4 regex2ForKey:@"NonQuotedLinePart"];
 
   whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
   v6 = objc_opt_new();
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v7 = [chevronsCopy componentsSeparatedByString:@"\n"];
-  v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
+        v12 = *(*(&v24 + 1) + 8 * i);
         v13 = objc_autoreleasePoolPush();
         v14 = [v12 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
         if ([v14 length])
         {
           v15 = objc_autoreleasePoolPush();
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __32__SGThreadParser_stripChevrons___block_invoke;
-          v22[3] = &unk_27894FA58;
-          v23 = v6;
-          v24 = v14;
-          [v21 enumerateMatchesInString:v24 ngroups:1 block:v22];
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __32__SGThreadParser_stripChevrons___block_invoke;
+          v21[3] = &unk_27894FA58;
+          v22 = v6;
+          v23 = v14;
+          [v20 enumerateMatchesInString:v23 ngroups:1 block:v21];
 
           objc_autoreleasePoolPop(v15);
         }
@@ -516,7 +515,7 @@ uint64_t __35__SGThreadParser_emailFrom_entity___block_invoke(uint64_t a1, void 
         objc_autoreleasePoolPop(v13);
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v9);
@@ -526,7 +525,6 @@ uint64_t __35__SGThreadParser_emailFrom_entity___block_invoke(uint64_t a1, void 
   v17 = [v16 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
 
   objc_autoreleasePoolPop(context);
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

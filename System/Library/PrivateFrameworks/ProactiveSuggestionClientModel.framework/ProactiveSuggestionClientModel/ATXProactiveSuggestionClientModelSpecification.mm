@@ -205,10 +205,11 @@ LABEL_9:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v10 = __atxlog_handle_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [ATXProactiveSuggestion initWithProto:];
     }
@@ -216,40 +217,40 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v5 = protoCopy;
-  clientModelId = [(ATXPBProactiveSuggestionClientModelSpecification *)v5 clientModelId];
-  clientModelVersion = [(ATXPBProactiveSuggestionClientModelSpecification *)v5 clientModelVersion];
-  engagementResetPolicy = [(ATXPBProactiveSuggestionClientModelSpecification *)v5 engagementResetPolicy];
+  v6 = protoCopy;
+  clientModelId = [(ATXPBProactiveSuggestionClientModelSpecification *)v6 clientModelId];
+  clientModelVersion = [(ATXPBProactiveSuggestionClientModelSpecification *)v6 clientModelVersion];
+  engagementResetPolicy = [(ATXPBProactiveSuggestionClientModelSpecification *)v6 engagementResetPolicy];
   if (engagementResetPolicy)
   {
     if (engagementResetPolicy == 1)
     {
-      v9 = @"WhenNotPredicted";
+      v10 = @"WhenNotPredicted";
     }
 
     else
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", engagementResetPolicy];
+      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", engagementResetPolicy];
     }
   }
 
   else
   {
-    v9 = @"OnCacheUpdate";
+    v10 = @"OnCacheUpdate";
   }
 
-  v12 = v9;
-  if (([(__CFString *)v12 isEqualToString:@"OnCacheUpdate"]& 1) != 0)
+  v13 = v10;
+  if (([(__CFString *)v13 isEqualToString:@"OnCacheUpdate"]& 1) != 0)
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v13 = [(__CFString *)v12 isEqualToString:@"WhenNotPredicted"];
+    v14 = [(__CFString *)v13 isEqualToString:@"WhenNotPredicted"];
   }
 
-  self = [(ATXProactiveSuggestionClientModelSpecification *)self initWithClientModelId:clientModelId clientModelVersion:clientModelVersion engagementResetPolicy:v13];
+  self = [(ATXProactiveSuggestionClientModelSpecification *)self initWithClientModelId:clientModelId clientModelVersion:clientModelVersion engagementResetPolicy:v14];
   selfCopy = self;
 LABEL_16:
 
@@ -258,7 +259,7 @@ LABEL_16:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -275,11 +276,11 @@ LABEL_16:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -290,13 +291,12 @@ LABEL_16:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForNSInteger:(int64_t)integer key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -313,11 +313,11 @@ LABEL_7:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -328,7 +328,6 @@ LABEL_7:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -350,14 +349,13 @@ LABEL_7:
 
 - (id)jsonRawData
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v6[0] = @"clientModelId";
-  v6[1] = @"clientModelVersion";
+  v6[2] = *MEMORY[0x1E69E9840];
+  v5[0] = @"clientModelId";
+  v5[1] = @"clientModelVersion";
   clientModelVersion = self->_clientModelVersion;
-  v7[0] = self->_clientModelId;
-  v7[1] = clientModelVersion;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = self->_clientModelId;
+  v6[1] = clientModelVersion;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }

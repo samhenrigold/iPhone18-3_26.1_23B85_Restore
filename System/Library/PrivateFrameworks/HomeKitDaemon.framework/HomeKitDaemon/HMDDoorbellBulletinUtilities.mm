@@ -25,24 +25,23 @@
 
 void __43__HMDDoorbellBulletinUtilities_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v8_76319;
-  logCategory__hmf_once_v8_76319 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8_76319;
+  logCategory__hmf_once_v8_76319 = v0;
 }
 
 + (id)_mostRelevantSignificantEventsForDoorbellPressAtDate:(id)date fromSignificantEvents:(id)events
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   eventsCopy = events;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __107__HMDDoorbellBulletinUtilities__mostRelevantSignificantEventsForDoorbellPressAtDate_fromSignificantEvents___block_invoke;
-  v25[3] = &unk_278675828;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __107__HMDDoorbellBulletinUtilities__mostRelevantSignificantEventsForDoorbellPressAtDate_fromSignificantEvents___block_invoke;
+  v24[3] = &unk_278675828;
   v8 = dateCopy;
-  v26 = v8;
-  v9 = [eventsCopy sortedArrayUsingComparator:v25];
+  v25 = v8;
+  v9 = [eventsCopy sortedArrayUsingComparator:v24];
   v10 = objc_autoreleasePoolPush();
   selfCopy = self;
   v12 = HMFGetOSLogHandle();
@@ -50,26 +49,24 @@ void __43__HMDDoorbellBulletinUtilities_logCategory__block_invoke()
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v28 = v13;
-    v29 = 2112;
-    v30 = v8;
-    v31 = 2112;
-    v32 = v9;
+    v27 = v13;
+    v28 = 2112;
+    v29 = v8;
+    v30 = 2112;
+    v31 = v9;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@For doorbell press at %@, sorted recent significant events are %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v10);
   v14 = [v9 na_firstObjectPassingTest:&__block_literal_global_44_76325];
-  v20 = MEMORY[0x277D85DD0];
-  v21 = 3221225472;
-  v22 = __107__HMDDoorbellBulletinUtilities__mostRelevantSignificantEventsForDoorbellPressAtDate_fromSignificantEvents___block_invoke_2;
-  v23 = &unk_278682D78;
-  v24 = v14;
+  v19 = MEMORY[0x277D85DD0];
+  v20 = 3221225472;
+  v21 = __107__HMDDoorbellBulletinUtilities__mostRelevantSignificantEventsForDoorbellPressAtDate_fromSignificantEvents___block_invoke_2;
+  v22 = &unk_278682D78;
+  v23 = v14;
   v15 = v14;
-  v16 = [eventsCopy na_filter:&v20];
-  v17 = [MEMORY[0x277CBEB98] setWithArray:{v16, v20, v21, v22, v23}];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = [eventsCopy na_filter:&v19];
+  v17 = [MEMORY[0x277CBEB98] setWithArray:{v16, v19, v20, v21, v22}];
 
   return v17;
 }
@@ -151,7 +148,7 @@ id __74__HMDDoorbellBulletinUtilities_clipUUIDsForCoalesceableSignificantEvents_
 
 - (void)fetchSignificantEventsRelevantToDoorbellPressAtDate:(id)date forCameraProfile:(id)profile completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   profileCopy = profile;
   completionCopy = completion;
@@ -160,14 +157,14 @@ id __74__HMDDoorbellBulletinUtilities_clipUUIDsForCoalesceableSignificantEvents_
   {
     v12 = [objc_opt_class() _relevantSignificantEventDateIntervalForDoorbellPressAtDate:dateCopy];
     v13 = [clipManager fetchSignificantEventsWithDateInterval:v12];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __112__HMDDoorbellBulletinUtilities_fetchSignificantEventsRelevantToDoorbellPressAtDate_forCameraProfile_completion___block_invoke;
-    v20[3] = &unk_278684DE0;
-    v22 = completionCopy;
-    v20[4] = self;
-    v21 = dateCopy;
-    v14 = [v13 addCompletionBlock:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __112__HMDDoorbellBulletinUtilities_fetchSignificantEventsRelevantToDoorbellPressAtDate_forCameraProfile_completion___block_invoke;
+    v19[3] = &unk_278684DE0;
+    v21 = completionCopy;
+    v19[4] = self;
+    v20 = dateCopy;
+    v14 = [v13 addCompletionBlock:v19];
   }
 
   else
@@ -179,7 +176,7 @@ id __74__HMDDoorbellBulletinUtilities_clipUUIDsForCoalesceableSignificantEvents_
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v18;
+      v23 = v18;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Cannot fetch significant events relevant to doorbell press: clip manager is nil", buf, 0xCu);
     }
 
@@ -187,23 +184,20 @@ id __74__HMDDoorbellBulletinUtilities_clipUUIDsForCoalesceableSignificantEvents_
     v12 = [MEMORY[0x277CBEB98] set];
     (*(completionCopy + 2))(completionCopy, v12);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __112__HMDDoorbellBulletinUtilities_fetchSignificantEventsRelevantToDoorbellPressAtDate_forCameraProfile_completion___block_invoke(void *a1, void *a2)
 {
   v3 = a1[6];
-  v4 = a1[4];
-  v5 = a2;
-  v6 = [objc_opt_class() _mostRelevantSignificantEventsForDoorbellPressAtDate:a1[5] fromSignificantEvents:v5];
+  v4 = a2;
+  v5 = [objc_opt_class() _mostRelevantSignificantEventsForDoorbellPressAtDate:a1[5] fromSignificantEvents:v4];
 
-  (*(v3 + 16))(v3, v6);
+  (*(v3 + 16))(v3, v5);
 }
 
 - (id)significantEventsRelevantToDoorbellPressAtDate:(id)date forCameraProfile:(id)profile
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   profileCopy = profile;
   clipManager = [profileCopy clipManager];
@@ -222,33 +216,31 @@ void __112__HMDDoorbellBulletinUtilities_fetchSignificantEventsRelevantToDoorbel
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v15;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Cannot fetch significant events relevant to doorbell press: clip manager is nil", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v15;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Cannot fetch significant events relevant to doorbell press: clip manager is nil", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = [MEMORY[0x277CBEB98] set];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)localizedMessageForCharacteristic:(id)characteristic
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   v4 = MEMORY[0x277CCACA8];
   v5 = HMDLocalizedStringForKey(@"NOTIFICATION_MESSAGE_DOORBELL_EVENT");
-  v19 = 0;
+  v18 = 0;
   accessory = [characteristicCopy accessory];
   room = [accessory room];
   name = [room name];
   v9 = [HMDBulletinCategory trimLeadingAndTailingSpacesInName:name];
-  v10 = [v4 localizedStringWithValidatedFormat:v5 validFormatSpecifiers:@"%@" error:&v19, v9];
-  v11 = v19;
+  v10 = [v4 localizedStringWithValidatedFormat:v5 validFormatSpecifiers:@"%@" error:&v18, v9];
+  v11 = v18;
 
   v12 = v10;
   if (!v10)
@@ -259,13 +251,13 @@ void __112__HMDDoorbellBulletinUtilities_fetchSignificantEventsRelevantToDoorbel
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v21 = v15;
-      v22 = 2112;
-      v23 = @"NOTIFICATION_MESSAGE_DOORBELL_EVENT";
-      v24 = 2112;
-      v25 = @"%@";
-      v26 = 2112;
-      v27 = v11;
+      v20 = v15;
+      v21 = 2112;
+      v22 = @"NOTIFICATION_MESSAGE_DOORBELL_EVENT";
+      v23 = 2112;
+      v24 = @"%@";
+      v25 = 2112;
+      v26 = v11;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
     }
 
@@ -275,14 +267,13 @@ void __112__HMDDoorbellBulletinUtilities_fetchSignificantEventsRelevantToDoorbel
 
   v16 = v12;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (id)_localizedDoorbellMessageForSignificantEvents:(id)events forAudioAccessory:(BOOL)accessory
 {
   accessoryCopy = accessory;
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -291,9 +282,9 @@ void __112__HMDDoorbellBulletinUtilities_fetchSignificantEventsRelevantToDoorbel
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v48 = v10;
-    v49 = 2112;
-    v50 = eventsCopy;
+    v47 = v10;
+    v48 = 2112;
+    v49 = eventsCopy;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Determining localized camera doorbell message from significant events: %@", buf, 0x16u);
   }
 
@@ -307,7 +298,7 @@ void __112__HMDDoorbellBulletinUtilities_fetchSignificantEventsRelevantToDoorbel
   v16 = [v15 count];
   if (v16 == 1)
   {
-    v43 = v12;
+    v42 = v12;
     v18 = @"NOTIFICATION_MESSAGE_CAMERA_DOORBELL_EVENT_FAMILIAR";
     if (accessoryCopy)
     {
@@ -317,10 +308,10 @@ void __112__HMDDoorbellBulletinUtilities_fetchSignificantEventsRelevantToDoorbel
     v19 = v18;
     v20 = MEMORY[0x277CCACA8];
     v21 = HMDLocalizedStringForKey(v19);
-    v46 = 0;
+    v45 = 0;
     firstObject = [v15 firstObject];
-    v23 = [v20 localizedStringWithValidatedFormat:v21 validFormatSpecifiers:@"%@" error:&v46, firstObject];
-    v24 = v46;
+    v23 = [v20 localizedStringWithValidatedFormat:v21 validFormatSpecifiers:@"%@" error:&v45, firstObject];
+    v24 = v45;
 
     v25 = v23;
     if (!v23)
@@ -331,13 +322,13 @@ void __112__HMDDoorbellBulletinUtilities_fetchSignificantEventsRelevantToDoorbel
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v48 = v28;
-        v49 = 2112;
-        v50 = v19;
-        v51 = 2112;
-        v52 = @"%@";
-        v53 = 2112;
-        v54 = v24;
+        v47 = v28;
+        v48 = 2112;
+        v49 = v19;
+        v50 = 2112;
+        v51 = @"%@";
+        v52 = 2112;
+        v53 = v24;
         _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
       }
 
@@ -347,12 +338,12 @@ void __112__HMDDoorbellBulletinUtilities_fetchSignificantEventsRelevantToDoorbel
 
     v17 = v25;
 
-    v12 = v43;
+    v12 = v42;
   }
 
   else if (v16)
   {
-    v44 = v11;
+    v43 = v11;
     v29 = @"NOTIFICATION_MESSAGE_CAMERA_DOORBELL_EVENT_FAMILIAR_MULTIPLE";
     if (accessoryCopy)
     {
@@ -362,10 +353,10 @@ void __112__HMDDoorbellBulletinUtilities_fetchSignificantEventsRelevantToDoorbel
     v30 = v29;
     v31 = MEMORY[0x277CCACA8];
     v32 = HMDLocalizedStringForKey(v30);
-    v45 = 0;
+    v44 = 0;
     firstObject2 = [v15 firstObject];
-    v34 = [v31 localizedStringWithValidatedFormat:v32 validFormatSpecifiers:@"%@" error:&v45, firstObject2];
-    v35 = v45;
+    v34 = [v31 localizedStringWithValidatedFormat:v32 validFormatSpecifiers:@"%@" error:&v44, firstObject2];
+    v35 = v44;
 
     v36 = v34;
     if (!v34)
@@ -376,13 +367,13 @@ void __112__HMDDoorbellBulletinUtilities_fetchSignificantEventsRelevantToDoorbel
       {
         v39 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v48 = v39;
-        v49 = 2112;
-        v50 = v30;
-        v51 = 2112;
-        v52 = @"%@";
-        v53 = 2112;
-        v54 = v35;
+        v47 = v39;
+        v48 = 2112;
+        v49 = v30;
+        v50 = 2112;
+        v51 = @"%@";
+        v52 = 2112;
+        v53 = v35;
         _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
       }
 
@@ -392,7 +383,7 @@ void __112__HMDDoorbellBulletinUtilities_fetchSignificantEventsRelevantToDoorbel
 
     v17 = v36;
 
-    v11 = v44;
+    v11 = v43;
   }
 
   else if (accessoryCopy)
@@ -414,8 +405,6 @@ void __112__HMDDoorbellBulletinUtilities_fetchSignificantEventsRelevantToDoorbel
 
     v17 = HMDLocalizedStringForKey(v40);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

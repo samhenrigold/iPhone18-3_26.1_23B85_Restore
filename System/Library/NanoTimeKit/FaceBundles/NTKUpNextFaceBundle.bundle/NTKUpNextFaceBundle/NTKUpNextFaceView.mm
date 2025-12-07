@@ -21,6 +21,7 @@
 - (id)_swatchImageForColorOption:(id)option size:(CGSize)size;
 - (unint64_t)_distanceForIndexPathFromNow:(id)now;
 - (void)_applyBreathingFraction:(double)fraction forCustomEditMode:(int64_t)mode slot:(id)slot;
+- (void)_applyCollectionViewSnapshot:(id)snapshot animated:(BOOL)animated completion:(id)completion;
 - (void)_applyDataMode;
 - (void)_applyOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot;
 - (void)_applyRubberBandingFraction:(double)fraction forCustomEditMode:(int64_t)mode slot:(id)slot;
@@ -54,12 +55,14 @@
 - (void)_reloadContentIfNeeded;
 - (void)_replaceDataSourceElement:(id)element withReloadedREElement:(id)eElement;
 - (void)_setSiriBlurColor;
+- (void)_setViewMode:(int64_t)mode scroll:(BOOL)scroll scrollToPoint:(CGPoint)point secondaryPoint:(CGPoint)secondaryPoint force:(BOOL)force velocity:(double)velocity animated:(BOOL)animated;
 - (void)_setupCell:(id)cell withContent:(id)content representedIdentifier:(id)identifier;
 - (void)_showSiriUnavailableAlert:(id)alert;
 - (void)_startPositiveDwellForTopElementsTimerIfNeeded;
 - (void)_startViewResetTimer;
 - (void)_stopPositiveDwellForTopElementsTimer;
 - (void)_stopViewResetTimer;
+- (void)_switchViewModeForCurrentMode:(int64_t)mode animated:(BOOL)animated;
 - (void)_switchViewModeToDefault;
 - (void)_unloadContentViews;
 - (void)_unloadSnapshotContentViews;
@@ -85,6 +88,7 @@
 - (void)scrollViewDidEndDragging:(id)dragging willDecelerate:(BOOL)decelerate;
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)traitCollectionDidChange:(id)change;
+- (void)updateCollectionViewSnapshotAnimated:(BOOL)animated completion:(id)completion;
 - (void)updateTimeLabelBackground;
 @end
 
@@ -455,31 +459,31 @@ LABEL_6:
 {
   if (!self->_collectionView)
   {
-    v56 = 0;
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
+    v53 = 0;
     v51 = 0u;
-    v48 = 0u;
+    v52 = 0u;
     v49 = 0u;
-    v46 = 0u;
+    v50 = 0u;
     v47 = 0u;
-    v44 = 0u;
+    v48 = 0u;
     v45 = 0u;
-    v42 = 0u;
+    v46 = 0u;
     v43 = 0u;
-    memset(v41, 0, sizeof(v41));
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    memset(v38, 0, sizeof(v38));
     device = [(NTKUpNextFaceView *)self device];
-    sub_B3F4(device, v41);
+    sub_B3F4(device, v38);
 
     v4 = objc_alloc_init(NTKUpNextCollectionViewFlowLayout);
     layout = self->_layout;
     self->_layout = v4;
 
     [(NTKUpNextCollectionViewFlowLayout *)self->_layout setScrollDirection:0];
-    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setMinimumLineSpacing:*(&v42 + 1)];
+    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setMinimumLineSpacing:*(&v39 + 1)];
     [(NTKUpNextCollectionViewFlowLayout *)self->_layout setShowingAllAttributes:0];
     v6 = self->_layout;
     v7 = [NSIndexPath indexPathForItem:0 inSection:2];
@@ -489,27 +493,27 @@ LABEL_6:
     v9 = [NSIndexPath indexPathForItem:1 inSection:2];
     [(NTKUpNextCollectionViewFlowLayout *)v8 setBottomElementIndexPath:v9];
 
-    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setTopOffsetForSnapping:*(&v46 + 1)];
-    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setTopOffsetForScrolling:*(&v44 + 1)];
-    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setStatusBarDecorationHeight:*(&v49 + 1)];
-    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setLowTransitionScale:*(&v50 + 1)];
-    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setHighTransitionScale:*(&v51 + 1)];
-    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setHighTransitionShift:*(&v52 + 1)];
-    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setLowTransitionShift:*(&v53 + 1)];
-    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setTopOffsetForScrolling:*&v45];
+    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setTopOffsetForSnapping:*(&v43 + 1)];
+    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setTopOffsetForScrolling:*(&v41 + 1)];
+    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setStatusBarDecorationHeight:*(&v46 + 1)];
+    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setLowTransitionScale:*(&v47 + 1)];
+    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setHighTransitionScale:*(&v48 + 1)];
+    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setHighTransitionShift:*(&v49 + 1)];
+    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setLowTransitionShift:*(&v50 + 1)];
+    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setTopOffsetForScrolling:*&v42];
     [(NTKUpNextFaceView *)self bounds];
     v11 = v10;
     v13 = v12;
     v15 = v14;
     v17 = v16;
     [(NTKUpNextFaceView *)self bounds];
-    v18 = (CGRectGetWidth(v57) - *&v49) * 0.5;
-    v58.origin.x = v11;
-    v58.origin.y = v13;
-    v58.size.width = v15;
-    v58.size.height = v17;
-    v59 = CGRectInset(v58, v18, 0.0);
-    v19 = [[NTKUpNextCollectionView alloc] initWithFrame:self->_layout collectionViewLayout:v59.origin.x, v59.origin.y, v59.size.width, v59.size.height];
+    v18 = (CGRectGetWidth(v54) - *&v46) * 0.5;
+    v55.origin.x = v11;
+    v55.origin.y = v13;
+    v55.size.width = v15;
+    v55.size.height = v17;
+    v56 = CGRectInset(v55, v18, 0.0);
+    v19 = [[NTKUpNextCollectionView alloc] initWithFrame:self->_layout collectionViewLayout:v56.origin.x, v56.origin.y, v56.size.width, v56.size.height];
     collectionView = self->_collectionView;
     self->_collectionView = v19;
 
@@ -535,30 +539,23 @@ LABEL_6:
     [(NTKUpNextCollectionView *)self->_collectionView registerClass:objc_opt_class() forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"NTKUpNextHeaderReuseIdentifier"];
     [(NTKUpNextCollectionView *)self->_collectionView registerClass:objc_opt_class() forCellWithReuseIdentifier:@"NTKUpNextGaugeCellReuseIdentifier"];
     device2 = [(NTKUpNextFaceView *)self device];
-    deviceCategory = [device2 deviceCategory];
+    [device2 deviceCategory];
 
-    v26 = &off_18330;
-    if (deviceCategory != &dword_0 + 1)
-    {
-      v26 = off_18328;
-    }
-
-    v27 = *v26;
     [(NTKUpNextCollectionViewFlowLayout *)self->_layout registerClass:objc_opt_class() forDecorationViewOfKind:NTKUpNextCollectionViewFlowLayoutStatusBarDecorationKind];
-    v28 = self->_layout;
+    v25 = self->_layout;
     [(NTKUpNextCollectionView *)self->_collectionView bounds];
-    [(NTKUpNextCollectionViewFlowLayout *)v28 setItemSize:CGRectGetWidth(v60), *(&v48 + 1)];
+    [(NTKUpNextCollectionViewFlowLayout *)v25 setItemSize:CGRectGetWidth(v57), *(&v45 + 1)];
     [(NTKUpNextCollectionView *)self->_collectionView setDecelerationRate:UIScrollViewDecelerationRateFast];
     [(UIView *)self->_scalableView addSubview:self->_collectionView];
     [(NTKUpNextCollectionView *)self->_collectionView setAlwaysBounceVertical:1];
     [(NTKUpNextFaceView *)self _configureCollectionViewDataSource];
     [(NTKUpNextFaceView *)self _reloadCollectionViewData];
-    v29 = [[UIView alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
+    v26 = [[UIView alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
     timeLabelPlatter = self->_timeLabelPlatter;
-    self->_timeLabelPlatter = v29;
+    self->_timeLabelPlatter = v26;
 
     layer2 = [(UIView *)self->_timeLabelPlatter layer];
-    [layer2 setCornerRadius:*v41];
+    [layer2 setCornerRadius:*v38];
 
     layer3 = [(UIView *)self->_timeLabelPlatter layer];
     [layer3 setCornerCurve:kCACornerCurveContinuous];
@@ -567,13 +564,13 @@ LABEL_6:
     [layer4 setMasksToBounds:1];
 
     device3 = [(NTKUpNextFaceView *)self device];
-    deviceCategory2 = [device3 deviceCategory];
+    deviceCategory = [device3 deviceCategory];
 
-    if (deviceCategory2 == &dword_0 + 1)
+    if (deviceCategory == &dword_0 + 1)
     {
       layer5 = [(UIView *)self->_timeLabelPlatter layer];
-      v37 = +[UIColor _externalSystemDarkGrayColor];
-      [layer5 setBackgroundColor:{objc_msgSend(v37, "CGColor")}];
+      v34 = +[UIColor _externalSystemDarkGrayColor];
+      [layer5 setBackgroundColor:{objc_msgSend(v34, "CGColor")}];
     }
 
     else
@@ -585,9 +582,9 @@ LABEL_6:
     timeView = [(NTKUpNextFaceView *)self timeView];
     [(NTKUpNextFaceView *)self addSubview:timeView];
 
-    v39 = [[UITapGestureRecognizer alloc] initWithTarget:self action:"_handleViewModeTapGesture:"];
+    v36 = [[UITapGestureRecognizer alloc] initWithTarget:self action:"_handleViewModeTapGesture:"];
     viewModeTapGesture = self->_viewModeTapGesture;
-    self->_viewModeTapGesture = v39;
+    self->_viewModeTapGesture = v36;
 
     [(UITapGestureRecognizer *)self->_viewModeTapGesture setNumberOfTouchesRequired:1];
     [(UITapGestureRecognizer *)self->_viewModeTapGesture setNumberOfTapsRequired:1];
@@ -646,7 +643,6 @@ LABEL_6:
 - (void)_switchViewModeToDefault
 {
   [(NTKUpNextFaceView *)self _defaultPointForDefaultMode];
-  y = CGPointZero.y;
 
   [NTKUpNextFaceView _setViewMode:"_setViewMode:scroll:scrollToPoint:secondaryPoint:force:velocity:animated:" scroll:0 scrollToPoint:1 secondaryPoint:0 force:0 velocity:? animated:?];
 }
@@ -699,6 +695,60 @@ LABEL_6:
   }
 }
 
+- (void)_applyCollectionViewSnapshot:(id)snapshot animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  snapshotCopy = snapshot;
+  completionCopy = completion;
+  v10 = completionCopy;
+  if (self->_collectionView)
+  {
+    if (![(NTKUpNextFaceView *)self viewMode])
+    {
+      layout = self->_layout;
+      v12 = [NSIndexPath indexPathForItem:0 inSection:2];
+      [(NTKUpNextCollectionViewFlowLayout *)layout setIndexPathToSnapTo:v12];
+
+      v13 = self->_layout;
+      device = [(NTKUpNextFaceView *)self device];
+      sub_B3F4(device, v24);
+      [(NTKUpNextCollectionViewFlowLayout *)v13 setSnappingOffset:-v25];
+    }
+
+    [(NTKUpNextFaceView *)self _allowContentViewInteractive:[(NTKUpNextFaceView *)self viewMode]!= 0];
+    objc_initWeak(&location, self);
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_4D98;
+    v19[3] = &unk_18718;
+    v22 = animatedCopy;
+    objc_copyWeak(&v21, &location);
+    v20 = v10;
+    v15 = objc_retainBlock(v19);
+    v16 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      *v18 = 0;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "[datasource] snapshot reload", v18, 2u);
+    }
+
+    snapshot = [(UICollectionViewDiffableDataSource *)self->_collectionViewDataSource snapshot];
+    [(NTKUpNextFaceView *)self _logDataSourceSnapshot:snapshot withName:@"(old_snapshot)"];
+
+    [(NTKUpNextFaceView *)self _logDataSourceSnapshot:snapshotCopy withName:@"(new_snapshot)"];
+    self->_isApplyingSnapshot = 1;
+    [(UICollectionViewDiffableDataSource *)self->_collectionViewDataSource applySnapshot:snapshotCopy animatingDifferences:animatedCopy completion:v15];
+
+    objc_destroyWeak(&v21);
+    objc_destroyWeak(&location);
+  }
+
+  else if (completionCopy)
+  {
+    (*(completionCopy + 2))(completionCopy);
+  }
+}
+
 - (BOOL)_snapshotHasChangesToVisibleItems:(id)items
 {
   itemsCopy = items;
@@ -747,6 +797,177 @@ LABEL_6:
 LABEL_11:
 
   return v13;
+}
+
+- (void)updateCollectionViewSnapshotAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  if (!+[NSThread isMainThread])
+  {
+    v10 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    {
+      sub_BF70(v10);
+    }
+
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_55E4;
+    block[3] = &unk_18740;
+    block[4] = self;
+    v55 = animatedCopy;
+    v54 = completionCopy;
+    dispatch_async(&_dispatch_main_q, block);
+    v11 = v54;
+    goto LABEL_37;
+  }
+
+  snapshotSnapshot = self->_snapshotSnapshot;
+  v8 = _NTKLoggingObjectForDomain();
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  if (!snapshotSnapshot)
+  {
+    v35 = completionCopy;
+    if (v9)
+    {
+      *buf = 67109120;
+      v62 = animatedCopy;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "[datasource] performing a reload of collection view data (animated=%d)", buf, 8u);
+    }
+
+    v34 = animatedCopy;
+
+    generateDiffableSnapshot = [(REUIRelevanceEngineController *)self->_engineController generateDiffableSnapshot];
+    v12 = +[NSMapTable strongToWeakObjectsMapTable];
+    v49 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v13 = self->_reloadedElements;
+    v14 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v49 objects:v60 count:16];
+    if (v14)
+    {
+      v15 = v14;
+      v16 = *v50;
+      do
+      {
+        for (i = 0; i != v15; i = i + 1)
+        {
+          if (*v50 != v16)
+          {
+            objc_enumerationMutation(v13);
+          }
+
+          v18 = *(*(&v49 + 1) + 8 * i);
+          element = [v18 element];
+          [v12 setObject:element forKey:v18];
+        }
+
+        v15 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v49 objects:v60 count:16];
+      }
+
+      while (v15);
+    }
+
+    [(NSMutableSet *)self->_reloadedElements removeAllObjects];
+    v20 = +[NSMutableSet setWithCapacity:](NSMutableSet, "setWithCapacity:", [v12 count]);
+    v21 = objc_alloc_init(NSDiffableDataSourceSnapshot);
+    v45 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    obj = [generateDiffableSnapshot sectionIdentifiers];
+    v39 = [obj countByEnumeratingWithState:&v45 objects:v59 count:16];
+    if (v39)
+    {
+      v38 = *v46;
+      do
+      {
+        for (j = 0; j != v39; j = j + 1)
+        {
+          if (*v46 != v38)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v23 = *(*(&v45 + 1) + 8 * j);
+          if (NTKSectionForSectionIdentifier() != -1)
+          {
+            v40 = j;
+            v58 = v23;
+            v24 = [NSArray arrayWithObjects:&v58 count:1];
+            [v21 appendSectionsWithIdentifiers:v24];
+
+            v43 = 0u;
+            v44 = 0u;
+            v41 = 0u;
+            v42 = 0u;
+            v25 = [generateDiffableSnapshot itemIdentifiersInSectionWithIdentifier:v23];
+            v26 = [v25 countByEnumeratingWithState:&v41 objects:v57 count:16];
+            if (v26)
+            {
+              v27 = v26;
+              v28 = *v42;
+              do
+              {
+                for (k = 0; k != v27; k = k + 1)
+                {
+                  if (*v42 != v28)
+                  {
+                    objc_enumerationMutation(v25);
+                  }
+
+                  v30 = [NTKUpNextElement elementWithREElement:*(*(&v41 + 1) + 8 * k)];
+                  v56 = v30;
+                  v31 = [NSArray arrayWithObjects:&v56 count:1];
+                  [v21 appendItemsWithIdentifiers:v31];
+
+                  v32 = [v12 objectForKey:v30];
+                  if (v32)
+                  {
+                    [(NTKUpNextFaceView *)self _replaceDataSourceElement:v30 withReloadedREElement:v32];
+                    [v20 addObject:v30];
+                  }
+                }
+
+                v27 = [v25 countByEnumeratingWithState:&v41 objects:v57 count:16];
+              }
+
+              while (v27);
+            }
+
+            j = v40;
+          }
+        }
+
+        v39 = [obj countByEnumeratingWithState:&v45 objects:v59 count:16];
+      }
+
+      while (v39);
+    }
+
+    allObjects = [v20 allObjects];
+    [v21 reloadItemsWithIdentifiers:allObjects];
+
+    completionCopy = v35;
+    [(NTKUpNextFaceView *)self _applyCollectionViewSnapshot:v21 animated:v34 completion:v35];
+
+    v11 = generateDiffableSnapshot;
+LABEL_37:
+
+    goto LABEL_38;
+  }
+
+  if (v9)
+  {
+    *buf = 67109120;
+    v62 = animatedCopy;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "[datasource] performing override of collection view data (animated=%d)", buf, 8u);
+  }
+
+  [(NTKUpNextFaceView *)self _applyCollectionViewSnapshot:self->_snapshotSnapshot animated:animatedCopy completion:completionCopy];
+LABEL_38:
 }
 
 - (void)_replaceDataSourceElement:(id)element withReloadedREElement:(id)eElement
@@ -1355,23 +1576,19 @@ LABEL_15:
   if (self->_isInflightScroll && !self->_isProgramaticScrollEvent && self->_modeTransitionApplier && self->_modeTransitionCompletion)
   {
     self->_cancelInflightScroll = 1;
-    y = self->_startOffsetForModeTransition.y;
-    v5 = self->_targetOffsetForModeTransition.y;
     [scrollCopy contentOffset];
     CLKReverseInterpolateFromFloats();
-    v7 = v6;
-    v8 = self->_startOffsetForModeTransition.y;
-    v9 = self->_secondaryOffsetForModeTransition.y;
+    v5 = v4;
     [scrollCopy contentOffset];
     CLKReverseInterpolateFromFloats();
-    if (v7 < v10)
+    if (v5 < v6)
     {
-      v7 = v10;
+      v5 = v6;
     }
 
-    (*(self->_modeTransitionApplier + 2))(v7);
-    v11 = CLKFloatEqualsFloat();
-    if (v7 > 1.0 || v11 != 0)
+    (*(self->_modeTransitionApplier + 2))(v5);
+    v7 = CLKFloatEqualsFloat();
+    if (v5 > 1.0 || v7 != 0)
     {
       (*(self->_modeTransitionCompletion + 2))();
       self->_scrollingStoppedTransition = 1;
@@ -1464,7 +1681,7 @@ LABEL_15:
   memset(&v15, 0, sizeof(v15));
   if (v8)
   {
-    [v8 transform3D];
+    objc_msgSend_transform3D(v8);
   }
 
   v13 = v15;
@@ -1497,7 +1714,7 @@ LABEL_15:
   v21 = 0u;
   if (v8)
   {
-    [v8 transform3D];
+    objc_msgSend_transform3D(v8);
   }
 
   v10[0] = _NSConcreteStackBlock;
@@ -2231,6 +2448,46 @@ LABEL_18:
   return result;
 }
 
+- (void)_setViewMode:(int64_t)mode scroll:(BOOL)scroll scrollToPoint:(CGPoint)point secondaryPoint:(CGPoint)secondaryPoint force:(BOOL)force velocity:(double)velocity animated:(BOOL)animated
+{
+  y = point.y;
+  x = point.x;
+  scrollCopy = scroll;
+  if (!mode || force || [(NTKUpNextFaceView *)self viewMode:point.x]!= mode)
+  {
+    self->_previousViewMode = [(NTKUpNextFaceView *)self viewMode:point.x];
+    [(NTKUpNextFaceView *)self setViewMode:mode updateTimeViewStyle:0];
+    if (self->_collectionView)
+    {
+      [(NTKUpNextCollectionViewFlowLayout *)self->_layout setSnappingEnabled:mode == 2];
+      if (mode == 2)
+      {
+        [(NTKUpNextCollectionViewFlowLayout *)self->_layout setIndexPathToSnapTo:0];
+        [(NTKUpNextFaceView *)self _stopPositiveDwellForTopElementsTimer];
+      }
+
+      else
+      {
+        [(NTKUpNextFaceView *)self _resetVisibilityForCells];
+      }
+
+      modeTransitionCompletion = self->_modeTransitionCompletion;
+      if (modeTransitionCompletion)
+      {
+        v15 = *(modeTransitionCompletion + 2);
+
+        v15();
+      }
+
+      else
+      {
+
+        [(NTKUpNextFaceView *)self _cleanupAfterSettingViewMode:mode scroll:scrollCopy targetOffset:1 needsLayout:x, y];
+      }
+    }
+  }
+}
+
 - (void)_cleanupAfterSettingViewMode:(int64_t)mode scroll:(BOOL)scroll targetOffset:(CGPoint)offset needsLayout:(BOOL)layout
 {
   layoutCopy = layout;
@@ -2363,7 +2620,7 @@ LABEL_18:
 - (void)_layoutTimeLabelPlatterViewMode:(int64_t)mode
 {
   [(NTKUpNextFaceView *)self bounds];
-  v23 = [(NTKUpNextFaceView *)self _digitalTimeLabelStyleFromViewMode:mode faceBounds:?];
+  v22 = [(NTKUpNextFaceView *)self _digitalTimeLabelStyleFromViewMode:mode faceBounds:?];
   timeView = [(NTKUpNextFaceView *)self timeView];
   [timeView frame];
   v7 = v6;
@@ -2372,11 +2629,11 @@ LABEL_18:
   v13 = v12;
 
   device = [(NTKUpNextFaceView *)self device];
-  sub_B3F4(device, v24);
-  v15 = v7 + v26;
-  v16 = v9 + v25;
-  v17 = v11 - (v26 + v28);
-  v18 = v13 - (v25 + v27);
+  sub_B3F4(device, &v23);
+  v15 = v7 + v25;
+  v16 = v9 + v24;
+  v17 = v11 - (v25 + v27);
+  v18 = v13 - (v24 + v26);
 
   [(UIView *)self->_timeLabelPlatter setFrame:v15, v16, v17, v18];
   layer = [(UIView *)self->_timeLabelPlatter layer];
@@ -2385,15 +2642,14 @@ LABEL_18:
   NTKUpNextUnitRectForFrameInBounds();
   [layer setContentsRect:?];
 
-  v20 = [v23 isEqual:self->_timeLabelSmallInUpperRightCornerStyle];
-  timeLabelPlatter = self->_timeLabelPlatter;
-  v22 = 0.0;
+  v20 = [v22 isEqual:self->_timeLabelSmallInUpperRightCornerStyle];
+  v21 = 0.0;
   if (v20)
   {
-    v22 = 1.0;
+    v21 = 1.0;
   }
 
-  [(UIView *)self->_timeLabelPlatter setAlpha:v22];
+  [(UIView *)self->_timeLabelPlatter setAlpha:v21];
 }
 
 - (void)_layoutTimeLabelForViewMode:(int64_t)mode
@@ -2437,6 +2693,120 @@ LABEL_18:
     viewMode = [(NTKUpNextFaceView *)self viewMode];
 
     [(NTKUpNextFaceView *)self _switchViewModeForCurrentMode:viewMode animated:1];
+  }
+}
+
+- (void)_switchViewModeForCurrentMode:(int64_t)mode animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  if (mode == 2)
+  {
+    [(NTKUpNextFaceView *)self _defaultPointForDefaultMode];
+    [NTKUpNextFaceView _setViewMode:"_setViewMode:scroll:scrollToPoint:secondaryPoint:force:velocity:animated:" scroll:0 scrollToPoint:1 secondaryPoint:0 force:animatedCopy velocity:? animated:?];
+
+    [(NTKUpNextFaceView *)self _allowContentViewInteractive:0];
+  }
+
+  else if (!mode)
+  {
+    [(NTKUpNextCollectionViewFlowLayout *)self->_layout setSnappingEnabled:1];
+    [(NTKUpNextFaceView *)self _allowContentViewInteractive:1];
+    if ([(NTKUpNextCollectionView *)self->_collectionView numberOfSections]< 1)
+    {
+      v30 = 0;
+    }
+
+    else
+    {
+      v30 = 0;
+      v6 = 0;
+      do
+      {
+        v7 = [(NTKUpNextCollectionView *)self->_collectionView numberOfItemsInSection:v6];
+        topElementIndexPath = [(NTKUpNextCollectionViewFlowLayout *)self->_layout topElementIndexPath];
+        section = [topElementIndexPath section];
+
+        if (v6 < section && v7 >= 1)
+        {
+          v11 = [NSIndexPath indexPathForItem:v7 - 1 inSection:v6];
+
+          v30 = v11;
+        }
+
+        ++v6;
+      }
+
+      while (v6 < [(NTKUpNextCollectionView *)self->_collectionView numberOfSections]);
+    }
+
+    layout = self->_layout;
+    [(NTKUpNextCollectionView *)self->_collectionView contentOffset];
+    [(NTKUpNextCollectionViewFlowLayout *)layout targetContentOffsetForProposedContentOffset:?];
+    v15 = v13;
+    v16 = v14;
+    v17 = v30;
+    if (v30)
+    {
+      v18 = [(NTKUpNextCollectionViewFlowLayout *)self->_layout flowLayoutAttributesForItemAtIndexPath:v30];
+      v19 = self->_layout;
+      [v18 frame];
+      [(NTKUpNextCollectionViewFlowLayout *)v19 targetContentOffsetForProposedContentOffset:?];
+      v21 = v20;
+      v23 = v22;
+
+      v17 = v30;
+    }
+
+    else
+    {
+      v23 = v14;
+      v21 = v13;
+    }
+
+    v31 = v17;
+    v24 = v17 != 0;
+    v25 = self->_lastCrownVelocity < 0.0;
+    if (v24 && v25)
+    {
+      v26 = v16;
+    }
+
+    else
+    {
+      v26 = v23;
+    }
+
+    if (v24 && v25)
+    {
+      v27 = v15;
+    }
+
+    else
+    {
+      v27 = v21;
+    }
+
+    if (v24 && v25)
+    {
+      v28 = v23;
+    }
+
+    else
+    {
+      v28 = v16;
+    }
+
+    if (v24 && v25)
+    {
+      v29 = v21;
+    }
+
+    else
+    {
+      v29 = v15;
+    }
+
+    [(NTKUpNextFaceView *)self _setViewMode:2 scroll:1 scrollToPoint:0 secondaryPoint:animatedCopy force:v29 velocity:v28 animated:v27, v26];
   }
 }
 

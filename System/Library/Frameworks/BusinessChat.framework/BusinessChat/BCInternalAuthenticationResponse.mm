@@ -10,11 +10,11 @@
 
 - (BCInternalAuthenticationResponse)initWithDictionary:(id)dictionary
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v46.receiver = self;
-  v46.super_class = BCInternalAuthenticationResponse;
-  v5 = [(BCInternalAuthenticationResponse *)&v46 init];
+  v45.receiver = self;
+  v45.super_class = BCInternalAuthenticationResponse;
+  v5 = [(BCInternalAuthenticationResponse *)&v45 init];
   if (v5)
   {
     v6 = LogCategory_Daemon();
@@ -22,7 +22,7 @@
     {
       v7 = [dictionaryCopy description];
       *buf = 138412290;
-      v49 = v7;
+      v48 = v7;
       _os_log_impl(&dword_236EA0000, v6, OS_LOG_TYPE_DEFAULT, "BCInternalAuthenticationResponse: initWithDictionary %@", buf, 0xCu);
     }
 
@@ -80,37 +80,37 @@
       {
         if (v19)
         {
-          v39 = v16;
-          v40 = v13;
-          v41 = v10;
+          v38 = v16;
+          v39 = v13;
+          v40 = v10;
           v20 = objc_opt_new();
+          v41 = 0u;
           v42 = 0u;
           v43 = 0u;
           v44 = 0u;
-          v45 = 0u;
           v21 = v19;
-          v22 = [v21 countByEnumeratingWithState:&v42 objects:v47 count:16];
+          v22 = [v21 countByEnumeratingWithState:&v41 objects:v46 count:16];
           if (v22)
           {
             v23 = v22;
-            v24 = *v43;
+            v24 = *v42;
             do
             {
               for (i = 0; i != v23; ++i)
               {
-                if (*v43 != v24)
+                if (*v42 != v24)
                 {
                   objc_enumerationMutation(v21);
                 }
 
-                v26 = [[BCError alloc] initWithDictionary:*(*(&v42 + 1) + 8 * i)];
+                v26 = [[BCError alloc] initWithDictionary:*(*(&v41 + 1) + 8 * i)];
                 if (v26)
                 {
                   [(NSArray *)v20 addObject:v26];
                 }
               }
 
-              v23 = [v21 countByEnumeratingWithState:&v42 objects:v47 count:16];
+              v23 = [v21 countByEnumeratingWithState:&v41 objects:v46 count:16];
             }
 
             while (v23);
@@ -119,9 +119,9 @@
           errors = v5->_errors;
           v5->_errors = v20;
 
-          v13 = v40;
-          v10 = v41;
-          v16 = v39;
+          v13 = v39;
+          v10 = v40;
+          v16 = v38;
         }
 
         businessIdentifier = v5->_businessIdentifier;
@@ -178,20 +178,19 @@ LABEL_32:
   v34 = v5;
 LABEL_37:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
 - (BCInternalAuthenticationResponse)initWithBusinessIdentifier:(id)identifier groupIdentifier:(id)groupIdentifier credentials:(id)credentials error:(id)error
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   groupIdentifierCopy = groupIdentifier;
   credentialsCopy = credentials;
   errorCopy = error;
-  v27.receiver = self;
-  v27.super_class = BCInternalAuthenticationResponse;
-  v15 = [(BCInternalAuthenticationResponse *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = BCInternalAuthenticationResponse;
+  v15 = [(BCInternalAuthenticationResponse *)&v26 init];
   v16 = v15;
   if (v15)
   {
@@ -213,14 +212,13 @@ LABEL_37:
       localizedDescription = [errorCopy localizedDescription];
       v22 = [(BCError *)v18 initWithCode:v19 domain:domain message:localizedDescription];
 
-      v28[0] = v22;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+      v27[0] = v22;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
       errors = v16->_errors;
       v16->_errors = v23;
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -324,7 +322,7 @@ LABEL_37:
 
 - (NSDictionary)dictionaryValue
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 setObject:self->_businessIdentifier forKeyedSubscript:@"businessIdentifier"];
   [v3 setObject:self->_groupIdentifier forKeyedSubscript:@"groupIdentifier"];
@@ -336,30 +334,30 @@ LABEL_37:
   if (v5)
   {
     v6 = objc_opt_new();
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     errors2 = [(BCInternalAuthenticationResponse *)self errors];
-    v8 = [errors2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [errors2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(errors2);
           }
 
-          dictionaryValue = [*(*(&v15 + 1) + 8 * i) dictionaryValue];
+          dictionaryValue = [*(*(&v14 + 1) + 8 * i) dictionaryValue];
           [v6 addObject:dictionaryValue];
         }
 
-        v9 = [errors2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [errors2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -367,8 +365,6 @@ LABEL_37:
 
     [v3 setObject:v6 forKeyedSubscript:@"errors"];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

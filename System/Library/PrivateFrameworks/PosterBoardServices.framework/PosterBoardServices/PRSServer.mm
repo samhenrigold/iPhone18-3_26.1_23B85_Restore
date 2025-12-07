@@ -110,8 +110,7 @@
 void __17__PRSServer_init__block_invoke(uint64_t a1, void *a2)
 {
   v5 = a2;
-  [v5 setDomain:@"com.apple.posterboardservices"];
-  v3 = PRSServiceInterface();
+  v3 = PRSServiceInterface([v5 setDomain:@"com.apple.posterboardservices"]);
   v4 = [v3 identifier];
   [v5 setService:v4];
 
@@ -120,17 +119,17 @@ void __17__PRSServer_init__block_invoke(uint64_t a1, void *a2)
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __55__PRSServer_listener_didReceiveConnection_withContext___block_invoke;
-  v16[3] = &unk_1E818CF60;
-  v16[4] = self;
-  [connectionCopy configureConnection:v16];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __55__PRSServer_listener_didReceiveConnection_withContext___block_invoke;
+  v17[3] = &unk_1E818CF60;
+  v17[4] = self;
+  [connectionCopy configureConnection:v17];
   remoteProcess = [connectionCopy remoteProcess];
   bundleIdentifier = [remoteProcess bundleIdentifier];
-  if (([remoteProcess hasEntitlement:@"com.apple.posterboardservices.data-store"] & 1) != 0 || objc_msgSend(bundleIdentifier, "isEqualToString:", @"com.apple.migrationpluginwrapper"))
+  if (([remoteProcess hasEntitlement:@"com.apple.posterboardservices.data-store"] & 1) != 0 || (v9 = objc_msgSend(bundleIdentifier, "isEqualToString:", @"com.apple.migrationpluginwrapper"), v9))
   {
     queue = self->_queue;
     block[0] = MEMORY[0x1E69E9820];
@@ -138,34 +137,32 @@ void __17__PRSServer_init__block_invoke(uint64_t a1, void *a2)
     block[2] = __55__PRSServer_listener_didReceiveConnection_withContext___block_invoke_9;
     block[3] = &unk_1E818CF88;
     block[4] = self;
-    v10 = connectionCopy;
-    v15 = v10;
+    v11 = connectionCopy;
+    v16 = v11;
     dispatch_async(queue, block);
-    v11 = PRSLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = PRSLogCommon(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = v10;
-      _os_log_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_DEFAULT, "PRSServer received connection: %{public}@", buf, 0xCu);
+      v19 = v11;
+      _os_log_impl(&dword_1C26FF000, v13, OS_LOG_TYPE_DEFAULT, "PRSServer received connection: %{public}@", buf, 0xCu);
     }
 
-    [v10 activate];
+    [v11 activate];
   }
 
   else
   {
-    v12 = PRSLogCommon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = PRSLogCommon(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = connectionCopy;
-      _os_log_impl(&dword_1C26FF000, v12, OS_LOG_TYPE_DEFAULT, "PRSServer rejected connection: %{public}@", buf, 0xCu);
+      v19 = connectionCopy;
+      _os_log_impl(&dword_1C26FF000, v14, OS_LOG_TYPE_DEFAULT, "PRSServer rejected connection: %{public}@", buf, 0xCu);
     }
 
     [connectionCopy invalidate];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __55__PRSServer_listener_didReceiveConnection_withContext___block_invoke(uint64_t a1, void *a2)
@@ -174,81 +171,76 @@ void __55__PRSServer_listener_didReceiveConnection_withContext___block_invoke(ui
   v4 = PRSDefaultServiceQuality();
   [v3 setServiceQuality:v4];
 
-  v5 = PRSServiceInterface();
-  [v3 setInterface:v5];
+  v6 = PRSServiceInterface(v5);
+  [v3 setInterface:v6];
 
   [v3 setInterfaceTarget:*(a1 + 32)];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __55__PRSServer_listener_didReceiveConnection_withContext___block_invoke_2;
-  v6[3] = &unk_1E818CF38;
-  v6[4] = *(a1 + 32);
-  [v3 setInvalidationHandler:v6];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __55__PRSServer_listener_didReceiveConnection_withContext___block_invoke_2;
+  v7[3] = &unk_1E818CF38;
+  v7[4] = *(a1 + 32);
+  [v3 setInvalidationHandler:v7];
   [v3 setTargetQueue:*(*(a1 + 32) + 8)];
 }
 
 void __55__PRSServer_listener_didReceiveConnection_withContext___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PRSLogCommon();
+  v4 = PRSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1C26FF000, v4, OS_LOG_TYPE_DEFAULT, "PRSServer received connection invalidation: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1C26FF000, v4, OS_LOG_TYPE_DEFAULT, "PRSServer received connection invalidation: %{public}@", &v5, 0xCu);
   }
 
   [*(a1 + 32) _queue_removeConnection:v3];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_addConnection:(id)connection
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v5 = PRSLogCommon();
+  v5 = PRSLogCommon(connectionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = connectionCopy;
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_DEFAULT, "Adding Connection: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = connectionCopy;
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_DEFAULT, "Adding Connection: %{public}@", &v6, 0xCu);
   }
 
   dispatch_assert_queue_V2(self->_queue);
   [(NSMutableArray *)self->_connections addObject:connectionCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_removeConnection:(id)connection
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v5 = PRSLogCommon();
+  v5 = PRSLogCommon(connectionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = connectionCopy;
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_DEFAULT, "Removing Connection: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = connectionCopy;
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_DEFAULT, "Removing Connection: %{public}@", &v6, 0xCu);
   }
 
   dispatch_assert_queue_V2(self->_queue);
   [(NSMutableArray *)self->_connections removeObject:connectionCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteDataStoreWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[PRSServer deleteDataStoreWithCompletion:]";
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[PRSServer deleteDataStoreWithCompletion:]";
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v10, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -272,20 +264,18 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)triggerMessedUpDataProtectionWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[PRSServer triggerMessedUpDataProtectionWithCompletion:]";
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[PRSServer triggerMessedUpDataProtectionWithCompletion:]";
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v10, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -316,21 +306,19 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetRole:(id)role completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   roleCopy = role;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315138;
-    v15 = "[PRSServer resetRole:completion:]";
-    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[PRSServer resetRole:completion:]";
+    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v13, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -354,20 +342,18 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidateDataStoreWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[PRSServer invalidateDataStoreWithCompletion:]";
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[PRSServer invalidateDataStoreWithCompletion:]";
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v10, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -391,19 +377,17 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)terminate
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = PRSLogPosterContents();
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = PRSLogPosterContents(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[PRSServer terminate]";
-    _os_log_impl(&dword_1C26FF000, v2, OS_LOG_TYPE_INFO, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[PRSServer terminate]";
+    _os_log_impl(&dword_1C26FF000, v2, OS_LOG_TYPE_INFO, "%s", &v6, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -414,8 +398,6 @@ LABEL_8:
   {
     exit(0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHostConfiguration:(id)configuration forRole:(id)role completion:(id)completion
@@ -505,40 +487,38 @@ LABEL_6:
 
 - (void)fetchExtensionIdentifiersWithCompletion:(id)completion
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v11 = "[PRSServer fetchExtensionIdentifiersWithCompletion:]";
+    v10 = "[PRSServer fetchExtensionIdentifiersWithCompletion:]";
     _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
   if (completionCopy)
   {
     delegate = [(PRSServer *)self delegate];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __53__PRSServer_fetchExtensionIdentifiersWithCompletion___block_invoke;
-    v8[3] = &unk_1E818CFB0;
-    v9 = completionCopy;
-    [delegate server:self fetchExtensionIdentifiersWithCompletion:v8];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __53__PRSServer_fetchExtensionIdentifiersWithCompletion___block_invoke;
+    v7[3] = &unk_1E818CFB0;
+    v8 = completionCopy;
+    [delegate server:self fetchExtensionIdentifiersWithCompletion:v7];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPosterDescriptorsForExtension:(id)extension completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   extensionCopy = extension;
   completionCopy = completion;
-  v9 = PRSLogPosterContents();
+  v9 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v21 = "[PRSServer fetchPosterDescriptorsForExtension:completion:]";
+    v20 = "[PRSServer fetchPosterDescriptorsForExtension:completion:]";
     _os_log_impl(&dword_1C26FF000, v9, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -549,18 +529,16 @@ LABEL_6:
     auditToken = [remoteProcess auditToken];
 
     delegate = [(PRSServer *)self delegate];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __59__PRSServer_fetchPosterDescriptorsForExtension_completion___block_invoke;
-    v16[3] = &unk_1E818CFD8;
-    v17 = auditToken;
-    v19 = a2;
-    v18 = completionCopy;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __59__PRSServer_fetchPosterDescriptorsForExtension_completion___block_invoke;
+    v15[3] = &unk_1E818CFD8;
+    v16 = auditToken;
+    v18 = a2;
+    v17 = completionCopy;
     v14 = auditToken;
-    [delegate server:self fetchPosterDescriptorsForExtension:extensionCopy completion:v16];
+    [delegate server:self fetchPosterDescriptorsForExtension:extensionCopy completion:v15];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __59__PRSServer_fetchPosterDescriptorsForExtension_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -594,33 +572,34 @@ void __59__PRSServer_fetchPosterDescriptorsForExtension_completion___block_invok
         v21 = 0;
         v14 = [v12 extendContentsReadAccessToAuditToken:v13 error:&v21];
         v15 = v21;
+        v16 = v15;
         if (v15)
         {
-          v16 = PRSLogPosterContents();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = PRSLogPosterContents(v15);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             v20 = NSStringFromSelector(*(a1 + 48));
             *buf = 138412802;
             v27 = v20;
             v28 = 2112;
-            v29 = v15;
+            v29 = v16;
             v30 = 2112;
             v31 = v12;
-            _os_log_error_impl(&dword_1C26FF000, v16, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
+            _os_log_error_impl(&dword_1C26FF000, v17, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
           }
         }
 
         if (v14)
         {
-          v17 = v14;
+          v18 = v14;
         }
 
         else
         {
-          v17 = v12;
+          v18 = v12;
         }
 
-        [v6 addObject:v17];
+        [v6 addObject:v18];
 
         ++v11;
       }
@@ -633,19 +612,18 @@ void __59__PRSServer_fetchPosterDescriptorsForExtension_completion___block_invok
   }
 
   (*(*(a1 + 40) + 16))();
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchStaticPosterDescriptorsForExtension:(id)extension completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   extensionCopy = extension;
   completionCopy = completion;
-  v9 = PRSLogPosterContents();
+  v9 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v21 = "[PRSServer fetchStaticPosterDescriptorsForExtension:completion:]";
+    v20 = "[PRSServer fetchStaticPosterDescriptorsForExtension:completion:]";
     _os_log_impl(&dword_1C26FF000, v9, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -656,18 +634,16 @@ void __59__PRSServer_fetchPosterDescriptorsForExtension_completion___block_invok
     auditToken = [remoteProcess auditToken];
 
     delegate = [(PRSServer *)self delegate];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __65__PRSServer_fetchStaticPosterDescriptorsForExtension_completion___block_invoke;
-    v16[3] = &unk_1E818CFD8;
-    v17 = auditToken;
-    v19 = a2;
-    v18 = completionCopy;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __65__PRSServer_fetchStaticPosterDescriptorsForExtension_completion___block_invoke;
+    v15[3] = &unk_1E818CFD8;
+    v16 = auditToken;
+    v18 = a2;
+    v17 = completionCopy;
     v14 = auditToken;
-    [delegate server:self fetchStaticPosterDescriptorsForExtension:extensionCopy completion:v16];
+    [delegate server:self fetchStaticPosterDescriptorsForExtension:extensionCopy completion:v15];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __65__PRSServer_fetchStaticPosterDescriptorsForExtension_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -701,33 +677,34 @@ void __65__PRSServer_fetchStaticPosterDescriptorsForExtension_completion___block
         v21 = 0;
         v14 = [v12 extendContentsReadAccessToAuditToken:v13 error:&v21];
         v15 = v21;
+        v16 = v15;
         if (v15)
         {
-          v16 = PRSLogPosterContents();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = PRSLogPosterContents(v15);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             v20 = NSStringFromSelector(*(a1 + 48));
             *buf = 138412802;
             v27 = v20;
             v28 = 2112;
-            v29 = v15;
+            v29 = v16;
             v30 = 2112;
             v31 = v12;
-            _os_log_error_impl(&dword_1C26FF000, v16, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
+            _os_log_error_impl(&dword_1C26FF000, v17, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
           }
         }
 
         if (v14)
         {
-          v17 = v14;
+          v18 = v14;
         }
 
         else
         {
-          v17 = v12;
+          v18 = v12;
         }
 
-        [v6 addObject:v17];
+        [v6 addObject:v18];
 
         ++v11;
       }
@@ -740,20 +717,19 @@ void __65__PRSServer_fetchStaticPosterDescriptorsForExtension_completion___block
   }
 
   (*(*(a1 + 40) + 16))();
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshPosterDescriptorsForExtension:(id)extension sessionInfo:(id)info completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   infoCopy = info;
   extensionCopy = extension;
-  v12 = PRSLogPosterContents();
+  v12 = PRSLogPosterContents(extensionCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v25 = "[PRSServer refreshPosterDescriptorsForExtension:sessionInfo:completion:]";
+    v24 = "[PRSServer refreshPosterDescriptorsForExtension:sessionInfo:completion:]";
     _os_log_impl(&dword_1C26FF000, v12, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -763,15 +739,15 @@ void __65__PRSServer_fetchStaticPosterDescriptorsForExtension_completion___block
     remoteProcess = [currentContext remoteProcess];
     auditToken = [remoteProcess auditToken];
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __73__PRSServer_refreshPosterDescriptorsForExtension_sessionInfo_completion___block_invoke;
-    v20[3] = &unk_1E818CFD8;
-    v21 = auditToken;
-    v23 = a2;
-    v22 = completionCopy;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __73__PRSServer_refreshPosterDescriptorsForExtension_sessionInfo_completion___block_invoke;
+    v19[3] = &unk_1E818CFD8;
+    v20 = auditToken;
+    v22 = a2;
+    v21 = completionCopy;
     v16 = auditToken;
-    v17 = MEMORY[0x1C691D2A0](v20);
+    v17 = MEMORY[0x1C691D2A0](v19);
   }
 
   else
@@ -781,8 +757,6 @@ void __65__PRSServer_fetchStaticPosterDescriptorsForExtension_completion___block
 
   delegate = [(PRSServer *)self delegate];
   [delegate server:self refreshPosterDescriptorsForExtension:extensionCopy sessionInfo:infoCopy completion:v17];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __73__PRSServer_refreshPosterDescriptorsForExtension_sessionInfo_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -816,33 +790,34 @@ void __73__PRSServer_refreshPosterDescriptorsForExtension_sessionInfo_completion
         v21 = 0;
         v14 = [v12 extendContentsReadAccessToAuditToken:v13 error:&v21];
         v15 = v21;
+        v16 = v15;
         if (v15)
         {
-          v16 = PRSLogPosterContents();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = PRSLogPosterContents(v15);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             v20 = NSStringFromSelector(*(a1 + 48));
             *buf = 138412802;
             v27 = v20;
             v28 = 2112;
-            v29 = v15;
+            v29 = v16;
             v30 = 2112;
             v31 = v12;
-            _os_log_error_impl(&dword_1C26FF000, v16, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
+            _os_log_error_impl(&dword_1C26FF000, v17, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
           }
         }
 
         if (v14)
         {
-          v17 = v14;
+          v18 = v14;
         }
 
         else
         {
-          v17 = v12;
+          v18 = v12;
         }
 
-        [v6 addObject:v17];
+        [v6 addObject:v18];
 
         ++v11;
       }
@@ -855,19 +830,18 @@ void __73__PRSServer_refreshPosterDescriptorsForExtension_sessionInfo_completion
   }
 
   (*(*(a1 + 40) + 16))();
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deletePosterDescriptorsForExtension:(id)extension completion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   extensionCopy = extension;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v18 = "[PRSServer deletePosterDescriptorsForExtension:completion:]";
+    v17 = "[PRSServer deletePosterDescriptorsForExtension:completion:]";
     _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -878,14 +852,14 @@ void __73__PRSServer_refreshPosterDescriptorsForExtension_sessionInfo_completion
   if (v11)
   {
     delegate = [(PRSServer *)self delegate];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __60__PRSServer_deletePosterDescriptorsForExtension_completion___block_invoke;
-    v15[3] = &unk_1E818D020;
-    v16 = completionCopy;
-    [delegate server:self deletePosterDescriptorsForExtension:extensionCopy completion:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __60__PRSServer_deletePosterDescriptorsForExtension_completion___block_invoke;
+    v14[3] = &unk_1E818D020;
+    v15 = completionCopy;
+    [delegate server:self deletePosterDescriptorsForExtension:extensionCopy completion:v14];
 
-    v13 = v16;
+    v13 = v15;
 LABEL_7:
 
     goto LABEL_8;
@@ -899,8 +873,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __60__PRSServer_deletePosterDescriptorsForExtension_completion___block_invoke(uint64_t a1)
@@ -916,26 +888,24 @@ uint64_t __60__PRSServer_deletePosterDescriptorsForExtension_completion___block_
 
 - (void)pushToProactiveWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v12 = "[PRSServer pushToProactiveWithCompletion:]";
+    v11 = "[PRSServer pushToProactiveWithCompletion:]";
     _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
   delegate = [(PRSServer *)self delegate];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __43__PRSServer_pushToProactiveWithCompletion___block_invoke;
-  v9[3] = &unk_1E818D020;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __43__PRSServer_pushToProactiveWithCompletion___block_invoke;
+  v8[3] = &unk_1E818D020;
+  v9 = completionCopy;
   v7 = completionCopy;
-  [delegate server:self pushToProactiveWithCompletion:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [delegate server:self pushToProactiveWithCompletion:v8];
 }
 
 uint64_t __43__PRSServer_pushToProactiveWithCompletion___block_invoke(uint64_t a1)
@@ -951,27 +921,25 @@ uint64_t __43__PRSServer_pushToProactiveWithCompletion___block_invoke(uint64_t a
 
 - (void)pushPosterGalleryUpdate:(id)update completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   updateCopy = update;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(updateCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v15 = "[PRSServer pushPosterGalleryUpdate:completion:]";
+    v14 = "[PRSServer pushPosterGalleryUpdate:completion:]";
     _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
   delegate = [(PRSServer *)self delegate];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __48__PRSServer_pushPosterGalleryUpdate_completion___block_invoke;
-  v12[3] = &unk_1E818D020;
-  v13 = completionCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __48__PRSServer_pushPosterGalleryUpdate_completion___block_invoke;
+  v11[3] = &unk_1E818D020;
+  v12 = completionCopy;
   v10 = completionCopy;
-  [delegate server:self pushPosterGalleryUpdate:updateCopy completion:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [delegate server:self pushPosterGalleryUpdate:updateCopy completion:v11];
 }
 
 uint64_t __48__PRSServer_pushPosterGalleryUpdate_completion___block_invoke(uint64_t a1)
@@ -987,26 +955,24 @@ uint64_t __48__PRSServer_pushPosterGalleryUpdate_completion___block_invoke(uint6
 
 - (void)fetchGallery:(id)gallery
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   galleryCopy = gallery;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(galleryCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v12 = "[PRSServer fetchGallery:]";
+    v11 = "[PRSServer fetchGallery:]";
     _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
   delegate = [(PRSServer *)self delegate];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __26__PRSServer_fetchGallery___block_invoke;
-  v9[3] = &unk_1E818D048;
-  v10 = galleryCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __26__PRSServer_fetchGallery___block_invoke;
+  v8[3] = &unk_1E818D048;
+  v9 = galleryCopy;
   v7 = galleryCopy;
-  [delegate server:self fetchGallery:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [delegate server:self fetchGallery:v8];
 }
 
 uint64_t __26__PRSServer_fetchGallery___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -1022,26 +988,24 @@ uint64_t __26__PRSServer_fetchGallery___block_invoke(uint64_t a1, uint64_t a2, u
 
 - (void)retrieveGallery:(id)gallery
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   galleryCopy = gallery;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(galleryCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v12 = "[PRSServer retrieveGallery:]";
+    v11 = "[PRSServer retrieveGallery:]";
     _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
   delegate = [(PRSServer *)self delegate];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __29__PRSServer_retrieveGallery___block_invoke;
-  v9[3] = &unk_1E818D048;
-  v10 = galleryCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __29__PRSServer_retrieveGallery___block_invoke;
+  v8[3] = &unk_1E818D048;
+  v9 = galleryCopy;
   v7 = galleryCopy;
-  [delegate server:self retrieveGallery:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [delegate server:self retrieveGallery:v8];
 }
 
 uint64_t __29__PRSServer_retrieveGallery___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -1057,16 +1021,16 @@ uint64_t __29__PRSServer_retrieveGallery___block_invoke(uint64_t a1, uint64_t a2
 
 - (void)createPosterConfigurationForProviderIdentifier:(id)identifier posterDescriptorIdentifier:(id)descriptorIdentifier role:(id)role completion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   roleCopy = role;
   descriptorIdentifierCopy = descriptorIdentifier;
   identifierCopy = identifier;
-  v15 = PRSLogPosterContents();
+  v15 = PRSLogPosterContents(identifierCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v28 = "[PRSServer createPosterConfigurationForProviderIdentifier:posterDescriptorIdentifier:role:completion:]";
+    v27 = "[PRSServer createPosterConfigurationForProviderIdentifier:posterDescriptorIdentifier:role:completion:]";
     _os_log_impl(&dword_1C26FF000, v15, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -1076,15 +1040,15 @@ uint64_t __29__PRSServer_retrieveGallery___block_invoke(uint64_t a1, uint64_t a2
     remoteProcess = [currentContext remoteProcess];
     auditToken = [remoteProcess auditToken];
 
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __103__PRSServer_createPosterConfigurationForProviderIdentifier_posterDescriptorIdentifier_role_completion___block_invoke;
-    v23[3] = &unk_1E818D070;
-    v24 = auditToken;
-    v26 = a2;
-    v25 = completionCopy;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __103__PRSServer_createPosterConfigurationForProviderIdentifier_posterDescriptorIdentifier_role_completion___block_invoke;
+    v22[3] = &unk_1E818D070;
+    v23 = auditToken;
+    v25 = a2;
+    v24 = completionCopy;
     v19 = auditToken;
-    v20 = MEMORY[0x1C691D2A0](v23);
+    v20 = MEMORY[0x1C691D2A0](v22);
   }
 
   else
@@ -1094,8 +1058,6 @@ uint64_t __29__PRSServer_retrieveGallery___block_invoke(uint64_t a1, uint64_t a2
 
   delegate = [(PRSServer *)self delegate];
   [delegate server:self createPosterConfigurationForProviderIdentifier:identifierCopy posterDescriptorIdentifier:descriptorIdentifierCopy role:roleCopy completion:v20];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __103__PRSServer_createPosterConfigurationForProviderIdentifier_posterDescriptorIdentifier_role_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1107,47 +1069,46 @@ void __103__PRSServer_createPosterConfigurationForProviderIdentifier_posterDescr
   v14 = 0;
   v8 = [v5 extendContentsReadAccessToAuditToken:v7 error:&v14];
   v9 = v14;
+  v10 = v9;
   if (v9)
   {
-    v10 = PRSLogPosterContents();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = PRSLogPosterContents(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v13 = NSStringFromSelector(*(a1 + 48));
       *buf = 138412802;
       v16 = v13;
       v17 = 2112;
-      v18 = v9;
+      v18 = v10;
       v19 = 2112;
       v20 = v5;
-      _os_log_error_impl(&dword_1C26FF000, v10, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
+      _os_log_error_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
     }
   }
 
   if (v8)
   {
-    v11 = v8;
+    v12 = v8;
   }
 
   else
   {
-    v11 = v5;
+    v12 = v5;
   }
 
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v11, v6);
-
-  v12 = *MEMORY[0x1E69E9840];
+  (*(*(a1 + 40) + 16))(*(a1 + 40), v12, v6);
 }
 
 - (void)deletePosterConfigurationsMatchingUUID:(id)d completion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v18 = "[PRSServer deletePosterConfigurationsMatchingUUID:completion:]";
+    v17 = "[PRSServer deletePosterConfigurationsMatchingUUID:completion:]";
     _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -1158,14 +1119,14 @@ void __103__PRSServer_createPosterConfigurationForProviderIdentifier_posterDescr
   if (v11)
   {
     delegate = [(PRSServer *)self delegate];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __63__PRSServer_deletePosterConfigurationsMatchingUUID_completion___block_invoke;
-    v15[3] = &unk_1E818D020;
-    v16 = completionCopy;
-    [delegate server:self deletePosterConfigurationsMatchingUUID:dCopy completion:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __63__PRSServer_deletePosterConfigurationsMatchingUUID_completion___block_invoke;
+    v14[3] = &unk_1E818D020;
+    v15 = completionCopy;
+    [delegate server:self deletePosterConfigurationsMatchingUUID:dCopy completion:v14];
 
-    v13 = v16;
+    v13 = v15;
 LABEL_7:
 
     goto LABEL_8;
@@ -1179,21 +1140,19 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)exportPosterConfigurationMatchingUUID:(id)d completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315138;
-    v15 = "[PRSServer exportPosterConfigurationMatchingUUID:completion:]";
-    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[PRSServer exportPosterConfigurationMatchingUUID:completion:]";
+    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v13, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -1217,21 +1176,19 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)importPosterConfigurationFromArchiveData:(id)data completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315138;
-    v15 = "[PRSServer importPosterConfigurationFromArchiveData:completion:]";
-    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[PRSServer importPosterConfigurationFromArchiveData:completion:]";
+    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v13, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -1255,21 +1212,19 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchSelectedPosterForRole:(id)role completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   roleCopy = role;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315138;
-    v15 = "[PRSServer fetchSelectedPosterForRole:completion:]";
-    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[PRSServer fetchSelectedPosterForRole:completion:]";
+    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v13, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -1293,20 +1248,18 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchActivePosterForRole:(id)role completion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   roleCopy = role;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v18 = "[PRSServer fetchActivePosterForRole:completion:]";
+    v17 = "[PRSServer fetchActivePosterForRole:completion:]";
     _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -1317,14 +1270,14 @@ LABEL_8:
   if (v11)
   {
     delegate = [(PRSServer *)self delegate];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __49__PRSServer_fetchActivePosterForRole_completion___block_invoke;
-    v15[3] = &unk_1E818D0B8;
-    v16 = completionCopy;
-    [delegate server:self fetchActivePosterForRole:roleCopy completion:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __49__PRSServer_fetchActivePosterForRole_completion___block_invoke;
+    v14[3] = &unk_1E818D0B8;
+    v15 = completionCopy;
+    [delegate server:self fetchActivePosterForRole:roleCopy completion:v14];
 
-    v13 = v16;
+    v13 = v15;
 LABEL_7:
 
     goto LABEL_8;
@@ -1338,20 +1291,18 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fetchActivePosterForRole:(id)role error:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   roleCopy = role;
-  v7 = PRSLogPosterContents();
+  v7 = PRSLogPosterContents(roleCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v15 = 136315138;
-    v16 = "[PRSServer fetchActivePosterForRole:error:]";
-    _os_log_impl(&dword_1C26FF000, v7, OS_LOG_TYPE_INFO, "%s", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "[PRSServer fetchActivePosterForRole:error:]";
+    _os_log_impl(&dword_1C26FF000, v7, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -1375,23 +1326,21 @@ LABEL_8:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (void)updateToSelectedPosterMatchingUUID:(id)d role:(id)role completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dCopy = d;
   roleCopy = role;
   completionCopy = completion;
-  v11 = PRSLogPosterContents();
+  v11 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v20 = 136315138;
-    v21 = "[PRSServer updateToSelectedPosterMatchingUUID:role:completion:]";
-    _os_log_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_INFO, "%s", &v20, 0xCu);
+    v19 = 136315138;
+    v20 = "[PRSServer updateToSelectedPosterMatchingUUID:role:completion:]";
+    _os_log_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_INFO, "%s", &v19, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -1419,20 +1368,18 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPosterConfigurationsForRole:(id)role completion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   roleCopy = role;
   completionCopy = completion;
-  v9 = PRSLogPosterContents();
+  v9 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v24 = "[PRSServer fetchPosterConfigurationsForRole:completion:]";
+    v23 = "[PRSServer fetchPosterConfigurationsForRole:completion:]";
     _os_log_impl(&dword_1C26FF000, v9, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -1449,15 +1396,15 @@ LABEL_8:
       auditToken = [remoteProcess2 auditToken];
 
       delegate = [(PRSServer *)self delegate];
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __57__PRSServer_fetchPosterConfigurationsForRole_completion___block_invoke;
-      v19[3] = &unk_1E818CFD8;
-      v20 = auditToken;
-      v22 = a2;
-      v21 = completionCopy;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __57__PRSServer_fetchPosterConfigurationsForRole_completion___block_invoke;
+      v18[3] = &unk_1E818CFD8;
+      v19 = auditToken;
+      v21 = a2;
+      v20 = completionCopy;
       v17 = auditToken;
-      [delegate server:self fetchPosterConfigurationsForRole:roleCopy completion:v19];
+      [delegate server:self fetchPosterConfigurationsForRole:roleCopy completion:v18];
 
 LABEL_8:
     }
@@ -1469,8 +1416,6 @@ LABEL_8:
     (*(completionCopy + 2))(completionCopy, 0, v17);
     goto LABEL_8;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __57__PRSServer_fetchPosterConfigurationsForRole_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1504,33 +1449,34 @@ void __57__PRSServer_fetchPosterConfigurationsForRole_completion___block_invoke(
         v21 = 0;
         v14 = [v12 extendContentsReadAccessToAuditToken:v13 error:&v21];
         v15 = v21;
+        v16 = v15;
         if (v15)
         {
-          v16 = PRSLogPosterContents();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = PRSLogPosterContents(v15);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             v20 = NSStringFromSelector(*(a1 + 48));
             *buf = 138412802;
             v27 = v20;
             v28 = 2112;
-            v29 = v15;
+            v29 = v16;
             v30 = 2112;
             v31 = v12;
-            _os_log_error_impl(&dword_1C26FF000, v16, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
+            _os_log_error_impl(&dword_1C26FF000, v17, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
           }
         }
 
         if (v14)
         {
-          v17 = v14;
+          v18 = v14;
         }
 
         else
         {
-          v17 = v12;
+          v18 = v12;
         }
 
-        [v6 addObject:v17];
+        [v6 addObject:v18];
 
         ++v11;
       }
@@ -1543,19 +1489,18 @@ void __57__PRSServer_fetchPosterConfigurationsForRole_completion___block_invoke(
   }
 
   (*(*(a1 + 40) + 16))();
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPosterConfigurationsForExtension:(id)extension completion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   extensionCopy = extension;
   completionCopy = completion;
-  v9 = PRSLogPosterContents();
+  v9 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v24 = "[PRSServer fetchPosterConfigurationsForExtension:completion:]";
+    v23 = "[PRSServer fetchPosterConfigurationsForExtension:completion:]";
     _os_log_impl(&dword_1C26FF000, v9, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -1572,15 +1517,15 @@ void __57__PRSServer_fetchPosterConfigurationsForRole_completion___block_invoke(
       auditToken = [remoteProcess2 auditToken];
 
       delegate = [(PRSServer *)self delegate];
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __62__PRSServer_fetchPosterConfigurationsForExtension_completion___block_invoke;
-      v19[3] = &unk_1E818CFD8;
-      v20 = auditToken;
-      v22 = a2;
-      v21 = completionCopy;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __62__PRSServer_fetchPosterConfigurationsForExtension_completion___block_invoke;
+      v18[3] = &unk_1E818CFD8;
+      v19 = auditToken;
+      v21 = a2;
+      v20 = completionCopy;
       v17 = auditToken;
-      [delegate server:self fetchPosterConfigurationsForExtension:extensionCopy completion:v19];
+      [delegate server:self fetchPosterConfigurationsForExtension:extensionCopy completion:v18];
 
 LABEL_8:
     }
@@ -1592,8 +1537,6 @@ LABEL_8:
     (*(completionCopy + 2))(completionCopy, 0, v17);
     goto LABEL_8;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __62__PRSServer_fetchPosterConfigurationsForExtension_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1627,33 +1570,34 @@ void __62__PRSServer_fetchPosterConfigurationsForExtension_completion___block_in
         v21 = 0;
         v14 = [v12 extendContentsReadAccessToAuditToken:v13 error:&v21];
         v15 = v21;
+        v16 = v15;
         if (v15)
         {
-          v16 = PRSLogPosterContents();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = PRSLogPosterContents(v15);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             v20 = NSStringFromSelector(*(a1 + 48));
             *buf = 138412802;
             v27 = v20;
             v28 = 2112;
-            v29 = v15;
+            v29 = v16;
             v30 = 2112;
             v31 = v12;
-            _os_log_error_impl(&dword_1C26FF000, v16, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
+            _os_log_error_impl(&dword_1C26FF000, v17, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
           }
         }
 
         if (v14)
         {
-          v17 = v14;
+          v18 = v14;
         }
 
         else
         {
-          v17 = v12;
+          v18 = v12;
         }
 
-        [v6 addObject:v17];
+        [v6 addObject:v18];
 
         ++v11;
       }
@@ -1666,45 +1610,42 @@ void __62__PRSServer_fetchPosterConfigurationsForExtension_completion___block_in
   }
 
   (*(*(a1 + 40) + 16))();
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPosterSnapshotsWithRequest:(id)request completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   requestCopy = request;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(requestCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v15 = "[PRSServer fetchPosterSnapshotsWithRequest:completion:]";
+    v14 = "[PRSServer fetchPosterSnapshotsWithRequest:completion:]";
     _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
   delegate = [(PRSServer *)self delegate];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __56__PRSServer_fetchPosterSnapshotsWithRequest_completion___block_invoke;
-  v12[3] = &unk_1E818D0E0;
-  v13 = completionCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __56__PRSServer_fetchPosterSnapshotsWithRequest_completion___block_invoke;
+  v11[3] = &unk_1E818D0E0;
+  v12 = completionCopy;
   v10 = completionCopy;
-  [delegate server:self fetchPosterSnapshotsWithRequest:requestCopy completion:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [delegate server:self fetchPosterSnapshotsWithRequest:requestCopy completion:v11];
 }
 
 - (void)refreshPosterConfigurationMatchingUUID:(id)d sessionInfo:(id)info completion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dCopy = d;
   infoCopy = info;
   completionCopy = completion;
-  v12 = PRSLogPosterContents();
+  v12 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v28 = "[PRSServer refreshPosterConfigurationMatchingUUID:sessionInfo:completion:]";
+    v27 = "[PRSServer refreshPosterConfigurationMatchingUUID:sessionInfo:completion:]";
     _os_log_impl(&dword_1C26FF000, v12, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -1720,15 +1661,15 @@ void __62__PRSServer_fetchPosterConfigurationsForExtension_completion___block_in
       remoteProcess2 = [currentContext2 remoteProcess];
       auditToken = [remoteProcess2 auditToken];
 
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __75__PRSServer_refreshPosterConfigurationMatchingUUID_sessionInfo_completion___block_invoke;
-      v23[3] = &unk_1E818D070;
-      v24 = auditToken;
-      v26 = a2;
-      v25 = completionCopy;
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __75__PRSServer_refreshPosterConfigurationMatchingUUID_sessionInfo_completion___block_invoke;
+      v22[3] = &unk_1E818D070;
+      v23 = auditToken;
+      v25 = a2;
+      v24 = completionCopy;
       v19 = auditToken;
-      v20 = MEMORY[0x1C691D2A0](v23);
+      v20 = MEMORY[0x1C691D2A0](v22);
     }
 
     else
@@ -1748,8 +1689,6 @@ void __62__PRSServer_fetchPosterConfigurationsForExtension_completion___block_in
     (*(completionCopy + 2))(completionCopy, 0, v20);
 LABEL_10:
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __75__PRSServer_refreshPosterConfigurationMatchingUUID_sessionInfo_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1761,49 +1700,48 @@ void __75__PRSServer_refreshPosterConfigurationMatchingUUID_sessionInfo_completi
   v14 = 0;
   v8 = [v5 extendContentsReadAccessToAuditToken:v7 error:&v14];
   v9 = v14;
+  v10 = v9;
   if (v9)
   {
-    v10 = PRSLogPosterContents();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = PRSLogPosterContents(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v13 = NSStringFromSelector(*(a1 + 48));
       *buf = 138412802;
       v16 = v13;
       v17 = 2112;
-      v18 = v9;
+      v18 = v10;
       v19 = 2112;
       v20 = v5;
-      _os_log_error_impl(&dword_1C26FF000, v10, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
+      _os_log_error_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
     }
   }
 
   if (v8)
   {
-    v11 = v8;
+    v12 = v8;
   }
 
   else
   {
-    v11 = v5;
+    v12 = v5;
   }
 
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v11, v6);
-
-  v12 = *MEMORY[0x1E69E9840];
+  (*(*(a1 + 40) + 16))(*(a1 + 40), v12, v6);
 }
 
 - (void)associateConfigurationMatchingUUID:(id)d focusModeActivityUUID:(id)iD completion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   completionCopy = completion;
-  v11 = PRSLogPosterContents();
+  v11 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v17 = 136315138;
-    v18 = "[PRSServer associateConfigurationMatchingUUID:focusModeActivityUUID:completion:]";
-    _os_log_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_INFO, "%s", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = "[PRSServer associateConfigurationMatchingUUID:focusModeActivityUUID:completion:]";
+    _os_log_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_INFO, "%s", &v16, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -1827,20 +1765,18 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notePosterConfigurationUnderlyingModelDidChange:(id)change
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   changeCopy = change;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[PRSServer notePosterConfigurationUnderlyingModelDidChange:]";
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[PRSServer notePosterConfigurationUnderlyingModelDidChange:]";
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v10, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -1852,21 +1788,19 @@ LABEL_8:
     delegate = [(PRSServer *)self delegate];
     [delegate server:self notePosterConfigurationUnderlyingModelDidChange:changeCopy];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshSnapshotForPosterConfigurationMatchUUID:(id)d completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315138;
-    v15 = "[PRSServer refreshSnapshotForPosterConfigurationMatchUUID:completion:]";
-    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[PRSServer refreshSnapshotForPosterConfigurationMatchUUID:completion:]";
+    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v13, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -1890,21 +1824,19 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ingestSnapshotCollection:(id)collection forPosterConfigurationUUID:(id)d completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   dCopy = d;
   completionCopy = completion;
-  v11 = PRSLogPosterContents();
+  v11 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v21 = "[PRSServer ingestSnapshotCollection:forPosterConfigurationUUID:completion:]";
+    v20 = "[PRSServer ingestSnapshotCollection:forPosterConfigurationUUID:completion:]";
     _os_log_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -1915,14 +1847,14 @@ LABEL_8:
   if (v14)
   {
     delegate = [(PRSServer *)self delegate];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __76__PRSServer_ingestSnapshotCollection_forPosterConfigurationUUID_completion___block_invoke;
-    v18[3] = &unk_1E818D020;
-    v19 = completionCopy;
-    [delegate server:self ingestSnapshotCollection:collectionCopy forPosterConfigurationUUID:dCopy completion:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __76__PRSServer_ingestSnapshotCollection_forPosterConfigurationUUID_completion___block_invoke;
+    v17[3] = &unk_1E818D020;
+    v18 = completionCopy;
+    [delegate server:self ingestSnapshotCollection:collectionCopy forPosterConfigurationUUID:dCopy completion:v17];
 
-    v16 = v19;
+    v16 = v18;
 LABEL_7:
 
     goto LABEL_8;
@@ -1936,8 +1868,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchFocusUUIDForConfiguration:(id)configuration completion:(id)completion
@@ -2062,16 +1992,16 @@ LABEL_6:
 
 - (void)refreshSnapshotForGalleryItemsMatchingDescriptorIdentifier:(id)identifier extensionIdentifier:(id)extensionIdentifier completion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   extensionIdentifierCopy = extensionIdentifier;
   completionCopy = completion;
-  v11 = PRSLogPosterContents();
+  v11 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v17 = 136315138;
-    v18 = "[PRSServer refreshSnapshotForGalleryItemsMatchingDescriptorIdentifier:extensionIdentifier:completion:]";
-    _os_log_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_INFO, "%s", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = "[PRSServer refreshSnapshotForGalleryItemsMatchingDescriptorIdentifier:extensionIdentifier:completion:]";
+    _os_log_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_INFO, "%s", &v16, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -2095,21 +2025,19 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyActiveChargerIdentifierDidUpdate:(id)update completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315138;
-    v15 = "[PRSServer notifyActiveChargerIdentifierDidUpdate:completion:]";
-    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[PRSServer notifyActiveChargerIdentifierDidUpdate:completion:]";
+    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v13, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -2133,21 +2061,19 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyFocusModeDidChange:(id)change completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315138;
-    v15 = "[PRSServer notifyFocusModeDidChange:completion:]";
-    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[PRSServer notifyFocusModeDidChange:completion:]";
+    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v13, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -2171,21 +2097,19 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyAvailableFocusModesDidChange:(id)change completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315138;
-    v15 = "[PRSServer notifyAvailableFocusModesDidChange:completion:]";
-    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[PRSServer notifyAvailableFocusModesDidChange:completion:]";
+    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v13, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -2209,21 +2133,19 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prewarm:(id)prewarm completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   prewarmCopy = prewarm;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315138;
-    v15 = "[PRSServer prewarm:completion:]";
-    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[PRSServer prewarm:completion:]";
+    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v13, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -2247,21 +2169,19 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)overnightUpdate:(id)update completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315138;
-    v15 = "[PRSServer overnightUpdate:completion:]";
-    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[PRSServer overnightUpdate:completion:]";
+    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v13, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -2285,20 +2205,18 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)gatherDataFreshnessState:(id)state
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   stateCopy = state;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(stateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[PRSServer gatherDataFreshnessState:]";
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[PRSServer gatherDataFreshnessState:]";
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v10, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -2322,20 +2240,18 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteTransientDataWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[PRSServer deleteTransientDataWithCompletion:]";
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[PRSServer deleteTransientDataWithCompletion:]";
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v10, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -2359,20 +2275,18 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteSnapshotsWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[PRSServer deleteSnapshotsWithCompletion:]";
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[PRSServer deleteSnapshotsWithCompletion:]";
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v10, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -2396,20 +2310,18 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyPosterBoardOfApplicationUpdatesWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[PRSServer notifyPosterBoardOfApplicationUpdatesWithCompletion:]";
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[PRSServer notifyPosterBoardOfApplicationUpdatesWithCompletion:]";
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v10, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -2433,20 +2345,18 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchRuntimeAssertionState:(id)state
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   stateCopy = state;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(stateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[PRSServer fetchRuntimeAssertionState:]";
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[PRSServer fetchRuntimeAssertionState:]";
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v10, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -2470,20 +2380,18 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchChargerIdentifierRelationshipsWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[PRSServer fetchChargerIdentifierRelationshipsWithCompletion:]";
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[PRSServer fetchChargerIdentifierRelationshipsWithCompletion:]";
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v10, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -2514,21 +2422,19 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAssociatedHomeScreenPosterConfigurationUUID:(id)d completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315138;
-    v15 = "[PRSServer fetchAssociatedHomeScreenPosterConfigurationUUID:completion:]";
-    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[PRSServer fetchAssociatedHomeScreenPosterConfigurationUUID:completion:]";
+    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v13, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -2552,21 +2458,19 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updatePosterConfigurationMatchingUUID:(id)d updates:(id)updates completion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dCopy = d;
   updatesCopy = updates;
   completionCopy = completion;
-  v12 = PRSLogPosterContents();
+  v12 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v32 = "[PRSServer updatePosterConfigurationMatchingUUID:updates:completion:]";
+    v31 = "[PRSServer updatePosterConfigurationMatchingUUID:updates:completion:]";
     _os_log_impl(&dword_1C26FF000, v12, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -2587,15 +2491,15 @@ LABEL_8:
       auditToken = [remoteProcess3 auditToken];
 
       delegate = [(PRSServer *)self delegate];
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __70__PRSServer_updatePosterConfigurationMatchingUUID_updates_completion___block_invoke;
-      v27[3] = &unk_1E818D108;
-      v28 = auditToken;
-      v29 = completionCopy;
-      v30 = a2;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __70__PRSServer_updatePosterConfigurationMatchingUUID_updates_completion___block_invoke;
+      v26[3] = &unk_1E818D108;
+      v27 = auditToken;
+      v28 = completionCopy;
+      v29 = a2;
       v23 = auditToken;
-      [delegate server:self updatePosterConfigurationMatchingUUID:dCopy updates:updatesCopy completion:v27];
+      [delegate server:self updatePosterConfigurationMatchingUUID:dCopy updates:updatesCopy completion:v26];
 
 LABEL_11:
       goto LABEL_12;
@@ -2620,8 +2524,6 @@ LABEL_10:
   }
 
 LABEL_12:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __70__PRSServer_updatePosterConfigurationMatchingUUID_updates_completion___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -2640,49 +2542,48 @@ void __70__PRSServer_updatePosterConfigurationMatchingUUID_updates_completion___
     v16 = 0;
     v10 = [v7 extendContentsReadAccessToAuditToken:v9 error:&v16];
     v11 = v16;
+    v12 = v11;
     if (v11)
     {
-      v12 = PRSLogPosterContents();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = PRSLogPosterContents(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v15 = NSStringFromSelector(*(a1 + 48));
         *buf = 138412802;
         v18 = v15;
         v19 = 2112;
-        v20 = v11;
+        v20 = v12;
         v21 = 2112;
         v22 = v7;
-        _os_log_error_impl(&dword_1C26FF000, v12, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
+        _os_log_error_impl(&dword_1C26FF000, v13, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
       }
     }
 
     if (v10)
     {
-      v13 = v10;
+      v14 = v10;
     }
 
     else
     {
-      v13 = v7;
+      v14 = v7;
     }
 
-    (*(*(a1 + 40) + 16))(*(a1 + 40), v13, v8, 0);
+    (*(*(a1 + 40) + 16))(*(a1 + 40), v14, v8, 0);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updatePosterConfiguration:(id)configuration updates:(id)updates completion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   updatesCopy = updates;
   completionCopy = completion;
-  v12 = PRSLogPosterContents();
+  v12 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v32 = "[PRSServer updatePosterConfiguration:updates:completion:]";
+    v31 = "[PRSServer updatePosterConfiguration:updates:completion:]";
     _os_log_impl(&dword_1C26FF000, v12, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -2703,15 +2604,15 @@ void __70__PRSServer_updatePosterConfigurationMatchingUUID_updates_completion___
       auditToken = [remoteProcess3 auditToken];
 
       delegate = [(PRSServer *)self delegate];
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __58__PRSServer_updatePosterConfiguration_updates_completion___block_invoke;
-      v27[3] = &unk_1E818D108;
-      v28 = auditToken;
-      v29 = completionCopy;
-      v30 = a2;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __58__PRSServer_updatePosterConfiguration_updates_completion___block_invoke;
+      v26[3] = &unk_1E818D108;
+      v27 = auditToken;
+      v28 = completionCopy;
+      v29 = a2;
       v23 = auditToken;
-      [delegate server:self updatePosterConfiguration:configurationCopy updates:updatesCopy completion:v27];
+      [delegate server:self updatePosterConfiguration:configurationCopy updates:updatesCopy completion:v26];
 
 LABEL_11:
       goto LABEL_12;
@@ -2736,8 +2637,6 @@ LABEL_10:
   }
 
 LABEL_12:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __58__PRSServer_updatePosterConfiguration_updates_completion___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -2756,36 +2655,35 @@ void __58__PRSServer_updatePosterConfiguration_updates_completion___block_invoke
     v16 = 0;
     v10 = [v7 extendContentsReadAccessToAuditToken:v9 error:&v16];
     v11 = v16;
+    v12 = v11;
     if (v11)
     {
-      v12 = PRSLogPosterContents();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = PRSLogPosterContents(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v15 = NSStringFromSelector(*(a1 + 48));
         *buf = 138412802;
         v18 = v15;
         v19 = 2112;
-        v20 = v11;
+        v20 = v12;
         v21 = 2112;
         v22 = v7;
-        _os_log_error_impl(&dword_1C26FF000, v12, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
+        _os_log_error_impl(&dword_1C26FF000, v13, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
       }
     }
 
     if (v10)
     {
-      v13 = v10;
+      v14 = v10;
     }
 
     else
     {
-      v13 = v7;
+      v14 = v7;
     }
 
-    (*(*(a1 + 40) + 16))(*(a1 + 40), v13, v8, 0);
+    (*(*(a1 + 40) + 16))(*(a1 + 40), v14, v8, 0);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshSuggestionDescriptorsForConfigurationMatchingUUID:(id)d sessionInfo:(id)info completion:(id)completion
@@ -2875,33 +2773,34 @@ void __93__PRSServer_refreshSuggestionDescriptorsForConfigurationMatchingUUID_se
         v25 = 0;
         v15 = [v14 extendContentsReadAccessToAuditToken:v7 error:&v25];
         v16 = v25;
+        v17 = v16;
         if (v16)
         {
-          v17 = PRSLogPosterContents();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v18 = PRSLogPosterContents(v16);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             v24 = NSStringFromSelector(*(a1 + 40));
             *buf = 138412802;
             v31 = v24;
             v32 = 2112;
-            v33 = v16;
+            v33 = v17;
             v34 = 2112;
             v35 = v14;
-            _os_log_error_impl(&dword_1C26FF000, v17, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
+            _os_log_error_impl(&dword_1C26FF000, v18, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
           }
         }
 
         if (v15)
         {
-          v18 = v15;
+          v19 = v15;
         }
 
         else
         {
-          v18 = v14;
+          v19 = v14;
         }
 
-        [v8 addObject:v18];
+        [v8 addObject:v19];
 
         ++v13;
       }
@@ -2913,11 +2812,9 @@ void __93__PRSServer_refreshSuggestionDescriptorsForConfigurationMatchingUUID_se
     while (v11);
   }
 
-  v19 = *(a1 + 32);
-  v20 = [v8 copy];
-  (*(v19 + 16))(v19, v20, v22);
-
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *(a1 + 32);
+  v21 = [v8 copy];
+  (*(v20 + 16))(v20, v21, v22);
 }
 
 - (void)fetchSuggestionDescriptorsForConfigurationMatchingUUID:(id)d completion:(id)completion
@@ -3017,33 +2914,34 @@ void __79__PRSServer_fetchSuggestionDescriptorsForConfigurationMatchingUUID_comp
           v22 = 0;
           v15 = [v13 extendContentsReadAccessToAuditToken:v14 error:&v22];
           v16 = v22;
+          v17 = v16;
           if (v16)
           {
-            v17 = PRSLogPosterContents();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            v18 = PRSLogPosterContents(v16);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               v21 = NSStringFromSelector(*(a1 + 48));
               *buf = 138412802;
               v28 = v21;
               v29 = 2112;
-              v30 = v16;
+              v30 = v17;
               v31 = 2112;
               v32 = v13;
-              _os_log_error_impl(&dword_1C26FF000, v17, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
+              _os_log_error_impl(&dword_1C26FF000, v18, OS_LOG_TYPE_ERROR, "sandbox extension did error in %@ : error=%@ poster=%@", buf, 0x20u);
             }
           }
 
           if (v15)
           {
-            v18 = v15;
+            v19 = v15;
           }
 
           else
           {
-            v18 = v13;
+            v19 = v13;
           }
 
-          [v7 addObject:v18];
+          [v7 addObject:v19];
 
           ++v12;
         }
@@ -3058,8 +2956,6 @@ void __79__PRSServer_fetchSuggestionDescriptorsForConfigurationMatchingUUID_comp
     (*(*(a1 + 40) + 16))();
     v6 = v20;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)commitSuggestionsForConfigurationMatchingUUID:(id)d selectSuggestionDescriptorUUID:(id)iD completion:(id)completion
@@ -3116,15 +3012,15 @@ LABEL_9:
 
 - (void)runMigration:(id)migration migrationDescriptor:(id)descriptor completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   migrationCopy = migration;
   descriptorCopy = descriptor;
   completionCopy = completion;
-  v11 = PRSLogPosterContents();
+  v11 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v25 = "[PRSServer runMigration:migrationDescriptor:completion:]";
+    v24 = "[PRSServer runMigration:migrationDescriptor:completion:]";
     _os_log_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -3145,36 +3041,35 @@ LABEL_9:
       goto LABEL_7;
     }
 
-    v17 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A250];
-    v21 = *MEMORY[0x1E696A588];
-    v22 = @"bundleIdentifier";
-    v19 = @"(null)";
+    v16 = MEMORY[0x1E696ABC0];
+    v17 = *MEMORY[0x1E696A250];
+    v20 = *MEMORY[0x1E696A588];
+    v21 = @"bundleIdentifier";
+    v18 = @"(null)";
     if (bundleIdentifier)
     {
-      v19 = bundleIdentifier;
+      v18 = bundleIdentifier;
     }
 
-    v23[0] = @"Process not allowed to run migration.";
-    v23[1] = v19;
-    delegate = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v21 count:2];
-    v20 = [v17 errorWithDomain:v18 code:-1 userInfo:{delegate, v21, v22}];
-    completionCopy[2](completionCopy, v20);
+    v22[0] = @"Process not allowed to run migration.";
+    v22[1] = v18;
+    delegate = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v20 count:2];
+    v19 = [v16 errorWithDomain:v17 code:-1 userInfo:{delegate, v20, v21}];
+    completionCopy[2](completionCopy, v19);
   }
 
 LABEL_7:
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearMigrationFlags:(id)flags
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   flagsCopy = flags;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(flagsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v15 = "[PRSServer clearMigrationFlags:]";
+    v14 = "[PRSServer clearMigrationFlags:]";
     _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -3185,14 +3080,14 @@ LABEL_7:
   if (v8)
   {
     delegate = [(PRSServer *)self delegate];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __33__PRSServer_clearMigrationFlags___block_invoke;
-    v12[3] = &unk_1E818D180;
-    v13 = flagsCopy;
-    [delegate server:self clearMigrationFlags:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __33__PRSServer_clearMigrationFlags___block_invoke;
+    v11[3] = &unk_1E818D180;
+    v12 = flagsCopy;
+    [delegate server:self clearMigrationFlags:v11];
 
-    v10 = v13;
+    v10 = v12;
 LABEL_7:
 
     goto LABEL_8;
@@ -3206,8 +3101,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __33__PRSServer_clearMigrationFlags___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -3221,15 +3114,15 @@ void __33__PRSServer_clearMigrationFlags___block_invoke(uint64_t a1, uint64_t a2
 
 - (void)ignoreExtension:(id)extension completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   extensionCopy = extension;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315138;
-    v15 = "[PRSServer ignoreExtension:completion:]";
-    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[PRSServer ignoreExtension:completion:]";
+    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v13, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -3253,21 +3146,19 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unignoreExtension:(id)extension completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   extensionCopy = extension;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315138;
-    v15 = "[PRSServer unignoreExtension:completion:]";
-    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[PRSServer unignoreExtension:completion:]";
+    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v13, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -3291,20 +3182,18 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchArchivedDataStoreNamesWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = PRSLogPosterContents();
+  v5 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[PRSServer fetchArchivedDataStoreNamesWithCompletion:]";
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[PRSServer fetchArchivedDataStoreNamesWithCompletion:]";
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_INFO, "%s", &v10, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -3328,22 +3217,20 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)restoreArchivedDataStoreNamed:(id)named backupExistingDataStore:(id)store completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   storeCopy = store;
   completionCopy = completion;
-  v11 = PRSLogPosterContents();
+  v11 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v18 = 136315138;
-    v19 = "[PRSServer restoreArchivedDataStoreNamed:backupExistingDataStore:completion:]";
-    _os_log_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_INFO, "%s", &v18, 0xCu);
+    v17 = 136315138;
+    v18 = "[PRSServer restoreArchivedDataStoreNamed:backupExistingDataStore:completion:]";
+    _os_log_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_INFO, "%s", &v17, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -3373,22 +3260,20 @@ LABEL_8:
     completionCopy[2](completionCopy, delegate);
 LABEL_10:
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stashCurrentDataStoreWithName:(id)name options:(id)options completion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   optionsCopy = options;
   completionCopy = completion;
-  v11 = PRSLogPosterContents();
+  v11 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v17 = 136315138;
-    v18 = "[PRSServer stashCurrentDataStoreWithName:options:completion:]";
-    _os_log_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_INFO, "%s", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = "[PRSServer stashCurrentDataStoreWithName:options:completion:]";
+    _os_log_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_INFO, "%s", &v16, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -3412,21 +3297,19 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteArchivedDataStoreNamed:(id)named completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   completionCopy = completion;
-  v8 = PRSLogPosterContents();
+  v8 = PRSLogPosterContents(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315138;
-    v15 = "[PRSServer deleteArchivedDataStoreNamed:completion:]";
-    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[PRSServer deleteArchivedDataStoreNamed:completion:]";
+    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_INFO, "%s", &v13, 0xCu);
   }
 
   currentContext = [MEMORY[0x1E698F490] currentContext];
@@ -3450,8 +3333,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)exportArchivedDataStoreNamed:(id)named completion:(id)completion

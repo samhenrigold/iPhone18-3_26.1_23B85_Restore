@@ -251,7 +251,7 @@
 
   else
   {
-    +[AVCaptureCoreAnalyticsReporter clientApplicationIDType:];
+    [(AVCaptureCoreAnalyticsReporter *)self clientApplicationIDType:a2];
     return 0;
   }
 }

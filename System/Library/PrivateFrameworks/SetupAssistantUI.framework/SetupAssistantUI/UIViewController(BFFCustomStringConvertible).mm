@@ -6,9 +6,9 @@
 
 - (uint64_t)customDescription
 {
-  v0 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [v0 description];
+  return [v1 description];
 }
 
 @end

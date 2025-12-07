@@ -54,39 +54,39 @@
 {
   commitCopy = commit;
   rollbackCopy = rollback;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   WeakRetained = objc_loadWeakRetained(&self->_queue);
   sync = [WeakRetained sync];
-  v14 = _NSConcreteStackBlock;
-  v15 = 3221225472;
-  v16 = sub_133D9C;
-  v17 = &unk_2CDD30;
-  v21 = &v22;
+  v15 = _NSConcreteStackBlock;
+  v16 = 3221225472;
+  v17 = sub_133D9C;
+  v18 = &unk_2CDD30;
+  v22 = &v23;
   selfCopy = self;
   v10 = commitCopy;
-  v19 = v10;
+  v20 = v10;
   v11 = rollbackCopy;
-  v20 = v11;
-  dispatch_sync(sync, &v14);
+  v21 = v11;
+  dispatch_sync(sync, &v15);
 
-  if (*(v23 + 24) == 1)
+  if (*(v24 + 24) == 1)
   {
-    v12 = BCTransactionLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = BCTransactionLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [(_BCTransaction *)self debugDescription:v14];
+      v14 = [(_BCTransaction *)self debugDescription:v15];
       *buf = 138543362;
-      v27 = v13;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "commit transaction: %{public}@", buf, 0xCu);
+      v28 = v14;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "commit transaction: %{public}@", buf, 0xCu);
     }
 
     [WeakRetained _processTransaction:self];
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
 }
 
 - (void)whenCancelled:(id)cancelled
@@ -96,21 +96,21 @@
   {
     WeakRetained = objc_loadWeakRetained(&self->_queue);
     sync = [WeakRetained sync];
-    v9 = _NSConcreteStackBlock;
-    v10 = 3221225472;
-    v11 = sub_133FBC;
-    v12 = &unk_2C8488;
+    v10 = _NSConcreteStackBlock;
+    v11 = 3221225472;
+    v12 = sub_133FBC;
+    v13 = &unk_2C8488;
     selfCopy = self;
-    v14 = cancelledCopy;
-    dispatch_sync(sync, &v9);
+    v15 = cancelledCopy;
+    dispatch_sync(sync, &v10);
 
-    v7 = BCTransactionLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = BCTransactionLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [(_BCTransaction *)self debugDescription:v9];
+      v9 = [(_BCTransaction *)self debugDescription:v10];
       *buf = 138543362;
-      v16 = v8;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Adding whenCancelled block to transaction: %{public}@", buf, 0xCu);
+      v17 = v9;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Adding whenCancelled block to transaction: %{public}@", buf, 0xCu);
     }
 
     [WeakRetained _processTransaction:self];
@@ -124,21 +124,21 @@
   {
     WeakRetained = objc_loadWeakRetained(&self->_queue);
     sync = [WeakRetained sync];
-    v9 = _NSConcreteStackBlock;
-    v10 = 3221225472;
-    v11 = sub_1341B4;
-    v12 = &unk_2C8488;
+    v10 = _NSConcreteStackBlock;
+    v11 = 3221225472;
+    v12 = sub_1341B4;
+    v13 = &unk_2C8488;
     selfCopy = self;
-    v14 = completedCopy;
-    dispatch_sync(sync, &v9);
+    v15 = completedCopy;
+    dispatch_sync(sync, &v10);
 
-    v7 = BCTransactionLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = BCTransactionLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [(_BCTransaction *)self debugDescription:v9];
+      v9 = [(_BCTransaction *)self debugDescription:v10];
       *buf = 138543362;
-      v16 = v8;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Adding whenCompleted block to transaction: %{public}@", buf, 0xCu);
+      v17 = v9;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Adding whenCompleted block to transaction: %{public}@", buf, 0xCu);
     }
 
     [WeakRetained _processTransaction:self];
@@ -147,35 +147,35 @@
 
 - (void)finalize
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = 0;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
+  v12 = 0;
   WeakRetained = objc_loadWeakRetained(&self->_queue);
   sync = [WeakRetained sync];
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_134450;
-  v7[3] = &unk_2CA7A8;
-  v7[4] = self;
-  v7[5] = &v8;
-  dispatch_sync(sync, v7);
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_134450;
+  v8[3] = &unk_2CA7A8;
+  v8[4] = self;
+  v8[5] = &v9;
+  dispatch_sync(sync, v8);
 
-  if (*(v9 + 24) == 1)
+  if (*(v10 + 24) == 1)
   {
-    v5 = BCTransactionLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = BCTransactionLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [(_BCTransaction *)self debugDescription];
+      v7 = [(_BCTransaction *)self debugDescription];
       *buf = 138543362;
-      v13 = v6;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Finalized transaction: %{public}@", buf, 0xCu);
+      v14 = v7;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Finalized transaction: %{public}@", buf, 0xCu);
     }
 
     [WeakRetained _processTransaction:self];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
 }
 
 - (id)sq_commitsToProcess
@@ -321,20 +321,20 @@
   v15 = CFAbsoluteTimeGetCurrent() + timeout;
   do
   {
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2020000000;
-    v26 = 0;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x2020000000;
+    v27 = 0;
     sync = [WeakRetained sync];
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_134A54;
-    v22[3] = &unk_2CA7A8;
-    v22[4] = self;
-    v22[5] = &v23;
-    dispatch_sync(sync, v22);
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_134A54;
+    v23[3] = &unk_2CA7A8;
+    v23[4] = self;
+    v23[5] = &v24;
+    dispatch_sync(sync, v23);
 
-    if (v24[3])
+    if (v25[3])
     {
       v17 = 0;
       v14 = 1;
@@ -347,13 +347,14 @@
       goto LABEL_12;
     }
 
-    if (CFRunLoopRunInMode(kCFRunLoopDefaultMode, v18, 1u) == kCFRunLoopRunTimedOut)
+    v19 = CFRunLoopRunInMode(kCFRunLoopDefaultMode, v18, 1u);
+    if (v19 == 3)
     {
-      v19 = BCTransactionLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = BCTransactionLog(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v20 = [(_BCTransaction *)self debugDescription];
-        sub_1EAEAC(v20, buf, &v28, v19);
+        v21 = [(_BCTransaction *)self debugDescription];
+        sub_1EAEAC(v21, buf, &v29, v20);
       }
 
 LABEL_12:
@@ -363,7 +364,7 @@ LABEL_12:
 
     v17 = 1;
 LABEL_14:
-    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v24, 8);
   }
 
   while ((v17 & 1) != 0);

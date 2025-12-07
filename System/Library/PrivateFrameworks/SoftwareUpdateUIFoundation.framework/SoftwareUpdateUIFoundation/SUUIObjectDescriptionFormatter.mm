@@ -161,7 +161,6 @@
   objc_storeStrong(&string, 0);
   objc_storeStrong(&v34, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -215,49 +214,18 @@
     v15 = 1;
   }
 
-  else
+  else if ((optionsCopy & 0x80) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ((v14 = MEMORY[0x277D82BE0](location[0]), [v14 length] <= 0x32) ? (v15 = 0) : (v7 = MEMORY[0x277CCACA8], v8 = objc_msgSend(v14, "substringToIndex:", 47), v20 = objc_msgSend(v7, "stringWithFormat:", @"%@... (length: %lu)", v8, objc_msgSend(v14, "length")), MEMORY[0x277D82BD8](v8), v15 = 1), objc_storeStrong(&v14, 0), !v15))
   {
-    if ((optionsCopy & 0x80) == 0)
+    if (optionsCopy & 0x100) != 0 && ((objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass())))
     {
-      goto LABEL_31;
-    }
-
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_31;
-    }
-
-    v14 = MEMORY[0x277D82BE0](location[0]);
-    if ([v14 length] <= 0x32)
-    {
-      v15 = 0;
+      v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ (count: %lu)", location[0], objc_msgSend(location[0], "count")];
+      v15 = 1;
     }
 
     else
     {
-      v7 = MEMORY[0x277CCACA8];
-      v8 = [v14 substringToIndex:47];
-      v20 = [v7 stringWithFormat:@"%@... (length: %lu)", v8, objc_msgSend(v14, "length")];
-      MEMORY[0x277D82BD8](v8);
+      v20 = [location[0] description];
       v15 = 1;
-    }
-
-    objc_storeStrong(&v14, 0);
-    if (!v15)
-    {
-LABEL_31:
-      if (optionsCopy & 0x100) != 0 && ((objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass())))
-      {
-        v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ (count: %lu)", location[0], objc_msgSend(location[0], "count")];
-        v15 = 1;
-      }
-
-      else
-      {
-        v20 = [location[0] description];
-        v15 = 1;
-      }
     }
   }
 

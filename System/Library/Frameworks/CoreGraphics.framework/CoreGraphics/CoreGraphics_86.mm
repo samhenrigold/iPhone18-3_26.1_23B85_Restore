@@ -50,9 +50,9 @@ void CGPathSaveAsImage(const CGPath *a1, char *a2)
   v6 = CGPathCreateMutableCopyByTransformingPath(a1, &transform);
   v7 = CGColorSpaceCreateWithName(@"kCGColorSpaceSRGB");
   v8 = CGBitmapContextCreateWithData(0, (width + 10.0), (height + 10.0), 8uLL, 0, v7, 1u, 0, 0);
-  CGContextErase(v8, v9, v10, v11, v12, v13, v14, v15);
+  CGContextErase(v8);
   CGContextAddPath(v8, v6);
-  clip(v8, 0, v16, v17, v18, v19, v20, v21);
+  clip(v8, 0);
   if (v6)
   {
     CFRelease(v6);
@@ -60,11 +60,11 @@ void CGPathSaveAsImage(const CGPath *a1, char *a2)
 
   ConstantColor = CGColorGetConstantColor(@"kCGColorBlack");
   CGContextSetFillColorWithColor(v8, ConstantColor);
-  v26.size.width = (width + 10.0);
-  v26.size.height = (height + 10.0);
-  v26.origin.x = 0.0;
-  v26.origin.y = 0.0;
-  CGContextFillRect(v8, v26);
+  v13.size.width = (width + 10.0);
+  v13.size.height = (height + 10.0);
+  v13.origin.x = 0.0;
+  v13.origin.y = 0.0;
+  CGContextFillRect(v8, v13);
   Image = CGBitmapContextCreateImage(v8);
   if (v8)
   {
@@ -78,7 +78,7 @@ void CGPathSaveAsImage(const CGPath *a1, char *a2)
   }
 }
 
-_DWORD *CGPathApplyDashedPath(_DWORD *cf, const CGAffineTransform *a2, uint64_t a3, _anonymous_namespace_ *this, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+_DWORD *CGPathApplyDashedPath(_DWORD *cf, const CGAffineTransform *a2, uint64_t a3, _anonymous_namespace_ *this, uint64_t *a5, unint64_t a6, double *a7, double a8)
 {
   if (cf)
   {
@@ -139,14 +139,14 @@ uint64_t __CGPathApplyDashedPath_block_invoke(uint64_t a1, int a2, uint64_t a3)
   return (*(a1 + 32))(*(a1 + 40), &v4);
 }
 
-_DWORD *CGPathApplyStrokedDashedPath(_DWORD *cf, const CGAffineTransform *a2, uint64_t a3, _anonymous_namespace_ *this, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+_DWORD *CGPathApplyStrokedDashedPath(_DWORD *cf, const CGAffineTransform *a2, uint64_t a3, float64x2_t *this, uint64_t *a5, unint64_t a6, int a7, int a8, double a9, double a10, double a11, double a12, uint64_t a13)
 {
   if (cf)
   {
-    v12 = cf;
+    v16 = cf;
     if (CGPathDisableTypeValidation)
     {
-      v13 = 1;
+      v17 = 1;
       if (!a3)
       {
         return cf;
@@ -155,29 +155,29 @@ _DWORD *CGPathApplyStrokedDashedPath(_DWORD *cf, const CGAffineTransform *a2, ui
 
     else
     {
-      v14 = CFGetTypeID(cf);
+      v18 = CFGetTypeID(cf);
       cf = CGPathGetTypeID();
-      v13 = v14 == cf;
+      v17 = v18 == cf;
       if (!a3)
       {
         return cf;
       }
     }
 
-    if (v13)
+    if (v17)
     {
       if (cf)
       {
-        v15 = v12[4];
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 0x40000000;
-        v16[2] = __CGPathApplyStrokedDashedPath_block_invoke;
-        v16[3] = &__block_descriptor_tmp_7_18266;
-        v16[4] = a3;
-        v16[5] = a2;
-        if ((v15 - 10) >= 0xFFFFFFF7)
+        v19 = v16[4];
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 0x40000000;
+        v20[2] = __CGPathApplyStrokedDashedPath_block_invoke;
+        v20[3] = &__block_descriptor_tmp_7_18266;
+        v20[4] = a3;
+        v20[5] = a2;
+        if ((v19 - 10) >= 0xFFFFFFF7)
         {
-          v16[11] = v16;
+          v20[11] = v20;
           operator new();
         }
       }
@@ -409,55 +409,55 @@ uint64_t CGPathCreateWithData(const __CFData *a1)
   }
 
   TypeID = CGPathGetTypeID();
-  Instance = CGTypeCreateInstance(TypeID, 128, v3, v4, v5, v6, v7, v8);
-  v10 = (Instance + 16);
+  Instance = CGTypeCreateInstance(TypeID, 128);
+  v4 = (Instance + 16);
   if (*(Instance + 16))
   {
     goto LABEL_7;
   }
 
   BytePtr = CFDataGetBytePtr(a1);
-  v75 = BytePtr;
+  v69 = BytePtr;
   Length = CFDataGetLength(a1);
-  v78 = Length;
+  v72 = Length;
   if (Length < 4)
   {
     goto LABEL_6;
   }
 
-  v13 = *BytePtr;
+  v7 = *BytePtr;
   if (*BytePtr != 1)
   {
     goto LABEL_6;
   }
 
-  v14 = Length;
-  v76 = BYTE2(v13) & 1;
+  v8 = Length;
+  v70 = BYTE2(v7) & 1;
   if (Length == 4)
   {
     goto LABEL_6;
   }
 
-  v16 = BytePtr[4];
-  v77 = 5;
-  if (v16 <= 4)
+  v10 = BytePtr[4];
+  v71 = 5;
+  if (v10 <= 4)
   {
-    if (v16 <= 2)
+    if (v10 <= 2)
     {
-      if (v16 != 1)
+      if (v10 != 1)
       {
-        if (v16 != 2)
+        if (v10 != 2)
         {
           goto LABEL_6;
         }
 
         *(Instance + 16) = 2;
-        if (!decode_CGAffineTransform(&v75, (Instance + 24)))
+        if (!decode_CGAffineTransform(&v69, (Instance + 24)))
         {
           goto LABEL_6;
         }
 
-        if (decode_CGSize(&v75, (Instance + 72)))
+        if (decode_CGSize(&v69, (Instance + 72)))
         {
           return Instance;
         }
@@ -467,7 +467,7 @@ uint64_t CGPathCreateWithData(const __CFData *a1)
 
       *(Instance + 16) = 1;
 LABEL_68:
-      if (decode_CGAffineTransform(&v75, (Instance + 24)))
+      if (decode_CGAffineTransform(&v69, (Instance + 24)))
       {
         return Instance;
       }
@@ -475,131 +475,131 @@ LABEL_68:
       goto LABEL_7;
     }
 
-    if (v16 != 3)
+    if (v10 != 3)
     {
-      *v10 = 4;
+      *v4 = 4;
       if (Length <= 5)
       {
         *(Instance + 72) = 0;
         goto LABEL_6;
       }
 
-      v43 = BytePtr[5];
-      v77 = 6;
-      *(Instance + 72) = (v43 & 2) != 0;
-      *(Instance + 73) = v43 & 1;
+      v37 = BytePtr[5];
+      v71 = 6;
+      *(Instance + 72) = (v37 & 2) != 0;
+      *(Instance + 73) = v37 & 1;
       goto LABEL_68;
     }
 
     *(Instance + 16) = 3;
-    v25 = decode_CGAffineTransform(&v75, (Instance + 24));
-    v26 = Instance + 72;
-    v27 = v76;
-    v29 = v77;
-    v28 = v78;
-    v30 = 4;
-    v31 = v75;
+    v19 = decode_CGAffineTransform(&v69, (Instance + 24));
+    v20 = Instance + 72;
+    v21 = v70;
+    v23 = v71;
+    v22 = v72;
+    v24 = 4;
+    v25 = v69;
     do
     {
-      if (v25)
+      if (v19)
       {
-        if (v27)
+        if (v21)
         {
-          if ((v28 & 0x8000000000000000) != 0)
+          if ((v22 & 0x8000000000000000) != 0)
           {
-            v33 = 0;
-            v35 = 0;
-            *v26 = 0;
-            v37 = 0.0;
+            v27 = 0;
+            v29 = 0;
+            *v20 = 0;
+            v31 = 0.0;
           }
 
           else
           {
-            v36 = v29 + 4;
-            v37 = 0.0;
-            v33 = v29 + 4 <= v28;
-            if (v29 + 4 > v28)
+            v30 = v23 + 4;
+            v31 = 0.0;
+            v27 = v23 + 4 <= v22;
+            if (v23 + 4 > v22)
             {
-              v39 = v29 + 4;
-              v36 = v29;
-              v38 = 0.0;
+              v33 = v23 + 4;
+              v30 = v23;
+              v32 = 0.0;
             }
 
             else
             {
-              v38 = *&v31[v29];
-              v39 = v29 + 8;
+              v32 = *&v25[v23];
+              v33 = v23 + 8;
             }
 
-            *v26 = v38;
-            if (v39 <= v28)
+            *v20 = v32;
+            if (v33 <= v22)
             {
-              v37 = *&v31[v36];
-              v35 = 1;
-              v29 = v39;
+              v31 = *&v25[v30];
+              v29 = 1;
+              v23 = v33;
             }
 
             else
             {
-              v35 = 0;
-              v29 = v36;
+              v29 = 0;
+              v23 = v30;
             }
           }
 
-          *(v26 + 8) = v37;
+          *(v20 + 8) = v31;
         }
 
-        else if ((v28 & 0x8000000000000000) != 0)
+        else if ((v22 & 0x8000000000000000) != 0)
         {
-          v33 = 0;
-          v35 = 0;
+          v27 = 0;
+          v29 = 0;
         }
 
         else
         {
-          v32 = v29 + 8;
-          v33 = v29 + 8 <= v28;
-          if (v29 + 8 > v28)
+          v26 = v23 + 8;
+          v27 = v23 + 8 <= v22;
+          if (v23 + 8 > v22)
           {
-            v34 = v29 + 8;
-            v32 = v29;
+            v28 = v23 + 8;
+            v26 = v23;
           }
 
           else
           {
-            *v26 = *&v31[v29];
-            v34 = v29 + 16;
+            *v20 = *&v25[v23];
+            v28 = v23 + 16;
           }
 
-          if (v34 <= v28)
+          if (v28 <= v22)
           {
-            *(v26 + 8) = *&v31[v32];
-            v35 = 1;
-            v29 = v34;
+            *(v20 + 8) = *&v25[v26];
+            v29 = 1;
+            v23 = v28;
           }
 
           else
           {
-            v35 = 0;
-            v29 = v32;
+            v29 = 0;
+            v23 = v26;
           }
         }
 
-        v25 = v33 & v35;
+        v19 = v27 & v29;
       }
 
       else
       {
-        v25 = 0;
+        v19 = 0;
       }
 
-      v26 += 16;
-      --v30;
+      v20 += 16;
+      --v24;
     }
 
-    while (v30);
+    while (v24);
 LABEL_125:
-    if (v25)
+    if (v19)
     {
       return Instance;
     }
@@ -607,17 +607,17 @@ LABEL_125:
     goto LABEL_6;
   }
 
-  if (v16 <= 7)
+  if (v10 <= 7)
   {
-    if (v16 == 5)
+    if (v10 == 5)
     {
       *(Instance + 16) = 5;
-      if (!decode_CGSize(&v75, (Instance + 24)))
+      if (!decode_CGSize(&v69, (Instance + 24)))
       {
         goto LABEL_6;
       }
 
-      if (decode_CGSize(&v75, (Instance + 40)))
+      if (decode_CGSize(&v69, (Instance + 40)))
       {
         return Instance;
       }
@@ -625,45 +625,45 @@ LABEL_125:
       goto LABEL_7;
     }
 
-    if (v16 != 6)
+    if (v10 != 6)
     {
       goto LABEL_6;
     }
 
     *(Instance + 16) = 6;
-    if (!decode_CGAffineTransform(&v75, (Instance + 24)))
+    if (!decode_CGAffineTransform(&v69, (Instance + 24)))
     {
       goto LABEL_6;
     }
 
-    v17 = v78;
-    if (v76 == 1)
+    v11 = v72;
+    if (v70 == 1)
     {
-      if ((v78 & 0x8000000000000000) != 0 || (v71 = v77, v72 = v77 + 4, v77 + 4 > v78))
+      if ((v72 & 0x8000000000000000) != 0 || (v65 = v71, v66 = v71 + 4, v71 + 4 > v72))
       {
         *(Instance + 72) = 0;
         goto LABEL_6;
       }
 
-      v73 = v75;
-      *(Instance + 72) = *&v75[v77];
-      if (v71 + 8 > v17)
+      v67 = v69;
+      *(Instance + 72) = *&v69[v71];
+      if (v65 + 8 > v11)
       {
         *(Instance + 80) = 0;
         goto LABEL_6;
       }
 
-      *(Instance + 80) = *&v73[v72];
-      if (v71 + 12 > v17)
+      *(Instance + 80) = *&v67[v66];
+      if (v65 + 12 > v11)
       {
         *(Instance + 88) = 0;
         goto LABEL_6;
       }
 
-      *(Instance + 88) = *&v73[v71 + 8];
-      if (v71 + 16 <= v17)
+      *(Instance + 88) = *&v67[v65 + 8];
+      if (v65 + 16 <= v11)
       {
-        *(Instance + 96) = *&v73[v71 + 12];
+        *(Instance + 96) = *&v67[v65 + 12];
         return Instance;
       }
 
@@ -671,42 +671,42 @@ LABEL_125:
       goto LABEL_7;
     }
 
-    if ((v78 & 0x8000000000000000) != 0)
+    if ((v72 & 0x8000000000000000) != 0)
     {
       goto LABEL_6;
     }
 
-    v18 = v77;
-    v19 = v77 + 8;
-    if (v77 + 8 > v78)
+    v12 = v71;
+    v13 = v71 + 8;
+    if (v71 + 8 > v72)
     {
       goto LABEL_6;
     }
 
-    v20 = v75;
-    *(Instance + 72) = *&v75[v77];
-    if (v18 + 16 > v17)
+    v14 = v69;
+    *(Instance + 72) = *&v69[v71];
+    if (v12 + 16 > v11)
     {
       goto LABEL_6;
     }
 
-    *(Instance + 80) = *&v20[v19];
-    if (v18 + 24 > v17)
+    *(Instance + 80) = *&v14[v13];
+    if (v12 + 24 > v11)
     {
       goto LABEL_6;
     }
 
-    *(Instance + 88) = *&v20[v18 + 16];
-    if (v18 + 32 > v17)
+    *(Instance + 88) = *&v14[v12 + 16];
+    if (v12 + 32 > v11)
     {
       goto LABEL_6;
     }
 
-    *(Instance + 96) = *&v20[v18 + 24];
+    *(Instance + 96) = *&v14[v12 + 24];
     return Instance;
   }
 
-  if (v16 == 8)
+  if (v10 == 8)
   {
     if (Length <= 5)
     {
@@ -715,21 +715,21 @@ LABEL_125:
       goto LABEL_7;
     }
 
-    v40 = BytePtr[5];
-    v25 = Length > 9;
-    if (v14 < 0xA)
+    v34 = BytePtr[5];
+    v19 = Length > 9;
+    if (v8 < 0xA)
     {
-      v41 = 0;
-      v42 = 6;
+      v35 = 0;
+      v36 = 6;
     }
 
     else
     {
-      v41 = *(BytePtr + 6);
-      v42 = 10;
+      v35 = *(BytePtr + 6);
+      v36 = 10;
     }
 
-    if (v40 > 0xA)
+    if (v34 > 0xA)
     {
       goto LABEL_6;
     }
@@ -738,8 +738,8 @@ LABEL_125:
     {
       *(Instance + 16) = 8;
       *(Instance + 24) = 0;
-      *(Instance + 28) = v41;
-      if (v14 > 9)
+      *(Instance + 28) = v35;
+      if (v8 > 9)
       {
         return Instance;
       }
@@ -747,255 +747,255 @@ LABEL_125:
       goto LABEL_7;
     }
 
-    v44 = 0;
-    v45 = 0;
+    v38 = 0;
+    v39 = 0;
     while (1)
     {
-      v46 = (v41 >> v44) & 7;
-      if (v46 > 4)
+      v40 = (v35 >> v38) & 7;
+      if (v40 > 4)
       {
         break;
       }
 
-      v45 += point_counts[v46];
-      v44 += 3;
-      if (3 * v40 == v44)
+      v39 += point_counts[v40];
+      v38 += 3;
+      if (3 * v34 == v38)
       {
         goto LABEL_103;
       }
     }
 
-    v25 = 0;
+    v19 = 0;
 LABEL_103:
-    if (v45 > 7)
+    if (v39 > 7)
     {
       goto LABEL_6;
     }
 
     *(Instance + 16) = 8;
-    *(Instance + 24) = v45;
-    *(Instance + 26) = v40;
-    *(Instance + 28) = v41;
-    if (v45)
+    *(Instance + 24) = v39;
+    *(Instance + 26) = v34;
+    *(Instance + 28) = v35;
+    if (v39)
     {
-      v59 = v13 >> 16;
-      v60 = (Instance + 40);
-      v61 = v45;
+      v53 = v7 >> 16;
+      v54 = (Instance + 40);
+      v55 = v39;
       do
       {
-        if (v25)
+        if (v19)
         {
-          if (v59)
+          if (v53)
           {
-            v66 = v42 + 4;
-            v67 = 0.0;
-            v63 = v42 + 4 <= v14;
-            if (v42 + 4 > v14)
+            v60 = v36 + 4;
+            v61 = 0.0;
+            v57 = v36 + 4 <= v8;
+            if (v36 + 4 > v8)
             {
-              v62 = v42 + 4;
-              v66 = v42;
-              v68 = 0.0;
+              v56 = v36 + 4;
+              v60 = v36;
+              v62 = 0.0;
             }
 
             else
             {
-              v68 = *&BytePtr[v42];
-              v62 = v42 + 8;
+              v62 = *&BytePtr[v36];
+              v56 = v36 + 8;
             }
 
-            *(v60 - 1) = v68;
-            v65 = v62 <= v14;
-            if (v62 > v14)
+            *(v54 - 1) = v62;
+            v59 = v56 <= v8;
+            if (v56 > v8)
             {
-              v62 = v66;
+              v56 = v60;
             }
 
             else
             {
-              v67 = *&BytePtr[v66];
+              v61 = *&BytePtr[v60];
             }
 
-            *v60 = v67;
+            *v54 = v61;
           }
 
           else
           {
-            v62 = v42 + 8;
-            v63 = v42 + 8 <= v14;
-            if (v42 + 8 > v14)
+            v56 = v36 + 8;
+            v57 = v36 + 8 <= v8;
+            if (v36 + 8 > v8)
             {
-              v64 = v42 + 8;
-              v62 = v42;
+              v58 = v36 + 8;
+              v56 = v36;
             }
 
             else
             {
-              *(v60 - 1) = *&BytePtr[v42];
-              v64 = v42 + 16;
+              *(v54 - 1) = *&BytePtr[v36];
+              v58 = v36 + 16;
             }
 
-            if (v64 <= v14)
+            if (v58 <= v8)
             {
-              *v60 = *&BytePtr[v62];
-              v65 = 1;
-              v62 = v64;
+              *v54 = *&BytePtr[v56];
+              v59 = 1;
+              v56 = v58;
             }
 
             else
             {
-              v65 = 0;
+              v59 = 0;
             }
           }
 
-          v25 = v63 && v65;
-          v42 = v62;
+          v19 = v57 && v59;
+          v36 = v56;
         }
 
         else
         {
-          v25 = 0;
+          v19 = 0;
         }
 
-        v60 += 2;
-        --v61;
+        v54 += 2;
+        --v55;
       }
 
-      while (v61);
+      while (v55);
     }
 
     goto LABEL_125;
   }
 
-  if (v16 != 9)
+  if (v10 != 9)
   {
     goto LABEL_6;
   }
 
   if (Length >= 0xD)
   {
-    v21 = *(BytePtr + 5);
+    v15 = *(BytePtr + 5);
     if (Length >= 0x15)
     {
-      v22 = *(BytePtr + 13);
-      v23 = 1;
-      v24 = 21;
+      v16 = *(BytePtr + 13);
+      v17 = 1;
+      v18 = 21;
     }
 
     else
     {
-      v22 = 0;
-      v23 = 0;
-      v24 = 13;
+      v16 = 0;
+      v17 = 0;
+      v18 = 13;
     }
   }
 
   else
   {
-    v21 = 0;
-    v22 = 0;
-    v23 = 0;
-    v24 = 5;
+    v15 = 0;
+    v16 = 0;
+    v17 = 0;
+    v18 = 5;
   }
 
-  *v10 = 9;
-  v47 = v24 + v21;
-  v48 = __CFADD__(v24, v21);
-  v49 = v48 << 63 >> 63;
-  if (v49 != v48 || v49 < 0)
+  *v4 = 9;
+  v41 = v18 + v15;
+  v42 = __CFADD__(v18, v15);
+  v43 = v42 << 63 >> 63;
+  if (v43 != v42 || v43 < 0)
   {
     goto LABEL_6;
   }
 
-  v50 = (v13 & 0x10000) == 0;
-  v51 = 16;
-  if (!v50)
+  v44 = (v7 & 0x10000) == 0;
+  v45 = 16;
+  if (!v44)
   {
-    v51 = 8;
+    v45 = 8;
   }
 
-  if (!is_mul_ok(v22, v51))
-  {
-    goto LABEL_6;
-  }
-
-  v52 = v22 * v51;
-  v53 = __CFADD__(v47, v52);
-  v54 = v47 + v52;
-  if (v53 || v54 > Length)
+  if (!is_mul_ok(v16, v45))
   {
     goto LABEL_6;
   }
 
-  CG::Path::reserve_space(v10, v22, v21);
-  v55 = 0;
-  if (!v21)
+  v46 = v16 * v45;
+  v47 = __CFADD__(v41, v46);
+  v48 = v41 + v46;
+  if (v47 || v48 > Length)
+  {
+    goto LABEL_6;
+  }
+
+  CG::Path::reserve_space(v4, v16, v15);
+  v49 = 0;
+  if (!v15)
   {
 LABEL_99:
-    v77 = v24;
+    v71 = v18;
     goto LABEL_128;
   }
 
-  v56 = -1;
-  v57 = v21;
-  while (v24 + 1 > v14)
+  v50 = -1;
+  v51 = v15;
+  while (v18 + 1 > v8)
   {
-    v58 = 0;
-    v23 = 0;
+    v52 = 0;
+    v17 = 0;
 LABEL_98:
-    *(*(Instance + 48) + *(Instance + 40) + v56--) = v58;
-    if (!--v57)
+    *(*(Instance + 48) + *(Instance + 40) + v50--) = v52;
+    if (!--v51)
     {
       goto LABEL_99;
     }
   }
 
-  v58 = BytePtr[v24];
-  if (v58 <= 4u)
+  v52 = BytePtr[v18];
+  if (v52 <= 4u)
   {
-    if (v58 == 4)
+    if (v52 == 4)
     {
-      ++v55;
+      ++v49;
     }
 
-    ++v24;
+    ++v18;
     goto LABEL_98;
   }
 
-  v23 = 0;
-  v77 = v24 + 1;
+  v17 = 0;
+  v71 = v18 + 1;
   *(Instance + 32) = 0;
 LABEL_128:
-  if (v22)
+  if (v16)
   {
-    v69 = 0;
-    v70 = v22;
+    v63 = 0;
+    v64 = v16;
     do
     {
-      if (v23)
+      if (v17)
       {
-        v23 = decode_CGSize(&v75, &v74);
+        v17 = decode_CGSize(&v69, &v68);
       }
 
       else
       {
-        v23 = 0;
+        v17 = 0;
       }
 
-      *(*(Instance + 48) + v69) = v74;
-      v69 += 16;
-      --v70;
+      *(*(Instance + 48) + v63) = v68;
+      v63 += 16;
+      --v64;
     }
 
-    while (v70);
+    while (v64);
   }
 
-  *(Instance + 96) = v55;
-  *(Instance + 24) = v22;
-  *(Instance + 32) = v21;
-  if (v23)
+  *(Instance + 96) = v49;
+  *(Instance + 24) = v16;
+  *(Instance + 32) = v15;
+  if (v17)
   {
-    CG::Path::recalculate_subpath_start(v10);
-    CG::Path::recalculate_bounding_box(v10);
+    CG::Path::recalculate_subpath_start(v4);
+    CG::Path::recalculate_bounding_box(v4);
     return Instance;
   }
 
@@ -1228,24 +1228,24 @@ uint64_t release_and_remove_18339(void *a1, void *value)
 
 uint64_t __get_cache_block_invoke_18344()
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   get_cache_converter_cache = malloc_type_calloc(1uLL, 0x48uLL, 0x1020040C6685353uLL);
   if (!get_cache_converter_cache)
   {
-    _CGHandleAssert("get_cache_block_invoke", 191, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Color/CGvImageConverterCache.c", "converter_cache != NULL", "converter cache missing", v0, v1, v2, v8);
+    _CGHandleAssert("get_cache_block_invoke", 191, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Color/CGvImageConverterCache.c", "converter_cache != NULL", "converter cache missing");
   }
 
-  v10.__sig = 0;
-  *v10.__opaque = 0;
-  pthread_mutexattr_init(&v10);
-  pthread_mutexattr_settype(&v10, 2);
-  pthread_mutex_init(get_cache_converter_cache, &v10);
-  pthread_mutexattr_destroy(&v10);
+  v3.__sig = 0;
+  *v3.__opaque = 0;
+  pthread_mutexattr_init(&v3);
+  pthread_mutexattr_settype(&v3, 2);
+  pthread_mutex_init(get_cache_converter_cache, &v3);
+  pthread_mutexattr_destroy(&v3);
   attrs = *byte_1EF240D90;
-  v3 = cache_create("com.apple.CoreGraphics.vImage_converter_cache", &attrs, (get_cache_converter_cache + 64));
-  if (v3)
+  v0 = cache_create("com.apple.CoreGraphics.vImage_converter_cache", &attrs, (get_cache_converter_cache + 64));
+  if (v0)
   {
-    _CGHandleAssert("get_cache_block_invoke", 214, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Color/CGvImageConverterCache.c", "err == 0", "error %ld creating vImage converter cache", v4, v5, v6, v3);
+    _CGHandleAssert("get_cache_block_invoke", 214, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Color/CGvImageConverterCache.c", "err == 0", "error %ld creating vImage converter cache", v0);
   }
 
   return cache_set_count_hint();
@@ -1380,10 +1380,10 @@ CGDataProvider *CGDataProviderCreatePartial(uint64_t a1, uint64_t a2, uint64_t a
   v30 = v28;
   v31 = v29;
   v29[2] = v16;
-  v44 = v29 + 2;
-  v45 = v27;
+  v39 = v29 + 2;
+  v40 = v27;
   v29[3] = v23;
-  v43 = v29 + 3;
+  v38 = v29 + 3;
   *v29 = 0;
   v29[1] = v30;
   v29[4] = v9;
@@ -1411,7 +1411,7 @@ CGDataProvider *CGDataProviderCreatePartial(uint64_t a1, uint64_t a2, uint64_t a
 
         if (*(v12 + 12) || *(v12 + 14) || *(v12 + 10))
         {
-          CGDataProviderCreateDirectWithInternalCallbacks(v31, v33, &partial_internal_callbacks, v34, v35, v36, v37, v38);
+          CGDataProviderCreateDirectWithInternalCallbacks(v31, v33, &partial_internal_callbacks);
 LABEL_39:
           v8 = Direct;
           if (Direct)
@@ -1433,14 +1433,14 @@ LABEL_39:
 
   *(Sequential + 4) = v31[7];
 LABEL_42:
-  if (v17 == v45)
+  if (v17 == v40)
   {
     CGDataProviderRetain(v12);
   }
 
   else
   {
-    v12 = CGDataProviderCreateWithSwappedProvider(v12, v45);
+    v12 = CGDataProviderCreateWithSwappedProvider(v12, v40);
   }
 
   *v31 = v12;
@@ -1450,214 +1450,214 @@ LABEL_42:
     return 0;
   }
 
-  v41 = v44;
+  v36 = v39;
   if (*(v8 + 5) == 1)
   {
-    v41 = v43;
+    v36 = v38;
   }
 
-  *a7 = *v41;
+  *a7 = *v36;
   *a8 = v17;
   return v8;
 }
 
-uint64_t partial_get_packed_bytes(uint64_t a1, char *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t partial_get_packed_bytes(uint64_t a1, char *a2, unint64_t a3)
 {
   if (!a3)
   {
     return 0;
   }
 
-  v11 = *(a1 + 40);
-  if (!v11)
+  v6 = *(a1 + 40);
+  if (!v6)
   {
-    v12 = CGAccessSessionCreate(*a1);
-    if (!v12)
+    v7 = CGAccessSessionCreate(*a1);
+    if (!v7)
     {
       return 0;
     }
 
-    v11 = v12;
-    *(a1 + 40) = v12;
+    v6 = v7;
+    *(a1 + 40) = v7;
     *(a1 + 64) = 0;
     *(a1 + 88) = 0;
   }
 
-  v13 = *(a1 + 48);
-  v14 = *(a1 + 56);
-  v15 = v14 > v13;
-  v16 = v14 - v13;
-  if (!v15)
+  v8 = *(a1 + 48);
+  v9 = *(a1 + 56);
+  v10 = v9 > v8;
+  v11 = v9 - v8;
+  if (!v10)
   {
     return 0;
   }
 
-  if (v16 >= a3)
+  if (v11 >= a3)
   {
-    v17 = a3;
+    v12 = a3;
   }
 
   else
   {
-    v17 = v16;
+    v12 = v11;
   }
 
-  v19 = *(a1 + 16);
-  v18 = *(a1 + 24);
-  v20 = *(a1 + 88);
-  v21 = v13 % v18;
-  v22 = v20 != 0;
-  v23 = v13 % v18 + v19 * (v13 / v18);
-  v24 = v23 + *(a1 + 8);
-  v25 = *(a1 + 64);
-  if (v20)
+  v14 = *(a1 + 16);
+  v13 = *(a1 + 24);
+  v15 = *(a1 + 88);
+  v16 = v8 % v13;
+  v17 = v15 != 0;
+  v18 = v8 % v13 + v14 * (v8 / v13);
+  v19 = v18 + *(a1 + 8);
+  v20 = *(a1 + 64);
+  if (v15)
   {
-    v26 = v24 + 1;
+    v21 = v19 + 1;
   }
 
   else
   {
-    v26 = v23 + *(a1 + 8);
+    v21 = v18 + *(a1 + 8);
   }
 
-  if (v26 < v25)
+  if (v21 < v20)
   {
-    CGAccessSessionRewind(v11);
-    v25 = 0;
-    v22 = 0;
+    CGAccessSessionRewind(v6);
+    v20 = 0;
+    v17 = 0;
     *(a1 + 64) = 0;
     *(a1 + 88) = 0;
   }
 
-  if (v22 + v24 > v25)
+  if (v17 + v19 > v20)
   {
-    CGAccessSessionSkipForward(v11, v24 - v25);
-    v22 = 0;
-    *(a1 + 64) = v24;
+    CGAccessSessionSkipForward(v6, v19 - v20);
+    v17 = 0;
+    *(a1 + 64) = v19;
     *(a1 + 88) = 0;
   }
 
-  if (!(v21 + v22))
+  if (!(v16 + v17))
   {
-    v27 = 0;
+    v22 = 0;
     goto LABEL_19;
   }
 
-  v27 = 0;
+  v22 = 0;
   do
   {
-    if (v18 - v21 >= v17)
+    if (v13 - v16 >= v12)
     {
-      v35 = v17;
+      v30 = v12;
     }
 
     else
     {
-      v35 = v18 - v21;
+      v30 = v13 - v16;
     }
 
-    if (v22)
+    if (v17)
     {
-      if (v21 == v18 - 1)
+      if (v16 == v13 - 1)
       {
         goto LABEL_34;
       }
 
-      v35 -= v17 > 1;
+      v30 -= v12 > 1;
     }
 
-    if (!v35)
+    if (!v30)
     {
 LABEL_34:
       Bytes = 0;
       goto LABEL_35;
     }
 
-    Bytes = CGAccessSessionGetBytes(v11, a2, v35, a4, a5, a6, a7, a8);
+    Bytes = CGAccessSessionGetBytes(v6, a2, v30);
     *(a1 + 64) += Bytes;
 LABEL_35:
-    v37 = partial_pack_bytes(a1, a2, a2, Bytes);
-    *(a1 + 48) += v37;
-    v27 += v37;
-    if (!v37)
+    v32 = partial_pack_bytes(a1, a2, a2, Bytes);
+    *(a1 + 48) += v32;
+    v22 += v32;
+    if (!v32)
     {
-      return v27;
+      return v22;
     }
 
-    v17 -= v37;
-    if (!v17)
+    v12 -= v32;
+    if (!v12)
     {
-      return v27;
+      return v22;
     }
 
-    a2 += v37;
-    v21 += v37;
+    a2 += v32;
+    v16 += v32;
   }
 
-  while (v21 < v18);
-  if (v19 != v18)
+  while (v16 < v13);
+  if (v14 != v13)
   {
-    CGAccessSessionSkipForward(v11, v19 - v18);
-    *(a1 + 64) += v19 - v18;
+    CGAccessSessionSkipForward(v6, v14 - v13);
+    *(a1 + 64) += v14 - v13;
   }
 
 LABEL_19:
-  if (v17 <= v18)
+  if (v12 <= v13)
   {
-    if (v17)
+    if (v12)
     {
-      v38 = v17 == 1;
-      v39 = v18 > 1;
-      if (v39 && v38)
+      v33 = v12 == 1;
+      v34 = v13 > 1;
+      if (v34 && v33)
       {
-        v40 = 2;
+        v35 = 2;
       }
 
       else
       {
-        v40 = v17;
+        v35 = v12;
       }
 
-      if (v39 && v38)
+      if (v34 && v33)
       {
-        v41 = &v43;
+        v36 = &v38;
       }
 
       else
       {
-        v41 = a2;
+        v36 = a2;
       }
 
-      v30 = CGAccessSessionGetBytes(v11, v41, v40, a4, a5, a6, a7, a8);
-      *(a1 + 64) += v30;
-      v31 = a1;
-      v32 = a2;
-      v33 = v41;
+      v25 = CGAccessSessionGetBytes(v6, v36, v35);
+      *(a1 + 64) += v25;
+      v26 = a1;
+      v27 = a2;
+      v28 = v36;
       goto LABEL_48;
     }
   }
 
   else
   {
-    Chunks = CGAccessSessionGetChunks(v11, v18, v19 - v18, v17 / v18, a2, 0, a7, a8);
+    Chunks = CGAccessSessionGetChunks(v6, v13, v14 - v13, v12 / v13, a2, 0);
     *(a1 + 64) += Chunks;
-    v29 = Chunks % v19;
-    if (Chunks % v19 >= v18)
+    v24 = Chunks % v14;
+    if (Chunks % v14 >= v13)
     {
-      v29 = v18;
+      v24 = v13;
     }
 
-    v30 = v29 + Chunks / v19 * v18;
-    v31 = a1;
-    v32 = a2;
-    v33 = a2;
+    v25 = v24 + Chunks / v14 * v13;
+    v26 = a1;
+    v27 = a2;
+    v28 = a2;
 LABEL_48:
-    v42 = partial_pack_bytes(v31, v32, v33, v30);
-    *(a1 + 48) += v42;
-    v27 += v42;
+    v37 = partial_pack_bytes(v26, v27, v28, v25);
+    *(a1 + 48) += v37;
+    v22 += v37;
   }
 
-  return v27;
+  return v22;
 }
 
 unint64_t partial_pack_bytes(void *a1, _BYTE *a2, unsigned __int8 *a3, unint64_t a4)
@@ -1750,133 +1750,133 @@ void partial_rewind(uint64_t a1)
   }
 }
 
-uint64_t partial_get_bytes(uint64_t a1, char *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t partial_get_bytes(uint64_t a1, char *a2, unint64_t a3)
 {
-  v11 = *(a1 + 40);
-  if (!v11)
+  v6 = *(a1 + 40);
+  if (!v6)
   {
-    v12 = CGAccessSessionCreate(*a1);
-    if (!v12)
+    v7 = CGAccessSessionCreate(*a1);
+    if (!v7)
     {
       return 0;
     }
 
-    v11 = v12;
-    *(a1 + 40) = v12;
+    v6 = v7;
+    *(a1 + 40) = v7;
     *(a1 + 64) = 0;
   }
 
-  v14 = *(a1 + 48);
-  v13 = *(a1 + 56);
-  if (v13 <= v14)
+  v9 = *(a1 + 48);
+  v8 = *(a1 + 56);
+  if (v8 <= v9)
   {
     return 0;
   }
 
-  if (v13 - v14 < a3)
+  if (v8 - v9 < a3)
   {
-    a3 = v13 - v14;
+    a3 = v8 - v9;
   }
 
-  v16 = *(a1 + 16);
-  v15 = *(a1 + 24);
-  if (v15 == v16)
+  v11 = *(a1 + 16);
+  v10 = *(a1 + 24);
+  if (v10 == v11)
   {
-    v17 = 0;
-    v16 = *(a1 + 56);
+    v12 = 0;
+    v11 = *(a1 + 56);
   }
 
   else
   {
-    v13 = *(a1 + 24);
-    v17 = v14 / v15;
+    v8 = *(a1 + 24);
+    v12 = v9 / v10;
   }
 
-  v19 = v13 * v17;
-  v20 = v14 - v13 * v17;
-  v21 = v20 + v16 * v17 + *(a1 + 8);
-  v22 = *(a1 + 64);
-  if (v21 < v22)
+  v14 = v8 * v12;
+  v15 = v9 - v8 * v12;
+  v16 = v15 + v11 * v12 + *(a1 + 8);
+  v17 = *(a1 + 64);
+  if (v16 < v17)
   {
-    CGAccessSessionRewind(v11);
-    v22 = 0;
+    CGAccessSessionRewind(v6);
+    v17 = 0;
     *(a1 + 64) = 0;
   }
 
-  if (v21 > v22)
+  if (v16 > v17)
   {
-    CGAccessSessionSkipForward(v11, v21 - v22);
-    *(a1 + 64) = v21;
+    CGAccessSessionSkipForward(v6, v16 - v17);
+    *(a1 + 64) = v16;
   }
 
-  if (v14 == v19)
+  if (v9 == v14)
   {
-    v18 = 0;
+    v13 = 0;
 LABEL_17:
-    if (a3 > v13)
+    if (a3 > v8)
     {
-      Chunks = CGAccessSessionGetChunks(v11, v13, v16 - v13, a3 / v13, a2, 0, a7, a8);
+      Chunks = CGAccessSessionGetChunks(v6, v8, v11 - v8, a3 / v8, a2, 0);
       *(a1 + 64) += Chunks;
-      v24 = Chunks % v16;
-      if (Chunks % v16 >= v13)
+      v19 = Chunks % v11;
+      if (Chunks % v11 >= v8)
       {
-        v24 = v13;
+        v19 = v8;
       }
 
-      Bytes = v24 + Chunks / v16 * v13;
-      v26 = Bytes + *(a1 + 48);
+      Bytes = v19 + Chunks / v11 * v8;
+      v21 = Bytes + *(a1 + 48);
       goto LABEL_31;
     }
 
     if (a3)
     {
-      Bytes = CGAccessSessionGetBytes(v11, a2, a3, a4, a5, a6, a7, a8);
+      Bytes = CGAccessSessionGetBytes(v6, a2, a3);
       *(a1 + 64) += Bytes;
-      v26 = *(a1 + 48) + Bytes;
+      v21 = *(a1 + 48) + Bytes;
 LABEL_31:
-      *(a1 + 48) = v26;
-      v18 += Bytes;
+      *(a1 + 48) = v21;
+      v13 += Bytes;
     }
   }
 
   else
   {
-    v18 = 0;
-    if (v13 - v20 >= a3)
+    v13 = 0;
+    if (v8 - v15 >= a3)
     {
-      v27 = a3;
+      v22 = a3;
     }
 
     else
     {
-      v27 = v13 - v20;
+      v22 = v8 - v15;
     }
 
     while (1)
     {
-      v28 = CGAccessSessionGetBytes(v11, a2, v27, a4, a5, a6, a7, a8);
-      *(a1 + 64) += v28;
-      *(a1 + 48) += v28;
-      v18 += v28;
-      if (!v28)
+      v23 = CGAccessSessionGetBytes(v6, a2, v22);
+      *(a1 + 64) += v23;
+      *(a1 + 48) += v23;
+      v13 += v23;
+      if (!v23)
       {
         break;
       }
 
-      a3 -= v28;
+      a3 -= v23;
       if (!a3)
       {
         break;
       }
 
-      a2 += v28;
-      v27 -= v28;
-      if (!v27)
+      a2 += v23;
+      v22 -= v23;
+      if (!v22)
       {
-        if (v16 != v13)
+        if (v11 != v8)
         {
-          CGAccessSessionSkipForward(v11, v16 - v13);
-          *(a1 + 64) += v16 - v13;
+          CGAccessSessionSkipForward(v6, v11 - v8);
+          *(a1 + 64) += v11 - v8;
         }
 
         goto LABEL_17;
@@ -1884,20 +1884,20 @@ LABEL_31:
     }
   }
 
-  return v18;
+  return v13;
 }
 
-size_t partial_get_bytes_at_position(uint64_t a1, char *a2, uint64_t a3, size_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+size_t partial_get_bytes_at_position(uint64_t a1, char *a2, uint64_t a3, size_t a4)
 {
   if (a3 < 0)
   {
-    _CGHandleAssert("partial_get_bytes_at_position", 408, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderPartial.c", "offset >= 0", "offset %lld", a6, a7, a8, a3);
+    _CGHandleAssert("partial_get_bytes_at_position", 408, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderPartial.c", "offset >= 0", "offset %lld", a3);
   }
 
-  v9 = *(a1 + 8) + a3;
-  v10 = *a1;
+  v5 = *(a1 + 8) + a3;
+  v6 = *a1;
 
-  return CGDataProviderDirectGetBytesAtPositionInternal(v10, a2, v9, a4, a5, a6, a7, a8);
+  return CGDataProviderDirectGetBytesAtPositionInternal(v6, a2, v5, a4);
 }
 
 uint64_t partial_get_byte_pointer(uint64_t *a1)
@@ -1927,7 +1927,7 @@ void partial_release_info(uint64_t a1)
 CGDataProvider *CGPDFAppenderWrite(uint64_t a1, uint64_t a2)
 {
   result = 0;
-  v211 = *MEMORY[0x1E69E9840];
+  v133 = *MEMORY[0x1E69E9840];
   if (a1 && a2)
   {
     v5 = ***(*(*a1 + 16) + 16);
@@ -1991,13 +1991,13 @@ LABEL_13:
                 AppendModeTraverseCFObject(a1, v16[5], &__block_literal_global_18374, &__block_literal_global_27_18375);
                 AppendModeTraverseCFObject(a1, v16[5], &__block_literal_global_30_18376, &__block_literal_global_33_18377);
                 v17 = v16[5];
-                v201 = MEMORY[0x1E69E9820];
-                v202 = 0x40000000;
-                v203 = __AppendModeUpdateIndirectReferences_block_invoke_6;
-                v204 = &__block_descriptor_tmp_38_18378;
-                v205 = v13;
-                v206 = v14;
-                AppendModeTraverseCFObject(a1, v17, &__block_literal_global_36_18379, &v201);
+                v123 = MEMORY[0x1E69E9820];
+                v124 = 0x40000000;
+                v125 = __AppendModeUpdateIndirectReferences_block_invoke_6;
+                v126 = &__block_descriptor_tmp_38_18378;
+                v127 = v13;
+                v128 = v14;
+                AppendModeTraverseCFObject(a1, v17, &__block_literal_global_36_18379, &v123);
               }
 
               free(v14);
@@ -2008,13 +2008,13 @@ LABEL_13:
             if (Info)
             {
               v20 = Info;
-              v201 = MEMORY[0x1E69E9820];
-              v202 = 0x40000000;
-              v203 = __AppendModeWrite_block_invoke;
-              v204 = &__block_descriptor_tmp_18380;
-              v205 = a1;
-              v206 = Info;
-              AppendModePopulateDocumentInfo(*(a1 + 32), &v201);
+              v123 = MEMORY[0x1E69E9820];
+              v124 = 0x40000000;
+              v125 = __AppendModeWrite_block_invoke;
+              v126 = &__block_descriptor_tmp_18380;
+              v127 = a1;
+              v128 = Info;
+              AppendModePopulateDocumentInfo(*(a1 + 32), &v123);
               *(a1 + 40) = *(v20 + 24);
             }
 
@@ -2024,23 +2024,23 @@ LABEL_13:
               if (v21 | *(a1 + 48))
               {
                 MutableObject = CGPDFAppenderGetMutableObject(a1, v21, *(a1 + 48));
-                v201 = MEMORY[0x1E69E9820];
-                v202 = 0x40000000;
-                v203 = __AppendModeWrite_block_invoke_2;
-                v204 = &__block_descriptor_tmp_16_18383;
-                v205 = MutableObject;
-                AppendModePopulateDocumentInfo(*(a1 + 32), &v201);
+                v123 = MEMORY[0x1E69E9820];
+                v124 = 0x40000000;
+                v125 = __AppendModeWrite_block_invoke_2;
+                v126 = &__block_descriptor_tmp_16_18383;
+                v127 = MutableObject;
+                AppendModePopulateDocumentInfo(*(a1 + 32), &v123);
               }
 
               else
               {
                 Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-                v201 = MEMORY[0x1E69E9820];
-                v202 = 0x40000000;
-                v203 = __AppendModeWrite_block_invoke_3;
-                v204 = &__block_descriptor_tmp_17_18384;
-                v205 = Mutable;
-                AppendModePopulateDocumentInfo(*(a1 + 32), &v201);
+                v123 = MEMORY[0x1E69E9820];
+                v124 = 0x40000000;
+                v125 = __AppendModeWrite_block_invoke_3;
+                v126 = &__block_descriptor_tmp_17_18384;
+                v127 = Mutable;
+                AppendModePopulateDocumentInfo(*(a1 + 32), &v123);
                 *(a1 + 40) = CGPDFAppenderCreateMutableObject(a1, Mutable);
                 *(a1 + 48) = v23;
                 CFRelease(Mutable);
@@ -2090,401 +2090,410 @@ LABEL_13:
             v37 = CFDictionaryGetCount(*(a1 + 16));
             v38 = malloc_type_malloc(8 * v37, 0x2004093837F09uLL);
             CFDictionaryGetKeysAndValues(*(a1 + 16), 0, v38);
-            v200 = v38;
+            v122 = v38;
             qsort_b(v38, v37, 8uLL, &__block_literal_global_67_18394);
-            v198 = v37;
+            v120 = v37;
             if (v37 >= 1)
             {
-              v45 = v37 & 0x7FFFFFFF;
+              v39 = v37 & 0x7FFFFFFF;
               do
               {
-                v46 = *v38;
-                v47 = *(*v38 + 5);
-                if (v47)
+                v40 = *v38;
+                v41 = *(*v38 + 5);
+                if (v41)
                 {
-                  v48 = CFGetTypeID(v47);
-                  if (v48 == CFDictionaryGetTypeID())
+                  v42 = CFGetTypeID(v41);
+                  if (v42 == CFDictionaryGetTypeID())
                   {
-                    v49 = *(v46 + 5);
-                    Value = CFDictionaryGetValue(v49, @"/Type");
+                    v43 = *(v40 + 5);
+                    Value = CFDictionaryGetValue(v43, @"/Type");
                     if (Value)
                     {
-                      v51 = Value;
-                      v52 = CFGetTypeID(Value);
-                      if (v52 == CFStringGetTypeID() && CFStringCompare(v51, @"/Annot", 0) == kCFCompareEqualTo && CFDictionaryGetValue(v49, @"/AAPL:AKExtras"))
+                      v45 = Value;
+                      v46 = CFGetTypeID(Value);
+                      if (v46 == CFStringGetTypeID() && CFStringCompare(v45, @"/Annot", 0) == kCFCompareEqualTo && CFDictionaryGetValue(v43, @"/AAPL:AKExtras"))
                       {
-                        Hash = CGPDFAppenderDictionaryCreateHash(v49);
-                        CGPDFAppenderDictionarySetValue(v49, "AAPL:Hash", Hash);
+                        Hash = CGPDFAppenderDictionaryCreateHash(v43);
+                        CGPDFAppenderDictionarySetValue(v43, "AAPL:Hash", Hash);
                         CFRelease(Hash);
                       }
                     }
                   }
                 }
 
-                PDFWriterBeginObject(v36, *(v46 + 2), v46 + 6, v40, v41, v42, v43, v44);
-                if ((*(v46 + 8) | 2) == 2)
+                PDFWriterBeginObject(v36, *(v40 + 2), v40 + 6);
+                if ((*(v40 + 8) | 2) == 2)
                 {
-                  PDFWriteObject(v36, *(v46 + 5), v54, v55, v56, v57, v58, v59, v186);
+                  PDFWriteObject(v36, *(v40 + 5));
                 }
 
                 else
                 {
-                  PDFWriterPrintf(v36, "null", v54, v55, v56, v57, v58, v59, v186);
+                  PDFWriterPrintf(v36, "null");
                 }
 
-                PDFWriterEndObject(v36, 0, v60, v61, v62, v63, v64, v65);
+                PDFWriterEndObject(v36, 0);
                 ++v38;
-                --v45;
+                --v39;
               }
 
-              while (v45);
+              while (v39);
             }
 
             if (v36)
             {
-              v66 = v200;
+              v48 = v122;
               if (*v36)
               {
-                v67 = *(*v36 + 40);
+                v49 = *(*v36 + 40);
               }
 
               else
               {
-                v67 = 0;
+                v49 = 0;
               }
             }
 
             else
             {
-              v67 = 0;
-              v66 = v200;
+              v49 = 0;
+              v48 = v122;
             }
 
-            v199 = v36;
-            v195 = v67;
-            v196 = a1;
+            v121 = v36;
+            v117 = v49;
+            v118 = a1;
             if (*(**(*(*a1 + 16) + 16) + 8))
             {
-              v68 = *MEMORY[0x1E695E480];
-              v69 = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-              CGPDFAppenderDictionarySetCGPDFName(v69, "Type", "XRef");
-              v70 = CFArrayCreateMutable(v68, 0, MEMORY[0x1E695E9C0]);
-              allocator = v68;
-              v71 = CFDataCreateMutable(v68, 0);
-              v72 = v198;
-              if (v198 >= 1)
+              v50 = *MEMORY[0x1E695E480];
+              v51 = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+              CGPDFAppenderDictionarySetCGPDFName(v51, "Type", "XRef");
+              v52 = CFArrayCreateMutable(v50, 0, MEMORY[0x1E695E9C0]);
+              allocator = v50;
+              v53 = CFDataCreateMutable(v50, 0);
+              v54 = v120;
+              if (v120 >= 1)
               {
-                LODWORD(v73) = 0;
-                v197 = v66 + 8;
+                LODWORD(v55) = 0;
+                v119 = v48 + 8;
                 do
                 {
-                  v74 = 0;
-                  v75 = v73;
-                  v76 = v72 - v73;
-                  v77 = &v197[8 * v73];
-                  while ((v198 - 1) - v73 != v74)
+                  v56 = 0;
+                  v57 = v55;
+                  v58 = v54 - v55;
+                  v59 = &v119[8 * v55];
+                  while ((v120 - 1) - v55 != v56)
                   {
-                    v78 = *(*v77 + 16);
-                    v79 = *(*(v77 - 1) + 16) + 1;
-                    v77 += 8;
-                    ++v74;
-                    if (v78 != v79)
+                    v60 = *(*v59 + 16);
+                    v61 = *(*(v59 - 1) + 16) + 1;
+                    v59 += 8;
+                    ++v56;
+                    if (v60 != v61)
                     {
-                      v76 = v74;
+                      v58 = v56;
                       break;
                     }
                   }
 
-                  v73 = (v76 + v73);
-                  v80 = v75;
+                  v55 = (v58 + v55);
+                  v62 = v57;
                   do
                   {
-                    v81 = *(*&v66[8 * v80] + 48);
+                    v63 = *(*&v48[8 * v62] + 48);
                     bytes[0] = 1;
-                    CFDataAppendBytes(v71, bytes, 1);
+                    CFDataAppendBytes(v53, bytes, 1);
                     for (j = 24; j != -8; j -= 8)
                     {
-                      bytes[0] = v81 >> j;
-                      CFDataAppendBytes(v71, bytes, 1);
+                      bytes[0] = v63 >> j;
+                      CFDataAppendBytes(v53, bytes, 1);
                     }
 
                     bytes[0] = 0;
-                    CFDataAppendBytes(v71, bytes, 1);
-                    ++v80;
-                    v66 = v200;
+                    CFDataAppendBytes(v53, bytes, 1);
+                    ++v62;
+                    v48 = v122;
                   }
 
-                  while (v80 < v73);
-                  CGCFArrayAppendInteger(v70, *(v200[v75] + 4));
-                  CGCFArrayAppendInteger(v70, v76);
-                  v72 = v198;
+                  while (v62 < v55);
+                  CGCFArrayAppendInteger(v52, *(v122[v57] + 4));
+                  CGCFArrayAppendInteger(v52, v58);
+                  v54 = v120;
                 }
 
-                while (v73 < v198);
+                while (v55 < v120);
               }
 
-              v83 = v69;
-              CGPDFAppenderDictionarySetValue(v69, "Index", v70);
-              CFRelease(v70);
-              if (*v196)
+              v65 = v51;
+              CGPDFAppenderDictionarySetValue(v51, "Index", v52);
+              CFRelease(v52);
+              if (*v118)
               {
-                v84 = *(*v196 + 16);
+                v66 = *(*v118 + 16);
               }
 
               else
               {
-                v84 = 0;
+                v66 = 0;
               }
 
-              v98 = *(v84 + 16);
-              v99 = *v98;
-              CGPDFAppenderDictionarySetInt32(v69, "Prev", *(*v98 + 184));
-              v100 = CFArrayCreateMutable(allocator, 0, MEMORY[0x1E695E9C0]);
-              CGCFArrayAppendInteger(v100, 1);
-              CGCFArrayAppendInteger(v100, 4);
-              CGCFArrayAppendInteger(v100, 1);
-              CGPDFAppenderDictionarySetValue(v69, "W", v100);
-              CFRelease(v100);
-              trailer = pdf_xref_get_trailer(v99);
+              v74 = *(v66 + 16);
+              v75 = *v74;
+              CGPDFAppenderDictionarySetInt32(v51, "Prev", *(*v74 + 184));
+              v76 = CFArrayCreateMutable(allocator, 0, MEMORY[0x1E695E9C0]);
+              CGCFArrayAppendInteger(v76, 1);
+              CGCFArrayAppendInteger(v76, 4);
+              CGCFArrayAppendInteger(v76, 1);
+              CGPDFAppenderDictionarySetValue(v51, "W", v76);
+              CFRelease(v76);
+              trailer = pdf_xref_get_trailer(v75);
               CFDictionary = CGPDFAppenderCreateCFDictionary(trailer);
-              CGPDFAppenderDictionarySetInt32(v69, "Size", *(v196 + 8));
-              if (v199)
+              CGPDFAppenderDictionarySetInt32(v51, "Size", *(v118 + 8));
+              if (v121)
               {
-                v103 = *v199;
+                v79 = *v121;
               }
 
               else
               {
-                v103 = 0;
+                v79 = 0;
               }
 
-              DocumentID = AppendModeCreateDocumentID(v103, *(**(v84 + 16) + 48));
-              CGPDFAppenderDictionarySetValue(v69, "ID", DocumentID);
+              DocumentID = AppendModeCreateDocumentID(v79, *(**(v66 + 16) + 48));
+              CGPDFAppenderDictionarySetValue(v51, "ID", DocumentID);
               CFRelease(DocumentID);
-              v105 = CGPDFNameCreate("Root");
-              v106 = CFDictionaryGetValue(CFDictionary, v105);
-              CFRelease(v105);
-              CGPDFAppenderDictionarySetValue(v69, "Root", v106);
-              v107 = CGPDFNameCreate("Encrypt");
-              v108 = CFDictionaryGetValue(CFDictionary, v107);
-              CFRelease(v107);
-              CGPDFAppenderDictionarySetValue(v69, "Encrypt", v108);
-              v109 = CGPDFNameCreate("Info");
-              v110 = CFDictionaryGetValue(CFDictionary, v109);
-              CFRelease(v109);
-              if (v110)
+              v81 = CGPDFNameCreate("Root");
+              v82 = CFDictionaryGetValue(CFDictionary, v81);
+              CFRelease(v81);
+              CGPDFAppenderDictionarySetValue(v51, "Root", v82);
+              v83 = CGPDFNameCreate("Encrypt");
+              v84 = CFDictionaryGetValue(CFDictionary, v83);
+              CFRelease(v83);
+              CGPDFAppenderDictionarySetValue(v51, "Encrypt", v84);
+              v85 = CGPDFNameCreate("Info");
+              v86 = CFDictionaryGetValue(CFDictionary, v85);
+              CFRelease(v85);
+              if (v86)
               {
-                v111 = CGPDFNameCreate("Info");
-                CFDictionarySetValue(v69, v111, v110);
-                CFRelease(v111);
-                v112 = v196;
+                v87 = CGPDFNameCreate("Info");
+                CFDictionarySetValue(v51, v87, v86);
+                CFRelease(v87);
+                v88 = v118;
               }
 
               else
               {
-                v112 = v196;
-                v113 = *(v196 + 40);
-                if (v113 | *(v196 + 48))
+                v88 = v118;
+                v89 = *(v118 + 40);
+                if (v89 | *(v118 + 48))
                 {
-                  CGPDFAppenderDictionarySetCGPDFReference(v83, "Info", v113, *(v196 + 48));
+                  CGPDFAppenderDictionarySetCGPDFReference(v65, "Info", v89, *(v118 + 48));
                 }
               }
 
               CFRelease(CFDictionary);
-              v114 = CGPDFStreamObjectCreate(v83, v71);
-              *(v114 + 32) = 1;
-              CFRelease(v83);
-              CFRelease(v71);
-              v188 = *(v112 + 8);
-              v36 = v199;
-              PDFWriterPrintf(v199, "%d 0 obj\n", v115, v116, v117, v118, v119, v120, v188);
-              PDFWriteStreamObject(v199, v114);
-              PDFWriterPrintf(v199, "endobj", v121, v122, v123, v124, v125, v126, v189);
-              v127 = v195;
+              v90 = CGPDFStreamObjectCreate(v65, v53);
+              *(v90 + 32) = 1;
+              CFRelease(v65);
+              CFRelease(v53);
+              v114 = *(v88 + 8);
+              v36 = v121;
+              PDFWriterPrintf(v121, "%d 0 obj\n", v114);
+              PDFWriteStreamObject(v121, v90);
+              PDFWriterPrintf(v121, "endobj");
+              v91 = v117;
             }
 
             else
             {
-              PDFWriterPrintf(v36, "xref\n", v39, v40, v41, v42, v43, v44, v186);
-              v91 = *(*v66 + 16);
-              v92 = v91 == 1;
-              if (v91 == 1)
+              PDFWriterPrintf(v36, "xref\n");
+              v67 = *(*v48 + 16);
+              v68 = v67 == 1;
+              if (v67 == 1)
               {
-                if (v198 <= 1)
+                if (v120 <= 1)
                 {
-                  v93 = 1;
+                  v69 = 1;
                 }
 
                 else
                 {
-                  v93 = v198;
+                  v69 = v120;
                 }
 
-                v94 = 1;
-                v95 = 1;
-                while (v94 - (v93 - 1) != 1)
+                v70 = 1;
+                v71 = 1;
+                do
                 {
-                  v96 = v95 + 1;
-                  v97 = *(*&v66[8 * v94++] + 16);
-                  v95 = v97;
-                  if (v97 != v96)
+                  if (v70 - (v69 - 1) == 1)
                   {
-                    goto LABEL_85;
+                    break;
                   }
+
+                  v72 = v71 + 1;
+                  v73 = *(*&v48[8 * v70++] + 16);
+                  v71 = v73;
                 }
 
-                v94 = (v93 + 1);
-LABEL_85:
-                v187 = v94;
-                v128 = "0 %d\n";
+                while (v73 == v72);
+                PDFWriterPrintf(v36, "0 %d\n");
               }
 
               else
               {
-                v128 = "0 1\n";
+                PDFWriterPrintf(v36, "0 1\n");
               }
 
-              PDFWriterPrintf(v36, v128, v85, v86, v87, v88, v89, v90, v187);
-              PDFWriterPrintf(v36, "0000000000 65535 f \n", v129, v130, v131, v132, v133, v134, v191);
-              v141 = v198;
-              if (v198 >= 1)
+              PDFWriterPrintf(v36, "0000000000 65535 f \n");
+              v92 = v120;
+              if (v120 >= 1)
               {
-                LODWORD(v142) = 0;
-                v143 = 0uLL;
+                LODWORD(v93) = 0;
+                v94 = 0uLL;
                 do
                 {
-                  v144 = 0;
-                  v145 = v142;
-                  v146 = v141 - v142;
-                  v147 = &v200[v142 + 1];
-                  while ((v198 - 1) - v142 != v144)
+                  v95 = 0;
+                  v96 = v93;
+                  v97 = v92 - v93;
+                  v98 = &v122[v93 + 1];
+                  while ((v120 - 1) - v93 != v95)
                   {
-                    v148 = *(*v147 + 16);
-                    v149 = *(*(v147 - 8) + 16) + 1;
-                    v147 += 8;
-                    ++v144;
-                    if (v148 != v149)
+                    v99 = *(*v98 + 16);
+                    v100 = *(*(v98 - 8) + 16) + 1;
+                    v98 += 8;
+                    ++v95;
+                    if (v99 != v100)
                     {
-                      v146 = v144;
+                      v97 = v95;
                       break;
                     }
                   }
 
-                  if (!v92)
+                  if (!v68)
                   {
-                    PDFWriterPrintf(v36, "%d %d\n", v135, v136, v137, v138, v139, v140, *(v200[v142] + 2));
-                    v143 = 0uLL;
+                    PDFWriterPrintf(v36, "%d %d\n", *(v122[v93] + 2), v97);
+                    v94 = 0uLL;
                   }
 
-                  v142 = (v146 + v142);
+                  v93 = (v97 + v93);
                   do
                   {
-                    v150 = v200[v145];
-                    v151 = v150[8];
-                    *bytes = v143;
-                    v210 = v143;
-                    __sprintf_chk(bytes, 0, 0x20uLL, "%010llu", *(v150 + 6));
-                    *v207 = 0u;
-                    v208 = 0u;
-                    if (v151 == 1)
+                    v101 = v122[v96];
+                    v102 = v101[8];
+                    *bytes = v94;
+                    v132 = v94;
+                    __sprintf_chk(bytes, 0, 0x20uLL, "%010llu", *(v101 + 6));
+                    *v129 = 0u;
+                    v130 = 0u;
+                    if (v102 == 1)
                     {
-                      v152 = *(v150 + 12) + 1;
+                      v103 = *(v101 + 12) + 1;
                     }
 
                     else
                     {
-                      v152 = *(v150 + 12);
+                      v103 = *(v101 + 12);
                     }
 
-                    __sprintf_chk(v207, 0, 0x20uLL, "%05d", v152);
-                    v36 = v199;
-                    PDFWriterPrintf(v199, "%s %s %c \n", v153, v154, v155, v156, v157, v158, bytes);
-                    v143 = 0uLL;
-                    ++v145;
+                    if (v102 == 1)
+                    {
+                      v104 = 102;
+                    }
+
+                    else
+                    {
+                      v104 = 110;
+                    }
+
+                    __sprintf_chk(v129, 0, 0x20uLL, "%05d", v103);
+                    v115 = v104;
+                    v36 = v121;
+                    PDFWriterPrintf(v121, "%s %s %c \n", bytes, v129, v115);
+                    v94 = 0uLL;
+                    ++v96;
                   }
 
-                  while (v145 < v142);
-                  v92 = 0;
-                  v141 = v198;
+                  while (v96 < v93);
+                  v68 = 0;
+                  v92 = v120;
                 }
 
-                while (v142 < v198);
+                while (v93 < v120);
               }
 
-              PDFWriterPrintf(v36, "trailer\n", v135, v136, v137, v138, v139, v140, v192);
-              if (*v196)
+              PDFWriterPrintf(v36, "trailer\n");
+              if (*v118)
               {
-                v159 = *(*v196 + 16);
+                v105 = *(*v118 + 16);
               }
 
               else
               {
-                v159 = 0;
+                v105 = 0;
               }
 
-              v127 = v67;
-              v160 = **(v159 + 16);
-              v161 = pdf_xref_get_trailer(v160);
-              v114 = CGPDFAppenderCreateCFDictionary(v161);
-              CGPDFAppenderDictionarySetInt32(v114, "Size", *(v196 + 8));
-              CGPDFAppenderDictionarySetInt32(v114, "Prev", *(v160 + 184));
+              v91 = v49;
+              v106 = **(v105 + 16);
+              v107 = pdf_xref_get_trailer(v106);
+              v90 = CGPDFAppenderCreateCFDictionary(v107);
+              CGPDFAppenderDictionarySetInt32(v90, "Size", *(v118 + 8));
+              CGPDFAppenderDictionarySetInt32(v90, "Prev", *(v106 + 184));
               if (v36)
               {
-                v162 = *v36;
+                v108 = *v36;
               }
 
               else
               {
-                v162 = 0;
+                v108 = 0;
               }
 
-              v163 = AppendModeCreateDocumentID(v162, *(**(v159 + 16) + 48));
-              CGPDFAppenderDictionarySetValue(v114, "ID", v163);
-              CFRelease(v163);
-              v164 = CGPDFNameCreate("XRefStm");
-              CFDictionaryRemoveValue(v114, v164);
-              CFRelease(v164);
-              PDFWriteDictionary(v36, v114);
-              v66 = v200;
+              v109 = AppendModeCreateDocumentID(v108, *(**(v105 + 16) + 48));
+              CGPDFAppenderDictionarySetValue(v90, "ID", v109);
+              CFRelease(v109);
+              v110 = CGPDFNameCreate("XRefStm");
+              CFDictionaryRemoveValue(v90, v110);
+              CFRelease(v110);
+              PDFWriteDictionary(v36, v90);
+              v48 = v122;
             }
 
-            CFRelease(v114);
-            free(v66);
-            PDFWriterPrintf(v36, "\nstartxref\n", v165, v166, v167, v168, v169, v170, v190);
-            PDFWriterPrintf(v36, "%O\n", v171, v172, v173, v174, v175, v176, v127);
-            PDFWriterPrintf(v36, "%%%%EOF\n", v177, v178, v179, v180, v181, v182, v193);
+            CFRelease(v90);
+            free(v48);
+            PDFWriterPrintf(v36, "\nstartxref\n");
+            PDFWriterPrintf(v36, "%O\n", v91);
+            PDFWriterPrintf(v36, "%%%%EOF\n");
             CGPDFAssociationRelease(v36);
             return 1;
           }
 
-          v183 = 1;
-          v184 = 1;
+          v111 = 1;
+          v112 = 1;
           do
           {
             if (*a1)
             {
-              v185 = pdf_xref_resolve(**(*(*a1 + 16) + 16), *(v31 + 4), *(v31 + 12));
-              if (v185)
+              v113 = pdf_xref_resolve(**(*(*a1 + 16) + 16), *(v31 + 4), *(v31 + 12));
+              if (v113)
               {
-                if (!CGPDFAppenderCGPDFObjectMatchesCFType(v185, v31[5]))
+                if (!CGPDFAppenderCGPDFObjectMatchesCFType(v113, v31[5]))
                 {
                   break;
                 }
               }
             }
 
-            v184 = v183 < v29;
-            if (v29 == v183)
+            v112 = v111 < v29;
+            if (v29 == v111)
             {
               break;
             }
 
-            v31 = v30[v183++];
+            v31 = v30[v111++];
           }
 
           while ((*(v31 + 8) - 1) >= 2);
           free(v30);
-          if (v184)
+          if (v112)
           {
             goto LABEL_13;
           }
@@ -2684,15 +2693,15 @@ uint64_t CGPDFAppenderCreateMutableObject(uint64_t a1, const void *a2)
   return v2;
 }
 
-void CGPDFAppenderMutateDictionaryValue(CFDictionaryRef *a1, uint64_t *a2, const char *a3, const void *a4, int a5)
+void CGPDFAppenderMutateDictionaryValue(CFDictionaryRef *a1, CGPDFDictionary *a2, const char *a3, const void *a4, int a5)
 {
   if (!a1 || !a2 || !a3 || !a4)
   {
     return;
   }
 
-  v9 = a2[3];
-  v8 = a2[4];
+  v9 = *(a2 + 3);
+  v8 = *(a2 + 4);
   if (!(v9 | v8))
   {
 
@@ -2700,7 +2709,7 @@ void CGPDFAppenderMutateDictionaryValue(CFDictionaryRef *a1, uint64_t *a2, const
     return;
   }
 
-  if (CGPDFAppenderHasMutableObject(a1, a2[3], a2[4]))
+  if (CGPDFAppenderHasMutableObject(a1, *(a2 + 3), *(a2 + 4)))
   {
     MutableObject = CGPDFAppenderGetMutableObject(a1, v9, v8);
     v13 = CGPDFNameCreate(a3);
@@ -2774,35 +2783,35 @@ LABEL_27:
   }
 }
 
-void PDFWriteObject(uint64_t *a1, uint64_t *cf, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void PDFWriteObject(uint64_t *a1, const __CFData **cf)
 {
-  v11 = CFGetTypeID(cf);
-  if (v11 == CFNullGetTypeID())
+  v4 = CFGetTypeID(cf);
+  if (v4 == CFNullGetTypeID())
   {
 
-    PDFWriterPrintf(a1, "null", v12, v13, v14, v15, v16, v17, a9);
+    PDFWriterPrintf(a1, "null");
   }
 
-  else if (v11 == CFBooleanGetTypeID())
+  else if (v4 == CFBooleanGetTypeID())
   {
-    v80 = CFBooleanGetValue(cf) != 0;
-    PDFWriterPrintf(a1, "%b", v18, v19, v20, v21, v22, v23, v80);
+    v12 = CFBooleanGetValue(cf) != 0;
+    PDFWriterPrintf(a1, "%b", v12);
   }
 
-  else if (v11 == CFNumberGetTypeID())
+  else if (v4 == CFNumberGetTypeID())
   {
     if (CFNumberIsFloatType(cf))
     {
       valuePtr = 0;
       CFNumberGetValue(cf, kCFNumberCGFloatType, &valuePtr);
-      PDFWriterPrintf(a1, "%f", v30, v31, v32, v33, v34, v35, valuePtr);
+      PDFWriterPrintf(a1, "%f");
     }
 
     else
     {
-      v81 = 0;
-      CFNumberGetValue(cf, kCFNumberIntType, &v81);
-      PDFWriterPrintf(a1, "%d", v43, v44, v45, v46, v47, v48, v81);
+      v13 = 0;
+      CFNumberGetValue(cf, kCFNumberIntType, &v13);
+      PDFWriterPrintf(a1, "%d");
     }
   }
 
@@ -2813,29 +2822,29 @@ void PDFWriteObject(uint64_t *a1, uint64_t *cf, uint64_t a3, uint64_t a4, uint64
       dispatch_once(&CGPDFNameTypeID_onceToken, &__block_literal_global_6_20515);
     }
 
-    if (v11 == CGPDFNameTypeID_id)
+    if (v4 == CGPDFNameTypeID_id)
     {
-      v36 = cf[2];
-      if (*v36 == 47)
+      v5 = cf[2];
+      if (*v5 == 47)
       {
-        ++v36;
+        v5 = (v5 + 1);
       }
 
-      PDFWriterPrintf(a1, "/%N", v24, v25, v26, v27, v28, v29, v36);
+      PDFWriterPrintf(a1, "/%N", v5);
     }
 
-    else if (v11 == CFStringGetTypeID())
+    else if (v4 == CFStringGetTypeID())
     {
-      PDFWriterPrintf(a1, "%T", v37, v38, v39, v40, v41, v42, cf);
+      PDFWriterPrintf(a1, "%T", cf);
     }
 
-    else if (v11 == CFArrayGetTypeID())
+    else if (v4 == CFArrayGetTypeID())
     {
 
-      PDFWriteArray(a1, cf, v49, v50, v51, v52, v53, v54, a9);
+      PDFWriteArray(a1, cf);
     }
 
-    else if (v11 == CFDictionaryGetTypeID())
+    else if (v4 == CFDictionaryGetTypeID())
     {
 
       PDFWriteDictionary(a1, cf);
@@ -2848,7 +2857,7 @@ void PDFWriteObject(uint64_t *a1, uint64_t *cf, uint64_t a3, uint64_t a4, uint64
         dispatch_once(&CGPDFStreamObjectTypeID_onceToken, &__block_literal_global_11_20529);
       }
 
-      if (v11 == CGPDFStreamObjectTypeID_id)
+      if (v4 == CGPDFStreamObjectTypeID_id)
       {
 
         PDFWriteStreamObject(a1, cf);
@@ -2861,31 +2870,31 @@ void PDFWriteObject(uint64_t *a1, uint64_t *cf, uint64_t a3, uint64_t a4, uint64
           dispatch_once(&CGPDFReferenceTypeID_onceToken, &__block_literal_global_20501);
         }
 
-        if (v11 == CGPDFReferenceTypeID_id)
+        if (v4 == CGPDFReferenceTypeID_id)
         {
           if (cf)
           {
-            v61 = cf[2];
+            v6 = cf[2];
           }
 
           else
           {
-            v61 = 0;
+            v6 = 0;
           }
 
-          PDFWriterPrintf(a1, "%R", v55, v56, v57, v58, v59, v60, v61);
+          PDFWriterPrintf(a1, "%R", v6);
         }
 
-        else if (v11 == CFDataGetTypeID())
+        else if (v4 == CFDataGetTypeID())
         {
           BytePtr = CFDataGetBytePtr(cf);
           Length = CFDataGetLength(cf);
           if (a1)
           {
-            v64 = Length;
-            v65 = *a1;
+            v9 = Length;
+            v10 = *a1;
 
-            CGDataConsumerPutBytes(v65, BytePtr, v64);
+            CGDataConsumerPutBytes(v10, BytePtr, v9);
           }
         }
 
@@ -2896,22 +2905,22 @@ void PDFWriteObject(uint64_t *a1, uint64_t *cf, uint64_t a3, uint64_t a4, uint64
             dispatch_once(&CGPDFHexDataTypeID_onceToken, &__block_literal_global_15_20550);
           }
 
-          if (v11 == CGPDFHexDataTypeID_id)
+          if (v4 == CGPDFHexDataTypeID_id)
           {
-            v66 = cf[2];
-            v67 = CFDataGetLength(v66);
-            CFDataGetBytePtr(v66);
-            PDFWriterPrintf(a1, "%X", v68, v69, v70, v71, v72, v73, v67);
+            v11 = cf[2];
+            CFDataGetLength(v11);
+            CFDataGetBytePtr(v11);
+            PDFWriterPrintf(a1, "%X");
           }
 
-          else if (v11 == CFDateGetTypeID())
+          else if (v4 == CFDateGetTypeID())
           {
-            PDFWriterPrintf(a1, "%D", v74, v75, v76, v77, v78, v79, cf);
+            PDFWriterPrintf(a1, "%D", cf);
           }
 
           else
           {
-            pdf_error("Error: PDFWriteObject(...) encountered unknown object ID %d", v11);
+            pdf_error("Error: PDFWriteObject(...) encountered unknown object ID %d", v4);
           }
         }
       }
@@ -2921,7 +2930,7 @@ void PDFWriteObject(uint64_t *a1, uint64_t *cf, uint64_t a3, uint64_t a4, uint64
 
 __CFArray *AppendModeCreateDocumentID(uint64_t a1, CGPDFArray *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v4 = *MEMORY[0x1E695E480];
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
   value = 0;
@@ -3020,9 +3029,9 @@ LABEL_16:
             v24 = v23;
             Length = CFStringGetLength(v23);
             v26 = malloc_type_malloc(2 * Length, 0x1000040BDFB0063uLL);
-            v34.location = 0;
-            v34.length = Length;
-            CFStringGetCharacters(v24, v34, v26);
+            v33.location = 0;
+            v33.length = Length;
+            CFStringGetCharacters(v24, v33, v26);
             if (v14)
             {
               md5_update(v14, v26, 2 * Length);
@@ -3046,7 +3055,7 @@ LABEL_16:
   free(v14);
   __sprintf_chk(__s, 0, 0x23uLL, "<");
   v16 = 0;
-  v17 = v31;
+  v17 = &__s[1];
   do
   {
     sprintf(v17, "%02X", md[v16++]);
@@ -3100,15 +3109,15 @@ void PDFWriteStreamObject(uint64_t *a1, uint64_t a2)
     v12 = CFDataGetLength(v5);
     CGPDFAppenderDictionarySetInt32(v4, "Length", v12);
     PDFWriteDictionary(a1, *(a2 + 16));
-    PDFWriterPrintf(a1, "stream\n", v13, v14, v15, v16, v17, v18, v32);
-    v19 = CFDataGetBytePtr(v5);
+    PDFWriterPrintf(a1, "stream\n");
+    v13 = CFDataGetBytePtr(v5);
     if (a1)
     {
-      CGDataConsumerPutBytes(*a1, v19, v12);
+      CGDataConsumerPutBytes(*a1, v13, v12);
     }
 
-    PDFWriterPrintf(a1, "\n", v20, v21, v22, v23, v24, v25, v33);
-    PDFWriterPrintf(a1, "endstream\n", v26, v27, v28, v29, v30, v31, v34);
+    PDFWriterPrintf(a1, "\n");
+    PDFWriterPrintf(a1, "endstream\n");
     if (v6)
     {
 
@@ -3123,50 +3132,50 @@ void PDFWriteStreamObject(uint64_t *a1, uint64_t a2)
   }
 }
 
-void PDFWriteDictionary(_BYTE **a1, CFDictionaryRef theDict)
+void PDFWriteDictionary(uint64_t *a1, CFDictionaryRef theDict)
 {
   Count = CFDictionaryGetCount(theDict);
   v5 = malloc_type_malloc(8 * Count, 0xC0040B8AA526DuLL);
   v6 = malloc_type_malloc(8 * Count, 0xC0040B8AA526DuLL);
   CFDictionaryGetKeysAndValues(theDict, v5, v6);
-  PDFWriterPrintf(a1, "<<", v7, v8, v9, v10, v11, v12, v23);
+  PDFWriterPrintf(a1, "<<");
   if (Count >= 1)
   {
-    v19 = v5;
-    v20 = v6;
+    v7 = v5;
+    v8 = v6;
     do
     {
-      v21 = *v19++;
-      PDFWriteObject(a1, v21);
-      v22 = *v20++;
-      PDFWriteObject(a1, v22);
+      v9 = *v7++;
+      PDFWriteObject(a1, v9);
+      v10 = *v8++;
+      PDFWriteObject(a1, v10);
       --Count;
     }
 
     while (Count);
   }
 
-  PDFWriterPrintf(a1, ">>", v13, v14, v15, v16, v17, v18, v24);
+  PDFWriterPrintf(a1, ">>");
   free(v6);
 
   free(v5);
 }
 
-void PDFWriteArray(_BYTE **a1, const __CFArray *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void PDFWriteArray(uint64_t *a1, const __CFArray *a2)
 {
-  PDFWriterPrintf(a1, "[", a3, a4, a5, a6, a7, a8, v21);
+  PDFWriterPrintf(a1, "[");
   Count = CFArrayGetCount(a2);
   if (Count >= 1)
   {
-    v18 = Count;
-    for (i = 0; i != v18; ++i)
+    v5 = Count;
+    for (i = 0; i != v5; ++i)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(a2, i);
       PDFWriteObject(a1, ValueAtIndex);
     }
   }
 
-  PDFWriterPrintf(a1, "]", v12, v13, v14, v15, v16, v17, a9);
+  PDFWriterPrintf(a1, "]");
 }
 
 uint64_t __AppendModeWriteObjects_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3248,7 +3257,7 @@ uint64_t AppendModeObjectCreate(int a1, uint64_t a2, uint64_t a3, const void *a4
     dispatch_once(&AppendModeObjectGetTypeID_onceToken, &__block_literal_global_138);
   }
 
-  cftype = pdf_create_cftype();
+  cftype = pdf_create_cftype(AppendModeObjectGetTypeID_id, 56);
   *(cftype + 16) = a2;
   *(cftype + 24) = a3;
   *(cftype + 32) = a1;
@@ -3353,7 +3362,7 @@ LABEL_19:
   }
 }
 
-uint64_t __AppendModeUpdateIndirectReferences_block_invoke_4(uint64_t a1, uint64_t a2, void *a3, const void *a4, uint64_t a5)
+uint64_t __AppendModeUpdateIndirectReferences_block_invoke_4(uint64_t a1, uint64_t a2, __CFDictionary *a3, const void *a4, uint64_t a5)
 {
   if (CGPDFStreamObjectTypeID_onceToken != -1)
   {
@@ -3524,7 +3533,7 @@ uint64_t CGPDFAppenderCreateCGPDFStreamObjectFromCGDisplayList(CFDictionaryRef *
   v12 = CFDictionaryCreateMutable(v8, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   CGCFDictionarySetPoint(v12, @"DisplayListOrigin", a3, a4);
   CGPDFContextBeginPage(v11, v12);
-  CGContextDrawDisplayList(v11, a2, 0, v13, v14, v15, v16, v17);
+  CGContextDrawDisplayList(v11, a2, 0);
   CGPDFContextEndPage(v11);
   CGPDFContextClose(v11);
   if (v11)
@@ -3533,11 +3542,11 @@ uint64_t CGPDFAppenderCreateCGPDFStreamObjectFromCGDisplayList(CFDictionaryRef *
   }
 
   CFRelease(v12);
-  v18 = CGDataProviderCreateWithCFData(Mutable);
+  v13 = CGDataProviderCreateWithCFData(Mutable);
   CFRelease(Mutable);
-  v19 = CGPDFDocumentCreateWithProvider(v18);
-  CGDataProviderRelease(v18);
-  Page = CGPDFDocumentGetPage(v19, 1uLL);
+  v14 = CGPDFDocumentCreateWithProvider(v13);
+  CGDataProviderRelease(v13);
+  Page = CGPDFDocumentGetPage(v14, 1uLL);
   if (Page)
   {
     Page = *(*(Page + 5) + 16);
@@ -3549,42 +3558,42 @@ uint64_t CGPDFAppenderCreateCGPDFStreamObjectFromCGDisplayList(CFDictionaryRef *
     dict = 0;
     if (CGPDFDictionaryGetDictionary(value, "XObject", &dict))
     {
-      v34 = 0;
-      v35 = &v34;
-      v36 = 0x2000000000;
-      v37 = 0;
+      v29 = 0;
+      v30 = &v29;
+      v31 = 0x2000000000;
+      v32 = 0;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 0x40000000;
       block[2] = __CGPDFAppenderCreateCGPDFStreamObjectFromCGDisplayList_block_invoke;
       block[3] = &unk_1E6E32D60;
-      block[4] = &v34;
+      block[4] = &v29;
       CGPDFDictionaryApplyBlock(dict, block, 0);
-      v21 = v35[3];
-      if (v21 && (CGPDFStreamObject = CGPDFAppenderCreateCGPDFStreamObject(v21)) != 0)
+      v16 = v30[3];
+      if (v16 && (CGPDFStreamObject = CGPDFAppenderCreateCGPDFStreamObject(v16)) != 0)
       {
-        v23 = CGPDFStreamObject;
+        v18 = CGPDFStreamObject;
         MutableObject = CGPDFAppenderCreateMutableObject(a1, CGPDFStreamObject);
-        v26 = v25;
-        CFRelease(v23);
-        v27 = CFDictionaryCreateMutable(v8, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        v28 = v27;
-        v29 = v35[3];
-        if (v29)
+        v21 = v20;
+        CFRelease(v18);
+        v22 = CFDictionaryCreateMutable(v8, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+        v23 = v22;
+        v24 = v30[3];
+        if (v24)
         {
-          v30 = *(v29 + 24);
-          v31 = *(v29 + 32);
+          v25 = *(v24 + 24);
+          v26 = *(v24 + 32);
         }
 
         else
         {
-          v30 = 0;
-          v31 = 0;
+          v25 = 0;
+          v26 = 0;
         }
 
-        CGPDFAppenderDictionarySetReferenceToReference(v27, v30, v31, MutableObject, v26);
-        AppendModeDuplicateExternalObject(a1, v19, v23, v28);
-        CFRelease(v28);
-        if (!v19)
+        CGPDFAppenderDictionarySetReferenceToReference(v22, v25, v26, MutableObject, v21);
+        AppendModeDuplicateExternalObject(a1, v14, v18, v23);
+        CFRelease(v23);
+        if (!v14)
         {
           goto LABEL_18;
         }
@@ -3593,22 +3602,22 @@ uint64_t CGPDFAppenderCreateCGPDFStreamObjectFromCGDisplayList(CFDictionaryRef *
       else
       {
         MutableObject = 0;
-        if (!v19)
+        if (!v14)
         {
 LABEL_18:
-          _Block_object_dispose(&v34, 8);
+          _Block_object_dispose(&v29, 8);
           return MutableObject;
         }
       }
 
-      CFRelease(v19);
+      CFRelease(v14);
       goto LABEL_18;
     }
   }
 
-  if (v19)
+  if (v14)
   {
-    CFRelease(v19);
+    CFRelease(v14);
   }
 
   return 0;
@@ -3801,7 +3810,7 @@ uint64_t __AppendModeUpdateIndirectReferences_block_invoke(uint64_t a1, CFDictio
   return 1;
 }
 
-uint64_t CGPDFAppenderCreatePageObject(uint64_t a1, CGPDFPage *a2)
+uint64_t CGPDFAppenderCreatePageObject(CFDictionaryRef *a1, CGPDFPage *a2)
 {
   if (a2)
   {
@@ -4003,7 +4012,8 @@ uint64_t CGPDFAppenderCreateAnnotationObject(CFDictionaryRef *a1, uint64_t a2, u
       if (v10 == CGDisplayListGetTypeID::display_list2_type_id)
       {
         v11 = CGPDFNameCreate("Rect");
-        memset(&v35, 0, 32);
+        v35 = 0u;
+        v36 = 0u;
         CGCFDictionaryGetPDFRect(CFDictionary, v11, &v35);
         CFRelease(v11);
         CGPDFStreamObjectFromCGDisplayList = CGPDFAppenderCreateCGPDFStreamObjectFromCGDisplayList(a1, v8, v35.f64[0], v35.f64[1]);
@@ -4082,7 +4092,7 @@ LABEL_25:
           goto LABEL_32;
         }
 
-        v29 = *(v25 + 4);
+        v29 = v25[4];
         if (v29)
         {
           v30 = *(v29 + 24);
@@ -4171,29 +4181,29 @@ uint64_t rips_cm_BltShade(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64
   return rips_cm_Draw(a1, a2, a3, a4, v9, 0, 0, 0, a5, a6, a7, a8);
 }
 
-uint64_t rips_cm_Draw(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, int *a5, uint64_t a6, uint64_t *a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, uint64_t a12)
+uint64_t rips_cm_Draw(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, int *a5, uint64_t a6, uint64_t *a7, int *a8, uint64_t a9, uint64_t a10, int32x2_t *a11, uint64_t a12)
 {
-  v131 = *MEMORY[0x1E69E9840];
-  v90 = 0uLL;
+  v116 = *MEMORY[0x1E69E9840];
+  v75 = 0uLL;
   if (!a4 || a4 == a5)
   {
-    v90 = *a5;
+    v75 = *a5;
     v18 = 1;
-    if (!DWORD2(v90) || !HIDWORD(v90))
+    if (!DWORD2(v75) || !HIDWORD(v75))
     {
       return v18;
     }
   }
 
-  else if (!CGSBoundsIntersection(a4, a5, &v90))
+  else if (!CGSBoundsIntersection(a4, a5, &v75))
   {
     return 1;
   }
 
-  memset(v96, 0, sizeof(v96));
+  memset(v81, 0, sizeof(v81));
   if (a3)
   {
-    if ((CGSBoundsIntersection((a2 + 12), (a3 + 12), v96) & 1) == 0)
+    if (!CGSBoundsIntersection((a2 + 12), (a3 + 12), v81))
     {
       return 1;
     }
@@ -4201,50 +4211,50 @@ uint64_t rips_cm_Draw(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, int *a5, u
 
   else
   {
-    *v96 = *(a2 + 12);
-    if (!*&v96[4] || !*&v96[6])
+    *v81 = *(a2 + 12);
+    if (!*&v81[4] || !*&v81[6])
     {
       return 1;
     }
   }
 
-  v89[0] = 0;
-  v89[1] = 0;
-  if (!CGSBoundsIntersection(&v90, v96, v89))
+  v74[0] = 0;
+  v74[1] = 0;
+  if (!CGSBoundsIntersection(&v75, v81, v74))
   {
     return 1;
   }
 
-  v26 = *(a1 + 168) | ((**(a2 + 32) & 0x3F0000u) > 0x80000);
+  v19 = *(a1 + 168) | ((**(a2 + 32) & 0x3F0000u) > 0x80000);
   if (*(a1 + 168) & 1 | ((**(a2 + 32) & 0x3F0000u) > 0x80000))
   {
-    v27 = 20;
+    v20 = 20;
   }
 
   else
   {
-    v27 = 6;
+    v20 = 6;
   }
 
-  v28 = RIPGetDepthForLayerFormat(v27, v19, v20, v21, v22, v23, v24, v25);
-  v32 = RIPLayerCreate(RIPLayer_ripl_class, v89, 17, v28, *(a2 + 52), v29, v30, v31);
-  if (!v32)
+  v21 = RIPGetDepthForLayerFormat(v20);
+  v22 = RIPLayerCreate(RIPLayer_ripl_class, v74, 17, v21, *(a2 + 52));
+  if (!v22)
   {
     return 0;
   }
 
-  v35 = v32;
-  v36 = *(a12 + 16);
-  v129[0] = *a12;
-  v129[1] = v36;
-  v37 = *(a12 + 48);
-  v129[2] = *(a12 + 32);
-  v129[3] = v37;
-  v130 = *(a12 + 64);
-  LODWORD(v129[0]) = 2;
+  v23 = v22;
+  v24 = *(a12 + 16);
+  v114[0] = *a12;
+  v114[1] = v24;
+  v25 = *(a12 + 48);
+  v114[2] = *(a12 + 32);
+  v114[3] = v25;
+  v115 = *(a12 + 64);
+  LODWORD(v114[0]) = 2;
   if (a6)
   {
-    if ((RIPLayerBltShape(v32, 0, 0, a6, a10, a11, v129, v34) & 1) == 0)
+    if ((RIPLayerBltShape(v22, 0, 0, a6, a10, a11, v114) & 1) == 0)
     {
       return 0;
     }
@@ -4252,7 +4262,7 @@ uint64_t rips_cm_Draw(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, int *a5, u
 
   else if (a7)
   {
-    if ((RIPLayerBltGlyph(v32, 0, 0, a7, a10, a11, 0, v129) & 1) == 0)
+    if ((RIPLayerBltGlyph(v22, 0, 0, a7, a10, a11, 0, v114) & 1) == 0)
     {
       return 0;
     }
@@ -4260,114 +4270,114 @@ uint64_t rips_cm_Draw(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, int *a5, u
 
   else if (a8)
   {
-    if ((RIPLayerBltImage(v32, 0, 0, a8, v129, a11, v33, v34) & 1) == 0)
+    if ((RIPLayerBltImage(v22, 0, 0, a8, v114) & 1) == 0)
     {
       return 0;
     }
   }
 
-  else if (a9 && !RIPLayerBltShade(v32, 0, 0, a9, a10, v129, v33, v34))
+  else if (a9 && !RIPLayerBltShade(v22, 0, 0, a9, a10, v114))
   {
     return 0;
   }
 
-  v40 = v35[5];
-  v39 = v35[6];
-  dest.data = *(v35 + 7);
-  dest.height = v39;
-  v41 = v35[12];
-  dest.width = v40;
-  dest.rowBytes = v41;
+  v28 = v23[5];
+  v27 = v23[6];
+  dest.data = *(v23 + 7);
+  dest.height = v27;
+  v29 = v23[12];
+  dest.width = v28;
+  dest.rowBytes = v29;
   if (*(a1 + 168) == 1)
   {
     vImageUnpremultiplyData_RGBAFFFF(&dest, &dest, 0);
   }
 
-  if (v26)
+  if (v19)
   {
-    v42 = *(a1 + 92);
-    v44 = *(a1 + 104);
-    v43 = *(a1 + 108);
+    v30 = *(a1 + 92);
+    v32 = *(a1 + 104);
+    v31 = *(a1 + 108);
     matrix = *(a1 + 88);
-    v114 = v43;
-    v45 = *(a1 + 132);
-    v47 = *(a1 + 144);
-    v46 = *(a1 + 148);
-    v115 = *(a1 + 128);
-    v116 = v46;
-    v48 = *(a1 + 112);
-    v49 = *(a1 + 116);
-    v117 = v42;
-    v118 = v48;
-    v50 = *(a1 + 152);
-    v51 = *(a1 + 156);
-    v119 = v45;
-    v120 = v50;
-    v52 = *(a1 + 100);
-    v121 = *(a1 + 96);
-    v122 = v49;
-    v53 = *(a1 + 140);
-    v123 = *(a1 + 136);
-    v124 = v51;
-    v54 = *(a1 + 120);
-    v55 = *(a1 + 124);
-    v125 = v52;
-    v126 = v54;
-    v56 = *(a1 + 160);
-    v57 = *(a1 + 164);
-    v127 = v53;
-    v128 = v56;
-    post_bias.i64[0] = __PAIR64__(v55, v44);
-    post_bias.i64[1] = __PAIR64__(v57, v47);
+    v99 = v31;
+    v33 = *(a1 + 132);
+    v35 = *(a1 + 144);
+    v34 = *(a1 + 148);
+    v100 = *(a1 + 128);
+    v101 = v34;
+    v36 = *(a1 + 112);
+    v37 = *(a1 + 116);
+    v102 = v30;
+    v103 = v36;
+    v38 = *(a1 + 152);
+    v39 = *(a1 + 156);
+    v104 = v33;
+    v105 = v38;
+    v40 = *(a1 + 100);
+    v106 = *(a1 + 96);
+    v107 = v37;
+    v41 = *(a1 + 140);
+    v108 = *(a1 + 136);
+    v109 = v39;
+    v42 = *(a1 + 120);
+    v43 = *(a1 + 124);
+    v110 = v40;
+    v111 = v42;
+    v44 = *(a1 + 160);
+    v45 = *(a1 + 164);
+    v112 = v41;
+    v113 = v44;
+    post_bias.i64[0] = __PAIR64__(v43, v32);
+    post_bias.i64[1] = __PAIR64__(v45, v35);
     vImageMatrixMultiply_ARGBFFFF(&dest, &dest, &matrix, 0, post_bias.f32, 0);
   }
 
   else
   {
-    v62 = *(a1 + 112);
-    v61 = *(a1 + 116);
-    v63 = *(a1 + 140);
+    v47 = *(a1 + 112);
+    v46 = *(a1 + 116);
+    v48 = *(a1 + 140);
     matrix = *(a1 + 136);
-    v114 = v61;
-    v64 = *(a1 + 100);
-    v66 = *(a1 + 144);
-    v65 = *(a1 + 148);
-    v115 = *(a1 + 96);
-    v116 = v65;
-    v67 = *(a1 + 128);
-    v117 = *(a1 + 132);
-    v118 = v62;
-    v68 = *(a1 + 88);
-    v69 = *(a1 + 152);
-    v70 = *(a1 + 156);
-    v119 = *(a1 + 92);
-    v120 = v69;
-    v72 = *(a1 + 104);
-    v71 = *(a1 + 108);
-    v121 = v67;
-    v122 = v71;
-    v123 = v68;
-    v124 = v70;
-    v73 = *(a1 + 120);
-    v74 = *(a1 + 124);
-    v125 = v63;
-    v126 = v73;
+    v99 = v46;
+    v49 = *(a1 + 100);
+    v51 = *(a1 + 144);
+    v50 = *(a1 + 148);
+    v100 = *(a1 + 96);
+    v101 = v50;
+    v52 = *(a1 + 128);
+    v102 = *(a1 + 132);
+    v103 = v47;
+    v53 = *(a1 + 88);
+    v54 = *(a1 + 152);
+    v55 = *(a1 + 156);
+    v104 = *(a1 + 92);
+    v105 = v54;
+    v57 = *(a1 + 104);
+    v56 = *(a1 + 108);
+    v106 = v52;
+    v107 = v56;
+    v108 = v53;
+    v109 = v55;
+    v58 = *(a1 + 120);
+    v59 = *(a1 + 124);
+    v110 = v48;
+    v111 = v58;
     p_matrix = &matrix;
-    v76 = *(a1 + 160);
-    v77 = *(a1 + 164);
-    v127 = v64;
-    v128 = v76;
-    v132 = vld4q_f32(p_matrix);
-    post_bias.i64[0] = __PAIR64__(v74, v66);
-    *v132.val[0].f32 = vmovn_s32(vcvtq_n_s32_f32(v132.val[0], 8uLL));
-    *v132.val[1].f32 = vmovn_s32(vcvtq_n_s32_f32(v132.val[1], 8uLL));
-    *v132.val[2].f32 = vmovn_s32(vcvtq_n_s32_f32(v132.val[2], 8uLL));
-    *v132.val[3].f32 = vmovn_s32(vcvtq_n_s32_f32(v132.val[3], 8uLL));
-    v78 = v96;
-    post_bias.i64[1] = __PAIR64__(v77, v72);
-    *v91 = vcvtq_n_s32_f32(vmulq_f32(post_bias, vdupq_n_s32(0x437F0000u)), 8uLL);
-    vst4_s16(v78, *v132.val[0].f32);
-    vImageMatrixMultiply_ARGB8888(&dest, &dest, v96, 256, 0, v91, 0);
+    v61 = *(a1 + 160);
+    v62 = *(a1 + 164);
+    v112 = v49;
+    v113 = v61;
+    v117 = vld4q_f32(p_matrix);
+    post_bias.i64[0] = __PAIR64__(v59, v51);
+    *v117.val[0].f32 = vmovn_s32(vcvtq_n_s32_f32(v117.val[0], 8uLL));
+    *v117.val[1].f32 = vmovn_s32(vcvtq_n_s32_f32(v117.val[1], 8uLL));
+    *v117.val[2].f32 = vmovn_s32(vcvtq_n_s32_f32(v117.val[2], 8uLL));
+    *v117.val[3].f32 = vmovn_s32(vcvtq_n_s32_f32(v117.val[3], 8uLL));
+    v63 = v81;
+    post_bias.i64[1] = __PAIR64__(v62, v57);
+    *v76 = vcvtq_n_s32_f32(vmulq_f32(post_bias, vdupq_n_s32(0x437F0000u)), 8uLL);
+    vst4_s16(v63, *v117.val[0].f32);
+    vImageMatrixMultiply_ARGB8888(&dest, &dest, v81, 256, 0, v76, 0);
   }
 
   if (*(a1 + 168) == 1)
@@ -4375,50 +4385,50 @@ uint64_t rips_cm_Draw(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, int *a5, u
     vImagePremultiplyData_RGBAFFFF(&dest, &dest, 0);
   }
 
-  v98 = xmmword_184562C90;
-  v99 = unk_184562CA0;
-  v102 = xmmword_184562CD0;
-  v103 = unk_184562CE0;
-  v100 = xmmword_184562CB0;
-  v101 = unk_184562CC0;
-  v106 = xmmword_184562D10;
-  v107 = unk_184562D20;
-  v104 = xmmword_184562CF0;
-  v105 = unk_184562D00;
-  v111 = 0;
-  v109 = xmmword_184562D40;
-  v110 = xmmword_184562D50;
-  v108 = xmmword_184562D30;
-  *v96 = RIPImageDataInitializer;
-  v97 = unk_184562C80;
-  *&v98 = *(v35 + 4);
-  DWORD2(v99) = v35[5];
-  DWORD2(v98) = DWORD2(v99);
-  HIDWORD(v99) = v35[6];
-  *&v99 = 0;
-  HIDWORD(v98) = HIDWORD(v99);
-  LODWORD(v100) = v35[12];
-  *(&v100 + 1) = *(v35 + 7);
-  *(&v101 + 1) = *(v35 + 9);
-  LODWORD(v101) = v35[16];
-  v102 = 0uLL;
-  v86 = 0;
-  v82 = *(v35 + 3);
-  v87 = 0;
-  v84 = 0;
-  v85 = 0;
-  v83 = v96;
-  v79 = *(a12 + 48);
-  v93 = *(a12 + 32);
-  v94 = v79;
-  v80 = *(a12 + 64);
-  v81 = *(a12 + 16);
-  *v91 = *a12;
-  v92 = v81;
-  v95 = v80;
-  *&v94 = 0x3FF0000000000000;
-  v18 = RIPLayerBltImage(a2, a3, v89, &v82, v91, v58, v59, v60);
-  (*(*v35 + 24))(v35);
+  v83 = xmmword_184562C90;
+  v84 = unk_184562CA0;
+  v87 = xmmword_184562CD0;
+  v88 = unk_184562CE0;
+  v85 = xmmword_184562CB0;
+  v86 = unk_184562CC0;
+  v91 = xmmword_184562D10;
+  v92 = unk_184562D20;
+  v89 = xmmword_184562CF0;
+  v90 = unk_184562D00;
+  v96 = 0;
+  v94 = xmmword_184562D40;
+  v95 = xmmword_184562D50;
+  v93 = xmmword_184562D30;
+  *v81 = RIPImageDataInitializer;
+  v82 = unk_184562C80;
+  *&v83 = *(v23 + 4);
+  DWORD2(v84) = v23[5];
+  DWORD2(v83) = DWORD2(v84);
+  HIDWORD(v84) = v23[6];
+  *&v84 = 0;
+  HIDWORD(v83) = HIDWORD(v84);
+  LODWORD(v85) = v23[12];
+  *(&v85 + 1) = *(v23 + 7);
+  *(&v86 + 1) = *(v23 + 9);
+  LODWORD(v86) = v23[16];
+  v87 = 0uLL;
+  v71 = 0;
+  v67 = *(v23 + 3);
+  v72 = 0;
+  v69 = 0;
+  v70 = 0;
+  v68 = v81;
+  v64 = *(a12 + 48);
+  v78 = *(a12 + 32);
+  v79 = v64;
+  v65 = *(a12 + 64);
+  v66 = *(a12 + 16);
+  *v76 = *a12;
+  v77 = v66;
+  v80 = v65;
+  *&v79 = 0x3FF0000000000000;
+  v18 = RIPLayerBltImage(a2, a3, v74, &v67, v76);
+  (*(*v23 + 24))(v23);
   return v18;
 }
 
@@ -4449,7 +4459,7 @@ uint64_t rips_cm_BltImage(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, int *a
   return rips_cm_Draw(a1, a2, a3, a4, a5, 0, 0, v8, 0, a6, a7, a8);
 }
 
-uint64_t rips_cm_BltGlyph(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, int *a5, uint64_t a6, int32x2_t *a7, uint64_t a8, uint64_t a9, uint64_t a10)
+uint64_t rips_cm_BltGlyph(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t *a5, uint64_t a6, int32x2_t *a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v10 = a5;
   if (a3)
@@ -4509,7 +4519,7 @@ uint64_t rips_cm_BltShape(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64
 
 _DWORD *rips_cm_Create(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = (*(a1 + 8))();
+  v7 = (*(a1 + 8))(a1, a2, a3);
   v8 = malloc_type_calloc(1uLL, v7, 0x43352049uLL);
   v9 = v8;
   if (v8)
@@ -4561,12 +4571,12 @@ void rips_cm_release(_DWORD *a1)
   }
 }
 
-uint64_t CGBufferProviderCreate(uint64_t a1, uint64_t a2, const void *a3, const void *a4, const void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGBufferProviderCreate(uint64_t a1, uint64_t a2, const void *a3, const void *a4, const void *a5)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-    CGPostError("%s: Invalid size = %jd", 0, a3, a4, a5, a6, a7, a8, "CGBufferProviderCreate");
+    CGPostError("%s: Invalid size = %jd", "CGBufferProviderCreate", 0);
     return 0;
   }
 
@@ -4580,34 +4590,34 @@ uint64_t CGBufferProviderCreate(uint64_t a1, uint64_t a2, const void *a3, const 
     dispatch_once(&_block_invoke_once_18548, &__block_literal_global_14_18549);
   }
 
-  Instance = CGTypeCreateInstance(CGBufferProviderGetTypeID_id, 128, a3, a4, a5, a6, a7, a8);
+  Instance = CGTypeCreateInstance(CGBufferProviderGetTypeID_id, 128);
   if (!Instance)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v16.__sig) = 136315138;
-      *(&v16.__sig + 4) = "create_buffer_provider";
-      _os_log_impl(&dword_183EA0000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s failed", &v16, 0xCu);
+      LODWORD(v13.__sig) = 136315138;
+      *(&v13.__sig + 4) = "create_buffer_provider";
+      _os_log_impl(&dword_183EA0000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s failed", &v13, 0xCu);
     }
 
     return 0;
   }
 
-  v14 = Instance;
+  v11 = Instance;
   *(Instance + 16) = a1;
   *(Instance + 24) = -1;
   *(Instance + 120) = 1;
-  v16.__sig = 0;
-  *v16.__opaque = 0;
-  pthread_mutexattr_init(&v16);
-  pthread_mutexattr_settype(&v16, 2);
-  pthread_mutex_init((v14 + 56), &v16);
-  pthread_mutexattr_destroy(&v16);
-  *(v14 + 24) = a2;
-  *(v14 + 32) = _Block_copy(a3);
-  *(v14 + 40) = _Block_copy(a4);
-  *(v14 + 48) = _Block_copy(a5);
-  return v14;
+  v13.__sig = 0;
+  *v13.__opaque = 0;
+  pthread_mutexattr_init(&v13);
+  pthread_mutexattr_settype(&v13, 2);
+  pthread_mutex_init((v11 + 56), &v13);
+  pthread_mutexattr_destroy(&v13);
+  *(v11 + 24) = a2;
+  *(v11 + 32) = _Block_copy(a3);
+  *(v11 + 40) = _Block_copy(a4);
+  *(v11 + 48) = _Block_copy(a5);
+  return v11;
 }
 
 uint64_t __CGBufferProviderGetTypeID_block_invoke_2()
@@ -4617,16 +4627,16 @@ uint64_t __CGBufferProviderGetTypeID_block_invoke_2()
   return result;
 }
 
-uint64_t buffer_provider_retain_count_18560(uint64_t a1, atomic_uint *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t buffer_provider_retain_count_18560(uint64_t a1, atomic_uint *a2)
 {
   switch(a1)
   {
     case -1:
       if (atomic_fetch_add_explicit(a2 + 30, 0xFFFFFFFF, memory_order_relaxed) == 1)
       {
-        buffer_provider_finalize_18561(a2, a2, a3, a4, a5, a6, a7, a8);
-        v10 = CFGetAllocator(a2);
-        CFAllocatorDeallocate(v10, a2);
+        buffer_provider_finalize_18561(a2);
+        v4 = CFGetAllocator(a2);
+        CFAllocatorDeallocate(v4, a2);
       }
 
       break;
@@ -4639,31 +4649,31 @@ uint64_t buffer_provider_retain_count_18560(uint64_t a1, atomic_uint *a2, uint64
   return 0;
 }
 
-void buffer_provider_finalize_18561(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void buffer_provider_finalize_18561(uint64_t a1)
 {
   if (*(a1 + 128))
   {
-    _CGHandleAssert("buffer_provider_finalize", 177, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGBufferProvider.c", "provider->byte_pointer == NULL", "provider byte pointer method missing", a6, a7, a8, v12);
+    _CGHandleAssert("buffer_provider_finalize", 177, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGBufferProvider.c", "provider->byte_pointer == NULL", "provider byte pointer method missing");
   }
 
-  v9 = *(a1 + 48);
-  if (v9)
+  v2 = *(a1 + 48);
+  if (v2)
   {
-    (*(v9 + 16))(v9, *(a1 + 16));
+    (*(v2 + 16))(v2, *(a1 + 16));
   }
 
   pthread_mutex_destroy((a1 + 56));
-  v10 = *(a1 + 136);
-  if (v10)
+  v3 = *(a1 + 136);
+  if (v3)
   {
-    CFRelease(v10);
+    CFRelease(v3);
   }
 
   _Block_release(*(a1 + 32));
   _Block_release(*(a1 + 40));
-  v11 = *(a1 + 48);
+  v4 = *(a1 + 48);
 
-  _Block_release(v11);
+  _Block_release(v4);
 }
 
 __CFString *buffer_provider_copy_format_description_18567(CFStringRef a1)
@@ -4700,7 +4710,7 @@ uint64_t CGBufferProviderCreateWithCFData(const void *a1)
   CFRetain(a1);
   Length = CFDataGetLength(a1);
 
-  return CGBufferProviderCreate(a1, Length, &__block_literal_global_18579, 0, &__block_literal_global_5_18580, v4, v5, v6);
+  return CGBufferProviderCreate(a1, Length, &__block_literal_global_18579, 0, &__block_literal_global_5_18580);
 }
 
 uint64_t CGBufferProviderGetSize(uint64_t result)
@@ -4735,7 +4745,7 @@ char *CGBufferLockBytePtr(char *result)
     {
       if (result)
       {
-        _CGHandleAssert("CGBufferLockBytePtr", 283, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGBufferProvider.c", "provider->byte_pointer == NULL", "provider byte pointer method missing", v2, v3, v4, v5);
+        _CGHandleAssert("CGBufferLockBytePtr", 283, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGBufferProvider.c", "provider->byte_pointer == NULL", "provider byte pointer method missing");
       }
 
       goto LABEL_4;
@@ -4745,13 +4755,13 @@ char *CGBufferLockBytePtr(char *result)
     {
 LABEL_4:
       *(v1 + 16) = (*(*(v1 + 4) + 16))();
-      v6 = 0;
-      asprintf(&v6, "CGBufferProvider: %p\n", v1);
-      qword_1ED4E0528 = v6;
+      v2 = 0;
+      asprintf(&v2, "CGBufferProvider: %p\n", v1);
+      qword_1ED4E0528 = v2;
       ERROR_CGDataProviderCreateWithData_BufferIsNotReadable();
       ERROR_CGDataProviderCreateWithData_BufferIsNotBigEnough();
       qword_1ED4E0528 = 0;
-      free(v6);
+      free(v2);
       return *(v1 + 16);
     }
   }
@@ -4759,19 +4769,19 @@ LABEL_4:
   return result;
 }
 
-void CGBufferUnlockBytePtr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CGBufferUnlockBytePtr(uint64_t a1)
 {
   if (a1)
   {
     if (!*(a1 + 128))
     {
-      _CGHandleAssert("CGBufferUnlockBytePtr", 306, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGBufferProvider.c", "provider->byte_pointer != NULL", "provider byte pointer method missing", a6, a7, a8, v10);
+      _CGHandleAssert("CGBufferUnlockBytePtr", 306, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGBufferProvider.c", "provider->byte_pointer != NULL", "provider byte pointer method missing");
     }
 
-    v9 = *(a1 + 40);
-    if (v9)
+    v2 = *(a1 + 40);
+    if (v2)
     {
-      (*(v9 + 16))(v9, *(a1 + 16));
+      (*(v2 + 16))(v2, *(a1 + 16));
     }
 
     *(a1 + 128) = 0;
@@ -4817,12 +4827,12 @@ void CGPatternRelease(CGPatternRef pattern)
   }
 }
 
-void draw_image_18621(unint64_t *image, CGContextRef c)
+void draw_image_18621(CGImage *image, CGContextRef c)
 {
   if (image)
   {
-    v2 = image[5];
-    v3 = image[6];
+    v2 = *(image + 5);
+    v3 = *(image + 6);
   }
 
   else
@@ -4946,22 +4956,22 @@ uint64_t CGContextDrawPatternCell(uint64_t result, uint64_t a2)
   return result;
 }
 
-void CGPatternDrawInContextDelegate(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CGPatternDrawInContextDelegate(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
 {
-  v9 = CGContextCreateWithDelegateAndInfo(a2, 16, a3, a4, 0, 0, a7, a8);
+  v5 = CGContextCreateWithDelegateAndInfo(a2, 16, a3, a4, 0, 0);
   if (a1)
   {
-    v10 = *(a1 + 168);
-    if (v10)
+    v6 = *(a1 + 168);
+    if (v6)
     {
-      v10(*(a1 + 80), v9);
+      v6(*(a1 + 80), v5);
     }
   }
 
-  if (v9)
+  if (v5)
   {
 
-    CFRelease(v9);
+    CFRelease(v5);
   }
 }
 
@@ -5880,22 +5890,22 @@ uint64_t CGPDFNodeIteratorRestart(uint64_t result)
   return result;
 }
 
-uint64_t CGPDFNodeIsHitByPoint(uint64_t result, __n128 a2, __n128 a3, double a4)
+uint64_t CGPDFNodeIsHitByPoint(uint64_t result, CGFloat a2, CGFloat a3, double a4)
 {
   if (result)
   {
     v5 = result;
     Rotation = CGPDFNodeGetRotation(result);
     v7 = Rotation;
-    *&v8.x = a2.n128_u64[0];
-    *&v8.y = a3.n128_u64[0];
+    v8.x = a2;
+    v8.y = a3;
     point = v8;
     if (Rotation != 0.0)
     {
       v10 = __sincos_stret(Rotation);
       v9.f64[0] = v10.__cosval;
       v9.f64[1] = -v10.__sinval;
-      point = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(v10, point, 1), v9, a2.n128_f64[0]), 0);
+      point = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(v10, point, 1), v9, a2), 0);
     }
 
     HitTestRect = CGPDFNodeGetHitTestRect(v5, a4);
@@ -6161,14 +6171,14 @@ LABEL_18:
   return v9;
 }
 
-uint64_t CGPDFNodeGetNodeContainingPoint(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5, double a6)
+unsigned int *CGPDFNodeGetNodeContainingPoint(unsigned int *a1, uint64_t a2, uint64_t a3, __n128 a4, __n128 a5, double a6)
 {
   v8 = 0;
   v7 = 0;
-  return CGPDFNodeGetBestNodeContainingPoint(a1, a2, a3, &v7, &v8, a4, a5, a6);
+  return CGPDFNodeGetBestNodeContainingPoint(a1, a2, a3, &v7, &v8, a4.n128_f64[0], a5.n128_f64[0], a6);
 }
 
-uint64_t CGPDFNodeGetBestNodeContainingPoint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, _BYTE *a5, double a6, double a7, double a8)
+unsigned int *CGPDFNodeGetBestNodeContainingPoint(unsigned int *a1, uint64_t a2, uint64_t a3, int **a4, _BYTE *a5, CGFloat a6, CGFloat a7, double a8)
 {
   *a5 = 0;
   if (!a1 || (CGPDFNodeIsUsedGraphic(a1) & 1) != 0)
@@ -6176,89 +6186,111 @@ uint64_t CGPDFNodeGetBestNodeContainingPoint(uint64_t a1, uint64_t a2, uint64_t 
     return 0;
   }
 
-  v18 = *a1;
+  v16 = *a1;
   if (*a1 == 513)
   {
-    v19 = 1;
+    v17 = 1;
   }
 
   else
   {
-    v19 = (*a1 >> 8) & 1;
+    v17 = (*a1 >> 8) & 1;
   }
 
-  if ((v18 & 0x100) != 0 || v18 == 516 || v18 == 513)
+  if ((v16 & 0x100) != 0 || v16 == 516 || v16 == 513)
   {
     *a4 = a1;
   }
 
-  v16.n128_f64[0] = a6;
-  v17.n128_f64[0] = a7;
-  if (!CGPDFNodeIsDirectlyHitByPoint(a1, v16, v17, a8))
+  if (!CGPDFNodeIsDirectlyHitByPoint(a1, a6, a7, a8))
   {
     return 0;
   }
 
-  v22 = 1;
+  v18 = 1;
   if (a2 >= 2 && (a2 - 514) >= 2)
   {
-    v22 = a2 == 1537;
+    v18 = a2 == 1537;
   }
 
-  v23 = v19 & a3;
-  if (v18 == a2)
+  v19 = v17 & a3;
+  if (v16 == a2)
   {
-    v23 = 1;
+    v19 = 1;
   }
 
   if (a2)
   {
-    v24 = v23;
+    v20 = v19;
   }
 
   else
   {
-    v24 = 1;
+    v20 = 1;
   }
 
-  if (v18 != 1538 && v23 && a2)
+  if (v16 != 1538 && v19 && a2)
   {
-    if (v18 != 517 || (a3 & 1) == 0)
+    if (v16 != 517 || (a3 & 1) == 0)
     {
       goto LABEL_71;
     }
   }
 
-  else if (((v18 == 516) & ~v22) != 0 || v18 == 513)
+  else if (((v16 == 516) & ~v18) != 0 || v16 == 513)
   {
 LABEL_71:
-    if (!v24)
+    if (!v20)
     {
       return 0;
     }
 
 LABEL_78:
-    v20.n128_f64[0] = a6;
-    v21.n128_f64[0] = a7;
-    *a5 = CGPDFNodeIsDirectlyHitByPoint(a1, v20, v21, 0.0);
+    *a5 = CGPDFNodeIsDirectlyHitByPoint(a1, a6, a7, 0.0);
     return a1;
   }
 
-  v52 = v24;
+  v49 = v20;
   if ((*(a1 + 1) & 2) != 0)
   {
-    v25 = *(a1 + 44);
-    if (v25)
+    v21 = a1[11];
+    if (v21)
     {
-      v26 = 0;
-      v27 = 0;
-      v54 = a3;
-      v53 = *(a1 + 44);
+      v22 = 0;
+      v23 = 0;
+      v51 = a3;
+      v50 = a1[11];
       while (1)
       {
-        if ((*(a1 + 1) & 2) != 0 && v26 < *(a1 + 44))
+        if ((*(a1 + 1) & 2) != 0 && v22 < a1[11])
         {
-          v28 = *(*(a1 + 56) + 8 * v26);
+          v24 = *(*(a1 + 7) + 8 * v22);
+        }
+
+        else
+        {
+          v24 = 0;
+        }
+
+        v58[0] = 0;
+        v57 = *a4;
+        BestNodeContainingPoint = CGPDFNodeGetBestNodeContainingPoint(v24, a2, a3, &v57, v58, a6, a7, a8);
+        if (!BestNodeContainingPoint)
+        {
+          goto LABEL_69;
+        }
+
+        v26 = BestNodeContainingPoint;
+        if (!v23)
+        {
+          v29 = v57;
+          goto LABEL_68;
+        }
+
+        v27 = *a4;
+        if (*a4)
+        {
+          v28 = v27->n64_u32[0];
         }
 
         else
@@ -6266,161 +6298,135 @@ LABEL_78:
           v28 = 0;
         }
 
-        v61[0] = 0;
-        v60 = *a4;
-        BestNodeContainingPoint = CGPDFNodeGetBestNodeContainingPoint(v28, a2, a3, &v60, v61, a6, a7, a8);
-        if (!BestNodeContainingPoint)
+        v29 = v57;
+        if (v57)
         {
-          goto LABEL_69;
-        }
-
-        v30 = BestNodeContainingPoint;
-        if (!v27)
-        {
-          v33 = v60;
-          goto LABEL_68;
-        }
-
-        v31 = *a4;
-        if (*a4)
-        {
-          v32 = v31->n64_u32[0];
+          v30 = *v57;
         }
 
         else
         {
-          v32 = 0;
+          v30 = 0;
         }
 
-        v33 = v60;
-        if (v60)
-        {
-          v34 = v60->n64_u32[0];
-        }
-
-        else
-        {
-          v34 = 0;
-        }
-
-        v55.n64_u64[0] = CGPDFNodeGetBounds(v31).n64_u64[0];
-        v56 = v35;
-        v57 = v36;
-        v58 = v37;
-        v38.n64_u64[0] = CGPDFNodeGetBounds(v33).n64_u64[0];
+        v52.n64_u64[0] = CGPDFNodeGetBounds(v27).n64_u64[0];
+        v53 = v31;
+        v54 = v32;
+        v55 = v33;
+        v34.n64_u64[0] = CGPDFNodeGetBounds(v29).n64_u64[0];
+        v36 = v35;
+        v38 = v37;
         v40 = v39;
-        v42 = v41;
-        v44 = v43;
         Rotation = CGPDFNodeGetRotation(*a4);
-        v20.n128_f64[0] = CGPDFNodeGetRotation(v33);
-        if (*a4 && v32 != 516 && v34 == 516)
+        v42 = CGPDFNodeGetRotation(v29);
+        if (*a4 && v28 != 516 && v30 == 516)
         {
-          v46 = __sincos_stret(v20.n128_f64[0] - Rotation);
-          v59.a = v46.__cosval;
-          v59.b = v46.__sinval;
-          v59.c = -v46.__sinval;
-          v59.d = v46.__cosval;
-          v59.tx = 0.0;
-          v59.ty = 0.0;
-          v62.origin.x = v38.n64_f64[0];
-          v62.origin.y = v40;
-          v62.size.width = v42;
-          v62.size.height = v44;
-          v66 = CGRectApplyAffineTransform(v62, &v59);
-          v63.origin.x = v55.n64_f64[0];
-          v63.origin.y = v56;
-          v63.size.width = v57;
-          v63.size.height = v58;
-          if (CGRectContainsRect(v63, v66))
+          v43 = __sincos_stret(v42 - Rotation);
+          v56.a = v43.__cosval;
+          v56.b = v43.__sinval;
+          v56.c = -v43.__sinval;
+          v56.d = v43.__cosval;
+          v56.tx = 0.0;
+          v56.ty = 0.0;
+          v59.origin.x = v34.n64_f64[0];
+          v59.origin.y = v36;
+          v59.size.width = v38;
+          v59.size.height = v40;
+          v63 = CGRectApplyAffineTransform(v59, &v56);
+          v60.origin.x = v52.n64_f64[0];
+          v60.origin.y = v53;
+          v60.size.width = v54;
+          v60.size.height = v55;
+          if (CGRectContainsRect(v60, v63))
           {
-            a3 = v54;
-            v25 = v53;
+            a3 = v51;
+            v21 = v50;
             goto LABEL_68;
           }
         }
 
-        else if (v33)
+        else if (v29)
         {
-          if (v34 != 516 && v32 == 516)
+          if (v30 != 516 && v28 == 516)
           {
-            v47 = __sincos_stret(Rotation - v20.n128_f64[0]);
-            v59.a = v47.__cosval;
-            v59.b = v47.__sinval;
-            v59.c = -v47.__sinval;
-            v59.d = v47.__cosval;
-            v59.tx = 0.0;
-            v59.ty = 0.0;
-            v64.origin.x = v55.n64_f64[0];
-            v64.origin.y = v56;
-            v64.size.width = v57;
-            v64.size.height = v58;
-            v67 = CGRectApplyAffineTransform(v64, &v59);
-            v65.origin.x = v38.n64_f64[0];
-            v65.origin.y = v40;
-            v65.size.width = v42;
-            v65.size.height = v44;
-            if (CGRectContainsRect(v65, v67))
+            v44 = __sincos_stret(Rotation - v42);
+            v56.a = v44.__cosval;
+            v56.b = v44.__sinval;
+            v56.c = -v44.__sinval;
+            v56.d = v44.__cosval;
+            v56.tx = 0.0;
+            v56.ty = 0.0;
+            v61.origin.x = v52.n64_f64[0];
+            v61.origin.y = v53;
+            v61.size.width = v54;
+            v61.size.height = v55;
+            v64 = CGRectApplyAffineTransform(v61, &v56);
+            v62.origin.x = v34.n64_f64[0];
+            v62.origin.y = v36;
+            v62.size.width = v38;
+            v62.size.height = v40;
+            if (CGRectContainsRect(v62, v64))
             {
-              a3 = v54;
-              v25 = v53;
+              a3 = v51;
+              v21 = v50;
               goto LABEL_69;
             }
           }
         }
 
-        if (v61[0] == 1)
+        if (v58[0] == 1)
         {
-          a3 = v54;
-          v25 = v53;
+          a3 = v51;
+          v21 = v50;
           if (*a5)
           {
 LABEL_57:
-            v48 = v30;
-            while ((*(v48 + 1) & 3) == 0)
+            v45 = v26;
+            while ((*(v45 + 1) & 3) == 0)
             {
-              v48 = *(v48 + 8);
-              if (!v48)
+              v45 = *(v45 + 1);
+              if (!v45)
               {
                 goto LABEL_62;
               }
             }
 
-            v48 = *(v48 + 96);
+            v45 = *(v45 + 12);
 LABEL_62:
-            v49 = v27;
-            while ((*(v49 + 1) & 3) == 0)
+            v46 = v23;
+            while ((*(v46 + 1) & 3) == 0)
             {
-              v49 = *(v49 + 8);
-              if (!v49)
+              v46 = *(v46 + 1);
+              if (!v46)
               {
                 goto LABEL_67;
               }
             }
 
-            v49 = *(v49 + 96);
+            v46 = *(v46 + 12);
 LABEL_67:
-            if (v48 < v49)
+            if (v45 < v46)
             {
               goto LABEL_69;
             }
           }
 
 LABEL_68:
-          *a4 = v33;
-          *a5 = v61[0];
-          v27 = v30;
+          *a4 = v29;
+          *a5 = v58[0];
+          v23 = v26;
           goto LABEL_69;
         }
 
-        a3 = v54;
-        v25 = v53;
+        a3 = v51;
+        v21 = v50;
         if ((*a5 & 1) == 0)
         {
           goto LABEL_57;
         }
 
 LABEL_69:
-        if (++v26 == v25)
+        if (++v22 == v21)
         {
           goto LABEL_75;
         }
@@ -6428,37 +6434,37 @@ LABEL_69:
     }
   }
 
-  v27 = 0;
+  v23 = 0;
 LABEL_75:
-  v51 = v52;
-  if (v27)
+  v48 = v49;
+  if (v23)
   {
-    v51 = 0;
+    v48 = 0;
   }
 
-  if (v51)
+  if (v48)
   {
     goto LABEL_78;
   }
 
-  return v27;
+  return v23;
 }
 
-uint64_t CGPDFNodeIsDirectlyHitByPoint(uint64_t result, __n128 a2, __n128 a3, double a4)
+uint64_t CGPDFNodeIsDirectlyHitByPoint(uint64_t result, CGFloat a2, CGFloat a3, double a4)
 {
   if (result)
   {
     v5 = result;
     Rotation = CGPDFNodeGetRotation(result);
-    *&v7.x = a2.n128_u64[0];
-    *&v7.y = a3.n128_u64[0];
+    v7.x = a2;
+    v7.y = a3;
     point = v7;
     if (Rotation != 0.0)
     {
       v9 = __sincos_stret(Rotation);
       v8.f64[0] = v9.__cosval;
       v8.f64[1] = -v9.__sinval;
-      point = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(v9, point, 1), v8, a2.n128_f64[0]), 0);
+      point = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(v9, point, 1), v8, a2), 0);
     }
 
     v28.origin.x = CGPDFNodeGetHitTestRect(v5, a4);
@@ -6555,7 +6561,7 @@ uint64_t CGPDFNodeIsDirectlyHitByPoint(uint64_t result, __n128 a2, __n128 a3, do
   return result;
 }
 
-__n64 *CGPDFNodeGetNodeAfterPoint(__n64 *a1, uint64_t a2, uint64_t a3, double a4, double a5, double a6)
+__n64 *CGPDFNodeGetNodeAfterPoint(__n64 *a1, uint64_t a2, uint64_t a3, __n128 a4, __n128 a5, __n128 a6)
 {
   v10 = 0;
   result = CGPDFNodeGetClosestNodeToPoint(a1, a2, a3, &v10, a4, a5, a6);
@@ -6568,12 +6574,15 @@ __n64 *CGPDFNodeGetNodeAfterPoint(__n64 *a1, uint64_t a2, uint64_t a3, double a4
   return result;
 }
 
-__n64 *CGPDFNodeGetClosestNodeToPoint(__n64 *a1, unsigned int a2, unsigned int a3, BOOL *a4, double a5, double a6, double a7)
+__n64 *CGPDFNodeGetClosestNodeToPoint(__n64 *a1, unsigned int a2, unsigned int a3, BOOL *a4, __n128 a5, __n128 a6, __n128 a7)
 {
   FirstDescendantOfType = a1;
   *a4 = 1;
   if (a1)
   {
+    v9 = a7.n128_f64[0];
+    v10 = a6.n128_f64[0];
+    v11 = a5.n128_f64[0];
     if (a2 <= 1)
     {
       v13 = 1;
@@ -6597,7 +6606,7 @@ __n64 *CGPDFNodeGetClosestNodeToPoint(__n64 *a1, unsigned int a2, unsigned int a
     v15 = a1->n64_u32[0];
     if (a2 != 1538 && v15 == v13 || v14 && (v15 != 513 ? (v16 = (a1->n64_u32[0] & 0x100) == 0) : (v16 = 0), !v16))
     {
-      *a4 = CGPDFNodeIsAfterPoint(a1, a5, a6, a7);
+      *a4 = CGPDFNodeIsAfterPoint(a1, a5.n128_f64[0], a6.n128_f64[0], a7.n128_f64[0]);
       return FirstDescendantOfType;
     }
 
@@ -6666,7 +6675,7 @@ __n64 *CGPDFNodeGetClosestNodeToPoint(__n64 *a1, unsigned int a2, unsigned int a
           }
 
           v21 = NodeBefore;
-          if (!CGPDFNodeIsStrictlyAfterPoint(NodeBefore, a5, a6, a7))
+          if (!CGPDFNodeIsStrictlyAfterPoint(NodeBefore, v11, v10, v9))
           {
             goto LABEL_67;
           }
@@ -6726,7 +6735,7 @@ __n64 *CGPDFNodeGetClosestNodeToPoint(__n64 *a1, unsigned int a2, unsigned int a
             v66 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(v40, v66, 1), v38, v60), 0);
           }
 
-          if (!CGPDFNodeIsStrictlyAfterPoint(ClosestAreaDescendantToPoint, v63.f64[0], v63.f64[1], a7))
+          if (!CGPDFNodeIsStrictlyAfterPoint(ClosestAreaDescendantToPoint, v63.f64[0], v63.f64[1], v9))
           {
             goto LABEL_67;
           }
@@ -6741,7 +6750,7 @@ __n64 *CGPDFNodeGetClosestNodeToPoint(__n64 *a1, unsigned int a2, unsigned int a
           }
 
           v72.origin.x = CGPDFNodeGetBounds(v21).n64_f64[0];
-          v73 = CGRectInset(v72, -a7, -a7);
+          v73 = CGRectInset(v72, -v9, -v9);
           v44 = v73.origin.y - v42;
         }
 
@@ -6772,7 +6781,7 @@ __n64 *CGPDFNodeGetClosestNodeToPoint(__n64 *a1, unsigned int a2, unsigned int a
 
           v47 = (v21->n64_u8[1] & 2) != 0 && v21[5].n64_u32[1] > v46 - 1 ? *(v21[7].n64_u64[0] + 8 * (v46 - 1)) : 0;
           CGPDFNodeGetBounds(v47);
-          if (v42 >= v48 - a7)
+          if (v42 >= v48 - v9)
           {
             break;
           }
@@ -6811,12 +6820,12 @@ LABEL_67:
         }
       }
 
-      *a4 = CGPDFNodeIsAfterPoint(ClosestAreaDescendantToPoint, a5, a6, a7);
+      *a4 = CGPDFNodeIsAfterPoint(ClosestAreaDescendantToPoint, v11, v10, v9);
     }
 
     else
     {
-      ClosestAreaDescendantToPoint = CGPDFNodeGetClosestAreaDescendantToPoint(ClosestAreaDescendantToPoint, v13, v14, a4, a5, a6, a7);
+      ClosestAreaDescendantToPoint = CGPDFNodeGetClosestAreaDescendantToPoint(ClosestAreaDescendantToPoint, v13, v14, a4, v11, v10, v9);
     }
 
     if (!ClosestAreaDescendantToPoint)
@@ -6872,7 +6881,7 @@ LABEL_67:
   return FirstDescendantOfType;
 }
 
-uint64_t CGPDFNodeGetNodeAfter(_DWORD *a1, _DWORD *a2, uint64_t a3, uint64_t a4)
+_DWORD *CGPDFNodeGetNodeAfter(_DWORD *a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
   result = 0;
   if (!a1)
@@ -6888,7 +6897,7 @@ uint64_t CGPDFNodeGetNodeAfter(_DWORD *a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 
   while (v6)
   {
-    v9 = *(v6 + 8);
+    v9 = *(v6 + 1);
     if (v9 && (*(v9 + 1) & 2) != 0)
     {
       v10 = v9[11];
@@ -6904,7 +6913,7 @@ uint64_t CGPDFNodeGetNodeAfter(_DWORD *a1, _DWORD *a2, uint64_t a3, uint64_t a4)
       v13 = v6;
       do
       {
-        v13 = *(v13 + 8);
+        v13 = *(v13 + 1);
       }
 
       while (v13 != a1 && v13 != 0);
@@ -7392,7 +7401,7 @@ LABEL_109:
   return result;
 }
 
-__n64 *CGPDFNodeGetClosestAreaToPoint(__n64 *a1, uint64_t a2, uint64_t a3, BOOL *a4, BOOL *a5, double *a6, double *a7, double *a8, double a9, CGFloat a10, double a11, double *a12)
+__n64 *CGPDFNodeGetClosestAreaToPoint(__n64 *a1, uint64_t a2, uint64_t a3, BOOL *a4, BOOL *a5, double *a6, double *a7, double *a8, __n128 a9, __n128 a10, __n128 a11, double *a12)
 {
   *a4 = 1;
   *a5 = 0;
@@ -7406,6 +7415,9 @@ __n64 *CGPDFNodeGetClosestAreaToPoint(__n64 *a1, uint64_t a2, uint64_t a3, BOOL 
   }
 
   v15 = a5;
+  v17 = a11.n128_f64[0];
+  v18 = a10.n128_f64[0];
+  v19 = a9.n128_f64[0];
   v22 = a1->n64_u32[0];
   if (a1->n64_u32[0] == 516)
   {
@@ -7415,165 +7427,165 @@ __n64 *CGPDFNodeGetClosestAreaToPoint(__n64 *a1, uint64_t a2, uint64_t a3, BOOL 
       return v23;
     }
 
-    v137.origin.x = CGPDFNodeGetBounds(a1).n64_f64[0];
-    v138 = CGRectInset(v137, -a11, -a11);
-    x = v138.origin.x;
-    v25 = v138.origin.y - a10;
-    if (v138.origin.y - a10 > 0.0)
+    v136.origin.x = CGPDFNodeGetBounds(a1).n64_f64[0];
+    v137 = CGRectInset(v136, -v17, -v17);
+    x = v137.origin.x;
+    v25 = v137.origin.y - v18;
+    if (v137.origin.y - v18 > 0.0)
     {
       *a7 = -v25;
       *a4 = 0;
       return a1;
     }
 
-    v70 = v138.size.height + v25;
-    if (v70 < 0.0)
+    v69 = v137.size.height + v25;
+    if (v69 < 0.0)
     {
-      v71 = -v70;
+      v70 = -v69;
 LABEL_172:
-      *a7 = v71;
+      *a7 = v70;
       return a1;
     }
 
-    width = v138.size.width;
-    v73 = a6;
-    v122 = v15;
+    width = v137.size.width;
+    v72 = a6;
+    v121 = v15;
     if ((a1->n64_u8[1] & 2) != 0)
     {
-      v74 = a1[5].n64_u32[1];
+      v73 = a1[5].n64_u32[1];
     }
 
     else
     {
-      v74 = 0;
+      v73 = 0;
     }
 
-    ChildIndexAtX = CGPDFNodeGetChildIndexAtX(a1, a9);
-    if (ChildIndexAtX >= v74)
+    ChildIndexAtX = CGPDFNodeGetChildIndexAtX(a1, v19);
+    if (ChildIndexAtX >= v73)
     {
-      v76 = v74;
+      v75 = v73;
     }
 
     else
     {
-      v76 = ChildIndexAtX;
+      v75 = ChildIndexAtX;
     }
 
-    v77 = v76 - 1;
-    if (!v76)
+    v76 = v75 - 1;
+    if (!v75)
     {
-      v77 = 0;
+      v76 = 0;
     }
 
-    if (!v74)
+    if (!v73)
     {
-      v104 = x - a9;
-      if (width + x - a9 >= -(x - a9))
+      v103 = x - v19;
+      if (width + x - v19 >= -(x - v19))
       {
-        v104 = width + x - a9;
+        v103 = width + x - v19;
       }
 
-      *v73 = v104;
+      *v72 = v103;
       return a1;
     }
 
-    v126 = v77;
-    v128 = v76;
-    v78 = a8;
+    v125 = v76;
+    v127 = v75;
+    v77 = a8;
+    v78 = 0;
     v79 = 0;
-    v80 = 0;
     do
     {
-      v81 = v79;
+      v80 = v78;
       while (1)
       {
-        v82 = (a1->n64_u8[1] & 2) != 0 && v81 < a1[5].n64_u32[1] ? *(a1[7].n64_u64[0] + 8 * v81) : 0;
-        v147.origin.x = CGPDFNodeGetBounds(v82).n64_f64[0];
-        v148 = CGRectInset(v147, -a11, -a11);
-        v83 = v148.origin.x;
-        v84 = v148.origin.y > a10 || a10 > v148.origin.y + v148.size.height;
-        if (!v84 && v82 != 0 && (v82->n64_u8[1] & 2) != 0)
+        v81 = (a1->n64_u8[1] & 2) != 0 && v80 < a1[5].n64_u32[1] ? *(a1[7].n64_u64[0] + 8 * v80) : 0;
+        v146.origin.x = CGPDFNodeGetBounds(v81).n64_f64[0];
+        v147 = CGRectInset(v146, -v17, -v17);
+        v82 = v147.origin.x;
+        v83 = v147.origin.y > v18 || v18 > v147.origin.y + v147.size.height;
+        if (!v83 && v81 != 0 && (v81->n64_u8[1] & 2) != 0)
         {
-          v86 = v82[5].n64_u32[1];
-          if (v86)
+          v85 = v81[5].n64_u32[1];
+          if (v85)
           {
             break;
           }
         }
 
 LABEL_127:
-        if (++v81 == v74)
+        if (++v80 == v73)
         {
-          if ((v80 & 1) == 0)
+          if ((v79 & 1) == 0)
           {
-            v97 = x - a9;
-            if (width + x - a9 >= -(x - a9))
+            v96 = x - v19;
+            if (width + x - v19 >= -(x - v19))
             {
-              v97 = width + x - a9;
+              v96 = width + x - v19;
             }
 
-            *v73 = v97;
-            if ((a1->n64_u8[1] & 2) != 0 && a1[5].n64_u32[1] > v126)
+            *v72 = v96;
+            if ((a1->n64_u8[1] & 2) != 0 && a1[5].n64_u32[1] > v125)
             {
-              v98 = *(a1[7].n64_u64[0] + 8 * v126);
-              if (v98)
+              v97 = *(a1[7].n64_u64[0] + 8 * v125);
+              if (v97)
               {
-                if ((v98->n64_u8[1] & 2) != 0)
+                if ((v97->n64_u8[1] & 2) != 0)
                 {
-                  v99 = v98[5].n64_u32[1];
-                  if (v99)
+                  v98 = v97[5].n64_u32[1];
+                  if (v98)
                   {
-                    ChildIndexAtY = CGPDFNodeGetChildIndexAtY(v98, a10);
-                    if (ChildIndexAtY >= v99)
+                    ChildIndexAtY = CGPDFNodeGetChildIndexAtY(v97, v18);
+                    if (ChildIndexAtY >= v98)
                     {
-                      v101 = v99;
+                      v100 = v98;
                     }
 
                     else
                     {
-                      v101 = ChildIndexAtY;
+                      v100 = ChildIndexAtY;
                     }
 
-                    v102 = v101 - 1;
+                    v101 = v100 - 1;
                     if (!ChildIndexAtY)
+                    {
+                      v101 = 0;
+                    }
+
+                    if ((v97->n64_u8[1] & 2) != 0 && v97[5].n64_u32[1] > v101)
+                    {
+                      v102 = *(v97[7].n64_u64[0] + 8 * v101);
+                    }
+
+                    else
                     {
                       v102 = 0;
                     }
 
-                    if ((v98->n64_u8[1] & 2) != 0 && v98[5].n64_u32[1] > v102)
+                    v150.origin.x = CGPDFNodeGetBounds(v102).n64_f64[0];
+                    v151 = CGRectInset(v150, -v17, -v17);
+                    v106 = v151.origin.x - v19;
+                    v107 = v151.origin.y - v18;
+                    if (v106 < 0.0)
                     {
-                      v103 = *(v98[7].n64_u64[0] + 8 * v102);
+                      v106 = v151.size.width + v106;
+                      if (v106 > 0.0)
+                      {
+                        v106 = 0.0;
+                      }
                     }
 
-                    else
-                    {
-                      v103 = 0;
-                    }
-
-                    v151.origin.x = CGPDFNodeGetBounds(v103).n64_f64[0];
-                    v152 = CGRectInset(v151, -a11, -a11);
-                    v107 = v152.origin.x - a9;
-                    v108 = v152.origin.y - a10;
                     if (v107 < 0.0)
                     {
-                      v107 = v152.size.width + v107;
+                      v107 = v151.size.height + v107;
                       if (v107 > 0.0)
                       {
                         v107 = 0.0;
                       }
                     }
 
-                    if (v108 < 0.0)
-                    {
-                      v108 = v152.size.height + v108;
-                      if (v108 > 0.0)
-                      {
-                        v108 = 0.0;
-                      }
-                    }
-
-                    *v78 = v107;
-                    *a12 = -v108;
+                    *v77 = v106;
+                    *a12 = -v107;
                   }
                 }
               }
@@ -7584,90 +7596,90 @@ LABEL_127:
         }
       }
 
-      v87 = v148.size.width;
-      v88 = 0;
+      v86 = v147.size.width;
+      v87 = 0;
       while (1)
       {
-        v89 = (v82->n64_u8[1] & 2) != 0 && v88 < v82[5].n64_u32[1] ? *(v82[7].n64_u64[0] + 8 * v88) : 0;
-        v149.origin.x = CGPDFNodeGetBounds(v89).n64_f64[0];
-        v150 = CGRectInset(v149, -a11, -a11);
-        v90 = v150.origin.y + v150.size.height;
-        if (v150.origin.y <= a10 && a10 <= v90)
+        v88 = (v81->n64_u8[1] & 2) != 0 && v87 < v81[5].n64_u32[1] ? *(v81[7].n64_u64[0] + 8 * v87) : 0;
+        v148.origin.x = CGPDFNodeGetBounds(v88).n64_f64[0];
+        v149 = CGRectInset(v148, -v17, -v17);
+        v89 = v149.origin.y + v149.size.height;
+        if (v149.origin.y <= v18 && v18 <= v89)
         {
           break;
         }
 
-        if (v86 == ++v88)
+        if (v85 == ++v87)
         {
           goto LABEL_127;
         }
       }
 
-      v92 = v83 - a9;
-      if (v83 - a9 < 0.0)
+      v91 = v82 - v19;
+      if (v82 - v19 < 0.0)
       {
-        v92 = v87 + v92;
+        v91 = v86 + v91;
+        if (v91 > 0.0)
+        {
+          v91 = 0.0;
+        }
+      }
+
+      v92 = v149.origin.x - v19;
+      if (v92 < 0.0)
+      {
+        v92 = v149.size.width + v92;
         if (v92 > 0.0)
         {
           v92 = 0.0;
         }
       }
 
-      v93 = v150.origin.x - a9;
-      if (v93 < 0.0)
+      if ((v79 & 1) == 0 || (v93 = fabs(v91), v94 = fabs(*v72), v93 < v94) || v93 == v94 && fabs(v92) < fabs(*a8))
       {
-        v93 = v150.size.width + v93;
-        if (v93 > 0.0)
-        {
-          v93 = 0.0;
-        }
+        *v72 = v91;
+        *a8 = v92;
       }
 
-      if ((v80 & 1) == 0 || (v94 = fabs(v92), v95 = fabs(*v73), v94 < v95) || v94 == v95 && fabs(v93) < fabs(*a8))
-      {
-        *v73 = v92;
-        *a8 = v93;
-      }
-
-      v79 = v81 + 1;
-      v80 = 1;
+      v78 = v80 + 1;
+      v79 = 1;
     }
 
-    while (v92 < 0.0 && v79 != v74);
+    while (v91 < 0.0 && v78 != v73);
 LABEL_183:
-    v109 = 1;
-    *v122 = 1;
-    if (v128 <= 1)
+    v108 = 1;
+    *v121 = 1;
+    if (v127 <= 1)
     {
       if ((a1->n64_u8[1] & 2) != 0 && a1[5].n64_u32[1])
       {
-        v110 = *a1[7].n64_u64[0];
+        v109 = *a1[7].n64_u64[0];
       }
 
       else
       {
-        v110 = 0;
+        v109 = 0;
       }
 
-      CGPDFNodeGetBounds(v110);
-      if (a10 > v111 + v112 + a11)
+      CGPDFNodeGetBounds(v109);
+      if (v18 > v110 + v111 + v17)
       {
 LABEL_197:
-        *v122 = 0;
+        *v121 = 0;
         return a1;
       }
 
-      v109 = *v122;
+      v108 = *v121;
     }
 
-    if ((v109 & 1) == 0 || v126 + 1 != v74)
+    if ((v108 & 1) == 0 || v125 + 1 != v73)
     {
       return a1;
     }
 
-    v113 = (a1->n64_u8[1] & 2) != 0 && a1[5].n64_u32[1] > v126 ? *(a1[7].n64_u64[0] + 8 * v126) : 0;
-    CGPDFNodeGetBounds(v113);
-    if (a10 >= v114 - a11)
+    v112 = (a1->n64_u8[1] & 2) != 0 && a1[5].n64_u32[1] > v125 ? *(a1[7].n64_u64[0] + 8 * v125) : 0;
+    CGPDFNodeGetBounds(v112);
+    if (v18 >= v113 - v17)
     {
       return a1;
     }
@@ -7681,37 +7693,37 @@ LABEL_197:
     v28 = v22 != a2 && a3 == 0;
     if (!v28 && (CGPDFNodeIsUsedGraphic(a1) & 1) == 0)
     {
-      v139.origin.x = CGPDFNodeGetBounds(a1).n64_f64[0];
-      v29 = v139.origin.x;
-      v30 = v139.size.width;
-      v140 = CGRectInset(v139, -a11, -a11);
-      v31 = v140.origin.x - a9;
-      v32 = v140.origin.y - a10;
+      v138.origin.x = CGPDFNodeGetBounds(a1).n64_f64[0];
+      v29 = v138.origin.x;
+      v30 = v138.size.width;
+      v139 = CGRectInset(v138, -v17, -v17);
+      v31 = v139.origin.x - v19;
+      v32 = v139.origin.y - v18;
       if (v31 < 0.0)
       {
-        v31 = v140.size.width + v31;
+        v31 = v139.size.width + v31;
         if (v31 > 0.0)
         {
           v31 = 0.0;
         }
       }
 
-      if (v32 >= 0.0 || (v32 = v140.size.height + v32, v33 = 0.0, v32 <= 0.0))
+      if (v32 >= 0.0 || (v32 = v139.size.height + v32, v33 = 0.0, v32 <= 0.0))
       {
         if (v32 < 0.0)
         {
           v34 = 1;
 LABEL_169:
           *a4 = v34;
-          v105 = v31 == 0.0;
+          v104 = v31 == 0.0;
           if (v32 != 0.0)
           {
-            v105 = 0;
+            v104 = 0;
           }
 
-          *v15 = v105;
+          *v15 = v104;
           *a6 = v31;
-          v71 = -v32;
+          v70 = -v32;
           goto LABEL_172;
         }
 
@@ -7724,7 +7736,7 @@ LABEL_169:
         v33 = v32;
       }
 
-      v34 = a9 <= v29 + v30 * 0.5;
+      v34 = v19 <= v29 + v30 * 0.5;
       v32 = v33;
       goto LABEL_169;
     }
@@ -7739,16 +7751,16 @@ LABEL_169:
 
   if ((v22 & 0x400) != 0 && (v35 = a1[13].n64_u64[0]) != 0 && *v35 == 3)
   {
-    v141.origin.x = CGPDFNodeGetBounds(a1).n64_f64[0];
-    v135.x = a9;
-    v135.y = a10;
-    v125 = CGRectContainsPoint(v141, v135);
+    v140.origin.x = CGPDFNodeGetBounds(a1).n64_f64[0];
+    v134.x = v19;
+    v134.y = v18;
+    v124 = CGRectContainsPoint(v140, v134);
     v22 = a1->n64_u32[0];
   }
 
   else
   {
-    v125 = 0;
+    v124 = 0;
   }
 
   if ((v22 & 0x200) == 0)
@@ -7756,18 +7768,18 @@ LABEL_169:
     return 0;
   }
 
-  v127 = a1[5].n64_u32[1];
-  if (!v127)
+  v126 = a1[5].n64_u32[1];
+  if (!v126)
   {
     return 0;
   }
 
-  v123 = a8;
-  v124 = a6;
+  v122 = a8;
+  v123 = a6;
   v36 = 0;
   v37 = 0;
   v23 = 0;
-  v121 = v15;
+  v120 = v15;
   do
   {
     v38 = v23;
@@ -7781,18 +7793,18 @@ LABEL_169:
       v39 = 0;
     }
 
-    *v134 = 0;
-    v133 = 0.0;
-    v131 = 0.0;
+    *v133 = 0;
     v132 = 0.0;
     v130 = 0.0;
-    if (((!v125 | v37) & 1) == 0)
+    v131 = 0.0;
+    v129 = 0.0;
+    if (((!v124 | v37) & 1) == 0)
     {
-      v142.origin.x = CGPDFNodeGetBounds(v39).n64_f64[0];
-      v136.x = a9;
-      v136.y = a10;
+      v141.origin.x = CGPDFNodeGetBounds(v39).n64_f64[0];
+      v135.x = v19;
+      v135.y = v18;
       v37 = 0;
-      if (!CGRectContainsPoint(v142, v136))
+      if (!CGRectContainsPoint(v141, v135))
       {
         goto LABEL_85;
       }
@@ -7803,21 +7815,24 @@ LABEL_169:
       goto LABEL_85;
     }
 
-    ClosestAreaToPoint = CGPDFNodeGetClosestAreaToPoint(v39, a2, a3, &v134[1], v134, &v133, &v132, &v131, a9, a10, a11, &v130);
-    v37 = !ClosestAreaToPoint && v125;
+    a9.n128_f64[0] = v19;
+    a10.n128_f64[0] = v18;
+    a11.n128_f64[0] = v17;
+    ClosestAreaToPoint = CGPDFNodeGetClosestAreaToPoint(v39, a2, a3, &v133[1], v133, &v132, &v131, &v130, a9, a10, a11, &v129);
+    v37 = !ClosestAreaToPoint && v124;
     if (!ClosestAreaToPoint)
     {
       goto LABEL_85;
     }
 
     v23 = ClosestAreaToPoint;
-    v41 = v132;
+    v41 = v131;
     if (!v38)
     {
       goto LABEL_46;
     }
 
-    v42 = fabs(v132);
+    v42 = fabs(v131);
     v43 = fabs(*a7);
     if (v42 < v43)
     {
@@ -7829,72 +7844,72 @@ LABEL_169:
       goto LABEL_84;
     }
 
-    v120 = v38->n64_u32[0];
+    v119 = v38->n64_u32[0];
     v45 = ClosestAreaToPoint->n64_u32[0];
     v37 = ClosestAreaToPoint->n64_u32[0] == 516;
-    v116.n64_u64[0] = CGPDFNodeGetBounds(v38).n64_u64[0];
-    v117 = v46;
-    v118 = v47;
-    v119 = v48;
+    v115.n64_u64[0] = CGPDFNodeGetBounds(v38).n64_u64[0];
+    v116 = v46;
+    v117 = v47;
+    v118 = v48;
     v49.n64_u64[0] = CGPDFNodeGetBounds(v23).n64_u64[0];
     v51 = v50;
     v53 = v52;
     rect = v54;
     Rotation = CGPDFNodeGetRotation(v38);
-    v56 = CGPDFNodeGetRotation(v23);
-    if (v120 != 516)
+    a9.n128_f64[0] = CGPDFNodeGetRotation(v23);
+    if (v119 != 516)
     {
-      v57 = 1;
-      if (v134[0] == 1)
+      v56 = 1;
+      if (v133[0] == 1)
       {
         v27 = v45 == 516;
-        v15 = v121;
+        v15 = v120;
         if (v27)
         {
-          v58 = __sincos_stret(v56 - Rotation);
-          v129.a = v58.__cosval;
-          v129.b = v58.__sinval;
-          v129.c = -v58.__sinval;
-          v129.d = v58.__cosval;
-          v129.tx = 0.0;
-          v129.ty = 0.0;
-          v143.origin.x = v49.n64_f64[0];
-          v143.origin.y = v51;
-          v143.size.width = v53;
-          v143.size.height = rect;
-          v153 = CGRectApplyAffineTransform(v143, &v129);
-          v144.origin.x = v116.n64_f64[0];
-          v144.origin.y = v117;
-          v144.size.width = v118;
-          v144.size.height = v119;
-          if (CGRectContainsRect(v144, v153))
+          v57 = __sincos_stret(a9.n128_f64[0] - Rotation);
+          v128.a = v57.__cosval;
+          v128.b = v57.__sinval;
+          v128.c = -v57.__sinval;
+          v128.d = v57.__cosval;
+          v128.tx = 0.0;
+          v128.ty = 0.0;
+          v142.origin.x = v49.n64_f64[0];
+          v142.origin.y = v51;
+          v142.size.width = v53;
+          v142.size.height = rect;
+          v152 = CGRectApplyAffineTransform(v142, &v128);
+          v143.origin.x = v115.n64_f64[0];
+          v143.origin.y = v116;
+          v143.size.width = v117;
+          v143.size.height = v118;
+          if (CGRectContainsRect(v143, v152))
           {
             goto LABEL_46;
           }
 
           v37 = 1;
-          v57 = 1;
+          v56 = 1;
         }
 
 LABEL_58:
-        if (v130 == 0.0)
+        if (v129 == 0.0)
         {
-          v61 = *v124;
+          v60 = *v123;
         }
 
         else
         {
-          v61 = *v124;
-          if (*a12 != 0.0 && fabs(v131) < fabs(v61) && fabs(*v123) < fabs(v133))
+          v60 = *v123;
+          if (*a12 != 0.0 && fabs(v130) < fabs(v60) && fabs(*v122) < fabs(v132))
           {
-            v62 = fabs(v130);
-            v63 = fabs(*a12);
-            if (v62 < v63)
+            v61 = fabs(v129);
+            v62 = fabs(*a12);
+            if (v61 < v62)
             {
               goto LABEL_46;
             }
 
-            if (v62 != v63)
+            if (v61 != v62)
             {
 LABEL_84:
               v37 = 0;
@@ -7903,27 +7918,27 @@ LABEL_84:
           }
         }
 
-        v64 = fabs(v133);
-        v65 = fabs(v61);
-        if (v64 < v65)
+        v63 = fabs(v132);
+        v64 = fabs(v60);
+        if (v63 < v64)
         {
           goto LABEL_46;
         }
 
-        if (v64 == v65)
+        if (v63 == v64)
         {
-          v66 = fabs(v131);
-          v67 = fabs(*v123);
-          if (v66 < v67)
+          v65 = fabs(v130);
+          v66 = fabs(*v122);
+          if (v65 < v66)
           {
             goto LABEL_46;
           }
 
-          if (v66 == v67)
+          if (v65 == v66)
           {
-            if ((v37 | v57 ^ 1))
+            if ((v37 | v56 ^ 1))
             {
-              if ((v37 | v57) == 1)
+              if ((v37 | v56) == 1)
               {
                 goto LABEL_46;
               }
@@ -7931,40 +7946,40 @@ LABEL_84:
 
             else
             {
-              v68 = v23;
-              while ((v68->n64_u8[1] & 3) == 0)
+              v67 = v23;
+              while ((v67->n64_u8[1] & 3) == 0)
               {
-                v68 = v68[1].n64_u64[0];
-                if (!v68)
+                v67 = v67[1].n64_u64[0];
+                if (!v67)
                 {
                   goto LABEL_78;
                 }
               }
 
-              v68 = v68[12].n64_u64[0];
+              v67 = v67[12].n64_u64[0];
 LABEL_78:
-              v69 = v38;
-              while ((v69->n64_u8[1] & 3) == 0)
+              v68 = v38;
+              while ((v68->n64_u8[1] & 3) == 0)
               {
-                v69 = v69[1].n64_u64[0];
-                if (!v69)
+                v68 = v68[1].n64_u64[0];
+                if (!v68)
                 {
                   goto LABEL_83;
                 }
               }
 
-              v69 = v69[12].n64_u64[0];
+              v68 = v68[12].n64_u64[0];
 LABEL_83:
-              if (v68 >= v69)
+              if (v67 >= v68)
               {
 LABEL_46:
                 v37 = 0;
-                *a4 = v134[1];
-                *v15 = v134[0];
-                *v124 = v133;
+                *a4 = v133[1];
+                *v15 = v133[0];
+                *v123 = v132;
                 *a7 = v41;
-                v44 = v130;
-                *v123 = v131;
+                v44 = v129;
+                *v122 = v130;
                 *a12 = v44;
                 goto LABEL_86;
               }
@@ -7976,38 +7991,38 @@ LABEL_46:
       }
 
 LABEL_56:
-      v15 = v121;
+      v15 = v120;
       goto LABEL_58;
     }
 
     if (v45 == 516)
     {
       v37 = 0;
-      v57 = 1;
+      v56 = 1;
       goto LABEL_56;
     }
 
-    v59 = __sincos_stret(Rotation - v56);
-    v129.a = v59.__cosval;
-    v129.b = v59.__sinval;
-    v129.c = -v59.__sinval;
-    v129.d = v59.__cosval;
-    v129.tx = 0.0;
-    v129.ty = 0.0;
-    v145.origin.x = v116.n64_f64[0];
-    v145.origin.y = v117;
-    v145.size.width = v118;
-    v145.size.height = v119;
-    v154 = CGRectApplyAffineTransform(v145, &v129);
-    v146.origin.x = v49.n64_f64[0];
-    v146.origin.y = v51;
-    v146.size.width = v53;
-    v146.size.height = rect;
-    v60 = CGRectContainsRect(v146, v154);
+    v58 = __sincos_stret(Rotation - a9.n128_f64[0]);
+    v128.a = v58.__cosval;
+    v128.b = v58.__sinval;
+    v128.c = -v58.__sinval;
+    v128.d = v58.__cosval;
+    v128.tx = 0.0;
+    v128.ty = 0.0;
+    v144.origin.x = v115.n64_f64[0];
+    v144.origin.y = v116;
+    v144.size.width = v117;
+    v144.size.height = v118;
+    v153 = CGRectApplyAffineTransform(v144, &v128);
+    v145.origin.x = v49.n64_f64[0];
+    v145.origin.y = v51;
+    v145.size.width = v53;
+    v145.size.height = rect;
+    v59 = CGRectContainsRect(v145, v153);
     v37 = 0;
-    v57 = 0;
-    v15 = v121;
-    if (!v60)
+    v56 = 0;
+    v15 = v120;
+    if (!v59)
     {
       goto LABEL_58;
     }
@@ -8018,13 +8033,13 @@ LABEL_86:
     ++v36;
   }
 
-  while (v36 != v127);
-  if (v23 != 0 && v125)
+  while (v36 != v126);
+  if (v23 != 0 && v124)
   {
     *v15 = 1;
-    *v124 = 0.0;
-    *a7 = 0.0;
     *v123 = 0.0;
+    *a7 = 0.0;
+    *v122 = 0.0;
     *a12 = 0.0;
   }
 
@@ -8179,7 +8194,7 @@ LABEL_38:
   return result;
 }
 
-uint64_t CGPDFNodeIsStrictlyAfterPoint(__n64 *a1, double a2, float64_t a3, double a4)
+BOOL CGPDFNodeIsStrictlyAfterPoint(__n64 *a1, double a2, float64_t a3, double a4)
 {
   Rotation = CGPDFNodeGetRotation(a1);
   v7.f64[0] = a2;
@@ -8252,7 +8267,7 @@ uint64_t CGPDFNodeIsStrictlyAfterPoint(__n64 *a1, double a2, float64_t a3, doubl
   return v18.f64[1] > v14 + v15 + a4;
 }
 
-uint64_t CGPDFNodeGetClosestAreaDescendantToPoint(__n64 *a1, uint64_t a2, int a3, _BYTE *a4, double a5, double a6, double a7)
+int *CGPDFNodeGetClosestAreaDescendantToPoint(__n64 *a1, uint64_t a2, int a3, _BYTE *a4, double a5, double a6, double a7)
 {
   v7 = a1;
   *a4 = 1;
@@ -9300,11 +9315,15 @@ uint64_t CGPDFNodeGetTextIndexBeforePoint(_DWORD *a1, CGFloat a2, CGFloat a3, do
   return result;
 }
 
-void CGPDFNodeGetNodeRangeBetweenPoints(__n64 *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, BOOL *a6, uint64_t *a7, double a8, double a9, double a10, double a11, double a12)
+void CGPDFNodeGetNodeRangeBetweenPoints(__n64 *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, BOOL *a6, uint64_t *a7, __n128 a8, __n128 a9, __n128 a10, CGFloat a11, double a12)
 {
-  v83 = 0;
-  ClosestNodeToPoint = CGPDFNodeGetClosestNodeToPoint(a1, a2, a3, &v83, a8, a9, a12);
-  if (v83)
+  v18 = a10.n128_f64[0];
+  v19 = a9.n128_f64[0];
+  v20 = a8.n128_f64[0];
+  v74 = 0;
+  a10.n128_f64[0] = a12;
+  ClosestNodeToPoint = CGPDFNodeGetClosestNodeToPoint(a1, a2, a3, &v74, a8, a9, a10);
+  if (v74)
   {
     NodeBefore = CGPDFNodeGetNodeBefore(a1, ClosestNodeToPoint, a2, a3);
     NodeAfter = ClosestNodeToPoint;
@@ -9316,15 +9335,15 @@ void CGPDFNodeGetNodeRangeBetweenPoints(__n64 *a1, uint64_t a2, uint64_t a3, uin
     NodeBefore = ClosestNodeToPoint;
   }
 
-  v86 = NodeAfter;
+  v77 = NodeAfter;
   for (i = NodeBefore; ClosestNodeToPoint; ClosestNodeToPoint = ClosestNodeToPoint[1].n64_u64[0])
   {
     if (ClosestNodeToPoint->n64_u32[0] == 1538)
     {
-      v26 = ClosestNodeToPoint[13].n64_u64[0];
-      if (v26)
+      v29 = ClosestNodeToPoint[13].n64_u64[0];
+      if (v29)
       {
-        if (*v26 == 2)
+        if (*v29 == 2)
         {
           break;
         }
@@ -9332,28 +9351,31 @@ void CGPDFNodeGetNodeRangeBetweenPoints(__n64 *a1, uint64_t a2, uint64_t a3, uin
     }
   }
 
-  v27 = CGPDFNodeGetClosestNodeToPoint(a1, a2, a3, &v83, a10, a11, a12);
-  if (v83)
+  v25.n128_f64[0] = v18;
+  v26.n128_f64[0] = a11;
+  v27.n128_f64[0] = a12;
+  v30 = CGPDFNodeGetClosestNodeToPoint(a1, a2, a3, &v74, v25, v26, v27);
+  if (v74)
   {
-    v28 = CGPDFNodeGetNodeBefore(a1, v27, a2, a3);
-    v31 = v27;
+    v31 = CGPDFNodeGetNodeBefore(a1, v30, a2, a3);
+    v32 = v30;
   }
 
   else
   {
-    v31 = CGPDFNodeGetNodeAfter(a1, v27, a2, a3);
-    v28 = v27;
+    v32 = CGPDFNodeGetNodeAfter(a1, v30, a2, a3);
+    v31 = v30;
   }
 
-  v84 = v31;
-  for (j = v28; v27; v27 = v27[1].n64_u64[0])
+  v75 = v32;
+  for (j = v31; v30; v30 = v30[1].n64_u64[0])
   {
-    if (v27->n64_u32[0] == 1538)
+    if (v30->n64_u32[0] == 1538)
     {
-      v32 = v27[13].n64_u64[0];
-      if (v32)
+      v33 = v30[13].n64_u64[0];
+      if (v33)
       {
-        if (*v32 == 2)
+        if (*v33 == 2)
         {
           break;
         }
@@ -9361,35 +9383,33 @@ void CGPDFNodeGetNodeRangeBetweenPoints(__n64 *a1, uint64_t a2, uint64_t a3, uin
     }
   }
 
-  if (ClosestNodeToPoint == v27)
+  if (ClosestNodeToPoint == v30)
   {
     if (ClosestNodeToPoint)
     {
-      v38 = ClosestNodeToPoint;
+      v39 = ClosestNodeToPoint;
     }
 
     else
     {
-      v38 = a1;
+      v39 = a1;
     }
 
-    v29.n128_f64[0] = a8;
-    v30.n128_f64[0] = a9;
-    CGPDFNodeMakeLayoutAreasConsistent(v38, a2, a3, &i, &v86, &j, &v84, v29, v30, a10, a11, a12);
-    NodeAfter = v86;
-    v31 = v84;
-    if (v86)
+    CGPDFNodeMakeLayoutAreasConsistent(v39, a2, a3, &i, &v77, &j, &v75, v20, v19, v18, a11, a12);
+    NodeAfter = v77;
+    v32 = v75;
+    if (v77)
     {
       goto LABEL_19;
     }
 
 LABEL_29:
-    v36 = i;
-    v33 = a7;
-    if (v31)
+    v37 = i;
+    v34 = a7;
+    if (v32)
     {
       *a6 = 0;
-      v37 = v36;
+      v38 = v37;
       goto LABEL_31;
     }
 
@@ -9402,164 +9422,144 @@ LABEL_29:
   }
 
 LABEL_19:
-  v33 = a7;
-  if (!v31 || (v34 = CGPDFNodeCompareReadingOrder(NodeAfter, v31), v34 == -1))
+  v34 = a7;
+  if (!v32 || (v35 = CGPDFNodeCompareReadingOrder(NodeAfter, v32), v35 == -1))
   {
     *a6 = 1;
-    v36 = i;
-    v29.n128_f64[0] = a8;
-    v30.n128_f64[0] = a9;
-    if (CGPDFNodeIsHitByPoint(i, v29, v30, a12))
+    v37 = i;
+    if (CGPDFNodeIsHitByPoint(i, v20, v19, a12))
     {
-      v43 = v36;
+      v42 = v37;
     }
 
     else
     {
-      v43 = NodeAfter;
+      v42 = NodeAfter;
     }
 
-    *a4 = v43;
-    v41.n128_f64[0] = a10;
-    v42.n128_f64[0] = a11;
-    if (CGPDFNodeIsHitByPoint(v31, v41, v42, a12))
+    *a4 = v42;
+    if (CGPDFNodeIsHitByPoint(v32, v18, a11, a12))
     {
-      v39 = a5;
+      v40 = a5;
 LABEL_38:
-      *v39 = v31;
+      *v40 = v32;
       goto LABEL_83;
     }
 
-    v39 = a5;
+    v40 = a5;
     *a5 = j;
     goto LABEL_83;
   }
 
-  if (v34 == 1)
+  if (v35 == 1)
   {
     *a6 = 0;
-    v29.n128_f64[0] = a8;
-    v30.n128_f64[0] = a9;
-    IsHitByPoint = CGPDFNodeIsHitByPoint(NodeAfter, v29, v30, a12);
-    v36 = i;
+    IsHitByPoint = CGPDFNodeIsHitByPoint(NodeAfter, v20, v19, a12);
+    v37 = i;
     if (IsHitByPoint)
     {
-      v37 = NodeAfter;
+      v38 = NodeAfter;
     }
 
     else
     {
-      v37 = i;
+      v38 = i;
     }
 
 LABEL_31:
-    v39 = a5;
-    *a4 = v37;
-    v40 = j;
-    v29.n128_f64[0] = a10;
-    v30.n128_f64[0] = a11;
-    if (CGPDFNodeIsHitByPoint(j, v29, v30, a12))
+    v40 = a5;
+    *a4 = v38;
+    v41 = j;
+    if (CGPDFNodeIsHitByPoint(j, v18, a11, a12))
     {
-      *a5 = v40;
+      *a5 = v41;
       goto LABEL_83;
     }
 
     goto LABEL_38;
   }
 
-  v36 = i;
+  v37 = i;
 LABEL_41:
-  v39 = a5;
-  v29.n128_f64[0] = a8;
-  v30.n128_f64[0] = a9;
-  if (CGPDFNodeIsHitByPoint(v36, v29, v30, a12))
+  v40 = a5;
+  if (CGPDFNodeIsHitByPoint(v37, v20, v19, a12))
   {
-    *a4 = v36;
-    v44.n128_f64[0] = a10;
-    v45.n128_f64[0] = a11;
-    v46 = CGPDFNodeIsHitByPoint(v36, v44, v45, a12);
-    v49 = v36;
-    if (v46)
+    *a4 = v37;
+    v43 = CGPDFNodeIsHitByPoint(v37, v18, a11, a12);
+    v44 = v37;
+    if (v43)
     {
       goto LABEL_43;
     }
 
     *a6 = 1;
-    v47.n128_f64[0] = a10;
-    v48.n128_f64[0] = a11;
-    if (CGPDFNodeIsHitByPoint(NodeAfter, v47, v48, a12))
+    if (CGPDFNodeIsHitByPoint(NodeAfter, v18, a11, a12))
     {
       *a5 = NodeAfter;
     }
 
     else
     {
-      *a5 = v36;
+      *a5 = v37;
     }
   }
 
   else
   {
-    v44.n128_f64[0] = a10;
-    v45.n128_f64[0] = a11;
-    if (!CGPDFNodeIsHitByPoint(v36, v44, v45, a12))
+    if (!CGPDFNodeIsHitByPoint(v37, v18, a11, a12))
     {
-      v58.n128_f64[0] = a8;
-      v59.n128_f64[0] = a9;
-      if (CGPDFNodeIsHitByPoint(NodeAfter, v58, v59, a12))
+      if (CGPDFNodeIsHitByPoint(NodeAfter, v20, v19, a12))
       {
         *a4 = NodeAfter;
         *a5 = NodeAfter;
-        v60.n128_f64[0] = a10;
-        v61.n128_f64[0] = a11;
-        if ((CGPDFNodeIsHitByPoint(NodeAfter, v60, v61, a12) & 1) == 0)
+        if ((CGPDFNodeIsHitByPoint(NodeAfter, v18, a11, a12) & 1) == 0)
         {
           *a6 = 0;
           goto LABEL_83;
         }
 
 LABEL_44:
-        v50 = *a4;
+        v45 = *a4;
         if (*a4)
         {
-          v51 = *v50;
-          Rotation = CGPDFNodeGetRotation(v50);
+          v46 = *v45;
+          Rotation = CGPDFNodeGetRotation(v45);
           if (Rotation != 0.0)
           {
 LABEL_46:
-            v53 = __sincos_stret(Rotation);
-            v54 = a9 * v53.__sinval + v53.__cosval * a8 + 0.0;
-            v55 = a9 * v53.__cosval - v53.__sinval * a8 + 0.0;
-            v56 = a11 * v53.__sinval + v53.__cosval * a10 + 0.0;
-            v57 = a11 * v53.__cosval - v53.__sinval * a10 + 0.0;
+            v48 = __sincos_stret(Rotation);
+            v49 = v19 * v48.__sinval + v48.__cosval * v20 + 0.0;
+            v50 = v19 * v48.__cosval - v48.__sinval * v20 + 0.0;
+            v51 = a11 * v48.__sinval + v48.__cosval * v18 + 0.0;
+            v52 = a11 * v48.__cosval - v48.__sinval * v18 + 0.0;
 LABEL_70:
-            if (v51 == 1 || v51 == 516 || v51 == 514)
+            if (v46 == 1 || v46 == 516 || v46 == 514)
             {
-              if (v54 >= v56)
+              if (v49 >= v51)
               {
-                v65 = v54 == v56;
-                if (v55 < v57)
+                v56 = v49 == v51;
+                if (v50 < v52)
                 {
-                  v65 = 0;
+                  v56 = 0;
                 }
 
                 goto LABEL_82;
               }
 
 LABEL_79:
-              v65 = 1;
+              v56 = 1;
 LABEL_82:
-              *a6 = v65;
+              *a6 = v56;
               goto LABEL_83;
             }
 
 LABEL_78:
-            if (v55 <= v57)
+            if (v50 <= v52)
             {
-              v65 = v55 == v57;
-              if (v54 > v56)
+              v56 = v50 == v52;
+              if (v49 > v51)
               {
-                v65 = 0;
+                v56 = 0;
               }
 
               goto LABEL_82;
@@ -9571,109 +9571,105 @@ LABEL_78:
           goto LABEL_69;
         }
 
-        if (v36)
+        if (v37)
         {
-          v51 = *v36;
+          v46 = *v37;
           if (NodeAfter)
           {
 LABEL_57:
-            v62 = *NodeAfter;
+            v53 = *NodeAfter;
             goto LABEL_65;
           }
         }
 
         else
         {
-          v51 = 0;
+          v46 = 0;
           if (NodeAfter)
           {
             goto LABEL_57;
           }
         }
 
-        v62 = 0;
+        v53 = 0;
 LABEL_65:
-        if (v51 != v62)
+        if (v46 != v53)
         {
-          v54 = a8;
-          v55 = a9;
-          v56 = a10;
-          v57 = a11;
+          v49 = v20;
+          v50 = v19;
+          v51 = v18;
+          v52 = a11;
           goto LABEL_78;
         }
 
-        v63 = CGPDFNodeGetRotation(v36);
-        if (v63 != 0.0)
+        v54 = CGPDFNodeGetRotation(v37);
+        if (v54 != 0.0)
         {
-          v64 = v63;
-          if (v63 == CGPDFNodeGetRotation(NodeAfter))
+          v55 = v54;
+          if (v54 == CGPDFNodeGetRotation(NodeAfter))
           {
-            Rotation = v64;
+            Rotation = v55;
             goto LABEL_46;
           }
         }
 
 LABEL_69:
-        v57 = a11;
-        v56 = a10;
-        v55 = a9;
-        v54 = a8;
+        v52 = a11;
+        v51 = v18;
+        v50 = v19;
+        v49 = v20;
         goto LABEL_70;
       }
 
-      v60.n128_f64[0] = a10;
-      v61.n128_f64[0] = a11;
-      if (CGPDFNodeIsHitByPoint(NodeAfter, v60, v61, a12))
+      if (CGPDFNodeIsHitByPoint(NodeAfter, v18, a11, a12))
       {
         *a4 = NodeAfter;
         *a5 = NodeAfter;
         goto LABEL_79;
       }
 
-      v49 = 0;
+      v44 = 0;
       *a4 = 0;
 LABEL_43:
-      *a5 = v49;
+      *a5 = v44;
       goto LABEL_44;
     }
 
-    *a5 = v36;
+    *a5 = v37;
     *a6 = 0;
-    v58.n128_f64[0] = a8;
-    v59.n128_f64[0] = a9;
-    if (CGPDFNodeIsHitByPoint(NodeAfter, v58, v59, a12))
+    if (CGPDFNodeIsHitByPoint(NodeAfter, v20, v19, a12))
     {
       *a4 = NodeAfter;
     }
 
     else
     {
-      *a4 = v36;
+      *a4 = v37;
     }
   }
 
 LABEL_83:
-  if (!v33)
+  if (!v34)
   {
     return;
   }
 
-  v66 = *a4;
-  v67 = *v39;
+  v57 = *a4;
+  v58 = *v40;
   if (!*a6)
   {
-    if (v66)
+    if (v57)
     {
-      if (v67)
+      if (v58)
       {
-        TextIndexAfterPoint = CGPDFNodeGetTextIndexAfterPoint(*v39, a10, a11, a12);
-        v69 = *a4;
+        TextIndexAfterPoint = CGPDFNodeGetTextIndexAfterPoint(*v40, v18, a11, a12);
+        v60 = *a4;
 LABEL_95:
-        v70 = a8;
-        v71 = a9;
+        v61 = v20;
+        v62 = v19;
 LABEL_100:
-        TextIndexBeforePoint = CGPDFNodeGetTextIndexBeforePoint(v69, v70, v71, a12);
-        if (*a4 || *v39)
+        TextIndexBeforePoint = CGPDFNodeGetTextIndexBeforePoint(v60, v61, v62, a12);
+        if (*a4 || *v40)
         {
           goto LABEL_129;
         }
@@ -9684,38 +9680,38 @@ LABEL_100:
 
     else
     {
-      v66 = *v39;
-      if (!v67)
+      v57 = *v40;
+      if (!v58)
       {
         goto LABEL_96;
       }
     }
 
-    TextIndexAfterPoint = CGPDFNodeGetTextIndexAfterPoint(v66, a10, a11, a12);
-    v69 = v66;
+    TextIndexAfterPoint = CGPDFNodeGetTextIndexAfterPoint(v57, v18, a11, a12);
+    v60 = v57;
     goto LABEL_95;
   }
 
-  if (v66)
+  if (v57)
   {
-    if (v67)
+    if (v58)
     {
-      TextIndexAfterPoint = CGPDFNodeGetTextIndexAfterPoint(*a4, a8, a9, a12);
-      v69 = *v39;
+      TextIndexAfterPoint = CGPDFNodeGetTextIndexAfterPoint(*a4, v20, v19, a12);
+      v60 = *v40;
 LABEL_99:
-      v70 = a10;
-      v71 = a11;
+      v61 = v18;
+      v62 = a11;
       goto LABEL_100;
     }
 
-    v67 = *a4;
+    v58 = *a4;
 LABEL_98:
-    TextIndexAfterPoint = CGPDFNodeGetTextIndexAfterPoint(v67, a8, a9, a12);
-    v69 = v67;
+    TextIndexAfterPoint = CGPDFNodeGetTextIndexAfterPoint(v58, v20, v19, a12);
+    v60 = v58;
     goto LABEL_99;
   }
 
-  if (v67)
+  if (v58)
   {
     goto LABEL_98;
   }
@@ -9724,85 +9720,85 @@ LABEL_96:
   TextIndexAfterPoint = 0;
   TextIndexBeforePoint = -1;
 LABEL_102:
-  if (v36 | NodeAfter)
+  if (v37 | NodeAfter)
   {
-    if (v36)
+    if (v37)
     {
-      TextRange = CGPDFNodeGetTextRange(v36);
-      v75 = TextRange + v74;
+      TextRange = CGPDFNodeGetTextRange(v37);
+      v66 = TextRange + v65;
       if (!NodeAfter)
       {
-        TextIndexBeforePoint = TextRange + v74 - 1;
+        TextIndexBeforePoint = TextRange + v65 - 1;
 LABEL_128:
-        TextIndexAfterPoint = v75;
+        TextIndexAfterPoint = v66;
         goto LABEL_129;
       }
     }
 
     else
     {
-      v75 = TextIndexAfterPoint;
+      v66 = TextIndexAfterPoint;
       if (!NodeAfter)
       {
         goto LABEL_128;
       }
     }
 
-    v76 = CGPDFNodeGetTextRange(NodeAfter);
-    TextIndexBeforePoint = v76 - 1;
-    if (v36)
+    v67 = CGPDFNodeGetTextRange(NodeAfter);
+    TextIndexBeforePoint = v67 - 1;
+    if (v37)
     {
-      TextIndexAfterPoint = v75;
+      TextIndexAfterPoint = v66;
     }
 
     else
     {
-      TextIndexAfterPoint = v76;
+      TextIndexAfterPoint = v67;
     }
 
-    if (v36 && *v36 == 1 && *NodeAfter == 1 && *(v36 + 8) == *(NodeAfter + 8))
+    if (v37 && *v37 == 1 && *NodeAfter == 1 && *(v37 + 8) == *(NodeAfter + 8))
     {
       if (*a6)
       {
-        v77 = a8;
+        v68 = v20;
       }
 
       else
       {
-        v77 = a10;
+        v68 = v18;
       }
 
       if (*a6)
       {
-        v78 = a9;
+        v69 = v19;
       }
 
       else
       {
-        v78 = a11;
+        v69 = a11;
       }
 
       if (!*a6)
       {
-        a10 = a8;
-        a11 = a9;
+        v18 = v20;
+        a11 = v19;
       }
 
-      v79 = CGPDFNodeGetTextIndexAfterPoint(v36, v77, v78, a12);
-      v80 = CGPDFNodeGetTextIndexBeforePoint(NodeAfter, a10, a11, a12);
-      if (v79 <= v75)
+      v70 = CGPDFNodeGetTextIndexAfterPoint(v37, v68, v69, a12);
+      v71 = CGPDFNodeGetTextIndexBeforePoint(NodeAfter, v18, a11, a12);
+      if (v70 <= v66)
       {
-        TextIndexAfterPoint = v75;
+        TextIndexAfterPoint = v66;
       }
 
       else
       {
-        TextIndexAfterPoint = v79;
+        TextIndexAfterPoint = v70;
       }
 
-      if (v80 < TextIndexBeforePoint)
+      if (v71 < TextIndexBeforePoint)
       {
-        TextIndexBeforePoint = v80;
+        TextIndexBeforePoint = v71;
       }
     }
   }
@@ -9810,14 +9806,14 @@ LABEL_128:
 LABEL_129:
   if (TextIndexBeforePoint >= TextIndexAfterPoint)
   {
-    v81 = TextIndexBeforePoint - TextIndexAfterPoint + 1;
+    v72 = TextIndexBeforePoint - TextIndexAfterPoint + 1;
   }
 
   else
   {
-    v81 = 0;
+    v72 = 0;
   }
 
-  *v33 = TextIndexAfterPoint;
-  v33[1] = v81;
+  *v34 = TextIndexAfterPoint;
+  v34[1] = v72;
 }

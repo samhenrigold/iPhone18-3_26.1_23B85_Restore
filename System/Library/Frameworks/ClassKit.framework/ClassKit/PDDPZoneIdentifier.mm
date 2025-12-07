@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)zoneIdentifierTypeAsString:(int)string;
 - (int)StringAsZoneIdentifierType:(id)type;
 - (int)zoneIdentifierType;
 - (unint64_t)hash;
@@ -24,6 +25,21 @@
   {
     return 0;
   }
+}
+
+- (id)zoneIdentifierTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100206020 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsZoneIdentifierType:(id)type
@@ -99,18 +115,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    zoneIdentifierType = self->_zoneIdentifierType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_zoneIdentifierId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -156,7 +171,6 @@
     goto LABEL_9;
   }
 
-  v5 = *(equalCopy + 20);
   if (*&self->_has)
   {
     if ((*(equalCopy + 20) & 1) == 0 || self->_zoneIdentifierType != *(equalCopy + 4))
@@ -168,24 +182,24 @@
   else if (*(equalCopy + 20))
   {
 LABEL_9:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
   zoneIdentifierId = self->_zoneIdentifierId;
   if (zoneIdentifierId | *(equalCopy + 1))
   {
-    v7 = [(NSString *)zoneIdentifierId isEqual:?];
+    v6 = [(NSString *)zoneIdentifierId isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_10:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

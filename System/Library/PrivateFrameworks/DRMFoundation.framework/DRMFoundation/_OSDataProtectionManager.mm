@@ -15,85 +15,85 @@
 
 - (void)handleKeyBagLockNotification
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v35[0] = 0;
-  v35[1] = v35;
-  v35[2] = 0x3032000000;
-  v35[3] = __Block_byref_object_copy__0;
-  v35[4] = __Block_byref_object_dispose__0;
-  v36 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__0;
-  v33 = __Block_byref_object_dispose__0;
-  v34 = 0;
+  v38 = *MEMORY[0x277D85DE8];
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x3032000000;
+  v34[3] = __Block_byref_object_copy__0;
+  v34[4] = __Block_byref_object_dispose__0;
+  v35 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__0;
+  v32 = __Block_byref_object_dispose__0;
+  v33 = 0;
   stateQueue = self->_stateQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __56___OSDataProtectionManager_handleKeyBagLockNotification__block_invoke;
   block[3] = &unk_278EEDC48;
   block[4] = self;
-  block[5] = v35;
-  block[6] = &v29;
+  block[5] = v34;
+  block[6] = &v28;
   dispatch_sync(stateQueue, block);
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v5 = self->_stateQueue;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __56___OSDataProtectionManager_handleKeyBagLockNotification__block_invoke_2;
-  v25[3] = &unk_278EEDC70;
-  v27 = v35;
-  v25[4] = self;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __56___OSDataProtectionManager_handleKeyBagLockNotification__block_invoke_2;
+  v24[3] = &unk_278EEDC70;
+  v26 = v34;
+  v24[4] = self;
   v6 = dictionary;
-  v26 = v6;
-  dispatch_sync(v5, v25);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
+  v25 = v6;
+  dispatch_sync(v5, v24);
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v38 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v37 count:16];
   if (v8)
   {
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = [v7 objectForKeyedSubscript:*(*(&v21 + 1) + 8 * v10)];
+        v11 = [v7 objectForKeyedSubscript:*(*(&v20 + 1) + 8 * v10)];
         [v11 BOOLValue];
 
-        v19 = 0u;
-        v20 = 0u;
-        v17 = 0u;
         v18 = 0u;
-        v12 = v30[5];
-        v13 = [v12 countByEnumeratingWithState:&v17 objects:v37 count:16];
+        v19 = 0u;
+        v16 = 0u;
+        v17 = 0u;
+        v12 = v29[5];
+        v13 = [v12 countByEnumeratingWithState:&v16 objects:v36 count:16];
         if (v13)
         {
-          v14 = *v18;
+          v14 = *v17;
           do
           {
             v15 = 0;
             do
             {
-              if (*v18 != v14)
+              if (*v17 != v14)
               {
                 objc_enumerationMutation(v12);
               }
 
-              (*(*(*(&v17 + 1) + 8 * v15++) + 16))();
+              (*(*(*(&v16 + 1) + 8 * v15++) + 16))();
             }
 
             while (v13 != v15);
-            v13 = [v12 countByEnumeratingWithState:&v17 objects:v37 count:16];
+            v13 = [v12 countByEnumeratingWithState:&v16 objects:v36 count:16];
           }
 
           while (v13);
@@ -103,16 +103,14 @@
       }
 
       while (v10 != v8);
-      v8 = [v7 countByEnumeratingWithState:&v21 objects:v38 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v20 objects:v37 count:16];
     }
 
     while (v8);
   }
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(v35, 8);
-
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(v34, 8);
 }
 
 - (BOOL)isDataAvailableForClassA

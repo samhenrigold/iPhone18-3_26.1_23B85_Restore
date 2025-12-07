@@ -17,67 +17,68 @@
 
 - (_CLVLLocalizationResult)initWithTimestamp:(double)timestamp localizationResult:(id)result
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = _CLVLLocalizationResult;
-  v6 = [(_CLVLLocalizationResult *)&v21 init];
-  v7 = v6;
+  v52 = *MEMORY[0x1E69E9840];
+  v42.receiver = self;
+  v42.super_class = _CLVLLocalizationResult;
+  v6 = [(_CLVLLocalizationResult *)&v42 init];
+  v10 = v6;
   if (v6)
   {
     if (result)
     {
       v6->_timestamp = timestamp;
-      [result location];
-      v9 = v23;
-      v8 = v24;
-      *v7->_anon_20 = v22;
-      *&v7->_anon_20[16] = v9;
-      *&v7->_anon_20[32] = v8;
-      [result transform];
-      v10 = v27;
-      *&v7->_anon_50[64] = v26;
-      *&v7->_anon_50[80] = v10;
-      v11 = v29;
-      *&v7->_anon_50[96] = v28;
-      *&v7->_anon_50[112] = v11;
-      v12 = v23;
-      *v7->_anon_50 = v22;
-      *&v7->_anon_50[16] = v12;
-      v13 = v25;
-      *&v7->_anon_50[32] = v24;
-      *&v7->_anon_50[48] = v13;
-      [result confidence];
-      v7->_confidence = v14;
-      [result covariance];
-      v15 = v29;
-      *&v7->_covariance.v[4][0] = v28;
-      *&v7->_covariance.v[4][4] = v15;
-      *&v7->_covariance.v[5][2] = v30;
-      v16 = v25;
-      *&v7->_covariance.v[1][2] = v24;
-      *&v7->_covariance.v[2][0] = v16;
-      v17 = v27;
-      *&v7->_covariance.v[2][4] = v26;
-      *&v7->_covariance.v[3][2] = v17;
-      v18 = v23;
-      *&v7->_covariance.v[0][0] = v22;
-      *&v7->_covariance.v[0][4] = v18;
-      v7->_debugInfo = 0;
-      if ([result debugInfo])
+      objc_msgSend_location(result, v7, v8, v9);
+      v12 = v44;
+      v11 = v45;
+      *v10->_anon_20 = v43;
+      *&v10->_anon_20[16] = v12;
+      *&v10->_anon_20[32] = v11;
+      objc_msgSend_transform(result, v13, v14, v15);
+      v16 = v48;
+      *&v10->_anon_50[64] = v47;
+      *&v10->_anon_50[80] = v16;
+      v17 = v50;
+      *&v10->_anon_50[96] = v49;
+      *&v10->_anon_50[112] = v17;
+      v18 = v44;
+      *v10->_anon_50 = v43;
+      *&v10->_anon_50[16] = v18;
+      v19 = v46;
+      *&v10->_anon_50[32] = v45;
+      *&v10->_anon_50[48] = v19;
+      objc_msgSend_confidence(result, v20, v21, v22);
+      v10->_confidence = v23;
+      objc_msgSend_covariance(result, v24, v25, v26);
+      v27 = v50;
+      *&v10->_covariance.v[4][0] = v49;
+      *&v10->_covariance.v[4][4] = v27;
+      *&v10->_covariance.v[5][2] = v51;
+      v28 = v46;
+      *&v10->_covariance.v[1][2] = v45;
+      *&v10->_covariance.v[2][0] = v28;
+      v29 = v48;
+      *&v10->_covariance.v[2][4] = v47;
+      *&v10->_covariance.v[3][2] = v29;
+      v30 = v44;
+      *&v10->_covariance.v[0][0] = v43;
+      *&v10->_covariance.v[0][4] = v30;
+      v10->_debugInfo = 0;
+      if (objc_msgSend_debugInfo(result, v31, v32, v33))
       {
-        v7->_debugInfo = -[_CLVLLocalizationDebugInfo initWithVLLocalizationDebugInfo:]([_CLVLLocalizationDebugInfo alloc], "initWithVLLocalizationDebugInfo:", [result debugInfo]);
+        v34 = [_CLVLLocalizationDebugInfo alloc];
+        v38 = objc_msgSend_debugInfo(result, v35, v36, v37);
+        v10->_debugInfo = objc_msgSend_initWithVLLocalizationDebugInfo_(v34, v39, v38, v40);
       }
     }
 
     else
     {
 
-      v7 = 0;
+      return 0;
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v7;
+  return v10;
 }
 
 - (void)dealloc
@@ -89,70 +90,74 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
-  *(v5 + 16) = self->_timestamp;
-  v6 = *self->_anon_20;
-  v7 = *&self->_anon_20[32];
-  *(v5 + 48) = *&self->_anon_20[16];
-  *(v5 + 64) = v7;
-  *(v5 + 32) = v6;
-  v9 = *&self->_anon_50[64];
-  v8 = *&self->_anon_50[80];
-  v10 = *&self->_anon_50[112];
-  *(v5 + 176) = *&self->_anon_50[96];
-  *(v5 + 192) = v10;
-  *(v5 + 144) = v9;
-  *(v5 + 160) = v8;
-  v11 = *&self->_anon_50[16];
-  v12 = *&self->_anon_50[32];
-  v13 = *&self->_anon_50[48];
-  *(v5 + 80) = *self->_anon_50;
-  *(v5 + 96) = v11;
-  *(v5 + 112) = v12;
-  *(v5 + 128) = v13;
-  *(v5 + 208) = *&self->_covariance.v[0][0];
-  v14 = *&self->_covariance.v[2][4];
-  v16 = *&self->_covariance.v[0][4];
-  v15 = *&self->_covariance.v[1][2];
-  *(v5 + 256) = *&self->_covariance.v[2][0];
-  *(v5 + 272) = v14;
-  *(v5 + 224) = v16;
-  *(v5 + 240) = v15;
-  v17 = *&self->_covariance.v[5][2];
-  v19 = *&self->_covariance.v[3][2];
-  v18 = *&self->_covariance.v[4][0];
-  *(v5 + 320) = *&self->_covariance.v[4][4];
-  *(v5 + 336) = v17;
-  *(v5 + 288) = v19;
-  *(v5 + 304) = v18;
-  *(v5 + 8) = self->_confidence;
-  *(v5 + 24) = [(_CLVLLocalizationDebugInfo *)self->_debugInfo copyWithZone:zone];
-  return v5;
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  v12 = objc_msgSend_init(v8, v9, v10, v11);
+  *(v12 + 16) = self->_timestamp;
+  v13 = *self->_anon_20;
+  v14 = *&self->_anon_20[32];
+  *(v12 + 48) = *&self->_anon_20[16];
+  *(v12 + 64) = v14;
+  *(v12 + 32) = v13;
+  v16 = *&self->_anon_50[64];
+  v15 = *&self->_anon_50[80];
+  v17 = *&self->_anon_50[112];
+  *(v12 + 176) = *&self->_anon_50[96];
+  *(v12 + 192) = v17;
+  *(v12 + 144) = v16;
+  *(v12 + 160) = v15;
+  v18 = *&self->_anon_50[16];
+  v19 = *&self->_anon_50[32];
+  v20 = *&self->_anon_50[48];
+  *(v12 + 80) = *self->_anon_50;
+  *(v12 + 96) = v18;
+  *(v12 + 112) = v19;
+  *(v12 + 128) = v20;
+  *(v12 + 208) = *&self->_covariance.v[0][0];
+  v21 = *&self->_covariance.v[2][4];
+  v23 = *&self->_covariance.v[0][4];
+  v22 = *&self->_covariance.v[1][2];
+  *(v12 + 256) = *&self->_covariance.v[2][0];
+  *(v12 + 272) = v21;
+  *(v12 + 224) = v23;
+  *(v12 + 240) = v22;
+  v24 = *&self->_covariance.v[5][2];
+  v26 = *&self->_covariance.v[3][2];
+  v25 = *&self->_covariance.v[4][0];
+  *(v12 + 320) = *&self->_covariance.v[4][4];
+  *(v12 + 336) = v24;
+  *(v12 + 288) = v26;
+  *(v12 + 304) = v25;
+  *(v12 + 8) = self->_confidence;
+  *(v12 + 24) = objc_msgSend_copyWithZone_(self->_debugInfo, v27, zone, v28);
+  return v12;
 }
 
 - (_CLVLLocalizationResult)initWithCoder:(id)coder
 {
-  v14.receiver = self;
-  v14.super_class = _CLVLLocalizationResult;
-  v4 = [(_CLVLLocalizationResult *)&v14 init];
-  if (v4)
+  v40.receiver = self;
+  v40.super_class = _CLVLLocalizationResult;
+  v6 = [(_CLVLLocalizationResult *)&v40 init];
+  if (v6)
   {
-    [coder decodeDoubleForKey:@"timestamp"];
-    v4->_timestamp = v5;
-    v6 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"location"];
-    if (v6 && (v7 = v6, [v6 length] == 48) && (objc_msgSend(v7, "getBytes:length:", v4->_anon_20, 48), (v8 = objc_msgSend(coder, "decodeObjectOfClass:forKey:", objc_opt_class(), @"transform")) != 0) && (v9 = v8, objc_msgSend(v8, "length") == 128) && (objc_msgSend(v9, "getBytes:length:", v4->_anon_50, 128), (v10 = objc_msgSend(coder, "decodeObjectOfClass:forKey:", objc_opt_class(), @"covariance")) != 0) && (v11 = v10, objc_msgSend(v10, "length") == 144))
+    objc_msgSend_decodeDoubleForKey_(coder, v4, @"timestamp", v5);
+    v6->_timestamp = v7;
+    v8 = objc_opt_class();
+    v10 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v9, v8, @"location");
+    if (v10 && (v14 = v10, objc_msgSend_length(v10, v11, v12, v13) == 48) && (objc_msgSend_getBytes_length_(v14, v15, v6->_anon_20, 48), v16 = objc_opt_class(), (v18 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v17, v16, @"transform")) != 0) && (v22 = v18, objc_msgSend_length(v18, v19, v20, v21) == 128) && (objc_msgSend_getBytes_length_(v22, v23, v6->_anon_50, 128), v24 = objc_opt_class(), (v26 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v25, v24, @"covariance")) != 0) && (v30 = v26, objc_msgSend_length(v26, v27, v28, v29) == 144))
     {
-      [v11 getBytes:&v4->_covariance length:144];
-      [coder decodeFloatForKey:@"confidence"];
-      v4->_confidence = v12;
-      if ([coder containsValueForKey:@"debugInfo"])
+      objc_msgSend_getBytes_length_(v30, v31, &v6->_covariance, 144);
+      objc_msgSend_decodeFloatForKey_(coder, v32, @"confidence", v33);
+      v6->_confidence = v34;
+      if (objc_msgSend_containsValueForKey_(coder, v35, @"debugInfo", v36))
       {
-        v4->_debugInfo = [coder decodeObjectOfClass:objc_opt_class() forKey:@"debugInfo"];
+        v37 = objc_opt_class();
+        v6->_debugInfo = objc_msgSend_decodeObjectOfClass_forKey_(coder, v38, v37, @"debugInfo");
       }
 
       else
       {
-        v4->_debugInfo = 0;
+        v6->_debugInfo = 0;
       }
     }
 
@@ -163,187 +168,188 @@
     }
   }
 
-  return v4;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeDouble:@"timestamp" forKey:self->_timestamp];
-  [coder encodeObject:objc_msgSend(MEMORY[0x1E695DEF0] forKey:{"dataWithBytes:length:", self->_anon_20, 48), @"location"}];
-  [coder encodeObject:objc_msgSend(MEMORY[0x1E695DEF0] forKey:{"dataWithBytes:length:", self->_anon_50, 128), @"transform"}];
-  [coder encodeObject:objc_msgSend(MEMORY[0x1E695DEF0] forKey:{"dataWithBytes:length:", &self->_covariance, 144), @"covariance"}];
-  *&v5 = self->_confidence;
-  [coder encodeFloat:@"confidence" forKey:v5];
+  objc_msgSend_encodeDouble_forKey_(coder, a2, @"timestamp", v3, self->_timestamp);
+  v7 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v6, self->_anon_20, 48);
+  objc_msgSend_encodeObject_forKey_(coder, v8, v7, @"location");
+  v10 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v9, self->_anon_50, 128);
+  objc_msgSend_encodeObject_forKey_(coder, v11, v10, @"transform");
+  v13 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v12, &self->_covariance, 144);
+  objc_msgSend_encodeObject_forKey_(coder, v14, v13, @"covariance");
+  *&v15 = self->_confidence;
+  objc_msgSend_encodeFloat_forKey_(coder, v16, @"confidence", v17, v15);
   debugInfo = self->_debugInfo;
 
-  [coder encodeObject:debugInfo forKey:@"debugInfo"];
+  objc_msgSend_encodeObject_forKey_(coder, v18, debugInfo, @"debugInfo");
 }
 
 - (id)descriptionWithMemberIndent:(id)indent endIndent:(id)endIndent
 {
-  v102 = *MEMORY[0x1E69E9840];
-  v7 = [indent stringByAppendingString:@"\t"];
-  v8 = [endIndent stringByAppendingString:@"\t"];
-  v9 = MEMORY[0x1E696AEC0];
-  [(_CLVLLocalizationResult *)self timestamp];
-  v11 = v10;
+  v7 = objc_msgSend_stringByAppendingString_(indent, a2, @"\t", endIndent);
+  v10 = objc_msgSend_stringByAppendingString_(endIndent, v8, @"\t", v9);
+  v11 = MEMORY[0x1E696AEC0];
+  objc_msgSend_timestamp(self, v12, v13, v14);
+  v19 = v18;
   if (self)
   {
-    [(_CLVLLocalizationResult *)self location];
-    v56 = v101;
-    [(_CLVLLocalizationResult *)self location];
-    *(&v42 + 1) = v100;
-    [(_CLVLLocalizationResult *)self location];
-    v55 = v99;
-    [(_CLVLLocalizationResult *)self location];
-    v54 = v98;
-    [(_CLVLLocalizationResult *)self transform];
-    v53 = v97;
-    [(_CLVLLocalizationResult *)self transform];
-    v51 = v96;
-    [(_CLVLLocalizationResult *)self transform];
-    v52 = v95;
-    [(_CLVLLocalizationResult *)self transform];
-    v49 = v94;
-    [(_CLVLLocalizationResult *)self transform];
-    v50 = v93;
-    [(_CLVLLocalizationResult *)self transform];
-    v48 = v92;
-    [(_CLVLLocalizationResult *)self transform];
-    v44 = v91;
-    [(_CLVLLocalizationResult *)self transform];
-    v47 = v90;
-    [(_CLVLLocalizationResult *)self transform];
-    v40 = v89;
-    [(_CLVLLocalizationResult *)self transform];
-    v43 = v88;
-    [(_CLVLLocalizationResult *)self transform];
-    v39 = v87;
-    [(_CLVLLocalizationResult *)self transform];
-    v46 = v86;
-    [(_CLVLLocalizationResult *)self transform];
-    v38 = v85;
-    [(_CLVLLocalizationResult *)self transform];
-    v45 = v84;
-    [(_CLVLLocalizationResult *)self transform];
-    v57 = v83;
-    [(_CLVLLocalizationResult *)self transform];
-    v41 = v82;
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    [(_CLVLLocalizationResult *)self covariance];
-    v35 = v81;
-    v27 = v58;
-    v17 = v59;
-    v29 = v60;
-    v12 = v61;
-    v30 = v62;
-    v13 = v63;
-    v20 = v64;
-    v14 = v65;
-    v21 = v66;
-    v19 = v67;
-    v22 = v68;
-    v18 = v69;
-    v34 = v70;
-    v26 = v71;
-    v36 = v72;
-    v25 = v73;
-    v37 = v74;
-    v24 = v75;
-    v31 = v76;
-    v23 = v77;
-    v32 = v78;
-    v28 = v79;
-    v33 = v80;
+    objc_msgSend_location(self, v15, v16, v17);
+    v235 = v280;
+    objc_msgSend_location(self, v20, v21, v22);
+    *(&v221 + 1) = v279;
+    objc_msgSend_location(self, v23, v24, v25);
+    v234 = v278;
+    objc_msgSend_location(self, v26, v27, v28);
+    v233 = v277;
+    objc_msgSend_transform(self, v29, v30, v31);
+    v232 = v276;
+    objc_msgSend_transform(self, v32, v33, v34);
+    v230 = v275;
+    objc_msgSend_transform(self, v35, v36, v37);
+    v231 = v274;
+    objc_msgSend_transform(self, v38, v39, v40);
+    v228 = v273;
+    objc_msgSend_transform(self, v41, v42, v43);
+    v229 = v272;
+    objc_msgSend_transform(self, v44, v45, v46);
+    v227 = v271;
+    objc_msgSend_transform(self, v47, v48, v49);
+    v223 = v270;
+    objc_msgSend_transform(self, v50, v51, v52);
+    v226 = v269;
+    objc_msgSend_transform(self, v53, v54, v55);
+    v219 = v268;
+    objc_msgSend_transform(self, v56, v57, v58);
+    v222 = v267;
+    objc_msgSend_transform(self, v59, v60, v61);
+    v218 = v266;
+    objc_msgSend_transform(self, v62, v63, v64);
+    v225 = v265;
+    objc_msgSend_transform(self, v65, v66, v67);
+    v217 = v264;
+    objc_msgSend_transform(self, v68, v69, v70);
+    v224 = v263;
+    objc_msgSend_transform(self, v71, v72, v73);
+    v236 = v262;
+    objc_msgSend_transform(self, v74, v75, v76);
+    v220 = v261;
+    objc_msgSend_covariance(self, v77, v78, v79);
+    objc_msgSend_covariance(self, v80, v81, v82);
+    objc_msgSend_covariance(self, v83, v84, v85);
+    objc_msgSend_covariance(self, v86, v87, v88);
+    objc_msgSend_covariance(self, v89, v90, v91);
+    objc_msgSend_covariance(self, v92, v93, v94);
+    objc_msgSend_covariance(self, v95, v96, v97);
+    objc_msgSend_covariance(self, v98, v99, v100);
+    objc_msgSend_covariance(self, v101, v102, v103);
+    objc_msgSend_covariance(self, v104, v105, v106);
+    objc_msgSend_covariance(self, v107, v108, v109);
+    objc_msgSend_covariance(self, v110, v111, v112);
+    objc_msgSend_covariance(self, v113, v114, v115);
+    objc_msgSend_covariance(self, v116, v117, v118);
+    objc_msgSend_covariance(self, v119, v120, v121);
+    objc_msgSend_covariance(self, v122, v123, v124);
+    objc_msgSend_covariance(self, v125, v126, v127);
+    objc_msgSend_covariance(self, v128, v129, v130);
+    objc_msgSend_covariance(self, v131, v132, v133);
+    objc_msgSend_covariance(self, v134, v135, v136);
+    objc_msgSend_covariance(self, v137, v138, v139);
+    objc_msgSend_covariance(self, v140, v141, v142);
+    objc_msgSend_covariance(self, v143, v144, v145);
+    objc_msgSend_covariance(self, v146, v147, v148);
+    objc_msgSend_covariance(self, v149, v150, v151);
+    objc_msgSend_covariance(self, v152, v153, v154);
+    objc_msgSend_covariance(self, v155, v156, v157);
+    objc_msgSend_covariance(self, v158, v159, v160);
+    objc_msgSend_covariance(self, v161, v162, v163);
+    objc_msgSend_covariance(self, v164, v165, v166);
+    objc_msgSend_covariance(self, v167, v168, v169);
+    objc_msgSend_covariance(self, v170, v171, v172);
+    objc_msgSend_covariance(self, v173, v174, v175);
+    objc_msgSend_covariance(self, v176, v177, v178);
+    objc_msgSend_covariance(self, v179, v180, v181);
+    objc_msgSend_covariance(self, v182, v183, v184);
+    v214 = v260;
+    v206 = v237;
+    v196 = v238;
+    v208 = v239;
+    v185 = v240;
+    v209 = v241;
+    v186 = v242;
+    v199 = v243;
+    v187 = v244;
+    v200 = v245;
+    v198 = v246;
+    v201 = v247;
+    v197 = v248;
+    v213 = v249;
+    v205 = v250;
+    v215 = v251;
+    v204 = v252;
+    v216 = v253;
+    v203 = v254;
+    v210 = v255;
+    v202 = v256;
+    v211 = v257;
+    v207 = v258;
+    v212 = v259;
   }
 
   else
   {
-    v50 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v55 = 0;
-    v56 = 0;
-    v54 = 0;
-    v51 = 0u;
-    v49 = 0u;
-    v48 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v45 = 0u;
-    v41 = 0u;
-    v37 = 0.0;
-    v36 = 0.0;
-    v30 = 0.0;
-    v29 = 0.0;
-    v27 = 0.0;
-    v34 = 0.0;
-    v22 = 0.0;
-    v21 = 0.0;
-    v20 = 0.0;
-    v33 = 0.0;
-    v32 = 0.0;
-    v31 = 0.0;
-    v42 = 0u;
-    v43 = 0u;
-    v28 = 0.0;
-    v35 = 0.0;
-    v38 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v44 = 0u;
-    v19 = 0.0;
-    v18 = 0.0;
-    v26 = 0.0;
-    v25 = 0.0;
-    v24 = 0.0;
-    v23 = 0.0;
-    v17 = 0.0;
-    v12 = 0.0;
-    v13 = 0.0;
-    v14 = 0.0;
-    v57 = 0u;
+    v229 = 0u;
+    v231 = 0u;
+    v232 = 0u;
+    v234 = 0;
+    v235 = 0;
+    v233 = 0;
+    v230 = 0u;
+    v228 = 0u;
+    v227 = 0u;
+    v225 = 0u;
+    v226 = 0u;
+    v224 = 0u;
+    v220 = 0u;
+    v216 = 0.0;
+    v215 = 0.0;
+    v209 = 0.0;
+    v208 = 0.0;
+    v206 = 0.0;
+    v213 = 0.0;
+    v201 = 0.0;
+    v200 = 0.0;
+    v199 = 0.0;
+    v212 = 0.0;
+    v211 = 0.0;
+    v210 = 0.0;
+    v221 = 0u;
+    v222 = 0u;
+    v207 = 0.0;
+    v214 = 0.0;
+    v217 = 0u;
+    v218 = 0u;
+    v219 = 0u;
+    v223 = 0u;
+    v198 = 0.0;
+    v197 = 0.0;
+    v205 = 0.0;
+    v204 = 0.0;
+    v203 = 0.0;
+    v202 = 0.0;
+    v196 = 0.0;
+    v185 = 0.0;
+    v186 = 0.0;
+    v187 = 0.0;
+    v236 = 0u;
   }
 
-  [(_CLVLLocalizationResult *)self confidence];
-  [(_CLVLLocalizationDebugInfo *)[(_CLVLLocalizationResult *)self debugInfo] descriptionWithMemberIndent:v7 endIndent:v8];
-  result = [v9 stringWithFormat:@"<_CLVLLocalizationResult: %p> {\n%@.timestamp = %f, \n%@.location = {\n%@.coordinate = [%f, %f, %f], \n%@.horizontalAccuracy = %f\n%@}, \n%@.transform = [%f, %f, %f, %f;\n%@%f, %f, %f, %f;\n%@%f, %f, %f, %f;\n%@%f, %f, %f, %f], \n%@.covariance = [%f, %f, %f, %f, %f, %f;\n%@%f, %f, %f, %f, %f, %f;\n%@%f, %f, %f, %f, %f, %f;\n%@%f, %f, %f, %f, %f, %f;\n%@%f, %f, %f, %f, %f, %f;\n%@%f, %f, %f, %f, %f, %f], \n%@.confidence = %f\n%@.debugInfo = %@\n%@}", self, indent, v11, indent, v7, v56, *(&v42 + 1), v55, v7, v54, v8, indent, vzip1q_s64(v53, v51), vzip1q_s64(v52, v49), v7, vzip2q_s64(v50, v48), vzip2q_s64(v44, v47), v7, vzip1q_s64(v40, v43), vzip1q_s64(v39, v46), v7, vzip2q_s64(v38, v45), vzip2q_s64(v57, v41), indent, *&v35, *&v33, *&v28, *&v32, *&v23, *&v31, v7, *&v24, *&v37, *&v25, *&v36, *&v26, *&v34, v7, *&v18, *&v22, *&v19, *&v21, *&v14, *&v20, v7, *&v13, *&v30, *&v12, *&v29, *&v17, *&v27, v7];
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  objc_msgSend_confidence(self, v15, v16, v17);
+  v191 = objc_msgSend_debugInfo(self, v188, v189, v190);
+  objc_msgSend_descriptionWithMemberIndent_endIndent_(v191, v192, v7, v10);
+  return objc_msgSend_stringWithFormat_(v11, v193, @"<_CLVLLocalizationResult: %p> {\n%@.timestamp = %f,\n%@.location = {\n%@.coordinate = [%f, %f, %f],\n%@.horizontalAccuracy = %f\n%@},\n%@.transform = [%f, %f, %f, %f;\n%@%f, %f, %f, %f;\n%@%f, %f, %f, %f;\n%@%f, %f, %f, %f],\n%@.covariance = [%f, %f, %f, %f, %f, %f;\n%@%f, %f, %f, %f, %f, %f;\n%@%f, %f, %f, %f, %f, %f;\n%@%f, %f, %f, %f, %f, %f;\n%@%f, %f, %f, %f, %f, %f;\n%@%f, %f, %f, %f, %f, %f],\n%@.confidence = %f\n%@.debugInfo = %@\n%@}", v194, self, indent, v19, indent, v7, v235, *(&v221 + 1), v234, v7, v233, v10, indent, vzip1q_s64(v232, v230), vzip1q_s64(v231, v228), v7, vzip2q_s64(v229, v227), vzip2q_s64(v223, v226), v7, vzip1q_s64(v219, v222), vzip1q_s64(v218, v225), v7, vzip2q_s64(v217, v224), vzip2q_s64(v236, v220), indent, *&v214, *&v212, *&v207, *&v211, *&v202, *&v210, v7, *&v203, *&v216, *&v204, *&v215, *&v205, *&v213, v7, *&v197, *&v201, *&v198, *&v200, *&v187, *&v199, v7, *&v186, *&v209, *&v185, *&v208, *&v196, *&v206);
 }
 
 - ($153C3A5BC4E016D58A1B9CA554FFC462)location

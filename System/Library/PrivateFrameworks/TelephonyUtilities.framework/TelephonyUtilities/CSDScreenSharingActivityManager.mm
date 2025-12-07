@@ -36,7 +36,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1003723CC();
+  sub_1003723CC(delegate);
 }
 
 - (TUScreenShareAttributes)localScreenShareAttributes
@@ -90,16 +90,15 @@
 {
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8, v11);
-  v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   forCopy = for;
   withCopy = with;
   selfCopy = self;
   ScreenSharingActivityManager.startActivitySession(onConversationWithUUID:for:with:)();
 
-  (*(v9 + 8))(v13, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)stopActivitySession
@@ -121,7 +120,7 @@
   v4 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v6 = v5;
 
-  v7 = sub_1003773A0();
+  v7 = sub_1003773A0(v4, v6);
   sub_100049B14(v4, v6);
 
   return v7;

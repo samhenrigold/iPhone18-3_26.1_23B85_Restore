@@ -11,9 +11,9 @@
     +[SBFMappedImageCache(SBMappedImageCacheAdditions) sessionCache];
   }
 
-  v1 = sessionCache___cache;
+  v2 = sessionCache___cache;
 
-  return v1;
+  return v2;
 }
 
 @end

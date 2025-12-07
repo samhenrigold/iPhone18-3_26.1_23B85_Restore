@@ -61,21 +61,20 @@
 
 - (MicActivityDXPCListener)init
 {
-  v7[4] = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = MicActivityDXPCListener;
-  v2 = [(MicActivityDXPCListener *)&v6 init];
+  v6[4] = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MicActivityDXPCListener;
+  v2 = [(MicActivityDXPCListener *)&v5 init];
   v3 = v2;
   if (v2)
   {
     [(MicActivityDXPCListener *)v2 createEndpoint];
-    v7[0] = &unk_1F596A168;
-    v7[3] = v7;
-    std::__function::__value_func<void ()(BOOL)>::swap[abi:ne200100](v7, v3->mtdListenerCallback.__f_.__buf_.__data);
-    std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v7);
+    v6[0] = &unk_1F596A168;
+    v6[3] = v6;
+    std::__function::__value_func<void ()(BOOL)>::swap[abi:ne200100](v6, v3->mtdListenerCallback.__f_.__buf_.__data);
+    std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v6);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

@@ -11,7 +11,7 @@
 
 - (id)trifbCreateCloudKitTreatmentRecordAssetUsingBlock:()TRIFBCloudKitTreatmentRecordAsset
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   if (!v5)
@@ -25,13 +25,13 @@
   selfCopy = self;
   if (v7)
   {
-    v26.receiver = v7;
-    v26.super_class = TRIFBCloudKitTreatmentRecordAssetBuilder;
-    v9 = objc_msgSendSuper2(&v26, sel_init);
+    v25.receiver = v7;
+    v25.super_class = TRIFBCloudKitTreatmentRecordAssetBuilder;
+    v9 = objc_msgSendSuper2(&v25, sel_init);
     v7 = v9;
     if (v9)
     {
-      objc_storeStrong(&v9->_owner, self);
+      objc_storeStrong(v9 + 1, self);
       firstError = [selfCopy firstError];
       v11 = firstError == 0;
 
@@ -63,9 +63,9 @@
       currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler2 handleFailureInMethod:sel__finish object:v7 file:@"TRIFBFastFactorLevels_generated.mm" lineNumber:606 description:{@"%@", @"Failed to set required field treatmentId on a table of type: TRIFBCloudKitTreatmentRecordAssetBuilder"}];
 
-      v27[0] = *MEMORY[0x277CCA450];
-      v26.receiver = @"Failed to set required field treatmentId on a table of type: TRIFBCloudKitTreatmentRecordAssetBuilder";
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:v27 count:1];
+      v26[0] = *MEMORY[0x277CCA450];
+      v25.receiver = @"Failed to set required field treatmentId on a table of type: TRIFBCloudKitTreatmentRecordAssetBuilder";
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:v26 count:1];
       v21 = objc_alloc(MEMORY[0x277CCA9B8]);
       v22 = [v21 initWithDomain:*MEMORY[0x277CED160] code:4 userInfo:v20];
       [(AFBBufferBuilder *)v7->_owner setError:v22];
@@ -82,7 +82,6 @@
 LABEL_14:
 
   objc_autoreleasePoolPop(v6);
-  v23 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

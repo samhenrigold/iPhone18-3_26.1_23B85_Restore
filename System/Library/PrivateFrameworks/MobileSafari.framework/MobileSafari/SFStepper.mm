@@ -75,10 +75,11 @@
   v6 = (self + OBJC_IVAR___SFStepper_decrementButtonActionHandler);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_18B7E0A10(v7);
+  sub_18B7E0A10(v7, v8);
 }
 
 - (void)setIncrementButtonActionHandler:(id)handler
@@ -99,10 +100,11 @@
   v6 = (self + OBJC_IVAR___SFStepper_incrementButtonActionHandler);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_18B7E0A10(v7);
+  sub_18B7E0A10(v7, v8);
 }
 
 - (BOOL)isFocusedInPageMenu

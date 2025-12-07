@@ -22,53 +22,53 @@ id __86__NSItemProvider_WebPrivacyExtras___wp_removeTrackingInformationFromURLRe
 
 void __86__NSItemProvider_WebPrivacyExtras___wp_removeTrackingInformationFromURLRepresentation__block_invoke_2(id *a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 data];
   v5 = [v4 length];
 
   if (v5)
   {
-    v6 = MEMORY[0x277CBEBC0];
-    v7 = [v3 data];
-    v8 = [a1[4] typeIdentifier];
-    v24 = 0;
-    v9 = [v6 objectWithItemProviderData:v7 typeIdentifier:v8 error:&v24];
-    v10 = v24;
-    v11 = v9;
+    v8 = MEMORY[0x277CBEBC0];
+    v9 = [v3 data];
+    v10 = [a1[4] typeIdentifier];
+    v29 = 0;
+    v11 = [v8 objectWithItemProviderData:v9 typeIdentifier:v10 error:&v29];
+    v12 = v29;
+    v13 = v11;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v12 = v11;
+      v14 = v13;
     }
 
     else
     {
-      v12 = 0;
+      v14 = 0;
     }
 
-    if (v12)
+    if (v14)
     {
-      v14 = [v12 scheme];
-      if ([v14 isEqualToString:@"http"] & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", @"https"))
+      v18 = [v14 scheme];
+      if ([v18 isEqualToString:@"http"] & 1) != 0 || (v19 = objc_msgSend(v18, "isEqualToString:", @"https"), (v19))
       {
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __86__NSItemProvider_WebPrivacyExtras___wp_removeTrackingInformationFromURLRepresentation__block_invoke_9;
-        v20[3] = &unk_279EAF2B8;
-        v23 = a1[6];
-        v21 = v3;
-        v22 = a1[5];
-        [v12 _wp_removeTrackingInformation:v20];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __86__NSItemProvider_WebPrivacyExtras___wp_removeTrackingInformationFromURLRepresentation__block_invoke_9;
+        v25[3] = &unk_279EAF2B8;
+        v28 = a1[6];
+        v26 = v3;
+        v27 = a1[5];
+        [v14 _wp_removeTrackingInformation:v25];
       }
 
       else
       {
-        v16 = WPOSLogAPI();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        v22 = WPOSLogAPI(v19, v20);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_273D20000, v16, OS_LOG_TYPE_INFO, "Skipping URL returned from item provider (scheme is not HTTP-family)", buf, 2u);
+          _os_log_impl(&dword_273D20000, v22, OS_LOG_TYPE_INFO, "Skipping URL returned from item provider (scheme is not HTTP-family)", buf, 2u);
         }
 
         (*(a1[6] + 2))();
@@ -77,16 +77,16 @@ void __86__NSItemProvider_WebPrivacyExtras___wp_removeTrackingInformationFromURL
 
     else
     {
-      v15 = WPOSLogAPI();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v21 = WPOSLogAPI(v16, v17);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v18 = [v3 data];
-        v19 = [v18 length];
+        v23 = [v3 data];
+        v24 = [v23 length];
         *buf = 134218242;
-        v26 = v19;
-        v27 = 2112;
-        v28 = v10;
-        _os_log_error_impl(&dword_273D20000, v15, OS_LOG_TYPE_ERROR, "Failed to deserialize NSURL from item provider data (%zu bytes) with error: %@", buf, 0x16u);
+        v31 = v24;
+        v32 = 2112;
+        v33 = v12;
+        _os_log_error_impl(&dword_273D20000, v21, OS_LOG_TYPE_ERROR, "Failed to deserialize NSURL from item provider data (%zu bytes) with error: %@", buf, 0x16u);
       }
 
       (*(a1[6] + 2))();
@@ -95,42 +95,39 @@ void __86__NSItemProvider_WebPrivacyExtras___wp_removeTrackingInformationFromURL
 
   else
   {
-    v13 = WPOSLogAPI();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = WPOSLogAPI(v6, v7);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       __86__NSItemProvider_WebPrivacyExtras___wp_removeTrackingInformationFromURLRepresentation__block_invoke_2_cold_1();
     }
 
     (*(a1[6] + 2))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __86__NSItemProvider_WebPrivacyExtras___wp_removeTrackingInformationFromURLRepresentation__block_invoke_9(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3)
+  v4 = a2;
+  if (v4)
   {
     v8[0] = MEMORY[0x277D85DD0];
     v8[1] = 3221225472;
     v8[2] = __86__NSItemProvider_WebPrivacyExtras___wp_removeTrackingInformationFromURLRepresentation__block_invoke_10;
     v8[3] = &unk_279EAF290;
-    v4 = *(a1 + 40);
+    v5 = *(a1 + 40);
     v10 = *(a1 + 48);
     v9 = *(a1 + 32);
-    v5 = [v3 loadDataWithTypeIdentifier:v4 forItemProviderCompletionHandler:v8];
+    v6 = [v4 loadDataWithTypeIdentifier:v5 forItemProviderCompletionHandler:v8];
   }
 
   else
   {
-    v6 = WPOSLogAPI();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = WPOSLogAPI(0, v3);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __86__NSItemProvider_WebPrivacyExtras___wp_removeTrackingInformationFromURLRepresentation__block_invoke_9_cold_1();
     }
 
-    v7 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 }
@@ -139,32 +136,24 @@ void __86__NSItemProvider_WebPrivacyExtras___wp_removeTrackingInformationFromURL
 {
   v5 = a2;
   v6 = a3;
-  if (v6 || ![v5 length])
+  v8 = v6;
+  if (v6 || (v6 = [v5 length]) == 0)
   {
-    v7 = WPOSLogAPI();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WPOSLogAPI(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __86__NSItemProvider_WebPrivacyExtras___wp_removeTrackingInformationFromURLRepresentation__block_invoke_10_cold_1();
     }
 
-    v8 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v9 = *(a1 + 40);
-    v10 = [*(a1 + 32) copyWithData:v5 urlWrapper:0 cleanupHandler:0 error:0];
-    (*(v9 + 16))(v9, v10);
+    v10 = *(a1 + 40);
+    v11 = [*(a1 + 32) copyWithData:v5 urlWrapper:0 cleanupHandler:0 error:0];
+    (*(v10 + 16))(v10, v11);
   }
-}
-
-void __86__NSItemProvider_WebPrivacyExtras___wp_removeTrackingInformationFromURLRepresentation__block_invoke_10_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

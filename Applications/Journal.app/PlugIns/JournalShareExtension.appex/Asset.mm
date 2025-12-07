@@ -24,7 +24,7 @@
 
   v6 = sub_1000406E4(v8);
 
-  sub_10000FFB4(v8, &qword_10014CA68);
+  sub_10000FFB4(v8, &qword_10014CA68, &qword_10010D130);
   return v6 & 1;
 }
 

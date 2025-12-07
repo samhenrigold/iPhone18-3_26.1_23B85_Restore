@@ -89,15 +89,17 @@
 
 - (id)openCollectionActionsForEntityTypeIdentifier:(id)identifier capabilities:(int64_t)capabilities bundleIdentifier:(id)bundleIdentifier error:(id *)error
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = v9;
+  v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v13 = v12;
   selfCopy = self;
-  _LNMetadataProviderDirect.openCollectionActions(forEntityTypeIdentifier:capabilities:bundleIdentifier:)();
+  _LNMetadataProviderDirect.openCollectionActions(forEntityTypeIdentifier:capabilities:bundleIdentifier:)(v8, v10, capabilities, v11, v13);
 
   sub_100003D44(0, &unk_10019AB20, LNActionMetadata_ptr);
-  v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v15.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v8.super.isa;
+  return v15.super.isa;
 }
 
 - (id)bundlesWithError:(id *)error

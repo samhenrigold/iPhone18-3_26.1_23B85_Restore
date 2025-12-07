@@ -2,6 +2,7 @@
 + (FlowClassification)classificationWithDictionary:(id)dictionary;
 + (FlowClassification)defaultInstance;
 + (id)classFlagsToString:(unsigned int)string;
++ (id)propertyFlagsToString:(unsigned int)string;
 + (id)undefinedInstance;
 + (unsigned)dispositionFromDigest:(FlowClassificationDigest *)digest;
 - (BOOL)configure:(id)configure;
@@ -104,7 +105,7 @@
 
 - (BOOL)configure:(id)configure
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   configureCopy = configure;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -131,13 +132,13 @@
     goto LABEL_47;
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
-  v35 = configureCopy;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v34 = configureCopy;
   v5 = configureCopy;
-  v6 = [v5 countByEnumeratingWithState:&v49 objects:v57 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v48 objects:v56 count:16];
   if (!v6)
   {
     v30 = 0;
@@ -147,35 +148,35 @@
     v26 = 0;
     v25 = 0;
     v24 = 0;
-    v43 = 42;
+    v42 = 42;
     goto LABEL_46;
   }
 
   selfCopy = self;
+  v37 = 0;
   v38 = 0;
-  v39 = 0;
+  v43 = 0;
   v44 = 0;
   v45 = 0;
   v46 = 0;
   v47 = 0;
-  v48 = 0;
   v8 = 0;
-  v9 = *v50;
-  v43 = 42;
+  v9 = *v49;
+  v42 = 42;
   *&v7 = 134218240;
-  v34 = v7;
+  v33 = v7;
   do
   {
     v10 = 0;
     do
     {
-      if (*v50 != v9)
+      if (*v49 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v49 + 1) + 8 * v10);
-      if ([v11 isEqualToString:{@"LATENCY", v34}])
+      v11 = *(*(&v48 + 1) + 8 * v10);
+      if ([v11 isEqualToString:{@"LATENCY", v33}])
       {
         v12 = [v5 objectForKeyedSubscript:v11];
         v8 = scaleFromString(v12);
@@ -187,42 +188,42 @@ LABEL_21:
       if ([v11 isEqualToString:@"JITTER"])
       {
         v12 = [v5 objectForKeyedSubscript:v11];
-        v48 = scaleFromString(v12);
+        v47 = scaleFromString(v12);
         goto LABEL_21;
       }
 
       if ([v11 isEqualToString:@"LOSS_TOLERANCE"])
       {
         v12 = [v5 objectForKeyedSubscript:v11];
-        v47 = scaleFromString(v12);
+        v46 = scaleFromString(v12);
         goto LABEL_21;
       }
 
       if ([v11 isEqualToString:@"DURATION"])
       {
         v12 = [v5 objectForKeyedSubscript:v11];
-        v46 = scaleFromString(v12);
+        v45 = scaleFromString(v12);
         goto LABEL_21;
       }
 
       if ([v11 isEqualToString:@"REQD_BANDWIDTH"])
       {
         v12 = [v5 objectForKeyedSubscript:v11];
-        v45 = scaleFromString(v12);
+        v44 = scaleFromString(v12);
         goto LABEL_21;
       }
 
       if ([v11 isEqualToString:@"PREF_BANDWIDTH"])
       {
         v12 = [v5 objectForKeyedSubscript:v11];
-        v44 = scaleFromString(v12);
+        v43 = scaleFromString(v12);
         goto LABEL_21;
       }
 
       if ([v11 isEqualToString:@"TRACKING_CLASS"])
       {
         v12 = [v5 objectForKeyedSubscript:v11];
-        v43 = dispositionFromString(v12);
+        v42 = dispositionFromString(v12);
         goto LABEL_21;
       }
 
@@ -232,10 +233,10 @@ LABEL_21:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v40 = [v5 objectForKeyedSubscript:v11];
-          v36 = [v40 isEqualToString:@"Automatic"];
+          v39 = [v5 objectForKeyedSubscript:v11];
+          v35 = [v39 isEqualToString:@"Automatic"];
 
-          v39 |= v36;
+          v38 |= v35;
         }
 
         v14 = [v5 objectForKeyedSubscript:v11];
@@ -244,11 +245,11 @@ LABEL_21:
 
         if (isKindOfClass)
         {
-          v42 = [v5 objectForKeyedSubscript:v11];
-          [v42 floatValue];
+          v41 = [v5 objectForKeyedSubscript:v11];
+          [v41 floatValue];
           v16 = vcvts_n_u32_f32(v15, 3uLL);
 
-          v38 = v16;
+          v37 = v16;
           if (v16 >= 0x800)
           {
             if (v16 != 2048)
@@ -259,15 +260,15 @@ LABEL_21:
                 v18 = v17;
                 v19 = [v5 objectForKeyedSubscript:v11];
                 [v19 floatValue];
-                *buf = v34;
-                v54 = v20;
-                v55 = 1024;
-                LODWORD(v56) = 256;
+                *buf = v33;
+                v53 = v20;
+                v54 = 1024;
+                LODWORD(v55) = 256;
                 _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "Requested expiration time %f for flow classification too large, reducing to %d", buf, 0x12u);
               }
             }
 
-            v38 = 2047;
+            v37 = 2047;
           }
         }
       }
@@ -288,9 +289,9 @@ LABEL_21:
         if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v54 = *&v11;
-          v55 = 2112;
-          v56 = v5;
+          v53 = *&v11;
+          v54 = 2112;
+          v55 = v5;
           _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "Unknown flow configuration key %@ in dictionary %@", buf, 0x16u);
         }
       }
@@ -300,18 +301,18 @@ LABEL_22:
     }
 
     while (v6 != v10);
-    v23 = [v5 countByEnumeratingWithState:&v49 objects:v57 count:16];
+    v23 = [v5 countByEnumeratingWithState:&v48 objects:v56 count:16];
     v6 = v23;
   }
 
   while (v23);
   v24 = v8 << 8;
-  v6 = v48 << 12;
-  v25 = v47 << 16;
-  v26 = v46 << 20;
-  v27 = v45 << 24;
-  v28 = v44 << 28;
-  if (v39)
+  v6 = v47 << 12;
+  v25 = v46 << 16;
+  v26 = v45 << 20;
+  v27 = v44 << 24;
+  v28 = v43 << 28;
+  if (v38)
   {
     v29 = 0x800000000000;
   }
@@ -321,16 +322,15 @@ LABEL_22:
     v29 = 0;
   }
 
-  v30 = v38 << 32;
+  v30 = v37 << 32;
   self = selfCopy;
 LABEL_46:
 
-  configureCopy = v35;
-  v31 = v43;
+  configureCopy = v34;
+  v31 = v42;
 LABEL_47:
   self->_condensedValues = v29 | v30 | v31 | v28 | v27 | v26 | v25 | v6 | v24;
 
-  v32 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -434,6 +434,33 @@ LABEL_47:
   {
     return 42;
   }
+}
+
++ (id)propertyFlagsToString:(unsigned int)string
+{
+  v4 = [MEMORY[0x277CCAB68] stringWithFormat:@"0x%x", *&string];
+  v5 = 0;
+  for (i = 0; i != 8; ++i)
+  {
+    if ((string >> i))
+    {
+      v7 = flowPropertyScaleString(i);
+      if (v5)
+      {
+        v8 = @":%s";
+      }
+
+      else
+      {
+        v8 = @" %s";
+      }
+
+      [v4 appendFormat:v8, v7];
+      v5 = 1;
+    }
+  }
+
+  return v4;
 }
 
 + (id)classFlagsToString:(unsigned int)string

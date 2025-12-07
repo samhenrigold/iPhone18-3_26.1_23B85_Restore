@@ -21,9 +21,10 @@
 - (id)takeBridge
 {
   selfCopy = self;
-  v3 = MUWebPlacecardBridgePool.take()();
+  MUWebPlacecardBridgePool.take()();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (void)releaseBridge:(id)bridge

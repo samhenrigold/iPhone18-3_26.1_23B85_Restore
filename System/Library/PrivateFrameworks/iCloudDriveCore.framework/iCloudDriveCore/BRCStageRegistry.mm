@@ -1,7 +1,9 @@
 @interface BRCStageRegistry
 + (void)migrateStageToVersion2_0WithSession:(id)session;
+- (BOOL)_graveyardAt:(int)at path:(id)path forItemID:(id)d;
 - (BOOL)_hasActiveUploadWithStageID:(id)d;
 - (BOOL)_hasContentsInPath:(id)path;
+- (BOOL)_moveFromURLToTargetStageLocation:(id)location stageIndex:(unsigned __int8)index filename:(id)filename error:(id *)error;
 - (BOOL)clonePackageExistingContentFromSourceURL:(id)l stageID:(id)d error:(id *)error;
 - (BOOL)copyPackageFileWithPackageFd:(int)fd toStageFd:(int)stageFd relpath:(id)relpath;
 - (BOOL)existsInStage:(unint64_t)stage generationID:(unsigned int *)d;
@@ -17,6 +19,7 @@
 - (id)_anchorNamePrefixForRecordZoneID:(id)d;
 - (id)_getActiveDownloadStageIDs;
 - (id)_liveURLForliveStageFilename:(id)filename;
+- (id)_pathForDirIndex:(unsigned __int8)index;
 - (id)_pathInStage:(unint64_t)stage index:(unsigned __int8 *)index generationID:(unsigned int *)d;
 - (id)cloneFileURL:(id)l toUploadStageID:(id)d liveStageFilename:(id)filename error:(id *)error;
 - (id)createStageURLForThumbnailFromLiveStageFilename:(id)filename error:(id *)error;
@@ -30,11 +33,18 @@
 - (id)pendingDeltaFetchRecordDirWithStartingChangeToken:(id)token recordZoneID:(id)d;
 - (id)pendingListRecordDirWithStartingChangeToken:(id)token;
 - (id)urlForXattrSignature:(id)signature;
+- (int)_openStageDirectory:(unsigned __int8)directory;
+- (int)_performInStageDirectory:(unsigned __int8)directory block:(id)block;
 - (int64_t)_garbageCollectDeltaSyncDatabases;
 - (int64_t)_garbageCollectDownloads;
 - (int64_t)_garbageCollectItemsIncludingActiveItems:(BOOL)items stageIndex:(unsigned __int8)index maxAge:(int64_t)age deletePredicate:(id)predicate;
+- (int64_t)_garbageCollectLiveItemsIncludingActiveItems:(BOOL)items;
 - (int64_t)_garbageCollectQBSDatabases;
 - (int64_t)_garbageCollectSpace:(int64_t)space;
+- (int64_t)_garbageCollectUploadThumbnailsIncludingActiveUploads:(BOOL)uploads;
+- (int64_t)_garbageCollectUploadsIncludingActiveUploads:(BOOL)uploads;
+- (int64_t)_purgeAllUploadsWithIncludeActiveItems:(BOOL)items;
+- (int64_t)_purgeSpaceUnderQueue:(int64_t)queue withUrgency:(int)urgency;
 - (int64_t)_removeUnusedXattrBlobs;
 - (int64_t)garbageCollectSpace:(int64_t)space;
 - (int64_t)purgableSpace;
@@ -94,30 +104,55 @@
   return v7;
 }
 
+- (id)_pathForDirIndex:(unsigned __int8)index
+{
+  indexCopy = index;
+  if (_pathForDirIndex__once != -1)
+  {
+    [BRCStageRegistry _pathForDirIndex:];
+  }
+
+  session = self->_session;
+  if (indexCopy)
+  {
+    [(BRCAccountSession *)session sessionDirPath];
+  }
+
+  else
+  {
+    [(BRCAccountSession *)session cacheDirPath];
+  }
+  v6 = ;
+  v7 = _pathForDirIndex__dirsMapping;
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:indexCopy];
+  v9 = [v7 objectForKey:v8];
+  v10 = [v6 stringByAppendingPathComponent:v9];
+
+  return v10;
+}
+
 void __37__BRCStageRegistry__pathForDirIndex___block_invoke()
 {
-  v4[8] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_2837B0370;
-  v3[1] = &unk_2837B0388;
-  v4[0] = @"g";
-  v4[1] = @"d";
-  v3[2] = &unk_2837B03A0;
-  v3[3] = &unk_2837B03B8;
-  v4[2] = @"u";
-  v4[3] = @"s";
-  v3[4] = &unk_2837B03D0;
-  v3[5] = &unk_2837B03E8;
-  v4[4] = @"l";
-  v4[5] = @"t";
-  v3[6] = &unk_2837B0400;
-  v3[7] = &unk_2837B0418;
-  v4[6] = @"x";
-  v4[7] = @"i";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:8];
+  v3[8] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_2837B0370;
+  v2[1] = &unk_2837B0388;
+  v3[0] = @"g";
+  v3[1] = @"d";
+  v2[2] = &unk_2837B03A0;
+  v2[3] = &unk_2837B03B8;
+  v3[2] = @"u";
+  v3[3] = @"s";
+  v2[4] = &unk_2837B03D0;
+  v2[5] = &unk_2837B03E8;
+  v3[4] = @"l";
+  v3[5] = @"t";
+  v2[6] = &unk_2837B0400;
+  v2[7] = &unk_2837B0418;
+  v3[6] = @"x";
+  v3[7] = @"i";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:8];
   v1 = _pathForDirIndex__dirsMapping;
   _pathForDirIndex__dirsMapping = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)open
@@ -159,7 +194,7 @@ uint64_t __24__BRCStageRegistry_open__block_invoke_2(uint64_t a1)
 
 void __24__BRCStageRegistry_open__block_invoke_3(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) lastPathComponent];
   v3 = [v2 isEqualToString:@"x"];
 
@@ -168,9 +203,9 @@ void __24__BRCStageRegistry_open__block_invoke_3(uint64_t a1)
   v6 = *MEMORY[0x277CBE878];
   if (v3)
   {
-    v17 = 0;
-    v7 = [v4 setResourceValue:MEMORY[0x277CBEC28] forKey:v6 error:&v17];
-    v8 = v17;
+    v16 = 0;
+    v7 = [v4 setResourceValue:MEMORY[0x277CBEC28] forKey:v6 error:&v16];
+    v8 = v16;
 
     if ((v7 & 1) == 0)
     {
@@ -180,11 +215,11 @@ void __24__BRCStageRegistry_open__block_invoke_3(uint64_t a1)
       {
         v11 = *(a1 + 32);
         *buf = 138412802;
-        v19 = v11;
-        v20 = 2112;
-        v21 = v8;
-        v22 = 2112;
-        v23 = v9;
+        v18 = v11;
+        v19 = 2112;
+        v20 = v8;
+        v21 = 2112;
+        v22 = v9;
         v12 = "[ERROR] Unable to include '%@' in backups: %@%@";
 LABEL_10:
         _os_log_error_impl(&dword_223E7A000, v10, 0x90u, v12, buf, 0x20u);
@@ -197,9 +232,9 @@ LABEL_10:
 
   else
   {
-    v16 = 0;
-    v13 = [v4 setResourceValue:MEMORY[0x277CBEC38] forKey:v6 error:&v16];
-    v8 = v16;
+    v15 = 0;
+    v13 = [v4 setResourceValue:MEMORY[0x277CBEC38] forKey:v6 error:&v15];
+    v8 = v15;
 
     if ((v13 & 1) == 0)
     {
@@ -207,13 +242,13 @@ LABEL_10:
       v10 = brc_default_log();
       if (os_log_type_enabled(v10, 0x90u))
       {
-        v15 = *(a1 + 32);
+        v14 = *(a1 + 32);
         *buf = 138412802;
-        v19 = v15;
-        v20 = 2112;
-        v21 = v8;
-        v22 = 2112;
-        v23 = v9;
+        v18 = v14;
+        v19 = 2112;
+        v20 = v8;
+        v21 = 2112;
+        v22 = v9;
         v12 = "[ERROR] Unable to exclude '%@' from backups: %@%@";
         goto LABEL_10;
       }
@@ -221,8 +256,780 @@ LABEL_10:
 LABEL_7:
     }
   }
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (int)_openStageDirectory:(unsigned __int8)directory
+{
+  directoryCopy = directory;
+  v128 = *MEMORY[0x277D85DE8];
+  memset(&v89, 0, sizeof(v89));
+  v5 = &self->super.isa + directory;
+  v7 = v5[2];
+  v6 = (v5 + 2);
+  v8 = v7;
+  fileSystemRepresentation = [(objc_class *)v8 fileSystemRepresentation];
+  v15 = BRCOpenAt(0xFFFFFFFFLL, fileSystemRepresentation, 33028, v10, v11, v12, v13, v14, v86);
+  if (v15 < 0)
+  {
+    if (*__error() != 2)
+    {
+      v29 = *__error();
+      v30 = brc_bread_crumbs();
+      v31 = brc_default_log();
+      if (!os_log_type_enabled(v31, 0x90u))
+      {
+        goto LABEL_121;
+      }
+
+      goto LABEL_66;
+    }
+
+LABEL_100:
+    if (mkdir([(objc_class *)v8 fileSystemRepresentation], 0x1EDu) < 0 && *__error() != 17)
+    {
+      if (*__error() != 2)
+      {
+        v29 = *__error();
+        v30 = brc_bread_crumbs();
+        v31 = brc_default_log();
+        if (!os_log_type_enabled(v31, 0x90u))
+        {
+          goto LABEL_121;
+        }
+
+        *buf = 138412802;
+        *v91 = v8;
+        *&v91[8] = 1024;
+        *&v91[10] = v29;
+        *&v91[14] = 2112;
+        *&v91[16] = v30;
+        v47 = "[ERROR] mkdir('%@') failed %{errno}d%@";
+LABEL_118:
+        v81 = v31;
+        v82 = 28;
+LABEL_119:
+        _os_log_error_impl(&dword_223E7A000, v81, 0x90u, v47, buf, v82);
+        goto LABEL_121;
+      }
+
+      defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+      v88 = 0;
+      v79 = [defaultManager createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:0 error:&v88];
+      v80 = v88;
+
+      if ((v79 & 1) == 0)
+      {
+        v84 = brc_bread_crumbs();
+        v85 = brc_default_log();
+        if (os_log_type_enabled(v85, 0x90u))
+        {
+          *buf = 138412802;
+          *v91 = v8;
+          *&v91[8] = 2112;
+          *&v91[10] = v80;
+          *&v91[18] = 2112;
+          *&v91[20] = v84;
+          _os_log_error_impl(&dword_223E7A000, v85, 0x90u, "[ERROR] mkdir('%@') withIntermediateDirectories failed: %@%@", buf, 0x20u);
+        }
+
+        goto LABEL_122;
+      }
+    }
+
+    fileSystemRepresentation2 = [(objc_class *)v8 fileSystemRepresentation];
+    v72 = BRCOpenAt(0xFFFFFFFFLL, fileSystemRepresentation2, 33028, v67, v68, v69, v70, v71, v87);
+    if ((v72 & 0x80000000) == 0)
+    {
+      v16 = v72;
+      if ((fstat(v72, &v89) & 0x80000000) == 0)
+      {
+        if (fcntl(v16, 64, 3))
+        {
+          v73 = *__error();
+          v74 = brc_bread_crumbs();
+          v75 = brc_default_log();
+          if (os_log_type_enabled(v75, 0x90u))
+          {
+            [BRCStageRegistry _openStageDirectory:];
+          }
+
+          *__error() = v73;
+        }
+
+        goto LABEL_108;
+      }
+
+      v48 = *__error();
+      v49 = brc_bread_crumbs();
+      v50 = brc_default_log();
+      if (!os_log_type_enabled(v50, 0x90u))
+      {
+LABEL_112:
+
+        *__error() = v48;
+        close(v16);
+LABEL_122:
+        v16 = -1;
+        goto LABEL_123;
+      }
+
+      *buf = 138412802;
+      *v91 = v8;
+      *&v91[8] = 1024;
+      *&v91[10] = v48;
+      *&v91[14] = 2112;
+      *&v91[16] = v49;
+      v51 = "[ERROR] fstat('%@') failed %{errno}d%@";
+      v52 = v50;
+      v53 = 28;
+LABEL_128:
+      _os_log_error_impl(&dword_223E7A000, v52, 0x90u, v51, buf, v53);
+      goto LABEL_112;
+    }
+
+    v29 = *__error();
+    v30 = brc_bread_crumbs();
+    v31 = brc_default_log();
+    if (!os_log_type_enabled(v31, 0x90u))
+    {
+      goto LABEL_121;
+    }
+
+LABEL_66:
+    *buf = 138412802;
+    *v91 = v8;
+    *&v91[8] = 1024;
+    *&v91[10] = v29;
+    *&v91[14] = 2112;
+    *&v91[16] = v30;
+    v47 = "[ERROR] open('%@') failed %{errno}d%@";
+    goto LABEL_118;
+  }
+
+  v16 = v15;
+  if (fstat(v15, &v89) < 0)
+  {
+    v48 = *__error();
+    v49 = brc_bread_crumbs();
+    v50 = brc_default_log();
+    if (!os_log_type_enabled(v50, 0x90u))
+    {
+      goto LABEL_112;
+    }
+
+    *buf = 67109890;
+    *v91 = v16;
+    *&v91[4] = 2112;
+    *&v91[6] = v8;
+    *&v91[14] = 1024;
+    *&v91[16] = v48;
+    *&v91[20] = 2112;
+    *&v91[22] = v49;
+    v51 = "[ERROR] fstat(%d) '%@' failed %{errno}d%@";
+    v52 = v50;
+    v53 = 34;
+    goto LABEL_128;
+  }
+
+  if ((v89.st_mode & 0xF000) != 0x4000)
+  {
+    v54 = brc_bread_crumbs();
+    v55 = brc_default_log();
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+    {
+      v56 = aPcDBLSW[v89.st_mode >> 12];
+      if ((v89.st_mode & 0x100) != 0)
+      {
+        v57 = 114;
+      }
+
+      else
+      {
+        v57 = 45;
+      }
+
+      if ((v89.st_mode & 0x80) != 0)
+      {
+        v58 = 119;
+      }
+
+      else
+      {
+        v58 = 45;
+      }
+
+      if ((v89.st_mode & 0x40) != 0)
+      {
+        v59 = 120;
+      }
+
+      else
+      {
+        v59 = 45;
+      }
+
+      if ((v89.st_mode & 0x20) != 0)
+      {
+        v60 = 114;
+      }
+
+      else
+      {
+        v60 = 45;
+      }
+
+      if ((v89.st_mode & 0x10) != 0)
+      {
+        v61 = 119;
+      }
+
+      else
+      {
+        v61 = 45;
+      }
+
+      if ((v89.st_mode & 8) != 0)
+      {
+        v62 = 120;
+      }
+
+      else
+      {
+        v62 = 45;
+      }
+
+      if ((v89.st_mode & 4) != 0)
+      {
+        v63 = 114;
+      }
+
+      else
+      {
+        v63 = 45;
+      }
+
+      if ((v89.st_mode & 2) != 0)
+      {
+        v64 = 119;
+      }
+
+      else
+      {
+        v64 = 45;
+      }
+
+      if (v89.st_mode)
+      {
+        v65 = 120;
+      }
+
+      else
+      {
+        v65 = 45;
+      }
+
+      *buf = 138417666;
+      *v91 = v8;
+      *&v91[8] = 1024;
+      *&v91[10] = v89.st_dev;
+      *&v91[14] = 2048;
+      *&v91[16] = v89.st_ino;
+      *&v91[24] = 1024;
+      *&v91[26] = v56;
+      v92 = 1024;
+      v93 = v57;
+      v94 = 1024;
+      v95 = v58;
+      v96 = 1024;
+      v97 = v59;
+      v98 = 1024;
+      v99 = v60;
+      v100 = 1024;
+      v101 = v61;
+      v102 = 1024;
+      v103 = v62;
+      v104 = 1024;
+      v105 = v63;
+      v106 = 1024;
+      v107 = v64;
+      v108 = 1024;
+      v109 = v65;
+      v110 = 1024;
+      st_nlink = v89.st_nlink;
+      v112 = 1024;
+      st_uid = v89.st_uid;
+      v114 = 1024;
+      st_gid = v89.st_gid;
+      v116 = 2048;
+      tv_sec = v89.st_atimespec.tv_sec;
+      v118 = 2048;
+      v119 = v89.st_mtimespec.tv_sec;
+      v120 = 2048;
+      v121 = v89.st_ctimespec.tv_sec;
+      v122 = 2048;
+      st_size = v89.st_size;
+      v124 = 1024;
+      st_flags = v89.st_flags;
+      v126 = 2112;
+      *v127 = v54;
+      _os_log_impl(&dword_223E7A000, v55, OS_LOG_TYPE_DEFAULT, "[WARNING] '%@' is not a directory deviceID:%u fileID:%llu mode:%c%c%c%c%c%c%c%c%c%c nlink:%u uid:%u gid:%u atime:%lu mtime:%lu ctime:%lu size:%llu flags:0x%x%@", buf, 0xA2u);
+    }
+
+    close(v16);
+    if (unlink([(objc_class *)v8 fileSystemRepresentation]) < 0 && *__error() != 2)
+    {
+      v29 = *__error();
+      v30 = brc_bread_crumbs();
+      v31 = brc_default_log();
+      if (!os_log_type_enabled(v31, 0x90u))
+      {
+        goto LABEL_121;
+      }
+
+      st_dev = v89.st_dev;
+      v33 = aPcDBLSW[v89.st_mode >> 12];
+      if ((v89.st_mode & 0x100) != 0)
+      {
+        v34 = 114;
+      }
+
+      else
+      {
+        v34 = 45;
+      }
+
+      v35 = v89.st_nlink;
+      if ((v89.st_mode & 0x80) != 0)
+      {
+        v36 = 119;
+      }
+
+      else
+      {
+        v36 = 45;
+      }
+
+      v37 = v89.st_uid;
+      v38 = v89.st_gid;
+      if ((v89.st_mode & 0x40) != 0)
+      {
+        v39 = 120;
+      }
+
+      else
+      {
+        v39 = 45;
+      }
+
+      if ((v89.st_mode & 0x20) != 0)
+      {
+        v40 = 114;
+      }
+
+      else
+      {
+        v40 = 45;
+      }
+
+      if ((v89.st_mode & 0x10) != 0)
+      {
+        v41 = 119;
+      }
+
+      else
+      {
+        v41 = 45;
+      }
+
+      if ((v89.st_mode & 8) != 0)
+      {
+        v42 = 120;
+      }
+
+      else
+      {
+        v42 = 45;
+      }
+
+      if ((v89.st_mode & 4) != 0)
+      {
+        v43 = 114;
+      }
+
+      else
+      {
+        v43 = 45;
+      }
+
+      if ((v89.st_mode & 2) != 0)
+      {
+        v44 = 119;
+      }
+
+      else
+      {
+        v44 = 45;
+      }
+
+      v45 = v89.st_flags;
+      if (v89.st_mode)
+      {
+        v46 = 120;
+      }
+
+      else
+      {
+        v46 = 45;
+      }
+
+      goto LABEL_156;
+    }
+
+    goto LABEL_100;
+  }
+
+  if (v89.st_dev != self->_deviceID)
+  {
+    v17 = brc_bread_crumbs();
+    v18 = brc_default_log();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      v19 = aPcDBLSW[v89.st_mode >> 12];
+      if ((v89.st_mode & 0x100) != 0)
+      {
+        v20 = 114;
+      }
+
+      else
+      {
+        v20 = 45;
+      }
+
+      if ((v89.st_mode & 0x80) != 0)
+      {
+        v21 = 119;
+      }
+
+      else
+      {
+        v21 = 45;
+      }
+
+      if ((v89.st_mode & 0x40) != 0)
+      {
+        v22 = 120;
+      }
+
+      else
+      {
+        v22 = 45;
+      }
+
+      if ((v89.st_mode & 0x20) != 0)
+      {
+        v23 = 114;
+      }
+
+      else
+      {
+        v23 = 45;
+      }
+
+      if ((v89.st_mode & 0x10) != 0)
+      {
+        v24 = 119;
+      }
+
+      else
+      {
+        v24 = 45;
+      }
+
+      if ((v89.st_mode & 8) != 0)
+      {
+        v25 = 120;
+      }
+
+      else
+      {
+        v25 = 45;
+      }
+
+      if ((v89.st_mode & 4) != 0)
+      {
+        v26 = 114;
+      }
+
+      else
+      {
+        v26 = 45;
+      }
+
+      if ((v89.st_mode & 2) != 0)
+      {
+        v27 = 119;
+      }
+
+      else
+      {
+        v27 = 45;
+      }
+
+      if (v89.st_mode)
+      {
+        v28 = 120;
+      }
+
+      else
+      {
+        v28 = 45;
+      }
+
+      *buf = 138417666;
+      *v91 = v8;
+      *&v91[8] = 1024;
+      *&v91[10] = v89.st_dev;
+      *&v91[14] = 2048;
+      *&v91[16] = v89.st_ino;
+      *&v91[24] = 1024;
+      *&v91[26] = v19;
+      v92 = 1024;
+      v93 = v20;
+      v94 = 1024;
+      v95 = v21;
+      v96 = 1024;
+      v97 = v22;
+      v98 = 1024;
+      v99 = v23;
+      v100 = 1024;
+      v101 = v24;
+      v102 = 1024;
+      v103 = v25;
+      v104 = 1024;
+      v105 = v26;
+      v106 = 1024;
+      v107 = v27;
+      v108 = 1024;
+      v109 = v28;
+      v110 = 1024;
+      st_nlink = v89.st_nlink;
+      v112 = 1024;
+      st_uid = v89.st_uid;
+      v114 = 1024;
+      st_gid = v89.st_gid;
+      v116 = 2048;
+      tv_sec = v89.st_atimespec.tv_sec;
+      v118 = 2048;
+      v119 = v89.st_mtimespec.tv_sec;
+      v120 = 2048;
+      v121 = v89.st_ctimespec.tv_sec;
+      v122 = 2048;
+      st_size = v89.st_size;
+      v124 = 1024;
+      st_flags = v89.st_flags;
+      v126 = 2112;
+      *v127 = v17;
+      _os_log_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEFAULT, "[WARNING] '%@' is not on the same volume as the root deviceID:%u fileID:%llu mode:%c%c%c%c%c%c%c%c%c%c nlink:%u uid:%u gid:%u atime:%lu mtime:%lu ctime:%lu size:%llu flags:0x%x%@", buf, 0xA2u);
+    }
+
+    close(v16);
+    if (unlink([(objc_class *)v8 fileSystemRepresentation]) < 0 && *__error() != 2)
+    {
+      v29 = *__error();
+      v30 = brc_bread_crumbs();
+      v31 = brc_default_log();
+      if (os_log_type_enabled(v31, 0x90u))
+      {
+        st_dev = v89.st_dev;
+        v33 = aPcDBLSW[v89.st_mode >> 12];
+        if ((v89.st_mode & 0x100) != 0)
+        {
+          v34 = 114;
+        }
+
+        else
+        {
+          v34 = 45;
+        }
+
+        v35 = v89.st_nlink;
+        if ((v89.st_mode & 0x80) != 0)
+        {
+          v36 = 119;
+        }
+
+        else
+        {
+          v36 = 45;
+        }
+
+        v37 = v89.st_uid;
+        v38 = v89.st_gid;
+        if ((v89.st_mode & 0x40) != 0)
+        {
+          v39 = 120;
+        }
+
+        else
+        {
+          v39 = 45;
+        }
+
+        if ((v89.st_mode & 0x20) != 0)
+        {
+          v40 = 114;
+        }
+
+        else
+        {
+          v40 = 45;
+        }
+
+        if ((v89.st_mode & 0x10) != 0)
+        {
+          v41 = 119;
+        }
+
+        else
+        {
+          v41 = 45;
+        }
+
+        if ((v89.st_mode & 8) != 0)
+        {
+          v42 = 120;
+        }
+
+        else
+        {
+          v42 = 45;
+        }
+
+        if ((v89.st_mode & 4) != 0)
+        {
+          v43 = 114;
+        }
+
+        else
+        {
+          v43 = 45;
+        }
+
+        if ((v89.st_mode & 2) != 0)
+        {
+          v44 = 119;
+        }
+
+        else
+        {
+          v44 = 45;
+        }
+
+        v45 = v89.st_flags;
+        if (v89.st_mode)
+        {
+          v46 = 120;
+        }
+
+        else
+        {
+          v46 = 45;
+        }
+
+LABEL_156:
+        *buf = 138417922;
+        *v91 = v8;
+        *&v91[8] = 1024;
+        *&v91[10] = st_dev;
+        *&v91[14] = 2048;
+        *&v91[16] = v89.st_ino;
+        *&v91[24] = 1024;
+        *&v91[26] = v33;
+        v92 = 1024;
+        v93 = v34;
+        v94 = 1024;
+        v95 = v36;
+        v96 = 1024;
+        v97 = v39;
+        v98 = 1024;
+        v99 = v40;
+        v100 = 1024;
+        v101 = v41;
+        v102 = 1024;
+        v103 = v42;
+        v104 = 1024;
+        v105 = v43;
+        v106 = 1024;
+        v107 = v44;
+        v108 = 1024;
+        v109 = v46;
+        v110 = 1024;
+        st_nlink = v35;
+        v112 = 1024;
+        st_uid = v37;
+        v114 = 1024;
+        st_gid = v38;
+        v116 = 2048;
+        tv_sec = v89.st_atimespec.tv_sec;
+        v118 = 2048;
+        v119 = v89.st_mtimespec.tv_sec;
+        v120 = 2048;
+        v121 = v89.st_ctimespec.tv_sec;
+        v122 = 2048;
+        st_size = v89.st_size;
+        v124 = 1024;
+        st_flags = v45;
+        v126 = 1024;
+        *v127 = v29;
+        *&v127[4] = 2112;
+        *&v127[6] = v30;
+        v47 = "[ERROR] unlink('%@') failed deviceID:%u fileID:%llu mode:%c%c%c%c%c%c%c%c%c%c nlink:%u uid:%u gid:%u atime:%lu mtime:%lu ctime:%lu size:%llu flags:0x%x %{errno}d%@";
+        v81 = v31;
+        v82 = 168;
+        goto LABEL_119;
+      }
+
+LABEL_121:
+
+      *__error() = v29;
+      goto LABEL_122;
+    }
+
+    goto LABEL_100;
+  }
+
+LABEL_108:
+  v76 = directoryCopy;
+  v77 = [(BRCStageRegistry *)self _pathForDirIndex:directoryCopy];
+
+  objc_storeStrong(v6, v77);
+  self->_stageDirectoryFileID[v76] = v89.st_ino;
+  v8 = v77;
+LABEL_123:
+
+  return v16;
+}
+
+- (int)_performInStageDirectory:(unsigned __int8)directory block:(id)block
+{
+  directoryCopy = directory;
+  blockCopy = block;
+  v7 = [(BRCStageRegistry *)self _openStageDirectory:directoryCopy];
+  if ((v7 & 0x80000000) != 0)
+  {
+    v9 = -1;
+  }
+
+  else
+  {
+    v8 = v7;
+    v9 = blockCopy[2](blockCopy, v7);
+    v10 = *__error();
+    close(v8);
+    *__error() = v10;
+  }
+
+  return v9;
 }
 
 - (BOOL)copyPackageFileWithPackageFd:(int)fd toStageFd:(int)stageFd relpath:(id)relpath
@@ -243,13 +1050,13 @@ LABEL_7:
 
 uint64_t __67__BRCStageRegistry_copyPackageFileWithPackageFd_toStageFd_relpath___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCAD78] UUID];
   v5 = [v4 UUIDString];
 
   v6 = *(a1 + 40);
   v7 = [*(a1 + 32) fileSystemRepresentation];
-  v13 = BRCOpenAt(v6, v7, 33028, v8, v9, v10, v11, v12, v42);
+  v13 = BRCOpenAt(v6, v7, 33028, v8, v9, v10, v11, v12, v41);
   if (v13 < 0)
   {
     v27 = *__error();
@@ -257,16 +1064,16 @@ uint64_t __67__BRCStageRegistry_copyPackageFileWithPackageFd_toStageFd_relpath__
     v31 = brc_default_log();
     if (os_log_type_enabled(v31, 0x90u))
     {
-      v38 = *(a1 + 40);
-      v39 = *(a1 + 32);
+      v37 = *(a1 + 40);
+      v38 = *(a1 + 32);
       *buf = 67109890;
-      v44 = v38;
-      v45 = 2112;
-      *v46 = v39;
-      *&v46[8] = 1024;
-      *v47 = v27;
-      *&v47[4] = 2112;
-      *&v47[6] = v30;
+      v43 = v37;
+      v44 = 2112;
+      *v45 = v38;
+      *&v45[8] = 1024;
+      *v46 = v27;
+      *&v46[4] = 2112;
+      *&v46[6] = v30;
       _os_log_error_impl(&dword_223E7A000, v31, 0x90u, "[ERROR] BRCOpenAt(%d, %@, O_RDONLY) failed %{errno}d%@", buf, 0x22u);
     }
 
@@ -284,13 +1091,13 @@ uint64_t __67__BRCStageRegistry_copyPackageFileWithPackageFd_toStageFd_relpath__
     if (os_log_type_enabled(v34, 0x90u))
     {
       *buf = 67109890;
-      v44 = a2;
-      v45 = 2112;
-      *v46 = v5;
-      *&v46[8] = 1024;
-      *v47 = v32;
-      *&v47[4] = 2112;
-      *&v47[6] = v33;
+      v43 = a2;
+      v44 = 2112;
+      *v45 = v5;
+      *&v45[8] = 1024;
+      *v46 = v32;
+      *&v46[4] = 2112;
+      *&v46[6] = v33;
       _os_log_error_impl(&dword_223E7A000, v34, 0x90u, "[ERROR] BRCOpenAt(%d, %@, O_CREAT|O_RDWR|O_EXCL) %{errno}d%@", buf, 0x22u);
     }
 
@@ -316,13 +1123,13 @@ uint64_t __67__BRCStageRegistry_copyPackageFileWithPackageFd_toStageFd_relpath__
     if (os_log_type_enabled(v35, 0x90u))
     {
       *buf = 67109890;
-      v44 = v14;
-      v45 = 1024;
-      *v46 = v22;
-      *&v46[4] = 1024;
-      *&v46[6] = v27;
-      *v47 = 2112;
-      *&v47[2] = v30;
+      v43 = v14;
+      v44 = 1024;
+      *v45 = v22;
+      *&v45[4] = 1024;
+      *&v45[6] = v27;
+      *v46 = 2112;
+      *&v46[2] = v30;
       _os_log_error_impl(&dword_223E7A000, v35, 0x90u, "[ERROR] fcopyfile(%d, %d, NULL, COPYFILE_DATA) %{errno}d%@", buf, 0x1Eu);
     }
 
@@ -341,20 +1148,20 @@ LABEL_18:
     v29 = brc_default_log();
     if (os_log_type_enabled(v29, 0x90u))
     {
-      v40 = *(a1 + 44);
-      v41 = *(a1 + 32);
+      v39 = *(a1 + 44);
+      v40 = *(a1 + 32);
       *buf = 67110402;
-      v44 = a2;
-      v45 = 2112;
-      *v46 = v5;
-      *&v46[8] = 1024;
-      *v47 = v40;
-      *&v47[4] = 2112;
-      *&v47[6] = v41;
-      v48 = 1024;
-      v49 = v27;
-      v50 = 2112;
-      v51 = v28;
+      v43 = a2;
+      v44 = 2112;
+      *v45 = v5;
+      *&v45[8] = 1024;
+      *v46 = v39;
+      *&v46[4] = 2112;
+      *&v46[6] = v40;
+      v47 = 1024;
+      v48 = v27;
+      v49 = 2112;
+      v50 = v28;
       _os_log_error_impl(&dword_223E7A000, v29, 0x90u, "[ERROR] BRCRenameAt(%d, %@, %d, %@, 0) %{errno}d%@", buf, 0x32u);
     }
 
@@ -363,14 +1170,13 @@ LABEL_18:
 
 LABEL_19:
 
-  v36 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 - (id)_pathInStage:(unint64_t)stage index:(unsigned __int8 *)index generationID:(unsigned int *)d
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v23 = 0;
+  v29 = *MEMORY[0x277D85DE8];
+  v22 = 0;
   v9 = BRCOpenByID(self->_deviceID, stage, 2129924);
   if (v9 < 0)
   {
@@ -386,9 +1192,9 @@ LABEL_19:
   }
 
   v10 = v9;
-  v22 = 0;
-  v11 = _fstatItem(v9, &v23, d, 0, &v22);
-  v12 = v22;
+  v21 = 0;
+  v11 = _fstatItem(v9, &v22, d, 0, &v21);
+  v12 = v21;
   close(v10);
   if (v11 < 0)
   {
@@ -397,18 +1203,18 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  if (v23 != stage)
+  if (v22 != stage)
   {
     v17 = brc_bread_crumbs();
     v18 = brc_default_log();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       *buf = 134218498;
-      v25 = v23;
-      v26 = 2048;
+      v24 = v22;
+      v25 = 2048;
       stageCopy = stage;
-      v28 = 2112;
-      v29 = v17;
+      v27 = 2112;
+      v28 = v17;
       _os_log_fault_impl(&dword_223E7A000, v18, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: returnedFileID(%llu) != fileID(%llu)%@", buf, 0x20u);
     }
 
@@ -429,8 +1235,6 @@ LABEL_14:
   v12 = v12;
   v19 = v12;
 LABEL_15:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -661,7 +1465,7 @@ void __57__BRCStageRegistry_associateSyncUpStageID_withOperation___block_invoke(
 
 - (void)cleanupStagedUploadWithID:(id)d
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = self->_activeUploadStageIDs;
   objc_sync_enter(v5);
@@ -670,9 +1474,9 @@ void __57__BRCStageRegistry_associateSyncUpStageID_withOperation___block_invoke(
 
   v6 = [(NSString *)self->_stageDirectoryPath[2] stringByAppendingPathComponent:dCopy];
   v7 = MEMORY[0x277CBEBC0];
-  v15[0] = v6;
-  v15[1] = @"ckpackage";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[0] = v6;
+  v14[1] = @"ckpackage";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v9 = [v7 fileURLWithPathComponents:v8];
 
   [MEMORY[0x277CBC538] destroyAnchorAndPackageAnchoredAtURL:v9];
@@ -684,8 +1488,6 @@ void __57__BRCStageRegistry_associateSyncUpStageID_withOperation___block_invoke(
 
   diskReclaimer2 = [(BRCAccountSession *)*p_session diskReclaimer];
   [diskReclaimer2 renameAndUnlinkInBackgroundItemAt:0xFFFFFFFFLL path:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createURLForDownloadWithStageID:(id)d name:(id)name
@@ -717,9 +1519,54 @@ void __57__BRCStageRegistry_associateSyncUpStageID_withOperation___block_invoke(
   }
 }
 
+- (BOOL)_graveyardAt:(int)at path:(id)path forItemID:(id)d
+{
+  v6 = *&at;
+  v31 = *MEMORY[0x277D85DE8];
+  pathCopy = path;
+  dCopy = d;
+  lowDiskSpace = self->_lowDiskSpace;
+  memset(&v24, 0, sizeof(v24));
+  if (!dCopy || lowDiskSpace || !fstatat(v6, [pathCopy fileSystemRepresentation], &v24, 32) && (st_size = v24.st_size, (v24.st_size & 0xF000) == 0x8000) && (+[BRCUserDefaults defaultsForMangledID:](BRCUserDefaults, "defaultsForMangledID:", 0), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "minFileSizeForGraveyard"), v12, st_size <= v13))
+  {
+    v16 = brc_bread_crumbs();
+    v17 = brc_default_log();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 67109634;
+      v26 = v6;
+      v27 = 2112;
+      v28 = pathCopy;
+      v29 = 2112;
+      v30 = v16;
+      _os_log_debug_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] deleting (%d, '%@') asynchronously%@", buf, 0x1Cu);
+    }
+
+    diskReclaimer = [(BRCAccountSession *)self->_session diskReclaimer];
+    v14 = [diskReclaimer renameAndUnlinkInBackgroundItemAt:v6 path:pathCopy];
+  }
+
+  else
+  {
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __48__BRCStageRegistry__graveyardAt_path_forItemID___block_invoke;
+    v19[3] = &unk_278505028;
+    v20 = dCopy;
+    selfCopy = self;
+    v23 = v6;
+    v22 = pathCopy;
+    v14 = [(BRCStageRegistry *)self _performInStageDirectory:0 block:v19]== 0;
+
+    diskReclaimer = v20;
+  }
+
+  return v14;
+}
+
 uint64_t __48__BRCStageRegistry__graveyardAt_path_forItemID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) itemIDString];
   v5 = [*(*(a1 + 40) + 8) diskReclaimer];
   [v5 renameAndUnlinkInBackgroundItemAt:a2 path:v4];
@@ -730,22 +1577,22 @@ uint64_t __48__BRCStageRegistry__graveyardAt_path_forItemID___block_invoke(uint6
     v10 = brc_default_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v18 = *(a1 + 56);
-      v19 = *(a1 + 48);
-      v20 = *__error();
-      v21 = 67110402;
-      *v22 = v18;
-      *&v22[4] = 2112;
-      *&v22[6] = v19;
-      v23 = 1024;
-      *v24 = a2;
-      *&v24[4] = 2112;
-      *&v24[6] = v4;
-      *&v24[14] = 1024;
-      *&v24[16] = v20;
-      LOWORD(v25[0]) = 2112;
-      *(v25 + 2) = v6;
-      _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] renameat(%d, '%@', %d, '%@') failed %{errno}d%@", &v21, 0x32u);
+      v17 = *(a1 + 56);
+      v18 = *(a1 + 48);
+      v19 = *__error();
+      v20 = 67110402;
+      *v21 = v17;
+      *&v21[4] = 2112;
+      *&v21[6] = v18;
+      v22 = 1024;
+      *v23 = a2;
+      *&v23[4] = 2112;
+      *&v23[6] = v4;
+      *&v23[14] = 1024;
+      *&v23[16] = v19;
+      LOWORD(v24[0]) = 2112;
+      *(v24 + 2) = v6;
+      _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] renameat(%d, '%@', %d, '%@') failed %{errno}d%@", &v20, 0x32u);
     }
 
     v12 = 0xFFFFFFFFLL;
@@ -761,13 +1608,13 @@ uint64_t __48__BRCStageRegistry__graveyardAt_path_forItemID___block_invoke(uint6
       v9 = brc_default_log();
       if (os_log_type_enabled(v9, 0x90u))
       {
-        v21 = 138412802;
-        *v22 = v6;
-        *&v22[8] = 1024;
-        *&v22[10] = v7;
-        v23 = 2112;
-        *v24 = v8;
-        _os_log_error_impl(&dword_223E7A000, v9, 0x90u, "[ERROR] failed removing documentID for %@ %{errno}d%@", &v21, 0x1Cu);
+        v20 = 138412802;
+        *v21 = v6;
+        *&v21[8] = 1024;
+        *&v21[10] = v7;
+        v22 = 2112;
+        *v23 = v8;
+        _os_log_error_impl(&dword_223E7A000, v9, 0x90u, "[ERROR] failed removing documentID for %@ %{errno}d%@", &v20, 0x1Cu);
       }
 
       *__error() = v7;
@@ -777,26 +1624,25 @@ uint64_t __48__BRCStageRegistry__graveyardAt_path_forItemID___block_invoke(uint6
     v11 = brc_default_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = *(a1 + 56);
-      v16 = *(a1 + 48);
-      v17 = *(a1 + 32);
-      v21 = 67110146;
-      *v22 = v15;
-      *&v22[4] = 2112;
-      *&v22[6] = v16;
-      v23 = 2112;
-      *v24 = v6;
-      *&v24[8] = 2112;
-      *&v24[10] = v17;
-      *&v24[18] = 2112;
-      v25[0] = v10;
-      _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] moved (%d, '%@') to the graveyard at '%@' for %@%@", &v21, 0x30u);
+      v14 = *(a1 + 56);
+      v15 = *(a1 + 48);
+      v16 = *(a1 + 32);
+      v20 = 67110146;
+      *v21 = v14;
+      *&v21[4] = 2112;
+      *&v21[6] = v15;
+      v22 = 2112;
+      *v23 = v6;
+      *&v23[8] = 2112;
+      *&v23[10] = v16;
+      *&v23[18] = 2112;
+      v24[0] = v10;
+      _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] moved (%d, '%@') to the graveyard at '%@' for %@%@", &v20, 0x30u);
     }
 
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -833,6 +1679,37 @@ uint64_t __48__BRCStageRegistry__graveyardAt_path_forItemID___block_invoke(uint6
   return v6;
 }
 
+- (int64_t)_purgeSpaceUnderQueue:(int64_t)queue withUrgency:(int)urgency
+{
+  v4 = *&urgency;
+  v7 = [(BRCStageRegistry *)self garbageCollectSpace:?];
+  if (v7 < queue && v4 <= 4)
+  {
+    do
+    {
+      v8 = objc_autoreleasePoolPush();
+      v7 += [(BRCStageRegistry *)self purgeGraveyardSpace:queue - v7 withUrgency:v4];
+      objc_autoreleasePoolPop(v8);
+      if (v4 == -2)
+      {
+        break;
+      }
+
+      if (v7 >= queue)
+      {
+        break;
+      }
+
+      v9 = v4 <= 3;
+      v4 = (v4 + 1);
+    }
+
+    while (v9);
+  }
+
+  return v7;
+}
+
 - (int64_t)purgeSpace:(int64_t)space withUrgency:(int)urgency
 {
   v9 = 0;
@@ -854,7 +1731,7 @@ uint64_t __48__BRCStageRegistry__graveyardAt_path_forItemID___block_invoke(uint6
   return v5;
 }
 
-uint64_t __43__BRCStageRegistry_purgeSpace_withUrgency___block_invoke(uint64_t a1)
+void *__43__BRCStageRegistry_purgeSpace_withUrgency___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _purgeSpaceUnderQueue:*(a1 + 48) withUrgency:*(a1 + 56)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -898,11 +1775,11 @@ uint64_t __65__BRCStageRegistry_lowDiskStatusChangedForDevice_hasEnoughSpace___b
 
 - (int64_t)purgableSpace
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   v2 = self->_stageDirectoryPath[0];
-  v27[0] = [(NSString *)v2 fileSystemRepresentation];
-  v27[1] = 0;
-  v3 = fts_open(v27, 16, 0);
+  v26[0] = [(NSString *)v2 fileSystemRepresentation];
+  v26[1] = 0;
+  v3 = fts_open(v26, 16, 0);
   value = 0;
   if (!v3)
   {
@@ -994,11 +1871,11 @@ LABEL_23:
   {
     fts_path = v6->fts_path;
     *buf = 136315650;
-    v22 = fts_path;
-    v23 = 1024;
-    v24 = v13;
-    v25 = 2112;
-    v26 = v14;
+    v21 = fts_path;
+    v22 = 1024;
+    v23 = v13;
+    v24 = 2112;
+    v25 = v14;
     _os_log_error_impl(&dword_223E7A000, v15, 0x90u, "[ERROR] fts_read() failed for path %s %{errno}d%@", buf, 0x1Cu);
   }
 
@@ -1007,7 +1884,6 @@ LABEL_32:
   fts_close(v4);
 LABEL_33:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1015,9 +1891,9 @@ LABEL_33:
 {
   v6 = self->_stageDirectoryPath[0];
   v22 = 0;
-  v23[0] = &v22;
-  v23[1] = 0x2020000000;
-  v23[2] = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   v7 = time(0);
   if (urgency > 2)
   {
@@ -1070,10 +1946,10 @@ LABEL_11:
   v13 = brc_default_log();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    [BRCStageRegistry purgeGraveyardSpace:v23 withUrgency:?];
+    [BRCStageRegistry purgeGraveyardSpace:withUrgency:];
   }
 
-  v14 = *(v23[0] + 24);
+  v14 = v23[3];
   _Block_object_dispose(&v22, 8);
 
   return v14;
@@ -1123,6 +1999,30 @@ LABEL_9:
   return v8;
 }
 
+- (int64_t)_purgeAllUploadsWithIncludeActiveItems:(BOOL)items
+{
+  itemsCopy = items;
+  v5 = brc_bread_crumbs();
+  v6 = brc_default_log();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCStageRegistry _purgeAllUploadsWithIncludeActiveItems:];
+  }
+
+  v7 = [(BRCStageRegistry *)self _garbageCollectUploadsIncludingActiveUploads:itemsCopy];
+  v8 = [(BRCStageRegistry *)self _garbageCollectLiveItemsIncludingActiveItems:itemsCopy]+ v7;
+  v9 = [(BRCStageRegistry *)self _garbageCollectUploadThumbnailsIncludingActiveUploads:itemsCopy];
+  v10 = v9 + [(BRCStageRegistry *)self _removeUnusedXattrBlobs];
+  v11 = brc_bread_crumbs();
+  v12 = brc_default_log();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCStageRegistry _purgeAllUploadsWithIncludeActiveItems:];
+  }
+
+  return v8 + v10;
+}
+
 - (BOOL)_hasActiveUploadWithStageID:(id)d
 {
   dCopy = d;
@@ -1167,6 +2067,17 @@ uint64_t __48__BRCStageRegistry__hasActiveUploadWithStageID___block_invoke(uint6
   }
 
   return 1;
+}
+
+- (int64_t)_garbageCollectUploadsIncludingActiveUploads:(BOOL)uploads
+{
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __65__BRCStageRegistry__garbageCollectUploadsIncludingActiveUploads___block_invoke;
+  v4[3] = &unk_2785050A0;
+  uploadsCopy = uploads;
+  v4[4] = self;
+  return [(BRCStageRegistry *)self _garbageCollectItemsIncludingActiveItems:uploads stageIndex:2 maxAge:0 deletePredicate:v4];
 }
 
 uint64_t __65__BRCStageRegistry__garbageCollectUploadsIncludingActiveUploads___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1239,7 +2150,7 @@ LABEL_9:
 
 uint64_t __44__BRCStageRegistry__garbageCollectDownloads__block_invoke(void *a1, uint64_t a2, int *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCACA8] br_pathWithFileSystemRepresentation:a2];
   v6 = [v5 br_pathRelativeToPath:a1[4]];
   v7 = [v6 pathComponents];
@@ -1247,10 +2158,10 @@ uint64_t __44__BRCStageRegistry__garbageCollectDownloads__block_invoke(void *a1,
 
   if (v8 == 1)
   {
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x2020000000;
-    v29 = 0;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
+    v28 = 0;
     v9 = v6;
     v10 = *(a1[5] + 152);
     objc_sync_enter(v10);
@@ -1265,17 +2176,17 @@ uint64_t __44__BRCStageRegistry__garbageCollectDownloads__block_invoke(void *a1,
     else
     {
       v13 = [*(a1[5] + 8) clientReadDatabaseFacade];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __44__BRCStageRegistry__garbageCollectDownloads__block_invoke_2;
-      v22[3] = &unk_2785050C8;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __44__BRCStageRegistry__garbageCollectDownloads__block_invoke_2;
+      v21[3] = &unk_2785050C8;
       v14 = v13;
-      v23 = v14;
+      v22 = v14;
       v15 = v9;
-      v24 = v15;
-      v25 = &v26;
-      [v14 performWithFlags:1 action:v22];
-      v12 = *(v27 + 6);
+      v23 = v15;
+      v24 = &v25;
+      [v14 performWithFlags:1 action:v21];
+      v12 = *(v26 + 6);
       if (!v12)
       {
         *(*(a1[6] + 8) + 24) += *(a3 + 12);
@@ -1283,24 +2194,24 @@ uint64_t __44__BRCStageRegistry__garbageCollectDownloads__block_invoke(void *a1,
         v17 = brc_default_log();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
-          v20 = *a3;
-          v21 = *(a3 + 1);
+          v19 = *a3;
+          v20 = *(a3 + 1);
           *buf = 138413058;
-          v31 = v15;
-          v32 = 1024;
-          v33 = v20;
-          v34 = 2048;
-          v35 = v21;
-          v36 = 2112;
-          v37 = v16;
+          v30 = v15;
+          v31 = 1024;
+          v32 = v19;
+          v33 = 2048;
+          v34 = v20;
+          v35 = 2112;
+          v36 = v16;
           _os_log_debug_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] removing staged file for download: %@ device:%d ino:%lld%@", buf, 0x26u);
         }
 
-        v12 = *(v27 + 6);
+        v12 = *(v26 + 6);
       }
     }
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v25, 8);
   }
 
   else
@@ -1309,7 +2220,6 @@ uint64_t __44__BRCStageRegistry__garbageCollectDownloads__block_invoke(void *a1,
     *(*(a1[6] + 8) + 24) += *(a3 + 12);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1450,7 +2360,7 @@ uint64_t __47__BRCStageRegistry__garbageCollectQBSDatabases__block_invoke(uint64
 
 BOOL __47__BRCStageRegistry__garbageCollectQBSDatabases__block_invoke_2(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = [*(a1 + 32) serverZoneByName:v8 ownerName:a4];
@@ -1485,19 +2395,18 @@ BOOL __47__BRCStageRegistry__garbageCollectQBSDatabases__block_invoke_2(uint64_t
   v20 = brc_default_log();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
   {
-    v23 = 138412802;
-    v24 = v7;
-    v25 = 2112;
-    v26 = v8;
-    v27 = 2112;
-    v28 = v19;
-    _os_log_fault_impl(&dword_223E7A000, v20, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to parse record name %@ or zone %@%@", &v23, 0x20u);
+    v22 = 138412802;
+    v23 = v7;
+    v24 = 2112;
+    v25 = v8;
+    v26 = 2112;
+    v27 = v19;
+    _os_log_fault_impl(&dword_223E7A000, v20, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to parse record name %@ or zone %@%@", &v22, 0x20u);
   }
 
   v18 = 0;
 LABEL_10:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -1614,7 +2523,7 @@ LABEL_15:
   [(BRCStageRegistry *)self _processPendingListDatabaseObjects:v11];
 }
 
-uint64_t __49__BRCStageRegistry_removeDatabaseObjectsForZone___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL __49__BRCStageRegistry_removeDatabaseObjectsForZone___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!a3)
   {
@@ -1651,57 +2560,56 @@ BOOL __49__BRCStageRegistry_removeDatabaseObjectsForZone___block_invoke_2(uint64
   {
     v10 = [*(a1 + 32) ownerName];
     v11 = v10;
-    v12 = *MEMORY[0x277CBBF28];
     if (!v10)
     {
       v10 = *MEMORY[0x277CBBF28];
     }
 
-    v13 = [v10 isEqualToString:v6];
+    v12 = [v10 isEqualToString:v6];
 
-    v14 = (v13 & 1) == 0;
+    v13 = (v12 & 1) == 0;
   }
 
   else
   {
 
-    v14 = 1;
+    v13 = 1;
   }
 
-  return v14;
+  return v13;
 }
 
 - (BOOL)_hasContentsInPath:(id)path
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEBC0] fileURLWithPath:path];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   [defaultManager enumeratorAtURL:v3 includingPropertiesForKeys:0 options:5 errorHandler:&__block_literal_global_128_1];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = v14 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = v13 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        if ([v3 br_isParentOfURL:{*(*(&v11 + 1) + 8 * i), v11}])
+        if ([v3 br_isParentOfURL:{*(*(&v10 + 1) + 8 * i), v10}])
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -1713,39 +2621,37 @@ BOOL __49__BRCStageRegistry_removeDatabaseObjectsForZone___block_invoke_2(uint64
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t __39__BRCStageRegistry__hasContentsInPath___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = brc_bread_crumbs();
   v7 = brc_default_log();
   if (os_log_type_enabled(v7, 0x90u))
   {
-    v10 = 138412802;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_error_impl(&dword_223E7A000, v7, 0x90u, "[ERROR] Failed checking contents at %@ - %@%@", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_error_impl(&dword_223E7A000, v7, 0x90u, "[ERROR] Failed checking contents at %@ - %@%@", &v9, 0x20u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (int64_t)_removeUnusedXattrBlobs
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v26 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   v3 = time(0);
   v4 = [BRCUserDefaults defaultsForMangledID:0];
   [v4 xattrAgeDelta];
@@ -1759,7 +2665,7 @@ uint64_t __39__BRCStageRegistry__hasContentsInPath___block_invoke(uint64_t a1, v
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = v8;
+      v25 = v8;
       v10 = "[WARNING] Skipping xattr check because we're in the middle of fetching delta change records%@";
 LABEL_7:
       _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 0xCu);
@@ -1771,20 +2677,20 @@ LABEL_7:
     if (![(BRCStageRegistry *)self _hasContentsInPath:self->_stageDirectoryPath[4]])
     {
       v12 = self->_stageDirectoryPath[7];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __43__BRCStageRegistry__removeUnusedXattrBlobs__block_invoke;
-      v15[3] = &unk_2785051B8;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __43__BRCStageRegistry__removeUnusedXattrBlobs__block_invoke;
+      v14[3] = &unk_2785051B8;
       v8 = v12;
-      v16 = v8;
-      v19 = v3;
-      v20 = v6;
-      v17 = v7;
-      v18 = &v21;
-      BRCRemoveFolderInAutoreleasepool(v8, v15, 1, 0);
-      v11 = v22[3];
+      v15 = v8;
+      v18 = v3;
+      v19 = v6;
+      v16 = v7;
+      v17 = &v20;
+      BRCRemoveFolderInAutoreleasepool(v8, v14, 1, 0);
+      v11 = v21[3];
 
-      v9 = v16;
+      v9 = v15;
       goto LABEL_10;
     }
 
@@ -1793,7 +2699,7 @@ LABEL_7:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = v8;
+      v25 = v8;
       v10 = "[WARNING] Skipping xattr check because we're in the middle of fetching item records%@";
       goto LABEL_7;
     }
@@ -1802,76 +2708,72 @@ LABEL_7:
   v11 = 0;
 LABEL_10:
 
-  _Block_object_dispose(&v21, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
   return v11;
 }
 
 uint64_t __43__BRCStageRegistry__removeUnusedXattrBlobs__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  if (a3)
+  v28 = *MEMORY[0x277D85DE8];
+  if (!a3)
   {
-    v5 = [MEMORY[0x277CCACA8] br_pathWithFileSystemRepresentation:a2];
-    v6 = [v5 br_pathRelativeToPath:*(a1 + 32)];
-    v7 = [v6 pathComponents];
-    if ([v6 length])
+    return 1;
+  }
+
+  v5 = [MEMORY[0x277CCACA8] br_pathWithFileSystemRepresentation:a2];
+  v6 = [v5 br_pathRelativeToPath:*(a1 + 32)];
+  v7 = [v6 pathComponents];
+  if ([v6 length])
+  {
+    if (*(a1 + 56) - *(a3 + 48) >= *(a1 + 64))
     {
-      if (*(a1 + 56) - *(a3 + 48) >= *(a1 + 64))
+      if ([v7 count] != 1)
       {
-        if ([v7 count] != 1)
+        __43__BRCStageRegistry__removeUnusedXattrBlobs__block_invoke_cold_1();
+      }
+
+      v9 = [v7 firstObject];
+      v10 = [v9 brc_dataFromHexidecimalString];
+      if (v10)
+      {
+        v20 = 0;
+        v21 = &v20;
+        v22 = 0x2020000000;
+        v23 = 0;
+        v11 = [*(a1 + 40) clientTruthWorkloop];
+        block[0] = MEMORY[0x277D85DD0];
+        block[1] = 3221225472;
+        block[2] = __43__BRCStageRegistry__removeUnusedXattrBlobs__block_invoke_129;
+        block[3] = &unk_278502B88;
+        v17 = *(a1 + 40);
+        v12 = v10;
+        v18 = v12;
+        v19 = &v20;
+        dispatch_async_and_wait(v11, block);
+
+        if (v21[3])
         {
-          __43__BRCStageRegistry__removeUnusedXattrBlobs__block_invoke_cold_1();
-        }
-
-        v9 = [v7 firstObject];
-        v10 = [v9 brc_dataFromHexidecimalString];
-        if (v10)
-        {
-          v21 = 0;
-          v22 = &v21;
-          v23 = 0x2020000000;
-          v24 = 0;
-          v11 = [*(a1 + 40) clientTruthWorkloop];
-          block[0] = MEMORY[0x277D85DD0];
-          block[1] = 3221225472;
-          block[2] = __43__BRCStageRegistry__removeUnusedXattrBlobs__block_invoke_129;
-          block[3] = &unk_278502B88;
-          v18 = *(a1 + 40);
-          v12 = v10;
-          v19 = v12;
-          v20 = &v21;
-          dispatch_async_and_wait(v11, block);
-
-          if (v22[3])
-          {
-            v8 = 1;
-          }
-
-          else
-          {
-            v13 = brc_bread_crumbs();
-            v14 = brc_default_log();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 138412546;
-              v26 = v12;
-              v27 = 2112;
-              v28 = v13;
-              _os_log_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] Removing unused xattr signature %@%@", buf, 0x16u);
-            }
-
-            v8 = 0;
-            *(*(*(a1 + 48) + 8) + 24) += *(a3 + 96);
-          }
-
-          _Block_object_dispose(&v21, 8);
+          v8 = 1;
         }
 
         else
         {
-          v8 = 1;
+          v13 = brc_bread_crumbs();
+          v14 = brc_default_log();
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412546;
+            v25 = v12;
+            v26 = 2112;
+            v27 = v13;
+            _os_log_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] Removing unused xattr signature %@%@", buf, 0x16u);
+          }
+
+          v8 = 0;
+          *(*(*(a1 + 48) + 8) + 24) += *(a3 + 96);
         }
+
+        _Block_object_dispose(&v20, 8);
       }
 
       else
@@ -1882,16 +2784,15 @@ uint64_t __43__BRCStageRegistry__removeUnusedXattrBlobs__block_invoke(uint64_t a
 
     else
     {
-      v8 = 0;
+      v8 = 1;
     }
   }
 
   else
   {
-    v8 = 1;
+    v8 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1900,17 +2801,8 @@ uint64_t __43__BRCStageRegistry__removeUnusedXattrBlobs__block_invoke_129(uint64
   v2 = [*(a1 + 32) clientDB];
   v7 = [v2 numberWithSQL:{@"SELECT EXISTS (SELECT 1 FROM client_pkg_upload_items WHERE xattr_signature = %@)", *(a1 + 40)}];
 
-  if ([v7 BOOLValue])
+  if ([v7 BOOLValue] & 1) != 0 || (objc_msgSend(*(a1 + 32), "clientDB"), v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "numberWithSQL:", @"SELECT EXISTS (SELECT 1 FROM client_items WHERE item_xattr_signature = %@ OR version_xattr_signature = %@ LIMIT 1)", *(a1 + 40), *(a1 + 40)), v7, v3, (objc_msgSend(v4, "BOOLValue")) || (objc_msgSend(*(a1 + 32), "clientDB"), v5 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v5, "numberWithSQL:", @"SELECT EXISTS (SELECT 1 FROM server_items WHERE item_xattr_signature = %@ OR version_xattr_signature = %@ LIMIT 1)", *(a1 + 40), *(a1 + 40)), v4, v5, objc_msgSend(v8, "BOOLValue")))
   {
-    goto LABEL_4;
-  }
-
-  v3 = [*(a1 + 32) clientDB];
-  v4 = [v3 numberWithSQL:{@"SELECT EXISTS (SELECT 1 FROM client_items WHERE item_xattr_signature = %@ OR version_xattr_signature = %@ LIMIT 1)", *(a1 + 40), *(a1 + 40)}];
-
-  if (([v4 BOOLValue] & 1) != 0 || (objc_msgSend(*(a1 + 32), "clientDB"), v5 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v5, "numberWithSQL:", @"SELECT EXISTS (SELECT 1 FROM server_items WHERE item_xattr_signature = %@ OR version_xattr_signature = %@ LIMIT 1)", *(a1 + 40), *(a1 + 40)), v4, v5, objc_msgSend(v8, "BOOLValue")))
-  {
-LABEL_4:
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
 
@@ -1983,11 +2875,11 @@ uint64_t __95__BRCStageRegistry__garbageCollectItemsIncludingActiveItems_stageIn
         {
           v15 = *(a1 + 64);
           v16 = *(a1 + 72);
-          if (v15 - a3[8] >= v16 && v15 - a3[6] >= v16 && (v17 = a3[1], (*(*(a1 + 40) + 16))()))
+          if (v15 - a3[8] >= v16 && v15 - a3[6] >= v16 && (*(*(a1 + 40) + 16))())
           {
-            v18 = brc_bread_crumbs();
-            v19 = brc_default_log();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+            v17 = brc_bread_crumbs();
+            v18 = brc_default_log();
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
             {
               __95__BRCStageRegistry__garbageCollectItemsIncludingActiveItems_stageIndex_maxAge_deletePredicate___block_invoke_cold_1();
             }
@@ -2022,6 +2914,21 @@ uint64_t __95__BRCStageRegistry__garbageCollectItemsIncludingActiveItems_stageIn
   }
 
   return v8;
+}
+
+- (int64_t)_garbageCollectLiveItemsIncludingActiveItems:(BOOL)items
+{
+  itemsCopy = items;
+  v5 = [BRCUserDefaults defaultsForMangledID:0];
+  [v5 liveItemsStageAgeDelta];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __65__BRCStageRegistry__garbageCollectLiveItemsIncludingActiveItems___block_invoke;
+  v9[3] = &unk_278505230;
+  v9[4] = self;
+  v7 = [(BRCStageRegistry *)self _garbageCollectItemsIncludingActiveItems:itemsCopy stageIndex:6 maxAge:v6 deletePredicate:v9];
+
+  return v7;
 }
 
 uint64_t __65__BRCStageRegistry__garbageCollectLiveItemsIncludingActiveItems___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -2069,6 +2976,25 @@ uint64_t __65__BRCStageRegistry__garbageCollectLiveItemsIncludingActiveItems___b
   *(*(*(a1 + 48) + 8) + 24) = [v3 BOOLValue] ^ 1;
 
   return 1;
+}
+
+- (int64_t)_garbageCollectUploadThumbnailsIncludingActiveUploads:(BOOL)uploads
+{
+  uploadsCopy = uploads;
+  v5 = brc_bread_crumbs();
+  v6 = brc_default_log();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCStageRegistry _garbageCollectUploadThumbnailsIncludingActiveUploads:];
+  }
+
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __74__BRCStageRegistry__garbageCollectUploadThumbnailsIncludingActiveUploads___block_invoke;
+  v8[3] = &unk_2785050A0;
+  v9 = uploadsCopy;
+  v8[4] = self;
+  return [(BRCStageRegistry *)self _garbageCollectItemsIncludingActiveItems:uploadsCopy stageIndex:5 maxAge:0 deletePredicate:v8];
 }
 
 uint64_t __74__BRCStageRegistry__garbageCollectUploadThumbnailsIncludingActiveUploads___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -2145,7 +3071,7 @@ void __63__BRCStageRegistry__updatePersistedStateWithLatestGCStartTime___block_i
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __63__BRCStageRegistry__updatePersistedStateWithLatestGCStartTime___block_invoke_cold_1(a1);
+    __63__BRCStageRegistry__updatePersistedStateWithLatestGCStartTime___block_invoke_cold_1();
   }
 
   v4 = [[BRCStagePersistedState alloc] initWithLatestGCStartTime:*(a1 + 40)];
@@ -2172,10 +3098,24 @@ void __63__BRCStageRegistry__updatePersistedStateWithLatestGCStartTime___block_i
 
 - (void)close
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] closing%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = brc_bread_crumbs();
+  v4 = brc_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCStageRegistry close];
+  }
+
+  v5 = +[BRCBGSystemTaskManager sharedManager];
+  [v5 unregisterTaskWithIdentifier:@"com.apple.bird.stage.gc"];
+
+  queue = self->_queue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __25__BRCStageRegistry_close__block_invoke;
+  block[3] = &unk_2784FF450;
+  block[4] = self;
+  dispatch_sync(queue, block);
+  brc_task_tracker_wait(self->_tracker);
 }
 
 void __25__BRCStageRegistry_close__block_invoke(uint64_t a1)
@@ -2200,7 +3140,6 @@ void __25__BRCStageRegistry_close__block_invoke(uint64_t a1)
 
 - (void)resume
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2208,10 +3147,8 @@ void __25__BRCStageRegistry_close__block_invoke(uint64_t a1)
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: maxDelta > minDelta%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: maxDelta > minDelta%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __26__BRCStageRegistry_resume__block_invoke(uint64_t a1)
@@ -2264,7 +3201,7 @@ void __26__BRCStageRegistry_resume__block_invoke_151(uint64_t a1, void *a2)
 
 void __26__BRCStageRegistry_resume__block_invoke_2(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = +[BRCAccountsManager sharedManager];
   v3 = [*(*(a1 + 32) + 8) accountHandler];
   v4 = [v3 acAccountID];
@@ -2295,7 +3232,7 @@ void __26__BRCStageRegistry_resume__block_invoke_2(uint64_t a1)
   v9 = [MEMORY[0x277D77BF8] sharedManager];
   v10 = [v9 currentPersona];
 
-  v32 = 0;
+  v31 = 0;
   v11 = [v10 userPersonaUniqueString];
   v12 = v11;
   if (v11 == v8 || ([v11 isEqualToString:v8] & 1) != 0)
@@ -2306,17 +3243,17 @@ void __26__BRCStageRegistry_resume__block_invoke_2(uint64_t a1)
 
   if (voucher_process_can_use_arbitrary_personas())
   {
-    v31 = 0;
-    v20 = [v10 copyCurrentPersonaContextWithError:&v31];
+    v30 = 0;
+    v19 = [v10 copyCurrentPersonaContextWithError:&v30];
+    v20 = v30;
     v21 = v31;
-    v22 = v32;
-    v32 = v20;
+    v31 = v19;
 
-    if (v21)
+    if (v20)
     {
-      v23 = brc_bread_crumbs();
-      v24 = brc_default_log();
-      if (os_log_type_enabled(v24, 0x90u))
+      v22 = brc_bread_crumbs();
+      v23 = brc_default_log();
+      if (os_log_type_enabled(v23, 0x90u))
       {
         __26__BRCStageRegistry_resume__block_invoke_2_cold_4();
       }
@@ -2326,17 +3263,17 @@ void __26__BRCStageRegistry_resume__block_invoke_2(uint64_t a1)
 
     if (v13)
     {
-      v25 = brc_bread_crumbs();
-      v26 = brc_default_log();
-      if (os_log_type_enabled(v26, 0x90u))
+      v24 = brc_bread_crumbs();
+      v25 = brc_default_log();
+      if (os_log_type_enabled(v25, 0x90u))
       {
         *buf = 138412802;
-        v34 = v5;
-        v35 = 2112;
-        v36 = v13;
-        v37 = 2112;
-        v38 = v25;
-        _os_log_error_impl(&dword_223E7A000, v26, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v33 = v5;
+        v34 = 2112;
+        v35 = v13;
+        v36 = 2112;
+        v37 = v24;
+        _os_log_error_impl(&dword_223E7A000, v25, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
 
 LABEL_35:
@@ -2347,9 +3284,9 @@ LABEL_35:
   {
     if (!v7 && ([v10 isDataSeparatedPersona] & 1) == 0)
     {
-      v25 = brc_bread_crumbs();
-      v26 = brc_default_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v24 = brc_bread_crumbs();
+      v25 = brc_default_log();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         __br_notify_register_dispatch_block_invoke_cold_2();
       }
@@ -2358,9 +3295,9 @@ LABEL_35:
       goto LABEL_35;
     }
 
-    v27 = brc_bread_crumbs();
-    v28 = brc_default_log();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v26 = brc_bread_crumbs();
+    v27 = brc_default_log();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
       __br_notify_register_dispatch_block_invoke_cold_3();
     }
@@ -2376,13 +3313,13 @@ LABEL_11:
     v18 = brc_default_log();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v30 = *(a1 + 40);
+      v29 = *(a1 + 40);
       *buf = 134218498;
-      v34 = v14;
-      v35 = 2112;
-      v36 = v30;
-      v37 = 2112;
-      v38 = v17;
+      v33 = v14;
+      v34 = 2112;
+      v35 = v29;
+      v36 = 2112;
+      v37 = v17;
       _os_log_debug_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] running GC in bgst after %lld seconds; %@%@", buf, 0x20u);
     }
 
@@ -2395,19 +3332,18 @@ LABEL_11:
     v16 = brc_default_log();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v29 = *(a1 + 40);
+      v28 = *(a1 + 40);
       *buf = 134218498;
-      v34 = v14;
-      v35 = 2112;
-      v36 = v29;
-      v37 = 2112;
-      v38 = v15;
+      v33 = v14;
+      v34 = 2112;
+      v35 = v28;
+      v36 = 2112;
+      v37 = v15;
       _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] skipping GC in bgst after %lld seconds; %@%@", buf, 0x20u);
     }
   }
 
   _BRRestorePersona();
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __26__BRCStageRegistry_resume__block_invoke_3()
@@ -2420,7 +3356,7 @@ void __26__BRCStageRegistry_resume__block_invoke_3()
 
 - (BOOL)saveXattrAtURL:(id)l forSignature:(id)signature error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (lCopy)
   {
@@ -2433,10 +3369,10 @@ void __26__BRCStageRegistry_resume__block_invoke_3()
     else
     {
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v25 = 0;
-      v17 = [defaultManager moveItemAtURL:lCopy toURL:v9 error:&v25];
-      v18 = v25;
-      v10 = v25;
+      v24 = 0;
+      v17 = [defaultManager moveItemAtURL:lCopy toURL:v9 error:&v24];
+      v18 = v24;
+      v10 = v24;
 
       if ((v17 & 1) == 0)
       {
@@ -2447,20 +3383,20 @@ void __26__BRCStageRegistry_resume__block_invoke_3()
           v20 = brc_default_log();
           if (os_log_type_enabled(v20, 0x90u))
           {
-            v24 = "(passed to caller)";
+            v23 = "(passed to caller)";
             *buf = 136315906;
-            v27 = "[BRCStageRegistry saveXattrAtURL:forSignature:error:]";
-            v28 = 2080;
+            v26 = "[BRCStageRegistry saveXattrAtURL:forSignature:error:]";
+            v27 = 2080;
             if (!error)
             {
-              v24 = "(ignored by caller)";
+              v23 = "(ignored by caller)";
             }
 
-            v29 = v24;
-            v30 = 2112;
-            v31 = v10;
-            v32 = 2112;
-            v33 = v19;
+            v28 = v23;
+            v29 = 2112;
+            v30 = v10;
+            v31 = 2112;
+            v32 = v19;
             _os_log_error_impl(&dword_223E7A000, v20, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
           }
         }
@@ -2494,20 +3430,20 @@ void __26__BRCStageRegistry_resume__block_invoke_3()
       v14 = brc_default_log();
       if (os_log_type_enabled(v14, 0x90u))
       {
-        v23 = "(passed to caller)";
+        v22 = "(passed to caller)";
         *buf = 136315906;
-        v27 = "[BRCStageRegistry saveXattrAtURL:forSignature:error:]";
-        v28 = 2080;
+        v26 = "[BRCStageRegistry saveXattrAtURL:forSignature:error:]";
+        v27 = 2080;
         if (!error)
         {
-          v23 = "(ignored by caller)";
+          v22 = "(ignored by caller)";
         }
 
-        v29 = v23;
-        v30 = 2112;
-        v31 = v10;
-        v32 = 2112;
-        v33 = v13;
+        v28 = v22;
+        v29 = 2112;
+        v30 = v10;
+        v31 = 2112;
+        v32 = v13;
         _os_log_error_impl(&dword_223E7A000, v14, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -2527,20 +3463,19 @@ void __26__BRCStageRegistry_resume__block_invoke_3()
 LABEL_19:
 
 LABEL_20:
-  v21 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)saveXattrBlob:(id)blob forSignature:(id)signature error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   blobCopy = blob;
   if (blobCopy && signature)
   {
     v9 = [(BRCStageRegistry *)self urlForXattrSignature:signature];
-    v37 = 0;
-    v10 = [blobCopy writeToURL:v9 options:2 error:&v37];
-    v11 = v37;
+    v36 = 0;
+    v10 = [blobCopy writeToURL:v9 options:2 error:&v36];
+    v11 = v36;
     v12 = v11;
     if (v10)
     {
@@ -2568,9 +3503,9 @@ LABEL_32:
     {
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
       uRLByDeletingLastPathComponent = [v9 URLByDeletingLastPathComponent];
-      v36 = v12;
-      v22 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v36];
-      v23 = v36;
+      v35 = v12;
+      v22 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v35];
+      v23 = v35;
 
       if (v22)
       {
@@ -2585,25 +3520,25 @@ LABEL_32:
           v18 = v23;
           if (v18)
           {
-            v30 = brc_bread_crumbs();
-            v31 = brc_default_log();
-            if (os_log_type_enabled(v31, 0x90u))
+            v29 = brc_bread_crumbs();
+            v30 = brc_default_log();
+            if (os_log_type_enabled(v30, 0x90u))
             {
-              v34 = "(passed to caller)";
+              v33 = "(passed to caller)";
               *buf = 136315906;
-              v39 = "[BRCStageRegistry saveXattrBlob:forSignature:error:]";
-              v40 = 2080;
+              v38 = "[BRCStageRegistry saveXattrBlob:forSignature:error:]";
+              v39 = 2080;
               if (!error)
               {
-                v34 = "(ignored by caller)";
+                v33 = "(ignored by caller)";
               }
 
-              v41 = v34;
-              v42 = 2112;
-              v43 = v18;
-              v44 = 2112;
-              v45 = v30;
-              _os_log_error_impl(&dword_223E7A000, v31, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
+              v40 = v33;
+              v41 = 2112;
+              v42 = v18;
+              v43 = 2112;
+              v44 = v29;
+              _os_log_error_impl(&dword_223E7A000, v30, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
             }
           }
 
@@ -2616,9 +3551,9 @@ LABEL_32:
         }
       }
 
-      v35 = v23;
-      v25 = [blobCopy writeToURL:v9 options:2 error:&v35];
-      v12 = v35;
+      v34 = v23;
+      v25 = [blobCopy writeToURL:v9 options:2 error:&v34];
+      v12 = v34;
 
       if (v25)
       {
@@ -2646,20 +3581,20 @@ LABEL_32:
       v27 = brc_default_log();
       if (os_log_type_enabled(v27, 0x90u))
       {
-        v33 = "(passed to caller)";
+        v32 = "(passed to caller)";
         *buf = 136315906;
-        v39 = "[BRCStageRegistry saveXattrBlob:forSignature:error:]";
-        v40 = 2080;
+        v38 = "[BRCStageRegistry saveXattrBlob:forSignature:error:]";
+        v39 = 2080;
         if (!error)
         {
-          v33 = "(ignored by caller)";
+          v32 = "(ignored by caller)";
         }
 
-        v41 = v33;
-        v42 = 2112;
-        v43 = v18;
-        v44 = 2112;
-        v45 = v26;
+        v40 = v32;
+        v41 = 2112;
+        v42 = v18;
+        v43 = 2112;
+        v44 = v26;
         _os_log_error_impl(&dword_223E7A000, v27, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -2698,20 +3633,20 @@ LABEL_38:
     v17 = brc_default_log();
     if (os_log_type_enabled(v17, 0x90u))
     {
-      v32 = "(passed to caller)";
+      v31 = "(passed to caller)";
       *buf = 136315906;
-      v39 = "[BRCStageRegistry saveXattrBlob:forSignature:error:]";
-      v40 = 2080;
+      v38 = "[BRCStageRegistry saveXattrBlob:forSignature:error:]";
+      v39 = 2080;
       if (!error)
       {
-        v32 = "(ignored by caller)";
+        v31 = "(ignored by caller)";
       }
 
-      v41 = v32;
-      v42 = 2112;
-      v43 = v12;
-      v44 = 2112;
-      v45 = v16;
+      v40 = v31;
+      v41 = 2112;
+      v42 = v12;
+      v43 = 2112;
+      v44 = v16;
       _os_log_error_impl(&dword_223E7A000, v17, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -2728,20 +3663,19 @@ LABEL_38:
   v13 = 0;
 LABEL_33:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)loadXattrBlobForSignature:(id)signature error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (signature)
   {
     v5 = [(BRCStageRegistry *)self urlForXattrSignature:?];
-    v20 = 0;
-    v6 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v5 options:1 error:&v20];
-    v7 = v20;
-    v8 = v20;
+    v19 = 0;
+    v6 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v5 options:1 error:&v19];
+    v7 = v19;
+    v8 = v19;
     v9 = v8;
     if (!v6)
     {
@@ -2752,20 +3686,20 @@ LABEL_33:
         v11 = brc_default_log();
         if (os_log_type_enabled(v11, 0x90u))
         {
-          v19 = "(passed to caller)";
+          v18 = "(passed to caller)";
           *buf = 136315906;
-          v22 = "[BRCStageRegistry loadXattrBlobForSignature:error:]";
-          v23 = 2080;
+          v21 = "[BRCStageRegistry loadXattrBlobForSignature:error:]";
+          v22 = 2080;
           if (!error)
           {
-            v19 = "(ignored by caller)";
+            v18 = "(ignored by caller)";
           }
 
-          v24 = v19;
-          v25 = 2112;
-          v26 = v9;
-          v27 = 2112;
-          v28 = v10;
+          v23 = v18;
+          v24 = 2112;
+          v25 = v9;
+          v26 = 2112;
+          v27 = v10;
           _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
         }
       }
@@ -2793,20 +3727,20 @@ LABEL_33:
     v15 = brc_default_log();
     if (os_log_type_enabled(v15, 0x90u))
     {
-      v18 = "(passed to caller)";
+      v17 = "(passed to caller)";
       *buf = 136315906;
-      v22 = "[BRCStageRegistry loadXattrBlobForSignature:error:]";
-      v23 = 2080;
+      v21 = "[BRCStageRegistry loadXattrBlobForSignature:error:]";
+      v22 = 2080;
       if (!error)
       {
-        v18 = "(ignored by caller)";
+        v17 = "(ignored by caller)";
       }
 
-      v24 = v18;
-      v25 = 2112;
-      v26 = v9;
-      v27 = 2112;
-      v28 = v14;
+      v23 = v17;
+      v24 = 2112;
+      v25 = v9;
+      v26 = 2112;
+      v27 = v14;
       _os_log_error_impl(&dword_223E7A000, v15, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -2824,8 +3758,6 @@ LABEL_16:
 
   v6 = 0;
 LABEL_17:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -2856,9 +3788,62 @@ LABEL_17:
   return v7;
 }
 
+- (BOOL)_moveFromURLToTargetStageLocation:(id)location stageIndex:(unsigned __int8)index filename:(id)filename error:(id *)error
+{
+  indexCopy = index;
+  v32 = *MEMORY[0x277D85DE8];
+  locationCopy = location;
+  filenameCopy = filename;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __95__BRCStageRegistry_FPFSAdditions___moveFromURLToTargetStageLocation_stageIndex_filename_error___block_invoke;
+  v21[3] = &unk_278506600;
+  v21[4] = self;
+  v12 = filenameCopy;
+  v22 = v12;
+  v13 = locationCopy;
+  v23 = v13;
+  v14 = [(BRCStageRegistry *)self _performInStageDirectory:indexCopy block:v21];
+  if (v14)
+  {
+    br_errorFromErrno = [MEMORY[0x277CCA9B8] br_errorFromErrno];
+    if (br_errorFromErrno)
+    {
+      v16 = brc_bread_crumbs();
+      v17 = brc_default_log();
+      if (os_log_type_enabled(v17, 0x90u))
+      {
+        v20 = "(passed to caller)";
+        *buf = 136315906;
+        v25 = "[BRCStageRegistry(FPFSAdditions) _moveFromURLToTargetStageLocation:stageIndex:filename:error:]";
+        v26 = 2080;
+        if (!error)
+        {
+          v20 = "(ignored by caller)";
+        }
+
+        v27 = v20;
+        v28 = 2112;
+        v29 = br_errorFromErrno;
+        v30 = 2112;
+        v31 = v16;
+        _os_log_error_impl(&dword_223E7A000, v17, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
+      }
+    }
+
+    if (error)
+    {
+      v18 = br_errorFromErrno;
+      *error = br_errorFromErrno;
+    }
+  }
+
+  return v14 == 0;
+}
+
 uint64_t __95__BRCStageRegistry_FPFSAdditions___moveFromURLToTargetStageLocation_stageIndex_filename_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = [*(*(a1 + 32) + 8) fileUnlinker];
   [v4 renameAndUnlinkInBackgroundItemAt:a2 path:*(a1 + 40)];
 
@@ -2866,32 +3851,31 @@ uint64_t __95__BRCStageRegistry_FPFSAdditions___moveFromURLToTargetStageLocation
   v6 = brc_default_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v11 = [*(a1 + 48) path];
-    v12 = *(a1 + 40);
-    v13 = 138412802;
-    v14 = v11;
-    v15 = 2112;
-    v16 = v12;
-    v17 = 2112;
-    v18 = v5;
-    _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] remembering %@ in stage at %@%@", &v13, 0x20u);
+    v10 = [*(a1 + 48) path];
+    v11 = *(a1 + 40);
+    v12 = 138412802;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v11;
+    v16 = 2112;
+    v17 = v5;
+    _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] remembering %@ in stage at %@%@", &v12, 0x20u);
   }
 
   v7 = [*(a1 + 48) path];
   v8 = BRCRenameAt(-1, v7, a2, *(a1 + 40), 0);
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)saveXattrsForURL:(id)l withMaximumSize:(unint64_t)size xattrSignature:(id *)signature error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v25 = 0;
-  v23 = 0;
-  v9 = [BRFieldXattrBlob loadXattrsFromURL:l structuralBlob:0 contentBlob:&v25 localBlob:0 withMaximumSize:size error:&v23];
-  v10 = v23;
-  v24 = v10;
+  v31 = *MEMORY[0x277D85DE8];
+  v24 = 0;
+  v22 = 0;
+  v9 = [BRFieldXattrBlob loadXattrsFromURL:l structuralBlob:0 contentBlob:&v24 localBlob:0 withMaximumSize:size error:&v22];
+  v10 = v22;
+  v23 = v10;
   if (!v9)
   {
     v14 = v10;
@@ -2913,10 +3897,10 @@ uint64_t __95__BRCStageRegistry_FPFSAdditions___moveFromURLToTargetStageLocation
     goto LABEL_17;
   }
 
-  if ([v25 length])
+  if ([v24 length])
   {
-    brc_signature = [v25 brc_signature];
-    if ([(BRCStageRegistry *)self saveXattrBlob:v25 forSignature:brc_signature error:&v24])
+    brc_signature = [v24 brc_signature];
+    if ([(BRCStageRegistry *)self saveXattrBlob:v24 forSignature:brc_signature error:&v23])
     {
       if (signature)
       {
@@ -2933,17 +3917,17 @@ uint64_t __95__BRCStageRegistry_FPFSAdditions___moveFromURLToTargetStageLocation
     {
       brc_hexadecimalString = [brc_signature brc_hexadecimalString];
       *buf = 138412802;
-      v27 = brc_hexadecimalString;
-      v28 = 2112;
-      v29 = v24;
-      v30 = 2112;
-      v31 = v18;
+      v26 = brc_hexadecimalString;
+      v27 = 2112;
+      v28 = v23;
+      v29 = 2112;
+      v30 = v18;
       _os_log_error_impl(&dword_223E7A000, v19, 0x90u, "[ERROR] failed saving xattrs blob signature: %@ error:%@%@", buf, 0x20u);
     }
 
     if (error)
     {
-      *error = v24;
+      *error = v23;
     }
 
 LABEL_17:
@@ -2955,28 +3939,27 @@ LABEL_7:
   v13 = 1;
 LABEL_18:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)cloneFileURL:(id)l toUploadStageID:(id)d liveStageFilename:(id)filename error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   lCopy = l;
   dCopy = d;
   filenameCopy = filename;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __88__BRCStageRegistry_FPFSAdditions__cloneFileURL_toUploadStageID_liveStageFilename_error___block_invoke;
-  v26[3] = &unk_278506628;
-  v26[4] = self;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __88__BRCStageRegistry_FPFSAdditions__cloneFileURL_toUploadStageID_liveStageFilename_error___block_invoke;
+  v25[3] = &unk_278506628;
+  v25[4] = self;
   v13 = dCopy;
-  v27 = v13;
+  v26 = v13;
   v14 = lCopy;
-  v28 = v14;
+  v27 = v14;
   v15 = filenameCopy;
-  v29 = v15;
-  if ([(BRCStageRegistry *)self _performInStageDirectory:2 block:v26])
+  v28 = v15;
+  if ([(BRCStageRegistry *)self _performInStageDirectory:2 block:v25])
   {
     br_errorFromErrno = [MEMORY[0x277CCA9B8] br_errorFromErrno];
     if (br_errorFromErrno)
@@ -2985,20 +3968,20 @@ LABEL_18:
       v18 = brc_default_log();
       if (os_log_type_enabled(v18, 0x90u))
       {
-        v25 = "(passed to caller)";
+        v24 = "(passed to caller)";
         *buf = 136315906;
-        v32 = "[BRCStageRegistry(FPFSAdditions) cloneFileURL:toUploadStageID:liveStageFilename:error:]";
-        v33 = 2080;
+        v31 = "[BRCStageRegistry(FPFSAdditions) cloneFileURL:toUploadStageID:liveStageFilename:error:]";
+        v32 = 2080;
         if (!error)
         {
-          v25 = "(ignored by caller)";
+          v24 = "(ignored by caller)";
         }
 
-        v34 = v25;
-        v35 = 2112;
-        v36 = br_errorFromErrno;
-        v37 = 2112;
-        v38 = v17;
+        v33 = v24;
+        v34 = 2112;
+        v35 = br_errorFromErrno;
+        v36 = 2112;
+        v37 = v17;
         _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -3017,21 +4000,19 @@ LABEL_18:
 
     [(BRCStageRegistry *)self markUploadActiveForStageID:v13];
     v21 = MEMORY[0x277CBEBC0];
-    v30[0] = self->_stageDirectoryPath[2];
-    v30[1] = v13;
-    v30[2] = v15;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:3];
+    v29[0] = self->_stageDirectoryPath[2];
+    v29[1] = v13;
+    v29[2] = v15;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
     v20 = [v21 fileURLWithPathComponents:v22];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
 uint64_t __88__BRCStageRegistry_FPFSAdditions__cloneFileURL_toUploadStageID_liveStageFilename_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = [*(*(a1 + 32) + 8) fileUnlinker];
   [v4 renameAndUnlinkInBackgroundItemAt:a2 path:*(a1 + 40)];
 
@@ -3039,27 +4020,27 @@ uint64_t __88__BRCStageRegistry_FPFSAdditions__cloneFileURL_toUploadStageID_live
   v6 = brc_default_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v20 = [*(a1 + 48) path];
-    v21 = *(a1 + 40);
-    v22 = 138412802;
-    v23 = v20;
-    v24 = 2112;
-    v25 = v21;
-    v26 = 2112;
-    v27 = v5;
-    _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] remembering %@ in live stage at %@%@", &v22, 0x20u);
+    v19 = [*(a1 + 48) path];
+    v20 = *(a1 + 40);
+    v21 = 138412802;
+    v22 = v19;
+    v23 = 2112;
+    v24 = v20;
+    v25 = 2112;
+    v26 = v5;
+    _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] remembering %@ in live stage at %@%@", &v21, 0x20u);
   }
 
   v7 = BRCMkdirAt(a2, *(a1 + 40), 448);
   if (!v7)
   {
     v8 = [*(a1 + 40) fileSystemRepresentation];
-    v14 = BRCOpenAt(a2, v8, 33028, v9, v10, v11, v12, v13, v22);
+    v14 = BRCOpenAt(a2, v8, 33028, v9, v10, v11, v12, v13, v21);
     if (v14)
     {
       v15 = v14;
       v16 = [*(a1 + 48) path];
-      v7 = BRCCloneAt(-1, v16, v15, *(a1 + 56));
+      v7 = BRCCloneAt(0xFFFFFFFFLL, v16, v15, *(a1 + 56));
 
       v17 = *__error();
       close(v15);
@@ -3068,17 +4049,16 @@ uint64_t __88__BRCStageRegistry_FPFSAdditions__cloneFileURL_toUploadStageID_live
 
     else
     {
-      v7 = 0xFFFFFFFFLL;
+      return 0xFFFFFFFFLL;
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)clonePackageExistingContentFromSourceURL:(id)l stageID:(id)d error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v9 = [(BRCStageRegistry *)self createURLForDownloadWithStageID:d name:@"brpackage-existing-content"];
   if (v9)
@@ -3095,21 +4075,21 @@ uint64_t __88__BRCStageRegistry_FPFSAdditions__cloneFileURL_toUploadStageID_live
       v13 = brc_default_log();
       if (os_log_type_enabled(v13, 0x90u))
       {
-        v17 = "(passed to caller)";
-        v18 = 136315906;
-        v19 = "[BRCStageRegistry(FPFSAdditions) clonePackageExistingContentFromSourceURL:stageID:error:]";
-        v20 = 2080;
+        v16 = "(passed to caller)";
+        v17 = 136315906;
+        v18 = "[BRCStageRegistry(FPFSAdditions) clonePackageExistingContentFromSourceURL:stageID:error:]";
+        v19 = 2080;
         if (!error)
         {
-          v17 = "(ignored by caller)";
+          v16 = "(ignored by caller)";
         }
 
-        v21 = v17;
-        v22 = 2112;
-        v23 = br_errorFromErrno;
-        v24 = 2112;
-        v25 = v12;
-        _os_log_error_impl(&dword_223E7A000, v13, 0x90u, "[ERROR] %s: %s error: %@%@", &v18, 0x2Au);
+        v20 = v16;
+        v21 = 2112;
+        v22 = br_errorFromErrno;
+        v23 = 2112;
+        v24 = v12;
+        _os_log_error_impl(&dword_223E7A000, v13, 0x90u, "[ERROR] %s: %s error: %@%@", &v17, 0x2Au);
       }
     }
 
@@ -3122,7 +4102,6 @@ uint64_t __88__BRCStageRegistry_FPFSAdditions__cloneFileURL_toUploadStageID_live
     v10 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -3143,16 +4122,14 @@ uint64_t __88__BRCStageRegistry_FPFSAdditions__cloneFileURL_toUploadStageID_live
 
 - (id)_liveURLForliveStageFilename:(id)filename
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEBC0];
-  v10[0] = self->_stageDirectoryPath[6];
-  v10[1] = filename;
+  v9[0] = self->_stageDirectoryPath[6];
+  v9[1] = filename;
   v4 = MEMORY[0x277CBEA60];
   filenameCopy = filename;
-  v6 = [v4 arrayWithObjects:v10 count:2];
+  v6 = [v4 arrayWithObjects:v9 count:2];
   v7 = [v3 fileURLWithPathComponents:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -3188,26 +4165,26 @@ uint64_t __88__BRCStageRegistry_FPFSAdditions__cloneFileURL_toUploadStageID_live
 
 - (id)createStageURLForThumbnailFromLiveStageFilename:(id)filename error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   filenameCopy = filename;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__46;
-  v24 = __Block_byref_object_dispose__46;
-  v25 = 0;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __89__BRCStageRegistry_FPFSAdditions__createStageURLForThumbnailFromLiveStageFilename_error___block_invoke;
-  v16[3] = &unk_278506650;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__46;
+  v23 = __Block_byref_object_dispose__46;
+  v24 = 0;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __89__BRCStageRegistry_FPFSAdditions__createStageURLForThumbnailFromLiveStageFilename_error___block_invoke;
+  v15[3] = &unk_278506650;
   v7 = filenameCopy;
-  v17 = v7;
+  v16 = v7;
   selfCopy = self;
-  v19 = &v20;
-  if ([(BRCStageRegistry *)self _performInStageDirectory:6 block:v16])
+  v18 = &v19;
+  if ([(BRCStageRegistry *)self _performInStageDirectory:6 block:v15])
   {
 
-    v8 = v21[5];
+    v8 = v20[5];
   }
 
   else
@@ -3219,20 +4196,20 @@ uint64_t __88__BRCStageRegistry_FPFSAdditions__cloneFileURL_toUploadStageID_live
       v11 = brc_default_log();
       if (os_log_type_enabled(v11, 0x90u))
       {
-        v15 = "(passed to caller)";
+        v14 = "(passed to caller)";
         *buf = 136315906;
-        v27 = "[BRCStageRegistry(FPFSAdditions) createStageURLForThumbnailFromLiveStageFilename:error:]";
-        v28 = 2080;
+        v26 = "[BRCStageRegistry(FPFSAdditions) createStageURLForThumbnailFromLiveStageFilename:error:]";
+        v27 = 2080;
         if (!error)
         {
-          v15 = "(ignored by caller)";
+          v14 = "(ignored by caller)";
         }
 
-        v29 = v15;
-        v30 = 2112;
-        v31 = br_errorFromErrno;
-        v32 = 2112;
-        v33 = v10;
+        v28 = v14;
+        v29 = 2112;
+        v30 = br_errorFromErrno;
+        v31 = 2112;
+        v32 = v10;
         _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -3246,24 +4223,22 @@ uint64_t __88__BRCStageRegistry_FPFSAdditions__cloneFileURL_toUploadStageID_live
     v8 = 0;
   }
 
-  _Block_object_dispose(&v20, 8);
-
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
 
   return v8;
 }
 
 uint64_t __89__BRCStageRegistry_FPFSAdditions__createStageURLForThumbnailFromLiveStageFilename_error___block_invoke(void *a1)
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"thumbnail-%@", a1[4]];
   v3 = v2;
   if (*(a1[5] + 64))
   {
     v4 = MEMORY[0x277CBEBC0];
-    v12[0] = *(a1[5] + 64);
-    v12[1] = v2;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+    v11[0] = *(a1[5] + 64);
+    v11[1] = v2;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
     v6 = [v4 fileURLWithPathComponents:v5];
     v7 = *(a1[6] + 8);
     v8 = *(v7 + 40);
@@ -3284,34 +4259,33 @@ uint64_t __89__BRCStageRegistry_FPFSAdditions__createStageURLForThumbnailFromLiv
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (id)createStageURLFromLiveURLForItem:(id)item options:(unint64_t)options error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   fileIDForUpload = [itemCopy fileIDForUpload];
 
   if (fileIDForUpload)
   {
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__46;
-    v31 = __Block_byref_object_dispose__46;
-    v32 = 0;
-    v19 = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = __82__BRCStageRegistry_FPFSAdditions__createStageURLFromLiveURLForItem_options_error___block_invoke;
-    v22 = &unk_278506678;
-    v23 = itemCopy;
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__46;
+    v30 = __Block_byref_object_dispose__46;
+    v31 = 0;
+    v18 = MEMORY[0x277D85DD0];
+    v19 = 3221225472;
+    v20 = __82__BRCStageRegistry_FPFSAdditions__createStageURLFromLiveURLForItem_options_error___block_invoke;
+    v21 = &unk_278506678;
+    v22 = itemCopy;
     selfCopy = self;
-    v25 = &v27;
+    v24 = &v26;
     optionsCopy = options;
-    v10 = MEMORY[0x22AA4A310](&v19);
-    if ([(BRCStageRegistry *)self _performInStageDirectory:6 block:v10, v19, v20, v21, v22])
+    v10 = MEMORY[0x22AA4A310](&v18);
+    if ([(BRCStageRegistry *)self _performInStageDirectory:6 block:v10, v18, v19, v20, v21])
     {
       br_errorFromErrno = [MEMORY[0x277CCA9B8] br_errorFromErrno];
       if (br_errorFromErrno)
@@ -3320,20 +4294,20 @@ uint64_t __89__BRCStageRegistry_FPFSAdditions__createStageURLForThumbnailFromLiv
         v13 = brc_default_log();
         if (os_log_type_enabled(v13, 0x90u))
         {
-          v18 = "(passed to caller)";
+          v17 = "(passed to caller)";
           *buf = 136315906;
-          v34 = "[BRCStageRegistry(FPFSAdditions) createStageURLFromLiveURLForItem:options:error:]";
-          v35 = 2080;
+          v33 = "[BRCStageRegistry(FPFSAdditions) createStageURLFromLiveURLForItem:options:error:]";
+          v34 = 2080;
           if (!error)
           {
-            v18 = "(ignored by caller)";
+            v17 = "(ignored by caller)";
           }
 
-          v36 = v18;
-          v37 = 2112;
-          v38 = br_errorFromErrno;
-          v39 = 2112;
-          v40 = v12;
+          v35 = v17;
+          v36 = 2112;
+          v37 = br_errorFromErrno;
+          v38 = 2112;
+          v39 = v12;
           _os_log_error_impl(&dword_223E7A000, v13, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
         }
       }
@@ -3349,10 +4323,10 @@ uint64_t __89__BRCStageRegistry_FPFSAdditions__createStageURLForThumbnailFromLiv
 
     else
     {
-      v15 = v28[5];
+      v15 = v27[5];
     }
 
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v26, 8);
   }
 
   else
@@ -3360,14 +4334,12 @@ uint64_t __89__BRCStageRegistry_FPFSAdditions__createStageURLForThumbnailFromLiv
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 uint64_t __82__BRCStageRegistry_FPFSAdditions__createStageURLFromLiveURLForItem_options_error___block_invoke(uint64_t a1, int a2)
 {
-  v55[2] = *MEMORY[0x277D85DE8];
+  v54[2] = *MEMORY[0x277D85DE8];
   v4 = (a1 + 32);
   v5 = [*(a1 + 32) liveStageFilename];
   if (!v5)
@@ -3399,8 +4371,8 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v49 = 0;
   v48 = 0;
+  v47 = 0;
   v7 = openat(a2, [v5 fileSystemRepresentation], 2129924);
   if (v7 < 0)
   {
@@ -3415,17 +4387,17 @@ LABEL_22:
   }
 
   v8 = v7;
-  v9 = _fstatItem(v7, &v49, &v48, 0, 0);
+  v9 = _fstatItem(v7, &v48, &v47, 0, 0);
   v10 = *__error();
   close(v8);
   *__error() = v10;
   if ((v9 & 0x80000000) == 0)
   {
-    v11 = v49;
+    v11 = v48;
     v12 = [*v4 fileIDForUpload];
     if (v11 == [v12 unsignedLongLongValue])
     {
-      v13 = v48;
+      v13 = v47;
       v14 = [*v4 generationIDForUpload];
       v15 = [v14 fsGenerationID];
       v16 = [v15 unsignedIntValue];
@@ -3436,17 +4408,17 @@ LABEL_22:
         v18 = *(a1 + 40);
         if ((*(a1 + 56) & 2) != 0)
         {
-          v37 = [*v4 liveStageFilename];
-          v47 = 0;
-          v23 = [v18 createStageURLForThumbnailFromLiveStageFilename:v37 error:&v47];
-          v38 = v47;
+          v36 = [*v4 liveStageFilename];
+          v46 = 0;
+          v23 = [v18 createStageURLForThumbnailFromLiveStageFilename:v36 error:&v46];
+          v37 = v46;
 
-          if (v38)
+          if (v37)
           {
 
-            v39 = brc_bread_crumbs();
-            v40 = brc_default_log();
-            if (os_log_type_enabled(v40, 0x90u))
+            v38 = brc_bread_crumbs();
+            v39 = brc_default_log();
+            if (os_log_type_enabled(v39, 0x90u))
             {
               __82__BRCStageRegistry_FPFSAdditions__createStageURLFromLiveURLForItem_options_error___block_invoke_cold_1(v4);
             }
@@ -3466,12 +4438,12 @@ LABEL_22:
           v23 = [MEMORY[0x277CBEBC0] fileURLWithPath:v22];
         }
 
-        v41 = [MEMORY[0x277CCAA00] defaultManager];
-        v46 = 0;
-        v42 = [v41 copyItemAtURL:v17 toURL:v23 error:&v46];
-        v38 = v46;
+        v40 = [MEMORY[0x277CCAA00] defaultManager];
+        v45 = 0;
+        v41 = [v40 copyItemAtURL:v17 toURL:v23 error:&v45];
+        v37 = v45;
 
-        if (v42)
+        if (v41)
         {
           objc_storeStrong((*(*(a1 + 48) + 8) + 40), v23);
           v34 = 0;
@@ -3480,18 +4452,18 @@ LABEL_35:
           goto LABEL_24;
         }
 
-        v43 = brc_bread_crumbs();
-        v44 = brc_default_log();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
+        v42 = brc_bread_crumbs();
+        v43 = brc_default_log();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
         {
-          v45 = *v4;
+          v44 = *v4;
           *buf = 138412802;
-          v51 = v45;
-          v52 = 2112;
-          v53 = v38;
-          v54 = 2112;
-          v55[0] = v43;
-          _os_log_fault_impl(&dword_223E7A000, v44, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Couldn't copy item to restaged url for %@ - %@%@", buf, 0x20u);
+          v50 = v44;
+          v51 = 2112;
+          v52 = v37;
+          v53 = 2112;
+          v54[0] = v42;
+          _os_log_fault_impl(&dword_223E7A000, v43, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Couldn't copy item to restaged url for %@ - %@%@", buf, 0x20u);
         }
 
         *__error() = 5;
@@ -3511,13 +4483,13 @@ LABEL_34:
     {
       v33 = *v4;
       *buf = 138413058;
-      v51 = v33;
-      v52 = 2048;
-      v53 = v49;
-      v54 = 1024;
-      LODWORD(v55[0]) = v48;
-      WORD2(v55[0]) = 2112;
-      *(v55 + 6) = v31;
+      v50 = v33;
+      v51 = 2048;
+      v52 = v48;
+      v53 = 1024;
+      LODWORD(v54[0]) = v47;
+      WORD2(v54[0]) = 2112;
+      *(v54 + 6) = v31;
       _os_log_impl(&dword_223E7A000, v32, OS_LOG_TYPE_DEFAULT, "[WARNING] File inode changed in live stage for %@ ino:%llu gen:%u%@", buf, 0x26u);
     }
 
@@ -3530,7 +4502,6 @@ LABEL_23:
   v34 = 0xFFFFFFFFLL;
 LABEL_24:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
@@ -3544,15 +4515,15 @@ LABEL_24:
 
 - (BOOL)rescueUnuploadedFile:(unint64_t)file error:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CCACA8];
   volume = [(BRCAccountSession *)self->_session volume];
   v9 = [v7 br_pathWithDeviceID:objc_msgSend(volume fileID:{"deviceID"), file}];
 
   v10 = [MEMORY[0x277CBEBC0] fileURLWithPath:v9];
-  v36 = 0;
-  v11 = [(BRCStageRegistry *)self _pathInStage:file index:&v36 generationID:0];
-  v12 = v36;
+  v35 = 0;
+  v11 = [(BRCStageRegistry *)self _pathInStage:file index:&v35 generationID:0];
+  v12 = v35;
 
   if (v11 && v12 == 2)
   {
@@ -3576,14 +4547,14 @@ LABEL_24:
     br_pathExtension = [lastPathComponent2 br_pathExtension];
     v23 = [v16 br_representableHFSFileNameWithBase:brc_stringByDeletingPathExtension suffix:uUIDString extension:br_pathExtension makeDotFile:0];
 
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __62__BRCStageRegistry_FPFSAdditions__rescueUnuploadedFile_error___block_invoke;
-    v33[3] = &unk_2785066A0;
-    v34 = v10;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __62__BRCStageRegistry_FPFSAdditions__rescueUnuploadedFile_error___block_invoke;
+    v32[3] = &unk_2785066A0;
+    v33 = v10;
     v13 = v23;
-    v35 = v13;
-    v24 = [(BRCStageRegistry *)self _performInStageDirectory:2 block:v33];
+    v34 = v13;
+    v24 = [(BRCStageRegistry *)self _performInStageDirectory:2 block:v32];
     v14 = v24 == 0;
     if (v24)
     {
@@ -3594,41 +4565,40 @@ LABEL_24:
         v27 = brc_default_log();
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
-          v31 = "(passed to caller)";
+          v30 = "(passed to caller)";
           *buf = 136315906;
-          v38 = "[BRCStageRegistry(FPFSAdditions) rescueUnuploadedFile:error:]";
-          v39 = 2080;
-          if (!v32)
+          v37 = "[BRCStageRegistry(FPFSAdditions) rescueUnuploadedFile:error:]";
+          v38 = 2080;
+          if (!v31)
           {
-            v31 = "(ignored by caller)";
+            v30 = "(ignored by caller)";
           }
 
-          v40 = v31;
-          v41 = 2112;
-          v42 = v25;
-          v43 = 2112;
-          v44 = v26;
+          v39 = v30;
+          v40 = 2112;
+          v41 = v25;
+          v42 = 2112;
+          v43 = v26;
           _os_log_debug_impl(&dword_223E7A000, v27, OS_LOG_TYPE_DEBUG, "[DEBUG] %s: %s error: %@%@", buf, 0x2Au);
         }
       }
 
-      if (v32)
+      if (v31)
       {
         v28 = v25;
-        *v32 = v25;
+        *v31 = v25;
       }
     }
 
-    v15 = v34;
+    v15 = v33;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 uint64_t __62__BRCStageRegistry_FPFSAdditions__rescueUnuploadedFile_error___block_invoke(uint64_t a1, int a2)
 {
-  *&v24[13] = *MEMORY[0x277D85DE8];
+  *&v23[13] = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) path];
   v5 = BRCRenameAt(-1, v4, a2, *(a1 + 40), 0);
 
@@ -3638,23 +4608,23 @@ uint64_t __62__BRCStageRegistry_FPFSAdditions__rescueUnuploadedFile_error___bloc
     v10 = brc_default_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v14 = [*(a1 + 32) absoluteString];
-      v15 = *(a1 + 40);
-      v16 = *__error();
-      v17 = 138413314;
-      v18 = v14;
-      v19 = 1024;
-      v20 = a2;
-      v21 = 2112;
-      v22 = v15;
-      v23 = 1024;
-      *v24 = v16;
-      v24[2] = 2112;
-      *&v24[3] = v9;
-      _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] renameat(-1, '%@', %d, '%@') failed %{errno}d%@", &v17, 0x2Cu);
+      v13 = [*(a1 + 32) absoluteString];
+      v14 = *(a1 + 40);
+      v15 = *__error();
+      v16 = 138413314;
+      v17 = v13;
+      v18 = 1024;
+      v19 = a2;
+      v20 = 2112;
+      v21 = v14;
+      v22 = 1024;
+      *v23 = v15;
+      v23[2] = 2112;
+      *&v23[3] = v9;
+      _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] renameat(-1, '%@', %d, '%@') failed %{errno}d%@", &v16, 0x2Cu);
     }
 
-    result = *__error();
+    return *__error();
   }
 
   else
@@ -3663,56 +4633,53 @@ uint64_t __62__BRCStageRegistry_FPFSAdditions__rescueUnuploadedFile_error___bloc
     v7 = brc_default_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v12 = [*(a1 + 32) absoluteString];
-      v13 = *(a1 + 40);
-      v17 = 138413058;
-      v18 = v12;
-      v19 = 1024;
-      v20 = a2;
-      v21 = 2112;
-      v22 = v13;
-      v23 = 2112;
-      *v24 = v6;
-      _os_log_debug_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] renameat(-1, '%@', %d, '%@') succeeded%@", &v17, 0x26u);
+      v11 = [*(a1 + 32) absoluteString];
+      v12 = *(a1 + 40);
+      v16 = 138413058;
+      v17 = v11;
+      v18 = 1024;
+      v19 = a2;
+      v20 = 2112;
+      v21 = v12;
+      v22 = 2112;
+      *v23 = v6;
+      _os_log_debug_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] renameat(-1, '%@', %d, '%@') succeeded%@", &v16, 0x26u);
     }
 
-    result = 0;
+    return 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (BOOL)existsInUploadOrLiveItemsStage:(unint64_t)stage generationID:(unsigned int *)d
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v12 = 0;
+  v18 = *MEMORY[0x277D85DE8];
+  v11 = 0;
   if (stage)
   {
-    v5 = [(BRCStageRegistry *)self _pathInStage:stage index:&v12 generationID:d];
+    v5 = [(BRCStageRegistry *)self _pathInStage:stage index:&v11 generationID:d];
     v6 = 0;
-    if (v5 && (v12 & 0xFB) == 2)
+    if (v5 && (v11 & 0xFB) == 2)
     {
       v7 = brc_bread_crumbs();
       v8 = brc_default_log();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218498;
-        if (v12 == 6)
+        if (v11 == 6)
         {
-          v11 = "live items stage";
+          v10 = "live items stage";
         }
 
         else
         {
-          v11 = "uploads stage";
+          v10 = "uploads stage";
         }
 
         stageCopy = stage;
-        v15 = 2080;
-        v16 = v11;
-        v17 = 2112;
-        v18 = v7;
+        v14 = 2080;
+        v15 = v10;
+        v16 = 2112;
+        v17 = v7;
         _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] fileID:%llu is in the %s%@", buf, 0x20u);
       }
 
@@ -3726,101 +4693,63 @@ uint64_t __62__BRCStageRegistry_FPFSAdditions__rescueUnuploadedFile_error___bloc
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
-}
-
-- (void)_openStageDirectory:.cold.1()
-{
-  v5 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9();
-  _os_log_error_impl(v0, v1, 0x90u, v2, v3, 0x12u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pathInStage:index:generationID:.cold.1()
 {
   OUTLINED_FUNCTION_18();
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_10_2();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)existsInStage:generationID:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] fileID:0 doesn't exist in stage (metadata-only update)%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __65__BRCStageRegistry_lowDiskStatusChangedForDevice_hasEnoughSpace___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] running GC because we are in low disk space%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
 - (void)purgableSpace
 {
   OUTLINED_FUNCTION_18();
   v3 = v2;
-  v9 = *MEMORY[0x277D85DE8];
-  v4 = *__error();
-  v6 = 138412802;
-  v7 = v3;
+  v7 = *MEMORY[0x277D85DE8];
+  __error();
+  v4 = 138412802;
+  v5 = v3;
   OUTLINED_FUNCTION_10_2();
-  v8 = v1;
-  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] fts_open(%@) failed %{errno}d%@", &v6, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = v1;
+  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] fts_open(%@) failed %{errno}d%@", &v4, 0x1Cu);
 }
 
-- (void)purgeGraveyardSpace:(uint64_t)a1 withUrgency:.cold.1(uint64_t a1)
+- (void)purgeGraveyardSpace:withUrgency:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(*a1 + 24);
   OUTLINED_FUNCTION_16();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)_purgeAllUploadsWithIncludeActiveItems:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_16();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_purgeAllUploadsWithIncludeActiveItems:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __55__BRCStageRegistry__processPendingListDatabaseObjects___block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_9();
   _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __43__BRCStageRegistry__removeUnusedXattrBlobs__block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3828,84 +4757,63 @@ void __43__BRCStageRegistry__removeUnusedXattrBlobs__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: components.count == 1%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: components.count == 1%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __95__BRCStageRegistry__garbageCollectItemsIncludingActiveItems_stageIndex_maxAge_deletePredicate___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __95__BRCStageRegistry__garbageCollectItemsIncludingActiveItems_stageIndex_maxAge_deletePredicate___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_garbageCollectUploadThumbnailsIncludingActiveUploads:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_16();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)garbageCollectSpace:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __63__BRCStageRegistry__updatePersistedStateWithLatestGCStartTime___block_invoke_cold_1(uint64_t a1)
+void __63__BRCStageRegistry__updatePersistedStateWithLatestGCStartTime___block_invoke_cold_1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
-  v2 = *(*(a1 + 32) + 176);
-  if (v2)
-  {
-    v3 = *(v2 + 16);
-  }
-
   OUTLINED_FUNCTION_16();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void __26__BRCStageRegistry_resume__block_invoke_cold_1(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_fault_impl(&dword_223E7A000, v5, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !_persistedState%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_fault_impl(&dword_223E7A000, v5, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !_persistedState%@", &v6, 0xCu);
   }
 
   *a2 = *a1;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __26__BRCStageRegistry_resume__block_invoke_cold_2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3913,55 +4821,24 @@ void __26__BRCStageRegistry_resume__block_invoke_cold_2()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _persistedState%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _persistedState%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __26__BRCStageRegistry_resume__block_invoke_2_cold_4()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v0, v1, 0x90u, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)saveXattrAtURL:forSignature:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: Asked to save xattr without url%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)saveXattrBlob:forSignature:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: Asked to save xattr without signature or data%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveXattrBlob:forSignature:error:.cold.2()
 {
   OUTLINED_FUNCTION_18();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 path];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)loadXattrBlobForSignature:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: Asked for xattr without signature%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -790,7 +790,7 @@ LABEL_7:
     v26 = [(CGAffineTransform *)result ftc];
     if (v26)
     {
-      [v26 originalShadowTransform];
+      objc_msgSend_originalShadowTransform(v26);
     }
 
     else
@@ -824,7 +824,7 @@ LABEL_7:
     result = [(THWFreeTransformableRepGestureTargetHandler *)[(THWGalleryRep *)self freeTransformableHandler] ftc];
     if (result)
     {
-      result = [(CGAffineTransform *)result currentTransform];
+      result = objc_msgSend_currentTransform(result);
     }
 
     else
@@ -857,7 +857,7 @@ LABEL_7:
 {
   if ([(THWFreeTransformController *)[(THWFreeTransformableRepGestureTargetHandler *)[(THWGalleryRep *)self freeTransformableHandler] ftc] isFreeTransformInProgress])
   {
-    [(THWFreeTransformController *)[(THWFreeTransformableRepGestureTargetHandler *)[(THWGalleryRep *)self freeTransformableHandler] ftc] completionTargetRect];
+    objc_msgSend_completionTargetRect([(THWFreeTransformableRepGestureTargetHandler *)[(THWGalleryRep *)self freeTransformableHandler] ftc]);
   }
 
   else

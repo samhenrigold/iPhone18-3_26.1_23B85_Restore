@@ -38,27 +38,27 @@ uint64_t __50__PGCollectionTitleGenerator__sortedMeaningLabels__block_invoke()
 
 - (id)_meaningLabelForTitle
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   meaningLabels = [(PGEventEnrichment *)self->_collection meaningLabels];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   _sortedMeaningLabels = [(PGCollectionTitleGenerator *)self _sortedMeaningLabels];
-  v5 = [_sortedMeaningLabels countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [_sortedMeaningLabels countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(_sortedMeaningLabels);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         if ([meaningLabels containsObject:v8])
         {
           v5 = v8;
@@ -66,7 +66,7 @@ uint64_t __50__PGCollectionTitleGenerator__sortedMeaningLabels__block_invoke()
         }
       }
 
-      v5 = [_sortedMeaningLabels countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [_sortedMeaningLabels countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -77,8 +77,6 @@ uint64_t __50__PGCollectionTitleGenerator__sortedMeaningLabels__block_invoke()
   }
 
 LABEL_11:
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

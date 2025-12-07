@@ -164,7 +164,7 @@ void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke(uint6
 
 void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -177,9 +177,9 @@ void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_2(uin
       v11 = [v10 statusCode];
       v12 = [v10 allHeaderFields];
       *buf = 134218242;
-      v20 = v11;
-      v21 = 2112;
-      v22 = v12;
+      v19 = v11;
+      v20 = 2112;
+      v21 = v12;
       _os_log_impl(&dword_2510AF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Symbolication task returned with status code %ld: %@", buf, 0x16u);
     }
   }
@@ -191,9 +191,9 @@ void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_2(uin
     block[1] = 3221225472;
     block[2] = __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_12;
     block[3] = &unk_2796A9048;
-    v16 = v7;
-    v18 = *(a1 + 48);
-    v17 = *(a1 + 40);
+    v15 = v7;
+    v17 = *(a1 + 48);
+    v16 = *(a1 + 40);
     dispatch_async(v13, block);
   }
 
@@ -206,17 +206,15 @@ void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_2(uin
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_12(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v38 = 0;
-  v3 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v2 options:0 error:&v38];
-  v4 = v38;
+  v37 = 0;
+  v3 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v2 options:0 error:&v37];
+  v4 = v37;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && ([v3 objectForKeyedSubscript:@"symbolicated_log"], (v5 = objc_claimAutoreleasedReturnValue()) != 0))
   {
@@ -228,42 +226,42 @@ void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_12(ui
     v11 = [v9 URLByAppendingPathComponent:v10];
 
     v12 = [v6 dataUsingEncoding:4];
-    v37 = v4;
-    LODWORD(v10) = [v12 writeToURL:v11 options:1 error:&v37];
-    v13 = v37;
+    v36 = v4;
+    LODWORD(v10) = [v12 writeToURL:v11 options:1 error:&v36];
+    v13 = v36;
 
     if (v10)
     {
-      v28 = v7;
-      v29 = v6;
-      v30 = v3;
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
+      v27 = v7;
+      v28 = v6;
+      v29 = v3;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v14 = *MEMORY[0x277D0FA40];
-      v39[0] = *MEMORY[0x277D0FA38];
-      v39[1] = v14;
+      v38[0] = *MEMORY[0x277D0FA38];
+      v38[1] = v14;
       v15 = *MEMORY[0x277D0FA58];
-      v39[2] = *MEMORY[0x277D0FA50];
-      v39[3] = v15;
-      v39[4] = *MEMORY[0x277D0FA48];
-      obj = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:5];
-      v16 = [obj countByEnumeratingWithState:&v33 objects:v40 count:16];
+      v38[2] = *MEMORY[0x277D0FA50];
+      v38[3] = v15;
+      v38[4] = *MEMORY[0x277D0FA48];
+      obj = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:5];
+      v16 = [obj countByEnumeratingWithState:&v32 objects:v39 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v34;
+        v18 = *v33;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v34 != v18)
+            if (*v33 != v18)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v33 + 1) + 8 * i);
+            v20 = *(*(&v32 + 1) + 8 * i);
             v21 = getxattr([*(a1 + 40) fileSystemRepresentation], objc_msgSend(v20, "UTF8String"), 0, 0x2710uLL, 0, 0);
             if ((v21 & 0x8000000000000000) == 0)
             {
@@ -274,29 +272,29 @@ void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_12(ui
             }
           }
 
-          v17 = [obj countByEnumeratingWithState:&v33 objects:v40 count:16];
+          v17 = [obj countByEnumeratingWithState:&v32 objects:v39 count:16];
         }
 
         while (v17);
       }
 
       v24 = [MEMORY[0x277CCAA00] defaultManager];
-      v7 = v28;
-      v32 = v13;
-      v25 = [v24 moveItemAtURL:v11 toURL:v28 error:&v32];
-      v4 = v32;
+      v7 = v27;
+      v31 = v13;
+      v25 = [v24 moveItemAtURL:v11 toURL:v27 error:&v31];
+      v4 = v31;
 
       if (v25)
       {
         (*(*(a1 + 48) + 16))();
-        v6 = v29;
-        v3 = v30;
+        v6 = v28;
+        v3 = v29;
       }
 
       else
       {
-        v6 = v29;
-        v3 = v30;
+        v6 = v28;
+        v3 = v29;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_12_cold_2();
@@ -336,49 +334,47 @@ void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_12(ui
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)symbolicateLogFiles:(id)files completion:(id)completion
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   filesCopy = files;
   completionCopy = completion;
   group = dispatch_group_create();
   array = [MEMORY[0x277CBEB18] array];
-  v46[0] = 0;
-  v46[1] = v46;
-  v46[2] = 0x3032000000;
-  v46[3] = __Block_byref_object_copy_;
-  v46[4] = __Block_byref_object_dispose_;
-  v47 = 0;
-  v44[0] = 0;
-  v44[1] = v44;
-  v44[2] = 0x2020000000;
-  v45 = 0;
+  v45[0] = 0;
+  v45[1] = v45;
+  v45[2] = 0x3032000000;
+  v45[3] = __Block_byref_object_copy_;
+  v45[4] = __Block_byref_object_dispose_;
+  v46 = 0;
+  v43[0] = 0;
+  v43[1] = v43;
+  v43[2] = 0x2020000000;
+  v44 = 0;
   objc_initWeak(&location, self);
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   obj = filesCopy;
-  v7 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
+  v7 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
   if (v7)
   {
-    v8 = *v40;
-    v20 = v34;
+    v8 = *v39;
+    v19 = v33;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v40 != v8)
+        if (*v39 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v39 + 1) + 8 * i);
-        v11 = [HTHangSymbolicator symbolicatedLogURLForFile:v10, completionCopy, v20];
+        v10 = *(*(&v38 + 1) + 8 * i);
+        v11 = [HTHangSymbolicator symbolicatedLogURLForFile:v10, completionCopy, v19];
         if ([v11 checkResourceIsReachableAndReturnError:0])
         {
           [array addObject:v11];
@@ -386,32 +382,32 @@ void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_12(ui
 
         else
         {
-          v33[0] = MEMORY[0x277D85DD0];
-          v33[1] = 3221225472;
-          v34[0] = __53__HTHangSymbolicator_symbolicateLogFiles_completion___block_invoke;
-          v34[1] = &unk_2796A9110;
-          v36 = v44;
+          v32[0] = MEMORY[0x277D85DD0];
+          v32[1] = 3221225472;
+          v33[0] = __53__HTHangSymbolicator_symbolicateLogFiles_completion___block_invoke;
+          v33[1] = &unk_2796A9110;
+          v35 = v43;
           v12 = group;
-          v35 = v12;
-          objc_copyWeak(&v38, &location);
-          v37 = v46;
-          v13 = MEMORY[0x25306A220](v33);
+          v34 = v12;
+          objc_copyWeak(&v37, &location);
+          v36 = v45;
+          v13 = MEMORY[0x25306A220](v32);
           dispatch_group_enter(v12);
-          v29[0] = MEMORY[0x277D85DD0];
-          v29[1] = 3221225472;
-          v29[2] = __53__HTHangSymbolicator_symbolicateLogFiles_completion___block_invoke_5;
-          v29[3] = &unk_2796A9160;
-          v30 = array;
+          v28[0] = MEMORY[0x277D85DD0];
+          v28[1] = 3221225472;
+          v28[2] = __53__HTHangSymbolicator_symbolicateLogFiles_completion___block_invoke_5;
+          v28[3] = &unk_2796A9160;
+          v29 = array;
           v14 = v13;
-          v32 = v14;
-          v31 = v12;
-          [(HTHangSymbolicator *)self symbolicateLogFile:v10 completion:v29];
+          v31 = v14;
+          v30 = v12;
+          [(HTHangSymbolicator *)self symbolicateLogFile:v10 completion:v28];
 
-          objc_destroyWeak(&v38);
+          objc_destroyWeak(&v37);
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
+      v7 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
     }
 
     while (v7);
@@ -421,20 +417,18 @@ void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_12(ui
   block[1] = 3221225472;
   block[2] = __53__HTHangSymbolicator_symbolicateLogFiles_completion___block_invoke_7;
   block[3] = &unk_2796A9188;
-  v25 = array;
-  v26 = obj;
-  v27 = completionCopy;
-  v28 = v46;
+  v24 = array;
+  v25 = obj;
+  v26 = completionCopy;
+  v27 = v45;
   v15 = obj;
   v16 = array;
   v17 = completionCopy;
   dispatch_group_notify(group, MEMORY[0x277D85CD0], block);
 
   objc_destroyWeak(&location);
-  _Block_object_dispose(v44, 8);
-  _Block_object_dispose(v46, 8);
-
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v43, 8);
+  _Block_object_dispose(v45, 8);
 }
 
 void __53__HTHangSymbolicator_symbolicateLogFiles_completion___block_invoke(uint64_t a1, void *a2)
@@ -659,50 +653,20 @@ uint64_t __53__HTHangSymbolicator_symbolicateLogFiles_completion___block_invoke_
   return v9;
 }
 
-void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_12_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_12_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_12_cold_3(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:*a2 encoding:4];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HTHangSymbolicator_symbolicateLogFile_completion___block_invoke_12_cold_4(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:*a2 encoding:4];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

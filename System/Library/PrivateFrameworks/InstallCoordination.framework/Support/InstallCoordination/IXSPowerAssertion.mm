@@ -102,16 +102,15 @@
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = v4;
-  assertionName = self->_assertionName;
-  v7 = 89;
+  v6 = 89;
   if (!self->_assertion)
   {
-    v7 = 78;
+    v6 = 78;
   }
 
-  v8 = [NSString stringWithFormat:@"<%@<%p> %@ valid:%c>", v4, self, self->_assertionName, v7];
+  v7 = [NSString stringWithFormat:@"<%@<%p> %@ valid:%c>", v4, self, self->_assertionName, v6];
 
-  return v8;
+  return v7;
 }
 
 @end

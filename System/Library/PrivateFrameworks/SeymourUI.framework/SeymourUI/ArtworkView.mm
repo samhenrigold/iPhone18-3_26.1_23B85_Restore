@@ -7,7 +7,7 @@
 
 - (_TtC9SeymourUI11ArtworkView)initWithFrame:(CGRect)frame
 {
-  v3 = objc_allocWithZone(type metadata accessor for ArtworkView());
+  v3 = objc_allocWithZone(type metadata accessor for ArtworkView(0));
   v4 = sub_20B91B5FC(0);
   swift_getObjectType();
   swift_deallocPartialClassInstance();

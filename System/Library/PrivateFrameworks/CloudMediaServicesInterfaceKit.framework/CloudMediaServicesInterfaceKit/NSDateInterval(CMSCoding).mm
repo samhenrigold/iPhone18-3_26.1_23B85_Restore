@@ -7,8 +7,8 @@
 
 - (id)cmsCoded
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = @"startDate";
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = @"startDate";
   startDate = [self startDate];
   cmsCoded = [startDate cmsCoded];
   v4 = cmsCoded;
@@ -22,8 +22,8 @@
     v5 = &stru_2856A7BB0;
   }
 
-  v13[1] = @"endDate";
-  v14[0] = v5;
+  v12[1] = @"endDate";
+  v13[0] = v5;
   endDate = [self endDate];
   cmsCoded2 = [endDate cmsCoded];
   v8 = cmsCoded2;
@@ -37,10 +37,8 @@
     v9 = &stru_2856A7BB0;
   }
 
-  v14[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v10;
 }

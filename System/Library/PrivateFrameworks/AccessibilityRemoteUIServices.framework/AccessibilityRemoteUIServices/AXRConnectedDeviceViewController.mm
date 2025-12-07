@@ -9,6 +9,7 @@
 - (void)dealloc;
 - (void)remoteDeviceDidUnexpectedlyDisconnect:(id)disconnect;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)voiceOverTouchPadView:(id)view didReceiveCommand:(id)command;
 @end
 
@@ -50,10 +51,10 @@
 
 - (void)viewDidLoad
 {
-  v98[3] = *MEMORY[0x277D85DE8];
-  v95.receiver = self;
-  v95.super_class = AXRConnectedDeviceViewController;
-  [(AXRConnectedDeviceViewController *)&v95 viewDidLoad];
+  v97[3] = *MEMORY[0x277D85DE8];
+  v94.receiver = self;
+  v94.super_class = AXRConnectedDeviceViewController;
+  [(AXRConnectedDeviceViewController *)&v94 viewDidLoad];
   activeDevice = [(AXRConnectedDeviceViewController *)self activeDevice];
   displayName = [activeDevice displayName];
   [(AXRConnectedDeviceViewController *)self setTitle:displayName];
@@ -98,28 +99,28 @@
   actionsCollectionView7 = [(AXRConnectedDeviceViewController *)self actionsCollectionView];
   [view3 addSubview:actionsCollectionView7];
 
-  v74 = MEMORY[0x277CCAAD0];
+  v73 = MEMORY[0x277CCAAD0];
   actionsCollectionView8 = [(AXRConnectedDeviceViewController *)self actionsCollectionView];
   leadingAnchor = [actionsCollectionView8 leadingAnchor];
   view4 = [(AXRConnectedDeviceViewController *)self view];
   leadingAnchor2 = [view4 leadingAnchor];
-  v82 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v98[0] = v82;
+  v81 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v97[0] = v81;
   actionsCollectionView9 = [(AXRConnectedDeviceViewController *)self actionsCollectionView];
   trailingAnchor = [actionsCollectionView9 trailingAnchor];
   view5 = [(AXRConnectedDeviceViewController *)self view];
   trailingAnchor2 = [view5 trailingAnchor];
   v29 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v98[1] = v29;
+  v97[1] = v29;
   actionsCollectionView10 = [(AXRConnectedDeviceViewController *)self actionsCollectionView];
   bottomAnchor = [actionsCollectionView10 bottomAnchor];
   view6 = [(AXRConnectedDeviceViewController *)self view];
   safeAreaLayoutGuide = [view6 safeAreaLayoutGuide];
   bottomAnchor2 = [safeAreaLayoutGuide bottomAnchor];
   v35 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v98[2] = v35;
-  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v98 count:3];
-  [v74 activateConstraints:v36];
+  v97[2] = v35;
+  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v97 count:3];
+  [v73 activateConstraints:v36];
 
   activeDevice2 = [(AXRConnectedDeviceViewController *)self activeDevice];
   if ([activeDevice2 contextType] == 1)
@@ -144,32 +145,32 @@
       actionsCollectionView11 = [(AXRConnectedDeviceViewController *)self actionsCollectionView];
       [view8 insertSubview:actionsCollectionView13 belowSubview:actionsCollectionView11];
 
-      v70 = MEMORY[0x277CCAAD0];
+      v69 = MEMORY[0x277CCAAD0];
       leadingAnchor3 = [(AXRVoiceOverTouchPadView *)actionsCollectionView13 leadingAnchor];
       view9 = [(AXRConnectedDeviceViewController *)self view];
       safeAreaLayoutGuide2 = [view9 safeAreaLayoutGuide];
       leadingAnchor4 = [safeAreaLayoutGuide2 leadingAnchor];
       v46 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:8.0];
-      v97[0] = v46;
+      v96[0] = v46;
       trailingAnchor3 = [(AXRVoiceOverTouchPadView *)actionsCollectionView13 trailingAnchor];
       view10 = [(AXRConnectedDeviceViewController *)self view];
       safeAreaLayoutGuide3 = [view10 safeAreaLayoutGuide];
       trailingAnchor4 = [safeAreaLayoutGuide3 trailingAnchor];
-      v79 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-8.0];
-      v97[1] = v79;
+      v78 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-8.0];
+      v96[1] = v78;
       topAnchor = [(AXRVoiceOverTouchPadView *)actionsCollectionView13 topAnchor];
       view11 = [(AXRConnectedDeviceViewController *)self view];
       safeAreaLayoutGuide4 = [view11 safeAreaLayoutGuide];
       topAnchor2 = [safeAreaLayoutGuide4 topAnchor];
-      v71 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:12.0];
-      v97[2] = v71;
+      v70 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:12.0];
+      v96[2] = v70;
       bottomAnchor3 = [(AXRVoiceOverTouchPadView *)actionsCollectionView13 bottomAnchor];
       actionsCollectionView12 = [(AXRConnectedDeviceViewController *)self actionsCollectionView];
       topAnchor3 = [actionsCollectionView12 topAnchor];
       v51 = [bottomAnchor3 constraintEqualToAnchor:topAnchor3 constant:-12.0];
-      v97[3] = v51;
-      v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v97 count:4];
-      [v70 activateConstraints:v52];
+      v96[3] = v51;
+      v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v96 count:4];
+      [v69 activateConstraints:v52];
 
       contextType = 0;
       v54 = 3;
@@ -191,8 +192,8 @@
   safeAreaLayoutGuide2 = [view9 safeAreaLayoutGuide];
   leadingAnchor4 = [safeAreaLayoutGuide2 topAnchor];
   v46 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:16.0];
-  v96 = v46;
-  trailingAnchor3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v96 count:1];
+  v95 = v46;
+  trailingAnchor3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v95 count:1];
   [v56 activateConstraints:trailingAnchor3];
   v54 = 8;
 LABEL_6:
@@ -223,21 +224,19 @@ LABEL_6:
   [eventProcessor setHIDEventFilterMask:40];
 
   objc_initWeak(&location, self);
-  v92[0] = MEMORY[0x277D85DD0];
-  v92[1] = 3221225472;
-  v92[2] = __47__AXRConnectedDeviceViewController_viewDidLoad__block_invoke;
-  v92[3] = &unk_278BED628;
-  objc_copyWeak(&v93, &location);
+  v91[0] = MEMORY[0x277D85DD0];
+  v91[1] = 3221225472;
+  v91[2] = __47__AXRConnectedDeviceViewController_viewDidLoad__block_invoke;
+  v91[3] = &unk_278BED628;
+  objc_copyWeak(&v92, &location);
   eventProcessor2 = [(AXRConnectedDeviceViewController *)self eventProcessor];
-  [eventProcessor2 setHIDEventHandler:v92];
+  [eventProcessor2 setHIDEventHandler:v91];
 
   eventProcessor3 = [(AXRConnectedDeviceViewController *)self eventProcessor];
   [eventProcessor3 beginHandlingHIDEventsForReason:@"AXRemoteDeviceConnection"];
 
-  objc_destroyWeak(&v93);
+  objc_destroyWeak(&v92);
   objc_destroyWeak(&location);
-
-  v69 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__AXRConnectedDeviceViewController_viewDidLoad__block_invoke(uint64_t a1, void *a2)
@@ -327,74 +326,90 @@ LABEL_7:
 
 void __47__AXRConnectedDeviceViewController_viewDidLoad__block_invoke_3(uint64_t a1)
 {
-  v32[3] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = [*(a1 + 40) activeDevice];
-  [v3 deviceType];
-  v4 = AXRLocalizedStringForRemoteActionWithDeviceType();
+  v29[3] = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 40) activeDevice];
+  [v2 deviceType];
+  v3 = AXRLocalizedStringForRemoteActionWithDeviceType();
 
-  v5 = *(a1 + 56);
-  v6 = AXLocalizedStringForHandGestureEventUsage();
-  v7 = [MEMORY[0x277CE7D38] sharedInstance];
-  v23 = v4;
-  [v7 presentBannerWithTitle:v4 message:v6 duration:1.0];
+  v4 = AXLocalizedStringForHandGestureEventUsage();
+  v5 = [MEMORY[0x277CE7D38] sharedInstance];
+  v20 = v3;
+  [v5 presentBannerWithTitle:v3 message:v4 duration:1.0];
 
-  v22 = [*(a1 + 40) activeDevice];
-  v31[0] = *MEMORY[0x277CE74F8];
-  v8 = *(a1 + 32);
-  v29 = *MEMORY[0x277CE74E0];
-  v30 = v8;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-  v32[0] = v24;
-  v31[1] = *MEMORY[0x277CE7488];
-  v9 = *MEMORY[0x277CE7490];
-  v27[0] = *MEMORY[0x277CE7498];
-  v27[1] = v9;
-  v28[0] = v4;
-  v28[1] = v6;
-  v27[2] = *MEMORY[0x277CE7480];
-  v10 = [MEMORY[0x277CCABB0] numberWithDouble:1.0];
-  v28[2] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
-  v32[1] = v11;
-  v31[2] = *MEMORY[0x277CE75B0];
-  v25[0] = *MEMORY[0x277CE75A8];
-  v12 = [MEMORY[0x277CCABB0] numberWithLong:*(a1 + 56)];
-  v26[0] = v12;
-  v25[1] = *MEMORY[0x277CE75C0];
-  v13 = MEMORY[0x277CCABB0];
-  v14 = [*(a1 + 48) accessibilityData];
-  [v14 eventValue1];
-  v15 = [v13 numberWithFloat:?];
-  v26[1] = v15;
-  v25[2] = *MEMORY[0x277CE75B8];
-  v16 = MEMORY[0x277CCABB0];
-  v17 = [*(a1 + 48) accessibilityData];
-  [v17 eventValue2];
-  v18 = [v16 numberWithFloat:?];
-  v26[2] = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
-  v32[2] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
-  [v22 sendPayload:v20 withEventID:*MEMORY[0x277CE7478]];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = [*(a1 + 40) activeDevice];
+  v28[0] = *MEMORY[0x277CE74F8];
+  v6 = *(a1 + 32);
+  v26 = *MEMORY[0x277CE74E0];
+  v27 = v6;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+  v29[0] = v21;
+  v28[1] = *MEMORY[0x277CE7488];
+  v7 = *MEMORY[0x277CE7490];
+  v24[0] = *MEMORY[0x277CE7498];
+  v24[1] = v7;
+  v25[0] = v3;
+  v25[1] = v4;
+  v24[2] = *MEMORY[0x277CE7480];
+  v8 = [MEMORY[0x277CCABB0] numberWithDouble:1.0];
+  v25[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
+  v29[1] = v9;
+  v28[2] = *MEMORY[0x277CE75B0];
+  v22[0] = *MEMORY[0x277CE75A8];
+  v10 = [MEMORY[0x277CCABB0] numberWithLong:*(a1 + 56)];
+  v23[0] = v10;
+  v22[1] = *MEMORY[0x277CE75C0];
+  v11 = MEMORY[0x277CCABB0];
+  v12 = [*(a1 + 48) accessibilityData];
+  [v12 eventValue1];
+  v13 = [v11 numberWithFloat:?];
+  v23[1] = v13;
+  v22[2] = *MEMORY[0x277CE75B8];
+  v14 = MEMORY[0x277CCABB0];
+  v15 = [*(a1 + 48) accessibilityData];
+  [v15 eventValue2];
+  v16 = [v14 numberWithFloat:?];
+  v23[2] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
+  v29[2] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
+  [v19 sendPayload:v18 withEventID:*MEMORY[0x277CE7478]];
 }
 
 void __47__AXRConnectedDeviceViewController_viewDidLoad__block_invoke_4(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) activeDevice];
-  v9 = *MEMORY[0x277CE75D0];
-  v7 = *MEMORY[0x277CE75C8];
+  v8 = *MEMORY[0x277CE75D0];
+  v6 = *MEMORY[0x277CE75C8];
   v3 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(a1 + 40), "scrollAmount")}];
-  v8 = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
-  v10[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   [v2 sendPayload:v5 withEventID:*MEMORY[0x277CE7478]];
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+- (void)viewWillAppear:(BOOL)appear
+{
+  v11.receiver = self;
+  v11.super_class = AXRConnectedDeviceViewController;
+  [(AXRConnectedDeviceViewController *)&v11 viewWillAppear:appear];
+  view = [(AXRConnectedDeviceViewController *)self view];
+  [view frame];
+  v6 = v5 + -80.0;
+
+  collectionViewFlowLayout = [(AXRConnectedDeviceViewController *)self collectionViewFlowLayout];
+  [collectionViewFlowLayout setSectionInset:{16.0, 16.0, 16.0, 16.0}];
+
+  collectionViewFlowLayout2 = [(AXRConnectedDeviceViewController *)self collectionViewFlowLayout];
+  [collectionViewFlowLayout2 setMinimumInteritemSpacing:16.0];
+
+  collectionViewFlowLayout3 = [(AXRConnectedDeviceViewController *)self collectionViewFlowLayout];
+  [collectionViewFlowLayout3 setItemSize:{v6 * 0.25, v6 * 0.25}];
+
+  collectionViewFlowLayout4 = [(AXRConnectedDeviceViewController *)self collectionViewFlowLayout];
+  [collectionViewFlowLayout4 invalidateLayout];
 }
 
 - (void)_moreButtonPressed
@@ -435,18 +450,16 @@ void __47__AXRConnectedDeviceViewController_viewDidLoad__block_invoke_4(uint64_t
 
 void __63__AXRConnectedDeviceViewController__performDeviceRemoteAction___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8 = *MEMORY[0x277CE74F8];
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277CE74F8];
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
-  v6 = *MEMORY[0x277CE74E0];
-  v7 = v1;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v5 = *MEMORY[0x277CE74E0];
+  v6 = v1;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v6 forKeys:&v5 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [v2 sendPayload:v4 withEventID:*MEMORY[0x277CE7478]];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)collectionView:(id)view didSelectItemAtIndexPath:(id)path
@@ -546,18 +559,16 @@ void __74__AXRConnectedDeviceViewController_remoteDeviceDidUnexpectedlyDisconnec
 
 void __76__AXRConnectedDeviceViewController_voiceOverTouchPadView_didReceiveCommand___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) activeDevice];
-  v9 = *MEMORY[0x277CE75E0];
+  v8 = *MEMORY[0x277CE75E0];
   v3 = *(a1 + 40);
-  v7 = *MEMORY[0x277CE75D8];
-  v8 = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
-  v10[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v6 = *MEMORY[0x277CE75D8];
+  v7 = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   [v2 sendPayload:v5 withEventID:*MEMORY[0x277CE7478]];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

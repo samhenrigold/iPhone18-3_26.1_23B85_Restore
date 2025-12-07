@@ -10,27 +10,29 @@
 - (BOOL)isUsingPseudoFlipbook;
 - (NSString)debugDescription;
 - (NSString)description;
+- (id)_lock_acquireAlwaysOnLiveFlipbookPowerAssertion;
+- (id)_lock_acquireAlwaysOnLivePowerAssertion;
 - (id)flipbook;
 - (id)frameOnGlassNow;
 - (id)frameOnGlassWhenFlipbookLastCancelled;
 - (id)lock_cancelFlipbookFramesAndCollectForReason:(uint64_t)reason;
 - (id)lock_cancelFlipbookFramesForReason:(void *)reason source:(int)source didClearDateSpecifiers:(int)specifiers wasReset:;
+- (id)lock_invalidateFlipbookUpdates;
 - (id)lock_stopForReason:(int)reason shouldEmptyModel:;
 - (id)loggingStreamForRenderSession;
 - (id)stopForReason:(id)reason;
 - (id)suppressForReason:(id)reason;
 - (id)suspendForReason:(id)reason;
 - (int64_t)engineState;
-- (uint64_t)_lock_acquireAlwaysOnLiveFlipbookPowerAssertion;
-- (uint64_t)_lock_acquireAlwaysOnLivePowerAssertion;
 - (uint64_t)_lock_update1HzFromPresentation:(uint64_t)presentation;
-- (uint64_t)ensureDatesModelCreated;
-- (uint64_t)lock_invalidateFlipbookUpdates;
 - (uint64_t)lock_setFlipbookPredictiveRenderType;
 - (uint64_t)main_shouldWaitForRequestDates;
 - (void)createFlipbook;
 - (void)dealloc;
 - (void)didEndInactiveEnvironmentSession:(id)session;
+- (void)ensureDatesModelCreated;
+- (void)hostEnvironment:(id)environment hostDidSet1HzFlipbook:(BOOL)flipbook;
+- (void)hostEnvironment:(id)environment hostDidSetAlwaysOnEnabledForEnvironment:(BOOL)forEnvironment;
 - (void)hostEnvironment:(id)environment hostDidSetUnrestrictedFramerateUpdates:(BOOL)updates;
 - (void)hostEnvironment:(id)environment invalidateContentForReason:(id)reason;
 - (void)inactiveEnvironmentSession:(id)session didUpdateToPresentation:(id)presentation;
@@ -56,6 +58,7 @@
 - (void)requestDatesOperation:(id)operation didTimeoutPendingEnvironments:(id)environments;
 - (void)requestDatesOperation:(id)operation environment:(id)environment didProvideSpecifiers:(id)specifiers forPresentationInterval:(id)interval isComplete:(BOOL)complete;
 - (void)setAlwaysFillFlipbook:(BOOL)flipbook;
+- (void)setCacheFlipbook:(BOOL)flipbook;
 - (void)setGlobal1HzFlipbook:(BOOL)flipbook;
 - (void)setInactiveSession:(id)session;
 - (void)setOnStandby:(BOOL)standby;
@@ -362,7 +365,7 @@ LABEL_13:
     v32 = bls_flipbook_log();
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
-      [BLSHAlwaysOnPresentationEngine initWithDelegate:v16 platformProvider:? osInterfaceProvider:? inactiveBudgetPolicy:?];
+      [BLSHAlwaysOnPresentationEngine initWithDelegate:platformProvider:osInterfaceProvider:inactiveBudgetPolicy:];
     }
 
     v16->_lock_engineState = 0;
@@ -377,13 +380,13 @@ LABEL_13:
   return v16;
 }
 
-uint64_t __109__BLSHAlwaysOnPresentationEngine_initWithDelegate_platformProvider_osInterfaceProvider_inactiveBudgetPolicy___block_invoke(uint64_t a1)
+uint64_t __109__BLSHAlwaysOnPresentationEngine_initWithDelegate_platformProvider_osInterfaceProvider_inactiveBudgetPolicy___block_invoke(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = [WeakRetained debugDescription];
-  v3 = BLSStateDataWithTitleDescriptionAndHints();
+  v3 = [WeakRetained debugDescription];
+  v4 = BLSStateDataWithTitleDescriptionAndHints();
 
-  return v3;
+  return v4;
 }
 
 - (void)dealloc
@@ -525,82 +528,78 @@ void __50__BLSHAlwaysOnPresentationEngine_debugDescription__block_invoke_8(uint6
 
 void __50__BLSHAlwaysOnPresentationEngine_debugDescription__block_invoke_9(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(*(a1 + 32) + 96) activeFrames];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 40);
-        v8 = [*(*(&v11 + 1) + 8 * v6) bls_loggingString];
+        v8 = [*(*(&v10 + 1) + 8 * v6) bls_loggingString];
         v9 = [v7 appendObject:v8 withName:0];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __50__BLSHAlwaysOnPresentationEngine_debugDescription__block_invoke_10(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(*(a1 + 32) + 128) allFrames];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 40);
-        v8 = [*(*(&v11 + 1) + 8 * v6) bls_loggingString];
+        v8 = [*(*(&v10 + 1) + 8 * v6) bls_loggingString];
         v9 = [v7 appendObject:v8 withName:0];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerHandlersForService:(id)service
@@ -757,9 +756,23 @@ void __50__BLSHAlwaysOnPresentationEngine_debugDescription__block_invoke_10(uint
   return lock_cacheFlipbook;
 }
 
+- (void)setCacheFlipbook:(BOOL)flipbook
+{
+  flipbookCopy = flipbook;
+  os_unfair_lock_lock(&self->_lock);
+  lock_cacheFlipbook = self->_lock_cacheFlipbook;
+  self->_lock_cacheFlipbook = flipbookCopy;
+  if (lock_cacheFlipbook != flipbookCopy)
+  {
+    [(BLSHFlipbook *)self->_lock_flipbook setCachesFramesOnExit:flipbookCopy];
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
+}
+
 - (uint64_t)lock_setFlipbookPredictiveRenderType
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
@@ -787,66 +800,65 @@ void __50__BLSHAlwaysOnPresentationEngine_debugDescription__block_invoke_10(uint
 
     if (v2 == v3)
     {
-      result = 0;
+      return 0;
     }
 
     else
     {
-      v5 = bls_flipbook_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v4 = bls_flipbook_log();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
         if ((v3 - 1) > 3)
         {
-          v6 = @"Stopped";
+          v5 = @"Stopped";
         }
 
         else
         {
-          v6 = off_27841EFA0[v3 - 1];
+          v5 = off_27841EFA0[v3 - 1];
         }
 
-        v7 = @"PredictiveFlipbook-JustInTime";
+        v6 = @"PredictiveFlipbook-JustInTime";
         if (v2 == 4)
         {
-          v7 = @"PredictiveFlipbook-Fill";
+          v6 = @"PredictiveFlipbook-Fill";
         }
 
-        v8 = v7;
-        v9 = NSStringFromBLSHOnSystemSleepActionState([*(v1 + 72) state]);
-        v10 = v9;
-        v11 = *(v1 + 272) - 1;
-        if (v11 > 3)
+        v7 = v6;
+        v8 = NSStringFromBLSHOnSystemSleepActionState([*(v1 + 72) state]);
+        v9 = v8;
+        v10 = *(v1 + 272) - 1;
+        if (v10 > 3)
         {
-          v12 = @"Awake";
+          v11 = @"Awake";
         }
 
         else
         {
-          v12 = off_27841EF68[v11];
+          v11 = off_27841EF68[v10];
         }
 
-        v13 = *(v1 + 289);
-        v14 = 134219266;
-        v15 = v1;
-        v16 = 2114;
-        v17 = v6;
-        v18 = 2114;
-        v19 = v8;
-        v20 = 2114;
-        v21 = v9;
-        v22 = 2114;
-        v23 = v12;
-        v24 = 1024;
-        v25 = v13;
-        _os_log_debug_impl(&dword_21FD11000, v5, OS_LOG_TYPE_DEBUG, "%p:%{public}@->%{public}@ did change flipbook render type sleepActionState:%{public}@ fillState:%{public}@ onStandby:%{BOOL}u", &v14, 0x3Au);
+        v12 = *(v1 + 289);
+        v13 = 134219266;
+        v14 = v1;
+        v15 = 2114;
+        v16 = v5;
+        v17 = 2114;
+        v18 = v7;
+        v19 = 2114;
+        v20 = v8;
+        v21 = 2114;
+        v22 = v11;
+        v23 = 1024;
+        v24 = v12;
+        _os_log_debug_impl(&dword_21FD11000, v4, OS_LOG_TYPE_DEBUG, "%p:%{public}@->%{public}@ did change flipbook render type sleepActionState:%{public}@ fillState:%{public}@ onStandby:%{BOOL}u", &v13, 0x3Au);
       }
 
       [(BLSHAlwaysOnPresentationEngine *)v1 lock_invalidateFlipbookUpdates];
-      result = 1;
+      return 1;
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -862,7 +874,7 @@ void __50__BLSHAlwaysOnPresentationEngine_debugDescription__block_invoke_10(uint
 - (void)requestDatesOperation:(id)operation environment:(id)environment didProvideSpecifiers:(id)specifiers forPresentationInterval:(id)interval isComplete:(BOOL)complete
 {
   completeCopy = complete;
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   environmentCopy = environment;
   specifiersCopy = specifiers;
@@ -897,50 +909,50 @@ LABEL_6:
     v19 = bls_flipbook_log();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      v30 = self->_lock_engineState - 1;
-      if (v30 > 3)
+      v29 = self->_lock_engineState - 1;
+      if (v29 > 3)
       {
-        v31 = @"Stopped";
+        v30 = @"Stopped";
       }
 
       else
       {
-        v31 = off_27841EFA0[v30];
+        v30 = off_27841EFA0[v29];
       }
 
-      v47 = v31;
+      v46 = v30;
       identifier = [environmentCopy identifier];
-      v39 = identifier;
-      v40 = "(stale) ";
+      v38 = identifier;
+      v39 = "(stale) ";
       if (lock_requestDatesOperation == operationCopy)
       {
-        v40 = "";
+        v39 = "";
       }
 
-      v43 = v40;
-      v45 = identifier;
+      v42 = v39;
+      v44 = identifier;
       bls_shortLoggingString = [intervalCopy bls_shortLoggingString];
       [specifiersCopy bls_boundedDescriptionWithTransformer:&__block_literal_global_4];
       *buf = 134219522;
       selfCopy2 = self;
-      v55 = 2114;
-      v56 = v47;
-      v57 = 2114;
-      v58 = v39;
-      v59 = 2080;
-      v60 = v43;
-      v61 = 2114;
-      v62 = operationCopy;
-      v63 = 2114;
-      v64 = bls_shortLoggingString;
-      v41 = v65 = 2114;
-      v66 = v41;
+      v54 = 2114;
+      v55 = v46;
+      v56 = 2114;
+      v57 = v38;
+      v58 = 2080;
+      v59 = v42;
+      v60 = 2114;
+      v61 = operationCopy;
+      v62 = 2114;
+      v63 = bls_shortLoggingString;
+      v40 = v64 = 2114;
+      v65 = v40;
       _os_log_debug_impl(&dword_21FD11000, v19, OS_LOG_TYPE_DEBUG, "%p:%{public}@ (%{public}@) did complete %srequest dates operation:%{public}@, interval:%{public}@ specifiers:%{public}@", buf, 0x48u);
     }
 
     if (lock_requestDatesOperation == operationCopy)
     {
-      v32 = self->_lock_requestDatesOperation;
+      v31 = self->_lock_requestDatesOperation;
       self->_lock_requestDatesOperation = 0;
 
       self->_lock_requestDatesOperationDidTimeout = 0;
@@ -948,7 +960,7 @@ LABEL_6:
       lock_lastRequestInterval = self->_lock_lastRequestInterval;
       self->_lock_lastRequestInterval = requestInterval;
 
-      [(BLSHAlwaysOnPresentationEngine *)self lock_invalidateFlipbookUpdates];
+      [(BLSHAlwaysOnPresentationEngine *)&self->super.isa lock_invalidateFlipbookUpdates];
     }
 
     os_unfair_lock_unlock(&self->_lock);
@@ -956,16 +968,16 @@ LABEL_6:
     BSContinuousMachTimeNow();
     v22 = v21;
     v23 = MEMORY[0x277CF09C8];
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __124__BLSHAlwaysOnPresentationEngine_requestDatesOperation_environment_didProvideSpecifiers_forPresentationInterval_isComplete___block_invoke_226;
-    v49[3] = &unk_27841E510;
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __124__BLSHAlwaysOnPresentationEngine_requestDatesOperation_environment_didProvideSpecifiers_forPresentationInterval_isComplete___block_invoke_226;
+    v48[3] = &unk_27841E510;
     v24 = operationCopy;
-    v52 = v22;
-    v50 = v24;
-    v51 = v20;
+    v51 = v22;
+    v49 = v24;
+    v50 = v20;
     v25 = v20;
-    [v23 dispatchWithQOSClass:17 block:v49];
+    [v23 dispatchWithQOSClass:17 block:v48];
     [(BLSHEngineRequestDatesOperation *)v24 invalidate];
 
     goto LABEL_13;
@@ -975,45 +987,45 @@ LABEL_11:
   v26 = bls_flipbook_log();
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    v28 = self->_lock_engineState - 1;
-    if (v28 > 3)
+    v27 = self->_lock_engineState - 1;
+    if (v27 > 3)
     {
-      v29 = @"Stopped";
+      v28 = @"Stopped";
     }
 
     else
     {
-      v29 = off_27841EFA0[v28];
+      v28 = off_27841EFA0[v27];
     }
 
-    v46 = v29;
+    v45 = v28;
     identifier2 = [environmentCopy identifier];
     if (lock_requestDatesOperation == operationCopy)
     {
-      v36 = "";
+      v35 = "";
     }
 
     else
     {
-      v36 = "(stale) ";
+      v35 = "(stale) ";
     }
 
     bls_shortLoggingString2 = [intervalCopy bls_shortLoggingString];
     [specifiersCopy bls_boundedDescriptionWithTransformer:&__block_literal_global_224];
     *buf = 134219522;
     selfCopy2 = self;
-    v55 = 2114;
-    v56 = v46;
-    v57 = 2114;
-    v58 = identifier2;
-    v59 = 2080;
-    v60 = v36;
-    v61 = 2114;
-    v62 = operationCopy;
-    v63 = 2114;
-    v64 = bls_shortLoggingString2;
-    v37 = v65 = 2114;
-    v66 = v37;
+    v54 = 2114;
+    v55 = v45;
+    v56 = 2114;
+    v57 = identifier2;
+    v58 = 2080;
+    v59 = v35;
+    v60 = 2114;
+    v61 = operationCopy;
+    v62 = 2114;
+    v63 = bls_shortLoggingString2;
+    v36 = v64 = 2114;
+    v65 = v36;
     _os_log_debug_impl(&dword_21FD11000, v26, OS_LOG_TYPE_DEBUG, "%p:%{public}@ (%{public}@) updated %srequest dates operation:%{public}@, interval:%{public}@ specifiers:%{public}@", buf, 0x48u);
   }
 
@@ -1025,8 +1037,6 @@ LABEL_13:
   block[3] = &unk_27841E650;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __124__BLSHAlwaysOnPresentationEngine_requestDatesOperation_environment_didProvideSpecifiers_forPresentationInterval_isComplete___block_invoke_226(uint64_t a1)
@@ -1043,43 +1053,43 @@ void __124__BLSHAlwaysOnPresentationEngine_requestDatesOperation_environment_did
 
 - (void)requestDatesOperation:(id)operation didTimeoutPendingEnvironments:(id)environments
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   environmentsCopy = environments;
   os_unfair_lock_lock(&self->_lock);
   lock_requestDatesOperation = self->_lock_requestDatesOperation;
   if (lock_requestDatesOperation == operationCopy)
   {
-    v16 = bls_flipbook_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v15 = bls_flipbook_log();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v17 = self->_lock_engineState - 1;
-      if (v17 > 3)
+      v16 = self->_lock_engineState - 1;
+      if (v16 > 3)
       {
-        v18 = @"Stopped";
+        v17 = @"Stopped";
       }
 
       else
       {
-        v18 = off_27841EFA0[v17];
+        v17 = off_27841EFA0[v16];
       }
 
       *buf = 134218754;
       selfCopy = self;
-      v27 = 2114;
-      v28 = v18;
-      v29 = 2114;
-      v30 = operationCopy;
-      v31 = 2114;
-      v32 = environmentsCopy;
-      _os_log_debug_impl(&dword_21FD11000, v16, OS_LOG_TYPE_DEBUG, "%p:%{public}@ did timeout render dates operation:%{public}@ pendingEnvironments:%{public}@", buf, 0x2Au);
+      v26 = 2114;
+      v27 = v17;
+      v28 = 2114;
+      v29 = operationCopy;
+      v30 = 2114;
+      v31 = environmentsCopy;
+      _os_log_debug_impl(&dword_21FD11000, v15, OS_LOG_TYPE_DEBUG, "%p:%{public}@ did timeout render dates operation:%{public}@ pendingEnvironments:%{public}@", buf, 0x2Au);
     }
 
-    v19 = self->_lock_requestDatesOperation;
+    v18 = self->_lock_requestDatesOperation;
     self->_lock_requestDatesOperation = 0;
 
     self->_lock_requestDatesOperationDidTimeout = 1;
-    [(BLSHAlwaysOnPresentationEngine *)self lock_invalidateFlipbookUpdates];
+    [(BLSHAlwaysOnPresentationEngine *)&self->super.isa lock_invalidateFlipbookUpdates];
   }
 
   os_unfair_lock_unlock(&self->_lock);
@@ -1087,28 +1097,26 @@ void __124__BLSHAlwaysOnPresentationEngine_requestDatesOperation_environment_did
   BSContinuousMachTimeNow();
   v11 = v10;
   v12 = MEMORY[0x277CF09C8];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __86__BLSHAlwaysOnPresentationEngine_requestDatesOperation_didTimeoutPendingEnvironments___block_invoke;
-  v21[3] = &unk_27841E510;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __86__BLSHAlwaysOnPresentationEngine_requestDatesOperation_didTimeoutPendingEnvironments___block_invoke;
+  v20[3] = &unk_27841E510;
   v13 = operationCopy;
-  v22 = v13;
-  v24 = v11;
+  v21 = v13;
+  v23 = v11;
   v14 = v9;
-  v23 = v14;
-  [v12 dispatchWithQOSClass:17 block:v21];
+  v22 = v14;
+  [v12 dispatchWithQOSClass:17 block:v20];
   [(BLSHEngineRequestDatesOperation *)v13 invalidate];
   if (lock_requestDatesOperation == operationCopy)
   {
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __86__BLSHAlwaysOnPresentationEngine_requestDatesOperation_didTimeoutPendingEnvironments___block_invoke_228;
-    v20[3] = &unk_27841E650;
-    v20[4] = self;
-    dispatch_async(MEMORY[0x277D85CD0], v20);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __86__BLSHAlwaysOnPresentationEngine_requestDatesOperation_didTimeoutPendingEnvironments___block_invoke_228;
+    v19[3] = &unk_27841E650;
+    v19[4] = self;
+    dispatch_async(MEMORY[0x277D85CD0], v19);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __86__BLSHAlwaysOnPresentationEngine_requestDatesOperation_didTimeoutPendingEnvironments___block_invoke(uint64_t a1)
@@ -1192,10 +1200,9 @@ void __69__BLSHAlwaysOnPresentationEngine_noteFlipbookIsCurrentWithSpecifier___b
   os_unfair_lock_unlock((v2 + 8));
   if ((v3 & 1) == 0)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    [v5 presentationEngine:? didUpdateToCurrentWithSpecifier:?];
+    [v4 presentationEngine:? didUpdateToCurrentWithSpecifier:?];
   }
 }
 
@@ -1224,7 +1231,7 @@ void __69__BLSHAlwaysOnPresentationEngine_noteFlipbookIsCurrentWithSpecifier___b
 
 - (void)lock_scheduleUpdateTimerForNextUpdatesStart:(uint64_t)start
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (start)
   {
@@ -1250,10 +1257,10 @@ void __69__BLSHAlwaysOnPresentationEngine_noteFlipbookIsCurrentWithSpecifier___b
         bls_shortLoggingString = [v3 bls_shortLoggingString];
         *buf = 134218498;
         startCopy10 = start;
-        v91 = 2114;
-        v92 = v8;
-        v93 = 2114;
-        v94 = *&bls_shortLoggingString;
+        v90 = 2114;
+        v91 = v8;
+        v92 = 2114;
+        v93 = *&bls_shortLoggingString;
         _os_log_impl(&dword_21FD11000, v6, OS_LOG_TYPE_INFO, "%p:%{public}@ will use 30 seconds from now, nextsUpdateStart:%{public}@", buf, 0x20u);
       }
 
@@ -1301,7 +1308,7 @@ void __69__BLSHAlwaysOnPresentationEngine_noteFlipbookIsCurrentWithSpecifier___b
       v20 = @"AlwaysOnPresentationEngine-waking";
     }
 
-    v82 = v20;
+    v81 = v20;
     if (v19)
     {
       v21 = [*(start + 24) now];
@@ -1311,7 +1318,7 @@ void __69__BLSHAlwaysOnPresentationEngine_noteFlipbookIsCurrentWithSpecifier___b
       if ([*(start + 232) isScheduled])
       {
         identifier = [*(start + 232) identifier];
-        v25 = [(__CFString *)v82 isEqualToString:identifier];
+        v25 = [(__CFString *)v81 isEqualToString:identifier];
 
         if (v25)
         {
@@ -1337,12 +1344,12 @@ void __69__BLSHAlwaysOnPresentationEngine_noteFlipbookIsCurrentWithSpecifier___b
               bls_loggingString = [v19 bls_loggingString];
               *buf = 134218754;
               startCopy10 = start;
-              v91 = 2114;
-              v92 = v32;
-              v93 = 2048;
-              v94 = v27;
-              v95 = 2114;
-              v96 = *&bls_loggingString;
+              v90 = 2114;
+              v91 = v32;
+              v92 = 2048;
+              v93 = v27;
+              v94 = 2114;
+              v95 = *&bls_loggingString;
               _os_log_impl(&dword_21FD11000, v30, OS_LOG_TYPE_INFO, "%p:%{public}@ timer already scheduled in %lfs will not schedule a new timer for %{public}@", buf, 0x2Au);
             }
 
@@ -1381,14 +1388,14 @@ LABEL_79:
             bls_shortLoggingString2 = [v19 bls_shortLoggingString];
             *buf = 134219010;
             startCopy10 = start;
-            v91 = 2114;
-            v92 = v45;
-            v93 = 2048;
-            v94 = v34;
-            v95 = 2048;
-            v96 = v36;
-            v97 = 2114;
-            v98 = bls_shortLoggingString2;
+            v90 = 2114;
+            v91 = v45;
+            v92 = 2048;
+            v93 = v34;
+            v94 = 2048;
+            v95 = v36;
+            v96 = 2114;
+            v97 = bls_shortLoggingString2;
             _os_log_debug_impl(&dword_21FD11000, v41, OS_LOG_TYPE_DEBUG, "%p:%{public}@ (nil next update) timer already scheduled but %lfs is more than %lfs in the future, will reschedule for %{public}@", buf, 0x34u);
           }
         }
@@ -1413,10 +1420,10 @@ LABEL_79:
 
               *buf = 134218498;
               startCopy10 = start;
-              v91 = 2114;
-              v92 = v40;
-              v93 = 2048;
-              v94 = v34;
+              v90 = 2114;
+              v91 = v40;
+              v92 = 2048;
+              v93 = v34;
               _os_log_debug_impl(&dword_21FD11000, v19, OS_LOG_TYPE_DEBUG, "%p:%{public}@ (nil next update) timer already scheduled in %lfs will not reschedule", buf, 0x20u);
             }
 
@@ -1427,23 +1434,23 @@ LABEL_79:
           v41 = bls_flipbook_log();
           if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
           {
-            v78 = *(start + 264) - 1;
-            if (v78 > 3)
+            v77 = *(start + 264) - 1;
+            if (v77 > 3)
             {
-              v79 = @"Stopped";
+              v78 = @"Stopped";
             }
 
             else
             {
-              v79 = off_27841EFA0[v78];
+              v78 = off_27841EFA0[v77];
             }
 
             *buf = 134218498;
             startCopy10 = start;
-            v91 = 2114;
-            v92 = v79;
-            v93 = 2048;
-            v94 = v34;
+            v90 = 2114;
+            v91 = v78;
+            v92 = 2048;
+            v93 = v34;
             _os_log_impl(&dword_21FD11000, v41, OS_LOG_TYPE_INFO, "%p:%{public}@ (nil next update) timer already scheduled in %lfs will replace with waking timer", buf, 0x20u);
           }
         }
@@ -1469,10 +1476,10 @@ LABEL_79:
           bls_shortLoggingString3 = [v19 bls_shortLoggingString];
           *buf = 134218498;
           startCopy10 = start;
-          v91 = 2114;
-          v92 = v43;
-          v93 = 2114;
-          v94 = *&bls_shortLoggingString3;
+          v90 = 2114;
+          v91 = v43;
+          v92 = 2114;
+          v93 = *&bls_shortLoggingString3;
           _os_log_impl(&dword_21FD11000, v41, OS_LOG_TYPE_INFO, "%p:%{public}@ (nil next update) will use 30 seconds from now, nextsUpdateStart:%{public}@", buf, 0x20u);
         }
       }
@@ -1483,16 +1490,16 @@ LABEL_79:
     }
 
     objc_initWeak(&location, start);
-    v84[0] = MEMORY[0x277D85DD0];
-    v84[1] = 3221225472;
-    v84[2] = __78__BLSHAlwaysOnPresentationEngine_lock_scheduleUpdateTimerForNextUpdatesStart___block_invoke;
-    v84[3] = &unk_27841EE60;
-    objc_copyWeak(&v87, &location);
+    v83[0] = MEMORY[0x277D85DD0];
+    v83[1] = 3221225472;
+    v83[2] = __78__BLSHAlwaysOnPresentationEngine_lock_scheduleUpdateTimerForNextUpdatesStart___block_invoke;
+    v83[3] = &unk_27841EE60;
+    objc_copyWeak(&v86, &location);
     v19 = v19;
-    v85 = v19;
+    v84 = v19;
     v49 = v3;
-    v86 = v49;
-    v50 = MEMORY[0x223D70730](v84);
+    v85 = v49;
+    v50 = MEMORY[0x223D70730](v83);
     [*(start + 232) invalidate];
     if (v11 == 4)
     {
@@ -1516,12 +1523,12 @@ LABEL_79:
           bls_shortLoggingString4 = [v49 bls_shortLoggingString];
           *buf = 134218754;
           startCopy10 = start;
-          v91 = 2114;
-          v92 = v59;
-          v93 = 2114;
-          v94 = *&bls_loggingString2;
-          v95 = 2114;
-          v96 = *&bls_shortLoggingString4;
+          v90 = 2114;
+          v91 = v59;
+          v92 = 2114;
+          v93 = *&bls_loggingString2;
+          v94 = 2114;
+          v95 = *&bls_shortLoggingString4;
           _os_log_impl(&dword_21FD11000, v51, OS_LOG_TYPE_INFO, "%p:%{public}@ scheduling waking timer for %{public}@ nextsUpdateStart:%{public}@", buf, 0x2Au);
         }
 
@@ -1552,16 +1559,16 @@ LABEL_79:
           bls_shortLoggingString6 = [v49 bls_shortLoggingString];
           *buf = 134219266;
           startCopy10 = start;
-          v91 = 2114;
-          v92 = v54;
-          v93 = 2114;
-          v94 = *&bls_loggingString3;
-          v95 = 2048;
-          v96 = v18;
-          v97 = 2114;
-          v98 = bls_shortLoggingString5;
-          v99 = 2114;
-          v100 = bls_shortLoggingString6;
+          v90 = 2114;
+          v91 = v54;
+          v92 = 2114;
+          v93 = *&bls_loggingString3;
+          v94 = 2048;
+          v95 = v18;
+          v96 = 2114;
+          v97 = bls_shortLoggingString5;
+          v98 = 2114;
+          v99 = bls_shortLoggingString6;
           _os_log_impl(&dword_21FD11000, v52, OS_LOG_TYPE_INFO, "%p:%{public}@ scheduling waking timer %{public}@ is too soon, using %lf seconds from now:%{public}@ nextsUpdateStart:%{public}@", buf, 0x3Eu);
         }
       }
@@ -1591,12 +1598,12 @@ LABEL_79:
         bls_shortLoggingString7 = [v49 bls_shortLoggingString];
         *buf = 134218754;
         startCopy10 = start;
-        v91 = 2114;
-        v92 = v62;
-        v93 = 2114;
-        v94 = *&bls_loggingString4;
-        v95 = 2114;
-        v96 = *&bls_shortLoggingString7;
+        v90 = 2114;
+        v91 = v62;
+        v92 = 2114;
+        v93 = *&bls_loggingString4;
+        v94 = 2114;
+        v95 = *&bls_shortLoggingString7;
         _os_log_impl(&dword_21FD11000, v60, OS_LOG_TYPE_INFO, "%p:%{public}@ scheduling timer for %{public}@ nextsUpdateStart:%{public}@", buf, 0x2Au);
       }
 
@@ -1606,7 +1613,7 @@ LABEL_79:
         v69 = 0.015;
       }
 
-      v70 = [*(start + 24) scheduledTimerWithIdentifier:@"AlwaysOnPresentationEngine" interval:v50 leewayInterval:v23 handler:{v69, v82}];
+      v70 = [*(start + 24) scheduledTimerWithIdentifier:@"AlwaysOnPresentationEngine" interval:v50 leewayInterval:v23 handler:{v69, v81}];
       v71 = *(start + 232);
       *(start + 232) = v70;
     }
@@ -1631,26 +1638,24 @@ LABEL_79:
         bls_shortLoggingString8 = [v49 bls_shortLoggingString];
         *buf = 134218754;
         startCopy10 = start;
-        v91 = 2114;
-        v92 = v57;
-        v93 = 2114;
-        v94 = *&bls_loggingString5;
-        v95 = 2114;
-        v96 = *&bls_shortLoggingString8;
+        v90 = 2114;
+        v91 = v57;
+        v92 = 2114;
+        v93 = *&bls_loggingString5;
+        v94 = 2114;
+        v95 = *&bls_shortLoggingString8;
         _os_log_impl(&dword_21FD11000, v55, OS_LOG_TYPE_INFO, "%p:%{public}@ timer too soon (will just dispatch_async) for %{public}@ nextsUpdateStart:%{public}@", buf, 0x2Au);
       }
 
-      [(BLSHAlwaysOnPresentationEngine *)v55 lock_scheduleUpdateTimerForNextUpdatesStart:v83, start];
+      [(BLSHAlwaysOnPresentationEngine *)v55 lock_scheduleUpdateTimerForNextUpdatesStart:v82, start];
     }
 
-    objc_destroyWeak(&v87);
+    objc_destroyWeak(&v86);
     objc_destroyWeak(&location);
     goto LABEL_79;
   }
 
 LABEL_80:
-
-  v77 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isGlobal1HzFlipbook
@@ -1663,7 +1668,7 @@ LABEL_80:
 
 - (void)hostEnvironment:(id)environment invalidateContentForReason:(id)reason
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
   reasonCopy = reason;
   v9 = reasonCopy;
@@ -1682,18 +1687,18 @@ LABEL_80:
     v13 = mach_continuous_time();
     inactiveBudgetPolicy = self->_inactiveBudgetPolicy;
     v15 = [(BLSHOSInterfaceProviding *)v12 now];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __77__BLSHAlwaysOnPresentationEngine_hostEnvironment_invalidateContentForReason___block_invoke;
-    v23[3] = &unk_27841ED28;
-    v24 = v9;
-    v25 = environmentCopy;
-    v26 = v12;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __77__BLSHAlwaysOnPresentationEngine_hostEnvironment_invalidateContentForReason___block_invoke;
+    v22[3] = &unk_27841ED28;
+    v23 = v9;
+    v24 = environmentCopy;
+    v25 = v12;
     selfCopy = self;
-    v28 = v11;
-    v29 = v13;
+    v27 = v11;
+    v28 = v13;
     v16 = v12;
-    [(BLSHInactiveBudgetPolicing_Private *)inactiveBudgetPolicy invalidateAtRequestDate:v15 forEnvironment:v25 invalidationBlock:v23];
+    [(BLSHInactiveBudgetPolicing_Private *)inactiveBudgetPolicy invalidateAtRequestDate:v15 forEnvironment:v24 invalidationBlock:v22];
   }
 
   else
@@ -1709,10 +1714,10 @@ LABEL_80:
         identifier = [environmentCopy identifier];
         *buf = 134218498;
         selfCopy3 = self;
-        v32 = 2114;
-        v33 = v9;
-        v34 = 2114;
-        v35 = identifier;
+        v31 = 2114;
+        v32 = v9;
+        v33 = 2114;
+        v34 = identifier;
         _os_log_impl(&dword_21FD11000, v18, OS_LOG_TYPE_INFO, "%p: invalidateContentForReason: engine is suspended so only clearing specifiers %{public}@ from %{public}@", buf, 0x20u);
       }
 
@@ -1726,10 +1731,10 @@ LABEL_80:
         identifier2 = [environmentCopy identifier];
         *buf = 134218498;
         selfCopy3 = self;
-        v32 = 2114;
-        v33 = v9;
-        v34 = 2114;
-        v35 = identifier2;
+        v31 = 2114;
+        v32 = v9;
+        v33 = 2114;
+        v34 = identifier2;
         _os_log_impl(&dword_21FD11000, v18, OS_LOG_TYPE_INFO, "%p: invalidateContentForReason: engine is stopped so ignoring %{public}@ from %{public}@", buf, 0x20u);
       }
     }
@@ -1737,8 +1742,6 @@ LABEL_80:
     os_unfair_lock_unlock(&self->_lock);
     [(BLSHAlwaysOnPresentationEngineDelegate *)self->_delegate presentationEngine:self didInvalidateContentForEnvironment:environmentCopy reason:v9];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __77__BLSHAlwaysOnPresentationEngine_hostEnvironment_invalidateContentForReason___block_invoke(uint64_t a1)
@@ -1820,17 +1823,16 @@ void __77__BLSHAlwaysOnPresentationEngine_hostEnvironment_invalidateContentForRe
   }
 }
 
-void __77__BLSHAlwaysOnPresentationEngine_hostEnvironment_invalidateContentForReason___block_invoke_242(uint64_t a1)
+void __77__BLSHAlwaysOnPresentationEngine_hostEnvironment_invalidateContentForReason___block_invoke_242(id *a1)
 {
-  objc_copyWeak(v6, (a1 + 72));
-  v2 = *(a1 + 32);
-  v6[1] = *(a1 + 80);
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 56);
+  objc_copyWeak(v5, a1 + 9);
+  v2 = a1[4];
+  v5[1] = a1[10];
+  v3 = a1[5];
+  v4 = a1[6];
   BSDispatchMain();
 
-  objc_destroyWeak(v6);
+  objc_destroyWeak(v5);
 }
 
 void __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_source_didClearDateSpecifiers_wasReset___block_invoke(uint64_t a1)
@@ -1846,22 +1848,21 @@ void __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_so
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     v8 = NSStringFromSelector(*(a1 + 48));
-    v9 = *(a1 + 40);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
-    v12 = *(a1 + 40);
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
+    v11 = *(a1 + 40);
     *buf = 138544642;
-    v14 = v8;
-    v15 = 2114;
-    v16 = v11;
-    v17 = 2048;
-    v18 = v12;
-    v19 = 2114;
-    v20 = @"BLSHAlwaysOnPresentationEngine.m";
-    v21 = 1024;
-    v22 = 1220;
-    v23 = 2114;
-    v24 = v7;
+    v13 = v8;
+    v14 = 2114;
+    v15 = v10;
+    v16 = 2048;
+    v17 = v11;
+    v18 = 2114;
+    v19 = @"BLSHAlwaysOnPresentationEngine.m";
+    v20 = 1024;
+    v21 = 1220;
+    v22 = 2114;
+    v23 = v7;
     _os_log_error_impl(&dword_21FD11000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
@@ -1872,29 +1873,29 @@ void __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_so
 
 void __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_source_didClearDateSpecifiers_wasReset___block_invoke_253(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       v7 = 0;
       do
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v22 + 1) + 8 * v7) bls_specifier];
+        v8 = [*(*(&v21 + 1) + 8 * v7) bls_specifier];
         v9 = [v8 specifiers];
         v10 = [v9 bs_mapNoNulls:&__block_literal_global_257];
         [v2 addObjectsFromArray:v10];
@@ -1903,7 +1904,7 @@ void __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_so
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v5);
@@ -1926,7 +1927,6 @@ void __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_so
   }
 
   [*(a1 + 64) logTelemetryForInvalidation:v19];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 id __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_source_didClearDateSpecifiers_wasReset___block_invoke_2(uint64_t a1, void *a2)
@@ -1940,7 +1940,7 @@ id __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_sour
 - (void)hostEnvironment:(id)environment hostDidSetUnrestrictedFramerateUpdates:(BOOL)updates
 {
   updatesCopy = updates;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
   os_unfair_lock_lock(&self->_lock);
   lock_engineState = self->_lock_engineState;
@@ -1950,26 +1950,26 @@ id __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_sour
     v8 = bls_flipbook_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v10 = self->_lock_engineState - 1;
-      if (v10 > 3)
+      v9 = self->_lock_engineState - 1;
+      if (v9 > 3)
       {
-        v11 = @"Stopped";
+        v10 = @"Stopped";
       }
 
       else
       {
-        v11 = off_27841EFA0[v10];
+        v10 = off_27841EFA0[v9];
       }
 
       identifier = [environmentCopy identifier];
       *buf = 134218754;
       selfCopy = self;
-      v16 = 2114;
-      v17 = v11;
-      v18 = 2114;
-      v19 = identifier;
-      v20 = 1024;
-      v21 = updatesCopy;
+      v15 = 2114;
+      v16 = v10;
+      v17 = 2114;
+      v18 = identifier;
+      v19 = 1024;
+      v20 = updatesCopy;
       _os_log_debug_impl(&dword_21FD11000, v8, OS_LOG_TYPE_DEBUG, "%p:%{public}@ (live) hostEnvironment:%{public}@ hostDidSetUnrestrictedFramerateUpdates:%{BOOL}u", buf, 0x26u);
     }
 
@@ -1980,13 +1980,11 @@ id __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_sour
     block[4] = self;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)systemSleepAction:(id)action performWithCompletion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
@@ -2023,16 +2021,16 @@ id __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_sour
     lock_suppressed = self->_lock_suppressed;
     *buf = 134219266;
     selfCopy = self;
-    v25 = 2114;
-    v26 = v13;
-    v27 = 2114;
-    v28 = v14;
-    v29 = 2114;
-    v30 = v17;
-    v31 = 1024;
-    v32 = lock_onStandby;
-    v33 = 1024;
-    v34 = lock_suppressed;
+    v24 = 2114;
+    v25 = v13;
+    v26 = 2114;
+    v27 = v14;
+    v28 = 2114;
+    v29 = v17;
+    v30 = 1024;
+    v31 = lock_onStandby;
+    v32 = 1024;
+    v33 = lock_suppressed;
     _os_log_impl(&dword_21FD11000, v11, OS_LOG_TYPE_INFO, "%p:%{public}@ perform systemSleepAction sleepActionState=%{public}@ fillState:%{public}@ onStandby:%{BOOL}u suppressed:%{BOOL}u", buf, 0x36u);
   }
 
@@ -2069,13 +2067,11 @@ id __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_sour
     os_unfair_lock_unlock(&self->_lock);
     completionCopy[2](completionCopy);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)systemSleepAction:(id)action systemWillWakeForReason:(id)reason
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   os_unfair_lock_lock(&self->_lock);
   if (self->_lock_sleepActionCompletion)
@@ -2103,61 +2099,61 @@ id __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_sour
   {
     if ((lock_engineState - 1) > 3)
     {
-      v13 = @"Stopped";
+      v12 = @"Stopped";
     }
 
     else
     {
-      v13 = off_27841EFA0[lock_engineState - 1];
+      v12 = off_27841EFA0[lock_engineState - 1];
     }
 
-    v14 = self->_lock_engineState - 1;
-    if (v14 > 3)
+    v13 = self->_lock_engineState - 1;
+    if (v13 > 3)
     {
-      v15 = @"Stopped";
+      v14 = @"Stopped";
     }
 
     else
     {
-      v15 = off_27841EFA0[v14];
+      v14 = off_27841EFA0[v13];
     }
 
-    v16 = NSStringFromBLSHOnSystemSleepActionState([(BLSHOnSystemSleepAction *)self->_sleepAction state]);
-    v17 = v16;
+    v15 = NSStringFromBLSHOnSystemSleepActionState([(BLSHOnSystemSleepAction *)self->_sleepAction state]);
+    v16 = v15;
     if ((lock_fillFlipbookState - 1) > 3)
     {
-      v18 = @"Awake";
+      v17 = @"Awake";
     }
 
     else
     {
-      v18 = off_27841EF68[lock_fillFlipbookState - 1];
+      v17 = off_27841EF68[lock_fillFlipbookState - 1];
     }
 
     lock_onStandby = self->_lock_onStandby;
     lock_suppressed = self->_lock_suppressed;
     *buf = 134220546;
     selfCopy = self;
-    v23 = 2114;
-    v24 = v13;
-    v25 = 2114;
-    v26 = v15;
-    v27 = 2114;
-    v28 = reasonCopy;
-    v29 = 2114;
-    v30 = v16;
-    v31 = 2114;
-    v32 = v18;
-    v33 = 1024;
-    v34 = lock_onStandby;
-    v35 = 1024;
-    v36 = lock_suppressed;
-    v37 = 1024;
-    v38 = lock_setFlipbookPredictiveRenderType;
-    v39 = 1024;
-    v40 = lock_shouldNotifyFlipbookCurrent;
-    v41 = 1024;
-    v42 = lock_serviceNextUpdatesStart != 0;
+    v22 = 2114;
+    v23 = v12;
+    v24 = 2114;
+    v25 = v14;
+    v26 = 2114;
+    v27 = reasonCopy;
+    v28 = 2114;
+    v29 = v15;
+    v30 = 2114;
+    v31 = v17;
+    v32 = 1024;
+    v33 = lock_onStandby;
+    v34 = 1024;
+    v35 = lock_suppressed;
+    v36 = 1024;
+    v37 = lock_setFlipbookPredictiveRenderType;
+    v38 = 1024;
+    v39 = lock_shouldNotifyFlipbookCurrent;
+    v40 = 1024;
+    v41 = lock_serviceNextUpdatesStart != 0;
     _os_log_debug_impl(&dword_21FD11000, v11, OS_LOG_TYPE_DEBUG, "%p:%{public}@->%{public}@ %{public}@ sleepActionState=%{public}@ fillState:%{public}@->Awake onStandby:%{BOOL}u suppressed:%{BOOL}u changed:%{BOOL}u shouldNotifyFlipbookCurrent:%{BOOL}u shouldServiceTimer:%{BOOL}u", buf, 0x5Cu);
   }
 
@@ -2166,8 +2162,6 @@ id __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_sour
   {
     BSDispatchMain();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)alwaysFillFlipbook
@@ -2213,27 +2207,26 @@ id __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_sour
   os_unfair_lock_lock(&self->_lock);
   lock_usePseudoFlipbook = self->_lock_usePseudoFlipbook;
   self->_lock_usePseudoFlipbook = flipbookCopy;
-  v6 = (self->_lock_engineState - 2) < 3;
   os_unfair_lock_unlock(&self->_lock);
   if (lock_usePseudoFlipbook != flipbookCopy)
   {
-    v7 = bls_flipbook_log();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
+    v6 = bls_flipbook_log();
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
     if (flipbookCopy)
     {
-      if (v8)
+      if (v7)
       {
         *buf = 0;
-        v9 = "will use pseudo-flipbook";
+        v8 = "will use pseudo-flipbook";
 LABEL_7:
-        _os_log_impl(&dword_21FD11000, v7, OS_LOG_TYPE_INFO, v9, buf, 2u);
+        _os_log_impl(&dword_21FD11000, v6, OS_LOG_TYPE_INFO, v8, buf, 2u);
       }
     }
 
-    else if (v8)
+    else if (v7)
     {
       *buf = 0;
-      v9 = "will use CAFlipbook";
+      v8 = "will use CAFlipbook";
       goto LABEL_7;
     }
 
@@ -2263,7 +2256,7 @@ LABEL_7:
 
 void __64__BLSHAlwaysOnPresentationEngine_main_shouldWaitForRequestDates__block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = bls_flipbook_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -2283,36 +2276,30 @@ void __64__BLSHAlwaysOnPresentationEngine_main_shouldWaitForRequestDates__block_
     v8 = [*(a1 + 40) now];
     [v8 timeIntervalSinceDate:*(a1 + 48)];
     v9 = *(a1 + 56);
-    v12 = 134218754;
-    v13 = v5;
-    v14 = 2114;
-    v15 = v7;
-    v16 = 2048;
-    v17 = v10;
-    v18 = 2114;
-    v19 = v9;
-    _os_log_impl(&dword_21FD11000, v4, OS_LOG_TYPE_DEFAULT, "%p:%{public}@ request dates timeout will now render frames, waited %.3lfs for operation:%{public}@", &v12, 0x2Au);
+    v11 = 134218754;
+    v12 = v5;
+    v13 = 2114;
+    v14 = v7;
+    v15 = 2048;
+    v16 = v10;
+    v17 = 2114;
+    v18 = v9;
+    _os_log_impl(&dword_21FD11000, v4, OS_LOG_TYPE_DEFAULT, "%p:%{public}@ request dates timeout will now render frames, waited %.3lfs for operation:%{public}@", &v11, 0x2Au);
   }
 
   [v3 invalidate];
   [(BLSHAlwaysOnPresentationEngine *)*(a1 + 32) timerFiredForNextUpdatesStart:?];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main_prepareAndRenderNextFlipbookFrame
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v5 = bls_flipbook_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v1 = bls_flipbook_log();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    v7 = off_27841EF88[a2 - 2];
-    v8 = *a3;
     OUTLINED_FUNCTION_9();
     OUTLINED_FUNCTION_15();
-    _os_log_debug_impl(v9, v10, v11, v12, v13, 0x20u);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __63__BLSHAlwaysOnPresentationEngine_loggingStreamForRenderSession__block_invoke(uint64_t a1, void *a2)
@@ -2336,56 +2323,51 @@ void __92__BLSHAlwaysOnPresentationEngine_lock_endFlipbookRenderSessionForReason
 
 - (void)createFlipbook
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if (!self)
+  v10 = *MEMORY[0x277D85DE8];
+  if (self)
   {
-LABEL_8:
-    v4 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  if (([*(self + 24) deviceSupportsAlwaysOnFlipbook] & 1) == 0)
-  {
-    v3 = bls_flipbook_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    if ([*(self + 24) deviceSupportsAlwaysOnFlipbook])
     {
-      *buf = 134217984;
-      selfCopy = self;
-      _os_log_impl(&dword_21FD11000, v3, OS_LOG_TYPE_INFO, "%p device does not support flipbook", buf, 0xCu);
+      os_unfair_lock_lock((self + 8));
+      v7 = *(self + 96);
+      if (*(self + 293) == 1)
+      {
+        createFlipbook = objc_alloc_init(BLSHPseudoFlipbook);
+      }
+
+      else
+      {
+        createFlipbook = [*(self + 24) createFlipbook];
+      }
+
+      v4 = *(self + 96);
+      *(self + 96) = createFlipbook;
+
+      v5 = *(self + 295);
+      v6 = *(self + 96);
+      [v6 set1HzFlipbook:v5];
+      [*(self + 96) setCachesFramesOnExit:*(self + 296)];
+      os_unfair_lock_unlock((self + 8));
+      [v7 invalidate];
+      [*(self + 120) setFlipbook:v6];
     }
 
-    goto LABEL_8;
+    else
+    {
+      v3 = bls_flipbook_log();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      {
+        *buf = 134217984;
+        selfCopy = self;
+        _os_log_impl(&dword_21FD11000, v3, OS_LOG_TYPE_INFO, "%p device does not support flipbook", buf, 0xCu);
+      }
+    }
   }
-
-  os_unfair_lock_lock((self + 8));
-  v9 = *(self + 96);
-  if (*(self + 293) == 1)
-  {
-    createFlipbook = objc_alloc_init(BLSHPseudoFlipbook);
-  }
-
-  else
-  {
-    createFlipbook = [*(self + 24) createFlipbook];
-  }
-
-  v5 = *(self + 96);
-  *(self + 96) = createFlipbook;
-
-  v6 = *(self + 295);
-  v7 = *(self + 96);
-  [v7 set1HzFlipbook:v6];
-  [*(self + 96) setCachesFramesOnExit:*(self + 296)];
-  os_unfair_lock_unlock((self + 8));
-  [v9 invalidate];
-  [*(self + 120) setFlipbook:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_lock_update1HzFromPresentation:(uint64_t)presentation
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (presentation)
   {
@@ -2399,20 +2381,20 @@ LABEL_8:
     else
     {
       presentationEntries = [v3 presentationEntries];
-      v5 = [presentationEntries countByEnumeratingWithState:v24 objects:v39 count:16];
+      v5 = [presentationEntries countByEnumeratingWithState:v22 objects:v37 count:16];
       if (v5)
       {
-        v8 = *v25;
+        v8 = *v23;
         while (2)
         {
           for (i = 0; i != v5; i = i + 1)
           {
-            if (*v25 != v8)
+            if (*v23 != v8)
             {
               objc_enumerationMutation(presentationEntries);
             }
 
-            v10 = *(v24[1] + 8 * i);
+            v10 = *(v22[1] + 8 * i);
             environment = [v10 environment];
             v12 = BLSIs1HzFlipbookForEnvironment(environment);
 
@@ -2424,7 +2406,7 @@ LABEL_8:
             }
           }
 
-          v5 = [presentationEntries countByEnumeratingWithState:v24 objects:v39 count:16];
+          v5 = [presentationEntries countByEnumeratingWithState:v22 objects:v37 count:16];
           if (v5)
           {
             continue;
@@ -2441,16 +2423,15 @@ LABEL_14:
     v13 = bls_flipbook_log();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v16 = *(presentation + 264);
       OUTLINED_FUNCTION_8();
-      if (!v19 & v18)
+      if (!v17 & v16)
       {
-        v20 = @"Stopped";
+        v18 = @"Stopped";
       }
 
       else
       {
-        v20 = off_27841EFA0[v17];
+        v18 = off_27841EFA0[v15];
       }
 
       environment2 = [v5 environment];
@@ -2458,16 +2439,16 @@ LABEL_14:
       bls_shortLoggingString = [v3 bls_shortLoggingString];
       *buf = 134219266;
       presentationCopy = presentation;
-      v29 = 2114;
-      v30 = v20;
+      v27 = 2114;
+      v28 = v18;
+      v29 = 1024;
+      v30 = v6;
       v31 = 1024;
-      v32 = v6;
-      v33 = 1024;
-      v34 = v4;
+      v32 = v4;
+      v33 = 2114;
+      v34 = identifier;
       v35 = 2114;
-      v36 = identifier;
-      v37 = 2114;
-      v38 = bls_shortLoggingString;
+      v36 = bls_shortLoggingString;
       _os_log_debug_impl(&dword_21FD11000, v13, OS_LOG_TYPE_DEBUG, "%p:%{public}@ update1HzFromPresentation new1HzFlipbook:%{BOOL}u old1HzFlipbook:%{BOOL}u environment:%{public}@ presentation::%{public}@", buf, 0x36u);
     }
 
@@ -2477,18 +2458,17 @@ LABEL_14:
       [*(presentation + 96) set1HzFlipbook:v6];
     }
 
-    v26 = v4 != v6;
+    v24 = v4 != v6;
 
-    presentation = v26;
+    presentation = v24;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return presentation;
 }
 
 - (void)lock_completeSleepActionIfPendingForReason:(void *)reason subReason:
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
   reasonCopy = reason;
   if (self)
@@ -2502,62 +2482,58 @@ LABEL_14:
       v9 = bls_flipbook_log();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v10 = *(self + 264);
         OUTLINED_FUNCTION_8();
-        if (!v13 & v12)
+        if (!v12 & v11)
         {
-          v14 = @"Stopped";
+          v13 = @"Stopped";
         }
 
         else
         {
-          v14 = off_27841EFA0[v11];
+          v13 = off_27841EFA0[v10];
         }
 
-        v15 = NSStringFromBLSHOnSystemSleepActionState([*(self + 72) state]);
-        v16 = *(self + 272);
+        v14 = NSStringFromBLSHOnSystemSleepActionState([*(self + 72) state]);
         OUTLINED_FUNCTION_8();
-        if (!v13 & v12)
+        if (!v12 & v11)
         {
-          v18 = @"Awake";
+          v16 = @"Awake";
         }
 
         else
         {
-          v18 = off_27841EF68[v17];
+          v16 = off_27841EF68[v15];
         }
 
-        v19 = *(self + 289);
-        v20 = *(self + 290);
-        v22 = 134219778;
+        v17 = *(self + 289);
+        v18 = *(self + 290);
+        v19 = 134219778;
         selfCopy = self;
-        v24 = 2114;
-        v25 = v14;
-        v26 = 2114;
-        v27 = v5;
-        v28 = 2114;
-        v29 = reasonCopy;
-        v30 = 2114;
-        v31 = v15;
-        v32 = 2114;
-        v33 = v18;
-        v34 = 1024;
-        v35 = v19;
-        v36 = 1024;
-        v37 = v20;
-        _os_log_impl(&dword_21FD11000, v9, OS_LOG_TYPE_INFO, "%p:%{public}@ will complete sleep action for reason:%{public}@ subReason:%{public}@ sleepActionState=%{public}@ fillState:%{public}@ onStandby:%{BOOL}u suppressed:%{BOOL}u", &v22, 0x4Au);
+        v21 = 2114;
+        v22 = v13;
+        v23 = 2114;
+        v24 = v5;
+        v25 = 2114;
+        v26 = reasonCopy;
+        v27 = 2114;
+        v28 = v14;
+        v29 = 2114;
+        v30 = v16;
+        v31 = 1024;
+        v32 = v17;
+        v33 = 1024;
+        v34 = v18;
+        _os_log_impl(&dword_21FD11000, v9, OS_LOG_TYPE_INFO, "%p:%{public}@ will complete sleep action for reason:%{public}@ subReason:%{public}@ sleepActionState=%{public}@ fillState:%{public}@ onStandby:%{BOOL}u suppressed:%{BOOL}u", &v19, 0x4Au);
       }
 
       dispatch_async(MEMORY[0x277D85CD0], v7);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)lock_endFlipbookRenderSessionAndAllowSleepIfPendingForReason:(uint64_t)reason
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (reason)
   {
@@ -2572,81 +2548,53 @@ LABEL_14:
       {
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
-          v16 = *(reason + 264);
           OUTLINED_FUNCTION_8();
-          if (!(!v14 & v13))
-          {
-            v18 = off_27841EFA0[v17];
-          }
-
-          v19 = NSStringFromBLSHOnSystemSleepActionState([*(reason + 72) state]);
-          v20 = *(reason + 272);
+          v10 = NSStringFromBLSHOnSystemSleepActionState([*(reason + 72) state]);
           OUTLINED_FUNCTION_8();
-          if (!(!v14 & v13))
-          {
-            v22 = off_27841EF68[v21];
-          }
-
-          v23 = *(reason + 289);
           OUTLINED_FUNCTION_9();
           OUTLINED_FUNCTION_20();
-          _os_log_debug_impl(&dword_21FD11000, v7, OS_LOG_TYPE_DEBUG, "%p:%{public}@ (waiting for flipbook) sleepActionState:%{public}@ fillState:%{public}@ onStandby:%{BOOL}u", v34, 0x30u);
+          _os_log_debug_impl(&dword_21FD11000, v7, OS_LOG_TYPE_DEBUG, "%p:%{public}@ (waiting for flipbook) sleepActionState:%{public}@ fillState:%{public}@ onStandby:%{BOOL}u", v17, 0x30u);
         }
 
-        goto LABEL_6;
+        goto LABEL_7;
       }
 
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v11 = *(reason + 264);
         OUTLINED_FUNCTION_8();
-        if (!(!v14 & v13))
-        {
-          v15 = off_27841EFA0[v12];
-        }
-
-        v24 = NSStringFromBLSHOnSystemSleepActionState([*(reason + 72) state]);
-        v25 = *(reason + 272);
+        v11 = NSStringFromBLSHOnSystemSleepActionState([*(reason + 72) state]);
         OUTLINED_FUNCTION_8();
-        if (!(!v14 & v13))
-        {
-          v27 = off_27841EF68[v26];
-        }
-
-        v28 = *(reason + 289);
         OUTLINED_FUNCTION_9();
         OUTLINED_FUNCTION_20();
         OUTLINED_FUNCTION_27();
-        _os_log_impl(v29, v30, v31, v32, v33, 0x30u);
+        _os_log_impl(v12, v13, v14, v15, v16, 0x30u);
       }
 
-      v10 = 4;
+      v9 = 4;
     }
 
     else
     {
       if (v4 != 2)
       {
-LABEL_23:
+LABEL_15:
         [(BLSHAlwaysOnPresentationEngine *)reason lock_completeSleepActionIfPendingForReason:v3 subReason:?];
-LABEL_6:
+LABEL_7:
         [*(reason + 216) invalidate];
         v8 = *(reason + 216);
         *(reason + 216) = 0;
 
-        goto LABEL_7;
+        goto LABEL_8;
       }
 
-      v10 = 3;
+      v9 = 3;
     }
 
-    *(reason + 272) = v10;
-    goto LABEL_23;
+    *(reason + 272) = v9;
+    goto LABEL_15;
   }
 
-LABEL_7:
-
-  v9 = *MEMORY[0x277D85DE8];
+LABEL_8:
 }
 
 - (void)noteFlipbookIsCurrentWithSpecifier:(uint64_t)specifier
@@ -2671,19 +2619,19 @@ LABEL_7:
   }
 }
 
-- (uint64_t)ensureDatesModelCreated
+- (void)ensureDatesModelCreated
 {
   if (result)
   {
     v1 = result;
-    if (!*(result + 144))
+    if (!result[18])
     {
-      v2 = [[BLSHDateSpecifierModel alloc] initWithInactiveBudgetPolicy:*(result + 40)];
-      v3 = *(v1 + 144);
-      *(v1 + 144) = v2;
+      v2 = [[BLSHDateSpecifierModel alloc] initWithInactiveBudgetPolicy:result[5]];
+      v3 = v1[18];
+      v1[18] = v2;
 
-      v4 = *(v1 + 32);
-      v5 = *(v1 + 144);
+      v4 = v1[4];
+      v5 = v1[18];
 
       return [v4 setPresentationDatesModel:v5];
     }
@@ -2694,7 +2642,7 @@ LABEL_7:
 
 - (void)startLiveUpdates
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   lock_suppressed = self->_lock_suppressed;
   self->_lock_suppressed = 0;
@@ -2707,21 +2655,16 @@ LABEL_7:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         OUTLINED_FUNCTION_4_1();
-        if (!(!v8 & v7))
-        {
-          v9 = off_27841EFA0[v6];
-        }
-
         OUTLINED_FUNCTION_2_4();
-        v37 = v10;
-        v38 = v11;
-        v39 = v4;
+        v26 = v6;
+        v27 = v7;
+        v28 = v4;
         _os_log_debug_impl(&dword_21FD11000, v5, OS_LOG_TYPE_DEBUG, "%p:%{public}@ engine starting live from flipbook, will live update to:%{public}@", buf, 0x20u);
       }
 
       os_unfair_lock_unlock(&self->_lock);
-      v12 = OUTLINED_FUNCTION_34();
-      [(BLSHAlwaysOnPresentationEngine *)v12 performLiveUpdateToSpecifier:v13];
+      v8 = OUTLINED_FUNCTION_34();
+      [(BLSHAlwaysOnPresentationEngine *)v8 performLiveUpdateToSpecifier:v9];
       os_unfair_lock_lock(&self->_lock);
     }
   }
@@ -2729,58 +2672,45 @@ LABEL_7:
   [(BLSHAlwaysOnPresentationEngine *)self ensureDatesModelCreated];
   state = [(BLSHOnSystemSleepAction *)self->_sleepAction state];
   lock_engineState = self->_lock_engineState;
-  v16 = bls_flipbook_log();
+  v12 = bls_flipbook_log();
   if (lock_engineState == 1)
   {
     if (lock_suppressed)
     {
-      if (OUTLINED_FUNCTION_32())
+      if (!OUTLINED_FUNCTION_32())
       {
-        OUTLINED_FUNCTION_4_1();
-        if (!(!v8 & v7))
-        {
-          v18 = off_27841EFA0[v17];
-        }
+LABEL_17:
 
-LABEL_23:
-        v29 = NSStringFromBLSHOnSystemSleepActionState(state);
-        OUTLINED_FUNCTION_7();
-        OUTLINED_FUNCTION_16_0();
-        _os_log_impl(v30, v31, v32, v33, v34, 0x20u);
+        goto LABEL_18;
       }
     }
 
-    else if (OUTLINED_FUNCTION_32())
+    else if (!OUTLINED_FUNCTION_32())
     {
-      OUTLINED_FUNCTION_4_1();
-      if (!(!v8 & v7))
-      {
-        v22 = off_27841EFA0[v21];
-      }
-
-      goto LABEL_23;
+      goto LABEL_17;
     }
 
-    goto LABEL_25;
+    OUTLINED_FUNCTION_4_1();
+    v19 = NSStringFromBLSHOnSystemSleepActionState(state);
+    OUTLINED_FUNCTION_7();
+    OUTLINED_FUNCTION_16_0();
+    _os_log_impl(v20, v21, v22, v23, v24, 0x20u);
+
+    goto LABEL_17;
   }
 
   if (OUTLINED_FUNCTION_32())
   {
     OUTLINED_FUNCTION_4_1();
-    if (!(!v8 & v7))
-    {
-      v20 = off_27841EFA0[v19];
-    }
-
-    v23 = NSStringFromBLSHOnSystemSleepActionState(state);
+    v13 = NSStringFromBLSHOnSystemSleepActionState(state);
     OUTLINED_FUNCTION_7();
     OUTLINED_FUNCTION_16_0();
-    _os_log_impl(v24, v25, v26, v27, v28, 0x20u);
+    _os_log_impl(v14, v15, v16, v17, v18, 0x20u);
   }
 
   self->_lock_engineState = 1;
-LABEL_25:
-  [(BLSHAlwaysOnPresentationEngine *)self _lock_acquireAlwaysOnLivePowerAssertion];
+LABEL_18:
+  [(BLSHAlwaysOnPresentationEngine *)&self->super.isa _lock_acquireAlwaysOnLivePowerAssertion];
   os_unfair_lock_unlock(&self->_lock);
   if (lock_engineState != 1)
   {
@@ -2788,13 +2718,11 @@ LABEL_25:
     OUTLINED_FUNCTION_18();
     BSDispatchMain();
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (id)lock_stopForReason:(int)reason shouldEmptyModel:
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
@@ -2804,7 +2732,7 @@ LABEL_25:
       if (v6 == 1)
       {
         bls_specifier = *(self + 168);
-        v24 = *(self + 168);
+        v23 = *(self + 168);
         *(self + 168) = 0;
 
         v7 = 0;
@@ -2827,11 +2755,11 @@ LABEL_25:
       }
 
       [*(self + 232) invalidate];
-      v25 = *(self + 232);
+      v24 = *(self + 232);
       *(self + 232) = 0;
 
       [*(self + 224) invalidate];
-      v26 = *(self + 224);
+      v25 = *(self + 224);
       *(self + 224) = 0;
     }
 
@@ -2888,19 +2816,19 @@ LABEL_25:
       }
 
       bls_loggingString = [v12 bls_loggingString];
-      v27 = 134219266;
+      v26 = 134219266;
       selfCopy = self;
       OUTLINED_FUNCTION_30();
-      v29 = v10;
-      v30 = 2080;
-      v31 = v11;
-      v32 = v16;
-      v33 = v5;
-      v34 = 2080;
-      v35 = v14;
-      v36 = v16;
-      v37 = v17;
-      _os_log_impl(&dword_21FD11000, v9, OS_LOG_TYPE_INFO, "%p:%{public}@->Stopped engine %s (%{public}@) %s:%{public}@", &v27, 0x3Eu);
+      v28 = v10;
+      v29 = 2080;
+      v30 = v11;
+      v31 = v16;
+      v32 = v5;
+      v33 = 2080;
+      v34 = v14;
+      v35 = v16;
+      v36 = v17;
+      _os_log_impl(&dword_21FD11000, v9, OS_LOG_TYPE_INFO, "%p:%{public}@->Stopped engine %s (%{public}@) %s:%{public}@", &v26, 0x3Eu);
     }
 
     if (reason)
@@ -2924,14 +2852,12 @@ LABEL_25:
     bls_specifier = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return bls_specifier;
 }
 
 - (void)performLiveUpdateToSpecifier:(uint64_t)specifier
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (specifier)
   {
@@ -2956,36 +2882,36 @@ LABEL_25:
         bls_loggingString = [v4 bls_loggingString];
         *buf = 134218498;
         specifierCopy = specifier;
-        v26 = 2114;
-        v27 = v10;
-        v28 = 2114;
-        v29 = bls_loggingString;
+        v25 = 2114;
+        v26 = v10;
+        v27 = 2114;
+        v28 = bls_loggingString;
         _os_log_impl(&dword_21FD11000, v6, OS_LOG_TYPE_INFO, "%p:%{public}@ performing live updates for specifier:%{public}@", buf, 0x20u);
       }
 
       OUTLINED_FUNCTION_28();
       v12 = specifiers;
-      v13 = [v12 countByEnumeratingWithState:v21 objects:v23 count:16];
+      v13 = [v12 countByEnumeratingWithState:v20 objects:v22 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v22;
+        v15 = *v21;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v22 != v15)
+            if (*v21 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(v21[1] + 8 * i);
+            v17 = *(v20[1] + 8 * i);
             environment = [v17 environment];
             dateSpecifier = [v17 dateSpecifier];
             [environment updateToDateSpecifier:dateSpecifier sceneContentsUpdated:&__block_literal_global_286];
           }
 
-          v14 = [v12 countByEnumeratingWithState:v21 objects:v23 count:16];
+          v14 = [v12 countByEnumeratingWithState:v20 objects:v22 count:16];
         }
 
         while (v14);
@@ -2996,22 +2922,20 @@ LABEL_25:
     objc_storeStrong((specifier + 168), a2);
     os_unfair_lock_unlock((specifier + 8));
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)_lock_acquireAlwaysOnLivePowerAssertion
+- (id)_lock_acquireAlwaysOnLivePowerAssertion
 {
   if (result)
   {
     v1 = result;
-    if (!*(result + 224))
+    if (!result[28])
     {
-      v2 = [*(result + 24) createPowerAssertionWithIdentifier:@"always on (live)"];
-      v3 = *(v1 + 224);
-      *(v1 + 224) = v2;
+      v2 = [result[3] createPowerAssertionWithIdentifier:@"always on (live)"];
+      v3 = v1[28];
+      v1[28] = v2;
 
-      v4 = *(v1 + 224);
+      v4 = v1[28];
 
       return [v4 acquireWithTimeout:0 handler:0.0];
     }
@@ -3022,26 +2946,21 @@ LABEL_25:
 
 - (void)main_performNextStep
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   if (self)
   {
     OUTLINED_FUNCTION_33(self);
     v2 = *(v1 + 290);
     if (v2 == 1)
     {
-      v20 = bls_flipbook_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v16 = bls_flipbook_log();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         OUTLINED_FUNCTION_4_1();
-        if (!(!v18 & v17))
-        {
-          v22 = off_27841EFA0[v21];
-        }
-
         OUTLINED_FUNCTION_2_4();
-        v52 = v31;
+        v41 = v22;
         OUTLINED_FUNCTION_19();
-        _os_log_debug_impl(v32, v33, OS_LOG_TYPE_DEBUG, v34, v35, 0x16u);
+        _os_log_debug_impl(v23, v24, OS_LOG_TYPE_DEBUG, v25, v26, 0x16u);
       }
 
       [(BLSHAlwaysOnPresentationEngine *)v1 lock_endFlipbookRenderSessionAndAllowSleepIfPendingForReason:?];
@@ -3053,15 +2972,10 @@ LABEL_25:
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
         OUTLINED_FUNCTION_4_1();
-        if (!(!v18 & v17))
-        {
-          v30 = off_27841EFA0[v29];
-        }
-
         OUTLINED_FUNCTION_2_4();
-        v52 = v36;
+        v41 = v27;
         OUTLINED_FUNCTION_19();
-        _os_log_debug_impl(v37, v38, OS_LOG_TYPE_DEBUG, v39, v40, 0x16u);
+        _os_log_debug_impl(v28, v29, OS_LOG_TYPE_DEBUG, v30, v31, 0x16u);
       }
 
       if (*(v1 + 288))
@@ -3096,17 +3010,12 @@ LABEL_25:
             if (v15)
             {
               OUTLINED_FUNCTION_4_1();
-              if (!(!v18 & v17))
-              {
-                v42 = off_27841EFA0[v41];
-              }
-
               OUTLINED_FUNCTION_2_4();
-              v52 = v43;
-              v53 = 2048;
-              v54 = v10;
+              v41 = v32;
+              v42 = 2048;
+              v43 = v10;
               OUTLINED_FUNCTION_19();
-              _os_log_impl(v44, v45, OS_LOG_TYPE_DEFAULT, v46, v47, 0x20u);
+              _os_log_impl(v33, v34, OS_LOG_TYPE_DEFAULT, v35, v36, 0x20u);
             }
 
             [(BLSHAlwaysOnPresentationEngine *)v1 noteFlipbookIsCurrentWithSpecifier:?];
@@ -3117,15 +3026,10 @@ LABEL_25:
             if (v15)
             {
               OUTLINED_FUNCTION_4_1();
-              if (!(!v18 & v17))
-              {
-                v19 = off_27841EFA0[v16];
-              }
-
               OUTLINED_FUNCTION_2_4();
-              v52 = v23;
+              v41 = v17;
               OUTLINED_FUNCTION_19();
-              _os_log_impl(v24, v25, OS_LOG_TYPE_DEFAULT, v26, v27, 0x16u);
+              _os_log_impl(v18, v19, OS_LOG_TYPE_DEFAULT, v20, v21, 0x16u);
             }
           }
         }
@@ -3152,21 +3056,18 @@ LABEL_25:
 
         OUTLINED_FUNCTION_0_5();
         OUTLINED_FUNCTION_18();
-        v49 = __54__BLSHAlwaysOnPresentationEngine_main_performNextStep__block_invoke;
-        v50 = &unk_27841E650;
-        v51 = v12;
+        v38 = __54__BLSHAlwaysOnPresentationEngine_main_performNextStep__block_invoke;
+        v39 = &unk_27841E650;
+        v40 = v12;
         v13 = v12;
         dispatch_async(MEMORY[0x277D85CD0], block);
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startFlipbookAndEnsureCurrent
 {
-  v39 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   self->_lock_shouldNotifyFlipbookCurrent = 1;
   lock_suppressed = self->_lock_suppressed;
@@ -3184,7 +3085,7 @@ LABEL_25:
 
   if (isLiveUpdating && !state)
   {
-    [(BLSHAlwaysOnPresentationEngine *)self _lock_acquireAlwaysOnLiveFlipbookPowerAssertion];
+    [(BLSHAlwaysOnPresentationEngine *)&self->super.isa _lock_acquireAlwaysOnLiveFlipbookPowerAssertion];
     if ((self->_lock_engineState - 3) <= 1)
     {
       [(BLSHAlwaysOnPresentationEngine *)self lock_endFlipbookRenderSessionAndAllowSleepIfPendingForReason:?];
@@ -3217,96 +3118,53 @@ LABEL_25:
     {
       if (OUTLINED_FUNCTION_32())
       {
+LABEL_11:
         OUTLINED_FUNCTION_4_1();
-        if (!(!v14 & v13))
-        {
-          v15 = off_27841EFA0[v12];
-        }
-
-        v21 = NSStringFromBLSHOnSystemSleepActionState(state);
-        lock_fillFlipbookState = self->_lock_fillFlipbookState;
+        v12 = NSStringFromBLSHOnSystemSleepActionState(state);
         OUTLINED_FUNCTION_8();
-        if (!(!v14 & v13))
-        {
-          v33 = off_27841EF68[v32];
-        }
-
-LABEL_28:
         OUTLINED_FUNCTION_2_4();
         OUTLINED_FUNCTION_31();
         OUTLINED_FUNCTION_16_0();
-        v30 = 42;
-LABEL_29:
-        _os_log_impl(v25, v26, v27, v28, v29, v30);
+        v18 = 42;
+LABEL_16:
+        _os_log_impl(v13, v14, v15, v16, v17, v18);
       }
     }
 
     else if (OUTLINED_FUNCTION_32())
     {
-      OUTLINED_FUNCTION_4_1();
-      if (!(!v14 & v13))
-      {
-        v18 = off_27841EFA0[v17];
-      }
-
-      v21 = NSStringFromBLSHOnSystemSleepActionState(state);
-      v34 = self->_lock_fillFlipbookState;
-      OUTLINED_FUNCTION_8();
-      if (!(!v14 & v13))
-      {
-        v36 = off_27841EF68[v35];
-      }
-
-      goto LABEL_28;
+      goto LABEL_11;
     }
   }
 
   else if (OUTLINED_FUNCTION_32())
   {
-    if ((lock_engineState - 1) <= 3)
-    {
-      v16 = off_27841EFA0[lock_engineState - 1];
-    }
-
-    v19 = self->_lock_engineState - 1;
-    if (v19 <= 3)
-    {
-      v20 = off_27841EFA0[v19];
-    }
-
-    v21 = NSStringFromBLSHOnSystemSleepActionState(state);
-    v22 = self->_lock_fillFlipbookState;
+    v12 = NSStringFromBLSHOnSystemSleepActionState(state);
     OUTLINED_FUNCTION_8();
-    if (!(!v14 & v13))
-    {
-      v24 = off_27841EF68[v23];
-    }
-
     OUTLINED_FUNCTION_2_4();
     OUTLINED_FUNCTION_16_0();
-    v30 = 52;
-    goto LABEL_29;
+    v18 = 52;
+    goto LABEL_16;
   }
 
   os_unfair_lock_unlock(&self->_lock);
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_18();
   BSDispatchMain();
-  v37 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)_lock_acquireAlwaysOnLiveFlipbookPowerAssertion
+- (id)_lock_acquireAlwaysOnLiveFlipbookPowerAssertion
 {
   if (result)
   {
     v1 = result;
-    if (!*(result + 224))
+    if (!result[28])
     {
-      v2 = [*(result + 24) createPowerAssertionWithIdentifier:@"always on (live flipbook)"];
-      v3 = *(v1 + 224);
-      *(v1 + 224) = v2;
+      v2 = [result[3] createPowerAssertionWithIdentifier:@"always on (live flipbook)"];
+      v3 = v1[28];
+      v1[28] = v2;
 
-      v4 = *(v1 + 224);
+      v4 = v1[28];
 
       return [v4 acquireWithTimeout:0 handler:0.0];
     }
@@ -3367,7 +3225,7 @@ LABEL_29:
 
 - (void)lock_endFlipbookRenderSessionForReason:(int)reason wasPreventingSleep:
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
@@ -3375,114 +3233,110 @@ LABEL_29:
     if (v6)
     {
       v7 = v6;
-      v8 = *(self + 264);
       [v7 count];
       kdebug_trace();
       BSContinuousMachTimeNow();
-      v10 = v9;
+      v9 = v8;
       memoryUsage = [*(self + 96) memoryUsage];
-      v12 = bls_flipbook_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v11 = bls_flipbook_log();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         OUTLINED_FUNCTION_4_1();
-        if (!v15 & v14)
+        if (!v14 & v13)
         {
-          v16 = @"Stopped";
+          v15 = @"Stopped";
         }
 
         else
         {
-          v16 = off_27841EFA0[v13];
+          v15 = off_27841EFA0[v12];
         }
 
-        v39 = v16;
-        v40 = NSStringFromBLSHOnSystemSleepActionState([*(self + 72) state]);
-        v17 = *(self + 272);
+        v36 = v15;
+        v37 = NSStringFromBLSHOnSystemSleepActionState([*(self + 72) state]);
         OUTLINED_FUNCTION_8();
-        if (!v15 & v14)
+        if (!v14 & v13)
         {
-          v19 = @"Awake";
+          v17 = @"Awake";
         }
 
         else
         {
-          v19 = off_27841EF68[v18];
+          v17 = off_27841EF68[v16];
         }
 
-        LODWORD(v35) = *(self + 289);
-        HIDWORD(v35) = *(self + 290);
+        LODWORD(v32) = *(self + 289);
+        HIDWORD(v32) = *(self + 290);
         mEMORY[0x277CF0978] = [MEMORY[0x277CF0978] sharedFormatter];
-        v21 = [mEMORY[0x277CF0978] stringFromByteCount:memoryUsage];
+        v19 = [mEMORY[0x277CF0978] stringFromByteCount:memoryUsage];
         mEMORY[0x277CF0978]2 = [MEMORY[0x277CF0978] sharedFormatter];
-        v23 = [mEMORY[0x277CF0978]2 stringFromByteCount:{objc_msgSend(*(self + 88), "softMemoryLimit")}];
+        v21 = [mEMORY[0x277CF0978]2 stringFromByteCount:{objc_msgSend(*(self + 88), "softMemoryLimit")}];
         loggingStreamForRenderSession = [(BLSHAlwaysOnPresentationEngine *)self loggingStreamForRenderSession];
         *buf = 134220546;
         selfCopy = self;
-        v49 = 2114;
-        v50 = v39;
-        v51 = 2048;
-        v52 = v7;
-        v53 = 2114;
-        v54 = v5;
-        v55 = 2114;
-        v56 = v40;
-        v57 = 2114;
-        v58 = v38;
-        v59 = 1024;
-        v60 = v36;
-        v61 = 1024;
-        v62 = v37;
-        v63 = 2114;
-        v64 = v21;
-        v65 = 2114;
-        v66 = v23;
-        v67 = 2114;
-        v68 = loggingStreamForRenderSession;
-        _os_log_impl(&dword_21FD11000, v12, OS_LOG_TYPE_INFO, "%p:%{public}@ ending render session:%p for reason:%{public}@ sleepActionState:%{public}@ fillState:%{public}@ stby:%{BOOL}u sup:%{BOOL}u memoryUsage:%{public}@/%{public}@ %{public}@", buf, 0x68u);
+        v46 = 2114;
+        v47 = v36;
+        v48 = 2048;
+        v49 = v7;
+        v50 = 2114;
+        v51 = v5;
+        v52 = 2114;
+        v53 = v37;
+        v54 = 2114;
+        v55 = v35;
+        v56 = 1024;
+        v57 = v33;
+        v58 = 1024;
+        v59 = v34;
+        v60 = 2114;
+        v61 = v19;
+        v62 = 2114;
+        v63 = v21;
+        v64 = 2114;
+        v65 = loggingStreamForRenderSession;
+        _os_log_impl(&dword_21FD11000, v11, OS_LOG_TYPE_INFO, "%p:%{public}@ ending render session:%p for reason:%{public}@ sleepActionState:%{public}@ fillState:%{public}@ stby:%{BOOL}u sup:%{BOOL}u memoryUsage:%{public}@/%{public}@ %{public}@", buf, 0x68u);
       }
 
-      v25 = *(self + 64);
-      v26 = 0.0;
+      v23 = *(self + 64);
+      v24 = 0.0;
       if (reason)
       {
         BSContinuousMachTimeNow();
-        v26 = v27 - *(self + 280);
+        v24 = v25 - *(self + 280);
       }
 
-      v28 = MEMORY[0x277CF09C8];
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __92__BLSHAlwaysOnPresentationEngine_lock_endFlipbookRenderSessionForReason_wasPreventingSleep___block_invoke;
-      v41[3] = &unk_27841EE38;
-      v42 = v7;
-      v45 = v10;
-      v46 = v26;
-      v43 = v5;
-      v44 = v25;
-      v29 = v25;
-      v30 = v7;
-      [v28 dispatchWithQOSClass:17 block:v41];
-      [v30 invalidate];
-      v31 = *(self + 208);
+      v26 = MEMORY[0x277CF09C8];
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __92__BLSHAlwaysOnPresentationEngine_lock_endFlipbookRenderSessionForReason_wasPreventingSleep___block_invoke;
+      v38[3] = &unk_27841EE38;
+      v39 = v7;
+      v42 = v9;
+      v43 = v24;
+      v40 = v5;
+      v41 = v23;
+      v27 = v23;
+      v28 = v7;
+      [v26 dispatchWithQOSClass:17 block:v38];
+      [v28 invalidate];
+      v29 = *(self + 208);
       *(self + 208) = 0;
     }
 
-    v32 = *(self + 200);
+    v30 = *(self + 200);
     *(self + 200) = 0;
 
-    v33 = *(self + 192);
+    v31 = *(self + 192);
     *(self + 192) = 0;
 
     *(self + 256) = 0;
     [(BLSHAlwaysOnPresentationEngine *)self lock_invalidateFlipbookUpdates];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (id)lock_cancelFlipbookFramesForReason:(void *)reason source:(int)source didClearDateSpecifiers:(int)specifiers wasReset:
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   v7 = a2;
   reasonCopy = reason;
   if (!self)
@@ -3493,9 +3347,9 @@ LABEL_29:
 
   activeFrames = [*(self + 96) activeFrames];
   v10 = *(self + 96);
-  v66 = 0;
-  v11 = [v10 cancelAllFramesWithError:&v66];
-  v12 = v66;
+  v65 = 0;
+  v11 = [v10 cancelAllFramesWithError:&v65];
+  v12 = v65;
   if (v11)
   {
     objc_storeStrong((self + 112), v11);
@@ -3510,30 +3364,30 @@ LABEL_29:
       goto LABEL_10;
     }
 
-    v47 = MEMORY[0x277CCACA8];
-    v40 = [activeFrames2 count];
+    v46 = MEMORY[0x277CCACA8];
+    v39 = [activeFrames2 count];
     lastObject = [activeFrames2 lastObject];
     bls_loggingString = [lastObject bls_loggingString];
-    v14 = [v47 stringWithFormat:@"[[CAFlipbook activeFrames] count] should be zero (not %d) after cancelAllFrames lastFrame:%@ (did backboardd die?)", v40, bls_loggingString];
+    v14 = [v46 stringWithFormat:@"[[CAFlipbook activeFrames] count] should be zero (not %d) after cancelAllFrames lastFrame:%@ (did backboardd die?)", v39, bls_loggingString];
 
     BLSHRecordCriticalAssertFailure(v14, 1, 0);
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_source_didClearDateSpecifiers_wasReset___block_invoke;
-    v62[3] = &unk_27841E510;
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_source_didClearDateSpecifiers_wasReset___block_invoke;
+    v61[3] = &unk_27841E510;
     selfCopy = self;
-    v65 = sel_lock_cancelFlipbookFramesForReason_source_didClearDateSpecifiers_wasReset_;
-    v63 = activeFrames2;
-    v43 = MEMORY[0x223D70730](v62);
+    v64 = sel_lock_cancelFlipbookFramesForReason_source_didClearDateSpecifiers_wasReset_;
+    v62 = activeFrames2;
+    v42 = MEMORY[0x223D70730](v61);
     if (BLSHIsUnitTestRunning())
     {
-      v43[2](v43);
+      v42[2](v42);
     }
 
     else
     {
-      v44 = dispatch_time(0, 1000000000);
-      dispatch_after(v44, MEMORY[0x277D85CD0], v43);
+      v43 = dispatch_time(0, 1000000000);
+      dispatch_after(v43, MEMORY[0x277D85CD0], v42);
     }
 
     goto LABEL_8;
@@ -3545,15 +3399,15 @@ LABEL_29:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       bls_shortLoggingString = [v12 bls_shortLoggingString];
-      v46 = [activeFrames2 count];
+      v45 = [activeFrames2 count];
       lastObject2 = [activeFrames2 lastObject];
       bls_loggingString2 = [lastObject2 bls_loggingString];
       *buf = 138543874;
       selfCopy2 = bls_shortLoggingString;
-      v69 = 1024;
-      *v70 = v46;
-      *&v70[4] = 2114;
-      *&v70[6] = bls_loggingString2;
+      v68 = 1024;
+      *v69 = v45;
+      *&v69[4] = 2114;
+      *&v69[6] = bls_loggingString2;
       _os_log_error_impl(&dword_21FD11000, v14, OS_LOG_TYPE_ERROR, "cancelAllFrames error:%{public}@ [[CAFlipbook activeFrames] count] should be zero (not %d) after cancelAllFrames lastFrame:%{public}@ – did backboardd die?)", buf, 0x1Cu);
     }
 
@@ -3577,8 +3431,8 @@ LABEL_10:
 
   if (os_log_type_enabled(v17, v19))
   {
-    v45 = v12;
-    v48 = activeFrames;
+    v44 = v12;
+    v47 = activeFrames;
     v20 = v7;
     v21 = *(self + 264) - 1;
     v22 = reasonCopy;
@@ -3612,30 +3466,30 @@ LABEL_10:
     v27 = [activeFrames2 count];
     *buf = 134220290;
     selfCopy2 = self;
-    v69 = 2114;
-    *v70 = v23;
-    *&v70[8] = 2114;
-    *&v70[10] = v22;
-    v71 = 2114;
+    v68 = 2114;
+    *v69 = v23;
+    *&v69[8] = 2114;
+    *&v69[10] = v22;
+    v70 = 2114;
     v7 = v20;
-    v72 = v20;
-    v73 = 1024;
-    v74 = v16;
-    v75 = 1024;
+    v71 = v20;
+    v72 = 1024;
+    v73 = v16;
+    v74 = 1024;
     sourceCopy = source;
-    v77 = 1024;
+    v76 = 1024;
     specifiersCopy = specifiers;
-    v79 = 2080;
-    v80 = v24;
+    v78 = 2080;
+    v79 = v24;
     reasonCopy = v22;
-    v81 = 2114;
-    v82 = bls_shortLoggingString2;
-    v83 = 1024;
-    v84 = v27;
+    v80 = 2114;
+    v81 = bls_shortLoggingString2;
+    v82 = 1024;
+    v83 = v27;
     _os_log_impl(&dword_21FD11000, v18, v19, "%p:%{public}@ invalidate flipbook for source:%{public}@ reason:%{public}@ frameCount:%u didClearDateSpecifiers:%{BOOL}u wasReset:%{BOOL}u %s:%{public}@ zeroedFrameCount:%u", buf, 0x56u);
 
-    v12 = v45;
-    activeFrames = v48;
+    v12 = v44;
+    activeFrames = v47;
   }
 
   [*(self + 40) performInvalidation];
@@ -3648,39 +3502,38 @@ LABEL_10:
 
     v32 = *(self + 64);
     v33 = MEMORY[0x277CF09C8];
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_source_didClearDateSpecifiers_wasReset___block_invoke_253;
-    v53[3] = &unk_27841ED70;
-    v54 = activeFrames;
-    v59 = v29;
-    v55 = v7;
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __108__BLSHAlwaysOnPresentationEngine_lock_cancelFlipbookFramesForReason_source_didClearDateSpecifiers_wasReset___block_invoke_253;
+    v52[3] = &unk_27841ED70;
+    v53 = activeFrames;
+    v58 = v29;
+    v54 = v7;
     sourceCopy2 = source;
     specifiersCopy2 = specifiers;
-    v56 = reasonCopy;
-    v57 = v31;
-    v58 = v32;
+    v55 = reasonCopy;
+    v56 = v31;
+    v57 = v32;
     v34 = v32;
     v35 = v31;
-    [v33 dispatchWithQOSClass:17 block:v53];
+    [v33 dispatchWithQOSClass:17 block:v52];
   }
 
 LABEL_26:
-  v36 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
-- (uint64_t)lock_invalidateFlipbookUpdates
+- (id)lock_invalidateFlipbookUpdates
 {
   if (result)
   {
     v1 = result;
-    invalidate = [*(result + 184) invalidate];
-    v3 = *(v1 + 184);
-    *(v1 + 184) = 0;
+    invalidate = [result[23] invalidate];
+    v3 = v1[23];
+    v1[23] = 0;
 
-    v4 = *(v1 + 40);
+    v4 = v1[5];
 
     return [v4 resetFutureSpecifiers];
   }
@@ -3715,7 +3568,7 @@ LABEL_26:
 
 - (void)invalidateFlipbookForReason:(void *)reason source:(void *)source environment:
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a2;
   reasonCopy = reason;
   sourceCopy = source;
@@ -3737,13 +3590,7 @@ LABEL_26:
         v13 = bls_flipbook_log();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          v14 = *(self + 264);
           OUTLINED_FUNCTION_8();
-          if (!(!v17 & v16))
-          {
-            v18 = off_27841EFA0[v15];
-          }
-
           *buf = 134219010;
           selfCopy2 = self;
           OUTLINED_FUNCTION_11();
@@ -3752,26 +3599,26 @@ LABEL_26:
         }
 
         os_unfair_lock_unlock((self + 8));
-        v22 = 0;
-LABEL_15:
+        v17 = 0;
+LABEL_14:
 
-        goto LABEL_16;
+        goto LABEL_15;
       }
     }
 
     else
     {
       [*(self + 160) invalidate];
-      v19 = *(self + 160);
+      v14 = *(self + 160);
       *(self + 160) = 0;
     }
 
-    v20 = *(self + 264) - 2;
-    if (v20 <= 2)
+    v15 = *(self + 264) - 2;
+    if (v15 <= 2)
     {
-      v22 = *(self + 120);
-      [v22 incrementDisablePowerSavingUsageCountForReason:6];
-      v24 = [(BLSHAlwaysOnPresentationEngine *)self lock_cancelFlipbookFramesForReason:v7 source:reasonCopy didClearDateSpecifiers:sourceCopy != 0 wasReset:0];
+      v17 = *(self + 120);
+      [v17 incrementDisablePowerSavingUsageCountForReason:6];
+      v18 = [(BLSHAlwaysOnPresentationEngine *)self lock_cancelFlipbookFramesForReason:v7 source:reasonCopy didClearDateSpecifiers:sourceCopy != 0 wasReset:0];
       if ((*(self + 264) - 3) <= 1)
       {
         [(BLSHAlwaysOnPresentationEngine *)self lock_endFlipbookRenderSessionForReason:0 wasPreventingSleep:?];
@@ -3780,53 +3627,45 @@ LABEL_15:
       else
       {
         [*(self + 232) invalidate];
-        v25 = *(self + 232);
+        v19 = *(self + 232);
         *(self + 232) = 0;
       }
     }
 
     else
     {
-      v21 = bls_flipbook_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v16 = bls_flipbook_log();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        v26 = *(self + 264);
         OUTLINED_FUNCTION_8();
-        if (!(!v17 & v16))
-        {
-          v28 = off_27841EFA0[v27];
-        }
-
         *buf = 134219010;
         selfCopy2 = self;
         OUTLINED_FUNCTION_11();
         OUTLINED_FUNCTION_35();
-        _os_log_debug_impl(&dword_21FD11000, v21, OS_LOG_TYPE_DEBUG, "%p:%{public}@ will ignore invalidate flipbook (rendering live) for source:%{public}@ reason:%{public}@ environment:%{public}@", buf, 0x34u);
+        _os_log_debug_impl(&dword_21FD11000, v16, OS_LOG_TYPE_DEBUG, "%p:%{public}@ will ignore invalidate flipbook (rendering live) for source:%{public}@ reason:%{public}@ environment:%{public}@", buf, 0x34u);
       }
 
-      v22 = 0;
+      v17 = 0;
     }
 
     os_unfair_lock_unlock((self + 8));
     [*(self + 16) presentationEngine:self didInvalidateContentForEnvironment:sourceCopy reason:v7];
-    if (v20 <= 2)
+    if (v15 <= 2)
     {
       OUTLINED_FUNCTION_12();
-      v29[1] = 3221225472;
-      v29[2] = __81__BLSHAlwaysOnPresentationEngine_invalidateFlipbookForReason_source_environment___block_invoke;
-      v29[3] = &unk_27841E538;
-      v29[4] = self;
-      v22 = v22;
-      v30 = v22;
-      dispatch_async(MEMORY[0x277D85CD0], v29);
+      v20[1] = 3221225472;
+      v20[2] = __81__BLSHAlwaysOnPresentationEngine_invalidateFlipbookForReason_source_environment___block_invoke;
+      v20[3] = &unk_27841E538;
+      v20[4] = self;
+      v17 = v17;
+      v21 = v17;
+      dispatch_async(MEMORY[0x277D85CD0], v20);
     }
 
-    goto LABEL_15;
+    goto LABEL_14;
   }
 
-LABEL_16:
-
-  v23 = *MEMORY[0x277D85DE8];
+LABEL_15:
 }
 
 - (void)didEndInactiveEnvironmentSession:(id)session
@@ -3884,31 +3723,26 @@ LABEL_16:
 
 void __77__BLSHAlwaysOnPresentationEngine_hostEnvironment_invalidateContentForReason___block_invoke_2_243(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v3 = bls_flipbook_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 80);
     mach_continuous_time();
     BSTimeDifferenceFromMachTimeToMachTime();
     OUTLINED_FUNCTION_30();
     OUTLINED_FUNCTION_27();
-    _os_log_impl(v6, v7, v8, v9, v10, 0x20u);
+    _os_log_impl(v4, v5, v6, v7, v8, 0x20u);
   }
 
-  v11 = *(a1 + 40);
-  v12 = [*(a1 + 48) identifier];
-  [(BLSHAlwaysOnPresentationEngine *)WeakRetained invalidateFlipbookForReason:v11 source:v12 environment:*(a1 + 48)];
+  v9 = *(a1 + 40);
+  v10 = [*(a1 + 48) identifier];
+  [(BLSHAlwaysOnPresentationEngine *)WeakRetained invalidateFlipbookForReason:v9 source:v10 environment:*(a1 + 48)];
 
   *(*(*(a1 + 56) + 8) + 24) = 0;
   [*(*(*(a1 + 64) + 8) + 40) invalidate];
-  v13 = *(*(a1 + 64) + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = 0;
-
-  v15 = *MEMORY[0x277D85DE8];
+  v11 = *(*(a1 + 64) + 8);
+  v12 = *(v11 + 40);
+  *(v11 + 40) = 0;
 }
 
 uint64_t __81__BLSHAlwaysOnPresentationEngine_invalidateFlipbookForReason_source_environment___block_invoke(uint64_t a1)
@@ -3917,6 +3751,34 @@ uint64_t __81__BLSHAlwaysOnPresentationEngine_invalidateFlipbookForReason_source
   v2 = *(a1 + 40);
 
   return [v2 decrementDisablePowerSavingUsageCountForReason:6];
+}
+
+- (void)hostEnvironment:(id)environment hostDidSet1HzFlipbook:(BOOL)flipbook
+{
+  flipbookCopy = flipbook;
+  environmentCopy = environment;
+  os_unfair_lock_lock(&self->_lock);
+  presentation = [(BLSHBacklightInactiveEnvironmentSession *)self->_lock_inactiveSession presentation];
+  [(BLSHAlwaysOnPresentationEngine *)self _lock_update1HzFromPresentation:presentation];
+
+  os_unfair_lock_unlock(&self->_lock);
+  flipbookCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"didSet1HzFlipbook:%u", flipbookCopy];
+  [environmentCopy identifier];
+  objc_claimAutoreleasedReturnValue();
+  v8 = OUTLINED_FUNCTION_38();
+  [(BLSHAlwaysOnPresentationEngine *)v8 invalidateFlipbookForReason:v9 source:v10 environment:environmentCopy];
+}
+
+- (void)hostEnvironment:(id)environment hostDidSetAlwaysOnEnabledForEnvironment:(BOOL)forEnvironment
+{
+  forEnvironmentCopy = forEnvironment;
+  v5 = MEMORY[0x277CCACA8];
+  environmentCopy = environment;
+  forEnvironmentCopy = [v5 stringWithFormat:@"alwaysOnEnabled:%u", forEnvironmentCopy];
+  [environmentCopy identifier];
+  objc_claimAutoreleasedReturnValue();
+  v7 = OUTLINED_FUNCTION_38();
+  [(BLSHAlwaysOnPresentationEngine *)v7 invalidateFlipbookForReason:v8 source:v9 environment:environmentCopy];
 }
 
 void __55__BLSHAlwaysOnPresentationEngine_setUsePseudoFlipbook___block_invoke(uint64_t a1)
@@ -3948,7 +3810,7 @@ void __55__BLSHAlwaysOnPresentationEngine_setUsePseudoFlipbook___block_invoke(ui
 
 - (void)main_getMissingDatesFromEnvironments
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (self)
   {
     presentation = [*(self + 152) presentation];
@@ -3961,7 +3823,7 @@ void __55__BLSHAlwaysOnPresentationEngine_setUsePseudoFlipbook___block_invoke(ui
       v14 = 0;
 LABEL_28:
 
-      goto LABEL_29;
+      return;
     }
 
     v4 = *(self + 295);
@@ -4020,20 +3882,20 @@ LABEL_28:
           {
             if (v3 > 4)
             {
-              v26 = @"Stopped";
+              v25 = @"Stopped";
             }
 
             else
             {
-              v26 = off_27841EFA0[v3 - 1];
+              v25 = off_27841EFA0[v3 - 1];
             }
 
-            v30 = v26;
+            v29 = v25;
             bls_shortLoggingString = [v14 bls_shortLoggingString];
             OUTLINED_FUNCTION_26();
-            v32 = v30;
+            v31 = v29;
+            v32 = v27;
             v33 = v28;
-            v34 = v29;
             _os_log_debug_impl(&dword_21FD11000, v19, OS_LOG_TYPE_DEBUG, "%p:%{public}@ not requesting dates for interval:%{public}@ (no missingIntervals)", buf, 0x20u);
           }
 
@@ -4062,21 +3924,21 @@ LABEL_25:
       {
         if (v3 > 4)
         {
-          v22 = @"Stopped";
+          v21 = @"Stopped";
         }
 
         else
         {
-          v22 = off_27841EFA0[v3 - 1];
+          v21 = off_27841EFA0[v3 - 1];
         }
 
         bls_shortLoggingString2 = [v14 bls_shortLoggingString];
         OUTLINED_FUNCTION_26();
-        v32 = v22;
+        v31 = v21;
+        v32 = v23;
         v33 = v24;
-        v34 = v25;
-        v35 = v24;
-        v36 = v15;
+        v34 = v23;
+        v35 = v15;
         _os_log_debug_impl(&dword_21FD11000, v20, OS_LOG_TYPE_DEBUG, "%p:%{public}@ requesting dates for interval:%{public}@ missingIntervals:%{public}@", buf, 0x2Au);
       }
 
@@ -4085,145 +3947,119 @@ LABEL_25:
 
     goto LABEL_28;
   }
-
-LABEL_29:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)main_shouldWaitForRequestDates
 {
-  *(&v44[2] + 4) = *MEMORY[0x277D85DE8];
-  if (self)
+  *(&v39[2] + 4) = *MEMORY[0x277D85DE8];
+  if (!self)
   {
-    OUTLINED_FUNCTION_33(self);
-    v2 = *(v1 + 160);
-    v3 = *(v1 + 264);
-    v4 = *(v1 + 24);
-    v5 = [v4 now];
-    v6 = 0;
-    if (v3 && v2)
+    return 0;
+  }
+
+  OUTLINED_FUNCTION_33(self);
+  v2 = *(v1 + 160);
+  v3 = *(v1 + 264);
+  v4 = *(v1 + 24);
+  v5 = [v4 now];
+  v6 = 0;
+  if (v3 && v2)
+  {
+    if (([v2 isComplete] & 1) != 0 || (objc_msgSend(v2, "requestInterval"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "startDate"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "timeIntervalSinceDate:", v5), v10 = v9, v8, v7, v10 >= 0.3))
     {
-      if ([v2 isComplete])
-      {
-        goto LABEL_11;
-      }
+      v6 = 0;
+    }
 
-      requestInterval = [v2 requestInterval];
-      startDate = [requestInterval startDate];
-      [startDate timeIntervalSinceDate:v5];
-      v10 = v9;
-
-      if (v10 >= 0.3)
+    else
+    {
+      beginDate = [v2 beginDate];
+      [v5 timeIntervalSinceDate:beginDate];
+      v13 = v12;
+      if (v3 > 4 || (v14 = dbl_21FDA5310[v3 - 1] - v12, v14 <= 0.0))
       {
-LABEL_11:
+        v20 = bls_flipbook_log();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        {
+          OUTLINED_FUNCTION_13();
+          v38 = v27;
+          v39[0] = v28;
+          _os_log_debug_impl(&dword_21FD11000, v20, OS_LOG_TYPE_DEBUG, "%p:%{public}@ will render frames, waiting (enough) %.3lfs for operation:%{public}@ timer:%{public}@", buf, 0x34u);
+        }
+
         v6 = 0;
       }
 
       else
       {
-        beginDate = [v2 beginDate];
-        [v5 timeIntervalSinceDate:beginDate];
-        v13 = v12;
-        if (v3 > 4 || (v14 = dbl_21FDA5310[v3 - 1] - v12, v14 <= 0.0))
+        if ([*(v1 + 232) isScheduled] && (objc_msgSend(*(v1 + 232), "timeRemaining"), v15 <= v14))
         {
-          v20 = bls_flipbook_log();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
-          {
-            if (v3 <= 4)
-            {
-              v30 = off_27841EFA0[v3 - 1];
-            }
-
-            v31 = *(v1 + 232);
-            OUTLINED_FUNCTION_13();
-            v43 = v32;
-            v44[0] = v33;
-            _os_log_debug_impl(&dword_21FD11000, v20, OS_LOG_TYPE_DEBUG, "%p:%{public}@ will render frames, waiting (enough) %.3lfs for operation:%{public}@ timer:%{public}@", buf, 0x34u);
-          }
-
-          v6 = 0;
+          v19 = 0;
         }
 
         else
         {
-          if ([*(v1 + 232) isScheduled] && (objc_msgSend(*(v1 + 232), "timeRemaining"), v15 <= v14))
-          {
-            v19 = 0;
-          }
+          [*(v1 + 232) invalidate];
+          v16 = *(v1 + 24);
+          OUTLINED_FUNCTION_0_5();
+          OUTLINED_FUNCTION_18();
+          v30 = __64__BLSHAlwaysOnPresentationEngine_main_shouldWaitForRequestDates__block_invoke;
+          v31 = &unk_27841EDC0;
+          v32 = v1;
+          v36 = v3;
+          v33 = v4;
+          v34 = beginDate;
+          v35 = v2;
+          v17 = [v16 scheduledWakingTimerWithIdentifier:@"AlwaysOnPresentationEngine" interval:v29 leewayInterval:v14 handler:0.2];
+          v18 = *(v1 + 232);
+          *(v1 + 232) = v17;
 
-          else
-          {
-            [*(v1 + 232) invalidate];
-            v16 = *(v1 + 24);
-            OUTLINED_FUNCTION_0_5();
-            OUTLINED_FUNCTION_18();
-            v35 = __64__BLSHAlwaysOnPresentationEngine_main_shouldWaitForRequestDates__block_invoke;
-            v36 = &unk_27841EDC0;
-            v37 = v1;
-            v41 = v3;
-            v38 = v4;
-            v39 = beginDate;
-            v40 = v2;
-            v17 = [v16 scheduledWakingTimerWithIdentifier:@"AlwaysOnPresentationEngine" interval:v34 leewayInterval:v14 handler:0.2];
-            v18 = *(v1 + 232);
-            *(v1 + 232) = v17;
+          v19 = 1;
+        }
 
-            v19 = 1;
-          }
+        v22 = bls_flipbook_log();
+        v20 = v22;
+        if (v13 > 0.2)
+        {
+          v23 = 1;
+        }
 
-          v23 = bls_flipbook_log();
-          v20 = v23;
-          if (v13 > 0.2)
-          {
-            v24 = 1;
-          }
+        else
+        {
+          v23 = v19;
+        }
 
-          else
-          {
-            v24 = v19;
-          }
+        v6 = 1;
+        if (v23)
+        {
+          v24 = OS_LOG_TYPE_INFO;
+        }
 
-          v6 = 1;
-          if (v24)
-          {
-            v25 = OS_LOG_TYPE_INFO;
-          }
+        else
+        {
+          v24 = OS_LOG_TYPE_DEBUG;
+        }
 
-          else
-          {
-            v25 = OS_LOG_TYPE_DEBUG;
-          }
-
-          if (os_log_type_enabled(v23, v25))
-          {
-            v26 = off_27841EFA0[v3 - 1];
-            v27 = *(v1 + 232);
-            OUTLINED_FUNCTION_13();
-            v43 = 1024;
-            LODWORD(v44[0]) = v19;
-            WORD2(v44[0]) = v28;
-            *(v44 + 6) = v29;
-            _os_log_impl(&dword_21FD11000, v20, v25, "%p:%{public}@ will not render frames, waiting %.3lfs for operation:%{public}@ didCreateNewTimer:%{BOOL}u timer:%{public}@", buf, 0x3Au);
-          }
+        if (os_log_type_enabled(v22, v24))
+        {
+          OUTLINED_FUNCTION_13();
+          v38 = 1024;
+          LODWORD(v39[0]) = v19;
+          WORD2(v39[0]) = v25;
+          *(v39 + 6) = v26;
+          _os_log_impl(&dword_21FD11000, v20, v24, "%p:%{public}@ will not render frames, waiting %.3lfs for operation:%{public}@ didCreateNewTimer:%{BOOL}u timer:%{public}@", buf, 0x3Au);
         }
       }
     }
-
-    os_unfair_lock_unlock((v1 + 8));
   }
 
-  else
-  {
-    v6 = 0;
-  }
+  os_unfair_lock_unlock((v1 + 8));
 
-  v21 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)main_performUpdateIfNeeded
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self)
   {
     OUTLINED_FUNCTION_33(self);
@@ -4233,11 +4069,11 @@ LABEL_11:
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
       {
         bls_shortLoggingString = [*(v1 + 240) bls_shortLoggingString];
-        v7 = 134218242;
-        v8 = v1;
+        v6 = 134218242;
+        v7 = v1;
         OUTLINED_FUNCTION_30();
-        v9 = v4;
-        _os_log_debug_impl(&dword_21FD11000, v2, OS_LOG_TYPE_DEBUG, "%p servicing timer nextsUpdateStart:%{public}@", &v7, 0x16u);
+        v8 = v4;
+        _os_log_debug_impl(&dword_21FD11000, v2, OS_LOG_TYPE_DEBUG, "%p servicing timer nextsUpdateStart:%{public}@", &v6, 0x16u);
       }
 
       v5 = *(v1 + 240);
@@ -4248,8 +4084,6 @@ LABEL_11:
     [(BLSHAlwaysOnPresentationEngine *)v1 main_performLiveUpdateIfNeeded];
     [(BLSHAlwaysOnPresentationEngine *)v1 main_prepareAndRenderNextFlipbookFrame];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerFiredForNextUpdatesStart:(uint64_t)start
@@ -4345,7 +4179,6 @@ void __72__BLSHAlwaysOnPresentationEngine_main_prepareAndRenderNextFlipbookFrame
 
 void __78__BLSHAlwaysOnPresentationEngine_lock_scheduleUpdateTimerForNextUpdatesStart___block_invoke(id *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v3 = bls_flipbook_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
@@ -4358,37 +4191,26 @@ void __78__BLSHAlwaysOnPresentationEngine_lock_scheduleUpdateTimerForNextUpdates
   }
 
   [(BLSHAlwaysOnPresentationEngine *)WeakRetained timerFiredForNextUpdatesStart:?];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-- (void)initWithDelegate:(uint64_t)a1 platformProvider:osInterfaceProvider:inactiveBudgetPolicy:.cold.1(uint64_t a1)
+- (void)initWithDelegate:platformProvider:osInterfaceProvider:inactiveBudgetPolicy:.cold.1()
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 264);
   OUTLINED_FUNCTION_8();
-  if (!(!v5 & v4))
-  {
-    v6 = off_27841EFA0[v3];
-  }
-
-  v7 = *(v2 + 64);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_14();
-  _os_log_debug_impl(v8, v9, v10, v11, v12, 0x2Au);
-  v13 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
 - (void)registerHandlersForService:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"handler != nil", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4398,15 +4220,14 @@ void __78__BLSHAlwaysOnPresentationEngine_lock_scheduleUpdateTimerForNextUpdates
 
 - (void)registerHandlersForService:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"handler != nil", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4416,15 +4237,14 @@ void __78__BLSHAlwaysOnPresentationEngine_lock_scheduleUpdateTimerForNextUpdates
 
 - (void)registerHandlersForService:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"handler != nil", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4434,15 +4254,14 @@ void __78__BLSHAlwaysOnPresentationEngine_lock_scheduleUpdateTimerForNextUpdates
 
 - (void)registerHandlersForService:(char *)a1 .cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"handler != nil", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4452,15 +4271,14 @@ void __78__BLSHAlwaysOnPresentationEngine_lock_scheduleUpdateTimerForNextUpdates
 
 - (void)setInactiveSession:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_engineState == BLSHAlwaysOnPresentationEngineStateStopped"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_lock_engineState == BLSHAlwaysOnPresentationEngineStateStopped", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -4473,23 +4291,22 @@ void __78__BLSHAlwaysOnPresentationEngine_lock_scheduleUpdateTimerForNextUpdates
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"must have valid flipbook to set flipbook mode"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_4();
-    v6 = NSStringFromClass(v5);
-    v9 = 138544642;
+    v5 = NSStringFromSelector(self);
+    v7 = OUTLINED_FUNCTION_4(v5, v6);
+    v8 = NSStringFromClass(v7);
+    v11 = 138544642;
     selfCopy = self;
     OUTLINED_FUNCTION_30();
-    v11 = v7;
-    v12 = 2048;
-    v13 = a2;
-    v14 = v8;
-    v15 = @"BLSHAlwaysOnPresentationEngine.m";
-    v16 = 1024;
-    v17 = 1364;
-    v18 = v8;
-    v19 = v4;
-    _os_log_error_impl(&dword_21FD11000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9, 0x3Au);
+    v13 = v9;
+    v14 = 2048;
+    v15 = a2;
+    v16 = v10;
+    v17 = @"BLSHAlwaysOnPresentationEngine.m";
+    v18 = 1024;
+    v19 = 1364;
+    v20 = v10;
+    v21 = v4;
+    _os_log_error_impl(&dword_21FD11000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v11, 0x3Au);
   }
 
   [v4 UTF8String];
@@ -4497,22 +4314,13 @@ void __78__BLSHAlwaysOnPresentationEngine_lock_scheduleUpdateTimerForNextUpdates
   __break(0);
 }
 
-void __124__BLSHAlwaysOnPresentationEngine_requestDatesOperation_environment_didProvideSpecifiers_forPresentationInterval_isComplete___block_invoke_226_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_24(&dword_21FD11000, v0, v1, "%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)renderFramesSession:(uint64_t)a1 failedToRenderSpecifier:(void *)a2 error:timedOutEnvironments:.cold.1(uint64_t a1, void *a2)
 {
   [(BLSHAlwaysOnPresentationEngine *)a1 lock_endFlipbookRenderSessionAndAllowSleepIfPendingForReason:?];
-  v4 = qword_21FDA5300[(*(a1 + 264) - 3) < 2];
-  v5 = mach_continuous_time();
-  *(a1 + 256) = BLSMachTimeFromNSTimeInterval() + v5;
-  v6 = [a2 presentationDate];
-  [(BLSHAlwaysOnPresentationEngine *)a1 lock_scheduleUpdateTimerForNextUpdatesStart:v6];
+  v4 = mach_continuous_time();
+  *(a1 + 256) = BLSMachTimeFromNSTimeInterval() + v4;
+  v5 = [a2 presentationDate];
+  [(BLSHAlwaysOnPresentationEngine *)a1 lock_scheduleUpdateTimerForNextUpdatesStart:v5];
 }
 
 - (void)lock_scheduleUpdateTimerForNextUpdatesStart:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)
@@ -4527,15 +4335,14 @@ void __124__BLSHAlwaysOnPresentationEngine_requestDatesOperation_environment_did
 
 - (void)hostEnvironment:(uint64_t)a1 invalidateContentForReason:(char *)a2 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"invalidateContentForReason passed nil environment: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"invalidateContentForReason passed nil environment: %@", a1];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_4();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_4(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];
@@ -4545,32 +4352,29 @@ void __124__BLSHAlwaysOnPresentationEngine_requestDatesOperation_environment_did
 
 void __77__BLSHAlwaysOnPresentationEngine_hostEnvironment_invalidateContentForReason___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = *(a2 + 32);
-  v6 = *(a2 + 80);
   mach_continuous_time();
   BSTimeDifferenceFromMachTimeToMachTime();
-  v9 = 134218498;
-  v10 = a1;
+  v7 = 134218498;
+  v8 = a1;
   OUTLINED_FUNCTION_30();
-  v11 = v5;
-  v12 = 2048;
-  v13 = v7;
-  _os_log_fault_impl(&dword_21FD11000, a3, OS_LOG_TYPE_FAULT, "%p held systemActivity for too long. invalidating. %{public}@ elapsed:%.4lfs", &v9, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = v5;
+  v10 = 2048;
+  v11 = v6;
+  _os_log_fault_impl(&dword_21FD11000, a3, OS_LOG_TYPE_FAULT, "%p held systemActivity for too long. invalidating. %{public}@ elapsed:%.4lfs", &v7, 0x20u);
 }
 
 - (void)systemSleepAction:(char *)a1 performWithCompletion:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_sleepActionCompletion == nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_lock_sleepActionCompletion == nil", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];

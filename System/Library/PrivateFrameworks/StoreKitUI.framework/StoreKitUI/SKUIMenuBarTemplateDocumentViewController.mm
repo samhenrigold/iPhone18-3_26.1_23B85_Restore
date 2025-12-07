@@ -855,21 +855,22 @@ LABEL_6:
 
 - (id)_zoomingShelfPageSplitsDescription
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   if (self->_menuBarStyle == 2)
   {
     v3 = objc_alloc_init(SKUIStorePageSplitsDescription);
     v4 = self->_menuBarViewElement;
-    v5 = SKUIPageComponentClassForComponentType([(SKUIViewElement *)v4 pageComponentType]);
-    if (v5)
+    pageComponentType = [(SKUIViewElement *)v4 pageComponentType];
+    v7 = SKUIPageComponentClassForComponentType(pageComponentType, v6);
+    if (v7)
     {
-      v6 = [[v5 alloc] initWithViewElement:v4];
-      v7 = objc_alloc_init(SKUIStorePageSplit);
-      v10[0] = v6;
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-      [(SKUIStorePageSplit *)v7 setPageComponents:v8];
+      v8 = [[v7 alloc] initWithViewElement:v4];
+      v9 = objc_alloc_init(SKUIStorePageSplit);
+      v12[0] = v8;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+      [(SKUIStorePageSplit *)v9 setPageComponents:v10];
 
-      [(SKUIStorePageSplitsDescription *)v3 setTopSplit:v7];
+      [(SKUIStorePageSplitsDescription *)v3 setTopSplit:v9];
     }
   }
 

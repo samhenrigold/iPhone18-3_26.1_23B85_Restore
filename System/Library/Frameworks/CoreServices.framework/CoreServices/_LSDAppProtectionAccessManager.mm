@@ -34,51 +34,50 @@
 
 - (id)readFromDBWithError:(id *)error
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_dbLock);
   cache = self->_cache;
   if (!cache)
   {
-    v22[0] = @"hiddenBundleIDs";
-    v22[1] = @"lockedBundleIDs";
-    v23[0] = MEMORY[0x1E695E0F0];
-    v23[1] = MEMORY[0x1E695E0F0];
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v26[0] = @"hiddenBundleIDs";
+    v26[1] = @"lockedBundleIDs";
+    v27[0] = MEMORY[0x1E695E0F0];
+    v27[1] = MEMORY[0x1E695E0F0];
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
     v7 = self->_cache;
     self->_cache = v6;
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    appProtectionStoreFileURL = [__LSDefaultsGetSharedInstance() appProtectionStoreFileURL];
-    path = [appProtectionStoreFileURL path];
-    v11 = [defaultManager fileExistsAtPath:path];
+    v10 = [__LSDefaultsGetSharedInstance(defaultManager v9)];
+    path = [v10 path];
+    v12 = [defaultManager fileExistsAtPath:path];
 
-    if ((v11 & 1) == 0)
+    if ((v12 & 1) == 0)
     {
-      v12 = _LSAppProtectionLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v15 = _LSAppProtectionLog(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        [_LSDAppProtectionAccessManager readFromDBWithError:v12];
+        [_LSDAppProtectionAccessManager readFromDBWithError:v15];
       }
 
-      v13 = self->_cache;
-      appProtectionStoreFileURL2 = [__LSDefaultsGetSharedInstance() appProtectionStoreFileURL];
-      [(NSDictionary *)v13 writeToURL:appProtectionStoreFileURL2 error:error];
+      v16 = self->_cache;
+      v19 = [__LSDefaultsGetSharedInstance(v17 v18)];
+      [(NSDictionary *)v16 writeToURL:v19 error:error];
     }
 
-    v15 = MEMORY[0x1E695DF20];
-    appProtectionStoreFileURL3 = [__LSDefaultsGetSharedInstance() appProtectionStoreFileURL];
-    v17 = [v15 dictionaryWithContentsOfURL:appProtectionStoreFileURL3 error:error];
-    v18 = self->_cache;
-    self->_cache = v17;
+    v20 = MEMORY[0x1E695DF20];
+    v21 = [__LSDefaultsGetSharedInstance(v13 v14)];
+    v22 = [v20 dictionaryWithContentsOfURL:v21 error:error];
+    v23 = self->_cache;
+    self->_cache = v22;
 
     cache = self->_cache;
   }
 
-  v19 = [(NSDictionary *)cache copy];
+  v24 = [(NSDictionary *)cache copy];
   os_unfair_lock_unlock(&self->_dbLock);
-  v20 = *MEMORY[0x1E69E9840];
 
-  return v19;
+  return v24;
 }
 
 - (id)writeToDB:(id)b
@@ -90,14 +89,14 @@
   self->_cache = v5;
 
   v7 = self->_cache;
-  appProtectionStoreFileURL = [__LSDefaultsGetSharedInstance() appProtectionStoreFileURL];
-  v11 = 0;
-  [(NSDictionary *)v7 writeToURL:appProtectionStoreFileURL error:&v11];
-  v9 = v11;
+  v10 = [__LSDefaultsGetSharedInstance(v8 v9)];
+  v13 = 0;
+  [(NSDictionary *)v7 writeToURL:v10 error:&v13];
+  v11 = v13;
 
   os_unfair_lock_unlock(&self->_dbLock);
 
-  return v9;
+  return v11;
 }
 
 @end

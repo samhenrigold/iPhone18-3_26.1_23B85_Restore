@@ -3,7 +3,7 @@
 
 @implementation CancelPhotoProcessing
 
-uint64_t __captureDeferredPhotoProcessor_CancelPhotoProcessing_block_invoke(void *a1)
+void *__captureDeferredPhotoProcessor_CancelPhotoProcessing_block_invoke(void *a1)
 {
   v2 = *(a1[5] + 40);
   v7[0] = MEMORY[0x1E69E9820];
@@ -19,7 +19,7 @@ uint64_t __captureDeferredPhotoProcessor_CancelPhotoProcessing_block_invoke(void
     return [*(v5 + 40) removeObjectsAtIndexes:v3];
   }
 
-  result = [objc_msgSend(*(v5 + 48) "photoIdentifier")];
+  result = objc_msgSend_isEqualToString_([*(v5 + 48) photoIdentifier]);
   if (result)
   {
     *(*(a1[4] + 8) + 24) = -16829;

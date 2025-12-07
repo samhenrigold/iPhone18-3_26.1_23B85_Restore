@@ -22,9 +22,11 @@
 
 uint64_t __46__FCContextConfiguration_defaultConfiguration__block_invoke()
 {
-  _MergedGlobals_177 = [[FCContextConfiguration alloc] initWithEnvironment:FCCurrentContextEnvironment()];
+  v0 = [[FCContextConfiguration alloc] initWithEnvironment:FCCurrentContextEnvironment()];
+  v1 = _MergedGlobals_177;
+  _MergedGlobals_177 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (FCContextConfiguration)init
@@ -57,22 +59,22 @@ uint64_t __46__FCContextConfiguration_defaultConfiguration__block_invoke()
 {
   dataEnvironmentCopy = dataEnvironment;
   environmentCopy = environment;
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   containerIdentifierCopy = containerIdentifier;
   secureContainerIdentifierCopy = secureContainerIdentifier;
   dCopy = d;
   if (!identifierCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContainerIdentifier"];
+    v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContainerIdentifier"];
     *buf = 136315906;
-    v43 = "[FCContextConfiguration initWithProductionContentEnvironment:productionPrivateDataEnvironment:contentContainerIdentifier:privateDataContainerIdentifier:privateDataSecureContainerIdentifier:storeFrontID:environment:]";
-    v44 = 2080;
-    v45 = "FCContextConfiguration.m";
-    v46 = 1024;
-    v47 = 43;
-    v48 = 2114;
-    v49 = v37;
+    v42 = "[FCContextConfiguration initWithProductionContentEnvironment:productionPrivateDataEnvironment:contentContainerIdentifier:privateDataContainerIdentifier:privateDataSecureContainerIdentifier:storeFrontID:environment:]";
+    v43 = 2080;
+    v44 = "FCContextConfiguration.m";
+    v45 = 1024;
+    v46 = 43;
+    v47 = 2114;
+    v48 = v36;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (containerIdentifierCopy)
@@ -88,22 +90,22 @@ uint64_t __46__FCContextConfiguration_defaultConfiguration__block_invoke()
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataContainerIdentifier"];
+    v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataContainerIdentifier"];
     *buf = 136315906;
-    v43 = "[FCContextConfiguration initWithProductionContentEnvironment:productionPrivateDataEnvironment:contentContainerIdentifier:privateDataContainerIdentifier:privateDataSecureContainerIdentifier:storeFrontID:environment:]";
-    v44 = 2080;
-    v45 = "FCContextConfiguration.m";
-    v46 = 1024;
-    v47 = 44;
-    v48 = 2114;
-    v49 = v38;
+    v42 = "[FCContextConfiguration initWithProductionContentEnvironment:productionPrivateDataEnvironment:contentContainerIdentifier:privateDataContainerIdentifier:privateDataSecureContainerIdentifier:storeFrontID:environment:]";
+    v43 = 2080;
+    v44 = "FCContextConfiguration.m";
+    v45 = 1024;
+    v46 = 44;
+    v47 = 2114;
+    v48 = v37;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v41.receiver = self;
-  v41.super_class = FCContextConfiguration;
-  v18 = [(FCContextConfiguration *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = FCContextConfiguration;
+  v18 = [(FCContextConfiguration *)&v40 init];
   v19 = v18;
   if (v18)
   {
@@ -142,7 +144,7 @@ LABEL_6:
 
     else
     {
-      [v27 stringWithFormat:@"%@-%@", identifierCopy, v28, v39];
+      [v27 stringWithFormat:@"%@-%@", identifierCopy, v28, v38];
     }
     v30 = ;
     contentContainerCombinationIdentifier = v19->_contentContainerCombinationIdentifier;
@@ -163,20 +165,19 @@ LABEL_6:
     v19->_privateDataContainerCombinationIdentifier = v33;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (FCContextConfiguration)initWithEnvironment:(int64_t)environment
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v5 = +[FCAppleAccount sharedAccount];
   contentStoreFrontID = [v5 contentStoreFrontID];
 
   v7 = 0;
   v8 = 1;
   selfCopy = self;
-  v30 = contentStoreFrontID;
+  v29 = contentStoreFrontID;
   if (environment > 3)
   {
     if (environment > 5)
@@ -294,15 +295,15 @@ LABEL_21:
 
   if (!v10 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"must have a content container identifier"];
+    v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"must have a content container identifier"];
     *buf = 136315906;
-    v32 = "[FCContextConfiguration initWithEnvironment:]";
-    v33 = 2080;
-    v34 = "FCContextConfiguration.m";
-    v35 = 1024;
-    v36 = 179;
-    v37 = 2114;
-    v38 = v27;
+    v31 = "[FCContextConfiguration initWithEnvironment:]";
+    v32 = 2080;
+    v33 = "FCContextConfiguration.m";
+    v34 = 1024;
+    v35 = 179;
+    v36 = 2114;
+    v37 = v26;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (v9)
@@ -318,22 +319,21 @@ LABEL_21:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"must have a private container identifier"];
+    v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"must have a private container identifier"];
     *buf = 136315906;
-    v32 = "[FCContextConfiguration initWithEnvironment:]";
-    v33 = 2080;
-    v34 = "FCContextConfiguration.m";
-    v35 = 1024;
-    v36 = 180;
-    v37 = 2114;
-    v38 = v28;
+    v31 = "[FCContextConfiguration initWithEnvironment:]";
+    v32 = 2080;
+    v33 = "FCContextConfiguration.m";
+    v34 = 1024;
+    v35 = 180;
+    v36 = 2114;
+    v37 = v27;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_32:
-  v24 = [(FCContextConfiguration *)selfCopy initWithProductionContentEnvironment:v8 productionPrivateDataEnvironment:v23 contentContainerIdentifier:v10 privateDataContainerIdentifier:v9 privateDataSecureContainerIdentifier:v7 storeFrontID:v30 environment:environment];
+  v24 = [(FCContextConfiguration *)selfCopy initWithProductionContentEnvironment:v8 productionPrivateDataEnvironment:v23 contentContainerIdentifier:v10 privateDataContainerIdentifier:v9 privateDataSecureContainerIdentifier:v7 storeFrontID:v29 environment:environment];
 
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 

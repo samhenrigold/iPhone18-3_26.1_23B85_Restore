@@ -8,11 +8,11 @@ void sub_1A5A050DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::manipulators::PaddedStringManipulator<vega::Date>::parse_from_string(uint64_t a1, const std::string *a2)
+uint64_t vega::manipulators::PaddedStringManipulator<vega::Date>::parse_from_string(uint64_t *a1, const std::string *a2)
 {
   std::istringstream::basic_istringstream[abi:ne200100](v14, a2, 8);
   memset(&__str, 0, sizeof(__str));
-  std::vector<vega::Date>::__base_destruct_at_end[abi:ne200100](a1 + 8, *(a1 + 8));
+  std::vector<vega::Date>::__base_destruct_at_end[abi:ne200100]((a1 + 1), a1[1]);
   while (1)
   {
     v3 = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v14, &__str, 0x5Cu);
@@ -41,13 +41,13 @@ LABEL_8:
           __str.__r_.__value_.__r.__words[2] = v11;
         }
 
-        vega::Date::Date(&v10, &__str);
-        v6 = *(a1 + 16);
-        if (v6 >= *(a1 + 24))
+        vega::Date::Date(&v10);
+        v6 = a1[2];
+        if (v6 >= a1[3])
         {
-          v7 = std::vector<vega::Date>::__emplace_back_slow_path<vega::Date>(a1 + 8, &v10);
+          v7 = std::vector<vega::Date>::__emplace_back_slow_path<vega::Date>((a1 + 1), &v10);
           v8 = *(&v12 + 1);
-          *(a1 + 16) = v7;
+          a1[2] = v7;
           if (v8)
           {
             std::__shared_weak_count::__release_shared[abi:ne200100](v8);
@@ -62,7 +62,7 @@ LABEL_8:
           v11 = 0uLL;
           v6[2] = v12;
           v12 = 0uLL;
-          *(a1 + 16) = v6 + 3;
+          a1[2] = (v6 + 3);
         }
 
         if (*(&v11 + 1))
@@ -114,7 +114,7 @@ void sub_1A5A053E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t vega::to_json<vega::Date>@<X0>(vega::dictionary::Page **a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::to_json<vega::Date>@<X0>(vega::dictionary::Page **a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   vega::to_json<std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>,vega::Date>(v6, a1);
@@ -135,9 +135,9 @@ uint64_t vega::to_json<vega::Date>@<X0>(vega::dictionary::Page **a1@<X0>, _BYTE 
   return MEMORY[0x1AC552AF0](&v10);
 }
 
-void sub_1A5A055A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A055A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -162,7 +162,7 @@ void sub_1A5A05690(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::manipulators::PaddedStringManipulator<vega::DecimalString>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::PaddedStringManipulator<vega::DecimalString>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v17);
   v4 = *(a1 + 8);
@@ -173,7 +173,7 @@ uint64_t vega::manipulators::PaddedStringManipulator<vega::DecimalString>::str@<
     v7 = 0;
     do
     {
-      vega::DecimalString::str((v4 + v5), &__p);
+      vega::DecimalString::str(&__p, (v4 + v5));
       if ((v16 & 0x80u) == 0)
       {
         p_p = &__p;
@@ -256,7 +256,7 @@ BOOL vega::manipulators::PaddedStringManipulator<vega::DecimalString>::read_from
     v14 = 0;
     v8 = 1;
     v9 = a3;
-    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2) & 1) != 0)
+    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2, &v14) & 1) != 0)
     {
       v10 = v14;
       __p.__r_.__value_.__s.__data_[0] = v14;
@@ -572,7 +572,7 @@ void sub_1A5A06120(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t vega::to_json<vega::DecimalString>@<X0>(double *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::to_json<vega::DecimalString>@<X0>(double *a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   vega::operator<<(&v7, a1);
@@ -593,9 +593,9 @@ uint64_t vega::to_json<vega::DecimalString>@<X0>(double *a1@<X0>, _BYTE *a2@<X8>
   return MEMORY[0x1AC552AF0](&v11);
 }
 
-void sub_1A5A062D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A062D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -610,16 +610,16 @@ void std::__shared_ptr_emplace<vega::manipulators::DateTimeManipulator>::~__shar
 
 void vega::manipulators::DateTimeManipulator::~DateTimeManipulator(vega::manipulators::DateTimeManipulator *this)
 {
-  v2 = (this + 8);
-  std::vector<vega::DateTime>::__destroy_vector::operator()[abi:ne200100](&v2);
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  v1 = (this + 8);
+  std::vector<vega::DateTime>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
-  v3 = (this + 8);
-  std::vector<vega::DateTime>::__destroy_vector::operator()[abi:ne200100](&v3);
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(this);
-  MEMORY[0x1AC552B90](EncodeAccelerationModeOverride, 0xA1C4030951706);
+  v1 = (this + 8);
+  std::vector<vega::DateTime>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  MEMORY[0x1AC552B90]();
 }
 
 void sub_1A5A0648C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -632,7 +632,7 @@ void sub_1A5A0648C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::manipulators::PaddedStringManipulator<vega::DateTime>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::PaddedStringManipulator<vega::DateTime>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v17);
   v4 = *(a1 + 8);
@@ -643,7 +643,7 @@ uint64_t vega::manipulators::PaddedStringManipulator<vega::DateTime>::str@<X0>(u
     v7 = 0;
     do
     {
-      vega::DateTime::str(&__p, (v4 + v5));
+      vega::DateTime::str((v4 + v5), &__p);
       if ((v16 & 0x80u) == 0)
       {
         p_p = &__p;
@@ -726,7 +726,7 @@ BOOL vega::manipulators::PaddedStringManipulator<vega::DateTime>::read_from(uint
     v14 = 0;
     v8 = 1;
     v9 = a3;
-    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2) & 1) != 0)
+    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2, &v14) & 1) != 0)
     {
       v10 = v14;
       __p.__r_.__value_.__s.__data_[0] = v14;
@@ -943,7 +943,7 @@ void std::vector<vega::DateTime>::__base_destruct_at_end[abi:ne200100](uint64_t 
   *(a1 + 8) = a2;
 }
 
-void *std::vector<vega::DateTime>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<vega::DateTime>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 4) < a2)
   {
@@ -958,9 +958,9 @@ void *std::vector<vega::DateTime>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_1A5A06E0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A06E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<vega::DateTime>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -998,7 +998,7 @@ LABEL_8:
           __str.__r_.__value_.__r.__words[2] = v11;
         }
 
-        vega::DateTime::DateTime(&v10, &__str);
+        vega::DateTime::DateTime(&v10);
         v6 = *(a1 + 16);
         if (v6 >= *(a1 + 24))
         {
@@ -1212,14 +1212,14 @@ uint64_t std::vector<vega::DateTime>::__emplace_back_slow_path<vega::DateTime>(u
   return v13;
 }
 
-void sub_1A5A073AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1A5A073AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<vega::DateTime>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::DateTime>,(vega::manipulators::PaddedStringManipulator<vega::DateTime>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::DateTime>,(vega::manipulators::PaddedStringManipulator<vega::DateTime>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -1228,14 +1228,14 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::DateT
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<vega::DateTime>(a1, v4);
+    vega::Json::value_to_json<vega::DateTime>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -1248,12 +1248,12 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::DateT
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<vega::DateTime>(a1, &v4[v9]);
+        vega::Json::value_to_json<vega::DateTime>(result, &v4[v9]);
         v4 = *(a2 + 8);
         v11 = 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 16) - v4) >> 4);
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
           v4 = *(a2 + 8);
@@ -1267,9 +1267,9 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::DateT
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -1278,7 +1278,7 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::DateT
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
@@ -1302,7 +1302,7 @@ void sub_1A5A075A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::to_json<vega::DateTime>@<X0>(vega::dictionary::Page **a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::to_json<vega::DateTime>@<X0>(vega::dictionary::Page **a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   vega::to_json<std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>,vega::DateTime>(v6, a1);
@@ -1323,9 +1323,9 @@ uint64_t vega::to_json<vega::DateTime>@<X0>(vega::dictionary::Page **a1@<X0>, _B
   return MEMORY[0x1AC552AF0](&v10);
 }
 
-void sub_1A5A07740(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A07740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -1340,22 +1340,22 @@ uint64_t vega::to_json<std::basic_stringstream<char,std::char_traits<char>,std::
   return a1;
 }
 
-void *vega::Json::from_json<vega::manipulators::PaddedStringManipulator<vega::DateTime> &,vega::DateTime>(void *a1)
+void vega::Json::from_json<vega::manipulators::PaddedStringManipulator<vega::DateTime> &,vega::DateTime>(void *a1, uint64_t a2)
 {
-  v2 = std::istream::peek();
-  v5 = v2;
-  if (v2 == 34)
+  v3 = std::istream::peek();
+  v5 = v3;
+  if (v3 == 34)
   {
     vega::Json::value_from_json<vega::DateTime>(a1, &v4);
   }
 
-  if (v2 == 91)
+  if (v3 == 91)
   {
     std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
     vega::Json::value_from_json<vega::DateTime>(a1, &v4);
   }
 
-  if (v2 != 110)
+  if (v3 != 110)
   {
     vega::Json::value_from_json<vega::DateTime>(a1, &v4);
   }
@@ -1363,7 +1363,7 @@ void *vega::Json::from_json<vega::manipulators::PaddedStringManipulator<vega::Da
   std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
   std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
   std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
-  return std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
+  std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
 }
 
 void vega::Json::value_from_json<vega::DateTime>(void *a1@<X0>, vega::DateTime *a2@<X8>)
@@ -1401,7 +1401,7 @@ void vega::manipulators::FloatingPointManipulator::~FloatingPointManipulator(veg
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -1412,12 +1412,12 @@ void vega::manipulators::FloatingPointManipulator::~FloatingPointManipulator(veg
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
 
-uint64_t vega::manipulators::FixedSizeElementManipulator<float>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::FixedSizeElementManipulator<float>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v13);
   if (*(a1 + 16) != *(a1 + 8))
@@ -1663,7 +1663,7 @@ uint64_t vega::manipulators::FixedSizeElementManipulator<float>::operator==(uint
   return result;
 }
 
-void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<float>,(vega::manipulators::FixedSizeElementManipulator<float>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<float>,(vega::manipulators::FixedSizeElementManipulator<float>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -1672,14 +1672,14 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<float>,
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<float>(a1);
+    vega::Json::value_to_json<float>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -1692,14 +1692,16 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<float>,
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<float>(a1);
-        v11 = (*(a2 + 16) - *(a2 + 8)) >> 2;
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        vega::Json::value_to_json<float>(result, v4 + v9);
+        v4 = *(a2 + 8);
+        v11 = (*(a2 + 16) - v4) >> 2;
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
-          v11 = (*(a2 + 16) - *(a2 + 8)) >> 2;
+          v4 = *(a2 + 8);
+          v11 = (*(a2 + 16) - v4) >> 2;
         }
 
         ++v10;
@@ -1709,9 +1711,9 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<float>,
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -1720,15 +1722,15 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<float>,
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
-void vega::Json::value_to_json<float>(uint64_t a1)
+void vega::Json::value_to_json<float>(uint64_t a1, uint64_t a2)
 {
   vega::to_json<float>(__p);
   vega::operator<<<std::string>(a1, __p);
-  if (v3 < 0)
+  if (v4 < 0)
   {
     operator delete(__p[0]);
   }
@@ -1744,30 +1746,30 @@ void sub_1A5A08474(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::to_json<float>@<X0>(_BYTE *a1@<X8>)
+uint64_t vega::to_json<float>@<X0>(void *a2@<X8>)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v4);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v5);
   std::ostream::operator<<();
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v4, a1);
-  v4[0] = *MEMORY[0x1E69E54D8];
-  v2 = *(MEMORY[0x1E69E54D8] + 72);
-  *(v4 + *(v4[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
-  v4[2] = v2;
-  v5 = MEMORY[0x1E69E5548] + 16;
-  if (v7 < 0)
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v5, a2);
+  v5[0] = *MEMORY[0x1E69E54D8];
+  v3 = *(MEMORY[0x1E69E54D8] + 72);
+  *(v5 + *(v5[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+  v5[2] = v3;
+  v6 = MEMORY[0x1E69E5548] + 16;
+  if (v8 < 0)
   {
-    operator delete(v6[7].__locale_);
+    operator delete(v7[7].__locale_);
   }
 
-  v5 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v6);
+  v6 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v7);
   std::iostream::~basic_iostream();
-  return MEMORY[0x1AC552AF0](&v8);
+  return MEMORY[0x1AC552AF0](&v9);
 }
 
-void sub_1A5A08618(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A08618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -1992,7 +1994,7 @@ void vega::manipulators::FloatingPointDoubleManipulator::~FloatingPointDoubleMan
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -2003,12 +2005,12 @@ void vega::manipulators::FloatingPointDoubleManipulator::~FloatingPointDoubleMan
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
 
-uint64_t vega::manipulators::FixedSizeElementManipulator<double>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::FixedSizeElementManipulator<double>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v15);
   v5 = *(a1 + 8);
@@ -2314,7 +2316,7 @@ uint64_t vega::dicom::RawWriter::write_from<double>(vega::dicom::IOState *a1, ui
   return 8;
 }
 
-void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<double>,(vega::manipulators::FixedSizeElementManipulator<double>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<double>,(vega::manipulators::FixedSizeElementManipulator<double>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -2323,14 +2325,14 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<double>
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<double>(a1, v4);
+    vega::Json::value_to_json<double>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -2343,12 +2345,12 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<double>
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<double>(a1, &v4[v9]);
+        vega::Json::value_to_json<double>(result, &v4[v9]);
         v4 = *(a2 + 8);
         v11 = (*(a2 + 16) - v4) >> 3;
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
           v4 = *(a2 + 8);
@@ -2362,9 +2364,9 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<double>
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -2373,7 +2375,7 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<double>
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
@@ -2397,7 +2399,7 @@ void sub_1A5A093E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::to_json<double>@<X0>(double *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::to_json<double>@<X0>(double *a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   MEMORY[0x1AC5528F0](&v7, *a1);
@@ -2418,9 +2420,9 @@ uint64_t vega::to_json<double>@<X0>(double *a1@<X0>, _BYTE *a2@<X8>)
   return MEMORY[0x1AC552AF0](&v11);
 }
 
-void sub_1A5A09588(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A09588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -2638,7 +2640,7 @@ void sub_1A5A09984(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::manipulators::PaddedStringManipulator<int>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::PaddedStringManipulator<int>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v15);
   v4 = *(a1 + 8);
@@ -2732,7 +2734,7 @@ BOOL vega::manipulators::PaddedStringManipulator<int>::read_from(uint64_t a1, ve
     v14 = 0;
     v8 = 1;
     v9 = a3;
-    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2) & 1) != 0)
+    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2, &v14) & 1) != 0)
     {
       v10 = v14;
       __p.__r_.__value_.__s.__data_[0] = v14;
@@ -3048,7 +3050,7 @@ void sub_1A5A0A408(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t vega::to_json<int>@<X0>(unsigned int *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::to_json<int>@<X0>(unsigned int *a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   MEMORY[0x1AC552910](&v7, *a1);
@@ -3069,14 +3071,14 @@ uint64_t vega::to_json<int>@<X0>(unsigned int *a1@<X0>, _BYTE *a2@<X8>)
   return MEMORY[0x1AC552AF0](&v11);
 }
 
-void sub_1A5A0A5C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A0A5C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t vega::manipulators::FixedSizeElementManipulator<vega::Word>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::FixedSizeElementManipulator<vega::Word>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v13);
   if (*(a1 + 16) != *(a1 + 8))
@@ -3223,7 +3225,7 @@ uint64_t vega::manipulators::FixedSizeElementManipulator<vega::Word>::read_from(
     }
 
     a1[2] = v10;
-    result = vega::dicom::RawReader::read_into<unsigned short>(a2);
+    result = vega::dicom::RawReader::read_into<unsigned short>(a2, v10 - 2);
     if (result)
     {
       v20 = v7 >= a3;
@@ -3274,7 +3276,7 @@ uint64_t vega::manipulators::FixedSizeElementManipulator<vega::Word>::write_to(u
   v5 = 0;
   do
   {
-    v5 += vega::dicom::RawWriter::write_from<unsigned short>(a2);
+    v5 += vega::dicom::RawWriter::write_from<unsigned short>(a2, v2);
     v2 += 2;
   }
 
@@ -3324,7 +3326,7 @@ uint64_t vega::manipulators::FixedSizeElementManipulator<vega::Word>::operator==
   return result;
 }
 
-uint64_t vega::to_json<vega::Word>@<X0>(unsigned __int16 *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::to_json<vega::Word>@<X0>(unsigned __int16 *a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   MEMORY[0x1AC552920](&v7, *a1);
@@ -3345,9 +3347,9 @@ uint64_t vega::to_json<vega::Word>@<X0>(unsigned __int16 *a1@<X0>, _BYTE *a2@<X8
   return MEMORY[0x1AC552AF0](&v11);
 }
 
-void sub_1A5A0AD40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A0AD40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -3369,7 +3371,7 @@ void vega::manipulators::OtherFloatManipulator::~OtherFloatManipulator(vega::man
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -3380,7 +3382,7 @@ void vega::manipulators::OtherFloatManipulator::~OtherFloatManipulator(vega::man
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -3409,7 +3411,7 @@ void vega::manipulators::OtherDoubleManipulator::~OtherDoubleManipulator(vega::m
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -3420,7 +3422,7 @@ void vega::manipulators::OtherDoubleManipulator::~OtherDoubleManipulator(vega::m
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -3442,16 +3444,16 @@ void std::__shared_ptr_emplace<vega::manipulators::ShortStringManipulator>::~__s
 
 void vega::manipulators::ShortStringManipulator::~ShortStringManipulator(vega::manipulators::ShortStringManipulator *this)
 {
-  v2 = (this + 8);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v2);
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  v1 = (this + 8);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
-  v3 = (this + 8);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(this);
-  MEMORY[0x1AC552B90](EncodeAccelerationModeOverride, 0xA1C4030951706);
+  v1 = (this + 8);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  MEMORY[0x1AC552B90]();
 }
 
 BOOL vega::manipulators::ShortStringManipulator::is_valid_for (vega::manipulators::ShortStringManipulator *this, const vega::VR *a2)
@@ -3478,7 +3480,7 @@ void vega::manipulators::SignedLongManipulator::~SignedLongManipulator(vega::man
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -3489,12 +3491,12 @@ void vega::manipulators::SignedLongManipulator::~SignedLongManipulator(vega::man
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
 
-uint64_t vega::manipulators::FixedSizeElementManipulator<int>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::FixedSizeElementManipulator<int>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v13);
   v4 = *(a1 + 8);
@@ -3712,8 +3714,8 @@ void *vega::manipulators::FixedSizeElementManipulator<int>::operator==(uint64_t 
     v4 = result;
     v5 = *(a1 + 8);
     v6 = *(a1 + 16) - v5;
-    v7 = *(v4 + 8);
-    if (v6 == *(v4 + 16) - v7)
+    v7 = v4[1];
+    if (v6 == v4[2] - v7)
     {
       return (memcmp(v5, v7, v6) == 0);
     }
@@ -3902,7 +3904,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t vega::manipulators::FixedSizeElementManipulator<short>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::FixedSizeElementManipulator<short>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v13);
   v4 = *(a1 + 8);
@@ -4051,7 +4053,7 @@ uint64_t vega::manipulators::FixedSizeElementManipulator<short>::read_from(void 
     }
 
     a1[2] = v10;
-    result = vega::dicom::RawReader::read_into<unsigned short>(a2);
+    result = vega::dicom::RawReader::read_into<unsigned short>(a2, v10 - 2);
     if (result)
     {
       v19 = v7 >= a3;
@@ -4102,7 +4104,7 @@ uint64_t vega::manipulators::FixedSizeElementManipulator<short>::write_to(uint64
   v5 = 0;
   do
   {
-    v5 += vega::dicom::RawWriter::write_from<unsigned short>(a2);
+    v5 += vega::dicom::RawWriter::write_from<unsigned short>(a2, v2);
     v2 += 2;
   }
 
@@ -4117,8 +4119,8 @@ void *vega::manipulators::FixedSizeElementManipulator<short>::operator==(uint64_
     v4 = result;
     v5 = *(a1 + 8);
     v6 = *(a1 + 16) - v5;
-    v7 = *(v4 + 8);
-    if (v6 == *(v4 + 16) - v7)
+    v7 = v4[1];
+    if (v6 == v4[2] - v7)
     {
       return (memcmp(v5, v7, v6) == 0);
     }
@@ -4132,7 +4134,7 @@ void *vega::manipulators::FixedSizeElementManipulator<short>::operator==(uint64_
   return result;
 }
 
-uint64_t vega::to_json<short>@<X0>(__int16 *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::to_json<short>@<X0>(__int16 *a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   MEMORY[0x1AC552910](&v7, *a1);
@@ -4153,9 +4155,9 @@ uint64_t vega::to_json<short>@<X0>(__int16 *a1@<X0>, _BYTE *a2@<X8>)
   return MEMORY[0x1AC552AF0](&v11);
 }
 
-void sub_1A5A0C33C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A0C33C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -4170,7 +4172,7 @@ void sub_1A5A0C3C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::manipulators::PaddedStringManipulator<vega::Time>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::PaddedStringManipulator<vega::Time>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v17);
   v4 = *(a1 + 8);
@@ -4264,7 +4266,7 @@ BOOL vega::manipulators::PaddedStringManipulator<vega::Time>::read_from(uint64_t
     v14 = 0;
     v8 = 1;
     v9 = a3;
-    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2) & 1) != 0)
+    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2, &v14) & 1) != 0)
     {
       v10 = v14;
       __p.__r_.__value_.__s.__data_[0] = v14;
@@ -4485,7 +4487,7 @@ LABEL_8:
           __str.__r_.__value_.__r.__words[2] = v11;
         }
 
-        vega::Time::Time(&v10, &__str);
+        vega::Time::Time(&v10);
         v6 = *(a1 + 16);
         if (v6 >= *(a1 + 24))
         {
@@ -4558,7 +4560,7 @@ void sub_1A5A0CE20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t vega::to_json<vega::Time>@<X0>(vega::dictionary::Page **a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::to_json<vega::Time>@<X0>(vega::dictionary::Page **a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   vega::to_json<std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>,vega::Time>(v6, a1);
@@ -4579,9 +4581,9 @@ uint64_t vega::to_json<vega::Time>@<X0>(vega::dictionary::Page **a1@<X0>, _BYTE 
   return MEMORY[0x1AC552AF0](&v10);
 }
 
-void sub_1A5A0CFE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A0CFE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -4613,7 +4615,7 @@ void vega::manipulators::UnsignedLongManipulator::~UnsignedLongManipulator(vega:
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -4624,12 +4626,12 @@ void vega::manipulators::UnsignedLongManipulator::~UnsignedLongManipulator(vega:
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
 
-uint64_t vega::manipulators::FixedSizeElementManipulator<unsigned int>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::FixedSizeElementManipulator<unsigned int>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v13);
   v4 = *(a1 + 8);
@@ -4847,8 +4849,8 @@ void *vega::manipulators::FixedSizeElementManipulator<unsigned int>::operator==(
     v4 = result;
     v5 = *(a1 + 8);
     v6 = *(a1 + 16) - v5;
-    v7 = *(v4 + 8);
-    if (v6 == *(v4 + 16) - v7)
+    v7 = v4[1];
+    if (v6 == v4[2] - v7)
     {
       return (memcmp(v5, v7, v6) == 0);
     }
@@ -4862,7 +4864,7 @@ void *vega::manipulators::FixedSizeElementManipulator<unsigned int>::operator==(
   return result;
 }
 
-void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigned int>,(vega::manipulators::FixedSizeElementManipulator<unsigned int>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigned int>,(vega::manipulators::FixedSizeElementManipulator<unsigned int>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -4871,14 +4873,14 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigne
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<unsigned int>(a1, v4);
+    vega::Json::value_to_json<unsigned int>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -4891,12 +4893,12 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigne
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<unsigned int>(a1, &v4[v9]);
+        vega::Json::value_to_json<unsigned int>(result, &v4[v9]);
         v4 = *(a2 + 8);
         v11 = (*(a2 + 16) - v4) >> 2;
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
           v4 = *(a2 + 8);
@@ -4910,9 +4912,9 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigne
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -4921,7 +4923,7 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigne
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
@@ -4945,7 +4947,7 @@ void sub_1A5A0D978(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::to_json<unsigned int>@<X0>(unsigned int *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::to_json<unsigned int>@<X0>(unsigned int *a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   MEMORY[0x1AC552920](&v7, *a1);
@@ -4966,9 +4968,9 @@ uint64_t vega::to_json<unsigned int>@<X0>(unsigned int *a1@<X0>, _BYTE *a2@<X8>)
   return MEMORY[0x1AC552AF0](&v11);
 }
 
-void sub_1A5A0DB1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A0DB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -5193,7 +5195,7 @@ void vega::manipulators::UnknownManipulator::~UnknownManipulator(vega::manipulat
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -5204,7 +5206,7 @@ void vega::manipulators::UnknownManipulator::~UnknownManipulator(vega::manipulat
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -5216,7 +5218,7 @@ BOOL vega::manipulators::UnknownManipulator::is_valid_for (vega::manipulators::U
   return vega::Word::operator==(a2, &word_1ED6FA7C0);
 }
 
-uint64_t vega::manipulators::FixedSizeElementManipulator<unsigned short>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::FixedSizeElementManipulator<unsigned short>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v13);
   v4 = *(a1 + 8);
@@ -5365,7 +5367,7 @@ uint64_t vega::manipulators::FixedSizeElementManipulator<unsigned short>::read_f
     }
 
     a1[2] = v10;
-    result = vega::dicom::RawReader::read_into<unsigned short>(a2);
+    result = vega::dicom::RawReader::read_into<unsigned short>(a2, v10 - 2);
     if (result)
     {
       v19 = v7 >= a3;
@@ -5416,7 +5418,7 @@ uint64_t vega::manipulators::FixedSizeElementManipulator<unsigned short>::write_
   v5 = 0;
   do
   {
-    v5 += vega::dicom::RawWriter::write_from<unsigned short>(a2);
+    v5 += vega::dicom::RawWriter::write_from<unsigned short>(a2, v2);
     v2 += 2;
   }
 
@@ -5431,8 +5433,8 @@ void *vega::manipulators::FixedSizeElementManipulator<unsigned short>::operator=
     v4 = result;
     v5 = *(a1 + 8);
     v6 = *(a1 + 16) - v5;
-    v7 = *(v4 + 8);
-    if (v6 == *(v4 + 16) - v7)
+    v7 = v4[1];
+    if (v6 == v4[2] - v7)
     {
       return (memcmp(v5, v7, v6) == 0);
     }
@@ -5446,7 +5448,7 @@ void *vega::manipulators::FixedSizeElementManipulator<unsigned short>::operator=
   return result;
 }
 
-uint64_t vega::to_json<unsigned short>@<X0>(unsigned __int16 *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::to_json<unsigned short>@<X0>(unsigned __int16 *a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   MEMORY[0x1AC552920](&v7, *a1);
@@ -5467,9 +5469,9 @@ uint64_t vega::to_json<unsigned short>@<X0>(unsigned __int16 *a1@<X0>, _BYTE *a2
   return MEMORY[0x1AC552AF0](&v11);
 }
 
-void sub_1A5A0E768(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A0E768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -5502,7 +5504,7 @@ void vega::manipulators::UnlimitedTextManipulator::~UnlimitedTextManipulator(voi
     operator delete(this[1]);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -5512,7 +5514,7 @@ void vega::manipulators::UnlimitedTextManipulator::~UnlimitedTextManipulator(voi
     operator delete(this[1]);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -5541,7 +5543,7 @@ void vega::manipulators::SignedVeryLongManipulator::~SignedVeryLongManipulator(v
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -5552,12 +5554,12 @@ void vega::manipulators::SignedVeryLongManipulator::~SignedVeryLongManipulator(v
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
 
-uint64_t vega::manipulators::FixedSizeElementManipulator<long long>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::FixedSizeElementManipulator<long long>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v13);
   v4 = *(a1 + 8);
@@ -5775,8 +5777,8 @@ void *vega::manipulators::FixedSizeElementManipulator<long long>::operator==(uin
     v4 = result;
     v5 = *(a1 + 8);
     v6 = *(a1 + 16) - v5;
-    v7 = *(v4 + 8);
-    if (v6 == *(v4 + 16) - v7)
+    v7 = v4[1];
+    if (v6 == v4[2] - v7)
     {
       return (memcmp(v5, v7, v6) == 0);
     }
@@ -5790,7 +5792,7 @@ void *vega::manipulators::FixedSizeElementManipulator<long long>::operator==(uin
   return result;
 }
 
-void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<long long>,(vega::manipulators::FixedSizeElementManipulator<long long>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<long long>,(vega::manipulators::FixedSizeElementManipulator<long long>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -5799,14 +5801,14 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<long lo
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<long long>(a1, v4);
+    vega::Json::value_to_json<long long>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -5819,12 +5821,12 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<long lo
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<long long>(a1, &v4[v9]);
+        vega::Json::value_to_json<long long>(result, &v4[v9]);
         v4 = *(a2 + 8);
         v11 = (*(a2 + 16) - v4) >> 3;
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
           v4 = *(a2 + 8);
@@ -5838,9 +5840,9 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<long lo
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -5849,7 +5851,7 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<long lo
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
@@ -5873,7 +5875,7 @@ void sub_1A5A0F328(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::to_json<long long>@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::to_json<long long>@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   MEMORY[0x1AC552930](&v7, *a1);
@@ -5894,9 +5896,9 @@ uint64_t vega::to_json<long long>@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
   return MEMORY[0x1AC552AF0](&v11);
 }
 
-void sub_1A5A0F4CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A0F4CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -6121,7 +6123,7 @@ void vega::manipulators::UnsignedVeryLongManipulator::~UnsignedVeryLongManipulat
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -6132,12 +6134,12 @@ void vega::manipulators::UnsignedVeryLongManipulator::~UnsignedVeryLongManipulat
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
 
-uint64_t vega::manipulators::FixedSizeElementManipulator<unsigned long long>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::FixedSizeElementManipulator<unsigned long long>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v13);
   v4 = *(a1 + 8);
@@ -6355,8 +6357,8 @@ void *vega::manipulators::FixedSizeElementManipulator<unsigned long long>::opera
     v4 = result;
     v5 = *(a1 + 8);
     v6 = *(a1 + 16) - v5;
-    v7 = *(v4 + 8);
-    if (v6 == *(v4 + 16) - v7)
+    v7 = v4[1];
+    if (v6 == v4[2] - v7)
     {
       return (memcmp(v5, v7, v6) == 0);
     }
@@ -6370,7 +6372,7 @@ void *vega::manipulators::FixedSizeElementManipulator<unsigned long long>::opera
   return result;
 }
 
-void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigned long long>,(vega::manipulators::FixedSizeElementManipulator<unsigned long long>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigned long long>,(vega::manipulators::FixedSizeElementManipulator<unsigned long long>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -6379,14 +6381,14 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigne
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<unsigned long long>(a1, v4);
+    vega::Json::value_to_json<unsigned long long>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -6399,12 +6401,12 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigne
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<unsigned long long>(a1, &v4[v9]);
+        vega::Json::value_to_json<unsigned long long>(result, &v4[v9]);
         v4 = *(a2 + 8);
         v11 = (*(a2 + 16) - v4) >> 3;
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
           v4 = *(a2 + 8);
@@ -6418,9 +6420,9 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigne
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -6429,7 +6431,7 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigne
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
@@ -6453,7 +6455,7 @@ void sub_1A5A1016C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::to_json<unsigned long long>@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::to_json<unsigned long long>@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   MEMORY[0x1AC552940](&v7, *a1);
@@ -6474,9 +6476,9 @@ uint64_t vega::to_json<unsigned long long>@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
   return MEMORY[0x1AC552AF0](&v11);
 }
 
-void sub_1A5A10310(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A10310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -6686,293 +6688,293 @@ uint64_t vega::Json::value_from_json<unsigned long long>(void *a1)
 
 void vega::vr::AE()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA7D0))
+  if (__cxa_guard_acquire(byte_1ED6FA7D0))
   {
     _MergedGlobals_15 = 17729;
 
-    __cxa_guard_release(&qword_1ED6FA7D0);
+    __cxa_guard_release(byte_1ED6FA7D0);
   }
 }
 
 void vega::vr::AS()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA7D8))
+  if (__cxa_guard_acquire(byte_1ED6FA7D8))
   {
     word_1ED6FA792 = 21313;
 
-    __cxa_guard_release(&qword_1ED6FA7D8);
+    __cxa_guard_release(byte_1ED6FA7D8);
   }
 }
 
 void vega::vr::AT()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA7E0))
+  if (__cxa_guard_acquire(byte_1ED6FA7E0))
   {
     word_1ED6FA794 = 21569;
 
-    __cxa_guard_release(&qword_1ED6FA7E0);
+    __cxa_guard_release(byte_1ED6FA7E0);
   }
 }
 
 {
-  if (__cxa_guard_acquire(qword_1ED6FA6F0))
+  if (__cxa_guard_acquire(byte_1ED6FA6F0))
   {
     word_1ED6FA6A0 = 21569;
 
-    __cxa_guard_release(qword_1ED6FA6F0);
+    __cxa_guard_release(byte_1ED6FA6F0);
   }
 }
 
 void vega::vr::CS()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA7E8))
+  if (__cxa_guard_acquire(byte_1ED6FA7E8))
   {
     word_1ED6FA796 = 21315;
 
-    __cxa_guard_release(&qword_1ED6FA7E8);
+    __cxa_guard_release(byte_1ED6FA7E8);
   }
 }
 
 void vega::vr::DA()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA7F0))
+  if (__cxa_guard_acquire(byte_1ED6FA7F0))
   {
     word_1ED6FA798 = 16708;
 
-    __cxa_guard_release(&qword_1ED6FA7F0);
+    __cxa_guard_release(byte_1ED6FA7F0);
   }
 }
 
 void vega::vr::DS()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA7F8))
+  if (__cxa_guard_acquire(byte_1ED6FA7F8))
   {
     word_1ED6FA79A = 21316;
 
-    __cxa_guard_release(&qword_1ED6FA7F8);
+    __cxa_guard_release(byte_1ED6FA7F8);
   }
 }
 
 void vega::vr::DT()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA800))
+  if (__cxa_guard_acquire(byte_1ED6FA800))
   {
     word_1ED6FA79C = 21572;
 
-    __cxa_guard_release(&qword_1ED6FA800);
+    __cxa_guard_release(byte_1ED6FA800);
   }
 }
 
 void vega::vr::FL()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA808))
+  if (__cxa_guard_acquire(byte_1ED6FA808))
   {
     word_1ED6FA79E = 19526;
 
-    __cxa_guard_release(&qword_1ED6FA808);
+    __cxa_guard_release(byte_1ED6FA808);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA6E0))
+  if (__cxa_guard_acquire(byte_1ED6FA6E0))
   {
     word_1ED6FA69C = 19526;
 
-    __cxa_guard_release(&qword_1ED6FA6E0);
+    __cxa_guard_release(byte_1ED6FA6E0);
   }
 }
 
 void vega::vr::FD()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA810))
+  if (__cxa_guard_acquire(byte_1ED6FA810))
   {
     word_1ED6FA7A0 = 17478;
 
-    __cxa_guard_release(&qword_1ED6FA810);
+    __cxa_guard_release(byte_1ED6FA810);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA6E8))
+  if (__cxa_guard_acquire(byte_1ED6FA6E8))
   {
     word_1ED6FA69E = 17478;
 
-    __cxa_guard_release(&qword_1ED6FA6E8);
+    __cxa_guard_release(byte_1ED6FA6E8);
   }
 }
 
 void vega::vr::IS()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA818))
+  if (__cxa_guard_acquire(byte_1ED6FA818))
   {
     word_1ED6FA7A2 = 21321;
 
-    __cxa_guard_release(&qword_1ED6FA818);
+    __cxa_guard_release(byte_1ED6FA818);
   }
 }
 
 void vega::vr::LO()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA820))
+  if (__cxa_guard_acquire(byte_1ED6FA820))
   {
     word_1ED6FA7A4 = 20300;
 
-    __cxa_guard_release(&qword_1ED6FA820);
+    __cxa_guard_release(byte_1ED6FA820);
   }
 }
 
 void vega::vr::LT()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA828))
+  if (__cxa_guard_acquire(byte_1ED6FA828))
   {
     word_1ED6FA7A6 = 21580;
 
-    __cxa_guard_release(&qword_1ED6FA828);
+    __cxa_guard_release(byte_1ED6FA828);
   }
 }
 
 void vega::vr::OF()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA840))
+  if (__cxa_guard_acquire(byte_1ED6FA840))
   {
     word_1ED6FA7AC = 17999;
 
-    __cxa_guard_release(&qword_1ED6FA840);
+    __cxa_guard_release(byte_1ED6FA840);
   }
 }
 
 void vega::vr::OD()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA848))
+  if (__cxa_guard_acquire(byte_1ED6FA848))
   {
     word_1ED6FA7AE = 17487;
 
-    __cxa_guard_release(&qword_1ED6FA848);
+    __cxa_guard_release(byte_1ED6FA848);
   }
 }
 
 void vega::vr::PN()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA850))
+  if (__cxa_guard_acquire(byte_1ED6FA850))
   {
     word_1ED6FA7B0 = 20048;
 
-    __cxa_guard_release(&qword_1ED6FA850);
+    __cxa_guard_release(byte_1ED6FA850);
   }
 }
 
 void vega::vr::SH()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA858))
+  if (__cxa_guard_acquire(byte_1ED6FA858))
   {
     word_1ED6FA7B2 = 18515;
 
-    __cxa_guard_release(&qword_1ED6FA858);
+    __cxa_guard_release(byte_1ED6FA858);
   }
 }
 
 void vega::vr::SL()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA860))
+  if (__cxa_guard_acquire(byte_1ED6FA860))
   {
     word_1ED6FA7B4 = 19539;
 
-    __cxa_guard_release(&qword_1ED6FA860);
+    __cxa_guard_release(byte_1ED6FA860);
   }
 }
 
 void vega::vr::ST()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA870))
+  if (__cxa_guard_acquire(byte_1ED6FA870))
   {
     word_1ED6FA7B8 = 21587;
 
-    __cxa_guard_release(&qword_1ED6FA870);
+    __cxa_guard_release(byte_1ED6FA870);
   }
 }
 
 void vega::vr::TM()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA878))
+  if (__cxa_guard_acquire(byte_1ED6FA878))
   {
     word_1ED6FA7BA = 19796;
 
-    __cxa_guard_release(&qword_1ED6FA878);
+    __cxa_guard_release(byte_1ED6FA878);
   }
 }
 
 void vega::vr::UI()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA880))
+  if (__cxa_guard_acquire(byte_1ED6FA880))
   {
     word_1ED6FA7BC = 18773;
 
-    __cxa_guard_release(&qword_1ED6FA880);
+    __cxa_guard_release(byte_1ED6FA880);
   }
 }
 
 void vega::vr::UL()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA888))
+  if (__cxa_guard_acquire(byte_1ED6FA888))
   {
     word_1ED6FA7BE = 19541;
 
-    __cxa_guard_release(&qword_1ED6FA888);
+    __cxa_guard_release(byte_1ED6FA888);
   }
 }
 
 void vega::vr::UN()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA890))
+  if (__cxa_guard_acquire(byte_1ED6FA890))
   {
     word_1ED6FA7C0 = 20053;
 
-    __cxa_guard_release(&qword_1ED6FA890);
+    __cxa_guard_release(byte_1ED6FA890);
   }
 }
 
 void vega::vr::UT()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA8A0))
+  if (__cxa_guard_acquire(byte_1ED6FA8A0))
   {
     word_1ED6FA7C4 = 21589;
 
-    __cxa_guard_release(&qword_1ED6FA8A0);
+    __cxa_guard_release(byte_1ED6FA8A0);
   }
 }
 
 void vega::vr::SV()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA8A8))
+  if (__cxa_guard_acquire(byte_1ED6FA8A8))
   {
     word_1ED6FA7C6 = 22099;
 
-    __cxa_guard_release(&qword_1ED6FA8A8);
+    __cxa_guard_release(byte_1ED6FA8A8);
   }
 }
 
 void vega::vr::UV()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA8B0))
+  if (__cxa_guard_acquire(byte_1ED6FA8B0))
   {
     word_1ED6FA7C8 = 22101;
 
-    __cxa_guard_release(&qword_1ED6FA8B0);
+    __cxa_guard_release(byte_1ED6FA8B0);
   }
 }
 
 void vega::manipulators::PixelDataManipulator::allows_vr()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA8C0))
+  if (__cxa_guard_acquire(byte_1ED6FA8C0))
   {
     word_1ED6FA7CA = 30831;
     qword_1ED6FA8B8 = &word_1ED6FA7CA;
 
-    __cxa_guard_release(&qword_1ED6FA8C0);
+    __cxa_guard_release(byte_1ED6FA8C0);
   }
 }
 
-uint64_t vega::dicom::RawReader::RawReader(uint64_t a1, void *a2)
+uint64_t vega::dicom::RawReader::RawReader(uint64_t a1, uint64_t *a2)
 {
   vega::dicom::IOState::IOState(a1);
   v4 = a2[1];
@@ -7019,21 +7021,21 @@ void sub_1A5A11094(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__n128 vega::dicom::RawReader::eof_pos@<Q0>(vega::dicom::RawReader *this@<X0>, uint64_t a2@<X8>)
+__n128 vega::dicom::RawReader::eof_pos@<Q0>(uint64_t *__return_ptr a1@<X8>, vega::dicom::RawReader *this@<X0>)
 {
   v2 = *(this + 9);
-  *(a2 + 96) = *(this + 8);
-  *(a2 + 112) = v2;
-  *(a2 + 128) = *(this + 20);
+  *(a1 + 6) = *(this + 8);
+  *(a1 + 7) = v2;
+  a1[16] = *(this + 20);
   v3 = *(this + 5);
-  *(a2 + 32) = *(this + 4);
-  *(a2 + 48) = v3;
+  *(a1 + 2) = *(this + 4);
+  *(a1 + 3) = v3;
   v4 = *(this + 7);
-  *(a2 + 64) = *(this + 6);
-  *(a2 + 80) = v4;
+  *(a1 + 4) = *(this + 6);
+  *(a1 + 5) = v4;
   result = *(this + 3);
-  *a2 = *(this + 2);
-  *(a2 + 16) = result;
+  *a1 = *(this + 2);
+  *(a1 + 1) = result;
   return result;
 }
 
@@ -7051,25 +7053,25 @@ BOOL vega::dicom::RawReader::eof(vega::dicom::RawReader *this)
 
 uint64_t vega::dicom::RawReader::read_into<vega::Tag>(vega::dicom::IOState *a1, vega::Tag *a2)
 {
-  CMPhotoGetEncodeAccelerationModeOverride(a2);
-  result = vega::dicom::RawReader::read_into<unsigned short>(a1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  result = vega::dicom::RawReader::read_into<unsigned short>(a1, v4);
   if (result)
   {
-    vega::Tag::element(a2);
+    v6 = vega::Tag::element(a2);
 
-    return vega::dicom::RawReader::read_into<unsigned short>(a1);
+    return vega::dicom::RawReader::read_into<unsigned short>(a1, v6);
   }
 
   return result;
 }
 
-uint64_t vega::dicom::RawReader::read_into<vega::VR>(vega::dicom::IOState *a1)
+uint64_t vega::dicom::RawReader::read_into<vega::VR>(vega::dicom::IOState *a1, uint64_t a2)
 {
-  result = vega::dicom::RawReader::read_into<vega::Byte>(a1);
+  result = vega::dicom::RawReader::read_into<vega::Byte>(a1, a2);
   if (result)
   {
 
-    return vega::dicom::RawReader::read_into<vega::Byte>(a1);
+    return vega::dicom::RawReader::read_into<vega::Byte>(a1, a2 + 1);
   }
 
   return result;
@@ -7255,31 +7257,31 @@ void *vega::operator>>(void *a1, _BYTE *a2)
   return a1;
 }
 
-void *vega::operator<<(void *a1)
+void *vega::operator<<(void *a1, uint64_t a2)
 {
   vega::to_string<vega::Word>(__p);
-  if ((v6 & 0x80u) == 0)
+  if ((v7 & 0x80u) == 0)
   {
-    v2 = __p;
+    v3 = __p;
   }
 
   else
   {
-    v2 = __p[0];
+    v3 = __p[0];
   }
 
-  if ((v6 & 0x80u) == 0)
+  if ((v7 & 0x80u) == 0)
   {
-    v3 = v6;
+    v4 = v7;
   }
 
   else
   {
-    v3 = __p[1];
+    v4 = __p[1];
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v3);
-  if (v6 < 0)
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v3, v4);
+  if (v7 < 0)
   {
     operator delete(__p[0]);
   }
@@ -7451,7 +7453,7 @@ LABEL_16:
   return a1;
 }
 
-uint64_t vega::DecimalString::str@<X0>(vega::DecimalString *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *vega::DecimalString::str@<X0>(uint64_t *__return_ptr a1@<X8>, vega::DecimalString *this@<X0>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v9);
   vega::operator<<(&v10, this);
@@ -7472,7 +7474,7 @@ uint64_t vega::DecimalString::str@<X0>(vega::DecimalString *this@<X0>, _BYTE *a2
     if ((v17 & 8) == 0)
     {
       v4 = 0;
-      a2[23] = 0;
+      *(a1 + 23) = 0;
       goto LABEL_14;
     }
 
@@ -7491,14 +7493,14 @@ uint64_t vega::DecimalString::str@<X0>(vega::DecimalString *this@<X0>, _BYTE *a2
     operator new();
   }
 
-  a2[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
-    memmove(a2, locale, v4);
+    memmove(a1, locale, v4);
   }
 
 LABEL_14:
-  a2[v4] = 0;
+  *(a1 + v4) = 0;
   v9[0] = *MEMORY[0x1E69E54D8];
   v7 = *(MEMORY[0x1E69E54D8] + 72);
   *(v9 + *(v9[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
@@ -7515,11 +7517,11 @@ LABEL_14:
   return MEMORY[0x1AC552AF0](&v18);
 }
 
-void sub_1A5A11E48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A11E48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va, MEMORY[0x1E69E54D8]);
-  MEMORY[0x1AC552AF0](v2 + 128);
+  MEMORY[0x1AC552AF0](v3 + 128);
   _Unwind_Resume(a1);
 }
 
@@ -7630,7 +7632,7 @@ uint64_t vega::dicom::DataSet::add_data_element(uint64_t a1, uint64_t a2)
 
   v9 = vega::dictionary::Page::name(*a2);
 
-  return std::__tree<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>>>::__emplace_unique_key_args<vega::Tag,vega::Tag&,std::shared_ptr<vega::dicom::DataElement>&>(a1 + 40, v9);
+  return std::__tree<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>>>::__emplace_unique_key_args<vega::Tag,vega::Tag&,std::shared_ptr<vega::dicom::DataElement>&>((a1 + 40), v9, v9, a2);
 }
 
 void sub_1A5A120B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -7654,20 +7656,20 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *vega::dicom::DataSet::data_element@<X0>(vega::dicom::DataSet *this@<X0>, const vega::Tag *a2@<X1>, void *a3@<X8>)
+uint64_t *vega::dicom::DataSet::data_element@<X0>(uint64_t *__return_ptr a1@<X8>, vega::dicom::DataSet *this@<X0>, const vega::Tag *a3@<X1>)
 {
-  result = std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::find<vega::Tag>(this + 40, a2);
+  result = std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::find<vega::Tag>(this + 40, a3);
   if ((this + 48) == result)
   {
-    *a3 = 0;
-    a3[1] = 0;
+    *a1 = 0;
+    a1[1] = 0;
   }
 
   else
   {
     v6 = result[6];
-    *a3 = result[5];
-    a3[1] = v6;
+    *a1 = result[5];
+    a1[1] = v6;
     if (v6)
     {
       atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
@@ -7677,61 +7679,57 @@ void *vega::dicom::DataSet::data_element@<X0>(vega::dicom::DataSet *this@<X0>, c
   return result;
 }
 
-uint64_t vega::dicom::DataSet::add_private_owner_block_if_relevant(uint64_t a1, vega::dicom::DataElement **a2)
+void vega::dicom::DataSet::add_private_owner_block_if_relevant(uint64_t a1, vega::dictionary::Page **a2)
 {
-  result = vega::dicom::DataElement::is_sequence(*a2);
-  if ((result & 1) == 0)
+  if ((vega::dicom::DataElement::is_sequence(*a2) & 1) == 0)
   {
-    v4 = vega::dictionary::Page::name(*a2);
-    result = vega::Tag::is_private_owner(v4);
-    if (result)
+    v3 = vega::dictionary::Page::name(*a2);
+    if (vega::Tag::is_private_owner(v3))
     {
-      vega::dicom::DataElement::get_manipulator<vega::manipulators::LongStringManipulator>(*a2, &v10);
-      v11 = &unk_1F1917B90;
+      vega::dicom::DataElement::get_manipulator<vega::manipulators::LongStringManipulator>(*a2, &v8);
+      v9 = &unk_1F1917B90;
+      v10 = 0;
+      v11 = 0;
       v12 = 0;
-      v13 = 0;
-      v14 = 0;
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v12, *(v10.__r_.__value_.__r.__words[0] + 8), *(v10.__r_.__value_.__r.__words[0] + 16), 0xAAAAAAAAAAAAAAABLL * ((*(v10.__r_.__value_.__r.__words[0] + 16) - *(v10.__r_.__value_.__r.__words[0] + 8)) >> 3));
-      v11 = &unk_1F1918680;
-      if (v10.__r_.__value_.__l.__size_)
+      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v10, *(v8.__r_.__value_.__r.__words[0] + 8), *(v8.__r_.__value_.__r.__words[0] + 16), 0xAAAAAAAAAAAAAAABLL * ((*(v8.__r_.__value_.__r.__words[0] + 16) - *(v8.__r_.__value_.__r.__words[0] + 8)) >> 3));
+      v9 = &unk_1F1918680;
+      if (v8.__r_.__value_.__l.__size_)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v10.__r_.__value_.__l.__size_);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v8.__r_.__value_.__l.__size_);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v10, "");
-      if (v13 != v12)
+      std::string::basic_string[abi:ne200100]<0>(&v8, "");
+      if (v11 != v10)
       {
-        std::string::operator=(&v10, v12);
+        std::string::operator=(&v8, v10);
       }
 
-      v5 = vega::dictionary::Dictionary::instance(1);
-      vega::dictionary::Dictionary::private_owner(v5, &v10.__r_.__value_.__l.__data_, &v8);
-      if (v8)
+      v4 = vega::dictionary::Dictionary::instance(1);
+      vega::dictionary::Dictionary::private_owner(v4, &v8, &v6);
+      if (v6)
       {
-        v6 = vega::dictionary::Page::name(*a2);
-        CMPhotoGetEncodeAccelerationModeOverride(v6);
-        v7 = vega::dictionary::Page::name(*a2);
-        vega::Tag::element(v7);
+        vega::dictionary::Page::name(*a2);
+        CMPhotoGetEncodeAccelerationModeOverride();
+        v5 = vega::dictionary::Page::name(*a2);
+        vega::Tag::element(v5);
         std::allocate_shared[abi:ne200100]<vega::dictionary::PrivateOwnerBlock,std::allocator<vega::dictionary::PrivateOwnerBlock>,std::shared_ptr<vega::dictionary::PrivateOwner> &,unsigned short &,unsigned short &,0>();
       }
 
-      if (v9)
+      if (v7)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v7);
       }
 
-      if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v10.__r_.__value_.__l.__data_);
+        operator delete(v8.__r_.__value_.__l.__data_);
       }
 
-      v10.__r_.__value_.__r.__words[0] = &v12;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v10);
-      return CMPhotoGetEncodeAccelerationModeOverride(&v11);
+      v8.__r_.__value_.__r.__words[0] = &v10;
+      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v8);
+      CMPhotoGetEncodeAccelerationModeOverride();
     }
   }
-
-  return result;
 }
 
 void sub_1A5A122E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
@@ -7765,7 +7763,7 @@ LABEL_11:
     return;
   }
 
-  vega::dictionary::PrivateOwnerBlocks::find_block(this[8], a2, &v10);
+  vega::dictionary::PrivateOwnerBlocks::find_block(&v10, this[8], a2);
   if (v10)
   {
     v6 = vega::dictionary::PrivateOwnerBlock::private_owner(v10);
@@ -7806,27 +7804,27 @@ void sub_1A5A1240C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::dicom::DataSet::page_for@<X0>(void **a1@<X1>, void *a2@<X8>)
+uint64_t vega::dicom::DataSet::page_for@<X0>(char *a1@<X1>, void *a2@<X8>)
 {
   v4 = vega::dictionary::Dictionary::instance(1);
 
   return vega::dictionary::Dictionary::page_for (v4, a1, a2);
 }
 
-void vega::dicom::DataSet::data_element(vega::dicom::DataSet *a1@<X0>, void **a2@<X1>, uint64_t a3@<X8>)
+void vega::dicom::DataSet::data_element(vega::dicom::DataSet *a1@<X0>, char *a2@<X1>, vega::dictionary::Page **a3@<X8>)
 {
   v6 = vega::dictionary::Dictionary::instance(1);
   vega::dictionary::Dictionary::page_for (v6, a2, &v8);
   if (v8)
   {
     v7 = vega::dictionary::Page::tag_mask(v8);
-    vega::dicom::DataSet::data_element(a1, v7, a3);
+    vega::dicom::DataSet::data_element(a3, a1, v7);
   }
 
   else
   {
     *a3 = 0;
-    *(a3 + 8) = 0;
+    a3[1] = 0;
   }
 
   if (v9)
@@ -7845,17 +7843,17 @@ void sub_1A5A124EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void vega::dicom::DataSet::data_element(vega::dicom::DataSet *this@<X0>, const vega::TagMask *a2@<X1>, vega::dictionary::Page **a3@<X8>)
+void vega::dicom::DataSet::data_element(vega::dictionary::Page **__return_ptr a1@<X8>, vega::dicom::DataSet *this@<X0>, const vega::TagMask *a3@<X1>)
 {
-  if (vega::Tag::tag((a2 + 4)) == -1)
+  if (vega::Tag::tag((a3 + 4)) == -1)
   {
-    v14 = vega::TagMask::singular_tag(a2);
+    v14 = vega::TagMask::singular_tag(a3);
     v15 = std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::find<vega::Tag>(this + 40, v14);
     if ((this + 48) != v15)
     {
       v16 = v15[6];
-      *a3 = v15[5];
-      a3[1] = v16;
+      *a1 = v15[5];
+      a1[1] = v16;
       if (v16)
       {
         atomic_fetch_add_explicit(v16 + 1, 1uLL, memory_order_relaxed);
@@ -7865,8 +7863,8 @@ void vega::dicom::DataSet::data_element(vega::dicom::DataSet *this@<X0>, const v
     }
 
 LABEL_18:
-    *a3 = 0;
-    a3[1] = 0;
+    *a1 = 0;
+    a1[1] = 0;
     return;
   }
 
@@ -7881,15 +7879,15 @@ LABEL_18:
   {
     v8 = *(v6 + 5);
     v9 = *(v6 + 6);
-    *a3 = v8;
-    a3[1] = v9;
+    *a1 = v8;
+    a1[1] = v9;
     if (v9)
     {
-      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v9 + 1, 1uLL, memory_order_relaxed);
     }
 
     v10 = vega::dictionary::Page::name(v8);
-    if (vega::TagMask::contains(a2, v10))
+    if (vega::TagMask::contains(a3, v10))
     {
       break;
     }
@@ -8031,7 +8029,7 @@ LABEL_14:
   goto LABEL_14;
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8048,7 +8046,7 @@ void sub_1A5A1288C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -8139,15 +8137,15 @@ void std::__shared_ptr_emplace<vega::dictionary::PrivateOwnerBlocks>::~__shared_
   JUMPOUT(0x1AC552B90);
 }
 
-uint64_t std::__tree<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>>>::__emplace_unique_key_args<vega::Tag,vega::Tag&,std::shared_ptr<vega::dicom::DataElement>&>(uint64_t a1, unsigned __int16 *a2)
+uint64_t std::__tree<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>>>::__emplace_unique_key_args<vega::Tag,vega::Tag&,std::shared_ptr<vega::dicom::DataElement>&>(uint64_t **a1, unsigned __int16 *a2, _DWORD *a3, void *a4)
 {
-  v2 = *std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::__find_equal<vega::Tag>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::__find_equal<vega::Tag>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 BOOL vega::VR::validate_value_manipulator<vega::manipulators::LongStringManipulator>(unsigned __int16 *a1)
@@ -8156,13 +8154,13 @@ BOOL vega::VR::validate_value_manipulator<vega::manipulators::LongStringManipula
   if (!result)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    vega::VR::InvalidValueManipulator<vega::manipulators::LongStringManipulator>::InvalidValueManipulator(exception, a1);
+    vega::VR::InvalidValueManipulator<vega::manipulators::LongStringManipulator>::InvalidValueManipulator();
   }
 
   return result;
 }
 
-void *vega::manipulators::PaddedStringManipulator<std::string>::PaddedStringManipulator(void *a1, vega::dicom::RawValue **a2)
+void ***vega::manipulators::PaddedStringManipulator<std::string>::PaddedStringManipulator(void ***a1, void ****a2)
 {
   vega::dicom::RawValue::str(*a2, &__p);
   vega::manipulators::PaddedStringManipulator<std::string>::PaddedStringManipulator(a1, &__p);
@@ -8184,7 +8182,7 @@ void sub_1A5A12CF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *vega::manipulators::PaddedStringManipulator<std::string>::PaddedStringManipulator(void *a1, const std::string *a2)
+void ***vega::manipulators::PaddedStringManipulator<std::string>::PaddedStringManipulator(void ***a1, const std::string *a2)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -8196,10 +8194,10 @@ void *vega::manipulators::PaddedStringManipulator<std::string>::PaddedStringMani
 
 void sub_1A5A12D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
 {
-  v12 = v11;
-  a10 = v12;
+  v11 = v10;
+  a10 = v11;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a10);
-  CMPhotoGetEncodeAccelerationModeOverride(v10);
+  CMPhotoGetEncodeAccelerationModeOverride();
   _Unwind_Resume(a1);
 }
 
@@ -8325,7 +8323,7 @@ void vega::dicom::FileMeta::read(vega::dicom::FileMeta *this, vega::dicom::Reade
   }
 
   vega::dicom::DataElement::get_manipulator<vega::manipulators::UnsignedLongManipulator>(v7, &__p);
-  vega::dicom::Reader::tell(&v43, a2);
+  vega::dicom::Reader::tell();
   v8 = **(__p.__r_.__value_.__r.__words[0] + 8);
   v9 = v46;
   v10 = *this;
@@ -8345,7 +8343,7 @@ void vega::dicom::FileMeta::read(vega::dicom::FileMeta *this, vega::dicom::Reade
   v11 = v9 + v8;
   while (1)
   {
-    vega::dicom::Reader::tell(&v43, a2);
+    vega::dicom::Reader::tell();
     if (v46 >= v11)
     {
       break;
@@ -8401,7 +8399,7 @@ void vega::dicom::FileMeta::read(vega::dicom::FileMeta *this, vega::dicom::Reade
     }
   }
 
-  vega::dicom::Reader::tell(&v43, a2);
+  vega::dicom::Reader::tell();
   if (v46 != v11)
   {
     v23 = __cxa_allocate_exception(0x10uLL);
@@ -8420,7 +8418,7 @@ void vega::dicom::FileMeta::read(vega::dicom::FileMeta *this, vega::dicom::Reade
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  vega::dicom::DataSet::data_element(*this, &vega::dicom::FileMeta::TransferSyntaxUID, &v27);
+  vega::dicom::DataSet::data_element(&v27, *this, &vega::dicom::FileMeta::TransferSyntaxUID);
   if (!v27)
   {
     v22 = __cxa_allocate_exception(0x10uLL);
@@ -8429,7 +8427,7 @@ void vega::dicom::FileMeta::read(vega::dicom::FileMeta *this, vega::dicom::Reade
     v22->__vftable = &unk_1F19194F0;
   }
 
-  vega::dicom::DataSet::data_element(*this, &vega::dicom::SOPClass::TAG, &__p);
+  vega::dicom::DataSet::data_element(&__p, *this, &vega::dicom::SOPClass::TAG);
   if (__p.__r_.__value_.__r.__words[0])
   {
     vega::dicom::DataElement::get_manipulator<vega::manipulators::UniqueIdentifierManipulator>(__p.__r_.__value_.__l.__data_, v24);
@@ -8476,7 +8474,7 @@ void vega::dicom::FileMeta::read(vega::dicom::FileMeta *this, vega::dicom::Reade
 
   v17 = *this;
   std::string::basic_string[abi:ne200100]<0>(&v43, "MediaStorageSOPInstanceUID");
-  vega::dicom::DataSet::data_element(v17, &v43.__r_.__value_.__l.__data_, &__p);
+  vega::dicom::DataSet::data_element(v17, &v43, &__p);
   if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v43.__r_.__value_.__l.__data_);
@@ -8498,7 +8496,7 @@ void vega::dicom::FileMeta::read(vega::dicom::FileMeta *this, vega::dicom::Reade
     std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__size_);
   }
 
-  vega::dicom::DataElement::str(v24, v27);
+  vega::dicom::DataElement::str(v27);
   vega::UID::UID(&__p, v24);
   vega::dicom::TransferSyntax::TransferSyntax(&v43, &__p);
   vega::dicom::FileMeta::set_transfer_syntax(this, &v43);
@@ -8774,9 +8772,9 @@ LABEL_30:
   v36 = v53;
   v37 = v54;
   v41 = v7;
-  vega::dicom::Writer::seek_pos(v21);
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(*a2);
-  vega::dicom::RawWriter::write_from<unsigned int>(EncodeAccelerationModeOverride, &v31);
+  vega::dicom::Writer::seek_pos(v21, v33);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  vega::dicom::RawWriter::write_from<unsigned int>(v22, &v31);
   v23 = *a2;
   v38 = v47;
   v39 = v48;
@@ -8787,7 +8785,7 @@ LABEL_30:
   v36 = v45;
   v37 = v46;
   v41 = v20;
-  vega::dicom::Writer::seek_pos(v23);
+  vega::dicom::Writer::seek_pos(v23, v33);
   vega::dicom::Writer::set_dicom_endianness(*a2, &v32);
   vega::dicom::Writer::set_vr_explicit(*a2, v24);
   return (v31 + v6);
@@ -8803,33 +8801,32 @@ void sub_1A5A1456C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *vega::dicom::DataElement::get_manipulator<vega::manipulators::UnsignedLongManipulator>@<X0>(vega::dicom::DataElement *a1@<X0>, void *a2@<X8>)
+void vega::dicom::DataElement::get_manipulator<vega::manipulators::UnsignedLongManipulator>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   v4 = vega::dicom::DataElement::vr(a1);
   vega::VR::validate_value_manipulator<vega::manipulators::UnsignedLongManipulator>(v4);
   vega::dicom::DataElement::lazy_load(a1);
-  v5 = *(a1 + 30);
+  v5 = a1[30];
   if (!v5)
   {
     operator new();
   }
 
   v6 = *v5;
-  if (!result)
+  if (!v7)
   {
     (*(v6 + 16))(&v9, v5);
     std::allocate_shared[abi:ne200100]<vega::manipulators::UnsignedLongManipulator,std::allocator<vega::manipulators::UnsignedLongManipulator>,std::shared_ptr<vega::dicom::RawValue>,0>();
   }
 
-  v8 = *(a1 + 31);
+  v8 = a1[31];
   if (v8)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
   }
 
-  *a2 = result;
+  *a2 = v7;
   a2[1] = v8;
-  return result;
 }
 
 void sub_1A5A1479C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -8842,7 +8839,7 @@ void sub_1A5A1479C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -8891,7 +8888,7 @@ void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD 
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -8910,7 +8907,7 @@ BOOL vega::VR::validate_value_manipulator<vega::manipulators::UniqueIdentifierMa
   if (!result)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    vega::VR::InvalidValueManipulator<vega::manipulators::UniqueIdentifierManipulator>::InvalidValueManipulator(exception, a1);
+    vega::VR::InvalidValueManipulator<vega::manipulators::UniqueIdentifierManipulator>::InvalidValueManipulator();
   }
 
   return result;
@@ -8967,7 +8964,7 @@ std::runtime_error *vega::VR::InvalidValueManipulator<vega::manipulators::Unsign
   v9->__r_.__value_.__l.__size_ = 0;
   v9->__r_.__value_.__r.__words[2] = 0;
   v9->__r_.__value_.__r.__words[0] = 0;
-  vega::VR::str(a2, __p);
+  vega::VR::str(__p, a2);
   if ((v17 & 0x80u) == 0)
   {
     v11 = __p;
@@ -9073,18 +9070,6 @@ void vega::VR::InvalidValueManipulator<vega::manipulators::UnsignedLongManipulat
   JUMPOUT(0x1AC552B90);
 }
 
-uint64_t vega::manipulators::FixedSizeElementManipulator<unsigned int>::~FixedSizeElementManipulator(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    *(a1 + 16) = v2;
-    operator delete(v2);
-  }
-
-  return CMPhotoGetEncodeAccelerationModeOverride(a1);
-}
-
 void vega::manipulators::FixedSizeElementManipulator<unsigned int>::~FixedSizeElementManipulator(uint64_t a1)
 {
   v2 = *(a1 + 8);
@@ -9094,7 +9079,18 @@ void vega::manipulators::FixedSizeElementManipulator<unsigned int>::~FixedSizeEl
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(a1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+}
+
+{
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+    *(a1 + 16) = v2;
+    operator delete(v2);
+  }
+
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -9111,8 +9107,7 @@ void *std::__shared_ptr_emplace<vega::manipulators::UnsignedLongManipulator>::__
 void *std::construct_at[abi:ne200100]<vega::manipulators::UnsignedLongManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::UnsignedLongManipulator*>(void *a1, __int128 *a2)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   vega::manipulators::FixedSizeElementManipulator<unsigned int>::FixedSizeElementManipulator(a1, &v4);
   *a1 = &unk_1F1918F58;
   if (*(&v4 + 1))
@@ -9168,7 +9163,7 @@ LABEL_6:
         operator delete(v19);
       }
 
-      CMPhotoGetEncodeAccelerationModeOverride(v14);
+      CMPhotoGetEncodeAccelerationModeOverride();
       _Unwind_Resume(a1);
     }
   }
@@ -9284,12 +9279,12 @@ uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataElement,char const(&)[
   return a1;
 }
 
-void sub_1A5A151F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_1A5A151F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a7);
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a7);
   }
 
   std::construct_at[abi:ne200100]<vega::dicom::DataElement,char const(&)[31],vega::dicom::DataElement*>(va);
@@ -9324,12 +9319,12 @@ uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataElement,char const(&)[
   return a1;
 }
 
-void sub_1A5A1535C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_1A5A1535C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a7);
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a7);
   }
 
   std::construct_at[abi:ne200100]<vega::dicom::DataElement,char const(&)[31],vega::dicom::DataElement*>(va);
@@ -9342,7 +9337,7 @@ BOOL vega::VR::validate_value_manipulator<vega::manipulators::OtherByteManipulat
   if (!result)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    vega::VR::InvalidValueManipulator<vega::manipulators::OtherByteManipulator>::InvalidValueManipulator(exception, a1);
+    vega::VR::InvalidValueManipulator<vega::manipulators::OtherByteManipulator>::InvalidValueManipulator();
   }
 
   return result;
@@ -9370,7 +9365,7 @@ void sub_1A5A15480(_Unwind_Exception *a1)
     operator delete(v4);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
   _Unwind_Resume(a1);
 }
 
@@ -9402,12 +9397,12 @@ uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataElement,char const(&)[
   return a1;
 }
 
-void sub_1A5A155F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_1A5A155F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a7);
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a7);
   }
 
   std::construct_at[abi:ne200100]<vega::dicom::DataElement,char const(&)[31],vega::dicom::DataElement*>(va);
@@ -9442,12 +9437,12 @@ uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataElement,char const(&)[
   return a1;
 }
 
-void sub_1A5A1575C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_1A5A1575C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a7);
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a7);
   }
 
   std::construct_at[abi:ne200100]<vega::dicom::DataElement,char const(&)[31],vega::dicom::DataElement*>(va);
@@ -9482,12 +9477,12 @@ uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataElement,char const(&)[
   return a1;
 }
 
-void sub_1A5A158C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_1A5A158C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a7);
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a7);
   }
 
   std::construct_at[abi:ne200100]<vega::dicom::DataElement,char const(&)[31],vega::dicom::DataElement*>(va);
@@ -9502,1742 +9497,1742 @@ void std::construct_at[abi:ne200100]<vega::dicom::DataElement,char const(&)[31],
   }
 }
 
-uint64_t vega::dicom::SOPClass::NAME_UID_PAIRS(vega::dicom::SOPClass *this)
+uint64_t *vega::dicom::SOPClass::NAME_UID_PAIRS(vega::dicom::SOPClass *this)
 {
   MEMORY[0x1EEE9AC00](this);
-  v2 = v1;
-  v578 = *MEMORY[0x1E69E9840];
+  v3 = v2;
+  v579 = *MEMORY[0x1E69E9840];
   {
-    v4 = v2;
-    std::string::basic_string[abi:ne200100]<0>(v347, "1.2.840.10008.5.1.4.1.1.1");
-    vega::UID::UID(&v349, v347);
-    std::string::basic_string[abi:ne200100]<0>(v350, "Computed Radiography Image Storage");
-    v351 = v349;
-    memset(&v349, 0, sizeof(v349));
-    std::string::basic_string[abi:ne200100]<0>(v344, "1.2.840.10008.5.1.4.1.1.1.1");
-    vega::UID::UID(&v346, v344);
-    std::string::basic_string[abi:ne200100]<0>(v352, "Digital X-Ray Image Storage - For Presentation");
-    v353 = v346;
-    memset(&v346, 0, sizeof(v346));
-    std::string::basic_string[abi:ne200100]<0>(v341, "1.2.840.10008.5.1.4.1.1.1.1.1");
-    vega::UID::UID(&v343, v341);
-    std::string::basic_string[abi:ne200100]<0>(v354, "Digital X-Ray Image Storage - For Processing");
-    v355 = v343;
-    memset(&v343, 0, sizeof(v343));
-    std::string::basic_string[abi:ne200100]<0>(v338, "1.2.840.10008.5.1.4.1.1.1.2");
-    vega::UID::UID(&v340, v338);
-    std::string::basic_string[abi:ne200100]<0>(v356, "Digital Mammography X-Ray Image Storage - For Presentation");
-    v357 = v340;
-    memset(&v340, 0, sizeof(v340));
-    std::string::basic_string[abi:ne200100]<0>(v335, "1.2.840.10008.5.1.4.1.1.1.2.1");
-    vega::UID::UID(&v337, v335);
-    std::string::basic_string[abi:ne200100]<0>(v358, "Digital Mammography X-Ray Image Storage - For Processing");
-    v359 = v337;
-    memset(&v337, 0, sizeof(v337));
-    std::string::basic_string[abi:ne200100]<0>(v332, "1.2.840.10008.5.1.4.1.1.1.3");
-    vega::UID::UID(&v334, v332);
-    std::string::basic_string[abi:ne200100]<0>(v360, "Digital Intra-Oral X-Ray Image Storage - For Presentation");
-    v361 = v334;
-    memset(&v334, 0, sizeof(v334));
-    std::string::basic_string[abi:ne200100]<0>(v329, "1.2.840.10008.5.1.4.1.1.1.3.1");
-    vega::UID::UID(&v331, v329);
-    std::string::basic_string[abi:ne200100]<0>(v362, "Digital Intra-Oral X-Ray Image Storage - For Processing");
-    v363 = v331;
-    memset(&v331, 0, sizeof(v331));
-    std::string::basic_string[abi:ne200100]<0>(v326, "1.2.840.10008.5.1.4.1.1.2");
-    vega::UID::UID(&v328, v326);
-    std::string::basic_string[abi:ne200100]<0>(v364, "CT Image Storage");
-    v365 = v328;
-    memset(&v328, 0, sizeof(v328));
-    std::string::basic_string[abi:ne200100]<0>(v323, "1.2.840.10008.5.1.4.1.1.2.1");
-    vega::UID::UID(&v325, v323);
-    std::string::basic_string[abi:ne200100]<0>(v366, "Enhanced CT Image Storage");
-    v367 = v325;
-    memset(&v325, 0, sizeof(v325));
-    std::string::basic_string[abi:ne200100]<0>(v320, "1.2.840.10008.5.1.4.1.1.2.2");
-    vega::UID::UID(&v322, v320);
-    std::string::basic_string[abi:ne200100]<0>(v368, "Legacy Converted Enhanced CT Image Storage");
-    v369 = v322;
-    memset(&v322, 0, sizeof(v322));
-    std::string::basic_string[abi:ne200100]<0>(v317, "1.2.840.10008.5.1.4.1.1.3");
-    vega::UID::UID(&v319, v317);
-    std::string::basic_string[abi:ne200100]<0>(v370, "Ultrasound Multi-frame Image Storage (Retired)");
-    v371 = v319;
-    memset(&v319, 0, sizeof(v319));
-    std::string::basic_string[abi:ne200100]<0>(v314, "1.2.840.10008.5.1.4.1.1.3.1");
-    vega::UID::UID(&v316, v314);
-    std::string::basic_string[abi:ne200100]<0>(v372, "Ultrasound Multi-frame Image Storage");
-    v373 = v316;
-    memset(&v316, 0, sizeof(v316));
-    std::string::basic_string[abi:ne200100]<0>(v311, "1.2.840.10008.5.1.4.1.1.4");
-    vega::UID::UID(&v313, v311);
-    std::string::basic_string[abi:ne200100]<0>(v374, "MR Image Storage");
-    v375 = v313;
-    memset(&v313, 0, sizeof(v313));
-    std::string::basic_string[abi:ne200100]<0>(v308, "1.2.840.10008.5.1.4.1.1.4.1");
-    vega::UID::UID(&v310, v308);
-    std::string::basic_string[abi:ne200100]<0>(v376, "Enhanced MR Image Storage");
-    v377 = v310;
-    memset(&v310, 0, sizeof(v310));
-    std::string::basic_string[abi:ne200100]<0>(v305, "1.2.840.10008.5.1.4.1.1.4.2");
-    vega::UID::UID(&v307, v305);
-    std::string::basic_string[abi:ne200100]<0>(v378, "MR Spectroscopy Storage");
-    v379 = v307;
-    memset(&v307, 0, sizeof(v307));
-    std::string::basic_string[abi:ne200100]<0>(v302, "1.2.840.10008.5.1.4.1.1.4.3");
-    vega::UID::UID(&v304, v302);
-    std::string::basic_string[abi:ne200100]<0>(v380, "Enhanced MR Color Image Storage");
-    v381 = v304;
-    memset(&v304, 0, sizeof(v304));
-    std::string::basic_string[abi:ne200100]<0>(v299, "1.2.840.10008.5.1.4.1.1.4.4");
-    vega::UID::UID(&v301, v299);
-    std::string::basic_string[abi:ne200100]<0>(v382, "Legacy Converted Enhanced MR Image Storage");
-    v383 = v301;
-    memset(&v301, 0, sizeof(v301));
-    std::string::basic_string[abi:ne200100]<0>(v296, "1.2.840.10008.5.1.4.1.1.6");
-    vega::UID::UID(&v298, v296);
-    std::string::basic_string[abi:ne200100]<0>(v384, "Ultrasound Image Storage (Retired)");
-    v385 = v298;
-    memset(&v298, 0, sizeof(v298));
-    std::string::basic_string[abi:ne200100]<0>(v293, "1.2.840.10008.5.1.4.1.1.6.1");
-    vega::UID::UID(&v295, v293);
-    std::string::basic_string[abi:ne200100]<0>(v386, "Ultrasound Image Storage");
-    v387 = v295;
-    memset(&v295, 0, sizeof(v295));
-    std::string::basic_string[abi:ne200100]<0>(v290, "1.2.840.10008.5.1.4.1.1.6.2");
-    vega::UID::UID(&v292, v290);
-    std::string::basic_string[abi:ne200100]<0>(v388, "Enhanced US Volume Storage");
-    v389 = v292;
-    memset(&v292, 0, sizeof(v292));
-    std::string::basic_string[abi:ne200100]<0>(v287, "1.2.840.10008.5.1.4.1.1.7");
-    vega::UID::UID(&v289, v287);
-    std::string::basic_string[abi:ne200100]<0>(v390, "Secondary Capture Image Storage");
-    v391 = v289;
-    memset(&v289, 0, sizeof(v289));
-    std::string::basic_string[abi:ne200100]<0>(v284, "1.2.840.10008.5.1.4.1.1.7.1");
-    vega::UID::UID(&v286, v284);
-    std::string::basic_string[abi:ne200100]<0>(v392, "Multi-frame Single Bit Secondary Capture Image Storage");
-    v393 = v286;
-    memset(&v286, 0, sizeof(v286));
-    std::string::basic_string[abi:ne200100]<0>(v281, "1.2.840.10008.5.1.4.1.1.7.2");
-    vega::UID::UID(&v283, v281);
-    std::string::basic_string[abi:ne200100]<0>(v394, "Multi-frame Grayscale Byte Secondary Capture Image Storage");
-    v395 = v283;
-    memset(&v283, 0, sizeof(v283));
-    std::string::basic_string[abi:ne200100]<0>(v278, "1.2.840.10008.5.1.4.1.1.7.3");
-    vega::UID::UID(&v280, v278);
-    std::string::basic_string[abi:ne200100]<0>(v396, "Multi-frame Grayscale Word Secondary Capture Image Storage");
-    v397 = v280;
-    memset(&v280, 0, sizeof(v280));
-    std::string::basic_string[abi:ne200100]<0>(v275, "1.2.840.10008.5.1.4.1.1.7.4");
-    vega::UID::UID(&v277, v275);
-    std::string::basic_string[abi:ne200100]<0>(v398, "Multi-frame True Color Secondary Capture Image Storage");
-    v399 = v277;
-    memset(&v277, 0, sizeof(v277));
-    std::string::basic_string[abi:ne200100]<0>(v272, "1.2.840.10008.5.1.4.1.1.9.1.1");
-    vega::UID::UID(&v274, v272);
-    std::string::basic_string[abi:ne200100]<0>(v400, "12-lead ECG Waveform Storage");
-    v401 = v274;
-    memset(&v274, 0, sizeof(v274));
-    std::string::basic_string[abi:ne200100]<0>(v269, "1.2.840.10008.5.1.4.1.1.9.1.2");
-    vega::UID::UID(&v271, v269);
-    std::string::basic_string[abi:ne200100]<0>(v402, "General ECG Waveform Storage");
-    v403 = v271;
-    memset(&v271, 0, sizeof(v271));
-    std::string::basic_string[abi:ne200100]<0>(v266, "1.2.840.10008.5.1.4.1.1.9.1.3");
-    vega::UID::UID(&v268, v266);
-    std::string::basic_string[abi:ne200100]<0>(v404, "Ambulatory ECG Waveform Storage");
-    v405 = v268;
-    memset(&v268, 0, sizeof(v268));
-    std::string::basic_string[abi:ne200100]<0>(v263, "1.2.840.10008.5.1.4.1.1.9.2.1");
-    vega::UID::UID(&v265, v263);
-    std::string::basic_string[abi:ne200100]<0>(v406, "Hemodynamic Waveform Storage");
-    v407 = v265;
-    memset(&v265, 0, sizeof(v265));
-    std::string::basic_string[abi:ne200100]<0>(v260, "1.2.840.10008.5.1.4.1.1.9.3.1");
-    vega::UID::UID(&v262, v260);
-    std::string::basic_string[abi:ne200100]<0>(v408, "Cardiac Electrophysiology Waveform Storage");
-    v409 = v262;
-    memset(&v262, 0, sizeof(v262));
-    std::string::basic_string[abi:ne200100]<0>(v257, "1.2.840.10008.5.1.4.1.1.9.4.1");
-    vega::UID::UID(&v259, v257);
-    std::string::basic_string[abi:ne200100]<0>(v410, "Basic Voice Audio Waveform Storage");
-    v411 = v259;
-    memset(&v259, 0, sizeof(v259));
-    std::string::basic_string[abi:ne200100]<0>(v254, "1.2.840.10008.5.1.4.1.1.9.4.2");
-    vega::UID::UID(&v256, v254);
-    std::string::basic_string[abi:ne200100]<0>(v412, "General Audio Waveform Storage");
-    v413 = v256;
-    memset(&v256, 0, sizeof(v256));
-    std::string::basic_string[abi:ne200100]<0>(v251, "1.2.840.10008.5.1.4.1.1.9.5.1");
-    vega::UID::UID(&v253, v251);
-    std::string::basic_string[abi:ne200100]<0>(v414, "Arterial Pulse Waveform Storage");
-    v415 = v253;
-    memset(&v253, 0, sizeof(v253));
-    std::string::basic_string[abi:ne200100]<0>(v248, "1.2.840.10008.5.1.4.1.1.9.6.1");
-    vega::UID::UID(&v250, v248);
-    std::string::basic_string[abi:ne200100]<0>(v416, "Respiratory Waveform Storage");
-    v417 = v250;
-    memset(&v250, 0, sizeof(v250));
-    std::string::basic_string[abi:ne200100]<0>(v245, "1.2.840.10008.5.1.4.1.1.11.1");
-    vega::UID::UID(&v247, v245);
-    std::string::basic_string[abi:ne200100]<0>(v418, "Grayscale Softcopy Presentation State Storage");
-    v419 = v247;
-    memset(&v247, 0, sizeof(v247));
-    std::string::basic_string[abi:ne200100]<0>(v242, "1.2.840.10008.5.1.4.1.1.11.2");
-    vega::UID::UID(&v244, v242);
-    std::string::basic_string[abi:ne200100]<0>(v420, "Color Softcopy Presentation State Storage");
-    v421 = v244;
-    memset(&v244, 0, sizeof(v244));
-    std::string::basic_string[abi:ne200100]<0>(v239, "1.2.840.10008.5.1.4.1.1.11.3");
-    vega::UID::UID(&v241, v239);
-    std::string::basic_string[abi:ne200100]<0>(v422, "Pseudo-Color Softcopy Presentation State Storage");
-    v423 = v241;
-    memset(&v241, 0, sizeof(v241));
-    std::string::basic_string[abi:ne200100]<0>(v236, "1.2.840.10008.5.1.4.1.1.11.4");
-    vega::UID::UID(&v238, v236);
-    std::string::basic_string[abi:ne200100]<0>(v424, "Blending Softcopy Presentation State Storage");
-    v425 = v238;
-    memset(&v238, 0, sizeof(v238));
-    std::string::basic_string[abi:ne200100]<0>(v233, "1.2.840.10008.5.1.4.1.1.11.5");
-    vega::UID::UID(&v235, v233);
-    std::string::basic_string[abi:ne200100]<0>(v426, "XA/XRF Grayscale Softcopy Presentation State Storage");
-    v427 = v235;
-    memset(&v235, 0, sizeof(v235));
-    std::string::basic_string[abi:ne200100]<0>(v230, "1.2.840.10008.5.1.4.1.1.12.1");
-    vega::UID::UID(&v232, v230);
-    std::string::basic_string[abi:ne200100]<0>(v428, "X-Ray Angiographic Image Storage");
-    v429 = v232;
-    memset(&v232, 0, sizeof(v232));
-    std::string::basic_string[abi:ne200100]<0>(v227, "1.2.840.10008.5.1.4.1.1.12.1.1");
-    vega::UID::UID(&v229, v227);
-    std::string::basic_string[abi:ne200100]<0>(v430, "Enhanced XA Image Storage");
-    v431 = v229;
-    memset(&v229, 0, sizeof(v229));
-    std::string::basic_string[abi:ne200100]<0>(v224, "1.2.840.10008.5.1.4.1.1.12.2");
-    vega::UID::UID(&v226, v224);
-    std::string::basic_string[abi:ne200100]<0>(v432, "X-Ray Radiofluoroscopic Image Storage");
-    v433 = v226;
-    memset(&v226, 0, sizeof(v226));
-    std::string::basic_string[abi:ne200100]<0>(v221, "1.2.840.10008.5.1.4.1.1.12.2.1");
-    vega::UID::UID(&v223, v221);
-    std::string::basic_string[abi:ne200100]<0>(v434, "Enhanced XRF Image Storage");
-    v435 = v223;
-    memset(&v223, 0, sizeof(v223));
-    std::string::basic_string[abi:ne200100]<0>(v218, "1.2.840.10008.5.1.4.1.1.12.3");
-    vega::UID::UID(&v220, v218);
-    std::string::basic_string[abi:ne200100]<0>(v436, "X-Ray Angiographic Bi-plane Image Storage (Retired)");
-    v437 = v220;
-    memset(&v220, 0, sizeof(v220));
-    std::string::basic_string[abi:ne200100]<0>(v215, "1.2.840.10008.5.1.4.1.1.13.1.1");
-    vega::UID::UID(&v217, v215);
-    std::string::basic_string[abi:ne200100]<0>(v438, "X-Ray 3D Angiographic Image Storage");
-    v439 = v217;
-    memset(&v217, 0, sizeof(v217));
-    std::string::basic_string[abi:ne200100]<0>(v212, "1.2.840.10008.5.1.4.1.1.13.1.2");
-    vega::UID::UID(&v214, v212);
-    std::string::basic_string[abi:ne200100]<0>(v440, "X-Ray 3D Craniofacial Image Storage");
-    v441 = v214;
-    memset(&v214, 0, sizeof(v214));
-    std::string::basic_string[abi:ne200100]<0>(v209, "1.2.840.10008.5.1.4.1.1.13.1.3");
-    vega::UID::UID(&v211, v209);
-    std::string::basic_string[abi:ne200100]<0>(v442, "Breast Tomosynthesis Image Storage");
-    v443 = v211;
-    memset(&v211, 0, sizeof(v211));
-    std::string::basic_string[abi:ne200100]<0>(v206, "1.2.840.10008.5.1.4.1.1.14.1");
-    vega::UID::UID(&v208, v206);
-    std::string::basic_string[abi:ne200100]<0>(v444, "Intravascular Optical Coherence Tomography Image Storage - For Presentation");
-    v445 = v208;
-    memset(&v208, 0, sizeof(v208));
-    std::string::basic_string[abi:ne200100]<0>(v203, "1.2.840.10008.5.1.4.1.1.14.2");
-    vega::UID::UID(&v205, v203);
-    std::string::basic_string[abi:ne200100]<0>(v446, "Intravascular Optical Coherence Tomography Image Storage - For Processing");
-    v447 = v205;
-    memset(&v205, 0, sizeof(v205));
-    std::string::basic_string[abi:ne200100]<0>(v200, "1.2.840.10008.5.1.4.1.1.20");
-    vega::UID::UID(&v202, v200);
-    std::string::basic_string[abi:ne200100]<0>(v448, "Nuclear Medicine Image Storage");
-    v449 = v202;
-    memset(&v202, 0, sizeof(v202));
-    std::string::basic_string[abi:ne200100]<0>(v197, "1.2.840.10008.5.1.4.1.1.5");
-    vega::UID::UID(&v199, v197);
-    std::string::basic_string[abi:ne200100]<0>(v450, "Nuclear Medicine Image Storage (Retired)");
-    v451 = v199;
-    memset(&v199, 0, sizeof(v199));
-    std::string::basic_string[abi:ne200100]<0>(v194, "1.2.840.10008.5.1.4.1.1.66");
-    vega::UID::UID(&v196, v194);
-    std::string::basic_string[abi:ne200100]<0>(v452, "Raw Data Storage");
-    v453 = v196;
-    memset(&v196, 0, sizeof(v196));
-    std::string::basic_string[abi:ne200100]<0>(v191, "1.2.840.10008.5.1.4.1.1.66.1");
-    vega::UID::UID(&v193, v191);
-    std::string::basic_string[abi:ne200100]<0>(v454, "Spatial Registration Storage");
-    v455 = v193;
-    memset(&v193, 0, sizeof(v193));
-    std::string::basic_string[abi:ne200100]<0>(v188, "1.2.840.10008.5.1.4.1.1.66.2");
-    vega::UID::UID(&v190, v188);
-    std::string::basic_string[abi:ne200100]<0>(v456, "Spatial Fiducials Storage");
-    v457 = v190;
-    memset(&v190, 0, sizeof(v190));
-    std::string::basic_string[abi:ne200100]<0>(v185, "1.2.840.10008.5.1.4.1.1.66.3");
-    vega::UID::UID(&v187, v185);
-    std::string::basic_string[abi:ne200100]<0>(v458, "Deformable Spatial Registration Storage");
-    v459 = v187;
-    memset(&v187, 0, sizeof(v187));
-    std::string::basic_string[abi:ne200100]<0>(v182, "1.2.840.10008.5.1.4.1.1.66.4");
-    vega::UID::UID(&v184, v182);
-    std::string::basic_string[abi:ne200100]<0>(v460, "Segmentation Storage");
-    v461 = v184;
-    memset(&v184, 0, sizeof(v184));
-    std::string::basic_string[abi:ne200100]<0>(v179, "1.2.840.10008.5.1.4.1.1.66.5");
-    vega::UID::UID(&v181, v179);
-    std::string::basic_string[abi:ne200100]<0>(v462, "Surface Segmentation Storage");
-    v463 = v181;
-    memset(&v181, 0, sizeof(v181));
-    std::string::basic_string[abi:ne200100]<0>(v176, "1.2.840.10008.5.1.4.1.1.67");
-    vega::UID::UID(&v178, v176);
-    std::string::basic_string[abi:ne200100]<0>(v464, "Real World Value Mapping Storage");
-    v465 = v178;
-    memset(&v178, 0, sizeof(v178));
-    std::string::basic_string[abi:ne200100]<0>(v173, "1.2.840.10008.5.1.4.1.1.68.1");
-    vega::UID::UID(&v175, v173);
-    std::string::basic_string[abi:ne200100]<0>(v466, "Surface Scan Mesh Storage");
-    v467 = v175;
-    memset(&v175, 0, sizeof(v175));
-    std::string::basic_string[abi:ne200100]<0>(v170, "1.2.840.10008.5.1.4.1.1.68.2");
-    vega::UID::UID(&v172, v170);
-    std::string::basic_string[abi:ne200100]<0>(v468, "Surface Scan Point Cloud Storage");
-    v469 = v172;
-    memset(&v172, 0, sizeof(v172));
-    std::string::basic_string[abi:ne200100]<0>(v167, "1.2.840.10008.5.1.4.1.1.77.1.1");
-    vega::UID::UID(&v169, v167);
-    std::string::basic_string[abi:ne200100]<0>(v470, "VL Endoscopic Image Storage");
-    v471 = v169;
-    memset(&v169, 0, sizeof(v169));
-    std::string::basic_string[abi:ne200100]<0>(v164, "1.2.840.10008.5.1.4.1.1.77.1.1.1");
-    vega::UID::UID(&v166, v164);
-    std::string::basic_string[abi:ne200100]<0>(v472, "Video Endoscopic Image Storage");
-    v473 = v166;
-    memset(&v166, 0, sizeof(v166));
-    std::string::basic_string[abi:ne200100]<0>(v161, "1.2.840.10008.5.1.4.1.1.77.1.2");
-    vega::UID::UID(&v163, v161);
-    std::string::basic_string[abi:ne200100]<0>(v474, "VL Microscopic Image Storage");
-    v475 = v163;
-    memset(&v163, 0, sizeof(v163));
-    std::string::basic_string[abi:ne200100]<0>(v158, "1.2.840.10008.5.1.4.1.1.77.1.2.1");
-    vega::UID::UID(&v160, v158);
-    std::string::basic_string[abi:ne200100]<0>(v476, "Video Microscopic Image Storage");
-    v477 = v160;
-    memset(&v160, 0, sizeof(v160));
-    std::string::basic_string[abi:ne200100]<0>(v155, "1.2.840.10008.5.1.4.1.1.77.1.3");
-    vega::UID::UID(&v157, v155);
-    std::string::basic_string[abi:ne200100]<0>(v478, "VL Slide-Coordinates Microscopic Image Storage");
-    v479 = v157;
-    memset(&v157, 0, sizeof(v157));
-    std::string::basic_string[abi:ne200100]<0>(v152, "1.2.840.10008.5.1.4.1.1.77.1.4");
-    vega::UID::UID(&v154, v152);
-    std::string::basic_string[abi:ne200100]<0>(v480, "VL Photographic Image Storage");
-    v481 = v154;
-    memset(&v154, 0, sizeof(v154));
-    std::string::basic_string[abi:ne200100]<0>(v149, "1.2.840.10008.5.1.4.1.1.77.1.4.1");
-    vega::UID::UID(&v151, v149);
-    std::string::basic_string[abi:ne200100]<0>(v482, "Video Photographic Image Storage");
-    v483 = v151;
-    memset(&v151, 0, sizeof(v151));
-    std::string::basic_string[abi:ne200100]<0>(v146, "1.2.840.10008.5.1.4.1.1.77.1.5.1");
-    vega::UID::UID(&v148, v146);
-    std::string::basic_string[abi:ne200100]<0>(v484, "Ophthalmic Photography 8 Bit Image Storage");
-    v485 = v148;
-    memset(&v148, 0, sizeof(v148));
-    std::string::basic_string[abi:ne200100]<0>(v143, "1.2.840.10008.5.1.4.1.1.77.1.5.2");
-    vega::UID::UID(&v145, v143);
-    std::string::basic_string[abi:ne200100]<0>(v486, "Ophthalmic Photography 16 Bit Image Storage");
-    v487 = v145;
-    memset(&v145, 0, sizeof(v145));
-    std::string::basic_string[abi:ne200100]<0>(v140, "1.2.840.10008.5.1.4.1.1.77.1.5.3");
-    vega::UID::UID(&v142, v140);
-    std::string::basic_string[abi:ne200100]<0>(v488, "Stereometric Relationship Storage");
-    v489 = v142;
-    memset(&v142, 0, sizeof(v142));
-    std::string::basic_string[abi:ne200100]<0>(v137, "1.2.840.10008.5.1.4.1.1.77.1.5.4");
-    vega::UID::UID(&v139, v137);
-    std::string::basic_string[abi:ne200100]<0>(v490, "Ophthalmic Tomography Image Storage");
-    v491 = v139;
-    memset(&v139, 0, sizeof(v139));
-    std::string::basic_string[abi:ne200100]<0>(v134, "1.2.840.10008.5.1.4.1.1.77.1.6");
-    vega::UID::UID(&v136, v134);
-    std::string::basic_string[abi:ne200100]<0>(v492, "VL Whole Slide Microscopy Image Storage");
-    v493 = v136;
-    memset(&v136, 0, sizeof(v136));
-    std::string::basic_string[abi:ne200100]<0>(v131, "1.2.840.10008.5.1.4.1.1.78.1");
-    vega::UID::UID(&v133, v131);
-    std::string::basic_string[abi:ne200100]<0>(v494, "Lensometry Measurements Storage");
-    v495 = v133;
-    memset(&v133, 0, sizeof(v133));
-    std::string::basic_string[abi:ne200100]<0>(v128, "1.2.840.10008.5.1.4.1.1.78.2");
-    vega::UID::UID(&v130, v128);
-    std::string::basic_string[abi:ne200100]<0>(v496, "Autorefraction Measurements Storage");
-    v497 = v130;
-    memset(&v130, 0, sizeof(v130));
-    std::string::basic_string[abi:ne200100]<0>(v125, "1.2.840.10008.5.1.4.1.1.78.3");
-    vega::UID::UID(&v127, v125);
-    std::string::basic_string[abi:ne200100]<0>(v498, "Keratometry Measurements Storage");
-    v499 = v127;
-    memset(&v127, 0, sizeof(v127));
-    std::string::basic_string[abi:ne200100]<0>(v122, "1.2.840.10008.5.1.4.1.1.78.4");
-    vega::UID::UID(&v124, v122);
-    std::string::basic_string[abi:ne200100]<0>(v500, "Subjective Refraction Measurements Storage");
-    v501 = v124;
-    memset(&v124, 0, sizeof(v124));
-    std::string::basic_string[abi:ne200100]<0>(v119, "1.2.840.10008.5.1.4.1.1.78.5");
-    vega::UID::UID(&v121, v119);
-    std::string::basic_string[abi:ne200100]<0>(v502, "Visual Acuity Measurements Storage");
-    v503 = v121;
-    memset(&v121, 0, sizeof(v121));
-    std::string::basic_string[abi:ne200100]<0>(v116, "1.2.840.10008.5.1.4.1.1.78.6");
-    vega::UID::UID(&v118, v116);
-    std::string::basic_string[abi:ne200100]<0>(v504, "Spectacle Prescription Report Storage");
-    v505 = v118;
-    memset(&v118, 0, sizeof(v118));
-    std::string::basic_string[abi:ne200100]<0>(v113, "1.2.840.10008.5.1.4.1.1.78.7");
-    vega::UID::UID(&v115, v113);
-    std::string::basic_string[abi:ne200100]<0>(v506, "Ophthalmic Axial Measurements Storage");
-    v507 = v115;
-    memset(&v115, 0, sizeof(v115));
-    std::string::basic_string[abi:ne200100]<0>(v110, "1.2.840.10008.5.1.4.1.1.78.8");
-    vega::UID::UID(&v112, v110);
-    std::string::basic_string[abi:ne200100]<0>(v508, "Intraocular Lens Calculations Storage");
-    v509 = v112;
-    memset(&v112, 0, sizeof(v112));
-    std::string::basic_string[abi:ne200100]<0>(v107, "1.2.840.10008.5.1.4.1.1.79.1");
-    vega::UID::UID(&v109, v107);
-    std::string::basic_string[abi:ne200100]<0>(v510, "Macular Grid Thickness and Volume Report");
-    v511 = v109;
-    memset(&v109, 0, sizeof(v109));
-    std::string::basic_string[abi:ne200100]<0>(v104, "1.2.840.10008.5.1.4.1.1.80.1");
-    vega::UID::UID(&v106, v104);
-    std::string::basic_string[abi:ne200100]<0>(v512, "Ophthalmic Visual Field Static Perimetry Measurements Storage");
-    v513 = v106;
-    memset(&v106, 0, sizeof(v106));
-    std::string::basic_string[abi:ne200100]<0>(v101, "1.2.840.10008.5.1.4.1.1.81.1");
-    vega::UID::UID(&v103, v101);
-    std::string::basic_string[abi:ne200100]<0>(v514, "Ophthalmic Thickness Map Storage");
-    v515 = v103;
-    memset(&v103, 0, sizeof(v103));
-    std::string::basic_string[abi:ne200100]<0>(v98, "1.2.840.10008.5.1.4.1.1.82.1");
-    vega::UID::UID(&v100, v98);
-    std::string::basic_string[abi:ne200100]<0>(v516, "Corneal Topography Map Storage");
-    v517 = v100;
-    memset(&v100, 0, sizeof(v100));
-    std::string::basic_string[abi:ne200100]<0>(v95, "1.2.840.10008.5.1.4.1.1.88.11");
-    vega::UID::UID(&v97, v95);
-    std::string::basic_string[abi:ne200100]<0>(v518, "Basic Text SR");
-    v519 = v97;
-    memset(&v97, 0, sizeof(v97));
-    std::string::basic_string[abi:ne200100]<0>(v92, "1.2.840.10008.5.1.4.1.1.88.22");
-    vega::UID::UID(&v94, v92);
-    std::string::basic_string[abi:ne200100]<0>(v520, "Enhanced SR");
-    v521 = v94;
-    memset(&v94, 0, sizeof(v94));
-    std::string::basic_string[abi:ne200100]<0>(v89, "1.2.840.10008.5.1.4.1.1.88.33");
-    vega::UID::UID(&v91, v89);
-    std::string::basic_string[abi:ne200100]<0>(v522, "Comprehensive SR");
-    v523 = v91;
-    memset(&v91, 0, sizeof(v91));
-    std::string::basic_string[abi:ne200100]<0>(v86, "1.2.840.10008.5.1.4.1.1.88.34");
-    vega::UID::UID(&v88, v86);
-    std::string::basic_string[abi:ne200100]<0>(v524, "Comprehensive 3D SR");
-    v525 = v88;
-    memset(&v88, 0, sizeof(v88));
-    std::string::basic_string[abi:ne200100]<0>(v83, "1.2.840.10008.5.1.4.1.1.88.40");
-    vega::UID::UID(&v85, v83);
-    std::string::basic_string[abi:ne200100]<0>(v526, "Procedure Log");
-    v527 = v85;
-    memset(&v85, 0, sizeof(v85));
-    std::string::basic_string[abi:ne200100]<0>(v80, "1.2.840.10008.5.1.4.1.1.88.50");
-    vega::UID::UID(&v82, v80);
-    std::string::basic_string[abi:ne200100]<0>(v528, "Mammography CAD SR");
-    v529 = v82;
-    memset(&v82, 0, sizeof(v82));
-    std::string::basic_string[abi:ne200100]<0>(v77, "1.2.840.10008.5.1.4.1.1.88.59");
-    vega::UID::UID(&v79, v77);
-    std::string::basic_string[abi:ne200100]<0>(v530, "Key Object Selection");
-    v531 = v79;
-    memset(&v79, 0, sizeof(v79));
-    std::string::basic_string[abi:ne200100]<0>(v74, "1.2.840.10008.5.1.4.1.1.88.65");
-    vega::UID::UID(&v76, v74);
-    std::string::basic_string[abi:ne200100]<0>(v532, "Chest CAD SR");
-    v533 = v76;
-    memset(&v76, 0, sizeof(v76));
-    std::string::basic_string[abi:ne200100]<0>(v71, "1.2.840.10008.5.1.4.1.1.88.67");
-    vega::UID::UID(&v73, v71);
-    std::string::basic_string[abi:ne200100]<0>(v534, "X-Ray Radiation Dose SR");
-    v535 = v73;
-    memset(&v73, 0, sizeof(v73));
-    std::string::basic_string[abi:ne200100]<0>(v68, "1.2.840.10008.5.1.4.1.1.88.69");
-    vega::UID::UID(&v70, v68);
-    std::string::basic_string[abi:ne200100]<0>(v536, "Colon CAD SR");
-    v537 = v70;
-    memset(&v70, 0, sizeof(v70));
-    std::string::basic_string[abi:ne200100]<0>(v65, "1.2.840.10008.5.1.4.1.1.88.70");
-    vega::UID::UID(&v67, v65);
-    std::string::basic_string[abi:ne200100]<0>(v538, "Implantation Plan SR Document Storage");
-    v539 = v67;
-    memset(&v67, 0, sizeof(v67));
-    std::string::basic_string[abi:ne200100]<0>(v62, "1.2.840.10008.5.1.4.1.1.104.1");
-    vega::UID::UID(&v64, v62);
-    std::string::basic_string[abi:ne200100]<0>(v540, "Encapsulated PDF Storage");
-    v541 = v64;
-    memset(&v64, 0, sizeof(v64));
-    std::string::basic_string[abi:ne200100]<0>(v59, "1.2.840.10008.5.1.4.1.1.104.2");
-    vega::UID::UID(&v61, v59);
-    std::string::basic_string[abi:ne200100]<0>(v542, "Encapsulated CDA Storage");
-    v543 = v61;
-    memset(&v61, 0, sizeof(v61));
-    std::string::basic_string[abi:ne200100]<0>(v56, "1.2.840.10008.5.1.4.1.1.128");
-    vega::UID::UID(&v58, v56);
-    std::string::basic_string[abi:ne200100]<0>(v544, "Positron Emission Tomography Image Storage");
-    v545 = v58;
-    memset(&v58, 0, sizeof(v58));
-    std::string::basic_string[abi:ne200100]<0>(v53, "1.2.840.10008.5.1.4.1.1.130");
-    vega::UID::UID(&v55, v53);
-    std::string::basic_string[abi:ne200100]<0>(v546, "Enhanced PET Image Storage");
-    v547 = v55;
-    memset(&v55, 0, sizeof(v55));
-    std::string::basic_string[abi:ne200100]<0>(v50, "1.2.840.10008.5.1.4.1.1.128.1");
-    vega::UID::UID(&v52, v50);
-    std::string::basic_string[abi:ne200100]<0>(v548, "Legacy Converted Enhanced PET Image Storage");
-    v549 = v52;
-    memset(&v52, 0, sizeof(v52));
-    std::string::basic_string[abi:ne200100]<0>(v47, "1.2.840.10008.5.1.4.1.1.131");
-    vega::UID::UID(&v49, v47);
-    std::string::basic_string[abi:ne200100]<0>(v550, "Basic Structured Display Storage");
-    v551 = v49;
-    memset(&v49, 0, sizeof(v49));
-    std::string::basic_string[abi:ne200100]<0>(v44, "1.2.840.10008.5.1.4.1.1.481.1");
-    vega::UID::UID(&v46, v44);
-    std::string::basic_string[abi:ne200100]<0>(v552, "RT Image Storage");
-    v553 = v46;
-    memset(&v46, 0, sizeof(v46));
-    std::string::basic_string[abi:ne200100]<0>(v41, "1.2.840.10008.5.1.4.1.1.481.2");
-    vega::UID::UID(&v43, v41);
-    std::string::basic_string[abi:ne200100]<0>(v554, "RT Dose Storage");
-    v555 = v43;
-    memset(&v43, 0, sizeof(v43));
-    std::string::basic_string[abi:ne200100]<0>(v38, "1.2.840.10008.5.1.4.1.1.481.3");
-    vega::UID::UID(&v40, v38);
-    std::string::basic_string[abi:ne200100]<0>(v556, "RT Structure Set Storage");
-    v557 = v40;
-    memset(&v40, 0, sizeof(v40));
-    std::string::basic_string[abi:ne200100]<0>(v35, "1.2.840.10008.5.1.4.1.1.481.4");
-    vega::UID::UID(&v37, v35);
-    std::string::basic_string[abi:ne200100]<0>(v558, "RT Beams Treatment Record Storage");
-    v559 = v37;
-    memset(&v37, 0, sizeof(v37));
-    std::string::basic_string[abi:ne200100]<0>(v32, "1.2.840.10008.5.1.4.1.1.481.5");
-    vega::UID::UID(&v34, v32);
-    std::string::basic_string[abi:ne200100]<0>(v560, "RT Plan Storage");
-    v561 = v34;
-    memset(&v34, 0, sizeof(v34));
-    std::string::basic_string[abi:ne200100]<0>(v29, "1.2.840.10008.5.1.4.1.1.481.6");
-    vega::UID::UID(&v31, v29);
-    std::string::basic_string[abi:ne200100]<0>(v562, "RT Brachy Treatment Record Storage");
-    v563 = v31;
-    memset(&v31, 0, sizeof(v31));
-    std::string::basic_string[abi:ne200100]<0>(v26, "1.2.840.10008.5.1.4.1.1.481.7");
-    vega::UID::UID(&v28, v26);
-    std::string::basic_string[abi:ne200100]<0>(v564, "RT Treatment Summary Record Storage");
-    v565 = v28;
-    memset(&v28, 0, sizeof(v28));
-    std::string::basic_string[abi:ne200100]<0>(v23, "1.2.840.10008.5.1.4.1.1.481.8");
-    vega::UID::UID(&v25, v23);
-    std::string::basic_string[abi:ne200100]<0>(v566, "RT Ion Plan Storage");
-    v567 = v25;
-    memset(&v25, 0, sizeof(v25));
-    std::string::basic_string[abi:ne200100]<0>(v20, "1.2.840.10008.5.1.4.1.1.481.9");
-    vega::UID::UID(&v22, v20);
-    std::string::basic_string[abi:ne200100]<0>(v568, "RT Ion Beams Treatment Record Storage");
-    v569 = v22;
-    memset(&v22, 0, sizeof(v22));
-    std::string::basic_string[abi:ne200100]<0>(v17, "1.2.840.10008.5.1.4.34.7");
-    vega::UID::UID(&v19, v17);
-    std::string::basic_string[abi:ne200100]<0>(v570, "RT Beams Delivery Instruction Storage");
-    v571 = v19;
-    memset(&v19, 0, sizeof(v19));
-    std::string::basic_string[abi:ne200100]<0>(v14, "1.2.840.10008.5.1.4.43.1");
-    vega::UID::UID(&v16, v14);
-    std::string::basic_string[abi:ne200100]<0>(v572, "Generic Implant Template Storage");
-    v573 = v16;
-    memset(&v16, 0, sizeof(v16));
-    std::string::basic_string[abi:ne200100]<0>(v11, "1.2.840.10008.5.1.4.44.1");
-    vega::UID::UID(&v13, v11);
-    std::string::basic_string[abi:ne200100]<0>(v574, "Implant Assembly Template Storage");
-    v575 = v13;
-    memset(&v13, 0, sizeof(v13));
-    std::string::basic_string[abi:ne200100]<0>(v8, "1.2.840.10008.5.1.4.45.1");
-    vega::UID::UID(&__p, v8);
-    std::string::basic_string[abi:ne200100]<0>(v576, "Implant Template Group Storage");
-    v577 = __p;
+    v5 = v3;
+    std::string::basic_string[abi:ne200100]<0>(v348, "1.2.840.10008.5.1.4.1.1.1");
+    vega::UID::UID(&v350, v348);
+    std::string::basic_string[abi:ne200100]<0>(v351, "Computed Radiography Image Storage");
+    v352 = v350;
+    memset(&v350, 0, sizeof(v350));
+    std::string::basic_string[abi:ne200100]<0>(v345, "1.2.840.10008.5.1.4.1.1.1.1");
+    vega::UID::UID(&v347, v345);
+    std::string::basic_string[abi:ne200100]<0>(v353, "Digital X-Ray Image Storage - For Presentation");
+    v354 = v347;
+    memset(&v347, 0, sizeof(v347));
+    std::string::basic_string[abi:ne200100]<0>(v342, "1.2.840.10008.5.1.4.1.1.1.1.1");
+    vega::UID::UID(&v344, v342);
+    std::string::basic_string[abi:ne200100]<0>(v355, "Digital X-Ray Image Storage - For Processing");
+    v356 = v344;
+    memset(&v344, 0, sizeof(v344));
+    std::string::basic_string[abi:ne200100]<0>(v339, "1.2.840.10008.5.1.4.1.1.1.2");
+    vega::UID::UID(&v341, v339);
+    std::string::basic_string[abi:ne200100]<0>(v357, "Digital Mammography X-Ray Image Storage - For Presentation");
+    v358 = v341;
+    memset(&v341, 0, sizeof(v341));
+    std::string::basic_string[abi:ne200100]<0>(v336, "1.2.840.10008.5.1.4.1.1.1.2.1");
+    vega::UID::UID(&v338, v336);
+    std::string::basic_string[abi:ne200100]<0>(v359, "Digital Mammography X-Ray Image Storage - For Processing");
+    v360 = v338;
+    memset(&v338, 0, sizeof(v338));
+    std::string::basic_string[abi:ne200100]<0>(v333, "1.2.840.10008.5.1.4.1.1.1.3");
+    vega::UID::UID(&v335, v333);
+    std::string::basic_string[abi:ne200100]<0>(v361, "Digital Intra-Oral X-Ray Image Storage - For Presentation");
+    v362 = v335;
+    memset(&v335, 0, sizeof(v335));
+    std::string::basic_string[abi:ne200100]<0>(v330, "1.2.840.10008.5.1.4.1.1.1.3.1");
+    vega::UID::UID(&v332, v330);
+    std::string::basic_string[abi:ne200100]<0>(v363, "Digital Intra-Oral X-Ray Image Storage - For Processing");
+    v364 = v332;
+    memset(&v332, 0, sizeof(v332));
+    std::string::basic_string[abi:ne200100]<0>(v327, "1.2.840.10008.5.1.4.1.1.2");
+    vega::UID::UID(&v329, v327);
+    std::string::basic_string[abi:ne200100]<0>(v365, "CT Image Storage");
+    v366 = v329;
+    memset(&v329, 0, sizeof(v329));
+    std::string::basic_string[abi:ne200100]<0>(v324, "1.2.840.10008.5.1.4.1.1.2.1");
+    vega::UID::UID(&v326, v324);
+    std::string::basic_string[abi:ne200100]<0>(v367, "Enhanced CT Image Storage");
+    v368 = v326;
+    memset(&v326, 0, sizeof(v326));
+    std::string::basic_string[abi:ne200100]<0>(v321, "1.2.840.10008.5.1.4.1.1.2.2");
+    vega::UID::UID(&v323, v321);
+    std::string::basic_string[abi:ne200100]<0>(v369, "Legacy Converted Enhanced CT Image Storage");
+    v370 = v323;
+    memset(&v323, 0, sizeof(v323));
+    std::string::basic_string[abi:ne200100]<0>(v318, "1.2.840.10008.5.1.4.1.1.3");
+    vega::UID::UID(&v320, v318);
+    std::string::basic_string[abi:ne200100]<0>(v371, "Ultrasound Multi-frame Image Storage (Retired)");
+    v372 = v320;
+    memset(&v320, 0, sizeof(v320));
+    std::string::basic_string[abi:ne200100]<0>(v315, "1.2.840.10008.5.1.4.1.1.3.1");
+    vega::UID::UID(&v317, v315);
+    std::string::basic_string[abi:ne200100]<0>(v373, "Ultrasound Multi-frame Image Storage");
+    v374 = v317;
+    memset(&v317, 0, sizeof(v317));
+    std::string::basic_string[abi:ne200100]<0>(v312, "1.2.840.10008.5.1.4.1.1.4");
+    vega::UID::UID(&v314, v312);
+    std::string::basic_string[abi:ne200100]<0>(v375, "MR Image Storage");
+    v376 = v314;
+    memset(&v314, 0, sizeof(v314));
+    std::string::basic_string[abi:ne200100]<0>(v309, "1.2.840.10008.5.1.4.1.1.4.1");
+    vega::UID::UID(&v311, v309);
+    std::string::basic_string[abi:ne200100]<0>(v377, "Enhanced MR Image Storage");
+    v378 = v311;
+    memset(&v311, 0, sizeof(v311));
+    std::string::basic_string[abi:ne200100]<0>(v306, "1.2.840.10008.5.1.4.1.1.4.2");
+    vega::UID::UID(&v308, v306);
+    std::string::basic_string[abi:ne200100]<0>(v379, "MR Spectroscopy Storage");
+    v380 = v308;
+    memset(&v308, 0, sizeof(v308));
+    std::string::basic_string[abi:ne200100]<0>(v303, "1.2.840.10008.5.1.4.1.1.4.3");
+    vega::UID::UID(&v305, v303);
+    std::string::basic_string[abi:ne200100]<0>(v381, "Enhanced MR Color Image Storage");
+    v382 = v305;
+    memset(&v305, 0, sizeof(v305));
+    std::string::basic_string[abi:ne200100]<0>(v300, "1.2.840.10008.5.1.4.1.1.4.4");
+    vega::UID::UID(&v302, v300);
+    std::string::basic_string[abi:ne200100]<0>(v383, "Legacy Converted Enhanced MR Image Storage");
+    v384 = v302;
+    memset(&v302, 0, sizeof(v302));
+    std::string::basic_string[abi:ne200100]<0>(v297, "1.2.840.10008.5.1.4.1.1.6");
+    vega::UID::UID(&v299, v297);
+    std::string::basic_string[abi:ne200100]<0>(v385, "Ultrasound Image Storage (Retired)");
+    v386 = v299;
+    memset(&v299, 0, sizeof(v299));
+    std::string::basic_string[abi:ne200100]<0>(v294, "1.2.840.10008.5.1.4.1.1.6.1");
+    vega::UID::UID(&v296, v294);
+    std::string::basic_string[abi:ne200100]<0>(v387, "Ultrasound Image Storage");
+    v388 = v296;
+    memset(&v296, 0, sizeof(v296));
+    std::string::basic_string[abi:ne200100]<0>(v291, "1.2.840.10008.5.1.4.1.1.6.2");
+    vega::UID::UID(&v293, v291);
+    std::string::basic_string[abi:ne200100]<0>(v389, "Enhanced US Volume Storage");
+    v390 = v293;
+    memset(&v293, 0, sizeof(v293));
+    std::string::basic_string[abi:ne200100]<0>(v288, "1.2.840.10008.5.1.4.1.1.7");
+    vega::UID::UID(&v290, v288);
+    std::string::basic_string[abi:ne200100]<0>(v391, "Secondary Capture Image Storage");
+    v392 = v290;
+    memset(&v290, 0, sizeof(v290));
+    std::string::basic_string[abi:ne200100]<0>(v285, "1.2.840.10008.5.1.4.1.1.7.1");
+    vega::UID::UID(&v287, v285);
+    std::string::basic_string[abi:ne200100]<0>(v393, "Multi-frame Single Bit Secondary Capture Image Storage");
+    v394 = v287;
+    memset(&v287, 0, sizeof(v287));
+    std::string::basic_string[abi:ne200100]<0>(v282, "1.2.840.10008.5.1.4.1.1.7.2");
+    vega::UID::UID(&v284, v282);
+    std::string::basic_string[abi:ne200100]<0>(v395, "Multi-frame Grayscale Byte Secondary Capture Image Storage");
+    v396 = v284;
+    memset(&v284, 0, sizeof(v284));
+    std::string::basic_string[abi:ne200100]<0>(v279, "1.2.840.10008.5.1.4.1.1.7.3");
+    vega::UID::UID(&v281, v279);
+    std::string::basic_string[abi:ne200100]<0>(v397, "Multi-frame Grayscale Word Secondary Capture Image Storage");
+    v398 = v281;
+    memset(&v281, 0, sizeof(v281));
+    std::string::basic_string[abi:ne200100]<0>(v276, "1.2.840.10008.5.1.4.1.1.7.4");
+    vega::UID::UID(&v278, v276);
+    std::string::basic_string[abi:ne200100]<0>(v399, "Multi-frame True Color Secondary Capture Image Storage");
+    v400 = v278;
+    memset(&v278, 0, sizeof(v278));
+    std::string::basic_string[abi:ne200100]<0>(v273, "1.2.840.10008.5.1.4.1.1.9.1.1");
+    vega::UID::UID(&v275, v273);
+    std::string::basic_string[abi:ne200100]<0>(v401, "12-lead ECG Waveform Storage");
+    v402 = v275;
+    memset(&v275, 0, sizeof(v275));
+    std::string::basic_string[abi:ne200100]<0>(v270, "1.2.840.10008.5.1.4.1.1.9.1.2");
+    vega::UID::UID(&v272, v270);
+    std::string::basic_string[abi:ne200100]<0>(v403, "General ECG Waveform Storage");
+    v404 = v272;
+    memset(&v272, 0, sizeof(v272));
+    std::string::basic_string[abi:ne200100]<0>(v267, "1.2.840.10008.5.1.4.1.1.9.1.3");
+    vega::UID::UID(&v269, v267);
+    std::string::basic_string[abi:ne200100]<0>(v405, "Ambulatory ECG Waveform Storage");
+    v406 = v269;
+    memset(&v269, 0, sizeof(v269));
+    std::string::basic_string[abi:ne200100]<0>(v264, "1.2.840.10008.5.1.4.1.1.9.2.1");
+    vega::UID::UID(&v266, v264);
+    std::string::basic_string[abi:ne200100]<0>(v407, "Hemodynamic Waveform Storage");
+    v408 = v266;
+    memset(&v266, 0, sizeof(v266));
+    std::string::basic_string[abi:ne200100]<0>(v261, "1.2.840.10008.5.1.4.1.1.9.3.1");
+    vega::UID::UID(&v263, v261);
+    std::string::basic_string[abi:ne200100]<0>(v409, "Cardiac Electrophysiology Waveform Storage");
+    v410 = v263;
+    memset(&v263, 0, sizeof(v263));
+    std::string::basic_string[abi:ne200100]<0>(v258, "1.2.840.10008.5.1.4.1.1.9.4.1");
+    vega::UID::UID(&v260, v258);
+    std::string::basic_string[abi:ne200100]<0>(v411, "Basic Voice Audio Waveform Storage");
+    v412 = v260;
+    memset(&v260, 0, sizeof(v260));
+    std::string::basic_string[abi:ne200100]<0>(v255, "1.2.840.10008.5.1.4.1.1.9.4.2");
+    vega::UID::UID(&v257, v255);
+    std::string::basic_string[abi:ne200100]<0>(v413, "General Audio Waveform Storage");
+    v414 = v257;
+    memset(&v257, 0, sizeof(v257));
+    std::string::basic_string[abi:ne200100]<0>(v252, "1.2.840.10008.5.1.4.1.1.9.5.1");
+    vega::UID::UID(&v254, v252);
+    std::string::basic_string[abi:ne200100]<0>(v415, "Arterial Pulse Waveform Storage");
+    v416 = v254;
+    memset(&v254, 0, sizeof(v254));
+    std::string::basic_string[abi:ne200100]<0>(v249, "1.2.840.10008.5.1.4.1.1.9.6.1");
+    vega::UID::UID(&v251, v249);
+    std::string::basic_string[abi:ne200100]<0>(v417, "Respiratory Waveform Storage");
+    v418 = v251;
+    memset(&v251, 0, sizeof(v251));
+    std::string::basic_string[abi:ne200100]<0>(v246, "1.2.840.10008.5.1.4.1.1.11.1");
+    vega::UID::UID(&v248, v246);
+    std::string::basic_string[abi:ne200100]<0>(v419, "Grayscale Softcopy Presentation State Storage");
+    v420 = v248;
+    memset(&v248, 0, sizeof(v248));
+    std::string::basic_string[abi:ne200100]<0>(v243, "1.2.840.10008.5.1.4.1.1.11.2");
+    vega::UID::UID(&v245, v243);
+    std::string::basic_string[abi:ne200100]<0>(v421, "Color Softcopy Presentation State Storage");
+    v422 = v245;
+    memset(&v245, 0, sizeof(v245));
+    std::string::basic_string[abi:ne200100]<0>(v240, "1.2.840.10008.5.1.4.1.1.11.3");
+    vega::UID::UID(&v242, v240);
+    std::string::basic_string[abi:ne200100]<0>(v423, "Pseudo-Color Softcopy Presentation State Storage");
+    v424 = v242;
+    memset(&v242, 0, sizeof(v242));
+    std::string::basic_string[abi:ne200100]<0>(v237, "1.2.840.10008.5.1.4.1.1.11.4");
+    vega::UID::UID(&v239, v237);
+    std::string::basic_string[abi:ne200100]<0>(v425, "Blending Softcopy Presentation State Storage");
+    v426 = v239;
+    memset(&v239, 0, sizeof(v239));
+    std::string::basic_string[abi:ne200100]<0>(v234, "1.2.840.10008.5.1.4.1.1.11.5");
+    vega::UID::UID(&v236, v234);
+    std::string::basic_string[abi:ne200100]<0>(v427, "XA/XRF Grayscale Softcopy Presentation State Storage");
+    v428 = v236;
+    memset(&v236, 0, sizeof(v236));
+    std::string::basic_string[abi:ne200100]<0>(v231, "1.2.840.10008.5.1.4.1.1.12.1");
+    vega::UID::UID(&v233, v231);
+    std::string::basic_string[abi:ne200100]<0>(v429, "X-Ray Angiographic Image Storage");
+    v430 = v233;
+    memset(&v233, 0, sizeof(v233));
+    std::string::basic_string[abi:ne200100]<0>(v228, "1.2.840.10008.5.1.4.1.1.12.1.1");
+    vega::UID::UID(&v230, v228);
+    std::string::basic_string[abi:ne200100]<0>(v431, "Enhanced XA Image Storage");
+    v432 = v230;
+    memset(&v230, 0, sizeof(v230));
+    std::string::basic_string[abi:ne200100]<0>(v225, "1.2.840.10008.5.1.4.1.1.12.2");
+    vega::UID::UID(&v227, v225);
+    std::string::basic_string[abi:ne200100]<0>(v433, "X-Ray Radiofluoroscopic Image Storage");
+    v434 = v227;
+    memset(&v227, 0, sizeof(v227));
+    std::string::basic_string[abi:ne200100]<0>(v222, "1.2.840.10008.5.1.4.1.1.12.2.1");
+    vega::UID::UID(&v224, v222);
+    std::string::basic_string[abi:ne200100]<0>(v435, "Enhanced XRF Image Storage");
+    v436 = v224;
+    memset(&v224, 0, sizeof(v224));
+    std::string::basic_string[abi:ne200100]<0>(v219, "1.2.840.10008.5.1.4.1.1.12.3");
+    vega::UID::UID(&v221, v219);
+    std::string::basic_string[abi:ne200100]<0>(v437, "X-Ray Angiographic Bi-plane Image Storage (Retired)");
+    v438 = v221;
+    memset(&v221, 0, sizeof(v221));
+    std::string::basic_string[abi:ne200100]<0>(v216, "1.2.840.10008.5.1.4.1.1.13.1.1");
+    vega::UID::UID(&v218, v216);
+    std::string::basic_string[abi:ne200100]<0>(v439, "X-Ray 3D Angiographic Image Storage");
+    v440 = v218;
+    memset(&v218, 0, sizeof(v218));
+    std::string::basic_string[abi:ne200100]<0>(v213, "1.2.840.10008.5.1.4.1.1.13.1.2");
+    vega::UID::UID(&v215, v213);
+    std::string::basic_string[abi:ne200100]<0>(v441, "X-Ray 3D Craniofacial Image Storage");
+    v442 = v215;
+    memset(&v215, 0, sizeof(v215));
+    std::string::basic_string[abi:ne200100]<0>(v210, "1.2.840.10008.5.1.4.1.1.13.1.3");
+    vega::UID::UID(&v212, v210);
+    std::string::basic_string[abi:ne200100]<0>(v443, "Breast Tomosynthesis Image Storage");
+    v444 = v212;
+    memset(&v212, 0, sizeof(v212));
+    std::string::basic_string[abi:ne200100]<0>(v207, "1.2.840.10008.5.1.4.1.1.14.1");
+    vega::UID::UID(&v209, v207);
+    std::string::basic_string[abi:ne200100]<0>(v445, "Intravascular Optical Coherence Tomography Image Storage - For Presentation");
+    v446 = v209;
+    memset(&v209, 0, sizeof(v209));
+    std::string::basic_string[abi:ne200100]<0>(v204, "1.2.840.10008.5.1.4.1.1.14.2");
+    vega::UID::UID(&v206, v204);
+    std::string::basic_string[abi:ne200100]<0>(v447, "Intravascular Optical Coherence Tomography Image Storage - For Processing");
+    v448 = v206;
+    memset(&v206, 0, sizeof(v206));
+    std::string::basic_string[abi:ne200100]<0>(v201, "1.2.840.10008.5.1.4.1.1.20");
+    vega::UID::UID(&v203, v201);
+    std::string::basic_string[abi:ne200100]<0>(v449, "Nuclear Medicine Image Storage");
+    v450 = v203;
+    memset(&v203, 0, sizeof(v203));
+    std::string::basic_string[abi:ne200100]<0>(v198, "1.2.840.10008.5.1.4.1.1.5");
+    vega::UID::UID(&v200, v198);
+    std::string::basic_string[abi:ne200100]<0>(v451, "Nuclear Medicine Image Storage (Retired)");
+    v452 = v200;
+    memset(&v200, 0, sizeof(v200));
+    std::string::basic_string[abi:ne200100]<0>(v195, "1.2.840.10008.5.1.4.1.1.66");
+    vega::UID::UID(&v197, v195);
+    std::string::basic_string[abi:ne200100]<0>(v453, "Raw Data Storage");
+    v454 = v197;
+    memset(&v197, 0, sizeof(v197));
+    std::string::basic_string[abi:ne200100]<0>(v192, "1.2.840.10008.5.1.4.1.1.66.1");
+    vega::UID::UID(&v194, v192);
+    std::string::basic_string[abi:ne200100]<0>(v455, "Spatial Registration Storage");
+    v456 = v194;
+    memset(&v194, 0, sizeof(v194));
+    std::string::basic_string[abi:ne200100]<0>(v189, "1.2.840.10008.5.1.4.1.1.66.2");
+    vega::UID::UID(&v191, v189);
+    std::string::basic_string[abi:ne200100]<0>(v457, "Spatial Fiducials Storage");
+    v458 = v191;
+    memset(&v191, 0, sizeof(v191));
+    std::string::basic_string[abi:ne200100]<0>(v186, "1.2.840.10008.5.1.4.1.1.66.3");
+    vega::UID::UID(&v188, v186);
+    std::string::basic_string[abi:ne200100]<0>(v459, "Deformable Spatial Registration Storage");
+    v460 = v188;
+    memset(&v188, 0, sizeof(v188));
+    std::string::basic_string[abi:ne200100]<0>(v183, "1.2.840.10008.5.1.4.1.1.66.4");
+    vega::UID::UID(&v185, v183);
+    std::string::basic_string[abi:ne200100]<0>(v461, "Segmentation Storage");
+    v462 = v185;
+    memset(&v185, 0, sizeof(v185));
+    std::string::basic_string[abi:ne200100]<0>(v180, "1.2.840.10008.5.1.4.1.1.66.5");
+    vega::UID::UID(&v182, v180);
+    std::string::basic_string[abi:ne200100]<0>(v463, "Surface Segmentation Storage");
+    v464 = v182;
+    memset(&v182, 0, sizeof(v182));
+    std::string::basic_string[abi:ne200100]<0>(v177, "1.2.840.10008.5.1.4.1.1.67");
+    vega::UID::UID(&v179, v177);
+    std::string::basic_string[abi:ne200100]<0>(v465, "Real World Value Mapping Storage");
+    v466 = v179;
+    memset(&v179, 0, sizeof(v179));
+    std::string::basic_string[abi:ne200100]<0>(v174, "1.2.840.10008.5.1.4.1.1.68.1");
+    vega::UID::UID(&v176, v174);
+    std::string::basic_string[abi:ne200100]<0>(v467, "Surface Scan Mesh Storage");
+    v468 = v176;
+    memset(&v176, 0, sizeof(v176));
+    std::string::basic_string[abi:ne200100]<0>(v171, "1.2.840.10008.5.1.4.1.1.68.2");
+    vega::UID::UID(&v173, v171);
+    std::string::basic_string[abi:ne200100]<0>(v469, "Surface Scan Point Cloud Storage");
+    v470 = v173;
+    memset(&v173, 0, sizeof(v173));
+    std::string::basic_string[abi:ne200100]<0>(v168, "1.2.840.10008.5.1.4.1.1.77.1.1");
+    vega::UID::UID(&v170, v168);
+    std::string::basic_string[abi:ne200100]<0>(v471, "VL Endoscopic Image Storage");
+    v472 = v170;
+    memset(&v170, 0, sizeof(v170));
+    std::string::basic_string[abi:ne200100]<0>(v165, "1.2.840.10008.5.1.4.1.1.77.1.1.1");
+    vega::UID::UID(&v167, v165);
+    std::string::basic_string[abi:ne200100]<0>(v473, "Video Endoscopic Image Storage");
+    v474 = v167;
+    memset(&v167, 0, sizeof(v167));
+    std::string::basic_string[abi:ne200100]<0>(v162, "1.2.840.10008.5.1.4.1.1.77.1.2");
+    vega::UID::UID(&v164, v162);
+    std::string::basic_string[abi:ne200100]<0>(v475, "VL Microscopic Image Storage");
+    v476 = v164;
+    memset(&v164, 0, sizeof(v164));
+    std::string::basic_string[abi:ne200100]<0>(v159, "1.2.840.10008.5.1.4.1.1.77.1.2.1");
+    vega::UID::UID(&v161, v159);
+    std::string::basic_string[abi:ne200100]<0>(v477, "Video Microscopic Image Storage");
+    v478 = v161;
+    memset(&v161, 0, sizeof(v161));
+    std::string::basic_string[abi:ne200100]<0>(v156, "1.2.840.10008.5.1.4.1.1.77.1.3");
+    vega::UID::UID(&v158, v156);
+    std::string::basic_string[abi:ne200100]<0>(v479, "VL Slide-Coordinates Microscopic Image Storage");
+    v480 = v158;
+    memset(&v158, 0, sizeof(v158));
+    std::string::basic_string[abi:ne200100]<0>(v153, "1.2.840.10008.5.1.4.1.1.77.1.4");
+    vega::UID::UID(&v155, v153);
+    std::string::basic_string[abi:ne200100]<0>(v481, "VL Photographic Image Storage");
+    v482 = v155;
+    memset(&v155, 0, sizeof(v155));
+    std::string::basic_string[abi:ne200100]<0>(v150, "1.2.840.10008.5.1.4.1.1.77.1.4.1");
+    vega::UID::UID(&v152, v150);
+    std::string::basic_string[abi:ne200100]<0>(v483, "Video Photographic Image Storage");
+    v484 = v152;
+    memset(&v152, 0, sizeof(v152));
+    std::string::basic_string[abi:ne200100]<0>(v147, "1.2.840.10008.5.1.4.1.1.77.1.5.1");
+    vega::UID::UID(&v149, v147);
+    std::string::basic_string[abi:ne200100]<0>(v485, "Ophthalmic Photography 8 Bit Image Storage");
+    v486 = v149;
+    memset(&v149, 0, sizeof(v149));
+    std::string::basic_string[abi:ne200100]<0>(v144, "1.2.840.10008.5.1.4.1.1.77.1.5.2");
+    vega::UID::UID(&v146, v144);
+    std::string::basic_string[abi:ne200100]<0>(v487, "Ophthalmic Photography 16 Bit Image Storage");
+    v488 = v146;
+    memset(&v146, 0, sizeof(v146));
+    std::string::basic_string[abi:ne200100]<0>(v141, "1.2.840.10008.5.1.4.1.1.77.1.5.3");
+    vega::UID::UID(&v143, v141);
+    std::string::basic_string[abi:ne200100]<0>(v489, "Stereometric Relationship Storage");
+    v490 = v143;
+    memset(&v143, 0, sizeof(v143));
+    std::string::basic_string[abi:ne200100]<0>(v138, "1.2.840.10008.5.1.4.1.1.77.1.5.4");
+    vega::UID::UID(&v140, v138);
+    std::string::basic_string[abi:ne200100]<0>(v491, "Ophthalmic Tomography Image Storage");
+    v492 = v140;
+    memset(&v140, 0, sizeof(v140));
+    std::string::basic_string[abi:ne200100]<0>(v135, "1.2.840.10008.5.1.4.1.1.77.1.6");
+    vega::UID::UID(&v137, v135);
+    std::string::basic_string[abi:ne200100]<0>(v493, "VL Whole Slide Microscopy Image Storage");
+    v494 = v137;
+    memset(&v137, 0, sizeof(v137));
+    std::string::basic_string[abi:ne200100]<0>(v132, "1.2.840.10008.5.1.4.1.1.78.1");
+    vega::UID::UID(&v134, v132);
+    std::string::basic_string[abi:ne200100]<0>(v495, "Lensometry Measurements Storage");
+    v496 = v134;
+    memset(&v134, 0, sizeof(v134));
+    std::string::basic_string[abi:ne200100]<0>(v129, "1.2.840.10008.5.1.4.1.1.78.2");
+    vega::UID::UID(&v131, v129);
+    std::string::basic_string[abi:ne200100]<0>(v497, "Autorefraction Measurements Storage");
+    v498 = v131;
+    memset(&v131, 0, sizeof(v131));
+    std::string::basic_string[abi:ne200100]<0>(v126, "1.2.840.10008.5.1.4.1.1.78.3");
+    vega::UID::UID(&v128, v126);
+    std::string::basic_string[abi:ne200100]<0>(v499, "Keratometry Measurements Storage");
+    v500 = v128;
+    memset(&v128, 0, sizeof(v128));
+    std::string::basic_string[abi:ne200100]<0>(v123, "1.2.840.10008.5.1.4.1.1.78.4");
+    vega::UID::UID(&v125, v123);
+    std::string::basic_string[abi:ne200100]<0>(v501, "Subjective Refraction Measurements Storage");
+    v502 = v125;
+    memset(&v125, 0, sizeof(v125));
+    std::string::basic_string[abi:ne200100]<0>(v120, "1.2.840.10008.5.1.4.1.1.78.5");
+    vega::UID::UID(&v122, v120);
+    std::string::basic_string[abi:ne200100]<0>(v503, "Visual Acuity Measurements Storage");
+    v504 = v122;
+    memset(&v122, 0, sizeof(v122));
+    std::string::basic_string[abi:ne200100]<0>(v117, "1.2.840.10008.5.1.4.1.1.78.6");
+    vega::UID::UID(&v119, v117);
+    std::string::basic_string[abi:ne200100]<0>(v505, "Spectacle Prescription Report Storage");
+    v506 = v119;
+    memset(&v119, 0, sizeof(v119));
+    std::string::basic_string[abi:ne200100]<0>(v114, "1.2.840.10008.5.1.4.1.1.78.7");
+    vega::UID::UID(&v116, v114);
+    std::string::basic_string[abi:ne200100]<0>(v507, "Ophthalmic Axial Measurements Storage");
+    v508 = v116;
+    memset(&v116, 0, sizeof(v116));
+    std::string::basic_string[abi:ne200100]<0>(v111, "1.2.840.10008.5.1.4.1.1.78.8");
+    vega::UID::UID(&v113, v111);
+    std::string::basic_string[abi:ne200100]<0>(v509, "Intraocular Lens Calculations Storage");
+    v510 = v113;
+    memset(&v113, 0, sizeof(v113));
+    std::string::basic_string[abi:ne200100]<0>(v108, "1.2.840.10008.5.1.4.1.1.79.1");
+    vega::UID::UID(&v110, v108);
+    std::string::basic_string[abi:ne200100]<0>(v511, "Macular Grid Thickness and Volume Report");
+    v512 = v110;
+    memset(&v110, 0, sizeof(v110));
+    std::string::basic_string[abi:ne200100]<0>(v105, "1.2.840.10008.5.1.4.1.1.80.1");
+    vega::UID::UID(&v107, v105);
+    std::string::basic_string[abi:ne200100]<0>(v513, "Ophthalmic Visual Field Static Perimetry Measurements Storage");
+    v514 = v107;
+    memset(&v107, 0, sizeof(v107));
+    std::string::basic_string[abi:ne200100]<0>(v102, "1.2.840.10008.5.1.4.1.1.81.1");
+    vega::UID::UID(&v104, v102);
+    std::string::basic_string[abi:ne200100]<0>(v515, "Ophthalmic Thickness Map Storage");
+    v516 = v104;
+    memset(&v104, 0, sizeof(v104));
+    std::string::basic_string[abi:ne200100]<0>(v99, "1.2.840.10008.5.1.4.1.1.82.1");
+    vega::UID::UID(&v101, v99);
+    std::string::basic_string[abi:ne200100]<0>(v517, "Corneal Topography Map Storage");
+    v518 = v101;
+    memset(&v101, 0, sizeof(v101));
+    std::string::basic_string[abi:ne200100]<0>(v96, "1.2.840.10008.5.1.4.1.1.88.11");
+    vega::UID::UID(&v98, v96);
+    std::string::basic_string[abi:ne200100]<0>(v519, "Basic Text SR");
+    v520 = v98;
+    memset(&v98, 0, sizeof(v98));
+    std::string::basic_string[abi:ne200100]<0>(v93, "1.2.840.10008.5.1.4.1.1.88.22");
+    vega::UID::UID(&v95, v93);
+    std::string::basic_string[abi:ne200100]<0>(v521, "Enhanced SR");
+    v522 = v95;
+    memset(&v95, 0, sizeof(v95));
+    std::string::basic_string[abi:ne200100]<0>(v90, "1.2.840.10008.5.1.4.1.1.88.33");
+    vega::UID::UID(&v92, v90);
+    std::string::basic_string[abi:ne200100]<0>(v523, "Comprehensive SR");
+    v524 = v92;
+    memset(&v92, 0, sizeof(v92));
+    std::string::basic_string[abi:ne200100]<0>(v87, "1.2.840.10008.5.1.4.1.1.88.34");
+    vega::UID::UID(&v89, v87);
+    std::string::basic_string[abi:ne200100]<0>(v525, "Comprehensive 3D SR");
+    v526 = v89;
+    memset(&v89, 0, sizeof(v89));
+    std::string::basic_string[abi:ne200100]<0>(v84, "1.2.840.10008.5.1.4.1.1.88.40");
+    vega::UID::UID(&v86, v84);
+    std::string::basic_string[abi:ne200100]<0>(v527, "Procedure Log");
+    v528 = v86;
+    memset(&v86, 0, sizeof(v86));
+    std::string::basic_string[abi:ne200100]<0>(v81, "1.2.840.10008.5.1.4.1.1.88.50");
+    vega::UID::UID(&v83, v81);
+    std::string::basic_string[abi:ne200100]<0>(v529, "Mammography CAD SR");
+    v530 = v83;
+    memset(&v83, 0, sizeof(v83));
+    std::string::basic_string[abi:ne200100]<0>(v78, "1.2.840.10008.5.1.4.1.1.88.59");
+    vega::UID::UID(&v80, v78);
+    std::string::basic_string[abi:ne200100]<0>(v531, "Key Object Selection");
+    v532 = v80;
+    memset(&v80, 0, sizeof(v80));
+    std::string::basic_string[abi:ne200100]<0>(v75, "1.2.840.10008.5.1.4.1.1.88.65");
+    vega::UID::UID(&v77, v75);
+    std::string::basic_string[abi:ne200100]<0>(v533, "Chest CAD SR");
+    v534 = v77;
+    memset(&v77, 0, sizeof(v77));
+    std::string::basic_string[abi:ne200100]<0>(v72, "1.2.840.10008.5.1.4.1.1.88.67");
+    vega::UID::UID(&v74, v72);
+    std::string::basic_string[abi:ne200100]<0>(v535, "X-Ray Radiation Dose SR");
+    v536 = v74;
+    memset(&v74, 0, sizeof(v74));
+    std::string::basic_string[abi:ne200100]<0>(v69, "1.2.840.10008.5.1.4.1.1.88.69");
+    vega::UID::UID(&v71, v69);
+    std::string::basic_string[abi:ne200100]<0>(v537, "Colon CAD SR");
+    v538 = v71;
+    memset(&v71, 0, sizeof(v71));
+    std::string::basic_string[abi:ne200100]<0>(v66, "1.2.840.10008.5.1.4.1.1.88.70");
+    vega::UID::UID(&v68, v66);
+    std::string::basic_string[abi:ne200100]<0>(v539, "Implantation Plan SR Document Storage");
+    v540 = v68;
+    memset(&v68, 0, sizeof(v68));
+    std::string::basic_string[abi:ne200100]<0>(v63, "1.2.840.10008.5.1.4.1.1.104.1");
+    vega::UID::UID(&v65, v63);
+    std::string::basic_string[abi:ne200100]<0>(v541, "Encapsulated PDF Storage");
+    v542 = v65;
+    memset(&v65, 0, sizeof(v65));
+    std::string::basic_string[abi:ne200100]<0>(v60, "1.2.840.10008.5.1.4.1.1.104.2");
+    vega::UID::UID(&v62, v60);
+    std::string::basic_string[abi:ne200100]<0>(v543, "Encapsulated CDA Storage");
+    v544 = v62;
+    memset(&v62, 0, sizeof(v62));
+    std::string::basic_string[abi:ne200100]<0>(v57, "1.2.840.10008.5.1.4.1.1.128");
+    vega::UID::UID(&v59, v57);
+    std::string::basic_string[abi:ne200100]<0>(v545, "Positron Emission Tomography Image Storage");
+    v546 = v59;
+    memset(&v59, 0, sizeof(v59));
+    std::string::basic_string[abi:ne200100]<0>(v54, "1.2.840.10008.5.1.4.1.1.130");
+    vega::UID::UID(&v56, v54);
+    std::string::basic_string[abi:ne200100]<0>(v547, "Enhanced PET Image Storage");
+    v548 = v56;
+    memset(&v56, 0, sizeof(v56));
+    std::string::basic_string[abi:ne200100]<0>(v51, "1.2.840.10008.5.1.4.1.1.128.1");
+    vega::UID::UID(&v53, v51);
+    std::string::basic_string[abi:ne200100]<0>(v549, "Legacy Converted Enhanced PET Image Storage");
+    v550 = v53;
+    memset(&v53, 0, sizeof(v53));
+    std::string::basic_string[abi:ne200100]<0>(v48, "1.2.840.10008.5.1.4.1.1.131");
+    vega::UID::UID(&v50, v48);
+    std::string::basic_string[abi:ne200100]<0>(v551, "Basic Structured Display Storage");
+    v552 = v50;
+    memset(&v50, 0, sizeof(v50));
+    std::string::basic_string[abi:ne200100]<0>(v45, "1.2.840.10008.5.1.4.1.1.481.1");
+    vega::UID::UID(&v47, v45);
+    std::string::basic_string[abi:ne200100]<0>(v553, "RT Image Storage");
+    v554 = v47;
+    memset(&v47, 0, sizeof(v47));
+    std::string::basic_string[abi:ne200100]<0>(v42, "1.2.840.10008.5.1.4.1.1.481.2");
+    vega::UID::UID(&v44, v42);
+    std::string::basic_string[abi:ne200100]<0>(v555, "RT Dose Storage");
+    v556 = v44;
+    memset(&v44, 0, sizeof(v44));
+    std::string::basic_string[abi:ne200100]<0>(v39, "1.2.840.10008.5.1.4.1.1.481.3");
+    vega::UID::UID(&v41, v39);
+    std::string::basic_string[abi:ne200100]<0>(v557, "RT Structure Set Storage");
+    v558 = v41;
+    memset(&v41, 0, sizeof(v41));
+    std::string::basic_string[abi:ne200100]<0>(v36, "1.2.840.10008.5.1.4.1.1.481.4");
+    vega::UID::UID(&v38, v36);
+    std::string::basic_string[abi:ne200100]<0>(v559, "RT Beams Treatment Record Storage");
+    v560 = v38;
+    memset(&v38, 0, sizeof(v38));
+    std::string::basic_string[abi:ne200100]<0>(v33, "1.2.840.10008.5.1.4.1.1.481.5");
+    vega::UID::UID(&v35, v33);
+    std::string::basic_string[abi:ne200100]<0>(v561, "RT Plan Storage");
+    v562 = v35;
+    memset(&v35, 0, sizeof(v35));
+    std::string::basic_string[abi:ne200100]<0>(v30, "1.2.840.10008.5.1.4.1.1.481.6");
+    vega::UID::UID(&v32, v30);
+    std::string::basic_string[abi:ne200100]<0>(v563, "RT Brachy Treatment Record Storage");
+    v564 = v32;
+    memset(&v32, 0, sizeof(v32));
+    std::string::basic_string[abi:ne200100]<0>(v27, "1.2.840.10008.5.1.4.1.1.481.7");
+    vega::UID::UID(&v29, v27);
+    std::string::basic_string[abi:ne200100]<0>(v565, "RT Treatment Summary Record Storage");
+    v566 = v29;
+    memset(&v29, 0, sizeof(v29));
+    std::string::basic_string[abi:ne200100]<0>(v24, "1.2.840.10008.5.1.4.1.1.481.8");
+    vega::UID::UID(&v26, v24);
+    std::string::basic_string[abi:ne200100]<0>(v567, "RT Ion Plan Storage");
+    v568 = v26;
+    memset(&v26, 0, sizeof(v26));
+    std::string::basic_string[abi:ne200100]<0>(v21, "1.2.840.10008.5.1.4.1.1.481.9");
+    vega::UID::UID(&v23, v21);
+    std::string::basic_string[abi:ne200100]<0>(v569, "RT Ion Beams Treatment Record Storage");
+    v570 = v23;
+    memset(&v23, 0, sizeof(v23));
+    std::string::basic_string[abi:ne200100]<0>(v18, "1.2.840.10008.5.1.4.34.7");
+    vega::UID::UID(&v20, v18);
+    std::string::basic_string[abi:ne200100]<0>(v571, "RT Beams Delivery Instruction Storage");
+    v572 = v20;
+    memset(&v20, 0, sizeof(v20));
+    std::string::basic_string[abi:ne200100]<0>(v15, "1.2.840.10008.5.1.4.43.1");
+    vega::UID::UID(&v17, v15);
+    std::string::basic_string[abi:ne200100]<0>(v573, "Generic Implant Template Storage");
+    v574 = v17;
+    memset(&v17, 0, sizeof(v17));
+    std::string::basic_string[abi:ne200100]<0>(v12, "1.2.840.10008.5.1.4.44.1");
+    vega::UID::UID(&v14, v12);
+    std::string::basic_string[abi:ne200100]<0>(v575, "Implant Assembly Template Storage");
+    v576 = v14;
+    memset(&v14, 0, sizeof(v14));
+    std::string::basic_string[abi:ne200100]<0>(v9, "1.2.840.10008.5.1.4.45.1");
+    vega::UID::UID(&__p, v9);
+    std::string::basic_string[abi:ne200100]<0>(v577, "Implant Template Group Storage");
+    v578 = __p;
     memset(&__p, 0, sizeof(__p));
     qword_1EB1ECB90 = 0;
     unk_1EB1ECB98 = 0;
     vega::dicom::SOPClass::NAME_UID_PAIRS(void)::NAME_UID_PAIRS = 0;
-    std::vector<std::pair<std::string,vega::UID>>::__init_with_size[abi:ne200100]<std::pair<std::string,vega::UID> const*,std::pair<std::string,vega::UID> const*>(&vega::dicom::SOPClass::NAME_UID_PAIRS(void)::NAME_UID_PAIRS, v350, &v578, 0x72uLL);
-    v5 = v576;
-    v6 = -5472;
+    std::vector<std::pair<std::string,vega::UID>>::__init_with_size[abi:ne200100]<std::pair<std::string,vega::UID> const*,std::pair<std::string,vega::UID> const*>(&vega::dicom::SOPClass::NAME_UID_PAIRS(void)::NAME_UID_PAIRS, v351, &v579, 0x72uLL);
+    v6 = v577;
+    v7 = -5472;
     do
     {
-      vega::dicom::TransferSyntax::~TransferSyntax(v5);
-      v5 = (v7 - 48);
-      v6 += 48;
+      vega::dicom::TransferSyntax::~TransferSyntax(v6);
+      v6 = (v8 - 48);
+      v7 += 48;
     }
 
-    while (v6);
+    while (v7);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v9 < 0)
+    if (v10 < 0)
     {
-      operator delete(v8[0]);
+      operator delete(v9[0]);
     }
 
-    if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v13.__r_.__value_.__l.__data_);
+      operator delete(v14.__r_.__value_.__l.__data_);
     }
 
-    if (v12 < 0)
+    if (v13 < 0)
     {
-      operator delete(v11[0]);
+      operator delete(v12[0]);
     }
 
-    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v16.__r_.__value_.__l.__data_);
+      operator delete(v17.__r_.__value_.__l.__data_);
     }
 
-    if (v15 < 0)
+    if (v16 < 0)
     {
-      operator delete(v14[0]);
+      operator delete(v15[0]);
     }
 
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v19.__r_.__value_.__l.__data_);
+      operator delete(v20.__r_.__value_.__l.__data_);
     }
 
-    if (v18 < 0)
+    if (v19 < 0)
     {
-      operator delete(v17[0]);
+      operator delete(v18[0]);
     }
 
-    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v22.__r_.__value_.__l.__data_);
+      operator delete(v23.__r_.__value_.__l.__data_);
     }
 
-    if (v21 < 0)
+    if (v22 < 0)
     {
-      operator delete(v20[0]);
+      operator delete(v21[0]);
     }
 
-    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v25.__r_.__value_.__l.__data_);
+      operator delete(v26.__r_.__value_.__l.__data_);
     }
 
-    if (v24 < 0)
+    if (v25 < 0)
     {
-      operator delete(v23[0]);
+      operator delete(v24[0]);
     }
 
-    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v28.__r_.__value_.__l.__data_);
+      operator delete(v29.__r_.__value_.__l.__data_);
     }
 
-    if (v27 < 0)
+    if (v28 < 0)
     {
-      operator delete(v26[0]);
+      operator delete(v27[0]);
     }
 
-    if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v31.__r_.__value_.__l.__data_);
+      operator delete(v32.__r_.__value_.__l.__data_);
     }
 
-    if (v30 < 0)
+    if (v31 < 0)
     {
-      operator delete(v29[0]);
+      operator delete(v30[0]);
     }
 
-    if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v34.__r_.__value_.__l.__data_);
+      operator delete(v35.__r_.__value_.__l.__data_);
     }
 
-    if (v33 < 0)
+    if (v34 < 0)
     {
-      operator delete(v32[0]);
+      operator delete(v33[0]);
     }
 
-    if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v37.__r_.__value_.__l.__data_);
+      operator delete(v38.__r_.__value_.__l.__data_);
     }
 
-    if (v36 < 0)
+    if (v37 < 0)
     {
-      operator delete(v35[0]);
+      operator delete(v36[0]);
     }
 
-    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v40.__r_.__value_.__l.__data_);
+      operator delete(v41.__r_.__value_.__l.__data_);
     }
 
-    if (v39 < 0)
+    if (v40 < 0)
     {
-      operator delete(v38[0]);
+      operator delete(v39[0]);
     }
 
-    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v43.__r_.__value_.__l.__data_);
+      operator delete(v44.__r_.__value_.__l.__data_);
     }
 
-    if (v42 < 0)
+    if (v43 < 0)
     {
-      operator delete(v41[0]);
+      operator delete(v42[0]);
     }
 
-    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v46.__r_.__value_.__l.__data_);
+      operator delete(v47.__r_.__value_.__l.__data_);
     }
 
-    if (v45 < 0)
+    if (v46 < 0)
     {
-      operator delete(v44[0]);
+      operator delete(v45[0]);
     }
 
-    if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v49.__r_.__value_.__l.__data_);
+      operator delete(v50.__r_.__value_.__l.__data_);
     }
 
-    if (v48 < 0)
+    if (v49 < 0)
     {
-      operator delete(v47[0]);
+      operator delete(v48[0]);
     }
 
-    if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v52.__r_.__value_.__l.__data_);
+      operator delete(v53.__r_.__value_.__l.__data_);
     }
 
-    if (v51 < 0)
+    if (v52 < 0)
     {
-      operator delete(v50[0]);
+      operator delete(v51[0]);
     }
 
-    if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v55.__r_.__value_.__l.__data_);
+      operator delete(v56.__r_.__value_.__l.__data_);
     }
 
-    if (v54 < 0)
+    if (v55 < 0)
     {
-      operator delete(v53[0]);
+      operator delete(v54[0]);
     }
 
-    if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v58.__r_.__value_.__l.__data_);
+      operator delete(v59.__r_.__value_.__l.__data_);
     }
 
-    if (v57 < 0)
+    if (v58 < 0)
     {
-      operator delete(v56[0]);
+      operator delete(v57[0]);
     }
 
-    if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v61.__r_.__value_.__l.__data_);
+      operator delete(v62.__r_.__value_.__l.__data_);
     }
 
-    if (v60 < 0)
+    if (v61 < 0)
     {
-      operator delete(v59[0]);
+      operator delete(v60[0]);
     }
 
-    if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v64.__r_.__value_.__l.__data_);
+      operator delete(v65.__r_.__value_.__l.__data_);
     }
 
-    if (v63 < 0)
+    if (v64 < 0)
     {
-      operator delete(v62[0]);
+      operator delete(v63[0]);
     }
 
-    if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v67.__r_.__value_.__l.__data_);
+      operator delete(v68.__r_.__value_.__l.__data_);
     }
 
-    if (v66 < 0)
+    if (v67 < 0)
     {
-      operator delete(v65[0]);
+      operator delete(v66[0]);
     }
 
-    if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v70.__r_.__value_.__l.__data_);
+      operator delete(v71.__r_.__value_.__l.__data_);
     }
 
-    if (v69 < 0)
+    if (v70 < 0)
     {
-      operator delete(v68[0]);
+      operator delete(v69[0]);
     }
 
-    if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v73.__r_.__value_.__l.__data_);
+      operator delete(v74.__r_.__value_.__l.__data_);
     }
 
-    if (v72 < 0)
+    if (v73 < 0)
     {
-      operator delete(v71[0]);
+      operator delete(v72[0]);
     }
 
-    if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v76.__r_.__value_.__l.__data_);
+      operator delete(v77.__r_.__value_.__l.__data_);
     }
 
-    if (v75 < 0)
+    if (v76 < 0)
     {
-      operator delete(v74[0]);
+      operator delete(v75[0]);
     }
 
-    if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v79.__r_.__value_.__l.__data_);
+      operator delete(v80.__r_.__value_.__l.__data_);
     }
 
-    if (v78 < 0)
+    if (v79 < 0)
     {
-      operator delete(v77[0]);
+      operator delete(v78[0]);
     }
 
-    if (SHIBYTE(v82.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v83.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v82.__r_.__value_.__l.__data_);
+      operator delete(v83.__r_.__value_.__l.__data_);
     }
 
-    if (v81 < 0)
+    if (v82 < 0)
     {
-      operator delete(v80[0]);
+      operator delete(v81[0]);
     }
 
-    if (SHIBYTE(v85.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v86.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v85.__r_.__value_.__l.__data_);
+      operator delete(v86.__r_.__value_.__l.__data_);
     }
 
-    if (v84 < 0)
+    if (v85 < 0)
     {
-      operator delete(v83[0]);
+      operator delete(v84[0]);
     }
 
-    if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v88.__r_.__value_.__l.__data_);
+      operator delete(v89.__r_.__value_.__l.__data_);
     }
 
-    if (v87 < 0)
+    if (v88 < 0)
     {
-      operator delete(v86[0]);
+      operator delete(v87[0]);
     }
 
-    if (SHIBYTE(v91.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v91.__r_.__value_.__l.__data_);
+      operator delete(v92.__r_.__value_.__l.__data_);
     }
 
-    if (v90 < 0)
+    if (v91 < 0)
     {
-      operator delete(v89[0]);
+      operator delete(v90[0]);
     }
 
-    if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v94.__r_.__value_.__l.__data_);
+      operator delete(v95.__r_.__value_.__l.__data_);
     }
 
-    if (v93 < 0)
+    if (v94 < 0)
     {
-      operator delete(v92[0]);
+      operator delete(v93[0]);
     }
 
-    if (SHIBYTE(v97.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v98.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v97.__r_.__value_.__l.__data_);
+      operator delete(v98.__r_.__value_.__l.__data_);
     }
 
-    if (v96 < 0)
+    if (v97 < 0)
     {
-      operator delete(v95[0]);
+      operator delete(v96[0]);
     }
 
-    if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v101.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v100.__r_.__value_.__l.__data_);
+      operator delete(v101.__r_.__value_.__l.__data_);
     }
 
-    if (v99 < 0)
+    if (v100 < 0)
     {
-      operator delete(v98[0]);
+      operator delete(v99[0]);
     }
 
-    if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v104.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v103.__r_.__value_.__l.__data_);
+      operator delete(v104.__r_.__value_.__l.__data_);
     }
 
-    if (v102 < 0)
+    if (v103 < 0)
     {
-      operator delete(v101[0]);
+      operator delete(v102[0]);
     }
 
-    if (SHIBYTE(v106.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v107.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v106.__r_.__value_.__l.__data_);
+      operator delete(v107.__r_.__value_.__l.__data_);
     }
 
-    if (v105 < 0)
+    if (v106 < 0)
     {
-      operator delete(v104[0]);
+      operator delete(v105[0]);
     }
 
-    if (SHIBYTE(v109.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v110.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v109.__r_.__value_.__l.__data_);
+      operator delete(v110.__r_.__value_.__l.__data_);
     }
 
-    if (v108 < 0)
+    if (v109 < 0)
     {
-      operator delete(v107[0]);
+      operator delete(v108[0]);
     }
 
-    if (SHIBYTE(v112.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v112.__r_.__value_.__l.__data_);
+      operator delete(v113.__r_.__value_.__l.__data_);
     }
 
-    if (v111 < 0)
+    if (v112 < 0)
     {
-      operator delete(v110[0]);
+      operator delete(v111[0]);
     }
 
-    if (SHIBYTE(v115.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v116.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v115.__r_.__value_.__l.__data_);
+      operator delete(v116.__r_.__value_.__l.__data_);
     }
 
-    if (v114 < 0)
+    if (v115 < 0)
     {
-      operator delete(v113[0]);
+      operator delete(v114[0]);
     }
 
-    if (SHIBYTE(v118.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v118.__r_.__value_.__l.__data_);
+      operator delete(v119.__r_.__value_.__l.__data_);
     }
 
-    if (v117 < 0)
+    if (v118 < 0)
     {
-      operator delete(v116[0]);
+      operator delete(v117[0]);
     }
 
-    if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v121.__r_.__value_.__l.__data_);
+      operator delete(v122.__r_.__value_.__l.__data_);
     }
 
-    if (v120 < 0)
+    if (v121 < 0)
     {
-      operator delete(v119[0]);
+      operator delete(v120[0]);
     }
 
-    if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v124.__r_.__value_.__l.__data_);
+      operator delete(v125.__r_.__value_.__l.__data_);
     }
 
-    if (v123 < 0)
+    if (v124 < 0)
     {
-      operator delete(v122[0]);
+      operator delete(v123[0]);
     }
 
-    if (SHIBYTE(v127.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v128.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v127.__r_.__value_.__l.__data_);
+      operator delete(v128.__r_.__value_.__l.__data_);
     }
 
-    if (v126 < 0)
+    if (v127 < 0)
     {
-      operator delete(v125[0]);
+      operator delete(v126[0]);
     }
 
-    if (SHIBYTE(v130.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v131.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v130.__r_.__value_.__l.__data_);
+      operator delete(v131.__r_.__value_.__l.__data_);
     }
 
-    if (v129 < 0)
+    if (v130 < 0)
     {
-      operator delete(v128[0]);
+      operator delete(v129[0]);
     }
 
-    if (SHIBYTE(v133.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v134.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v133.__r_.__value_.__l.__data_);
+      operator delete(v134.__r_.__value_.__l.__data_);
     }
 
-    if (v132 < 0)
+    if (v133 < 0)
     {
-      operator delete(v131[0]);
+      operator delete(v132[0]);
     }
 
-    if (SHIBYTE(v136.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v137.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v136.__r_.__value_.__l.__data_);
+      operator delete(v137.__r_.__value_.__l.__data_);
     }
 
-    if (v135 < 0)
+    if (v136 < 0)
     {
-      operator delete(v134[0]);
+      operator delete(v135[0]);
     }
 
-    if (SHIBYTE(v139.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v140.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v139.__r_.__value_.__l.__data_);
+      operator delete(v140.__r_.__value_.__l.__data_);
     }
 
-    if (v138 < 0)
+    if (v139 < 0)
     {
-      operator delete(v137[0]);
+      operator delete(v138[0]);
     }
 
-    if (SHIBYTE(v142.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v143.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v142.__r_.__value_.__l.__data_);
+      operator delete(v143.__r_.__value_.__l.__data_);
     }
 
-    if (v141 < 0)
+    if (v142 < 0)
     {
-      operator delete(v140[0]);
+      operator delete(v141[0]);
     }
 
-    if (SHIBYTE(v145.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v146.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v145.__r_.__value_.__l.__data_);
+      operator delete(v146.__r_.__value_.__l.__data_);
     }
 
-    if (v144 < 0)
+    if (v145 < 0)
     {
-      operator delete(v143[0]);
+      operator delete(v144[0]);
     }
 
-    if (SHIBYTE(v148.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v149.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v148.__r_.__value_.__l.__data_);
+      operator delete(v149.__r_.__value_.__l.__data_);
     }
 
-    if (v147 < 0)
+    if (v148 < 0)
     {
-      operator delete(v146[0]);
+      operator delete(v147[0]);
     }
 
-    if (SHIBYTE(v151.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v152.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v151.__r_.__value_.__l.__data_);
+      operator delete(v152.__r_.__value_.__l.__data_);
     }
 
-    if (v150 < 0)
+    if (v151 < 0)
     {
-      operator delete(v149[0]);
+      operator delete(v150[0]);
     }
 
-    if (SHIBYTE(v154.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v155.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v154.__r_.__value_.__l.__data_);
+      operator delete(v155.__r_.__value_.__l.__data_);
     }
 
-    if (v153 < 0)
+    if (v154 < 0)
     {
-      operator delete(v152[0]);
+      operator delete(v153[0]);
     }
 
-    if (SHIBYTE(v157.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v158.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v157.__r_.__value_.__l.__data_);
+      operator delete(v158.__r_.__value_.__l.__data_);
     }
 
-    if (v156 < 0)
+    if (v157 < 0)
     {
-      operator delete(v155[0]);
+      operator delete(v156[0]);
     }
 
-    if (SHIBYTE(v160.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v161.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v160.__r_.__value_.__l.__data_);
+      operator delete(v161.__r_.__value_.__l.__data_);
     }
 
-    if (v159 < 0)
+    if (v160 < 0)
     {
-      operator delete(v158[0]);
+      operator delete(v159[0]);
     }
 
-    if (SHIBYTE(v163.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v164.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v163.__r_.__value_.__l.__data_);
+      operator delete(v164.__r_.__value_.__l.__data_);
     }
 
-    if (v162 < 0)
+    if (v163 < 0)
     {
-      operator delete(v161[0]);
+      operator delete(v162[0]);
     }
 
-    if (SHIBYTE(v166.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v167.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v166.__r_.__value_.__l.__data_);
+      operator delete(v167.__r_.__value_.__l.__data_);
     }
 
-    if (v165 < 0)
+    if (v166 < 0)
     {
-      operator delete(v164[0]);
+      operator delete(v165[0]);
     }
 
-    if (SHIBYTE(v169.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v170.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v169.__r_.__value_.__l.__data_);
+      operator delete(v170.__r_.__value_.__l.__data_);
     }
 
-    if (v168 < 0)
+    if (v169 < 0)
     {
-      operator delete(v167[0]);
+      operator delete(v168[0]);
     }
 
-    if (SHIBYTE(v172.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v173.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v172.__r_.__value_.__l.__data_);
+      operator delete(v173.__r_.__value_.__l.__data_);
     }
 
-    if (v171 < 0)
+    if (v172 < 0)
     {
-      operator delete(v170[0]);
+      operator delete(v171[0]);
     }
 
-    if (SHIBYTE(v175.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v176.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v175.__r_.__value_.__l.__data_);
+      operator delete(v176.__r_.__value_.__l.__data_);
     }
 
-    if (v174 < 0)
+    if (v175 < 0)
     {
-      operator delete(v173[0]);
+      operator delete(v174[0]);
     }
 
-    if (SHIBYTE(v178.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v179.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v178.__r_.__value_.__l.__data_);
+      operator delete(v179.__r_.__value_.__l.__data_);
     }
 
-    if (v177 < 0)
+    if (v178 < 0)
     {
-      operator delete(v176[0]);
+      operator delete(v177[0]);
     }
 
-    if (SHIBYTE(v181.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v182.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v181.__r_.__value_.__l.__data_);
+      operator delete(v182.__r_.__value_.__l.__data_);
     }
 
-    if (v180 < 0)
+    if (v181 < 0)
     {
-      operator delete(v179[0]);
+      operator delete(v180[0]);
     }
 
-    if (SHIBYTE(v184.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v185.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v184.__r_.__value_.__l.__data_);
+      operator delete(v185.__r_.__value_.__l.__data_);
     }
 
-    if (v183 < 0)
+    if (v184 < 0)
     {
-      operator delete(v182[0]);
+      operator delete(v183[0]);
     }
 
-    if (SHIBYTE(v187.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v188.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v187.__r_.__value_.__l.__data_);
+      operator delete(v188.__r_.__value_.__l.__data_);
     }
 
-    if (v186 < 0)
+    if (v187 < 0)
     {
-      operator delete(v185[0]);
+      operator delete(v186[0]);
     }
 
-    if (SHIBYTE(v190.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v191.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v190.__r_.__value_.__l.__data_);
+      operator delete(v191.__r_.__value_.__l.__data_);
     }
 
-    if (v189 < 0)
+    if (v190 < 0)
     {
-      operator delete(v188[0]);
+      operator delete(v189[0]);
     }
 
-    if (SHIBYTE(v193.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v194.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v193.__r_.__value_.__l.__data_);
+      operator delete(v194.__r_.__value_.__l.__data_);
     }
 
-    if (v192 < 0)
+    if (v193 < 0)
     {
-      operator delete(v191[0]);
+      operator delete(v192[0]);
     }
 
-    if (SHIBYTE(v196.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v197.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v196.__r_.__value_.__l.__data_);
+      operator delete(v197.__r_.__value_.__l.__data_);
     }
 
-    if (v195 < 0)
+    if (v196 < 0)
     {
-      operator delete(v194[0]);
+      operator delete(v195[0]);
     }
 
-    if (SHIBYTE(v199.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v200.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v199.__r_.__value_.__l.__data_);
+      operator delete(v200.__r_.__value_.__l.__data_);
     }
 
-    if (v198 < 0)
+    if (v199 < 0)
     {
-      operator delete(v197[0]);
+      operator delete(v198[0]);
     }
 
-    if (SHIBYTE(v202.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v203.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v202.__r_.__value_.__l.__data_);
+      operator delete(v203.__r_.__value_.__l.__data_);
     }
 
-    if (v201 < 0)
+    if (v202 < 0)
     {
-      operator delete(v200[0]);
+      operator delete(v201[0]);
     }
 
-    if (SHIBYTE(v205.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v206.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v205.__r_.__value_.__l.__data_);
+      operator delete(v206.__r_.__value_.__l.__data_);
     }
 
-    if (v204 < 0)
+    if (v205 < 0)
     {
-      operator delete(v203[0]);
+      operator delete(v204[0]);
     }
 
-    if (SHIBYTE(v208.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v209.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v208.__r_.__value_.__l.__data_);
+      operator delete(v209.__r_.__value_.__l.__data_);
     }
 
-    if (v207 < 0)
+    if (v208 < 0)
     {
-      operator delete(v206[0]);
+      operator delete(v207[0]);
     }
 
-    if (SHIBYTE(v211.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v212.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v211.__r_.__value_.__l.__data_);
+      operator delete(v212.__r_.__value_.__l.__data_);
     }
 
-    if (v210 < 0)
+    if (v211 < 0)
     {
-      operator delete(v209[0]);
+      operator delete(v210[0]);
     }
 
-    if (SHIBYTE(v214.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v215.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v214.__r_.__value_.__l.__data_);
+      operator delete(v215.__r_.__value_.__l.__data_);
     }
 
-    if (v213 < 0)
+    if (v214 < 0)
     {
-      operator delete(v212[0]);
+      operator delete(v213[0]);
     }
 
-    if (SHIBYTE(v217.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v218.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v217.__r_.__value_.__l.__data_);
+      operator delete(v218.__r_.__value_.__l.__data_);
     }
 
-    if (v216 < 0)
+    if (v217 < 0)
     {
-      operator delete(v215[0]);
+      operator delete(v216[0]);
     }
 
-    if (SHIBYTE(v220.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v221.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v220.__r_.__value_.__l.__data_);
+      operator delete(v221.__r_.__value_.__l.__data_);
     }
 
-    if (v219 < 0)
+    if (v220 < 0)
     {
-      operator delete(v218[0]);
+      operator delete(v219[0]);
     }
 
-    if (SHIBYTE(v223.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v224.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v223.__r_.__value_.__l.__data_);
+      operator delete(v224.__r_.__value_.__l.__data_);
     }
 
-    if (v222 < 0)
+    if (v223 < 0)
     {
-      operator delete(v221[0]);
+      operator delete(v222[0]);
     }
 
-    if (SHIBYTE(v226.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v227.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v226.__r_.__value_.__l.__data_);
+      operator delete(v227.__r_.__value_.__l.__data_);
     }
 
-    if (v225 < 0)
+    if (v226 < 0)
     {
-      operator delete(v224[0]);
+      operator delete(v225[0]);
     }
 
-    if (SHIBYTE(v229.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v230.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v229.__r_.__value_.__l.__data_);
+      operator delete(v230.__r_.__value_.__l.__data_);
     }
 
-    if (v228 < 0)
+    if (v229 < 0)
     {
-      operator delete(v227[0]);
+      operator delete(v228[0]);
     }
 
-    if (SHIBYTE(v232.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v233.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v232.__r_.__value_.__l.__data_);
+      operator delete(v233.__r_.__value_.__l.__data_);
     }
 
-    if (v231 < 0)
+    if (v232 < 0)
     {
-      operator delete(v230[0]);
+      operator delete(v231[0]);
     }
 
-    if (SHIBYTE(v235.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v236.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v235.__r_.__value_.__l.__data_);
+      operator delete(v236.__r_.__value_.__l.__data_);
     }
 
-    if (v234 < 0)
+    if (v235 < 0)
     {
-      operator delete(v233[0]);
+      operator delete(v234[0]);
     }
 
-    if (SHIBYTE(v238.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v239.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v238.__r_.__value_.__l.__data_);
+      operator delete(v239.__r_.__value_.__l.__data_);
     }
 
-    if (v237 < 0)
+    if (v238 < 0)
     {
-      operator delete(v236[0]);
+      operator delete(v237[0]);
     }
 
-    if (SHIBYTE(v241.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v242.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v241.__r_.__value_.__l.__data_);
+      operator delete(v242.__r_.__value_.__l.__data_);
     }
 
-    if (v240 < 0)
+    if (v241 < 0)
     {
-      operator delete(v239[0]);
+      operator delete(v240[0]);
     }
 
-    if (SHIBYTE(v244.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v245.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v244.__r_.__value_.__l.__data_);
+      operator delete(v245.__r_.__value_.__l.__data_);
     }
 
-    if (v243 < 0)
+    if (v244 < 0)
     {
-      operator delete(v242[0]);
+      operator delete(v243[0]);
     }
 
-    if (SHIBYTE(v247.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v248.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v247.__r_.__value_.__l.__data_);
+      operator delete(v248.__r_.__value_.__l.__data_);
     }
 
-    if (v246 < 0)
+    if (v247 < 0)
     {
-      operator delete(v245[0]);
+      operator delete(v246[0]);
     }
 
-    if (SHIBYTE(v250.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v251.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v250.__r_.__value_.__l.__data_);
+      operator delete(v251.__r_.__value_.__l.__data_);
     }
 
-    if (v249 < 0)
+    if (v250 < 0)
     {
-      operator delete(v248[0]);
+      operator delete(v249[0]);
     }
 
-    if (SHIBYTE(v253.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v254.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v253.__r_.__value_.__l.__data_);
+      operator delete(v254.__r_.__value_.__l.__data_);
     }
 
-    if (v252 < 0)
+    if (v253 < 0)
     {
-      operator delete(v251[0]);
+      operator delete(v252[0]);
     }
 
-    if (SHIBYTE(v256.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v257.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v256.__r_.__value_.__l.__data_);
+      operator delete(v257.__r_.__value_.__l.__data_);
     }
 
-    if (v255 < 0)
+    if (v256 < 0)
     {
-      operator delete(v254[0]);
+      operator delete(v255[0]);
     }
 
-    if (SHIBYTE(v259.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v260.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v259.__r_.__value_.__l.__data_);
+      operator delete(v260.__r_.__value_.__l.__data_);
     }
 
-    if (v258 < 0)
+    if (v259 < 0)
     {
-      operator delete(v257[0]);
+      operator delete(v258[0]);
     }
 
-    if (SHIBYTE(v262.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v263.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v262.__r_.__value_.__l.__data_);
+      operator delete(v263.__r_.__value_.__l.__data_);
     }
 
-    if (v261 < 0)
+    if (v262 < 0)
     {
-      operator delete(v260[0]);
+      operator delete(v261[0]);
     }
 
-    if (SHIBYTE(v265.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v266.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v265.__r_.__value_.__l.__data_);
+      operator delete(v266.__r_.__value_.__l.__data_);
     }
 
-    if (v264 < 0)
+    if (v265 < 0)
     {
-      operator delete(v263[0]);
+      operator delete(v264[0]);
     }
 
-    if (SHIBYTE(v268.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v269.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v268.__r_.__value_.__l.__data_);
+      operator delete(v269.__r_.__value_.__l.__data_);
     }
 
-    if (v267 < 0)
+    if (v268 < 0)
     {
-      operator delete(v266[0]);
+      operator delete(v267[0]);
     }
 
-    if (SHIBYTE(v271.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v272.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v271.__r_.__value_.__l.__data_);
+      operator delete(v272.__r_.__value_.__l.__data_);
     }
 
-    if (v270 < 0)
+    if (v271 < 0)
     {
-      operator delete(v269[0]);
+      operator delete(v270[0]);
     }
 
-    if (SHIBYTE(v274.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v275.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v274.__r_.__value_.__l.__data_);
+      operator delete(v275.__r_.__value_.__l.__data_);
     }
 
-    if (v273 < 0)
+    if (v274 < 0)
     {
-      operator delete(v272[0]);
+      operator delete(v273[0]);
     }
 
-    if (SHIBYTE(v277.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v278.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v277.__r_.__value_.__l.__data_);
+      operator delete(v278.__r_.__value_.__l.__data_);
     }
 
-    if (v276 < 0)
+    if (v277 < 0)
     {
-      operator delete(v275[0]);
+      operator delete(v276[0]);
     }
 
-    if (SHIBYTE(v280.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v281.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v280.__r_.__value_.__l.__data_);
+      operator delete(v281.__r_.__value_.__l.__data_);
     }
 
-    if (v279 < 0)
+    if (v280 < 0)
     {
-      operator delete(v278[0]);
+      operator delete(v279[0]);
     }
 
-    if (SHIBYTE(v283.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v284.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v283.__r_.__value_.__l.__data_);
+      operator delete(v284.__r_.__value_.__l.__data_);
     }
 
-    if (v282 < 0)
+    if (v283 < 0)
     {
-      operator delete(v281[0]);
+      operator delete(v282[0]);
     }
 
-    if (SHIBYTE(v286.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v287.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v286.__r_.__value_.__l.__data_);
+      operator delete(v287.__r_.__value_.__l.__data_);
     }
 
-    if (v285 < 0)
+    if (v286 < 0)
     {
-      operator delete(v284[0]);
+      operator delete(v285[0]);
     }
 
-    if (SHIBYTE(v289.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v290.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v289.__r_.__value_.__l.__data_);
+      operator delete(v290.__r_.__value_.__l.__data_);
     }
 
-    if (v288 < 0)
+    if (v289 < 0)
     {
-      operator delete(v287[0]);
+      operator delete(v288[0]);
     }
 
-    if (SHIBYTE(v292.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v293.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v292.__r_.__value_.__l.__data_);
+      operator delete(v293.__r_.__value_.__l.__data_);
     }
 
-    if (v291 < 0)
+    if (v292 < 0)
     {
-      operator delete(v290[0]);
+      operator delete(v291[0]);
     }
 
-    if (SHIBYTE(v295.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v296.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v295.__r_.__value_.__l.__data_);
+      operator delete(v296.__r_.__value_.__l.__data_);
     }
 
-    if (v294 < 0)
+    if (v295 < 0)
     {
-      operator delete(v293[0]);
+      operator delete(v294[0]);
     }
 
-    if (SHIBYTE(v298.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v299.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v298.__r_.__value_.__l.__data_);
+      operator delete(v299.__r_.__value_.__l.__data_);
     }
 
-    if (v297 < 0)
+    if (v298 < 0)
     {
-      operator delete(v296[0]);
+      operator delete(v297[0]);
     }
 
-    if (SHIBYTE(v301.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v302.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v301.__r_.__value_.__l.__data_);
+      operator delete(v302.__r_.__value_.__l.__data_);
     }
 
-    if (v300 < 0)
+    if (v301 < 0)
     {
-      operator delete(v299[0]);
+      operator delete(v300[0]);
     }
 
-    if (SHIBYTE(v304.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v305.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v304.__r_.__value_.__l.__data_);
+      operator delete(v305.__r_.__value_.__l.__data_);
     }
 
-    if (v303 < 0)
+    if (v304 < 0)
     {
-      operator delete(v302[0]);
+      operator delete(v303[0]);
     }
 
-    if (SHIBYTE(v307.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v308.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v307.__r_.__value_.__l.__data_);
+      operator delete(v308.__r_.__value_.__l.__data_);
     }
 
-    if (v306 < 0)
+    if (v307 < 0)
     {
-      operator delete(v305[0]);
+      operator delete(v306[0]);
     }
 
-    if (SHIBYTE(v310.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v311.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v310.__r_.__value_.__l.__data_);
+      operator delete(v311.__r_.__value_.__l.__data_);
     }
 
-    if (v309 < 0)
+    if (v310 < 0)
     {
-      operator delete(v308[0]);
+      operator delete(v309[0]);
     }
 
-    if (SHIBYTE(v313.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v314.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v313.__r_.__value_.__l.__data_);
+      operator delete(v314.__r_.__value_.__l.__data_);
     }
 
-    if (v312 < 0)
+    if (v313 < 0)
     {
-      operator delete(v311[0]);
+      operator delete(v312[0]);
     }
 
-    if (SHIBYTE(v316.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v317.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v316.__r_.__value_.__l.__data_);
+      operator delete(v317.__r_.__value_.__l.__data_);
     }
 
-    if (v315 < 0)
+    if (v316 < 0)
     {
-      operator delete(v314[0]);
+      operator delete(v315[0]);
     }
 
-    if (SHIBYTE(v319.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v320.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v319.__r_.__value_.__l.__data_);
+      operator delete(v320.__r_.__value_.__l.__data_);
     }
 
-    if (v318 < 0)
+    if (v319 < 0)
     {
-      operator delete(v317[0]);
+      operator delete(v318[0]);
     }
 
-    if (SHIBYTE(v322.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v323.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v322.__r_.__value_.__l.__data_);
+      operator delete(v323.__r_.__value_.__l.__data_);
     }
 
-    if (v321 < 0)
+    if (v322 < 0)
     {
-      operator delete(v320[0]);
+      operator delete(v321[0]);
     }
 
-    if (SHIBYTE(v325.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v326.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v325.__r_.__value_.__l.__data_);
+      operator delete(v326.__r_.__value_.__l.__data_);
     }
 
-    if (v324 < 0)
+    if (v325 < 0)
     {
-      operator delete(v323[0]);
+      operator delete(v324[0]);
     }
 
-    if (SHIBYTE(v328.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v329.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v328.__r_.__value_.__l.__data_);
+      operator delete(v329.__r_.__value_.__l.__data_);
     }
 
-    if (v327 < 0)
+    if (v328 < 0)
     {
-      operator delete(v326[0]);
+      operator delete(v327[0]);
     }
 
-    if (SHIBYTE(v331.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v332.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v331.__r_.__value_.__l.__data_);
+      operator delete(v332.__r_.__value_.__l.__data_);
     }
 
-    if (v330 < 0)
+    if (v331 < 0)
     {
-      operator delete(v329[0]);
+      operator delete(v330[0]);
     }
 
-    if (SHIBYTE(v334.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v335.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v334.__r_.__value_.__l.__data_);
+      operator delete(v335.__r_.__value_.__l.__data_);
     }
 
-    if (v333 < 0)
+    if (v334 < 0)
     {
-      operator delete(v332[0]);
+      operator delete(v333[0]);
     }
 
-    if (SHIBYTE(v337.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v338.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v337.__r_.__value_.__l.__data_);
+      operator delete(v338.__r_.__value_.__l.__data_);
     }
 
-    if (v336 < 0)
+    if (v337 < 0)
     {
-      operator delete(v335[0]);
+      operator delete(v336[0]);
     }
 
-    if (SHIBYTE(v340.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v341.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v340.__r_.__value_.__l.__data_);
+      operator delete(v341.__r_.__value_.__l.__data_);
     }
 
-    if (v339 < 0)
+    if (v340 < 0)
     {
-      operator delete(v338[0]);
+      operator delete(v339[0]);
     }
 
-    if (SHIBYTE(v343.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v344.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v343.__r_.__value_.__l.__data_);
+      operator delete(v344.__r_.__value_.__l.__data_);
     }
 
-    if (v342 < 0)
+    if (v343 < 0)
     {
-      operator delete(v341[0]);
+      operator delete(v342[0]);
     }
 
-    if (SHIBYTE(v346.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v347.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v346.__r_.__value_.__l.__data_);
+      operator delete(v347.__r_.__value_.__l.__data_);
     }
 
-    if (v345 < 0)
+    if (v346 < 0)
     {
-      operator delete(v344[0]);
+      operator delete(v345[0]);
     }
 
-    if (SHIBYTE(v349.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v350.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v349.__r_.__value_.__l.__data_);
+      operator delete(v350.__r_.__value_.__l.__data_);
     }
 
-    if (v348 < 0)
+    if (v349 < 0)
     {
-      operator delete(v347[0]);
+      operator delete(v348[0]);
     }
 
-    v2 = v4;
+    v3 = v5;
   }
 
-  *v2 = 0;
-  v2[1] = 0;
-  v2[2] = 0;
-  return std::vector<std::pair<std::string,vega::UID>>::__init_with_size[abi:ne200100]<std::pair<std::string,vega::UID>*,std::pair<std::string,vega::UID>*>(v2, vega::dicom::SOPClass::NAME_UID_PAIRS(void)::NAME_UID_PAIRS, qword_1EB1ECB90, 0xAAAAAAAAAAAAAAABLL * ((qword_1EB1ECB90 - vega::dicom::SOPClass::NAME_UID_PAIRS(void)::NAME_UID_PAIRS) >> 4));
+  *v3 = 0;
+  v3[1] = 0;
+  v3[2] = 0;
+  return std::vector<std::pair<std::string,vega::UID>>::__init_with_size[abi:ne200100]<std::pair<std::string,vega::UID>*,std::pair<std::string,vega::UID>*>(v3, vega::dicom::SOPClass::NAME_UID_PAIRS(void)::NAME_UID_PAIRS, qword_1EB1ECB90, 0xAAAAAAAAAAAAAAABLL * ((qword_1EB1ECB90 - vega::dicom::SOPClass::NAME_UID_PAIRS(void)::NAME_UID_PAIRS) >> 4));
 }

@@ -11,20 +11,20 @@
 + (void)setTipsPresentationDelegate:(id)delegate
 {
   swift_getObjCClassMetadata();
-  swift_unknownObjectRetain();
-  sub_1A3C91E88();
+  v3 = swift_unknownObjectRetain();
+  sub_1A3C91E88(v3);
 }
 
 - (PXGridTipsHelper_Swift)init
 {
-  v3 = PXDisplayCollectionDetailedCountsMake(self);
-  v4 = PXDisplayCollectionDetailedCountsMake(v3);
-  v5 = PXDisplayCollectionDetailedCountsMake(v4);
-  PXDisplayCollectionDetailedCountsMake(v5);
+  PXDisplayCollectionDetailedCountsMake();
+  PXDisplayCollectionDetailedCountsMake();
+  PXDisplayCollectionDetailedCountsMake();
+  PXDisplayCollectionDetailedCountsMake();
   self->_anon_0[OBJC_IVAR___PXGridTipsHelper_Swift_hasStartedTips] = 0;
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for PXGridTipsHelper();
-  return [(PXTipsHelper_Swift *)&v7 init];
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for PXGridTipsHelper(v3, v4);
+  return [(PXTipsHelper_Swift *)&v6 init];
 }
 
 + (void)setTip:(id)tip isPresentable:(BOOL)presentable

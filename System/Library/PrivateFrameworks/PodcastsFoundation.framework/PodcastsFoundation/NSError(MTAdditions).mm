@@ -10,16 +10,16 @@
 
 - (void)logAndThrow:()MTAdditions printStackTrace:
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v5 = _MTLogCategoryDefault();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     domain = [self domain];
     *buf = 138412802;
-    v42 = domain;
-    v43 = 2048;
+    v41 = domain;
+    v42 = 2048;
     code = [self code];
-    v45 = 2112;
+    v44 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1D8CEC000, v5, OS_LOG_TYPE_FAULT, "Encountered application error (domain: %@, code: %ld) desc: %@", buf, 0x20u);
   }
@@ -29,29 +29,29 @@
 
   if ([v8 count])
   {
-    v34 = a3;
+    v33 = a3;
     selfCopy2 = self;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    v33 = v8;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v32 = v8;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v37;
+      v12 = *v36;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v37 != v12)
+          if (*v36 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v36 + 1) + 8 * i);
+          v14 = *(*(&v35 + 1) + 8 * i);
           v15 = _MTLogCategoryDefault();
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
@@ -60,24 +60,24 @@
             userInfo2 = [v14 userInfo];
             v19 = [userInfo2 description];
             *buf = 138412802;
-            v42 = domain2;
-            v43 = 2048;
+            v41 = domain2;
+            v42 = 2048;
             code = code2;
-            v45 = 2112;
+            v44 = 2112;
             selfCopy = v19;
             _os_log_impl(&dword_1D8CEC000, v15, OS_LOG_TYPE_DEFAULT, "Detailed Error (domain: %@, code: %ld) userInfo: %@", buf, 0x20u);
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v11);
     }
 
     self = selfCopy2;
-    a3 = v34;
-    v8 = v33;
+    a3 = v33;
+    v8 = v32;
   }
 
   if (+[PFClientUtil isPodcastsApp])
@@ -87,32 +87,30 @@
 
   if (a3)
   {
-    v21 = MEMORY[0x1E696AEC0];
-    v22 = objc_opt_class();
-    v23 = NSStringFromClass(v22);
+    v20 = MEMORY[0x1E696AEC0];
+    v21 = objc_opt_class();
+    v22 = NSStringFromClass(v21);
     domain3 = [self domain];
-    v25 = [v21 stringWithFormat:@"%@: %@ (%ld)", v23, domain3, objc_msgSend(self, "code")];
+    v24 = [v20 stringWithFormat:@"%@: %@ (%ld)", v22, domain3, objc_msgSend(self, "code")];
 
-    v26 = MEMORY[0x1E696AEC0];
+    v25 = MEMORY[0x1E696AEC0];
     localizedDescription = [self localizedDescription];
     localizedFailureReason = [self localizedFailureReason];
-    v29 = [v26 stringWithFormat:@"%@ | %@", localizedDescription, localizedFailureReason];
+    v28 = [v25 stringWithFormat:@"%@ | %@", localizedDescription, localizedFailureReason];
 
-    v30 = MEMORY[0x1E695DF30];
+    v29 = MEMORY[0x1E695DF30];
     userInfo3 = [self userInfo];
-    v32 = [v30 exceptionWithName:v25 reason:v29 userInfo:userInfo3];
+    v31 = [v29 exceptionWithName:v24 reason:v28 userInfo:userInfo3];
 
-    [self collectErrorsAndThrow:v32];
-    objc_exception_throw(v32);
+    [self collectErrorsAndThrow:v31];
+    objc_exception_throw(v31);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)collectErrorsAndThrow:()MTAdditions
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v21 = a3;
+  v26 = *MEMORY[0x1E69E9840];
+  v20 = a3;
   v4 = [MEMORY[0x1E695DFA8] set];
   domain = [self domain];
   v6 = *MEMORY[0x1E696A250];
@@ -124,28 +122,28 @@
     [v4 addObject:v8];
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   userInfo = [self userInfo];
   v10 = [userInfo objectForKey:*MEMORY[0x1E696A280]];
 
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v23;
+    v13 = *v22;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
+        v15 = *(*(&v21 + 1) + 8 * i);
         domain2 = [v15 domain];
         v17 = [domain2 isEqual:v6];
 
@@ -156,14 +154,13 @@
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v12);
   }
 
-  [v20 createErrorStackTraceForErrorCodes:v4 andThrow:v21];
-  v19 = *MEMORY[0x1E69E9840];
+  [v19 createErrorStackTraceForErrorCodes:v4 andThrow:v20];
 }
 
 - (void)createErrorStackTraceForErrorCodes:()MTAdditions andThrow:

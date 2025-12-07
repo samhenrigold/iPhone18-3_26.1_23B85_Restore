@@ -58,7 +58,7 @@
 {
   terminateCopy = terminate;
   selfCopy = self;
-  sub_100788354();
+  sub_100788354(selfCopy);
 }
 
 - (void)buildMenuWithBuilder:(id)builder

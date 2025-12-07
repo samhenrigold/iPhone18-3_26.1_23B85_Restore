@@ -17,33 +17,33 @@
   length = range.length;
   location = range.location;
   itemsCopy = items;
-  v13.receiver = self;
-  v13.super_class = IMItemCollection;
-  v9 = [(IMItemCollection *)&v13 init];
-  if (v9)
+  v12.receiver = self;
+  v12.super_class = IMItemCollection;
+  v8 = [(IMItemCollection *)&v12 init];
+  if (v8)
   {
-    v10 = objc_msgSend_subarrayWithRange_(itemsCopy, v8, location, length);
-    chatItems = v9->_chatItems;
-    v9->_chatItems = v10;
+    v9 = [itemsCopy subarrayWithRange:{location, length}];
+    chatItems = v8->_chatItems;
+    v8->_chatItems = v9;
   }
 
-  return v9;
+  return v8;
 }
 
 - (id)_initWithChatItems:(id)items extraItems:(id)extraItems reversed:(BOOL)reversed
 {
   itemsCopy = items;
   extraItemsCopy = extraItems;
-  v18.receiver = self;
-  v18.super_class = IMItemCollection;
-  v11 = [(IMItemCollection *)&v18 init];
+  v16.receiver = self;
+  v16.super_class = IMItemCollection;
+  v11 = [(IMItemCollection *)&v16 init];
   v12 = v11;
   if (v11)
   {
     objc_storeStrong(&v11->_chatItems, items);
-    v15 = objc_msgSend_mutableCopy(extraItemsCopy, v13, v14);
+    v13 = [extraItemsCopy mutableCopy];
     extraItems = v12->_extraItems;
-    v12->_extraItems = v15;
+    v12->_extraItems = v13;
 
     v12->_isReversed = reversed;
   }
@@ -53,36 +53,36 @@
 
 - (id)_firstObject
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v3 = self->_chatItems;
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v19, v23, 16);
-  if (v5)
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  extraItems = self->_chatItems;
+  v4 = [(NSArray *)extraItems countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v4)
   {
-    v8 = v5;
-    v9 = *v20;
+    v5 = v4;
+    v6 = *v12;
 LABEL_3:
-    v10 = 0;
+    v7 = 0;
     while (1)
     {
-      if (*v20 != v9)
+      if (*v12 != v6)
       {
-        objc_enumerationMutation(v3);
+        objc_enumerationMutation(extraItems);
       }
 
-      v11 = objc_msgSend__parentItem(*(*(&v19 + 1) + 8 * v10), v6, v7, v19);
-      if (v11)
+      _parentItem = [*(*(&v11 + 1) + 8 * v7) _parentItem];
+      if (_parentItem)
       {
         break;
       }
 
-      if (v8 == ++v10)
+      if (v5 == ++v7)
       {
-        v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v6, &v19, v23, 16);
-        if (v8)
+        v5 = [(NSArray *)extraItems countByEnumeratingWithState:&v11 objects:v15 count:16];
+        if (v5)
         {
           goto LABEL_3;
         }
@@ -96,41 +96,38 @@ LABEL_3:
   {
 LABEL_9:
 
-    v3 = objc_msgSend_extraItems(self, v12, v13);
-    v11 = objc_msgSend_firstObject(v3, v14, v15);
+    extraItems = [(IMItemCollection *)self extraItems];
+    _parentItem = [(NSArray *)extraItems firstObject];
   }
 
-  v16 = v11;
+  v9 = _parentItem;
 
-  v17 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v9;
 }
 
 - (id)firstObject
 {
-  v4 = objc_msgSend_reversed(self, a2, v2);
+  reversed = [(IMItemCollection *)self reversed];
 
-  if (v4)
+  if (reversed)
   {
-    objc_msgSend__lastObject(self, v5, v6);
+    [(IMItemCollection *)self _lastObject];
   }
 
   else
   {
-    objc_msgSend__firstObject(self, v5, v6);
+    [(IMItemCollection *)self _firstObject];
   }
-  v7 = ;
+  v4 = ;
 
-  return v7;
+  return v4;
 }
 
 - (id)reversed
 {
-  v3 = [IMItemCollection alloc];
-  v5 = objc_msgSend__initWithChatItems_extraItems_reversed_(v3, v4, self->_chatItems, self->_extraItems, !self->_isReversed);
+  v2 = [[IMItemCollection alloc] _initWithChatItems:self->_chatItems extraItems:self->_extraItems reversed:!self->_isReversed];
 
-  return v5;
+  return v2;
 }
 
 - (void)addItem:(id)item
@@ -138,52 +135,52 @@ LABEL_9:
   itemCopy = item;
   if (!self->_extraItems)
   {
-    v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
     extraItems = self->_extraItems;
-    self->_extraItems = v6;
+    self->_extraItems = v4;
   }
 
-  v8 = objc_msgSend_extraItems(self, v4, v5);
-  objc_msgSend_addObject_(v8, v9, itemCopy);
+  extraItems = [(IMItemCollection *)self extraItems];
+  [extraItems addObject:itemCopy];
 }
 
 - (id)_lastObject
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v4 = objc_msgSend_extraItems(self, a2, v2);
-  v7 = objc_msgSend_lastObject(v4, v5, v6);
+  v18 = *MEMORY[0x1E69E9840];
+  extraItems = [(IMItemCollection *)self extraItems];
+  lastObject = [extraItems lastObject];
 
-  if (!v7)
+  if (!lastObject)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v10 = objc_msgSend_reverseObjectEnumerator(self->_chatItems, v8, v9, 0);
-    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v22, v26, 16);
-    if (v12)
+    v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    reverseObjectEnumerator = [(NSArray *)self->_chatItems reverseObjectEnumerator];
+    v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v6)
     {
-      v15 = v12;
-      v16 = *v23;
+      v7 = v6;
+      v8 = *v14;
       while (2)
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v23 != v16)
+          if (*v14 != v8)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v18 = objc_msgSend__parentItem(*(*(&v22 + 1) + 8 * i), v13, v14);
-          if (v18)
+          _parentItem = [*(*(&v13 + 1) + 8 * i) _parentItem];
+          if (_parentItem)
           {
-            v7 = v18;
+            lastObject = _parentItem;
             goto LABEL_12;
           }
         }
 
-        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v22, v26, 16);
-        if (v15)
+        v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
+        if (v7)
         {
           continue;
         }
@@ -192,125 +189,121 @@ LABEL_9:
       }
     }
 
-    v7 = 0;
+    lastObject = 0;
 LABEL_12:
   }
 
-  v19 = v7;
+  v11 = lastObject;
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v11;
 }
 
 - (id)lastObject
 {
-  if (objc_msgSend_isReversed(self, a2, v2))
+  if ([(IMItemCollection *)self isReversed])
   {
-    objc_msgSend__firstObject(self, v4, v5);
+    [(IMItemCollection *)self _firstObject];
   }
 
   else
   {
-    objc_msgSend__lastObject(self, v4, v5);
+    [(IMItemCollection *)self _lastObject];
   }
-  v6 = ;
+  v3 = ;
 
-  return v6;
+  return v3;
 }
 
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count
 {
   if (state->var0)
   {
-    v9 = state->var3[1];
+    v8 = state->var3[1];
   }
 
   else
   {
-    v10 = objc_msgSend_extraItems(self, a2, state, objects, count);
-    v13 = objc_msgSend_copy(v10, v11, v12);
-    v14 = v13;
-    v15 = MEMORY[0x1E695E0F0];
-    if (v13)
+    extraItems = [(IMItemCollection *)self extraItems];
+    v10 = [extraItems copy];
+    v11 = v10;
+    v12 = MEMORY[0x1E695E0F0];
+    if (v10)
     {
-      v15 = v13;
+      v12 = v10;
     }
 
-    v16 = v15;
+    v13 = v12;
 
     state->var2 = self;
-    state->var3[0] = objc_msgSend_count(self->_chatItems, v17, v18);
-    v9 = v16;
-    state->var3[1] = v9;
-    state->var3[2] = objc_msgSend_count(v9, v19, v20);
+    state->var3[0] = [(NSArray *)self->_chatItems count];
+    v8 = v13;
+    state->var3[1] = v8;
+    state->var3[2] = [v8 count];
     state->var3[3] = 0;
-    state->var3[4] = objc_msgSend_isReversed(self, v21, v22);
+    state->var3[4] = [(IMItemCollection *)self isReversed];
     state->var0 = 1;
   }
 
-  v23 = state->var3[3];
-  v24 = state->var3[2] + state->var3[0];
-  if (v23 >= v24)
+  v14 = state->var3[3];
+  v15 = state->var3[2] + state->var3[0];
+  if (v14 >= v15)
   {
     CFRelease(state->var3[1]);
-    v37 = 0;
-    goto LABEL_20;
+    v22 = 0;
+    goto LABEL_19;
   }
 
-  v25 = state->var3[4];
+  v16 = state->var3[4];
   do
   {
-    state->var3[3] = v23 + 1;
-    if (v25)
+    state->var3[3] = v14 + 1;
+    if (v16)
     {
-      v26 = state->var3[2];
-      if (v23 >= v26)
+      v17 = state->var3[2];
+      if (v14 >= v17)
       {
-        v23 = state->var3[0] + ~v23 + v26;
-LABEL_15:
-        v31 = objc_msgSend_objectAtIndexedSubscript_(self->_chatItems, v8, v23);
-        *objects = objc_msgSend__parentItem(v31, v33, v34);
-        v32 = objc_msgSend__parentItem(v31, v35, v36);
+        v14 = state->var3[0] + ~v14 + v17;
+LABEL_14:
+        v20 = [(NSArray *)self->_chatItems objectAtIndexedSubscript:v14];
+        *objects = [v20 _parentItem];
+        _parentItem = [v20 _parentItem];
 
-        goto LABEL_16;
+        goto LABEL_15;
       }
 
-      v27 = v26 + ~v23;
-      objc_msgSend_getObjects_range_(v9, v8, objects, v27, 1);
+      v18 = v17 + ~v14;
     }
 
     else
     {
-      v29 = state->var3[0];
-      v27 = v23 - v29;
-      if (v23 < v29)
+      v19 = state->var3[0];
+      v18 = v14 - v19;
+      if (v14 < v19)
       {
-        goto LABEL_15;
+        goto LABEL_14;
       }
-
-      objc_msgSend_getObjects_range_(v9, v8, objects, v27, 1);
     }
 
-    *objects = objc_msgSend_objectAtIndexedSubscript_(v9, v28, v27);
-    v31 = objc_msgSend_objectAtIndexedSubscript_(v9, v30, v27);
-    v32 = v31;
-LABEL_16:
+    [v8 getObjects:objects range:{v18, 1}];
+    *objects = [v8 objectAtIndexedSubscript:v18];
+    v20 = [v8 objectAtIndexedSubscript:v18];
+    _parentItem = v20;
+LABEL_15:
 
-    if (v32)
+    if (_parentItem)
     {
       break;
     }
 
-    v23 = state->var3[3];
+    v14 = state->var3[3];
   }
 
-  while (v23 < v24);
-  v37 = v32 != 0;
+  while (v14 < v15);
+  v22 = _parentItem != 0;
   state->var1 = objects;
-LABEL_20:
+LABEL_19:
 
-  return v37;
+  return v22;
 }
 
 @end

@@ -85,43 +85,43 @@
 
 - (BOOL)requiresSyncForChangesFromAnchorRangeMap:(id)map
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   syncStore = [(HDSyncSession *)self syncStore];
   [syncStore primaryOrderedSyncEntities];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v6 = v21 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = v20 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
-    v8 = *v19;
+    v8 = *v18;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
+        v15 = 0;
         v16 = 0;
-        v17 = 0;
-        v16 = HDSyncAnchorRangeMake(-1, -1);
-        v17 = v11;
+        v15 = HDSyncAnchorRangeMake(-1, -1);
+        v16 = v11;
         syncEntityIdentifier = [v10 syncEntityIdentifier];
-        v13 = [mapCopy getAnchorRange:&v16 forSyncEntityIdentifier:syncEntityIdentifier];
+        v13 = [mapCopy getAnchorRange:&v15 forSyncEntityIdentifier:syncEntityIdentifier];
 
-        if (v13 && v17 > v16)
+        if (v13 && v16 > v15)
         {
           LOBYTE(v7) = 1;
           goto LABEL_12;
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v7)
       {
         continue;
@@ -133,7 +133,6 @@
 
 LABEL_12:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

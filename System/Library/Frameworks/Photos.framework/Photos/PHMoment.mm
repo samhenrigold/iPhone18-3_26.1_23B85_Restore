@@ -43,9 +43,10 @@
     v6 = 0;
   }
 
+  approximateLocation = self->super._approximateLocation;
   self->super._approximateLocation = v6;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v6, approximateLocation);
 }
 
 - (BOOL)hasNoThemesPlaceholder

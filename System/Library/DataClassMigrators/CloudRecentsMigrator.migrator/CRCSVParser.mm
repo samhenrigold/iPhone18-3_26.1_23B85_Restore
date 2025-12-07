@@ -73,9 +73,7 @@
 
 - (void)setParsedLineBlock:(id)block
 {
-  v4 = objc_retainBlock(block);
-  parsedLineBlock = self->_parsedLineBlock;
-  self->_parsedLineBlock = v4;
+  self->_parsedLineBlock = objc_retainBlock(block);
 
   _objc_release_x1();
 }

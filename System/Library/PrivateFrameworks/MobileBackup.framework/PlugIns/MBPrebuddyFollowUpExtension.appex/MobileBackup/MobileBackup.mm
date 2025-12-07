@@ -31,27 +31,27 @@ void sub_100001E70(uint64_t a1, uint64_t a2, void *a3)
     v22 = v5;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "saveAccount completed: %@: %@", buf, 0x16u);
 
-    v13 = [NSNumber numberWithBool:a2];
-    _MBLog();
+    v8 = [NSNumber numberWithBool:a2];
+    _MBLog(@"Df", "saveAccount completed: %@: %@", v8, v5);
   }
 
   if (a2)
   {
-    v8 = [*(a1 + 32) containsObject:ACAccountDataclassKeychainSync];
-    v9 = *(a1 + 40);
-    if (v8)
+    v9 = [*(a1 + 32) containsObject:ACAccountDataclassKeychainSync];
+    v10 = *(a1 + 40);
+    if (v9)
     {
-      v10 = *(a1 + 48);
+      v11 = *(a1 + 48);
       v16[0] = _NSConcreteStackBlock;
       v16[1] = 3221225472;
       v16[2] = sub_1000020BC;
       v16[3] = &unk_10001C5B8;
-      v16[4] = v9;
+      v16[4] = v10;
       v17 = *(a1 + 32);
       v18 = *(a1 + 56);
-      [v9 _enableKeychainSync:v10 completion:v16];
+      [v10 _enableKeychainSync:v11 completion:v16];
 
-      v11 = v17;
+      v12 = v17;
     }
 
     else
@@ -61,16 +61,16 @@ void sub_100001E70(uint64_t a1, uint64_t a2, void *a3)
       block[1] = 3221225472;
       block[2] = sub_100002128;
       block[3] = &unk_10001C568;
-      v12 = *(a1 + 48);
+      v13 = *(a1 + 48);
       v15 = *(a1 + 56);
-      dispatch_async(v12, block);
-      v11 = v15;
+      dispatch_async(v13, block);
+      v12 = v15;
     }
   }
 
   else
   {
-    (*(*(a1 + 56) + 16))(*(a1 + 56), 0);
+    (*(*(a1 + 56) + 16))();
   }
 }
 
@@ -98,21 +98,21 @@ void sub_100002360(uint64_t a1, uint64_t a2, void *a3)
     v19 = v5;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Finished enabling Keychain Sync: %@: %@", buf, 0x16u);
 
-    v11 = [NSNumber numberWithBool:a2];
-    _MBLog();
+    v8 = [NSNumber numberWithBool:a2];
+    _MBLog(@"Df", "Finished enabling Keychain Sync: %@: %@", v8, v5);
   }
 
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000024F4;
   block[3] = &unk_10001C608;
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 40);
+  v9 = *(a1 + 32);
+  v10 = *(a1 + 40);
   v15 = a2;
   v13 = v5;
-  v14 = v9;
-  v10 = v5;
-  dispatch_async(v8, block);
+  v14 = v10;
+  v11 = v5;
+  dispatch_async(v9, block);
 }
 
 uint64_t sub_1000027E8(uint64_t a1, void *a2, void *a3)
@@ -182,7 +182,7 @@ LABEL_8:
       *buf = 138543362;
       v19 = v5;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "_disabledSyncDataclassesForAccount: Filtering out %{public}@ because device doesn't support it.", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "_disabledSyncDataclassesForAccount: Filtering out %{public}@ because device doesn't support it.", v5);
     }
 
     goto LABEL_8;
@@ -214,8 +214,8 @@ LABEL_8:
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "_disabledSyncDataclassesForAccount: Dataclass (%{public}@) isEnabled: %{public}@, isProvisioned: %{public}@", buf, 0x20u);
 
     v15 = [NSNumber numberWithBool:v11];
-    v17 = [NSNumber numberWithBool:v7];
-    _MBLog();
+    v16 = [NSNumber numberWithBool:v7];
+    _MBLog(@"Db", "_disabledSyncDataclassesForAccount: Dataclass (%{public}@) isEnabled: %{public}@, isProvisioned: %{public}@", v5, v15, v16);
   }
 
   v10 = (v11 ^ 1) & v7;
@@ -298,10 +298,9 @@ void sub_100003860(uint64_t a1, char a2, void *a3)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v5;
+      v15 = v5;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to enable disabled sync categories: %@", buf, 0xCu);
-      v13 = v5;
-      _MBLog();
+      _MBLog(@"E ", "Failed to enable disabled sync categories: %@", v5);
     }
 
     v10 = [v5 domain];
@@ -312,12 +311,12 @@ void sub_100003860(uint64_t a1, char a2, void *a3)
       if (v11 == -5700)
       {
         v12 = *(a1 + 32);
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_100003A30;
-        v14[3] = &unk_10001C6D0;
-        v14[4] = v12;
-        [v12 _presentKeychainError:v14];
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_100003A30;
+        v13[3] = &unk_10001C6D0;
+        v13[4] = v12;
+        [v12 _presentKeychainError:v13];
         goto LABEL_10;
       }
     }
@@ -373,7 +372,7 @@ void sub_10000482C(uint64_t a1)
         {
           LOWORD(buf) = 0;
           _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "checkMegaBackupEligibility: Unsupported Managed Apple ID.", &buf, 2u);
-          _MBLog();
+          _MBLog(@"Df", "checkMegaBackupEligibility: Unsupported Managed Apple ID.");
         }
 
         v7 = *(a1 + 40);
@@ -420,33 +419,33 @@ void sub_10000482C(uint64_t a1)
           *(&buf + 4) = v24;
           _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "checkMegaBackupEligibility: User needs HSA2 account: %@", &buf, 0xCu);
 
-          v33 = [v2 aa_altDSID];
-          _MBLog();
+          v25 = [v2 aa_altDSID];
+          _MBLog(@"Df", "checkMegaBackupEligibility: User needs HSA2 account: %@", v25);
         }
 
         v50 = @"MBMegaBackupEligibilityErrorUserInfoAltDSIDKey";
-        v25 = [v2 aa_altDSID];
-        v26 = v25;
-        v27 = &stru_10001D038;
-        if (v25)
+        v26 = [v2 aa_altDSID];
+        v27 = v26;
+        v28 = &stru_10001D038;
+        if (v26)
         {
-          v27 = v25;
+          v28 = v26;
         }
 
-        v51 = v27;
-        v28 = [NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1, v33];
+        v51 = v28;
+        v29 = [NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1];
 
-        v29 = [NSError errorWithDomain:@"MBMegaBackupEligibilityErrorDomain" code:5 userInfo:v28];
-        v30 = *(a1 + 40);
+        v30 = [NSError errorWithDomain:@"MBMegaBackupEligibilityErrorDomain" code:5 userInfo:v29];
+        v31 = *(a1 + 40);
         v37[0] = _NSConcreteStackBlock;
         v37[1] = 3221225472;
         v37[2] = sub_100005020;
         v37[3] = &unk_10001C800;
-        v31 = *(a1 + 64);
-        v38 = v29;
-        v39 = v31;
-        v32 = v29;
-        dispatch_async(v30, v37);
+        v32 = *(a1 + 64);
+        v38 = v30;
+        v39 = v32;
+        v33 = v30;
+        dispatch_async(v31, v37);
       }
     }
 
@@ -457,7 +456,7 @@ void sub_10000482C(uint64_t a1)
       {
         LOWORD(buf) = 0;
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "checkMegaBackupEligibility: Cloud Backup is restricted.", &buf, 2u);
-        _MBLog();
+        _MBLog(@"Df", "checkMegaBackupEligibility: Cloud Backup is restricted.");
       }
 
       v14 = *(a1 + 40);
@@ -490,7 +489,7 @@ void sub_10000482C(uint64_t a1)
       LODWORD(buf) = 138543362;
       *(&buf + 4) = v10;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "checkMegaBackupEligibility couldn't get primary Apple Account: %{public}@", &buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "checkMegaBackupEligibility couldn't get primary Apple Account: %{public}@", v10);
     }
 
     v11 = v8 ^ 1;
@@ -549,7 +548,7 @@ void sub_100005040(uint64_t a1, uint64_t a2, void *a3, void *a4)
     v15 = 2112;
     v16 = v8;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "checkMegaBackupEligibility: _ICQMegaBackupManager response: %ld, error: %@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Df", "checkMegaBackupEligibility: _ICQMegaBackupManager response: %ld, error: %@", a2, v8);
   }
 
   if (v7)
@@ -580,22 +579,23 @@ void sub_100005040(uint64_t a1, uint64_t a2, void *a3, void *a4)
 
   if (!a2)
   {
-    (*(*(a1 + 32) + 16))(*(a1 + 32), 0);
-    goto LABEL_16;
+    v12 = *(*(a1 + 32) + 16);
+LABEL_16:
+    v12();
+    goto LABEL_17;
   }
 
   if (a2 != 1)
   {
 LABEL_15:
-    v12 = *(*(*(a1 + 40) + 8) + 24);
-    (*(*(a1 + 32) + 16))(*(a1 + 32), 2);
+    v12 = *(*(a1 + 32) + 16);
     goto LABEL_16;
   }
 
   v10 = [NSError errorWithDomain:@"MBMegaBackupEligibilityErrorDomain" code:6 userInfo:0];
-  (*(*(a1 + 32) + 16))(*(a1 + 32), 1);
+  (*(*(a1 + 32) + 16))();
 
-LABEL_16:
+LABEL_17:
 }
 
 void sub_100005944(id a1)
@@ -679,7 +679,7 @@ void sub_100006748(uint64_t a1)
       v12 = 2114;
       v13 = v4;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to set %{public}@: %{public}@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to set %{public}@: %{public}@", @"MegaBackupTurnOniCloudBackup", v4);
     }
   }
 
@@ -728,7 +728,7 @@ void sub_1000069F8(uint64_t a1)
       v12 = 2114;
       v13 = v4;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to set %{public}@: %{public}@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to set %{public}@: %{public}@", @"MegaBackupTurnOniCloudBackup", v4);
     }
   }
 
@@ -772,10 +772,10 @@ void sub_100006F54(uint64_t a1, int a2, void *a3)
       *buf = 138543362;
       v12 = v5;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "AAUISignInController prepareInViewController Error: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "AAUISignInController prepareInViewController Error: %{public}@", v5);
     }
 
-    (*(*(a1 + 40) + 16))(*(a1 + 40));
+    (*(*(a1 + 40) + 16))();
   }
 }
 
@@ -814,10 +814,10 @@ void sub_1000073D8(uint64_t a1, char a2, void *a3)
       *buf = 138543362;
       v8 = v5;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to upgrade to HSA2: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to upgrade to HSA2: %{public}@", v5);
     }
 
-    (*(*(a1 + 40) + 16))(*(a1 + 40));
+    (*(*(a1 + 40) + 16))();
   }
 }
 
@@ -838,8 +838,8 @@ void sub_100007608(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
       v30 = v20;
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Getting Started MBMegaBackupEligibilityStateEligible: needsTemporaryStorage: %{public}@", buf, 0xCu);
 
-      v24 = [NSNumber numberWithBool:a3];
-      _MBLog();
+      v21 = [NSNumber numberWithBool:a3];
+      _MBLog(@"E ", "Getting Started MBMegaBackupEligibilityStateEligible: needsTemporaryStorage: %{public}@", v21);
     }
 
     [*(a1 + 32) setNeedsTemporaryStorage:a3];
@@ -856,7 +856,7 @@ void sub_100007608(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
         *buf = 138543362;
         v30 = v9;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Getting Started MBMegaBackupEligibilityStateError: %{public}@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Getting Started MBMegaBackupEligibilityStateError: %{public}@", v9);
       }
 
       v27[0] = _NSConcreteStackBlock;
@@ -883,8 +883,7 @@ LABEL_19:
     *buf = 138543362;
     v30 = v9;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Getting Started MBMegaBackupEligibilityStateIneligible: %{public}@", buf, 0xCu);
-    v24 = v9;
-    _MBLog();
+    _MBLog(@"E ", "Getting Started MBMegaBackupEligibilityStateIneligible: %{public}@", v9);
   }
 
   v15 = [v9 domain];
@@ -893,7 +892,7 @@ LABEL_19:
   if (!v16)
   {
 LABEL_18:
-    (*(*(a1 + 40) + 16))(*(a1 + 40));
+    (*(*(a1 + 40) + 16))();
     goto LABEL_19;
   }
 
@@ -901,10 +900,10 @@ LABEL_18:
   {
     if ([v9 code] == 5)
     {
-      v21 = [*(a1 + 32) eligibilityError];
-      v22 = [v21 userInfo];
-      v23 = [v22 objectForKeyedSubscript:@"MBMegaBackupEligibilityErrorUserInfoAltDSIDKey"];
-      [*(a1 + 32) setAltDSIDForHSA2Upgrade:v23];
+      v22 = [*(a1 + 32) eligibilityError];
+      v23 = [v22 userInfo];
+      v24 = [v23 objectForKeyedSubscript:@"MBMegaBackupEligibilityErrorUserInfoAltDSIDKey"];
+      [*(a1 + 32) setAltDSIDForHSA2Upgrade:v24];
     }
 
     goto LABEL_18;
@@ -1154,7 +1153,7 @@ void sub_10000BAB0(id *a1, uint64_t a2, void *a3, void *a4)
         *buf = 138543362;
         v47 = v7;
         _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Server allowed expiration date extension: %{public}@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "Server allowed expiration date extension: %{public}@", v7);
       }
 
       if (v7)
@@ -1172,7 +1171,7 @@ void sub_10000BAB0(id *a1, uint64_t a2, void *a3, void *a4)
 
       else
       {
-        (*(a1[6] + 2))(a1[6]);
+        (*(a1[6] + 2))();
       }
 
       break;
@@ -1182,7 +1181,7 @@ void sub_10000BAB0(id *a1, uint64_t a2, void *a3, void *a4)
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Server did not allow expiration date extension", buf, 2u);
-        _MBLog();
+        _MBLog(@"Df", "Server did not allow expiration date extension");
       }
 
       v17 = MBLocalizedStringFromTable();
@@ -1215,7 +1214,7 @@ void sub_10000BAB0(id *a1, uint64_t a2, void *a3, void *a4)
         *buf = 138412290;
         v47 = v8;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Server error for expiration extension: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Server error for expiration extension: %@", v8);
       }
 
       v10 = MBLocalizedStringFromTable();
@@ -1289,11 +1288,11 @@ void sub_10000C120(void *a1)
       *buf = 138412290;
       v9 = v5;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to update mega backup expiration date: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to update mega backup expiration date: %@", v5);
     }
   }
 
-  (*(a1[6] + 16))(a1[6]);
+  (*(a1[6] + 16))();
 }
 
 uint64_t sub_10000C224(uint64_t a1)
@@ -1334,7 +1333,7 @@ void sub_10000C328(uint64_t a1)
         *buf = 138412290;
         v14 = v9;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to start normal backup for prebuddy: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to start normal backup for prebuddy: %@", v9);
       }
     }
 
@@ -1353,13 +1352,13 @@ void sub_10000C328(uint64_t a1)
       *buf = 138412290;
       v14 = v5;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to start prebuddy backup: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to start prebuddy backup: %@", v5);
     }
 
 LABEL_13:
   }
 
-  (*(*(a1 + 40) + 16))(*(a1 + 40));
+  (*(*(a1 + 40) + 16))();
 }
 
 void sub_10000C7BC(uint64_t a1)
@@ -1415,9 +1414,9 @@ void sub_10000CB68(uint64_t a1)
 {
   v2 = objc_opt_new();
   v3 = [*(a1 + 32) _prebuddyTelemetryForStep:*(a1 + 40)];
-  v9 = 0;
-  v4 = [v2 logPrebuddyFlowTelemetry:v3 error:&v9];
-  v5 = v9;
+  v8 = 0;
+  v4 = [v2 logPrebuddyFlowTelemetry:v3 error:&v8];
+  v5 = v8;
   if ((v4 & 1) == 0)
   {
     v6 = MBGetDefaultLog();
@@ -1425,12 +1424,11 @@ void sub_10000CB68(uint64_t a1)
     {
       v7 = *(a1 + 40);
       *buf = 134218242;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v5;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v5;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to log prebuddy flow telemetry at %ld: %@", buf, 0x16u);
-      v8 = *(a1 + 40);
-      _MBLog();
+      _MBLog(@"E ", "Failed to log prebuddy flow telemetry at %ld: %@", *(a1 + 40), v5);
     }
   }
 }

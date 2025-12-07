@@ -115,7 +115,7 @@
   sub_21DBF5CAC();
   viewCopy = view;
   selfCopy = self;
-  sub_21D55973C();
+  sub_21D55973C(v9);
 
   (*(v7 + 8))(v9, v6);
 }

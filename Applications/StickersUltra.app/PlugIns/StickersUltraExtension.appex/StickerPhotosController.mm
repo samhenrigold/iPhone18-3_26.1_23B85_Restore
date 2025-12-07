@@ -15,7 +15,7 @@
   selfCopy = self;
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for StickerPhotosController();
+  v6.super_class = type metadata accessor for StickerPhotosController(0);
   [(StickerPhotosController *)&v6 dealloc];
 }
 

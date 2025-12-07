@@ -70,12 +70,12 @@ LABEL_8:
         v17 = v16;
 
         v18 = [HFPinCodeItemProvider alloc];
-        home = [v17 home];
+        v19 = objc_msgSend_home(v17);
 
         pinCodeManager = [(HFPinCodeListModule *)self pinCodeManager];
         listType = [(HFPinCodeListModule *)self listType];
         accessory = [(HFPinCodeListModule *)self accessory];
-        v23 = [(HFPinCodeItemProvider *)v18 initWithHome:home pinCodeManager:pinCodeManager listType:listType forAccessory:accessory];
+        v23 = [(HFPinCodeItemProvider *)v18 initWithHome:v19 pinCodeManager:pinCodeManager listType:listType forAccessory:accessory];
         [(HFPinCodeListModule *)self setPinCodeItemProvider:v23];
 
         pinCodeItemProvider = [(HFPinCodeListModule *)self pinCodeItemProvider];
@@ -113,7 +113,7 @@ LABEL_12:
 
 id __36__HFPinCodeListModule_itemProviders__block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB38] dictionary];
   [v2 setObject:@"plus" forKeyedSubscript:@"iconNames"];
   v3 = 1;
@@ -127,7 +127,7 @@ id __36__HFPinCodeListModule_itemProviders__block_invoke(uint64_t a1)
 
   if (v7)
   {
-    v8 = [*(a1 + 32) home];
+    v8 = objc_msgSend_home(*(a1 + 32));
     v9 = [v8 residentDevices];
     v3 = [v9 count] != 0;
   }
@@ -135,29 +135,27 @@ id __36__HFPinCodeListModule_itemProviders__block_invoke(uint64_t a1)
   v10 = HFLogForCategory(0x4CuLL);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [*(a1 + 32) home];
+    v11 = objc_msgSend_home(*(a1 + 32));
     v12 = [v11 residentDevices];
     v13 = [v12 count];
-    v14 = [*(a1 + 32) home];
-    v19 = 136316162;
-    v20 = "[HFPinCodeListModule itemProviders]_block_invoke";
-    v21 = 1024;
-    v22 = v3;
-    v23 = 1024;
-    v24 = v7;
-    v25 = 2048;
-    v26 = v13;
-    v27 = 2112;
-    v28 = v14;
-    _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "(%s) shouldShowInvitePeople = %{BOOL}d because hasOptedToHH2 = %{BOOL}d | residentDevices.count = %ld | home %@", &v19, 0x2Cu);
+    v14 = objc_msgSend_home(*(a1 + 32));
+    v18 = 136316162;
+    v19 = "[HFPinCodeListModule itemProviders]_block_invoke";
+    v20 = 1024;
+    v21 = v3;
+    v22 = 1024;
+    v23 = v7;
+    v24 = 2048;
+    v25 = v13;
+    v26 = 2112;
+    v27 = v14;
+    _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "(%s) shouldShowInvitePeople = %{BOOL}d because hasOptedToHH2 = %{BOOL}d | residentDevices.count = %ld | home %@", &v18, 0x2Cu);
   }
 
   v15 = [MEMORY[0x277CCABB0] numberWithBool:!v3];
   [v2 setObject:v15 forKeyedSubscript:@"hidden"];
 
   v16 = [MEMORY[0x277D2C900] futureWithResult:v2];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -193,7 +191,7 @@ id __36__HFPinCodeListModule_itemProviders__block_invoke_15()
 
 - (id)buildSectionsWithDisplayedItems:(id)items
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   pinCodeItemProvider = [(HFPinCodeListModule *)self pinCodeItemProvider];
   items = [pinCodeItemProvider items];
@@ -280,11 +278,10 @@ LABEL_21:
   }
 
 LABEL_23:
-  v27[0] = v19;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  v26[0] = v19;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
 
 LABEL_24:
-  v25 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

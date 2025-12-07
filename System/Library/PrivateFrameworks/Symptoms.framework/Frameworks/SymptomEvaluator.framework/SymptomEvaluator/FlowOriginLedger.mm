@@ -10,6 +10,7 @@
 - (unint64_t)sampleCellRxThroughputBps;
 - (unint64_t)sampleCellTxThroughputBps;
 - (void)addActivityBitmapForSnapshot:(id)snapshot;
+- (void)addActivityWithFlowId:(unint64_t)id interfaceType:(unsigned __int8)type xnuBitmap:(xnu_activity_bitmap *)bitmap;
 - (void)dealloc;
 - (void)startSamplingPeriod;
 @end
@@ -73,6 +74,44 @@
   v2.receiver = self;
   v2.super_class = FlowOriginLedger;
   [(FlowOriginLedger *)&v2 dealloc];
+}
+
+- (void)addActivityWithFlowId:(unint64_t)id interfaceType:(unsigned __int8)type xnuBitmap:(xnu_activity_bitmap *)bitmap
+{
+  typeCopy = type;
+  v18 = *MEMORY[0x277D85DE8];
+  if (bitmap)
+  {
+    v13 = [MEMORY[0x277CCABB0] numberWithInt:type];
+    activityBitmaps = [(FlowOriginLedger *)self activityBitmaps];
+    v10 = [activityBitmaps objectForKeyedSubscript:v13];
+
+    if (!v10)
+    {
+      v10 = [[SFActivityBitmaps alloc] initWithName:self->_name];
+      activityBitmaps2 = [(FlowOriginLedger *)self activityBitmaps];
+      [activityBitmaps2 setObject:v10 forKeyedSubscript:v13];
+    }
+
+    [(SFActivityBitmaps *)v10 addActivityWithFlowId:id startTime:bitmap->var0 part1:bitmap->var1[0] part2:bitmap->var1[1]];
+    if ((typeCopy - 3) <= 1u)
+    {
+      [(SFActivityBitmaps *)v10 checkForFullHammingWeightOnInterface:typeCopy atTime:apparentTime()];
+    }
+  }
+
+  else
+  {
+    v12 = flowLogHandle;
+    if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218240;
+      idCopy = id;
+      v16 = 1024;
+      v17 = typeCopy;
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "addActivityWithFlowId %lld interface type %d has no xnu bitmap", buf, 0x12u);
+    }
+  }
 }
 
 - (void)addActivityBitmapForSnapshot:(id)snapshot

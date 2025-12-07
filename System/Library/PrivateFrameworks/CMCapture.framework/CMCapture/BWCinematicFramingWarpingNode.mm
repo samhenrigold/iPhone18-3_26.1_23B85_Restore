@@ -1,9 +1,9 @@
 @interface BWCinematicFramingWarpingNode
 + (void)initialize;
-- (uint64_t)_initVirtualCameraProcessorWithOutputDimensions:(uint64_t)result;
+- (void)_initVirtualCameraProcessorWithOutputDimensions:(void *)result;
 - (void)dealloc;
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key;
-- (void)initWithFramingStatesProvider:(uint64_t)provider outputDimensions:(int)dimensions maxLossyCompressionLevel:;
+- (void)initWithFramingStatesProvider:(uint64_t)provider outputDimensions:(uint64_t)dimensions maxLossyCompressionLevel:;
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input;
 @end
 
@@ -31,7 +31,7 @@
 
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     v9 = objc_alloc_init(BWVideoFormatRequirements);
     v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(format, "pixelFormat")}];
@@ -49,7 +49,7 @@
   }
 }
 
-- (void)initWithFramingStatesProvider:(uint64_t)provider outputDimensions:(int)dimensions maxLossyCompressionLevel:
+- (void)initWithFramingStatesProvider:(uint64_t)provider outputDimensions:(uint64_t)dimensions maxLossyCompressionLevel:
 {
   if (!self)
   {
@@ -100,18 +100,18 @@
   return v7;
 }
 
-- (uint64_t)_initVirtualCameraProcessorWithOutputDimensions:(uint64_t)result
+- (void)_initVirtualCameraProcessorWithOutputDimensions:(void *)result
 {
   if (result)
   {
     v3 = result;
     v4 = objc_alloc_init(MEMORY[0x1E6994588]);
-    *(v3 + 136) = v4;
+    *(v3 + 17) = v4;
     [v4 setOutputDimensions:a2];
-    if ([*(v3 + 136) setup] || objc_msgSend(*(v3 + 136), "prewarm") || (result = objc_msgSend(*(v3 + 136), "prepareToProcess:", 1), result))
+    if ([*(v3 + 17) setup] || objc_msgSend(*(v3 + 17), "prewarm") || (result = objc_msgSend(*(v3 + 17), "prepareToProcess:", 1), result))
     {
       OUTLINED_FUNCTION_1_5();
-      return FigDebugAssert3();
+      return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
   }
 
@@ -120,24 +120,24 @@
 
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input
 {
-  v34 = 0;
-  v35 = 0;
+  v37 = 0;
+  v38[0] = 0;
   v7 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
   Value = CFDictionaryGetValue(v7, *off_1E798A420);
-  memset(&v33, 0, sizeof(v33));
-  CMTimeMakeFromDictionary(&v33, Value);
+  memset(&v36, 0, sizeof(v36));
+  CMTimeMakeFromDictionary(&v36, Value);
   if (dword_1EB58E7C0)
   {
-    v32 = 0;
-    v31 = 0;
+    v35 = 0;
+    v34 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     OUTLINED_FUNCTION_1_104();
   }
 
   framingStatesProvider = self->_framingStatesProvider;
-  v30 = v33;
-  v11 = [(BWCinematicFramingStatesProvider *)framingStatesProvider copyCameraStatesForPTS:&v30, v26, v28];
+  v33 = v36;
+  v11 = [(BWCinematicFramingStatesProvider *)framingStatesProvider copyCameraStatesForPTS:&v33, v26, v28];
   v12 = v11;
   if (!v11)
   {
@@ -147,9 +147,8 @@
   v13 = *(v11 + 1);
   if (!v13 || (v14 = *(v11 + 2)) == 0)
   {
-    v29 = v4;
     LODWORD(v27) = 0;
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v27, v4, v29, v30, v31, v32, v33.value, v33.timescale);
     goto LABEL_20;
   }
 
@@ -184,33 +183,33 @@ LABEL_20:
     if ([(VCProcessor *)self->_vcProcessor process]|| [(VCProcessor *)self->_vcProcessor finishProcessing])
     {
       OUTLINED_FUNCTION_1_5();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     else
     {
-      BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, newPixelBuffer, &v34, &v35);
-      if (v35)
+      BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, newPixelBuffer, &v37, v38);
+      if (v38[0])
       {
         v24 = CMSampleBufferGetImageBuffer(buffer);
         CVBufferPropagateAttachments(v24, newPixelBuffer);
-        FigCaptureCinematicFramingUpdateSampleBufferMetadata(self->_vcProcessor, v35, 0);
+        FigCaptureCinematicFramingUpdateSampleBufferMetadata(self->_vcProcessor, v38[0], 0);
       }
     }
   }
 
 LABEL_14:
-  v25 = [(BWNode *)self output:v27];
-  [(BWNodeOutput *)v25 emitSampleBuffer:v35];
+  output = [(BWNode *)self output];
+  [(BWNodeOutput *)output emitSampleBuffer:v38[0]];
 
   if (newPixelBuffer)
   {
     CFRelease(newPixelBuffer);
   }
 
-  if (v35)
+  if (v38[0])
   {
-    CFRelease(v35);
+    CFRelease(v38[0]);
   }
 }
 

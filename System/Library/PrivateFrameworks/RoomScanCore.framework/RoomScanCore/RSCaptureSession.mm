@@ -37,7 +37,7 @@
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (qword_27FF0C0B0 != -1)
   {
     dispatch_once(&qword_27FF0C0B0, &unk_2874EE1A0);
@@ -60,25 +60,24 @@
   v7 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v4, v5);
   objc_msgSend_removeObserver_name_object_(v7, v8, self, *MEMORY[0x277CCA600], 0);
 
-  v10.receiver = self;
-  v10.super_class = RSCaptureSession;
-  [(RSCaptureSession *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = RSCaptureSession;
+  [(RSCaptureSession *)&v9 dealloc];
 }
 
 - (id)standardizeFloorPlan:(id)plan
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   planCopy = plan;
-  v5 = sub_26229CF80(v15);
+  v5 = sub_26229CF80(v14);
   v8 = objc_msgSend_copy(planCopy, v6, v7, v5);
   v9 = sub_2621CD3A4(*(*(self + 2) + 72));
-  sub_262241864(v15, v8, v9, *(*(self + 2) + 56) + 1968);
+  sub_262241864(v14, v8, v9, *(*(self + 2) + 56) + 1968);
 
   v10 = sub_2621F6A6C(*(self + 2), *(self + 13), v8);
   objc_msgSend_updateObjects_(v8, v11, v10);
 
-  sub_262241820(v17);
+  sub_262241820(v16);
   v12 = __p;
   __p = 0;
   if (v12)
@@ -86,9 +85,7 @@
     operator delete(v12);
   }
 
-  sub_26229D160(v15);
-
-  v13 = *MEMORY[0x277D85DE8];
+  sub_26229D160(v14);
 
   return v8;
 }
@@ -104,34 +101,34 @@
 
 - (id)generateFloorPlanWithKeyframes:(id)keyframes objects:(id)objects
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   keyframesCopy = keyframes;
   objectsCopy = objects;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v8 = keyframesCopy;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v24, v28, 16);
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v23, v27, 16);
   if (v12)
   {
-    v13 = *v25;
+    v13 = *v24;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * i);
+        v15 = *(*(&v23 + 1) + 8 * i);
         v16 = *(self + 4);
-        v17 = objc_msgSend_identifier(v15, v10, v11, v24);
+        v17 = objc_msgSend_identifier(v15, v10, v11, v23);
         objc_msgSend_setObject_forKeyedSubscript_(v16, v18, v15, v17);
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v10, &v24, v28, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v10, &v23, v27, 16);
     }
 
     while (v12);
@@ -145,8 +142,6 @@
     v20 = sub_2621F6A6C(*(self + 2), *(self + 13), v19);
     objc_msgSend_updateObjects_(v19, v21, v20);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -180,8 +175,8 @@
 
 - (id)getDebugInfo
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v38 = *(self + 120);
+  v43 = *MEMORY[0x277D85DE8];
+  v37 = *(self + 120);
   *(self + 120) = 1;
   v4 = *(self + 19);
   v5 = objc_msgSend_dictionaryRepresentation(*(self + 1), a2, v2);
@@ -210,22 +205,22 @@
       v29 = *(v4 + 16);
       v30 = dispatch_time(0, 30000000000);
       dispatch_group_wait(v29, v30);
-      v39[0] = @"config";
-      v39[1] = @"keyframeDebug";
+      v38[0] = @"config";
+      v38[1] = @"keyframeDebug";
       v31 = *(v4 + 32);
-      v40[0] = v8;
-      v40[1] = v31;
-      v40[2] = v17;
-      v39[2] = @"floorPlanDebug";
-      v39[3] = @"coachingDebug";
-      v41 = *(v4 + 48);
-      v39[4] = @"driftDebug";
-      v39[5] = @"sysDebug";
-      v42 = *(v4 + 64);
-      v39[6] = @"firstARFrameTime";
+      v39[0] = v8;
+      v39[1] = v31;
+      v39[2] = v17;
+      v38[2] = @"floorPlanDebug";
+      v38[3] = @"coachingDebug";
+      v40 = *(v4 + 48);
+      v38[4] = @"driftDebug";
+      v38[5] = @"sysDebug";
+      v41 = *(v4 + 64);
+      v38[6] = @"firstARFrameTime";
       v34 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v32, v33, *(v4 + 72));
-      v43 = v34;
-      v4 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v35, v40, v39, 7);
+      v42 = v34;
+      v4 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v35, v39, v38, 7);
     }
 
     else
@@ -234,15 +229,14 @@
     }
   }
 
-  *(self + 120) = v38;
-  v36 = *MEMORY[0x277D85DE8];
+  *(self + 120) = v37;
 
   return v4;
 }
 
 - (void)stop
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   *(self + 120) = 1;
   if (qword_27FF0C0B0 != -1)
@@ -260,32 +254,31 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v15 = 0x3032000000;
-  v16 = sub_2622A4460;
-  v17 = sub_2622A4470;
-  v18 = objc_msgSend_array(MEMORY[0x277CBEA60], v4, v5);
+  v14 = 0x3032000000;
+  v15 = sub_2622A4460;
+  v16 = sub_2622A4470;
+  v17 = objc_msgSend_array(MEMORY[0x277CBEA60], v4, v5);
   v6 = *(self + 33);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_2622A4478;
   block[3] = &unk_279B307E0;
-  objc_copyWeak(&v12, &location);
+  objc_copyWeak(&v11, &location);
   block[4] = &buf;
   dispatch_sync(v6, block);
   v7 = *(self + 3);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = sub_2622A44F4;
-  v9[3] = &unk_279B307E0;
-  objc_copyWeak(&v10, &location);
-  v9[4] = &buf;
-  dispatch_async(v7, v9);
-  objc_destroyWeak(&v10);
-  objc_destroyWeak(&v12);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = sub_2622A44F4;
+  v8[3] = &unk_279B307E0;
+  objc_copyWeak(&v9, &location);
+  v8[4] = &buf;
+  dispatch_async(v7, v8);
+  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v11);
   _Block_object_dispose(&buf, 8);
 
   objc_destroyWeak(&location);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithFrame:(id)frame
@@ -374,7 +367,7 @@
   if (v32 && *(v32 + 23) == 1)
   {
     v33 = v36;
-    if ((sub_2622A4A00(self, v33) & 1) != 0 && !dispatch_semaphore_wait(*(self + 18), 0xFFFFFFFFFFFFFFFELL))
+    if (sub_2622A4A00(self, v33) && !dispatch_semaphore_wait(*(self + 18), 0xFFFFFFFFFFFFFFFELL))
     {
       objc_initWeak(from, self);
       v34 = *(self + 11);
@@ -490,7 +483,7 @@
 
 - (void)runWithConfiguration:(id)configuration
 {
-  v184 = *MEMORY[0x277D85DE8];
+  v183 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v7 = objc_msgSend_copy(configurationCopy, v5, v6);
   v8 = *(self + 1);
@@ -966,17 +959,15 @@ LABEL_62:
   v180 = qword_27FF0C0A8;
   if (os_log_type_enabled(v180, OS_LOG_TYPE_INFO))
   {
-    v182 = 138543362;
+    v181 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_2621C3000, v180, OS_LOG_TYPE_INFO, "%{public}@: Listen to available memory start", &v182, 0xCu);
+    _os_log_impl(&dword_2621C3000, v180, OS_LOG_TYPE_INFO, "%{public}@: Listen to available memory start", &v181, 0xCu);
   }
-
-  v181 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processInfoThermalStateDidChangeNotification:(id)notification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_processInfo(MEMORY[0x277CCAC38], a2, notification);
   v7 = objc_msgSend_thermalState(v4, v5, v6);
 
@@ -988,17 +979,17 @@ LABEL_62:
   v8 = qword_27FF0C0A8;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v18 = 134217984;
-    v19 = v7;
-    _os_log_impl(&dword_2621C3000, v8, OS_LOG_TYPE_INFO, "Thermal state info in notification: %ld", &v18, 0xCu);
+    v17 = 134217984;
+    v18 = v7;
+    _os_log_impl(&dword_2621C3000, v8, OS_LOG_TYPE_INFO, "Thermal state info in notification: %ld", &v17, 0xCu);
   }
 
   if (v7 == 3)
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v18) = 0;
-      _os_log_error_impl(&dword_2621C3000, v8, OS_LOG_TYPE_ERROR, "RSError: kRSError_Runtime_CriticalThermalState", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_error_impl(&dword_2621C3000, v8, OS_LOG_TYPE_ERROR, "RSError: kRSError_Runtime_CriticalThermalState", &v17, 2u);
     }
 
     v11 = objc_msgSend_delegate(self, v9, v10);
@@ -1010,8 +1001,6 @@ LABEL_62:
       objc_msgSend_session_didFailWithError_(v15, v16, self, -3);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (RSCaptureSession)init
@@ -1036,7 +1025,7 @@ LABEL_6:
     v6 = *(v2 + 16);
     *(v2 + 16) = v5;
 
-    v7 = sub_262240718();
+    v7 = sub_262240718("RSC_FloorPlan_TG");
     v8 = *(v2 + 20);
     *(v2 + 20) = v7;
 
@@ -1052,7 +1041,7 @@ LABEL_6:
     v14 = *(v2 + 17);
     *(v2 + 17) = v13;
 
-    v15 = sub_262240718();
+    v15 = sub_262240718("RSC_Coaching_TG");
     v16 = *(v2 + 21);
     *(v2 + 21) = v15;
 
@@ -1068,7 +1057,7 @@ LABEL_6:
     v22 = *(v2 + 18);
     *(v2 + 18) = v21;
 
-    v23 = sub_262240718();
+    v23 = sub_262240718("RSC_Mirror_TG");
     v24 = *(v2 + 22);
     *(v2 + 22) = v23;
 
@@ -1127,7 +1116,7 @@ LABEL_6:
     v53 = *(v2 + 19);
     *(v2 + 19) = v52;
 
-    v54 = sub_262240718();
+    v54 = sub_262240718("RSC_ReadWrite_TG");
     v55 = *(v2 + 34);
     *(v2 + 34) = v54;
 

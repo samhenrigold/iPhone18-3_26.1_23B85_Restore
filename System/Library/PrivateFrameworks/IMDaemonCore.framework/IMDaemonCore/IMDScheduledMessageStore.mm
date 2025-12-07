@@ -30,20 +30,22 @@
 - (id)messageRecordsToUploadToCloudKitWithFilter:(unint64_t)filter limit:(int64_t)limit
 {
   selfCopy = self;
-  sub_22B71F280(limit);
+  v6 = sub_22B71F280(limit);
 
-  v6 = sub_22B7DB8F8();
+  v7 = sub_22B7DB8F8();
+  v6, v8, v9, v10, v11, v12, v13, v14, v16, v17;
 
-  return v6;
+  return v7;
 }
 
 - (id)recordIDsAndGUIDsToDeleteWithLimit:(int64_t)limit
 {
-  _s12IMDaemonCore21ScheduledMessageStoreC25recordIDsAndGUIDsToDelete9withLimitSaySDys11AnyHashableVypGGs5Int64V_tF_0(limit);
+  v3 = _s12IMDaemonCore21ScheduledMessageStoreC25recordIDsAndGUIDsToDelete9withLimitSaySDys11AnyHashableVypGGs5Int64V_tF_0(limit);
   sub_22B6F0AD4(&qword_27D8CF710, qword_22B7FA230);
-  v3 = sub_22B7DB8F8();
+  v4 = sub_22B7DB8F8();
+  v3, v5, v6, v7, v8, v9, v10, v11, v13, v14;
 
-  return v3;
+  return v4;
 }
 
 - (void)clearTombstonesForRecordIDs:(id)ds
@@ -52,6 +54,8 @@
   v4 = sub_22B7DB918();
   selfCopy = self;
   _s12IMDaemonCore21ScheduledMessageStoreC15clearTombstones12forRecordIDsySaySo10CKRecordIDCG_tF_0(v4);
+
+  v4, v6, v7, v8, v9, v10, v11, v12, v14, v15;
 }
 
 - (IMDScheduledMessageStore)init

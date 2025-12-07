@@ -624,33 +624,33 @@ LABEL_26:
 - (void)p_updateOverlayViewForReps:(id)reps forcingUpdateOfValidLayers:(BOOL)layers
 {
   repsCopy = reps;
-  v61 = +[NSThread isMainThread];
+  v63 = +[NSThread isMainThread];
   WeakRetained = objc_loadWeakRetained(&self->_interactiveCanvasController);
   canvas = [WeakRetained canvas];
 
   v7 = objc_alloc_init(NSMutableArray);
-  v79 = 0u;
-  v80 = 0u;
   v81 = 0u;
   v82 = 0u;
+  v83 = 0u;
+  v84 = 0u;
   obj = repsCopy;
-  v8 = [obj countByEnumeratingWithState:&v79 objects:v86 count:16];
+  v8 = [obj countByEnumeratingWithState:&v81 objects:v88 count:16];
   selfCopy = self;
   if (v8)
   {
     v9 = v8;
-    v10 = *v80;
+    v10 = *v82;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v80 != v10)
+        if (*v82 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v79 + 1) + 8 * i);
-        if (layers || [canvas i_areOverlayLayersInvalidForRep:*(*(&v79 + 1) + 8 * i)])
+        v12 = *(*(&v81 + 1) + 8 * i);
+        if (layers || [canvas i_areOverlayLayersInvalidForRep:*(*(&v81 + 1) + 8 * i)])
         {
           overlayRenderables = [v12 overlayRenderables];
           [(NSMapTable *)self->_repOverlayRenderablesByRep setObject:overlayRenderables forKeyedSubscript:v12];
@@ -669,30 +669,30 @@ LABEL_26:
           }
         }
 
+        v79 = 0u;
+        v80 = 0u;
         v77 = 0u;
         v78 = 0u;
-        v75 = 0u;
-        v76 = 0u;
         v14 = overlayRenderables;
-        v15 = [v14 countByEnumeratingWithState:&v75 objects:v85 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v77 objects:v87 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v76;
+          v17 = *v78;
           do
           {
             for (j = 0; j != v16; j = j + 1)
             {
-              if (*v76 != v17)
+              if (*v78 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              layer = [*(*(&v75 + 1) + 8 * j) layer];
+              layer = [*(*(&v77 + 1) + 8 * j) layer];
               [v7 addObject:layer];
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v75 objects:v85 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v77 objects:v87 count:16];
           }
 
           while (v16);
@@ -702,7 +702,7 @@ LABEL_26:
 LABEL_19:
       }
 
-      v9 = [obj countByEnumeratingWithState:&v79 objects:v86 count:16];
+      v9 = [obj countByEnumeratingWithState:&v81 objects:v88 count:16];
     }
 
     while (v9);
@@ -711,29 +711,29 @@ LABEL_19:
   v20 = objc_loadWeakRetained(&self->_interactiveCanvasController);
   i_decorators = [v20 i_decorators];
 
+  v75 = 0u;
+  v76 = 0u;
   v73 = 0u;
   v74 = 0u;
-  v71 = 0u;
-  v72 = 0u;
-  v63 = i_decorators;
-  v22 = [v63 countByEnumeratingWithState:&v71 objects:v84 count:16];
+  v65 = i_decorators;
+  v22 = [v65 countByEnumeratingWithState:&v73 objects:v86 count:16];
   if (!v22)
   {
     goto LABEL_41;
   }
 
   v23 = v22;
-  v24 = *v72;
+  v24 = *v74;
   do
   {
     for (k = 0; k != v23; k = k + 1)
     {
-      if (*v72 != v24)
+      if (*v74 != v24)
       {
-        objc_enumerationMutation(v63);
+        objc_enumerationMutation(v65);
       }
 
-      v26 = *(*(&v71 + 1) + 8 * k);
+      v26 = *(*(&v73 + 1) + 8 * k);
       if (layers || (v27 = objc_loadWeakRetained(&self->_interactiveCanvasController), v28 = [v27 i_areLayersInvalidForDecorator:v26], v27, v28))
       {
         decoratorOverlayRenderables = [v26 decoratorOverlayRenderables];
@@ -753,30 +753,30 @@ LABEL_19:
         }
       }
 
+      v71 = 0u;
+      v72 = 0u;
       v69 = 0u;
       v70 = 0u;
-      v67 = 0u;
-      v68 = 0u;
       v30 = decoratorOverlayRenderables;
-      v31 = [v30 countByEnumeratingWithState:&v67 objects:v83 count:16];
+      v31 = [v30 countByEnumeratingWithState:&v69 objects:v85 count:16];
       if (v31)
       {
         v32 = v31;
-        v33 = *v68;
+        v33 = *v70;
         do
         {
           for (m = 0; m != v32; m = m + 1)
           {
-            if (*v68 != v33)
+            if (*v70 != v33)
             {
               objc_enumerationMutation(v30);
             }
 
-            layer2 = [*(*(&v67 + 1) + 8 * m) layer];
+            layer2 = [*(*(&v69 + 1) + 8 * m) layer];
             [v7 addObject:layer2];
           }
 
-          v32 = [v30 countByEnumeratingWithState:&v67 objects:v83 count:16];
+          v32 = [v30 countByEnumeratingWithState:&v69 objects:v85 count:16];
         }
 
         while (v32);
@@ -786,13 +786,13 @@ LABEL_19:
 LABEL_39:
     }
 
-    v23 = [v63 countByEnumeratingWithState:&v71 objects:v84 count:16];
+    v23 = [v65 countByEnumeratingWithState:&v73 objects:v86 count:16];
   }
 
   while (v23);
 LABEL_41:
 
-  if (((self->_overlayView == 0) & v61) == 1)
+  if (((self->_overlayView == 0) & v63) == 1)
   {
     v36 = objc_alloc_init(CRLCanvasSubview);
     overlayView = self->_overlayView;
@@ -852,49 +852,49 @@ LABEL_41:
 
   if (showGrayOverlay)
   {
-    v49 = sub_1000CCEA0(0.0, 0.0, 0.0, 0.219600007);
-    [(CALayer *)self->_overlayLayer setBackgroundColor:v49];
-    CGColorRelease(v49);
-    if (!v61)
+    v51 = sub_1000CCEA0(v49, v50, 0.0, 0.0, 0.0, 0.219600007);
+    [(CALayer *)self->_overlayLayer setBackgroundColor:v51];
+    CGColorRelease(v51);
+    if (!v63)
     {
       goto LABEL_63;
     }
 
 LABEL_59:
-    v50 = objc_loadWeakRetained(&self->_interactiveCanvasController);
-    layerHost = [v50 layerHost];
+    v52 = objc_loadWeakRetained(&self->_interactiveCanvasController);
+    layerHost = [v52 layerHost];
     canvasLayer = [layerHost canvasLayer];
     [canvasLayer bounds];
-    v54 = v53;
     v56 = v55;
     v58 = v57;
     v60 = v59;
+    v62 = v61;
 
     [(CRLCanvasSubview *)self->_overlayView frame];
-    v89.origin.x = v54;
-    v89.origin.y = v56;
-    v89.size.width = v58;
-    v89.size.height = v60;
-    if (!CGRectEqualToRect(v87, v89))
+    v91.origin.x = v56;
+    v91.origin.y = v58;
+    v91.size.width = v60;
+    v91.size.height = v62;
+    if (!CGRectEqualToRect(v89, v91))
     {
-      [(CRLCanvasSubview *)self->_overlayView setFrame:v54, v56, v58, v60];
+      [(CRLCanvasSubview *)self->_overlayView setFrame:v56, v58, v60, v62];
     }
 
     [(CRLCanvasSubview *)self->_overlayView bounds];
-    v90.origin.x = v54;
-    v90.origin.y = v56;
-    v90.size.width = v58;
-    v90.size.height = v60;
-    if (!CGRectEqualToRect(v88, v90))
+    v92.origin.x = v56;
+    v92.origin.y = v58;
+    v92.size.width = v60;
+    v92.size.height = v62;
+    if (!CGRectEqualToRect(v90, v92))
     {
-      [(CRLCanvasSubview *)self->_overlayView setBounds:v54, v56, v58, v60];
+      [(CRLCanvasSubview *)self->_overlayView setBounds:v56, v58, v60, v62];
     }
   }
 
   else
   {
     [(CALayer *)self->_overlayLayer setBackgroundColor:0];
-    if (v61)
+    if (v63)
     {
       goto LABEL_59;
     }

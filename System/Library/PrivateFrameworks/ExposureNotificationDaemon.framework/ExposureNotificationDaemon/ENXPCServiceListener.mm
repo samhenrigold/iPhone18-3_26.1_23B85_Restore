@@ -81,8 +81,8 @@ void __45__ENXPCServiceListener_sharedServiceListener__block_invoke()
 
   else
   {
-    activate = [ENXPCServiceListener activate];
-    __32__ENXPCServiceListener_activate__block_invoke(activate, v6);
+    [ENXPCServiceListener activate];
+    __32__ENXPCServiceListener_activate__block_invoke(v5, v6);
   }
 }
 
@@ -90,7 +90,7 @@ void __45__ENXPCServiceListener_sharedServiceListener__block_invoke()
 {
   if (gLogCategory_ENXPCServiceConnection <= 50 && (gLogCategory_ENXPCServiceConnection != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENXPCServiceConnection, "[ENXPCServiceListener main]", 50, "XPC service main");
   }
 
   xpc_main(SharedServiceConnectionHandler);
@@ -180,13 +180,13 @@ LABEL_8:
 - (void)xpcConnectionAccept:.cold.1()
 {
   v0 = CUPrintPID();
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENXPCServiceConnection, "[ENXPCServiceListener xpcConnectionAccept:]", 20, "XPC connection start: %@", v0);
 }
 
 - (void)xpcListenerEvent:.cold.1()
 {
   v0 = CUPrintXPC();
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory__ENXPCServiceConnection, "[ENXPCServiceListener xpcListenerEvent:]", 90, "### XPC listener error: %@", v0);
 }
 
 @end

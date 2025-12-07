@@ -37,10 +37,13 @@
 
 - (BOOL)textField:(id)field shouldChangeCharactersInRange:(_NSRange)range replacementString:(id)string
 {
-  sub_22089136C();
+  length = range.length;
+  location = range.location;
+  v9 = sub_22089136C();
+  v11 = v10;
   fieldCopy = field;
   selfCopy = self;
-  sub_22085D5AC(fieldCopy);
+  sub_22085D5AC(fieldCopy, location, length, v9, v11);
 
   return 1;
 }

@@ -20,20 +20,17 @@
 
 - (NSArray)filterGroups
 {
-  v2 = *(self + OBJC_IVAR____TtC18Feedback_Assistant16FBAFilterManager_filterGroups);
-  type metadata accessor for FBAFilterGroup();
+  type metadata accessor for FBAFilterGroup(0, a2);
 
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setFilterGroups:(id)groups
 {
-  type metadata accessor for FBAFilterGroup();
-  v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = *(self + OBJC_IVAR____TtC18Feedback_Assistant16FBAFilterManager_filterGroups);
-  *(self + OBJC_IVAR____TtC18Feedback_Assistant16FBAFilterManager_filterGroups) = v4;
+  type metadata accessor for FBAFilterGroup(0, a2);
+  *(self + OBJC_IVAR____TtC18Feedback_Assistant16FBAFilterManager_filterGroups) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
 - (_TtP18Feedback_Assistant24FBAFilterManagerDelegate_)filterDelegate
@@ -52,9 +49,9 @@
 - (NSPredicate)predicate
 {
   selfCopy = self;
-  v3 = sub_1000716F8();
+  v4 = sub_1000716F8(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 + (id)keyPathsForValuesAffectingUserDescription
@@ -78,7 +75,7 @@
 
 - (_TtC18Feedback_Assistant16FBAFilterManager)initWithFilterGroups:(id)groups
 {
-  type metadata accessor for FBAFilterGroup();
+  type metadata accessor for FBAFilterGroup(0, a2);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   return sub_100071F38(v3);
 }
@@ -87,31 +84,29 @@
 {
   v4 = type metadata accessor for IndexPath();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_1000720D8();
-  v11 = v10;
+  sub_1000720D8(v7);
+  v10 = v9;
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 
-  return v11;
+  return v10;
 }
 
 - (void)toggleFilterAtIndexPath:(id)path
 {
   v4 = type metadata accessor for IndexPath();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_1000722E4();
+  sub_1000722E4(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)toggleFilterAtIndex:(int64_t)index

@@ -92,8 +92,8 @@
       *buf = 136315138;
       Name = sel_getName(v19);
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=ttr= Already presenting a TTR consent request for %s, skipping (async)", buf, 0xCu);
-      sel_getName(v19);
-      _MBLog();
+      v21 = sel_getName(v19);
+      _MBLog(@"Df", "=ttr= Already presenting a TTR consent request for %s, skipping (async)", v21);
     }
   }
 
@@ -105,12 +105,12 @@
     block[2] = sub_10013B420;
     block[3] = &unk_1003BF9E0;
     block[4] = self;
-    v22 = asyncCopy;
-    v23 = messageCopy;
-    v24 = personaCopy;
+    v23 = asyncCopy;
+    v24 = messageCopy;
+    v25 = personaCopy;
     selectorCopy = selector;
     nagsCopy = nags;
-    v25 = blockCopy;
+    v26 = blockCopy;
     dispatch_async(&_dispatch_main_q, block);
   }
 }
@@ -157,11 +157,11 @@
       LODWORD(buf) = 136315138;
       *(&buf + 4) = sel_getName(v19);
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=ttr= Already presenting a TTR consent request for %s, skipping (sync)", &buf, 0xCu);
-      sel_getName(v19);
-      _MBLog();
+      Name = sel_getName(v19);
+      _MBLog(@"Df", "=ttr= Already presenting a TTR consent request for %s, skipping (sync)", Name);
     }
 
-    v21 = 2;
+    v22 = 2;
   }
 
   else
@@ -169,29 +169,29 @@
     [(MBTapToRadar *)self _startPresenting:selector];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v32 = 0x2020000000;
-    v33 = 0;
+    v33 = 0x2020000000;
+    v34 = 0;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10013B7B8;
     block[3] = &unk_1003BFA08;
     p_buf = &buf;
     block[4] = self;
-    v24 = syncCopy;
-    v25 = messageCopy;
-    v26 = personaCopy;
+    v25 = syncCopy;
+    v26 = messageCopy;
+    v27 = personaCopy;
     selectorCopy = selector;
     nagsCopy = nags;
-    v27 = blockCopy;
+    v28 = blockCopy;
     dispatch_sync(&_dispatch_main_q, block);
 
     [(MBTapToRadar *)self _endPresenting:selector];
-    v21 = *(*(&buf + 1) + 24);
+    v22 = *(*(&buf + 1) + 24);
 
     _Block_object_dispose(&buf, 8);
   }
 
-  return v21;
+  return v22;
 }
 
 - (int64_t)_presentTTRConsentRequestOnMainThread:(id)thread message:(id)message persona:(id)persona selector:(SEL)selector delayBetweenNags:(double)nags
@@ -230,7 +230,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "=ttr= Running in automation, skipping collecting TTR", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=ttr= Running in automation, skipping collecting TTR");
     }
 
     v18 = 1;
@@ -244,7 +244,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "=ttr= Skipping TTR consent request from a backupctl initiated command", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=ttr= Skipping TTR consent request from a backupctl initiated command");
     }
 
     v18 = 6;
@@ -269,14 +269,14 @@
           [v22 timeIntervalSinceDate:v20];
           v25 = [NSDate _durationDescription:?];
           *buf = 138412546;
-          v42 = v17;
-          v43 = 2112;
-          v44 = v25;
+          v41 = v17;
+          v42 = 2112;
+          v43 = v25;
           _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "=ttr= Last presented TTR for %@ too recently (%@)", buf, 0x16u);
 
           [v22 timeIntervalSinceDate:v20];
-          v37 = [NSDate _durationDescription:?];
-          _MBLog();
+          v26 = [NSDate _durationDescription:?];
+          _MBLog(@"Df", "=ttr= Last presented TTR for %@ too recently (%@)", v17, v26);
         }
 
         v18 = 3;
@@ -284,70 +284,69 @@
       }
     }
 
-    v26 = [v19 mutableCopy];
-    v27 = v26;
-    if (v26)
+    v27 = [v19 mutableCopy];
+    v28 = v27;
+    if (v27)
     {
-      v28 = v26;
+      v29 = v27;
     }
 
     else
     {
-      v28 = objc_opt_new();
+      v29 = objc_opt_new();
     }
 
-    v29 = v28;
+    v30 = v29;
 
-    [v29 setObject:v22 forKeyedSubscript:v17];
-    [personaCopy setPreferencesValue:v29 forKey:@"UserNotificationEvents"];
-    v30 = MBGetDefaultLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    [v30 setObject:v22 forKeyedSubscript:v17];
+    [personaCopy setPreferencesValue:v30 forKey:@"UserNotificationEvents"];
+    v31 = MBGetDefaultLog();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v42 = v17;
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "=ttr= Saving last nag date for %@ to now", buf, 0xCu);
-      v36 = v17;
-      _MBLog();
+      v41 = v17;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "=ttr= Saving last nag date for %@ to now", buf, 0xCu);
+      _MBLog(@"Df", "=ttr= Saving last nag date for %@ to now", v17);
     }
   }
 
-  v39[0] = kCFUserNotificationAlertHeaderKey;
-  v39[1] = kCFUserNotificationAlertMessageKey;
-  v40[0] = threadCopy;
-  v40[1] = messageCopy;
-  v39[2] = kCFUserNotificationDefaultButtonTitleKey;
-  v39[3] = kCFUserNotificationAlternateButtonTitleKey;
-  v40[2] = @"Open with Tap-to-Radar";
-  v40[3] = @"Ignore";
-  v17 = [NSDictionary dictionaryWithObjects:v40 forKeys:v39 count:4, v36];
-  v31 = CFUserNotificationCreate(kCFAllocatorDefault, 0.0, 0, 0, v17);
-  v32 = MBGetDefaultLog();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+  v38[0] = kCFUserNotificationAlertHeaderKey;
+  v38[1] = kCFUserNotificationAlertMessageKey;
+  v39[0] = threadCopy;
+  v39[1] = messageCopy;
+  v38[2] = kCFUserNotificationDefaultButtonTitleKey;
+  v38[3] = kCFUserNotificationAlternateButtonTitleKey;
+  v39[2] = @"Open with Tap-to-Radar";
+  v39[3] = @"Ignore";
+  v17 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:4];
+  v32 = CFUserNotificationCreate(kCFAllocatorDefault, 0.0, 0, 0, v17);
+  v33 = MBGetDefaultLog();
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v42 = messageCopy;
-    v43 = 2048;
-    v44 = v31;
-    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "=ttr= Posted internal notification about %@ %p", buf, 0x16u);
-    _MBLog();
+    v41 = messageCopy;
+    v42 = 2048;
+    v43 = v32;
+    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "=ttr= Posted internal notification about %@ %p", buf, 0x16u);
+    _MBLog(@"I ", "=ttr= Posted internal notification about %@ %p", messageCopy, v32);
   }
 
   responseFlags = 0;
-  CFUserNotificationReceiveResponse(v31, 0.0, &responseFlags);
-  v33 = responseFlags & 3;
-  v34 = MBGetDefaultLog();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+  CFUserNotificationReceiveResponse(v32, 0.0, &responseFlags);
+  v34 = responseFlags & 3;
+  v35 = MBGetDefaultLog();
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
-    v42 = v33;
-    v43 = 2048;
-    v44 = v31;
-    _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "=ttr= Received response (%lu) from internal notification %p", buf, 0x16u);
-    _MBLog();
+    v41 = v34;
+    v42 = 2048;
+    v43 = v32;
+    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "=ttr= Received response (%lu) from internal notification %p", buf, 0x16u);
+    _MBLog(@"I ", "=ttr= Received response (%lu) from internal notification %p", v34, v32);
   }
 
-  CFRelease(v31);
-  if (v33)
+  CFRelease(v32);
+  if (v34)
   {
     v18 = 4;
   }
@@ -385,7 +384,7 @@ LABEL_32:
       *buf = 138412290;
       v19 = v15;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "=ttr= Failed to open TTR URL: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "=ttr= Failed to open TTR URL: %@", v15);
     }
   }
 }
@@ -494,7 +493,7 @@ LABEL_32:
           *buf = 134217984;
           v26 = v10;
           _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "=ttr= Found %lu fatal errors", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"I ", "=ttr= Found %lu fatal errors", v10);
         }
 
         v22 = 0;
@@ -525,11 +524,11 @@ LABEL_32:
             *buf = 138412290;
             v26 = v14;
             _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "=ttr= Failed to write out errors from restore plan: %@", buf, 0xCu);
-            _MBLog();
+            _MBLog(@"E ", "=ttr= Failed to write out errors from restore plan: %@", v14);
           }
         }
 
-        goto LABEL_21;
+        goto LABEL_20;
       }
 
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -537,8 +536,7 @@ LABEL_32:
         *buf = 138412290;
         v26 = v11;
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "=ttr= Failed to get fatal error count: %@", buf, 0xCu);
-LABEL_11:
-        _MBLog();
+        _MBLog(@"E ", "=ttr= Failed to get fatal error count: %@", v11);
       }
     }
 
@@ -546,13 +544,13 @@ LABEL_11:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "=ttr= No fatal errors found", buf, 2u);
-      goto LABEL_11;
+      _MBLog(@"I ", "=ttr= No fatal errors found");
     }
 
     v14 = v11;
-LABEL_21:
+LABEL_20:
 
-    goto LABEL_22;
+    goto LABEL_21;
   }
 
   v14 = MBGetDefaultLog();
@@ -560,10 +558,10 @@ LABEL_21:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=ttr= No restore plan to inspect for errors", buf, 2u);
-    _MBLog();
+    _MBLog(@"E ", "=ttr= No restore plan to inspect for errors");
   }
 
-LABEL_22:
+LABEL_21:
 }
 
 @end

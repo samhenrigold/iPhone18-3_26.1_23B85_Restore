@@ -8,14 +8,14 @@
 
 - (SPKResponse)initWithQueryID:(unint64_t)d kind:(int)kind sourceKind:(int)sourceKind sections:(id)sections groupedResults:(id)results supportedFilters:(id)filters error:(id)error
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   sectionsCopy = sections;
   resultsCopy = results;
   filtersCopy = filters;
   errorCopy = error;
-  v44.receiver = self;
-  v44.super_class = SPKResponse;
-  v19 = [(SPKResponse *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = SPKResponse;
+  v19 = [(SPKResponse *)&v43 init];
   v20 = v19;
   if (v19)
   {
@@ -32,45 +32,45 @@
     v20->_rankingConfiguration = v23;
 
     objc_storeStrong(&v20->_supportedFilters, filters);
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v25 = sectionsCopy;
-    v26 = [v25 countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v26)
     {
       v27 = v26;
-      v38 = errorCopy;
-      v39 = filtersCopy;
+      v37 = errorCopy;
+      v38 = filtersCopy;
       v28 = 0;
-      v29 = *v41;
+      v29 = *v40;
       do
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v41 != v29)
+          if (*v40 != v29)
           {
             objc_enumerationMutation(v25);
           }
 
-          v31 = *(*(&v40 + 1) + 8 * i);
+          v31 = *(*(&v39 + 1) + 8 * i);
           if (!v28)
           {
-            v28 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v25, "count")}];
+            v28 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(v25)];
           }
 
           mutableDeepCopy = [v31 mutableDeepCopy];
           [(NSArray *)v28 addObject:mutableDeepCopy];
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v27);
 
-      errorCopy = v38;
-      filtersCopy = v39;
+      errorCopy = v37;
+      filtersCopy = v38;
       if (v28)
       {
         v33 = [(NSArray *)v28 copy];
@@ -94,7 +94,6 @@ LABEL_15:
 
 LABEL_16:
 
-  v36 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

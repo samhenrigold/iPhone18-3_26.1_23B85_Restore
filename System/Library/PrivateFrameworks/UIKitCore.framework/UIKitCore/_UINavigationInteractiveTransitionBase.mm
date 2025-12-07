@@ -60,7 +60,7 @@
       _os_log_impl(&dword_188A29000, v7, OS_LOG_TYPE_ERROR, "UIUpdateRequest still active during navigation transition dealloc. Should completeTransition: have been called on the interaction context earlier?", buf, 2u);
     }
 
-    _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, __interactiveNavigationUpdateRequest, 0x100029u);
+    _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, __interactiveNavigationUpdateRequest, 1048617);
     self->__updateRequestActive = 0;
   }
 
@@ -531,7 +531,7 @@ LABEL_11:
 LABEL_34:
     if (self->__updateRequestActive)
     {
-      _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, __interactiveNavigationUpdateRequest, 0x100029u);
+      _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, __interactiveNavigationUpdateRequest, 1048617);
       self->__updateRequestActive = 0;
     }
 
@@ -602,7 +602,7 @@ LABEL_12:
   [(_UINavigationInteractiveTransitionBase *)self _updateStatistics:transitionCopy firstSample:1 finalSample:0];
   if (!self->__updateRequestActive)
   {
-    _UIUpdateRequestRegistryAddRecord(&mainRegistry, __interactiveNavigationUpdateRequest, 0x100029u);
+    _UIUpdateRequestRegistryAddRecord(&mainRegistry, __interactiveNavigationUpdateRequest, 1048617);
     self->__updateRequestActive = 1;
   }
 

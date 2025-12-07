@@ -1,5 +1,7 @@
 @interface _DKLowPowerModeMonitor
++ (id)_BMEventWithLowPowerModeState:(BOOL)state;
 + (id)_eventWithLowPowerModeState:(BOOL)state;
++ (void)setLowPowerMode:(BOOL)mode;
 - (void)start;
 - (void)stop;
 - (void)synchronouslyReflectCurrentValue;
@@ -27,6 +29,24 @@
   v8 = [v4 eventWithStream:deviceLowPowerModeStream startDate:date endDate:distantFuture value:v3];
 
   return v8;
+}
+
++ (id)_BMEventWithLowPowerModeState:(BOOL)state
+{
+  stateCopy = state;
+  v4 = objc_alloc(MEMORY[0x277CF10F0]);
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:stateCopy];
+  v6 = [v4 initWithStarting:v5];
+
+  return v6;
+}
+
++ (void)setLowPowerMode:(BOOL)mode
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:mode];
+  userContext = [MEMORY[0x277CFE318] userContext];
+  keyPathForLowPowerModeStatus = [MEMORY[0x277CFE338] keyPathForLowPowerModeStatus];
+  [userContext setObject:v5 forKeyedSubscript:keyPathForLowPowerModeStatus];
 }
 
 - (void)start

@@ -1,6 +1,7 @@
 @interface NTKLilypadCrownHandler
 - (NTKLilypadCrownHandler)init;
 - (float)amplitudeForThread:(int)thread atTime:(double)time;
+- (void)beginWaveAtThread:(int)thread atTime:(double)time;
 - (void)pluckThread:(int)thread withAmplitude:(float)amplitude atTime:(double)time;
 - (void)reset;
 @end
@@ -75,6 +76,40 @@
       v13[68] = v14;
     }
   }
+}
+
+- (void)beginWaveAtThread:(int)thread atTime:(double)time
+{
+  v5 = *&thread;
+  dispatch_assert_queue_V2(&_dispatch_main_q);
+  v7 = 1.0;
+  LODWORD(v8) = 1.0;
+  [(NTKLilypadCrownHandler *)self pluckThread:v5 withAmplitude:v8 atTime:time];
+  v10 = 0;
+  v11 = (v5 + 1);
+  v12 = v5 - 1;
+  v13 = 1.0;
+  do
+  {
+    if (v12 + v10 >= 0)
+    {
+      *&v9 = v7;
+      [(NTKLilypadCrownHandler *)self pluckThread:(v12 + v10) withAmplitude:v9 atTime:time + v13 * 0.0166];
+    }
+
+    if (v11 <= 15)
+    {
+      *&v9 = v7;
+      [(NTKLilypadCrownHandler *)self pluckThread:v11 withAmplitude:v9 atTime:time + v13 * 0.0166];
+    }
+
+    v7 = v7 * 0.75;
+    v13 = v13 + 1.0;
+    --v10;
+    v11 = (v11 + 1);
+  }
+
+  while (v10 != -15);
 }
 
 - (float)amplitudeForThread:(int)thread atTime:(double)time

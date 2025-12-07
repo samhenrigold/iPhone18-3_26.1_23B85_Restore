@@ -1,6 +1,7 @@
 @interface NTKCFaceDetailKaleidoscopeContentSectionController
 + (BOOL)hasSectionForFace:(id)face forEditMode:(int64_t)mode;
 - (BOOL)collectionChanged:(id)changed withSelectedOptions:(id)options;
+- (NTKCFaceDetailKaleidoscopeContentSectionController)initWithTableViewController:(id)controller face:(id)face inGallery:(BOOL)gallery editOptionCollection:(id)collection faceView:(id)view;
 - (UIViewController)parentViewController;
 - (id)delegate;
 - (void)_customizeActionRow:(id)row withEditOption:(id)option;
@@ -22,6 +23,44 @@
   v7 = mode == 12 && v6;
 
   return v7;
+}
+
+- (NTKCFaceDetailKaleidoscopeContentSectionController)initWithTableViewController:(id)controller face:(id)face inGallery:(BOOL)gallery editOptionCollection:(id)collection faceView:(id)view
+{
+  galleryCopy = gallery;
+  faceCopy = face;
+  collectionCopy = collection;
+  viewCopy = view;
+  collectionCopy2 = collection;
+  controllerCopy = controller;
+  v16 = sub_6824(&collectionCopy);
+  v17 = collectionCopy;
+
+  v28.receiver = self;
+  v28.super_class = NTKCFaceDetailKaleidoscopeContentSectionController;
+  v18 = [(NTKCFaceDetailKaleidoscopeContentSectionController *)&v28 initWithTableViewController:controllerCopy face:faceCopy inGallery:galleryCopy editOptionCollection:v17 faceView:viewCopy];
+
+  if (v18)
+  {
+    cell = [(NTKCFaceDetailKaleidoscopeContentSectionController *)v18 cell];
+    [cell setUserOptionIndex:v16];
+    v20 = [NTKCompanionKaleidoscopeEditor alloc];
+    face = [(NTKCFaceDetailKaleidoscopeContentSectionController *)v18 face];
+    resourceDirectory = [face resourceDirectory];
+    device = [faceCopy device];
+    v24 = [(NTKCompanionKaleidoscopeEditor *)v20 initWithResourceDirectory:resourceDirectory forDevice:device];
+    editor = v18->_editor;
+    v18->_editor = v24;
+
+    v26 = [faceCopy selectedOptionForCustomEditMode:12 slot:0];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v18->_currentAsset = [v26 asset];
+    }
+  }
+
+  return v18;
 }
 
 - (BOOL)collectionChanged:(id)changed withSelectedOptions:(id)options

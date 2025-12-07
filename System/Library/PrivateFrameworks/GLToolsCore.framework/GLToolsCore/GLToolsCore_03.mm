@@ -483,7 +483,7 @@ uint64_t GPUTools::GL::MSAABufferResolver<unsigned long long>::resolve<4u,12u,tr
         {
           v18 = *a2;
           a2 += 3;
-          v16 += LODWORD(v18);
+          v16 += v18;
           --v17;
         }
 
@@ -502,7 +502,7 @@ uint64_t GPUTools::GL::MSAABufferResolver<unsigned long long>::resolve<4u,12u,tr
   return result;
 }
 
-uint64_t GPUTools::GL::MSAABufferResolver<float>::resolve<12u,(unsigned char)32,(unsigned char)32,(unsigned char)32,(unsigned char)0>(uint64_t result, float32x2_t *a2, unsigned int a3, float *a4, double a5)
+uint64_t GPUTools::GL::MSAABufferResolver<float>::resolve<12u,(unsigned char)32,(unsigned char)32,(unsigned char)32,(unsigned char)0>(uint64_t result, float32x2_t *a2, unsigned int a3, float32x2_t *a4, double a5)
 {
   if (a3)
   {
@@ -512,10 +512,10 @@ uint64_t GPUTools::GL::MSAABufferResolver<float>::resolve<12u,(unsigned char)32,
       v11 = 0.0 / *&a5;
       while (1)
       {
-        *a4 = v11;
-        a4[1] = v11;
-        a4[2] = v11;
-        a4 += 3;
+        a4->f32[0] = v11;
+        a4->f32[1] = v11;
+        a4[1].f32[0] = v11;
+        a4 = (a4 + 12);
       }
     }
 
@@ -538,8 +538,8 @@ uint64_t GPUTools::GL::MSAABufferResolver<float>::resolve<12u,(unsigned char)32,
       while (v9);
       a2 = (a2 + 12 * (result - 1) + 12);
       *a4 = vdiv_f32(v7, v6);
-      a4[2] = v8 / *&a5;
-      a4 += 3;
+      a4[1].f32[0] = v8 / *&a5;
+      a4 = (a4 + 12);
     }
 
     while (a2 < v5);
@@ -954,7 +954,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t GPUTools::GL::MSAABufferResolver<float>::resolve<16u,(unsigned char)32,(unsigned char)32,(unsigned char)32,(unsigned char)32>(uint64_t result, unint64_t a2, unsigned int a3, int32x4_t *a4, double a5)
+uint64_t GPUTools::GL::MSAABufferResolver<float>::resolve<16u,(unsigned char)32,(unsigned char)32,(unsigned char)32,(unsigned char)32>(uint64_t result, unint64_t a2, unsigned int a3, float32x4_t *a4, double a5)
 {
   if (a3)
   {
@@ -1563,33 +1563,33 @@ uint64_t GPUTools::SM::GL::GetInternalBindingEnum(GPUTools::SM::GL *this)
   return 0;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,char const*>,std::__unordered_map_hasher<int,std::__hash_value_type<int,char const*>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,char const*>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,char const*>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,char const*>,std::__unordered_map_hasher<int,std::__hash_value_type<int,char const*>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,char const*>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,char const*>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1597,44 +1597,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t *std::__hash_table<std::__hash_value_type<int,char const*>,std::__unordered_map_hasher<int,std::__hash_value_type<int,char const*>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,char const*>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,char const*>>>::find<int>(void *a1, int *a2)
@@ -1704,34 +1704,34 @@ uint64_t *std::__hash_table<std::__hash_value_type<int,char const*>,std::__unord
   return result;
 }
 
-uint64_t GPUTools::GL::CopyProgramUniform(void *a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+uint64_t GPUTools::GL::CopyProgramUniform(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
 {
   v7 = a4;
   if (a6)
   {
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
+    v21 = -1;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
     v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
-    v20 = -1;
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
-    v16 = 0;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = ___ZN8GPUTools2GLL23GetValidUniformLocationERKNS0_10DispatcherE11DYOpenGLAPIjRKNS0_14ProgramUniformE_block_invoke;
-    v12[3] = &unk_2791750A0;
-    v12[5] = &v13;
-    v12[6] = a5;
-    v12[4] = &v17;
-    GPUTools::GL::EnumerateProgramActiveUniforms(a1, a2, a4);
-    v9 = *(v18 + 6);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = ___ZN8GPUTools2GLL23GetValidUniformLocationERKNS0_10DispatcherE11DYOpenGLAPIjRKNS0_14ProgramUniformE_block_invoke;
+    v13[3] = &unk_2791750A0;
+    v13[5] = &v14;
+    v13[6] = a5;
+    v13[4] = &v18;
+    GPUTools::GL::EnumerateProgramActiveUniforms(a1, a2, a4, 1, v13);
+    v9 = *(v19 + 6);
     if (v9 == -1)
     {
       v10 = 0xFFFFFFFFLL;
     }
 
-    else if (*(v14 + 24))
+    else if (*(v15 + 24))
     {
       v10 = v9;
     }
@@ -1741,8 +1741,8 @@ uint64_t GPUTools::GL::CopyProgramUniform(void *a1, unsigned int a2, uint64_t a3
       v10 = 0xFFFFFFFFLL;
     }
 
-    _Block_object_dispose(&v13, 8);
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v14, 8);
+    _Block_object_dispose(&v18, 8);
   }
 
   else
@@ -1755,11 +1755,11 @@ uint64_t GPUTools::GL::CopyProgramUniform(void *a1, unsigned int a2, uint64_t a3
     return v10;
   }
 
-  LODWORD(v17) = 0;
-  (*(a1[1] + 832))(*(*a1 + 16), 35725, &v17);
+  LODWORD(v18) = 0;
+  (*(a1[1] + 832))(*(*a1 + 16), 35725, &v18);
   (*(a1[1] + 4800))(*(*a1 + 16), v7);
-  GPUTools::GL::DYGetShaderVariableTypeInfo(*(a5 + 24), v12);
-  switch(HIDWORD(v12[0]))
+  GPUTools::GL::DYGetShaderVariableTypeInfo(*(a5 + 24), v13);
+  switch(HIDWORD(v13[0]))
   {
     case 0x1404:
       operator new[]();
@@ -1769,11 +1769,36 @@ uint64_t GPUTools::GL::CopyProgramUniform(void *a1, unsigned int a2, uint64_t a3
       operator new[]();
   }
 
-  dy_string_from_enum(SHIDWORD(v12[0]));
-  dy_abort();
-  result = dy_abort();
+  v12 = dy_string_from_enum(SHIDWORD(v13[0]));
+  dy_abort("unknown or unsupported uniform component type: %s (%d)", v12, HIDWORD(v13[0]));
+  result = dy_abort("Unsupported uint uniform type");
   __break(1u);
   return result;
+}
+
+uint64_t GPUTools::GL::CopyProgramActiveUniforms(void *a1, uint64_t a2, uint64_t a3, int a4, char a5)
+{
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = ___ZN8GPUTools2GL25CopyProgramActiveUniformsERKNS0_10DispatcherE11DYOpenGLAPIjjb_block_invoke;
+  v6[3] = &__block_descriptor_53_e45_v24__0r__ProgramUniform__QiiIiIIiiiiCCI_8_B16l;
+  v6[4] = a1;
+  v7 = a2;
+  v8 = a3;
+  v9 = a4;
+  v10 = a5;
+  return GPUTools::GL::EnumerateProgramActiveUniforms(a1, a2, a3, 1, v6);
+}
+
+uint64_t GPUTools::GL::CopyProgramActiveAttributes(void *a1, uint64_t a2, int a3)
+{
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = ___ZN8GPUTools2GL27CopyProgramActiveAttributesERKNS0_10DispatcherEjj_block_invoke;
+  v4[3] = &__block_descriptor_44_e49_v24__0r__ProgramActiveObject__QiiIiIIiiiiCC_8_B16l;
+  v4[4] = a1;
+  v5 = a3;
+  return GPUTools::GL::EnumerateProgramActiveAttributes(a1, a2, 1, v4);
 }
 
 void *GPUTools::GL::SetUniformArrayLocationStride(void *result, uint64_t a2, uint64_t a3)
@@ -1781,7 +1806,7 @@ void *GPUTools::GL::SetUniformArrayLocationStride(void *result, uint64_t a2, uin
   if (*(a3 + 28) != -1 && *(a3 + 20) != 1)
   {
     v5 = *a3 + *(a3 + 16);
-    if (*(v5 - 3) == 91 && *(v5 - 2) == 48 && *(v5 - 1) == 93)
+    if (__PAIR64__(*(v5 - 2), *(v5 - 3)) == 0x300000005BLL && *(v5 - 1) == 93)
     {
       *(v5 - 2) = 49;
       result = (*(result[1] + 5000))(*(*result + 16), a2, *a3);
@@ -1809,32 +1834,32 @@ uint64_t ___ZN8GPUTools2GL37CopyProgramActiveUniformBlockBindingsERKNS0_10Dispat
   return v5(v6, v7, v4, v8);
 }
 
-uint64_t GPUTools::GL::EnumerateProgramTransformFeedbackVaryings(void *a1, uint64_t a2)
+uint64_t GPUTools::GL::EnumerateProgramTransformFeedbackVaryings(void *a1, uint64_t a2, uint64_t a3)
 {
-  v7 = 0;
   v8 = 0;
-  v6 = 0;
-  result = (*(a1[1] + 5264))(*(*a1 + 16), a2, 35971, &v6);
-  if (v6)
+  v9 = 0;
+  v7 = 0;
+  result = (*(a1[1] + 5264))(*(*a1 + 16), a2, 35971, &v7);
+  if (v7)
   {
-    v5 = 0;
-    (*(a1[1] + 5264))(*(*a1 + 16), a2, 35958, &v5);
+    v6 = 0;
+    (*(a1[1] + 5264))(*(*a1 + 16), a2, 35958, &v6);
     operator new[]();
   }
 
   return result;
 }
 
-uint64_t GPUTools::GL::CopyProgramTransformFeedbackVaryings(void *a1, uint64_t a2)
+uint64_t GPUTools::GL::CopyProgramTransformFeedbackVaryings(void *a1, uint64_t a2, uint64_t a3)
 {
-  v7 = 0;
-  result = (*(a1[1] + 5264))(*(*a1 + 16), a2, 35971, &v7);
-  if (v7)
+  v8 = 0;
+  result = (*(a1[1] + 5264))(*(*a1 + 16), a2, 35971, &v8);
+  if (v8)
   {
-    v5 = 0;
     v6 = 0;
-    (*(a1[1] + 5264))(*(*a1 + 16), a2, 35967, &v6);
-    (*(a1[1] + 5264))(*(*a1 + 16), a2, 35958, &v5);
+    v7 = 0;
+    (*(a1[1] + 5264))(*(*a1 + 16), a2, 35967, &v7);
+    (*(a1[1] + 5264))(*(*a1 + 16), a2, 35958, &v6);
     operator new[]();
   }
 
@@ -2083,7 +2108,7 @@ double GPUTools::GL::GetImageInfo(id **a1, int a2, unsigned int a3, uint64_t a4,
       *(a5 + 8) = v13;
       if ((a2 - 1) <= 1 && v11 != 36161)
       {
-        GPUTools::GL::DYProcessImageUploadFormatForLegacyES(a5);
+        GPUTools::GL::DYProcessImageUploadFormatForLegacyES(a5, v13);
       }
 
       v14[0] = v11;
@@ -2113,7 +2138,8 @@ uint64_t GPUTools::GL::GetImageInfo(id **a1, int a2, uint64_t a3, uint64_t a4, u
   else
   {
     v17 = 0;
-    memset(v16, 0, 15);
+    *(&v16[1] + 3) = 0;
+    *v16 = 0;
     v14 = GPUTools::GL::DYGetTextureTargetInfo(a4, v16);
     (a1[1][104])((*a1)[2], v16[1], &v17, v14);
     (a1[1][5])((*a1)[2], a4, a3);
@@ -2362,7 +2388,7 @@ uint64_t ___ZN8GPUTools2GLL23GetValidUniformLocationERKNS0_10DispatcherE11DYOpen
   return result;
 }
 
-void OUTLINED_FUNCTION_4()
+void OUTLINED_FUNCTION_4(double a1)
 {
 
   operator new[]();
@@ -2370,9 +2396,9 @@ void OUTLINED_FUNCTION_4()
 
 uint64_t init_interpose_api()
 {
-  dlerror();
-  v0 = dy_abort();
-  return dy_enum_from_string(v0);
+  v0 = dlerror();
+  v1 = dy_abort("failed to dlopen interpose dylib: %s", v0);
+  return dy_enum_from_string(v1);
 }
 
 uint64_t dy_enum_from_string(const char *a1)
@@ -2395,129 +2421,129 @@ uint64_t dy_enum_from_string(const char *a1)
   }
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<char const*,unsigned int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,unsigned int>,GPUTools::CStringHash::hash,GPUTools::CStringHash::equal,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,unsigned int>,GPUTools::CStringHash::equal,GPUTools::CStringHash::hash,true>,std::allocator<std::__hash_value_type<char const*,unsigned int>>>::__emplace_unique_key_args<char const*,std::pair<char const* const,unsigned int>>(void *a1, const char **a2)
+uint64_t **std::__hash_table<std::__hash_value_type<char const*,unsigned int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,unsigned int>,GPUTools::CStringHash::hash,GPUTools::CStringHash::equal,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,unsigned int>,GPUTools::CStringHash::equal,GPUTools::CStringHash::hash,true>,std::allocator<std::__hash_value_type<char const*,unsigned int>>>::__emplace_unique_key_args<char const*,std::pair<char const* const,unsigned int>>(void *a1, const char **a2, _OWORD *a3)
 {
-  v2 = -1640531527;
-  v3 = *a2;
-  v4 = **a2;
+  v3 = -1640531527;
+  v4 = *a2;
+  v5 = **a2;
   if (**a2)
   {
-    v5 = (v3 + 2);
-    while (*(v5 - 1))
+    v6 = (v4 + 2);
+    while (*(v6 - 1))
     {
-      v6 = ((v2 + v4) << 16) ^ (*(v5 - 1) << 11) ^ (v2 + v4);
-      v2 = v6 + (v6 >> 11);
-      v7 = *v5;
-      v5 += 2;
-      v4 = v7;
-      if (!v7)
+      v7 = ((v3 + v5) << 16) ^ (*(v6 - 1) << 11) ^ (v3 + v5);
+      v3 = v7 + (v7 >> 11);
+      v8 = *v6;
+      v6 += 2;
+      v5 = v8;
+      if (!v8)
       {
         goto LABEL_7;
       }
     }
 
-    v2 = ((v2 + v4) ^ ((v2 + v4) << 11)) + (((v2 + v4) ^ ((v2 + v4) << 11)) >> 17);
+    v3 = ((v3 + v5) ^ ((v3 + v5) << 11)) + (((v3 + v5) ^ ((v3 + v5) << 11)) >> 17);
   }
 
 LABEL_7:
-  v8 = (v2 ^ (8 * v2)) + ((v2 ^ (8 * v2)) >> 5);
-  v9 = (v8 ^ (4 * v8)) + ((v8 ^ (4 * v8)) >> 15);
-  if (v9 == v9 << 10)
+  v9 = (v3 ^ (8 * v3)) + ((v3 ^ (8 * v3)) >> 5);
+  v10 = (v9 ^ (4 * v9)) + ((v9 ^ (4 * v9)) >> 15);
+  if (v10 == v10 << 10)
   {
-    v10 = 0x40000000;
+    v11 = 0x40000000;
   }
 
   else
   {
-    v10 = v9 ^ (v9 << 10);
+    v11 = v10 ^ (v10 << 10);
   }
 
-  v11 = a1[1];
-  if (!*&v11)
+  v12 = a1[1];
+  if (!*&v12)
   {
     goto LABEL_32;
   }
 
-  v12 = vcnt_s8(v11);
-  v12.i16[0] = vaddlv_u8(v12);
-  if (v12.u32[0] > 1uLL)
+  v13 = vcnt_s8(v12);
+  v13.i16[0] = vaddlv_u8(v13);
+  if (v13.u32[0] > 1uLL)
   {
-    v13 = v10;
-    if (*&v11 <= v10)
+    v14 = v11;
+    if (*&v12 <= v11)
     {
-      v13 = v10 % v11.i32[0];
+      v14 = v11 % v12.i32[0];
     }
   }
 
   else
   {
-    v13 = (v11.i32[0] - 1) & v10;
+    v14 = (v12.i32[0] - 1) & v11;
   }
 
-  v14 = *(*a1 + 8 * v13);
-  if (!v14 || (v15 = *v14) == 0)
+  v15 = *(*a1 + 8 * v14);
+  if (!v15 || (v16 = *v15) == 0)
   {
 LABEL_32:
     operator new();
   }
 
-  if (v12.u32[0] < 2uLL)
+  if (v13.u32[0] < 2uLL)
   {
     do
     {
-      v16 = v15[1];
-      if (v16 == v10)
+      v17 = v16[1];
+      if (v17 == v11)
       {
-        if (!strcmp(v15[2], v3))
+        if (!strcmp(v16[2], v4))
         {
-          return v15;
+          return v16;
         }
       }
 
-      else if ((v16 & (*&v11 - 1)) != v13)
+      else if ((v17 & (*&v12 - 1)) != v14)
       {
         goto LABEL_32;
       }
 
-      v15 = *v15;
+      v16 = *v16;
     }
 
-    while (v15);
+    while (v16);
     goto LABEL_32;
   }
 
   while (1)
   {
-    v17 = v15[1];
-    if (v17 == v10)
+    v18 = v16[1];
+    if (v18 == v11)
     {
       break;
     }
 
-    if (v17 >= *&v11)
+    if (v18 >= *&v12)
     {
-      v17 %= *&v11;
+      v18 %= *&v12;
     }
 
-    if (v17 != v13)
+    if (v18 != v14)
     {
       goto LABEL_32;
     }
 
 LABEL_31:
-    v15 = *v15;
-    if (!v15)
+    v16 = *v16;
+    if (!v16)
     {
       goto LABEL_32;
     }
   }
 
-  if (strcmp(v15[2], v3))
+  if (strcmp(v16[2], v4))
   {
     goto LABEL_31;
   }
 
-  return v15;
+  return v16;
 }
 
 uint64_t **std::__hash_table<std::__hash_value_type<char const*,unsigned int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,unsigned int>,GPUTools::CStringHash::hash,GPUTools::CStringHash::equal,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,unsigned int>,GPUTools::CStringHash::equal,GPUTools::CStringHash::hash,true>,std::allocator<std::__hash_value_type<char const*,unsigned int>>>::find<char const*>(void *a1, const char **a2)
@@ -3016,15 +3042,15 @@ void GPUTools::GL::ColorRenderableFormatMatchingFormat()
   __assert_rtn("ImageFormatInfo GPUTools::GL::ColorRenderableFormatMatchingFormat(const ImageFormatInfo &)", &unk_24C1371BE, 0, "formatInfo.internalFormat != 0");
 }
 
-uint64_t GPUTools::GL::EnumerateProgramActiveUniforms(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t GPUTools::GL::EnumerateProgramActiveUniforms(void *a1, unsigned int a2, uint64_t a3, int a4, uint64_t a5)
 {
-  v12 = 0;
-  v11 = 0;
-  v5 = OUTLINED_FUNCTION_3();
-  v7(v5, v6, 35718, &v11 + 4);
-  v8 = OUTLINED_FUNCTION_3();
-  result = v9(v8, a3, 35719, &v11);
-  if (HIDWORD(v11))
+  v15 = 0;
+  v14 = 0;
+  v7 = OUTLINED_FUNCTION_3();
+  v9(v7, v8, 35718, &v14 + 4);
+  v10 = OUTLINED_FUNCTION_3();
+  result = v11(v10, a3, 35719, &v14);
+  if (HIDWORD(v14))
   {
     if (a2 < 3)
     {
@@ -3033,27 +3059,27 @@ uint64_t GPUTools::GL::EnumerateProgramActiveUniforms(uint64_t a1, unsigned int 
 
     if (a2 - 3 < 2)
     {
-      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_4(v13);
     }
   }
 
   return result;
 }
 
-uint64_t GPUTools::GL::EnumerateProgramActiveAttributes(uint64_t a1, uint64_t a2)
+uint64_t GPUTools::GL::EnumerateProgramActiveAttributes(void *a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v12 = 0;
-  v11 = 0;
-  v3 = OUTLINED_FUNCTION_3();
-  v4(v3);
+  v14 = 0;
+  v13 = 0;
   v5 = OUTLINED_FUNCTION_3();
-  result = v6(v5, a2, 35722, &v11);
-  if (v12)
+  v6(v5);
+  v7 = OUTLINED_FUNCTION_3();
+  result = v8(v7, a2, 35722, &v13);
+  if (v14)
   {
     OUTLINED_FUNCTION_6();
-    memset(v10, 0, sizeof(v10));
-    v9 = 0u;
-    v8 = (v11 + 32);
+    memset(v12, 0, sizeof(v12));
+    v11 = 0u;
+    v10 = (v13 + 32);
     operator new[]();
   }
 
@@ -3166,25 +3192,36 @@ void *___ZN8GPUTools2GL30EnumerateProgramActiveUniformsERKNS0_10DispatcherE11DYO
   return result;
 }
 
-uint64_t GPUTools::GL::EnumerateProgramActiveUniformBlocks(uint64_t a1, uint64_t a2)
+uint64_t GPUTools::GL::EnumerateProgramActiveUniformBlocks(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v13 = 0;
-  v3 = OUTLINED_FUNCTION_3();
-  v4(v3);
-  v5 = OUTLINED_FUNCTION_3();
-  result = v6(v5, a2, 35381, &v13);
-  if (HIDWORD(v13))
+  v14 = 0;
+  v4 = OUTLINED_FUNCTION_3();
+  v5(v4);
+  v6 = OUTLINED_FUNCTION_3();
+  result = v7(v6, a2, 35381, &v14);
+  if (HIDWORD(v14))
   {
     OUTLINED_FUNCTION_6();
-    v9 = 0;
-    v11 = 0;
-    v12 = 0;
     v10 = 0;
-    v8 = (v13 + 32);
+    v12 = 0;
+    v13 = 0;
+    v11 = 0;
+    v9 = (v14 + 32);
     operator new[]();
   }
 
   return result;
+}
+
+uint64_t GPUTools::GL::CopyProgramActiveUniformBlockBindings(uint64_t a1, uint64_t a2, int a3)
+{
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = ___ZN8GPUTools2GL37CopyProgramActiveUniformBlockBindingsERKNS0_10DispatcherEjj_block_invoke;
+  v4[3] = &__block_descriptor_44_e45_v24__0r__ProgramUniformBlock__iiiIi_iII_8_B16l;
+  v4[4] = a1;
+  v5 = a3;
+  return GPUTools::GL::EnumerateProgramActiveUniformBlocks(a1, a2, v4);
 }
 
 void operator delete[]()

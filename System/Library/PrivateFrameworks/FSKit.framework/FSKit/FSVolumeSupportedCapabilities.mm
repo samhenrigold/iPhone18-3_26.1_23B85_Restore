@@ -181,79 +181,25 @@
   {
     v6 = v5;
     doesNotSupportRootTimes = [(FSVolumeSupportedCapabilities *)self doesNotSupportRootTimes];
-    if (doesNotSupportRootTimes != [(FSVolumeSupportedCapabilities *)v6 doesNotSupportRootTimes])
-    {
-      goto LABEL_23;
-    }
-
-    doesNotSupportSettingFilePermissions = [(FSVolumeSupportedCapabilities *)self doesNotSupportSettingFilePermissions];
-    if (doesNotSupportSettingFilePermissions != [(FSVolumeSupportedCapabilities *)v6 doesNotSupportSettingFilePermissions])
-    {
-      goto LABEL_23;
-    }
-
-    supportsSymbolicLinks = [(FSVolumeSupportedCapabilities *)self supportsSymbolicLinks];
-    if (supportsSymbolicLinks != [(FSVolumeSupportedCapabilities *)v6 supportsSymbolicLinks])
-    {
-      goto LABEL_23;
-    }
-
-    supportsHardLinks = [(FSVolumeSupportedCapabilities *)self supportsHardLinks];
-    if (supportsHardLinks != [(FSVolumeSupportedCapabilities *)v6 supportsHardLinks])
-    {
-      goto LABEL_23;
-    }
-
-    supports64BitObjectIDs = [(FSVolumeSupportedCapabilities *)self supports64BitObjectIDs];
-    if (supports64BitObjectIDs != [(FSVolumeSupportedCapabilities *)v6 supports64BitObjectIDs])
-    {
-      goto LABEL_23;
-    }
-
-    supportsDocumentID = [(FSVolumeSupportedCapabilities *)self supportsDocumentID];
-    if (supportsDocumentID != [(FSVolumeSupportedCapabilities *)v6 supportsDocumentID])
-    {
-      goto LABEL_23;
-    }
-
-    supportsFastStatFS = [(FSVolumeSupportedCapabilities *)self supportsFastStatFS];
-    if (supportsFastStatFS != [(FSVolumeSupportedCapabilities *)v6 supportsFastStatFS])
-    {
-      goto LABEL_23;
-    }
-
-    doesNotSupportImmutableFiles = [(FSVolumeSupportedCapabilities *)self doesNotSupportImmutableFiles];
-    if (doesNotSupportImmutableFiles != [(FSVolumeSupportedCapabilities *)v6 doesNotSupportImmutableFiles])
-    {
-      goto LABEL_23;
-    }
-
-    supportsJournal = [(FSVolumeSupportedCapabilities *)self supportsJournal];
-    if (supportsJournal != [(FSVolumeSupportedCapabilities *)v6 supportsJournal])
-    {
-      goto LABEL_23;
-    }
-
-    supportsActiveJournal = [(FSVolumeSupportedCapabilities *)self supportsActiveJournal];
-    if (supportsActiveJournal != [(FSVolumeSupportedCapabilities *)v6 supportsActiveJournal])
-    {
-      goto LABEL_23;
-    }
-
-    supportsOpenDenyModes = [(FSVolumeSupportedCapabilities *)self supportsOpenDenyModes];
-    if (supportsOpenDenyModes != [(FSVolumeSupportedCapabilities *)v6 supportsOpenDenyModes])
-    {
-      goto LABEL_23;
-    }
-
-    supportsPersistentObjectIDs = [(FSVolumeSupportedCapabilities *)self supportsPersistentObjectIDs];
-    if (supportsPersistentObjectIDs != [(FSVolumeSupportedCapabilities *)v6 supportsPersistentObjectIDs])
-    {
-      goto LABEL_23;
-    }
-
-    supportsSharedSpace = [(FSVolumeSupportedCapabilities *)self supportsSharedSpace];
-    if (supportsSharedSpace == [(FSVolumeSupportedCapabilities *)v6 supportsSharedSpace]&& (v20 = [(FSVolumeSupportedCapabilities *)self supportsSparseFiles], v20 == [(FSVolumeSupportedCapabilities *)v6 supportsSparseFiles]) && (v21 = [(FSVolumeSupportedCapabilities *)self supportsVolumeGroups], v21 == [(FSVolumeSupportedCapabilities *)v6 supportsVolumeGroups]) && (v22 = [(FSVolumeSupportedCapabilities *)self doesNotSupportVolumeSizes], v22 == [(FSVolumeSupportedCapabilities *)v6 doesNotSupportVolumeSizes]) && (v23 = [(FSVolumeSupportedCapabilities *)self supportsVolumeGroups], v23 == [(FSVolumeSupportedCapabilities *)v6 supportsVolumeGroups]) && (v24 = [(FSVolumeSupportedCapabilities *)self supportsZeroRuns], v24 == [(FSVolumeSupportedCapabilities *)v6 supportsZeroRuns]) && (v25 = [(FSVolumeSupportedCapabilities *)self supports2TBFiles], v25 == [(FSVolumeSupportedCapabilities *)v6 supports2TBFiles]))
+    if (doesNotSupportRootTimes == [(FSVolumeSupportedCapabilities *)v6 doesNotSupportRootTimes]
+      && (v8 = [(FSVolumeSupportedCapabilities *)self doesNotSupportSettingFilePermissions], v8 == [(FSVolumeSupportedCapabilities *)v6 doesNotSupportSettingFilePermissions])
+      && (v9 = [(FSVolumeSupportedCapabilities *)self supportsSymbolicLinks], v9 == [(FSVolumeSupportedCapabilities *)v6 supportsSymbolicLinks])
+      && (v10 = [(FSVolumeSupportedCapabilities *)self supportsHardLinks], v10 == [(FSVolumeSupportedCapabilities *)v6 supportsHardLinks])
+      && (v11 = [(FSVolumeSupportedCapabilities *)self supports64BitObjectIDs], v11 == [(FSVolumeSupportedCapabilities *)v6 supports64BitObjectIDs])
+      && (v12 = [(FSVolumeSupportedCapabilities *)self supportsDocumentID], v12 == [(FSVolumeSupportedCapabilities *)v6 supportsDocumentID])
+      && (v13 = [(FSVolumeSupportedCapabilities *)self supportsFastStatFS], v13 == [(FSVolumeSupportedCapabilities *)v6 supportsFastStatFS])
+      && (v14 = [(FSVolumeSupportedCapabilities *)self doesNotSupportImmutableFiles], v14 == [(FSVolumeSupportedCapabilities *)v6 doesNotSupportImmutableFiles])
+      && (v15 = [(FSVolumeSupportedCapabilities *)self supportsJournal], v15 == [(FSVolumeSupportedCapabilities *)v6 supportsJournal])
+      && (v16 = [(FSVolumeSupportedCapabilities *)self supportsActiveJournal], v16 == [(FSVolumeSupportedCapabilities *)v6 supportsActiveJournal])
+      && (v17 = [(FSVolumeSupportedCapabilities *)self supportsOpenDenyModes], v17 == [(FSVolumeSupportedCapabilities *)v6 supportsOpenDenyModes])
+      && (v18 = [(FSVolumeSupportedCapabilities *)self supportsPersistentObjectIDs], v18 == [(FSVolumeSupportedCapabilities *)v6 supportsPersistentObjectIDs])
+      && (v19 = [(FSVolumeSupportedCapabilities *)self supportsSharedSpace], v19 == [(FSVolumeSupportedCapabilities *)v6 supportsSharedSpace])
+      && (v20 = [(FSVolumeSupportedCapabilities *)self supportsSparseFiles], v20 == [(FSVolumeSupportedCapabilities *)v6 supportsSparseFiles])
+      && (v21 = [(FSVolumeSupportedCapabilities *)self supportsVolumeGroups], v21 == [(FSVolumeSupportedCapabilities *)v6 supportsVolumeGroups])
+      && (v22 = [(FSVolumeSupportedCapabilities *)self doesNotSupportVolumeSizes], v22 == [(FSVolumeSupportedCapabilities *)v6 doesNotSupportVolumeSizes])
+      && (v23 = [(FSVolumeSupportedCapabilities *)self supportsVolumeGroups], v23 == [(FSVolumeSupportedCapabilities *)v6 supportsVolumeGroups])
+      && (v24 = [(FSVolumeSupportedCapabilities *)self supportsZeroRuns], v24 == [(FSVolumeSupportedCapabilities *)v6 supportsZeroRuns])
+      && (v25 = [(FSVolumeSupportedCapabilities *)self supports2TBFiles], v25 == [(FSVolumeSupportedCapabilities *)v6 supports2TBFiles]))
     {
       caseFormat = [(FSVolumeSupportedCapabilities *)self caseFormat];
       v26 = caseFormat == [(FSVolumeSupportedCapabilities *)v6 caseFormat];
@@ -261,7 +207,6 @@
 
     else
     {
-LABEL_23:
       v26 = 0;
     }
   }

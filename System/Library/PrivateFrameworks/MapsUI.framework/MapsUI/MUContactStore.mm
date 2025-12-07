@@ -15,15 +15,15 @@
 
 - (BOOL)_calculateIfContainerIsGuardianRestricted
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   cnContactStore = [(MUContactStore *)self cnContactStore];
   defaultContainerIdentifier = [cnContactStore defaultContainerIdentifier];
 
   if (defaultContainerIdentifier)
   {
     v5 = MEMORY[0x1E695CE48];
-    v14[0] = defaultContainerIdentifier;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = defaultContainerIdentifier;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
     v7 = [v5 predicateForContainersWithIdentifiers:v6];
 
     cnContactStore2 = [(MUContactStore *)self cnContactStore];
@@ -46,23 +46,22 @@
     isGuardianRestricted = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return isGuardianRestricted;
 }
 
 - (void)fetchStoredContactForMatchingMapItem:(id)item callbackQueue:(id)queue completion:(id)completion
 {
-  v30[3] = *MEMORY[0x1E69E9840];
+  v29[3] = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   completionCopy = completion;
   v10 = MEMORY[0x1E695CD78];
   itemCopy = item;
   v12 = [v10 alloc];
   v13 = *MEMORY[0x1E695C410];
-  v30[0] = *MEMORY[0x1E695C2E0];
-  v30[1] = v13;
-  v30[2] = *MEMORY[0x1E695C328];
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:3];
+  v29[0] = *MEMORY[0x1E695C2E0];
+  v29[1] = v13;
+  v29[2] = *MEMORY[0x1E695C328];
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
   v15 = [v12 initWithKeysToFetch:v14];
 
   v16 = MEMORY[0x1E695CD58];
@@ -78,18 +77,17 @@
   block[1] = 3221225472;
   block[2] = __80__MUContactStore_fetchStoredContactForMatchingMapItem_callbackQueue_completion___block_invoke;
   block[3] = &unk_1E82197D0;
-  objc_copyWeak(&v28, &location);
-  v25 = v15;
-  v26 = queueCopy;
-  v27 = completionCopy;
+  objc_copyWeak(&v27, &location);
+  v24 = v15;
+  v25 = queueCopy;
+  v26 = completionCopy;
   v20 = completionCopy;
   v21 = queueCopy;
   v22 = v15;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(&location);
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __80__MUContactStore_fetchStoredContactForMatchingMapItem_callbackQueue_completion___block_invoke(uint64_t a1)
@@ -144,13 +142,13 @@ void __80__MUContactStore_fetchStoredContactForMatchingMapItem_callbackQueue_com
 
 - (void)fetchContactForPickerDisplayUsingContact:(id)contact callbackQueue:(id)queue completion:(id)completion
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   queueCopy = queue;
   completionCopy = completion;
   descriptorForRequiredKeys = [MEMORY[0x1E695D148] descriptorForRequiredKeys];
-  v30[0] = descriptorForRequiredKeys;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+  v29[0] = descriptorForRequiredKeys;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
   v13 = [contactCopy areKeysAvailable:v12];
 
   if (v13)
@@ -159,8 +157,8 @@ void __80__MUContactStore_fetchStoredContactForMatchingMapItem_callbackQueue_com
     block[1] = 3221225472;
     block[2] = __84__MUContactStore_fetchContactForPickerDisplayUsingContact_callbackQueue_completion___block_invoke;
     block[3] = &unk_1E821A618;
-    v28 = contactCopy;
-    v29 = completionCopy;
+    v27 = contactCopy;
+    v28 = completionCopy;
     v14 = completionCopy;
     v15 = contactCopy;
     dispatch_async(queueCopy, block);
@@ -170,54 +168,52 @@ void __80__MUContactStore_fetchStoredContactForMatchingMapItem_callbackQueue_com
   {
     objc_initWeak(&location, self);
     queue = self->_queue;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __84__MUContactStore_fetchContactForPickerDisplayUsingContact_callbackQueue_completion___block_invoke_2;
-    v20[3] = &unk_1E82197F8;
-    objc_copyWeak(&v25, &location);
-    v20[4] = self;
-    v21 = contactCopy;
-    v22 = descriptorForRequiredKeys;
-    v23 = queueCopy;
-    v24 = completionCopy;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __84__MUContactStore_fetchContactForPickerDisplayUsingContact_callbackQueue_completion___block_invoke_2;
+    v19[3] = &unk_1E82197F8;
+    objc_copyWeak(&v24, &location);
+    v19[4] = self;
+    v20 = contactCopy;
+    v21 = descriptorForRequiredKeys;
+    v22 = queueCopy;
+    v23 = completionCopy;
     v17 = completionCopy;
     v18 = contactCopy;
-    dispatch_async(queue, v20);
+    dispatch_async(queue, v19);
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(&location);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __84__MUContactStore_fetchContactForPickerDisplayUsingContact_callbackQueue_completion___block_invoke_2(uint64_t a1)
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   if (WeakRetained)
   {
     v3 = [*(a1 + 32) cnContactStore];
     v4 = [*(a1 + 40) identifier];
-    v20[0] = *(a1 + 48);
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
-    v19 = 0;
-    v6 = [v3 unifiedContactWithIdentifier:v4 keysToFetch:v5 error:&v19];
-    v7 = v19;
+    v19[0] = *(a1 + 48);
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+    v18 = 0;
+    v6 = [v3 unifiedContactWithIdentifier:v4 keysToFetch:v5 error:&v18];
+    v7 = v18;
 
     v8 = *(a1 + 56);
     if (v7)
     {
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __84__MUContactStore_fetchContactForPickerDisplayUsingContact_callbackQueue_completion___block_invoke_4;
-      v12[3] = &unk_1E821B8D8;
-      v9 = &v15;
-      v15 = *(a1 + 64);
-      v10 = &v13;
-      v13 = *(a1 + 40);
-      v14 = v7;
-      dispatch_async(v8, v12);
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __84__MUContactStore_fetchContactForPickerDisplayUsingContact_callbackQueue_completion___block_invoke_4;
+      v11[3] = &unk_1E821B8D8;
+      v9 = &v14;
+      v14 = *(a1 + 64);
+      v10 = &v12;
+      v12 = *(a1 + 40);
+      v13 = v7;
+      dispatch_async(v8, v11);
     }
 
     else
@@ -226,15 +222,13 @@ void __84__MUContactStore_fetchContactForPickerDisplayUsingContact_callbackQueue
       block[1] = 3221225472;
       block[2] = __84__MUContactStore_fetchContactForPickerDisplayUsingContact_callbackQueue_completion___block_invoke_3;
       block[3] = &unk_1E821A618;
-      v9 = &v18;
-      v18 = *(a1 + 64);
-      v10 = &v17;
-      v17 = v6;
+      v9 = &v17;
+      v17 = *(a1 + 64);
+      v10 = &v16;
+      v16 = v6;
       dispatch_async(v8, block);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeMapsDataFromContact:(id)contact callbackQueue:(id)queue completion:(id)completion
@@ -360,7 +354,7 @@ void __69__MUContactStore_removeMapsDataFromContact_callbackQueue_completion___b
 
 void __76__MUContactStore_fetchUnifiedContactForIdentifier_callbackQueue_completion___block_invoke(uint64_t a1)
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -368,27 +362,25 @@ void __76__MUContactStore_fetchUnifiedContactForIdentifier_callbackQueue_complet
     v4 = [WeakRetained cnContactStore];
     v5 = *(a1 + 32);
     v6 = [MEMORY[0x1E695CD58] descriptorForAllComparatorKeys];
-    v20[0] = v6;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
-    v19 = 0;
-    v8 = [v4 unifiedContactWithIdentifier:v5 keysToFetch:v7 error:&v19];
-    v9 = v19;
+    v19[0] = v6;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+    v18 = 0;
+    v8 = [v4 unifiedContactWithIdentifier:v5 keysToFetch:v7 error:&v18];
+    v9 = v18;
 
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __76__MUContactStore_fetchUnifiedContactForIdentifier_callbackQueue_completion___block_invoke_2;
-    v15[3] = &unk_1E821B8D8;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __76__MUContactStore_fetchUnifiedContactForIdentifier_callbackQueue_completion___block_invoke_2;
+    v14[3] = &unk_1E821B8D8;
     v10 = *(a1 + 40);
     v11 = *(a1 + 48);
-    v17 = v9;
-    v18 = v11;
-    v16 = v8;
+    v16 = v9;
+    v17 = v11;
+    v15 = v8;
     v12 = v9;
     v13 = v8;
-    dispatch_async(v10, v15);
+    dispatch_async(v10, v14);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invokeObservers
@@ -417,15 +409,14 @@ void __34__MUContactStore__invokeObservers__block_invoke(uint64_t a1, void *a2)
 
 - (BOOL)isGuardianRestrictedCNContainer
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  propertyIsolator = self->_propertyIsolator;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   geo_isolate_sync();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (void)_contactStoreDidChange
@@ -449,7 +440,6 @@ void __40__MUContactStore__contactStoreDidChange__block_invoke(uint64_t a1)
   if (WeakRetained)
   {
     [WeakRetained _calculateIfContainerIsGuardianRestricted];
-    v3 = v2[5];
     geo_isolate_sync();
   }
 }

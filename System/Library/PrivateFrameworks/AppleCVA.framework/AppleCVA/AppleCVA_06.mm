@@ -1,3 +1,35 @@
+uint64_t sub_2402585CC(uint64_t result)
+{
+  v1 = *(result + 24);
+  if (v1)
+  {
+    if (*(v1 + 240) == 1)
+    {
+      free(*(v1 + 216));
+      free(*(v1 + 192));
+      free(*(v1 + 168));
+      if (*(v1 + 167) < 0)
+      {
+        operator delete(*(v1 + 144));
+      }
+    }
+
+    free(*(v1 + 120));
+    free(*(v1 + 96));
+    free(*(v1 + 72));
+    free(*(v1 + 48));
+    free(*(v1 + 24));
+    if (*(v1 + 23) < 0)
+    {
+      operator delete(*v1);
+    }
+
+    JUMPOUT(0x245CBCA30);
+  }
+
+  return result;
+}
+
 void sub_24025868C(std::__shared_weak_count *a1)
 {
   std::__shared_weak_count::~__shared_weak_count(a1);
@@ -5,7 +37,7 @@ void sub_24025868C(std::__shared_weak_count *a1)
   JUMPOUT(0x245CBCA30);
 }
 
-void sub_2402586C8(void *a1, _DWORD *a2, char a3, uint64_t a4, uint64_t a5)
+void sub_2402586C8(uint64_t *a1, _DWORD *a2, const char *a3, int a4, uint64_t a5)
 {
   v47 = *MEMORY[0x277D85DE8];
   v44 = 0;
@@ -51,7 +83,7 @@ LABEL_15:
   if (v41)
   {
     sub_2402546E0(&memptr);
-    sub_2402552EC(v39, &memptr, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/geometry/src/three_d/identitytensor.cpp", 0x16Au, "couldn't read identity tensor from %s: unexpected version %d", a3);
+    sub_2402552EC(v39, &memptr, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/geometry/src/three_d/identitytensor.cpp", 0x16Au, "couldn't read identity tensor from %s: unexpected version %d", a3, v41);
     v12 = v39;
     goto LABEL_15;
   }
@@ -417,7 +449,7 @@ __n64 sub_240259A84(uint64_t a1, uint64_t *a2)
     v13 = 0.0;
     v11 = 0u;
     v12 = 0u;
-    sub_240259A84(&v11);
+    sub_240259A84(&v11, a2);
     result.n64_u64[0] = v11;
     v10 = v12;
     *a1 = v11;
@@ -858,92 +890,92 @@ void sub_24025A340(uint64_t a1, uint64_t a2)
   }
 }
 
-void *sub_24025A47C(uint64_t a1, const void **a2)
+uint64_t *sub_24025A47C(uint64_t **a1, const void **a2, __int128 **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_27:
     operator new();
   }
 
-  v3 = *(a2 + 23);
-  if (v3 >= 0)
+  v4 = *(a2 + 23);
+  if (v4 >= 0)
   {
-    v4 = a2;
+    v5 = a2;
   }
 
   else
   {
-    v4 = *a2;
+    v5 = *a2;
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
-    v5 = a2[1];
+    v6 = a2[1];
   }
 
   while (1)
   {
     while (1)
     {
-      v6 = v2;
-      v9 = v2[4];
-      v7 = v2 + 4;
-      v8 = v9;
-      v10 = *(v7 + 23);
-      v11 = v10 >= 0 ? v7 : v8;
-      v12 = v10 >= 0 ? *(v7 + 23) : v7[1];
-      v13 = (v12 >= v5 ? v5 : v12);
-      v14 = memcmp(v4, v11, v13);
-      if (v14)
+      v7 = v3;
+      v10 = v3[4];
+      v8 = v3 + 4;
+      v9 = v10;
+      v11 = *(v8 + 23);
+      v12 = v11 >= 0 ? v8 : v9;
+      v13 = v11 >= 0 ? *(v8 + 23) : v8[1];
+      v14 = (v13 >= v6 ? v6 : v13);
+      v15 = memcmp(v5, v12, v14);
+      if (v15)
       {
         break;
       }
 
-      if (v5 >= v12)
+      if (v6 >= v13)
       {
         goto LABEL_22;
       }
 
 LABEL_8:
-      v2 = *v6;
-      if (!*v6)
+      v3 = *v7;
+      if (!*v7)
       {
         goto LABEL_27;
       }
     }
 
-    if (v14 < 0)
+    if (v15 < 0)
     {
       goto LABEL_8;
     }
 
 LABEL_22:
-    v15 = memcmp(v11, v4, v13);
-    if (v15)
+    v16 = memcmp(v12, v5, v14);
+    if (v16)
     {
-      if ((v15 & 0x80000000) == 0)
+      if ((v16 & 0x80000000) == 0)
       {
-        return v6;
+        return v7;
       }
 
       goto LABEL_26;
     }
 
-    if (v12 >= v5)
+    if (v13 >= v6)
     {
-      return v6;
+      return v7;
     }
 
 LABEL_26:
-    v2 = v6[1];
-    if (!v2)
+    v3 = v7[1];
+    if (!v3)
     {
       goto LABEL_27;
     }
@@ -1093,7 +1125,7 @@ uint64_t sub_24025A7E8(uint64_t a1, void *a2)
         v9 = a2[5];
       }
 
-      sub_2401F8070(a1 + 32, v8, v9);
+      sub_2401F8070((a1 + 32), v8, v9);
     }
 
     else if ((*(a2 + 55) & 0x80) != 0)
@@ -1131,7 +1163,7 @@ uint64_t sub_24025A7E8(uint64_t a1, void *a2)
         v13 = a2[8];
       }
 
-      sub_2401F8070(a1 + 56, v12, v13);
+      sub_2401F8070((a1 + 56), v12, v13);
     }
 
     else if ((*(a2 + 79) & 0x80) != 0)
@@ -1169,7 +1201,7 @@ uint64_t sub_24025A7E8(uint64_t a1, void *a2)
         v17 = a2[11];
       }
 
-      sub_2401F8070(a1 + 80, v16, v17);
+      sub_2401F8070((a1 + 80), v16, v17);
     }
 
     else if ((*(a2 + 103) & 0x80) != 0)
@@ -3459,7 +3491,7 @@ void sub_24025C2CC(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
             std::__shared_weak_count::__release_weak(v12);
           }
 
-          v10 -= 16;
+          v10 -= 2;
         }
 
         while (v10 != v8);
@@ -3513,9 +3545,9 @@ void sub_24025C2CC(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
           atomic_fetch_add_explicit((v18 + 8), 1uLL, memory_order_relaxed);
         }
 
-        v20 = *(v8 + 1);
+        v20 = v8[1];
         *v8 = v19;
-        *(v8 + 1) = v18;
+        v8[1] = v18;
         if (v20 && !atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v20->__on_zero_shared)(v20);
@@ -3523,14 +3555,14 @@ void sub_24025C2CC(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
         }
 
         v5 += 2;
-        v8 += 16;
+        v8 += 2;
       }
 
       while (v5 != a3);
       v13 = *(a1 + 8);
     }
 
-    for (; v13 != v8; v13 -= 16)
+    for (; v13 != v8; v13 -= 2)
     {
       v26 = *(v13 - 1);
       if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -3557,9 +3589,9 @@ void sub_24025C2CC(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
           atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
         }
 
-        v17 = *(v8 + 1);
+        v17 = v8[1];
         *v8 = v16;
-        *(v8 + 1) = v15;
+        v8[1] = v15;
         if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v17->__on_zero_shared)(v17);
@@ -3567,7 +3599,7 @@ void sub_24025C2CC(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
         }
 
         v5 += 2;
-        v8 += 16;
+        v8 += 2;
       }
 
       while (v5 != v14);
@@ -3582,14 +3614,14 @@ void sub_24025C2CC(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
       {
         v25 = v14[1];
         *v24 = *v14;
-        *(v24 + 1) = v25;
+        v24[1] = v25;
         if (v25)
         {
           atomic_fetch_add_explicit((v25 + 8), 1uLL, memory_order_relaxed);
         }
 
         v14 += 2;
-        v24 += 16;
+        v24 += 2;
       }
 
       while (v14 != a3);
@@ -3680,7 +3712,7 @@ void sub_24025C61C(uint64_t a1, uint64_t *a2)
   *(a1 + 8) = v6;
 }
 
-uint64_t sub_24025C76C(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t sub_24025C76C(uint64_t a1, const void ***a2, uint64_t a3)
 {
   v82 = *MEMORY[0x277D85DE8];
   *(a1 + 8) = *a1;
@@ -3744,7 +3776,7 @@ uint64_t sub_24025C76C(uint64_t a1, uint64_t *a2, uint64_t a3)
     v66 = 7;
     strcpy(&v65, "default");
     __p[0] = &v65;
-    v13 = sub_240260B78(a1 + 240, &v65);
+    v13 = sub_240260B78((a1 + 240), &v65, __p);
     v14 = v13;
     __asm { FMOV            V8.2S, #1.0 }
 
@@ -3777,7 +3809,7 @@ uint64_t sub_24025C76C(uint64_t a1, uint64_t *a2, uint64_t a3)
     v14[18] = 0;
     v14[19] = 0;
     __p[0] = &v65;
-    v19 = sub_24025A47C(a1 + 264, &v65);
+    v19 = sub_24025A47C((a1 + 264), &v65, __p);
     v20 = v19[8];
     if (v20 == v19[7] || (v21 = *(v20 - 16), v21[1] != *v21) || v21[4] != v21[3])
     {
@@ -4041,7 +4073,7 @@ LABEL_94:
   sub_2402546E0(__p);
   if (*(a3 + 23) >= 0)
   {
-    LOBYTE(v9) = a3;
+    v9 = a3;
   }
 
   else
@@ -4267,92 +4299,92 @@ BOOL sub_240260A3C(uint64_t a1, uint64_t *a2)
   return v14 == v12;
 }
 
-void *sub_240260B78(uint64_t a1, const void **a2)
+uint64_t *sub_240260B78(uint64_t **a1, const void **a2, __int128 **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_27:
     operator new();
   }
 
-  v3 = *(a2 + 23);
-  if (v3 >= 0)
+  v4 = *(a2 + 23);
+  if (v4 >= 0)
   {
-    v4 = a2;
+    v5 = a2;
   }
 
   else
   {
-    v4 = *a2;
+    v5 = *a2;
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
-    v5 = a2[1];
+    v6 = a2[1];
   }
 
   while (1)
   {
     while (1)
     {
-      v6 = v2;
-      v9 = v2[4];
-      v7 = v2 + 4;
-      v8 = v9;
-      v10 = *(v7 + 23);
-      v11 = v10 >= 0 ? v7 : v8;
-      v12 = v10 >= 0 ? *(v7 + 23) : v7[1];
-      v13 = (v12 >= v5 ? v5 : v12);
-      v14 = memcmp(v4, v11, v13);
-      if (v14)
+      v7 = v3;
+      v10 = v3[4];
+      v8 = v3 + 4;
+      v9 = v10;
+      v11 = *(v8 + 23);
+      v12 = v11 >= 0 ? v8 : v9;
+      v13 = v11 >= 0 ? *(v8 + 23) : v8[1];
+      v14 = (v13 >= v6 ? v6 : v13);
+      v15 = memcmp(v5, v12, v14);
+      if (v15)
       {
         break;
       }
 
-      if (v5 >= v12)
+      if (v6 >= v13)
       {
         goto LABEL_22;
       }
 
 LABEL_8:
-      v2 = *v6;
-      if (!*v6)
+      v3 = *v7;
+      if (!*v7)
       {
         goto LABEL_27;
       }
     }
 
-    if (v14 < 0)
+    if (v15 < 0)
     {
       goto LABEL_8;
     }
 
 LABEL_22:
-    v15 = memcmp(v11, v4, v13);
-    if (v15)
+    v16 = memcmp(v12, v5, v14);
+    if (v16)
     {
-      if ((v15 & 0x80000000) == 0)
+      if ((v16 & 0x80000000) == 0)
       {
-        return v6;
+        return v7;
       }
 
       goto LABEL_26;
     }
 
-    if (v12 >= v5)
+    if (v13 >= v6)
     {
-      return v6;
+      return v7;
     }
 
 LABEL_26:
-    v2 = v6[1];
-    if (!v2)
+    v3 = v7[1];
+    if (!v3)
     {
       goto LABEL_27;
     }
@@ -4451,74 +4483,74 @@ BOOL sub_240260E40(uint64_t a1, uint64_t *a2)
   return v14 == v12;
 }
 
-uint64_t sub_240260F7C(uint64_t a1, const void **a2)
+uint64_t *sub_240260F7C(uint64_t a1, const void **a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_27:
     operator new();
   }
 
-  v3 = *(a2 + 23);
-  if (v3 >= 0)
+  v4 = *(a2 + 23);
+  if (v4 >= 0)
   {
-    v4 = a2;
+    v5 = a2;
   }
 
   else
   {
-    v4 = *a2;
+    v5 = *a2;
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
-    v5 = a2[1];
+    v6 = a2[1];
   }
 
   while (1)
   {
     while (1)
     {
-      v6 = v2;
-      v9 = v2[4];
-      v7 = v2 + 4;
-      v8 = v9;
-      v10 = *(v7 + 23);
-      v11 = v10 >= 0 ? v7 : v8;
-      v12 = v10 >= 0 ? *(v7 + 23) : v7[1];
-      v13 = (v12 >= v5 ? v5 : v12);
-      v14 = memcmp(v4, v11, v13);
-      if (v14)
+      v7 = v3;
+      v10 = v3[4];
+      v8 = v3 + 4;
+      v9 = v10;
+      v11 = *(v8 + 23);
+      v12 = v11 >= 0 ? v8 : v9;
+      v13 = v11 >= 0 ? *(v8 + 23) : v8[1];
+      v14 = (v13 >= v6 ? v6 : v13);
+      v15 = memcmp(v5, v12, v14);
+      if (v15)
       {
         break;
       }
 
-      if (v5 >= v12)
+      if (v6 >= v13)
       {
         goto LABEL_22;
       }
 
 LABEL_8:
-      v2 = *v6;
-      if (!*v6)
+      v3 = *v7;
+      if (!*v7)
       {
         goto LABEL_27;
       }
     }
 
-    if (v14 < 0)
+    if (v15 < 0)
     {
       goto LABEL_8;
     }
 
 LABEL_22:
-    result = memcmp(v11, v4, v13);
+    result = memcmp(v12, v5, v14);
     if (result)
     {
       if ((result & 0x80000000) == 0)
@@ -4529,14 +4561,14 @@ LABEL_22:
       goto LABEL_26;
     }
 
-    if (v12 >= v5)
+    if (v13 >= v6)
     {
       return result;
     }
 
 LABEL_26:
-    v2 = v6[1];
-    if (!v2)
+    v3 = v7[1];
+    if (!v3)
     {
       goto LABEL_27;
     }
@@ -4610,74 +4642,74 @@ LABEL_3:
   return a1;
 }
 
-uint64_t sub_240261248(uint64_t a1, const void **a2)
+uint64_t *sub_240261248(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_27:
     operator new();
   }
 
-  v3 = *(a2 + 23);
-  if (v3 >= 0)
+  v4 = *(a2 + 23);
+  if (v4 >= 0)
   {
-    v4 = a2;
+    v5 = a2;
   }
 
   else
   {
-    v4 = *a2;
+    v5 = *a2;
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
-    v5 = a2[1];
+    v6 = a2[1];
   }
 
   while (1)
   {
     while (1)
     {
-      v6 = v2;
-      v9 = v2[4];
-      v7 = v2 + 4;
-      v8 = v9;
-      v10 = *(v7 + 23);
-      v11 = v10 >= 0 ? v7 : v8;
-      v12 = v10 >= 0 ? *(v7 + 23) : v7[1];
-      v13 = (v12 >= v5 ? v5 : v12);
-      v14 = memcmp(v4, v11, v13);
-      if (v14)
+      v7 = v3;
+      v10 = v3[4];
+      v8 = v3 + 4;
+      v9 = v10;
+      v11 = *(v8 + 23);
+      v12 = v11 >= 0 ? v8 : v9;
+      v13 = v11 >= 0 ? *(v8 + 23) : v8[1];
+      v14 = (v13 >= v6 ? v6 : v13);
+      v15 = memcmp(v5, v12, v14);
+      if (v15)
       {
         break;
       }
 
-      if (v5 >= v12)
+      if (v6 >= v13)
       {
         goto LABEL_22;
       }
 
 LABEL_8:
-      v2 = *v6;
-      if (!*v6)
+      v3 = *v7;
+      if (!*v7)
       {
         goto LABEL_27;
       }
     }
 
-    if (v14 < 0)
+    if (v15 < 0)
     {
       goto LABEL_8;
     }
 
 LABEL_22:
-    result = memcmp(v11, v4, v13);
+    result = memcmp(v12, v5, v14);
     if (result)
     {
       if ((result & 0x80000000) == 0)
@@ -4688,14 +4720,14 @@ LABEL_22:
       goto LABEL_26;
     }
 
-    if (v12 >= v5)
+    if (v13 >= v6)
     {
       return result;
     }
 
 LABEL_26:
-    v2 = v6[1];
-    if (!v2)
+    v3 = v7[1];
+    if (!v3)
     {
       goto LABEL_27;
     }
@@ -4816,8 +4848,7 @@ void sub_240261508(void **a1, __int128 *a2)
 
     v10 = (16 * v6);
     v11 = *a2;
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    *a2 = 0uLL;
     v12 = *a1;
     v13 = a1[1] - *a1;
     v14 = v10 - v13;
@@ -4836,9 +4867,8 @@ void sub_240261508(void **a1, __int128 *a2)
   else
   {
     *v4 = *a2;
-    v5 = v4 + 1;
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    v5 = v4 + 16;
+    *a2 = 0uLL;
   }
 
   a1[1] = v5;
@@ -4958,7 +4988,7 @@ uint64_t sub_2402617C4(uint64_t result)
   return result;
 }
 
-uint64_t *sub_240261848(uint64_t *a1, void *a2)
+uint64_t *sub_240261848(uint64_t *a1, uint64_t *a2)
 {
   v4 = *a2;
   *a1 = *a2;
@@ -5996,8 +6026,7 @@ __int128 *sub_2402627B8(__int128 *result, __int128 *a2)
   *a2 = v2;
   v3 = *(result + 2);
   v4 = *(result + 3);
-  *(result + 2) = 0;
-  *(result + 3) = 0;
+  result[1] = 0uLL;
   v5 = *(result + 8);
   *(result + 8) = 0;
   v6 = *(a2 + 3);
@@ -6009,8 +6038,7 @@ __int128 *sub_2402627B8(__int128 *result, __int128 *a2)
   *(a2 + 8) = v5;
   v7 = *(result + 5);
   v8 = *(result + 6);
-  *(result + 5) = 0;
-  *(result + 6) = 0;
+  *(result + 40) = 0uLL;
   v9 = *(result + 14);
   *(result + 14) = 0;
   v10 = *(a2 + 6);
@@ -6023,8 +6051,7 @@ __int128 *sub_2402627B8(__int128 *result, __int128 *a2)
   v11 = *(result + 8);
   v12 = *(result + 9);
   v13 = *(result + 10);
-  *(result + 8) = 0;
-  *(result + 9) = 0;
+  result[4] = 0uLL;
   *(result + 10) = 0;
   v14 = *(a2 + 9);
   *(result + 8) = *(a2 + 8);
@@ -6108,7 +6135,7 @@ uint64_t sub_24026293C(char *__s2, int *a2)
   return 1;
 }
 
-uint64_t sub_2402629C0(cva::DictionaryHandler *a1)
+uint64_t sub_2402629C0(cva::DictionaryHandler *a1, _DWORD *a2)
 {
   result = cva::DictionaryHandler::hasKey(a1, "rotation");
   if (result)
@@ -6116,7 +6143,7 @@ uint64_t sub_2402629C0(cva::DictionaryHandler *a1)
     result = cva::DictionaryHandler::hasKey(a1, "translation");
     if (result)
     {
-      cva::DictionaryHandler::item(&v3, a1, "rotation");
+      cva::DictionaryHandler::item(&v4, a1, "rotation");
       cva::ItemHandler::getMatrix<float>();
     }
   }
@@ -6124,28 +6151,28 @@ uint64_t sub_2402629C0(cva::DictionaryHandler *a1)
   return result;
 }
 
-uint64_t sub_240262B08(uint64_t a1)
+uint64_t sub_240262B08(uint64_t a1, uint64_t a2)
 {
-  v23[39] = *MEMORY[0x277D85DE8];
+  v21[39] = *MEMORY[0x277D85DE8];
   cva::DictionaryHandler::readJsonFile();
-  v2 = v23[0];
-  v3 = v23[1];
-  if (!v23[0])
+  v3 = v21[0];
+  v4 = v21[1];
+  if (!v21[0])
   {
     goto LABEL_38;
   }
 
-  if ((cva::DictionaryHandler::hasKey(v23[0], "tracking_state") & 1) != 0 || cva::DictionaryHandler::hasKey(v23[0], "landmarks"))
+  if ((cva::DictionaryHandler::hasKey(v21[0], "tracking_state") & 1) != 0 || cva::DictionaryHandler::hasKey(v21[0], "landmarks"))
   {
-    v5 = *(a1 + 64);
-    v4 = *(a1 + 72);
-    v6 = 0x7E3F1F8FC7E3F1F9 * ((v4 - v5) >> 4);
-    if (v4 == v5)
+    v6 = *(a1 + 64);
+    v5 = *(a1 + 72);
+    v7 = 0x7E3F1F8FC7E3F1F9 * ((v5 - v6) >> 4);
+    if (v5 == v6)
     {
-      sub_24024AE34((a1 + 64), 1 - v6);
+      sub_24024AE34((a1 + 64), 1 - v7);
     }
 
-    else if (v6 >= 2)
+    else if (v7 >= 2)
     {
         ;
       }
@@ -6153,47 +6180,47 @@ uint64_t sub_240262B08(uint64_t a1)
       *(a1 + 72) = i;
     }
 
-    if (cva::DictionaryHandler::hasKey(v2, "tracking_state"))
+    if (cva::DictionaryHandler::hasKey(v3, "tracking_state"))
     {
-      cva::DictionaryHandler::item(v23, v2, "tracking_state");
-      cva::ItemHandler::getDictionary(&v19, v23);
-      cva::ItemHandler::~ItemHandler(v23);
-      if (cva::DictionaryHandler::hasKey(v19, "meta") && (cva::DictionaryHandler::hasKey(v19, "data") & 1) != 0)
+      cva::DictionaryHandler::item(v21, v3, "tracking_state");
+      cva::ItemHandler::getDictionary(&v17, v21);
+      cva::ItemHandler::~ItemHandler(v21);
+      if (cva::DictionaryHandler::hasKey(v17, "meta") && (cva::DictionaryHandler::hasKey(v17, "data") & 1) != 0)
       {
-        cva::DictionaryHandler::item(v23, v19, "meta");
-        cva::ItemHandler::getDictionary(&v17, v23);
-        cva::ItemHandler::~ItemHandler(v23);
-        if (cva::DictionaryHandler::hasKey(v17, "version"))
+        cva::DictionaryHandler::item(v21, v17, "meta");
+        cva::ItemHandler::getDictionary(&v15, v21);
+        cva::ItemHandler::~ItemHandler(v21);
+        if (cva::DictionaryHandler::hasKey(v15, "version"))
         {
-          cva::DictionaryHandler::item(v22, v17, "version");
+          cva::DictionaryHandler::item(v20, v15, "version");
           cva::ItemHandler::getVector<int>();
         }
 
-        sub_2402546E0(v22);
-        sub_2402552EC(v23, v22, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/tracking/src/io/framesequencedata.cpp", 0x3CBu, "failure reading tracking dictionary: missing version", v16);
-        sub_240256698(v23);
-        v12 = v22[1];
-        if (v22[1] && !atomic_fetch_add(v22[1] + 1, 0xFFFFFFFFFFFFFFFFLL))
+        sub_2402546E0(v20);
+        sub_2402552EC(v21, v20, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/tracking/src/io/framesequencedata.cpp", 0x3CBu, "failure reading tracking dictionary: missing version");
+        sub_240256698(v21);
+        v11 = v20[1];
+        if (v20[1] && !atomic_fetch_add(v20[1] + 1, 0xFFFFFFFFFFFFFFFFLL))
         {
-          (v12->__on_zero_shared)(v12);
-          std::__shared_weak_count::__release_weak(v12);
+          (v11->__on_zero_shared)(v11);
+          std::__shared_weak_count::__release_weak(v11);
         }
 
-        v10 = v18;
-        if (!v18)
+        v9 = v16;
+        if (!v16)
         {
 LABEL_29:
-          v11 = v20;
-          if (!v20)
+          v10 = v18;
+          if (!v18)
           {
             goto LABEL_38;
           }
 
 LABEL_30:
-          if (!atomic_fetch_add(&v11->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          if (!atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            (v11->__on_zero_shared)(v11);
-            std::__shared_weak_count::__release_weak(v11);
+            (v10->__on_zero_shared)(v10);
+            std::__shared_weak_count::__release_weak(v10);
           }
 
           goto LABEL_38;
@@ -6202,33 +6229,31 @@ LABEL_30:
 
       else
       {
-        sub_2402546E0(v22);
-        sub_2402552EC(v23, v22, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/tracking/src/io/framesequencedata.cpp", 0x3C2u, "failure reading tracking dictionary: missing meta", v16);
-        sub_240256698(v23);
-        v10 = v22[1];
-        if (!v22[1])
+        sub_2402546E0(v20);
+        sub_2402552EC(v21, v20, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/tracking/src/io/framesequencedata.cpp", 0x3C2u, "failure reading tracking dictionary: missing meta");
+        sub_240256698(v21);
+        v9 = v20[1];
+        if (!v20[1])
         {
           goto LABEL_29;
         }
       }
 
-      if (!atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (!atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v10->__on_zero_shared)(v10);
-        std::__shared_weak_count::__release_weak(v10);
+        (v9->__on_zero_shared)(v9);
+        std::__shared_weak_count::__release_weak(v9);
       }
 
       goto LABEL_29;
     }
 
-    sub_2402546E0(v22);
-    v8 = "failure reading tracking dictionary: missing tracking_state";
-    v9 = 954;
+    sub_2402546E0(v20);
+    sub_2402552EC(v21, v20, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/tracking/src/io/framesequencedata.cpp", 0x3BAu, "failure reading tracking dictionary: missing tracking_state");
 LABEL_23:
-    sub_2402552EC(v23, v22, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/tracking/src/io/framesequencedata.cpp", v9, v8, v16);
-    sub_240256698(v23);
-    v11 = v22[1];
-    if (!v22[1])
+    sub_240256698(v21);
+    v10 = v20[1];
+    if (!v20[1])
     {
       goto LABEL_38;
     }
@@ -6236,48 +6261,47 @@ LABEL_23:
     goto LABEL_30;
   }
 
-  if ((cva::DictionaryHandler::hasKey(v23[0], "meta") & 1) == 0)
+  if ((cva::DictionaryHandler::hasKey(v21[0], "meta") & 1) == 0)
   {
-    sub_2402546E0(v22);
-    v8 = "failure reading tracking dictionary: missing meta";
-    v9 = 1093;
+    sub_2402546E0(v20);
+    sub_2402552EC(v21, v20, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/tracking/src/io/framesequencedata.cpp", 0x445u, "failure reading tracking dictionary: missing meta");
     goto LABEL_23;
   }
 
-  cva::DictionaryHandler::item(v23, v23[0], "meta");
-  cva::ItemHandler::getDictionary(v22, v23);
-  cva::ItemHandler::~ItemHandler(v23);
-  if (cva::DictionaryHandler::hasKey(v22[0], "version"))
+  cva::DictionaryHandler::item(v21, v21[0], "meta");
+  cva::ItemHandler::getDictionary(v20, v21);
+  cva::ItemHandler::~ItemHandler(v21);
+  if (cva::DictionaryHandler::hasKey(v20[0], "version"))
   {
-    cva::DictionaryHandler::item(__p, v22[0], "version");
+    cva::DictionaryHandler::item(__p, v20[0], "version");
     cva::ItemHandler::getVector<int>();
   }
 
   sub_2402546E0(__p);
-  sub_2402552EC(v23, __p, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/tracking/src/io/framesequencedata.cpp", 0x44Cu, "failure reading tracking dictionary: missing version", v16);
-  sub_240256698(v23);
-  v13 = __p[1];
+  sub_2402552EC(v21, __p, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/tracking/src/io/framesequencedata.cpp", 0x44Cu, "failure reading tracking dictionary: missing version");
+  sub_240256698(v21);
+  v12 = __p[1];
   if (__p[1] && !atomic_fetch_add(__p[1] + 1, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v12->__on_zero_shared)(v12);
+    std::__shared_weak_count::__release_weak(v12);
+  }
+
+  v13 = v20[1];
+  if (v20[1] && !atomic_fetch_add(v20[1] + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v13->__on_zero_shared)(v13);
     std::__shared_weak_count::__release_weak(v13);
   }
 
-  v14 = v22[1];
-  if (v22[1] && !atomic_fetch_add(v22[1] + 1, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v14->__on_zero_shared)(v14);
-    std::__shared_weak_count::__release_weak(v14);
-  }
-
 LABEL_38:
   result = 0;
-  if (v3)
+  if (v4)
   {
-    if (!atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v3->__on_zero_shared)(v3);
-      std::__shared_weak_count::__release_weak(v3);
+      (v4->__on_zero_shared)(v4);
+      std::__shared_weak_count::__release_weak(v4);
       return 0;
     }
   }
@@ -6285,7 +6309,7 @@ LABEL_38:
   return result;
 }
 
-uint64_t sub_240265434(cva::DictionaryHandler *a1)
+uint64_t sub_240265434(cva::DictionaryHandler *a1, uint64_t **a2, uint64_t a3, void *a4)
 {
   result = cva::DictionaryHandler::hasKey(a1, "blendshapes");
   if (result)
@@ -6297,15 +6321,15 @@ uint64_t sub_240265434(cva::DictionaryHandler *a1)
     }
 
     sub_2402546E0(&__src);
-    sub_2402552EC(v8, &__src, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/tracking/src/io/framesequencedata.cpp", 0x20Du, "failure reading tracking dictionary: missing blendshape names", v4);
-    sub_240256698(v8);
-    v3 = v7;
-    if (v7)
+    sub_2402552EC(v10, &__src, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/tracking/src/io/framesequencedata.cpp", 0x20Du, "failure reading tracking dictionary: missing blendshape names");
+    sub_240256698(v10);
+    v6 = v9;
+    if (v9)
     {
-      if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (!atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v3->__on_zero_shared)(v3);
-        std::__shared_weak_count::__release_weak(v3);
+        (v6->__on_zero_shared)(v6);
+        std::__shared_weak_count::__release_weak(v6);
       }
     }
 
@@ -6315,45 +6339,45 @@ uint64_t sub_240265434(cva::DictionaryHandler *a1)
   return result;
 }
 
-uint64_t sub_240265E08(cva::DictionaryHandler *a1)
+uint64_t sub_240265E08(cva::DictionaryHandler *a1, uint64_t a2)
 {
   result = cva::DictionaryHandler::hasKey(a1, "face_box");
   if (result)
   {
-    cva::DictionaryHandler::item(v8, a1, "face_box");
-    cva::ItemHandler::getDictionary(&__p, v8);
-    v4 = __p;
-    v3 = v7;
+    cva::DictionaryHandler::item(v9, a1, "face_box");
+    cva::ItemHandler::getDictionary(&__p, v9);
+    v5 = __p;
+    v4 = v8;
     __p = 0;
-    v7 = 0;
-    cva::ItemHandler::~ItemHandler(v8);
-    result = cva::DictionaryHandler::hasKey(v4, "x");
+    v8 = 0;
+    cva::ItemHandler::~ItemHandler(v9);
+    result = cva::DictionaryHandler::hasKey(v5, "x");
     if (result)
     {
-      result = cva::DictionaryHandler::hasKey(v4, "y");
+      result = cva::DictionaryHandler::hasKey(v5, "y");
       if (result)
       {
-        result = cva::DictionaryHandler::hasKey(v4, "w");
+        result = cva::DictionaryHandler::hasKey(v5, "w");
         if (result)
         {
-          result = cva::DictionaryHandler::hasKey(v4, "h");
+          result = cva::DictionaryHandler::hasKey(v5, "h");
           if (result)
           {
-            cva::DictionaryHandler::item(&__p, v4, "x");
+            cva::DictionaryHandler::item(&__p, v5, "x");
             cva::ItemHandler::getValue<float>();
           }
         }
       }
     }
 
-    if (v3)
+    if (v4)
     {
-      if (!atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (!atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        v5 = result;
-        (v3->__on_zero_shared)(v3);
-        std::__shared_weak_count::__release_weak(v3);
-        return v5;
+        v6 = result;
+        (v4->__on_zero_shared)(v4);
+        std::__shared_weak_count::__release_weak(v4);
+        return v6;
       }
     }
   }
@@ -6364,8 +6388,7 @@ uint64_t sub_240265E08(cva::DictionaryHandler *a1)
 uint64_t sub_2402660E8(uint64_t result, __int128 *a2)
 {
   v2 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v3 = *(result + 8);
   *result = v2;
   if (v3)
@@ -6559,7 +6582,7 @@ uint64_t sub_240266434(std::string *a1)
   }
 
 LABEL_3:
-  p_data = &a1[1].__r_.__value_.__l.__data_;
+  v2 = a1 + 1;
   v3 = *(a1->__r_.__value_.__r.__words[0] + 16);
   v4 = a1[2].__r_.__value_.__r.__words[2];
   v5 = *(v4 - 1);
@@ -6585,14 +6608,14 @@ LABEL_3:
     {
       *v4 = 0;
       v4[1] = 0;
-      v8 = v4 + 2;
+      v8 = (v4 + 2);
     }
 
     else
     {
       *size = 0;
       size[1] = 0;
-      v8 = size + 2;
+      v8 = (size + 2);
     }
 
     a1[2].__r_.__value_.__r.__words[2] = v8;
@@ -6601,22 +6624,22 @@ LABEL_3:
 
   __p[0] = 0;
   __p[1] = 0;
-  v43 = 0;
+  v42 = 0;
   v10 = HIDWORD(a1[3].__r_.__value_.__r.__words[2]);
   if (v10 == -1)
   {
-    sub_2402546E0(&v44);
-    sub_2402552EC(&v46, &v44, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/CompressedDevice.cpp", 0xCEu, "missing legacy compression!", v40);
-    sub_240256698(&v46);
-    v11 = v45;
-    if (v45 && !atomic_fetch_add(&v45->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    sub_2402546E0(&v43);
+    sub_2402552EC(&v45, &v43, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/CompressedDevice.cpp", 0xCEu, "missing legacy compression!");
+    sub_240256698(&v45);
+    v11 = v44;
+    if (v44 && !atomic_fetch_add(&v44->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
       (v11->__on_zero_shared)(v11);
       std::__shared_weak_count::__release_weak(v11);
     }
   }
 
-  else if (!v10 && __p != p_data)
+  else if (!v10 && __p != v2)
   {
     if (SHIBYTE(a1[1].__r_.__value_.__r.__words[2]) < 0)
     {
@@ -6625,29 +6648,29 @@ LABEL_3:
 
     else
     {
-      *__p = *p_data;
-      v43 = a1[1].__r_.__value_.__r.__words[2];
+      *__p = *&v2->__r_.__value_.__l.__data_;
+      v42 = a1[1].__r_.__value_.__r.__words[2];
     }
   }
 
-  v12 = SHIBYTE(v43);
-  if ((SHIBYTE(v43) & 0x8000000000000000) != 0)
+  v12 = SHIBYTE(v42);
+  if ((SHIBYTE(v42) & 0x8000000000000000) != 0)
   {
     v12 = __p[1];
   }
 
-  v44 = v12;
+  v43 = v12;
   if (HIDWORD(a1[3].__r_.__value_.__r.__words[2]) == -1)
   {
-    *&v46 = v12;
-    v41 = v12 + 0x277C6CE4B6031;
+    *&v45 = v12;
+    v40 = v12 + 0x277C6CE4B6031;
     v26 = a1->__r_.__value_.__r.__words[0];
     if (*(a1->__r_.__value_.__r.__words[0] + 8) == 1)
     {
       goto LABEL_76;
     }
 
-    v27 = (*(*v26 + 152))(a1->__r_.__value_.__r.__words[0], &v41, 8);
+    v27 = (*(*v26 + 152))(a1->__r_.__value_.__r.__words[0], &v40, 8);
     if (v27 < 1)
     {
       goto LABEL_76;
@@ -6665,7 +6688,7 @@ LABEL_3:
       goto LABEL_76;
     }
 
-    v29 = (*(*v28 + 152))(a1->__r_.__value_.__r.__words[0], &v46, 8);
+    v29 = (*(*v28 + 152))(a1->__r_.__value_.__r.__words[0], &v45, 8);
     if (v29 < 1)
     {
       goto LABEL_76;
@@ -6685,7 +6708,7 @@ LABEL_3:
 
     else
     {
-      if (v43 >= 0)
+      if (v42 >= 0)
       {
         v32 = __p;
       }
@@ -6695,14 +6718,14 @@ LABEL_3:
         v32 = __p[0];
       }
 
-      v31 = (*(*v30 + 152))(a1->__r_.__value_.__r.__words[0], v32, v46);
+      v31 = (*(*v30 + 152))(a1->__r_.__value_.__r.__words[0], v32, v45);
       if (v31 >= 1)
       {
         v30[2] += v31;
       }
     }
 
-    if (v31 != v46)
+    if (v31 != v45)
     {
       goto LABEL_76;
     }
@@ -6711,16 +6734,16 @@ LABEL_3:
   }
 
   v13 = a1->__r_.__value_.__r.__words[0];
-  *&v46 = &unk_2852274D0;
-  *(&v46 + 1) = v13;
-  v47 = 0;
-  v41 = 0x277C6CE4B6030;
+  *&v45 = &unk_2852274D0;
+  *(&v45 + 1) = v13;
+  v46 = 0;
+  v40 = 0x277C6CE4B6030;
   if (*(v13 + 8) == 1)
   {
     goto LABEL_45;
   }
 
-  v14 = (*(*v13 + 152))(v13, &v41, 8);
+  v14 = (*(*v13 + 152))(v13, &v40, 8);
   if (v14 <= 0)
   {
     goto LABEL_45;
@@ -6732,14 +6755,14 @@ LABEL_3:
     goto LABEL_45;
   }
 
-  LODWORD(v41) = 0;
-  v15 = *(&v46 + 1);
-  if (*(*(&v46 + 1) + 8) == 1)
+  LODWORD(v40) = 0;
+  v15 = *(&v45 + 1);
+  if (*(*(&v45 + 1) + 8) == 1)
   {
     goto LABEL_45;
   }
 
-  v16 = (*(**(&v46 + 1) + 152))(*(&v46 + 1), &v41, 4);
+  v16 = (*(**(&v45 + 1) + 152))(*(&v45 + 1), &v40, 4);
   if (v16 <= 0)
   {
     goto LABEL_45;
@@ -6751,14 +6774,14 @@ LABEL_3:
     goto LABEL_45;
   }
 
-  LODWORD(v41) = HIDWORD(a1[3].__r_.__value_.__r.__words[2]);
-  v17 = *(&v46 + 1);
-  if (*(*(&v46 + 1) + 8) == 1)
+  LODWORD(v40) = HIDWORD(a1[3].__r_.__value_.__r.__words[2]);
+  v17 = *(&v45 + 1);
+  if (*(*(&v45 + 1) + 8) == 1)
   {
     goto LABEL_45;
   }
 
-  v18 = (*(**(&v46 + 1) + 152))(*(&v46 + 1), &v41, 4);
+  v18 = (*(**(&v45 + 1) + 152))(*(&v45 + 1), &v40, 4);
   if (v18 <= 0)
   {
     goto LABEL_45;
@@ -6771,34 +6794,34 @@ LABEL_3:
   }
 
   v19 = SHIBYTE(a1[1].__r_.__value_.__r.__words[2]);
-  if (v19 < 0)
+  if ((v19 & 0x8000000000000000) != 0)
   {
     v19 = a1[1].__r_.__value_.__l.__size_;
   }
 
-  v41 = v19;
-  v20 = *(&v46 + 1);
-  if (*(*(&v46 + 1) + 8) == 1 || (v21 = (*(**(&v46 + 1) + 152))(*(&v46 + 1), &v41, 8), v21 <= 0) || (*(v20 + 16) += v21, v21 != 8) || (v22 = *(&v46 + 1), *(*(&v46 + 1) + 8) == 1) || (v23 = (*(**(&v46 + 1) + 152))(*(&v46 + 1), &v44, 8), v23 < 1) || (*(v22 + 16) += v23, v23 != 8))
+  v40 = v19;
+  v20 = *(&v45 + 1);
+  if (*(*(&v45 + 1) + 8) == 1 || (v21 = (*(**(&v45 + 1) + 152))(*(&v45 + 1), &v40, 8), v21 <= 0) || (*(v20 + 16) += v21, v21 != 8) || (v22 = *(&v45 + 1), *(*(&v45 + 1) + 8) == 1) || (v23 = (*(**(&v45 + 1) + 152))(*(&v45 + 1), &v43, 8), v23 < 1) || (*(v22 + 16) += v23, v23 != 8))
   {
 LABEL_45:
-    *&v46 = &unk_2852274D0;
-    if (v47 == 1 && *(&v46 + 1))
+    *&v45 = &unk_2852274D0;
+    if (v46 == 1 && *(&v45 + 1))
     {
-      (*(**(&v46 + 1) + 8))(*(&v46 + 1));
+      (*(**(&v45 + 1) + 8))(*(&v45 + 1));
     }
 
     goto LABEL_76;
   }
 
-  v24 = *(&v46 + 1);
-  if (*(*(&v46 + 1) + 8) == 1)
+  v24 = *(&v45 + 1);
+  if (*(*(&v45 + 1) + 8) == 1)
   {
     v25 = -1;
   }
 
   else
   {
-    if (v43 >= 0)
+    if (v42 >= 0)
     {
       v36 = __p;
     }
@@ -6808,7 +6831,7 @@ LABEL_45:
       v36 = __p[0];
     }
 
-    v37 = (*(**(&v46 + 1) + 152))(*(&v46 + 1), v36, v44);
+    v37 = (*(**(&v45 + 1) + 152))(*(&v45 + 1), v36, v43);
     v25 = v37;
     if (v37 >= 1)
     {
@@ -6816,8 +6839,8 @@ LABEL_45:
     }
   }
 
-  v38 = v44;
-  sub_24026A944(&v46);
+  v38 = v43;
+  sub_24026A944(&v45);
   if (v25 == v38)
   {
 LABEL_62:
@@ -6831,9 +6854,9 @@ LABEL_62:
 
       v34 = v33 + *(a1[2].__r_.__value_.__r.__words[2] - 16);
       v35 = *(a1->__r_.__value_.__r.__words[0] + 16);
-      *&v46 = v34;
-      *(&v46 + 1) = v35;
-      sub_240266AD0(&a1[2].__r_.__value_.__l.__size_, &v46);
+      *&v45 = v34;
+      *(&v45 + 1) = v35;
+      sub_240266AD0(&a1[2].__r_.__value_.__l.__size_, &v45);
       ++a1[3].__r_.__value_.__l.__size_;
     }
 
@@ -6841,7 +6864,7 @@ LABEL_62:
     std::string::reserve(a1 + 1, 0x1000000uLL);
     if (SHIBYTE(a1[1].__r_.__value_.__r.__words[2]) < 0)
     {
-      p_data = a1[1].__r_.__value_.__l.__data_;
+      v2 = a1[1].__r_.__value_.__l.__data_;
       a1[1].__r_.__value_.__l.__size_ = 0;
     }
 
@@ -6850,7 +6873,7 @@ LABEL_62:
       *(&a1[1].__r_.__value_.__s + 23) = 0;
     }
 
-    *p_data = 0;
+    v2->__r_.__value_.__s.__data_[0] = 0;
     result = 1;
     goto LABEL_77;
   }
@@ -6858,7 +6881,7 @@ LABEL_62:
 LABEL_76:
   result = 0;
 LABEL_77:
-  if (SHIBYTE(v43) < 0)
+  if (SHIBYTE(v42) < 0)
   {
     v39 = result;
     operator delete(__p[0]);
@@ -7085,7 +7108,7 @@ LABEL_20:
     if (v9 == -1)
     {
       sub_2402546E0(&v22);
-      sub_2402552EC(v24, &v22, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/CompressedDevice.cpp", 0xE8u, "missing legacy compression!", __p.__r_.__value_.__s.__data_[0]);
+      sub_2402552EC(v24, &v22, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/CompressedDevice.cpp", 0xE8u, "missing legacy compression!");
       sub_240256698(v24);
       v10 = v23;
       if (v23)
@@ -7154,15 +7177,15 @@ uint64_t sub_240266F50(void *a1, _DWORD *a2)
     return -1;
   }
 
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
   if (*(a1 + 23) == -1)
   {
-    sub_2402546E0(&v19);
-    sub_2402552EC(v23, &v19, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/CompressedDevice.cpp", 0x10Fu, "missing legacy compression!", v18);
-    sub_240256698(v23);
-    v17 = *(&v19 + 1);
-    if (*(&v19 + 1) && !atomic_fetch_add((*(&v19 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+    sub_2402546E0(&v18);
+    sub_2402552EC(v22, &v18, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/CompressedDevice.cpp", 0x10Fu, "missing legacy compression!");
+    sub_240256698(v22);
+    v17 = *(&v18 + 1);
+    if (*(&v18 + 1) && !atomic_fetch_add((*(&v18 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
       (v17->__on_zero_shared)(v17);
       std::__shared_weak_count::__release_weak(v17);
@@ -7171,36 +7194,36 @@ uint64_t sub_240266F50(void *a1, _DWORD *a2)
     return -1;
   }
 
-  v21 = 0;
-  v22 = 0;
-  *&v19 = &unk_2852274D0;
-  *(&v19 + 1) = v4;
   v20 = 0;
-  if (*(v4 + 8) == 2 || (v7 = (*(*v4 + 144))(v4, &v22, 8), v7 < 1) || ((*(v4 + 16) += v7, v7 == 8) ? (v8 = v22 == 0x277C6CE4B6030) : (v8 = 0), !v8 || *(*(&v19 + 1) + 8) == 2 || (v9 = (*(**(&v19 + 1) + 144))(*(&v19 + 1), &v21 + 4, 4), v9 < 1) || ((*(*(&v19 + 1) + 16) += v9, v9 == 4) ? (v10 = HIDWORD(v21) == 0) : (v10 = 0), !v10 || *(*(&v19 + 1) + 8) == 2 || (v11 = (*(**(&v19 + 1) + 144))(*(&v19 + 1), &v21, 4), v11 < 1) || (*(*(&v19 + 1) + 16) += v11, v11 != 4) || v21 || (v12 = *(a1 + 23)) != 0 && v12 != -2 || *(*(&v19 + 1) + 8) == 2 || (v13 = (*(**(&v19 + 1) + 144))(*(&v19 + 1), &v24, 8), v13 < 1) || (*(*(&v19 + 1) + 16) += v13, v13 != 8) || *(*(&v19 + 1) + 8) == 2 || (v14 = (*(**(&v19 + 1) + 144))(*(&v19 + 1), &v25, 8), v14 < 1) || (*(*(&v19 + 1) + 16) += v14, v14 != 8))))
+  v21 = 0;
+  *&v18 = &unk_2852274D0;
+  *(&v18 + 1) = v4;
+  v19 = 0;
+  if (*(v4 + 8) == 2 || (v7 = (*(*v4 + 144))(v4, &v21, 8), v7 < 1) || ((*(v4 + 16) += v7, v7 == 8) ? (v8 = v21 == 0x277C6CE4B6030) : (v8 = 0), !v8 || *(*(&v18 + 1) + 8) == 2 || (v9 = (*(**(&v18 + 1) + 144))(*(&v18 + 1), &v20 + 4, 4), v9 < 1) || ((*(*(&v18 + 1) + 16) += v9, v9 == 4) ? (v10 = HIDWORD(v20) == 0) : (v10 = 0), !v10 || *(*(&v18 + 1) + 8) == 2 || (v11 = (*(**(&v18 + 1) + 144))(*(&v18 + 1), &v20, 4), v11 < 1) || (*(*(&v18 + 1) + 16) += v11, v11 != 4) || v20 || (v12 = *(a1 + 23)) != 0 && v12 != -2 || *(*(&v18 + 1) + 8) == 2 || (v13 = (*(**(&v18 + 1) + 144))(*(&v18 + 1), &v23, 8), v13 < 1) || (*(*(&v18 + 1) + 16) += v13, v13 != 8) || *(*(&v18 + 1) + 8) == 2 || (v14 = (*(**(&v18 + 1) + 144))(*(&v18 + 1), &v24, 8), v14 < 1) || (*(*(&v18 + 1) + 16) += v14, v14 != 8))))
   {
-    *&v19 = &unk_2852274D0;
-    if (v20 == 1)
+    *&v18 = &unk_2852274D0;
+    if (v19 == 1)
     {
-      if (*(&v19 + 1))
+      if (*(&v18 + 1))
       {
-        (*(**(&v19 + 1) + 8))(*(&v19 + 1));
+        (*(**(&v18 + 1) + 8))(*(&v18 + 1));
       }
     }
 
     return -1;
   }
 
-  *a2 = v21;
-  sub_24026A944(&v19);
+  *a2 = v20;
+  sub_24026A944(&v18);
   if (v5 == v6)
   {
-    v15 = v25 + *(*a1 + 16);
-    *&v19 = v24 + *(a1[8] - 16);
-    *(&v19 + 1) = v15;
-    sub_240266AD0((a1 + 7), &v19);
+    v15 = v24 + *(*a1 + 16);
+    *&v18 = v23 + *(a1[8] - 16);
+    *(&v18 + 1) = v15;
+    sub_240266AD0((a1 + 7), &v18);
   }
 
-  return v25;
+  return v24;
 }
 
 uint64_t sub_24026732C(uint64_t a1, uint64_t a2)
@@ -7356,7 +7379,7 @@ uint64_t sub_2402675D8(uint64_t a1)
 
 LABEL_10:
     sub_2402546E0(&v9);
-    sub_2402552EC(v11, &v9, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/CompressedDevice.cpp", 0x227u, "couldn't load data for size()", v9);
+    sub_2402552EC(v11, &v9, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/CompressedDevice.cpp", 0x227u, "couldn't load data for size()");
     sub_240256698(v11);
     v8 = v10;
     if (v10)
@@ -7421,7 +7444,7 @@ void sub_24026789C(std::string *a1)
     if ((*(a1->__r_.__value_.__r.__words[0] + 8) & 2) != 0 && (sub_240266434(a1) & 1) == 0)
     {
       sub_2402546E0(&v3);
-      sub_2402552EC(v5, &v3, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/CompressedDevice.cpp", 0x1B7u, "Could not write final block", v3);
+      sub_2402552EC(v5, &v3, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/CompressedDevice.cpp", 0x1B7u, "Could not write final block");
       sub_240256698(v5);
       v2 = v4;
       if (v4)
@@ -7526,7 +7549,7 @@ LABEL_19:
 
     v8 = a1;
     sub_2402546E0(&v11);
-    sub_2402552EC(v10, &v11, 0, 0, "[RELEASE WARNING]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/CompressedDevice.cpp", 0x1F9u, "Legacy CompressedDevice format is deprecated, consider converting your data", v10[0]);
+    sub_2402552EC(v10, &v11, 0, 0, "[RELEASE WARNING]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/CompressedDevice.cpp", 0x1F9u, "Legacy CompressedDevice format is deprecated, consider converting your data");
     sub_240256698(v10);
     v9 = v12;
     if (v12 && !atomic_fetch_add(&v12->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -7546,7 +7569,7 @@ LABEL_19:
   }
 
   sub_2402546E0(&v11);
-  sub_2402552EC(v13, &v11, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/CompressedDevice.cpp", 0x1E8u, "Could not open IO device", v10[0]);
+  sub_2402552EC(v13, &v11, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/CompressedDevice.cpp", 0x1E8u, "Could not open IO device");
   sub_240256698(v13);
   v1 = v12;
   if (v12)
@@ -7598,7 +7621,7 @@ void sub_240267CE8(uint64_t a1)
   std::mutex::unlock((a1 + 24));
 }
 
-uint64_t sub_240267DEC(uint64_t a1)
+uint64_t sub_240267DEC(uint64_t a1, void *a2)
 {
   std::mutex::lock((a1 + 16));
   if (*(a1 + 128) != 1)
@@ -7701,68 +7724,71 @@ void sub_2402680BC(uint64_t a1)
   std::mutex::unlock((a1 + 16));
 }
 
-uint64_t sub_2402681A0(uint64_t a1, void *a2, int a3, uint64_t a4)
+void sub_2402681A0(uint64_t a1, void *a2, unsigned int a3, uint64_t a4)
 {
-  v24.__m_ = (a1 + 16);
-  v24.__owns_ = 1;
+  v25.__m_ = (a1 + 16);
+  v25.__owns_ = 1;
   std::mutex::lock((a1 + 16));
   v8 = 0;
   v9 = *(a1 + 152);
-  if (a3 >= 1 && !v9)
+  if (a3 < 1 || v9)
   {
-    v8 = a4 != 0;
-    if (a4)
-    {
-      if ((*(a4 + 8) & 1) == 0)
-      {
-        goto LABEL_37;
-      }
+    goto LABEL_18;
+  }
 
-      std::mutex::unlock(*a4);
-      *(a4 + 8) = 0;
+  v8 = a4 != 0;
+  if (a4)
+  {
+    if ((*(a4 + 8) & 1) == 0)
+    {
+      goto LABEL_37;
     }
 
-    std::chrono::steady_clock::now();
-    v10.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-    if (v10.__d_.__rep_)
-    {
-      if (v10.__d_.__rep_ < 1)
-      {
-        if (v10.__d_.__rep_ < 0xFFDF3B645A1CAC09)
-        {
-          v11 = 0x8000000000000000;
-          goto LABEL_14;
-        }
-      }
+    std::mutex::unlock(*a4);
+    *(a4 + 8) = 0;
+  }
 
-      else if (v10.__d_.__rep_ > 0x20C49BA5E353F7)
-      {
-        v11 = 0x7FFFFFFFFFFFFFFFLL;
-LABEL_14:
-        if (v11 <= ((1000000 * a3) ^ 0x7FFFFFFFFFFFFFFFLL))
-        {
-          v12.__d_.__rep_ = v11 + 1000000 * a3;
-        }
-
-        else
-        {
-          v12.__d_.__rep_ = 0x7FFFFFFFFFFFFFFFLL;
-        }
-
-        std::condition_variable::__do_timed_wait((a1 + 80), &v24, v12);
-        std::chrono::steady_clock::now();
-        v9 = *(a1 + 152);
-        goto LABEL_18;
-      }
-
-      v11 = 1000 * v10.__d_.__rep_;
-      goto LABEL_14;
-    }
-
+  std::chrono::steady_clock::now();
+  v10.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
+  if (!v10.__d_.__rep_)
+  {
     v11 = 0;
     goto LABEL_14;
   }
 
+  if (v10.__d_.__rep_ < 1)
+  {
+    if (v10.__d_.__rep_ < 0xFFDF3B645A1CAC09)
+    {
+      v11 = 0x8000000000000000;
+      goto LABEL_14;
+    }
+
+LABEL_13:
+    v11 = 1000 * v10.__d_.__rep_;
+    goto LABEL_14;
+  }
+
+  if (v10.__d_.__rep_ <= 0x20C49BA5E353F7)
+  {
+    goto LABEL_13;
+  }
+
+  v11 = 0x7FFFFFFFFFFFFFFFLL;
+LABEL_14:
+  if (v11 <= ((1000000 * a3) ^ 0x7FFFFFFFFFFFFFFFLL))
+  {
+    v12.__d_.__rep_ = v11 + 1000000 * a3;
+  }
+
+  else
+  {
+    v12.__d_.__rep_ = 0x7FFFFFFFFFFFFFFFLL;
+  }
+
+  std::condition_variable::__do_timed_wait((a1 + 80), &v25, v12);
+  std::chrono::steady_clock::now();
+  v9 = *(a1 + 152);
 LABEL_18:
   if (v9)
   {
@@ -7802,35 +7828,33 @@ LABEL_18:
     operator delete(v17);
   }
 
-  if (v24.__owns_)
+  if (v25.__owns_)
   {
-    std::mutex::unlock(v24.__m_);
+    std::mutex::unlock(v25.__m_);
   }
 
-  if (!v8)
+  if (v8)
   {
-    return v9 != 0;
-  }
-
-  if (*a4)
-  {
-    if (*(a4 + 8) != 1)
+    if (*a4)
     {
-      std::mutex::lock(*a4);
-      *(a4 + 8) = 1;
-      return v9 != 0;
+      if (*(a4 + 8) != 1)
+      {
+        std::mutex::lock(*a4);
+        *(a4 + 8) = 1;
+        return;
+      }
     }
-  }
 
-  else
-  {
-    std::__throw_system_error(1, "unique_lock::lock: references null mutex");
-  }
+    else
+    {
+      std::__throw_system_error(1, "unique_lock::lock: references null mutex");
+    }
 
-  std::__throw_system_error(11, "unique_lock::lock: already locked");
+    std::__throw_system_error(11, "unique_lock::lock: already locked");
 LABEL_37:
-  std::__throw_system_error(1, "unique_lock::unlock: not locked");
-  return sub_24026840C();
+    std::__throw_system_error(1, "unique_lock::unlock: not locked");
+    sub_24026840C(v23, v24);
+  }
 }
 
 void sub_24026840C(uint64_t a1@<X0>, void *a2@<X8>)
@@ -7959,7 +7983,7 @@ uint64_t sub_240268624(uint64_t a1)
   return a1;
 }
 
-void sub_240268720(uint64_t a1, void *a2)
+void sub_240268720(std::string *a1, void *a2)
 {
   v2 = a2;
   v24 = *MEMORY[0x277D85DE8];
@@ -8107,8 +8131,8 @@ LABEL_34:
 LABEL_21:
     if (!v11)
     {
-      *a1 = *v21;
-      *(a1 + 16) = v22;
+      *&a1->__r_.__value_.__l.__data_ = *v21;
+      a1->__r_.__value_.__r.__words[2] = v22;
       return;
     }
 
@@ -8186,7 +8210,7 @@ LABEL_54:
   }
 }
 
-void sub_240268ED8(void *a1, uint64_t a2)
+void sub_240268ED8(uint64_t *a1, uint64_t a2)
 {
   if (*(a2 + 24))
   {
@@ -8226,92 +8250,92 @@ LABEL_5:
   cva::Path::~Path(v3);
 }
 
-void *sub_2402690E4(uint64_t a1, const void **a2)
+uint64_t *sub_2402690E4(uint64_t **a1, const void **a2, __int128 **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_27:
     operator new();
   }
 
-  v3 = *(a2 + 23);
-  if (v3 >= 0)
+  v4 = *(a2 + 23);
+  if (v4 >= 0)
   {
-    v4 = a2;
+    v5 = a2;
   }
 
   else
   {
-    v4 = *a2;
+    v5 = *a2;
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
-    v5 = a2[1];
+    v6 = a2[1];
   }
 
   while (1)
   {
     while (1)
     {
-      v6 = v2;
-      v9 = v2[4];
-      v7 = v2 + 4;
-      v8 = v9;
-      v10 = *(v7 + 23);
-      v11 = v10 >= 0 ? v7 : v8;
-      v12 = v10 >= 0 ? *(v7 + 23) : v7[1];
-      v13 = (v12 >= v5 ? v5 : v12);
-      v14 = memcmp(v4, v11, v13);
-      if (v14)
+      v7 = v3;
+      v10 = v3[4];
+      v8 = v3 + 4;
+      v9 = v10;
+      v11 = *(v8 + 23);
+      v12 = v11 >= 0 ? v8 : v9;
+      v13 = v11 >= 0 ? *(v8 + 23) : v8[1];
+      v14 = (v13 >= v6 ? v6 : v13);
+      v15 = memcmp(v5, v12, v14);
+      if (v15)
       {
         break;
       }
 
-      if (v5 >= v12)
+      if (v6 >= v13)
       {
         goto LABEL_22;
       }
 
 LABEL_8:
-      v2 = *v6;
-      if (!*v6)
+      v3 = *v7;
+      if (!*v7)
       {
         goto LABEL_27;
       }
     }
 
-    if (v14 < 0)
+    if (v15 < 0)
     {
       goto LABEL_8;
     }
 
 LABEL_22:
-    v15 = memcmp(v11, v4, v13);
-    if (v15)
+    v16 = memcmp(v12, v5, v14);
+    if (v16)
     {
-      if ((v15 & 0x80000000) == 0)
+      if ((v16 & 0x80000000) == 0)
       {
-        return v6;
+        return v7;
       }
 
       goto LABEL_26;
     }
 
-    if (v12 >= v5)
+    if (v13 >= v6)
     {
-      return v6;
+      return v7;
     }
 
 LABEL_26:
-    v2 = v6[1];
-    if (!v2)
+    v3 = v7[1];
+    if (!v3)
     {
       goto LABEL_27;
     }
@@ -8392,7 +8416,7 @@ uint64_t *sub_240269344(uint64_t a1, const void **a2)
       v8 = *(v3 + 55);
       v9 = v8 >= 0 ? v3 + 4 : v3[4];
       v10 = v8 >= 0 ? *(v3 + 55) : v3[5];
-      v11 = v6 >= v10 ? v10 : v6;
+      v11 = (v6 >= v10 ? v10 : v6);
       v12 = memcmp(v9, v5, v11);
       if (v12)
       {
@@ -8495,12 +8519,12 @@ void sub_240269510(std::__shared_weak_count *a1)
   JUMPOUT(0x245CBCA30);
 }
 
-void sub_240269584(void *a1, uint64_t a2, const void **a3)
+void sub_240269584(void *a1, const void **a2, const void **a3)
 {
   *a1 = 0;
   a1[1] = 0;
-  sub_240268720(__p, a3);
-  if ((a2 + 40) != sub_240269344(a2 + 32, a3) || sub_240269344(a2 + 32, __p) != (a2 + 40))
+  sub_240268720(&__p, a3);
+  if (a2 + 5 != sub_240269344((a2 + 4), a3) || sub_240269344((a2 + 4), &__p.__r_.__value_.__l.__data_) != (a2 + 5))
   {
     sub_240268ED8(&__dst, a2);
     operator new();
@@ -8509,7 +8533,7 @@ void sub_240269584(void *a1, uint64_t a2, const void **a3)
   v6 = *(a3 + 23);
   v7 = *a3;
   v8 = a3[1];
-  if ((v6 & 0x80u) == 0)
+  if (v6 >= 0)
   {
     v9 = *(a3 + 23);
   }
@@ -8544,7 +8568,7 @@ LABEL_18:
     goto LABEL_21;
   }
 
-  if ((v6 & 0x80u) == 0)
+  if (v6 >= 0)
   {
     v11 = a3;
   }
@@ -8618,8 +8642,8 @@ LABEL_77:
   }
 
 LABEL_53:
-  v21 = v8 - 2;
-  if (v8 - 2 > 0x7FFFFFFFFFFFFFF7)
+  v21 = (v8 - 2);
+  if ((v8 - 2) > 0x7FFFFFFFFFFFFFF7)
   {
     goto LABEL_78;
   }
@@ -8666,7 +8690,7 @@ LABEL_36:
     goto LABEL_58;
   }
 
-  if (!*(a2 + 8))
+  if (!a2[1])
   {
     goto LABEL_36;
   }
@@ -8679,7 +8703,7 @@ LABEL_29:
 
   else
   {
-    v15 = *(a2 + 8);
+    v15 = a2[1];
   }
 
   if (v15 + 1 > 0x7FFFFFFFFFFFFFF7)
@@ -8780,7 +8804,7 @@ LABEL_64:
   if ((SHIBYTE(v28) & 0x80000000) == 0)
   {
 LABEL_65:
-    if ((v30 & 0x80000000) == 0)
+    if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       return;
     }
@@ -8790,10 +8814,10 @@ LABEL_65:
 
 LABEL_70:
   operator delete(v27[0]);
-  if (v30 < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
 LABEL_66:
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 }
 
@@ -8804,14 +8828,14 @@ void sub_240269CF8(uint64_t a1)
   {
     if (v1 == 1)
     {
-      v3 = *a1;
-      CMTimeGetSeconds(&v3);
+      v5 = *a1;
+      CMTimeGetSeconds(&v5);
     }
 
     else
     {
-      v2 = sub_2401F0C48();
-      sub_240269D58(v2);
+      sub_2401F0C48();
+      sub_240269D58(v2, v3, v4);
     }
   }
 }
@@ -8851,9 +8875,9 @@ LABEL_7:
 
     if (v4 != 1)
     {
-      memset(&v13, 0, sizeof(v13));
+      memset(&v14, 0, sizeof(v14));
       v7 = a3;
-      CMTimeMakeWithSeconds(&v13, *a2, 1000000);
+      CMTimeMakeWithSeconds(&v14, *a2, 1000000);
       a3 = v7;
       v5 = *(v7 + 24);
       goto LABEL_13;
@@ -8868,34 +8892,34 @@ LABEL_7:
     return result;
   }
 
-  v13 = *a2;
+  v14 = *a2;
 LABEL_13:
-  memset(&v12, 0, sizeof(v12));
+  memset(&v13, 0, sizeof(v13));
   if (!v5)
   {
-    CMTimeMakeWithSeconds(&v12, *a3, 1000000);
+    CMTimeMakeWithSeconds(&v13, *a3, 1000000);
     goto LABEL_17;
   }
 
   if (v5 == 1)
   {
-    v12 = *a3;
+    v13 = *a3;
 LABEL_17:
-    memset(&v11, 0, sizeof(v11));
-    lhs = v13;
-    v9 = v12;
-    result = CMTimeAdd(&v11, &lhs, &v9);
-    *v3 = v11;
+    memset(&v12, 0, sizeof(v12));
+    lhs = v14;
+    v10 = v13;
+    result = CMTimeAdd(&v12, &lhs, &v10);
+    *v3 = v12;
     LODWORD(v3[1].value) = 1;
     return result;
   }
 
 LABEL_18:
-  v8 = sub_2401F0C48();
-  return sub_240269ECC(v8);
+  sub_2401F0C48();
+  return sub_240269ECC(v8, v9);
 }
 
-uint64_t sub_240269ECC(uint64_t a1, uint64_t a2)
+size_t sub_240269ECC(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 24);
   if (v2)
@@ -8926,25 +8950,25 @@ uint64_t sub_240269ECC(uint64_t a1, uint64_t a2)
 
     if (v2 != 1)
     {
-      memset(&v13, 0, sizeof(v13));
+      memset(&v15, 0, sizeof(v15));
       v7 = a2;
-      CMTimeMakeWithSeconds(&v13, *a1, 1000000);
+      CMTimeMakeWithSeconds(&v15, *a1, 1000000);
       a2 = v7;
       v3 = *(v7 + 24);
       goto LABEL_20;
     }
 
 LABEL_18:
-    v13 = *a1;
+    v15 = *a1;
 LABEL_20:
-    memset(&v12, 0, sizeof(v12));
+    memset(&v14, 0, sizeof(v14));
     if (!v3)
     {
-      CMTimeMakeWithSeconds(&v12, *a2, 1000000);
+      CMTimeMakeWithSeconds(&v14, *a2, 1000000);
 LABEL_24:
-      time1 = v13;
-      v10 = v12;
-      v8 = CMTimeCompare(&time1, &v10);
+      time1 = v15;
+      v12 = v14;
+      v8 = CMTimeCompare(&time1, &v12);
       if (v8 < 0)
       {
         return 0xFFFFFFFFLL;
@@ -8958,13 +8982,13 @@ LABEL_24:
 
     if (v3 == 1)
     {
-      v12 = *a2;
+      v14 = *a2;
       goto LABEL_24;
     }
 
 LABEL_27:
-    v9 = sub_2401F0C48();
-    return sub_24026A024(v9);
+    sub_2401F0C48();
+    return sub_24026A024(v9, v10, v11);
   }
 
   v5 = *a2;
@@ -9087,7 +9111,7 @@ uint64_t sub_24026A1F0(uint64_t result)
   return result;
 }
 
-uint64_t sub_24026A268(uint64_t a1, const void *a2, unint64_t a3)
+uint64_t sub_24026A268(uint64_t a1, const void *a2, size_t a3)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
@@ -9096,7 +9120,7 @@ uint64_t sub_24026A268(uint64_t a1, const void *a2, unint64_t a3)
   if (!a2)
   {
     sub_2402546E0(&v11);
-    sub_2402552EC(v13, &v11, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/fsByteArray.cpp", 0x2Au, "assert %s failed. The byte array cannot be created with invalid data.%s", "data");
+    sub_2402552EC(v13, &v11, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/fsByteArray.cpp", 0x2Au, "assert %s failed. The byte array cannot be created with invalid data.%s", "data", "");
     sub_240256698(v13);
     v7 = v12;
     if (v12)
@@ -9112,7 +9136,7 @@ uint64_t sub_24026A268(uint64_t a1, const void *a2, unint64_t a3)
   if ((a3 & 0x8000000000000000) != 0)
   {
     sub_2402546E0(&v11);
-    sub_2402552EC(v10, &v11, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/fsByteArray.cpp", 0x2Bu, "assert %s failed. The byte array cannot be created with a negative size.%s", "size >= 0");
+    sub_2402552EC(v10, &v11, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/fsByteArray.cpp", 0x2Bu, "assert %s failed. The byte array cannot be created with a negative size.%s", "size >= 0", "");
     sub_240256698(v10);
     v8 = v12;
     if (v12 && !atomic_fetch_add(&v12->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -9146,14 +9170,14 @@ uint64_t sub_24026A434(uint64_t a1, unint64_t a2)
     }
 
     sub_2402546E0(&v6);
-    sub_2402552EC(v5, &v6, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/fsByteArray.cpp", 0x6Bu, "trying to expand the buffer with invalid size", v5[0]);
+    sub_2402552EC(v5, &v6, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/fsByteArray.cpp", 0x6Bu, "trying to expand the buffer with invalid size");
     v2 = v5;
   }
 
   else
   {
     sub_2402546E0(&v6);
-    sub_2402552EC(v8, &v6, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/fsByteArray.cpp", 0x66u, "cannot expand a non-owned data buffer.", v5[0]);
+    sub_2402552EC(v8, &v6, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/fsByteArray.cpp", 0x66u, "cannot expand a non-owned data buffer.");
     v2 = v8;
   }
 
@@ -9224,7 +9248,7 @@ LABEL_6:
       }
 
       sub_2402546E0(&v7);
-      sub_2402552EC(v9, &v7, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/fsByteArray.cpp", 0x101u, "could not extend buffer size", v7);
+      sub_2402552EC(v9, &v7, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/utils/src/fsByteArray.cpp", 0x101u, "could not extend buffer size");
       sub_240256698(v9);
       v6 = v8;
       if (v8)
@@ -9734,22 +9758,4 @@ void sub_24026B554(uint64_t a1)
 
     std::ios_base::clear(v2, v3);
   }
-}
-
-void sub_24026B5CC(uint64_t a1)
-{
-  *a1 = &unk_285227420;
-  if (*(a1 + 639) < 0)
-  {
-    operator delete(*(a1 + 616));
-  }
-
-  *(a1 + 32) = &unk_285226DD8;
-  *(a1 + 464) = &unk_285226E28;
-  *(a1 + 48) = &unk_285226E00;
-  MEMORY[0x245CBC6E0](a1 + 56);
-  std::iostream::~basic_iostream();
-  MEMORY[0x245CBC9C0](a1 + 464);
-
-  JUMPOUT(0x245CBCA30);
 }

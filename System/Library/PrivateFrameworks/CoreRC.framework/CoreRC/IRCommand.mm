@@ -1,4 +1,5 @@
 @interface IRCommand
++ (id)commandWithProtocol:(id)protocol payload:(unint64_t)payload repeat:(BOOL)repeat;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)setSequence:(unint64_t *)sequence withCount:(unint64_t)count;
 - (IRCommand)initWithCoder:(id)coder;
@@ -10,6 +11,19 @@
 @end
 
 @implementation IRCommand
+
++ (id)commandWithProtocol:(id)protocol payload:(unint64_t)payload repeat:(BOOL)repeat
+{
+  repeatCopy = repeat;
+  if ([protocol protocolID] == 1)
+  {
+    [AppleIRCommand matchNECVendorID:WORD1(payload)];
+  }
+
+  v8 = [objc_alloc(objc_opt_class()) initWithProtocol:protocol payload:payload repeat:repeatCopy];
+
+  return v8;
+}
 
 - (void)dealloc
 {

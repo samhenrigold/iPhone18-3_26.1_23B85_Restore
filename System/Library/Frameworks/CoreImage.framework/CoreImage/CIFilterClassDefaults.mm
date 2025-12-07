@@ -35,7 +35,7 @@ uint64_t __30__CIFilterClassDefaults_cache__block_invoke()
 
 + (id)classDefaultsForClass:(Class)class
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   cache = [self cache];
   v5 = objc_opt_class();
   if (![(objc_class *)class isSubclassOfClass:v5])
@@ -51,68 +51,68 @@ uint64_t __30__CIFilterClassDefaults_cache__block_invoke()
   dictionary = [cache objectForKey:class];
   if (!dictionary)
   {
-    v20 = cache;
-    CustomAttributes = getCustomAttributes(class);
+    v21 = cache;
+    CustomAttributes = getCustomAttributes(class, v6);
     classCopy = class;
-    v8 = [+[CIFilterClassInfo classInfoForClass:](CIFilterClassInfo classInfoForClass:{class), "inputKeys"}];
+    v9 = [+[CIFilterClassInfo classInfoForClass:](CIFilterClassInfo classInfoForClass:{class), "inputKeys"}];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v9)
+    v26 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v23;
+      v11 = v10;
+      v12 = *v24;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v11)
+          if (*v24 != v12)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v22 + 1) + 8 * i);
+          v14 = *(*(&v23 + 1) + 8 * i);
           dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-          StdAttrsForKey = getStdAttrsForKey(v13);
+          StdAttrsForKey = getStdAttrsForKey(v14);
           if (StdAttrsForKey)
           {
             [dictionary2 addEntriesFromDictionary:StdAttrsForKey];
           }
 
-          v16 = [CustomAttributes valueForKey:v13];
-          if (v16)
+          v17 = [(NSMutableDictionary *)CustomAttributes valueForKey:v14];
+          if (v17)
           {
-            v17 = v16;
+            v18 = v17;
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [dictionary2 addEntriesFromDictionary:v17];
+              [dictionary2 addEntriesFromDictionary:v18];
             }
           }
 
-          v18 = [dictionary2 objectForKey:@"CIAttributeDefault"];
-          if (!v18)
+          v19 = [dictionary2 objectForKey:@"CIAttributeDefault"];
+          if (!v19)
           {
-            v18 = [dictionary2 objectForKey:@"CIAttributeIdentity"];
-            if (!v18)
+            v19 = [dictionary2 objectForKey:@"CIAttributeIdentity"];
+            if (!v19)
             {
               continue;
             }
           }
 
-          [dictionary setObject:v18 forKey:v13];
+          [dictionary setObject:v19 forKey:v14];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
-    [v20 setObject:dictionary forKey:classCopy];
+    [v21 setObject:dictionary forKey:classCopy];
   }
 
   return dictionary;

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)routingDecisionAsString:(int)string;
 - (int)StringAsRoutingDecision:(id)decision;
 - (int)routingDecision;
 - (unint64_t)hash;
@@ -114,7 +115,6 @@ LABEL_7:
     }
   }
 
-  v7 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_routingDecision != *(equalCopy + 6))
@@ -126,24 +126,24 @@ LABEL_7:
   else if (*(equalCopy + 40))
   {
 LABEL_13:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
   correctionOutcome = self->_correctionOutcome;
   if (correctionOutcome | *(equalCopy + 1))
   {
-    v9 = [(SIRINLUEXTERNALCorrectionOutcome *)correctionOutcome isEqual:?];
+    v8 = [(SIRINLUEXTERNALCorrectionOutcome *)correctionOutcome isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_14:
 
-  return v9;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -202,30 +202,29 @@ LABEL_14:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_utteranceId)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_rewriteUtterance)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    routingDecision = self->_routingDecision;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_correctionOutcome)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -314,6 +313,21 @@ LABEL_14:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)routingDecisionAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8328288[string];
   }
 
   return v4;

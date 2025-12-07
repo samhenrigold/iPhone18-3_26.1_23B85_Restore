@@ -1,18 +1,119 @@
 @interface CDKeylineImageFactory
 + (CGPath)_cornerPathWithDevice:(id)device size:(CGSize)size innerCircleRadius:(double)radius strokeWidth:(double)width;
 + (CGPath)cornerPathWithDevice:(id)device corner:(unint64_t)corner size:(CGSize)size innerCircleRadius:(double)radius;
++ (id)_cornerKeylineWithDevice:(id)device size:(CGSize)size innerCircleRadius:(double)radius strokeWidth:(double)width filled:(BOOL)filled;
 + (id)_heartKeylineWithDevice:(id)device outerRadius:(double)radius innerRadius:(double)innerRadius sideCircleRadius:(double)circleRadius topCircleRadius:(double)topCircleRadius strokeWidth:(double)width filled:(BOOL)filled;
++ (id)_smileKeylineWithDevice:(id)device outerRadius:(double)radius innerRadius:(double)innerRadius angle:(double)angle strokeWidth:(double)width filled:(BOOL)filled;
++ (id)cornerKeylineWithDevice:(id)device corner:(unint64_t)corner size:(CGSize)size innerCircleRadius:(double)radius strokeWidth:(double)width filled:(BOOL)filled;
++ (id)heartKeylineWithDevice:(id)device outerRadius:(double)radius innerRadius:(double)innerRadius sideCircleRadius:(double)circleRadius topCircleRadius:(double)topCircleRadius strokeWidth:(double)width filled:(BOOL)filled;
++ (id)smileKeylineWithDevice:(id)device outerRadius:(double)radius innerRadius:(double)innerRadius angle:(double)angle strokeWidth:(double)width filled:(BOOL)filled;
 + (id)smileShapeWithDevice:(id)device outerRadius:(double)radius innerRadius:(double)innerRadius angle:(double)angle strokeWidth:(double)width filled:(BOOL)filled;
 + (id)topLeftCornerShapeWithDevice:(id)device size:(CGSize)size innerCircleRadius:(double)radius strokeWidth:(double)width filled:(BOOL)filled;
 @end
 
 @implementation CDKeylineImageFactory
 
++ (id)cornerKeylineWithDevice:(id)device corner:(unint64_t)corner size:(CGSize)size innerCircleRadius:(double)radius strokeWidth:(double)width filled:(BOOL)filled
+{
+  filledCopy = filled;
+  height = size.height;
+  width = size.width;
+  deviceCopy = device;
+  if (cornerKeylineWithDevice_corner_size_innerCircleRadius_strokeWidth_filled__onceToken != -1)
+  {
+    +[CDKeylineImageFactory cornerKeylineWithDevice:corner:size:innerCircleRadius:strokeWidth:filled:];
+  }
+
+  filledCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu-%lu-(%f-%f)-%f-%f-%i", objc_msgSend(deviceCopy, "sizeClass"), corner, *&width, *&height, *&radius, *&width, filledCopy];
+  v17 = [cornerKeylineWithDevice_corner_size_innerCircleRadius_strokeWidth_filled__imageCache objectForKeyedSubscript:filledCopy];
+
+  if (v17)
+  {
+    v18 = [cornerKeylineWithDevice_corner_size_innerCircleRadius_strokeWidth_filled__imageCache objectForKeyedSubscript:filledCopy];
+    goto LABEL_18;
+  }
+
+  v19 = [self _cornerKeylineWithDevice:deviceCopy size:filledCopy innerCircleRadius:width strokeWidth:height filled:{radius, width}];
+  v20 = v19;
+  if (corner > 3)
+  {
+    if (corner == 4)
+    {
+      v29 = v19;
+      cGImage = [v29 CGImage];
+      [v29 scale];
+      v23 = v29;
+      v24 = cGImage;
+      v25 = 5;
+      goto LABEL_15;
+    }
+
+    if (corner == 8)
+    {
+      v26 = v19;
+      cGImage2 = [v26 CGImage];
+      [v26 scale];
+      v23 = v26;
+      v24 = cGImage2;
+      v25 = 1;
+      goto LABEL_15;
+    }
+  }
+
+  else
+  {
+    if (corner == 1)
+    {
+      v28 = v19;
+LABEL_16:
+      v18 = v28;
+      goto LABEL_17;
+    }
+
+    if (corner == 2)
+    {
+      v21 = v19;
+      cGImage3 = [v21 CGImage];
+      [v21 scale];
+      v23 = v21;
+      v24 = cGImage3;
+      v25 = 4;
+LABEL_15:
+      v28 = [v23 initWithCGImage:v24 scale:v25 orientation:?];
+      goto LABEL_16;
+    }
+  }
+
+  [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"%s corner argument expects that exactly one corner is specified", "+[CDKeylineImageFactory cornerKeylineWithDevice:corner:size:innerCircleRadius:strokeWidth:filled:]"}];
+  v18 = 0;
+LABEL_17:
+  [cornerKeylineWithDevice_corner_size_innerCircleRadius_strokeWidth_filled__imageCache setObject:v18 forKeyedSubscript:filledCopy];
+
+LABEL_18:
+
+  return v18;
+}
+
 uint64_t __98__CDKeylineImageFactory_cornerKeylineWithDevice_corner_size_innerCircleRadius_strokeWidth_filled___block_invoke()
 {
   cornerKeylineWithDevice_corner_size_innerCircleRadius_strokeWidth_filled__imageCache = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
+}
+
++ (id)_cornerKeylineWithDevice:(id)device size:(CGSize)size innerCircleRadius:(double)radius strokeWidth:(double)width filled:(BOOL)filled
+{
+  height = size.height;
+  width = size.width;
+  width = [CDKeylineImageFactory topLeftCornerShapeWithDevice:device size:filled innerCircleRadius:size.width strokeWidth:size.height filled:radius, width];
+  v13.width = width;
+  v13.height = height;
+  UIGraphicsBeginImageContextWithOptions(v13, 0, 0.0);
+  [width renderInContext:UIGraphicsGetCurrentContext()];
+  v10 = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+
+  return v10;
 }
 
 + (id)topLeftCornerShapeWithDevice:(id)device size:(CGSize)size innerCircleRadius:(double)radius strokeWidth:(double)width filled:(BOOL)filled
@@ -238,10 +339,9 @@ void __82__CDKeylineImageFactory__cornerPathWithDevice_size_innerCircleRadius_st
       v26 = *(a1 + 96) - v5;
       if (v6 == v25 && v7 == v26)
       {
-        v28 = *(a1 + 40);
-        v29 = *(*(a1 + 32) + 16);
+        v28 = *(*(a1 + 32) + 16);
 
-        v29();
+        v28();
       }
     }
   }
@@ -254,6 +354,29 @@ void __82__CDKeylineImageFactory__cornerPathWithDevice_size_innerCircleRadius_st
 
     CGPathMoveToPoint(v16, 0, v17, v18);
   }
+}
+
++ (id)heartKeylineWithDevice:(id)device outerRadius:(double)radius innerRadius:(double)innerRadius sideCircleRadius:(double)circleRadius topCircleRadius:(double)topCircleRadius strokeWidth:(double)width filled:(BOOL)filled
+{
+  filledCopy = filled;
+  deviceCopy = device;
+  if (heartKeylineWithDevice_outerRadius_innerRadius_sideCircleRadius_topCircleRadius_strokeWidth_filled__onceToken != -1)
+  {
+    +[CDKeylineImageFactory heartKeylineWithDevice:outerRadius:innerRadius:sideCircleRadius:topCircleRadius:strokeWidth:filled:];
+  }
+
+  filledCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu-%f-%f-%f-%f-%f-%i", objc_msgSend(deviceCopy, "sizeClass"), *&radius, *&innerRadius, *&circleRadius, *&topCircleRadius, *&width, filledCopy];
+  v18 = [heartKeylineWithDevice_outerRadius_innerRadius_sideCircleRadius_topCircleRadius_strokeWidth_filled__imageCache objectForKeyedSubscript:filledCopy];
+
+  if (!v18)
+  {
+    v19 = [self _heartKeylineWithDevice:deviceCopy outerRadius:filledCopy innerRadius:radius sideCircleRadius:innerRadius topCircleRadius:circleRadius strokeWidth:topCircleRadius filled:width];
+    [heartKeylineWithDevice_outerRadius_innerRadius_sideCircleRadius_topCircleRadius_strokeWidth_filled__imageCache setObject:v19 forKeyedSubscript:filledCopy];
+  }
+
+  v20 = [heartKeylineWithDevice_outerRadius_innerRadius_sideCircleRadius_topCircleRadius_strokeWidth_filled__imageCache objectForKeyedSubscript:filledCopy];
+
+  return v20;
 }
 
 uint64_t __124__CDKeylineImageFactory_heartKeylineWithDevice_outerRadius_innerRadius_sideCircleRadius_topCircleRadius_strokeWidth_filled___block_invoke()
@@ -317,11 +440,48 @@ uint64_t __124__CDKeylineImageFactory_heartKeylineWithDevice_outerRadius_innerRa
   return v25;
 }
 
++ (id)smileKeylineWithDevice:(id)device outerRadius:(double)radius innerRadius:(double)innerRadius angle:(double)angle strokeWidth:(double)width filled:(BOOL)filled
+{
+  filledCopy = filled;
+  deviceCopy = device;
+  if (smileKeylineWithDevice_outerRadius_innerRadius_angle_strokeWidth_filled__onceToken != -1)
+  {
+    +[CDKeylineImageFactory smileKeylineWithDevice:outerRadius:innerRadius:angle:strokeWidth:filled:];
+  }
+
+  filledCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu-%f-%f-%f-%f-%i", objc_msgSend(deviceCopy, "sizeClass"), *&radius, *&innerRadius, *&angle, *&width, filledCopy];
+  v16 = [smileKeylineWithDevice_outerRadius_innerRadius_angle_strokeWidth_filled__imageCache objectForKeyedSubscript:filledCopy];
+
+  if (!v16)
+  {
+    v17 = [self _smileKeylineWithDevice:deviceCopy outerRadius:filledCopy innerRadius:radius angle:innerRadius strokeWidth:angle filled:width];
+    [smileKeylineWithDevice_outerRadius_innerRadius_angle_strokeWidth_filled__imageCache setObject:v17 forKeyedSubscript:filledCopy];
+  }
+
+  v18 = [smileKeylineWithDevice_outerRadius_innerRadius_angle_strokeWidth_filled__imageCache objectForKeyedSubscript:filledCopy];
+
+  return v18;
+}
+
 uint64_t __97__CDKeylineImageFactory_smileKeylineWithDevice_outerRadius_innerRadius_angle_strokeWidth_filled___block_invoke()
 {
   smileKeylineWithDevice_outerRadius_innerRadius_angle_strokeWidth_filled__imageCache = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
+}
+
++ (id)_smileKeylineWithDevice:(id)device outerRadius:(double)radius innerRadius:(double)innerRadius angle:(double)angle strokeWidth:(double)width filled:(BOOL)filled
+{
+  v8 = [CDKeylineImageFactory smileShapeWithDevice:device outerRadius:filled innerRadius:radius angle:innerRadius strokeWidth:angle filled:width];
+  [v8 bounds];
+  v14.width = v9;
+  v14.height = v10;
+  UIGraphicsBeginImageContextWithOptions(v14, 0, 0.0);
+  [v8 renderInContext:UIGraphicsGetCurrentContext()];
+  v11 = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+
+  return v11;
 }
 
 + (id)smileShapeWithDevice:(id)device outerRadius:(double)radius innerRadius:(double)innerRadius angle:(double)angle strokeWidth:(double)width filled:(BOOL)filled

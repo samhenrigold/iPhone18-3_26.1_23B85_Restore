@@ -85,19 +85,19 @@ uint64_t __38__WLDaemonConnection_daemonConnection__block_invoke_2(uint64_t a1)
   _WLLog(v1, 0, @"WLDaemonConnection XPC connection interrupted for weak instance %@", v2, v3, v4, v5, v6, WeakRetained);
   if (WeakRetained)
   {
-    [WeakRetained[1] lock];
-    v7 = WeakRetained[2];
-    WeakRetained[2] = 0;
+    [*(WeakRetained + 1) lock];
+    v8 = *(WeakRetained + 2);
+    *(WeakRetained + 2) = 0;
 
-    [WeakRetained[1] unlock];
-    v8 = WeakRetained[3];
-    if (v8)
+    [*(WeakRetained + 1) unlock];
+    v7 = *(WeakRetained + 3);
+    if (v7)
     {
-      v8[2]();
+      v7 = (*(v7 + 16))();
     }
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v7);
 }
 
 - (id)daemonWithErrorHandler:(id)handler

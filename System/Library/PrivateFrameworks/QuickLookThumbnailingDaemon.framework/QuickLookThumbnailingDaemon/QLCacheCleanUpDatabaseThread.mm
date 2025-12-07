@@ -180,7 +180,7 @@
 
 uint64_t __48__QLCacheCleanUpDatabaseThread__writeAndCleanUp__block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = _dbLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -190,49 +190,49 @@ uint64_t __48__QLCacheCleanUpDatabaseThread__writeAndCleanUp__block_invoke(uint6
   if ([*(a1 + 32) currentMode] == 1 && (objc_msgSend(*(a1 + 32), "diskCacheCleanupDone") & 1) == 0)
   {
     *&v3 = 134218242;
-    v26 = v3;
+    v25 = v3;
     do
     {
-      v8 = objc_autoreleasePoolPush();
-      v9 = [*(a1 + 32) cacheThread];
-      v10 = [v9 memoryCache];
-      v11 = [v10 thumbnailDataToSaveWithBatch:20];
+      v7 = objc_autoreleasePoolPush();
+      v8 = [*(a1 + 32) cacheThread];
+      v9 = [v8 memoryCache];
+      v10 = [v9 thumbnailDataToSaveWithBatch:20];
 
-      v12 = _dbLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v11 = _dbLog();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v13 = [v11 count];
-        v14 = [*(a1 + 32) cacheThread];
-        v15 = [v14 memoryCache];
-        *buf = v26;
-        v28 = v13;
-        v29 = 2112;
-        v30 = v15;
-        _os_log_impl(&dword_2615D3000, v12, OS_LOG_TYPE_INFO, "Writing %lu thumbnails from %@", buf, 0x16u);
+        v12 = [v10 count];
+        v13 = [*(a1 + 32) cacheThread];
+        v14 = [v13 memoryCache];
+        *buf = v25;
+        v27 = v12;
+        v28 = 2112;
+        v29 = v14;
+        _os_log_impl(&dword_2615D3000, v11, OS_LOG_TYPE_INFO, "Writing %lu thumbnails from %@", buf, 0x16u);
       }
 
-      v16 = *(a1 + 32);
-      if (v11)
+      v15 = *(a1 + 32);
+      if (v10)
       {
-        v17 = [v16 cacheThread];
-        v18 = [v17 diskCache];
-        [v18 writeThumbnailDataBatch:v11];
+        v16 = [v15 cacheThread];
+        v17 = [v16 diskCache];
+        [v17 writeThumbnailDataBatch:v10];
 
-        v19 = [*(a1 + 32) cacheThread];
-        v20 = [v19 memoryCache];
-        [v20 thumbnailDataBatchSaved:v11];
+        v18 = [*(a1 + 32) cacheThread];
+        v19 = [v18 memoryCache];
+        [v19 thumbnailDataBatchSaved:v10];
 
         v4 = 1;
       }
 
       else
       {
-        LODWORD(v4) = [v16 _updateHitCount];
-        v21 = [*(a1 + 32) cacheThread];
-        v22 = [v21 diskCache];
-        v23 = [v22 cleanup];
+        LODWORD(v4) = [v15 _updateHitCount];
+        v20 = [*(a1 + 32) cacheThread];
+        v21 = [v20 diskCache];
+        v22 = [v21 cleanup];
 
-        if (v23)
+        if (v22)
         {
           v4 = 1;
         }
@@ -244,9 +244,9 @@ uint64_t __48__QLCacheCleanUpDatabaseThread__writeAndCleanUp__block_invoke(uint6
 
         if ([*(a1 + 32) shouldRemoveThumbnailsForDeletedFiles])
         {
-          v24 = [*(a1 + 32) cacheThread];
-          v25 = [v24 diskCache];
-          if ([v25 cleanupDeletedFiles])
+          v23 = [*(a1 + 32) cacheThread];
+          v24 = [v23 diskCache];
+          if ([v24 cleanupDeletedFiles])
           {
             v4 = 1;
           }
@@ -258,11 +258,11 @@ uint64_t __48__QLCacheCleanUpDatabaseThread__writeAndCleanUp__block_invoke(uint6
         }
 
         [*(a1 + 32) setDiskCacheCleanupDone:1];
-        v19 = [*(a1 + 32) cacheThread];
-        [v19 _cleanUpDatabaseDone];
+        v18 = [*(a1 + 32) cacheThread];
+        [v18 _cleanUpDatabaseDone];
       }
 
-      objc_autoreleasePoolPop(v8);
+      objc_autoreleasePoolPop(v7);
     }
 
     while ([*(a1 + 32) currentMode] == 1 && (objc_msgSend(*(a1 + 32), "diskCacheCleanupDone") & 1) == 0);
@@ -279,7 +279,6 @@ uint64_t __48__QLCacheCleanUpDatabaseThread__writeAndCleanUp__block_invoke(uint6
     __48__QLCacheCleanUpDatabaseThread__writeAndCleanUp__block_invoke_cold_2();
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -295,12 +294,11 @@ uint64_t __48__QLCacheCleanUpDatabaseThread__writeAndCleanUp__block_invoke(uint6
 
 - (void)startCleanUp
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *self;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_2615D3000, a2, OS_LOG_TYPE_DEBUG, "start thread %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_2615D3000, a2, OS_LOG_TYPE_DEBUG, "start thread %@", &v3, 0xCu);
 }
 
 - (QLCacheCleanUpDatabaseThread)initWithCacheThread:(id)thread
@@ -403,7 +401,7 @@ uint64_t __48__QLCacheCleanUpDatabaseThread__writeAndCleanUp__block_invoke(uint6
 
 - (void)addHitWithThumbnailData:(id)data
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = self->_thumbnailsHit;
   objc_sync_enter(v5);
@@ -419,7 +417,7 @@ uint64_t __48__QLCacheCleanUpDatabaseThread__writeAndCleanUp__block_invoke(uint6
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     fileIdentifier = [dataCopy fileIdentifier];
-    [(QLCacheCleanUpDatabaseThread *)fileIdentifier addHitWithThumbnailData:v26, v14];
+    [(QLCacheCleanUpDatabaseThread *)fileIdentifier addHitWithThumbnailData:v25, v14];
   }
 
   thumbnailsHit = self->_thumbnailsHit;
@@ -450,8 +448,6 @@ uint64_t __48__QLCacheCleanUpDatabaseThread__writeAndCleanUp__block_invoke(uint6
 
   [v18 setObject:v24 forKey:v13];
   objc_sync_exit(v5);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanUpForReset
@@ -534,11 +530,10 @@ BOOL __47__QLCacheCleanUpDatabaseThread_cleanUpForReset__block_invoke(uint64_t a
 
 void __47__QLCacheCleanUpDatabaseThread_cleanUpForReset__block_invoke_cold_2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [a1 count];
-  _os_log_debug_impl(&dword_2615D3000, a2, OS_LOG_TYPE_DEBUG, "Discarding %lu thumbnails", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [a1 count];
+  _os_log_debug_impl(&dword_2615D3000, a2, OS_LOG_TYPE_DEBUG, "Discarding %lu thumbnails", &v3, 0xCu);
 }
 
 @end

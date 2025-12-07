@@ -10,11 +10,10 @@
 
 + (id)uniquedColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"medication_identifier";
-  v5[1] = @"interaction_type";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"medication_identifier";
+  v4[1] = @"interaction_type";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -26,7 +25,7 @@
   v12 = [transaction databaseForEntityClass:self];
   v13 = [self queryWithDatabase:v12 predicate:predicateCopy];
 
-  v14 = +[HDDismissedPregnancyLactationInteractionEntity _propertiesForEntity];
+  v14 = +[(HDDismissedPregnancyLactationInteractionEntity *)self];
   v17[0] = MEMORY[0x277D85DD0];
   v17[1] = 3221225472;
   v17[2] = __149__HDDismissedPregnancyLactationInteractionEntity_enumerateDismissedPregnancyLactationInteractionsWithPredicate_transaction_error_enumerationHandler___block_invoke;
@@ -45,36 +44,34 @@
   v3[0] = @"medication_identifier";
   v3[1] = @"interaction_type";
   v3[2] = @"creation_date";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
 
-  return v0;
+  return v1;
 }
 
-uint64_t __149__HDDismissedPregnancyLactationInteractionEntity_enumerateDismissedPregnancyLactationInteractionsWithPredicate_transaction_error_enumerationHandler___block_invoke(uint64_t a1)
+uint64_t __149__HDDismissedPregnancyLactationInteractionEntity_enumerateDismissedPregnancyLactationInteractionsWithPredicate_transaction_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = [objc_alloc(MEMORY[0x277CCD1D0]) initWithRawIdentifier:HDSQLiteColumnWithNameAsInt64()];
-  v3 = HDSQLiteColumnWithNameAsInt64();
-  v4 = HDSQLiteColumnWithNameAsDate();
-  v5 = [objc_alloc(MEMORY[0x277D114F8]) _initWithMedicationIdentifier:v2 interactionType:v3 creationDate:v4];
-  v6 = (*(*(a1 + 32) + 16))();
+  v4 = [objc_alloc(MEMORY[0x277CCD1D0]) initWithRawIdentifier:HDSQLiteColumnWithNameAsInt64()];
+  v5 = HDSQLiteColumnWithNameAsInt64();
+  v6 = HDSQLiteColumnWithNameAsDate();
+  v7 = [objc_alloc(MEMORY[0x277D114F8]) _initWithMedicationIdentifier:v4 interactionType:v5 creationDate:v6];
+  v8 = (*(*(a1 + 32) + 16))();
 
-  return v6;
+  return v8;
 }
 
 + (BOOL)insertDismissedPregnancyLactationInteraction:(id)interaction profile:(id)profile error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   interactionCopy = interaction;
   v9 = [HDDismissedPregnancyLactationInteractionInsertOperation alloc];
-  v14[0] = interactionCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = interactionCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
 
   v11 = [(HDDismissedPregnancyLactationInteractionInsertOperation *)v9 initWithDismissedPregnancyLactationInteractions:v10];
   LOBYTE(error) = [(HDJournalableOperation *)v11 performOrJournalWithProfile:profileCopy error:error];
 
-  v12 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -85,7 +82,7 @@ uint64_t __149__HDDismissedPregnancyLactationInteractionEntity_enumerateDismisse
   v8 = objc_opt_self();
   v9 = [interactionCopy databaseForEntityClass:v8];
 
-  v10 = +[HDDismissedPregnancyLactationInteractionEntity _propertiesForEntity];
+  v10 = +[(HDDismissedPregnancyLactationInteractionEntity *)v8];
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
   v15[2] = __114__HDDismissedPregnancyLactationInteractionEntity__insertDismissedPregnancyLactationInteraction_transaction_error___block_invoke;

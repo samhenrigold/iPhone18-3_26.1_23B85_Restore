@@ -8,7 +8,7 @@
 
 - (GDKnosisArgInfo)initWithCoder:(id)coder
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_value);
@@ -34,9 +34,9 @@ LABEL_11:
     if (!error)
     {
       v14 = MEMORY[0x1E696ABC0];
-      v21 = *MEMORY[0x1E696A578];
-      v22 = @"GDKnosisArgInfo arg is nil";
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      v20 = *MEMORY[0x1E696A578];
+      v21 = @"GDKnosisArgInfo arg is nil";
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
       v16 = [v14 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v15];
       [coderCopy failWithError:v16];
     }
@@ -52,9 +52,9 @@ LABEL_10:
   if (!error2)
   {
     v17 = MEMORY[0x1E696ABC0];
-    v23 = *MEMORY[0x1E696A578];
-    v24[0] = @"GDKnosisArgInfo value is nil";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x1E696A578];
+    v23[0] = @"GDKnosisArgInfo value is nil";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     v18 = [v17 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v10];
     [coderCopy failWithError:v18];
 
@@ -64,7 +64,6 @@ LABEL_10:
   selfCopy = 0;
 LABEL_12:
 
-  v19 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

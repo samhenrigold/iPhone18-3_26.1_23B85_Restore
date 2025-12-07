@@ -33,7 +33,7 @@
   v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   MediaMoment.artwork.getter();
-  v8 = type metadata accessor for ArtworkBridge();
+  v8 = type metadata accessor for ArtworkBridge(0);
   v9 = objc_allocWithZone(v8);
   (*(v4 + 16))(v9 + OBJC_IVAR___SMArtwork_artwork, v6, v3);
   v12.receiver = v9;

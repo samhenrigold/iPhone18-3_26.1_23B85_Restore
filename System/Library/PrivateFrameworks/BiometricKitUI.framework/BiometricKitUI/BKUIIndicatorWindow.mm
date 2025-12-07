@@ -1,6 +1,7 @@
 @interface BKUIIndicatorWindow
 + (id)instanceWithWindowScene:(id)scene;
 - (BKUIIndicatorViewController)indicatorController;
+- (void)setShouldShow:(BOOL)show;
 @end
 
 @implementation BKUIIndicatorWindow
@@ -37,6 +38,15 @@
   }
 
   return indicatorController;
+}
+
+- (void)setShouldShow:(BOOL)show
+{
+  showCopy = show;
+  indicatorController = [(BKUIIndicatorWindow *)self indicatorController];
+  [indicatorController setShouldShow:showCopy];
+
+  [(BKUIIndicatorWindow *)self layoutIfNeeded];
 }
 
 @end

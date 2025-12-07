@@ -9,7 +9,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_26BA93A60();
+  sub_26BA93A60(selfCopy);
 }
 
 - (_TtC10StickersUI8PuffView)initWithCoder:(id)coder

@@ -1,6 +1,7 @@
 @interface TUICandidateGridAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (id)_accessibilityScannerGroupElements;
+- (void)setSelectedIndexPath:(id)path animated:(BOOL)animated scrollPosition:(unint64_t)position;
 @end
 
 @implementation TUICandidateGridAccessibility
@@ -16,45 +17,45 @@
 
 - (id)_accessibilityScannerGroupElements
 {
-  v84 = *MEMORY[0x29EDCA608];
+  v83 = *MEMORY[0x29EDCA608];
   defaultSwitchControlOptions = [MEMORY[0x29EDC7328] defaultSwitchControlOptions];
   [defaultSwitchControlOptions setSorted:0];
   [defaultSwitchControlOptions setShouldReturnScannerGroups:0];
   v3 = [(TUICandidateGridAccessibility *)self _accessibilityLeafDescendantsWithOptions:defaultSwitchControlOptions];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   objc_opt_class();
-  v50 = __UIAccessibilityCastAsClass();
+  v49 = __UIAccessibilityCastAsClass();
   LOBYTE(buf) = 0;
   objc_opt_class();
   v4 = [(TUICandidateGridAccessibility *)self safeValueForKey:@"collectionView"];
-  v48 = __UIAccessibilityCastAsClass();
+  v47 = __UIAccessibilityCastAsClass();
 
+  v67 = 0u;
   v68 = 0u;
   v69 = 0u;
   v70 = 0u;
-  v71 = 0u;
   obj = v3;
-  v5 = [obj countByEnumeratingWithState:&v68 objects:v83 count:16];
+  v5 = [obj countByEnumeratingWithState:&v67 objects:v82 count:16];
   if (v5)
   {
-    v6 = *v69;
+    v6 = *v68;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v69 != v6)
+        if (*v68 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v68 + 1) + 8 * i);
+        v8 = *(*(&v67 + 1) + 8 * i);
         [v8 accessibilityFrame];
         UIAccessibilityFrameToBounds();
         v10 = v9;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v11 = [v48 indexPathForCell:v8];
+          v11 = [v47 indexPathForCell:v8];
         }
 
         else
@@ -75,17 +76,17 @@
 
           *&buf = 0;
           *(&buf + 1) = &buf;
-          v79 = 0x3032000000;
-          v80 = __Block_byref_object_copy_;
-          v81 = __Block_byref_object_dispose_;
-          v82 = 0;
-          v61 = MEMORY[0x29EDCA5F8];
-          v62 = 3221225472;
-          v63 = __67__TUICandidateGridAccessibility__accessibilityScannerGroupElements__block_invoke;
-          v64 = &unk_29F30A0A8;
+          v78 = 0x3032000000;
+          v79 = __Block_byref_object_copy_;
+          v80 = __Block_byref_object_dispose_;
+          v81 = 0;
+          v60 = MEMORY[0x29EDCA5F8];
+          v61 = 3221225472;
+          v62 = __67__TUICandidateGridAccessibility__accessibilityScannerGroupElements__block_invoke;
+          v63 = &unk_29F30A0A8;
           p_buf = &buf;
-          v65 = v48;
-          v66 = v8;
+          v64 = v47;
+          v65 = v8;
           AXPerformSafeBlock();
           v11 = *(*(&buf + 1) + 40);
 
@@ -134,98 +135,98 @@ LABEL_18:
         [array addObject:v8];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v68 objects:v83 count:16];
+      v5 = [obj countByEnumeratingWithState:&v67 objects:v82 count:16];
     }
 
     while (v5);
   }
 
   array2 = [MEMORY[0x29EDB8DE8] array];
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   allKeys = [dictionary allKeys];
-  v42 = [allKeys sortedArrayUsingSelector:?];
+  v41 = [allKeys sortedArrayUsingSelector:?];
 
-  v45 = [v42 countByEnumeratingWithState:&v57 objects:v77 count:16];
-  if (v45)
+  v44 = [v41 countByEnumeratingWithState:&v56 objects:v76 count:16];
+  if (v44)
   {
-    v43 = *v58;
+    v42 = *v57;
     do
     {
       v23 = 0;
       do
       {
-        if (*v58 != v43)
+        if (*v57 != v42)
         {
           v24 = v23;
-          objc_enumerationMutation(v42);
+          objc_enumerationMutation(v41);
           v23 = v24;
         }
 
-        v46 = v23;
-        v25 = [dictionary objectForKeyedSubscript:*(*(&v57 + 1) + 8 * v23)];
+        v45 = v23;
+        v25 = [dictionary objectForKeyedSubscript:*(*(&v56 + 1) + 8 * v23)];
         array3 = [MEMORY[0x29EDB8DE8] array];
-        v55 = 0u;
-        v56 = 0u;
-        v53 = 0u;
         v54 = 0u;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
         allKeys2 = [v25 allKeys];
         v28 = [allKeys2 sortedArrayUsingSelector:sel_compare_];
 
-        v29 = [v28 countByEnumeratingWithState:&v53 objects:v76 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v52 objects:v75 count:16];
         if (v29)
         {
-          v30 = *v54;
+          v30 = *v53;
           do
           {
             for (j = 0; j != v29; ++j)
             {
-              if (*v54 != v30)
+              if (*v53 != v30)
               {
                 objc_enumerationMutation(v28);
               }
 
-              v32 = [v25 objectForKeyedSubscript:*(*(&v53 + 1) + 8 * j)];
-              v51[0] = MEMORY[0x29EDCA5F8];
-              v51[1] = 3221225472;
-              v51[2] = __67__TUICandidateGridAccessibility__accessibilityScannerGroupElements__block_invoke_316;
-              v51[3] = &unk_29F30A0D0;
-              v52 = v50;
-              v33 = [v32 sortedArrayUsingComparator:v51];
+              v32 = [v25 objectForKeyedSubscript:*(*(&v52 + 1) + 8 * j)];
+              v50[0] = MEMORY[0x29EDCA5F8];
+              v50[1] = 3221225472;
+              v50[2] = __67__TUICandidateGridAccessibility__accessibilityScannerGroupElements__block_invoke_316;
+              v50[3] = &unk_29F30A0D0;
+              v51 = v49;
+              v33 = [v32 sortedArrayUsingComparator:v50];
 
-              v74[0] = @"GroupElements";
-              v74[1] = @"GroupTraits";
-              v75[0] = v33;
-              v75[1] = &unk_2A2349E28;
-              v74[2] = @"GroupScanBehaviorTraits";
-              v75[2] = &unk_2A2349E40;
-              v34 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v75 forKeys:v74 count:3];
+              v73[0] = @"GroupElements";
+              v73[1] = @"GroupTraits";
+              v74[0] = v33;
+              v74[1] = &unk_2A2349E28;
+              v73[2] = @"GroupScanBehaviorTraits";
+              v74[2] = &unk_2A2349E40;
+              v34 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v74 forKeys:v73 count:3];
               [array3 addObject:v34];
             }
 
-            v29 = [v28 countByEnumeratingWithState:&v53 objects:v76 count:16];
+            v29 = [v28 countByEnumeratingWithState:&v52 objects:v75 count:16];
           }
 
           while (v29);
         }
 
-        v72[0] = @"GroupElements";
-        v72[1] = @"GroupScanBehaviorTraits";
-        v73[0] = array3;
-        v73[1] = &unk_2A2349E40;
-        v35 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v73 forKeys:v72 count:2];
+        v71[0] = @"GroupElements";
+        v71[1] = @"GroupScanBehaviorTraits";
+        v72[0] = array3;
+        v72[1] = &unk_2A2349E40;
+        v35 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
         [array2 addObject:v35];
 
-        v23 = v46 + 1;
+        v23 = v45 + 1;
       }
 
-      while (v46 + 1 != v45);
-      v45 = [v42 countByEnumeratingWithState:&v57 objects:v77 count:16];
+      while (v45 + 1 != v44);
+      v44 = [v41 countByEnumeratingWithState:&v56 objects:v76 count:16];
     }
 
-    while (v45);
+    while (v44);
   }
 
   if ([array2 count] == 1)
@@ -242,46 +243,64 @@ LABEL_18:
     v37 = array2;
   }
 
-  v39 = *MEMORY[0x29EDCA608];
-
   return v37;
 }
 
 uint64_t __67__TUICandidateGridAccessibility__accessibilityScannerGroupElements__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) indexPathForSupplementaryView:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) indexPathForSupplementaryView:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }
 
 uint64_t __67__TUICandidateGridAccessibility__accessibilityScannerGroupElements__block_invoke_316(uint64_t a1, void *a2, void *a3)
 {
-  v5 = *(a1 + 32);
-  v6 = a3;
+  v4 = a3;
   [a2 accessibilityFrame];
   UIAccessibilityFrameToBounds();
-  v8 = v7;
-  v9 = *(a1 + 32);
-  [v6 accessibilityFrame];
+  v6 = v5;
+  [v4 accessibilityFrame];
 
   UIAccessibilityFrameToBounds();
-  v11 = -1;
-  if (v8 >= v10)
+  v8 = -1;
+  if (v6 >= v7)
   {
-    v11 = 1;
+    v8 = 1;
   }
 
-  if (v8 == v10)
+  if (v6 == v7)
   {
     return 0;
   }
 
   else
   {
-    return v11;
+    return v8;
+  }
+}
+
+- (void)setSelectedIndexPath:(id)path animated:(BOOL)animated scrollPosition:(unint64_t)position
+{
+  animatedCopy = animated;
+  pathCopy = path;
+  v9 = [(TUICandidateGridAccessibility *)self safeValueForKey:@"_selectedIndexPath"];
+  v15.receiver = self;
+  v15.super_class = TUICandidateGridAccessibility;
+  [(TUICandidateGridAccessibility *)&v15 setSelectedIndexPath:pathCopy animated:animatedCopy scrollPosition:position];
+  v10 = [(TUICandidateGridAccessibility *)self safeValueForKey:@"_selectedIndexPath"];
+  if (v9 != v10 && ([v9 isEqual:v10] & 1) == 0)
+  {
+    objc_opt_class();
+    v11 = [(TUICandidateGridAccessibility *)self safeValueForKey:@"collectionView"];
+    v12 = __UIAccessibilityCastAsClass();
+
+    v13 = [v12 cellForItemAtIndexPath:v10];
+
+    accessibilityLabel = [v13 accessibilityLabel];
+    if ([accessibilityLabel length])
+    {
+      UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], accessibilityLabel);
+    }
   }
 }
 

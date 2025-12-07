@@ -23,7 +23,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_10000329C();
+  sub_10000329C(selfCopy);
 }
 
 - (CGSize)preferredContentSize

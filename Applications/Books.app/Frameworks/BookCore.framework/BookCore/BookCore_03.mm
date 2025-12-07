@@ -1,3 +1,187 @@
+uint64_t sub_F51B4(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_color", *(a1 + 40));
+  qword_343A10 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F521C(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_color", *(a1 + 40));
+  qword_343A20 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F5284(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_color", *(a1 + 40));
+  qword_343A30 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F52EC(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_color", *(a1 + 40));
+  qword_343A40 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F5354(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_color", *(a1 + 40));
+  qword_343A50 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F5CB8(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343A60 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F5D20(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343A70 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F5D88(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343A80 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F5DF0(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343A90 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F5E58(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343AA0 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F5EC0(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343AB0 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F5F28(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343AC0 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F5F90(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343AD0 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F5FF8(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343AE0 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F6060(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343AF0 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F60C8(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343B00 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F6130(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343B10 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F6198(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343B20 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F6200(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343B30 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F6268(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343B40 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F62D0(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343B50 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F6338(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  qword_343B60 = v1;
+
+  return _objc_release_x1(v1);
+}
+
+uint64_t sub_F6C9C(uint64_t a1)
+{
+  v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  qword_343B70 = v1;
+
+  return _objc_release_x1(v1);
+}
+
 uint64_t sub_F6D04(uint64_t a1)
 {
   v1 = +[AEAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AEAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
@@ -5177,9 +5361,9 @@ void *sub_117650(void *result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void sub_1178B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1178B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5289,8 +5473,7 @@ void sub_118044(uint64_t a1, uint64_t a2, void *a3)
   else
   {
     kdebug_trace();
-    [BICCacheStats logOperation:BICCacheStatsOperationProfileDownloadStart[0] forRequest:*(a1 + 32)];
-    v11 = BCImageCacheLog();
+    v11 = BCImageCacheLog([BICCacheStats logOperation:BICCacheStatsOperationProfileDownloadStart[0] forRequest:*(a1 + 32)]);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v13 = *(a1 + 32);
@@ -5349,51 +5532,51 @@ void sub_1183D8(uint64_t a1)
     v3 = [*(a1 + 40) delegate];
     v4 = [v3 describedImagesFromProductProfile:*(a1 + 32)];
 
-    v18 = 0u;
     v19 = 0u;
-    v16 = 0u;
+    v20 = 0u;
     v17 = 0u;
+    v18 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v18;
       do
       {
         v9 = 0;
         do
         {
-          if (*v17 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(*(&v16 + 1) + 8 * v9) setPriority:{objc_msgSend(*(a1 + 48), "priority", v16)}];
+          [*(*(&v17 + 1) + 8 * v9) setPriority:{objc_msgSend(*(a1 + 48), "priority", v17)}];
           v9 = v9 + 1;
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
       }
 
       while (v7);
     }
 
-    v10 = BCImageCacheLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = BCImageCacheLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v21 = v5;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "BICProductProfileDataStore: Returning product profile results: %@", buf, 0xCu);
+      v22 = v5;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "BICProductProfileDataStore: Returning product profile results: %@", buf, 0xCu);
     }
 
     [BICCacheStats logOperation:BICCacheStatsOperationProfileDownloadEnd[0] forRequest:*(a1 + 48)];
-    v11 = objc_retainBlock(*(a1 + 64));
-    v12 = v11;
-    if (v11)
+    v12 = objc_retainBlock(*(a1 + 64));
+    v13 = v12;
+    if (v12)
     {
-      (*(v11 + 2))(v11, v5);
+      (*(v12 + 2))(v12, v5);
     }
 
     [*(a1 + 56) workComplete];
@@ -5404,18 +5587,18 @@ void sub_1183D8(uint64_t a1)
 
   else
   {
-    v13 = BCImageCacheLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = BCImageCacheLog(a1);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_1EA264(a1, v13);
+      sub_1EA264(a1, v14);
     }
 
     [BICCacheStats logOperation:BICCacheStatsOperationProfileDownloadEnd[0] forRequest:*(a1 + 48)];
-    v14 = objc_retainBlock(*(a1 + 64));
-    v15 = v14;
-    if (v14)
+    v15 = objc_retainBlock(*(a1 + 64));
+    v16 = v15;
+    if (v15)
     {
-      (*(v14 + 2))(v14, 0);
+      (*(v15 + 2))(v15, 0);
     }
 
     [*(a1 + 56) workComplete];
@@ -5423,11 +5606,11 @@ void sub_1183D8(uint64_t a1)
   }
 }
 
-void sub_119878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_119878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5480,11 +5663,11 @@ LABEL_6:
   }
 }
 
-void sub_119CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_119CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5529,7 +5712,7 @@ void sub_119DF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int
   if (a2 == 1)
   {
     v13 = objc_begin_catch(exception_object);
-    v14 = BCIMLog();
+    v14 = BCIMLog(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = [v13 reason];
@@ -5551,11 +5734,12 @@ void sub_119DF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_11A15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_11A15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 160), 8);
-  _Block_object_dispose((v31 - 128), 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 160), 8);
+  _Block_object_dispose((v30 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5627,7 +5811,7 @@ void sub_11A3B4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_
   if (a2 == 1)
   {
     v16 = objc_begin_catch(a1);
-    v17 = BCIMLog();
+    v17 = BCIMLog(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = [v16 reason];
@@ -5652,11 +5836,11 @@ void sub_11A3B4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_
   _Unwind_Resume(a1);
 }
 
-void sub_11AA28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_11AA28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5677,7 +5861,7 @@ void sub_11AB2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int
   if (a2 == 1)
   {
     v14 = objc_begin_catch(exception_object);
-    v15 = BCIMLog();
+    v15 = BCIMLog(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = [v14 reason];
@@ -5728,10 +5912,11 @@ uint64_t sub_11AC38(void *a1, uint64_t a2, void *a3, void *a4)
   return 0;
 }
 
-void sub_11BAC4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_11BAC4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 void sub_11C2DC(uint64_t a1)
@@ -5983,7 +6168,7 @@ uint64_t BKGenericBookCover::CreateImageWithFileName(BKGenericBookCover *this, c
   v13 = &v12;
   v14 = 0x2000000000;
   v15 = 0;
-  v3 = IMCommonCoreCFBundle();
+  v3 = IMCommonCoreCFBundle(this, a2);
   v4 = CFBundleCopyResourceURL(v3, a2, 0, 0);
   v5 = v4;
   if (v4)
@@ -6549,9 +6734,9 @@ uint64_t BKGenericBookCover::DrawTitle(uint64_t this, CGContext *a2)
   return this;
 }
 
-void sub_120294(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_120294(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_122528(va);
   _Unwind_Resume(a1);
 }
@@ -6848,7 +7033,7 @@ void sub_120764(uint64_t a1, double a2, double a3, double a4, double a5)
   }
 }
 
-double sub_1208F4(uint64_t a1)
+CGFloat sub_1208F4(uint64_t a1)
 {
   v1 = sub_121158(a1, *(a1 + 32) - 1, 8uLL);
 
@@ -7091,9 +7276,9 @@ uint64_t BKGenericBookCover::DrawAuthor(uint64_t this, CGContext *a2)
   return this;
 }
 
-void sub_120E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_120E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_122528(va);
   _Unwind_Resume(a1);
 }
@@ -7619,32 +7804,38 @@ void sub_121BCC()
   }
 }
 
-const __CFString *BKGenericBookCoverCreateImageWithItemIDAndLayout(int a1, int a2, uint64_t a3, int a4, const __CFString *a5, int a6)
+const __CFString *BKGenericBookCoverCreateImageWithItemIDAndLayout(const void *a1, const void *a2, uint64_t a3, uint64_t a4, const __CFString *a5, int a6, double a7, double a8)
 {
-  v8 = a3;
   result = BKGenericBookCoverCreateTemplateWithItemID(a5, a3, a4);
   if (result)
   {
-    BKGenericBookCoverCreateImageWithTemplate(a1, a2, v8, a4, a6, result);
+    BKGenericBookCoverCreateImageWithTemplate(a1, a2, a3, a4, a6, result, a7, a8);
   }
 
   return result;
 }
 
-void BKGenericBookCoverCreateImageWithTemplate(int a1, int a2, int a3, int a4, int a5, CFStringRef theString)
+void BKGenericBookCoverCreateImageWithTemplate(const void *a1, const void *a2, uint64_t a3, uint64_t a4, int a5, CFStringRef theString, double a7, double a8)
 {
   TemplateComponentArray = BKGenericBookCoverCreateTemplateComponentArray(theString);
   if (TemplateComponentArray)
   {
-    v7 = TemplateComponentArray;
+    v16 = TemplateComponentArray;
     ValueAtIndex = CFArrayGetValueAtIndex(TemplateComponentArray, 0);
-    BKGenericBookCoverStyleFromString(ValueAtIndex);
-    v9 = CFArrayGetValueAtIndex(v7, 1);
-    BKGenericBookCoverColorFromString(v9);
-    BKGenericBookCoverCreateImageWithStyle();
+    v18 = BKGenericBookCoverStyleFromString(ValueAtIndex);
+    v19 = CFArrayGetValueAtIndex(v16, 1);
+    v20 = BKGenericBookCoverColorFromString(v19);
+    v21 = v20;
+    if ((v18 - 1) <= 1)
+    {
+      v21 = dword_2A4154[v20 + 8 * v18 - 8];
+      v18 = 0;
+    }
+
+    BKGenericBookCoverCreateImageWithStyle(a1, a2, a3, a4, a5, v18, v21, a7, a8);
   }
 
-  BKGenericBookCoverCreateImageWithStyle();
+  BKGenericBookCoverCreateImageWithStyle(a1, a2, a3, a4, 0, 0, 0, a7, a8);
 }
 
 double BKGenericBookCoverSizeThatFits(uint64_t a1, uint64_t a2, double a3, double a4)
@@ -8011,16 +8202,16 @@ CGFloat IMRectFlippedForRTL(int a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat 
   return a2;
 }
 
-id AESharingLog()
+id AESharingLog(uint64_t a1)
 {
   if (qword_345E50 != -1)
   {
     sub_1EA3C8();
   }
 
-  v1 = qword_345E48;
+  v2 = qword_345E48;
 
-  return v1;
+  return v2;
 }
 
 void sub_122C70(id a1)
@@ -8031,9 +8222,9 @@ void sub_122C70(id a1)
   _objc_release_x1(v1);
 }
 
-void sub_12316C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_12316C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8192,7 +8383,7 @@ void sub_125848(uint64_t a1, int a2)
 {
   if (a2)
   {
-    v3 = BCImageCacheLog();
+    v3 = BCImageCacheLog(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = [*(a1 + 32) allObjects];
@@ -8255,8 +8446,7 @@ void sub_125A74(id *a1)
               v11 = *(*(&v21 + 1) + 8 * j);
               if ([BICImageEntry shouldBeRemovedOnPrimaryChanged:v11])
               {
-                [v11 setQuality:3];
-                v12 = BCImageCacheLog();
+                v12 = BCImageCacheLog([v11 setQuality:3]);
                 if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
                 {
                   v13 = [v11 entryLocation];
@@ -8389,7 +8579,7 @@ void sub_1271B8(uint64_t a1)
 
         else
         {
-          v12 = BCImageCacheLog();
+          v12 = BCImageCacheLog(0);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             *buf = v24;
@@ -8444,7 +8634,7 @@ void sub_1271B8(uint64_t a1)
 
         else
         {
-          v22 = BCImageCacheLog();
+          v22 = BCImageCacheLog(0);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
             sub_1EA4C4(buf, &buf[1], v22);
@@ -9060,112 +9250,4 @@ void sub_128CF4(uint64_t a1)
   v28 = v20;
   v21 = v2;
   dispatch_async(v19, block);
-}
-
-void sub_129018(uint64_t a1)
-{
-  v2 = objc_retainBlock(*(a1 + 40));
-  if (v2)
-  {
-    v3 = v2;
-    (*(v2 + 2))(v2, *(a1 + 32));
-    v2 = v3;
-  }
-}
-
-void sub_129200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_129218(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_129230(uint64_t a1)
-{
-  v2 = [*(a1 + 32) persistentStore];
-  v16 = [v2 imageSetForIdentifier:*(a1 + 40)];
-
-  v3 = v16;
-  if (v16)
-  {
-    [v16 widthForAspectRatio];
-    if (v4 <= 0.0)
-    {
-      v9 = 0;
-    }
-
-    else
-    {
-      [v16 heightForAspectRatio];
-      v6 = v5;
-      [v16 widthForAspectRatio];
-      *&v8 = v6 / v7;
-      v9 = [NSNumber numberWithFloat:v8];
-    }
-
-    v10 = [BICImageMetadata alloc];
-    v11 = *(a1 + 40);
-    v12 = [v16 imageColor];
-    v13 = [(BICImageMetadata *)v10 initWithIdentifier:v11 intrinsicAspectRatio:v9 imageColor:v12];
-    v14 = *(*(a1 + 48) + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = v13;
-
-    [*(a1 + 32) _saveIfNeeded];
-    v3 = v16;
-  }
-}
-
-void sub_129428(uint64_t a1)
-{
-  v2 = [*(a1 + 32) persistentStore];
-  v16 = [v2 imageSetForIdentifier:*(a1 + 40)];
-
-  if (v16)
-  {
-    [v16 widthForAspectRatio];
-    if (v3 <= 0.0)
-    {
-      v8 = 0;
-    }
-
-    else
-    {
-      [v16 heightForAspectRatio];
-      v5 = v4;
-      [v16 widthForAspectRatio];
-      *&v7 = v5 / v6;
-      v8 = [NSNumber numberWithFloat:v7];
-    }
-
-    v10 = [BICImageMetadata alloc];
-    v11 = *(a1 + 40);
-    v12 = [v16 imageColor];
-    v13 = [(BICImageMetadata *)v10 initWithIdentifier:v11 intrinsicAspectRatio:v8 imageColor:v12];
-
-    [*(a1 + 32) _saveIfNeeded];
-    v14 = objc_retainBlock(*(a1 + 48));
-    v15 = v14;
-    if (v14)
-    {
-      (*(v14 + 2))(v14, v13);
-    }
-  }
-
-  else
-  {
-    v9 = objc_retainBlock(*(a1 + 48));
-    v8 = v9;
-    if (v9)
-    {
-      (*(v9 + 2))(v9, 0);
-    }
-  }
 }

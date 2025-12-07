@@ -187,19 +187,19 @@ void __77__PKPaymentVerificationObserver_startObservingVerificationSourceWithTim
 
 - (void)_startObserving
 {
-  objc_initWeak(&location, self);
-  v3 = objc_alloc(getIMOneTimeCodeAcceleratorClass[0]());
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __48__PKPaymentVerificationObserver__startObserving__block_invoke;
-  v6[3] = &unk_1E79DEFC8;
-  v6[4] = self;
-  objc_copyWeak(&v7, &location);
-  v4 = [v3 initWithBlockForUpdates:v6];
+  inited = objc_initWeak(&location, self);
+  v4 = objc_alloc(getIMOneTimeCodeAcceleratorClass(inited));
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __48__PKPaymentVerificationObserver__startObserving__block_invoke;
+  v7[3] = &unk_1E79DEFC8;
+  v7[4] = self;
+  objc_copyWeak(&v8, &location);
+  v5 = [v4 initWithBlockForUpdates:v7];
   oneTimeCodeObserver = self->_oneTimeCodeObserver;
-  self->_oneTimeCodeObserver = v4;
+  self->_oneTimeCodeObserver = v5;
 
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(&location);
 }
 

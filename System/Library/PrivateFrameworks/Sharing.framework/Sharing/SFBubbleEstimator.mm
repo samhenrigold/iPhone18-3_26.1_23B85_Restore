@@ -73,9 +73,8 @@
       if (!self->_insideBubbleWithThreshold && self->_thresholdSeconds > 0.0)
       {
         mach_absolute_time();
-        thresholdStartTicks = self->_thresholdStartTicks;
         UpTicksToSecondsF();
-        if (v12 > self->_thresholdSeconds)
+        if (v11 > self->_thresholdSeconds)
         {
           self->_insideBubbleWithThreshold = 1;
         }

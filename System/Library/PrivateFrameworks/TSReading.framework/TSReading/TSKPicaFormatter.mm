@@ -126,73 +126,73 @@
   {
     v9 = [MEMORY[0x277CCAC80] scannerWithString:string];
     v10 = [v9 scanString:@"-" intoString:0];
-    v21 = 0;
-    if (([v9 scanFloat:&v21 + 4] & 1) == 0)
+    v24 = 0;
+    if (([v9 scanFloat:&v24 + 4] & 1) == 0)
     {
-      HIDWORD(v21) = 0;
+      HIDWORD(v24) = 0;
     }
 
     [v9 scanString:-[TSKPicaFormatter picaSeparator](self intoString:{"picaSeparator"), 0}];
-    if (([v9 scanFloat:&v21] & 1) == 0)
+    if (([v9 scanFloat:&v24] & 1) == 0)
     {
-      LODWORD(v21) = 0;
+      LODWORD(v24) = 0;
     }
 
     isAtEnd = [v9 isAtEnd];
-    v12 = isAtEnd;
+    v13 = isAtEnd;
     if (description && (isAtEnd & 1) == 0)
     {
-      *description = [TSKBundle() localizedStringForKey:@"Couldn\\U2019t convert to picas" value:&stru_287D36338 table:@"TSKit"];
+      *description = [TSKBundle(isAtEnd v12)];
     }
 
-    v13 = !v12;
+    v14 = !v13;
     if (!value)
     {
-      v13 = 1;
+      v14 = 1;
     }
 
-    if ((v13 & 1) == 0)
+    if ((v14 & 1) == 0)
     {
       minimum = [(TSKPicaFormatter *)self minimum];
       maximum = [(TSKPicaFormatter *)self maximum];
-      LODWORD(v21) = fabsf(*&v21);
-      v16 = *&v21 / 12.0 + *(&v21 + 1);
-      if ((v10 & (v16 > 0.0)) != 0)
+      LODWORD(v24) = fabsf(*&v24);
+      v17 = *&v24 / 12.0 + *(&v24 + 1);
+      if ((v10 & (v17 > 0.0)) != 0)
       {
-        v16 = -v16;
+        v17 = -v17;
       }
 
-      *&v16 = v16;
-      v17 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
-      *value = v17;
+      *&v17 = v17;
+      v18 = [MEMORY[0x277CCABB0] numberWithFloat:v17];
+      *value = v18;
       if (minimum)
       {
-        v18 = [v17 compare:minimum];
-        v12 = v18 != -1;
-        if (description && v18 == -1)
+        v19 = [v18 compare:minimum];
+        v13 = v19 != -1;
+        if (description && v19 == -1)
         {
-          v12 = 0;
-          *description = [TSKBundle() localizedStringForKey:@"Fell short of minimum" value:&stru_287D36338 table:@"TSKit"];
+          v13 = 0;
+          *description = [TSKBundle(-1 v20)];
         }
       }
 
       else
       {
-        v12 = 1;
+        v13 = 1;
       }
 
       if (maximum)
       {
-        v20 = [*value compare:maximum];
-        if (v20 == 1)
+        v22 = [*value compare:maximum];
+        if (v22 == 1)
         {
-          v12 = 0;
+          v13 = 0;
         }
 
-        if (description && v20 == 1)
+        if (description && v22 == 1)
         {
-          v12 = 0;
-          *description = [TSKBundle() localizedStringForKey:@"Maximum exceeded" value:&stru_287D36338 table:@"TSKit"];
+          v13 = 0;
+          *description = [TSKBundle(1 v23)];
         }
       }
     }
@@ -208,7 +208,7 @@
     return 1;
   }
 
-  return v12;
+  return v13;
 }
 
 @end

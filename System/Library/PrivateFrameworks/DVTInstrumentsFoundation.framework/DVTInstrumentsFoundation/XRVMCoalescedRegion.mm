@@ -12,12 +12,12 @@
 
 - (XRVMCoalescedRegion)initWithRegions:(id)regions groupName:(id)name
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   regionsCopy = regions;
   nameCopy = name;
-  v31.receiver = self;
-  v31.super_class = XRVMCoalescedRegion;
-  v8 = [(XRVMCoalescedRegion *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = XRVMCoalescedRegion;
+  v8 = [(XRVMCoalescedRegion *)&v30 init];
   if (v8)
   {
     if ([regionsCopy count])
@@ -57,31 +57,31 @@
       objc_storeStrong(&v8->super.path, *(v11 + 40));
       objc_storeStrong(&v8->super.type, *(v11 + 48));
       v8->super.region_page_shift = *(v11 + 76);
+      v26 = 0u;
       v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
       v20 = regionsCopy;
-      v21 = [v20 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v26 objects:v31 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v28;
+        v23 = *v27;
         do
         {
           v24 = 0;
           do
           {
-            if (*v28 != v23)
+            if (*v27 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            [(XRVMCoalescedRegion *)v8 addRegion:*(*(&v27 + 1) + 8 * v24++), v27];
+            [(XRVMCoalescedRegion *)v8 addRegion:*(*(&v26 + 1) + 8 * v24++), v26];
           }
 
           while (v22 != v24);
-          v22 = [v20 countByEnumeratingWithState:&v27 objects:v32 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
         while (v22);
@@ -95,7 +95,6 @@
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

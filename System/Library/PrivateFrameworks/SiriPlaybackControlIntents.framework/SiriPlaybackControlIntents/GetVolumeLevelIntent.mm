@@ -25,14 +25,15 @@
 
 - (GetVolumeLevelIntent)initWithDomain:(id)domain verb:(id)verb parametersByName:(id)name
 {
-  sub_268B37BF4();
+  v6 = sub_268B37BF4();
+  v8 = v7;
   sub_268B37BF4();
   if (name)
   {
     sub_268B37B64();
   }
 
-  return GetVolumeLevelIntent.init(domain:verb:parametersByName:)();
+  return GetVolumeLevelIntent.init(domain:verb:parametersByName:)(v6, v8);
 }
 
 @end

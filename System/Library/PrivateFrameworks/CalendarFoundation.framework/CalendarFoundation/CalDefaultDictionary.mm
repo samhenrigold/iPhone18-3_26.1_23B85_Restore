@@ -1,5 +1,6 @@
 @interface CalDefaultDictionary
 - (CalDefaultDictionary)initWithDefaultClass:(Class)class;
+- (id)_copyWithZone:(_NSZone *)zone isDeepCopy:(BOOL)copy;
 - (id)_mutableCopyOfFinalDictionaryWithZone:(_NSZone *)zone isDeepCopy:(BOOL)copy;
 - (id)objectForKey:(id)key;
 @end
@@ -21,6 +22,16 @@
   }
 
   return v5;
+}
+
+- (id)_copyWithZone:(_NSZone *)zone isDeepCopy:(BOOL)copy
+{
+  copyCopy = copy;
+  v7 = [+[CalDefaultDictionary allocWithZone:](CalDefaultDictionary initWithDefaultClass:"initWithDefaultClass:", self->_defaultClass];
+  v8 = [(CalDefaultDictionary *)self _mutableCopyOfFinalDictionaryWithZone:zone isDeepCopy:copyCopy];
+  [(CalDefaultDictionary *)v7 setDictionary:v8];
+
+  return v7;
 }
 
 - (id)_mutableCopyOfFinalDictionaryWithZone:(_NSZone *)zone isDeepCopy:(BOOL)copy

@@ -75,7 +75,7 @@ double __68__PKPaintAreaViewSurface_initWithPaintSurface_dispatchQueue_device___
   v10 = *(a1 + 40);
   if (v10)
   {
-    [v10 paintSurfaceStrokeTransform];
+    objc_msgSend_paintSurfaceStrokeTransform(v10);
   }
 
   else
@@ -147,7 +147,7 @@ LABEL_6:
   {
     [(PKPaintAreaViewSurface *)self _setupPKController];
     memset(&v34, 0, sizeof(v34));
-    [(PKPaintAreaViewSurface *)self strokeTransform];
+    objc_msgSend_strokeTransform(self);
     CGAffineTransformMakeScale(&t2, self->_textureScale, self->_textureScale);
     CGAffineTransformConcat(&v34, &t1, &t2);
     t1.a = 0.0;
@@ -208,7 +208,7 @@ LABEL_6:
 
   if (![(PKPaintAreaViewSurface *)self eraserBeganAtLocation:began->var0.var0.x, began->var0.var0.y])
   {
-    [(PKPaintAreaViewSurface *)self strokeTransform];
+    objc_msgSend_strokeTransform(self);
     CGAffineTransformInvert(&v34, &t1);
     v17 = *&v34.a;
     surface = [(PKPaintAreaViewSurface *)self surface];
@@ -522,7 +522,7 @@ void __42__PKPaintAreaViewSurface_drawingCancelled__block_invoke(uint64_t a1)
   if ([(PKPaintAreaViewSurface *)self isDrawing]|| (v5 = self->_drawingController) != 0 && v5->_liveInteraction || self->_isErasingObjects)
   {
     memset(&v14, 0, sizeof(v14));
-    [(PKPaintAreaViewSurface *)self strokeTransform];
+    objc_msgSend_strokeTransform(self);
     [(PKPaintAreaViewSurface *)self textureScale];
     v7 = v6;
     [(PKPaintAreaViewSurface *)self textureScale];

@@ -1,4 +1,5 @@
 @interface ATXCoreAnalyticsModeDNDDimensions
+- (ATXCoreAnalyticsModeDNDDimensions)initWithMode:(id)mode isDND:(BOOL)d;
 - (ATXCoreAnalyticsModeDNDDimensions)initWithMode:(id)mode nullableIsDND:(id)d;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)coreAnalyticsDictionary;
@@ -24,6 +25,17 @@
   return v10;
 }
 
+- (ATXCoreAnalyticsModeDNDDimensions)initWithMode:(id)mode isDND:(BOOL)d
+{
+  dCopy = d;
+  v6 = MEMORY[0x277CCABB0];
+  modeCopy = mode;
+  v8 = [v6 numberWithBool:dCopy];
+  v9 = [(ATXCoreAnalyticsModeDNDDimensions *)self initWithMode:modeCopy nullableIsDND:v8];
+
+  return v9;
+}
+
 - (id)powerset
 {
   v3 = objc_opt_new();
@@ -41,8 +53,8 @@
 
 - (id)coreAnalyticsDictionary
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"mode";
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"mode";
   mode = self->_mode;
   null = mode;
   if (!mode)
@@ -50,8 +62,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v10[1] = @"isDND";
-  v11[0] = null;
+  v9[1] = @"isDND";
+  v10[0] = null;
   isDND = self->_isDND;
   null2 = isDND;
   if (!isDND)
@@ -59,8 +71,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (isDND)
   {
     if (mode)
@@ -79,7 +91,6 @@
   }
 
 LABEL_7:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

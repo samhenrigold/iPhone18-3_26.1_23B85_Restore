@@ -16,15 +16,13 @@
 
 - (void)setTimestamp:(float)timestamp
 {
-  v5 = objc_alloc(MEMORY[0x277CCABB0]);
-  *&v6 = timestamp;
-  v7 = [v5 initWithFloat:v6];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithFloat:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (float)timestamp
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"timestamp"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   [v2 floatValue];
   v4 = v3;
 
@@ -33,13 +31,13 @@
 
 - (void)setLength:(unsigned int)length
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:length];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (unsigned)length
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"length"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   unsignedIntegerValue = [v2 unsignedIntegerValue];
 
   return unsignedIntegerValue;
@@ -47,13 +45,13 @@
 
 - (void)setOffset:(unsigned int)offset
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:offset];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (unsigned)offset
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"offset"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   unsignedIntegerValue = [v2 unsignedIntegerValue];
 
   return unsignedIntegerValue;
@@ -61,13 +59,13 @@
 
 - (void)setSample_idx:(unsigned int)sample_idx
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:sample_idx];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (unsigned)sample_idx
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"sample_idx"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   unsignedIntegerValue = [v2 unsignedIntegerValue];
 
   return unsignedIntegerValue;
@@ -81,7 +79,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v4 = [objc_msgSend(objc_opt_class() "allocWithZone:"init"")];
   v5 = [(NSMutableDictionary *)self->super._storage copy];
   v6 = v4[1];
   v4[1] = v5;

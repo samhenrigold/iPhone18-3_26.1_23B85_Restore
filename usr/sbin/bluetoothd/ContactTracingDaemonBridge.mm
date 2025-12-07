@@ -85,6 +85,7 @@
 
 - (id)createAdvertisementQuerySessionWithThreshold:(unsigned __int8)threshold error:(id *)error
 {
+  thresholdCopy = threshold;
   if (qword_100B547B0 != -1)
   {
     sub_100872CB0();
@@ -92,7 +93,7 @@
 
   v6 = off_100B547A8;
 
-  return sub_100611CE8(v6, threshold, error);
+  return sub_100611CE8(v6, thresholdCopy, error);
 }
 
 - (void)performPeriodicAdvertisementDatabasePurgeWithDate:(id)date
@@ -122,7 +123,7 @@
 
   v3 = off_100B547A8;
 
-  sub_1006118B4(v3);
+  sub_1006118B4(v3, a2);
 }
 
 - (id)retrieveTEKHistoryIncludingActive:(BOOL)active generateNewTEK:(BOOL)k
@@ -180,7 +181,7 @@
 
   v3 = off_100B547A8;
 
-  return sub_100611E80(v3);
+  return sub_100611E80(v3, a2);
 }
 
 - (void)switchToCentralAdvertisementStoreAsync
@@ -192,14 +193,14 @@
 
   v3 = off_100B547A8;
 
-  sub_100611A54(v3);
+  sub_100611A54(v3, a2);
 }
 
 - (void)registerStateMetricPullCallback:(id)callback
 {
   callbackCopy = callback;
-  v3 = sub_10000F034();
-  (*(*v3 + 496))(v3, callbackCopy);
+  v4 = sub_10000F034(callbackCopy, v3);
+  (*(*v4 + 496))(v4, callbackCopy);
 }
 
 - (void)sendOnBoardingMetricWithTrigger:(unsigned int)trigger completed:(BOOL)completed firstTime:(BOOL)time countryCode:(id)code subdivisionCode:(id)subdivisionCode legalConsent:(BOOL)consent
@@ -210,8 +211,8 @@
   v12 = *&trigger;
   codeCopy = code;
   subdivisionCodeCopy = subdivisionCode;
-  v14 = sub_10000F034();
-  (*(*v14 + 488))(v14, v12, completedCopy, timeCopy, codeCopy, subdivisionCodeCopy, consentCopy);
+  v15 = sub_10000F034(subdivisionCodeCopy, v14);
+  (*(*v15 + 488))(v15, v12, completedCopy, timeCopy, codeCopy, subdivisionCodeCopy, consentCopy);
 }
 
 - (void)sendStateMetricWithVersion:(unsigned int)version subdivisionCode:(id)code availabilityAlertCount:(unsigned __int8)count legalConsentPageCount:(unsigned __int8)pageCount
@@ -220,13 +221,13 @@
   countCopy = count;
   v8 = *&version;
   codeCopy = code;
-  v9 = sub_10000F034();
-  (*(*v9 + 480))(v9, v8, codeCopy, pageCountCopy, countCopy);
+  v10 = sub_10000F034(codeCopy, v9);
+  (*(*v10 + 480))(v10, v8, codeCopy, pageCountCopy, countCopy);
 }
 
 - (void)sendErrorMetricWithType:(unsigned int)type
 {
-  v3 = *(*sub_10000F034() + 504);
+  v3 = *(*sub_10000F034(self, a2) + 504);
 
   v3();
 }
@@ -355,7 +356,7 @@
 
   v3 = off_100B54768;
 
-  return sub_1005105F0(v3);
+  return sub_1005105F0(v3, a2);
 }
 
 - (BOOL)isENLoggingProfileInstalled

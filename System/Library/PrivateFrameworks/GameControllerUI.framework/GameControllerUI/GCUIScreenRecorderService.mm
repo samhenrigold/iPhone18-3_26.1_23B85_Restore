@@ -26,28 +26,25 @@ void __75___GCUIScreenRecorderService_stopRecordingWithPreviewIn_completionHandl
     goto LABEL_4;
   }
 
-  v8 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = *(a1 + 32);
+    v8 = *(a1 + 32);
   }
 
   else
   {
     objc_opt_class();
-    isKindOfClass = objc_opt_isKindOfClass();
-    v11 = *(a1 + 32);
-    if ((isKindOfClass & 1) == 0)
+    if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v13 = [*(a1 + 32) windows];
-        v14 = [v13 firstObject];
-        v12 = [v14 rootViewController];
+        v10 = [*(a1 + 32) windows];
+        v11 = [v10 firstObject];
+        v9 = [v11 rootViewController];
 
-        if (v12)
+        if (v9)
         {
           goto LABEL_14;
         }
@@ -56,40 +53,40 @@ void __75___GCUIScreenRecorderService_stopRecordingWithPreviewIn_completionHandl
       goto LABEL_13;
     }
 
-    v9 = [*(a1 + 32) rootViewController];
+    v8 = [*(a1 + 32) rootViewController];
   }
 
-  v12 = v9;
-  if (v9)
+  v9 = v8;
+  if (v8)
   {
 LABEL_14:
     if (*(a1 + 48))
     {
-      v18 = MEMORY[0x20F32E600]();
-      objc_setAssociatedObject(object, "Handler", v18, 0x303);
+      v15 = MEMORY[0x20F32E600]();
+      objc_setAssociatedObject(object, "Handler", v15, 0x303);
     }
 
     [object setPreviewControllerDelegate:*(a1 + 40)];
-    [v12 presentViewController:object animated:0 completion:0];
+    [v9 presentViewController:object animated:0 completion:0];
 
     goto LABEL_17;
   }
 
 LABEL_13:
-  v15 = [MEMORY[0x277D75128] sharedApplication];
-  v16 = [v15 windows];
-  v17 = [v16 firstObject];
-  v12 = [v17 rootViewController];
+  v12 = [MEMORY[0x277D75128] sharedApplication];
+  v13 = [v12 windows];
+  v14 = [v13 firstObject];
+  v9 = [v14 rootViewController];
 
-  if (v12)
+  if (v9)
   {
     goto LABEL_14;
   }
 
-  v19 = *(a1 + 48);
-  if (v19)
+  v16 = *(a1 + 48);
+  if (v16)
   {
-    v7 = *(v19 + 16);
+    v7 = *(v16 + 16);
 LABEL_4:
     v7();
   }

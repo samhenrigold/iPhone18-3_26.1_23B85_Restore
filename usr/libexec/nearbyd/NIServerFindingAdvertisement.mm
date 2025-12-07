@@ -1,5 +1,6 @@
 @interface NIServerFindingAdvertisement
 + (array<unsigned)convertCBAddressToRoseAddress:(id)address;
++ (id)advertisementForFinder:(BOOL)finder address:(const void *)address statusFlags:(unsigned __int8)flags payload:(id)payload extraOOBData:(id)data uniqueIdentifier:(id)identifier;
 + (id)advertisementFromByteRepresentation:(id)representation;
 - (BOOL)isEqual:(id)equal;
 - (NSData)byteRepresentation;
@@ -48,6 +49,82 @@
   return v7;
 }
 
++ (id)advertisementForFinder:(BOOL)finder address:(const void *)address statusFlags:(unsigned __int8)flags payload:(id)payload extraOOBData:(id)data uniqueIdentifier:(id)identifier
+{
+  flagsCopy = flags;
+  finderCopy = finder;
+  payloadCopy = payload;
+  dataCopy = data;
+  identifierCopy = identifier;
+  v16 = [[NIServerFindingAdvertisement alloc] initForFinder:finderCopy address:address];
+  [v16 setUniqueIdentifier:identifierCopy];
+  [v16 setProtocolVersion:0];
+  if ((flagsCopy & 1) != 0 && [payloadCopy length])
+  {
+    v17 = payloadCopy;
+    if (finderCopy)
+    {
+      v18 = *[payloadCopy bytes];
+      [v16 setProtocolVersion:v18 & 7];
+      [v16 setNarrowBandMask:(v18 >> 3) & 3];
+      [v16 setMmsNumFragmentsOOB:(v18 >> 5) & 3];
+    }
+
+    else
+    {
+      v19 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", *[payloadCopy bytes]);
+      [v16 setNbUwbAcquisitionChannelIdx:v19];
+
+      if ([payloadCopy length] >= 2)
+      {
+        v20 = *([payloadCopy bytes] + 1);
+        [v16 setProtocolVersion:v20 & 7];
+        [v16 setNarrowBandMask:(v20 >> 3) & 3];
+        [v16 setMmsNumFragmentsOOB:(v20 >> 5) & 3];
+      }
+    }
+  }
+
+  __p = 0;
+  v29 = 0;
+  v30 = 0;
+  if ((flagsCopy & 4) != 0)
+  {
+    sub_10004F51C(&__p, 1uLL);
+  }
+
+  [v16 setUseCase:(flagsCopy >> 4) & 1];
+  v25 = 0;
+  v26 = 0;
+  v27 = 0;
+  sub_10037E450(&v25, __p, v29, (v29 - __p) >> 2);
+  [v16 setSupportedTechnologies:&v25];
+  if (v25)
+  {
+    v26 = v25;
+    operator delete(v25);
+  }
+
+  [v16 setCanRange:(flagsCopy >> 1) & 1];
+  if ([dataCopy length])
+  {
+    v21 = *[dataCopy bytes];
+    v22 = [NSNumber numberWithBool:v21 & 1];
+    [v16 setNbUwbAcquisitionUseLowPriorityDutyCycle:v22];
+
+    0x3F = [NSNumber numberWithUnsignedChar:(v21 >> 1) & 0x3F];
+    [v16 setOobRefreshPeriodSeconds:0x3F];
+  }
+
+  if (__p)
+  {
+    v29 = __p;
+    operator delete(__p);
+  }
+
+  return v16;
+}
+
 + (id)advertisementFromByteRepresentation:(id)representation
 {
   representationCopy = representation;
@@ -59,7 +136,7 @@
     {
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_FAULT))
       {
-        sub_1004C5A1C(&v17);
+        sub_1004C5A1C();
       }
 
       v4 = 0;
@@ -527,7 +604,7 @@ LABEL_11:
     useCase = [(NIServerFindingAdvertisement *)v6 useCase];
     if (v6)
     {
-      [(NIServerFindingAdvertisement *)v6 supportedTechnologies];
+      objc_msgSend_supportedTechnologies(v6);
       v14 = v62;
       v15 = v63;
     }

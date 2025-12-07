@@ -40,7 +40,7 @@
 - (NSArray)accessibilityElements
 {
   selfCopy = self;
-  v3 = sub_215471688();
+  v3 = sub_215471688(selfCopy);
 
   if (v3)
   {

@@ -60,7 +60,7 @@
 
 - (void)_initializeCaptureComposition
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   [(RCCompositionFragment *)self->_destinationFragment timeRangeInComposition];
   self->_captureInsertionTimeInComposition = v3;
   self->_captureInsertionDurationInComposition = v4 - v3;
@@ -68,7 +68,8 @@
   capturedFragment = self->_capturedFragment;
   self->_capturedFragment = v5;
 
-  [(RCCompositionFragment *)self->_capturedFragment setTimeRangeInComposition:RCTimeRangeMake(self->_captureInsertionTimeInComposition, self->_captureInsertionTimeInComposition)];
+  RCTimeRangeMake();
+  [(RCCompositionFragment *)self->_capturedFragment setTimeRangeInComposition:?];
   [(RCCompositionFragment *)self->_capturedFragment setTimeRangeInContentToUse:-1.79769313e308, 1.79769313e308];
   v7 = [(RCComposition *)self->_destinationComposition mutableCopy];
   capturedComposition = self->_capturedComposition;
@@ -76,26 +77,26 @@
 
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   composedFragments = [(RCComposition *)self->_capturedComposition composedFragments];
-  v12 = [composedFragments countByEnumeratingWithState:&v26 objects:v38 count:16];
+  v12 = [composedFragments countByEnumeratingWithState:&v25 objects:v37 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(composedFragments);
         }
 
-        v16 = *(*(&v26 + 1) + 8 * i);
+        v16 = *(*(&v25 + 1) + 8 * i);
         v17 = [v16 copy];
         [array addObject:v17];
 
@@ -103,7 +104,7 @@
         [array2 addObject:v18];
       }
 
-      v13 = [composedFragments countByEnumeratingWithState:&v26 objects:v38 count:16];
+      v13 = [composedFragments countByEnumeratingWithState:&v25 objects:v37 count:16];
     }
 
     while (v13);
@@ -122,20 +123,19 @@
   {
     destinationComposition = self->_destinationComposition;
     destinationFragment = self->_destinationFragment;
-    v25 = self->_capturedComposition;
+    v24 = self->_capturedComposition;
     *buf = 136315906;
-    v31 = "[RCCaptureInputWaveformDataSource _initializeCaptureComposition]";
-    v32 = 2112;
-    v33 = destinationComposition;
-    v34 = 2112;
-    v35 = destinationFragment;
-    v36 = 2112;
-    v37 = v25;
+    v30 = "[RCCaptureInputWaveformDataSource _initializeCaptureComposition]";
+    v31 = 2112;
+    v32 = destinationComposition;
+    v33 = 2112;
+    v34 = destinationFragment;
+    v35 = 2112;
+    v36 = v24;
     _os_log_debug_impl(&dword_272442000, v21, OS_LOG_TYPE_DEBUG, "%s -- initializing capture waveform data source.\n  original composition = %@\n  original fragment = %@\n  initial capture composition = %@", buf, 0x2Au);
   }
 
   [(RCCaptureInputWaveformDataSource *)self _updateCapturedComposition:1];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)waveformDataSourceDidFinishLoading:(id)loading
@@ -164,7 +164,7 @@
     goto LABEL_5;
   }
 
-  [segmentCopy timeRange];
+  objc_msgSend_timeRange(segmentCopy);
   captureInsertionTimeInComposition = self->_captureInsertionTimeInComposition;
   if (v10 >= captureInsertionTimeInComposition)
   {
@@ -341,134 +341,110 @@ void __113__RCCaptureInputWaveformDataSource_finishLoadingWithCompletionTimeout_
 {
   var1 = range.var1;
   var0 = range.var0;
-  v45 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
-  v42.receiver = self;
-  v42.super_class = RCCaptureInputWaveformDataSource;
-  [(RCWaveformDataSource *)&v42 duration];
-  if (captureDelta < self->captureDelta)
-  {
-    captureDelta = self->captureDelta;
-  }
-
-  v8 = RCTimeRangeMake(self->_captureInsertionTimeInComposition, self->_captureInsertionTimeInComposition + captureDelta);
+  v39.receiver = self;
+  v39.super_class = RCCaptureInputWaveformDataSource;
+  [(RCWaveformDataSource *)&v39 duration];
+  RCTimeRangeMake();
+  v8 = v7;
   v10 = v9;
   if (var0 < self->_captureInsertionTimeInComposition)
   {
-    if (var1 >= v8)
-    {
-      v11 = v8;
-    }
-
-    else
-    {
-      v11 = var1;
-    }
-
-    v12 = [(RCCaptureInputWaveformDataSource *)self _captureSegmentsInComponentWaveform:self->_baseWaveform captureTimeRange:RCTimeRangeMake(var0 componentWaveformSegmentOffset:v11)];
-    v40 = 0u;
-    v41 = 0u;
+    RCTimeRangeMake();
+    v11 = [RCCaptureInputWaveformDataSource _captureSegmentsInComponentWaveform:"_captureSegmentsInComponentWaveform:captureTimeRange:componentWaveformSegmentOffset:" captureTimeRange:self->_baseWaveform componentWaveformSegmentOffset:?];
+    v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    v13 = [v12 countByEnumeratingWithState:&v38 objects:v44 count:16];
-    if (v13)
+    v35 = 0u;
+    v36 = 0u;
+    v12 = [v11 countByEnumeratingWithState:&v35 objects:v41 count:16];
+    if (v12)
     {
-      v14 = *v39;
+      v13 = *v36;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v39 != v14)
+          if (*v36 != v13)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v11);
           }
 
-          [*(*(&v38 + 1) + 8 * i) setIsRendered:1];
+          [*(*(&v35 + 1) + 8 * i) setIsRendered:1];
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v38 objects:v44 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v35 objects:v41 count:16];
       }
 
-      while (v13);
+      while (v12);
     }
 
-    [array addObjectsFromArray:v12];
+    [array addObjectsFromArray:v11];
   }
 
   if (var1 > v8)
   {
-    v16 = RCTimeRangeIntersectTimeRange(var0, var1, v8, v10);
-    v18 = v17;
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x3032000000;
-    v35 = __Block_byref_object_copy__12;
-    v36 = __Block_byref_object_dispose__12;
-    v37 = 0;
+    v15 = RCTimeRangeIntersectTimeRange(var0, var1, v8, v10);
+    v17 = v16;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x3032000000;
+    v32 = __Block_byref_object_copy__12;
+    v33 = __Block_byref_object_dispose__12;
+    v34 = 0;
     queue = [(RCWaveformDataSource *)self queue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __64__RCCaptureInputWaveformDataSource_waveformSegmentsInTimeRange___block_invoke;
     block[3] = &unk_279E45158;
     block[4] = self;
-    block[5] = &v32;
-    *&block[6] = v16;
-    block[7] = v18;
+    block[5] = &v29;
+    *&block[6] = v15;
+    block[7] = v17;
     *&block[8] = v8;
     *&block[9] = v10;
     dispatch_sync(queue, block);
 
-    if (v33[5])
+    if (v30[5])
     {
       [array addObjectsFromArray:?];
     }
 
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v29, 8);
   }
 
   if (var1 > v10)
   {
-    if (v10 >= var0)
-    {
-      v20 = v10;
-    }
-
-    else
-    {
-      v20 = var0;
-    }
-
-    v21 = [(RCCaptureInputWaveformDataSource *)self _captureSegmentsInComponentWaveform:self->_baseWaveform captureTimeRange:RCTimeRangeMake(v20 componentWaveformSegmentOffset:var1)];
-    v29 = 0u;
-    v30 = 0u;
+    RCTimeRangeMake();
+    v19 = [RCCaptureInputWaveformDataSource _captureSegmentsInComponentWaveform:"_captureSegmentsInComponentWaveform:captureTimeRange:componentWaveformSegmentOffset:" captureTimeRange:self->_baseWaveform componentWaveformSegmentOffset:?];
+    v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v22 = [v21 countByEnumeratingWithState:&v27 objects:v43 count:16];
-    if (v22)
+    v24 = 0u;
+    v25 = 0u;
+    v20 = [v19 countByEnumeratingWithState:&v24 objects:v40 count:16];
+    if (v20)
     {
-      v23 = *v28;
+      v21 = *v25;
       do
       {
-        for (j = 0; j != v22; ++j)
+        for (j = 0; j != v20; ++j)
         {
-          if (*v28 != v23)
+          if (*v25 != v21)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(v19);
           }
 
-          [*(*(&v27 + 1) + 8 * j) setIsRendered:1];
+          [*(*(&v24 + 1) + 8 * j) setIsRendered:1];
         }
 
-        v22 = [v21 countByEnumeratingWithState:&v27 objects:v43 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v24 objects:v40 count:16];
       }
 
-      while (v22);
+      while (v20);
     }
 
-    [array addObjectsFromArray:v21];
+    [array addObjectsFromArray:v19];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -486,27 +462,23 @@ void __64__RCCaptureInputWaveformDataSource_waveformSegmentsInTimeRange___block_
 - ($F24F406B2B787EFB06265DBA3D28CBD5)timeRangeToHighlight
 {
   [(RCCaptureInputWaveformDataSource *)self _fragmentDuration];
-  v4 = v3 + self->_captureInsertionTimeInComposition;
-  captureInsertionTimeInComposition = self->_captureInsertionTimeInComposition;
 
-  v6 = RCTimeRangeMake(captureInsertionTimeInComposition, v4);
-  result.var1 = v7;
-  result.var0 = v6;
+  RCTimeRangeMake();
+  result.var1 = v3;
+  result.var0 = v2;
   return result;
 }
 
 - (id)segmentsInCompositionByConvertingFromActiveLoadingFragment:(id)fragment
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   fragmentCopy = fragment;
   v4 = MEMORY[0x277CBEA60];
   fragmentCopy2 = fragment;
   v6 = [v4 arrayWithObjects:&fragmentCopy count:1];
-  v7 = [RCWaveformSegment segmentsByShiftingSegments:v6 byTimeOffset:self->_captureInsertionTimeInComposition, fragmentCopy, v12];
+  v7 = [RCWaveformSegment segmentsByShiftingSegments:v6 byTimeOffset:self->_captureInsertionTimeInComposition, fragmentCopy, v11];
 
   firstObject = [v7 firstObject];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -567,14 +539,13 @@ void __64__RCCaptureInputWaveformDataSource_waveformSegmentsInTimeRange___block_
 
 - (void)appendAveragePowerLevelsByDigestingWaveformSegment:(id)segment
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   segmentCopy = segment;
   waveformGenerator = [(RCWaveformDataSource *)self waveformGenerator];
-  v8[0] = segmentCopy;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = segmentCopy;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
 
   [waveformGenerator appendAveragePowerLevelsByDigestingWaveformSegments:v6];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_captureSesionCompletedWithFinalizedDuration:(double)duration
@@ -601,20 +572,20 @@ void __64__RCCaptureInputWaveformDataSource_waveformSegmentsInTimeRange___block_
 
 - (void)_updateCapturedComposition:(BOOL)composition
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   [(RCCaptureInputWaveformDataSource *)self _fragmentDuration];
-  v7 = v6;
   if (composition || vabdd_f64(v6, self->_updatedCapturedFragmentDuration) >= 0.01)
   {
     self->_updatedCapturedFragmentDuration = v6;
     [(RCCompositionFragment *)self->_capturedFragment setContentDuration:v6];
-    [(RCCompositionFragment *)self->_capturedFragment setTimeRangeInComposition:RCTimeRangeMake(self->_captureInsertionTimeInComposition, v7 + self->_captureInsertionTimeInComposition)];
+    RCTimeRangeMake();
+    [(RCCompositionFragment *)self->_capturedFragment setTimeRangeInComposition:?];
     decomposedFragments = [(RCComposition *)self->_capturedComposition decomposedFragments];
-    v9 = [decomposedFragments mutableCopy];
+    v8 = [decomposedFragments mutableCopy];
 
-    [v9 removeLastObject];
-    [v9 addObject:self->_capturedFragment];
-    [(RCComposition *)self->_capturedComposition setDecomposedFragments:v9];
+    [v8 removeLastObject];
+    [v8 addObject:self->_capturedFragment];
+    [(RCComposition *)self->_capturedComposition setDecomposedFragments:v8];
     if (self->_finalCapturedFragmentDuration > 0.0)
     {
       accumulatorWaveform = [(RCWaveformDataSource *)self accumulatorWaveform];
@@ -623,51 +594,49 @@ void __64__RCCaptureInputWaveformDataSource_waveformSegmentsInTimeRange___block_
 
       if (lastObject)
       {
-        [lastObject timeRange];
+        objc_msgSend_timeRange(lastObject);
         finalCapturedFragmentDuration = self->_finalCapturedFragmentDuration;
-        if (vabdd_f64(v14, finalCapturedFragmentDuration) > 0.00000011920929)
+        if (vabdd_f64(v13, finalCapturedFragmentDuration) > 0.00000011920929)
         {
-          [lastObject timeRange];
-          if (finalCapturedFragmentDuration - v15 >= 1.0)
+          objc_msgSend_timeRange(lastObject);
+          if (finalCapturedFragmentDuration - v14 >= 1.0)
           {
             [(RCCaptureInputWaveformDataSource *)a2 _updateCapturedComposition:?];
           }
 
-          [lastObject timeRange];
-          v17 = self->_finalCapturedFragmentDuration;
-          if (v17 > 0.00000011920929)
+          objc_msgSend_timeRange(lastObject);
+          v16 = self->_finalCapturedFragmentDuration;
+          if (v16 > 0.00000011920929)
           {
-            v18 = v16;
-            if (vabdd_f64(v17, v16) >= 0.07)
+            v17 = v15;
+            if (vabdd_f64(v16, v15) >= 0.07)
             {
-              [lastObject timeRange];
-              v20 = v19;
-              v21 = self->_finalCapturedFragmentDuration;
-              v22 = OSLogForCategory(@"Default");
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+              objc_msgSend_timeRange(lastObject);
+              v19 = v18;
+              v20 = self->_finalCapturedFragmentDuration;
+              v21 = OSLogForCategory(@"Default");
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
               {
-                v24 = 136315906;
-                v25 = "[RCCaptureInputWaveformDataSource _updateCapturedComposition:]";
+                v22 = 136315906;
+                v23 = "[RCCaptureInputWaveformDataSource _updateCapturedComposition:]";
+                v24 = 2048;
+                v25 = v20;
                 v26 = 2048;
-                v27 = v21;
+                v27 = v19;
                 v28 = 2048;
-                v29 = v20;
-                v30 = 2048;
-                v31 = v17 - v18;
-                _os_log_impl(&dword_272442000, v22, OS_LOG_TYPE_INFO, "%s -- DURATION MISMATCH: AVAsset.duration = %.3f, duration derived from samples = %.3f (delta = %.6f)!", &v24, 0x2Au);
+                v29 = v16 - v17;
+                _os_log_impl(&dword_272442000, v21, OS_LOG_TYPE_INFO, "%s -- DURATION MISMATCH: AVAsset.duration = %.3f, duration derived from samples = %.3f (delta = %.6f)!", &v22, 0x2Au);
               }
 
-              v17 = self->_finalCapturedFragmentDuration;
+              v16 = self->_finalCapturedFragmentDuration;
             }
           }
 
-          [(RCCaptureInputWaveformDataSource *)self _modifyAccumulatedWaveformSegmentsToMatchFinalDuration:v17];
+          [(RCCaptureInputWaveformDataSource *)self _modifyAccumulatedWaveformSegmentsToMatchFinalDuration:v16];
         }
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_modifyAccumulatedWaveformSegmentsToMatchFinalDuration:(double)duration
@@ -679,7 +648,7 @@ void __64__RCCaptureInputWaveformDataSource_waveformSegmentsInTimeRange___block_
   v7 = lastObject;
   if (lastObject)
   {
-    [lastObject timeRange];
+    objc_msgSend_timeRange(lastObject);
     if (v8 >= duration)
     {
       [(RCCaptureInputWaveformDataSource *)self _truncateAccumulatedWaveformSegmentsToEndTime:duration];
@@ -707,34 +676,33 @@ void __64__RCCaptureInputWaveformDataSource_waveformSegmentsInTimeRange___block_
 
 id __91__RCCaptureInputWaveformDataSource__extendAccumulatedWaveformSegmentsToMatchFinalDuration___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [a2 segmentsCopy];
   v4 = [v3 lastObject];
   v5 = [v3 mutableCopy];
   [v5 removeLastObject];
-  [v4 timeRange];
-  v7 = [v4 copyWithAdjustedTimeRange:{RCTimeRangeMake(v6, *(a1 + 40))}];
-  [v5 addObject:v7];
-  v8 = OSLogForCategory(@"Default");
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  objc_msgSend_timeRange(v4);
+  RCTimeRangeMake();
+  v6 = [v4 copyWithAdjustedTimeRange:?];
+  [v5 addObject:v6];
+  v7 = OSLogForCategory(@"Default");
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v11 = [*(*(a1 + 32) + 104) AVOutputURL];
-    v12 = [v11 path];
-    v13 = *(a1 + 40);
-    v14 = 136316162;
-    v15 = "[RCCaptureInputWaveformDataSource _extendAccumulatedWaveformSegmentsToMatchFinalDuration:]_block_invoke";
-    v16 = 2112;
-    v17 = v12;
-    v18 = 2048;
-    v19 = v13;
+    v9 = [*(*(a1 + 32) + 104) AVOutputURL];
+    v10 = [v9 path];
+    v11 = *(a1 + 40);
+    v12 = 136316162;
+    v13 = "[RCCaptureInputWaveformDataSource _extendAccumulatedWaveformSegmentsToMatchFinalDuration:]_block_invoke";
+    v14 = 2112;
+    v15 = v10;
+    v16 = 2048;
+    v17 = v11;
+    v18 = 2112;
+    v19 = v4;
     v20 = 2112;
-    v21 = v4;
-    v22 = 2112;
-    v23 = v7;
-    _os_log_debug_impl(&dword_272442000, v8, OS_LOG_TYPE_DEBUG, "%s -- Modifying waveform segments of %@ to match asset final duration (%.2f) by extending last segment.  Last segment was %@, now %@", &v14, 0x34u);
+    v21 = v6;
+    _os_log_debug_impl(&dword_272442000, v7, OS_LOG_TYPE_DEBUG, "%s -- Modifying waveform segments of %@ to match asset final duration (%.2f) by extending last segment.  Last segment was %@, now %@", &v12, 0x34u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -752,52 +720,51 @@ id __91__RCCaptureInputWaveformDataSource__extendAccumulatedWaveformSegmentsToMa
 
 id __82__RCCaptureInputWaveformDataSource__truncateAccumulatedWaveformSegmentsToEndTime___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 segmentsCopy];
   v5 = [v4 firstObject];
   v6 = [v4 lastObject];
   if (v6)
   {
-    [v5 timeRange];
-    v8 = [v3 segmentsByClippingToTimeRange:{RCTimeRangeMake(v7, *(a1 + 40))}];
-    v9 = v4;
-    if (v8)
+    objc_msgSend_timeRange(v5);
+    RCTimeRangeMake();
+    v7 = [v3 segmentsByClippingToTimeRange:?];
+    v8 = v4;
+    if (v7)
     {
-      v10 = OSLogForCategory(@"Default");
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v9 = OSLogForCategory(@"Default");
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v14 = [*(*(a1 + 32) + 104) AVOutputURL];
-        v15 = [v14 path];
-        v16 = *(a1 + 40);
-        v17 = [v8 lastObject];
-        v18 = 136316162;
-        v19 = "[RCCaptureInputWaveformDataSource _truncateAccumulatedWaveformSegmentsToEndTime:]_block_invoke";
-        v20 = 2112;
-        v21 = v15;
-        v22 = 2048;
-        v23 = v16;
+        v12 = [*(*(a1 + 32) + 104) AVOutputURL];
+        v13 = [v12 path];
+        v14 = *(a1 + 40);
+        v15 = [v7 lastObject];
+        v16 = 136316162;
+        v17 = "[RCCaptureInputWaveformDataSource _truncateAccumulatedWaveformSegmentsToEndTime:]_block_invoke";
+        v18 = 2112;
+        v19 = v13;
+        v20 = 2048;
+        v21 = v14;
+        v22 = 2112;
+        v23 = v6;
         v24 = 2112;
-        v25 = v6;
-        v26 = 2112;
-        v27 = v17;
-        _os_log_debug_impl(&dword_272442000, v10, OS_LOG_TYPE_DEBUG, "%s -- Modifying waveform segments of %@ to match asset final duration (%.2f) by truncating waveform.  Last segment was %@, now %@", &v18, 0x34u);
+        v25 = v15;
+        _os_log_debug_impl(&dword_272442000, v9, OS_LOG_TYPE_DEBUG, "%s -- Modifying waveform segments of %@ to match asset final duration (%.2f) by truncating waveform.  Last segment was %@, now %@", &v16, 0x34u);
       }
 
-      v9 = v8;
+      v8 = v7;
     }
 
-    v11 = v9;
+    v10 = v8;
   }
 
   else
   {
-    v11 = v4;
+    v10 = v4;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v10;
 }
 
 - (id)copyWithTrackIndex:(unint64_t)index emptyCopy:(BOOL)copy

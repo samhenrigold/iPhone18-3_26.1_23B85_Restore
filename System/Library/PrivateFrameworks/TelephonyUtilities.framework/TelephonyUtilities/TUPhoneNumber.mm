@@ -19,8 +19,6 @@
 
 - (NSString)unformattedInternationalRepresentation
 {
-  v2 = *MEMORY[0x1E695E480];
-  phoneNumberRef = self->_phoneNumberRef;
   String = CFPhoneNumberCreateString();
 
   return String;
@@ -113,8 +111,6 @@
 
 - (NSString)digits
 {
-  v2 = *MEMORY[0x1E695E480];
-  phoneNumberRef = self->_phoneNumberRef;
   String = CFPhoneNumberCreateString();
 
   return String;
@@ -122,17 +118,13 @@
 
 - (NSString)countryCode
 {
-  v2 = *MEMORY[0x1E695E480];
-  phoneNumberRef = self->_phoneNumberRef;
-  v4 = CFPhoneNumberCopyISOCountryCode();
+  v2 = CFPhoneNumberCopyISOCountryCode();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)formattedRepresentation
 {
-  v2 = *MEMORY[0x1E695E480];
-  phoneNumberRef = self->_phoneNumberRef;
   String = CFPhoneNumberCreateString();
 
   return String;
@@ -140,8 +132,6 @@
 
 - (NSString)formattedInternationalRepresentation
 {
-  v2 = *MEMORY[0x1E695E480];
-  phoneNumberRef = self->_phoneNumberRef;
   String = CFPhoneNumberCreateString();
 
   return String;

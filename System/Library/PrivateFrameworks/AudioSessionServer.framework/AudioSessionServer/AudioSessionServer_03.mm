@@ -1,96 +1,3 @@
-void std::vector<avas::server::ControlValue>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
-  {
-    v4 = v1[1];
-    v5 = **a1;
-    if (v4 != v2)
-    {
-      v6 = v4 - 80;
-      v7 = v4 - 80;
-      v8 = v4 - 80;
-      do
-      {
-        v9 = *v8;
-        v8 -= 80;
-        (*v9)(v7);
-        v6 -= 80;
-        v10 = v7 == v2;
-        v7 = v8;
-      }
-
-      while (!v10);
-      v5 = **a1;
-    }
-
-    v1[1] = v2;
-
-    operator delete(v5);
-  }
-}
-
-void std::vector<std::pair<unsigned int,NSDictionary * {__strong}>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
-  {
-    v4 = v1[1];
-    v5 = **a1;
-    if (v4 != v2)
-    {
-      do
-      {
-        v6 = v4 - 2;
-
-        v4 = v6;
-      }
-
-      while (v6 != v2);
-      v5 = **a1;
-    }
-
-    v1[1] = v2;
-
-    operator delete(v5);
-  }
-}
-
-void std::vector<avas::RouteIdentifier>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
-  {
-    v4 = v1[1];
-    v5 = **a1;
-    if (v4 != v2)
-    {
-      v6 = v4 - 32;
-      v7 = v4 - 32;
-      v8 = v4 - 32;
-      do
-      {
-        v9 = *v8;
-        v8 -= 32;
-        (*v9)(v7);
-        v6 -= 32;
-        v10 = v7 == v2;
-        v7 = v8;
-      }
-
-      while (!v10);
-      v5 = **a1;
-    }
-
-    v1[1] = v2;
-
-    operator delete(v5);
-  }
-}
-
 const void **applesauce::CF::ObjectRef<__SecTask *>::~ObjectRef(const void **a1)
 {
   v2 = *a1;
@@ -204,9 +111,9 @@ uint64_t avas::server::AudioSessionInfo::RemoveMXNotificationListener(avas::serv
   return v4;
 }
 
-void sub_241745F44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241745F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<void const*>::~ObjectRef(va);
 
   _Unwind_Resume(a1);
@@ -246,10 +153,10 @@ BOOL avas::server::ConstAudioSessionInfo::IsBackedByMXSession(avas::server::Cons
 void avas::server::AudioSessionInfo::ResetAllPlayers(__int128 **this)
 {
   v1 = this;
-  v17[24] = *MEMORY[0x277D85DE8];
+  v16[24] = *MEMORY[0x277D85DE8];
   __p = 0;
+  v14 = 0;
   v15 = 0;
-  v16 = 0;
   v2 = this[45];
   v3 = this[46];
   if (v2 != v3)
@@ -259,7 +166,7 @@ void avas::server::AudioSessionInfo::ResetAllPlayers(__int128 **this)
     {
       if ((*(v2 + 12) & 0x10) == 0)
       {
-        if (v4 >= v16)
+        if (v4 >= v15)
         {
           v6 = 0xAAAAAAAAAAAAAAABLL * ((v4 - __p) >> 3);
           v7 = v6 + 1;
@@ -268,12 +175,12 @@ void avas::server::AudioSessionInfo::ResetAllPlayers(__int128 **this)
             std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
           }
 
-          if (0x5555555555555556 * ((v16 - __p) >> 3) > v7)
+          if (0x5555555555555556 * ((v15 - __p) >> 3) > v7)
           {
-            v7 = 0x5555555555555556 * ((v16 - __p) >> 3);
+            v7 = 0x5555555555555556 * ((v15 - __p) >> 3);
           }
 
-          if (0xAAAAAAAAAAAAAAABLL * ((v16 - __p) >> 3) >= 0x555555555555555)
+          if (0xAAAAAAAAAAAAAAABLL * ((v15 - __p) >> 3) >= 0x555555555555555)
           {
             v8 = 0xAAAAAAAAAAAAAAALL;
           }
@@ -293,11 +200,11 @@ void avas::server::AudioSessionInfo::ResetAllPlayers(__int128 **this)
           *(v9 + 16) = *(v2 + 2);
           *v9 = v10;
           v4 = (24 * v6 + 24);
-          memcpy((24 * v6 - (v15 - __p)), __p, v15 - __p);
+          memcpy((24 * v6 - (v14 - __p)), __p, v14 - __p);
           v11 = __p;
-          __p = (24 * v6 - (v15 - __p));
-          v15 = v4;
-          v16 = 0;
+          __p = (24 * v6 - (v14 - __p));
+          v14 = v4;
+          v15 = 0;
           if (v11)
           {
             operator delete(v11);
@@ -312,7 +219,7 @@ void avas::server::AudioSessionInfo::ResetAllPlayers(__int128 **this)
           v4 += 24;
         }
 
-        v15 = v4;
+        v14 = v4;
       }
 
       v2 = (v2 + 24);
@@ -322,18 +229,16 @@ void avas::server::AudioSessionInfo::ResetAllPlayers(__int128 **this)
     v1 = this;
     if (__p != v4)
     {
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[5],char [5],0>(v17);
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[5],char [5],0>(v16, "type");
     }
   }
 
   avas::server::ConstAudioSessionInfo::DisableMicrophoneMonitor(v1);
   if (__p)
   {
-    v15 = __p;
+    v14 = __p;
     operator delete(__p);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2417466D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, char a29, uint64_t a30, void *__p, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59)
@@ -348,26 +253,26 @@ void sub_2417466D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void avas::server::ConstAudioSessionInfo::DisableMicrophoneMonitor(avas::server::ConstAudioSessionInfo *this)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(this + 21);
   v3 = +[AVAudioMicrophoneMonitor sharedInstance];
   if (v3)
   {
     v4 = (*(*this + 16))(this);
-    caulk::platform::process_name(v2);
-    if (v10 >= 0)
+    caulk::platform::process_name(__p, v2);
+    if (v9 >= 0)
     {
-      p_p = &__p;
+      v5 = __p;
     }
 
     else
     {
-      p_p = __p;
+      v5 = *__p;
     }
 
-    v6 = [v3 setState:0 clientType:0 clientID:v4 clientDescription:p_p];
+    v6 = [v3 setState:0 clientType:0 clientID:v4 clientDescription:v5];
     v7 = v6;
-    if ((v10 & 0x80000000) == 0)
+    if ((v9 & 0x80000000) == 0)
     {
       if (!v6)
       {
@@ -375,10 +280,10 @@ void avas::server::ConstAudioSessionInfo::DisableMicrophoneMonitor(avas::server:
       }
 
 LABEL_9:
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[17],char [17],0>(&__p);
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[17],char [17],0>(__p, "microphone_state");
     }
 
-    operator delete(__p);
+    operator delete(*__p);
     if (v7)
     {
       goto LABEL_9;
@@ -386,11 +291,9 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_241746BE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+void sub_241746BE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
   if (*(v22 - 65) < 0)
   {
@@ -403,51 +306,49 @@ void sub_241746BE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void avas::server::AudioSessionInfo::SetPickedRouteAtTimeOfInterruption(id **a1, id **a2)
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   *a2 = 0;
   v4 = std::unique_ptr<avas::server::PickableRoute>::reset[abi:ne200100](a1 + 31, v3);
   if (a1[31])
   {
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[13],char [13],0>(buf);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[13],char [13],0>(buf, "cached_route");
   }
 
   v5 = *avas::server::gSessionServerLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = ((*a1)[2])(a1);
-    avas::server::ConstAudioSessionInfo::JSONFormattedDescription(a1, v6, v12);
-    v9[0] = 0;
-    v10 = 0;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v9);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v9);
+    avas::server::ConstAudioSessionInfo::JSONFormattedDescription(a1, v6, &v11);
+    v8[0] = 0;
+    v9 = 0;
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v8);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v8);
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::dump(&__p);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2417470BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2417470BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::detail::json_ref<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~json_ref(va);
-  if (*(v6 - 65) < 0)
+  if (*(v10 - 65) < 0)
   {
-    operator delete(*(v6 - 88));
+    operator delete(*(v10 - 88));
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t avas::server::AudioSessionInfo::CachedStateString@<X0>(avas::server::AudioSessionInfo *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *avas::server::AudioSessionInfo::CachedStateString@<X0>(uint64_t *__return_ptr a1@<X8>, avas::server::AudioSessionInfo *this@<X0>)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v21);
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, "state: ", 7);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v20);
+  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, "state: ", 7);
   v5 = *(this + 76);
   if (v5 >= 3)
   {
-    v20 = _os_crash();
-    [AVAudioSessionRemoteXPCClient initWithServer:v20 process:? delegate:?];
+    _os_crash();
+    [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
   }
 
   v6 = v4;
@@ -456,7 +357,7 @@ uint64_t avas::server::AudioSessionInfo::CachedStateString@<X0>(avas::server::Au
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v7, v8);
   if (*(this + 76) == 2)
   {
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, " by ", 4);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, " by ", 4);
     v10 = *(this + 335);
     if (v10 >= 0)
     {
@@ -481,7 +382,7 @@ uint64_t avas::server::AudioSessionInfo::CachedStateString@<X0>(avas::server::Au
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v11, v12);
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, ", category: ", 12);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, ", category: ", 12);
   v13 = *(this + 279);
   if (v13 < 0)
   {
@@ -491,7 +392,7 @@ uint64_t avas::server::AudioSessionInfo::CachedStateString@<X0>(avas::server::Au
     }
 
 LABEL_20:
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, "(not set/unknown)", 17);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, "(not set/unknown)", 17);
     goto LABEL_21;
   }
 
@@ -521,9 +422,9 @@ LABEL_12:
     v15 = *(this + 33);
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, v14, v15);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, v14, v15);
 LABEL_21:
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, ", mode: ", 8);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, ", mode: ", 8);
   v16 = *(this + 303);
   if (v16 < 0)
   {
@@ -556,35 +457,35 @@ LABEL_23:
       v18 = *(this + 36);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, v17, v18);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, v17, v18);
     goto LABEL_32;
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, "(not set/unknown)", 17);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, "(not set/unknown)", 17);
 LABEL_32:
-  std::ostringstream::str[abi:ne200100](&v21, a2);
-  v21 = *MEMORY[0x277D82828];
-  *(&v21 + *(v21 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v22 = MEMORY[0x277D82878] + 16;
-  if (v24 < 0)
+  std::ostringstream::str[abi:ne200100](&v20, a1);
+  v20 = *MEMORY[0x277D82828];
+  *(&v20 + *(v20 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v21 = MEMORY[0x277D82878] + 16;
+  if (v23 < 0)
   {
-    operator delete(v23[7].__locale_);
+    operator delete(v22[7].__locale_);
   }
 
-  v22 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v23);
+  v21 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v22);
   std::ostream::~ostream();
-  return MEMORY[0x245CEEAC0](&v25);
+  return MEMORY[0x245CEEAC0](&v24);
 }
 
-void sub_24174741C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24174741C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-const void *std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:ne200100](a1 + 8);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -598,13 +499,13 @@ const void *std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     result = memmove(a2, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
@@ -627,7 +528,7 @@ uint64_t std::ostringstream::~ostringstream(uint64_t a1)
   return a1;
 }
 
-uint64_t avas::server::AudioSessionInfo::PlayStateString@<X0>(avas::server::AudioSessionInfo *this@<X0>, _BYTE *a2@<X8>)
+uint64_t avas::server::AudioSessionInfo::PlayStateString@<X0>(avas::server::AudioSessionInfo *this@<X0>, void *a2@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
   v4 = MEMORY[0x245CEE9C0](&v11, *(this + 48));
@@ -653,9 +554,9 @@ uint64_t avas::server::AudioSessionInfo::PlayStateString@<X0>(avas::server::Audi
   return MEMORY[0x245CEEAC0](&v15);
 }
 
-void sub_2417477A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2417477A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -665,7 +566,7 @@ void avas::server::AudioSessionInfo::DebugStateStrings(avas::server::AudioSessio
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
-  avas::server::AudioSessionInfo::CachedStateString(this, __p);
+  avas::server::AudioSessionInfo::CachedStateString(__p, this);
   v5 = *(a2 + 8);
   v4 = *(a2 + 16);
   if (v5 >= v4)
@@ -822,17 +723,17 @@ void sub_241747A28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void avas::server::AudioSessionInfo::SetInterrupted(avas::server::AudioSessionInfo *this, int a2, const __CFString *a3)
 {
   v4 = a2;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (!a2 && *(this + 225) == 1)
   {
     v6 = *avas::server::gSessionServerLog(this);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 136315394;
-      v13 = "AudioSessionInfo.mm";
-      v14 = 1024;
-      v15 = 501;
-      _os_log_impl(&dword_241701000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d Session interrupt stopped", &v12, 0x12u);
+      v11 = 136315394;
+      v12 = "AudioSessionInfo.mm";
+      v13 = 1024;
+      v14 = 501;
+      _os_log_impl(&dword_241701000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d Session interrupt stopped", &v11, 0x12u);
     }
 
     v7 = this;
@@ -848,11 +749,11 @@ LABEL_11:
     v10 = *avas::server::gSessionServerLog(this);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 136315394;
-      v13 = "AudioSessionInfo.mm";
-      v14 = 1024;
-      v15 = 504;
-      _os_log_impl(&dword_241701000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d Session interrupt started", &v12, 0x12u);
+      v11 = 136315394;
+      v12 = "AudioSessionInfo.mm";
+      v13 = 1024;
+      v14 = 504;
+      _os_log_impl(&dword_241701000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d Session interrupt started", &v11, 0x12u);
     }
 
     v7 = this;
@@ -863,7 +764,6 @@ LABEL_11:
 
 LABEL_12:
   *(this + 225) = v4;
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t avas::server::AudioSessionInfo::SetSiblingPlayerState(uint64_t a1, unint64_t a2, uint64_t a3, int a4, int a5, int a6)
@@ -894,7 +794,7 @@ uint64_t avas::server::AudioSessionInfo::SetSiblingPlayerState(uint64_t a1, unin
   }
 
   v38 = &v37;
-  v13 = std::__tree<std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>,std::__map_value_compare<void const*,std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>,std::less<void const*>,true>,std::allocator<std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>>>::__emplace_unique_key_args<void const*,std::piecewise_construct_t const&,std::tuple<void const* const&>,std::tuple<>>(a1 + 384, &v37);
+  v13 = std::__tree<std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>,std::__map_value_compare<void const*,std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>,std::less<void const*>,true>,std::allocator<std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>>>::__emplace_unique_key_args<void const*,std::piecewise_construct_t const&,std::tuple<void const* const&>,std::tuple<>>(a1 + 384, &v37, &std::piecewise_construct, &v38);
   std::vector<avas::server::AudioSessionInfo::PlayerState>::__assign_with_size[abi:ne200100]<avas::server::AudioSessionInfo::PlayerState const*,avas::server::AudioSessionInfo::PlayerState const*>(v13 + 5, 0, 0, 0);
 LABEL_9:
   v14 = std::map<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>::at(a1 + 384, &v37);
@@ -1031,7 +931,7 @@ LABEL_32:
   }
 
   v38 = &v37;
-  v35 = std::__tree<std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>,std::__map_value_compare<void const*,std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>,std::less<void const*>,true>,std::allocator<std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>>>::__emplace_unique_key_args<void const*,std::piecewise_construct_t const&,std::tuple<void const* const&>,std::tuple<>>(a1 + 384, &v37);
+  v35 = std::__tree<std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>,std::__map_value_compare<void const*,std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>,std::less<void const*>,true>,std::allocator<std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>>>::__emplace_unique_key_args<void const*,std::piecewise_construct_t const&,std::tuple<void const* const&>,std::tuple<>>(a1 + 384, &v37, &std::piecewise_construct, &v38);
   if (v35[5] == v35[6])
   {
     std::__tree<std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>,std::__map_value_compare<void const*,std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>,std::less<void const*>,true>,std::allocator<std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>>>::__erase_unique<void const*>((a1 + 384), &v37);
@@ -1082,11 +982,11 @@ LABEL_8:
 
 void ___ZN4avas6server16AudioSessionInfo27DeferPropertyChangeCallbackEPK8NSStringP12NSDictionaryb_block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 48);
   v2 = *(a1 + 56);
   v4 = *(a1 + 32);
-  v14 = *(a1 + 40);
+  v13 = *(a1 + 40);
   if (v3 != v2)
   {
     v5 = *(a1 + 72);
@@ -1108,17 +1008,17 @@ void ___ZN4avas6server16AudioSessionInfo27DeferPropertyChangeCallbackEPK8NSStrin
             if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315906;
-              v16 = "AudioSessionInfo.mm";
-              v17 = 1024;
-              v18 = 729;
-              v19 = 2112;
-              v20 = v4;
-              v21 = 1024;
-              v22 = v10;
+              v15 = "AudioSessionInfo.mm";
+              v16 = 1024;
+              v17 = 729;
+              v18 = 2112;
+              v19 = v4;
+              v20 = 1024;
+              v21 = v10;
               _os_log_impl(&dword_241701000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d Distributing %@ to remote client 0x%x", buf, 0x22u);
             }
 
-            avas::server::AudioSessionRemoteClient::DeferPropertyChangeCallback(v7, v4, v14, v5);
+            avas::server::AudioSessionRemoteClient::DeferPropertyChangeCallback(v7, v4, v13, v5);
           }
 
           std::__shared_weak_count::__release_shared[abi:ne200100](v9);
@@ -1134,8 +1034,6 @@ void ___ZN4avas6server16AudioSessionInfo27DeferPropertyChangeCallbackEPK8NSStrin
   }
 
   v12 = v4;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241748050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
@@ -1146,12 +1044,12 @@ void sub_241748050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t __copy_helper_block_ea8_48c95_ZTSNSt3__16vectorINS_8weak_ptrIN4avas6server24AudioSessionRemoteClientEEENS_9allocatorIS5_EEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_ea8_48c95_ZTSNSt3__16vectorINS_8weak_ptrIN4avas6server24AudioSessionRemoteClientEEENS_9allocatorIS5_EEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
-  v2 = a1 + 48;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 48);
+  v2[2] = 0;
   return std::vector<std::weak_ptr<avas::server::AudioSessionRemoteClient>>::__init_with_size[abi:ne200100]<std::weak_ptr<avas::server::AudioSessionRemoteClient>*,std::weak_ptr<avas::server::AudioSessionRemoteClient>*>(v2, *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 4);
 }
 
@@ -1164,7 +1062,7 @@ void applesauce::CF::BooleanRef::~BooleanRef(const void **this)
   }
 }
 
-uint64_t std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1186,7 +1084,7 @@ void sub_2417481E8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<__CFString const*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<__CFString const*>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1258,17 +1156,17 @@ void OS::CF::String::~String(OS::CF::String *this)
   JUMPOUT(0x245CEEB60);
 }
 
-void *std::vector<char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_241748448(_Unwind_Exception *exception_object)
@@ -1353,7 +1251,7 @@ void std::vector<std::string>::clear[abi:ne200100](void ***a1)
   a1[1] = v2;
 }
 
-void *std::vector<avas::server::AudioSessionInfo::PlayerState>::__assign_with_size[abi:ne200100]<avas::server::AudioSessionInfo::PlayerState const*,avas::server::AudioSessionInfo::PlayerState const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<avas::server::AudioSessionInfo::PlayerState>::__assign_with_size[abi:ne200100]<avas::server::AudioSessionInfo::PlayerState const*,avas::server::AudioSessionInfo::PlayerState const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1442,7 +1340,7 @@ void *std::vector<avas::server::AudioSessionInfo::PlayerState>::__assign_with_si
   return result;
 }
 
-void std::vector<avas::server::AudioSessionInfo::PlayerState>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<avas::server::AudioSessionInfo::PlayerState>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -1480,7 +1378,7 @@ __int128 *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std
   return v5;
 }
 
-uint64_t std::vector<std::weak_ptr<avas::server::AudioSessionRemoteClient>>::__init_with_size[abi:ne200100]<std::weak_ptr<avas::server::AudioSessionRemoteClient>*,std::weak_ptr<avas::server::AudioSessionRemoteClient>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::weak_ptr<avas::server::AudioSessionRemoteClient>>::__init_with_size[abi:ne200100]<std::weak_ptr<avas::server::AudioSessionRemoteClient>*,std::weak_ptr<avas::server::AudioSessionRemoteClient>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1497,7 +1395,7 @@ void sub_241748894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::weak_ptr<avas::server::AudioSessionRemoteClient>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::weak_ptr<avas::server::AudioSessionRemoteClient>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -1595,16 +1493,13 @@ uint64_t std::stringbuf::view[abi:ne200100](uint64_t a1)
 
   else if ((v1 & 8) != 0)
   {
-    v2 = *(a1 + 16);
-    v4 = *(a1 + 32);
+    return *(a1 + 16);
   }
 
   else
   {
     return 0;
   }
-
-  return v2;
 }
 
 void std::__shared_ptr_emplace<avas::server::AudioSessionRemoteClientManager>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -1693,48 +1588,48 @@ void std::__tree<std::__value_type<void const*,std::vector<avas::server::AudioSe
   }
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[13],char [13],0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[13],char [13],0>(uint64_t a1, char *a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[13]>();
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[13]>(a2);
 }
 
-void *std::__tree<std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>,std::__map_value_compare<void const*,std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>,std::less<void const*>,true>,std::allocator<std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>>>::__emplace_unique_key_args<void const*,std::piecewise_construct_t const&,std::tuple<void const* const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>,std::__map_value_compare<void const*,std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>,std::less<void const*>,true>,std::allocator<std::__value_type<void const*,std::vector<avas::server::AudioSessionInfo::PlayerState>>>>::__emplace_unique_key_args<void const*,std::piecewise_construct_t const&,std::tuple<void const* const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -1838,25 +1733,25 @@ void applesauce::CF::DictionaryRef::~DictionaryRef(const void **this)
   }
 }
 
-void anonymous namespace::UpdateAudioAppMuteState(uint64_t *a1, uint64_t a2, int a3, int a4)
+void anonymous namespace::UpdateAudioAppMuteState(uint64_t *a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v8 = (*(**a1 + 16))(*a1);
   v9 = avas::server::LegacySessionManager::Instance(v8);
-  avas::server::LegacySessionManager::FindAudioApplicationForSession(v9, a1, 1, &v19);
-  if (v19)
+  avas::server::LegacySessionManager::FindAudioApplicationForSession(v9, a1, 1, &v18);
+  if (v18)
   {
     {
       avas::AudioSessionMuteEnabled(void)::enabled = _os_feature_enabled_impl();
     }
 
-    v11 = v19;
+    v11 = v18;
     if (avas::AudioSessionMuteEnabled(void)::enabled == 1)
     {
-      avas::server::AudioApplicationInfo::UpdateSessionPlayStates(v19, v8, a3);
+      avas::server::AudioApplicationInfo::UpdateSessionPlayStates(v18, v8, a3);
       if (a4)
       {
-        avas::server::AudioApplicationInfo::IssueInputMuteNotification(v19);
+        avas::server::AudioApplicationInfo::IssueInputMuteNotification(v18);
       }
     }
 
@@ -1870,17 +1765,17 @@ void anonymous namespace::UpdateAudioAppMuteState(uint64_t *a1, uint64_t a2, int
         v16 = *avas::server::gSessionServerLog(v15);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v17 = avas::server::AudioApplicationInfo::DebugString(v19);
+          v17 = avas::server::AudioApplicationInfo::DebugString(v18);
           *buf = 136316162;
-          v22 = "AudioSessionServerImpPlayState.mm";
-          v23 = 1024;
-          v24 = 69;
-          v25 = 1024;
-          v26 = updated;
-          v27 = 1024;
-          v28 = v8;
-          v29 = 2080;
-          v30 = v17;
+          v21 = "AudioSessionServerImpPlayState.mm";
+          v22 = 1024;
+          v23 = 69;
+          v24 = 1024;
+          v25 = updated;
+          v26 = 1024;
+          v27 = v8;
+          v28 = 2080;
+          v29 = v17;
           _os_log_impl(&dword_241701000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d error (code: %d) updating inputMuted for session: 0x%x, audioApp: %s", buf, 0x28u);
         }
       }
@@ -1893,21 +1788,19 @@ void anonymous namespace::UpdateAudioAppMuteState(uint64_t *a1, uint64_t a2, int
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v22 = "AudioSessionServerImpPlayState.mm";
-      v23 = 1024;
-      v24 = 52;
-      v25 = 1024;
-      v26 = v8;
+      v21 = "AudioSessionServerImpPlayState.mm";
+      v22 = 1024;
+      v23 = 52;
+      v24 = 1024;
+      v25 = v8;
       _os_log_impl(&dword_241701000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d error - no audioApp instances found for session: 0x%x", buf, 0x18u);
     }
   }
 
-  if (v20)
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2417493F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -1920,11 +1813,11 @@ void sub_2417493F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[26],char [26],0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[26],char [26],0>(uint64_t a1, char *a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[26]>();
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[26]>(a2);
 }
 
 uint64_t std::ostringstream::~ostringstream(uint64_t a1, uint64_t *a2)
@@ -1944,11 +1837,11 @@ uint64_t std::ostringstream::~ostringstream(uint64_t a1, uint64_t *a2)
   return std::ostream::~ostream();
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[77],char [77],0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[77],char [77],0>(uint64_t a1, char *a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[77]>();
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[77]>(a2);
 }
 
 CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t a1)
@@ -2119,20 +2012,17 @@ void sub_241749918(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<void const*>::reserve(void *result, unint64_t a2)
+void std::vector<void const*>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<void const*>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<void const*>>(a1, a2);
     }
 
     std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 CFStringRef *applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[30],int &>(CFStringRef *a1, char *a2, _DWORD *a3)
@@ -2219,25 +2109,25 @@ void std::__throw_bad_variant_access[abi:ne200100]()
   *exception = MEMORY[0x277D82900] + 16;
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[15],char [15],0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[15],char [15],0>(uint64_t a1, char *a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[15]>();
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[15]>(a2);
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[44],char [44],0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[44],char [44],0>(uint64_t a1, char *a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[44]>();
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[44]>(a2);
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[89],char [89],0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[89],char [89],0>(uint64_t a1, char *a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[89]>();
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[89]>(a2);
 }
 
 void avas::server::AudioAppSessionStates::GetSessions(avas::server::AudioAppSessionStates **this@<X0>, uint64_t a2@<X8>)
@@ -2251,14 +2141,14 @@ void avas::server::AudioAppSessionStates::GetSessions(avas::server::AudioAppSess
   {
     while (1)
     {
-      v5 = *(v3 + 6);
+      v5 = v3[6];
       if (v5)
       {
         break;
       }
 
 LABEL_11:
-      v8 = *(v3 + 1);
+      v8 = v3[1];
       if (v8)
       {
         do
@@ -2274,7 +2164,7 @@ LABEL_11:
       {
         do
         {
-          v9 = *(v3 + 2);
+          v9 = v3[2];
           v10 = *v9 == v3;
           v3 = v9;
         }
@@ -2289,7 +2179,7 @@ LABEL_11:
       }
     }
 
-    v6 = *(v3 + 5);
+    v6 = v3[5];
     atomic_fetch_add_explicit(&v5->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     *&v11 = 0;
     v7 = std::__shared_weak_count::lock(v5);
@@ -2424,14 +2314,14 @@ uint64_t avas::server::AudioAppSessionStates::IsAnySessionRecording(avas::server
 
   while (1)
   {
-    v3 = *(v2 + 6);
+    v3 = v2[6];
     if (v3)
     {
       break;
     }
 
 LABEL_8:
-    v7 = *(v2 + 1);
+    v7 = v2[1];
     if (v7)
     {
       do
@@ -2447,7 +2337,7 @@ LABEL_8:
     {
       do
       {
-        v8 = *(v2 + 2);
+        v8 = v2[2];
         v9 = *v8 == v2;
         v2 = v8;
       }
@@ -2462,7 +2352,7 @@ LABEL_8:
     }
   }
 
-  v4 = *(v2 + 5);
+  v4 = v2[5];
   atomic_fetch_add_explicit(&v3->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   v5 = *(v2 + 65);
   v6 = std::__shared_weak_count::lock(v3);
@@ -2486,8 +2376,8 @@ LABEL_7:
 
 void avas::server::AudioAppSessionStates::UpdateSessionRecordingState(avas::server::AudioAppSessionStates *this@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v20 = a2;
+  v25 = *MEMORY[0x277D85DE8];
+  v18 = a2;
   v5 = *(this + 1);
   if (v5)
   {
@@ -2508,42 +2398,41 @@ void avas::server::AudioAppSessionStates::UpdateSessionRecordingState(avas::serv
     while (v5);
     if (v8 != (this + 8) && v8[8] <= a2)
     {
-      v13 = std::map<unsigned int,avas::server::AudioAppSessionStates::SessionDetails>::at(this, &v20);
-      v14 = v13;
-      if (v13[25] == a3)
+      v12 = std::map<unsigned int,avas::server::AudioAppSessionStates::SessionDetails>::at(this, &v18);
+      v13 = v12;
+      if (v12[25] == a3)
       {
-        v15 = *avas::server::gSessionServerLog(v13);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v14 = *avas::server::gSessionServerLog(v12);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v22 = "AudioAppSessionStates.mm";
+          v20 = "AudioAppSessionStates.mm";
+          v21 = 1024;
+          v22 = 178;
           v23 = 1024;
-          v24 = 178;
-          v25 = 1024;
-          v26 = a3;
-          _os_log_impl(&dword_241701000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Session already matches desired recording state: %d", buf, 0x18u);
+          v24 = a3;
+          _os_log_impl(&dword_241701000, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Session already matches desired recording state: %d", buf, 0x18u);
         }
 
         goto LABEL_20;
       }
 
+      v15 = avas::server::AudioAppSessionStates::AppState(this);
+      v13[25] = a3;
       v16 = avas::server::AudioAppSessionStates::AppState(this);
-      v14[25] = a3;
-      v17 = avas::server::AudioAppSessionStates::AppState(this);
-      if (HIBYTE(v16) == HIBYTE(v17) && (v16 & 0x100) != 0)
+      if (HIBYTE(v15) == HIBYTE(v16) && (v15 & 0x100) != 0)
       {
-        if (v16 != v17)
+        if (v15 != v16)
         {
 LABEL_18:
-          *a4 = v17 | 0x10000;
+          *a4 = v16 | 0x10000;
 LABEL_21:
           *(a4 + 8) = 1;
-          v18 = *MEMORY[0x277D85DE8];
           return;
         }
       }
 
-      else if (HIBYTE(v16) != HIBYTE(v17))
+      else if (HIBYTE(v15) != HIBYTE(v16))
       {
         goto LABEL_18;
       }
@@ -2554,10 +2443,9 @@ LABEL_20:
     }
   }
 
-  v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to find session 0x%x in session map", a2];
-  *a4 = NSErrorWithString(v19);
+  v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to find session 0x%x in session map", a2];
+  *a4 = NSErrorWithString(v17);
   *(a4 + 8) = 0;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void avas::server::AudioAppSessionStates::UpdateSessionIsConsideredForInputMuteState(avas::server::AudioAppSessionStates *this@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
@@ -2642,46 +2530,44 @@ uint64_t *std::__tree<std::__value_type<unsigned int,avas::server::AudioAppSessi
 
 id avas::server::TranslateSetter_HostProcessAttribution(void *a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [MEMORY[0x277CBEB18] array];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   obj = v3;
-  v5 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v5 = [obj countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v5)
   {
-    v6 = *v17;
+    v6 = *v16;
     v7 = *MEMORY[0x277D27380];
     v8 = *MEMORY[0x277D27378];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
-        v20[1] = v8;
-        v21[0] = v10;
-        v20[0] = v7;
+        v10 = *(*(&v15 + 1) + 8 * i);
+        v19[1] = v8;
+        v20[0] = v10;
+        v19[0] = v7;
         v11 = [MEMORY[0x277CBEA90] dataWithBytes:a2 length:32];
-        v21[1] = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+        v20[1] = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
         [v4 addObject:v12];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v5 = [obj countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -2718,152 +2604,146 @@ uint64_t avas::server::GetVirtualAudioPlugin(avas::server *this, unsigned int *a
   }
 }
 
-uint64_t avas::server::require_acq::MuteAudioSessions(avas::server *a1, uint64_t a2, uint64_t a3, const audit_token_t *a4)
+uint64_t avas::server::require_acq::MuteAudioSessions(avas::server *a1, uint64_t a2, avas::server **a3, audit_token_t *a4)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v8 = *avas::server::gSessionServerLog(a1);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
   if (v9)
   {
     v11 = "Unmuting";
-    v12 = *(a3 + 8);
+    v12 = a3[1];
     *buf = 136315906;
     if (a2)
     {
       v11 = "Muting";
     }
 
-    v33 = "AudioSessionServerImp_iOS.mm";
-    v34 = 1024;
-    v35 = 228;
-    v36 = 2080;
-    v37 = v11;
-    v38 = 2048;
-    v39 = v12;
+    v32 = "AudioSessionServerImp_iOS.mm";
+    v33 = 1024;
+    v34 = 228;
+    v35 = 2080;
+    v36 = v11;
+    v37 = 2048;
+    v38 = v12;
     _os_log_impl(&dword_241701000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s %lu audio sessions", buf, 0x26u);
   }
 
   v14 = *a3;
-  v13 = *(a3 + 8);
+  v13 = a3[1];
   if (!*a3 && v13)
   {
     __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
   }
 
-  if (v13)
+  if (!v13)
   {
-    v15 = "UNMUTED";
-    if (a2)
+    return 0;
+  }
+
+  v15 = "UNMUTED";
+  if (a2)
+  {
+    v15 = "MUTED";
+  }
+
+  v28 = v15;
+  v29 = 0;
+  v16 = 4 * v13;
+  *&v10 = 136315650;
+  v27 = v10;
+  do
+  {
+    if (!v14)
     {
-      v15 = "MUTED";
+      __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
     }
 
-    v29 = v15;
-    v30 = 0;
-    v16 = 4 * v13;
-    *&v10 = 136315650;
-    v28 = v10;
-    do
+    v17 = *avas::server::gSessionServerLog(v9);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      if (!v14)
-      {
-        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-      }
-
-      v17 = *avas::server::gSessionServerLog(v9);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-      {
-        v18 = *v14;
-        *buf = 136315906;
-        v33 = "AudioSessionServerImp_iOS.mm";
-        v34 = 1024;
-        v35 = 233;
-        v36 = 2080;
-        v37 = v29;
-        v38 = 1024;
-        LODWORD(v39) = v18;
-        _os_log_impl(&dword_241701000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Setting input mute: %s session: 0x%x", buf, 0x22u);
-      }
-
-      v19 = *(a1 + 1);
-      v31[0] = *a1;
-      v31[1] = v19;
-      if (v19)
-      {
-        atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v20 = *v14;
-      v21 = [MEMORY[0x277CCABB0] numberWithBool:{a2, v28}];
-      v22 = avas::server::require_acq::MuteSessionInput(v31, v20, a4, v21, 0);
-
-      if (v19)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v19);
-      }
-
-      if (v22)
-      {
-        if (v22 != 561210739)
-        {
-          avas::server::require_acq::MuteAudioSessions(v14, v22);
-        }
-
-        v23 = *avas::server::gSessionServerLog(v9);
-        v9 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
-        if (v9)
-        {
-          v24 = *v14;
-          *buf = v28;
-          v33 = "AudioSessionServerImp_iOS.mm";
-          v34 = 1024;
-          v35 = 241;
-          v36 = 1024;
-          LODWORD(v37) = v24;
-          _os_log_impl(&dword_241701000, v23, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to input mute session 0x%x since not found (recently destroyed?)", buf, 0x18u);
-        }
-
-        LOBYTE(v30) = 1;
-      }
-
-      else
-      {
-        BYTE4(v30) = 1;
-      }
-
-      v14 = (v14 + 4);
-      v16 -= 4;
+      v18 = *v14;
+      *buf = 136315906;
+      v32 = "AudioSessionServerImp_iOS.mm";
+      v33 = 1024;
+      v34 = 233;
+      v35 = 2080;
+      v36 = v28;
+      v37 = 1024;
+      LODWORD(v38) = v18;
+      _os_log_impl(&dword_241701000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Setting input mute: %s session: 0x%x", buf, 0x22u);
     }
 
-    while (v16);
-    if (v30)
+    v19 = *(a1 + 1);
+    v30[0] = *a1;
+    v30[1] = v19;
+    if (v19)
     {
-      v25 = 561210739;
+      atomic_fetch_add_explicit((v19 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v20 = *v14;
+    v21 = [MEMORY[0x277CCABB0] numberWithBool:{a2, v27}];
+    v22 = avas::server::require_acq::MuteSessionInput(v30, v20, a4, v21, 0);
+
+    if (v19)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+    }
+
+    if (v22)
+    {
+      if (v22 != 561210739)
+      {
+        avas::server::require_acq::MuteAudioSessions(v14, v22);
+      }
+
+      v23 = *avas::server::gSessionServerLog(v9);
+      v9 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
+      if (v9)
+      {
+        v24 = *v14;
+        *buf = v27;
+        v32 = "AudioSessionServerImp_iOS.mm";
+        v33 = 1024;
+        v34 = 241;
+        v35 = 1024;
+        LODWORD(v36) = v24;
+        _os_log_impl(&dword_241701000, v23, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to input mute session 0x%x since not found (recently destroyed?)", buf, 0x18u);
+      }
+
+      LOBYTE(v29) = 1;
     }
 
     else
     {
-      v25 = 0;
+      BYTE4(v29) = 1;
     }
 
-    if ((v30 & 0x100000000) != 0)
-    {
-      result = 0;
-    }
+    v14 = (v14 + 4);
+    v16 -= 4;
+  }
 
-    else
-    {
-      result = v25;
-    }
+  while (v16);
+  if (v29)
+  {
+    v25 = 561210739;
   }
 
   else
   {
-    result = 0;
+    v25 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  if ((v29 & 0x100000000) != 0)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v25;
+  }
 }
 
 void sub_24174ABC8(_Unwind_Exception *exception_object)
@@ -2878,14 +2758,14 @@ void sub_24174ABC8(_Unwind_Exception *exception_object)
 
 uint64_t avas::server::forbid_acq::IsAudioAppAllInputSessionsMuted(avas::server::LegacySessionManager *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = avas::server::LegacySessionManager::Instance(a1);
-  avas::server::LegacySessionManager::FindAudioApplicationForSession(v2, a1, 1, &v11);
-  v3 = v11;
-  if (v11)
+  avas::server::LegacySessionManager::FindAudioApplicationForSession(v2, a1, 1, &v10);
+  v3 = v10;
+  if (v10)
   {
-    avas::server::AudioApplicationInfo::GetProperty(v11, @"InputMute", 1634744890, buf);
-    v4 = *&v14[4];
+    avas::server::AudioApplicationInfo::GetProperty(v10, @"InputMute", 1634744890, buf);
+    v4 = *&v13[4];
     v5 = v4;
     if (!*buf && v4)
     {
@@ -2900,22 +2780,21 @@ uint64_t avas::server::forbid_acq::IsAudioAppAllInputSessionsMuted(avas::server:
   {
     v8 = (*(**a1 + 16))();
     *buf = 136315650;
-    *v14 = "AudioSessionServerImp_iOS.mm";
-    *&v14[8] = 1024;
-    *&v14[10] = 366;
-    v15 = 1024;
-    v16 = v8;
+    *v13 = "AudioSessionServerImp_iOS.mm";
+    *&v13[8] = 1024;
+    *&v13[10] = 366;
+    v14 = 1024;
+    v15 = v8;
     _os_log_impl(&dword_241701000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d failed to get audio app input muted state for session: 0x%x", buf, 0x18u);
   }
 
   v6 = 0;
 LABEL_9:
-  if (v12)
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2971,28 +2850,28 @@ void sub_24174AE58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-os_unfair_lock_s *avas::server::forbid_acq::SpatialPreferences(void *a1, uint64_t a2, const audit_token_t *a3)
+os_unfair_lock_s *avas::server::forbid_acq::SpatialPreferences(void *a1, uint64_t a2, audit_token_t *a3)
 {
   v5 = a1;
   avas::server::ForbidAudioControlQueue(v5);
   if (!v5)
   {
-    v21 = _os_crash();
-    [AVAudioSessionRemoteXPCClient initWithServer:v21 process:? delegate:?];
+    _os_crash();
+    [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
   }
 
-  avas::server::AudioSessionInfoAccessor::AudioSessionInfoAccessor(&v30, a2, a3, 1);
-  v6 = v30;
-  if (!v30)
+  avas::server::AudioSessionInfoAccessor::AudioSessionInfoAccessor(&v24, a2, a3, 1);
+  v6 = v24;
+  if (!v24)
   {
-    v22 = _os_crash();
-    [AVAudioSessionRemoteXPCClient initWithServer:v22 process:? delegate:?];
+    _os_crash();
+    [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
   }
 
-  v7 = v31;
-  if (v31)
+  v7 = v25;
+  if (v25)
   {
-    atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   os_unfair_lock_opaque_low = LOBYTE(v6[88]._os_unfair_lock_opaque);
@@ -3017,17 +2896,17 @@ LABEL_9:
 LABEL_10:
   if ((os_unfair_lock_opaque_low & 1) == 0)
   {
-    v10 = v30;
-    if (!v30)
+    v10 = v24;
+    if (!v24)
     {
-      v23 = _os_crash();
-      [AVAudioSessionRemoteXPCClient initWithServer:v23 process:? delegate:?];
+      _os_crash();
+      [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
     }
 
-    v11 = v31;
-    if (v31)
+    v11 = v25;
+    if (v25)
     {
-      atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     (*(**(*&v10[30]._os_unfair_lock_opaque + 8) + 64))(&cf);
@@ -3036,61 +2915,61 @@ LABEL_10:
       std::__shared_weak_count::__release_shared[abi:ne200100](v11);
     }
 
-    v12 = v30;
-    if (!v30)
+    v12 = v24;
+    if (!v24)
     {
-      v24 = _os_crash();
-      [AVAudioSessionRemoteXPCClient initWithServer:v24 process:? delegate:?];
+      _os_crash();
+      [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
     }
 
-    v13 = v31;
-    if (v31)
+    v13 = v25;
+    if (v25)
     {
-      atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v27 = v12;
-    v28 = v13;
-    v14 = avas::server::forbid_acq::CopyCMSessionAudioMode(&v27);
-    if (v28)
+    v21 = v12;
+    v22 = v13;
+    v14 = avas::server::forbid_acq::CopyCMSessionAudioMode(&v21);
+    if (v22)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v22);
     }
 
-    avas::server::GetSpatialPreferences(v5, a2, v14, &v27);
-    v15 = v30;
-    if (!v30)
+    avas::server::GetSpatialPreferences(v5, a2, v14, &v21);
+    v15 = v24;
+    if (!v24)
     {
-      v25 = _os_crash();
-      [AVAudioSessionRemoteXPCClient initWithServer:v25 process:? delegate:?];
+      _os_crash();
+      [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
     }
 
-    v16 = v31;
-    if (v31)
+    v16 = v25;
+    if (v25)
     {
-      atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    avas::server::AudioSessionInfo::SetSpatialPreferences(v15, v27);
+    avas::server::AudioSessionInfo::SetSpatialPreferences(v15, v21);
     if (v16)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v16);
     }
 
-    v17 = v30;
-    if (!v30)
+    v17 = v24;
+    if (!v24)
     {
-      v26 = _os_crash();
-      [AVAudioSessionRemoteXPCClient initWithServer:v26 process:? delegate:?];
+      _os_crash();
+      [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
     }
 
-    v18 = v31;
-    if (v31)
+    v18 = v25;
+    if (v25)
     {
-      atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v19 = [MEMORY[0x277CCABB0] numberWithBool:v28];
+    v19 = [MEMORY[0x277CCABB0] numberWithBool:v22];
     avas::server::ConstAudioSessionInfo::SetAVASProperty(v17, @"IsSpatialEnabled", v19);
 
     if (v18)
@@ -3098,7 +2977,7 @@ LABEL_10:
       std::__shared_weak_count::__release_shared[abi:ne200100](v18);
     }
 
-    v9 = v27;
+    v9 = v21;
 
     if (cf)
     {
@@ -3106,20 +2985,20 @@ LABEL_10:
     }
   }
 
-  avas::server::AudioSessionInfoAccessor::~AudioSessionInfoAccessor(&v30);
+  avas::server::AudioSessionInfoAccessor::~AudioSessionInfoAccessor(&v24);
 
   return v9;
 }
 
-void sub_24174B104(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_24174B104(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v8 = va_arg(va1, const void *);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v10 = va_arg(va1, const void *);
 
-  if (v5)
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
   applesauce::CF::ObjectRef<void const*>::~ObjectRef(va);
@@ -3139,45 +3018,44 @@ uint64_t avas::EnhanceDialogueBriocheEnabled(avas *this)
 
 id anonymous namespace::TranslateGetter_HostProcessAttribution(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB18] array];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     v6 = *MEMORY[0x277D27380];
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v11 + 1) + 8 * i) valueForKey:{v6, v11}];
+        v8 = [*(*(&v10 + 1) + 8 * i) valueForKey:{v6, v10}];
         [v2 addObject:v8];
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
-id avas::server::forbid_acq::SetPropertyMXOnAppSessions(_OWORD *a1, _OWORD *a2, unsigned int a3, void *a4, void *a5)
+id avas::server::forbid_acq::SetPropertyMXOnAppSessions(_OWORD *a1, _OWORD *a2, uint64_t a3, void *a4, void *a5)
 {
+  v6 = a3;
   v55 = *MEMORY[0x277D85DE8];
   v36 = a4;
   v35 = a5;
@@ -3200,14 +3078,14 @@ id avas::server::forbid_acq::SetPropertyMXOnAppSessions(_OWORD *a1, _OWORD *a2, 
   v40 = audit_token_to_pid(&v45);
   v45.val[0] = 0;
   LOBYTE(v45.val[1]) = 1;
-  avas::server::LegacySessionManager::FindAudioApplicationAndVerifyOwnership(v9, buf, &atoken, a3, &v45, &v41);
+  avas::server::LegacySessionManager::FindAudioApplicationAndVerifyOwnership(v9, buf, &atoken, v6, &v45, &v41);
   if (!v41 || !v43)
   {
-    v24 = MEMORY[0x277CCA9B8];
+    v25 = MEMORY[0x277CCA9B8];
     v50 = *MEMORY[0x277CCA450];
     v51 = @"Failed to verify AudioApp permissions";
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-    v26 = [v24 errorWithDomain:*MEMORY[0x277CCA590] code:1701737535 userInfo:v25];
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+    v27 = [v25 errorWithDomain:*MEMORY[0x277CCA590] code:1701737535 userInfo:v26];
 
     goto LABEL_26;
   }
@@ -3218,19 +3096,19 @@ id avas::server::forbid_acq::SetPropertyMXOnAppSessions(_OWORD *a1, _OWORD *a2, 
     updated = avas::server::AudioApplicationInfo::UpdateProperty(v41, v36, v35, 1836595770, 0);
     if (!updated)
     {
-      v26 = 0;
+      v27 = 0;
       goto LABEL_25;
     }
 
-    v28 = MEMORY[0x277CCACA8];
-    v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:avas::server::AudioApplicationInfo::DebugString(v41)];
-    v14 = [v28 stringWithFormat:@"Failed to update MX cache in audio application info (app: %@)", v29];
+    v29 = MEMORY[0x277CCACA8];
+    v30 = [MEMORY[0x277CCACA8] stringWithUTF8String:avas::server::AudioApplicationInfo::DebugString(v41)];
+    v14 = [v29 stringWithFormat:@"Failed to update MX cache in audio application info (app: %@)", v30];
 
-    v30 = MEMORY[0x277CCA9B8];
+    v31 = MEMORY[0x277CCA9B8];
     v46 = *MEMORY[0x277CCA450];
     v47 = v14;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
-    v23 = [v30 errorWithDomain:*MEMORY[0x277CCA590] code:updated userInfo:v31];
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+    v24 = [v31 errorWithDomain:*MEMORY[0x277CCA590] code:updated userInfo:v32];
   }
 
   else
@@ -3246,6 +3124,7 @@ id avas::server::forbid_acq::SetPropertyMXOnAppSessions(_OWORD *a1, _OWORD *a2, 
     }
 
     v18 = (*(*v17 + 16))(v17);
+    v19 = v18;
     avas::server::ConstAudioSessionInfo::JSONFormattedDescription(v17, v18, &v45);
     (*(**(*(v17 + 15) + 8) + 64))(buf);
     if (*buf)
@@ -3258,16 +3137,16 @@ id avas::server::forbid_acq::SetPropertyMXOnAppSessions(_OWORD *a1, _OWORD *a2, 
         atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      avas::server::forbid_acq::PrivateSetPropertyMX(v37, v18, &v45, v36, v35);
+      avas::server::forbid_acq::PrivateSetPropertyMX(v37, v19, &v45, v36, v35);
     }
 
-    v19 = *avas::server::gSessionServerLog(0);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = *avas::server::gSessionServerLog(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = &v45;
+      v21 = &v45;
       if ((v45.val[5] & 0x80000000) != 0)
       {
-        v20 = *v45.val;
+        v21 = *v45.val;
       }
 
       *buf = 136315650;
@@ -3275,15 +3154,15 @@ id avas::server::forbid_acq::SetPropertyMXOnAppSessions(_OWORD *a1, _OWORD *a2, 
       *&buf[12] = 1024;
       *&buf[14] = 511;
       *&buf[18] = 2080;
-      *&buf[20] = v20;
-      _os_log_impl(&dword_241701000, v19, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Cannot get MXSessionRef for session: %s", buf, 0x1Cu);
+      *&buf[20] = v21;
+      _os_log_impl(&dword_241701000, v20, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Cannot get MXSessionRef for session: %s", buf, 0x1Cu);
     }
 
-    v21 = MEMORY[0x277CCA9B8];
+    v22 = MEMORY[0x277CCA9B8];
     v48 = v34;
     v49 = @"Setting MX property failed due to invalid MXSessionRef";
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-    v23 = [v21 errorWithDomain:v15 code:2003329396 userInfo:v22];
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+    v24 = [v22 errorWithDomain:v15 code:2003329396 userInfo:v23];
 
     if (SHIBYTE(v45.val[5]) < 0)
     {
@@ -3305,7 +3184,7 @@ LABEL_16:
 
 LABEL_23:
 
-  v26 = v23;
+  v27 = v24;
 LABEL_25:
   *buf = &atoken;
   std::vector<std::shared_ptr<avas::server::AudioSessionInfo>>::__destroy_vector::operator()[abi:ne200100](buf);
@@ -3320,12 +3199,10 @@ LABEL_26:
     std::__shared_weak_count::__release_shared[abi:ne200100](v42);
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v27;
 }
 
-void sub_24174B9B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34)
+void sub_24174B9B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34)
 {
   *(v36 - 144) = &a19;
   std::vector<std::shared_ptr<avas::server::AudioSessionInfo>>::__destroy_vector::operator()[abi:ne200100]((v36 - 144));
@@ -3341,7 +3218,7 @@ uint64_t ___ZN4avas6server10forbid_acq16SetPropertyLocalEjRK13audit_token_tP8NSS
   return result;
 }
 
-uint64_t avas::server::require_acq::SetRecordingFromRemoteInput(unsigned int a1, uint64_t a2, int a3)
+uint64_t avas::server::require_acq::SetRecordingFromRemoteInput(unsigned int a1, unsigned __int8 *a2, uint64_t a3)
 {
   v9[0] = 1;
   v10 = 3975;
@@ -3356,51 +3233,52 @@ uint64_t avas::server::require_acq::SetRecordingFromRemoteInput(unsigned int a1,
   std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
   if (!v6)
   {
-    atomic_store(a3, (a2 + 4));
+    atomic_store(a3, a2 + 4);
   }
 
   avas::ScopedTrace::~ScopedTrace(v9);
   return v6;
 }
 
-void sub_24174BBE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_24174BBE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&a9);
-  avas::ScopedTrace::~ScopedTrace(&a12);
+  avas::ScopedTrace::~ScopedTrace(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t avas::server::require_acq::AudioSessionSilenceOutput(avas::server::require_acq *this, uint64_t a2)
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   avas::server::RequireAudioControlQueue(this);
-  v28 = @"flags";
+  v25 = @"flags";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2];
-  v29[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+  v26[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
 
-  v6 = avas::server::ConstAudioSessionInfoAccessor::ConstAudioSessionInfoAccessor(&v20, this);
-  v7 = v20;
-  if (v20)
+  v6 = avas::server::ConstAudioSessionInfoAccessor::ConstAudioSessionInfoAccessor(&v17, this);
+  v7 = v17;
+  if (v17)
   {
-    v8 = v21;
-    if (v21)
+    v8 = v18;
+    if (v18)
     {
-      atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
       v9 = *(v7 + 84);
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-      v10 = v20;
-      if (!v20)
+      v10 = v17;
+      if (!v17)
       {
-        v18 = _os_crash();
-        [AVAudioSessionRemoteXPCClient initWithServer:v18 process:? delegate:?];
+        _os_crash();
+        [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
       }
 
-      v11 = v21;
-      if (v21)
+      v11 = v18;
+      if (v18)
       {
         v12 = 0;
-        atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       else
@@ -3412,9 +3290,9 @@ uint64_t avas::server::require_acq::AudioSessionSilenceOutput(avas::server::requ
     else
     {
       v11 = 0;
-      v9 = *(v20 + 84);
+      v9 = *(v17 + 84);
       v12 = 1;
-      v10 = v20;
+      v10 = v17;
     }
 
     v14 = *(v10 + 112);
@@ -3425,8 +3303,8 @@ uint64_t avas::server::require_acq::AudioSessionSilenceOutput(avas::server::requ
 
     if (!v14)
     {
-      v19 = _os_crash();
-      [AVAudioSessionRemoteXPCClient initWithServer:v19 process:? delegate:?];
+      _os_crash();
+      [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
     }
   }
 
@@ -3436,11 +3314,11 @@ uint64_t avas::server::require_acq::AudioSessionSilenceOutput(avas::server::requ
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v23 = "AudioSessionServerImp_iOS.mm";
-      v24 = 1024;
-      v25 = 675;
-      v26 = 1024;
-      v27 = this;
+      v20 = "AudioSessionServerImp_iOS.mm";
+      v21 = 1024;
+      v22 = 675;
+      v23 = 1024;
+      v24 = this;
       _os_log_impl(&dword_241701000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d Cannot get session info for session ID: 0x%x", buf, 0x18u);
     }
 
@@ -3448,9 +3326,9 @@ uint64_t avas::server::require_acq::AudioSessionSilenceOutput(avas::server::requ
     v9 = 0xFFFFFFFFLL;
   }
 
-  if (v21)
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
 
   if (v7)
@@ -3464,7 +3342,6 @@ uint64_t avas::server::require_acq::AudioSessionSilenceOutput(avas::server::requ
     v15 = 561210739;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -3480,50 +3357,50 @@ void sub_24174BE44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t avas::server::require_acq::AudioSessionServerInterruptDummyPlayers(avas::server::require_acq *this)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v2 = avas::server::AudioSessionInfoAccessor::AudioSessionInfoAccessor(&v26, this);
-  v3 = v26;
-  if (v26)
+  v31 = *MEMORY[0x277D85DE8];
+  v2 = avas::server::AudioSessionInfoAccessor::AudioSessionInfoAccessor(&v22, this);
+  v3 = v22;
+  if (v22)
   {
-    v4 = v27;
-    if (v27)
+    v4 = v23;
+    if (v23)
     {
-      atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v4);
     }
 
     v5 = atomic_exchange(v3 + 232, 0);
-    v6 = v26;
-    if (!v26)
+    v6 = v22;
+    if (!v22)
     {
-      v17 = _os_crash();
-      [AVAudioSessionRemoteXPCClient initWithServer:v17 process:? delegate:?];
+      _os_crash();
+      [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
     }
 
-    v7 = v27;
-    if (v27)
+    v7 = v23;
+    if (v23)
     {
-      atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v7);
     }
 
     v8 = atomic_exchange(v6 + 240, 0);
     if (v5 & 1) != 0 || (v8)
     {
-      v9 = v26;
-      if (!v26)
+      v9 = v22;
+      if (!v22)
       {
-        v18 = _os_crash();
-        [AVAudioSessionRemoteXPCClient initWithServer:v18 process:? delegate:?];
+        _os_crash();
+        [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
       }
 
-      v10 = v27;
-      if (v27)
+      v10 = v23;
+      if (v23)
       {
-        atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      avas::server::ConstAudioSessionInfo::JSONFormattedDescription(v9, this, &v24);
+      avas::server::ConstAudioSessionInfo::JSONFormattedDescription(v9, this, &v21);
       if (v10)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v10);
@@ -3532,39 +3409,39 @@ uint64_t avas::server::require_acq::AudioSessionServerInterruptDummyPlayers(avas
       v12 = *avas::server::gSessionServerLog(v11);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v21[0] = 0;
-        v22 = 0;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v21);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v21);
+        v18[0] = 0;
+        v19 = 0;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v18);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v18);
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::dump(&__p);
       }
 
-      if (v25 < 0)
+      if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v24);
+        operator delete(v21.__r_.__value_.__l.__data_);
       }
     }
 
-    if (v26)
+    if (v22)
     {
-      os_unfair_lock_unlock(v26 + 134);
-      v28 = 0;
+      os_unfair_lock_unlock(v22 + 134);
+      v24 = 0;
     }
 
     if (v5)
     {
-      v20[0] = this;
-      v20[4] = 0;
-      avas::server::require_acq::AudioSessionServerSetClientPlayState(v20, *(v3 + 57), v3 + 228, 3, 0, 0, 0);
-      std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v20);
+      v17[0] = this;
+      v17[4] = 0;
+      avas::server::require_acq::AudioSessionServerSetClientPlayState(v17, *(v3 + 57), (v3 + 228), 3, 0, 0, 0);
+      std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v17);
     }
 
     if (v8)
     {
-      v19[0] = this;
-      v19[4] = 0;
-      avas::server::require_acq::AudioSessionServerSetClientPlayState(v19, *(v6 + 59), v6 + 236, 1, 0, 0, 0);
-      std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v19);
+      v16[0] = this;
+      v16[4] = 0;
+      avas::server::require_acq::AudioSessionServerSetClientPlayState(v16, *(v6 + 59), (v6 + 236), 1, 0, 0, 0);
+      std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v16);
     }
 
     v13 = 0;
@@ -3577,21 +3454,20 @@ uint64_t avas::server::require_acq::AudioSessionServerInterruptDummyPlayers(avas
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v30 = "AudioSessionServerImp_iOS.mm";
-      v31 = 1024;
-      v32 = 696;
-      v33 = 1024;
-      v34 = this;
+      v26 = "AudioSessionServerImp_iOS.mm";
+      v27 = 1024;
+      v28 = 696;
+      v29 = 1024;
+      LODWORD(v30) = this;
       _os_log_impl(&dword_241701000, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Did not find matching audio session for session ID: 0x%x. Bailing.", buf, 0x18u);
     }
   }
 
-  avas::server::AudioSessionInfoAccessor::~AudioSessionInfoAccessor(&v26);
-  v15 = *MEMORY[0x277D85DE8];
+  avas::server::AudioSessionInfoAccessor::~AudioSessionInfoAccessor(&v22);
   return v13;
 }
 
-void sub_24174C1F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, os_unfair_lock_s *a27)
+void sub_24174C1F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, os_unfair_lock_s *a27)
 {
   nlohmann::detail::json_ref<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~json_ref(&a16);
 
@@ -3604,30 +3480,30 @@ void sub_24174C1F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t avas::server::ff_acq::AudioSessionServerActivateWithFlags(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, BOOL a5)
+uint64_t avas::server::ff_acq::AudioSessionServerActivateWithFlags(void *a1, uint64_t a2, uint64_t a3, unsigned int a4, int a5)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v8 = a1;
   if (!v8)
   {
-    v40 = _os_crash();
-    [AVAudioSessionRemoteXPCClient initWithServer:v40 process:? delegate:?];
+    _os_crash();
+    [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
   }
 
-  v9 = avas::server::AudioSessionInfoAccessor::AudioSessionInfoAccessor(&v52, a2, a3, 1, a5);
-  if (v52)
+  v9 = avas::server::AudioSessionInfoAccessor::AudioSessionInfoAccessor(&v45, a2, a3, 1, a5);
+  if (v45)
   {
-    v12 = v52;
-    if (!v52)
+    v12 = v45;
+    if (!v45)
     {
-      v41 = _os_crash();
-      [AVAudioSessionRemoteXPCClient initWithServer:v41 process:? delegate:?];
+      _os_crash();
+      [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
     }
 
-    v13 = v53;
-    if (v53)
+    v13 = v46;
+    if (v46)
     {
-      atomic_fetch_add_explicit(&v53->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v46->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     avas::server::ConstAudioSessionInfo::JSONFormattedDescription(v12, a2, &__p);
@@ -3636,17 +3512,17 @@ uint64_t avas::server::ff_acq::AudioSessionServerActivateWithFlags(void *a1, uin
       std::__shared_weak_count::__release_shared[abi:ne200100](v13);
     }
 
-    v14 = v52;
-    if (!v52)
+    v14 = v45;
+    if (!v45)
     {
-      v42 = _os_crash();
-      [AVAudioSessionRemoteXPCClient initWithServer:v42 process:? delegate:?];
+      _os_crash();
+      [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
     }
 
-    v15 = v53;
-    if (v53)
+    v15 = v46;
+    if (v46)
     {
-      atomic_fetch_add_explicit(&v53->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v46->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     v16 = (*(**(*(v14 + 15) + 8) + 64))(&buf);
@@ -3663,24 +3539,24 @@ uint64_t avas::server::ff_acq::AudioSessionServerActivateWithFlags(void *a1, uin
 
     if (v18)
     {
-      InterruptionPriority = avas::server::ff_acq::GetInterruptionPriority(&v52, v17);
+      InterruptionPriority = avas::server::ff_acq::GetInterruptionPriority(&v45, v17);
       cf = 0;
       if (!InterruptionPriority)
       {
         goto LABEL_41;
       }
 
-      v20 = v52;
-      if (!v52)
+      v20 = v45;
+      if (!v45)
       {
-        v43 = _os_crash();
-        [AVAudioSessionRemoteXPCClient initWithServer:v43 process:? delegate:?];
+        _os_crash();
+        [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
       }
 
-      v21 = v53;
-      if (v53)
+      v21 = v46;
+      if (v46)
       {
-        atomic_fetch_add_explicit(&v53->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v46->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       SessionType = avas::server::ConstAudioSessionInfo::GetSessionType(v20);
@@ -3698,17 +3574,17 @@ uint64_t avas::server::ff_acq::AudioSessionServerActivateWithFlags(void *a1, uin
         goto LABEL_32;
       }
 
-      v23 = v52;
-      if (!v52)
+      v23 = v45;
+      if (!v45)
       {
-        v44 = _os_crash();
-        [AVAudioSessionRemoteXPCClient initWithServer:v44 process:? delegate:?];
+        _os_crash();
+        [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
       }
 
-      InterruptionPriority = v53;
-      if (v53)
+      InterruptionPriority = v46;
+      if (v46)
       {
-        atomic_fetch_add_explicit(&v53->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v46->__shared_owners_, 1uLL, memory_order_relaxed);
         v24 = *(v23 + 4);
         *buf.val = *(v23 + 3);
         *&buf.val[4] = v24;
@@ -3727,10 +3603,10 @@ LABEL_32:
 
       else
       {
-        v31 = *(v52 + 4);
-        *buf.val = *(v52 + 3);
+        v31 = *(v45 + 4);
+        *buf.val = *(v45 + 3);
         *&buf.val[4] = v31;
-        if (*(v52 + 80))
+        if (*(v45 + 80))
         {
           goto LABEL_26;
         }
@@ -3741,27 +3617,27 @@ LABEL_35:
       cf = v30;
       if (!v30)
       {
-        v47[0] = 0;
-        v48 = 0;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v47);
-        v32 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v47);
+        v41[0] = 0;
+        v42 = 0;
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v41);
+        v32 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v41);
         if ((ProxyProcessPID & 0x100000000) != 0)
         {
-          v45[0] = 5;
-          v46 = ProxyProcessPID;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v45);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v45);
-          v33 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v47, "controlling_PID");
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v45);
+          v39[0] = 5;
+          v40 = ProxyProcessPID;
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v39);
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v39);
+          v33 = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator[]<char const>(v41, "controlling_PID");
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v39);
           v34 = *v33;
-          *v33 = v45[0];
-          v45[0] = v34;
-          v35 = *(v33 + 8);
-          *(v33 + 8) = v46;
-          v46 = v35;
+          *v33 = v39[0];
+          v39[0] = v34;
+          v35 = *(v33 + 1);
+          *(v33 + 1) = v40;
+          v40 = v35;
           nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v33);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v45);
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v46, v45[0]);
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v39);
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v40, v39[0]);
         }
 
         v36 = *avas::server::gSessionServerLog(v32);
@@ -3770,12 +3646,12 @@ LABEL_35:
           nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::dump(&token);
         }
 
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v47);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v48, v47[0]);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v41);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v42, v41[0]);
       }
 
 LABEL_41:
-      strcpy(v54, "activate");
+      strcpy(v47, "activate");
       v37 = *avas::server::gSessionServerLog(InterruptionPriority);
       if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
@@ -3793,9 +3669,9 @@ LABEL_41:
       _os_log_impl(&dword_241701000, v28, OS_LOG_TYPE_DEBUG, "%25s:%-5d No valid CMSession", &buf, 0x12u);
     }
 
-    if (v51 < 0)
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(__p);
+      operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
 
@@ -3815,13 +3691,12 @@ LABEL_41:
     }
   }
 
-  avas::server::AudioSessionInfoAccessor::~AudioSessionInfoAccessor(&v52);
+  avas::server::AudioSessionInfoAccessor::~AudioSessionInfoAccessor(&v45);
 
-  v38 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
-void sub_24174D430(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, char a20, uint64_t a21, char a22, uint64_t a23, char a24, uint64_t a25, char a26, uint64_t a27, const void *a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, os_unfair_lock_s *a35)
+void sub_24174D430(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, char a20, uint64_t a21, char a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, const void *a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, os_unfair_lock_s *a35)
 {
   if ((v38 & 1) != 0 && v37)
   {
@@ -3850,35 +3725,35 @@ uint64_t ___ZN4avas6server6ff_acq35AudioSessionServerActivateWithFlagsEPU39objcp
   return [*(a1 + 32) setTelephonyClientSessionID:*(a1 + 48)];
 }
 
-void sub_24174D788(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24174D788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<unsigned int,std::shared_ptr<avas::server::AudioSessionInfo>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t avas::server::ff_acq::AudioSessionServerDeactivateAndSetPriority(void *a1, uint64_t a2, audit_token_t *a3, uint64_t a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v7 = a1;
   avas::server::ForbidAudioControlQueue(v7);
   if (!v7)
   {
-    v33 = _os_crash();
-    [AVAudioSessionRemoteXPCClient initWithServer:v33 process:? delegate:?];
+    _os_crash();
+    [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
   }
 
-  avas::server::ConstAudioSessionInfoAccessor::ConstAudioSessionInfoAccessor(&v37, a2, a3, 1);
-  v8 = v37;
-  if (!v37)
+  avas::server::ConstAudioSessionInfoAccessor::ConstAudioSessionInfoAccessor(&v32, a2, a3, 1);
+  v8 = v32;
+  if (!v32)
   {
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(cf);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[10],char [10],0>(cf, "sessionID");
   }
 
-  v9 = v38;
-  if (v38)
+  v9 = v33;
+  if (v33)
   {
-    atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v10 = (*(**(*(v8 + 120) + 8) + 64))(cf);
@@ -3904,26 +3779,26 @@ uint64_t avas::server::ff_acq::AudioSessionServerDeactivateAndSetPriority(void *
 
     *cf = 136315650;
     *&cf[4] = "AudioSessionServerImp_iOS.mm";
-    v40 = 1024;
-    *v41 = 1002;
-    *&v41[4] = 1024;
-    *&v41[6] = a2;
+    v35 = 1024;
+    *v36 = 1002;
+    *&v36[4] = 1024;
+    *&v36[6] = a2;
     v25 = "%25s:%-5d Cannot get MXSessionRef for id: 0x%x";
     v26 = v27;
     goto LABEL_32;
   }
 
-  v12 = v37;
-  if (!v37)
+  v12 = v32;
+  if (!v32)
   {
-    v34 = _os_crash();
-    [AVAudioSessionRemoteXPCClient initWithServer:v34 process:? delegate:?];
+    _os_crash();
+    [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
   }
 
-  v13 = v38;
-  if (v38)
+  v13 = v33;
+  if (v33)
   {
-    atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v14 = avas::server::mx::MXAccessor::SetMXProperty(*(v12 + 120), *MEMORY[0x277D27240], MEMORY[0x277CBEC38]);
@@ -3940,25 +3815,25 @@ uint64_t avas::server::ff_acq::AudioSessionServerDeactivateAndSetPriority(void *
     {
       *cf = 136315650;
       *&cf[4] = "AudioSessionServerImp_iOS.mm";
-      v40 = 1024;
-      *v41 = 1013;
-      *&v41[4] = 1024;
-      *&v41[6] = v15;
+      v35 = 1024;
+      *v36 = 1013;
+      *&v36[4] = 1024;
+      *&v36[6] = v15;
       _os_log_impl(&dword_241701000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d Setting DoNotNotifyOtherSessionsOnNextInactive failed %d", cf, 0x18u);
     }
   }
 
-  v17 = v37;
-  if (!v37)
+  v17 = v32;
+  if (!v32)
   {
-    v35 = _os_crash();
-    [AVAudioSessionRemoteXPCClient initWithServer:v35 process:? delegate:?];
+    _os_crash();
+    [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
   }
 
-  v18 = v38;
-  if (v38)
+  v18 = v33;
+  if (v33)
   {
-    atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v19 = avas::server::mx::MXAccessor::SetMXProperty(*(v17 + 120), *MEMORY[0x277D27248], MEMORY[0x277CBEC38]);
@@ -3975,10 +3850,10 @@ uint64_t avas::server::ff_acq::AudioSessionServerDeactivateAndSetPriority(void *
     {
       *cf = 136315650;
       *&cf[4] = "AudioSessionServerImp_iOS.mm";
-      v40 = 1024;
-      *v41 = 1020;
-      *&v41[4] = 1024;
-      *&v41[6] = v20;
+      v35 = 1024;
+      *v36 = 1020;
+      *&v36[4] = 1024;
+      *&v36[6] = v20;
       _os_log_impl(&dword_241701000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d Setting DoNotResetAudioCategoryOnNextInactive failed %d", cf, 0x18u);
     }
   }
@@ -3995,10 +3870,10 @@ uint64_t avas::server::ff_acq::AudioSessionServerDeactivateAndSetPriority(void *
 
     *cf = 136315650;
     *&cf[4] = "AudioSessionServerImp_iOS.mm";
-    v40 = 1024;
-    *v41 = 1027;
-    *&v41[4] = 1024;
-    *&v41[6] = v23;
+    v35 = 1024;
+    *v36 = 1027;
+    *&v36[4] = 1024;
+    *&v36[6] = v23;
     v25 = "%25s:%-5d Deactivation of session failed with code %d";
     v26 = v24;
 LABEL_32:
@@ -4006,17 +3881,17 @@ LABEL_32:
     goto LABEL_38;
   }
 
-  v28 = v37;
-  if (!v37)
+  v28 = v32;
+  if (!v32)
   {
-    v36 = _os_crash();
-    [AVAudioSessionRemoteXPCClient initWithServer:v36 process:? delegate:?];
+    _os_crash();
+    [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
   }
 
-  v29 = v38;
-  if (v38)
+  v29 = v33;
+  if (v33)
   {
-    atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a4];
@@ -4028,12 +3903,11 @@ LABEL_32:
   }
 
 LABEL_38:
-  if (v38)
+  if (v33)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -4052,50 +3926,50 @@ void sub_24174DDCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t avas::server::ff_acq::AudioSessionServerDeactivateWithFlags(void *a1, uint64_t a2, audit_token_t *a3, uint64_t a4, BOOL a5)
+uint64_t avas::server::ff_acq::AudioSessionServerDeactivateWithFlags(void *a1, uint64_t a2, audit_token_t *a3, unsigned int a4, int a5)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v8 = a1;
   if (!v8)
   {
-    v23 = _os_crash();
-    [AVAudioSessionRemoteXPCClient initWithServer:v23 process:? delegate:?];
+    _os_crash();
+    [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
   }
 
-  strcpy(v35, "deactivate");
-  v9 = avas::server::AudioSessionInfoAccessor::AudioSessionInfoAccessor(&v30, a2, a3, 1, a5);
-  if (v30)
+  strcpy(v30, "deactivate");
+  v9 = avas::server::AudioSessionInfoAccessor::AudioSessionInfoAccessor(&v25, a2, a3, 1, a5);
+  if (v25)
   {
-    v11 = v30;
-    if (!v30)
+    v11 = v25;
+    if (!v25)
     {
-      v24 = _os_crash();
-      [AVAudioSessionRemoteXPCClient initWithServer:v24 process:? delegate:?];
+      _os_crash();
+      [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
     }
 
-    v12 = v31;
-    if (v31)
+    v12 = v26;
+    if (v26)
     {
-      atomic_fetch_add_explicit(v31 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v26 + 1, 1uLL, memory_order_relaxed);
     }
 
-    avas::server::ConstAudioSessionInfo::JSONFormattedDescription(v11, a2, &v28);
+    avas::server::ConstAudioSessionInfo::JSONFormattedDescription(v11, a2, &v24);
     if (v12)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v12);
     }
 
-    v13 = v30;
-    if (!v30)
+    v13 = v25;
+    if (!v25)
     {
-      v25 = _os_crash();
-      [AVAudioSessionRemoteXPCClient initWithServer:v25 process:? delegate:?];
+      _os_crash();
+      [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
     }
 
-    v14 = v31;
-    if (v31)
+    v14 = v26;
+    if (v26)
     {
-      atomic_fetch_add_explicit(v31 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v26 + 1, 1uLL, memory_order_relaxed);
     }
 
     v15 = (*(**(*(v13 + 15) + 8) + 64))(buf);
@@ -4129,9 +4003,9 @@ uint64_t avas::server::ff_acq::AudioSessionServerDeactivateWithFlags(void *a1, u
       _os_log_impl(&dword_241701000, v20, OS_LOG_TYPE_DEBUG, "%25s:%-5d No valid CMSession", buf, 0x12u);
     }
 
-    if (v29 < 0)
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v28);
+      operator delete(v24.__r_.__value_.__l.__data_);
     }
   }
 
@@ -4145,19 +4019,18 @@ uint64_t avas::server::ff_acq::AudioSessionServerDeactivateWithFlags(void *a1, u
       *&buf[4] = "AudioSessionServerImp_iOS.mm";
       *&buf[12] = 1024;
       *&buf[14] = 1050;
-      v33 = 1024;
-      v34 = a2;
+      v28 = 1024;
+      v29 = a2;
       _os_log_impl(&dword_241701000, v19, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Cannot get session info for session ID: 0x%x", buf, 0x18u);
     }
   }
 
-  avas::server::AudioSessionInfoAccessor::~AudioSessionInfoAccessor(&v30);
+  avas::server::AudioSessionInfoAccessor::~AudioSessionInfoAccessor(&v25);
 
-  v21 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
-void sub_24174EDCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, const void *a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40, os_unfair_lock_s *a41)
+void sub_24174EDCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, const void *a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40, os_unfair_lock_s *a41)
 {
   nlohmann::detail::json_ref<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~json_ref(&a24);
   applesauce::CF::ObjectRef<void const*>::~ObjectRef(&a23);
@@ -4172,7 +4045,7 @@ void sub_24174EDCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t avas::server::ff_acq::GetCMPlayState(avas::server::ff_acq *this, avas::server::AudioSessionInfoAccessor *a2)
+uint64_t avas::server::ff_acq::GetCMPlayState(std::__shared_weak_count **this, avas::server::AudioSessionInfoAccessor *a2)
 {
   v2 = *this;
   if (!*this)
@@ -4180,23 +4053,23 @@ uint64_t avas::server::ff_acq::GetCMPlayState(avas::server::ff_acq *this, avas::
     avas::server::require_acq::GetAudioQueueOptions();
   }
 
-  v3 = *(this + 1);
+  v3 = this[1];
   if (v3)
   {
     atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  avas::server::mx::MXAccessor::GetMXProperty(*(v2 + 120), *MEMORY[0x277D271C0], &v8);
+  avas::server::mx::MXAccessor::GetMXProperty(*(v2 + 120), *MEMORY[0x277D271C0], &v7);
   if (v3)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
-  v4 = [v9 BOOLValue];
-  if (v8)
+  v4 = [v8 BOOLValue];
+  if (v7)
   {
-    v7 = _os_crash();
-    [AVAudioSessionRemoteXPCClient initWithServer:v7 process:? delegate:?];
+    _os_crash();
+    [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
   }
 
   v5 = v4;
@@ -4280,11 +4153,11 @@ void sub_24174F31C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[57],char [57],0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const(&)[57],char [57],0>(uint64_t a1, char *a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[57]>();
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,char const(&)[57]>(a2);
 }
 
 void avas::server::mx::MXObjectStandard::~MXObjectStandard(avas::server::mx::MXObjectStandard *this)
@@ -4509,156 +4382,153 @@ id avas::server::DeviceTimeObserver::DeviceSlot::timestampWriterBTPts(avas::serv
   return v9;
 }
 
-void ___ZN4avas6server18DeviceTimeObserver10DeviceSlot20timestampWriterBTPtsEv_block_invoke(uint64_t a1, uint64_t a2)
+double ___ZN4avas6server18DeviceTimeObserver10DeviceSlot20timestampWriterBTPtsEv_block_invoke(uint64_t a1, uint64_t a2)
 {
   v44 = *MEMORY[0x277D85DE8];
   v3 = atomic_load((*(a1 + 32) + 256));
-  if (v3)
+  if ((v3 & 1) == 0)
   {
-    v43 = 0;
-    memset(v42, 0, sizeof(v42));
-    caulk::concurrent::atomic_value<avas::MinimalTimeStamp,2,3>::load(*(a1 + 48), v42);
-    if (*a2 >= *(&v42[0] + 1))
+    v13 = *avas::server::gSessionServerLog(a1);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      if (*(a2 + 16))
-      {
-        _X0 = 0;
-        v16 = *(a1 + 32);
-        v17 = *(v16 + 32);
-        do
-        {
-          _X5 = *(v16 + 40);
-          __asm { CASPAL          X4, X5, X0, X1, [X8] }
+      return result;
+    }
 
-          _ZF = _X4 == v17;
-          v17 = _X4;
-        }
+    v14 = *(a1 + 56);
+    LODWORD(v42[0]) = 136315650;
+    *(v42 + 4) = "DeviceTimeObserver.mm";
+    WORD6(v42[0]) = 1024;
+    *(v42 + 14) = 174;
+    WORD1(v42[1]) = 1024;
+    DWORD1(v42[1]) = v14;
+    v9 = "%25s:%-5d BTPts block shouldn't be called when inactive! (device ID: %u)";
+    v10 = v42;
+    v11 = v13;
+    v12 = OS_LOG_TYPE_ERROR;
+    v15 = 24;
+    goto LABEL_16;
+  }
 
-        while (!_ZF);
-        v24 = *(a2 + 8);
-        v25 = *(a2 + 16);
-        if (v24 >= v25)
-        {
-          v30 = *(a1 + 32);
-          if (*v30 == 0.0)
-          {
-            _X4 = 0;
-          }
+  v43 = 0;
+  memset(v42, 0, sizeof(v42));
+  caulk::concurrent::atomic_value<avas::MinimalTimeStamp,2,3>::load(*(a1 + 48), v42);
+  if (*a2 < *(&v42[0] + 1))
+  {
+    v6 = *avas::server::gSessionServerLog(v5);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      return result;
+    }
 
-          else
-          {
-            _X4 = llround(1000000000.0 / *v30 * (v24 - v25));
-          }
+    v8 = *a2;
+    *buf = 136315906;
+    *&buf[4] = "DeviceTimeObserver.mm";
+    *&buf[12] = 1024;
+    *&buf[14] = 182;
+    v38 = 2048;
+    v39 = v8;
+    v40 = 2048;
+    v41 = *(&v42[0] + 1);
+    v9 = "%25s:%-5d Warning - ignoring btPts that has bad host time: %llu (expected > previousMts i.e.: %llu)";
+    v10 = buf;
+    v11 = v6;
+    v12 = OS_LOG_TYPE_ERROR;
+LABEL_15:
+    v15 = 38;
+LABEL_16:
+    _os_log_impl(&dword_241701000, v11, v12, v9, v10, v15);
+    return result;
+  }
 
-          *buf = _X4;
-          *&buf[8] = 1;
-          v31 = *(v30 + 32);
-          do
-          {
-            _X3 = *(v30 + 40);
-            __asm { CASPAL          X2, X3, X4, X5, [X9] }
+  if (!*(a2 + 16))
+  {
+    v28 = *avas::server::gSessionServerLog(v5);
+    if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    {
+      return result;
+    }
 
-            _ZF = _X2 == v31;
-            v31 = _X2;
-          }
+    v30 = *(a2 + 8);
+    v29 = *(a2 + 16);
+    *buf = 136315906;
+    *&buf[4] = "DeviceTimeObserver.mm";
+    *&buf[12] = 1024;
+    *&buf[14] = 187;
+    v38 = 2048;
+    v39 = v29;
+    v40 = 2048;
+    v41 = v30;
+    v9 = "%25s:%-5d Warning - ignoring btPts has zero/bad PTS! %.5f (sampleTime: %.5f)";
+    v10 = buf;
+    v11 = v28;
+    v12 = OS_LOG_TYPE_DEFAULT;
+    goto LABEL_15;
+  }
 
-          while (!_ZF);
-        }
+  _X0 = 0;
+  v17 = *(a1 + 32);
+  v18 = *(v17 + 32);
+  do
+  {
+    _X5 = *(v17 + 40);
+    __asm { CASPAL          X4, X5, X0, X1, [X8] }
 
-        else
-        {
-          _X4 = 0;
-        }
+    _ZF = _X4 == v18;
+    v18 = _X4;
+  }
 
-        v34 = *(a1 + 40);
-        v36[0] = *(a1 + 32);
-        v36[1] = v34;
-        if (v34)
-        {
-          atomic_fetch_add_explicit((v34 + 8), 1uLL, memory_order_relaxed);
-        }
-
-        avas::server::DeviceTimeObserver::DeviceSlot::updateMinimalTimestamp(v42, v36, *a2, *(a2 + 8), _X4, 1, *(a2 + 32));
-        if (v34)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v34);
-        }
-
-        caulk::concurrent::atomic_value<avas::MinimalTimeStamp,2,3>::store(*(a1 + 48), v42);
-      }
-
-      else
-      {
-        v27 = *avas::server::gSessionServerLog(v5);
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
-        {
-          v29 = *(a2 + 8);
-          v28 = *(a2 + 16);
-          *buf = 136315906;
-          *&buf[4] = "DeviceTimeObserver.mm";
-          *&buf[12] = 1024;
-          *&buf[14] = 187;
-          v38 = 2048;
-          v39 = v28;
-          v40 = 2048;
-          v41 = v29;
-          v8 = "%25s:%-5d Warning - ignoring btPts has zero/bad PTS! %.5f (sampleTime: %.5f)";
-          v9 = buf;
-          v10 = v27;
-          v11 = OS_LOG_TYPE_DEFAULT;
-          goto LABEL_15;
-        }
-      }
+  while (!_ZF);
+  v25 = *(a2 + 8);
+  v26 = *(a2 + 16);
+  if (v25 >= v26)
+  {
+    v31 = *(a1 + 32);
+    if (*v31 == 0.0)
+    {
+      _X4 = 0;
     }
 
     else
     {
-      v6 = *avas::server::gSessionServerLog(v5);
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        v7 = *a2;
-        *buf = 136315906;
-        *&buf[4] = "DeviceTimeObserver.mm";
-        *&buf[12] = 1024;
-        *&buf[14] = 182;
-        v38 = 2048;
-        v39 = v7;
-        v40 = 2048;
-        v41 = *(&v42[0] + 1);
-        v8 = "%25s:%-5d Warning - ignoring btPts that has bad host time: %llu (expected > previousMts i.e.: %llu)";
-        v9 = buf;
-        v10 = v6;
-        v11 = OS_LOG_TYPE_ERROR;
-LABEL_15:
-        v14 = 38;
-        goto LABEL_16;
-      }
+      _X4 = llround(1000000000.0 / *v31 * (v25 - v26));
     }
+
+    *buf = _X4;
+    *&buf[8] = 1;
+    v32 = *(v31 + 32);
+    do
+    {
+      _X3 = *(v31 + 40);
+      __asm { CASPAL          X2, X3, X4, X5, [X9] }
+
+      _ZF = _X2 == v32;
+      v32 = _X2;
+    }
+
+    while (!_ZF);
   }
 
   else
   {
-    v12 = *avas::server::gSessionServerLog(a1);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      v13 = *(a1 + 56);
-      LODWORD(v42[0]) = 136315650;
-      *(v42 + 4) = "DeviceTimeObserver.mm";
-      WORD6(v42[0]) = 1024;
-      *(v42 + 14) = 174;
-      WORD1(v42[1]) = 1024;
-      DWORD1(v42[1]) = v13;
-      v8 = "%25s:%-5d BTPts block shouldn't be called when inactive! (device ID: %u)";
-      v9 = v42;
-      v10 = v12;
-      v11 = OS_LOG_TYPE_ERROR;
-      v14 = 24;
-LABEL_16:
-      _os_log_impl(&dword_241701000, v10, v11, v8, v9, v14);
-    }
+    _X4 = 0;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
+  v35 = *(a1 + 40);
+  v36[0] = *(a1 + 32);
+  v36[1] = v35;
+  if (v35)
+  {
+    atomic_fetch_add_explicit((v35 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  avas::server::DeviceTimeObserver::DeviceSlot::updateMinimalTimestamp(v42, v36, *a2, *(a2 + 8), _X4, 1, *(a2 + 32));
+  if (v35)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v35);
+  }
+
+  *&result = caulk::concurrent::atomic_value<avas::MinimalTimeStamp,2,3>::store(*(a1 + 48), v42).n128_u64[0];
+  return result;
 }
 
 void sub_24174FC5C(_Unwind_Exception *exception_object)
@@ -4693,23 +4563,23 @@ void __destroy_helper_block_ea8_32c69_ZTSNSt3__110shared_ptrIN4avas6server18Devi
   }
 }
 
-avas::server::DeviceTimeObserver::SharedBlockOwner *avas::server::DeviceTimeObserver::createDevice(void *a1, uint64_t a2, const void *a3, int a4)
+avas::server::DeviceTimeObserver::SharedBlockOwner *avas::server::DeviceTimeObserver::createDevice(gsl::details *a1, const __CFString **a2, const void *a3, int a4)
 {
   v7 = a1;
-  v9 = a1[6];
-  v10 = a1[7];
-  v8 = a1 + 6;
+  v9 = *(a1 + 6);
+  v10 = *(a1 + 7);
+  v8 = (a1 + 48);
   if (v9 != v10)
   {
     while (1)
     {
-      a1 = applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(v9 + 1, (a2 + 8));
+      a1 = applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>((v9 + 8), a2 + 1);
       if (!a1 || *v9 == *a2)
       {
         break;
       }
 
-      v9 += 12;
+      v9 += 96;
       if (v9 == v10)
       {
         v9 = v10;
@@ -4717,7 +4587,7 @@ avas::server::DeviceTimeObserver::SharedBlockOwner *avas::server::DeviceTimeObse
       }
     }
 
-    v10 = v7[7];
+    v10 = *(v7 + 7);
   }
 
   if (v9 != v10)
@@ -4727,14 +4597,14 @@ avas::server::DeviceTimeObserver::SharedBlockOwner *avas::server::DeviceTimeObse
   }
 
   v11 = *v7;
-  v12 = v7[1];
+  v12 = *(v7 + 1);
   if (*v7 != v12)
   {
     v13 = *v7;
     while (2)
     {
       v14 = 0;
-      v15 = (v13 + 40);
+      v15 = v13 + 40;
       do
       {
         v16 = v15[v14 >> 6];
@@ -4748,7 +4618,7 @@ avas::server::DeviceTimeObserver::SharedBlockOwner *avas::server::DeviceTimeObse
       }
 
       while (v14 != 66);
-      v13 = (v13 + 128);
+      v13 += 128;
       if (v13 != v12)
       {
         continue;
@@ -4760,7 +4630,7 @@ avas::server::DeviceTimeObserver::SharedBlockOwner *avas::server::DeviceTimeObse
 
   v37 = (v12 - v11) >> 7;
   v29[0] = v7;
-  if (v12 >= v7[2])
+  if (v12 >= *(v7 + 2))
   {
     a1 = std::vector<avas::server::DeviceTimeObserver::SharedBlockOwner>::__emplace_back_slow_path<avas::server::DeviceTimeObserver*,unsigned long const&>(v7, v29, &v37);
   }
@@ -4769,13 +4639,13 @@ avas::server::DeviceTimeObserver::SharedBlockOwner *avas::server::DeviceTimeObse
   {
     avas::server::DeviceTimeObserver::SharedBlockOwner::SharedBlockOwner(v12, v7, (v12 - v11) >> 7);
     a1 = (v12 + 128);
-    v7[1] = (v12 + 128);
+    *(v7 + 1) = v12 + 128;
   }
 
   v14 = 0;
-  v7[1] = a1;
-  v13 = (a1 - 16);
-  v17 = a1 - 11;
+  *(v7 + 1) = a1;
+  v13 = a1 - 128;
+  v17 = (a1 - 88);
   while (1)
   {
     v18 = v17[v14 >> 6];
@@ -4801,7 +4671,7 @@ LABEL_23:
     gsl::details::terminate(a1);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((v7[7] - v7[6]) >> 5) <= v19)
+  if (0xAAAAAAAAAAAAAAABLL * ((*(v7 + 7) - *(v7 + 6)) >> 5) <= v19)
   {
     std::vector<std::pair<avas::server::DeviceTimeObserver::DeviceKey,avas::server::DeviceTimeObserver::DeviceInfo>>::resize(v8, v19 + 1);
   }
@@ -4838,8 +4708,8 @@ LABEL_23:
   LODWORD(v20[8].__vftable) = 1;
   LODWORD(v20[10].__shared_weak_owners_) = 1;
   LODWORD(v37) = *a2;
-  cf = *(a2 + 8);
-  *(a2 + 8) = 0;
+  cf = a2[1];
+  a2[1] = 0;
   LOBYTE(v39) = *(a2 + 16);
   v40 = 0;
   v41 = 0;
@@ -4857,8 +4727,8 @@ LABEL_23:
   v30 = 0;
   v34 = 0;
   v35 = 0;
-  v21 = v7[6];
-  v22 = (v7[7] - v21) >> 5;
+  v21 = *(v7 + 6);
+  v22 = (*(v7 + 7) - v21) >> 5;
   v36 = 0;
   v47 = 0;
   if (0xAAAAAAAAAAAAAAABLL * v22 <= v19)
@@ -4918,7 +4788,7 @@ LABEL_23:
 
   if (a4)
   {
-    if (0xAAAAAAAAAAAAAAABLL * ((v7[7] - v7[6]) >> 5) > v19)
+    if (0xAAAAAAAAAAAAAAABLL * ((*(v7 + 7) - *(v7 + 6)) >> 5) > v19)
     {
       avas::server::DeviceTimeObserver::DeviceSlot::timestampWriterBTPts(&v48);
       objc_claimAutoreleasedReturnValue();
@@ -4940,19 +4810,19 @@ LABEL_23:
   return v48;
 }
 
-void std::vector<std::pair<avas::server::DeviceTimeObserver::DeviceKey,avas::server::DeviceTimeObserver::DeviceInfo>>::resize(uint64_t *a1, unint64_t a2)
+void std::vector<std::pair<avas::server::DeviceTimeObserver::DeviceKey,avas::server::DeviceTimeObserver::DeviceInfo>>::resize(uint64_t *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 5);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<std::pair<avas::server::DeviceTimeObserver::DeviceKey,avas::server::DeviceTimeObserver::DeviceInfo>>::__append(a1, v4);
+    std::vector<std::pair<avas::server::DeviceTimeObserver::DeviceKey,avas::server::DeviceTimeObserver::DeviceInfo>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    std::vector<std::pair<avas::server::DeviceTimeObserver::DeviceKey,avas::server::DeviceTimeObserver::DeviceInfo>>::__base_destruct_at_end[abi:ne200100](a1, *a1 + 96 * a2);
+    std::vector<std::pair<avas::server::DeviceTimeObserver::DeviceKey,avas::server::DeviceTimeObserver::DeviceInfo>>::__base_destruct_at_end[abi:ne200100](result, *result + 96 * a2);
   }
 }
 
@@ -4992,10 +4862,10 @@ uint64_t std::pair<avas::server::DeviceTimeObserver::DeviceKey,avas::server::Dev
   return a1;
 }
 
-BOOL avas::server::DeviceTimeObserver::removeSession(avas::server::DeviceTimeObserver *this, unsigned int a2)
+uint64_t avas::server::DeviceTimeObserver::removeSession(avas::server::DeviceTimeObserver *this, int a2)
 {
-  v27 = a2;
-  v3 = std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(this + 9, &v27);
+  v25 = a2;
+  v3 = std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(this + 9, &v25);
   if (v3)
   {
     std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::erase(this + 9, v3);
@@ -5004,7 +4874,7 @@ BOOL avas::server::DeviceTimeObserver::removeSession(avas::server::DeviceTimeObs
 
   else
   {
-    boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>>::find(this + 3, &v27, &v26);
+    boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>>::find(this + 3, &v25, &v24);
     v6 = *(this + 3);
     v7 = *(this + 4);
     if (v6)
@@ -5023,12 +4893,12 @@ BOOL avas::server::DeviceTimeObserver::removeSession(avas::server::DeviceTimeObs
     }
 
     v9 = v6 + 32 * v7;
-    v10 = v26;
-    v4 = v26 != v9;
-    if (v26 != v9)
+    v10 = v24;
+    v4 = v24 != v9;
+    if (v24 != v9)
     {
-      v12 = *(v26 + 8);
-      v11 = *(v26 + 16);
+      v12 = *(v24 + 8);
+      v11 = *(v24 + 16);
       if (v11)
       {
         atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -5041,54 +4911,54 @@ BOOL avas::server::DeviceTimeObserver::removeSession(avas::server::DeviceTimeObs
         v15 = *v12 / 0x21FuLL;
         if (v15 >= (*(this + 1) - *this) >> 7)
         {
-          LOBYTE(v23) = 0;
-          v25 = 0;
-          v19 = _os_crash();
-          [AVAudioSessionRemoteXPCClient initWithServer:v19 process:? delegate:?];
+          LOBYTE(v21) = 0;
+          v23 = 0;
+          _os_crash();
+          [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
         }
 
-        v23 = *this + (v15 << 7);
-        LODWORD(v24) = v14 % 0x21F;
-        v25 = 1;
-        v16 = avas::server::DeviceTimeObserver::SessionSlot::sessionState(&v23);
-        caulk::concurrent::atomic_value<avas::SessionSharedState,2,3>::load(v16, v21);
-        LODWORD(v28) = v27;
-        std::set<unsigned int>::set[abi:ne200100](v20, &v28, 1);
+        v21 = *this + (v15 << 7);
+        LODWORD(v22) = v14 % 0x21F;
+        v23 = 1;
+        v16 = avas::server::DeviceTimeObserver::SessionSlot::sessionState(&v21);
+        caulk::concurrent::atomic_value<avas::SessionSharedState,2,3>::load(v16, v19);
+        LODWORD(v26) = v25;
+        std::set<unsigned int>::set[abi:ne200100](v18, &v26, 1);
         if ((v13 & 1) == 0)
         {
-          std::set<unsigned int>::insert[abi:ne200100]<std::__tree_const_iterator<unsigned int,std::__tree_node<unsigned int,void *> *,long>>(v20, *(v12 + 2), v12 + 6);
+          std::set<unsigned int>::insert[abi:ne200100]<std::__tree_const_iterator<unsigned int,std::__tree_node<unsigned int,void *> *,long>>(v18, *(v12 + 2), v12 + 6);
         }
 
-        avas::server::DeviceTimeObserver::removeReferringSessionsFromDevice(this, 0, v22, v20);
-        avas::server::DeviceTimeObserver::removeReferringSessionsFromDevice(this, 1, LOBYTE(v21[0]), v20);
+        avas::server::DeviceTimeObserver::removeReferringSessionsFromDevice(this, 0, v20, v18);
+        avas::server::DeviceTimeObserver::removeReferringSessionsFromDevice(this, 1, LOBYTE(v19[0]), v18);
         if ((v13 & 1) == 0)
         {
-          v17 = avas::server::DeviceTimeObserver::SessionSlot::sessionState(&v23);
-          v28 = 0u;
-          v29 = 0u;
-          v30 = 0;
-          LOBYTE(v28) = -1;
-          LOBYTE(v29) = -1;
-          caulk::concurrent::atomic_value<avas::SessionSharedState,2,3>::store(v17, &v28);
+          v17 = avas::server::DeviceTimeObserver::SessionSlot::sessionState(&v21);
+          v26 = 0u;
+          v27 = 0u;
+          v28 = 0;
+          LOBYTE(v26) = -1;
+          LOBYTE(v27) = -1;
+          caulk::concurrent::atomic_value<avas::SessionSharedState,2,3>::store(v17, &v26);
           if (*(v12 + 4) == 1)
           {
             *(v12 + 4) = 0;
           }
 
-          avas::server::DeviceTimeObserver::SharedBlockOwner::deallocateSessionSlot(v23, v23, v24);
+          avas::server::DeviceTimeObserver::SharedBlockOwner::deallocateSessionSlot(v21, v21, v22);
         }
 
-        std::__tree<std::pair<AVAudioMicrophoneMonitorClientType,unsigned long long>>::destroy(v20, v20[1]);
+        std::__tree<std::pair<AVAudioMicrophoneMonitorClientType,unsigned long long>>::destroy(v18, v18[1]);
       }
 
-      if (v13 && std::__tree<unsigned int>::__erase_unique<unsigned int>((v12 + 4), &v27) != 1)
+      if (v13 && std::__tree<unsigned int>::__erase_unique<unsigned int>(v12 + 2, &v25) != 1)
       {
-        v18 = _os_crash();
-        [AVAudioSessionRemoteXPCClient initWithServer:v18 process:? delegate:?];
+        _os_crash();
+        [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
       }
 
-      *&v28 = v26;
-      boost::container::vector<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,void>::erase(this + 3, &v28, v21);
+      *&v26 = v24;
+      boost::container::vector<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,void>::erase(this + 3, &v26, v19);
       if (v11)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v11);
@@ -5109,30 +4979,30 @@ void sub_241750470(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void avas::server::DeviceTimeObserver::addNodeSession(avas::server::DeviceTimeObserver *a1, os_unfair_lock_s **a2)
+void avas::server::DeviceTimeObserver::addNodeSession(avas::server::DeviceTimeObserver *a1, avas::server::IONodeSessionInfo **a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (avas::server::IONodeSessionInfo::GetBindingType(*a2) == 1651733091)
   {
-    avas::server::IONodeSessionInfo::GetSiblingSession(*a2, &v16);
-    if (v16)
+    avas::server::IONodeSessionInfo::GetSiblingSession(&v15, *a2);
+    if (v15)
     {
-      v4 = (*(*v16 + 16))(v16);
-      avas::server::DeviceTimeObserver::findSessionSlot(a1, v4, buf);
-      if ((v20 & 0x10000) == 0)
+      v4 = (*(*v15 + 16))(v15);
+      avas::server::DeviceTimeObserver::findSessionSlot(buf, a1, v4);
+      if ((v19 & 0x10000) == 0)
       {
-        v5 = (*(*v16 + 24))(v16);
-        avas::server::DeviceTimeObserver::createSession(a1, v4, v5 | 0x100000000, &v13);
-        if (v15 == 1)
+        v5 = (*(*v15 + 24))(v15);
+        avas::server::DeviceTimeObserver::createSession(a1, v4, v5 | 0x100000000, &v12);
+        if (v14 == 1)
         {
-          v7 = v14 + 543 * *(v13 + 8);
+          v7 = v13 + 543 * *(v12 + 8);
           if (HIDWORD(v7))
           {
             *buf = &unk_28535A5C0;
             gsl::details::terminate(v6);
           }
 
-          v16[110] = v7;
+          v15[110] = v7;
         }
 
         else
@@ -5142,42 +5012,40 @@ void avas::server::DeviceTimeObserver::addNodeSession(avas::server::DeviceTimeOb
           {
             *buf = 136315650;
             *&buf[4] = "DeviceTimeObserver.mm";
-            v19 = 1024;
-            v20 = 526;
-            v21 = 1024;
-            v22 = v4;
+            v18 = 1024;
+            v19 = 526;
+            v20 = 1024;
+            v21 = v4;
             _os_log_impl(&dword_241701000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d Session creation in DTO failed, session ID = 0x%x", buf, 0x18u);
           }
         }
 
-        v9 = (*(*&(*a2)->_os_unfair_lock_opaque + 16))();
+        v9 = (*(**a2 + 16))();
         v10 = v9;
         v11 = *avas::server::gSessionServerLog(v9);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           *buf = 136315906;
           *&buf[4] = "DeviceTimeObserver.mm";
-          v19 = 1024;
-          v20 = 531;
-          v21 = 1024;
-          v22 = v10;
-          v23 = 1024;
-          v24 = v4;
+          v18 = 1024;
+          v19 = 531;
+          v20 = 1024;
+          v21 = v10;
+          v22 = 1024;
+          v23 = v4;
           _os_log_impl(&dword_241701000, v11, OS_LOG_TYPE_INFO, "%25s:%-5d Adding node session 0x%x and container session 0x%x to DTO container map", buf, 0x1Eu);
         }
 
         *buf = v10 | (v4 << 32);
-        std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,unsigned int>>(a1 + 9, buf);
+        std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,unsigned int>>(a1 + 18, buf, buf);
       }
     }
 
-    if (v17)
+    if (v16)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241750754(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
@@ -5208,7 +5076,7 @@ uint64_t avas::server::IONodeSessionInfo::GetBindingType(os_unfair_lock_s *this)
   return v3;
 }
 
-void avas::server::IONodeSessionInfo::GetSiblingSession(os_unfair_lock_s *this@<X0>, void *a2@<X8>)
+void avas::server::IONodeSessionInfo::GetSiblingSession(uint64_t *__return_ptr a1@<X8>, os_unfair_lock_s *this@<X0>)
 {
   os_unfair_lock_lock(this + 8);
   v4 = *&this[14]._os_unfair_lock_opaque;
@@ -5219,14 +5087,14 @@ void avas::server::IONodeSessionInfo::GetSiblingSession(os_unfair_lock_s *this@<
 
   else
   {
-    *a2 = 0;
-    a2[1] = 0;
+    *a1 = 0;
+    a1[1] = 0;
   }
 
   os_unfair_lock_unlock(this + 8);
 }
 
-void avas::server::DeviceTimeObserver::sessionHasIOEventListeners(avas::server::DeviceTimeObserver *this, unsigned int a2, int a3, char a4)
+void avas::server::DeviceTimeObserver::sessionHasIOEventListeners(avas::server::DeviceTimeObserver *this, int a2, int a3, char a4)
 {
   v12 = a2;
   boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>>::find(this + 3, &v12, &v11);
@@ -5259,10 +5127,10 @@ void avas::server::DeviceTimeObserver::sessionHasIOEventListeners(avas::server::
   }
 }
 
-void avas::server::DeviceTimeObserver::sessionDeviceIOPeriod(avas::server::DeviceTimeObserver *this@<X0>, unsigned int a2@<W1>, int a3@<W2>, uint64_t a4@<X8>)
+void avas::server::DeviceTimeObserver::sessionDeviceIOPeriod(uint64_t *__return_ptr a1@<X8>, avas::server::DeviceTimeObserver *this@<X0>, int a3@<W1>, int a4@<W2>)
 {
-  avas::server::DeviceTimeObserver::findSessionSlot(this, a2, v21);
-  if ((v21[16] & 1) == 0)
+  avas::server::DeviceTimeObserver::findSessionSlot(v21, this, a3);
+  if ((v22 & 1) == 0)
   {
     goto LABEL_9;
   }
@@ -5270,7 +5138,7 @@ void avas::server::DeviceTimeObserver::sessionDeviceIOPeriod(avas::server::Devic
   v7 = avas::server::DeviceTimeObserver::SessionSlot::sessionState(v21);
   caulk::concurrent::atomic_value<avas::SessionSharedState,2,3>::load(v7, v19);
   v8 = &v20;
-  if (a3)
+  if (a4)
   {
     v8 = v19;
   }
@@ -5289,7 +5157,7 @@ void avas::server::DeviceTimeObserver::sessionDeviceIOPeriod(avas::server::Devic
     if (PropertyData || (v15 = 0, *&inAddress.mSelector = 0x676C6F626673697ALL, inAddress.mElement = 0, ioDataSize = 4, PropertyData = AudioObjectGetPropertyData(v11, &inAddress, 0, 0, &ioDataSize, &v15), *&v18 = v15, PropertyData))
     {
       v13 = 0;
-      *a4 = PropertyData;
+      *a1 = PropertyData;
     }
 
     else
@@ -5300,26 +5168,26 @@ void avas::server::DeviceTimeObserver::sessionDeviceIOPeriod(avas::server::Devic
       }
 
       v14 = v18;
-      *a4 = outData;
-      *(a4 + 16) = v14;
+      *a1 = outData;
+      *(a1 + 1) = v14;
       v13 = 1;
     }
 
-    *(a4 + 32) = v13;
+    *(a1 + 32) = v13;
   }
 
   else
   {
 LABEL_9:
-    *a4 = -1;
-    *(a4 + 32) = 0;
+    *a1 = -1;
+    *(a1 + 32) = 0;
   }
 }
 
 void avas::server::DeviceTimeObserver::sessionsObservingDeviceEvent(uint64_t *a1@<X0>, int a2@<W1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
 {
   v5 = a3;
-  v66 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   *a5 = 0;
   *(a5 + 8) = 0;
   *(a5 + 24) = 0;
@@ -5341,16 +5209,16 @@ void avas::server::DeviceTimeObserver::sessionsObservingDeviceEvent(uint64_t *a1
   if (v10 == v9)
   {
 LABEL_65:
-    v47 = *avas::server::gSessionServerLog(a1);
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v46 = *avas::server::gSessionServerLog(a1);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       *&buf[4] = "DeviceTimeObserver.mm";
-      v62 = 1024;
-      v63 = 766;
-      v64 = 1024;
-      v65 = a2;
-      _os_log_impl(&dword_241701000, v47, OS_LOG_TYPE_ERROR, "%25s:%-5d Error - device ID not found: %u", buf, 0x18u);
+      v59 = 1024;
+      v60 = 766;
+      v61 = 1024;
+      v62 = a2;
+      _os_log_impl(&dword_241701000, v46, OS_LOG_TYPE_ERROR, "%25s:%-5d Error - device ID not found: %u", buf, 0x18u);
     }
   }
 
@@ -5393,8 +5261,8 @@ LABEL_65:
         }
 
         v18 = *v15;
-        v60 = *v15;
-        boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>>::find(a1 + 3, &v60, buf);
+        v57 = *v15;
+        boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>>::find(a1 + 3, &v57, buf);
         v19 = a1[3];
         v20 = a1[4];
         if (v19)
@@ -5529,47 +5397,46 @@ LABEL_51:
 
     if (v5 == 1)
     {
-      v49 = *(v10 + 72);
-      v48 = *(v10 + 80);
-      if (v48)
+      v48 = *(v10 + 72);
+      v47 = *(v10 + 80);
+      if (v47)
       {
-        atomic_fetch_add_explicit(&v48->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v47->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       _X0 = 0;
-      v51 = *(v49 + 32);
-      v52 = *(v49 + 40);
+      v50 = *(v48 + 32);
       do
       {
-        _X5 = *(v49 + 40);
+        _X5 = *(v48 + 40);
         __asm { CASPAL          X4, X5, X0, X1, [X8] }
 
-        _ZF = _X4 == v51;
-        v51 = _X4;
+        _ZF = _X4 == v50;
+        v50 = _X4;
       }
 
       while (!_ZF);
       if (a4 && (*(v10 + 16) & 1) == 0 && *(v10 + 88))
       {
-        v55 = *avas::server::gSessionServerLog(0);
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+        v53 = *avas::server::gSessionServerLog(0);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
           *&buf[4] = "DeviceTimeObserver.mm";
-          v62 = 1024;
-          v63 = 801;
-          v64 = 1024;
-          v65 = a2;
-          _os_log_impl(&dword_241701000, v55, OS_LOG_TYPE_DEFAULT, "%25s:%-5d starting BT presentation time poller for device ID: %u)", buf, 0x18u);
+          v59 = 1024;
+          v60 = 801;
+          v61 = 1024;
+          v62 = a2;
+          _os_log_impl(&dword_241701000, v53, OS_LOG_TYPE_DEFAULT, "%25s:%-5d starting BT presentation time poller for device ID: %u)", buf, 0x18u);
         }
 
-        atomic_store(1u, (v49 + 256));
+        atomic_store(1u, (v48 + 256));
         avas::server::BTPresentationTimePoll::start(*(v10 + 88));
       }
 
-      if (v48)
+      if (v47)
       {
-        v46 = v48;
+        v45 = v47;
         goto LABEL_80;
       }
     }
@@ -5588,7 +5455,6 @@ LABEL_51:
       atomic_store(1u, (v37 + 128));
       atomic_store(1u, (v37 + 192));
       v39 = *(v37 + 32);
-      v40 = *(v37 + 40);
       do
       {
         _X5 = *(v37 + 40);
@@ -5601,16 +5467,16 @@ LABEL_51:
       while (!_ZF);
       if (*(v10 + 88))
       {
-        v45 = *avas::server::gSessionServerLog(0);
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        v44 = *avas::server::gSessionServerLog(0);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
           *&buf[4] = "DeviceTimeObserver.mm";
-          v62 = 1024;
-          v63 = 813;
-          v64 = 1024;
-          v65 = a2;
-          _os_log_impl(&dword_241701000, v45, OS_LOG_TYPE_DEFAULT, "%25s:%-5d stopping BT presentation time poller for device ID: %u)", buf, 0x18u);
+          v59 = 1024;
+          v60 = 813;
+          v61 = 1024;
+          v62 = a2;
+          _os_log_impl(&dword_241701000, v44, OS_LOG_TYPE_DEFAULT, "%25s:%-5d stopping BT presentation time poller for device ID: %u)", buf, 0x18u);
         }
 
         avas::server::BTPresentationTimePoll::stop(*(v10 + 88));
@@ -5619,14 +5485,12 @@ LABEL_51:
 
       if (v36)
       {
-        v46 = v36;
+        v45 = v36;
 LABEL_80:
-        std::__shared_weak_count::__release_shared[abi:ne200100](v46);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v45);
       }
     }
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241750FEC(_Unwind_Exception *exception_object)
@@ -5648,7 +5512,7 @@ void sub_241750FEC(_Unwind_Exception *exception_object)
 
 unint64_t avas::server::DeviceTimeObserver::nanosecondLatency(avas::server::DeviceTimeObserver *this, int a2, char a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = *(this + 6);
   v5 = *(this + 7);
   if (v4 != v5)
@@ -5669,17 +5533,16 @@ LABEL_12:
     v10 = *avas::server::gSessionServerLog(this);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315650;
-      v21 = "DeviceTimeObserver.mm";
-      v22 = 1024;
-      v23 = 878;
-      v24 = 1024;
-      v25 = a2;
-      _os_log_impl(&dword_241701000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Error - device ID not found: %u", &v20, 0x18u);
+      v19 = 136315650;
+      v20 = "DeviceTimeObserver.mm";
+      v21 = 1024;
+      v22 = 878;
+      v23 = 1024;
+      v24 = a2;
+      _os_log_impl(&dword_241701000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Error - device ID not found: %u", &v19, 0x18u);
     }
 
-    v9 = 0;
-    goto LABEL_19;
+    return 0;
   }
 
   v7 = *(v4 + 72);
@@ -5717,21 +5580,19 @@ LABEL_17:
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-LABEL_19:
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-uint64_t std::vector<avas::server::DeviceTimeObserver::SharedBlockOwner>::__emplace_back_slow_path<avas::server::DeviceTimeObserver*,unsigned long const&>(uint64_t a1, avas::server::DeviceTimeObserver **a2, uint64_t *a3)
+uint64_t std::vector<avas::server::DeviceTimeObserver::SharedBlockOwner>::__emplace_back_slow_path<avas::server::DeviceTimeObserver*,unsigned long const&>(uint64_t *a1, avas::server::DeviceTimeObserver **a2, uint64_t *a3)
 {
-  v3 = (*(a1 + 8) - *a1) >> 7;
+  v3 = (a1[1] - *a1) >> 7;
   v4 = v3 + 1;
   if ((v3 + 1) >> 57)
   {
     std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
   }
 
-  v7 = *(a1 + 16) - *a1;
+  v7 = a1[2] - *a1;
   if (v7 >> 6 > v4)
   {
     v4 = v7 >> 6;
@@ -5758,14 +5619,14 @@ uint64_t std::vector<avas::server::DeviceTimeObserver::SharedBlockOwner>::__empl
   v17 = (v3 << 7);
   avas::server::DeviceTimeObserver::SharedBlockOwner::SharedBlockOwner((v3 << 7), *a2, *a3);
   *&v17 = (v3 << 7) + 128;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = (v3 << 7) + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<avas::server::DeviceTimeObserver::SharedBlockOwner>,avas::server::DeviceTimeObserver::SharedBlockOwner*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -5774,9 +5635,9 @@ uint64_t std::vector<avas::server::DeviceTimeObserver::SharedBlockOwner>::__empl
   return v14;
 }
 
-void sub_2417512DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2417512DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<avas::server::DeviceTimeObserver::SharedBlockOwner>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5938,9 +5799,9 @@ uint64_t *std::vector<std::pair<avas::server::DeviceTimeObserver::DeviceKey,avas
   return result;
 }
 
-void sub_2417515AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2417515AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<avas::server::DeviceTimeObserver::DeviceKey,avas::server::DeviceTimeObserver::DeviceInfo>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6301,7 +6162,7 @@ void std::default_delete<avas::server::BTPresentationTimePoll>::operator()[abi:n
   }
 }
 
-void boost::container::vector<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>*,boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>>(uint64_t *a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+void boost::container::vector<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>*,boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>>(void **a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
   v10 = *a1;
   v11 = boost::container::vector_alloc_holder<boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(a1, a3);
@@ -6335,7 +6196,7 @@ uint64_t boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserv
   return a1;
 }
 
-unint64_t boost::container::vector_alloc_holder<boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(uint64_t a1, const char *a2)
+const char *boost::container::vector_alloc_holder<boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(uint64_t a1, const char *a2)
 {
   v2 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -6385,7 +6246,7 @@ unint64_t boost::container::vector_alloc_holder<boost::container::new_allocator<
   }
 }
 
-void boost::container::vector<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>*,boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void boost::container::vector<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>*,boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>>(void **a1, char *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v10 = *a1;
   boost::container::uninitialized_move_and_insert_alloc<boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>*,boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>*,boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>*,boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>>(a1, *a1, a4, *a1 + 32 * a1[1], a2, a5, a6);
@@ -6610,18 +6471,19 @@ LABEL_19:
   return result;
 }
 
-void *std::set<unsigned int>::set[abi:ne200100](void *a1, unsigned int *a2, uint64_t a3)
+uint64_t std::set<unsigned int>::set[abi:ne200100](uint64_t a1, unsigned int *a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a3)
   {
     v6 = 4 * a3;
     do
     {
-      std::__tree<unsigned int>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&>(a1, v4, a2++);
+      std::__tree<unsigned int>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&>(a1, v4, a2, a2);
+      ++a2;
       v6 -= 4;
     }
 
@@ -6631,19 +6493,19 @@ void *std::set<unsigned int>::set[abi:ne200100](void *a1, unsigned int *a2, uint
   return a1;
 }
 
-uint64_t std::__tree<unsigned int>::__erase_unique<unsigned int>(uint64_t a1, unsigned int *a2)
+uint64_t std::__tree<unsigned int>::__erase_unique<unsigned int>(uint64_t **a1, unsigned int *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (!v2)
   {
     return 0;
   }
 
   v3 = *a2;
-  v4 = a1 + 8;
+  v4 = a1 + 1;
   do
   {
-    v5 = *(v2 + 28);
+    v5 = *(v2 + 7);
     v6 = v5 >= v3;
     v7 = v5 < v3;
     if (v6)
@@ -6651,11 +6513,11 @@ uint64_t std::__tree<unsigned int>::__erase_unique<unsigned int>(uint64_t a1, un
       v4 = v2;
     }
 
-    v2 = *(v2 + 8 * v7);
+    v2 = v2[v7];
   }
 
   while (v2);
-  if (v4 == a1 + 8 || v3 < *(v4 + 28))
+  if (v4 == a1 + 1 || v3 < *(v4 + 7))
   {
     return 0;
   }
@@ -6665,7 +6527,7 @@ uint64_t std::__tree<unsigned int>::__erase_unique<unsigned int>(uint64_t a1, un
   return 1;
 }
 
-void boost::container::vector<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,void>::erase(uint64_t *a1@<X0>, uint64_t *a2@<X1>, unint64_t *a3@<X8>)
+void boost::container::vector<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,avas::server::DeviceTimeObserver::SessionInfo>>,void>::erase(unint64_t *a1@<X0>, unint64_t *a2@<X1>, unint64_t *a3@<X8>)
 {
   v4 = *a2;
   v5 = *a1;
@@ -6720,33 +6582,33 @@ LABEL_14:
   *a3 = v4;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,unsigned int>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,unsigned int>>(float *a1, unsigned int *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = *(a1 + 2);
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -6754,47 +6616,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -6810,7 +6672,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -6818,7 +6680,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -6842,7 +6704,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -6869,10 +6731,10 @@ void std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__
   *(a1 + 8) = 0;
 }
 
-void boost::container::vector<unsigned int,boost::container::new_allocator<unsigned int>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_range_proxy<boost::container::new_allocator<unsigned int>,boost::container::vec_iterator<unsigned int *,false>,unsigned int *>>(uint64_t *a1@<X0>, char *a2@<X1>, const char *a3@<X2>, const void **a4@<X3>, void *a5@<X8>)
+void boost::container::vector<unsigned int,boost::container::new_allocator<unsigned int>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_range_proxy<boost::container::new_allocator<unsigned int>,boost::container::vec_iterator<unsigned int *,false>,unsigned int *>>(uint64_t *a1@<X0>, char *a2@<X1>, void *a3@<X8>, const char *a4@<X2>, const void **a5@<X3>)
 {
   v10 = *a1;
-  v11 = boost::container::vector_alloc_holder<boost::container::new_allocator<unsigned int>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(a1, a3);
+  v11 = boost::container::vector_alloc_holder<boost::container::new_allocator<unsigned int>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(a1, a4);
   if (v11 >> 61)
   {
     boost::container::throw_length_error("get_next_capacity, allocator's max size reached", v12);
@@ -6880,12 +6742,12 @@ void boost::container::vector<unsigned int,boost::container::new_allocator<unsig
 
   v13 = v11;
   v14 = operator new(4 * v11);
-  v15 = *a4;
-  boost::container::vector<unsigned int,boost::container::new_allocator<unsigned int>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_range_proxy<boost::container::new_allocator<unsigned int>,boost::container::vec_iterator<unsigned int *,false>,unsigned int *>>(a1, v14, v13, a2, a3, &v15);
-  *a5 = &a2[*a1 - v10];
+  v15 = *a5;
+  boost::container::vector<unsigned int,boost::container::new_allocator<unsigned int>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_range_proxy<boost::container::new_allocator<unsigned int>,boost::container::vec_iterator<unsigned int *,false>,unsigned int *>>(a1, v14, v13, a2, a4, &v15);
+  *a3 = &a2[*a1 - v10];
 }
 
-unint64_t boost::container::vector_alloc_holder<boost::container::new_allocator<unsigned int>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(uint64_t a1, const char *a2)
+const char *boost::container::vector_alloc_holder<boost::container::new_allocator<unsigned int>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(uint64_t a1, const char *a2)
 {
   v2 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -6962,11 +6824,11 @@ void sub_241752A0C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-int **boost::movelib::pdqsort_detail::pdqsort_loop<boost::container::vec_iterator<unsigned int *,false>,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>>(int **a1, int **a2, uint64_t a3, char a4)
+int **boost::movelib::pdqsort_detail::pdqsort_loop<boost::container::vec_iterator<unsigned int *,false>,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>>(unsigned int **a1, int **a2, uint64_t a3, char a4)
 {
   v4 = *a1;
   v5 = *a2;
-  for (i = *a2 - *a1; i >= 0x18; i = *a2 - v4)
+  for (i = (*a2 - *a1) >> 2; i >= 0x18; i = *a2 - v4)
   {
     v12 = i >> 1;
     if (i < 0x81)
@@ -7083,7 +6945,7 @@ LABEL_26:
       }
 
       v19 = *a1;
-      v20 = v51 - *a1;
+      v20 = (v51 - *a1) >> 2;
       v4 = v51 + 1;
       v21 = *a2;
       v22 = *a2 - (v51 + 1);
@@ -7288,16 +7150,16 @@ LABEL_96:
                 --v40;
                 if (v38 >= v39)
                 {
-                  v41 = ((v18 + 2) - result);
+                  v41 = (v18 + 2) - result;
                   goto LABEL_53;
                 }
               }
 
-              v41 = v18 + 1;
+              v41 = (v18 + 1);
               v40 = v18 + 1;
 LABEL_53:
               *v40 = v38;
-              v34 += v37 - v41;
+              v34 += (v37 - v41) >> 2;
             }
 
             if (&v18[++v35] == v21)
@@ -7676,7 +7538,7 @@ int **boost::movelib::pdqsort_detail::partition_right<boost::container::vec_iter
   return result;
 }
 
-BOOL boost::movelib::heap_sort_helper<boost::container::vec_iterator<unsigned int *,false>,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>>::sort(_DWORD **a1, uint64_t *a2)
+BOOL boost::movelib::heap_sort_helper<boost::container::vec_iterator<unsigned int *,false>,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>>::sort(uint64_t *a1, uint64_t *a2)
 {
   v4 = *a1;
   v8 = *a2;
@@ -8018,7 +7880,7 @@ LABEL_23:
   return result;
 }
 
-char *boost::movelib::adaptive_merge<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>>(char *result, char *a2, char *a3, uint64_t a4, uint64_t a5)
+char *boost::movelib::adaptive_merge<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>>(char *result, char *a2, char *a3, char *a4, char *a5)
 {
   if (result != a2 && a2 != a3)
   {
@@ -8059,10 +7921,10 @@ char *boost::movelib::adaptive_merge<unsigned int *,boost::container::dtl::flat_
   return result;
 }
 
-char *boost::movelib::detail_adaptive::adaptive_merge_impl<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>>(char *a1, unint64_t a2, unint64_t a3, uint64_t a4)
+char *boost::movelib::detail_adaptive::adaptive_merge_impl<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>>(char *a1, unint64_t a2, unint64_t a3, char **a4)
 {
   v7 = a1;
-  v8 = *(a4 + 16);
+  v8 = a4[2];
   if (a2 >= a3)
   {
     v9 = a3;
@@ -8147,7 +8009,7 @@ LABEL_42:
 
     else
     {
-      v26 = *(a4 + 16);
+      v26 = a4[2];
     }
 
     v27 = a3 / v26;
@@ -8167,8 +8029,8 @@ LABEL_42:
 
     if (v8)
     {
-      v32 = *a4 + 4 * v8;
-      v33 = (*a4 + 4 * v26 + 7) & 0xFFFFFFFFFFFFFFF8;
+      v32 = &(*a4)[4 * v8];
+      v33 = &(*a4)[4 * v26 + 7] & 0xFFFFFFFFFFFFFFF8;
       if ((v32 - v33) >> 3 >= (a2 - v25) / v26 + v27 && v32 >= v33)
       {
         v31 = 0;
@@ -8191,7 +8053,7 @@ LABEL_42:
     v44 = v36 == v35;
     if (v36 == v35)
     {
-      v38 = *(a4 + 16) >= v26;
+      v38 = a4[2] >= v26;
       v39 = 1;
     }
 
@@ -8217,9 +8079,9 @@ LABEL_42:
     result = boost::movelib::detail_adaptive::adaptive_merge_combine_blocks<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>>(v7, a2, a3, v37, v31, v26, v39, v38, a4);
     if (v37 != v25 || !v38)
     {
-      if (*(a4 + 8))
+      if (a4[1])
       {
-        *(a4 + 8) = 0;
+        a4[1] = 0;
       }
 
       if (v37 != v25 && v38)
@@ -8241,7 +8103,7 @@ LABEL_42:
   return result;
 }
 
-unint64_t boost::movelib::detail_adaptive::collect_unique<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>>(char *a1, unsigned int *a2, unint64_t a3, int **a4)
+unint64_t boost::movelib::detail_adaptive::collect_unique<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>>(_DWORD *a1, unsigned int *a2, unint64_t a3, int **a4)
 {
   if (!a3)
   {
@@ -8249,7 +8111,7 @@ unint64_t boost::movelib::detail_adaptive::collect_unique<unsigned int *,boost::
   }
 
   v7 = a1;
-  v8 = (a1 + 4);
+  v8 = a1 + 1;
   if (a4[2] >= a3)
   {
     v19 = boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>::add<unsigned int *>(a4, a1);
@@ -8266,7 +8128,7 @@ unint64_t boost::movelib::detail_adaptive::collect_unique<unsigned int *,boost::
         v24 = v20;
         if (v23 != v20)
         {
-          v25 = (v23 - v20) >> 2;
+          v25 = v23 - v20;
           v24 = v20;
           do
           {
@@ -8298,7 +8160,7 @@ unint64_t boost::movelib::detail_adaptive::collect_unique<unsigned int *,boost::
             v21 += 4;
           }
 
-          v22 = (v8 + 1);
+          v22 = v8 + 1;
           ++v9;
           boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>::insert<unsigned int *>(a4, v24, v8);
         }
@@ -8347,7 +8209,7 @@ unint64_t boost::movelib::detail_adaptive::collect_unique<unsigned int *,boost::
     {
       v9 = 1;
       v10 = a1;
-      v11 = a1 + 4;
+      v11 = (a1 + 1);
       do
       {
         v12 = v10;
@@ -8470,7 +8332,7 @@ char *boost::movelib::detail_adaptive::adaptive_merge_combine_blocks<unsigned in
       boost::movelib::detail_adaptive::combine_params<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,unsigned long,boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>>(a1, a3 + a2 - a4, v12, a6, a9, &v23, &v22, &v21, &v20, 1);
       if (a7)
       {
-        return boost::movelib::detail_adaptive::op_merge_blocks_with_buf<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::swap_op,unsigned int *>(a1, v13, a6, v21, v23, v22, v20, &v13[-a6]);
+        return boost::movelib::detail_adaptive::op_merge_blocks_with_buf<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::swap_op,unsigned int *>(a1, v13, a6, v21, v23, v22, v20, &v13[-4 * a6]);
       }
 
       else
@@ -8518,7 +8380,7 @@ char *boost::movelib::detail_adaptive::adaptive_merge_combine_blocks<unsigned in
   return result;
 }
 
-char *boost::movelib::op_buffered_merge<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::move_op,boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>>(char *result, char *a2, char *a3, char **a4)
+uint64_t boost::movelib::op_buffered_merge<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::move_op,boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>>(uint64_t result, char *a2, char *a3, char **a4)
 {
   if (result != a2 && a2 != a3)
   {
@@ -8526,13 +8388,13 @@ char *boost::movelib::op_buffered_merge<unsigned int *,boost::container::dtl::fl
     if (*a2 < v6)
     {
       v8 = result;
-      if (a2 - result <= (a3 - a2))
+      if (&a2[-result] <= a3 - a2)
       {
-        v17 = (a2 - result) >> 2;
+        v17 = &a2[-result] >> 2;
         do
         {
           v18 = v17 >> 1;
-          v19 = &v8[v17 >> 1];
+          v19 = (v8 + 4 * (v17 >> 1));
           v21 = *v19;
           v20 = v19 + 1;
           v17 += ~(v17 >> 1);
@@ -8548,7 +8410,7 @@ char *boost::movelib::op_buffered_merge<unsigned int *,boost::container::dtl::fl
         }
 
         while (v17);
-        boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>::move_assign<unsigned int *>(a4, v8, (a2 - v8) >> 2);
+        boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>::move_assign<unsigned int *>(a4, v8, &a2[-v8] >> 2);
         v22 = *a4;
         v23 = &(*a4)[4 * a4[1]];
 
@@ -8562,9 +8424,9 @@ char *boost::movelib::op_buffered_merge<unsigned int *,boost::container::dtl::fl
         do
         {
           v11 = v9 >> 1;
-          v12 = (v10 + 4 * (v9 >> 1));
+          v12 = &v10[4 * (v9 >> 1)];
           v14 = *v12;
-          v13 = v12 + 1;
+          v13 = v12 + 4;
           v9 += ~(v9 >> 1);
           if (v14 < v6)
           {
@@ -8773,7 +8635,7 @@ char *boost::movelib::merge_bufferless_ONlogN_recursive<unsigned int *,boost::co
               v18 = v17 >> 1;
               v19 = &v9[4 * (v17 >> 1)];
               v21 = *v19;
-              v20 = v19 + 4;
+              v20 = (v19 + 1);
               v17 += ~(v17 >> 1);
               if (*v11 >= v21)
               {
@@ -8808,9 +8670,9 @@ char *boost::movelib::merge_bufferless_ONlogN_recursive<unsigned int *,boost::co
             do
             {
               v12 = v10 >> 1;
-              v13 = &v11[4 * (v10 >> 1)];
+              v13 = &v11[v10 >> 1];
               v15 = *v13;
-              v14 = v13 + 4;
+              v14 = v13 + 1;
               v10 += ~(v10 >> 1);
               if (v15 < *v9)
               {
@@ -9166,7 +9028,7 @@ _DWORD *boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>
 
 _DWORD *boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>::insert<unsigned int *>(void *a1, _DWORD *a2, _DWORD *a3)
 {
-  v5 = *a1 + 4 * a1[1];
+  v5 = (*a1 + 4 * a1[1]);
   if (v5 == a2)
   {
 
@@ -9175,7 +9037,7 @@ _DWORD *boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>
 
   else
   {
-    result = boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>::add<unsigned int *>(a1, (v5 - 4));
+    result = boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>::add<unsigned int *>(a1, v5 - 1);
     v8 = *a1 + 4 * a1[1];
     if ((v8 - 8) != a2)
     {
@@ -9247,7 +9109,7 @@ uint64_t *boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned lon
   return result;
 }
 
-uint64_t boost::movelib::detail_adaptive::combine_params<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,unsigned long,boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>>(uint64_t result, uint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, unint64_t *a6, unint64_t *a7, unint64_t *a8, unint64_t *a9, char a10)
+unsigned int *boost::movelib::detail_adaptive::combine_params<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,unsigned long,boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>>(unsigned int *a1, uint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, unint64_t *a6, unint64_t *a7, unint64_t *a8, unint64_t *a9, char a10)
 {
   v10 = a3 / a4;
   *a8 = a3 % a4;
@@ -9270,22 +9132,22 @@ uint64_t boost::movelib::detail_adaptive::combine_params<unsigned int *,boost::c
 
   if (a10)
   {
-    v15 = result + 4 * v14 + 4 * *a6;
+    v15 = &a1[v14 + *a6];
 
-    return boost::movelib::detail_adaptive::initialize_keys<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>>(result, v15);
+    return boost::movelib::detail_adaptive::initialize_keys<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::adaptive_xbuf<unsigned int,unsigned int *,unsigned long>>(a1, v15);
   }
 
-  return result;
+  return a1;
 }
 
-uint64_t boost::movelib::detail_adaptive::op_merge_blocks_with_buf<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::move_op,unsigned int *>(_DWORD *a1, int *a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, int *a8)
+uint64_t boost::movelib::detail_adaptive::op_merge_blocks_with_buf<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::move_op,unsigned int *>(_DWORD *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int *a8)
 {
   v8 = a3;
   v9 = a2;
   v10 = &a1[a5];
   v84 = a8;
   v85 = a8;
-  v11 = &a2[a4];
+  v11 = &a2[4 * a4];
   v83 = v11;
   v12 = a6 + a5;
   v66 = &v11[(a6 + a5) * a3];
@@ -9394,7 +9256,8 @@ LABEL_21:
         do
         {
           v30 = *v26++;
-          *v9++ = v30;
+          *v9 = v30;
+          v9 += 4;
         }
 
         while (v26 != v24);
@@ -9625,7 +9488,8 @@ LABEL_68:
     do
     {
       v55 = *v26++;
-      *v23++ = v55;
+      *v23 = v55;
+      v23 += 4;
     }
 
     while (v26 != v24);
@@ -9658,7 +9522,7 @@ LABEL_74:
   v78 = v66;
   v76 = &v66[a7];
   v77 = a8;
-  boost::movelib::detail_adaptive::op_merge_blocks_with_irreg<boost::movelib::reverse_iterator<unsigned int *>,boost::movelib::inverse<boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>>,boost::movelib::reverse_iterator<unsigned int *>,boost::movelib::reverse_iterator<unsigned int *>,boost::movelib::reverse_iterator<unsigned int *>,boost::movelib::inverse<boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>>,boost::movelib::move_op>(&v80, &v79, 0, &v78, &v82, &v77, &v76, v8, &v81, v12, 0, v12, 0, 1u);
+  boost::movelib::detail_adaptive::op_merge_blocks_with_irreg<boost::movelib::reverse_iterator<unsigned int *>,boost::movelib::inverse<boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>>,boost::movelib::reverse_iterator<unsigned int *>,boost::movelib::reverse_iterator<unsigned int *>,boost::movelib::reverse_iterator<unsigned int *>,boost::movelib::inverse<boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>>,boost::movelib::move_op>(&v80, &v79, 0, &v78, &v82, &v77, &v76, v8, &v81, v12, 0, v12, 0, 0, 1u);
   v84 = v82;
   if ((v81 - v56) != (v82 - v85))
   {
@@ -9668,7 +9532,7 @@ LABEL_74:
   return boost::movelib::op_merge_with_left_placed<boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::move_op,unsigned int *,unsigned int *>(v9, v56, v81, v85, v82);
 }
 
-char *boost::movelib::detail_adaptive::op_merge_blocks_with_buf<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::swap_op,unsigned int *>(_DWORD *a1, char *a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, int *a8)
+char *boost::movelib::detail_adaptive::op_merge_blocks_with_buf<unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,unsigned int *,boost::container::dtl::flat_tree_value_compare<std::less<unsigned int>,unsigned int,boost::move_detail::identity<unsigned int>>,boost::movelib::swap_op,unsigned int *>(_DWORD *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int *a8)
 {
   v8 = a3;
   v9 = a2;
@@ -10018,7 +9882,8 @@ LABEL_69:
     {
       v57 = *v27;
       *v27++ = *v24;
-      *v24++ = v57;
+      *v24 = v57;
+      v24 += 4;
     }
 
     while (v27 != v25);

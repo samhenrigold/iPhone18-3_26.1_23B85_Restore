@@ -35,13 +35,13 @@
 
 - (id)parseSSMLToPlainText:(id)text error:(id *)error
 {
-  sub_1A957C0F8();
-  TTSMarkup.SpeechDocument.init(ssml:)(v6);
+  v4 = sub_1A957C0F8();
+  TTSMarkup.SpeechDocument.init(ssml:)(v4, v5, v8);
   TTSMarkupSpeech.asPlainText()();
-  sub_1A9377B5C(v6);
-  v4 = sub_1A957C0C8();
+  sub_1A9377B5C(v8);
+  v6 = sub_1A957C0C8();
 
-  return v4;
+  return v6;
 }
 
 - (id)makeProsodySnippetWithString:(id)string rate:(id)rate pitch:(id)pitch volume:(id)volume

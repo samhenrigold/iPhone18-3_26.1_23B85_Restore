@@ -61,7 +61,7 @@ VCPCNNModelEspresso *__43__VCPCNNSmileDetectorEspresso_sharedModel___block_invok
     result = [(VCPCNNModelEspresso *)self->_modelEspresso softmax];
     if (!result)
     {
-      [(VCPCNNModelEspresso *)self->_modelEspresso outputBlob];
+      objc_msgSend_outputBlob(self->_modelEspresso);
       result = 0;
       *score = *(v6 + 4);
     }

@@ -135,7 +135,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    numPeersDiscovered = self->_numPeersDiscovered;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -155,7 +154,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  iOSPeers = self->_iOSPeers;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -170,12 +168,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  tvOSPeers = self->_tvOSPeers;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_5:
-    macOSPeers = self->_macOSPeers;
     PBDataWriterWriteUint32Field();
   }
 

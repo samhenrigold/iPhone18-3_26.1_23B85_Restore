@@ -19,7 +19,10 @@
 - (id)name;
 - (unsigned)intensity;
 - (unsigned)level;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setIntensity:(unsigned __int8)intensity;
+- (void)setLevel:(unsigned __int8)level;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -118,6 +121,13 @@
   return uint8Value;
 }
 
+- (void)setLevel:(unsigned __int8)level
+{
+  levelCopy = level;
+  levelCharacteristic = [(CAFAutoClimateControl *)self levelCharacteristic];
+  [levelCharacteristic setUint8Value:levelCopy];
+}
+
 - (CAFUInt8Range)levelRange
 {
   levelCharacteristic = [(CAFAutoClimateControl *)self levelCharacteristic];
@@ -192,6 +202,13 @@
   return autoModeIntensityValue;
 }
 
+- (void)setIntensity:(unsigned __int8)intensity
+{
+  intensityCopy = intensity;
+  intensityCharacteristic = [(CAFAutoClimateControl *)self intensityCharacteristic];
+  [intensityCharacteristic setAutoModeIntensityValue:intensityCopy];
+}
+
 - (BOOL)hasIntensity
 {
   intensityCharacteristic = [(CAFAutoClimateControl *)self intensityCharacteristic];
@@ -256,6 +273,82 @@
   v3 = vehicleLayoutKeyCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000031000024"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    levelCharacteristic = [(CAFAutoClimateControl *)self levelCharacteristic];
+    uniqueIdentifier2 = [levelCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers autoClimateControlService:self didUpdateLevel:{-[CAFAutoClimateControl level](self, "level")}];
+LABEL_12:
+
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000031000028"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    intensityCharacteristic = [(CAFAutoClimateControl *)self intensityCharacteristic];
+    uniqueIdentifier4 = [intensityCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      [observers autoClimateControlService:self didUpdateIntensity:{-[CAFAutoClimateControl intensity](self, "intensity")}];
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000065"])
+  {
+    goto LABEL_12;
+  }
+
+  uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+  vehicleLayoutKeyCharacteristic = [(CAFAutoClimateControl *)self vehicleLayoutKeyCharacteristic];
+  uniqueIdentifier6 = [vehicleLayoutKeyCharacteristic uniqueIdentifier];
+  v21 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+  if (v21)
+  {
+    observers2 = [(CAFService *)self observers];
+    vehicleLayoutKey = [(CAFAutoClimateControl *)self vehicleLayoutKey];
+    [observers2 autoClimateControlService:self didUpdateVehicleLayoutKey:vehicleLayoutKey];
+
+    observers = [(CAFService *)self observers];
+    name = [(CAFAutoClimateControl *)self name];
+    [observers autoClimateControlService:self didUpdateName:name];
+
+    goto LABEL_12;
+  }
+
+LABEL_13:
+  v25.receiver = self;
+  v25.super_class = CAFAutoClimateControl;
+  [(CAFService *)&v25 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForAutoModeLevel

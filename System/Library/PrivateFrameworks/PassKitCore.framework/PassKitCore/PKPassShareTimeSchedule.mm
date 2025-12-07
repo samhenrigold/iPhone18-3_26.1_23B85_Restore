@@ -242,7 +242,7 @@ LABEL_14:
 
 id __37__PKPassShareTimeSchedule_intersect___block_invoke(uint64_t a1, void *a2)
 {
-  v4 = (a2 + 2);
+  v4 = a2 + 2;
   v3 = a2[2];
   v5 = a2;
   v6 = v3();

@@ -75,7 +75,7 @@
         v29 = objc_msgSend_intValueForProperty_defaultValue_(v27, v20, v22, v23, v24, 1034, 0);
         if (v27)
         {
-          objc_msgSend_labelEnumeratorPair(v27, v28, v30, v31, v32);
+          objc_msgSend_labelEnumeratorPair(v27, v30, v31, v32);
           objc_msgSend_addPartsForEnumerator_styleIndex_(self, v33, v34, v35, v36, v80, v29);
         }
 
@@ -138,18 +138,18 @@
 
 - (void)addObjectsToScene
 {
-  v30.receiver = self;
-  v30.super_class = TSCH3DChartStagedAxisScene;
-  [(TSCH3DChartScene *)&v30 addObjectsToScene];
+  v29.receiver = self;
+  v29.super_class = TSCH3DChartStagedAxisScene;
+  [(TSCH3DChartScene *)&v29 addObjectsToScene];
   v7 = objc_msgSend_scene(self, v3, v4, v5, v6);
   v12 = objc_msgSend_shadowSceneObject(self, v8, v9, v10, v11);
   objc_msgSend_addObject_(v7, v13, v14, v15, v16, v12);
 
   objc_msgSend_addGridlinesToScene(self, v17, v18, v19, v20);
-  objc_msgSend_layoutSettings(self, v21, v22, v23, v24);
-  if ((v29 & 1) == 0)
+  objc_msgSend_layoutSettings(self, v21, v22, v23);
+  if ((v28 & 1) == 0)
   {
-    objc_msgSend_addSageBoundsToScene(self, v25, v26, v27, v28);
+    objc_msgSend_addSageBoundsToScene(self, v24, v25, v26, v27);
   }
 }
 

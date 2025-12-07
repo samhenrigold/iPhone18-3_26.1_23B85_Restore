@@ -39,7 +39,7 @@
 
 id __49__PLUpdatedOrderKeys_getAndClearUpdatedOrderKeys__block_invoke(uint64_t a1)
 {
-  if ([*(*(a1 + 32) + 24) count])
+  if (objc_msgSend_count(*(*(a1 + 32) + 24)))
   {
     v2 = [*(*(a1 + 32) + 24) copy];
     v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -101,7 +101,7 @@ void __56__PLUpdatedOrderKeys_persistentStoreDidUpdateOrderKeys___block_invoke(u
 
         v36 = v3;
         v41 = *(*(&v51 + 1) + 8 * v3);
-        v4 = [v41 entity];
+        v4 = objc_msgSend_entity(v41);
         v49 = 0u;
         v50 = 0u;
         v47 = 0u;
@@ -126,7 +126,7 @@ void __56__PLUpdatedOrderKeys_persistentStoreDidUpdateOrderKeys___block_invoke(u
               }
 
               v9 = *(*(&v47 + 1) + 8 * v8);
-              v10 = [v9 entity];
+              v10 = objc_msgSend_entity(v9);
               v11 = [v4 isKindOfEntity:v10];
 
               if (v11)
@@ -134,7 +134,7 @@ void __56__PLUpdatedOrderKeys_persistentStoreDidUpdateOrderKeys___block_invoke(u
                 v12 = [obj objectForKey:v41];
                 v13 = [v9 name];
                 v14 = [v12 objectForKey:v13];
-                if ([v14 count])
+                if (objc_msgSend_count(v14))
                 {
                   v43 = v13;
                   v44 = v12;
@@ -144,11 +144,11 @@ void __56__PLUpdatedOrderKeys_persistentStoreDidUpdateOrderKeys___block_invoke(u
                   v61 = v16;
                   v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v61 count:1];
                   v46 = v15;
-                  v18 = [v15 entity];
+                  v18 = objc_msgSend_entity(v15);
                   v19 = [v18 name];
                   v20 = [PLPropertyIndexMapping indexValueForRelationshipNames:v17 entity:v19];
 
-                  if ([v14 count])
+                  if (objc_msgSend_count(v14))
                   {
                     v21 = 0;
                     do
@@ -186,7 +186,7 @@ void __56__PLUpdatedOrderKeys_persistentStoreDidUpdateOrderKeys___block_invoke(u
                       v21 += 2;
                     }
 
-                    while (v21 < [v14 count]);
+                    while (v21 < objc_msgSend_count(v14));
                   }
 
                   v7 = v37;
@@ -260,9 +260,9 @@ void __56__PLUpdatedOrderKeys_persistentStoreDidUpdateOrderKeys___block_invoke(u
         photoLibrary = [contextCopy photoLibrary];
         pathManager = [photoLibrary pathManager];
         photosDatabasePath = [pathManager photosDatabasePath];
-        v12 = [path isEqualToString:photosDatabasePath];
+        isEqualToString = objc_msgSend_isEqualToString_(path);
 
-        if (v12)
+        if (isEqualToString)
         {
           v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
           updatedOrderKeyObjectIDs = self->_updatedOrderKeyObjectIDs;

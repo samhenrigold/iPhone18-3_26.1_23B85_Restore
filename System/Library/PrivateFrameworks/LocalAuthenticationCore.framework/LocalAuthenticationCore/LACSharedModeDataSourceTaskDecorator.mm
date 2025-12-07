@@ -43,60 +43,56 @@
   v23 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v8 = LACLogSharedMode();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v9 = LACLogSharedMode(inited);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ will start query", buf, 0xCu);
+    _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ will start query", buf, 0xCu);
   }
 
-  v9 = [(LACSharedModeDataSourceTaskDecorator *)self _sharedModeBackgroundTaskWithOptions:optionsCopy];
+  v10 = [(LACSharedModeDataSourceTaskDecorator *)self _sharedModeBackgroundTaskWithOptions:optionsCopy];
   [(LACSharedModeDataSourceTaskDecorator *)self _timeoutForRequestWithOptions:optionsCopy];
-  v11 = v10;
+  v12 = v11;
   replyQueue = self->_replyQueue;
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
   v16[2] = __78__LACSharedModeDataSourceTaskDecorator_fetchSharedModeWithOptions_completion___block_invoke;
   v16[3] = &unk_1E7A958F8;
   objc_copyWeak(&v19, &location);
-  v13 = completionCopy;
-  v18 = v13;
-  v14 = v9;
-  v17 = v14;
-  [v14 runWithTimeout:replyQueue queue:v16 completion:v11];
+  v14 = completionCopy;
+  v18 = v14;
+  v15 = v10;
+  v17 = v15;
+  [v15 runWithTimeout:replyQueue queue:v16 completion:v12];
 
   objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __78__LACSharedModeDataSourceTaskDecorator_fetchSharedModeWithOptions_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
   if (WeakRetained)
   {
     v6 = [WeakRetained _sharedModeFromBackgroundTaskResult:v3];
-    v7 = LACLogSharedMode();
+    v7 = LACLogSharedMode(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = objc_loadWeakRetained((a1 + 48));
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2114;
-      v13 = v6;
-      _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query %{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2114;
+      v12 = v6;
+      _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query %{public}@", &v9, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_sharedModeBackgroundTaskWithOptions:(id)options
@@ -171,7 +167,7 @@ void __77__LACSharedModeDataSourceTaskDecorator__sharedModeBackgroundTaskWithOpt
 
         if (code == 2)
         {
-          [(LACSharedModeDataSourceTaskDecoratorRuntime *)self->_runtime halveMaxValue];
+          halveMaxValue = [(LACSharedModeDataSourceTaskDecoratorRuntime *)self->_runtime halveMaxValue];
         }
       }
 
@@ -179,19 +175,19 @@ void __77__LACSharedModeDataSourceTaskDecorator__sharedModeBackgroundTaskWithOpt
       {
       }
 
-      v15 = LACLogSharedMode();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = LACLogSharedMode(halveMaxValue);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [(LACSharedModeDataSourceTaskDecorator *)self _sharedModeFromBackgroundTaskResult:resultCopy, v15];
+        [(LACSharedModeDataSourceTaskDecorator *)self _sharedModeFromBackgroundTaskResult:resultCopy, v16];
       }
     }
 
     value2 = +[LACSharedMode defaultSharedMode];
   }
 
-  v16 = value2;
+  v17 = value2;
 
-  return v16;
+  return v17;
 }
 
 - (double)_timeoutForRequestWithOptions:(id)options
@@ -215,15 +211,13 @@ void __77__LACSharedModeDataSourceTaskDecorator__sharedModeBackgroundTaskWithOpt
 
 - (void)_sharedModeFromBackgroundTaskResult:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a2 error];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_1B0233000, a3, OS_LOG_TYPE_ERROR, "%{public}@ query finished with error %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_1B0233000, a3, OS_LOG_TYPE_ERROR, "%{public}@ query finished with error %{public}@", &v6, 0x16u);
 }
 
 @end

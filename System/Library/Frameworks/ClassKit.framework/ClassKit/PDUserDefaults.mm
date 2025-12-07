@@ -3,6 +3,7 @@
 + (id)configurationDictionary;
 + (id)sharedDefaults;
 + (void)removeSharedDefaults;
+- (BOOL)BOOLForKey:(id)key defaultValue:(BOOL)value;
 - (BOOL)setValue:(id)value forDefaultNamed:(id)named error:(id *)error;
 - (BOOL)unprotected_BOOLForKey:(id)key defaultValue:(BOOL)value;
 - (PDUserDefaults)init;
@@ -11,9 +12,11 @@
 - (id)valueForDefaultNamed:(id)named;
 - (void)resetUserDefaultsIfAllowed;
 - (void)restoreFromDictionaryRepresentation:(id)representation;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setEnableResponseStreaming:(BOOL)streaming;
 - (void)setEnableVerboseLogging:(BOOL)logging;
 - (void)setRestoreCurrentDefaults:(BOOL)defaults;
+- (void)unprotected_setBool:(BOOL)bool forKey:(id)key;
 - (void)unprotected_writeToBackingStore;
 - (void)updateFromBackingStore;
 @end
@@ -77,7 +80,7 @@
   backingStoreDictionary = v3->_backingStoreDictionary;
   v3->_backingStoreDictionary = v4;
 
-  v6 = sub_1000E0594();
+  v6 = sub_1000E0594(PDFileManager);
   v7 = sub_1000E0CF4(v6);
   defaultsFileURL = v3->_defaultsFileURL;
   v3->_defaultsFileURL = v7;
@@ -306,6 +309,17 @@ LABEL_17:
   return value;
 }
 
+- (BOOL)BOOLForKey:(id)key defaultValue:(BOOL)value
+{
+  valueCopy = value;
+  keyCopy = key;
+  os_unfair_lock_lock(&self->_lock);
+  LOBYTE(valueCopy) = [(PDUserDefaults *)self unprotected_BOOLForKey:keyCopy defaultValue:valueCopy];
+
+  os_unfair_lock_unlock(&self->_lock);
+  return valueCopy;
+}
+
 - (void)unprotected_writeToBackingStore
 {
   if (self->_defaultsFileURL)
@@ -357,6 +371,29 @@ LABEL_17:
       }
     }
   }
+}
+
+- (void)unprotected_setBool:(BOOL)bool forKey:(id)key
+{
+  if (self->_backingStoreDictionary)
+  {
+    boolCopy = bool;
+    keyCopy = key;
+    v7 = [NSNumber numberWithBool:boolCopy];
+    [(NSMutableDictionary *)self->_backingStoreDictionary setObject:v7 forKeyedSubscript:keyCopy];
+
+    [(PDUserDefaults *)self unprotected_writeToBackingStore];
+  }
+}
+
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  os_unfair_lock_lock(&self->_lock);
+  [(PDUserDefaults *)self unprotected_setBool:boolCopy forKey:keyCopy];
+
+  os_unfair_lock_unlock(&self->_lock);
 }
 
 - (void)setRestoreCurrentDefaults:(BOOL)defaults

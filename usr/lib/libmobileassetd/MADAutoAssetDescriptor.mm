@@ -81,7 +81,7 @@ LABEL_6:
       v28 = *(v17 + 18);
       *(v17 + 18) = stagedFromBuildVersion;
 
-      patchingAttemptError = [descriptorCopy patchingAttemptError];
+      v29 = objc_msgSend_patchingAttemptError(descriptorCopy);
       goto LABEL_9;
     }
   }
@@ -111,10 +111,10 @@ LABEL_6:
   v32 = *(v17 + 18);
   *(v17 + 18) = 0;
 
-  patchingAttemptError = 0;
+  v29 = 0;
 LABEL_9:
   v33 = *(v17 + 19);
-  *(v17 + 19) = patchingAttemptError;
+  *(v17 + 19) = v29;
 
   v34 = [metadataCopy safeBooleanForKey:@"_IsMAAutoAsset"];
   v17[8] = v34;
@@ -492,8 +492,8 @@ LABEL_37:
   stagedFromBuildVersion = [(MADAutoAssetDescriptor *)self stagedFromBuildVersion];
   [coderCopy encodeObject:stagedFromBuildVersion forKey:@"stagedFromBuildVersion"];
 
-  patchingAttemptError = [(MADAutoAssetDescriptor *)self patchingAttemptError];
-  [coderCopy encodeObject:patchingAttemptError forKey:@"patchingAttemptError"];
+  v18 = objc_msgSend_patchingAttemptError(self);
+  [coderCopy encodeObject:v18 forKey:@"patchingAttemptError"];
 }
 
 - (id)description
@@ -719,7 +719,7 @@ LABEL_37:
   }
 
   v28 = v18;
-  patchingAttemptError = [(MADAutoAssetDescriptor *)self patchingAttemptError];
+  v32 = objc_msgSend_patchingAttemptError(self);
   v50 = [MADAutoAssetClientRequest responseErrorSummary:?];
   if ([(MADAutoAssetDescriptor *)self isPreSUStagingRequired])
   {
@@ -1112,7 +1112,7 @@ LABEL_37:
 {
   formatCopy = format;
   toCopy = to;
-  supportedAssetFormatsArray();
+  supportedAssetFormatsArray(toCopy);
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;

@@ -22,6 +22,7 @@
 - (void)learnMoreButtonTapped:(id)tapped;
 - (void)loadView;
 - (void)pause;
+- (void)playWithButtonTapped:(BOOL)tapped;
 - (void)playbackCoordinator:(id)coordinator timeElapsed:(double)elapsed duration:(double)duration;
 - (void)playbackCoordinatorFinishedLoadingVideoURL:(id)l;
 - (void)playbackCoordinatorPausedPlayback:(id)playback;
@@ -386,6 +387,26 @@ void __35__SVVideoPlayerViewController_init__block_invoke(uint64_t a1, uint64_t 
   [(SVVideoPlayerViewController *)&v73 updateViewConstraints];
 }
 
+- (void)playWithButtonTapped:(BOOL)tapped
+{
+  tappedCopy = tapped;
+  [(SVVideoPlayerViewController *)self setupQueueIfNeeded];
+  [(SVVideoPlayerViewController *)self setPlayButtonTapped:tappedCopy];
+  coordinator = [(SVVideoPlayerViewController *)self coordinator];
+
+  if (coordinator)
+  {
+    coordinator2 = [(SVVideoPlayerViewController *)self coordinator];
+    [(SVVideoPlayerViewController *)self startPlaybackForCoordinatorIfAllowed:coordinator2];
+  }
+
+  else
+  {
+
+    [(SVVideoPlayerViewController *)self advance];
+  }
+}
+
 - (void)pause
 {
   coordinator = [(SVVideoPlayerViewController *)self coordinator];
@@ -545,7 +566,7 @@ LABEL_2:
 
 - (void)addDebuggerAction:(id)action
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CB85A8];
   actionCopy = action;
   v6 = [[v4 alloc] initWithTitle:@"Debugger" type:0];
@@ -553,11 +574,9 @@ LABEL_2:
   [v6 setImage:v7];
 
   [v6 setAction:actionCopy];
-  v10[0] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   [(AVPlayerViewController *)self->_playerViewController setCustomControlItems:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)embedVideoPlayerIfNeeded
@@ -696,11 +715,11 @@ void __122__SVVideoPlayerViewController_playerViewController_willTransitionToVis
   [v2 setAlpha:v1];
 }
 
-uint64_t __122__SVVideoPlayerViewController_playerViewController_willTransitionToVisibilityOfPlaybackControls_withAnimationCoordinator___block_invoke_2(uint64_t result, int a2)
+id *__122__SVVideoPlayerViewController_playerViewController_willTransitionToVisibilityOfPlaybackControls_withAnimationCoordinator___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) setShowsPlaybackControls:*(result + 40)];
+    return [result[4] setShowsPlaybackControls:*(result + 40)];
   }
 
   return result;
@@ -1179,7 +1198,7 @@ LABEL_9:
 
 - (void)setupQueueIfNeeded
 {
-  v47[2] = *MEMORY[0x277D85DE8];
+  v46[2] = *MEMORY[0x277D85DE8];
   queue = [(SVVideoPlayerViewController *)self queue];
 
   if (!queue)
@@ -1237,11 +1256,11 @@ LABEL_9:
         [(SVVideoPlayerViewController *)self updateViewConstraints];
         v25 = [SVAVURLAssetFactory alloc];
         v26 = *MEMORY[0x277CE6278];
-        v46[0] = *MEMORY[0x277CE6260];
-        v46[1] = v26;
-        v47[0] = &unk_2877C6D60;
-        v47[1] = &unk_2877C6D78;
-        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
+        v45[0] = *MEMORY[0x277CE6260];
+        v45[1] = v26;
+        v46[0] = &unk_2877C6D60;
+        v46[1] = &unk_2877C6D78;
+        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
         v28 = [(SVAVURLAssetFactory *)v25 initWithOptions:v27];
 
         v29 = [[SVAVPlayerItemFactory alloc] initWithAutomaticallyLoadedAssetKeys:&unk_2877C6DD8 assetFactory:v28 preferredForwardBufferDuration:0.0];
@@ -1261,9 +1280,9 @@ LABEL_9:
       v35 = [dataSource4 videoForVideoPlayerViewController:self];
 
       v36 = [SVAVURLAssetFactory alloc];
-      v44 = *MEMORY[0x277CE6278];
-      v45 = &unk_2877C6D78;
-      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+      v43 = *MEMORY[0x277CE6278];
+      v44 = &unk_2877C6D78;
+      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
       v38 = [(SVAVURLAssetFactory *)v36 initWithOptions:v37];
 
       v39 = [[SVAVPlayerItemFactory alloc] initWithAutomaticallyLoadedAssetKeys:&unk_2877C6DF0 assetFactory:v38 preferredForwardBufferDuration:10.0];
@@ -1278,8 +1297,6 @@ LABEL_9:
 
     [(SVVideoPlayerViewController *)self setQueue:v4];
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)advance

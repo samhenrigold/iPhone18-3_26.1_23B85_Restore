@@ -92,9 +92,9 @@
 - (ASMigrationDisplayItem)initWithXPCObject:(id)object error:(id *)error
 {
   objectCopy = object;
-  v17.receiver = self;
-  v17.super_class = ASMigrationDisplayItem;
-  v7 = [(ASPickerDisplayItem *)&v17 initWithXPCObject:objectCopy error:error];
+  v10.receiver = self;
+  v10.super_class = ASMigrationDisplayItem;
+  v7 = [(ASPickerDisplayItem *)&v10 initWithXPCObject:objectCopy error:error];
   if (v7)
   {
     if (MEMORY[0x2383B4C90](objectCopy) == MEMORY[0x277D86468])
@@ -102,44 +102,44 @@
       CUXPCDecodeNSString();
       CUXPCDecodeNSUUID();
       CUXPCDecodeNSString();
-      v18 = 0;
+      v11 = 0;
       if (CUXPCDecodeUInt64RangedEx() == 6)
       {
-        v7->_wifiAwarePairedDeviceID = v18;
+        v7->_wifiAwarePairedDeviceID = v11;
       }
 
       CUXPCDecodeBool();
-      v14 = v7;
+      v8 = v7;
     }
 
     else if (error)
     {
-      ASErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v16);
-      *error = v14 = 0;
+      ASErrorF(-6756, "XPC non-dict");
+      *error = v8 = 0;
     }
 
     else
     {
-      v14 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    [ASPickerDisplayItem initWithXPCObject:error error:&v18];
-    v14 = v18;
+    [ASPickerDisplayItem initWithXPCObject:error error:&v11];
+    v8 = v11;
   }
 
-  return v14;
+  return v8;
 }
 
 - (void)encodeWithXPCObject:(id)object
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   objectCopy = object;
-  v15.receiver = self;
-  v15.super_class = ASMigrationDisplayItem;
-  [(ASPickerDisplayItem *)&v15 encodeWithXPCObject:objectCopy];
+  v14.receiver = self;
+  v14.super_class = ASMigrationDisplayItem;
+  [(ASPickerDisplayItem *)&v14 encodeWithXPCObject:objectCopy];
   accessoryIdentifier = self->_accessoryIdentifier;
   v6 = objectCopy;
   uTF8String = [(NSString *)accessoryIdentifier UTF8String];
@@ -174,8 +174,6 @@
   {
     xpc_dictionary_set_BOOL(v11, "mUpg", 1);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -320,58 +318,84 @@ LABEL_30:
 
 - (id)descriptionWithLevel:(int)level
 {
-  CUAppendF();
-  v20 = 0;
-  CUAppendF();
-  v4 = v20;
+  if ((level & 0x8000000) != 0)
+  {
+    v4 = 8;
+  }
+
+  else
+  {
+    v4 = 12;
+  }
+
+  v29 = v4;
+  v28 = 0;
+  CUAppendF(&v28, &v29, "");
+  v5 = v28;
+  v27 = v5;
+  CUAppendF(&v27, &v29, "migrating:");
+  v6 = v27;
 
   accessoryIdentifier = self->_accessoryIdentifier;
   if (accessoryIdentifier)
   {
-    v16 = accessoryIdentifier;
-    CUAppendF();
-    v6 = v4;
+    v26 = v6;
+    v8 = accessoryIdentifier;
+    CUAppendF(&v26, &v29, "DA-ID [%@]", v8);
+    v9 = v26;
 
-    v4 = v6;
+    v6 = v9;
   }
 
   peripheralIdentifier = self->_peripheralIdentifier;
   if (peripheralIdentifier)
   {
-    v17 = peripheralIdentifier;
-    CUAppendF();
-    v8 = v4;
+    v25 = v6;
+    v11 = peripheralIdentifier;
+    CUAppendF(&v25, &v29, "BT UUID %@", v11);
+    v12 = v25;
 
-    v4 = v8;
+    v6 = v12;
   }
 
   hotspotSSID = self->_hotspotSSID;
   if (hotspotSSID)
   {
-    v18 = hotspotSSID;
-    CUAppendF();
-    v10 = v4;
+    v24 = v6;
+    v14 = hotspotSSID;
+    CUAppendF(&v24, &v29, "SSID %@", v14);
+    v15 = v24;
 
-    v4 = v10;
+    v6 = v15;
   }
 
-  wifiAwarePairedDeviceID = self->_wifiAwarePairedDeviceID;
-  CUAppendF();
-  v11 = v4;
+  v23 = v6;
+  CUAppendF(&v23, &v29, "WiFiAwareID %llu", self->_wifiAwarePairedDeviceID);
+  v16 = v23;
 
-  self->_upgradeAccessory;
-  CUAppendF();
-  v12 = v11;
-
-  v13 = &stru_28499D698;
-  if (v12)
+  v22 = v16;
+  if (self->_upgradeAccessory)
   {
-    v13 = v12;
+    v17 = "yes";
   }
 
-  v14 = v13;
+  else
+  {
+    v17 = "no";
+  }
 
-  return v14;
+  CUAppendF(&v22, &v29, "UpgradeAccessory %s", v17);
+  v18 = v22;
+
+  v19 = &stru_28499D698;
+  if (v18)
+  {
+    v19 = v18;
+  }
+
+  v20 = v19;
+
+  return v20;
 }
 
 @end

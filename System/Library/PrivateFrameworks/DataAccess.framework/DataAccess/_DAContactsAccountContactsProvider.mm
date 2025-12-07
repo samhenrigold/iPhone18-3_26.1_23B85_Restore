@@ -64,45 +64,43 @@
 
 - (id)allAccounts
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contactStore = [(_DAContactsAccountContactsProvider *)self contactStore];
-  v20 = 0;
-  v3 = [contactStore accountsMatchingPredicate:0 error:&v20];
-  v4 = v20;
+  v19 = 0;
+  v3 = [contactStore accountsMatchingPredicate:0 error:&v19];
+  v4 = v19;
 
   array = [MEMORY[0x277CBEB18] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         v12 = [DAContactsBasedAccount alloc];
-        v13 = [(DAContactsBasedAccount *)v12 initWithAccount:v11, v16];
+        v13 = [(DAContactsBasedAccount *)v12 initWithAccount:v11, v15];
         [array addObject:v13];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }

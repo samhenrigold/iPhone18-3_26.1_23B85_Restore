@@ -65,7 +65,7 @@
 
 - (BOOL)_handle_SQLITE_IOERR_SHMSIZE:(id)e onError:(id)error db:(id)db
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   eCopy = e;
   errorCopy = error;
   dbCopy = db;
@@ -77,9 +77,9 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412290;
-      v18 = eCopy;
-      _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Exiting due to SQLITE_IOERR_SHMSIZE error: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = eCopy;
+      _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Exiting due to SQLITE_IOERR_SHMSIZE error: %@", &v16, 0xCu);
     }
 
     _exit(1);
@@ -87,7 +87,6 @@
 
   v14 = [(_PASSqliteDefaultErrorHandler *)self _handle_SQLITE_IOERR:eCopy onError:errorCopy db:dbCopy];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -211,7 +210,7 @@
 
 - (BOOL)handleSqliteError:(int)error error:(id)a4 onError:(id)onError db:(id)db
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v10 = a4;
   onErrorCopy = onError;
   dbCopy = db;
@@ -592,15 +591,15 @@ LABEL_162:
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v17[0] = 67109890;
-        v17[1] = error;
-        v18 = 2080;
-        v19 = sqlite3_errstr(error);
-        v20 = 1024;
+        v16[0] = 67109890;
+        v16[1] = error;
+        v17 = 2080;
+        v18 = sqlite3_errstr(error);
+        v19 = 1024;
         errorCopy = error;
-        v22 = 2080;
-        v23 = sqlite3_errstr(error);
-        _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Converting SQLite extended error type %i (%s) to primary error type %i (%s)", v17, 0x22u);
+        v21 = 2080;
+        v22 = sqlite3_errstr(error);
+        _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Converting SQLite extended error type %i (%s) to primary error type %i (%s)", v16, 0x22u);
       }
 
       v13 = [(_PASSqliteDefaultErrorHandler *)self handleSqliteError:error error:v10 onError:onErrorCopy db:dbCopy];
@@ -707,7 +706,6 @@ LABEL_162:
 LABEL_167:
   v14 = v13;
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

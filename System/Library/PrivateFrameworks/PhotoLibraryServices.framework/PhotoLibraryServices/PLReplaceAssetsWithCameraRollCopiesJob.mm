@@ -37,7 +37,7 @@
   [v7 setPredicate:v14];
   v18 = 0;
   v15 = [managedObjectContext executeFetchRequest:v7 error:&v18];
-  if ([v15 count])
+  if (objc_msgSend_count(v15))
   {
     lastObject = [v15 lastObject];
   }
@@ -426,17 +426,17 @@ void __83__PLReplaceAssetsWithCameraRollCopiesJob_initFromXPCObject_libraryServi
   [*(a1 + 32) setAlbum:v9];
 }
 
-uint64_t __83__PLReplaceAssetsWithCameraRollCopiesJob_initFromXPCObject_libraryServicesManager___block_invoke_2(uint64_t a1)
+uint64_t __83__PLReplaceAssetsWithCameraRollCopiesJob_initFromXPCObject_libraryServicesManager___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = PLManagedObjectIDFromXPCValue();
-  if (v2)
+  v4 = PLManagedObjectIDFromXPCValue();
+  if (v4)
   {
-    v3 = [*(a1 + 40) managedObjectContext];
-    v4 = [v3 objectWithID:v2];
+    v5 = [*(a1 + 40) managedObjectContext];
+    v6 = [v5 objectWithID:v4];
 
-    if (v4)
+    if (v6)
     {
-      [*(a1 + 48) addObject:v4];
+      [*(a1 + 48) addObject:v6];
     }
   }
 
@@ -567,7 +567,7 @@ LABEL_3:
 {
   assetsCopy = assets;
   albumCopy = album;
-  v7 = [assetsCopy count];
+  v7 = objc_msgSend_count(assetsCopy);
   if (albumCopy && v7)
   {
     v8 = [self alloc];

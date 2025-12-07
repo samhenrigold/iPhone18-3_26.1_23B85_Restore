@@ -1,506 +1,3 @@
-void *__copy_helper_block_e8_48c35_ZTSNSt3__18weak_ptrI10BootModuleEE64c107_ZTSN8dispatch5blockIU13block_pointerFviNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEEEE(void *a1, void *a2)
-{
-  v3 = a2[7];
-  a1[6] = a2[6];
-  a1[7] = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 16), 1uLL, memory_order_relaxed);
-  }
-
-  result = a2[8];
-  if (result)
-  {
-    result = _Block_copy(result);
-  }
-
-  a1[8] = result;
-  return result;
-}
-
-void __destroy_helper_block_e8_48c35_ZTSNSt3__18weak_ptrI10BootModuleEE64c107_ZTSN8dispatch5blockIU13block_pointerFviNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEEEE(uint64_t a1)
-{
-  v2 = *(a1 + 64);
-  if (v2)
-  {
-    _Block_release(v2);
-  }
-
-  v3 = *(a1 + 56);
-  if (v3)
-  {
-
-    std::__shared_weak_count::__release_weak(v3);
-  }
-}
-
-void ___ZN10BootModule9boot_syncEv_block_invoke(void *a1)
-{
-  v21 = *MEMORY[0x29EDCA608];
-  v2 = a1[6];
-  *(*(a1[4] + 8) + 24) = *(v2 + 584) != 0;
-  if ((*(*(a1[4] + 8) + 24) & 1) == 0 && (*(v2 + 189) = 1, v3 = *(v2 + 104), os_log_type_enabled(v3, OS_LOG_TYPE_ERROR)))
-  {
-    *buf = 0;
-    _os_log_error_impl(&dword_297476000, v3, OS_LOG_TYPE_ERROR, "Boot controller object has not been created!", buf, 2u);
-    v4 = *(a1[4] + 8);
-    if (*(v4 + 24) == 1)
-    {
-LABEL_4:
-      *(*(a1[4] + 8) + 24) = (***(v2 + 584))(*(v2 + 584), *(a1[5] + 8) + 40);
-      if ((*(*(a1[4] + 8) + 24) & 1) == 0)
-      {
-        goto LABEL_5;
-      }
-
-      goto LABEL_11;
-    }
-  }
-
-  else
-  {
-    v4 = *(a1[4] + 8);
-    if (*(v4 + 24) == 1)
-    {
-      goto LABEL_4;
-    }
-  }
-
-  *(v4 + 24) = 0;
-  if ((*(*(a1[4] + 8) + 24) & 1) == 0)
-  {
-LABEL_5:
-    *(v2 + 189) = 1;
-    v5 = *(v2 + 104);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v6 = *(a1[5] + 8);
-      v7 = (v6 + 40);
-      if (*(v6 + 63) < 0)
-      {
-        v7 = *v7;
-      }
-
-      *buf = 136315138;
-      *&buf[4] = v7;
-      v8 = "Failed on preparation for booting!: Reason: %s";
-LABEL_25:
-      _os_log_error_impl(&dword_297476000, v5, OS_LOG_TYPE_ERROR, v8, buf, 0xCu);
-      v17 = *MEMORY[0x29EDCA608];
-      return;
-    }
-
-    goto LABEL_20;
-  }
-
-LABEL_11:
-  *(v2 + 304) = TelephonyUtilSystemMachTime();
-  v9 = *(v2 + 560);
-  if (v9)
-  {
-    v10 = *(v9 + 9);
-    SystemTime = TelephonyUtilGetSystemTime();
-    lcdm::CrashDB::purgeCrashEntriesOlderThan(v9, v10, SystemTime);
-    *&v12 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *buf = v12;
-    v20 = v12;
-    lcdm::CrashDB::createCrashContextData(*(v2 + 560), buf);
-    if (buf[0] == 1)
-    {
-      BootController::setCrashContextData(*(v2 + 584), &buf[8]);
-    }
-
-    else
-    {
-      v13 = *(v2 + 104);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-      {
-        *v18 = 0;
-        _os_log_impl(&dword_297476000, v13, OS_LOG_TYPE_DEFAULT, "#I Not setting crash context data", v18, 2u);
-      }
-    }
-
-    if (*&buf[8])
-    {
-      *&v20 = *&buf[8];
-      operator delete(*&buf[8]);
-    }
-  }
-
-  *(*(a1[4] + 8) + 24) = (*(**(v2 + 584) + 8))(*(v2 + 584), *(a1[5] + 8) + 40);
-  if ((*(*(a1[4] + 8) + 24) & 1) == 0)
-  {
-    v5 = *(v2 + 104);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v15 = *(a1[5] + 8);
-      v16 = (v15 + 40);
-      if (*(v15 + 63) < 0)
-      {
-        v16 = *v16;
-      }
-
-      *buf = 136315138;
-      *&buf[4] = v16;
-      v8 = "Failed on booting!: Reason: %s";
-      goto LABEL_25;
-    }
-  }
-
-LABEL_20:
-  v14 = *MEMORY[0x29EDCA608];
-}
-
-void sub_2975EB31C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
-{
-  if (__p)
-  {
-    operator delete(__p);
-    _Unwind_Resume(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t __copy_helper_block_e8_56c38_ZTSNSt3__110shared_ptrI10BootModuleEE(uint64_t result, uint64_t a2)
-{
-  v2 = *(a2 + 64);
-  *(result + 56) = *(a2 + 56);
-  *(result + 64) = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void __destroy_helper_block_e8_56c38_ZTSNSt3__110shared_ptrI10BootModuleEE(uint64_t a1)
-{
-  v1 = *(a1 + 64);
-  if (v1 && !atomic_fetch_add(&v1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v1->__on_zero_shared)(v1);
-
-    std::__shared_weak_count::__release_weak(v1);
-  }
-}
-
-void ___ZN10BootModule9boot_syncEv_block_invoke_136(uint64_t a1)
-{
-  v1 = *(*(a1 + 32) + 104);
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
-  {
-    *v2 = 0;
-    _os_log_impl(&dword_297476000, v1, OS_LOG_TYPE_DEFAULT, "#I Recovery detected", v2, 2u);
-  }
-}
-
-void __copy_helper_block_e8_40c38_ZTSNSt3__110shared_ptrI10BootModuleEE56c30_ZTSN8dispatch13group_sessionE(void *a1, void *a2)
-{
-  v3 = a2[6];
-  a1[5] = a2[5];
-  a1[6] = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4 = a2[7];
-  a1[7] = v4;
-  if (v4)
-  {
-    dispatch_retain(v4);
-    v5 = a1[7];
-    if (v5)
-    {
-
-      dispatch_group_enter(v5);
-    }
-  }
-}
-
-void __destroy_helper_block_e8_40c38_ZTSNSt3__110shared_ptrI10BootModuleEE56c30_ZTSN8dispatch13group_sessionE(uint64_t a1)
-{
-  v2 = *(a1 + 56);
-  if (v2)
-  {
-    dispatch_group_leave(v2);
-    v3 = *(a1 + 56);
-    if (v3)
-    {
-      dispatch_release(v3);
-    }
-  }
-
-  v4 = *(a1 + 48);
-  if (v4 && !atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v4->__on_zero_shared)(v4);
-
-    std::__shared_weak_count::__release_weak(v4);
-  }
-}
-
-void ___ZN10BootModule9boot_syncEv_block_invoke_138(void *a1)
-{
-  v1 = a1[6];
-  if (*(v1 + 576) - 7 < 2)
-  {
-    return;
-  }
-
-  if (*(*(a1[4] + 8) + 24) == 1)
-  {
-    v42 = _os_activity_create(&dword_297476000, "Baseband state: booted", MEMORY[0x29EDCA978], OS_ACTIVITY_FLAG_DEFAULT);
-    memset(state, 170, 16);
-    os_activity_scope_enter(v42, state);
-    os_activity_scope_leave(state);
-    v3 = *(v1 + 104);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-    {
-      *state = 0;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#I Baseband bootup succeeded", state, 2u);
-    }
-
-    (*(*v1 + 104))(v1, 3);
-    *(v1 + 312) = TelephonyUtilSystemMachTime();
-    v41 = 0;
-    v4 = *MEMORY[0x29EDB8ED8];
-    Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    if (Mutable)
-    {
-      v41 = Mutable;
-    }
-
-    ctu::cf::insert<char const*,char const*>(Mutable, *MEMORY[0x29EDBEAF8], *MEMORY[0x29EDBEDF0], v4, v6);
-    v7 = *(v1 + 80);
-    if (!v7 || (v8 = *(v1 + 72), (v9 = std::__shared_weak_count::lock(v7)) == 0))
-    {
-      std::__throw_bad_weak_ptr[abi:ne200100]();
-    }
-
-    v10 = v9;
-    atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    if (!atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v9->__on_zero_shared)(v9);
-      std::__shared_weak_count::__release_weak(v10);
-    }
-
-    BootModule::reportStatisticsBootUpTime_sync(v1);
-    v11 = *MEMORY[0x29EDBF460];
-    v12 = strlen(*MEMORY[0x29EDBF460]);
-    if (v12 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      std::string::__throw_length_error[abi:ne200100]();
-    }
-
-    v13 = v12;
-    if (v12 >= 0x17)
-    {
-      if ((v12 | 7) == 0x17)
-      {
-        v17 = 25;
-      }
-
-      else
-      {
-        v17 = (v12 | 7) + 1;
-      }
-
-      v14 = operator new(v17);
-      __dst[1] = v13;
-      v40 = v17 | 0x8000000000000000;
-      __dst[0] = v14;
-    }
-
-    else
-    {
-      HIBYTE(v40) = v12;
-      v14 = __dst;
-      if (!v12)
-      {
-        LOBYTE(__dst[0]) = 0;
-        v15 = v41;
-        if (!v41)
-        {
-          goto LABEL_26;
-        }
-
-LABEL_24:
-        v18 = CFGetTypeID(v15);
-        if (v18 == CFDictionaryGetTypeID())
-        {
-          v38 = v15;
-          CFRetain(v15);
-          goto LABEL_27;
-        }
-
-LABEL_26:
-        v38 = 0;
-LABEL_27:
-        v37 = 0;
-        Service::broadcastEvent(v1, __dst, &v38, &v37);
-        if (v37)
-        {
-          _Block_release(v37);
-        }
-
-        if (v38)
-        {
-          CFRelease(v38);
-        }
-
-        if (SHIBYTE(v40) < 0)
-        {
-          operator delete(__dst[0]);
-          if (*(v1 + 194))
-          {
-LABEL_54:
-            v24 = a1[9];
-            v25 = *(v1 + 88);
-            block[0] = MEMORY[0x29EDCA5F8];
-            block[1] = 1174405120;
-            block[2] = ___ZN10BootModule9boot_syncEv_block_invoke_142;
-            block[3] = &__block_descriptor_tmp_154_1;
-            block[4] = v1;
-            block[5] = v8;
-            v28 = v10;
-            atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-            dispatch_group_notify(v24, v25, block);
-            if (v28)
-            {
-              std::__shared_weak_count::__release_weak(v28);
-            }
-
-            std::__shared_weak_count::__release_weak(v10);
-            if (v41)
-            {
-              CFRelease(v41);
-            }
-
-            if (v42)
-            {
-              os_release(v42);
-            }
-
-            return;
-          }
-        }
-
-        else if (*(v1 + 194))
-        {
-          goto LABEL_54;
-        }
-
-        if (*(v1 + 192) == 1)
-        {
-          v36 = 0;
-          pthread_mutex_lock(&ctu::Singleton<SharedData,SharedData,ctu::PthreadMutexGuardPolicy<SharedData>>::sInstance);
-          v19 = off_2A18CAFB8;
-          if (!off_2A18CAFB8)
-          {
-            SharedData::create_default_global(state);
-            v20 = *state;
-            *state = 0;
-            *&state[8] = 0;
-            v21 = *(&off_2A18CAFB8 + 1);
-            off_2A18CAFB8 = v20;
-            if (v21 && !atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-            {
-              (v21->__on_zero_shared)(v21);
-              std::__shared_weak_count::__release_weak(v21);
-            }
-
-            v22 = *&state[8];
-            if (*&state[8] && !atomic_fetch_add((*&state[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
-            {
-              (v22->__on_zero_shared)(v22);
-              std::__shared_weak_count::__release_weak(v22);
-            }
-
-            v19 = off_2A18CAFB8;
-          }
-
-          v34 = v19;
-          v35 = *(&off_2A18CAFB8 + 1);
-          if (*(&off_2A18CAFB8 + 1))
-          {
-            atomic_fetch_add_explicit((*(&off_2A18CAFB8 + 1) + 8), 1uLL, memory_order_relaxed);
-          }
-
-          pthread_mutex_unlock(&ctu::Singleton<SharedData,SharedData,ctu::PthreadMutexGuardPolicy<SharedData>>::sInstance);
-          *state = operator new(0x28uLL);
-          *&state[8] = xmmword_2976A4500;
-          strcpy(*state, "Baseband Mobile Asset PT image sent");
-          os_unfair_lock_lock((v19 + 40));
-          Preferences::getPreference<BOOL>(v19, state, &v36);
-          os_unfair_lock_unlock((v19 + 40));
-          if ((state[23] & 0x80000000) != 0)
-          {
-            operator delete(*state);
-          }
-
-          v23 = v35;
-          if (v35 && !atomic_fetch_add(&v35->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            (v23->__on_zero_shared)(v23);
-            std::__shared_weak_count::__release_weak(v23);
-          }
-
-          if (v36 == 1)
-          {
-            v32[23] = 6;
-            strcpy(v32, "Booted");
-            v31[23] = 0;
-            v31[0] = 0;
-            BootModule::updateMobileAssetPTStatus_sync(v1, 2u, v32, v31);
-          }
-
-          else
-          {
-            v30[23] = 11;
-            strcpy(v30, "BBURejected");
-            v29[23] = 0;
-            v29[0] = 0;
-            BootModule::updateMobileAssetPTStatus_sync(v1, 4u, v30, v29);
-          }
-        }
-
-        goto LABEL_54;
-      }
-    }
-
-    memmove(v14, v11, v13);
-    *(v13 + v14) = 0;
-    v15 = v41;
-    if (!v41)
-    {
-      goto LABEL_26;
-    }
-
-    goto LABEL_24;
-  }
-
-  v16 = *(v1 + 104);
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-  {
-    *state = 0;
-    _os_log_error_impl(&dword_297476000, v16, OS_LOG_TYPE_ERROR, "Baseband bootup failed", state, 2u);
-  }
-
-  (*(*v1 + 104))(v1, 5);
-  v26[0] = MEMORY[0x29EDCA5F8];
-  v26[1] = 0x40000000;
-  v26[2] = ___ZN10BootModule9boot_syncEv_block_invoke_155;
-  v26[3] = &unk_29EE6C338;
-  v26[4] = a1[5];
-  v26[5] = v1;
-  ctu::SharedSynchronizable<BootModule>::execute_wrapped((v1 + 72), v26);
-}
-
 void sub_2975EBBD0(_Unwind_Exception *a1)
 {
   pthread_mutex_unlock(&ctu::Singleton<SharedData,SharedData,ctu::PthreadMutexGuardPolicy<SharedData>>::sInstance);
@@ -1554,7 +1051,7 @@ void BootModule::stopNetworkCampTimer_sync(BootModule *this)
 
 void BootModule::updateNetworkCampStatus_sync(BootModule *this, _BOOL4 a2)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   if (config::hw::iPhone(this))
   {
     BootModule::stopNetworkCampTimer_sync(this);
@@ -1649,11 +1146,11 @@ void BootModule::updateNetworkCampStatus_sync(BootModule *this, _BOOL4 a2)
     aBlock[3] = &__block_descriptor_tmp_188_1;
     aBlock[4] = this;
     aBlock[5] = v14;
-    v20 = v16;
+    v19 = v16;
     atomic_fetch_add_explicit(&v16->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     v17 = _Block_copy(aBlock);
-    v21 = v17;
-    Service::runCommand(this, buf, &object, &v21);
+    v20 = v17;
+    Service::runCommand(this, buf, &object, &v20);
     if (v17)
     {
       _Block_release(v17);
@@ -1666,16 +1163,14 @@ void BootModule::updateNetworkCampStatus_sync(BootModule *this, _BOOL4 a2)
       operator delete(*buf);
     }
 
-    if (v20)
+    if (v19)
     {
-      std::__shared_weak_count::__release_weak(v20);
+      std::__shared_weak_count::__release_weak(v19);
     }
 
     std::__shared_weak_count::__release_weak(v16);
     xpc_release(v7);
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2975ED800(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, xpc_object_t object, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -1690,128 +1185,121 @@ void sub_2975ED800(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN10BootModule28updateNetworkCampStatus_syncEb_block_invoke(void *a1, int a2)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v3 = a1[6];
-  if (!v3)
+  if (v3)
   {
-    goto LABEL_28;
-  }
-
-  v5 = a1[4];
-  v6 = std::__shared_weak_count::lock(v3);
-  v21 = v6;
-  if (!v6)
-  {
-    goto LABEL_28;
-  }
-
-  if (!a1[5])
-  {
-    goto LABEL_26;
-  }
-
-  if (a2)
-  {
-    v7 = v6;
-    v8 = *(v5 + 104);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v5 = a1[4];
+    v6 = std::__shared_weak_count::lock(v3);
+    v20 = v6;
+    if (v6)
     {
-      *buf = 136315138;
-      *&buf[4] = "CommandUpdateBBBootStats";
-      _os_log_error_impl(&dword_297476000, v8, OS_LOG_TYPE_ERROR, "Failed to send command %s to update", buf, 0xCu);
-    }
-
-    v6 = v7;
+      if (!a1[5])
+      {
 LABEL_26:
-    if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      v14 = v6;
-      (v6->__on_zero_shared)();
-      std::__shared_weak_count::__release_weak(v14);
+        if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          v14 = v6;
+          (v6->__on_zero_shared)();
+          std::__shared_weak_count::__release_weak(v14);
+        }
+
+        return;
+      }
+
+      if (a2)
+      {
+        v7 = v6;
+        v8 = *(v5 + 104);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315138;
+          *&buf[4] = "CommandUpdateBBBootStats";
+          _os_log_error_impl(&dword_297476000, v8, OS_LOG_TYPE_ERROR, "Failed to send command %s to update", buf, 0xCu);
+        }
+
+        v6 = v7;
+        goto LABEL_26;
+      }
+
+      v9 = xpc_dictionary_create(0, 0, 0);
+      if (v9 || (v9 = xpc_null_create()) != 0)
+      {
+        if (MEMORY[0x29C272BA0](v9) == MEMORY[0x29EDCAA00])
+        {
+          xpc_retain(v9);
+          v10 = v9;
+        }
+
+        else
+        {
+          v10 = xpc_null_create();
+        }
+      }
+
+      else
+      {
+        v10 = xpc_null_create();
+        v9 = 0;
+      }
+
+      xpc_release(v9);
+      *buf = operator new(0x28uLL);
+      *&buf[8] = xmmword_2976A0EA0;
+      strcpy(*buf, "CommandSubmitHealthDBBootMetrics");
+      object = v10;
+      if (v10)
+      {
+        xpc_retain(v10);
+      }
+
+      else
+      {
+        object = xpc_null_create();
+      }
+
+      aBlock[0] = MEMORY[0x29EDCA5F8];
+      aBlock[1] = 1174405120;
+      aBlock[2] = ___ZN10BootModule28updateNetworkCampStatus_syncEb_block_invoke_182;
+      aBlock[3] = &__block_descriptor_tmp_185_0;
+      v12 = a1[5];
+      v11 = a1[6];
+      aBlock[4] = v5;
+      aBlock[5] = v12;
+      v16 = v11;
+      if (v11)
+      {
+        atomic_fetch_add_explicit(&v11->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      v13 = _Block_copy(aBlock);
+      v17 = v13;
+      Service::runCommand(v5, buf, &object, &v17);
+      if (v13)
+      {
+        _Block_release(v13);
+      }
+
+      xpc_release(object);
+      object = 0;
+      if ((buf[23] & 0x80000000) != 0)
+      {
+        operator delete(*buf);
+      }
+
+      if (v16)
+      {
+        std::__shared_weak_count::__release_weak(v16);
+      }
+
+      xpc_release(v10);
+      v6 = v20;
+      if (v20)
+      {
+        goto LABEL_26;
+      }
     }
-
-    goto LABEL_28;
   }
-
-  v9 = xpc_dictionary_create(0, 0, 0);
-  if (v9 || (v9 = xpc_null_create()) != 0)
-  {
-    if (MEMORY[0x29C272BA0](v9) == MEMORY[0x29EDCAA00])
-    {
-      xpc_retain(v9);
-      v10 = v9;
-    }
-
-    else
-    {
-      v10 = xpc_null_create();
-    }
-  }
-
-  else
-  {
-    v10 = xpc_null_create();
-    v9 = 0;
-  }
-
-  xpc_release(v9);
-  *buf = operator new(0x28uLL);
-  *&buf[8] = xmmword_2976A0EA0;
-  strcpy(*buf, "CommandSubmitHealthDBBootMetrics");
-  object = v10;
-  if (v10)
-  {
-    xpc_retain(v10);
-  }
-
-  else
-  {
-    object = xpc_null_create();
-  }
-
-  aBlock[0] = MEMORY[0x29EDCA5F8];
-  aBlock[1] = 1174405120;
-  aBlock[2] = ___ZN10BootModule28updateNetworkCampStatus_syncEb_block_invoke_182;
-  aBlock[3] = &__block_descriptor_tmp_185_0;
-  v12 = a1[5];
-  v11 = a1[6];
-  aBlock[4] = v5;
-  aBlock[5] = v12;
-  v17 = v11;
-  if (v11)
-  {
-    atomic_fetch_add_explicit(&v11->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v13 = _Block_copy(aBlock);
-  v18 = v13;
-  Service::runCommand(v5, buf, &object, &v18);
-  if (v13)
-  {
-    _Block_release(v13);
-  }
-
-  xpc_release(object);
-  object = 0;
-  if ((buf[23] & 0x80000000) != 0)
-  {
-    operator delete(*buf);
-  }
-
-  if (v17)
-  {
-    std::__shared_weak_count::__release_weak(v17);
-  }
-
-  xpc_release(v10);
-  v6 = v21;
-  if (v21)
-  {
-    goto LABEL_26;
-  }
-
-LABEL_28:
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2975EDB78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, xpc_object_t object, char a19)
@@ -1826,7 +1314,7 @@ void sub_2975EDB78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN10BootModule28updateNetworkCampStatus_syncEb_block_invoke_182(void *a1, int a2)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v3 = a1[6];
   if (v3)
   {
@@ -1834,32 +1322,22 @@ void ___ZN10BootModule28updateNetworkCampStatus_syncEb_block_invoke_182(void *a1
     v6 = std::__shared_weak_count::lock(v3);
     if (v6)
     {
-      if (a2)
+      if (!a2 || !a1[5] || (v7 = *(v5 + 104), v8 = v6, v9 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR), v6 = v8, !v9))
       {
-        if (a1[5])
+        if (atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          v7 = *(v5 + 104);
-          v8 = v6;
-          v9 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
-          v6 = v8;
-          if (v9)
-          {
-            v12 = *MEMORY[0x29EDBEB08];
-            v13 = 136315138;
-            v14 = v12;
-            _os_log_error_impl(&dword_297476000, v7, OS_LOG_TYPE_ERROR, "Failed to submit metric %s to Core Analytics", &v13, 0xCu);
-            v6 = v8;
-            if (atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-            {
-              goto LABEL_8;
-            }
-
-            goto LABEL_7;
-          }
+          return;
         }
+
+        goto LABEL_7;
       }
 
-      if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v11 = *MEMORY[0x29EDBEB08];
+      v12 = 136315138;
+      v13 = v11;
+      _os_log_error_impl(&dword_297476000, v7, OS_LOG_TYPE_ERROR, "Failed to submit metric %s to Core Analytics", &v12, 0xCu);
+      v6 = v8;
+      if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
 LABEL_7:
         v10 = v6;
@@ -1868,9 +1346,6 @@ LABEL_7:
       }
     }
   }
-
-LABEL_8:
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 void BootModule::MobileAssetUpdate::~MobileAssetUpdate(void **this)
@@ -2360,16 +1835,16 @@ void sub_2975EE580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wrappedIZZNS3_28registerCommandHandlers_syncEvEUb1_E3__3EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(uint64_t a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wrappedIZZNS3_28registerCommandHandlers_syncEvEUb1_E3__3EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(std::__shared_weak_count **a1)
 {
-  v70 = *MEMORY[0x29EDCA608];
+  v69 = *MEMORY[0x29EDCA608];
   v1 = *a1;
-  v62 = *a1;
+  v61 = *a1;
   v2 = *MEMORY[0x29EDBEC88];
-  v3 = **a1;
-  if (xpc_dictionary_get_value(*(*a1 + 8), *MEMORY[0x29EDBEC88]))
+  v3 = (*a1)->__vftable;
+  if (xpc_dictionary_get_value((*a1)->__shared_owners_, *MEMORY[0x29EDBEC88]))
   {
-    value = xpc_dictionary_get_value(v1[1], v2);
+    value = xpc_dictionary_get_value(v1->__shared_owners_, v2);
     *&buf = value;
     if (value)
     {
@@ -2383,8 +1858,8 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wr
 
     v5 = xpc::dyn_cast_or_default(&buf, 0);
     xpc_release(buf);
-    v6 = *(v3 + 104);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    get_deleter = v3[2].__get_deleter;
+    if (os_log_type_enabled(get_deleter, OS_LOG_TYPE_DEFAULT))
     {
       v7 = "false";
       if (v5)
@@ -2394,19 +1869,19 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wr
 
       LODWORD(buf) = 136315138;
       *(&buf + 4) = v7;
-      _os_log_impl(&dword_297476000, v6, OS_LOG_TYPE_DEFAULT, "#I Registration state is %s", &buf, 0xCu);
+      _os_log_impl(&dword_297476000, get_deleter, OS_LOG_TYPE_DEFAULT, "#I Registration state is %s", &buf, 0xCu);
     }
 
-    if ((*(v3 + 552) & 1) == 0)
+    if ((v3[13].__on_zero_shared_weak & 1) == 0)
     {
       BootModule::updateNetworkCampStatus_sync(v3, v5);
     }
   }
 
   v8 = *MEMORY[0x29EDBF4D0];
-  if (xpc_dictionary_get_value(v1[1], *MEMORY[0x29EDBF4D0]))
+  if (xpc_dictionary_get_value(v1->__shared_owners_, *MEMORY[0x29EDBF4D0]))
   {
-    v9 = xpc_dictionary_get_value(v1[1], v8);
+    v9 = xpc_dictionary_get_value(v1->__shared_owners_, v8);
     *&buf = v9;
     if (v9)
     {
@@ -2418,12 +1893,12 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wr
       *&buf = xpc_null_create();
     }
 
-    *(v3 + 552) = xpc::dyn_cast_or_default(&buf, 0);
+    LOBYTE(v3[13].__on_zero_shared_weak) = xpc::dyn_cast_or_default(&buf, 0);
     xpc_release(buf);
-    v10 = *(v3 + 104);
+    v10 = v3[2].__get_deleter;
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(v3 + 552))
+      if (LOBYTE(v3[13].__on_zero_shared_weak))
       {
         v11 = "set";
       }
@@ -2438,16 +1913,16 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wr
       _os_log_impl(&dword_297476000, v10, OS_LOG_TYPE_DEFAULT, "#I User preference airplane mode is %s", &buf, 0xCu);
     }
 
-    if (*(v3 + 552) == 1)
+    if (LOBYTE(v3[13].__on_zero_shared_weak) == 1)
     {
       BootModule::stopNetworkCampTimer_sync(v3);
     }
   }
 
   v12 = *MEMORY[0x29EDBE5A8];
-  if (xpc_dictionary_get_value(v1[1], *MEMORY[0x29EDBE5A8]))
+  if (xpc_dictionary_get_value(v1->__shared_owners_, *MEMORY[0x29EDBE5A8]))
   {
-    v13 = xpc_dictionary_get_value(v1[1], v12);
+    v13 = xpc_dictionary_get_value(v1->__shared_owners_, v12);
     *&buf = v13;
     if (v13)
     {
@@ -2463,16 +1938,16 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wr
     xpc_release(buf);
     if (v14)
     {
-      v15 = *(v3 + 504);
+      v15 = v3[12].__get_deleter;
       if (v15)
       {
-        dispatch_retain(*(v3 + 504));
+        dispatch_retain(v3[12].__get_deleter);
         dispatch_suspend(v15);
       }
 
-      v16 = *(v3 + 512);
-      *(v3 + 512) = v15;
-      if (!v16)
+      on_zero_shared_weak = v3[12].__on_zero_shared_weak;
+      v3[12].__on_zero_shared_weak = v15;
+      if (!on_zero_shared_weak)
       {
 LABEL_33:
         BootModule::setVoiceCall_sync(v3, v14);
@@ -2498,34 +1973,34 @@ LABEL_33:
 
           p_buf = operator new(v22);
           *(&buf + 1) = v19;
-          v69 = v22 | 0x8000000000000000;
+          v68 = v22 | 0x8000000000000000;
           *&buf = p_buf;
         }
 
         else
         {
-          HIBYTE(v69) = v18;
+          HIBYTE(v68) = v18;
           p_buf = &buf;
           if (!v18)
           {
             LOBYTE(buf) = 0;
-            v21 = v1[1];
-            v67 = v21;
-            if (v21)
+            shared_owners = v1->__shared_owners_;
+            v66 = shared_owners;
+            if (shared_owners)
             {
 LABEL_37:
-              xpc_retain(v21);
+              xpc_retain(shared_owners);
 LABEL_44:
               aBlock = 0;
-              Service::broadcastEvent(v3, &buf, &v67, &aBlock);
+              Service::broadcastEvent(v3, &buf, &v66, &aBlock);
               if (aBlock)
               {
                 _Block_release(aBlock);
               }
 
-              xpc_release(v67);
-              v67 = 0;
-              if (SHIBYTE(v69) < 0)
+              xpc_release(v66);
+              v66 = 0;
+              if (SHIBYTE(v68) < 0)
               {
                 operator delete(buf);
               }
@@ -2534,16 +2009,16 @@ LABEL_44:
             }
 
 LABEL_43:
-            v67 = xpc_null_create();
+            v66 = xpc_null_create();
             goto LABEL_44;
           }
         }
 
         memmove(p_buf, v17, v19);
         *(p_buf + v19) = 0;
-        v21 = v1[1];
-        v67 = v21;
-        if (v21)
+        shared_owners = v1->__shared_owners_;
+        v66 = shared_owners;
+        if (shared_owners)
         {
           goto LABEL_37;
         }
@@ -2554,24 +2029,24 @@ LABEL_43:
 
     else
     {
-      v16 = *(v3 + 512);
-      *(v3 + 512) = 0;
-      if (!v16)
+      on_zero_shared_weak = v3[12].__on_zero_shared_weak;
+      v3[12].__on_zero_shared_weak = 0;
+      if (!on_zero_shared_weak)
       {
         goto LABEL_33;
       }
     }
 
-    dispatch_resume(v16);
-    dispatch_release(v16);
+    dispatch_resume(on_zero_shared_weak);
+    dispatch_release(on_zero_shared_weak);
     goto LABEL_33;
   }
 
 LABEL_48:
   v23 = *MEMORY[0x29EDBF890];
-  if (xpc_dictionary_get_value(v1[1], *MEMORY[0x29EDBF890]))
+  if (xpc_dictionary_get_value(v1->__shared_owners_, *MEMORY[0x29EDBF890]))
   {
-    v24 = xpc_dictionary_get_value(v1[1], v23);
+    v24 = xpc_dictionary_get_value(v1->__shared_owners_, v23);
     object.__r_.__value_.__r.__words[0] = v24;
     if (v24)
     {
@@ -2589,9 +2064,9 @@ LABEL_48:
   }
 
   v26 = *MEMORY[0x29EDBF898];
-  if (xpc_dictionary_get_value(v1[1], *MEMORY[0x29EDBF898]))
+  if (xpc_dictionary_get_value(v1->__shared_owners_, *MEMORY[0x29EDBF898]))
   {
-    v27 = xpc_dictionary_get_value(v1[1], v26);
+    v27 = xpc_dictionary_get_value(v1->__shared_owners_, v26);
     object.__r_.__value_.__r.__words[0] = v27;
     if (v27)
     {
@@ -2609,10 +2084,10 @@ LABEL_48:
   }
 
   v29 = *MEMORY[0x29EDBF8D0];
-  if (xpc_dictionary_get_value(v1[1], *MEMORY[0x29EDBF8D0]))
+  if (xpc_dictionary_get_value(v1->__shared_owners_, *MEMORY[0x29EDBF8D0]))
   {
     memset(&object, 170, sizeof(object));
-    v30 = xpc_dictionary_get_value(v1[1], v29);
+    v30 = xpc_dictionary_get_value(v1->__shared_owners_, v29);
     __p.__r_.__value_.__r.__words[0] = v30;
     if (v30)
     {
@@ -2656,14 +2131,14 @@ LABEL_48:
 
 LABEL_67:
   v32 = *MEMORY[0x29EDBF8D8];
-  if (!xpc_dictionary_get_value(v1[1], *MEMORY[0x29EDBF8D8]))
+  if (!xpc_dictionary_get_value(v1->__shared_owners_, *MEMORY[0x29EDBF8D8]))
   {
     goto LABEL_78;
   }
 
   memset(&object, 170, sizeof(object));
-  v33 = xpc_dictionary_get_value(v1[1], v32);
-  v63.__r_.__value_.__r.__words[0] = v33;
+  v33 = xpc_dictionary_get_value(v1->__shared_owners_, v32);
+  v62.__r_.__value_.__r.__words[0] = v33;
   if (v33)
   {
     xpc_retain(v33);
@@ -2671,25 +2146,25 @@ LABEL_67:
 
   else
   {
-    v63.__r_.__value_.__r.__words[0] = xpc_null_create();
+    v62.__r_.__value_.__r.__words[0] = xpc_null_create();
   }
 
-  xpc::dyn_cast_or_default(&object, &v63, "", v34);
-  xpc_release(v63.__r_.__value_.__l.__data_);
+  xpc::dyn_cast_or_default(&object, &v62, "", v34);
+  xpc_release(v62.__r_.__value_.__l.__data_);
   if (SHIBYTE(object.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v63, object.__r_.__value_.__l.__data_, object.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v62, object.__r_.__value_.__l.__data_, object.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v63 = object;
+    v62 = object;
   }
 
-  BootModule::setPLMN2_sync(v3, &v63);
-  if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+  BootModule::setPLMN2_sync(v3, &v62);
+  if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v63.__r_.__value_.__l.__data_);
+    operator delete(v62.__r_.__value_.__l.__data_);
     if ((SHIBYTE(object.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_78;
@@ -2704,9 +2179,9 @@ LABEL_67:
   operator delete(object.__r_.__value_.__l.__data_);
 LABEL_78:
   v35 = *MEMORY[0x29EDBE4B8];
-  if (xpc_dictionary_get_value(v1[1], *MEMORY[0x29EDBE4B8]))
+  if (xpc_dictionary_get_value(v1->__shared_owners_, *MEMORY[0x29EDBE4B8]))
   {
-    v36 = xpc_dictionary_get_value(v1[1], v35);
+    v36 = xpc_dictionary_get_value(v1->__shared_owners_, v35);
     object.__r_.__value_.__r.__words[0] = v36;
     if (v36)
     {
@@ -2724,9 +2199,9 @@ LABEL_78:
   }
 
   v38 = *MEMORY[0x29EDBE4C0];
-  if (xpc_dictionary_get_value(v1[1], *MEMORY[0x29EDBE4C0]))
+  if (xpc_dictionary_get_value(v1->__shared_owners_, *MEMORY[0x29EDBE4C0]))
   {
-    v39 = xpc_dictionary_get_value(v1[1], v38);
+    v39 = xpc_dictionary_get_value(v1->__shared_owners_, v38);
     object.__r_.__value_.__r.__words[0] = v39;
     if (v39)
     {
@@ -2744,9 +2219,9 @@ LABEL_78:
   }
 
   v41 = *MEMORY[0x29EDBE558];
-  if (xpc_dictionary_get_value(v1[1], *MEMORY[0x29EDBE558]))
+  if (xpc_dictionary_get_value(v1->__shared_owners_, *MEMORY[0x29EDBE558]))
   {
-    v42 = xpc_dictionary_get_value(v1[1], v41);
+    v42 = xpc_dictionary_get_value(v1->__shared_owners_, v41);
     object.__r_.__value_.__r.__words[0] = v42;
     if (v42)
     {
@@ -2764,9 +2239,9 @@ LABEL_78:
   }
 
   v44 = *MEMORY[0x29EDBE560];
-  if (xpc_dictionary_get_value(v1[1], *MEMORY[0x29EDBE560]))
+  if (xpc_dictionary_get_value(v1->__shared_owners_, *MEMORY[0x29EDBE560]))
   {
-    v45 = xpc_dictionary_get_value(v1[1], v44);
+    v45 = xpc_dictionary_get_value(v1->__shared_owners_, v44);
     object.__r_.__value_.__r.__words[0] = v45;
     if (v45)
     {
@@ -2784,9 +2259,9 @@ LABEL_78:
   }
 
   v47 = *MEMORY[0x29EDBF8B8];
-  if (xpc_dictionary_get_value(v1[1], *MEMORY[0x29EDBF8B8]) || xpc_dictionary_get_value(v1[1], *MEMORY[0x29EDBF8C0]))
+  if (xpc_dictionary_get_value(v1->__shared_owners_, *MEMORY[0x29EDBF8B8]) || xpc_dictionary_get_value(v1->__shared_owners_, *MEMORY[0x29EDBF8C0]))
   {
-    v48 = xpc_dictionary_get_value(v1[1], v47);
+    v48 = xpc_dictionary_get_value(v1->__shared_owners_, v47);
     object.__r_.__value_.__r.__words[0] = v48;
     if (v48)
     {
@@ -2805,7 +2280,7 @@ LABEL_78:
       goto LABEL_110;
     }
 
-    v50 = xpc_dictionary_get_value(v1[1], *MEMORY[0x29EDBF8C0]);
+    v50 = xpc_dictionary_get_value(v1->__shared_owners_, *MEMORY[0x29EDBF8C0]);
     object.__r_.__value_.__r.__words[0] = v50;
     if (v50)
     {
@@ -2822,15 +2297,15 @@ LABEL_78:
     if (v51)
     {
 LABEL_110:
-      v52 = *(v3 + 504);
+      v52 = v3[12].__get_deleter;
       if (v52)
       {
-        dispatch_retain(*(v3 + 504));
+        dispatch_retain(v3[12].__get_deleter);
         dispatch_suspend(v52);
       }
 
-      v53 = *(v3 + 512);
-      *(v3 + 512) = v52;
+      v53 = v3[12].__on_zero_shared_weak;
+      v3[12].__on_zero_shared_weak = v52;
       if (v53)
       {
         goto LABEL_113;
@@ -2839,8 +2314,8 @@ LABEL_110:
 
     else
     {
-      v53 = *(v3 + 512);
-      *(v3 + 512) = 0;
+      v53 = v3[12].__on_zero_shared_weak;
+      v3[12].__on_zero_shared_weak = 0;
       if (v53)
       {
 LABEL_113:
@@ -2850,44 +2325,45 @@ LABEL_113:
     }
   }
 
-  if (v1[2])
+  if (v1->__shared_weak_owners_)
   {
     v54 = xpc_null_create();
-    v55 = v1[2];
+    shared_weak_owners = v1->__shared_weak_owners_;
     object.__r_.__value_.__r.__words[0] = v54;
     v56 = xpc_null_create();
-    (*(v55 + 16))(v55, 0, &object);
+    (*(shared_weak_owners + 16))(shared_weak_owners, 0, &object);
     xpc_release(object.__r_.__value_.__l.__data_);
     xpc_release(v56);
   }
 
-  if (v62)
+  if (v61)
   {
-    v57 = v62[2];
+    v57 = v61->__shared_weak_owners_;
     if (v57)
     {
       _Block_release(v57);
     }
 
-    xpc_release(v62[1]);
-    operator delete(v62);
+    xpc_release(v61->__shared_owners_);
+    operator delete(v61);
   }
 
   v58 = a1;
   if (a1)
   {
-    v59 = *(a1 + 16);
-    if (v59 && !atomic_fetch_add(&v59->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v59 = a1[2];
+    if (v59)
     {
-      (v59->__on_zero_shared)(v59);
-      std::__shared_weak_count::__release_weak(v59);
-      v58 = a1;
+      if (!atomic_fetch_add(&v59->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v59->__on_zero_shared)(v59);
+        std::__shared_weak_count::__release_weak(v59);
+        v58 = a1;
+      }
     }
 
     operator delete(v58);
   }
-
-  v60 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2975EEEF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, xpc_object_t object, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, xpc_object_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *aBlock)
@@ -2921,12 +2397,12 @@ uint64_t *_ZNSt3__110unique_ptrIZZN10BootModule28registerCommandHandlers_syncEvE
   return a1;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wrappedIZZNS3_28registerCommandHandlers_syncEvEUb2_E3__4EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wrappedIZZNS3_28registerCommandHandlers_syncEvEUb2_E3__4EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(uint64_t **a1)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   v2 = *a1;
   v3 = **a1;
-  value = xpc_dictionary_get_value(*(*a1 + 8), "BasebandHealthy");
+  value = xpc_dictionary_get_value((*a1)[1], "BasebandHealthy");
   *buf = value;
   if (value)
   {
@@ -2956,8 +2432,8 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wr
 
     *buf = 67109378;
     *&buf[4] = v5;
-    v23 = 2080;
-    v24 = v8;
+    v22 = 2080;
+    v23 = v8;
     _os_log_impl(&dword_297476000, v6, OS_LOG_TYPE_DEFAULT, "#I Received BasebandHealthEvent: isHealthy=%d, current PT status=%s", buf, 0x12u);
   }
 
@@ -2965,23 +2441,23 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wr
   {
     if (v5)
     {
-      v21[23] = 7;
-      strcpy(v21, "Healthy");
-      v20[23] = 0;
-      v9 = v20;
-      v10 = v21;
+      v20[23] = 7;
+      strcpy(v20, "Healthy");
+      v19[23] = 0;
+      v9 = v19;
+      v10 = v20;
       v11 = 3;
-      v20[0] = 0;
+      v19[0] = 0;
     }
 
     else
     {
-      v19[23] = 10;
-      strcpy(v19, "NotHealthy");
-      v18[23] = 0;
-      v18[0] = 0;
-      v9 = v18;
-      v10 = v19;
+      v18[23] = 10;
+      strcpy(v18, "NotHealthy");
+      v17[23] = 0;
+      v17[0] = 0;
+      v9 = v17;
+      v10 = v18;
       v11 = 4;
     }
 
@@ -3006,7 +2482,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wr
 
   xpc_release(v2[1]);
   operator delete(v2);
-  v16 = *(a1 + 2);
+  v16 = a1[2];
   if (v16 && !atomic_fetch_add(&v16->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v16->__on_zero_shared)(v16);
@@ -3014,7 +2490,6 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wr
   }
 
   operator delete(a1);
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2975EF418(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
@@ -3464,7 +2939,7 @@ LABEL_74:
   }
 }
 
-void sub_2975EFD38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, dispatch_object_t object, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, std::__shared_weak_count *a34)
+void sub_2975EFD38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, dispatch_object_t object, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, std::__shared_weak_count *a36)
 {
   pthread_mutex_unlock(&ctu::Singleton<ABMServer,ABMServer,ctu::PthreadMutexGuardPolicy<ABMServer>>::sInstance);
   if (v34)
@@ -3710,9 +3185,9 @@ void ___ZZN10BootModule5startEN8dispatch13group_sessionEENK3__0clEv_block_invoke
   }
 }
 
-void sub_2975F0234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2975F0234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3743,9 +3218,9 @@ void **std::unique_ptr<BootModule::start(dispatch::group_session)::$_0::operator
   return result;
 }
 
-void dispatch::detail::group_notify<BootModule::start(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>(dispatch_group_s *,dispatch_queue_s *,BootModule::start(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1} &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::detail::group_notify<BootModule::start(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>(dispatch_group_s *,dispatch_queue_s *,BootModule::start(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1} &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(BootModule **a1)
 {
-  v2 = *(a1 + 2);
+  v2 = a1[2];
   if (!v2)
   {
     goto LABEL_37;
@@ -3760,7 +3235,7 @@ void dispatch::detail::group_notify<BootModule::start(dispatch::group_session)::
   }
 
   v5 = v4;
-  v27 = *(a1 + 1);
+  v27 = a1[1];
   if (!v27)
   {
     goto LABEL_35;
@@ -3901,13 +3376,13 @@ LABEL_21:
 LABEL_37:
   if (a1)
   {
-    v17 = *(a1 + 3);
+    v17 = a1[3];
     if (v17)
     {
       dispatch_release(v17);
     }
 
-    v18 = *(a1 + 2);
+    v18 = a1[2];
     if (v18)
     {
       std::__shared_weak_count::__release_weak(v18);
@@ -3970,7 +3445,7 @@ void **std::unique_ptr<BootModule::getPowerTableFromMobileAsset(BootModule::Mobi
 
 void dispatch::async<BootModule::getPowerTableFromMobileAsset(BootModule::MobileAssetUpdateTrigger)::$_0>(dispatch_queue_s *,std::unique_ptr<BootModule::getPowerTableFromMobileAsset(BootModule::MobileAssetUpdateTrigger)::$_0,std::default_delete<BootModule::getPowerTableFromMobileAsset(BootModule::MobileAssetUpdateTrigger)::$_0>>)::{lambda(void *)#1}::__invoke(unsigned __int8 *a1)
 {
-  v48 = *MEMORY[0x29EDCA608];
+  v47 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 3);
   if (!v2)
   {
@@ -3979,7 +3454,7 @@ void dispatch::async<BootModule::getPowerTableFromMobileAsset(BootModule::Mobile
 
   v3 = *a1;
   v4 = std::__shared_weak_count::lock(v2);
-  v41 = v4;
+  v40 = v4;
   if (!v4)
   {
     goto LABEL_74;
@@ -3987,12 +3462,12 @@ void dispatch::async<BootModule::getPowerTableFromMobileAsset(BootModule::Mobile
 
   if (*(a1 + 2))
   {
-    v36 = 0;
-    v37 = 0xAAAAAAAAAAAAAA00;
-    v35[0] = 0;
-    v35[1] = 0;
-    *v38 = 0u;
-    memset(v39, 0, sizeof(v39));
+    v35 = 0;
+    v36 = 0xAAAAAAAAAAAAAA00;
+    v34[0] = 0;
+    v34[1] = 0;
+    *v37 = 0u;
+    memset(v38, 0, sizeof(v38));
     capabilities::abs::supportedMobileAssetTypes(v4);
     v5 = capabilities::abs::operator&();
     if (v5)
@@ -4093,20 +3568,20 @@ LABEL_16:
 
                   v15 = operator new(v16);
                   __p[1] = v14;
-                  v34 = v16 | 0x8000000000000000;
+                  v33 = v16 | 0x8000000000000000;
                   __p[0] = v15;
                 }
 
                 else
                 {
-                  HIBYTE(v34) = v13;
+                  HIBYTE(v33) = v13;
                   v15 = __p;
                   if (!v13)
                   {
 LABEL_24:
                     *(v14 + v15) = 0;
-                    v17 = MobileAssetSupport::lockAsset(__dst, __p, 0, v35);
-                    if (SHIBYTE(v34) < 0)
+                    v17 = MobileAssetSupport::lockAsset(__dst, __p, 0, v34);
+                    if (SHIBYTE(v33) < 0)
                     {
                       operator delete(__p[0]);
                       if ((__dst[23] & 0x80000000) == 0)
@@ -4131,40 +3606,40 @@ LABEL_26:
                     {
 LABEL_27:
                       *__dst = v3;
-                      if (SHIBYTE(v36) < 0)
+                      if (SHIBYTE(v35) < 0)
                       {
-                        std::string::__init_copy_ctor_external(&__dst[8], v35[0], v35[1]);
+                        std::string::__init_copy_ctor_external(&__dst[8], v34[0], v34[1]);
                       }
 
                       else
                       {
-                        *&__dst[8] = *v35;
-                        v43 = v36;
+                        *&__dst[8] = *v34;
+                        v42 = v35;
                       }
 
-                      v44 = v37;
-                      if (SHIBYTE(v39[0]) < 0)
+                      v43 = v36;
+                      if (SHIBYTE(v38[0]) < 0)
                       {
-                        std::string::__init_copy_ctor_external(&v45, v38[0], v38[1]);
+                        std::string::__init_copy_ctor_external(&v44, v37[0], v37[1]);
                       }
 
                       else
                       {
-                        *&v45.__r_.__value_.__l.__data_ = *v38;
-                        v45.__r_.__value_.__r.__words[2] = v39[0];
+                        *&v44.__r_.__value_.__l.__data_ = *v37;
+                        v44.__r_.__value_.__r.__words[2] = v38[0];
                       }
 
-                      if (SHIBYTE(v39[3]) < 0)
+                      if (SHIBYTE(v38[3]) < 0)
                       {
-                        std::string::__init_copy_ctor_external(&v46, v39[1], v39[2]);
+                        std::string::__init_copy_ctor_external(&v45, v38[1], v38[2]);
                       }
 
                       else
                       {
-                        v46 = *&v39[1];
+                        v45 = *&v38[1];
                       }
 
-                      v47 = a1[8];
+                      v46 = a1[8];
                       v21 = v3[10];
                       if (!v21 || (v22 = v3[9], (v23 = std::__shared_weak_count::lock(v21)) == 0))
                       {
@@ -4175,18 +3650,18 @@ LABEL_27:
                       v25 = operator new(0x60uLL);
                       *v25 = *__dst;
                       *(v25 + 8) = *&__dst[8];
-                      *(v25 + 3) = v43;
+                      *(v25 + 3) = v42;
                       *&__dst[8] = 0;
                       *&__dst[16] = 0;
-                      v43 = 0;
-                      v25[32] = v44;
-                      *(v25 + 40) = v45;
-                      memset(&v45, 0, sizeof(v45));
-                      v26 = *&v46.__r_.__value_.__l.__data_;
-                      *(v25 + 10) = *(&v46.__r_.__value_.__l + 2);
+                      v42 = 0;
+                      v25[32] = v43;
+                      *(v25 + 40) = v44;
+                      memset(&v44, 0, sizeof(v44));
+                      v26 = *&v45.__r_.__value_.__l.__data_;
+                      *(v25 + 10) = *(&v45.__r_.__value_.__l + 2);
                       *(v25 + 4) = v26;
-                      memset(&v46, 0, sizeof(v46));
-                      v25[88] = v47;
+                      memset(&v45, 0, sizeof(v45));
+                      v25[88] = v46;
                       v27 = v3[11];
                       atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
                       v28 = operator new(0x18uLL);
@@ -4196,7 +3671,7 @@ LABEL_27:
                       dispatch_async_f(v27, v28, dispatch::async<void ctu::SharedSynchronizable<BootModule>::execute_wrapped<BootModule::getPowerTableFromMobileAsset(BootModule::MobileAssetUpdateTrigger)::$_0::operator() const(void)::{lambda(void)#1}>(BootModule::getPowerTableFromMobileAsset(BootModule::MobileAssetUpdateTrigger)::$_0::operator() const(void)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<BootModule::getPowerTableFromMobileAsset(BootModule::MobileAssetUpdateTrigger)::$_0::operator() const(void)::{lambda(void)#1},dispatch_queue_s *::default_delete<BootModule::getPowerTableFromMobileAsset(BootModule::MobileAssetUpdateTrigger)::$_0::operator() const(void)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
                       if (atomic_fetch_add(&v24->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
                       {
-                        if ((SHIBYTE(v46.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                        if ((SHIBYTE(v45.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                         {
                           goto LABEL_55;
                         }
@@ -4206,10 +3681,10 @@ LABEL_27:
                       {
                         (v24->__on_zero_shared)(v24);
                         std::__shared_weak_count::__release_weak(v24);
-                        if ((SHIBYTE(v46.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                        if ((SHIBYTE(v45.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                         {
 LABEL_55:
-                          if ((SHIBYTE(v45.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                          if ((SHIBYTE(v44.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                           {
                             goto LABEL_56;
                           }
@@ -4218,11 +3693,11 @@ LABEL_55:
                         }
                       }
 
-                      operator delete(v46.__r_.__value_.__l.__data_);
-                      if ((SHIBYTE(v45.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                      operator delete(v45.__r_.__value_.__l.__data_);
+                      if ((SHIBYTE(v44.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                       {
 LABEL_56:
-                        if ((SHIBYTE(v43) & 0x80000000) == 0)
+                        if ((SHIBYTE(v42) & 0x80000000) == 0)
                         {
                           goto LABEL_62;
                         }
@@ -4233,8 +3708,8 @@ LABEL_61:
                       }
 
 LABEL_60:
-                      operator delete(v45.__r_.__value_.__l.__data_);
-                      if ((SHIBYTE(v43) & 0x80000000) == 0)
+                      operator delete(v44.__r_.__value_.__l.__data_);
+                      if ((SHIBYTE(v42) & 0x80000000) == 0)
                       {
                         goto LABEL_62;
                       }
@@ -4260,10 +3735,10 @@ LABEL_41:
                       *__dst = 136315138;
                       *&__dst[4] = v20;
                       _os_log_impl(&dword_297476000, v18, OS_LOG_TYPE_DEFAULT, "#I Failed to get the MobileAsset requested triggered by %s", __dst, 0xCu);
-                      if ((SHIBYTE(v39[3]) & 0x80000000) == 0)
+                      if ((SHIBYTE(v38[3]) & 0x80000000) == 0)
                       {
 LABEL_63:
-                        if ((SHIBYTE(v39[0]) & 0x80000000) == 0)
+                        if ((SHIBYTE(v38[0]) & 0x80000000) == 0)
                         {
                           goto LABEL_64;
                         }
@@ -4272,19 +3747,19 @@ LABEL_63:
                       }
 
 LABEL_69:
-                      operator delete(v39[1]);
-                      if ((SHIBYTE(v39[0]) & 0x80000000) == 0)
+                      operator delete(v38[1]);
+                      if ((SHIBYTE(v38[0]) & 0x80000000) == 0)
                       {
 LABEL_64:
-                        if ((SHIBYTE(v36) & 0x80000000) == 0)
+                        if ((SHIBYTE(v35) & 0x80000000) == 0)
                         {
                           goto LABEL_65;
                         }
 
 LABEL_71:
-                        operator delete(v35[0]);
-                        v4 = v41;
-                        if (!v41)
+                        operator delete(v34[0]);
+                        v4 = v40;
+                        if (!v40)
                         {
                           goto LABEL_74;
                         }
@@ -4293,12 +3768,12 @@ LABEL_71:
                       }
 
 LABEL_70:
-                      operator delete(v38[0]);
-                      if ((SHIBYTE(v36) & 0x80000000) == 0)
+                      operator delete(v37[0]);
+                      if ((SHIBYTE(v35) & 0x80000000) == 0)
                       {
 LABEL_65:
-                        v4 = v41;
-                        if (!v41)
+                        v4 = v40;
+                        if (!v40)
                         {
                           goto LABEL_74;
                         }
@@ -4310,7 +3785,7 @@ LABEL_65:
                     }
 
 LABEL_62:
-                    if ((SHIBYTE(v39[3]) & 0x80000000) == 0)
+                    if ((SHIBYTE(v38[3]) & 0x80000000) == 0)
                     {
                       goto LABEL_63;
                     }
@@ -4355,11 +3830,9 @@ LABEL_74:
 
     operator delete(a1);
   }
-
-  v31 = *MEMORY[0x29EDCA608];
 }
 
-void sub_2975F0C80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, void *a28, void *a29, int a30, __int16 a31, char a32, char a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44)
+void sub_2975F0C80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, void *a29, int a30, __int16 a31, char a32, char a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44)
 {
   if (a44 < 0)
   {
@@ -4379,7 +3852,7 @@ void sub_2975F0C80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void dispatch::async<void ctu::SharedSynchronizable<BootModule>::execute_wrapped<BootModule::getPowerTableFromMobileAsset(BootModule::MobileAssetUpdateTrigger)::$_0::operator() const(void)::{lambda(void)#1}>(BootModule::getPowerTableFromMobileAsset(BootModule::MobileAssetUpdateTrigger)::$_0::operator() const(void)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<BootModule::getPowerTableFromMobileAsset(BootModule::MobileAssetUpdateTrigger)::$_0::operator() const(void)::{lambda(void)#1},dispatch_queue_s *::default_delete<BootModule::getPowerTableFromMobileAsset(BootModule::MobileAssetUpdateTrigger)::$_0::operator() const(void)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke(void ***a1)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v1 = *a1;
   __p = *a1;
   if ((*(*a1 + 31) & 0x8000000000000000) != 0)
@@ -4575,16 +4048,16 @@ LABEL_48:
   {
 LABEL_43:
     v22 = *(v1 + 1);
-    v31.__r_.__value_.__r.__words[2] = v1[3];
-    *&v31.__r_.__value_.__l.__data_ = v22;
+    v30.__r_.__value_.__r.__words[2] = v1[3];
+    *&v30.__r_.__value_.__l.__data_ = v22;
     goto LABEL_50;
   }
 
 LABEL_49:
-  std::string::__init_copy_ctor_external(&v31, v1[1], v1[2]);
+  std::string::__init_copy_ctor_external(&v30, v1[1], v1[2]);
 LABEL_50:
-  updated = BootModule::updateMobileAssetPTStatus_sync(v2, 1u, buf, &v31);
-  if ((SHIBYTE(v31.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  updated = BootModule::updateMobileAssetPTStatus_sync(v2, 1u, buf, &v30);
+  if ((SHIBYTE(v30.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if ((buf[23] & 0x80000000) == 0)
     {
@@ -4601,7 +4074,7 @@ LABEL_55:
     goto LABEL_56;
   }
 
-  operator delete(v31.__r_.__value_.__l.__data_);
+  operator delete(v30.__r_.__value_.__l.__data_);
   if ((buf[23] & 0x80000000) != 0)
   {
     goto LABEL_55;
@@ -4670,17 +4143,18 @@ LABEL_63:
   if (a1)
   {
     v27 = a1[2];
-    if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v27)
     {
-      (v27->__on_zero_shared)(v27);
-      std::__shared_weak_count::__release_weak(v27);
-      v26 = a1;
+      if (!atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v27->__on_zero_shared)(v27);
+        std::__shared_weak_count::__release_weak(v27);
+        v26 = a1;
+      }
     }
 
     operator delete(v26);
   }
-
-  v28 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2975F10E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
@@ -4698,9 +4172,10 @@ void sub_2975F10E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2975F1154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10)
+void sub_2975F1154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, ...)
 {
-  std::unique_ptr<BootModule::getPowerTableFromMobileAsset(BootModule::MobileAssetUpdateTrigger)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<BootModule::getPowerTableFromMobileAsset(BootModule::MobileAssetUpdateTrigger)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&a10);
+  va_start(va, a9);
+  std::unique_ptr<BootModule::getPowerTableFromMobileAsset(BootModule::MobileAssetUpdateTrigger)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<BootModule::getPowerTableFromMobileAsset(BootModule::MobileAssetUpdateTrigger)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](va);
   _ZNSt3__110unique_ptrIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb_E3__1EEvOT_EUlvE_NS_14default_deleteISB_EEED1B8ne200100Ev(&a9);
   _Unwind_Resume(a1);
 }
@@ -4981,9 +4456,9 @@ uint64_t std::__function::__func<BootModule::registerEventHandlers_sync(void)::$
 
 void dispatch::async<void ctu::SharedSynchronizable<BootModule>::execute_wrapped<BootModule::registerEventHandlers_sync(void)::$_0::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1}>(BootModule::registerEventHandlers_sync(void)::$_0::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1} &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<BootModule::registerEventHandlers_sync(void)::$_0::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1},dispatch_queue_s *::default_delete<BootModule::registerEventHandlers_sync(void)::$_0::operator() const(dispatch::group_session,xpc::dict)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x29EDCA608];
+  v48 = *MEMORY[0x29EDCA608];
   v1 = *a1;
-  v36 = *a1;
+  v35 = *a1;
   v2 = **a1;
   v3 = v2[576];
   if (v3 == 3)
@@ -5011,7 +4486,7 @@ void dispatch::async<void ctu::SharedSynchronizable<BootModule>::execute_wrapped
     *state = 0;
     ctu::cf::convert_copy(state, v9, 0x8000100, v4, v11);
     v12 = *state;
-    v43 = *state;
+    v42 = *state;
     if (v10 && *state)
     {
       CFDictionarySetValue(v7, v10, *state);
@@ -5029,10 +4504,10 @@ LABEL_12:
       CFRelease(v10);
     }
 
-    v43 = 0xAAAAAAAAAAAAAAAALL;
-    BootModule::calculateBootStatistics_sync(v2, &v43);
-    v16 = v43;
-    if (v43)
+    v42 = 0xAAAAAAAAAAAAAAAALL;
+    BootModule::calculateBootStatistics_sync(v2, &v42);
+    v16 = v42;
+    if (v42)
     {
       v17 = *MEMORY[0x29EDBF158];
       *state = 0;
@@ -5075,13 +4550,13 @@ LABEL_12:
 
       v22 = operator new(v24);
       __dst[1] = v21;
-      v40 = v24 | 0x8000000000000000;
+      v39 = v24 | 0x8000000000000000;
       __dst[0] = v22;
     }
 
     else
     {
-      HIBYTE(v40) = v20;
+      HIBYTE(v39) = v20;
       v22 = __dst;
       if (!v20)
       {
@@ -5096,35 +4571,35 @@ LABEL_29:
         v25 = CFGetTypeID(v23);
         if (v25 == CFDictionaryGetTypeID())
         {
-          v38 = v23;
+          v37 = v23;
           CFRetain(v23);
 LABEL_32:
           *state = MEMORY[0x29EDCA5F8];
           *&state[8] = 1174405120;
           *&state[16] = ___ZZZN10BootModule26registerEventHandlers_syncEvENK3__0clEN8dispatch13group_sessionEN3xpc4dictEENKUlvE_clEv_block_invoke;
-          v45 = &__block_descriptor_tmp_264;
-          v46 = v2;
-          v47 = v1[1];
+          v44 = &__block_descriptor_tmp_264;
+          v45 = v2;
+          v46 = v1[1];
           v26 = v1[2];
-          v48 = v26;
+          v47 = v26;
           if (v26)
           {
             atomic_fetch_add_explicit(&v26->__shared_weak_owners_, 1uLL, memory_order_relaxed);
           }
 
           aBlock = _Block_copy(state);
-          Service::broadcastEvent(v2, __dst, &v38, &aBlock);
+          Service::broadcastEvent(v2, __dst, &v37, &aBlock);
           if (aBlock)
           {
             _Block_release(aBlock);
           }
 
-          if (v38)
+          if (v37)
           {
-            CFRelease(v38);
+            CFRelease(v37);
           }
 
-          if (SHIBYTE(v40) < 0)
+          if (SHIBYTE(v39) < 0)
           {
             operator delete(__dst[0]);
           }
@@ -5137,14 +4612,14 @@ LABEL_32:
             dispatch_release(v27);
           }
 
-          if (v48)
+          if (v47)
           {
-            std::__shared_weak_count::__release_weak(v48);
+            std::__shared_weak_count::__release_weak(v47);
           }
 
-          if (v43)
+          if (v42)
           {
-            CFRelease(v43);
+            CFRelease(v42);
           }
 
           if (v23)
@@ -5169,7 +4644,7 @@ LABEL_54:
         }
 
 LABEL_31:
-        v38 = 0;
+        v37 = 0;
         goto LABEL_32;
       }
     }
@@ -5213,45 +4688,46 @@ LABEL_31:
   }
 
 LABEL_55:
-  if (v36)
+  if (v35)
   {
-    xpc_release(v36[4]);
-    v36[4] = 0;
-    v29 = v36[3];
+    xpc_release(v35[4]);
+    v35[4] = 0;
+    v29 = v35[3];
     if (v29)
     {
       dispatch_group_leave(v29);
-      v30 = v36[3];
+      v30 = v35[3];
       if (v30)
       {
         dispatch_release(v30);
       }
     }
 
-    v31 = v36[2];
+    v31 = v35[2];
     if (v31)
     {
       std::__shared_weak_count::__release_weak(v31);
     }
 
-    operator delete(v36);
+    operator delete(v35);
   }
 
   v32 = a1;
   if (a1)
   {
     v33 = *(a1 + 16);
-    if (v33 && !atomic_fetch_add(&v33->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v33)
     {
-      (v33->__on_zero_shared)(v33);
-      std::__shared_weak_count::__release_weak(v33);
-      v32 = a1;
+      if (!atomic_fetch_add(&v33->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v33->__on_zero_shared)(v33);
+        std::__shared_weak_count::__release_weak(v33);
+        v32 = a1;
+      }
     }
 
     operator delete(v32);
   }
-
-  v34 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2975F1BCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, void *aBlock, char a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19, int a20, __int16 a21, char a22, char a23, int a24, __int16 a25, char a26, char a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, std::__shared_weak_count *a37)
@@ -5328,35 +4804,38 @@ void ___ZZZN10BootModule26registerEventHandlers_syncEvENK3__0clEN8dispatch13grou
 
 void ___ZZZN10BootModule26registerEventHandlers_syncEvENK3__0clEN8dispatch13group_sessionEN3xpc4dictEENKUlvE_clEv_block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 32);
   v2 = *(v1 + 576);
   if (v2 == 4)
   {
+    v9 = 0xAAAAAAAAAAAAAAAALL;
     v10 = 0xAAAAAAAAAAAAAAAALL;
-    v11 = 0xAAAAAAAAAAAAAAAALL;
-    (*(*v1 + 88))(&v10);
-    v3 = v10;
-    if (v10)
+    (*(*v1 + 88))(&v9);
+    v3 = v9;
+    if (v9)
     {
       v4 = operator new(0x38uLL);
       strcpy(v4, "com.apple.AppleBasebandManager.RadioNotReady.Bootup");
       v5 = *(v3 + 48);
-      std::string::__init_copy_ctor_external(&v12, v4, 0x33uLL);
-      (*(*v5 + 32))(v5, &v12);
-      if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+      std::string::__init_copy_ctor_external(&v11, v4, 0x33uLL);
+      (*(*v5 + 32))(v5, &v11);
+      if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v12.__r_.__value_.__l.__data_);
+        operator delete(v11.__r_.__value_.__l.__data_);
       }
 
       operator delete(v4);
     }
 
-    v6 = v11;
-    if (v11 && !atomic_fetch_add((v11 + 8), 0xFFFFFFFFFFFFFFFFLL))
+    v6 = v10;
+    if (v10)
     {
-      (v6->__on_zero_shared)(v6);
-      std::__shared_weak_count::__release_weak(v6);
+      if (!atomic_fetch_add((v10 + 8), 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v6->__on_zero_shared)(v6);
+        std::__shared_weak_count::__release_weak(v6);
+      }
     }
   }
 
@@ -5375,13 +4854,11 @@ void ___ZZZN10BootModule26registerEventHandlers_syncEvENK3__0clEN8dispatch13grou
         v8 = off_29EE6C4E0[v2];
       }
 
-      LODWORD(v12.__r_.__value_.__l.__data_) = 136315138;
-      *(v12.__r_.__value_.__r.__words + 4) = v8;
-      _os_log_impl(&dword_297476000, v7, OS_LOG_TYPE_DEFAULT, "#I State is '%s' not releasing power assertion yet", &v12, 0xCu);
+      LODWORD(v11.__r_.__value_.__l.__data_) = 136315138;
+      *(v11.__r_.__value_.__r.__words + 4) = v8;
+      _os_log_impl(&dword_297476000, v7, OS_LOG_TYPE_DEFAULT, "#I State is '%s' not releasing power assertion yet", &v11, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2975F201C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -6280,7 +5757,7 @@ void *std::unique_ptr<BootModule::registerEventHandlers_sync(void)::$_3::operato
 
 void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wrappedIZZNS3_21handleBootFailed_syncENSt3__112basic_stringIcNS6_11char_traitsIcEENS6_9allocatorIcEEEEEUb3_E4__12EEvOT_EUlvE_EEvP16dispatch_queue_sNS6_10unique_ptrISE_NS6_14default_deleteISE_EEEEENUlPvE_8__invokeESN_(void *a1)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   v1 = *a1;
   if (*(*a1 + 24))
   {
@@ -6288,11 +5765,11 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wr
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       xpc::object::to_string(__p, (v1 + 4));
-      v3 = v10 >= 0 ? __p : __p[0];
+      v3 = v9 >= 0 ? __p : __p[0];
       *buf = 136315138;
-      v12 = v3;
+      v11 = v3;
       _os_log_impl(&dword_297476000, v2, OS_LOG_TYPE_DEFAULT, "#I Dumping logs failed: %s", buf, 0xCu);
-      if (v10 < 0)
+      if (v9 < 0)
       {
         operator delete(__p[0]);
       }
@@ -6313,24 +5790,25 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI10BootModuleE15execute_wr
   if (a1)
   {
     v6 = a1[2];
-    if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v6)
     {
-      (v6->__on_zero_shared)(v6);
-      std::__shared_weak_count::__release_weak(v6);
-      v5 = a1;
+      if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v6->__on_zero_shared)(v6);
+        std::__shared_weak_count::__release_weak(v6);
+        v5 = a1;
+      }
     }
 
     operator delete(v5);
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
-void sub_2975F3550(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2975F3550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   _ZNSt3__110unique_ptrIZZN10BootModule21handleBootFailed_syncENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEEEUb3_E4__12NS_14default_deleteIS8_EEED1B8ne200100Ev(va1);
   _ZNSt3__110unique_ptrIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb_E3__1EEvOT_EUlvE_NS_14default_deleteISB_EEED1B8ne200100Ev(va);
   _Unwind_Resume(a1);
@@ -6465,7 +5943,7 @@ uint64_t *_ZNSt3__110unique_ptrIZZN10BootModule22checkFSSyncStatus_syncEN8dispat
 
 void dispatch::detail::group_notify<BootModule::setVoiceCall_sync(BOOL)::$_0>(dispatch_group_s *,dispatch_queue_s *,BootModule::setVoiceCall_sync(BOOL)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(uint64_t *__p)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   v2 = __p[2];
   if (v2)
   {
@@ -6487,9 +5965,9 @@ void dispatch::detail::group_notify<BootModule::setVoiceCall_sync(BOOL)::$_0>(di
             v8 = "YES";
           }
 
-          v11 = 136315138;
-          v12 = v8;
-          _os_log_impl(&dword_297476000, v7, OS_LOG_TYPE_DEFAULT, "#I Voice Call: %s", &v11, 0xCu);
+          v10 = 136315138;
+          v11 = v8;
+          _os_log_impl(&dword_297476000, v7, OS_LOG_TYPE_DEFAULT, "#I Voice Call: %s", &v10, 0xCu);
         }
       }
 
@@ -6508,7 +5986,6 @@ void dispatch::detail::group_notify<BootModule::setVoiceCall_sync(BOOL)::$_0>(di
   }
 
   operator delete(__p);
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 void **std::unique_ptr<BootModule::setRat1_sync(abm::RadioAccessTechnology)::$_0,std::default_delete<BootModule::setRat1_sync(abm::RadioAccessTechnology)::$_0>>::~unique_ptr[abi:ne200100](void **result)
@@ -6531,33 +6008,33 @@ void **std::unique_ptr<BootModule::setRat1_sync(abm::RadioAccessTechnology)::$_0
   return result;
 }
 
-void dispatch::detail::group_notify<BootModule::setRat1_sync(abm::RadioAccessTechnology)::$_0>(dispatch_group_s *,dispatch_queue_s *,BootModule::setRat1_sync(abm::RadioAccessTechnology)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(uint64_t *a1)
+void dispatch::detail::group_notify<BootModule::setRat1_sync(abm::RadioAccessTechnology)::$_0>(dispatch_group_s *,dispatch_queue_s *,BootModule::setRat1_sync(abm::RadioAccessTechnology)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(unsigned int *a1)
 {
-  v20 = *MEMORY[0x29EDCA608];
-  v2 = a1[2];
+  v19 = *MEMORY[0x29EDCA608];
+  v2 = *(a1 + 2);
   if (v2)
   {
     v3 = *a1;
     v4 = std::__shared_weak_count::lock(v2);
-    v15 = v4;
+    v14 = v4;
     if (v4)
     {
       v5 = v4;
-      if (a1[1])
+      if (*(a1 + 1))
       {
-        *(v3 + 368) = *(a1 + 6);
+        *(v3 + 368) = a1[6];
         v6 = *(v3 + 104);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           abm::asString();
-          v7 = v13 >= 0 ? &__p : __p;
-          v8 = *(a1 + 6);
+          v7 = v12 >= 0 ? &__p : __p;
+          v8 = a1[6];
           *buf = 136315394;
-          v17 = v7;
-          v18 = 1024;
-          v19 = v8;
+          v16 = v7;
+          v17 = 1024;
+          v18 = v8;
           _os_log_impl(&dword_297476000, v6, OS_LOG_TYPE_DEFAULT, "#I RAT1: %s (%d)", buf, 0x12u);
-          if (v13 < 0)
+          if (v12 < 0)
           {
             operator delete(__p);
           }
@@ -6574,7 +6051,7 @@ void dispatch::detail::group_notify<BootModule::setRat1_sync(abm::RadioAccessTec
 
   if (a1)
   {
-    v9 = a1[2];
+    v9 = *(a1 + 2);
     if (v9)
     {
       std::__shared_weak_count::__release_weak(v9);
@@ -6582,44 +6059,43 @@ void dispatch::detail::group_notify<BootModule::setRat1_sync(abm::RadioAccessTec
 
     operator delete(a1);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
-void sub_2975F3B30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_2975F3B30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](&a13);
+  va_start(va, a12);
+  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va);
   std::unique_ptr<BootModule::setRat1_sync(abm::RadioAccessTechnology)::$_0,std::default_delete<BootModule::setRat1_sync(abm::RadioAccessTechnology)::$_0>>::~unique_ptr[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void dispatch::detail::group_notify<BootModule::setRat2_sync(abm::RadioAccessTechnology)::$_0>(dispatch_group_s *,dispatch_queue_s *,BootModule::setRat2_sync(abm::RadioAccessTechnology)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(uint64_t *a1)
+void dispatch::detail::group_notify<BootModule::setRat2_sync(abm::RadioAccessTechnology)::$_0>(dispatch_group_s *,dispatch_queue_s *,BootModule::setRat2_sync(abm::RadioAccessTechnology)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(unsigned int *a1)
 {
-  v20 = *MEMORY[0x29EDCA608];
-  v2 = a1[2];
+  v19 = *MEMORY[0x29EDCA608];
+  v2 = *(a1 + 2);
   if (v2)
   {
     v3 = *a1;
     v4 = std::__shared_weak_count::lock(v2);
-    v15 = v4;
+    v14 = v4;
     if (v4)
     {
       v5 = v4;
-      if (a1[1])
+      if (*(a1 + 1))
       {
-        *(v3 + 416) = *(a1 + 6);
+        *(v3 + 416) = a1[6];
         v6 = *(v3 + 104);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           abm::asString();
-          v7 = v13 >= 0 ? &__p : __p;
-          v8 = *(a1 + 6);
+          v7 = v12 >= 0 ? &__p : __p;
+          v8 = a1[6];
           *buf = 136315394;
-          v17 = v7;
-          v18 = 1024;
-          v19 = v8;
+          v16 = v7;
+          v17 = 1024;
+          v18 = v8;
           _os_log_impl(&dword_297476000, v6, OS_LOG_TYPE_DEFAULT, "#I RAT2: %s (%d)", buf, 0x12u);
-          if (v13 < 0)
+          if (v12 < 0)
           {
             operator delete(__p);
           }
@@ -6636,7 +6112,7 @@ void dispatch::detail::group_notify<BootModule::setRat2_sync(abm::RadioAccessTec
 
   if (a1)
   {
-    v9 = a1[2];
+    v9 = *(a1 + 2);
     if (v9)
     {
       std::__shared_weak_count::__release_weak(v9);
@@ -6644,13 +6120,12 @@ void dispatch::detail::group_notify<BootModule::setRat2_sync(abm::RadioAccessTec
 
     operator delete(a1);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
-void sub_2975F3CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_2975F3CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](&a13);
+  va_start(va, a12);
+  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va);
   std::unique_ptr<BootModule::setRat1_sync(abm::RadioAccessTechnology)::$_0,std::default_delete<BootModule::setRat1_sync(abm::RadioAccessTechnology)::$_0>>::~unique_ptr[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
@@ -6680,7 +6155,7 @@ uint64_t *std::unique_ptr<BootModule::setPLMN1_sync(std::string)::$_0,std::defau
 
 void dispatch::detail::group_notify<BootModule::setPLMN1_sync(std::string)::$_0>(dispatch_group_s *,dispatch_queue_s *,BootModule::setPLMN1_sync(std::string)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(char *a1)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 2);
   if (v2)
   {
@@ -6743,7 +6218,7 @@ void dispatch::detail::group_notify<BootModule::setPLMN1_sync(std::string)::$_0>
           }
 
           *buf = 136315138;
-          v17 = v6;
+          v16 = v6;
           _os_log_impl(&dword_297476000, v12, OS_LOG_TYPE_DEFAULT, "#I PLMN1: %s", buf, 0xCu);
         }
       }
@@ -6771,15 +6246,13 @@ void dispatch::detail::group_notify<BootModule::setPLMN1_sync(std::string)::$_0>
 
     operator delete(a1);
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
-void sub_2975F3ED8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2975F3ED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va1);
   std::unique_ptr<BootModule::setPLMN1_sync(std::string)::$_0,std::default_delete<BootModule::setPLMN1_sync(std::string)::$_0>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -6787,7 +6260,7 @@ void sub_2975F3ED8(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void dispatch::detail::group_notify<BootModule::setPLMN2_sync(std::string)::$_0>(dispatch_group_s *,dispatch_queue_s *,BootModule::setPLMN2_sync(std::string)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(char *a1)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 2);
   if (v2)
   {
@@ -6850,7 +6323,7 @@ void dispatch::detail::group_notify<BootModule::setPLMN2_sync(std::string)::$_0>
           }
 
           *buf = 136315138;
-          v17 = v6;
+          v16 = v6;
           _os_log_impl(&dword_297476000, v12, OS_LOG_TYPE_DEFAULT, "#I PLMN2: %s", buf, 0xCu);
         }
       }
@@ -6878,15 +6351,13 @@ void dispatch::detail::group_notify<BootModule::setPLMN2_sync(std::string)::$_0>
 
     operator delete(a1);
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
-void sub_2975F4094(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2975F4094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va1);
   std::unique_ptr<BootModule::setPLMN1_sync(std::string)::$_0,std::default_delete<BootModule::setPLMN1_sync(std::string)::$_0>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -6894,7 +6365,7 @@ void sub_2975F4094(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void dispatch::detail::group_notify<BootModule::setCellId_sync(unsigned long long,BootModule::SimSlotIndex)::$_0>(dispatch_group_s *,dispatch_queue_s *,BootModule::setCellId_sync(unsigned long long,BootModule::SimSlotIndex)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(void *__p)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v2 = __p[2];
   if (v2)
   {
@@ -6911,11 +6382,11 @@ void dispatch::detail::group_notify<BootModule::setCellId_sync(unsigned long lon
         v8 = *(v3 + 104);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v11[0] = 67109376;
-          v11[1] = v7 + 1;
-          v12 = 2048;
-          v13 = v6;
-          _os_log_impl(&dword_297476000, v8, OS_LOG_TYPE_DEFAULT, "#I CellId%d: %llu", v11, 0x12u);
+          v10[0] = 67109376;
+          v10[1] = v7 + 1;
+          v11 = 2048;
+          v12 = v6;
+          _os_log_impl(&dword_297476000, v8, OS_LOG_TYPE_DEFAULT, "#I CellId%d: %llu", v10, 0x12u);
         }
       }
 
@@ -6934,12 +6405,11 @@ void dispatch::detail::group_notify<BootModule::setCellId_sync(unsigned long lon
   }
 
   operator delete(__p);
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 void dispatch::detail::group_notify<BootModule::setAreaCode_sync(unsigned long long,BootModule::SimSlotIndex)::$_0>(dispatch_group_s *,dispatch_queue_s *,BootModule::setAreaCode_sync(unsigned long long,BootModule::SimSlotIndex)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(void *__p)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v2 = __p[2];
   if (v2)
   {
@@ -6956,11 +6426,11 @@ void dispatch::detail::group_notify<BootModule::setAreaCode_sync(unsigned long l
         v8 = *(v3 + 104);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v11[0] = 67109376;
-          v11[1] = v7 + 1;
-          v12 = 2048;
-          v13 = v6;
-          _os_log_impl(&dword_297476000, v8, OS_LOG_TYPE_DEFAULT, "#I AreaCode%d: %llu", v11, 0x12u);
+          v10[0] = 67109376;
+          v10[1] = v7 + 1;
+          v11 = 2048;
+          v12 = v6;
+          _os_log_impl(&dword_297476000, v8, OS_LOG_TYPE_DEFAULT, "#I AreaCode%d: %llu", v10, 0x12u);
         }
       }
 
@@ -6979,7 +6449,6 @@ void dispatch::detail::group_notify<BootModule::setAreaCode_sync(unsigned long l
   }
 
   operator delete(__p);
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 void dispatch::async<void ctu::SharedSynchronizable<BootModule>::execute_wrapped<BootModule::bbResetFlag(BOOL)::$_0>(BootModule::bbResetFlag(BOOL)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<BootModule::bbResetFlag(BOOL)::$_0,dispatch_queue_s *::default_delete<BootModule::bbResetFlag(BOOL)::$_0>>)::{lambda(void *)#1}::__invoke(NSObject ****a1)
@@ -7360,7 +6829,7 @@ uint64_t __cxx_global_var_init_194()
   return result;
 }
 
-void StatsModule::create(uint64_t *a1@<X0>, atomic_ullong *a2@<X8>)
+void StatsModule::create(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0xAAAAAAAAAAAAAAAALL;
   a2[1] = 0xAAAAAAAAAAAAAAAALL;
@@ -7646,7 +7115,7 @@ void StatsModule::~StatsModule(StatsModule *this)
 void ___ZN11StatsModule4initEv_block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(v1 + 13);
+  v2 = *(v1 + 104);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     *v3 = 0;
@@ -7660,13 +7129,13 @@ void ___ZN11StatsModule4initEv_block_invoke(uint64_t a1)
   }
 }
 
-void StatsModule::initializeStats_sync(StatsModule *this)
+void StatsModule::initializeStats_sync(std::__shared_weak_count **this)
 {
   StatsModule::addStatsToModule_sync(this, 0);
   StatsAWD::create(&v8);
   v2 = v8;
   v8 = 0uLL;
-  v3 = *(this + 21);
+  v3 = this[21];
   *(this + 10) = v2;
   if (v3 && !atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -7684,7 +7153,7 @@ void StatsModule::initializeStats_sync(StatsModule *this)
   AnalyticsHelper::create(&v8);
   v5 = v8;
   v8 = 0uLL;
-  v6 = *(this + 23);
+  v6 = this[23];
   *(this + 11) = v5;
   if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -7705,10 +7174,10 @@ void StatsModule::initializeStats_sync(StatsModule *this)
 
 _WORD *StatsModule::getBootstrapStages@<X0>(void *a1@<X8>)
 {
-  v3 = operator new(2uLL);
-  *a1 = v3;
-  *v3 = 256;
-  result = v3 + 1;
+  v2 = operator new(2uLL);
+  *a1 = v2;
+  *v2 = 256;
+  result = v2 + 1;
   a1[1] = result;
   a1[2] = result;
   return result;
@@ -7716,10 +7185,10 @@ _WORD *StatsModule::getBootstrapStages@<X0>(void *a1@<X8>)
 
 _BYTE *StatsModule::getShutdownStages@<X0>(void *a1@<X8>)
 {
-  v3 = operator new(1uLL);
-  *a1 = v3;
-  *v3 = 3;
-  result = v3 + 1;
+  v2 = operator new(1uLL);
+  *a1 = v2;
+  *v2 = 3;
+  result = v2 + 1;
   a1[1] = result;
   a1[2] = result;
   return result;
@@ -7869,8 +7338,8 @@ void StatsModule::registerCommandHandlers_sync(StatsModule *this)
   v2 = *(this + 13);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(__dst[0]) = 0;
-    _os_log_debug_impl(&dword_297476000, v2, OS_LOG_TYPE_DEBUG, "#D Registering command handlers", __dst, 2u);
+    LOWORD(__dst) = 0;
+    _os_log_debug_impl(&dword_297476000, v2, OS_LOG_TYPE_DEBUG, "#D Registering command handlers", &__dst, 2u);
     v3 = *(this + 10);
     if (!v3)
     {
@@ -7923,22 +7392,22 @@ LABEL_23:
       v11 = (v8 | 7) + 1;
     }
 
-    v10 = operator new(v11);
-    __dst[1] = v9;
+    p_dst = operator new(v11);
+    *(&__dst + 1) = v9;
     v17 = v11 | 0x8000000000000000;
-    __dst[0] = v10;
+    *&__dst = p_dst;
     goto LABEL_14;
   }
 
   HIBYTE(v17) = v8;
-  v10 = __dst;
+  p_dst = &__dst;
   if (v8)
   {
 LABEL_14:
-    memmove(v10, v7, v9);
+    memmove(p_dst, v7, v9);
   }
 
-  *(v9 + v10) = 0;
+  *(p_dst + v9) = 0;
   v13[0] = MEMORY[0x29EDCA5F8];
   v13[1] = 1174405120;
   v13[2] = ___ZN11StatsModule28registerCommandHandlers_syncEv_block_invoke;
@@ -7949,7 +7418,7 @@ LABEL_14:
   atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   v12 = _Block_copy(v13);
   v15 = v12;
-  Service::registerCommandHandler(this, __dst, &v15);
+  Service::registerCommandHandler(this, &__dst, &v15);
   if (v12)
   {
     _Block_release(v12);
@@ -7957,7 +7426,7 @@ LABEL_14:
 
   if (SHIBYTE(v17) < 0)
   {
-    operator delete(__dst[0]);
+    operator delete(__dst);
   }
 
   if (v14)
@@ -7998,19 +7467,19 @@ LABEL_5:
 
 void ___ZN11StatsModule28registerCommandHandlers_syncEv_block_invoke(void *a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   v4 = a1[6];
   if (!v4)
   {
-    goto LABEL_20;
+    return;
   }
 
   v7 = a1[4];
   v8 = std::__shared_weak_count::lock(v4);
-  v28 = v8;
+  v27 = v8;
   if (!v8)
   {
-    goto LABEL_20;
+    return;
   }
 
   v9 = v8;
@@ -8025,9 +7494,9 @@ void ___ZN11StatsModule28registerCommandHandlers_syncEv_block_invoke(void *a1, v
     v11 = v7[13];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v27 = *MEMORY[0x29EDBEBD0];
+      v26 = *MEMORY[0x29EDBEBD0];
       *object = 136315138;
-      *&object[4] = v27;
+      *&object[4] = v26;
       _os_log_error_impl(&dword_297476000, v11, OS_LOG_TYPE_ERROR, "No input is given for %s", object, 0xCu);
       if (!*a3)
       {
@@ -8038,7 +7507,7 @@ LABEL_18:
           std::__shared_weak_count::__release_weak(v9);
         }
 
-        goto LABEL_20;
+        return;
       }
     }
 
@@ -8067,32 +7536,32 @@ LABEL_18:
     {
       goto LABEL_10;
     }
-
-LABEL_13:
-    v17 = 0;
-    v18 = v7[10];
-    if (!v18)
-    {
-      goto LABEL_23;
-    }
-
-    goto LABEL_14;
   }
 
-  v15 = xpc_null_create();
-  v16 = *a3;
-  if (!*a3)
+  else
   {
-    goto LABEL_13;
+    v15 = xpc_null_create();
+    v16 = *a3;
+    if (*a3)
+    {
+LABEL_10:
+      v17 = _Block_copy(v16);
+      v18 = v7[10];
+      if (!v18)
+      {
+LABEL_23:
+        std::__throw_bad_weak_ptr[abi:ne200100]();
+      }
+
+      goto LABEL_14;
+    }
   }
 
-LABEL_10:
-  v17 = _Block_copy(v16);
+  v17 = 0;
   v18 = v7[10];
   if (!v18)
   {
-LABEL_23:
-    std::__throw_bad_weak_ptr[abi:ne200100]();
+    goto LABEL_23;
   }
 
 LABEL_14:
@@ -8125,14 +7594,11 @@ LABEL_14:
   }
 
   xpc_release(v23);
-  v9 = v28;
-  if (v28)
+  v9 = v27;
+  if (v27)
   {
     goto LABEL_18;
   }
-
-LABEL_20:
-  v26 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2975F5E20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, xpc_object_t object)
@@ -8167,8 +7633,9 @@ void __destroy_helper_block_e8_40c36_ZTSNSt3__18weak_ptrI11StatsModuleEE(uint64_
   }
 }
 
-BOOL StatsModule::reportStats_sync(uint64_t a1, int a2, xpc_object_t *a3)
+BOOL StatsModule::reportStats_sync(uint64_t a1, uint64_t a2, xpc_object_t *a3)
 {
+  v3 = a2;
   v5 = *a3;
   v8 = v5;
   if (v5)
@@ -8182,7 +7649,7 @@ BOOL StatsModule::reportStats_sync(uint64_t a1, int a2, xpc_object_t *a3)
     v8 = v5;
   }
 
-  updated = StatsModule::updateData_sync(a1, a2, &v8);
+  updated = StatsModule::updateData_sync(a1, v3, &v8);
   xpc_release(v5);
   return updated;
 }
@@ -8578,9 +8045,9 @@ void sub_2975F6590(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2975F6670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2975F6670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -8797,14 +8264,14 @@ LABEL_5:
 
 void StatsModule::addStatsToModule_sync(uint64_t a1, int a2)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
   Stats::create(a2, __p);
   v5 = __p[0];
   v4 = __p[1];
-  v21 = __p[0];
-  v22 = __p[1];
+  v20 = __p[0];
+  v21 = __p[1];
   if (__p[0])
   {
     v6 = *(__p[0] + 12);
@@ -8896,50 +8363,51 @@ LABEL_13:
   {
     if (a2)
     {
-      v17 = __p + 7;
+      v16 = __p + 7;
       qmemcpy(__p, "UNKNOWN", 7);
-      v18 = 7;
+      v17 = 7;
     }
 
     else
     {
-      v17 = &__p[1] + 7;
+      v16 = &__p[1] + 7;
       qmemcpy(__p, "Boot Statistics", 15);
-      v18 = 15;
+      v17 = 15;
     }
 
-    *v17 = 0;
-    v20 = v18;
+    *v16 = 0;
+    v19 = v17;
     *buf = 136315138;
-    v24 = __p;
+    v23 = __p;
     _os_log_error_impl(&dword_297476000, v14, OS_LOG_TYPE_ERROR, "Failed to create stats of %s", buf, 0xCu);
-    if (v20 < 0)
+    if (v19 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
 LABEL_17:
-  v15 = v22;
-  if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v15 = v21;
+  if (v21)
   {
-    (v15->__on_zero_shared)(v15);
-    std::__shared_weak_count::__release_weak(v15);
+    if (!atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v15->__on_zero_shared)(v15);
+      std::__shared_weak_count::__release_weak(v15);
+    }
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
-void sub_2975F6CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2975F6CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2975F6D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2975F6D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8978,7 +8446,7 @@ void StatsModule::updateAnalyticsData_sync(uint64_t a1, void **a2)
 
 void StatsModule::reportAWD_sync(uint64_t a1, int a2, void **a3)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v4 = *(a1 + 160);
   if (v4)
   {
@@ -9005,12 +8473,10 @@ void StatsModule::reportAWD_sync(uint64_t a1, int a2, void **a3)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v11 = a2;
+      v10 = a2;
       _os_log_error_impl(&dword_297476000, v6, OS_LOG_TYPE_ERROR, "AWD object has not created yet. 0x%x metric ID cannot be submitted", buf, 8u);
     }
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2975F6EEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object)
@@ -9221,9 +8687,9 @@ void dispatch::async<void ctu::SharedSynchronizable<StatsModule>::execute_wrappe
 
 void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableI11StatsModuleE15execute_wrappedIZZNS3_28registerCommandHandlers_syncEvEUb_E3__2EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS7_NSC_14default_deleteIS7_EEEEENUlPvE_8__invokeESH_(uint64_t *a1)
 {
-  v40 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
   v1 = *a1;
-  v37 = v1;
+  v36 = v1;
   v2 = *v1;
   v3 = *MEMORY[0x29EDBE588];
   if (xpc_dictionary_get_value(*(v1 + 24), *MEMORY[0x29EDBE588]))
@@ -9312,10 +8778,10 @@ LABEL_41:
             *object = v26;
           }
 
-          v35 = StatsModule::reportStats_sync(v2, v25, object);
+          v34 = StatsModule::reportStats_sync(v2, v25, object);
           xpc_release(v26);
           *object = 0;
-          if (v35)
+          if (v34)
           {
             v6 = 0;
           }
@@ -9514,22 +8980,23 @@ LABEL_64:
     xpc_release(v31);
   }
 
-  _ZNSt3__110unique_ptrIZZN11StatsModule28registerCommandHandlers_syncEvEUb_E3__2NS_14default_deleteIS2_EEED1B8ne200100Ev(&v37);
+  _ZNSt3__110unique_ptrIZZN11StatsModule28registerCommandHandlers_syncEvEUb_E3__2NS_14default_deleteIS2_EEED1B8ne200100Ev(&v36);
   v32 = a1;
   if (a1)
   {
     v33 = a1[2];
-    if (v33 && !atomic_fetch_add(&v33->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v33)
     {
-      (v33->__on_zero_shared)(v33);
-      std::__shared_weak_count::__release_weak(v33);
-      v32 = a1;
+      if (!atomic_fetch_add(&v33->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v33->__on_zero_shared)(v33);
+        std::__shared_weak_count::__release_weak(v33);
+        v32 = a1;
+      }
     }
 
     operator delete(v32);
   }
-
-  v34 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2975F7990(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, xpc_object_t object)
@@ -9569,7 +9036,7 @@ uint64_t *_ZNSt3__110unique_ptrIZZN11StatsModule28registerCommandHandlers_syncEv
   return a1;
 }
 
-void CPMSModule::create(capabilities::abs *a1@<X0>, void *a2@<X8>)
+void CPMSModule::create(std::__shared_weak_count **a1@<X0>, void *a2@<X8>)
 {
   if (capabilities::abs::getCPMSVariant(a1) != 1)
   {
@@ -9610,7 +9077,7 @@ LABEL_12:
   v4 = operator new(0x180uLL);
   v5 = v4;
   v6 = *a1;
-  v7 = *(a1 + 1);
+  v7 = a1[1];
   v12[0] = v6;
   v12[1] = v7;
   if (v7)
@@ -9723,7 +9190,7 @@ uint64_t CPMSModule::CPMSModule(uint64_t a1, uint64_t *a2)
   }
 
   *a1 = &unk_2A1E4BF40;
-  ctu::OsLogContext::OsLogContext(v9, "com.apple.telephony.abm", "cpms.mod");
+  ctu::OsLogContext::OsLogContext(v8, "com.apple.telephony.abm", "cpms.mod");
   initially_inactive = dispatch_queue_attr_make_initially_inactive(0);
   v6 = dispatch_queue_create_with_target_V2("cpms.mod", initially_inactive, 0);
   dispatch_set_qos_class_floor(v6, QOS_CLASS_USER_INITIATED, 0);
@@ -9744,9 +9211,9 @@ uint64_t CPMSModule::CPMSModule(uint64_t a1, uint64_t *a2)
   }
 
   ctu::OsLogLogger::OsLogLogger();
-  MEMORY[0x29C270D50](a1 + 104, v10);
-  MEMORY[0x29C270D60](v10);
-  ctu::OsLogContext::~OsLogContext(v9);
+  MEMORY[0x29C270D50](a1 + 104, v9);
+  MEMORY[0x29C270D60](v9);
+  ctu::OsLogContext::~OsLogContext(v8);
   *(a1 + 192) = 0;
   *(a1 + 184) = a1 + 192;
   *a1 = &unk_2A1E4BF40;
@@ -9777,7 +9244,773 @@ uint64_t CPMSModule::CPMSModule(uint64_t a1, uint64_t *a2)
   *(a1 + 336) = 0;
   *(a1 + 344) = a1 + 352;
   *(a1 + 368) = 0;
-  v7 = *MEMORY[0x29EDB8ED8];
   *(a1 + 376) = TelephonyBasebandCreateController();
   return a1;
+}
+
+void sub_2975F80E4(_Unwind_Exception *a1)
+{
+  PowerBudget::~PowerBudget((v1 + 43));
+  PowerBudget::~PowerBudget((v1 + 39));
+  PowerBudget::~PowerBudget((v1 + 35));
+  PowerBudget::~PowerBudget(v4);
+  PowerBudget::~PowerBudget(v5);
+  PowerBudget::~PowerBudget(v3);
+  v7 = v1[21];
+  v1[21] = 0;
+  if (v7)
+  {
+    (*(*v7 + 8))(v7);
+  }
+
+  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100]((v1 + 19));
+  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100]((v1 + 17));
+  MEMORY[0x29C270D60](v1 + 13);
+  ctu::SharedSynchronizable<data::TransportService::State>::~SharedSynchronizable(v2);
+  Service::~Service(v1);
+  _Unwind_Resume(a1);
+}
+
+void CPMSModule::~CPMSModule(CPMSModule *this)
+{
+  *this = &unk_2A1E4BF40;
+  v2 = this + 104;
+  v3 = *(this + 13);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *v18 = 0;
+    _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#I Gone!", v18, 2u);
+  }
+
+  v4 = *(this + 47);
+  if (v4)
+  {
+    CFRelease(v4);
+  }
+
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(this + 344, *(this + 44));
+  *(this + 44) = 0;
+  *(this + 45) = 0;
+  *(this + 43) = this + 352;
+
+  *(this + 46) = 0;
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(this + 344, *(this + 44));
+  *(this + 44) = 0;
+  *(this + 45) = 0;
+  *(this + 43) = this + 352;
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(this + 312, *(this + 40));
+  *(this + 40) = 0;
+  *(this + 41) = 0;
+  *(this + 39) = this + 320;
+
+  *(this + 42) = 0;
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(this + 312, *(this + 40));
+  *(this + 40) = 0;
+  *(this + 41) = 0;
+  *(this + 39) = this + 320;
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(this + 280, *(this + 36));
+  *(this + 36) = 0;
+  *(this + 37) = 0;
+  *(this + 35) = this + 288;
+
+  *(this + 38) = 0;
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(this + 280, *(this + 36));
+  *(this + 36) = 0;
+  *(this + 37) = 0;
+  *(this + 35) = this + 288;
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(this + 248, *(this + 32));
+  *(this + 32) = 0;
+  *(this + 33) = 0;
+  *(this + 31) = this + 256;
+
+  *(this + 34) = 0;
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(this + 248, *(this + 32));
+  v5 = *(this + 28);
+  *(this + 31) = this + 256;
+  *(this + 32) = 0;
+  *(this + 33) = 0;
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(this + 216, v5);
+  *(this + 28) = 0;
+  *(this + 29) = 0;
+  *(this + 27) = this + 224;
+
+  *(this + 30) = 0;
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(this + 216, *(this + 28));
+  v6 = *(this + 24);
+  *(this + 27) = this + 224;
+  *(this + 28) = 0;
+  *(this + 29) = 0;
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(this + 184, v6);
+  *(this + 24) = 0;
+  *(this + 25) = 0;
+  *(this + 23) = this + 192;
+
+  *(this + 26) = 0;
+  std::__tree<std::__value_type<Timestamp::TimeDomain,timeval>,std::__map_value_compare<Timestamp::TimeDomain,std::__value_type<Timestamp::TimeDomain,timeval>,std::less<Timestamp::TimeDomain>,true>,std::allocator<std::__value_type<Timestamp::TimeDomain,timeval>>>::destroy(this + 184, *(this + 24));
+  *(this + 24) = 0;
+  *(this + 25) = 0;
+  *(this + 23) = this + 192;
+  v7 = *(this + 21);
+  *(this + 21) = 0;
+  if (v7)
+  {
+    (*(*v7 + 8))(v7);
+  }
+
+  v8 = *(this + 20);
+  if (v8 && !atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v8->__on_zero_shared)(v8);
+    std::__shared_weak_count::__release_weak(v8);
+  }
+
+  v9 = *(this + 18);
+  if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v9->__on_zero_shared)(v9);
+    std::__shared_weak_count::__release_weak(v9);
+  }
+
+  MEMORY[0x29C270D60](v2);
+  v10 = *(this + 12);
+  if (v10)
+  {
+    dispatch_release(v10);
+  }
+
+  v11 = *(this + 11);
+  if (v11)
+  {
+    dispatch_release(v11);
+  }
+
+  v12 = *(this + 10);
+  if (v12)
+  {
+    std::__shared_weak_count::__release_weak(v12);
+  }
+
+  *this = &unk_2A1E500C0;
+  std::__tree<std::__value_type<std::string,std::function<void ()(dispatch::group_session,xpc::dict)>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::function<void ()(dispatch::group_session,xpc::dict)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::function<void ()(dispatch::group_session,xpc::dict)>>>>::destroy(this + 48, *(this + 7));
+  v13 = *(this + 3);
+  if (v13)
+  {
+    v14 = *(this + 4);
+    v15 = *(this + 3);
+    if (v14 != v13)
+    {
+      do
+      {
+        v16 = *(v14 - 1);
+        v14 -= 3;
+        if (v16 < 0)
+        {
+          operator delete(*v14);
+        }
+      }
+
+      while (v14 != v13);
+      v15 = *(this + 3);
+    }
+
+    *(this + 4) = v13;
+    operator delete(v15);
+  }
+
+  v17 = *(this + 2);
+  if (v17)
+  {
+    std::__shared_weak_count::__release_weak(v17);
+  }
+}
+
+{
+  CPMSModule::~CPMSModule(this);
+
+  operator delete(v1);
+}
+
+_WORD *CPMSModule::getBootstrapStages@<X0>(void *a1@<X8>)
+{
+  v2 = operator new(2uLL);
+  *a1 = v2;
+  *v2 = 256;
+  result = v2 + 1;
+  a1[1] = result;
+  a1[2] = result;
+  return result;
+}
+
+void CPMSModule::shutdown(void *a1, dispatch_object_t *a2)
+{
+  v3 = *a2;
+  if (*a2)
+  {
+    dispatch_retain(*a2);
+    dispatch_group_enter(v3);
+  }
+
+  v4 = a1[10];
+  if (!v4 || (v5 = a1[9], (v6 = std::__shared_weak_count::lock(v4)) == 0))
+  {
+    std::__throw_bad_weak_ptr[abi:ne200100]();
+  }
+
+  v7 = v6;
+  v8 = operator new(0x10uLL);
+  *v8 = a1;
+  v8[1] = v3;
+  v9 = a1[11];
+  atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+  v10 = operator new(0x18uLL);
+  *v10 = v8;
+  v10[1] = v5;
+  v10[2] = v7;
+  dispatch_async_f(v9, v10, dispatch::async<void ctu::SharedSynchronizable<CPMSModule>::execute_wrapped<CPMSModule::shutdown(dispatch::group_session)::$_0>(CPMSModule::shutdown(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<CPMSModule::shutdown(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<CPMSModule::shutdown(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v7->__on_zero_shared)(v7);
+
+    std::__shared_weak_count::__release_weak(v7);
+  }
+}
+
+void CPMSModule::bootstrap(void *a1, int a2, dispatch_object_t *a3)
+{
+  if (a2 != 1)
+  {
+    if (a2)
+    {
+      return;
+    }
+
+    v4 = *a3;
+    if (*a3)
+    {
+      dispatch_retain(*a3);
+      dispatch_group_enter(v4);
+    }
+
+    v5 = a1[10];
+    if (!v5 || (v6 = a1[9], (v7 = std::__shared_weak_count::lock(v5)) == 0))
+    {
+      std::__throw_bad_weak_ptr[abi:ne200100]();
+    }
+
+    v8 = v7;
+    v9 = operator new(0x10uLL);
+    *v9 = a1;
+    v9[1] = v4;
+    v10 = a1[11];
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+    v11 = operator new(0x18uLL);
+    *v11 = v9;
+    v11[1] = v6;
+    v11[2] = v8;
+    dispatch_async_f(v10, v11, dispatch::async<void ctu::SharedSynchronizable<CPMSModule>::execute_wrapped<CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_0>(CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke);
+    if (atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      return;
+    }
+
+LABEL_18:
+    (v8->__on_zero_shared)(v8);
+
+    std::__shared_weak_count::__release_weak(v8);
+    return;
+  }
+
+  v12 = *a3;
+  if (*a3)
+  {
+    dispatch_retain(*a3);
+    dispatch_group_enter(v12);
+  }
+
+  v13 = a1[10];
+  if (!v13 || (v14 = a1[9], (v15 = std::__shared_weak_count::lock(v13)) == 0))
+  {
+    std::__throw_bad_weak_ptr[abi:ne200100]();
+  }
+
+  v16 = v15;
+  v17 = operator new(0x10uLL);
+  *v17 = a1;
+  v17[1] = v12;
+  v18 = a1[11];
+  atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+  v19 = operator new(0x18uLL);
+  *v19 = v17;
+  v19[1] = v14;
+  v19[2] = v16;
+  dispatch_async_f(v18, v19, dispatch::async<void ctu::SharedSynchronizable<CPMSModule>::execute_wrapped<CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_1>(CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_1 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_1,dispatch_queue_s *::default_delete<CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_1>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v16->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v16->__on_zero_shared)(v16);
+    std::__shared_weak_count::__release_weak(v16);
+  }
+
+  v20 = a1[10];
+  if (!v20 || (v21 = a1[9], (v22 = std::__shared_weak_count::lock(v20)) == 0))
+  {
+    std::__throw_bad_weak_ptr[abi:ne200100]();
+  }
+
+  v8 = v22;
+  v23 = operator new(8uLL);
+  *v23 = a1;
+  v24 = a1[11];
+  atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+  v25 = operator new(0x18uLL);
+  *v25 = v23;
+  v25[1] = v21;
+  v25[2] = v8;
+  dispatch_async_f(v24, v25, dispatch::async<void ctu::SharedSynchronizable<CPMSModule>::execute_wrapped<CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_2>(CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_2 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_2,dispatch_queue_s *::default_delete<CPMSModule::bootstrap(BootstrapStage,dispatch::group_session)::$_2>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    goto LABEL_18;
+  }
+}
+
+void CPMSModule::registerCommandHandlers_sync(CPMSModule *this)
+{
+  v2 = *(this + 13);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  {
+    LOWORD(__dst) = 0;
+    _os_log_debug_impl(&dword_297476000, v2, OS_LOG_TYPE_DEBUG, "#D Registering command handlers", &__dst, 2u);
+    v3 = *(this + 10);
+    if (!v3)
+    {
+LABEL_105:
+      std::__throw_bad_weak_ptr[abi:ne200100]();
+    }
+  }
+
+  else
+  {
+    v3 = *(this + 10);
+    if (!v3)
+    {
+      goto LABEL_105;
+    }
+  }
+
+  v4 = *(this + 9);
+  v5 = std::__shared_weak_count::lock(v3);
+  if (!v5)
+  {
+    goto LABEL_105;
+  }
+
+  v6 = v5;
+  atomic_fetch_add_explicit(&v5->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v5->__on_zero_shared)(v5);
+    std::__shared_weak_count::__release_weak(v6);
+  }
+
+  v7 = pthread_mutex_lock(&ctu::Singleton<CommandDriverFactory,CommandDriverFactory,ctu::PthreadMutexGuardPolicy<CommandDriverFactory>>::sInstance);
+  v8 = off_2A18CADD8;
+  if (!off_2A18CADD8)
+  {
+    CommandDriverFactory::create_default_global(&__dst, v7);
+    v9 = __dst;
+    __dst = 0uLL;
+    v10 = *(&off_2A18CADD8 + 1);
+    off_2A18CADD8 = v9;
+    if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v10->__on_zero_shared)(v10);
+      std::__shared_weak_count::__release_weak(v10);
+    }
+
+    v11 = *(&__dst + 1);
+    if (*(&__dst + 1) && !atomic_fetch_add((*(&__dst + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v11->__on_zero_shared)(v11);
+      std::__shared_weak_count::__release_weak(v11);
+    }
+
+    v8 = off_2A18CADD8;
+  }
+
+  v64 = v8;
+  v65 = *(&off_2A18CADD8 + 1);
+  if (*(&off_2A18CADD8 + 1))
+  {
+    atomic_fetch_add_explicit((*(&off_2A18CADD8 + 1) + 8), 1uLL, memory_order_relaxed);
+  }
+
+  pthread_mutex_unlock(&ctu::Singleton<CommandDriverFactory,CommandDriverFactory,ctu::PthreadMutexGuardPolicy<CommandDriverFactory>>::sInstance);
+  (*(*v8 + 96))(&v66, v8);
+  v12 = v66;
+  v66 = 0uLL;
+  v13 = *(this + 18);
+  *(this + 136) = v12;
+  if (v13 && !atomic_fetch_add(&v13->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v13->__on_zero_shared)(v13);
+    std::__shared_weak_count::__release_weak(v13);
+  }
+
+  v14 = *(&v66 + 1);
+  if (*(&v66 + 1) && !atomic_fetch_add((*(&v66 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v14->__on_zero_shared)(v14);
+    std::__shared_weak_count::__release_weak(v14);
+  }
+
+  v15 = v65;
+  if (v65 && !atomic_fetch_add(&v65->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v15->__on_zero_shared)(v15);
+    std::__shared_weak_count::__release_weak(v15);
+    if (*(this + 17))
+    {
+LABEL_25:
+      v16 = *MEMORY[0x29EDBE708];
+      v17 = strlen(*MEMORY[0x29EDBE708]);
+      if (v17 > 0x7FFFFFFFFFFFFFF7)
+      {
+        std::string::__throw_length_error[abi:ne200100]();
+      }
+
+      v18 = v17;
+      if (v17 >= 0x17)
+      {
+        if ((v17 | 7) == 0x17)
+        {
+          v20 = 25;
+        }
+
+        else
+        {
+          v20 = (v17 | 7) + 1;
+        }
+
+        p_dst = operator new(v20);
+        *(&__dst + 1) = v18;
+        v63 = v20 | 0x8000000000000000;
+        *&__dst = p_dst;
+      }
+
+      else
+      {
+        HIBYTE(v63) = v17;
+        p_dst = &__dst;
+        if (!v17)
+        {
+LABEL_34:
+          *(p_dst + v18) = 0;
+          aBlock[0] = MEMORY[0x29EDCA5F8];
+          aBlock[1] = 3321888768;
+          aBlock[2] = ___ZN10CPMSModule28registerCommandHandlers_syncEv_block_invoke;
+          aBlock[3] = &__block_descriptor_56_e8_40c35_ZTSNSt3__18weak_ptrI10CPMSModuleEE_e63_v24__0_dict__object__v__8_block_void_____int__xpc::dict______16l;
+          aBlock[4] = this;
+          aBlock[5] = v4;
+          v60 = v6;
+          atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+          v21 = _Block_copy(aBlock);
+          v61 = v21;
+          Service::registerCommandHandler(this, &__dst, &v61);
+          if (v21)
+          {
+            _Block_release(v21);
+          }
+
+          if (SHIBYTE(v63) < 0)
+          {
+            operator delete(__dst);
+          }
+
+          v22 = *MEMORY[0x29EDBF458];
+          v23 = strlen(*MEMORY[0x29EDBF458]);
+          if (v23 > 0x7FFFFFFFFFFFFFF7)
+          {
+            std::string::__throw_length_error[abi:ne200100]();
+          }
+
+          v24 = v23;
+          if (v23 >= 0x17)
+          {
+            if ((v23 | 7) == 0x17)
+            {
+              v26 = 25;
+            }
+
+            else
+            {
+              v26 = (v23 | 7) + 1;
+            }
+
+            v25 = operator new(v26);
+            *(&__dst + 1) = v24;
+            v63 = v26 | 0x8000000000000000;
+            *&__dst = v25;
+          }
+
+          else
+          {
+            HIBYTE(v63) = v23;
+            v25 = &__dst;
+            if (!v23)
+            {
+LABEL_47:
+              *(v25 + v24) = 0;
+              v56[0] = MEMORY[0x29EDCA5F8];
+              v56[1] = 3321888768;
+              v56[2] = ___ZN10CPMSModule28registerCommandHandlers_syncEv_block_invoke_4;
+              v56[3] = &__block_descriptor_56_e8_40c35_ZTSNSt3__18weak_ptrI10CPMSModuleEE_e63_v24__0_dict__object__v__8_block_void_____int__xpc::dict______16l;
+              v56[4] = this;
+              v56[5] = v4;
+              v57 = v6;
+              atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+              v27 = _Block_copy(v56);
+              v58 = v27;
+              Service::registerCommandHandler(this, &__dst, &v58);
+              if (v27)
+              {
+                _Block_release(v27);
+              }
+
+              if (SHIBYTE(v63) < 0)
+              {
+                operator delete(__dst);
+              }
+
+              v28 = *MEMORY[0x29EDBEB38];
+              v29 = strlen(*MEMORY[0x29EDBEB38]);
+              if (v29 > 0x7FFFFFFFFFFFFFF7)
+              {
+                std::string::__throw_length_error[abi:ne200100]();
+              }
+
+              v30 = v29;
+              if (v29 >= 0x17)
+              {
+                if ((v29 | 7) == 0x17)
+                {
+                  v32 = 25;
+                }
+
+                else
+                {
+                  v32 = (v29 | 7) + 1;
+                }
+
+                v31 = operator new(v32);
+                *(&__dst + 1) = v30;
+                v63 = v32 | 0x8000000000000000;
+                *&__dst = v31;
+              }
+
+              else
+              {
+                HIBYTE(v63) = v29;
+                v31 = &__dst;
+                if (!v29)
+                {
+LABEL_60:
+                  *(v31 + v30) = 0;
+                  v53[0] = MEMORY[0x29EDCA5F8];
+                  v53[1] = 3321888768;
+                  v53[2] = ___ZN10CPMSModule28registerCommandHandlers_syncEv_block_invoke_2;
+                  v53[3] = &__block_descriptor_56_e8_40c35_ZTSNSt3__18weak_ptrI10CPMSModuleEE_e63_v24__0_dict__object__v__8_block_void_____int__xpc::dict______16l;
+                  v53[4] = this;
+                  v53[5] = v4;
+                  v54 = v6;
+                  atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+                  v33 = _Block_copy(v53);
+                  v55 = v33;
+                  Service::registerCommandHandler(this, &__dst, &v55);
+                  if (v33)
+                  {
+                    _Block_release(v33);
+                  }
+
+                  if (SHIBYTE(v63) < 0)
+                  {
+                    operator delete(__dst);
+                  }
+
+                  v34 = *MEMORY[0x29EDBE688];
+                  v35 = strlen(*MEMORY[0x29EDBE688]);
+                  if (v35 > 0x7FFFFFFFFFFFFFF7)
+                  {
+                    std::string::__throw_length_error[abi:ne200100]();
+                  }
+
+                  v36 = v35;
+                  if (v35 >= 0x17)
+                  {
+                    if ((v35 | 7) == 0x17)
+                    {
+                      v38 = 25;
+                    }
+
+                    else
+                    {
+                      v38 = (v35 | 7) + 1;
+                    }
+
+                    v37 = operator new(v38);
+                    *(&__dst + 1) = v36;
+                    v63 = v38 | 0x8000000000000000;
+                    *&__dst = v37;
+                  }
+
+                  else
+                  {
+                    HIBYTE(v63) = v35;
+                    v37 = &__dst;
+                    if (!v35)
+                    {
+LABEL_73:
+                      *(v37 + v36) = 0;
+                      v50[0] = MEMORY[0x29EDCA5F8];
+                      v50[1] = 3321888768;
+                      v50[2] = ___ZN10CPMSModule28registerCommandHandlers_syncEv_block_invoke_3;
+                      v50[3] = &__block_descriptor_56_e8_40c35_ZTSNSt3__18weak_ptrI10CPMSModuleEE_e63_v24__0_dict__object__v__8_block_void_____int__xpc::dict______16l;
+                      v50[4] = this;
+                      v50[5] = v4;
+                      v51 = v6;
+                      atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+                      v39 = _Block_copy(v50);
+                      v52 = v39;
+                      Service::registerCommandHandler(this, &__dst, &v52);
+                      if (v39)
+                      {
+                        _Block_release(v39);
+                      }
+
+                      if (SHIBYTE(v63) < 0)
+                      {
+                        operator delete(__dst);
+                      }
+
+                      v40 = *MEMORY[0x29EDBE620];
+                      v41 = strlen(*MEMORY[0x29EDBE620]);
+                      if (v41 > 0x7FFFFFFFFFFFFFF7)
+                      {
+                        std::string::__throw_length_error[abi:ne200100]();
+                      }
+
+                      v42 = v41;
+                      if (v41 >= 0x17)
+                      {
+                        if ((v41 | 7) == 0x17)
+                        {
+                          v44 = 25;
+                        }
+
+                        else
+                        {
+                          v44 = (v41 | 7) + 1;
+                        }
+
+                        v43 = operator new(v44);
+                        *(&__dst + 1) = v42;
+                        v63 = v44 | 0x8000000000000000;
+                        *&__dst = v43;
+                      }
+
+                      else
+                      {
+                        HIBYTE(v63) = v41;
+                        v43 = &__dst;
+                        if (!v41)
+                        {
+                          goto LABEL_86;
+                        }
+                      }
+
+                      memmove(v43, v40, v42);
+LABEL_86:
+                      *(v43 + v42) = 0;
+                      v47[0] = MEMORY[0x29EDCA5F8];
+                      v47[1] = 3321888768;
+                      v47[2] = ___ZN10CPMSModule28registerCommandHandlers_syncEv_block_invoke_4;
+                      v47[3] = &__block_descriptor_56_e8_40c35_ZTSNSt3__18weak_ptrI10CPMSModuleEE_e63_v24__0_dict__object__v__8_block_void_____int__xpc::dict______16l;
+                      v47[4] = this;
+                      v47[5] = v4;
+                      v48 = v6;
+                      atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+                      v45 = _Block_copy(v47);
+                      v49 = v45;
+                      Service::registerCommandHandler(this, &__dst, &v49);
+                      if (v45)
+                      {
+                        _Block_release(v45);
+                      }
+
+                      if (SHIBYTE(v63) < 0)
+                      {
+                        operator delete(__dst);
+                      }
+
+                      if (v48)
+                      {
+                        std::__shared_weak_count::__release_weak(v48);
+                      }
+
+                      if (v51)
+                      {
+                        std::__shared_weak_count::__release_weak(v51);
+                      }
+
+                      if (v54)
+                      {
+                        std::__shared_weak_count::__release_weak(v54);
+                      }
+
+                      if (v57)
+                      {
+                        std::__shared_weak_count::__release_weak(v57);
+                      }
+
+                      if (v60)
+                      {
+                        std::__shared_weak_count::__release_weak(v60);
+                      }
+
+                      goto LABEL_103;
+                    }
+                  }
+
+                  memmove(v37, v34, v36);
+                  goto LABEL_73;
+                }
+              }
+
+              memmove(v31, v28, v30);
+              goto LABEL_60;
+            }
+          }
+
+          memmove(v25, v22, v24);
+          goto LABEL_47;
+        }
+      }
+
+      memmove(p_dst, v16, v18);
+      goto LABEL_34;
+    }
+  }
+
+  else if (*(this + 17))
+  {
+    goto LABEL_25;
+  }
+
+  v46 = *(this + 13);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+  {
+    LOWORD(__dst) = 0;
+    _os_log_error_impl(&dword_297476000, v46, OS_LOG_TYPE_ERROR, "Failed to create CPMS Command Driver", &__dst, 2u);
+  }
+
+LABEL_103:
+  std::__shared_weak_count::__release_weak(v6);
 }

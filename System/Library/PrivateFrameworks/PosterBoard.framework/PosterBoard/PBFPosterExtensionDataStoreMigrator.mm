@@ -146,7 +146,7 @@ LABEL_5:
 
     if (v18)
     {
-      v24 = PBFLogMigration();
+      v24 = PBFLogMigration(v18);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [PBFPosterExtensionDataStoreMigrator migrateDataStoreToCurrentVersion:];
@@ -158,7 +158,7 @@ LABEL_5:
       v32 = 0;
       v26 = [baseURL pbf_recursivelyUpdateResourceValues:v15 error:&v32];
       v19 = v32;
-      v27 = PBFLogMigration();
+      v27 = PBFLogMigration(v19);
       v24 = v27;
       if (v26)
       {
@@ -247,157 +247,160 @@ LABEL_5:
 
 - (void)removeDataStoresBeforeCurrentDataStoreVersion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   baseURL = [(PBFPosterExtensionDataStoreMigrator *)self baseURL];
-  if ([MEMORY[0x277CBEBD0] pbf_keynoteModeEnabled])
+  pbf_keynoteModeEnabled = [MEMORY[0x277CBEBD0] pbf_keynoteModeEnabled];
+  if (pbf_keynoteModeEnabled)
   {
-    v5 = PBFLogMigration();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PBFLogMigration(pbf_keynoteModeEnabled);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21B526000, v5, OS_LOG_TYPE_DEFAULT, "Keynote mode; not cleaning up old data stores.", buf, 2u);
+      _os_log_impl(&dword_21B526000, v6, OS_LOG_TYPE_DEFAULT, "Keynote mode; not cleaning up old data stores.", buf, 2u);
     }
   }
 
   else
   {
-    v6 = +[PBFPosterExtensionDataStore minimumDataStoreVersion];
-    v7 = +[PBFPosterExtensionDataStore dataStoreVersion]- 1;
-    if (v7 >= v6)
+    v7 = +[PBFPosterExtensionDataStore minimumDataStoreVersion];
+    v8 = +[PBFPosterExtensionDataStore dataStoreVersion]- 1;
+    if (v8 >= v7)
     {
-      *&v8 = 138543618;
-      v14 = v8;
+      *&v9 = 138543618;
+      v16 = v9;
       do
       {
-        v9 = [MEMORY[0x277CBEBC0] pbf_dataStoreURLForBaseURL:baseURL version:{v7, v14}];
-        if ([v9 checkResourceIsReachableAndReturnError:0])
+        v10 = [MEMORY[0x277CBEBC0] pbf_dataStoreURLForBaseURL:baseURL version:{v8, v16}];
+        v11 = [v10 checkResourceIsReachableAndReturnError:0];
+        if (v11)
         {
-          v15 = 0;
-          v10 = [defaultManager removeItemAtURL:v9 error:&v15];
-          v11 = v15;
-          v12 = PBFLogMigration();
-          v13 = v12;
-          if (v10)
+          v17 = 0;
+          v12 = [defaultManager removeItemAtURL:v10 error:&v17];
+          v13 = v17;
+          v14 = PBFLogMigration(v13);
+          v15 = v14;
+          if (v12)
           {
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v17 = v9;
-              _os_log_impl(&dword_21B526000, v13, OS_LOG_TYPE_DEFAULT, "Cleaned up abandoned data store url '%{public}@'", buf, 0xCu);
+              v19 = v10;
+              _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_DEFAULT, "Cleaned up abandoned data store url '%{public}@'", buf, 0xCu);
             }
           }
 
-          else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            *buf = v14;
-            v17 = v9;
-            v18 = 2114;
-            v19 = v11;
-            _os_log_error_impl(&dword_21B526000, v13, OS_LOG_TYPE_ERROR, "Error cleaning up abandoned data store url %{public}@, error:%{public}@", buf, 0x16u);
+            *buf = v16;
+            v19 = v10;
+            v20 = 2114;
+            v21 = v13;
+            _os_log_error_impl(&dword_21B526000, v15, OS_LOG_TYPE_ERROR, "Error cleaning up abandoned data store url %{public}@, error:%{public}@", buf, 0x16u);
           }
         }
 
         else
         {
-          v13 = PBFLogMigration();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v15 = PBFLogMigration(v11);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v17 = v9;
-            _os_log_impl(&dword_21B526000, v13, OS_LOG_TYPE_DEFAULT, "No data store @ '%{public}@'", buf, 0xCu);
+            v19 = v10;
+            _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_DEFAULT, "No data store @ '%{public}@'", buf, 0xCu);
           }
 
-          v11 = 0;
+          v13 = 0;
         }
 
-        --v7;
+        --v8;
       }
 
-      while (v7 >= v6);
+      while (v8 >= v7);
     }
   }
 }
 
 - (void)archiveDataStoresBeforeCurrentDataStoreVersion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   baseURL = [(PBFPosterExtensionDataStoreMigrator *)self baseURL];
   pbf_keynoteModeEnabled = [MEMORY[0x277CBEBD0] pbf_keynoteModeEnabled];
-  v4 = PBFLogMigration();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (pbf_keynoteModeEnabled)
+  v4 = pbf_keynoteModeEnabled;
+  v5 = PBFLogMigration(pbf_keynoteModeEnabled);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
-    if (v5)
+    if (v6)
     {
       *buf = 0;
-      _os_log_impl(&dword_21B526000, v4, OS_LOG_TYPE_DEFAULT, "Keynote mode; not archiving old data stores.", buf, 2u);
+      _os_log_impl(&dword_21B526000, v5, OS_LOG_TYPE_DEFAULT, "Keynote mode; not archiving old data stores.", buf, 2u);
     }
 
     goto LABEL_17;
   }
 
-  if (v5)
+  if (v6)
   {
     *buf = 0;
-    _os_log_impl(&dword_21B526000, v4, OS_LOG_TYPE_DEFAULT, "Archived data store directory is ready...", buf, 2u);
+    _os_log_impl(&dword_21B526000, v5, OS_LOG_TYPE_DEFAULT, "Archived data store directory is ready...", buf, 2u);
   }
 
-  v6 = [PBFDataStoreArchiveAdjudicator alloc];
+  v7 = [PBFDataStoreArchiveAdjudicator alloc];
   pbf_archivedDataStoreBaseURL = [MEMORY[0x277CBEBC0] pbf_archivedDataStoreBaseURL];
-  v4 = [(PBFDataStoreArchiveAdjudicator *)v6 initWithDataStoreBaseURL:baseURL archiveBaseURL:pbf_archivedDataStoreBaseURL];
+  v5 = [(PBFDataStoreArchiveAdjudicator *)v7 initWithDataStoreBaseURL:baseURL archiveBaseURL:pbf_archivedDataStoreBaseURL];
 
-  v8 = +[PBFPosterExtensionDataStore minimumDataStoreVersion];
-  v9 = +[PBFPosterExtensionDataStore dataStoreVersion]- 1;
-  if (v9 >= v8)
+  v9 = +[PBFPosterExtensionDataStore minimumDataStoreVersion];
+  v10 = +[PBFPosterExtensionDataStore dataStoreVersion]- 1;
+  if (v10 >= v9)
   {
-    *&v10 = 134218242;
-    v19 = v10;
+    *&v11 = 134218242;
+    v21 = v11;
     while (1)
     {
-      v11 = [MEMORY[0x277CBEBC0] pbf_dataStoreURLForBaseURL:baseURL version:{v9, v19}];
-      if ([v11 checkResourceIsReachableAndReturnError:0])
+      v12 = [MEMORY[0x277CBEBC0] pbf_dataStoreURLForBaseURL:baseURL version:{v10, v21}];
+      if ([v12 checkResourceIsReachableAndReturnError:0])
       {
         break;
       }
 
 LABEL_16:
 
-      if (--v9 < v8)
+      if (--v10 < v9)
       {
         goto LABEL_17;
       }
     }
 
-    v20 = 0;
-    v12 = [v4 archiveDataStoreVersion:v9 name:@"ArchiveDataStoresBeforeCurrentDataStoreVersion" options:0 removeAfterSuccess:1 error:&v20];
-    v13 = v20;
+    v22 = 0;
+    v13 = [v5 archiveDataStoreVersion:v10 name:@"ArchiveDataStoresBeforeCurrentDataStoreVersion" options:0 removeAfterSuccess:1 error:&v22];
+    v14 = v22;
 
-    v14 = PBFLogMigration();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-    if (v12)
+    v16 = PBFLogMigration(v15);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+    if (v13)
     {
-      if (v15)
+      if (v17)
       {
         *buf = 134217984;
-        v22 = v9;
-        v16 = v14;
-        v17 = "Successfully archived data store %lu";
-        v18 = 12;
+        v24 = v10;
+        v18 = v16;
+        v19 = "Successfully archived data store %lu";
+        v20 = 12;
 LABEL_14:
-        _os_log_impl(&dword_21B526000, v16, OS_LOG_TYPE_DEFAULT, v17, buf, v18);
+        _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_DEFAULT, v19, buf, v20);
       }
     }
 
-    else if (v15)
+    else if (v17)
     {
-      *buf = v19;
-      v22 = v9;
-      v23 = 2114;
-      v24 = v13;
-      v16 = v14;
-      v17 = "Failed to archive data store %lu: %{public}@";
-      v18 = 22;
+      *buf = v21;
+      v24 = v10;
+      v25 = 2114;
+      v26 = v14;
+      v18 = v16;
+      v19 = "Failed to archive data store %lu: %{public}@";
+      v20 = 22;
       goto LABEL_14;
     }
 
@@ -409,7 +412,7 @@ LABEL_17:
 
 - (void)markDataStoreArchivesAsPurgable
 {
-  v3 = PBFLogMigration();
+  v3 = PBFLogMigration(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -426,7 +429,7 @@ LABEL_17:
 
 - (void)removeArchivedDataStores
 {
-  v3 = PBFLogMigration();
+  v3 = PBFLogMigration(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -444,11 +447,11 @@ LABEL_17:
 + (BOOL)migrateDataStoreAtBaseURL:(id)l fromVersion:(unint64_t)version toVersion:(unint64_t)toVersion cleanupAfterMigrationSucceeds:(BOOL)succeeds error:(id *)error
 {
   succeedsCopy = succeeds;
-  v250[3] = *MEMORY[0x277D85DE8];
+  v266[3] = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v156 = +[PBFPosterExtensionDataStore minimumDataStoreVersion];
-  v158 = +[PBFPosterExtensionDataStore dataStoreVersion];
-  v169 = lCopy;
+  v172 = +[PBFPosterExtensionDataStore minimumDataStoreVersion];
+  v174 = +[PBFPosterExtensionDataStore dataStoreVersion];
+  v185 = lCopy;
   if (version == toVersion && toVersion >= 0x3D)
   {
     v10 = [MEMORY[0x277CBEBC0] pbf_dataStoreSQLiteDatabaseURLForBaseURL:lCopy version:version];
@@ -459,68 +462,70 @@ LABEL_17:
     goto LABEL_209;
   }
 
-  if (v156 <= version && v158 >= toVersion)
+  if (v172 <= version && v174 >= toVersion)
   {
-    v231 = 0;
-    v232 = &v231;
-    v233 = 0x3032000000;
-    v234 = __Block_byref_object_copy__4;
-    v235 = __Block_byref_object_dispose__4;
-    v236 = 0;
-    v227 = 0;
-    v228 = &v227;
-    v229 = 0x2020000000;
-    v230 = 0;
+    v247 = 0;
+    v248 = &v247;
+    v249 = 0x3032000000;
+    v250 = __Block_byref_object_copy__4;
+    v251 = __Block_byref_object_dispose__4;
+    v252 = 0;
+    v243 = 0;
+    v244 = &v243;
+    v245 = 0x2020000000;
+    v246 = 0;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v152 = objc_opt_new();
-    v153 = objc_opt_new();
+    v168 = objc_opt_new();
+    v19 = objc_opt_new();
+    v169 = v19;
     if (version > toVersion)
     {
       goto LABEL_168;
     }
 
-    *&v19 = 134217984;
-    v147 = v19;
+    *&v20 = 134217984;
+    v163 = v20;
     versionCopy = version;
     toVersionCopy = toVersion;
     while (1)
     {
-      v21 = PBFLogMigration();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = PBFLogMigration(v19);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218242;
         *&buf[4] = versionCopy;
         *&buf[12] = 2112;
         *&buf[14] = lCopy;
-        _os_log_impl(&dword_21B526000, v21, OS_LOG_TYPE_DEFAULT, "Beginning migration to Version %lu (%@)", buf, 0x16u);
+        _os_log_impl(&dword_21B526000, v22, OS_LOG_TYPE_DEFAULT, "Beginning migration to Version %lu (%@)", buf, 0x16u);
       }
 
-      v164 = versionCopy;
+      v180 = versionCopy;
 
-      v22 = versionCopy - 1;
-      v23 = v169;
-      v161 = [MEMORY[0x277CBEBC0] pbf_dataStoreURLForBaseURL:v169 version:versionCopy - 1];
-      v163 = [MEMORY[0x277CBEBC0] pbf_dataStoreURLForBaseURL:v169 version:versionCopy];
-      if (versionCopy != v158)
+      v23 = versionCopy - 1;
+      v24 = v185;
+      v177 = [MEMORY[0x277CBEBC0] pbf_dataStoreURLForBaseURL:v185 version:versionCopy - 1];
+      v179 = [MEMORY[0x277CBEBC0] pbf_dataStoreURLForBaseURL:v185 version:versionCopy];
+      if (versionCopy != v174)
       {
-        [v152 addObject:v163];
+        [v168 addObject:v179];
       }
 
       if (versionCopy != version)
       {
-        [v153 addObject:v163];
+        [v169 addObject:v179];
       }
 
-      if (_PBFDetermineDataStoreViabilityForVersionWithinBaseURL(v169, versionCopy, 0))
+      if (_PBFDetermineDataStoreViabilityForVersionWithinBaseURL(v185, versionCopy, 0))
       {
-        v24 = v228 + 3;
+        v25 = v244 + 3;
         goto LABEL_65;
       }
 
-      if ([v161 checkResourceIsReachableAndReturnError:0])
+      if ([v177 checkResourceIsReachableAndReturnError:0])
       {
-        [defaultManager removeItemAtURL:v163 error:0];
-        if (([defaultManager copyItemAtURL:v161 toURL:v163 error:error] & 1) == 0)
+        [defaultManager removeItemAtURL:v179 error:0];
+        v26 = [defaultManager copyItemAtURL:v177 toURL:v179 error:error];
+        if ((v26 & 1) == 0)
         {
           goto LABEL_167;
         }
@@ -528,54 +533,54 @@ LABEL_17:
 
       else
       {
-        v25 = [MEMORY[0x277CBEBC0] pbf_dataStoreExtensionContainerURLForBaseURL:v169 version:versionCopy];
-        v26 = [MEMORY[0x277CBEBC0] pbf_galleryCacheURLForBaseURL:v169 version:versionCopy];
-        v248[0] = v163;
-        v248[1] = v25;
-        v167 = v25;
-        v171 = v26;
-        v248[2] = v26;
-        v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v248 count:3];
-        v225 = 0u;
-        v226 = 0u;
-        v223 = 0u;
-        v224 = 0u;
-        v28 = v27;
-        v29 = [v28 countByEnumeratingWithState:&v223 objects:v247 count:16];
-        if (v29)
+        v27 = [MEMORY[0x277CBEBC0] pbf_dataStoreExtensionContainerURLForBaseURL:v185 version:versionCopy];
+        v28 = [MEMORY[0x277CBEBC0] pbf_galleryCacheURLForBaseURL:v185 version:versionCopy];
+        v264[0] = v179;
+        v264[1] = v27;
+        v183 = v27;
+        v187 = v28;
+        v264[2] = v28;
+        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v264 count:3];
+        v241 = 0u;
+        v242 = 0u;
+        v239 = 0u;
+        v240 = 0u;
+        v30 = v29;
+        v31 = [v30 countByEnumeratingWithState:&v239 objects:v263 count:16];
+        if (v31)
         {
-          v30 = *v224;
+          v32 = *v240;
 LABEL_25:
-          v31 = 0;
+          v33 = 0;
           while (1)
           {
-            if (*v224 != v30)
+            if (*v240 != v32)
             {
-              objc_enumerationMutation(v28);
+              objc_enumerationMutation(v30);
             }
 
-            v32 = *(*(&v223 + 1) + 8 * v31);
-            if (([v32 checkResourceIsReachableAndReturnError:{0, v147}] & 1) == 0)
+            v34 = *(*(&v239 + 1) + 8 * v33);
+            if (([v34 checkResourceIsReachableAndReturnError:{0, v163}] & 1) == 0)
             {
-              v33 = PFFileProtectionNoneAttributes();
-              v34 = v232 + 5;
-              obj = v232[5];
-              v35 = [defaultManager createDirectoryAtURL:v32 withIntermediateDirectories:1 attributes:v33 error:&obj];
-              objc_storeStrong(v34, obj);
+              v35 = PFFileProtectionNoneAttributes();
+              v36 = v248 + 5;
+              obj = v248[5];
+              v37 = [defaultManager createDirectoryAtURL:v34 withIntermediateDirectories:1 attributes:v35 error:&obj];
+              objc_storeStrong(v36, obj);
 
-              if ((v35 & 1) == 0)
+              if ((v37 & 1) == 0)
               {
                 break;
               }
             }
 
-            v36 = PFPosterPathURLResourceValues();
-            [v32 pbf_recursivelyUpdateResourceValues:v36 error:0];
+            v38 = PFPosterPathURLResourceValues();
+            [v34 pbf_recursivelyUpdateResourceValues:v38 error:0];
 
-            if (v29 == ++v31)
+            if (v31 == ++v33)
             {
-              v29 = [v28 countByEnumeratingWithState:&v223 objects:v247 count:16];
-              if (v29)
+              v31 = [v30 countByEnumeratingWithState:&v239 objects:v263 count:16];
+              if (v31)
               {
                 goto LABEL_25;
               }
@@ -585,11 +590,11 @@ LABEL_25:
           }
         }
 
-        v37 = _PBFDetermineDataStoreViabilityForVersionWithinBaseURL(v169, v164, 0);
-        *(v228 + 24) = v37;
+        v39 = _PBFDetermineDataStoreViabilityForVersionWithinBaseURL(v185, v180, 0);
+        *(v244 + 24) = v39;
 
-        v23 = v169;
-        versionCopy = v164;
+        v24 = v185;
+        versionCopy = v180;
       }
 
       if (versionCopy == 60)
@@ -599,86 +604,85 @@ LABEL_25:
 
       if (versionCopy == 61)
       {
-        v38 = PBFLogMigration();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v40 = PBFLogMigration(v26);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21B526000, v38, OS_LOG_TYPE_DEFAULT, "Kicking off 61 migration", buf, 2u);
+          _os_log_impl(&dword_21B526000, v40, OS_LOG_TYPE_DEFAULT, "Kicking off 61 migration", buf, 2u);
         }
 
-        v154 = [MEMORY[0x277CBEBC0] pbf_dataStoreSQLiteDatabaseURLForBaseURL:v169 version:61];
-        v39 = [PBFPosterExtensionDataStoreSQLiteDatabase alloc];
-        v40 = v232;
-        v221 = 0;
-        v168 = [(PBFPosterExtensionDataStoreSQLiteDatabase *)v39 initWithURL:v154 options:9 error:&v221];
-        objc_storeStrong(v40 + 5, v221);
-        if (v168 && !v232[5])
+        v170 = [MEMORY[0x277CBEBC0] pbf_dataStoreSQLiteDatabaseURLForBaseURL:v185 version:61];
+        v41 = [PBFPosterExtensionDataStoreSQLiteDatabase alloc];
+        v42 = v248;
+        v237 = 0;
+        v184 = [(PBFPosterExtensionDataStoreSQLiteDatabase *)v41 initWithURL:v170 options:9 error:&v237];
+        objc_storeStrong(v42 + 5, v237);
+        if (v184 && !v248[5])
         {
-          v41 = objc_opt_new();
-          v42 = [MEMORY[0x277CBEBC0] pbf_dataStoreExtensionContainerURLForBaseURL:v169 version:61];
-          v43 = _PBFExtensionStoreCoordinatorsForDataStoreExtensionContainerURL(v42, 0);
+          v43 = objc_opt_new();
+          v44 = [MEMORY[0x277CBEBC0] pbf_dataStoreExtensionContainerURLForBaseURL:v185 version:61];
+          v45 = _PBFExtensionStoreCoordinatorsForDataStoreExtensionContainerURL(v44, 0);
 
           strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
-          v219[0] = MEMORY[0x277D85DD0];
-          v219[1] = 3221225472;
-          v219[2] = __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke;
-          v219[3] = &unk_2782C7E28;
-          v45 = strongToStrongObjectsMapTable;
-          v220 = v45;
-          [v43 enumerateObjectsUsingBlock:v219];
-          v217 = 0u;
-          v218 = 0u;
-          v215 = 0u;
-          v216 = 0u;
-          v46 = v43;
-          v47 = [v46 countByEnumeratingWithState:&v215 objects:v246 count:16];
-          if (v47)
+          v235[0] = MEMORY[0x277D85DD0];
+          v235[1] = 3221225472;
+          v235[2] = __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke;
+          v235[3] = &unk_2782C7E28;
+          v47 = strongToStrongObjectsMapTable;
+          v236 = v47;
+          [v45 enumerateObjectsUsingBlock:v235];
+          v233 = 0u;
+          v234 = 0u;
+          v231 = 0u;
+          v232 = 0u;
+          v48 = v45;
+          v49 = [v48 countByEnumeratingWithState:&v231 objects:v262 count:16];
+          if (v49)
           {
-            v48 = *v216;
+            v50 = *v232;
             do
             {
-              for (i = 0; i != v47; ++i)
+              for (i = 0; i != v49; ++i)
               {
-                if (*v216 != v48)
+                if (*v232 != v50)
                 {
-                  objc_enumerationMutation(v46);
+                  objc_enumerationMutation(v48);
                 }
 
-                v50 = *(*(&v215 + 1) + 8 * i);
-                [v50 enumerateDescriptorStoreCoordinators:{&__block_literal_global_41, v147}];
-                [v50 enumerateConfigurationStoreCoordinators:&__block_literal_global_43];
-                v51 = PBFLogMigration();
-                if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+                v52 = *(*(&v231 + 1) + 8 * i);
+                [v52 enumerateDescriptorStoreCoordinators:{&__block_literal_global_41, v163}];
+                v53 = PBFLogMigration([v52 enumerateConfigurationStoreCoordinators:&__block_literal_global_43]);
+                if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_21B526000, v51, OS_LOG_TYPE_DEFAULT, "Begin attribute migration", buf, 2u);
+                  _os_log_impl(&dword_21B526000, v53, OS_LOG_TYPE_DEFAULT, "Begin attribute migration", buf, 2u);
                 }
 
                 *buf = 0;
                 *&buf[8] = buf;
                 *&buf[16] = 0x3032000000;
-                v243 = __Block_byref_object_copy__4;
-                v244 = __Block_byref_object_dispose__4;
-                v245 = 0;
-                v206[0] = MEMORY[0x277D85DD0];
-                v206[1] = 3221225472;
-                v206[2] = __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_44;
-                v206[3] = &unk_2782C7EB8;
-                v207 = v168;
-                v208 = v41;
-                v209 = v45;
-                v213 = toVersionCopy;
-                v214 = 61;
-                v210 = v169;
-                v211 = &v227;
-                v212 = buf;
-                [v50 enumerateConfigurationStoreCoordinators:v206];
-                v52 = *(*&buf[8] + 40);
-                if (v52)
+                v259 = __Block_byref_object_copy__4;
+                v260 = __Block_byref_object_dispose__4;
+                v261 = 0;
+                v222[0] = MEMORY[0x277D85DD0];
+                v222[1] = 3221225472;
+                v222[2] = __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_44;
+                v222[3] = &unk_2782C7EB8;
+                v223 = v184;
+                v224 = v43;
+                v225 = v47;
+                v229 = toVersionCopy;
+                v230 = 61;
+                v226 = v185;
+                v227 = &v243;
+                v228 = buf;
+                [v52 enumerateConfigurationStoreCoordinators:v222];
+                v54 = *(*&buf[8] + 40);
+                if (v54)
                 {
-                  objc_storeStrong(v232 + 5, v52);
-                  v53 = PBFLogMigration();
-                  if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+                  objc_storeStrong(v248 + 5, v54);
+                  v56 = PBFLogMigration(v55);
+                  if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
                   {
                     +[PBFPosterExtensionDataStoreMigrator migrateDataStoreAtBaseURL:fromVersion:toVersion:cleanupAfterMigrationSucceeds:error:];
                   }
@@ -687,49 +691,49 @@ LABEL_25:
                 _Block_object_dispose(buf, 8);
               }
 
-              v47 = [v46 countByEnumeratingWithState:&v215 objects:v246 count:16];
+              v49 = [v48 countByEnumeratingWithState:&v231 objects:v262 count:16];
             }
 
-            while (v47);
+            while (v49);
           }
 
 LABEL_61:
 LABEL_62:
 
-          v23 = v169;
-          versionCopy = v164;
+          v24 = v185;
+          versionCopy = v180;
           goto LABEL_63;
         }
 
 LABEL_60:
-        *(v228 + 24) = 0;
+        *(v244 + 24) = 0;
         goto LABEL_61;
       }
 
 LABEL_63:
-      if (v232[5] || (v24 = v228 + 3, (v228[3] & 1) == 0))
+      if (v248[5] || (v25 = v244 + 3, (v244[3] & 1) == 0))
       {
-        v124 = PBFLogMigration();
-        if (os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT))
+        v135 = PBFLogMigration(v26);
+        if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218498;
           *&buf[4] = toVersionCopy;
           *&buf[12] = 2048;
           *&buf[14] = versionCopy;
           *&buf[22] = 2112;
-          v243 = v23;
-          _os_log_impl(&dword_21B526000, v124, OS_LOG_TYPE_DEFAULT, "Failed to migrate to Version %lu from %lu (%@)", buf, 0x20u);
+          v259 = v24;
+          _os_log_impl(&dword_21B526000, v135, OS_LOG_TYPE_DEFAULT, "Failed to migrate to Version %lu from %lu (%@)", buf, 0x20u);
         }
 
-        *(v228 + 24) = 0;
+        *(v244 + 24) = 0;
 LABEL_167:
 
-        lCopy = v169;
+        lCopy = v185;
 LABEL_168:
-        if (v232[5])
+        if (v248[5])
         {
-          v125 = PBFLogMigration();
-          if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
+          v136 = PBFLogMigration(v19);
+          if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
           {
             +[PBFPosterExtensionDataStoreMigrator migrateDataStoreAtBaseURL:fromVersion:toVersion:cleanupAfterMigrationSucceeds:error:];
           }
@@ -737,187 +741,199 @@ LABEL_168:
 
         else
         {
-          v125 = PBFLogMigration();
-          if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
+          v136 = PBFLogMigration(v19);
+          if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
             *&buf[4] = lCopy;
-            _os_log_impl(&dword_21B526000, v125, OS_LOG_TYPE_DEFAULT, "Successfuly setup data store @ baseURL '%@'", buf, 0xCu);
+            _os_log_impl(&dword_21B526000, v136, OS_LOG_TYPE_DEFAULT, "Successfuly setup data store @ baseURL '%@'", buf, 0xCu);
           }
         }
 
-        if (v232[5])
+        if (v248[5])
         {
-          v180 = 0u;
-          v181 = 0u;
-          v178 = 0u;
-          v179 = 0u;
-          v126 = v153;
-          v127 = [v126 countByEnumeratingWithState:&v178 objects:v238 count:16];
-          if (v127)
+          v196 = 0u;
+          v197 = 0u;
+          v194 = 0u;
+          v195 = 0u;
+          v138 = v169;
+          v139 = [v138 countByEnumeratingWithState:&v194 objects:v254 count:16];
+          v140 = v139;
+          if (v139)
           {
-            v128 = *v179;
+            v141 = *v195;
             do
             {
-              for (j = 0; j != v127; ++j)
+              v142 = 0;
+              do
               {
-                if (*v179 != v128)
+                if (*v195 != v141)
                 {
-                  objc_enumerationMutation(v126);
+                  objc_enumerationMutation(v138);
                 }
 
-                v130 = *(*(&v178 + 1) + 8 * j);
-                v131 = PBFLogMigration();
-                if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
+                v143 = *(*(&v194 + 1) + 8 * v142);
+                v144 = PBFLogMigration(v139);
+                if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  *&buf[4] = v130;
-                  _os_log_impl(&dword_21B526000, v131, OS_LOG_TYPE_DEFAULT, "Cleaning up failed data store URL '%@'", buf, 0xCu);
+                  *&buf[4] = v143;
+                  _os_log_impl(&dword_21B526000, v144, OS_LOG_TYPE_DEFAULT, "Cleaning up failed data store URL '%@'", buf, 0xCu);
                 }
 
-                [defaultManager removeItemAtURL:v130 error:0];
+                v139 = [defaultManager removeItemAtURL:v143 error:0];
+                ++v142;
               }
 
-              v127 = [v126 countByEnumeratingWithState:&v178 objects:v238 count:16];
+              while (v140 != v142);
+              v139 = [v138 countByEnumeratingWithState:&v194 objects:v254 count:16];
+              v140 = v139;
             }
 
-            while (v127);
+            while (v139);
           }
 
-          v132 = PBFLogMigration();
-          if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
+          v146 = PBFLogMigration(v145);
+          if (os_log_type_enabled(v146, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *&buf[4] = v169;
-            v133 = "Cleaned up failed data store URL '%@'";
-            v134 = v132;
-            v135 = 12;
+            *&buf[4] = v185;
+            v147 = "Cleaned up failed data store URL '%@'";
+            v148 = v146;
+            v149 = 12;
             goto LABEL_204;
           }
         }
 
         else if (succeedsCopy)
         {
-          v136 = PBFLogMigration();
-          if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
+          v150 = PBFLogMigration(v137);
+          if (os_log_type_enabled(v150, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *&buf[4] = v169;
-            _os_log_impl(&dword_21B526000, v136, OS_LOG_TYPE_DEFAULT, "Cleaned up after successful data store migration '%@'", buf, 0xCu);
+            *&buf[4] = v185;
+            _os_log_impl(&dword_21B526000, v150, OS_LOG_TYPE_DEFAULT, "Cleaned up after successful data store migration '%@'", buf, 0xCu);
           }
 
-          v176 = 0u;
-          v177 = 0u;
-          v174 = 0u;
-          v175 = 0u;
-          v132 = v152;
-          v137 = [v132 countByEnumeratingWithState:&v174 objects:v237 count:16];
-          if (v137)
+          v192 = 0u;
+          v193 = 0u;
+          v190 = 0u;
+          v191 = 0u;
+          v146 = v168;
+          v151 = [v146 countByEnumeratingWithState:&v190 objects:v253 count:16];
+          v152 = v151;
+          if (v151)
           {
-            v138 = *v175;
+            v153 = *v191;
             do
             {
-              for (k = 0; k != v137; ++k)
+              v154 = 0;
+              do
               {
-                if (*v175 != v138)
+                if (*v191 != v153)
                 {
-                  objc_enumerationMutation(v132);
+                  objc_enumerationMutation(v146);
                 }
 
-                v140 = *(*(&v174 + 1) + 8 * k);
-                v141 = PBFLogMigration();
-                if (os_log_type_enabled(v141, OS_LOG_TYPE_DEFAULT))
+                v155 = *(*(&v190 + 1) + 8 * v154);
+                v156 = PBFLogMigration(v151);
+                if (os_log_type_enabled(v156, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  *&buf[4] = v140;
-                  _os_log_impl(&dword_21B526000, v141, OS_LOG_TYPE_DEFAULT, "Cleaning up successful data store URL '%@'", buf, 0xCu);
+                  *&buf[4] = v155;
+                  _os_log_impl(&dword_21B526000, v156, OS_LOG_TYPE_DEFAULT, "Cleaning up successful data store URL '%@'", buf, 0xCu);
                 }
 
-                v173 = 0;
-                v142 = [defaultManager removeItemAtURL:v140 error:&v173];
-                v143 = v173;
-                if ((v142 & 1) == 0)
+                v189 = 0;
+                v157 = [defaultManager removeItemAtURL:v155 error:&v189];
+                v158 = v189;
+                v159 = v158;
+                if ((v157 & 1) == 0)
                 {
-                  v144 = PBFLogMigration();
-                  if (os_log_type_enabled(v144, OS_LOG_TYPE_ERROR))
+                  v160 = PBFLogMigration(v158);
+                  if (os_log_type_enabled(v160, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412546;
-                    *&buf[4] = v140;
+                    *&buf[4] = v155;
                     *&buf[12] = 2112;
-                    *&buf[14] = v143;
-                    _os_log_error_impl(&dword_21B526000, v144, OS_LOG_TYPE_ERROR, "Failed to cleanup after '%@': %@", buf, 0x16u);
+                    *&buf[14] = v159;
+                    _os_log_error_impl(&dword_21B526000, v160, OS_LOG_TYPE_ERROR, "Failed to cleanup after '%@': %@", buf, 0x16u);
                   }
                 }
+
+                ++v154;
               }
 
-              v137 = [v132 countByEnumeratingWithState:&v174 objects:v237 count:16];
+              while (v152 != v154);
+              v151 = [v146 countByEnumeratingWithState:&v190 objects:v253 count:16];
+              v152 = v151;
             }
 
-            while (v137);
+            while (v151);
           }
         }
 
         else
         {
-          v132 = PBFLogMigration();
-          if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
+          v146 = PBFLogMigration(v137);
+          if (os_log_type_enabled(v146, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            v133 = "Not cleaning up after successful data store migration.";
-            v134 = v132;
-            v135 = 2;
+            v147 = "Not cleaning up after successful data store migration.";
+            v148 = v146;
+            v149 = 2;
 LABEL_204:
-            _os_log_impl(&dword_21B526000, v134, OS_LOG_TYPE_DEFAULT, v133, buf, v135);
+            _os_log_impl(&dword_21B526000, v148, OS_LOG_TYPE_DEFAULT, v147, buf, v149);
           }
         }
 
         if (error)
         {
-          v145 = v232[5];
-          if (v145)
+          v161 = v248[5];
+          if (v161)
           {
-            *error = v145;
+            *error = v161;
           }
         }
 
-        v12 = *(v228 + 24);
+        v12 = *(v244 + 24);
 
-        _Block_object_dispose(&v227, 8);
-        _Block_object_dispose(&v231, 8);
+        _Block_object_dispose(&v243, 8);
+        _Block_object_dispose(&v247, 8);
 
 LABEL_209:
-        lCopy = v169;
+        lCopy = v185;
         goto LABEL_210;
       }
 
 LABEL_65:
-      *v24 = 1;
+      *v25 = 1;
 
-      versionCopy = v164 + 1;
-      lCopy = v169;
-      if (v164 + 1 > toVersionCopy)
+      versionCopy = v180 + 1;
+      lCopy = v185;
+      if (v180 + 1 > toVersionCopy)
       {
         goto LABEL_168;
       }
     }
 
-    v54 = PBFLogMigration();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+    v57 = PBFLogMigration(v26);
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21B526000, v54, OS_LOG_TYPE_DEFAULT, "Kicking off 60 migration", buf, 2u);
+      _os_log_impl(&dword_21B526000, v57, OS_LOG_TYPE_DEFAULT, "Kicking off 60 migration", buf, 2u);
     }
 
-    v154 = [MEMORY[0x277CBEBC0] pbf_dataStoreSQLiteDatabaseURLForBaseURL:v169 version:60];
-    v55 = [PBFPosterExtensionDataStoreSQLiteDatabase alloc];
-    v56 = v232;
-    v205 = 0;
-    v168 = [(PBFPosterExtensionDataStoreSQLiteDatabase *)v55 initWithURL:v154 options:10 error:&v205];
-    objc_storeStrong(v56 + 5, v205);
-    if (!v168 || v232[5])
+    v170 = [MEMORY[0x277CBEBC0] pbf_dataStoreSQLiteDatabaseURLForBaseURL:v185 version:60];
+    v58 = [PBFPosterExtensionDataStoreSQLiteDatabase alloc];
+    v59 = v248;
+    v221 = 0;
+    v184 = [(PBFPosterExtensionDataStoreSQLiteDatabase *)v58 initWithURL:v170 options:10 error:&v221];
+    objc_storeStrong(v59 + 5, v221);
+    if (!v184 || v248[5])
     {
-      v57 = PBFLogMigration();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v61 = PBFLogMigration(v60);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
         +[PBFPosterExtensionDataStoreMigrator migrateDataStoreAtBaseURL:fromVersion:toVersion:cleanupAfterMigrationSucceeds:error:];
       }
@@ -925,431 +941,433 @@ LABEL_65:
       goto LABEL_60;
     }
 
-    v58 = PBFLogMigration();
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+    v62 = PBFLogMigration(v60);
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21B526000, v58, OS_LOG_TYPE_DEFAULT, "Setting up poster configurations for lock screen role", buf, 2u);
+      _os_log_impl(&dword_21B526000, v62, OS_LOG_TYPE_DEFAULT, "Setting up poster configurations for lock screen role", buf, 2u);
     }
 
-    v59 = v169;
-    v60 = [MEMORY[0x277CBEBC0] pbf_switcherConfigurationOrderingURLForBaseURL:v169 version:60];
-    v150 = v60;
-    if ([v60 checkResourceIsReachableAndReturnError:0])
+    v63 = v185;
+    v64 = [MEMORY[0x277CBEBC0] pbf_switcherConfigurationOrderingURLForBaseURL:v185 version:60];
+    v65 = [v64 checkResourceIsReachableAndReturnError:0];
+    v166 = v64;
+    if (v65)
     {
-      v61 = PBFLogMigration();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+      v66 = PBFLogMigration(v65);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B526000, v61, OS_LOG_TYPE_DEFAULT, "going w/ existing poster uuid ordering file", buf, 2u);
+        _os_log_impl(&dword_21B526000, v66, OS_LOG_TYPE_DEFAULT, "going w/ existing poster uuid ordering file", buf, 2u);
       }
     }
 
     else
     {
-      if (v156 > 0x3B)
+      if (v172 > 0x3B)
       {
 LABEL_84:
-        v67 = MEMORY[0x277CBEB70];
-        v68 = [v60 pf_loadFromPlistWithError:{0, v147}];
-        v69 = objc_opt_class();
-        v70 = v68;
-        if (v69)
+        v73 = MEMORY[0x277CBEB70];
+        v74 = [v64 pf_loadFromPlistWithError:{0, v163}];
+        v75 = objc_opt_class();
+        v76 = v74;
+        if (v75)
         {
           if (objc_opt_isKindOfClass())
           {
-            v71 = v70;
+            v77 = v76;
           }
 
           else
           {
-            v71 = 0;
+            v77 = 0;
           }
         }
 
         else
         {
-          v71 = 0;
+          v77 = 0;
         }
 
-        v72 = v71;
+        v78 = v77;
 
-        if (v72)
+        if (v78)
         {
-          v73 = v72;
+          v79 = v78;
         }
 
         else
         {
-          v73 = MEMORY[0x277CBEBF8];
+          v79 = MEMORY[0x277CBEBF8];
         }
 
-        v162 = [v67 orderedSetWithArray:v73];
+        v178 = [v73 orderedSetWithArray:v79];
 
-        v74 = PBFLogMigration();
-        if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+        v81 = PBFLogMigration(v80);
+        if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          *&buf[4] = v162;
-          _os_log_impl(&dword_21B526000, v74, OS_LOG_TYPE_DEFAULT, "posterUUIDOrdering: %{public}@", buf, 0xCu);
+          *&buf[4] = v178;
+          _os_log_impl(&dword_21B526000, v81, OS_LOG_TYPE_DEFAULT, "posterUUIDOrdering: %{public}@", buf, 0xCu);
         }
 
-        v75 = v169;
-        v76 = [MEMORY[0x277CBEBC0] pbf_switcherSelectedConfigurationURLForBaseURL:v169 version:60];
-        v77 = [v76 checkResourceIsReachableAndReturnError:0];
-        v149 = v76;
-        if (v22 < v156)
+        v82 = v185;
+        v83 = [MEMORY[0x277CBEBC0] pbf_switcherSelectedConfigurationURLForBaseURL:v185 version:60];
+        v84 = [v83 checkResourceIsReachableAndReturnError:0];
+        v165 = v83;
+        if (v23 < v172)
         {
-          v78 = 1;
+          v85 = 1;
         }
 
         else
         {
-          v78 = v77;
+          v85 = v84;
         }
 
-        if ((v78 & 1) == 0)
+        if ((v85 & 1) == 0)
         {
           while (1)
           {
-            v79 = [MEMORY[0x277CBEBC0] pbf_switcherSelectedConfigurationURLForBaseURL:v75 version:v22];
-            if ([v79 checkResourceIsReachableAndReturnError:0])
+            v86 = [MEMORY[0x277CBEBC0] pbf_switcherSelectedConfigurationURLForBaseURL:v82 version:v23];
+            if ([v86 checkResourceIsReachableAndReturnError:0])
             {
               break;
             }
 
-            --v22;
-            v75 = v169;
-            if (v22 < v156)
+            --v23;
+            v82 = v185;
+            if (v23 < v172)
             {
               goto LABEL_107;
             }
           }
 
           defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-          v81 = [defaultManager2 copyItemAtURL:v79 toURL:v149 error:0];
+          v88 = [defaultManager2 copyItemAtURL:v86 toURL:v165 error:0];
 
-          if (v81)
+          if (v88)
           {
-            v82 = PBFLogMigration();
-            if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
+            v90 = PBFLogMigration(v89);
+            if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v147;
-              *&buf[4] = v22;
-              _os_log_impl(&dword_21B526000, v82, OS_LOG_TYPE_DEFAULT, "restored selected poster uuid ordering from %lu", buf, 0xCu);
+              *buf = v163;
+              *&buf[4] = v23;
+              _os_log_impl(&dword_21B526000, v90, OS_LOG_TYPE_DEFAULT, "restored selected poster uuid ordering from %lu", buf, 0xCu);
             }
           }
 
           else
           {
-            v82 = PBFLogMigration();
-            if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
+            v90 = PBFLogMigration(v89);
+            if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218242;
-              *&buf[4] = v22;
+              *&buf[4] = v23;
               *&buf[12] = 2114;
               *&buf[14] = 0;
-              _os_log_error_impl(&dword_21B526000, v82, OS_LOG_TYPE_ERROR, "FAILED restored selected poster uuid from %lu: %{public}@", buf, 0x16u);
+              _os_log_error_impl(&dword_21B526000, v90, OS_LOG_TYPE_ERROR, "FAILED restored selected poster uuid from %lu: %{public}@", buf, 0x16u);
             }
           }
         }
 
 LABEL_107:
-        v83 = [v149 pf_loadFromPlistWithError:0];
-        v84 = objc_opt_class();
-        v85 = v83;
-        if (v84)
+        v91 = [v165 pf_loadFromPlistWithError:0];
+        v92 = objc_opt_class();
+        v93 = v91;
+        if (v92)
         {
           if (objc_opt_isKindOfClass())
           {
-            v86 = v85;
+            v94 = v93;
           }
 
           else
           {
-            v86 = 0;
+            v94 = 0;
           }
         }
 
         else
         {
-          v86 = 0;
+          v94 = 0;
         }
 
-        v87 = v86;
+        v95 = v94;
 
-        v148 = [v87 objectForKey:@"selectedConfigurationIdentifier"];
+        v164 = [v95 objectForKey:@"selectedConfigurationIdentifier"];
 
-        v88 = PBFLogMigration();
-        if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
+        v97 = PBFLogMigration(v96);
+        if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          *&buf[4] = v148;
-          _os_log_impl(&dword_21B526000, v88, OS_LOG_TYPE_DEFAULT, "selected poster uuid: %{public}@", buf, 0xCu);
+          *&buf[4] = v164;
+          _os_log_impl(&dword_21B526000, v97, OS_LOG_TYPE_DEFAULT, "selected poster uuid: %{public}@", buf, 0xCu);
         }
 
-        v89 = [v162 count];
-        v90 = v169;
-        if (!v89)
+        v98 = [v178 count];
+        v99 = v185;
+        if (!v98)
         {
-          v91 = PBFLogMigration();
-          if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
+          v100 = PBFLogMigration(0);
+          if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21B526000, v91, OS_LOG_TYPE_DEFAULT, "posterUUIDOrdering is empty; building a new one from the date added of each CSC", buf, 2u);
+            _os_log_impl(&dword_21B526000, v100, OS_LOG_TYPE_DEFAULT, "posterUUIDOrdering is empty; building a new one from the date added of each CSC", buf, 2u);
           }
 
-          v92 = objc_opt_new();
-          v172 = objc_opt_new();
-          v93 = [MEMORY[0x277CBEBC0] pbf_dataStoreExtensionContainerURLForBaseURL:v169 version:60];
-          v94 = _PBFExtensionStoreCoordinatorsForDataStoreExtensionContainerURL(v93, 0);
+          v101 = objc_opt_new();
+          v188 = objc_opt_new();
+          v102 = [MEMORY[0x277CBEBC0] pbf_dataStoreExtensionContainerURLForBaseURL:v185 version:60];
+          v103 = _PBFExtensionStoreCoordinatorsForDataStoreExtensionContainerURL(v102, 0);
 
-          v202 = 0u;
-          v203 = 0u;
-          v200 = 0u;
-          v201 = 0u;
-          v155 = v94;
-          v160 = [v155 countByEnumeratingWithState:&v200 objects:v241 count:16];
-          if (v160)
+          v218 = 0u;
+          v219 = 0u;
+          v216 = 0u;
+          v217 = 0u;
+          v171 = v103;
+          v176 = [v171 countByEnumeratingWithState:&v216 objects:v257 count:16];
+          if (v176)
           {
-            v159 = *v201;
+            v175 = *v217;
             do
             {
-              for (m = 0; m != v160; ++m)
+              for (j = 0; j != v176; ++j)
               {
-                if (*v201 != v159)
+                if (*v217 != v175)
                 {
-                  objc_enumerationMutation(v155);
+                  objc_enumerationMutation(v171);
                 }
 
-                v95 = *(*(&v200 + 1) + 8 * m);
-                v196 = 0u;
-                v197 = 0u;
-                v198 = 0u;
-                v199 = 0u;
-                v96 = [v95 configurationStoreCoordinatorsWithError:0];
-                v97 = [v96 countByEnumeratingWithState:&v196 objects:v240 count:16];
-                if (v97)
+                v104 = *(*(&v216 + 1) + 8 * j);
+                v212 = 0u;
+                v213 = 0u;
+                v214 = 0u;
+                v215 = 0u;
+                v105 = [v104 configurationStoreCoordinatorsWithError:0];
+                v106 = [v105 countByEnumeratingWithState:&v212 objects:v256 count:16];
+                if (v106)
                 {
-                  v98 = *v197;
+                  v107 = *v213;
                   do
                   {
-                    for (n = 0; n != v97; ++n)
+                    for (k = 0; k != v106; ++k)
                     {
-                      if (*v197 != v98)
+                      if (*v213 != v107)
                       {
-                        objc_enumerationMutation(v96);
+                        objc_enumerationMutation(v105);
                       }
 
-                      v100 = *(*(&v196 + 1) + 8 * n);
-                      v101 = [v100 objectForKeyedSubscript:@"kConfigurationAssociatedPosterUUIDKey"];
-                      if (!v101)
+                      v109 = *(*(&v212 + 1) + 8 * k);
+                      v110 = [v109 objectForKeyedSubscript:@"kConfigurationAssociatedPosterUUIDKey"];
+                      if (!v110)
                       {
-                        posterUUID = [v100 posterUUID];
+                        posterUUID = [v109 posterUUID];
                         uUIDString = [posterUUID UUIDString];
 
                         if (uUIDString)
                         {
-                          [v172 addObject:uUIDString];
-                          [v92 setObject:v100 forKey:uUIDString];
+                          [v188 addObject:uUIDString];
+                          [v101 setObject:v109 forKey:uUIDString];
                         }
                       }
                     }
 
-                    v97 = [v96 countByEnumeratingWithState:&v196 objects:v240 count:16];
+                    v106 = [v105 countByEnumeratingWithState:&v212 objects:v256 count:16];
                   }
 
-                  while (v97);
+                  while (v106);
                 }
               }
 
-              v160 = [v155 countByEnumeratingWithState:&v200 objects:v241 count:16];
+              v176 = [v171 countByEnumeratingWithState:&v216 objects:v257 count:16];
             }
 
-            while (v160);
+            while (v176);
           }
 
-          v194[0] = MEMORY[0x277D85DD0];
-          v194[1] = 3221225472;
-          v194[2] = __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_57;
-          v194[3] = &unk_2782C7EE0;
-          v104 = v92;
-          v195 = v104;
-          [v172 sortUsingComparator:v194];
-          if ([v172 count])
+          v210[0] = MEMORY[0x277D85DD0];
+          v210[1] = 3221225472;
+          v210[2] = __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_57;
+          v210[3] = &unk_2782C7EE0;
+          v113 = v101;
+          v211 = v113;
+          [v188 sortUsingComparator:v210];
+          if ([v188 count])
           {
-            v105 = [v162 mutableCopy];
-            v106 = v105;
-            if (v105)
+            v114 = [v178 mutableCopy];
+            v115 = v114;
+            if (v114)
             {
-              v107 = v105;
+              v116 = v114;
             }
 
             else
             {
-              v107 = objc_opt_new();
+              v116 = objc_opt_new();
             }
 
-            v192 = 0u;
-            v193 = 0u;
-            v190 = 0u;
-            v191 = 0u;
-            v108 = v172;
-            v109 = [v108 countByEnumeratingWithState:&v190 objects:v239 count:16];
-            if (v109)
+            v208 = 0u;
+            v209 = 0u;
+            v206 = 0u;
+            v207 = 0u;
+            v117 = v188;
+            v118 = [v117 countByEnumeratingWithState:&v206 objects:v255 count:16];
+            if (v118)
             {
-              v110 = *v191;
+              v119 = *v207;
               do
               {
-                for (ii = 0; ii != v109; ++ii)
+                for (m = 0; m != v118; ++m)
                 {
-                  if (*v191 != v110)
+                  if (*v207 != v119)
                   {
-                    objc_enumerationMutation(v108);
+                    objc_enumerationMutation(v117);
                   }
 
-                  v112 = *(*(&v190 + 1) + 8 * ii);
-                  if (([v162 containsObject:v112] & 1) == 0)
+                  v121 = *(*(&v206 + 1) + 8 * m);
+                  v122 = [v178 containsObject:v121];
+                  if ((v122 & 1) == 0)
                   {
-                    v113 = PBFLogMigration();
-                    if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
+                    v123 = PBFLogMigration(v122);
+                    if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138543362;
-                      *&buf[4] = v112;
-                      _os_log_impl(&dword_21B526000, v113, OS_LOG_TYPE_DEFAULT, "Recovering posterUUID %{public}@", buf, 0xCu);
+                      *&buf[4] = v121;
+                      _os_log_impl(&dword_21B526000, v123, OS_LOG_TYPE_DEFAULT, "Recovering posterUUID %{public}@", buf, 0xCu);
                     }
 
-                    [v107 addObject:v112];
+                    [v116 addObject:v121];
                   }
                 }
 
-                v109 = [v108 countByEnumeratingWithState:&v190 objects:v239 count:16];
+                v118 = [v117 countByEnumeratingWithState:&v206 objects:v255 count:16];
               }
 
-              while (v109);
+              while (v118);
             }
 
-            v188[0] = MEMORY[0x277D85DD0];
-            v188[1] = 3221225472;
-            v188[2] = __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_59;
-            v188[3] = &unk_2782C7EE0;
-            v189 = v104;
-            [v107 sortUsingComparator:v188];
-            v114 = PBFLogMigration();
-            if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
+            v204[0] = MEMORY[0x277D85DD0];
+            v204[1] = 3221225472;
+            v204[2] = __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_59;
+            v204[3] = &unk_2782C7EE0;
+            v205 = v113;
+            v124 = PBFLogMigration([v116 sortUsingComparator:v204]);
+            if (os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              *&buf[4] = v107;
-              _os_log_impl(&dword_21B526000, v114, OS_LOG_TYPE_DEFAULT, "posterUUIDOrdering replaced with new %{public}@", buf, 0xCu);
+              *&buf[4] = v116;
+              _os_log_impl(&dword_21B526000, v124, OS_LOG_TYPE_DEFAULT, "posterUUIDOrdering replaced with new %{public}@", buf, 0xCu);
             }
 
-            v115 = [v107 copy];
-            v162 = v115;
+            v125 = [v116 copy];
+            v178 = v125;
           }
 
           else
           {
-            v107 = PBFLogMigration();
-            if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
+            v116 = PBFLogMigration(0);
+            if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_21B526000, v107, OS_LOG_TYPE_DEFAULT, "no posters to restore; maybe not upgrading", buf, 2u);
+              _os_log_impl(&dword_21B526000, v116, OS_LOG_TYPE_DEFAULT, "no posters to restore; maybe not upgrading", buf, 2u);
             }
           }
 
-          v90 = v169;
+          v99 = v185;
         }
 
-        v116 = [MEMORY[0x277CBEBC0] pbf_dataStoreExtensionContainerURLForBaseURL:v90 version:60];
-        v117 = _PBFProvidersForPosterUUIDFromDataStoreExtensionContainerURL(v116);
+        v126 = [MEMORY[0x277CBEBC0] pbf_dataStoreExtensionContainerURLForBaseURL:v99 version:60];
+        v127 = _PBFProvidersForPosterUUIDFromDataStoreExtensionContainerURL(v126);
 
-        v183[0] = MEMORY[0x277D85DD0];
-        v183[1] = 3221225472;
-        v183[2] = __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_60;
-        v183[3] = &unk_2782C7F08;
-        v118 = v162;
-        v184 = v118;
-        v119 = v117;
-        v185 = v119;
-        v187 = &v231;
-        v120 = v148;
-        v186 = v120;
-        v182 = 0;
-        [(PBFPosterExtensionDataStoreSQLiteDatabase *)v168 performChanges:v183 error:&v182];
-        v121 = v182;
-        v122 = v182;
-        if (v122 && !v232[5])
+        v199[0] = MEMORY[0x277D85DD0];
+        v199[1] = 3221225472;
+        v199[2] = __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_60;
+        v199[3] = &unk_2782C7F08;
+        v128 = v178;
+        v200 = v128;
+        v129 = v127;
+        v201 = v129;
+        v203 = &v247;
+        v130 = v164;
+        v202 = v130;
+        v198 = 0;
+        [(PBFPosterExtensionDataStoreSQLiteDatabase *)v184 performChanges:v199 error:&v198];
+        v131 = v198;
+        v132 = v198;
+        v133 = v132;
+        if (v132 && (v132 = v248 + 5, !v248[5]))
         {
-          objc_storeStrong(v232 + 5, v121);
+          objc_storeStrong(v132, v131);
         }
 
         else
         {
-          v123 = PBFLogMigration();
-          if (os_log_type_enabled(v123, OS_LOG_TYPE_INFO))
+          v134 = PBFLogMigration(v132);
+          if (os_log_type_enabled(v134, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_21B526000, v123, OS_LOG_TYPE_INFO, "cleaning up poster configuration ordering url / poster selected configuration identifier plist url", buf, 2u);
+            _os_log_impl(&dword_21B526000, v134, OS_LOG_TYPE_INFO, "cleaning up poster configuration ordering url / poster selected configuration identifier plist url", buf, 2u);
           }
 
-          [defaultManager removeItemAtURL:v150 error:0];
-          [defaultManager removeItemAtURL:v149 error:0];
+          [defaultManager removeItemAtURL:v166 error:0];
+          [defaultManager removeItemAtURL:v165 error:0];
         }
 
-        [(PBFPosterExtensionDataStoreSQLiteDatabase *)v168 invalidate];
+        [(PBFPosterExtensionDataStoreSQLiteDatabase *)v184 invalidate];
 
         goto LABEL_62;
       }
 
-      v62 = 59;
+      v67 = 59;
       while (1)
       {
-        v61 = [MEMORY[0x277CBEBC0] pbf_switcherConfigurationOrderingURLForBaseURL:v59 version:{v62, v147}];
-        if ([v61 checkResourceIsReachableAndReturnError:0])
+        v66 = [MEMORY[0x277CBEBC0] pbf_switcherConfigurationOrderingURLForBaseURL:v63 version:{v67, v163}];
+        if ([v66 checkResourceIsReachableAndReturnError:0])
         {
           break;
         }
 
-        --v62;
-        v59 = v169;
-        v60 = v150;
-        if (v62 < v156)
+        --v67;
+        v63 = v185;
+        v64 = v166;
+        if (v67 < v172)
         {
           goto LABEL_84;
         }
       }
 
       defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
-      v204 = 0;
-      v64 = [defaultManager3 copyItemAtURL:v61 toURL:v150 error:&v204];
-      v65 = v204;
+      v220 = 0;
+      v69 = [defaultManager3 copyItemAtURL:v66 toURL:v166 error:&v220];
+      v70 = v220;
 
-      if (v64)
+      if (v69)
       {
-        v66 = PBFLogMigration();
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+        v72 = PBFLogMigration(v71);
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v147;
-          *&buf[4] = v62;
-          _os_log_impl(&dword_21B526000, v66, OS_LOG_TYPE_DEFAULT, "restored poster uuid ordering from %lu", buf, 0xCu);
+          *buf = v163;
+          *&buf[4] = v67;
+          _os_log_impl(&dword_21B526000, v72, OS_LOG_TYPE_DEFAULT, "restored poster uuid ordering from %lu", buf, 0xCu);
         }
       }
 
       else
       {
-        v66 = PBFLogMigration();
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        v72 = PBFLogMigration(v71);
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218242;
-          *&buf[4] = v62;
+          *&buf[4] = v67;
           *&buf[12] = 2114;
-          *&buf[14] = v65;
-          _os_log_error_impl(&dword_21B526000, v66, OS_LOG_TYPE_ERROR, "FAILED restored poster uuid ordering from %lu: %{public}@", buf, 0x16u);
+          *&buf[14] = v70;
+          _os_log_error_impl(&dword_21B526000, v72, OS_LOG_TYPE_ERROR, "FAILED restored poster uuid ordering from %lu: %{public}@", buf, 0x16u);
         }
       }
     }
 
-    v60 = v150;
+    v64 = v166;
     goto LABEL_84;
   }
 
@@ -1357,15 +1375,15 @@ LABEL_107:
   {
     v14 = MEMORY[0x277CCA9B8];
     v15 = *MEMORY[0x277CCA470];
-    v250[0] = @"fromVersion < minimumDataStoreVersion || toVersion > currentDataStoreVersion";
-    v249[0] = v15;
-    v249[1] = @"fromVersion";
+    v266[0] = @"fromVersion < minimumDataStoreVersion || toVersion > currentDataStoreVersion";
+    v265[0] = v15;
+    v265[1] = @"fromVersion";
     v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:version];
-    v250[1] = v16;
-    v249[2] = @"toVersion";
+    v266[1] = v16;
+    v265[2] = @"toVersion";
     v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:toVersion];
-    v250[2] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v250 forKeys:v249 count:3];
+    v266[2] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v266 forKeys:v265 count:3];
     *error = [v14 pbf_generalErrorWithCode:1 userInfo:v18];
 
     v12 = 0;
@@ -1414,7 +1432,7 @@ void __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVe
 
 void __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_44(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = objc_autoreleasePoolPush();
   v6 = [v4 posterUUID];
@@ -1431,13 +1449,13 @@ void __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVe
       if (v9)
       {
         [*(a1 + 40) removeAllObjects];
-        v55 = [*(a1 + 48) objectForKey:v6];
-        if (v55)
+        v65 = [*(a1 + 48) objectForKey:v6];
+        if (v65)
         {
           v11 = objc_alloc(MEMORY[0x277D3EC68]);
-          v12 = [v55 posterUUID];
+          v12 = [v65 posterUUID];
           v13 = [MEMORY[0x277CBEAA8] date];
-          v14 = [v55 extensionIdentifier];
+          v14 = [v65 extensionIdentifier];
           v15 = [v11 initWithChildPosterUUID:v12 dateCreated:v13 providerIdentifier:v14];
 
           v16 = *(a1 + 40);
@@ -1445,25 +1463,26 @@ void __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVe
           v18 = [v15 attributeType];
           [v16 setObject:v17 forKey:v18];
 
-          v19 = PBFLogMigration();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v20 = PBFLogMigration(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
-            v20 = [v55 posterUUID];
+            v21 = [v65 posterUUID];
             *buf = 138543618;
             *&buf[4] = 0;
             *&buf[12] = 2114;
-            *&buf[14] = v20;
-            _os_log_impl(&dword_21B526000, v19, OS_LOG_TYPE_DEFAULT, "Setup child poster attribute for parent %{public}@ -> child %{public}@", buf, 0x16u);
+            *&buf[14] = v21;
+            _os_log_impl(&dword_21B526000, v20, OS_LOG_TYPE_DEFAULT, "Setup child poster attribute for parent %{public}@ -> child %{public}@", buf, 0x16u);
           }
         }
 
-        v66 = 0;
-        v21 = [MEMORY[0x277D3EDE8] loadFocusConfigurationForPath:v7 error:&v66];
-        v53 = v66;
-        if (v53 || !v21)
+        v76 = 0;
+        v22 = [MEMORY[0x277D3EDE8] loadFocusConfigurationForPath:v7 error:&v76];
+        v23 = v76;
+        v63 = v23;
+        if (v23 || !v22)
         {
-          v22 = PBFLogMigration();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v24 = PBFLogMigration(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
             __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_44_cold_1();
           }
@@ -1471,27 +1490,29 @@ void __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVe
 
         else
         {
-          v22 = [v21 encodeJSON];
-          if ([v22 length])
+          v24 = [v22 encodeJSON];
+          v25 = [v24 length];
+          if (v25)
           {
-            [*(a1 + 40) setObject:v22 forKeyedSubscript:*MEMORY[0x277D3EEB8]];
+            v25 = [*(a1 + 40) setObject:v24 forKeyedSubscript:*MEMORY[0x277D3EEB8]];
           }
 
-          v23 = PBFLogMigration();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v26 = PBFLogMigration(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21B526000, v23, OS_LOG_TYPE_DEFAULT, "ported focus configuration to attribute", buf, 2u);
+            _os_log_impl(&dword_21B526000, v26, OS_LOG_TYPE_DEFAULT, "ported focus configuration to attribute", buf, 2u);
           }
         }
 
-        v65 = 0;
-        v56 = [MEMORY[0x277D3EDE8] loadSuggestionMetadataForPath:v7 error:&v65];
-        v52 = v65;
-        if (v52 || !v56)
+        v75 = 0;
+        v66 = [MEMORY[0x277D3EDE8] loadSuggestionMetadataForPath:v7 error:&v75];
+        v27 = v75;
+        v62 = v27;
+        if (v27 || !v66)
         {
-          v24 = PBFLogMigration();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v28 = PBFLogMigration(v27);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
             __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_44_cold_2();
           }
@@ -1499,51 +1520,53 @@ void __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVe
 
         else
         {
-          v24 = [v56 encodeJSON];
-          if ([v24 length])
+          v28 = [v66 encodeJSON];
+          v29 = [v28 length];
+          if (v29)
           {
-            [*(a1 + 40) setObject:v24 forKeyedSubscript:*MEMORY[0x277D3EED0]];
+            v29 = [*(a1 + 40) setObject:v28 forKeyedSubscript:*MEMORY[0x277D3EED0]];
           }
 
-          v25 = PBFLogMigration();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v30 = PBFLogMigration(v29);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21B526000, v25, OS_LOG_TYPE_DEFAULT, "ported suggestion metadata to attribute", buf, 2u);
+            _os_log_impl(&dword_21B526000, v30, OS_LOG_TYPE_DEFAULT, "ported suggestion metadata to attribute", buf, 2u);
           }
         }
 
-        v26 = objc_opt_new();
-        v54 = [v4 objectForKeyedSubscript:@"kConfigurationLastUseDateKey"];
-        if (v54)
+        v31 = objc_opt_new();
+        v64 = [v4 objectForKeyedSubscript:@"kConfigurationLastUseDateKey"];
+        if (v64)
         {
-          v27 = [v26 usageMetadataForUpdatedLastActivatedDate:?];
+          v32 = [v31 usageMetadataForUpdatedLastActivatedDate:?];
 
-          v26 = v27;
+          v31 = v32;
         }
 
-        v28 = [v56 lastModifiedDate];
+        v33 = [v66 lastModifiedDate];
 
-        if (v28)
+        if (v33)
         {
-          v29 = [v56 lastModifiedDate];
-          v30 = [v26 usageMetadataForUpdatedLastModifiedDate:v29];
+          v34 = [v66 lastModifiedDate];
+          v35 = [v31 usageMetadataForUpdatedLastModifiedDate:v34];
 
-          v26 = v30;
+          v31 = v35;
         }
 
-        v31 = *(a1 + 40);
-        v32 = [v26 encodeJSON];
-        v33 = [v26 attributeType];
-        [v31 setObject:v32 forKey:v33];
+        v36 = *(a1 + 40);
+        v37 = [v31 encodeJSON];
+        v38 = [v31 attributeType];
+        [v36 setObject:v37 forKey:v38];
 
-        v64 = 0;
-        v34 = [MEMORY[0x277D3EDE8] loadOtherMetadataForPath:v7 error:&v64];
-        v51 = v64;
-        if (v51 || !v34)
+        v74 = 0;
+        v39 = [MEMORY[0x277D3EDE8] loadOtherMetadataForPath:v7 error:&v74];
+        v40 = v74;
+        v61 = v40;
+        if (v40 || !v39)
         {
-          v35 = PBFLogMigration();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v41 = PBFLogMigration(v40);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
             __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_44_cold_3();
           }
@@ -1551,27 +1574,29 @@ void __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVe
 
         else
         {
-          v35 = [v34 encodeJSON];
-          if ([v35 length])
+          v41 = [v39 encodeJSON];
+          v42 = [v41 length];
+          if (v42)
           {
-            [*(a1 + 40) setObject:v35 forKeyedSubscript:*MEMORY[0x277D3EEC8]];
+            v42 = [*(a1 + 40) setObject:v41 forKeyedSubscript:*MEMORY[0x277D3EEC8]];
           }
 
-          v36 = PBFLogMigration();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+          v43 = PBFLogMigration(v42);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21B526000, v36, OS_LOG_TYPE_DEFAULT, "ported other metadata to attribute", buf, 2u);
+            _os_log_impl(&dword_21B526000, v43, OS_LOG_TYPE_DEFAULT, "ported other metadata to attribute", buf, 2u);
           }
         }
 
-        v63 = 0;
-        v37 = [MEMORY[0x277D3EDE8] loadHomeScreenConfigurationForPath:v7 error:&v63];
-        v50 = v63;
-        if (v50 || !v37)
+        v73 = 0;
+        v44 = [MEMORY[0x277D3EDE8] loadHomeScreenConfigurationForPath:v7 error:&v73];
+        v45 = v73;
+        v60 = v45;
+        if (v45 || !v44)
         {
-          v38 = PBFLogMigration();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          v46 = PBFLogMigration(v45);
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_44_cold_4();
           }
@@ -1579,70 +1604,72 @@ void __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVe
 
         else
         {
-          v38 = [v37 encodeJSON];
-          if ([v38 length])
+          v46 = [v44 encodeJSON];
+          v47 = [v46 length];
+          if (v47)
           {
-            [*(a1 + 40) setObject:v38 forKeyedSubscript:*MEMORY[0x277D3EEC0]];
+            v47 = [*(a1 + 40) setObject:v46 forKeyedSubscript:*MEMORY[0x277D3EEC0]];
           }
 
-          v39 = PBFLogMigration();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+          v48 = PBFLogMigration(v47);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21B526000, v39, OS_LOG_TYPE_DEFAULT, "ported home screen config to attribute", buf, 2u);
+            _os_log_impl(&dword_21B526000, v48, OS_LOG_TYPE_DEFAULT, "ported home screen config to attribute", buf, 2u);
           }
         }
 
-        if ([*(a1 + 40) count])
+        v49 = [*(a1 + 40) count];
+        if (v49)
         {
-          v40 = PBFLogMigration();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v50 = PBFLogMigration(v49);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
             *&buf[4] = v6;
-            _os_log_impl(&dword_21B526000, v40, OS_LOG_TYPE_DEFAULT, "updating attributes for poster %{public}@", buf, 0xCu);
+            _os_log_impl(&dword_21B526000, v50, OS_LOG_TYPE_DEFAULT, "updating attributes for poster %{public}@", buf, 0xCu);
           }
 
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x3032000000;
-          v68 = __Block_byref_object_copy__4;
-          v69 = __Block_byref_object_dispose__4;
-          v70 = 0;
-          v59[0] = MEMORY[0x277D85DD0];
-          v59[1] = 3221225472;
-          v59[2] = __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_50;
-          v59[3] = &unk_2782C7E90;
-          v41 = *(a1 + 32);
-          v60 = *(a1 + 40);
-          v61 = v6;
-          v62 = buf;
-          v58 = 0;
-          v42 = [v41 performChanges:v59 error:&v58];
-          v43 = v58;
-          v44 = v43;
-          *(*(*(a1 + 64) + 8) + 24) = v42;
-          if (*(*(*(a1 + 64) + 8) + 24) != 1 || v43 || *(*&buf[8] + 40))
+          v78 = __Block_byref_object_copy__4;
+          v79 = __Block_byref_object_dispose__4;
+          v80 = 0;
+          v69[0] = MEMORY[0x277D85DD0];
+          v69[1] = 3221225472;
+          v69[2] = __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_50;
+          v69[3] = &unk_2782C7E90;
+          v51 = *(a1 + 32);
+          v70 = *(a1 + 40);
+          v71 = v6;
+          v72 = buf;
+          v68 = 0;
+          v52 = [v51 performChanges:v69 error:&v68];
+          v53 = v68;
+          v54 = v53;
+          *(*(*(a1 + 64) + 8) + 24) = v52;
+          if (*(*(*(a1 + 64) + 8) + 24) != 1 || v53 || *(*&buf[8] + 40))
           {
-            v45 = *(*(a1 + 72) + 8);
-            v47 = *(v45 + 40);
-            v46 = (v45 + 40);
-            if (!v47)
+            v55 = *(*(a1 + 72) + 8);
+            v57 = *(v55 + 40);
+            v56 = (v55 + 40);
+            if (!v57)
             {
-              v48 = *(*&buf[8] + 40);
-              if (v44 | v48)
+              v58 = *(*&buf[8] + 40);
+              if (v54 | v58)
               {
-                if (v48)
+                if (v58)
                 {
-                  v49 = *(*&buf[8] + 40);
+                  v59 = *(*&buf[8] + 40);
                 }
 
                 else
                 {
-                  v49 = v44;
+                  v59 = v54;
                 }
 
-                objc_storeStrong(v46, v49);
+                objc_storeStrong(v56, v59);
               }
             }
 
@@ -1760,40 +1787,40 @@ uint64_t __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fr
 
 uint64_t __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_60(uint64_t a1, void *a2)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v52 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v49 objects:v57 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v55 objects:v63 count:16];
   v6 = MEMORY[0x277D3EEF0];
-  v45 = v5;
+  v51 = v5;
   if (v5)
   {
-    v7 = *v50;
+    v7 = *v56;
     v8 = *MEMORY[0x277D3EEF0];
-    v44 = *v50;
+    v50 = *v56;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v50 != v7)
+        if (*v56 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v49 + 1) + 8 * v9);
+        v10 = *(*(&v55 + 1) + 8 * v9);
         v11 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v10];
         if (!v11)
         {
-          v12 = PBFLogMigration();
+          v12 = PBFLogMigration(0);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v54 = v10;
+            v60 = v10;
             _os_log_impl(&dword_21B526000, v12, OS_LOG_TYPE_DEFAULT, "Unable to create UUID from posterUUIDString: %{public}@; not-fatal; continuing.", buf, 0xCu);
           }
 
@@ -1806,90 +1833,91 @@ uint64_t __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fr
 
         if (v14)
         {
-          v15 = PBFLogMigration();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v16 = PBFLogMigration(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v54 = v12;
-            _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_DEFAULT, "poster uuid %{public}@ already added; continuing", buf, 0xCu);
+            v60 = v12;
+            _os_log_impl(&dword_21B526000, v16, OS_LOG_TYPE_DEFAULT, "poster uuid %{public}@ already added; continuing", buf, 0xCu);
           }
         }
 
         else
         {
-          v15 = [*(a1 + 40) objectForKey:v10];
-          if (v15)
+          v16 = [*(a1 + 40) objectForKey:v10];
+          if (v16)
           {
-            v48 = 0;
-            v16 = [v3 addPosterUUID:v12 provider:v15 error:&v48];
-            v17 = v48;
-            if (!v16)
+            v54 = 0;
+            v17 = [v3 addPosterUUID:v12 provider:v16 error:&v54];
+            v18 = v54;
+            v19 = v18;
+            if (!v17)
             {
               goto LABEL_42;
             }
 
-            v18 = a1;
-            v19 = v4;
-            v20 = PBFLogMigration();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+            v20 = a1;
+            v21 = v4;
+            v22 = PBFLogMigration(v18);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
             {
               *buf = 138543362;
-              v54 = v12;
-              _os_log_impl(&dword_21B526000, v20, OS_LOG_TYPE_INFO, "poster uuid %{public}@  added", buf, 0xCu);
+              v60 = v12;
+              _os_log_impl(&dword_21B526000, v22, OS_LOG_TYPE_INFO, "poster uuid %{public}@  added", buf, 0xCu);
             }
 
-            v47 = 0;
-            v21 = [v3 assignPosterUUID:v12 toRole:v8 error:&v47];
-            v22 = v47;
+            v53 = 0;
+            v23 = [v3 assignPosterUUID:v12 toRole:v8 error:&v53];
+            v24 = v53;
 
-            if (!v21)
+            if (!v23)
             {
-              v17 = v22;
-              v4 = v19;
-              a1 = v18;
+              v19 = v24;
+              v4 = v21;
+              a1 = v20;
 LABEL_42:
-              v37 = *(*(a1 + 56) + 8);
-              v40 = *(v37 + 40);
-              v38 = (v37 + 40);
-              v39 = v40;
-              if (v40)
+              v43 = *(*(a1 + 56) + 8);
+              v46 = *(v43 + 40);
+              v44 = (v43 + 40);
+              v45 = v46;
+              if (v46)
               {
-                v41 = v39;
+                v47 = v45;
               }
 
               else
               {
-                v41 = v17;
+                v47 = v19;
               }
 
-              objc_storeStrong(v38, v41);
+              objc_storeStrong(v44, v47);
 
 LABEL_46:
-              v42 = 0;
+              v48 = 0;
               goto LABEL_52;
             }
 
-            v23 = PBFLogMigration();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+            v26 = PBFLogMigration(v25);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
             {
               *buf = 138543362;
-              v54 = v12;
-              _os_log_impl(&dword_21B526000, v23, OS_LOG_TYPE_INFO, "poster uuid %{public}@ assigned to lock screen", buf, 0xCu);
+              v60 = v12;
+              _os_log_impl(&dword_21B526000, v26, OS_LOG_TYPE_INFO, "poster uuid %{public}@ assigned to lock screen", buf, 0xCu);
             }
 
-            v4 = v19;
-            a1 = v18;
-            v7 = v44;
+            v4 = v21;
+            a1 = v20;
+            v7 = v50;
           }
 
           else
           {
-            v22 = PBFLogMigration();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            v24 = PBFLogMigration(0);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v54 = v10;
-              _os_log_impl(&dword_21B526000, v22, OS_LOG_TYPE_DEFAULT, "Unable to find provider for posterUUID: %{public}@; not-fatal; continuing.", buf, 0xCu);
+              v60 = v10;
+              _os_log_impl(&dword_21B526000, v24, OS_LOG_TYPE_DEFAULT, "Unable to find provider for posterUUID: %{public}@; not-fatal; continuing.", buf, 0xCu);
             }
           }
         }
@@ -1897,11 +1925,11 @@ LABEL_46:
         ++v9;
       }
 
-      while (v45 != v9);
-      v24 = [v4 countByEnumeratingWithState:&v49 objects:v57 count:16];
+      while (v51 != v9);
+      v27 = [v4 countByEnumeratingWithState:&v55 objects:v63 count:16];
       v6 = MEMORY[0x277D3EEF0];
-      v45 = v24;
-      if (v24)
+      v51 = v27;
+      if (v27)
       {
         continue;
       }
@@ -1912,42 +1940,42 @@ LABEL_46:
 
   if (*(a1 + 48))
   {
-    v25 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(a1 + 48)];
+    v28 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(a1 + 48)];
   }
 
   else
   {
-    v25 = 0;
+    v28 = 0;
   }
 
-  v26 = *v6;
-  v27 = [v3 sortedPosterUUIDsForRole:*v6 error:0];
-  v28 = v27;
-  if (v25 && ([v27 containsObject:v25] & 1) != 0)
+  v29 = *v6;
+  v30 = [v3 sortedPosterUUIDsForRole:*v6 error:0];
+  v31 = v30;
+  if (v28 && (v30 = [v30 containsObject:v28], (v30 & 1) != 0))
   {
-    v12 = v25;
+    v12 = v28;
   }
 
   else
   {
-    v29 = PBFLogMigration();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v32 = PBFLogMigration(v30);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v54 = v25;
-      v55 = 2114;
-      v56 = v28;
-      _os_log_impl(&dword_21B526000, v29, OS_LOG_TYPE_DEFAULT, "selected posterUUID not valid (%{public}@); current posters: %{public}@", buf, 0x16u);
+      v60 = v28;
+      v61 = 2114;
+      v62 = v31;
+      _os_log_impl(&dword_21B526000, v32, OS_LOG_TYPE_DEFAULT, "selected posterUUID not valid (%{public}@); current posters: %{public}@", buf, 0x16u);
     }
 
-    v12 = [v28 firstObject];
+    v12 = [v31 firstObject];
 
-    v30 = PBFLogMigration();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    v34 = PBFLogMigration(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v54 = v12;
-      _os_log_impl(&dword_21B526000, v30, OS_LOG_TYPE_INFO, "replacing selected posterUUID w/ first poster uuid %{public}@", buf, 0xCu);
+      v60 = v12;
+      _os_log_impl(&dword_21B526000, v34, OS_LOG_TYPE_INFO, "replacing selected posterUUID w/ first poster uuid %{public}@", buf, 0xCu);
     }
 
     if (!v12)
@@ -1957,49 +1985,50 @@ LABEL_46:
     }
   }
 
-  v46 = 0;
-  v31 = [v3 markPosterUUIDAsSelected:v12 roleId:v26 error:&v46];
-  v4 = v46;
-  if ((v31 & 1) == 0)
+  v52 = 0;
+  v36 = [v3 markPosterUUIDAsSelected:v12 roleId:v29 error:&v52];
+  v35 = v52;
+  v4 = v35;
+  if ((v36 & 1) == 0)
   {
-    v32 = PBFLogMigration();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v37 = PBFLogMigration(v35);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       __123__PBFPosterExtensionDataStoreMigrator_migrateDataStoreAtBaseURL_fromVersion_toVersion_cleanupAfterMigrationSucceeds_error___block_invoke_60_cold_1();
     }
 
-    v33 = PBFLogMigration();
-    if (!os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+    v39 = PBFLogMigration(v38);
+    if (!os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
     {
       goto LABEL_51;
     }
 
     *buf = 0;
-    v34 = "Migration will continue.";
-    v35 = v33;
-    v36 = 2;
+    v40 = "Migration will continue.";
+    v41 = v39;
+    v42 = 2;
     goto LABEL_50;
   }
 
 LABEL_48:
-  v33 = PBFLogMigration();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+  v39 = PBFLogMigration(v35);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v54 = v12;
-    v34 = "successfully selected posterUUID %{public}@";
-    v35 = v33;
-    v36 = 12;
+    v60 = v12;
+    v40 = "successfully selected posterUUID %{public}@";
+    v41 = v39;
+    v42 = 12;
 LABEL_50:
-    _os_log_impl(&dword_21B526000, v35, OS_LOG_TYPE_INFO, v34, buf, v36);
+    _os_log_impl(&dword_21B526000, v41, OS_LOG_TYPE_INFO, v40, buf, v42);
   }
 
 LABEL_51:
 
-  v42 = 1;
+  v48 = 1;
 LABEL_52:
 
-  return v42;
+  return v48;
 }
 
 - (void)migrateDataStoreToCurrentVersion:.cold.1()

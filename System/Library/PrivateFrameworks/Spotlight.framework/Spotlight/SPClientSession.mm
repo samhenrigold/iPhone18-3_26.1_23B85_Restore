@@ -153,7 +153,7 @@ void __33__SPClientSession_contentFilters__block_invoke(uint64_t a1)
 
 - (id)queryTaskWithContext:(id)context
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   searchString = [contextCopy searchString];
   searchEntities = [contextCopy searchEntities];
@@ -178,7 +178,7 @@ void __33__SPClientSession_contentFilters__block_invoke(uint64_t a1)
     [v12 removeObject:&unk_287C3B7E8];
   }
 
-  if (([firstObject isPhotosEntitySearch] & 1) != 0 || objc_msgSend(firstObject, "isContactEntitySearch"))
+  if ((objc_msgSend_isPhotosEntitySearch(firstObject) & 1) != 0 || objc_msgSend_isContactEntitySearch(firstObject))
   {
     [v12 removeAllObjects];
     [v12 addObject:&unk_287C3B800];
@@ -213,14 +213,14 @@ void __33__SPClientSession_contentFilters__block_invoke(uint64_t a1)
     }
   }
 
-  v55 = searchString;
+  v54 = searchString;
   v21 = MEMORY[0x277CBEB58];
   v22 = MEMORY[0x26D67ED20](0);
   v23 = [v21 setWithSet:v22];
 
   v24 = MEMORY[0x277CBEB58];
   v25 = MEMORY[0x26D67ED10]();
-  v56 = [v24 setWithSet:v25];
+  v55 = [v24 setWithSet:v25];
 
   if ([v23 containsObject:@"com.apple.DocumentsApp"])
   {
@@ -298,7 +298,7 @@ LABEL_27:
 
   [v15 setDisabledBundles:v36];
 
-  allObjects3 = [v56 allObjects];
+  allObjects3 = [v55 allObjects];
   v38 = allObjects3;
   if (allObjects3)
   {
@@ -328,7 +328,7 @@ LABEL_27:
   {
     disabledBundles = [v15 disabledBundles];
     *buf = 138412290;
-    v58 = disabledBundles;
+    v57 = disabledBundles;
     _os_log_impl(&dword_26B71B000, v41, v42, "[ProtectedApps] Disabled bundles in query context: %@", buf, 0xCu);
   }
 
@@ -348,13 +348,13 @@ LABEL_27:
   {
     disabledApps = [v15 disabledApps];
     *buf = 138412290;
-    v58 = disabledApps;
+    v57 = disabledApps;
     _os_log_impl(&dword_26B71B000, v45, v46, "[ProtectedApps] Disabled apps in query context: %@", buf, 0xCu);
   }
 
   if (v7)
   {
-    if (([firstObject isAppEntitySearch] & 1) != 0 || (objc_msgSend(firstObject, "isPhotosEntitySearch") & 1) != 0 || objc_msgSend(firstObject, "isContactEntitySearch"))
+    if (([firstObject isAppEntitySearch] & 1) != 0 || (objc_msgSend_isPhotosEntitySearch(firstObject) & 1) != 0 || objc_msgSend_isContactEntitySearch(firstObject))
     {
       v48 = 50;
     }
@@ -393,10 +393,8 @@ LABEL_27:
   [v31 setPreviousQueryContext:currentQueryContext];
 
   [(SPClientSession *)self setCurrentQueryContext:v15];
-  searchString = v55;
+  searchString = v54;
 LABEL_53:
-
-  v52 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -438,16 +436,16 @@ LABEL_53:
 
 - (BOOL)_setSearchDomains:(id)domains
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   domainsCopy = domains;
   v5 = SPLogForSPLogCategoryDefault();
   v6 = MEMORY[0x277D4BF50];
   v7 = *MEMORY[0x277D4BF50];
   if (os_log_type_enabled(v5, ((*MEMORY[0x277D4BF50] & 1) == 0)))
   {
-    v21 = 138412290;
-    v22 = domainsCopy;
-    _os_log_impl(&dword_26B71B000, v5, ((v7 & 1) == 0), "Setting search domains %@", &v21, 0xCu);
+    v20 = 138412290;
+    v21 = domainsCopy;
+    _os_log_impl(&dword_26B71B000, v5, ((v7 & 1) == 0), "Setting search domains %@", &v20, 0xCu);
   }
 
   v8 = [(NSArray *)self->_searchDomains copy];
@@ -468,8 +466,8 @@ LABEL_53:
     {
       self->_observersAdded = 1;
       notify_register_check("com.apple.spotlightui.prefschanged", &self->_prefsToken);
-      v21 = 0;
-      notify_check(self->_prefsToken, &v21);
+      v20 = 0;
+      notify_check(self->_prefsToken, &v20);
       DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
       CFNotificationCenterAddObserver(DarwinNotifyCenter, self, _SpotlightInternetDomainsChangedCallback, *MEMORY[0x277D4BF58], 0, CFNotificationSuspensionBehaviorDrop);
     }
@@ -483,14 +481,13 @@ LABEL_53:
     if (os_log_type_enabled(p_super, ((v16 & 1) == 0)))
     {
       v17 = self->_searchDomains;
-      v21 = 138412290;
-      v22 = v17;
-      _os_log_impl(&dword_26B71B000, p_super, ((v16 & 1) == 0), "Setting search domains to %@", &v21, 0xCu);
+      v20 = 138412290;
+      v21 = v17;
+      _os_log_impl(&dword_26B71B000, p_super, ((v16 & 1) == 0), "Setting search domains to %@", &v20, 0xCu);
     }
   }
 
   v18 = [(NSArray *)self->_searchDomains isEqual:v8];
-  v19 = *MEMORY[0x277D85DE8];
   return v18 ^ 1;
 }
 
@@ -570,53 +567,53 @@ LABEL_53:
 
 - (void)finishRanking:(id)ranking blendingDuration:(double)duration spotlightQueryIntent:(int)intent
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   rankingCopy = ranking;
-  v30 = objc_opt_new();
+  v29 = objc_opt_new();
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = rankingCopy;
-  v31 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
-  if (v31)
+  v30 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+  if (v30)
   {
-    v29 = *v39;
+    v28 = *v38;
     do
     {
       v7 = 0;
       do
       {
-        if (*v39 != v29)
+        if (*v38 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v33 = v7;
-        v8 = *(*(&v38 + 1) + 8 * v7);
+        v32 = v7;
+        v8 = *(*(&v37 + 1) + 8 * v7);
         v9 = objc_opt_new();
+        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
         v36 = 0u;
-        v37 = 0u;
-        v32 = v8;
+        v31 = v8;
         results = [v8 results];
-        v11 = [results countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v11 = [results countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v35;
+          v13 = *v34;
           do
           {
             v14 = 0;
             do
             {
-              if (*v35 != v13)
+              if (*v34 != v13)
               {
                 objc_enumerationMutation(results);
               }
 
-              v15 = *(*(&v34 + 1) + 8 * v14);
+              v15 = *(*(&v33 + 1) + 8 * v14);
               if (objc_opt_respondsToSelector())
               {
                 duplicatedItems = [v15 duplicatedItems];
@@ -637,28 +634,28 @@ LABEL_53:
             }
 
             while (v12 != v14);
-            v12 = [results countByEnumeratingWithState:&v34 objects:v42 count:16];
+            v12 = [results countByEnumeratingWithState:&v33 objects:v41 count:16];
           }
 
           while (v12);
         }
 
         v21 = objc_alloc(MEMORY[0x277D4C608]);
-        objectForFeedback2 = [v32 objectForFeedback];
+        objectForFeedback2 = [v31 objectForFeedback];
         v23 = [v21 initWithResults:v9 section:objectForFeedback2 localSectionPosition:0 personalizationScore:0.0];
 
-        [v30 addObject:v23];
-        v7 = v33 + 1;
+        [v29 addObject:v23];
+        v7 = v32 + 1;
       }
 
-      while (v33 + 1 != v31);
-      v31 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+      while (v32 + 1 != v30);
+      v30 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
 
-  v24 = [objc_alloc(MEMORY[0x277D4C568]) initWithSections:v30 blendingDuration:duration];
+  v24 = [objc_alloc(MEMORY[0x277D4C568]) initWithSections:v29 blendingDuration:duration];
   if (objc_opt_respondsToSelector())
   {
     [v24 setSpotlightQueryIntent:intent];
@@ -666,8 +663,6 @@ LABEL_53:
 
   mEMORY[0x277D4BEB0] = [MEMORY[0x277D4BEB0] sharedManager];
   [mEMORY[0x277D4BEB0] didRankSections:v24];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (void)retrieveFirstTimeExperienceTextWithReply:(id)reply
@@ -716,8 +711,8 @@ void __60__SPClientSession_retrieveFirstTimeExperienceTextWithReply___block_invo
 
 void __60__SPClientSession_retrieveFirstTimeExperienceTextWithReply___block_invoke_2(uint64_t a1)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  v12[0] = @"FTE_STRING";
+  v12[4] = *MEMORY[0x277D85DE8];
+  v11[0] = @"FTE_STRING";
   if ([*(a1 + 32) length])
   {
     v2 = *(a1 + 32);
@@ -728,8 +723,8 @@ void __60__SPClientSession_retrieveFirstTimeExperienceTextWithReply___block_invo
     v2 = &stru_287C35638;
   }
 
-  v13[0] = v2;
-  v12[1] = @"FTE_LEARN_MORE_LINK";
+  v12[0] = v2;
+  v11[1] = @"FTE_LEARN_MORE_LINK";
   if ([*(a1 + 40) length])
   {
     v3 = *(a1 + 40);
@@ -740,8 +735,8 @@ void __60__SPClientSession_retrieveFirstTimeExperienceTextWithReply___block_invo
     v3 = &stru_287C35638;
   }
 
-  v13[1] = v3;
-  v12[2] = @"FTE_CONTINUE_LINK";
+  v12[1] = v3;
+  v11[2] = @"FTE_CONTINUE_LINK";
   if ([*(a1 + 48) length])
   {
     v4 = *(a1 + 48);
@@ -752,27 +747,26 @@ void __60__SPClientSession_retrieveFirstTimeExperienceTextWithReply___block_invo
     v4 = &stru_287C35638;
   }
 
-  v12[3] = @"FTE_DOMAINS";
+  v11[3] = @"FTE_DOMAINS";
   v5 = *(a1 + 56);
   if (!v5)
   {
     v5 = MEMORY[0x277CBEBF8];
   }
 
-  v13[2] = v4;
-  v13[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
+  v12[2] = v4;
+  v12[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
   v7 = SPLogForSPLogCategoryDefault();
   v8 = *MEMORY[0x277D4BF50];
   if (os_log_type_enabled(v7, ((*MEMORY[0x277D4BF50] & 1) == 0)))
   {
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_26B71B000, v7, ((v8 & 1) == 0), "[FTE] Received FTE dictionary in client: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_26B71B000, v7, ((v8 & 1) == 0), "[FTE] Received FTE dictionary in client: %@", &v9, 0xCu);
   }
 
   (*(*(a1 + 64) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

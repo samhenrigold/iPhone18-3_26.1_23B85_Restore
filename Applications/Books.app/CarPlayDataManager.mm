@@ -31,7 +31,7 @@
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   selfCopy = self;
-  CarPlayDataManager.player(_:audiobookDidChange:)(player, change);
+  CarPlayDataManager.player(_:audiobookDidChange:)(player, change, v7);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 }
@@ -52,10 +52,11 @@
     swift_unknownObjectRetain();
     selfCopy = self;
     precisionRates = [player precisionRates];
-    sub_10000A7C4(0, &qword_100AD6750);
+    sub_10000A7C4(0, &qword_100AD6750, NSNumber_ptr);
     v8 = sub_1007A25E4();
 
-    sub_100308498(v8, change);
+    *&v9 = change;
+    sub_100308498(v8, v9);
 
     swift_unknownObjectRelease();
     swift_unknownObjectRelease();
@@ -72,7 +73,7 @@
 
   if (swift_unknownObjectWeakLoadStrong())
   {
-    sub_100308670();
+    sub_100308670(errorCopy);
     swift_unknownObjectRelease();
   }
 }

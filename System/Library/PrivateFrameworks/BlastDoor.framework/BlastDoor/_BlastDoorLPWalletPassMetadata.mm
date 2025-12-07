@@ -9,11 +9,11 @@
 
 - (_BlastDoorLPWalletPassMetadata)initWithCoder:(id)coder
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = _BlastDoorLPWalletPassMetadata;
-  v5 = [(_BlastDoorLPWalletPassMetadata *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = _BlastDoorLPWalletPassMetadata;
+  v5 = [(_BlastDoorLPWalletPassMetadata *)&v14 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"name");
@@ -32,7 +32,6 @@
     v12 = v5;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -69,11 +68,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v12.receiver = self;
-  v12.super_class = _BlastDoorLPWalletPassMetadata;
-  if ([(_BlastDoorLPWalletPassMetadata *)&v12 isEqual:equalCopy])
+  v11.receiver = self;
+  v11.super_class = _BlastDoorLPWalletPassMetadata;
+  if ([(_BlastDoorLPWalletPassMetadata *)&v11 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -111,7 +110,6 @@
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

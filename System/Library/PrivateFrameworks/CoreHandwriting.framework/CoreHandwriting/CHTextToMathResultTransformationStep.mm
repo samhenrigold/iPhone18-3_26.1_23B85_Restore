@@ -186,7 +186,7 @@ LABEL_52:
             v102 = objc_msgSend_objectAtIndexedSubscript_(v564, v98, v97, v99, v100, v101);
             v108 = objc_msgSend_array(MEMORY[0x1E695DF70], v103, v104, v105, v106, v107);
             v114 = objc_msgSend_properties(v102, v109, v110, v111, v112, v113);
-            v115 = @"\\"";
+            v115 = @"\";
             if ((v114 & 0x20) == 0)
             {
               v115 = &stru_1EF1C0318;

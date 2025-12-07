@@ -982,7 +982,7 @@ LABEL_30:
   v100[1] = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   v6 = +[PLResourceModelValidationError allPossibleErrorCodes];
-  if (![errorsCopy count])
+  if (!objc_msgSend_count(errorsCopy))
   {
     v7 = v6;
 
@@ -990,7 +990,7 @@ LABEL_30:
   }
 
   v8 = [errorsCopy mutableCopy];
-  if (![v8 count])
+  if (!objc_msgSend_count(v8))
   {
     v77 = 0;
     goto LABEL_73;
@@ -1319,7 +1319,7 @@ LABEL_67:
     [v8 removeObject:anyObject];
   }
 
-  while ([v8 count]);
+  while (objc_msgSend_count(v8));
   if (v84)
   {
     asset7 = [(PLInternalResource *)self asset];
@@ -1615,7 +1615,7 @@ LABEL_73:
   [(PLInternalResource *)self willAccessValueForKey:@"fingerprint"];
   v5 = [(PLInternalResource *)self primitiveValueForKey:@"fingerprint"];
   [(PLInternalResource *)self didAccessValueForKey:@"fingerprint"];
-  if (([v5 isEqualToString:fingerprintCopy] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v5) & 1) == 0)
   {
     if (!fingerprintCopy && v5)
     {
@@ -2192,7 +2192,7 @@ LABEL_9:
   {
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = [v11 count];
+      v15 = objc_msgSend_count(v11);
       _obsoleteResourceRecipesWithCPLOff2 = [self _obsoleteResourceRecipesWithCPLOff];
       *buf = 134218242;
       v23 = v15;
@@ -2527,9 +2527,9 @@ void __44__PLInternalResource_listOfSyncedProperties__block_invoke()
   }
 
   fingerprint2 = [(PLInternalResource *)self fingerprint];
-  v13 = [fingerprint2 isEqualToString:fingerprintCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(fingerprint2);
 
-  if ((v13 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     fingerprint3 = [(PLInternalResource *)self fingerprint];
     v16 = [contextCopy fingerprintSchemeForFingerprint:fingerprint3];
@@ -2546,8 +2546,7 @@ LABEL_13:
     if (hashCopy)
     {
       fingerprint4 = [(PLInternalResource *)self fingerprint];
-      stableHash = hashCopy;
-      v20 = fingerprint4;
+      v19 = objc_msgSend_isEqualToString_(hashCopy);
     }
 
     else
@@ -2559,7 +2558,7 @@ LABEL_13:
         if (fileURL)
         {
           v23 = [v17 fingerPrintForFileAtURL:fileURL error:0];
-          v14 = [v23 isEqualToString:fingerprintCopy];
+          v14 = objc_msgSend_isEqualToString_(v23);
         }
 
         else
@@ -2572,10 +2571,10 @@ LABEL_13:
       }
 
       fingerprint4 = stableHash;
-      v20 = fingerprintCopy;
+      v19 = objc_msgSend_isEqualToString_(stableHash);
     }
 
-    v14 = [stableHash isEqualToString:v20];
+    v14 = v19;
 LABEL_12:
 
     goto LABEL_13;
@@ -3222,7 +3221,7 @@ LABEL_9:
     v18 = v24;
   }
 
-  if ([predicatesCopy count])
+  if (objc_msgSend_count(predicatesCopy))
   {
     v25 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:predicatesCopy];
     v26 = MEMORY[0x1E696AB28];

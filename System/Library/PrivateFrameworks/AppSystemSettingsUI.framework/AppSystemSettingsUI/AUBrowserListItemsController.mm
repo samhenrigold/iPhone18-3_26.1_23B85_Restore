@@ -2,9 +2,18 @@
 - (id)_downloadsFolderTitle;
 - (id)specifiers;
 - (void)_updateDownloadsFolderTitle;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation AUBrowserListItemsController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AUBrowserListItemsController;
+  [(AUBrowserListItemsController *)&v4 viewDidAppear:appear];
+  [(AUBrowserListItemsController *)self _updateDownloadsFolderTitle];
+}
 
 - (id)specifiers
 {
@@ -79,26 +88,28 @@ void __59__AUBrowserListItemsController__updateDownloadsFolderTitle__block_invok
 {
   v5 = a2;
   v6 = a3;
-  if (v6 || ([v5 providerDomainID], v8 = objc_claimAutoreleasedReturnValue(), v8, !v8))
+  v7 = v6;
+  if (v6 || ([v5 providerDomainID], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
   {
-    v7 = _AULoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _AULoggingFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __59__AUBrowserListItemsController__updateDownloadsFolderTitle__block_invoke_cold_2(v6, v7);
+      __59__AUBrowserListItemsController__updateDownloadsFolderTitle__block_invoke_cold_2(v7, v8);
     }
   }
 
   else
   {
-    v12 = 0;
-    v7 = [MEMORY[0x277CC6420] providerDomainForItem:v5 error:&v12];
-    v6 = v12;
-    if (v6)
+    v14 = 0;
+    v8 = [MEMORY[0x277CC6420] providerDomainForItem:v5 error:&v14];
+    v10 = v14;
+    v7 = v10;
+    if (v10)
     {
-      v9 = _AULoggingFacility();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = _AULoggingFacility(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __59__AUBrowserListItemsController__updateDownloadsFolderTitle__block_invoke_cold_1(v6, v9);
+        __59__AUBrowserListItemsController__updateDownloadsFolderTitle__block_invoke_cold_1(v7, v11);
       }
     }
 
@@ -109,8 +120,8 @@ void __59__AUBrowserListItemsController__updateDownloadsFolderTitle__block_invok
       block[2] = __59__AUBrowserListItemsController__updateDownloadsFolderTitle__block_invoke_23;
       block[3] = &unk_2782EF6F8;
       block[4] = *(a1 + 32);
-      v7 = v7;
-      v11 = v7;
+      v8 = v8;
+      v13 = v8;
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
   }
@@ -118,33 +129,30 @@ void __59__AUBrowserListItemsController__updateDownloadsFolderTitle__block_invok
 
 uint64_t __59__AUBrowserListItemsController__updateDownloadsFolderTitle__block_invoke_23(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = DOCLocalizedDisplayName();
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 1496);
-  *(v4 + 1496) = v3;
+  v2 = DOCLocalizedDisplayName();
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 1496);
+  *(v3 + 1496) = v2;
 
-  v6 = *(a1 + 32);
+  v5 = *(a1 + 32);
 
-  return [v6 reloadSpecifierID:@"DOWNLOADS" animated:1];
+  return [v5 reloadSpecifierID:@"DOWNLOADS" animated:1];
 }
 
 void __59__AUBrowserListItemsController__updateDownloadsFolderTitle__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_21BAF4000, a2, OS_LOG_TYPE_ERROR, "Failed to determine provider domain for downloads folder: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_21BAF4000, a2, OS_LOG_TYPE_ERROR, "Failed to determine provider domain for downloads folder: %{public}@", &v2, 0xCu);
 }
 
 void __59__AUBrowserListItemsController__updateDownloadsFolderTitle__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_21BAF4000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch default downloads location item: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_21BAF4000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch default downloads location item: %{public}@", &v2, 0xCu);
 }
 
 @end

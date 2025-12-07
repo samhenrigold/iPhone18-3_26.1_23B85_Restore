@@ -188,7 +188,7 @@
         v12 -= 8;
       }
 
-      v16 = v13;
+      return v13;
     }
 
     else
@@ -196,7 +196,7 @@
       v6 = [AMDError allocError:6 withMessage:@"insufficient data to read long"];
       v4 = v6;
       *error = v6;
-      v16 = 0;
+      return 0;
     }
   }
 
@@ -205,11 +205,8 @@
     v9 = [AMDError allocError:6 withMessage:@"insufficient data to read long"];
     v3 = v9;
     *error = v9;
-    v16 = 0;
+    return 0;
   }
-
-  *MEMORY[0x277D85DE8];
-  return v16;
 }
 
 - (id)getDataOfLength:(int)length error:(id *)error

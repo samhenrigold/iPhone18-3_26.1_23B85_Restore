@@ -135,61 +135,57 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v7 = toCopy;
   if (self->_sourceIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v11;
+    toCopy = v7;
   }
 
   if (self->_calendarIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v7;
   }
 
   if (self->_attributes)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v11;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    isDefaultTaskCalendar = self->_isDefaultTaskCalendar;
     PBDataWriterWriteBOOLField();
-    toCopy = v11;
+    toCopy = v7;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    isDefaultEventCalendar = self->_isDefaultEventCalendar;
     PBDataWriterWriteBOOLField();
-    toCopy = v11;
+    toCopy = v7;
   }
 
   if (self->_oldCalendarIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v7;
   }
 
-  v8 = self->_has;
-  if (v8)
+  v6 = self->_has;
+  if (v6)
   {
-    nekChangeType = self->_nekChangeType;
     PBDataWriterWriteUint32Field();
-    toCopy = v11;
-    v8 = self->_has;
+    toCopy = v7;
+    v6 = self->_has;
   }
 
-  if ((v8 & 2) != 0)
+  if ((v6 & 2) != 0)
   {
-    nekStoreType = self->_nekStoreType;
     PBDataWriterWriteUint32Field();
-    toCopy = v11;
+    toCopy = v7;
   }
 }
 
@@ -336,7 +332,6 @@
   }
 
   has = self->_has;
-  v9 = *(equalCopy + 52);
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 52) & 8) == 0)
@@ -344,7 +339,6 @@
       goto LABEL_35;
     }
 
-    v11 = *(equalCopy + 49);
     if (self->_isDefaultTaskCalendar)
     {
       if ((*(equalCopy + 49) & 1) == 0)
@@ -371,7 +365,6 @@
       goto LABEL_35;
     }
 
-    v12 = *(equalCopy + 48);
     if (self->_isDefaultEventCalendar)
     {
       if ((*(equalCopy + 48) & 1) == 0)
@@ -400,7 +393,7 @@
   if (![(NSString *)oldCalendarIdentifier isEqual:?])
   {
 LABEL_35:
-    v13 = 0;
+    v10 = 0;
     goto LABEL_36;
   }
 
@@ -419,7 +412,7 @@ LABEL_15:
     goto LABEL_35;
   }
 
-  v13 = (*(equalCopy + 52) & 2) == 0;
+  v10 = (*(equalCopy + 52) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 52) & 2) == 0 || self->_nekStoreType != *(equalCopy + 7))
@@ -427,12 +420,12 @@ LABEL_15:
       goto LABEL_35;
     }
 
-    v13 = 1;
+    v10 = 1;
   }
 
 LABEL_36:
 
-  return v13;
+  return v10;
 }
 
 - (unint64_t)hash

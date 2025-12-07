@@ -1,4 +1,5 @@
 @interface OrgApacheLuceneSearchTwoPhaseIterator_$1
+- (int)advanceWithInt:(int)int;
 - (int)docID;
 - (int)nextDoc;
 - (int64_t)cost;
@@ -29,6 +30,19 @@
   nextDoc = [(OrgApacheLuceneSearchDocIdSetIterator *)v3 nextDoc];
 
   return sub_10013B220(self, nextDoc);
+}
+
+- (int)advanceWithInt:(int)int
+{
+  v4 = self->val$approximation_;
+  if (!v4)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v5 = [(OrgApacheLuceneSearchDocIdSetIterator *)v4 advanceWithInt:*&int];
+
+  return sub_10013B220(self, v5);
 }
 
 - (int64_t)cost

@@ -9,7 +9,7 @@
 
 - (void)coordinatorDidCompleteSuccessfully:(id)successfully forApplicationRecord:(id)record
 {
-  v7 = sub_1001F0C48(&unk_100783A20);
+  v7 = sub_1001F0C48(&unk_100783A20, &unk_1006AA0A0);
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
   v10 = v17 - v9;
@@ -25,7 +25,7 @@
   v18 = 0;
   v15 = successfullyCopy;
   v16 = recordCopy;
-  sub_1001F0C48(&unk_100783A00);
+  sub_1001F0C48(&unk_100783A00, &unk_1006AA090);
   AsyncStream.Continuation.yield(_:)();
 
   (*(v8 + 8))(v10, v7);
@@ -41,7 +41,7 @@
 
 - (void)shouldPrioritizeAppWithIdentity:(id)identity
 {
-  v5 = sub_1001F0C48(&unk_100783A20);
+  v5 = sub_1001F0C48(&unk_100783A20, &unk_1006AA0A0);
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = v11 - v7;
@@ -53,7 +53,7 @@
   v12 = 4;
   identityCopy = identity;
   selfCopy = self;
-  sub_1001F0C48(&unk_100783A00);
+  sub_1001F0C48(&unk_100783A00, &unk_1006AA090);
   AsyncStream.Continuation.yield(_:)();
 
   (*(v6 + 8))(v8, v5);

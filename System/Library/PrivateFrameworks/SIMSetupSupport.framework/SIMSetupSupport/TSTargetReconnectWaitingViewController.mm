@@ -51,20 +51,18 @@
 
 - (void)_skipButtonTapped:(id)tapped
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4 = _TSLogDomain();
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = _TSLogDomain(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[TSTargetReconnectWaitingViewController _skipButtonTapped:]";
-    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "Skipping reconnection @%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[TSTargetReconnectWaitingViewController _skipButtonTapped:]";
+    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "Skipping reconnection @%s", &v6, 0xCu);
   }
 
   [(TSTargetReconnectWaitingViewController *)self submitAutoReconnectionDetails];
   delegate = [(TSTargetReconnectWaitingViewController *)self delegate];
   [delegate viewControllerDidComplete:self];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitAutoReconnectionDetails

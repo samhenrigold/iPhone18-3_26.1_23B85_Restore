@@ -246,7 +246,7 @@ LABEL_44:
 
 - (id)jsonDictionary
 {
-  v43[12] = *MEMORY[0x1E69E9840];
+  v42[12] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMWalletPaymentsCommerceOrderEmailShippingInformation status](self, "status")}];
   trackingNumber = [(BMWalletPaymentsCommerceOrderEmailShippingInformation *)self trackingNumber];
   carrierName = [(BMWalletPaymentsCommerceOrderEmailShippingInformation *)self carrierName];
@@ -259,73 +259,73 @@ LABEL_44:
   estimatedDeliveryEndTime = [(BMWalletPaymentsCommerceOrderEmailShippingInformation *)self estimatedDeliveryEndTime];
   deliveryDate = [(BMWalletPaymentsCommerceOrderEmailShippingInformation *)self deliveryDate];
   deliveryTime = [(BMWalletPaymentsCommerceOrderEmailShippingInformation *)self deliveryTime];
-  v42[0] = @"status";
+  v41[0] = @"status";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32 = null;
-  v43[0] = null;
-  v42[1] = @"trackingNumber";
+  v31 = null;
+  v42[0] = null;
+  v41[1] = @"trackingNumber";
   null2 = trackingNumber;
   if (!trackingNumber)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v31 = null2;
-  v43[1] = null2;
-  v42[2] = @"carrierName";
+  v30 = null2;
+  v42[1] = null2;
+  v41[2] = @"carrierName";
   null3 = carrierName;
   if (!carrierName)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30 = null3;
-  v43[2] = null3;
-  v42[3] = @"shippingMethod";
+  v29 = null3;
+  v42[2] = null3;
+  v41[3] = @"shippingMethod";
   null4 = shippingMethod;
   if (!shippingMethod)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29 = null4;
-  v43[3] = null4;
-  v42[4] = @"shippingDate";
+  v28 = null4;
+  v42[3] = null4;
+  v41[4] = @"shippingDate";
   null5 = shippingDate;
   if (!shippingDate)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v36 = shippingMethod;
-  v37 = carrierName;
-  v28 = null5;
-  v43[4] = null5;
-  v42[5] = @"shippingTime";
+  v35 = shippingMethod;
+  v36 = carrierName;
+  v27 = null5;
+  v42[4] = null5;
+  v41[5] = @"shippingTime";
   null6 = shippingTime;
   if (!shippingTime)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v35 = shippingDate;
-  v27 = null6;
-  v43[5] = null6;
-  v42[6] = @"estimatedDeliveryStartDate";
+  v34 = shippingDate;
+  v26 = null6;
+  v42[5] = null6;
+  v41[6] = @"estimatedDeliveryStartDate";
   null7 = estimatedDeliveryStartDate;
   if (!estimatedDeliveryStartDate)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34 = shippingTime;
-  v43[6] = null7;
-  v42[7] = @"estimatedDeliveryStartTime";
+  v33 = shippingTime;
+  v42[6] = null7;
+  v41[7] = @"estimatedDeliveryStartTime";
   null8 = estimatedDeliveryStartTime;
   if (!estimatedDeliveryStartTime)
   {
@@ -333,8 +333,8 @@ LABEL_44:
   }
 
   v19 = trackingNumber;
-  v43[7] = null8;
-  v42[8] = @"estimatedDeliveryEndDate";
+  v42[7] = null8;
+  v41[8] = @"estimatedDeliveryEndDate";
   null9 = estimatedDeliveryEndDate;
   if (!estimatedDeliveryEndDate)
   {
@@ -342,32 +342,32 @@ LABEL_44:
   }
 
   v21 = v3;
-  v43[8] = null9;
-  v42[9] = @"estimatedDeliveryEndTime";
+  v42[8] = null9;
+  v41[9] = @"estimatedDeliveryEndTime";
   null10 = estimatedDeliveryEndTime;
   if (!estimatedDeliveryEndTime)
   {
     null10 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v43[9] = null10;
-  v42[10] = @"deliveryDate";
+  v42[9] = null10;
+  v41[10] = @"deliveryDate";
   null11 = deliveryDate;
   if (!deliveryDate)
   {
     null11 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v43[10] = null11;
-  v42[11] = @"deliveryTime";
+  v42[10] = null11;
+  v41[11] = @"deliveryTime";
   null12 = deliveryTime;
   if (!deliveryTime)
   {
     null12 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v43[11] = null12;
-  v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:12];
+  v42[11] = null12;
+  v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:12];
   if (!deliveryTime)
   {
   }
@@ -392,13 +392,13 @@ LABEL_44:
   {
   }
 
-  if (!v34)
+  if (!v33)
   {
   }
 
-  if (v35)
+  if (v34)
   {
-    if (v36)
+    if (v35)
     {
       goto LABEL_41;
     }
@@ -407,10 +407,10 @@ LABEL_44:
   else
   {
 
-    if (v36)
+    if (v35)
     {
 LABEL_41:
-      if (v37)
+      if (v36)
       {
         goto LABEL_42;
       }
@@ -419,7 +419,7 @@ LABEL_41:
     }
   }
 
-  if (v37)
+  if (v36)
   {
 LABEL_42:
     if (v19)
@@ -453,19 +453,18 @@ LABEL_43:
 LABEL_51:
 
 LABEL_44:
-  v25 = *MEMORY[0x1E69E9840];
 
-  return v33;
+  return v32;
 }
 
 - (BMWalletPaymentsCommerceOrderEmailShippingInformation)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v137[1] = *MEMORY[0x1E69E9840];
+  v136[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"status"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v113 = 0;
+    v112 = 0;
     goto LABEL_9;
   }
 
@@ -474,24 +473,24 @@ LABEL_44:
   {
     v8 = v7;
 LABEL_8:
-    v113 = v8;
+    v112 = v8;
 LABEL_9:
     v9 = [dictionaryCopy objectForKeyedSubscript:@"trackingNumber"];
     errorCopy = error;
     if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v112 = 0;
+      v111 = 0;
       goto LABEL_12;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v112 = v9;
+      v111 = v9;
 LABEL_12:
       v10 = [dictionaryCopy objectForKeyedSubscript:@"carrierName"];
       selfCopy = self;
-      v107 = v9;
+      v106 = v9;
       if (!v10 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
         v11 = 0;
@@ -504,12 +503,12 @@ LABEL_12:
         v11 = v10;
 LABEL_15:
         v12 = [dictionaryCopy objectForKeyedSubscript:@"shippingMethod"];
-        v109 = v12;
-        v106 = v11;
+        v108 = v12;
+        v105 = v11;
         if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
           v13 = v7;
-          v108 = 0;
+          v107 = 0;
           goto LABEL_18;
         }
 
@@ -517,37 +516,37 @@ LABEL_15:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v108 = v12;
+          v107 = v12;
 LABEL_18:
           v14 = [dictionaryCopy objectForKeyedSubscript:@"shippingDate"];
           if (!v14 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v102 = v14;
-            v104 = 0;
+            v101 = v14;
+            v103 = 0;
             goto LABEL_21;
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v102 = v14;
-            v104 = v14;
+            v101 = v14;
+            v103 = v14;
 LABEL_21:
             [dictionaryCopy objectForKeyedSubscript:@"shippingTime"];
             v15 = v7 = v13;
             if (!v15 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v103 = 0;
+              v102 = 0;
               goto LABEL_24;
             }
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v103 = v15;
+              v102 = v15;
 LABEL_24:
               v16 = [dictionaryCopy objectForKeyedSubscript:@"estimatedDeliveryStartDate"];
-              v101 = v16;
+              v100 = v16;
               if (v16)
               {
                 objc_opt_class();
@@ -566,24 +565,24 @@ LABEL_24:
                     {
                       v16 = 0;
                       v24 = 0;
-                      v42 = v102;
+                      v42 = v101;
                       goto LABEL_105;
                     }
 
                     v63 = v10;
                     v64 = objc_alloc(MEMORY[0x1E696ABC0]);
                     v65 = *MEMORY[0x1E698F240];
-                    v124 = *MEMORY[0x1E696A578];
-                    v100 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"estimatedDeliveryStartDate"];
-                    v125 = v100;
-                    v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v125 forKeys:&v124 count:1];
+                    v123 = *MEMORY[0x1E696A578];
+                    v99 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"estimatedDeliveryStartDate"];
+                    v124 = v99;
+                    v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v124 forKeys:&v123 count:1];
                     v67 = v64;
                     v10 = v63;
-                    v99 = v66;
+                    v98 = v66;
                     v16 = 0;
                     v24 = 0;
                     *errorCopy = [v67 initWithDomain:v65 code:2 userInfo:?];
-                    v42 = v102;
+                    v42 = v101;
                     goto LABEL_104;
                   }
 
@@ -598,8 +597,8 @@ LABEL_24:
               }
 
               v25 = [dictionaryCopy objectForKeyedSubscript:@"estimatedDeliveryStartTime"];
-              v97 = v16;
-              v99 = v25;
+              v96 = v16;
+              v98 = v25;
               if (v25 && (v26 = v25, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
               {
                 objc_opt_class();
@@ -607,9 +606,9 @@ LABEL_24:
                 {
                   if (!errorCopy)
                   {
-                    v100 = 0;
+                    v99 = 0;
                     v24 = 0;
-                    v42 = v102;
+                    v42 = v101;
                     v7 = v17;
                     goto LABEL_104;
                   }
@@ -617,31 +616,31 @@ LABEL_24:
                   v68 = v10;
                   v69 = objc_alloc(MEMORY[0x1E696ABC0]);
                   v70 = *MEMORY[0x1E698F240];
-                  v122 = *MEMORY[0x1E696A578];
-                  v98 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"estimatedDeliveryStartTime"];
-                  v123 = v98;
-                  v95 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v123 forKeys:&v122 count:1];
+                  v121 = *MEMORY[0x1E696A578];
+                  v97 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"estimatedDeliveryStartTime"];
+                  v122 = v97;
+                  v94 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v122 forKeys:&v121 count:1];
                   v71 = v69;
                   v10 = v68;
-                  v16 = v97;
-                  v100 = 0;
+                  v16 = v96;
+                  v99 = 0;
                   v24 = 0;
-                  *errorCopy = [v71 initWithDomain:v70 code:2 userInfo:v95];
-                  v42 = v102;
+                  *errorCopy = [v71 initWithDomain:v70 code:2 userInfo:v94];
+                  v42 = v101;
                   v7 = v17;
-                  v27 = v95;
+                  v27 = v94;
 LABEL_103:
 
 LABEL_104:
                   goto LABEL_105;
                 }
 
-                v100 = v26;
+                v99 = v26;
               }
 
               else
               {
-                v100 = 0;
+                v99 = 0;
               }
 
               [dictionaryCopy objectForKeyedSubscript:@"estimatedDeliveryEndDate"];
@@ -653,64 +652,64 @@ LABEL_104:
                 {
                   if (!errorCopy)
                   {
-                    v98 = 0;
+                    v97 = 0;
                     v24 = 0;
-                    v42 = v102;
+                    v42 = v101;
                     goto LABEL_103;
                   }
 
                   v72 = v10;
                   v73 = objc_alloc(MEMORY[0x1E696ABC0]);
                   v74 = *MEMORY[0x1E698F240];
-                  v120 = *MEMORY[0x1E696A578];
-                  v96 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"estimatedDeliveryEndDate"];
-                  v121 = v96;
-                  v75 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v121 forKeys:&v120 count:1];
+                  v119 = *MEMORY[0x1E696A578];
+                  v95 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"estimatedDeliveryEndDate"];
+                  v120 = v95;
+                  v75 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
                   v76 = v73;
                   v10 = v72;
-                  v16 = v97;
+                  v16 = v96;
                   v77 = v74;
                   v78 = v75;
-                  v98 = 0;
+                  v97 = 0;
                   v24 = 0;
                   *errorCopy = [v76 initWithDomain:v77 code:2 userInfo:v75];
-                  v42 = v102;
+                  v42 = v101;
                   goto LABEL_102;
                 }
 
-                v98 = v27;
+                v97 = v27;
               }
 
               else
               {
-                v98 = 0;
+                v97 = 0;
               }
 
               v28 = [dictionaryCopy objectForKeyedSubscript:@"estimatedDeliveryEndTime"];
-              v92 = v10;
-              v93 = v28;
+              v91 = v10;
+              v92 = v28;
               if (v28 && (v29 = v28, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
               {
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  v94 = v15;
+                  v93 = v15;
                   if (!errorCopy)
                   {
-                    v96 = 0;
+                    v95 = 0;
                     v24 = 0;
-                    v42 = v102;
+                    v42 = v101;
                     goto LABEL_101;
                   }
 
                   v79 = objc_alloc(MEMORY[0x1E696ABC0]);
                   v80 = *MEMORY[0x1E698F240];
-                  v118 = *MEMORY[0x1E696A578];
+                  v117 = *MEMORY[0x1E696A578];
                   v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"estimatedDeliveryEndTime"];
-                  v119 = v32;
-                  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v119 forKeys:&v118 count:1];
+                  v118 = v32;
+                  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v118 forKeys:&v117 count:1];
                   v81 = [v79 initWithDomain:v80 code:2 userInfo:v31];
-                  v96 = 0;
+                  v95 = 0;
                   v24 = 0;
                   *errorCopy = v81;
                   goto LABEL_117;
@@ -725,7 +724,7 @@ LABEL_104:
               }
 
               v31 = [dictionaryCopy objectForKeyedSubscript:@"deliveryDate"];
-              v96 = v30;
+              v95 = v30;
               if (!v31 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
               {
                 v32 = 0;
@@ -742,17 +741,17 @@ LABEL_54:
                 {
                   v34 = 0;
 LABEL_57:
-                  v24 = -[BMWalletPaymentsCommerceOrderEmailShippingInformation initWithStatus:trackingNumber:carrierName:shippingMethod:shippingDate:shippingTime:estimatedDeliveryStartDate:estimatedDeliveryStartTime:estimatedDeliveryEndDate:estimatedDeliveryEndTime:deliveryDate:deliveryTime:](selfCopy, "initWithStatus:trackingNumber:carrierName:shippingMethod:shippingDate:shippingTime:estimatedDeliveryStartDate:estimatedDeliveryStartTime:estimatedDeliveryEndDate:estimatedDeliveryEndTime:deliveryDate:deliveryTime:", [v113 intValue], v112, v106, v108, v104, v103, v97, v100, v98, v30, v32, v34);
+                  v24 = -[BMWalletPaymentsCommerceOrderEmailShippingInformation initWithStatus:trackingNumber:carrierName:shippingMethod:shippingDate:shippingTime:estimatedDeliveryStartDate:estimatedDeliveryStartTime:estimatedDeliveryEndDate:estimatedDeliveryEndTime:deliveryDate:deliveryTime:](selfCopy, "initWithStatus:trackingNumber:carrierName:shippingMethod:shippingDate:shippingTime:estimatedDeliveryStartDate:estimatedDeliveryStartTime:estimatedDeliveryEndDate:estimatedDeliveryEndTime:deliveryDate:deliveryTime:", [v112 intValue], v111, v105, v107, v103, v102, v96, v99, v97, v30, v32, v34);
                   selfCopy = v24;
 LABEL_99:
 
 LABEL_100:
-                  v10 = v92;
-                  v12 = v109;
-                  v42 = v102;
-                  v16 = v97;
+                  v10 = v91;
+                  v12 = v108;
+                  v42 = v101;
+                  v16 = v96;
 LABEL_101:
-                  v78 = v93;
+                  v78 = v92;
 LABEL_102:
 
                   self = selfCopy;
@@ -766,35 +765,35 @@ LABEL_102:
                   goto LABEL_57;
                 }
 
-                v94 = v15;
+                v93 = v15;
                 if (errorCopy)
                 {
-                  v91 = objc_alloc(MEMORY[0x1E696ABC0]);
-                  v89 = *MEMORY[0x1E698F240];
-                  v114 = *MEMORY[0x1E696A578];
+                  v90 = objc_alloc(MEMORY[0x1E696ABC0]);
+                  v88 = *MEMORY[0x1E698F240];
+                  v113 = *MEMORY[0x1E696A578];
                   v84 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"deliveryTime"];
-                  v115 = v84;
-                  v85 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
-                  *errorCopy = [v91 initWithDomain:v89 code:2 userInfo:v85];
+                  v114 = v84;
+                  v85 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v114 forKeys:&v113 count:1];
+                  *errorCopy = [v90 initWithDomain:v88 code:2 userInfo:v85];
                 }
 
                 v34 = 0;
                 v24 = 0;
 LABEL_98:
-                v15 = v94;
+                v15 = v93;
                 goto LABEL_99;
               }
 
-              v94 = v15;
+              v93 = v15;
               if (errorCopy)
               {
-                v90 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v89 = objc_alloc(MEMORY[0x1E696ABC0]);
                 v82 = *MEMORY[0x1E698F240];
-                v116 = *MEMORY[0x1E696A578];
+                v115 = *MEMORY[0x1E696A578];
                 v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"deliveryDate"];
-                v117 = v34;
-                v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v117 forKeys:&v116 count:1];
-                v83 = [v90 initWithDomain:v82 code:2 userInfo:v33];
+                v116 = v34;
+                v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
+                v83 = [v89 initWithDomain:v82 code:2 userInfo:v33];
                 v32 = 0;
                 v24 = 0;
                 *errorCopy = v83;
@@ -804,7 +803,7 @@ LABEL_98:
               v32 = 0;
               v24 = 0;
 LABEL_117:
-              v15 = v94;
+              v15 = v93;
               goto LABEL_100;
             }
 
@@ -813,29 +812,29 @@ LABEL_117:
               v56 = v10;
               v57 = objc_alloc(MEMORY[0x1E696ABC0]);
               v58 = *MEMORY[0x1E698F240];
-              v126 = *MEMORY[0x1E696A578];
+              v125 = *MEMORY[0x1E696A578];
               v59 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"shippingTime"];
-              v127 = v59;
-              v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v127 forKeys:&v126 count:1];
+              v126 = v59;
+              v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v126 forKeys:&v125 count:1];
               v61 = v57;
               v10 = v56;
               v16 = v59;
               v62 = v58;
               self = selfCopy;
-              v101 = v60;
-              v103 = 0;
+              v100 = v60;
+              v102 = 0;
               v24 = 0;
               *errorCopy = [v61 initWithDomain:v62 code:2 userInfo:?];
-              v42 = v102;
+              v42 = v101;
 LABEL_105:
 
-              v11 = v106;
+              v11 = v105;
               goto LABEL_106;
             }
 
-            v103 = 0;
+            v102 = 0;
             v24 = 0;
-            v42 = v102;
+            v42 = v101;
 LABEL_106:
 
             goto LABEL_107;
@@ -845,20 +844,20 @@ LABEL_106:
           {
             v45 = v10;
             v46 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v105 = *MEMORY[0x1E698F240];
-            v128 = *MEMORY[0x1E696A578];
+            v104 = *MEMORY[0x1E698F240];
+            v127 = *MEMORY[0x1E696A578];
             v47 = objc_alloc(MEMORY[0x1E696AEC0]);
-            v88 = objc_opt_class();
+            v87 = objc_opt_class();
             v48 = v47;
             v42 = v14;
-            v103 = [v48 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v88, @"shippingDate"];
-            v129 = v103;
-            v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v129 forKeys:&v128 count:1];
+            v102 = [v48 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v87, @"shippingDate"];
+            v128 = v102;
+            v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v128 forKeys:&v127 count:1];
             v50 = v46;
             v10 = v45;
-            v11 = v106;
-            v51 = [v50 initWithDomain:v105 code:2 userInfo:v49];
-            v104 = 0;
+            v11 = v105;
+            v51 = [v50 initWithDomain:v104 code:2 userInfo:v49];
+            v103 = 0;
             v24 = 0;
             *errorCopy = v51;
             v7 = v13;
@@ -867,7 +866,7 @@ LABEL_106:
             goto LABEL_106;
           }
 
-          v104 = 0;
+          v103 = 0;
           v24 = 0;
           v42 = v14;
 LABEL_90:
@@ -882,26 +881,26 @@ LABEL_107:
           v39 = v10;
           v40 = objc_alloc(MEMORY[0x1E696ABC0]);
           v41 = *MEMORY[0x1E698F240];
-          v130 = *MEMORY[0x1E696A578];
-          v104 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"shippingMethod"];
-          v131 = v104;
-          v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v131 forKeys:&v130 count:1];
+          v129 = *MEMORY[0x1E696A578];
+          v103 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"shippingMethod"];
+          v130 = v103;
+          v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v130 forKeys:&v129 count:1];
           v43 = v40;
           v10 = v39;
-          v11 = v106;
+          v11 = v105;
           v44 = v41;
           self = selfCopy;
-          v108 = 0;
+          v107 = 0;
           v24 = 0;
           *errorCopy = [v43 initWithDomain:v44 code:2 userInfo:v42];
           goto LABEL_90;
         }
 
-        v108 = 0;
+        v107 = 0;
         v24 = 0;
 LABEL_108:
 
-        v9 = v107;
+        v9 = v106;
         goto LABEL_109;
       }
 
@@ -909,10 +908,10 @@ LABEL_108:
       {
         v35 = objc_alloc(MEMORY[0x1E696ABC0]);
         v36 = *MEMORY[0x1E698F240];
-        v132 = *MEMORY[0x1E696A578];
-        v108 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"carrierName"];
-        v133 = v108;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v133 forKeys:&v132 count:1];
+        v131 = *MEMORY[0x1E696A578];
+        v107 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"carrierName"];
+        v132 = v107;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
         v37 = v36;
         self = selfCopy;
         v38 = [v35 initWithDomain:v37 code:2 userInfo:v12];
@@ -934,21 +933,21 @@ LABEL_109:
       v18 = objc_alloc(MEMORY[0x1E696ABC0]);
       selfCopy2 = self;
       v20 = *MEMORY[0x1E698F240];
-      v134 = *MEMORY[0x1E696A578];
+      v133 = *MEMORY[0x1E696A578];
       v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"trackingNumber"];
-      v135 = v11;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v135 forKeys:&v134 count:1];
+      v134 = v11;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
       v22 = v18;
       v10 = v21;
       v23 = v20;
       self = selfCopy2;
-      v112 = 0;
+      v111 = 0;
       v24 = 0;
       *error = [v22 initWithDomain:v23 code:2 userInfo:v21];
       goto LABEL_109;
     }
 
-    v112 = 0;
+    v111 = 0;
     v24 = 0;
 LABEL_110:
 
@@ -967,23 +966,22 @@ LABEL_110:
     v52 = objc_alloc(MEMORY[0x1E696ABC0]);
     selfCopy3 = self;
     v54 = *MEMORY[0x1E698F240];
-    v136 = *MEMORY[0x1E696A578];
-    v112 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"status"];
-    v137[0] = v112;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v137 forKeys:&v136 count:1];
+    v135 = *MEMORY[0x1E696A578];
+    v111 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"status"];
+    v136[0] = v111;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v136 forKeys:&v135 count:1];
     v55 = v54;
     self = selfCopy3;
-    v113 = 0;
+    v112 = 0;
     v24 = 0;
     *error = [v52 initWithDomain:v55 code:2 userInfo:v9];
     goto LABEL_110;
   }
 
-  v113 = 0;
+  v112 = 0;
   v24 = 0;
 LABEL_111:
 
-  v86 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -999,8 +997,6 @@ LABEL_111:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  status = self->_status;
-  v7 = toCopy;
   PBDataWriterWriteUint32Field();
   if (self->_trackingNumber)
   {
@@ -1012,59 +1008,59 @@ LABEL_111:
     PBDataWriterWriteStringField();
   }
 
-  v6 = v7;
+  v4 = toCopy;
   if (self->_shippingMethod)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_shippingDate)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_shippingTime)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_estimatedDeliveryStartDate)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_estimatedDeliveryStartTime)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_estimatedDeliveryEndDate)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_estimatedDeliveryEndTime)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_deliveryDate)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_deliveryTime)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 }
 
@@ -1338,43 +1334,41 @@ LABEL_64:
 
 + (id)protoFields
 {
-  v17[12] = *MEMORY[0x1E69E9840];
-  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"status" number:1 type:4 subMessageClass:0];
-  v17[0] = v16;
-  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"trackingNumber" number:2 type:13 subMessageClass:0];
-  v17[1] = v15;
-  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"carrierName" number:3 type:13 subMessageClass:0];
-  v17[2] = v14;
+  v16[12] = *MEMORY[0x1E69E9840];
+  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"status" number:1 type:4 subMessageClass:0];
+  v16[0] = v15;
+  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"trackingNumber" number:2 type:13 subMessageClass:0];
+  v16[1] = v14;
+  v13 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"carrierName" number:3 type:13 subMessageClass:0];
+  v16[2] = v13;
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"shippingMethod" number:4 type:13 subMessageClass:0];
-  v17[3] = v2;
+  v16[3] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"shippingDate" number:5 type:13 subMessageClass:0];
-  v17[4] = v3;
+  v16[4] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"shippingTime" number:6 type:13 subMessageClass:0];
-  v17[5] = v4;
+  v16[5] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"estimatedDeliveryStartDate" number:7 type:13 subMessageClass:0];
-  v17[6] = v5;
+  v16[6] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"estimatedDeliveryStartTime" number:8 type:13 subMessageClass:0];
-  v17[7] = v6;
+  v16[7] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"estimatedDeliveryEndDate" number:9 type:13 subMessageClass:0];
-  v17[8] = v7;
+  v16[8] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"estimatedDeliveryEndTime" number:10 type:13 subMessageClass:0];
-  v17[9] = v8;
+  v16[9] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"deliveryDate" number:11 type:13 subMessageClass:0];
-  v17[10] = v9;
+  v16[10] = v9;
   v10 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"deliveryTime" number:12 type:13 subMessageClass:0];
-  v17[11] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:12];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v16[11] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:12];
 
   return v11;
 }
 
 + (id)columns
 {
-  v17[12] = *MEMORY[0x1E69E9840];
-  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"status" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
-  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"trackingNumber" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
+  v16[12] = *MEMORY[0x1E69E9840];
+  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"status" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
+  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"trackingNumber" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"carrierName" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"shippingMethod" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"shippingDate" dataType:2 requestOnly:0 fieldNumber:5 protoDataType:13 convertedType:0];
@@ -1382,26 +1376,24 @@ LABEL_64:
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"estimatedDeliveryStartDate" dataType:2 requestOnly:0 fieldNumber:7 protoDataType:13 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"estimatedDeliveryStartTime" dataType:2 requestOnly:0 fieldNumber:8 protoDataType:13 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"estimatedDeliveryEndDate" dataType:2 requestOnly:0 fieldNumber:9 protoDataType:13 convertedType:0];
-  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"estimatedDeliveryEndTime" dataType:2 requestOnly:0 fieldNumber:10 protoDataType:13 convertedType:0];
+  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"estimatedDeliveryEndTime" dataType:2 requestOnly:0 fieldNumber:10 protoDataType:13 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"deliveryDate" dataType:2 requestOnly:0 fieldNumber:11 protoDataType:13 convertedType:0];
   v10 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"deliveryTime" dataType:2 requestOnly:0 fieldNumber:12 protoDataType:13 convertedType:0];
-  v17[0] = v16;
-  v17[1] = v15;
-  v17[2] = v2;
-  v17[3] = v3;
-  v17[4] = v4;
-  v17[5] = v5;
-  v17[6] = v6;
-  v17[7] = v7;
-  v17[8] = v8;
-  v17[9] = v14;
-  v17[10] = v9;
-  v17[11] = v10;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:12];
+  v16[0] = v15;
+  v16[1] = v14;
+  v16[2] = v2;
+  v16[3] = v3;
+  v16[4] = v4;
+  v16[5] = v5;
+  v16[6] = v6;
+  v16[7] = v7;
+  v16[8] = v8;
+  v16[9] = v13;
+  v16[10] = v9;
+  v16[11] = v10;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:12];
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v12;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

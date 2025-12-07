@@ -20,190 +20,190 @@
 
 + (void)_EX_dictionaryWithSignedURL:()ExtensionKitAdditions error:
 {
-  v107[1] = *MEMORY[0x1E69E9840];
+  v108[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = _EXAuditTokenForCurrentProcess();
-  objc_opt_class();
-  v7 = _EXAuditTokenGetEntitlementValue(v6, @"com.apple.private.amfi.can-check-trust-cache");
-  bOOLValue = [v7 BOOLValue];
+  v7 = objc_opt_class();
+  v8 = _EXAuditTokenGetEntitlementValue(v6, @"com.apple.private.amfi.can-check-trust-cache", v7);
+  bOOLValue = [v8 BOOLValue];
 
   if (!bOOLValue)
   {
-    v11 = _EXDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = _EXDefaultLog(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&dword_1847D1000, v11, OS_LOG_TYPE_DEFAULT, "Unable to check trust cache due to missing entitlement", &buf, 2u);
+      _os_log_impl(&dword_1847D1000, v13, OS_LOG_TYPE_DEFAULT, "Unable to check trust cache due to missing entitlement", &buf, 2u);
     }
 
-    v18 = 0;
-    v19 = 0;
+    v20 = 0;
+    v21 = 0;
     goto LABEL_8;
   }
 
-  v9 = [v5 URLByAppendingPathExtension:@"sig"];
-  v10 = v5;
-  v11 = v9;
+  v11 = [v5 URLByAppendingPathExtension:@"sig"];
+  v12 = v5;
+  v13 = v11;
   cf = 0;
   staticCode = 0;
-  v12 = SecStaticCodeCreateWithPath(v10, 0, &staticCode);
-  if (v12)
+  v14 = SecStaticCodeCreateWithPath(v12, 0, &staticCode);
+  if (v14)
   {
-    v13 = MEMORY[0x1E696ABC0];
+    v15 = MEMORY[0x1E696ABC0];
     input[0] = *MEMORY[0x1E696A578];
-    path = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create SecStaticCodeRef [%ld]", v12];
+    path = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create SecStaticCodeRef [%ld]", v14];
     *&buf = path;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:input count:1];
-    v16 = [v13 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v15];
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:input count:1];
+    v18 = [v15 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v17];
 LABEL_4:
-    v17 = 0;
+    v19 = 0;
 LABEL_17:
 
-    v34 = 0;
-    v35 = 0;
+    v36 = 0;
+    v37 = 0;
 LABEL_18:
     if (staticCode)
     {
       CFRelease(staticCode);
     }
 
-    v18 = 0;
+    v20 = 0;
     goto LABEL_21;
   }
 
-  v93 = 0;
-  v17 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v11 options:0 error:&v93];
-  v29 = v93;
-  if (!v17)
+  v94 = 0;
+  v19 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v13 options:0 error:&v94];
+  v31 = v94;
+  if (!v19)
   {
-    v63 = MEMORY[0x1E696ABC0];
+    v64 = MEMORY[0x1E696ABC0];
     input[0] = *MEMORY[0x1E696A578];
-    v64 = MEMORY[0x1E696AEC0];
-    path = [v11 path];
-    v15 = [v64 stringWithFormat:@"Unable to read detached signature from %@", path];
+    v65 = MEMORY[0x1E696AEC0];
+    path = [v13 path];
+    v17 = [v65 stringWithFormat:@"Unable to read detached signature from %@", path];
     input[1] = *MEMORY[0x1E696AA08];
-    *&buf = v15;
-    *(&buf + 1) = v29;
+    *&buf = v17;
+    *(&buf + 1) = v31;
     [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:input count:2];
-    v65 = v5;
-    v67 = v66 = a4;
-    v16 = [v63 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v67];
+    v66 = v5;
+    v68 = v67 = a4;
+    v18 = [v64 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v68];
 
-    a4 = v66;
-    v5 = v65;
+    a4 = v67;
+    v5 = v66;
     goto LABEL_4;
   }
 
-  v30 = SecCodeSetDetachedSignature();
-  if (v30)
+  v32 = SecCodeSetDetachedSignature();
+  if (v32)
   {
-    v31 = MEMORY[0x1E696ABC0];
-    v32 = v5;
-    v33 = a4;
+    v33 = MEMORY[0x1E696ABC0];
+    v34 = v5;
+    v35 = a4;
     input[0] = *MEMORY[0x1E696A578];
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to set detached signature [%ld]", v30];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to set detached signature [%ld]", v32];
     path = LABEL_16:;
     *&buf = path;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:input count:1];
-    a4 = v33;
-    v5 = v32;
-    v16 = [v31 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v15];
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:input count:1];
+    a4 = v35;
+    v5 = v34;
+    v18 = [v33 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v17];
 
     goto LABEL_17;
   }
 
-  v68 = SecStaticCodeCheckValidity(staticCode, 6u, 0);
-  if (v68 != -66996 && v68)
+  v69 = SecStaticCodeCheckValidity(staticCode, 6u, 0);
+  if (v69 != -66996 && v69)
   {
-    v31 = MEMORY[0x1E696ABC0];
-    v32 = v5;
-    v33 = a4;
+    v33 = MEMORY[0x1E696ABC0];
+    v34 = v5;
+    v35 = a4;
     input[0] = *MEMORY[0x1E696A578];
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to verify code directory [%ld]", v68];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to verify code directory [%ld]", v69];
     goto LABEL_16;
   }
 
-  v69 = SecCodeCopySigningInformation(staticCode, 0, &cf);
-  if (v69)
+  v70 = SecCodeCopySigningInformation(staticCode, 0, &cf);
+  if (v70)
   {
-    v31 = MEMORY[0x1E696ABC0];
-    v32 = v5;
-    v33 = a4;
+    v33 = MEMORY[0x1E696ABC0];
+    v34 = v5;
+    v35 = a4;
     input[0] = *MEMORY[0x1E696A578];
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to get code signing information [%ld]", v69];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to get code signing information [%ld]", v70];
     goto LABEL_16;
   }
 
-  v34 = cf;
+  v36 = cf;
   cf = 0;
-  v35 = [v34 objectForKeyedSubscript:*MEMORY[0x1E697B098]];
+  v37 = [v36 objectForKeyedSubscript:*MEMORY[0x1E697B098]];
   connect = 0;
-  v70 = *MEMORY[0x1E696CD60];
-  v71 = IOServiceMatching("AppleMobileFileIntegrity");
-  MatchingService = IOServiceGetMatchingService(v70, v71);
-  v90 = a4;
+  v71 = *MEMORY[0x1E696CD60];
+  v72 = IOServiceMatching("AppleMobileFileIntegrity");
+  MatchingService = IOServiceGetMatchingService(v71, v72);
+  v91 = a4;
   object = MatchingService;
   if (!MatchingService)
   {
-    v77 = MEMORY[0x1E696ABC0];
+    v78 = MEMORY[0x1E696ABC0];
     input[0] = *MEMORY[0x1E696A578];
     *&buf = @"Unable to find AMFI";
-    v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:input count:1];
-    v79 = [v77 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v78];
+    v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:input count:1];
+    v80 = [v78 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v79];
 LABEL_59:
-    v81 = 0;
+    v82 = 0;
     goto LABEL_60;
   }
 
-  v73 = IOServiceOpen(MatchingService, *MEMORY[0x1E69E9A60], 0, &connect);
-  if (v73)
+  v74 = IOServiceOpen(MatchingService, *MEMORY[0x1E69E9A60], 0, &connect);
+  if (v74)
   {
-    v86 = MEMORY[0x1E696ABC0];
+    v87 = MEMORY[0x1E696ABC0];
     input[0] = *MEMORY[0x1E696A578];
-    v74 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to connect to AMFI [%ld]", v73];
-    *&buf = v74;
-    v75 = MEMORY[0x1E695DF20];
-    v76 = input;
+    v75 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to connect to AMFI [%ld]", v74];
+    *&buf = v75;
+    v76 = MEMORY[0x1E695DF20];
+    v77 = input;
 LABEL_58:
-    v82 = [v75 dictionaryWithObjects:&buf forKeys:v76 count:1];
-    v79 = [v86 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v82];
+    v83 = [v76 dictionaryWithObjects:&buf forKeys:v77 count:1];
+    v80 = [v87 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v83];
 
-    v78 = v74;
+    v79 = v75;
     goto LABEL_59;
   }
 
   input[0] = 1;
-  v80 = IOConnectCallMethod(connect, 6u, input, 1u, [v35 bytes], objc_msgSend(v35, "length"), 0, 0, 0, 0);
-  if (v80 == -536870160)
+  v81 = IOConnectCallMethod(connect, 6u, input, 1u, [v37 bytes], objc_msgSend(v37, "length"), 0, 0, 0, 0);
+  if (v81 == -536870160)
   {
-    v86 = MEMORY[0x1E696ABC0];
-    v107[0] = *MEMORY[0x1E696A578];
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"cdhash: %@ is not in trust cache", v35, v85];
-    v74 = LABEL_57:;
-    *&buf = v74;
-    v75 = MEMORY[0x1E695DF20];
-    v76 = v107;
+    v87 = MEMORY[0x1E696ABC0];
+    v108[0] = *MEMORY[0x1E696A578];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"cdhash: %@ is not in trust cache", v37, v86];
+    v75 = LABEL_57:;
+    *&buf = v75;
+    v76 = MEMORY[0x1E695DF20];
+    v77 = v108;
     goto LABEL_58;
   }
 
-  if (v80)
+  if (v81)
   {
-    v86 = MEMORY[0x1E696ABC0];
-    v107[0] = *MEMORY[0x1E696A578];
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown error (%ld) checking cdhash %@", v80, v35];
+    v87 = MEMORY[0x1E696ABC0];
+    v108[0] = *MEMORY[0x1E696A578];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown error (%ld) checking cdhash %@", v81, v37];
     goto LABEL_57;
   }
 
-  v78 = _EXDefaultLog();
-  if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+  v79 = _EXDefaultLog(v81);
+  if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v35;
-    _os_log_impl(&dword_1847D1000, v78, OS_LOG_TYPE_DEFAULT, "cdhash: %@ is trusted", &buf, 0xCu);
+    *(&buf + 4) = v37;
+    _os_log_impl(&dword_1847D1000, v79, OS_LOG_TYPE_DEFAULT, "cdhash: %@ is trusted", &buf, 0xCu);
   }
 
-  v79 = 0;
-  v81 = 1;
+  v80 = 0;
+  v82 = 1;
 LABEL_60:
 
   if (connect)
@@ -216,44 +216,44 @@ LABEL_60:
     IOObjectRelease(object);
   }
 
-  if (v79)
+  if (v80)
   {
-    v83 = v79;
-    v84 = v79;
+    v84 = v80;
+    v85 = v80;
   }
 
   else
   {
-    v84 = v29;
-    if ((v81 & 1) == 0)
+    v85 = v31;
+    if ((v82 & 1) == 0)
     {
       +[NSDictionary(ExtensionKitAdditions) _EX_dictionaryWithSignedURL:error:];
     }
   }
 
-  v16 = v84;
-  if (!v81)
+  v18 = v85;
+  if (!v82)
   {
-    a4 = v90;
+    a4 = v91;
     goto LABEL_18;
   }
 
-  v18 = staticCode;
+  v20 = staticCode;
   staticCode = 0;
-  a4 = v90;
+  a4 = v91;
 LABEL_21:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v16)
+  if (v18)
   {
-    v36 = v16;
+    v38 = v18;
   }
 
-  v19 = v16;
-  if (!v18)
+  v21 = v18;
+  if (!v20)
   {
     if (!a4)
     {
@@ -263,26 +263,26 @@ LABEL_21:
     goto LABEL_29;
   }
 
-  v37 = SecCodeMapMemory(v18, 0);
-  if (v37)
+  v39 = SecCodeMapMemory(v20, 0);
+  if (v39)
   {
-    v38 = MEMORY[0x1E696ABC0];
-    v103 = *MEMORY[0x1E696A578];
+    v40 = MEMORY[0x1E696ABC0];
+    v104 = *MEMORY[0x1E696A578];
     *objecta = v5;
-    v39 = a4;
-    v40 = MEMORY[0x1E696AEC0];
-    v41 = v37;
-    path2 = [(__CFURL *)v10 path];
-    path3 = [v11 path];
-    v44 = [v40 stringWithFormat:@"Unable to push signature to kernel [%ld]: plist: %@ signature: %@", v41, path2, path3];
-    v104 = v44;
-    v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
-    v46 = [v38 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v45];
+    v41 = a4;
+    v42 = MEMORY[0x1E696AEC0];
+    v43 = v39;
+    path2 = [(__CFURL *)v12 path];
+    path3 = [v13 path];
+    v46 = [v42 stringWithFormat:@"Unable to push signature to kernel [%ld]: plist: %@ signature: %@", v43, path2, path3];
+    v105 = v46;
+    v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+    v48 = [v40 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v47];
 
-    a4 = v39;
+    a4 = v41;
     v5 = *objecta;
 
-    v19 = v46;
+    v21 = v48;
 LABEL_29:
 
     goto LABEL_30;
@@ -290,108 +290,107 @@ LABEL_29:
 
 LABEL_8:
 
-  v92 = v19;
-  v20 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v5 options:8 error:&v92];
-  v21 = v92;
+  v93 = v21;
+  v22 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v5 options:8 error:&v93];
+  v23 = v93;
 
-  if (!v20)
+  if (!v22)
   {
-    v24 = MEMORY[0x1E696ABC0];
-    v101 = *MEMORY[0x1E696A578];
-    v25 = MEMORY[0x1E696AEC0];
+    v26 = MEMORY[0x1E696ABC0];
+    v102 = *MEMORY[0x1E696A578];
+    v27 = MEMORY[0x1E696AEC0];
     path4 = [v5 path];
-    v27 = [v25 stringWithFormat:@"Unable to read plist at %@", path4];
-    v102 = v27;
-    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
-    v19 = [v24 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v28];
+    v29 = [v27 stringWithFormat:@"Unable to read plist at %@", path4];
+    v103 = v29;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
+    v21 = [v26 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v30];
 
 LABEL_30:
+    v24 = 0;
     v22 = 0;
-    v20 = 0;
-    v23 = 0;
+    v25 = 0;
     goto LABEL_34;
   }
 
-  v91 = 0;
-  v22 = [MEMORY[0x1E696AE40] propertyListWithData:v20 options:0 format:0 error:&v91];
-  v19 = v91;
+  v92 = 0;
+  v24 = [MEMORY[0x1E696AE40] propertyListWithData:v22 options:0 format:0 error:&v92];
+  v21 = v92;
 
-  if (v22)
+  if (v24)
   {
-    v89 = a4;
+    v90 = a4;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v22 = v22;
-      v23 = v22;
+      v24 = v24;
+      v25 = v24;
     }
 
     else
     {
-      v53 = MEMORY[0x1E696ABC0];
-      v97 = *MEMORY[0x1E696A578];
-      v54 = MEMORY[0x1E696AEC0];
+      v55 = MEMORY[0x1E696ABC0];
+      v98 = *MEMORY[0x1E696A578];
+      v56 = MEMORY[0x1E696AEC0];
       path5 = [v5 path];
-      v56 = [v54 stringWithFormat:@"Extension cache at path [%@] not a dictionary: %@", path5, v22];
-      v98 = v56;
-      v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
-      v58 = [v53 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v57];
+      v58 = [v56 stringWithFormat:@"Extension cache at path [%@] not a dictionary: %@", path5, v24];
+      v99 = v58;
+      v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
+      v60 = [v55 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v59];
 
-      v23 = 0;
-      v19 = v58;
+      v25 = 0;
+      v21 = v60;
     }
 
-    a4 = v89;
+    a4 = v90;
   }
 
   else
   {
-    v47 = MEMORY[0x1E696ABC0];
-    v99 = *MEMORY[0x1E696A578];
-    v48 = MEMORY[0x1E696AEC0];
+    v49 = MEMORY[0x1E696ABC0];
+    v100 = *MEMORY[0x1E696A578];
+    v50 = MEMORY[0x1E696AEC0];
     path6 = [v5 path];
-    v50 = [v48 stringWithFormat:@"Unable to deserialize %@", path6];
-    v100 = v50;
-    v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
-    v52 = [v47 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v51];
+    v52 = [v50 stringWithFormat:@"Unable to deserialize %@", path6];
+    v101 = v52;
+    v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+    v54 = [v49 errorWithDomain:@"com.apple.extensionKit.errorDomain" code:12 userInfo:v53];
 
-    v22 = 0;
-    v23 = 0;
-    v19 = v52;
+    v24 = 0;
+    v25 = 0;
+    v21 = v54;
   }
 
 LABEL_34:
-  if (v18)
+  if (v20)
   {
-    CFRelease(v18);
+    CFRelease(v20);
   }
 
-  if (a4 && v19)
+  if (a4 && v21)
   {
-    v59 = v19;
-    *a4 = v19;
+    v61 = v21;
+    *a4 = v21;
   }
 
-  v60 = v23;
+  v62 = v25;
 
-  v61 = *MEMORY[0x1E69E9840];
-  return v23;
+  return v25;
 }
 
 - (id)_EX_objectForKey:()ExtensionKitAdditions ofClass:
 {
-  v1 = [self objectForKey:?];
+  v4 = [self objectForKey:a3];
   if (objc_opt_isKindOfClass())
   {
-    v2 = v1;
+    v5 = v4;
   }
 
   else
   {
-    v2 = 0;
+    v5 = 0;
   }
 
-  return v2;
+  return v5;
 }
 
 - (id)_EX_objectForKeys:()ExtensionKitAdditions ofClass:
@@ -401,31 +400,31 @@ LABEL_34:
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v4 = a3;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v5)
+  v5 = a3;
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
   {
-    v6 = v5;
-    v7 = *v13;
+    v7 = v6;
+    v8 = *v13;
 LABEL_3:
-    v8 = 0;
+    v9 = 0;
     while (1)
     {
-      if (*v13 != v7)
+      if (*v13 != v8)
       {
-        objc_enumerationMutation(v4);
+        objc_enumerationMutation(v5);
       }
 
-      v9 = [self objectForKey:{*(*(&v12 + 1) + 8 * v8), v12}];
+      v10 = [self objectForKey:{*(*(&v12 + 1) + 8 * v9), v12}];
       if (objc_opt_isKindOfClass())
       {
         break;
       }
 
-      if (v6 == ++v8)
+      if (v7 == ++v9)
       {
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
-        if (v6)
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        if (v7)
         {
           goto LABEL_3;
         }
@@ -438,12 +437,10 @@ LABEL_3:
   else
   {
 LABEL_9:
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v9;
+  return v10;
 }
 
 - (id)_EX_dictionaryForKey:()ExtensionKitAdditions

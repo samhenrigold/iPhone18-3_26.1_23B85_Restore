@@ -11,9 +11,9 @@
 {
   interfaceCopy = interface;
   managerCopy = manager;
-  v13.receiver = self;
-  v13.super_class = W5PeerSnifferListener;
-  v9 = [(W5PeerSnifferListener *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = W5PeerSnifferListener;
+  v9 = [(W5PeerSnifferListener *)&v14 init];
   v10 = v9;
   if (!v9 || (objc_storeStrong(&v9->_interface, interface), !v10->_interface) || (objc_storeStrong(&v10->_snifferManager, manager), !v10->_snifferManager))
   {
@@ -21,13 +21,14 @@
     v11 = sub_100098A04();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315650;
-      v15 = "[W5PeerSnifferListener initWithInterface:snifferManager:]";
-      v16 = 2080;
-      v17 = "W5PeerSnifferListener.m";
-      v18 = 1024;
-      v19 = 43;
-      _os_log_send_and_compose_impl();
+      v15 = 136315650;
+      v16 = "[W5PeerSnifferListener initWithInterface:snifferManager:]";
+      v17 = 2080;
+      v18 = "W5PeerSnifferListener.m";
+      v19 = 1024;
+      v20 = 43;
+      LODWORD(v13) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v11, 0, "[wifivelocity] %s (%s:%u) init error!", &v15, v13, LODWORD(v14.receiver));
     }
 
     v10 = 0;
@@ -57,11 +58,9 @@
       v18 = sub_100098A04();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138543362;
-        v26 = uuid;
-        LODWORD(v24) = 12;
-        v23 = &v25;
-        _os_log_send_and_compose_impl();
+        v24 = 138543362;
+        v25 = uuid;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v18, 0, "[wifivelocity] Request received to cancel sniffer with UUID: %{public}@", &v24, 12);
       }
 
       [(W5PeerSnifferListener *)self stopSnifferWithUUID:uuid interface:self->_interface];
@@ -73,11 +72,9 @@
       v14 = sub_100098A04();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138543362;
-        v26 = channels;
-        LODWORD(v24) = 12;
-        v23 = &v25;
-        _os_log_send_and_compose_impl();
+        v24 = 138543362;
+        v25 = channels;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v14, 0, "[wifivelocity] Request received to run sniffer on channels: %{public}@", &v24, 12);
       }
 
       if (!uuid)
@@ -86,11 +83,10 @@
         v15 = sub_100098A04();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v25 = 138543362;
-          v26 = uuid;
-          LODWORD(v24) = 12;
-          v23 = &v25;
-          _os_log_send_and_compose_impl();
+          v24 = 138543362;
+          v25 = uuid;
+          LODWORD(v23) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v15, 0, "[wifivelocity] Generating uuid for sniffer invocation %{public}@", &v24, v23);
         }
       }
 
@@ -112,19 +108,18 @@
       v20 = sub_100098A04();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 136316162;
-        v26 = "[W5PeerSnifferListener handleClientRequest:]";
-        v27 = 2080;
-        v28 = "W5PeerSnifferListener.m";
-        v29 = 1024;
-        v30 = 83;
-        v31 = 2114;
-        v32 = uuid;
-        v33 = 2114;
-        v34 = v19;
-        LODWORD(v24) = 48;
-        v23 = &v25;
-        _os_log_send_and_compose_impl();
+        v24 = 136316162;
+        v25 = "[W5PeerSnifferListener handleClientRequest:]";
+        v26 = 2080;
+        v27 = "W5PeerSnifferListener.m";
+        v28 = 1024;
+        v29 = 83;
+        v30 = 2114;
+        v31 = uuid;
+        v32 = 2114;
+        v33 = v19;
+        LODWORD(v23) = 48;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v20, 0, "[wifivelocity] %s (%s:%u) For Sniffer Request, replied with UUID: %{public}@, paths: %{public}@", &v24, v23);
       }
     }
   }
@@ -188,39 +183,41 @@
   v8 = sub_100098A04();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543362;
-    v18 = dCopy;
-    _os_log_send_and_compose_impl();
+    v19 = 138543362;
+    v20 = dCopy;
+    v15 = 12;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] Stopping Sniffer Request with UUID: %{public}@", &v19, v15);
   }
 
   snifferManager = self->_snifferManager;
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_10001369C;
-  v15[3] = &unk_1000E1528;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_10001369C;
+  v17[3] = &unk_1000E1528;
   v10 = dCopy;
-  v16 = v10;
-  [(W5WiFiSniffManager *)snifferManager cancelRequestWithUUID:v10 reply:v15];
-  v14 = 0;
-  [interfaceCopy setUserAutoJoinDisabled:0 error:&v14];
-  v11 = v14;
+  v18 = v10;
+  [(W5WiFiSniffManager *)snifferManager cancelRequestWithUUID:v10 reply:v17];
+  v16 = 0;
+  [interfaceCopy setUserAutoJoinDisabled:0 error:&v16];
+  v11 = v16;
   v12 = sub_100098A04();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     userAutoJoinDisabled = [interfaceCopy userAutoJoinDisabled];
-    v17 = 136316418;
-    v18 = "[W5PeerSnifferListener stopSnifferWithUUID:interface:]";
-    v19 = 2080;
-    v20 = "W5PeerSnifferListener.m";
-    v21 = 1024;
-    v22 = 176;
+    v19 = 136316418;
+    v20 = "[W5PeerSnifferListener stopSnifferWithUUID:interface:]";
+    v21 = 2080;
+    v22 = "W5PeerSnifferListener.m";
     v23 = 1024;
-    v24 = 0;
+    v24 = 176;
     v25 = 1024;
-    v26 = userAutoJoinDisabled;
-    v27 = 2114;
-    v28 = v11;
-    _os_log_send_and_compose_impl();
+    v26 = 0;
+    v27 = 1024;
+    v28 = userAutoJoinDisabled;
+    v29 = 2114;
+    v30 = v11;
+    LODWORD(v14) = 50;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[wifivelocity] %s (%s:%u) Setting User Auto Join Disabled: %d, status: %d, error: %{public}@", &v19, v14);
   }
 }
 

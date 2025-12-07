@@ -149,9 +149,12 @@
 
 uint64_t __25__NUDevice_executeMetal___block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _metalCommandQueue];
+  v2 = [*(a1 + 32) _metalCommandQueue];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)clearCaches
@@ -317,9 +320,12 @@ LABEL_14:
 
 uint64_t __38__NUDevice_rendererWithOptions_error___block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _rendererWithOptions:*(a1 + 48) error:*(a1 + 56)];
+  v2 = [*(a1 + 32) _rendererWithOptions:*(a1 + 48) error:*(a1 + 56)];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (BOOL)shouldRenderUsingMetal
@@ -441,7 +447,7 @@ LABEL_14:
   return v3;
 }
 
-uint64_t __29__NUDevice_defaultSampleMode__block_invoke(uint64_t a1)
+void *__29__NUDevice_defaultSampleMode__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _defaultSampleMode];
   *(*(*(a1 + 40) + 8) + 24) = result;

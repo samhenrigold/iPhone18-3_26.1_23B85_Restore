@@ -166,7 +166,7 @@ LABEL_9:
   return v10;
 }
 
-uint64_t __102___MXExtensionManager__lookupPolicyForExtensionWithContainingAppIdentifiers_supportsIntentClassNames___block_invoke_2(uint64_t a1, NSString *aClassName)
+void *__102___MXExtensionManager__lookupPolicyForExtensionWithContainingAppIdentifiers_supportsIntentClassNames___block_invoke_2(uint64_t a1, NSString *aClassName)
 {
   v3 = NSClassFromString(aClassName);
   v4 = *(*(a1 + 40) + 8);

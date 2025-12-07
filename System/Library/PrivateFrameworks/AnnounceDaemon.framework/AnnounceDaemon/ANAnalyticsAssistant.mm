@@ -14,7 +14,7 @@
   v4 = v3;
   if (v3)
   {
-    [v3 duration];
+    objc_msgSend_duration(v3);
     v6 = v5;
     data = [v4 data];
     v8 = [data length];

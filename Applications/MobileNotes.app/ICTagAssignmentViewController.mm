@@ -23,7 +23,7 @@
 - (ICTagAssignmentViewController)initWithSelectedNotes:(id)notes managedObjectContext:(id)context completion:(id)completion
 {
   v6 = _Block_copy(completion);
-  sub_1000054A4(0, &qword_1006C1420);
+  sub_1000054A4(0, &qword_1006C1420, ICNote_ptr);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v8 = swift_allocObject();
   *(v8 + 16) = v6;

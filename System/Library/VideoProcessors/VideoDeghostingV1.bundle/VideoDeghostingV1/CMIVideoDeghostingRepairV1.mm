@@ -62,13 +62,13 @@ LABEL_5:
 
 - (int)setup
 {
-  v64[0] = kCVPixelBufferMetalCompatibilityKey;
-  v64[1] = kCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey;
-  v65[0] = &__kCFBooleanTrue;
-  v65[1] = &__kCFBooleanTrue;
-  v64[2] = kCVPixelBufferIOSurfacePropertiesKey;
-  v65[2] = &__NSDictionary0__struct;
-  v3 = [NSDictionary dictionaryWithObjects:v65 forKeys:v64 count:3];
+  v63[0] = kCVPixelBufferMetalCompatibilityKey;
+  v63[1] = kCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey;
+  v64[0] = &__kCFBooleanTrue;
+  v64[1] = &__kCFBooleanTrue;
+  v63[2] = kCVPixelBufferIOSurfacePropertiesKey;
+  v64[2] = &__NSDictionary0__struct;
+  v3 = [NSDictionary dictionaryWithObjects:v64 forKeys:v63 count:3];
   v4 = +[CMInferenceUtils sharedInstance];
   v5 = [(NSDictionary *)self->_tuningParameters objectForKeyedSubscript:@"NetworkName"];
   v6 = [v4 getNetworkPath:v5 isE5:0];
@@ -81,7 +81,7 @@ LABEL_29:
     allocator = 0;
 LABEL_36:
     [(CMIVideoDeghostingRepairV1 *)self purgeResources];
-    v60 = 1;
+    v59 = 1;
     goto LABEL_22;
   }
 
@@ -136,9 +136,9 @@ LABEL_35:
     goto LABEL_29;
   }
 
-  v62 = kCVMetalTextureCacheMaximumTextureAgeKey;
-  v63 = &off_35988;
-  allocator = [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+  v61 = kCVMetalTextureCacheMaximumTextureAgeKey;
+  v62 = &off_35988;
+  allocator = [NSDictionary dictionaryWithObjects:&v62 forKeys:&v61 count:1];
   device2 = [(FigMetalContext *)self->_metalContext device];
   v19 = CVMetalTextureCacheCreate(kCFAllocatorDefault, allocator, device2, 0, &self->_cvMetalTextureCacheRef);
 
@@ -172,7 +172,6 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  espressoPlan = self->_espressoPlan;
   if (espresso_plan_build())
   {
     sub_20310();
@@ -182,8 +181,8 @@ LABEL_35:
   *self->_anon_24c = 0x9000900800080;
   *&self->_anon_24c[8] = 327685;
   FigGetCFPreferenceDoubleWithDefault();
-  *&v23 = v23;
-  self->_blendingStrength = *&v23;
+  *&v22 = v22;
+  self->_blendingStrength = *&v22;
   allocator2 = [(FigMetalContext *)self->_metalContext allocator];
   plan = [allocator2 newTextureDescriptor];
 
@@ -205,19 +204,19 @@ LABEL_35:
   desc4 = [plan desc];
   [desc4 setPixelFormat:25];
 
-  v29 = *self->_anon_24c;
+  v28 = *self->_anon_24c;
   desc5 = [plan desc];
-  [desc5 setWidth:v29];
+  [desc5 setWidth:v28];
 
-  v31 = 3 * *&self->_anon_24c[2];
+  v30 = 3 * *&self->_anon_24c[2];
   desc6 = [plan desc];
-  [desc6 setHeight:v31];
+  [desc6 setHeight:v30];
 
   [plan setLabel:0];
   allocator3 = [(FigMetalContext *)self->_metalContext allocator];
-  v34 = [allocator3 newTextureWithDescriptor:plan];
+  v33 = [allocator3 newTextureWithDescriptor:plan];
   tileInputImageTexture = self->_tileInputImageTexture;
-  self->_tileInputImageTexture = v34;
+  self->_tileInputImageTexture = v33;
 
   if (!self->_tileInputImageTexture)
   {
@@ -228,19 +227,19 @@ LABEL_35:
   desc7 = [plan desc];
   [desc7 setPixelFormat:25];
 
-  v37 = *self->_anon_24c + 1;
+  v36 = *self->_anon_24c + 1;
   desc8 = [plan desc];
-  [desc8 setWidth:*&v37 & 0x1FFFELL];
+  [desc8 setWidth:*&v36 & 0x1FFFELL];
 
-  v39 = *&self->_anon_24c[2] + 1;
+  v38 = *&self->_anon_24c[2] + 1;
   desc9 = [plan desc];
-  [desc9 setHeight:*&v39 & 0x1FFFELL];
+  [desc9 setHeight:*&v38 & 0x1FFFELL];
 
   [plan setLabel:0];
   allocator4 = [(FigMetalContext *)self->_metalContext allocator];
-  v42 = [allocator4 newTextureWithDescriptor:plan];
+  v41 = [allocator4 newTextureWithDescriptor:plan];
   tileInputMaskTexture = self->_tileInputMaskTexture;
-  self->_tileInputMaskTexture = v42;
+  self->_tileInputMaskTexture = v41;
 
   if (!self->_tileInputImageTexture)
   {
@@ -251,19 +250,19 @@ LABEL_35:
   desc10 = [plan desc];
   [desc10 setPixelFormat:25];
 
-  v45 = *self->_anon_24c + 1;
+  v44 = *self->_anon_24c + 1;
   desc11 = [plan desc];
-  [desc11 setWidth:*&v45 & 0x1FFFELL];
+  [desc11 setWidth:*&v44 & 0x1FFFELL];
 
-  v47 = *&self->_anon_24c[2] + 1;
+  v46 = *&self->_anon_24c[2] + 1;
   desc12 = [plan desc];
-  [desc12 setHeight:*&v47 & 0x1FFFELL];
+  [desc12 setHeight:*&v46 & 0x1FFFELL];
 
   [plan setLabel:0];
   allocator5 = [(FigMetalContext *)self->_metalContext allocator];
-  v50 = [allocator5 newTextureWithDescriptor:plan];
+  v49 = [allocator5 newTextureWithDescriptor:plan];
   tileDilatedMaskTexture = self->_tileDilatedMaskTexture;
-  self->_tileDilatedMaskTexture = v50;
+  self->_tileDilatedMaskTexture = v49;
 
   if (!self->_tileDilatedMaskTexture)
   {
@@ -274,19 +273,19 @@ LABEL_35:
   desc13 = [plan desc];
   [desc13 setPixelFormat:25];
 
-  v53 = *self->_anon_24c + 1;
+  v52 = *self->_anon_24c + 1;
   desc14 = [plan desc];
-  [desc14 setWidth:*&v53 & 0x1FFFELL];
+  [desc14 setWidth:*&v52 & 0x1FFFELL];
 
-  v55 = *&self->_anon_24c[2] + 1;
+  v54 = *&self->_anon_24c[2] + 1;
   desc15 = [plan desc];
-  [desc15 setHeight:*&v55 & 0x1FFFELL];
+  [desc15 setHeight:*&v54 & 0x1FFFELL];
 
   [plan setLabel:0];
   allocator6 = [(FigMetalContext *)self->_metalContext allocator];
-  v58 = [allocator6 newTextureWithDescriptor:plan];
+  v57 = [allocator6 newTextureWithDescriptor:plan];
   tileBlendingMaskTexture = self->_tileBlendingMaskTexture;
-  self->_tileBlendingMaskTexture = v58;
+  self->_tileBlendingMaskTexture = v57;
 
   if (!self->_tileBlendingMaskTexture)
   {
@@ -306,10 +305,10 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  v60 = 0;
+  v59 = 0;
 LABEL_22:
 
-  return v60;
+  return v59;
 }
 
 - (void)dealloc
@@ -341,28 +340,18 @@ LABEL_22:
   FigMetalDecRef();
   FigMetalDecRef();
   FigMetalDecRef();
-  if (self->_espressoInputImageBuffer.data)
+  if (self->_espressoInputImageBuffer.data && espresso_network_unbind_buffer())
   {
-    plan = self->_espressoNetwork.plan;
-    v6 = *&self->_espressoNetwork.network_index;
-    if (espresso_network_unbind_buffer())
-    {
-      sub_20938();
+    sub_20938();
 LABEL_22:
-      LODWORD(cvMetalTextureCacheRef) = 2;
-      return cvMetalTextureCacheRef;
-    }
+    LODWORD(cvMetalTextureCacheRef) = 2;
+    return cvMetalTextureCacheRef;
   }
 
-  if (self->_espressoOutputBuffer.data)
+  if (self->_espressoOutputBuffer.data && espresso_network_unbind_buffer())
   {
-    v7 = self->_espressoNetwork.plan;
-    v8 = *&self->_espressoNetwork.network_index;
-    if (espresso_network_unbind_buffer())
-    {
-      sub_209B0();
-      goto LABEL_22;
-    }
+    sub_209B0();
+    goto LABEL_22;
   }
 
   if (!self->_espressoPlan)
@@ -424,10 +413,10 @@ LABEL_15:
 {
   if (!_repair)
   {
-    sub_21160();
+    sub_21160(self, a2, i.origin, *&i.origin.y, i.size, *&i.size.height);
 LABEL_29:
     commandBuffer = 0;
-    v38 = -12780;
+    LODWORD(v31) = -12780;
     goto LABEL_23;
   }
 
@@ -443,7 +432,7 @@ LABEL_29:
 
   if (_ZF)
   {
-    sub_210E8();
+    sub_210E8(i.origin, *&i.origin.y, i.size, *&i.size.height);
     goto LABEL_29;
   }
 
@@ -460,7 +449,7 @@ LABEL_29:
 
   if (v8)
   {
-    sub_21070();
+    sub_21070(i.origin, *&i.origin.y, i.size, *&i.size.height);
     goto LABEL_29;
   }
 
@@ -468,27 +457,27 @@ LABEL_29:
   width = i.size.width;
   x = i.origin.x;
   y = i.origin.y;
-  v44 = v4;
+  v37 = v4;
   if (CVPixelBufferGetWidth(_repair) < v4.u16[0] + v4.u16[2])
   {
     sub_20FF8();
     goto LABEL_29;
   }
 
-  if (CVPixelBufferGetHeight(_repair) < v44.u16[1] + v7)
+  if (CVPixelBufferGetHeight(_repair) < v37.u16[1] + v7)
   {
     sub_20F80();
     goto LABEL_29;
   }
 
-  *self->_inputROI = vand_s8(v44, -65538);
+  *self->_inputROI = vand_s8(v37, -65538);
   commandQueue = [(FigMetalContext *)self->_metalContext commandQueue];
   commandBuffer = [commandQueue commandBuffer];
 
   v12 = [(CMIVideoDeghostingRepairV1 *)self _copyImageTileFromPixelBuffer:_repair outputImageTileTexture:self->_tileInputImageTexture commandBuffer:commandBuffer];
   if (v12)
   {
-    v38 = v12;
+    LODWORD(v31) = v12;
     sub_20B18();
     goto LABEL_23;
   }
@@ -508,7 +497,7 @@ LABEL_29:
   v24 = [(CMIVideoDeghostingRepairV1 *)self _generateMaskTile:self->_tileInputMaskTexture commandBuffer:commandBuffer circleParams:*&v23, COERCE_UNSIGNED_INT(v19 * v19)];
   if (v24)
   {
-    v38 = v24;
+    LODWORD(v31) = v24;
     sub_20B98();
     goto LABEL_23;
   }
@@ -517,7 +506,7 @@ LABEL_29:
   v26 = [(CMIVideoDeghostingRepairV1 *)self _generateMaskTile:self->_tileDilatedMaskTexture commandBuffer:commandBuffer circleParams:*&v23, COERCE_UNSIGNED_INT((v19 + v25) * (v19 + v25))];
   if (v26)
   {
-    v38 = v26;
+    LODWORD(v31) = v26;
     sub_20C18();
     goto LABEL_23;
   }
@@ -525,7 +514,7 @@ LABEL_29:
   v27 = [(CMIVideoDeghostingRepairV1 *)self _featherMask:self->_tileInputMaskTexture outputFeatheredMask:self->_tileBlendingMaskTexture commandBuffer:commandBuffer];
   if (v27)
   {
-    v38 = v27;
+    LODWORD(v31) = v27;
     sub_20C98();
     goto LABEL_23;
   }
@@ -533,7 +522,7 @@ LABEL_29:
   v28 = [(CMIVideoDeghostingRepairV1 *)self _copyImageTileFromPixelBuffer:_repair mergeWithMask:self->_tileDilatedMaskTexture outputTilePixelBuffer:self->_tileInputPixelBuffer commandBuffer:commandBuffer];
   if (v28)
   {
-    v38 = v28;
+    LODWORD(v31) = v28;
     sub_20D18();
     goto LABEL_23;
   }
@@ -541,27 +530,20 @@ LABEL_29:
   [commandBuffer setLabel:@"VideoDeghostingV1Repair_Repair"];
   [commandBuffer commit];
   [commandBuffer waitUntilScheduled];
-  tileOutputPixelBuffer = self->_tileOutputPixelBuffer;
-  plan = self->_espressoNetwork.plan;
-  v31 = *&self->_espressoNetwork.network_index;
   if (espresso_network_bind_direct_cvpixelbuffer())
   {
     sub_20D98();
 LABEL_38:
-    v38 = -12782;
+    LODWORD(v31) = -12782;
     goto LABEL_23;
   }
 
-  tileInputPixelBuffer = self->_tileInputPixelBuffer;
-  v33 = self->_espressoNetwork.plan;
-  v34 = *&self->_espressoNetwork.network_index;
   if (espresso_network_bind_direct_cvpixelbuffer())
   {
     sub_20E10();
     goto LABEL_38;
   }
 
-  espressoPlan = self->_espressoPlan;
   if (espresso_plan_execute_sync())
   {
     sub_20E88();
@@ -571,19 +553,19 @@ LABEL_38:
   commandQueue2 = [(FigMetalContext *)self->_metalContext commandQueue];
   commandBuffer2 = [commandQueue2 commandBuffer];
 
-  v38 = [(CMIVideoDeghostingRepairV1 *)self _pasteRepairedTile:self->_tileOutputPixelBuffer inputTileTexture:self->_tileInputImageTexture blendingMask:self->_tileBlendingMaskTexture outputPixelBuffer:_repair commandBuffer:commandBuffer2];
+  v31 = [(CMIVideoDeghostingRepairV1 *)self _pasteRepairedTile:self->_tileOutputPixelBuffer inputTileTexture:self->_tileInputImageTexture blendingMask:self->_tileBlendingMaskTexture outputPixelBuffer:_repair commandBuffer:commandBuffer2];
   [commandBuffer2 setLabel:@"VideoDeghostingV1Repair_Paste"];
   [commandBuffer2 commit];
   [commandBuffer2 waitUntilScheduled];
-  if (v38)
+  if (v31)
   {
-    sub_20F00();
+    sub_20F00(v31);
   }
 
   commandBuffer = commandBuffer2;
 LABEL_23:
 
-  return v38;
+  return v31;
 }
 
 - (int)_generateMaskTile:(id)tile commandBuffer:(id)buffer circleParams:(RepairCircleParams)params
@@ -992,8 +974,8 @@ LABEL_7:
   {
     fig_log_get_emitter();
     sub_4BF4();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 LABEL_14:
-    FigDebugAssert3();
     LODWORD(v8) = 3;
     return v8;
   }
@@ -1003,7 +985,7 @@ LABEL_14:
   {
     fig_log_get_emitter();
     sub_4BF4();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   }
 
   else
@@ -1034,8 +1016,10 @@ LABEL_14:
         return v8;
       }
 
+      v17 = v8;
       fig_log_get_emitter();
       sub_4C0C();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v17);
       goto LABEL_14;
     }
   }
@@ -1084,7 +1068,7 @@ LABEL_14:
   {
     fig_log_get_emitter();
     sub_CDA4();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     v12 = 0;
     v22 = -12780;
   }
@@ -1128,7 +1112,7 @@ LABEL_14:
   {
     fig_log_get_emitter();
     sub_CDA4();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     v12 = 0;
     v22 = -12780;
   }
@@ -1140,12 +1124,12 @@ LABEL_14:
 {
   maskCopy = mask;
   commandBufferCopy = commandBuffer;
-  v22 = 0;
+  v29 = 0;
   if (!buffer || !maskCopy)
   {
     fig_log_get_emitter();
     sub_CDA4();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     pixelBuffer = 0;
 LABEL_10:
     v13 = 0;
@@ -1157,7 +1141,7 @@ LABEL_10:
   {
     fig_log_get_emitter();
     sub_CDA4();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v20, v21, v22, v23, v24, v25, v26, v27);
     goto LABEL_10;
   }
 
@@ -1191,17 +1175,17 @@ LABEL_12:
   objc_claimAutoreleasedReturnValue();
   [sub_CE6C() setTexture:? atIndex:?];
 
-  [computeCommandEncoder setBytes:&v22 length:4 atIndex:0];
+  [computeCommandEncoder setBytes:&v29 length:4 atIndex:0];
   threadExecutionWidth = [(MTLComputePipelineState *)self->_pipelineStates[6] threadExecutionWidth];
   maxTotalThreadsPerThreadgroup = [(MTLComputePipelineState *)self->_pipelineStates[6] maxTotalThreadsPerThreadgroup];
   v17 = *&self->_anon_24c[2];
-  v21[0] = *self->_anon_24c;
-  v21[1] = v17;
-  v21[2] = 1;
-  v20[0] = threadExecutionWidth;
-  v20[1] = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
-  v20[2] = 1;
-  [computeCommandEncoder dispatchThreads:v21 threadsPerThreadgroup:v20];
+  v26 = *self->_anon_24c;
+  v27 = v17;
+  v28 = 1;
+  v23 = threadExecutionWidth;
+  v24 = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
+  v25 = (&dword_0 + 1);
+  [computeCommandEncoder dispatchThreads:&v26 threadsPerThreadgroup:&v23];
   [computeCommandEncoder endEncoding];
 
   v18 = 0;
@@ -1215,12 +1199,12 @@ LABEL_7:
   textureCopy = texture;
   maskCopy = mask;
   commandBufferCopy = commandBuffer;
-  v26 = 0;
+  v34 = 0;
   if (!tile)
   {
     fig_log_get_emitter();
     sub_4C20();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v25, v26, v27, v28, v29, v30, v31, v32);
 LABEL_11:
     buffer = 0;
 LABEL_13:
@@ -1233,7 +1217,7 @@ LABEL_13:
   {
     fig_log_get_emitter();
     sub_4C20();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v25, v26, v27, v28, v29, v30, v31, v32);
     tile = 0;
     goto LABEL_11;
   }
@@ -1242,15 +1226,15 @@ LABEL_13:
   {
     fig_log_get_emitter();
     sub_4C20();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v25, v26, v27, v28, v29, v30, v31, v32);
     tile = 0;
     goto LABEL_13;
   }
 
   v16 = vmovl_u16(*self->_inputROI);
-  WORD1(v26) = v16.i16[2];
-  LOWORD(v26) = v16.i16[0];
-  HIDWORD(v26) = LODWORD(self->_blendingStrength);
+  WORD1(v34) = v16.i16[2];
+  LOWORD(v34) = v16.i16[0];
+  HIDWORD(v34) = LODWORD(self->_blendingStrength);
   tile = [(CMIVideoDeghostingRepairV1 *)self _cachedTexturesFromPixelBuffer:tile usage:1];
   if ([(__CVBuffer *)tile count]!= &dword_0 + 1)
   {
@@ -1286,17 +1270,17 @@ LABEL_15:
     objc_claimAutoreleasedReturnValue();
     [sub_CE5C() setTexture:? atIndex:?];
 
-    [v18 setBytes:&v26 length:8 atIndex:0];
+    [v18 setBytes:&v34 length:8 atIndex:0];
     threadExecutionWidth = [(MTLComputePipelineState *)self->_pipelineStates[7] threadExecutionWidth];
     maxTotalThreadsPerThreadgroup = [(MTLComputePipelineState *)self->_pipelineStates[7] maxTotalThreadsPerThreadgroup];
     v21 = *&self->_anon_24c[2] >> 1;
-    v25[0] = *self->_anon_24c >> 1;
-    v25[1] = v21;
-    v25[2] = 1;
-    v24[0] = threadExecutionWidth;
-    v24[1] = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
-    v24[2] = 1;
-    [v18 dispatchThreads:v25 threadsPerThreadgroup:v24];
+    v31 = (*self->_anon_24c >> 1);
+    v32 = v21;
+    v33 = 1;
+    v28 = threadExecutionWidth;
+    v29 = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
+    v30 = (&dword_0 + 1);
+    [v18 dispatchThreads:&v31 threadsPerThreadgroup:&v28];
     [v18 endEncoding];
     v22 = 0;
   }
@@ -1304,10 +1288,10 @@ LABEL_15:
   else
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v7, v27, v28, v29, v30, v31, v32);
     fig_log_get_emitter();
     sub_2B5C();
-    v22 = FigSignalErrorAtGM();
+    v22 = FigSignalErrorAtGM(v24);
     v18 = 0;
   }
 
@@ -1410,31 +1394,20 @@ LABEL_43:
   CVPixelBufferGetWidthOfPlane(bufferCopy, 0);
   CVPixelBufferGetHeightOfPlane(bufferCopy, 0);
   v20 = kCVMetalTextureUsage;
-  v81 = kCVMetalTextureUsage;
+  v59 = kCVMetalTextureUsage;
   v21 = [NSNumber numberWithUnsignedInteger:usage];
-  v82 = v21;
-  v22 = [NSDictionary dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+  v60 = v21;
+  v22 = [NSDictionary dictionaryWithObjects:&v60 forKeys:&v59 count:1];
 
-  v31 = sub_CE10(v23, v24, v25, v26, v27, v28, v29, v30, v71, v75, self);
-  TextureFromImage = CVMetalTextureCacheCreateTextureFromImage(v31, v32, v33, v22, v9, v34, v35, 0, v72);
-  v37 = image;
-  if (TextureFromImage)
-  {
-    goto LABEL_101;
-  }
-
-  v38 = CVMetalTextureGetTexture(image);
-  [(__CVBuffer *)v6 setObject:v38 atIndexedSubscript:0];
-
-  v39 = [(__CVBuffer *)v6 objectAtIndexedSubscript:0];
-
-  v37 = image;
-  if (!v39)
+  v23 = sub_CE10();
+  TextureFromImage = CVMetalTextureCacheCreateTextureFromImage(v23, v24, v25, v22, v9, v26, v27, 0, v55);
+  v29 = image;
+  if (TextureFromImage || (CVMetalTextureGetTexture(image), v30 = objc_claimAutoreleasedReturnValue(), [(__CVBuffer *)v6 setObject:v30 atIndexedSubscript:0], v30, [(__CVBuffer *)v6 objectAtIndexedSubscript:0], v31 = objc_claimAutoreleasedReturnValue(), v31, v29 = image, !v31))
   {
 LABEL_101:
-    if (v37)
+    if (v29)
     {
-      CFRelease(v37);
+      CFRelease(v29);
     }
 
     goto LABEL_103;
@@ -1447,40 +1420,40 @@ LABEL_101:
 
   if (!v8)
   {
-    v52 = v22;
+    v44 = v22;
 LABEL_91:
     bufferCopy = v6;
     v6 = bufferCopy;
-    v22 = v52;
+    v22 = v44;
     goto LABEL_92;
   }
 
-  v40 = CVPixelBufferGetPixelFormatType(bufferCopy);
-  v41 = MTLPixelFormatRG8Unorm;
-  switch(v40)
+  v32 = CVPixelBufferGetPixelFormatType(bufferCopy);
+  v33 = MTLPixelFormatRG8Unorm;
+  switch(v32)
   {
     case 0x26386630u:
     case 0x26387630u:
 LABEL_87:
       CVPixelBufferGetWidthOfPlane(bufferCopy, 1uLL);
       CVPixelBufferGetHeightOfPlane(bufferCopy, 1uLL);
-      v79 = v20;
-      v53 = [NSNumber numberWithUnsignedInteger:usage];
-      v80 = v53;
-      v52 = [NSDictionary dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+      v57 = v20;
+      v45 = [NSNumber numberWithUnsignedInteger:usage];
+      v58 = v45;
+      v44 = [NSDictionary dictionaryWithObjects:&v58 forKeys:&v57 count:1];
 
-      v62 = sub_CE10(v54, v55, v56, v57, v58, v59, v60, v61, v73, v76, v78);
-      v67 = CVMetalTextureCacheCreateTextureFromImage(v62, v63, v64, v52, v41, v65, v66, 1uLL, v74);
-      v37 = image;
-      if (!v67)
+      v46 = sub_CE10();
+      v51 = CVMetalTextureCacheCreateTextureFromImage(v46, v47, v48, v44, v33, v49, v50, 1uLL, v56);
+      v29 = image;
+      if (!v51)
       {
-        v68 = CVMetalTextureGetTexture(image);
-        [(__CVBuffer *)v6 setObject:v68 atIndexedSubscript:1];
+        v52 = CVMetalTextureGetTexture(image);
+        [(__CVBuffer *)v6 setObject:v52 atIndexedSubscript:1];
 
-        v69 = [(__CVBuffer *)v6 objectAtIndexedSubscript:1];
+        v53 = [(__CVBuffer *)v6 objectAtIndexedSubscript:1];
 
-        v37 = image;
-        if (v69)
+        v29 = image;
+        if (v53)
         {
           if (image)
           {
@@ -1491,7 +1464,7 @@ LABEL_87:
         }
       }
 
-      v22 = v52;
+      v22 = v44;
       goto LABEL_101;
     case 0x26786630u:
     case 0x26787630u:
@@ -1521,7 +1494,7 @@ LABEL_87:
     goto LABEL_86;
   }
 
-  if (v49 == 2084070960 || v49 == 2084075056)
+  if (v41 == 2084070960 || v41 == 2084075056)
   {
     goto LABEL_87;
   }
@@ -1530,14 +1503,14 @@ LABEL_87:
   if (v10)
   {
 LABEL_86:
-    v41 = MTLPixelFormatRGBA8Uint|0x204;
+    v33 = MTLPixelFormatRGBA8Uint|0x204;
     goto LABEL_87;
   }
 
-  if (v51 == 2016686640)
+  if (v43 == 2016686640)
   {
 LABEL_84:
-    v41 = MTLPixelFormatRG16Unorm;
+    v33 = MTLPixelFormatRG16Unorm;
     goto LABEL_87;
   }
 

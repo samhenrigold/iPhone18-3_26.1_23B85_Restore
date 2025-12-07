@@ -2,6 +2,7 @@
 + (id)_descriptorFromDynamicNamespaceRecord:(id)record;
 + (id)providerWithNamespaceDatabase:(id)database defaultDescriptorDirectoryPath:(id)path;
 - (TRINamespaceDescriptorProvider)initWithNamespaceDatabase:(id)database defaultDescriptorDirectoryPath:(id)path;
+- (id)_dynamicDescriptorsForContainer:(int)container teamId:(id)id;
 - (id)descriptorWithNamespaceName:(id)name;
 @end
 
@@ -82,6 +83,35 @@ LABEL_3:
   }
 
   return v7;
+}
+
+- (id)_dynamicDescriptorsForContainer:(int)container teamId:(id)id
+{
+  v4 = *&container;
+  idCopy = id;
+  v7 = objc_opt_new();
+  namespaceDatabase = self->_namespaceDatabase;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __73__TRINamespaceDescriptorProvider__dynamicDescriptorsForContainer_teamId___block_invoke;
+  v13[3] = &unk_279DDF748;
+  v14 = v7;
+  v9 = v7;
+  LODWORD(v4) = [(TRINamespaceDatabase *)namespaceDatabase enumerateDynamicNamespaceRecordsForContainer:v4 teamId:idCopy block:v13];
+
+  if (v4)
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v11 = v10;
+
+  return v10;
 }
 
 void __73__TRINamespaceDescriptorProvider__dynamicDescriptorsForContainer_teamId___block_invoke(uint64_t a1, void *a2)

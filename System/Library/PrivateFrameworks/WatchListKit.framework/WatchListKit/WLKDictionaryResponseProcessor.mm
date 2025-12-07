@@ -6,7 +6,7 @@
 
 - (id)processResponseData:(id)data options:(unint64_t)options error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (dataCopy)
   {
@@ -35,31 +35,31 @@
     goto LABEL_23;
   }
 
-  v28 = dataCopy;
+  v27 = dataCopy;
   v12 = v9;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v27 = v11;
+  v26 = v11;
   v13 = v11;
-  v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v30;
+    v16 = *v29;
     while (2)
     {
       v17 = 0;
       v18 = v12;
       do
       {
-        if (*v30 != v16)
+        if (*v29 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v12 = [v18 objectForKey:{*(*(&v29 + 1) + 8 * v17), v27}];
+        v12 = [v18 objectForKey:{*(*(&v28 + 1) + 8 * v17), v26}];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
 
@@ -75,7 +75,7 @@
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v15)
       {
         continue;
@@ -90,16 +90,16 @@ LABEL_17:
   objectClass2 = [(WLKDictionaryResponseProcessor *)self objectClass];
   if (!objectClass2)
   {
-    v11 = v27;
-    dataCopy = v28;
+    v11 = v26;
+    dataCopy = v27;
 LABEL_23:
     v24 = v12;
     v12 = v24;
     goto LABEL_24;
   }
 
-  v11 = v27;
-  dataCopy = v28;
+  v11 = v26;
+  dataCopy = v27;
   if (!v12 || (v23 = objectClass2, ![(objc_class *)objectClass2 instancesRespondToSelector:sel_initWithDictionary_]))
   {
     v21 = 0;
@@ -110,8 +110,6 @@ LABEL_23:
 LABEL_24:
   v21 = v24;
 LABEL_25:
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

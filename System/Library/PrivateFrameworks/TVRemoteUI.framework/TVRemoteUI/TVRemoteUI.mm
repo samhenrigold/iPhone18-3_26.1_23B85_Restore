@@ -315,7 +315,7 @@ uint64_t sub_26CFEE7B4()
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
 
-uint64_t outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(uint64_t result)
+uint64_t outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -400,7 +400,7 @@ void sub_26CFFC8B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   objc_destroyWeak(&a53);
   objc_destroyWeak(&a58);
-  objc_destroyWeak(&a69);
+  objc_destroyWeak(&a65);
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
@@ -584,12 +584,13 @@ void sub_26D011588(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_26D014D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, id a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, id a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, id a63)
+void sub_26D014D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, id a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, id a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, id a63, ...)
 {
+  va_start(location, a63);
   objc_destroyWeak(&a47);
   objc_destroyWeak(&a52);
   objc_destroyWeak(&a63);
-  objc_destroyWeak(&location);
+  objc_destroyWeak(location);
   _Unwind_Resume(a1);
 }
 
@@ -655,16 +656,16 @@ void sub_26D01FF1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_26D020ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, id a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, id a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, id a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, id a61, uint64_t a62, uint64_t a63)
 {
-  objc_destroyWeak((v71 + 32));
+  objc_destroyWeak((v66 + 32));
   objc_destroyWeak(&a46);
   objc_destroyWeak(&a51);
   objc_destroyWeak(&a56);
   objc_destroyWeak(&a61);
+  objc_destroyWeak(&a65);
   objc_destroyWeak(&a66);
-  objc_destroyWeak(&a71);
-  objc_destroyWeak((v72 - 216));
-  objc_destroyWeak((v72 - 176));
-  objc_destroyWeak((v72 - 136));
+  objc_destroyWeak((v67 - 216));
+  objc_destroyWeak((v67 - 176));
+  objc_destroyWeak((v67 - 136));
   _Unwind_Resume(a1);
 }
 
@@ -691,16 +692,16 @@ void sub_26D022F44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_26D023B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, id a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, id a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, id a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, id a62, uint64_t a63)
 {
-  objc_destroyWeak((v68 + 32));
+  objc_destroyWeak((v65 + 32));
   objc_destroyWeak(&a44);
   objc_destroyWeak(&a50);
   objc_destroyWeak(&a56);
   objc_destroyWeak(&a62);
-  objc_destroyWeak(&a68);
+  objc_destroyWeak(&a65);
   objc_destroyWeak(&STACK[0x200]);
-  objc_destroyWeak((v69 - 216));
-  objc_destroyWeak((v69 - 176));
-  objc_destroyWeak((v69 - 136));
+  objc_destroyWeak((v66 - 216));
+  objc_destroyWeak((v66 - 176));
+  objc_destroyWeak((v66 - 136));
   _Unwind_Resume(a1);
 }
 
@@ -856,10 +857,11 @@ void sub_26D041BBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
 void sub_26D043644(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
@@ -869,220 +871,220 @@ void sub_26D043644(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _TVRUIButtonLog()
+id _TVRUIButtonLog(uint64_t a1)
 {
   if (_TVRUIButtonLog_onceToken != -1)
   {
     _TVRUIButtonLog_cold_1();
   }
 
-  v1 = _TVRUIButtonLog_log;
+  v2 = _TVRUIButtonLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUIDeviceInfoLog()
+id _TVRUIDeviceInfoLog(uint64_t a1)
 {
   if (_TVRUIDeviceInfoLog_onceToken != -1)
   {
     _TVRUIDeviceInfoLog_cold_1();
   }
 
-  v1 = _TVRUIDeviceInfoLog_log;
+  v2 = _TVRUIDeviceInfoLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUIDevicePickerLog()
+id _TVRUIDevicePickerLog(uint64_t a1)
 {
   if (_TVRUIDevicePickerLog_onceToken != -1)
   {
     _TVRUIDevicePickerLog_cold_1();
   }
 
-  v1 = _TVRUIDevicePickerLog_log;
+  v2 = _TVRUIDevicePickerLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUIDeviceQueryLog()
+id _TVRUIDeviceQueryLog(uint64_t a1)
 {
   if (_TVRUIDeviceQueryLog_onceToken != -1)
   {
     _TVRUIDeviceQueryLog_cold_1();
   }
 
-  v1 = _TVRUIDeviceQueryLog_log;
+  v2 = _TVRUIDeviceQueryLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUIHintsLog()
+id _TVRUIHintsLog(uint64_t a1)
 {
   if (_TVRUIHintsLog_onceToken != -1)
   {
     _TVRUIHintsLog_cold_1();
   }
 
-  v1 = _TVRUIHintsLog_log;
+  v2 = _TVRUIHintsLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUIIRLog()
+id _TVRUIIRLog(uint64_t a1)
 {
   if (_TVRUIIRLog_onceToken != -1)
   {
     _TVRUIIRLog_cold_1();
   }
 
-  v1 = _TVRUIIRLog_log;
+  v2 = _TVRUIIRLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUIIntentManagerLog()
+id _TVRUIIntentManagerLog(uint64_t a1)
 {
   if (_TVRUIIntentManagerLog_onceToken != -1)
   {
     _TVRUIIntentManagerLog_cold_1();
   }
 
-  v1 = _TVRUIIntentManagerLog_log;
+  v2 = _TVRUIIntentManagerLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUIKeyboardLog()
+id _TVRUIKeyboardLog(uint64_t a1)
 {
   if (_TVRUIKeyboardLog_onceToken != -1)
   {
     _TVRUIKeyboardLog_cold_1();
   }
 
-  v1 = _TVRUIKeyboardLog_log;
+  v2 = _TVRUIKeyboardLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUINetworkObserverLog()
+id _TVRUINetworkObserverLog(uint64_t a1)
 {
   if (_TVRUINetworkObserverLog_onceToken != -1)
   {
     _TVRUINetworkObserverLog_cold_1();
   }
 
-  v1 = _TVRUINetworkObserverLog_log;
+  v2 = _TVRUINetworkObserverLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUIPrewarmLog()
+id _TVRUIPrewarmLog(uint64_t a1)
 {
   if (_TVRUIPrewarmLog_onceToken != -1)
   {
     _TVRUIPrewarmLog_cold_1();
   }
 
-  v1 = _TVRUIPrewarmLog_log;
+  v2 = _TVRUIPrewarmLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUISignpostLog()
+id _TVRUISignpostLog(uint64_t a1)
 {
   if (_TVRUISignpostLog_onceToken != -1)
   {
     _TVRUISignpostLog_cold_1();
   }
 
-  v1 = _TVRUISignpostLog_log;
+  v2 = _TVRUISignpostLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUISiriLog()
+id _TVRUISiriLog(uint64_t a1)
 {
   if (_TVRUISiriLog_onceToken != -1)
   {
     _TVRUISiriLog_cold_1();
   }
 
-  v1 = _TVRUISiriLog_log;
+  v2 = _TVRUISiriLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUITipsLog()
+id _TVRUITipsLog(uint64_t a1)
 {
   if (_TVRUITipsLog_onceToken != -1)
   {
     _TVRUITipsLog_cold_1();
   }
 
-  v1 = _TVRUITipsLog_log;
+  v2 = _TVRUITipsLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUIViewControllerLog()
+id _TVRUIViewControllerLog(uint64_t a1)
 {
   if (_TVRUIViewControllerLog_onceToken != -1)
   {
     _TVRUIViewControllerLog_cold_1();
   }
 
-  v1 = _TVRUIViewControllerLog_log;
+  v2 = _TVRUIViewControllerLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUIViewServiceLog()
+id _TVRUIViewServiceLog(uint64_t a1)
 {
   if (_TVRUIViewServiceLog_onceToken != -1)
   {
     _TVRUIViewServiceLog_cold_1();
   }
 
-  v1 = _TVRUIViewServiceLog_log;
+  v2 = _TVRUIViewServiceLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUIVolumeControllerLog()
+id _TVRUIVolumeControllerLog(uint64_t a1)
 {
   if (_TVRUIVolumeControllerLog_onceToken != -1)
   {
     _TVRUIVolumeControllerLog_cold_1();
   }
 
-  v1 = _TVRUIVolumeControllerLog_log;
+  v2 = _TVRUIVolumeControllerLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUINowPlayingLog()
+id _TVRUINowPlayingLog(uint64_t a1)
 {
   if (_TVRUINowPlayingLog_onceToken != -1)
   {
     _TVRUINowPlayingLog_cold_1();
   }
 
-  v1 = _TVRUINowPlayingLog_log;
+  v2 = _TVRUINowPlayingLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRUIDockLog()
+id _TVRUIDockLog(uint64_t a1)
 {
   if (_TVRUIDockLog_onceToken != -1)
   {
     _TVRUIDockLog_cold_1();
   }
 
-  v1 = _TVRUIDockLog_log;
+  v2 = _TVRUIDockLog_log;
 
-  return v1;
+  return v2;
 }
 
 void sub_26D047A9C(_Unwind_Exception *a1)
@@ -1092,23 +1094,23 @@ void sub_26D047A9C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_26D048964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26D048964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26D048CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26D048CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26D04B30C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26D04B30C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1155,7 +1157,7 @@ void VideosUILibrary()
   v0 = v1[0];
   if (!VideosUILibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -1166,7 +1168,7 @@ LABEL_7:
   }
 }
 
-uint64_t __VideosUILibraryCore_block_invoke()
+uint64_t __VideosUILibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   VideosUILibraryCore_frameworkLibrary = result;
@@ -1184,7 +1186,7 @@ void __getVUITimedMetadataPlaybackInfoClass_block_invoke(uint64_t a1)
 
   else
   {
-    v2 = __getVUITimedMetadataPlaybackInfoClass_block_invoke_cold_1();
+    __getVUITimedMetadataPlaybackInfoClass_block_invoke_cold_1();
     [(TVRUIMediaControlsViewController *)v2 viewDidLoad];
   }
 }
@@ -1196,9 +1198,9 @@ void sub_26D04CD40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_26D04D0F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26D04D0F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -1629,7 +1631,7 @@ char *FMPFSKPeripheralDotNode.init(experienceType:name:dotDiameter:color:diskRad
   [v58 addChild_];
   v109 = v65;
   v66 = *&v58[v65];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v67 = swift_allocObject();
   *(v67 + 16) = xmmword_26D0D2860;
   v68 = objc_opt_self();
@@ -1639,7 +1641,7 @@ char *FMPFSKPeripheralDotNode.init(experienceType:name:dotDiameter:color:diskRad
   v72 = [v68 distance:v71 toNode:*&v58[v63]];
 
   *(v67 + 32) = v72;
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKConstraint);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKConstraint, 0x277CDCF38);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v70 setConstraints_];
@@ -1661,7 +1663,7 @@ char *FMPFSKPeripheralDotNode.init(experienceType:name:dotDiameter:color:diskRad
     v80 = *&v58[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadius];
     v81 = &v58[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedDiskRadius];
     *v81 = v80;
-    *(v81 + 8) = 0;
+    v81[8] = 0;
     [*&v58[v62] setPosition_];
   }
 
@@ -1670,7 +1672,7 @@ char *FMPFSKPeripheralDotNode.init(experienceType:name:dotDiameter:color:diskRad
     v82 = *&v58[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotScale];
     v83 = &v58[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedDotScale];
     *v83 = v82;
-    *(v83 + 8) = 0;
+    v83[8] = 0;
     [*&v58[v63] setScale_];
   }
 
@@ -1679,7 +1681,7 @@ char *FMPFSKPeripheralDotNode.init(experienceType:name:dotDiameter:color:diskRad
     v84 = *&v58[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_angle];
     v85 = &v58[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedAngle];
     *v85 = v84;
-    *(v85 + 8) = 0;
+    v85[8] = 0;
     if (!*&v58[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_perimeterRotateOnceAction])
     {
       [*&v58[v61] setZRotation_];
@@ -1692,7 +1694,7 @@ char *FMPFSKPeripheralDotNode.init(experienceType:name:dotDiameter:color:diskRad
     v87 = &v58[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedOpacity];
     *v87 = v86;
     v88 = v86;
-    *(v87 + 8) = 0;
+    v87[8] = 0;
     [*&v58[v63] setAlpha_];
     [*&v58[v109] setAlpha_];
   }
@@ -1703,7 +1705,7 @@ char *FMPFSKPeripheralDotNode.init(experienceType:name:dotDiameter:color:diskRad
     v90 = &v58[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedBrightness];
     *v90 = v89;
     v91 = v89;
-    *(v90 + 8) = 0;
+    v90[8] = 0;
     v92 = *&v58[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_renderingColor];
     v93 = *&v58[v64];
     v94 = v92;
@@ -1723,8 +1725,8 @@ char *FMPFSKPeripheralDotNode.init(experienceType:name:dotDiameter:color:diskRad
     v99 = *&v58[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_offset];
     v100 = &v58[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_presentedOffset];
     *v100 = v99;
-    v100[1] = v98;
-    *(v100 + 16) = 0;
+    *(v100 + 1) = v98;
+    v100[16] = 0;
     [v58 setPosition_];
     v95 = v110;
     v96 = v112.super.isa;
@@ -1861,7 +1863,7 @@ Swift::Void __swiftcall FMPFSKPeripheralDotNode.setFreeFromBearing()()
       v3 = *v2;
       v4 = &v0[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_style];
       v5 = (*&v0[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadius] + *&v0[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_diskRadius]) * 3.14159265 / (*&v0[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_style] * 0.5);
-      v6 = dbl_26D0D2870[(specialized RandomNumberGenerator.next<A>(upperBound:)(100) & 1) == 0];
+      v6 = dbl_26D0D2870[(specialized RandomNumberGenerator.next<A>(upperBound:)() & 1) == 0];
       v7 = [objc_opt_self() rotateByAngle:v6 / v4[2] duration:v5 / v4[2]];
       [v7 setTimingMode_];
       [v7 setSpeed_];
@@ -1982,7 +1984,7 @@ uint64_t FMPFSKPeripheralDotNode.presentedRingCount.getter()
   v1 = v0;
   v21 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_isPlayingInitialPulse);
   v2 = [*(v0 + OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotNode) children];
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKNode);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKNode, 0x277CDCF58);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v4 = v3 & 0xFFFFFFFFFFFFFF8;
@@ -2089,12 +2091,12 @@ Swift::Void __swiftcall FMPFSKPeripheralDotNode.pulse(_:animated:)(Swift::Bool _
       v7 = FMPFSKPeripheralDotNode.createBeaconSubNode()();
       v8 = [v3 scaleTo:v4[4] duration:v5];
       [v8 setTimingMode_];
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
       v9 = swift_allocObject();
       *(v9 + 16) = xmmword_26D0D2880;
       *(v9 + 32) = v6;
       *(v9 + 40) = v8;
-      type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKAction);
+      type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKAction, 0x277CDCF30);
       v10 = v6;
       v11 = v8;
       isa = Array._bridgeToObjectiveC()().super.isa;
@@ -2124,12 +2126,12 @@ Swift::Void __swiftcall FMPFSKPeripheralDotNode.pulse(_:animated:)(Swift::Bool _
       v2[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_isPlayingInitialPulse] = 1;
       v26 = [v3 scaleTo:v4[4] duration:v5];
       [v26 setTimingMode_];
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
       v27 = swift_allocObject();
       *(v27 + 16) = xmmword_26D0D2880;
       *(v27 + 32) = v6;
       *(v27 + 40) = v26;
-      type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKAction);
+      type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKAction, 0x277CDCF30);
       v28 = v6;
       v29 = v26;
       v30 = Array._bridgeToObjectiveC()().super.isa;
@@ -2159,7 +2161,7 @@ Swift::Void __swiftcall FMPFSKPeripheralDotNode.pulse(_:animated:)(Swift::Bool _
   {
     aBlock = MEMORY[0x277D84F90];
     v17 = [*&v2[OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_dotNode] children];
-    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKNode);
+    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKNode, 0x277CDCF58);
     v18 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
     v19 = v2;
@@ -2354,7 +2356,7 @@ Swift::Void __swiftcall FMPFSKPeripheralDotNode.addSprungRelativeHeading(_:)(Swi
 id FMPFSKPeripheralDotNode.setUnsprungInteractiveAngleFactor(_:)(id result, char a2)
 {
   v3 = v2 + OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_interactiveAngleFactor;
-  *v3 = result;
+  *v3 = *&result;
   *(v3 + 8) = a2 & 1;
   if ((a2 & 1) == 0 && (*(v2 + OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_angle + 8) & 1) == 0)
   {
@@ -2362,7 +2364,7 @@ id FMPFSKPeripheralDotNode.setUnsprungInteractiveAngleFactor(_:)(id result, char
     v5 = *&result;
     v6 = *(v2 + OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_angleSpring);
     v7 = (v6 + OBJC_IVAR____TtC10TVRemoteUI8FLSpring__s);
-    result = swift_beginAccess();
+    *&result = COERCE_DOUBLE(swift_beginAccess());
     v8 = *v7 + *(v6 + OBJC_IVAR____TtC10TVRemoteUI8FLSpring__o);
     if (vabdd_f64(v7[35] + *(v6 + OBJC_IVAR____TtC10TVRemoteUI8FLSpring__o + 40), v8) <= *(v6 + OBJC_IVAR____TtC10TVRemoteUI8FLSpring_stableValueThreshold))
     {
@@ -2374,7 +2376,7 @@ id FMPFSKPeripheralDotNode.setUnsprungInteractiveAngleFactor(_:)(id result, char
     *(v9 + 8) = 0;
     if (!*(v2 + OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_perimeterRotateOnceAction))
     {
-      return [*(v2 + OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_gimbalNode) setZRotation_];
+      *&result = COERCE_DOUBLE([*(v2 + OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_gimbalNode) setZRotation_]);
     }
   }
 
@@ -2386,11 +2388,11 @@ void FMPFSKPeripheralDotNode.__ivar_destroyer()
   v1 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI23FMPFSKPeripheralDotNode_renderingColor);
 }
 
-id FMPFSKPeripheralDotNode.__deallocating_deinit()
+id FMPFSKPeripheralDotNode.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for FMPFSKPeripheralDotNode();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for FMPFSKPeripheralDotNode();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 __n128 __swift_memcpy16_8(__n128 *a1, __n128 *a2)
@@ -2414,19 +2416,19 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeF
   return v3 & 1;
 }
 
-uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance CHHapticPatternKey@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance CHHapticPatternKey@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v3 = MEMORY[0x26D6B1210](v2);
+  v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = MEMORY[0x26D6B1210](v3);
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance CHHapticPatternKey(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey(&lazy protocol witness table cache variable for type CHHapticPatternKey and conformance CHHapticPatternKey, type metadata accessor for CHHapticPatternKey);
-  v3 = lazy protocol witness table accessor for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey(&lazy protocol witness table cache variable for type CHHapticPatternKey and conformance CHHapticPatternKey, type metadata accessor for CHHapticPatternKey);
+  v2 = lazy protocol witness table accessor for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey(&lazy protocol witness table cache variable for type CHHapticPatternKey and conformance CHHapticPatternKey, type metadata accessor for CHHapticPatternKey, &protocol conformance descriptor for CHHapticPatternKey);
+  v3 = lazy protocol witness table accessor for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey(&lazy protocol witness table cache variable for type CHHapticPatternKey and conformance CHHapticPatternKey, type metadata accessor for CHHapticPatternKey, &protocol conformance descriptor for CHHapticPatternKey);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
@@ -2434,8 +2436,8 @@ uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHa
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance CHHapticEngineOptionKey(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey(&lazy protocol witness table cache variable for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey, type metadata accessor for CHHapticEngineOptionKey);
-  v3 = lazy protocol witness table accessor for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey(&lazy protocol witness table cache variable for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey, type metadata accessor for CHHapticEngineOptionKey);
+  v2 = lazy protocol witness table accessor for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey(&lazy protocol witness table cache variable for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey, type metadata accessor for CHHapticEngineOptionKey, &protocol conformance descriptor for CHHapticEngineOptionKey);
+  v3 = lazy protocol witness table accessor for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey(&lazy protocol witness table cache variable for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey, type metadata accessor for CHHapticEngineOptionKey, &protocol conformance descriptor for CHHapticEngineOptionKey);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
@@ -2451,8 +2453,8 @@ uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CH
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance CHHapticPowerUsage(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey(&lazy protocol witness table cache variable for type CHHapticPowerUsage and conformance CHHapticPowerUsage, type metadata accessor for CHHapticPowerUsage);
-  v3 = lazy protocol witness table accessor for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey(&lazy protocol witness table cache variable for type CHHapticPowerUsage and conformance CHHapticPowerUsage, type metadata accessor for CHHapticPowerUsage);
+  v2 = lazy protocol witness table accessor for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey(&lazy protocol witness table cache variable for type CHHapticPowerUsage and conformance CHHapticPowerUsage, type metadata accessor for CHHapticPowerUsage, &protocol conformance descriptor for CHHapticPowerUsage);
+  v3 = lazy protocol witness table accessor for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey(&lazy protocol witness table cache variable for type CHHapticPowerUsage and conformance CHHapticPowerUsage, type metadata accessor for CHHapticPowerUsage, &protocol conformance descriptor for CHHapticPowerUsage);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
@@ -2466,40 +2468,40 @@ uint64_t protocol witness for Hashable.hashValue.getter in conformance CHHapticP
   return v1;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance CHHapticPatternKey()
+uint64_t protocol witness for Hashable.hash(into:) in conformance CHHapticPatternKey(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CHHapticPatternKey()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CHHapticPatternKey(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v0 = Hasher._finalize()();
+  v1 = Hasher._finalize()();
 
-  return v0;
+  return v1;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CHHapticPatternKey()
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CHHapticPatternKey(void *a1, uint64_t *a2)
 {
-  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = v1;
-  if (v0 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v2 == v3)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -2588,7 +2590,7 @@ void specialized FMPFSKPeripheralDotNode.init(coder:)()
   __break(1u);
 }
 
-void specialized Sequence.forEach(_:)(uint64_t a1, uint64_t a2, void *a3)
+void specialized Sequence.forEach(_:)(unint64_t a1, uint64_t a2, void *a3)
 {
   if (a1 >> 62)
   {
@@ -2638,7 +2640,7 @@ void specialized Sequence.forEach(_:)(uint64_t a1, uint64_t a2, void *a3)
         v15 = v7;
 LABEL_16:
         v16 = *(a2 + v21);
-        type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKNode);
+        type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKNode, 0x277CDCF58);
         v17 = v16;
         v18 = static NSObject.== infix(_:_:)();
 
@@ -2657,7 +2659,7 @@ LABEL_16:
         goto LABEL_5;
       }
 
-      type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKNode);
+      type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for SKNode, 0x277CDCF58);
       v12 = v7;
       v13 = v11;
       v14 = static NSObject.== infix(_:_:)();
@@ -2681,7 +2683,7 @@ LABEL_6:
 LABEL_21:
     __break(1u);
 LABEL_22:
-    if (a1 < 0)
+    if ((a1 & 0x8000000000000000) != 0)
     {
       v19 = a1;
     }
@@ -2693,7 +2695,7 @@ LABEL_22:
   }
 }
 
-uint64_t type metadata accessor for SKConstraint(uint64_t a1, unint64_t *a2)
+uint64_t type metadata accessor for SKConstraint(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -2724,19 +2726,19 @@ uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-void type metadata accessor for NSProcessInfoThermalState(uint64_t a1, unint64_t *a2)
+void type metadata accessor for NSProcessInfoThermalState(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-uint64_t lazy protocol witness table accessor for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type CHHapticEngineOptionKey and conformance CHHapticEngineOptionKey(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3130,12 +3132,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance FMFindi
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance FMFindingState.CodingKeys()
+uint64_t protocol witness for Hashable.hash(into:) in conformance FMFindingState.CodingKeys(uint64_t a1)
 {
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingState.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingState.CodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -3268,7 +3270,7 @@ LABEL_8:
   }
 
 LABEL_11:
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_26D0D2E90;
   *(v5 + 56) = MEMORY[0x277D837D0];
@@ -3282,9 +3284,9 @@ LABEL_11:
 uint64_t FMFindingState.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10TVRemoteUI14FMFindingStateO10CodingKeys33_A3DFBA6D09331B27A32318957F9878E4LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10TVRemoteUI14FMFindingStateO10CodingKeys33_A3DFBA6D09331B27A32318957F9878E4LLOGMd, &_ss22KeyedEncodingContainerVy10TVRemoteUI14FMFindingStateO10CodingKeys33_A3DFBA6D09331B27A32318957F9878E4LLOGMR);
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v8 = &v12 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type FMFindingState.CodingKeys and conformance FMFindingState.CodingKeys();
@@ -3346,74 +3348,74 @@ LABEL_12:
   return (*(v6 + 8))(v8, v5);
 }
 
-uint64_t FMFindingState.hash(into:)()
+uint64_t FMFindingState.hash(into:)(uint64_t a1)
 {
-  v1 = *(v0 + 16);
-  if (v1 > 7)
+  v3 = *(v1 + 16);
+  if (v3 > 7)
   {
-    if (v1 == 8)
+    if (v3 == 8)
     {
-      v2 = 4;
-      return MEMORY[0x26D6B18C0](v2);
+      v4 = 4;
+      return MEMORY[0x26D6B18C0](v4);
     }
 
-    if (v1 == 9)
+    if (v3 == 9)
     {
-      v2 = 5;
-      return MEMORY[0x26D6B18C0](v2);
+      v4 = 5;
+      return MEMORY[0x26D6B18C0](v4);
     }
   }
 
   else
   {
-    if (v1 == 6)
+    if (v3 == 6)
     {
-      v2 = 1;
-      return MEMORY[0x26D6B18C0](v2);
+      v4 = 1;
+      return MEMORY[0x26D6B18C0](v4);
     }
 
-    if (v1 == 7)
+    if (v3 == 7)
     {
-      v2 = 2;
-      return MEMORY[0x26D6B18C0](v2);
+      v4 = 2;
+      return MEMORY[0x26D6B18C0](v4);
     }
   }
 
   MEMORY[0x26D6B18C0](3);
-  if (v1 > 3)
+  if (v3 > 3)
   {
-    if (v1 == 4)
+    if (v3 == 4)
     {
-      v3 = 3;
+      v5 = 3;
       goto LABEL_22;
     }
 
-    if (v1 == 5)
+    if (v3 == 5)
     {
-      v3 = 4;
+      v5 = 4;
       goto LABEL_22;
     }
   }
 
   else
   {
-    if (v1 == 2)
+    if (v3 == 2)
     {
-      v3 = 1;
+      v5 = 1;
       goto LABEL_22;
     }
 
-    if (v1 == 3)
+    if (v3 == 3)
     {
-      v3 = 2;
+      v5 = 2;
 LABEL_22:
-      MEMORY[0x26D6B18C0](v3);
+      MEMORY[0x26D6B18C0](v5);
       goto LABEL_23;
     }
   }
 
   MEMORY[0x26D6B18C0](5);
-  if (v1 == 1)
+  if (v3 == 1)
   {
     Hasher._combine(_:)(0);
   }
@@ -3421,69 +3423,69 @@ LABEL_22:
   else
   {
     Hasher._combine(_:)(1u);
-    FMFindingDistance.hash(into:)();
+    FMFindingDistance.hash(into:)(a1);
   }
 
 LABEL_23:
   String.hash(into:)();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance FMFindingState(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance FMFindingState(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = *(a1 + 80);
-  v11[4] = *(a1 + 64);
-  v11[5] = v2;
-  v12 = *(a1 + 96);
-  v3 = *(a1 + 16);
-  v11[0] = *a1;
-  v11[1] = v3;
-  v4 = *(a1 + 48);
-  v11[2] = *(a1 + 32);
-  v11[3] = v4;
-  v5 = *(a2 + 16);
-  v13[0] = *a2;
-  v13[1] = v5;
-  v6 = *(a2 + 32);
-  v7 = *(a2 + 48);
-  v8 = *(a2 + 64);
-  v9 = *(a2 + 80);
-  v14 = *(a2 + 96);
-  v13[4] = v8;
-  v13[5] = v9;
-  v13[2] = v6;
-  v13[3] = v7;
-  return specialized static FMFindingState.== infix(_:_:)(v11, v13) & 1;
+  v8 = *(a1 + 80);
+  v17[4] = *(a1 + 64);
+  v17[5] = v8;
+  v18 = *(a1 + 96);
+  v9 = *(a1 + 16);
+  v17[0] = *a1;
+  v17[1] = v9;
+  v10 = *(a1 + 48);
+  v17[2] = *(a1 + 32);
+  v17[3] = v10;
+  v11 = *(a2 + 16);
+  v19[0] = *a2;
+  v19[1] = v11;
+  v12 = *(a2 + 32);
+  v13 = *(a2 + 48);
+  v14 = *(a2 + 64);
+  v15 = *(a2 + 80);
+  v20 = *(a2 + 96);
+  v19[4] = v14;
+  v19[5] = v15;
+  v19[2] = v12;
+  v19[3] = v13;
+  return specialized static FMFindingState.== infix(_:_:)(v17, v19, a3, a4, a5, a6, a7, a8) & 1;
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance FMFindingState()
 {
   Hasher.init(_seed:)();
-  FMFindingState.hash(into:)();
+  FMFindingState.hash(into:)(v1);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingState()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingState(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  FMFindingState.hash(into:)();
+  FMFindingState.hash(into:)(v2);
   return Hasher._finalize()();
 }
 
-__n128 protocol witness for Decodable.init(from:) in conformance FMFindingState@<Q0>(void *a1@<X0>, uint64_t a2@<X8>)
+__n128 protocol witness for Decodable.init(from:) in conformance FMFindingState@<Q0>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  specialized FMFindingState.init(from:)(a1, v7);
+  specialized FMFindingState.init(from:)(a2, v7);
   if (!v2)
   {
     v5 = v7[5];
-    *(a2 + 64) = v7[4];
-    *(a2 + 80) = v5;
-    *(a2 + 96) = v8;
+    *(a1 + 64) = v7[4];
+    *(a1 + 80) = v5;
+    *(a1 + 96) = v8;
     v6 = v7[1];
-    *a2 = v7[0];
-    *(a2 + 16) = v6;
+    *a1 = v7[0];
+    *(a1 + 16) = v6;
     result = v7[3];
-    *(a2 + 32) = v7[2];
-    *(a2 + 48) = result;
+    *(a1 + 32) = v7[2];
+    *(a1 + 48) = result;
   }
 
   return result;
@@ -3501,19 +3503,19 @@ unint64_t lazy protocol witness table accessor for type FMFindingState and confo
   return result;
 }
 
-uint64_t specialized static FMFindingState.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t specialized static FMFindingState.== infix(_:_:)(__int128 *a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 97);
-  if (v2 > 7)
+  v8 = *(a1 + 2);
+  v9 = *(a1 + 97);
+  if (v8 > 7)
   {
-    if (v2 == 8)
+    if (v8 == 8)
     {
-      v6 = (*(a2 + 16) & 0xFFFFFFFFFFFFFFFELL) == 8;
-      return v6 & 1;
+      v12 = (a2[1] & 0xFFFFFFFFFFFFFFFELL) == 8;
+      return v12 & 1;
     }
 
-    if (v2 == 9)
+    if (v8 == 9)
     {
       goto LABEL_51;
     }
@@ -3521,23 +3523,23 @@ uint64_t specialized static FMFindingState.== infix(_:_:)(uint64_t a1, uint64_t 
 
   else
   {
-    if (v2 == 6)
+    if (v8 == 6)
     {
-      if (*(a2 + 16) == 6)
+      if (*(a2 + 2) == 6)
       {
 LABEL_15:
-        v6 = 1;
-        return v6 & 1;
+        v12 = 1;
+        return v12 & 1;
       }
 
 LABEL_51:
-      v6 = 0;
-      return v6 & 1;
+      v12 = 0;
+      return v12 & 1;
     }
 
-    if (v2 == 7)
+    if (v8 == 7)
     {
-      if (*(a2 + 16) == 7)
+      if (*(a2 + 2) == 7)
       {
         goto LABEL_15;
       }
@@ -3546,18 +3548,18 @@ LABEL_51:
     }
   }
 
-  v4 = *(a2 + 16);
-  if ((v4 - 6) < 4)
+  v10 = *(a2 + 2);
+  if ((v10 - 6) < 4)
   {
     goto LABEL_51;
   }
 
-  v5 = *(a2 + 97);
-  if (v2 <= 3)
+  v11 = *(a2 + 97);
+  if (v8 <= 3)
   {
-    if (v2 == 2)
+    if (v8 == 2)
     {
-      if (v4 != 2)
+      if (v10 != 2)
       {
         goto LABEL_51;
       }
@@ -3565,9 +3567,9 @@ LABEL_51:
       goto LABEL_28;
     }
 
-    if (v2 == 3)
+    if (v8 == 3)
     {
-      if (v4 != 3)
+      if (v10 != 3)
       {
         goto LABEL_51;
       }
@@ -3576,78 +3578,78 @@ LABEL_51:
     }
 
 LABEL_21:
-    if ((v4 - 2) < 4)
+    if ((v10 - 2) < 4)
     {
       goto LABEL_51;
     }
 
-    v44 = *a1;
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 72);
-    v42 = *(a1 + 56);
-    v43[0] = v8;
-    *(v43 + 9) = *(a1 + 81);
-    v40 = *(a1 + 24);
-    v41 = v7;
-    *&v39[7] = *a2;
-    if (v2 == 1)
+    v50 = *a1;
+    v13 = *(a1 + 40);
+    v14 = *(a1 + 72);
+    v48 = *(a1 + 56);
+    v49[0] = v14;
+    *(v49 + 9) = *(a1 + 81);
+    v46 = *(a1 + 24);
+    v47 = v13;
+    *&v45[7] = *a2;
+    if (v8 == 1)
     {
-      if (v4 == 1)
+      if (v10 == 1)
       {
-        v25 = *a1;
-        *v26 = 1;
-        *&v26[24] = *(a1 + 40);
-        *&v26[40] = *(a1 + 56);
-        *&v26[56] = *(a1 + 72);
-        *&v26[65] = *(a1 + 81);
-        *&v26[8] = *(a1 + 24);
-        outlined init with copy of FMFindingState(a1, &v27);
-        outlined init with copy of FMFindingState(a2, &v27);
-        outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v25, &_s10TVRemoteUI17FMFindingDistanceVSgMd);
+        v31 = *a1;
+        *v32 = 1;
+        *&v32[24] = *(a1 + 40);
+        *&v32[40] = *(a1 + 56);
+        *&v32[56] = *(a1 + 72);
+        *&v32[65] = *(a1 + 81);
+        *&v32[8] = *(a1 + 24);
+        outlined init with copy of FMFindingState(a1, &v33);
+        outlined init with copy of FMFindingState(a2, &v33);
+        outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v31, &_s10TVRemoteUI17FMFindingDistanceVSgMd, &_s10TVRemoteUI17FMFindingDistanceVSgMR);
         goto LABEL_28;
       }
     }
 
-    else if (v4 != 1)
+    else if (v10 != 1)
     {
-      v23 = *a2;
-      *v24 = v4;
-      *&v24[8] = *(a2 + 24);
-      *&v24[24] = *(a2 + 40);
-      *&v24[65] = *(a2 + 81);
-      *&v24[56] = *(a2 + 72);
-      *&v24[40] = *(a2 + 56);
-      v25 = v23;
-      *v26 = *v24;
-      v26[80] = v24[80];
-      *&v26[48] = *&v24[48];
-      *&v26[64] = *&v24[64];
-      *&v26[16] = *&v24[16];
-      *&v26[32] = *&v24[32];
-      v45 = *a1;
-      v47 = *(a1 + 24);
-      v19 = *(a1 + 40);
-      v20 = *(a1 + 56);
-      v21 = *(a1 + 72);
-      *(v50 + 9) = *(a1 + 81);
-      v50[0] = v21;
-      v49 = v20;
-      v48 = v19;
-      v46 = v2;
-      v22 = a2;
-      outlined init with copy of FMFindingState(a1, &v27);
-      outlined init with copy of FMFindingState(v22, &v27);
-      LOBYTE(v22) = specialized static FMFindingDistance.== infix(_:_:)(&v45, &v25);
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v23, &_s10TVRemoteUI17FMFindingDistanceVSgMd);
-      v27 = v44;
-      v28 = v2;
-      v30 = v41;
-      v31 = v42;
-      *v32 = v43[0];
-      *&v32[9] = *(v43 + 9);
-      v29 = v40;
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v27, &_s10TVRemoteUI17FMFindingDistanceVSgMd);
-      if ((v22 & 1) == 0)
+      v29 = *a2;
+      *v30 = v10;
+      *&v30[8] = *(a2 + 24);
+      *&v30[24] = *(a2 + 40);
+      *&v30[65] = *(a2 + 81);
+      *&v30[56] = *(a2 + 72);
+      *&v30[40] = *(a2 + 56);
+      v31 = v29;
+      *v32 = *v30;
+      v32[80] = v30[80];
+      *&v32[48] = *&v30[48];
+      *&v32[64] = *&v30[64];
+      *&v32[16] = *&v30[16];
+      *&v32[32] = *&v30[32];
+      v51 = *a1;
+      v53 = *(a1 + 24);
+      v25 = *(a1 + 40);
+      v26 = *(a1 + 56);
+      v27 = *(a1 + 72);
+      *(v56 + 9) = *(a1 + 81);
+      v56[0] = v27;
+      v55 = v26;
+      v54 = v25;
+      v52 = v8;
+      v28 = a2;
+      outlined init with copy of FMFindingState(a1, &v33);
+      outlined init with copy of FMFindingState(v28, &v33);
+      LOBYTE(v28) = specialized static FMFindingDistance.== infix(_:_:)(&v51, &v31);
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v29, &_s10TVRemoteUI17FMFindingDistanceVSgMd, &_s10TVRemoteUI17FMFindingDistanceVSgMR);
+      v33 = v50;
+      v34 = v8;
+      v36 = v47;
+      v37 = v48;
+      *v38 = v49[0];
+      *&v38[9] = *(v49 + 9);
+      v35 = v46;
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v33, &_s10TVRemoteUI17FMFindingDistanceVSgMd, &_s10TVRemoteUI17FMFindingDistanceVSgMR);
+      if ((v28 & 1) == 0)
       {
         goto LABEL_51;
       }
@@ -3655,35 +3657,35 @@ LABEL_21:
       goto LABEL_28;
     }
 
-    v27 = *a1;
-    v30 = *(a1 + 40);
-    v31 = *(a1 + 56);
-    *v32 = *(a1 + 72);
-    *&v32[9] = *(a1 + 81);
-    v29 = *(a1 + 24);
-    *v33 = *v39;
-    v28 = v2;
-    *&v33[15] = *&v39[15];
-    v34 = v4;
-    v14 = *(a2 + 24);
-    *&v38[9] = *(a2 + 81);
-    v15 = *(a2 + 72);
-    v37 = *(a2 + 56);
-    *v38 = v15;
-    v16 = *(a2 + 40);
-    v35 = v14;
-    v36 = v16;
-    outlined init with copy of FMFindingState(a1, &v25);
-    outlined init with copy of FMFindingState(a2, &v25);
-    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v27, &_s10TVRemoteUI17FMFindingDistanceVSg_ADtMd);
+    v33 = *a1;
+    v36 = *(a1 + 40);
+    v37 = *(a1 + 56);
+    *v38 = *(a1 + 72);
+    *&v38[9] = *(a1 + 81);
+    v35 = *(a1 + 24);
+    *v39 = *v45;
+    v34 = v8;
+    *&v39[15] = *&v45[15];
+    v40 = v10;
+    v20 = *(a2 + 24);
+    *&v44[9] = *(a2 + 81);
+    v21 = *(a2 + 72);
+    v43 = *(a2 + 56);
+    *v44 = v21;
+    v22 = *(a2 + 40);
+    v41 = v20;
+    v42 = v22;
+    outlined init with copy of FMFindingState(a1, &v31);
+    outlined init with copy of FMFindingState(a2, &v31);
+    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v33, &_s10TVRemoteUI17FMFindingDistanceVSg_ADtMd, &_s10TVRemoteUI17FMFindingDistanceVSg_ADtMR);
     goto LABEL_51;
   }
 
-  if (v2 != 4)
+  if (v8 != 4)
   {
-    if (v2 == 5)
+    if (v8 == 5)
     {
-      if (v4 != 5)
+      if (v10 != 5)
       {
         goto LABEL_51;
       }
@@ -3694,39 +3696,39 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  if (v4 != 4)
+  if (v10 != 4)
   {
     goto LABEL_51;
   }
 
 LABEL_28:
-  v10 = 0x6E776F6E6B6E75;
-  if (v3 > 1)
+  v16 = 0x6E776F6E6B6E75;
+  if (v9 > 1)
   {
-    if (v3 != 2)
+    if (v9 != 2)
     {
-      v11 = 0xE600000000000000;
-      v12 = 0x656C62617473;
-      if (v5 > 1)
+      v17 = 0xE600000000000000;
+      v18 = 0x656C62617473;
+      if (v11 > 1)
       {
         goto LABEL_39;
       }
 
 LABEL_36:
-      if (!v5)
+      if (!v11)
       {
-        v13 = 0xE700000000000000;
+        v19 = 0xE700000000000000;
         goto LABEL_44;
       }
 
-      v10 = 0x6973616572636E69;
+      v16 = 0x6973616572636E69;
       goto LABEL_42;
     }
 
-    v12 = 0x6973616572636564;
+    v18 = 0x6973616572636564;
 LABEL_35:
-    v11 = 0xEA0000000000676ELL;
-    if (v5 > 1)
+    v17 = 0xEA0000000000676ELL;
+    if (v11 > 1)
     {
       goto LABEL_39;
     }
@@ -3734,48 +3736,48 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  if (v3)
+  if (v9)
   {
-    v12 = 0x6973616572636E69;
+    v18 = 0x6973616572636E69;
     goto LABEL_35;
   }
 
-  v11 = 0xE700000000000000;
-  v12 = 0x6E776F6E6B6E75;
-  if (v5 <= 1)
+  v17 = 0xE700000000000000;
+  v18 = 0x6E776F6E6B6E75;
+  if (v11 <= 1)
   {
     goto LABEL_36;
   }
 
 LABEL_39:
-  if (v5 == 2)
+  if (v11 == 2)
   {
-    v10 = 0x6973616572636564;
+    v16 = 0x6973616572636564;
 LABEL_42:
-    v13 = 0xEA0000000000676ELL;
+    v19 = 0xEA0000000000676ELL;
     goto LABEL_44;
   }
 
-  v13 = 0xE600000000000000;
-  v10 = 0x656C62617473;
+  v19 = 0xE600000000000000;
+  v16 = 0x656C62617473;
 LABEL_44:
-  if (v12 == v10 && v11 == v13)
+  if (v18 == v16 && v17 == v19)
   {
-    v6 = 1;
+    v12 = 1;
   }
 
   else
   {
-    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v12 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v6 & 1;
+  return v12 & 1;
 }
 
-uint64_t outlined destroy of (FMFindingDistance?, FMFindingDistance?)(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of (FMFindingDistance?, FMFindingDistance?)(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -3799,9 +3801,9 @@ unint64_t specialized FMFindingState.CodingKeys.init(rawValue:)(Swift::String st
 
 uint64_t specialized FMFindingState.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10TVRemoteUI14FMFindingStateO10CodingKeys33_A3DFBA6D09331B27A32318957F9878E4LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10TVRemoteUI14FMFindingStateO10CodingKeys33_A3DFBA6D09331B27A32318957F9878E4LLOGMd, &_ss22KeyedDecodingContainerVy10TVRemoteUI14FMFindingStateO10CodingKeys33_A3DFBA6D09331B27A32318957F9878E4LLOGMR);
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v8 = &v16 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type FMFindingState.CodingKeys and conformance FMFindingState.CodingKeys();
@@ -3951,9 +3953,9 @@ unint64_t lazy protocol witness table accessor for type FMFindingState.CodingKey
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -4316,17 +4318,17 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance FMFindi
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance FMFindingDistance.CodingKeys()
+uint64_t protocol witness for Hashable.hash(into:) in conformance FMFindingDistance.CodingKeys(uint64_t a1)
 {
-  FMFindingDistance.CodingKeys.rawValue.getter(*v0);
+  FMFindingDistance.CodingKeys.rawValue.getter(*v1);
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingDistance.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingDistance.CodingKeys(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  FMFindingDistance.CodingKeys.rawValue.getter(v1);
+  FMFindingDistance.CodingKeys.rawValue.getter(v2);
   String.hash(into:)();
 
   return Hasher._finalize()();
@@ -4371,9 +4373,9 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 uint64_t FMFindingDistance.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10TVRemoteUI17FMFindingDistanceV10CodingKeys33_BF6198250B0522D17E4C5C7D5D8592B0LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10TVRemoteUI17FMFindingDistanceV10CodingKeys33_BF6198250B0522D17E4C5C7D5D8592B0LLOGMd, &_ss22KeyedEncodingContainerVy10TVRemoteUI17FMFindingDistanceV10CodingKeys33_BF6198250B0522D17E4C5C7D5D8592B0LLOGMR);
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v8 = &v10[-v7];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type FMFindingDistance.CodingKeys and conformance FMFindingDistance.CodingKeys();
@@ -4381,7 +4383,7 @@ uint64_t FMFindingDistance.encode(to:)(void *a1)
   v11 = *v3;
   v12 = *(v3 + 8);
   v10[15] = 0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSgMd, &_sSdSgMR);
   lazy protocol witness table accessor for type Double? and conformance <A> A?();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   if (!v2)
@@ -4413,7 +4415,7 @@ uint64_t FMFindingDistance.encode(to:)(void *a1)
 
 uint64_t FMFindingDistance.description.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
   v1 = swift_allocObject();
   v2 = v1;
   *(v1 + 16) = xmmword_26D0D31D0;
@@ -4492,22 +4494,22 @@ uint64_t FMFindingDistance.description.getter()
   return String.init(format:_:)();
 }
 
-void FMFindingDistance.hash(into:)()
+void FMFindingDistance.hash(into:)(uint64_t a1)
 {
-  v1 = v0;
-  if (*(v0 + 8) == 1)
+  v2 = v1;
+  if (*(v1 + 8) == 1)
   {
     Hasher._combine(_:)(0);
-    v2 = *(v0 + 2);
-    if (v2)
+    v3 = *(v1 + 2);
+    if (v3)
     {
       goto LABEL_3;
     }
 
 LABEL_9:
     Hasher._combine(_:)(0);
-    v4 = *(v0 + 3);
-    if (v4)
+    v5 = *(v1 + 3);
+    if (v5)
     {
       goto LABEL_4;
     }
@@ -4515,36 +4517,36 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v6 = *v0;
+  v7 = *v1;
   Hasher._combine(_:)(1u);
-  if ((*&v6 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+  if ((*&v7 & 0x7FFFFFFFFFFFFFFFLL) != 0)
   {
-    v7 = v6;
+    v8 = v7;
   }
 
   else
   {
-    v7 = 0.0;
+    v8 = 0.0;
   }
 
-  MEMORY[0x26D6B18E0](*&v7);
-  v2 = *(v0 + 2);
-  if (!v2)
+  MEMORY[0x26D6B18E0](*&v8);
+  v3 = *(v1 + 2);
+  if (!v3)
   {
     goto LABEL_9;
   }
 
 LABEL_3:
   Hasher._combine(_:)(1u);
-  v3 = v2;
+  v4 = v3;
   NSObject.hash(into:)();
 
-  v4 = *(v1 + 3);
-  if (v4)
+  v5 = *(v2 + 3);
+  if (v5)
   {
 LABEL_4:
     Hasher._combine(_:)(1u);
-    v5 = v4;
+    v6 = v5;
     NSObject.hash(into:)();
 
     goto LABEL_11;
@@ -4553,50 +4555,50 @@ LABEL_4:
 LABEL_10:
   Hasher._combine(_:)(0);
 LABEL_11:
-  v8 = v1[4];
-  if (v8 == 0.0)
-  {
-    v8 = 0.0;
-  }
-
-  MEMORY[0x26D6B18E0](*&v8);
-  Hasher._combine(_:)(v1[5] & 1);
-  v9 = v1[6];
+  v9 = v2[4];
   if (v9 == 0.0)
   {
     v9 = 0.0;
   }
 
   MEMORY[0x26D6B18E0](*&v9);
-  Hasher._combine(_:)(v1[7] & 1);
-  Hasher._combine(_:)(*(v1 + 57) & 1);
-  v10 = v1[8];
+  Hasher._combine(_:)(v2[5] & 1);
+  v10 = v2[6];
   if (v10 == 0.0)
   {
     v10 = 0.0;
   }
 
   MEMORY[0x26D6B18E0](*&v10);
-  Hasher._combine(_:)(v1[9] & 1);
-  Hasher._combine(_:)(*(v1 + 73) & 1);
-  Hasher._combine(_:)(*(v1 + 74) & 1);
-  v11 = v1[10];
+  Hasher._combine(_:)(v2[7] & 1);
+  Hasher._combine(_:)(*(v2 + 57) & 1);
+  v11 = v2[8];
   if (v11 == 0.0)
   {
     v11 = 0.0;
   }
 
   MEMORY[0x26D6B18E0](*&v11);
-  if (*(v1 + 96) == 1)
+  Hasher._combine(_:)(v2[9] & 1);
+  Hasher._combine(_:)(*(v2 + 73) & 1);
+  Hasher._combine(_:)(*(v2 + 74) & 1);
+  v12 = v2[10];
+  if (v12 == 0.0)
+  {
+    v12 = 0.0;
+  }
+
+  MEMORY[0x26D6B18E0](*&v12);
+  if (*(v2 + 96) == 1)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
-    v12 = *(v1 + 11);
+    v13 = *(v2 + 11);
     Hasher._combine(_:)(1u);
-    MEMORY[0x26D6B18C0](v12);
+    MEMORY[0x26D6B18C0](v13);
   }
 }
 
@@ -4630,32 +4632,32 @@ BOOL protocol witness for static Equatable.== infix(_:_:) in conformance FMFindi
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance FMFindingDistance()
 {
   Hasher.init(_seed:)();
-  FMFindingDistance.hash(into:)();
+  FMFindingDistance.hash(into:)(v1);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingDistance()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingDistance(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  FMFindingDistance.hash(into:)();
+  FMFindingDistance.hash(into:)(v2);
   return Hasher._finalize()();
 }
 
-__n128 protocol witness for Decodable.init(from:) in conformance FMFindingDistance@<Q0>(void *a1@<X0>, uint64_t a2@<X8>)
+__n128 protocol witness for Decodable.init(from:) in conformance FMFindingDistance@<Q0>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  specialized FMFindingDistance.init(from:)(a1, v7);
+  specialized FMFindingDistance.init(from:)(a2, v7);
   if (!v2)
   {
     v5 = v7[5];
-    *(a2 + 64) = v7[4];
-    *(a2 + 80) = v5;
-    *(a2 + 96) = v8;
+    *(a1 + 64) = v7[4];
+    *(a1 + 80) = v5;
+    *(a1 + 96) = v8;
     v6 = v7[1];
-    *a2 = v7[0];
-    *(a2 + 16) = v6;
+    *a1 = v7[0];
+    *(a1 + 16) = v6;
     result = v7[3];
-    *(a2 + 32) = v7[2];
-    *(a2 + 48) = result;
+    *(a1 + 32) = v7[2];
+    *(a1 + 48) = result;
   }
 
   return result;
@@ -4696,7 +4698,7 @@ BOOL specialized static FMFindingDistance.== infix(_:_:)(uint64_t a1, uint64_t a
 
     v6 = a1;
     v7 = a2;
-    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for PRTargetEstimate);
+    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for PRTargetEstimate, 0x277D43C60);
     v8 = v5;
     v9 = v4;
     v10 = static NSObject.== infix(_:_:)();
@@ -4725,7 +4727,7 @@ BOOL specialized static FMFindingDistance.== infix(_:_:)(uint64_t a1, uint64_t a
 
     v13 = a1;
     v14 = a2;
-    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for PRPose);
+    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for PRPose, 0x277D43C58);
     v15 = v12;
     v16 = v11;
     v17 = static NSObject.== infix(_:_:)();
@@ -4897,9 +4899,9 @@ unint64_t specialized FMFindingDistance.CodingKeys.init(rawValue:)(Swift::String
 
 uint64_t specialized FMFindingDistance.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10TVRemoteUI17FMFindingDistanceV10CodingKeys33_BF6198250B0522D17E4C5C7D5D8592B0LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10TVRemoteUI17FMFindingDistanceV10CodingKeys33_BF6198250B0522D17E4C5C7D5D8592B0LLOGMd, &_ss22KeyedDecodingContainerVy10TVRemoteUI17FMFindingDistanceV10CodingKeys33_BF6198250B0522D17E4C5C7D5D8592B0LLOGMR);
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v8 = &v31 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type FMFindingDistance.CodingKeys and conformance FMFindingDistance.CodingKeys();
@@ -5045,7 +5047,7 @@ unint64_t lazy protocol witness table accessor for type Double? and conformance 
   result = lazy protocol witness table cache variable for type Double? and conformance <A> A?;
   if (!lazy protocol witness table cache variable for type Double? and conformance <A> A?)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSdSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSdSgMd, &_sSdSgMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Double? and conformance <A> A?);
   }
@@ -5053,7 +5055,7 @@ unint64_t lazy protocol witness table accessor for type Double? and conformance 
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -5830,18 +5832,88 @@ uint64_t storeEnumTagSinglePayload for FLSpringParameters(uint64_t result, int a
   return result;
 }
 
-id FMR1HapticPattern.__allocating_init(events:parameters:)()
+id FMR1HapticPattern.__allocating_init(events:parameters:)(uint64_t a1, uint64_t a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v1 = objc_allocWithZone(v0);
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticEvent);
+  v10[1] = *MEMORY[0x277D85DE8];
+  v3 = objc_allocWithZone(v2);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticEvent, 0x277CBF6B8);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticDynamicParameter);
-  v3 = Array._bridgeToObjectiveC()().super.isa;
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticDynamicParameter, 0x277CBF6A8);
+  v5 = Array._bridgeToObjectiveC()().super.isa;
+
+  v10[0] = 0;
+  v6 = [v3 initWithEvents:isa parameters:v5 error:v10];
+
+  if (v6)
+  {
+    v7 = v10[0];
+  }
+
+  else
+  {
+    v8 = v10[0];
+    _convertNSErrorToError(_:)();
+
+    swift_willThrow();
+  }
+
+  return v6;
+}
+
+id FMR1HapticPattern.init(events:parameters:)(uint64_t a1, uint64_t a2, unint64_t *a3, void *a4, SEL *a5)
+{
+  v17[1] = *MEMORY[0x277D85DE8];
+  v9 = &v5[OBJC_IVAR____TtC10TVRemoteUI17FMR1HapticPattern_name];
+  *v9 = 0;
+  v9[1] = 0;
+  v5[OBJC_IVAR____TtC10TVRemoteUI17FMR1HapticPattern_isTap] = 2;
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticEvent, 0x277CBF6B8);
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  type metadata accessor for SKConstraint(0, a3, a4);
+  v11 = Array._bridgeToObjectiveC()().super.isa;
+
+  v17[0] = 0;
+  v16.receiver = v5;
+  v16.super_class = type metadata accessor for FMR1HapticPattern();
+  v12 = objc_msgSendSuper2(&v16, *a5, isa, v11, v17);
+
+  if (v12)
+  {
+    v13 = v17[0];
+  }
+
+  else
+  {
+    v14 = v17[0];
+    _convertNSErrorToError(_:)();
+
+    swift_willThrow();
+  }
+
+  return v12;
+}
+
+id @objc FMR1HapticPattern.init(events:parameters:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t *a6, void *a7, SEL *a8)
+{
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticEvent, 0x277CBF6B8);
+  v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  type metadata accessor for SKConstraint(0, a6, a7);
+  v12 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  return FMR1HapticPattern.init(events:parameters:)(v11, v12, a6, a7, a8);
+}
+
+id FMR1HapticPattern.__allocating_init(dictionary:)(uint64_t a1)
+{
+  v8[1] = *MEMORY[0x277D85DE8];
+  v2 = objc_allocWithZone(v1);
+  type metadata accessor for CHHapticPatternKey(0);
+  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type CHHapticPatternKey and conformance CHHapticPatternKey, type metadata accessor for CHHapticPatternKey, &protocol conformance descriptor for CHHapticPatternKey);
+  isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   v8[0] = 0;
-  v4 = [v1 initWithEvents:isa parameters:v3 error:v8];
+  v4 = [v2 initWithDictionary:isa error:v8];
 
   if (v4)
   {
@@ -5859,106 +5931,36 @@ id FMR1HapticPattern.__allocating_init(events:parameters:)()
   return v4;
 }
 
-id FMR1HapticPattern.init(events:parameters:)(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, SEL *a5)
+id FMR1HapticPattern.init(dictionary:)(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  v8 = &v5[OBJC_IVAR____TtC10TVRemoteUI17FMR1HapticPattern_name];
-  *v8 = 0;
-  v8[1] = 0;
-  v5[OBJC_IVAR____TtC10TVRemoteUI17FMR1HapticPattern_isTap] = 2;
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticEvent);
-  isa = Array._bridgeToObjectiveC()().super.isa;
-
-  type metadata accessor for SKConstraint(0, a3);
-  v10 = Array._bridgeToObjectiveC()().super.isa;
-
-  v16[0] = 0;
-  v15.receiver = v5;
-  v15.super_class = type metadata accessor for FMR1HapticPattern();
-  v11 = objc_msgSendSuper2(&v15, *a5, isa, v10, v16);
-
-  if (v11)
-  {
-    v12 = v16[0];
-  }
-
-  else
-  {
-    v13 = v16[0];
-    _convertNSErrorToError(_:)();
-
-    swift_willThrow();
-  }
-
-  return v11;
-}
-
-id @objc FMR1HapticPattern.init(events:parameters:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t *a6, uint64_t a7, SEL *a8)
-{
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticEvent);
-  v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  type metadata accessor for SKConstraint(0, a6);
-  v12 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  return FMR1HapticPattern.init(events:parameters:)(v11, v12, a6, a7, a8);
-}
-
-id FMR1HapticPattern.__allocating_init(dictionary:)()
-{
-  v7[1] = *MEMORY[0x277D85DE8];
-  v1 = objc_allocWithZone(v0);
+  v9[1] = *MEMORY[0x277D85DE8];
+  v2 = &v1[OBJC_IVAR____TtC10TVRemoteUI17FMR1HapticPattern_name];
+  *v2 = 0;
+  v2[1] = 0;
+  v1[OBJC_IVAR____TtC10TVRemoteUI17FMR1HapticPattern_isTap] = 2;
   type metadata accessor for CHHapticPatternKey(0);
-  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type CHHapticPatternKey and conformance CHHapticPatternKey, type metadata accessor for CHHapticPatternKey);
+  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type CHHapticPatternKey and conformance CHHapticPatternKey, type metadata accessor for CHHapticPatternKey, &protocol conformance descriptor for CHHapticPatternKey);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  v7[0] = 0;
-  v3 = [v1 initWithDictionary:isa error:v7];
+  v9[0] = 0;
+  v8.receiver = v1;
+  v8.super_class = type metadata accessor for FMR1HapticPattern();
+  v4 = objc_msgSendSuper2(&v8, sel_initWithDictionary_error_, isa, v9);
 
-  if (v3)
+  if (v4)
   {
-    v4 = v7[0];
+    v5 = v9[0];
   }
 
   else
   {
-    v5 = v7[0];
+    v6 = v9[0];
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  return v3;
-}
-
-id FMR1HapticPattern.init(dictionary:)()
-{
-  v8[1] = *MEMORY[0x277D85DE8];
-  v1 = &v0[OBJC_IVAR____TtC10TVRemoteUI17FMR1HapticPattern_name];
-  *v1 = 0;
-  v1[1] = 0;
-  v0[OBJC_IVAR____TtC10TVRemoteUI17FMR1HapticPattern_isTap] = 2;
-  type metadata accessor for CHHapticPatternKey(0);
-  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type CHHapticPatternKey and conformance CHHapticPatternKey, type metadata accessor for CHHapticPatternKey);
-  isa = Dictionary._bridgeToObjectiveC()().super.isa;
-
-  v8[0] = 0;
-  v7.receiver = v0;
-  v7.super_class = type metadata accessor for FMR1HapticPattern();
-  v3 = objc_msgSendSuper2(&v7, sel_initWithDictionary_error_, isa, v8);
-
-  if (v3)
-  {
-    v4 = v8[0];
-  }
-
-  else
-  {
-    v5 = v8[0];
-    _convertNSErrorToError(_:)();
-
-    swift_willThrow();
-  }
-
-  return v3;
+  return v4;
 }
 
 id FMR1HapticPattern.init(contentsOf:)(uint64_t a1)
@@ -5999,11 +6001,11 @@ id FMR1HapticPattern.init(contentsOf:)(uint64_t a1)
   return v8;
 }
 
-id FMR1HapticPattern.__deallocating_deinit()
+id FMR1HapticPattern.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for FMR1HapticPattern();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for FMR1HapticPattern();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 id FMR1HapticsController.init()()
@@ -6101,7 +6103,7 @@ id FMR1HapticsController.init()()
     *v21 = v16;
     v22 = v16;
     _os_log_impl(&dword_26CFEB000, v18, v19, "🧭 FMR1HaptiCtrl%@: init", v20, 0xCu);
-    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v21, &_sSo8NSObjectCSgMd);
+    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v21, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x26D6B2710](v21, -1, -1);
     MEMORY[0x26D6B2710](v20, -1, -1);
   }
@@ -6170,20 +6172,20 @@ uint64_t FMR1HapticsController.description.getter()
 
 id FMR1HapticsController.loadHapticPattern(named:isTap:)(uint64_t a1, unint64_t a2, int a3)
 {
-  LODWORD(v61) = a3;
-  v63[4] = *MEMORY[0x277D85DE8];
+  LODWORD(v62) = a3;
+  v64[4] = *MEMORY[0x277D85DE8];
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20](v6, v8);
-  v10 = &v62[-1] - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v63[-1] - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for FMR1HapticsController();
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v12 = [objc_opt_self() bundleForClass_];
-  v13 = MEMORY[0x26D6B1210](a1, a2);
-  v14 = MEMORY[0x26D6B1210](1885431905, 0xE400000000000000);
-  v15 = [v12 pathForResource:v13 ofType:v14];
+  v11 = [objc_opt_self() bundleForClass_];
+  v12 = MEMORY[0x26D6B1210](a1, a2);
+  v13 = MEMORY[0x26D6B1210](1885431905, 0xE400000000000000);
+  v14 = [v11 pathForResource:v12 ofType:v13];
 
-  if (!v15)
+  if (!v14)
   {
     goto LABEL_3;
   }
@@ -6192,22 +6194,22 @@ id FMR1HapticsController.loadHapticPattern(named:isTap:)(uint64_t a1, unint64_t 
 
   URL.init(fileURLWithPath:)();
 
-  v25 = Data.init(contentsOf:options:)();
-  v27 = v26;
-  (*(v7 + 8))(v10, v6);
-  v28 = objc_opt_self();
+  v24 = Data.init(contentsOf:options:)();
+  v26 = v25;
+  (*(v7 + 8))(v9, v6);
+  v27 = objc_opt_self();
   isa = Data._bridgeToObjectiveC()().super.isa;
-  v62[0] = 0;
-  v30 = [v28 JSONObjectWithData:isa options:0 error:v62];
+  v63[0] = 0;
+  v29 = [v27 JSONObjectWithData:isa options:0 error:v63];
 
-  v31 = v62[0];
-  if (!v30)
+  v30 = v63[0];
+  if (!v29)
   {
-    v42 = v31;
-    v43 = _convertNSErrorToError(_:)();
+    v43 = v30;
+    v44 = _convertNSErrorToError(_:)();
 
     swift_willThrow();
-    outlined consume of Data._Representation(v25, v27);
+    outlined consume of Data._Representation(v24, v26);
 
 LABEL_3:
     if (one-time initialization token for findingExperience != -1)
@@ -6215,31 +6217,31 @@ LABEL_3:
       swift_once();
     }
 
-    v16 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v16, static Logger.findingExperience);
+    v15 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v15, static Logger.findingExperience);
 
-    v17 = v3;
-    v18 = Logger.logObject.getter();
-    v19 = static os_log_type_t.error.getter();
+    v16 = v3;
+    v17 = Logger.logObject.getter();
+    v18 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v18, v19))
+    if (os_log_type_enabled(v17, v18))
     {
+      v19 = swift_slowAlloc();
       v20 = swift_slowAlloc();
       v21 = swift_slowAlloc();
-      v22 = swift_slowAlloc();
-      v63[0] = v22;
-      *v20 = 138412546;
-      *(v20 + 4) = v17;
-      *v21 = v17;
-      *(v20 + 12) = 2080;
-      v23 = v17;
-      *(v20 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v63);
-      _os_log_impl(&dword_26CFEB000, v18, v19, "🧭 FMR1HaptiCtrl%@: unable to load '%s' haptic pattern", v20, 0x16u);
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v21, &_sSo8NSObjectCSgMd);
-      MEMORY[0x26D6B2710](v21, -1, -1);
-      __swift_destroy_boxed_opaque_existential_1(v22);
-      MEMORY[0x26D6B2710](v22, -1, -1);
+      v64[0] = v21;
+      *v19 = 138412546;
+      *(v19 + 4) = v16;
+      *v20 = v16;
+      *(v19 + 12) = 2080;
+      v22 = v16;
+      *(v19 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v64);
+      _os_log_impl(&dword_26CFEB000, v17, v18, "🧭 FMR1HaptiCtrl%@: unable to load '%s' haptic pattern", v19, 0x16u);
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v20, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x26D6B2710](v20, -1, -1);
+      __swift_destroy_boxed_opaque_existential_1(v21);
+      MEMORY[0x26D6B2710](v21, -1, -1);
+      MEMORY[0x26D6B2710](v19, -1, -1);
     }
 
     goto LABEL_7;
@@ -6247,99 +6249,101 @@ LABEL_3:
 
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySo18CHHapticPatternKeyaypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySo18CHHapticPatternKeyaypGMd, &_sSDySo18CHHapticPatternKeyaypGMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
-    outlined consume of Data._Representation(v25, v27);
+    outlined consume of Data._Representation(v24, v26);
     goto LABEL_3;
   }
 
+  v31 = v3;
+  v32 = v63[0];
   type metadata accessor for FMR1HapticPattern();
-  v32 = FMR1HapticPattern.__allocating_init(dictionary:)();
-  if (!v32)
+  v33 = FMR1HapticPattern.__allocating_init(dictionary:)(v32);
+  if (!v33)
   {
     if (one-time initialization token for findingExperience != -1)
     {
       swift_once();
     }
 
-    v33 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v33, static Logger.findingExperience);
+    v34 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v34, static Logger.findingExperience);
 
-    v34 = v3;
-    v18 = Logger.logObject.getter();
-    v35 = static os_log_type_t.error.getter();
+    v35 = v31;
+    v17 = Logger.logObject.getter();
+    v36 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v18, v35))
+    if (os_log_type_enabled(v17, v36))
     {
-      v36 = swift_slowAlloc();
       v37 = swift_slowAlloc();
       v38 = swift_slowAlloc();
-      v61 = v18;
-      v39 = v38;
-      v63[0] = v38;
-      *v36 = 138412546;
-      *(v36 + 4) = v34;
-      *v37 = v34;
-      *(v36 + 12) = 2080;
-      v40 = v34;
-      *(v36 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v63);
-      v41 = v61;
-      _os_log_impl(&dword_26CFEB000, v61, v35, "🧭 FMR1HaptiCtrl%@: unable to create '%s' haptic pattern", v36, 0x16u);
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v37, &_sSo8NSObjectCSgMd);
+      v39 = swift_slowAlloc();
+      v62 = v17;
+      v40 = v39;
+      v64[0] = v39;
+      *v37 = 138412546;
+      *(v37 + 4) = v35;
+      *v38 = v35;
+      *(v37 + 12) = 2080;
+      v41 = v35;
+      *(v37 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v64);
+      v42 = v62;
+      _os_log_impl(&dword_26CFEB000, v62, v36, "🧭 FMR1HaptiCtrl%@: unable to create '%s' haptic pattern", v37, 0x16u);
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v38, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      MEMORY[0x26D6B2710](v38, -1, -1);
+      __swift_destroy_boxed_opaque_existential_1(v40);
+      MEMORY[0x26D6B2710](v40, -1, -1);
       MEMORY[0x26D6B2710](v37, -1, -1);
-      __swift_destroy_boxed_opaque_existential_1(v39);
-      MEMORY[0x26D6B2710](v39, -1, -1);
-      MEMORY[0x26D6B2710](v36, -1, -1);
-      outlined consume of Data._Representation(v25, v27);
+      outlined consume of Data._Representation(v24, v26);
 
       goto LABEL_8;
     }
 
-    outlined consume of Data._Representation(v25, v27);
+    outlined consume of Data._Representation(v24, v26);
 LABEL_7:
 
 LABEL_8:
     return 0;
   }
 
-  v44 = v32;
-  v45 = v32;
+  v45 = v33;
+  v46 = v33;
 
-  v46 = specialized Collection.dropFirst(_:)(4, a1, a2);
+  v47 = specialized Collection.dropFirst(_:)(4, a1, a2);
 
-  v47 = Substring.index(_:offsetBy:limitedBy:)();
-  if (v48)
+  v48 = Substring.index(_:offsetBy:limitedBy:)();
+  if (v49)
   {
-    v49 = v46;
+    v50 = v47;
   }
 
   else
   {
-    v49 = v47;
+    v50 = v48;
   }
 
-  if (v49 >> 14 < v46 >> 14)
+  if (v50 >> 14 < v47 >> 14)
   {
     __break(1u);
   }
 
-  v50 = Substring.subscript.getter();
-  v52 = v51;
-  v54 = v53;
-  v56 = v55;
+  v51 = Substring.subscript.getter();
+  v53 = v52;
+  v55 = v54;
+  v57 = v56;
 
-  v57 = MEMORY[0x26D6B1280](v50, v52, v54, v56);
-  v59 = v58;
-  outlined consume of Data._Representation(v25, v27);
+  v58 = MEMORY[0x26D6B1280](v51, v53, v55, v57);
+  v60 = v59;
+  outlined consume of Data._Representation(v24, v26);
 
-  v60 = &v45[OBJC_IVAR____TtC10TVRemoteUI17FMR1HapticPattern_name];
-  *v60 = v57;
-  v60[1] = v59;
+  v61 = &v46[OBJC_IVAR____TtC10TVRemoteUI17FMR1HapticPattern_name];
+  *v61 = v58;
+  v61[1] = v60;
 
-  v45[OBJC_IVAR____TtC10TVRemoteUI17FMR1HapticPattern_isTap] = v61 & 1;
+  v46[OBJC_IVAR____TtC10TVRemoteUI17FMR1HapticPattern_isTap] = v62 & 1;
 
-  return v44;
+  return v45;
 }
 
 Swift::Void __swiftcall FMR1HapticsController.setUpHaptics()()
@@ -6370,7 +6374,7 @@ Swift::Void __swiftcall FMR1HapticsController.setUpHaptics()()
         *v6 = v2;
         v7 = v2;
         _os_log_impl(&dword_26CFEB000, v3, v4, "🧭 FMR1HaptiCtrl%@: setting up haptic engine", v5, 0xCu);
-        outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v6, &_sSo8NSObjectCSgMd);
+        outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v6, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         MEMORY[0x26D6B2710](v6, -1, -1);
         MEMORY[0x26D6B2710](v5, -1, -1);
       }
@@ -6391,7 +6395,7 @@ Swift::Void __swiftcall FMR1HapticsController.setUpHaptics()()
         swift_willThrow();
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo23CHHapticEngineOptionKeya_yptGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo23CHHapticEngineOptionKeya_yptGMd, &_ss23_ContiguousArrayStorageCySo23CHHapticEngineOptionKeya_yptGMR);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_26D0D3590;
       v20 = *MEMORY[0x277CBF628];
@@ -6411,7 +6415,7 @@ Swift::Void __swiftcall FMR1HapticsController.setUpHaptics()()
       v27 = v23;
       v28 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo23CHHapticEngineOptionKeya_ypTt0g5Tf4g_n(inited);
       swift_setDeallocating();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo23CHHapticEngineOptionKeya_yptMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo23CHHapticEngineOptionKeya_yptMd, &_sSo23CHHapticEngineOptionKeya_yptMR);
       swift_arrayDestroy();
       v29 = v8;
       specialized _dictionaryUpCast<A, B, C, D>(_:)(v28);
@@ -6470,7 +6474,7 @@ Swift::Void __swiftcall FMR1HapticsController.setUpHaptics()()
           *v44 = v40;
           v45 = v40;
           _os_log_impl(&dword_26CFEB000, v41, v42, "🧭 FMR1HaptiCtrl%@: started haptic engine", v43, 0xCu);
-          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v44, &_sSo8NSObjectCSgMd);
+          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v44, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
           MEMORY[0x26D6B2710](v44, -1, -1);
           MEMORY[0x26D6B2710](v43, -1, -1);
         }
@@ -6503,7 +6507,7 @@ Swift::Void __swiftcall FMR1HapticsController.setUpHaptics()()
 
           *(v51 + 14) = v56;
           _os_log_impl(&dword_26CFEB000, v49, v50, "🧭 FMR1HaptiCtrl%@: failed creating haptic engine: %s", v51, 0x16u);
-          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v52, &_sSo8NSObjectCSgMd);
+          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v52, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
           MEMORY[0x26D6B2710](v52, -1, -1);
           __swift_destroy_boxed_opaque_existential_1(osloga);
           MEMORY[0x26D6B2710](osloga, -1, -1);
@@ -6619,7 +6623,7 @@ Swift::Void __swiftcall FMR1HapticsController.setUpHaptics()()
         *v15 = v12;
         v16 = v12;
         _os_log_impl(&dword_26CFEB000, oslog, v13, "🧭 FMR1HaptiCtrl%@: unsupported haptic", v14, 0xCu);
-        outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v15, &_sSo8NSObjectCSgMd);
+        outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v15, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         MEMORY[0x26D6B2710](v15, -1, -1);
         MEMORY[0x26D6B2710](v14, -1, -1);
       }
@@ -6627,11 +6631,11 @@ Swift::Void __swiftcall FMR1HapticsController.setUpHaptics()()
   }
 }
 
-uint64_t specialized _dictionaryUpCast<A, B, C, D>(_:)(uint64_t a1)
+Swift::Int specialized _dictionaryUpCast<A, B, C, D>(_:)(uint64_t a1)
 {
   if (*(a1 + 16))
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys11AnyHashableVypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys11AnyHashableVypGMd, &_ss18_DictionaryStorageCys11AnyHashableVypGMR);
     v2 = static _DictionaryStorage.allocate(capacity:)();
   }
 
@@ -6748,9 +6752,9 @@ LABEL_26:
   return result;
 }
 
-void closure #1 in FMR1HapticsController.setUpHaptics()()
+void closure #1 in FMR1HapticsController.setUpHaptics()(uint64_t a1)
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v26[4] = *MEMORY[0x277D85DE8];
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (!Strong)
@@ -6758,41 +6762,41 @@ void closure #1 in FMR1HapticsController.setUpHaptics()()
     return;
   }
 
-  v1 = Strong;
-  v2 = *(Strong + OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticEngine);
-  if (!v2)
+  v2 = Strong;
+  v3 = *(Strong + OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticEngine);
+  if (!v3)
   {
     goto LABEL_5;
   }
 
-  v25[0] = 0;
-  if ([v2 startAndReturnError_])
+  v26[0] = 0;
+  if ([v3 startAndReturnError_])
   {
-    v3 = v25[0];
+    v4 = v26[0];
 LABEL_5:
     if (one-time initialization token for findingExperience != -1)
     {
       swift_once();
     }
 
-    v4 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v4, static Logger.findingExperience);
-    v5 = v1;
-    v6 = Logger.logObject.getter();
-    v7 = static os_log_type_t.default.getter();
+    v5 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v5, static Logger.findingExperience);
+    v6 = v2;
+    v7 = Logger.logObject.getter();
+    v8 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v6, v7))
+    if (os_log_type_enabled(v7, v8))
     {
-      v8 = swift_slowAlloc();
       v9 = swift_slowAlloc();
-      *v8 = 138412290;
-      *(v8 + 4) = v5;
-      *v9 = v1;
-      v10 = v5;
-      _os_log_impl(&dword_26CFEB000, v6, v7, "🧭 FMR1HaptiCtrl%@: restarted haptic engine", v8, 0xCu);
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v9, &_sSo8NSObjectCSgMd);
+      v10 = swift_slowAlloc();
+      *v9 = 138412290;
+      *(v9 + 4) = v6;
+      *v10 = v2;
+      v11 = v6;
+      _os_log_impl(&dword_26CFEB000, v7, v8, "🧭 FMR1HaptiCtrl%@: restarted haptic engine", v9, 0xCu);
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v10, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      MEMORY[0x26D6B2710](v10, -1, -1);
       MEMORY[0x26D6B2710](v9, -1, -1);
-      MEMORY[0x26D6B2710](v8, -1, -1);
     }
 
     else
@@ -6802,8 +6806,8 @@ LABEL_5:
     return;
   }
 
-  v11 = v25[0];
-  v12 = _convertNSErrorToError(_:)();
+  v12 = v26[0];
+  v13 = _convertNSErrorToError(_:)();
 
   swift_willThrow();
   if (one-time initialization token for findingExperience != -1)
@@ -6811,35 +6815,35 @@ LABEL_5:
     swift_once();
   }
 
-  v13 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v13, static Logger.findingExperience);
-  v14 = v1;
-  v15 = v12;
-  v16 = Logger.logObject.getter();
-  v17 = static os_log_type_t.default.getter();
+  v14 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v14, static Logger.findingExperience);
+  v15 = v2;
+  v16 = v13;
+  v17 = Logger.logObject.getter();
+  v18 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v16, v17))
+  if (os_log_type_enabled(v17, v18))
   {
-    v18 = swift_slowAlloc();
     v19 = swift_slowAlloc();
     v20 = swift_slowAlloc();
-    v25[0] = v20;
-    *v18 = 138412546;
-    *(v18 + 4) = v14;
-    *v19 = v1;
-    *(v18 + 12) = 2080;
+    v21 = swift_slowAlloc();
+    v26[0] = v21;
+    *v19 = 138412546;
+    *(v19 + 4) = v15;
+    *v20 = v2;
+    *(v19 + 12) = 2080;
     swift_getErrorValue();
-    v21 = v14;
-    v22 = Error.localizedDescription.getter();
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, v25);
+    v22 = v15;
+    v23 = Error.localizedDescription.getter();
+    v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v24, v26);
 
-    *(v18 + 14) = v24;
-    _os_log_impl(&dword_26CFEB000, v16, v17, "🧭 FMR1HaptiCtrl%@: failed restarting haptic engine: %s", v18, 0x16u);
-    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v19, &_sSo8NSObjectCSgMd);
-    MEMORY[0x26D6B2710](v19, -1, -1);
-    __swift_destroy_boxed_opaque_existential_1(v20);
+    *(v19 + 14) = v25;
+    _os_log_impl(&dword_26CFEB000, v17, v18, "🧭 FMR1HaptiCtrl%@: failed restarting haptic engine: %s", v19, 0x16u);
+    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v20, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x26D6B2710](v20, -1, -1);
-    MEMORY[0x26D6B2710](v18, -1, -1);
+    __swift_destroy_boxed_opaque_existential_1(v21);
+    MEMORY[0x26D6B2710](v21, -1, -1);
+    MEMORY[0x26D6B2710](v19, -1, -1);
   }
 
   else
@@ -6847,40 +6851,40 @@ LABEL_5:
   }
 }
 
-void closure #2 in FMR1HapticsController.setUpHaptics()(uint64_t a1)
+void closure #2 in FMR1HapticsController.setUpHaptics()(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v3 = Strong;
+    v4 = Strong;
     if (one-time initialization token for findingExperience != -1)
     {
       swift_once();
     }
 
-    v4 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v4, static Logger.findingExperience);
-    v5 = v3;
-    v6 = Logger.logObject.getter();
-    v7 = static os_log_type_t.default.getter();
+    v5 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v5, static Logger.findingExperience);
+    v6 = v4;
+    v7 = Logger.logObject.getter();
+    v8 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v6, v7))
+    if (os_log_type_enabled(v7, v8))
     {
-      v8 = swift_slowAlloc();
       v9 = swift_slowAlloc();
-      *v8 = 138412546;
-      *(v8 + 4) = v5;
-      *v9 = v3;
-      *(v8 + 12) = 2048;
-      *(v8 + 14) = a1;
-      v10 = v5;
-      _os_log_impl(&dword_26CFEB000, v6, v7, "🧭 FMR1HaptiCtrl%@: stopped haptic engine (%ld)", v8, 0x16u);
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v9, &_sSo8NSObjectCSgMd);
+      v10 = swift_slowAlloc();
+      *v9 = 138412546;
+      *(v9 + 4) = v6;
+      *v10 = v4;
+      *(v9 + 12) = 2048;
+      *(v9 + 14) = a1;
+      v11 = v6;
+      _os_log_impl(&dword_26CFEB000, v7, v8, "🧭 FMR1HaptiCtrl%@: stopped haptic engine (%ld)", v9, 0x16u);
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v10, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      MEMORY[0x26D6B2710](v10, -1, -1);
       MEMORY[0x26D6B2710](v9, -1, -1);
-      MEMORY[0x26D6B2710](v8, -1, -1);
-      v5 = v6;
-      v6 = v10;
+      v6 = v7;
+      v7 = v11;
     }
   }
 }
@@ -6955,13 +6959,13 @@ void FMR1HapticsController.setUpContinuousHapticPlayer()()
     LODWORD(v10) = 0.5;
     v11 = [v9 initWithParameterID:v8 value:v10];
     v12 = *MEMORY[0x277CBF648];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v13 = swift_allocObject();
     *(v13 + 16) = xmmword_26D0D2880;
     *(v13 + 32) = v7;
     *(v13 + 40) = v11;
     v14 = objc_allocWithZone(MEMORY[0x277CBF6B8]);
-    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticEventParameter);
+    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticEventParameter, 0x277CBF6C0);
     v15 = v7;
     v16 = v11;
     isa = Array._bridgeToObjectiveC()().super.isa;
@@ -6973,7 +6977,7 @@ void FMR1HapticsController.setUpContinuousHapticPlayer()()
     *(v19 + 16) = xmmword_26D0D2860;
     *(v19 + 32) = v18;
     v20 = v18;
-    v21 = FMR1HapticPattern.__allocating_init(events:parameters:)();
+    v21 = FMR1HapticPattern.__allocating_init(events:parameters:)(v19, MEMORY[0x277D84F90]);
     *&v21[OBJC_IVAR____TtC10TVRemoteUI17FMR1HapticPattern_name] = xmmword_26D0D35A0;
     v34 = v21;
 
@@ -7012,7 +7016,7 @@ void FMR1HapticsController.setUpContinuousHapticPlayer()()
         *v46 = v42;
         v47 = v42;
         _os_log_impl(&dword_26CFEB000, v43, v44, "🧭 FMR1HaptiCtrl%@: created continuous haptic player", v45, 0xCu);
-        outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v46, &_sSo8NSObjectCSgMd);
+        outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v46, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         MEMORY[0x26D6B2710](v46, -1, -1);
         MEMORY[0x26D6B2710](v45, -1, -1);
       }
@@ -7058,7 +7062,7 @@ void FMR1HapticsController.setUpContinuousHapticPlayer()()
 
         *(v27 + 14) = v33;
         _os_log_impl(&dword_26CFEB000, v25, v26, "🧭 FMR1HaptiCtrl%@: failed creating continuous haptic player: %s", v27, 0x16u);
-        outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v28, &_sSo8NSObjectCSgMd);
+        outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v28, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         MEMORY[0x26D6B2710](v28, -1, -1);
         __swift_destroy_boxed_opaque_existential_1(v29);
         MEMORY[0x26D6B2710](v29, -1, -1);
@@ -7139,7 +7143,7 @@ LABEL_6:
       *v9 = v5;
       v10 = v5;
       _os_log_impl(&dword_26CFEB000, v6, v7, "🧭 FMR1HaptiCtrl%@: stopped continuous haptic player", v8, 0xCu);
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v9, &_sSo8NSObjectCSgMd);
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v9, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x26D6B2710](v9, -1, -1);
       MEMORY[0x26D6B2710](v8, -1, -1);
     }
@@ -7180,7 +7184,7 @@ LABEL_6:
 
     *(v18 + 14) = v24;
     _os_log_impl(&dword_26CFEB000, v16, v17, "🧭 FMR1HaptiCtrl%@: failed stopping continuous haptic player: %s", v18, 0x16u);
-    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v19, &_sSo8NSObjectCSgMd);
+    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v19, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x26D6B2710](v19, -1, -1);
     __swift_destroy_boxed_opaque_existential_1(v20);
     MEMORY[0x26D6B2710](v20, -1, -1);
@@ -7205,11 +7209,11 @@ void FMR1HapticsController.resetContinuousHapticPlayerBeforeNearbyHaptic()()
     goto LABEL_4;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_26D0D2860;
   *(v6 + 32) = v4;
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticDynamicParameter);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticDynamicParameter, 0x277CBF6A8);
   swift_unknownObjectRetain();
   v7 = v4;
   isa = Array._bridgeToObjectiveC()().super.isa;
@@ -7242,7 +7246,7 @@ LABEL_4:
       *v16 = v12;
       v17 = v12;
       _os_log_impl(&dword_26CFEB000, v13, v14, "🧭 FMR1HaptiCtrl%@: reset continuous haptic player intensity to 1.0", v15, 0xCu);
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v16, &_sSo8NSObjectCSgMd);
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x26D6B2710](v16, -1, -1);
       MEMORY[0x26D6B2710](v15, -1, -1);
     }
@@ -7283,7 +7287,7 @@ LABEL_4:
 
     *(v24 + 14) = v30;
     _os_log_impl(&dword_26CFEB000, v4, v23, "🧭 FMR1HaptiCtrl%@: failed parametering continuous haptic player: %s", v24, 0x16u);
-    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v25, &_sSo8NSObjectCSgMd);
+    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v25, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x26D6B2710](v25, -1, -1);
     __swift_destroy_boxed_opaque_existential_1(v26);
     MEMORY[0x26D6B2710](v26, -1, -1);
@@ -7307,11 +7311,11 @@ void FMR1HapticsController.resetContinuousHapticPlayerAfterNearbyHaptic()()
     goto LABEL_4;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_26D0D2860;
   *(v6 + 32) = v4;
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticDynamicParameter);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticDynamicParameter, 0x277CBF6A8);
   swift_unknownObjectRetain();
   v7 = v4;
   isa = Array._bridgeToObjectiveC()().super.isa;
@@ -7346,7 +7350,7 @@ LABEL_4:
       *(v15 + 14) = 0x3FE3333340000000;
       v17 = v12;
       _os_log_impl(&dword_26CFEB000, v13, v14, "🧭 FMR1HaptiCtrl%@: reset continuous haptic player intensity to %f", v15, 0x16u);
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v16, &_sSo8NSObjectCSgMd);
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x26D6B2710](v16, -1, -1);
       MEMORY[0x26D6B2710](v15, -1, -1);
     }
@@ -7387,7 +7391,7 @@ LABEL_4:
 
     *(v24 + 14) = v30;
     _os_log_impl(&dword_26CFEB000, v4, v23, "🧭 FMR1HaptiCtrl%@: failed parametering continuous haptic player: %s", v24, 0x16u);
-    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v25, &_sSo8NSObjectCSgMd);
+    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v25, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x26D6B2710](v25, -1, -1);
     __swift_destroy_boxed_opaque_existential_1(v26);
     MEMORY[0x26D6B2710](v26, -1, -1);
@@ -7406,7 +7410,7 @@ id FMR1HapticsController.hapticDisplayLinkUpdate(displaylink:)(id a1)
   {
     memset(v23, 0, sizeof(v23));
     FMR1HapticsController.playAheadHaptic(context:)(v23);
-    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v23, &_sypSgMd);
+    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v23, &_sypSgMd, &_sypSgMR);
     *(v1 + v4) = 0;
   }
 
@@ -7527,14 +7531,14 @@ LABEL_8:
 void FMR1HapticsController.playScatterHaptic(context:)(uint64_t a1)
 {
   v2 = v1;
-  v53 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = &v1[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticPlaybackPeriod];
   *v3 = 0;
   v3[8] = 1;
-  memset(v52, 0, sizeof(v52));
+  memset(v53, 0, sizeof(v53));
   v4 = OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticContext;
   swift_beginAccess();
-  outlined assign with take of Any?(v52, &v1[v4]);
+  outlined assign with take of Any?(v53, &v1[v4]);
   swift_endAccess();
   FMR1HapticsController.stopContinuousHapticPlayerIfNecessary()();
   v5 = OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playNearbyHapticWorkItem;
@@ -7571,15 +7575,15 @@ void FMR1HapticsController.playScatterHaptic(context:)(uint64_t a1)
     v9 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_scatterHapticPattern];
     if (v9)
     {
-      *&v52[0] = 0;
+      *&v53[0] = 0;
       v10 = v9;
       v11 = v8;
-      v12 = [v11 createPlayerWithPattern:v10 error:v52];
+      v12 = [v11 createPlayerWithPattern:v10 error:v53];
       if (v12)
       {
         v13 = v12;
         v14 = one-time initialization token for findingExperience;
-        v15 = *&v52[0];
+        v15 = *&v53[0];
         if (v14 != -1)
         {
           swift_once();
@@ -7600,14 +7604,14 @@ void FMR1HapticsController.playScatterHaptic(context:)(uint64_t a1)
           *v21 = v17;
           v22 = v17;
           _os_log_impl(&dword_26CFEB000, v18, v19, "🧭 FMR1HaptiCtrl%@: playing scatter haptic", v20, 0xCu);
-          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v21, &_sSo8NSObjectCSgMd);
+          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v21, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
           MEMORY[0x26D6B2710](v21, -1, -1);
           MEMORY[0x26D6B2710](v20, -1, -1);
         }
 
-        *&v52[0] = 0;
-        v23 = [v13 startAtTime:v52 error:0.0];
-        v24 = *&v52[0];
+        *&v53[0] = 0;
+        v23 = [v13 startAtTime:v53 error:0.0];
+        v24 = *&v53[0];
         if (v23)
         {
           v17[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticsMayBePlaying] = 1;
@@ -7616,8 +7620,8 @@ void FMR1HapticsController.playScatterHaptic(context:)(uint64_t a1)
 
         else
         {
-          v50 = v11;
-          v28 = *&v52[0];
+          v51 = v11;
+          v28 = *&v53[0];
           v29 = _convertNSErrorToError(_:)();
 
           swift_willThrow();
@@ -7629,25 +7633,25 @@ void FMR1HapticsController.playScatterHaptic(context:)(uint64_t a1)
           if (os_log_type_enabled(v32, v33))
           {
             v34 = swift_slowAlloc();
-            v48 = swift_slowAlloc();
             v49 = swift_slowAlloc();
-            *&v52[0] = v49;
+            v50 = swift_slowAlloc();
+            *&v53[0] = v50;
             *v34 = 138412546;
             *(v34 + 4) = v30;
-            *v48 = v30;
+            *v49 = v30;
             *(v34 + 12) = 2080;
             swift_getErrorValue();
-            v47 = v33;
+            v48 = v33;
             v35 = v30;
             v36 = Error.localizedDescription.getter();
-            v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v36, v37, v52);
+            v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v36, v37, v53);
 
             *(v34 + 14) = v38;
-            _os_log_impl(&dword_26CFEB000, v32, v47, "🧭 FMR1HaptiCtrl%@: failed playing scatter haptic (%s)", v34, 0x16u);
-            outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v48, &_sSo8NSObjectCSgMd);
-            MEMORY[0x26D6B2710](v48, -1, -1);
-            __swift_destroy_boxed_opaque_existential_1(v49);
+            _os_log_impl(&dword_26CFEB000, v32, v48, "🧭 FMR1HaptiCtrl%@: failed playing scatter haptic (%s)", v34, 0x16u);
+            outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v49, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
             MEMORY[0x26D6B2710](v49, -1, -1);
+            __swift_destroy_boxed_opaque_existential_1(v50);
+            MEMORY[0x26D6B2710](v50, -1, -1);
             MEMORY[0x26D6B2710](v34, -1, -1);
           }
 
@@ -7655,24 +7659,25 @@ void FMR1HapticsController.playScatterHaptic(context:)(uint64_t a1)
           {
           }
 
-          v11 = v50;
+          v11 = v51;
         }
 
         v39 = *&v17[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playedHapticPatternHandler];
         if (v39)
         {
-          v40 = v10;
-          outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v39);
+          v40 = *&v17[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playedHapticPatternHandler + 8];
+          v41 = v10;
+          outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v39, v40);
           v39(v9, a1);
-          outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v39);
+          outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v39, v40);
         }
 
-        v41 = *&v17[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticDisplayLink];
-        if (v41)
+        v42 = *&v17[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticDisplayLink];
+        if (v42)
         {
-          v42 = v41;
-          [v42 timestamp];
-          v44 = v43;
+          v43 = v42;
+          [v43 timestamp];
+          v45 = v44;
 
           swift_unknownObjectRelease();
         }
@@ -7681,20 +7686,20 @@ void FMR1HapticsController.playScatterHaptic(context:)(uint64_t a1)
         {
 
           swift_unknownObjectRelease();
-          v44 = 0;
+          v45 = 0;
         }
 
-        v45 = &v17[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticLastPlayTimestamp];
-        *v45 = v44;
-        v45[8] = 0;
-        v46 = &v17[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticNextPlayDelay];
-        *v46 = 0x3FF0000000000000;
+        v46 = &v17[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticLastPlayTimestamp];
+        *v46 = v45;
         v46[8] = 0;
+        v47 = &v17[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticNextPlayDelay];
+        *v47 = 0x3FF0000000000000;
+        v47[8] = 0;
       }
 
       else
       {
-        v26 = *&v52[0];
+        v26 = *&v53[0];
         v27 = _convertNSErrorToError(_:)();
 
         swift_willThrow();
@@ -7706,99 +7711,99 @@ void FMR1HapticsController.playScatterHaptic(context:)(uint64_t a1)
 void FMR1HapticsController.playNearbyHaptic(context:)(uint64_t a1)
 {
   v2 = v1;
-  v101 = a1;
-  v106 = *MEMORY[0x277D85DE8];
+  v98 = a1;
+  v103 = *MEMORY[0x277D85DE8];
   v3 = type metadata accessor for DispatchWorkItemFlags();
   v4 = *(v3 - 8);
-  MEMORY[0x28223BE20](v3, v5);
-  v7 = &v89 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for DispatchQoS();
-  v99 = *(v8 - 8);
-  v100 = v8;
-  MEMORY[0x28223BE20](v8, v9);
-  v11 = &v89 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for DispatchTime();
-  v98 = *(v12 - 8);
-  v14 = MEMORY[0x28223BE20](v12, v13);
-  v16 = &v89 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v14, v17);
-  v19 = &v89 - v18;
-  v20 = &v1[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticPlaybackPeriod];
-  *v20 = 0;
-  v20[8] = 1;
+  MEMORY[0x28223BE20](v3);
+  v6 = &v86 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for DispatchQoS();
+  v96 = *(v7 - 8);
+  v97 = v7;
+  MEMORY[0x28223BE20](v7);
+  v9 = &v86 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for DispatchTime();
+  v95 = *(v10 - 8);
+  v11 = MEMORY[0x28223BE20](v10);
+  v13 = &v86 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11);
+  v15 = &v86 - v14;
+  v16 = &v1[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticPlaybackPeriod];
+  *v16 = 0;
+  v16[8] = 1;
   aBlock = 0u;
-  v103 = 0u;
-  v21 = OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticContext;
+  v100 = 0u;
+  v17 = OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticContext;
   swift_beginAccess();
-  outlined assign with take of Any?(&aBlock, &v2[v21]);
+  outlined assign with take of Any?(&aBlock, &v2[v17]);
   swift_endAccess();
   FMR1HapticsController.stopContinuousHapticPlayerIfNecessary()();
-  v22 = OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playArmsReachHapticWorkItem;
+  v18 = OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playArmsReachHapticWorkItem;
   if (*&v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playArmsReachHapticWorkItem])
   {
 
     dispatch thunk of DispatchWorkItem.cancel()();
   }
 
-  *&v2[v22] = 0;
+  *&v2[v18] = 0;
 
   v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hasPlayedArmsReachHaptic] = 0;
-  v23 = OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playScatterHapticWorkItem;
+  v19 = OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playScatterHapticWorkItem;
   if (*&v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playScatterHapticWorkItem])
   {
 
     dispatch thunk of DispatchWorkItem.cancel()();
   }
 
-  *&v2[v23] = 0;
+  *&v2[v19] = 0;
 
-  v24 = OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playBuildHapticWorkItem;
+  v20 = OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playBuildHapticWorkItem;
   if (*&v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playBuildHapticWorkItem])
   {
 
     dispatch thunk of DispatchWorkItem.cancel()();
   }
 
-  *&v2[v24] = 0;
+  *&v2[v20] = 0;
 
   FMR1HapticsController.resetContinuousHapticPlayerBeforeNearbyHaptic()();
-  v25 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticEngine];
-  if (v25)
+  v21 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticEngine];
+  if (v21)
   {
-    v26 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_nearbyHapticPattern];
-    if (v26)
+    v22 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_nearbyHapticPattern];
+    if (v22)
     {
-      v93 = v4;
-      v94 = v3;
+      v90 = v4;
+      v91 = v3;
       *&aBlock = 0;
-      v27 = v26;
-      v28 = v25;
-      v29 = [v28 createPlayerWithPattern:v27 error:&aBlock];
-      if (!v29)
+      v23 = v22;
+      v24 = v21;
+      v25 = [v24 createPlayerWithPattern:v23 error:&aBlock];
+      if (!v25)
       {
-        v37 = aBlock;
-        v38 = _convertNSErrorToError(_:)();
+        v33 = aBlock;
+        v34 = _convertNSErrorToError(_:)();
 
         swift_willThrow();
         return;
       }
 
-      v96 = v29;
-      v95 = v27;
-      v97 = v28;
-      v30 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticDisplayLink];
-      v91 = v26;
-      if (v30)
+      v93 = v25;
+      v92 = v23;
+      v94 = v24;
+      v26 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticDisplayLink];
+      v88 = v22;
+      if (v26)
       {
-        v31 = aBlock;
-        [v30 timestamp];
-        v33 = v32;
-        v34 = &v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_nearbyHapticLastPlayTimestamp];
-        v35 = &v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_nearbyHapticLastPlayTimestamp + 8];
-        if (*v35)
+        v27 = aBlock;
+        [v26 timestamp];
+        v29 = v28;
+        v30 = &v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_nearbyHapticLastPlayTimestamp];
+        v31 = &v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_nearbyHapticLastPlayTimestamp + 8];
+        if (*v31)
         {
-          v36 = v97;
-          if (v32 >= 2.0)
+          v32 = v94;
+          if (v28 >= 2.0)
           {
             goto LABEL_24;
           }
@@ -7806,16 +7811,16 @@ void FMR1HapticsController.playNearbyHaptic(context:)(uint64_t a1)
           goto LABEL_19;
         }
 
-        v36 = v97;
+        v32 = v94;
       }
 
       else
       {
-        v34 = &v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_nearbyHapticLastPlayTimestamp];
-        v39 = v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_nearbyHapticLastPlayTimestamp + 8];
-        v40 = aBlock;
-        v36 = v97;
-        if (v39)
+        v30 = &v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_nearbyHapticLastPlayTimestamp];
+        v35 = v2[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_nearbyHapticLastPlayTimestamp + 8];
+        v36 = aBlock;
+        v32 = v94;
+        if (v35)
         {
 LABEL_19:
           if (one-time initialization token for findingExperience != -1)
@@ -7823,154 +7828,154 @@ LABEL_19:
             swift_once();
           }
 
-          v41 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v41, static Logger.findingExperience);
-          v42 = v2;
-          v43 = Logger.logObject.getter();
-          v44 = static os_log_type_t.default.getter();
+          v37 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v37, static Logger.findingExperience);
+          v38 = v2;
+          v39 = Logger.logObject.getter();
+          v40 = static os_log_type_t.default.getter();
 
-          if (os_log_type_enabled(v43, v44))
+          if (os_log_type_enabled(v39, v40))
           {
-            v45 = swift_slowAlloc();
-            v46 = swift_slowAlloc();
-            *v45 = 138412290;
-            *(v45 + 4) = v42;
-            *v46 = v42;
-            v47 = v42;
-            _os_log_impl(&dword_26CFEB000, v43, v44, "🧭 FMR1HaptiCtrl%@: not playing nearby haptic (we just played it)", v45, 0xCu);
-            outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v46, &_sSo8NSObjectCSgMd);
-            MEMORY[0x26D6B2710](v46, -1, -1);
-            MEMORY[0x26D6B2710](v45, -1, -1);
+            v41 = swift_slowAlloc();
+            v42 = swift_slowAlloc();
+            *v41 = 138412290;
+            *(v41 + 4) = v38;
+            *v42 = v38;
+            v43 = v38;
+            _os_log_impl(&dword_26CFEB000, v39, v40, "🧭 FMR1HaptiCtrl%@: not playing nearby haptic (we just played it)", v41, 0xCu);
+            outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v42, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+            MEMORY[0x26D6B2710](v42, -1, -1);
+            MEMORY[0x26D6B2710](v41, -1, -1);
           }
 
           swift_unknownObjectRelease();
           return;
         }
 
-        v35 = v34 + 1;
-        v33 = 0.0;
+        v31 = v30 + 1;
+        v29 = 0.0;
       }
 
-      if (*v34 + 2.0 <= v33)
+      if (*v30 + 2.0 <= v29)
       {
 LABEL_24:
-        v90 = v35;
+        v87 = v31;
         if (one-time initialization token for findingExperience != -1)
         {
           swift_once();
         }
 
-        v48 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v48, static Logger.findingExperience);
-        v49 = v2;
-        v50 = Logger.logObject.getter();
-        v51 = static os_log_type_t.default.getter();
-        v92 = v49;
+        v44 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v44, static Logger.findingExperience);
+        v45 = v2;
+        v46 = Logger.logObject.getter();
+        v47 = static os_log_type_t.default.getter();
+        v89 = v45;
 
-        if (os_log_type_enabled(v50, v51))
+        if (os_log_type_enabled(v46, v47))
         {
-          v52 = swift_slowAlloc();
-          v89 = v34;
-          v53 = v52;
-          v54 = swift_slowAlloc();
-          *v53 = 138412290;
-          v55 = v92;
-          *(v53 + 4) = v92;
-          *v54 = v55;
-          v56 = v55;
-          _os_log_impl(&dword_26CFEB000, v50, v51, "🧭 FMR1HaptiCtrl%@: playing nearby haptic", v53, 0xCu);
-          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v54, &_sSo8NSObjectCSgMd);
-          MEMORY[0x26D6B2710](v54, -1, -1);
-          v57 = v53;
-          v34 = v89;
-          MEMORY[0x26D6B2710](v57, -1, -1);
+          v48 = swift_slowAlloc();
+          v86 = v30;
+          v49 = v48;
+          v50 = swift_slowAlloc();
+          *v49 = 138412290;
+          v51 = v89;
+          *(v49 + 4) = v89;
+          *v50 = v51;
+          v52 = v51;
+          _os_log_impl(&dword_26CFEB000, v46, v47, "🧭 FMR1HaptiCtrl%@: playing nearby haptic", v49, 0xCu);
+          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v50, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+          MEMORY[0x26D6B2710](v50, -1, -1);
+          v53 = v49;
+          v30 = v86;
+          MEMORY[0x26D6B2710](v53, -1, -1);
         }
 
         *&aBlock = 0;
-        v58 = [v96 startAtTime:&aBlock error:0.0];
-        v59 = aBlock;
-        if (v58)
+        v54 = [v93 startAtTime:&aBlock error:0.0];
+        v55 = aBlock;
+        if (v54)
         {
-          v60 = v92;
-          v92[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticsMayBePlaying] = 1;
-          v61 = v60;
-          type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue);
-          v62 = v59;
-          v89 = static OS_dispatch_queue.main.getter();
+          v56 = v89;
+          v89[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticsMayBePlaying] = 1;
+          v57 = v56;
+          type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
+          v58 = v55;
+          v86 = static OS_dispatch_queue.main.getter();
           static DispatchTime.now()();
           + infix(_:_:)();
-          v98 = *(v98 + 8);
-          (v98)(v16, v12);
-          v63 = swift_allocObject();
-          *(v63 + 16) = v61;
-          v104 = partial apply for closure #1 in FMR1HapticsController.playNearbyHaptic(context:);
-          v105 = v63;
+          v95 = *(v95 + 8);
+          (v95)(v13, v10);
+          v59 = swift_allocObject();
+          *(v59 + 16) = v57;
+          v101 = partial apply for closure #1 in FMR1HapticsController.playNearbyHaptic(context:);
+          v102 = v59;
           *&aBlock = MEMORY[0x277D85DD0];
           *(&aBlock + 1) = 1107296256;
-          *&v103 = thunk for @escaping @callee_guaranteed () -> ();
-          *(&v103 + 1) = &block_descriptor_175;
-          v64 = _Block_copy(&aBlock);
-          v65 = v61;
+          *&v100 = thunk for @escaping @callee_guaranteed () -> ();
+          *(&v100 + 1) = &block_descriptor_175;
+          v60 = _Block_copy(&aBlock);
+          v61 = v57;
 
           static DispatchQoS.unspecified.getter();
           *&aBlock = MEMORY[0x277D84F90];
-          lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+          lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
           lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
-          v66 = v34;
-          v67 = v94;
+          v62 = v30;
+          v63 = v91;
           dispatch thunk of SetAlgebra.init<A>(_:)();
-          v68 = v89;
-          MEMORY[0x26D6B14C0](v19, v11, v7, v64);
-          _Block_release(v64);
+          v64 = v86;
+          MEMORY[0x26D6B14C0](v15, v9, v6, v60);
+          _Block_release(v60);
 
-          v69 = v67;
-          v34 = v66;
-          v70 = v92;
-          (*(v93 + 8))(v7, v69);
-          (*(v99 + 8))(v11, v100);
-          (v98)(v19, v12);
+          v65 = v63;
+          v30 = v62;
+          v66 = v89;
+          (*(v90 + 8))(v6, v65);
+          (*(v96 + 8))(v9, v97);
+          (v95)(v15, v10);
         }
 
         else
         {
-          v71 = aBlock;
-          v72 = _convertNSErrorToError(_:)();
+          v67 = aBlock;
+          v68 = _convertNSErrorToError(_:)();
 
           swift_willThrow();
-          v70 = v92;
-          v73 = v92;
-          v74 = v72;
-          v75 = Logger.logObject.getter();
-          v76 = static os_log_type_t.default.getter();
+          v66 = v89;
+          v69 = v89;
+          v70 = v68;
+          v71 = Logger.logObject.getter();
+          v72 = static os_log_type_t.default.getter();
 
-          if (os_log_type_enabled(v75, v76))
+          if (os_log_type_enabled(v71, v72))
           {
-            v77 = swift_slowAlloc();
-            v78 = swift_slowAlloc();
-            v79 = swift_slowAlloc();
-            v89 = v34;
-            v80 = v79;
-            *&aBlock = v79;
-            *v77 = 138412546;
-            *(v77 + 4) = v73;
-            *v78 = v73;
-            *(v77 + 12) = 2080;
+            v73 = swift_slowAlloc();
+            v74 = swift_slowAlloc();
+            v75 = swift_slowAlloc();
+            v86 = v30;
+            v76 = v75;
+            *&aBlock = v75;
+            *v73 = 138412546;
+            *(v73 + 4) = v69;
+            *v74 = v69;
+            *(v73 + 12) = 2080;
             swift_getErrorValue();
-            v81 = v73;
-            v70 = v92;
-            v82 = Error.localizedDescription.getter();
-            v84 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v82, v83, &aBlock);
+            v77 = v69;
+            v66 = v89;
+            v78 = Error.localizedDescription.getter();
+            v80 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v78, v79, &aBlock);
 
-            *(v77 + 14) = v84;
-            _os_log_impl(&dword_26CFEB000, v75, v76, "🧭 FMR1HaptiCtrl%@: failed playing nearby haptic (%s)", v77, 0x16u);
-            outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v78, &_sSo8NSObjectCSgMd);
-            MEMORY[0x26D6B2710](v78, -1, -1);
-            __swift_destroy_boxed_opaque_existential_1(v80);
-            v85 = v80;
-            v34 = v89;
-            MEMORY[0x26D6B2710](v85, -1, -1);
-            MEMORY[0x26D6B2710](v77, -1, -1);
+            *(v73 + 14) = v80;
+            _os_log_impl(&dword_26CFEB000, v71, v72, "🧭 FMR1HaptiCtrl%@: failed playing nearby haptic (%s)", v73, 0x16u);
+            outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v74, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+            MEMORY[0x26D6B2710](v74, -1, -1);
+            __swift_destroy_boxed_opaque_existential_1(v76);
+            v81 = v76;
+            v30 = v86;
+            MEMORY[0x26D6B2710](v81, -1, -1);
+            MEMORY[0x26D6B2710](v73, -1, -1);
           }
 
           else
@@ -7978,15 +7983,16 @@ LABEL_24:
           }
         }
 
-        v86 = v97;
-        v87 = *&v70[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playedHapticPatternHandler];
-        if (v87)
+        v82 = v94;
+        v83 = *&v66[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playedHapticPatternHandler];
+        if (v83)
         {
-          v88 = v95;
-          outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v87);
-          v87(v91, v101);
+          v84 = *&v66[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playedHapticPatternHandler + 8];
+          v85 = v92;
+          outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v83, v84);
+          v83(v88, v98);
 
-          outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v87);
+          outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v83, v84);
           swift_unknownObjectRelease();
         }
 
@@ -7996,8 +8002,8 @@ LABEL_24:
           swift_unknownObjectRelease();
         }
 
-        *v34 = v33;
-        *v90 = 0;
+        *v30 = v29;
+        *v87 = 0;
         return;
       }
 
@@ -8025,55 +8031,55 @@ void FMR1HapticsController.stopContinuousHapticPlayerIfNecessary()()
   }
 }
 
-uint64_t FMR1HapticsController.startDelayedScatterHapticPlayerIfNecessary()(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t FMR1HapticsController.startDelayedScatterHapticPlayerIfNecessary()(uint64_t *a1, uint64_t a2, uint64_t a3, double a4)
 {
-  v7 = type metadata accessor for DispatchWallTime();
-  v24 = *(v7 - 8);
-  v9 = MEMORY[0x28223BE20](v7, v8);
-  v11 = v23 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9, v12);
-  v14 = v23 - v13;
-  v15 = type metadata accessor for DispatchWorkItemFlags();
-  result = MEMORY[0x28223BE20](v15, v16);
-  v18 = *a1;
-  if (!*(v3 + *a1))
+  v8 = type metadata accessor for DispatchWallTime();
+  v22 = *(v8 - 8);
+  v9 = MEMORY[0x28223BE20](v8);
+  v11 = v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = v21 - v12;
+  v14 = type metadata accessor for DispatchWorkItemFlags();
+  result = MEMORY[0x28223BE20](v14);
+  v16 = *a1;
+  if (!*(v4 + *a1))
   {
-    v19 = swift_allocObject();
+    v17 = swift_allocObject();
     swift_unknownObjectWeakInit();
     aBlock[4] = a2;
-    aBlock[5] = v19;
+    aBlock[5] = v17;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 1107296256;
     aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
     aBlock[3] = a3;
-    v23[1] = _Block_copy(aBlock);
-    v25 = MEMORY[0x277D84F90];
-    lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+    v21[1] = _Block_copy(aBlock);
+    v23 = MEMORY[0x277D84F90];
+    lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     type metadata accessor for DispatchWorkItem();
     swift_allocObject();
-    v20 = DispatchWorkItem.init(flags:block:)();
+    v18 = DispatchWorkItem.init(flags:block:)();
 
-    *(v3 + v18) = v20;
+    *(v4 + v16) = v18;
 
-    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue);
-    v21 = static OS_dispatch_queue.main.getter();
+    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
+    v19 = static OS_dispatch_queue.main.getter();
     static DispatchWallTime.now()();
     + infix(_:_:)();
-    v22 = *(v24 + 8);
-    v22(v11, v7);
+    v20 = *(v22 + 8);
+    v20(v11, v8);
     OS_dispatch_queue.asyncAfter(wallDeadline:execute:)();
 
-    return (v22)(v14, v7);
+    return (v20)(v13, v8);
   }
 
   return result;
 }
 
-uint64_t closure #1 in FMR1HapticsController.startDelayedScatterHapticPlayerIfNecessary()(uint64_t a1, void (*a2)(_OWORD *))
+void *closure #1 in FMR1HapticsController.startDelayedScatterHapticPlayerIfNecessary()(uint64_t a1, void (*a2)(_OWORD *))
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
@@ -8083,7 +8089,7 @@ uint64_t closure #1 in FMR1HapticsController.startDelayedScatterHapticPlayerIfNe
     memset(v5, 0, sizeof(v5));
     a2(v5);
 
-    return outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v5, &_sypSgMd);
+    return outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v5, &_sypSgMd, &_sypSgMR);
   }
 
   return result;
@@ -8092,7 +8098,7 @@ uint64_t closure #1 in FMR1HapticsController.startDelayedScatterHapticPlayerIfNe
 void FMR1HapticsController.playAheadHaptic(context:)(uint64_t a1)
 {
   v2 = v1;
-  v51[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   v3 = OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playNearbyHapticWorkItem;
   if (*&v1[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playNearbyHapticWorkItem])
   {
@@ -8136,15 +8142,15 @@ void FMR1HapticsController.playAheadHaptic(context:)(uint64_t a1)
     v8 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_aheadHapticPattern];
     if (v8)
     {
-      v51[0] = 0;
+      v52[0] = 0;
       v9 = v8;
       v10 = v7;
-      v11 = [v10 createPlayerWithPattern:v9 error:v51];
+      v11 = [v10 createPlayerWithPattern:v9 error:v52];
       if (v11)
       {
         v12 = v11;
         v13 = one-time initialization token for findingExperience;
-        v14 = v51[0];
+        v14 = v52[0];
         if (v13 != -1)
         {
           swift_once();
@@ -8165,14 +8171,14 @@ void FMR1HapticsController.playAheadHaptic(context:)(uint64_t a1)
           *v20 = v16;
           v21 = v16;
           _os_log_impl(&dword_26CFEB000, v17, v18, "🧭 FMR1HaptiCtrl%@: playing ahead (green) haptic", v19, 0xCu);
-          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v20, &_sSo8NSObjectCSgMd);
+          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v20, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
           MEMORY[0x26D6B2710](v20, -1, -1);
           MEMORY[0x26D6B2710](v19, -1, -1);
         }
 
-        v51[0] = 0;
-        v22 = [v12 startAtTime:v51 error:0.0];
-        v23 = v51[0];
+        v52[0] = 0;
+        v22 = [v12 startAtTime:v52 error:0.0];
+        v23 = v52[0];
         if (v22)
         {
           v16[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticsMayBePlaying] = 1;
@@ -8181,8 +8187,8 @@ void FMR1HapticsController.playAheadHaptic(context:)(uint64_t a1)
 
         else
         {
-          v49 = v10;
-          v27 = v51[0];
+          v50 = v10;
+          v27 = v52[0];
           v28 = _convertNSErrorToError(_:)();
 
           swift_willThrow();
@@ -8194,25 +8200,25 @@ void FMR1HapticsController.playAheadHaptic(context:)(uint64_t a1)
           if (os_log_type_enabled(v31, v32))
           {
             v33 = swift_slowAlloc();
-            v47 = swift_slowAlloc();
             v48 = swift_slowAlloc();
-            v51[0] = v48;
+            v49 = swift_slowAlloc();
+            v52[0] = v49;
             *v33 = 138412546;
             *(v33 + 4) = v29;
-            *v47 = v29;
+            *v48 = v29;
             *(v33 + 12) = 2080;
             swift_getErrorValue();
-            v46 = v32;
+            v47 = v32;
             v34 = v29;
             v35 = Error.localizedDescription.getter();
-            v37 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v36, v51);
+            v37 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v36, v52);
 
             *(v33 + 14) = v37;
-            _os_log_impl(&dword_26CFEB000, v31, v46, "🧭 FMR1HaptiCtrl%@: failed playing ahead haptic (%s)", v33, 0x16u);
-            outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v47, &_sSo8NSObjectCSgMd);
-            MEMORY[0x26D6B2710](v47, -1, -1);
-            __swift_destroy_boxed_opaque_existential_1(v48);
+            _os_log_impl(&dword_26CFEB000, v31, v47, "🧭 FMR1HaptiCtrl%@: failed playing ahead haptic (%s)", v33, 0x16u);
+            outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v48, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
             MEMORY[0x26D6B2710](v48, -1, -1);
+            __swift_destroy_boxed_opaque_existential_1(v49);
+            MEMORY[0x26D6B2710](v49, -1, -1);
             MEMORY[0x26D6B2710](v33, -1, -1);
           }
 
@@ -8220,24 +8226,25 @@ void FMR1HapticsController.playAheadHaptic(context:)(uint64_t a1)
           {
           }
 
-          v10 = v49;
+          v10 = v50;
         }
 
         v38 = *&v16[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playedHapticPatternHandler];
         if (v38)
         {
-          v39 = v9;
-          outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v38);
+          v39 = *&v16[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playedHapticPatternHandler + 8];
+          v40 = v9;
+          outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v38, v39);
           v38(v8, a1);
-          outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v38);
+          outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v38, v39);
         }
 
-        v40 = *&v16[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticDisplayLink];
-        if (v40)
+        v41 = *&v16[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticDisplayLink];
+        if (v41)
         {
-          v41 = v40;
-          [v41 timestamp];
-          v43 = v42;
+          v42 = v41;
+          [v42 timestamp];
+          v44 = v43;
 
           swift_unknownObjectRelease();
         }
@@ -8246,20 +8253,20 @@ void FMR1HapticsController.playAheadHaptic(context:)(uint64_t a1)
         {
 
           swift_unknownObjectRelease();
-          v43 = 0;
+          v44 = 0;
         }
 
-        v44 = &v16[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticLastPlayTimestamp];
-        *v44 = v43;
-        v44[8] = 0;
-        v45 = &v16[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticNextPlayDelay];
-        *v45 = 0;
+        v45 = &v16[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticLastPlayTimestamp];
+        *v45 = v44;
         v45[8] = 0;
+        v46 = &v16[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticNextPlayDelay];
+        *v46 = 0;
+        v46[8] = 0;
       }
 
       else
       {
-        v25 = v51[0];
+        v25 = v52[0];
         v26 = _convertNSErrorToError(_:)();
 
         swift_willThrow();
@@ -8314,7 +8321,7 @@ uint64_t FMR1HapticsController.playInFOVModeTapHapticAt(hapticFactor:period:cont
   v12 = v3 + OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticPlaybackPeriod;
   *v12 = a3;
   *(v12 + 8) = 0;
-  outlined init with copy of Any?(a1, v15, &_sypSgMd);
+  outlined init with copy of Any?(a1, v15, &_sypSgMd, &_sypSgMR);
   v13 = OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticContext;
   swift_beginAccess();
   outlined assign with take of Any?(v15, v4 + v13);
@@ -8416,7 +8423,7 @@ void FMR1HapticsController.playLevelIncreasedHaptic()(void *a1, const char *a2, 
             *v30 = v26;
             v31 = v26;
             _os_log_impl(&dword_26CFEB000, v27, v28, a2, v29, 0xCu);
-            outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v30, &_sSo8NSObjectCSgMd);
+            outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v30, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
             MEMORY[0x26D6B2710](v30, -1, -1);
             MEMORY[0x26D6B2710](v29, -1, -1);
           }
@@ -8459,7 +8466,7 @@ void FMR1HapticsController.playLevelIncreasedHaptic()(void *a1, const char *a2, 
 
           *(v42 + 14) = v46;
           _os_log_impl(&dword_26CFEB000, v40, v41, a3, v42, 0x16u);
-          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v47, &_sSo8NSObjectCSgMd);
+          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v47, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
           MEMORY[0x26D6B2710](v47, -1, -1);
           __swift_destroy_boxed_opaque_existential_1(v48);
           MEMORY[0x26D6B2710](v48, -1, -1);
@@ -8517,7 +8524,7 @@ Swift::Void __swiftcall FMR1HapticsController.stopHaptics()()
       *v8 = v4;
       v9 = v4;
       _os_log_impl(&dword_26CFEB000, v5, v6, "🧭 FMR1HaptiCtrl%@: stopping haptics", v7, 0xCu);
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v8, &_sSo8NSObjectCSgMd);
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v8, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x26D6B2710](v8, -1, -1);
       MEMORY[0x26D6B2710](v7, -1, -1);
     }
@@ -8584,12 +8591,12 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
 
 uint64_t outlined assign with take of Any?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
 
-uint64_t outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(uint64_t result)
+uint64_t outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -8610,7 +8617,7 @@ unint64_t lazy protocol witness table accessor for type [DispatchWorkItemFlags] 
   result = lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A];
   if (!lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A]);
   }
@@ -8708,13 +8715,13 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo23CHHapticEngineOptionKeya_
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo23CHHapticEngineOptionKeyaypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo23CHHapticEngineOptionKeyaypGMd, &_ss18_DictionaryStorageCySo23CHHapticEngineOptionKeyaypGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
     v4 = a1 + 32;
 
     while (1)
     {
-      outlined init with copy of Any?(v4, &v11, &_sSo23CHHapticEngineOptionKeya_yptMd);
+      outlined init with copy of Any?(v4, &v11, &_sSo23CHHapticEngineOptionKeya_yptMd, &_sSo23CHHapticEngineOptionKeya_yptMR);
       v5 = v11;
       result = specialized __RawDictionaryStorage.find<A>(_:)(v11);
       if (v7)
@@ -8774,12 +8781,12 @@ void specialized FMR1HapticsController.applyContinuousHapticPlayer(with:rampingF
     v13 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_continuousHapticPlayer];
     if (v13)
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
       v14 = swift_allocObject();
       *(v14 + 16) = xmmword_26D0D2880;
       *(v14 + 32) = v34;
       *(v14 + 40) = v12;
-      type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticDynamicParameter);
+      type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticDynamicParameter, 0x277CBF6A8);
       swift_unknownObjectRetain();
       v15 = v34;
       v16 = v12;
@@ -8829,7 +8836,7 @@ void specialized FMR1HapticsController.applyContinuousHapticPlayer(with:rampingF
 
           *(v27 + 14) = v33;
           _os_log_impl(&dword_26CFEB000, v25, v26, "🧭 FMR1HaptiCtrl%@: failed parametering continuous haptic player: %s", v27, 0x16u);
-          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v28, &_sSo8NSObjectCSgMd);
+          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v28, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
           MEMORY[0x26D6B2710](v28, -1, -1);
           __swift_destroy_boxed_opaque_existential_1(v29);
           MEMORY[0x26D6B2710](v29, -1, -1);
@@ -8850,25 +8857,25 @@ void specialized FMR1HapticsController.applyContinuousHapticPlayer(with:rampingF
 
 void specialized FMR1HapticsController.playSingleTapHaptic(displaylink:)()
 {
-  v61[4] = *MEMORY[0x277D85DE8];
+  v62[4] = *MEMORY[0x277D85DE8];
   v1 = *&v0[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticEngine];
   if (v1)
   {
     v2 = *&v0[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_singleTapSelectedHapticPattern];
     if (v2)
     {
-      v61[0] = 0;
+      v62[0] = 0;
       v3 = v1;
       v4 = v2;
-      v60 = v3;
-      v5 = [v3 createPlayerWithPattern:v4 error:v61];
-      v6 = v61[0];
+      v61 = v3;
+      v5 = [v3 createPlayerWithPattern:v4 error:v62];
+      v6 = v62[0];
       if (v5)
       {
         v7 = v5;
         if (v0[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_singleTapSelectedHapticPatternIntensity + 4])
         {
-          v8 = v61[0];
+          v8 = v62[0];
         }
 
         else
@@ -8879,27 +8886,27 @@ void specialized FMR1HapticsController.playSingleTapHaptic(displaylink:)()
           v15 = v6;
           LODWORD(v16) = v12;
           v17 = [v14 initWithParameterID:v13 value:v16 relativeTime:0.0];
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
           v18 = swift_allocObject();
           *(v18 + 16) = xmmword_26D0D2860;
           *(v18 + 32) = v17;
-          type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticDynamicParameter);
+          type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for CHHapticDynamicParameter, 0x277CBF6A8);
           v19 = v17;
           isa = Array._bridgeToObjectiveC()().super.isa;
 
-          v61[0] = 0;
-          LOBYTE(v13) = [v7 sendParameters:isa atTime:v61 error:0.0];
+          v62[0] = 0;
+          LOBYTE(v13) = [v7 sendParameters:isa atTime:v62 error:0.0];
 
           if (v13)
           {
-            v21 = v61[0];
+            v21 = v62[0];
           }
 
           else
           {
-            v57 = v7;
-            v58 = v4;
-            v22 = v61[0];
+            v58 = v7;
+            v59 = v4;
+            v22 = v62[0];
             v23 = _convertNSErrorToError(_:)();
 
             swift_willThrow();
@@ -8910,7 +8917,7 @@ void specialized FMR1HapticsController.playSingleTapHaptic(displaylink:)()
 
             v24 = type metadata accessor for Logger();
             __swift_project_value_buffer(v24, static Logger.findingExperience);
-            v56 = v0;
+            v57 = v0;
             v25 = v0;
             v26 = v23;
             v27 = Logger.logObject.getter();
@@ -8919,10 +8926,10 @@ void specialized FMR1HapticsController.playSingleTapHaptic(displaylink:)()
             if (os_log_type_enabled(v27, v28))
             {
               v29 = swift_slowAlloc();
-              v55 = v19;
+              v56 = v19;
               v30 = swift_slowAlloc();
-              v54 = swift_slowAlloc();
-              v61[0] = v54;
+              v55 = swift_slowAlloc();
+              v62[0] = v55;
               *v29 = 138412546;
               *(v29 + 4) = v25;
               *v30 = v25;
@@ -8930,14 +8937,14 @@ void specialized FMR1HapticsController.playSingleTapHaptic(displaylink:)()
               swift_getErrorValue();
               v31 = v25;
               v32 = Error.localizedDescription.getter();
-              v34 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v33, v61);
+              v34 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v33, v62);
 
               *(v29 + 14) = v34;
               _os_log_impl(&dword_26CFEB000, v27, v28, "🧭 FMR1HaptiCtrl%@: failed parametering tap haptic player: %s", v29, 0x16u);
-              outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v30, &_sSo8NSObjectCSgMd);
+              outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v30, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
               MEMORY[0x26D6B2710](v30, -1, -1);
-              __swift_destroy_boxed_opaque_existential_1(v54);
-              MEMORY[0x26D6B2710](v54, -1, -1);
+              __swift_destroy_boxed_opaque_existential_1(v55);
+              MEMORY[0x26D6B2710](v55, -1, -1);
               MEMORY[0x26D6B2710](v29, -1, -1);
             }
 
@@ -8945,40 +8952,41 @@ void specialized FMR1HapticsController.playSingleTapHaptic(displaylink:)()
             {
             }
 
-            v0 = v56;
-            v7 = v57;
-            v4 = v58;
+            v0 = v57;
+            v7 = v58;
+            v4 = v59;
           }
         }
 
         v35 = *&v0[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playedHapticPatternHandler];
         if (v35)
         {
-          v36 = v7;
-          v37 = OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticContext;
+          v36 = *&v0[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playedHapticPatternHandler + 8];
+          v37 = v7;
+          v38 = OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_tapHapticContext;
           swift_beginAccess();
-          outlined init with copy of Any?(&v0[v37], v61, &_sypSgMd);
-          v38 = v4;
-          outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v35);
-          v35(v2, v61);
-          v7 = v36;
+          outlined init with copy of Any?(&v0[v38], v62, &_sypSgMd, &_sypSgMR);
+          v39 = v4;
+          outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v35, v36);
+          v35(v2, v62);
+          v7 = v37;
 
-          outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v35);
-          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v61, &_sypSgMd);
+          outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v35, v36);
+          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v62, &_sypSgMd, &_sypSgMR);
         }
 
-        v61[0] = 0;
-        if ([v7 startAtTime:v61 error:{0.0, v54}])
+        v62[0] = 0;
+        if ([v7 startAtTime:v62 error:{0.0, v55}])
         {
-          v39 = v61[0];
+          v40 = v62[0];
 
           swift_unknownObjectRelease();
           v0[OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_hapticsMayBePlaying] = 1;
           return;
         }
 
-        v40 = v61[0];
-        v41 = _convertNSErrorToError(_:)();
+        v41 = v62[0];
+        v42 = _convertNSErrorToError(_:)();
 
         swift_willThrow();
         if (one-time initialization token for findingExperience != -1)
@@ -8986,48 +8994,48 @@ void specialized FMR1HapticsController.playSingleTapHaptic(displaylink:)()
           swift_once();
         }
 
-        v42 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v42, static Logger.findingExperience);
-        v43 = v0;
-        v44 = v41;
-        v45 = Logger.logObject.getter();
-        v46 = static os_log_type_t.default.getter();
+        v43 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v43, static Logger.findingExperience);
+        v44 = v0;
+        v45 = v42;
+        v46 = Logger.logObject.getter();
+        v47 = static os_log_type_t.default.getter();
 
-        if (os_log_type_enabled(v45, v46))
+        if (os_log_type_enabled(v46, v47))
         {
-          v47 = swift_slowAlloc();
           v48 = swift_slowAlloc();
-          v59 = v4;
           v49 = swift_slowAlloc();
-          v61[0] = v49;
-          *v47 = 138412546;
-          *(v47 + 4) = v43;
-          *v48 = v43;
-          *(v47 + 12) = 2080;
+          v60 = v4;
+          v50 = swift_slowAlloc();
+          v62[0] = v50;
+          *v48 = 138412546;
+          *(v48 + 4) = v44;
+          *v49 = v44;
+          *(v48 + 12) = 2080;
           swift_getErrorValue();
-          v50 = v43;
-          v51 = Error.localizedDescription.getter();
-          v53 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v52, v61);
+          v51 = v44;
+          v52 = Error.localizedDescription.getter();
+          v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v52, v53, v62);
 
-          *(v47 + 14) = v53;
-          _os_log_impl(&dword_26CFEB000, v45, v46, "🧭 FMR1HaptiCtrl%@: failed playing single tap haptic (%s)", v47, 0x16u);
-          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v48, &_sSo8NSObjectCSgMd);
-          MEMORY[0x26D6B2710](v48, -1, -1);
-          __swift_destroy_boxed_opaque_existential_1(v49);
+          *(v48 + 14) = v54;
+          _os_log_impl(&dword_26CFEB000, v46, v47, "🧭 FMR1HaptiCtrl%@: failed playing single tap haptic (%s)", v48, 0x16u);
+          outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v49, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
           MEMORY[0x26D6B2710](v49, -1, -1);
-          MEMORY[0x26D6B2710](v47, -1, -1);
+          __swift_destroy_boxed_opaque_existential_1(v50);
+          MEMORY[0x26D6B2710](v50, -1, -1);
+          MEMORY[0x26D6B2710](v48, -1, -1);
 
           swift_unknownObjectRelease();
           return;
         }
 
         swift_unknownObjectRelease();
-        v11 = v41;
+        v11 = v42;
       }
 
       else
       {
-        v9 = v61[0];
+        v9 = v62[0];
         v10 = _convertNSErrorToError(_:)();
 
         swift_willThrow();
@@ -9053,25 +9061,25 @@ _OWORD *outlined init with take of Any(_OWORD *a1, _OWORD *a2)
   return a2;
 }
 
-uint64_t outlined init with copy of Any?(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with copy of Any?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9137,11 +9145,11 @@ Swift::Int FMFindingType.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingType()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingType(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x26D6B18C0](v1);
+  MEMORY[0x26D6B18C0](v2);
   return Hasher._finalize()();
 }
 
@@ -9204,24 +9212,24 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance FMFindingTechn
   return MEMORY[0x26D6B18C0](v2);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingTechnology()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMFindingTechnology(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  if ((v1 & 0x80000000) != 0)
+  if ((v2 & 0x80000000) != 0)
   {
-    v2 = (v1 >> 8) & 0x7F;
+    v3 = (v2 >> 8) & 0x7F;
     MEMORY[0x26D6B18C0](1);
-    Hasher._combine(_:)(v1 & 1);
+    Hasher._combine(_:)(v2 & 1);
   }
 
   else
   {
     MEMORY[0x26D6B18C0](0);
-    v2 = v1;
+    v3 = v2;
   }
 
-  MEMORY[0x26D6B18C0](v2);
+  MEMORY[0x26D6B18C0](v3);
   return Hasher._finalize()();
 }
 
@@ -9608,7 +9616,7 @@ LABEL_20:
   return result;
 }
 
-uint64_t UIFont.font(with:)(uint64_t a1)
+id UIFont.font(with:)(uint64_t a1)
 {
   v3 = [v1 fontDescriptor];
   v4 = [v3 fontDescriptorWithSymbolicTraits_];
@@ -9669,7 +9677,7 @@ uint64_t FMPFSKLabelNode.description.getter()
   MEMORY[0x26D6B12B0](v17, v2);
 
   MEMORY[0x26D6B12B0](0x3E4025202CLL, 0xE500000000000000);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
   v19 = swift_allocObject();
   *(v19 + 16) = xmmword_26D0D2E90;
   v20 = [v1 isHidden];
@@ -9837,8 +9845,8 @@ id FMPFRingView.init(sceneSize:diskRadiusScale:verticalOffset:)(uint64_t a1, cha
   if (os_log_type_enabled(v17, v18))
   {
     v19 = swift_slowAlloc();
-    v20 = COERCE_DOUBLE(swift_slowAlloc());
-    v32.a = v20;
+    v20 = swift_slowAlloc();
+    *&v32.a = v20;
     *v19 = 136315138;
     v21 = [v14 description];
     v22 = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -9848,8 +9856,8 @@ id FMPFRingView.init(sceneSize:diskRadiusScale:verticalOffset:)(uint64_t a1, cha
 
     *(v19 + 4) = v25;
     _os_log_impl(&dword_26CFEB000, v17, v18, "🧭 FMPFRingView%s: init", v19, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(*&v20);
-    MEMORY[0x26D6B2710](*&v20, -1, -1);
+    __swift_destroy_boxed_opaque_existential_1(v20);
+    MEMORY[0x26D6B2710](v20, -1, -1);
     MEMORY[0x26D6B2710](v19, -1, -1);
   }
 

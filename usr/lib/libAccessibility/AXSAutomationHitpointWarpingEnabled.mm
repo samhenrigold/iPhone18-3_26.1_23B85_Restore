@@ -3,7 +3,7 @@
 
 @implementation AXSAutomationHitpointWarpingEnabled
 
-uint64_t ___AXSAutomationHitpointWarpingEnabled_block_invoke()
+void *___AXSAutomationHitpointWarpingEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

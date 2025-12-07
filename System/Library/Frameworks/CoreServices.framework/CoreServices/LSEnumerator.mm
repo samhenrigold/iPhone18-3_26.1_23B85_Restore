@@ -136,61 +136,59 @@ LABEL_3:
 
 - (void)swift_forEach:(id)each
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   selfCopy = self;
-  v5 = [(LSEnumerator *)selfCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [(LSEnumerator *)selfCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        (*(each + 2))(each, *(*(&v9 + 1) + 8 * v7++));
+        (*(each + 2))(each, *(*(&v8 + 1) + 8 * v7++));
       }
 
       while (v5 != v7);
-      v5 = [(LSEnumerator *)selfCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(LSEnumerator *)selfCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)swift_firstWhere:(id)where
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   selfCopy = self;
-  v5 = [(LSEnumerator *)selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(LSEnumerator *)selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ((*(where + 2))(where, v8))
         {
           v9 = v8;
@@ -198,7 +196,7 @@ LABEL_3:
         }
       }
 
-      v5 = [(LSEnumerator *)selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(LSEnumerator *)selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -210,8 +208,6 @@ LABEL_3:
 
   v9 = 0;
 LABEL_11:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

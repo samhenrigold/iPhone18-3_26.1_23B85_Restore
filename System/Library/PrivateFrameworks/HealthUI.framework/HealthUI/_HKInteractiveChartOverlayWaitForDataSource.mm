@@ -57,29 +57,14 @@
 {
   dateCopy = date;
   endDateCopy = endDate;
-  v26 = 0uLL;
-  v27 = 0;
-  delegateCopy = delegate;
-  dataSource = [(_HKInteractiveChartOverlayWaitForDataSource *)self dataSource];
-  v16 = dataSource;
-  if (dataSource)
-  {
-    [dataSource blockPathForX:dateCopy zoom:scope resolution:resolution];
-  }
-
-  else
-  {
-    v26 = 0uLL;
-    v27 = 0;
-  }
-
   v24 = 0uLL;
   v25 = 0;
-  dataSource2 = [(_HKInteractiveChartOverlayWaitForDataSource *)self dataSource];
-  v18 = dataSource2;
-  if (dataSource2)
+  delegateCopy = delegate;
+  dataSource = [(_HKInteractiveChartOverlayWaitForDataSource *)self dataSource];
+  v14 = dataSource;
+  if (dataSource)
   {
-    [dataSource2 blockPathForX:endDateCopy zoom:scope resolution:resolution];
+    objc_msgSend_blockPathForX_zoom_resolution_(dataSource);
   }
 
   else
@@ -88,12 +73,27 @@
     v25 = 0;
   }
 
+  v22 = 0uLL;
+  v23 = 0;
+  dataSource2 = [(_HKInteractiveChartOverlayWaitForDataSource *)self dataSource];
+  v16 = dataSource2;
+  if (dataSource2)
+  {
+    objc_msgSend_blockPathForX_zoom_resolution_(dataSource2);
+  }
+
+  else
+  {
+    v22 = 0uLL;
+    v23 = 0;
+  }
+
   dataSource3 = [(_HKInteractiveChartOverlayWaitForDataSource *)self dataSource];
-  v22 = v26;
-  v23 = v27;
   v20 = v24;
   v21 = v25;
-  [dataSource3 blocksRequestedFromPath:&v22 toPath:&v20 priorityDelegate:delegateCopy];
+  v18 = v22;
+  v19 = v23;
+  [dataSource3 blocksRequestedFromPath:&v20 toPath:&v18 priorityDelegate:delegateCopy];
 }
 
 - (void)dataSourceDidUpdateCache:(id)cache

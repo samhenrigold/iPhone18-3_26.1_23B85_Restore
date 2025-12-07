@@ -86,17 +86,17 @@
 - (PXPhotoKitAssetCollectionChangePersonSortOrder)initWithActionType:(id)type assetCollectionReference:(id)reference parameters:(id)parameters
 {
   type metadata accessor for PXActionParameterKey();
-  sub_1A3C38278(&unk_1EB1356B0);
+  sub_1A3C38278(&unk_1EB1356B0, &unk_1A5377DC0);
   sub_1A524C3E4();
   typeCopy = type;
   referenceCopy = reference;
   v10 = sub_1A524C3D4();
 
-  v13.receiver = self;
-  v13.super_class = type metadata accessor for PhotoKitAssetCollectionChangePersonSortOrder();
-  v11 = [(PXAssetCollectionActionPerformer *)&v13 initWithActionType:typeCopy assetCollectionReference:referenceCopy parameters:v10];
+  v15.receiver = self;
+  v15.super_class = type metadata accessor for PhotoKitAssetCollectionChangePersonSortOrder(v11, v12);
+  v13 = [(PXAssetCollectionActionPerformer *)&v15 initWithActionType:typeCopy assetCollectionReference:referenceCopy parameters:v10];
 
-  return v11;
+  return v13;
 }
 
 @end

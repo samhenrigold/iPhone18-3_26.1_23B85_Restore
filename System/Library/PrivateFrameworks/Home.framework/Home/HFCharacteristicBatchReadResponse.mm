@@ -46,42 +46,42 @@
 
 - (HFCharacteristicBatchReadResponse)initWithReadResponses:(id)responses contextProvider:(id)provider
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   providerCopy = provider;
-  v38.receiver = self;
-  v38.super_class = HFCharacteristicBatchReadResponse;
-  v9 = [(HFCharacteristicBatchReadResponse *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = HFCharacteristicBatchReadResponse;
+  v9 = [(HFCharacteristicBatchReadResponse *)&v37 init];
   v10 = v9;
   if (v9)
   {
-    v31 = providerCopy;
+    v30 = providerCopy;
     objc_storeStrong(&v9->_allReadResponses, responses);
-    v30 = v10;
+    v29 = v10;
     objc_storeStrong(&v10->_contextProvider, provider);
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v32 = responsesCopy;
+    v31 = responsesCopy;
     obj = responsesCopy;
-    v13 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v13 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v35;
+      v15 = *v34;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v35 != v15)
+          if (*v34 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v34 + 1) + 8 * i);
+          v17 = *(*(&v33 + 1) + 8 * i);
           characteristic = [v17 characteristic];
           uniqueIdentifier = [characteristic uniqueIdentifier];
 
@@ -101,25 +101,24 @@
           [v24 addObject:v17];
         }
 
-        v14 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v14 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v14);
     }
 
-    v10 = v30;
-    responseKeyedByCharacteristicUUID = v30->_responseKeyedByCharacteristicUUID;
-    v30->_responseKeyedByCharacteristicUUID = dictionary;
+    v10 = v29;
+    responseKeyedByCharacteristicUUID = v29->_responseKeyedByCharacteristicUUID;
+    v29->_responseKeyedByCharacteristicUUID = dictionary;
     v26 = dictionary;
 
-    responsesKeyedByCharacteristicType = v30->_responsesKeyedByCharacteristicType;
-    v30->_responsesKeyedByCharacteristicType = dictionary2;
+    responsesKeyedByCharacteristicType = v29->_responsesKeyedByCharacteristicType;
+    v29->_responsesKeyedByCharacteristicType = dictionary2;
 
-    providerCopy = v31;
-    responsesCopy = v32;
+    providerCopy = v30;
+    responsesCopy = v31;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -270,7 +269,7 @@ uint64_t __85__HFCharacteristicBatchReadResponse_responseForCharacteristicType_i
 {
   v2 = *(a1 + 32);
   v3 = [a2 characteristic];
-  v4 = [v3 service];
+  v4 = objc_msgSend_service(v3);
   v5 = [v4 serviceType];
   v6 = [v2 containsObject:v5];
 
@@ -303,7 +302,7 @@ uint64_t __85__HFCharacteristicBatchReadResponse_responseForCharacteristicType_i
 uint64_t __77__HFCharacteristicBatchReadResponse_responseForCharacteristicType_inService___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 characteristic];
-  v4 = [v3 service];
+  v4 = objc_msgSend_service(v3);
   v5 = [v4 isEqual:*(a1 + 32)];
 
   return v5;
@@ -326,7 +325,7 @@ uint64_t __77__HFCharacteristicBatchReadResponse_responseForCharacteristicType_i
 uint64_t __95__HFCharacteristicBatchReadResponse_responseForCharacteristicType_inService_aggregationPolicy___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 characteristic];
-  v4 = [v3 service];
+  v4 = objc_msgSend_service(v3);
   v5 = [v4 isEqual:*(a1 + 32)];
 
   return v5;
@@ -382,7 +381,7 @@ uint64_t __89__HFCharacteristicBatchReadResponse_allResponsesForCharacteristicTy
 {
   v2 = *(a1 + 32);
   v3 = [a2 characteristic];
-  v4 = [v3 service];
+  v4 = objc_msgSend_service(v3);
   v5 = [v4 serviceType];
   v6 = [v2 containsObject:v5];
 
@@ -466,7 +465,7 @@ uint64_t __73__HFCharacteristicBatchReadResponse_allResponsesForCharacteristicRe
 id __48__HFCharacteristicBatchReadResponse_allServices__block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 characteristic];
-  v3 = [v2 service];
+  v3 = objc_msgSend_service(v2);
 
   return v3;
 }
@@ -509,26 +508,15 @@ uint64_t __82__HFCharacteristicBatchReadResponse_batchResponseForService_include
 {
   v3 = a2;
   v4 = v3;
-  if (*(a1 + 48) != 1)
-  {
-    goto LABEL_4;
-  }
-
-  v5 = *(a1 + 32);
-  v6 = [v3 characteristic];
-  v7 = [v6 service];
-  LOBYTE(v5) = [v5 containsObject:v7];
-
-  if (v5)
+  if (*(a1 + 48) == 1 && (v5 = *(a1 + 32), [v3 characteristic], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend_service(v6), v7 = objc_claimAutoreleasedReturnValue(), LOBYTE(v5) = objc_msgSend(v5, "containsObject:", v7), v7, v6, (v5 & 1) != 0))
   {
     v8 = 1;
   }
 
   else
   {
-LABEL_4:
     v9 = [v4 characteristic];
-    v10 = [v9 service];
+    v10 = objc_msgSend_service(v9);
     v8 = [v10 isEqual:*(a1 + 40)];
   }
 
@@ -577,7 +565,7 @@ uint64_t __89__HFCharacteristicBatchReadResponse_servicesWithValuesPassingTest_f
   {
     v6 = *(a1 + 40);
     v7 = [v3 characteristic];
-    v8 = [v7 service];
+    v8 = objc_msgSend_service(v7);
     v9 = [v3 value];
     v10 = (*(v6 + 16))(v6, v8, v9);
   }
@@ -593,7 +581,7 @@ uint64_t __89__HFCharacteristicBatchReadResponse_servicesWithValuesPassingTest_f
 id __89__HFCharacteristicBatchReadResponse_servicesWithValuesPassingTest_forCharacteristicType___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = [a2 characteristic];
-  v3 = [v2 service];
+  v3 = objc_msgSend_service(v2);
 
   return v3;
 }
@@ -645,7 +633,7 @@ BOOL __76__HFCharacteristicBatchReadResponse_servicesWithErrorForCharacteristicT
 id __76__HFCharacteristicBatchReadResponse_servicesWithErrorForCharacteristicType___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = [a2 characteristic];
-  v3 = [v2 service];
+  v3 = objc_msgSend_service(v2);
 
   return v3;
 }
@@ -724,30 +712,30 @@ BOOL __95__HFCharacteristicBatchReadResponse_aggregatedReadResponseFromResponses
 
 + (id)aggregatedMetadataForCharacteristics:(id)characteristics
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v4 = [characteristicsCopy countByEnumeratingWithState:&v20 objects:v30 count:16];
+  v4 = [characteristicsCopy countByEnumeratingWithState:&v19 objects:v29 count:16];
   if (v4)
   {
     v6 = v4;
     v7 = 0;
-    v8 = *v21;
+    v8 = *v20;
     *&v5 = 138412802;
-    v19 = v5;
+    v18 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(characteristicsCopy);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         metadata = [v10 metadata];
         v12 = metadata;
         if (v7)
@@ -760,12 +748,12 @@ BOOL __95__HFCharacteristicBatchReadResponse_aggregatedReadResponseFromResponses
               hf_characteristicTypeDescription = [v10 hf_characteristicTypeDescription];
               hf_prettyDescription = [v12 hf_prettyDescription];
               hf_prettyDescription2 = [v7 hf_prettyDescription];
-              *buf = v19;
-              v25 = hf_characteristicTypeDescription;
-              v26 = 2112;
-              v27 = hf_prettyDescription;
-              v28 = 2112;
-              v29 = hf_prettyDescription2;
+              *buf = v18;
+              v24 = hf_characteristicTypeDescription;
+              v25 = 2112;
+              v26 = hf_prettyDescription;
+              v27 = 2112;
+              v28 = hf_prettyDescription2;
               _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "Found different metadata for characteristic type %@! %@ and %@ are not identical. Using the first metadata found.", buf, 0x20u);
             }
           }
@@ -777,7 +765,7 @@ BOOL __95__HFCharacteristicBatchReadResponse_aggregatedReadResponseFromResponses
         }
       }
 
-      v6 = [characteristicsCopy countByEnumeratingWithState:&v20 objects:v30 count:16];
+      v6 = [characteristicsCopy countByEnumeratingWithState:&v19 objects:v29 count:16];
     }
 
     while (v6);
@@ -787,8 +775,6 @@ BOOL __95__HFCharacteristicBatchReadResponse_aggregatedReadResponseFromResponses
   {
     v7 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -825,28 +811,28 @@ LABEL_8:
 
 + (id)_mostAbnormalValueForValues:(id)values
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   valuesCopy = values;
-  v5 = [valuesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [valuesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(valuesCopy);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -879,7 +865,7 @@ LABEL_8:
         }
       }
 
-      v6 = [valuesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [valuesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -898,14 +884,12 @@ LABEL_8:
   v13 = v7;
 LABEL_19:
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 + (id)_averageValueForValues:(id)values metadata:(id)metadata
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   format = [metadata format];
   if (qword_280E039B8 != -1)
@@ -916,34 +900,34 @@ LABEL_19:
   v9 = qword_280E039C0;
   if ([v9 containsObject:format])
   {
-    v31 = a2;
+    v30 = a2;
     selfCopy = self;
     array = [MEMORY[0x277CBEB18] array];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v11 = valuesCopy;
-    v12 = [v11 countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v36 objects:v41 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v38;
+      v14 = *v37;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v38 != v14)
+          if (*v37 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v37 + 1) + 8 * i);
+          v16 = *(*(&v36 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             currentHandler = [MEMORY[0x277CCA890] currentHandler];
-            [currentHandler handleFailureInMethod:v31 object:selfCopy file:@"HFCharacteristicBatchReadResponse.m" lineNumber:401 description:{@"Expected a numeric value, but received %@ instead!", v16}];
+            [currentHandler handleFailureInMethod:v30 object:selfCopy file:@"HFCharacteristicBatchReadResponse.m" lineNumber:401 description:{@"Expected a numeric value, but received %@ instead!", v16}];
           }
 
           for (j = [v11 countForObject:v16]; j; --j)
@@ -952,38 +936,38 @@ LABEL_19:
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v36 objects:v41 count:16];
       }
 
       while (v13);
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v19 = array;
-    v20 = [v19 countByEnumeratingWithState:&v33 objects:v41 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v32 objects:v40 count:16];
     v21 = 0.0;
     v22 = 0.0;
     if (v20)
     {
       v23 = v20;
-      v24 = *v34;
+      v24 = *v33;
       do
       {
         for (k = 0; k != v23; ++k)
         {
-          if (*v34 != v24)
+          if (*v33 != v24)
           {
             objc_enumerationMutation(v19);
           }
 
-          [*(*(&v33 + 1) + 8 * k) doubleValue];
+          [*(*(&v32 + 1) + 8 * k) doubleValue];
           v22 = v22 + v26;
         }
 
-        v23 = [v19 countByEnumeratingWithState:&v33 objects:v41 count:16];
+        v23 = [v19 countByEnumeratingWithState:&v32 objects:v40 count:16];
       }
 
       while (v23);
@@ -1022,28 +1006,24 @@ LABEL_19:
     v28 = [self _mostCommonValueForValues:valuesCopy];
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v28;
 }
 
 void __69__HFCharacteristicBatchReadResponse__averageValueForValues_metadata___block_invoke_2()
 {
-  v6[6] = *MEMORY[0x277D85DE8];
+  v5[6] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CCF6B8];
-  v6[0] = *MEMORY[0x277CCF6C0];
-  v6[1] = v0;
+  v5[0] = *MEMORY[0x277CCF6C0];
+  v5[1] = v0;
   v1 = *MEMORY[0x277CCF6D0];
-  v6[2] = *MEMORY[0x277CCF6E8];
-  v6[3] = v1;
+  v5[2] = *MEMORY[0x277CCF6E8];
+  v5[3] = v1;
   v2 = *MEMORY[0x277CCF6E0];
-  v6[4] = *MEMORY[0x277CCF6D8];
-  v6[5] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:6];
+  v5[4] = *MEMORY[0x277CCF6D8];
+  v5[5] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
   v4 = qword_280E039C0;
   qword_280E039C0 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

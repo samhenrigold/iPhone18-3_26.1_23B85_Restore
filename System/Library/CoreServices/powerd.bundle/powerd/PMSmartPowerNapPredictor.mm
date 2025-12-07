@@ -4,6 +4,7 @@
 - (BOOL)readSkipEndOfSessionTimerFromDefaults;
 - (BOOL)readStateFromDefaults;
 - (PMSmartPowerNapPredictor)initWithQueue:(id)queue;
+- (id)CAEventForEngagedSessionWhereUserInterrupted:(BOOL)interrupted;
 - (id)CAEventForInactivityTooShortToQueryModel;
 - (id)CAEventForInterruption:(id)interruption;
 - (id)CAEventForModelHesitancy;
@@ -40,9 +41,18 @@
 - (void)scheduleModelRequeryWithOutputReason:(int64_t)reason;
 - (void)setQueryDelta:(BOOL)delta;
 - (void)unregisterMotionAlarm;
+- (void)updateAODEnabledStatus:(BOOL)status;
+- (void)updateAmbientState:(BOOL)state;
+- (void)updateBacklightState:(BOOL)state;
 - (void)updateInterruptionsFromDefaults;
 - (void)updateLockState:(unint64_t)state;
+- (void)updateMotionAlarmStartThreshold:(unsigned int)threshold;
+- (void)updateMotionAlarmThreshold:(unsigned int)threshold;
 - (void)updateMotionState:(BOOL)state;
+- (void)updatePluginState:(BOOL)state;
+- (void)updateReentryCoolOffPeriod:(unsigned int)period;
+- (void)updateReentryDelaySeconds:(unsigned int)seconds;
+- (void)updateRequeryDelta:(unsigned int)delta;
 - (void)updateTrialFactors;
 @end
 
@@ -1530,6 +1540,110 @@ LABEL_6:
   [(PMSmartPowerNapPredictor *)self evaluateSmartPowerNap:v9];
 }
 
+- (void)updateBacklightState:(BOOL)state
+{
+  stateCopy = state;
+  backlight_state = [(PMSmartPowerNapPredictor *)self backlight_state];
+  v6 = qword_1000AB7D0;
+  v7 = os_log_type_enabled(qword_1000AB7D0, OS_LOG_TYPE_DEFAULT);
+  if (backlight_state == stateCopy)
+  {
+    if (v7)
+    {
+      LOWORD(v9[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Ignorning duplicate backlight notifications", v9, 2u);
+    }
+  }
+
+  else
+  {
+    if (v7)
+    {
+      v8 = v6;
+      v9[0] = 67109376;
+      v9[1] = [(PMSmartPowerNapPredictor *)self backlight_state];
+      v10 = 1024;
+      v11 = stateCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Backlight state changed from %d to %d", v9, 0xEu);
+    }
+
+    [(PMSmartPowerNapPredictor *)self setBacklight_state:stateCopy];
+    [(PMSmartPowerNapPredictor *)self handleUserInterruption:stateCopy];
+    [(PMSmartPowerNapPredictor *)self evaluateSmartPowerNap:stateCopy];
+  }
+}
+
+- (void)updateAODEnabledStatus:(BOOL)status
+{
+  statusCopy = status;
+  is_aod_enabled = [(PMSmartPowerNapPredictor *)self is_aod_enabled];
+  v6 = qword_1000AB7D0;
+  v7 = os_log_type_enabled(qword_1000AB7D0, OS_LOG_TYPE_DEFAULT);
+  if (is_aod_enabled == statusCopy)
+  {
+    if (v7)
+    {
+      LOWORD(v9[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "AOD Enabled status is already in the same state. Ignoring notification", v9, 2u);
+    }
+  }
+
+  else
+  {
+    if (v7)
+    {
+      v8 = v6;
+      v9[0] = 67109376;
+      v9[1] = [(PMSmartPowerNapPredictor *)self is_aod_enabled];
+      v10 = 1024;
+      v11 = statusCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "AOD Enabled status changed from %d to %d", v9, 0xEu);
+    }
+
+    [(PMSmartPowerNapPredictor *)self setIs_aod_enabled:statusCopy];
+  }
+}
+
+- (void)updatePluginState:(BOOL)state
+{
+  stateCopy = state;
+  if ([(PMSmartPowerNapPredictor *)self plugin_state]!= state)
+  {
+    [(PMSmartPowerNapPredictor *)self setPlugin_state:stateCopy];
+    if ([(PMSmartPowerNapPredictor *)self plugin_state])
+    {
+      if ([(PMSmartPowerNapPredictor *)self lock_state])
+      {
+        if ([(PMSmartPowerNapPredictor *)self last_requery_delta]< 1)
+        {
+
+          [(PMSmartPowerNapPredictor *)self armQueryTimer];
+        }
+
+        else
+        {
+
+          [(PMSmartPowerNapPredictor *)self scheduleModelRequeryWithOutputReason:0];
+        }
+      }
+    }
+  }
+}
+
+- (void)updateAmbientState:(BOOL)state
+{
+  stateCopy = state;
+  v5 = qword_1000AB7D0;
+  if (os_log_type_enabled(qword_1000AB7D0, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = stateCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Update ambient state %d", v6, 8u);
+  }
+
+  [(PMSmartPowerNapPredictor *)self setAmbient_state:stateCopy];
+}
+
 - (BOOL)isSleepSuppressionSupported
 {
   if (qword_1000ACA08 != -1)
@@ -1952,6 +2066,308 @@ LABEL_6:
   return v8;
 }
 
+- (id)CAEventForEngagedSessionWhereUserInterrupted:(BOOL)interrupted
+{
+  interruptedCopy = interrupted;
+  inactivity_predictor = [(PMSmartPowerNapPredictor *)self inactivity_predictor];
+  modelMetadata = [inactivity_predictor modelMetadata];
+
+  full_session_end_time = [(PMSmartPowerNapPredictor *)self full_session_end_time];
+  full_session_start_time = [(PMSmartPowerNapPredictor *)self full_session_start_time];
+  [full_session_end_time timeIntervalSinceDate:full_session_start_time];
+  v10 = v9;
+
+  full_session_start_time2 = [(PMSmartPowerNapPredictor *)self full_session_start_time];
+  [(PMSmartPowerNapPredictor *)self delta_to_query];
+  v13 = [full_session_start_time2 dateByAddingTimeInterval:-v12];
+
+  inactivity_end = [(PMSmartPowerNapPredictor *)self inactivity_end];
+  v94 = v13;
+  [inactivity_end timeIntervalSinceDate:v13];
+  v16 = v15 / 3600.0;
+
+  inactivity_end2 = [(PMSmartPowerNapPredictor *)self inactivity_end];
+  inactivity_start = [(PMSmartPowerNapPredictor *)self inactivity_start];
+  [inactivity_end2 timeIntervalSinceDate:inactivity_start];
+  v20 = v19 / 3600.0;
+
+  if (modelMetadata)
+  {
+    [modelMetadata longThreshold];
+    v22 = v16 * 3600.0 > v21;
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  predictor_output = [(PMSmartPowerNapPredictor *)self predictor_output];
+  [predictor_output predictedDuration];
+  v25 = v24;
+
+  [(PMSmartPowerNapPredictor *)self delta_to_query];
+  v27 = v26 / 3600.0;
+  v28 = v25 + v26 / 3600.0;
+  trial_client = [(PMSmartPowerNapPredictor *)self trial_client];
+  v30 = [trial_client treatmentIdWithNamespaceName:@"COREOS_PREDICTION_INACTIVITY"];
+  v96 = [v30 description];
+
+  trial_client2 = [(PMSmartPowerNapPredictor *)self trial_client];
+  v32 = [trial_client2 rolloutIdWithNamespaceName:@"COREOS_PREDICTION_INACTIVITY"];
+  v95 = [v32 description];
+
+  trial_client3 = [(PMSmartPowerNapPredictor *)self trial_client];
+  v34 = [trial_client3 experimentIdentifiersWithNamespaceName:@"COREOS_PREDICTION_INACTIVITY"];
+  v35 = [v34 description];
+
+  v92 = objc_opt_new();
+  v103[0] = @"userInterrupted";
+  v90 = [NSNumber numberWithBool:interruptedCopy];
+  v104[0] = v90;
+  v103[1] = @"modelConfidence";
+  predictor_output2 = [(PMSmartPowerNapPredictor *)self predictor_output];
+  [predictor_output2 confidenceValue];
+  v88 = [NSNumber numberWithDouble:?];
+  v104[1] = v88;
+  v104[2] = &__kCFBooleanTrue;
+  v103[2] = @"modelEngaged";
+  v103[3] = @"confusionMatrixResult";
+  v36 = @"FP";
+  if (v22)
+  {
+    v36 = @"TP";
+  }
+
+  v104[3] = v36;
+  v103[4] = @"falsePositive";
+  v87 = [NSNumber numberWithInt:v22 ^ 1];
+  v104[4] = v87;
+  v103[5] = @"truePositive";
+  v86 = [NSNumber numberWithBool:v22];
+  v104[5] = v86;
+  v103[6] = @"isFalseEngageInt";
+  v91 = v22;
+  v85 = [NSNumber numberWithInt:v22 ^ 1];
+  v104[6] = v85;
+  v103[7] = @"predictedDuration";
+  v84 = [NSNumber numberWithDouble:v28];
+  v104[7] = v84;
+  v103[8] = @"inactivityDuration";
+  v83 = [NSNumber numberWithDouble:v20 * 60.0];
+  v104[8] = v83;
+  v103[9] = @"underPredicted";
+  v82 = [NSNumber numberWithInt:interruptedCopy ^ 1];
+  v104[9] = v82;
+  v103[10] = @"overPredicted";
+  v93 = interruptedCopy;
+  v81 = [NSNumber numberWithBool:interruptedCopy];
+  v104[10] = v81;
+  v103[11] = @"durationDelta";
+  v80 = [NSNumber numberWithDouble:(v28 - v16) * 60.0];
+  v104[11] = v80;
+  v103[12] = @"eligibleTimeout";
+  [(PMSmartPowerNapPredictor *)self delta_to_query];
+  v38 = [NSNumber numberWithDouble:v37 / 60.0];
+  v104[12] = v38;
+  v103[13] = @"longThreshold";
+  v39 = 0.0;
+  v40 = 0.0;
+  if (modelMetadata)
+  {
+    [modelMetadata longThreshold];
+    v40 = v41 / 60.0;
+  }
+
+  v42 = [NSNumber numberWithDouble:v40];
+  v104[13] = v42;
+  v103[14] = @"modelVersion";
+  modelVersion = [modelMetadata modelVersion];
+  v44 = modelVersion;
+  if (modelVersion)
+  {
+    v45 = modelVersion;
+  }
+
+  else
+  {
+    v45 = @"None";
+  }
+
+  v104[14] = v45;
+  v103[15] = @"predictorType";
+  predictorType = [modelMetadata predictorType];
+  v47 = predictorType;
+  if (predictorType)
+  {
+    v48 = predictorType;
+  }
+
+  else
+  {
+    v48 = @"None";
+  }
+
+  v104[15] = v48;
+  v103[16] = @"queryType";
+  queryingMechanism = [modelMetadata queryingMechanism];
+  v50 = queryingMechanism;
+  if (queryingMechanism)
+  {
+    v51 = queryingMechanism;
+  }
+
+  else
+  {
+    v51 = @"None";
+  }
+
+  v104[16] = v51;
+  v103[17] = @"confidentThreshold";
+  if (modelMetadata)
+  {
+    [modelMetadata confidenceThresholdStrict];
+    v39 = v52;
+  }
+
+  v53 = v10 / 3600.0;
+  v54 = [NSNumber numberWithDouble:v39];
+  v55 = v54;
+  if (v35)
+  {
+    v56 = v35;
+  }
+
+  else
+  {
+    v56 = @"None";
+  }
+
+  v104[17] = v54;
+  v104[18] = v56;
+  v103[18] = @"experimentId";
+  v103[19] = @"rolloutId";
+  v57 = v96;
+  v103[20] = @"treatmentId";
+  if (v95)
+  {
+    v58 = v95;
+  }
+
+  else
+  {
+    v58 = @"None";
+  }
+
+  if (!v96)
+  {
+    v57 = @"None";
+  }
+
+  v104[19] = v58;
+  v104[20] = v57;
+  v59 = [NSDictionary dictionaryWithObjects:v104 forKeys:v103 count:21];
+  [v92 addEntriesFromDictionary:v59];
+
+  if (v91)
+  {
+    v60 = [NSNumber numberWithDouble:v53];
+    [v92 setObject:v60 forKeyedSubscript:@"actualCapturedDuration"];
+
+    v61 = [NSNumber numberWithDouble:v16 - v27];
+    [v92 setObject:v61 forKeyedSubscript:@"idealUsableDuration"];
+
+    v62 = [NSNumber numberWithDouble:v16 - v27 - v53];
+    [v92 setObject:v62 forKeyedSubscript:@"missedSuppressionDuration"];
+  }
+
+  v63 = [v92 objectForKeyedSubscript:@"durationDelta"];
+  [v63 doubleValue];
+  v65 = v64;
+
+  if (v93)
+  {
+    if (v65 < 0.0 && os_log_type_enabled(qword_1000AB7D0, OS_LOG_TYPE_ERROR))
+    {
+      sub_100062EB0();
+    }
+  }
+
+  else if (v65 > 0.0)
+  {
+    v66 = qword_1000AB7D0;
+    if (os_log_type_enabled(qword_1000AB7D0, OS_LOG_TYPE_ERROR))
+    {
+      v78 = v66;
+      v79 = [v92 objectForKeyedSubscript:@"durationDelta"];
+      *buf = 134218498;
+      v98 = v28;
+      v99 = 2048;
+      v100 = v16;
+      v101 = 2112;
+      v102 = v79;
+      _os_log_error_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "Session ended naturally but predicted duration (%.2f hours) > inactivity duration (%.2f hours), %@", buf, 0x20u);
+    }
+  }
+
+  v67 = [v92 objectForKeyedSubscript:@"idealUsableDuration"];
+  [v67 doubleValue];
+  v69 = v68;
+
+  if (v69 < 0.0 && os_log_type_enabled(qword_1000AB7D0, OS_LOG_TYPE_ERROR))
+  {
+    sub_100062F24();
+  }
+
+  v70 = [v92 objectForKeyedSubscript:@"missedSuppressionDuration"];
+  [v70 doubleValue];
+  v72 = v71;
+
+  if (v72 < 0.0)
+  {
+    v73 = qword_1000AB7D0;
+    if (os_log_type_enabled(qword_1000AB7D0, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218240;
+      v98 = v16;
+      v99 = 2048;
+      v100 = v53 + v27;
+      _os_log_error_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "Inactivity duration (%.2f hours) < recommended wait time + session duration (%.2f hours)", buf, 0x16u);
+    }
+  }
+
+  v74 = qword_1000AB7D0;
+  v75 = os_log_type_enabled(qword_1000AB7D0, OS_LOG_TYPE_DEFAULT);
+  if (v93)
+  {
+    if (!v75)
+    {
+      goto LABEL_48;
+    }
+
+    *buf = 138412290;
+    v98 = *&v92;
+    v76 = "User interrupted session. Reporting over-prediction event to CA: %@";
+  }
+
+  else
+  {
+    if (!v75)
+    {
+      goto LABEL_48;
+    }
+
+    *buf = 138412290;
+    v98 = *&v92;
+    v76 = "Session ended naturally. Reporting under-prediction event to CA: %@";
+  }
+
+  _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, v76, buf, 0xCu);
+LABEL_48:
+
+  return v92;
+}
+
 - (id)CAEventForModelHesitancy
 {
   inactivity_predictor = [(PMSmartPowerNapPredictor *)self inactivity_predictor];
@@ -2336,6 +2752,77 @@ LABEL_6:
       _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "SmartPowerNap: updated Trial factors to num %d, duration %f, interruption session %f, reentry delay %d requery_delta %d", buf, 0x28u);
     }
   }
+}
+
+- (void)updateReentryCoolOffPeriod:(unsigned int)period
+{
+  v3 = *&period;
+  v5 = qword_1000AB7D0;
+  if (os_log_type_enabled(qword_1000AB7D0, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating re-entry cooloff period to %u\n", v6, 8u);
+  }
+
+  [(PMSmartPowerNapPredictor *)self setInterruption_cooloff_start:v3];
+  [(PMSmartPowerNapPredictor *)self setInterruption_cooloff_end:v3];
+}
+
+- (void)updateReentryDelaySeconds:(unsigned int)seconds
+{
+  v3 = *&seconds;
+  v5 = qword_1000AB7D0;
+  if (os_log_type_enabled(qword_1000AB7D0, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating re-entry delay to %u seconds\n", v6, 8u);
+  }
+
+  [(PMSmartPowerNapPredictor *)self setReentry_delay:v3];
+}
+
+- (void)updateRequeryDelta:(unsigned int)delta
+{
+  v3 = *&delta;
+  v5 = qword_1000AB7D0;
+  if (os_log_type_enabled(qword_1000AB7D0, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating requery delta to %u seconds", v6, 8u);
+  }
+
+  [(PMSmartPowerNapPredictor *)self setRequery_delta:v3];
+}
+
+- (void)updateMotionAlarmThreshold:(unsigned int)threshold
+{
+  v3 = *&threshold;
+  v5 = qword_1000AB7D0;
+  if (os_log_type_enabled(qword_1000AB7D0, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating motion alarm threshold to %u seconds", v6, 8u);
+  }
+
+  [(PMSmartPowerNapPredictor *)self setMotion_alarm_threshold:v3];
+}
+
+- (void)updateMotionAlarmStartThreshold:(unsigned int)threshold
+{
+  v3 = *&threshold;
+  v5 = qword_1000AB7D0;
+  if (os_log_type_enabled(qword_1000AB7D0, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating motion alarm start threshold to %u seconds", v6, 8u);
+  }
+
+  [(PMSmartPowerNapPredictor *)self setMotion_alarm_start_before:v3];
 }
 
 @end

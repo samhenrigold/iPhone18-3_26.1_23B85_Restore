@@ -91,7 +91,7 @@
 
   if (!v9)
   {
-    result = [unk_2873747B0(result cameraMatrixAtTime:{a4.var0), "getBytes:length:", v14, 128}];
+    result = [unk_287374F88(result cameraMatrixAtTime:{a4.var0), "getBytes:length:", v14, 128}];
     v10 = v14[1];
     *&retstr->var0[0][0] = v14[0];
     *&retstr->var0[0][2] = v10;
@@ -518,21 +518,20 @@
   result = [(PAEEquirectProjectFilter *)self getProjectionFOVYDegrees:&retstr->var3 FOVXDegrees:&retstr->var4 withFrameAspect:image->var0.var1 atTime:rotation / outputHeight];
   if (self)
   {
-    result = [(PAEEquirectProjectFilter *)self composeViewMatrix:image->var0.var1 withCameraBehavior:i heroAngle:zRotation];
-    v24 = v37;
-    v25 = v40;
-    v26 = v43;
-    v27 = v38;
-    v28 = v41;
-    v29 = v44;
-    v30 = v39;
-    v31 = v42;
-    v32 = v45;
+    result = objc_msgSend_composeViewMatrix_withCameraBehavior_heroAngle_(self, zRotation);
+    v23 = v36;
+    v24 = v39;
+    v25 = v42;
+    v26 = v37;
+    v27 = v40;
+    v28 = v43;
+    v29 = v38;
+    v30 = v41;
+    v31 = v44;
   }
 
   else
   {
-    v32 = 0.0;
     v31 = 0.0;
     v30 = 0.0;
     v29 = 0.0;
@@ -541,17 +540,18 @@
     v26 = 0.0;
     v25 = 0.0;
     v24 = 0.0;
+    v23 = 0.0;
   }
 
-  retstr->var0[0] = v24;
-  retstr->var0[1] = v25;
-  retstr->var0[2] = v26;
-  retstr->var1[0] = v27;
-  retstr->var1[1] = v28;
-  retstr->var1[2] = v29;
-  retstr->var2[0] = v30;
-  retstr->var2[1] = v31;
-  retstr->var2[2] = v32;
+  retstr->var0[0] = v23;
+  retstr->var0[1] = v24;
+  retstr->var0[2] = v25;
+  retstr->var1[0] = v26;
+  retstr->var1[1] = v27;
+  retstr->var1[2] = v28;
+  retstr->var2[0] = v29;
+  retstr->var2[1] = v30;
+  retstr->var2[2] = v31;
   retstr->var12 = heightCopy;
   retstr->var13 = outputWidthCopy;
   if (width)
@@ -561,19 +561,19 @@
     retstr->var13 = result;
     if (self)
     {
-      result = [(PAESharedDefaultBase *)self getPixelTransformForImage:width];
+      result = objc_msgSend_getPixelTransformForImage_(self);
     }
 
     else
     {
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
     }
 
-    *retstr->var20 = vcvt_hight_f32_f64(vcvt_f32_f64(v33), v34);
-    *retstr->var21 = vcvt_hight_f32_f64(vcvt_f32_f64(v35), v36);
+    *retstr->var20 = vcvt_hight_f32_f64(vcvt_f32_f64(v32), v33);
+    *retstr->var21 = vcvt_hight_f32_f64(vcvt_f32_f64(v34), v35);
   }
 
   if (inputImage)
@@ -583,19 +583,19 @@
     retstr->var15 = result;
     if (self)
     {
-      result = [(PAESharedDefaultBase *)self getInversePixelTransformForImage:inputImage];
+      result = objc_msgSend_getInversePixelTransformForImage_(self);
     }
 
     else
     {
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
     }
 
-    *retstr->var18 = vcvt_hight_f32_f64(vcvt_f32_f64(v33), v34);
-    *retstr->var19 = vcvt_hight_f32_f64(vcvt_f32_f64(v35), v36);
+    *retstr->var18 = vcvt_hight_f32_f64(vcvt_f32_f64(v32), v33);
+    *retstr->var19 = vcvt_hight_f32_f64(vcvt_f32_f64(v34), v35);
   }
 
   *&retstr->var16 = 256;
@@ -625,24 +625,24 @@
     v10 = v9;
     if ([output imageType] == 3)
     {
-      v65 = 0.0;
-      v66[0] = 0.0;
-      v64 = 0.0;
-      [v10 getFloatValue:v66 fromParm:1 atFxTime:info->var0.var1];
-      [v10 getFloatValue:&v65 fromParm:2 atFxTime:info->var0.var1];
-      [v10 getFloatValue:&v64 fromParm:3 atFxTime:info->var0.var1];
-      v63 = 0;
-      v61 = 0u;
-      v62 = 0u;
+      v62 = 0.0;
+      v63[0] = 0.0;
+      v61 = 0.0;
+      [v10 getFloatValue:v63 fromParm:1 atFxTime:info->var0.var1];
+      [v10 getFloatValue:&v62 fromParm:2 atFxTime:info->var0.var1];
+      [v10 getFloatValue:&v61 fromParm:3 atFxTime:info->var0.var1];
+      v60 = 0;
+      v58 = 0u;
       v59 = 0u;
-      v60 = 0u;
+      v56 = 0u;
+      v57 = 0u;
       if (input)
       {
-        [input imageInfo];
-        v11 = *(&v59 + 1);
-        v12 = v59;
-        [input heliumRef];
-        v13 = v52;
+        objc_msgSend_imageInfo(input);
+        v11 = *(&v56 + 1);
+        v12 = v56;
+        objc_msgSend_heliumRef(input);
+        v13 = v49;
       }
 
       else
@@ -655,7 +655,7 @@
       v14 = [objc_msgSend(MEMORY[0x277CBEBD0] "standardUserDefaults")];
       if (v14 && (v15 = [v14 integerValue], v15 != 2))
       {
-        v36 = v15;
+        v33 = v15;
         v16 = 0;
       }
 
@@ -663,41 +663,39 @@
       {
         if ([(PAEEquirectProjectFilter *)self getIsFrontFacing:info->var0.var1])
         {
-          v65 = -v65;
+          v62 = -v62;
         }
 
-        v36 = 2;
+        v33 = 2;
         v16 = 1;
       }
 
       v17 = *&info->var2;
-      v37[0] = *&info->var0.var0;
-      v37[1] = v17;
-      v37[2] = *&info->var4;
-      width = [output width];
+      v34[0] = *&info->var0.var0;
+      v34[1] = v17;
+      v34[2] = *&info->var4;
+      [output width];
       height = [output height];
-      LODWORD(v35) = v36;
-      [(PAEEquirectProjectFilter *)self getParams:v37 withOutputImage:output inputImage:input width:v12 height:v11 outputWidth:width outputHeight:v66[0] xRotation:v65 yRotation:v64 zRotation:height cameraBehavior:v35 paramAPI:v10];
-      v46 = v57;
-      v51 = 0x3FF0000000000000;
-      v39 = vcvtq_f64_f32(v52);
-      v42 = vcvtq_f64_f32(v54);
-      v40 = v53;
+      objc_msgSend_getParams_withOutputImage_inputImage_width_height_outputWidth_outputHeight_xRotation_yRotation_zRotation_cameraBehavior_paramAPI_(self, v63[0], v62, v61, height, v33, v10);
+      v43 = v54;
+      v48 = 0x3FF0000000000000;
+      v36 = vcvtq_f64_f32(v49);
+      v39 = vcvtq_f64_f32(v51);
+      v37 = v50;
+      v38 = 0;
+      v40 = v52;
+      v42 = vcvtq_f64_f32(v53);
       v41 = 0;
-      v43 = v55;
-      v45 = vcvtq_f64_f32(v56);
+      v45 = 0;
       v44 = 0;
-      v48 = 0;
       v47 = 0;
-      v50 = 0;
-      v49 = 0;
-      [(PAESharedDefaultBase *)self getPixelTransformForImage:output];
-      [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
-      v20 = v38;
-      width2 = [output width];
+      v46 = 0;
+      objc_msgSend_getPixelTransformForImage_(self);
+      objc_msgSend_getInversePixelTransformForImage_(self);
+      width = [output width];
       height2 = [output height];
-      *&v23 = width2;
-      if (width2 >= height2)
+      *&v21 = width;
+      if (width >= height2)
       {
         height3 = [output height];
       }
@@ -707,51 +705,51 @@
         height3 = [output width];
       }
 
-      computeDistanceToEquirectImagePlane(height3, v58, height3);
-      v25 = HGObject::operator new(0x1A0uLL);
-      HGCrop::HGCrop(v25);
-      v27 = HGRectMake4f(v26, 1.0, 1.0, v12 + -2.0, v11 + -2.0);
-      (*(*v25 + 96))(v25, 0, v27, SHIDWORD(v27), v28, v29);
-      (*(*v25 + 120))(v25, 0, v13);
-      v30 = HGObject::operator new(0x1D0uLL);
-      HGTextureWrap::HGTextureWrap(v30);
-      HGTextureWrap::SetTextureWrapMode(v30, 3, v31);
-      (*(*v30 + 120))(v30, 0, v25);
-      if (v13 != v30)
+      computeDistanceToEquirectImagePlane(height3, v55, height3);
+      v23 = HGObject::operator new(0x1A0uLL);
+      HGCrop::HGCrop(v23);
+      v25 = HGRectMake4f(v24, 1.0, 1.0, v12 + -2.0, v11 + -2.0);
+      (*(*v23 + 96))(v23, 0, v25, SHIDWORD(v25), v26, v27);
+      (*(*v23 + 120))(v23, 0, v13);
+      v28 = HGObject::operator new(0x1D0uLL);
+      HGTextureWrap::HGTextureWrap(v28);
+      HGTextureWrap::SetTextureWrapMode(v28, 3, v29);
+      (*(*v28 + 120))(v28, 0, v23);
+      if (v13 != v28)
       {
         if (v13)
         {
           (*(**&v13 + 24))(v13);
         }
 
-        v13 = v30;
-        (*(*v30 + 16))(v30);
+        v13 = v28;
+        (*(*v28 + 16))(v28);
       }
 
-      v32 = fabs(v20) * (v12 - 2);
+      v30 = fabs(v35) * (v12 - 2);
       if ((v16 & [(PAEEquirectProjectFilter *)self getIsFrontFacing:info->var0.var1]) == 1)
       {
-        v33 = HGObject::operator new(0x210uLL);
-        HGXForm::HGXForm(v33);
-        (*(*v33 + 120))(v33, 0, v13);
-        HGTransform::HGTransform(v37);
-        HGTransform::LoadIdentity(v37);
-        HGTransform::Translate(v37, -(v32 * 0.5), 0.0, 0.0);
-        HGTransform::Scale(v37, -1.0, 1.0, 1.0);
-        HGTransform::Translate(v37, (v32 * 0.5), 0.0, 0.0);
-        (*(*v33 + 576))(v33, v37);
-        if (v13 != v33)
+        v31 = HGObject::operator new(0x210uLL);
+        HGXForm::HGXForm(v31);
+        (*(*v31 + 120))(v31, 0, v13);
+        HGTransform::HGTransform(v34);
+        HGTransform::LoadIdentity(v34);
+        HGTransform::Translate(v34, -(v30 * 0.5), 0.0, 0.0);
+        HGTransform::Scale(v34, -1.0, 1.0, 1.0);
+        HGTransform::Translate(v34, (v30 * 0.5), 0.0, 0.0);
+        (*(*v31 + 576))(v31, v34);
+        if (v13 != v31)
         {
           if (v13)
           {
             (*(**&v13 + 24))(v13);
           }
 
-          (*(*v33 + 16))(v33);
+          (*(*v31 + 16))(v31);
         }
 
-        HGTransform::~HGTransform(v37);
-        (*(*v33 + 24))(v33);
+        HGTransform::~HGTransform(v34);
+        (*(*v31 + 24))(v31);
       }
 
       [output width];

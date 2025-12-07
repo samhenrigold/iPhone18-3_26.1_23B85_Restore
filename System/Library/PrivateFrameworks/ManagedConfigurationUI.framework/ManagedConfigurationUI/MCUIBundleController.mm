@@ -190,7 +190,7 @@ id __64__MCUIBundleController_initWithParentListController_properties___block_in
 
 - (id)specifiersWithSpecifier:(id)specifier
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   dataManager = [(MCUIBundleController *)self dataManager];
   isDeviceManagementHidden = [dataManager isDeviceManagementHidden];
@@ -216,11 +216,10 @@ LABEL_3:
   NSLog(&cfstr_McuiBundleCont_2.isa, name, userInfo);
 
   specifier3 = [(MCUIBundleController *)self specifier];
-  v15[0] = specifier3;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = specifier3;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
 
 LABEL_7:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

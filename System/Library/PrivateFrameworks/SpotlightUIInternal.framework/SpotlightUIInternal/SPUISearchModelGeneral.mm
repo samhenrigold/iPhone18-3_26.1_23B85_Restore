@@ -6,6 +6,7 @@
 - (NSString)rankingDebugLog;
 - (SPUISearchModelGeneral)init;
 - (int64_t)maxUISuggestions;
+- (void)_setInfinitePatience:(BOOL)patience;
 - (void)activate;
 - (void)clear;
 - (void)deactivate;
@@ -76,6 +77,36 @@ uint64_t __31__SPUISearchModelGeneral_clear__block_invoke(uint64_t a1)
   return [v3 setQueryTask:0];
 }
 
+- (void)_setInfinitePatience:(BOOL)patience
+{
+  patienceCopy = patience;
+  v11 = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(self->_workQueue);
+  v8.receiver = self;
+  v8.super_class = SPUISearchModelGeneral;
+  [(SPUISearchModel *)&v8 setInfinitePatience:patienceCopy];
+  v5 = SPLogForSPLogCategoryDefault();
+  v6 = v5;
+  if (*MEMORY[0x277D4BF48])
+  {
+    v7 = OS_LOG_TYPE_DEFAULT;
+  }
+
+  else
+  {
+    v7 = OS_LOG_TYPE_DEBUG;
+  }
+
+  if (os_log_type_enabled(v5, v7))
+  {
+    *buf = 67109120;
+    v10 = patienceCopy;
+    _os_log_impl(&dword_26B837000, v6, v7, "Setting infinite patience: %d", buf, 8u);
+  }
+
+  [(SPClientSession *)self->_session setInfinitePatience:patienceCopy];
+}
+
 - (void)setInfinitePatience:(BOOL)patience
 {
   objc_initWeak(&location, self);
@@ -116,7 +147,7 @@ void __46__SPUISearchModelGeneral_setInfinitePatience___block_invoke(uint64_t a1
   return v3;
 }
 
-uint64_t __42__SPUISearchModelGeneral_infinitePatience__block_invoke(uint64_t a1)
+void *__42__SPUISearchModelGeneral_infinitePatience__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) infinitePatience];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -317,34 +348,34 @@ void __36__SPUISearchModelGeneral_deactivate__block_invoke(uint64_t a1)
 
 - (BOOL)shouldEnableOCR
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (shouldEnableOCR_onceToken != -1)
   {
     [SPUISearchModelGeneral shouldEnableOCR];
   }
 
   [MEMORY[0x277CBEAF8] preferredLanguages];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v2 = v33 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v2 = v32 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v29 objects:v34 count:16];
   v4 = v2;
   if (v3)
   {
     v5 = v3;
-    v6 = *v31;
+    v6 = *v30;
     v4 = v2;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v31 != v6)
+        if (*v30 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:*(*(&v30 + 1) + 8 * i)];
+        v8 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:*(*(&v29 + 1) + 8 * i)];
         languageCode = [v8 languageCode];
         v10 = [languageCode isEqualToString:@"yue"];
 
@@ -356,7 +387,7 @@ void __36__SPUISearchModelGeneral_deactivate__block_invoke(uint64_t a1)
         }
       }
 
-      v5 = [v2 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v5);
@@ -367,25 +398,25 @@ void __36__SPUISearchModelGeneral_deactivate__block_invoke(uint64_t a1)
   firstObject = [v12 firstObject];
   v15 = [v13 localeWithLocaleIdentifier:firstObject];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v16 = v4;
-  v17 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v17)
   {
-    v18 = *v27;
+    v18 = *v26;
     while (2)
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v27 != v18)
+        if (*v26 != v18)
         {
           objc_enumerationMutation(v16);
         }
 
-        v20 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:{*(*(&v26 + 1) + 8 * j), v26}];
+        v20 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:{*(*(&v25 + 1) + 8 * j), v25}];
         languageCode2 = [v20 languageCode];
         languageCode3 = [v15 languageCode];
         v23 = [languageCode2 isEqualToString:languageCode3];
@@ -397,7 +428,7 @@ void __36__SPUISearchModelGeneral_deactivate__block_invoke(uint64_t a1)
         }
       }
 
-      v17 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
       if (v17)
       {
         continue;
@@ -409,7 +440,6 @@ void __36__SPUISearchModelGeneral_deactivate__block_invoke(uint64_t a1)
 
 LABEL_22:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

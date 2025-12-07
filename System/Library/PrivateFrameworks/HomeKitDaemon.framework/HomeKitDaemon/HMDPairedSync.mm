@@ -7,7 +7,7 @@
 
 - (void)syncCoordinator:(id)coordinator beginSyncSession:(id)session
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   coordinatorCopy = coordinator;
   sessionCopy = session;
   v8 = objc_autoreleasePoolPush();
@@ -16,15 +16,13 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v11;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received an update to being-sync-session to watch but no companion sync is needed for HH2", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v11;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received an update to being-sync-session to watch but no companion sync is needed for HH2", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
   [sessionCopy syncDidComplete];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDPairedSync)initWithQueue:(id)queue

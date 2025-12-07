@@ -93,30 +93,30 @@
 
 - (void)_getContainerTopLevelInfo
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   self->_phase = 1;
   _copyContainerParserMappings = [(CoreDAVContainerInfoTaskGroup *)self _copyContainerParserMappings];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   obj = self->_containerURLs;
-  v4 = [(NSMutableSet *)obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [(NSMutableSet *)obj countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [[CoreDAVPropFindTask alloc] initWithPropertiesToFind:_copyContainerParserMappings atURL:*(*(&v13 + 1) + 8 * v7) withDepth:[(CoreDAVContainerInfoTaskGroup *)self containerInfoDepthForURL:*(*(&v13 + 1) + 8 * v7)]];
+        v8 = [[CoreDAVPropFindTask alloc] initWithPropertiesToFind:_copyContainerParserMappings atURL:*(*(&v12 + 1) + 8 * v7) withDepth:[(CoreDAVContainerInfoTaskGroup *)self containerInfoDepthForURL:*(*(&v12 + 1) + 8 * v7)]];
         [(NSMutableSet *)self->super._outstandingTasks addObject:v8];
         [(CoreDAVTask *)v8 setDelegate:self];
         WeakRetained = objc_loadWeakRetained(&self->super._accountInfoProvider);
@@ -130,18 +130,16 @@
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableSet *)obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [(NSMutableSet *)obj countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)propFindTask:(id)task parsedResponses:(id)responses error:(id)error
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   responsesCopy = responses;
   errorCopy = error;
@@ -160,31 +158,31 @@
   phase = self->_phase;
   if (phase == 1)
   {
-    v85 = taskCopy;
-    v95 = 0u;
-    v96 = 0u;
-    v93 = 0u;
+    v84 = taskCopy;
     v94 = 0u;
+    v95 = 0u;
+    v92 = 0u;
+    v93 = 0u;
     v58 = responsesCopy;
-    v59 = [v58 countByEnumeratingWithState:&v93 objects:v105 count:16];
+    v59 = [v58 countByEnumeratingWithState:&v92 objects:v104 count:16];
     if (v59)
     {
       v60 = v59;
-      v79 = responsesCopy;
-      v89 = 0;
-      v61 = *v94;
+      v78 = responsesCopy;
+      v88 = 0;
+      v61 = *v93;
       do
       {
         v62 = 0;
-        v91 = v60;
+        v90 = v60;
         do
         {
-          if (*v94 != v61)
+          if (*v93 != v61)
           {
             objc_enumerationMutation(v58);
           }
 
-          v63 = *(*(&v93 + 1) + 8 * v62);
+          v63 = *(*(&v92 + 1) + 8 * v62);
           firstHref = [v63 firstHref];
           payloadAsFullURL = [firstHref payloadAsFullURL];
 
@@ -208,7 +206,7 @@
 
               v58 = v69;
               v61 = v68;
-              v60 = v91;
+              v60 = v90;
             }
 
             else
@@ -224,7 +222,7 @@
               }
 
               [(NSMutableSet *)containers addObject:v67];
-              v89 = 1;
+              v88 = 1;
             }
           }
 
@@ -237,7 +235,7 @@
             if (v67 && os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v108 = v63;
+              v107 = v63;
               _os_log_impl(&dword_2452FB000, v67, OS_LOG_TYPE_DEFAULT, "Could not find the first HREF's URL. Response is %@", buf, 0xCu);
             }
           }
@@ -246,24 +244,24 @@
         }
 
         while (v60 != v62);
-        v60 = [v58 countByEnumeratingWithState:&v93 objects:v105 count:16];
+        v60 = [v58 countByEnumeratingWithState:&v92 objects:v104 count:16];
       }
 
       while (v60);
 
-      responsesCopy = v79;
-      if (v89)
+      responsesCopy = v78;
+      if (v88)
       {
-        taskCopy = v85;
+        taskCopy = v84;
         errorCopy = 0;
         if (![(NSMutableSet *)self->super._outstandingTasks count])
         {
-          v92[0] = MEMORY[0x277D85DD0];
-          v92[1] = 3221225472;
-          v92[2] = __68__CoreDAVContainerInfoTaskGroup_propFindTask_parsedResponses_error___block_invoke;
-          v92[3] = &unk_278E30F18;
-          v92[4] = self;
-          [(CoreDAVTaskGroup *)self finishCoreDAVTaskGroupWithError:0 delegateCallbackBlock:v92];
+          v91[0] = MEMORY[0x277D85DD0];
+          v91[1] = 3221225472;
+          v91[2] = __68__CoreDAVContainerInfoTaskGroup_propFindTask_parsedResponses_error___block_invoke;
+          v91[3] = &unk_278E30F18;
+          v91[4] = self;
+          [(CoreDAVTaskGroup *)self finishCoreDAVTaskGroupWithError:0 delegateCallbackBlock:v91];
         }
 
         goto LABEL_82;
@@ -275,7 +273,7 @@
     }
 
     [(CoreDAVTaskGroup *)self bailWithError:0];
-    taskCopy = v85;
+    taskCopy = v84;
     goto LABEL_81;
   }
 
@@ -289,12 +287,12 @@
   containerURLs = self->_containerURLs;
   self->_containerURLs = v12;
 
-  v103 = 0u;
-  v104 = 0u;
-  v101 = 0u;
   v102 = 0u;
+  v103 = 0u;
+  v100 = 0u;
+  v101 = 0u;
   v14 = responsesCopy;
-  v15 = [v14 countByEnumeratingWithState:&v101 objects:v111 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v100 objects:v110 count:16];
   if (!v15)
   {
 
@@ -302,23 +300,23 @@
   }
 
   v16 = v15;
-  v78 = responsesCopy;
-  v84 = taskCopy;
-  v83 = 0;
-  v90 = *v102;
-  v86 = v14;
+  v77 = responsesCopy;
+  v83 = taskCopy;
+  v82 = 0;
+  v89 = *v101;
+  v85 = v14;
   do
   {
     v17 = 0;
-    v87 = v16;
+    v86 = v16;
     do
     {
-      if (*v102 != v90)
+      if (*v101 != v89)
       {
         objc_enumerationMutation(v14);
       }
 
-      successfulPropertiesToValues2 = [*(*(&v101 + 1) + 8 * v17) successfulPropertiesToValues];
+      successfulPropertiesToValues2 = [*(*(&v100 + 1) + 8 * v17) successfulPropertiesToValues];
       v19 = [successfulPropertiesToValues2 CDVObjectForKeyWithNameSpace:self->_appSpecificHomeSetPropNameSpace andName:self->_appSpecificHomeSetPropName];
       v20 = v19;
       if (!v19)
@@ -330,7 +328,7 @@
         if (v24 && os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v108 = successfulPropertiesToValues2;
+          v107 = successfulPropertiesToValues2;
           v25 = v24;
           v26 = "Got malformed xml from server. Found Values are %@";
           v27 = 12;
@@ -375,7 +373,7 @@ LABEL_20:
         if (cDVServerURL && os_log_type_enabled(cDVServerURL, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v108 = v20;
+          v107 = v20;
           _os_log_impl(&dword_2452FB000, cDVServerURL, OS_LOG_TYPE_DEFAULT, "Got malformed xml from server. Container set %@", buf, 0xCu);
         }
 
@@ -386,10 +384,10 @@ LABEL_20:
       anyObject = [hrefs2 anyObject];
       payloadAsFullURL2 = [anyObject payloadAsFullURL];
 
-      v34 = [v84 url];
+      v34 = [v83 url];
       cDVServerURL = [v34 CDVServerURL];
 
-      v88 = payloadAsFullURL2;
+      v87 = payloadAsFullURL2;
       cDVServerURL2 = [payloadAsFullURL2 CDVServerURL];
       if (([cDVServerURL isEqual:cDVServerURL2]& 1) == 0)
       {
@@ -420,14 +418,14 @@ LABEL_29:
               host3 = [cDVServerURL host];
               host4 = [cDVServerURL2 host];
               *buf = 138412546;
-              v108 = host3;
-              v109 = 2112;
-              v110 = host4;
+              v107 = host3;
+              v108 = 2112;
+              v109 = host4;
               _os_log_impl(&dword_2452FB000, v48, OS_LOG_TYPE_DEFAULT, "HomeSet is in another castle.  Was %@, is now %@", buf, 0x16u);
             }
           }
 
-          accountInfoProvider = [v84 accountInfoProvider];
+          accountInfoProvider = [v83 accountInfoProvider];
           v50 = objc_opt_respondsToSelector();
 
           if ((v50 & 1) == 0)
@@ -435,16 +433,16 @@ LABEL_29:
             goto LABEL_41;
           }
 
-          accountInfoProvider2 = [v84 accountInfoProvider];
+          accountInfoProvider2 = [v83 accountInfoProvider];
           [accountInfoProvider2 noteHomeSetOnDifferentHost:cDVServerURL2];
         }
 
         else
         {
           scheme3 = [cDVServerURL2 scheme];
-          v81 = [scheme3 isEqualToString:@"https"];
+          v80 = [scheme3 isEqualToString:@"https"];
 
-          if (v81)
+          if (v80)
           {
             goto LABEL_29;
           }
@@ -456,7 +454,7 @@ LABEL_29:
           if (v53 && os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v108 = cDVServerURL2;
+            v107 = cDVServerURL2;
             _os_log_impl(&dword_2452FB000, v53, OS_LOG_TYPE_DEFAULT, "Ignoring host change to: %@ because it sends it to an insecure URL.", buf, 0xCu);
           }
         }
@@ -464,54 +462,54 @@ LABEL_29:
 
 LABEL_41:
 
-      v39 = v88;
+      v39 = v87;
 LABEL_42:
 
-      v99 = 0u;
-      v100 = 0u;
-      v97 = 0u;
       v98 = 0u;
+      v99 = 0u;
+      v96 = 0u;
+      v97 = 0u;
       hrefsAsFullURLs = [v20 hrefsAsFullURLs];
-      v54 = [hrefsAsFullURLs countByEnumeratingWithState:&v97 objects:v106 count:16];
+      v54 = [hrefsAsFullURLs countByEnumeratingWithState:&v96 objects:v105 count:16];
       if (v54)
       {
         v55 = v54;
-        v56 = *v98;
+        v56 = *v97;
         do
         {
           for (i = 0; i != v55; ++i)
           {
-            if (*v98 != v56)
+            if (*v97 != v56)
             {
               objc_enumerationMutation(hrefsAsFullURLs);
             }
 
-            [(NSMutableSet *)self->_containerURLs addObject:*(*(&v97 + 1) + 8 * i)];
+            [(NSMutableSet *)self->_containerURLs addObject:*(*(&v96 + 1) + 8 * i)];
           }
 
-          v55 = [hrefsAsFullURLs countByEnumeratingWithState:&v97 objects:v106 count:16];
+          v55 = [hrefsAsFullURLs countByEnumeratingWithState:&v96 objects:v105 count:16];
         }
 
         while (v55);
-        v83 = 1;
+        v82 = 1;
       }
 
-      v14 = v86;
-      v16 = v87;
+      v14 = v85;
+      v16 = v86;
 LABEL_51:
 
       ++v17;
     }
 
     while (v17 != v16);
-    v16 = [v14 countByEnumeratingWithState:&v101 objects:v111 count:16];
+    v16 = [v14 countByEnumeratingWithState:&v100 objects:v110 count:16];
   }
 
   while (v16);
 
-  taskCopy = v84;
-  responsesCopy = v78;
-  if (v83)
+  taskCopy = v83;
+  responsesCopy = v77;
+  if (v82)
   {
     [(CoreDAVContainerInfoTaskGroup *)self _getContainerTopLevelInfo];
     goto LABEL_81;
@@ -522,8 +520,6 @@ LABEL_78:
 LABEL_81:
   errorCopy = 0;
 LABEL_82:
-
-  v77 = *MEMORY[0x277D85DE8];
 }
 
 void __68__CoreDAVContainerInfoTaskGroup_propFindTask_parsedResponses_error___block_invoke(uint64_t a1)

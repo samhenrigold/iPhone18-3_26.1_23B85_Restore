@@ -1,7 +1,7 @@
-void sub_114C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_114C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = GamepadHIDServiceFilter;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -44,29 +44,29 @@ LABEL_89:
     }
 
     v9 = mach_absolute_time();
-    v10 = sub_1DA0(v9);
-    v11 = a2[2];
-    v12 = (v11 & 6) != 0;
-    if ((v11 & 0x18) != 0)
+    v11 = sub_1DA0(v9);
+    v12 = a2[2];
+    v13 = (v12 & 6) != 0;
+    if ((v12 & 0x18) != 0)
     {
-      v12 = 2;
+      v13 = 2;
     }
 
-    if ((v11 & 0x60) != 0)
+    if ((v12 & 0x60) != 0)
     {
-      v13 = 3;
+      v14 = 3;
     }
 
     else
     {
-      v13 = v12;
+      v14 = v13;
     }
 
     if (v6)
     {
-      v14 = [v6 integerValueForField:196610];
-      v15 = sub_1DA0([v6 timestamp]);
-      if (v14 && (*(a2 + 18) & 0xFE) == 2)
+      v15 = [v6 integerValueForField:196610];
+      v17 = sub_1DA0([v6 timestamp]);
+      if (v15 && (*(a2 + 18) & 0xFE) == 2)
       {
         ++*(a2 + 10);
         *(a2 + 18) = 0;
@@ -74,235 +74,235 @@ LABEL_89:
         *(a2 + 4) = 0;
         *(a2 + 5) = 0;
         *(a2 + 3) = 0;
-        v16 = sub_34E0();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v18 = sub_34E0(v16);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
-          sub_3DC0(a2, a2 + 10);
+          sub_3DC0();
         }
       }
 
-      sub_1DFC(a2 + 2, v14 != 0, v13, v10, v15);
-      v18 = v17;
-      v19 = sub_34E0();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v19 = sub_1DFC(a2 + 2, v15 != 0, v14, v11, v17);
+      v21 = v20;
+      v22 = sub_34E0(v19);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        v20 = *a2;
-        v21 = *(a2 + 10);
-        v22 = *(a2 + 18);
-        v23 = *(a2 + 16);
+        v23 = *a2;
+        v24 = *(a2 + 10);
+        v25 = *(a2 + 18);
+        v26 = *(a2 + 16);
         LODWORD(location) = 67110656;
-        HIDWORD(location) = v20;
-        v61 = 2048;
-        v62 = v21;
-        v63 = 2048;
-        *v64 = v14;
-        *&v64[8] = 1024;
-        *&v64[10] = v13;
-        *&v64[14] = 1024;
-        *&v64[16] = v22;
-        v65 = 1024;
-        v66 = v23;
-        v67 = 2048;
-        v68 = v18;
-        v24 = "-> [%#x] Press sequence [%zu] handle event (down: %zd, max:%d) -> State:%d Count:%d Next:%f";
-        v25 = v19;
-        v26 = 56;
+        HIDWORD(location) = v23;
+        v66 = 2048;
+        v67 = v24;
+        v68 = 2048;
+        *v69 = v15;
+        *&v69[8] = 1024;
+        *&v69[10] = v14;
+        *&v69[14] = 1024;
+        *&v69[16] = v25;
+        v70 = 1024;
+        v71 = v26;
+        v72 = 2048;
+        v73 = v21;
+        v27 = "-> [%#x] Press sequence [%zu] handle event (down: %zd, max:%d) -> State:%d Count:%d Next:%f";
+        v28 = v22;
+        v29 = 56;
 LABEL_97:
-        _os_log_debug_impl(&dword_0, v25, OS_LOG_TYPE_DEBUG, v24, &location, v26);
+        _os_log_debug_impl(&dword_0, v28, OS_LOG_TYPE_DEBUG, v27, &location, v29);
       }
     }
 
     else
     {
-      v18 = 0.0;
+      v21 = 0.0;
       if (*(a2 + 18) == 1 && *(a2 + 16) && *(a2 + 4) != 0.0)
       {
-        v27 = *(a2 + 5);
-        if (v10 - v27 >= 0.4)
+        v30 = *(a2 + 5);
+        if (v11 - v30 >= 0.4)
         {
           *(a2 + 18) = 3;
         }
 
         else
         {
-          v18 = v27 + 0.4;
+          v21 = v30 + 0.4;
         }
       }
 
-      v19 = sub_34E0();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v22 = sub_34E0(v10);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        v51 = *a2;
-        v52 = *(a2 + 10);
-        v53 = *(a2 + 18);
-        v54 = *(a2 + 16);
+        v56 = *a2;
+        v57 = *(a2 + 10);
+        v58 = *(a2 + 18);
+        v59 = *(a2 + 16);
         LODWORD(location) = 67110144;
-        HIDWORD(location) = v51;
-        v61 = 2048;
-        v62 = v52;
-        v63 = 1024;
-        *v64 = v53;
-        *&v64[4] = 1024;
-        *&v64[6] = v54;
-        *&v64[10] = 2048;
-        *&v64[12] = v18;
-        v24 = "-> [%#x] Press sequence [%zu] handle tick -> State:%d Count:%d Next:%f";
-        v25 = v19;
-        v26 = 40;
+        HIDWORD(location) = v56;
+        v66 = 2048;
+        v67 = v57;
+        v68 = 1024;
+        *v69 = v58;
+        *&v69[4] = 1024;
+        *&v69[6] = v59;
+        *&v69[10] = 2048;
+        *&v69[12] = v21;
+        v27 = "-> [%#x] Press sequence [%zu] handle tick -> State:%d Count:%d Next:%f";
+        v28 = v22;
+        v29 = 40;
         goto LABEL_97;
       }
     }
 
-    v28 = *(a2 + 18);
-    v29 = *(a2 + 16);
-    v30 = *(a2 + 17);
-    v31 = *(a2 + 6);
-    if (v31)
+    v31 = *(a2 + 18);
+    v32 = *(a2 + 16);
+    v33 = *(a2 + 17);
+    v34 = *(a2 + 6);
+    if (v34)
     {
-      dispatch_source_cancel(v31);
-      v32 = *(a2 + 6);
+      dispatch_source_cancel(v34);
+      v35 = *(a2 + 6);
       *(a2 + 6) = 0;
     }
 
-    if (v28 == 1 && v18 > v10)
+    if (v31 == 1 && v21 > v11)
     {
-      objc_initWeak(&location, a1);
-      v33 = sub_34E0();
-      v34 = v18 - v10;
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+      inited = objc_initWeak(&location, a1);
+      v37 = sub_34E0(inited);
+      v38 = v21 - v11;
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
       {
-        sub_40B0(a2);
+        sub_40B0();
       }
 
-      v35 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, *(a1 + 48));
-      v36 = dispatch_time(0, (v34 * 1000000000.0));
-      dispatch_source_set_timer(v35, v36, 0xFFFFFFFFFFFFFFFFLL, 0xBEBC200uLL);
-      v55 = _NSConcreteStackBlock;
-      v56 = 3221225472;
-      v57 = sub_1EA4;
-      v58 = &unk_82E8;
-      objc_copyWeak(v59, &location);
-      v59[1] = a2;
-      dispatch_source_set_event_handler(v35, &v55);
-      dispatch_activate(v35);
-      v37 = *(a2 + 6);
-      *(a2 + 6) = v35;
+      v39 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, *(a1 + 48));
+      v40 = dispatch_time(0, (v38 * 1000000000.0));
+      dispatch_source_set_timer(v39, v40, 0xFFFFFFFFFFFFFFFFLL, 0xBEBC200uLL);
+      v60 = _NSConcreteStackBlock;
+      v61 = 3221225472;
+      v62 = sub_1EA4;
+      v63 = &unk_82E8;
+      objc_copyWeak(v64, &location);
+      v64[1] = a2;
+      dispatch_source_set_event_handler(v39, &v60);
+      dispatch_activate(v39);
+      v41 = *(a2 + 6);
+      *(a2 + 6) = v39;
 
-      objc_destroyWeak(v59);
+      objc_destroyWeak(v64);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      if (v28 != 3)
+      if (v31 != 3)
       {
         goto LABEL_63;
       }
 
-      switch(v29)
+      switch(v32)
       {
         case 1u:
-          v42 = a2[2];
-          if (v30 == 1)
+          v46 = a2[2];
+          if (v33 == 1)
           {
-            if ((v42 & 4) == 0)
+            if ((v46 & 4) == 0)
             {
               goto LABEL_63;
             }
 
-            v39 = sub_34E0();
-            v40 = 2;
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+            v43 = sub_34E0(v34);
+            v44 = 2;
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
             {
-              sub_3EA8(a2);
-              v40 = 2;
+              sub_3EA8();
+              v44 = 2;
             }
           }
 
           else
           {
-            if ((v42 & 2) == 0)
+            if ((v46 & 2) == 0)
             {
               goto LABEL_63;
             }
 
-            v39 = sub_34E0();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+            v43 = sub_34E0(v34);
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
             {
-              sub_3E40(a2);
+              sub_3E40();
             }
 
-            v40 = 1;
+            v44 = 1;
           }
 
           break;
         case 2u:
-          v41 = a2[2];
-          if (v30 == 1)
+          v45 = a2[2];
+          if (v33 == 1)
           {
-            if ((v41 & 0x10) == 0)
+            if ((v45 & 0x10) == 0)
             {
               goto LABEL_63;
             }
 
-            v39 = sub_34E0();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+            v43 = sub_34E0(v34);
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
             {
-              sub_3F78(a2);
+              sub_3F78();
             }
 
-            v40 = 4;
+            v44 = 4;
           }
 
           else
           {
-            if ((v41 & 8) == 0)
+            if ((v45 & 8) == 0)
             {
               goto LABEL_63;
             }
 
-            v39 = sub_34E0();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+            v43 = sub_34E0(v34);
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
             {
-              sub_3F10(a2);
+              sub_3F10();
             }
 
-            v40 = 3;
+            v44 = 3;
           }
 
           break;
         case 3u:
-          v38 = a2[2];
-          if (v30 == 1)
+          v42 = a2[2];
+          if (v33 == 1)
           {
-            if ((v38 & 0x40) == 0)
+            if ((v42 & 0x40) == 0)
             {
               goto LABEL_63;
             }
 
-            v39 = sub_34E0();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+            v43 = sub_34E0(v34);
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
             {
-              sub_4048(a2);
+              sub_4048();
             }
 
-            v40 = 6;
+            v44 = 6;
           }
 
           else
           {
-            if ((v38 & 0x20) == 0)
+            if ((v42 & 0x20) == 0)
             {
               goto LABEL_63;
             }
 
-            v39 = sub_34E0();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+            v43 = sub_34E0(v34);
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
             {
-              sub_3FE0(a2);
+              sub_3FE0();
             }
 
-            v40 = 5;
+            v44 = 5;
           }
 
           break;
@@ -310,7 +310,7 @@ LABEL_97:
           goto LABEL_63;
       }
 
-      [*(a1 + 80) handleButton:*a2 gesture:v40];
+      v34 = [*(a1 + 80) handleButton:*a2 gesture:v44];
     }
 
 LABEL_63:
@@ -320,28 +320,29 @@ LABEL_63:
       goto LABEL_89;
     }
 
-    v43 = a2[2];
-    if ((v43 & 0x80) != 0)
+    v47 = a2[2];
+    if ((v47 & 0x80) != 0)
     {
-      if (v29 >= BYTE1(v43))
+      if (v32 >= BYTE1(v47))
       {
-        if ((v43 & 0x1000000) == 0)
+        if ((v47 & 0x1000000) == 0)
         {
           goto LABEL_74;
         }
 
-        v45 = (a2[2] & 6) != 0;
-        if ((v43 & 0x18) != 0)
+        v50 = (a2[2] & 6) != 0;
+        if ((v47 & 0x18) != 0)
         {
-          v45 = 2;
+          v50 = 2;
         }
 
-        v46 = (v43 & 0x60) != 0 ? 3 : v45;
-        if (v46 <= v29 && (v28 != 1 || v46 != v29 || !v46))
+        v51 = (v47 & 0x60) != 0 ? 3 : v50;
+        if (v51 <= v32 && (v31 != 1 || v51 != v32 || !v51))
         {
 LABEL_74:
-          *(a2 + 64) = [v6 integerValueForField:196610, v55, v56, v57, v58]!= 0;
-          *(a2 + 9) = [v6 timestamp];
+          *(a2 + 64) = [v6 integerValueForField:196610, v60, v61, v62, v63]!= 0;
+          v49 = [v6 timestamp];
+          *(a2 + 9) = v49;
           if (*(a2 + 10))
           {
             v8 = [a1 updateGameControllerEvent:*(a1 + 88)];
@@ -352,49 +353,49 @@ LABEL_74:
             v8 = v6;
           }
 
-          v6 = sub_34E0();
+          v6 = sub_34E0(v49);
           if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
           {
-            v48 = *a2;
-            v49 = *(a2 + 10);
-            v50 = *(a2 + 64);
+            v53 = *a2;
+            v54 = *(a2 + 10);
+            v55 = *(a2 + 64);
             LODWORD(location) = 67109890;
-            HIDWORD(location) = v48;
-            v61 = 2048;
-            v62 = v49;
-            v63 = 1024;
-            *v64 = v50;
-            *&v64[4] = 2112;
-            *&v64[6] = v8;
+            HIDWORD(location) = v53;
+            v66 = 2048;
+            v67 = v54;
+            v68 = 1024;
+            *v69 = v55;
+            *&v69[4] = 2112;
+            *&v69[6] = v8;
             _os_log_debug_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "-> [%#x] Press sequence [%zu] pass event (down: %u)\n%@", &location, 0x22u);
           }
 
           goto LABEL_88;
         }
 
-        v44 = sub_34E0();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+        v48 = sub_34E0(v34);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
         {
-          sub_413C(a2);
+          sub_413C();
         }
       }
 
       else
       {
-        v44 = sub_34E0();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+        v48 = sub_34E0(v34);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
         {
-          sub_41A4(a2);
+          sub_41A4();
         }
       }
     }
 
     else
     {
-      v44 = sub_34E0();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+      v48 = sub_34E0(v34);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
       {
-        sub_420C(a2);
+        sub_420C();
       }
     }
 
@@ -608,7 +609,7 @@ void sub_2E08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_2E64(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_34E0();
+  v2 = sub_34E0(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -623,7 +624,7 @@ void sub_2E64(uint64_t a1)
 void sub_2F10(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = sub_34E0();
+  v3 = sub_34E0(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -657,21 +658,14 @@ void sub_30B4(uint64_t a1)
   [v1 driverCheckIn];
 }
 
-unsigned int *sub_31F4@<X0>(unsigned int *result@<X0>, uint64_t a2@<X8>)
+void sub_3204(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *result;
-  v4 = *(result + 10);
-  return result;
+  va_start(va, a8);
+
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x12u);
 }
 
-void sub_3204(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x12u);
-}
-
-uint64_t sub_3220()
+uint64_t sub_3220(uint64_t a1, uint64_t a2)
 {
   if (qword_D2A8 != -1)
   {
@@ -681,16 +675,16 @@ uint64_t sub_3220()
   return byte_D2A0;
 }
 
-id sub_3280()
+id sub_3280(uint64_t a1)
 {
   if (qword_D2B8 != -1)
   {
     sub_4314();
   }
 
-  v1 = qword_D2B0;
+  v2 = qword_D2B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_32C4(id a1)
@@ -700,16 +694,16 @@ void sub_32C4(id a1)
   _objc_release_x1();
 }
 
-id sub_3308()
+id sub_3308(uint64_t a1)
 {
   if (qword_D2C8 != -1)
   {
     sub_4328();
   }
 
-  v1 = qword_D2C0;
+  v2 = qword_D2C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_334C(id a1)
@@ -719,16 +713,16 @@ void sub_334C(id a1)
   _objc_release_x1();
 }
 
-id sub_3390()
+id sub_3390(uint64_t a1)
 {
   if (qword_D2D8 != -1)
   {
     sub_433C();
   }
 
-  v1 = qword_D2D0;
+  v2 = qword_D2D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_33D4(id a1)
@@ -738,16 +732,16 @@ void sub_33D4(id a1)
   _objc_release_x1();
 }
 
-id sub_3418()
+id sub_3418(uint64_t a1)
 {
   if (qword_D2E8 != -1)
   {
     sub_4350();
   }
 
-  v1 = qword_D2E0;
+  v2 = qword_D2E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_345C(id a1)
@@ -764,16 +758,16 @@ uint64_t sub_34A0(char *category)
   return _objc_release_x1();
 }
 
-id sub_34E0()
+id sub_34E0(uint64_t a1)
 {
   if (qword_D2F8 != -1)
   {
     sub_4364();
   }
 
-  v1 = qword_D2F0;
+  v2 = qword_D2F0;
 
-  return v1;
+  return v2;
 }
 
 void sub_3524(id a1)
@@ -784,16 +778,16 @@ void sub_3524(id a1)
   }
 }
 
-id sub_3548()
+id sub_3548(uint64_t a1)
 {
   if (qword_D308 != -1)
   {
     sub_4378();
   }
 
-  v1 = qword_D300;
+  v2 = qword_D300;
 
-  return v1;
+  return v2;
 }
 
 void sub_358C(id a1)
@@ -803,16 +797,16 @@ void sub_358C(id a1)
   _objc_release_x1();
 }
 
-id sub_35D0()
+id sub_35D0(uint64_t a1)
 {
   if (qword_D318 != -1)
   {
     sub_438C();
   }
 
-  v1 = qword_D310;
+  v2 = qword_D310;
 
-  return v1;
+  return v2;
 }
 
 void sub_3614(id a1)
@@ -822,16 +816,16 @@ void sub_3614(id a1)
   _objc_release_x1();
 }
 
-id sub_3658()
+id sub_3658(uint64_t a1)
 {
   if (qword_D328 != -1)
   {
     sub_43A0();
   }
 
-  v1 = qword_D320;
+  v2 = qword_D320;
 
-  return v1;
+  return v2;
 }
 
 void sub_369C(id a1)
@@ -841,9 +835,9 @@ void sub_369C(id a1)
   _objc_release_x1();
 }
 
-id hexStringFromByteArray(uint64_t a1, int a2)
+id hexStringFromByteArray(uint64_t a1, unsigned int a2)
 {
-  v4 = [NSMutableString stringWithCapacity:2 * a2];
+  v4 = [NSMutableString stringWithCapacity:(2 * a2)];
   if (a2 >= 1)
   {
     v5 = a2 - 1;
@@ -874,7 +868,7 @@ id hexStringFromByteArray(uint64_t a1, int a2)
   return v10;
 }
 
-uint64_t isPartnerSupportEnabled()
+uint64_t isPartnerSupportEnabled(uint64_t a1, uint64_t a2)
 {
   if (qword_D330 != -1)
   {
@@ -887,13 +881,14 @@ uint64_t isPartnerSupportEnabled()
 void sub_3874(id a1)
 {
   v1 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.GameController"];
-  byte_D338 = [v1 BOOLForKey:@"GCPartnersEnable"];
-  v2 = sub_34E0();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v2 = [v1 BOOLForKey:@"GCPartnersEnable"];
+  byte_D338 = v2;
+  v3 = sub_34E0(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3[0] = 67109120;
-    v3[1] = byte_D338;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v3, 8u);
+    v4[0] = 67109120;
+    v4[1] = byte_D338;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v4, 8u);
   }
 }
 
@@ -959,87 +954,79 @@ void sub_3D44(int *a1, NSObject *a2)
   _os_log_debug_impl(&dword_0, a2, OS_LOG_TYPE_DEBUG, "-> [%#x] Apply configuration.", v3, 8u);
 }
 
-void sub_3DC0(unsigned int *a1, uint64_t *a2)
+void sub_3E40()
 {
-  v2 = *a1;
-  v3 = *a2;
+  sub_31F4(__stack_chk_guard);
   sub_31DC();
-  _os_log_debug_impl(&dword_0, v4, OS_LOG_TYPE_DEBUG, "-> [%#x] Press sequence reset -> [%zu]", v5, 0x12u);
+  sub_3204(&dword_0, v0, v1, "-> [%#x] Press sequence [%zu] recognized 1x short press!", v2, v3, v4, v5);
 }
 
-void sub_3E40(unsigned int *a1)
+void sub_3EA8()
 {
-  sub_31F4(a1, __stack_chk_guard);
+  sub_31F4(__stack_chk_guard);
   sub_31DC();
-  sub_3204(&dword_0, v1, v2, "-> [%#x] Press sequence [%zu] recognized 1x short press!", v3, v4, v5, v6, v7);
+  sub_3204(&dword_0, v0, v1, "-> [%#x] Press sequence [%zu] recognized 1x long press!", v2, v3, v4, v5);
 }
 
-void sub_3EA8(unsigned int *a1)
+void sub_3F10()
 {
-  sub_31F4(a1, __stack_chk_guard);
+  sub_31F4(__stack_chk_guard);
   sub_31DC();
-  sub_3204(&dword_0, v1, v2, "-> [%#x] Press sequence [%zu] recognized 1x long press!", v3, v4, v5, v6, v7);
+  sub_3204(&dword_0, v0, v1, "-> [%#x] Press sequence [%zu] recognized 2x short press!", v2, v3, v4, v5);
 }
 
-void sub_3F10(unsigned int *a1)
+void sub_3F78()
 {
-  sub_31F4(a1, __stack_chk_guard);
+  sub_31F4(__stack_chk_guard);
   sub_31DC();
-  sub_3204(&dword_0, v1, v2, "-> [%#x] Press sequence [%zu] recognized 2x short press!", v3, v4, v5, v6, v7);
+  sub_3204(&dword_0, v0, v1, "-> [%#x] Press sequence [%zu] recognized 2x long press!", v2, v3, v4, v5);
 }
 
-void sub_3F78(unsigned int *a1)
+void sub_3FE0()
 {
-  sub_31F4(a1, __stack_chk_guard);
+  sub_31F4(__stack_chk_guard);
   sub_31DC();
-  sub_3204(&dword_0, v1, v2, "-> [%#x] Press sequence [%zu] recognized 2x long press!", v3, v4, v5, v6, v7);
+  sub_3204(&dword_0, v0, v1, "-> [%#x] Press sequence [%zu] recognized 3x short press!", v2, v3, v4, v5);
 }
 
-void sub_3FE0(unsigned int *a1)
+void sub_4048()
 {
-  sub_31F4(a1, __stack_chk_guard);
+  sub_31F4(__stack_chk_guard);
   sub_31DC();
-  sub_3204(&dword_0, v1, v2, "-> [%#x] Press sequence [%zu] recognized 3x short press!", v3, v4, v5, v6, v7);
+  sub_3204(&dword_0, v0, v1, "-> [%#x] Press sequence [%zu] recognized 3x long press!", v2, v3, v4, v5);
 }
 
-void sub_4048(unsigned int *a1)
+void sub_40B0()
 {
-  sub_31F4(a1, __stack_chk_guard);
-  sub_31DC();
-  sub_3204(&dword_0, v1, v2, "-> [%#x] Press sequence [%zu] recognized 3x long press!", v3, v4, v5, v6, v7);
+  sub_31F4(__stack_chk_guard);
+  v4[0] = 67109632;
+  v4[1] = v0;
+  v5 = 2048;
+  v6 = v1;
+  v7 = 2048;
+  v8 = v2;
+  _os_log_debug_impl(&dword_0, v3, OS_LOG_TYPE_DEBUG, "-> [%#x] Press sequence [%zu] wakeup in %f seconds.", v4, 0x1Cu);
 }
 
-void sub_40B0(unsigned int *a1)
+void sub_413C()
 {
-  sub_31F4(a1, __stack_chk_guard);
-  v5[0] = 67109632;
-  v5[1] = v1;
-  v6 = 2048;
-  v7 = v2;
-  v8 = 2048;
-  v9 = v3;
-  _os_log_debug_impl(&dword_0, v4, OS_LOG_TYPE_DEBUG, "-> [%#x] Press sequence [%zu] wakeup in %f seconds.", v5, 0x1Cu);
+  sub_31F4(__stack_chk_guard);
+  sub_31DC();
+  sub_3204(&dword_0, v0, v1, "-> [%#x] Press sequence [%zu] not passing event: Pending gesture recognizer(s).", v2, v3, v4, v5);
 }
 
-void sub_413C(unsigned int *a1)
+void sub_41A4()
 {
-  sub_31F4(a1, __stack_chk_guard);
+  sub_31F4(__stack_chk_guard);
   sub_31DC();
-  sub_3204(&dword_0, v1, v2, "-> [%#x] Press sequence [%zu] not passing event: Pending gesture recognizer(s).", v3, v4, v5, v6, v7);
+  sub_3204(&dword_0, v0, v1, "-> [%#x] Press sequence [%zu] not passing event: Press count threshold not met.", v2, v3, v4, v5);
 }
 
-void sub_41A4(unsigned int *a1)
+void sub_420C()
 {
-  sub_31F4(a1, __stack_chk_guard);
+  sub_31F4(__stack_chk_guard);
   sub_31DC();
-  sub_3204(&dword_0, v1, v2, "-> [%#x] Press sequence [%zu] not passing event: Press count threshold not met.", v3, v4, v5, v6, v7);
-}
-
-void sub_420C(unsigned int *a1)
-{
-  sub_31F4(a1, __stack_chk_guard);
-  sub_31DC();
-  sub_3204(&dword_0, v1, v2, "-> [%#x] Press sequence [%zu] not passing event: Disabled.", v3, v4, v5, v6, v7);
+  sub_3204(&dword_0, v0, v1, "-> [%#x] Press sequence [%zu] not passing event: Disabled.", v2, v3, v4, v5);
 }
 
 void sub_4288(uint64_t a1, NSObject *a2)

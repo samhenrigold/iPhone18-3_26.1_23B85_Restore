@@ -15,7 +15,7 @@
 {
   builderCopy = builder;
   swift_unknownObjectRetain();
-  return ActionSetAccessoryPickerViewController.init(actionSetBuilder:delegate:)(builderCopy);
+  return ActionSetAccessoryPickerViewController.init(actionSetBuilder:delegate:)(builderCopy, delegate);
 }
 
 - (void)viewDidLoad
@@ -51,7 +51,7 @@
   {
   }
 
-  __swift_destroy_boxed_opaque_existential_1(&v6);
+  __swift_destroy_boxed_opaque_existential_1(v6);
 }
 
 - (void)doneWithSender:(id)sender
@@ -62,7 +62,7 @@
   swift_unknownObjectRelease();
   sub_20D027290();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (id)listContentConfigurationForSupplementaryElementOfKind:(id)kind atIndexPath:(id)path

@@ -61,7 +61,7 @@
 
 _DWORD *__40__HKSPDiagnostics__registerStateHandler__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (*(a2 + 16) == 3)
   {
@@ -70,35 +70,35 @@ _DWORD *__40__HKSPDiagnostics__registerStateHandler__block_invoke(uint64_t a1, u
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v26 = objc_opt_class();
-      v7 = v26;
+      v25 = objc_opt_class();
+      v7 = v25;
       _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] processing os_state handler", buf, 0xCu);
     }
 
     v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v9 = WeakRetained[2];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __40__HKSPDiagnostics__registerStateHandler__block_invoke_294;
-    v23[3] = &unk_279C73D98;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __40__HKSPDiagnostics__registerStateHandler__block_invoke_294;
+    v22[3] = &unk_279C73D98;
     v10 = v8;
-    v24 = v10;
-    [v9 enumerateObserversWithBlock:v23];
-    v22 = 0;
-    v11 = [MEMORY[0x277CCAC58] dataWithPropertyList:v10 format:200 options:0 error:&v22];
-    v12 = v22;
+    v23 = v10;
+    [v9 enumerateObserversWithBlock:v22];
+    v21 = 0;
+    v11 = [MEMORY[0x277CCAC58] dataWithPropertyList:v10 format:200 options:0 error:&v21];
+    v12 = v21;
     v13 = [v11 length];
     if (v12)
     {
       v14 = HKSPLogForCategory(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v20 = objc_opt_class();
+        v19 = objc_opt_class();
         *buf = 138543618;
-        v26 = v20;
-        v27 = 2114;
-        v28 = v12;
-        v21 = v20;
+        v25 = v19;
+        v26 = 2114;
+        v27 = v12;
+        v20 = v19;
         _os_log_error_impl(&dword_269A84000, v14, OS_LOG_TYPE_ERROR, "[%{public}@] error serializing state data: %{public}@", buf, 0x16u);
       }
 
@@ -125,7 +125,6 @@ _DWORD *__40__HKSPDiagnostics__registerStateHandler__block_invoke(uint64_t a1, u
     v15 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

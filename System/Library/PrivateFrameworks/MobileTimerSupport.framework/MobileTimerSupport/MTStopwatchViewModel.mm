@@ -1,5 +1,6 @@
 @interface MTStopwatchViewModel
 - (MTStopwatch)getStopwatch;
+- (MTStopwatchViewModel)initWithStopwatch:(id)stopwatch manager:(id)manager delegate:(id)delegate dateProvider:(id)provider registerForNotifications:(BOOL)notifications broadcastUpdates:(BOOL)updates;
 - (double)runningTotalForLap:(int64_t)lap;
 - (id)sourceIdentifier;
 - (void)addLap:(double)lap;
@@ -16,6 +17,26 @@
 @end
 
 @implementation MTStopwatchViewModel
+
+- (MTStopwatchViewModel)initWithStopwatch:(id)stopwatch manager:(id)manager delegate:(id)delegate dateProvider:(id)provider registerForNotifications:(BOOL)notifications broadcastUpdates:(BOOL)updates
+{
+  updatesCopy = updates;
+  notificationsCopy = notifications;
+  stopwatchCopy = stopwatch;
+  managerCopy = manager;
+  delegateCopy = delegate;
+  providerCopy = provider;
+  v21.receiver = self;
+  v21.super_class = MTStopwatchViewModel;
+  v18 = [(MTStopwatchViewModel *)&v21 init];
+  if (v18)
+  {
+    v19 = [[_TtC18MobileTimerSupport18StopwatchViewModel alloc] initWithStopwatch:stopwatchCopy manager:managerCopy delegate:delegateCopy dateProvider:providerCopy registerForNotifications:notificationsCopy broadcastUpdates:updatesCopy];
+    [(MTStopwatchViewModel *)v18 setViewModel:v19];
+  }
+
+  return v18;
+}
 
 - (void)updateStopwatch:(id)stopwatch
 {

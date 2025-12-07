@@ -479,7 +479,7 @@ void __67__CSLatencyCardViewController__updateViewFromCurrentStateAnimated___blo
 - (void)_updateCardForEvent:(unint64_t)event info:(id)info
 {
   infoCopy = info;
-  v7 = ContinuitySingLog();
+  v7 = ContinuitySingLog(infoCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 136315650;
@@ -577,7 +577,7 @@ void __58__CSLatencyCardViewController__startAudioLatencyEstimator__block_invoke
 {
   if (a2)
   {
-    v3 = ContinuitySingLog();
+    v3 = ContinuitySingLog(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
@@ -605,15 +605,15 @@ void __58__CSLatencyCardViewController__startAudioLatencyEstimator__block_invoke
   v5 = +[CSShieldManager sharedManager];
   isMicLocal = [v5 isMicLocal];
 
-  v7 = ContinuitySingLog();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = ContinuitySingLog(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (isMicLocal)
   {
-    if (v8)
+    if (v9)
     {
       *buf = 136315138;
-      v29 = "[CSLatencyCardViewController _showLatencyCheckConfirmationIfNeededWithCompletion:]";
-      _os_log_impl(&dword_2441FB000, v7, OS_LOG_TYPE_DEFAULT, "%s: Mic is local. Don't need confirmation to start audio latency estimator.", buf, 0xCu);
+      v30 = "[CSLatencyCardViewController _showLatencyCheckConfirmationIfNeededWithCompletion:]";
+      _os_log_impl(&dword_2441FB000, v8, OS_LOG_TYPE_DEFAULT, "%s: Mic is local. Don't need confirmation to start audio latency estimator.", buf, 0xCu);
     }
 
     completionCopy[2](completionCopy, 1);
@@ -622,50 +622,50 @@ void __58__CSLatencyCardViewController__startAudioLatencyEstimator__block_invoke
   else
   {
     selfCopy = self;
-    if (v8)
+    if (v9)
     {
       *buf = 136315138;
-      v29 = "[CSLatencyCardViewController _showLatencyCheckConfirmationIfNeededWithCompletion:]";
-      _os_log_impl(&dword_2441FB000, v7, OS_LOG_TYPE_DEFAULT, "%s: Need confirmation to start audio latency estimator.", buf, 0xCu);
+      v30 = "[CSLatencyCardViewController _showLatencyCheckConfirmationIfNeededWithCompletion:]";
+      _os_log_impl(&dword_2441FB000, v8, OS_LOG_TYPE_DEFAULT, "%s: Need confirmation to start audio latency estimator.", buf, 0xCu);
     }
 
-    v9 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.ContinuitySing"];
-    v22 = [v9 localizedStringForKey:@"MEASUREMENT_CONFIRMATION_TITLE" value:&stru_285797E10 table:0];
-
     v10 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.ContinuitySing"];
-    v21 = [v10 localizedStringForKey:@"MEASUREMENT_CONFIRMATION_MESSAGE" value:&stru_285797E10 table:0];
+    v23 = [v10 localizedStringForKey:@"MEASUREMENT_CONFIRMATION_TITLE" value:&stru_285797E10 table:0];
 
-    v11 = [CSSecureAlertController alertControllerWithTitle:v22 message:v21 preferredStyle:1];
-    v12 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.ContinuitySing"];
-    v13 = [v12 localizedStringForKey:@"MEASUREMENT_CONFIRMATION_CONTINUE" value:&stru_285797E10 table:0];
+    v11 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.ContinuitySing"];
+    v22 = [v11 localizedStringForKey:@"MEASUREMENT_CONFIRMATION_MESSAGE" value:&stru_285797E10 table:0];
 
-    v14 = MEMORY[0x277D75100];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __83__CSLatencyCardViewController__showLatencyCheckConfirmationIfNeededWithCompletion___block_invoke;
-    v26[3] = &unk_278E0B438;
-    v15 = completionCopy;
-    v27 = v15;
-    v16 = [v14 actionWithTitle:v13 style:2 handler:v26];
-    v17 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.ContinuitySing"];
-    v18 = [v17 localizedStringForKey:@"MEASUREMENT_CONFIRMATION_CANCEL" value:&stru_285797E10 table:0];
+    v12 = [CSSecureAlertController alertControllerWithTitle:v23 message:v22 preferredStyle:1];
+    v13 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.ContinuitySing"];
+    v14 = [v13 localizedStringForKey:@"MEASUREMENT_CONFIRMATION_CONTINUE" value:&stru_285797E10 table:0];
 
-    v19 = MEMORY[0x277D75100];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __83__CSLatencyCardViewController__showLatencyCheckConfirmationIfNeededWithCompletion___block_invoke_78;
-    v24[3] = &unk_278E0B438;
-    v25 = v15;
-    v20 = [v19 actionWithTitle:v18 style:1 handler:v24];
-    [v11 addAction:v16];
-    [v11 addAction:v20];
-    [(CSLatencyCardViewController *)selfCopy presentViewController:v11 animated:1 completion:&__block_literal_global_5];
+    v15 = MEMORY[0x277D75100];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __83__CSLatencyCardViewController__showLatencyCheckConfirmationIfNeededWithCompletion___block_invoke;
+    v27[3] = &unk_278E0B438;
+    v16 = completionCopy;
+    v28 = v16;
+    v17 = [v15 actionWithTitle:v14 style:2 handler:v27];
+    v18 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.ContinuitySing"];
+    v19 = [v18 localizedStringForKey:@"MEASUREMENT_CONFIRMATION_CANCEL" value:&stru_285797E10 table:0];
+
+    v20 = MEMORY[0x277D75100];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __83__CSLatencyCardViewController__showLatencyCheckConfirmationIfNeededWithCompletion___block_invoke_78;
+    v25[3] = &unk_278E0B438;
+    v26 = v16;
+    v21 = [v20 actionWithTitle:v19 style:1 handler:v25];
+    [v12 addAction:v17];
+    [v12 addAction:v21];
+    [(CSLatencyCardViewController *)selfCopy presentViewController:v12 animated:1 completion:&__block_literal_global_5];
   }
 }
 
 uint64_t __83__CSLatencyCardViewController__showLatencyCheckConfirmationIfNeededWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315138;
@@ -678,7 +678,7 @@ uint64_t __83__CSLatencyCardViewController__showLatencyCheckConfirmationIfNeeded
 
 uint64_t __83__CSLatencyCardViewController__showLatencyCheckConfirmationIfNeededWithCompletion___block_invoke_78(uint64_t a1)
 {
-  v2 = ContinuitySingLog();
+  v2 = ContinuitySingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315138;
@@ -689,20 +689,20 @@ uint64_t __83__CSLatencyCardViewController__showLatencyCheckConfirmationIfNeeded
   return (*(*(a1 + 32) + 16))();
 }
 
-void __83__CSLatencyCardViewController__showLatencyCheckConfirmationIfNeededWithCompletion___block_invoke_79()
+void __83__CSLatencyCardViewController__showLatencyCheckConfirmationIfNeededWithCompletion___block_invoke_79(uint64_t a1)
 {
-  v0 = ContinuitySingLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = ContinuitySingLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = 136315138;
-    v2 = "[CSLatencyCardViewController _showLatencyCheckConfirmationIfNeededWithCompletion:]_block_invoke";
-    _os_log_impl(&dword_2441FB000, v0, OS_LOG_TYPE_DEFAULT, "%s: Audio Latency Estimator alert presented.", &v1, 0xCu);
+    v2 = 136315138;
+    v3 = "[CSLatencyCardViewController _showLatencyCheckConfirmationIfNeededWithCompletion:]_block_invoke";
+    _os_log_impl(&dword_2441FB000, v1, OS_LOG_TYPE_DEFAULT, "%s: Audio Latency Estimator alert presented.", &v2, 0xCu);
   }
 }
 
 - (void)_cancel
 {
-  v3 = ContinuitySingLog();
+  v3 = ContinuitySingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;

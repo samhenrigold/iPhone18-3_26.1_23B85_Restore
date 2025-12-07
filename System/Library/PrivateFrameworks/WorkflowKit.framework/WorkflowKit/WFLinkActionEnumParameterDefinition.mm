@@ -13,38 +13,38 @@
 
 - (id)parameterDefinitionDictionary
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   enumMetadata = [(WFLinkActionEnumParameterDefinition *)self enumMetadata];
   selfCopy = self;
   v4 = [(WFLinkActionParameterDefinition *)self objectForTypeSpecificMetadataKey:*MEMORY[0x1E69AC5A8] ofClass:objc_opt_class()];
-  v36 = objc_opt_new();
   v35 = objc_opt_new();
   v34 = objc_opt_new();
   v33 = objc_opt_new();
-  v31 = enumMetadata;
   v32 = objc_opt_new();
+  v30 = enumMetadata;
+  v31 = objc_opt_new();
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = [enumMetadata cases];
-  v39 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
-  if (v39)
+  v38 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+  if (v38)
   {
-    v38 = *v42;
+    v37 = *v41;
     do
     {
-      for (i = 0; i != v39; ++i)
+      for (i = 0; i != v38; ++i)
       {
-        if (*v42 != v38)
+        if (*v41 != v37)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v41 + 1) + 8 * i);
+        v6 = *(*(&v40 + 1) + 8 * i);
         if (v4)
         {
-          identifier = [*(*(&v41 + 1) + 8 * i) identifier];
+          identifier = [*(*(&v40 + 1) + 8 * i) identifier];
           v8 = [v4 containsObject:identifier];
 
           if (!v8)
@@ -101,32 +101,30 @@
 
         if (identifier2 && wf_localizedDisplayName)
         {
-          [v36 addObject:identifier2];
-          [v35 addObject:wf_localizedDisplayName];
-          [v34 addObject:v14];
-          [v33 addObject:v18];
-          [v32 addObject:v24];
+          [v35 addObject:identifier2];
+          [v34 addObject:wf_localizedDisplayName];
+          [v33 addObject:v14];
+          [v32 addObject:v18];
+          [v31 addObject:v24];
         }
       }
 
-      v39 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v38 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
-    while (v39);
+    while (v38);
   }
 
   v25 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  [v25 setValue:v36 forKey:@"Items"];
-  [v25 setValue:v35 forKey:@"ItemDisplayNames"];
-  [v25 setValue:v34 forKey:@"ItemSubtitles"];
-  [v25 setValue:v33 forKey:@"ItemIconNames"];
-  [v25 setValue:v32 forKey:@"ItemImages"];
-  v40.receiver = selfCopy;
-  v40.super_class = WFLinkActionEnumParameterDefinition;
-  parameterDefinitionDictionary = [(WFLinkActionParameterDefinition *)&v40 parameterDefinitionDictionary];
+  [v25 setValue:v35 forKey:@"Items"];
+  [v25 setValue:v34 forKey:@"ItemDisplayNames"];
+  [v25 setValue:v33 forKey:@"ItemSubtitles"];
+  [v25 setValue:v32 forKey:@"ItemIconNames"];
+  [v25 setValue:v31 forKey:@"ItemImages"];
+  v39.receiver = selfCopy;
+  v39.super_class = WFLinkActionEnumParameterDefinition;
+  parameterDefinitionDictionary = [(WFLinkActionParameterDefinition *)&v39 parameterDefinitionDictionary];
   v27 = [parameterDefinitionDictionary definitionByAddingEntriesInDictionary:v25];
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }
@@ -170,14 +168,14 @@ uint64_t __66__WFLinkActionEnumParameterDefinition_localizedTitleForLinkValue___
 {
   v3 = [a2 identifier];
   v4 = [*(a1 + 32) value];
-  v5 = [v3 isEqualToString:v4];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  return v5;
+  return isEqualToString;
 }
 
 - (id)parameterStateFromLinkValue:(id)value
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   value = [value value];
   if (!value)
   {
@@ -195,12 +193,12 @@ LABEL_12:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       valueType2 = [(WFLinkActionParameterDefinition *)self valueType];
-      v16 = 136315650;
-      v17 = "[WFLinkActionEnumParameterDefinition parameterStateFromLinkValue:]";
-      v18 = 2114;
-      v19 = value;
-      v20 = 2114;
-      v21 = valueType2;
+      v15 = 136315650;
+      v16 = "[WFLinkActionEnumParameterDefinition parameterStateFromLinkValue:]";
+      v17 = 2114;
+      v18 = value;
+      v19 = 2114;
+      v20 = valueType2;
     }
 
     goto LABEL_12;
@@ -228,7 +226,6 @@ LABEL_12:
   }
 
 LABEL_13:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -318,10 +315,10 @@ LABEL_13:
 
 uint64_t __104__WFLinkActionEnumParameterDefinition_defaultSerializedRepresentationFromParameterMetadataDefaultValue___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 identifier];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (WFLinkActionEnumParameterDefinition)initWithParameterMetadata:(id)metadata

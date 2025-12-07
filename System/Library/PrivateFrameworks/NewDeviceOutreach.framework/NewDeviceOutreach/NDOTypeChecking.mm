@@ -16,34 +16,36 @@
 
 + (void)safeAddValue:(id)value forKey:(id)key toDictionary:(id)dictionary
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   keyCopy = key;
   dictionaryCopy = dictionary;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v10 = _NDOLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v12 = _NDOLogSystem(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      [NDOTypeChecking safeAddValue:v10 forKey:? toDictionary:?];
+      [NDOTypeChecking safeAddValue:v12 forKey:? toDictionary:?];
     }
 
     goto LABEL_12;
   }
 
-  if (![NDOTypeChecking isNotEmptyString:keyCopy])
+  v11 = [NDOTypeChecking isNotEmptyString:keyCopy];
+  if ((v11 & 1) == 0)
   {
-    v10 = _NDOLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = _NDOLogSystem(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136446210;
-      v16 = "+[NDOTypeChecking safeAddValue:forKey:toDictionary:]";
-      v11 = "%{public}s got nil or empty key";
-      v12 = v10;
-      v13 = 12;
+      v16 = 136446210;
+      v17 = "+[NDOTypeChecking safeAddValue:forKey:toDictionary:]";
+      v13 = "%{public}s got nil or empty key";
+      v14 = v12;
+      v15 = 12;
 LABEL_11:
-      _os_log_impl(&dword_25BD52000, v12, OS_LOG_TYPE_DEFAULT, v11, &v15, v13);
+      _os_log_impl(&dword_25BD52000, v14, OS_LOG_TYPE_DEFAULT, v13, &v16, v15);
     }
 
 LABEL_12:
@@ -53,16 +55,16 @@ LABEL_12:
 
   if (!valueCopy)
   {
-    v10 = _NDOLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = _NDOLogSystem(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136446466;
-      v16 = "+[NDOTypeChecking safeAddValue:forKey:toDictionary:]";
-      v17 = 2112;
-      v18 = keyCopy;
-      v11 = "%{public}s got nil value for key: %@";
-      v12 = v10;
-      v13 = 22;
+      v16 = 136446466;
+      v17 = "+[NDOTypeChecking safeAddValue:forKey:toDictionary:]";
+      v18 = 2112;
+      v19 = keyCopy;
+      v13 = "%{public}s got nil value for key: %@";
+      v14 = v12;
+      v15 = 22;
       goto LABEL_11;
     }
 
@@ -71,17 +73,14 @@ LABEL_12:
 
   [dictionaryCopy setObject:valueCopy forKey:keyCopy];
 LABEL_13:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (void)safeAddValue:(os_log_t)log forKey:toDictionary:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136446210;
-  v3 = "+[NDOTypeChecking safeAddValue:forKey:toDictionary:]";
-  _os_log_debug_impl(&dword_25BD52000, log, OS_LOG_TYPE_DEBUG, "%{public}s got non NSMutableDictionary", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136446210;
+  v2 = "+[NDOTypeChecking safeAddValue:forKey:toDictionary:]";
+  _os_log_debug_impl(&dword_25BD52000, log, OS_LOG_TYPE_DEBUG, "%{public}s got non NSMutableDictionary", &v1, 0xCu);
 }
 
 @end

@@ -166,12 +166,13 @@ LABEL_11:
         }
       }
 
-      if (!gc_isInternalBuild())
+      isInternalBuild = gc_isInternalBuild(v8, v9);
+      if (!isInternalBuild)
       {
         goto LABEL_18;
       }
 
-      currentHandler = getGCLogger();
+      currentHandler = getGCLogger(isInternalBuild);
       if (os_log_type_enabled(&currentHandler->super, OS_LOG_TYPE_ERROR))
       {
         [(_GCNintendoJoyConDevicePending *)connection _onqueue_prepareDeviceWithConnection:?];
@@ -237,11 +238,10 @@ LABEL_18:
 
 - (void)_onqueue_prepareDeviceWithConnection:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1D2CD5000, a2, OS_LOG_TYPE_ERROR, "%@ Missing controller type", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1D2CD5000, a2, OS_LOG_TYPE_ERROR, "%@ Missing controller type", &v2, 0xCu);
 }
 
 @end

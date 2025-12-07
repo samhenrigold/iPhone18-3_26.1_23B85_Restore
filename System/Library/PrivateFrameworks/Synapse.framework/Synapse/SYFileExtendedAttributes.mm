@@ -31,7 +31,7 @@
 
 void __72__SYFileExtendedAttributes_fetchPrivateAttributesForFileURL_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   if (v6)
@@ -39,14 +39,14 @@ void __72__SYFileExtendedAttributes_fetchPrivateAttributesForFileURL_completion_
     v7 = os_log_create("com.apple.synapse", "DocumentWorkflows");
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = [*(a1 + 32) path];
-      v11 = 138478339;
-      v12 = v10;
-      v13 = 2113;
-      v14 = v5;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_error_impl(&dword_225901000, v7, OS_LOG_TYPE_ERROR, "error fetching private attributes for url path: %{private}@, attrs: %{private}@, error: %@", &v11, 0x20u);
+      v9 = [*(a1 + 32) path];
+      v10 = 138478339;
+      v11 = v9;
+      v12 = 2113;
+      v13 = v5;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_error_impl(&dword_225901000, v7, OS_LOG_TYPE_ERROR, "error fetching private attributes for url path: %{private}@, attrs: %{private}@, error: %@", &v10, 0x20u);
     }
   }
 
@@ -55,32 +55,30 @@ void __72__SYFileExtendedAttributes_fetchPrivateAttributesForFileURL_completion_
   {
     (*(v8 + 16))(v8, v5, v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setPrivateAttributes:(id)attributes forFileURL:(id)l completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
   lCopy = l;
   completionCopy = completion;
   if (!attributesCopy)
   {
-    v16 = MEMORY[0x277CBEAD8];
-    v17 = *MEMORY[0x277CBE658];
-    v18 = @"attributes must not be nil";
+    v15 = MEMORY[0x277CBEAD8];
+    v16 = *MEMORY[0x277CBE658];
+    v17 = @"attributes must not be nil";
     goto LABEL_11;
   }
 
   if (!lCopy)
   {
-    v16 = MEMORY[0x277CBEAD8];
-    v17 = *MEMORY[0x277CBE658];
-    v18 = @"fileURL must not be nil";
+    v15 = MEMORY[0x277CBEAD8];
+    v16 = *MEMORY[0x277CBE658];
+    v17 = @"fileURL must not be nil";
 LABEL_11:
-    v19 = [v16 exceptionWithName:v17 reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [v15 exceptionWithName:v16 reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   v10 = completionCopy;
@@ -98,19 +96,17 @@ LABEL_11:
     }
     v12 = ;
     *buf = 138478083;
-    v23 = attributesCopy;
-    v24 = 2113;
-    v25 = v12;
+    v22 = attributesCopy;
+    v23 = 2113;
+    v24 = v12;
     _os_log_impl(&dword_225901000, v11, OS_LOG_TYPE_DEFAULT, "Setting private attributes: %{private}@, for url path: %{private}@", buf, 0x16u);
   }
 
-  v20 = lCopy;
-  v21 = v10;
+  v19 = lCopy;
+  v20 = v10;
   v13 = v10;
   v14 = lCopy;
   _MDItemSetPrivateAttributesForURL();
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __71__SYFileExtendedAttributes_setPrivateAttributes_forFileURL_completion___block_invoke(uint64_t a1, void *a2)
@@ -134,7 +130,7 @@ void __71__SYFileExtendedAttributes_setPrivateAttributes_forFileURL_completion__
 
 + (void)fetchPrivateAttributesForFileURL:(void *)a1 completion:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if ([a1 isFileReferenceURL])
   {
     [a1 absoluteString];
@@ -145,24 +141,20 @@ void __71__SYFileExtendedAttributes_setPrivateAttributes_forFileURL_completion__
     [a1 path];
   }
   v4 = ;
-  v6 = 138477827;
-  v7 = v4;
-  _os_log_debug_impl(&dword_225901000, a2, OS_LOG_TYPE_DEBUG, "Fetching private attributes for url path: %{private}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138477827;
+  v6 = v4;
+  _os_log_debug_impl(&dword_225901000, a2, OS_LOG_TYPE_DEBUG, "Fetching private attributes for url path: %{private}@", &v5, 0xCu);
 }
 
 void __71__SYFileExtendedAttributes_setPrivateAttributes_forFileURL_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [*(a1 + 32) path];
-  v7 = 138478083;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_225901000, a3, OS_LOG_TYPE_ERROR, "Unable to set private attributes for url path: %{private}@, error: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138478083;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_225901000, a3, OS_LOG_TYPE_ERROR, "Unable to set private attributes for url path: %{private}@, error: %@", &v6, 0x16u);
 }
 
 @end

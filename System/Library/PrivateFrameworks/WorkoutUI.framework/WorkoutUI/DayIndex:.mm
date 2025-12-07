@@ -10,7 +10,7 @@
   {
     type metadata accessor for DayIndex();
     a3(255);
-    _s7SwiftUI31AccessibilityAttachmentModifierVAcA04ViewE0AAWlTm_5(&lazy protocol witness table cache variable for type DayIndex and conformance DayIndex, MEMORY[0x277CCB6A8]);
+    _s7SwiftUI31AccessibilityAttachmentModifierVAcA04ViewE0AAWlTm_5(&lazy protocol witness table cache variable for type DayIndex and conformance DayIndex, MEMORY[0x277CCB6A8], MEMORY[0x277CCB6B0]);
     v5 = type metadata accessor for Dictionary();
     if (!v6)
     {

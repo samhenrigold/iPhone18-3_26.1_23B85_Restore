@@ -55,7 +55,7 @@
     v37 = v12;
     if (v38 || !v37)
     {
-      v35 = sub_10024A6D0();
+      v35 = sub_10024A6D0(AMSURLSession);
       v34 = [v35 dataTaskPromiseWithRequest:v38];
       v56 = 0;
       v36 = [v34 resultWithError:&v56];

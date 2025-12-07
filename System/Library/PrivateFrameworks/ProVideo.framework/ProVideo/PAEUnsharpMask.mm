@@ -113,7 +113,7 @@
   {
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input, v70);
     }
 
     else
@@ -131,7 +131,7 @@
   else
   {
     versionAtCreation = [v12 versionAtCreation];
-    [(PAESharedDefaultBase *)self getScaleForImage:input];
+    objc_msgSend_getScaleForImage_(self);
     v15 = v68;
     v16 = v69;
     if (v68 <= v69)
@@ -161,7 +161,7 @@
     [v9 getBoolValue:&v63 fromParm:6 atFxTime:info->var0.var1];
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
       v60 = v62;
       if (v62)
       {
@@ -175,7 +175,7 @@
       v60 = 0;
     }
 
-    [(PAESharedDefaultBase *)self smear:&v60 fromImage:input toImage:input];
+    objc_msgSend_smear_fromImage_toImage_(self);
     if (v60)
     {
       (*(*v60 + 24))(v60);
@@ -201,11 +201,11 @@
       v28 = v21;
       v29 = v22 * v23 / v18;
       *v57[0].f32 = xmmword_2603429B0;
-      v55 = xmmword_2603429C0;
+      *v55 = xmmword_2603429C0;
       v30 = v25 * v24 / v19;
       v52 = xmmword_2603429B0;
       v59 = xmmword_2603429C0;
-      HEquirectGaussianBlur::init(v20, width, height, v57, &v55, &v52, &v59, v28, v29, v30);
+      HEquirectGaussianBlur::init(v20, width, height, v57, v55, &v52, &v59, v28, v29, v30);
       (*(*v20 + 120))(v20, 0, v62);
       (*(*v20 + 16))(v20);
       (*(*v20 + 24))(v20);
@@ -244,10 +244,10 @@
 
     if (v63 == 1)
     {
-      [(PAESharedDefaultBase *)self getPixelTransformForImage:output];
-      [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
+      objc_msgSend_getPixelTransformForImage_(self);
+      objc_msgSend_getInversePixelTransformForImage_(self);
       width2 = [input width];
-      v38 = *&v55;
+      v38 = v55[0];
       height2 = [input height];
       v40 = ceil(fabs(v38) * width2);
       v41 = ceil(fabs(v56) * height2);

@@ -19,12 +19,12 @@
   return _MergedGlobals_204;
 }
 
-void __57__FCHeadlineExperimentalTitleProvider_isDebugModeEnabled__block_invoke()
+void __57__FCHeadlineExperimentalTitleProvider_isDebugModeEnabled__block_invoke(uint64_t a1)
 {
   if (NFInternalBuild())
   {
-    v0 = NewsCoreUserDefaults();
-    _MergedGlobals_204 = [v0 BOOLForKey:@"debug_alternate_headline_preference_key"];
+    v1 = NewsCoreUserDefaults();
+    _MergedGlobals_204 = [v1 BOOLForKey:@"debug_alternate_headline_preference_key"];
   }
 
   else
@@ -133,45 +133,45 @@ LABEL_8:
 
 - (id)_debugHeadlineMetadataFromTitle:(id)title fromExperimentalTitles:(id)titles forArticleID:(id)d
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   titleCopy = title;
   titlesCopy = titles;
   dCopy = d;
   v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (titlesCopy)
   {
-    v23 = dCopy;
+    v22 = dCopy;
     selfCopy = self;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v12 = titlesCopy;
-    v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v26;
+      v15 = *v25;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v26 != v15)
+          if (*v25 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"*%@", *(*(&v25 + 1) + 8 * i)];
+          v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"*%@", *(*(&v24 + 1) + 8 * i)];
           [v11 addObject:v17];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v14);
     }
 
-    dCopy = v23;
+    dCopy = v22;
     self = selfCopy;
   }
 
@@ -190,8 +190,6 @@ LABEL_8:
   }
 
   v20 = [(FCHeadlineExperimentalTitleProvider *)self _headlineMetadataFromTitle:titleCopy fromExperimentalTitles:v11 forArticleID:dCopy];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

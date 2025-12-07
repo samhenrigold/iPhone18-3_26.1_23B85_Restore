@@ -105,10 +105,9 @@ void __58__CryptexEventSubscriber_attachToStream_withRegistration___block_invoke
   v4 = [*(a1 + 32) xpcEventName];
   [v3 setObject:v2 forKeyedSubscript:v4];
 
-  v7 = [*(a1 + 32) xpcEventName];
-  v5 = v7;
-  [v7 UTF8String];
-  v6 = *(a1 + 40);
+  v6 = [*(a1 + 32) xpcEventName];
+  v5 = v6;
+  [v6 UTF8String];
   xpc_set_event();
 }
 
@@ -199,24 +198,35 @@ void __43__CryptexEventSubscriber_detachFromStream___block_invoke(uint64_t a1)
       xpc_dictionary_set_string(v10, "CryptexEventClientName", v16);
       [CryptexEventSubscriber attachToStream:self withRegistration:v10];
       v17 = 0;
-      goto LABEL_13;
+      goto LABEL_19;
     }
 
-    v21 = [(CryptexEventSubscriber *)self log];
+    v22 = [(CryptexEventSubscriber *)self log];
 
-    if (v21)
+    if (v22)
     {
-      v22 = [(CryptexEventSubscriber *)self log];
-      os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
-      v20 = _os_log_send_and_compose_impl();
+      v23 = [(CryptexEventSubscriber *)self log];
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      {
+        v24 = 3;
+      }
+
+      else
+      {
+        v24 = 2;
+      }
+
+      v28[0] = 0;
+      v21 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &dword_2986C0000, v23, 16, "Invalid callback", v28, 2);
     }
 
     else
     {
-      v20 = _os_log_send_and_compose_impl();
+      v27[0] = 0;
+      v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986C0000, MEMORY[0x29EDCA988], 16, "Invalid callback", v27, 2);
     }
 
-    Error = createError("[CryptexEventSubscriber registerForEvents:onQueue:withCompletion:]", "event.m", 125, "com.apple.security.cryptex", 3, 0, v20);
+    Error = createError("[CryptexEventSubscriber registerForEvents:onQueue:withCompletion:]", "event.m", 125, "com.apple.security.cryptex", 3, 0, v21);
   }
 
   else
@@ -226,21 +236,32 @@ void __43__CryptexEventSubscriber_detachFromStream___block_invoke(uint64_t a1)
     if (v18)
     {
       v19 = [(CryptexEventSubscriber *)self log];
-      os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
-      v20 = _os_log_send_and_compose_impl();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        v20 = 3;
+      }
+
+      else
+      {
+        v20 = 2;
+      }
+
+      v30[0] = 0;
+      v21 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &dword_2986C0000, v19, 16, "Invalid queue", v30, 2);
     }
 
     else
     {
-      v20 = _os_log_send_and_compose_impl();
+      v29[0] = 0;
+      v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986C0000, MEMORY[0x29EDCA988], 16, "Invalid queue", v29, 2);
     }
 
-    Error = createError("[CryptexEventSubscriber registerForEvents:onQueue:withCompletion:]", "event.m", 118, "com.apple.security.cryptex", 3, 0, v20);
+    Error = createError("[CryptexEventSubscriber registerForEvents:onQueue:withCompletion:]", "event.m", 118, "com.apple.security.cryptex", 3, 0, v21);
   }
 
   v17 = Error;
-  free(v20);
-LABEL_13:
+  free(v21);
+LABEL_19:
 
   return v17;
 }
@@ -286,147 +307,181 @@ void __32__CryptexEventSubscriber_cancel__block_invoke(uint64_t a1)
 
 - (id)_handleXPCEvent:(id)event
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v37 = *MEMORY[0x29EDCA608];
   eventCopy = event;
-  v30 = 0;
-  v31 = 0;
+  v33 = 0;
+  v34 = 0;
   length = 0;
   queue = [(CryptexEventSubscriber *)self queue];
   dispatch_assert_queue_V2(queue);
 
   if (![(CryptexEventSubscriber *)self active])
   {
-    v10 = 0;
     v11 = 0;
-    goto LABEL_23;
+    v12 = 0;
+    goto LABEL_35;
   }
 
   callback = [(CryptexEventSubscriber *)self callback];
 
   if (!callback)
   {
-    v12 = [(CryptexEventSubscriber *)self log];
+    v13 = [(CryptexEventSubscriber *)self log];
 
-    if (v12)
+    if (v13)
     {
-      v13 = [(CryptexEventSubscriber *)self log];
-      os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
-      LOWORD(v32) = 0;
-      v9 = _os_log_send_and_compose_impl();
+      v14 = [(CryptexEventSubscriber *)self log];
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        v15 = 3;
+      }
+
+      else
+      {
+        v15 = 2;
+      }
+
+      LOWORD(v35) = 0;
+      v10 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_2986C0000, v14, 16, "Subscriber has invalid callback.", &v35, 2);
     }
 
     else
     {
-      LOWORD(v32) = 0;
-      v9 = _os_log_send_and_compose_impl();
+      LOWORD(v35) = 0;
+      v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986C0000, MEMORY[0x29EDCA988], 16, "Subscriber has invalid callback.", &v35, 2);
     }
 
-    Error = createError("[CryptexEventSubscriber _handleXPCEvent:]", "event.m", 201, "com.apple.security.cryptex", 3, 0, v9);
-    goto LABEL_22;
+    Error = createError("[CryptexEventSubscriber _handleXPCEvent:]", "event.m", 201, "com.apple.security.cryptex", 3, 0, v10);
+    goto LABEL_34;
   }
 
-  if (_xpc_dictionary_try_get_uint64(eventCopy, "CRYPTEX_EVENT_TYPE", &v31))
+  if (_xpc_dictionary_try_get_uint64(eventCopy, "CRYPTEX_EVENT_TYPE", &v34))
   {
     v7 = [(CryptexEventSubscriber *)self log];
 
     if (v7)
     {
       v8 = [(CryptexEventSubscriber *)self log];
-      os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-      v32 = 136315138;
-      v33 = "CRYPTEX_EVENT_TYPE";
-      v9 = _os_log_send_and_compose_impl();
-    }
-
-    else
-    {
-      v32 = 136315138;
-      v33 = "CRYPTEX_EVENT_TYPE";
-      v9 = _os_log_send_and_compose_impl();
-    }
-
-    Error = createError("[CryptexEventSubscriber _handleXPCEvent:]", "event.m", 210, "com.apple.security.cryptex", 3, 0, v9);
-LABEL_22:
-    v11 = Error;
-    free(v9);
-    v10 = 0;
-    goto LABEL_23;
-  }
-
-  if (_xpc_dictionary_try_get_string(eventCopy, "CRYPTEX_EVENT_CRYPTEX_NAME", &v30))
-  {
-    v14 = [(CryptexEventSubscriber *)self log];
-
-    if (v14)
-    {
-      v15 = [(CryptexEventSubscriber *)self log];
-      os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
-      v32 = 136315138;
-      v33 = "CRYPTEX_EVENT_CRYPTEX_NAME";
-      v9 = _os_log_send_and_compose_impl();
-    }
-
-    else
-    {
-      v32 = 136315138;
-      v33 = "CRYPTEX_EVENT_CRYPTEX_NAME";
-      v9 = _os_log_send_and_compose_impl();
-    }
-
-    Error = createError("[CryptexEventSubscriber _handleXPCEvent:]", "event.m", 219, "com.apple.security.cryptex", 3, 0, v9);
-    goto LABEL_22;
-  }
-
-  data = xpc_dictionary_get_data(eventCopy, "CRYPTEX_EVENT_INFO", &length);
-  if (data)
-  {
-    v18 = MEMORY[0x29EDBA0C0];
-    v19 = [MEMORY[0x29EDB8DA0] dataWithBytes:data length:length];
-    v28 = 0;
-    v10 = [v18 propertyListWithData:v19 options:0 format:0 error:&v28];
-    v11 = v28;
-
-    if (!v10)
-    {
-      v20 = [(CryptexEventSubscriber *)self log];
-
-      if (v20)
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v21 = [(CryptexEventSubscriber *)self log];
-        os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
-        LOWORD(v32) = 0;
-        v22 = _os_log_send_and_compose_impl();
+        v9 = 3;
       }
 
       else
       {
-        LOWORD(v32) = 0;
-        v22 = _os_log_send_and_compose_impl();
+        v9 = 2;
       }
 
-      v27 = createError("[CryptexEventSubscriber _handleXPCEvent:]", "event.m", 232, "com.apple.security.cryptex", 3, v11, v22);
-      free(v22);
-
-      v10 = 0;
-      v11 = v27;
-      goto LABEL_23;
+      v35 = 136315138;
+      v36 = "CRYPTEX_EVENT_TYPE";
+      v10 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_2986C0000, v8, 16, "Event missing key '%s'", &v35);
     }
+
+    else
+    {
+      v35 = 136315138;
+      v36 = "CRYPTEX_EVENT_TYPE";
+      v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986C0000, MEMORY[0x29EDCA988], 16, "Event missing key '%s'", &v35);
+    }
+
+    Error = createError("[CryptexEventSubscriber _handleXPCEvent:]", "event.m", 210, "com.apple.security.cryptex", 3, 0, v10);
+LABEL_34:
+    v12 = Error;
+    free(v10);
+    v11 = 0;
+    goto LABEL_35;
+  }
+
+  if (_xpc_dictionary_try_get_string(eventCopy, "CRYPTEX_EVENT_CRYPTEX_NAME", &v33))
+  {
+    v16 = [(CryptexEventSubscriber *)self log];
+
+    if (v16)
+    {
+      v17 = [(CryptexEventSubscriber *)self log];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        v18 = 3;
+      }
+
+      else
+      {
+        v18 = 2;
+      }
+
+      v35 = 136315138;
+      v36 = "CRYPTEX_EVENT_CRYPTEX_NAME";
+      v10 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_2986C0000, v17, 16, "Event missing key '%s'", &v35);
+    }
+
+    else
+    {
+      v35 = 136315138;
+      v36 = "CRYPTEX_EVENT_CRYPTEX_NAME";
+      v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986C0000, MEMORY[0x29EDCA988], 16, "Event missing key '%s'", &v35);
+    }
+
+    Error = createError("[CryptexEventSubscriber _handleXPCEvent:]", "event.m", 219, "com.apple.security.cryptex", 3, 0, v10);
+    goto LABEL_34;
+  }
+
+  data = xpc_dictionary_get_data(eventCopy, "CRYPTEX_EVENT_INFO", &length);
+  if (!data)
+  {
+    v11 = 0;
+    v12 = 0;
+    goto LABEL_39;
+  }
+
+  v21 = MEMORY[0x29EDBA0C0];
+  v22 = [MEMORY[0x29EDB8DA0] dataWithBytes:data length:length];
+  v31 = 0;
+  v11 = [v21 propertyListWithData:v22 options:0 format:0 error:&v31];
+  v12 = v31;
+
+  if (v11)
+  {
+LABEL_39:
+    v28 = cryptex_event_type_int_to_ext(v34);
+    callback2 = [(CryptexEventSubscriber *)self callback];
+    (callback2)[2](callback2, v28, v33, v11);
+
+    goto LABEL_35;
+  }
+
+  v23 = [(CryptexEventSubscriber *)self log];
+
+  if (v23)
+  {
+    v24 = [(CryptexEventSubscriber *)self log];
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      v25 = 3;
+    }
+
+    else
+    {
+      v25 = 2;
+    }
+
+    LOWORD(v35) = 0;
+    v26 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &dword_2986C0000, v24, 16, "Failed to parse property list", &v35, 2);
   }
 
   else
   {
-    v10 = 0;
-    v11 = 0;
+    LOWORD(v35) = 0;
+    v26 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986C0000, MEMORY[0x29EDCA988], 16, "Failed to parse property list", &v35, 2);
   }
 
-  v25 = cryptex_event_type_int_to_ext(v31);
-  callback2 = [(CryptexEventSubscriber *)self callback];
-  (callback2)[2](callback2, v25, v30, v10);
+  v30 = createError("[CryptexEventSubscriber _handleXPCEvent:]", "event.m", 232, "com.apple.security.cryptex", 3, v12, v26);
+  free(v26);
 
-LABEL_23:
-  v23 = *MEMORY[0x29EDCA608];
+  v11 = 0;
+  v12 = v30;
+LABEL_35:
 
-  return v11;
+  return v12;
 }
 
 - (void)handleXPCEvent:(id)event
@@ -445,7 +500,7 @@ LABEL_23:
 
 void __41__CryptexEventSubscriber_handleXPCEvent___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v2 = [*(a1 + 32) _handleXPCEvent:*(a1 + 40)];
   if (v2)
   {
@@ -453,17 +508,15 @@ void __41__CryptexEventSubscriber_handleXPCEvent___block_invoke(uint64_t a1)
     v4 = [*(a1 + 32) log];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v6 = 138543618;
-      v7 = v2;
-      v8 = 1024;
-      v9 = 72;
-      _os_log_impl(&dword_2986C0000, v4, OS_LOG_TYPE_FAULT, "Failed to handle XPC event: %{public}@: %{darwin.errno}d", &v6, 0x12u);
+      v5 = 138543618;
+      v6 = v2;
+      v7 = 1024;
+      v8 = 72;
+      _os_log_impl(&dword_2986C0000, v4, OS_LOG_TYPE_FAULT, "Failed to handle XPC event: %{public}@: %{darwin.errno}d", &v5, 0x12u);
     }
 
     *__error() = v3;
   }
-
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 @end

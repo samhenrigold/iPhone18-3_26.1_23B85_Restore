@@ -1,7 +1,9 @@
 @interface ATXInteractionSuggestionRequest
 - (ATXInteractionSuggestionRequest)initWithCoder:(id)coder;
+- (ATXInteractionSuggestionRequest)initWithOriginatorId:(id)id consumerSubType:(unsigned __int8)type psPredictionContext:(id)context timeout:(double)timeout;
 - (ATXInteractionSuggestionRequest)initWithProto:(id)proto;
 - (ATXInteractionSuggestionRequest)initWithProtoData:(id)data;
+- (ATXInteractionSuggestionRequest)initWithUUID:(id)d originatorId:(id)id consumerSubType:(unsigned __int8)type psPredictionContext:(id)context timeout:(double)timeout;
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code;
 - (BOOL)isEqual:(id)equal;
 - (id)archivePredictionContext;
@@ -49,33 +51,60 @@
   {
     v3 = objc_autoreleasePoolPush();
     psPredictionContext = self->_psPredictionContext;
-    v10 = 0;
-    v5 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:psPredictionContext requiringSecureCoding:1 error:&v10];
-    v6 = v10;
+    v11 = 0;
+    v5 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:psPredictionContext requiringSecureCoding:1 error:&v11];
+    v6 = v11;
     objc_autoreleasePoolPop(v3);
     if (v6)
     {
-      v7 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v8 = __atxlog_handle_blending(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         [(ATXInteractionSuggestionRequest *)v6 archivePredictionContext];
       }
 
-      v8 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v8 = v5;
+      v9 = v5;
     }
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
+}
+
+- (ATXInteractionSuggestionRequest)initWithOriginatorId:(id)id consumerSubType:(unsigned __int8)type psPredictionContext:(id)context timeout:(double)timeout
+{
+  typeCopy = type;
+  contextCopy = context;
+  idCopy = id;
+  v12 = objc_opt_new();
+  v13 = [(ATXInteractionSuggestionRequest *)self initWithUUID:v12 originatorId:idCopy consumerSubType:typeCopy psPredictionContext:contextCopy timeout:timeout];
+
+  return v13;
+}
+
+- (ATXInteractionSuggestionRequest)initWithUUID:(id)d originatorId:(id)id consumerSubType:(unsigned __int8)type psPredictionContext:(id)context timeout:(double)timeout
+{
+  typeCopy = type;
+  contextCopy = context;
+  v17.receiver = self;
+  v17.super_class = ATXInteractionSuggestionRequest;
+  v14 = [(ATXSuggestionRequest *)&v17 initWithUUID:d originatorId:id consumerSubType:typeCopy timeout:timeout];
+  v15 = v14;
+  if (v14)
+  {
+    objc_storeStrong(&v14->_psPredictionContext, context);
+  }
+
+  return v15;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -128,7 +157,7 @@
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -145,11 +174,11 @@
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -160,7 +189,6 @@
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -205,58 +233,59 @@ LABEL_7:
   if (protoCopy)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = protoCopy;
-      consumerSubTypeString = [v5 consumerSubTypeString];
-      v27 = 0;
-      v7 = [MEMORY[0x1E698B028] consumerSubtypeForString:consumerSubTypeString found:&v27];
-      if (v27 == 1)
+      v6 = protoCopy;
+      consumerSubTypeString = [v6 consumerSubTypeString];
+      v28 = 0;
+      v8 = [MEMORY[0x1E698B028] consumerSubtypeForString:consumerSubTypeString found:&v28];
+      if (v28 == 1)
       {
-        v8 = v7;
+        v9 = v8;
         selfCopy = 0;
-        if (v7 && v7 != 50)
+        if (v8 && v8 != 50)
         {
-          uuidString = [v5 uuidString];
-          originatorId = [v5 originatorId];
-          if ([v5 hasPsPredictionContext])
+          uuidString = [v6 uuidString];
+          originatorId = [v6 originatorId];
+          if ([v6 hasPsPredictionContext])
           {
-            psPredictionContext = [v5 psPredictionContext];
-            v13 = NSClassFromString(&cfstr_Pspredictionco_0.isa);
-            if (v13)
+            psPredictionContext = [v6 psPredictionContext];
+            v14 = NSClassFromString(&cfstr_Pspredictionco_0.isa);
+            if (v14)
             {
-              v14 = objc_autoreleasePoolPush();
-              v23 = MEMORY[0x1E696ACD0];
-              v24 = v14;
               v15 = objc_autoreleasePoolPush();
-              v25 = uuidString;
-              v16 = psPredictionContext;
-              v17 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{v13, 0}];
-              objc_autoreleasePoolPop(v15);
-              v26 = 0;
-              v13 = [v23 unarchivedObjectOfClasses:v17 fromData:v16 error:&v26];
-              v18 = v26;
+              v24 = MEMORY[0x1E696ACD0];
+              v25 = v15;
+              v16 = objc_autoreleasePoolPush();
+              v26 = uuidString;
+              v17 = psPredictionContext;
+              v18 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{v14, 0}];
+              objc_autoreleasePoolPop(v16);
+              v27 = 0;
+              v14 = [v24 unarchivedObjectOfClasses:v18 fromData:v17 error:&v27];
+              v19 = v27;
 
-              psPredictionContext = v16;
-              uuidString = v25;
-              objc_autoreleasePoolPop(v24);
+              psPredictionContext = v17;
+              uuidString = v26;
+              objc_autoreleasePoolPop(v25);
             }
           }
 
           else
           {
-            v13 = 0;
+            v14 = 0;
           }
 
-          v19 = 0.5;
-          if ([v5 hasTimeout])
+          v20 = 0.5;
+          if ([v6 hasTimeout])
           {
-            [v5 timeout];
-            v19 = v20;
+            [v6 timeout];
+            v20 = v21;
           }
 
-          v21 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:uuidString];
-          self = [(ATXInteractionSuggestionRequest *)self initWithUUID:v21 originatorId:originatorId consumerSubType:v8 psPredictionContext:v13 timeout:v19];
+          v22 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:uuidString];
+          self = [(ATXInteractionSuggestionRequest *)self initWithUUID:v22 originatorId:originatorId consumerSubType:v9 psPredictionContext:v14 timeout:v20];
 
           selfCopy = self;
         }
@@ -270,10 +299,10 @@ LABEL_7:
 
     else
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [(ATXSuggestionRequestResponse *)self initWithProto:v5];
+        [(ATXSuggestionRequestResponse *)self initWithProto:v6];
       }
 
       selfCopy = 0;
@@ -290,11 +319,10 @@ LABEL_7:
 
 - (void)archivePredictionContext
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "Error when archiving psPredictionContext in ATXInteractionSuggestionRequest. Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "Error when archiving psPredictionContext in ATXInteractionSuggestionRequest. Error: %@", &v2, 0xCu);
 }
 
 @end

@@ -52,7 +52,7 @@
 
 - (void)logExperimentPostLaunchEvent:(id)event
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (!eventCopy)
   {
@@ -104,12 +104,10 @@
     logger = [client logger];
     client2 = [(TRIExperimentPostLaunchLogger *)self client];
     trackingId = [client2 trackingId];
-    v27[0] = v6;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+    v26[0] = v6;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
     [logger logWithTrackingId:trackingId metrics:v24 dimensions:0 trialSystemTelemetry:v7];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

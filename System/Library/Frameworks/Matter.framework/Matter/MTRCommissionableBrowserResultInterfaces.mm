@@ -1,5 +1,6 @@
 @interface MTRCommissionableBrowserResultInterfaces
 - (Optional<chip::Dnssd::CommonResolutionData>)resolutionData;
+- (void)setResolutionData:(Optional<chip::Dnssd::CommonResolutionData>)data;
 @end
 
 @implementation MTRCommissionableBrowserResultInterfaces
@@ -28,6 +29,33 @@
   }
 
   return self;
+}
+
+- (void)setResolutionData:(Optional<chip::Dnssd::CommonResolutionData>)data
+{
+  v3 = **&data.mValueHolder.mHasValue;
+  self->_resolutionData.mValueHolder.mHasValue = v3;
+  if (v3 == 1)
+  {
+    LODWORD(self[1].super.isa) = *(*&data.mValueHolder.mHasValue + 8);
+    v4 = *(*&data.mValueHolder.mHasValue + 16);
+    *(self + 40) = *(*&data.mValueHolder.mHasValue + 32);
+    *&self[1]._resolutionData.mValueHolder.mHasValue = v4;
+    v5 = *(*&data.mValueHolder.mHasValue + 48);
+    v6 = *(*&data.mValueHolder.mHasValue + 64);
+    v7 = *(*&data.mValueHolder.mHasValue + 80);
+    *(self + 104) = *(*&data.mValueHolder.mHasValue + 96);
+    *&self[5]._resolutionData.mValueHolder.mHasValue = v7;
+    *&self[4]._resolutionData.mValueHolder.mHasValue = v6;
+    *&self[3]._resolutionData.mValueHolder.mHasValue = v5;
+    v8 = *(*&data.mValueHolder.mHasValue + 112);
+    v9 = *(*&data.mValueHolder.mHasValue + 128);
+    v10 = *(*&data.mValueHolder.mHasValue + 144);
+    *(self + 163) = *(*&data.mValueHolder.mHasValue + 155);
+    *&self[9]._resolutionData.mValueHolder.mHasValue = v10;
+    *&self[8]._resolutionData.mValueHolder.mHasValue = v9;
+    *&self[7]._resolutionData.mValueHolder.mHasValue = v8;
+  }
 }
 
 @end

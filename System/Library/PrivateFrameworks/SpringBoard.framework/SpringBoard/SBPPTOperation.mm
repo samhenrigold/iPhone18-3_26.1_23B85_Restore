@@ -112,35 +112,35 @@
   return self;
 }
 
-void __34__SBPPTOperation_markStartedTest___block_invoke(uint64_t a1)
+void __34__SBPPTOperation_markStartedTest___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssertMain();
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = [MEMORY[0x277D75128] sharedApplication];
-  [v3 startedTest:*(a1 + 32)];
+  v4 = [MEMORY[0x277D75128] sharedApplication];
+  [v4 startedTest:*(a1 + 32)];
 
-  v4 = SBLogPPT();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v6 = SBLogPPT(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = [WeakRetained operationName];
-    v6 = v5;
-    v7 = *(a1 + 32);
-    if (v5)
+    v7 = [WeakRetained operationName];
+    v8 = v7;
+    v9 = *(a1 + 32);
+    if (v7)
     {
-      v8 = v5;
+      v10 = v7;
     }
 
     else
     {
-      v8 = WeakRetained;
+      v10 = WeakRetained;
     }
 
-    v9 = 138412546;
-    v10 = v8;
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "PPT Operation '%@' starting testname '%@'", &v9, 0x16u);
+    v11 = 138412546;
+    v12 = v10;
+    v13 = 2112;
+    v14 = v9;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "PPT Operation '%@' starting testname '%@'", &v11, 0x16u);
   }
 }
 
@@ -164,35 +164,35 @@ void __34__SBPPTOperation_markStartedTest___block_invoke(uint64_t a1)
   return self;
 }
 
-void __35__SBPPTOperation_markFinishedTest___block_invoke(uint64_t a1)
+void __35__SBPPTOperation_markFinishedTest___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssertMain();
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = [MEMORY[0x277D75128] sharedApplication];
-  [v3 finishedTest:*(a1 + 32)];
+  v4 = [MEMORY[0x277D75128] sharedApplication];
+  [v4 finishedTest:*(a1 + 32)];
 
-  v4 = SBLogPPT();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v6 = SBLogPPT(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = [WeakRetained operationName];
-    v6 = v5;
-    v7 = *(a1 + 32);
-    if (v5)
+    v7 = [WeakRetained operationName];
+    v8 = v7;
+    v9 = *(a1 + 32);
+    if (v7)
     {
-      v8 = v5;
+      v10 = v7;
     }
 
     else
     {
-      v8 = WeakRetained;
+      v10 = WeakRetained;
     }
 
-    v9 = 138412546;
-    v10 = v8;
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "PPT Operation '%@' finished testname '%@'", &v9, 0x16u);
+    v11 = 138412546;
+    v12 = v10;
+    v13 = 2112;
+    v14 = v9;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "PPT Operation '%@' finished testname '%@'", &v11, 0x16u);
   }
 }
 
@@ -219,38 +219,38 @@ void __35__SBPPTOperation_markFinishedTest___block_invoke(uint64_t a1)
   return self;
 }
 
-void __47__SBPPTOperation_markStartSubTest_forTestName___block_invoke(uint64_t a1)
+void __47__SBPPTOperation_markStartSubTest_forTestName___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssertMain();
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = [MEMORY[0x277D75128] sharedApplication];
-  [v3 startedSubTest:*(a1 + 32) forTest:*(a1 + 40)];
+  v4 = [MEMORY[0x277D75128] sharedApplication];
+  [v4 startedSubTest:*(a1 + 32) forTest:*(a1 + 40)];
 
-  v4 = SBLogPPT();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v6 = SBLogPPT(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = [WeakRetained operationName];
-    v6 = v5;
-    if (v5)
+    v7 = [WeakRetained operationName];
+    v8 = v7;
+    if (v7)
     {
-      v7 = v5;
+      v9 = v7;
     }
 
     else
     {
-      v7 = WeakRetained;
+      v9 = WeakRetained;
     }
 
-    v9 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v10 = 138412802;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
+    v11 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    v12 = 138412802;
+    v13 = v9;
     v14 = 2112;
-    v15 = v9;
-    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "PPT Operation '%@' started testname '%@' / sub test %@", &v10, 0x20u);
+    v15 = v10;
+    v16 = 2112;
+    v17 = v11;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "PPT Operation '%@' started testname '%@' / sub test %@", &v12, 0x20u);
   }
 }
 
@@ -277,47 +277,47 @@ void __47__SBPPTOperation_markStartSubTest_forTestName___block_invoke(uint64_t a
   return self;
 }
 
-void __50__SBPPTOperation_markFinishedSubTest_forTestName___block_invoke(uint64_t a1)
+void __50__SBPPTOperation_markFinishedSubTest_forTestName___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssertMain();
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = [MEMORY[0x277D75128] sharedApplication];
-  [v3 finishedSubTest:*(a1 + 32) forTest:*(a1 + 40)];
+  v4 = [MEMORY[0x277D75128] sharedApplication];
+  [v4 finishedSubTest:*(a1 + 32) forTest:*(a1 + 40)];
 
-  v4 = SBLogPPT();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v6 = SBLogPPT(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = [WeakRetained operationName];
-    v6 = v5;
-    if (v5)
+    v7 = [WeakRetained operationName];
+    v8 = v7;
+    if (v7)
     {
-      v7 = v5;
+      v9 = v7;
     }
 
     else
     {
-      v7 = WeakRetained;
+      v9 = WeakRetained;
     }
 
-    v9 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v10 = 138412802;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
+    v11 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    v12 = 138412802;
+    v13 = v9;
     v14 = 2112;
-    v15 = v9;
-    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "PPT Operation '%@' finished testname '%@' / sub test %@", &v10, 0x20u);
+    v15 = v10;
+    v16 = 2112;
+    v17 = v11;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "PPT Operation '%@' finished testname '%@' / sub test %@", &v12, 0x20u);
   }
 }
 
 - (void)operationWillStart
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   self->_operationStartTime = CFAbsoluteTimeGetCurrent();
-  v3 = SBLogPPT();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = SBLogPPT(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     operationName = self->_operationName;
     if (!operationName)
@@ -325,16 +325,16 @@ void __50__SBPPTOperation_markFinishedSubTest_forTestName___block_invoke(uint64_
       operationName = self;
     }
 
-    v9 = 138412290;
-    v10 = operationName;
-    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "PPT Operation '%@' starting", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = operationName;
+    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "PPT Operation '%@' starting", &v10, 0xCu);
   }
 
   startTestBlock = self->_startTestBlock;
   if (startTestBlock)
   {
     startTestBlock[2]();
-    v6 = self->_startTestBlock;
+    v7 = self->_startTestBlock;
     self->_startTestBlock = 0;
   }
 
@@ -342,17 +342,17 @@ void __50__SBPPTOperation_markFinishedSubTest_forTestName___block_invoke(uint64_
   if (startSubTestBlock)
   {
     startSubTestBlock[2]();
-    v8 = self->_startSubTestBlock;
+    v9 = self->_startSubTestBlock;
     self->_startSubTestBlock = 0;
   }
 }
 
 - (void)operationDidFinish
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   self->_operationEndTime = CFAbsoluteTimeGetCurrent();
-  v3 = SBLogPPT();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = SBLogPPT(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     operationName = self->_operationName;
     if (!operationName)
@@ -360,19 +360,19 @@ void __50__SBPPTOperation_markFinishedSubTest_forTestName___block_invoke(uint64_
       operationName = self;
     }
 
-    v5 = self->_operationEndTime - self->_operationStartTime;
-    v10 = 138412546;
-    v11 = operationName;
-    v12 = 2048;
-    v13 = v5;
-    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "PPT Operation '%@' executed in %f seconds", &v10, 0x16u);
+    v6 = self->_operationEndTime - self->_operationStartTime;
+    v11 = 138412546;
+    v12 = operationName;
+    v13 = 2048;
+    v14 = v6;
+    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "PPT Operation '%@' executed in %f seconds", &v11, 0x16u);
   }
 
   finishSubTestBlock = self->_finishSubTestBlock;
   if (finishSubTestBlock)
   {
     finishSubTestBlock[2]();
-    v7 = self->_finishSubTestBlock;
+    v8 = self->_finishSubTestBlock;
     self->_finishSubTestBlock = 0;
   }
 
@@ -380,7 +380,7 @@ void __50__SBPPTOperation_markFinishedSubTest_forTestName___block_invoke(uint64_
   if (finishTestBlock)
   {
     finishTestBlock[2]();
-    v9 = self->_finishTestBlock;
+    v10 = self->_finishTestBlock;
     self->_finishTestBlock = 0;
   }
 }
@@ -3572,7 +3572,7 @@ void __118__SBPPTOperation_SBAppLibrarySupport___appLibrarySupport_performPanGes
   }
 }
 
-uint64_t __112__SBPPTOperation_SBAppLibrarySupport___appLibrarySupport__performPanGesturesOnScreenFromPage_toPage_completion___block_invoke(uint64_t a1)
+void *__112__SBPPTOperation_SBAppLibrarySupport___appLibrarySupport__performPanGesturesOnScreenFromPage_toPage_completion___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) iconManager];
   v3 = [v2 rootFolderController];
@@ -3597,7 +3597,7 @@ uint64_t __112__SBPPTOperation_SBAppLibrarySupport___appLibrarySupport__performP
       return result;
     }
 
-    v12 = *(result + 16);
+    v12 = result[2];
 LABEL_15:
 
     return v12();
@@ -3611,7 +3611,7 @@ LABEL_15:
       return result;
     }
 
-    v12 = *(result + 16);
+    v12 = result[2];
     goto LABEL_15;
   }
 

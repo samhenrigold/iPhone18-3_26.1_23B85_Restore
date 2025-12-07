@@ -1,4 +1,5 @@
 @interface VMUTaskThreadStates
+- (VMUTaskThreadStates)initWithPid:(int)pid task:(unsigned int)task;
 - (VMUTaskThreadStates)initWithVMUTask:(id)task;
 - (unint64_t)stackPointerForThreadNum:(unsigned int)num;
 - (void)dealloc;
@@ -24,6 +25,14 @@
   v5.receiver = self;
   v5.super_class = VMUTaskThreadStates;
   [(VMUTaskThreadStates *)&v5 dealloc];
+}
+
+- (VMUTaskThreadStates)initWithPid:(int)pid task:(unsigned int)task
+{
+  v5 = [[VMUTask alloc] initWithTask:*&task];
+  v6 = [(VMUTaskThreadStates *)self initWithVMUTask:v5];
+
+  return v6;
 }
 
 - (VMUTaskThreadStates)initWithVMUTask:(id)task

@@ -10,6 +10,7 @@
 - (void)activateWithCompletion:(id)completion;
 - (void)encodeWithCoder:(id)coder;
 - (void)invalidate;
+- (void)nearbyInvitationChangedDevice:(id)device changes:(unsigned int)changes;
 - (void)nearbyInvitationFoundDevice:(id)device;
 - (void)nearbyInvitationLostDevice:(id)device;
 @end
@@ -64,28 +65,27 @@
 
 - (NSString)description
 {
-  discoveryFlags = self;
-  NSAppendPrintF();
-  v3 = 0;
+  v11 = 0;
+  NSAppendPrintF(&v11, "RPNearbyInvitationDiscovery %{ptr}", self);
+  v3 = v11;
   v4 = v3;
-  if (self->_discoveryFlags)
+  discoveryFlags = self->_discoveryFlags;
+  if (discoveryFlags)
   {
     v10 = v3;
-    discoveryFlags = self->_discoveryFlags;
-    v9 = &unk_1B6F2E198;
-    NSAppendPrintF();
-    v5 = v10;
-
-    v4 = v5;
-  }
-
-  if ([(NSMutableDictionary *)self->_discoveredDevices count:discoveryFlags])
-  {
-    [(NSMutableDictionary *)self->_discoveredDevices count];
-    NSAppendPrintF();
-    v6 = v4;
+    NSAppendPrintF(&v10, ", DF %ll{flags}", discoveryFlags, &unk_1B6F2E198);
+    v6 = v10;
 
     v4 = v6;
+  }
+
+  if ([(NSMutableDictionary *)self->_discoveredDevices count])
+  {
+    v9 = v4;
+    NSAppendPrintF(&v9, ", devices %u", [(NSMutableDictionary *)self->_discoveredDevices count]);
+    v7 = v9;
+
+    v4 = v7;
   }
 
   return v4;
@@ -113,35 +113,37 @@
   {
     if (gLogCategory_RPNearbyInvitationDiscovery <= 30 && (gLogCategory_RPNearbyInvitationDiscovery != -1 || _LogCategory_Initialize()))
     {
-LABEL_10:
-      [RPNearbyInvitationDiscovery _activateWithCompletion:reactivate:];
+      v9 = "Re-activate\n";
+LABEL_11:
+      [(RPNearbyInvitationDiscovery *)v9 _activateWithCompletion:v6 reactivate:v7];
     }
   }
 
   else if (gLogCategory_RPNearbyInvitationDiscovery <= 30 && (gLogCategory_RPNearbyInvitationDiscovery != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_10;
+    v9 = "Activate\n";
+    goto LABEL_11;
   }
 
   [(RPNearbyInvitationDiscovery *)self _ensureXPCStarted];
   xpcCnx = self->_xpcCnx;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke;
+  v17[3] = &unk_1E7C93500;
+  v17[4] = self;
+  v19 = reactivateCopy;
+  v11 = completionCopy;
+  v18 = v11;
+  v12 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v17];
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
-  v14[2] = __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke;
-  v14[3] = &unk_1E7C93500;
-  v14[4] = self;
+  v14[2] = __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke_2;
+  v14[3] = &unk_1E7C92F88;
   v16 = reactivateCopy;
-  v8 = completionCopy;
-  v15 = v8;
-  v9 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v14];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke_2;
-  v11[3] = &unk_1E7C92F88;
-  v13 = reactivateCopy;
-  v12 = v8;
-  v10 = v8;
-  [v9 nearbyInvitationActivateDiscovery:self completion:v11];
+  v15 = v11;
+  v13 = v11;
+  [v12 nearbyInvitationActivateDiscovery:self completion:v14];
 }
 
 void __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke(uint64_t a1, void *a2)
@@ -149,61 +151,63 @@ void __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___bloc
   v3 = a2;
   if (*(*(a1 + 32) + 24) == 1)
   {
-    v7 = v3;
-    v4 = RPNestedErrorF();
+    v14 = v3;
+    v9 = RPNestedErrorF(v3, 4294896148, "Invalidated", v4, v5, v6, v7, v8, v13);
 
-    v3 = v4;
+    v3 = v9;
   }
 
-  v8 = v3;
+  v15 = v3;
   if (*(a1 + 48) == 1)
   {
     if (gLogCategory_RPNearbyInvitationDiscovery <= 90 && (gLogCategory_RPNearbyInvitationDiscovery != -1 || _LogCategory_Initialize()))
     {
-LABEL_16:
-      __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke_cold_1();
+      v10 = "### Re-activate XPC error: %{error}\n";
+LABEL_17:
+      __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke_cold_1(v10, v15);
     }
   }
 
   else if (gLogCategory_RPNearbyInvitationDiscovery <= 90 && (gLogCategory_RPNearbyInvitationDiscovery != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_16;
+    v10 = "### Activate XPC error: %{error}\n";
+    goto LABEL_17;
   }
 
-  v5 = *(a1 + 40);
-  v6 = v8;
-  if (v5)
+  v11 = *(a1 + 40);
+  v12 = v15;
+  if (v11)
   {
-    (*(v5 + 16))(v5, v8);
-    v6 = v8;
+    (*(v11 + 16))(v11, v15);
+    v12 = v15;
   }
 }
 
 void __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 40);
-  v10 = v3;
+  v5 = v3;
+  v9 = v3;
   if (v3)
   {
     if (*(a1 + 40))
     {
       if (gLogCategory_RPNearbyInvitationDiscovery <= 90)
       {
-        if (gLogCategory_RPNearbyInvitationDiscovery != -1 || (v5 = _LogCategory_Initialize(), v3 = v10, v5))
+        if (gLogCategory_RPNearbyInvitationDiscovery != -1 || (v6 = _LogCategory_Initialize(), v5 = v9, v6))
         {
-          __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_2();
+          __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_2(v5);
 LABEL_20:
-          v3 = v10;
+          v5 = v9;
         }
       }
     }
 
     else if (gLogCategory_RPNearbyInvitationDiscovery <= 90)
     {
-      if (gLogCategory_RPNearbyInvitationDiscovery != -1 || (v7 = _LogCategory_Initialize(), v3 = v10, v7))
+      if (gLogCategory_RPNearbyInvitationDiscovery != -1 || (v7 = _LogCategory_Initialize(), v5 = v9, v7))
       {
-        __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_1();
+        __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_1(v5);
         goto LABEL_20;
       }
     }
@@ -213,9 +217,9 @@ LABEL_20:
   {
     if (gLogCategory_RPNearbyInvitationDiscovery <= 30)
     {
-      if (gLogCategory_RPNearbyInvitationDiscovery != -1 || (v6 = _LogCategory_Initialize(), v3 = 0, v6))
+      if (gLogCategory_RPNearbyInvitationDiscovery != -1 || (v3 = _LogCategory_Initialize(), v5 = 0, v3))
       {
-        __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_4();
+        __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_4(v3, v5, v4);
         goto LABEL_20;
       }
     }
@@ -223,18 +227,18 @@ LABEL_20:
 
   else if (gLogCategory_RPNearbyInvitationDiscovery <= 30)
   {
-    if (gLogCategory_RPNearbyInvitationDiscovery != -1 || (v8 = _LogCategory_Initialize(), v3 = 0, v8))
+    if (gLogCategory_RPNearbyInvitationDiscovery != -1 || (v3 = _LogCategory_Initialize(), v5 = 0, v3))
     {
-      __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_3();
+      __66__RPNearbyInvitationDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_3(v3, v5, v4);
       goto LABEL_20;
     }
   }
 
-  v9 = *(a1 + 32);
-  if (v9)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    (*(v9 + 16))(v9, v10);
-    v3 = v10;
+    (*(v8 + 16))(v8, v9);
+    v5 = v9;
   }
 }
 
@@ -322,23 +326,26 @@ uint64_t __48__RPNearbyInvitationDiscovery__ensureXPCStarted__block_invoke_2(uin
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __41__RPNearbyInvitationDiscovery_invalidate__block_invoke(uint64_t result)
+void *__41__RPNearbyInvitationDiscovery_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v5 = *(result + 32);
-  if ((*(v5 + 24) & 1) == 0)
+  v7 = result[4];
+  if ((*(v7 + 24) & 1) == 0)
   {
-    v8 = v1;
-    v6 = result;
-    *(v5 + 24) = 1;
-    if (gLogCategory_RPNearbyInvitationDiscovery <= 30 && (gLogCategory_RPNearbyInvitationDiscovery != -1 || _LogCategory_Initialize()))
+    v10 = v3;
+    v8 = result;
+    *(v7 + 24) = 1;
+    if (gLogCategory_RPNearbyInvitationDiscovery <= 30)
     {
-      __41__RPNearbyInvitationDiscovery_invalidate__block_invoke_cold_1();
+      if (gLogCategory_RPNearbyInvitationDiscovery != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __41__RPNearbyInvitationDiscovery_invalidate__block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    [*(*(v6 + 32) + 32) invalidate];
-    v7 = *(v6 + 32);
+    [*(v8[4] + 32) invalidate];
+    v9 = v8[4];
 
-    return [v7 _invalidated];
+    return [v9 _invalidated];
   }
 
   return result;
@@ -370,9 +377,12 @@ uint64_t __41__RPNearbyInvitationDiscovery_invalidate__block_invoke(uint64_t res
     self->_invalidationHandler = 0;
 
     self->_invalidateDone = 1;
-    if (gLogCategory_RPNearbyInvitationDiscovery <= 30 && (gLogCategory_RPNearbyInvitationDiscovery != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPNearbyInvitationDiscovery <= 30)
     {
-      [RPNearbyInvitationDiscovery _invalidated];
+      if (gLogCategory_RPNearbyInvitationDiscovery != -1 || (v9 = _LogCategory_Initialize(), v9))
+      {
+        [(RPNearbyInvitationDiscovery *)v9 _invalidated];
+      }
     }
   }
 }
@@ -448,6 +458,32 @@ uint64_t __41__RPNearbyInvitationDiscovery_invalidate__block_invoke(uint64_t res
     if (deviceLostHandler)
     {
       deviceLostHandler[2](deviceLostHandler, deviceCopy);
+    }
+  }
+
+  else
+  {
+    objc_sync_exit(selfCopy);
+  }
+}
+
+- (void)nearbyInvitationChangedDevice:(id)device changes:(unsigned int)changes
+{
+  v4 = *&changes;
+  deviceCopy = device;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  identifier = [deviceCopy identifier];
+  if (identifier)
+  {
+    [(NSMutableDictionary *)selfCopy->_discoveredDevices setObject:deviceCopy forKeyedSubscript:identifier];
+
+    objc_sync_exit(selfCopy);
+    deviceChangedHandler = selfCopy->_deviceChangedHandler;
+    if (deviceChangedHandler)
+    {
+      deviceChangedHandler[2](deviceChangedHandler, deviceCopy, v4);
     }
   }
 

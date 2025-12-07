@@ -38,7 +38,7 @@
   if ([equalCopy isMemberOfClass:objc_opt_class()])
   {
     v5 = equalCopy;
-    if ([v5 pixelBuffer] == self->_pixelBuffer && (objc_msgSend(v5, "timestamp"), v6 == self->_timestamp))
+    if ([v5 pixelBuffer] == self->_pixelBuffer && (objc_msgSend_timestamp(v5), v6 == self->_timestamp))
     {
       originalImageData = [v5 originalImageData];
       v7 = [originalImageData isEqual:self->_originalImageData];

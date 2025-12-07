@@ -177,7 +177,7 @@
       {
         v9 = _UIInternalPreferenceUsesDefault(&_UIInternalPreference__UIKBRT_DriftReturnTime, @"_UIKBRT_DriftReturnTime", _UIInternalPreferenceUpdateDouble);
         v10 = *&qword_1EA95E568 + *&qword_1EA95E568;
-        v11 = v9 == 0;
+        v11 = !v9;
         history = self->_history;
         v14[1] = 3221225472;
         v14[0] = MEMORY[0x1E69E9820];

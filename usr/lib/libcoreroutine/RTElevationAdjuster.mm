@@ -269,7 +269,7 @@ void __93__RTElevationAdjuster_RTSynthesizedLocation__adjustElevationForSynthesi
     v14 = 0u;
     memset(v12, 0, sizeof(v12));
     *buf = 0u;
-    [location clientLocation];
+    objc_msgSend_clientLocation(location, a2);
     *(v12 + 12) = elevation;
     v5 = objc_alloc(MEMORY[0x277CE41F8]);
     v9[6] = v16;

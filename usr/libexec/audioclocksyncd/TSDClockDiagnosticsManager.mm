@@ -365,9 +365,10 @@
 
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
+        v16 = 136316418;
         sub_100006A30();
         sub_100006A54();
-        sub_100006A68(&_mh_execute_header, &_os_log_default, v11, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v12, v13, v14, v15, 2u);
+        sub_100006A68(&_mh_execute_header, &_os_log_default, v11, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v12, v13, v14, v15, v16);
       }
     }
 

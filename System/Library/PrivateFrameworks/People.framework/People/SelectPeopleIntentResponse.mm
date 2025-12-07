@@ -47,15 +47,15 @@
 {
   if (name)
   {
-    v3 = sub_22F0D0AFC();
+    v4 = sub_22F0D0AFC();
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return SelectPeopleIntentResponse.init(propertiesByName:)(v3);
+  return SelectPeopleIntentResponse.init(propertiesByName:)(v4, v3);
 }
 
 @end

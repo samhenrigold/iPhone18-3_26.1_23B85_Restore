@@ -66,59 +66,63 @@
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v4 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (v6)
   {
-    v7 = objc_opt_class();
-    v8 = [(NSArray *)self->_inputItems count];
+    v8 = objc_opt_class();
+    v9 = [(NSArray *)self->_inputItems count];
     *v17 = 138412546;
-    *&v17[4] = v7;
+    *&v17[4] = v8;
     v18 = 2048;
-    v19 = v8;
-    LODWORD(v16) = 22;
-    v15 = v17;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v19 = v9;
+    v10 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Checking purchase history for %lu items", v17, 22);
+    if (v10)
     {
-      v10 = v9;
-      v11 = [NSString stringWithCString:v9 encoding:4, v17, v16];
-      free(v10);
-      v15 = v11;
+      v11 = v10;
+      v12 = [NSString stringWithCString:v10 encoding:4];
+      free(v11);
+      v16 = v12;
       SSFileLog();
     }
   }
 
   *v17 = 0;
-  v12 = [(PurchaseHistoryOperation *)self runSubOperation:_newURLOperation returningError:v17, v15];
-  if (v12)
+  v13 = [(PurchaseHistoryOperation *)self runSubOperation:_newURLOperation returningError:v17, v16];
+  if (v13)
   {
-    v13 = [objc_msgSend(_newURLOperation "dataProvider")];
+    v14 = [objc_msgSend(_newURLOperation "dataProvider")];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = [v13 objectForKey:@"ownsCheck"];
+      v15 = [v14 objectForKey:@"ownsCheck"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        [(PurchaseHistoryOperation *)self _setOutputItemsWithMapping:v14];
+        [(PurchaseHistoryOperation *)self _setOutputItemsWithMapping:v15];
       }
     }
   }
 
   [(PurchaseHistoryOperation *)self setError:*v17];
-  [(PurchaseHistoryOperation *)self setSuccess:v12];
+  [(PurchaseHistoryOperation *)self setSuccess:v13];
 }
 
 - (id)_newURLOperation
@@ -238,33 +242,32 @@
     v14 = shouldLog;
   }
 
-  if (os_log_type_enabled([v12 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v12 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
   {
-    v15 = v14;
+    v16 = v14;
   }
 
   else
   {
-    v15 = v14 & 2;
+    v16 = v14 & 2;
   }
 
-  if (v15)
+  if (v16)
   {
-    v16 = objc_opt_class();
-    v17 = [v24 count];
+    v17 = objc_opt_class();
+    v18 = [v24 count];
     v29 = 138412546;
-    v30 = v16;
+    v30 = v17;
     v31 = 2048;
-    v32 = v17;
-    LODWORD(v22) = 22;
-    v21 = &v29;
-    v18 = _os_log_send_and_compose_impl();
-    if (v18)
+    v32 = v18;
+    v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Found %lu purchased items", &v29, 22);
+    if (v19)
     {
-      v19 = v18;
-      v20 = [NSString stringWithCString:v18 encoding:4, &v29, v22];
-      free(v19);
-      v21 = v20;
+      v20 = v19;
+      v21 = [NSString stringWithCString:v19 encoding:4];
+      free(v20);
+      v22 = v21;
       SSFileLog();
     }
   }

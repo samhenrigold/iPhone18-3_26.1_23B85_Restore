@@ -228,7 +228,7 @@ void __122__VCVideoStreamRateController_doRateControlWithTime_roundTripTime_pack
   dispatch_async(videoStreamRateControllerQueue, v6);
 }
 
-uint64_t __77__VCVideoStreamRateController_updateRTPReceiveWithTimestamp_sampleRate_time___block_invoke(uint64_t a1)
+void *__77__VCVideoStreamRateController_updateRTPReceiveWithTimestamp_sampleRate_time___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) updateRTPReceiveWithTimestamp:*(a1 + 48) sampleRate:*(a1 + 52) time:*(a1 + 40)];
   v3 = *(a1 + 32);
@@ -415,33 +415,33 @@ double __66__VCVideoStreamRateController_updateVideoStall_withStallDuration___bl
 
 - (void)createLogDumpFile:(unsigned int)file
 {
-  v13 = *MEMORY[0x1E69E9840];
-  memset(v12, 170, 12);
-  __sprintf_chk(v12, 0, 0xCuLL, "%010u", file);
-  v4 = VRLogfileAlloc(0, v12, "VCVideoRC", ".afrcdump", "com.apple.VideoConference.AFRClog.VideoStream", 9);
+  v6 = *MEMORY[0x1E69E9840];
+  memset(v5, 170, 12);
+  __sprintf_chk(v5, 0, 0xCuLL, "%010u", file);
+  v4 = VRLogfileAlloc(0, v5, "VCVideoRC", ".afrcdump", "com.apple.VideoConference.AFRClog.VideoStream", 9);
   self->_logDump = v4;
-  VRLogfilePrintSync(v4, "STime\t\tdTime/ETxTS\tOWRD\tNOWRD\tNOWRDS\tNOWRDA\tUp\tRTT\tPLR/FEC\tRRx\tMBL\tBR/TR\tMQIn: A/V\tMQOut: A/V\tABRL\tQD\tBDL\tTxAT\tMODE\tTxSTATE\n", v5, v6, v7, v8, v9, v10, v11);
+  VRLogfilePrintSync(v4, "STime\t\tdTime/ETxTS\tOWRD\tNOWRD\tNOWRDS\tNOWRDA\tUp\tRTT\tPLR/FEC\tRRx\tMBL\tBR/TR\tMQIn: A/V\tMQOut: A/V\tABRL\tQD\tBDL\tTxAT\tMODE\tTxSTATE\n");
 }
 
 - (void)releaseLogDumpFile
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   p_logDump = &self->_logDump;
   if (self->_logDump)
   {
     *&v3 = 0xAAAAAAAAAAAAAAAALL;
     *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v10[6] = v3;
-    v10[7] = v3;
-    v10[4] = v3;
-    v10[5] = v3;
-    v10[2] = v3;
-    v10[3] = v3;
-    v10[0] = v3;
-    v10[1] = v3;
-    micro();
-    VRLogfileGetTimestamp(v10, 0x80u);
-    VRLogfilePrintSync(*p_logDump, "%s\t%8.3f\tEndOfFile\n", v4, v5, v6, v7, v8, v9, v10);
+    v5[6] = v3;
+    v5[7] = v3;
+    v5[4] = v3;
+    v5[5] = v3;
+    v5[2] = v3;
+    v5[3] = v3;
+    v5[0] = v3;
+    v5[1] = v3;
+    v4 = micro(self, a2);
+    VRLogfileGetTimestamp(v5, 0x80u);
+    VRLogfilePrintSync(*p_logDump, "%s\t%8.3f\tEndOfFile\n", v5, v4);
     VRLogfileFree(p_logDump);
     *p_logDump = 0;
   }
@@ -471,7 +471,7 @@ double __66__VCVideoStreamRateController_updateVideoStall_withStallDuration___bl
   [objc_msgSend(a2 "className")];
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_2_28(&dword_1DB56E000, v2, v3, " [%s] %s:%d %s:%d bitrate is greater than the maximum possible tier!", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_28(&dword_1DB56E000, v2, v3, " [%s] %s:%d %s:%d bitrate is greater than the maximum possible tier!", v4, v5, v6, v7);
 }
 
 - (void)maxTierIndex:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
@@ -479,7 +479,7 @@ double __66__VCVideoStreamRateController_updateVideoStall_withStallDuration___bl
   [objc_msgSend(a2 "className")];
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_2_28(&dword_1DB56E000, v2, v3, " [%s] %s:%d %s:%d bitrate is less than the minimum possible tier!", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_28(&dword_1DB56E000, v2, v3, " [%s] %s:%d %s:%d bitrate is less than the minimum possible tier!", v4, v5, v6, v7);
 }
 
 @end

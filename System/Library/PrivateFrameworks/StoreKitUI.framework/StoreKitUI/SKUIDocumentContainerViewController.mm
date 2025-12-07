@@ -395,7 +395,7 @@ void __78__SKUIDocumentContainerViewController_initWithDocument_options_clientCo
     return 30;
   }
 
-  if (SKUIAllowsLandscapePhone())
+  if (SKUIAllowsLandscapePhone(v4, v5))
   {
     return 26;
   }
@@ -553,10 +553,10 @@ void __78__SKUIDocumentContainerViewController_initWithDocument_options_clientCo
 
     style = [_navigationBarViewElement style];
     visibility = [style visibility];
-    v18 = [visibility isEqualToString:@"hidden"];
+    isEqualToString = objc_msgSend_isEqualToString_(visibility);
 
     navigationController = [(SKUIDocumentContainerViewController *)self navigationController];
-    [navigationController setNavigationBarHidden:v18 animated:appearCopy];
+    [navigationController setNavigationBarHidden:isEqualToString animated:appearCopy];
   }
 
   [(SKUIViewController *)self forceOrientationBackToSupportedOrientation];
@@ -702,9 +702,9 @@ LABEL_24:
   width = size.width;
   coordinatorCopy = coordinator;
   v8 = [(NSDictionary *)self->_presentationOptions objectForKey:@"type"];
-  v9 = [v8 isEqualToString:@"popover"];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if ((v9 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     self->_viewSize.width = width;
     self->_viewSize.height = height;
@@ -717,7 +717,7 @@ LABEL_24:
 
     if (coordinatorCopy)
     {
-      [coordinatorCopy targetTransform];
+      objc_msgSend_targetTransform(coordinatorCopy);
     }
 
     else
@@ -792,7 +792,7 @@ LABEL_24:
 
 - (void)documentDidUpdate:(id)update
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   if (!self->_pageResponseAbsoluteTime)
   {
@@ -833,19 +833,17 @@ LABEL_24:
   [(NSNumber *)self->_pageResponseAbsoluteTime doubleValue];
   v14 = Current - v13;
   v15 = [(NSDictionary *)self->_presentationOptions objectForKey:@"url"];
-  v58 = 138412802;
-  v59 = v10;
-  v60 = 2048;
-  v61 = v14;
-  v62 = 2112;
-  v63 = v15;
-  LODWORD(v55) = 32;
-  v54 = &v58;
-  v16 = _os_log_send_and_compose_impl();
+  v57 = 138412802;
+  v58 = v10;
+  v59 = 2048;
+  v60 = v14;
+  v61 = 2112;
+  v62 = v15;
+  v16 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_215BAE000, oSLogObject, 2, "%@: First DOM update after page response took %.2f seconds for URL: %@", &v57, 32);
 
   if (v16)
   {
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v16 encoding:{4, &v58, v55}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v16 encoding:4];
     free(v16);
     v54 = oSLogObject;
     SSFileLog();
@@ -898,8 +896,8 @@ LABEL_13:
 
     if (SKUIViewControllerIsVisible(self->_childViewController))
     {
-      v57 = *MEMORY[0x277CBE738];
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+      v56 = *MEMORY[0x277CBE738];
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
       [updateCopy performSelector:sel_onUpdate withObject:0 afterDelay:v28 inModes:0.0];
     }
   }
@@ -925,7 +923,7 @@ LABEL_13:
   _navigationBarViewElement = [(SKUIDocumentContainerViewController *)self _navigationBarViewElement];
   navigationItem = [(SKUIDocumentContainerViewController *)self navigationItem];
   navigationBarController = self->_navigationBarController;
-  v56 = updateCopy;
+  v55 = updateCopy;
   if (_navigationBarViewElement)
   {
     navigationBarViewElement = [(SKUINavigationBarController *)navigationBarController navigationBarViewElement];
@@ -963,10 +961,10 @@ LABEL_13:
 
     style = [_navigationBarViewElement style];
     visibility = [style visibility];
-    v42 = [visibility isEqualToString:@"hidden"];
+    isEqualToString = objc_msgSend_isEqualToString_(visibility);
 
     navigationController = [(SKUIDocumentContainerViewController *)self navigationController];
-    [navigationController setNavigationBarHidden:v42 animated:0];
+    [navigationController setNavigationBarHidden:isEqualToString animated:0];
   }
 
   [(SKUIDocumentContainerViewController *)self _reloadDefaultBarButtonItems];
@@ -1056,22 +1054,22 @@ LABEL_13:
 
   v7 = [userInfo2 objectForKeyedSubscript:0x2828094E8];
 
-  if ([v8 isEqualToString:0x282809428])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     [(SKUIDocumentContainerViewController *)self _onReportPlatformJsonTimes:v7];
   }
 
-  else if ([v8 isEqualToString:0x282809448])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     [(SKUIDocumentContainerViewController *)self _onReportDOMChange:v7];
   }
 
-  else if ([v8 isEqualToString:0x282809468])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     [(SKUIDocumentContainerViewController *)self _onReportRequestTimes:v7];
   }
 
-  else if ([v8 isEqualToString:0x282809488])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     [(SKUIDocumentContainerViewController *)self _onReportDocumentReady:v7];
   }
@@ -1129,7 +1127,7 @@ LABEL_13:
 - (id)mediaQueryEvaluator:(id)evaluator valueForKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:0x2827FFCC8])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v6 = MEMORY[0x277CCABB0];
     height = self->_viewSize.height;
@@ -1138,17 +1136,18 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  if ([keyCopy isEqualToString:0x2827FFCA8])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v6 = MEMORY[0x277CCABB0];
     height = self->_viewSize.width;
     goto LABEL_5;
   }
 
-  if ([keyCopy isEqualToString:0x2827FFD28])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     mEMORY[0x277D7FD00] = [MEMORY[0x277D7FD00] sharedInstance];
-    v8 = SKUIMediaQueryNetworkTypeString([mEMORY[0x277D7FD00] networkType]);
+    networkType = [mEMORY[0x277D7FD00] networkType];
+    v8 = SKUIMediaQueryNetworkTypeString(networkType, v12);
   }
 
   else
@@ -1624,7 +1623,7 @@ void __70__SKUIDocumentContainerViewController__networkTypeChangeNotification___
 
 - (void)_enqueueLoadURLOperation
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:self->_urlString];
   clientContext = [(SKUIViewController *)self clientContext];
   v5 = [clientContext newLoadStoreURLOperationWithURL:v3];
@@ -1637,54 +1636,58 @@ void __70__SKUIDocumentContainerViewController__networkTypeChangeNotification___
 
   objc_initWeak(&location, self);
   v9 = self->_loadURLOperation;
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = __63__SKUIDocumentContainerViewController__enqueueLoadURLOperation__block_invoke;
-  v24 = &unk_2781FD938;
-  objc_copyWeak(&v25, &location);
-  [(SSVLoadURLOperation *)v9 setOutputBlock:&v21];
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __63__SKUIDocumentContainerViewController__enqueueLoadURLOperation__block_invoke;
+  v23 = &unk_2781FD938;
+  objc_copyWeak(&v24, &location);
+  [(SSVLoadURLOperation *)v9 setOutputBlock:&v20];
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
-  shouldLog = [mEMORY[0x277D69B38] shouldLog];
+  LODWORD(v11) = [mEMORY[0x277D69B38] shouldLog];
   shouldLogToDisk = [mEMORY[0x277D69B38] shouldLogToDisk];
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
   v14 = oSLogObject;
   if (shouldLogToDisk)
   {
-    shouldLog |= 2u;
+    LODWORD(v11) = v11 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
   {
-    shouldLog &= 2u;
+    v11 = v11;
   }
 
-  if (!shouldLog)
+  else
   {
-    goto LABEL_8;
+    v11 &= 2u;
+  }
+
+  if (!v11)
+  {
+    goto LABEL_9;
   }
 
   v15 = objc_opt_class();
   urlString = self->_urlString;
-  v27 = 138412546;
-  v28 = v15;
-  v29 = 2112;
-  v30 = urlString;
+  v26 = 138412546;
+  v27 = v15;
+  v28 = 2112;
+  v29 = urlString;
   v17 = v15;
-  LODWORD(v20) = 22;
-  v18 = _os_log_send_and_compose_impl();
+  v18 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_215BAE000, v14, 2, "%@: Loading document with URL: %@", &v26, 22, v20, v21, v22, v23);
 
   if (v18)
   {
-    v14 = [MEMORY[0x277CCACA8] stringWithCString:v18 encoding:{4, &v27, v20, v21, v22, v23, v24}];
+    v14 = [MEMORY[0x277CCACA8] stringWithCString:v18 encoding:4];
     free(v18);
     SSFileLog();
-LABEL_8:
+LABEL_9:
   }
 
   operationQueue = [(SKUIViewController *)self operationQueue];
   [operationQueue addOperation:self->_loadURLOperation];
 
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(&location);
 }
 
@@ -1746,10 +1749,10 @@ void __63__SKUIDocumentContainerViewController__enqueueLoadURLOperation__block_i
 
 - (void)_finishLoadOperationWithResponse:(id)response error:(id)error
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   errorCopy = error;
-  v92 = errorCopy;
+  v91 = errorCopy;
   if (responseCopy && !errorCopy)
   {
     uRLResponse = [responseCopy URLResponse];
@@ -1820,16 +1823,14 @@ void __63__SKUIDocumentContainerViewController__enqueueLoadURLOperation__block_i
         urlString = self->_urlString;
         *location = 138412546;
         *&location[4] = v48;
-        v104 = 2112;
-        v105 = urlString;
+        v103 = 2112;
+        v104 = urlString;
         v50 = v48;
-        LODWORD(v89) = 22;
-        v88 = location;
-        v51 = _os_log_send_and_compose_impl();
+        v51 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &dword_215BAE000, oSLogObject, 2, "%@: ITML document did load: %@", location, 22);
 
         if (v51)
         {
-          v52 = [MEMORY[0x277CCACA8] stringWithCString:v51 encoding:{4, location, v89}];
+          v52 = [MEMORY[0x277CCACA8] stringWithCString:v51 encoding:4];
           free(v51);
           v88 = v52;
           SSFileLog();
@@ -1844,19 +1845,19 @@ void __63__SKUIDocumentContainerViewController__enqueueLoadURLOperation__block_i
       pageResponseAbsoluteTime = self->_pageResponseAbsoluteTime;
       self->_pageResponseAbsoluteTime = v69;
 
-      v101[0] = @"requestStartTime";
+      v100[0] = @"requestStartTime";
       [metricsPageEvent requestStartTime];
       v71 = [SKUIMetricsUtilities jsTimeFromTimeInterval:?];
-      v102[0] = v71;
-      v101[1] = @"responseStartTime";
+      v101[0] = v71;
+      v100[1] = @"responseStartTime";
       [metricsPageEvent responseStartTime];
       v72 = [SKUIMetricsUtilities jsTimeFromTimeInterval:?];
-      v102[1] = v72;
-      v101[2] = @"responseEndTime";
+      v101[1] = v72;
+      v100[2] = @"responseEndTime";
       [metricsPageEvent responseEndTime];
       v73 = [SKUIMetricsUtilities jsTimeFromTimeInterval:?];
-      v102[2] = v73;
-      v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v102 forKeys:v101 count:3];
+      v101[2] = v73;
+      v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v101 forKeys:v100 count:3];
 
       clientContext = [(SKUIViewController *)self clientContext];
       document = self->_document;
@@ -1908,20 +1909,20 @@ void __63__SKUIDocumentContainerViewController__enqueueLoadURLOperation__block_i
               [v83 setDataProvider:provider];
               objc_initWeak(location, v83);
               objc_initWeak(&from, self);
-              v93[0] = MEMORY[0x277D85DD0];
-              v93[1] = 3221225472;
-              v93[2] = __78__SKUIDocumentContainerViewController__finishLoadOperationWithResponse_error___block_invoke_259;
-              v93[3] = &unk_2781FD960;
-              objc_copyWeak(&v96, location);
-              objc_copyWeak(&v97, &from);
-              v94 = responseCopy;
-              v95 = v28;
-              [v83 setCompletionBlock:v93];
+              v92[0] = MEMORY[0x277D85DD0];
+              v92[1] = 3221225472;
+              v92[2] = __78__SKUIDocumentContainerViewController__finishLoadOperationWithResponse_error___block_invoke_259;
+              v92[3] = &unk_2781FD960;
+              objc_copyWeak(&v95, location);
+              objc_copyWeak(&v96, &from);
+              v93 = responseCopy;
+              v94 = v28;
+              [v83 setCompletionBlock:v92];
               operationQueue = [(SKUIViewController *)self operationQueue];
               [operationQueue addOperation:v83];
 
-              objc_destroyWeak(&v97);
               objc_destroyWeak(&v96);
+              objc_destroyWeak(&v95);
               objc_destroyWeak(&from);
               objc_destroyWeak(location);
             }
@@ -1989,18 +1990,16 @@ LABEL_42:
     v40 = self->_urlString;
     *location = 138412802;
     *&location[4] = v39;
-    v104 = 2112;
-    v105 = v92;
-    v106 = 2112;
-    v107 = v40;
+    v103 = 2112;
+    v104 = v91;
+    v105 = 2112;
+    v106 = v40;
     v41 = v39;
-    LODWORD(v89) = 32;
-    v88 = location;
-    v42 = _os_log_send_and_compose_impl();
+    v42 = _os_log_send_and_compose_impl(v38, 0, 0, 0, &dword_215BAE000, oSLogObject2, 0, "%@: Document failed to load with error: %@, URL: %@", location, 32);
 
     if (v42)
     {
-      v43 = [MEMORY[0x277CCACA8] stringWithCString:v42 encoding:{4, location, v89}];
+      v43 = [MEMORY[0x277CCACA8] stringWithCString:v42 encoding:4];
       free(v42);
       v88 = v43;
       SSFileLog();
@@ -2026,12 +2025,12 @@ LABEL_42:
   v58 = [(SKUIErrorDocumentViewController *)v56 initWithBackgroundColor:backgroundColor clientContext:clientContext3];
 
   objc_initWeak(location, self);
-  v99[0] = MEMORY[0x277D85DD0];
-  v99[1] = 3221225472;
-  v99[2] = __78__SKUIDocumentContainerViewController__finishLoadOperationWithResponse_error___block_invoke;
-  v99[3] = &unk_2781F8320;
-  objc_copyWeak(&v100, location);
-  [(SKUIErrorDocumentViewController *)v58 setRetryActionBlock:v99];
+  v98[0] = MEMORY[0x277D85DD0];
+  v98[1] = 3221225472;
+  v98[2] = __78__SKUIDocumentContainerViewController__finishLoadOperationWithResponse_error___block_invoke;
+  v98[3] = &unk_2781F8320;
+  objc_copyWeak(&v99, location);
+  [(SKUIErrorDocumentViewController *)v58 setRetryActionBlock:v98];
   [(SKUIDocumentContainerViewController *)self _setChildViewController:v58];
   v59 = +[SKUIMetricsUtilities newErrorPageEvent];
   [v59 setPageURL:self->_urlString];
@@ -2044,7 +2043,7 @@ LABEL_42:
   mEMORY[0x277D7FD00] = [MEMORY[0x277D7FD00] sharedInstance];
   [defaultCenter addObserver:self selector:sel__networkTypeChangeNotification_ name:*MEMORY[0x277D7FCC0] object:mEMORY[0x277D7FD00]];
 
-  objc_destroyWeak(&v100);
+  objc_destroyWeak(&v99);
   objc_destroyWeak(location);
 
 LABEL_43:
@@ -2163,10 +2162,10 @@ void __78__SKUIDocumentContainerViewController__finishLoadOperationWithResponse_
           {
             v19 = elementCopy;
             type = [v19 type];
-            v21 = [type isEqualToString:@"modern"];
+            isEqualToString = objc_msgSend_isEqualToString_(type);
 
             v22 = off_2781F6560;
-            if (!v21)
+            if (!isEqualToString)
             {
               v22 = off_2781F6258;
             }
@@ -2580,7 +2579,7 @@ LABEL_15:
 
 void __96__SKUIDocumentContainerViewController__sendOnViewAttributesChangeWithAttributes_viewWillAppear___block_invoke(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if ([WeakRetained isViewLoaded])
   {
@@ -2615,14 +2614,14 @@ void __96__SKUIDocumentContainerViewController__sendOnViewAttributesChangeWithAt
     goto LABEL_11;
   }
 
-  if (SKUIAllowsLandscapePhone() & v5)
+  if (SKUIAllowsLandscapePhone(v8, v9) & v5)
   {
 LABEL_11:
-    v8 = *(a1 + 40);
-    v9 = *(*(a1 + 32) + 1088);
-    v11[0] = v8;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
-    [v9 onViewAttributesChangeWithArguments:v10 completion:0];
+    v10 = *(a1 + 40);
+    v11 = *(*(a1 + 32) + 1088);
+    v13[0] = v10;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    [v11 onViewAttributesChangeWithArguments:v12 completion:0];
   }
 
 LABEL_12:
@@ -2791,7 +2790,7 @@ void __96__SKUIDocumentContainerViewController__sendOnViewAttributesChangeWithAt
   optionsCopy = options;
   contextCopy = context;
   v7 = [optionsCopy objectForKey:@"sidepackType"];
-  if ([v7 isEqualToString:0x28280B108])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v8 = [optionsCopy objectForKey:@"sidepackData"];
     objc_opt_class();

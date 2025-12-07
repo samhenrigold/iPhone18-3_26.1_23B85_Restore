@@ -33,9 +33,9 @@
     }
   }
 
-  v29.receiver = self;
-  v29.super_class = SKUIStarRatingControlView;
-  height = [(SKUIStarRatingControlView *)&v29 initWithFrame:x, y, width, height];
+  v33.receiver = self;
+  v33.super_class = SKUIStarRatingControlView;
+  height = [(SKUIStarRatingControlView *)&v33 initWithFrame:x, y, width, height];
   v17 = height;
   if (height)
   {
@@ -44,19 +44,19 @@
     control = v17->_control;
     v17->_control = v18;
 
-    [(SKUIStarRatingControlView *)v17 addSubview:v17->_control];
-    v20 = MEMORY[0x277D755B8];
-    v21 = SKUIBundle();
-    v22 = [v20 imageNamed:@"LightRateControl" inBundle:v21];
+    v20 = [(SKUIStarRatingControlView *)v17 addSubview:v17->_control];
+    v21 = MEMORY[0x277D755B8];
+    v23 = SKUIBundle(v20, v22);
+    v24 = [v21 imageNamed:@"LightRateControl" inBundle:v23];
     emptyStars = v17->_emptyStars;
-    v17->_emptyStars = v22;
+    v17->_emptyStars = v24;
 
-    [(SKUIStarRatingControl *)v17->_control setEmptyStarsImage:v17->_emptyStars];
-    v24 = v17->_control;
-    v25 = MEMORY[0x277D755B8];
-    v26 = SKUIBundle();
-    v27 = [v25 imageNamed:@"RateControlFilled" inBundle:v26];
-    [(SKUIStarRatingControl *)v24 setFilledStarsImage:v27];
+    v26 = [(SKUIStarRatingControl *)v17->_control setEmptyStarsImage:v17->_emptyStars];
+    v27 = v17->_control;
+    v28 = MEMORY[0x277D755B8];
+    v30 = SKUIBundle(v26, v29);
+    v31 = [v28 imageNamed:@"RateControlFilled" inBundle:v30];
+    [(SKUIStarRatingControl *)v27 setFilledStarsImage:v31];
 
     [(SKUIStarRatingControl *)v17->_control sizeToFit];
     [(SKUIStarRatingControl *)v17->_control addTarget:v17 action:sel_didRating_ forControlEvents:64];
@@ -125,20 +125,22 @@
 
 + (CGSize)sizeThatFitsWidth:(double)width viewElement:(id)element context:(id)context
 {
-  if (os_variant_has_internal_content())
+  has_internal_content = os_variant_has_internal_content();
+  if (has_internal_content)
   {
-    if (_os_feature_enabled_impl())
+    has_internal_content = _os_feature_enabled_impl();
+    if (has_internal_content)
     {
-      v5 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v5)
+      has_internal_content = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+      if (has_internal_content)
       {
-        [(SKUIStarRatingControlView *)v5 sizeThatFitsWidth:v6 viewElement:v7 context:v8, v9, v10, v11, v12];
+        [(SKUIStarRatingControlView *)has_internal_content sizeThatFitsWidth:v6 viewElement:v7 context:v8, v9, v10, v11, v12];
       }
     }
   }
 
   v13 = MEMORY[0x277D755B8];
-  v14 = SKUIBundle();
+  v14 = SKUIBundle(has_internal_content, v6);
   v15 = [v13 imageNamed:@"StarRatingControlEmpty" inBundle:v14];
 
   [v15 size];
@@ -227,6 +229,36 @@
     v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     [(SKUIStarRatingViewElement *)viewElement dispatchEventOfType:15 canBubble:1 isCancelable:1 extraInfo:v5 completionBlock:0];
   }
+}
+
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStarRatingControlView initWithFrame:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStarRatingControlView prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStarRatingControlView preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStarRatingControlView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStarRatingControlView sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

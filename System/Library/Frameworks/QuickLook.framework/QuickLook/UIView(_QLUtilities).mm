@@ -21,10 +21,10 @@
   [layer2 anchorPoint];
   v19 = v16 * v18;
 
-  [self transform];
+  objc_msgSend_transform(self);
   v20 = v35 + v9 * v33 + v31 * v7;
   v21 = v36 + v9 * v34 + v32 * v7;
-  [self transform];
+  objc_msgSend_transform(self);
   v22 = v35 + v19 * v33 + v31 * v14;
   v23 = v36 + v19 * v34 + v32 * v14;
   layer3 = [self layer];

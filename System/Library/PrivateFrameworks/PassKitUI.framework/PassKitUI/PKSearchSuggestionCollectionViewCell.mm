@@ -125,38 +125,49 @@
     v18 = 44.0;
   }
 
-  v22.size.height = v18;
-  v25.origin.x = x;
-  v25.origin.y = y;
-  v25.size.width = width;
-  v25.size.height = v18;
-  CGRectDivide(v25, &slice, &v22, 10.0, CGRectMinYEdge);
-  CGRectDivide(v22, &slice, &v22, 10.0, CGRectMaxYEdge);
-  CGRectDivide(v22, &slice, &v22, v12, v9);
-  CGRectDivide(v22, &slice, &v22, v12, v10);
-  CGRectDivide(v22, &slice, &v22, v15, v9);
+  v30.size.height = v18;
+  v33.origin.x = x;
+  v33.origin.y = y;
+  v33.size.width = width;
+  v33.size.height = v18;
+  CGRectDivide(v33, &slice, &v30, 10.0, CGRectMinYEdge);
+  CGRectDivide(v30, &slice, &v30, 10.0, CGRectMaxYEdge);
+  CGRectDivide(v30, &slice, &v30, v12, v9);
+  CGRectDivide(v30, &slice, &v30, v12, v10);
+  CGRectDivide(v30, &slice, &v30, v15, v9);
   if (!self->_isTemplateLayout)
   {
     imageViewIcon = self->_imageViewIcon;
     if (v17 >= 44.0)
     {
-      PKContentAlignmentMake();
+      v27 = PKContentAlignmentMake();
     }
 
-    PKSizeAlignedInRect();
+    else
+    {
+      v27 = *MEMORY[0x1E69BB7F8];
+    }
+
+    v21.n128_u64[0] = *&slice.origin.x;
+    v22.n128_u64[0] = *&slice.origin.y;
+    v23.n128_u64[0] = *&slice.size.width;
+    v24.n128_u64[0] = *&slice.size.height;
+    v19.n128_f64[0] = v15;
+    v20.n128_f64[0] = v15;
+    PKSizeAlignedInRect(v27, v19, v20, v21, v22, v23, v24, v25);
     [(UIImageView *)imageViewIcon setFrame:?];
   }
 
-  CGRectDivide(v22, &slice, &v22, 8.0, v9);
+  CGRectDivide(v30, &slice, &v30, 8.0, v9);
   if (!self->_isTemplateLayout)
   {
-    [(UILabel *)self->_labelSuggestion setFrame:v22.origin.x, v22.origin.y, v22.size.width, v22.size.height];
+    [(UILabel *)self->_labelSuggestion setFrame:v30.origin.x, v30.origin.y, v30.size.width, v30.size.height];
   }
 
-  v20 = width;
-  v21 = v18;
-  result.height = v21;
-  result.width = v20;
+  v28 = width;
+  v29 = v18;
+  result.height = v29;
+  result.width = v28;
   return result;
 }
 

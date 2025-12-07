@@ -746,9 +746,9 @@ void __118__PLNotificationUNCenter__findNotificationForRequestIdentifier_withPen
 {
   v8 = a2;
   v6 = [v8 identifier];
-  v7 = [v6 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v7)
+  if (isEqualToString)
   {
     (*(*(a1 + 40) + 16))();
     *a4 = 1;
@@ -776,9 +776,9 @@ void __118__PLNotificationUNCenter__findNotificationForRequestIdentifier_withPen
   v9 = a2;
   v6 = [v9 request];
   v7 = [v6 identifier];
-  v8 = [v7 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v8)
+  if (isEqualToString)
   {
     (*(*(a1 + 40) + 16))();
     *a4 = 1;
@@ -847,7 +847,7 @@ void __72__PLNotificationUNCenter_updateImageData_forNotificationWithIdentifier_
   v4 = [v3 content];
   v5 = [v4 attachments];
 
-  if (![v5 count])
+  if (!objc_msgSend_count(v5))
   {
     v6 = *(a1 + 32);
     v7 = [v3 content];

@@ -143,37 +143,37 @@ LABEL_21:
 
 - (id)serializeWithError:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  v42 = *MEMORY[0x277D85DE8];
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v21 = 0u;
   TLV8BufferInit();
   contextIdentifier = [(HAPCharacteristicNotificationContext *)self contextIdentifier];
 
   if (contextIdentifier)
   {
     contextIdentifier2 = [(HAPCharacteristicNotificationContext *)self contextIdentifier];
-    v21 = 0;
-    v7 = [contextIdentifier2 serializeWithError:&v21];
-    v8 = v21;
+    v20 = 0;
+    v7 = [contextIdentifier2 serializeWithError:&v20];
+    v8 = v20;
 
     if (v8)
     {
@@ -209,9 +209,9 @@ LABEL_17:
   if (source)
   {
     source2 = [(HAPCharacteristicNotificationContext *)self source];
-    v20 = 0;
-    v7 = [source2 serializeWithError:&v20];
-    v8 = v20;
+    v19 = 0;
+    v7 = [source2 serializeWithError:&v19];
+    v8 = v19;
 
     if (v8)
     {
@@ -232,9 +232,9 @@ LABEL_17:
   if (clockTickCounter)
   {
     clockTickCounter2 = [(HAPCharacteristicNotificationContext *)self clockTickCounter];
-    v19 = 0;
-    v7 = [clockTickCounter2 serializeWithError:&v19];
-    v8 = v19;
+    v18 = 0;
+    v7 = [clockTickCounter2 serializeWithError:&v18];
+    v8 = v18;
 
     if (v8)
     {
@@ -261,12 +261,10 @@ LABEL_15:
     }
   }
 
-  v13 = [MEMORY[0x277CBEA90] dataWithBytes:v22 length:?];
+  v13 = [MEMORY[0x277CBEA90] dataWithBytes:v21 length:?];
   v8 = 0;
 LABEL_20:
   TLV8BufferFree();
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

@@ -31,7 +31,7 @@
   referencesCopy = references;
   if (references)
   {
-    sub_1A3C52C70(0, &qword_1EB126B50);
+    sub_1A3C52C70(0, &qword_1EB126B50, &off_1E7721490);
     sub_1A41E3384();
     referencesCopy = sub_1A524CF44();
   }

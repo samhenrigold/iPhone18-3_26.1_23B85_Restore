@@ -407,7 +407,7 @@
 
 - (id)suggestedButtonTitle
 {
-  v2 = sub_10002DF9C();
+  v2 = sub_10002DF9C(self, a2);
   v3 = +[NSBundle mainBundle];
   v4 = v3;
   if (v2)

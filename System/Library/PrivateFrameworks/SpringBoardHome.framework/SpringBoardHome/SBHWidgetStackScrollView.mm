@@ -18,7 +18,7 @@ LABEL_8:
     return;
   }
 
-  v7 = SBLogWidgets();
+  v7 = SBLogWidgets(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [(SBHWidgetStackScrollView *)self setContentOffset:v7, x, y];

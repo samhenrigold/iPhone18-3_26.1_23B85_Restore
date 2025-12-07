@@ -8,21 +8,20 @@
 
 - (id)readApduAndReturnError:(id *)error
 {
-  devHandle = self->_devHandle;
-  v4 = sub_100196C90(self->_driver);
-  if (v4 && v4[1])
+  v3 = sub_100196C90(self->_driver, self->_devHandle, error);
+  if (v3 && v3[1])
   {
-    v5 = [[NSData alloc] initWithBytes:*v4 length:v4[1]];
+    v4 = [[NSData alloc] initWithBytes:*v3 length:v3[1]];
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   NFDataRelease();
 
-  return v5;
+  return v4;
 }
 
 - (void)readAPDUWithCompletion:(id)completion
@@ -45,58 +44,58 @@
   devHandle = self->_devHandle;
   uCopy = u;
   uCopy2 = u;
-  [uCopy2 bytes];
-  [uCopy2 length];
+  bytes = [uCopy2 bytes];
+  v11 = [uCopy2 length];
 
-  v10 = sub_100197918(driver);
-  if ((v10 & 1) == 0)
+  v12 = sub_100197918(driver, devHandle, bytes, v11);
+  if ((v12 & 1) == 0)
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     Logger = NFLogGetLogger();
     if (Logger)
     {
-      v12 = Logger;
+      v14 = Logger;
       Class = object_getClass(self);
       isMetaClass = class_isMetaClass(Class);
       ClassName = object_getClassName(self);
       Name = sel_getName(a2);
-      v16 = 45;
+      v18 = 45;
       if (isMetaClass)
       {
-        v16 = 43;
+        v18 = 43;
       }
 
-      v12(3, "%c[%{public}s %{public}s]:%i Failed to initiate send of data", v16, ClassName, Name, 53);
+      v14(3, "%c[%{public}s %{public}s]:%i Failed to initiate send of data", v18, ClassName, Name, 53);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v17 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v18 = object_getClass(self);
-      if (class_isMetaClass(v18))
+      v20 = object_getClass(self);
+      if (class_isMetaClass(v20))
       {
-        v19 = 43;
+        v21 = 43;
       }
 
       else
       {
-        v19 = 45;
+        v21 = 45;
       }
 
       *buf = 67109890;
-      v23 = v19;
-      v24 = 2082;
-      v25 = object_getClassName(self);
+      v25 = v21;
       v26 = 2082;
-      v27 = sel_getName(a2);
-      v28 = 1024;
-      v29 = 53;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to initiate send of data", buf, 0x22u);
+      v27 = object_getClassName(self);
+      v28 = 2082;
+      v29 = sel_getName(a2);
+      v30 = 1024;
+      v31 = 53;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to initiate send of data", buf, 0x22u);
     }
   }
 
-  return v10;
+  return v12;
 }
 
 @end

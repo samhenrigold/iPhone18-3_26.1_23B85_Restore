@@ -106,16 +106,24 @@ LABEL_7:
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v5 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
     objc_opt_class();
-    v5 = (objc_opt_isKindOfClass() & 1) != 0 && self->_assetManager == equalCopy->_assetManager && [(NSString *)self->_name isEqualToString:equalCopy->_name];
+    if ((objc_opt_isKindOfClass() & 1) != 0 && self->_assetManager == equalCopy->_assetManager)
+    {
+      isEqualToString = objc_msgSend_isEqualToString_(self->_name);
+    }
+
+    else
+    {
+      isEqualToString = 0;
+    }
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (id)_resolvedColorWithTraitCollection:(id)collection

@@ -153,7 +153,7 @@ LABEL_5:
 
 - (void)updatePopoverSize
 {
-  if (isPad())
+  if (isPad(self, a2))
   {
     v3 = 332.0;
   }

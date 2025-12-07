@@ -66,7 +66,7 @@
     Alpha = 1.0;
     if (v35 && objc_msgSend_shouldRender(v35, v40, v41, v42, v43))
     {
-      v47 = objc_msgSend_color(v35, v40, v46, v42, v43);
+      v47 = objc_msgSend_color(v35, v46, v42, v43);
       v52 = objc_msgSend_CGColor(v47, v48, v49, v50, v51);
       Alpha = CGColorGetAlpha(v52);
     }
@@ -165,65 +165,65 @@
 {
   v10 = objc_msgSend_axisLayoutItem(self, a2, v4, v5, v6);
   v15 = objc_msgSend_axisTitleLayoutItem(v10, v11, v12, v13, v14);
-  v18 = v15;
-  v19 = *(MEMORY[0x277CBF398] + 16);
-  v93.origin = *MEMORY[0x277CBF398];
-  v93.size = v19;
-  v20 = *MEMORY[0x277CBF3A8];
-  v92 = *MEMORY[0x277CBF3A8];
-  memset(&v91, 0, sizeof(v91));
+  v17 = v15;
+  v18 = *(MEMORY[0x277CBF398] + 16);
+  v92.origin = *MEMORY[0x277CBF398];
+  v92.size = v18;
+  v19 = *MEMORY[0x277CBF3A8];
+  v91 = *MEMORY[0x277CBF3A8];
+  memset(&v90, 0, sizeof(v90));
   if (v15)
   {
-    objc_msgSend_transformForRenderingOutElementSize_outClipRect_(v15, v16, 0.0, *&v20, v17, &v92, &v93);
+    objc_msgSend_transformForRenderingOutElementSize_outClipRect_(v15, 0.0, *&v19, v16);
   }
 
-  if (!CGRectIsNull(v93))
+  if (!CGRectIsNull(v92))
   {
-    v25 = objc_msgSend_axisTitleSelectionPath(self, v21, v22, v23, v24);
-    v30 = objc_msgSend_textDrawingFlagForSelectionPath_(self, v26, v27, v28, v29, v25);
+    v24 = objc_msgSend_axisTitleSelectionPath(self, v20, v21, v22, v23);
+    v29 = objc_msgSend_textDrawingFlagForSelectionPath_(self, v25, v26, v27, v28, v24);
 
-    if (v30 != 2)
+    if (v29 != 2)
     {
-      v35 = objc_msgSend_model(v10, v31, v32, v33, v34);
-      v88 = objc_msgSend_axisID(v10, v36, v37, v38, v39);
-      v89 = v35;
-      v44 = objc_msgSend_axisForID_(v35, v40, v41, v42, v43);
-      v87 = objc_msgSend_objectValueForProperty_(v44, v45, v46, v47, v48, 1062);
-      v53 = objc_msgSend_intValueForProperty_defaultValue_(v44, v49, v50, v51, v52, 1063, 0);
-      v58 = objc_msgSend_chartInfo(self, v54, v55, v56, v57);
-      v63 = objc_msgSend_paragraphStyleAtIndex_(v58, v59, v60, v61, v62, v53);
+      v34 = objc_msgSend_model(v10, v30, v31, v32, v33);
+      v87 = objc_msgSend_axisID(v10, v35, v36, v37, v38);
+      v88 = v34;
+      v43 = objc_msgSend_axisForID_(v34, v39, v40, v41, v42);
+      v86 = objc_msgSend_objectValueForProperty_(v43, v44, v45, v46, v47, 1062);
+      v52 = objc_msgSend_intValueForProperty_defaultValue_(v43, v48, v49, v50, v51, 1063, 0);
+      v57 = objc_msgSend_chartInfo(self, v53, v54, v55, v56);
+      v62 = objc_msgSend_paragraphStyleAtIndex_(v57, v58, v59, v60, v61, v52);
 
-      v68 = objc_msgSend_sharedText(TSCHText, v64, v65, v66, v67);
+      v67 = objc_msgSend_sharedText(TSCHText, v63, v64, v65, v66);
       CGContextSaveGState(title);
-      transform = v91;
+      transform = v90;
       CGContextConcatCTM(title, &transform);
       CGContextClipToRectSafe();
-      if (v30 == 1)
+      if (v29 == 1)
       {
-        v73 = objc_msgSend_yellowColor(MEMORY[0x277D81180], v69, v70, v71, v72);
-        v78 = objc_msgSend_CGColor(v73, v74, v75, v76, v77);
-        CGContextSetFillColorWithColor(title, v78);
+        v72 = objc_msgSend_yellowColor(MEMORY[0x277D81180], v68, v69, v70, v71);
+        v77 = objc_msgSend_CGColor(v72, v73, v74, v75, v76);
+        CGContextSetFillColorWithColor(title, v77);
 
         TSURectWithSize();
-        CGContextFillRect(title, v94);
+        CGContextFillRect(title, v93);
       }
 
-      width = v93.size.width;
-      objc_msgSend_viewScale(self, v69, v70, v71, v72);
-      v82 = *MEMORY[0x277CBF348];
-      v83 = *(MEMORY[0x277CBF348] + 8);
+      width = v92.size.width;
+      objc_msgSend_viewScale(self, v68, v69, v70, v71);
+      v81 = *MEMORY[0x277CBF348];
+      v82 = *(MEMORY[0x277CBF348] + 8);
       if (ptr)
       {
         location = ptr->location;
         length = ptr->length;
-        v86 = v87;
-        objc_msgSend_drawText_paragraphStyle_intoContext_wrapWidth_atPosition_range_viewScale_(v68, v80, width, v82, v83, v87, v63, title, location, length, v81);
+        v85 = v86;
+        objc_msgSend_drawText_paragraphStyle_intoContext_wrapWidth_atPosition_range_viewScale_(v67, v79, width, v81, v82, v86, v62, title, location, length, v80);
       }
 
       else
       {
-        v86 = v87;
-        objc_msgSend_drawText_paragraphStyle_intoContext_wrapWidth_atPosition_viewScale_(v68, v80, width, v82, v83, v87, v63, title, v81);
+        v85 = v86;
+        objc_msgSend_drawText_paragraphStyle_intoContext_wrapWidth_atPosition_viewScale_(v67, v79, width, v81, v82, v86, v62, title, v80);
       }
 
       CGContextRestoreGState(title);
@@ -274,7 +274,7 @@
     memset(&v124, 0, sizeof(v124));
     if (v16)
     {
-      objc_msgSend_transformForRenderingOutElementSize_outClipRect_(v16, v27, 0.0, *&v73, v30, &v125, &v126);
+      objc_msgSend_transformForRenderingOutElementSize_outClipRect_(v16, 0.0, *&v73, v30);
     }
 
     if (!CGRectIsNull(v126))
@@ -591,71 +591,71 @@
 
 - (void)p_addLinearTickmarkPaths:(CGContext *)paths axis:(id)axis locations:(id)locations stroke:(id)stroke width:(float)width isMinor:(BOOL)minor
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   axisCopy = axis;
   locationsCopy = locations;
   strokeCopy = stroke;
   selfCopy = self;
   v20 = objc_msgSend_axisLayoutItem(self, v16, v17, v18, v19);
   v25 = objc_msgSend_axisTickMarksLayoutItem(v20, v21, v22, v23, v24);
-  v31 = objc_msgSend_intValueForProperty_defaultValue_(axisCopy, v26, v27, v28, v29, 1061, 2);
-  v33 = *(MEMORY[0x277CBF398] + 16);
-  v80.origin = *MEMORY[0x277CBF398];
-  v80.size = v33;
-  v34 = *MEMORY[0x277CBF3A8];
-  v79 = *MEMORY[0x277CBF3A8];
-  memset(&v78, 0, sizeof(v78));
+  v30 = objc_msgSend_intValueForProperty_defaultValue_(axisCopy, v26, v27, v28, v29, 1061, 2);
+  v32 = *(MEMORY[0x277CBF398] + 16);
+  v79.origin = *MEMORY[0x277CBF398];
+  v79.size = v32;
+  v33 = *MEMORY[0x277CBF3A8];
+  v78 = *MEMORY[0x277CBF3A8];
+  memset(&v77, 0, sizeof(v77));
   if (v25)
   {
-    objc_msgSend_transformForRenderingOutElementSize_outClipRect_(v25, v30, 0.0, *&v34, v32, &v79, &v80);
+    objc_msgSend_transformForRenderingOutElementSize_outClipRect_(v25, 0.0, *&v33, v31);
   }
 
-  if (!CGRectIsNull(v80))
+  if (!CGRectIsNull(v79))
   {
-    objc_msgSend_p_tickmarkFrameFromElementSize_location_tickLength_(selfCopy, v35, *&v79, *(&v79 + 1), width, v31);
-    v37 = v36;
-    v39 = v38;
-    v41 = v40;
-    v43 = v42;
+    objc_msgSend_p_tickmarkFrameFromElementSize_location_tickLength_(selfCopy, v34, *&v78, *(&v78 + 1), width, v30);
+    v36 = v35;
+    v38 = v37;
+    v40 = v39;
+    v42 = v41;
     CGContextSaveGState(paths);
-    transform = v78;
+    transform = v77;
     CGContextConcatCTM(paths, &transform);
-    objc_msgSend_p_strokeWidthForRenderingTickmarks_(selfCopy, v44, v45, v46, v47, strokeCopy);
-    v49 = v48;
-    v70 = strokeCopy;
-    objc_msgSend_p_strokeCapForRenderingTickmarks_(selfCopy, v50, v48, v51, v52, strokeCopy);
-    v54 = v53;
+    objc_msgSend_p_strokeWidthForRenderingTickmarks_(selfCopy, v43, v44, v45, v46, strokeCopy);
+    v48 = v47;
+    v69 = strokeCopy;
+    objc_msgSend_p_strokeCapForRenderingTickmarks_(selfCopy, v49, v47, v50, v51, strokeCopy);
+    v53 = v52;
+    v72 = 0u;
     v73 = 0u;
     v74 = 0u;
     v75 = 0u;
-    v76 = 0u;
-    v71 = locationsCopy;
-    v55 = locationsCopy;
-    v60 = objc_msgSend_countByEnumeratingWithState_objects_count_(v55, v56, v57, v58, v59, &v73, v81, 16);
-    if (v60)
+    v70 = locationsCopy;
+    v54 = locationsCopy;
+    v59 = objc_msgSend_countByEnumeratingWithState_objects_count_(v54, v55, v56, v57, v58, &v72, v80, 16);
+    if (v59)
     {
-      v65 = v60;
-      v66 = 0;
-      v67 = *v74;
-      v68 = v39 + v43;
+      v64 = v59;
+      v65 = 0;
+      v66 = *v73;
+      v67 = v38 + v42;
       do
       {
-        for (i = 0; i != v65; ++i)
+        for (i = 0; i != v64; ++i)
         {
-          if (*v74 != v67)
+          if (*v73 != v66)
           {
-            objc_enumerationMutation(v55);
+            objc_enumerationMutation(v54);
           }
 
-          objc_msgSend_doubleValue(*(*(&v73 + 1) + 8 * i), v61, v62, v63, v64);
-          if ((*&v62 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+          objc_msgSend_doubleValue(*(*(&v72 + 1) + 8 * i), v60, v61, v62, v63);
+          if ((*&v61 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
           {
-            objc_msgSend_unitSpaceValueForDataSpaceValue_(axisCopy, v61, v62, v63, v64);
-            if ((*&v62 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+            objc_msgSend_unitSpaceValueForDataSpaceValue_(axisCopy, v60, v61, v62, v63);
+            if ((*&v61 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
             {
-              objc_msgSend_p_renderTickmarkInContext_startPoint_endPoint_strokeWidth_strokeCap_(selfCopy, v61, v37 + v62 * v41, v39, v37 + v62 * v41, paths, v54, v68, v49);
-              ++v66;
-              if (__ROR8__(0x8F5C28F5C28F5C29 * v66, 2) <= 0x28F5C28F5C28F5CuLL)
+              objc_msgSend_p_renderTickmarkInContext_startPoint_endPoint_strokeWidth_strokeCap_(selfCopy, v60, v36 + v61 * v40, v38, v36 + v61 * v40, paths, v53, v67, v48);
+              ++v65;
+              if (__ROR8__(0x8F5C28F5C28F5C29 * v65, 2) <= 0x28F5C28F5C28F5CuLL)
               {
                 CGContextStrokePath(paths);
                 CGContextBeginPath(paths);
@@ -664,15 +664,15 @@
           }
         }
 
-        v65 = objc_msgSend_countByEnumeratingWithState_objects_count_(v55, v61, v62, v63, v64, &v73, v81, 16);
+        v64 = objc_msgSend_countByEnumeratingWithState_objects_count_(v54, v60, v61, v62, v63, &v72, v80, 16);
       }
 
-      while (v65);
+      while (v64);
     }
 
     CGContextRestoreGState(paths);
-    strokeCopy = v70;
-    locationsCopy = v71;
+    strokeCopy = v69;
+    locationsCopy = v70;
   }
 }
 
@@ -1120,7 +1120,7 @@ LABEL_7:
       v40 = objc_msgSend_range(selectionCopy, v38, 0.0, *&v46, v39, 0, 0, 0, 0, 0, 0);
       if (v35)
       {
-        objc_msgSend_transformForRenderingRange_outElementSize_outClipRect_(v35, v41, v42, v43, v44, v40, v41, &v46, &v47);
+        objc_msgSend_transformForRenderingRange_outElementSize_outClipRect_(v35, v42, v43, v44, v41, v40, v41, &v46, &v47);
       }
 
       if (!CGRectIsNull(v47) && (*v37 != *&v46 || v37[1] != *(&v46 + 1)))
@@ -1191,33 +1191,33 @@ LABEL_6:
     {
       if (objc_msgSend_intValueForProperty_defaultValue_(v39, v44, v46, v47, v48, 1060, 0))
       {
-        v82 = *MEMORY[0x277CBF3A8];
-        v51 = *(v19 + 16);
-        v81.origin = *v19;
-        v81.size = v51;
-        memset(&v80, 0, sizeof(v80));
-        objc_msgSend_transformForRenderingOutElementSize_outClipRect_(v45, v49, 0.0, v51.width, v50, &v82, &v81);
-        if (!CGRectIsNull(v81))
+        v81 = *MEMORY[0x277CBF3A8];
+        v50 = *(v19 + 16);
+        v80.origin = *v19;
+        v80.size = v50;
+        memset(&v79, 0, sizeof(v79));
+        objc_msgSend_transformForRenderingOutElementSize_outClipRect_(v45, 0.0, v50.width, v49);
+        if (!CGRectIsNull(v80))
         {
-          v56 = objc_msgSend_axisPosition(v24, v52, v53, v54, v55);
-          v57 = v56;
-          if (v56 == 4 || v56 == 2)
+          v55 = objc_msgSend_axisPosition(v24, v51, v52, v53, v54);
+          v56 = v55;
+          if (v55 == 4 || v55 == 2)
           {
             TSURectWithSize();
-            v79 = v80;
-            v84 = CGRectApplyAffineTransform(v83, &v79);
-            x = v84.origin.x;
-            y = v84.origin.y;
-            width = v84.size.width;
-            height = v84.size.height;
-            if (v57 == 4)
+            v78 = v79;
+            v83 = CGRectApplyAffineTransform(v82, &v78);
+            x = v83.origin.x;
+            y = v83.origin.y;
+            width = v83.size.width;
+            height = v83.size.height;
+            if (v56 == 4)
             {
-              v58 = self->_startingEditingFrame.size.height;
-              v59 = v84.size.height == v58;
-              v60 = v84.origin.y + v84.size.height - v58;
-              if (!v59)
+              v57 = self->_startingEditingFrame.size.height;
+              v58 = v83.size.height == v57;
+              v59 = v83.origin.y + v83.size.height - v57;
+              if (!v58)
               {
-                y = v60;
+                y = v59;
               }
             }
           }
@@ -1225,39 +1225,39 @@ LABEL_6:
           else
           {
             TSURectWithSize();
-            v79 = v80;
-            v86 = CGRectApplyAffineTransform(v85, &v79);
-            v69 = v86.origin.x;
-            v70 = v86.origin.y;
-            v71 = v86.size.width;
-            v72 = v86.size.height;
-            CGRectGetMinX(v86);
-            v87.origin.x = v69;
-            v87.origin.y = v70;
-            v87.size.width = v71;
-            v87.size.height = v72;
-            CGRectGetMidY(v87);
-            v88.origin.x = v69;
-            v88.origin.y = v70;
-            v88.size.width = v71;
-            v88.size.height = v72;
-            CGRectGetWidth(v88);
+            v78 = v79;
+            v85 = CGRectApplyAffineTransform(v84, &v78);
+            v68 = v85.origin.x;
+            v69 = v85.origin.y;
+            v70 = v85.size.width;
+            v71 = v85.size.height;
+            CGRectGetMinX(v85);
+            v86.origin.x = v68;
+            v86.origin.y = v69;
+            v86.size.width = v70;
+            v86.size.height = v71;
+            CGRectGetMidY(v86);
+            v87.origin.x = v68;
+            v87.origin.y = v69;
+            v87.size.width = v70;
+            v87.size.height = v71;
+            CGRectGetWidth(v87);
             TSURectWithCenterAndSize();
-            x = v74;
-            y = v75;
-            width = v76;
-            height = v73;
-            v77 = self->_startingEditingFrame.size.height;
-            if (v73 != v77)
+            x = v73;
+            y = v74;
+            width = v75;
+            height = v72;
+            v76 = self->_startingEditingFrame.size.height;
+            if (v72 != v76)
             {
-              if (v57 == 3)
+              if (v56 == 3)
               {
-                x = x + v73 - v77;
+                x = x + v72 - v76;
               }
 
-              else if (v57 == 1)
+              else if (v56 == 1)
               {
-                x = x - (v73 - v77);
+                x = x - (v72 - v76);
               }
             }
           }
@@ -1268,23 +1268,23 @@ LABEL_6:
 
   else
   {
-    v78.receiver = self;
-    v78.super_class = TSCHChartAxisRenderer;
-    [(TSCHRenderer *)&v78 frameForEditingTextForSelectionPath:pathCopy];
-    x = v61;
-    y = v62;
-    width = v63;
-    height = v64;
+    v77.receiver = self;
+    v77.super_class = TSCHChartAxisRenderer;
+    [(TSCHRenderer *)&v77 frameForEditingTextForSelectionPath:pathCopy];
+    x = v60;
+    y = v61;
+    width = v62;
+    height = v63;
   }
 
-  v65 = x;
-  v66 = y;
-  v67 = width;
-  v68 = height;
-  result.size.height = v68;
-  result.size.width = v67;
-  result.origin.y = v66;
-  result.origin.x = v65;
+  v64 = x;
+  v65 = y;
+  v66 = width;
+  v67 = height;
+  result.size.height = v67;
+  result.size.width = v66;
+  result.origin.y = v65;
+  result.origin.x = v64;
   return result;
 }
 

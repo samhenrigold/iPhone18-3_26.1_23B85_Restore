@@ -729,7 +729,7 @@ void __63__PXSharedLibraryAssistantContext_setAssistantTraitCollection___block_i
     goto LABEL_10;
   }
 
-  [(PXSharedLibraryAssistantViewModel *)viewModel shareCounts];
+  objc_msgSend_shareCounts(viewModel);
   v6 = v12;
   if (v12 != 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -832,7 +832,7 @@ LABEL_37:
     v12 = viewModel;
     if (viewModel)
     {
-      [viewModel shareCounts];
+      objc_msgSend_shareCounts(viewModel);
       v13 = v19;
       if (v19 == 0x7FFFFFFFFFFFFFFFLL)
       {

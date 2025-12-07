@@ -3,9 +3,9 @@
 
 @implementation CDSpotlightCoalescedDeletionManager
 
-id __60___CDSpotlightCoalescedDeletionManager_setupCoalescingTimer__block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+_CDSpotlightCoalescedDeletionOperation *__60___CDSpotlightCoalescedDeletionManager_setupCoalescingTimer__block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   if (v6)
@@ -31,39 +31,35 @@ id __60___CDSpotlightCoalescedDeletionManager_setupCoalescingTimer__block_invoke
         v11 = @"YES";
       }
 
-      v14 = 138412546;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_191750000, v10, OS_LOG_TYPE_INFO, "_CDSpotlightCoalescedDeletionManager coalescing new deletion operation: %@, change was consequential: %@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v11;
+      _os_log_impl(&dword_191750000, v10, OS_LOG_TYPE_INFO, "_CDSpotlightCoalescedDeletionManager coalescing new deletion operation: %@, change was consequential: %@", &v13, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 void __60___CDSpotlightCoalescedDeletionManager_setupCoalescingTimer__block_invoke_17(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[_CDLogging spotlightReceiverChannel];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = v3;
+    v7 = v3;
     _os_log_impl(&dword_191750000, v4, OS_LOG_TYPE_DEFAULT, "_CDSpotlightCoalescedDeletionManager running coalesced delete operation: %@", buf, 0xCu);
   }
 
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __60___CDSpotlightCoalescedDeletionManager_setupCoalescingTimer__block_invoke_18;
-  v6[3] = &unk_1E736A7A0;
-  v6[4] = *(a1 + 32);
-  [v3 enumerateDeletionPredicatesAndCompletionsWithBlock:v6];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __60___CDSpotlightCoalescedDeletionManager_setupCoalescingTimer__block_invoke_18;
+  v5[3] = &unk_1E736A7A0;
+  v5[4] = *(a1 + 32);
+  [v3 enumerateDeletionPredicatesAndCompletionsWithBlock:v5];
 }
 
 void __60___CDSpotlightCoalescedDeletionManager_setupCoalescingTimer__block_invoke_18(uint64_t a1, uint64_t a2, void *a3)
@@ -81,29 +77,29 @@ void __60___CDSpotlightCoalescedDeletionManager_setupCoalescingTimer__block_invo
 
 void __60___CDSpotlightCoalescedDeletionManager_setupCoalescingTimer__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
+        v11 = *(*(&v13 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         (*(v11 + 16))(v11, a2, v5);
         objc_autoreleasePoolPop(v12);
@@ -111,13 +107,11 @@ void __60___CDSpotlightCoalescedDeletionManager_setupCoalescingTimer__block_invo
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

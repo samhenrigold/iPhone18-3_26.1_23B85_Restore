@@ -57,7 +57,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_247C09AA8(v7);
+  sub_247C09AA8(v7, v8);
 }
 
 + (BOOL)supported

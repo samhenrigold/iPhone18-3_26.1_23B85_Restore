@@ -102,7 +102,7 @@ LABEL_5:
 
 - (void)receiveCompletion:(id)completion
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   selfCopy = self;
   os_unfair_lock_lock(&selfCopy->_lock);
@@ -114,33 +114,33 @@ LABEL_5:
   {
     cancelledOrCompleted = [(_BPSFlatMapOuter *)selfCopy cancelledOrCompleted];
     [(_BPSFlatMapOuter *)selfCopy setCancelledOrCompleted:1];
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     subscriptions = [(_BPSFlatMapOuter *)selfCopy subscriptions];
-    v12 = [subscriptions countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v12 = [subscriptions countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v30;
+      v14 = *v29;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v30 != v14)
+          if (*v29 != v14)
           {
             objc_enumerationMutation(subscriptions);
           }
 
-          v16 = *(*(&v29 + 1) + 8 * i);
+          v16 = *(*(&v28 + 1) + 8 * i);
           subscriptions2 = [(_BPSFlatMapOuter *)selfCopy subscriptions];
           v18 = [subscriptions2 objectForKeyedSubscript:v16];
 
           [v18 cancel];
         }
 
-        v13 = [subscriptions countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v13 = [subscriptions countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v13);
@@ -194,13 +194,11 @@ LABEL_19:
   }
 
 LABEL_21:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestDemand:(int64_t)demand
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   if (demand <= 0)
   {
@@ -231,32 +229,32 @@ LABEL_21:
       os_unfair_lock_unlock(&selfCopy->_lock);
       os_unfair_recursive_lock_lock_with_options();
       [(_BPSFlatMapOuter *)selfCopy setDownstreamRecursive:1];
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
       v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       v8 = buffer;
-      v9 = [v8 countByEnumeratingWithState:&v53 objects:v58 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v52 objects:v57 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v54;
+        v11 = *v53;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v54 != v11)
+            if (*v53 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v53 + 1) + 8 * i);
+            v13 = *(*(&v52 + 1) + 8 * i);
             downstream = [(_BPSFlatMapOuter *)selfCopy downstream];
             second = [v13 second];
             [downstream receiveInput:second];
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v53 objects:v58 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v52 objects:v57 count:16];
         }
 
         while (v10);
@@ -264,30 +262,30 @@ LABEL_21:
 
       [(_BPSFlatMapOuter *)selfCopy setDownstreamRecursive:0];
       os_unfair_recursive_lock_unlock();
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
       v16 = subscriptions;
-      v17 = [v16 countByEnumeratingWithState:&v49 objects:v57 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v48 objects:v56 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v50;
+        v19 = *v49;
         do
         {
           for (j = 0; j != v18; ++j)
           {
-            if (*v50 != v19)
+            if (*v49 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = [v16 objectForKeyedSubscript:*(*(&v49 + 1) + 8 * j)];
+            v21 = [v16 objectForKeyedSubscript:*(*(&v48 + 1) + 8 * j)];
             [v21 requestDemand:0x7FFFFFFFFFFFFFFFLL];
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v49 objects:v57 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v48 objects:v56 count:16];
         }
 
         while (v18);
@@ -395,13 +393,11 @@ LABEL_40:
       os_unfair_recursive_lock_unlock();
     }
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancel
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   os_unfair_lock_lock(&selfCopy->_lock);
   [(_BPSFlatMapOuter *)selfCopy setCancelledOrCompleted:1];
@@ -413,52 +409,51 @@ LABEL_40:
   [(_BPSFlatMapOuter *)selfCopy _updateBookmarkWhenLocked];
   [(_BPSFlatMapOuter *)selfCopy setOuterSubscription:0];
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = subscriptions;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [v6 objectForKeyedSubscript:{*(*(&v13 + 1) + 8 * v10), v13}];
+        v11 = [v6 objectForKeyedSubscript:{*(*(&v12 + 1) + 8 * v10), v12}];
         [v11 cancel];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   [outerSubscription cancel];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)upstreamSubscriptions
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   outerSubscription = [(_BPSFlatMapOuter *)self outerSubscription];
   if (outerSubscription)
   {
     outerSubscription2 = [(_BPSFlatMapOuter *)self outerSubscription];
-    v8[0] = outerSubscription2;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = outerSubscription2;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   }
 
   else
@@ -466,32 +461,28 @@ LABEL_40:
     v5 = MEMORY[0x1E695E0F0];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (void)_updateBookmarkWhenLocked
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0_2(&dword_1C871B000, v1, v2, "%@ - upstream bookmark shouldn't be nil", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0_2(&dword_1C871B000, v2, v3, "%@ - upstream bookmark shouldn't be nil", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (id)newBookmark
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = [BMBookmarkNode alloc];
-  v11[0] = self->_outerBookmark;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = self->_outerBookmark;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   outerSubscription = [(_BPSFlatMapOuter *)self outerSubscription];
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
   v8 = [(BMBookmarkNode *)v3 initWithValue:0 upstreams:v4 name:v7];
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -574,7 +565,7 @@ LABEL_7:
 
 - (void)receiveInnerCompletion:(id)completion index:(int64_t)index
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   state = [completionCopy state];
   if (state == 1)
@@ -586,33 +577,33 @@ LABEL_7:
       goto LABEL_24;
     }
 
-    v36 = completionCopy;
+    v35 = completionCopy;
     [(_BPSFlatMapOuter *)self setCancelledOrCompleted:1];
     subscriptions = [(_BPSFlatMapOuter *)self subscriptions];
     v15 = [MEMORY[0x1E695E0F8] mutableCopy];
     [(_BPSFlatMapOuter *)self setSubscriptions:v15];
 
     os_unfair_lock_unlock(&self->_lock);
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v16 = subscriptions;
-    v17 = [v16 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v38;
+      v19 = *v37;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v38 != v19)
+          if (*v37 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v37 + 1) + 8 * i);
+          v21 = *(*(&v36 + 1) + 8 * i);
           v22 = [MEMORY[0x1E696AD98] numberWithInteger:index];
           v23 = [v21 isEqualToNumber:v22];
 
@@ -623,7 +614,7 @@ LABEL_7:
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v18);
@@ -631,8 +622,8 @@ LABEL_7:
 
     os_unfair_recursive_lock_lock_with_options();
     downstream = [(_BPSFlatMapOuter *)self downstream];
-    completionCopy = v36;
-    error = [v36 error];
+    completionCopy = v35;
+    error = [v35 error];
     v27 = [BPSCompletion failureWithError:error];
     [downstream receiveCompletion:v27];
 
@@ -705,8 +696,6 @@ LABEL_24:
   }
 
 LABEL_25:
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestDemand:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

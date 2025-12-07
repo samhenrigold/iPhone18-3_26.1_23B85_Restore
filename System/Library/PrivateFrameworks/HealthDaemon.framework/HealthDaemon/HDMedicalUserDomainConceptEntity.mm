@@ -19,24 +19,21 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"udc_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"udc_id";
   v2 = +[HDUserDomainConceptEntity defaultForeignKey];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)privateSubEntities
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -54,10 +51,9 @@
 
 + (id)privateDataEntities
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -162,7 +158,7 @@ uint64_t __106__HDMedicalUserDomainConceptEntity_updateConcreteUserDomainConcept
 
 + (id)predicateMatchingSemanticIdentifier:(id)identifier
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   uUID = [identifierCopy UUID];
 
@@ -182,31 +178,29 @@ uint64_t __106__HDMedicalUserDomainConceptEntity_updateConcreteUserDomainConcept
     v10 = v9;
     if (countryCode)
     {
-      v18[0] = v9;
+      v17[0] = v9;
       medicalCoding = [identifierCopy medicalCoding];
       v12 = HDUserDomainConceptEntityPredicateForMedicalCoding(medicalCoding);
-      v18[1] = v12;
+      v17[1] = v12;
       countryCode2 = [identifierCopy countryCode];
       v14 = [MEMORY[0x277D10B18] predicateWithProperty:@"country_code" equalToValue:countryCode2];
-      v18[2] = v14;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+      v17[2] = v14;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
       v6 = [v8 predicateMatchingAllPredicates:v15];
     }
 
     else
     {
-      v19[0] = v9;
+      v18[0] = v9;
       medicalCoding = [identifierCopy medicalCoding];
       v12 = HDUserDomainConceptEntityPredicateForMedicalCoding(medicalCoding);
-      v19[1] = v12;
+      v18[1] = v12;
       countryCode2 = [MEMORY[0x277D10B60] isNullPredicateWithProperty:@"country_code"];
-      v19[2] = countryCode2;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+      v18[2] = countryCode2;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
       v6 = [v8 predicateMatchingAllPredicates:v14];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -224,7 +218,7 @@ uint64_t __106__HDMedicalUserDomainConceptEntity_updateConcreteUserDomainConcept
 
 + (id)predicateMatchingSemanticDuplicatesOf:(id)of
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   ofCopy = of;
   firstOntologyCoding = [ofCopy firstOntologyCoding];
   firstAdhocCoding = [ofCopy firstAdhocCoding];
@@ -232,34 +226,32 @@ uint64_t __106__HDMedicalUserDomainConceptEntity_updateConcreteUserDomainConcept
   if ((firstOntologyCoding || (v6 = firstAdhocCoding) != 0) && (HDUserDomainConceptEntityPredicateForMedicalCoding(v6), (v7 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v8 = v7;
-    v21 = MEMORY[0x277D10B20];
-    v24 = firstAdhocCoding;
+    v20 = MEMORY[0x277D10B20];
+    v23 = firstAdhocCoding;
     v9 = MEMORY[0x277D10B18];
     uUID = [ofCopy UUID];
-    v22 = [v9 predicateWithProperty:@"uuid" notEqualToValue:uUID];
-    v25[0] = v22;
+    v21 = [v9 predicateWithProperty:@"uuid" notEqualToValue:uUID];
+    v24[0] = v21;
     v10 = MEMORY[0x277D10B18];
     v11 = MEMORY[0x277CCABB0];
     identifier = [ofCopy identifier];
     v13 = [v11 numberWithInteger:{objc_msgSend(identifier, "code")}];
     v14 = [v10 predicateWithProperty:@"type" equalToValue:v13];
-    v25[1] = v14;
-    v25[2] = v8;
+    v24[1] = v14;
+    v24[2] = v8;
     countryCode = [ofCopy countryCode];
     v16 = [MEMORY[0x277D10B18] predicateWithProperty:@"country_code" equalToValue:countryCode];
-    v25[3] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
-    falsePredicate = [v21 predicateMatchingAllPredicates:v17];
+    v24[3] = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
+    falsePredicate = [v20 predicateMatchingAllPredicates:v17];
 
-    firstAdhocCoding = v24;
+    firstAdhocCoding = v23;
   }
 
   else
   {
     falsePredicate = [MEMORY[0x277D10B70] falsePredicate];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return falsePredicate;
 }
@@ -308,87 +300,144 @@ uint64_t __106__HDMedicalUserDomainConceptEntity_updateConcreteUserDomainConcept
 BOOL __73__HDMedicalUserDomainConceptEntity_pruneWithProfile_nowDate_limit_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v6 = *(a1 + 40);
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 64);
-  v9 = *(a1 + 32);
-  v10 = a2;
-  v11 = v6;
+  v7 = *(a1 + 64);
+  v8 = *(a1 + 32);
+  v9 = a2;
+  v10 = v6;
   objc_opt_self();
-  v12 = v10;
-  v13 = objc_opt_self();
-  v14 = [v12 protectedDatabase];
-  v45 = MEMORY[0x277D85DD0];
-  v46 = 3221225472;
-  v47 = __107__HDMedicalUserDomainConceptEntity__clearPendingPruneDateForMappedUDCsWithTransaction_nowDate_limit_error___block_invoke;
-  v48 = &__block_descriptor_40_e15___NSString_8__0l;
-  v49 = v13;
-  v57 = MEMORY[0x277D85DD0];
-  v58 = 3221225472;
-  v59 = __107__HDMedicalUserDomainConceptEntity__clearPendingPruneDateForMappedUDCsWithTransaction_nowDate_limit_error___block_invoke_2;
-  v60 = &__block_descriptor_48_e23_v16__0__sqlite3_stmt__8l;
-  v61 = v13;
-  v62 = v8;
-  LOBYTE(v13) = [v14 executeCachedStatementForKey:&_clearPendingPruneDateForMappedUDCsWithTransaction_nowDate_limit_error__statementKey error:a3 SQLGenerator:&v45 bindingHandler:&v57 enumerationHandler:0];
+  v11 = v9;
+  v12 = objc_opt_self();
+  v13 = [v11 protectedDatabase];
+  v44 = MEMORY[0x277D85DD0];
+  v45 = 3221225472;
+  v46 = __107__HDMedicalUserDomainConceptEntity__clearPendingPruneDateForMappedUDCsWithTransaction_nowDate_limit_error___block_invoke;
+  v47 = &__block_descriptor_40_e15___NSString_8__0l;
+  v48 = v12;
+  v56 = MEMORY[0x277D85DD0];
+  v57 = 3221225472;
+  v58 = __107__HDMedicalUserDomainConceptEntity__clearPendingPruneDateForMappedUDCsWithTransaction_nowDate_limit_error___block_invoke_2;
+  v59 = &__block_descriptor_48_e23_v16__0__sqlite3_stmt__8l;
+  v60 = v12;
+  v61 = v7;
+  LOBYTE(v12) = [v13 executeCachedStatementForKey:&_clearPendingPruneDateForMappedUDCsWithTransaction_nowDate_limit_error__statementKey error:a3 SQLGenerator:&v44 bindingHandler:&v56 enumerationHandler:0];
 
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
 
-    v17 = 0;
+    v16 = 0;
     goto LABEL_7;
   }
 
-  v15 = MEMORY[0x277CCABB0];
-  v16 = [v12 protectedDatabase];
-  v17 = [v15 numberWithInt:{objc_msgSend(v16, "getChangesCount")}];
+  v14 = MEMORY[0x277CCABB0];
+  v15 = [v11 protectedDatabase];
+  v16 = [v14 numberWithInt:{objc_msgSend(v15, "getChangesCount")}];
 
-  if (!v17)
+  if (!v16)
   {
 LABEL_7:
-    v26 = 0;
+    v25 = 0;
     goto LABEL_8;
   }
 
-  v18 = [v17 integerValue];
-  if (v8 > v18)
+  v17 = [v16 integerValue];
+  if (v7 > v17)
   {
-    v43 = v8 - v18;
-    v40 = v9;
-    v41 = v9;
-    v19 = v12;
-    v20 = v11;
-    v21 = objc_opt_self();
-    v53 = 0;
-    v54 = &v53;
-    v55 = 0x2020000000;
-    v56 = 0;
-    v22 = [v19 protectedDatabase];
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __105__HDMedicalUserDomainConceptEntity__tombstoneOldUnmappedUDCsWithProfile_transaction_nowDate_limit_error___block_invoke;
-    v52[3] = &__block_descriptor_40_e15___NSString_8__0l;
-    v52[4] = v21;
-    v57 = MEMORY[0x277D85DD0];
-    v58 = 3221225472;
-    v59 = __105__HDMedicalUserDomainConceptEntity__tombstoneOldUnmappedUDCsWithProfile_transaction_nowDate_limit_error___block_invoke_2;
-    v60 = &unk_278619A20;
-    v62 = v21;
-    v39 = v20;
-    v61 = v39;
-    v63 = v43;
-    v45 = MEMORY[0x277D85DD0];
-    v46 = 3221225472;
-    v47 = __105__HDMedicalUserDomainConceptEntity__tombstoneOldUnmappedUDCsWithProfile_transaction_nowDate_limit_error___block_invoke_3;
-    v48 = &unk_278625D18;
-    v51 = &v53;
-    v23 = v41;
+    v42 = v7 - v17;
+    v39 = v8;
+    v40 = v8;
+    v18 = v11;
+    v19 = v10;
+    v20 = objc_opt_self();
+    v52 = 0;
+    v53 = &v52;
+    v54 = 0x2020000000;
+    v55 = 0;
+    v21 = [v18 protectedDatabase];
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __105__HDMedicalUserDomainConceptEntity__tombstoneOldUnmappedUDCsWithProfile_transaction_nowDate_limit_error___block_invoke;
+    v51[3] = &__block_descriptor_40_e15___NSString_8__0l;
+    v51[4] = v20;
+    v56 = MEMORY[0x277D85DD0];
+    v57 = 3221225472;
+    v58 = __105__HDMedicalUserDomainConceptEntity__tombstoneOldUnmappedUDCsWithProfile_transaction_nowDate_limit_error___block_invoke_2;
+    v59 = &unk_278619A20;
+    v61 = v20;
+    v38 = v19;
+    v60 = v38;
+    v62 = v42;
+    v44 = MEMORY[0x277D85DD0];
+    v45 = 3221225472;
+    v46 = __105__HDMedicalUserDomainConceptEntity__tombstoneOldUnmappedUDCsWithProfile_transaction_nowDate_limit_error___block_invoke_3;
+    v47 = &unk_278625D18;
+    v50 = &v52;
+    v22 = v40;
+    v48 = v22;
+    v23 = v18;
     v49 = v23;
-    v24 = v19;
-    v50 = v24;
-    LODWORD(v19) = [v22 executeCachedStatementForKey:&_tombstoneOldUnmappedUDCsWithProfile_transaction_nowDate_limit_error__statementKey error:a3 SQLGenerator:v52 bindingHandler:&v57 enumerationHandler:&v45];
+    LODWORD(v18) = [v21 executeCachedStatementForKey:&_tombstoneOldUnmappedUDCsWithProfile_transaction_nowDate_limit_error__statementKey error:a3 SQLGenerator:v51 bindingHandler:&v56 enumerationHandler:&v44];
 
-    if (v19)
+    if (v18)
     {
-      v25 = [MEMORY[0x277CCABB0] numberWithInteger:v54[3]];
+      v24 = [MEMORY[0x277CCABB0] numberWithInteger:v53[3]];
+    }
+
+    else
+    {
+      v24 = 0;
+    }
+
+    _Block_object_dispose(&v52, 8);
+    if (v24)
+    {
+      v29 = [v24 integerValue];
+      if (v42 > v29)
+      {
+        v41 = v29;
+        v43 = v42 - v29;
+        v30 = v23;
+        v31 = v38;
+        v32 = objc_opt_self();
+        v33 = [v30 protectedDatabase];
+        v44 = MEMORY[0x277D85DD0];
+        v45 = 3221225472;
+        v46 = __92__HDMedicalUserDomainConceptEntity__markNewUnmappedUDCsWithTransaction_nowDate_limit_error___block_invoke;
+        v47 = &__block_descriptor_40_e15___NSString_8__0l;
+        v48 = v32;
+        v56 = MEMORY[0x277D85DD0];
+        v57 = 3221225472;
+        v58 = __92__HDMedicalUserDomainConceptEntity__markNewUnmappedUDCsWithTransaction_nowDate_limit_error___block_invoke_2;
+        v59 = &unk_278619A20;
+        v34 = v31;
+        v60 = v34;
+        v61 = v32;
+        v62 = v43;
+        LODWORD(v32) = [v33 executeCachedStatementForKey:&_markNewUnmappedUDCsWithTransaction_nowDate_limit_error__statementKey error:a3 SQLGenerator:&v44 bindingHandler:&v56 enumerationHandler:0];
+
+        v35 = 0;
+        if (v32)
+        {
+          v36 = MEMORY[0x277CCABB0];
+          v37 = [v30 protectedDatabase];
+          v35 = [v36 numberWithInt:{objc_msgSend(v37, "getChangesCount")}];
+        }
+
+        if (v35)
+        {
+          v25 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v35, "integerValue") + v41}];
+        }
+
+        else
+        {
+          v25 = 0;
+        }
+
+        v8 = v39;
+
+        goto LABEL_22;
+      }
+
+      v25 = v24;
     }
 
     else
@@ -396,77 +445,19 @@ LABEL_7:
       v25 = 0;
     }
 
-    _Block_object_dispose(&v53, 8);
-    if (v25)
-    {
-      v30 = [v25 integerValue];
-      if (v43 > v30)
-      {
-        v42 = v30;
-        v44 = v43 - v30;
-        v31 = v24;
-        v32 = v39;
-        v33 = objc_opt_self();
-        v34 = [v31 protectedDatabase];
-        v45 = MEMORY[0x277D85DD0];
-        v46 = 3221225472;
-        v47 = __92__HDMedicalUserDomainConceptEntity__markNewUnmappedUDCsWithTransaction_nowDate_limit_error___block_invoke;
-        v48 = &__block_descriptor_40_e15___NSString_8__0l;
-        v49 = v33;
-        v57 = MEMORY[0x277D85DD0];
-        v58 = 3221225472;
-        v59 = __92__HDMedicalUserDomainConceptEntity__markNewUnmappedUDCsWithTransaction_nowDate_limit_error___block_invoke_2;
-        v60 = &unk_278619A20;
-        v35 = v32;
-        v61 = v35;
-        v62 = v33;
-        v63 = v44;
-        LODWORD(v33) = [v34 executeCachedStatementForKey:&_markNewUnmappedUDCsWithTransaction_nowDate_limit_error__statementKey error:a3 SQLGenerator:&v45 bindingHandler:&v57 enumerationHandler:0];
-
-        v36 = 0;
-        if (v33)
-        {
-          v37 = MEMORY[0x277CCABB0];
-          v38 = [v31 protectedDatabase];
-          v36 = [v37 numberWithInt:{objc_msgSend(v38, "getChangesCount")}];
-        }
-
-        if (v36)
-        {
-          v26 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v36, "integerValue") + v42}];
-        }
-
-        else
-        {
-          v26 = 0;
-        }
-
-        v9 = v40;
-
-        goto LABEL_22;
-      }
-
-      v26 = v25;
-    }
-
-    else
-    {
-      v26 = 0;
-    }
-
-    v9 = v40;
+    v8 = v39;
 LABEL_22:
 
     goto LABEL_8;
   }
 
-  v17 = v17;
-  v26 = v17;
+  v16 = v16;
+  v25 = v16;
 LABEL_8:
 
-  v27 = *(*(a1 + 48) + 8);
-  v28 = *(v27 + 40);
-  *(v27 + 40) = v26;
+  v26 = *(*(a1 + 48) + 8);
+  v27 = *(v26 + 40);
+  *(v26 + 40) = v25;
 
   return *(*(*(a1 + 48) + 8) + 40) != 0;
 }
@@ -475,27 +466,26 @@ id __107__HDMedicalUserDomainConceptEntity__clearPendingPruneDateForMappedUDCsWi
 {
   v2 = objc_alloc(MEMORY[0x277CCACA8]);
   v3 = +[(HDSQLiteSchemaEntity *)HDUserDomainConceptPropertyEntity];
-  v4 = *(a1 + 32);
-  v5 = +[HDMedicalUserDomainConceptEntity _recursiveSQLForMappedUDCs];
-  v6 = [v2 initWithFormat:@"DELETE FROM %@ WHERE (%@ IN (%@) SELECT %@ FROM %@) AND %@ = ? LIMIT ?"], v3, @"udc_id", v5, @"udc_id", @"recursive_mapped_concepts", @"property_type");
+  v4 = +[(HDMedicalUserDomainConceptEntity *)*(a1];
+  v5 = [v2 initWithFormat:@"DELETE FROM %@ WHERE (%@ IN (%@) SELECT %@ FROM %@) AND %@ = ? LIMIT ?"], v3, @"udc_id", v4, @"udc_id", @"recursive_mapped_concepts", @"property_type");
 
-  return v6;
+  return v5;
 }
 
 + (id)_recursiveSQLForMappedUDCs
 {
   objc_opt_self();
-  v0 = +[(HDSQLiteSchemaEntity *)HDUserDomainConceptEntity];
-  v1 = +[(HDSQLiteSchemaEntity *)HDMedicalUserDomainConceptMappingEntity];
-  v2 = +[(HDSQLiteSchemaEntity *)HDUserDomainConceptLinkEntity];
-  v3 = MEMORY[0x277CBEA60];
-  v4 = HKWeakConceptLinkTypes();
-  v5 = [v3 hk_arrayWithCount:objc_msgSend(v4 generator:{"count"), &__block_literal_global_359}];
-  v6 = [v5 componentsJoinedByString:{@", "}];
+  v1 = +[(HDSQLiteSchemaEntity *)HDUserDomainConceptEntity];
+  v2 = +[(HDSQLiteSchemaEntity *)HDMedicalUserDomainConceptMappingEntity];
+  v3 = +[(HDSQLiteSchemaEntity *)HDUserDomainConceptLinkEntity];
+  v4 = MEMORY[0x277CBEA60];
+  v5 = HKWeakConceptLinkTypes();
+  v6 = [v4 hk_arrayWithCount:objc_msgSend(v5 generator:{"count"), &__block_literal_global_359}];
+  v7 = [v6 componentsJoinedByString:{@", "}];
 
-  v7 = objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"WITH RECURSIVE %@(%@, %@) AS (SELECT %@, %@ FROM %@ INNER JOIN %@ USING(%@) UNION SELECT %@.%@, %@.%@ FROM %@ INNER JOIN %@ USING (%@) INNER JOIN %@ ON %@.%@ = %@ WHERE %@ NOT IN (%@) UNION SELECT %@.%@, %@.%@ FROM %@ INNER JOIN %@ ON %@ = %@.%@ INNER JOIN %@ ON %@.%@ = %@.%@ WHERE %@ NOT IN (%@)"), CFSTR("recursive_mapped_concepts"), CFSTR("udc_id"), CFSTR("uuid"), CFSTR("udc_id"), CFSTR("uuid"), v0, v1, CFSTR("udc_id"), v0, CFSTR("udc_id"), v0, CFSTR("uuid"), v0, v2, CFSTR("udc_id"), CFSTR("recursive_mapped_concepts"), CFSTR("recursive_mapped_concepts"), CFSTR("uuid"), CFSTR("target_uuid"), CFSTR("link_type"), v6, v0, CFSTR("udc_id"), v0, CFSTR("uuid"), v0, v2, CFSTR("target_uuid"), v0, CFSTR("uuid"), CFSTR("recursive_mapped_concepts"), CFSTR("recursive_mapped_concepts"), CFSTR("udc_id"), v2, CFSTR("udc_id"), CFSTR("link_type"), v6;
+  v8 = objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"WITH RECURSIVE %@(%@, %@) AS (SELECT %@, %@ FROM %@ INNER JOIN %@ USING(%@) UNION SELECT %@.%@, %@.%@ FROM %@ INNER JOIN %@ USING (%@) INNER JOIN %@ ON %@.%@ = %@ WHERE %@ NOT IN (%@) UNION SELECT %@.%@, %@.%@ FROM %@ INNER JOIN %@ ON %@ = %@.%@ INNER JOIN %@ ON %@.%@ = %@.%@ WHERE %@ NOT IN (%@)"), @"recursive_mapped_concepts", @"udc_id", @"uuid", @"udc_id", @"uuid", v1, v2, @"udc_id", v1, @"udc_id", v1, @"uuid", v1, v3, @"udc_id", @"recursive_mapped_concepts", @"recursive_mapped_concepts", @"uuid", @"target_uuid", @"link_type", v7, v1, @"udc_id", v1, @"uuid", v1, v3, @"target_uuid", v1, @"uuid", @"recursive_mapped_concepts", @"recursive_mapped_concepts", @"udc_id", v3, @"udc_id", @"link_type", v7;
 
-  return v7;
+  return v8;
 }
 
 uint64_t __107__HDMedicalUserDomainConceptEntity__clearPendingPruneDateForMappedUDCsWithTransaction_nowDate_limit_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
@@ -511,38 +501,36 @@ uint64_t __107__HDMedicalUserDomainConceptEntity__clearPendingPruneDateForMapped
 
 + (void)_bindRecursiveMappedUDCStatement:(_DWORD *)statement bindingIndex:
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   objc_opt_self();
   v4 = 1;
   do
   {
     v5 = v4;
-    v16 = 0u;
-    v17 = 0u;
+    v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v6 = HKWeakConceptLinkTypes();
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v12;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
-          v12 = *statement;
           HDSQLiteBindFoundationValueToStatement();
           ++*statement;
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
@@ -552,7 +540,6 @@ uint64_t __107__HDMedicalUserDomainConceptEntity__clearPendingPruneDateForMapped
   }
 
   while ((v5 & 1) != 0);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 id __105__HDMedicalUserDomainConceptEntity__tombstoneOldUnmappedUDCsWithProfile_transaction_nowDate_limit_error___block_invoke(uint64_t a1)
@@ -561,11 +548,10 @@ id __105__HDMedicalUserDomainConceptEntity__tombstoneOldUnmappedUDCsWithProfile_
   v3 = +[(HDSQLiteSchemaEntity *)HDUserDomainConceptPropertyEntity];
   v4 = objc_alloc(MEMORY[0x277CCACA8]);
   v5 = +[(HDSQLiteSchemaEntity *)HDUserDomainConceptEntity];
-  v6 = *(a1 + 32);
-  v7 = +[HDMedicalUserDomainConceptEntity _recursiveSQLForMappedUDCs];
-  v8 = [v4 initWithFormat:@"SELECT %@, %@ FROM %@ INNER JOIN %@ USING(%@) INNER JOIN %@ USING(%@) WHERE NOT EXISTS (%@) SELECT 1 FROM %@ WHERE %@.%@ = %@.%@ AND property_type = ? AND date_value <= ? LIMIT ?"], @"uuid", @"creation_date", v2, v5, @"udc_id", v3, @"udc_id", v7, @"recursive_mapped_concepts", @"recursive_mapped_concepts", @"udc_id", v2, @"udc_id");
+  v6 = +[(HDMedicalUserDomainConceptEntity *)*(a1];
+  v7 = [v4 initWithFormat:@"SELECT %@, %@ FROM %@ INNER JOIN %@ USING(%@) INNER JOIN %@ USING(%@) WHERE NOT EXISTS (%@) SELECT 1 FROM %@ WHERE %@.%@ = %@.%@ AND property_type = ? AND date_value <= ? LIMIT ?"], @"uuid", @"creation_date", v2, v5, @"udc_id", v3, @"udc_id", v6, @"recursive_mapped_concepts", @"recursive_mapped_concepts", @"udc_id", v2, @"udc_id");
 
-  return v8;
+  return v7;
 }
 
 uint64_t __105__HDMedicalUserDomainConceptEntity__tombstoneOldUnmappedUDCsWithProfile_transaction_nowDate_limit_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
@@ -596,12 +582,11 @@ id __92__HDMedicalUserDomainConceptEntity__markNewUnmappedUDCsWithTransaction_no
 {
   v2 = +[(HDSQLiteSchemaEntity *)HDMedicalUserDomainConceptEntity];
   v3 = +[(HDSQLiteSchemaEntity *)HDUserDomainConceptPropertyEntity];
-  v8 = objc_alloc(MEMORY[0x277CCACA8]);
-  v4 = *(a1 + 32);
-  v5 = +[HDMedicalUserDomainConceptEntity _recursiveSQLForMappedUDCs];
-  v6 = [v8 initWithFormat:@"INSERT OR REPLACE INTO %@ (%@, %@, %@, %@, %@, %@, %@) SELECT %@, ?, ?, ?, ?, ?, ? FROM %@ WHERE (NOT EXISTS (%@) SELECT 1 FROM %@ WHERE %@.%@ = %@.%@) AND NOT EXISTS (SELECT 1 FROM %@ WHERE(%@.%@ = %@.%@ AND %@ = ?)) LIMIT ?"], v3, @"udc_id", @"category", @"property_type", @"version", @"timestamp", @"value_type", @"date_value", @"udc_id", v2, v5, @"recursive_mapped_concepts", v2, @"udc_id", @"recursive_mapped_concepts", @"udc_id", v3, v2, @"udc_id", v3, @"udc_id", @"property_type");
+  v7 = objc_alloc(MEMORY[0x277CCACA8]);
+  v4 = +[(HDMedicalUserDomainConceptEntity *)*(a1];
+  v5 = [v7 initWithFormat:@"INSERT OR REPLACE INTO %@ (%@, %@, %@, %@, %@, %@, %@) SELECT %@, ?, ?, ?, ?, ?, ? FROM %@ WHERE (NOT EXISTS (%@) SELECT 1 FROM %@ WHERE %@.%@ = %@.%@) AND NOT EXISTS (SELECT 1 FROM %@ WHERE(%@.%@ = %@.%@ AND %@ = ?)) LIMIT ?"], v3, @"udc_id", @"category", @"property_type", @"version", @"timestamp", @"value_type", @"date_value", @"udc_id", v2, v4, @"recursive_mapped_concepts", v2, @"udc_id", @"recursive_mapped_concepts", @"udc_id", v3, v2, @"udc_id", v3, @"udc_id", @"property_type");
 
-  return v6;
+  return v5;
 }
 
 uint64_t __92__HDMedicalUserDomainConceptEntity__markNewUnmappedUDCsWithTransaction_nowDate_limit_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)

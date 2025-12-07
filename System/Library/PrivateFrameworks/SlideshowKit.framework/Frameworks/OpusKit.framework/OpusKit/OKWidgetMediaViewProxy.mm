@@ -559,7 +559,7 @@ uint64_t __48__OKWidgetMediaViewProxy_setSettingContentMode___block_invoke(uint6
   return shouldDrawRegionOfInterest_shouldDrawRegionOfInterest;
 }
 
-uint64_t __52__OKWidgetMediaViewProxy_shouldDrawRegionOfInterest__block_invoke()
+void *__52__OKWidgetMediaViewProxy_shouldDrawRegionOfInterest__block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x277CBEBD0] "standardUserDefaults")];
   shouldDrawRegionOfInterest_shouldDrawRegionOfInterest = result;
@@ -806,7 +806,7 @@ void __60__OKWidgetMediaViewProxy__reloadThumbnailContent_loadVideo___block_invo
   }
 }
 
-uint64_t __60__OKWidgetMediaViewProxy__reloadThumbnailContent_loadVideo___block_invoke_4(uint64_t a1)
+void *__60__OKWidgetMediaViewProxy__reloadThumbnailContent_loadVideo___block_invoke_4(uint64_t a1)
 {
   v15[1] = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) object];
@@ -820,7 +820,7 @@ uint64_t __60__OKWidgetMediaViewProxy__reloadThumbnailContent_loadVideo___block_
       {
         if (*(a1 + 48))
         {
-          *(v3 + 1680) = 0x3FF0000000000000;
+          *(v3 + 210) = 0x3FF0000000000000;
           [v3 updateProgressIndicator:1.0];
           result = [v3 stopShowingProgressIndicator];
         }
@@ -830,8 +830,8 @@ uint64_t __60__OKWidgetMediaViewProxy__reloadThumbnailContent_loadVideo___block_
     v4 = *(a1 + 48);
     if (!*(a1 + 65) || v4)
     {
-      [*(v3 + 1496) setImage:v4];
-      result = [*(v3 + 1496) setBackgroundColor:{objc_msgSend(MEMORY[0x277D75348], "clearColor")}];
+      [*(v3 + 187) setImage:v4];
+      result = [*(v3 + 187) setBackgroundColor:{objc_msgSend(MEMORY[0x277D75348], "clearColor")}];
     }
 
     if (*(a1 + 64) == 1)
@@ -862,7 +862,7 @@ uint64_t __60__OKWidgetMediaViewProxy__reloadThumbnailContent_loadVideo___block_
 
           else
           {
-            *(v3 + 1680) = 0x3FF0000000000000;
+            *(v3 + 210) = 0x3FF0000000000000;
             [v3 updateProgressIndicator:1.0];
             [v3 stopShowingProgressIndicator];
             return [v3 becomeReady];
@@ -880,7 +880,7 @@ uint64_t __60__OKWidgetMediaViewProxy__reloadThumbnailContent_loadVideo___block_
         }
       }
 
-      *(v3 + 1680) = 0x3FF0000000000000;
+      *(v3 + 210) = 0x3FF0000000000000;
       [v3 updateProgressIndicator:1.0];
       [v3 stopShowingProgressIndicator];
 
@@ -959,7 +959,7 @@ void __60__OKWidgetMediaViewProxy__reloadThumbnailContent_loadVideo___block_invo
   }
 }
 
-uint64_t __60__OKWidgetMediaViewProxy__reloadThumbnailContent_loadVideo___block_invoke_8(uint64_t a1)
+void *__60__OKWidgetMediaViewProxy__reloadThumbnailContent_loadVideo___block_invoke_8(uint64_t a1)
 {
   result = [*(a1 + 32) object];
   if (!result)
@@ -983,9 +983,9 @@ uint64_t __60__OKWidgetMediaViewProxy__reloadThumbnailContent_loadVideo___block_
     goto LABEL_5;
   }
 
-  if (*(result + 1536))
+  if (result[192])
   {
-    if (([*(a1 + 48) isEqual:*(result + 1536)] & 1) == 0)
+    if (([*(a1 + 48) isEqual:result[192]] & 1) == 0)
     {
       v4 = *(a1 + 48);
       goto LABEL_12;
@@ -1335,7 +1335,7 @@ void __40__OKWidgetMediaViewProxy_setVideoAsset___block_invoke(uint64_t a1)
   dispatch_async(global_queue, block);
 }
 
-uint64_t __40__OKWidgetMediaViewProxy_setVideoAsset___block_invoke_2(void *a1)
+void *__40__OKWidgetMediaViewProxy_setVideoAsset___block_invoke_2(void *a1)
 {
   v21 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
@@ -1451,9 +1451,9 @@ LABEL_17:
   if ([objc_msgSend(-[OKPresentation mediaItemForURL:](-[OKPresentationCanvas presentation](-[OKWidgetViewProxy page](self "page")] == 3)
   {
     objc_sync_enter(self);
-    [(OKWidgetMediaViewProxy *)self duration];
+    objc_msgSend_duration(self);
     v6 = v5;
-    [(OKWidgetMediaViewProxy *)self currentTime];
+    objc_msgSend_currentTime(self);
     v8 = v6 - v7;
     if (!self->_isVideoAssetLoaded || v4 <= v8)
     {
@@ -1680,14 +1680,14 @@ uint64_t __49__OKWidgetMediaViewProxy_setupJavascriptContext___block_invoke_3()
 {
   v0 = [objc_msgSend(MEMORY[0x277CD4640] "currentThis")];
 
-  return [v0 duration];
+  return objc_msgSend_duration(v0);
 }
 
 uint64_t __49__OKWidgetMediaViewProxy_setupJavascriptContext___block_invoke_4()
 {
   v0 = [objc_msgSend(MEMORY[0x277CD4640] "currentThis")];
 
-  return [v0 currentTime];
+  return objc_msgSend_currentTime(v0);
 }
 
 - (void)setPlaybackAudioVolume:(double)volume

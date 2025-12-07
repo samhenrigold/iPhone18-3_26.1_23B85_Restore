@@ -28,6 +28,7 @@
 - (void)refreshSwitchStates;
 - (void)setPreferenceValue:(id)value specifier:(id)specifier;
 - (void)showController:(id)controller;
+- (void)showController:(id)controller animate:(BOOL)animate;
 - (void)togglePreAuthorizationSwitch:(id)switch specifier:(id)specifier;
 - (void)toggleShareAnalytics:(id)analytics specifier:(id)specifier;
 - (void)toggleShareExposureInformationSwitch:(id)switch specifier:(id)specifier;
@@ -652,6 +653,15 @@ LABEL_13:
   controllerCopy = controller;
   WeakRetained = objc_loadWeakRetained(&self->PSListController_opaque[v4]);
   [WeakRetained showController:controllerCopy];
+}
+
+- (void)showController:(id)controller animate:(BOOL)animate
+{
+  animateCopy = animate;
+  v6 = OBJC_IVAR___PSViewController__parentController;
+  controllerCopy = controller;
+  WeakRetained = objc_loadWeakRetained(&self->PSListController_opaque[v6]);
+  [WeakRetained showController:controllerCopy animate:animateCopy];
 }
 
 - (void)didTapAccessAppButton

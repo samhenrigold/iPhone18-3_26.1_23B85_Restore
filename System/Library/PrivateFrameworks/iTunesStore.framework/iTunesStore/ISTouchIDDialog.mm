@@ -14,26 +14,24 @@
 - (ISTouchIDDialog)initWithDialogDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  __ISRecordSPIClassUsage(self);
-  v8.receiver = self;
-  v8.super_class = ISTouchIDDialog;
-  v5 = [(ISDialog *)&v8 init];
-  v6 = v5;
-  if (v5)
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISTouchIDDialog.m", 51, a2);
+  v9.receiver = self;
+  v9.super_class = ISTouchIDDialog;
+  v6 = [(ISDialog *)&v9 init];
+  v7 = v6;
+  if (v6)
   {
-    [(ISTouchIDDialog *)v5 _init];
-    [(ISTouchIDDialog *)v6 _parseDialogDictionary:dictionaryCopy];
+    [(ISTouchIDDialog *)v6 _init];
+    [(ISTouchIDDialog *)v7 _parseDialogDictionary:dictionaryCopy];
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)_init
 {
   self->_isDualAction = 0;
-  v3 = objc_alloc_init(MEMORY[0x277CCAAF8]);
-  lock = self->_lock;
-  self->_lock = v3;
+  self->_lock = objc_alloc_init(MEMORY[0x277CCAAF8]);
 
   MEMORY[0x2821F96F8]();
 }
@@ -82,27 +80,27 @@
 
 - (id)buttonForButtonType:(int64_t)type
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   buttons = [(ISDialog *)self buttons];
-  v5 = [buttons countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [buttons countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(buttons);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([v9 buttonType] == type)
         {
           v10 = v9;
@@ -110,7 +108,7 @@
         }
       }
 
-      v6 = [buttons countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [buttons countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -122,8 +120,6 @@
 
   v10 = 0;
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -306,7 +302,7 @@ LABEL_26:
       v51 = 2114;
       v52 = v47;
       v36 = v35;
-      LODWORD(v45) = 22;
+      v37 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: Merchant Session: Failed to serialize JSON data with error: %{public}@", &v49, 22);
     }
 
     else
@@ -314,10 +310,10 @@ LABEL_26:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v37 = self->_paymentSheet;
-        if (v37)
+        v38 = self->_paymentSheet;
+        if (v38)
         {
-          [(SSPaymentSheet *)v37 setMerchantSession:v28];
+          [(SSPaymentSheet *)v38 setMerchantSession:v28];
           self->_isDualAction = 1;
 LABEL_63:
 
@@ -341,18 +337,24 @@ LABEL_63:
         oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
         if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
         {
-          v41 = shouldLog2;
+          v43 = shouldLog2;
         }
 
         else
         {
-          v41 = shouldLog2 & 2;
+          v43 = shouldLog2 & 2;
         }
 
-        if (!v41)
+        if (!v43)
         {
           goto LABEL_61;
         }
+
+        v44 = objc_opt_class();
+        v49 = 138543362;
+        v50 = v44;
+        v36 = v44;
+        v37 = _os_log_send_and_compose_impl(v43, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: Merchant Session: Failed to attach merchant session for now payment sheet", &v49, 12);
       }
 
       else
@@ -374,30 +376,30 @@ LABEL_63:
         oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
         if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
         {
-          v39 = shouldLog3;
+          v40 = shouldLog3;
         }
 
         else
         {
-          v39 = shouldLog3 & 2;
+          v40 = shouldLog3 & 2;
         }
 
-        if (!v39)
+        if (!v40)
         {
           goto LABEL_61;
         }
-      }
 
-      v42 = objc_opt_class();
-      v49 = 138543362;
-      v50 = v42;
-      v36 = v42;
-      LODWORD(v45) = 12;
+        v41 = objc_opt_class();
+        v49 = 138543362;
+        v50 = v41;
+        v36 = v41;
+        v37 = _os_log_send_and_compose_impl(v40, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: Merchant Session: Failed to serialize JSON data", &v49, 12);
+      }
     }
 
-    v43 = _os_log_send_and_compose_impl();
+    v45 = v37;
 
-    if (!v43)
+    if (!v45)
     {
 LABEL_62:
 
@@ -406,8 +408,8 @@ LABEL_62:
       goto LABEL_63;
     }
 
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v43 encoding:{4, &v49, v45}];
-    free(v43);
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v45 encoding:4];
+    free(v45);
     SSFileLog();
 LABEL_61:
 
@@ -415,8 +417,6 @@ LABEL_61:
   }
 
 LABEL_64:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 @end

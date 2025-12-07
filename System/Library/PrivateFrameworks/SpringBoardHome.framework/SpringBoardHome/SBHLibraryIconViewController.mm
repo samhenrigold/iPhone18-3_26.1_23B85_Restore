@@ -51,7 +51,7 @@
   [(SBHLibraryIconViewController *)&v8 viewDidLoad];
   view = [(SBHLibraryIconViewController *)self view];
   v4 = [SBHLibraryCategoryStackView alloc];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v5 = [(SBHLibraryCategoryStackView *)v4 initWithFrame:?];
   [(SBHLibraryCategoryStackView *)v5 setAutoresizingMask:18];
   [(SBHLibraryCategoryStackView *)v5 setIconImageInfo:self->_iconImageInfo.size.width, self->_iconImageInfo.size.height, self->_iconImageInfo.scale, self->_iconImageInfo.continuousCornerRadius];
@@ -185,7 +185,7 @@
 
 - (CGRect)visibleBounds
 {
-  [(SBHLibraryIconViewController *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self, a2);
   v3 = v2;
   v5 = v4;
   v6 = 0.0;
@@ -200,7 +200,7 @@
 - (void)_reloadCategoryViewsForDataSourceChangeAnimated:(BOOL)animated
 {
   animatedCopy = animated;
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   categoryIdentifiers = [(SBHLibraryCategoriesFolderDataSource *)self->_libraryDataSource categoryIdentifiers];
   categoryStackView = self->_categoryStackView;
   v7 = [categoryIdentifiers count];
@@ -229,20 +229,20 @@
   firstObject = [categoryIdentifiers firstObject];
   v12 = [(SBHLibraryCategoriesFolderDataSource *)libraryDataSource categoryForIdentifier:firstObject];
 
-  v13 = SBLogLibrary();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = SBLogLibrary(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412546;
+    v18 = 138412546;
     selfCopy = self;
-    v19 = 2112;
-    v20 = v12;
-    _os_log_impl(&dword_1BEB18000, v13, OS_LOG_TYPE_DEFAULT, "[%@] reloading pod icons for updated topmost category: %@", &v17, 0x16u);
+    v20 = 2112;
+    v21 = v12;
+    _os_log_impl(&dword_1BEB18000, v14, OS_LOG_TYPE_DEFAULT, "[%@] reloading pod icons for updated topmost category: %@", &v18, 0x16u);
   }
 
   compactPodFolder = [v12 compactPodFolder];
-  v15 = self->_categoryStackView;
+  v16 = self->_categoryStackView;
   icons = [compactPodFolder icons];
-  [(SBHLibraryCategoryStackView *)v15 setInnerIcons:icons animated:animatedCopy];
+  [(SBHLibraryCategoryStackView *)v16 setInnerIcons:icons animated:animatedCopy];
 }
 
 - (id)succinctDescription

@@ -166,7 +166,7 @@ LABEL_8:
 
 - (id)buildDescriptions
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   result = [(SSResultBuilder *)self result];
   contentTypeTree = [result contentTypeTree];
   if ([contentTypeTree containsObject:*MEMORY[0x1E696E590]])
@@ -184,8 +184,8 @@ LABEL_8:
       v11 = [v9 stringWithFormat:v10, v8];
 
       v12 = [MEMORY[0x1E69CA3A0] textWithString:v11];
-      v16[0] = v12;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+      v15[0] = v12;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
 
       goto LABEL_6;
     }
@@ -197,7 +197,6 @@ LABEL_8:
 
   v13 = 0;
 LABEL_6:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

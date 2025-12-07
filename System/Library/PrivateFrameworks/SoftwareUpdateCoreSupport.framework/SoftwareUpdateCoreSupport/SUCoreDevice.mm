@@ -91,14 +91,14 @@
 
 - (BOOL)hasEligibleRollback
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   _copySplatRollbackObjectsPath = [(SUCoreDevice *)self _copySplatRollbackObjectsPath];
   if (_copySplatRollbackObjectsPath)
   {
-    v13 = 0;
+    v12 = 0;
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v4 = [defaultManager fileExistsAtPath:_copySplatRollbackObjectsPath isDirectory:&v13];
-    LODWORD(oslog2) = (v4 & v13);
+    v4 = [defaultManager fileExistsAtPath:_copySplatRollbackObjectsPath isDirectory:&v12];
+    LODWORD(oslog2) = (v4 & v12);
 
     v6 = +[SUCoreLog sharedLogger];
     oslog = [v6 oslog];
@@ -117,16 +117,16 @@
       }
 
       *buf = 138543874;
-      v15 = _copySplatRollbackObjectsPath;
-      v16 = 2114;
-      if (v13)
+      v14 = _copySplatRollbackObjectsPath;
+      v15 = 2114;
+      if (v12)
       {
         v8 = @"YES";
       }
 
-      v17 = v9;
-      v18 = 2114;
-      v19 = v8;
+      v16 = v9;
+      v17 = 2114;
+      v18 = v8;
       _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Checking if rollback objects are present in preboot at path: %{public}@, exists: %{public}@, isDir: %{public}@", buf, 0x20u);
     }
   }
@@ -144,13 +144,12 @@
     LOBYTE(oslog2) = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return oslog2;
 }
 
 - (BOOL)hasSemiSplatActive
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (![(SUCoreDevice *)self hasSplat])
   {
     v20 = 0;
@@ -235,13 +234,12 @@ LABEL_17:
     }
 
     *buf = 138543618;
-    v32 = v28;
-    v33 = 2114;
-    v34 = v19;
+    v31 = v28;
+    v32 = 2114;
+    v33 = v19;
     _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Semi-splat active: %{public}@ (%{public}@)", buf, 0x16u);
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -458,7 +456,7 @@ LABEL_8:
 
 - (void)adjustTargetingSystemVolume:(id)volume
 {
-  v175 = *MEMORY[0x1E69E9840];
+  v174 = *MEMORY[0x1E69E9840];
   volumeCopy = volume;
   if (volumeCopy)
   {
@@ -530,7 +528,7 @@ LABEL_8:
     {
       systemVersionPlistPath = [(SUCoreDevice *)self systemVersionPlistPath];
       *buf = 138543362;
-      v174 = systemVersionPlistPath;
+      v173 = systemVersionPlistPath;
       _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Using systemVersionPlistPath: %{public}@", buf, 0xCu);
     }
 
@@ -541,7 +539,7 @@ LABEL_8:
     {
       restoreVersionPlistPath = [(SUCoreDevice *)self restoreVersionPlistPath];
       *buf = 138543362;
-      v174 = restoreVersionPlistPath;
+      v173 = restoreVersionPlistPath;
       _os_log_impl(&dword_1E0F71000, oslog2, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Using restoreVersionPlistPath: %{public}@", buf, 0xCu);
     }
 
@@ -552,7 +550,7 @@ LABEL_8:
     {
       appleInternalVariantPlistPath = [(SUCoreDevice *)self appleInternalVariantPlistPath];
       *buf = 138543362;
-      v174 = appleInternalVariantPlistPath;
+      v173 = appleInternalVariantPlistPath;
       _os_log_impl(&dword_1E0F71000, oslog3, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Using appleInternalVariantPlistPath: %{public}@", buf, 0xCu);
     }
 
@@ -563,7 +561,7 @@ LABEL_8:
     {
       sfrSystemVersionPlistPath = [(SUCoreDevice *)self sfrSystemVersionPlistPath];
       *buf = 138543362;
-      v174 = sfrSystemVersionPlistPath;
+      v173 = sfrSystemVersionPlistPath;
       _os_log_impl(&dword_1E0F71000, oslog4, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Using sfrSystemVersionPlistPath: %{public}@", buf, 0xCu);
     }
 
@@ -574,7 +572,7 @@ LABEL_8:
     {
       sfrRestoreVersionPlistPath = [(SUCoreDevice *)self sfrRestoreVersionPlistPath];
       *buf = 138543362;
-      v174 = sfrRestoreVersionPlistPath;
+      v173 = sfrRestoreVersionPlistPath;
       _os_log_impl(&dword_1E0F71000, oslog5, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Using sfrRestoreVersionPlistPath: %{public}@", buf, 0xCu);
     }
 
@@ -585,7 +583,7 @@ LABEL_8:
     {
       recoveryOSSystemVersionPlistPath = [(SUCoreDevice *)self recoveryOSSystemVersionPlistPath];
       *buf = 138543362;
-      v174 = recoveryOSSystemVersionPlistPath;
+      v173 = recoveryOSSystemVersionPlistPath;
       _os_log_impl(&dword_1E0F71000, oslog6, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Using recoveryOSSystemVersionPlistPath: %{public}@", buf, 0xCu);
     }
 
@@ -596,7 +594,7 @@ LABEL_8:
     {
       recoveryOSRestoreVersionPlistPath = [(SUCoreDevice *)self recoveryOSRestoreVersionPlistPath];
       *buf = 138543362;
-      v174 = recoveryOSRestoreVersionPlistPath;
+      v173 = recoveryOSRestoreVersionPlistPath;
       _os_log_impl(&dword_1E0F71000, oslog7, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Using recoveryOSRestoreVersionPlistPath: %{public}@", buf, 0xCu);
     }
 
@@ -607,7 +605,7 @@ LABEL_8:
     {
       factoryVersionPlistPath = [(SUCoreDevice *)self factoryVersionPlistPath];
       *buf = 138543362;
-      v174 = factoryVersionPlistPath;
+      v173 = factoryVersionPlistPath;
       _os_log_impl(&dword_1E0F71000, oslog8, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Using factoryVersionPlistPath: %{public}@", buf, 0xCu);
     }
 
@@ -618,7 +616,7 @@ LABEL_8:
     {
       preservedFactoryVersionPlistPath = [(SUCoreDevice *)self preservedFactoryVersionPlistPath];
       *buf = 138543362;
-      v174 = preservedFactoryVersionPlistPath;
+      v173 = preservedFactoryVersionPlistPath;
       _os_log_impl(&dword_1E0F71000, oslog9, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Using preservedFactoryVersionPlistPath: %{public}@", buf, 0xCu);
     }
 
@@ -629,7 +627,7 @@ LABEL_8:
     {
       splatRestoreVersionPlistPath = [(SUCoreDevice *)self splatRestoreVersionPlistPath];
       *buf = 138543362;
-      v174 = splatRestoreVersionPlistPath;
+      v173 = splatRestoreVersionPlistPath;
       _os_log_impl(&dword_1E0F71000, oslog10, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Using splatRestoreVersionPlistPath: %{public}@", buf, 0xCu);
     }
 
@@ -640,7 +638,7 @@ LABEL_8:
     {
       splatSystemVersionPlistPath = [(SUCoreDevice *)self splatSystemVersionPlistPath];
       *buf = 138543362;
-      v174 = splatSystemVersionPlistPath;
+      v173 = splatSystemVersionPlistPath;
       _os_log_impl(&dword_1E0F71000, oslog11, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Using splatSystemVersionPlistPath: %{public}@", buf, 0xCu);
     }
 
@@ -651,7 +649,7 @@ LABEL_8:
     {
       splatRollbackRestoreVersionPlistPath = [(SUCoreDevice *)self splatRollbackRestoreVersionPlistPath];
       *buf = 138543362;
-      v174 = splatRollbackRestoreVersionPlistPath;
+      v173 = splatRollbackRestoreVersionPlistPath;
       _os_log_impl(&dword_1E0F71000, oslog12, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Using splatRollbackRestoreVersionPlistPath: %{public}@", buf, 0xCu);
     }
 
@@ -662,7 +660,7 @@ LABEL_8:
     {
       splatRollbackSystemVersionPlistPath = [(SUCoreDevice *)self splatRollbackSystemVersionPlistPath];
       *buf = 138543362;
-      v174 = splatRollbackSystemVersionPlistPath;
+      v173 = splatRollbackSystemVersionPlistPath;
       _os_log_impl(&dword_1E0F71000, oslog13, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Using splatRollbackSystemVersionPlistPath: %{public}@", buf, 0xCu);
     }
 
@@ -673,7 +671,7 @@ LABEL_8:
     {
       splatCryptex1RestoreVersionPlistPath = [(SUCoreDevice *)self splatCryptex1RestoreVersionPlistPath];
       *buf = 138543362;
-      v174 = splatCryptex1RestoreVersionPlistPath;
+      v173 = splatCryptex1RestoreVersionPlistPath;
       _os_log_impl(&dword_1E0F71000, oslog14, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Using splatCryptex1RestoreVersionPlistPath: %{public}@", buf, 0xCu);
     }
 
@@ -684,7 +682,7 @@ LABEL_8:
     {
       splatCryptex1SystemVersionPlistPath = [(SUCoreDevice *)self splatCryptex1SystemVersionPlistPath];
       *buf = 138543362;
-      v174 = splatCryptex1SystemVersionPlistPath;
+      v173 = splatCryptex1SystemVersionPlistPath;
       _os_log_impl(&dword_1E0F71000, oslog15, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Using splatCryptex1SystemVersionPlistPath: %{public}@", buf, 0xCu);
     }
 
@@ -1052,7 +1050,7 @@ LABEL_8:
     {
       v171 = [(SUCoreDevice *)self description];
       *buf = 138543362;
-      v174 = v171;
+      v173 = v171;
       _os_log_impl(&dword_1E0F71000, oslog16, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Initialized new device: %{public}@", buf, 0xCu);
     }
   }
@@ -1067,8 +1065,6 @@ LABEL_8:
       [SUCoreDevice adjustTargetingSystemVolume:];
     }
   }
-
-  v172 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDictionary)splatRollbackRestoreVersionPlistContents
@@ -1188,7 +1184,7 @@ LABEL_8:
 
 - (BOOL)isMinorOSUpdate:(id)update
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   buildVersion = [(SUCoreDevice *)self buildVersion];
   v6 = [(SUCoreDevice *)self _getMajorVersionFromBuildVersion:buildVersion];
@@ -1205,18 +1201,18 @@ LABEL_8:
     intValue3 = [v6 intValue];
     intValue4 = [v7 intValue];
     v14 = @"NO";
-    v19[0] = 67109634;
-    v19[1] = intValue;
+    v18[0] = 67109634;
+    v18[1] = intValue;
     if (intValue3 == intValue4)
     {
       v14 = @"YES";
     }
 
-    v20 = 1024;
-    v21 = intValue2;
-    v22 = 2114;
-    v23 = v14;
-    _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Build version comparison found current version %d, build version %d, isMinorOSUpdate: %{public}@", v19, 0x18u);
+    v19 = 1024;
+    v20 = intValue2;
+    v21 = 2114;
+    v22 = v14;
+    _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Build version comparison found current version %d, build version %d, isMinorOSUpdate: %{public}@", v18, 0x18u);
   }
 
   v15 = 0;
@@ -1226,13 +1222,12 @@ LABEL_8:
     v15 = intValue5 == [v7 intValue];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (BOOL)isMajorOSUpdate:(id)update
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   buildVersion = [(SUCoreDevice *)self buildVersion];
   v6 = [(SUCoreDevice *)self _getMajorVersionFromBuildVersion:buildVersion];
@@ -1249,18 +1244,18 @@ LABEL_8:
     intValue3 = [v6 intValue];
     intValue4 = [v7 intValue];
     v14 = @"NO";
-    v19[0] = 67109634;
-    v19[1] = intValue;
+    v18[0] = 67109634;
+    v18[1] = intValue;
     if (intValue3 < intValue4)
     {
       v14 = @"YES";
     }
 
-    v20 = 1024;
-    v21 = intValue2;
-    v22 = 2114;
-    v23 = v14;
-    _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Build version comparison found current version %d, build version %d, isMajorOSUpdate: %{public}@", v19, 0x18u);
+    v19 = 1024;
+    v20 = intValue2;
+    v21 = 2114;
+    v22 = v14;
+    _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SUCoreDevice] Build version comparison found current version %d, build version %d, isMajorOSUpdate: %{public}@", v18, 0x18u);
   }
 
   v15 = 0;
@@ -1270,7 +1265,6 @@ LABEL_8:
     v15 = intValue5 < [v7 intValue];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -1818,92 +1812,78 @@ LABEL_14:
 
 - (id)_copyStringValueForKey:(int64_t)key
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = [(SUCoreDevice *)self _queryMethodForKey:?];
   switch(v5)
   {
     case 1:
-      v6 = *MEMORY[0x1E69E9840];
 
       result = [(SUCoreDevice *)self _copyGestaltValueForKey:key];
       break;
     case 2:
-      v15 = *MEMORY[0x1E69E9840];
 
       result = [(SUCoreDevice *)self _copyCoreServicesValueForKey:key];
       break;
     case 3:
-      v12 = *MEMORY[0x1E69E9840];
 
       result = [(SUCoreDevice *)self _copyCoreServicesAppleInternalValue];
       break;
     case 4:
-      v13 = *MEMORY[0x1E69E9840];
 
       result = [(SUCoreDevice *)self _copyRestoreVersionValueForKey:key];
       break;
     case 5:
-      v9 = *MEMORY[0x1E69E9840];
 
       result = [(SUCoreDevice *)self _copySysCtlValueForKey:key];
       break;
     case 6:
-      v16 = *MEMORY[0x1E69E9840];
 
       result = [(SUCoreDevice *)self _copySFRSystemVersionValueForKey:key];
       break;
     case 7:
-      v21 = *MEMORY[0x1E69E9840];
 
       result = [(SUCoreDevice *)self _copySFRRestoreVersionValueForKey:key];
       break;
     case 8:
-      v14 = *MEMORY[0x1E69E9840];
 
       result = [(SUCoreDevice *)self _copyRecoveryOSSystemVersionValueForKey:key];
       break;
     case 9:
-      v23 = *MEMORY[0x1E69E9840];
 
       result = [(SUCoreDevice *)self _copyRecoveryOSRestoreVersionValueForKey:key];
       break;
     case 10:
-      v11 = *MEMORY[0x1E69E9840];
 
       result = [(SUCoreDevice *)self _copyFactoryVersionValueForKey:key];
       break;
     case 11:
-      v22 = *MEMORY[0x1E69E9840];
 
       result = [(SUCoreDevice *)self _copySplatValueForKey:key];
       break;
     case 12:
-      v8 = *MEMORY[0x1E69E9840];
 
       result = [(SUCoreDevice *)self _copySplatRollbackValueForKey:key];
       break;
     case 13:
-      v10 = *MEMORY[0x1E69E9840];
 
       result = [(SUCoreDevice *)self _copySplatCryptex1ValueForKey:key];
       break;
     default:
-      v17 = v5;
-      v18 = +[SUCoreLog sharedLogger];
-      oslog = [v18 oslog];
+      v7 = v5;
+      v8 = +[SUCoreLog sharedLogger];
+      oslog = [v8 oslog];
 
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
       {
-        v24 = [(SUCoreDevice *)self _nameForQueryMethod:v17];
-        v25 = [(SUCoreDevice *)self _nameForQueryKey:key];
-        v26 = 138543618;
-        v27 = v24;
-        v28 = 2114;
-        v29 = v25;
-        _os_log_error_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_ERROR, "[SUCoreDevice] Unsupported query method %{public}@ attempted for key %{public}@", &v26, 0x16u);
+        v10 = [(SUCoreDevice *)self _nameForQueryMethod:v7];
+        v11 = [(SUCoreDevice *)self _nameForQueryKey:key];
+        v12 = 138543618;
+        v13 = v10;
+        v14 = 2114;
+        v15 = v11;
+        _os_log_error_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_ERROR, "[SUCoreDevice] Unsupported query method %{public}@ attempted for key %{public}@", &v12, 0x16u);
       }
 
-      v20 = *MEMORY[0x1E69E9840];
       result = 0;
       break;
   }
@@ -2069,7 +2049,7 @@ LABEL_14:
 
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
-      [(SUCoreDevice *)v3 _copySysCtlValueForKey:?];
+      [SUCoreDevice _copySysCtlValueForKey:];
     }
 
     v7 = 0;
@@ -2085,7 +2065,7 @@ LABEL_14:
 
       if (os_log_type_enabled(oslog2, OS_LOG_TYPE_ERROR))
       {
-        [(SUCoreDevice *)v3 _copySysCtlValueForKey:?];
+        [SUCoreDevice _copySysCtlValueForKey:];
       }
 
       v7 = 0;
@@ -2913,22 +2893,6 @@ LABEL_14:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)adjustTargetingSystemVolume:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_1E0F71000, v0, v1, "[SUCoreDevice] Unable to determine SFR restore version (sfrRestoreVersion=%{public}@, sfrRestoreBuildGroup=%{public}@)");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)adjustTargetingSystemVolume:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_1E0F71000, v0, v1, "[SUCoreDevice] Unable to determine RecoveryOS restore version (recoveryOSRestoreVersion=%{public}@, recoveryOSRestoreBuildGroup=%{public}@)");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)adjustTargetingSystemVolume:.cold.3()
 {
   OUTLINED_FUNCTION_5();
@@ -2938,11 +2902,9 @@ LABEL_14:
 
 - (void)_getMajorVersionFromBuildVersion:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_getMajorVersionFromBuildVersion:.cold.2()
@@ -2954,29 +2916,23 @@ LABEL_14:
 
 - (void)_copySplatCryptex1SystemVersionPath
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_copySplatCryptex1RestoreVersionPath
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_copySplatRollbackObjectsPath
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hasEligibleRollback
@@ -2988,172 +2944,130 @@ LABEL_14:
 
 - (void)_reloadPlistContentsForKey:.cold.1()
 {
-  v0 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  v2 = [v1 _nameForQueryKey:?];
+  v1 = [v0 _nameForQueryKey:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_queryMethodForKey:.cold.1()
 {
-  v0 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  v2 = [v1 _nameForQueryKey:?];
+  v1 = [v0 _nameForQueryKey:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-- (void)_copySysCtlValueForKey:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t *a2)
+- (void)_copySysCtlValueForKey:.cold.1()
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = *__error();
-  v4 = __error();
-  strerror(*v4);
-  v5 = *a2;
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x26u);
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
 }
 
-- (void)_copySysCtlValueForKey:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t *a2)
+- (void)_copySysCtlValueForKey:.cold.2()
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = *__error();
-  v4 = __error();
-  strerror(*v4);
-  v5 = *a2;
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x26u);
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
 }
 
 - (void)_gestaltKeyForQueryKey:.cold.1()
 {
-  v0 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  v2 = [v1 _nameForQueryKey:?];
+  v1 = [v0 _nameForQueryKey:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_coreServicesKeyForQueryKey:.cold.1()
 {
-  v0 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  v2 = [v1 _nameForQueryKey:?];
+  v1 = [v0 _nameForQueryKey:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_restoreVersionKeyForQueryKey:.cold.1()
 {
-  v0 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  v2 = [v1 _nameForQueryKey:?];
+  v1 = [v0 _nameForQueryKey:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_factoryVersionKeyForQueryKey:.cold.1()
 {
-  v0 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  v2 = [v1 _nameForQueryKey:?];
+  v1 = [v0 _nameForQueryKey:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_factoryVersionPlistContentsForKey:.cold.1()
 {
-  v0 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  v2 = [v1 _nameForQueryKey:?];
+  v1 = [v0 _nameForQueryKey:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_sysCtlKeyForQueryKey:.cold.1()
 {
-  v0 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  v2 = [v1 _nameForQueryKey:?];
+  v1 = [v0 _nameForQueryKey:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_splatVersionKeyForQueryKey:.cold.1()
 {
-  v0 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  v2 = [v1 _nameForQueryKey:?];
+  v1 = [v0 _nameForQueryKey:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_splatVersionPlistContentsForKey:.cold.1()
 {
-  v0 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  v2 = [v1 _nameForQueryKey:?];
+  v1 = [v0 _nameForQueryKey:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_splatRollbackVersionPlistContentsForKey:.cold.1()
 {
-  v0 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  v2 = [v1 _nameForQueryKey:?];
+  v1 = [v0 _nameForQueryKey:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_splatCryptex1VersionPlistContentsForKey:.cold.1()
 {
-  v0 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
-  v2 = [v1 _nameForQueryKey:?];
+  v1 = [v0 _nameForQueryKey:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 @end

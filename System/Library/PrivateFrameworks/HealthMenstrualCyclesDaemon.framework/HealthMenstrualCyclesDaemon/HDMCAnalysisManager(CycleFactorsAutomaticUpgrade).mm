@@ -3,15 +3,12 @@
 
 @implementation HDMCAnalysisManager(CycleFactorsAutomaticUpgrade)
 
-- (void)initiateCycleFactorsAutomaticUpgradeWithDatabaseAccessibilityAssertion:()CycleFactorsAutomaticUpgrade error:.cold.1(void *a1)
+- (void)initiateCycleFactorsAutomaticUpgradeWithDatabaseAccessibilityAssertion:()CycleFactorsAutomaticUpgrade error:.cold.1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_0(v2);
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v4, v5, "[%{public}@] Error retrieving onboarding records for MenstrualCycles: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_0(v3);
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving onboarding records for MenstrualCycles: %{public}@", v7, v8, v9, v10);
 }
 
 @end

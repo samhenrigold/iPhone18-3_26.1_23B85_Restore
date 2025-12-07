@@ -146,7 +146,7 @@
 
 - (void)_layoutSubviews
 {
-  [(SBHLibraryPodFolderView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -315,7 +315,7 @@ LABEL_6:
 
 - (void)_positionNavBarAbuttingListView
 {
-  [(SBHLibraryPodFolderView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   v4 = v3;
   rect = v3;
   v6 = v5;
@@ -334,7 +334,7 @@ LABEL_6:
   v17 = minimumNavBarHeight + v16;
 
   v18 = v12 - MinY;
-  [(SBHLibraryPodFolderView *)self bounds];
+  objc_msgSend_bounds(self);
   v20 = v19;
   v22 = v21;
   v30.origin.x = rect;
@@ -487,7 +487,7 @@ LABEL_6:
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  [(BSUIScrollView *)self->_podScrollView bounds];
+  objc_msgSend_bounds(self->_podScrollView);
   UIRectCenteredXInRect();
   MinX = CGRectGetMinX(v16);
   v12 = v6;
@@ -557,7 +557,7 @@ LABEL_6:
   if ([(SBFolderView *)self iconListViewCount])
   {
     firstIconListView = [(SBFolderView *)self firstIconListView];
-    [firstIconListView bounds];
+    objc_msgSend_bounds(firstIconListView);
     v5 = v4;
     v7 = v6;
   }
@@ -841,7 +841,7 @@ LABEL_27:
   firstIconListView = [(SBFolderView *)self firstIconListView];
   [(BSUIScrollView *)self->_podScrollView contentOffset];
   v4 = v3;
-  [(BSUIScrollView *)self->_podScrollView bounds];
+  objc_msgSend_bounds(self->_podScrollView);
   Height = CGRectGetHeight(v19);
   v6 = nexttoward(v4 + Height, v4);
   [(SBHLibraryPodFolderView *)self scrollingStartOffset];
@@ -896,24 +896,24 @@ LABEL_27:
 - (NSDirectionalEdgeInsets)_layoutMarginsforNavigationBar:(id)bar
 {
   barCopy = bar;
-  v5 = SBHScreenTypeForCurrentDevice();
-  if (SBHScreenTypeIsPhone(v5) || ![(SBHLibraryPodFolderView *)self isLibraryPodCategoryFolderView])
+  v6 = SBHScreenTypeForCurrentDevice(barCopy, v5);
+  if (SBHScreenTypeIsPhone(v6) || ![(SBHLibraryPodFolderView *)self isLibraryPodCategoryFolderView])
   {
     listLayoutProvider = [(SBFolderView *)self listLayoutProvider];
-    v8 = [listLayoutProvider layoutForIconLocation:@"SBIconLocationRoot"];
+    v9 = [listLayoutProvider layoutForIconLocation:@"SBIconLocationRoot"];
 
-    SBHIconListLayoutNonDefaultIconGridSizeClassLayoutInsets(v8, 1);
-    v10 = v12 + 4.0;
+    SBHIconListLayoutNonDefaultIconGridSizeClassLayoutInsets(v9, 1);
+    v11 = v13 + 4.0;
   }
 
   else
   {
     listLayoutProvider2 = [(SBFolderView *)self listLayoutProvider];
     iconLocation = [(SBFolderView *)self iconLocation];
-    v8 = [listLayoutProvider2 layoutForIconLocation:iconLocation];
+    v9 = [listLayoutProvider2 layoutForIconLocation:iconLocation];
 
-    [v8 layoutInsetsForOrientation:{-[SBFolderView orientation](self, "orientation")}];
-    v10 = v9;
+    [v9 layoutInsetsForOrientation:{-[SBFolderView orientation](self, "orientation")}];
+    v11 = v10;
   }
 
   if ([barCopy insetsLayoutMarginsFromSafeArea])
@@ -922,36 +922,36 @@ LABEL_27:
     [(SBHLibraryPodFolderView *)self safeAreaInsets];
     if (effectiveUserInterfaceLayoutDirection == 1)
     {
-      v16 = v14;
+      v17 = v15;
     }
 
     else
     {
-      v16 = v15;
+      v17 = v16;
     }
 
     if (effectiveUserInterfaceLayoutDirection == 1)
     {
-      v14 = v15;
+      v15 = v16;
     }
 
-    v17 = v10 + v14;
-    v10 = v10 + v16;
+    v18 = v11 + v15;
+    v11 = v11 + v17;
   }
 
   else
   {
-    v17 = v10;
+    v18 = v11;
   }
 
-  v18 = 0.0;
   v19 = 0.0;
-  v20 = v17;
-  v21 = v10;
-  result.trailing = v21;
-  result.bottom = v19;
-  result.leading = v20;
-  result.top = v18;
+  v20 = 0.0;
+  v21 = v18;
+  v22 = v11;
+  result.trailing = v22;
+  result.bottom = v20;
+  result.leading = v21;
+  result.top = v19;
   return result;
 }
 

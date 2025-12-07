@@ -154,7 +154,7 @@ LABEL_6:
 LABEL_14:
     if ([self mediaType] == 2)
     {
-      [self duration];
+      objc_msgSend_duration(self);
       v13 = (v12 / 3600.0);
       v14 = v12 - (3600 * v13);
       v15 = (v14 / 60.0);

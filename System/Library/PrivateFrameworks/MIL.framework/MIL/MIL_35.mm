@@ -1,3 +1,554 @@
+void MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorNameToNameMap(uint64_t *__return_ptr a1@<X8>)
+{
+  v1 = *MEMORY[0x277D85DE8];
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_impl<char const(&)[17],char const(&)[7]>(a1);
+}
+
+void sub_218547EA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
+{
+  if (a42 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a35 < 0)
+  {
+    operator delete(a30);
+  }
+
+  if (a16 < 0)
+  {
+    operator delete(a11);
+  }
+
+  if (a28 < 0)
+  {
+    operator delete(a23);
+  }
+
+  if (a22 < 0)
+  {
+    operator delete(a17);
+    if ((v60 & 1) == 0)
+    {
+LABEL_14:
+      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a53);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a43);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a48);
+      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v58);
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v60)
+  {
+    goto LABEL_14;
+  }
+
+  __cxa_free_exception(v59);
+  goto LABEL_14;
+}
+
+void MIL::Opsets::Prototype::prototype::prototypeOpset::GetOps(unint64_t a2@<X8>)
+{
+  __p[69] = *MEMORY[0x277D85DE8];
+  *a2 = 0u;
+  *(a2 + 16) = 0u;
+  *(a2 + 32) = 1065353216;
+  std::string::basic_string[abi:ne200100]<0>(__p, "prototype.concat");
+  MIL::Operators::Prototype::prototype::Concat::Make();
+}
+
+void sub_218548E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49)
+{
+  if (a42 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a35 < 0)
+  {
+    operator delete(a30);
+  }
+
+  if (a16 < 0)
+  {
+    operator delete(a11);
+  }
+
+  if (a28 < 0)
+  {
+    operator delete(a23);
+  }
+
+  if (a22 < 0)
+  {
+    operator delete(a17);
+    if ((v51 & 1) == 0)
+    {
+LABEL_14:
+      std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(&STACK[0x318]);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a44);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a49);
+      std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v49);
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v51)
+  {
+    goto LABEL_14;
+  }
+
+  __cxa_free_exception(v50);
+  goto LABEL_14;
+}
+
+void MIL::Opsets::Prototype::prototype::prototypeOpset::~prototypeOpset(MIL::Opsets::Prototype::prototype::prototypeOpset *this)
+{
+  MIL::IROpset::~IROpset(this);
+
+  JUMPOUT(0x21CEAFEA0);
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2829FDE18;
+  a2[1] = v2;
+  return result;
+}
+
+void sub_2185495A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_1,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_1>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2829FDE98;
+  a2[1] = v2;
+  return result;
+}
+
+void sub_218549700(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_1,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_1>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_2,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_2>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2829FDF18;
+  a2[1] = v2;
+  return result;
+}
+
+void sub_218549860(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_2,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_2>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_3,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_3>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2829FDF98;
+  a2[1] = v2;
+  return result;
+}
+
+void sub_2185499C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_3,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_3>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_4,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_4>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2829FE018;
+  a2[1] = v2;
+  return result;
+}
+
+void sub_218549B20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_4,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_4>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_5,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_5>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2829FE098;
+  a2[1] = v2;
+  return result;
+}
+
+void sub_218549C80(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_5,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_5>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_6,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_6>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2829FE118;
+  a2[1] = v2;
+  return result;
+}
+
+void sub_218549DE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_6,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_6>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_7,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_7>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2829FE198;
+  a2[1] = v2;
+  return result;
+}
+
+void sub_218549F40(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_7,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_7>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_8,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_8>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2829FE218;
+  a2[1] = v2;
+  return result;
+}
+
+void sub_21854A0A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_8,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_8>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_9,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_9>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2829FE298;
+  a2[1] = v2;
+  return result;
+}
+
+void std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_9,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_9>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
+{
+  v1 = *(a1 + 8);
+  std::string::basic_string[abi:ne200100]<0>(__p, "prototype.foo");
+  MIL::Operators::Prototype::prototype::Foo::Make(v1, __p);
+}
+
+void sub_21854A200(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_9,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_9>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_10,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_10>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2829FE318;
+  a2[1] = v2;
+  return result;
+}
+
+void sub_21854A360(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_10,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_10>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_11,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_11>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2829FE398;
+  a2[1] = v2;
+  return result;
+}
+
+void sub_21854A4C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_11,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_11>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_12,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_12>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2829FE418;
+  a2[1] = v2;
+  return result;
+}
+
+void sub_21854A620(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_12,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_12>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_13,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_13>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2829FE498;
+  a2[1] = v2;
+  return result;
+}
+
+void sub_21854A780(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_13,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_13>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_14,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_14>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2829FE518;
+  a2[1] = v2;
+  return result;
+}
+
 void sub_21854A8E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
@@ -260,17 +811,17 @@ uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOps
   }
 }
 
-void sub_21854B4A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854B4A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -284,17 +835,17 @@ void sub_21854B58C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854B604(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854B604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[42],char const(&)[32],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[42],char const(&)[32],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -308,17 +859,17 @@ void sub_21854B6EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854B764(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854B764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[25],char const(&)[15],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[25],char const(&)[15],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -332,17 +883,17 @@ void sub_21854B84C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854B8C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854B8C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[33],char const(&)[23],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[33],char const(&)[23],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -356,17 +907,17 @@ void sub_21854B9AC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854BA24(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854BA24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[36],char const(&)[26],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[36],char const(&)[26],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -380,17 +931,17 @@ void sub_21854BB0C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854BB84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854BB84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[21],char const(&)[11],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[21],char const(&)[11],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -404,17 +955,17 @@ void sub_21854BC6C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854BCE4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854BCE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[29],char const(&)[19],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[29],char const(&)[19],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -428,17 +979,17 @@ void sub_21854BDCC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854BE44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854BE44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[27],char const(&)[17],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[27],char const(&)[17],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -452,17 +1003,17 @@ void sub_21854BF2C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854BFA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854BFA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[12],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[12],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -476,17 +1027,17 @@ void sub_21854C08C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854C104(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854C104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[4],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[4],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -500,17 +1051,17 @@ void sub_21854C1EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854C264(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854C264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[19],char const(&)[9],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[19],char const(&)[9],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -524,17 +1075,17 @@ void sub_21854C34C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854C3C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854C3C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[18],char const(&)[8],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[18],char const(&)[8],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -548,17 +1099,17 @@ void sub_21854C4AC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854C524(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854C524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[23],char const(&)[13],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[23],char const(&)[13],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -572,17 +1123,17 @@ void sub_21854C60C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854C684(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854C684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[24],char const(&)[14],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[24],char const(&)[14],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -596,17 +1147,17 @@ void sub_21854C76C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854C7E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854C7E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[26],char const(&)[16],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[26],char const(&)[16],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -620,17 +1171,17 @@ void sub_21854C8CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854C944(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854C944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[6],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[6],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -644,17 +1195,17 @@ void sub_21854CA2C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854CAA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854CAA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[20],char const(&)[10],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[20],char const(&)[10],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -693,19 +1244,20 @@ void sub_21854CC9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21854CD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+void sub_21854CD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
+  va_start(va, a13);
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a9);
-  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(&a14);
+  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void MIL::Opsets::Train::ios16Train::ios16_trainOpset::GetOperatorConstructors(uint64_t a1@<X8>)
+void MIL::Opsets::Train::ios16Train::ios16_trainOpset::GetOperatorConstructors(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   operator new();
 }
 
@@ -738,8 +1290,8 @@ void sub_21854D4B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     {
 LABEL_14:
       std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(&a44);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v47 - 96);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v47 - 136);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v47 - 96));
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v47 - 136));
       std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(v44);
       _Unwind_Resume(a1);
     }
@@ -754,13 +1306,13 @@ LABEL_14:
   goto LABEL_14;
 }
 
-void MIL::Opsets::Train::ios16Train::ios16_trainOpset::GetOperatorNameToNameMap(uint64_t a1@<X8>)
+void MIL::Opsets::Train::ios16Train::ios16_trainOpset::GetOperatorNameToNameMap(uint64_t *__return_ptr a1@<X8>)
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
-  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_impl<char const(&)[16],char const(&)[5]>();
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_impl<char const(&)[16],char const(&)[5]>(a1);
 }
 
 void sub_21854D928(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, char a44)
@@ -792,8 +1344,8 @@ void sub_21854D928(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     {
 LABEL_14:
       std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a44);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v47 - 96);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v47 - 136);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v47 - 96));
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v47 - 136));
       std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v44);
       _Unwind_Resume(a1);
     }
@@ -808,17 +1360,17 @@ LABEL_14:
   goto LABEL_14;
 }
 
-void MIL::Opsets::Train::ios16Train::ios16_trainOpset::GetOps(uint64_t a1@<X8>)
+void MIL::Opsets::Train::ios16Train::ios16_trainOpset::GetOps(unint64_t a2@<X8>)
 {
-  v3[8] = *MEMORY[0x277D85DE8];
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
-  std::string::basic_string[abi:ne200100]<0>(v3, "ios16Train.adam");
+  v2[8] = *MEMORY[0x277D85DE8];
+  *a2 = 0u;
+  *(a2 + 16) = 0u;
+  *(a2 + 32) = 1065353216;
+  std::string::basic_string[abi:ne200100]<0>(v2, "ios16Train.adam");
   MIL::Operators::Train::ios16Train::Adam::Make();
 }
 
-void sub_21854E068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48)
+void sub_21854E068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48)
 {
   if (a42 < 0)
   {
@@ -847,7 +1399,7 @@ void sub_21854E068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     {
 LABEL_14:
       std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(&a43);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v51 - 96);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v51 - 96));
       std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a48);
       std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v48);
       _Unwind_Resume(a1);
@@ -910,9 +1462,9 @@ uint64_t std::__function::__func<MIL::Opsets::Train::ios16Train::ios16_trainOpse
 
 void std::__function::__func<MIL::Opsets::Train::ios16Train::ios16_trainOpset::GetOperatorConstructors(MIL::MILContext &)::$_1,std::allocator<MIL::Opsets::Train::ios16Train::ios16_trainOpset::GetOperatorConstructors(MIL::MILContext &)::$_1>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios16Train.avg_pool_grad");
-  MIL::Operators::Train::ios16Train::AvgPoolGrad::Make(v1, __p);
+  MIL::Operators::Train::ios16Train::AvgPoolGrad::Make(v2, __p);
 }
 
 void sub_21854E5CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1147,17 +1699,17 @@ uint64_t std::__function::__func<MIL::Opsets::Train::ios16Train::ios16_trainOpse
   }
 }
 
-void sub_21854F030(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854F030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[5],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[5],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -1171,17 +1723,17 @@ void sub_21854F118(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854F190(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854F190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[25],char const(&)[14],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[25],char const(&)[14],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -1195,17 +1747,17 @@ void sub_21854F278(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854F2F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854F2F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[21],char const(&)[10],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[21],char const(&)[10],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -1219,17 +1771,17 @@ void sub_21854F3D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854F450(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854F450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[28],char const(&)[17],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[28],char const(&)[17],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -1243,17 +1795,17 @@ void sub_21854F538(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854F5B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854F5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[23],char const(&)[12],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[23],char const(&)[12],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -1267,17 +1819,17 @@ void sub_21854F698(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854F710(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854F710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[24],char const(&)[13],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[24],char const(&)[13],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -1291,17 +1843,17 @@ void sub_21854F7F8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854F870(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854F870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[15],char const(&)[4],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[15],char const(&)[4],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -1315,17 +1867,17 @@ void sub_21854F958(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854F9D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854F9D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[31],char const(&)[20],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[31],char const(&)[20],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -1339,17 +1891,17 @@ void sub_21854FAB8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21854FB30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21854FB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[30],char const(&)[19],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[30],char const(&)[19],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -1388,19 +1940,20 @@ void sub_21854FD28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21854FE14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+void sub_21854FE14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
+  va_start(va, a13);
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a9);
-  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(&a14);
+  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void MIL::Opsets::Train::ios17Train::ios17_trainOpset::GetOperatorConstructors(uint64_t a1@<X8>)
+void MIL::Opsets::Train::ios17Train::ios17_trainOpset::GetOperatorConstructors(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   operator new();
 }
 
@@ -1433,8 +1986,8 @@ void sub_218550170(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     {
 LABEL_14:
       std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(&a44);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v47 - 96);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v47 - 136);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v47 - 96));
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v47 - 136));
       std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(v44);
       _Unwind_Resume(a1);
     }
@@ -1449,13 +2002,13 @@ LABEL_14:
   goto LABEL_14;
 }
 
-void MIL::Opsets::Train::ios17Train::ios17_trainOpset::GetOperatorNameToNameMap(uint64_t a1@<X8>)
+void MIL::Opsets::Train::ios17Train::ios17_trainOpset::GetOperatorNameToNameMap(uint64_t *__return_ptr a1@<X8>)
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
-  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_impl<char const(&)[25],char const(&)[14]>();
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_impl<char const(&)[25],char const(&)[14]>(a1);
 }
 
 void sub_2185504E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, char a44)
@@ -1487,8 +2040,8 @@ void sub_2185504E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     {
 LABEL_14:
       std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a44);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v47 - 96);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v47 - 136);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v47 - 96));
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v47 - 136));
       std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v44);
       _Unwind_Resume(a1);
     }
@@ -1503,13 +2056,13 @@ LABEL_14:
   goto LABEL_14;
 }
 
-void MIL::Opsets::Train::ios17Train::ios17_trainOpset::GetOps(uint64_t a1@<X8>)
+void MIL::Opsets::Train::ios17Train::ios17_trainOpset::GetOps(unint64_t a2@<X8>)
 {
-  v3[8] = *MEMORY[0x277D85DE8];
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
-  std::string::basic_string[abi:ne200100]<0>(v3, "ios17Train.max_pool_grad");
+  v2[8] = *MEMORY[0x277D85DE8];
+  *a2 = 0u;
+  *(a2 + 16) = 0u;
+  *(a2 + 32) = 1065353216;
+  std::string::basic_string[abi:ne200100]<0>(v2, "ios17Train.max_pool_grad");
   MIL::Operators::Train::ios17Train::MaxPoolGrad::Make();
 }
 
@@ -1542,8 +2095,8 @@ void sub_2185508F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     {
 LABEL_14:
       std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(&a44);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v47 - 96);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v47 - 184);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v47 - 96));
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v47 - 184));
       std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v44);
       _Unwind_Resume(a1);
     }
@@ -1625,17 +2178,17 @@ uint64_t std::__function::__func<MIL::Opsets::Train::ios17Train::ios17_trainOpse
   }
 }
 
-void sub_218550DD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_218550DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[32],char const(&)[21],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[32],char const(&)[21],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -1649,14 +2202,14 @@ void sub_218550EB8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_218550F30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_218550F30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::shared_ptr<MIL::IROperator const>>::pair[abi:ne200100]<char const(&)[21],std::unique_ptr<MIL::IROperator>,0>(_BYTE *a1, char *a2, uint64_t *a3)
+void *std::pair<std::string const,std::shared_ptr<MIL::IROperator const>>::pair[abi:ne200100]<char const(&)[21],std::unique_ptr<MIL::IROperator>,0>(void *a1, char *a2, uint64_t *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
   std::shared_ptr<MIL::IROperator const>::shared_ptr[abi:ne200100]<MIL::IROperator,std::default_delete<MIL::IROperator>,0>(v5 + 3, a3);
@@ -1673,7 +2226,7 @@ void sub_218551018(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MIL::NextToken@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t MIL::NextToken@<X0>(uint64_t a1@<X0>, unsigned __int8 *a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -1892,7 +2445,7 @@ LABEL_44:
           v25 = v13 + 1;
           *(a1 + 8) = v13 + 1;
           *(a1 + 16) = v13 + 1;
-          if ((v13 + 1) > a2 && (a2 - v25) < 3)
+          if (v13 + 1 > a2 && a2 - v25 < 3)
           {
 LABEL_50:
             *(a1 + 8) = a2;
@@ -1945,7 +2498,7 @@ LABEL_516:
 LABEL_92:
           *(a1 + 8) = v25 + 1;
           *(a1 + 16) = v25 + 1;
-          if ((v25 + 1) > a2 && (a2 - (v25 + 1)) < 3)
+          if (v25 + 1 > a2 && a2 - (v25 + 1) < 3)
           {
 LABEL_98:
             *(a1 + 8) = a2;
@@ -2034,7 +2587,7 @@ LABEL_176:
                 v52 = &v13[v53 + 2];
                 *(a1 + 8) = v52;
                 *(a1 + 16) = v52;
-                if (v52 > a2 && (v54 + v55) < 3)
+                if (v52 > a2 && v54 + v55 < 3)
                 {
                   *(a1 + 8) = a2;
                   __cxa_allocate_exception(0x48uLL);
@@ -2231,7 +2784,7 @@ LABEL_245:
           v25 = v13 + 3;
           *(a1 + 8) = v13 + 3;
           *(a1 + 16) = v13 + 3;
-          if ((v13 + 3) > a2 && (a2 - v25) < 3)
+          if (v13 + 3 > a2 && a2 - v25 < 3)
           {
 LABEL_254:
             *(a1 + 8) = a2;
@@ -2294,7 +2847,7 @@ LABEL_287:
             while (1)
             {
               *v5 = ++v41;
-              if (v41 > a2 && (a2 - v41) <= 2)
+              if (v41 > a2 && a2 - v41 <= 2)
               {
                 *(a1 + 8) = a2;
                 __cxa_allocate_exception(0x48uLL);
@@ -3934,13 +4487,13 @@ LABEL_230:
   }
 }
 
-void sub_2185541D0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23)
+void sub_2185541D0(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23)
 {
   v24 = *(v23 - 56);
   *(v23 - 56) = 0;
   if (v24)
   {
-    (*(*v24 + 8))(v24);
+    (*(*v24 + 8))(v24, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a21 < 0)
@@ -3966,13 +4519,13 @@ uint64_t CoreML::Specification::MILSpec::protobuf_MIL_2eproto::TableStruct::Shut
   if (byte_27CC06450 == 1)
   {
     byte_27CC06450 = 0;
-    result = (*CoreML::Specification::MILSpec::_Program_default_instance_)();
+    result = (*CoreML::Specification::MILSpec::_Program_default_instance_[0])();
   }
 
   if (byte_27CC06540 == 1)
   {
     byte_27CC06540 = 0;
-    result = (*CoreML::Specification::MILSpec::_Function_default_instance_)();
+    result = (*CoreML::Specification::MILSpec::_Function_default_instance_[0])();
   }
 
   if (byte_27CC06600 == 1)
@@ -3996,7 +4549,7 @@ uint64_t CoreML::Specification::MILSpec::protobuf_MIL_2eproto::TableStruct::Shut
   if (byte_27CC06778 == 1)
   {
     byte_27CC06778 = 0;
-    result = (*CoreML::Specification::MILSpec::_Operation_default_instance_)();
+    result = (*CoreML::Specification::MILSpec::_Operation_default_instance_[0])();
   }
 
   if (byte_27CC067A8 == 1)
@@ -4014,7 +4567,7 @@ uint64_t CoreML::Specification::MILSpec::protobuf_MIL_2eproto::TableStruct::Shut
   if (byte_27CC06890 == 1)
   {
     byte_27CC06890 = 0;
-    result = (*CoreML::Specification::MILSpec::_TensorType_default_instance_)();
+    result = (*CoreML::Specification::MILSpec::_TensorType_default_instance_[0])();
   }
 
   if (byte_27CC068C8 == 1)
@@ -4375,9 +4928,9 @@ void CoreML::Specification::MILSpec::protobuf_MIL_2eproto::InitDefaults(CoreML::
   }
 }
 
-void sub_218555490(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_218555490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -4402,9 +4955,9 @@ void CoreML::Specification::MILSpec::protobuf_MIL_2eproto::AddDescriptors(CoreML
   }
 }
 
-void sub_218555560(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_218555560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -4423,9 +4976,9 @@ CoreML::Specification::MILSpec::Program *CoreML::Specification::MILSpec::Program
   *(this + 16) = 0;
   v2 = google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::Init(this + 56);
   *(this + 16) = 0;
-  if (this != &CoreML::Specification::MILSpec::_Program_default_instance_)
+  if (this != CoreML::Specification::MILSpec::_Program_default_instance_)
   {
-    CoreML::Specification::MILSpec::protobuf_MIL_2eproto::InitDefaults(v2);
+    CoreML::Specification::MILSpec::protobuf_MIL_2eproto::InitDefaults(v2, v3, v4);
   }
 
   *(this + 10) = &google::protobuf::internal::fixed_address_empty_string;
@@ -4485,7 +5038,7 @@ CoreML::Specification::MILSpec::Program *CoreML::Specification::MILSpec::Program
 
   if (v7 != &google::protobuf::internal::fixed_address_empty_string && v8)
   {
-    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 10, v7);
   }
 
   *(this + 11) = *(a2 + 11);
@@ -4504,7 +5057,7 @@ uint64_t google::protobuf::internal::MapFieldLite<google::protobuf::internal::Ma
   result = google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Block>::begin(a2 + 8, v8);
   while (v8[0])
   {
-    v4 = *(v8[0] + 24);
+    v4 = v8[0][3];
     v5 = &v4[1];
     v6 = google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Function>::operator[](a1 + 8, v4);
     if (v5 != v6)
@@ -4525,7 +5078,7 @@ uint64_t google::protobuf::internal::MapFieldLite<google::protobuf::internal::Ma
   result = google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Block>::begin(a2 + 8, v8);
   while (v8[0])
   {
-    v4 = *(v8[0] + 24);
+    v4 = v8[0][3];
     v5 = &v4[1];
     v6 = google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::operator[](a1 + 8, v4);
     if (v5 != v6)
@@ -4586,7 +5139,7 @@ google::protobuf::Arena *google::protobuf::Arena::Own<CoreML::Specification::MIL
 void CoreML::Specification::MILSpec::Program::Clear(CoreML::Specification::MILSpec::Program *this)
 {
   google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Function>::clear(this + 24);
-  google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::clear(this + 56);
+  google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::clear(this + 7);
   v2 = *(this + 10);
   if (v2 != &google::protobuf::internal::fixed_address_empty_string)
   {
@@ -4654,7 +5207,7 @@ LABEL_8:
           v21 = *(this + 10);
           if (v21 == &google::protobuf::internal::fixed_address_empty_string)
           {
-            google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+            google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 10, &google::protobuf::internal::fixed_address_empty_string);
           }
 
           if (!google::protobuf::internal::WireFormatLite::ReadBytes(a2, v21))
@@ -4688,10 +5241,10 @@ LABEL_8:
         __p = 0;
         v43 = 0;
         v17 = *a2;
-        if (*a2 >= a2[1] || (VarintSizeAsIntFallback = *v17, (VarintSizeAsIntFallback & 0x80000000) != 0))
+        if (*a2 >= a2[1] || (VarintSizeAsIntFallback = *v17, VarintSizeAsIntFallback < 0))
         {
           VarintSizeAsIntFallback = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-          if ((VarintSizeAsIntFallback & 0x80000000) != 0)
+          if (VarintSizeAsIntFallback < 0)
           {
             goto LABEL_77;
           }
@@ -4799,7 +5352,7 @@ LABEL_77:
       __p = 0;
       v43 = 0;
       v15 = *a2;
-      if (*a2 >= a2[1] || (v16 = *v15, (v16 & 0x80000000) != 0))
+      if (*a2 >= a2[1] || (v16 = *v15, v16 < 0))
       {
         v16 = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
         if ((v16 & 0x80000000) == 0)
@@ -4850,7 +5403,7 @@ LABEL_36:
       return 1;
     }
 
-    if (!google::protobuf::internal::WireFormatLite::SkipField(a2, v11, a3))
+    if (!google::protobuf::internal::WireFormatLite::SkipField(a2, v11))
     {
       return 0;
     }
@@ -4865,9 +5418,9 @@ LABEL_42:
   }
 }
 
-void sub_218555E74(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_218555E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Parser<google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>>::~Parser(va);
   _Unwind_Resume(a1);
 }
@@ -4918,7 +5471,7 @@ uint64_t CoreML::Specification::MILSpec::Program::SerializeWithCachedSizes(CoreM
     v10 = 0;
     while (v25[0])
     {
-      v12 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Function,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Function,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(*(v25[0] + 24), *(v25[0] + 24) + 24, *(this + 2));
+      v12 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Function,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Function,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(v25[0][3], v25[0][3] + 24, *(this + 2));
       if (v10 != v12)
       {
         if (v10)
@@ -4930,12 +5483,12 @@ uint64_t CoreML::Specification::MILSpec::Program::SerializeWithCachedSizes(CoreM
       }
 
       google::protobuf::internal::WireFormatLite::WriteMessage(2, v10, a2, v11);
-      v13 = *(v25[0] + 24);
+      v13 = v25[0][3];
       v14 = v13[23];
       if ((v14 & 0x8000000000000000) != 0)
       {
         v13 = *v13;
-        v14 = *(*(v25[0] + 24) + 8);
+        v14 = *(v25[0][3] + 1);
       }
 
       google::protobuf::internal::WireFormatLite::VerifyUtf8String(v13, v14, 1, "CoreML.Specification.MILSpec.Program.FunctionsEntry.key");
@@ -4992,7 +5545,7 @@ LABEL_29:
     v20 = 0;
     while (v25[0])
     {
-      v22 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(*(v25[0] + 24), *(v25[0] + 24) + 24, *(this + 6));
+      v22 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(v25[0][3], v25[0][3] + 24, *(this + 6));
       if (v20 != v22)
       {
         if (v20)
@@ -5004,12 +5557,12 @@ LABEL_29:
       }
 
       google::protobuf::internal::WireFormatLite::WriteMessage(4, v20, a2, v21);
-      v23 = *(v25[0] + 24);
+      v23 = v25[0][3];
       v24 = v23[23];
       if ((v24 & 0x8000000000000000) != 0)
       {
         v23 = *v23;
-        v24 = *(*(v25[0] + 24) + 8);
+        v24 = *(v25[0][3] + 1);
       }
 
       google::protobuf::internal::WireFormatLite::VerifyUtf8String(v23, v24, 1, "CoreML.Specification.MILSpec.Program.AttributesEntry.key");
@@ -5032,7 +5585,7 @@ uint64_t CoreML::Specification::MILSpec::Program::ByteSizeLong(google::protobuf:
   v3 = 0;
   while (v16[0])
   {
-    v4 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Function,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Function,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(*(v16[0] + 24), *(v16[0] + 24) + 24, this[2]);
+    v4 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Function,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Function,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(v16[0][3], v16[0][3] + 24, this[2]);
     if (v3 != v4)
     {
       if (v3)
@@ -5059,7 +5612,7 @@ uint64_t CoreML::Specification::MILSpec::Program::ByteSizeLong(google::protobuf:
   v8 = v6 + v2;
   while (v16[0])
   {
-    v9 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(*(v16[0] + 24), *(v16[0] + 24) + 24, this[6]);
+    v9 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(v16[0][3], v16[0][3] + 24, this[6]);
     if (v7 != v9)
     {
       if (v7)
@@ -5123,7 +5676,7 @@ void sub_218556734(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CoreML::Specification::MILSpec::Program::MergeFrom(CoreML::Specification::MILSpec::Program *this, const CoreML::Specification::MILSpec::Program *a2)
+void CoreML::Specification::MILSpec::Program::MergeFrom(CoreML::Specification::MILSpec::Program *this, const CoreML::Specification::MILSpec::Program *a2)
 {
   v4 = *(a2 + 1);
   if (v4)
@@ -5132,49 +5685,43 @@ uint64_t CoreML::Specification::MILSpec::Program::MergeFrom(CoreML::Specificatio
   }
 
   google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Function,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Function,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom(this + 16, a2 + 16);
-  result = google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom(this + 48, a2 + 48);
-  v6 = *(a2 + 10);
-  v7 = *(v6 + 23);
-  if (v7 < 0)
+  google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom(this + 48, a2 + 48);
+  v5 = *(a2 + 10);
+  v6 = *(v5 + 23);
+  if (v6 < 0)
   {
-    v7 = *(v6 + 8);
+    v6 = *(v5 + 8);
   }
 
-  if (v7)
+  if (v6)
   {
-    result = this + 80;
-    v8 = *(this + 10);
-    if (v8 != v6)
+    v7 = *(this + 10);
+    if (v7 != v5)
     {
-      if (v8 == &google::protobuf::internal::fixed_address_empty_string)
+      if (v7 == &google::protobuf::internal::fixed_address_empty_string)
       {
-        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 10, v5);
       }
 
-      result = std::string::operator=(*(this + 10), v6);
+      std::string::operator=(*(this + 10), v5);
     }
   }
 
-  v9 = *(a2 + 11);
-  if (v9)
+  v8 = *(a2 + 11);
+  if (v8)
   {
-    *(this + 11) = v9;
+    *(this + 11) = v8;
   }
-
-  return result;
 }
 
-CoreML::Specification::MILSpec::Program *CoreML::Specification::MILSpec::Program::CopyFrom(CoreML::Specification::MILSpec::Program *this, const CoreML::Specification::MILSpec::Program *a2)
+void CoreML::Specification::MILSpec::Program::CopyFrom(CoreML::Specification::MILSpec::Program *this, const CoreML::Specification::MILSpec::Program *a2)
 {
   if (a2 != this)
   {
-    v4 = this;
     CoreML::Specification::MILSpec::Program::Clear(this);
 
-    return CoreML::Specification::MILSpec::Program::MergeFrom(v4, a2);
+    CoreML::Specification::MILSpec::Program::MergeFrom(this, a2);
   }
-
-  return this;
 }
 
 CoreML::Specification::MILSpec::Program *CoreML::Specification::MILSpec::Program::Swap(CoreML::Specification::MILSpec::Program *this, CoreML::Specification::MILSpec::Program *a2)
@@ -5187,15 +5734,15 @@ CoreML::Specification::MILSpec::Program *CoreML::Specification::MILSpec::Program
   return this;
 }
 
-void *CoreML::Specification::MILSpec::Program::InternalSwap(CoreML::Specification::MILSpec::Program *this, CoreML::Specification::MILSpec::Program *a2)
+const void ***CoreML::Specification::MILSpec::Program::InternalSwap(const void ***this, CoreML::Specification::MILSpec::Program *a2)
 {
   google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Function>::swap(this + 3, a2 + 24);
   result = google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::swap(this + 7, a2 + 56);
-  v5 = *(this + 10);
-  v6 = *(this + 11);
+  v5 = this[10];
+  v6 = this[11];
   v7 = *(a2 + 11);
-  *(this + 10) = *(a2 + 10);
-  *(this + 11) = v7;
+  this[10] = *(a2 + 10);
+  this[11] = v7;
   *(a2 + 10) = v5;
   *(a2 + 11) = v6;
   LODWORD(v5) = *(this + 24);
@@ -5218,9 +5765,9 @@ CoreML::Specification::MILSpec::Function *CoreML::Specification::MILSpec::Functi
   *(this + 22) = 0;
   v2 = google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::Init(this + 80);
   *(this + 22) = 0;
-  if (this != &CoreML::Specification::MILSpec::_Function_default_instance_)
+  if (this != CoreML::Specification::MILSpec::_Function_default_instance_)
   {
-    CoreML::Specification::MILSpec::protobuf_MIL_2eproto::InitDefaults(v2);
+    CoreML::Specification::MILSpec::protobuf_MIL_2eproto::InitDefaults(v2, v3, v4);
   }
 
   *(this + 13) = &google::protobuf::internal::fixed_address_empty_string;
@@ -5256,7 +5803,7 @@ CoreML::Specification::MILSpec::Function *CoreML::Specification::MILSpec::Functi
   {
     v6 = *(a2 + 4);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 16), *(a2 + 6));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::NamedValueType>::TypeHandler>((this + 16), v7, (v6 + 8), v5, **(this + 4) - *(this + 6));
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::NamedValueType>::TypeHandler>(this + 2, v7, (v6 + 8), v5, **(this + 4) - *(this + 6));
     v8 = *(this + 6) + v5;
     *(this + 6) = v8;
     v9 = *(this + 4);
@@ -5295,7 +5842,7 @@ CoreML::Specification::MILSpec::Function *CoreML::Specification::MILSpec::Functi
 
   if (v11 != &google::protobuf::internal::fixed_address_empty_string && v12)
   {
-    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 13, v11);
   }
 
   return this;
@@ -5314,7 +5861,7 @@ uint64_t google::protobuf::internal::MapFieldLite<google::protobuf::internal::Ma
   result = google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Block>::begin(a2 + 8, v8);
   while (v8[0])
   {
-    v4 = *(v8[0] + 24);
+    v4 = v8[0][3];
     v5 = &v4[1];
     v6 = google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Block>::operator[](a1 + 8, v4);
     if (v5 != v6)
@@ -5391,7 +5938,7 @@ void CoreML::Specification::MILSpec::Function::Clear(CoreML::Specification::MILS
   }
 
   google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Block>::clear(this + 48);
-  google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::clear(this + 80);
+  google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::clear(this + 10);
   v5 = *(this + 13);
   if (v5 != &google::protobuf::internal::fixed_address_empty_string)
   {
@@ -5463,10 +6010,10 @@ LABEL_8:
         __p = 0;
         v46 = 0;
         v23 = *a2;
-        if (*a2 >= a2[1] || (VarintSizeAsIntFallback = *v23, (VarintSizeAsIntFallback & 0x80000000) != 0))
+        if (*a2 >= a2[1] || (VarintSizeAsIntFallback = *v23, VarintSizeAsIntFallback < 0))
         {
           VarintSizeAsIntFallback = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-          if ((VarintSizeAsIntFallback & 0x80000000) != 0)
+          if (VarintSizeAsIntFallback < 0)
           {
             goto LABEL_80;
           }
@@ -5520,10 +6067,10 @@ LABEL_8:
         __p = 0;
         v46 = 0;
         v18 = *a2;
-        if (*a2 >= a2[1] || (v19 = *v18, (v19 & 0x80000000) != 0))
+        if (*a2 >= a2[1] || (v19 = *v18, v19 < 0))
         {
           v19 = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-          if ((v19 & 0x80000000) != 0)
+          if (v19 < 0)
           {
             goto LABEL_80;
           }
@@ -5603,10 +6150,10 @@ LABEL_80:
       {
         v20 = google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::NamedValueType>::Add(this + 16);
         v21 = *a2;
-        if (*a2 >= a2[1] || (v22 = *v21, (v22 & 0x80000000) != 0))
+        if (*a2 >= a2[1] || (v22 = *v21, v22 < 0))
         {
           v22 = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-          if ((v22 & 0x80000000) != 0)
+          if (v22 < 0)
           {
             return 0;
           }
@@ -5638,7 +6185,7 @@ LABEL_80:
       v15 = *(this + 13);
       if (v15 == &google::protobuf::internal::fixed_address_empty_string)
       {
-        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 13, &google::protobuf::internal::fixed_address_empty_string);
       }
 
       if (!google::protobuf::internal::WireFormatLite::ReadBytes(a2, v15))
@@ -5668,7 +6215,7 @@ LABEL_36:
       return 1;
     }
 
-    if (!google::protobuf::internal::WireFormatLite::SkipField(a2, v11, a3))
+    if (!google::protobuf::internal::WireFormatLite::SkipField(a2, v11))
     {
       return 0;
     }
@@ -5683,9 +6230,9 @@ LABEL_42:
   }
 }
 
-void sub_21855723C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21855723C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Parser<google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>>::~Parser(va);
   _Unwind_Resume(a1);
 }
@@ -5745,7 +6292,7 @@ LABEL_10:
     v13 = 0;
     while (v26[0])
     {
-      v15 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Block,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Block,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(*(v26[0] + 24), *(v26[0] + 24) + 24, *(this + 5));
+      v15 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Block,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Block,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(v26[0][3], v26[0][3] + 24, *(this + 5));
       if (v13 != v15)
       {
         if (v13)
@@ -5757,12 +6304,12 @@ LABEL_10:
       }
 
       google::protobuf::internal::WireFormatLite::WriteMessage(3, v13, a2, v14);
-      v16 = *(v26[0] + 24);
+      v16 = v26[0][3];
       v17 = v16[23];
       if ((v17 & 0x8000000000000000) != 0)
       {
         v16 = *v16;
-        v17 = *(*(v26[0] + 24) + 8);
+        v17 = *(v26[0][3] + 1);
       }
 
       google::protobuf::internal::WireFormatLite::VerifyUtf8String(v16, v17, 1, "CoreML.Specification.MILSpec.Function.BlockSpecializationsEntry.key");
@@ -5797,7 +6344,7 @@ LABEL_10:
     v21 = 0;
     while (v26[0])
     {
-      v23 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(*(v26[0] + 24), *(v26[0] + 24) + 24, *(this + 9));
+      v23 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(v26[0][3], v26[0][3] + 24, *(this + 9));
       if (v21 != v23)
       {
         if (v21)
@@ -5809,12 +6356,12 @@ LABEL_10:
       }
 
       google::protobuf::internal::WireFormatLite::WriteMessage(4, v21, a2, v22);
-      v24 = *(v26[0] + 24);
+      v24 = v26[0][3];
       v25 = v24[23];
       if ((v25 & 0x8000000000000000) != 0)
       {
         v24 = *v24;
-        v25 = *(*(v26[0] + 24) + 8);
+        v25 = *(v26[0][3] + 1);
       }
 
       google::protobuf::internal::WireFormatLite::VerifyUtf8String(v24, v25, 1, "CoreML.Specification.MILSpec.Function.AttributesEntry.key");
@@ -5858,7 +6405,7 @@ uint64_t CoreML::Specification::MILSpec::Function::ByteSizeLong(CoreML::Specific
   v8 = v6 + v4;
   while (v20[0])
   {
-    v9 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Block,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Block,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(*(v20[0] + 24), *(v20[0] + 24) + 24, *(this + 5));
+    v9 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Block,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Block,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(v20[0][3], v20[0][3] + 24, *(this + 5));
     if (v7 != v9)
     {
       if (v7)
@@ -5885,7 +6432,7 @@ uint64_t CoreML::Specification::MILSpec::Function::ByteSizeLong(CoreML::Specific
   v13 = v11 + v8;
   while (v20[0])
   {
-    v14 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(*(v20[0] + 24), *(v20[0] + 24) + 24, *(this + 9));
+    v14 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(v20[0][3], v20[0][3] + 24, *(this + 9));
     if (v12 != v14)
     {
       if (v12)
@@ -5943,7 +6490,7 @@ void sub_218557AEC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__int128 *CoreML::Specification::MILSpec::Function::MergeFrom(google::protobuf::Arena **this, const CoreML::Specification::MILSpec::Function *a2)
+void CoreML::Specification::MILSpec::Function::MergeFrom(CoreML::Specification::MILSpec::Function *this, const CoreML::Specification::MILSpec::Function *a2)
 {
   v4 = *(a2 + 1);
   if (v4)
@@ -5955,59 +6502,56 @@ __int128 *CoreML::Specification::MILSpec::Function::MergeFrom(google::protobuf::
   if (v5)
   {
     v6 = *(a2 + 4);
-    v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 2), *(a2 + 6));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::NamedValueType>::TypeHandler>((this + 2), v7, (v6 + 8), v5, *this[4] - *(this + 6));
+    v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 16), *(a2 + 6));
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::NamedValueType>::TypeHandler>(this + 2, v7, (v6 + 8), v5, **(this + 4) - *(this + 6));
     v8 = *(this + 6) + v5;
     *(this + 6) = v8;
-    v9 = this[4];
+    v9 = *(this + 4);
     if (*v9 < v8)
     {
       *v9 = v8;
     }
   }
 
-  google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Block,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Block,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom((this + 5), a2 + 40);
-  result = google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom((this + 9), a2 + 72);
-  v11 = *(a2 + 13);
-  if ((*(v11 + 23) & 0x8000000000000000) != 0)
+  google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Block,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Block,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom(this + 40, a2 + 40);
+  google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom(this + 72, a2 + 72);
+  v10 = *(a2 + 13);
+  if ((*(v10 + 23) & 0x8000000000000000) != 0)
   {
-    if (!*(v11 + 8))
+    if (!*(v10 + 8))
     {
-      return result;
+      return;
     }
   }
 
-  else if (!*(v11 + 23))
+  else if (!*(v10 + 23))
   {
-    return result;
+    return;
   }
 
-  result = this[13];
-  if (result != v11)
+  v13 = *(this + 13);
+  v12 = (this + 104);
+  v11 = v13;
+  if (v13 != v10)
   {
-    if (result == &google::protobuf::internal::fixed_address_empty_string)
+    if (v11 == &google::protobuf::internal::fixed_address_empty_string)
     {
 
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v12, v10);
     }
 
-    return std::string::operator=(result, v11);
+    std::string::operator=(v11, v10);
   }
-
-  return result;
 }
 
-__int128 *CoreML::Specification::MILSpec::Function::CopyFrom(__int128 *this, const CoreML::Specification::MILSpec::Function *a2)
+void CoreML::Specification::MILSpec::Function::CopyFrom(CoreML::Specification::MILSpec::Function *this, const CoreML::Specification::MILSpec::Function *a2)
 {
   if (a2 != this)
   {
-    v4 = this;
     CoreML::Specification::MILSpec::Function::Clear(this);
 
-    return CoreML::Specification::MILSpec::Function::MergeFrom(v4, a2);
+    CoreML::Specification::MILSpec::Function::MergeFrom(this, a2);
   }
-
-  return this;
 }
 
 CoreML::Specification::MILSpec::Function *CoreML::Specification::MILSpec::Function::Swap(CoreML::Specification::MILSpec::Function *this, CoreML::Specification::MILSpec::Function *a2)
@@ -6020,7 +6564,7 @@ CoreML::Specification::MILSpec::Function *CoreML::Specification::MILSpec::Functi
   return this;
 }
 
-void *CoreML::Specification::MILSpec::Function::InternalSwap(CoreML::Specification::MILSpec::Function *this, CoreML::Specification::MILSpec::Function *a2)
+const void ***CoreML::Specification::MILSpec::Function::InternalSwap(CoreML::Specification::MILSpec::Function *this, CoreML::Specification::MILSpec::Function *a2)
 {
   v4 = *(this + 4);
   *(this + 4) = *(a2 + 4);
@@ -6056,7 +6600,7 @@ CoreML::Specification::MILSpec::Block *CoreML::Specification::MILSpec::Block::Bl
   *(this + 26) = 0;
   if (this != &CoreML::Specification::MILSpec::_Block_default_instance_)
   {
-    CoreML::Specification::MILSpec::protobuf_MIL_2eproto::InitDefaults(v2);
+    CoreML::Specification::MILSpec::protobuf_MIL_2eproto::InitDefaults(v2, v3, v4);
   }
 
   *(this + 30) = 0;
@@ -6084,7 +6628,7 @@ CoreML::Specification::MILSpec::Block *CoreML::Specification::MILSpec::Block::Bl
   {
     v6 = *(a2 + 4);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 16), *(a2 + 6));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::NamedValueType>::TypeHandler>((this + 16), v7, (v6 + 8), v5, **(this + 4) - *(this + 6));
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::NamedValueType>::TypeHandler>(this + 2, v7, (v6 + 8), v5, **(this + 4) - *(this + 6));
     v8 = *(this + 6) + v5;
     *(this + 6) = v8;
     v9 = *(this + 4);
@@ -6120,7 +6664,7 @@ CoreML::Specification::MILSpec::Block *CoreML::Specification::MILSpec::Block::Bl
   {
     v16 = *(a2 + 10);
     v17 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 64), *(a2 + 18));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::Operation>::TypeHandler>(this + 4, v17, (v16 + 8), v15, **(this + 10) - *(this + 18));
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::Operation>::TypeHandler>(this + 8, v17, (v16 + 8), v15, **(this + 10) - *(this + 18));
     v18 = *(this + 18) + v15;
     *(this + 18) = v18;
     v19 = *(this + 10);
@@ -6215,7 +6759,7 @@ double CoreML::Specification::MILSpec::Block::Clear(CoreML::Specification::MILSp
     *(this + 18) = 0;
   }
 
-  return google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::clear(this + 96);
+  return google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::clear(this + 12);
 }
 
 uint64_t CoreML::Specification::MILSpec::Block::MergePartialFromCodedStream(CoreML::Specification::MILSpec::Block *this, char **a2, unsigned int a3)
@@ -6270,10 +6814,10 @@ LABEL_8:
         __p = 0;
         v56 = 0;
         v17 = *a2;
-        if (*a2 >= a2[1] || (VarintSizeAsIntFallback = *v17, (VarintSizeAsIntFallback & 0x80000000) != 0))
+        if (*a2 >= a2[1] || (VarintSizeAsIntFallback = *v17, VarintSizeAsIntFallback < 0))
         {
           VarintSizeAsIntFallback = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-          if ((VarintSizeAsIntFallback & 0x80000000) != 0)
+          if (VarintSizeAsIntFallback < 0)
           {
             goto LABEL_88;
           }
@@ -6380,10 +6924,10 @@ LABEL_71:
           *(v46 + 8) = Aligned;
 LABEL_80:
           v47 = *a2;
-          if (*a2 >= a2[1] || (v48 = *v47, (v48 & 0x80000000) != 0))
+          if (*a2 >= a2[1] || (v48 = *v47, v48 < 0))
           {
             v48 = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-            if ((v48 & 0x80000000) != 0)
+            if (v48 < 0)
             {
               return 0;
             }
@@ -6430,10 +6974,10 @@ LABEL_80:
 
       v19 = google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::NamedValueType>::Add(this + 16);
       v20 = *a2;
-      if (*a2 >= a2[1] || (v21 = *v20, (v21 & 0x80000000) != 0))
+      if (*a2 >= a2[1] || (v21 = *v20, v21 < 0))
       {
         v21 = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-        if ((v21 & 0x80000000) != 0)
+        if (v21 < 0)
         {
           return 0;
         }
@@ -6536,7 +7080,7 @@ LABEL_32:
       return 1;
     }
 
-    if (!google::protobuf::internal::WireFormatLite::SkipField(a2, v9, a3))
+    if (!google::protobuf::internal::WireFormatLite::SkipField(a2, v9))
     {
       return 0;
     }
@@ -6618,7 +7162,7 @@ uint64_t CoreML::Specification::MILSpec::Block::SerializeWithCachedSizes(uint64_
     v18 = 0;
     while (v23[0])
     {
-      v20 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(*(v23[0] + 24), *(v23[0] + 24) + 24, *(v5 + 88));
+      v20 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(v23[0][3], v23[0][3] + 24, *(v5 + 88));
       if (v18 != v20)
       {
         if (v18)
@@ -6630,12 +7174,12 @@ uint64_t CoreML::Specification::MILSpec::Block::SerializeWithCachedSizes(uint64_
       }
 
       google::protobuf::internal::WireFormatLite::WriteMessage(4, v18, a2, v19);
-      v21 = *(v23[0] + 24);
+      v21 = v23[0][3];
       v22 = v21[23];
       if ((v22 & 0x8000000000000000) != 0)
       {
         v21 = *v21;
-        v22 = *(*(v23[0] + 24) + 8);
+        v22 = *(v23[0][3] + 1);
       }
 
       google::protobuf::internal::WireFormatLite::VerifyUtf8String(v21, v22, 1, "CoreML.Specification.MILSpec.Block.AttributesEntry.key");
@@ -6716,7 +7260,7 @@ uint64_t CoreML::Specification::MILSpec::Block::ByteSizeLong(CoreML::Specificati
   v18 = v16 + v13;
   while (v22[0])
   {
-    v19 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(*(v22[0] + 24), *(v22[0] + 24) + 24, *(this + 11));
+    v19 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(v22[0][3], v22[0][3] + 24, *(this + 11));
     if (v17 != v19)
     {
       if (v17)
@@ -6751,7 +7295,7 @@ void sub_218558D78(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CoreML::Specification::MILSpec::Block::MergeFrom(google::protobuf::Arena **this, const CoreML::Specification::MILSpec::Block *a2)
+uint64_t CoreML::Specification::MILSpec::Block::MergeFrom(CoreML::Specification::MILSpec::Block *this, const CoreML::Specification::MILSpec::Block *a2)
 {
   v4 = *(a2 + 1);
   if (v4)
@@ -6763,11 +7307,11 @@ uint64_t CoreML::Specification::MILSpec::Block::MergeFrom(google::protobuf::Aren
   if (v5)
   {
     v6 = *(a2 + 4);
-    v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 2), *(a2 + 6));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::NamedValueType>::TypeHandler>((this + 2), v7, (v6 + 8), v5, *this[4] - *(this + 6));
+    v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 16), *(a2 + 6));
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::NamedValueType>::TypeHandler>(this + 2, v7, (v6 + 8), v5, **(this + 4) - *(this + 6));
     v8 = *(this + 6) + v5;
     *(this + 6) = v8;
-    v9 = this[4];
+    v9 = *(this + 4);
     if (*v9 < v8)
     {
       *v9 = v8;
@@ -6778,11 +7322,11 @@ uint64_t CoreML::Specification::MILSpec::Block::MergeFrom(google::protobuf::Aren
   if (v10)
   {
     v11 = *(a2 + 7);
-    v12 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 5), *(a2 + 12));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>((this + 5), v12, (v11 + 8), v10, *this[7] - *(this + 12));
+    v12 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 40), *(a2 + 12));
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>((this + 40), v12, (v11 + 8), v10, **(this + 7) - *(this + 12));
     v13 = *(this + 12) + v10;
     *(this + 12) = v13;
-    v14 = this[7];
+    v14 = *(this + 7);
     if (*v14 < v13)
     {
       *v14 = v13;
@@ -6793,18 +7337,18 @@ uint64_t CoreML::Specification::MILSpec::Block::MergeFrom(google::protobuf::Aren
   if (v15)
   {
     v16 = *(a2 + 10);
-    v17 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 8), *(a2 + 18));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::Operation>::TypeHandler>(this + 4, v17, (v16 + 8), v15, *this[10] - *(this + 18));
+    v17 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 64), *(a2 + 18));
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::Operation>::TypeHandler>(this + 8, v17, (v16 + 8), v15, **(this + 10) - *(this + 18));
     v18 = *(this + 18) + v15;
     *(this + 18) = v18;
-    v19 = this[10];
+    v19 = *(this + 10);
     if (*v19 < v18)
     {
       *v19 = v18;
     }
   }
 
-  return google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom((this + 11), a2 + 88);
+  return google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom(this + 88, a2 + 88);
 }
 
 CoreML::Specification::MILSpec::Block *CoreML::Specification::MILSpec::Block::CopyFrom(CoreML::Specification::MILSpec::Block *this, const CoreML::Specification::MILSpec::Block *a2)
@@ -6830,7 +7374,7 @@ CoreML::Specification::MILSpec::Block *CoreML::Specification::MILSpec::Block::Sw
   return this;
 }
 
-void *CoreML::Specification::MILSpec::Block::InternalSwap(CoreML::Specification::MILSpec::Block *this, CoreML::Specification::MILSpec::Block *a2)
+const void ***CoreML::Specification::MILSpec::Block::InternalSwap(CoreML::Specification::MILSpec::Block *this, CoreML::Specification::MILSpec::Block *a2)
 {
   v4 = *(this + 4);
   *(this + 4) = *(a2 + 4);
@@ -6894,10 +7438,11 @@ CoreML::Specification::MILSpec::Argument_Binding *CoreML::Specification::MILSpec
   v5 = *(a2 + 7);
   if (v5 == 1)
   {
+    v6 = *(a2 + 2);
     CoreML::Specification::MILSpec::Argument_Binding::clear_binding(this);
     *(this + 2) = &google::protobuf::internal::fixed_address_empty_string;
     *(this + 7) = 1;
-    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 2, v6);
   }
 
   if (v5 == 2)
@@ -6917,13 +7462,12 @@ void sub_2185591D4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-std::string *CoreML::Specification::MILSpec::Value::MergeFrom(std::string *this, const CoreML::Specification::MILSpec::Value *a2)
+void CoreML::Specification::MILSpec::Value::MergeFrom(CoreML::Specification::MILSpec::Value *this, const CoreML::Specification::MILSpec::Value *a2)
 {
-  v3 = this;
   v4 = *(a2 + 1);
   if (v4)
   {
-    this = google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(&this->__r_.__value_.__l.__size_, v4 & 0xFFFFFFFFFFFFFFFELL);
+    google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(this + 1, v4 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   v5 = *(a2 + 2);
@@ -6935,62 +7479,59 @@ std::string *CoreML::Specification::MILSpec::Value::MergeFrom(std::string *this,
 
   if (v6)
   {
-    this = (v3 + 16);
-    v7 = *(v3 + 16);
+    v7 = *(this + 2);
     if (v7 != v5)
     {
       if (v7 == &google::protobuf::internal::fixed_address_empty_string)
       {
-        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 2, v5);
       }
 
-      this = std::string::operator=(*(v3 + 16), v5);
+      std::string::operator=(*(this + 2), v5);
     }
   }
 
   if (a2 != &CoreML::Specification::MILSpec::_Value_default_instance_ && *(a2 + 3))
   {
-    v8 = *(v3 + 24);
+    v8 = *(this + 3);
     if (!v8)
     {
       operator new();
     }
 
-    this = CoreML::Specification::MILSpec::ValueType::MergeFrom(v8, *(a2 + 3));
+    CoreML::Specification::MILSpec::ValueType::MergeFrom(v8, *(a2 + 3));
   }
 
   v9 = *(a2 + 11);
   if (v9 == 5)
   {
-    if (*(v3 + 44) != 5)
+    if (*(this + 11) != 5)
     {
-      CoreML::Specification::MILSpec::Value::clear_value(v3);
-      *(v3 + 44) = 5;
+      CoreML::Specification::MILSpec::Value::clear_value(this);
+      *(this + 11) = 5;
       operator new();
     }
 
     v11 = *(a2 + 4);
-    v13 = *(v3 + 32);
+    v13 = *(this + 4);
 
-    return CoreML::Specification::MILSpec::Value_BlobFileValue::MergeFrom(v13, v11);
+    CoreML::Specification::MILSpec::Value_BlobFileValue::MergeFrom(v13, v11);
   }
 
   else if (v9 == 3)
   {
-    if (*(v3 + 44) != 3)
+    if (*(this + 11) != 3)
     {
-      CoreML::Specification::MILSpec::Value::clear_value(v3);
-      *(v3 + 44) = 3;
+      CoreML::Specification::MILSpec::Value::clear_value(this);
+      *(this + 11) = 3;
       operator new();
     }
 
     v10 = *(a2 + 4);
-    v12 = *(v3 + 32);
+    v12 = *(this + 4);
 
-    return CoreML::Specification::MILSpec::Value_ImmediateValue::MergeFrom(v12, v10);
+    CoreML::Specification::MILSpec::Value_ImmediateValue::MergeFrom(v12, v10);
   }
-
-  return this;
 }
 
 void CoreML::Specification::MILSpec::Argument_Binding::~Argument_Binding(CoreML::Specification::MILSpec::Argument_Binding *this)
@@ -7010,9 +7551,9 @@ void CoreML::Specification::MILSpec::Argument_Binding::~Argument_Binding(CoreML:
   JUMPOUT(0x21CEAFEA0);
 }
 
-uint64_t CoreML::Specification::MILSpec::Argument_Binding::SharedDtor(uint64_t this)
+CoreML::Specification::MILSpec::Argument_Binding *CoreML::Specification::MILSpec::Argument_Binding::SharedDtor(CoreML::Specification::MILSpec::Argument_Binding *this)
 {
-  if (*(this + 28))
+  if (*(this + 7))
   {
     return CoreML::Specification::MILSpec::Argument_Binding::clear_binding(this);
   }
@@ -7117,10 +7658,10 @@ LABEL_7:
 
         v11 = *(this + 2);
         v18 = *a2;
-        if (*a2 >= a2[1] || (VarintSizeAsIntFallback = *v18, (VarintSizeAsIntFallback & 0x80000000) != 0))
+        if (*a2 >= a2[1] || (VarintSizeAsIntFallback = *v18, VarintSizeAsIntFallback < 0))
         {
           VarintSizeAsIntFallback = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-          if ((VarintSizeAsIntFallback & 0x80000000) != 0)
+          if (VarintSizeAsIntFallback < 0)
           {
             return 0;
           }
@@ -7161,7 +7702,7 @@ LABEL_7:
         *(this + 7) = 1;
         *(this + 2) = &google::protobuf::internal::fixed_address_empty_string;
 LABEL_26:
-        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 2, &google::protobuf::internal::fixed_address_empty_string);
       }
 
       v10 = *(this + 2);
@@ -7212,7 +7753,7 @@ LABEL_19:
       return 1;
     }
 
-    if ((google::protobuf::internal::WireFormatLite::SkipField(a2, v7, a3) & 1) == 0)
+    if ((google::protobuf::internal::WireFormatLite::SkipField(a2, v7) & 1) == 0)
     {
       return 0;
     }
@@ -7292,13 +7833,12 @@ LABEL_9:
   return result;
 }
 
-std::string *CoreML::Specification::MILSpec::Argument_Binding::MergeFrom(std::string *this, const CoreML::Specification::MILSpec::Argument_Binding *a2)
+void CoreML::Specification::MILSpec::Argument_Binding::MergeFrom(CoreML::Specification::MILSpec::Argument_Binding *this, const CoreML::Specification::MILSpec::Argument_Binding *a2)
 {
-  v3 = this;
   v4 = *(a2 + 1);
   if (v4)
   {
-    this = google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(&this->__r_.__value_.__l.__size_, v4 & 0xFFFFFFFFFFFFFFFELL);
+    google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(this + 1, v4 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   v5 = *(a2 + 7);
@@ -7306,54 +7846,52 @@ std::string *CoreML::Specification::MILSpec::Argument_Binding::MergeFrom(std::st
   {
     if (v5 != 1)
     {
-      return this;
+      return;
     }
 
     v6 = *(a2 + 2);
-    if (*(v3 + 28) == 1)
+    if (*(this + 7) == 1)
     {
-      v7 = *(v3 + 16);
+      v7 = *(this + 2);
       if (v7 != &google::protobuf::internal::fixed_address_empty_string)
       {
 
-        return std::string::operator=(v7, v6);
+        std::string::operator=(v7, v6);
+        return;
       }
     }
 
     else
     {
-      CoreML::Specification::MILSpec::Argument_Binding::clear_binding(v3);
-      *(v3 + 28) = 1;
-      *(v3 + 16) = &google::protobuf::internal::fixed_address_empty_string;
+      CoreML::Specification::MILSpec::Argument_Binding::clear_binding(this);
+      *(this + 7) = 1;
+      *(this + 2) = &google::protobuf::internal::fixed_address_empty_string;
     }
 
-    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 2, v6);
   }
 
-  if (*(v3 + 28) != 2)
+  if (*(this + 7) != 2)
   {
-    CoreML::Specification::MILSpec::Argument_Binding::clear_binding(v3);
-    *(v3 + 28) = 2;
+    CoreML::Specification::MILSpec::Argument_Binding::clear_binding(this);
+    *(this + 7) = 2;
     operator new();
   }
 
   v8 = *(a2 + 2);
-  v9 = *(v3 + 16);
+  v9 = *(this + 2);
 
-  return CoreML::Specification::MILSpec::Value::MergeFrom(v9, v8);
+  CoreML::Specification::MILSpec::Value::MergeFrom(v9, v8);
 }
 
-std::string *CoreML::Specification::MILSpec::Argument_Binding::CopyFrom(std::string *this, std::string *a2)
+void CoreML::Specification::MILSpec::Argument_Binding::CopyFrom(CoreML::Specification::MILSpec::Argument_Binding *this, const CoreML::Specification::MILSpec::Argument_Binding *a2)
 {
   if (a2 != this)
   {
-    v4 = this;
     CoreML::Specification::MILSpec::Argument_Binding::clear_binding(this);
 
-    return CoreML::Specification::MILSpec::Argument_Binding::MergeFrom(v4, a2);
+    CoreML::Specification::MILSpec::Argument_Binding::MergeFrom(this, a2);
   }
-
-  return this;
 }
 
 uint64_t CoreML::Specification::MILSpec::Argument_Binding::Swap(uint64_t this, CoreML::Specification::MILSpec::Argument_Binding *a2)
@@ -7420,7 +7958,7 @@ CoreML::Specification::MILSpec::Argument *CoreML::Specification::MILSpec::Argume
   {
     v6 = *(a2 + 4);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 16), *(a2 + 6));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::Argument_Binding>::TypeHandler>((this + 16), v7, (v6 + 8), v5, **(this + 4) - *(this + 6));
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::Argument_Binding>::TypeHandler>(this + 2, v7, (v6 + 8), v5, **(this + 4) - *(this + 6));
     v8 = *(this + 6) + v5;
     *(this + 6) = v8;
     v9 = *(this + 4);
@@ -7572,10 +8110,10 @@ LABEL_23:
       *(v19 + 8) = Aligned;
 LABEL_26:
       v20 = *a2;
-      if (*a2 >= a2[1] || (VarintSizeAsIntFallback = *v20, (VarintSizeAsIntFallback & 0x80000000) != 0))
+      if (*a2 >= a2[1] || (VarintSizeAsIntFallback = *v20, VarintSizeAsIntFallback < 0))
       {
         VarintSizeAsIntFallback = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-        if ((VarintSizeAsIntFallback & 0x80000000) != 0)
+        if (VarintSizeAsIntFallback < 0)
         {
           return 0;
         }
@@ -7610,7 +8148,7 @@ LABEL_26:
       return 1;
     }
 
-    if ((google::protobuf::internal::WireFormatLite::SkipField(a2, v7, a3) & 1) == 0)
+    if ((google::protobuf::internal::WireFormatLite::SkipField(a2, v7) & 1) == 0)
     {
       return 0;
     }
@@ -7658,57 +8196,51 @@ uint64_t CoreML::Specification::MILSpec::Argument::ByteSizeLong(CoreML::Specific
   return v4;
 }
 
-std::string *CoreML::Specification::MILSpec::Argument::MergeFrom(std::string *this, const CoreML::Specification::MILSpec::Argument *a2)
+void CoreML::Specification::MILSpec::Argument::MergeFrom(uint64_t this, const CoreML::Specification::MILSpec::Argument *a2)
 {
-  v3 = this;
   v4 = *(a2 + 1);
   if (v4)
   {
-    this = google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(&this->__r_.__value_.__l.__size_, v4 & 0xFFFFFFFFFFFFFFFELL);
+    google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom((this + 8), v4 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   v5 = *(a2 + 6);
   if (v5)
   {
     v6 = *(a2 + 4);
-    v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend(&v3->__r_.__value_.__r.__words[2], v5);
-    this = google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::Argument_Binding>::TypeHandler>(&v3->__r_.__value_.__r.__words[2], v7, (v6 + 8), v5, *v3[1].__r_.__value_.__l.__size_ - LODWORD(v3[1].__r_.__value_.__l.__data_));
-    v8 = LODWORD(v3[1].__r_.__value_.__l.__data_) + v5;
-    LODWORD(v3[1].__r_.__value_.__l.__data_) = v8;
-    size = v3[1].__r_.__value_.__l.__size_;
-    if (*size < v8)
+    v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 16), v5);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::Argument_Binding>::TypeHandler>((this + 16), v7, (v6 + 8), v5, **(this + 32) - *(this + 24));
+    v8 = *(this + 24) + v5;
+    *(this + 24) = v8;
+    v9 = *(this + 32);
+    if (*v9 < v8)
     {
-      *size = v8;
+      *v9 = v8;
     }
   }
-
-  return this;
 }
 
-std::string *CoreML::Specification::MILSpec::Argument::CopyFrom(std::string *this, std::string *a2)
+void CoreML::Specification::MILSpec::Argument::CopyFrom(uint64_t this, const CoreML::Specification::MILSpec::Argument *a2)
 {
   if (a2 != this)
   {
-    v4 = this;
-    data_low = LODWORD(this[1].__r_.__value_.__l.__data_);
-    if (data_low >= 1)
+    v5 = *(this + 24);
+    if (v5 >= 1)
     {
-      v6 = (this[1].__r_.__value_.__l.__size_ + 8);
+      v6 = (*(this + 32) + 8);
       do
       {
         v7 = *v6++;
         CoreML::Specification::MILSpec::Argument_Binding::clear_binding(v7);
-        --data_low;
+        --v5;
       }
 
-      while (data_low);
-      *(v4 + 24) = 0;
+      while (v5);
+      *(this + 24) = 0;
     }
 
-    return CoreML::Specification::MILSpec::Argument::MergeFrom(v4, a2);
+    CoreML::Specification::MILSpec::Argument::MergeFrom(this, a2);
   }
-
-  return this;
 }
 
 uint64_t CoreML::Specification::MILSpec::Argument::Swap(uint64_t this, CoreML::Specification::MILSpec::Argument *a2)
@@ -7765,9 +8297,9 @@ CoreML::Specification::MILSpec::Operation *CoreML::Specification::MILSpec::Opera
   *(this + 28) = 0;
   v2 = google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::Init(this + 104);
   *(this + 28) = 0;
-  if (this != &CoreML::Specification::MILSpec::_Operation_default_instance_)
+  if (this != CoreML::Specification::MILSpec::_Operation_default_instance_)
   {
-    CoreML::Specification::MILSpec::protobuf_MIL_2eproto::InitDefaults(v2);
+    CoreML::Specification::MILSpec::protobuf_MIL_2eproto::InitDefaults(v2, v3, v4);
   }
 
   *(this + 16) = &google::protobuf::internal::fixed_address_empty_string;
@@ -7792,68 +8324,68 @@ uint64_t CoreML::Specification::MILSpec::Operation::SharedCtor(uint64_t this)
   return this;
 }
 
-std::string *CoreML::Specification::MILSpec::Operation::Operation(std::string *this, const CoreML::Specification::MILSpec::Operation *a2)
+CoreML::Specification::MILSpec::Operation *CoreML::Specification::MILSpec::Operation::Operation(CoreML::Specification::MILSpec::Operation *this, const CoreML::Specification::MILSpec::Operation *a2)
 {
-  this->__r_.__value_.__r.__words[0] = &unk_2829FF290;
-  this->__r_.__value_.__l.__size_ = 0;
-  p_size = &this->__r_.__value_.__l.__size_;
-  this->__r_.__value_.__r.__words[2] = 0;
-  v5 = &this->__r_.__value_.__s.__data_[16];
-  this[1].__r_.__value_.__r.__words[0] = 0;
-  LODWORD(this[1].__r_.__value_.__r.__words[1]) = 0;
-  google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Argument>::Init(&this[1]);
-  this[2].__r_.__value_.__r.__words[0] = 0;
-  LODWORD(this[1].__r_.__value_.__r.__words[1]) = 0;
-  this[2].__r_.__value_.__l.__size_ = 0;
-  this[2].__r_.__value_.__r.__words[2] = 0;
+  *this = &unk_2829FF290;
+  *(this + 1) = 0;
+  v4 = (this + 8);
+  *(this + 2) = 0;
+  v5 = this + 16;
+  *(this + 3) = 0;
+  *(this + 8) = 0;
+  google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Argument>::Init(this + 24);
+  *(this + 6) = 0;
+  *(this + 8) = 0;
+  *(this + 7) = 0;
+  *(this + 8) = 0;
   v6 = *(a2 + 14);
   if (v6)
   {
     v7 = *(a2 + 8);
-    v8 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend(&this[2], *(a2 + 14));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::NamedValueType>::TypeHandler>(this + 2, v8, (v7 + 8), v6, *this[2].__r_.__value_.__r.__words[2] - LODWORD(this[2].__r_.__value_.__r.__words[1]));
-    v9 = LODWORD(this[2].__r_.__value_.__r.__words[1]) + v6;
-    LODWORD(this[2].__r_.__value_.__r.__words[1]) = v9;
-    v10 = this[2].__r_.__value_.__r.__words[2];
+    v8 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 48), *(a2 + 14));
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::NamedValueType>::TypeHandler>(this + 6, v8, (v7 + 8), v6, **(this + 8) - *(this + 14));
+    v9 = *(this + 14) + v6;
+    *(this + 14) = v9;
+    v10 = *(this + 8);
     if (*v10 < v9)
     {
       *v10 = v9;
     }
   }
 
-  this[3].__r_.__value_.__r.__words[0] = 0;
-  this[3].__r_.__value_.__l.__size_ = 0;
-  this[3].__r_.__value_.__r.__words[2] = 0;
+  *(this + 9) = 0;
+  *(this + 10) = 0;
+  *(this + 11) = 0;
   v11 = *(a2 + 20);
   if (v11)
   {
     v12 = *(a2 + 11);
-    v13 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend(&this[3], *(a2 + 20));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::Block>::TypeHandler>(&this[3], v13, (v12 + 8), v11, *this[3].__r_.__value_.__r.__words[2] - LODWORD(this[3].__r_.__value_.__r.__words[1]));
-    v14 = LODWORD(this[3].__r_.__value_.__r.__words[1]) + v11;
-    LODWORD(this[3].__r_.__value_.__r.__words[1]) = v14;
-    v15 = this[3].__r_.__value_.__r.__words[2];
+    v13 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 72), *(a2 + 20));
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::Block>::TypeHandler>(this + 9, v13, (v12 + 8), v11, **(this + 11) - *(this + 20));
+    v14 = *(this + 20) + v11;
+    *(this + 20) = v14;
+    v15 = *(this + 11);
     if (*v15 < v14)
     {
       *v15 = v14;
     }
   }
 
-  this[4].__r_.__value_.__r.__words[0] = 0;
-  this[4].__r_.__value_.__l.__size_ = 0;
-  LODWORD(this[4].__r_.__value_.__r.__words[2]) = 0;
-  google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::Init(&this[4].__r_.__value_.__l.__size_);
-  LODWORD(this[4].__r_.__value_.__r.__words[2]) = 0;
-  LODWORD(this[5].__r_.__value_.__r.__words[2]) = 0;
+  *(this + 12) = 0;
+  *(this + 13) = 0;
+  *(this + 28) = 0;
+  google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::Init(this + 104);
+  *(this + 28) = 0;
+  *(this + 34) = 0;
   v16 = *(a2 + 1);
   if (v16)
   {
-    google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(p_size, v16 & 0xFFFFFFFFFFFFFFFELL);
+    google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(v4, v16 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom(v5, a2 + 16);
-  google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom(&this[4], a2 + 96);
-  this[5].__r_.__value_.__l.__size_ = &google::protobuf::internal::fixed_address_empty_string;
+  google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom(this + 96, a2 + 96);
+  *(this + 16) = &google::protobuf::internal::fixed_address_empty_string;
   v17 = *(a2 + 16);
   v18 = *(v17 + 23);
   if (v18 < 0)
@@ -7863,7 +8395,7 @@ std::string *CoreML::Specification::MILSpec::Operation::Operation(std::string *t
 
   if (v17 != &google::protobuf::internal::fixed_address_empty_string && v18)
   {
-    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 16, v17);
   }
 
   return this;
@@ -7883,7 +8415,7 @@ uint64_t google::protobuf::internal::MapFieldLite<google::protobuf::internal::Ma
   result = google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Block>::begin(a2 + 8, v6);
   while (v6[0])
   {
-    v4 = *(v6[0] + 24);
+    v4 = v6[0][3];
     v5 = google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Argument>::operator[](a1 + 8, v4);
     CoreML::Specification::MILSpec::Argument::CopyFrom(v5, &v4[1]);
     result = google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Block>::InnerMap::iterator_base<google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Block>::KeyValuePair const>::operator++(v6);
@@ -7969,7 +8501,7 @@ void CoreML::Specification::MILSpec::Operation::Clear(CoreML::Specification::MIL
     *(this + 20) = 0;
   }
 
-  google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::clear(this + 104);
+  google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::clear(this + 13);
   v8 = *(this + 16);
   if (v8 != &google::protobuf::internal::fixed_address_empty_string)
   {
@@ -8036,10 +8568,10 @@ LABEL_8:
 
         v19 = google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::NamedValueType>::Add(this + 48);
         v20 = *a2;
-        if (*a2 >= a2[1] || (VarintSizeAsIntFallback = *v20, (VarintSizeAsIntFallback & 0x80000000) != 0))
+        if (*a2 >= a2[1] || (VarintSizeAsIntFallback = *v20, VarintSizeAsIntFallback < 0))
         {
           VarintSizeAsIntFallback = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-          if ((VarintSizeAsIntFallback & 0x80000000) != 0)
+          if (VarintSizeAsIntFallback < 0)
           {
             return 0;
           }
@@ -8075,17 +8607,17 @@ LABEL_96:
       {
         if (v13 == 5 && v11 == 42)
         {
-          v51 = v5;
-          v52 = v6;
-          v54 = 0;
+          v52 = v5;
+          v53 = v6;
           v55 = 0;
-          __p = 0;
           v56 = 0;
+          __p = 0;
+          v57 = 0;
           v14 = *a2;
-          if (*a2 >= a2[1] || (v15 = *v14, (v15 & 0x80000000) != 0))
+          if (*a2 >= a2[1] || (v15 = *v14, v15 < 0))
           {
             v15 = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-            if ((v15 & 0x80000000) != 0)
+            if (v15 < 0)
             {
               goto LABEL_98;
             }
@@ -8098,9 +8630,9 @@ LABEL_96:
 
           v39 = google::protobuf::io::CodedInputStream::IncrementRecursionDepthAndPushLimit(a2, v15);
           v40 = v39;
-          if (v39 & 0x8000000000000000) == 0 && google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Parser<google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>>::MergePartialFromCodedStream(&v51, a2) && (google::protobuf::io::CodedInputStream::DecrementRecursionDepthAndPopLimit(a2, v40))
+          if (v39 & 0x8000000000000000) == 0 && google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Parser<google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>>::MergePartialFromCodedStream(&v52, a2) && (google::protobuf::io::CodedInputStream::DecrementRecursionDepthAndPopLimit(a2, v40))
           {
-            if (v55 >= 0)
+            if (v56 >= 0)
             {
               p_p = &__p;
             }
@@ -8110,14 +8642,14 @@ LABEL_96:
               p_p = __p;
             }
 
-            if (v55 >= 0)
+            if (v56 >= 0)
             {
-              v42 = HIBYTE(v55);
+              v42 = HIBYTE(v56);
             }
 
             else
             {
-              v42 = v54;
+              v42 = v55;
             }
 
             v38 = google::protobuf::internal::WireFormatLite::VerifyUtf8String(p_p, v42, 0, "CoreML.Specification.MILSpec.Operation.AttributesEntry.key");
@@ -8165,10 +8697,10 @@ LABEL_87:
           *(v46 + 8) = Aligned;
 LABEL_90:
           v47 = *a2;
-          if (*a2 >= a2[1] || (v48 = *v47, (v48 & 0x80000000) != 0))
+          if (*a2 >= a2[1] || (v48 = *v47, v48 < 0))
           {
             v48 = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-            if ((v48 & 0x80000000) != 0)
+            if (v48 < 0)
             {
               return 0;
             }
@@ -8186,7 +8718,7 @@ LABEL_90:
           }
 
           v33 = v49;
-          if (!CoreML::Specification::MILSpec::Block::MergePartialFromCodedStream(Aligned, a2))
+          if (!CoreML::Specification::MILSpec::Block::MergePartialFromCodedStream(Aligned, a2, v50))
           {
             return 0;
           }
@@ -8213,7 +8745,7 @@ LABEL_90:
         v26 = *(this + 16);
         if (v26 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 16, &google::protobuf::internal::fixed_address_empty_string);
         }
 
         if (!google::protobuf::internal::WireFormatLite::ReadBytes(a2, v26))
@@ -8240,14 +8772,14 @@ LABEL_90:
 
     else if (v13 == 2 && v11 == 18)
     {
-      v51 = v7;
-      v52 = v8;
-      v54 = 0;
+      v52 = v7;
+      v53 = v8;
       v55 = 0;
-      __p = 0;
       v56 = 0;
+      __p = 0;
+      v57 = 0;
       v17 = *a2;
-      if (*a2 >= a2[1] || (v18 = *v17, (v18 & 0x80000000) != 0))
+      if (*a2 >= a2[1] || (v18 = *v17, v18 < 0))
       {
         v18 = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
         if ((v18 & 0x80000000) == 0)
@@ -8262,9 +8794,9 @@ LABEL_90:
 LABEL_54:
         v34 = google::protobuf::io::CodedInputStream::IncrementRecursionDepthAndPushLimit(a2, v18);
         v35 = v34;
-        if (v34 & 0x8000000000000000) == 0 && google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Parser<google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Argument>>::MergePartialFromCodedStream(&v51, a2) && (google::protobuf::io::CodedInputStream::DecrementRecursionDepthAndPopLimit(a2, v35))
+        if (v34 & 0x8000000000000000) == 0 && google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Parser<google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Argument>>::MergePartialFromCodedStream(&v52, a2) && (google::protobuf::io::CodedInputStream::DecrementRecursionDepthAndPopLimit(a2, v35))
         {
-          if (v55 >= 0)
+          if (v56 >= 0)
           {
             v36 = &__p;
           }
@@ -8274,14 +8806,14 @@ LABEL_54:
             v36 = __p;
           }
 
-          if (v55 >= 0)
+          if (v56 >= 0)
           {
-            v37 = HIBYTE(v55);
+            v37 = HIBYTE(v56);
           }
 
           else
           {
-            v37 = v54;
+            v37 = v55;
           }
 
           v38 = google::protobuf::internal::WireFormatLite::VerifyUtf8String(v36, v37, 0, "CoreML.Specification.MILSpec.Operation.InputsEntry.key");
@@ -8298,12 +8830,12 @@ LABEL_75:
           }
 
 LABEL_78:
-          if (v56)
+          if (v57)
           {
-            (*(*v56 + 8))(v56);
+            (*(*v57 + 8))(v57);
           }
 
-          if (SHIBYTE(v55) < 0)
+          if (SHIBYTE(v56) < 0)
           {
             operator delete(__p);
           }
@@ -8329,7 +8861,7 @@ LABEL_41:
       return 1;
     }
 
-    if (!google::protobuf::internal::WireFormatLite::SkipField(a2, v11, a3))
+    if (!google::protobuf::internal::WireFormatLite::SkipField(a2, v11))
     {
       return 0;
     }
@@ -8390,7 +8922,7 @@ LABEL_7:
     v11 = 0;
     while (v28[0])
     {
-      v13 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(*(v28[0] + 24), *(v28[0] + 24) + 24, *(this + 2));
+      v13 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(v28[0][3], v28[0][3] + 24, *(this + 2));
       if (v11 != v13)
       {
         if (v11)
@@ -8402,12 +8934,12 @@ LABEL_7:
       }
 
       google::protobuf::internal::WireFormatLite::WriteMessage(2, v11, a2, v12);
-      v14 = *(v28[0] + 24);
+      v14 = v28[0][3];
       v15 = v14[23];
       if ((v15 & 0x8000000000000000) != 0)
       {
         v14 = *v14;
-        v15 = *(*(v28[0] + 24) + 8);
+        v15 = *(v28[0][3] + 1);
       }
 
       google::protobuf::internal::WireFormatLite::VerifyUtf8String(v14, v15, 1, "CoreML.Specification.MILSpec.Operation.InputsEntry.key");
@@ -8460,7 +8992,7 @@ LABEL_7:
     v23 = 0;
     while (v28[0])
     {
-      v25 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(*(v28[0] + 24), *(v28[0] + 24) + 24, *(this + 12));
+      v25 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(v28[0][3], v28[0][3] + 24, *(this + 12));
       if (v23 != v25)
       {
         if (v23)
@@ -8472,12 +9004,12 @@ LABEL_7:
       }
 
       google::protobuf::internal::WireFormatLite::WriteMessage(5, v23, a2, v24);
-      v26 = *(v28[0] + 24);
+      v26 = v28[0][3];
       v27 = v26[23];
       if ((v27 & 0x8000000000000000) != 0)
       {
         v26 = *v26;
-        v27 = *(*(v28[0] + 24) + 8);
+        v27 = *(v28[0][3] + 1);
       }
 
       google::protobuf::internal::WireFormatLite::VerifyUtf8String(v26, v27, 1, "CoreML.Specification.MILSpec.Operation.AttributesEntry.key");
@@ -8500,7 +9032,7 @@ uint64_t CoreML::Specification::MILSpec::Operation::ByteSizeLong(google::protobu
   v3 = 0;
   while (v23[0])
   {
-    v4 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(*(v23[0] + 24), *(v23[0] + 24) + 24, this[2]);
+    v4 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(v23[0][3], v23[0][3] + 24, this[2]);
     if (v3 != v4)
     {
       if (v3)
@@ -8557,7 +9089,7 @@ uint64_t CoreML::Specification::MILSpec::Operation::ByteSizeLong(google::protobu
   v16 = v14 + v11;
   while (v23[0])
   {
-    v17 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(*(v23[0] + 24), *(v23[0] + 24) + 24, this[12]);
+    v17 = google::protobuf::internal::MapEntryImpl<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,google::protobuf::MessageLite,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::Wrap(v23[0][3], v23[0][3] + 24, this[12]);
     if (v15 != v17)
     {
       if (v15)
@@ -8615,7 +9147,7 @@ void sub_21855B8E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__int128 *CoreML::Specification::MILSpec::Operation::MergeFrom(google::protobuf::Arena **this, const CoreML::Specification::MILSpec::Operation *a2)
+void CoreML::Specification::MILSpec::Operation::MergeFrom(CoreML::Specification::MILSpec::Operation *this, const CoreML::Specification::MILSpec::Operation *a2)
 {
   v4 = *(a2 + 1);
   if (v4)
@@ -8623,16 +9155,16 @@ __int128 *CoreML::Specification::MILSpec::Operation::MergeFrom(google::protobuf:
     google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(this + 1, v4 & 0xFFFFFFFFFFFFFFFELL);
   }
 
-  google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom((this + 2), a2 + 16);
+  google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Argument,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom(this + 16, a2 + 16);
   v5 = *(a2 + 14);
   if (v5)
   {
     v6 = *(a2 + 8);
-    v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 6), *(a2 + 14));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::NamedValueType>::TypeHandler>(this + 2, v7, (v6 + 8), v5, *this[8] - *(this + 14));
+    v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 48), *(a2 + 14));
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::NamedValueType>::TypeHandler>(this + 6, v7, (v6 + 8), v5, **(this + 8) - *(this + 14));
     v8 = *(this + 14) + v5;
     *(this + 14) = v8;
-    v9 = this[8];
+    v9 = *(this + 8);
     if (*v9 < v8)
     {
       *v9 = v8;
@@ -8643,58 +9175,55 @@ __int128 *CoreML::Specification::MILSpec::Operation::MergeFrom(google::protobuf:
   if (v10)
   {
     v11 = *(a2 + 11);
-    v12 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 9), *(a2 + 20));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::Block>::TypeHandler>((this + 9), v12, (v11 + 8), v10, *this[11] - *(this + 20));
+    v12 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 72), *(a2 + 20));
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::Block>::TypeHandler>(this + 9, v12, (v11 + 8), v10, **(this + 11) - *(this + 20));
     v13 = *(this + 20) + v10;
     *(this + 20) = v13;
-    v14 = this[11];
+    v14 = *(this + 11);
     if (*v14 < v13)
     {
       *v14 = v13;
     }
   }
 
-  result = google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom((this + 12), a2 + 96);
-  v16 = *(a2 + 16);
-  if ((*(v16 + 23) & 0x8000000000000000) != 0)
+  google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom(this + 96, a2 + 96);
+  v15 = *(a2 + 16);
+  if ((*(v15 + 23) & 0x8000000000000000) != 0)
   {
-    if (!*(v16 + 8))
+    if (!*(v15 + 8))
     {
-      return result;
+      return;
     }
   }
 
-  else if (!*(v16 + 23))
+  else if (!*(v15 + 23))
   {
-    return result;
+    return;
   }
 
-  result = this[16];
-  if (result != v16)
+  v18 = *(this + 16);
+  v17 = (this + 128);
+  v16 = v18;
+  if (v18 != v15)
   {
-    if (result == &google::protobuf::internal::fixed_address_empty_string)
+    if (v16 == &google::protobuf::internal::fixed_address_empty_string)
     {
 
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v17, v15);
     }
 
-    return std::string::operator=(result, v16);
+    std::string::operator=(v16, v15);
   }
-
-  return result;
 }
 
-__int128 *CoreML::Specification::MILSpec::Operation::CopyFrom(__int128 *this, const CoreML::Specification::MILSpec::Operation *a2)
+void CoreML::Specification::MILSpec::Operation::CopyFrom(CoreML::Specification::MILSpec::Operation *this, const CoreML::Specification::MILSpec::Operation *a2)
 {
   if (a2 != this)
   {
-    v4 = this;
     CoreML::Specification::MILSpec::Operation::Clear(this);
 
-    return CoreML::Specification::MILSpec::Operation::MergeFrom(v4, a2);
+    CoreML::Specification::MILSpec::Operation::MergeFrom(this, a2);
   }
-
-  return this;
 }
 
 CoreML::Specification::MILSpec::Operation *CoreML::Specification::MILSpec::Operation::Swap(CoreML::Specification::MILSpec::Operation *this, CoreML::Specification::MILSpec::Operation *a2)
@@ -8707,11 +9236,11 @@ CoreML::Specification::MILSpec::Operation *CoreML::Specification::MILSpec::Opera
   return this;
 }
 
-void *CoreML::Specification::MILSpec::Operation::InternalSwap(CoreML::Specification::MILSpec::Operation *this, CoreML::Specification::MILSpec::Operation *a2)
+const void ***CoreML::Specification::MILSpec::Operation::InternalSwap(const void ***this, CoreML::Specification::MILSpec::Operation *a2)
 {
   google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Argument>::swap(this + 3, a2 + 24);
-  v4 = *(this + 8);
-  *(this + 8) = *(a2 + 8);
+  v4 = this[8];
+  this[8] = *(a2 + 8);
   *(a2 + 8) = v4;
   LODWORD(v4) = *(this + 14);
   *(this + 14) = *(a2 + 14);
@@ -8719,8 +9248,8 @@ void *CoreML::Specification::MILSpec::Operation::InternalSwap(CoreML::Specificat
   LODWORD(v4) = *(this + 15);
   *(this + 15) = *(a2 + 15);
   *(a2 + 15) = v4;
-  v5 = *(this + 11);
-  *(this + 11) = *(a2 + 11);
+  v5 = this[11];
+  this[11] = *(a2 + 11);
   *(a2 + 11) = v5;
   LODWORD(v5) = *(this + 20);
   *(this + 20) = *(a2 + 20);
@@ -8729,8 +9258,8 @@ void *CoreML::Specification::MILSpec::Operation::InternalSwap(CoreML::Specificat
   *(this + 21) = *(a2 + 21);
   *(a2 + 21) = v5;
   result = google::protobuf::Map<std::string,CoreML::Specification::MILSpec::Value>::swap(this + 13, a2 + 104);
-  v7 = *(this + 16);
-  *(this + 16) = *(a2 + 16);
+  v7 = this[16];
+  this[16] = *(a2 + 16);
   *(a2 + 16) = v7;
   LODWORD(v7) = *(this + 34);
   *(this + 34) = *(a2 + 34);
@@ -8782,7 +9311,7 @@ CoreML::Specification::MILSpec::NamedValueType *CoreML::Specification::MILSpec::
 
   if (v5 != &google::protobuf::internal::fixed_address_empty_string && v6 != 0)
   {
-    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+    google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 2, v5);
   }
 
   if (a2 != &CoreML::Specification::MILSpec::_NamedValueType_default_instance_ && *(a2 + 3))
@@ -8934,10 +9463,10 @@ LABEL_7:
         }
 
         v15 = *a2;
-        if (*a2 >= a2[1] || (VarintSizeAsIntFallback = *v15, (VarintSizeAsIntFallback & 0x80000000) != 0))
+        if (*a2 >= a2[1] || (VarintSizeAsIntFallback = *v15, VarintSizeAsIntFallback < 0))
         {
           VarintSizeAsIntFallback = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-          if ((VarintSizeAsIntFallback & 0x80000000) != 0)
+          if (VarintSizeAsIntFallback < 0)
           {
             return 0;
           }
@@ -8975,7 +9504,7 @@ LABEL_7:
       v10 = *(this + 2);
       if (v10 == &google::protobuf::internal::fixed_address_empty_string)
       {
-        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 2, &google::protobuf::internal::fixed_address_empty_string);
       }
 
       result = google::protobuf::internal::WireFormatLite::ReadBytes(a2, v10);
@@ -9004,7 +9533,7 @@ LABEL_26:
       return 1;
     }
 
-    if ((google::protobuf::internal::WireFormatLite::SkipField(a2, v7, a3) & 1) == 0)
+    if ((google::protobuf::internal::WireFormatLite::SkipField(a2, v7) & 1) == 0)
     {
       return 0;
     }
@@ -9092,13 +9621,12 @@ LABEL_8:
   return v5;
 }
 
-std::string *CoreML::Specification::MILSpec::NamedValueType::MergeFrom(std::string *this, const CoreML::Specification::MILSpec::NamedValueType *a2)
+void CoreML::Specification::MILSpec::NamedValueType::MergeFrom(CoreML::Specification::MILSpec::NamedValueType *this, const CoreML::Specification::MILSpec::NamedValueType *a2)
 {
-  v3 = this;
   v4 = *(a2 + 1);
   if (v4)
   {
-    this = google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(&this->__r_.__value_.__l.__size_, v4 & 0xFFFFFFFFFFFFFFFELL);
+    google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(this + 1, v4 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   v5 = *(a2 + 2);
@@ -9110,42 +9638,38 @@ std::string *CoreML::Specification::MILSpec::NamedValueType::MergeFrom(std::stri
 
   if (v6)
   {
-    this = &v3->__r_.__value_.__r.__words[2];
-    v7 = v3->__r_.__value_.__r.__words[2];
+    v7 = *(this + 2);
     if (v7 != v5)
     {
       if (v7 == &google::protobuf::internal::fixed_address_empty_string)
       {
-        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena();
+        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 2, v5);
       }
 
-      this = std::string::operator=(v3->__r_.__value_.__r.__words[2], v5);
+      std::string::operator=(*(this + 2), v5);
     }
   }
 
   if (a2 != &CoreML::Specification::MILSpec::_NamedValueType_default_instance_ && *(a2 + 3))
   {
-    if (!v3[1].__r_.__value_.__r.__words[0])
+    if (!*(this + 3))
     {
       operator new();
     }
 
     v8 = *(a2 + 3);
-    data = v3[1].__r_.__value_.__l.__data_;
+    v9 = *(this + 3);
 
-    return CoreML::Specification::MILSpec::ValueType::MergeFrom(data, v8);
+    CoreML::Specification::MILSpec::ValueType::MergeFrom(v9, v8);
   }
-
-  return this;
 }
 
-std::string *CoreML::Specification::MILSpec::ValueType::MergeFrom(std::string *this, const CoreML::Specification::MILSpec::ValueType *a2)
+void CoreML::Specification::MILSpec::ValueType::MergeFrom(uint64_t this, const CoreML::Specification::MILSpec::ValueType *a2)
 {
-  v3 = this;
   v4 = *(a2 + 1);
   if (v4)
   {
-    this = google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(&this->__r_.__value_.__l.__size_, v4 & 0xFFFFFFFFFFFFFFFELL);
+    google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom((this + 8), v4 & 0xFFFFFFFFFFFFFFFELL);
   }
 
   v5 = *(a2 + 7);
@@ -9153,32 +9677,32 @@ std::string *CoreML::Specification::MILSpec::ValueType::MergeFrom(std::string *t
   {
     if (v5 == 1)
     {
-      if (*(v3 + 28) != 1)
+      if (*(this + 28) != 1)
       {
-        CoreML::Specification::MILSpec::ValueType::clear_type(v3);
-        *(v3 + 28) = 1;
+        CoreML::Specification::MILSpec::ValueType::clear_type(this);
+        *(this + 28) = 1;
         operator new();
       }
 
       v8 = *(a2 + 2);
-      v13 = *(v3 + 16);
+      v13 = *(this + 16);
 
-      return CoreML::Specification::MILSpec::TensorType::MergeFrom(v13, v8);
+      CoreML::Specification::MILSpec::TensorType::MergeFrom(v13, v8);
     }
 
     else if (v5 == 2)
     {
-      if (*(v3 + 28) != 2)
+      if (*(this + 28) != 2)
       {
-        CoreML::Specification::MILSpec::ValueType::clear_type(v3);
-        *(v3 + 28) = 2;
+        CoreML::Specification::MILSpec::ValueType::clear_type(this);
+        *(this + 28) = 2;
         operator new();
       }
 
       v10 = *(a2 + 2);
-      v15 = *(v3 + 16);
+      v15 = *(this + 16);
 
-      return CoreML::Specification::MILSpec::ListType::MergeFrom(v15, v10);
+      CoreML::Specification::MILSpec::ListType::MergeFrom(v15, v10);
     }
   }
 
@@ -9187,58 +9711,56 @@ std::string *CoreML::Specification::MILSpec::ValueType::MergeFrom(std::string *t
     switch(v5)
     {
       case 3:
-        if (*(v3 + 28) != 3)
+        if (*(this + 28) != 3)
         {
-          CoreML::Specification::MILSpec::ValueType::clear_type(v3);
-          *(v3 + 28) = 3;
+          CoreML::Specification::MILSpec::ValueType::clear_type(this);
+          *(this + 28) = 3;
           operator new();
         }
 
         v6 = *(a2 + 2);
-        v11 = *(v3 + 16);
+        v11 = *(this + 16);
 
-        return CoreML::Specification::MILSpec::TupleType::MergeFrom(v11, v6);
+        CoreML::Specification::MILSpec::TupleType::MergeFrom(v11, v6);
+        break;
       case 4:
-        if (*(v3 + 28) != 4)
+        if (*(this + 28) != 4)
         {
-          CoreML::Specification::MILSpec::ValueType::clear_type(v3);
-          *(v3 + 28) = 4;
+          CoreML::Specification::MILSpec::ValueType::clear_type(this);
+          *(this + 28) = 4;
           operator new();
         }
 
         v7 = *(a2 + 2);
-        v12 = *(v3 + 16);
+        v12 = *(this + 16);
 
-        return CoreML::Specification::MILSpec::DictionaryType::MergeFrom(v12, v7);
+        CoreML::Specification::MILSpec::DictionaryType::MergeFrom(v12, v7);
+        break;
       case 5:
-        if (*(v3 + 28) != 5)
+        if (*(this + 28) != 5)
         {
-          CoreML::Specification::MILSpec::ValueType::clear_type(v3);
-          *(v3 + 28) = 5;
+          CoreML::Specification::MILSpec::ValueType::clear_type(this);
+          *(this + 28) = 5;
           operator new();
         }
 
         v9 = *(a2 + 2);
-        v14 = *(v3 + 16);
+        v14 = *(this + 16);
 
-        return CoreML::Specification::MILSpec::StateType::MergeFrom(v14, v9);
+        CoreML::Specification::MILSpec::StateType::MergeFrom(v14, v9);
+        break;
     }
   }
-
-  return this;
 }
 
-std::string *CoreML::Specification::MILSpec::NamedValueType::CopyFrom(std::string *this, std::string *a2)
+void CoreML::Specification::MILSpec::NamedValueType::CopyFrom(CoreML::Specification::MILSpec::NamedValueType *this, const CoreML::Specification::MILSpec::NamedValueType *a2)
 {
   if (a2 != this)
   {
-    v4 = this;
     CoreML::Specification::MILSpec::NamedValueType::Clear(this);
 
-    return CoreML::Specification::MILSpec::NamedValueType::MergeFrom(v4, a2);
+    CoreML::Specification::MILSpec::NamedValueType::MergeFrom(this, a2);
   }
-
-  return this;
 }
 
 uint64_t CoreML::Specification::MILSpec::NamedValueType::Swap(uint64_t this, CoreML::Specification::MILSpec::NamedValueType *a2)
@@ -9284,587 +9806,4 @@ CoreML::Specification::MILSpec::ValueType *CoreML::Specification::MILSpec::Value
 
   *(this + 3) = 0;
   return this;
-}
-
-CoreML::Specification::MILSpec::ValueType *CoreML::Specification::MILSpec::ValueType::ValueType(CoreML::Specification::MILSpec::ValueType *this, const CoreML::Specification::MILSpec::ValueType *a2)
-{
-  *this = &unk_2829FF3C0;
-  *(this + 1) = 0;
-  *(this + 6) = 0;
-  v4 = *(a2 + 1);
-  if (v4)
-  {
-    google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(this + 1, v4 & 0xFFFFFFFFFFFFFFFELL);
-  }
-
-  *(this + 7) = 0;
-  v5 = *(a2 + 7);
-  if (v5 <= 2)
-  {
-    if (v5 == 1)
-    {
-      CoreML::Specification::MILSpec::ValueType::clear_type(this);
-      *(this + 7) = 1;
-      operator new();
-    }
-
-    if (v5 == 2)
-    {
-      CoreML::Specification::MILSpec::ValueType::clear_type(this);
-      *(this + 7) = 2;
-      operator new();
-    }
-  }
-
-  else
-  {
-    switch(v5)
-    {
-      case 3:
-        CoreML::Specification::MILSpec::ValueType::clear_type(this);
-        *(this + 7) = 3;
-        operator new();
-      case 4:
-        CoreML::Specification::MILSpec::ValueType::clear_type(this);
-        *(this + 7) = 4;
-        operator new();
-      case 5:
-        CoreML::Specification::MILSpec::ValueType::clear_type(this);
-        *(this + 7) = 5;
-        operator new();
-    }
-  }
-
-  return this;
-}
-
-void sub_21855CBA8(_Unwind_Exception *a1)
-{
-  MEMORY[0x21CEAFEA0](v2, 0x10A1C40C9A46F13);
-  google::protobuf::internal::InternalMetadataWithArenaBase<std::string,google::protobuf::internal::InternalMetadataWithArenaLite>::~InternalMetadataWithArenaBase(v1);
-  _Unwind_Resume(a1);
-}
-
-uint64_t CoreML::Specification::MILSpec::TensorType::MergeFrom(google::protobuf::Arena **this, const CoreML::Specification::MILSpec::TensorType *a2)
-{
-  v4 = *(a2 + 1);
-  if (v4)
-  {
-    google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(this + 1, v4 & 0xFFFFFFFFFFFFFFFELL);
-  }
-
-  v5 = *(a2 + 6);
-  if (v5)
-  {
-    v6 = *(a2 + 4);
-    v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 2), *(a2 + 6));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::Dimension>::TypeHandler>((this + 2), v7, (v6 + 8), v5, *this[4] - *(this + 6));
-    v8 = *(this + 6) + v5;
-    *(this + 6) = v8;
-    v9 = this[4];
-    if (*v9 < v8)
-    {
-      *v9 = v8;
-    }
-  }
-
-  result = google::protobuf::internal::MapFieldLite<google::protobuf::internal::MapEntryLite<std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>,std::string,CoreML::Specification::MILSpec::Value,(google::protobuf::internal::WireFormatLite::FieldType)9,(google::protobuf::internal::WireFormatLite::FieldType)11,0>::MergeFrom((this + 5), a2 + 40);
-  v11 = *(a2 + 9);
-  if (v11)
-  {
-    this[9] = v11;
-  }
-
-  v12 = *(a2 + 20);
-  if (v12)
-  {
-    *(this + 20) = v12;
-  }
-
-  return result;
-}
-
-std::string *CoreML::Specification::MILSpec::ListType::MergeFrom(std::string *this, const CoreML::Specification::MILSpec::ListType *a2)
-{
-  v3 = this;
-  v4 = *(a2 + 1);
-  if (v4)
-  {
-    this = google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(&this->__r_.__value_.__l.__size_, v4 & 0xFFFFFFFFFFFFFFFELL);
-  }
-
-  if (a2 != &CoreML::Specification::MILSpec::_ListType_default_instance_)
-  {
-    if (*(a2 + 2))
-    {
-      v5 = v3->__r_.__value_.__r.__words[2];
-      if (!v5)
-      {
-        operator new();
-      }
-
-      this = CoreML::Specification::MILSpec::ValueType::MergeFrom(v5, *(a2 + 2));
-    }
-
-    if (*(a2 + 3))
-    {
-      if (!v3[1].__r_.__value_.__r.__words[0])
-      {
-        operator new();
-      }
-
-      v6 = *(a2 + 3);
-      data = v3[1].__r_.__value_.__l.__data_;
-
-      return CoreML::Specification::MILSpec::Dimension::MergeFrom(data, v6);
-    }
-  }
-
-  return this;
-}
-
-uint64_t CoreML::Specification::MILSpec::TupleType::MergeFrom(uint64_t this, const CoreML::Specification::MILSpec::TupleType *a2)
-{
-  v3 = this;
-  v4 = *(a2 + 1);
-  if (v4)
-  {
-    this = google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom((this + 8), v4 & 0xFFFFFFFFFFFFFFFELL);
-  }
-
-  v5 = *(a2 + 6);
-  if (v5)
-  {
-    v6 = *(a2 + 4);
-    v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 16), v5);
-    this = google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<CoreML::Specification::MILSpec::ValueType>::TypeHandler>(v3 + 16, v7, (v6 + 8), v5, **(v3 + 32) - *(v3 + 24));
-    v8 = *(v3 + 24) + v5;
-    *(v3 + 24) = v8;
-    v9 = *(v3 + 32);
-    if (*v9 < v8)
-    {
-      *v9 = v8;
-    }
-  }
-
-  return this;
-}
-
-std::string *CoreML::Specification::MILSpec::DictionaryType::MergeFrom(std::string *this, const CoreML::Specification::MILSpec::DictionaryType *a2)
-{
-  v3 = this;
-  v4 = *(a2 + 1);
-  if (v4)
-  {
-    this = google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(&this->__r_.__value_.__l.__size_, v4 & 0xFFFFFFFFFFFFFFFELL);
-  }
-
-  if (a2 != &CoreML::Specification::MILSpec::_DictionaryType_default_instance_)
-  {
-    if (*(a2 + 2))
-    {
-      v5 = v3->__r_.__value_.__r.__words[2];
-      if (!v5)
-      {
-        operator new();
-      }
-
-      this = CoreML::Specification::MILSpec::ValueType::MergeFrom(v5, *(a2 + 2));
-    }
-
-    if (*(a2 + 3))
-    {
-      if (!v3[1].__r_.__value_.__r.__words[0])
-      {
-        operator new();
-      }
-
-      v6 = *(a2 + 3);
-      data = v3[1].__r_.__value_.__l.__data_;
-
-      return CoreML::Specification::MILSpec::ValueType::MergeFrom(data, v6);
-    }
-  }
-
-  return this;
-}
-
-std::string *CoreML::Specification::MILSpec::StateType::MergeFrom(std::string *this, const CoreML::Specification::MILSpec::StateType *a2)
-{
-  v3 = this;
-  v4 = *(a2 + 1);
-  if (v4)
-  {
-    this = google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(&this->__r_.__value_.__l.__size_, v4 & 0xFFFFFFFFFFFFFFFELL);
-  }
-
-  v5 = *(a2 + 2);
-  if (a2 != &CoreML::Specification::MILSpec::_StateType_default_instance_ && v5 != 0)
-  {
-    if (!v3->__r_.__value_.__r.__words[2])
-    {
-      operator new();
-    }
-
-    if (v5)
-    {
-      v7 = *(a2 + 2);
-    }
-
-    else
-    {
-      v7 = &CoreML::Specification::MILSpec::_ValueType_default_instance_;
-    }
-
-    v8 = v3->__r_.__value_.__r.__words[2];
-
-    return CoreML::Specification::MILSpec::ValueType::MergeFrom(v8, v7);
-  }
-
-  return this;
-}
-
-void CoreML::Specification::MILSpec::ValueType::~ValueType(CoreML::Specification::MILSpec::ValueType *this)
-{
-  *this = &unk_2829FF3C0;
-  if (*(this + 7))
-  {
-    CoreML::Specification::MILSpec::ValueType::clear_type(this);
-  }
-
-  google::protobuf::internal::InternalMetadataWithArenaBase<std::string,google::protobuf::internal::InternalMetadataWithArenaLite>::~InternalMetadataWithArenaBase(this + 1);
-}
-
-{
-  CoreML::Specification::MILSpec::ValueType::~ValueType(this);
-
-  JUMPOUT(0x21CEAFEA0);
-}
-
-uint64_t CoreML::Specification::MILSpec::ValueType::SharedDtor(uint64_t this)
-{
-  if (*(this + 28))
-  {
-    return CoreML::Specification::MILSpec::ValueType::clear_type(this);
-  }
-
-  return this;
-}
-
-uint64_t CoreML::Specification::MILSpec::ValueType::clear_type(uint64_t this)
-{
-  v1 = this;
-  v2 = *(this + 28);
-  if (v2 <= 2)
-  {
-    if (v2 != 1 && v2 != 2)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  else if (v2 != 3 && v2 != 4 && v2 != 5)
-  {
-    goto LABEL_10;
-  }
-
-  this = *(this + 16);
-  if (this)
-  {
-    this = (*(*this + 8))(this);
-  }
-
-LABEL_10:
-  *(v1 + 28) = 0;
-  return this;
-}
-
-google::protobuf::Arena *google::protobuf::Arena::Own<CoreML::Specification::MILSpec::ValueType>(google::protobuf::Arena *result, void *a2)
-{
-  if (a2)
-  {
-    return google::protobuf::Arena::AddListNode(result, a2, google::protobuf::internal::arena_delete_object<CoreML::Specification::MILSpec::ValueType>);
-  }
-
-  return result;
-}
-
-uint64_t CoreML::Specification::MILSpec::ValueType::MergePartialFromCodedStream(CoreML::Specification::MILSpec::ValueType *this, char **a2, unsigned int a3)
-{
-  while (1)
-  {
-    while (1)
-    {
-      v5 = *a2;
-      if (*a2 >= a2[1])
-      {
-        v6 = 0;
-LABEL_6:
-        TagFallback = google::protobuf::io::CodedInputStream::ReadTagFallback(a2, v6);
-        v7 = TagFallback | ((TagFallback - 1 < 0x7F) << 32);
-        if ((v7 & 0x100000000) == 0)
-        {
-          goto LABEL_31;
-        }
-
-        goto LABEL_7;
-      }
-
-      v6 = *v5;
-      if (*v5 < 1)
-      {
-        goto LABEL_6;
-      }
-
-      *a2 = v5 + 1;
-      v7 = v6 | 0x100000000;
-      if ((v7 & 0x100000000) == 0)
-      {
-        goto LABEL_31;
-      }
-
-LABEL_7:
-      v9 = v7 >> 3;
-      if (v7 >> 3 > 2)
-      {
-        if (v9 == 3)
-        {
-          if (v7 != 26)
-          {
-            goto LABEL_31;
-          }
-
-          if (*(this + 7) != 3)
-          {
-            CoreML::Specification::MILSpec::ValueType::clear_type(this);
-            *(this + 7) = 3;
-            operator new();
-          }
-
-          v13 = *(this + 2);
-          v17 = *a2;
-          if (*a2 >= a2[1] || (VarintSizeAsIntFallback = *v17, (VarintSizeAsIntFallback & 0x80000000) != 0))
-          {
-            VarintSizeAsIntFallback = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-            if ((VarintSizeAsIntFallback & 0x80000000) != 0)
-            {
-              return 0;
-            }
-          }
-
-          else
-          {
-            *a2 = v17 + 1;
-          }
-
-          v27 = google::protobuf::io::CodedInputStream::IncrementRecursionDepthAndPushLimit(a2, VarintSizeAsIntFallback);
-          if ((v27 & 0x8000000000000000) != 0)
-          {
-            return 0;
-          }
-
-          v29 = v27;
-          result = CoreML::Specification::MILSpec::TupleType::MergePartialFromCodedStream(v13, a2, v28);
-          if (!result)
-          {
-            return result;
-          }
-        }
-
-        else if (v9 == 4)
-        {
-          if (v7 != 34)
-          {
-            goto LABEL_31;
-          }
-
-          if (*(this + 7) != 4)
-          {
-            CoreML::Specification::MILSpec::ValueType::clear_type(this);
-            *(this + 7) = 4;
-            operator new();
-          }
-
-          v14 = *(this + 2);
-          v19 = *a2;
-          if (*a2 >= a2[1] || (v20 = *v19, (v20 & 0x80000000) != 0))
-          {
-            v20 = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-            if ((v20 & 0x80000000) != 0)
-            {
-              return 0;
-            }
-          }
-
-          else
-          {
-            *a2 = v19 + 1;
-          }
-
-          v31 = google::protobuf::io::CodedInputStream::IncrementRecursionDepthAndPushLimit(a2, v20);
-          if ((v31 & 0x8000000000000000) != 0)
-          {
-            return 0;
-          }
-
-          v29 = v31;
-          result = CoreML::Specification::MILSpec::DictionaryType::MergePartialFromCodedStream(v14, a2, v32);
-          if (!result)
-          {
-            return result;
-          }
-        }
-
-        else
-        {
-          if (v9 != 5 || v7 != 42)
-          {
-            goto LABEL_31;
-          }
-
-          if (*(this + 7) != 5)
-          {
-            CoreML::Specification::MILSpec::ValueType::clear_type(this);
-            *(this + 7) = 5;
-            operator new();
-          }
-
-          v10 = *(this + 2);
-          v25 = *a2;
-          if (*a2 >= a2[1] || (v26 = *v25, (v26 & 0x80000000) != 0))
-          {
-            v26 = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-            if ((v26 & 0x80000000) != 0)
-            {
-              return 0;
-            }
-          }
-
-          else
-          {
-            *a2 = v25 + 1;
-          }
-
-          v37 = google::protobuf::io::CodedInputStream::IncrementRecursionDepthAndPushLimit(a2, v26);
-          if ((v37 & 0x8000000000000000) != 0)
-          {
-            return 0;
-          }
-
-          v29 = v37;
-          result = CoreML::Specification::MILSpec::StateType::MergePartialFromCodedStream(v10, a2, v38);
-          if (!result)
-          {
-            return result;
-          }
-        }
-
-        goto LABEL_76;
-      }
-
-      if (v9 != 1)
-      {
-        break;
-      }
-
-      if (v7 != 10)
-      {
-        goto LABEL_31;
-      }
-
-      if (*(this + 7) != 1)
-      {
-        CoreML::Specification::MILSpec::ValueType::clear_type(this);
-        *(this + 7) = 1;
-        operator new();
-      }
-
-      v15 = *(this + 2);
-      v23 = *a2;
-      if (*a2 >= a2[1] || (v24 = *v23, (v24 & 0x80000000) != 0))
-      {
-        v24 = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-        if ((v24 & 0x80000000) != 0)
-        {
-          return 0;
-        }
-      }
-
-      else
-      {
-        *a2 = v23 + 1;
-      }
-
-      v35 = google::protobuf::io::CodedInputStream::IncrementRecursionDepthAndPushLimit(a2, v24);
-      if ((v35 & 0x8000000000000000) != 0)
-      {
-        return 0;
-      }
-
-      v29 = v35;
-      result = CoreML::Specification::MILSpec::TensorType::MergePartialFromCodedStream(v15, a2, v36);
-      if (!result)
-      {
-        return result;
-      }
-
-LABEL_76:
-      if ((google::protobuf::io::CodedInputStream::DecrementRecursionDepthAndPopLimit(a2, v29) & 1) == 0)
-      {
-        return 0;
-      }
-    }
-
-    if (v9 == 2 && v7 == 18)
-    {
-      if (*(this + 7) != 2)
-      {
-        CoreML::Specification::MILSpec::ValueType::clear_type(this);
-        *(this + 7) = 2;
-        operator new();
-      }
-
-      v12 = *(this + 2);
-      v21 = *a2;
-      if (*a2 >= a2[1] || (v22 = *v21, (v22 & 0x80000000) != 0))
-      {
-        v22 = google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(a2);
-        if ((v22 & 0x80000000) != 0)
-        {
-          return 0;
-        }
-      }
-
-      else
-      {
-        *a2 = v21 + 1;
-      }
-
-      v33 = google::protobuf::io::CodedInputStream::IncrementRecursionDepthAndPushLimit(a2, v22);
-      if ((v33 & 0x8000000000000000) != 0)
-      {
-        return 0;
-      }
-
-      v29 = v33;
-      result = CoreML::Specification::MILSpec::ListType::MergePartialFromCodedStream(v12, a2, v34);
-      if (!result)
-      {
-        return result;
-      }
-
-      goto LABEL_76;
-    }
-
-LABEL_31:
-    if (!v7 || (v7 & 7) == 4)
-    {
-      return 1;
-    }
-
-    if ((google::protobuf::internal::WireFormatLite::SkipField(a2, v7, a3) & 1) == 0)
-    {
-      return 0;
-    }
-  }
 }

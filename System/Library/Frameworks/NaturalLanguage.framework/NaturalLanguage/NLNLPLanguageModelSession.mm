@@ -87,25 +87,24 @@
   if (self->_model)
   {
     v8 = CoreLMCopyTokenIdsForText();
-    model = self->_model;
-    v10 = CoreLMCopyTokenIdsForText();
-    v11 = v10;
+    v9 = CoreLMCopyTokenIdsForText();
+    v10 = v9;
     if (v8)
     {
-      v12 = v10 == 0;
+      v11 = v9 == 0;
     }
 
     else
     {
-      v12 = 1;
+      v11 = 1;
     }
 
-    if (v12)
+    if (v11)
     {
       initWithInvalidProbability = 0;
       if (!v8)
       {
-        if (!v10)
+        if (!v9)
         {
           goto LABEL_10;
         }
@@ -114,17 +113,16 @@
       }
     }
 
-    else if (CFArrayGetCount(v10) == 1 && (v15 = self->_model, CoreLMUpdateWithContext()))
+    else if (CFArrayGetCount(v9) == 1 && CoreLMUpdateWithContext())
     {
-      v16 = self->_model;
-      v17 = CoreLMCopyConditionalProbabilities();
-      if (v17)
+      v14 = CoreLMCopyConditionalProbabilities();
+      if (v14)
       {
-        v18 = v17;
-        if (CFArrayGetCount(v17) == 1 && (ValueAtIndex = CFArrayGetValueAtIndex(v18, 0), valuePtr = 0.0, CFNumberGetValue(ValueAtIndex, kCFNumberDoubleType, &valuePtr)))
+        v15 = v14;
+        if (CFArrayGetCount(v14) == 1 && (ValueAtIndex = CFArrayGetValueAtIndex(v15, 0), valuePtr = 0.0, CFNumberGetValue(ValueAtIndex, kCFNumberDoubleType, &valuePtr)))
         {
-          v20 = [NLProbabilityInfo alloc];
-          initWithInvalidProbability = [(NLProbabilityInfo *)v20 initWithProbability:0 flags:valuePtr];
+          v17 = [NLProbabilityInfo alloc];
+          initWithInvalidProbability = [(NLProbabilityInfo *)v17 initWithProbability:0 flags:valuePtr];
         }
 
         else
@@ -132,7 +130,7 @@
           initWithInvalidProbability = 0;
         }
 
-        CFRelease(v18);
+        CFRelease(v15);
       }
 
       else
@@ -140,7 +138,6 @@
         initWithInvalidProbability = 0;
       }
 
-      v21 = self->_model;
       CoreLMReset();
     }
 
@@ -150,7 +147,7 @@
     }
 
     CFRelease(v8);
-    if (!v11)
+    if (!v10)
     {
 LABEL_10:
       if (initWithInvalidProbability)
@@ -162,7 +159,7 @@ LABEL_10:
     }
 
 LABEL_9:
-    CFRelease(v11);
+    CFRelease(v10);
     goto LABEL_10;
   }
 
@@ -175,26 +172,25 @@ LABEL_12:
 
 - (id)conditionalProbabilityForString:(id)string context:(id)context
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   contextCopy = context;
   if (self->_model)
   {
     v8 = CoreLMCopyTokenIdsForText();
-    model = self->_model;
-    v10 = CoreLMCopyTokenIdsForText();
-    v11 = [v10 count];
+    v9 = CoreLMCopyTokenIdsForText();
+    v10 = [v9 count];
     if (v8)
     {
-      v12 = v10 == 0;
+      v11 = v9 == 0;
     }
 
     else
     {
-      v12 = 1;
+      v11 = 1;
     }
 
-    if (v12)
+    if (v11)
     {
       initWithInvalidProbability = 0;
       if (!v8)
@@ -205,55 +201,52 @@ LABEL_12:
 
     else
     {
-      v14 = v11;
-      v15 = self->_model;
+      v13 = v10;
       if (CoreLMUpdateWithContext())
       {
-        v30 = stringCopy;
-        if (v14)
+        v25 = stringCopy;
+        if (v13)
         {
-          v17 = 0;
-          v18 = 1.0;
+          v15 = 0;
+          v16 = 1.0;
           while (1)
           {
-            v19 = [v10 objectAtIndex:v17];
-            v20 = self->_model;
-            v33[0] = v19;
-            [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
-            v21 = CoreLMCopyConditionalProbabilities();
-            if (!v21)
+            v17 = [v9 objectAtIndex:v15];
+            v28[0] = v17;
+            [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+            v18 = CoreLMCopyConditionalProbabilities();
+            if (!v18)
             {
               break;
             }
 
-            v22 = v21;
-            if (CFArrayGetCount(v21) == 1)
+            v19 = v18;
+            if (CFArrayGetCount(v18) == 1)
             {
-              ValueAtIndex = CFArrayGetValueAtIndex(v22, 0);
+              ValueAtIndex = CFArrayGetValueAtIndex(v19, 0);
               valuePtr = 0.0;
               Value = CFNumberGetValue(ValueAtIndex, kCFNumberDoubleType, &valuePtr);
-              v25 = Value != 0;
+              v22 = Value != 0;
               if (Value)
               {
-                v18 = v18 * valuePtr;
+                v16 = v16 * valuePtr;
               }
             }
 
             else
             {
-              v25 = 0;
+              v22 = 0;
             }
 
-            CFRelease(v22);
-            ++v17;
-            if (v25 && v17 < v14)
+            CFRelease(v19);
+            ++v15;
+            if (v22 && v15 < v13)
             {
-              v26 = self->_model;
-              v32 = v19;
-              [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
-              LOBYTE(v26) = CoreLMUpdateWithContext();
+              v27 = v17;
+              [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+              v23 = CoreLMUpdateWithContext();
 
-              if ((v26 & 1) == 0)
+              if ((v23 & 1) == 0)
               {
                 goto LABEL_29;
               }
@@ -262,13 +255,13 @@ LABEL_12:
             else
             {
 
-              if (!v25)
+              if (!v22)
               {
                 goto LABEL_29;
               }
             }
 
-            if (v14 == v17)
+            if (v13 == v15)
             {
               goto LABEL_27;
             }
@@ -280,14 +273,13 @@ LABEL_29:
 
         else
         {
-          v18 = 1.0;
+          v16 = 1.0;
 LABEL_27:
-          initWithInvalidProbability = [[NLProbabilityInfo alloc] initWithProbability:0 flags:v18];
+          initWithInvalidProbability = [[NLProbabilityInfo alloc] initWithProbability:0 flags:v16];
         }
 
-        v27 = self->_model;
         CoreLMReset();
-        stringCopy = v30;
+        stringCopy = v25;
         if (v8)
         {
           goto LABEL_31;
@@ -315,8 +307,6 @@ LABEL_33:
   initWithInvalidProbability = [[NLProbabilityInfo alloc] initWithInvalidProbability];
 LABEL_34:
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return initWithInvalidProbability;
 }
 
@@ -327,17 +317,15 @@ LABEL_34:
   if (self->_model && (v8 = CoreLMCopyTokenIdsForText()) != 0)
   {
     v9 = v8;
-    model = self->_model;
     if (CoreLMUpdateWithContext())
     {
-      v11 = [NLNLPLanguageModelNode conditionalProbabilitiesForStrings:stringsCopy modelState:self->_model copyRequired:0];
-      v12 = self->_model;
+      v10 = [NLNLPLanguageModelNode conditionalProbabilitiesForStrings:stringsCopy modelState:self->_model copyRequired:0];
       CoreLMReset();
     }
 
     else
     {
-      v11 = [NLNLPLanguageModelNode conditionalProbabilitiesForStrings:stringsCopy modelState:0 copyRequired:0];
+      v10 = [NLNLPLanguageModelNode conditionalProbabilitiesForStrings:stringsCopy modelState:0 copyRequired:0];
     }
 
     CFRelease(v9);
@@ -345,10 +333,10 @@ LABEL_34:
 
   else
   {
-    v11 = [NLNLPLanguageModelNode conditionalProbabilitiesForStrings:stringsCopy modelState:0 copyRequired:0];
+    v10 = [NLNLPLanguageModelNode conditionalProbabilitiesForStrings:stringsCopy modelState:0 copyRequired:0];
   }
 
-  return v11;
+  return v10;
 }
 
 - (id)stateWithOptions:(id)options
@@ -369,24 +357,22 @@ LABEL_34:
 
 - (id)predictionOptionsForMaximumPredictions:(unint64_t)predictions maximumTokensPerPrediction:(unint64_t)prediction
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   if (predictions <= 0xA)
   {
     predictions = 10;
   }
 
-  v12[0] = *MEMORY[0x1E6998108];
+  v11[0] = *MEMORY[0x1E6998108];
   v5 = *MEMORY[0x1E6998118];
-  v11[0] = *MEMORY[0x1E6998110];
-  v11[1] = v5;
+  v10[0] = *MEMORY[0x1E6998110];
+  v10[1] = v5;
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:predictions];
-  v12[1] = v6;
-  v11[2] = *MEMORY[0x1E6998100];
+  v11[1] = v6;
+  v10[2] = *MEMORY[0x1E6998100];
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:prediction];
-  v12[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   return v8;
 }
@@ -412,7 +398,7 @@ uint64_t __58__NLNLPLanguageModelSession_predictionInitialCharacterSet__block_in
 
 - (void)enumeratePredictionsForContext:(id)context maximumPredictions:(unint64_t)predictions maximumTokensPerPrediction:(unint64_t)prediction withBlock:(id)block
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   blockCopy = block;
   if (self->_model)
@@ -421,72 +407,69 @@ uint64_t __58__NLNLPLanguageModelSession_predictionInitialCharacterSet__block_in
     if (v11)
     {
       v12 = v11;
-      model = self->_model;
       if (CoreLMUpdateWithContext())
       {
-        v35 = v12;
-        v37 = contextCopy;
-        v34 = [(NLNLPLanguageModelSession *)self predictionOptionsForMaximumPredictions:predictions maximumTokensPerPrediction:prediction];
-        v14 = self->_model;
-        v15 = CoreLMCopyPredictions();
-        v16 = [v15 keysSortedByValueUsingComparator:&__block_literal_global_311];
-        selfCopy = self;
+        v31 = v12;
+        v32 = contextCopy;
+        v30 = [(NLNLPLanguageModelSession *)self predictionOptionsForMaximumPredictions:predictions maximumTokensPerPrediction:prediction];
+        v13 = CoreLMCopyPredictions();
+        v14 = [v13 keysSortedByValueUsingComparator:&__block_literal_global_311];
         predictionInitialCharacterSet = [(NLNLPLanguageModelSession *)self predictionInitialCharacterSet];
-        v41 = 0u;
-        v42 = 0u;
-        v43 = 0u;
-        v44 = 0u;
-        obj = v16;
-        v18 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
-        if (v18)
+        v36 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        v39 = 0u;
+        obj = v14;
+        v16 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+        if (v16)
         {
-          v19 = v18;
-          v20 = 0;
-          v21 = *v42;
+          v17 = v16;
+          v18 = 0;
+          v19 = *v37;
 LABEL_6:
-          v22 = 0;
+          v20 = 0;
           while (1)
           {
-            if (*v42 != v21)
+            if (*v37 != v19)
             {
               objc_enumerationMutation(obj);
             }
 
-            v23 = *(*(&v41 + 1) + 8 * v22);
-            v24 = [v15 objectForKey:v23];
-            [v24 doubleValue];
-            v26 = v25;
+            v21 = *(*(&v36 + 1) + 8 * v20);
+            v22 = [v13 objectForKey:v21];
+            [v22 doubleValue];
+            v24 = v23;
 
-            v40 = 0;
-            [v23 rangeOfCharacterFromSet:predictionInitialCharacterSet options:8];
-            if (v27)
+            v35 = 0;
+            [v21 rangeOfCharacterFromSet:predictionInitialCharacterSet options:8];
+            if (v25)
             {
-              v28 = [[NLProbabilityInfo alloc] initWithProbability:0 flags:v26];
-              if ([v23 length] >= 2 && (objc_msgSend(v23, "hasSuffix:", @" ") & 1) != 0)
+              v26 = [[NLProbabilityInfo alloc] initWithProbability:0 flags:v24];
+              if ([v21 length] >= 2 && (objc_msgSend(v21, "hasSuffix:", @" ") & 1) != 0)
               {
-                v29 = [v23 substringToIndex:{objc_msgSend(v23, "length") - 1}];
+                v27 = [v21 substringToIndex:{objc_msgSend(v21, "length") - 1}];
               }
 
               else
               {
-                v29 = v23;
+                v27 = v21;
               }
 
-              v30 = v29;
-              v31 = [[NLPredictionInfo alloc] initWithPrediction:v29 probabilityInfo:v28];
-              blockCopy[2](blockCopy, v31, &v40);
-              ++v20;
+              v28 = v27;
+              v29 = [[NLPredictionInfo alloc] initWithPrediction:v27 probabilityInfo:v26];
+              blockCopy[2](blockCopy, v29, &v35);
+              ++v18;
             }
 
-            if ((v40 & 1) != 0 || v20 >= predictions)
+            if ((v35 & 1) != 0 || v18 >= predictions)
             {
               break;
             }
 
-            if (v19 == ++v22)
+            if (v17 == ++v20)
             {
-              v19 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
-              if (v19)
+              v17 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+              if (v17)
               {
                 goto LABEL_6;
               }
@@ -496,18 +479,14 @@ LABEL_6:
           }
         }
 
-        v32 = selfCopy->_model;
         CoreLMReset();
-
-        contextCopy = v37;
-        v12 = v35;
+        contextCopy = v32;
+        v12 = v31;
       }
 
       CFRelease(v12);
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __116__NLNLPLanguageModelSession_enumeratePredictionsForContext_maximumPredictions_maximumTokensPerPrediction_withBlock___block_invoke(uint64_t a1, void *a2, void *a3)

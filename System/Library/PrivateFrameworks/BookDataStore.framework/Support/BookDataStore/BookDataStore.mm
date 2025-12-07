@@ -1,43 +1,44 @@
-id sub_1000023E8()
+id sub_1000023E8(uint64_t a1)
 {
   if (qword_100274968 != -1)
   {
     sub_1001BD7E0();
   }
 
-  v1 = qword_100274960;
+  v2 = qword_100274960;
 
-  return v1;
+  return v2;
 }
 
-id sub_100002614()
+id sub_100002614(uint64_t a1)
 {
   if (qword_100274978 != -1)
   {
     sub_1001BD7F4();
   }
 
-  v1 = qword_100274970;
+  v2 = qword_100274970;
 
-  return v1;
+  return v2;
 }
 
-id sub_100002660()
+id sub_100002660(uint64_t a1)
 {
   if (qword_100274918 != -1)
   {
     sub_1001BD77C();
   }
 
-  v1 = qword_100274910;
+  v2 = qword_100274910;
 
-  return v1;
+  return v2;
 }
 
-void sub_1000027A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_1000027A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -54,7 +55,8 @@ void sub_1000027D0(uint64_t a1)
     v7 = v6;
     if (v6)
     {
-      v8 = [v6 isEqual:v3] ^ 1;
+      v6 = [v6 isEqual:v3];
+      v8 = v6 ^ 1;
     }
 
     else
@@ -63,7 +65,7 @@ void sub_1000027D0(uint64_t a1)
     }
 
     *(*(*(a1 + 40) + 8) + 24) = v8;
-    v9 = sub_100002660();
+    v9 = sub_100002660(v6);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       if (*(*(*(a1 + 40) + 8) + 24))
@@ -117,15 +119,15 @@ void sub_100002E44(uint64_t a1)
       v12 = [WeakRetained plistURL];
       [v11 writeToURL:v12 atomically:1];
 
-      v13 = sub_100002660();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100002660(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = [WeakRetained plistURL];
-        v15 = 141558274;
-        v16 = 1752392040;
-        v17 = 2112;
-        v18 = v14;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Done acknowledge iCloud identity: %{mask.hash}@", &v15, 0x16u);
+        v15 = [WeakRetained plistURL];
+        v16 = 141558274;
+        v17 = 1752392040;
+        v18 = 2112;
+        v19 = v15;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Done acknowledge iCloud identity: %{mask.hash}@", &v16, 0x16u);
       }
     }
   }
@@ -160,14 +162,12 @@ uint64_t sub_100003824()
   v9(v0 + v4, v1);
   v9(v0 + v6, v1);
   v9(v0 + v7, v1);
-  v10 = *(v0 + v8 + 8);
 
   return _swift_deallocObject(v0, v8 + 16, v3 | 7);
 }
 
 uint64_t sub_10000394C()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -211,7 +211,6 @@ uint64_t sub_100003AC4()
 
 uint64_t sub_100003B04()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
@@ -232,22 +231,18 @@ uint64_t sub_100003B3C()
   v11 = v1[7];
   v12 = sub_100084528(&qword_10026F830, &qword_1001F0E80);
   (*(*(v12 - 8) + 8))(v9 + v11, v12);
-  v13 = *(v9 + v1[8]);
 
-  v14 = v0 + v7;
-  v15 = type metadata accessor for CRDTModelRevisionInfo();
-  if (!(*(*(v15 - 8) + 48))(v0 + v7, 1, v15))
+  v13 = v0 + v7;
+  v14 = type metadata accessor for CRDTModelRevisionInfo(0);
+  if (!(*(*(v14 - 8) + 48))(v0 + v7, 1, v14))
   {
-    v16 = *(v14 + 8);
 
-    v17 = *(v14 + 24);
-
-    v18 = *(v15 + 24);
-    v19 = sub_1001C4CA8();
-    v20 = *(v19 - 8);
-    if (!(*(v20 + 48))(v14 + v18, 1, v19))
+    v15 = *(v14 + 24);
+    v16 = sub_1001C4CA8();
+    v17 = *(v16 - 8);
+    if (!(*(v17 + 48))(v13 + v15, 1, v16))
     {
-      (*(v20 + 8))(v14 + v18, v19);
+      (*(v17 + 8))(v13 + v15, v16);
     }
   }
 
@@ -274,20 +269,17 @@ uint64_t sub_100003EF4()
   v4 = (v3 + 24) & ~v3;
   v5 = *(v2 + 64);
   v6 = (v5 + v3 + v4) & ~v3;
-  v7 = *(v0 + 16);
 
-  v8 = *(v2 + 8);
-  v8(v0 + v4, v1);
-  v8(v0 + v6, v1);
+  v7 = *(v2 + 8);
+  v7(v0 + v4, v1);
+  v7(v0 + v6, v1);
 
   return _swift_deallocObject(v0, v6 + v5, v3 | 7);
 }
 
 uint64_t sub_100003FF0()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -299,7 +291,6 @@ uint64_t sub_100004030()
   v3 = *(v2 + 80);
   v4 = (v3 + 24) & ~v3;
   v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = *(v0 + 16);
 
   (*(v2 + 8))(v0 + v4, v1);
 
@@ -308,21 +299,18 @@ uint64_t sub_100004030()
 
 uint64_t sub_100004100()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t sub_100004140()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 40, 7);
 }
 
 uint64_t sub_100004180()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 40, 7);
 }
@@ -391,9 +379,6 @@ LABEL_5:
 
 uint64_t sub_10000445C()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 80);
 
   return _swift_deallocObject(v0, 88, 7);
 }
@@ -405,7 +390,7 @@ uint64_t sub_10000449C()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-uint64_t sub_1000044D8(uint64_t result)
+uint64_t sub_1000044D8(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -416,7 +401,6 @@ uint64_t sub_1000044D8(uint64_t result)
 
 uint64_t sub_1000044E8()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 74, 7);
 }
@@ -433,27 +417,23 @@ uint64_t sub_100004558()
   v1 = *(sub_100084528(&qword_10026F7F8, &qword_1001F1420) - 8);
   v2 = *(v1 + 80);
   v3 = (v2 + 32) & ~v2;
-  v14 = *(v1 + 64);
-  v4 = *(v0 + 24);
+  v11 = *(v1 + 64);
 
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
 
-  v6 = type metadata accessor for CRDTModelSyncVersion();
-  v7 = *(v6 + 20);
-  v8 = sub_1001C5EB8();
-  v9 = *(*(v8 - 8) + 8);
-  v9(v0 + v3 + v7, v8);
+  v5 = type metadata accessor for CRDTModelSyncVersion(0);
+  v6 = *(v5 + 20);
+  v7 = sub_1001C5EB8();
+  v8 = *(*(v7 - 8) + 8);
+  v8(v0 + v3 + v6, v7);
   if (EnumCaseMultiPayload == 1)
   {
-    v10 = (v0 + v3 + *(sub_100084528(&unk_10026F800, &qword_1001F1428) + 48));
+    v9 = (v0 + v3 + *(sub_100084528(&unk_10026F800, &qword_1001F1428) + 48));
 
-    v9(v10 + *(v6 + 20), v8);
+    v8(v9 + *(v5 + 20), v7);
   }
 
-  v11 = (v14 + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v12 = *(v0 + v11);
-
-  return _swift_deallocObject(v0, v11 + 8, v2 | 7);
+  return _swift_deallocObject(v0, ((v11 + v3 + 7) & 0xFFFFFFFFFFFFFFF8) + 8, v2 | 7);
 }
 
 uint64_t sub_1000046F0()
@@ -461,29 +441,27 @@ uint64_t sub_1000046F0()
   v1 = *(sub_100084528(&qword_10026F7F8, &qword_1001F1420) - 8);
   v2 = *(v1 + 80);
   v3 = (v2 + 32) & ~v2;
-  v12 = *(v1 + 64);
-  v4 = *(v0 + 24);
+  v11 = *(v1 + 64);
 
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
 
-  v6 = type metadata accessor for CRDTModelSyncVersion();
-  v7 = *(v6 + 20);
-  v8 = sub_1001C5EB8();
-  v9 = *(*(v8 - 8) + 8);
-  v9(v0 + v3 + v7, v8);
+  v5 = type metadata accessor for CRDTModelSyncVersion(0);
+  v6 = *(v5 + 20);
+  v7 = sub_1001C5EB8();
+  v8 = *(*(v7 - 8) + 8);
+  v8(v0 + v3 + v6, v7);
   if (EnumCaseMultiPayload == 1)
   {
-    v10 = (v0 + v3 + *(sub_100084528(&unk_10026F800, &qword_1001F1428) + 48));
+    v9 = (v0 + v3 + *(sub_100084528(&unk_10026F800, &qword_1001F1428) + 48));
 
-    v9(v10 + *(v6 + 20), v8);
+    v8(v9 + *(v5 + 20), v7);
   }
 
-  return _swift_deallocObject(v0, v3 + v12, v2 | 7);
+  return _swift_deallocObject(v0, v3 + v11, v2 | 7);
 }
 
 uint64_t sub_100004874()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -491,15 +469,15 @@ uint64_t sub_100004874()
 uint64_t sub_1000048B0()
 {
   v1 = *(sub_100084528(&unk_10026F820, &unk_1001F1440) - 8);
-  v47 = *(v1 + 80);
-  v45 = *(v1 + 64);
-  v48 = v0;
-  v46 = (v47 + 16) & ~v47;
-  v2 = v0 + v46;
+  v34 = *(v1 + 80);
+  v32 = *(v1 + 64);
+  v35 = v0;
+  v33 = (v34 + 16) & ~v34;
+  v2 = v0 + v33;
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   v4 = sub_100084528(&unk_10026F470, &unk_1001F5600);
-  v44 = *(*(v4 - 8) + 8);
-  v44(v0 + v46, v4);
+  v31 = *(*(v4 - 8) + 8);
+  v31(v0 + v33, v4);
   v5 = type metadata accessor for ReadingHistoryModel(0);
   v6 = *(v5 + 20);
   v7 = sub_100084528(&qword_10026F830, &qword_1001F0E80);
@@ -507,103 +485,85 @@ uint64_t sub_1000048B0()
   v9 = v2 + v6;
   v10 = *v8;
   (*v8)(v9, v7);
-  v11 = *(v2 + *(v5 + 24));
 
-  v12 = sub_100084528(&unk_10026F420, &unk_1001F0E50);
-  v13 = v2 + *(v12 + 48);
-  v14 = sub_100084528(&qword_100270A40, &unk_1001F0E60);
-  v43 = *(*(v14 - 8) + 48);
-  v15 = v43(v13, 2, v14);
+  v11 = sub_100084528(&unk_10026F420, &unk_1001F0E50);
+  v12 = v2 + *(v11 + 48);
+  v13 = sub_100084528(&qword_100270A40, &unk_1001F0E60);
+  v30 = *(*(v13 - 8) + 48);
+  v14 = v30(v12, 2, v13);
   if (EnumCaseMultiPayload == 1)
   {
-    if (!v15)
+    if (!v14)
     {
-      v44(v13, v4);
-      v10(v13 + *(v5 + 20), v7);
-      v16 = *(v13 + *(v5 + 24));
+      v31(v12, v4);
+      v10(v12 + *(v5 + 20), v7);
     }
 
-    v42 = v10;
-    v17 = v2 + *(v12 + 52);
-    v18 = type metadata accessor for CRDTModelRevisionInfo();
-    v40 = *(*(v18 - 8) + 48);
-    if (!v40(v17, 1, v18))
+    v29 = v10;
+    v15 = v2 + *(v11 + 52);
+    v16 = type metadata accessor for CRDTModelRevisionInfo(0);
+    v27 = *(*(v16 - 8) + 48);
+    if (!v27(v15, 1, v16))
     {
-      v19 = *(v17 + 8);
 
-      v20 = *(v17 + 24);
-
-      v21 = *(v18 + 24);
-      v22 = sub_1001C4CA8();
-      v41 = *(v22 - 8);
-      if (!(*(v41 + 48))(v17 + v21, 1, v22))
+      v17 = *(v16 + 24);
+      v18 = sub_1001C4CA8();
+      v28 = *(v18 - 8);
+      if (!(*(v28 + 48))(v15 + v17, 1, v18))
       {
-        (*(v41 + 8))(v17 + v21, v22);
+        (*(v28 + 8))(v15 + v17, v18);
       }
     }
 
-    v23 = v2 + *(sub_100084528(&qword_10026F838, &unk_1001F1920) + 48);
-    v44(v23, v4);
-    v42(v23 + *(v5 + 20), v7);
-    v24 = *(v23 + *(v5 + 24));
+    v19 = v2 + *(sub_100084528(&qword_10026F838, &unk_1001F1920) + 48);
+    v31(v19, v4);
+    v29(v19 + *(v5 + 20), v7);
 
-    v25 = v23 + *(v12 + 48);
-    if (!v43(v25, 2, v14))
+    v20 = v19 + *(v11 + 48);
+    if (!v30(v20, 2, v13))
     {
-      v44(v25, v4);
-      v42(v25 + *(v5 + 20), v7);
-      v26 = *(v25 + *(v5 + 24));
+      v31(v20, v4);
+      v29(v20 + *(v5 + 20), v7);
     }
 
-    v27 = v23 + *(v12 + 52);
-    if (!v40(v27, 1, v18))
+    v21 = v19 + *(v11 + 52);
+    if (!v27(v21, 1, v16))
     {
-      v28 = *(v27 + 8);
 
-      v29 = *(v27 + 24);
-
-      v30 = *(v18 + 24);
+      v22 = *(v16 + 24);
       goto LABEL_15;
     }
   }
 
   else
   {
-    if (!v15)
+    if (!v14)
     {
-      v44(v13, v4);
-      v10(v13 + *(v5 + 20), v7);
-      v31 = *(v13 + *(v5 + 24));
+      v31(v12, v4);
+      v10(v12 + *(v5 + 20), v7);
     }
 
-    v27 = v2 + *(v12 + 52);
-    v32 = type metadata accessor for CRDTModelRevisionInfo();
-    if (!(*(*(v32 - 8) + 48))(v27, 1, v32))
+    v21 = v2 + *(v11 + 52);
+    v23 = type metadata accessor for CRDTModelRevisionInfo(0);
+    if (!(*(*(v23 - 8) + 48))(v21, 1, v23))
     {
-      v33 = *(v27 + 8);
 
-      v34 = *(v27 + 24);
-
-      v30 = *(v32 + 24);
+      v22 = *(v23 + 24);
 LABEL_15:
-      v35 = sub_1001C4CA8();
-      v36 = *(v35 - 8);
-      if (!(*(v36 + 48))(v27 + v30, 1, v35))
+      v24 = sub_1001C4CA8();
+      v25 = *(v24 - 8);
+      if (!(*(v25 + 48))(v21 + v22, 1, v24))
       {
-        (*(v36 + 8))(v27 + v30, v35);
+        (*(v25 + 8))(v21 + v22, v24);
       }
     }
   }
 
-  v37 = (v45 + v46 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v38 = *(v48 + v37);
-
-  return _swift_deallocObject(v48, v37 + 8, v47 | 7);
+  return _swift_deallocObject(v35, ((v32 + v33 + 7) & 0xFFFFFFFFFFFFFFF8) + 8, v34 | 7);
 }
 
 uint64_t sub_100004E18()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
@@ -614,13 +574,12 @@ uint64_t sub_100004E50()
   v2 = *(v1 + 80);
   v3 = (v2 + 24) & ~v2;
   v4 = *(v1 + 64);
-  v5 = *(v0 + 16);
 
-  v6 = sub_1001C4CA8();
-  v7 = *(v6 - 8);
-  if (!(*(v7 + 48))(v0 + v3, 1, v6))
+  v5 = sub_1001C4CA8();
+  v6 = *(v5 - 8);
+  if (!(*(v6 + 48))(v0 + v3, 1, v5))
   {
-    (*(v7 + 8))(v0 + v3, v6);
+    (*(v6 + 8))(v0 + v3, v5);
   }
 
   return _swift_deallocObject(v0, ((v4 + v3 + 7) & 0xFFFFFFFFFFFFFFF8) + 8, v2 | 7);
@@ -628,7 +587,6 @@ uint64_t sub_100004E50()
 
 uint64_t sub_100004F7C()
 {
-  v1 = *(v0 + 64);
 
   return _swift_deallocObject(v0, 80, 7);
 }
@@ -639,241 +597,204 @@ uint64_t sub_100004FB4()
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
-  v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = (v5 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v5 = (((*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
   (*(v2 + 8))(v0 + v4, v1);
-  v7 = *(v0 + v5);
 
-  v8 = *(v0 + v6 + 8);
-
-  return _swift_deallocObject(v0, v6 + 16, v3 | 7);
+  return _swift_deallocObject(v0, v5 + 16, v3 | 7);
 }
 
 uint64_t sub_10000506C()
 {
   v1 = *(sub_100084528(&unk_10026F820, &unk_1001F1440) - 8);
-  v48 = *(v1 + 80);
-  v46 = *(v1 + 64);
-  v2 = *(v0 + 24);
+  v34 = *(v1 + 80);
+  v32 = *(v1 + 64);
 
-  v49 = v0;
-  v47 = (v48 + 32) & ~v48;
-  v3 = v0 + v47;
+  v35 = v0;
+  v33 = (v34 + 32) & ~v34;
+  v2 = v0 + v33;
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v5 = sub_100084528(&unk_10026F470, &unk_1001F5600);
-  v45 = *(*(v5 - 8) + 8);
-  v45(v0 + v47, v5);
-  v6 = type metadata accessor for ReadingHistoryModel(0);
-  v7 = *(v6 + 20);
-  v8 = sub_100084528(&qword_10026F830, &qword_1001F0E80);
-  v9 = (*(v8 - 8) + 8);
-  v10 = v3 + v7;
-  v11 = *v9;
-  (*v9)(v10, v8);
-  v12 = *(v3 + *(v6 + 24));
+  v4 = sub_100084528(&unk_10026F470, &unk_1001F5600);
+  v31 = *(*(v4 - 8) + 8);
+  v31(v0 + v33, v4);
+  v5 = type metadata accessor for ReadingHistoryModel(0);
+  v6 = *(v5 + 20);
+  v7 = sub_100084528(&qword_10026F830, &qword_1001F0E80);
+  v8 = (*(v7 - 8) + 8);
+  v9 = v2 + v6;
+  v10 = *v8;
+  (*v8)(v9, v7);
 
-  v13 = sub_100084528(&unk_10026F420, &unk_1001F0E50);
-  v14 = v3 + *(v13 + 48);
-  v15 = sub_100084528(&qword_100270A40, &unk_1001F0E60);
-  v44 = *(*(v15 - 8) + 48);
-  v16 = v44(v14, 2, v15);
+  v11 = sub_100084528(&unk_10026F420, &unk_1001F0E50);
+  v12 = v2 + *(v11 + 48);
+  v13 = sub_100084528(&qword_100270A40, &unk_1001F0E60);
+  v30 = *(*(v13 - 8) + 48);
+  v14 = v30(v12, 2, v13);
   if (EnumCaseMultiPayload == 1)
   {
-    if (!v16)
+    if (!v14)
     {
-      v45(v14, v5);
-      v11(v14 + *(v6 + 20), v8);
-      v17 = *(v14 + *(v6 + 24));
+      v31(v12, v4);
+      v10(v12 + *(v5 + 20), v7);
     }
 
-    v43 = v11;
-    v18 = v3 + *(v13 + 52);
-    v19 = type metadata accessor for CRDTModelRevisionInfo();
-    v41 = *(*(v19 - 8) + 48);
-    if (!v41(v18, 1, v19))
+    v29 = v10;
+    v15 = v2 + *(v11 + 52);
+    v16 = type metadata accessor for CRDTModelRevisionInfo(0);
+    v27 = *(*(v16 - 8) + 48);
+    if (!v27(v15, 1, v16))
     {
-      v20 = *(v18 + 8);
 
-      v21 = *(v18 + 24);
-
-      v22 = *(v19 + 24);
-      v23 = sub_1001C4CA8();
-      v42 = *(v23 - 8);
-      if (!(*(v42 + 48))(v18 + v22, 1, v23))
+      v17 = *(v16 + 24);
+      v18 = sub_1001C4CA8();
+      v28 = *(v18 - 8);
+      if (!(*(v28 + 48))(v15 + v17, 1, v18))
       {
-        (*(v42 + 8))(v18 + v22, v23);
+        (*(v28 + 8))(v15 + v17, v18);
       }
     }
 
-    v24 = v3 + *(sub_100084528(&qword_10026F838, &unk_1001F1920) + 48);
-    v45(v24, v5);
-    v43(v24 + *(v6 + 20), v8);
-    v25 = *(v24 + *(v6 + 24));
+    v19 = v2 + *(sub_100084528(&qword_10026F838, &unk_1001F1920) + 48);
+    v31(v19, v4);
+    v29(v19 + *(v5 + 20), v7);
 
-    v26 = v24 + *(v13 + 48);
-    if (!v44(v26, 2, v15))
+    v20 = v19 + *(v11 + 48);
+    if (!v30(v20, 2, v13))
     {
-      v45(v26, v5);
-      v43(v26 + *(v6 + 20), v8);
-      v27 = *(v26 + *(v6 + 24));
+      v31(v20, v4);
+      v29(v20 + *(v5 + 20), v7);
     }
 
-    v28 = v24 + *(v13 + 52);
-    if (!v41(v28, 1, v19))
+    v21 = v19 + *(v11 + 52);
+    if (!v27(v21, 1, v16))
     {
-      v29 = *(v28 + 8);
 
-      v30 = *(v28 + 24);
-
-      v31 = *(v19 + 24);
+      v22 = *(v16 + 24);
       goto LABEL_15;
     }
   }
 
   else
   {
-    if (!v16)
+    if (!v14)
     {
-      v45(v14, v5);
-      v11(v14 + *(v6 + 20), v8);
-      v32 = *(v14 + *(v6 + 24));
+      v31(v12, v4);
+      v10(v12 + *(v5 + 20), v7);
     }
 
-    v28 = v3 + *(v13 + 52);
-    v33 = type metadata accessor for CRDTModelRevisionInfo();
-    if (!(*(*(v33 - 8) + 48))(v28, 1, v33))
+    v21 = v2 + *(v11 + 52);
+    v23 = type metadata accessor for CRDTModelRevisionInfo(0);
+    if (!(*(*(v23 - 8) + 48))(v21, 1, v23))
     {
-      v34 = *(v28 + 8);
 
-      v35 = *(v28 + 24);
-
-      v31 = *(v33 + 24);
+      v22 = *(v23 + 24);
 LABEL_15:
-      v36 = sub_1001C4CA8();
-      v37 = *(v36 - 8);
-      if (!(*(v37 + 48))(v28 + v31, 1, v36))
+      v24 = sub_1001C4CA8();
+      v25 = *(v24 - 8);
+      if (!(*(v25 + 48))(v21 + v22, 1, v24))
       {
-        (*(v37 + 8))(v28 + v31, v36);
+        (*(v25 + 8))(v21 + v22, v24);
       }
     }
   }
 
-  v38 = (v46 + v47 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v39 = *(v49 + v38);
-
-  return _swift_deallocObject(v49, v38 + 8, v48 | 7);
+  return _swift_deallocObject(v35, ((v32 + v33 + 7) & 0xFFFFFFFFFFFFFFF8) + 8, v34 | 7);
 }
 
 uint64_t sub_1000055E0()
 {
   v1 = *(sub_100084528(&unk_10026F820, &unk_1001F1440) - 8);
-  v46 = *(v1 + 80);
-  v44 = *(v1 + 64);
-  v2 = *(v0 + 24);
+  v34 = *(v1 + 80);
+  v32 = *(v1 + 64);
 
-  v47 = v0;
-  v45 = (v46 + 32) & ~v46;
-  v3 = v0 + v45;
+  v35 = v0;
+  v33 = (v34 + 32) & ~v34;
+  v2 = v0 + v33;
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v5 = sub_100084528(&unk_10026F470, &unk_1001F5600);
-  v43 = *(*(v5 - 8) + 8);
-  v43(v0 + v45, v5);
-  v6 = type metadata accessor for ReadingHistoryModel(0);
-  v7 = *(v6 + 20);
-  v8 = sub_100084528(&qword_10026F830, &qword_1001F0E80);
-  v9 = (*(v8 - 8) + 8);
-  v10 = v3 + v7;
-  v11 = *v9;
-  (*v9)(v10, v8);
-  v12 = *(v3 + *(v6 + 24));
+  v4 = sub_100084528(&unk_10026F470, &unk_1001F5600);
+  v31 = *(*(v4 - 8) + 8);
+  v31(v0 + v33, v4);
+  v5 = type metadata accessor for ReadingHistoryModel(0);
+  v6 = *(v5 + 20);
+  v7 = sub_100084528(&qword_10026F830, &qword_1001F0E80);
+  v8 = (*(v7 - 8) + 8);
+  v9 = v2 + v6;
+  v10 = *v8;
+  (*v8)(v9, v7);
 
-  v13 = sub_100084528(&unk_10026F420, &unk_1001F0E50);
-  v14 = v3 + *(v13 + 48);
-  v15 = sub_100084528(&qword_100270A40, &unk_1001F0E60);
-  v42 = *(*(v15 - 8) + 48);
-  v16 = v42(v14, 2, v15);
+  v11 = sub_100084528(&unk_10026F420, &unk_1001F0E50);
+  v12 = v2 + *(v11 + 48);
+  v13 = sub_100084528(&qword_100270A40, &unk_1001F0E60);
+  v30 = *(*(v13 - 8) + 48);
+  v14 = v30(v12, 2, v13);
   if (EnumCaseMultiPayload == 1)
   {
-    if (!v16)
+    if (!v14)
     {
-      v43(v14, v5);
-      v11(v14 + *(v6 + 20), v8);
-      v17 = *(v14 + *(v6 + 24));
+      v31(v12, v4);
+      v10(v12 + *(v5 + 20), v7);
     }
 
-    v41 = v11;
-    v18 = v3 + *(v13 + 52);
-    v19 = type metadata accessor for CRDTModelRevisionInfo();
-    v39 = *(*(v19 - 8) + 48);
-    if (!v39(v18, 1, v19))
+    v29 = v10;
+    v15 = v2 + *(v11 + 52);
+    v16 = type metadata accessor for CRDTModelRevisionInfo(0);
+    v27 = *(*(v16 - 8) + 48);
+    if (!v27(v15, 1, v16))
     {
-      v20 = *(v18 + 8);
 
-      v21 = *(v18 + 24);
-
-      v22 = *(v19 + 24);
-      v23 = sub_1001C4CA8();
-      v40 = *(v23 - 8);
-      if (!(*(v40 + 48))(v18 + v22, 1, v23))
+      v17 = *(v16 + 24);
+      v18 = sub_1001C4CA8();
+      v28 = *(v18 - 8);
+      if (!(*(v28 + 48))(v15 + v17, 1, v18))
       {
-        (*(v40 + 8))(v18 + v22, v23);
+        (*(v28 + 8))(v15 + v17, v18);
       }
     }
 
-    v24 = v3 + *(sub_100084528(&qword_10026F838, &unk_1001F1920) + 48);
-    v43(v24, v5);
-    v41(v24 + *(v6 + 20), v8);
-    v25 = *(v24 + *(v6 + 24));
+    v19 = v2 + *(sub_100084528(&qword_10026F838, &unk_1001F1920) + 48);
+    v31(v19, v4);
+    v29(v19 + *(v5 + 20), v7);
 
-    v26 = v24 + *(v13 + 48);
-    if (!v42(v26, 2, v15))
+    v20 = v19 + *(v11 + 48);
+    if (!v30(v20, 2, v13))
     {
-      v43(v26, v5);
-      v41(v26 + *(v6 + 20), v8);
-      v27 = *(v26 + *(v6 + 24));
+      v31(v20, v4);
+      v29(v20 + *(v5 + 20), v7);
     }
 
-    v28 = v24 + *(v13 + 52);
-    if (!v39(v28, 1, v19))
+    v21 = v19 + *(v11 + 52);
+    if (!v27(v21, 1, v16))
     {
-      v29 = *(v28 + 8);
 
-      v30 = *(v28 + 24);
-
-      v31 = *(v19 + 24);
+      v22 = *(v16 + 24);
       goto LABEL_15;
     }
   }
 
   else
   {
-    if (!v16)
+    if (!v14)
     {
-      v43(v14, v5);
-      v11(v14 + *(v6 + 20), v8);
-      v32 = *(v14 + *(v6 + 24));
+      v31(v12, v4);
+      v10(v12 + *(v5 + 20), v7);
     }
 
-    v28 = v3 + *(v13 + 52);
-    v33 = type metadata accessor for CRDTModelRevisionInfo();
-    if (!(*(*(v33 - 8) + 48))(v28, 1, v33))
+    v21 = v2 + *(v11 + 52);
+    v23 = type metadata accessor for CRDTModelRevisionInfo(0);
+    if (!(*(*(v23 - 8) + 48))(v21, 1, v23))
     {
-      v34 = *(v28 + 8);
 
-      v35 = *(v28 + 24);
-
-      v31 = *(v33 + 24);
+      v22 = *(v23 + 24);
 LABEL_15:
-      v36 = sub_1001C4CA8();
-      v37 = *(v36 - 8);
-      if (!(*(v37 + 48))(v28 + v31, 1, v36))
+      v24 = sub_1001C4CA8();
+      v25 = *(v24 - 8);
+      if (!(*(v25 + 48))(v21 + v22, 1, v24))
       {
-        (*(v37 + 8))(v28 + v31, v36);
+        (*(v25 + 8))(v21 + v22, v24);
       }
     }
   }
 
-  return _swift_deallocObject(v47, v45 + v44, v46 | 7);
+  return _swift_deallocObject(v35, v33 + v32, v34 | 7);
 }
 
 uint64_t sub_100005BAC()
@@ -941,7 +862,6 @@ uint64_t sub_100005D1C(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_100005DDC()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
@@ -955,7 +875,6 @@ uint64_t sub_100005E30()
 
 uint64_t sub_100005EBC()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
@@ -968,7 +887,6 @@ uint64_t sub_100005EF4()
 
 uint64_t sub_100005F2C()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 48, 7);
 }
@@ -994,19 +912,16 @@ uint64_t sub_100005FC4()
   (*(v2 + 8))(v0 + v4, v1);
 
   v10 = v0 + v8;
-  v11 = type metadata accessor for CRDTModelRevisionInfo();
+  v11 = type metadata accessor for CRDTModelRevisionInfo(0);
   if (!(*(*(v11 - 8) + 48))(v0 + v8, 1, v11))
   {
-    v12 = *(v10 + 8);
 
-    v13 = *(v10 + 24);
-
-    v14 = *(v11 + 24);
-    v15 = sub_1001C4CA8();
-    v16 = *(v15 - 8);
-    if (!(*(v16 + 48))(v10 + v14, 1, v15))
+    v12 = *(v11 + 24);
+    v13 = sub_1001C4CA8();
+    v14 = *(v13 - 8);
+    if (!(*(v14 + 48))(v10 + v12, 1, v13))
     {
-      (*(v16 + 8))(v10 + v14, v15);
+      (*(v14 + 8))(v10 + v12, v13);
     }
   }
 
@@ -1015,7 +930,6 @@ uint64_t sub_100005FC4()
 
 uint64_t sub_1000061F8()
 {
-  v1 = *(v0 + 40);
 
   return _swift_deallocObject(v0, 48, 7);
 }
@@ -1069,7 +983,7 @@ uint64_t sub_10000632C(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_1000063D0(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1000063D0(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -1121,7 +1035,6 @@ uint64_t sub_100006520()
 
 uint64_t sub_100006558()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -1135,62 +1048,52 @@ uint64_t sub_1000065F0()
 
 uint64_t sub_100006628()
 {
-  v1 = *(v0 + 48);
 
   return _swift_deallocObject(v0, 56, 7);
 }
 
 uint64_t sub_100006660()
 {
-  v1 = *(v0 + 2);
-  v2 = *(*(v0 + 3) + 8);
-  v3 = sub_1001C5D68();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 80);
-  v6 = (v5 + 56) & ~v5;
-  v7 = *(v4 + 64);
-  v8 = *(v0 + 6);
+  v1 = sub_1001C5D68();
+  v2 = *(v1 - 8);
+  v3 = *(v2 + 80);
+  v4 = (v3 + 56) & ~v3;
+  v5 = *(v2 + 64);
 
-  (*(v4 + 8))(&v0[v6], v3);
+  (*(v2 + 8))(v0 + v4, v1);
 
-  return _swift_deallocObject(v0, v6 + v7, v5 | 7);
+  return _swift_deallocObject(v0, v4 + v5, v3 | 7);
 }
 
 uint64_t sub_10000673C()
 {
-  v1 = *(v0 + 2);
-  v2 = *(*(v0 + 3) + 8);
-  v3 = sub_1001C5D68();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 80);
-  v6 = (v5 + 56) & ~v5;
-  v7 = (*(v4 + 64) + v6 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v8 = *(v0 + 6);
+  v1 = sub_1001C5D68();
+  v2 = *(v1 - 8);
+  v3 = *(v2 + 80);
+  v4 = (v3 + 56) & ~v3;
+  v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
 
-  (*(v4 + 8))(&v0[v6], v3);
-  v9 = *&v0[v7 + 8];
+  (*(v2 + 8))(v0 + v4, v1);
 
-  return _swift_deallocObject(v0, v7 + 16, v5 | 7);
+  return _swift_deallocObject(v0, v5 + 16, v3 | 7);
 }
 
 uint64_t sub_100006820()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t sub_100006858()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 25, 7);
 }
 
-uint64_t sub_1000068DC@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_1000068DC@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
@@ -1292,7 +1195,6 @@ uint64_t sub_100006C24()
   v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
 
   (*(v2 + 8))(v0 + v4, v1);
-  v6 = *(v0 + v5 + 8);
 
   return _swift_deallocObject(v0, v5 + 16, v3 | 7);
 }
@@ -1306,7 +1208,6 @@ uint64_t sub_100006D00()
   v5 = (((*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
 
   (*(v2 + 8))(v0 + v4, v1);
-  v6 = *(v0 + v5 + 8);
 
   return _swift_deallocObject(v0, v5 + 16, v3 | 7);
 }
@@ -1326,16 +1227,13 @@ uint64_t sub_100006DE4()
   v9(v0 + v4, v1);
   v9(v0 + v6, v1);
   v9(v0 + v7, v1);
-  v10 = *(v0 + v8 + 8);
 
   return _swift_deallocObject(v0, v8 + 16, v3 | 7);
 }
 
 uint64_t sub_100006F0C()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -1348,7 +1246,7 @@ uint64_t sub_100006F4C()
   v4 = *(v1 + 64);
 
   v5 = (v0 + v3);
-  v6 = type metadata accessor for CRDTModelSyncVersion();
+  v6 = type metadata accessor for CRDTModelSyncVersion(0);
   if (!(*(*(v6 - 8) + 48))(v0 + v3, 1, v6))
   {
 
@@ -1357,25 +1255,21 @@ uint64_t sub_100006F4C()
     (*(*(v8 - 8) + 8))(v5 + v7, v8);
   }
 
-  v9 = (v4 + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v10 = *(v0 + v9 + 8);
-
-  return _swift_deallocObject(v0, v9 + 16, v2 | 7);
+  return _swift_deallocObject(v0, ((v4 + v3 + 7) & 0xFFFFFFFFFFFFFFF8) + 16, v2 | 7);
 }
 
 uint64_t sub_1000070A8()
 {
-  v1 = (type metadata accessor for CRDTModelSyncVersion() - 8);
+  v1 = (type metadata accessor for CRDTModelSyncVersion(0) - 8);
   v2 = *(*v1 + 80);
   v3 = (v2 + 56) & ~v2;
   v4 = *(*v1 + 64) + v3;
-  v5 = *(v0 + 48);
 
-  v6 = (v0 + v3);
+  v5 = (v0 + v3);
 
-  v7 = v1[7];
-  v8 = sub_1001C5EB8();
-  (*(*(v8 - 8) + 8))(v6 + v7, v8);
+  v6 = v1[7];
+  v7 = sub_1001C5EB8();
+  (*(*(v7 - 8) + 8))(v5 + v6, v7);
 
   return _swift_deallocObject(v0, v4 + 1, v2 | 7);
 }
@@ -1395,24 +1289,22 @@ uint64_t sub_1000071FC()
 
 uint64_t sub_100007244()
 {
-  v1 = *(v0 + 48);
 
   return _swift_deallocObject(v0, 56, 7);
 }
 
 uint64_t sub_100007298()
 {
-  v1 = (type metadata accessor for CRDTModelSyncVersion() - 8);
+  v1 = (type metadata accessor for CRDTModelSyncVersion(0) - 8);
   v2 = *(*v1 + 80);
   v3 = (v2 + 24) & ~v2;
   v4 = *(*v1 + 64) + v3;
-  v5 = *(v0 + 16);
 
-  v6 = (v0 + v3);
+  v5 = (v0 + v3);
 
-  v7 = v1[7];
-  v8 = sub_1001C5EB8();
-  (*(*(v8 - 8) + 8))(v6 + v7, v8);
+  v6 = v1[7];
+  v7 = sub_1001C5EB8();
+  (*(*(v7 - 8) + 8))(v5 + v6, v7);
 
   return _swift_deallocObject(v0, v4 + 1, v2 | 7);
 }
@@ -1426,14 +1318,12 @@ uint64_t sub_10000738C()
 
 uint64_t sub_1000073C4()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
 
 uint64_t sub_1000073FC()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -1447,7 +1337,6 @@ uint64_t sub_100007434()
 
 uint64_t sub_10000746C()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 40, 7);
@@ -1462,58 +1351,49 @@ uint64_t sub_1000074AC()
 uint64_t sub_1000074E4()
 {
   v1 = sub_100084528(&unk_10026F420, &unk_1001F0E50);
-  v24 = *(*(v1 - 8) + 80);
-  v22 = *(*(v1 - 8) + 64);
-  v2 = *(v0 + 16);
+  v19 = *(*(v1 - 8) + 80);
+  v17 = *(*(v1 - 8) + 64);
   swift_unknownObjectRelease();
-  v25 = v0;
-  v23 = (v24 + 32) & ~v24;
-  v3 = sub_100084528(&unk_10026F470, &unk_1001F5600);
-  v4 = *(*(v3 - 8) + 8);
-  v4(v0 + v23, v3);
-  v5 = type metadata accessor for ReadingHistoryModel(0);
-  v6 = *(v5 + 20);
-  v7 = sub_100084528(&qword_10026F830, &qword_1001F0E80);
-  v8 = *(*(v7 - 8) + 8);
-  v8(v0 + v23 + v6, v7);
-  v9 = *(v0 + v23 + *(v5 + 24));
+  v20 = v0;
+  v18 = (v19 + 32) & ~v19;
+  v2 = sub_100084528(&unk_10026F470, &unk_1001F5600);
+  v3 = *(*(v2 - 8) + 8);
+  v3(v0 + v18, v2);
+  v4 = type metadata accessor for ReadingHistoryModel(0);
+  v5 = *(v4 + 20);
+  v6 = sub_100084528(&qword_10026F830, &qword_1001F0E80);
+  v7 = *(*(v6 - 8) + 8);
+  v7(v0 + v18 + v5, v6);
 
-  v10 = v0 + v23 + *(v1 + 48);
-  v11 = sub_100084528(&qword_100270A40, &unk_1001F0E60);
-  if (!(*(*(v11 - 8) + 48))(v10, 2, v11))
+  v8 = v0 + v18 + *(v1 + 48);
+  v9 = sub_100084528(&qword_100270A40, &unk_1001F0E60);
+  if (!(*(*(v9 - 8) + 48))(v8, 2, v9))
   {
-    v4(v10, v3);
-    v8(v10 + *(v5 + 20), v7);
-    v12 = *(v10 + *(v5 + 24));
+    v3(v8, v2);
+    v7(v8 + *(v4 + 20), v6);
   }
 
-  v13 = v0 + v23 + *(v1 + 52);
-  v14 = type metadata accessor for CRDTModelRevisionInfo();
-  if (!(*(*(v14 - 8) + 48))(v13, 1, v14))
+  v10 = v0 + v18 + *(v1 + 52);
+  v11 = type metadata accessor for CRDTModelRevisionInfo(0);
+  if (!(*(*(v11 - 8) + 48))(v10, 1, v11))
   {
-    v15 = *(v13 + 8);
 
-    v16 = *(v13 + 24);
-
-    v17 = *(v14 + 24);
-    v18 = sub_1001C4CA8();
-    v19 = *(v18 - 8);
-    if (!(*(v19 + 48))(v13 + v17, 1, v18))
+    v12 = *(v11 + 24);
+    v13 = sub_1001C4CA8();
+    v14 = *(v13 - 8);
+    if (!(*(v14 + 48))(v10 + v12, 1, v13))
     {
-      (*(v19 + 8))(v13 + v17, v18);
+      (*(v14 + 8))(v10 + v12, v13);
     }
   }
 
-  v20 = (v22 + v23 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v15 = (v17 + v18 + 7) & 0xFFFFFFFFFFFFFFF8;
 
-  return _swift_deallocObject(v25, v20 + 8, v24 | 7);
+  return _swift_deallocObject(v20, v15 + 8, v19 | 7);
 }
 
 uint64_t sub_1000077F0()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 48, 7);
 }
@@ -1524,17 +1404,13 @@ uint64_t sub_100007838()
   v2 = *(*v1 + 80);
   v3 = (v2 + 24) & ~v2;
   v4 = (v3 + *(*v1 + 64)) & 0xFFFFFFFFFFFFFFF8;
-  v5 = *(v0 + 16);
 
-  v6 = v0 + v3;
-  v7 = sub_100084528(&unk_10026F470, &unk_1001F5600);
-  (*(*(v7 - 8) + 8))(v6, v7);
-  v8 = v1[7];
-  v9 = sub_100084528(&qword_10026F830, &qword_1001F0E80);
-  (*(*(v9 - 8) + 8))(v6 + v8, v9);
-  v10 = *(v6 + v1[8]);
-
-  v11 = *(v0 + v4 + 16);
+  v5 = v0 + v3;
+  v6 = sub_100084528(&unk_10026F470, &unk_1001F5600);
+  (*(*(v6 - 8) + 8))(v5, v6);
+  v7 = v1[7];
+  v8 = sub_100084528(&qword_10026F830, &qword_1001F0E80);
+  (*(*(v8 - 8) + 8))(v5 + v7, v8);
 
   return _swift_deallocObject(v0, v4 + 24, v2 | 7);
 }
@@ -1553,18 +1429,12 @@ uint64_t sub_1000079C8()
 
 uint64_t sub_100007A10()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 32);
-
-  v3 = *(v0 + 48);
 
   return _swift_deallocObject(v0, 56, 7);
 }
 
 uint64_t sub_100007A68()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 56, 7);
 }
@@ -1577,14 +1447,12 @@ uint64_t sub_100007AB0()
   v4 = (v3 + 16) & ~v3;
   v5 = (((*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
   (*(v2 + 8))(v0 + v4, v1);
-  v6 = *(v0 + v5 + 8);
 
   return _swift_deallocObject(v0, v5 + 16, v3 | 7);
 }
 
 uint64_t sub_100007C30()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 24, 7);
@@ -1604,21 +1472,18 @@ uint64_t sub_100007CAC()
 
 uint64_t sub_100007CE4()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t sub_100007D1C()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 24, 7);
 }
 
 uint64_t sub_100007D58()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -1632,9 +1497,7 @@ uint64_t sub_100007DAC()
 
 uint64_t sub_100007DE4()
 {
-  v1 = *(v0 + 16);
 
-  v2 = *(v0 + 24);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 32, 7);
@@ -1653,12 +1516,10 @@ uint64_t sub_100007E7C()
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
-  v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = (v5 + 23) & 0xFFFFFFFFFFFFFFF8;
+  v5 = (((*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8;
   (*(v2 + 8))(v0 + v4, v1);
-  v7 = *(v0 + v5 + 8);
 
-  return _swift_deallocObject(v0, v6 + 8, v3 | 7);
+  return _swift_deallocObject(v0, v5 + 8, v3 | 7);
 }
 
 uint64_t sub_100007F2C()
@@ -1667,15 +1528,10 @@ uint64_t sub_100007F2C()
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
-  v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = (v5 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v7 = (v6 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v5 = (((((*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
   (*(v2 + 8))(v0 + v4, v1);
-  v8 = *(v0 + v5 + 8);
 
-  v9 = *(v0 + v6);
-
-  return _swift_deallocObject(v0, v7 + 8, v3 | 7);
+  return _swift_deallocObject(v0, v5 + 8, v3 | 7);
 }
 
 uint64_t sub_100007FF4()
@@ -1700,10 +1556,7 @@ uint64_t sub_100008094()
   v4 = (v3 + 32) & ~v3;
   v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
 
-  v6 = *(v0 + 24);
-
   (*(v2 + 8))(v0 + v4, v1);
-  v7 = *(v0 + v5);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, v5 + 8, v3 | 7);
@@ -1762,64 +1615,52 @@ uint64_t sub_100008340()
 uint64_t sub_100008378()
 {
   v1 = *(sub_100084528(&qword_100271368, &qword_1001F3AD0) - 8);
-  v35 = *(v1 + 80);
-  v33 = *(v1 + 64);
+  v25 = *(v1 + 80);
+  v23 = *(v1 + 64);
   v2 = sub_100084528(&qword_1002713A8, &qword_1001F3B10);
-  v38 = *(v2 - 8);
-  v39 = v2;
-  v3 = *(v38 + 80);
-  v30 = *(v38 + 64);
-  v37 = sub_100084528(&qword_100271398, &qword_1001F3B00);
-  v4 = *(v37 - 8);
+  v28 = *(v2 - 8);
+  v29 = v2;
+  v3 = *(v28 + 80);
+  v20 = *(v28 + 64);
+  v27 = sub_100084528(&qword_100271398, &qword_1001F3B00);
+  v4 = *(v27 - 8);
   v5 = *(v4 + 80);
-  v28 = *(v4 + 64);
-  v34 = sub_100084528(&qword_100271388, &qword_1001F3AF0);
-  v6 = *(v34 - 8);
+  v18 = *(v4 + 64);
+  v24 = sub_100084528(&qword_100271388, &qword_1001F3AF0);
+  v6 = *(v24 - 8);
   v7 = *(v6 + 80);
-  v27 = *(v6 + 64);
-  v32 = sub_100084528(&qword_100271378, &qword_1001F3AE0);
-  v8 = *(v32 - 8);
+  v17 = *(v6 + 64);
+  v22 = sub_100084528(&qword_100271378, &qword_1001F3AE0);
+  v8 = *(v22 - 8);
   v9 = *(v8 + 80);
-  v29 = *(v8 + 64);
-  v10 = *(v0 + 16);
+  v19 = *(v8 + 64);
   swift_unknownObjectRelease();
-  v31 = (v35 + 32) & ~v35;
-  v11 = v0 + v31;
-  v12 = _s11PersistenceVMa();
-  if (!(*(*(v12 - 8) + 48))(v0 + v31, 1, v12))
+  v21 = (v25 + 32) & ~v25;
+  v10 = _s11PersistenceVMa(0);
+  if (!(*(*(v10 - 8) + 48))(v0 + v21, 1, v10))
   {
-    v13 = sub_1001C4B28();
-    (*(*(v13 - 8) + 8))(v11, v13);
-    v14 = *(v11 + *(v12 + 20));
-
-    v15 = *(v11 + *(v12 + 24));
+    v11 = sub_1001C4B28();
+    (*(*(v11 - 8) + 8))(v0 + v21, v11);
   }
 
-  v36 = v35 | v3 | v5 | v7 | v9;
-  v16 = (v31 + v33 + v3) & ~v3;
-  v17 = (v30 + v16 + 31) & 0xFFFFFFFFFFFFFFF8;
-  v18 = (v17 + v5 + 16) & ~v5;
-  v19 = (v28 + v18 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v20 = (v19 + v7 + 8) & ~v7;
-  v21 = (v27 + v20 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v22 = (v21 + v9 + 8) & ~v9;
-  (*(v38 + 8))(v0 + v16, v39);
-  v23 = *(v0 + v17 + 8);
+  v26 = v25 | v3 | v5 | v7 | v9;
+  v12 = (v21 + v23 + v3) & ~v3;
+  v13 = (((v20 + v12 + 31) & 0xFFFFFFFFFFFFFFF8) + v5 + 16) & ~v5;
+  v14 = (((v18 + v13 + 7) & 0xFFFFFFFFFFFFFFF8) + v7 + 8) & ~v7;
+  v15 = (((v17 + v14 + 7) & 0xFFFFFFFFFFFFFFF8) + v9 + 8) & ~v9;
+  (*(v28 + 8))(v0 + v12, v29);
 
-  (*(v4 + 8))(v0 + v18, v37);
-  v24 = *(v0 + v19);
+  (*(v4 + 8))(v0 + v13, v27);
 
-  (*(v6 + 8))(v0 + v20, v34);
-  v25 = *(v0 + v21);
+  (*(v6 + 8))(v0 + v14, v24);
 
-  (*(v8 + 8))(v0 + v22, v32);
+  (*(v8 + 8))(v0 + v15, v22);
 
-  return _swift_deallocObject(v0, v22 + v29, v36 | 7);
+  return _swift_deallocObject(v0, v15 + v19, v26 | 7);
 }
 
 uint64_t sub_100008770()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -1903,7 +1744,6 @@ double sub_100008AA8(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100008AC4()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
@@ -1917,14 +1757,12 @@ uint64_t sub_100008B0C()
 
 uint64_t sub_100008B6C()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t sub_100008BA4()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 24, 7);
 }
@@ -1949,9 +1787,7 @@ uint64_t sub_100008C80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 uint64_t sub_100008D10()
 {
-  v1 = *(v0 + 16);
 
-  v2 = *(v0 + 24);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 32, 7);
@@ -1959,10 +1795,8 @@ uint64_t sub_100008D10()
 
 uint64_t sub_100008D50()
 {
-  v1 = v0[2];
 
-  sub_1000887D0(v0[3], v0[4]);
-  v2 = v0[5];
+  sub_1000887D0(*(v0 + 24), *(v0 + 32));
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 48, 7);
@@ -1975,17 +1809,14 @@ uint64_t sub_100008D98()
   v3 = *(v2 + 80);
   v4 = (v3 + 56) & ~v3;
   v5 = (v4 + *(v2 + 64)) & 0xFFFFFFFFFFFFFFF8;
-  v6 = *(v0 + 48);
 
   (*(v2 + 8))(v0 + v4, v1);
-  v7 = *(v0 + v5 + 16);
 
   return _swift_deallocObject(v0, v5 + 24, v3 | 7);
 }
 
 uint64_t sub_100008E68()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -2097,7 +1928,6 @@ uint64_t sub_100009208@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 
 uint64_t sub_100009228()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 48, 7);
 }
@@ -2350,7 +2180,7 @@ uint64_t sub_100009920(uint64_t a1, uint64_t a2, int a3, int *a4)
   return v14(a1 + v11, a2, a2, v9);
 }
 
-uint64_t sub_100009A88(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_100009A88(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -2421,7 +2251,7 @@ void *sub_100009BB8(void *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_100009CE8(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_100009CE8(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -2628,7 +2458,6 @@ uint64_t sub_10000A31C(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_10000A3C8()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
@@ -2642,43 +2471,35 @@ uint64_t sub_10000A400()
 
 uint64_t sub_10000A438()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t sub_10000A488()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
-uint64_t sub_10000A4C8()
+uint64_t sub_10000A4C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(v0 + 2);
-  v1 = *(v0 + 3);
-  v3 = *(type metadata accessor for ObservableContainer.Event() - 8);
-  v4 = *(v3 + 80);
-  v5 = (v4 + 48) & ~v4;
-  v6 = *(v3 + 64);
-  v7 = *(v0 + 5);
+  v5 = *(v4 + 16);
+  v6 = *(type metadata accessor for ObservableContainer.Event(0, v5, *(v4 + 24), a4) - 8);
+  v7 = *(v6 + 80);
+  v8 = (v7 + 48) & ~v7;
+  v9 = *(v6 + 64);
 
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v9 = *(*(v2 - 8) + 8);
-  v9(&v0[v5], v2);
+  v11 = *(*(v5 - 8) + 8);
+  v11(v4 + v8, v5);
   if (EnumCaseMultiPayload == 1)
   {
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    v9(&v0[v5 + *(TupleTypeMetadata2 + 48)], v2);
+    v11(v4 + v8 + *(TupleTypeMetadata2 + 48), v5);
   }
 
-  v11 = (v6 + v5 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v12 = *&v0[v11];
-
-  return _swift_deallocObject(v0, v11 + 8, v4 | 7);
+  return _swift_deallocObject(v4, ((v9 + v8 + 7) & 0xFFFFFFFFFFFFFFF8) + 8, v7 | 7);
 }
 
 uint64_t sub_10000A620()
@@ -2690,35 +2511,28 @@ uint64_t sub_10000A620()
 
 uint64_t sub_10000A658()
 {
-  v1 = v0[4];
-
-  v2 = v0[5];
-
-  v3 = v0[8];
 
   return _swift_deallocObject(v0, 72, 7);
 }
 
-uint64_t sub_10000A6A0()
+uint64_t sub_10000A6A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(v0 + 2);
-  v1 = *(v0 + 3);
-  v3 = *(type metadata accessor for ObservableContainer.Event() - 8);
-  v4 = *(v3 + 80);
-  v5 = (v4 + 48) & ~v4;
-  v6 = *(v3 + 64);
-  v7 = *(v0 + 5);
+  v5 = *(v4 + 16);
+  v6 = *(type metadata accessor for ObservableContainer.Event(0, v5, *(v4 + 24), a4) - 8);
+  v7 = *(v6 + 80);
+  v8 = (v7 + 48) & ~v7;
+  v9 = *(v6 + 64);
 
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v9 = *(*(v2 - 8) + 8);
-  v9(&v0[v5], v2);
+  v11 = *(*(v5 - 8) + 8);
+  v11(v4 + v8, v5);
   if (EnumCaseMultiPayload == 1)
   {
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    v9(&v0[v5 + *(TupleTypeMetadata2 + 48)], v2);
+    v11(v4 + v8 + *(TupleTypeMetadata2 + 48), v5);
   }
 
-  return _swift_deallocObject(v0, v5 + v6, v4 | 7);
+  return _swift_deallocObject(v4, v8 + v9, v7 | 7);
 }
 
 uint64_t sub_10000A808(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2765,7 +2579,6 @@ uint64_t sub_10000A8C4(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_10000A990()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
@@ -2777,10 +2590,8 @@ uint64_t sub_10000A9CC()
   v3 = *(v2 + 80);
   v4 = (v3 + 24) & ~v3;
   v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = *(v0 + 16);
 
   (*(v2 + 8))(v0 + v4, v1);
-  v7 = *(v0 + v5 + 8);
 
   return _swift_deallocObject(v0, v5 + 16, v3 | 7);
 }
@@ -2799,7 +2610,6 @@ uint64_t sub_10000AAEC()
   v3 = *(v2 + 80);
   v4 = (v3 + 24) & ~v3;
   v5 = *(v2 + 64);
-  v6 = *(v0 + 16);
 
   (*(v2 + 8))(v0 + v4, v1);
 
@@ -2808,14 +2618,12 @@ uint64_t sub_10000AAEC()
 
 uint64_t sub_10000ABCC()
 {
-  v1 = *(v0 + 48);
 
   return _swift_deallocObject(v0, 56, 7);
 }
 
 uint64_t sub_10000AC04()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -2827,10 +2635,8 @@ uint64_t sub_10000AC3C()
   v3 = *(v2 + 80);
   v4 = (v3 + 56) & ~v3;
   v5 = (v4 + *(v2 + 64)) & 0xFFFFFFFFFFFFFFF8;
-  v6 = *(v0 + 48);
 
   (*(v2 + 8))(v0 + v4, v1);
-  v7 = *(v0 + v5 + 16);
 
   return _swift_deallocObject(v0, v5 + 24, v3 | 7);
 }
@@ -2844,11 +2650,7 @@ uint64_t sub_10000AD28()
 
 uint64_t sub_10000AD60()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
-
-  v3 = *(v0 + 40);
 
   return _swift_deallocObject(v0, 56, 7);
 }
@@ -2861,23 +2663,18 @@ uint64_t sub_10000ADB0()
 
 uint64_t sub_10000ADEC()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 24, 7);
 }
 
 uint64_t sub_10000AE24()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
 
 uint64_t sub_10000AE68()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -2890,7 +2687,6 @@ uint64_t sub_10000AEA8()
 
 uint64_t sub_10000AEE8()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 48, 7);
@@ -2898,9 +2694,7 @@ uint64_t sub_10000AEE8()
 
 uint64_t sub_10000AF30()
 {
-  v1 = *(v0 + 16);
 
-  v2 = *(v0 + 24);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 32, 7);
@@ -2908,14 +2702,12 @@ uint64_t sub_10000AF30()
 
 uint64_t sub_10000AF70()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 25, 7);
 }
 
 uint64_t sub_10000AFA8()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -2936,23 +2728,18 @@ uint64_t sub_10000B038()
 
 uint64_t sub_10000B070()
 {
-  v1 = *(v0 + 48);
-
-  v2 = *(v0 + 56);
 
   return _swift_deallocObject(v0, 64, 7);
 }
 
 uint64_t sub_10000B0C8()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t sub_10000B104()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 48, 7);
 }
@@ -3084,7 +2871,7 @@ uint64_t sub_10000B57C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_10000B634(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_10000B634(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -3099,7 +2886,7 @@ uint64_t sub_10000B634(uint64_t *a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    updated = _s14UpdateScheduleVMa();
+    updated = _s14UpdateScheduleVMa(0);
     v9 = *(updated - 8);
     if (*(v9 + 84) == a2)
     {
@@ -3131,7 +2918,7 @@ void *sub_10000B764(void *result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    updated = _s14UpdateScheduleVMa();
+    updated = _s14UpdateScheduleVMa(0);
     v9 = *(updated - 8);
     if (*(v9 + 84) == a3)
     {
@@ -3158,7 +2945,6 @@ void *sub_10000B764(void *result, uint64_t a2, int a3, uint64_t a4)
 uint64_t sub_10000B8A0(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 24);
-  v5 = *(v2 + v4);
 
   *(v2 + v4) = a1;
   return result;
@@ -3365,35 +3151,28 @@ void *sub_10000C09C@<X0>(void *result@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_10000C0A8()
+uint64_t start(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  return sub_1001C60E8();
-}
-
-uint64_t start()
-{
-  v0 = sub_1000023E8();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = sub_1000023E8(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_INFO, "Process launch.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_INFO, "Process launch.", buf, 2u);
   }
 
-  v1 = objc_autoreleasePoolPush();
-  v2 = +[BDSDaemon daemon];
-  [v2 start];
+  v2 = objc_autoreleasePoolPush();
+  v3 = +[BDSDaemon daemon];
+  [v3 start];
 
-  objc_autoreleasePoolPop(v1);
-  v3 = +[NSRunLoop mainRunLoop];
-  [v3 run];
+  objc_autoreleasePoolPop(v2);
+  v4 = +[NSRunLoop mainRunLoop];
+  [v4 run];
 
-  v4 = sub_1000023E8();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v6 = sub_1000023E8(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Process exit.", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Process exit.", v8, 2u);
   }
 
   return 0;
@@ -3409,11 +3188,12 @@ void sub_10000C22C(id a1)
 id sub_10000C50C(uint64_t a1)
 {
   v2 = [*(a1 + 32) preflightStartup];
-  v3 = sub_1000023E8();
-  v4 = v3;
-  if ((v2 & 1) == 0)
+  v3 = v2;
+  v4 = sub_1000023E8(v2);
+  v5 = v4;
+  if ((v3 & 1) == 0)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1001BD374();
     }
@@ -3421,64 +3201,65 @@ id sub_10000C50C(uint64_t a1)
     exit(0);
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Startup: Starting up bookdatastored daemon", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Startup: Starting up bookdatastored daemon", buf, 2u);
   }
 
-  v5 = *(a1 + 32);
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_10000C604;
-  v7[3] = &unk_10023F6F8;
-  v7[4] = v5;
-  return [v5 lrq_setupBeforeListenersWithCompletion:v7];
+  v6 = *(a1 + 32);
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_10000C604;
+  v8[3] = &unk_10023F6F8;
+  v8[4] = v6;
+  return [v6 lrq_setupBeforeListenersWithCompletion:v8];
 }
 
 void sub_10000C604(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_1000023E8();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_1000023E8(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1001BD3B0();
     }
   }
 
-  v5 = [*(a1 + 32) listenersReadyQueue];
+  v6 = [*(a1 + 32) listenersReadyQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10000C7C8;
   block[3] = &unk_10023F6B0;
   block[4] = *(a1 + 32);
-  dispatch_async(v5, block);
+  dispatch_async(v6, block);
 
   signal(15, 1);
-  v6 = dispatch_get_global_queue(21, 0);
-  v7 = dispatch_source_create(&_dispatch_source_type_signal, 0xFuLL, 0, v6);
-  [*(a1 + 32) setSigterm_source:v7];
-
-  v8 = [*(a1 + 32) sigterm_source];
-  dispatch_source_set_event_handler(v8, &stru_10023F6D0);
+  v7 = dispatch_get_global_queue(21, 0);
+  v8 = dispatch_source_create(&_dispatch_source_type_signal, 0xFuLL, 0, v7);
+  [*(a1 + 32) setSigterm_source:v8];
 
   v9 = [*(a1 + 32) sigterm_source];
-  dispatch_activate(v9);
+  dispatch_source_set_event_handler(v9, &stru_10023F6D0);
 
-  v10 = [*(a1 + 32) startupQueue];
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_10000C830;
-  v11[3] = &unk_10023F6B0;
-  v11[4] = *(a1 + 32);
-  dispatch_async(v10, v11);
+  v10 = [*(a1 + 32) sigterm_source];
+  dispatch_activate(v10);
+
+  v11 = [*(a1 + 32) startupQueue];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10000C830;
+  v12[3] = &unk_10023F6B0;
+  v12[4] = *(a1 + 32);
+  dispatch_async(v11, v12);
 }
 
 void sub_10000C7D0(id a1)
 {
-  v1 = sub_1000023E8();
+  v1 = sub_1000023E8(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     *v2 = 0;
@@ -3490,8 +3271,7 @@ void sub_10000C7D0(id a1)
 
 void sub_10000C830(uint64_t a1)
 {
-  [*(a1 + 32) sq_finishedStartingUp];
-  v1 = sub_1000023E8();
+  v1 = sub_1000023E8([*(a1 + 32) sq_finishedStartingUp]);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     *v2 = 0;
@@ -3525,24 +3305,25 @@ void sub_10000D9F0(id a1)
   qword_100274900 = v4;
 
   v6 = +[NSFileManager defaultManager];
-  v10 = 0;
-  v7 = [v6 createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:&v10];
-  v8 = v10;
+  v11 = 0;
+  v7 = [v6 createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:&v11];
+  v8 = v11;
 
   if ((v7 & 1) == 0)
   {
-    v9 = sub_10000DE28();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_10000DE28(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001BD714();
     }
   }
 }
 
-void sub_10000DB14(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000DB14(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_10000DB3C(id a1)
@@ -3552,16 +3333,16 @@ void sub_10000DB3C(id a1)
   _objc_release_x1();
 }
 
-id sub_10000DB80()
+id sub_10000DB80(uint64_t a1)
 {
   if (qword_100274928 != -1)
   {
     sub_1001BD790();
   }
 
-  v1 = qword_100274920;
+  v2 = qword_100274920;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000DBC4(id a1)
@@ -3571,16 +3352,16 @@ void sub_10000DBC4(id a1)
   _objc_release_x1();
 }
 
-id sub_10000DC08()
+id sub_10000DC08(uint64_t a1)
 {
   if (qword_100274938 != -1)
   {
     sub_1001BD7A4();
   }
 
-  v1 = qword_100274930;
+  v2 = qword_100274930;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000DC4C(id a1)
@@ -3590,16 +3371,16 @@ void sub_10000DC4C(id a1)
   _objc_release_x1();
 }
 
-id sub_10000DC90()
+id sub_10000DC90(uint64_t a1)
 {
   if (qword_100274948 != -1)
   {
     sub_1001BD7B8();
   }
 
-  v1 = qword_100274940;
+  v2 = qword_100274940;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000DCD4(id a1)
@@ -3609,16 +3390,16 @@ void sub_10000DCD4(id a1)
   _objc_release_x1();
 }
 
-id sub_10000DD18()
+id sub_10000DD18(uint64_t a1)
 {
   if (qword_100274958 != -1)
   {
     sub_1001BD7CC();
   }
 
-  v1 = qword_100274950;
+  v2 = qword_100274950;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000DD5C(id a1)
@@ -3642,16 +3423,16 @@ void sub_10000DDE4(id a1)
   _objc_release_x1();
 }
 
-id sub_10000DE28()
+id sub_10000DE28(uint64_t a1)
 {
   if (qword_100274988 != -1)
   {
     sub_1001BD808();
   }
 
-  v1 = qword_100274980;
+  v2 = qword_100274980;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000DE6C(id a1)
@@ -3661,16 +3442,16 @@ void sub_10000DE6C(id a1)
   _objc_release_x1();
 }
 
-id sub_10000DEB0()
+id sub_10000DEB0(uint64_t a1)
 {
   if (qword_100274998 != -1)
   {
     sub_1001BD81C();
   }
 
-  v1 = qword_100274990;
+  v2 = qword_100274990;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000DEF4(id a1)
@@ -3698,14 +3479,14 @@ void sub_10000E40C(id a1)
   qword_1002749B0 = v4;
 
   v6 = +[NSFileManager defaultManager];
-  v10 = 0;
-  v7 = [v6 createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:&v10];
-  v8 = v10;
+  v11 = 0;
+  v7 = [v6 createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:&v11];
+  v8 = v11;
 
   if ((v7 & 1) == 0)
   {
-    v9 = sub_10000DE28();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_10000DE28(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001BD9F8();
     }
@@ -3728,9 +3509,9 @@ void sub_10000EB0C(uint64_t a1, uint64_t a2, void *a3)
   [*(a1 + 32) bds_chainSuccessAndErrorCompletionSelectorCallsForSelector:*(a1 + 48) successSoFar:a2 errorSoFar:v6 completion:*(a1 + 40)];
 }
 
-void sub_10000F73C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000F73C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3744,17 +3525,14 @@ uint64_t sub_10000F754(uint64_t result, uint64_t a2)
 
 uint64_t sub_10000F76C(uint64_t a1)
 {
-  v2 = [*(a1 + 32) currentUbiquityIdentityToken];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) currentUbiquityIdentityToken];
 
   return _objc_release_x1();
 }
 
-void sub_10000F9E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000F9E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3786,11 +3564,11 @@ void sub_10000FBF8(uint64_t a1)
 
 void sub_10000FDD4(uint64_t a1)
 {
-  v2 = sub_10000DEB0();
+  v2 = sub_10000DEB0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "BDSUbiquityStatusMonitor: restartObserving was called", &v16, 2u);
+    LOWORD(v17) = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "BDSUbiquityStatusMonitor: restartObserving was called", &v17, 2u);
   }
 
   [*(a1 + 32) dq_refreshUbiquityAvailabilityStatus];
@@ -3809,7 +3587,7 @@ void sub_10000FDD4(uint64_t a1)
   }
 
   v8 = +[BDSSyncUserDefaults isICloudDriveSyncOptedIn];
-  v9 = sub_10000DEB0();
+  v9 = sub_10000DEB0(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = @"NO";
@@ -3818,26 +3596,26 @@ void sub_10000FDD4(uint64_t a1)
       v10 = @"YES";
     }
 
-    v16 = 138412290;
-    v17 = v10;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "BDSUbiquityStatusMonitor: restartObserving cloudDriveOptedIn:%@", &v16, 0xCu);
+    v17 = 138412290;
+    v18 = v10;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "BDSUbiquityStatusMonitor: restartObserving cloudDriveOptedIn:%@", &v17, 0xCu);
   }
 
-  if (v8 != [*(a1 + 32) archivedCloudDriveOptedIn])
+  v11 = [*(a1 + 32) archivedCloudDriveOptedIn];
+  if (v8 != v11)
   {
-    [*(a1 + 32) setArchivedCloudDriveOptedIn:v8];
-    v11 = sub_10000DEB0();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = sub_10000DEB0([*(a1 + 32) setArchivedCloudDriveOptedIn:v8]);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v12 = @"disabled";
+      v13 = @"disabled";
       if (v8)
       {
-        v12 = @"enabled";
+        v13 = @"enabled";
       }
 
-      v16 = 138412290;
-      v17 = v12;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "BDSUbiquityStatusMonitor: restartObserving - Books / iCloud Drive switch was %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = v13;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "BDSUbiquityStatusMonitor: restartObserving - Books / iCloud Drive switch was %@", &v17, 0xCu);
     }
 
     goto LABEL_17;
@@ -3847,24 +3625,24 @@ void sub_10000FDD4(uint64_t a1)
   {
 LABEL_17:
     [*(a1 + 32) dq_archiveCurrentUbiquityIdentityToken];
-    v13 = [*(a1 + 32) currentUbiquityIdentityToken];
-    v14 = [*(a1 + 32) lastArchivedUbiquityIdentityToken];
-    v15 = sub_10000DEB0();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = [*(a1 + 32) currentUbiquityIdentityToken];
+    v15 = [*(a1 + 32) lastArchivedUbiquityIdentityToken];
+    v16 = sub_10000DEB0(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "BDSUbiquityStatusMonitor: restartObserving - notifying observers of a token change", &v16, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "BDSUbiquityStatusMonitor: restartObserving - notifying observers of a token change", &v17, 2u);
     }
 
-    [*(a1 + 32) _notifyObserversForChangesWithCurrentToken:v13 lastToken:v14];
+    [*(a1 + 32) _notifyObserversForChangesWithCurrentToken:v14 lastToken:v15];
     goto LABEL_20;
   }
 
-  v13 = sub_10000DEB0();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_10000DEB0(v11);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "BDSUbiquityStatusMonitor: restartObserving - tokens match ... so we are not notifying anyone", &v16, 2u);
+    LOWORD(v17) = 0;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "BDSUbiquityStatusMonitor: restartObserving - tokens match ... so we are not notifying anyone", &v17, 2u);
   }
 
 LABEL_20:
@@ -3878,8 +3656,7 @@ void sub_100010270(uint64_t a1)
   v3 = [*(a1 + 32) currentUbiquityIdentityToken];
   [*(a1 + 32) dq_refreshUbiquityAvailabilityStatus];
   v4 = [*(a1 + 32) currentUbiquityIdentityToken];
-  [*(a1 + 32) dq_archiveCurrentUbiquityIdentityToken];
-  v5 = sub_10000DEB0();
+  v5 = sub_10000DEB0([*(a1 + 32) dq_archiveCurrentUbiquityIdentityToken]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = @"YES";
@@ -3888,28 +3665,28 @@ void sub_100010270(uint64_t a1)
       v6 = @"NO";
     }
 
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "BDSUbiquityStatusMonitor: p_ubiquityIdentityDidChange - iCloud identity changed. {iCloudEnabled: %@}", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "BDSUbiquityStatusMonitor: p_ubiquityIdentityDidChange - iCloud identity changed. {iCloudEnabled: %@}", &v10, 0xCu);
   }
 
-  if (v3 == v4 || [v3 isEqual:v4])
+  if (v3 == v4 || (v7 = [v3 isEqual:v4], v7))
   {
-    v7 = sub_10000DEB0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_10000DEB0(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "BDSUbiquityStatusMonitor: p_ubiquityIdentityDidChange - Same underlying tokens detected. Skipping notification to observers", &v9, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "BDSUbiquityStatusMonitor: p_ubiquityIdentityDidChange - Same underlying tokens detected. Skipping notification to observers", &v10, 2u);
     }
   }
 
   else
   {
-    v8 = sub_10000DEB0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_10000DEB0(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "BDSUbiquityStatusMonitor: p_ubiquityIdentityDidChange - notifying observers of a token change", &v9, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "BDSUbiquityStatusMonitor: p_ubiquityIdentityDidChange - notifying observers of a token change", &v10, 2u);
     }
 
     [*(a1 + 32) _notifyObserversForChangesWithCurrentToken:v4 lastToken:v3];
@@ -3918,7 +3695,7 @@ void sub_100010270(uint64_t a1)
 
 id sub_1000106CC(uint64_t a1)
 {
-  v2 = sub_10000DEB0();
+  v2 = sub_10000DEB0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -3935,7 +3712,7 @@ id sub_1000106CC(uint64_t a1)
 
 id sub_10001078C(uint64_t a1)
 {
-  v2 = sub_10000DEB0();
+  v2 = sub_10000DEB0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -3954,98 +3731,98 @@ void sub_100010A54(uint64_t a1)
 {
   v2 = +[NSFileManager defaultManager];
   v3 = [*(a1 + 32) containerIdentifier];
-  v19 = v2;
+  v20 = v2;
   v4 = [v2 URLForUbiquityContainerIdentifier:v3];
 
   [*(a1 + 32) setContainerURL:v4];
   v5 = [v4 URLByAppendingPathComponent:@"Documents"];
-  [*(a1 + 32) setDocumentsURL:v5];
-  v6 = sub_10000DEB0();
+  v6 = sub_10000DEB0([*(a1 + 32) setDocumentsURL:v5]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 141558274;
-    v26 = 1752392040;
-    v27 = 2112;
-    v28 = v4;
+    v27 = 1752392040;
+    v28 = 2112;
+    v29 = v4;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "BDSUbiquityStatusMonitor: Container URL set to: %{mask.hash}@", buf, 0x16u);
   }
 
   if (v5)
   {
-    v18 = a1;
-    v7 = objc_opt_new();
-    v8 = [v5 path];
-    v9 = [v19 contentsOfDirectoryAtPath:v8 error:0];
+    v19 = a1;
+    v8 = objc_opt_new();
+    v9 = [v5 path];
+    v10 = [v20 contentsOfDirectoryAtPath:v9 error:0];
 
-    v10 = 0;
-    if ([v9 count])
+    v11 = 0;
+    if ([v10 count])
     {
-      v11 = 0;
+      v12 = 0;
       do
       {
-        v12 = [v9 objectAtIndex:v11];
-        if (![v12 rangeOfString:@".Trash"])
+        v13 = [v10 objectAtIndex:v12];
+        if (![v13 rangeOfString:@".Trash"])
         {
-          v13 = [v5 URLByAppendingPathComponent:v12];
-          v24 = v10;
-          v22[0] = _NSConcreteStackBlock;
-          v22[1] = 3221225472;
-          v22[2] = sub_100010DE0;
-          v22[3] = &unk_10023F960;
-          v23 = v19;
-          [v7 coordinateWritingItemAtURL:v13 options:1 error:&v24 byAccessor:v22];
-          v14 = v24;
+          v14 = [v5 URLByAppendingPathComponent:v13];
+          v25 = v11;
+          v23[0] = _NSConcreteStackBlock;
+          v23[1] = 3221225472;
+          v23[2] = sub_100010DE0;
+          v23[3] = &unk_10023F960;
+          v24 = v20;
+          [v8 coordinateWritingItemAtURL:v14 options:1 error:&v25 byAccessor:v23];
+          v15 = v25;
 
-          v10 = v14;
+          v11 = v15;
         }
 
-        ++v11;
+        ++v12;
       }
 
-      while (v11 < [v9 count]);
+      while (v12 < [v10 count]);
     }
 
-    a1 = v18;
+    a1 = v19;
   }
 
-  v15 = sub_10000DEB0();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  v16 = sub_10000DEB0(v7);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     *buf = 141558274;
-    v26 = 1752392040;
-    v27 = 2112;
-    v28 = v5;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "BDSUbiquityStatusMonitor: dq_refreshUbiquityAvailabilityStatus iCloud documentURL changed. {documentURL: %{mask.hash}@}", buf, 0x16u);
+    v27 = 1752392040;
+    v28 = 2112;
+    v29 = v5;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "BDSUbiquityStatusMonitor: dq_refreshUbiquityAvailabilityStatus iCloud documentURL changed. {documentURL: %{mask.hash}@}", buf, 0x16u);
   }
 
-  v16 = [*(a1 + 32) dispatchQueue];
+  v17 = [*(a1 + 32) dispatchQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100010ECC;
   block[3] = &unk_10023F938;
   block[4] = *(a1 + 32);
-  v21 = v5;
-  v17 = v5;
-  dispatch_async(v16, block);
+  v22 = v5;
+  v18 = v5;
+  dispatch_async(v17, block);
 }
 
 void sub_100010DE0(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v7 = 0;
-  [v4 removeItemAtURL:v3 error:&v7];
-  v5 = v7;
+  v8 = 0;
+  [v4 removeItemAtURL:v3 error:&v8];
+  v5 = v8;
+  v6 = v5;
   if (v5)
   {
-    v6 = sub_10000DEB0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = sub_10000DEB0(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v9 = v3;
-      v10 = 2112;
-      v11 = v5;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "BDSUbiquityStatusMonitor: Error deleting the folder:[%@] : Error: {%@}", buf, 0x16u);
+      v10 = v3;
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "BDSUbiquityStatusMonitor: Error deleting the folder:[%@] : Error: {%@}", buf, 0x16u);
     }
   }
 }
@@ -4099,8 +3876,7 @@ void sub_100010ECC(uint64_t a1)
 void sub_100011078(uint64_t a1)
 {
   [*(a1 + 32) setContainerURL:0];
-  [*(a1 + 32) setDocumentsURL:0];
-  v2 = sub_10000DEB0();
+  v2 = sub_10000DEB0([*(a1 + 32) setDocumentsURL:0]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v3 = 0;
@@ -4108,16 +3884,16 @@ void sub_100011078(uint64_t a1)
   }
 }
 
-void sub_100011200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100011200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100011330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100011330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4164,8 +3940,8 @@ void sub_1000124F8(uint64_t a1)
 
   if (!v6)
   {
-    v8 = sub_10000DEB0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = sub_10000DEB0(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_1001BDA60();
     }
@@ -4173,16 +3949,16 @@ void sub_1000124F8(uint64_t a1)
     goto LABEL_10;
   }
 
-  v7 = [WeakRetained containerURL];
+  v8 = [WeakRetained containerURL];
 
-  v8 = sub_10000DEB0();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
-  if (!v7)
+  v10 = sub_10000DEB0(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+  if (!v8)
   {
-    if (v9)
+    if (v11)
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "BDSUbiquityDocumentsObserver: No ubiquity URL", &v11, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "BDSUbiquityDocumentsObserver: No ubiquity URL", &v13, 2u);
     }
 
 LABEL_10:
@@ -4190,14 +3966,14 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  if (v9)
+  if (v11)
   {
-    v10 = [WeakRetained containerURL];
-    v11 = 141558274;
-    v12 = 1752392040;
-    v13 = 2112;
-    v14 = v10;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "BDSUbiquityDocumentsObserver: Have ubiquity URL: %{mask.hash}@", &v11, 0x16u);
+    v12 = [WeakRetained containerURL];
+    v13 = 141558274;
+    v14 = 1752392040;
+    v15 = 2112;
+    v16 = v12;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "BDSUbiquityDocumentsObserver: Have ubiquity URL: %{mask.hash}@", &v13, 0x16u);
   }
 
   [WeakRetained q_createSubpathDirectories];
@@ -4211,26 +3987,26 @@ id sub_1000127CC(uint64_t a1)
   v3 = [WeakRetained ubiquityStatusMonitor];
   v4 = [v3 isICloudDriveEnabled];
 
-  v5 = sub_10000DEB0();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10000DEB0(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109120;
-    v11[1] = v4;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "BDSUbiquityDocumentsObserver: iCloud identity changed. {iCloudEnabled: %d}", v11, 8u);
+    v13[0] = 67109120;
+    v13[1] = v4;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "BDSUbiquityDocumentsObserver: iCloud identity changed. {iCloudEnabled: %d}", v13, 8u);
   }
 
-  v6 = *(a1 + 32);
-  v7 = objc_loadWeakRetained((a1 + 48));
-  [v7 setIdentity:v6];
+  v7 = *(a1 + 32);
+  v8 = objc_loadWeakRetained((a1 + 48));
+  [v8 setIdentity:v7];
 
-  v8 = sub_10000DEB0();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v10 = sub_10000DEB0(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (v4)
   {
-    if (v9)
+    if (v11)
     {
-      LOWORD(v11[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "BDSUbiquityDocumentsObserver: restarting metadata query...", v11, 2u);
+      LOWORD(v13[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "BDSUbiquityDocumentsObserver: restarting metadata query...", v13, 2u);
     }
 
     return [*(a1 + 40) restartQuery];
@@ -4238,10 +4014,10 @@ id sub_1000127CC(uint64_t a1)
 
   else
   {
-    if (v9)
+    if (v11)
     {
-      LOWORD(v11[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "BDSUbiquityDocumentsObserver: stopping metadata query...", v11, 2u);
+      LOWORD(v13[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "BDSUbiquityDocumentsObserver: stopping metadata query...", v13, 2u);
     }
 
     return [*(a1 + 40) tearDownQuery];
@@ -4251,47 +4027,48 @@ id sub_1000127CC(uint64_t a1)
 void sub_100012A10(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_10000DEB0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_10000DEB0(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [v3 path];
+      v6 = [v4 path];
       *buf = 138412290;
-      v19 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "BDSUbiquityDocumentsObserver: Starting new metadata query: %@", buf, 0xCu);
+      v21 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "BDSUbiquityDocumentsObserver: Starting new metadata query: %@", buf, 0xCu);
     }
 
-    v6 = objc_alloc_init(NSMetadataQuery);
-    v7 = objc_alloc_init(NSOperationQueue);
-    [v6 setOperationQueue:v7];
+    v7 = objc_alloc_init(NSMetadataQuery);
+    v8 = objc_alloc_init(NSOperationQueue);
+    [v7 setOperationQueue:v8];
 
-    v8 = [v6 operationQueue];
-    [v8 setMaxConcurrentOperationCount:1];
+    v9 = [v7 operationQueue];
+    [v9 setMaxConcurrentOperationCount:1];
 
-    v9 = [v3 path];
-    v10 = [NSPredicate predicateWithFormat:@"%K BEGINSWITH %@", NSMetadataItemPathKey, v9];
-    [v6 setPredicate:v10];
+    v10 = [v4 path];
+    v11 = [NSPredicate predicateWithFormat:@"%K BEGINSWITH %@", NSMetadataItemPathKey, v10];
+    [v7 setPredicate:v11];
 
-    v11 = sub_10000DEB0();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = sub_10000DEB0(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       sub_1001BDA94();
     }
 
-    v17 = NSMetadataQueryUbiquitousDocumentsScope;
-    v12 = [NSArray arrayWithObjects:&v17 count:1];
-    [v6 setSearchScopes:v12];
+    v19 = NSMetadataQueryUbiquitousDocumentsScope;
+    v14 = [NSArray arrayWithObjects:&v19 count:1];
+    [v7 setSearchScopes:v14];
 
-    v13 = [*(a1 + 32) metadataQueryQueue];
+    v15 = [*(a1 + 32) metadataQueryQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100012C70;
     block[3] = &unk_10023F938;
     block[4] = *(a1 + 32);
-    v16 = v6;
-    v14 = v6;
-    dispatch_async(v13, block);
+    v18 = v7;
+    v16 = v7;
+    dispatch_async(v15, block);
   }
 }
 
@@ -4309,9 +4086,9 @@ void sub_1000133A4(uint64_t a1, uint64_t a2)
   [v2 addObject:v3];
 }
 
-void sub_100013A50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100013A50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4329,13 +4106,14 @@ void sub_100013A68(uint64_t a1, void *a2)
     if ((v5 & 1) == 0)
     {
       v7 = *(a1 + 32);
-      v11 = 0;
-      v8 = [v7 createDirectoryAtURL:v4 withIntermediateDirectories:1 attributes:0 error:&v11];
-      v9 = v11;
+      v12 = 0;
+      v8 = [v7 createDirectoryAtURL:v4 withIntermediateDirectories:1 attributes:0 error:&v12];
+      v9 = v12;
+      v10 = v9;
       if ((v8 & 1) == 0)
       {
-        v10 = sub_10000DEB0();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v11 = sub_10000DEB0(v9);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           sub_1001BDC48();
         }
@@ -4353,10 +4131,11 @@ void sub_100013C1C(uint64_t a1, uint64_t a2)
   [v2 addObject:v3];
 }
 
-void sub_100014278(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100014278(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_100014294(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -4388,12 +4167,12 @@ void sub_100014DAC(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
 
       if (v11)
       {
-        v12 = sub_100002660();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v13 = sub_100002660(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
           LODWORD(a9) = 138412290;
           *(&a9 + 4) = v9;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Handled Exception {%@}", &a9, 0xCu);
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Handled Exception {%@}", &a9, 0xCu);
         }
 
         objc_end_catch();
@@ -4421,9 +4200,9 @@ void sub_100014E64(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_100014FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100014FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4529,9 +4308,9 @@ void sub_100015878(uint64_t a1)
   [v2 ubiquityManagerDidFinishInitialGather:*(a1 + 32)];
 }
 
-void sub_10001598C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001598C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4543,9 +4322,9 @@ id sub_1000159A4(uint64_t a1)
   return result;
 }
 
-void sub_100015B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100015B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4566,9 +4345,9 @@ void sub_100015B54(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_100015D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100015D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4587,14 +4366,15 @@ void sub_100015EBC(uint64_t a1)
   v2 = [*(a1 + 32) iq_urlFromAssetID];
   v3 = [v2 allKeys];
 
-  if ([v3 count])
+  v4 = [v3 count];
+  if (v4)
   {
-    v4 = sub_10000DEB0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_10000DEB0(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 134217984;
-      v6 = [v3 count];
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "BDSUbiquityManager: ubiquityStatusChangedToAvailableWithNewIdentity: Removing assets. count: %lu", &v5, 0xCu);
+      v6 = 134217984;
+      v7 = [v3 count];
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "BDSUbiquityManager: ubiquityStatusChangedToAvailableWithNewIdentity: Removing assets. count: %lu", &v6, 0xCu);
     }
 
     [*(a1 + 32) iq_clearCachesForAssetIDs:v3 notify:0];
@@ -4604,7 +4384,7 @@ void sub_100015EBC(uint64_t a1)
 void sub_10001607C(id *a1)
 {
   WeakRetained = objc_loadWeakRetained(a1 + 6);
-  v3 = sub_10000DEB0();
+  v3 = sub_10000DEB0(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [a1[4] count];
@@ -4615,10 +4395,10 @@ void sub_10001607C(id *a1)
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v30 = 0x3032000000;
-  v31 = sub_100015B3C;
-  v32 = sub_100015B4C;
-  v33 = 0;
+  v31 = 0x3032000000;
+  v32 = sub_100015B3C;
+  v33 = sub_100015B4C;
+  v34 = 0;
   v5 = [WeakRetained ivarQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
@@ -4632,50 +4412,50 @@ void sub_10001607C(id *a1)
   v7 = [NSSet setWithArray:v6];
   v8 = [NSMutableSet setWithSet:*(*(&buf + 1) + 40)];
   [v8 minusSet:v7];
-  v21 = v8;
+  v22 = v8;
   v9 = [NSMutableSet setWithSet:v7];
   [v9 minusSet:*(*(&buf + 1) + 40)];
   v10 = [NSMutableSet setWithSet:v7];
   [v10 intersectSet:*(*(&buf + 1) + 40)];
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_1000165A4;
-  v26[3] = &unk_10023FB10;
-  v20 = v9;
-  v27 = v20;
-  v11 = [v6 indexesOfObjectsPassingTest:v26];
-  v24[0] = _NSConcreteStackBlock;
-  v24[1] = 3221225472;
-  v24[2] = sub_1000165B0;
-  v24[3] = &unk_10023FB10;
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_1000165A4;
+  v27[3] = &unk_10023FB10;
+  v21 = v9;
+  v28 = v21;
+  v11 = [v6 indexesOfObjectsPassingTest:v27];
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_1000165B0;
+  v25[3] = &unk_10023FB10;
   v12 = v10;
-  v25 = v12;
-  v13 = [v6 indexesOfObjectsPassingTest:v24];
+  v26 = v12;
+  v13 = [v6 indexesOfObjectsPassingTest:v25];
   v14 = [a1[4] objectsAtIndexes:v11];
   v15 = [a1[4] objectsAtIndexes:v13];
   [WeakRetained mq_itemsDidBecomeAvailable:v14 block:1 notify:0];
   [WeakRetained mq_itemsDidChange:v15 block:1 notify:0];
-  v16 = [v21 allObjects];
+  v16 = [v22 allObjects];
   [WeakRetained mq_itemsDidBecomeUnavailable:v16 block:1 notify:0];
 
-  v17 = sub_10000DEB0();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_10000DEB0(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    *v23 = 0;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "BDSUbiquityManager: Initial gather complete", v23, 2u);
+    *v24 = 0;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "BDSUbiquityManager: Initial gather complete", v24, 2u);
   }
 
-  v18 = [a1[5] observer];
+  v19 = [a1[5] observer];
 
-  if (v18)
+  if (v19)
   {
-    v19 = [WeakRetained observerCallbackQueue];
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_1000165BC;
-    v22[3] = &unk_10023F6B0;
-    v22[4] = a1[5];
-    dispatch_async(v19, v22);
+    v20 = [WeakRetained observerCallbackQueue];
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_1000165BC;
+    v23[3] = &unk_10023F6B0;
+    v23[4] = a1[5];
+    dispatch_async(v20, v23);
   }
 
   _Block_object_dispose(&buf, 8);
@@ -4699,7 +4479,7 @@ void sub_1000165BC(uint64_t a1)
 
 id sub_1000166A8(uint64_t a1)
 {
-  v2 = sub_10000DEB0();
+  v2 = sub_10000DEB0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) count];
@@ -4713,7 +4493,7 @@ id sub_1000166A8(uint64_t a1)
 
 void sub_1000167FC(uint64_t a1)
 {
-  v2 = sub_10000DEB0();
+  v2 = sub_10000DEB0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) count];
@@ -4729,7 +4509,7 @@ void sub_1000167FC(uint64_t a1)
 
 id sub_100016970(uint64_t a1)
 {
-  v2 = sub_10000DEB0();
+  v2 = sub_10000DEB0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) count];
@@ -4766,9 +4546,9 @@ void sub_100017844(uint64_t a1)
   [v2 ubiquityManager:*(a1 + 32) removedItemWithAssetID:*(a1 + 40)];
 }
 
-void sub_1000179CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000179CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4850,11 +4630,11 @@ void sub_1000192B4(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = sub_10000DE28();
+  v5 = sub_10000DE28(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "BDSWidgetTimelineController - reload timeline", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "BDSWidgetTimelineController - reload timeline", v12, 2u);
   }
 
   v6 = [WeakRetained timelineController];
@@ -4862,24 +4642,24 @@ void sub_1000192B4(uint64_t a1, void *a2)
 
   if (v7)
   {
-    v8 = sub_10000DE28();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_10000DE28(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_1001BDD80(v7, v8);
+      sub_1001BDD80(v7, v9);
     }
   }
 
-  v9 = objc_retainBlock(v3);
-  v10 = v9;
-  if (v9)
+  v10 = objc_retainBlock(v3);
+  v11 = v10;
+  if (v10)
   {
-    (*(v9 + 2))(v9);
+    (*(v10 + 2))(v10);
   }
 }
 
-void sub_100019808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100019808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4891,9 +4671,9 @@ uint64_t sub_100019820(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_100019960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100019960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4905,22 +4685,22 @@ void sub_100019BAC(uint64_t a1)
   v4 = *(v3 + 16);
   *(v3 + 16) = v2;
 
-  v5 = sub_10000DE28();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10000DE28(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [*(a1 + 40) count];
-    v7 = *(a1 + 40);
-    v11 = 134218242;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v7;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating current widget data to %ld with: %@", &v11, 0x16u);
+    v7 = [*(a1 + 40) count];
+    v8 = *(a1 + 40);
+    v12 = 134218242;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Updating current widget data to %ld with: %@", &v12, 0x16u);
   }
 
-  v8 = [*(a1 + 48) copy];
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 24);
-  *(v9 + 24) = v8;
+  v9 = [*(a1 + 48) copy];
+  v10 = *(a1 + 32);
+  v11 = *(v10 + 24);
+  *(v10 + 24) = v9;
 }
 
 void sub_100019D64(uint64_t a1)
@@ -4938,19 +4718,19 @@ void sub_10001ADB8(uint64_t a1)
   v4 = *(a1 + 32);
   if (v2 == v3)
   {
-    v11 = [*(a1 + 32) fetchedObjects];
-    v12 = sub_10000DE28();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = [*(a1 + 32) fetchedObjects];
+    v14 = sub_10000DE28(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Recieved callback from FRC that reading progress has changed.", v21, 2u);
+      *v24 = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Recieved callback from FRC that reading progress has changed.", v24, 2u);
     }
 
-    v13 = *(a1 + 40);
-    v14 = [v13 currentWidgetDatasByAssetID];
-    LOBYTE(v13) = [v13 _moc_updateWidgetDatas:v14 fromAssetDetails:v11];
+    v15 = *(a1 + 40);
+    v16 = [v15 currentWidgetDatasByAssetID];
+    LOBYTE(v15) = [v15 _moc_updateWidgetDatas:v16 fromAssetDetails:v13];
 
-    if (v13)
+    if (v15)
     {
       goto LABEL_11;
     }
@@ -4965,53 +4745,55 @@ void sub_10001ADB8(uint64_t a1)
       goto LABEL_15;
     }
 
-    v6 = sub_10000DE28();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_10000DE28(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Received callback from FRC that WidgetInfo list has changed.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Received callback from FRC that WidgetInfo list has changed.", buf, 2u);
     }
 
-    v7 = [*(a1 + 40) _newWidgetInfoFetchRequest];
-    [v7 setFetchLimit:3];
-    v19 = 0;
-    v8 = [v7 execute:&v19];
-    v9 = v19;
-    if (v8)
+    v8 = [*(a1 + 40) _newWidgetInfoFetchRequest];
+    [v8 setFetchLimit:3];
+    v22 = 0;
+    v9 = [v8 execute:&v22];
+    v10 = v22;
+    v11 = v10;
+    if (v9)
     {
-      v10 = [*(a1 + 40) _moc_updateWidgetDataFromWidgetInfo:v8];
+      v12 = [*(a1 + 40) _moc_updateWidgetDataFromWidgetInfo:v9];
 
-      if ((v10 & 1) == 0)
+      if ((v12 & 1) == 0)
       {
         goto LABEL_15;
       }
 
 LABEL_11:
-      v15 = 1;
+      v17 = 1;
 LABEL_17:
-      [*(a1 + 40) _saveWidgetDatasWithWidgetDatasHaveChanged:v15];
+      [*(a1 + 40) _saveWidgetDatasWithWidgetDatasHaveChanged:v17];
       return;
     }
 
-    v16 = sub_10000DE28();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = sub_10000DE28(v10);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_1001BDE70(v9, v16);
+      sub_1001BDE70(v11, v18);
     }
   }
 
 LABEL_15:
-  if ([*(a1 + 40) dataFileDataIsNil])
+  v19 = [*(a1 + 40) dataFileDataIsNil];
+  if (v19)
   {
-    v15 = 0;
+    v17 = 0;
     goto LABEL_17;
   }
 
-  v17 = sub_10000DE28();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v20 = sub_10000DE28(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    *v18 = 0;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "No changes as result of FRC, not notifying widget.", v18, 2u);
+    *v21 = 0;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "No changes as result of FRC, not notifying widget.", v21, 2u);
   }
 }
 
@@ -5047,14 +4829,14 @@ void sub_10001D070(id a1)
   qword_100274A28 = v4;
 
   v6 = +[NSFileManager defaultManager];
-  v10 = 0;
-  v7 = [v6 createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:&v10];
-  v8 = v10;
+  v11 = 0;
+  v7 = [v6 createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:&v11];
+  v8 = v11;
 
   if ((v7 & 1) == 0)
   {
-    v9 = sub_1000023E8();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_1000023E8(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001BE240();
     }
@@ -5098,7 +4880,7 @@ void sub_10001D34C(id a1)
 
 void sub_10001D598(uint64_t a1)
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -5152,7 +4934,7 @@ void sub_10001D7C0(uint64_t a1)
   {
     if (!v1)
     {
-      v12 = sub_100002660();
+      v12 = sub_100002660(a1);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         v13 = *(a1 + 32);
@@ -5181,7 +4963,7 @@ void sub_10001D7C0(uint64_t a1)
         }
       }
 
-      v2 = sub_100002660();
+      v2 = sub_100002660(v14);
       if (!os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
       {
         goto LABEL_19;
@@ -5202,7 +4984,7 @@ void sub_10001D7C0(uint64_t a1)
       return;
     }
 
-    v7 = sub_100002660();
+    v7 = sub_100002660(a1);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -5227,7 +5009,7 @@ void sub_10001D7C0(uint64_t a1)
     switch(v1)
     {
       case 2:
-        v2 = sub_100002660();
+        v2 = sub_100002660(a1);
         if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
@@ -5243,7 +5025,7 @@ LABEL_18:
 
         break;
       case 3:
-        v2 = sub_100002660();
+        v2 = sub_100002660(a1);
         if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
@@ -5253,7 +5035,7 @@ LABEL_18:
 
         break;
       case 4:
-        v2 = sub_100002660();
+        v2 = sub_100002660(a1);
         if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
         {
           break;
@@ -5275,10 +5057,11 @@ LABEL_19:
 void sub_10001DB2C(id a1, BOOL a2, NSError *a3)
 {
   v3 = a3;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_100002660();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100002660(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1001BE2D0();
     }
@@ -5287,7 +5070,7 @@ void sub_10001DB2C(id a1, BOOL a2, NSError *a3)
 
 id sub_10001DB84(uint64_t a1)
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -5309,37 +5092,38 @@ void sub_10001E108(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = sub_10000DC08();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_10000DC08(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [WeakRetained configuration];
-      v7 = [v6 containerIdentifier];
+      v7 = [v5 configuration];
+      v8 = [v7 containerIdentifier];
       *buf = 138543362;
-      v15 = v7;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "BCCloudKitController (%{public}@) _coalescedAttachment", buf, 0xCu);
+      v16 = v8;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "BCCloudKitController (%{public}@) _coalescedAttachment", buf, 0xCu);
     }
 
-    v8 = [WeakRetained accessQueue];
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10001E2B0;
-    v11[3] = &unk_10023FE48;
-    objc_copyWeak(&v13, (a1 + 32));
-    v12 = v3;
-    dispatch_async(v8, v11);
+    v9 = [v5 accessQueue];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10001E2B0;
+    v12[3] = &unk_10023FE48;
+    objc_copyWeak(&v14, (a1 + 32));
+    v13 = v3;
+    dispatch_async(v9, v12);
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
   }
 
   else
   {
-    v9 = objc_retainBlock(v3);
-    v10 = v9;
-    if (v9)
+    v10 = objc_retainBlock(v3);
+    v11 = v10;
+    if (v10)
     {
-      (*(v9 + 2))(v9);
+      (*(v10 + 2))(v10);
     }
   }
 }
@@ -5361,7 +5145,7 @@ void sub_10001E2B0(uint64_t a1)
 void sub_10001E31C(id a1, NSString *a2)
 {
   v2 = a2;
-  v3 = sub_100002660();
+  v3 = sub_100002660(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_1001BE338();
@@ -5372,35 +5156,36 @@ void sub_10001E370(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = sub_10000DC08();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_10000DC08(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [WeakRetained configuration];
-      v7 = [v6 containerIdentifier];
+      v7 = [v5 configuration];
+      v8 = [v7 containerIdentifier];
       *buf = 138543362;
-      v15 = v7;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "BCCloudKitController (%{public}@) _coalescedChangeAttachment", buf, 0xCu);
+      v16 = v8;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "BCCloudKitController (%{public}@) _coalescedChangeAttachment", buf, 0xCu);
     }
 
-    v8 = [WeakRetained accessQueue];
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10001E514;
-    v11[3] = &unk_10023FED8;
-    v12 = WeakRetained;
-    v13 = v3;
-    dispatch_async(v8, v11);
+    v9 = [v5 accessQueue];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10001E514;
+    v12[3] = &unk_10023FED8;
+    v13 = v5;
+    v14 = v3;
+    dispatch_async(v9, v12);
   }
 
   else
   {
-    v9 = objc_retainBlock(v3);
-    v10 = v9;
-    if (v9)
+    v10 = objc_retainBlock(v3);
+    v11 = v10;
+    if (v10)
     {
-      (*(v9 + 2))(v9);
+      (*(v10 + 2))(v10);
     }
   }
 }
@@ -5419,7 +5204,7 @@ void sub_10001E514(uint64_t a1)
 
 void sub_10001E5B8(uint64_t a1, int a2)
 {
-  v4 = sub_10000DC08();
+  v4 = sub_10000DC08(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) configuration];
@@ -5450,7 +5235,7 @@ void sub_10001E5B8(uint64_t a1, int a2)
 void sub_10001E6D4(id a1, NSString *a2)
 {
   v2 = a2;
-  v3 = sub_10000DC08();
+  v3 = sub_10000DC08(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_1001BE3A0();
@@ -5489,23 +5274,23 @@ void sub_10001EC04(uint64_t a1, char a2, char a3)
 
   if (v7)
   {
-    v8 = [WeakRetained accessQueue];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10001ED18;
-    v10[3] = &unk_10023FF68;
-    objc_copyWeak(&v11, (a1 + 40));
-    v12 = a2;
-    v13 = a3;
-    dispatch_async(v8, v10);
+    v9 = [WeakRetained accessQueue];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10001ED18;
+    v11[3] = &unk_10023FF68;
+    objc_copyWeak(&v12, (a1 + 40));
+    v13 = a2;
+    v14 = a3;
+    dispatch_async(v9, v11);
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v12);
   }
 
   else
   {
-    v9 = sub_100002660();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100002660(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001BE408(a1);
     }
@@ -5532,24 +5317,24 @@ void sub_10001F1A0(uint64_t a1, char a2, char a3)
 
   if (v7)
   {
-    v8 = [WeakRetained accessQueue];
+    v9 = [WeakRetained accessQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10001F2BC;
     block[3] = &unk_10023FFE0;
-    objc_copyWeak(&v11, (a1 + 40));
+    objc_copyWeak(&v12, (a1 + 40));
     block[4] = *(a1 + 32);
-    v12 = a2;
-    v13 = a3;
-    dispatch_async(v8, block);
+    v13 = a2;
+    v14 = a3;
+    dispatch_async(v9, block);
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v12);
   }
 
   else
   {
-    v9 = sub_100002660();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100002660(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001BE4B0(a1);
     }
@@ -5559,33 +5344,34 @@ void sub_10001F1A0(uint64_t a1, char a2, char a3)
 void sub_10001F2BC(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if ([WeakRetained gettingAccountInfo])
+  v3 = [WeakRetained gettingAccountInfo];
+  if (v3)
   {
     goto LABEL_26;
   }
 
-  v3 = sub_10000DC08();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = sub_10000DC08(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v4 = [*(a1 + 32) configuration];
-    v5 = [v4 containerIdentifier];
+    v5 = [*(a1 + 32) configuration];
+    v6 = [v5 containerIdentifier];
     if (*(a1 + 48))
     {
-      v6 = @"YES";
+      v7 = @"YES";
     }
 
     else
     {
-      v6 = @"NO";
+      v7 = @"NO";
     }
 
     *buf = 138543874;
-    v30 = v5;
-    v31 = 2114;
-    v32 = v6;
-    v33 = 1024;
-    v34 = [WeakRetained enableCloudSync];
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "BCCloudKitController (%{public}@) - Update Attachment Current State: attached:%{public}@ enableCloudSync:%{BOOL}d", buf, 0x1Cu);
+    v33 = v6;
+    v34 = 2114;
+    v35 = v7;
+    v36 = 1024;
+    v37 = [WeakRetained enableCloudSync];
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "BCCloudKitController (%{public}@) - Update Attachment Current State: attached:%{public}@ enableCloudSync:%{BOOL}d", buf, 0x1Cu);
   }
 
   if (*(a1 + 48))
@@ -5593,48 +5379,49 @@ void sub_10001F2BC(uint64_t a1)
     goto LABEL_8;
   }
 
-  if (([WeakRetained enableCloudSync] & 1) == 0)
+  v8 = [WeakRetained enableCloudSync];
+  if ((v8 & 1) == 0)
   {
     if ((*(a1 + 48) & 1) == 0)
     {
 LABEL_17:
-      v14 = sub_10000DC08();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v16 = sub_10000DC08(v8);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v15 = [*(a1 + 32) configuration];
-        v16 = [v15 containerIdentifier];
+        v17 = [*(a1 + 32) configuration];
+        v18 = [v17 containerIdentifier];
         *buf = 138543362;
-        v30 = v16;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "BCCloudKitController (%{public}@) - Update Attachment: No change to attachment.", buf, 0xCu);
+        v33 = v18;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "BCCloudKitController (%{public}@) - Update Attachment: No change to attachment.", buf, 0xCu);
       }
 
       if ([WeakRetained enableCloudSync])
       {
-        v17 = [WeakRetained container];
-        if (v17)
+        v19 = [WeakRetained container];
+        if (v19)
         {
-          v18 = *(a1 + 48);
+          v20 = *(a1 + 48);
 
-          if (v18)
+          if (v20)
           {
-            v19 = sub_10000DC08();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            v22 = sub_10000DC08(v21);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
             {
-              v20 = [*(a1 + 32) configuration];
-              v21 = [v20 containerIdentifier];
-              v22 = [*(a1 + 32) configuration];
-              v23 = [v22 dbSubscriptionID];
+              v23 = [*(a1 + 32) configuration];
+              v24 = [v23 containerIdentifier];
+              v25 = [*(a1 + 32) configuration];
+              v26 = [v25 dbSubscriptionID];
               *buf = 138543618;
-              v30 = v21;
-              v31 = 2114;
-              v32 = v23;
-              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "BCCloudKitController (%{public}@) - Update Attachment: Signaling fetch changes for %{public}@", buf, 0x16u);
+              v33 = v24;
+              v34 = 2114;
+              v35 = v26;
+              _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "BCCloudKitController (%{public}@) - Update Attachment: Signaling fetch changes for %{public}@", buf, 0x16u);
             }
 
-            v24 = [WeakRetained transactionManager];
-            v25 = [*(a1 + 32) configuration];
-            v26 = [v25 dbSubscriptionID];
-            [v24 signalFetchChangesTransaction:v26];
+            v27 = [WeakRetained transactionManager];
+            v28 = [*(a1 + 32) configuration];
+            v29 = [v28 dbSubscriptionID];
+            [v27 signalFetchChangesTransaction:v29];
           }
         }
       }
@@ -5644,21 +5431,22 @@ LABEL_17:
     }
 
 LABEL_8:
-    if (([WeakRetained enableCloudSync] & 1) == 0)
+    v8 = [WeakRetained enableCloudSync];
+    if ((v8 & 1) == 0)
     {
-      v7 = sub_10000DC08();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_10000DC08(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = [*(a1 + 32) configuration];
-        v9 = [v8 containerIdentifier];
+        v10 = [*(a1 + 32) configuration];
+        v11 = [v10 containerIdentifier];
         *buf = 138543362;
-        v30 = v9;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "BCCloudKitController (%{public}@) - Update Attachment: detaching from database controller", buf, 0xCu);
+        v33 = v11;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "BCCloudKitController (%{public}@) - Update Attachment: detaching from database controller", buf, 0xCu);
       }
 
       [*(a1 + 32) setContainer:0];
-      v10 = [WeakRetained privateCloudDatabaseController];
-      [v10 detach];
+      v12 = [WeakRetained privateCloudDatabaseController];
+      [v12 detach];
 
       [WeakRetained p_flushPendingRequestUpdateAttachmentCompletionBlocksWithAttached:*(a1 + 48) reachable:*(a1 + 49)];
       goto LABEL_26;
@@ -5667,24 +5455,24 @@ LABEL_8:
     goto LABEL_17;
   }
 
-  v11 = sub_10000DC08();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_10000DC08(v8);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = [*(a1 + 32) configuration];
-    v13 = [v12 containerIdentifier];
+    v14 = [*(a1 + 32) configuration];
+    v15 = [v14 containerIdentifier];
     *buf = 138543362;
-    v30 = v13;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "BCCloudKitController (%{public}@) - Update Attachment: getting account info", buf, 0xCu);
+    v33 = v15;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "BCCloudKitController (%{public}@) - Update Attachment: getting account info", buf, 0xCu);
   }
 
-  v27[0] = _NSConcreteStackBlock;
-  v27[1] = 3221225472;
-  v27[2] = sub_10001F75C;
-  v27[3] = &unk_10023FFB8;
-  v27[4] = *(a1 + 32);
-  objc_copyWeak(&v28, (a1 + 40));
-  [WeakRetained p_getAccountInfoWithCompletion:v27];
-  objc_destroyWeak(&v28);
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_10001F75C;
+  v30[3] = &unk_10023FFB8;
+  v30[4] = *(a1 + 32);
+  objc_copyWeak(&v31, (a1 + 40));
+  [WeakRetained p_getAccountInfoWithCompletion:v30];
+  objc_destroyWeak(&v31);
 LABEL_26:
 }
 
@@ -5692,7 +5480,7 @@ void sub_10001F75C(uint64_t a1, int a2)
 {
   if (a2)
   {
-    v3 = sub_10000DC08();
+    v3 = sub_10000DC08(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       sub_1001BE558(a1);
@@ -5803,85 +5591,84 @@ void sub_10002020C(uint64_t a1)
       v9 = ;
 
       v10 = (a1 + 64);
-      [v3 setCurrentStatus:*(a1 + 64)];
-      v11 = sub_10000DC08();
+      v11 = sub_10000DC08([v3 setCurrentStatus:*(a1 + 64)]);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         sub_1001BE604((a1 + 64), v11);
       }
 
-      v12 = *v10;
+      v13 = *v10;
       if (*v10 <= 1)
       {
-        if (!v12)
+        if (!v13)
         {
-          v26 = sub_100002660();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v28 = sub_100002660(v12);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
-            v27 = *(a1 + 32);
+            v29 = *(a1 + 32);
             *buf = 138543362;
-            v55 = v27;
-            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "BCCloudKitController - CKAccountStatusCouldNotDetermine: %{public}@", buf, 0xCu);
+            v57 = v29;
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "BCCloudKitController - CKAccountStatusCouldNotDetermine: %{public}@", buf, 0xCu);
           }
 
           [v5 detach];
           [v3 setGettingAccountInfo:0];
-          v29 = (a1 + 32);
-          v28 = *(a1 + 32);
-          if (v28 && ([v28 userInfo], v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "objectForKeyedSubscript:", CKErrorRetryAfterKey), v31 = objc_claimAutoreleasedReturnValue(), v30, v31))
+          v31 = (a1 + 32);
+          v30 = *(a1 + 32);
+          if (v30 && ([v30 userInfo], v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v32, "objectForKeyedSubscript:", CKErrorRetryAfterKey), v33 = objc_claimAutoreleasedReturnValue(), v32, v33))
           {
-            [v31 doubleValue];
-            v33 = dispatch_time(0, (v32 * 1000000000.0));
-            v34 = [v3 accessQueue];
+            [v33 doubleValue];
+            v35 = dispatch_time(0, (v34 * 1000000000.0));
+            v36 = [v3 accessQueue];
             block[0] = _NSConcreteStackBlock;
             block[1] = 3221225472;
             block[2] = sub_100020810;
             block[3] = &unk_100240058;
-            objc_copyWeak(&v53, (a1 + 56));
-            dispatch_after(v33, v34, block);
+            objc_copyWeak(&v55, (a1 + 56));
+            dispatch_after(v35, v36, block);
 
-            objc_destroyWeak(&v53);
+            objc_destroyWeak(&v55);
           }
 
           else
           {
-            v35 = sub_100002660();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+            v37 = sub_100002660(v30);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
             {
-              sub_1001BE680(v29, v35, v36, v37, v38, v39, v40, v41);
+              sub_1001BE680(v31, v37, v38, v39, v40, v41, v42, v43);
             }
           }
 
           goto LABEL_30;
         }
 
-        if (v12 == 1)
+        if (v13 == 1)
         {
-          v16 = sub_100002660();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v17 = sub_100002660(v12);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
-            v17 = [v3 configuration];
-            v18 = [v17 containerIdentifier];
+            v18 = [v3 configuration];
+            v19 = [v18 containerIdentifier];
             *buf = 138543362;
-            v55 = v18;
-            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "BCCloudKitController - Account Available for %{public}@", buf, 0xCu);
+            v57 = v19;
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "BCCloudKitController - Account Available for %{public}@", buf, 0xCu);
           }
 
-          v19 = [v3 configuration];
-          if ([v19 requiresDeviceToDeviceEncryption])
+          v20 = [v3 configuration];
+          if ([v20 requiresDeviceToDeviceEncryption])
           {
-            v20 = [*(a1 + 40) supportsDeviceToDeviceEncryption];
+            v21 = [*(a1 + 40) supportsDeviceToDeviceEncryption];
 
-            if ((v20 & 1) == 0)
+            if ((v21 & 1) == 0)
             {
-              v21 = sub_100002660();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+              v23 = sub_100002660(v22);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
               {
-                v22 = [v3 configuration];
-                v23 = [v22 containerIdentifier];
+                v24 = [v3 configuration];
+                v25 = [v24 containerIdentifier];
                 *buf = 138543362;
-                v55 = v23;
-                _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Container %{public}@ requires device-to-device encryption but user's account does not support it.  Not connecting.", buf, 0xCu);
+                v57 = v25;
+                _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Container %{public}@ requires device-to-device encryption but user's account does not support it.  Not connecting.", buf, 0xCu);
               }
 
               goto LABEL_29;
@@ -5892,39 +5679,39 @@ void sub_10002020C(uint64_t a1)
           {
           }
 
-          v42 = [v3 configuration];
-          v43 = [v42 shouldPerformDatabaseSubscriptionForServiceMode:v6];
+          v44 = [v3 configuration];
+          v45 = [v44 shouldPerformDatabaseSubscriptionForServiceMode:v6];
 
-          v44 = [*(a1 + 48) privateCloudDatabase];
-          v45 = *(a1 + 48);
+          v46 = [*(a1 + 48) privateCloudDatabase];
+          v47 = *(a1 + 48);
+          v50[0] = _NSConcreteStackBlock;
+          v50[1] = 3221225472;
+          v50[2] = sub_100020850;
+          v50[3] = &unk_100240080;
+          v51 = v5;
+          v52 = v9;
+          v53 = v3;
           v48[0] = _NSConcreteStackBlock;
           v48[1] = 3221225472;
-          v48[2] = sub_100020850;
-          v48[3] = &unk_100240080;
-          v49 = v5;
-          v50 = v9;
-          v51 = v3;
-          v46[0] = _NSConcreteStackBlock;
-          v46[1] = 3221225472;
-          v46[2] = sub_100020950;
-          v46[3] = &unk_10023F6B0;
-          v47 = v51;
-          [v49 connectUserTo:v44 container:v45 updateSubscription:v43 completion:v48 subscriptionCompletion:v46];
+          v48[2] = sub_100020950;
+          v48[3] = &unk_10023F6B0;
+          v49 = v53;
+          [v51 connectUserTo:v46 container:v47 updateSubscription:v45 completion:v50 subscriptionCompletion:v48];
         }
       }
 
       else
       {
-        switch(v12)
+        switch(v13)
         {
           case 2:
-            v13 = sub_100002660();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v14 = sub_100002660(v12);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
-              v24 = *(a1 + 32);
+              v26 = *(a1 + 32);
               *buf = 138543362;
-              v55 = v24;
-              v15 = "Account Restricted.  Not syncing anything.  Account status error=%{public}@";
+              v57 = v26;
+              v16 = "Account Restricted.  Not syncing anything.  Account status error=%{public}@";
               goto LABEL_27;
             }
 
@@ -5935,27 +5722,27 @@ LABEL_29:
             [v3 setGettingAccountInfo:0];
             break;
           case 3:
-            v13 = sub_100002660();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v14 = sub_100002660(v12);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
-              v25 = *(a1 + 32);
+              v27 = *(a1 + 32);
               *buf = 138543362;
-              v55 = v25;
-              v15 = "Books isn't signed into iCloud.  Not syncing anything.  Account status error=%{public}@";
+              v57 = v27;
+              v16 = "Books isn't signed into iCloud.  Not syncing anything.  Account status error=%{public}@";
               goto LABEL_27;
             }
 
             goto LABEL_28;
           case 4:
-            v13 = sub_100002660();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v14 = sub_100002660(v12);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
-              v14 = *(a1 + 32);
+              v15 = *(a1 + 32);
               *buf = 138543362;
-              v55 = v14;
-              v15 = "Account Temporarily Unavailable.  Not syncing anything.  Account status error=%{public}@";
+              v57 = v15;
+              v16 = "Account Temporarily Unavailable.  Not syncing anything.  Account status error=%{public}@";
 LABEL_27:
-              _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v15, buf, 0xCu);
+              _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, v16, buf, 0xCu);
               goto LABEL_28;
             }
 
@@ -5981,12 +5768,12 @@ void sub_100020850(uint64_t a1, int a2, void *a3)
   {
     v6 = *(a1 + 32);
     v7 = *(a1 + 40);
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_100020944;
-    v9[3] = &unk_10023F6B0;
-    v10 = *(a1 + 48);
-    [v6 attachToZones:v7 completion:v9];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100020944;
+    v10[3] = &unk_10023F6B0;
+    v11 = *(a1 + 48);
+    [v6 attachToZones:v7 completion:v10];
 
     if (!v5)
     {
@@ -5996,15 +5783,15 @@ void sub_100020850(uint64_t a1, int a2, void *a3)
 
   else
   {
-    [*(a1 + 48) setGettingAccountInfo:0];
+    v8 = [*(a1 + 48) setGettingAccountInfo:0];
     if (!v5)
     {
       goto LABEL_8;
     }
   }
 
-  v8 = sub_100002660();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = sub_100002660(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     sub_1001BE6F0();
   }
@@ -6014,7 +5801,7 @@ LABEL_8:
 
 void sub_100020950(uint64_t a1)
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) configuration];
@@ -6073,20 +5860,21 @@ void sub_1000212C0(uint64_t a1)
 {
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) enableCloudSync];
-  v4 = sub_10000DC08();
-  v5 = v4;
-  if (v3)
+  v4 = v3;
+  v5 = sub_10000DC08(v3);
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [*(a1 + 32) configuration];
-      v7 = [v6 containerIdentifier];
-      v8 = *(a1 + 40);
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2114;
-      v12 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "BCCloudKitController (%{public}@) - Asked to fetch changes for %{public}@ while detached - attempt attachment.", &v9, 0x16u);
+      v7 = [*(a1 + 32) configuration];
+      v8 = [v7 containerIdentifier];
+      v9 = *(a1 + 40);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2114;
+      v13 = v9;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "BCCloudKitController (%{public}@) - Asked to fetch changes for %{public}@ while detached - attempt attachment.", &v10, 0x16u);
     }
 
     [*v2 aq_requestUpdateAttachment];
@@ -6094,9 +5882,9 @@ void sub_1000212C0(uint64_t a1)
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1001BE758(v2, a1);
+      sub_1001BE758(v2);
     }
   }
 }
@@ -6110,10 +5898,11 @@ void sub_1000213EC(uint64_t a1)
   }
 }
 
-void sub_100021618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_100021618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6123,48 +5912,48 @@ void sub_100021638(id *a1)
   v3 = [WeakRetained container];
 
   v4 = v3 == 0;
-  v5 = sub_10000DC08();
-  v6 = v5;
+  v6 = sub_10000DC08(v5);
+  v7 = v6;
   if (v4)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      sub_1001BE8C4(v6);
+      sub_1001BE8C4(v7);
     }
 
-    v10 = objc_retainBlock(a1[5]);
-    v11 = v10;
-    if (v10)
+    v11 = objc_retainBlock(a1[5]);
+    v12 = v11;
+    if (v11)
     {
-      (*(v10 + 2))(v10, 1);
+      (*(v11 + 2))(v11, 1);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [a1[4] currentUserIDName];
+      v8 = [a1[4] currentUserIDName];
       *buf = 138412546;
-      v17 = v7;
-      v18 = 2048;
-      v19 = [WeakRetained currentStatus];
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "_updateAccountCacheWithTimeout fetchUserRecordIDWithCompletionHandler currentUserIDName:%@ status:%ld ", buf, 0x16u);
+      v18 = v8;
+      v19 = 2048;
+      v20 = [WeakRetained currentStatus];
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "_updateAccountCacheWithTimeout fetchUserRecordIDWithCompletionHandler currentUserIDName:%@ status:%ld ", buf, 0x16u);
     }
 
-    v8 = [WeakRetained container];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_100021838;
-    v13[3] = &unk_100240198;
-    objc_copyWeak(&v15, a1 + 7);
-    v13[4] = a1[4];
-    v12 = *(a1 + 5);
-    v9 = v12;
-    v14 = v12;
-    [v8 fetchUserRecordIDWithCompletionHandler:v13];
+    v9 = [WeakRetained container];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_100021838;
+    v14[3] = &unk_100240198;
+    objc_copyWeak(&v16, a1 + 7);
+    v14[4] = a1[4];
+    v13 = *(a1 + 5);
+    v10 = v13;
+    v15 = v13;
+    [v9 fetchUserRecordIDWithCompletionHandler:v14];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v16);
   }
 }
 
@@ -6177,39 +5966,39 @@ void sub_100021838(uint64_t a1, void *a2, void *a3)
 
   if (v8)
   {
-    v9 = [WeakRetained accessQueue];
+    v10 = [WeakRetained accessQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000219C8;
     block[3] = &unk_100240170;
-    v16 = v5;
-    v10 = WeakRetained;
-    v11 = *(a1 + 32);
-    v17 = v10;
+    v17 = v5;
+    v11 = WeakRetained;
+    v12 = *(a1 + 32);
     v18 = v11;
-    v21 = *(a1 + 48);
-    v19 = v6;
-    objc_copyWeak(&v22, (a1 + 56));
-    v20 = *(a1 + 40);
-    dispatch_async(v9, block);
+    v19 = v12;
+    v22 = *(a1 + 48);
+    v20 = v6;
+    objc_copyWeak(&v23, (a1 + 56));
+    v21 = *(a1 + 40);
+    dispatch_async(v10, block);
 
-    objc_destroyWeak(&v22);
-    v12 = v16;
+    objc_destroyWeak(&v23);
+    v13 = v17;
   }
 
   else
   {
-    v13 = sub_10000DC08();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_10000DC08(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_1001BE908(v13);
+      sub_1001BE908(v14);
     }
 
-    v14 = objc_retainBlock(*(a1 + 40));
-    v12 = v14;
-    if (v14)
+    v15 = objc_retainBlock(*(a1 + 40));
+    v13 = v15;
+    if (v15)
     {
-      (*(v14 + 2))(v14, 0);
+      (*(v15 + 2))(v15, 0);
     }
   }
 }
@@ -6222,49 +6011,50 @@ void sub_1000219C8(uint64_t a1)
 
   if ((v4 & 1) == 0)
   {
-    v10 = sub_10000DC08();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_10000DC08(v5);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [*(a1 + 48) configuration];
-      v12 = [v11 containerIdentifier];
-      v13 = [*(a1 + 48) currentUserIDName];
-      v14 = [*(a1 + 32) recordName];
+      v15 = [*(a1 + 48) configuration];
+      v16 = [v15 containerIdentifier];
+      v17 = [*(a1 + 48) currentUserIDName];
+      v18 = [*(a1 + 32) recordName];
       *buf = 138543874;
-      v34 = v12;
-      v35 = 2112;
-      v36 = v13;
-      v37 = 2112;
-      v38 = v14;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "(%{public}@) currentUserIDName from:%@ to:%@ has changed! ", buf, 0x20u);
+      v38 = v16;
+      v39 = 2112;
+      v40 = v17;
+      v41 = 2112;
+      v42 = v18;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "(%{public}@) currentUserIDName from:%@ to:%@ has changed! ", buf, 0x20u);
     }
 
-    v15 = [*(a1 + 32) recordName];
-    [*(a1 + 40) setCurrentUserIDName:v15];
+    v19 = [*(a1 + 32) recordName];
+    [*(a1 + 40) setCurrentUserIDName:v19];
 
     goto LABEL_13;
   }
 
-  v5 = [*(a1 + 56) domain];
-  v6 = [v5 isEqualToString:CKErrorDomain];
+  v6 = [*(a1 + 56) domain];
+  v7 = [v6 isEqualToString:CKErrorDomain];
 
-  if (!v6)
+  if (!v7)
   {
     goto LABEL_14;
   }
 
-  if ([*(a1 + 56) code] != 9)
+  v9 = [*(a1 + 56) code];
+  if (v9 != 9)
   {
-    v16 = sub_10000DC08();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_10000DC08(v9);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = [*(a1 + 48) configuration];
-      v18 = [v17 containerIdentifier];
-      v19 = [*(a1 + 48) currentUserIDName];
+      v21 = [*(a1 + 48) configuration];
+      v22 = [v21 containerIdentifier];
+      v23 = [*(a1 + 48) currentUserIDName];
       *buf = 138543618;
-      v34 = v18;
-      v35 = 2112;
-      v36 = v19;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "(%{public}@) Unknown error while fetching account. Assuming we had a change with currentUserIDName:%@ ", buf, 0x16u);
+      v38 = v22;
+      v39 = 2112;
+      v40 = v23;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "(%{public}@) Unknown error while fetching account. Assuming we had a change with currentUserIDName:%@ ", buf, 0x16u);
     }
 
 LABEL_13:
@@ -6273,53 +6063,53 @@ LABEL_13:
   }
 
   [*(a1 + 40) setCurrentUserIDName:0];
-  [*(a1 + 40) setCurrentStatus:0];
+  v10 = [*(a1 + 40) setCurrentStatus:0];
   *(*(*(a1 + 72) + 8) + 24) = 1;
-  v7 = sub_10000DC08();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_10000DC08(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = [*(a1 + 48) configuration];
-    v9 = [v8 containerIdentifier];
+    v12 = [*(a1 + 48) configuration];
+    v13 = [v12 containerIdentifier];
     *buf = 138543362;
-    v34 = v9;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@) CKErrorNotAuthenticated  resetting current account values ", buf, 0xCu);
+    v38 = v13;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "(%{public}@) CKErrorNotAuthenticated  resetting current account values ", buf, 0xCu);
   }
 
 LABEL_14:
-  v20 = a1 + 72;
+  v24 = a1 + 72;
   if (*(*(*(a1 + 72) + 8) + 24))
   {
-    v21 = sub_10000DC08();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v25 = sub_10000DC08(v8);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      sub_1001BE94C(a1, a1 + 72, v21);
+      sub_1001BE94C(a1, a1 + 72, v25);
     }
 
-    v22 = objc_retainBlock(*(a1 + 64));
-    v23 = v22;
-    if (v22)
+    v26 = objc_retainBlock(*(a1 + 64));
+    v27 = v26;
+    if (v26)
     {
-      (*(v22 + 2))(v22, *(*(*v20 + 8) + 24));
+      (*(v26 + 2))(v26, *(*(*v24 + 8) + 24));
     }
   }
 
   else
   {
-    v24 = [*(a1 + 40) container];
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_100021E18;
-    v29[3] = &unk_100240148;
-    objc_copyWeak(&v32, (a1 + 80));
-    v27 = *(a1 + 40);
-    v25 = v27.i64[0];
-    v30 = vextq_s8(v27, v27, 8uLL);
-    v28 = *(a1 + 64);
-    v26 = v28;
-    v31 = v28;
-    [v24 accountStatusWithCompletionHandler:v29];
+    v28 = [*(a1 + 40) container];
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_100021E18;
+    v33[3] = &unk_100240148;
+    objc_copyWeak(&v36, (a1 + 80));
+    v31 = *(a1 + 40);
+    v29 = v31.i64[0];
+    v34 = vextq_s8(v31, v31, 8uLL);
+    v32 = *(a1 + 64);
+    v30 = v32;
+    v35 = v32;
+    [v28 accountStatusWithCompletionHandler:v33];
 
-    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v36);
   }
 }
 
@@ -6361,14 +6151,13 @@ void sub_100021E18(uint64_t a1, uint64_t a2)
 
 void sub_100021F50(uint64_t a1)
 {
-  v2 = (a1 + 72);
-  v3 = *(a1 + 72);
-  v4 = [*(a1 + 32) currentStatus];
-  v5 = sub_10000DC08();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
-  if (v3 == v4)
+  v2 = *(a1 + 72);
+  v3 = [*(a1 + 32) currentStatus];
+  v4 = sub_10000DC08(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  if (v2 == v3)
   {
-    if (v6)
+    if (v5)
     {
       sub_1001BEAFC(a1);
     }
@@ -6376,20 +6165,20 @@ void sub_100021F50(uint64_t a1)
 
   else
   {
-    if (v6)
+    if (v5)
     {
-      sub_1001BEA1C(a1, v2);
+      sub_1001BEA1C(a1);
     }
 
     [*(a1 + 32) setCurrentStatus:*(a1 + 72)];
     *(*(*(a1 + 64) + 8) + 24) = 1;
   }
 
-  v7 = objc_retainBlock(*(a1 + 56));
-  v8 = v7;
-  if (v7)
+  v6 = objc_retainBlock(*(a1 + 56));
+  v7 = v6;
+  if (v6)
   {
-    (*(v7 + 2))(v7, *(*(*(a1 + 64) + 8) + 24));
+    (*(v6 + 2))(v6, *(*(*(a1 + 64) + 8) + 24));
   }
 }
 
@@ -6407,31 +6196,31 @@ void sub_100022458(uint64_t a1)
 
   if (v3)
   {
-    v4 = [WeakRetained accessQueue];
+    v5 = [WeakRetained accessQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10002256C;
     block[3] = &unk_10023F6B0;
-    v9 = WeakRetained;
-    dispatch_async(v4, block);
+    v10 = WeakRetained;
+    dispatch_async(v5, block);
 
-    v5 = v9;
+    v6 = v10;
   }
 
   else
   {
-    v5 = sub_100002660();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100002660(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1001BEE68(v5);
+      sub_1001BEE68(v6);
     }
   }
 
-  v6 = objc_retainBlock(*(a1 + 32));
-  v7 = v6;
-  if (v6)
+  v7 = objc_retainBlock(*(a1 + 32));
+  v8 = v7;
+  if (v7)
   {
-    (*(v6 + 2))(v6);
+    (*(v7 + 2))(v7);
   }
 }
 
@@ -6493,37 +6282,38 @@ void sub_100022FA4(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = sub_100002660();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = sub_100002660(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = [WeakRetained containerIdentifier];
+      v7 = [v5 containerIdentifier];
       *buf = 138412290;
-      v15 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "_coalescedArchive (%@)", buf, 0xCu);
+      v16 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "_coalescedArchive (%@)", buf, 0xCu);
     }
 
-    v7 = [WeakRetained accessQueue];
+    v8 = [v5 accessQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100023150;
     block[3] = &unk_100240228;
-    objc_copyWeak(&v13, (a1 + 40));
-    v11 = *(a1 + 32);
-    v12 = v3;
-    dispatch_async(v7, block);
+    objc_copyWeak(&v14, (a1 + 40));
+    v12 = *(a1 + 32);
+    v13 = v3;
+    dispatch_async(v8, block);
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
   }
 
   else
   {
-    v8 = objc_retainBlock(v3);
-    v9 = v8;
-    if (v8)
+    v9 = objc_retainBlock(v3);
+    v10 = v9;
+    if (v9)
     {
-      (*(v8 + 2))(v8);
+      (*(v9 + 2))(v9);
     }
   }
 }
@@ -6548,7 +6338,7 @@ void sub_100023150(uint64_t a1)
 void sub_1000231E0(id a1, NSString *a2)
 {
   v2 = a2;
-  v3 = sub_100002660();
+  v3 = sub_100002660(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 138543362;
@@ -6561,36 +6351,37 @@ void sub_10002328C(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = sub_100002660();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = sub_100002660(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = [WeakRetained containerIdentifier];
+      v7 = [v5 containerIdentifier];
       *buf = 138412290;
-      v14 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "_coalescedZoneFetch (%@)", buf, 0xCu);
+      v15 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "_coalescedZoneFetch (%@)", buf, 0xCu);
     }
 
-    v7 = [WeakRetained accessQueue];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100023424;
-    v10[3] = &unk_10023FE48;
-    objc_copyWeak(&v12, (a1 + 32));
-    v11 = v3;
-    dispatch_async(v7, v10);
+    v8 = [v5 accessQueue];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100023424;
+    v11[3] = &unk_10023FE48;
+    objc_copyWeak(&v13, (a1 + 32));
+    v12 = v3;
+    dispatch_async(v8, v11);
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v13);
   }
 
   else
   {
-    v8 = objc_retainBlock(v3);
-    v9 = v8;
-    if (v8)
+    v9 = objc_retainBlock(v3);
+    v10 = v9;
+    if (v9)
     {
-      (*(v8 + 2))(v8);
+      (*(v9 + 2))(v9);
     }
   }
 }
@@ -6627,25 +6418,26 @@ void sub_100023424(uint64_t a1)
 void sub_100023548(id *a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_100002660();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100002660(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1001BEEAC();
     }
   }
 
-  v5 = [a1[4] accessQueue];
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_100023640;
-  v6[3] = &unk_10023FE48;
-  objc_copyWeak(&v8, a1 + 6);
-  v7 = a1[5];
-  dispatch_async(v5, v6);
+  v6 = [a1[4] accessQueue];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_100023640;
+  v7[3] = &unk_10023FE48;
+  objc_copyWeak(&v9, a1 + 6);
+  v8 = a1[5];
+  dispatch_async(v6, v7);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v9);
 }
 
 void sub_100023640(uint64_t a1)
@@ -6656,16 +6448,16 @@ void sub_100023640(uint64_t a1)
   {
     v4 = [v3 database];
 
-    v5 = sub_100002660();
-    v6 = v5;
+    v6 = sub_100002660(v5);
+    v7 = v6;
     if (v4)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = [v3 containerIdentifier];
-        v10 = 138412290;
-        v11 = v7;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController - attached to container: %@", &v10, 0xCu);
+        v8 = [v3 containerIdentifier];
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController - attached to container: %@", &v11, 0xCu);
       }
 
       [v3 setAttachedToContainer:1];
@@ -6674,25 +6466,25 @@ void sub_100023640(uint64_t a1)
 
     else
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_1001BEF14(v3);
       }
     }
   }
 
-  v8 = objc_retainBlock(*(a1 + 32));
-  v9 = v8;
-  if (v8)
+  v9 = objc_retainBlock(*(a1 + 32));
+  v10 = v9;
+  if (v9)
   {
-    (*(v8 + 2))(v8);
+    (*(v9 + 2))(v9);
   }
 }
 
 void sub_1000237A0(id a1, NSString *a2)
 {
   v2 = a2;
-  v3 = sub_100002660();
+  v3 = sub_100002660(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_1001BEFA0();
@@ -6748,7 +6540,7 @@ void sub_100023B10(uint64_t a1, void *a2)
       goto LABEL_12;
     }
 
-    v6 = sub_100002660();
+    v6 = sub_100002660(WeakRetained);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1001BF008(v5);
@@ -6781,46 +6573,47 @@ LABEL_12:
 void sub_100023C78(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = sub_100002660();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = sub_100002660(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v4 = [WeakRetained containerIdentifier];
-      v5 = [WeakRetained changedRecordZoneIDs];
-      v6 = [v5 allObjects];
+      v5 = [v3 containerIdentifier];
+      v6 = [v3 changedRecordZoneIDs];
+      v7 = [v6 allObjects];
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_10003104C;
-      v15 = &unk_100240B70;
-      v16 = objc_alloc_init(NSMutableArray);
-      v7 = v16;
-      [v6 enumerateObjectsUsingBlock:buf];
-      v8 = [v7 componentsJoinedByString:{@", "}];
+      v16 = &unk_100240B70;
+      v17 = objc_alloc_init(NSMutableArray);
+      v8 = v17;
+      [v7 enumerateObjectsUsingBlock:buf];
+      v9 = [v8 componentsJoinedByString:{@", "}];
 
       *buf = 138543618;
-      *&buf[4] = v4;
+      *&buf[4] = v5;
       *&buf[12] = 2114;
-      *&buf[14] = v8;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "BCCloudKitDatabaseController (%{public}@) - signal coalescedZoneFetch in fetchChangesWithCompletion for changedRecordZoneIDs:%{public}@", buf, 0x16u);
+      *&buf[14] = v9;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "BCCloudKitDatabaseController (%{public}@) - signal coalescedZoneFetch in fetchChangesWithCompletion for changedRecordZoneIDs:%{public}@", buf, 0x16u);
     }
 
-    v9 = [WeakRetained coalescedZoneFetch];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100023EC4;
-    v12[3] = &unk_1002402E0;
-    v13 = *(a1 + 32);
-    [v9 signalWithCompletion:v12];
+    v10 = [v3 coalescedZoneFetch];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100023EC4;
+    v13[3] = &unk_1002402E0;
+    v14 = *(a1 + 32);
+    [v10 signalWithCompletion:v13];
   }
 
   else
   {
-    v10 = objc_retainBlock(*(a1 + 32));
-    v11 = v10;
-    if (v10)
+    v11 = objc_retainBlock(*(a1 + 32));
+    v12 = v11;
+    if (v11)
     {
-      (*(v10 + 2))(v10, 0);
+      (*(v11 + 2))(v11, 0);
     }
   }
 }
@@ -6841,48 +6634,48 @@ void sub_100024024(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [WeakRetained database];
 
-  v4 = sub_100002660();
-  v5 = v4;
+  v5 = sub_100002660(v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      sub_1001BF0AC(WeakRetained, v5);
+      sub_1001BF0AC(WeakRetained, v6);
     }
 
-    v6 = [WeakRetained database];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_1000241D8;
-    v12[3] = &unk_100240330;
-    v7 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    [v6 fetchRecordWithID:v7 completionHandler:v12];
+    v7 = [WeakRetained database];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_1000241D8;
+    v13[3] = &unk_100240330;
+    v8 = *(a1 + 32);
+    v14 = *(a1 + 40);
+    [v7 fetchRecordWithID:v8 completionHandler:v13];
 
-    v8 = v13;
+    v9 = v14;
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v9 = [WeakRetained attachedToContainer];
-      v10 = @"NO";
-      if (v9)
+      v10 = [WeakRetained attachedToContainer];
+      v11 = @"NO";
+      if (v10)
       {
-        v10 = @"YES";
+        v11 = @"YES";
       }
 
       *buf = 138412290;
-      v15 = v10;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "WARNING: BCCloudKitDatabaseController - fetchRecordForRecordID called without a database.  attached: %@", buf, 0xCu);
+      v16 = v11;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "WARNING: BCCloudKitDatabaseController - fetchRecordForRecordID called without a database.  attached: %@", buf, 0xCu);
     }
 
-    v11 = objc_retainBlock(*(a1 + 40));
-    v8 = v11;
-    if (v11)
+    v12 = objc_retainBlock(*(a1 + 40));
+    v9 = v12;
+    if (v12)
     {
-      (*(v11 + 2))(v11, 0);
+      (*(v12 + 2))(v12, 0);
     }
   }
 }
@@ -6912,53 +6705,53 @@ void sub_100024338(uint64_t a1)
   v2 = [*(a1 + 32) containerIdentifier];
   if (v2 && (v3 = v2, [*(a1 + 32) containerIdentifier], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isEqualToString:", *(a1 + 40)), v4, v3, (v5 & 1) == 0))
   {
-    v7 = sub_100002660();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100002660(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [*(a1 + 32) containerIdentifier];
-      v9 = *(a1 + 40);
+      v9 = [*(a1 + 32) containerIdentifier];
+      v10 = *(a1 + 40);
       *buf = 138543618;
-      v16 = v8;
-      v17 = 2114;
-      v18 = v9;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController - containerIdentifer changed from: %{public}@ to: %{public}@", buf, 0x16u);
+      v17 = v9;
+      v18 = 2114;
+      v19 = v10;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController - containerIdentifer changed from: %{public}@ to: %{public}@", buf, 0x16u);
     }
 
     if ((*(a1 + 56) & 1) == 0)
     {
-      v10 = [*(a1 + 32) containerIdentifier];
-      v11 = [CKContainer containerWithIdentifier:v10];
+      v11 = [*(a1 + 32) containerIdentifier];
+      v12 = [CKContainer containerWithIdentifier:v11];
 
-      [*(a1 + 32) p_unsubscribeToContainer:v11];
+      [*(a1 + 32) p_unsubscribeToContainer:v12];
     }
 
     [*(a1 + 32) setHasSubscription:0];
     [*(a1 + 32) setServerChangeToken:0];
     [*(a1 + 32) setContainerIdentifier:0];
     [*(a1 + 32) p_scheduleArchiveWithCompletion:&stru_100240350];
-    v12 = objc_retainBlock(*(a1 + 48));
-    v13 = v12;
-    if (v12)
+    v13 = objc_retainBlock(*(a1 + 48));
+    v14 = v13;
+    if (v13)
     {
-      (*(v12 + 2))(v12, 1);
+      (*(v13 + 2))(v13, 1);
     }
   }
 
   else
   {
-    v6 = objc_retainBlock(*(a1 + 48));
-    if (v6)
+    v7 = objc_retainBlock(*(a1 + 48));
+    if (v7)
     {
-      v14 = v6;
-      (*(v6 + 2))(v6, 0);
-      v6 = v14;
+      v15 = v7;
+      (*(v7 + 2))(v7, 0);
+      v7 = v15;
     }
   }
 }
 
 void sub_100024548(id a1)
 {
-  v1 = sub_100002660();
+  v1 = sub_100002660(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -6973,7 +6766,7 @@ void sub_10002475C(uint64_t a1, void *a2, void *a3)
   v7 = v6;
   if (!v5 || v6)
   {
-    v11 = sub_100002660();
+    v11 = sub_100002660(v6);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1001BF150();
@@ -7009,7 +6802,7 @@ void sub_10002475C(uint64_t a1, void *a2, void *a3)
 
 void sub_1000248D8(uint64_t a1)
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) containerIdentifier];
@@ -7050,7 +6843,7 @@ void sub_1000248D8(uint64_t a1)
 
 void sub_100024A5C(id a1)
 {
-  v1 = sub_100002660();
+  v1 = sub_100002660(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -7097,7 +6890,7 @@ void sub_100024D74(uint64_t a1)
 
 void sub_100024DD4(uint64_t a1)
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) containerIdentifier];
@@ -7156,15 +6949,15 @@ void sub_10002506C(uint64_t a1, void *a2)
   v4 = v3;
   if (!v3)
   {
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_100025298;
-    v15[3] = &unk_10023FED8;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100025298;
+    v16[3] = &unk_10023FED8;
     v8 = *(a1 + 32);
     v9 = *(a1 + 48);
-    v15[4] = *(a1 + 40);
-    v16 = v9;
-    dispatch_async(v8, v15);
+    v16[4] = *(a1 + 40);
+    v17 = v9;
+    dispatch_async(v8, v16);
 
     goto LABEL_14;
   }
@@ -7179,17 +6972,18 @@ void sub_10002506C(uint64_t a1, void *a2)
 
     else
     {
-      if (!sub_100025880(v4))
+      v12 = sub_100025880(v4);
+      if (!v12)
       {
-        v13 = sub_100002660();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = sub_100002660(v12);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          v14 = [*(a1 + 40) containerIdentifier];
+          v15 = [*(a1 + 40) containerIdentifier];
           *buf = 138412546;
-          v18 = v14;
-          v19 = 2112;
-          v20 = v4;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "[BCCloudKitDatabaseController (%@)] attachToZones creating record zones failed, ERROR:%@", buf, 0x16u);
+          v19 = v15;
+          v20 = 2112;
+          v21 = v4;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "[BCCloudKitDatabaseController (%@)] attachToZones creating record zones failed, ERROR:%@", buf, 0x16u);
         }
 
         goto LABEL_13;
@@ -7198,9 +6992,9 @@ void sub_10002506C(uint64_t a1, void *a2)
       v11 = 2007;
     }
 
-    v12 = sub_100031154(@"BDSCloudKitClientError", v11, v4);
+    v13 = sub_100031154(@"BDSCloudKitClientError", v11, v4);
 
-    v10 = v12;
+    v10 = v13;
 LABEL_13:
     [*(a1 + 40) zonesTemporarilyUnreadableWithError:v10 completion:*(a1 + 48)];
 
@@ -7502,7 +7296,7 @@ LABEL_16:
 
 void sub_100025B38(uint64_t a1)
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = [*(a1 + 32) containerIdentifier];
@@ -7590,7 +7384,7 @@ void sub_100026414(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   v7 = WeakRetained;
   if (v5 && WeakRetained)
   {
-    v8 = sub_100002660();
+    v8 = sub_100002660(WeakRetained);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
@@ -7628,84 +7422,85 @@ void sub_10002699C(id *a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = a4;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
+  v7 = WeakRetained;
   if (WeakRetained)
   {
-    v7 = sub_100002660();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = sub_100002660(WeakRetained);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (v5)
     {
-      if (v8)
+      if (v9)
       {
-        v9 = [a1[4] containerIdentifier];
+        v10 = [a1[4] containerIdentifier];
         *buf = 138543618;
-        v29 = v9;
-        v30 = 2114;
-        v31 = v5;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "CKModifySubscriptionsOperation (%{public}@) failed: %{public}@", buf, 0x16u);
+        v30 = v10;
+        v31 = 2114;
+        v32 = v5;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "CKModifySubscriptionsOperation (%{public}@) failed: %{public}@", buf, 0x16u);
       }
 
-      v10 = [v5 userInfo];
-      v11 = [v10 objectForKeyedSubscript:CKErrorRetryAfterKey];
+      v11 = [v5 userInfo];
+      v12 = [v11 objectForKeyedSubscript:CKErrorRetryAfterKey];
 
-      if (v11)
+      if (v12)
       {
-        [v11 doubleValue];
-        v13 = dispatch_time(0, (v12 * 1000000000.0));
-        v14 = [WeakRetained accessQueue];
+        [v12 doubleValue];
+        v14 = dispatch_time(0, (v13 * 1000000000.0));
+        v15 = [v7 accessQueue];
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_100026CB8;
         block[3] = &unk_10023FED8;
-        v26 = WeakRetained;
-        v27 = a1[5];
-        dispatch_after(v13, v14, block);
+        v27 = v7;
+        v28 = a1[5];
+        dispatch_after(v14, v15, block);
 
-        v15 = v26;
+        v16 = v27;
       }
 
       else
       {
-        v21 = objc_retainBlock(a1[5]);
-        v15 = v21;
-        if (v21)
+        v22 = objc_retainBlock(a1[5]);
+        v16 = v22;
+        if (v22)
         {
-          (*(v21 + 2))(v21);
+          (*(v22 + 2))(v22);
         }
       }
 
       goto LABEL_17;
     }
 
-    if (v8)
+    if (v9)
     {
-      v16 = [a1[4] containerIdentifier];
+      v17 = [a1[4] containerIdentifier];
       *buf = 138543362;
-      v29 = v16;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "CKModifySubscriptionsOperation Success for: (%{public}@)", buf, 0xCu);
+      v30 = v17;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "CKModifySubscriptionsOperation Success for: (%{public}@)", buf, 0xCu);
     }
 
-    v17 = [WeakRetained accessQueue];
+    v18 = [v7 accessQueue];
 
-    if (v17)
+    if (v18)
     {
-      v18 = [WeakRetained accessQueue];
-      v22[0] = _NSConcreteStackBlock;
-      v22[1] = 3221225472;
-      v22[2] = sub_100026CC4;
-      v22[3] = &unk_10023FED8;
-      v23 = WeakRetained;
-      v24 = a1[5];
-      dispatch_async(v18, v22);
+      v19 = [v7 accessQueue];
+      v23[0] = _NSConcreteStackBlock;
+      v23[1] = 3221225472;
+      v23[2] = sub_100026CC4;
+      v23[3] = &unk_10023FED8;
+      v24 = v7;
+      v25 = a1[5];
+      dispatch_async(v19, v23);
 
       goto LABEL_17;
     }
   }
 
-  v19 = objc_retainBlock(a1[5]);
-  v20 = v19;
-  if (v19)
+  v20 = objc_retainBlock(a1[5]);
+  v21 = v20;
+  if (v20)
   {
-    (*(v19 + 2))(v19);
+    (*(v20 + 2))(v20);
   }
 
 LABEL_17:
@@ -7730,7 +7525,7 @@ uint64_t sub_100027274(uint64_t result, uint64_t a2)
 void sub_10002728C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100002660();
+  v4 = sub_100002660(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -7759,7 +7554,7 @@ void sub_1000273D4(uint64_t a1)
 void sub_10002742C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100002660();
+  v4 = sub_100002660(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -7788,7 +7583,7 @@ void sub_100027574(uint64_t a1)
 void sub_1000275CC(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100002660();
+  v4 = sub_100002660(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -7831,7 +7626,7 @@ void sub_10002776C(uint64_t a1, void *a2)
 
 id sub_100027824(uint64_t a1)
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -7846,7 +7641,7 @@ id sub_100027824(uint64_t a1)
 
 void sub_1000278E4(id a1)
 {
-  v1 = sub_100002660();
+  v1 = sub_100002660(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -7873,7 +7668,7 @@ void sub_10002794C(uint64_t a1, void *a2)
 
 void sub_100027A18(uint64_t a1)
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -7897,7 +7692,7 @@ void sub_100027A18(uint64_t a1)
 
 void sub_100027B1C(id a1)
 {
-  v1 = sub_100002660();
+  v1 = sub_100002660(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -7909,86 +7704,87 @@ void sub_100027B84(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
   v6 = a2;
   v7 = a4;
-  if ([*(*(*(a1 + 48) + 8) + 40) count])
+  v8 = [*(*(*(a1 + 48) + 8) + 40) count];
+  if (v8)
   {
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 48);
-    v10 = *(*(v9 + 8) + 40);
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_100027E0C;
-    v22[3] = &unk_100240630;
-    v22[4] = v9;
-    [v8 zonesDeletedOrReset:v10 completion:v22];
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 48);
+    v11 = *(*(v10 + 8) + 40);
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_100027E0C;
+    v23[3] = &unk_100240630;
+    v23[4] = v10;
+    v8 = [v9 zonesDeletedOrReset:v11 completion:v23];
   }
 
   if (v7)
   {
-    v11 = sub_100002660();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100002660(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1001BF2F0();
     }
 
-    v12 = objc_retainBlock(*(a1 + 40));
-    v13 = v12;
-    if (!v12)
+    v13 = objc_retainBlock(*(a1 + 40));
+    v14 = v13;
+    if (!v13)
     {
       goto LABEL_9;
     }
 
-    v14 = v12[2];
+    v15 = v13[2];
 LABEL_8:
-    v14();
+    v15();
 LABEL_9:
 
     goto LABEL_14;
   }
 
-  v15 = sub_100002660();
-  v16 = v15;
+  v16 = sub_100002660(v8);
+  v17 = v16;
   if (!v6)
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "CKFetchDatabaseChangesOperation Success, but no serverChangeToken", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "CKFetchDatabaseChangesOperation Success, but no serverChangeToken", buf, 2u);
     }
 
-    v18 = objc_retainBlock(*(a1 + 40));
-    v13 = v18;
-    if (!v18)
+    v19 = objc_retainBlock(*(a1 + 40));
+    v14 = v19;
+    if (!v19)
     {
       goto LABEL_9;
     }
 
-    v14 = v18[2];
+    v15 = v19[2];
     goto LABEL_8;
   }
 
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v24 = v6;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "CKFetchDatabaseChangesOperation Success, serverChangeToken: %{public}@", buf, 0xCu);
+    v25 = v6;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "CKFetchDatabaseChangesOperation Success, serverChangeToken: %{public}@", buf, 0xCu);
   }
 
-  v17 = [*(a1 + 32) accessQueue];
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_100027EBC;
-  v19[3] = &unk_1002404D8;
-  v19[4] = *(a1 + 32);
-  v20 = v6;
-  v21 = *(a1 + 40);
-  dispatch_async(v17, v19);
+  v18 = [*(a1 + 32) accessQueue];
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100027EBC;
+  v20[3] = &unk_1002404D8;
+  v20[4] = *(a1 + 32);
+  v21 = v6;
+  v22 = *(a1 + 40);
+  dispatch_async(v18, v20);
 
 LABEL_14:
 }
 
 void sub_100027E0C(uint64_t a1)
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(*(*(a1 + 32) + 8) + 40);
@@ -8019,7 +7815,7 @@ void sub_100027EBC(id *a1)
 
 void sub_100027F78(uint64_t a1)
 {
-  v2 = sub_100002660();
+  v2 = sub_100002660(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -8040,16 +7836,16 @@ void sub_1000283A4(id *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_100002660();
+  v7 = sub_100002660(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [v5 allKeys];
     *&buf = _NSConcreteStackBlock;
     *(&buf + 1) = 3221225472;
-    v61 = sub_10003104C;
-    v62 = &unk_100240B70;
-    v63 = objc_alloc_init(NSMutableArray);
-    v9 = v63;
+    v66 = sub_10003104C;
+    v67 = &unk_100240B70;
+    v68 = objc_alloc_init(NSMutableArray);
+    v9 = v68;
     [v8 enumerateObjectsUsingBlock:&buf];
     v10 = [v9 componentsJoinedByString:{@", "}];
 
@@ -8058,108 +7854,110 @@ void sub_1000283A4(id *a1, void *a2, void *a3)
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "3. BCCloudKitDatabaseController - fetchRecordZonesOperation.fetchRecordZonesCompletionBlock fetchedZones:[%{public}@]", &buf, 0xCu);
   }
 
-  v53[0] = _NSConcreteStackBlock;
-  v53[1] = 3221225472;
-  v53[2] = sub_100028CA0;
-  v53[3] = &unk_1002406A8;
-  objc_copyWeak(&v55, a1 + 8);
-  v54 = a1[7];
-  v11 = objc_retainBlock(v53);
-  v45[0] = _NSConcreteStackBlock;
-  v45[1] = 3221225472;
-  v45[2] = sub_100029018;
-  v45[3] = &unk_100240748;
-  v46 = a1[4];
+  v58[0] = _NSConcreteStackBlock;
+  v58[1] = 3221225472;
+  v58[2] = sub_100028CA0;
+  v58[3] = &unk_1002406A8;
+  objc_copyWeak(&v60, a1 + 8);
+  v59 = a1[7];
+  v11 = objc_retainBlock(v58);
+  v50[0] = _NSConcreteStackBlock;
+  v50[1] = 3221225472;
+  v50[2] = sub_100029018;
+  v50[3] = &unk_100240748;
+  v51 = a1[4];
   v12 = v5;
-  v47 = v12;
-  v48 = a1[5];
-  v49 = a1[6];
-  objc_copyWeak(&v52, a1 + 8);
-  v50 = a1[7];
+  v52 = v12;
+  v53 = a1[5];
+  v54 = a1[6];
+  objc_copyWeak(&v57, a1 + 8);
+  v55 = a1[7];
   v13 = v11;
-  v51 = v13;
-  v14 = objc_retainBlock(v45);
+  v56 = v13;
+  v14 = objc_retainBlock(v50);
+  v15 = v14;
   if (!v6)
   {
-    v19 = [v12 allKeys];
-    v18 = [NSSet setWithArray:v19];
+    v21 = [v12 allKeys];
+    v20 = [NSSet setWithArray:v21];
 
-    v20 = [NSSet setWithArray:a1[4]];
-    v21 = [v18 isEqualToSet:v20];
+    v22 = [NSSet setWithArray:a1[4]];
+    v23 = [v20 isEqualToSet:v22];
 
-    if (!v21)
+    if (!v23)
     {
-      v24 = sub_100002660();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = sub_100002660(v24);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v25 = a1[4];
-        v26 = objc_alloc_init(NSMutableArray);
+        v28 = a1[4];
+        v29 = objc_alloc_init(NSMutableArray);
         *&buf = _NSConcreteStackBlock;
         *(&buf + 1) = 3221225472;
-        v61 = sub_10003104C;
-        v62 = &unk_100240B70;
-        v27 = v26;
-        v63 = v27;
-        [v25 enumerateObjectsUsingBlock:&buf];
-        v28 = [v27 componentsJoinedByString:{@", "}];
+        v66 = sub_10003104C;
+        v67 = &unk_100240B70;
+        v30 = v29;
+        v68 = v30;
+        [v28 enumerateObjectsUsingBlock:&buf];
+        v31 = [v30 componentsJoinedByString:{@", "}];
 
-        v29 = v28;
-        v30 = [v12 allKeys];
-        v31 = objc_alloc_init(NSMutableArray);
-        *&buf = _NSConcreteStackBlock;
-        *(&buf + 1) = 3221225472;
-        v61 = sub_10003104C;
-        v62 = &unk_100240B70;
         v32 = v31;
-        v63 = v32;
-        [v30 enumerateObjectsUsingBlock:&buf];
-        v33 = [v32 componentsJoinedByString:{@", "}];
+        v33 = [v12 allKeys];
+        v34 = objc_alloc_init(NSMutableArray);
+        *&buf = _NSConcreteStackBlock;
+        *(&buf + 1) = 3221225472;
+        v66 = sub_10003104C;
+        v67 = &unk_100240B70;
+        v35 = v34;
+        v68 = v35;
+        [v33 enumerateObjectsUsingBlock:&buf];
+        v36 = [v35 componentsJoinedByString:{@", "}];
 
-        *v56 = 138412546;
-        v57 = v29;
-        v58 = 2112;
-        v59 = v33;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "CKFetchRecordZonesOperation Wanted:%@ Received:%@", v56, 0x16u);
+        *v61 = 138412546;
+        v62 = v32;
+        v63 = 2112;
+        v64 = v36;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "CKFetchRecordZonesOperation Wanted:%@ Received:%@", v61, 0x16u);
       }
 
-      (v14[2])(v14);
+      v15[2](v15);
       goto LABEL_30;
     }
 
-    v22 = sub_100002660();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v25 = sub_100002660(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController - calling saveResultsBlock", &buf, 2u);
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController - calling saveResultsBlock", &buf, 2u);
     }
 
-    v23 = [v12 allValues];
-    (v13[2])(v13, v23, 0);
+    v26 = [v12 allValues];
+    (v13[2])(v13, v26, 0);
     goto LABEL_29;
   }
 
-  v15 = sub_100002660();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = sub_100002660(v14);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = v6;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "BCCloudKitDatabaseController - fetchRecordZonesOperation failed, ERROR:%@", &buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "BCCloudKitDatabaseController - fetchRecordZonesOperation failed, ERROR:%@", &buf, 0xCu);
   }
 
-  if ((sub_1000254B0(v6) & 1) != 0 || sub_100025690(v6))
+  v17 = sub_1000254B0(v6);
+  if ((v17 & 1) != 0 || (v17 = sub_100025690(v6), v17))
   {
-    v16 = sub_100002660();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100002660(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController - No PCS Identity available", &buf, 2u);
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController - No PCS Identity available", &buf, 2u);
     }
 
-    v17 = objc_retainBlock(a1[7]);
-    v18 = v17;
-    if (v17)
+    v19 = objc_retainBlock(a1[7]);
+    v20 = v19;
+    if (v19)
     {
-      (*(v17 + 2))(v17, v6);
+      (*(v19 + 2))(v19, v6);
     }
 
     goto LABEL_30;
@@ -8167,40 +7965,40 @@ void sub_1000283A4(id *a1, void *a2, void *a3)
 
   if ([v6 code] == 6 || objc_msgSend(v6, "code") == 7)
   {
-    v34 = [v6 userInfo];
-    v18 = [v34 objectForKeyedSubscript:CKErrorRetryAfterKey];
+    v37 = [v6 userInfo];
+    v20 = [v37 objectForKeyedSubscript:CKErrorRetryAfterKey];
 
     WeakRetained = objc_loadWeakRetained(a1 + 8);
-    v23 = [WeakRetained accessQueue];
+    v26 = [WeakRetained accessQueue];
 
-    if (v18 && v23)
+    if (v20 && v26)
     {
-      v36 = sub_100002660();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v40 = sub_100002660(v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf) = 138412290;
         *(&buf + 4) = v6;
-        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "BCCloudKitDatabaseController - fetchRecordZonesOperation failed - retrying, ERROR:%@", &buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "BCCloudKitDatabaseController - fetchRecordZonesOperation failed - retrying, ERROR:%@", &buf, 0xCu);
       }
 
-      [v18 doubleValue];
-      v38 = dispatch_time(0, (v37 * 1000000000.0));
-      v41[0] = _NSConcreteStackBlock;
-      v41[1] = 3221225472;
-      v41[2] = sub_100029898;
-      v41[3] = &unk_1002406F8;
-      objc_copyWeak(&v44, a1 + 8);
-      v43 = a1[7];
-      v42 = a1[4];
-      dispatch_after(v38, v23, v41);
+      [v20 doubleValue];
+      v42 = dispatch_time(0, (v41 * 1000000000.0));
+      v46[0] = _NSConcreteStackBlock;
+      v46[1] = 3221225472;
+      v46[2] = sub_100029898;
+      v46[3] = &unk_1002406F8;
+      objc_copyWeak(&v49, a1 + 8);
+      v48 = a1[7];
+      v47 = a1[4];
+      dispatch_after(v42, v26, v46);
 
-      objc_destroyWeak(&v44);
+      objc_destroyWeak(&v49);
     }
 
     else
     {
-      v39 = sub_100002660();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v43 = sub_100002660(v39);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
         sub_1001BF3C0();
       }
@@ -8216,8 +8014,8 @@ LABEL_30:
 
   if ([v6 code] == 3)
   {
-    v40 = sub_100002660();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v44 = sub_100002660(3);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       sub_1001BF3C0();
     }
@@ -8225,14 +8023,15 @@ LABEL_30:
 
   else
   {
-    if (!sub_100025880(v6))
+    v45 = sub_100025880(v6);
+    if (!v45)
     {
-      (v14[2])(v14);
+      v15[2](v15);
       goto LABEL_31;
     }
 
-    v40 = sub_100002660();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v44 = sub_100002660(v45);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       sub_1001BF358();
     }
@@ -8241,8 +8040,8 @@ LABEL_30:
   (v13[2])(v13, 0, v6);
 LABEL_31:
 
-  objc_destroyWeak(&v52);
-  objc_destroyWeak(&v55);
+  objc_destroyWeak(&v57);
+  objc_destroyWeak(&v60);
 }
 
 void sub_100028C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32)
@@ -8281,7 +8080,7 @@ void sub_100028CA0(uint64_t a1, void *a2, void *a3)
 void sub_100028DB4(uint64_t a1)
 {
   v2 = [*(a1 + 32) recordZones];
-  v3 = sub_100002660();
+  v3 = sub_100002660(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = *(a1 + 40);
@@ -8333,8 +8132,7 @@ void sub_100029018(uint64_t a1)
   v23[3] = &unk_1002406D0;
   v6 = objc_alloc_init(NSMutableArray);
   v24 = v6;
-  [v2 enumerateObjectsUsingBlock:v23];
-  v7 = sub_100002660();
+  v7 = sub_100002660([v2 enumerateObjectsUsingBlock:v23]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v8 = [v2 allObjects];
@@ -8399,78 +8197,78 @@ void sub_100029420(uint64_t a1, void *a2, uint64_t a3, void *a4)
 
     if (v10)
     {
-      v13 = v12 == 0;
+      v14 = v12 == 0;
     }
 
     else
     {
-      v13 = 1;
+      v14 = 1;
     }
 
-    if (v13)
+    if (v14)
     {
-      v14 = *(a1 + 64);
-      v15 = [*(a1 + 48) arrayByAddingObjectsFromArray:v6];
-      (*(v14 + 16))(v14, v15, v8);
+      v15 = *(a1 + 64);
+      v16 = [*(a1 + 48) arrayByAddingObjectsFromArray:v6];
+      (*(v15 + 16))(v15, v16, v8);
     }
 
     else
     {
-      v20 = sub_100002660();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = sub_100002660(v13);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v22 = *(a1 + 32);
+        v23 = *(a1 + 32);
         *buf = _NSConcreteStackBlock;
         *&buf[8] = 3221225472;
         *&buf[16] = sub_1000310A4;
-        v32 = &unk_100240680;
-        v33 = objc_alloc_init(NSMutableArray);
-        v23 = v33;
-        [v22 enumerateObjectsUsingBlock:buf];
-        v24 = [v23 componentsJoinedByString:{@", "}];
+        v33 = &unk_100240680;
+        v34 = objc_alloc_init(NSMutableArray);
+        v24 = v34;
+        [v23 enumerateObjectsUsingBlock:buf];
+        v25 = [v24 componentsJoinedByString:{@", "}];
 
         *buf = 138543618;
-        *&buf[4] = v24;
+        *&buf[4] = v25;
         *&buf[12] = 2112;
         *&buf[14] = v8;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "5a CKModifyRecordZonesOperation failed to modify %{public}@ retrying, ERROR:%@", buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "5a CKModifyRecordZonesOperation failed to modify %{public}@ retrying, ERROR:%@", buf, 0x16u);
       }
 
       [v10 doubleValue];
-      v26 = dispatch_time(0, (v25 * 1000000000.0));
+      v27 = dispatch_time(0, (v26 * 1000000000.0));
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100029818;
       block[3] = &unk_1002406F8;
-      objc_copyWeak(&v30, (a1 + 72));
-      v29 = *(a1 + 56);
-      v28 = *(a1 + 40);
-      dispatch_after(v26, v12, block);
+      objc_copyWeak(&v31, (a1 + 72));
+      v30 = *(a1 + 56);
+      v29 = *(a1 + 40);
+      dispatch_after(v27, v12, block);
 
-      objc_destroyWeak(&v30);
+      objc_destroyWeak(&v31);
     }
   }
 
   else
   {
     v10 = [*(a1 + 48) arrayByAddingObjectsFromArray:v6];
-    v16 = sub_100002660();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100002660(v10);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = v10;
+      v18 = v10;
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_1000310A4;
-      v32 = &unk_100240680;
-      v33 = objc_alloc_init(NSMutableArray);
-      v18 = v33;
-      [v17 enumerateObjectsUsingBlock:buf];
+      v33 = &unk_100240680;
+      v34 = objc_alloc_init(NSMutableArray);
+      v19 = v34;
+      [v18 enumerateObjectsUsingBlock:buf];
 
-      v19 = [v18 componentsJoinedByString:{@", "}];
+      v20 = [v19 componentsJoinedByString:{@", "}];
 
       *buf = 138543362;
-      *&buf[4] = v19;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "CKModifyRecordZonesOperation success saving: %{public}@", buf, 0xCu);
+      *&buf[4] = v20;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "CKModifyRecordZonesOperation success saving: %{public}@", buf, 0xCu);
     }
 
     (*(*(a1 + 64) + 16))();
@@ -8531,110 +8329,110 @@ void sub_100029B18(id *a1, void *a2, void *a3)
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   if (!WeakRetained)
   {
-    v29 = [NSException alloc];
-    v30 = [a1[4] containerIdentifier];
-    v31 = [NSString stringWithFormat:@"Nil weak self after fetch salt record %@", v30];
-    v54 = NSUnderlyingErrorKey;
-    v32 = v6;
+    v31 = [NSException alloc];
+    v32 = [a1[4] containerIdentifier];
+    v33 = [NSString stringWithFormat:@"Nil weak self after fetch salt record %@", v32];
+    v56 = NSUnderlyingErrorKey;
+    v34 = v6;
     if (!v6)
     {
-      v32 = +[NSNull null];
+      v34 = +[NSNull null];
     }
 
-    v55 = v32;
-    v33 = [NSDictionary dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-    v34 = [v29 initWithName:@"No Books Salt" reason:v31 userInfo:v33];
-    v35 = v34;
+    v57 = v34;
+    v35 = [NSDictionary dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+    v36 = [v31 initWithName:@"No Books Salt" reason:v33 userInfo:v35];
+    v37 = v36;
 
     if (!v6)
     {
     }
 
-    objc_exception_throw(v34);
+    objc_exception_throw(v36);
   }
 
   v8 = WeakRetained;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = sub_100027274;
-  v52 = sub_100027284;
-  v53 = 0;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = sub_100027274;
+  v54 = sub_100027284;
+  v55 = 0;
   if (!v5 || v6)
   {
-    v19 = sub_100002660();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = sub_100002660(WeakRetained);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v28 = [a1[4] containerIdentifier];
+      v30 = [a1[4] containerIdentifier];
       *buf = 138543874;
-      *&buf[4] = v28;
+      *&buf[4] = v30;
       *&buf[12] = 2112;
       *&buf[14] = v6;
       *&buf[22] = 2112;
       *&buf[24] = v5;
-      _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "(%{public}@) Error retrieving record salt: %@ serverRecord:%@.. Trying to recover", buf, 0x20u);
+      _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "(%{public}@) Error retrieving record salt: %@ serverRecord:%@.. Trying to recover", buf, 0x20u);
     }
 
+    v67 = 0u;
+    v68 = 0u;
     v65 = 0u;
     v66 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v61 = 0u;
-    v62 = 0u;
     memset(buf, 0, sizeof(buf));
     if (SecRandomCopyBytes(kSecRandomDefault, 0x80uLL, buf))
     {
-      v36 = [NSException alloc];
-      v37 = [a1[4] containerIdentifier];
-      v38 = [NSString stringWithFormat:@"Unable to generate random salt %@", v37];
-      v56 = NSUnderlyingErrorKey;
-      v39 = v6;
+      v38 = [NSException alloc];
+      v39 = [a1[4] containerIdentifier];
+      v40 = [NSString stringWithFormat:@"Unable to generate random salt %@", v39];
+      v58 = NSUnderlyingErrorKey;
+      v41 = v6;
       if (!v6)
       {
-        v39 = +[NSNull null];
+        v41 = +[NSNull null];
       }
 
-      v57 = v39;
-      v40 = [NSDictionary dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-      v41 = [v36 initWithName:@"No Books Record Salt" reason:v38 userInfo:v40];
-      v42 = v41;
+      v59 = v41;
+      v42 = [NSDictionary dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+      v43 = [v38 initWithName:@"No Books Record Salt" reason:v40 userInfo:v42];
+      v44 = v43;
 
       if (!v6)
       {
       }
 
-      objc_exception_throw(v41);
+      objc_exception_throw(v43);
     }
 
-    v20 = [[CKRecordID alloc] initWithRecordName:@"recordIDSalt"];
-    v21 = [[CKRecord alloc] initWithRecordType:@"recordIDSalt" recordID:v20];
-    v22 = [NSData dataWithBytes:buf length:128];
-    v23 = [v21 encryptedValuesByKey];
-    [v23 setObject:v22 forKeyedSubscript:@"saltEncrypted"];
+    v21 = [[CKRecordID alloc] initWithRecordName:@"recordIDSalt"];
+    v22 = [[CKRecord alloc] initWithRecordType:@"recordIDSalt" recordID:v21];
+    v23 = [NSData dataWithBytes:buf length:128];
+    v24 = [v22 encryptedValuesByKey];
+    [v24 setObject:v23 forKeyedSubscript:@"saltEncrypted"];
 
-    v24 = sub_10000DC08();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v26 = sub_10000DC08(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
-      v25 = [a1[4] containerIdentifier];
-      *v58 = 138543362;
-      v59 = v25;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "(%{public}@) Will save record salt", v58, 0xCu);
+      v27 = [a1[4] containerIdentifier];
+      *v60 = 138543362;
+      v61 = v27;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "(%{public}@) Will save record salt", v60, 0xCu);
     }
 
-    v26 = [a1[4] database];
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_10002A27C;
-    v43[3] = &unk_100240798;
-    objc_copyWeak(&v47, a1 + 6);
-    v43[4] = a1[4];
-    v46 = &v48;
-    v27 = v22;
-    v44 = v27;
-    v45 = a1[5];
-    [v26 saveRecord:v21 completionHandler:v43];
+    v28 = [a1[4] database];
+    v45[0] = _NSConcreteStackBlock;
+    v45[1] = 3221225472;
+    v45[2] = sub_10002A27C;
+    v45[3] = &unk_100240798;
+    objc_copyWeak(&v49, a1 + 6);
+    v45[4] = a1[4];
+    v48 = &v50;
+    v29 = v23;
+    v46 = v29;
+    v47 = a1[5];
+    [v28 saveRecord:v22 completionHandler:v45];
 
-    objc_destroyWeak(&v47);
+    objc_destroyWeak(&v49);
   }
 
   else
@@ -8649,50 +8447,50 @@ void sub_100029B18(id *a1, void *a2, void *a3)
 
     [v8 setRecordIDSalt:v10];
     v11 = [v5 recordChangeTag];
-    v12 = v49[5];
-    v49[5] = v11;
+    v12 = v51[5];
+    v51[5] = v11;
 
-    v13 = sub_10000DC08();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_10000DC08(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = [a1[4] containerIdentifier];
-      v15 = v49[5];
+      v15 = [a1[4] containerIdentifier];
+      v16 = v51[5];
       *buf = 138543874;
-      *&buf[4] = v14;
+      *&buf[4] = v15;
       *&buf[12] = 2112;
       *&buf[14] = v10;
       *&buf[22] = 2112;
-      *&buf[24] = v15;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "(%{public}@) Successfully read existing record salt salt:(%@) changeTag:(%@). Calling completion", buf, 0x20u);
+      *&buf[24] = v16;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "(%{public}@) Successfully read existing record salt salt:(%@) changeTag:(%@). Calling completion", buf, 0x20u);
     }
 
-    v16 = v49[5];
-    v17 = [a1[4] desiredRecordZoneIDs];
-    v18 = [NSSet setWithArray:v17];
-    [v8 p_informObserversOfSaltVersionIdentifierChanged:v16 forZones:v18 completion:a1[5]];
+    v17 = v51[5];
+    v18 = [a1[4] desiredRecordZoneIDs];
+    v19 = [NSSet setWithArray:v18];
+    [v8 p_informObserversOfSaltVersionIdentifierChanged:v17 forZones:v19 completion:a1[5]];
   }
 
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v50, 8);
 }
 
-void sub_10002A160(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_10002A160(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a12);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   if (a2 == 1)
   {
-    v15 = objc_begin_catch(a1);
-    v16 = sub_10000DC08();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v21 = objc_begin_catch(a1);
+    v22 = sub_10000DC08(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_1001BF428();
     }
 
-    v17 = objc_retainBlock(*(v12 + 40));
-    if (v17)
+    v23 = objc_retainBlock(*(v18 + 40));
+    if (v23)
     {
-      v18 = [NSError errorWithDomain:@"BDSErrorDomain" code:1005 userInfo:0];
-      v17[2](v17, v18);
+      v24 = [NSError errorWithDomain:@"BDSErrorDomain" code:1005 userInfo:0];
+      v23[2](v23, v24);
     }
 
     objc_end_catch();
@@ -8709,35 +8507,35 @@ void sub_10002A27C(uint64_t a1, void *a2, void *a3)
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (!WeakRetained)
   {
-    v41 = [NSException alloc];
-    v42 = [*(a1 + 32) containerIdentifier];
-    v43 = [NSString stringWithFormat:@"Nil weak self after save record %@", v42];
-    v48 = NSUnderlyingErrorKey;
-    v44 = v6;
+    v44 = [NSException alloc];
+    v45 = [*(a1 + 32) containerIdentifier];
+    v46 = [NSString stringWithFormat:@"Nil weak self after save record %@", v45];
+    v51 = NSUnderlyingErrorKey;
+    v47 = v6;
     if (!v6)
     {
-      v44 = +[NSNull null];
+      v47 = +[NSNull null];
     }
 
-    v49 = v44;
-    v45 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-    v46 = [v41 initWithName:@"No Books Record Salt" reason:v43 userInfo:v45];
-    v47 = v46;
+    v52 = v47;
+    v48 = [NSDictionary dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+    v49 = [v44 initWithName:@"No Books Record Salt" reason:v46 userInfo:v48];
+    v50 = v49;
 
     if (!v6)
     {
     }
 
-    objc_exception_throw(v46);
+    objc_exception_throw(v49);
   }
 
   v8 = WeakRetained;
-  v9 = sub_10000DC08();
+  v9 = sub_10000DC08(WeakRetained);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = [*(a1 + 32) containerIdentifier];
     *buf = 138543362;
-    v51 = v10;
+    v54 = v10;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "(%{public}@) Saving record salt....", buf, 0xCu);
   }
 
@@ -8748,35 +8546,35 @@ void sub_10002A27C(uint64_t a1, void *a2, void *a3)
 
     if (v12 == 14)
     {
-      v13 = [v6 userInfo];
-      v14 = [v13 objectForKeyedSubscript:CKRecordChangedErrorServerRecordKey];
+      v14 = [v6 userInfo];
+      v15 = [v14 objectForKeyedSubscript:CKRecordChangedErrorServerRecordKey];
 
-      v15 = [v14 encryptedValuesByKey];
-      v16 = [v15 objectForKeyedSubscript:@"saltEncrypted"];
+      v16 = [v15 encryptedValuesByKey];
+      v17 = [v16 objectForKeyedSubscript:@"saltEncrypted"];
 
-      if (v14)
+      if (v15)
       {
-        v17 = sub_10000DC08();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v19 = sub_10000DC08(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = [*(a1 + 32) containerIdentifier];
-          v19 = [v14 recordChangeTag];
+          v20 = [*(a1 + 32) containerIdentifier];
+          v21 = [v15 recordChangeTag];
           *buf = 138544130;
-          v51 = v18;
-          v52 = 2112;
-          v53 = v16;
-          v54 = 2112;
-          v55 = v19;
-          v56 = 2112;
-          v57 = v6;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "(%{public}@) Successfully established record salt from server record salt:(%@) changeTag:(%@) error:(%@)", buf, 0x2Au);
+          v54 = v20;
+          v55 = 2112;
+          v56 = v17;
+          v57 = 2112;
+          v58 = v21;
+          v59 = 2112;
+          v60 = v6;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "(%{public}@) Successfully established record salt from server record salt:(%@) changeTag:(%@) error:(%@)", buf, 0x2Au);
         }
 
-        [v8 setRecordIDSalt:v16];
-        v20 = [v14 recordChangeTag];
-        v21 = *(*(a1 + 56) + 8);
-        v22 = *(v21 + 40);
-        *(v21 + 40) = v20;
+        [v8 setRecordIDSalt:v17];
+        v22 = [v15 recordChangeTag];
+        v23 = *(*(a1 + 56) + 8);
+        v24 = *(v23 + 40);
+        *(v23 + 40) = v22;
 
         v6 = 0;
       }
@@ -8789,11 +8587,11 @@ void sub_10002A27C(uint64_t a1, void *a2, void *a3)
   {
   }
 
-  v23 = sub_10000DC08();
-  v14 = v23;
+  v25 = sub_10000DC08(v13);
+  v15 = v25;
   if (v6)
   {
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       sub_1001BF490();
     }
@@ -8801,72 +8599,72 @@ void sub_10002A27C(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = [*(a1 + 32) containerIdentifier];
-      v25 = *(a1 + 40);
-      v26 = [v5 recordChangeTag];
+      v26 = [*(a1 + 32) containerIdentifier];
+      v27 = *(a1 + 40);
+      v28 = [v5 recordChangeTag];
       *buf = 138543874;
-      v51 = v24;
-      v52 = 2112;
-      v53 = v25;
-      v54 = 2112;
-      v55 = v26;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "(%{public}@) Successfully established record salt for NO ERROR salt:(%@) changeTag:(%@)", buf, 0x20u);
+      v54 = v26;
+      v55 = 2112;
+      v56 = v27;
+      v57 = 2112;
+      v58 = v28;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "(%{public}@) Successfully established record salt for NO ERROR salt:(%@) changeTag:(%@)", buf, 0x20u);
     }
 
-    v27 = [v5 encryptedValuesByKey];
-    v28 = [v27 objectForKeyedSubscript:@"saltEncrypted"];
-    [v8 setRecordIDSalt:v28];
+    v29 = [v5 encryptedValuesByKey];
+    v30 = [v29 objectForKeyedSubscript:@"saltEncrypted"];
+    [v8 setRecordIDSalt:v30];
 
-    v29 = [v5 recordChangeTag];
+    v31 = [v5 recordChangeTag];
     v6 = 0;
-    v30 = *(*(a1 + 56) + 8);
-    v14 = *(v30 + 40);
-    *(v30 + 40) = v29;
+    v32 = *(*(a1 + 56) + 8);
+    v15 = *(v32 + 40);
+    *(v32 + 40) = v31;
   }
 
 LABEL_18:
 
-  v31 = [v8 recordIDSalt];
+  v33 = [v8 recordIDSalt];
 
-  v32 = sub_10000DC08();
-  v33 = v32;
-  if (v6 || !v31)
+  v35 = sub_10000DC08(v34);
+  v36 = v35;
+  if (v6 || !v33)
   {
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       sub_1001BF4F8();
     }
 
-    v40 = objc_retainBlock(*(a1 + 48));
-    v38 = v40;
-    if (v40)
+    v43 = objc_retainBlock(*(a1 + 48));
+    v41 = v43;
+    if (v43)
     {
-      (*(v40 + 2))(v40, v6);
+      (*(v43 + 2))(v43, v6);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = [v8 containerIdentifier];
-      v35 = [*(a1 + 32) recordIDSalt];
-      v36 = *(*(*(a1 + 56) + 8) + 40);
+      v37 = [v8 containerIdentifier];
+      v38 = [*(a1 + 32) recordIDSalt];
+      v39 = *(*(*(a1 + 56) + 8) + 40);
       *buf = 138543874;
-      v51 = v34;
-      v52 = 2112;
-      v53 = v35;
-      v54 = 2112;
-      v55 = v36;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "(%{public}@) *** Got record salt:(%@) changeTag:(%@)", buf, 0x20u);
+      v54 = v37;
+      v55 = 2112;
+      v56 = v38;
+      v57 = 2112;
+      v58 = v39;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "(%{public}@) *** Got record salt:(%@) changeTag:(%@)", buf, 0x20u);
     }
 
-    v37 = *(*(*(a1 + 56) + 8) + 40);
-    v38 = [*(a1 + 32) desiredRecordZoneIDs];
-    v39 = [NSSet setWithArray:v38];
-    [v8 p_informObserversOfSaltVersionIdentifierChanged:v37 forZones:v39 completion:*(a1 + 48)];
+    v40 = *(*(*(a1 + 56) + 8) + 40);
+    v41 = [*(a1 + 32) desiredRecordZoneIDs];
+    v42 = [NSSet setWithArray:v41];
+    [v8 p_informObserversOfSaltVersionIdentifierChanged:v40 forZones:v42 completion:*(a1 + 48)];
   }
 }
 
@@ -8909,7 +8707,7 @@ LABEL_8:
 void sub_10002AB2C(id *a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100002660();
+  v4 = sub_100002660(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [a1[4] containerIdentifier];
@@ -9027,57 +8825,57 @@ void sub_10002B310(void *a1)
   v2 = a1[4];
   if (a1[5])
   {
-    v3 = a1[6];
-    v4 = a1[4];
+    v3 = a1[4];
 
-    [v4 setObject:? forKey:?];
+    [v3 setObject:? forKey:?];
   }
 
   else
   {
-    v5 = +[NSNull null];
-    [v2 setObject:v5 forKey:a1[6]];
+    v4 = +[NSNull null];
+    [v2 setObject:v4 forKey:a1[6]];
   }
 }
 
 void sub_10002B3A0(uint64_t a1)
 {
-  if ([*(a1 + 32) count])
+  v2 = [*(a1 + 32) count];
+  if (v2)
   {
-    v2 = sub_100002660();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_100002660(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [*(a1 + 40) containerIdentifier];
-      v4 = *(a1 + 48);
+      v4 = [*(a1 + 40) containerIdentifier];
+      v5 = *(a1 + 48);
       *buf = 138543618;
-      v14 = v3;
-      v15 = 2114;
-      v16 = v4;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController (%{public}@) - finished fetching tokens for zones %{public}@", buf, 0x16u);
+      v15 = v4;
+      v16 = 2114;
+      v17 = v5;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController (%{public}@) - finished fetching tokens for zones %{public}@", buf, 0x16u);
     }
 
-    v5 = objc_opt_new();
-    v6 = *(a1 + 48);
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10002B584;
-    v10[3] = &unk_100240810;
-    v11 = *(a1 + 32);
-    v12 = v5;
-    v7 = v5;
-    [v6 enumerateObjectsUsingBlock:v10];
-    [*(a1 + 40) p_fetchRecordZoneChanges:*(a1 + 48) optionsByRecordZoneID:v7 completionHandler:*(a1 + 56)];
+    v6 = objc_opt_new();
+    v7 = *(a1 + 48);
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10002B584;
+    v11[3] = &unk_100240810;
+    v12 = *(a1 + 32);
+    v13 = v6;
+    v8 = v6;
+    [v7 enumerateObjectsUsingBlock:v11];
+    [*(a1 + 40) p_fetchRecordZoneChanges:*(a1 + 48) optionsByRecordZoneID:v8 completionHandler:*(a1 + 56)];
   }
 
   else
   {
     *(*(a1 + 40) + 15) = 1;
-    v8 = objc_retainBlock(*(a1 + 56));
-    if (v8)
+    v9 = objc_retainBlock(*(a1 + 56));
+    if (v9)
     {
-      v9 = v8;
-      (*(v8 + 2))(v8, 0);
-      v8 = v9;
+      v10 = v9;
+      (*(v9 + 2))(v9, 0);
+      v9 = v10;
     }
   }
 }
@@ -9121,4 +8919,206 @@ void sub_10002BE64(uint64_t a1, void *a2)
   v8 = *(a1 + 32);
   v5 = v3;
   dispatch_async(v4, block);
+}
+
+void sub_10002BF20(uint64_t a1)
+{
+  v2 = sub_100002660(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = [*(a1 + 32) recordID];
+    v4 = [*(a1 + 32) recordType];
+    v12 = 138412546;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController - BCCloudKitDatabaseController fetchRecordZoneChangesOperation.recordChangedBlock record=%@ %@", &v12, 0x16u);
+  }
+
+  v5 = *(*(*(a1 + 48) + 8) + 40);
+  v6 = [*(a1 + 32) recordType];
+  v7 = [v5 objectForKey:v6];
+
+  if (!v7)
+  {
+    v7 = objc_opt_new();
+    v8 = *(*(*(a1 + 48) + 8) + 40);
+    v9 = [*(a1 + 32) recordType];
+    [v8 setObject:v7 forKey:v9];
+  }
+
+  [v7 addObject:*(a1 + 32)];
+  if ([v7 count] >= 0x20)
+  {
+    v10 = *(a1 + 40);
+    v11 = [*(a1 + 32) recordType];
+    [v10 p_informObserversOfRecordsChanged:v7 forRecordType:v11];
+
+    [v7 removeAllObjects];
+  }
+}
+
+void sub_10002C0C4(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  v7 = [*(a1 + 32) accessQueue];
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_10002C1A0;
+  block[3] = &unk_10023F720;
+  v8 = *(a1 + 32);
+  v12 = v5;
+  v13 = v8;
+  v14 = v6;
+  v9 = v6;
+  v10 = v5;
+  dispatch_async(v7, block);
+}
+
+void sub_10002C1A0(uint64_t a1)
+{
+  v2 = sub_100002660(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = *(a1 + 32);
+    *buf = 138412290;
+    v17 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController - BCCloudKitDatabaseController recordWithIDWasDeletedBlock recordID=%@", buf, 0xCu);
+  }
+
+  v4 = [*(a1 + 40) observers];
+  v5 = [v4 objectForKeyedSubscript:*(a1 + 48)];
+
+  if ([v5 count])
+  {
+    v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v6 = v5;
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = *v12;
+      do
+      {
+        v10 = 0;
+        do
+        {
+          if (*v12 != v9)
+          {
+            objc_enumerationMutation(v6);
+          }
+
+          [*(*(&v11 + 1) + 8 * v10) databaseController:*(a1 + 40) recordWithIDWasDeleted:*(a1 + 32) recordType:{*(a1 + 48), v11}];
+          v10 = v10 + 1;
+        }
+
+        while (v8 != v10);
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      }
+
+      while (v8);
+    }
+  }
+}
+
+void sub_10002C324(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  v7 = [*(a1 + 32) accessQueue];
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_10002C414;
+  block[3] = &unk_1002408D8;
+  v8 = *(a1 + 40);
+  block[4] = *(a1 + 32);
+  v9 = v8;
+  v10 = *(a1 + 48);
+  v14 = v9;
+  v15 = v5;
+  v16 = v6;
+  v17 = v10;
+  v11 = v6;
+  v12 = v5;
+  dispatch_async(v7, block);
+}
+
+void sub_10002C414(uint64_t a1)
+{
+  v2 = sub_100002660(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = [*(a1 + 32) containerIdentifier];
+    v4 = *(a1 + 40);
+    *v9 = _NSConcreteStackBlock;
+    *&v9[8] = 3221225472;
+    *&v9[16] = sub_10003104C;
+    v10 = &unk_100240B70;
+    v11 = objc_alloc_init(NSMutableArray);
+    v5 = v11;
+    [v4 enumerateObjectsUsingBlock:v9];
+    v6 = [v5 componentsJoinedByString:{@", ", *v9, *&v9[8], *&v9[16], v10}];
+
+    *v9 = 138543618;
+    *&v9[4] = v3;
+    *&v9[12] = 2114;
+    *&v9[14] = v6;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController (%{public}@) p_fetchRecordZoneChanges recordZoneChangeTokensUpdatedBlock recordZoneIDs=%{public}@ ", v9, 0x16u);
+  }
+
+  [*(a1 + 32) p_informObserversOfRecordsChanged:*(*(*(a1 + 64) + 8) + 40)];
+  [*(*(*(a1 + 64) + 8) + 40) removeAllObjects];
+  v7 = [*(a1 + 32) tokenStores];
+  v8 = [v7 objectForKeyedSubscript:*(a1 + 48)];
+
+  [v8 storeServerChangeToken:*(a1 + 56) completion:0];
+}
+
+void sub_10002C5E8(uint64_t a1, void *a2, void *a3, uint64_t a4, int a5, void *a6)
+{
+  v10 = a2;
+  v11 = a3;
+  v12 = a6;
+  v13 = sub_100002660(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = [*(a1 + 32) containerIdentifier];
+    v15 = *(a1 + 40);
+    *buf = _NSConcreteStackBlock;
+    *&buf[8] = 3221225472;
+    *&buf[16] = sub_10003104C;
+    v29 = &unk_100240B70;
+    v30 = objc_alloc_init(NSMutableArray);
+    v16 = v30;
+    [v15 enumerateObjectsUsingBlock:buf];
+    v17 = [v16 componentsJoinedByString:{@", "}];
+
+    *buf = 138543874;
+    *&buf[4] = v14;
+    *&buf[12] = 2114;
+    *&buf[14] = v17;
+    *&buf[22] = 1024;
+    LODWORD(v29) = a5;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController (%{public}@) p_fetchRecordZoneChanges recordZoneFetchCompletionBlock recordZoneIDs=%{public}@ moreComing= %{BOOL}d", buf, 0x1Cu);
+  }
+
+  v18 = [*(a1 + 32) accessQueue];
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_10002C858;
+  block[3] = &unk_100240948;
+  block[4] = *(a1 + 32);
+  v23 = v10;
+  v27 = a5;
+  v26 = *(a1 + 48);
+  v24 = v12;
+  v25 = v11;
+  v19 = v11;
+  v20 = v12;
+  v21 = v10;
+  dispatch_async(v18, block);
 }

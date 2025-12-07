@@ -91,61 +91,64 @@
 
 uint64_t __47__GKContactDataSource_loadContactsWithHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = a2;
-  if (![v16 contactType])
+  v17 = a2;
+  v4 = [v17 contactType];
+  v5 = v17;
+  if (!v4)
   {
-    v4 = [v16 identifier];
-    v5 = [*(a1 + 32) identifier];
-    if ([v4 isEqualToString:v5])
+    v6 = [v17 identifier];
+    v7 = [*(a1 + 32) identifier];
+    if ([v6 isEqualToString:v7])
     {
 LABEL_3:
 
 LABEL_15:
+      v5 = v17;
       goto LABEL_16;
     }
 
-    v6 = [v16 givenName];
-    v7 = [v6 length];
-    v8 = v16;
-    v9 = v7;
-    if (!v7)
+    v8 = [v17 givenName];
+    v9 = [v8 length];
+    v10 = v17;
+    v11 = v9;
+    if (!v9)
     {
-      v2 = [v16 familyName];
+      v2 = [v17 familyName];
       if (![v2 length])
       {
 
         goto LABEL_3;
       }
 
-      v8 = v16;
+      v10 = v17;
     }
 
-    v10 = [v8 emailAddresses];
-    if ([v10 count])
+    v12 = [v10 emailAddresses];
+    if ([v12 count])
     {
 
-      if (!v9)
+      if (!v11)
       {
       }
 
-      v11 = v16;
+      v5 = v17;
 LABEL_14:
-      [*(a1 + 40) addObject:v11];
-      v14 = *(a1 + 48);
-      v4 = [v16 identifier];
-      [v14 setObject:v16 forKeyedSubscript:v4];
+      [*(a1 + 40) addObject:v5];
+      v15 = *(a1 + 48);
+      v6 = [v17 identifier];
+      [v15 setObject:v17 forKeyedSubscript:v6];
       goto LABEL_15;
     }
 
-    v12 = [v16 phoneNumbers];
-    v13 = [v12 count];
+    v13 = [v17 phoneNumbers];
+    v14 = [v13 count];
 
-    if (!v9)
+    if (!v11)
     {
     }
 
-    v11 = v16;
-    if (v13)
+    v5 = v17;
+    if (v14)
     {
       goto LABEL_14;
     }
@@ -153,7 +156,7 @@ LABEL_14:
 
 LABEL_16:
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v4, v5);
 }
 
 - (id)fetchContactWithID:(id)d

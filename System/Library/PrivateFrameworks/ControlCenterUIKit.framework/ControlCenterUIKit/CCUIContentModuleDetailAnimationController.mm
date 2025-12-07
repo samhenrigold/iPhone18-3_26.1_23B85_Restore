@@ -4,6 +4,7 @@
 - (id)_newPropertyAnimator;
 - (id)initForPresenting:(BOOL)presenting anchoringViewController:(id)controller;
 - (void)animateTransition:(id)transition;
+- (void)animationEnded:(BOOL)ended;
 - (void)performTransition:(id)transition;
 @end
 
@@ -179,6 +180,13 @@ uint64_t __64__CCUIContentModuleDetailAnimationController_performTransition___bl
   {
     [transitionCopy completeTransition:1];
   }
+}
+
+- (void)animationEnded:(BOOL)ended
+{
+  propertyAnimator = self->_propertyAnimator;
+  self->_propertyAnimator = 0;
+  MEMORY[0x1EEE66BB8](self, propertyAnimator);
 }
 
 - (id)_newPropertyAnimator

@@ -21,7 +21,7 @@
 - (id)snapshot
 {
   icon = [(SBIconImageView *)self icon];
-  [(SBIconImageView *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self);
   v5 = v4;
   v7 = v6;
   v9 = v8;

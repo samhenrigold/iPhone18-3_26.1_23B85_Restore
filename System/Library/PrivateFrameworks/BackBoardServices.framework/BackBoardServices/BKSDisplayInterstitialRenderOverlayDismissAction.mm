@@ -9,7 +9,7 @@
 
 - (id)descriptionWithMultilinePrefix:(id)prefix
 {
-  v3 = [(BKSDisplayInterstitialRenderOverlayDismissAction *)self descriptionBuilderWithMultilinePrefix:prefix];
+  v3 = [(BKSDisplayInterstitialRenderOverlayDismissAction *)self descriptionBuilderWithMultilinePrefix:?];
   build = [v3 build];
 
   return build;
@@ -17,10 +17,10 @@
 
 - (id)succinctDescriptionBuilder
 {
-  v3 = [MEMORY[0x1E698E680] builderWithObject:self->_overlayDescriptor];
-  v4 = [v3 appendObject:self->_overlayDescriptor withName:@"overlayDescriptor"];
+  v2 = [MEMORY[0x1E698E680] builderWithObject:?];
+  v3 = [v2 appendObject:? withName:?];
 
-  return v3;
+  return v2;
 }
 
 - (id)succinctDescription

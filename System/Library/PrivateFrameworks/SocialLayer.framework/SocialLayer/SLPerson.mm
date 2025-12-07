@@ -28,9 +28,9 @@
 - (SLPerson)initWithPortraitPerson:(id)person error:(id *)error
 {
   personCopy = person;
-  v21.receiver = self;
-  v21.super_class = SLPerson;
-  v7 = [(SLPerson *)&v21 init];
+  v22.receiver = self;
+  v22.super_class = SLPerson;
+  v7 = [(SLPerson *)&v22 init];
   if (!v7)
   {
     goto LABEL_16;
@@ -62,10 +62,11 @@ LABEL_16:
         goto LABEL_20;
       }
 
-      if ([(NSString *)v7->_handle length])
+      v18 = [(NSString *)v7->_handle length];
+      if (v18)
       {
-        v18 = SLFrameworkLogHandle();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v19 = SLFrameworkLogHandle(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           [SLPerson initWithPortraitPerson:error:];
         }
@@ -117,9 +118,9 @@ LABEL_20:
 - (SLPerson)initWithCSPerson:(id)person error:(id *)error
 {
   personCopy = person;
-  v16.receiver = self;
-  v16.super_class = SLPerson;
-  v7 = [(SLPerson *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = SLPerson;
+  v7 = [(SLPerson *)&v17 init];
   if (!v7)
   {
     goto LABEL_9;
@@ -144,10 +145,11 @@ LABEL_20:
   handle = displayName;
   if (!v11)
   {
-    if ([(NSString *)v7->_handle length])
+    v13 = [(NSString *)v7->_handle length];
+    if (v13)
     {
-      v13 = SLFrameworkLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v14 = SLFrameworkLogHandle(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         [SLPerson initWithPortraitPerson:error:];
       }
@@ -162,7 +164,7 @@ LABEL_20:
     }
 
 LABEL_15:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_16;
   }
 
@@ -170,10 +172,10 @@ LABEL_8:
   objc_storeStrong(&v7->_displayName, handle);
 
 LABEL_9:
-  v14 = v7;
+  v15 = v7;
 LABEL_16:
 
-  return v14;
+  return v15;
 }
 
 - (SLPerson)initWithHandle:(id)handle displayName:(id)name
@@ -296,12 +298,12 @@ LABEL_16:
           contact2 = [(SLPerson *)self contact];
           [dictionary setObject:contact2 forKey:@"c"];
 
-          v12 = dictionary;
+          v16 = dictionary;
           goto LABEL_15;
         }
 
-        v13 = SLFrameworkLogHandle();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v17 = SLFrameworkLogHandle(v14);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           [SLPerson dictionaryRepresentation];
         }
@@ -309,8 +311,8 @@ LABEL_16:
 
       else
       {
-        v13 = SLFrameworkLogHandle();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v17 = SLFrameworkLogHandle(v11);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           [SLPerson dictionaryRepresentation];
         }
@@ -319,8 +321,8 @@ LABEL_16:
 
     else
     {
-      v13 = SLFrameworkLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v17 = SLFrameworkLogHandle(v8);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [SLPerson dictionaryRepresentation];
       }
@@ -329,17 +331,17 @@ LABEL_16:
 
   else
   {
-    v13 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = SLFrameworkLogHandle(v5);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [SLPerson dictionaryRepresentation];
     }
   }
 
-  v12 = 0;
+  v16 = 0;
 LABEL_15:
 
-  return v12;
+  return v16;
 }
 
 - (SLPerson)initWithCoder:(id)coder
@@ -553,48 +555,48 @@ LABEL_40:
 
 + (id)errorForPersonDomain:(id)domain andCode:(int64_t)code
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   switch(code)
   {
     case 3:
-      v17[0] = *MEMORY[0x277CCA450];
+      v16[0] = *MEMORY[0x277CCA450];
       mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
       v7 = [mainBundle localizedStringForKey:@"SLPerson Init failed." value:&stru_28468DAB8 table:0];
-      v18[0] = v7;
-      v17[1] = *MEMORY[0x277CCA470];
+      v17[0] = v7;
+      v16[1] = *MEMORY[0x277CCA470];
       mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
       v9 = [mainBundle2 localizedStringForKey:@"PPSocialPerson contains an invalid or nil Display Name." value:&stru_28468DAB8 table:0];
-      v18[1] = v9;
+      v17[1] = v9;
       v10 = MEMORY[0x277CBEAC0];
-      v11 = v18;
-      v12 = v17;
+      v11 = v17;
+      v12 = v16;
       goto LABEL_7;
     case 2:
-      v19[0] = *MEMORY[0x277CCA450];
+      v18[0] = *MEMORY[0x277CCA450];
       mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
       v7 = [mainBundle localizedStringForKey:@"SLPerson Init failed." value:&stru_28468DAB8 table:0];
-      v20[0] = v7;
-      v19[1] = *MEMORY[0x277CCA470];
+      v19[0] = v7;
+      v18[1] = *MEMORY[0x277CCA470];
       mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
       v9 = [mainBundle2 localizedStringForKey:@"PPSocialPerson contains an invalid or nil handle." value:&stru_28468DAB8 table:0];
-      v20[1] = v9;
+      v19[1] = v9;
       v10 = MEMORY[0x277CBEAC0];
-      v11 = v20;
-      v12 = v19;
+      v11 = v19;
+      v12 = v18;
       goto LABEL_7;
     case 1:
-      v21[0] = *MEMORY[0x277CCA450];
+      v20[0] = *MEMORY[0x277CCA450];
       mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
       v7 = [mainBundle localizedStringForKey:@"SLPerson Init failed." value:&stru_28468DAB8 table:0];
-      v22[0] = v7;
-      v21[1] = *MEMORY[0x277CCA470];
+      v21[0] = v7;
+      v20[1] = *MEMORY[0x277CCA470];
       mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
       v9 = [mainBundle2 localizedStringForKey:@"Invalid or nil PPSocialPerson." value:&stru_28468DAB8 table:0];
-      v22[1] = v9;
+      v21[1] = v9;
       v10 = MEMORY[0x277CBEAC0];
-      v11 = v22;
-      v12 = v21;
+      v11 = v21;
+      v12 = v20;
 LABEL_7:
       v13 = [v10 dictionaryWithObjects:v11 forKeys:v12 count:2];
 
@@ -604,8 +606,6 @@ LABEL_7:
   v13 = 0;
 LABEL_9:
   v14 = [MEMORY[0x277CCA9B8] errorWithDomain:domainCopy code:code userInfo:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -690,7 +690,7 @@ LABEL_9:
 
 - (id)fetchCNContactWithHandle:(id)handle
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   if ([handleCopy length])
   {
@@ -707,42 +707,43 @@ LABEL_9:
 
     v9 = [SLPerson predicateForHandle:handleCopy];
     v10 = +[SLPerson keysForCNContact];
+    v11 = v10;
     if (!self->_contactStore)
     {
-      v11 = objc_alloc_init(MEMORY[0x277CBDAB8]);
+      v12 = objc_alloc_init(MEMORY[0x277CBDAB8]);
       contactStore = self->_contactStore;
-      self->_contactStore = v11;
+      self->_contactStore = v12;
     }
 
-    v13 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = SLFrameworkLogHandle(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = handleCopy;
-      _os_log_impl(&dword_231772000, v13, OS_LOG_TYPE_DEFAULT, "Fetching CNContact for handle %@.", buf, 0xCu);
+      v27 = handleCopy;
+      _os_log_impl(&dword_231772000, v14, OS_LOG_TYPE_DEFAULT, "Fetching CNContact for handle %@.", buf, 0xCu);
     }
 
-    v14 = self->_contactStore;
-    v24 = 0;
-    v15 = [(CNContactStore *)v14 unifiedContactsMatchingPredicate:v9 keysToFetch:v10 error:&v24];
-    v16 = v24;
-    firstObject = [v15 firstObject];
+    v15 = self->_contactStore;
+    v25 = 0;
+    v16 = [(CNContactStore *)v15 unifiedContactsMatchingPredicate:v9 keysToFetch:v11 error:&v25];
+    v17 = v25;
+    firstObject = [v16 firstObject];
 
-    v18 = SLFrameworkLogHandle();
-    v19 = v18;
-    if (v16)
+    v20 = SLFrameworkLogHandle(v19);
+    v21 = v20;
+    if (v17)
     {
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [(SLPerson *)v16 fetchCNContactWithHandle:v19];
+        [(SLPerson *)v17 fetchCNContactWithHandle:v21];
       }
     }
 
-    else if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = firstObject;
-      _os_log_impl(&dword_231772000, v19, OS_LOG_TYPE_DEFAULT, "Fetched CNContact %@.", buf, 0xCu);
+      v27 = firstObject;
+      _os_log_impl(&dword_231772000, v21, OS_LOG_TYPE_DEFAULT, "Fetched CNContact %@.", buf, 0xCu);
     }
 
     if (!firstObject)
@@ -750,19 +751,19 @@ LABEL_9:
       firstObject = [objc_opt_class() createMutableContactWithHandle:handleCopy];
     }
 
-    v20 = SLGeneralTelemetryLogHandle();
-    v21 = v20;
-    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+    v22 = SLGeneralTelemetryLogHandle();
+    v23 = v22;
+    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_231772000, v21, OS_SIGNPOST_INTERVAL_END, v6, "SLPersonFetchCNContact", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_231772000, v23, OS_SIGNPOST_INTERVAL_END, v6, "SLPersonFetchCNContact", "", buf, 2u);
     }
   }
 
   else
   {
-    v16 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = SLFrameworkLogHandle(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [SLPerson fetchCNContactWithHandle:];
     }
@@ -770,19 +771,17 @@ LABEL_9:
     firstObject = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
 + (id)createMutableContactWithHandle:(id)handle
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   if (![handleCopy length])
   {
-    v6 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SLFrameworkLogHandle(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SLPerson fetchCNContactWithHandle:];
     }
@@ -800,19 +799,19 @@ LABEL_9:
       goto LABEL_9;
     }
 
-    v7 = [lowercaseString hasPrefix:@"biz:"];
+    v8 = [lowercaseString hasPrefix:@"biz:"];
 
-    if (v7)
+    if (v8)
     {
 LABEL_9:
-      v6 = SLFrameworkLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = SLFrameworkLogHandle(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         +[SLPerson createMutableContactWithHandle:];
       }
 
 LABEL_11:
-      v8 = 0;
+      v9 = 0;
       goto LABEL_12;
     }
   }
@@ -821,54 +820,53 @@ LABEL_11:
   {
   }
 
-  v11 = SLFrameworkLogHandle();
+  v11 = SLFrameworkLogHandle(v6);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = v4;
+    v20 = v4;
     _os_log_impl(&dword_231772000, v11, OS_LOG_TYPE_DEFAULT, "Creating a CNContact for handle %@.", buf, 0xCu);
   }
 
   if (SLHandleIsEmail(v4))
   {
-    v8 = objc_alloc_init(MEMORY[0x277CBDB38]);
+    v9 = objc_alloc_init(MEMORY[0x277CBDB38]);
     v12 = [MEMORY[0x277CBDB20] labeledValueWithLabel:0 value:v4];
-    v17 = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
-    [v8 setEmailAddresses:v13];
+    v18 = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+    [v9 setEmailAddresses:v13];
 LABEL_21:
 
     goto LABEL_23;
   }
 
-  if (SLHandleIsPhoneNumber(v4))
+  IsPhoneNumber = SLHandleIsPhoneNumber(v4);
+  if (IsPhoneNumber)
   {
-    v8 = objc_alloc_init(MEMORY[0x277CBDB38]);
-    v14 = MEMORY[0x277CBDB20];
-    v15 = [MEMORY[0x277CBDB70] phoneNumberWithStringValue:v4];
-    v12 = [v14 labeledValueWithLabel:0 value:v15];
+    v9 = objc_alloc_init(MEMORY[0x277CBDB38]);
+    v15 = MEMORY[0x277CBDB20];
+    v16 = [MEMORY[0x277CBDB70] phoneNumberWithStringValue:v4];
+    v12 = [v15 labeledValueWithLabel:0 value:v16];
 
-    v16 = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
-    [v8 setPhoneNumbers:v13];
+    v17 = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    [v9 setPhoneNumbers:v13];
     goto LABEL_21;
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_23:
-  v6 = SLFrameworkLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SLFrameworkLogHandle(IsPhoneNumber);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = v8;
-    _os_log_impl(&dword_231772000, v6, OS_LOG_TYPE_DEFAULT, "Created contact: %@.", buf, 0xCu);
+    v20 = v9;
+    _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "Created contact: %@.", buf, 0xCu);
   }
 
 LABEL_12:
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v9;
 }
 
 + (id)fetchMeContact
@@ -891,23 +889,24 @@ void __26__SLPerson_fetchMeContact__block_invoke()
   [v1 setPredicate:v2];
 
   v3 = objc_alloc_init(MEMORY[0x277CBDAB8]);
-  v10 = 0;
-  v4 = [v3 executeFetchRequest:v1 error:&v10];
-  v5 = v10;
+  v11 = 0;
+  v4 = [v3 executeFetchRequest:v1 error:&v11];
+  v5 = v11;
 
   v6 = [v4 value];
+  v7 = v6;
   if (v5)
   {
-    v7 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = SLFrameworkLogHandle(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __26__SLPerson_fetchMeContact__block_invoke_cold_1();
     }
   }
 
-  v8 = [v6 firstObject];
-  v9 = fetchMeContact_meContact;
-  fetchMeContact_meContact = v8;
+  v9 = [v7 firstObject];
+  v10 = fetchMeContact_meContact;
+  fetchMeContact_meContact = v9;
 }
 
 + (id)predicateForHandle:(id)handle
@@ -924,14 +923,15 @@ void __26__SLPerson_fetchMeContact__block_invoke()
       goto LABEL_10;
     }
 
-    if (SLHandleIsEmail(handleCopy))
+    IsEmail = SLHandleIsEmail(handleCopy);
+    if (IsEmail)
     {
       v6 = [MEMORY[0x277CBDA58] predicateForContactsMatchingEmailAddress:handleCopy];
       goto LABEL_10;
     }
 
-    v7 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = SLFrameworkLogHandle(IsEmail);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[SLPerson predicateForHandle:];
     }
@@ -955,21 +955,19 @@ LABEL_10:
   return v3;
 }
 
-void __28__SLPerson_keysForCNContact__block_invoke()
+void __28__SLPerson_keysForCNContact__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10[6] = *MEMORY[0x277D85DE8];
-  v0 = SLIsRunningInDaemon();
-  v1 = *MEMORY[0x277CBD018];
-  if (v0)
+  v9[6] = *MEMORY[0x277D85DE8];
+  if (SLIsRunningInDaemon(a1, a2))
   {
-    v10[0] = *MEMORY[0x277CBD018];
-    v2 = v10;
+    v9[0] = *MEMORY[0x277CBD018];
+    v2 = v9;
   }
 
   else
   {
-    v9 = *MEMORY[0x277CBD018];
-    v2 = &v9;
+    v8 = *MEMORY[0x277CBD018];
+    v2 = &v8;
   }
 
   v3 = *MEMORY[0x277CBD098];
@@ -983,8 +981,6 @@ void __28__SLPerson_keysForCNContact__block_invoke()
   v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:6];
   v7 = keysForCNContact_keys;
   keysForCNContact_keys = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -1014,48 +1010,38 @@ void __28__SLPerson_keysForCNContact__block_invoke()
 
 - (void)fetchCNContactWithHandle:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch a CNContact. Error: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch a CNContact. Error: %@", v4, 0xCu);
 }
 
 - (void)fetchCNContactWithHandle:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)createMutableContactWithHandle:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __26__SLPerson_fetchMeContact__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)predicateForHandle:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -17,49 +17,48 @@
 
 - (CKDShareRequestAccessOperation)initWithOperationInfo:(id)info container:(id)container
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v25.receiver = self;
-  v25.super_class = CKDShareRequestAccessOperation;
-  v7 = [(CKDDatabaseOperation *)&v25 initWithOperationInfo:infoCopy container:container];
+  v24.receiver = self;
+  v24.super_class = CKDShareRequestAccessOperation;
+  v7 = [(CKDDatabaseOperation *)&v24 initWithOperationInfo:infoCopy container:container];
   if (v7)
   {
     v8 = objc_opt_new();
     shareURLsToRequestAccessFor = v7->_shareURLsToRequestAccessFor;
     v7->_shareURLsToRequestAccessFor = v8;
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v12 = objc_msgSend_shareURLsToRequestAccessFor(infoCopy, v10, v11, 0);
-    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v21, v26, 16);
+    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v20, v25, 16);
     if (v14)
     {
       v16 = v14;
-      v17 = *v22;
+      v17 = *v21;
       do
       {
         v18 = 0;
         do
         {
-          if (*v22 != v17)
+          if (*v21 != v17)
           {
             objc_enumerationMutation(v12);
           }
 
-          objc_msgSend_addObject_(v7->_shareURLsToRequestAccessFor, v15, *(*(&v21 + 1) + 8 * v18++));
+          objc_msgSend_addObject_(v7->_shareURLsToRequestAccessFor, v15, *(*(&v20 + 1) + 8 * v18++));
         }
 
         while (v16 != v18);
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v21, v26, 16);
+        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v20, v25, 16);
       }
 
       while (v16);
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -139,7 +138,7 @@
 
 - (void)_handleShareAccessRequestedForURL:(id)l responseCode:(id)code
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   lCopy = l;
   codeCopy = code;
   if (objc_msgSend_code(codeCopy, v8, v9) == 1)
@@ -153,7 +152,7 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v50 = lCopy;
+      v49 = lCopy;
       _os_log_impl(&dword_22506F000, v12, OS_LOG_TYPE_INFO, "Sucessfully requested access for share with URL %@", buf, 0xCu);
     }
 
@@ -179,7 +178,7 @@
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v50 = lCopy;
+        v49 = lCopy;
         _os_log_impl(&dword_22506F000, v23, OS_LOG_TYPE_INFO, "Zone busy failure for share with url %@.", buf, 0xCu);
       }
     }
@@ -198,9 +197,9 @@
         v28 = objc_msgSend_error(codeCopy, v26, v27);
         v31 = objc_msgSend_errorDescription(v28, v29, v30);
         *buf = 138412546;
-        v50 = lCopy;
-        v51 = 2114;
-        v52 = v31;
+        v49 = lCopy;
+        v50 = 2114;
+        v51 = v31;
         _os_log_impl(&dword_22506F000, v25, OS_LOG_TYPE_INFO, "Error requesting access for share with URL %@: %{public}@", buf, 0x16u);
       }
 
@@ -216,8 +215,6 @@
       objc_msgSend__performCallbackForURL_error_(self, v47, lCopy, v46);
     }
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEmail:(id)email
@@ -242,7 +239,7 @@
 
 - (BOOL)_shareAccessRequest
 {
-  v147 = *MEMORY[0x277D85DE8];
+  v146 = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_shareURLsToRequestAccessFor(self, a2, v2);
   v6 = objc_msgSend_count(v3, v4, v5);
 
@@ -251,31 +248,31 @@
     v9 = objc_msgSend_container(self, v7, v8);
     v12 = objc_msgSend_account(v9, v10, v11);
 
-    v117 = v12 != 0;
+    v116 = v12 != 0;
     if (v12)
     {
-      v116 = objc_msgSend_container(self, v13, v14);
-      v125 = objc_opt_new();
+      v115 = objc_msgSend_container(self, v13, v14);
+      v124 = objc_opt_new();
+      v132 = 0u;
       v133 = 0u;
       v134 = 0u;
       v135 = 0u;
-      v136 = 0u;
       obj = objc_msgSend_shareURLsToRequestAccessFor(self, v15, v16);
-      v126 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v133, v146, 16);
-      if (v126)
+      v125 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v132, v145, 16);
+      if (v125)
       {
-        v124 = *v134;
+        v123 = *v133;
         do
         {
           v18 = 0;
           do
           {
-            if (*v134 != v124)
+            if (*v133 != v123)
             {
               objc_enumerationMutation(obj);
             }
 
-            v19 = *(*(&v133 + 1) + 8 * v18);
+            v19 = *(*(&v132 + 1) + 8 * v18);
             v20 = objc_opt_new();
             v21 = objc_alloc(MEMORY[0x277CCACE0]);
             v23 = objc_msgSend_initWithURL_resolvingAgainstBaseURL_(v21, v22, v19, 0);
@@ -314,7 +311,7 @@
               objc_msgSend_setEmailAddress_(v50, v72, v71);
             }
 
-            v73 = objc_msgSend_username(v12, v69, v70, v116);
+            v73 = objc_msgSend_username(v12, v69, v70, v115);
             isPhoneNumber = objc_msgSend_isPhoneNumber_(self, v74, v73);
 
             if (isPhoneNumber)
@@ -335,63 +332,63 @@
             if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
             {
               log = v82;
-              v122 = objc_msgSend_fullName(v12, v88, v89);
-              v119 = objc_msgSend_givenName(v122, v90, v91);
-              v121 = objc_msgSend_fullName(v12, v92, v93);
-              v118 = objc_msgSend_familyName(v121, v94, v95);
+              v121 = objc_msgSend_fullName(v12, v88, v89);
+              v118 = objc_msgSend_givenName(v121, v90, v91);
+              v120 = objc_msgSend_fullName(v12, v92, v93);
+              v117 = objc_msgSend_familyName(v120, v94, v95);
               v98 = objc_msgSend_username(v12, v96, v97);
               v101 = objc_msgSend_accountID(v12, v99, v100);
               *buf = 138413058;
-              v138 = v119;
-              v139 = 2112;
-              v140 = v118;
-              v141 = 2112;
-              v142 = v98;
-              v143 = 2112;
-              v144 = v101;
+              v137 = v118;
+              v138 = 2112;
+              v139 = v117;
+              v140 = 2112;
+              v141 = v98;
+              v142 = 2112;
+              v143 = v101;
               _os_log_debug_impl(&dword_22506F000, log, OS_LOG_TYPE_DEBUG, "Account info for requester. First Name: %@ Family Name: %@ Username: %@ AccountID %@", buf, 0x2Au);
             }
 
             objc_msgSend_setContactInformation_(v49, v83, v50);
             objc_msgSend_setUserInformationRequestAccess_(v20, v84, v49);
             objc_msgSend_setShareURL_(v20, v85, v19);
-            objc_msgSend_addObject_(v125, v86, v20);
+            objc_msgSend_addObject_(v124, v86, v20);
 
             ++v18;
           }
 
-          while (v126 != v18);
-          v126 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v87, &v133, v146, 16);
+          while (v125 != v18);
+          v125 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v87, &v132, v145, 16);
         }
 
-        while (v126);
+        while (v125);
       }
 
       v102 = [CKDShareAccessRequestURLRequest alloc];
-      v104 = objc_msgSend_initWithOperation_shareMetadatasToRequestAccess_(v102, v103, self, v125);
+      v104 = objc_msgSend_initWithOperation_shareMetadatasToRequestAccess_(v102, v103, self, v124);
       objc_initWeak(buf, self);
       objc_initWeak(md, v104);
       v107 = objc_msgSend_stateTransitionGroup(self, v105, v106);
       dispatch_group_enter(v107);
 
-      v131[0] = MEMORY[0x277D85DD0];
-      v131[1] = 3221225472;
-      v131[2] = sub_225239238;
-      v131[3] = &unk_27854A8D0;
-      objc_copyWeak(&v132, buf);
-      objc_msgSend_setShareAccessRequestedBlock_(v104, v108, v131);
-      v128[0] = MEMORY[0x277D85DD0];
-      v128[1] = 3221225472;
-      v128[2] = sub_2252392B0;
-      v128[3] = &unk_278548748;
-      objc_copyWeak(&v129, buf);
-      objc_copyWeak(&v130, md);
-      objc_msgSend_setCompletionBlock_(v104, v109, v128);
+      v130[0] = MEMORY[0x277D85DD0];
+      v130[1] = 3221225472;
+      v130[2] = sub_225239238;
+      v130[3] = &unk_27854A8D0;
+      objc_copyWeak(&v131, buf);
+      objc_msgSend_setShareAccessRequestedBlock_(v104, v108, v130);
+      v127[0] = MEMORY[0x277D85DD0];
+      v127[1] = 3221225472;
+      v127[2] = sub_2252392B0;
+      v127[3] = &unk_278548748;
+      objc_copyWeak(&v128, buf);
+      objc_copyWeak(&v129, md);
+      objc_msgSend_setCompletionBlock_(v104, v109, v127);
       objc_msgSend_setRequest_(self, v110, v104);
-      objc_msgSend_performRequest_(v116, v111, v104);
-      objc_destroyWeak(&v130);
+      objc_msgSend_performRequest_(v115, v111, v104);
       objc_destroyWeak(&v129);
-      objc_destroyWeak(&v132);
+      objc_destroyWeak(&v128);
+      objc_destroyWeak(&v131);
       objc_destroyWeak(md);
       objc_destroyWeak(buf);
     }
@@ -426,11 +423,10 @@
       _os_log_impl(&dword_22506F000, v112, OS_LOG_TYPE_INFO, "No share URLs to request access for", buf, 2u);
     }
 
-    v117 = 0;
+    return 0;
   }
 
-  v114 = *MEMORY[0x277D85DE8];
-  return v117;
+  return v116;
 }
 
 - (void)main

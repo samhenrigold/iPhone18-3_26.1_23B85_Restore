@@ -142,27 +142,21 @@ LABEL_13:
 + (id)descriptionForTripMode:(unsigned __int8)mode
 {
   modeCopy = mode;
-  v8 = *MEMORY[0x1E69E9840];
-  if (mode >= 9u)
+  v7 = *MEMORY[0x1E69E9840];
+  if (mode < 9u)
   {
-    v5 = pp_default_log_handle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-    {
-      v7[0] = 67109120;
-      v7[1] = modeCopy;
-      _os_log_fault_impl(&dword_1A7FD3000, v5, OS_LOG_TYPE_FAULT, "PPScoredEvent::descriptionForTripMode, unsupported trip mode: %hhu", v7, 8u);
-    }
-
-    result = @"Unknown";
+    return off_1E77F7C38[mode];
   }
 
-  else
+  v5 = pp_default_log_handle();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    result = off_1E77F7C38[mode];
+    v6[0] = 67109120;
+    v6[1] = modeCopy;
+    _os_log_fault_impl(&dword_1A7FD3000, v5, OS_LOG_TYPE_FAULT, "PPScoredEvent::descriptionForTripMode, unsupported trip mode: %hhu", v6, 8u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return @"Unknown";
 }
 
 @end

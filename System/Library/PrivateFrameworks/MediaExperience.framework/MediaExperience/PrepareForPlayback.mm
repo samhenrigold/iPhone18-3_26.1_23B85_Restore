@@ -7,12 +7,10 @@ uint64_t __routingSessionManagerResilientRemote_PrepareForPlayback_block_invoke(
 {
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 16) + 32);
-  if (v6)
+  v5 = *(*(CMBaseObjectGetVTable() + 16) + 32);
+  if (v5)
   {
-    v7 = *(VTable + 16) + 32;
-    v6(a2, v3, v4);
+    v5(a2, v3, v4);
   }
 
   else if (v3)
@@ -36,12 +34,12 @@ uint64_t __routingSessionManager_PrepareForPlayback_block_invoke(uint64_t result
 
 void __routingSessionManager_PrepareForPlayback_block_invoke_110(void *a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     if (dword_1EB75DF00)
     {
-      v19 = 0;
+      v16 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -61,53 +59,49 @@ void __routingSessionManager_PrepareForPlayback_block_invoke_110(void *a1, uint6
     }
 
     v7 = *(a1[5] + 32);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __routingSessionManager_PrepareForPlayback_block_invoke_2;
-    v17[3] = &__block_descriptor_48_e5_v8__0l;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __routingSessionManager_PrepareForPlayback_block_invoke_2;
+    v14[3] = &__block_descriptor_48_e5_v8__0l;
     v8 = a1[6];
-    v17[4] = v6;
-    v17[5] = v8;
-    MXDispatchAsync("routingSessionManager_PrepareForPlayback_block_invoke", "FigRoutingSessionManager.m", 1560, 0, 0, v7, v17);
+    v14[4] = v6;
+    v14[5] = v8;
+    MXDispatchAsync("routingSessionManager_PrepareForPlayback_block_invoke", "FigRoutingSessionManager.m", 1560, 0, 0, v7, v14);
   }
 
-  v9 = *(a1[5] + 40);
   FigSimpleMutexLock();
-  v10 = *(a1[5] + 104);
+  v9 = *(a1[5] + 104);
   *(a1[5] + 104) = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
-  v11 = *(a1[5] + 40);
   FigSimpleMutexUnlock();
-  if (v10)
+  if (v9)
   {
-    if (CFArrayGetCount(v10) >= 1)
+    if (CFArrayGetCount(v9) >= 1)
     {
-      v12 = 0;
+      v10 = 0;
       do
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v10, v12);
+        ValueAtIndex = CFArrayGetValueAtIndex(v9, v10);
         ValueAtIndex[2](ValueAtIndex, a2);
-        ++v12;
+        ++v10;
       }
 
-      while (v12 < CFArrayGetCount(v10));
+      while (v10 < CFArrayGetCount(v9));
     }
 
-    CFRelease(v10);
+    CFRelease(v9);
   }
 
-  v14 = a1[6];
-  if (v14)
+  v12 = a1[6];
+  if (v12)
   {
-    CFRelease(v14);
+    CFRelease(v12);
   }
 
-  v15 = a1[4];
-  if (v15)
+  v13 = a1[4];
+  if (v13)
   {
-    CFRelease(v15);
+    CFRelease(v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __routingSessionManager_PrepareForPlayback_block_invoke_2(uint64_t a1)

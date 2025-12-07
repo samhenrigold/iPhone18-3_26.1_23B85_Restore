@@ -16,7 +16,7 @@
   [v8 setHTTPMethod:@"HEAD"];
   [v8 setCachePolicy:1];
   [v8 setTimeoutInterval:30.0];
-  v9 = sub_1002D6988();
+  v9 = sub_1002D6988(AMSUserAgent);
   [v8 setHTTPUserAgent:v9];
 
   v10 = *(&self->_logKey + 2);

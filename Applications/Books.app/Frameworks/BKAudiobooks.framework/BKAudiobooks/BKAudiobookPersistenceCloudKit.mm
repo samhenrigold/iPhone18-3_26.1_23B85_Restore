@@ -44,54 +44,55 @@
   completionCopy = completion;
   assetDetailManager = [(BKAudiobookPersistenceCloudKit *)self assetDetailManager];
   assetID = [audiobookCopy assetID];
-  if ([assetID length])
+  v12 = [assetID length];
+  if (v12)
   {
     if (assetDetailManager)
     {
-      v17[0] = _NSConcreteStackBlock;
-      v17[1] = 3221225472;
-      v17[2] = sub_1F4B0;
-      v17[3] = &unk_3D260;
-      v18 = assetID;
+      v18[0] = _NSConcreteStackBlock;
+      v18[1] = 3221225472;
+      v18[2] = sub_1F4B0;
+      v18[3] = &unk_3D260;
+      v19 = assetID;
       timeCopy = time;
-      v19 = audiobookCopy;
-      v20 = assetDetailManager;
-      v21 = completionCopy;
-      [v20 assetDetailForAssetID:v18 completion:v17];
+      v20 = audiobookCopy;
+      v21 = assetDetailManager;
+      v22 = completionCopy;
+      [v21 assetDetailForAssetID:v19 completion:v18];
 
-      v12 = v18;
+      v13 = v19;
       goto LABEL_13;
     }
 
-    v15 = BKAudiobooksPersistenceCloudKitLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = BKAudiobooksPersistenceCloudKitLog(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_226E0();
     }
 
-    v12 = objc_retainBlock(completionCopy);
-    if (v12)
+    v13 = objc_retainBlock(completionCopy);
+    if (v13)
     {
-      v14 = 2;
+      v15 = 2;
       goto LABEL_12;
     }
   }
 
   else
   {
-    v13 = BKAudiobooksPersistenceCloudKitLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = BKAudiobooksPersistenceCloudKitLog(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_22720();
     }
 
-    v12 = objc_retainBlock(completionCopy);
-    if (v12)
+    v13 = objc_retainBlock(completionCopy);
+    if (v13)
     {
-      v14 = 1;
+      v15 = 1;
 LABEL_12:
-      v16 = [NSError errorWithDomain:@"BKAudiobooksError" code:v14 userInfo:0];
-      v12[2](v12, v16);
+      v17 = [NSError errorWithDomain:@"BKAudiobooksError" code:v15 userInfo:0];
+      v13[2](v13, v17);
     }
   }
 

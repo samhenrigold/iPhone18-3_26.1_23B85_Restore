@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)formatAsString:(int)string;
 - (int)StringAsFormat:(id)format;
 - (int)format;
 - (unint64_t)hash;
@@ -24,6 +25,29 @@
   {
     return 0;
   }
+}
+
+- (id)formatAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"HEIC";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNSPECIFIED";
+  }
+
+  return v4;
 }
 
 - (int)StringAsFormat:(id)format
@@ -92,18 +116,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    format = self->_format;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_image)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -149,7 +172,6 @@
     goto LABEL_9;
   }
 
-  v5 = *(equalCopy + 24);
   if (*&self->_has)
   {
     if ((*(equalCopy + 24) & 1) == 0 || self->_format != *(equalCopy + 2))
@@ -161,24 +183,24 @@
   else if (*(equalCopy + 24))
   {
 LABEL_9:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
   image = self->_image;
   if (image | *(equalCopy + 2))
   {
-    v7 = [(NSData *)image isEqual:?];
+    v6 = [(NSData *)image isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_10:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

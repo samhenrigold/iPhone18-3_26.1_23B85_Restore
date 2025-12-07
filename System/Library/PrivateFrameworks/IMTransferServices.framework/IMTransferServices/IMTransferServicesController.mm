@@ -1,6 +1,7 @@
 @interface IMTransferServicesController
 + (id)sharedInstance;
 - (void)_receiveFileTransfer:(id)transfer topic:(id)topic path:(id)path requestURLString:(id)string ownerID:(id)d sourceAppID:(id)iD signature:(id)signature decryptionKey:(id)self0 retries:(int)self1 fileSize:(unint64_t)value progressBlock:(id)self3 completionBlock:(id)self4;
+- (void)_sendFilePath:(id)path topic:(id)topic userInfo:(id)info transferID:(id)d sourceAppID:(id)iD encryptFile:(BOOL)file retries:(int)retries progressBlock:(id)self0 completionBlock:(id)self1;
 - (void)cancelSendTransferID:(id)d;
 - (void)deleteAllPersonalNicknamesWithCompletion:(id)completion;
 - (void)getNicknameWithRecordID:(id)d decryptionKey:(id)key wallpaperDataTag:(id)tag wallpaperLowResDataTag:(id)dataTag wallpaperMetadataTag:(id)metadataTag avatarRecipeDataTag:(id)recipeDataTag isKnownSender:(BOOL)sender shouldDecodeImageFields:(BOOL)self0 completionBlock:(id)self1;
@@ -23,9 +24,183 @@
   return qword_28141B768;
 }
 
+- (void)_sendFilePath:(id)path topic:(id)topic userInfo:(id)info transferID:(id)d sourceAppID:(id)iD encryptFile:(BOOL)file retries:(int)retries progressBlock:(id)self0 completionBlock:(id)self1
+{
+  fileCopy = file;
+  v106 = *MEMORY[0x277D85DE8];
+  if (IMOSLoggingEnabled())
+  {
+    v18 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412802;
+      *&buf[4] = path;
+      *&buf[12] = 2112;
+      *&buf[14] = d;
+      *&buf[22] = 2112;
+      iDCopy = iD;
+      _os_log_impl(&dword_254879000, v18, OS_LOG_TYPE_INFO, "TransferServices received request to transfer %@  ID: %@ sourceAppID: %@", buf, 0x20u);
+    }
+  }
+
+  v97 = 0;
+  v19 = MEMORY[0x277CBEBC0];
+  v20 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v15, v16, v17);
+  v24 = objc_msgSend_pathExtension(path, v21, v22, v23);
+  v27 = objc_msgSend__randomTemporaryPathWithSuffix_(v20, v25, v24, v26);
+  v30 = objc_msgSend_fileURLWithPath_(v19, v28, v27, v29);
+  if (IMOSLoggingEnabled())
+  {
+    v34 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412546;
+      *&buf[4] = path;
+      *&buf[12] = 2112;
+      *&buf[14] = v30;
+      _os_log_impl(&dword_254879000, v34, OS_LOG_TYPE_INFO, "Attempting to clone current transfer URL %@ to new URL %@", buf, 0x16u);
+    }
+  }
+
+  v35 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v31, v32, v33);
+  v38 = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v36, path, v37);
+  LOBYTE(v35) = objc_msgSend_copyItemAtURL_toURL_error_(v35, v39, v38, v30, &v97);
+  v40 = IMOSLoggingEnabled();
+  if (v35)
+  {
+    if (v40)
+    {
+      v42 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_254879000, v42, OS_LOG_TYPE_INFO, "Connecting to transfer agent", buf, 2u);
+      }
+    }
+
+    *buf = 0;
+    *&buf[8] = buf;
+    *&buf[16] = 0x3052000000;
+    iDCopy = sub_25487AE30;
+    v104 = sub_25487AE40;
+    im_primary_queue();
+    v105 = IMXPCCreateConnectionForServiceWithQueue();
+    if (*(*&buf[8] + 40))
+    {
+      v92 = MEMORY[0x277D85DD0];
+      v93 = 3221225472;
+      v94 = sub_25487AE4C;
+      v95 = &unk_27978E308;
+      v96 = buf;
+      v86 = MEMORY[0x277D85DD0];
+      v87 = 3221225472;
+      v88 = sub_25487AF08;
+      v89 = &unk_27978E330;
+      blockCopy = block;
+      v91 = buf;
+      IMXPCConfigureConnection();
+      v43 = xpc_dictionary_create(0, 0, 0);
+      v47 = objc_msgSend_path(v30, v44, v45, v46);
+      v51 = objc_msgSend_UTF8String(v47, v48, v49, v50);
+      v79 = objc_msgSend_UTF8String(d, v52, v53, v54);
+      IMInsertStringsToXPCDictionary();
+      v78 = objc_msgSend_UTF8String(topic, v55, v56, v57, v51, "transferID", v79, 0);
+      IMInsertStringsToXPCDictionary();
+      objc_msgSend_UTF8String(iD, v58, v59, v60, v78, 0);
+      IMInsertStringsToXPCDictionary();
+      IMInsertBoolsToXPCDictionary();
+      IMInsertDictionariesToXPCDictionary();
+      v64 = objc_msgSend_path(v30, v61, v62, v63, info, 0, fileCopy, 0);
+      objc_msgSend_UTF8String(v64, v65, v66, v67);
+      v68 = sandbox_extension_issue_file();
+      if (v68)
+      {
+        IMInsertStringsToXPCDictionary();
+        free(v68);
+      }
+
+      else if (IMOSLoggingEnabled())
+      {
+        v74 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
+        {
+          v75 = *__error();
+          *v98 = 138412546;
+          v99 = v30;
+          v100 = 1024;
+          v101 = v75;
+          _os_log_impl(&dword_254879000, v74, OS_LOG_TYPE_INFO, "Unable to grant access to path (sandbox extension is NULL) (file path: %@) errno %d", v98, 0x12u);
+        }
+      }
+
+      v76 = *(*&buf[8] + 40);
+      v77 = im_primary_queue();
+      handler[0] = MEMORY[0x277D85DD0];
+      handler[1] = 3221225472;
+      handler[2] = sub_25487B0A8;
+      handler[3] = &unk_27978E358;
+      retriesCopy = retries;
+      handler[4] = self;
+      handler[5] = path;
+      handler[6] = topic;
+      handler[7] = info;
+      handler[8] = d;
+      handler[9] = iD;
+      v85 = fileCopy;
+      handler[10] = v30;
+      handler[11] = block;
+      handler[12] = completionBlock;
+      handler[13] = buf;
+      xpc_connection_send_message_with_reply(v76, v43, v77, handler);
+      xpc_release(v43);
+    }
+
+    else
+    {
+      if (IMOSLoggingEnabled())
+      {
+        v72 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
+        {
+          *v98 = 0;
+          _os_log_impl(&dword_254879000, v72, OS_LOG_TYPE_INFO, "Unable to connect to transfer service", v98, 2u);
+        }
+      }
+
+      if (completionBlock)
+      {
+        v73 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v71, @"IMTransferServicesErrorDomain", -3, 0);
+        (*(completionBlock + 2))(completionBlock, path, 0, v73, 0, 0, 0, 0, 0, 0);
+      }
+    }
+
+    _Block_object_dispose(buf, 8);
+  }
+
+  else
+  {
+    if (v40)
+    {
+      v69 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        *&buf[4] = v97;
+        _os_log_impl(&dword_254879000, v69, OS_LOG_TYPE_INFO, "Cloning failed with error %@, giving up since we're not guaranteed to get a file", buf, 0xCu);
+      }
+    }
+
+    if (completionBlock)
+    {
+      v70 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v41, @"IMTransferServicesErrorDomain", -2, 0);
+      (*(completionBlock + 2))(completionBlock, path, 0, v70, 0, 0, 0, 0, 0, 0);
+    }
+  }
+}
+
 - (void)_receiveFileTransfer:(id)transfer topic:(id)topic path:(id)path requestURLString:(id)string ownerID:(id)d sourceAppID:(id)iD signature:(id)signature decryptionKey:(id)self0 retries:(int)self1 fileSize:(unint64_t)value progressBlock:(id)self3 completionBlock:(id)self4
 {
-  v137 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v18 = OSLogHandleForIMFoundationCategory();
@@ -45,80 +220,78 @@
   *&buf[8] = buf;
   *&buf[16] = 0x3052000000;
   iDCopy = sub_25487AE30;
-  v135 = sub_25487AE40;
+  v83 = sub_25487AE40;
   im_primary_queue();
-  v136 = IMXPCCreateConnectionForServiceWithQueue();
+  v84 = IMXPCCreateConnectionForServiceWithQueue();
   if (*(*&buf[8] + 40))
   {
-    v128[7] = MEMORY[0x277D85DD0];
-    v128[8] = 3221225472;
-    v128[9] = sub_25487BD84;
-    v128[10] = &unk_27978E308;
-    v128[11] = buf;
-    v128[1] = MEMORY[0x277D85DD0];
-    v128[2] = 3221225472;
-    v128[3] = sub_25487BE40;
-    v128[4] = &unk_27978E330;
-    v128[5] = block;
-    v128[6] = buf;
+    v76[7] = MEMORY[0x277D85DD0];
+    v76[8] = 3221225472;
+    v76[9] = sub_25487BD84;
+    v76[10] = &unk_27978E308;
+    v76[11] = buf;
+    v76[1] = MEMORY[0x277D85DD0];
+    v76[2] = 3221225472;
+    v76[3] = sub_25487BE40;
+    v76[4] = &unk_27978E330;
+    v76[5] = block;
+    v76[6] = buf;
     IMXPCConfigureConnection();
     v19 = xpc_dictionary_create(0, 0, 0);
-    v120 = objc_msgSend_UTF8String(topic, v20, v21, v22, v23, v24, v25, v26);
+    v68 = objc_msgSend_UTF8String(topic, v20, v21, v22);
     IMInsertStringsToXPCDictionary();
-    objc_msgSend_UTF8String(path, v27, v28, v29, v30, v31, v32, v33, v120, 0);
-    objc_msgSend_UTF8String(transfer, v34, v35, v36, v37, v38, v39, v40);
-    v48 = objc_msgSend_UTF8String(d, v41, v42, v43, v44, v45, v46, v47);
-    v122 = objc_msgSend_UTF8String(string, v49, v50, v51, v52, v53, v54, v55);
+    objc_msgSend_UTF8String(path, v23, v24, v25, v68, 0);
+    objc_msgSend_UTF8String(transfer, v26, v27, v28);
+    v32 = objc_msgSend_UTF8String(d, v29, v30, v31);
+    v70 = objc_msgSend_UTF8String(string, v33, v34, v35);
     IMInsertStringsToXPCDictionary();
     IMInsertDatasToXPCDictionary();
     IMInsertBoolsToXPCDictionary();
-    v121 = objc_msgSend_UTF8String(iD, v56, v57, v58, v59, v60, v61, v62, 0, 0, key, 0, v48, "urlString", v122, 0);
+    v69 = objc_msgSend_UTF8String(iD, v36, v37, v38, 0, 0, key, 0, v32, "urlString", v70, 0);
     IMInsertStringsToXPCDictionary();
     xpc_dictionary_set_uint64(v19, "file-size", value);
     if (path)
     {
-      v69 = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v63, path, v64, v65, v66, v67, v68, v121, 0);
-      PathComponent = objc_msgSend_URLByDeletingLastPathComponent(v69, v70, v71, v72, v73, v74, v75, v76);
-      v128[0] = 0;
-      v85 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v78, v79, v80, v81, v82, v83, v84);
-      if ((objc_msgSend_createDirectoryAtURL_withIntermediateDirectories_attributes_error_(v85, v86, PathComponent, 1, 0, v128, v87, v88) & 1) == 0)
+      v41 = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v39, path, v40, v69, 0);
+      PathComponent = objc_msgSend_URLByDeletingLastPathComponent(v41, v42, v43, v44);
+      v76[0] = 0;
+      v49 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v46, v47, v48);
+      if ((objc_msgSend_createDirectoryAtURL_withIntermediateDirectories_attributes_error_(v49, v50, PathComponent, 1, 0, v76) & 1) == 0)
       {
         if (IMOSLoggingEnabled())
         {
-          v96 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v96, OS_LOG_TYPE_INFO))
+          v54 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
           {
-            *v129 = 138412546;
-            v130 = PathComponent;
-            v131 = 2112;
-            v132 = v128[0];
-            _os_log_impl(&dword_254879000, v96, OS_LOG_TYPE_INFO, "Unable to create containing directory (%@) with error: %@", v129, 0x16u);
+            *v77 = 138412546;
+            v78 = PathComponent;
+            v79 = 2112;
+            v80 = v76[0];
+            _os_log_impl(&dword_254879000, v54, OS_LOG_TYPE_INFO, "Unable to create containing directory (%@) with error: %@", v77, 0x16u);
           }
         }
       }
 
-      v97 = objc_msgSend_path(PathComponent, v89, v90, v91, v92, v93, v94, v95);
-      objc_msgSend_UTF8String(v97, v98, v99, v100, v101, v102, v103, v104);
-      v105 = *MEMORY[0x277D861C0];
-      v106 = *MEMORY[0x277D861E8];
-      v107 = sandbox_extension_issue_file();
-      if (v107)
+      v55 = objc_msgSend_path(PathComponent, v51, v52, v53);
+      objc_msgSend_UTF8String(v55, v56, v57, v58);
+      v59 = sandbox_extension_issue_file();
+      if (v59)
       {
         IMInsertStringsToXPCDictionary();
-        free(v107);
+        free(v59);
       }
 
       else if (IMOSLoggingEnabled())
       {
-        v115 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v115, OS_LOG_TYPE_INFO))
+        v64 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
         {
-          v116 = *__error();
-          *v129 = 138412546;
-          v130 = PathComponent;
-          v131 = 1024;
-          LODWORD(v132) = v116;
-          _os_log_impl(&dword_254879000, v115, OS_LOG_TYPE_INFO, "Unable to grant access to path (sandbox extension is NULL) (file path: %@) errno %d", v129, 0x12u);
+          v65 = *__error();
+          *v77 = 138412546;
+          v78 = PathComponent;
+          v79 = 1024;
+          LODWORD(v80) = v65;
+          _os_log_impl(&dword_254879000, v64, OS_LOG_TYPE_INFO, "Unable to grant access to path (sandbox extension is NULL) (file path: %@) errno %d", v77, 0x12u);
         }
       }
     }
@@ -127,19 +300,19 @@
     {
       if (IMOSLoggingEnabled())
       {
-        v114 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v114, OS_LOG_TYPE_INFO))
+        v63 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
         {
-          *v129 = 0;
-          _os_log_impl(&dword_254879000, v114, OS_LOG_TYPE_INFO, "TransferServices received request to receive transfer but the receivePath was NULL", v129, 2u);
+          *v77 = 0;
+          _os_log_impl(&dword_254879000, v63, OS_LOG_TYPE_INFO, "TransferServices received request to receive transfer but the receivePath was NULL", v77, 2u);
         }
       }
 
       IMReportAutoBugCapture();
     }
 
-    v117 = *(*&buf[8] + 40);
-    v118 = im_primary_queue();
+    v66 = *(*&buf[8] + 40);
+    v67 = im_primary_queue();
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = sub_25487BFE0;
@@ -158,7 +331,7 @@
     handler[14] = completionBlock;
     handler[15] = buf;
     handler[16] = value;
-    xpc_connection_send_message_with_reply(v117, v19, v118, handler);
+    xpc_connection_send_message_with_reply(v66, v19, v67, handler);
     xpc_release(v19);
   }
 
@@ -166,23 +339,22 @@
   {
     if (IMOSLoggingEnabled())
     {
-      v112 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v112, OS_LOG_TYPE_INFO))
+      v61 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
       {
-        *v129 = 0;
-        _os_log_impl(&dword_254879000, v112, OS_LOG_TYPE_INFO, "Unable to connect to transfer service", v129, 2u);
+        *v77 = 0;
+        _os_log_impl(&dword_254879000, v61, OS_LOG_TYPE_INFO, "Unable to connect to transfer service", v77, 2u);
       }
     }
 
     if (completionBlock)
     {
-      v113 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v108, @"IMTransferServicesErrorDomain", -3, 0, v109, v110, v111);
-      (*(completionBlock + 2))(completionBlock, transfer, path, 0, v113, 0);
+      v62 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v60, @"IMTransferServicesErrorDomain", -3, 0);
+      (*(completionBlock + 2))(completionBlock, transfer, path, 0, v62, 0);
     }
   }
 
   _Block_object_dispose(buf, 8);
-  v119 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateUltraConstrainedAttachments:(BOOL)attachments
@@ -216,7 +388,7 @@
 
 - (void)cancelSendTransferID:(id)d
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v4 = OSLogHandleForIMFoundationCategory();
@@ -230,29 +402,29 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v23 = 0x3052000000;
-  v24 = sub_25487AE30;
-  v25 = sub_25487AE40;
+  v18 = 0x3052000000;
+  v19 = sub_25487AE30;
+  v20 = sub_25487AE40;
   im_primary_queue();
-  v26 = IMXPCCreateConnectionForServiceWithQueue();
+  v21 = IMXPCCreateConnectionForServiceWithQueue();
   if (*(*(&buf + 1) + 40))
   {
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = sub_25487CB60;
-    v20 = &unk_27978E308;
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = sub_25487CB60;
+    v15 = &unk_27978E308;
     p_buf = &buf;
     IMXPCConfigureConnection();
     v5 = xpc_dictionary_create(0, 0, 0);
     IMInsertBoolsToXPCDictionary();
-    objc_msgSend_UTF8String(d, v6, v7, v8, v9, v10, v11, v12, 1, 0);
+    objc_msgSend_UTF8String(d, v6, v7, v8, 1, 0);
     IMInsertStringsToXPCDictionary();
     xpc_connection_send_message(*(*(&buf + 1) + 40), v5);
     xpc_release(v5);
-    v13 = *(*(&buf + 1) + 40);
-    if (v13)
+    v9 = *(*(&buf + 1) + 40);
+    if (v9)
     {
-      xpc_connection_cancel(v13);
+      xpc_connection_cancel(v9);
       xpc_release(*(*(&buf + 1) + 40));
       *(*(&buf + 1) + 40) = 0;
     }
@@ -260,16 +432,15 @@
 
   else if (IMOSLoggingEnabled())
   {
-    v14 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v10 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_254879000, v14, OS_LOG_TYPE_INFO, "Unable to connect to transfer service", v16, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_254879000, v10, OS_LOG_TYPE_INFO, "Unable to connect to transfer service", v11, 2u);
     }
   }
 
   _Block_object_dispose(&buf, 8);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)preWarmMMCSForOwnerID:(id)d
@@ -343,7 +514,7 @@
 
 - (void)getNicknameWithRecordID:(id)d decryptionKey:(id)key wallpaperDataTag:(id)tag wallpaperLowResDataTag:(id)dataTag wallpaperMetadataTag:(id)metadataTag avatarRecipeDataTag:(id)recipeDataTag isKnownSender:(BOOL)sender shouldDecodeImageFields:(BOOL)self0 completionBlock:(id)self1
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v12 = OSLogHandleForIMFoundationCategory();
@@ -357,27 +528,27 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v44 = 0x3052000000;
-  v45 = sub_25487AE30;
-  v46 = sub_25487AE40;
+  v36 = 0x3052000000;
+  v37 = sub_25487AE30;
+  v38 = sub_25487AE40;
   im_primary_queue();
-  v47 = IMXPCCreateConnectionForServiceWithQueue();
+  v39 = IMXPCCreateConnectionForServiceWithQueue();
   if (*(*(&buf + 1) + 40))
   {
-    v38 = MEMORY[0x277D85DD0];
-    v39 = 3221225472;
-    v40 = sub_25487D560;
-    v41 = &unk_27978E308;
+    v30 = MEMORY[0x277D85DD0];
+    v31 = 3221225472;
+    v32 = sub_25487D560;
+    v33 = &unk_27978E308;
     p_buf = &buf;
-    v33 = MEMORY[0x277D85DD0];
-    v34 = 3221225472;
-    v35 = sub_25487D5B0;
-    v36 = &unk_27978E3C8;
-    v37 = &buf;
+    v25 = MEMORY[0x277D85DD0];
+    v26 = 3221225472;
+    v27 = sub_25487D5B0;
+    v28 = &unk_27978E3C8;
+    v29 = &buf;
     IMXPCConfigureConnection();
     v13 = xpc_dictionary_create(0, 0, 0);
     IMInsertBoolsToXPCDictionary();
-    objc_msgSend_UTF8String(d, v14, v15, v16, v17, v18, v19, v20, 1, 0);
+    objc_msgSend_UTF8String(d, v14, v15, v16, 1, 0);
     IMInsertStringsToXPCDictionary();
     IMInsertDatasToXPCDictionary();
     IMInsertDatasToXPCDictionary();
@@ -388,23 +559,23 @@
     IMInsertBoolsToXPCDictionary();
     if (IMOSLoggingEnabled())
     {
-      v21 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v17 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        *v32 = 0;
-        _os_log_impl(&dword_254879000, v21, OS_LOG_TYPE_INFO, "Sending get nickname message to transfer agent", v32, 2u);
+        *v24 = 0;
+        _os_log_impl(&dword_254879000, v17, OS_LOG_TYPE_INFO, "Sending get nickname message to transfer agent", v24, 2u);
       }
     }
 
-    v22 = *(*(&buf + 1) + 40);
-    v23 = im_primary_queue();
+    v18 = *(*(&buf + 1) + 40);
+    v19 = im_primary_queue();
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = sub_25487D6DC;
     handler[3] = &unk_27978E3F0;
     handler[4] = block;
     handler[5] = &buf;
-    xpc_connection_send_message_with_reply(v22, v13, v23, handler);
+    xpc_connection_send_message_with_reply(v18, v13, v19, handler);
     xpc_release(v13);
   }
 
@@ -412,48 +583,47 @@
   {
     if (IMOSLoggingEnabled())
     {
-      v28 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      v21 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        *v32 = 0;
-        _os_log_impl(&dword_254879000, v28, OS_LOG_TYPE_INFO, "Unable to connect to transfer service", v32, 2u);
+        *v24 = 0;
+        _os_log_impl(&dword_254879000, v21, OS_LOG_TYPE_INFO, "Unable to connect to transfer service", v24, 2u);
       }
     }
 
-    v29 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v24, @"IMTransferServicesErrorDomain", -3, 0, v25, v26, v27);
+    v22 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v20, @"IMTransferServicesErrorDomain", -3, 0);
     if (block)
     {
-      (*(block + 2))(block, 0, v29);
+      (*(block + 2))(block, 0, v22);
     }
   }
 
   _Block_object_dispose(&buf, 8);
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPersonalNickname:(id)nickname oldRecordID:(id)d completionBlock:(id)block
 {
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = sub_25487DA6C;
-  v8[3] = &unk_27978E418;
-  v8[4] = block;
-  objc_msgSend_setPersonalNickname_oldRecordID_completionBlockWithWallpaperTags_(self, a2, nickname, d, v8, v5, v6, v7);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = sub_25487DA6C;
+  v5[3] = &unk_27978E418;
+  v5[4] = block;
+  objc_msgSend_setPersonalNickname_oldRecordID_completionBlockWithWallpaperTags_(self, a2, nickname, d, v5);
 }
 
 - (void)setPersonalNickname:(id)nickname oldRecordID:(id)d completionBlockWithWallpaperTags:(id)tags
 {
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = sub_25487DAEC;
-  v8[3] = &unk_27978E440;
-  v8[4] = tags;
-  objc_msgSend_setPersonalNickname_oldRecordID_completionBlockWithWallpaperAndRecipeDataTags_(self, a2, nickname, d, v8, v5, v6, v7);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = sub_25487DAEC;
+  v5[3] = &unk_27978E440;
+  v5[4] = tags;
+  objc_msgSend_setPersonalNickname_oldRecordID_completionBlockWithWallpaperAndRecipeDataTags_(self, a2, nickname, d, v5);
 }
 
 - (void)setPersonalNickname:(id)nickname oldRecordID:(id)d completionBlockWithWallpaperAndRecipeDataTags:(id)tags
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v8 = OSLogHandleForIMFoundationCategory();
@@ -470,22 +640,22 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3052000000;
-  v33 = sub_25487AE30;
-  v34 = sub_25487AE40;
+  v29 = sub_25487AE30;
+  v30 = sub_25487AE40;
   im_primary_queue();
-  v35 = IMXPCCreateConnectionForServiceWithQueue();
+  v31 = IMXPCCreateConnectionForServiceWithQueue();
   if (*(*&buf[8] + 40))
   {
-    v27 = MEMORY[0x277D85DD0];
-    v28 = 3221225472;
-    v29 = sub_25487DF20;
-    v30 = &unk_27978E308;
-    v31 = buf;
-    v22 = MEMORY[0x277D85DD0];
-    v23 = 3221225472;
-    v24 = sub_25487DF70;
-    v25 = &unk_27978E3C8;
-    v26 = buf;
+    v23 = MEMORY[0x277D85DD0];
+    v24 = 3221225472;
+    v25 = sub_25487DF20;
+    v26 = &unk_27978E308;
+    v27 = buf;
+    v18 = MEMORY[0x277D85DD0];
+    v19 = 3221225472;
+    v20 = sub_25487DF70;
+    v21 = &unk_27978E3C8;
+    v22 = buf;
     IMXPCConfigureConnection();
     v9 = xpc_dictionary_create(0, 0, 0);
     IMInsertBoolsToXPCDictionary();
@@ -496,8 +666,8 @@
       v10 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        *v21 = 0;
-        _os_log_impl(&dword_254879000, v10, OS_LOG_TYPE_INFO, "Sending upload nickname message to transfer agent", v21, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_254879000, v10, OS_LOG_TYPE_INFO, "Sending upload nickname message to transfer agent", v17, 2u);
       }
     }
 
@@ -517,23 +687,22 @@
   {
     if (IMOSLoggingEnabled())
     {
-      v17 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        *v21 = 0;
-        _os_log_impl(&dword_254879000, v17, OS_LOG_TYPE_INFO, "Unable to connect to transfer service", v21, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_254879000, v14, OS_LOG_TYPE_INFO, "Unable to connect to transfer service", v17, 2u);
       }
     }
 
-    v18 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v13, @"IMTransferServicesErrorDomain", -3, 0, v14, v15, v16);
+    v15 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v13, @"IMTransferServicesErrorDomain", -3, 0);
     if (tags)
     {
-      (*(tags + 2))(tags, 0, 0, 0, 0, 0, 0, 0, 0, v18);
+      (*(tags + 2))(tags, 0, 0, 0, 0, 0, 0, 0, 0, v15);
     }
   }
 
   _Block_object_dispose(buf, 8);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteAllPersonalNicknamesWithCompletion:(id)completion
@@ -549,24 +718,24 @@
   }
 
   *buf = 0;
-  v28 = buf;
-  v29 = 0x3052000000;
-  v30 = sub_25487AE30;
-  v31 = sub_25487AE40;
+  v25 = buf;
+  v26 = 0x3052000000;
+  v27 = sub_25487AE30;
+  v28 = sub_25487AE40;
   im_primary_queue();
-  v32 = IMXPCCreateConnectionForServiceWithQueue();
-  if (*(v28 + 5))
+  v29 = IMXPCCreateConnectionForServiceWithQueue();
+  if (*(v25 + 5))
   {
-    v22 = MEMORY[0x277D85DD0];
-    v23 = 3221225472;
-    v24 = sub_25487E824;
-    v25 = &unk_27978E308;
-    v26 = buf;
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = sub_25487E874;
-    v20 = &unk_27978E3C8;
-    v21 = buf;
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = sub_25487E824;
+    v22 = &unk_27978E308;
+    v23 = buf;
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = sub_25487E874;
+    v17 = &unk_27978E3C8;
+    v18 = buf;
     IMXPCConfigureConnection();
     v5 = xpc_dictionary_create(0, 0, 0);
     IMInsertBoolsToXPCDictionary();
@@ -575,12 +744,12 @@
       v6 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        *v16 = 0;
-        _os_log_impl(&dword_254879000, v6, OS_LOG_TYPE_INFO, "Sending delete all nicknames message to transfer agent", v16, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_254879000, v6, OS_LOG_TYPE_INFO, "Sending delete all nicknames message to transfer agent", v13, 2u);
       }
     }
 
-    v7 = *(v28 + 5);
+    v7 = *(v25 + 5);
     v8 = im_primary_queue();
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
@@ -596,18 +765,18 @@
   {
     if (IMOSLoggingEnabled())
     {
-      v13 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v10 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        *v16 = 0;
-        _os_log_impl(&dword_254879000, v13, OS_LOG_TYPE_INFO, "Unable to connect to transfer service", v16, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_254879000, v10, OS_LOG_TYPE_INFO, "Unable to connect to transfer service", v13, 2u);
       }
     }
 
-    v14 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v9, @"IMTransferServicesErrorDomain", -3, 0, v10, v11, v12);
+    v11 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v9, @"IMTransferServicesErrorDomain", -3, 0);
     if (completion)
     {
-      (*(completion + 2))(completion, 0, v14);
+      (*(completion + 2))(completion, 0, v11);
     }
   }
 

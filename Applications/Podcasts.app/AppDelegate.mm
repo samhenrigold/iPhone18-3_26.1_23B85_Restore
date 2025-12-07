@@ -166,14 +166,14 @@ LABEL_4:
 {
   backgroundCopy = background;
   selfCopy = self;
-  sub_100303FC8();
+  sub_100303FC8(v5);
 }
 
 - (void)applicationWillTerminate:(id)terminate
 {
   terminateCopy = terminate;
   selfCopy = self;
-  sub_1003042A4();
+  sub_1003042A4(v5);
 }
 
 - (void)application:(id)application openStateRestorationActivity:(id)activity
@@ -181,7 +181,7 @@ LABEL_4:
   applicationCopy = application;
   activityCopy = activity;
   selfCopy = self;
-  sub_100304634();
+  sub_100304634(v8);
 }
 
 - (BOOL)application:(id)application openURL:(id)l options:(id)options
@@ -192,7 +192,7 @@ LABEL_4:
   v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for OpenURLOptionsKey(0);
-  sub_10002C074(&qword_100573110, type metadata accessor for OpenURLOptionsKey);
+  sub_10002C074(&qword_100573110, type metadata accessor for OpenURLOptionsKey, &unk_100400104);
   v11 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   applicationCopy = application;
   selfCopy = self;

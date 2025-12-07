@@ -1,5 +1,6 @@
 @interface USBCFirmwareUpdater
 - (USBCFirmwareUpdater)initWithRegistryEntry:(unsigned int)entry;
+- (USBCFirmwareUpdater)initWithRegistryEntry:(unsigned int)entry andDelegate:(id)delegate andControllers:(id)controllers;
 - (id)BlessArgumentsWithRemoteReset:(BOOL)reset;
 - (id)DeviceVIDDID:(unsigned int *)d andDid:(unsigned int *)did andUid:(id *)uid;
 - (id)LocatePortMicroForSerialNumber:(id)number;
@@ -22,6 +23,30 @@
   }
 
   return result;
+}
+
+- (USBCFirmwareUpdater)initWithRegistryEntry:(unsigned int)entry andDelegate:(id)delegate andControllers:(id)controllers
+{
+  v7 = *&entry;
+  delegateCopy = delegate;
+  controllersCopy = controllers;
+  v11 = [(USBCFirmwareUpdater *)self initWithRegistryEntry:v7];
+  v12 = v11;
+  if (v11)
+  {
+    objc_storeStrong(&v11->_delegate, delegate);
+    objc_storeStrong(&v12->_pdControllers, controllers);
+    v12->_updaterOperational = 1;
+    [(FudPluginDelegate *)v12->_delegate log:7 format:@"%s - init succeeded.  registryEntry: %u", "[USBCFirmwareUpdater initWithRegistryEntry:andDelegate:andControllers:]", v7];
+    v13 = v12;
+  }
+
+  else
+  {
+    [MEMORY[0x28] log:3 format:{@"%s - init FAILED", "-[USBCFirmwareUpdater initWithRegistryEntry:andDelegate:andControllers:]"}];
+  }
+
+  return v12;
 }
 
 - (id)LocatePortMicroForSerialNumber:(id)number

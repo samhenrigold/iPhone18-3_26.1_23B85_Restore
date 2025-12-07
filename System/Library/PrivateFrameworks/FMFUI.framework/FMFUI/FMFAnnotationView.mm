@@ -167,7 +167,7 @@
 
 - (id)buildPulseLayerWithDiameter:(double)diameter centeredInParentLayer:(id)layer
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D75348];
   layerCopy = layer;
   systemGreenColor = [v5 systemGreenColor];
@@ -195,9 +195,9 @@
   [v15 setDuration:1.5];
   [v15 setRemovedOnCompletion:0];
   v16 = objc_opt_new();
-  v22[0] = v14;
-  v22[1] = v15;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[0] = v14;
+  v21[1] = v15;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   [v16 setAnimations:v17];
 
   [v16 setDuration:1.5];
@@ -211,7 +211,6 @@
   [layerCopy insertSublayer:v9 atIndex:0];
 
   [v9 addAnimation:v16 forKey:@"pulse"];
-  v20 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

@@ -33,7 +33,7 @@
   return v7;
 }
 
-uint64_t __49__MKPitchControlAccessibility_accessibilityValue__block_invoke(uint64_t a1)
+void *__49__MKPitchControlAccessibility_accessibilityValue__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   [v2 safeDoubleForKey:@"sliderPercent"];

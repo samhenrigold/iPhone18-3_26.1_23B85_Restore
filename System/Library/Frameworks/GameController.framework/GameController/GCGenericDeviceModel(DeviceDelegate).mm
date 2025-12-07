@@ -67,34 +67,34 @@
 
 - (uint64_t)logicalDevice:()DeviceDelegate getSystemButtonName:sfSymbolName:needsMFiCompatibility:
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   physicalInput = [self physicalInput];
   v8 = physicalInput;
   if (physicalInput)
   {
     [physicalInput elements];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    obj = v35 = 0u;
-    v9 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    obj = v34 = 0u;
+    v9 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v9)
     {
       v10 = v9;
-      v28 = a4;
-      v29 = a5;
-      v30 = v8;
-      v11 = *v33;
+      v27 = a4;
+      v28 = a5;
+      v29 = v8;
+      v11 = *v32;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v33 != v11)
+          if (*v32 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v32 + 1) + 8 * i);
+          v13 = *(*(&v31 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -130,9 +130,9 @@
 
             if ([firstObject isEqualToString:@"Button Home"])
             {
-              *v28 = [objc_alloc(MEMORY[0x1E69A06C8]) initWithKey:v19 sourceBundle:0];
+              *v27 = [objc_alloc(MEMORY[0x1E69A06C8]) initWithKey:v19 sourceBundle:0];
               v25 = v23;
-              *v29 = v23;
+              *v28 = v23;
 
               v24 = 1;
               goto LABEL_21;
@@ -140,7 +140,7 @@
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v10 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
         if (v10)
         {
           continue;
@@ -151,7 +151,7 @@
 
       v24 = 0;
 LABEL_21:
-      v8 = v30;
+      v8 = v29;
     }
 
     else
@@ -165,51 +165,50 @@ LABEL_21:
     v24 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 - (id)logicalDevice:()DeviceDelegate makeControllerPhysicalInputProfileDescriptionWithIdentifier:bindings:
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = a5;
   physicalInput = [self physicalInput];
   v10 = physicalInput;
   if (!physicalInput)
   {
-    v35 = 0;
-    goto LABEL_35;
+    v34 = 0;
+    goto LABEL_34;
   }
 
-  v43 = v8;
-  v44 = v7;
-  v42 = physicalInput;
+  v39 = v8;
+  v40 = v7;
+  v38 = physicalInput;
   elements = [physicalInput elements];
-  v46 = objc_opt_new();
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v52 = 0u;
+  v42 = objc_opt_new();
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   obj = elements;
-  v48 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
-  if (!v48)
+  v44 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+  if (!v44)
   {
     goto LABEL_29;
   }
 
-  v47 = *v50;
+  v43 = *v46;
   do
   {
     v12 = 0;
     do
     {
-      if (*v50 != v47)
+      if (*v46 != v43)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v49 + 1) + 8 * v12);
+      v13 = *(*(&v45 + 1) + 8 * v12);
       names = [v13 names];
       firstObject = [names firstObject];
       v16 = [MEMORY[0x1E695DFD8] setWithArray:names];
@@ -287,68 +286,56 @@ LABEL_21:
       }
 
       v32 = v29;
-      [v46 addObject:v29];
+      [v42 addObject:v29];
 
 LABEL_21:
       ++v12;
     }
 
-    while (v48 != v12);
-    v33 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
-    v48 = v33;
+    while (v44 != v12);
+    v33 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v44 = v33;
   }
 
   while (v33);
 LABEL_29:
 
-  if ([objc_opt_class() elementsMakeValidExtendedGamepad:v46])
+  if (([objc_opt_class() elementsMakeValidExtendedGamepad:v42] & 1) == 0)
   {
-    v34 = off_1E84182A8;
+    [objc_opt_class() elementsMakeValidGamepad:v42];
   }
 
-  else
-  {
-    v36 = [objc_opt_class() elementsMakeValidGamepad:v46];
-    v34 = off_1E84182B8;
-    if (v36)
-    {
-      v34 = off_1E84182B0;
-    }
-  }
+  v8 = v39;
+  v7 = v40;
+  v10 = v38;
+  v35 = objc_alloc(objc_opt_class());
+  allObjects = [v42 allObjects];
+  v34 = [v35 initWithIdentifier:v40 elements:allObjects bindings:v39];
 
-  v8 = v43;
-  v7 = v44;
-  v10 = v42;
-  v37 = *v34;
-  v38 = objc_alloc(objc_opt_class());
-  allObjects = [v46 allObjects];
-  v35 = [v38 initWithIdentifier:v44 elements:allObjects bindings:v43];
+LABEL_34:
 
-LABEL_35:
-  v40 = *MEMORY[0x1E69E9840];
-
-  return v35;
+  return v34;
 }
 
 - (_GCControllerInputComponentDescription)logicalDevice:()DeviceDelegate makeControllerInputDescriptionWithIdentifier:bindings:
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = a5;
   physicalInput = [self physicalInput];
   if (physicalInput)
   {
-    v50 = v8;
-    v51 = v7;
-    v49 = physicalInput;
+    v48 = v8;
+    v49 = v7;
+    v47 = physicalInput;
     elements = [physicalInput elements];
-    v54 = objc_opt_new();
+    v52 = objc_opt_new();
+    v53 = 0u;
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
-    v58 = 0u;
     obj = elements;
-    v11 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+    v11 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
     if (!v11)
     {
       goto LABEL_22;
@@ -356,71 +343,70 @@ LABEL_35:
 
     v12 = v11;
     v13 = 0x1E69A0000uLL;
-    v14 = *v56;
+    v14 = *v54;
     while (1)
     {
       v15 = 0;
-      v52 = v12;
+      v50 = v12;
       do
       {
-        if (*v56 != v14)
+        if (*v54 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v55 + 1) + 8 * v15);
-        v17 = *(v13 + 1752);
+        v16 = *(*(&v53 + 1) + 8 * v15);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v18 = v13;
-          v19 = v16;
-          sourceTouchedValueExtendedEventFieldIndex = [v19 sourceTouchedValueExtendedEventFieldIndex];
-          v21 = objc_opt_new();
-          identifier = [v19 identifier];
-          [v21 setIdentifier:identifier];
+          v17 = v13;
+          v18 = v16;
+          sourceTouchedValueExtendedEventFieldIndex = [v18 sourceTouchedValueExtendedEventFieldIndex];
+          v20 = objc_opt_new();
+          identifier = [v18 identifier];
+          [v20 setIdentifier:identifier];
 
-          v23 = MEMORY[0x1E695DFD8];
-          names = [v19 names];
-          v25 = [v23 setWithArray:names];
-          [v21 setAliases:v25];
+          v22 = MEMORY[0x1E695DFD8];
+          names = [v18 names];
+          v24 = [v22 setWithArray:names];
+          [v20 setAliases:v24];
 
-          localizedNameKey = [v19 localizedNameKey];
-          [v21 setLocalizedName:localizedNameKey];
+          localizedNameKey = [v18 localizedNameKey];
+          [v20 setLocalizedName:localizedNameKey];
 
-          symbolName = [v19 symbolName];
+          symbolName = [v18 symbolName];
           if (symbolName)
           {
-            v28 = MEMORY[0x1E69A06C0];
-            symbolName2 = [v19 symbolName];
-            v30 = [v28 symbolWithSFSymbolsName:symbolName2];
-            [v21 setSymbol:v30];
+            v27 = MEMORY[0x1E69A06C0];
+            symbolName2 = [v18 symbolName];
+            v29 = [v27 symbolWithSFSymbolsName:symbolName2];
+            [v20 setSymbol:v29];
 
-            v12 = v52;
+            v12 = v50;
           }
 
           else
           {
-            [v21 setSymbol:0];
+            [v20 setSymbol:0];
           }
 
-          isAnalog = [v19 isAnalog];
-          [v21 setAnalog:{objc_msgSend(isAnalog, "BOOLValue")}];
+          isAnalog = [v18 isAnalog];
+          [v20 setAnalog:{objc_msgSend(isAnalog, "BOOLValue")}];
 
-          [v19 pressedThreshold];
-          *&v42 = v42;
-          [v21 setPressedThreshold:v42];
-          [v21 setEventPressedValueField:{objc_msgSend(v19, "sourcePressedValueExtendedEventFieldIndex")}];
+          [v18 pressedThreshold];
+          *&v41 = v41;
+          [v20 setPressedThreshold:v41];
+          [v20 setEventPressedValueField:{objc_msgSend(v18, "sourcePressedValueExtendedEventFieldIndex")}];
           if ((sourceTouchedValueExtendedEventFieldIndex & 0x8000000000000000) == 0)
           {
-            [v21 setSupportsTouch:1];
-            [v19 touchedThreshold];
-            *&v43 = v43;
-            [v21 setTouchedThreshold:v43];
-            [v21 setEventTouchValueField:{objc_msgSend(v19, "sourceTouchedValueExtendedEventFieldIndex")}];
+            [v20 setSupportsTouch:1];
+            [v18 touchedThreshold];
+            *&v42 = v42;
+            [v20 setTouchedThreshold:v42];
+            [v20 setEventTouchValueField:{objc_msgSend(v18, "sourceTouchedValueExtendedEventFieldIndex")}];
           }
 
-          v13 = v18;
+          v13 = v17;
         }
 
         else
@@ -431,74 +417,72 @@ LABEL_35:
             goto LABEL_20;
           }
 
-          v31 = v16;
-          v21 = objc_opt_new();
-          identifier2 = [v31 identifier];
-          [v21 setIdentifier:identifier2];
+          v30 = v16;
+          v20 = objc_opt_new();
+          identifier2 = [v30 identifier];
+          [v20 setIdentifier:identifier2];
 
-          v33 = MEMORY[0x1E695DFD8];
-          names2 = [v31 names];
-          v35 = [v33 setWithArray:names2];
-          [v21 setAliases:v35];
+          v32 = MEMORY[0x1E695DFD8];
+          names2 = [v30 names];
+          v34 = [v32 setWithArray:names2];
+          [v20 setAliases:v34];
 
-          localizedNameKey2 = [v31 localizedNameKey];
-          [v21 setLocalizedName:localizedNameKey2];
+          localizedNameKey2 = [v30 localizedNameKey];
+          [v20 setLocalizedName:localizedNameKey2];
 
-          symbolName3 = [v31 symbolName];
+          symbolName3 = [v30 symbolName];
           if (symbolName3)
           {
-            v38 = MEMORY[0x1E69A06C0];
-            symbolName4 = [v31 symbolName];
-            v40 = [v38 symbolWithSFSymbolsName:symbolName4];
-            [v21 setSymbol:v40];
+            v37 = MEMORY[0x1E69A06C0];
+            symbolName4 = [v30 symbolName];
+            v39 = [v37 symbolWithSFSymbolsName:symbolName4];
+            [v20 setSymbol:v39];
 
-            v12 = v52;
+            v12 = v50;
           }
 
           else
           {
-            [v21 setSymbol:0];
+            [v20 setSymbol:0];
           }
 
-          isAnalog2 = [v31 isAnalog];
-          [v21 setAnalog:{objc_msgSend(isAnalog2, "BOOLValue")}];
+          isAnalog2 = [v30 isAnalog];
+          [v20 setAnalog:{objc_msgSend(isAnalog2, "BOOLValue")}];
 
-          [v21 setEventUpValueField:{objc_msgSend(v31, "sourceUpExtendedEventFieldIndex")}];
-          [v21 setEventRightValueField:{objc_msgSend(v31, "sourceRightExtendedEventFieldIndex")}];
-          [v21 setEventDownValueField:{objc_msgSend(v31, "sourceDownExtendedEventFieldIndex")}];
-          [v21 setEventLeftValueField:{objc_msgSend(v31, "sourceLeftExtendedEventFieldIndex")}];
+          [v20 setEventUpValueField:{objc_msgSend(v30, "sourceUpExtendedEventFieldIndex")}];
+          [v20 setEventRightValueField:{objc_msgSend(v30, "sourceRightExtendedEventFieldIndex")}];
+          [v20 setEventDownValueField:{objc_msgSend(v30, "sourceDownExtendedEventFieldIndex")}];
+          [v20 setEventLeftValueField:{objc_msgSend(v30, "sourceLeftExtendedEventFieldIndex")}];
         }
 
-        [v54 addObject:v21];
+        [v52 addObject:v20];
 
 LABEL_20:
         ++v15;
       }
 
       while (v12 != v15);
-      v12 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+      v12 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
       if (!v12)
       {
 LABEL_22:
 
-        v45 = objc_opt_new();
-        [v45 setElements:v54];
-        v8 = v50;
-        v7 = v51;
-        v46 = [[_GCControllerInputComponentDescription alloc] initWithIdentifier:v51 controllerInputs:v45 bindings:v50];
+        v44 = objc_opt_new();
+        [v44 setElements:v52];
+        v8 = v48;
+        v7 = v49;
+        v45 = [[_GCControllerInputComponentDescription alloc] initWithIdentifier:v49 controllerInputs:v44 bindings:v48];
 
-        physicalInput = v49;
+        physicalInput = v47;
         goto LABEL_24;
       }
     }
   }
 
-  v46 = 0;
+  v45 = 0;
 LABEL_24:
 
-  v47 = *MEMORY[0x1E69E9840];
-
-  return v46;
+  return v45;
 }
 
 - (GCMotion)logicalDevice:()DeviceDelegate makeControllerMotionWithIdentifier:
@@ -878,15 +862,13 @@ LABEL_24:
 
 - (void)physicalDeviceGetHapticCapabilityGraph:()DeviceDelegate .cold.1(NSObject *a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_FAULT))
   {
-    v5 = 138412290;
-    v6 = a2;
-    _os_log_fault_impl(&dword_1D2CD5000, a1, OS_LOG_TYPE_FAULT, "Caught exception decoding GCHapticCapabilityGraph: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = a2;
+    _os_log_fault_impl(&dword_1D2CD5000, a1, OS_LOG_TYPE_FAULT, "Caught exception decoding GCHapticCapabilityGraph: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

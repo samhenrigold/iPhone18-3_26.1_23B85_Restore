@@ -27,18 +27,16 @@ uint64_t __33__DAiCalendarLogger_sharedLogger__block_invoke()
 - (void)logICSMessage:(id)message atLevel:(int64_t)level
 {
   levelCopy = level;
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v6 = DALoggingwithCategory();
   v7 = *(MEMORY[0x277D03988] + levelCopy);
   if (os_log_type_enabled(v6, v7))
   {
-    v9 = 138412290;
-    v10 = messageCopy;
-    _os_log_impl(&dword_24844D000, v6, v7, "%@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = messageCopy;
+    _os_log_impl(&dword_24844D000, v6, v7, "%@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

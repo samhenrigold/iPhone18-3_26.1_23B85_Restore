@@ -19,9 +19,9 @@ uint64_t glpMakeCodeGenContext(uint64_t a1, uint64_t a2, unsigned int a3)
   *v6 = 0;
   *(v6 + 8) = 0;
   *(v6 + 16) = 0;
-  Allocator = glpLinkerGetAllocator(a1);
-  *(v6 + 24) = glpMakeIntHash(Allocator);
-  v8 = glpLinkerGetAllocator(a1);
+  glpLinkerGetAllocator();
+  *(v6 + 24) = glpMakeIntHash(v7);
+  glpLinkerGetAllocator();
   *(v6 + 32) = glpMakeIntHash(v8);
   if (a3 <= 4)
   {
@@ -34,18 +34,18 @@ uint64_t glpMakeCodeGenContext(uint64_t a1, uint64_t a2, unsigned int a3)
   *(v6 + 152) = a1;
   do
   {
-    v10 = glpLinkerGetAllocator(a1);
+    glpLinkerGetAllocator();
     *(v6 + v9) = glpMakePointerHash(v10);
     v9 += 8;
   }
 
   while (v9 != 192);
-  v11 = glpLinkerGetAllocator(a1);
+  glpLinkerGetAllocator();
   *(v6 + 192) = glpMakeIntHash(v11);
   return v6;
 }
 
-uint64_t glpDestroyCodeGenContext(void *a1)
+uint64_t *glpDestroyCodeGenContext(void *a1)
 {
   glpDestroyIntHash(a1[3]);
   result = glpDestroyIntHash(a1[4]);
@@ -140,25 +140,25 @@ double glpCGConstant(uint64_t a1, uint64_t a2)
 
 uint64_t glpCGPPStreamOpNode(uint64_t a1, uint64_t a2)
 {
-  v50[1] = *MEMORY[0x277D85DE8];
+  v49[1] = *MEMORY[0x277D85DE8];
   ReturnPrimitiveType = glpPPStreamOpNodeGetReturnPrimitiveType(a2);
   Opcode = glpPPStreamOpNodeGetOpcode(a2);
   OpPrimitiveType = glpPPStreamOpNodeGetOpPrimitiveType(a2);
   HasSrctex = glpPPStreamOpNodeGetHasSrctex(a2);
   HasOffset = glpPPStreamOpNodeGetHasOffset(a2);
-  v50[0] = 0;
-  v40 = Opcode;
+  v49[0] = 0;
+  v39 = Opcode;
   *(a1 + 148) = Opcode == 78;
   ChildCount = glpASTNodeGetChildCount(a2);
   v8 = ChildCount;
-  v42 = v38;
+  v41 = v37;
   v9 = ChildCount;
   MEMORY[0x28223BE20](ChildCount);
-  v11 = &v38[-16 * v10];
+  v11 = &v37[-16 * v10];
   bzero(v11, v12);
   MEMORY[0x28223BE20](v13);
-  v15 = &v38[-v14];
-  bzero(&v38[-v14], v16 + 16);
+  v15 = &v37[-v14];
+  bzero(&v37[-v14], v16 + 16);
   if (!v8)
   {
 LABEL_5:
@@ -169,10 +169,10 @@ LABEL_5:
       SaType = glpASTNodeGetSaType(Child);
       PrimitiveType = glpPrimitiveTypeGetPrimitiveType(SaType);
       v25 = glpPrimitiveSamplerGetPPTextarget(PrimitiveType) & 0x1F;
-      v50[0] = v25 & 0xFFFFFF1F | (32 * (glpPrimitiveSamplerGetPPDatatype(PrimitiveType) & 7));
+      v49[0] = v25 & 0xFFFFFF1F | (32 * (glpPrimitiveSamplerGetPPDatatype(PrimitiveType) & 7));
       v26 = &v15[2 * v9];
       *v26 = 0;
-      v26[1] = v50;
+      v26[1] = v49;
       ++v8;
     }
 
@@ -180,36 +180,36 @@ LABEL_5:
     v28 = &v15[2 * v8];
     *v28 = 0;
     v28[1] = 0;
-    memset(v49, 0, sizeof(v49));
+    memset(v48, 0, sizeof(v48));
     if (OpPrimitiveType)
     {
       SaFlags = glpASTNodeGetSaFlags(a2);
-      v30 = v49;
-      initTypeWithGLPPrimitiveType(v49, OpPrimitiveType, SaFlags);
+      v30 = v48;
+      initTypeWithGLPPrimitiveType(v48, OpPrimitiveType, SaFlags);
       if (v27)
       {
 LABEL_9:
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
         v46 = 0u;
+        v47 = 0u;
         v44 = 0u;
-        memset(v43, 0, sizeof(v43));
+        v45 = 0u;
+        v43 = 0u;
+        memset(v42, 0, sizeof(v42));
         v31 = glpASTNodeGetSaFlags(a2);
-        addTempsForGLPPrimitiveType(a1, &v44, v43, v27, 1, 0, v31);
-        v32 = AddOpv(*(a1 + 136), v40, v30, &v44, 0, v15);
-        v33 = v44;
-        *(a1 + 56) = v45;
-        v34 = v47;
-        *(a1 + 72) = v46;
+        addTempsForGLPPrimitiveType(a1, &v43, v42, v27, 1, 0, v31);
+        v32 = AddOpv(*(a1 + 136), v39, v30, &v43, 0, v15);
+        v33 = v43;
+        *(a1 + 56) = v44;
+        v34 = v46;
+        *(a1 + 72) = v45;
         *(a1 + 88) = v34;
-        *(a1 + 104) = v48;
+        *(a1 + 104) = v47;
         *(a1 + 40) = v33;
         v35 = 2;
 LABEL_13:
         *(a1 + 128) = v32;
         *(v32 + 3) = *(v32 + 3) & 0xFFFFFFFFFFFBFFFFLL | ((HasOffset & 1) << 18);
-        goto LABEL_14;
+        return v35;
       }
     }
 
@@ -222,7 +222,7 @@ LABEL_13:
       }
     }
 
-    v32 = AddOpv(*(a1 + 136), v40, v30, 0, 0, v15);
+    v32 = AddOpv(*(a1 + 136), v39, v30, 0, 0, v15);
     v35 = 1;
     goto LABEL_13;
   }
@@ -234,7 +234,7 @@ LABEL_13:
     v19 = glpASTNodeGetChild(a2, v17);
     if (!glpCGNode(a1, v19))
     {
-      break;
+      return 0;
     }
 
     v20 = *(a1 + 56);
@@ -254,11 +254,6 @@ LABEL_13:
       goto LABEL_5;
     }
   }
-
-  v35 = 0;
-LABEL_14:
-  v36 = *MEMORY[0x277D85DE8];
-  return v35;
 }
 
 double glpCGSubroutineUniformNode(uint64_t a1, uint64_t a2)
@@ -269,17 +264,18 @@ double glpCGSubroutineUniformNode(uint64_t a1, uint64_t a2)
   memset(v30, 0, sizeof(v30));
   initTypeWithGLPPrimitiveType(v30, 5, 0);
   v5 = *(Extra + 16);
-  v6 = glpABIGetTypeSize(0, v5, 0);
-  v7 = 0;
+  glpABIGetTypeSize(0, v5, 0);
+  glpTypeSizeGetSize();
+  v6 = 0;
   v28 = 0u;
   v29 = 0u;
-  v8 = glpTypeSizeGetSize(v6) - 1;
+  v8 = v7 - 1;
   v26 = 0u;
   v27 = 0u;
   v25 = 0u;
   do
   {
-    v24 = (((v4 + v7) & 0x3FFFF) << 32) | 0x300;
+    v24 = (((v4 + v6) & 0x3FFFF) << 32) | 0x300;
     v22 = 0u;
     v23 = 0u;
     v20 = 0u;
@@ -291,7 +287,7 @@ double glpCGSubroutineUniformNode(uint64_t a1, uint64_t a2)
     v14 = 0u;
     v15 = 0u;
     AddBinding(*(a1 + 136), &v19, &v14, 2, v30, &v24);
-    if (!v7)
+    if (!v6)
     {
       v9 = *(Extra + 32);
       *v9 = v19;
@@ -304,7 +300,7 @@ double glpCGSubroutineUniformNode(uint64_t a1, uint64_t a2)
       v9[2] = v11;
     }
 
-    if (v8 == v7)
+    if (v8 == v6)
     {
       v27 = v16;
       v28 = v17;
@@ -313,10 +309,10 @@ double glpCGSubroutineUniformNode(uint64_t a1, uint64_t a2)
       v26 = v15;
     }
 
-    ++v7;
+    ++v6;
   }
 
-  while (v7 <= v8);
+  while (v6 <= v8);
   if (glpTypeGetKind(v5) == 2)
   {
     return AddArray(*(a1 + 136), *(Extra + 32), &v25);
@@ -359,10 +355,11 @@ uint64_t glpCGLogicalNot(uint64_t a1, uint64_t a2)
     memset(v18, 0, sizeof(v18));
     SaType = glpASTNodeGetSaType(a2);
     v9 = glpASTNodeGetSaType(a2);
-    v10 = glpABIGetTypeSize(0, v9, 0);
-    Size = glpTypeSizeGetSize(v10);
+    glpABIGetTypeSize(0, v9, 0);
+    glpTypeSizeGetSize();
+    v11 = v10;
     SaFlags = glpASTNodeGetSaFlags(a2);
-    addTempsForGLPType(a1, &v19, v18, SaType, Size, 1, 0, SaFlags);
+    addTempsForGLPType(a1, &v19, v18, SaType, v11, 1, 0, SaFlags);
     *(a1 + 128) = AddOp(*(a1 + 136), 0xAu, 0, &v19, 0, v13, v14, v15, v24);
     v16 = v19;
     *(a1 + 56) = v20;
@@ -398,10 +395,11 @@ uint64_t glpCGBitwiseNot(uint64_t a1, uint64_t a2)
     memset(v18, 0, sizeof(v18));
     SaType = glpASTNodeGetSaType(a2);
     v9 = glpASTNodeGetSaType(a2);
-    v10 = glpABIGetTypeSize(0, v9, 0);
-    Size = glpTypeSizeGetSize(v10);
+    glpABIGetTypeSize(0, v9, 0);
+    glpTypeSizeGetSize();
+    v11 = v10;
     SaFlags = glpASTNodeGetSaFlags(a2);
-    addTempsForGLPType(a1, &v19, v18, SaType, Size, 1, 0, SaFlags);
+    addTempsForGLPType(a1, &v19, v18, SaType, v11, 1, 0, SaFlags);
     *(a1 + 128) = AddOp(*(a1 + 136), 0x84u, 0, &v19, 0, v13, v14, v15, v24);
     v16 = v19;
     *(a1 + 56) = v20;
@@ -456,273 +454,271 @@ uint64_t glpCGAssign(uint64_t a1, uint64_t a2)
     Offset = glpDerefNodeGetOffset(Lhs);
     SaType = glpASTNodeGetSaType(Lhs);
     v17 = evalOffsetExtraOfOffset(a1, SaType, Offset, &v95);
-    if (v95)
+    if (!v95)
     {
-      v24 = v17;
-      if (!v17)
-      {
-        goto LABEL_25;
-      }
+      return 0;
+    }
 
-      if (*v17)
-      {
-        *(a1 + 128) = AddOp(*(a1 + 136), 0x79u, 0, 0, 0, v21, v22, v23, *v17);
-      }
+    v24 = v17;
+    if (!v17)
+    {
+      goto LABEL_25;
+    }
 
-      v25 = *(v24 + 8);
-      if (!v25)
-      {
-        goto LABEL_25;
-      }
+    if (*v17)
+    {
+      *(a1 + 128) = AddOp(*(a1 + 136), 0x79u, 0, 0, 0, v21, v22, v23, *v17);
+    }
 
-      if (*v25 != 2)
-      {
+    v25 = *(v24 + 8);
+    if (!v25)
+    {
+      goto LABEL_25;
+    }
+
+    if (*v25 != 2)
+    {
 LABEL_23:
-        SetAddressRegister(*(a1 + 136), v25, v18, v19, v20, v21, v22, v23);
-        setArrayUsed(a1, v84);
-        goto LABEL_24;
-      }
+      SetAddressRegister(*(a1 + 136), v25, v18, v19, v20, v21, v22, v23);
+      setArrayUsed(a1, v84);
+      goto LABEL_24;
+    }
 
-      if (v25[2] != 1 || DWORD2(v87) != 1 || (v26 = PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 56), v25[1]), (*(v26 + 24) & 0x1F00) != 0x600))
-      {
+    if (v25[2] != 1 || DWORD2(v87) != 1 || (v26 = PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 56), v25[1]), (*(v26 + 24) & 0x1F00) != 0x600))
+    {
 LABEL_22:
-        v25 = *(v24 + 8);
-        if (v25)
-        {
-          goto LABEL_23;
-        }
+      v25 = *(v24 + 8);
+      if (v25)
+      {
+        goto LABEL_23;
+      }
 
 LABEL_25:
-        if (Offset && glpOffsetNodeGetSwizzle(Offset))
-        {
-          v83 = xmmword_23A29C2D0;
-          v82 = 0uLL;
-        }
-
-        else
-        {
-          if (!v24 || !*(v24 + 16))
-          {
-            v43 = AddOp(*(a1 + 136), 0, 0, &v85, 0, v21, v22, v23, &v90);
-            goto LABEL_72;
-          }
-
-          v83 = xmmword_23A29C2D0;
-          v82 = 0uLL;
-          if (!Offset)
-          {
-            goto LABEL_44;
-          }
-        }
-
-        if (glpOffsetNodeGetSwizzle(Offset))
-        {
-          if ((glpOffsetNodeGetSwizzle(Offset) & 7) != 0)
-          {
-            v40 = 0;
-            v41 = 3;
-            do
-            {
-              v42 = (glpOffsetNodeGetSwizzle(Offset) >> v41) & 3;
-              if (v42 > 1)
-              {
-                if (v42 == 2)
-                {
-                  DWORD2(v83) = v40;
-                  v82.i32[2] = 1;
-                }
-
-                else
-                {
-                  HIDWORD(v83) = v40;
-                  v82.i32[3] = 1;
-                }
-              }
-
-              else if (v42)
-              {
-                DWORD1(v83) = v40;
-                v82.i32[1] = 1;
-              }
-
-              else
-              {
-                LODWORD(v83) = v40;
-                v82.i32[0] = 1;
-              }
-
-              ++v40;
-              v41 += 2;
-            }
-
-            while (v40 < (glpOffsetNodeGetSwizzle(Offset) & 7u));
-          }
-
-          goto LABEL_54;
-        }
-
-LABEL_44:
-        if (SDWORD2(v85) > 2)
-        {
-          if (DWORD2(v85) != 3)
-          {
-            if (DWORD2(v85) != 4)
-            {
-LABEL_54:
-              if (v24)
-              {
-                v24 = *(v24 + 16);
-                if (v24)
-                {
-                  if (*v24 == 2 && *(v24 + 8) == 1)
-                  {
-                    v44 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 56), *(v24 + 4)) + 24);
-                    if ((v44 & 0x1F00) == 0x600)
-                    {
-                      v45 = PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 128), WORD2(v44));
-                      if (foldDstSwizzleMaskForComp(&v85, &v83, &v82, *(v45 + 4 * *(v24 + 48) + 24)))
-                      {
-                        v24 = 0;
-                      }
-                    }
-                  }
-
-                  if (v24 && v85 == 5)
-                  {
-                    memset(v96, 0, sizeof(v96));
-                    v46 = AddOp(*(a1 + 136), 0x8Cu, (v24 + 8), 0, 0, v21, v22, v23, v24);
-                    for (i = 0; i != 4; ++i)
-                    {
-                      v80 = v82;
-                      v81 = v83;
-                      if (foldDstSwizzleMaskForComp(&v85, &v81, &v80, i))
-                      {
-                        memset(v79, 0, sizeof(v79));
-                        memset(v78, 0, sizeof(v78));
-                        PrimitiveType = glpGetPrimitiveType(5u);
-                        Allocator = glpLinkerGetAllocator(*(a1 + 152));
-                        MutableValue = glpMakeMutableValue(Allocator, PrimitiveType, 1, v53, v54, v55, v56, v57, i);
-                        addConstantsForGLPValue(a1, v79, v78, PrimitiveType, MutableValue, 0);
-                        *(a1 + 128) = AddOp(*(a1 + 136), 0x8Du, v79 + 2, 0, 0, v59, v60, v61, v79);
-                        *(a1 + 128) = DstSwizzleMask(*(a1 + 136), &v85, &v90, 0, &v81, &v80, v62, v63);
-                        *(v96 + i) = AddOp(*(a1 + 136), 0x54u, 0, 0, 0, v64, v65, v66, 0);
-                      }
-                    }
-
-                    AddOp(*(a1 + 136), 0x8Fu, 0, 0, 0, v48, v49, v50, 0);
-                    v70 = AddOp(*(a1 + 136), 0x74u, 0, 0, 0, v67, v68, v69, 0);
-                    *(v46 + 3) = *(v46 + 3) & 0x3FFFFFFFFFFFLL | (*(v70 + 22) << 46);
-                    v71 = DWORD2(v85);
-                    if (DWORD2(v85))
-                    {
-                      v72 = *(v70 + 22) << 46;
-                      v73 = v96;
-                      do
-                      {
-                        v74 = *v73++;
-                        *(v74 + 24) = *(v74 + 24) & 0x3FFFFFFFFFFFLL | v72;
-                        --v71;
-                      }
-
-                      while (v71);
-                    }
-
-                    goto LABEL_73;
-                  }
-                }
-              }
-
-              v43 = DstSwizzleMask(*(a1 + 136), &v85, &v90, v24, &v83, &v82, v22, v23);
-LABEL_72:
-              *(a1 + 128) = v43;
-LABEL_73:
-              v75 = v90;
-              *(a1 + 56) = v91;
-              v76 = v93;
-              *(a1 + 72) = v92;
-              *(a1 + 88) = v76;
-              *(a1 + 104) = v94;
-              *(a1 + 40) = v75;
-              result = 2;
-              goto LABEL_74;
-            }
-
-            v82.i32[3] = 1;
-          }
-
-          v82.i32[2] = 1;
-        }
-
-        else
-        {
-          if (DWORD2(v85) == 1)
-          {
-LABEL_53:
-            v82.i32[0] = 1;
-            goto LABEL_54;
-          }
-
-          if (DWORD2(v85) != 2)
-          {
-            goto LABEL_54;
-          }
-        }
-
-        v82.i32[1] = 1;
-        goto LABEL_53;
-      }
-
-      v27 = v26;
-      VariableExtra = glpLValueNodeGetVariableExtra(Lhs);
-      Kind = glpTypeGetKind(*VariableExtra);
-      if (Kind == 3)
+      if (Offset && glpOffsetNodeGetSwizzle(Offset))
       {
-        v30 = glpLValueNodeGetVariableExtra(Lhs);
-        v31 = glpBankTypeGetBank(*v30) != 3;
+        v83 = xmmword_23A29C2D0;
+        v82 = 0uLL;
       }
 
       else
       {
-        v31 = 0;
-      }
-
-      v32 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 128), *(v27 + 28)) + 4 * *(*(v24 + 8) + 48) + 24);
-      v33 = *glpLValueNodeGetVariableExtra(Lhs);
-      if (Kind == 3)
-      {
-        if (v31)
+        if (!v24 || !*(v24 + 16))
         {
-          ElementCount = glpBankTypeGetElementCount(v33);
-          v35 = glpLValueNodeGetVariableExtra(Lhs);
-          ElementType = glpBankTypeGetElementType(*v35);
-          Vec4s = glpTypeGetVec4s(ElementType) * ElementCount;
-          goto LABEL_20;
+          v44 = AddOp(*(a1 + 136), 0, 0, &v85, 0, v21, v22, v23, &v90);
+          goto LABEL_72;
         }
 
-        v33 = glpBankTypeGetElementType(v33);
+        v83 = xmmword_23A29C2D0;
+        v82 = 0uLL;
+        if (!Offset)
+        {
+          goto LABEL_44;
+        }
       }
 
-      Vec4s = glpTypeGetVec4s(v33);
-LABEL_20:
-      if (v32 < Vec4s)
+      if (glpOffsetNodeGetSwizzle(Offset))
       {
-        DWORD1(v85) += v32;
-        DWORD2(v87) = 0;
-LABEL_24:
-        v38 = primitiveTypeOfDeref(Lhs);
-        SaFlags = glpASTNodeGetSaFlags(a2);
-        initTypeWithGLPPrimitiveType(&v85 + 2, v38, SaFlags);
-        goto LABEL_25;
+        if ((glpOffsetNodeGetSwizzle(Offset) & 7) != 0)
+        {
+          v41 = 0;
+          v42 = 3;
+          do
+          {
+            v43 = (glpOffsetNodeGetSwizzle(Offset) >> v42) & 3;
+            if (v43 > 1)
+            {
+              if (v43 == 2)
+              {
+                DWORD2(v83) = v41;
+                v82.i32[2] = 1;
+              }
+
+              else
+              {
+                HIDWORD(v83) = v41;
+                v82.i32[3] = 1;
+              }
+            }
+
+            else if (v43)
+            {
+              DWORD1(v83) = v41;
+              v82.i32[1] = 1;
+            }
+
+            else
+            {
+              LODWORD(v83) = v41;
+              v82.i32[0] = 1;
+            }
+
+            ++v41;
+            v42 += 2;
+          }
+
+          while (v41 < (glpOffsetNodeGetSwizzle(Offset) & 7u));
+        }
+
+        goto LABEL_54;
       }
 
-      goto LABEL_22;
+LABEL_44:
+      if (SDWORD2(v85) > 2)
+      {
+        if (DWORD2(v85) != 3)
+        {
+          if (DWORD2(v85) != 4)
+          {
+LABEL_54:
+            if (v24)
+            {
+              v24 = *(v24 + 16);
+              if (v24)
+              {
+                if (*v24 == 2 && *(v24 + 8) == 1)
+                {
+                  v45 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 56), *(v24 + 4)) + 24);
+                  if ((v45 & 0x1F00) == 0x600)
+                  {
+                    v46 = PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 128), WORD2(v45));
+                    if (foldDstSwizzleMaskForComp(&v85, &v83, &v82, *(v46 + 4 * *(v24 + 48) + 24)))
+                    {
+                      v24 = 0;
+                    }
+                  }
+                }
+
+                if (v24 && v85 == 5)
+                {
+                  memset(v96, 0, sizeof(v96));
+                  v47 = AddOp(*(a1 + 136), 0x8Cu, (v24 + 8), 0, 0, v21, v22, v23, v24);
+                  for (i = 0; i != 4; ++i)
+                  {
+                    v80 = v82;
+                    v81 = v83;
+                    if (foldDstSwizzleMaskForComp(&v85, &v81, &v80, i))
+                    {
+                      memset(v79, 0, sizeof(v79));
+                      memset(v78, 0, sizeof(v78));
+                      PrimitiveType = glpGetPrimitiveType(5u);
+                      glpLinkerGetAllocator();
+                      MutableValue = glpMakeMutableValue(v53, PrimitiveType, 1, v54, v55, v56, v57, v58, i);
+                      addConstantsForGLPValue(a1, v79, v78, PrimitiveType, MutableValue, 0);
+                      *(a1 + 128) = AddOp(*(a1 + 136), 0x8Du, v79 + 2, 0, 0, v60, v61, v62, v79);
+                      *(a1 + 128) = DstSwizzleMask(*(a1 + 136), &v85, &v90, 0, &v81, &v80, v63, v64);
+                      *(v96 + i) = AddOp(*(a1 + 136), 0x54u, 0, 0, 0, v65, v66, v67, 0);
+                    }
+                  }
+
+                  AddOp(*(a1 + 136), 0x8Fu, 0, 0, 0, v49, v50, v51, 0);
+                  v71 = AddOp(*(a1 + 136), 0x74u, 0, 0, 0, v68, v69, v70, 0);
+                  *(v47 + 3) = *(v47 + 3) & 0x3FFFFFFFFFFFLL | (*(v71 + 22) << 46);
+                  v72 = DWORD2(v85);
+                  if (DWORD2(v85))
+                  {
+                    v73 = *(v71 + 22) << 46;
+                    v74 = v96;
+                    do
+                    {
+                      v75 = *v74++;
+                      *(v75 + 24) = *(v75 + 24) & 0x3FFFFFFFFFFFLL | v73;
+                      --v72;
+                    }
+
+                    while (v72);
+                  }
+
+                  goto LABEL_73;
+                }
+              }
+            }
+
+            v44 = DstSwizzleMask(*(a1 + 136), &v85, &v90, v24, &v83, &v82, v22, v23);
+LABEL_72:
+            *(a1 + 128) = v44;
+LABEL_73:
+            v76 = v90;
+            *(a1 + 56) = v91;
+            v77 = v93;
+            *(a1 + 72) = v92;
+            *(a1 + 88) = v77;
+            *(a1 + 104) = v94;
+            *(a1 + 40) = v76;
+            return 2;
+          }
+
+          v82.i32[3] = 1;
+        }
+
+        v82.i32[2] = 1;
+      }
+
+      else
+      {
+        if (DWORD2(v85) == 1)
+        {
+LABEL_53:
+          v82.i32[0] = 1;
+          goto LABEL_54;
+        }
+
+        if (DWORD2(v85) != 2)
+        {
+          goto LABEL_54;
+        }
+      }
+
+      v82.i32[1] = 1;
+      goto LABEL_53;
     }
 
-    result = 0;
+    v27 = v26;
+    VariableExtra = glpLValueNodeGetVariableExtra(Lhs);
+    Kind = glpTypeGetKind(*VariableExtra);
+    if (Kind == 3)
+    {
+      v30 = glpLValueNodeGetVariableExtra(Lhs);
+      v31 = glpBankTypeGetBank(*v30) != 3;
+    }
+
+    else
+    {
+      v31 = 0;
+    }
+
+    v32 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 128), *(v27 + 28)) + 4 * *(*(v24 + 8) + 48) + 24);
+    v33 = *glpLValueNodeGetVariableExtra(Lhs);
+    if (Kind == 3)
+    {
+      if (v31)
+      {
+        ElementCount = glpBankTypeGetElementCount(v33);
+        v35 = glpLValueNodeGetVariableExtra(Lhs);
+        ElementType = glpBankTypeGetElementType(*v35);
+        glpTypeGetVec4s(ElementType);
+        v38 = v37 * ElementCount;
+        goto LABEL_20;
+      }
+
+      v33 = glpBankTypeGetElementType(v33);
+    }
+
+    glpTypeGetVec4s(v33);
+LABEL_20:
+    if (v32 < v38)
+    {
+      DWORD1(v85) += v32;
+      DWORD2(v87) = 0;
+LABEL_24:
+      v39 = primitiveTypeOfDeref(Lhs);
+      SaFlags = glpASTNodeGetSaFlags(a2);
+      initTypeWithGLPPrimitiveType(&v85 + 2, v39, SaFlags);
+      goto LABEL_25;
+    }
+
+    goto LABEL_22;
   }
 
-LABEL_74:
-  v77 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -750,18 +746,18 @@ uint64_t glpCGCommaExpr(uint64_t a1, uint64_t a2)
   return v6;
 }
 
-char *glpCGParameterDeclaration(uint64_t a1, uint64_t a2)
+uint64_t *glpCGParameterDeclaration(uint64_t a1, uint64_t a2)
 {
   result = glpParameterDeclarationNodeGetExtra(a2);
-  if (!*(result + 17))
+  if (!result[17])
   {
     v5 = result;
     v6 = glpLinkerPoolAlloc(*(a1 + 152));
-    *(v5 + 17) = v6;
+    *(v5 + 136) = v6;
     memset(v11, 0, sizeof(v11));
     v7 = *v5;
-    v8 = *(v5 + 32);
-    v9 = *(v5 + 15);
+    v8 = *(v5 + 128);
+    v9 = *(v5 + 120);
     SaFlags = glpASTNodeGetSaFlags(a2);
     return addTempsForGLPType(a1, v6, v11, v7, v8, 1, v9, SaFlags);
   }
@@ -1194,8 +1190,9 @@ uint64_t glpCGSubroutineRawCallNode(uint64_t a1, uint64_t a2)
   v29[1] = v8;
   v30 = v7;
   v28 = 116736;
-  v9 = glpABIGetTypeSize(0, *(v4 + 16), 0);
-  Size = glpTypeSizeGetSize(v9);
+  glpABIGetTypeSize(0, *(v4 + 16), 0);
+  glpTypeSizeGetSize();
+  v10 = v9;
   v26 = 0u;
   v27 = 0u;
   v24 = 0u;
@@ -1217,7 +1214,7 @@ uint64_t glpCGSubroutineRawCallNode(uint64_t a1, uint64_t a2)
     v25 = *(a1 + 72);
     v26 = v20;
     v27 = *(a1 + 104);
-    if (v23 == 2 && DWORD2(v23) == 1 && DWORD2(v30) == 1 && (v21 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 56), SDWORD1(v23)) + 24), (v21 & 0x1F00) == 0x600) && (v22 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 128), WORD2(v21)) + 4 * v26 + 24), v22 < Size))
+    if (v23 == 2 && DWORD2(v23) == 1 && DWORD2(v30) == 1 && (v21 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 56), SDWORD1(v23)) + 24), (v21 & 0x1F00) == 0x600) && (v22 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 128), WORD2(v21)) + 4 * v26 + 24), v22 < v10))
     {
       DWORD1(v29[0]) += v22;
       DWORD2(v30) = 0;
@@ -1281,7 +1278,7 @@ uint64_t glpCGRValue(uint64_t a1, uint64_t a2)
   return result;
 }
 
-char *addTempsForGLPPrimitiveType(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, unint64_t a7)
+uint64_t *addTempsForGLPPrimitiveType(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, unint64_t a7)
 {
   memset(v13, 0, sizeof(v13));
   initTypeWithGLPPrimitiveType(v13, a4, a7);
@@ -1392,7 +1389,7 @@ LABEL_26:
   return FinishType(a1);
 }
 
-void *addArrayHelper(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
+uint64_t *addArrayHelper(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
   AddArray(*(a1 + 136), a2, a3);
   v8 = v7;
@@ -1512,46 +1509,46 @@ __n128 addConstantsForGLPType(uint64_t a1, uint64_t a2, uint64_t a3, unsigned in
   {
     ElementType = glpArrayTypeGetElementType(a4);
     ElementCount = glpArrayTypeGetElementCount(a4);
-    v30 = 0;
-    v31 = ElementCount - 1;
+    v29 = 0;
+    v30 = ElementCount - 1;
     do
     {
-      v45 = 0u;
-      memset(v46, 0, sizeof(v46));
       v43 = 0u;
-      v44 = 0u;
+      memset(v44, 0, sizeof(v44));
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
       *__n = 0u;
-      addConstantsForGLPType(a1, v46, &v41, ElementType, a5, 0, a7);
-      v32 = glpABIGetTypeSize(0, ElementType, 0);
-      Size = glpTypeSizeGetSize(v32);
-      if (!v30)
+      addConstantsForGLPType(a1, v44, &v39, ElementType, a5, 0, a7);
+      glpABIGetTypeSize(0, ElementType, 0);
+      glpTypeSizeGetSize();
+      if (!v29)
       {
-        v34 = v46[3];
-        *(a2 + 32) = v46[2];
-        *(a2 + 48) = v34;
-        *(a2 + 64) = v46[4];
-        result = v46[1];
-        *a2 = v46[0];
+        v32 = v44[3];
+        *(a2 + 32) = v44[2];
+        *(a2 + 48) = v32;
+        *(a2 + 64) = v44[4];
+        result = v44[1];
+        *a2 = v44[0];
         *(a2 + 16) = result;
       }
 
-      if (v31 == v30)
+      if (v30 == v29)
       {
-        v35 = v44;
-        *(a3 + 32) = v43;
-        *(a3 + 48) = v35;
-        *(a3 + 64) = v45;
+        v33 = v42;
+        *(a3 + 32) = v41;
+        *(a3 + 48) = v33;
+        *(a3 + 64) = v43;
         result = *__n;
-        *a3 = v41;
+        *a3 = v39;
         *(a3 + 16) = result;
       }
 
-      a5 += 16 * Size;
-      ++v30;
+      a5 += 16 * v31;
+      ++v29;
     }
 
-    while (v30 <= v31);
+    while (v29 <= v30);
 LABEL_26:
     if (!a6)
     {
@@ -1568,39 +1565,39 @@ LABEL_26:
     do
     {
       v22 = glpAggregateTypeGetElementType(a4, v20);
-      v45 = 0u;
-      memset(v46, 0, sizeof(v46));
       v43 = 0u;
-      v44 = 0u;
+      memset(v44, 0, sizeof(v44));
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
       *__n = 0u;
       ElementFlags = glpAggregateTypeGetElementFlags(a4, v20);
-      addConstantsForGLPType(a1, v46, &v41, v22, a5, 0, ElementFlags);
-      v24 = glpABIGetTypeSize(0, v22, 0);
-      v25 = glpTypeSizeGetSize(v24);
+      addConstantsForGLPType(a1, v44, &v39, v22, a5, 0, ElementFlags);
+      glpABIGetTypeSize(0, v22, 0);
+      glpTypeSizeGetSize();
       if (!v20)
       {
-        v26 = v46[3];
-        *(a2 + 32) = v46[2];
-        *(a2 + 48) = v26;
-        *(a2 + 64) = v46[4];
-        result = v46[1];
-        *a2 = v46[0];
+        v25 = v44[3];
+        *(a2 + 32) = v44[2];
+        *(a2 + 48) = v25;
+        *(a2 + 64) = v44[4];
+        result = v44[1];
+        *a2 = v44[0];
         *(a2 + 16) = result;
       }
 
       if (v21 == v20)
       {
-        v27 = v44;
-        *(a3 + 32) = v43;
-        *(a3 + 48) = v27;
-        *(a3 + 64) = v45;
+        v26 = v42;
+        *(a3 + 32) = v41;
+        *(a3 + 48) = v26;
+        *(a3 + 64) = v43;
         result = *__n;
-        *a3 = v41;
+        *a3 = v39;
         *(a3 + 16) = result;
       }
 
-      a5 += 16 * v25;
+      a5 += 16 * v24;
       ++v20;
     }
 
@@ -1614,20 +1611,20 @@ LABEL_26:
   }
 
   PrimitiveType = glpPrimitiveTypeGetPrimitiveType(a4);
-  v41 = 0u;
+  v39 = 0u;
   *__n = 0u;
-  initTypeWithGLPPrimitiveType(&v41, PrimitiveType, a7);
+  initTypeWithGLPPrimitiveType(&v39, PrimitiveType, a7);
   if (!a6)
   {
-    AddConstant(*(a1 + 136), a2, a3, &v41, a5);
+    AddConstant(*(a1 + 136), a2, a3, &v39, a5);
     return result;
   }
 
-  if (*(&v41 + 1) != 0x100000001 || (v17 = **(*(a1 + 136) + 56)) == 0)
+  if (*(&v39 + 1) != 0x100000001 || (v17 = **(*(a1 + 136) + 56)) == 0)
   {
 LABEL_11:
-    AddConstant(*(a1 + 136), a2, a3, &v41, a5);
-    if (DWORD1(v41) < 2)
+    AddConstant(*(a1 + 136), a2, a3, &v39, a5);
+    if (DWORD1(v39) < 2)
     {
       return result;
     }
@@ -1656,39 +1653,39 @@ LABEL_27:
     }
   }
 
-  memset(&v46[2] + 8, 0, 40);
-  v36 = *(v17 + 32);
-  LODWORD(v46[0]) = 2;
-  DWORD1(v46[0]) = v36;
-  *(v46 + 8) = v41;
-  *(&v46[1] + 8) = *__n;
-  InitReg(*(a1 + 136), 0, v46);
-  result = v46[2];
-  v37 = v46[3];
-  *(a2 + 32) = v46[2];
-  *(a2 + 48) = v37;
-  v38 = v46[4];
-  *(a2 + 64) = v46[4];
-  v40 = v46[0];
-  v39 = v46[1];
-  *a2 = v46[0];
-  *(a2 + 16) = v39;
-  *(a3 + 48) = v37;
-  *(a3 + 64) = v38;
-  *(a3 + 16) = v39;
+  memset(&v44[2] + 8, 0, 40);
+  v34 = *(v17 + 32);
+  LODWORD(v44[0]) = 2;
+  DWORD1(v44[0]) = v34;
+  *(v44 + 8) = v39;
+  *(&v44[1] + 8) = *__n;
+  InitReg(*(a1 + 136), 0, v44);
+  result = v44[2];
+  v35 = v44[3];
+  *(a2 + 32) = v44[2];
+  *(a2 + 48) = v35;
+  v36 = v44[4];
+  *(a2 + 64) = v44[4];
+  v38 = v44[0];
+  v37 = v44[1];
+  *a2 = v44[0];
+  *(a2 + 16) = v37;
+  *(a3 + 48) = v35;
+  *(a3 + 64) = v36;
+  *(a3 + 16) = v37;
   *(a3 + 32) = result;
-  *a3 = v40;
+  *a3 = v38;
   return result;
 }
 
-uint64_t glpTypeGetVec4s(uint64_t a1)
+void glpTypeGetVec4s(uint64_t a1)
 {
-  v1 = glpABIGetTypeSize(0, a1, 0);
+  glpABIGetTypeSize(0, a1, 0);
 
-  return glpTypeSizeGetSize(v1);
+  glpTypeSizeGetSize();
 }
 
-char *addTempsForGLPType(uint64_t a1, uint64_t a2, _OWORD *a3, unsigned int *a4, int a5, int a6, uint64_t a7, unint64_t a8)
+uint64_t *addTempsForGLPType(uint64_t a1, uint64_t a2, _OWORD *a3, unsigned int *a4, int a5, int a6, uint64_t a7, unint64_t a8)
 {
   result = glpTypeGetKind(a4);
   if (result > 1)
@@ -1696,10 +1693,11 @@ char *addTempsForGLPType(uint64_t a1, uint64_t a2, _OWORD *a3, unsigned int *a4,
     if (result == 2)
     {
       ElementType = glpArrayTypeGetElementType(a4);
-      v39 = glpABIGetTypeSize(0, ElementType, 0);
-      Size = glpTypeSizeGetSize(v39);
+      glpABIGetTypeSize(0, ElementType, 0);
+      glpTypeSizeGetSize();
+      v40 = v39;
       v41 = 0;
-      v42 = (a5 + Size - 1) / Size - 1;
+      v42 = (a5 + v39 - 1) / v39 - 1;
       do
       {
         v55 = 0u;
@@ -1712,7 +1710,7 @@ char *addTempsForGLPType(uint64_t a1, uint64_t a2, _OWORD *a3, unsigned int *a4,
         v50 = 0u;
         v47 = 0u;
         v48 = 0u;
-        result = addTempsForGLPType(a1, &v52, &v47, ElementType, Size, 0, 0, a8);
+        result = addTempsForGLPType(a1, &v52, &v47, ElementType, v40, 0, 0, a8);
         if (!v41)
         {
           v43 = v55;
@@ -1749,8 +1747,9 @@ char *addTempsForGLPType(uint64_t a1, uint64_t a2, _OWORD *a3, unsigned int *a4,
       }
 
       v27 = glpBankTypeGetElementType(a4);
-      v28 = glpABIGetTypeSize(0, v27, 0);
-      v29 = glpTypeSizeGetSize(v28);
+      glpABIGetTypeSize(0, v27, 0);
+      glpTypeSizeGetSize();
+      v29 = v28;
       ElementCount = glpBankTypeGetElementCount(a4);
       v31 = 0;
       v32 = ElementCount - 1;
@@ -1820,8 +1819,9 @@ char *addTempsForGLPType(uint64_t a1, uint64_t a2, _OWORD *a3, unsigned int *a4,
       v50 = 0u;
       v47 = 0u;
       v48 = 0u;
-      v20 = glpABIGetTypeSize(0, v19, 0);
-      v21 = glpTypeSizeGetSize(v20);
+      glpABIGetTypeSize(0, v19, 0);
+      glpTypeSizeGetSize();
+      v21 = v20;
       ElementFlags = glpAggregateTypeGetElementFlags(a4, v17);
       result = addTempsForGLPType(a1, &v52, &v47, v19, v21, 0, 0, ElementFlags);
       if (!v17)
@@ -2099,32 +2099,32 @@ BOOL foldDstSwizzleMaskForComp(uint64_t a1, _DWORD *a2, _DWORD *a3, int a4)
   return v4 < v7;
 }
 
-uint64_t cgDeclareVariableObject(uint64_t a1, uint64_t a2)
+uint64_t cgDeclareVariableObject(uint64_t a1, uint64_t *a2)
 {
-  v119 = *MEMORY[0x277D85DE8];
-  v4 = *(a2 + 48);
+  v113 = *MEMORY[0x277D85DE8];
+  v4 = a2[6];
   ElementType = *a2;
   if ((v4 & 0x20040000000) == 0x40000000 && **(a1 + 136) == 36488)
   {
     ElementType = glpBankTypeGetElementType(*a2);
   }
 
-  memset(v101, 0, sizeof(v101));
-  v6 = *(a2 + 8);
-  if (v6 && glpLayoutObjectFind(v6, 28) || !*(a2 + 128))
+  memset(v95, 0, sizeof(v95));
+  v6 = a2[1];
+  if (v6 && glpLayoutObjectFind(v6, 28) || !*(a2 + 32))
   {
-    goto LABEL_39;
+    return 1;
   }
 
   if ((v4 & 0x800000000) != 0)
   {
-    v8 = *(a2 + 88);
+    v8 = a2[11];
     v9 = *(v8 + 16);
     if (!v9)
     {
       *(v8 + 16) = glpLinkerPoolAlloc(*(a1 + 152));
-      memset(v118, 0, sizeof(v118));
-      initTypeWithGLPPrimitiveType(v118, 1, 0);
+      memset(v112, 0, sizeof(v112));
+      initTypeWithGLPPrimitiveType(v112, 1, 0);
       if (glpTypeGetKind(*a2) == 3)
       {
         v10 = glpBankTypeGetElementCount(*a2) - 1;
@@ -2135,95 +2135,93 @@ uint64_t cgDeclareVariableObject(uint64_t a1, uint64_t a2)
         v10 = 0;
       }
 
-      v26 = 0;
-      v116 = 0u;
-      v117 = 0u;
-      v114 = 0u;
-      v115 = 0u;
-      v113 = 0u;
+      v25 = 0;
+      v110 = 0u;
+      v111 = 0u;
+      v108 = 0u;
+      v109 = 0u;
+      v107 = 0u;
       do
       {
-        v27 = *(a2 + 88);
-        v112 = ((v26 + *(v27 + 28)) << 32) | 0x400;
-        MinimumBufferSize = glpBufferObjectGetMinimumBufferSize(v27);
-        v112 = v112 & 0xF00000FFFFFFFFFFLL | (((MinimumBufferSize >> 4) & 0xFFFFFLL) << 40);
-        v110 = 0u;
-        v111 = 0u;
-        v108 = 0u;
-        v109 = 0u;
-        v106 = 0u;
-        v107 = 0u;
+        v26 = a2[11];
+        v106 = ((v25 + *(v26 + 28)) << 32) | 0x400;
+        MinimumBufferSize = glpBufferObjectGetMinimumBufferSize(v26);
+        v106 = v106 & 0xF00000FFFFFFFFFFLL | (((MinimumBufferSize >> 4) & 0xFFFFFLL) << 40);
         v104 = 0u;
         v105 = 0u;
         v102 = 0u;
         v103 = 0u;
-        AddBinding(*(a1 + 136), &v107, &v102, 2, v118, &v112);
-        if (!v26)
+        v100 = 0u;
+        v101 = 0u;
+        v98 = 0u;
+        v99 = 0u;
+        v96 = 0u;
+        v97 = 0u;
+        AddBinding(*(a1 + 136), &v101, &v96, 2, v112, &v106);
+        if (!v25)
         {
-          v29 = *(v8 + 16);
-          *v29 = v107;
-          v30 = v108;
-          v31 = v109;
-          v32 = v111;
-          v29[3] = v110;
-          v29[4] = v32;
-          v29[1] = v30;
-          v29[2] = v31;
+          v28 = *(v8 + 16);
+          *v28 = v101;
+          v29 = v102;
+          v30 = v103;
+          v31 = v105;
+          v28[3] = v104;
+          v28[4] = v31;
+          v28[1] = v29;
+          v28[2] = v30;
         }
 
-        if (v10 == v26)
+        if (v10 == v25)
         {
-          v115 = v104;
-          v116 = v105;
-          v117 = v106;
-          v113 = v102;
-          v114 = v103;
+          v109 = v98;
+          v110 = v99;
+          v111 = v100;
+          v107 = v96;
+          v108 = v97;
         }
 
-        ++v26;
+        ++v25;
       }
 
-      while (v26 <= v10);
+      while (v25 <= v10);
       if (glpTypeGetKind(*a2) == 3)
       {
-        addArrayHelper(a1, *(v8 + 16), &v113, 0);
-        v33 = *(v8 + 16);
-        v34 = 4;
+        addArrayHelper(a1, *(v8 + 16), &v107, 0);
+        v32 = *(v8 + 16);
+        v33 = 4;
       }
 
       else
       {
-        v33 = *(v8 + 16);
+        v32 = *(v8 + 16);
         if ((*(a2 + 52) & 4) != 0)
         {
-          v34 = 2;
+          v33 = 2;
         }
 
         else
         {
-          v34 = 3;
+          v33 = 3;
         }
       }
 
-      *(v33 + 40) = v34;
-      v9 = *(*(a2 + 88) + 16);
+      *(v32 + 40) = v33;
+      v9 = *(a2[11] + 16);
     }
 
-    *(a2 + 136) = v9;
-    goto LABEL_39;
+    a2[17] = v9;
+    return 1;
   }
 
   v7 = glpLinkerPoolAlloc(*(a1 + 152));
-  *(a2 + 136) = v7;
+  a2[17] = v7;
   if ((v4 & 0x60) != 0)
   {
-    addConstantsForGLPValue(a1, v7, v101, ElementType, *(a2 + 64), *(a2 + 48));
-LABEL_39:
-    v25 = 1;
-    goto LABEL_40;
+    addConstantsForGLPValue(a1, v7, v95, ElementType, a2[8], a2[6]);
+    return 1;
   }
 
-  v11 = *(a2 + 8);
+  v11 = a2[1];
   if (!v11)
   {
     goto LABEL_20;
@@ -2235,338 +2233,334 @@ LABEL_39:
     *(*(a1 + 136) + 136) = *(v12 + 4);
   }
 
-  v13 = *(a2 + 8);
+  v13 = a2[1];
   if (v13 && (v14 = glpLayoutObjectFind(v13, 33)) != 0)
   {
     v15 = v14;
     if (glpTypeGetKind(ElementType) == 2)
     {
-      v16 = *(a2 + 128);
+      v16 = *(a2 + 32);
       v17 = glpArrayTypeGetElementType(ElementType);
-      v18 = glpABIGetTypeSize(0, v17, 0);
-      Size = glpTypeSizeGetSize(v18);
-      v20 = (v16 + Size - 1) / Size * Size;
+      glpABIGetTypeSize(0, v17, 0);
+      glpTypeSizeGetSize();
+      v19 = (v16 + Kind - 1) / Kind * Kind;
     }
 
-    else if (glpTypeGetKind(ElementType) && (Size = glpTypeGetKind(ElementType), Size != 1))
+    else if (glpTypeGetKind(ElementType) && (Kind = glpTypeGetKind(ElementType), Kind != 1))
     {
-      v20 = *(a2 + 128);
+      v19 = *(a2 + 32);
     }
 
     else
     {
-      Size = glpTypeGetVec4s(ElementType);
-      v20 = Size;
+      glpTypeGetVec4s(ElementType);
+      v19 = Kind;
     }
 
-    v99 = &v99;
-    MEMORY[0x28223BE20](Size);
-    v43 = &v99 - v42;
-    bzero(&v99 - v42, 8 * v20);
-    v100 = v43;
-    bzero(v43, 8 * v20);
-    v44 = *(v15 + 4);
-    if (v20)
+    v93 = &v93;
+    MEMORY[0x28223BE20](Kind);
+    v41 = &v93 - v40;
+    bzero(&v93 - v40, 8 * v19);
+    v94 = v41;
+    bzero(v41, 8 * v19);
+    v42 = *(v15 + 4);
+    if (v19)
     {
-      v45 = 0;
-      v46 = 0;
-      v47 = v100;
+      v43 = 0;
+      v44 = 0;
+      v45 = v94;
       do
       {
-        v48 = glpLayoutObjectFind(*(a2 + 8), 34);
+        v46 = glpLayoutObjectFind(a2[1], 34);
+        if (v46)
+        {
+          *v45 = *v45 & 0xFFFFFFFFFFFF83FFLL | ((v46[2] & 0x1F) << 10);
+        }
+
+        v47 = glpLayoutObjectFind(a2[1], 35);
+        if (v47)
+        {
+          *v45 = *v45 & 0xFFFFFFC0FFFFFFFFLL | ((v47[2] & 0x3F) << 32);
+        }
+
+        v48 = glpLayoutObjectFind(a2[1], 36);
         if (v48)
         {
-          *v47 = *v47 & 0xFFFFFFFFFFFF83FFLL | ((v48[2] & 0x1F) << 10);
+          *v45 = *v45 & 0xFFFFFFBFFFFFFFFFLL | ((v48[2] & 1) << 38);
         }
 
-        v49 = glpLayoutObjectFind(*(a2 + 8), 35);
+        v49 = glpLayoutObjectFind(a2[1], 37);
         if (v49)
         {
-          *v47 = *v47 & 0xFFFFFFC0FFFFFFFFLL | ((v49[2] & 0x3F) << 32);
+          *v45 = *v45 & 0xFFFFFF7FFFFFFFFFLL | ((v49[2] & 1) << 39);
         }
 
-        v50 = glpLayoutObjectFind(*(a2 + 8), 36);
+        v50 = glpLayoutObjectFind(a2[1], 38);
         if (v50)
         {
-          *v47 = *v47 & 0xFFFFFFBFFFFFFFFFLL | ((v50[2] & 1) << 38);
+          *v45 = *v45 & 0xFFFFFEFFFFFFFFFFLL | ((v50[2] & 1) << 40);
         }
 
-        v51 = glpLayoutObjectFind(*(a2 + 8), 37);
+        v51 = glpLayoutObjectFind(a2[1], 39);
         if (v51)
         {
-          *v47 = *v47 & 0xFFFFFF7FFFFFFFFFLL | ((v51[2] & 1) << 39);
+          *v45 = *v45 & 0xFFFFFFFEFFFFFFFFLL | ((v51[2] & 1) << 32);
         }
 
-        v52 = glpLayoutObjectFind(*(a2 + 8), 38);
+        v52 = glpLayoutObjectFind(a2[1], 40);
         if (v52)
         {
-          *v47 = *v47 & 0xFFFFFEFFFFFFFFFFLL | ((v52[2] & 1) << 40);
+          *v45 = *v45 & 0xFFFFFFFDFFFFFFFFLL | ((v52[2] & 1) << 33);
         }
 
-        v53 = glpLayoutObjectFind(*(a2 + 8), 39);
+        v53 = glpLayoutObjectFind(a2[1], 41);
         if (v53)
         {
-          *v47 = *v47 & 0xFFFFFFFEFFFFFFFFLL | ((v53[2] & 1) << 32);
+          *v45 = *v45 & 0xFFFFFFFEFFFFFFFFLL | ((v53[2] & 1) << 32);
         }
 
-        v54 = glpLayoutObjectFind(*(a2 + 8), 40);
+        v54 = glpLayoutObjectFind(a2[1], 42);
         if (v54)
         {
-          *v47 = *v47 & 0xFFFFFFFDFFFFFFFFLL | ((v54[2] & 1) << 33);
+          *v45 = *v45 & 0xFFFFFFFEFFFFFFFFLL | ((v54[2] & 1) << 32);
         }
 
-        v55 = glpLayoutObjectFind(*(a2 + 8), 41);
+        v55 = glpLayoutObjectFind(a2[1], 43);
         if (v55)
         {
-          *v47 = *v47 & 0xFFFFFFFEFFFFFFFFLL | ((v55[2] & 1) << 32);
+          *v45 = *v45 & 0xFFFFFFE0FFFFFFFFLL | ((v55[2] & 0x1F) << 32);
         }
 
-        v56 = glpLayoutObjectFind(*(a2 + 8), 42);
+        v56 = glpLayoutObjectFind(a2[1], 44);
         if (v56)
         {
-          *v47 = *v47 & 0xFFFFFFFEFFFFFFFFLL | ((v56[2] & 1) << 32);
+          *(v45 + 1) = *(v56 + 4);
         }
 
-        v57 = glpLayoutObjectFind(*(a2 + 8), 43);
+        v57 = glpLayoutObjectFind(a2[1], 45);
         if (v57)
         {
-          *v47 = *v47 & 0xFFFFFFE0FFFFFFFFLL | ((v57[2] & 0x1F) << 32);
+          *v45 = *v45 & 0xFFFFFFF8FFFFFFFFLL | ((v57[2] & 7) << 32);
         }
 
-        v58 = glpLayoutObjectFind(*(a2 + 8), 44);
+        v58 = glpLayoutObjectFind(a2[1], 46);
         if (v58)
         {
-          *(v47 + 1) = *(v58 + 4);
+          *v45 = *v45 & 0xFFFFFFFFFFFFE0FFLL | ((v58[2] & 0x1F) << 8);
         }
 
-        v59 = glpLayoutObjectFind(*(a2 + 8), 45);
+        v59 = glpLayoutObjectFind(a2[1], 48);
         if (v59)
         {
-          *v47 = *v47 & 0xFFFFFFF8FFFFFFFFLL | ((v59[2] & 7) << 32);
+          *v45 = *v45 & 0xFFFFFFF8FFFFFFFFLL | ((v59[2] & 7) << 32);
         }
 
-        v60 = glpLayoutObjectFind(*(a2 + 8), 46);
+        v60 = glpLayoutObjectFind(a2[1], 49);
         if (v60)
         {
-          *v47 = *v47 & 0xFFFFFFFFFFFFE0FFLL | ((v60[2] & 0x1F) << 8);
+          *v45 = *v45 & 0xFFFFFF07FFFFFFFFLL | ((v60[2] & 0x1F) << 35);
         }
 
-        v61 = glpLayoutObjectFind(*(a2 + 8), 48);
+        v61 = glpLayoutObjectFind(a2[1], 51);
         if (v61)
         {
-          *v47 = *v47 & 0xFFFFFFF8FFFFFFFFLL | ((v61[2] & 7) << 32);
+          *v45 = *v45 & 0xFFFFF0FFFFFFFFFFLL | ((v61[2] & 0xF) << 40);
         }
 
-        v62 = glpLayoutObjectFind(*(a2 + 8), 49);
+        v62 = glpLayoutObjectFind(a2[1], 53);
         if (v62)
         {
-          *v47 = *v47 & 0xFFFFFF07FFFFFFFFLL | ((v62[2] & 0x1F) << 35);
+          *v45 = *v45 & 0xFFFFFEFFFFFFFFFFLL | ((v62[2] & 1) << 40);
         }
 
-        v63 = glpLayoutObjectFind(*(a2 + 8), 51);
+        v63 = glpLayoutObjectFind(a2[1], 54);
         if (v63)
         {
-          *v47 = *v47 & 0xFFFFF0FFFFFFFFFFLL | ((v63[2] & 0xF) << 40);
+          *v45 = *v45 & 0xFFFFF9FFFFFFFFFFLL | ((v63[2] & 3) << 41);
         }
 
-        v64 = glpLayoutObjectFind(*(a2 + 8), 53);
+        v64 = glpLayoutObjectFind(a2[1], 55);
         if (v64)
         {
-          *v47 = *v47 & 0xFFFFFEFFFFFFFFFFLL | ((v64[2] & 1) << 40);
+          *v45 = *v45 & 0xFFFFFFFEFFFFFFFFLL | ((v64[2] & 1) << 32);
         }
 
-        v65 = glpLayoutObjectFind(*(a2 + 8), 54);
+        v65 = glpLayoutObjectFind(a2[1], 56);
         if (v65)
         {
-          *v47 = *v47 & 0xFFFFF9FFFFFFFFFFLL | ((v65[2] & 3) << 41);
+          *v45 = *v45 & 0xFFFFFFF1FFFFFFFFLL | ((v65[2] & 7) << 33);
         }
 
-        v66 = glpLayoutObjectFind(*(a2 + 8), 55);
+        v66 = glpLayoutObjectFind(a2[1], 58);
         if (v66)
         {
-          *v47 = *v47 & 0xFFFFFFFEFFFFFFFFLL | ((v66[2] & 1) << 32);
+          *v45 = *v45 & 0xFFFFFC7FFFFFFFFFLL | ((v66[2] & 7) << 39);
         }
 
-        v67 = glpLayoutObjectFind(*(a2 + 8), 56);
+        v67 = glpLayoutObjectFind(a2[1], 62);
         if (v67)
         {
-          *v47 = *v47 & 0xFFFFFFF1FFFFFFFFLL | ((v67[2] & 7) << 33);
+          *v45 = *v45 & 0xFFFFFCFFFFFFFFFFLL | ((v67[2] & 3) << 40);
         }
 
-        v68 = glpLayoutObjectFind(*(a2 + 8), 58);
+        v68 = glpLayoutObjectFind(a2[1], 64);
         if (v68)
         {
-          *v47 = *v47 & 0xFFFFFC7FFFFFFFFFLL | ((v68[2] & 7) << 39);
+          *v45 = *v45 & 0xFFFF8FFFFFFFFFFFLL | ((v68[2] & 7) << 44);
         }
 
-        v69 = glpLayoutObjectFind(*(a2 + 8), 62);
+        v69 = glpLayoutObjectFind(a2[1], 65);
         if (v69)
         {
-          *v47 = *v47 & 0xFFFFFCFFFFFFFFFFLL | ((v69[2] & 3) << 40);
+          *v45 = *v45 & 0xFFFFFFF0FFFFFFFFLL | ((v69[2] & 0xF) << 32);
         }
 
-        v70 = glpLayoutObjectFind(*(a2 + 8), 64);
+        v70 = glpLayoutObjectFind(a2[1], 66);
         if (v70)
         {
-          *v47 = *v47 & 0xFFFF8FFFFFFFFFFFLL | ((v70[2] & 7) << 44);
+          *v45 = *v45 & 0xFFFFFF0FFFFFFFFFLL | ((v70[2] & 0xF) << 36);
         }
 
-        v71 = glpLayoutObjectFind(*(a2 + 8), 65);
+        v71 = glpLayoutObjectFind(a2[1], 67);
         if (v71)
         {
-          *v47 = *v47 & 0xFFFFFFF0FFFFFFFFLL | ((v71[2] & 0xF) << 32);
+          *v45 = *v45 & 0xFFFFFFFFFFLL | (*(v71 + 4) << 40);
         }
 
-        v72 = glpLayoutObjectFind(*(a2 + 8), 66);
+        v72 = glpLayoutObjectFind(a2[1], 68);
         if (v72)
         {
-          *v47 = *v47 & 0xFFFFFF0FFFFFFFFFLL | ((v72[2] & 0xF) << 36);
+          *v45 = *v45 & 0xFFFFFFFFFFFFE0FFLL | ((v72[2] & 0x1F) << 8);
         }
 
-        v73 = glpLayoutObjectFind(*(a2 + 8), 67);
+        v73 = glpLayoutObjectFind(a2[1], 70);
         if (v73)
         {
-          *v47 = *v47 & 0xFFFFFFFFFFLL | (*(v73 + 4) << 40);
+          *v45 = *v45 & 0xFFFFFFBFFFFFFFFFLL | ((v73[2] & 1) << 38);
         }
 
-        v74 = glpLayoutObjectFind(*(a2 + 8), 68);
+        v74 = glpLayoutObjectFind(a2[1], 71);
         if (v74)
         {
-          *v47 = *v47 & 0xFFFFFFFFFFFFE0FFLL | ((v74[2] & 0x1F) << 8);
+          *v45 = *v45 & 0xFFFFFFFEFFFFFFFFLL | ((v74[2] & 1) << 32);
         }
 
-        v75 = glpLayoutObjectFind(*(a2 + 8), 70);
+        v75 = glpLayoutObjectFind(a2[1], 72);
         if (v75)
         {
-          *v47 = *v47 & 0xFFFFFFBFFFFFFFFFLL | ((v75[2] & 1) << 38);
+          *v45 = *v45 & 0xFFFFFFF1FFFFFFFFLL | ((v75[2] & 7) << 33);
         }
 
-        v76 = glpLayoutObjectFind(*(a2 + 8), 71);
+        v76 = glpLayoutObjectFind(a2[1], 73);
         if (v76)
         {
-          *v47 = *v47 & 0xFFFFFFFEFFFFFFFFLL | ((v76[2] & 1) << 32);
+          *v45 = *v45 & 0xFFFFFFEFFFFFFFFFLL | ((v76[2] & 1) << 36);
         }
 
-        v77 = glpLayoutObjectFind(*(a2 + 8), 72);
+        v77 = glpLayoutObjectFind(a2[1], 74);
         if (v77)
         {
-          *v47 = *v47 & 0xFFFFFFF1FFFFFFFFLL | ((v77[2] & 7) << 33);
+          *v45 = *v45 & 0xFFFFFFFEFFFFFFFFLL | ((v77[2] & 1) << 32);
         }
 
-        v78 = glpLayoutObjectFind(*(a2 + 8), 73);
+        v78 = glpLayoutObjectFind(a2[1], 75);
         if (v78)
         {
-          *v47 = *v47 & 0xFFFFFFEFFFFFFFFFLL | ((v78[2] & 1) << 36);
+          *v45 = *v45 & 0xFFFFFFE0FFFFFFFFLL | ((v78[2] & 0x1F) << 32);
         }
 
-        v79 = glpLayoutObjectFind(*(a2 + 8), 74);
+        v79 = glpLayoutObjectFind(a2[1], 76);
         if (v79)
         {
-          *v47 = *v47 & 0xFFFFFFFEFFFFFFFFLL | ((v79[2] & 1) << 32);
+          *(v45 + 1) = *(v79 + 4);
         }
 
-        v80 = glpLayoutObjectFind(*(a2 + 8), 75);
+        v80 = glpLayoutObjectFind(a2[1], 47);
         if (v80)
         {
-          *v47 = *v47 & 0xFFFFFFE0FFFFFFFFLL | ((v80[2] & 0x1F) << 32);
+          *v45 = *v45 & 0xFFFFFFFF0000FFFFLL | (v43 + (*(v80 + 4) << 16));
         }
 
-        v81 = glpLayoutObjectFind(*(a2 + 8), 76);
+        v81 = glpLayoutObjectFind(a2[1], 50);
         if (v81)
         {
-          *(v47 + 1) = *(v81 + 4);
+          *(v45 + 4) = v44 + *(v81 + 16);
         }
 
-        v82 = glpLayoutObjectFind(*(a2 + 8), 47);
+        v82 = glpLayoutObjectFind(a2[1], 52);
         if (v82)
         {
-          *v47 = *v47 & 0xFFFFFFFF0000FFFFLL | (v45 + (*(v82 + 4) << 16));
+          *(v45 + 4) = v44 + *(v82 + 16);
         }
 
-        v83 = glpLayoutObjectFind(*(a2 + 8), 50);
+        v83 = glpLayoutObjectFind(a2[1], 57);
         if (v83)
         {
-          v84 = (v46 + *(v83 + 4));
-          *(v47 + 4) = v46 + *(v83 + 16);
+          *v45 = *v45 & 0xFFFFFF80FFFFFFFFLL | (((v44 + *(v83 + 4)) & 0x7F) << 32);
         }
 
-        v85 = glpLayoutObjectFind(*(a2 + 8), 52);
+        v84 = glpLayoutObjectFind(a2[1], 59);
+        if (v84)
+        {
+          *v45 = *v45 & 0xFFFFFF80FFFFFFFFLL | (((v44 + *(v84 + 4)) & 0x7F) << 32);
+        }
+
+        v85 = glpLayoutObjectFind(a2[1], 60);
         if (v85)
         {
-          v86 = (v46 + *(v85 + 4));
-          *(v47 + 4) = v46 + *(v85 + 16);
+          *(v45 + 4) = v44 + *(v85 + 16);
         }
 
-        v87 = glpLayoutObjectFind(*(a2 + 8), 57);
+        v86 = glpLayoutObjectFind(a2[1], 61);
+        if (v86)
+        {
+          *(v45 + 4) = *(v86 + 16) + (v44 >> 2);
+        }
+
+        v87 = glpLayoutObjectFind(a2[1], 63);
         if (v87)
         {
-          *v47 = *v47 & 0xFFFFFF80FFFFFFFFLL | (((v46 + *(v87 + 4)) & 0x7F) << 32);
+          *v45 = *v45 & 0xFFFFF3FFFFFFFFFFLL | (((v44 + *(v87 + 4)) & 3) << 42);
         }
 
-        v88 = glpLayoutObjectFind(*(a2 + 8), 59);
+        v88 = glpLayoutObjectFind(a2[1], 69);
         if (v88)
         {
-          *v47 = *v47 & 0xFFFFFF80FFFFFFFFLL | (((v46 + *(v88 + 4)) & 0x7F) << 32);
+          *v45 = *v45 & 0xFFFFFFC0FFFFFFFFLL | (((v44 + *(v88 + 4)) & 0x3F) << 32);
         }
 
-        v89 = glpLayoutObjectFind(*(a2 + 8), 60);
-        if (v89)
+        if (!applySAFlagsToToken(a1, v42, v45, v4))
         {
-          v90 = (v46 + *(v89 + 4));
-          *(v47 + 4) = v46 + *(v89 + 16);
+          return 0;
         }
 
-        v91 = glpLayoutObjectFind(*(a2 + 8), 61);
-        if (v91)
-        {
-          v92 = *(v91 + 4) + (v46 >> 2);
-          *(v47 + 4) = *(v91 + 16) + (v46 >> 2);
-        }
-
-        v93 = glpLayoutObjectFind(*(a2 + 8), 63);
-        if (v93)
-        {
-          *v47 = *v47 & 0xFFFFF3FFFFFFFFFFLL | (((v46 + *(v93 + 4)) & 3) << 42);
-        }
-
-        v94 = glpLayoutObjectFind(*(a2 + 8), 69);
-        if (v94)
-        {
-          *v47 = *v47 & 0xFFFFFFC0FFFFFFFFLL | (((v46 + *(v94 + 4)) & 0x3F) << 32);
-        }
-
-        if (!applySAFlagsToToken(a1, v44, v47, v4))
-        {
-          goto LABEL_147;
-        }
-
-        ++v46;
-        ++v47;
-        v45 += 0x40000;
+        ++v44;
+        ++v45;
+        v43 += 0x40000;
       }
 
-      while (v20 != v46);
+      while (v19 != v44);
     }
 
-    if (!v44 && (*v100 & 0x7C00) == 0x400)
+    if (!v42 && (*v94 & 0x7C00) == 0x400)
     {
-      if (glpLayoutObjectFind(*(a2 + 8), 19))
+      if (glpLayoutObjectFind(a2[1], 19))
       {
-        *v100 |= 0x100000000uLL;
+        *v94 |= 0x100000000uLL;
       }
 
-      if (glpLayoutObjectFind(*(a2 + 8), 20))
+      if (glpLayoutObjectFind(a2[1], 20))
       {
-        *v100 |= 0x200000000uLL;
+        *v94 |= 0x200000000uLL;
       }
     }
 
-    v95 = *(a2 + 136);
-    v96 = *(a2 + 128);
-    v97 = *(a2 + 120);
-    v98 = *(a2 + 48);
-    v25 = 1;
-    addBindingsForGLPType(a1, v95, v101, v44, ElementType, v100, v96, 1, v97, v98);
+    v89 = a2[17];
+    v90 = *(a2 + 32);
+    v91 = a2[15];
+    v92 = a2[6];
+    v24 = 1;
+    addBindingsForGLPType(a1, v89, v95, v42, ElementType, v94, v90, 1, v91, v92);
   }
 
   else
@@ -2576,18 +2570,16 @@ LABEL_20:
     {
       if ((v4 & 0x7F000000000) != 0)
       {
-LABEL_147:
-        v25 = 0;
-        goto LABEL_40;
+        return 0;
       }
 
-      v21 = *(a2 + 136);
-      v22 = *(a2 + 156);
-      v23 = *(a2 + 128);
-      v24 = *(a2 + 120);
-      v97 = *(a2 + 48);
-      v25 = 1;
-      addUniformsForGLPType(a1, v21, v101, ElementType, v22, v23, 1, v24, v97);
+      v20 = a2[17];
+      v21 = *(a2 + 39);
+      v22 = *(a2 + 32);
+      v23 = a2[15];
+      v91 = a2[6];
+      v24 = 1;
+      addUniformsForGLPType(a1, v20, v95, ElementType, v21, v22, 1, v23, v91);
     }
 
     else
@@ -2602,30 +2594,28 @@ LABEL_147:
         ElementCount = 1;
       }
 
-      v38 = *(a2 + 136);
-      v39 = *(a2 + 128) * ElementCount;
-      v40 = *(a2 + 48);
-      if ((v40 & 0x60000000) != 0)
+      v36 = a2[17];
+      v37 = *(a2 + 32) * ElementCount;
+      v38 = a2[6];
+      if ((v38 & 0x60000000) != 0)
       {
-        v41 = 0;
+        v39 = 0;
       }
 
       else
       {
-        v41 = *(a2 + 120);
+        v39 = a2[15];
       }
 
-      v25 = 1;
-      addTempsForGLPType(a1, v38, v101, ElementType, v39, 1, v41, v40);
+      v24 = 1;
+      addTempsForGLPType(a1, v36, v95, ElementType, v37, 1, v39, v38);
     }
   }
 
-LABEL_40:
-  v36 = *MEMORY[0x277D85DE8];
-  return v25;
+  return v24;
 }
 
-BOOL applySAFlagsToToken(uint64_t a1, unsigned int a2, void *a3, unint64_t a4)
+BOOL applySAFlagsToToken(uint64_t a1, unsigned int a2, uint64_t *a3, unint64_t a4)
 {
   v4 = __ROR8__(a4 & 0x1F, 2) - 1;
   if (v4 > 3)
@@ -2691,20 +2681,22 @@ BOOL applySAFlagsToToken(uint64_t a1, unsigned int a2, void *a3, unint64_t a4)
   return result;
 }
 
-void *addBindingsForGLPType(uint64_t a1, _OWORD *a2, _OWORD *a3, uint64_t a4, unsigned int *a5, uint64_t a6, int a7, int a8, uint64_t a9, unint64_t a10)
+void addBindingsForGLPType(uint64_t a1, _OWORD *a2, _OWORD *a3, uint64_t a4, unsigned int *a5, uint64_t a6, int a7, int a8, uint64_t a9, unint64_t a10)
 {
-  result = glpTypeGetKind(a5);
-  if (result > 1)
+  Kind = glpTypeGetKind(a5);
+  if (Kind > 1)
   {
-    if (result == 2)
+    if (Kind == 2)
     {
       v48 = a8;
       v47 = a9;
       ElementType = glpArrayTypeGetElementType(a5);
-      v39 = glpABIGetTypeSize(0, ElementType, 0);
-      Size = glpTypeSizeGetSize(v39);
-      v41 = 0;
-      v42 = (a7 + Size - 1) / Size - 1;
+      glpABIGetTypeSize(0, ElementType, 0);
+      glpTypeSizeGetSize();
+      v39 = v38;
+      v40 = 0;
+      v41 = (a7 + v38 - 1) / v38 - 1;
+      v42 = 8 * v38;
       do
       {
         v57 = 0u;
@@ -2717,8 +2709,8 @@ void *addBindingsForGLPType(uint64_t a1, _OWORD *a2, _OWORD *a3, uint64_t a4, un
         v52 = 0u;
         v49 = 0u;
         v50 = 0u;
-        result = addBindingsForGLPType(a1, &v54, &v49, a4, ElementType, a6, Size, 0, 0, a10);
-        if (!v41)
+        addBindingsForGLPType(a1, &v54, &v49, a4, ElementType, a6, v39, 0, 0, a10);
+        if (!v40)
         {
           v43 = v57;
           a2[2] = v56;
@@ -2729,7 +2721,7 @@ void *addBindingsForGLPType(uint64_t a1, _OWORD *a2, _OWORD *a3, uint64_t a4, un
           a2[1] = v44;
         }
 
-        if (v42 == v41)
+        if (v41 == v40)
         {
           v45 = v52;
           a3[2] = v51;
@@ -2740,29 +2732,29 @@ void *addBindingsForGLPType(uint64_t a1, _OWORD *a2, _OWORD *a3, uint64_t a4, un
           a3[1] = v46;
         }
 
-        ++v41;
-        a6 += 8 * Size;
+        ++v40;
+        a6 += v42;
       }
 
-      while (v41 <= v42);
+      while (v40 <= v41);
 LABEL_23:
       if (!v48)
       {
-        return result;
+        return;
       }
 
-      v34 = a1;
-      v35 = a2;
-      v36 = a3;
-      v37 = v47;
-      return addArrayHelper(v34, v35, v36, v37);
+      v33 = a1;
+      v34 = a2;
+      v35 = a3;
+      v36 = v47;
+      goto LABEL_25;
     }
 
-    if (result == 3)
+    if (Kind == 3)
     {
       v30 = glpBankTypeGetElementType(a5);
-      v31 = glpABIGetTypeSize(0, v30, 0);
-      v32 = glpTypeSizeGetSize(v31);
+      glpABIGetTypeSize(0, v30, 0);
+      glpTypeSizeGetSize();
       v57 = 0u;
       v58 = 0u;
       v55 = 0u;
@@ -2773,18 +2765,18 @@ LABEL_23:
       v52 = 0u;
       v49 = 0u;
       v50 = 0u;
-      return addBindingsForGLPType(a1, &v54, &v49, a4, v30, a6, v32, 0, 0, a10);
+      addBindingsForGLPType(a1, &v54, &v49, a4, v30, a6, v31, 0, 0, a10);
     }
   }
 
   else
   {
-    if (result)
+    if (Kind)
     {
       v47 = a9;
-      if (result != 1)
+      if (Kind != 1)
       {
-        return result;
+        return;
       }
 
       v48 = a8;
@@ -2803,12 +2795,13 @@ LABEL_23:
         v52 = 0u;
         v49 = 0u;
         v50 = 0u;
-        v22 = glpABIGetTypeSize(0, v21, 0);
-        v23 = glpTypeSizeGetSize(v22);
+        glpABIGetTypeSize(0, v21, 0);
+        glpTypeSizeGetSize();
+        v23 = v22;
         ElementFlags = glpAggregateTypeGetElementFlags(a5, v19);
         addBindingsForGLPType(a1, &v54, &v49, a4, v21, a6, v23, 0, 0, ElementFlags);
-        v25 = glpABIGetTypeSize(0, v21, 0);
-        result = glpTypeSizeGetSize(v25);
+        glpABIGetTypeSize(0, v21, 0);
+        glpTypeSizeGetSize();
         if (!v19)
         {
           v26 = v57;
@@ -2831,7 +2824,7 @@ LABEL_23:
           a3[1] = v29;
         }
 
-        a6 += 8 * result;
+        a6 += 8 * v25;
         ++v19;
       }
 
@@ -2843,150 +2836,156 @@ LABEL_23:
     v54 = 0u;
     v55 = 0u;
     initTypeWithGLPPrimitiveType(&v54, PrimitiveType, a10);
-    result = AddBinding(*(a1 + 136), a2, a3, a4, &v54, a6);
+    AddBinding(*(a1 + 136), a2, a3, a4, &v54, a6);
     if (a8 && DWORD1(v54) >= 2)
     {
-      v34 = a1;
-      v35 = a2;
-      v36 = a3;
-      v37 = a9;
-      return addArrayHelper(v34, v35, v36, v37);
+      v33 = a1;
+      v34 = a2;
+      v35 = a3;
+      v36 = a9;
+LABEL_25:
+      addArrayHelper(v33, v34, v35, v36);
     }
   }
-
-  return result;
 }
 
-void *addUniformsForGLPType(uint64_t a1, uint64_t a2, _OWORD *a3, unsigned int *a4, uint64_t a5, int a6, int a7, uint64_t a8, unint64_t a9)
+void addUniformsForGLPType(uint64_t a1, uint64_t a2, _OWORD *a3, unsigned int *a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, unint64_t a9)
 {
-  result = glpTypeGetKind(a4);
-  switch(result)
+  v10 = a7;
+  Kind = glpTypeGetKind(a4);
+  if (Kind == 2)
   {
-    case 2:
-      v40 = a8;
-      ElementType = glpArrayTypeGetElementType(a4);
-      v32 = glpABIGetTypeSize(0, ElementType, 0);
-      Size = glpTypeSizeGetSize(v32);
-      v34 = 0;
-      v35 = (a6 + Size - 1) / Size - 1;
-      do
-      {
-        v49 = 0u;
-        v50 = 0u;
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
-        v46 = 0u;
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
-        v42 = 0u;
-        result = addUniformsForGLPType(a1, &v46, &v41, ElementType, a5, Size, 0, 0, a9);
-        if (!v34)
-        {
-          v36 = v49;
-          *(a2 + 32) = v48;
-          *(a2 + 48) = v36;
-          *(a2 + 64) = v50;
-          v37 = v47;
-          *a2 = v46;
-          *(a2 + 16) = v37;
-        }
-
-        if (v35 == v34)
-        {
-          v38 = v44;
-          a3[2] = v43;
-          a3[3] = v38;
-          a3[4] = v45;
-          v39 = v42;
-          *a3 = v41;
-          a3[1] = v39;
-        }
-
-        a5 = (a5 + Size);
-        ++v34;
-      }
-
-      while (v34 <= v35);
-      break;
-    case 1:
-      v40 = a8;
-      v20 = 0;
-      v21 = glpAggregateTypeGetElementCount(a4) - 1;
-      do
-      {
-        v22 = glpAggregateTypeGetElementType(a4, v20);
-        v49 = 0u;
-        v50 = 0u;
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
-        v46 = 0u;
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
-        v42 = 0u;
-        v23 = glpABIGetTypeSize(0, v22, 0);
-        v24 = glpTypeSizeGetSize(v23);
-        ElementFlags = glpAggregateTypeGetElementFlags(a4, v20);
-        addUniformsForGLPType(a1, &v46, &v41, v22, a5, v24, 0, 0, ElementFlags);
-        v26 = glpABIGetTypeSize(0, v22, 0);
-        result = glpTypeSizeGetSize(v26);
-        if (!v20)
-        {
-          v27 = v49;
-          *(a2 + 32) = v48;
-          *(a2 + 48) = v27;
-          *(a2 + 64) = v50;
-          v28 = v47;
-          *a2 = v46;
-          *(a2 + 16) = v28;
-        }
-
-        if (v21 == v20)
-        {
-          v29 = v44;
-          a3[2] = v43;
-          a3[3] = v29;
-          a3[4] = v45;
-          v30 = v42;
-          *a3 = v41;
-          a3[1] = v30;
-        }
-
-        a5 = (result + a5);
-        ++v20;
-      }
-
-      while (v20 <= v21);
-      break;
-    case 0:
-      PrimitiveType = glpPrimitiveTypeGetPrimitiveType(a4);
-      v19 = PrimitiveType;
+    v39 = a8;
+    ElementType = glpArrayTypeGetElementType(a4);
+    glpABIGetTypeSize(0, ElementType, 0);
+    glpTypeSizeGetSize();
+    v32 = v31;
+    v33 = 0;
+    v34 = (a6 + v31 - 1) / v31 - 1;
+    do
+    {
+      v48 = 0u;
+      v49 = 0u;
       v46 = 0u;
       v47 = 0u;
-      initTypeWithGLPPrimitiveType(&v46, PrimitiveType, a9);
-      return addUniformsForType(a1, a2, a3, &v46, v19, a5, a7, a8);
-    default:
-      return result;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      addUniformsForGLPType(a1, &v45, &v40, ElementType, a5, v32, 0, 0, a9);
+      if (!v33)
+      {
+        v35 = v48;
+        *(a2 + 32) = v47;
+        *(a2 + 48) = v35;
+        *(a2 + 64) = v49;
+        v36 = v46;
+        *a2 = v45;
+        *(a2 + 16) = v36;
+      }
+
+      if (v34 == v33)
+      {
+        v37 = v43;
+        a3[2] = v42;
+        a3[3] = v37;
+        a3[4] = v44;
+        v38 = v41;
+        *a3 = v40;
+        a3[1] = v38;
+      }
+
+      a5 = (a5 + v32);
+      ++v33;
+    }
+
+    while (v33 <= v34);
   }
 
-  if (a7)
+  else
   {
-    return addArrayHelper(a1, a2, a3, v40);
+    if (Kind != 1)
+    {
+      if (!Kind)
+      {
+        PrimitiveType = glpPrimitiveTypeGetPrimitiveType(a4);
+        v45 = 0u;
+        v46 = 0u;
+        initTypeWithGLPPrimitiveType(&v45, PrimitiveType, a9);
+        addUniformsForType(a1, a2, a3, &v45, PrimitiveType, a5, v10, a8);
+      }
+
+      return;
+    }
+
+    v39 = a8;
+    v19 = 0;
+    v20 = glpAggregateTypeGetElementCount(a4) - 1;
+    do
+    {
+      v21 = glpAggregateTypeGetElementType(a4, v19);
+      v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      glpABIGetTypeSize(0, v21, 0);
+      glpTypeSizeGetSize();
+      v23 = v22;
+      ElementFlags = glpAggregateTypeGetElementFlags(a4, v19);
+      addUniformsForGLPType(a1, &v45, &v40, v21, a5, v23, 0, 0, ElementFlags);
+      glpABIGetTypeSize(0, v21, 0);
+      glpTypeSizeGetSize();
+      if (!v19)
+      {
+        v26 = v48;
+        *(a2 + 32) = v47;
+        *(a2 + 48) = v26;
+        *(a2 + 64) = v49;
+        v27 = v46;
+        *a2 = v45;
+        *(a2 + 16) = v27;
+      }
+
+      if (v20 == v19)
+      {
+        v28 = v43;
+        a3[2] = v42;
+        a3[3] = v28;
+        a3[4] = v44;
+        v29 = v41;
+        *a3 = v40;
+        a3[1] = v29;
+      }
+
+      a5 = (v25 + a5);
+      ++v19;
+    }
+
+    while (v19 <= v20);
   }
 
-  return result;
+  if (v10)
+  {
+    addArrayHelper(a1, a2, a3, v39);
+  }
 }
 
-void *addUniformsForType(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, unsigned int a5, __int16 a6, int a7, uint64_t a8)
+uint64_t *addUniformsForType(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, __int16 a6, int a7, uint64_t a8)
 {
-  v21[0] = a8;
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[0] = a8;
+  v10 = a5;
+  v20[1] = *MEMORY[0x277D85DE8];
   v15 = *(a4 + 12);
   MEMORY[0x28223BE20](a1);
-  v16 = v21 - ((8 * v15 + 15) & 0xFFFFFFFF0);
+  v16 = v20 - ((8 * v15 + 15) & 0xFFFFFFFF0);
   bzero(v16, 8 * v15);
   bzero(v16, 8 * v15);
   if (v15)
@@ -2995,12 +2994,12 @@ void *addUniformsForType(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, unsi
     do
     {
       *&v16[8 * v17] = *&v16[8 * v17] & 0xFFFFC000FFFFE0FFLL | (((a6 + v17) & 0x3FFF) << 32) | 0x200;
-      Category = glpPrimitiveTypeGetCategory(a5);
+      Category = glpPrimitiveTypeGetCategory(v10);
       *&v16[8 * v17] = *&v16[8 * v17] & 0xFFFFBFFFFFFFFFFFLL | ((Category == 4) << 46);
       if (Category == 4)
       {
-        *&v16[8 * v17] = *&v16[8 * v17] & 0xFFF07FFFFFFFFFFFLL | ((glpPrimitiveSamplerGetPPTextarget(a5) & 0x1F) << 47);
-        *&v16[8 * v17] = *&v16[8 * v17] & 0xFF8FFFFFFFFFFFFFLL | ((glpPrimitiveSamplerGetPPDatatype(a5) & 7) << 52);
+        *&v16[8 * v17] = *&v16[8 * v17] & 0xFFF07FFFFFFFFFFFLL | ((glpPrimitiveSamplerGetPPTextarget(v10) & 0x1F) << 47);
+        *&v16[8 * v17] = *&v16[8 * v17] & 0xFF8FFFFFFFFFFFFFLL | ((glpPrimitiveSamplerGetPPDatatype(v10) & 7) << 52);
       }
 
       ++v17;
@@ -3010,12 +3009,14 @@ void *addUniformsForType(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, unsi
   }
 
   result = AddBinding(*(a1 + 136), a2, a3, 2, a4, v16);
-  if (a7 && *(a4 + 4) >= 2u)
+  if (a7)
   {
-    result = addArrayHelper(a1, a2, a3, v21[0]);
+    if (*(a4 + 4) >= 2u)
+    {
+      return addArrayHelper(a1, a2, a3, v20[0]);
+    }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3030,40 +3031,40 @@ uint64_t cgDerefNode(uint64_t a1, uint64_t a2, __int128 *a3)
     }
   }
 
-  v99 = 0;
-  v97 = 0u;
+  v100 = 0;
   v98 = 0u;
-  v95 = 0u;
+  v99 = 0u;
   v96 = 0u;
-  v94 = 0u;
-  memset(v93, 0, sizeof(v93));
+  v97 = 0u;
+  v95 = 0u;
+  memset(v94, 0, sizeof(v94));
   v7 = glpASTNodeGetSaType(a2);
   SaFlags = glpASTNodeGetSaFlags(a2);
   if (!glpTypeGetKind(v7))
   {
     PrimitiveType = glpPrimitiveTypeGetPrimitiveType(v7);
-    initTypeWithGLPPrimitiveType(&v94 + 2, PrimitiveType, SaFlags);
+    initTypeWithGLPPrimitiveType(&v95 + 2, PrimitiveType, SaFlags);
   }
 
-  InitReg(*(a1 + 136), 0, &v94);
+  InitReg(*(a1 + 136), 0, &v95);
   v10 = a3[1];
   v11 = a3[3];
-  v90 = a3[2];
-  v91 = v11;
+  v91 = a3[2];
+  v92 = v11;
   v12 = a3[3];
-  v92 = a3[4];
+  v93 = a3[4];
   v13 = a3[1];
-  v88 = *a3;
-  v89 = v13;
-  v85 = v90;
-  v86 = v12;
-  v87 = a3[4];
-  v84[0] = v88;
-  v84[1] = v10;
+  v89 = *a3;
+  v90 = v13;
+  v86 = v91;
+  v87 = v12;
+  v88 = a3[4];
+  v85[0] = v89;
+  v85[1] = v10;
   Offset = glpDerefNodeGetOffset(a2);
   v15 = glpASTNodeGetSaType(a2);
-  v16 = evalOffsetExtraOfOffset(a1, v15, Offset, &v99);
-  if (!v99)
+  v16 = evalOffsetExtraOfOffset(a1, v15, Offset, &v100);
+  if (!v100)
   {
     return 0;
   }
@@ -3077,19 +3078,19 @@ uint64_t cgDerefNode(uint64_t a1, uint64_t a2, __int128 *a3)
       goto LABEL_19;
     }
 
-    if (DWORD2(v85) == 4)
+    if (DWORD2(v86) == 4)
     {
       if (*v24 == 2 && v24[2] == 1)
       {
         v25 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 56), v24[1]) + 24);
         if ((v25 & 0x1F00) == 0x600)
         {
-          v26 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 128), WORD2(v25)) + 4 * (*v23)[12] + 24);
+          v26 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 128), WORD2(v25)) + 4 * *(*v23 + 48) + 24);
           VariableExtra = glpLValueNodeGetVariableExtra(a2);
           if (v26 < glpBankTypeGetElementCount(*VariableExtra))
           {
-            DWORD1(v84[0]) += v26;
-            DWORD2(v85) = 3;
+            DWORD1(v85[0]) += v26;
+            DWORD2(v86) = 3;
             goto LABEL_19;
           }
         }
@@ -3116,7 +3117,7 @@ LABEL_19:
       goto LABEL_40;
     }
 
-    if (v30[2] != 1 || DWORD2(v90) != 1 || ((v31 = PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 56), v30[1]), !glpIsLValueNode(a2)) ? (Base = glpRValueNodeGetBase(a2), v32 = glpASTNodeGetSaType(Base)) : (v32 = *glpLValueNodeGetVariableExtra(a2)), (*(v31 + 24) & 0x1F00) != 0x600))
+    if (v30[2] != 1 || DWORD2(v91) != 1 || ((v31 = PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 56), v30[1]), !glpIsLValueNode(a2)) ? (Base = glpRValueNodeGetBase(a2), v32 = glpASTNodeGetSaType(Base)) : (v32 = *glpLValueNodeGetVariableExtra(a2)), (*(v31 + 24) & 0x1F00) != 0x600))
     {
 LABEL_39:
       if (!v23[1])
@@ -3125,40 +3126,40 @@ LABEL_39:
       }
 
 LABEL_40:
-      v82 = 0u;
       v83 = 0u;
-      v80 = 0u;
+      v84 = 0u;
       v81 = 0u;
-      v79 = 0u;
-      memset(v78, 0, sizeof(v78));
-      v43 = primitiveTypeOfDeref(a2);
-      v44 = glpASTNodeGetSaFlags(a2);
-      addTempsForGLPPrimitiveType(a1, &v79, v78, v43, 1, 0, v44);
-      v48 = 0;
-      if ((DWORD2(v85) - 1) >= 2)
+      v82 = 0u;
+      v80 = 0u;
+      memset(v79, 0, sizeof(v79));
+      v44 = primitiveTypeOfDeref(a2);
+      v45 = glpASTNodeGetSaFlags(a2);
+      addTempsForGLPPrimitiveType(a1, &v80, v79, v44, 1, 0, v45);
+      v49 = 0;
+      if ((DWORD2(v86) - 1) >= 2)
       {
-        v49 = *(v23 + 6);
-        v50 = *(a1 + 192);
-        v100[0] = MEMORY[0x277D85DD0];
-        v100[1] = 0x40000000;
-        v100[2] = __getOrAddComponentStride_block_invoke;
-        v100[3] = &__block_descriptor_tmp_16;
-        v100[4] = a1;
-        v101 = v49;
-        v48 = glpIntHashCache_b(v50, v49, v100);
+        v50 = *(v23 + 6);
+        v51 = *(a1 + 192);
+        v101[0] = MEMORY[0x277D85DD0];
+        v101[1] = 0x40000000;
+        v101[2] = __getOrAddComponentStride_block_invoke;
+        v101[3] = &__block_descriptor_tmp_16;
+        v101[4] = a1;
+        v102 = v50;
+        v49 = glpIntHashCache_b(v51, v50, v101);
       }
 
-      *(a1 + 128) = Load(*(a1 + 136), &v79, v84, v23[1], v48, v45, v46, v47);
-      if ((DWORD2(v85) - 4) <= 0xFFFFFFFD)
+      *(a1 + 128) = Load(*(a1 + 136), &v80, v85, v23[1], v49, v46, v47, v48);
+      if ((DWORD2(v86) - 4) <= 0xFFFFFFFD)
       {
-        setArrayUsed(a1, v84);
+        setArrayUsed(a1, v85);
       }
 
-      v90 = v81;
       v91 = v82;
       v92 = v83;
-      v88 = v79;
+      v93 = v84;
       v89 = v80;
+      v90 = v81;
       goto LABEL_45;
     }
 
@@ -3177,34 +3178,35 @@ LABEL_40:
       v35 = 0;
     }
 
-    v36 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 128), *(v31 + 28)) + 4 * v23[1][12] + 24);
+    v36 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 128), *(v31 + 28)) + 4 * *(v23[1] + 48) + 24);
     if (Kind == 3)
     {
       if (v35)
       {
         ElementCount = glpBankTypeGetElementCount(v32);
         ElementType = glpBankTypeGetElementType(v32);
-        Vec4s = glpTypeGetVec4s(ElementType) * ElementCount;
+        glpTypeGetVec4s(ElementType);
+        v40 = v39 * ElementCount;
         goto LABEL_37;
       }
 
-      v40 = glpBankTypeGetElementType(v32);
+      v41 = glpBankTypeGetElementType(v32);
     }
 
     else
     {
-      v40 = v32;
+      v41 = v32;
     }
 
-    Vec4s = glpTypeGetVec4s(v40);
+    glpTypeGetVec4s(v41);
 LABEL_37:
-    if (v36 < Vec4s)
+    if (v36 < v40)
     {
-      DWORD1(v88) += v36;
-      DWORD2(v90) = 0;
-      v41 = primitiveTypeOfDeref(a2);
-      v42 = glpASTNodeGetSaFlags(a2);
-      initTypeWithGLPPrimitiveType(&v88 + 2, v41, v42);
+      DWORD1(v89) += v36;
+      DWORD2(v91) = 0;
+      v42 = primitiveTypeOfDeref(a2);
+      v43 = glpASTNodeGetSaFlags(a2);
+      initTypeWithGLPPrimitiveType(&v89 + 2, v42, v43);
       goto LABEL_45;
     }
 
@@ -3214,19 +3216,19 @@ LABEL_37:
 LABEL_45:
   if (Offset && glpOffsetNodeGetSwizzle(Offset))
   {
-    v51 = DWORD2(v88);
-    v79 = xmmword_23A29C2D0;
+    v52 = DWORD2(v89);
+    v80 = xmmword_23A29C2D0;
     goto LABEL_51;
   }
 
-  if (!v23 || (v52 = v23[2]) == 0)
+  if (!v23 || (v53 = v23[2]) == 0)
   {
-    v59 = 0;
-    v96 = v90;
+    v60 = 0;
     v97 = v91;
     v98 = v92;
-    v94 = v88;
+    v99 = v93;
     v95 = v89;
+    v96 = v90;
     if (v23)
     {
       goto LABEL_81;
@@ -3235,59 +3237,59 @@ LABEL_45:
     goto LABEL_87;
   }
 
-  v51 = DWORD2(v88);
-  v79 = xmmword_23A29C2D0;
+  v52 = DWORD2(v89);
+  v80 = xmmword_23A29C2D0;
   if (Offset)
   {
 LABEL_51:
-    if (glpOffsetNodeGetSwizzle(Offset) && (v51 = glpOffsetNodeGetSwizzle(Offset) & 7) != 0)
+    if (glpOffsetNodeGetSwizzle(Offset) && (v52 = glpOffsetNodeGetSwizzle(Offset) & 7) != 0)
     {
-      v55 = 0;
-      v56 = 2;
-      v57 = 1;
-      v58 = 3;
+      v56 = 0;
+      v57 = 2;
+      v58 = 1;
+      v59 = 3;
       do
       {
-        if (v55 > 1)
+        if (v56 > 1)
         {
-          if (v55 == 2)
+          if (v56 == 2)
           {
-            v56 = (glpOffsetNodeGetSwizzle(Offset) >> 7) & 3;
-            DWORD2(v79) = v56;
+            v57 = (glpOffsetNodeGetSwizzle(Offset) >> 7) & 3;
+            DWORD2(v80) = v57;
           }
 
-          else if (v55 == 3)
+          else if (v56 == 3)
           {
-            v58 = (glpOffsetNodeGetSwizzle(Offset) >> 9) & 3;
-            HIDWORD(v79) = v58;
+            v59 = (glpOffsetNodeGetSwizzle(Offset) >> 9) & 3;
+            HIDWORD(v80) = v59;
           }
         }
 
-        else if (v55)
+        else if (v56)
         {
-          if (v55 == 1)
+          if (v56 == 1)
           {
-            v57 = (glpOffsetNodeGetSwizzle(Offset) >> 5) & 3;
-            DWORD1(v79) = v57;
+            v58 = (glpOffsetNodeGetSwizzle(Offset) >> 5) & 3;
+            DWORD1(v80) = v58;
           }
         }
 
         else
         {
-          LODWORD(v79) = (glpOffsetNodeGetSwizzle(Offset) >> 3) & 3;
+          LODWORD(v80) = (glpOffsetNodeGetSwizzle(Offset) >> 3) & 3;
         }
 
-        ++v55;
+        ++v56;
       }
 
-      while (v51 != v55);
+      while (v52 != v56);
       if (v23)
       {
 LABEL_65:
-        v52 = v23[2];
-        if (!v52)
+        v53 = v23[2];
+        if (!v53)
         {
-          v59 = 0;
+          v60 = 0;
           goto LABEL_80;
         }
 
@@ -3297,108 +3299,110 @@ LABEL_65:
 
     else
     {
-      v56 = 2;
-      v57 = 1;
-      v58 = 3;
+      v57 = 2;
+      v58 = 1;
+      v59 = 3;
       if (v23)
       {
         goto LABEL_65;
       }
     }
 
-    v59 = 0;
-    v52 = 0;
+    v60 = 0;
+    v53 = 0;
     goto LABEL_80;
   }
 
-  v58 = 3;
-  v57 = 1;
-  v56 = 2;
+  v59 = 3;
+  v58 = 1;
+  v57 = 2;
 LABEL_72:
-  if (*v52 == 2 && v52[2] == 1 && (v60 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 56), v52[1]) + 24), (v60 & 0x1F00) == 0x600))
+  if (*v53 == 2 && v53[2] == 1 && (v61 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 56), v53[1]) + 24), (v61 & 0x1F00) == 0x600))
   {
-    v61 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 128), WORD2(v60)) + 4 * v52[12] + 24);
-    if (v61 == 3)
+    v62 = *(PPStreamChunkListChunkAtIndex(*(*(a1 + 136) + 128), WORD2(v61)) + 4 * v53[12] + 24);
+    if (v62 == 3)
     {
-      v59 = 0;
-      v52 = 0;
-      LODWORD(v79) = v58;
+      v60 = 0;
+      v53 = 0;
+      LODWORD(v80) = v59;
     }
 
-    else if (v61 == 2)
+    else if (v62 == 2)
     {
-      v59 = 0;
-      v52 = 0;
-      LODWORD(v79) = v56;
+      v60 = 0;
+      v53 = 0;
+      LODWORD(v80) = v57;
     }
 
     else
     {
-      v59 = 0;
-      v52 = 0;
-      if (v61 == 1)
+      v60 = 0;
+      v53 = 0;
+      if (v62 == 1)
       {
-        LODWORD(v79) = v57;
+        LODWORD(v80) = v58;
       }
     }
 
-    v51 = 1;
+    v52 = 1;
   }
 
   else
   {
-    v62 = glpASTNodeGetSaType(a2);
     v63 = glpASTNodeGetSaType(a2);
-    v64 = glpABIGetTypeSize(0, v63, 0);
-    Size = glpTypeSizeGetSize(v64);
-    v66 = glpASTNodeGetSaFlags(a2);
-    v59 = 1;
-    addTempsForGLPType(a1, &v94, v93, v62, Size, 1, 0, v66);
+    v64 = glpASTNodeGetSaType(a2);
+    glpABIGetTypeSize(0, v64, 0);
+    glpTypeSizeGetSize();
+    v66 = v65;
+    v67 = glpASTNodeGetSaFlags(a2);
+    v60 = 1;
+    addTempsForGLPType(a1, &v95, v94, v63, v66, 1, 0, v67);
   }
 
 LABEL_80:
-  *(a1 + 128) = SrcSwizzle(*(a1 + 136), &v94, &v88, v51, v52, &v79, v53, v54);
+  *(a1 + 128) = SrcSwizzle(*(a1 + 136), &v95, &v89, v52, v53, &v80, v54, v55);
   if (v23)
   {
 LABEL_81:
-    if (DWORD2(v85) <= 1)
+    if (DWORD2(v86) <= 1)
     {
       if (*v23)
       {
-        v67 = v59;
+        v68 = v60;
       }
 
       else
       {
-        v67 = 1;
+        v68 = 1;
       }
 
-      if ((v67 & 1) == 0)
+      if ((v68 & 1) == 0)
       {
-        v81 = v96;
         v82 = v97;
         v83 = v98;
-        v79 = v94;
+        v84 = v99;
         v80 = v95;
-        v68 = glpASTNodeGetSaType(a2);
+        v81 = v96;
         v69 = glpASTNodeGetSaType(a2);
-        v70 = glpABIGetTypeSize(0, v69, 0);
-        v71 = glpTypeSizeGetSize(v70);
-        v72 = glpASTNodeGetSaFlags(a2);
-        addTempsForGLPType(a1, &v94, v93, v68, v71, 1, 0, v72);
-        *(a1 + 128) = AddOp(*(a1 + 136), 0, 0, &v94, 0, v73, v74, v75, &v79);
+        v70 = glpASTNodeGetSaType(a2);
+        glpABIGetTypeSize(0, v70, 0);
+        glpTypeSizeGetSize();
+        v72 = v71;
+        v73 = glpASTNodeGetSaFlags(a2);
+        addTempsForGLPType(a1, &v95, v94, v69, v72, 1, 0, v73);
+        *(a1 + 128) = AddOp(*(a1 + 136), 0, 0, &v95, 0, v74, v75, v76, &v80);
       }
     }
   }
 
 LABEL_87:
-  v76 = v94;
-  *(a1 + 56) = v95;
-  v77 = v97;
-  *(a1 + 72) = v96;
-  *(a1 + 88) = v77;
-  *(a1 + 104) = v98;
-  *(a1 + 40) = v76;
+  v77 = v95;
+  *(a1 + 56) = v96;
+  v78 = v98;
+  *(a1 + 72) = v97;
+  *(a1 + 88) = v78;
+  *(a1 + 104) = v99;
+  *(a1 + 40) = v77;
   return 2;
 }
 
@@ -3422,7 +3426,8 @@ void *glpMakeLLVMCodeGenContext(uint64_t a1, uint64_t a2, uint64_t a3, int a4, u
   v14[16] = a1;
   v14[17] = a2;
   v14[18] = a3;
-  v14[19] = glpLinkerGetAllocator(a1);
+  glpLinkerGetAllocator();
+  v14[19] = v16;
   *(v14 + 417) = a6;
   *v14 = 0;
   *(v14 + 74) = 0;
@@ -3446,51 +3451,51 @@ void *glpMakeLLVMCodeGenContext(uint64_t a1, uint64_t a2, uint64_t a3, int a4, u
   *(v14 + 190) = 0;
   *(v14 + 197) = glpLinkerGetGenerateDebugMetadata(a1);
   v14[56] = 0;
-  *&v16 = 0xFFFFFFFFLL;
-  *(&v16 + 1) = 0xFFFFFFFFLL;
-  *(v14 + 50) = v16;
+  *&v17 = 0xFFFFFFFFLL;
+  *(&v17 + 1) = 0xFFFFFFFFLL;
+  *(v14 + 50) = v17;
   v14[102] = 0xFFFFFFFFLL;
   *(v14 + 416) = v14[104] & 0xFFFE | (glpLinkerGetCodeGenType(a1) >> 3) & 1;
   *(v14 + 83) = 0;
-  v17 = v14[19];
-  v14[74] = 8;
-  v14[75] = (*(v17 + 8))(*v17, 384, "Vector Storage (GLPLLVMTextureSampler)");
   v18 = v14[19];
-  v14[80] = 8;
-  v14[81] = (*(v18 + 8))(*v18, 64, "Vector Storage (GLPVariableObject *)");
+  v14[74] = 8;
+  v14[75] = (*(v18 + 8))(*v18, 384, "Vector Storage (GLPLLVMTextureSampler)");
   v19 = v14[19];
-  v14[82] = 8;
-  v14[83] = (*(v19 + 8))(*v19, 64, "Vector Storage (GLPVariableObject *)");
+  v14[80] = 8;
+  v14[81] = (*(v19 + 8))(*v19, 64, "Vector Storage (GLPVariableObject *)");
   v20 = v14[19];
-  v14[84] = 8;
-  v14[85] = (*(v20 + 8))(*v20, 64, "Vector Storage (GLPVariableObject *)");
+  v14[82] = 8;
+  v14[83] = (*(v20 + 8))(*v20, 64, "Vector Storage (GLPVariableObject *)");
   v21 = v14[19];
-  v14[88] = 8;
-  v14[89] = (*(v21 + 8))(*v21, 64, "Vector Storage (GLPLLVMBufferDescription *)");
+  v14[84] = 8;
+  v14[85] = (*(v21 + 8))(*v21, 64, "Vector Storage (GLPVariableObject *)");
   v22 = v14[19];
-  v14[90] = 8;
-  v14[91] = (*(v22 + 8))(*v22, 64, "Vector Storage (GLPLLVMBufferDescription *)");
+  v14[88] = 8;
+  v14[89] = (*(v22 + 8))(*v22, 64, "Vector Storage (GLPLLVMBufferDescription *)");
   v23 = v14[19];
-  v14[76] = 8;
-  v14[77] = (*(v23 + 8))(*v23, 64, "Vector Storage (GLPLLVMSubroutine *)");
+  v14[90] = 8;
+  v14[91] = (*(v23 + 8))(*v23, 64, "Vector Storage (GLPLLVMBufferDescription *)");
   v24 = v14[19];
-  v14[78] = 8;
-  v14[79] = (*(v24 + 8))(*v24, 64, "Vector Storage (GLPLLVMSubroutineFunction *)");
+  v14[76] = 8;
+  v14[77] = (*(v24 + 8))(*v24, 64, "Vector Storage (GLPLLVMSubroutine *)");
   v25 = v14[19];
+  v14[78] = 8;
+  v14[79] = (*(v25 + 8))(*v25, 64, "Vector Storage (GLPLLVMSubroutineFunction *)");
+  v26 = v14[19];
   v14[86] = 8;
-  v14[87] = (*(v25 + 8))(*v25, 64, "Vector Storage (GLPVariableObject *)");
+  v14[87] = (*(v26 + 8))(*v26, 64, "Vector Storage (GLPVariableObject *)");
   v14[92] = glpMakeStringHash(v14[19]);
-  v26 = v14[104] & 0xFFFB | (4 * (*(a1 + 44) & 1));
+  v27 = v14[104] & 0xFFFB | (4 * (*(a1 + 44) & 1));
   *(v14 + 416) = v14[104] & 0xFFFB | (4 * (*(a1 + 44) & 1));
-  v27 = v26 & 0xFFFFFFF5 | (2 * (a7 & 1)) & 0xF7 | (8 * ((*(a1 + 44) >> 1) & 1));
-  *(v14 + 416) = v27;
-  v28 = v27 & 0xFFFFFFEF | (16 * ((*(a1 + 44) >> 3) & 1));
+  v28 = v27 & 0xFFFFFFF5 | (2 * (a7 & 1)) & 0xF7 | (8 * ((*(a1 + 44) >> 1) & 1));
   *(v14 + 416) = v28;
-  *(v14 + 416) = v28 & 0xFFDF | (2 * *(a1 + 44)) & 0x20;
+  v29 = v28 & 0xFFFFFFEF | (16 * ((*(a1 + 44) >> 3) & 1));
+  *(v14 + 416) = v29;
+  *(v14 + 416) = v29 & 0xFFDF | (2 * *(a1 + 44)) & 0x20;
   return v14;
 }
 
-uint64_t glpDestroyLLVMCodeGenContext(void *a1)
+uint64_t *glpDestroyLLVMCodeGenContext(void *a1)
 {
   (*(a1[19] + 24))(*a1[19], a1[75]);
   (*(a1[19] + 24))(*a1[19], a1[81]);
@@ -3535,16 +3540,16 @@ double glpLLVMAllocVariableExtra(uint64_t a1, uint64_t a2)
 
 uint64_t glpLLVMCGTopLevel(uint64_t a1, uint64_t a2)
 {
-  v195 = *MEMORY[0x277D85DE8];
+  v194 = *MEMORY[0x277D85DE8];
   if ((*(a1 + 832) & 4) != 0)
   {
     glpInitTempPoolAllocator(0x4000, 0x4000, (a1 + 360));
     *(a1 + 392) = glpMakeDataHash((a1 + 360));
   }
 
-  memset(v191, 0, sizeof(v191));
-  glpInitPoolAllocator(0x4000, 0x4000, v191);
-  glpInitSerialContext((a1 + 224), v191);
+  memset(v190, 0, sizeof(v190));
+  glpInitPoolAllocator(0x4000, 0x4000, v190);
+  glpInitSerialContext((a1 + 224), v190);
   *(a1 + 304) = vadd_s32(*(a1 + 304), 0x100000001);
   ++*(a1 + 312);
   v4 = *(a1 + 260);
@@ -4251,15 +4256,15 @@ LABEL_153:
     goto LABEL_166;
   }
 
-  v193 = 0u;
-  v194 = 0u;
   v192 = 0u;
-  glpLinkedProgramGetOverrides(*(a1 + 136), &v192);
-  if (SHIDWORD(v192) > 3)
+  v193 = 0u;
+  v191 = 0u;
+  glpLinkedProgramGetOverrides(*(a1 + 136), &v191);
+  if (SHIDWORD(v191) > 3)
   {
-    if (HIDWORD(v192) != 4)
+    if (HIDWORD(v191) != 4)
     {
-      if (HIDWORD(v192) == 10)
+      if (HIDWORD(v191) == 10)
       {
         v143 = 4;
         goto LABEL_164;
@@ -4273,9 +4278,9 @@ LABEL_153:
 
   else
   {
-    if (HIDWORD(v192))
+    if (HIDWORD(v191))
     {
-      if (HIDWORD(v192) == 1)
+      if (HIDWORD(v191) == 1)
       {
         v143 = 2;
         goto LABEL_164;
@@ -4356,12 +4361,12 @@ LABEL_166:
       goto LABEL_193;
     }
 
-    *&v192 = *(a1 + 168);
+    *&v191 = *(a1 + 168);
     v152 = glpLLVMMDNodeInContext(a1, 0, 0);
     v153 = *(a1 + 192);
-    *(&v192 + 1) = v152;
-    *&v193 = v153;
-    v154 = glpLLVMMDNodeInContext(a1, &v192, 3);
+    *(&v191 + 1) = v152;
+    *&v192 = v153;
+    v154 = glpLLVMMDNodeInContext(a1, &v191, 3);
     v155 = "air.tess_control";
     goto LABEL_187;
   }
@@ -4374,12 +4379,12 @@ LABEL_188:
       v150 = 0;
       break;
     case 3:
-      *&v192 = *(a1 + 168);
+      *&v191 = *(a1 + 168);
       v156 = glpLLVMMDNodeInContext(a1, 0, 0);
       v157 = *(a1 + 192);
-      *(&v192 + 1) = v156;
-      *&v193 = v157;
-      v154 = glpLLVMMDNodeInContext(a1, &v192, 3);
+      *(&v191 + 1) = v156;
+      *&v192 = v157;
+      v154 = glpLLVMMDNodeInContext(a1, &v191, 3);
       v155 = "air.geometry";
 LABEL_187:
       glpLLVMNamedMetadata(a1, v155, v154);
@@ -4510,8 +4515,8 @@ LABEL_193:
 
   if (*(a1 + 832))
   {
-    v193 = 0uLL;
-    *&v192 = glpLLVMStringMetadata(a1, "OpenGL ES GLSL");
+    v192 = 0uLL;
+    *&v191 = glpLLVMStringMetadata(a1, "OpenGL ES GLSL");
     v177 = *(a1 + 528);
     if (!v177)
     {
@@ -4519,18 +4524,18 @@ LABEL_193:
       *(a1 + 528) = v177;
     }
 
-    *(&v192 + 1) = v177;
+    *(&v191 + 1) = v177;
     v178 = *(a1 + 520);
     if (v178)
     {
-      *&v193 = *(a1 + 520);
+      *&v192 = *(a1 + 520);
     }
 
     else
     {
       v178 = glpLLVMConstIntCache(a1, *(a1 + 40), 0, 0);
       *(a1 + 520) = v178;
-      *&v193 = v178;
+      *&v192 = v178;
       if (!v178)
       {
         v178 = glpLLVMConstIntCache(a1, *(a1 + 40), 0, 0);
@@ -4538,8 +4543,8 @@ LABEL_193:
       }
     }
 
-    *(&v193 + 1) = v178;
-    v179 = glpLLVMMDNodeInContext(a1, &v192, 4);
+    *(&v192 + 1) = v178;
+    v179 = glpLLVMMDNodeInContext(a1, &v191, 4);
     glpLLVMNamedMetadata(a1, "air.language_version", v179);
   }
 
@@ -4553,14 +4558,14 @@ LABEL_193:
     v180 = "air.compile.fast_math_enable";
   }
 
-  *&v192 = glpLLVMStringMetadata(a1, v180);
-  v181 = glpLLVMMDNodeInContext(a1, &v192, 1);
+  *&v191 = glpLLVMStringMetadata(a1, v180);
+  v181 = glpLLVMMDNodeInContext(a1, &v191, 1);
   glpLLVMNamedMetadata(a1, "air.compile_options", v181);
-  *&v192 = glpLLVMStringMetadata(a1, "air.compile.denorms_disable");
-  v182 = glpLLVMMDNodeInContext(a1, &v192, 1);
+  *&v191 = glpLLVMStringMetadata(a1, "air.compile.denorms_disable");
+  v182 = glpLLVMMDNodeInContext(a1, &v191, 1);
   glpLLVMNamedMetadata(a1, "air.compile_options", v182);
-  *&v192 = glpLLVMStringMetadata(a1, "air.compile.native_double_disable");
-  v183 = glpLLVMMDNodeInContext(a1, &v192, 1);
+  *&v191 = glpLLVMStringMetadata(a1, "air.compile.native_double_disable");
+  v183 = glpLLVMMDNodeInContext(a1, &v191, 1);
   glpLLVMNamedMetadata(a1, "air.compile_options", v183);
   v184 = *(a1 + 144);
   v185 = *(a1 + 260);
@@ -4587,7 +4592,7 @@ LABEL_238:
 
   memcpy(v186 + 32, *(a1 + 264), v185);
   glpDestroySerialContext((a1 + 224), 1);
-  glpDestroyPoolAllocator(v191);
+  glpDestroyPoolAllocator(v190);
   if ((*(a1 + 832) & 4) != 0)
   {
     glpDestroyPoolAllocator(a1 + 360);
@@ -4613,278 +4618,267 @@ LABEL_238:
     *(v184 + 56) = *(a1 + 768);
   }
 
-  v189 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 void glpLLVMBuildSubroutinesTypeClasses(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
-  v65 = a1;
-  v67 = *MEMORY[0x277D85DE8];
-  if (!glpTopLevelNodeGetDefCount(a2))
+  v63 = a1;
+  v65 = *MEMORY[0x277D85DE8];
+  if (glpTopLevelNodeGetDefCount(a2))
   {
-    goto LABEL_60;
-  }
-
-  v3 = 0;
-  PointerHash = 0;
-  v64 = 0;
-  v5 = 0;
-  v6 = 0;
-  v7 = 0;
-  v62 = v2;
-  do
-  {
-    Def = glpTopLevelNodeGetDef(v2, v7);
-    if (Def)
+    v3 = 0;
+    PointerHash = 0;
+    v62 = 0;
+    v5 = 0;
+    v6 = 0;
+    v7 = 0;
+    v60 = v2;
+    do
     {
-      v9 = Def;
-      if (glpASTNodeGetKind(Def) == 51)
+      Def = glpTopLevelNodeGetDef(v2, v7);
+      if (Def)
       {
-        Prototype = glpFunctionDefinitionNodeGetPrototype(v9);
-        Extra = glpFunctionPrototypeNodeGetExtra(Prototype);
-        if ((*(Extra + 10) & 0x10) != 0)
+        v9 = Def;
+        if (glpASTNodeGetKind(Def) == 51)
         {
-          v12 = Extra;
-          if (!PointerHash)
+          Prototype = glpFunctionDefinitionNodeGetPrototype(v9);
+          Extra = glpFunctionPrototypeNodeGetExtra(Prototype);
+          if ((*(Extra + 10) & 0x10) != 0)
           {
-            PointerHash = glpMakePointerHash(*(v65 + 152));
-            v6 = (*(*(v65 + 152) + 8))(**(v65 + 152), 32, "Vector Storage (unsigned)");
-            v5 = 0;
-            v64 = 8;
-          }
-
-          v13 = *(v12 + 96);
-          if (v13 == 1)
-          {
-            v14 = **(v12 + 104);
-            if (!glpPointerHashGet(PointerHash, v14))
+            v12 = Extra;
+            if (!PointerHash)
             {
-              v63 = v3;
-              v16 = (v3 + 1);
-              glpPointerHashPut(PointerHash, v14, v16, v15);
-              v17 = v5;
-              v5 = (v5 + 1);
-              if (v5 <= v64)
-              {
-                v25 = v17;
-              }
+              PointerHash = glpMakePointerHash(*(v63 + 152));
+              v6 = (*(*(v63 + 152) + 8))(**(v63 + 152), 32, "Vector Storage (unsigned)");
+              v5 = 0;
+              v62 = 8;
+            }
 
-              else
+            v13 = *(v12 + 96);
+            if (v13 == 1)
+            {
+              v14 = **(v12 + 104);
+              if (!glpPointerHashGet(PointerHash, v14))
               {
-                if (v64 <= 1)
+                v61 = v3;
+                v16 = (v3 + 1);
+                glpPointerHashPut(PointerHash, v14, v16, v15);
+                v17 = v5;
+                v5 = (v5 + 1);
+                if (v5 <= v62)
                 {
-                  v18 = 1;
+                  v25 = v17;
                 }
 
                 else
                 {
-                  v18 = v64;
-                }
-
-                v19 = 2 * v18;
-                if (v19 <= v5)
-                {
-                  v20 = v5;
-                }
-
-                else
-                {
-                  v20 = v19;
-                }
-
-                v21 = *(v65 + 152);
-                v22 = *v21;
-                v23 = v21[1];
-                v64 = v20;
-                v24 = v23(v22, 4 * v20, "Vector Storage (unsigned, growth)");
-                v25 = v17;
-                memcpy(v24, v6, 4 * v17);
-                (v21[3])(*v21, v6);
-                v6 = v24;
-              }
-
-              v6[v25] = v63;
-              v3 = v16;
-            }
-          }
-
-          else
-          {
-            if (v13 < 1)
-            {
-              goto LABEL_38;
-            }
-
-            v26 = v5;
-            v27 = 0;
-            v63 = v3;
-            v28 = v3;
-            do
-            {
-              v29 = glpPointerHashGet(PointerHash, *(*(v12 + 104) + v27));
-              if (v29 && v6[v29 - 1] < v28)
-              {
-                v28 = v6[v29 - 1];
-              }
-
-              v27 += 8;
-            }
-
-            while (8 * v13 != v27);
-            v30 = 0;
-            v66 = v26;
-            do
-            {
-              v31 = v6;
-              v32 = *(*(v12 + 104) + 8 * v30);
-              v33 = glpPointerHashGet(PointerHash, v32);
-              if (v33)
-              {
-                v6 = v31;
-                v35 = v31[v33 - 1];
-                if (v35 != v28 && v26 != 0)
-                {
-                  v37 = v66;
-                  v38 = v31;
-                  do
+                  if (v62 <= 1)
                   {
-                    if (*v38 == v35)
-                    {
-                      *v38 = v28;
-                    }
-
-                    ++v38;
-                    --v37;
+                    v18 = 1;
                   }
 
-                  while (v37);
+                  else
+                  {
+                    v18 = v62;
+                  }
+
+                  v19 = 2 * v18;
+                  if (v19 <= v5)
+                  {
+                    v20 = v5;
+                  }
+
+                  else
+                  {
+                    v20 = v19;
+                  }
+
+                  v21 = *(v63 + 152);
+                  v22 = *v21;
+                  v23 = v21[1];
+                  v62 = v20;
+                  v24 = v23(v22, 4 * v20, "Vector Storage (unsigned, growth)");
+                  v25 = v17;
+                  memcpy(v24, v6, 4 * v17);
+                  (v21[3])(*v21, v6);
+                  v6 = v24;
                 }
-              }
 
-              else
-              {
-                glpPointerHashPut(PointerHash, v32, v28 + 1, v34);
-                v6 = v31;
+                v6[v25] = v61;
+                v3 = v16;
               }
-
-              ++v30;
             }
 
-            while (v30 != v13);
-            v2 = v62;
-            v3 = v63;
-            v5 = v26;
-            if (v28 == v63)
+            else
             {
+              if (v13 < 1)
+              {
+                goto LABEL_38;
+              }
+
+              v26 = v5;
+              v27 = 0;
+              v61 = v3;
+              v28 = v3;
+              do
+              {
+                v29 = glpPointerHashGet(PointerHash, *(*(v12 + 104) + v27));
+                if (v29 && v6[v29 - 1] < v28)
+                {
+                  v28 = v6[v29 - 1];
+                }
+
+                v27 += 8;
+              }
+
+              while (8 * v13 != v27);
+              v30 = 0;
+              v64 = v26;
+              do
+              {
+                v31 = v6;
+                v32 = *(*(v12 + 104) + 8 * v30);
+                v33 = glpPointerHashGet(PointerHash, v32);
+                if (v33)
+                {
+                  v6 = v31;
+                  v35 = v31[v33 - 1];
+                  if (v35 != v28 && v26 != 0)
+                  {
+                    v37 = v64;
+                    v38 = v31;
+                    do
+                    {
+                      if (*v38 == v35)
+                      {
+                        *v38 = v28;
+                      }
+
+                      ++v38;
+                      --v37;
+                    }
+
+                    while (v37);
+                  }
+                }
+
+                else
+                {
+                  glpPointerHashPut(PointerHash, v32, v28 + 1, v34);
+                  v6 = v31;
+                }
+
+                ++v30;
+              }
+
+              while (v30 != v13);
+              v2 = v60;
+              v3 = v61;
+              v5 = v26;
+              if (v28 == v61)
+              {
 LABEL_38:
-              v39 = v5 + 1;
-              if (v5 + 1 <= v64)
-              {
-                v5 = v5;
-              }
-
-              else
-              {
-                if (v64 <= 1)
+                v39 = v5 + 1;
+                if (v5 + 1 <= v62)
                 {
-                  v40 = 1;
+                  v5 = v5;
                 }
 
                 else
                 {
-                  v40 = v64;
+                  if (v62 <= 1)
+                  {
+                    v40 = 1;
+                  }
+
+                  else
+                  {
+                    v40 = v62;
+                  }
+
+                  v41 = 2 * v40;
+                  v42 = v6;
+                  v43 = v3;
+                  if (v41 <= v39)
+                  {
+                    v3 = v39;
+                  }
+
+                  else
+                  {
+                    v3 = v41;
+                  }
+
+                  v44 = *(v63 + 152);
+                  v45 = (v44[1])(*v44, 4 * v3, "Vector Storage (unsigned, growth)");
+                  v5 = v5;
+                  memcpy(v45, v42, 4 * v5);
+                  (v44[3])(*v44, v42);
+                  v62 = v3;
+                  LODWORD(v3) = v43;
+                  v6 = v45;
                 }
 
-                v41 = 2 * v40;
-                v42 = v6;
-                v43 = v3;
-                if (v41 <= v39)
-                {
-                  v3 = v39;
-                }
-
-                else
-                {
-                  v3 = v41;
-                }
-
-                v44 = *(v65 + 152);
-                v45 = (v44[1])(*v44, 4 * v3, "Vector Storage (unsigned, growth)");
-                v5 = v5;
-                memcpy(v45, v42, 4 * v5);
-                (v44[3])(*v44, v42);
-                v64 = v3;
-                LODWORD(v3) = v43;
-                v6 = v45;
+                v6[v5] = v3;
+                v3 = (v3 + 1);
+                v5 = (v5 + 1);
               }
-
-              v6[v5] = v3;
-              v3 = (v3 + 1);
-              v5 = (v5 + 1);
             }
           }
         }
       }
+
+      ++v7;
     }
 
-    ++v7;
-  }
-
-  while (v7 < glpTopLevelNodeGetDefCount(v2));
-  if (PointerHash)
-  {
-    v46 = glpMakePointerHash(*(v65 + 152));
-    v66 = &v62;
-    *(v65 + 400) = v46;
-    MEMORY[0x28223BE20](v46);
-    v48 = &v62 - v47;
-    bzero(&v62 - v47, 8 * v3);
-    bzero(v48, 8 * v3);
-    v50 = *(PointerHash + 32);
-    if (v50)
+    while (v7 < glpTopLevelNodeGetDefCount(v2));
+    if (PointerHash)
     {
-      v51 = 0;
-      v52 = 0;
-      v53 = v65;
-      do
+      v46 = glpMakePointerHash(*(v63 + 152));
+      v64 = &v60;
+      *(v63 + 400) = v46;
+      MEMORY[0x28223BE20](v46);
+      v48 = &v60 - v47;
+      bzero(&v60 - v47, 8 * v3);
+      bzero(v48, 8 * v3);
+      v50 = *(PointerHash + 32);
+      if (v50)
       {
-        v54 = *(PointerHash + 40);
-        v55 = *(v54 + v51);
-        if (v55)
+        v51 = 0;
+        v52 = 0;
+        v53 = v63;
+        do
         {
-          v56 = *(v54 + v51 + 8);
-          v57 = v6;
-          v58 = v6[(v55 - 1)];
-          v59 = *&v48[8 * v58];
-          if (!v59)
+          v54 = *(PointerHash + 40);
+          v55 = *(v54 + v51);
+          if (v55)
           {
-            v59 = (*(*(v53 + 152) + 8))(**(v53 + 152), 16, "functionParameters");
-            *v59 = glpMakePointerHash(*(v53 + 152));
-            *(v59 + 8) = 0;
-            *&v48[8 * v58] = v59;
+            v56 = *(v54 + v51 + 8);
+            v57 = v6;
+            v58 = v6[(v55 - 1)];
+            v59 = *&v48[8 * v58];
+            if (!v59)
+            {
+              v59 = (*(*(v53 + 152) + 8))(**(v53 + 152), 16, "functionParameters");
+              *v59 = glpMakePointerHash(*(v53 + 152));
+              *(v59 + 8) = 0;
+              *&v48[8 * v58] = v59;
+            }
+
+            glpPointerHashPut(*(v63 + 400), v56, v59, v49);
+            v50 = *(PointerHash + 32);
+            v6 = v57;
           }
 
-          glpPointerHashPut(*(v65 + 400), v56, v59, v49);
-          v50 = *(PointerHash + 32);
-          v6 = v57;
+          ++v52;
+          v51 += 24;
         }
 
-        ++v52;
-        v51 += 24;
+        while (v52 < v50);
       }
-
-      while (v52 < v50);
     }
-
-    v60 = *MEMORY[0x277D85DE8];
-  }
-
-  else
-  {
-LABEL_60:
-    v61 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -4902,7 +4896,7 @@ void *glpLLVMCleanUpASTObjects(void *result, uint64_t a2)
     if (result == 44)
     {
       Extra = glpParameterDeclarationNodeGetExtra(a2);
-      (*(*(v3 + 152) + 24))(**(v3 + 152), *(Extra + 144));
+      (*(v3[19] + 24))(*v3[19], *(Extra + 144));
       *(Extra + 144) = 0;
     }
 
@@ -4936,7 +4930,7 @@ LABEL_9:
 
     else
     {
-      result = (*(*(v3 + 152) + 24))(**(v3 + 152), result[18]);
+      result = (*(v3[19] + 24))(*v3[19], result[18]);
       v13[18] = 0;
     }
   }
@@ -4966,7 +4960,7 @@ LABEL_9:
 
             else
             {
-              result = (*(*(v3 + 152) + 24))(**(v3 + 152), *(v11 + 144));
+              result = (*(v3[19] + 24))(*v3[19], *(v11 + 144));
               *(v11 + 144) = 0;
             }
 
@@ -5042,18 +5036,18 @@ LABEL_17:
 
       v9 = glpSubroutineUniformNodeGetExtra(a2);
       v10 = *(v9 + 16);
-      v11 = (*(*(v3 + 152) + 8))(**(v3 + 152), 24, "subroutines");
+      v11 = (*(*(v3 + 19) + 8))(**(v3 + 19), 24, "subroutines");
       v11[1] = 0;
       v11[2] = 0;
       *v11 = 0;
       *v11 = v10;
       *(v11 + 4) = *(v9 + 40);
-      v12 = *(v3 + 612);
+      v12 = v3[153];
       *(v9 + 24) = v12;
-      v13 = *(v3 + 608);
+      v13 = v3[152];
       if (v12 + 1 <= v13)
       {
-        v17 = *(v3 + 616);
+        v17 = *(v3 + 77);
         v18 = v12;
       }
 
@@ -5075,18 +5069,18 @@ LABEL_17:
           v15 = v14;
         }
 
-        v16 = *(v3 + 152);
+        v16 = *(v3 + 19);
         v17 = (v16[1])(*v16, 8 * v15, "Vector Storage (GLPLLVMSubroutine *, growth)");
-        memcpy(v17, *(v3 + 616), 8 * *(v3 + 612));
-        (v16[3])(*v16, *(v3 + 616));
-        *(v3 + 608) = v15;
-        *(v3 + 616) = v17;
-        v18 = *(v3 + 612);
+        memcpy(v17, *(v3 + 77), 8 * v3[153]);
+        (v16[3])(*v16, *(v3 + 77));
+        v3[152] = v15;
+        *(v3 + 77) = v17;
+        v18 = v3[153];
       }
 
       result = memmove(&v17[8 * v12 + 8], &v17[8 * v12], 8 * (v18 - v12));
-      *(*(v3 + 616) + 8 * v12) = v11;
-      ++*(v3 + 612);
+      *(*(v3 + 77) + 8 * v12) = v11;
+      ++v3[153];
     }
   }
 
@@ -5100,11 +5094,11 @@ LABEL_17:
         v6 = glpFunctionPrototypeNodeGetExtra(Prototype);
         Name = glpFunctionPrototypeNodeGetName(Prototype);
         result = glpStringsEqual(Name, v8, "main", 0x83863A00000004);
-        if (!*(v3 + 834))
+        if (!*(v3 + 417))
         {
           if (result)
           {
-            result = (*(*(v3 + 152) + 8))(**(v3 + 152), 16, "functionParameters");
+            result = (*(*(v3 + 19) + 8))(**(v3 + 19), 16, "functionParameters");
             *result = 0;
             *(result + 8) = 15;
             *(v6 + 152) = result;
@@ -5137,8 +5131,8 @@ LABEL_17:
         if (result >= 1)
         {
           v28 = 0;
-          v29 = *(v3 + 596);
-          v30 = *(*(v22 + 144) + 8);
+          v29 = v3[149];
+          v30 = *(*(v22 + 18) + 8);
           v31 = 16 * result;
           do
           {
@@ -5147,16 +5141,16 @@ LABEL_17:
             v47 = 0u;
             v48 = 0u;
             DWORD1(v48) = v32[3];
-            *(&v47 + 1) = glpLLVMGetTextureTypeFromSampler(v3, &v47, SDWORD1(v48));
+            *(&v47 + 1) = glpLLVMGetTextureTypeFromSampler(v3, &v47, DWORD1(v48));
             v33 = *v32;
             LODWORD(v48) = v32[2];
             DWORD2(v48) = v33;
-            v34 = *(v3 + 596);
-            v35 = *(v3 + 592);
+            v34 = v3[149];
+            v35 = v3[148];
             if (v34 + 1 <= v35)
             {
-              v39 = *(v3 + 600);
-              v40 = *(v3 + 596);
+              v39 = *(v3 + 75);
+              v40 = v3[149];
             }
 
             else
@@ -5177,22 +5171,22 @@ LABEL_17:
                 v37 = v36;
               }
 
-              v38 = *(v3 + 152);
+              v38 = *(v3 + 19);
               v39 = (v38[1])(*v38, 48 * v37, "Vector Storage (GLPLLVMTextureSampler, growth)");
-              memcpy(v39, *(v3 + 600), 48 * *(v3 + 596));
-              (v38[3])(*v38, *(v3 + 600));
-              *(v3 + 592) = v37;
-              *(v3 + 600) = v39;
-              v40 = *(v3 + 596);
+              memcpy(v39, *(v3 + 75), 48 * v3[149]);
+              (v38[3])(*v38, *(v3 + 75));
+              v3[148] = v37;
+              *(v3 + 75) = v39;
+              v40 = v3[149];
             }
 
             result = memmove(&v39[48 * v34 + 48], &v39[48 * v34], 48 * (v40 - v34));
-            v41 = (*(v3 + 600) + 48 * v34);
+            v41 = (*(v3 + 75) + 48 * v34);
             v42 = v48;
             v41[1] = v47;
             v41[2] = v42;
             *v41 = 0u;
-            ++*(v3 + 596);
+            ++v3[149];
             v28 += 16;
             ++v29;
           }
@@ -5203,9 +5197,9 @@ LABEL_17:
         v22 = v46;
       }
 
-      if ((*(v22 + 52) & 4) != 0)
+      if ((v22[13] & 4) != 0)
       {
-        v43 = *(v22 + 88);
+        v43 = *(v22 + 11);
 
         return glpLLVMCGDeclareUniformBufferObject(v3, v43);
       }
@@ -5554,41 +5548,40 @@ LABEL_25:
 
 void *glpLLVMVertexMetaData(uint64_t a1, const char *a2)
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 692);
   v5 = 8 * v4;
   MEMORY[0x28223BE20](a1);
-  bzero(v12 - ((8 * v4 + 15) & 0xFFFFFFFF0), 8 * v4);
+  bzero(v11 - ((8 * v4 + 15) & 0xFFFFFFFF0), 8 * v4);
   if (v4 >= 1)
   {
     v6 = 0;
     do
     {
-      *(&v12[v6 / 8] - ((8 * v4 + 15) & 0xFFFFFFFF0)) = glpLLVMVertexGeometryMetadata(a1, *(*(a1 + 696) + v6), 0xFFFFFFFF);
+      *(&v11[v6 / 8] - ((8 * v4 + 15) & 0xFFFFFFFF0)) = glpLLVMVertexGeometryMetadata(a1, *(*(a1 + 696) + v6), -1);
       v6 += 8;
     }
 
     while (v5 != v6);
   }
 
-  v12[0] = *(a1 + 168);
-  v7 = glpLLVMMDNodeInContext(a1, (v12 - ((v5 + 15) & 0xFFFFFFFF0)), v4);
+  v11[0] = *(a1 + 168);
+  v7 = glpLLVMMDNodeInContext(a1, (v11 - ((v5 + 15) & 0xFFFFFFFF0)), v4);
   v8 = *(a1 + 192);
-  v12[1] = v7;
-  v12[2] = v8;
-  v9 = glpLLVMMDNodeInContext(a1, v12, 3);
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v7;
+  v11[2] = v8;
+  v9 = glpLLVMMDNodeInContext(a1, v11, 3);
 
   return glpLLVMNamedMetadata(a1, a2, v9);
 }
 
 void *glpLLVMFragmentMetaData(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 692);
   v3 = 8 * v2;
   MEMORY[0x28223BE20](a1);
-  bzero(&v22 - ((8 * v2 + 15) & 0xFFFFFFFF0), 8 * v2);
+  bzero(&v21 - ((8 * v2 + 15) & 0xFFFFFFFF0), 8 * v2);
   if (v2 >= 1)
   {
     v4 = 0;
@@ -5604,8 +5597,8 @@ void *glpLLVMFragmentMetaData(uint64_t a1)
 
       if (v7 == 7)
       {
-        v22 = glpLLVMStringMetadata(a1, "air.depth");
-        v23 = glpLLVMStringMetadata(a1, "air.depth_qualifier");
+        v21 = glpLLVMStringMetadata(a1, "air.depth");
+        v22 = glpLLVMStringMetadata(a1, "air.depth_qualifier");
         v12 = glpLLVMStringMetadata(a1, "air.any");
         goto LABEL_18;
       }
@@ -5614,7 +5607,7 @@ void *glpLLVMFragmentMetaData(uint64_t a1)
       {
         v8 = glpLayoutObjectFind(*(v6 + 8), 72);
         v9 = glpLayoutObjectFind(*(v6 + 8), 73);
-        v22 = glpLLVMStringMetadata(a1, "air.render_target");
+        v21 = glpLLVMStringMetadata(a1, "air.render_target");
         v10 = *(v8 + 4);
         if (v10 > 7)
         {
@@ -5631,7 +5624,7 @@ void *glpLLVMFragmentMetaData(uint64_t a1)
           }
         }
 
-        v23 = v11;
+        v22 = v11;
         if (v9)
         {
           v15 = *(v9 + 4);
@@ -5656,11 +5649,11 @@ void *glpLLVMFragmentMetaData(uint64_t a1)
         }
 
 LABEL_18:
-        v24 = v12;
+        v23 = v12;
         v13 = a1;
         v14 = 3;
 LABEL_19:
-        *(&v22 + v4 - ((8 * v2 + 15) & 0xFFFFFFFF0)) = glpLLVMMDNodeInContext(v13, &v22, v14);
+        *(&v21 + v4 - ((8 * v2 + 15) & 0xFFFFFFFF0)) = glpLLVMMDNodeInContext(v13, &v21, v14);
       }
 
       v4 += 8;
@@ -5670,20 +5663,19 @@ LABEL_19:
       }
     }
 
-    v22 = glpLLVMStringMetadata(a1, "air.sample_mask");
+    v21 = glpLLVMStringMetadata(a1, "air.sample_mask");
     v13 = a1;
     v14 = 1;
     goto LABEL_19;
   }
 
 LABEL_21:
-  v22 = *(a1 + 168);
-  v17 = glpLLVMMDNodeInContext(a1, (&v22 - ((v3 + 15) & 0xFFFFFFFF0)), v2);
+  v21 = *(a1 + 168);
+  v17 = glpLLVMMDNodeInContext(a1, (&v21 - ((v3 + 15) & 0xFFFFFFFF0)), v2);
   v18 = *(a1 + 192);
-  v23 = v17;
-  v24 = v18;
-  v19 = glpLLVMMDNodeInContext(a1, &v22, 3);
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = v17;
+  v23 = v18;
+  v19 = glpLLVMMDNodeInContext(a1, &v21, 3);
 
   return glpLLVMNamedMetadata(a1, "air.fragment", v19);
 }
@@ -5773,7 +5765,7 @@ uint64_t glpLLVMStringMetadata(uint64_t a1, const char *a2)
   return result;
 }
 
-uint64_t glpGetConstantInt32(uint64_t a1, unsigned int a2)
+uint64_t glpGetConstantInt32(uint64_t a1, int a2)
 {
   if (a2 > 7)
   {
@@ -6272,7 +6264,7 @@ LABEL_39:
   return result;
 }
 
-uint64_t glpLLVMGetTextureTypeFromSampler(uint64_t a1, uint64_t *a2, int a3)
+uint64_t glpLLVMGetTextureTypeFromSampler(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   PPTextarget = glpPrimitiveSamplerGetPPTextarget(a3);
   if (PPTextarget >= 0x12)
@@ -6889,10 +6881,10 @@ uint64_t glpLLVMAddParameterToHash(unint64_t a1, uint64_t a2)
 
 void glpLLVMAddSortedParameters(uint64_t a1, uint64_t a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 36);
   MEMORY[0x28223BE20](a1);
-  v6 = (v13 - ((v5 + 15) & 0xFFFFFFFF0));
+  v6 = (v12 - ((v5 + 15) & 0xFFFFFFFF0));
   bzero(v6, v5);
   v7 = *(a2 + 32);
   if (v7)
@@ -6929,8 +6921,6 @@ void glpLLVMAddSortedParameters(uint64_t a1, uint64_t a2)
 
     while (v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t glpLLVMCGImplicitConversion(void *a1, uint64_t a2, uint64_t a3)
@@ -7059,7 +7049,7 @@ LABEL_30:
 
 uint64_t glpLLVMCGConstant(void *a1, uint64_t a2)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   SaFlags = glpASTNodeGetSaFlags(a2);
   v5 = glpPrecisionIndexFromSAFlags(SaFlags);
   Type = glpConstantNodeGetType(a2);
@@ -7073,50 +7063,40 @@ uint64_t glpLLVMCGConstant(void *a1, uint64_t a2)
     }
 
     PrimitiveType = glpPrimitiveTypeGetPrimitiveType(Type);
-    if (glpPrimitiveTypeGetCategory(PrimitiveType) == 3)
+    if (glpPrimitiveTypeGetCategory(PrimitiveType) != 3)
     {
-      if (glpPrimitiveTypeGetScalarType(PrimitiveType) == 62)
-      {
-        goto LABEL_2;
-      }
+      v18[0] = 0;
+      glpLLVMPrimitiveConstant(a1, Value, v18, 0, PrimitiveType, PrimitiveType, v5);
+      return v18[0];
+    }
 
+    if (glpPrimitiveTypeGetScalarType(PrimitiveType) != 62)
+    {
       ColumnType = glpPrimitiveMatrixGetColumnType(PrimitiveType);
-      v13 = glpABIGetTypeSize(0, Type, 0);
-      Size = glpTypeSizeGetSize(v13);
-      MEMORY[0x28223BE20](Size);
-      v16 = v20 - v15;
-      bzero(v20 - v15, v17);
-      glpLLVMPrimitiveConstant(a1, Value, v16, 0, PrimitiveType, ColumnType, v5);
-      v18 = glpPrimitiveTypeToLLVMType(a1, ColumnType, v5);
-      result = glpLLVMConstArrayCache(a1, v18, v16, Size);
+      glpABIGetTypeSize(0, Type, 0);
+      glpTypeSizeGetSize();
+      v13 = v12;
+      MEMORY[0x28223BE20](v12);
+      v15 = v18 - v14;
+      bzero(v18 - v14, v16);
+      glpLLVMPrimitiveConstant(a1, Value, v15, 0, PrimitiveType, ColumnType, v5);
+      v17 = glpPrimitiveTypeToLLVMType(a1, ColumnType, v5);
+      return glpLLVMConstArrayCache(a1, v17, v15, v13);
     }
-
-    else
-    {
-      v20[0] = 0;
-      glpLLVMPrimitiveConstant(a1, Value, v20, 0, PrimitiveType, PrimitiveType, v5);
-      result = v20[0];
-    }
-
-    v19 = *MEMORY[0x277D85DE8];
-    return result;
   }
-
-LABEL_2:
-  v9 = *MEMORY[0x277D85DE8];
 
   return glpLLVMAggregateConstant(a1, Type, v5, Value);
 }
 
 uint64_t glpLLVMCGPPStreamOpNode(uint64_t a1, uint64_t a2)
 {
-  v402[1] = *MEMORY[0x277D85DE8];
+  v401[1] = *MEMORY[0x277D85DE8];
   glpLLVMAddLineInformation(a1, a2);
   Opcode = glpPPStreamOpNodeGetOpcode(a2);
   v5 = 0;
   if (Opcode > 166)
   {
-    LODWORD(v363) = Opcode;
+    LODWORD(v362) = Opcode;
     if ((Opcode - 167) < 3)
     {
       Child = glpASTNodeGetChild(a2, 0);
@@ -7126,200 +7106,7 @@ uint64_t glpLLVMCGPPStreamOpNode(uint64_t a1, uint64_t a2)
     goto LABEL_10;
   }
 
-  if (Opcode == 78)
-  {
-    v36 = glpASTNodeGetChild(a2, 0);
-    v37 = glpASTNodeGetChild(a2, 1u);
-    VariableExtra = glpLValueNodeGetVariableExtra(v36);
-    Offset = glpDerefNodeGetOffset(v36);
-    if (Offset && (OffsetExpr = glpOffsetNodeGetOffsetExpr(Offset), glpIsConstantNode(OffsetExpr)))
-    {
-      v41 = *glpConstantNodeGetValue(OffsetExpr);
-    }
-
-    else
-    {
-      v41 = 0;
-    }
-
-    v364 = glpBuildUniformElementPtr(a1, VariableExtra, *(a1 + 440), 0, 0, *(VariableExtra + 156) + v41);
-    v47 = glpLLVMCGNode(a1, v37, 1);
-    ReturnPrimitiveType = glpPPStreamOpNodeGetReturnPrimitiveType(a2);
-    SaFlags = glpASTNodeGetSaFlags(a2);
-    v50 = glpPrecisionIndexFromSAFlags(SaFlags);
-    v363 = glpPrimitiveTypeToLLVMType(a1, ReturnPrimitiveType, v50);
-    SaType = glpASTNodeGetSaType(v37);
-    PrimitiveType = glpPrimitiveTypeGetPrimitiveType(SaType);
-    Swizzle = glpMakeSwizzle(PrimitiveType, v53, v54, v55, v56, v57, v58, v59, 0);
-    v61 = glpCGSwizzle(a1, 0, 0, v47, PrimitiveType, Swizzle);
-    v62 = *(a1 + 520);
-    if (!v62)
-    {
-      v62 = glpLLVMConstIntCache(a1, *(a1 + 40), 0, 0);
-      *(a1 + 520) = v62;
-    }
-
-    *&v370 = v62;
-    v63 = glpLLVMBuildGEP2(a1, v364, &v370, 1, "ptr_mat_0");
-    v64 = glpLLVMBuildLoad2(a1, v63, "mat_0");
-    v65 = glpLLVMBinaryOperation(a1, 58, v61, v64, "mul");
-    v73 = glpMakeSwizzle(v65, v66, v67, v68, v69, v70, v71, v72, 1);
-    v74 = glpCGSwizzle(a1, 0, 0, v47, PrimitiveType, v73);
-    v75 = *(a1 + 528);
-    if (!v75)
-    {
-      v75 = glpLLVMConstIntCache(a1, *(a1 + 40), 1uLL, 0);
-      *(a1 + 528) = v75;
-    }
-
-    v365 = v75;
-    v76 = glpLLVMBuildGEP2(a1, v364, &v365, 1, "ptr_mat_1");
-    v77 = glpLLVMBuildLoad2(a1, v76, "mat_1");
-    v367 = v74;
-    v368 = v77;
-    v369 = v65;
-    v78 = glpLLVMGetTypeString(&v366, ReturnPrimitiveType, v50);
-    v400 = 0u;
-    v401 = 0u;
-    v398 = 0u;
-    v399 = 0u;
-    v396 = 0u;
-    v397 = 0u;
-    v394 = 0u;
-    v395 = 0u;
-    v392 = 0u;
-    v393 = 0u;
-    v390 = 0u;
-    v391 = 0u;
-    v388 = 0u;
-    v389 = 0u;
-    v386 = 0u;
-    v387 = 0u;
-    v384 = 0u;
-    v385 = 0u;
-    v382 = 0u;
-    v383 = 0u;
-    v380 = 0u;
-    v381 = 0u;
-    v378 = 0u;
-    v379 = 0u;
-    v376 = 0u;
-    v377 = 0u;
-    v374 = 0u;
-    v375 = 0u;
-    v372 = 0u;
-    v373 = 0u;
-    v370 = 0u;
-    v371 = 0u;
-    snprintf_l(&v370, 0x200uLL, 0, "%s.%s", "air.fma", v78);
-    v402[0] = 0x300000001;
-    v79 = v363;
-    v80 = glpLLVMCallFunction(a1, &v370, v363, &v367, 3, v402, 2);
-    v88 = glpMakeSwizzle(v80, v81, v82, v83, v84, v85, v86, v87, 2);
-    v89 = glpCGSwizzle(a1, 0, 0, v47, PrimitiveType, v88);
-    v90 = *(a1 + 536);
-    if (!v90)
-    {
-      v90 = glpLLVMConstIntCache(a1, *(a1 + 40), 2uLL, 0);
-      *(a1 + 536) = v90;
-    }
-
-    v365 = v90;
-    v91 = glpLLVMBuildGEP2(a1, v364, &v365, 1, "ptr_mat_2");
-    v92 = glpLLVMBuildLoad2(a1, v91, "mat_2");
-    v367 = v89;
-    v368 = v92;
-    v369 = v80;
-    v93 = glpLLVMGetTypeString(&v366, ReturnPrimitiveType, v50);
-    v400 = 0u;
-    v401 = 0u;
-    v398 = 0u;
-    v399 = 0u;
-    v396 = 0u;
-    v397 = 0u;
-    v394 = 0u;
-    v395 = 0u;
-    v392 = 0u;
-    v393 = 0u;
-    v390 = 0u;
-    v391 = 0u;
-    v388 = 0u;
-    v389 = 0u;
-    v386 = 0u;
-    v387 = 0u;
-    v384 = 0u;
-    v385 = 0u;
-    v382 = 0u;
-    v383 = 0u;
-    v380 = 0u;
-    v381 = 0u;
-    v378 = 0u;
-    v379 = 0u;
-    v376 = 0u;
-    v377 = 0u;
-    v374 = 0u;
-    v375 = 0u;
-    v372 = 0u;
-    v373 = 0u;
-    v370 = 0u;
-    v371 = 0u;
-    snprintf_l(&v370, 0x200uLL, 0, "%s.%s", "air.fma", v93);
-    v402[0] = 0x300000001;
-    v94 = glpLLVMCallFunction(a1, &v370, v79, &v367, 3, v402, 2);
-    v102 = glpMakeSwizzle(v94, v95, v96, v97, v98, v99, v100, v101, 3);
-    v103 = glpCGSwizzle(a1, 0, 0, v47, PrimitiveType, v102);
-    v104 = *(a1 + 544);
-    if (!v104)
-    {
-      v104 = glpLLVMConstIntCache(a1, *(a1 + 40), 3uLL, 0);
-      *(a1 + 544) = v104;
-    }
-
-    v365 = v104;
-    v105 = glpLLVMBuildGEP2(a1, v364, &v365, 1, "ptr_mat_3");
-    v106 = glpLLVMBuildLoad2(a1, v105, "mat_3");
-    v367 = v103;
-    v368 = v106;
-    v369 = v94;
-    v107 = glpLLVMGetTypeString(&v366, ReturnPrimitiveType, v50);
-    v400 = 0u;
-    v401 = 0u;
-    v398 = 0u;
-    v399 = 0u;
-    v396 = 0u;
-    v397 = 0u;
-    v394 = 0u;
-    v395 = 0u;
-    v392 = 0u;
-    v393 = 0u;
-    v390 = 0u;
-    v391 = 0u;
-    v388 = 0u;
-    v389 = 0u;
-    v386 = 0u;
-    v387 = 0u;
-    v384 = 0u;
-    v385 = 0u;
-    v382 = 0u;
-    v383 = 0u;
-    v380 = 0u;
-    v381 = 0u;
-    v378 = 0u;
-    v379 = 0u;
-    v376 = 0u;
-    v377 = 0u;
-    v374 = 0u;
-    v375 = 0u;
-    v372 = 0u;
-    v373 = 0u;
-    v370 = 0u;
-    v371 = 0u;
-    snprintf_l(&v370, 0x200uLL, 0, "%s.%s", "air.fma", v107);
-    v402[0] = 0x300000001;
-    result = glpLLVMCallFunction(a1, &v370, v79, &v367, 3, v402, 2);
-  }
-
-  else
+  if (Opcode != 78)
   {
     if (Opcode == 121)
     {
@@ -7338,37 +7125,37 @@ uint64_t glpLLVMCGPPStreamOpNode(uint64_t a1, uint64_t a2)
 
     else
     {
-      LODWORD(v363) = Opcode;
+      LODWORD(v362) = Opcode;
       if (Opcode != 153)
       {
 LABEL_10:
         HasSrctex = glpPPStreamOpNodeGetHasSrctex(a2);
         ChildCount = glpASTNodeGetChildCount(a2);
-        v362 = &v360;
+        v361 = &v359;
         MEMORY[0x28223BE20](ChildCount);
-        v10 = (&v360 - v9);
-        bzero(&v360 - v9, v11);
+        v10 = (&v359 - v9);
+        bzero(&v359 - v9, v11);
         OpPrimitiveType = glpPPStreamOpNodeGetOpPrimitiveType(a2);
         if (OpPrimitiveType)
         {
           OpPrimitiveType = glpPrimitiveTypeGetScalarType(OpPrimitiveType);
-          LODWORD(v360) = OpPrimitiveType;
+          LODWORD(v359) = OpPrimitiveType;
         }
 
         else
         {
-          LODWORD(v360) = 0;
+          LODWORD(v359) = 0;
         }
 
         v13 = 4 * (ChildCount + HasSrctex);
         MEMORY[0x28223BE20](OpPrimitiveType);
         v14 = (v13 + 15) & 0x7FFFFFFF0;
-        v364 = (&v360 - v14);
-        bzero(&v360 - v14, v13);
+        v363 = (&v359 - v14);
+        bzero(&v359 - v14, v13);
         MEMORY[0x28223BE20](v15);
-        v16 = (&v360 - v14);
-        bzero(&v360 - v14, v13);
-        v361 = ChildCount;
+        v16 = (&v359 - v14);
+        bzero(&v359 - v14, v13);
+        v360 = ChildCount;
         v17 = (ChildCount - HasSrctex);
         if (v17)
         {
@@ -7388,11 +7175,11 @@ LABEL_10:
             {
               v20 = glpASTNodeGetChild(a2, i);
               v10[i] = glpLLVMCGNode(a1, v20, 1);
-              v21 = glpASTNodeGetSaType(v20);
-              v22 = glpPrimitiveTypeGetPrimitiveType(v21);
-              v364[i] = v22;
-              v23 = glpASTNodeGetSaFlags(v20);
-              v16[i] = glpPrecisionIndexFromSAFlags(v23);
+              SaType = glpASTNodeGetSaType(v20);
+              PrimitiveType = glpPrimitiveTypeGetPrimitiveType(SaType);
+              v363[i] = PrimitiveType;
+              SaFlags = glpASTNodeGetSaFlags(v20);
+              v16[i] = glpPrecisionIndexFromSAFlags(SaFlags);
               v24 = glpASTNodeGetSaType(v20);
               if (!glpTypeGetKind(v24))
               {
@@ -7407,26 +7194,26 @@ LABEL_10:
         v27 = v10;
         if (HasSrctex)
         {
-          v28 = v361;
-          v29 = glpASTNodeGetChild(a2, v361 - 1);
+          v28 = v360;
+          v29 = glpASTNodeGetChild(a2, v360 - 1);
           v10[v28 - 1] = glpLLVMCGSamplerNode(a1, v29, &v10[v28]);
         }
 
-        v30 = glpPPStreamOpNodeGetReturnPrimitiveType(a2);
+        ReturnPrimitiveType = glpPPStreamOpNodeGetReturnPrimitiveType(a2);
         v31 = glpASTNodeGetSaFlags(a2);
         v32 = glpPrecisionIndexFromSAFlags(v31);
-        v33 = glpPrimitiveTypeToLLVMType(a1, v30, v32);
-        v402[0] = 0;
+        v33 = glpPrimitiveTypeToLLVMType(a1, ReturnPrimitiveType, v32);
+        v401[0] = 0;
         v34 = v33;
-        switch(v363)
+        switch(v362)
         {
           case 2:
-            if (v361 == 2)
+            if (v360 == 2)
             {
-              glpMatchInputSize(v26, v10, v364);
+              glpMatchInputSize(v26, v10, v363);
             }
 
-            if (v360 <= 0x24 && ((1 << v360) & 0x1000000220) != 0)
+            if (v359 <= 0x24 && ((1 << v359) & 0x1000000220) != 0)
             {
               v196 = "air.abs";
               v199 = v26;
@@ -7449,9 +7236,9 @@ LABEL_10:
             v129 = "air.fwidth";
             goto LABEL_325;
           case 7:
-            if (v360 <= 0x24 && ((1 << v360) & 0x1000000220) != 0)
+            if (v359 <= 0x24 && ((1 << v359) & 0x1000000220) != 0)
             {
-              v201 = *v364;
+              v201 = *v363;
               v202 = *v16;
               v203 = glpBuildConstantIntVector(v26, v201, v202, 0xFFFFFFFFFFFFFFFFLL);
               v204 = glpBuildConstantIntVector(v26, v201, v202, 0);
@@ -7474,13 +7261,13 @@ LABEL_325:
             goto LABEL_326;
           case 8:
             v209 = *(v26 + 64);
-            v168 = *v364;
+            v168 = *v363;
             v169 = *v16;
             v129 = "air.any";
             goto LABEL_235;
           case 9:
             v209 = *(v26 + 64);
-            v168 = *v364;
+            v168 = *v363;
             v169 = *v16;
             v129 = "air.all";
 LABEL_235:
@@ -7492,35 +7279,35 @@ LABEL_235:
             LODOperation = glpLLVMUnaryOperation(v26, 73, *v10, "not");
             goto LABEL_399;
           case 11:
-            if (glpPrimitiveTypeGetCategory(v30) == 1)
+            if (glpPrimitiveTypeGetCategory(ReturnPrimitiveType) == 1)
             {
-              v168 = *v364;
+              v168 = *v363;
               v169 = *v16;
               v129 = "air.noise1";
             }
 
             else
             {
-              Length = glpPrimitiveVectorGetLength(v30);
+              Length = glpPrimitiveVectorGetLength(ReturnPrimitiveType);
               switch(Length)
               {
                 case 4:
-                  v168 = *v364;
+                  v168 = *v363;
                   v169 = *v16;
                   v129 = "air.noise4";
                   break;
                 case 3:
-                  v168 = *v364;
+                  v168 = *v363;
                   v169 = *v16;
                   v129 = "air.noise3";
                   break;
                 case 2:
-                  v168 = *v364;
+                  v168 = *v363;
                   v169 = *v16;
                   v129 = "air.noise2";
                   break;
                 default:
-                  goto LABEL_400;
+                  return v401[0];
               }
             }
 
@@ -7560,7 +7347,7 @@ LABEL_281:
             v159 = "air.exp2";
             goto LABEL_322;
           case 18:
-            LODOperation = glpLLVMBuildLength(v26, v10, v364, v32, v33);
+            LODOperation = glpLLVMBuildLength(v26, v10, v363, v32, v33);
             goto LABEL_399;
           case 19:
             if (v32)
@@ -7577,7 +7364,7 @@ LABEL_281:
             v159 = "air.log2";
             goto LABEL_322;
           case 21:
-            LODOperation = glpLLVMBuildNormalize(v26, v10, v364, v32, v33);
+            LODOperation = glpLLVMBuildNormalize(v26, v10, v363, v32, v33);
             goto LABEL_399;
           case 22:
             v210 = 0.0174532925;
@@ -7585,7 +7372,7 @@ LABEL_281:
           case 23:
             v210 = 57.2957795;
 LABEL_252:
-            LODOperation = glpLLVMBuildConvert(v26, v10, v364, v210);
+            LODOperation = glpLLVMBuildConvert(v26, v10, v363, v210);
             goto LABEL_399;
           case 25:
             if (v32)
@@ -7659,9 +7446,9 @@ LABEL_252:
             goto LABEL_322;
           case 30:
             v198 = v32 != 3 && v32 != 0;
-            v168 = *v364;
-            v166 = v361;
-            if (v361 == 2)
+            v168 = *v363;
+            v166 = v360;
+            if (v360 == 2)
             {
               if (v198)
               {
@@ -7693,8 +7480,8 @@ LABEL_252:
 
             goto LABEL_384;
           case 31:
-            glpMatchInputSize(v26, v10, v364);
-            if (v360 <= 0x24 && ((1 << v360) & 0x1000000220) != 0)
+            glpMatchInputSize(v26, v10, v363);
+            if (v359 <= 0x24 && ((1 << v359) & 0x1000000220) != 0)
             {
               v130 = *v10;
               v131 = v10[1];
@@ -7714,8 +7501,8 @@ LABEL_252:
 
             goto LABEL_398;
           case 32:
-            glpMatchInputSize(v26, v10, v364);
-            if (v360 <= 0x24 && ((1 << v360) & 0x1000000220) != 0)
+            glpMatchInputSize(v26, v10, v363);
+            if (v359 <= 0x24 && ((1 << v359) & 0x1000000220) != 0)
             {
               v130 = *v10;
               v131 = v10[1];
@@ -7735,12 +7522,12 @@ LABEL_252:
 
             goto LABEL_398;
           case 33:
-            glpMatchInputSize(v26, v10, v364);
-            if (v360 <= 0x24 && ((1 << v360) & 0x1000000220) != 0)
+            glpMatchInputSize(v26, v10, v363);
+            if (v359 <= 0x24 && ((1 << v359) & 0x1000000220) != 0)
             {
               v130 = *v10;
               v131 = v10[1];
-              if (v360 == 5)
+              if (v359 == 5)
               {
                 v134 = 63;
               }
@@ -7754,7 +7541,7 @@ LABEL_252:
               goto LABEL_172;
             }
 
-            v168 = *v364;
+            v168 = *v363;
             v129 = "air.mod";
             v165 = v26;
             v166 = 2;
@@ -7763,8 +7550,8 @@ LABEL_384:
             v209 = v34;
             goto LABEL_328;
           case 34:
-            glpMatchInputSize(v26, v10, v364);
-            if (v360 <= 0x24 && ((1 << v360) & 0x1000000220) != 0)
+            glpMatchInputSize(v26, v10, v363);
+            if (v359 <= 0x24 && ((1 << v359) & 0x1000000220) != 0)
             {
               v130 = *v10;
               v131 = v10[1];
@@ -7785,7 +7572,7 @@ LABEL_384:
             goto LABEL_398;
           case 36:
           case 125:
-            glpMatchInputSize(v26, v10, v364);
+            glpMatchInputSize(v26, v10, v363);
             v130 = *v10;
             v131 = v10[1];
             v132 = "and";
@@ -7794,7 +7581,7 @@ LABEL_384:
             goto LABEL_398;
           case 37:
           case 126:
-            glpMatchInputSize(v26, v10, v364);
+            glpMatchInputSize(v26, v10, v363);
             v130 = *v10;
             v131 = v10[1];
             v132 = "or";
@@ -7803,7 +7590,7 @@ LABEL_384:
             goto LABEL_398;
           case 38:
           case 127:
-            glpMatchInputSize(v26, v10, v364);
+            glpMatchInputSize(v26, v10, v363);
             v130 = *v10;
             v131 = v10[1];
             v132 = "xor";
@@ -7811,17 +7598,17 @@ LABEL_384:
             v134 = 70;
             goto LABEL_398;
           case 39:
-            v168 = *v364;
+            v168 = *v363;
             v169 = *v16;
             v129 = "air.dot";
             goto LABEL_280;
           case 44:
-            if (v361 == 2)
+            if (v360 == 2)
             {
-              glpMatchInputSize(v26, v10, v364);
+              glpMatchInputSize(v26, v10, v363);
             }
 
-            if (v360 <= 0x24 && ((1 << v360) & 0x1000000220) != 0)
+            if (v359 <= 0x24 && ((1 << v359) & 0x1000000220) != 0)
             {
               v196 = "air.min";
               goto LABEL_212;
@@ -7841,12 +7628,12 @@ LABEL_384:
             v164 = "air.fmin";
             goto LABEL_113;
           case 45:
-            if (v361 == 2)
+            if (v360 == 2)
             {
-              glpMatchInputSize(v26, v10, v364);
+              glpMatchInputSize(v26, v10, v363);
             }
 
-            if (v360 <= 0x24 && ((1 << v360) & 0x1000000220) != 0)
+            if (v359 <= 0x24 && ((1 << v359) & 0x1000000220) != 0)
             {
               v196 = "air.max";
 LABEL_212:
@@ -7885,7 +7672,7 @@ LABEL_113:
             LODOperation = glpLLVMBuildCross(v26, v10);
             goto LABEL_399;
           case 47:
-            LODOperation = glpLLVMBuildReflect(v26, v10, v364, v32);
+            LODOperation = glpLLVMBuildReflect(v26, v10, v363, v32);
             goto LABEL_399;
           case 49:
           case 50:
@@ -7893,8 +7680,8 @@ LABEL_113:
           case 52:
           case 53:
           case 54:
-            v108 = v363;
-            glpMatchInputSize(v26, v27, v364);
+            v108 = v362;
+            glpMatchInputSize(v26, v27, v363);
             v109 = glpASTNodeGetChild(a2, 0);
             v110 = glpASTNodeGetSaType(v109);
             v111 = glpPrimitiveTypeGetPrimitiveType(v110);
@@ -7966,9 +7753,9 @@ LABEL_53:
                 }
 
                 v143 = v142;
-                if (glpPrimitiveTypeGetCategory(v30) == 2)
+                if (glpPrimitiveTypeGetCategory(ReturnPrimitiveType) == 2)
                 {
-                  v144 = glpPrimitiveVectorGetLength(v30);
+                  v144 = glpPrimitiveVectorGetLength(ReturnPrimitiveType);
                 }
 
                 else
@@ -7976,8 +7763,8 @@ LABEL_53:
                   v144 = 1;
                 }
 
-                v145 = *v364;
-                if (glpPrimitiveTypeGetCategory(*v364) == 2)
+                v145 = *v363;
+                if (glpPrimitiveTypeGetCategory(*v363) == 2)
                 {
                   v146 = glpPrimitiveVectorGetLength(v145);
                   if (v144 < v146)
@@ -7986,10 +7773,8 @@ LABEL_53:
                     {
                       Element = 0;
 LABEL_99:
-                      v402[0] = Element;
-LABEL_400:
-                      result = v402[0];
-                      goto LABEL_401;
+                      v401[0] = Element;
+                      return v401[0];
                     }
 
 LABEL_88:
@@ -8099,7 +7884,7 @@ LABEL_88:
               v129 = "air.powr";
             }
 
-            v168 = *v364;
+            v168 = *v363;
             v169 = *v16;
 LABEL_280:
             v165 = v26;
@@ -8108,7 +7893,7 @@ LABEL_280:
           case 57:
             v223 = *v10;
             v224 = glpLLVMBuildExtractElement(v26, *v27, v27[1], "");
-            ComponentCount = glpGetComponentCount(*v364);
+            ComponentCount = glpGetComponentCount(*v363);
             v226 = *(v26 + 520);
             if (!v226)
             {
@@ -8124,12 +7909,12 @@ LABEL_280:
             LODOperation = glpLLVMBuildShuffleVector(v26, inserted, inserted, v231, "sel");
             goto LABEL_399;
           case 58:
-            glpMatchInputSize(v26, v10, v364);
-            if (v360 <= 0x24 && ((1 << v360) & 0x1000000220) != 0)
+            glpMatchInputSize(v26, v10, v363);
+            if (v359 <= 0x24 && ((1 << v359) & 0x1000000220) != 0)
             {
               v130 = *v10;
               v131 = v10[1];
-              if (v360 == 5)
+              if (v359 == 5)
               {
                 v134 = 60;
               }
@@ -8157,20 +7942,20 @@ LABEL_398:
             LODOperation = glpLLVMBinaryOperation(v133, v134, v130, v131, v132);
             goto LABEL_399;
           case 59:
-            LODOperation = glpLLVMBuildFaceForward(v26, v10, v364, v32);
+            LODOperation = glpLLVMBuildFaceForward(v26, v10, v363, v32);
             goto LABEL_399;
           case 60:
-            LODOperation = glpLLVMBuildMix(v26, v10, v364, v33, v32);
+            LODOperation = glpLLVMBuildMix(v26, v10, v363, v33, v32);
             goto LABEL_399;
           case 61:
-            glpMatchInputSize3(v26, v10, v364);
-            if (v360 <= 0x24 && ((1 << v360) & 0x1000000220) != 0)
+            glpMatchInputSize3(v26, v10, v363);
+            if (v359 <= 0x24 && ((1 << v359) & 0x1000000220) != 0)
             {
               v196 = "air.clamp";
               v199 = v26;
               v200 = 3;
 LABEL_271:
-              LODOperation = glpLLVMBuildBuiltinWithPrefix(v199, v196, v200, v10, v34, v30, v32);
+              LODOperation = glpLLVMBuildBuiltinWithPrefix(v199, v196, v200, v10, v34, ReturnPrimitiveType, v32);
             }
 
             else
@@ -8183,7 +7968,7 @@ LABEL_326:
               v167 = v10;
 LABEL_327:
               v209 = v34;
-              v168 = v30;
+              v168 = ReturnPrimitiveType;
 LABEL_328:
               v169 = v32;
 LABEL_329:
@@ -8192,9 +7977,9 @@ LABEL_329:
 
             goto LABEL_399;
           case 62:
-            if (v360 <= 0x24 && ((1 << v360) & 0x1000000220) != 0)
+            if (v359 <= 0x24 && ((1 << v359) & 0x1000000220) != 0)
             {
-              if (v360 == 5)
+              if (v359 == 5)
               {
                 v170 = *v10;
                 v171 = glpLLVMTypeOf(v26, *v10);
@@ -8205,7 +7990,7 @@ LABEL_329:
 
               else
               {
-                if (v360 != 36 && v360 != 9)
+                if (v359 != 36 && v359 != 9)
                 {
                   v193 = 0;
 LABEL_380:
@@ -8216,8 +8001,8 @@ LABEL_380:
 LABEL_381:
                   LODOperation = glpLLVMBuildSelect(v192, v193, v191, v194, v195);
 LABEL_399:
-                  v402[0] = LODOperation;
-                  goto LABEL_400;
+                  v401[0] = LODOperation;
+                  return v401[0];
                 }
 
                 v170 = *v10;
@@ -8244,7 +8029,7 @@ LABEL_399:
             v129 = "air.mad";
             goto LABEL_178;
           case 64:
-            LODOperation = glpLLVMBuildSmoothStep(v26, v10, v364, v32, v33);
+            LODOperation = glpLLVMBuildSmoothStep(v26, v10, v363, v32, v33);
             goto LABEL_399;
           case 66:
           case 67:
@@ -8257,7 +8042,7 @@ LABEL_399:
           case 130:
           case 165:
           case 166:
-            LODOperation = glpBuildTextureOperation(v26, a2, v10, v364, v16, v361 + 1);
+            LODOperation = glpBuildTextureOperation(v26, a2, v10, v363, v16, v360 + 1);
             goto LABEL_399;
           case 78:
           case 161:
@@ -8270,33 +8055,33 @@ LABEL_399:
             v129 = "air.dfdy";
             goto LABEL_325;
           case 92:
-            v160 = glpLLVMCastToHalf(v26, *v10, *v364, *v16);
+            v160 = glpLLVMCastToHalf(v26, *v10, *v363, *v16);
             goto LABEL_263;
           case 93:
-            v168 = *v364;
+            v168 = *v363;
             v169 = *v16;
             v129 = "air.pack.unorm2x16";
             goto LABEL_243;
           case 94:
-            v168 = *v364;
+            v168 = *v363;
             v169 = *v16;
             v129 = "air.pack.snorm4x8";
             goto LABEL_243;
           case 95:
-            v168 = *v364;
+            v168 = *v363;
             v169 = *v16;
             v129 = "air.pack.unorm4x8";
             goto LABEL_243;
           case 100:
             v247 = glpLLVMVectorType(v26, *(v26 + 80), 2);
-            v402[0] = glpLLVMCastOperation(v26, 85, *v10, v247, "int");
+            v401[0] = glpLLVMCastOperation(v26, 85, *v10, v247, "int");
             if (v32 != 3 && v32)
             {
-              goto LABEL_400;
+              return v401[0];
             }
 
-            *&v370 = 0x300000001;
-            LODOperation = glpLLVMCallFunction(v26, "air.convert.f.v2f32.f.v2f16", v34, v402, 1, &v370, 2);
+            *&v369 = 0x300000001;
+            LODOperation = glpLLVMCallFunction(v26, "air.convert.f.v2f32.f.v2f16", v34, v401, 1, &v369, 2);
             goto LABEL_399;
           case 101:
             v129 = "air.unpack.unorm2x16";
@@ -8308,7 +8093,7 @@ LABEL_399:
             v129 = "air.unpack.unorm4x8";
             goto LABEL_325;
           case 105:
-            LODOperation = glpLLVMBuildRefract(v26, v10, v364, v32, v33);
+            LODOperation = glpLLVMBuildRefract(v26, v10, v363, v32, v33);
             goto LABEL_399;
           case 112:
             if (v32)
@@ -8340,9 +8125,9 @@ LABEL_399:
             goto LABEL_322;
           case 119:
           case 120:
-            v367 = *v10;
+            v366 = *v10;
             v123 = *(v26 + 88);
-            if (v363 == 119)
+            if (v362 == 119)
             {
               v124 = "air.emit_vertex";
             }
@@ -8352,9 +8137,9 @@ LABEL_399:
               v124 = "air.end_primitive";
             }
 
-            *&v370 = 0x300000001;
-            v125 = &v367;
-            v126 = &v370;
+            *&v369 = 0x300000001;
+            v125 = &v366;
+            v126 = &v369;
             v127 = v26;
             v128 = 1;
             goto LABEL_299;
@@ -8365,7 +8150,7 @@ LABEL_399:
             v129 = "air.trunc";
             goto LABEL_325;
           case 128:
-            glpMatchInputSize(v26, v10, v364);
+            glpMatchInputSize(v26, v10, v363);
             v130 = *v10;
             v131 = v10[1];
             v132 = "shl";
@@ -8373,10 +8158,10 @@ LABEL_399:
             v134 = 65;
             goto LABEL_398;
           case 129:
-            glpMatchInputSize(v26, v10, v364);
+            glpMatchInputSize(v26, v10, v363);
             v130 = *v10;
             v131 = v10[1];
-            if (v360 == 5)
+            if (v359 == 5)
             {
               v132 = "ashr";
               v133 = v26;
@@ -8392,7 +8177,7 @@ LABEL_399:
 
             goto LABEL_398;
           case 131:
-            LODOperation = glpBuildTextureSizeOperation(v26, a2, v10, v361);
+            LODOperation = glpBuildTextureSizeOperation(v26, a2, v10, v360);
             goto LABEL_399;
           case 132:
             v220 = *v10;
@@ -8404,7 +8189,7 @@ LABEL_399:
             v130 = v220;
             goto LABEL_398;
           case 133:
-            LODOperation = glpLLVMBuildDistance(v26, v10, v364, v32, v33);
+            LODOperation = glpLLVMBuildDistance(v26, v10, v363, v32, v33);
             goto LABEL_399;
           case 134:
             if (v32)
@@ -8424,10 +8209,10 @@ LABEL_399:
             v129 = "air.rint";
             goto LABEL_325;
           case 138:
-            v271 = *v364;
-            *&v370 = glpLLVMf32Extend(v26, *v10, v271, *v16);
-            v272 = glpLLVMTypeOf(v26, v370);
-            v273 = glpLLVMBuildBuiltinNoPrefix(v26, "air.fabs", 1, &v370, v272, v271, 3);
+            v271 = *v363;
+            *&v369 = glpLLVMf32Extend(v26, *v10, v271, *v16);
+            v272 = glpLLVMTypeOf(v26, v369);
+            v273 = glpLLVMBuildBuiltinNoPrefix(v26, "air.fabs", 1, &v369, v272, v271, 3);
             v274 = glpLLVMTypeOf(v26, v273);
             v275 = glpLLVMGetInfinityProxy(v26, v274);
             v276 = *(v26 + 40);
@@ -8447,10 +8232,10 @@ LABEL_399:
             LODOperation = glpLLVMBuildICmp(v26, 2, v278, v279, "cmp");
             goto LABEL_399;
           case 139:
-            v263 = *v364;
-            *&v370 = glpLLVMf32Extend(v26, *v10, *v364, *v16);
-            v264 = glpLLVMTypeOf(v26, v370);
-            v265 = glpLLVMBuildBuiltinNoPrefix(v26, "air.fabs", 1, &v370, v264, v263, 3);
+            v263 = *v363;
+            *&v369 = glpLLVMf32Extend(v26, *v10, *v363, *v16);
+            v264 = glpLLVMTypeOf(v26, v369);
+            v265 = glpLLVMBuildBuiltinNoPrefix(v26, "air.fabs", 1, &v369, v264, v263, 3);
             v266 = glpLLVMTypeOf(v26, v265);
             v267 = glpLLVMGetInfinityProxy(v26, v266);
             LODOperation = glpLLVMBuildFCmp(v26, 1, v265, v267, "isInf");
@@ -8576,29 +8361,29 @@ LABEL_263:
               glpLLVMBuildStore(v257, v254, v258);
               v259 = glpLLVMPointerType(v257, *(v257 + 56), 0);
               v260 = glpLLVMCastOperation(v257, 86, v258, v259, "valPtr");
-              ScalarCount = glpPrimitiveTypeGetScalarCount(v364[2]);
+              ScalarCount = glpPrimitiveTypeGetScalarCount(v363[2]);
               v262 = glpGetConstantInt32(v257, 4 * ScalarCount);
               v123 = *(v257 + 88);
-              *&v370 = *v256;
-              *(&v370 + 1) = v251;
-              *&v371 = ConstantInt32;
-              *(&v371 + 1) = v253;
-              *&v372 = v260;
-              *(&v372 + 1) = v262;
-              v367 = 0x300000001;
+              *&v369 = *v256;
+              *(&v369 + 1) = v251;
+              *&v370 = ConstantInt32;
+              *(&v370 + 1) = v253;
+              *&v371 = v260;
+              *(&v371 + 1) = v262;
+              v366 = 0x300000001;
               v124 = "air.gs_tf_store";
-              v125 = &v370;
-              v126 = &v367;
+              v125 = &v369;
+              v126 = &v366;
               v127 = v257;
               v128 = 6;
 LABEL_299:
               glpLLVMCallFunction(v127, v124, v123, v125, v128, v126, 2);
-              goto LABEL_400;
+              return v401[0];
             }
 
             if ((*(v26 + 832) & 2) == 0)
             {
-              goto LABEL_400;
+              return v401[0];
             }
 
             v318 = glpLLVMPointerType(v26, *(v26 + 72), 1);
@@ -8607,12 +8392,12 @@ LABEL_299:
             v321 = glpLLVMTypeOf(v26, *v10);
             v322 = glpLLVMConstIntCache(v26, v321, 2uLL, 1);
             v323 = glpLLVMBinaryOperation(v26, 67, v320, v322, "offset");
-            *&v370 = v323;
+            *&v369 = v323;
             if (*(v26 + 832))
             {
               v324 = v323;
               v325 = *(v26 + 448);
-              v361 = glpLLVMBuildLoad2(v26, v325, "first");
+              v360 = glpLLVMBuildLoad2(v26, v325, "first");
               v326 = *(v26 + 528);
               if (!v326)
               {
@@ -8620,10 +8405,10 @@ LABEL_299:
                 *(v26 + 528) = v326;
               }
 
-              v363 = v319;
-              v367 = v326;
-              v327 = glpLLVMBuildGEP2(v26, v325, &v367, 1, "ptr");
-              v360 = glpLLVMBuildLoad2(v26, v327, "count");
+              v362 = v319;
+              v366 = v326;
+              v327 = glpLLVMBuildGEP2(v26, v325, &v366, 1, "ptr");
+              v359 = glpLLVMBuildLoad2(v26, v327, "count");
               v328 = *(v26 + 536);
               if (!v328)
               {
@@ -8631,40 +8416,40 @@ LABEL_299:
                 *(v26 + 536) = v328;
               }
 
-              v366 = v328;
-              v329 = glpLLVMBuildGEP2(v26, v325, &v366, 1, "ptr");
+              v365 = v328;
+              v329 = glpLLVMBuildGEP2(v26, v325, &v365, 1, "ptr");
               v330 = glpLLVMBuildLoad2(v26, v329, "vertexOffset");
               v331 = glpASTNodeGetChild(a2, 1u);
               v332 = *(*(glpLValueNodeGetVariableExtra(v331) + 144) + 16);
               v333 = glpLLVMGetParam(v26, *(v26 + 160), *(v26 + 808));
               v334 = glpLLVMGetParam(v26, *(v26 + 160), *(v26 + 816));
               v335 = glpLLVMBinaryOperation(v26, 53, v330, v333, "vertexStart");
-              v336 = glpLLVMBinaryOperation(v26, 55, v335, v361, "vertexStart");
-              v337 = glpLLVMBinaryOperation(v26, 57, v360, v334, "tmpValue");
+              v336 = glpLLVMBinaryOperation(v26, 55, v335, v360, "vertexStart");
+              v337 = glpLLVMBinaryOperation(v26, 57, v359, v334, "tmpValue");
               v338 = glpLLVMBinaryOperation(v26, 53, v336, v337, "vertexStart");
               v339 = glpGetConstantInt32(v26, *(v332 + 8) >> 2);
               v340 = glpLLVMBinaryOperation(v26, 57, v339, v338, "offset");
-              *&v370 = glpLLVMBinaryOperation(v26, 53, v324, v340, "offset");
+              *&v369 = glpLLVMBinaryOperation(v26, 53, v324, v340, "offset");
               v27 = v10;
-              v319 = v363;
+              v319 = v362;
             }
 
-            v341 = glpLLVMBuildGEP2(v26, v319, &v370, 1, "ptr");
+            v341 = glpLLVMBuildGEP2(v26, v319, &v369, 1, "ptr");
             v342 = v27[2];
             v343 = v16[2];
             v344 = v342;
             if (!v343)
             {
-              goto LABEL_411;
+              goto LABEL_410;
             }
 
             v344 = v342;
             if (v343 == 3)
             {
-              goto LABEL_411;
+              goto LABEL_410;
             }
 
-            v345 = v364[2];
+            v345 = v363[2];
             v346 = glpPrimitiveTypeGetScalarType(v345);
             v347 = glpPrimitiveTypeToLLVMType(v26, v345, 3);
             if (v346 > 8)
@@ -8675,7 +8460,7 @@ LABEL_299:
                 v344 = v342;
                 if (v346 != 36)
                 {
-                  goto LABEL_411;
+                  goto LABEL_410;
                 }
               }
             }
@@ -8690,23 +8475,23 @@ LABEL_299:
               v344 = v342;
               if (v346 != 5)
               {
-LABEL_411:
-                v357 = glpLLVMTypeOf(v26, v344);
-                v358 = glpLLVMPointerType(v26, v357, 1);
-                v359 = glpLLVMCastOperation(v26, 86, v341, v358, "ptr");
-                glpLLVMBuildStore(v26, v344, v359);
-                v402[0] = v342;
-                goto LABEL_400;
+LABEL_410:
+                v356 = glpLLVMTypeOf(v26, v344);
+                v357 = glpLLVMPointerType(v26, v356, 1);
+                v358 = glpLLVMCastOperation(v26, 86, v341, v357, "ptr");
+                glpLLVMBuildStore(v26, v344, v358);
+                v401[0] = v342;
+                return v401[0];
               }
 
               v348 = 76;
             }
 
             v344 = glpLLVMCastOperation(v26, v348, v342, v347, "tf_output");
-            goto LABEL_411;
+            goto LABEL_410;
           case 154:
             v175 = v33;
-            v176 = *v364;
+            v176 = *v363;
             v177 = glpGetComponentCount(v176);
             if (glpPrimitiveTypeGetScalarType(v176) == 1)
             {
@@ -8720,7 +8505,7 @@ LABEL_411:
               v180 = glpLLVMConstIntCache(v26, *(v26 + 40), 0x17uLL, 1);
               v181 = glpLLVMSplatConstantVector(v26, v180, v177);
               v182 = glpLLVMBinaryOperation(v26, 66, v179, v181, "exp");
-              v402[0] = v182;
+              v401[0] = v182;
               v183 = glpLLVMConstIntCache(v26, *(v26 + 40), 0xFFuLL, 1);
               v184 = glpLLVMSplatConstantVector(v26, v183, v177);
               v185 = glpLLVMBinaryOperation(v26, 68, v182, v184, "exp");
@@ -8751,7 +8536,7 @@ LABEL_411:
             v297 = glpLLVMConstIntCache(v26, v291, 0x7FFuLL, 0);
             v298 = glpLLVMSplatConstantVector(v26, v297, v177);
             v299 = glpLLVMBinaryOperation(v26, 68, v296, v298, "exp");
-            v402[0] = v299;
+            v401[0] = v299;
             v300 = glpLLVMConstFromTypeCache(v26, 35, v292);
             v301 = glpLLVMBuildICmp(v26, 1, v299, v300, "cmp");
             v302 = glpLLVMConstIntCache(v26, v291, 0x3FEuLL, 0);
@@ -8768,7 +8553,7 @@ LABEL_317:
             goto LABEL_399;
           case 155:
             v232 = v33;
-            v233 = *v364;
+            v233 = *v363;
             v234 = glpGetComponentCount(v233);
             if (glpPrimitiveTypeGetScalarType(v233) == 1)
             {
@@ -8801,7 +8586,7 @@ LABEL_317:
               }
 
               v308 = glpLLVMCastOperation(v26, 85, *v27, v235, "double");
-              v402[0] = v308;
+              v401[0] = v308;
               v309 = glpLLVMConstIntCache(v26, v307, 0x7FF0000000000000uLL, 0);
               v310 = glpLLVMSplatConstantVector(v26, v309, v234);
               v311 = glpLLVMBinaryOperation(v26, 68, v308, v310, "only_exp");
@@ -8857,16 +8642,16 @@ LABEL_316:
             v129 = "air.reverse_bits";
             goto LABEL_325;
           case 162:
-            *&v370 = *v10;
-            *(&v370 + 1) = glpLLVMConstIntCache(v26, *(v26 + 64), 0, 0);
+            *&v369 = *v10;
+            *(&v369 + 1) = glpLLVMConstIntCache(v26, *(v26 + 64), 0, 0);
             v129 = "air.ctz";
-            v167 = &v370;
+            v167 = &v369;
             v165 = v26;
             v166 = 2;
             goto LABEL_327;
           case 163:
-            v211 = v30;
-            v212 = *v364;
+            v211 = ReturnPrimitiveType;
+            v212 = *v363;
             v213 = glpGetComponentCount(v212);
             v214 = glpPrimitiveTypeGetScalarType(v212);
             if (v214 == 36)
@@ -8888,9 +8673,9 @@ LABEL_316:
               v219 = glpLLVMBinaryOperation(v26, 70, v218, v215, "correctSign");
             }
 
-            *&v370 = v219;
-            *(&v370 + 1) = glpLLVMConstIntCache(v26, *(v26 + 64), 0, 0);
-            v349 = glpLLVMBuildBuiltinNoPrefix(v26, "air.clz", 2, &v370, v34, v211, v32);
+            *&v369 = v219;
+            *(&v369 + 1) = glpLLVMConstIntCache(v26, *(v26 + 64), 0, 0);
+            v349 = glpLLVMBuildBuiltinNoPrefix(v26, "air.clz", 2, &v369, v34, v211, v32);
             v350 = glpLLVMConstIntCache(v26, *(v26 + 40), 0x1FuLL, 1);
             v130 = glpLLVMSplatConstantVector(v26, v350, v213);
             v132 = "msb";
@@ -8899,30 +8684,30 @@ LABEL_316:
             v131 = v349;
             goto LABEL_398;
           case 164:
-            LODOperation = glpBuildGetLODOperation(v26, a2, v10, v364);
+            LODOperation = glpBuildGetLODOperation(v26, a2, v10, v363);
             goto LABEL_399;
           case 167:
           case 168:
           case 169:
-            v119 = v363;
+            v119 = v362;
             v120 = glpASTNodeGetChild(a2, 0);
-            v121 = glpLValueNodeGetVariableExtra(v120);
-            if ((*(v121 + 51) & 1) == 0)
+            VariableExtra = glpLValueNodeGetVariableExtra(v120);
+            if ((*(VariableExtra + 51) & 1) == 0)
             {
-              v402[0] = *v10;
-              goto LABEL_400;
+              v401[0] = *v10;
+              return v401[0];
             }
 
-            v135 = v121;
-            v136 = glpLLVMGetVariablePointer(v26, v121);
+            v135 = VariableExtra;
+            v136 = glpLLVMGetVariablePointer(v26, VariableExtra);
             v137 = *(v135 + 48) & 0x2000000000;
             if (v119 == 169)
             {
               v138 = v137 | 0x800000;
               v280 = v27[1];
-              *&v370 = glpLLVMConstRealCache(v26, *(v26 + 72), 0.5);
-              *(&v370 + 1) = v370;
-              v281 = glpLLVMConstVectorCache(v26, &v370, 2);
+              *&v369 = glpLLVMConstRealCache(v26, *(v26 + 72), 0.5);
+              *(&v369 + 1) = v369;
+              v281 = glpLLVMConstVectorCache(v26, &v369, 2);
               v139 = glpLLVMBinaryOperation(v26, 54, v280, v281, "");
             }
 
@@ -8939,22 +8724,22 @@ LABEL_316:
             }
 
             v282 = glpBuildInterpolateAt(v26, v136, v135, v138, "", v139);
-            v402[0] = v282;
+            v401[0] = v282;
             v283 = *(*(v135 + 144) + 24);
-            v284 = glpDerefNodeGetOffset(v120);
-            if (!v284)
+            Offset = glpDerefNodeGetOffset(v120);
+            if (!Offset)
             {
-              goto LABEL_400;
+              return v401[0];
             }
 
-            v285 = v284;
-            v286 = glpOffsetNodeGetSwizzle(v284);
-            v287 = glpCGSwizzle(v26, 0, 0, v282, v283, v286);
-            v402[0] = v287;
+            v285 = Offset;
+            Swizzle = glpOffsetNodeGetSwizzle(Offset);
+            v287 = glpCGSwizzle(v26, 0, 0, v282, v283, Swizzle);
+            v401[0] = v287;
             VectorElementExpr = glpOffsetNodeGetVectorElementExpr(v285);
             if (!VectorElementExpr)
             {
-              goto LABEL_400;
+              return v401[0];
             }
 
             v289 = glpLLVMCGNode(v26, VectorElementExpr, 1);
@@ -8963,9 +8748,9 @@ LABEL_316:
             goto LABEL_399;
           case 170:
             v123 = *(v26 + 88);
-            *&v370 = 0x300000001;
+            *&v369 = 0x300000001;
             v124 = "air.cs_barrier";
-            v126 = &v370;
+            v126 = &v369;
             v127 = v26;
             v125 = 0;
             v128 = 0;
@@ -8983,7 +8768,7 @@ LABEL_316:
             v129 = "air.gamma_expand_xr";
             goto LABEL_325;
           default:
-            goto LABEL_400;
+            return v401[0];
         }
       }
 
@@ -8994,15 +8779,201 @@ LABEL_316:
       }
     }
 
-    result = 0;
+    return 0;
   }
 
-LABEL_401:
-  v356 = *MEMORY[0x277D85DE8];
-  return result;
+  v36 = glpASTNodeGetChild(a2, 0);
+  v37 = glpASTNodeGetChild(a2, 1u);
+  v38 = glpLValueNodeGetVariableExtra(v36);
+  v39 = glpDerefNodeGetOffset(v36);
+  if (v39 && (OffsetExpr = glpOffsetNodeGetOffsetExpr(v39), glpIsConstantNode(OffsetExpr)))
+  {
+    v41 = *glpConstantNodeGetValue(OffsetExpr);
+  }
+
+  else
+  {
+    v41 = 0;
+  }
+
+  v363 = glpBuildUniformElementPtr(a1, v38, *(a1 + 440), 0, 0, (*(v38 + 156) + v41));
+  v47 = glpLLVMCGNode(a1, v37, 1);
+  v48 = glpPPStreamOpNodeGetReturnPrimitiveType(a2);
+  v49 = glpASTNodeGetSaFlags(a2);
+  v50 = glpPrecisionIndexFromSAFlags(v49);
+  v362 = glpPrimitiveTypeToLLVMType(a1, v48, v50);
+  v51 = glpASTNodeGetSaType(v37);
+  v52 = glpPrimitiveTypeGetPrimitiveType(v51);
+  v60 = glpMakeSwizzle(v52, v53, v54, v55, v56, v57, v58, v59, 0);
+  v61 = glpCGSwizzle(a1, 0, 0, v47, v52, v60);
+  v62 = *(a1 + 520);
+  if (!v62)
+  {
+    v62 = glpLLVMConstIntCache(a1, *(a1 + 40), 0, 0);
+    *(a1 + 520) = v62;
+  }
+
+  *&v369 = v62;
+  v63 = glpLLVMBuildGEP2(a1, v363, &v369, 1, "ptr_mat_0");
+  v64 = glpLLVMBuildLoad2(a1, v63, "mat_0");
+  v65 = glpLLVMBinaryOperation(a1, 58, v61, v64, "mul");
+  v73 = glpMakeSwizzle(v65, v66, v67, v68, v69, v70, v71, v72, 1);
+  v74 = glpCGSwizzle(a1, 0, 0, v47, v52, v73);
+  v75 = *(a1 + 528);
+  if (!v75)
+  {
+    v75 = glpLLVMConstIntCache(a1, *(a1 + 40), 1uLL, 0);
+    *(a1 + 528) = v75;
+  }
+
+  v364 = v75;
+  v76 = glpLLVMBuildGEP2(a1, v363, &v364, 1, "ptr_mat_1");
+  v77 = glpLLVMBuildLoad2(a1, v76, "mat_1");
+  v366 = v74;
+  v367 = v77;
+  v368 = v65;
+  v78 = glpLLVMGetTypeString(&v365, v48, v50);
+  v399 = 0u;
+  v400 = 0u;
+  v397 = 0u;
+  v398 = 0u;
+  v395 = 0u;
+  v396 = 0u;
+  v393 = 0u;
+  v394 = 0u;
+  v391 = 0u;
+  v392 = 0u;
+  v389 = 0u;
+  v390 = 0u;
+  v387 = 0u;
+  v388 = 0u;
+  v385 = 0u;
+  v386 = 0u;
+  v383 = 0u;
+  v384 = 0u;
+  v381 = 0u;
+  v382 = 0u;
+  v379 = 0u;
+  v380 = 0u;
+  v377 = 0u;
+  v378 = 0u;
+  v375 = 0u;
+  v376 = 0u;
+  v373 = 0u;
+  v374 = 0u;
+  v371 = 0u;
+  v372 = 0u;
+  v369 = 0u;
+  v370 = 0u;
+  snprintf_l(&v369, 0x200uLL, 0, "%s.%s", "air.fma", v78);
+  v401[0] = 0x300000001;
+  v79 = v362;
+  v80 = glpLLVMCallFunction(a1, &v369, v362, &v366, 3, v401, 2);
+  v88 = glpMakeSwizzle(v80, v81, v82, v83, v84, v85, v86, v87, 2);
+  v89 = glpCGSwizzle(a1, 0, 0, v47, v52, v88);
+  v90 = *(a1 + 536);
+  if (!v90)
+  {
+    v90 = glpLLVMConstIntCache(a1, *(a1 + 40), 2uLL, 0);
+    *(a1 + 536) = v90;
+  }
+
+  v364 = v90;
+  v91 = glpLLVMBuildGEP2(a1, v363, &v364, 1, "ptr_mat_2");
+  v92 = glpLLVMBuildLoad2(a1, v91, "mat_2");
+  v366 = v89;
+  v367 = v92;
+  v368 = v80;
+  v93 = glpLLVMGetTypeString(&v365, v48, v50);
+  v399 = 0u;
+  v400 = 0u;
+  v397 = 0u;
+  v398 = 0u;
+  v395 = 0u;
+  v396 = 0u;
+  v393 = 0u;
+  v394 = 0u;
+  v391 = 0u;
+  v392 = 0u;
+  v389 = 0u;
+  v390 = 0u;
+  v387 = 0u;
+  v388 = 0u;
+  v385 = 0u;
+  v386 = 0u;
+  v383 = 0u;
+  v384 = 0u;
+  v381 = 0u;
+  v382 = 0u;
+  v379 = 0u;
+  v380 = 0u;
+  v377 = 0u;
+  v378 = 0u;
+  v375 = 0u;
+  v376 = 0u;
+  v373 = 0u;
+  v374 = 0u;
+  v371 = 0u;
+  v372 = 0u;
+  v369 = 0u;
+  v370 = 0u;
+  snprintf_l(&v369, 0x200uLL, 0, "%s.%s", "air.fma", v93);
+  v401[0] = 0x300000001;
+  v94 = glpLLVMCallFunction(a1, &v369, v79, &v366, 3, v401, 2);
+  v102 = glpMakeSwizzle(v94, v95, v96, v97, v98, v99, v100, v101, 3);
+  v103 = glpCGSwizzle(a1, 0, 0, v47, v52, v102);
+  v104 = *(a1 + 544);
+  if (!v104)
+  {
+    v104 = glpLLVMConstIntCache(a1, *(a1 + 40), 3uLL, 0);
+    *(a1 + 544) = v104;
+  }
+
+  v364 = v104;
+  v105 = glpLLVMBuildGEP2(a1, v363, &v364, 1, "ptr_mat_3");
+  v106 = glpLLVMBuildLoad2(a1, v105, "mat_3");
+  v366 = v103;
+  v367 = v106;
+  v368 = v94;
+  v107 = glpLLVMGetTypeString(&v365, v48, v50);
+  v399 = 0u;
+  v400 = 0u;
+  v397 = 0u;
+  v398 = 0u;
+  v395 = 0u;
+  v396 = 0u;
+  v393 = 0u;
+  v394 = 0u;
+  v391 = 0u;
+  v392 = 0u;
+  v389 = 0u;
+  v390 = 0u;
+  v387 = 0u;
+  v388 = 0u;
+  v385 = 0u;
+  v386 = 0u;
+  v383 = 0u;
+  v384 = 0u;
+  v381 = 0u;
+  v382 = 0u;
+  v379 = 0u;
+  v380 = 0u;
+  v377 = 0u;
+  v378 = 0u;
+  v375 = 0u;
+  v376 = 0u;
+  v373 = 0u;
+  v374 = 0u;
+  v371 = 0u;
+  v372 = 0u;
+  v369 = 0u;
+  v370 = 0u;
+  snprintf_l(&v369, 0x200uLL, 0, "%s.%s", "air.fma", v107);
+  v401[0] = 0x300000001;
+  return glpLLVMCallFunction(a1, &v369, v79, &v366, 3, v401, 2);
 }
 
-uint64_t glpLLVMCGNegate(uint64_t a1, uint64_t a2)
+uint64_t glpLLVMCGNegate(void *a1, uint64_t a2)
 {
   glpLLVMAddLineInformation(a1, a2);
   Expr = glpUnaryOperatorNodeGetExpr(a2);
@@ -9024,7 +8995,7 @@ uint64_t glpLLVMCGNegate(uint64_t a1, uint64_t a2)
   return glpLLVMUnaryOperation(a1, v11, v5, "neg");
 }
 
-uint64_t glpLLVMCGLogicalNot(uint64_t a1, uint64_t a2)
+uint64_t glpLLVMCGLogicalNot(void *a1, uint64_t a2)
 {
   glpLLVMAddLineInformation(a1, a2);
   Expr = glpUnaryOperatorNodeGetExpr(a2);
@@ -9035,7 +9006,7 @@ uint64_t glpLLVMCGLogicalNot(uint64_t a1, uint64_t a2)
 
 uint64_t glpLLVMCGAssign(uint64_t a1, uint64_t a2)
 {
-  v80[2] = *MEMORY[0x277D85DE8];
+  v79[2] = *MEMORY[0x277D85DE8];
   glpLLVMAddLineInformation(a1, a2);
   Lhs = glpBinaryOperatorNodeGetLhs(a2);
   VariableExtra = glpLValueNodeGetVariableExtra(Lhs);
@@ -9055,8 +9026,8 @@ uint64_t glpLLVMCGAssign(uint64_t a1, uint64_t a2)
       v13 = glpPrecisionIndexFromSAFlags(*(v14 + 48));
     }
 
-    v79 = 0;
-    LODWORD(v77) = PrimitiveType;
+    v78 = 0;
+    LODWORD(v76) = PrimitiveType;
     if (Offset)
     {
       PreSwizzlePrimitiveType = glpOffsetNodeGetPreSwizzlePrimitiveType(Offset);
@@ -9077,9 +9048,9 @@ uint64_t glpLLVMCGAssign(uint64_t a1, uint64_t a2)
           *(a1 + 520) = v19;
         }
 
-        v80[0] = v19;
-        v80[1] = v18;
-        v10 = glpLLVMBuildGEP2(a1, v10, v80, 2, "offsetByBankIndex");
+        v79[0] = v19;
+        v79[1] = v18;
+        v10 = glpLLVMBuildGEP2(a1, v10, v79, 2, "offsetByBankIndex");
       }
 
       else
@@ -9094,7 +9065,7 @@ uint64_t glpLLVMCGAssign(uint64_t a1, uint64_t a2)
         if (*(*(VariableExtra + 144) + 24) && (PreSwizzlePrimitiveType & 0xFFFFFFFE) == 0x40)
         {
           v20 = v13;
-          v23 = &v79;
+          v23 = &v78;
           v24 = a1;
           v25 = VariableExtra;
           v26 = v10;
@@ -9130,59 +9101,59 @@ uint64_t glpLLVMCGAssign(uint64_t a1, uint64_t a2)
     v30 = glpPrecisionIndexFromSAFlags(v29);
     if (Offset)
     {
-      v78 = PreSwizzlePrimitiveType;
+      v77 = PreSwizzlePrimitiveType;
       VectorElementExpr = glpOffsetNodeGetVectorElementExpr(Offset);
       if (glpOffsetNodeGetSwizzle(Offset) || (inserted = v7, VectorElementExpr))
       {
-        v28 = v78;
+        v28 = v77;
         v30 = v20;
-        v33 = glpLLVMLoadVector(a1, VariableExtra, v10, v78, v20, *(*(VariableExtra + 144) + 24), *(*(VariableExtra + 144) + 28));
+        v33 = glpLLVMLoadVector(a1, VariableExtra, v10, v77, v20, *(*(VariableExtra + 144) + 24), *(*(VariableExtra + 144) + 28));
         v34 = v33;
         if (VectorElementExpr)
         {
-          v77 = v33;
+          v76 = v33;
           v35 = *(a1 + 40);
           v36 = glpLLVMCGNode(a1, VectorElementExpr, 1);
           v37 = glpASTNodeGetSaFlags(VectorElementExpr);
           v38 = glpPrecisionIndexFromSAFlags(v37);
           if (v38)
           {
-            v39 = v78;
+            v39 = v77;
             if (v38 == 3)
             {
-              v76 = v36;
+              v75 = v36;
             }
 
             else
             {
-              v76 = glpLLVMCastOperation(a1, 87, v36, v35, "mtc");
+              v75 = glpLLVMCastOperation(a1, 87, v36, v35, "mtc");
             }
           }
 
           else
           {
-            v76 = v36;
-            v39 = v78;
+            v75 = v36;
+            v39 = v77;
           }
 
           Swizzle = glpOffsetNodeGetSwizzle(Offset);
           if (Swizzle)
           {
             v42 = Swizzle;
-            v72 = v30;
-            v73 = v71;
-            v74 = v10;
+            v71 = v30;
+            v72 = v70;
+            v73 = v10;
             v43 = Swizzle & 7;
             MEMORY[0x28223BE20](Swizzle);
-            v75 = &v71[-v44];
-            bzero(&v71[-v44], v45);
+            v74 = &v70[-v44];
+            bzero(&v70[-v44], v45);
             v46 = v43;
             if (v43)
             {
               v47 = a1 + 520;
               v48 = 3;
               v49 = v43;
-              v50 = v75;
+              v50 = v74;
               do
               {
                 v51 = (v42 >> v48) & 3;
@@ -9201,26 +9172,26 @@ uint64_t glpLLVMCGAssign(uint64_t a1, uint64_t a2)
               while (v49);
             }
 
-            v53 = glpLLVMConstVectorCache(a1, v75, v46);
-            Element = glpLLVMBuildExtractElement(a1, v53, v76, "offv");
-            v10 = v74;
-            v30 = v72;
-            v39 = v78;
+            v53 = glpLLVMConstVectorCache(a1, v74, v46);
+            Element = glpLLVMBuildExtractElement(a1, v53, v75, "offv");
+            v10 = v73;
+            v30 = v71;
+            v39 = v77;
           }
 
           else
           {
-            Element = v76;
+            Element = v75;
           }
 
-          inserted = glpLLVMBuildInsertElement(a1, v77, v7, Element, "res");
+          inserted = glpLLVMBuildInsertElement(a1, v76, v7, Element, "res");
           v28 = v39;
         }
 
         else
         {
           v40 = glpOffsetNodeGetSwizzle(Offset);
-          inserted = glpCGSwizzle(a1, v34, v78, v7, v77, v40);
+          inserted = glpCGSwizzle(a1, v34, v77, v7, v76, v40);
         }
       }
     }
@@ -9300,116 +9271,110 @@ uint64_t glpLLVMCGAssign(uint64_t a1, uint64_t a2)
     glpLLVMBuildStore(a1, inserted, v10);
   }
 
-  v69 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
-uint64_t glpLLVMCGCommaExpr(uint64_t a1, uint64_t a2, int a3)
+uint64_t glpLLVMCGCommaExpr(void *a1, uint64_t a2, int a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   ExprCount = glpCommaExprNodeGetExprCount(a2);
-  if (ExprCount)
+  if (!ExprCount)
   {
-    v7 = ExprCount;
-    v8 = 0;
-    do
+    return 0;
+  }
+
+  v7 = ExprCount;
+  v8 = 0;
+  do
+  {
+    Expr = glpCommaExprNodeGetExpr(a2, v8);
+    memset(v23, 0, sizeof(v23));
+    v20 = 0;
+    v21 = 0;
+    memset(v22, 0, sizeof(v22));
+    if (Expr)
     {
-      Expr = glpCommaExprNodeGetExpr(a2, v8);
-      memset(v24, 0, sizeof(v24));
-      v21 = 0;
-      v22 = 0;
-      memset(v23, 0, sizeof(v23));
-      if (Expr)
+      v10 = 0;
+      v11 = v23;
+      while (1)
       {
-        v10 = 0;
-        v11 = v24;
-        while (1)
+        v12 = v10;
+        if (!glpIsComponentAssigment(Expr, &v21, &v20 + 1, &v20, v11, 0))
         {
-          v12 = v10;
-          if (!glpIsComponentAssigment(Expr, &v22, &v21 + 1, &v21, v11, 0))
+          v8 += v12;
+          if (!v12)
           {
-            v8 += v12;
-            if (!v12)
-            {
-              goto LABEL_11;
-            }
-
-            goto LABEL_20;
+            goto LABEL_11;
           }
 
-          *(v23 + v12) = Expr;
-          v13 = v8 + v12 + 1;
-          if (v13 >= v7)
-          {
-            break;
-          }
-
-          Expr = glpCommaExprNodeGetExpr(a2, v13);
-          if (Expr)
-          {
-            ++v11;
-            v10 = v12 + 1;
-            if (v12 < 7)
-            {
-              continue;
-            }
-          }
-
-          goto LABEL_19;
+          goto LABEL_20;
         }
 
-        Expr = 0;
+        *(v22 + v12) = Expr;
+        v13 = v8 + v12 + 1;
+        if (v13 >= v7)
+        {
+          break;
+        }
+
+        Expr = glpCommaExprNodeGetExpr(a2, v13);
+        if (Expr)
+        {
+          ++v11;
+          v10 = v12 + 1;
+          if (v12 < 7)
+          {
+            continue;
+          }
+        }
+
+        goto LABEL_19;
+      }
+
+      Expr = 0;
 LABEL_19:
-        v17 = v8 + v12++;
-        v8 = v17 + 1;
-        if (!v12)
-        {
-          goto LABEL_11;
-        }
+      v17 = v8 + v12++;
+      v8 = v17 + 1;
+      if (!v12)
+      {
+        goto LABEL_11;
+      }
 
 LABEL_20:
-        if (a3)
-        {
-          v18 = v8 == v7;
-        }
-
-        else
-        {
-          v18 = 0;
-        }
-
-        v19 = v18;
-        result = glpProcessComponentWiseVectorAssignment(a1, v22, v21, v23, v24, v19, v12);
+      if (a3)
+      {
+        v18 = v8 == v7;
       }
 
       else
       {
-LABEL_11:
-        ++v8;
-        if (a3)
-        {
-          v14 = v8 == v7;
-        }
-
-        else
-        {
-          v14 = 0;
-        }
-
-        v15 = v14;
-        result = glpLLVMCGNode(a1, Expr, v15);
+        v18 = 0;
       }
+
+      v19 = v18;
+      result = glpProcessComponentWiseVectorAssignment(a1, v21, v20, v22, v23, v19, v12);
     }
 
-    while (v8 < v7);
+    else
+    {
+LABEL_11:
+      ++v8;
+      if (a3)
+      {
+        v14 = v8 == v7;
+      }
+
+      else
+      {
+        v14 = 0;
+      }
+
+      v15 = v14;
+      result = glpLLVMCGNode(a1, Expr, v15);
+    }
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v20 = *MEMORY[0x277D85DE8];
+  while (v8 < v7);
   return result;
 }
 
@@ -9430,7 +9395,7 @@ uint64_t glpLLVMCGParameterDeclaration(uint64_t a1, uint64_t a2)
 
 uint64_t glpLLVMCGFunctionPrototype(uint64_t a1, uint64_t a2)
 {
-  v382 = *MEMORY[0x277D85DE8];
+  v381 = *MEMORY[0x277D85DE8];
   Name = glpFunctionPrototypeNodeGetName(a2);
   v6 = glpStringsEqual(Name, v5, "main", 0x83863A00000004);
   Extra = glpFunctionPrototypeNodeGetExtra(a2);
@@ -9460,7 +9425,7 @@ uint64_t glpLLVMCGFunctionPrototype(uint64_t a1, uint64_t a2)
   v13 = *(a1 + 676);
   if (v13 >= 1)
   {
-    LODWORD(v340) = v6;
+    LODWORD(v339) = v6;
     v14 = 0;
     v15 = 0;
     v16 = 0;
@@ -9510,7 +9475,7 @@ LABEL_23:
         *(a1 + 804) = 0;
         if (v16)
         {
-          v6 = v340;
+          v6 = v339;
           if (v18 == -1)
           {
             *(a1 + 804) = 1;
@@ -9522,7 +9487,7 @@ LABEL_23:
 
         else
         {
-          v6 = v340;
+          v6 = v339;
         }
 
         if ((~*(a1 + 832) & 3) == 0)
@@ -9608,7 +9573,7 @@ LABEL_40:
   }
 
   v28 = v15;
-  v340 = *(Extra + 152);
+  v339 = *(Extra + 152);
   v29 = v6;
   if ((v26 & 4) != 0)
   {
@@ -9625,10 +9590,10 @@ LABEL_40:
   v34 = (v31 & 2) == 0 || v30 < 1;
   v35 = (v31 & 1) == 0;
   v36 = (v31 & 1) == 0 || v34;
-  LODWORD(v342) = v36;
+  LODWORD(v341) = v36;
   v37 = !v35 && !v34;
-  LODWORD(v341) = v37;
-  v347 = v27;
+  LODWORD(v340) = v37;
+  v346 = v27;
   if ((v26 & 8) != 0)
   {
     v38 = *(a1 + 596);
@@ -9639,35 +9604,35 @@ LABEL_40:
     v38 = 0;
   }
 
-  LODWORD(v344) = v25 + v28;
-  LODWORD(v346) = v26 & 1;
+  LODWORD(v343) = v25 + v28;
+  LODWORD(v345) = v26 & 1;
   v40 = *(Extra + 40);
   v39 = *(Extra + 48);
   v41 = glpStringHashGet(*(a1 + 736), v40, v39);
   v42 = v25;
   v43 = v41;
   v44 = v38;
-  v345 = v38;
+  v344 = v38;
   v45 = v32;
-  v343 = v32;
+  v342 = v32;
   v46 = v29;
   if (v41)
   {
     if (!v29)
     {
-      goto LABEL_518;
+      return v43;
     }
 
 LABEL_174:
-    v337 = &v334;
-    v143 = v347;
+    v336 = &v333;
+    v143 = v346;
     v144 = v44;
-    LODWORD(v336) = v346 + v344 + v347 + v45 + v341 + 2 * v44;
-    v145 = 8 * (v336 + 1);
+    LODWORD(v335) = v345 + v343 + v346 + v45 + v340 + 2 * v44;
+    v145 = 8 * (v335 + 1);
     MEMORY[0x28223BE20](v41);
-    v147 = (&v334 - v146);
-    bzero(&v334 - v146, v145);
-    v344 = v147;
+    v147 = (&v333 - v146);
+    bzero(&v333 - v146, v145);
+    v343 = v147;
     bzero(v147, v145);
     v148 = *(a1 + 676);
     v149 = *(a1 + 832);
@@ -9697,12 +9662,12 @@ LABEL_174:
       v152 = "air.location";
     }
 
-    v341 = v152;
-    v346 = v43;
+    v340 = v152;
+    v345 = v43;
     if (v148 >= 1)
     {
-      v339 = v151;
-      v340 = v150;
+      v338 = v151;
+      v339 = v150;
       v153 = 0;
       v154 = 0;
       v155 = 0;
@@ -9732,11 +9697,11 @@ LABEL_174:
           }
 
           v167 = 0;
-          *(&v353[3] + 1) = 0;
-          *(&v353[2] + 8) = 0u;
-          *(&v353[1] + 8) = 0u;
-          *(v353 + 8) = 0u;
-          *&v353[0] = v162;
+          *(&v352[3] + 1) = 0;
+          *(&v352[2] + 8) = 0u;
+          *(&v352[1] + 8) = 0u;
+          *(v352 + 8) = 0u;
+          *&v352[0] = v162;
           switch(*(v161 + 4))
           {
             case 1:
@@ -9745,14 +9710,14 @@ LABEL_174:
               goto LABEL_243;
             case 2:
               v191 = glpLayoutObjectFind(*(v158 + 8), 41);
-              *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.geometry_input");
+              *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.geometry_input");
               v188 = *(v191 + 4) == 0;
               v189 = "user(back_color)";
               v190 = "user(front_color)";
               goto LABEL_236;
             case 3:
               v187 = glpLayoutObjectFind(*(v158 + 8), 42);
-              *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.geometry_input");
+              *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.geometry_input");
               v188 = *(v187 + 4) == 0;
               v189 = "user(sec_back_color";
               v190 = "user(sec_front_color)";
@@ -9774,7 +9739,7 @@ LABEL_236:
               goto LABEL_243;
             case 0xE:
               v181 = glpLayoutObjectFind(*(v158 + 8), 43);
-              *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.clip_distance");
+              *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.clip_distance");
               v182 = *(v181 + 4);
               if (v182 > 7)
               {
@@ -9820,17 +9785,17 @@ LABEL_236:
               v168 = a1;
               v169 = "air.patch_vertices_in";
 LABEL_243:
-              *(&v353[0] + 1) = glpLLVMStringMetadata(v168, v169);
-              v193 = v353;
+              *(&v352[0] + 1) = glpLLVMStringMetadata(v168, v169);
+              v193 = v352;
               v194 = a1;
               v195 = 2;
               goto LABEL_317;
             case 0x1C:
               v184 = glpLayoutObjectFind(*(v158 + 8), 35);
-              *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.geometry_input");
+              *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.geometry_input");
               if ((*(a1 + 832) & 1) == 0)
               {
-                *&v353[1] = glpLLVMStringMetadata(a1, "air.location");
+                *&v352[1] = glpLLVMStringMetadata(a1, "air.location");
                 v185 = *(v184 + 4);
                 if (v185 > 7)
                 {
@@ -9847,38 +9812,38 @@ LABEL_243:
                   }
                 }
 
-                *(&v353[1] + 1) = v186;
-                v193 = v353;
+                *(&v352[1] + 1) = v186;
+                v193 = v352;
                 goto LABEL_301;
               }
 
-              memset(v348, 0, 32);
+              memset(v347, 0, 32);
               v211 = *(v184 + 4);
               v212 = glpLayoutObjectFind(*(v158 + 8), 38);
               if (v212 && *(v212 + 4) || (v211 & 0xFFFFFFF8) != 8)
               {
                 if ((*(v158 + 53) & 2) != 0)
                 {
-                  snprintf(v348, 0x1FuLL, "user(patch%u)");
+                  snprintf(v347, 0x1FuLL, "user(patch%u)");
                 }
 
                 else
                 {
-                  snprintf(v348, 0x1FuLL, "user(slot%u)");
+                  snprintf(v347, 0x1FuLL, "user(slot%u)");
                 }
               }
 
               else
               {
-                snprintf(v348, 0x1FuLL, "user(tex_coord%u)");
+                snprintf(v347, 0x1FuLL, "user(tex_coord%u)");
               }
 
-              v192 = v348;
+              v192 = v347;
 LABEL_315:
               v183 = glpLLVMStringMetadata(a1, v192);
 LABEL_316:
-              *&v353[1] = v183;
-              v193 = v353;
+              *&v352[1] = v183;
+              v193 = v352;
               v194 = a1;
               v195 = 3;
               break;
@@ -9896,39 +9861,39 @@ LABEL_316:
           {
             v170 = glpLayoutObjectFind(*(v158 + 8), 34);
             v171 = glpPrecisionIndexFromSAFlags(*(v158 + 48));
-            v380 = 0u;
-            v381 = 0u;
-            v378 = 0u;
             v379 = 0u;
-            v376 = 0u;
+            v380 = 0u;
             v377 = 0u;
-            v374 = 0u;
+            v378 = 0u;
             v375 = 0u;
-            v372 = 0u;
+            v376 = 0u;
             v373 = 0u;
-            v370 = 0u;
+            v374 = 0u;
             v371 = 0u;
-            v368 = 0u;
+            v372 = 0u;
             v369 = 0u;
-            v366 = 0u;
+            v370 = 0u;
             v367 = 0u;
-            v364 = 0u;
+            v368 = 0u;
             v365 = 0u;
-            v362 = 0u;
+            v366 = 0u;
             v363 = 0u;
-            v360 = 0u;
+            v364 = 0u;
             v361 = 0u;
-            v358 = 0u;
+            v362 = 0u;
             v359 = 0u;
-            v356 = 0u;
+            v360 = 0u;
             v357 = 0u;
-            v354 = 0u;
+            v358 = 0u;
             v355 = 0u;
-            memset(v353, 0, sizeof(v353));
-            glpMetalGetArgTypeNameFromASTType(v353, *v158, v171, 0);
-            *&v350 = 0;
-            v349 = 0u;
-            memset(&v348[1], 0, 32);
+            v356 = 0u;
+            v353 = 0u;
+            v354 = 0u;
+            memset(v352, 0, sizeof(v352));
+            glpMetalGetArgTypeNameFromASTType(v352, *v158, v171, 0);
+            *&v349 = 0;
+            v348 = 0u;
+            memset(&v347[1], 0, 32);
             if (v154 > 7)
             {
               v172 = glpLLVMConstIntCache(a1, *(a1 + 40), v154, 1);
@@ -9945,7 +9910,7 @@ LABEL_316:
             }
 
             v167 = 0;
-            v348[0] = v172;
+            v347[0] = v172;
             v176 = *(v170 + 4);
             if (v176 > 13)
             {
@@ -9962,7 +9927,7 @@ LABEL_316:
                 {
                   if (v176 == 28)
                   {
-                    v338 = v155;
+                    v337 = v155;
                     v196 = glpLayoutObjectFind(*(v158 + 8), 35);
                     v197 = *(v158 + 48);
                     v198 = "air.perspective";
@@ -9976,7 +9941,7 @@ LABEL_316:
                       v198 = "air.flat";
                     }
 
-                    v335 = v198;
+                    v334 = v198;
                     v199 = "air.center";
                     if ((v197 & 0x1000000000) == 0)
                     {
@@ -10001,11 +9966,11 @@ LABEL_316:
                       }
                     }
 
-                    v348[1] = glpLLVMStringMetadata(a1, "air.fragment_input");
+                    v347[1] = glpLLVMStringMetadata(a1, "air.fragment_input");
                     if (*(a1 + 832))
                     {
+                      v350 = 0u;
                       v351 = 0u;
-                      v352 = 0u;
                       v222 = *(v196 + 4);
                       v223 = glpLayoutObjectFind(*(v158 + 8), 38);
                       if (v223)
@@ -10020,37 +9985,37 @@ LABEL_316:
 
                       if (v224 && (v222 & 0xFFFFFFF8) == 8)
                       {
-                        snprintf(&v351, 0x1FuLL, "user(tex_coord%u)");
+                        snprintf(&v350, 0x1FuLL, "user(tex_coord%u)");
                       }
 
                       else
                       {
-                        snprintf(&v351, 0x1FuLL, "user(slot%u)");
+                        snprintf(&v350, 0x1FuLL, "user(slot%u)");
                       }
 
-                      v348[2] = glpLLVMStringMetadata(a1, &v351);
-                      v348[3] = glpLLVMStringMetadata(a1, v335);
-                      v348[4] = glpLLVMStringMetadata(a1, v199);
-                      *&v349 = glpLLVMStringMetadata(a1, "air.arg_type_name");
-                      *(&v349 + 1) = glpLLVMStringMetadata(a1, v353);
+                      v347[2] = glpLLVMStringMetadata(a1, &v350);
+                      v347[3] = glpLLVMStringMetadata(a1, v334);
+                      v347[4] = glpLLVMStringMetadata(a1, v199);
+                      *&v348 = glpLLVMStringMetadata(a1, "air.arg_type_name");
+                      *(&v348 + 1) = glpLLVMStringMetadata(a1, v352);
                       v225 = a1;
                       v226 = 7;
                     }
 
                     else
                     {
-                      v348[2] = glpLLVMStringMetadata(a1, "air.location");
+                      v347[2] = glpLLVMStringMetadata(a1, "air.location");
                       v201 = *(v196 + 4);
                       if (v201 > 7)
                       {
                         v202 = glpLLVMConstIntCache(a1, *(a1 + 40), v201, 1);
-                        v203 = v335;
+                        v203 = v334;
                       }
 
                       else
                       {
                         v202 = *(v156 + 8 * v201);
-                        v203 = v335;
+                        v203 = v334;
                         if (!v202)
                         {
                           v202 = glpLLVMConstIntCache(a1, *(a1 + 40), v201, 0);
@@ -10058,17 +10023,17 @@ LABEL_316:
                         }
                       }
 
-                      v348[3] = v202;
-                      v348[4] = glpLLVMStringMetadata(a1, v203);
-                      *&v349 = glpLLVMStringMetadata(a1, v199);
-                      *(&v349 + 1) = glpLLVMStringMetadata(a1, "air.arg_type_name");
-                      *&v350 = glpLLVMStringMetadata(a1, v353);
+                      v347[3] = v202;
+                      v347[4] = glpLLVMStringMetadata(a1, v203);
+                      *&v348 = glpLLVMStringMetadata(a1, v199);
+                      *(&v348 + 1) = glpLLVMStringMetadata(a1, "air.arg_type_name");
+                      *&v349 = glpLLVMStringMetadata(a1, v352);
                       v225 = a1;
                       v226 = 8;
                     }
 
-                    v167 = glpLLVMMDNodeInContext(v225, v348, v226);
-                    v155 = v338;
+                    v167 = glpLLVMMDNodeInContext(v225, v347, v226);
+                    v155 = v337;
                   }
 
                   goto LABEL_318;
@@ -10095,10 +10060,10 @@ LABEL_316:
                     v177 = a1;
                     v178 = "air.sample_mask_in";
 LABEL_300:
-                    v348[1] = glpLLVMStringMetadata(v177, v178);
-                    v348[2] = glpLLVMStringMetadata(a1, "air.arg_type_name");
-                    v348[3] = glpLLVMStringMetadata(a1, v353);
-                    v193 = v348;
+                    v347[1] = glpLLVMStringMetadata(v177, v178);
+                    v347[2] = glpLLVMStringMetadata(a1, "air.arg_type_name");
+                    v347[3] = glpLLVMStringMetadata(a1, v352);
+                    v193 = v347;
 LABEL_301:
                     v194 = a1;
                     v195 = 4;
@@ -10107,7 +10072,7 @@ LABEL_317:
                   }
 
 LABEL_318:
-                  v344[v154++] = v167;
+                  v343[v154++] = v167;
                   goto LABEL_319;
                 }
 
@@ -10116,7 +10081,7 @@ LABEL_318:
                 v216 = "air.clip_distance";
               }
 
-              v348[1] = glpLLVMStringMetadata(v215, v216);
+              v347[1] = glpLLVMStringMetadata(v215, v216);
               v217 = *(v214 + 4);
               if (v217 > 7)
               {
@@ -10133,10 +10098,10 @@ LABEL_318:
                 }
               }
 
-              v348[2] = v218;
-              v348[3] = glpLLVMStringMetadata(a1, "air.arg_type_name");
-              v348[4] = glpLLVMStringMetadata(a1, v353);
-              v193 = v348;
+              v347[2] = v218;
+              v347[3] = glpLLVMStringMetadata(a1, "air.arg_type_name");
+              v347[4] = glpLLVMStringMetadata(a1, v352);
+              v193 = v347;
               v194 = a1;
               v195 = 5;
               goto LABEL_317;
@@ -10146,12 +10111,12 @@ LABEL_318:
             {
               if (v176 == 1)
               {
-                v348[1] = glpLLVMStringMetadata(a1, "air.position");
-                v348[2] = glpLLVMStringMetadata(a1, "air.center");
-                v348[3] = glpLLVMStringMetadata(a1, "air.perspective");
-                v348[4] = glpLLVMStringMetadata(a1, "air.arg_type_name");
-                *&v349 = glpLLVMStringMetadata(a1, v353);
-                v193 = v348;
+                v347[1] = glpLLVMStringMetadata(a1, "air.position");
+                v347[2] = glpLLVMStringMetadata(a1, "air.center");
+                v347[3] = glpLLVMStringMetadata(a1, "air.perspective");
+                v347[4] = glpLLVMStringMetadata(a1, "air.arg_type_name");
+                *&v348 = glpLLVMStringMetadata(a1, v352);
+                v193 = v347;
                 v194 = a1;
                 v195 = 6;
                 goto LABEL_317;
@@ -10196,7 +10161,7 @@ LABEL_318:
             if ((v164 & 1) == 0)
             {
               v165 = glpLayoutObjectFind(*(v158 + 8), 35);
-              *(&v353[1] + 1) = 0;
+              *(&v352[1] + 1) = 0;
               if (v154 > 7)
               {
                 v166 = glpLLVMConstIntCache(a1, *(a1 + 40), v154, 1);
@@ -10212,9 +10177,9 @@ LABEL_318:
                 }
               }
 
-              *&v353[0] = v166;
-              *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.vertex_input");
-              *&v353[1] = glpLLVMStringMetadata(a1, v341);
+              *&v352[0] = v166;
+              *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.vertex_input");
+              *&v352[1] = glpLLVMStringMetadata(a1, v340);
               v204 = *(v165 + 4);
               if (v204 > 7)
               {
@@ -10231,48 +10196,48 @@ LABEL_318:
                 }
               }
 
-              *(&v353[1] + 1) = v205;
-              v207 = v353;
+              *(&v352[1] + 1) = v205;
+              v207 = v352;
               goto LABEL_307;
             }
 
             v179 = glpPrecisionIndexFromSAFlags(*(v158 + 48));
-            v380 = 0u;
-            v381 = 0u;
-            v378 = 0u;
             v379 = 0u;
-            v376 = 0u;
+            v380 = 0u;
             v377 = 0u;
-            v374 = 0u;
+            v378 = 0u;
             v375 = 0u;
-            v372 = 0u;
+            v376 = 0u;
             v373 = 0u;
-            v370 = 0u;
+            v374 = 0u;
             v371 = 0u;
-            v368 = 0u;
+            v372 = 0u;
             v369 = 0u;
-            v366 = 0u;
+            v370 = 0u;
             v367 = 0u;
-            v364 = 0u;
+            v368 = 0u;
             v365 = 0u;
-            v362 = 0u;
+            v366 = 0u;
             v363 = 0u;
-            v360 = 0u;
+            v364 = 0u;
             v361 = 0u;
-            v358 = 0u;
+            v362 = 0u;
             v359 = 0u;
-            v356 = 0u;
+            v360 = 0u;
             v357 = 0u;
-            v354 = 0u;
+            v358 = 0u;
             v355 = 0u;
-            memset(v353, 0, sizeof(v353));
-            glpMetalGetArgTypeNameFromASTType(v353, *v158, v179, 0);
-            v351 = 0u;
-            v352 = 0u;
-            snprintf(&v351, 0x1FuLL, "attrib%d", v155);
+            v356 = 0u;
+            v353 = 0u;
+            v354 = 0u;
+            memset(v352, 0, sizeof(v352));
+            glpMetalGetArgTypeNameFromASTType(v352, *v158, v179, 0);
             v350 = 0u;
+            v351 = 0u;
+            snprintf(&v350, 0x1FuLL, "attrib%d", v155);
             v349 = 0u;
-            *&v348[3] = 0u;
+            v348 = 0u;
+            *&v347[3] = 0u;
             if (v154 > 7)
             {
               v180 = glpLLVMConstIntCache(a1, *(a1 + 40), v154, 1);
@@ -10288,9 +10253,9 @@ LABEL_318:
               }
             }
 
-            v348[0] = v180;
-            v348[1] = glpLLVMStringMetadata(a1, "air.vertex_input");
-            v348[2] = glpLLVMStringMetadata(a1, v341);
+            v347[0] = v180;
+            v347[1] = glpLLVMStringMetadata(a1, "air.vertex_input");
+            v347[2] = glpLLVMStringMetadata(a1, v340);
             if (v155 > 7)
             {
               v206 = glpLLVMConstIntCache(a1, *(a1 + 40), v155, 1);
@@ -10306,7 +10271,7 @@ LABEL_318:
               }
             }
 
-            v348[3] = v206;
+            v347[3] = v206;
             v208 = *(a1 + 528);
             if (!v208)
             {
@@ -10314,13 +10279,13 @@ LABEL_318:
               *(a1 + 528) = v208;
             }
 
-            v348[4] = v208;
-            *&v349 = glpLLVMStringMetadata(a1, "air.arg_type_name");
-            *(&v349 + 1) = glpLLVMStringMetadata(a1, v353);
-            *&v350 = glpLLVMStringMetadata(a1, "air.arg_name");
-            *(&v350 + 1) = glpLLVMStringMetadata(a1, &v351);
-            v209 = glpLLVMMDNodeInContext(a1, v348, 9);
-            v344[v154] = v209;
+            v347[4] = v208;
+            *&v348 = glpLLVMStringMetadata(a1, "air.arg_type_name");
+            *(&v348 + 1) = glpLLVMStringMetadata(a1, v352);
+            *&v349 = glpLLVMStringMetadata(a1, "air.arg_name");
+            *(&v349 + 1) = glpLLVMStringMetadata(a1, &v350);
+            v209 = glpLLVMMDNodeInContext(a1, v347, 9);
+            v343[v154] = v209;
             v210 = v154 + 1;
             v155 = (v155 + 1);
 LABEL_308:
@@ -10331,36 +10296,36 @@ LABEL_308:
           if (v164)
           {
             v173 = glpPrecisionIndexFromSAFlags(*(v158 + 48));
-            v380 = 0u;
-            v381 = 0u;
-            v378 = 0u;
             v379 = 0u;
-            v376 = 0u;
+            v380 = 0u;
             v377 = 0u;
-            v374 = 0u;
+            v378 = 0u;
             v375 = 0u;
-            v372 = 0u;
+            v376 = 0u;
             v373 = 0u;
-            v370 = 0u;
+            v374 = 0u;
             v371 = 0u;
-            v368 = 0u;
+            v372 = 0u;
             v369 = 0u;
-            v366 = 0u;
+            v370 = 0u;
             v367 = 0u;
-            v364 = 0u;
+            v368 = 0u;
             v365 = 0u;
-            v362 = 0u;
+            v366 = 0u;
             v363 = 0u;
-            v360 = 0u;
+            v364 = 0u;
             v361 = 0u;
-            v358 = 0u;
+            v362 = 0u;
             v359 = 0u;
-            v356 = 0u;
+            v360 = 0u;
             v357 = 0u;
-            v354 = 0u;
+            v358 = 0u;
             v355 = 0u;
-            memset(v353, 0, sizeof(v353));
-            glpMetalGetArgTypeNameFromASTType(v353, *v158, v173, 1);
+            v356 = 0u;
+            v353 = 0u;
+            v354 = 0u;
+            memset(v352, 0, sizeof(v352));
+            glpMetalGetArgTypeNameFromASTType(v352, *v158, v173, 1);
             v174 = *(v163 + 4);
             if (v174 == 18)
             {
@@ -10379,17 +10344,17 @@ LABEL_308:
                 }
               }
 
-              v348[0] = v213;
+              v347[0] = v213;
               v219 = a1;
-              v220 = v339;
+              v220 = v338;
 LABEL_306:
-              v348[1] = glpLLVMStringMetadata(v219, v220);
-              v348[2] = glpLLVMStringMetadata(a1, "air.arg_type_name");
-              v348[3] = glpLLVMStringMetadata(a1, v353);
-              v207 = v348;
+              v347[1] = glpLLVMStringMetadata(v219, v220);
+              v347[2] = glpLLVMStringMetadata(a1, "air.arg_type_name");
+              v347[3] = glpLLVMStringMetadata(a1, v352);
+              v207 = v347;
 LABEL_307:
               v221 = glpLLVMMDNodeInContext(a1, v207, 4);
-              v344[v154] = v221;
+              v343[v154] = v221;
               v210 = v154 + 1;
               goto LABEL_308;
             }
@@ -10411,9 +10376,9 @@ LABEL_307:
                 }
               }
 
-              v348[0] = v175;
+              v347[0] = v175;
               v219 = a1;
-              v220 = v340;
+              v220 = v339;
               goto LABEL_306;
             }
           }
@@ -10428,18 +10393,18 @@ LABEL_319:
             if (v154 > 7)
             {
               v227 = glpLLVMConstIntCache(a1, *(a1 + 40), v154, 1);
-              v144 = v345;
-              v43 = v346;
-              v45 = v343;
-              v143 = v347;
+              v144 = v344;
+              v43 = v345;
+              v45 = v342;
+              v143 = v346;
             }
 
             else
             {
-              v144 = v345;
-              v43 = v346;
-              v45 = v343;
-              v143 = v347;
+              v144 = v344;
+              v43 = v345;
+              v45 = v342;
+              v143 = v346;
 LABEL_337:
               v227 = *(a1 + 520 + 8 * v154);
               if (!v227)
@@ -10449,18 +10414,18 @@ LABEL_337:
               }
             }
 
-            *&v353[0] = v227;
-            *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.sample_id");
-            v228 = glpLLVMMDNodeInContext(a1, v353, 2);
-            v344[v154++] = v228;
+            *&v352[0] = v227;
+            *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.sample_id");
+            v228 = glpLLVMMDNodeInContext(a1, v352, 2);
+            v343[v154++] = v228;
           }
 
           else
           {
-            v144 = v345;
-            v43 = v346;
-            v45 = v343;
-            v143 = v347;
+            v144 = v344;
+            v43 = v345;
+            v45 = v342;
+            v143 = v346;
           }
 
           if (*(a1 + 812))
@@ -10480,12 +10445,12 @@ LABEL_347:
             }
 
 LABEL_349:
-            *&v353[0] = v229;
-            *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.vertex_id");
-            *&v353[1] = glpLLVMStringMetadata(a1, "air.arg_type_name");
-            *(&v353[1] + 1) = glpLLVMStringMetadata(a1, "uint");
-            v230 = glpLLVMMDNodeInContext(a1, v353, 4);
-            v344[v154++] = v230;
+            *&v352[0] = v229;
+            *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.vertex_id");
+            *&v352[1] = glpLLVMStringMetadata(a1, "air.arg_type_name");
+            *(&v352[1] + 1) = glpLLVMStringMetadata(a1, "uint");
+            v230 = glpLLVMMDNodeInContext(a1, v352, 4);
+            v343[v154++] = v230;
           }
 
           if (*(a1 + 820))
@@ -10506,12 +10471,12 @@ LABEL_352:
               }
             }
 
-            *&v353[0] = v231;
-            *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.instance_id");
-            *&v353[1] = glpLLVMStringMetadata(a1, "air.arg_type_name");
-            *(&v353[1] + 1) = glpLLVMStringMetadata(a1, "uint");
-            v232 = glpLLVMMDNodeInContext(a1, v353, 4);
-            v344[v154++] = v232;
+            *&v352[0] = v231;
+            *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.instance_id");
+            *&v352[1] = glpLLVMStringMetadata(a1, "air.arg_type_name");
+            *(&v352[1] + 1) = glpLLVMStringMetadata(a1, "uint");
+            v232 = glpLLVMMDNodeInContext(a1, v352, 4);
+            v343[v154++] = v232;
           }
 
           goto LABEL_356;
@@ -10546,7 +10511,7 @@ LABEL_356:
       {
         v234 = 0;
         v235 = 8 * v233;
-        v236 = &v344[v154];
+        v236 = &v343[v154];
         do
         {
           v236[v234 / 8] = glpLLVMVertexGeometryMetadata(a1, *(*(a1 + 696) + v234), v154);
@@ -10563,9 +10528,9 @@ LABEL_356:
     v239 = 4 * glpLinkedProgramGetSubroutineUniformLocationCount(*(a1 + 136), *(a1 + 320)) + 16 * DefaultUniformLocationCount;
     if (v237)
     {
-      *(&v353[3] + 1) = 0;
-      *(&v353[2] + 8) = 0u;
-      *(&v353[1] + 8) = 0u;
+      *(&v352[3] + 1) = 0;
+      *(&v352[2] + 8) = 0u;
+      *(&v352[1] + 8) = 0u;
       if (v154 > 7)
       {
         v241 = glpLLVMConstIntCache(a1, *(a1 + 40), v154, 1);
@@ -10581,9 +10546,9 @@ LABEL_356:
         }
       }
 
-      *&v353[0] = v241;
-      *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.buffer");
-      *&v353[1] = glpLLVMStringMetadata(a1, "air.buffer_size");
+      *&v352[0] = v241;
+      *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.buffer");
+      *&v352[1] = glpLLVMStringMetadata(a1, "air.buffer_size");
       if (v239 > 7)
       {
         v243 = glpLLVMConstIntCache(a1, *(a1 + 40), v239, 1);
@@ -10599,9 +10564,9 @@ LABEL_356:
         }
       }
 
-      *(&v353[1] + 1) = v243;
-      *&v353[2] = glpLLVMStringMetadata(a1, "air.location_index");
-      *(&v353[2] + 1) = glpLLVMConstIntCache(a1, *(a1 + 40), 0xCuLL, 1);
+      *(&v352[1] + 1) = v243;
+      *&v352[2] = glpLLVMStringMetadata(a1, "air.location_index");
+      *(&v352[2] + 1) = glpLLVMConstIntCache(a1, *(a1 + 40), 0xCuLL, 1);
       v246 = *(a1 + 528);
       if (!v246)
       {
@@ -10609,15 +10574,15 @@ LABEL_356:
         *(a1 + 528) = v246;
       }
 
-      *&v353[3] = v246;
-      *(&v353[3] + 1) = glpLLVMStringMetadata(a1, "air.read");
+      *&v352[3] = v246;
+      *(&v352[3] + 1) = glpLLVMStringMetadata(a1, "air.read");
       v244 = a1;
       v245 = 8;
     }
 
     else
     {
-      *(&v353[1] + 1) = 0;
+      *(&v352[1] + 1) = 0;
       if (v154 > 7)
       {
         v240 = glpLLVMConstIntCache(a1, *(a1 + 40), v154, 1);
@@ -10633,9 +10598,9 @@ LABEL_356:
         }
       }
 
-      *&v353[0] = v240;
-      *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.default_uniform");
-      *&v353[1] = glpLLVMStringMetadata(a1, "air.buffer_size");
+      *&v352[0] = v240;
+      *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.default_uniform");
+      *&v352[1] = glpLLVMStringMetadata(a1, "air.buffer_size");
       if (v239 > 7)
       {
         v242 = glpLLVMConstIntCache(a1, *(a1 + 40), v239, 1);
@@ -10651,13 +10616,13 @@ LABEL_356:
         }
       }
 
-      *(&v353[1] + 1) = v242;
+      *(&v352[1] + 1) = v242;
       v244 = a1;
       v245 = 4;
     }
 
-    v247 = glpLLVMMDNodeInContext(v244, v353, v245);
-    v344[v154] = v247;
+    v247 = glpLLVMMDNodeInContext(v244, v352, v245);
+    v343[v154] = v247;
     if (*(a1 + 832))
     {
       *(a1 + 824) = v143;
@@ -10669,10 +10634,10 @@ LABEL_419:
         {
           v268 = 0;
           v269 = v45;
-          v270 = &v344[v249];
+          v270 = &v343[v249];
           v271 = a1 + 520;
-          v347 = a1 + 520 + 8 * v249;
-          v341 = v249;
+          v346 = a1 + 520 + 8 * v249;
+          v340 = v249;
           v272 = v249;
           do
           {
@@ -10680,8 +10645,8 @@ LABEL_419:
             v274 = *(*(a1 + 728) + 8 * v268);
             if (*(a1 + 832))
             {
-              *(&v353[1] + 1) = 0;
-              v353[2] = 0uLL;
+              *(&v352[1] + 1) = 0;
+              v352[2] = 0uLL;
               if (v273 > 7)
               {
                 v276 = glpLLVMConstIntCache(a1, *(a1 + 40), v273, 1);
@@ -10689,17 +10654,17 @@ LABEL_419:
 
               else
               {
-                v276 = *(v347 + 8 * v268);
+                v276 = *(v346 + 8 * v268);
                 if (!v276)
                 {
                   v276 = glpLLVMConstIntCache(a1, *(a1 + 40), v273, 0);
-                  *(v347 + 8 * v268) = v276;
+                  *(v346 + 8 * v268) = v276;
                 }
               }
 
-              *&v353[0] = v276;
-              *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.buffer");
-              *&v353[1] = glpLLVMStringMetadata(a1, "air.location_index");
+              *&v352[0] = v276;
+              *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.buffer");
+              *&v352[1] = glpLLVMStringMetadata(a1, "air.location_index");
               v279 = *v274;
               v280 = v279 + 32;
               if ((v279 + 32) > 7)
@@ -10718,7 +10683,7 @@ LABEL_419:
                 }
               }
 
-              *(&v353[1] + 1) = v281;
+              *(&v352[1] + 1) = v281;
               v285 = *(a1 + 528);
               if (!v285)
               {
@@ -10726,17 +10691,17 @@ LABEL_419:
                 *(a1 + 528) = v285;
               }
 
-              *&v353[2] = v285;
-              *(&v353[2] + 1) = glpLLVMStringMetadata(a1, "air.write");
+              *&v352[2] = v285;
+              *(&v352[2] + 1) = glpLLVMStringMetadata(a1, "air.write");
               v286 = a1;
               v287 = 6;
             }
 
             else
             {
-              *(&v353[3] + 1) = 0;
-              *(&v353[2] + 8) = 0u;
-              *(&v353[1] + 8) = 0u;
+              *(&v352[3] + 1) = 0;
+              *(&v352[2] + 8) = 0u;
+              *(&v352[1] + 8) = 0u;
               if (v273 > 7)
               {
                 v275 = glpLLVMConstIntCache(a1, *(a1 + 40), v273, 1);
@@ -10744,17 +10709,17 @@ LABEL_419:
 
               else
               {
-                v275 = *(v347 + 8 * v268);
+                v275 = *(v346 + 8 * v268);
                 if (!v275)
                 {
                   v275 = glpLLVMConstIntCache(a1, *(a1 + 40), v273, 0);
-                  *(v347 + 8 * v268) = v275;
+                  *(v346 + 8 * v268) = v275;
                 }
               }
 
-              *&v353[0] = v275;
-              *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.vertex_transform_feedback");
-              *&v353[1] = glpLLVMStringMetadata(a1, "air.binding");
+              *&v352[0] = v275;
+              *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.vertex_transform_feedback");
+              *&v352[1] = glpLLVMStringMetadata(a1, "air.binding");
               v277 = *v274;
               if (v277 > 7)
               {
@@ -10771,8 +10736,8 @@ LABEL_419:
                 }
               }
 
-              *(&v353[1] + 1) = v278;
-              *&v353[2] = glpLLVMStringMetadata(a1, "air.stride");
+              *(&v352[1] + 1) = v278;
+              *&v352[2] = glpLLVMStringMetadata(a1, "air.stride");
               v283 = v274[2];
               if (v283 > 7)
               {
@@ -10789,8 +10754,8 @@ LABEL_419:
                 }
               }
 
-              *(&v353[2] + 1) = v284;
-              *&v353[3] = glpLLVMStringMetadata(a1, "air.stream");
+              *(&v352[2] + 1) = v284;
+              *&v352[3] = glpLLVMStringMetadata(a1, "air.stream");
               v288 = v274[1];
               if (v288 > 7)
               {
@@ -10807,23 +10772,23 @@ LABEL_419:
                 }
               }
 
-              *(&v353[3] + 1) = v289;
+              *(&v352[3] + 1) = v289;
               v286 = a1;
               v287 = 8;
             }
 
-            v270[v268++] = glpLLVMMDNodeInContext(v286, v353, v287);
+            v270[v268++] = glpLLVMMDNodeInContext(v286, v352, v287);
           }
 
           while (v269 != v268);
-          LODWORD(v249) = v341 + v268;
-          v144 = v345;
-          v43 = v346;
+          LODWORD(v249) = v340 + v268;
+          v144 = v344;
+          v43 = v345;
         }
 
-        if ((v342 & 1) == 0)
+        if ((v341 & 1) == 0)
         {
-          v353[2] = 0uLL;
+          v352[2] = 0uLL;
           if (v249 > 7)
           {
             v290 = v249;
@@ -10841,10 +10806,10 @@ LABEL_419:
             }
           }
 
-          *&v353[0] = v291;
-          *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.buffer");
-          *&v353[1] = glpLLVMStringMetadata(a1, "air.location_index");
-          *(&v353[1] + 1) = glpLLVMConstIntCache(a1, *(a1 + 40), 0x1FuLL, 1);
+          *&v352[0] = v291;
+          *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.buffer");
+          *&v352[1] = glpLLVMStringMetadata(a1, "air.location_index");
+          *(&v352[1] + 1) = glpLLVMConstIntCache(a1, *(a1 + 40), 0x1FuLL, 1);
           v292 = *(a1 + 528);
           if (!v292)
           {
@@ -10852,10 +10817,10 @@ LABEL_419:
             *(a1 + 528) = v292;
           }
 
-          *&v353[2] = v292;
-          *(&v353[2] + 1) = glpLLVMStringMetadata(a1, "air.read");
-          v293 = glpLLVMMDNodeInContext(a1, v353, 6);
-          v344[v290] = v293;
+          *&v352[2] = v292;
+          *(&v352[2] + 1) = glpLLVMStringMetadata(a1, "air.read");
+          v293 = glpLLVMMDNodeInContext(a1, v352, 6);
+          v343[v290] = v293;
           LODWORD(v249) = v290 + 1;
         }
 
@@ -10869,54 +10834,54 @@ LABEL_464:
             v298 = v249;
             v299 = v144;
             v300 = v249 + v144;
-            v301 = &v344[v300];
+            v301 = &v343[v300];
             v302 = a1 + 520;
-            v342 = &v344[v249];
-            v343 = v299;
-            v339 = a1 + 520 + 8 * v249;
-            v340 = (a1 + 520 + 8 * v300);
-            v338 = v249;
+            v341 = &v343[v249];
+            v342 = v299;
+            v338 = a1 + 520 + 8 * v249;
+            v339 = (a1 + 520 + 8 * v300);
+            v337 = v249;
             do
             {
               v303 = &v298[v297];
               v304 = &v296[*(a1 + 600)];
-              v347 = *(v304 + 10);
-              v345 = v347;
+              v346 = *(v304 + 10);
+              v344 = v346;
               if (*(a1 + 832))
               {
-                v341 = v296;
+                v340 = v296;
                 v306 = v302;
                 v307 = v301;
                 v308 = v300;
-                v380 = 0u;
-                v381 = 0u;
-                v378 = 0u;
                 v379 = 0u;
-                v376 = 0u;
+                v380 = 0u;
                 v377 = 0u;
-                v374 = 0u;
+                v378 = 0u;
                 v375 = 0u;
-                v372 = 0u;
+                v376 = 0u;
                 v373 = 0u;
-                v370 = 0u;
+                v374 = 0u;
                 v371 = 0u;
-                v368 = 0u;
+                v372 = 0u;
                 v369 = 0u;
-                v366 = 0u;
+                v370 = 0u;
                 v367 = 0u;
-                v364 = 0u;
+                v368 = 0u;
                 v365 = 0u;
-                v362 = 0u;
+                v366 = 0u;
                 v363 = 0u;
-                v360 = 0u;
+                v364 = 0u;
                 v361 = 0u;
-                v358 = 0u;
+                v362 = 0u;
                 v359 = 0u;
-                v356 = 0u;
+                v360 = 0u;
                 v357 = 0u;
-                v354 = 0u;
+                v358 = 0u;
                 v355 = 0u;
-                memset(v353, 0, sizeof(v353));
+                v356 = 0u;
+                v353 = 0u;
+                v354 = 0u;
+                memset(v352, 0, sizeof(v352));
                 v309 = *(v304 + 9);
                 PPTextarget = glpPrimitiveSamplerGetPPTextarget(v309);
                 if (PPTextarget >= 0x12)
@@ -10956,49 +10921,49 @@ LABEL_464:
                   abort();
                 }
 
-                snprintf_l(v353, 0x200uLL, 0, "%s<%s, %s>", v311, v313, off_278B49100[v319]);
-                *(*(a1 + 512) + 4 * v297) = v347;
-                *&v350 = 0;
-                v349 = 0u;
-                *&v348[3] = 0u;
+                snprintf_l(v352, 0x200uLL, 0, "%s<%s, %s>", v311, v313, off_278B49100[v319]);
+                *(*(a1 + 512) + 4 * v297) = v346;
+                *&v349 = 0;
+                v348 = 0u;
+                *&v347[3] = 0u;
                 v300 = v308;
                 if (v303 > 7)
                 {
                   v320 = glpLLVMConstIntCache(a1, *(a1 + 40), v303, 1);
-                  v43 = v346;
-                  v298 = v338;
+                  v43 = v345;
+                  v298 = v337;
                   v301 = v307;
                 }
 
                 else
                 {
-                  v298 = v338;
-                  v320 = *(v339 + 8 * v297);
-                  v43 = v346;
+                  v298 = v337;
+                  v320 = *(v338 + 8 * v297);
+                  v43 = v345;
                   v301 = v307;
                   if (!v320)
                   {
                     v320 = glpLLVMConstIntCache(a1, *(a1 + 40), v303, 0);
-                    *(v339 + 8 * v297) = v320;
+                    *(v338 + 8 * v297) = v320;
                   }
                 }
 
-                v348[0] = v320;
-                v348[1] = glpLLVMStringMetadata(a1, "air.texture");
-                v348[2] = glpLLVMStringMetadata(a1, "air.location_index");
+                v347[0] = v320;
+                v347[1] = glpLLVMStringMetadata(a1, "air.texture");
+                v347[2] = glpLLVMStringMetadata(a1, "air.location_index");
                 v302 = v306;
                 if (v297 > 7)
                 {
                   v321 = glpLLVMConstIntCache(a1, *(a1 + 40), v297, 1);
-                  v296 = v341;
-                  v314 = v347;
+                  v296 = v340;
+                  v314 = v346;
                 }
 
                 else
                 {
                   v321 = *(v306 + 8 * v297);
-                  v296 = v341;
-                  v314 = v347;
+                  v296 = v340;
+                  v314 = v346;
                   if (!v321)
                   {
                     v321 = glpLLVMConstIntCache(a1, *(a1 + 40), v297, 0);
@@ -11006,7 +10971,7 @@ LABEL_464:
                   }
                 }
 
-                v348[3] = v321;
+                v347[3] = v321;
                 v322 = *(a1 + 528);
                 if (!v322)
                 {
@@ -11014,18 +10979,18 @@ LABEL_464:
                   *(a1 + 528) = v322;
                 }
 
-                v348[4] = v322;
-                *&v349 = glpLLVMStringMetadata(a1, "air.sample");
-                *(&v349 + 1) = glpLLVMStringMetadata(a1, "air.arg_type_name");
-                *&v350 = glpLLVMStringMetadata(a1, v353);
-                v316 = v348;
+                v347[4] = v322;
+                *&v348 = glpLLVMStringMetadata(a1, "air.sample");
+                *(&v348 + 1) = glpLLVMStringMetadata(a1, "air.arg_type_name");
+                *&v349 = glpLLVMStringMetadata(a1, v352);
+                v316 = v347;
                 v317 = a1;
                 v318 = 8;
               }
 
               else
               {
-                *(&v353[1] + 1) = 0;
+                *(&v352[1] + 1) = 0;
                 if (v303 > 7)
                 {
                   v305 = glpLLVMConstIntCache(a1, *(a1 + 40), &v298[v297], 1);
@@ -11033,46 +10998,46 @@ LABEL_464:
 
                 else
                 {
-                  v305 = *(v339 + 8 * v297);
+                  v305 = *(v338 + 8 * v297);
                   if (!v305)
                   {
                     v305 = glpLLVMConstIntCache(a1, *(a1 + 40), &v298[v297], 0);
-                    *(v339 + 8 * v297) = v305;
+                    *(v338 + 8 * v297) = v305;
                   }
                 }
 
-                *&v353[0] = v305;
-                *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.texture");
-                *&v353[1] = glpLLVMStringMetadata(a1, "air.binding");
-                v314 = v347;
-                if (v347 > 7)
+                *&v352[0] = v305;
+                *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.texture");
+                *&v352[1] = glpLLVMStringMetadata(a1, "air.binding");
+                v314 = v346;
+                if (v346 > 7)
                 {
-                  v315 = glpLLVMConstIntCache(a1, *(a1 + 40), v345, 1);
+                  v315 = glpLLVMConstIntCache(a1, *(a1 + 40), v344, 1);
                 }
 
                 else
                 {
-                  v315 = *(v302 + 8 * v347);
+                  v315 = *(v302 + 8 * v346);
                   if (!v315)
                   {
-                    v315 = glpLLVMConstIntCache(a1, *(a1 + 40), v347, 0);
+                    v315 = glpLLVMConstIntCache(a1, *(a1 + 40), v346, 0);
                     *(v302 + 8 * v314) = v315;
                   }
                 }
 
-                *(&v353[1] + 1) = v315;
-                v316 = v353;
+                *(&v352[1] + 1) = v315;
+                v316 = v352;
                 v317 = a1;
                 v318 = 4;
               }
 
               v323 = glpLLVMMDNodeInContext(v317, v316, v318);
-              v342[v297] = v323;
+              v341[v297] = v323;
               v324 = v300 + v297;
               if (*(a1 + 832))
               {
-                *(&v353[1] + 1) = 0;
-                *&v353[2] = 0;
+                *(&v352[1] + 1) = 0;
+                *&v352[2] = 0;
                 if (v324 > 7)
                 {
                   v326 = glpLLVMConstIntCache(a1, *(a1 + 40), v324, 1);
@@ -11080,17 +11045,17 @@ LABEL_464:
 
                 else
                 {
-                  v326 = v340[v297];
+                  v326 = v339[v297];
                   if (!v326)
                   {
                     v326 = glpLLVMConstIntCache(a1, *(a1 + 40), v324, 0);
-                    v340[v297] = v326;
+                    v339[v297] = v326;
                   }
                 }
 
-                *&v353[0] = v326;
-                *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.sampler");
-                *&v353[1] = glpLLVMStringMetadata(a1, "air.location_index");
+                *&v352[0] = v326;
+                *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.sampler");
+                *&v352[1] = glpLLVMStringMetadata(a1, "air.location_index");
                 if (v297 > 7)
                 {
                   v328 = glpLLVMConstIntCache(a1, *(a1 + 40), v297, 1);
@@ -11106,7 +11071,7 @@ LABEL_464:
                   }
                 }
 
-                *(&v353[1] + 1) = v328;
+                *(&v352[1] + 1) = v328;
                 v331 = *(a1 + 528);
                 if (!v331)
                 {
@@ -11114,14 +11079,14 @@ LABEL_464:
                   *(a1 + 528) = v331;
                 }
 
-                *&v353[2] = v331;
+                *&v352[2] = v331;
                 v329 = a1;
                 v330 = 5;
               }
 
               else
               {
-                *(&v353[1] + 1) = 0;
+                *(&v352[1] + 1) = 0;
                 if (v324 > 7)
                 {
                   v325 = glpLLVMConstIntCache(a1, *(a1 + 40), v324, 1);
@@ -11129,20 +11094,20 @@ LABEL_464:
 
                 else
                 {
-                  v325 = v340[v297];
+                  v325 = v339[v297];
                   if (!v325)
                   {
                     v325 = glpLLVMConstIntCache(a1, *(a1 + 40), v324, 0);
-                    v340[v297] = v325;
+                    v339[v297] = v325;
                   }
                 }
 
-                *&v353[0] = v325;
-                *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.sampler");
-                *&v353[1] = glpLLVMStringMetadata(a1, "air.binding");
+                *&v352[0] = v325;
+                *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.sampler");
+                *&v352[1] = glpLLVMStringMetadata(a1, "air.binding");
                 if (v314 > 7)
                 {
-                  v327 = glpLLVMConstIntCache(a1, *(a1 + 40), v345, 1);
+                  v327 = glpLLVMConstIntCache(a1, *(a1 + 40), v344, 1);
                 }
 
                 else
@@ -11155,16 +11120,16 @@ LABEL_464:
                   }
                 }
 
-                *(&v353[1] + 1) = v327;
+                *(&v352[1] + 1) = v327;
                 v329 = a1;
                 v330 = 4;
               }
 
-              v301[v297++] = glpLLVMMDNodeInContext(v329, v353, v330);
+              v301[v297++] = glpLLVMMDNodeInContext(v329, v352, v330);
               v296 += 48;
             }
 
-            while (v343 != v297);
+            while (v342 != v297);
           }
 
           goto LABEL_517;
@@ -11174,8 +11139,8 @@ LABEL_464:
         if (!v144)
         {
 LABEL_517:
-          *(a1 + 192) = glpLLVMMDNodeInContext(a1, v344, v336);
-          goto LABEL_518;
+          *(a1 + 192) = glpLLVMMDNodeInContext(a1, v343, v335);
+          return v43;
         }
 
         v294 = v249;
@@ -11206,10 +11171,10 @@ LABEL_522:
     if (v143 >= 1)
     {
       v250 = 0;
-      v251 = &v344[v249];
+      v251 = &v343[v249];
       v252 = a1 + 520;
-      v347 = a1 + 520 + 8 * v249;
-      v341 = v249;
+      v346 = a1 + 520 + 8 * v249;
+      v340 = v249;
       v253 = v249;
       do
       {
@@ -11218,9 +11183,9 @@ LABEL_522:
         if (*(a1 + 832))
         {
           *(*(a1 + 504) + 4 * v250) = *v255;
-          *(&v353[3] + 1) = 0;
-          *(&v353[2] + 8) = 0u;
-          *(&v353[1] + 8) = 0u;
+          *(&v352[3] + 1) = 0;
+          *(&v352[2] + 8) = 0u;
+          *(&v352[1] + 8) = 0u;
           if (v254 > 7)
           {
             v257 = glpLLVMConstIntCache(a1, *(a1 + 40), v254, 1);
@@ -11228,28 +11193,28 @@ LABEL_522:
 
           else
           {
-            v257 = *(v347 + 8 * v250);
+            v257 = *(v346 + 8 * v250);
             if (!v257)
             {
               v257 = glpLLVMConstIntCache(a1, *(a1 + 40), v254, 0);
-              *(v347 + 8 * v250) = v257;
+              *(v346 + 8 * v250) = v257;
             }
           }
 
-          *&v353[0] = v257;
-          *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.buffer");
-          *&v353[1] = glpLLVMStringMetadata(a1, "air.buffer_size");
+          *&v352[0] = v257;
+          *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.buffer");
+          *&v352[1] = glpLLVMStringMetadata(a1, "air.buffer_size");
           v260 = v255[1];
           if (v260 > 7)
           {
             v261 = glpLLVMConstIntCache(a1, *(a1 + 40), v260, 1);
-            v43 = v346;
+            v43 = v345;
           }
 
           else
           {
             v261 = *(v252 + 8 * v260);
-            v43 = v346;
+            v43 = v345;
             if (!v261)
             {
               v261 = glpLLVMConstIntCache(a1, *(a1 + 40), v260, 0);
@@ -11257,8 +11222,8 @@ LABEL_522:
             }
           }
 
-          *(&v353[1] + 1) = v261;
-          *&v353[2] = glpLLVMStringMetadata(a1, "air.location_index");
+          *(&v352[1] + 1) = v261;
+          *&v352[2] = glpLLVMStringMetadata(a1, "air.location_index");
           if (v250 > 7)
           {
             v264 = glpLLVMConstIntCache(a1, *(a1 + 40), v250, 1);
@@ -11274,7 +11239,7 @@ LABEL_522:
             }
           }
 
-          *(&v353[2] + 1) = v264;
+          *(&v352[2] + 1) = v264;
           v267 = *(a1 + 528);
           if (!v267)
           {
@@ -11282,16 +11247,16 @@ LABEL_522:
             *(a1 + 528) = v267;
           }
 
-          *&v353[3] = v267;
-          *(&v353[3] + 1) = glpLLVMStringMetadata(a1, "air.read");
+          *&v352[3] = v267;
+          *(&v352[3] + 1) = glpLLVMStringMetadata(a1, "air.read");
           v265 = a1;
           v266 = 8;
         }
 
         else
         {
-          *(&v353[1] + 1) = 0;
-          v353[2] = 0uLL;
+          *(&v352[1] + 1) = 0;
+          v352[2] = 0uLL;
           if (v254 > 7)
           {
             v256 = glpLLVMConstIntCache(a1, *(a1 + 40), v254, 1);
@@ -11299,17 +11264,17 @@ LABEL_522:
 
           else
           {
-            v256 = *(v347 + 8 * v250);
+            v256 = *(v346 + 8 * v250);
             if (!v256)
             {
               v256 = glpLLVMConstIntCache(a1, *(a1 + 40), v254, 0);
-              *(v347 + 8 * v250) = v256;
+              *(v346 + 8 * v250) = v256;
             }
           }
 
-          *&v353[0] = v256;
-          *(&v353[0] + 1) = glpLLVMStringMetadata(a1, "air.uniform");
-          *&v353[1] = glpLLVMStringMetadata(a1, "air.binding");
+          *&v352[0] = v256;
+          *(&v352[0] + 1) = glpLLVMStringMetadata(a1, "air.uniform");
+          *&v352[1] = glpLLVMStringMetadata(a1, "air.binding");
           v258 = *v255;
           if (v258 > 7)
           {
@@ -11326,19 +11291,19 @@ LABEL_522:
             }
           }
 
-          *(&v353[1] + 1) = v259;
-          *&v353[2] = glpLLVMStringMetadata(a1, "air.buffer_size");
+          *(&v352[1] + 1) = v259;
+          *&v352[2] = glpLLVMStringMetadata(a1, "air.buffer_size");
           v262 = v255[1];
           if (v262 > 7)
           {
             v263 = glpLLVMConstIntCache(a1, *(a1 + 40), v262, 1);
-            v43 = v346;
+            v43 = v345;
           }
 
           else
           {
             v263 = *(v252 + 8 * v262);
-            v43 = v346;
+            v43 = v345;
             if (!v263)
             {
               v263 = glpLLVMConstIntCache(a1, *(a1 + 40), v262, 0);
@@ -11346,45 +11311,45 @@ LABEL_522:
             }
           }
 
-          *(&v353[2] + 1) = v263;
+          *(&v352[2] + 1) = v263;
           v265 = a1;
           v266 = 6;
         }
 
-        v251[v250++] = glpLLVMMDNodeInContext(v265, v353, v266);
+        v251[v250++] = glpLLVMMDNodeInContext(v265, v352, v266);
       }
 
       while (v143 != v250);
-      v249 = (v341 + v250);
-      v144 = v345;
-      v45 = v343;
+      v249 = (v340 + v250);
+      v144 = v344;
+      v45 = v342;
     }
 
     goto LABEL_419;
   }
 
-  LODWORD(v339) = v42;
-  v336 = Extra;
+  LODWORD(v338) = v42;
+  v335 = Extra;
   v47 = strndup(v40, v39);
   v48 = v39;
   if (v29)
   {
     v49 = 0;
-    v50 = v339;
+    v50 = v338;
     v51 = v28;
-    v52 = v340;
+    v52 = v339;
   }
 
   else
   {
-    v52 = v340;
-    v49 = *v340;
-    v50 = v339;
+    v52 = v339;
+    v49 = *v339;
+    v50 = v338;
     v51 = v28;
   }
 
   v53 = *(v52 + 2);
-  LODWORD(v340) = v46;
+  LODWORD(v339) = v46;
   v54 = glpLLVMBuildFunctionType(a1, v49, v46, v51, v50, v53);
   v55 = *(a1 + 260);
   v56 = v55 + 1;
@@ -11429,8 +11394,8 @@ LABEL_522:
   v63 = strlen(v47) + 1;
   v64 = v63 + v62;
   v65 = *(a1 + 256);
-  v337 = v48;
-  v338 = v40;
+  v336 = v48;
+  v337 = v40;
   if (v63 + v62 <= v65)
   {
     v69 = *(a1 + 264);
@@ -11474,7 +11439,7 @@ LABEL_522:
   v71 = *(a1 + 260);
   v72 = v71 + 1;
   v73 = *(a1 + 256);
-  v74 = v336;
+  v74 = v335;
   v75 = v47;
   if (v71 + 1 <= v73)
   {
@@ -11784,20 +11749,20 @@ LABEL_145:
     ++*(a1 + 628);
   }
 
-  if (v346)
+  if (v345)
   {
-    v127 = (v344 + 1);
-    v126 = glpLLVMGetParam(a1, v43, v344);
+    v127 = (v343 + 1);
+    v126 = glpLLVMGetParam(a1, v43, v343);
   }
 
   else
   {
     v126 = 0;
-    v127 = v344;
+    v127 = v343;
   }
 
   *(a1 + 440) = v126;
-  if (v347 < 1)
+  if (v346 < 1)
   {
     v131 = v127;
   }
@@ -11805,7 +11770,7 @@ LABEL_145:
   else
   {
     v128 = 0;
-    v129 = 8 * v347;
+    v129 = 8 * v346;
     do
     {
       v130 = *(*(a1 + 712) + v128);
@@ -11818,7 +11783,7 @@ LABEL_145:
     while (v129 != v128);
   }
 
-  if (v343 < 1)
+  if (v342 < 1)
   {
     v135 = v131;
   }
@@ -11826,7 +11791,7 @@ LABEL_145:
   else
   {
     v132 = 0;
-    v133 = 8 * v343;
+    v133 = 8 * v342;
     do
     {
       v134 = *(*(a1 + 728) + v132);
@@ -11839,18 +11804,18 @@ LABEL_145:
     while (v133 != v132);
   }
 
-  if ((v342 & 1) == 0)
+  if ((v341 & 1) == 0)
   {
     *(a1 + 448) = glpLLVMGetParam(a1, v43, v135);
   }
 
-  if (v345 >= 1)
+  if (v344 >= 1)
   {
     v136 = 0;
-    v137 = v345;
-    v138 = v51 + v339;
-    v139 = v51 + v339 + v345 + v347 + v343 + v341 + v346;
-    v140 = v138 + v343 + v347 + v341 + v346;
+    v137 = v344;
+    v138 = v51 + v338;
+    v139 = v51 + v338 + v344 + v346 + v342 + v340 + v345;
+    v140 = v138 + v342 + v346 + v340 + v345;
     v141 = 8;
     do
     {
@@ -11863,16 +11828,14 @@ LABEL_145:
     while (v137 != v136);
   }
 
-  glpStringHashPut(*(a1 + 736), v338, v337, v43, v88);
+  glpStringHashPut(*(a1 + 736), v337, v336, v88, v43);
   free(v75);
-  v44 = v345;
-  v45 = v343;
-  if (v340)
+  v44 = v344;
+  v45 = v342;
+  if (v339)
   {
     goto LABEL_174;
   }
 
-LABEL_518:
-  v332 = *MEMORY[0x277D85DE8];
   return v43;
 }

@@ -16,19 +16,18 @@
 - (void)trackEngineEngineEndWithError:(id)error
 {
   v5 = sub_1000042B4(&qword_10041EE08, &qword_1002B9788);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v14 - v7;
+  v7 = &v13 - v6;
   errorCopy = error;
   selfCopy = self;
   Date.init()();
-  v11 = type metadata accessor for Date();
-  (*(*(v11 - 8) + 56))(v8, 0, 1, v11);
-  v12 = OBJC_IVAR____TtC7backupd29MBTargetDeviceTransferSummary__engineEnd;
+  v10 = type metadata accessor for Date();
+  (*(*(v10 - 8) + 56))(v7, 0, 1, v10);
+  v11 = OBJC_IVAR____TtC7backupd29MBTargetDeviceTransferSummary__engineEnd;
   swift_beginAccess();
-  sub_100027AC0(v8, selfCopy + v12);
+  sub_100027AC0(v7, selfCopy + v11);
   swift_endAccess();
-  v13 = *(&selfCopy->super.isa + OBJC_IVAR____TtC7backupd29MBTargetDeviceTransferSummary__engineError);
+  v12 = *(&selfCopy->super.isa + OBJC_IVAR____TtC7backupd29MBTargetDeviceTransferSummary__engineError);
   *(&selfCopy->super.isa + OBJC_IVAR____TtC7backupd29MBTargetDeviceTransferSummary__engineError) = error;
 }
 

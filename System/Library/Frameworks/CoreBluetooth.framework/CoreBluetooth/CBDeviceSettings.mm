@@ -133,7 +133,6 @@
     xpc_dictionary_set_int64(xdict, "dPlM", self->_placementMode);
   }
 
-  powerSourceMock = self->_powerSourceMock;
   CUXPCEncodeObject();
   if (self->_relinquishAudioRoute)
   {
@@ -145,153 +144,245 @@
     xpc_dictionary_set_uint64(xdict, "ssCf", self->_selectiveSpeechListeningConfig);
   }
 
-  v13 = xdict;
+  v12 = xdict;
   if (self->_smartRoutingMode)
   {
     xpc_dictionary_set_int64(xdict, "srMd", self->_smartRoutingMode);
-    v13 = xdict;
+    v12 = xdict;
   }
 
   if (self->_spatialAudioAllowed)
   {
     xpc_dictionary_set_int64(xdict, "SpAA", self->_spatialAudioAllowed);
-    v13 = xdict;
+    v12 = xdict;
   }
 
   spatialAudioMode = self->_spatialAudioMode;
   if (spatialAudioMode != 255)
   {
     xpc_dictionary_set_int64(xdict, "SpAM", spatialAudioMode);
-    v13 = xdict;
+    v12 = xdict;
   }
 }
 
 - (id)description
 {
-  v61 = [objc_opt_class() description];
-  NSAppendPrintF_safe();
-  v3 = 0;
+  v113 = 0;
+  v3 = [objc_opt_class() description];
+  NSAppendPrintF_safe(&v113, "%@", v3);
+  v4 = v113;
 
+  aclPriority = self->_aclPriority;
   if (self->_aclPriority)
   {
-    if (self->_aclPriority > 0x31u)
+    v112 = v4;
+    if (aclPriority > 49)
     {
-      self->_aclPriority;
+      if (aclPriority == 50)
+      {
+        v6 = "Medium";
+        goto LABEL_12;
+      }
+
+      if (aclPriority == 80)
+      {
+        v6 = "High";
+        goto LABEL_12;
+      }
     }
 
-    NSAppendPrintF_safe();
-    v4 = v3;
+    else
+    {
+      if (aclPriority == 1)
+      {
+        v6 = "Default";
+        goto LABEL_12;
+      }
 
-    v3 = v4;
+      if (aclPriority == 20)
+      {
+        v6 = "Low";
+LABEL_12:
+        NSAppendPrintF_safe(&v112, ", AclP %s", v6);
+        v7 = v112;
+
+        v4 = v7;
+        goto LABEL_13;
+      }
+    }
+
+    v6 = "?";
+    goto LABEL_12;
   }
 
+LABEL_13:
   adaptiveVolumeConfig = self->_adaptiveVolumeConfig;
   if (self->_adaptiveVolumeConfig)
   {
-    if (adaptiveVolumeConfig <= 3)
+    v111 = v4;
+    if (adaptiveVolumeConfig > 3)
     {
-      v6 = *(&off_1E81224A8 + adaptiveVolumeConfig - 1);
+      v9 = @"?";
     }
 
-    NSAppendPrintF_safe();
-    v7 = v3;
+    else
+    {
+      v9 = *(&off_1E81224A8 + adaptiveVolumeConfig - 1);
+    }
 
-    v3 = v7;
+    NSAppendPrintF_safe(&v111, ", AVC %@", v9);
+    v10 = v111;
+
+    v4 = v10;
   }
 
+  allowsAutoRoute = self->_allowsAutoRoute;
   if (self->_allowsAutoRoute)
   {
-    self->_allowsAutoRoute;
-    NSAppendPrintF_safe();
-    v8 = v3;
+    v12 = "?";
+    if (allowsAutoRoute == 1)
+    {
+      v12 = "Yes";
+    }
 
-    v3 = v8;
+    if (allowsAutoRoute == 2)
+    {
+      v13 = "No";
+    }
+
+    else
+    {
+      v13 = v12;
+    }
+
+    v110 = v4;
+    NSAppendPrintF_safe(&v110, ", AlAR %s", v13);
+    v14 = v110;
+
+    v4 = v14;
   }
 
+  audioRouteHidden = self->_audioRouteHidden;
   if (self->_audioRouteHidden)
   {
-    self->_audioRouteHidden;
-    NSAppendPrintF_safe();
-    v9 = v3;
+    v16 = "?";
+    if (audioRouteHidden == 1)
+    {
+      v16 = "Yes";
+    }
 
-    v3 = v9;
+    if (audioRouteHidden == 2)
+    {
+      v17 = "No";
+    }
+
+    else
+    {
+      v17 = v16;
+    }
+
+    v109 = v4;
+    NSAppendPrintF_safe(&v109, ", AuRH %s", v17);
+    v18 = v109;
+
+    v4 = v18;
   }
 
   clickHoldModeLeft = self->_clickHoldModeLeft;
   if (*&self->_clickHoldModeLeft)
   {
     clickHoldModeRight = self->_clickHoldModeRight;
-    NSAppendPrintF_safe();
-    v12 = v3;
+    v108 = v4;
+    NSAppendPrintF_safe(&v108, ", ClkH");
+    v21 = v108;
 
     if (clickHoldModeLeft)
     {
-      if (clickHoldModeLeft <= 7)
+      v107 = v21;
+      if (clickHoldModeLeft > 7)
       {
-        v13 = *(&off_1E81223F0 + clickHoldModeLeft - 1);
+        v22 = @"?";
       }
 
-      NSAppendPrintF_safe();
-      v14 = v12;
+      else
+      {
+        v22 = *(&off_1E81223F0 + clickHoldModeLeft - 1);
+      }
 
-      v12 = v14;
+      NSAppendPrintF_safe(&v107, " L %@", v22);
+      v23 = v107;
+
+      v21 = v23;
     }
 
     if (clickHoldModeRight)
     {
-      if (clickHoldModeRight <= 7)
+      v106 = v21;
+      if (clickHoldModeRight > 7)
       {
-        v15 = *(&off_1E81223F0 + clickHoldModeRight - 1);
+        v24 = @"?";
       }
 
-      NSAppendPrintF_safe();
-      v3 = v12;
+      else
+      {
+        v24 = *(&off_1E81223F0 + clickHoldModeRight - 1);
+      }
+
+      NSAppendPrintF_safe(&v106, " R %@", v24);
+      v4 = v106;
     }
 
     else
     {
-      v3 = v12;
+      v4 = v21;
     }
   }
 
   conversationDetectConfig = self->_conversationDetectConfig;
   if (self->_conversationDetectConfig)
   {
-    if (conversationDetectConfig <= 3)
+    v105 = v4;
+    if (conversationDetectConfig > 3)
     {
-      v17 = *(&off_1E81224A8 + conversationDetectConfig - 1);
+      v26 = @"?";
     }
 
-    NSAppendPrintF_safe();
-    v18 = v3;
+    else
+    {
+      v26 = *(&off_1E81224A8 + conversationDetectConfig - 1);
+    }
 
-    v3 = v18;
+    NSAppendPrintF_safe(&v105, ", CDC %@", v26);
+    v27 = v105;
+
+    v4 = v27;
   }
 
   crownRotationDirection = self->_crownRotationDirection;
   if (self->_crownRotationDirection)
   {
-    v20 = @"?";
+    v29 = @"?";
     if (crownRotationDirection == 1)
     {
-      v20 = @"BackToFront";
+      v29 = @"BackToFront";
     }
 
     if (crownRotationDirection == 2)
     {
-      v21 = @"FrontToBack";
+      v30 = @"FrontToBack";
     }
 
     else
     {
-      v21 = v20;
+      v30 = v29;
     }
 
-    v62 = v21;
-    NSAppendPrintF_safe();
-    v22 = v3;
+    v104 = v4;
+    v31 = v30;
+    NSAppendPrintF_safe(&v104, ", CrRD %@", v31);
+    v32 = v104;
 
-    v3 = v22;
+    v4 = v32;
   }
 
   if (*&self->_deviceFlagsMask == 0)
@@ -300,240 +391,363 @@
     doubleTapActionRight = self->_doubleTapActionRight;
     if (!*&self->_doubleTapActionLeft)
     {
-      goto LABEL_36;
+      goto LABEL_58;
     }
 
-LABEL_44:
-    v32 = doubleTapActionRight;
-    NSAppendPrintF_safe();
-    v33 = v3;
+LABEL_66:
+    v44 = doubleTapActionRight;
+    v102 = v4;
+    NSAppendPrintF_safe(&v102, ", DbTp");
+    v45 = v102;
 
     if (doubleTapActionLeft)
     {
-      if (doubleTapActionLeft <= 5)
+      v101 = v45;
+      if (doubleTapActionLeft > 5)
       {
-        v34 = off_1E8122428[doubleTapActionLeft - 1];
+        v46 = "?";
       }
 
-      NSAppendPrintF_safe();
-      v55 = v33;
+      else
+      {
+        v46 = off_1E8122428[doubleTapActionLeft - 1];
+      }
 
-      v33 = v55;
+      NSAppendPrintF_safe(&v101, " L %s", v46);
+      v81 = v101;
+
+      v45 = v81;
     }
 
-    if (v32)
+    if (v44)
     {
-      if (v32 <= 5)
+      v100 = v45;
+      if (v44 > 5)
       {
-        v56 = off_1E8122428[v32 - 1];
+        v82 = "?";
       }
 
-      NSAppendPrintF_safe();
-      v3 = v33;
+      else
+      {
+        v82 = off_1E8122428[v44 - 1];
+      }
+
+      NSAppendPrintF_safe(&v100, " R %s", v82);
+      v4 = v100;
 
       endCallConfig = self->_endCallConfig;
       if (self->_endCallConfig)
       {
-        goto LABEL_80;
+        goto LABEL_128;
       }
     }
 
     else
     {
-      v3 = v33;
+      v4 = v45;
       endCallConfig = self->_endCallConfig;
       if (self->_endCallConfig)
       {
-        goto LABEL_80;
+        goto LABEL_128;
       }
     }
 
-LABEL_37:
+LABEL_59:
     listeningMode = self->_listeningMode;
     if (!listeningMode)
     {
-      goto LABEL_38;
+      goto LABEL_60;
     }
 
-    goto LABEL_83;
+    goto LABEL_132;
   }
 
-  v30 = CUPrintFlags64();
-  v64 = CUPrintFlags64();
-  NSAppendPrintF_safe();
-  v31 = v3;
+  v103 = v4;
+  v41 = CUPrintFlags64();
+  v42 = CUPrintFlags64();
+  NSAppendPrintF_safe(&v103, ", DevF %@ / %@", v41, v42);
+  v43 = v103;
 
-  v3 = v31;
+  v4 = v43;
   doubleTapActionLeft = self->_doubleTapActionLeft;
   doubleTapActionRight = self->_doubleTapActionRight;
   if (*&self->_doubleTapActionLeft)
   {
-    goto LABEL_44;
+    goto LABEL_66;
   }
 
-LABEL_36:
+LABEL_58:
   endCallConfig = self->_endCallConfig;
   if (!self->_endCallConfig)
   {
-    goto LABEL_37;
+    goto LABEL_59;
   }
 
-LABEL_80:
-  if (endCallConfig <= 4)
+LABEL_128:
+  v99 = v4;
+  if (endCallConfig > 4)
   {
-    v57 = *(&off_1E8122488 + endCallConfig - 1);
+    v83 = @"?";
   }
 
-  NSAppendPrintF_safe();
-  v58 = v3;
+  else
+  {
+    v83 = *(&off_1E8122488 + endCallConfig - 1);
+  }
 
-  v3 = v58;
+  NSAppendPrintF_safe(&v99, ", ECC %@", v83);
+  v84 = v99;
+
+  v4 = v84;
   listeningMode = self->_listeningMode;
   if (!listeningMode)
   {
-LABEL_38:
+LABEL_60:
     if (!self->_listeningModeConfigs)
     {
-      goto LABEL_40;
+      goto LABEL_62;
     }
 
-    goto LABEL_39;
+    goto LABEL_61;
   }
 
-LABEL_83:
-  if (listeningMode <= 4)
+LABEL_132:
+  v98 = v4;
+  if (listeningMode > 4)
   {
-    v59 = off_1E8122450[listeningMode - 1];
+    v85 = "?";
   }
 
-  NSAppendPrintF_safe();
-  v60 = v3;
+  else
+  {
+    v85 = off_1E8122450[listeningMode - 1];
+  }
 
-  v3 = v60;
+  NSAppendPrintF_safe(&v98, ", LsnM %s", v85);
+  v86 = v98;
+
+  v4 = v86;
   if (self->_listeningModeConfigs)
   {
-LABEL_39:
-    v63 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v27 = v3;
+LABEL_61:
+    v97 = v4;
+    v37 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v97, ", LsMC %@", v37);
+    v38 = v97;
 
-    v3 = v27;
+    v4 = v38;
   }
 
-LABEL_40:
+LABEL_62:
   microphoneMode = self->_microphoneMode;
   if (self->_microphoneMode)
   {
-    if (microphoneMode <= 3)
+    v96 = v4;
+    if (microphoneMode > 3)
     {
-      v29 = off_1E8122470[microphoneMode - 1];
+      v40 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v35 = v3;
+    else
+    {
+      v40 = off_1E8122470[microphoneMode - 1];
+    }
 
-    v3 = v35;
+    NSAppendPrintF_safe(&v96, ", MicM %s", v40);
+    v47 = v96;
+
+    v4 = v47;
   }
 
   muteControlConfig = self->_muteControlConfig;
   if (self->_muteControlConfig)
   {
-    if (muteControlConfig <= 4)
+    v95 = v4;
+    if (muteControlConfig > 4)
     {
-      v37 = *(&off_1E8122488 + muteControlConfig - 1);
+      v49 = @"?";
     }
 
-    NSAppendPrintF_safe();
-    v38 = v3;
+    else
+    {
+      v49 = *(&off_1E8122488 + muteControlConfig - 1);
+    }
 
-    v3 = v38;
+    NSAppendPrintF_safe(&v95, ", MCC %@", v49);
+    v50 = v95;
+
+    v4 = v50;
   }
 
-  v39 = self->_name;
-  if (v39)
+  v51 = self->_name;
+  v52 = v51;
+  if (v51)
   {
-    NSAppendPrintF_safe();
-    v40 = v3;
+    v94 = v4;
+    NSAppendPrintF_safe(&v94, ", Name '%@'", v51);
+    v53 = v94;
 
-    v3 = v40;
+    v4 = v53;
   }
 
+  placementMode = self->_placementMode;
   if (self->_placementMode)
   {
-    self->_placementMode;
-    NSAppendPrintF_safe();
-    v41 = v3;
+    v55 = "?";
+    if (placementMode == 1)
+    {
+      v55 = "Enabled";
+    }
 
-    v3 = v41;
+    if (placementMode == 2)
+    {
+      v56 = "Disabled";
+    }
+
+    else
+    {
+      v56 = v55;
+    }
+
+    v93 = v4;
+    NSAppendPrintF_safe(&v93, ", PlcM %s", v56);
+    v57 = v93;
+
+    v4 = v57;
   }
 
-  v42 = self->_powerSourceMock;
-  if (v42)
+  v58 = self->_powerSourceMock;
+  v59 = v58;
+  if (v58)
   {
-    NSAppendPrintF_safe();
-    v43 = v3;
+    v92 = v4;
+    NSAppendPrintF_safe(&v92, ", %@", v58);
+    v60 = v92;
 
-    v3 = v43;
+    v4 = v60;
   }
 
+  relinquishAudioRoute = self->_relinquishAudioRoute;
   if (self->_relinquishAudioRoute)
   {
-    self->_relinquishAudioRoute;
-    NSAppendPrintF_safe();
-    v44 = v3;
+    v62 = "?";
+    if (relinquishAudioRoute == 1)
+    {
+      v62 = "Yes";
+    }
 
-    v3 = v44;
+    if (relinquishAudioRoute == 2)
+    {
+      v63 = "No";
+    }
+
+    else
+    {
+      v63 = v62;
+    }
+
+    v91 = v4;
+    NSAppendPrintF_safe(&v91, ", RlAR %s", v63);
+    v64 = v91;
+
+    v4 = v64;
   }
 
   selectiveSpeechListeningConfig = self->_selectiveSpeechListeningConfig;
   if (self->_selectiveSpeechListeningConfig)
   {
-    if (selectiveSpeechListeningConfig <= 3)
+    v90 = v4;
+    if (selectiveSpeechListeningConfig > 3)
     {
-      v46 = *(&off_1E81224A8 + selectiveSpeechListeningConfig - 1);
+      v66 = @"?";
     }
 
-    NSAppendPrintF_safe();
-    v47 = v3;
+    else
+    {
+      v66 = *(&off_1E81224A8 + selectiveSpeechListeningConfig - 1);
+    }
 
-    v3 = v47;
+    NSAppendPrintF_safe(&v90, ", SSLC %@", v66);
+    v67 = v90;
+
+    v4 = v67;
   }
 
+  smartRoutingMode = self->_smartRoutingMode;
   if (self->_smartRoutingMode)
   {
-    self->_smartRoutingMode;
-    NSAppendPrintF_safe();
-    v48 = v3;
+    v69 = "?";
+    if (smartRoutingMode == 1)
+    {
+      v69 = "Enabled";
+    }
 
-    v3 = v48;
+    if (smartRoutingMode == 2)
+    {
+      v70 = "Disabled";
+    }
+
+    else
+    {
+      v70 = v69;
+    }
+
+    v89 = v4;
+    NSAppendPrintF_safe(&v89, ", srMd %s", v70);
+    v71 = v89;
+
+    v4 = v71;
   }
 
+  spatialAudioAllowed = self->_spatialAudioAllowed;
   if (self->_spatialAudioAllowed)
   {
-    self->_spatialAudioAllowed;
-    NSAppendPrintF_safe();
-    v49 = v3;
+    v73 = "?";
+    if (spatialAudioAllowed == 1)
+    {
+      v73 = "Yes";
+    }
 
-    v3 = v49;
+    if (spatialAudioAllowed == 2)
+    {
+      v74 = "No";
+    }
+
+    else
+    {
+      v74 = v73;
+    }
+
+    v88 = v4;
+    NSAppendPrintF_safe(&v88, ", SpAA %s", v74);
+    v75 = v88;
+
+    v4 = v75;
   }
 
   spatialAudioMode = self->_spatialAudioMode;
   if (spatialAudioMode != 255)
   {
-    if (spatialAudioMode <= 3)
+    v87 = v4;
+    if (spatialAudioMode > 3)
     {
-      v51 = off_1E81224C0[spatialAudioMode];
+      v77 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v52 = v3;
+    else
+    {
+      v77 = off_1E81224C0[spatialAudioMode];
+    }
 
-    v3 = v52;
+    NSAppendPrintF_safe(&v87, ", SpAM %s", v77);
+    v78 = v87;
+
+    v4 = v78;
   }
 
-  v53 = v3;
+  v79 = v4;
 
-  return v3;
+  return v4;
 }
 
 - (CBDeviceSettings)initWithXPCObject:(id)object error:(id *)error
@@ -544,8 +758,8 @@ LABEL_40:
   {
     if (error)
     {
-      v40 = [objc_opt_class() description];
-      *error = CBErrorF(-6756, "%@ super init failed", v41, v42, v43, v44, v45, v46, v40);
+      v98 = [objc_opt_class() description];
+      *error = CBErrorF(-6756, "%@ super init failed", v99, v100, v101, v102, v103, v104, v98);
     }
 
     goto LABEL_83;
@@ -555,76 +769,19 @@ LABEL_40:
   {
     if (error)
     {
-      CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v47);
-      *error = v38 = 0;
+      CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v105);
+      *error = v96 = 0;
       goto LABEL_78;
     }
 
     goto LABEL_83;
   }
 
-  OUTLINED_FUNCTION_0();
-  v14 = OUTLINED_FUNCTION_3_1();
-  if (v14 == 6)
-  {
-    v7->_aclLinkState = 0;
-  }
-
-  else if (v14 == 5)
-  {
-    goto LABEL_83;
-  }
-
-  v15 = OUTLINED_FUNCTION_1_3();
-  if (v15 == 6)
-  {
-    v7->_aclPriority = 0;
-  }
-
-  else if (v15 == 5)
-  {
-    goto LABEL_83;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v16 = OUTLINED_FUNCTION_3_1();
-  if (v16 == 6)
-  {
-    v7->_adaptiveVolumeConfig = 0;
-  }
-
-  else if (v16 == 5)
-  {
-    goto LABEL_83;
-  }
-
-  v17 = OUTLINED_FUNCTION_1_3();
-  if (v17 == 6)
-  {
-    v7->_allowsAutoRoute = 0;
-  }
-
-  else if (v17 == 5)
-  {
-    goto LABEL_83;
-  }
-
-  v18 = OUTLINED_FUNCTION_1_3();
-  if (v18 == 6)
-  {
-    v7->_audioRouteHidden = 0;
-  }
-
-  else if (v18 == 5)
-  {
-    goto LABEL_83;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v19 = OUTLINED_FUNCTION_3_1();
+  v14 = OUTLINED_FUNCTION_0();
+  v19 = OUTLINED_FUNCTION_3_1(v14, v15, v16, v17, v18);
   if (v19 == 6)
   {
-    v7->_clickHoldModeLeft = 0;
+    v7->_aclLinkState = 0;
   }
 
   else if (v19 == 5)
@@ -632,23 +789,10 @@ LABEL_40:
     goto LABEL_83;
   }
 
-  OUTLINED_FUNCTION_0();
-  v20 = OUTLINED_FUNCTION_3_1();
-  if (v20 == 6)
-  {
-    v7->_clickHoldModeRight = 0;
-  }
-
-  else if (v20 == 5)
-  {
-    goto LABEL_83;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v21 = OUTLINED_FUNCTION_3_1();
+  v21 = OUTLINED_FUNCTION_1_3(v19, "aclP", v20);
   if (v21 == 6)
   {
-    v7->_conversationDetectConfig = 0;
+    v7->_aclPriority = 0;
   }
 
   else if (v21 == 5)
@@ -656,69 +800,11 @@ LABEL_40:
     goto LABEL_83;
   }
 
-  OUTLINED_FUNCTION_0();
-  v22 = OUTLINED_FUNCTION_3_1();
-  if (v22 == 6)
-  {
-    v7->_crownRotationDirection = 0;
-  }
-
-  else if (v22 == 5)
-  {
-    goto LABEL_83;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v23 = CUXPCDecodeUInt64RangedEx();
-  if (v23 == 6)
-  {
-    v7->_deviceFlagsMask = 0;
-  }
-
-  else if (v23 == 5)
-  {
-    goto LABEL_83;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v24 = CUXPCDecodeUInt64RangedEx();
-  if (v24 == 6)
-  {
-    v7->_deviceFlagsValue = 0;
-  }
-
-  else if (v24 == 5)
-  {
-    goto LABEL_83;
-  }
-
-  v25 = OUTLINED_FUNCTION_1_3();
-  if (v25 == 6)
-  {
-    v7->_doubleTapActionLeft = 0;
-  }
-
-  else if (v25 == 5)
-  {
-    goto LABEL_83;
-  }
-
-  v26 = OUTLINED_FUNCTION_1_3();
-  if (v26 == 6)
-  {
-    v7->_doubleTapActionRight = 0;
-  }
-
-  else if (v26 == 5)
-  {
-    goto LABEL_83;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v27 = OUTLINED_FUNCTION_3_1();
+  v22 = OUTLINED_FUNCTION_0();
+  v27 = OUTLINED_FUNCTION_3_1(v22, v23, v24, v25, v26);
   if (v27 == 6)
   {
-    v7->_endCallConfig = 0;
+    v7->_adaptiveVolumeConfig = 0;
   }
 
   else if (v27 == 5)
@@ -726,22 +812,10 @@ LABEL_40:
     goto LABEL_83;
   }
 
-  v28 = OUTLINED_FUNCTION_3_10();
-  if (v28 == 6)
-  {
-    v7->_listeningMode = 0;
-  }
-
-  else if (v28 == 5)
-  {
-    goto LABEL_83;
-  }
-
-  OUTLINED_FUNCTION_0();
-  v29 = CUXPCDecodeUInt64RangedEx();
+  v29 = OUTLINED_FUNCTION_1_3(v27, "alAR", v28);
   if (v29 == 6)
   {
-    v7->_listeningModeConfigs = 0;
+    v7->_allowsAutoRoute = 0;
   }
 
   else if (v29 == 5)
@@ -749,25 +823,165 @@ LABEL_40:
     goto LABEL_83;
   }
 
-  v30 = OUTLINED_FUNCTION_1_3();
-  if (v30 == 6)
+  v31 = OUTLINED_FUNCTION_1_3(v29, "auRH", v30);
+  if (v31 == 6)
   {
-    v7->_microphoneMode = 0;
+    v7->_audioRouteHidden = 0;
   }
 
-  else if (v30 == 5)
+  else if (v31 == 5)
+  {
+    goto LABEL_83;
+  }
+
+  v32 = OUTLINED_FUNCTION_0();
+  v37 = OUTLINED_FUNCTION_3_1(v32, v33, v34, v35, v36);
+  if (v37 == 6)
+  {
+    v7->_clickHoldModeLeft = 0;
+  }
+
+  else if (v37 == 5)
+  {
+    goto LABEL_83;
+  }
+
+  v38 = OUTLINED_FUNCTION_0();
+  v43 = OUTLINED_FUNCTION_3_1(v38, v39, v40, v41, v42);
+  if (v43 == 6)
+  {
+    v7->_clickHoldModeRight = 0;
+  }
+
+  else if (v43 == 5)
+  {
+    goto LABEL_83;
+  }
+
+  v44 = OUTLINED_FUNCTION_0();
+  v49 = OUTLINED_FUNCTION_3_1(v44, v45, v46, v47, v48);
+  if (v49 == 6)
+  {
+    v7->_conversationDetectConfig = 0;
+  }
+
+  else if (v49 == 5)
+  {
+    goto LABEL_83;
+  }
+
+  v50 = OUTLINED_FUNCTION_0();
+  v55 = OUTLINED_FUNCTION_3_1(v50, v51, v52, v53, v54);
+  if (v55 == 6)
+  {
+    v7->_crownRotationDirection = 0;
+  }
+
+  else if (v55 == 5)
   {
     goto LABEL_83;
   }
 
   OUTLINED_FUNCTION_0();
-  v31 = OUTLINED_FUNCTION_3_1();
-  if (v31 == 6)
+  v56 = CUXPCDecodeUInt64RangedEx();
+  if (v56 == 6)
+  {
+    v7->_deviceFlagsMask = 0;
+  }
+
+  else if (v56 == 5)
+  {
+    goto LABEL_83;
+  }
+
+  OUTLINED_FUNCTION_0();
+  v57 = CUXPCDecodeUInt64RangedEx();
+  if (v57 == 6)
+  {
+    v7->_deviceFlagsValue = 0;
+  }
+
+  else if (v57 == 5)
+  {
+    goto LABEL_83;
+  }
+
+  v59 = OUTLINED_FUNCTION_1_3(v57, "dtAL", v58);
+  if (v59 == 6)
+  {
+    v7->_doubleTapActionLeft = 0;
+  }
+
+  else if (v59 == 5)
+  {
+    goto LABEL_83;
+  }
+
+  v61 = OUTLINED_FUNCTION_1_3(v59, "dtAR", v60);
+  if (v61 == 6)
+  {
+    v7->_doubleTapActionRight = 0;
+  }
+
+  else if (v61 == 5)
+  {
+    goto LABEL_83;
+  }
+
+  v62 = OUTLINED_FUNCTION_0();
+  v67 = OUTLINED_FUNCTION_3_1(v62, v63, v64, v65, v66);
+  if (v67 == 6)
+  {
+    v7->_endCallConfig = 0;
+  }
+
+  else if (v67 == 5)
+  {
+    goto LABEL_83;
+  }
+
+  v69 = OUTLINED_FUNCTION_3_10(v67, "lsnM", v68);
+  if (v69 == 6)
+  {
+    v7->_listeningMode = 0;
+  }
+
+  else if (v69 == 5)
+  {
+    goto LABEL_83;
+  }
+
+  OUTLINED_FUNCTION_0();
+  v70 = CUXPCDecodeUInt64RangedEx();
+  if (v70 == 6)
+  {
+    v7->_listeningModeConfigs = 0;
+  }
+
+  else if (v70 == 5)
+  {
+    goto LABEL_83;
+  }
+
+  v72 = OUTLINED_FUNCTION_1_3(v70, "micM", v71);
+  if (v72 == 6)
+  {
+    v7->_microphoneMode = 0;
+  }
+
+  else if (v72 == 5)
+  {
+    goto LABEL_83;
+  }
+
+  v73 = OUTLINED_FUNCTION_0();
+  v78 = OUTLINED_FUNCTION_3_1(v73, v74, v75, v76, v77);
+  if (v78 == 6)
   {
     v7->_muteControlConfig = 0;
   }
 
-  else if (v31 == 5)
+  else if (v78 == 5)
   {
     goto LABEL_83;
   }
@@ -778,86 +992,87 @@ LABEL_40:
   }
 
   objc_opt_class();
-  if (!CUXPCDecodeObject())
+  v79 = CUXPCDecodeObject();
+  if (!v79)
   {
     goto LABEL_83;
   }
 
-  v32 = OUTLINED_FUNCTION_1_3();
-  if (v32 == 6)
+  v81 = OUTLINED_FUNCTION_1_3(v79, "dPlM", v80);
+  if (v81 == 6)
   {
     v7->_placementMode = 0;
   }
 
-  else if (v32 == 5)
+  else if (v81 == 5)
   {
     goto LABEL_83;
   }
 
-  v33 = OUTLINED_FUNCTION_1_3();
-  if (v33 == 6)
+  v83 = OUTLINED_FUNCTION_1_3(v81, "rlAR", v82);
+  if (v83 == 6)
   {
     v7->_relinquishAudioRoute = 0;
   }
 
-  else if (v33 == 5)
+  else if (v83 == 5)
   {
     goto LABEL_83;
   }
 
-  OUTLINED_FUNCTION_0();
-  v34 = OUTLINED_FUNCTION_3_1();
-  if (v34 == 6)
+  v84 = OUTLINED_FUNCTION_0();
+  v89 = OUTLINED_FUNCTION_3_1(v84, v85, v86, v87, v88);
+  if (v89 == 6)
   {
     v7->_selectiveSpeechListeningConfig = 0;
   }
 
-  else if (v34 == 5)
+  else if (v89 == 5)
   {
     goto LABEL_83;
   }
 
-  v35 = OUTLINED_FUNCTION_1_3();
-  if (v35 == 6)
+  v91 = OUTLINED_FUNCTION_1_3(v89, "srMd", v90);
+  if (v91 == 6)
   {
     v7->_smartRoutingMode = 0;
   }
 
-  else if (v35 == 5)
+  else if (v91 == 5)
   {
     goto LABEL_83;
   }
 
-  v36 = OUTLINED_FUNCTION_1_3();
-  if (v36 == 6)
+  v93 = OUTLINED_FUNCTION_1_3(v91, "SpAA", v92);
+  if (v93 == 6)
   {
     v7->_spatialAudioAllowed = 0;
   }
 
-  else if (v36 == 5)
+  else if (v93 == 5)
   {
     goto LABEL_83;
   }
 
-  v37 = OUTLINED_FUNCTION_3_10();
-  if (v37 != 6)
+  v95 = OUTLINED_FUNCTION_3_10(v93, "SpAM", v94);
+  if (v95 != 6)
   {
-    if (v37 != 5)
+    if (v95 != 5)
     {
       goto LABEL_77;
     }
 
 LABEL_83:
-    v38 = 0;
+    v96 = 0;
     goto LABEL_78;
   }
 
   v7->_spatialAudioMode = 0;
 LABEL_77:
-  v38 = v7;
+  v96 = v7;
 LABEL_78:
 
-  return v38;
+  return v96;
 }
 
 @end

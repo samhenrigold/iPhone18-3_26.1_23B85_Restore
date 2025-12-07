@@ -100,32 +100,32 @@
 
 - (id)description
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   files = [(ICCameraFolder *)self files];
-  v4 = [files countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [files countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(files);
         }
 
-        sidecarFiles = [*(*(&v19 + 1) + 8 * i) sidecarFiles];
+        sidecarFiles = [*(*(&v18 + 1) + 8 * i) sidecarFiles];
         v6 += [sidecarFiles count] + 1;
       }
 
-      v5 = [files countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [files countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
@@ -143,8 +143,6 @@
   objectID = [(ICCameraItem *)self objectID];
   folders = [(ICCameraFolder *)self folders];
   v16 = [v11 stringWithFormat:@"🔶 [%10s ID:%6lu]➡[%8s:%6u][%8s:%6lu]", uTF8String, objectID, "Files", v10, "Folders", objc_msgSend(folders, "count")];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -274,30 +272,30 @@
 
 - (void)deleteFolderWithID:(unint64_t)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_folderMediaLock);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = self->_folders;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v14;
+    v9 = *v13;
 LABEL_3:
     v10 = 0;
     v11 = v8;
     while (1)
     {
-      if (*v14 != v9)
+      if (*v13 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v8 = *(*(&v13 + 1) + 8 * v10);
+      v8 = *(*(&v12 + 1) + 8 * v10);
 
       if ([(NSMutableArray *)v8 objectID]== d)
       {
@@ -308,7 +306,7 @@ LABEL_3:
       v11 = v8;
       if (v7 == v10)
       {
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -331,35 +329,34 @@ LABEL_12:
 
 LABEL_13:
   os_unfair_lock_unlock(&self->_folderMediaLock);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteFileWithID:(unint64_t)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_folderMediaLock);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = self->_files;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v14;
+    v9 = *v13;
 LABEL_3:
     v10 = 0;
     v11 = v8;
     while (1)
     {
-      if (*v14 != v9)
+      if (*v13 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v8 = *(*(&v13 + 1) + 8 * v10);
+      v8 = *(*(&v12 + 1) + 8 * v10);
 
       if ([(NSMutableArray *)v8 objectID]== d)
       {
@@ -370,7 +367,7 @@ LABEL_3:
       v11 = v8;
       if (v7 == v10)
       {
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -393,34 +390,33 @@ LABEL_12:
 
 LABEL_13:
   os_unfair_lock_unlock(&self->_folderMediaLock);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getFolderWithID:(unint64_t)d
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([(ICCameraItem *)self objectID]!= d || (v5 = self) == 0)
   {
     [(ICCameraFolder *)self folders];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v6 = v17 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = v16 = 0u;
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [*(*(&v14 + 1) + 8 * i) getFolderWithID:{d, v14}];
+          v11 = [*(*(&v13 + 1) + 8 * i) getFolderWithID:{d, v13}];
           if (v11)
           {
             v5 = v11;
@@ -428,7 +424,7 @@ LABEL_13:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           continue;
@@ -442,34 +438,32 @@ LABEL_13:
 LABEL_13:
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)getFileWithID:(unint64_t)d
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   [(ICCameraFolder *)self files];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v5 = v27 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v5 = v26 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v25 != v8)
+      if (*v24 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v24 + 1) + 8 * v9);
+      v10 = *(*(&v23 + 1) + 8 * v9);
       if ([v10 objectID] == d)
       {
         break;
@@ -477,7 +471,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -501,25 +495,25 @@ LABEL_9:
   }
 
   [(ICCameraFolder *)self folders];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v12 = v23 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v12 = v22 = 0u;
+  v13 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     while (2)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v20 + 1) + 8 * i) getFileWithID:{d, v20}];
+        v17 = [*(*(&v19 + 1) + 8 * i) getFileWithID:{d, v19}];
         if (v17)
         {
           v11 = v17;
@@ -527,7 +521,7 @@ LABEL_9:
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
       if (v14)
       {
         continue;
@@ -541,7 +535,6 @@ LABEL_9:
 LABEL_21:
 
 LABEL_22:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

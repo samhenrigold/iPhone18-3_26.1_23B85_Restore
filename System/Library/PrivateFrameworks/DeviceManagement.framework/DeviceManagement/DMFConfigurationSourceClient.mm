@@ -212,85 +212,84 @@ void __38__DMFConfigurationSourceClient_resume__block_invoke(uint64_t a1)
 void __42__DMFConfigurationSourceClient_invalidate__block_invoke(uint64_t a1)
 {
   v30 = *MEMORY[0x1E69E9840];
-  if (![*(a1 + 32) state] || (objc_msgSend(*(a1 + 32), "isInvalid") & 1) == 0)
+  v2 = [*(a1 + 32) state];
+  if (!v2 || (v2 = [*(a1 + 32) isInvalid], (v2 & 1) == 0))
   {
-    v2 = DMFConfigurationEngineLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = DMFConfigurationEngineLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       *buf = 138543362;
-      v29 = v3;
-      _os_log_impl(&dword_1DBFFF000, v2, OS_LOG_TYPE_INFO, "Invalidating configuration source %{public}@...", buf, 0xCu);
+      v29 = v4;
+      _os_log_impl(&dword_1DBFFF000, v3, OS_LOG_TYPE_INFO, "Invalidating configuration source %{public}@...", buf, 0xCu);
     }
 
-    v4 = dispatch_group_create();
-    v5 = [*(a1 + 32) listener];
-    [v5 invalidate];
+    v5 = dispatch_group_create();
+    v6 = [*(a1 + 32) listener];
+    [v6 invalidate];
 
-    v6 = [*(a1 + 32) incomingConnection];
+    v7 = [*(a1 + 32) incomingConnection];
 
-    if (v6)
+    if (v7)
     {
-      dispatch_group_enter(v4);
+      dispatch_group_enter(v5);
       v26[0] = MEMORY[0x1E69E9820];
       v26[1] = 3221225472;
       v26[2] = __42__DMFConfigurationSourceClient_invalidate__block_invoke_28;
       v26[3] = &unk_1E86160F8;
-      v27 = v4;
-      v7 = [*(a1 + 32) incomingConnection];
-      [v7 setInvalidationHandler:v26];
-
+      v27 = v5;
       v8 = [*(a1 + 32) incomingConnection];
-      [v8 invalidate];
+      [v8 setInvalidationHandler:v26];
+
+      v9 = [*(a1 + 32) incomingConnection];
+      [v9 invalidate];
     }
 
-    v9 = [*(a1 + 32) operationQueue];
-    [v9 cancelAllOperations];
+    v10 = [*(a1 + 32) operationQueue];
+    [v10 cancelAllOperations];
 
-    dispatch_group_enter(v4);
-    v10 = MEMORY[0x1E696AAE0];
+    dispatch_group_enter(v5);
+    v11 = MEMORY[0x1E696AAE0];
     v24[0] = MEMORY[0x1E69E9820];
     v24[1] = 3221225472;
     v24[2] = __42__DMFConfigurationSourceClient_invalidate__block_invoke_2;
     v24[3] = &unk_1E86160F8;
-    v11 = v4;
-    v25 = v11;
-    v12 = [v10 blockOperationWithBlock:v24];
-    v13 = [*(a1 + 32) operationQueue];
-    v14 = [v13 operations];
-    [v12 cat_addDependencies:v14];
+    v12 = v5;
+    v25 = v12;
+    v13 = [v11 blockOperationWithBlock:v24];
+    v14 = [*(a1 + 32) operationQueue];
+    v15 = [v14 operations];
+    [v13 cat_addDependencies:v15];
 
-    v15 = [*(a1 + 32) operationQueue];
-    [v15 addOperation:v12];
+    v16 = [*(a1 + 32) operationQueue];
+    [v16 addOperation:v13];
 
-    dispatch_group_enter(v11);
-    v16 = [*(a1 + 32) serialQueue];
+    dispatch_group_enter(v12);
+    v17 = [*(a1 + 32) serialQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __42__DMFConfigurationSourceClient_invalidate__block_invoke_3;
     block[3] = &unk_1E86160F8;
-    v23 = v11;
-    v17 = v11;
-    dispatch_async(v16, block);
+    v23 = v12;
+    v18 = v12;
+    dispatch_async(v17, block);
 
-    v18 = [*(a1 + 32) registerConfigurationSource];
-    dispatch_suspend(v18);
+    v19 = [*(a1 + 32) registerConfigurationSource];
+    dispatch_suspend(v19);
 
-    v19 = [*(a1 + 32) serialQueue];
+    v20 = [*(a1 + 32) serialQueue];
     v21[0] = MEMORY[0x1E69E9820];
     v21[1] = 3221225472;
     v21[2] = __42__DMFConfigurationSourceClient_invalidate__block_invoke_4;
     v21[3] = &unk_1E86160F8;
     v21[4] = *(a1 + 32);
-    dispatch_group_notify(v17, v19, v21);
+    dispatch_group_notify(v18, v20, v21);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __42__DMFConfigurationSourceClient_invalidate__block_invoke_4(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setState:4];
   v2 = [*(a1 + 32) registerConfigurationSource];
   dispatch_source_cancel(v2);
@@ -298,17 +297,14 @@ void __42__DMFConfigurationSourceClient_invalidate__block_invoke_4(uint64_t a1)
   v3 = [*(a1 + 32) registerConfigurationSource];
   dispatch_resume(v3);
 
-  [*(a1 + 32) setRegisterConfigurationSource:0];
-  v4 = DMFConfigurationEngineLog();
+  v4 = DMFConfigurationEngineLog([*(a1 + 32) setRegisterConfigurationSource:0]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_1DBFFF000, v4, OS_LOG_TYPE_INFO, "Did invalidate configuration source: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_1DBFFF000, v4, OS_LOG_TYPE_INFO, "Did invalidate configuration source: %{public}@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)stateDescription
@@ -327,40 +323,33 @@ void __42__DMFConfigurationSourceClient_invalidate__block_invoke_4(uint64_t a1)
 
 - (NSString)debugDescription
 {
-  v7[3] = *MEMORY[0x1E69E9840];
-  v7[0] = @"stateDescription";
-  v7[1] = @"name";
-  v7[2] = @"machService";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
+  v6[3] = *MEMORY[0x1E69E9840];
+  v6[0] = @"stateDescription";
+  v6[1] = @"name";
+  v6[2] = @"machService";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
   v4 = DMFObjectDescriptionWithProperties(self, v3);
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (NSString)description
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"name";
-  v7[1] = @"machService";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
+  v6[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"name";
+  v6[1] = @"machService";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
   v4 = DMFObjectDescriptionWithProperties(self, v3);
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (void)registerConfigurationSourceIfNeeded
 {
-  v8 = *MEMORY[0x1E69E9840];
   connection = [self connection];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registrationOperationDidFinish:(id)finish
@@ -377,8 +366,7 @@ void __42__DMFConfigurationSourceClient_invalidate__block_invoke_4(uint64_t a1)
   {
     if ([(DMFConfigurationSourceClient *)self state]== 1)
     {
-      [(DMFConfigurationSourceClient *)self setState:2];
-      v7 = DMFConfigurationEngineLog();
+      v7 = DMFConfigurationEngineLog([(DMFConfigurationSourceClient *)self setState:2]);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v15 = 138543362;
@@ -389,11 +377,11 @@ void __42__DMFConfigurationSourceClient_invalidate__block_invoke_4(uint64_t a1)
 
     error = [finishCopy error];
 
-    v9 = DMFConfigurationEngineLog();
-    delegate2 = v9;
+    v10 = DMFConfigurationEngineLog(v9);
+    delegate2 = v10;
     if (!error)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v15 = 138543362;
         selfCopy2 = self;
@@ -403,15 +391,15 @@ void __42__DMFConfigurationSourceClient_invalidate__block_invoke_4(uint64_t a1)
       goto LABEL_13;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(DMFConfigurationSourceClient *)self registrationOperationDidFinish:finishCopy];
     }
 
     delegate = [(DMFConfigurationSourceClient *)self delegate];
-    v12 = objc_opt_respondsToSelector();
+    v13 = objc_opt_respondsToSelector();
 
-    if (v12)
+    if (v13)
     {
       delegate2 = [(DMFConfigurationSourceClient *)self delegate];
       error2 = [finishCopy error];
@@ -420,8 +408,6 @@ void __42__DMFConfigurationSourceClient_invalidate__block_invoke_4(uint64_t a1)
 LABEL_13:
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enqueueOperationToReportStatusChange:(id)change completion:(id)completion
@@ -550,22 +536,23 @@ LABEL_13:
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   serialQueue = [(DMFConfigurationSourceClient *)self serialQueue];
   dispatch_assert_queue_V2(serialQueue);
 
   v7 = [connectionCopy valueForEntitlement:@"application-identifier"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || ([v7 isEqualToString:@"com.apple.dmd"] & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0 || (isKindOfClass = [v7 isEqualToString:@"com.apple.dmd"], (isKindOfClass & 1) == 0))
   {
-    v9 = DMFConfigurationEngineLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = DMFConfigurationEngineLog(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [DMFConfigurationSourceClient listener:shouldAcceptNewConnection:];
     }
 
-    v8 = 0;
+    v9 = 0;
     goto LABEL_8;
   }
 
@@ -578,18 +565,17 @@ LABEL_13:
     serialQueue2 = [(DMFConfigurationSourceClient *)self serialQueue];
     [connectionCopy _setQueue:serialQueue2];
 
-    v14 = DMFConfigurationSourceClientXPCInterface();
-    [connectionCopy setExportedInterface:v14];
+    v15 = DMFConfigurationSourceClientXPCInterface(v14);
+    [connectionCopy setExportedInterface:v15];
 
     [connectionCopy setExportedObject:self];
-    [connectionCopy resume];
-    v9 = DMFConfigurationEngineLog();
-    v8 = 1;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = DMFConfigurationEngineLog([connectionCopy resume]);
+    v9 = 1;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v15 = 138543362;
-      v16 = connectionCopy;
-      _os_log_impl(&dword_1DBFFF000, v9, OS_LOG_TYPE_INFO, "new connection %{public}@", &v15, 0xCu);
+      v16 = 138543362;
+      v17 = connectionCopy;
+      _os_log_impl(&dword_1DBFFF000, v10, OS_LOG_TYPE_INFO, "new connection %{public}@", &v16, 0xCu);
     }
 
 LABEL_8:
@@ -597,11 +583,10 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_9:
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
 - (void)configurationStatusDidChange:(id)change completion:(id)completion
@@ -663,18 +648,18 @@ LABEL_9:
 
 + (id)activeRestrictionsURL
 {
-  v9[5] = *MEMORY[0x1E69E9840];
+  v8[5] = *MEMORY[0x1E69E9840];
   v2 = NSHomeDirectoryForUser(&cfstr_Mobile.isa);
   v3 = v2;
   if (v2)
   {
     v4 = MEMORY[0x1E695DFF8];
-    v9[0] = v2;
-    v9[1] = @"Library";
-    v9[2] = @"dmd";
-    v9[3] = @"ConfigurationEngine";
-    v9[4] = @"ActiveRestrictions.plist";
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
+    v8[0] = v2;
+    v8[1] = @"Library";
+    v8[2] = @"dmd";
+    v8[3] = @"ConfigurationEngine";
+    v8[4] = @"ActiveRestrictions.plist";
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:5];
     v6 = [v4 fileURLWithPathComponents:v5];
   }
 
@@ -682,8 +667,6 @@ LABEL_9:
   {
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -693,62 +676,64 @@ LABEL_9:
   activeRestrictionsURL = [self activeRestrictionsURL];
   if (activeRestrictionsURL)
   {
-    v15 = 0;
-    v3 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:activeRestrictionsURL options:0 error:&v15];
-    v4 = v15;
+    v18 = 0;
+    v3 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:activeRestrictionsURL options:0 error:&v18];
+    v4 = v18;
+    v5 = v4;
     if (!v3)
     {
-      v5 = DMFConfigurationEngineLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = DMFConfigurationEngineLog(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        +[(DMFConfigurationSourceClient *)v4];
+        +[(DMFConfigurationSourceClient *)v5];
       }
 
-      v8 = 0;
-      v6 = v4;
+      v10 = 0;
+      v7 = v5;
       goto LABEL_24;
     }
 
-    v14 = 0;
-    v5 = [MEMORY[0x1E696AE40] propertyListWithData:v3 options:0 format:0 error:&v14];
-    v6 = v14;
+    v17 = 0;
+    v6 = [MEMORY[0x1E696AE40] propertyListWithData:v3 options:0 format:0 error:&v17];
+    v7 = v17;
 
-    if (v5)
+    if (v6)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v7 = [MEMORY[0x1E695DFD8] setWithArray:v5];
+        v9 = [MEMORY[0x1E695DFD8] setWithArray:v6];
 LABEL_17:
-        v8 = v7;
+        v10 = v9;
 LABEL_24:
 
         goto LABEL_25;
       }
 
-      v12 = DMFConfigurationEngineLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v15 = DMFConfigurationEngineLog(isKindOfClass);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        +[DMFConfigurationSourceClient setOfActiveRestrictionUUIDs];
+        +[(DMFConfigurationSourceClient *)v6];
       }
     }
 
     else
     {
-      domain = [v6 domain];
+      domain = [v7 domain];
       if ([domain isEqualToString:*MEMORY[0x1E696A250]])
       {
-        code = [v6 code];
+        code = [v7 code];
 
         if (code == 4)
         {
-          v11 = DMFConfigurationEngineLog();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+          v14 = DMFConfigurationEngineLog(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
-            +[(DMFConfigurationSourceClient *)v11];
+            +[(DMFConfigurationSourceClient *)v14];
           }
 
-          v7 = [MEMORY[0x1E695DFD8] set];
+          v9 = [MEMORY[0x1E695DFD8] set];
           goto LABEL_17;
         }
       }
@@ -757,27 +742,27 @@ LABEL_24:
       {
       }
 
-      v12 = DMFConfigurationEngineLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v15 = DMFConfigurationEngineLog(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        +[(DMFConfigurationSourceClient *)v6];
+        +[(DMFConfigurationSourceClient *)v7];
       }
     }
 
-    v8 = 0;
+    v10 = 0;
     goto LABEL_24;
   }
 
-  v6 = DMFConfigurationEngineLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = DMFConfigurationEngineLog(0);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    +[(DMFConfigurationSourceClient *)v6];
+    +[(DMFConfigurationSourceClient *)v7];
   }
 
-  v8 = 0;
+  v10 = 0;
 LABEL_25:
 
-  return v8;
+  return v10;
 }
 
 - (DMFConfigurationSourceClientDelegate)delegate
@@ -820,31 +805,24 @@ void __38__DMFConfigurationSourceClient_resume__block_invoke_cold_1()
 
 - (void)registrationOperationDidFinish:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = [a2 error];
+  v7 = [a2 error];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1DBFFF000, v0, OS_LOG_TYPE_ERROR, "rejecting incoming connection from %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DBFFF000, v0, OS_LOG_TYPE_ERROR, "rejecting incoming connection from %{public}@", v1, 0xCu);
 }
 
 + (void)setOfActiveRestrictionUUIDs
 {
-  v8 = *MEMORY[0x1E69E9840];
   verboseDescription = [self verboseDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

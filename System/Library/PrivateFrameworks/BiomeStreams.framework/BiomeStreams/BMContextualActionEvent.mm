@@ -45,25 +45,23 @@
 
 - (id)jsonDict
 {
-  v12[5] = *MEMORY[0x1E69E9840];
-  v11[0] = @"identifier";
+  v11[5] = *MEMORY[0x1E69E9840];
+  v10[0] = @"identifier";
   identifier = [(BMContextualActionEvent *)self identifier];
-  v12[0] = identifier;
-  v11[1] = @"appName";
+  v11[0] = identifier;
+  v10[1] = @"appName";
   appName = [(BMContextualActionEvent *)self appName];
-  v12[1] = appName;
-  v11[2] = @"actionName";
+  v11[1] = appName;
+  v10[2] = @"actionName";
   actionName = [(BMContextualActionEvent *)self actionName];
-  v12[2] = actionName;
-  v11[3] = @"contents";
+  v11[2] = actionName;
+  v10[3] = @"contents";
   contents = [(BMContextualActionEvent *)self contents];
-  v12[3] = contents;
-  v11[4] = @"parameters";
+  v11[3] = contents;
+  v10[4] = @"parameters";
   parameters = [(BMContextualActionEvent *)self parameters];
-  v12[4] = parameters;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[4] = parameters;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }
@@ -98,7 +96,7 @@
 
 - (BMContextualActionEvent)initWithProto:(id)proto
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   protoCopy = proto;
   if (protoCopy)
   {
@@ -111,32 +109,32 @@
       contents = [v5 contents];
       v8 = [v6 initWithCapacity:{objc_msgSend(contents, "count")}];
 
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
       v46 = 0u;
-      v38 = v5;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v37 = v5;
       contents2 = [v5 contents];
-      v10 = [contents2 countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v10 = [contents2 countByEnumeratingWithState:&v44 objects:v49 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v46;
+        v12 = *v45;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v46 != v12)
+            if (*v45 != v12)
             {
               objc_enumerationMutation(contents2);
             }
 
-            v14 = *(*(&v45 + 1) + 8 * i);
+            v14 = *(*(&v44 + 1) + 8 * i);
             v15 = MEMORY[0x1E696ACD0];
             v16 = objc_opt_class();
-            v44 = 0;
-            appName = [v15 unarchivedObjectOfClass:v16 fromData:v14 error:&v44];
-            v18 = v44;
+            v43 = 0;
+            appName = [v15 unarchivedObjectOfClass:v16 fromData:v14 error:&v43];
+            v18 = v43;
             if (v18)
             {
               parameters2 = v18;
@@ -149,14 +147,14 @@
               selfCopy2 = 0;
 LABEL_30:
               self = selfCopy;
-              v31 = v38;
+              v31 = v37;
               goto LABEL_31;
             }
 
             [v8 addObject:appName];
           }
 
-          v11 = [contents2 countByEnumeratingWithState:&v45 objects:v50 count:16];
+          v11 = [contents2 countByEnumeratingWithState:&v44 objects:v49 count:16];
           if (v11)
           {
             continue;
@@ -170,32 +168,32 @@ LABEL_30:
       parameters = [v5 parameters];
       contents2 = [v19 initWithCapacity:{objc_msgSend(parameters, "count")}];
 
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       parameters2 = [v5 parameters];
-      v22 = [parameters2 countByEnumeratingWithState:&v40 objects:v49 count:16];
+      v22 = [parameters2 countByEnumeratingWithState:&v39 objects:v48 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v41;
-        v36 = protoCopy;
+        v24 = *v40;
+        v35 = protoCopy;
         while (2)
         {
           for (j = 0; j != v23; ++j)
           {
-            if (*v41 != v24)
+            if (*v40 != v24)
             {
               objc_enumerationMutation(parameters2);
             }
 
-            v26 = *(*(&v40 + 1) + 8 * j);
+            v26 = *(*(&v39 + 1) + 8 * j);
             v27 = MEMORY[0x1E696ACD0];
             v28 = objc_opt_class();
-            v39 = 0;
-            actionName = [v27 unarchivedObjectOfClass:v28 fromData:v26 error:&v39];
-            v30 = v39;
+            v38 = 0;
+            actionName = [v27 unarchivedObjectOfClass:v28 fromData:v26 error:&v38];
+            v30 = v38;
             if (v30)
             {
               appName = v30;
@@ -206,15 +204,15 @@ LABEL_30:
               }
 
               selfCopy2 = 0;
-              protoCopy = v36;
+              protoCopy = v35;
               goto LABEL_30;
             }
 
             [contents2 addObject:actionName];
           }
 
-          v23 = [parameters2 countByEnumeratingWithState:&v40 objects:v49 count:16];
-          protoCopy = v36;
+          v23 = [parameters2 countByEnumeratingWithState:&v39 objects:v48 count:16];
+          protoCopy = v35;
           if (v23)
           {
             continue;
@@ -250,7 +248,6 @@ LABEL_31:
     selfCopy2 = 0;
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
@@ -275,7 +272,7 @@ LABEL_31:
 
 - (id)proto
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   identifier = [(BMContextualActionEvent *)self identifier];
   [v3 setIdentifier:identifier];
@@ -290,29 +287,29 @@ LABEL_31:
   contents = [(BMContextualActionEvent *)self contents];
   v9 = [v7 initWithCapacity:{objc_msgSend(contents, "count")}];
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   contents2 = [(BMContextualActionEvent *)self contents];
-  v11 = [contents2 countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v11 = [contents2 countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v42;
+    v13 = *v41;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v42 != v13)
+        if (*v41 != v13)
         {
           objc_enumerationMutation(contents2);
         }
 
-        v15 = *(*(&v41 + 1) + 8 * i);
-        v40 = 0;
-        v16 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v15 requiringSecureCoding:1 error:&v40];
-        v17 = v40;
+        v15 = *(*(&v40 + 1) + 8 * i);
+        v39 = 0;
+        v16 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v15 requiringSecureCoding:1 error:&v39];
+        v17 = v39;
         if (v17)
         {
           v29 = v17;
@@ -330,7 +327,7 @@ LABEL_24:
         [v9 addObject:v16];
       }
 
-      v12 = [contents2 countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v12 = [contents2 countByEnumeratingWithState:&v40 objects:v45 count:16];
       if (v12)
       {
         continue;
@@ -345,29 +342,29 @@ LABEL_24:
   parameters = [(BMContextualActionEvent *)self parameters];
   contents2 = [v18 initWithCapacity:{objc_msgSend(parameters, "count")}];
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   parameters2 = [(BMContextualActionEvent *)self parameters];
-  v21 = [parameters2 countByEnumeratingWithState:&v36 objects:v45 count:16];
+  v21 = [parameters2 countByEnumeratingWithState:&v35 objects:v44 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v37;
+    v23 = *v36;
     while (2)
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v37 != v23)
+        if (*v36 != v23)
         {
           objc_enumerationMutation(parameters2);
         }
 
-        v25 = *(*(&v36 + 1) + 8 * j);
-        v35 = 0;
-        v26 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v25 requiringSecureCoding:1 error:&v35];
-        v27 = v35;
+        v25 = *(*(&v35 + 1) + 8 * j);
+        v34 = 0;
+        v26 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v25 requiringSecureCoding:1 error:&v34];
+        v27 = v34;
         if (v27)
         {
           v31 = v27;
@@ -383,7 +380,7 @@ LABEL_24:
         [contents2 addObject:v26];
       }
 
-      v22 = [parameters2 countByEnumeratingWithState:&v36 objects:v45 count:16];
+      v22 = [parameters2 countByEnumeratingWithState:&v35 objects:v44 count:16];
       if (v22)
       {
         continue;
@@ -396,8 +393,6 @@ LABEL_24:
   [v3 setParameters:contents2];
   v28 = v3;
 LABEL_25:
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v28;
 }

@@ -67,7 +67,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAllowedToGetNeRDInfo
@@ -91,7 +90,6 @@
     objc_storeStrong(&oslog, 0);
   }
 
-  *MEMORY[0x277D85DE8];
   return v6 & 1;
 }
 
@@ -149,7 +147,6 @@
   v3 = MEMORY[0x277D82BE0](location[0]);
   objc_storeStrong(&parentController, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -217,7 +214,6 @@ void __76__SUSUISoftwareUpdateAutomaticUpdateController_NeRD__displayNeRDAlertTo
 
   objc_storeStrong(&v5, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __76__SUSUISoftwareUpdateAutomaticUpdateController_NeRD__displayNeRDAlertToUser__block_invoke_304(NSObject *a1, void *a2)
@@ -236,7 +232,6 @@ void __76__SUSUISoftwareUpdateAutomaticUpdateController_NeRD__displayNeRDAlertTo
 
   objc_storeStrong(oslog, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (SUSUISoftwareUpdateAutomaticUpdateController)init
@@ -350,23 +345,21 @@ void __76__SUSUISoftwareUpdateAutomaticUpdateController_NeRD__displayNeRDAlertTo
     v13 = MEMORY[0x277D82BE0](*(&self->super.super.super.super.super.isa + *v11));
   }
 
-  *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)automaticallyInstallGroup
 {
-  v16[2] = self;
-  v16[1] = a2;
-  v5 = MEMORY[0x277D3FAD8];
-  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v6 = [v7 localizedStringForKey:@"AUTOMATIC_UPDATES_AUTO_INSTALL_HEADER" value:? table:?];
-  v16[0] = [v5 groupSpecifierWithName:?];
+  v15[2] = self;
+  v15[1] = a2;
+  v4 = MEMORY[0x277D3FAD8];
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = [v6 localizedStringForKey:@"AUTOMATIC_UPDATES_AUTO_INSTALL_HEADER" value:? table:?];
+  v15[0] = [v4 groupSpecifierWithName:?];
+  MEMORY[0x277D82BD8](v5);
   MEMORY[0x277D82BD8](v6);
-  MEMORY[0x277D82BD8](v7);
-  v14 = MGGetBoolAnswer();
-  if (v14)
+  v13 = MGGetBoolAnswer();
+  if (v13)
   {
     v2 = @"WLAN";
   }
@@ -376,24 +369,23 @@ void __76__SUSUISoftwareUpdateAutomaticUpdateController_NeRD__displayNeRDAlertTo
     v2 = @"WIFI";
   }
 
-  v15 = MEMORY[0x277D82BE0](v2);
-  v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"AUTOMATIC_UPDATES_AUTO_INSTALL_EXPLANATION_%@", v15];
-  v8 = v16[0];
-  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v10 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:v13];
-  v9 = [v11 localizedStringForKey:? value:? table:?];
-  v3 = *MEMORY[0x277D3FF88];
-  [v8 setProperty:? forKey:?];
+  v14 = MEMORY[0x277D82BE0](v2);
+  v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"AUTOMATIC_UPDATES_AUTO_INSTALL_EXPLANATION_%@", v14];
+  v7 = v15[0];
+  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v9 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:v12];
+  v8 = [v10 localizedStringForKey:? value:? table:?];
+  [v7 setProperty:? forKey:?];
+  MEMORY[0x277D82BD8](v8);
   MEMORY[0x277D82BD8](v9);
   MEMORY[0x277D82BD8](v10);
-  MEMORY[0x277D82BD8](v11);
-  [v16[0] setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
-  v12 = MEMORY[0x277D82BE0](v16[0]);
-  objc_storeStrong(&v13, 0);
-  objc_storeStrong(&v15, 0);
-  objc_storeStrong(v16, 0);
+  [v15[0] setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
+  v11 = MEMORY[0x277D82BE0](v15[0]);
+  objc_storeStrong(&v12, 0);
+  objc_storeStrong(&v14, 0);
+  objc_storeStrong(v15, 0);
 
-  return v12;
+  return v11;
 }
 
 - (id)automaticallyInstallSwitch
@@ -451,28 +443,27 @@ void __76__SUSUISoftwareUpdateAutomaticUpdateController_NeRD__displayNeRDAlertTo
 
 - (id)automaticallyDownloadGroup
 {
-  v12[2] = self;
-  v12[1] = a2;
-  v4 = MEMORY[0x277D3FAD8];
-  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v5 = [v6 localizedStringForKey:@"AUTOMATIC_UPDATES_AUTO_DOWNLOAD_HEADER" value:? table:?];
-  v12[0] = [v4 groupSpecifierWithName:?];
+  v11[2] = self;
+  v11[1] = a2;
+  v3 = MEMORY[0x277D3FAD8];
+  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v5 localizedStringForKey:@"AUTOMATIC_UPDATES_AUTO_DOWNLOAD_HEADER" value:? table:?];
+  v11[0] = [v3 groupSpecifierWithName:?];
+  MEMORY[0x277D82BD8](v4);
   MEMORY[0x277D82BD8](v5);
-  MEMORY[0x277D82BD8](v6);
-  v7 = v12[0];
-  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v9 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"AUTOMATIC_UPDATES_AUTO_DOWNLOAD_EXPLANATION"];
-  v8 = [v10 localizedStringForKey:? value:? table:?];
-  v2 = *MEMORY[0x277D3FF88];
-  [v7 setProperty:? forKey:?];
+  v6 = v11[0];
+  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v8 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"AUTOMATIC_UPDATES_AUTO_DOWNLOAD_EXPLANATION"];
+  v7 = [v9 localizedStringForKey:? value:? table:?];
+  [v6 setProperty:? forKey:?];
+  MEMORY[0x277D82BD8](v7);
   MEMORY[0x277D82BD8](v8);
   MEMORY[0x277D82BD8](v9);
-  MEMORY[0x277D82BD8](v10);
-  [v12[0] setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
-  v11 = MEMORY[0x277D82BE0](v12[0]);
-  objc_storeStrong(v12, 0);
+  [v11[0] setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
+  v10 = MEMORY[0x277D82BE0](v11[0]);
+  objc_storeStrong(v11, 0);
 
-  return v11;
+  return v10;
 }
 
 - (id)automaticallyDownloadUpdatesSwitch
@@ -989,9 +980,7 @@ uint64_t __88__SUSUISoftwareUpdateAutomaticUpdateController_preferences_didChang
   }
 
   objc_storeStrong(oslog, 0);
-  result = [(objc_class *)a1[4].isa reloadSpecifiers];
-  *MEMORY[0x277D85DE8];
-  return result;
+  return [(objc_class *)a1[4].isa reloadSpecifiers];
 }
 
 @end

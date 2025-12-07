@@ -21,39 +21,39 @@
     operator new();
   }
 
-  v6 = MEMORY[0x277D81150];
-  v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEDurationFormulaNode setValue:]", v3, v4);
-  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFormulaNode.mm", v9, v10);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v12, v7, v11, 443, 0, "invalid nil value for '%{public}s'", "value");
+  v5 = MEMORY[0x277D81150];
+  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEDurationFormulaNode setValue:]", v3);
+  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFormulaNode.mm", v8);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v10, v6, v9, 443, 0, "invalid nil value for '%{public}s'", "value");
 
-  v17 = MEMORY[0x277D81150];
+  v14 = MEMORY[0x277D81150];
 
-  objc_msgSend_logBacktraceThrottled(v17, v13, v14, v15, v16);
+  objc_msgSend_logBacktraceThrottled(v14, v11, v12, v13);
 }
 
 - (TSCEDurationFormulaNode)initWithDuration:(TSCEDurationData *)duration
 {
   if (!duration)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEDurationFormulaNode initWithDuration:]", v3, v4);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFormulaNode.mm", v10, v11);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v12, 451, 0, "invalid nil value for '%{public}s'", "value");
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEDurationFormulaNode initWithDuration:]", v3);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFormulaNode.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v7, v10, 451, 0, "invalid nil value for '%{public}s'", "value");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
-  v24.receiver = self;
-  v24.super_class = TSCEDurationFormulaNode;
-  v18 = [(TSCEFormulaNode *)&v24 initWithNodeType:5];
-  v22 = v18;
-  if (v18)
+  v20.receiver = self;
+  v20.super_class = TSCEDurationFormulaNode;
+  v15 = [(TSCEFormulaNode *)&v20 initWithNodeType:5];
+  v18 = v15;
+  if (v15)
   {
-    v18->_value = 0;
-    objc_msgSend_setValue_(v18, v19, duration, v20, v21);
+    v15->_value = 0;
+    objc_msgSend_setValue_(v15, v16, duration, v17);
   }
 
-  return v22;
+  return v18;
 }
 
 - (void)dealloc
@@ -74,17 +74,17 @@
 {
   if (!self->_value)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEDurationFormulaNode copyWithZone:]", v3, v4);
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFormulaNode.mm", v9, v10);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v12, v7, v11, 465, 0, "invalid nil value for '%{public}s'", "_value");
+    v5 = MEMORY[0x277D81150];
+    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEDurationFormulaNode copyWithZone:]", v3);
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFormulaNode.mm", v8);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v10, v6, v9, 465, 0, "invalid nil value for '%{public}s'", "_value");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15, v16);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12, v13);
   }
 
-  v18.receiver = self;
-  v18.super_class = TSCEDurationFormulaNode;
-  [(TSCEDurationFormulaNode *)&v18 copy];
+  v15.receiver = self;
+  v15.super_class = TSCEDurationFormulaNode;
+  [(TSCEDurationFormulaNode *)&v15 copy];
   operator new();
 }
 
@@ -94,22 +94,22 @@
   value = self->_value;
   if (value)
   {
-    TSCEASTDurationElement::appendDurationElement(array, value->var1, &value->var2, v9, v10, value->var0);
-    v16 = objc_msgSend_whitespaceBefore(self, v12, v13, v14, v15);
-    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v16);
+    TSCEASTDurationElement::appendDurationElement(array, value->var0, value->var1, &value->var2, v9);
+    v14 = objc_msgSend_whitespaceBefore(self, v11, v12, v13);
+    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v14);
 
-    v21 = objc_msgSend_whitespaceAfter(self, v17, v18, v19, v20);
-    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v21);
+    v18 = objc_msgSend_whitespaceAfter(self, v15, v16, v17);
+    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v18);
   }
 
   else
   {
-    v22 = MEMORY[0x277D81150];
-    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSCEDurationFormulaNode appendToNodeArray:hostCellRef:symbolTable:calcEngine:]", v9, v10);
-    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFormulaNode.mm", v25, v26);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v28, v23, v27, 479, 0, "invalid nil value for '%{public}s'", "durationData");
+    v19 = MEMORY[0x277D81150];
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSCEDurationFormulaNode appendToNodeArray:hostCellRef:symbolTable:calcEngine:]", v9);
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFormulaNode.mm", v22);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v24, v20, v23, 479, 0, "invalid nil value for '%{public}s'", "durationData");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31, v32);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27);
   }
 }
 

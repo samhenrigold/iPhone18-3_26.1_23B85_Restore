@@ -2,10 +2,18 @@
 + (id)createSymlinkFromContent:(id)content inBuffer:(id)buffer;
 + (void)verifyAndGetLink:(id)link replyHandler:(id)handler;
 - (id)getAttributes:(id)attributes;
+- (id)initInVolume:(id)volume inDir:(id)dir startingAt:(unsigned int)at withData:(id)data andName:(id)name;
 - (void)purgeMetaBlocksFromCache:(id)cache;
 @end
 
 @implementation SymLinkItem
+
+- (id)initInVolume:(id)volume inDir:(id)dir startingAt:(unsigned int)at withData:(id)data andName:(id)name
+{
+  v8.receiver = self;
+  v8.super_class = SymLinkItem;
+  return [(FATItem *)&v8 initInVolume:volume inDir:dir startingAt:*&at withData:data andName:name isRoot:0];
+}
 
 + (id)createSymlinkFromContent:(id)content inBuffer:(id)buffer
 {

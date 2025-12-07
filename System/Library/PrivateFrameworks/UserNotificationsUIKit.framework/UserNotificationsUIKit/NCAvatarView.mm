@@ -54,29 +54,30 @@
 
 - (void)layoutSubviews
 {
-  v6.receiver = self;
-  v6.super_class = NCAvatarView;
-  [(NCAvatarView *)&v6 layoutSubviews];
+  v8.receiver = self;
+  v8.super_class = NCAvatarView;
+  [(NCAvatarView *)&v8 layoutSubviews];
   [(NCAvatarView *)self _configureImageViewIfNecessary];
   [(NCAvatarView *)self _updateAvatarImageIfNecessary];
   [(NCAvatarView *)self _configureBackgroundMaterialViewIfNecessary];
-  if ([(_UNNotificationCommunicationContext *)self->_communicationContext isBusinessCorrespondence])
+  isBusinessCorrespondence = [(_UNNotificationCommunicationContext *)self->_communicationContext isBusinessCorrespondence];
+  if (isBusinessCorrespondence)
   {
-    v3 = NCProminentIconCornerRadius();
+    v5 = NCProminentIconCornerRadius(isBusinessCorrespondence, v4);
     [(NCAvatarView *)self _setContinuousCornerRadius:?];
-    [(MTMaterialView *)self->_backgroundMaterialView _setContinuousCornerRadius:v3];
-    [(UIImageView *)self->_imageView _setContinuousCornerRadius:v3];
+    [(MTMaterialView *)self->_backgroundMaterialView _setContinuousCornerRadius:v5];
+    [(UIImageView *)self->_imageView _setContinuousCornerRadius:v5];
   }
 
   else
   {
     [(NCAvatarView *)self frame];
-    CGRectGetHeight(v7);
+    CGRectGetHeight(v9);
     UIRoundToScale();
-    v5 = v4;
+    v7 = v6;
     [(NCAvatarView *)self _setCornerRadius:?];
-    [(MTMaterialView *)self->_backgroundMaterialView _setCornerRadius:v5];
-    [(UIImageView *)self->_imageView _setCornerRadius:v5];
+    [(MTMaterialView *)self->_backgroundMaterialView _setCornerRadius:v7];
+    [(UIImageView *)self->_imageView _setCornerRadius:v7];
   }
 }
 

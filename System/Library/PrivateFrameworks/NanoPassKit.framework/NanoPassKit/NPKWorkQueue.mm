@@ -1,4 +1,5 @@
 @interface NPKWorkQueue
+- (NPKWorkQueue)initWithQueue:(id)queue takeOutTransactions:(BOOL)transactions;
 - (void)_onQueue_doWorkIfNecessary;
 - (void)dealloc;
 - (void)flush;
@@ -7,38 +8,60 @@
 
 @implementation NPKWorkQueue
 
+- (NPKWorkQueue)initWithQueue:(id)queue takeOutTransactions:(BOOL)transactions
+{
+  transactionsCopy = transactions;
+  queueCopy = queue;
+  v11.receiver = self;
+  v11.super_class = NPKWorkQueue;
+  v7 = [(NPKWorkQueue *)&v11 init];
+  if (v7)
+  {
+    v8 = dispatch_queue_create(0, 0);
+    [(NPKWorkQueue *)v7 setQueue:v8];
+
+    array = [MEMORY[0x277CBEB18] array];
+    [(NPKWorkQueue *)v7 setRemainingWork:array];
+
+    [(NPKWorkQueue *)v7 setCallbackQueue:queueCopy];
+    [(NPKWorkQueue *)v7 setTakeOutTransactions:transactionsCopy];
+  }
+
+  return v7;
+}
+
 - (void)dealloc
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if ([(NSMutableArray *)self->_remainingWork count])
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = [(NSMutableArray *)self->_remainingWork count];
+  if (v3)
   {
-    v3 = pk_General_log();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    v4 = pk_General_log(v3);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-    if (v4)
+    if (v5)
     {
-      v5 = pk_General_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = pk_General_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         workQueueName = self->_workQueueName;
-        v7 = [(NSMutableArray *)self->_remainingWork count];
+        v9 = [(NSMutableArray *)self->_remainingWork count];
         *buf = 134218498;
         selfCopy = self;
-        v12 = 2112;
-        v13 = workQueueName;
-        v14 = 2048;
-        v15 = v7;
-        _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: deallocating NPKWorkQueueItem:%p, %@ has %lu remaining work items.", buf, 0x20u);
+        v13 = 2112;
+        v14 = workQueueName;
+        v15 = 2048;
+        v16 = v9;
+        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: deallocating NPKWorkQueueItem:%p, %@ has %lu remaining work items.", buf, 0x20u);
       }
     }
 
     [(NSMutableArray *)self->_remainingWork enumerateObjectsUsingBlock:&__block_literal_global_20];
   }
 
-  v9.receiver = self;
-  v9.super_class = NPKWorkQueue;
-  [(NPKWorkQueue *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = NPKWorkQueue;
+  [(NPKWorkQueue *)&v10 dealloc];
 }
 
 void __23__NPKWorkQueue_dealloc__block_invoke(uint64_t a1, void *a2)
@@ -74,18 +97,18 @@ void __23__NPKWorkQueue_dealloc__block_invoke(uint64_t a1, void *a2)
       v10 = transaction;
       v23 = v10;
       v11 = _Block_copy(aBlock);
-      v12 = pk_Payment_log();
+      v12 = pk_Payment_log(v11);
       v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
       if (v13)
       {
-        v14 = pk_Payment_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = pk_Payment_log(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           workQueueName = [(NPKWorkQueue *)self workQueueName];
           *buf = 138412290;
           v25 = workQueueName;
-          _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Work queue %@: starting next work block", buf, 0xCu);
+          _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Work queue %@: starting next work block", buf, 0xCu);
         }
       }
 
@@ -109,77 +132,74 @@ void __23__NPKWorkQueue_dealloc__block_invoke(uint64_t a1, void *a2)
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __42__NPKWorkQueue__onQueue_doWorkIfNecessary__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = pk_Payment_log();
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = pk_Payment_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [*(a1 + 32) workQueueName];
+      v6 = [*(a1 + 32) workQueueName];
       *buf = 138412290;
-      v13 = v5;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Work queue %@: ended work block", buf, 0xCu);
+      v14 = v6;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Work queue %@: ended work block", buf, 0xCu);
     }
   }
 
   if (*(a1 + 40))
   {
-    v6 = pk_General_log();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = pk_General_log(v4);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v8)
     {
-      v8 = pk_General_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = pk_General_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: ending XPC transaction for work", buf, 2u);
+        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: ending XPC transaction for work", buf, 2u);
       }
     }
 
     [*(a1 + 40) invalidate];
   }
 
-  v9 = [*(a1 + 32) queue];
+  v11 = [*(a1 + 32) queue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __42__NPKWorkQueue__onQueue_doWorkIfNecessary__block_invoke_3;
   block[3] = &unk_279944F98;
   block[4] = *(a1 + 32);
-  dispatch_async(v9, block);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_async(v11, block);
 }
 
 uint64_t __42__NPKWorkQueue__onQueue_doWorkIfNecessary__block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if (([*(a1 + 32) performingWork] & 1) == 0)
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) performingWork];
+  if ((v2 & 1) == 0)
   {
-    v2 = pk_General_log();
-    v3 = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
+    v3 = pk_General_log(v2);
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 
-    if (v3)
+    if (v4)
     {
-      v4 = pk_General_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v6 = pk_General_log(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v7 = 136446722;
-        v8 = "[NPKWorkQueue _onQueue_doWorkIfNecessary]_block_invoke";
-        v9 = 2082;
-        v10 = "/Library/Caches/com.apple.xbs/Sources/NanoPassbook_Frameworks/NanoPassKit/NPKWorkQueue.m";
-        v11 = 2048;
-        v12 = 78;
-        _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: NPKWorkQueue was performing work, but somehow self.performingWork was NO)", &v7, 0x20u);
+        v8 = 136446722;
+        v9 = "[NPKWorkQueue _onQueue_doWorkIfNecessary]_block_invoke";
+        v10 = 2082;
+        v11 = "/Library/Caches/com.apple.xbs/Sources/NanoPassbook_Frameworks/NanoPassKit/NPKWorkQueue.m";
+        v12 = 2048;
+        v13 = 78;
+        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: NPKWorkQueue was performing work, but somehow self.performingWork was NO)", &v8, 0x20u);
       }
     }
 
@@ -187,36 +207,35 @@ uint64_t __42__NPKWorkQueue__onQueue_doWorkIfNecessary__block_invoke_3(uint64_t 
   }
 
   [*(a1 + 32) setPerformingWork:0];
-  result = [*(a1 + 32) _onQueue_doWorkIfNecessary];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _onQueue_doWorkIfNecessary];
 }
 
 - (void)performWork:(id)work
 {
   workCopy = work;
-  if ([(NPKWorkQueue *)self takeOutTransactions])
+  takeOutTransactions = [(NPKWorkQueue *)self takeOutTransactions];
+  if (takeOutTransactions)
   {
-    v5 = pk_General_log();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v6 = pk_General_log(takeOutTransactions);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-    if (v6)
+    if (v7)
     {
-      v7 = pk_General_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = pk_General_log(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: taking out XPC transaction for work", buf, 2u);
+        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: taking out XPC transaction for work", buf, 2u);
       }
     }
 
-    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Work queue: %@ Item transaction", self->_workQueueName];
-    v9 = [NPKOSTransaction transactionWithName:v8];
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Work queue: %@ Item transaction", self->_workQueueName];
+    v11 = [NPKOSTransaction transactionWithName:v10];
   }
 
   else
   {
-    v9 = 0;
+    v11 = 0;
   }
 
   queue = [(NPKWorkQueue *)self queue];
@@ -225,10 +244,10 @@ uint64_t __42__NPKWorkQueue__onQueue_doWorkIfNecessary__block_invoke_3(uint64_t 
   block[2] = __28__NPKWorkQueue_performWork___block_invoke;
   block[3] = &unk_279945A48;
   block[4] = self;
-  v14 = v9;
-  v15 = workCopy;
-  v11 = workCopy;
-  v12 = v9;
+  v16 = v11;
+  v17 = workCopy;
+  v13 = workCopy;
+  v14 = v11;
   dispatch_async(queue, block);
 }
 
@@ -246,20 +265,20 @@ uint64_t __28__NPKWorkQueue_performWork___block_invoke(uint64_t a1)
 - (void)flush
 {
   v14 = *MEMORY[0x277D85DE8];
-  v3 = pk_General_log();
+  v3 = pk_General_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       workQueueName = self->_workQueueName;
       *buf = 138412546;
       selfCopy = self;
       v12 = 2112;
       v13 = workQueueName;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Work queue %@, %@: Requested to flush pending works", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Work queue %@, %@: Requested to flush pending works", buf, 0x16u);
     }
   }
 
@@ -270,35 +289,31 @@ uint64_t __28__NPKWorkQueue_performWork___block_invoke(uint64_t a1)
   block[3] = &unk_279944F98;
   block[4] = self;
   dispatch_async(queue, block);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __21__NPKWorkQueue_flush__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) remainingWork];
   [v2 removeAllObjects];
 
-  v3 = pk_General_log();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+  v4 = pk_General_log(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-  if (v4)
+  if (v5)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_General_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
-      v7 = *(v6 + 16);
-      v9 = 138412546;
-      v10 = v6;
-      v11 = 2112;
-      v12 = v7;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Work queue %@, %@: Flushed pending works", &v9, 0x16u);
+      v8 = *(a1 + 32);
+      v9 = *(v8 + 16);
+      v10 = 138412546;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Work queue %@, %@: Flushed pending works", &v10, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

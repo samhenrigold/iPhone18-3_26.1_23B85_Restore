@@ -24,6 +24,7 @@
 - (SecureBackup)initWithUserActivityLabel:(id)label;
 - (id)_CreateSecureBackupConnection;
 - (id)backupForRecoveryKeyWithInfo:(id)info;
+- (id)beginHSA2PasscodeRequest:(BOOL)request error:(id *)error;
 - (id)beginHSA2PasscodeRequest:(BOOL)request uuid:(id)uuid reason:(id)reason error:(id *)error;
 - (id)cachePassphraseWithInfo:(id)info;
 - (id)changeSMSTargetWithInfo:(id)info;
@@ -93,15 +94,15 @@
 
 - (id)_CreateSecureBackupConnection
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = CloudServicesLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v15[0] = 67109378;
-    v15[1] = getuid();
-    v16 = 2080;
-    v17 = getprogname();
-    _os_log_impl(&dword_22E9CA000, v2, OS_LOG_TYPE_DEFAULT, "creating connection to sbd: uid %d, progname %s", v15, 0x12u);
+    v14[0] = 67109378;
+    v14[1] = getuid();
+    v15 = 2080;
+    v16 = getprogname();
+    _os_log_impl(&dword_22E9CA000, v2, OS_LOG_TYPE_DEFAULT, "creating connection to sbd: uid %d, progname %s", v14, 0x12u);
   }
 
   v4 = objc_msgSend_interfaceWithProtocol_(MEMORY[0x277CCAE90], v3, &unk_28435EF88);
@@ -114,26 +115,24 @@
   v12 = CloudServicesLog();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v15[0]) = 0;
-    _os_log_impl(&dword_22E9CA000, v12, OS_LOG_TYPE_DEFAULT, "sbd connection created", v15, 2u);
+    LOWORD(v14[0]) = 0;
+    _os_log_impl(&dword_22E9CA000, v12, OS_LOG_TYPE_DEFAULT, "sbd connection created", v14, 2u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)_ClassCreateSecureBackupConcurrentConnection
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = CloudServicesLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v15[0] = 67109378;
-    v15[1] = getuid();
-    v16 = 2080;
-    v17 = getprogname();
-    _os_log_impl(&dword_22E9CA000, v2, OS_LOG_TYPE_DEFAULT, "creating connection to sbd: uid %d, progname %s", v15, 0x12u);
+    v14[0] = 67109378;
+    v14[1] = getuid();
+    v15 = 2080;
+    v16 = getprogname();
+    _os_log_impl(&dword_22E9CA000, v2, OS_LOG_TYPE_DEFAULT, "creating connection to sbd: uid %d, progname %s", v14, 0x12u);
   }
 
   v4 = objc_msgSend_interfaceWithProtocol_(MEMORY[0x277CCAE90], v3, &unk_28435EFE8);
@@ -146,22 +145,20 @@
   v12 = CloudServicesLog();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v15[0]) = 0;
-    _os_log_impl(&dword_22E9CA000, v12, OS_LOG_TYPE_DEFAULT, "sbd connection created", v15, 2u);
+    LOWORD(v14[0]) = 0;
+    _os_log_impl(&dword_22E9CA000, v12, OS_LOG_TYPE_DEFAULT, "sbd connection created", v14, 2u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (SecureBackup)initWithUserActivityLabel:(id)label
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   labelCopy = label;
-  v22.receiver = self;
-  v22.super_class = SecureBackup;
-  v5 = [(SecureBackup *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = SecureBackup;
+  v5 = [(SecureBackup *)&v21 init];
   if (v5)
   {
     v6 = objc_alloc(MEMORY[0x277CCACA8]);
@@ -185,14 +182,13 @@
       v18 = objc_msgSend_UUIDString(v5->_activityUUID, v16, v17);
       v19 = v5->_activityLabel;
       *buf = 138412546;
-      v24 = v18;
-      v25 = 2112;
-      v26 = v19;
+      v23 = v18;
+      v24 = 2112;
+      v25 = v19;
       _os_log_impl(&dword_22E9CA000, v15, OS_LOG_TYPE_INFO, "New SecureBackup object: %@ %@", buf, 0x16u);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -339,11 +335,11 @@
 
 - (SecureBackup)initWithCoder:(id)coder
 {
-  v161 = *MEMORY[0x277D85DE8];
+  v160 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v156.receiver = self;
-  v156.super_class = SecureBackup;
-  v5 = [(SecureBackup *)&v156 init];
+  v155.receiver = self;
+  v155.super_class = SecureBackup;
+  v5 = [(SecureBackup *)&v155 init];
   if (v5)
   {
     v6 = objc_opt_class();
@@ -524,14 +520,13 @@
       v152 = objc_msgSend_UUIDString(v5->_activityUUID, v150, v151);
       v153 = v5->_activityLabel;
       *buf = 138412546;
-      v158 = v152;
-      v159 = 2112;
-      v160 = v153;
+      v157 = v152;
+      v158 = 2112;
+      v159 = v153;
       _os_log_impl(&dword_22E9CA000, v149, OS_LOG_TYPE_INFO, "Deserialized SecureBackup object: %@ %@", buf, 0x16u);
     }
   }
 
-  v154 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -810,52 +805,50 @@
 
 - (void)enableWithCompletionBlock:(id)block
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v7 = objc_msgSend__CreateSecureBackupConnection(self, v5, v6);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = sub_22E9CE2A8;
-  v29[3] = &unk_278859628;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = sub_22E9CE2A8;
+  v30[3] = &unk_278859628;
   v8 = blockCopy;
-  v30 = v8;
-  v10 = objc_msgSend_remoteObjectProxyWithErrorHandler_(v7, v9, v29);
-  v11 = _CloudServicesSignpostLogSystem();
+  v31 = v8;
+  v10 = objc_msgSend_remoteObjectProxyWithErrorHandler_(v7, v9, v30);
+  v11 = _CloudServicesSignpostLogSystem(v10);
   v12 = _CloudServicesSignpostCreate(v11);
   v14 = v13;
 
-  v15 = _CloudServicesSignpostLogSystem();
-  v16 = v15;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v16 = _CloudServicesSignpostLogSystem(v15);
+  v17 = v16;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_22E9CA000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v12, "EnableWithRequest", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_22E9CA000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v12, "EnableWithRequest", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v17 = _CloudServicesSignpostLogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = _CloudServicesSignpostLogSystem(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v32 = v12;
-    _os_log_impl(&dword_22E9CA000, v17, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: EnableWithRequest  enableTelemetry=YES ", buf, 0xCu);
+    v33 = v12;
+    _os_log_impl(&dword_22E9CA000, v19, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: EnableWithRequest  enableTelemetry=YES ", buf, 0xCu);
   }
 
   activity_block[0] = MEMORY[0x277D85DD0];
   activity_block[1] = 3221225472;
   activity_block[2] = sub_22E9CE31C;
   activity_block[3] = &unk_2788596F0;
-  v23 = v10;
+  v24 = v10;
   selfCopy = self;
-  v27 = v12;
-  v28 = v14;
-  v25 = v7;
-  v26 = v8;
-  v18 = v8;
-  v19 = v7;
-  v20 = v10;
+  v28 = v12;
+  v29 = v14;
+  v26 = v7;
+  v27 = v8;
+  v20 = v8;
+  v21 = v7;
+  v22 = v10;
   _os_activity_initiate(&dword_22E9CA000, "calling enableWithRequest in daemon", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recoverWithResults:(id)results
@@ -1649,36 +1642,36 @@
 
 - (id)recoverWithCDPContext:(id)context escrowRecord:(id)record error:(id *)error
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   recordCopy = record;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = sub_22E9D27B0;
-  v49 = sub_22E9D27C0;
-  v50 = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = sub_22E9D27B0;
-  v43 = sub_22E9D27C0;
   v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = sub_22E9D27B0;
+  v48 = sub_22E9D27C0;
+  v49 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = sub_22E9D27B0;
+  v42 = sub_22E9D27C0;
+  v43 = 0;
   v12 = objc_msgSend__CreateSecureBackupConnection(self, v10, v11);
   v13 = CloudServicesLog();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v52 = recordCopy;
+    v51 = recordCopy;
     _os_log_impl(&dword_22E9CA000, v13, OS_LOG_TYPE_DEFAULT, "recoverWithCDPContext: invoked escrow recovery with escrowRecord: %@", buf, 0xCu);
   }
 
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = sub_22E9D3C38;
-  v38[3] = &unk_2788597E0;
-  v38[4] = &v45;
-  v15 = objc_msgSend_synchronousRemoteObjectProxyWithErrorHandler_(v12, v14, v38);
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = sub_22E9D3C38;
+  v37[3] = &unk_2788597E0;
+  v37[4] = &v44;
+  v15 = objc_msgSend_synchronousRemoteObjectProxyWithErrorHandler_(v12, v14, v37);
   if (pthread_main_np())
   {
     v16 = CloudServicesLog();
@@ -1692,68 +1685,66 @@
   activity_block[1] = 3221225472;
   activity_block[2] = sub_22E9D3CA8;
   activity_block[3] = &unk_2788598A8;
-  v32 = v15;
+  v31 = v15;
   v24 = contextCopy;
-  v33 = v24;
+  v32 = v24;
   v25 = recordCopy;
-  v36 = &v45;
-  v37 = &v39;
-  v34 = v25;
-  v35 = v12;
+  v35 = &v44;
+  v36 = &v38;
+  v33 = v25;
+  v34 = v12;
   v26 = v12;
   v27 = v15;
   _os_activity_initiate(&dword_22E9CA000, "calling recoverWithCDPContextInDaemon in daemon", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
 
   if (error)
   {
-    *error = v46[5];
+    *error = v45[5];
   }
 
-  v28 = v40[5];
+  v28 = v39[5];
 
-  _Block_object_dispose(&v39, 8);
-  _Block_object_dispose(&v45, 8);
-
-  v29 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v44, 8);
 
   return v28;
 }
 
 - (id)recoverWithCDPContext:(id)context escrowRecord:(id)record altDSID:(id)d flowID:(id)iD deviceSessionID:(id)sessionID error:(id *)error
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   recordCopy = record;
   dCopy = d;
   iDCopy = iD;
   sessionIDCopy = sessionID;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = sub_22E9D27B0;
-  v64 = sub_22E9D27C0;
-  v65 = 0;
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = sub_22E9D27B0;
-  v58 = sub_22E9D27C0;
   v59 = 0;
+  v60 = &v59;
+  v61 = 0x3032000000;
+  v62 = sub_22E9D27B0;
+  v63 = sub_22E9D27C0;
+  v64 = 0;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x3032000000;
+  v56 = sub_22E9D27B0;
+  v57 = sub_22E9D27C0;
+  v58 = 0;
   v21 = objc_msgSend__CreateSecureBackupConnection(self, v19, v20);
   v22 = CloudServicesLog();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v67 = recordCopy;
+    v66 = recordCopy;
     _os_log_impl(&dword_22E9CA000, v22, OS_LOG_TYPE_DEFAULT, "recoverWithCDPContext: invoked escrow recovery with escrowRecord: %@", buf, 0xCu);
   }
 
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = sub_22E9D421C;
-  v53[3] = &unk_2788597E0;
-  v53[4] = &v60;
-  v24 = objc_msgSend_synchronousRemoteObjectProxyWithErrorHandler_(v21, v23, v53);
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = sub_22E9D421C;
+  v52[3] = &unk_2788597E0;
+  v52[4] = &v59;
+  v24 = objc_msgSend_synchronousRemoteObjectProxyWithErrorHandler_(v21, v23, v52);
   if (pthread_main_np())
   {
     v25 = CloudServicesLog();
@@ -1763,75 +1754,73 @@
     }
   }
 
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = sub_22E9D428C;
-  v43[3] = &unk_2788598D0;
-  v44 = v24;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = sub_22E9D428C;
+  v42[3] = &unk_2788598D0;
+  v43 = v24;
   v33 = contextCopy;
-  v45 = v33;
+  v44 = v33;
   v34 = recordCopy;
-  v46 = v34;
+  v45 = v34;
   v35 = dCopy;
-  v47 = v35;
+  v46 = v35;
   v36 = iDCopy;
-  v48 = v36;
+  v47 = v36;
   v37 = sessionIDCopy;
-  v51 = &v60;
-  v52 = &v54;
-  v49 = v37;
-  v50 = v21;
+  v50 = &v59;
+  v51 = &v53;
+  v48 = v37;
+  v49 = v21;
   v38 = v21;
   v39 = v24;
-  _os_activity_initiate(&dword_22E9CA000, "calling recoverWithCDPContextInDaemon in daemon", OS_ACTIVITY_FLAG_DEFAULT, v43);
+  _os_activity_initiate(&dword_22E9CA000, "calling recoverWithCDPContextInDaemon in daemon", OS_ACTIVITY_FLAG_DEFAULT, v42);
 
   if (error)
   {
-    *error = v61[5];
+    *error = v60[5];
   }
 
-  v40 = v55[5];
+  v40 = v54[5];
 
-  _Block_object_dispose(&v54, 8);
-  _Block_object_dispose(&v60, 8);
-
-  v41 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v59, 8);
 
   return v40;
 }
 
 - (id)recoverSilentWithCDPContext:(id)context allRecords:(id)records error:(id *)error
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   recordsCopy = records;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = sub_22E9D27B0;
-  v49 = sub_22E9D27C0;
-  v50 = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = sub_22E9D27B0;
-  v43 = sub_22E9D27C0;
   v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = sub_22E9D27B0;
+  v48 = sub_22E9D27C0;
+  v49 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = sub_22E9D27B0;
+  v42 = sub_22E9D27C0;
+  v43 = 0;
   v12 = objc_msgSend__CreateSecureBackupConnection(self, v10, v11);
   v13 = CloudServicesLog();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v52 = recordsCopy;
+    v51 = recordsCopy;
     _os_log_impl(&dword_22E9CA000, v13, OS_LOG_TYPE_DEFAULT, "recoverSilentWithCDPContext: invoked silent escrow recovery with records: %@", buf, 0xCu);
   }
 
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = sub_22E9D47A4;
-  v38[3] = &unk_2788597E0;
-  v38[4] = &v45;
-  v15 = objc_msgSend_synchronousRemoteObjectProxyWithErrorHandler_(v12, v14, v38);
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = sub_22E9D47A4;
+  v37[3] = &unk_2788597E0;
+  v37[4] = &v44;
+  v15 = objc_msgSend_synchronousRemoteObjectProxyWithErrorHandler_(v12, v14, v37);
   if (pthread_main_np())
   {
     v16 = CloudServicesLog();
@@ -1845,68 +1834,66 @@
   activity_block[1] = 3221225472;
   activity_block[2] = sub_22E9D4814;
   activity_block[3] = &unk_2788598A8;
-  v32 = v15;
+  v31 = v15;
   v24 = contextCopy;
-  v33 = v24;
+  v32 = v24;
   v25 = recordsCopy;
-  v36 = &v45;
-  v37 = &v39;
-  v34 = v25;
-  v35 = v12;
+  v35 = &v44;
+  v36 = &v38;
+  v33 = v25;
+  v34 = v12;
   v26 = v12;
   v27 = v15;
   _os_activity_initiate(&dword_22E9CA000, "calling recoverSilentWithCDPContextInDaemon in daemon", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
 
   if (error)
   {
-    *error = v46[5];
+    *error = v45[5];
   }
 
-  v28 = v40[5];
+  v28 = v39[5];
 
-  _Block_object_dispose(&v39, 8);
-  _Block_object_dispose(&v45, 8);
-
-  v29 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v44, 8);
 
   return v28;
 }
 
 - (id)recoverSilentWithCDPContext:(id)context allRecords:(id)records altDSID:(id)d flowID:(id)iD deviceSessionID:(id)sessionID error:(id *)error
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   recordsCopy = records;
   dCopy = d;
   iDCopy = iD;
   sessionIDCopy = sessionID;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = sub_22E9D27B0;
-  v64 = sub_22E9D27C0;
-  v65 = 0;
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = sub_22E9D27B0;
-  v58 = sub_22E9D27C0;
   v59 = 0;
+  v60 = &v59;
+  v61 = 0x3032000000;
+  v62 = sub_22E9D27B0;
+  v63 = sub_22E9D27C0;
+  v64 = 0;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x3032000000;
+  v56 = sub_22E9D27B0;
+  v57 = sub_22E9D27C0;
+  v58 = 0;
   v21 = objc_msgSend__CreateSecureBackupConnection(self, v19, v20);
   v22 = CloudServicesLog();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v67 = recordsCopy;
+    v66 = recordsCopy;
     _os_log_impl(&dword_22E9CA000, v22, OS_LOG_TYPE_DEFAULT, "recoverSilentWithCDPContext: invoked silent escrow recovery with records: %@", buf, 0xCu);
   }
 
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = sub_22E9D4D88;
-  v53[3] = &unk_2788597E0;
-  v53[4] = &v60;
-  v24 = objc_msgSend_synchronousRemoteObjectProxyWithErrorHandler_(v21, v23, v53);
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = sub_22E9D4D88;
+  v52[3] = &unk_2788597E0;
+  v52[4] = &v59;
+  v24 = objc_msgSend_synchronousRemoteObjectProxyWithErrorHandler_(v21, v23, v52);
   if (pthread_main_np())
   {
     v25 = CloudServicesLog();
@@ -1916,39 +1903,37 @@
     }
   }
 
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = sub_22E9D4DF8;
-  v43[3] = &unk_2788598D0;
-  v44 = v24;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = sub_22E9D4DF8;
+  v42[3] = &unk_2788598D0;
+  v43 = v24;
   v33 = contextCopy;
-  v45 = v33;
+  v44 = v33;
   v34 = recordsCopy;
-  v46 = v34;
+  v45 = v34;
   v35 = dCopy;
-  v47 = v35;
+  v46 = v35;
   v36 = iDCopy;
-  v48 = v36;
+  v47 = v36;
   v37 = sessionIDCopy;
-  v51 = &v60;
-  v52 = &v54;
-  v49 = v37;
-  v50 = v21;
+  v50 = &v59;
+  v51 = &v53;
+  v48 = v37;
+  v49 = v21;
   v38 = v21;
   v39 = v24;
-  _os_activity_initiate(&dword_22E9CA000, "calling recoverSilentWithCDPContextInDaemon in daemon", OS_ACTIVITY_FLAG_DEFAULT, v43);
+  _os_activity_initiate(&dword_22E9CA000, "calling recoverSilentWithCDPContextInDaemon in daemon", OS_ACTIVITY_FLAG_DEFAULT, v42);
 
   if (error)
   {
-    *error = v61[5];
+    *error = v60[5];
   }
 
-  v40 = v55[5];
+  v40 = v54[5];
 
-  _Block_object_dispose(&v54, 8);
-  _Block_object_dispose(&v60, 8);
-
-  v41 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v59, 8);
 
   return v40;
 }
@@ -2757,7 +2742,7 @@
 
 + (unsigned)needPasscodeForHSA2EscrowRecordUpdate:(id *)update
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (qword_280B5F9C0 != -1)
   {
     sub_22E9F4338();
@@ -2777,9 +2762,7 @@
 
 LABEL_10:
 
-LABEL_11:
-    v11 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
   state64 = 0;
@@ -2791,7 +2774,7 @@ LABEL_11:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v42) = v6;
+      LODWORD(v41) = v6;
       v8 = "unable to fetch state of passcode_request token (%d)";
       v9 = v7;
       v10 = 8;
@@ -2805,37 +2788,37 @@ LABEL_9:
 
   if (!state64)
   {
-    v25 = CloudServicesLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v24 = CloudServicesLog();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22E9CA000, v25, OS_LOG_TYPE_DEFAULT, "do initial state fetch in the background", buf, 2u);
+      _os_log_impl(&dword_22E9CA000, v24, OS_LOG_TYPE_DEFAULT, "do initial state fetch in the background", buf, 2u);
     }
 
-    objc_msgSend_asyncRequestEscrowRecordUpdate(self, v26, v27);
-    goto LABEL_11;
+    objc_msgSend_asyncRequestEscrowRecordUpdate(self, v25, v26);
+    return 0;
   }
 
   if ((state64 & 4) == 0)
   {
-    v39 = 0;
-    v14 = objc_msgSend_daemonPasscodeRequestOpinion_(self, v5, &v39);
-    v15 = v39;
-    v18 = v15;
-    if (v15)
+    v38 = 0;
+    v13 = objc_msgSend_daemonPasscodeRequestOpinion_(self, v5, &v38);
+    v14 = v38;
+    v17 = v14;
+    if (v14)
     {
-      v19 = objc_msgSend_domain(v15, v16, v17);
-      if (objc_msgSend_isEqualToString_(v19, v20, *MEMORY[0x277CCA590]))
+      v18 = objc_msgSend_domain(v14, v15, v16);
+      if (objc_msgSend_isEqualToString_(v18, v19, *MEMORY[0x277CCA590]))
       {
-        v23 = objc_msgSend_code(v18, v21, v22);
+        v22 = objc_msgSend_code(v17, v20, v21);
 
-        if (v23 == -25308)
+        if (v22 == -25308)
         {
-          v24 = CloudServicesLog();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v23 = CloudServicesLog();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_22E9CA000, v24, OS_LOG_TYPE_DEFAULT, "daemon unable to determine passcode status due to keybag lock; relying on dispatch state", buf, 2u);
+            _os_log_impl(&dword_22E9CA000, v23, OS_LOG_TYPE_DEFAULT, "daemon unable to determine passcode status due to keybag lock; relying on dispatch state", buf, 2u);
           }
 
           goto LABEL_28;
@@ -2846,39 +2829,39 @@ LABEL_9:
       {
       }
 
-      v31 = CloudServicesLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v30 = CloudServicesLog();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v42 = v18;
-        _os_log_impl(&dword_22E9CA000, v31, OS_LOG_TYPE_DEFAULT, "unable to ask daemon for confirmation of passcode request: %@", buf, 0xCu);
+        v41 = v17;
+        _os_log_impl(&dword_22E9CA000, v30, OS_LOG_TYPE_DEFAULT, "unable to ask daemon for confirmation of passcode request: %@", buf, 0xCu);
       }
 
       v11 = 0;
       goto LABEL_49;
     }
 
-    if ((v14 & 0xFFFFFFFE) != 2)
+    if ((v13 & 0xFFFFFFFE) != 2)
     {
-      v31 = CloudServicesLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v30 = CloudServicesLog();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22E9CA000, v31, OS_LOG_TYPE_DEFAULT, "daemon believes there's no need for a passcode", buf, 2u);
+        _os_log_impl(&dword_22E9CA000, v30, OS_LOG_TYPE_DEFAULT, "daemon believes there's no need for a passcode", buf, 2u);
       }
 
       goto LABEL_39;
     }
 
 LABEL_28:
-    v29 = state64;
+    v28 = state64;
     if ((state64 & 2) != 0)
     {
-      v31 = CloudServicesLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v30 = CloudServicesLog();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22E9CA000, v31, OS_LOG_TYPE_DEFAULT, "Need password on next unlock", buf, 2u);
+        _os_log_impl(&dword_22E9CA000, v30, OS_LOG_TYPE_DEFAULT, "Need password on next unlock", buf, 2u);
       }
 
       v11 = 3;
@@ -2887,40 +2870,40 @@ LABEL_28:
 
     if (state64)
     {
-      v31 = CloudServicesLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v30 = CloudServicesLog();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v38 = "Desire password when available";
+        v37 = "Desire password when available";
 LABEL_47:
         v11 = 2;
-        _os_log_impl(&dword_22E9CA000, v31, OS_LOG_TYPE_DEFAULT, v38, buf, 2u);
+        _os_log_impl(&dword_22E9CA000, v30, OS_LOG_TYPE_DEFAULT, v37, buf, 2u);
         goto LABEL_49;
       }
     }
 
     else
     {
-      v30 = CloudServicesLog();
-      v31 = v30;
-      if (v29)
+      v29 = CloudServicesLog();
+      v30 = v29;
+      if (v28)
       {
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          sub_22E9F434C(&state64, v31, v32, v33, v34, v35, v36, v37);
+          sub_22E9F434C(&state64, v30, v31, v32, v33, v34, v35, v36);
         }
 
 LABEL_39:
         v11 = 1;
 LABEL_49:
 
-        goto LABEL_12;
+        return v11;
       }
 
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v38 = "Dispatch doesn't have a state for us yet, opportunistically asking for the password";
+        v37 = "Dispatch doesn't have a state for us yet, opportunistically asking for the password";
         goto LABEL_47;
       }
     }
@@ -2929,17 +2912,14 @@ LABEL_49:
     goto LABEL_49;
   }
 
-  v28 = CloudServicesLog();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v27 = CloudServicesLog();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_22E9CA000, v28, OS_LOG_TYPE_DEFAULT, "No need for passcode", buf, 2u);
+    _os_log_impl(&dword_22E9CA000, v27, OS_LOG_TYPE_DEFAULT, "No need for passcode", buf, 2u);
   }
 
-  v11 = 1;
-LABEL_12:
-  v12 = *MEMORY[0x277D85DE8];
-  return v11;
+  return 1;
 }
 
 + (unsigned)daemonPasscodeRequestOpinion:(id *)opinion
@@ -2997,6 +2977,16 @@ LABEL_12:
   _Block_object_dispose(&v30, 8);
 
   return v18;
+}
+
+- (id)beginHSA2PasscodeRequest:(BOOL)request error:(id *)error
+{
+  requestCopy = request;
+  v7 = objc_msgSend_UUID(MEMORY[0x277CCAD78], a2, request);
+  v10 = objc_msgSend_UUIDString(v7, v8, v9);
+  v12 = objc_msgSend_beginHSA2PasscodeRequest_uuid_reason_error_(self, v11, requestCopy, v10, 0, error);
+
+  return v12;
 }
 
 - (id)beginHSA2PasscodeRequest:(BOOL)request uuid:(id)uuid reason:(id)reason error:(id *)error

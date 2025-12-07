@@ -120,13 +120,13 @@
   if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109890;
-    v21 = v4;
-    v22 = 2082;
-    v23 = "[CRLBufferedReadChannelHelper readWithHandlerAndWait:]";
-    v24 = 2082;
-    v25 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/IO/CRLBufferedReadChannel.m";
-    v26 = 1024;
-    v27 = 390;
+    v14 = v4;
+    v15 = 2082;
+    v16 = "[CRLBufferedReadChannelHelper readWithHandlerAndWait:]";
+    v17 = 2082;
+    v18 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/IO/CRLBufferedReadChannel.m";
+    v19 = 1024;
+    v20 = 390;
     _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d CRLBufferedReadChannel should not call readWithHandlerAndWait on CRLBufferedReadChannelHelper", buf, 0x22u);
   }
 
@@ -138,21 +138,21 @@
   v6 = off_1019EDA68;
   if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
   {
-    v14 = v6;
-    v15 = +[CRLAssertionHandler packedBacktraceString];
+    v7 = v6;
+    v8 = +[CRLAssertionHandler packedBacktraceString];
     *buf = 67109378;
-    v21 = v4;
-    v22 = 2114;
-    v23 = v15;
-    _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
+    v14 = v4;
+    v15 = 2114;
+    v16 = v8;
+    _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
   }
 
-  sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d CRLBufferedReadChannel should not call readWithHandlerAndWait on CRLBufferedReadChannelHelper", v7, v8, v9, v10, v11, v12, v13, "[CRLBufferedReadChannelHelper readWithHandlerAndWait:]");
-  v16 = [NSString stringWithUTF8String:"[CRLBufferedReadChannelHelper readWithHandlerAndWait:]"];
-  v17 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/IO/CRLBufferedReadChannel.m"];
-  [CRLAssertionHandler handleFailureInFunction:v16 file:v17 lineNumber:390 isFatal:1 description:"CRLBufferedReadChannel should not call readWithHandlerAndWait on CRLBufferedReadChannelHelper"];
+  sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d CRLBufferedReadChannel should not call readWithHandlerAndWait on CRLBufferedReadChannelHelper", "[CRLBufferedReadChannelHelper readWithHandlerAndWait:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/IO/CRLBufferedReadChannel.m", 390);
+  v9 = [NSString stringWithUTF8String:"[CRLBufferedReadChannelHelper readWithHandlerAndWait:]"];
+  v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/IO/CRLBufferedReadChannel.m"];
+  [CRLAssertionHandler handleFailureInFunction:v9 file:v10 lineNumber:390 isFatal:1 description:"CRLBufferedReadChannel should not call readWithHandlerAndWait on CRLBufferedReadChannelHelper"];
 
-  SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v18, v19);
+  SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v11, v12);
   abort();
 }
 

@@ -378,7 +378,6 @@ LABEL_12:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x100) == 0)
@@ -398,7 +397,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  dataStallOccured = self->_dataStallOccured;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -413,7 +411,6 @@ LABEL_4:
   }
 
 LABEL_23:
-  dnsFailureOccured = self->_dnsFailureOccured;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -428,7 +425,6 @@ LABEL_5:
   }
 
 LABEL_24:
-  mediaPreWarningHint = self->_mediaPreWarningHint;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -443,7 +439,6 @@ LABEL_6:
   }
 
 LABEL_25:
-  sysMode = self->_sysMode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -458,7 +453,6 @@ LABEL_7:
   }
 
 LABEL_26:
-  lqmState = self->_lqmState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -473,7 +467,6 @@ LABEL_8:
   }
 
 LABEL_27:
-  servCellState = self->_servCellState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -488,7 +481,6 @@ LABEL_9:
   }
 
 LABEL_28:
-  rrcState = self->_rrcState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -503,12 +495,10 @@ LABEL_10:
   }
 
 LABEL_29:
-  isDcActive = self->_isDcActive;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_11:
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -518,17 +508,15 @@ LABEL_12:
     PBDataWriterWriteDataField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 8) != 0)
+  v5 = self->_has;
+  if ((v5 & 8) != 0)
   {
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v6 & 0x40) != 0)
+  if ((v5 & 0x40) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -889,7 +877,6 @@ LABEL_12:
       goto LABEL_77;
     }
 
-    v7 = *(equalCopy + 52);
     if (self->_dataStallOccured)
     {
       if ((*(equalCopy + 52) & 1) == 0)
@@ -916,7 +903,6 @@ LABEL_12:
       goto LABEL_77;
     }
 
-    v8 = *(equalCopy + 53);
     if (self->_dnsFailureOccured)
     {
       if ((*(equalCopy + 53) & 1) == 0)
@@ -943,7 +929,6 @@ LABEL_12:
       goto LABEL_77;
     }
 
-    v9 = *(equalCopy + 55);
     if (self->_mediaPreWarningHint)
     {
       if ((*(equalCopy + 55) & 1) == 0)
@@ -1022,7 +1007,6 @@ LABEL_12:
       goto LABEL_77;
     }
 
-    v10 = *(equalCopy + 54);
     if (self->_isDcActive)
     {
       if ((*(equalCopy + 54) & 1) == 0)
@@ -1065,43 +1049,43 @@ LABEL_12:
     }
 
 LABEL_77:
-    v13 = 0;
+    v9 = 0;
     goto LABEL_78;
   }
 
 LABEL_65:
-  v12 = *(equalCopy + 28);
+  v8 = *(equalCopy + 28);
   if ((has & 8) != 0)
   {
-    if ((v12 & 8) == 0 || self->_psPref != *(equalCopy + 8))
+    if ((v8 & 8) == 0 || self->_psPref != *(equalCopy + 8))
     {
       goto LABEL_77;
     }
   }
 
-  else if ((v12 & 8) != 0)
+  else if ((v8 & 8) != 0)
   {
     goto LABEL_77;
   }
 
   if ((has & 0x40) != 0)
   {
-    if ((v12 & 0x40) == 0 || self->_subsId != *(equalCopy + 11))
+    if ((v8 & 0x40) == 0 || self->_subsId != *(equalCopy + 11))
     {
       goto LABEL_77;
     }
 
-    v13 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v13 = (v12 & 0x40) == 0;
+    v9 = (v8 & 0x40) == 0;
   }
 
 LABEL_78:
 
-  return v13;
+  return v9;
 }
 
 - (unint64_t)hash

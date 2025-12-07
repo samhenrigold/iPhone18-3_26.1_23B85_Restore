@@ -212,7 +212,7 @@ LABEL_10:
 - (void)_handleServerNode:(_xmlNode *)node
 {
   nodeCopy = node;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (node)
   {
     v5 = _getNodeContentAsNSStringForFirstMatchingElement("Type", node->children);
@@ -224,15 +224,15 @@ LABEL_10:
     v10 = *(MEMORY[0x277D03988] + 7);
     if (os_log_type_enabled(v8, v10))
     {
-      v25 = 138413058;
-      v26 = v5;
-      v27 = 2112;
-      v28 = v6;
-      v29 = 2112;
-      v30 = v7;
-      v31 = 2112;
-      v32 = nodeCopy;
-      _os_log_impl(&dword_24A0AC000, v8, v10, "Found %@ server setting with attributes:\n\tServer URL: %@\n\tServer Name: %@\n\tServer Data: %@", &v25, 0x2Au);
+      v24 = 138413058;
+      v25 = v5;
+      v26 = 2112;
+      v27 = v6;
+      v28 = 2112;
+      v29 = v7;
+      v30 = 2112;
+      v31 = nodeCopy;
+      _os_log_impl(&dword_24A0AC000, v8, v10, "Found %@ server setting with attributes:\n\tServer URL: %@\n\tServer Name: %@\n\tServer Data: %@", &v24, 0x2Au);
     }
 
     if ([v5 isEqualToString:@"MobileSync"])
@@ -286,9 +286,9 @@ LABEL_18:
       v23 = *(v9 + 4);
       if (os_log_type_enabled(v14, v23))
       {
-        v25 = 138412290;
-        v26 = v5;
-        _os_log_impl(&dword_24A0AC000, v14, v23, "Unknown autodiscovery server type: %@", &v25, 0xCu);
+        v24 = 138412290;
+        v25 = v5;
+        _os_log_impl(&dword_24A0AC000, v14, v23, "Unknown autodiscovery server type: %@", &v24, 0xCu);
       }
 
       goto LABEL_18;
@@ -301,13 +301,11 @@ LABEL_18:
     v6 = 0;
     v5 = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleErrorNode:(_xmlNode *)node
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   FirstElementMatching = _getFirstElementMatching("Error", node->children);
   if (FirstElementMatching)
   {
@@ -320,39 +318,37 @@ LABEL_18:
     if (os_log_type_enabled(v9, v10))
     {
       *buf = 138412802;
-      v23 = v6;
-      v24 = 2112;
-      v25 = v7;
-      v26 = 2112;
-      v27 = v8;
+      v22 = v6;
+      v23 = 2112;
+      v24 = v7;
+      v25 = 2112;
+      v26 = v8;
       _os_log_impl(&dword_24A0AC000, v9, v10, "Autodiscovery encountered an error. Status code %@. Message: %@\nDebug Data: %@", buf, 0x20u);
     }
 
     v11 = objc_alloc(MEMORY[0x277CCA9B8]);
     v12 = *MEMORY[0x277D038E0];
     integerValue = [v6 integerValue];
-    v19 = *MEMORY[0x277CCA450];
-    v20 = @"DebugData";
+    v18 = *MEMORY[0x277CCA450];
+    v19 = @"DebugData";
     v14 = &stru_285D39BD0;
     if (v8)
     {
       v14 = v8;
     }
 
-    v21[0] = v7;
-    v21[1] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v19 count:2];
-    v16 = [v11 initWithDomain:v12 code:integerValue userInfo:{v15, v19, v20}];
+    v20[0] = v7;
+    v20[1] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v18 count:2];
+    v16 = [v11 initWithDomain:v12 code:integerValue userInfo:{v15, v18, v19}];
     discoveryError = self->_discoveryError;
     self->_discoveryError = v16;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleActionNode:(_xmlNode *)node
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (node)
   {
     [(ASAutodiscoverTask *)self _handleErrorNode:?];
@@ -368,21 +364,21 @@ LABEL_18:
       if (os_log_type_enabled(v8, v9))
       {
         v10 = self->_redirectEmail;
-        v15 = 138412290;
-        v16 = v10;
-        _os_log_impl(&dword_24A0AC000, v8, v9, "Redirect receieved: %@", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = v10;
+        _os_log_impl(&dword_24A0AC000, v8, v9, "Redirect receieved: %@", &v14, 0xCu);
       }
     }
 
     else
     {
-      v12 = _getFirstElementMatching("Settings", node->children);
-      if (v12)
+      v11 = _getFirstElementMatching("Settings", node->children);
+      if (v11)
       {
-        for (i = *(v12 + 24); i; i = *(i + 48))
+        for (i = *(v11 + 24); i; i = *(i + 48))
         {
-          v14 = *(i + 16);
-          if (v14 && !xmlStrcmp(v14, "Server"))
+          v13 = *(i + 16);
+          if (v13 && !xmlStrcmp(v13, "Server"))
           {
             [(ASAutodiscoverTask *)self _handleServerNode:i];
           }
@@ -390,13 +386,11 @@ LABEL_18:
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleUserNode:(_xmlNode *)node
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (node)
   {
     v4 = _getNodeContentAsNSStringForFirstMatchingElement("DisplayName", node->children);
@@ -405,20 +399,18 @@ LABEL_18:
     v7 = *(MEMORY[0x277D03988] + 7);
     if (os_log_type_enabled(v6, v7))
     {
-      v9 = 138412546;
-      v10 = v4;
-      v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_24A0AC000, v6, v7, "Found user node with display name %@ and email %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v4;
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&dword_24A0AC000, v6, v7, "Found user node with display name %@ and email %@", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setAccountInfoFromAutoDiscoveryXML:(id)l
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v5 = DALoggingwithCategory();
   v6 = MEMORY[0x277D03988];
@@ -426,11 +418,11 @@ LABEL_18:
   if (os_log_type_enabled(v5, v7))
   {
     v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:{objc_msgSend(lCopy, "bytes")}];
-    v34 = 138412546;
-    v35 = v8;
-    v36 = 2112;
-    v37 = lCopy;
-    _os_log_impl(&dword_24A0AC000, v5, v7, "Autodiscovery XML: %@ %@", &v34, 0x16u);
+    v33 = 138412546;
+    v34 = v8;
+    v35 = 2112;
+    v36 = lCopy;
+    _os_log_impl(&dword_24A0AC000, v5, v7, "Autodiscovery XML: %@ %@", &v33, 0x16u);
   }
 
   Memory = xmlReadMemory([lCopy bytes], objc_msgSend(lCopy, "length"), 0, 0, 0);
@@ -453,10 +445,10 @@ LABEL_10:
         goto LABEL_11;
       }
 
-      LOWORD(v34) = 0;
+      LOWORD(v33) = 0;
       v15 = "Root node is expected to be an Autodiscover element";
 LABEL_9:
-      _os_log_impl(&dword_24A0AC000, v13, v14, v15, &v34, 2u);
+      _os_log_impl(&dword_24A0AC000, v13, v14, v15, &v33, 2u);
       goto LABEL_10;
     }
 
@@ -470,7 +462,7 @@ LABEL_9:
         goto LABEL_10;
       }
 
-      LOWORD(v34) = 0;
+      LOWORD(v33) = 0;
       v15 = "Response schema is not specified. Ignoring response.";
       goto LABEL_9;
     }
@@ -478,19 +470,19 @@ LABEL_9:
     discoveryError = xmlCharToNSString(href);
     if (([discoveryError isEqualToString:@"http://schemas.microsoft.com/exchange/autodiscover/responseschema/2006"] & 1) == 0)
     {
-      v29 = DALoggingwithCategory();
-      v30 = *(v6 + 3);
-      if (os_log_type_enabled(v29, v30))
+      v28 = DALoggingwithCategory();
+      v29 = *(v6 + 3);
+      if (os_log_type_enabled(v28, v29))
       {
-        v34 = 138412290;
-        v35 = discoveryError;
-        _os_log_impl(&dword_24A0AC000, v29, v30, "Response schema is not the appropriate schema: %@", &v34, 0xCu);
+        v33 = 138412290;
+        v34 = discoveryError;
+        _os_log_impl(&dword_24A0AC000, v28, v29, "Response schema is not the appropriate schema: %@", &v33, 0xCu);
       }
 
-      v31 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v32 = [v31 initWithDomain:*MEMORY[0x277D038E0] code:1 userInfo:0];
-      v33 = self->_discoveryError;
-      self->_discoveryError = v32;
+      v30 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v31 = [v30 initWithDomain:*MEMORY[0x277D038E0] code:1 userInfo:0];
+      v32 = self->_discoveryError;
+      self->_discoveryError = v31;
 
       goto LABEL_11;
     }
@@ -536,8 +528,8 @@ LABEL_24:
   v20 = *(v6 + 3);
   if (os_log_type_enabled(v19, v20))
   {
-    LOWORD(v34) = 0;
-    _os_log_impl(&dword_24A0AC000, v19, v20, "Could not parse response XML", &v34, 2u);
+    LOWORD(v33) = 0;
+    _os_log_impl(&dword_24A0AC000, v19, v20, "Could not parse response XML", &v33, 2u);
   }
 
   v21 = objc_alloc(MEMORY[0x277CCA9B8]);
@@ -546,7 +538,6 @@ LABEL_24:
   self->_discoveryError = v22;
 
 LABEL_15:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didProcessContext:(id)context
@@ -562,7 +553,7 @@ LABEL_15:
 
 - (void)finishWithError:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (errorCopy)
   {
@@ -585,8 +576,8 @@ LABEL_15:
   {
     *buf = 138412546;
     selfCopy2 = errorCopy;
-    v21 = 2048;
-    v22 = v5;
+    v20 = 2048;
+    v21 = v5;
     _os_log_impl(&dword_24A0AC000, v6, v7, "Autodiscovery task finishing with error: %@ and DAStatusCode %ld", buf, 0x16u);
   }
 
@@ -602,8 +593,8 @@ LABEL_15:
       v11 = self->_discoveryError;
       *buf = 138412546;
       selfCopy2 = v11;
-      v21 = 2048;
-      v22 = 59;
+      v20 = 2048;
+      v21 = 59;
       _os_log_impl(&dword_24A0AC000, v10, v7, "Autodiscovery task has a discovery error: %@. Remapping responseStatus to DAAutodiscoveryTryAgain (%ld)", buf, 0x16u);
     }
 
@@ -645,17 +636,15 @@ LABEL_15:
       ADClientAddValueForScalarKey();
     }
 
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __38__ASAutodiscoverTask_finishWithError___block_invoke;
-    v16[3] = &unk_278FC7B68;
-    v16[4] = self;
-    v18 = v5;
-    v17 = v9;
-    [(ASTask *)self finishWithError:v17 afterDelegateCallout:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __38__ASAutodiscoverTask_finishWithError___block_invoke;
+    v15[3] = &unk_278FC7B68;
+    v15[4] = self;
+    v17 = v5;
+    v16 = v9;
+    [(ASTask *)self finishWithError:v16 afterDelegateCallout:v15];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __38__ASAutodiscoverTask_finishWithError___block_invoke(void *a1)

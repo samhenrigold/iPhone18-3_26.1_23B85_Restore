@@ -60,44 +60,44 @@
 
 - (AXChartDescriptor)initWithDictionary:(id)dictionary
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v3 = getkAXMChartTitleKey();
-  v65 = [dictionaryCopy objectForKeyedSubscript:v3];
+  v61 = [dictionaryCopy objectForKeyedSubscript:v3];
 
   v4 = getkAXMChartSummaryKey();
-  v64 = [dictionaryCopy objectForKeyedSubscript:v4];
+  v60 = [dictionaryCopy objectForKeyedSubscript:v4];
 
   v5 = getkAXMChartContentDirectionKey();
   v6 = [dictionaryCopy objectForKeyedSubscript:v5];
   integerValue = [v6 integerValue];
 
-  v85 = 0;
-  v86 = &v85;
-  v87 = 0x2020000000;
+  v81 = 0;
+  v82 = &v81;
+  v83 = 0x2020000000;
   v8 = getkAXMChartContentFrameKeySymbolLoc_ptr;
-  v88 = getkAXMChartContentFrameKeySymbolLoc_ptr;
+  v84 = getkAXMChartContentFrameKeySymbolLoc_ptr;
   if (!getkAXMChartContentFrameKeySymbolLoc_ptr)
   {
-    v80 = MEMORY[0x1E69E9820];
-    v81 = 3221225472;
-    v82 = __getkAXMChartContentFrameKeySymbolLoc_block_invoke;
-    v83 = &unk_1E7B2CF78;
-    v84 = &v85;
+    v76 = MEMORY[0x1E69E9820];
+    v77 = 3221225472;
+    v78 = __getkAXMChartContentFrameKeySymbolLoc_block_invoke;
+    v79 = &unk_1E7B2CF78;
+    v80 = &v81;
     v9 = AXMediaUtilitiesLibrary();
-    v86[3] = dlsym(v9, "kAXMChartContentFrameKey");
-    getkAXMChartContentFrameKeySymbolLoc_ptr = *(v84[1] + 24);
-    v8 = v86[3];
+    v82[3] = dlsym(v9, "kAXMChartContentFrameKey");
+    getkAXMChartContentFrameKeySymbolLoc_ptr = *(v80[1] + 24);
+    v8 = v82[3];
   }
 
-  _Block_object_dispose(&v85, 8);
+  _Block_object_dispose(&v81, 8);
   if (!v8)
   {
     AXAnimatedImagesEnabled_cold_1();
     __break(1u);
   }
 
-  v60 = integerValue;
+  v56 = integerValue;
   v10 = [dictionaryCopy objectForKeyedSubscript:*v8];
   [v10 AXMRectValue];
   v12 = v11;
@@ -106,35 +106,35 @@
   v18 = v17;
 
   v19 = getkAXMChartXAxisKey();
-  v69 = [dictionaryCopy objectForKeyedSubscript:v19];
+  v65 = [dictionaryCopy objectForKeyedSubscript:v19];
 
   v20 = getkAXMChartYAxisKey();
-  v68 = [dictionaryCopy objectForKeyedSubscript:v20];
+  v64 = [dictionaryCopy objectForKeyedSubscript:v20];
 
   v21 = getkAXMChartAdditionalAxesKey();
   v22 = [dictionaryCopy objectForKeyedSubscript:v21];
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
-  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   obj = v22;
   v23 = 0;
   v24 = 0;
-  v25 = [obj countByEnumeratingWithState:&v76 objects:v90 count:16];
+  v25 = [obj countByEnumeratingWithState:&v72 objects:v86 count:16];
   if (v25)
   {
-    v26 = *v77;
+    v26 = *v73;
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v77 != v26)
+        if (*v73 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v28 = *(*(&v76 + 1) + 8 * i);
+        v28 = *(*(&v72 + 1) + 8 * i);
         v29 = getkAXMChartAxisTypeKey();
         v30 = [v28 objectForKeyedSubscript:v29];
         v31 = getkAXMChartAxisTypeNumeric();
@@ -167,7 +167,7 @@
         v23 = v34;
       }
 
-      v25 = [obj countByEnumeratingWithState:&v76 objects:v90 count:16];
+      v25 = [obj countByEnumeratingWithState:&v72 objects:v86 count:16];
     }
 
     while (v25);
@@ -177,107 +177,99 @@
   v41 = [dictionaryCopy objectForKeyedSubscript:v40];
 
   v42 = getkAXMChartAxisTypeKey();
-  v43 = [v69 objectForKeyedSubscript:v42];
+  v43 = [v65 objectForKeyedSubscript:v42];
   v44 = getkAXMChartAxisTypeCategorical();
-  v45 = [v43 isEqualToString:v44];
-  v46 = off_1E7B2CD50;
-  if (!v45)
-  {
-    v46 = off_1E7B2CD90;
-  }
+  [v43 isEqualToString:v44];
+  v45 = objc_opt_class();
 
-  v47 = *v46;
-  v48 = objc_opt_class();
-
-  v63 = [[v48 alloc] initWithDictionary:v69];
-  if (v68)
+  v59 = [[v45 alloc] initWithDictionary:v65];
+  if (v64)
   {
-    v62 = [[AXNumericDataAxisDescriptor alloc] initWithDictionary:v68];
+    v58 = [[AXNumericDataAxisDescriptor alloc] initWithDictionary:v64];
     if (v24)
     {
-      goto LABEL_19;
+      goto LABEL_17;
     }
 
-LABEL_22:
-    v67 = 0;
+LABEL_20:
+    v63 = 0;
     if (v23)
     {
-      goto LABEL_20;
+      goto LABEL_18;
     }
 
-    goto LABEL_23;
+    goto LABEL_21;
   }
 
-  v62 = 0;
+  v58 = 0;
   if (!v24)
   {
+    goto LABEL_20;
+  }
+
+LABEL_17:
+  v63 = [[AXNumericDataAxisDescriptor alloc] initWithDictionary:v24];
+  if (v23)
+  {
+LABEL_18:
+    v62 = [[AXCategoricalDataAxisDescriptor alloc] initWithDictionary:v23];
     goto LABEL_22;
   }
 
-LABEL_19:
-  v67 = [[AXNumericDataAxisDescriptor alloc] initWithDictionary:v24];
-  if (v23)
-  {
-LABEL_20:
-    v66 = [[AXCategoricalDataAxisDescriptor alloc] initWithDictionary:v23];
-    goto LABEL_24;
-  }
-
-LABEL_23:
-  v66 = 0;
-LABEL_24:
+LABEL_21:
+  v62 = 0;
+LABEL_22:
   array = [MEMORY[0x1E695DF70] array];
-  v50 = array;
-  if (v67)
+  v47 = array;
+  if (v63)
   {
-    [array addObject:v67];
+    [array addObject:v63];
   }
 
-  if (v66)
+  if (v62)
   {
-    [v50 addObject:v66];
+    [v47 addObject:v62];
   }
 
   array2 = [MEMORY[0x1E695DF70] array];
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
-  v52 = v41;
-  v53 = [v52 countByEnumeratingWithState:&v72 objects:v89 count:16];
-  if (v53)
+  v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  v49 = v41;
+  v50 = [v49 countByEnumeratingWithState:&v68 objects:v85 count:16];
+  if (v50)
   {
-    v54 = *v73;
+    v51 = *v69;
     do
     {
-      for (j = 0; j != v53; ++j)
+      for (j = 0; j != v50; ++j)
       {
-        if (*v73 != v54)
+        if (*v69 != v51)
         {
-          objc_enumerationMutation(v52);
+          objc_enumerationMutation(v49);
         }
 
-        v56 = [[AXDataSeriesDescriptor alloc] initWithDictionary:*(*(&v72 + 1) + 8 * j)];
-        [array2 addObject:v56];
+        v53 = [[AXDataSeriesDescriptor alloc] initWithDictionary:*(*(&v68 + 1) + 8 * j)];
+        [array2 addObject:v53];
       }
 
-      v53 = [v52 countByEnumeratingWithState:&v72 objects:v89 count:16];
+      v50 = [v49 countByEnumeratingWithState:&v68 objects:v85 count:16];
     }
 
-    while (v53);
+    while (v50);
   }
 
-  v57 = [(AXChartDescriptor *)self initWithAttributedTitle:v65 summary:v64 xAxisDescriptor:v63 yAxisDescriptor:v62 additionalAxes:v50 series:array2];
-  [(AXChartDescriptor *)v57 setContentDirection:v60];
-  [(AXChartDescriptor *)v57 setContentFrame:v12, v14, v16, v18];
+  v54 = [(AXChartDescriptor *)self initWithAttributedTitle:v61 summary:v60 xAxisDescriptor:v59 yAxisDescriptor:v58 additionalAxes:v47 series:array2];
+  [(AXChartDescriptor *)v54 setContentDirection:v56];
+  [(AXChartDescriptor *)v54 setContentFrame:v12, v14, v16, v18];
 
-  v58 = *MEMORY[0x1E69E9840];
-  return v57;
+  return v54;
 }
 
 - (void)_commonInitWithSummary:(id)summary xAxisDescriptor:(id)descriptor yAxisDescriptor:(id)axisDescriptor additionalAxes:(id)axes series:(id)series
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   summaryCopy = summary;
   descriptorCopy = descriptor;
   axisDescriptorCopy = axisDescriptor;
@@ -303,29 +295,29 @@ LABEL_24:
 
   if (axisDescriptorCopy)
   {
-    v34 = descriptorCopy;
-    v35 = summaryCopy;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
+    v33 = descriptorCopy;
+    v34 = summaryCopy;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v25 = seriesCopy;
-    v26 = [v25 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v37;
+      v28 = *v36;
       do
       {
         v29 = 0;
         do
         {
-          if (*v37 != v28)
+          if (*v36 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          v30 = *(*(&v36 + 1) + 8 * v29);
+          v30 = *(*(&v35 + 1) + 8 * v29);
           valueDescriptionProvider = [axisDescriptorCopy valueDescriptionProvider];
           [v30 meanYValue];
           v32 = valueDescriptionProvider[2](valueDescriptionProvider);
@@ -339,17 +331,15 @@ LABEL_24:
         }
 
         while (v27 != v29);
-        v27 = [v25 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v27);
     }
 
-    descriptorCopy = v34;
-    summaryCopy = v35;
+    descriptorCopy = v33;
+    summaryCopy = v34;
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -389,7 +379,7 @@ LABEL_24:
 
 - (id)dictionaryRepresentation
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   [(AXChartDescriptor *)self computeValueDescriptionsIfNeeded];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   xAxis = [(AXChartDescriptor *)self xAxis];
@@ -399,60 +389,60 @@ LABEL_24:
   dictionaryRepresentation2 = [yAxis dictionaryRepresentation];
 
   array = [MEMORY[0x1E695DF70] array];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   additionalAxes = [(AXChartDescriptor *)self additionalAxes];
-  v9 = [additionalAxes countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v9 = [additionalAxes countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v39;
+    v11 = *v38;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v39 != v11)
+        if (*v38 != v11)
         {
           objc_enumerationMutation(additionalAxes);
         }
 
-        dictionaryRepresentation3 = [*(*(&v38 + 1) + 8 * i) dictionaryRepresentation];
+        dictionaryRepresentation3 = [*(*(&v37 + 1) + 8 * i) dictionaryRepresentation];
         [array addObject:dictionaryRepresentation3];
       }
 
-      v10 = [additionalAxes countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v10 = [additionalAxes countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v10);
   }
 
   array2 = [MEMORY[0x1E695DF70] array];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   series = [(AXChartDescriptor *)self series];
-  v16 = [series countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v16 = [series countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v35;
+    v18 = *v34;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v35 != v18)
+        if (*v34 != v18)
         {
           objc_enumerationMutation(series);
         }
 
-        dictionaryRepresentation4 = [*(*(&v34 + 1) + 8 * j) dictionaryRepresentation];
+        dictionaryRepresentation4 = [*(*(&v33 + 1) + 8 * j) dictionaryRepresentation];
         [array2 addObject:dictionaryRepresentation4];
       }
 
-      v17 = [series countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v17 = [series countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v17);
@@ -482,15 +472,13 @@ LABEL_24:
   v30 = getkAXMChartSeriesKey();
   [dictionary setObject:array2 forKeyedSubscript:v30];
 
-  v31 = *MEMORY[0x1E69E9840];
-
   return dictionary;
 }
 
 - (void)computeValueDescriptionsIfNeeded
 {
   selfCopy = self;
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   series = [(AXChartDescriptor *)self series];
   firstObject = [series firstObject];
   dataPoints = [firstObject dataPoints];
@@ -499,47 +487,47 @@ LABEL_24:
 
   if (!valueDescription)
   {
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     obj = [(AXChartDescriptor *)selfCopy series];
-    v34 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
-    if (v34)
+    v33 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+    if (v33)
     {
-      v33 = *v48;
-      v37 = selfCopy;
+      v32 = *v47;
+      v36 = selfCopy;
       do
       {
         v8 = 0;
         do
         {
-          if (*v48 != v33)
+          if (*v47 != v32)
           {
             objc_enumerationMutation(obj);
           }
 
-          v35 = v8;
-          dataPoints2 = [*(*(&v47 + 1) + 8 * v8) dataPoints];
+          v34 = v8;
+          dataPoints2 = [*(*(&v46 + 1) + 8 * v8) dataPoints];
+          v42 = 0u;
           v43 = 0u;
           v44 = 0u;
           v45 = 0u;
-          v46 = 0u;
-          v36 = dataPoints2;
-          v39 = [dataPoints2 countByEnumeratingWithState:&v43 objects:v51 count:16];
-          if (v39)
+          v35 = dataPoints2;
+          v38 = [dataPoints2 countByEnumeratingWithState:&v42 objects:v50 count:16];
+          if (v38)
           {
-            v38 = *v44;
+            v37 = *v43;
             do
             {
-              for (i = 0; i != v39; ++i)
+              for (i = 0; i != v38; ++i)
               {
-                if (*v44 != v38)
+                if (*v43 != v37)
                 {
-                  objc_enumerationMutation(v36);
+                  objc_enumerationMutation(v35);
                 }
 
-                v11 = *(*(&v43 + 1) + 8 * i);
+                v11 = *(*(&v42 + 1) + 8 * i);
                 xAxis = [(AXChartDescriptor *)selfCopy xAxis];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
@@ -554,7 +542,7 @@ LABEL_24:
 
                 yAxis = [(AXChartDescriptor *)selfCopy yAxis];
                 _additionalNumericAxis = [(AXChartDescriptor *)selfCopy _additionalNumericAxis];
-                v42 = xAxis2;
+                v41 = xAxis2;
                 if (xAxis2)
                 {
                   valueDescriptionProvider = [xAxis2 valueDescriptionProvider];
@@ -571,7 +559,7 @@ LABEL_24:
 
                 valueDescriptionProvider2 = [yAxis valueDescriptionProvider];
 
-                v41 = yAxis;
+                v40 = yAxis;
                 if (valueDescriptionProvider2)
                 {
                   valueDescriptionProvider3 = [yAxis valueDescriptionProvider];
@@ -586,7 +574,7 @@ LABEL_24:
                 }
 
                 _additionalNumericValue = [v11 _additionalNumericValue];
-                v40 = _additionalNumericAxis;
+                v39 = _additionalNumericAxis;
                 if (_additionalNumericValue)
                 {
                   valueDescriptionProvider4 = [_additionalNumericAxis valueDescriptionProvider];
@@ -631,51 +619,49 @@ LABEL_24:
                 v30 = [v29 componentsJoinedByString:{@", "}];
                 [v11 setValueDescription:v30];
 
-                selfCopy = v37;
+                selfCopy = v36;
               }
 
-              v39 = [v36 countByEnumeratingWithState:&v43 objects:v51 count:16];
+              v38 = [v35 countByEnumeratingWithState:&v42 objects:v50 count:16];
             }
 
-            while (v39);
+            while (v38);
           }
 
-          v8 = v35 + 1;
+          v8 = v34 + 1;
         }
 
-        while (v35 + 1 != v34);
-        v34 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+        while (v34 + 1 != v33);
+        v33 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
-      while (v34);
+      while (v33);
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_additionalNumericAxis
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   [(AXChartDescriptor *)self additionalAxes];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v2 = v12 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = v11 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -684,7 +670,7 @@ LABEL_24:
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -695,34 +681,32 @@ LABEL_24:
   }
 
 LABEL_11:
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)_additionalCategoricalAxis
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   [(AXChartDescriptor *)self additionalAxes];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v2 = v12 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = v11 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -731,7 +715,7 @@ LABEL_11:
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -743,14 +727,12 @@ LABEL_11:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (NSString)description
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   xAxis = [(AXChartDescriptor *)self xAxis];
   [array addObject:xAxis];
@@ -763,29 +745,29 @@ LABEL_11:
     [array addObject:yAxis2];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   additionalAxes = [(AXChartDescriptor *)self additionalAxes];
-  v8 = [additionalAxes countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [additionalAxes countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(additionalAxes);
         }
 
-        [array addObject:*(*(&v20 + 1) + 8 * i)];
+        [array addObject:*(*(&v19 + 1) + 8 * i)];
       }
 
-      v9 = [additionalAxes countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [additionalAxes countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
@@ -797,8 +779,6 @@ LABEL_11:
   summary = [(AXChartDescriptor *)self summary];
   series = [(AXChartDescriptor *)self series];
   v17 = [v12 stringWithFormat:@"<%@ %p\n\ttitle=%@\n\tsummary=%@\n\tAxes:\n\t%@Series:\n\t%@>", v13, self, title, summary, array, series];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

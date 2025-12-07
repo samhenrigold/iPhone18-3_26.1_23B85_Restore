@@ -49,34 +49,32 @@
 
 + (id)handleRequest:(id)request
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = HFLogForCategory(8uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = requestCopy;
+    v14 = requestCopy;
     _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Handling HFAppPunchoutRequest %@", buf, 0xCu);
   }
 
   v6 = MEMORY[0x277D2C900];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __38__HFAppPunchoutRequest_handleRequest___block_invoke;
-  v11[3] = &unk_277DF2770;
-  v12 = requestCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __38__HFAppPunchoutRequest_handleRequest___block_invoke;
+  v10[3] = &unk_277DF2770;
+  v11 = requestCopy;
   selfCopy = self;
   v7 = requestCopy;
-  v8 = [v6 futureWithBlock:v11];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = [v6 futureWithBlock:v10];
 
   return v8;
 }
 
 void __38__HFAppPunchoutRequest_handleRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) bundleID];
 
@@ -96,9 +94,9 @@ void __38__HFAppPunchoutRequest_handleRequest___block_invoke(uint64_t a1, void *
       [v3 finishWithError:v7];
     }
 
-    v34 = 0;
+    v33 = 0;
     v8 = [*(a1 + 32) bundleID];
-    v9 = [v5 canOpenApplication:v8 reason:&v34];
+    v9 = [v5 canOpenApplication:v8 reason:&v33];
 
     if (v9)
     {
@@ -111,9 +109,9 @@ void __38__HFAppPunchoutRequest_handleRequest___block_invoke(uint64_t a1, void *
       {
         v13 = [*(a1 + 32) bundleID];
         *buf = 138412546;
-        v36 = v13;
-        v37 = 2112;
-        v38 = v10;
+        v35 = v13;
+        v36 = 2112;
+        v37 = v10;
         _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Launching application for bundleID %@ options %@", buf, 0x16u);
       }
 
@@ -128,11 +126,11 @@ void __38__HFAppPunchoutRequest_handleRequest___block_invoke(uint64_t a1, void *
     v16 = HFLogForCategory(8uLL);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v27 = [*(a1 + 32) bundleID];
+      v26 = [*(a1 + 32) bundleID];
       *buf = 138412546;
-      v36 = v27;
-      v37 = 2048;
-      v38 = v34;
+      v35 = v26;
+      v36 = 2048;
+      v37 = v33;
       _os_log_error_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_ERROR, "Failed to launch application for bundleID %@ with FBSOpenApplicationErrorCode %li", buf, 0x16u);
     }
   }
@@ -147,7 +145,7 @@ void __38__HFAppPunchoutRequest_handleRequest___block_invoke(uint64_t a1, void *
     {
       v20 = [*(a1 + 32) storeURL];
       *buf = 138412290;
-      v36 = v20;
+      v35 = v20;
       _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "Launching URL %@", buf, 0xCu);
     }
 
@@ -155,29 +153,29 @@ void __38__HFAppPunchoutRequest_handleRequest___block_invoke(uint64_t a1, void *
     v22 = [*(a1 + 32) storeURL];
     v5 = [v21 openURL:v22];
 
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __38__HFAppPunchoutRequest_handleRequest___block_invoke_20;
-    v32[3] = &unk_277DF2720;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __38__HFAppPunchoutRequest_handleRequest___block_invoke_20;
+    v31[3] = &unk_277DF2720;
     v23 = v3;
-    v33 = v23;
-    v24 = [v5 addSuccessBlock:v32];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __38__HFAppPunchoutRequest_handleRequest___block_invoke_2;
-    v29[3] = &unk_277DF2748;
-    v30 = *(a1 + 32);
-    v31 = v23;
-    v25 = [v5 addFailureBlock:v29];
+    v32 = v23;
+    v24 = [v5 addSuccessBlock:v31];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __38__HFAppPunchoutRequest_handleRequest___block_invoke_2;
+    v28[3] = &unk_277DF2748;
+    v29 = *(a1 + 32);
+    v30 = v23;
+    v25 = [v5 addFailureBlock:v28];
   }
 
   else
   {
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v28 = *(a1 + 32);
+      v27 = *(a1 + 32);
       *buf = 138412290;
-      v36 = v28;
+      v35 = v27;
       _os_log_error_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_ERROR, "Failed to handle HFAppPunchoutRequest %@", buf, 0xCu);
     }
 
@@ -186,27 +184,24 @@ void __38__HFAppPunchoutRequest_handleRequest___block_invoke(uint64_t a1, void *
   }
 
 LABEL_20:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __38__HFAppPunchoutRequest_handleRequest___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(8uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) storeURL];
-    v7 = 138412546;
-    v8 = v6;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to launch URL %@ with error %@", &v7, 0x16u);
+    v5 = [*(a1 + 32) storeURL];
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to launch URL %@ with error %@", &v6, 0x16u);
   }
 
   [*(a1 + 40) finishWithError:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

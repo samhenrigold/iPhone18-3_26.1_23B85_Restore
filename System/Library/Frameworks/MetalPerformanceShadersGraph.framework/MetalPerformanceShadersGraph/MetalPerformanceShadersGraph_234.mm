@@ -1,3 +1,2203 @@
+void GPU::QuantizedGatherNDFusionOpHandler::encodeNDArrayOp(GPU::QuantizedGatherNDFusionOpHandler *this, GPU::EncodeDescriptor *a2, NSArray *a3)
+{
+  v51 = a3;
+  ODSOperandIndexAndLength = mlir::func::ReturnOp::getODSOperandIndexAndLength((this + 120), 0);
+  v6 = *(this + 15);
+  if ((*(v6 + 46) & 0x80) != 0)
+  {
+    v7 = *(v6 + 72);
+    v8 = *(this + 19);
+    v9 = *(v8 + 48);
+    v10 = *(v8 + 56);
+    if (v9 == v10)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+    v7 = 0;
+    v32 = *(this + 19);
+    v9 = *(v32 + 48);
+    v10 = *(v32 + 56);
+    if (v9 == v10)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  v11 = 0;
+  v12 = v7 + 32 * ODSOperandIndexAndLength;
+  v13 = MEMORY[0x1E69744E8];
+  do
+  {
+    v14 = (*(**(this + 2) + 48))(*(this + 2), *(v12 + 32 * v11 + 24), 0);
+    v15 = [v14 mpsndarray];
+    v16 = v15;
+    if (*(v15 + *v13) == 1)
+    {
+      v17 = **v9;
+      if (v17)
+      {
+        v18 = 0;
+        do
+        {
+          ++v18;
+          v17 = *v17;
+        }
+
+        while (v17);
+        v19 = v18;
+      }
+
+      else
+      {
+        v19 = 0;
+      }
+
+      [v15 setReadCount:{objc_msgSend(v15, "readCount", v51) + v19}];
+    }
+
+    BaseRuntime::setTensorDataToDataMap(*(this + 2), *v9, v14);
+
+    ++v11;
+    ++v9;
+  }
+
+  while (v9 != v10);
+LABEL_12:
+  v20 = *(*(this + 21) + 72);
+  v21 = *(v20 + 56);
+  v22 = *(*(*(this + 20) + 72) + 56);
+  v23 = (*(**(this + 2) + 48))(*(this + 2), *(v20 + 24), 0);
+  v24 = [v23 mpsndarray];
+
+  v54 = v24;
+  v25 = (*(**(this + 2) + 48))(*(this + 2), v21, 0);
+  v55 = [v25 mpsndarray];
+
+  v26 = (*(**(this + 2) + 48))(*(this + 2), v22, 0);
+  v27 = [v26 mpsndarray];
+
+  if (v24)
+  {
+    v28 = v27 == 0;
+  }
+
+  else
+  {
+    v28 = 1;
+  }
+
+  v29 = v28 || v55 == 0;
+  if (v29 && MTLReportFailureTypeEnabled())
+  {
+    MTLReportFailure();
+  }
+
+  if (*(this + 176) != 1)
+  {
+LABEL_29:
+    v53 = 0;
+    if (*(this + 177) != 1)
+    {
+      goto LABEL_33;
+    }
+
+    goto LABEL_30;
+  }
+
+  v30 = (*(**(this + 2) + 48))(*(this + 2), *(*(*(this + 21) + 72) + 88), 0);
+  v31 = [v30 mpsndarray];
+
+  if (!v31)
+  {
+    if (MTLReportFailureTypeEnabled())
+    {
+      MTLReportFailure();
+    }
+
+    goto LABEL_29;
+  }
+
+  v53 = v31;
+  if (*(this + 177) != 1)
+  {
+    goto LABEL_33;
+  }
+
+LABEL_30:
+  v33 = (*(**(this + 2) + 48))(*(this + 2), *(*(*(this + 21) + 72) + 120), 0);
+  v34 = [v33 mpsndarray];
+
+  if (v34)
+  {
+    goto LABEL_34;
+  }
+
+  if (MTLReportFailureTypeEnabled())
+  {
+    MTLReportFailure();
+  }
+
+LABEL_33:
+  v34 = 0;
+LABEL_34:
+  ODSResultIndexAndLength = mlir::UnrealizedConversionCastOp::getODSResultIndexAndLength((this + 120), 0);
+  v36 = ODSResultIndexAndLength;
+  v37 = *(this + 15);
+  v38 = *(v37 + 36);
+  v39 = v37 - 16;
+  if (v38)
+  {
+    NextResultAtOffset = v39;
+  }
+
+  else
+  {
+    NextResultAtOffset = 0;
+  }
+
+  if (ODSResultIndexAndLength)
+  {
+    NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(NextResultAtOffset, ODSResultIndexAndLength);
+  }
+
+  v41 = (HIDWORD(v36) + v36);
+  v42 = v41 - v36;
+  if (v41 == v36)
+  {
+    v43 = 0;
+  }
+
+  else
+  {
+    v44 = 0;
+    v45 = 0;
+    do
+    {
+      v46 = mlir::detail::OpResultImpl::getNextResultAtOffset(NextResultAtOffset, v45);
+      v43 = (*(**(this + 2) + 80))(*(this + 2), v46, *(a2 + 1), 0, 0, 1);
+
+      ++v45;
+      v44 = v43;
+    }
+
+    while (v42 != v45);
+  }
+
+  v47 = [v43 mpsndarray];
+  v48 = *(this + 1);
+  [v48 setBatchDimensions:mlir::pdl_interp::CheckOperandCountOp::getCount((this + 160))];
+  [v48 setAllowNegativeIndices:mlir::pdl_interp::CreateOperationOp::getInferredResultTypes((this + 160))];
+  v49 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  [v49 addObject:v54];
+  [v49 addObject:v27];
+  [v49 addObject:v55];
+  if (*(this + 176) == 1)
+  {
+    [v49 addObject:v53];
+  }
+
+  if (*(this + 177) == 1)
+  {
+    [v49 addObject:v34];
+  }
+
+  v50 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
+  [v48 encodeToMPSCommandEncoder:v50 commandBuffer:*(a2 + 1) sourceArrays:v49 destinationArray:v47];
+}
+
+uint64_t GPU::FusionOpHandler::kernelDAGOp(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
+{
+  if ((*(a1 + 128) | 2) == 3)
+  {
+    v5 = *(a1 + 136);
+    v11 = 0;
+    v12 = 0;
+    __p = 0;
+    v6 = a3[1];
+    if (v6 != *a3)
+    {
+      if (((v6 - *a3) & 0x8000000000000000) == 0)
+      {
+        operator new();
+      }
+
+      std::vector<long>::__throw_length_error[abi:ne200100]();
+    }
+
+    result = (*(*v5 + 24))(v5, a2, &__p, a4, a5);
+    if (__p)
+    {
+      v11 = __p;
+      v8 = result;
+      operator delete(__p);
+      return v8;
+    }
+  }
+
+  else
+  {
+    v9 = MTLReportFailureTypeEnabled();
+    result = 0;
+    if (v9)
+    {
+      MTLReportFailure();
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void sub_1E06A1CA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void GPU::FusionReturnOpHandler::~FusionReturnOpHandler(GPU::FusionReturnOpHandler *this)
+{
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::QuantizedConv2DFusionOpHandler::kernelDAGOp(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v14 = a1[3];
+  v7 = *(a1[21] + 72);
+  v8 = *(v7 + 24);
+  v9 = *(v7 + 56);
+  v10 = *(a1[22] + 72);
+  v11 = *(v10 + 24);
+  v12 = *(v10 + 56);
+  mlir::func::ReturnOp::getODSOperandIndexAndLength(&v14, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v8, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v11, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v9, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v12, 0);
+  result = MPSKernelDAG::quartaryCoreOp();
+  *(a2 + 104) = a1[3];
+  return result;
+}
+
+void GPU::QuantizedConv2DFusionOpHandler::~QuantizedConv2DFusionOpHandler(GPU::QuantizedConv2DFusionOpHandler *this)
+{
+  *this = &unk_1F5B466D0;
+  v2 = *(this + 17);
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 40))(*(this + 17));
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B466D0;
+  v2 = *(this + 17);
+  if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+uint64_t GPU::QuantizedMatMulFusionOpHandler::kernelDAGOp(void *a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
+{
+  v7 = *(a1[21] + 72);
+  v8 = *(v7 + 24);
+  v22 = *(v7 + 56);
+  v9 = *(*(mlir::Value::getDefiningOp(&v22) + 72) + 24);
+  v22 = *(*(a1[21] + 72) + 88);
+  v10 = *(*(mlir::Value::getDefiningOp(&v22) + 72) + 24);
+  v22 = *(*(a1[21] + 72) + 120);
+  v11 = *(*(mlir::Value::getDefiningOp(&v22) + 72) + 24);
+  v12 = *(a1[22] + 72);
+  v13 = *(v12 + 24);
+  v22 = *(v12 + 56);
+  v14 = *(*(mlir::Value::getDefiningOp(&v22) + 72) + 24);
+  v22 = *(*(a1[22] + 72) + 88);
+  v18 = *(*(mlir::Value::getDefiningOp(&v22) + 72) + 24);
+  v22 = *(*(a1[22] + 72) + 120);
+  v17 = *(*(mlir::Value::getDefiningOp(&v22) + 72) + 24);
+  v22 = 0;
+  v23 = 0;
+  v24 = 0;
+  if (mlir::pdl::ApplyNativeConstraintOp::getIsNegated((a1 + 20)))
+  {
+    operator new();
+  }
+
+  __p = 0;
+  v20 = 0;
+  v21 = 0;
+  if (mlir::mps::MatMulOp::getTransposeRhs((a1 + 20)))
+  {
+    operator new();
+  }
+
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v8, &v22);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v13, &__p);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v9, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v10, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v11, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v14, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v18, 0);
+  GPU::MPSGraphKernelDAG::getBaseTensorFromDataMap(a2, v17, 0);
+  v15 = MPSKernelDAG::octonaryCoreOp();
+  *(a2 + 104) = a1[3];
+  if (__p)
+  {
+    v20 = __p;
+    operator delete(__p);
+  }
+
+  if (v22)
+  {
+    v23 = v22;
+    operator delete(v22);
+  }
+
+  return v15;
+}
+
+void sub_1E06A2344(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, void *a22, uint64_t a23)
+{
+  if (__p)
+  {
+    operator delete(__p);
+    v24 = a22;
+    if (!a22)
+    {
+LABEL_3:
+      _Unwind_Resume(exception_object);
+    }
+  }
+
+  else
+  {
+    v24 = a22;
+    if (!a22)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  operator delete(v24);
+  _Unwind_Resume(exception_object);
+}
+
+void GPU::QuantizedMatMulFusionOpHandler::~QuantizedMatMulFusionOpHandler(GPU::QuantizedMatMulFusionOpHandler *this)
+{
+  *this = &unk_1F5B466D0;
+  v2 = *(this + 17);
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 40))(*(this + 17));
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B466D0;
+  v2 = *(this + 17);
+  if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+void GPU::QuantizedGatherNDFusionOpHandler::~QuantizedGatherNDFusionOpHandler(GPU::QuantizedGatherNDFusionOpHandler *this)
+{
+  *this = &unk_1F5B466D0;
+  v2 = *(this + 17);
+  if (v2)
+  {
+    v3 = this;
+    (*(*v2 + 40))(*(this + 17));
+    this = v3;
+    v1 = vars8;
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+}
+
+{
+  *this = &unk_1F5B466D0;
+  v2 = *(this + 17);
+  if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  GPU::BaseOpHandler::~BaseOpHandler(this);
+
+  JUMPOUT(0x1E12E5B90);
+}
+
+void EmitViewerSPI::initializeOps(EmitViewerSPI *this)
+{
+  MEMORY[0x1EEE9AC00](this);
+  v63 = *MEMORY[0x1E69E9840];
+  v1[23] = 14;
+  strcpy(v1, "anec.A11Legacy");
+  v2 = 1;
+  v3[23] = 8;
+  strcpy(v3, "anec.A12");
+  v4 = 2;
+  v5[23] = 8;
+  strcpy(v5, "anec.A13");
+  v6 = 3;
+  v7[23] = 8;
+  strcpy(v7, "anec.A14");
+  v8 = 4;
+  v9[23] = 8;
+  strcpy(v9, "anec.A15");
+  v10 = 5;
+  v11[23] = 8;
+  strcpy(v11, "anec.A16");
+  v12 = 6;
+  v13[23] = 8;
+  strcpy(v13, "anec.A17");
+  v14 = 7;
+  v15[23] = 8;
+  strcpy(v15, "anec.A18");
+  v16 = 8;
+  v17[23] = 16;
+  strcpy(v17, "anec.arg_min_max");
+  v18 = 9;
+  v19[23] = 17;
+  strcpy(v19, "anec.average_pool");
+  v20 = 10;
+  v21[23] = 15;
+  strcpy(v21, "anec.batch_norm");
+  v22 = 11;
+  v23[23] = 19;
+  strcpy(v23, "anec.batch_to_space");
+  v24 = 12;
+  v25[23] = 14;
+  strcpy(v25, "anec.broadcast");
+  v26 = 13;
+  v27[23] = 9;
+  strcpy(v27, "anec.cast");
+  v28 = 14;
+  v29[23] = 9;
+  strcpy(v29, "anec.ceil");
+  v30 = 15;
+  v31[23] = 21;
+  strcpy(v31, "anec.channel_to_space");
+  v32 = 16;
+  v33[23] = 17;
+  strcpy(v33, "anec.clamped_relu");
+  v34 = 17;
+  v35[23] = 11;
+  strcpy(v35, "anec.concat");
+  v36 = 18;
+  v37[23] = 16;
+  strcpy(v37, "anec.convolution");
+  v38 = 19;
+  v39[23] = 8;
+  strcpy(v39, "anec.cos");
+  v40 = 20;
+  v41[23] = 16;
+  strcpy(v41, "anec.crop_resize");
+  v42 = 21;
+  v43[23] = 12;
+  strcpy(v43, "anec.dequant");
+  v44 = 22;
+  v45[23] = 18;
+  strcpy(v45, "anec.deconvolution");
+  v46 = 23;
+  v47[23] = 12;
+  strcpy(v47, "anec.degamma");
+  v48 = 24;
+  v49[23] = 10;
+  strcpy(v49, "anec.dirac");
+  v50 = 25;
+  v51[23] = 8;
+  strcpy(v51, "anec.abs");
+  v52 = 26;
+  v53[23] = 8;
+  strcpy(v53, "anec.add");
+  v54 = 27;
+  v55[23] = 8;
+  strcpy(v55, "anec.div");
+  v56 = 28;
+  v57[23] = 10;
+  strcpy(v57, "anec.equal");
+  v58 = 29;
+  v59[23] = 15;
+  strcpy(v59, "anec.equal_zero");
+  v60 = 30;
+  v61[23] = 17;
+  strcpy(v61, "anec.greater_than");
+  v62 = 31;
+  operator new();
+}
+
+void sub_1E06A7F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
+{
+  va_start(va, a35);
+  if (a14)
+  {
+    (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  if (a21)
+  {
+    (*(*a21 + 8))(a21, a2, a3, a4, a5, a6, a7, a8);
+    mlir::PassManager::~PassManager(va);
+    _Unwind_Resume(a1);
+  }
+
+  JUMPOUT(0x1E06A827CLL);
+}
+
+void sub_1E06A8024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
+{
+  va_start(va, a35);
+  std::function<BOOL ()(mlir::Pass *,mlir::Operation *)>::~function(&a28);
+  std::function<BOOL ()(mlir::Pass *,mlir::Operation *)>::~function(&a32);
+  mlir::PassManager::~PassManager(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1E06A8054(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+{
+  while (1)
+  {
+    v38 = *(v36 - 9);
+    v36 -= 4;
+    if (v38 < 0)
+    {
+      operator delete(*v36);
+    }
+
+    if (v36 == &a36)
+    {
+      _Unwind_Resume(exception_object);
+    }
+  }
+}
+
+void sub_1E06A8158(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    std::__hash_table<std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>>>::__deallocate_node(v39);
+    __cxa_rethrow();
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E06A81C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  __cxa_end_catch();
+  v9 = (a9 + 3651);
+  v10 = -11872;
+  v11 = (a9 + 3651);
+  while (1)
+  {
+    v12 = *v11;
+    v11 -= 32;
+    if (v12 < 0)
+    {
+      operator delete(*(v9 - 23));
+    }
+
+    v9 = v11;
+    v10 += 32;
+    if (!v10)
+    {
+      JUMPOUT(0x1E06A821CLL);
+    }
+  }
+}
+
+void sub_1E06A81CC(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    __clang_call_terminate(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E06A81D4(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    __clang_call_terminate(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E06A8224(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    JUMPOUT(0x1E06A8228);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E06A8278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
+{
+  va_start(va, a35);
+  mlir::PassManager::~PassManager(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::function<BOOL ()(mlir::Pass *,mlir::Operation *)>::~function(uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+    return a1;
+  }
+
+  else
+  {
+    if (v2)
+    {
+      (*(*v2 + 40))(v2);
+    }
+
+    return a1;
+  }
+}
+
+MPSGraphViewerNodePortSPI *EmitViewerSPI::emitNodeOutputPort(uint64_t a1, void *a2, MPSGraphViewerNodePortSPI *a3)
+{
+  v5 = a2;
+  if (a3)
+  {
+    MPSDataType = getMPSDataType((*&a3->_dataType & 0xFFFFFFFFFFFFFFF8));
+    v7 = getMPSShapeFromMLIR(*&a3->_dataType & 0xFFFFFFFFFFFFFFF8);
+    a3 = [[MPSGraphViewerNodePortSPI alloc] initWithName:v5 dataType:MPSDataType shape:v7 valueRef:(*(*a1 + 32))(a1, a3)];
+  }
+
+  return a3;
+}
+
+MPSGraphViewerNodeSPI *EmitViewerSPI::emitNode(int8x8_t *this, MPSGraphViewerNodePortSPI *a2)
+{
+  __p = *(*&a2[1]._dataType + 8);
+  AttrData = mlir::OpaqueAttr::getAttrData(&__p);
+  v5 = strlen(AttrData);
+  if (v5 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v6 = v5;
+  if (v5 >= 0x17)
+  {
+    operator new();
+  }
+
+  v68 = v5;
+  if (v5)
+  {
+    memmove(&__dst, AttrData, v5);
+  }
+
+  *(&__dst + v6) = 0;
+  if ((v68 & 0x80u) == 0)
+  {
+    p_dst = &__dst;
+  }
+
+  else
+  {
+    p_dst = __dst;
+  }
+
+  if ((v68 & 0x80u) == 0)
+  {
+    v8 = v68;
+  }
+
+  else
+  {
+    v8 = v67;
+  }
+
+  v9 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](&__p, p_dst, v8);
+  v10 = this[24];
+  if (!*&v10)
+  {
+    goto LABEL_434;
+  }
+
+  v11 = v9;
+  v12 = vcnt_s8(v10);
+  v12.i16[0] = vaddlv_u8(v12);
+  if (v12.u32[0] > 1uLL)
+  {
+    v13 = v9;
+    if (v9 >= *&v10)
+    {
+      v13 = v9 % *&v10;
+    }
+  }
+
+  else
+  {
+    v13 = (*&v10 - 1) & v9;
+  }
+
+  v14 = *(*&this[23] + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
+  {
+LABEL_434:
+    std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
+  }
+
+  if ((v68 & 0x80u) == 0)
+  {
+    v16 = v68;
+  }
+
+  else
+  {
+    v16 = v67;
+  }
+
+  if ((v68 & 0x80u) == 0)
+  {
+    v17 = &__dst;
+  }
+
+  else
+  {
+    v17 = __dst;
+  }
+
+  if (v12.u32[0] < 2uLL)
+  {
+    v18 = *&v10 - 1;
+    while (1)
+    {
+      v23 = v15[1];
+      if (v23 == v11)
+      {
+        v24 = *(v15 + 39);
+        v25 = v24;
+        if ((v24 & 0x80u) != 0)
+        {
+          v24 = v15[3];
+        }
+
+        if (v24 == v16)
+        {
+          v26 = v25 >= 0 ? v15 + 2 : v15[2];
+          if (!memcmp(v26, v17, v16))
+          {
+            goto LABEL_51;
+          }
+        }
+      }
+
+      else if ((v23 & v18) != v13)
+      {
+        goto LABEL_434;
+      }
+
+      v15 = *v15;
+      if (!v15)
+      {
+        goto LABEL_434;
+      }
+    }
+  }
+
+  while (1)
+  {
+    v19 = v15[1];
+    if (v19 == v11)
+    {
+      break;
+    }
+
+    if (v19 >= *&v10)
+    {
+      v19 %= *&v10;
+    }
+
+    if (v19 != v13)
+    {
+      goto LABEL_434;
+    }
+
+LABEL_29:
+    v15 = *v15;
+    if (!v15)
+    {
+      goto LABEL_434;
+    }
+  }
+
+  v20 = *(v15 + 39);
+  v21 = v20;
+  if ((v20 & 0x80u) != 0)
+  {
+    v20 = v15[3];
+  }
+
+  if (v20 != v16)
+  {
+    goto LABEL_29;
+  }
+
+  v22 = v21 >= 0 ? v15 + 2 : v15[2];
+  if (memcmp(v22, v17, v16))
+  {
+    goto LABEL_29;
+  }
+
+LABEL_51:
+  switch(*(v15 + 10))
+  {
+    case 1:
+      EmitterViewerSPI::ANECA11LegacyOpHandler::ANECA11LegacyOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 2:
+      EmitterViewerSPI::ANECA12OpHandler::ANECA12OpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 3:
+      EmitterViewerSPI::ANECA13OpHandler::ANECA13OpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 4:
+      EmitterViewerSPI::ANECA14OpHandler::ANECA14OpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 5:
+      EmitterViewerSPI::ANECA15OpHandler::ANECA15OpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 6:
+      EmitterViewerSPI::ANECA16OpHandler::ANECA16OpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 7:
+      EmitterViewerSPI::ANECA17OpHandler::ANECA17OpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 8:
+      EmitterViewerSPI::ANECA18OpHandler::ANECA18OpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 9:
+      EmitterViewerSPI::ANECArgMinMaxOpHandler::ANECArgMinMaxOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xA:
+      EmitterViewerSPI::ANECAveragePoolOpHandler::ANECAveragePoolOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xB:
+      EmitterViewerSPI::ANECBatchNormOpHandler::ANECBatchNormOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xC:
+      EmitterViewerSPI::ANECBatchToSpaceOpHandler::ANECBatchToSpaceOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xD:
+      EmitterViewerSPI::ANECBroadcastOpHandler::ANECBroadcastOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xE:
+      EmitterViewerSPI::ANECCastOpHandler::ANECCastOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xF:
+      EmitterViewerSPI::ANECCeilOpHandler::ANECCeilOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x10:
+      EmitterViewerSPI::ANECChannelToSpaceOpHandler::ANECChannelToSpaceOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x11:
+      EmitterViewerSPI::ANECClampedReluOpHandler::ANECClampedReluOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x12:
+      EmitterViewerSPI::ANECConcatOpHandler::ANECConcatOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x13:
+      EmitterViewerSPI::ANECConvolutionOpHandler::ANECConvolutionOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x14:
+      EmitterViewerSPI::ANECCosOpHandler::ANECCosOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x15:
+      EmitterViewerSPI::ANECCropResizeOpHandler::ANECCropResizeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x16:
+      EmitterViewerSPI::ANECDeQuantOpHandler::ANECDeQuantOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x17:
+      EmitterViewerSPI::ANECDeconvolutionOpHandler::ANECDeconvolutionOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x18:
+      EmitterViewerSPI::ANECDegammaOpHandler::ANECDegammaOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x19:
+      EmitterViewerSPI::ANECDiracOpHandler::ANECDiracOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x1A:
+      EmitterViewerSPI::ANECElementwiseAbsOpHandler::ANECElementwiseAbsOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x1B:
+      EmitterViewerSPI::ANECElementwiseAddOpHandler::ANECElementwiseAddOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x1C:
+      EmitterViewerSPI::ANECElementwiseDivOpHandler::ANECElementwiseDivOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x1D:
+      EmitterViewerSPI::ANECElementwiseEqualOpHandler::ANECElementwiseEqualOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x1E:
+      EmitterViewerSPI::ANECElementwiseEqualZeroOpHandler::ANECElementwiseEqualZeroOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x1F:
+      EmitterViewerSPI::ANECElementwiseGreaterThanOpHandler::ANECElementwiseGreaterThanOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x20:
+      EmitterViewerSPI::ANECElementwiseGreaterThanEqualOpHandler::ANECElementwiseGreaterThanEqualOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x21:
+      EmitterViewerSPI::ANECElementwiseGreaterThanEqualZeroOpHandler::ANECElementwiseGreaterThanEqualZeroOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x22:
+      EmitterViewerSPI::ANECElementwiseGreaterThanZeroOpHandler::ANECElementwiseGreaterThanZeroOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x23:
+      EmitterViewerSPI::ANECElementwiseLessThanOpHandler::ANECElementwiseLessThanOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x24:
+      EmitterViewerSPI::ANECElementwiseLessThanEqualOpHandler::ANECElementwiseLessThanEqualOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x25:
+      EmitterViewerSPI::ANECElementwiseLessThanEqualZeroOpHandler::ANECElementwiseLessThanEqualZeroOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x26:
+      EmitterViewerSPI::ANECElementwiseLessThanZeroOpHandler::ANECElementwiseLessThanZeroOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x27:
+      EmitterViewerSPI::ANECElementwiseMaxOpHandler::ANECElementwiseMaxOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x28:
+      EmitterViewerSPI::ANECElementwiseMinOpHandler::ANECElementwiseMinOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x29:
+      EmitterViewerSPI::ANECElementwiseMultOpHandler::ANECElementwiseMultOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x2A:
+      EmitterViewerSPI::ANECElementwiseNotEqualOpHandler::ANECElementwiseNotEqualOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x2B:
+      EmitterViewerSPI::ANECElementwiseNotEqualZeroOpHandler::ANECElementwiseNotEqualZeroOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x2C:
+      EmitterViewerSPI::ANECElementwisePowerOpHandler::ANECElementwisePowerOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x2D:
+      EmitterViewerSPI::ANECElementwiseSquareOpHandler::ANECElementwiseSquareOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x2E:
+      EmitterViewerSPI::ANECElementwiseSubOpHandler::ANECElementwiseSubOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x2F:
+      EmitterViewerSPI::ANECEluOpHandler::ANECEluOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x30:
+      EmitterViewerSPI::ANECErfOpHandler::ANECErfOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x31:
+      EmitterViewerSPI::ANECExp2OpHandler::ANECExp2OpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x32:
+      EmitterViewerSPI::ANECFlattenOpHandler::ANECFlattenOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x33:
+      EmitterViewerSPI::ANECFloorOpHandler::ANECFloorOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x34:
+      EmitterViewerSPI::ANECGOCOpHandler::ANECGOCOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x35:
+      EmitterViewerSPI::ANECGatherNDOpHandler::ANECGatherNDOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x36:
+      EmitterViewerSPI::ANECGeluOpHandler::ANECGeluOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x37:
+      EmitterViewerSPI::ANECGlobalArgMinMaxOpHandler::ANECGlobalArgMinMaxOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x38:
+      EmitterViewerSPI::ANECHighPrecisionSigmoidOpHandler::ANECHighPrecisionSigmoidOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x39:
+      EmitterViewerSPI::ANECInputViewOpHandler::ANECInputViewOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x3A:
+      EmitterViewerSPI::ANECInstanceNormOpHandler::ANECInstanceNormOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x3B:
+      EmitterViewerSPI::ANECInvertOpHandler::ANECInvertOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x3C:
+      EmitterViewerSPI::ANECL2NormPoolOpHandler::ANECL2NormPoolOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x3D:
+      EmitterViewerSPI::ANECLayerNormOpHandler::ANECLayerNormOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x3E:
+      EmitterViewerSPI::ANECLeakyReluOpHandler::ANECLeakyReluOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x3F:
+      EmitterViewerSPI::ANECLinearOpHandler::ANECLinearOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x40:
+      EmitterViewerSPI::ANECLog2OpHandler::ANECLog2OpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x41:
+      EmitterViewerSPI::ANECMatMulOpHandler::ANECMatMulOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x42:
+      EmitterViewerSPI::ANECMaxPoolOpHandler::ANECMaxPoolOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x43:
+      EmitterViewerSPI::ANECNReluOpHandler::ANECNReluOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x44:
+      EmitterViewerSPI::ANECPaddingOpHandler::ANECPaddingOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x45:
+      EmitterViewerSPI::ANECPixelShuffleOpHandler::ANECPixelShuffleOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x46:
+      EmitterViewerSPI::ANECPixelUnshuffleOpHandler::ANECPixelUnshuffleOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x47:
+      EmitterViewerSPI::ANECQuantOpHandler::ANECQuantOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x48:
+      EmitterViewerSPI::ANECReduceAvgOpHandler::ANECReduceAvgOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x49:
+      EmitterViewerSPI::ANECReduceMaxOpHandler::ANECReduceMaxOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x4A:
+      EmitterViewerSPI::ANECReduceMinOpHandler::ANECReduceMinOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x4B:
+      EmitterViewerSPI::ANECReduceSumOpHandler::ANECReduceSumOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x4C:
+      EmitterViewerSPI::ANECRegionReturnOpHandler::ANECRegionReturnOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x4D:
+      EmitterViewerSPI::ANECReluOpHandler::ANECReluOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x4E:
+      EmitterViewerSPI::ANECResampleOpHandler::ANECResampleOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x4F:
+      EmitterViewerSPI::ANECReshapeOpHandler::ANECReshapeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x50:
+      EmitterViewerSPI::ANECResizeOpHandler::ANECResizeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x51:
+      EmitterViewerSPI::ANECRingBufferReaderOpHandler::ANECRingBufferReaderOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x52:
+      EmitterViewerSPI::ANECRingBufferWriterOpHandler::ANECRingBufferWriterOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x53:
+      EmitterViewerSPI::ANECRoundNearestOpHandler::ANECRoundNearestOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x54:
+      EmitterViewerSPI::ANECRsqrtOpHandler::ANECRsqrtOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x55:
+      EmitterViewerSPI::ANECScaledElementWiseOpHandler::ANECScaledElementWiseOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x56:
+      EmitterViewerSPI::ANECSigmoidOpHandler::ANECSigmoidOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x57:
+      EmitterViewerSPI::ANECSignOpHandler::ANECSignOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x58:
+      EmitterViewerSPI::ANECSinOpHandler::ANECSinOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x59:
+      EmitterViewerSPI::ANECSoftmaxOpHandler::ANECSoftmaxOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x5A:
+      EmitterViewerSPI::ANECSpaceToBatchOpHandler::ANECSpaceToBatchOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x5B:
+      EmitterViewerSPI::ANECSpaceToChannelOpHandler::ANECSpaceToChannelOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x5C:
+      EmitterViewerSPI::ANECSqrOpHandler::ANECSqrOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x5D:
+      EmitterViewerSPI::ANECSqrtOpHandler::ANECSqrtOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x5E:
+      EmitterViewerSPI::ANECStateOpHandler::ANECStateOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x5F:
+      EmitterViewerSPI::ANECSwishOpHandler::ANECSwishOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x60:
+      EmitterViewerSPI::ANECTanhOpHandler::ANECTanhOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x61:
+      EmitterViewerSPI::ANECTensorBufferToTensorOpHandler::ANECTensorBufferToTensorOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x62:
+      EmitterViewerSPI::ANECTensorToTensorBufferOpHandler::ANECTensorToTensorBufferOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x63:
+      EmitterViewerSPI::ANECTileOpHandler::ANECTileOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x64:
+      EmitterViewerSPI::ANECTransposeOpHandler::ANECTransposeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x65:
+      EmitterViewerSPI::ANECTruncOpHandler::ANECTruncOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x66:
+      EmitterViewerSPI::ANECUnflattenOpHandler::ANECUnflattenOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x67:
+      EmitterViewerSPI::ANECUnrealizedConversionCastOpHandler::ANECUnrealizedConversionCastOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x68:
+      EmitterViewerSPI::MPSACosOpHandler::MPSACosOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x69:
+      EmitterViewerSPI::MPSACoshOpHandler::MPSACoshOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x6A:
+      EmitterViewerSPI::MPSASinOpHandler::MPSASinOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x6B:
+      EmitterViewerSPI::MPSASinhOpHandler::MPSASinhOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x6C:
+      EmitterViewerSPI::MPSATan2OpHandler::MPSATan2OpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x6D:
+      EmitterViewerSPI::MPSATanOpHandler::MPSATanOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x6E:
+      EmitterViewerSPI::MPSATanhOpHandler::MPSATanhOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x6F:
+      EmitterViewerSPI::MPSAbsoluteOpHandler::MPSAbsoluteOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x70:
+      EmitterViewerSPI::MPSAbsoluteSquareOpHandler::MPSAbsoluteSquareOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x71:
+      EmitterViewerSPI::MPSAddOpHandler::MPSAddOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x72:
+      EmitterViewerSPI::MPSAndOpHandler::MPSAndOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x73:
+      EmitterViewerSPI::MPSAssignVariableOpHandler::MPSAssignVariableOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x74:
+      EmitterViewerSPI::MPSBandPartOpHandler::MPSBandPartOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x75:
+      EmitterViewerSPI::MPSBatchToSpaceOpHandler::MPSBatchToSpaceOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x76:
+      EmitterViewerSPI::MPSBiasAddGradOpHandler::MPSBiasAddGradOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x77:
+      EmitterViewerSPI::MPSBiasAddOpHandler::MPSBiasAddOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x78:
+      EmitterViewerSPI::MPSBitwiseAndOpHandler::MPSBitwiseAndOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x79:
+      EmitterViewerSPI::MPSBitwiseLeftShiftOpHandler::MPSBitwiseLeftShiftOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x7A:
+      EmitterViewerSPI::MPSBitwiseNotOpHandler::MPSBitwiseNotOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x7B:
+      EmitterViewerSPI::MPSBitwiseOrOpHandler::MPSBitwiseOrOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x7C:
+      EmitterViewerSPI::MPSBitwisePopcountOpHandler::MPSBitwisePopcountOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x7D:
+      EmitterViewerSPI::MPSBitwiseRightShiftOpHandler::MPSBitwiseRightShiftOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x7E:
+      EmitterViewerSPI::MPSBitwiseXorOpHandler::MPSBitwiseXorOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x7F:
+      EmitterViewerSPI::MPSBroadcastGradientArgsOpHandler::MPSBroadcastGradientArgsOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x80:
+      EmitterViewerSPI::MPSBroadcastToOpHandler::MPSBroadcastToOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x81:
+      EmitterViewerSPI::MPSCallOpHandler::MPSCallOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x82:
+      EmitterViewerSPI::MPSCastOpHandler::MPSCastOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x83:
+      EmitterViewerSPI::MPSCeilOpHandler::MPSCeilOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x84:
+      EmitterViewerSPI::MPSClampOpHandler::MPSClampOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x85:
+      EmitterViewerSPI::MPSColToImOpHandler::MPSColToImOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x86:
+      EmitterViewerSPI::MPSConcatOpHandler::MPSConcatOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x87:
+      EmitterViewerSPI::MPSConjugateOpHandler::MPSConjugateOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x88:
+      EmitterViewerSPI::MPSConstantOpHandler::MPSConstantOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x89:
+      EmitterViewerSPI::MPSConv2DDataGradientOpHandler::MPSConv2DDataGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x8A:
+      EmitterViewerSPI::MPSConv2DOpHandler::MPSConv2DOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x8B:
+      EmitterViewerSPI::MPSConv2DWeightsGradientOpHandler::MPSConv2DWeightsGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x8C:
+      EmitterViewerSPI::MPSConv3DDataGradientOpHandler::MPSConv3DDataGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x8D:
+      EmitterViewerSPI::MPSConv3DOpHandler::MPSConv3DOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x8E:
+      EmitterViewerSPI::MPSConv3DWeightsGradientOpHandler::MPSConv3DWeightsGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x8F:
+      EmitterViewerSPI::MPSCosOpHandler::MPSCosOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x90:
+      EmitterViewerSPI::MPSCoshOpHandler::MPSCoshOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x91:
+      EmitterViewerSPI::MPSCostVolumeOpHandler::MPSCostVolumeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x92:
+      EmitterViewerSPI::MPSCreateComplexOpHandler::MPSCreateComplexOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x93:
+      EmitterViewerSPI::MPSCreateTextureTensorOpHandler::MPSCreateTextureTensorOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x94:
+      EmitterViewerSPI::MPSCropOpHandler::MPSCropOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x95:
+      EmitterViewerSPI::MPSCropResizeOpHandler::MPSCropResizeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x96:
+      EmitterViewerSPI::MPSCumulativeMaximumOpHandler::MPSCumulativeMaximumOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x97:
+      EmitterViewerSPI::MPSCumulativeMinimumOpHandler::MPSCumulativeMinimumOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x98:
+      EmitterViewerSPI::MPSCumulativeProductOpHandler::MPSCumulativeProductOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x99:
+      EmitterViewerSPI::MPSCumulativeSumOpHandler::MPSCumulativeSumOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x9A:
+      EmitterViewerSPI::MPSDegammaOpHandler::MPSDegammaOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x9B:
+      EmitterViewerSPI::MPSDepthToSpace2DOpHandler::MPSDepthToSpace2DOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x9C:
+      EmitterViewerSPI::MPSDepthwiseConv2DDataGradientOpHandler::MPSDepthwiseConv2DDataGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x9D:
+      EmitterViewerSPI::MPSDepthwiseConv2DOpHandler::MPSDepthwiseConv2DOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x9E:
+      EmitterViewerSPI::MPSDepthwiseConv2DWeightsGradientOpHandler::MPSDepthwiseConv2DWeightsGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x9F:
+      EmitterViewerSPI::MPSDepthwiseConv3DDataGradientOpHandler::MPSDepthwiseConv3DDataGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xA0:
+      EmitterViewerSPI::MPSDepthwiseConv3DOpHandler::MPSDepthwiseConv3DOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xA1:
+      EmitterViewerSPI::MPSDepthwiseConv3DWeightsGradientOpHandler::MPSDepthwiseConv3DWeightsGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xA2:
+      EmitterViewerSPI::MPSDequantizeLUTOpHandler::MPSDequantizeLUTOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xA3:
+      EmitterViewerSPI::MPSDequantizeOpHandler::MPSDequantizeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xA4:
+      EmitterViewerSPI::MPSDimensionSizeOpHandler::MPSDimensionSizeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xA5:
+      EmitterViewerSPI::MPSDiracOpHandler::MPSDiracOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xA6:
+      EmitterViewerSPI::MPSDivideOpHandler::MPSDivideOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xA7:
+      EmitterViewerSPI::MPSDynamicShapeCastOpHandler::MPSDynamicShapeCastOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xA8:
+      EmitterViewerSPI::MPSEluOpHandler::MPSEluOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xA9:
+      EmitterViewerSPI::MPSEqualToOpHandler::MPSEqualToOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xAA:
+      EmitterViewerSPI::MPSErfOpHandler::MPSErfOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xAB:
+      EmitterViewerSPI::MPSExpandDimsOpHandler::MPSExpandDimsOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xAC:
+      EmitterViewerSPI::MPSExponentBase2OpHandler::MPSExponentBase2OpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xAD:
+      EmitterViewerSPI::MPSExponentBase10OpHandler::MPSExponentBase10OpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xAE:
+      EmitterViewerSPI::MPSExponentOpHandler::MPSExponentOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xAF:
+      EmitterViewerSPI::MPSFastFourierTransformOpHandler::MPSFastFourierTransformOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xB0:
+      EmitterViewerSPI::MPSFlatten2DOpHandler::MPSFlatten2DOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xB1:
+      EmitterViewerSPI::MPSFloorDivideOpHandler::MPSFloorDivideOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xB2:
+      EmitterViewerSPI::MPSFloorOpHandler::MPSFloorOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xB3:
+      EmitterViewerSPI::MPSGRUGradientOpHandler::MPSGRUGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xB4:
+      EmitterViewerSPI::MPSGRUOpHandler::MPSGRUOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xB5:
+      EmitterViewerSPI::MPSGatherAlongAxisOpHandler::MPSGatherAlongAxisOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xB6:
+      EmitterViewerSPI::MPSGatherNDOpHandler::MPSGatherNDOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xB7:
+      EmitterViewerSPI::MPSGatherOpHandler::MPSGatherOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xB8:
+      EmitterViewerSPI::MPSGeluOpHandler::MPSGeluOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xB9:
+      EmitterViewerSPI::MPSGetCoordOpHandler::MPSGetCoordOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xBA:
+      EmitterViewerSPI::MPSGreaterThanOpHandler::MPSGreaterThanOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xBB:
+      EmitterViewerSPI::MPSGreaterThanOrEqualToOpHandler::MPSGreaterThanOrEqualToOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xBC:
+      EmitterViewerSPI::MPSHammingDistanceOpHandler::MPSHammingDistanceOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xBD:
+      EmitterViewerSPI::MPSHermiteanToRealFFTOpHandler::MPSHermiteanToRealFFTOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xBE:
+      EmitterViewerSPI::MPSIdentityOpHandler::MPSIdentityOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xBF:
+      EmitterViewerSPI::MPSImToColOpHandler::MPSImToColOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xC0:
+      EmitterViewerSPI::MPSImaginaryPartOpHandler::MPSImaginaryPartOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xC1:
+      EmitterViewerSPI::MPSInitRandomPhiloxStateOpHandler::MPSInitRandomPhiloxStateOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xC2:
+      EmitterViewerSPI::MPSInstanceNormOpHandler::MPSInstanceNormOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xC3:
+      EmitterViewerSPI::MPSIsFiniteOpHandler::MPSIsFiniteOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xC4:
+      EmitterViewerSPI::MPSIsInfiniteOpHandler::MPSIsInfiniteOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xC5:
+      EmitterViewerSPI::MPSIsNaNOpHandler::MPSIsNaNOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xC6:
+      EmitterViewerSPI::MPSLPNormOpHandler::MPSLPNormOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xC7:
+      EmitterViewerSPI::MPSLSTMGradientOpHandler::MPSLSTMGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xC8:
+      EmitterViewerSPI::MPSLSTMOpHandler::MPSLSTMOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xC9:
+      EmitterViewerSPI::MPSLeakyReluOpHandler::MPSLeakyReluOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xCA:
+      EmitterViewerSPI::MPSLessThanOpHandler::MPSLessThanOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xCB:
+      EmitterViewerSPI::MPSLessThanOrEqualToOpHandler::MPSLessThanOrEqualToOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xCC:
+      EmitterViewerSPI::MPSLocalConvolutionDataGradientOpHandler::MPSLocalConvolutionDataGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xCD:
+      EmitterViewerSPI::MPSLocalConvolutionOpHandler::MPSLocalConvolutionOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xCE:
+      EmitterViewerSPI::MPSLocalConvolutionWeightGradientOpHandler::MPSLocalConvolutionWeightGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xCF:
+      EmitterViewerSPI::MPSLogarithmBase2OpHandler::MPSLogarithmBase2OpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xD0:
+      EmitterViewerSPI::MPSLogarithmBase10OpHandler::MPSLogarithmBase10OpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xD1:
+      EmitterViewerSPI::MPSLogarithmOpHandler::MPSLogarithmOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xD2:
+      EmitterViewerSPI::MPSMatMulOpHandler::MPSMatMulOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xD3:
+      EmitterViewerSPI::MPSMaterializeSparseTensorOpHandler::MPSMaterializeSparseTensorOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xD4:
+      EmitterViewerSPI::MPSMatrixDecompositionLUOpHandler::MPSMatrixDecompositionLUOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xD5:
+      EmitterViewerSPI::MPSMatrixInverseOpHandler::MPSMatrixInverseOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xD6:
+      EmitterViewerSPI::MPSMatrixSolverLUOpHandler::MPSMatrixSolverLUOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xD7:
+      EmitterViewerSPI::MPSMaximumOpHandler::MPSMaximumOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xD8:
+      EmitterViewerSPI::MPSMinimumOpHandler::MPSMinimumOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xD9:
+      EmitterViewerSPI::MPSModuloOpHandler::MPSModuloOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xDA:
+      EmitterViewerSPI::MPSMultiplyOpHandler::MPSMultiplyOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xDB:
+      EmitterViewerSPI::MPSNReluOpHandler::MPSNReluOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xDC:
+      EmitterViewerSPI::MPSNandOpHandler::MPSNandOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xDD:
+      EmitterViewerSPI::MPSNegativeOpHandler::MPSNegativeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xDE:
+      EmitterViewerSPI::MPSNonMaximumSuppressionOpHandler::MPSNonMaximumSuppressionOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xDF:
+      EmitterViewerSPI::MPSNonZeroOpHandler::MPSNonZeroOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xE0:
+      EmitterViewerSPI::MPSNorOpHandler::MPSNorOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xE1:
+      EmitterViewerSPI::MPSNormalizationOpHandler::MPSNormalizationOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xE2:
+      EmitterViewerSPI::MPSNotEqualToOpHandler::MPSNotEqualToOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xE3:
+      EmitterViewerSPI::MPSNotOpHandler::MPSNotOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xE4:
+      EmitterViewerSPI::MPSOneHotOpHandler::MPSOneHotOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xE5:
+      EmitterViewerSPI::MPSOrOpHandler::MPSOrOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xE6:
+      EmitterViewerSPI::MPSPReluOpHandler::MPSPReluOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xE7:
+      EmitterViewerSPI::MPSPadGradientOpHandler::MPSPadGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xE8:
+      EmitterViewerSPI::MPSPadOpHandler::MPSPadOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xE9:
+      EmitterViewerSPI::MPSPermuteOpHandler::MPSPermuteOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xEA:
+      EmitterViewerSPI::MPSPlaceholderOpHandler::MPSPlaceholderOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xEB:
+      EmitterViewerSPI::MPSPoolAvgGradientOpHandler::MPSPoolAvgGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xEC:
+      EmitterViewerSPI::MPSPoolAvgOpHandler::MPSPoolAvgOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xED:
+      EmitterViewerSPI::MPSPoolL2NormGradientOpHandler::MPSPoolL2NormGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xEE:
+      EmitterViewerSPI::MPSPoolL2NormOpHandler::MPSPoolL2NormOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xEF:
+      EmitterViewerSPI::MPSPoolMaxGradientOpHandler::MPSPoolMaxGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xF0:
+      EmitterViewerSPI::MPSPoolMaxOpHandler::MPSPoolMaxOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xF1:
+      EmitterViewerSPI::MPSPowerOpHandler::MPSPowerOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xF2:
+      EmitterViewerSPI::MPSPruningGradientOpHandler::MPSPruningGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xF3:
+      EmitterViewerSPI::MPSPruningOpHandler::MPSPruningOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xF4:
+      EmitterViewerSPI::MPSQuantizeOpHandler::MPSQuantizeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xF5:
+      EmitterViewerSPI::MPSRandomNormalOpHandler::MPSRandomNormalOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xF6:
+      EmitterViewerSPI::MPSRandomTruncatedNormalOpHandler::MPSRandomTruncatedNormalOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xF7:
+      EmitterViewerSPI::MPSRandomUniformOpHandler::MPSRandomUniformOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xF8:
+      EmitterViewerSPI::MPSRankOpHandler::MPSRankOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xF9:
+      EmitterViewerSPI::MPSReadDataFromFileOpHandler::MPSReadDataFromFileOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xFA:
+      EmitterViewerSPI::MPSReadVariableOpHandler::MPSReadVariableOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xFB:
+      EmitterViewerSPI::MPSRealPartOpHandler::MPSRealPartOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xFC:
+      EmitterViewerSPI::MPSRealToHermiteanFFTOpHandler::MPSRealToHermiteanFFTOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xFD:
+      EmitterViewerSPI::MPSReciprocalOpHandler::MPSReciprocalOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xFE:
+      EmitterViewerSPI::MPSReciprocalSquareRootOpHandler::MPSReciprocalSquareRootOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0xFF:
+      EmitterViewerSPI::MPSReductionAndOpHandler::MPSReductionAndOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x100:
+      EmitterViewerSPI::MPSReductionArgMaxOpHandler::MPSReductionArgMaxOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x101:
+      EmitterViewerSPI::MPSReductionArgMinOpHandler::MPSReductionArgMinOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x102:
+      EmitterViewerSPI::MPSReductionLogSumExpOpHandler::MPSReductionLogSumExpOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x103:
+      EmitterViewerSPI::MPSReductionMaxOpHandler::MPSReductionMaxOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x104:
+      EmitterViewerSPI::MPSReductionMeanOpHandler::MPSReductionMeanOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x105:
+      EmitterViewerSPI::MPSReductionMinOpHandler::MPSReductionMinOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x106:
+      EmitterViewerSPI::MPSReductionOrOpHandler::MPSReductionOrOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x107:
+      EmitterViewerSPI::MPSReductionProdOpHandler::MPSReductionProdOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x108:
+      EmitterViewerSPI::MPSReductionSumOpHandler::MPSReductionSumOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x109:
+      EmitterViewerSPI::MPSReductionVarianceOpHandler::MPSReductionVarianceOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x10A:
+      EmitterViewerSPI::MPSReinterpretCastOpHandler::MPSReinterpretCastOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x10B:
+      EmitterViewerSPI::MPSRelu6OpHandler::MPSRelu6OpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x10C:
+      EmitterViewerSPI::MPSReluGradOpHandler::MPSReluGradOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x10D:
+      EmitterViewerSPI::MPSReluOpHandler::MPSReluOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x10E:
+      EmitterViewerSPI::MPSReshapeOpHandler::MPSReshapeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x10F:
+      EmitterViewerSPI::MPSResizeGradientOpHandler::MPSResizeGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x110:
+      EmitterViewerSPI::MPSResizeOpHandler::MPSResizeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x111:
+      EmitterViewerSPI::MPSReverseOpHandler::MPSReverseOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x112:
+      EmitterViewerSPI::MPSRintOpHandler::MPSRintOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x113:
+      EmitterViewerSPI::MPSRoundOpHandler::MPSRoundOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x114:
+      EmitterViewerSPI::MPSSampleGridDataGradientOpHandler::MPSSampleGridDataGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x115:
+      EmitterViewerSPI::MPSSampleGridOpHandler::MPSSampleGridOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x116:
+      EmitterViewerSPI::MPSScatterAlongAxisOpHandler::MPSScatterAlongAxisOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x117:
+      EmitterViewerSPI::MPSScatterNDOpHandler::MPSScatterNDOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x118:
+      EmitterViewerSPI::MPSScatterOpHandler::MPSScatterOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x119:
+      EmitterViewerSPI::MPSSelectOpHandler::MPSSelectOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x11A:
+      EmitterViewerSPI::MPSShapeOpHandler::MPSShapeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x11B:
+      EmitterViewerSPI::MPSSigmoidGradientOpHandler::MPSSigmoidGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x11C:
+      EmitterViewerSPI::MPSSigmoidGradientWithSigmoidOpHandler::MPSSigmoidGradientWithSigmoidOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x11D:
+      EmitterViewerSPI::MPSSigmoidHardOpHandler::MPSSigmoidHardOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x11E:
+      EmitterViewerSPI::MPSSigmoidOpHandler::MPSSigmoidOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x11F:
+      EmitterViewerSPI::MPSSignOpHandler::MPSSignOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x120:
+      EmitterViewerSPI::MPSSignbitOpHandler::MPSSignbitOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x121:
+      EmitterViewerSPI::MPSSinOpHandler::MPSSinOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x122:
+      EmitterViewerSPI::MPSSingleGateRNNGradientOpHandler::MPSSingleGateRNNGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x123:
+      EmitterViewerSPI::MPSSingleGateRNNOpHandler::MPSSingleGateRNNOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x124:
+      EmitterViewerSPI::MPSSinhOpHandler::MPSSinhOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x125:
+      EmitterViewerSPI::MPSSizeOpHandler::MPSSizeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x126:
+      EmitterViewerSPI::MPSSliceOpHandler::MPSSliceOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x127:
+      EmitterViewerSPI::MPSSoftmaxOpHandler::MPSSoftmaxOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x128:
+      EmitterViewerSPI::MPSSoftplusOpHandler::MPSSoftplusOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x129:
+      EmitterViewerSPI::MPSSoftplusParametricOpHandler::MPSSoftplusParametricOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x12A:
+      EmitterViewerSPI::MPSSoftsignOpHandler::MPSSoftsignOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x12B:
+      EmitterViewerSPI::MPSSortOpHandler::MPSSortOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x12C:
+      EmitterViewerSPI::MPSSpaceToBatchOpHandler::MPSSpaceToBatchOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x12D:
+      EmitterViewerSPI::MPSSpaceToDepth2DOpHandler::MPSSpaceToDepth2DOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x12E:
+      EmitterViewerSPI::MPSSplitOpHandler::MPSSplitOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x12F:
+      EmitterViewerSPI::MPSSquareOpHandler::MPSSquareOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x130:
+      EmitterViewerSPI::MPSSquareRootOpHandler::MPSSquareRootOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x131:
+      EmitterViewerSPI::MPSSqueezeOpHandler::MPSSqueezeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x132:
+      EmitterViewerSPI::MPSStencilOpHandler::MPSStencilOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x133:
+      EmitterViewerSPI::MPSStridedSliceGradientOpHandler::MPSStridedSliceGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x134:
+      EmitterViewerSPI::MPSStridedSliceOpHandler::MPSStridedSliceOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x135:
+      EmitterViewerSPI::MPSStridedSliceUpdateOpHandler::MPSStridedSliceUpdateOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x136:
+      EmitterViewerSPI::MPSSubtractOpHandler::MPSSubtractOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x137:
+      EmitterViewerSPI::MPSSwishOpHandler::MPSSwishOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x138:
+      EmitterViewerSPI::MPSTanOpHandler::MPSTanOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x139:
+      EmitterViewerSPI::MPSTanhOpHandler::MPSTanhOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x13A:
+      EmitterViewerSPI::MPSTileGradientOpHandler::MPSTileGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x13B:
+      EmitterViewerSPI::MPSTileOpHandler::MPSTileOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x13C:
+      EmitterViewerSPI::MPSTopKGradientOpHandler::MPSTopKGradientOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x13D:
+      EmitterViewerSPI::MPSTopKOpHandler::MPSTopKOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x13E:
+      EmitterViewerSPI::MPSTransposeOpHandler::MPSTransposeOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x13F:
+      EmitterViewerSPI::MPSTruncateOpHandler::MPSTruncateOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x140:
+      EmitterViewerSPI::MPSTypeConstraintOpHandler::MPSTypeConstraintOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x141:
+      EmitterViewerSPI::MPSUnrealizedFoldOpHandler::MPSUnrealizedFoldOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x142:
+      EmitterViewerSPI::MPSUpdateRandomStateOpHandler::MPSUpdateRandomStateOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x143:
+      EmitterViewerSPI::MPSVariableFromTensorOpHandler::MPSVariableFromTensorOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x144:
+      EmitterViewerSPI::MPSXnorOpHandler::MPSXnorOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x145:
+      EmitterViewerSPI::MPSXorOpHandler::MPSXorOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x146:
+      EmitterViewerSPI::ConditionOpHandler::ConditionOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x147:
+      EmitterViewerSPI::ForOpHandler::ForOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x148:
+      EmitterViewerSPI::IfOpHandler::IfOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x149:
+      EmitterViewerSPI::MPSExtractOpHandler::MPSExtractOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x14A:
+      EmitterViewerSPI::MPSFromElementsOpHandler::MPSFromElementsOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x14B:
+      EmitterViewerSPI::MPSFuncOpHandler::MPSFuncOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x14C:
+      EmitterViewerSPI::MPSModuleOpHandler::MPSModuleOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x14D:
+      EmitterViewerSPI::MPSReturnOpHandler::MPSReturnOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x14E:
+      EmitterViewerSPI::WhileOpHandler::WhileOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x14F:
+      EmitterViewerSPI::YieldOpHandler::YieldOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x150:
+      EmitterViewerSPI::MPSXANEOpHandler::MPSXANEOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x151:
+      EmitterViewerSPI::MPSXBufferToTensorOpHandler::MPSXBufferToTensorOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x152:
+      EmitterViewerSPI::MPSXCPUOpHandler::MPSXCPUOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x153:
+      EmitterViewerSPI::MPSXDeinterleaveOpHandler::MPSXDeinterleaveOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x154:
+      EmitterViewerSPI::MPSXFPToIntClampedOpHandler::MPSXFPToIntClampedOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x155:
+      EmitterViewerSPI::MPSXFusionOpHandler::MPSXFusionOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x156:
+      EmitterViewerSPI::MPSXFusionReturnOpHandler::MPSXFusionReturnOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x157:
+      EmitterViewerSPI::MPSXGPUOpHandler::MPSXGPUOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x158:
+      EmitterViewerSPI::MPSXInterleaveOpHandler::MPSXInterleaveOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x159:
+      EmitterViewerSPI::MPSXListPopBackOpHandler::MPSXListPopBackOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x15A:
+      EmitterViewerSPI::MPSXListPushBackOpHandler::MPSXListPushBackOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x15B:
+      EmitterViewerSPI::MPSXMakeListOpHandler::MPSXMakeListOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x15C:
+      EmitterViewerSPI::MPSXMemrefBackedOpHandler::MPSXMemrefBackedOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x15D:
+      EmitterViewerSPI::MPSXQuantizedConv2DOpHandler::MPSXQuantizedConv2DOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x15E:
+      EmitterViewerSPI::MPSXQuantizedGatherOpHandler::MPSXQuantizedGatherOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x15F:
+      EmitterViewerSPI::MPSXQuantizedMatMulOpHandler::MPSXQuantizedMatMulOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x160:
+      EmitterViewerSPI::MPSXRegionReturnOpHandler::MPSXRegionReturnOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x161:
+      EmitterViewerSPI::MPSXReturnStitchedOpHandler::MPSXReturnStitchedOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x162:
+      EmitterViewerSPI::MPSXSparseDenseMatMulOpHandler::MPSXSparseDenseMatMulOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x163:
+      EmitterViewerSPI::MPSXStitchedOpHandler::MPSXStitchedOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x164:
+      EmitterViewerSPI::MPSXTensorToBufferOpHandler::MPSXTensorToBufferOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x165:
+      EmitterViewerSPI::MPSXUseMemrefOpHandler::MPSXUseMemrefOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x166:
+      EmitterViewerSPI::MPSXVarHandleOpHandler::MPSXVarHandleOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x167:
+      EmitterViewerSPI::PlacementANEIOCastOpHandler::PlacementANEIOCastOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x168:
+      EmitterViewerSPI::PlacementHostTypeCastOpHandler::PlacementHostTypeCastOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x169:
+      EmitterViewerSPI::PlacementMemrefToTensorOpHandler::PlacementMemrefToTensorOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x16A:
+      EmitterViewerSPI::PlacementRegionCallOpHandler::PlacementRegionCallOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x16B:
+      EmitterViewerSPI::PlacementReplacedOpsOpHandler::PlacementReplacedOpsOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x16C:
+      EmitterViewerSPI::PlacementReplacedOpsLiveOutsOpHandler::PlacementReplacedOpsLiveOutsOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x16D:
+      EmitterViewerSPI::PlacementStartTimerOpHandler::PlacementStartTimerOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x16E:
+      EmitterViewerSPI::PlacementStopTimerOpHandler::PlacementStopTimerOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x16F:
+      EmitterViewerSPI::PlacementTensorToMemrefOpHandler::PlacementTensorToMemrefOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x170:
+      EmitterViewerSPI::MPSSPIRMSNormOpHandler::MPSSPIRMSNormOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x171:
+      EmitterViewerSPI::MPSSPIScaledDotProductAttentionOpHandler::MPSSPIScaledDotProductAttentionOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x172:
+      EmitterViewerSPI::MPSSPIStridedArrayViewOpHandler::MPSSPIStridedArrayViewOpHandler(&__p, this, a2);
+      goto LABEL_423;
+    case 0x173:
+      EmitterViewerSPI::ReturnOpHandler::ReturnOpHandler(&__p, this, a2);
+LABEL_423:
+      v27 = v73;
+
+      break;
+    default:
+      if (MTLReportFailureTypeEnabled())
+      {
+        v31 = &__dst;
+        if ((v68 & 0x80u) != 0)
+        {
+          v31 = __dst;
+        }
+
+        v63 = v31;
+        MTLReportFailure();
+      }
+
+      v78[0] = *(*&a2[1]._dataType + 8);
+      v32 = mlir::OpaqueAttr::getAttrData(v78);
+      std::string::basic_string[abi:ne200100]<0>(&__p, v32);
+      if (v72 >= 0)
+      {
+        p_p = &__p;
+      }
+
+      else
+      {
+        p_p = __p;
+      }
+
+      v65 = [MEMORY[0x1E696AEC0] stringWithCString:p_p encoding:{4, v63}];
+      v64 = [MEMORY[0x1E695DF70] array];
+      v34 = [MEMORY[0x1E695DF70] array];
+      if ((BYTE6(a2[1].super.super.isa) & 0x80) != 0)
+      {
+        shape_high = HIDWORD(a2[1]._shape);
+        if (shape_high)
+        {
+          v36 = 0;
+          v37 = 24;
+          do
+          {
+            v38 = *(a2[1]._valueRef + v37);
+            v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"in%d", v36];
+            v40 = EmitViewerSPI::emitNodeInputPort(this, v39, v38);
+
+            if (v40)
+            {
+              [v34 addObject:v40];
+            }
+
+            ++v36;
+            v37 += 32;
+          }
+
+          while (shape_high != v36);
+        }
+      }
+
+      v41 = [MEMORY[0x1E695DF70] array];
+      valueRef_high = HIDWORD(a2->_valueRef);
+      if (valueRef_high)
+      {
+        v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"out%d", 0];
+        v44 = EmitViewerSPI::emitNodeOutputPort(this, v43, (a2 - 16));
+
+        if (v44)
+        {
+          [v41 addObject:v44];
+        }
+
+        if (valueRef_high != 1)
+        {
+          v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"out%d", 1];
+          v46 = EmitViewerSPI::emitNodeOutputPort(this, v45, (a2 - 32));
+
+          if (v46)
+          {
+            [v41 addObject:v46];
+          }
+
+          if (valueRef_high != 2)
+          {
+            v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"out%d", 2];
+            v48 = EmitViewerSPI::emitNodeOutputPort(this, v47, (a2 - 48));
+
+            if (v48)
+            {
+              [v41 addObject:v48];
+            }
+
+            if (valueRef_high != 3)
+            {
+              v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"out%d", 3];
+              v50 = EmitViewerSPI::emitNodeOutputPort(this, v49, (a2 - 64));
+
+              if (v50)
+              {
+                [v41 addObject:v50];
+              }
+
+              if (valueRef_high != 4)
+              {
+                v51 = [MEMORY[0x1E696AEC0] stringWithFormat:@"out%d", 4];
+                v52 = EmitViewerSPI::emitNodeOutputPort(this, v51, a2 - 2);
+
+                if (v52)
+                {
+                  [v41 addObject:v52];
+                }
+
+                if (valueRef_high != 5)
+                {
+                  v53 = [MEMORY[0x1E696AEC0] stringWithFormat:@"out%d", 5];
+                  v54 = EmitViewerSPI::emitNodeOutputPort(this, v53, (a2 - 96));
+
+                  if (v54)
+                  {
+                    [v41 addObject:v54];
+                  }
+
+                  if (valueRef_high != 6)
+                  {
+                    v59 = a2 - 3;
+                    for (i = 6; i != valueRef_high; ++i)
+                    {
+                      v61 = [MEMORY[0x1E696AEC0] stringWithFormat:@"out%d", i];
+                      v62 = EmitViewerSPI::emitNodeOutputPort(this, v61, v59);
+
+                      if (v62)
+                      {
+                        [v41 addObject:v62];
+                      }
+
+                      v59 = (v59 - 24);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      v55 = [MPSGraphViewerNodeSPI alloc];
+      v56 = [MEMORY[0x1E695DEC8] arrayWithArray:v34];
+      v57 = [MEMORY[0x1E695DEC8] arrayWithArray:v41];
+      v58 = [MEMORY[0x1E695DEC8] arrayWithArray:v64];
+      v27 = [(MPSGraphViewerNodeSPI *)v55 initWithType:v65 inputs:v56 outputs:v57 properties:v58 regions:MEMORY[0x1E695E0F0]];
+
+      if (SHIBYTE(v72) < 0)
+      {
+        operator delete(__p);
+      }
+
+      break;
+  }
+
+  v78[0] = 0;
+  v78[1] = 0;
+  v79 = 0;
+  v71 = 0;
+  v75 = 0;
+  v76 = 1;
+  v73 = 0;
+  v74 = 0;
+  v72 = 0;
+  __p = &unk_1F5B3FB30;
+  v77 = v78;
+  llvm::raw_ostream::SetBufferAndMode(&__p, 0, 0, 0);
+  shape = a2->_shape;
+  mlir::Attribute::print(&shape, &__p, 0);
+  if (v79 >= 0)
+  {
+    v28 = v78;
+  }
+
+  else
+  {
+    v28 = v78[0];
+  }
+
+  v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v28];
+  llvm::raw_ostream::~raw_ostream(&__p);
+  if (SHIBYTE(v79) < 0)
+  {
+    operator delete(v78[0]);
+  }
+
+  [(MPSGraphViewerNodeSPI *)v27 setLocation:v29];
+
+  if (v68 < 0)
+  {
+    operator delete(__dst);
+  }
+
+  return v27;
+}
+
 void sub_1E06AB52C(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   if (a22 < 0)
@@ -206,21 +2406,21 @@ void sub_1E06ABCAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 MPSGraphViewerNodePropertyDataSPI *EmitViewerSPI::emitElementsAttrProperty(void *a1, uint64_t a2, uint64_t a3)
 {
-  v19[0] = a2;
-  v19[1] = a3;
+  v18[0] = a2;
+  v18[1] = a3;
   v5 = a1;
   mlir::mps::CPUNDArray::CPUNDArray(v17, a2, a3);
   NumElements = mlir::mps::CPUNDArray::getNumElements(v17);
-  Type = mlir::ElementsAttr::getType(v19);
+  Type = mlir::ElementsAttr::getType(v18);
   MPSDataType = getMPSDataType(Type);
-  v9 = mlir::ElementsAttr::getType(v19);
+  v9 = mlir::ElementsAttr::getType(v18);
   v10 = getMPSShapeFromMLIR(v9);
   v11 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:v5 dataType:MPSDataType shape:v10];
   if (v11)
   {
-    if (!mlir::ElementsAttr::isSplat(v19))
+    if (!mlir::ElementsAttr::isSplat(v18))
     {
-      v13 = [MEMORY[0x1E695DEF0] dataWithBytes:v18 length:(NumElements * MPSDataType + 7) >> 3];
+      v13 = [MEMORY[0x1E695DEF0] dataWithBytes:v17[5] length:(NumElements * MPSDataType + 7) >> 3];
       [(MPSGraphViewerNodePropertyDataSPI *)v11 setValue:v13];
       goto LABEL_6;
     }
@@ -267,57 +2467,57 @@ LABEL_14:
   return v14;
 }
 
-void sub_1E06ABEFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1E06ABEFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   mlir::mps::CPUNDArray::~CPUNDArray(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1E06ABF8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1E06ABF8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   mlir::mps::CPUNDArray::~CPUNDArray(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1E06ABFAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1E06ABFAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   mlir::mps::CPUNDArray::~CPUNDArray(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1E06ABFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1E06ABFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   mlir::mps::CPUNDArray::~CPUNDArray(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1E06ABFF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1E06ABFF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   mlir::mps::CPUNDArray::~CPUNDArray(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1E06AC010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1E06AC010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   mlir::mps::CPUNDArray::~CPUNDArray(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1E06AC028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1E06AC028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   mlir::mps::CPUNDArray::~CPUNDArray(va);
 
   _Unwind_Resume(a1);
@@ -478,14 +2678,14 @@ LABEL_23:
   return v2;
 }
 
-EmitterViewerSPI::ANECA11LegacyOpHandler *EmitterViewerSPI::ANECA11LegacyOpHandler::ANECA11LegacyOpHandler(EmitterViewerSPI::ANECA11LegacyOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+EmitterViewerSPI::ANECA11LegacyOpHandler *EmitterViewerSPI::ANECA11LegacyOpHandler::ANECA11LegacyOpHandler(EmitterViewerSPI::ANECA11LegacyOpHandler *this, int8x8_t *a2, mlir::Operation *a3)
 {
   *(this + 1) = a2;
   *(this + 2) = a3;
   *(this + 3) = 0;
   *this = &unk_1F5B468F0;
   v5 = *(*(a3 + 6) + 8);
-  v53 = a3;
+  v52 = a3;
   FunctionType = v5;
   AttrData = mlir::OpaqueAttr::getAttrData(&FunctionType);
   v7 = strlen(AttrData);
@@ -500,14 +2700,14 @@ EmitterViewerSPI::ANECA11LegacyOpHandler *EmitterViewerSPI::ANECA11LegacyOpHandl
     operator new();
   }
 
-  v52 = v7;
+  v51 = v7;
   if (v7)
   {
     memmove(&__dst, AttrData, v7);
   }
 
   *(&__dst + v8) = 0;
-  if (v52 >= 0)
+  if (v51 >= 0)
   {
     p_dst = &__dst;
   }
@@ -520,18 +2720,18 @@ EmitterViewerSPI::ANECA11LegacyOpHandler *EmitterViewerSPI::ANECA11LegacyOpHandl
   v10 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
   v11 = [MEMORY[0x1E695DF70] array];
   v12 = [MEMORY[0x1E695DF70] array];
-  v49 = [MEMORY[0x1E695DF70] array];
-  SymName = mlir::anec::A11Legacy::getSymName(&v53);
+  v48 = [MEMORY[0x1E695DF70] array];
+  SymName = mlir::anec::A11Legacy::getSymName(&v52);
   v15 = EmitViewerSPI::emitStringProperty(@"sym_name", SymName, v14);
   if (v15)
   {
-    [v49 addObject:v15];
+    [v48 addObject:v15];
   }
 
-  v47 = this;
-  v48 = v10;
+  v46 = this;
+  v47 = v10;
   v16 = 0;
-  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v53);
+  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v52);
   while (v16 < mlir::FunctionType::getNumResults(&FunctionType))
   {
     v17 = *(mlir::FunctionType::getResults(&FunctionType) + 8 * v16);
@@ -546,9 +2746,9 @@ EmitterViewerSPI::ANECA11LegacyOpHandler *EmitterViewerSPI::ANECA11LegacyOpHandl
     ++v16;
   }
 
-  v50 = [MEMORY[0x1E695DF70] array];
+  v49 = [MEMORY[0x1E695DF70] array];
   v20 = 0;
-  v21 = (((v53 + 16 * ((*(v53 + 11) >> 23) & 1) + ((*(v53 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v53 + 10));
+  v21 = (((v52 + 16 * ((*(v52 + 11) >> 23) & 1) + ((*(v52 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v52 + 10));
   while (*v21 != v21)
   {
     v22 = v21[1];
@@ -573,7 +2773,7 @@ EmitterViewerSPI::ANECA11LegacyOpHandler *EmitterViewerSPI::ANECA11LegacyOpHandl
     v27 = *(v26 + 8 * v20);
     if (v27)
     {
-      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(a2 + 29, *(v26 + 8 * v20)))
+      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(&a2[29], *(v26 + 8 * v20)))
       {
         v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"body_arg%d", v20];
         EmitViewerSPI::emitNodeInputPort(a2, v28, v27);
@@ -595,45 +2795,45 @@ EmitterViewerSPI::ANECA11LegacyOpHandler *EmitterViewerSPI::ANECA11LegacyOpHandl
     ++v20;
   }
 
-  v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
   for (i = v21[1]; i != v21; i = i[1])
   {
-    v33 = i - 1;
+    v32 = i - 1;
     if (!i)
     {
-      v33 = 0;
+      v32 = 0;
     }
 
-    v34 = v33 + 4;
-    for (j = v33[5]; j != v34; j = j[1])
+    v33 = v32 + 4;
+    for (j = v32[5]; j != v33; j = j[1])
     {
-      v36 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(j, v30);
-      v37 = EmitViewerSPI::emitNode(a2, v36);
-      if (v37)
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      v36 = EmitViewerSPI::emitNode(a2, v35);
+      if (v36)
       {
-        [v31 addObject:v37];
+        [v30 addObject:v36];
       }
     }
   }
 
-  v38 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v31];
-  [v50 addObject:v38];
+  v37 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v30];
+  [v49 addObject:v37];
 
-  v39 = [MPSGraphViewerNodeSPI alloc];
-  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
-  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v38 = [MPSGraphViewerNodeSPI alloc];
+  v39 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
+  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v48];
   v42 = [MEMORY[0x1E695DEC8] arrayWithArray:v49];
-  v43 = [MEMORY[0x1E695DEC8] arrayWithArray:v50];
-  v44 = [(MPSGraphViewerNodeSPI *)v39 initWithType:v48 inputs:v40 outputs:v41 properties:v42 regions:v43];
-  v45 = *(v47 + 3);
-  *(v47 + 3) = v44;
+  v43 = [(MPSGraphViewerNodeSPI *)v38 initWithType:v47 inputs:v39 outputs:v40 properties:v41 regions:v42];
+  v44 = *(v46 + 3);
+  *(v46 + 3) = v43;
 
-  if (v52 < 0)
+  if (v51 < 0)
   {
     operator delete(__dst);
   }
 
-  return v47;
+  return v46;
 }
 
 void sub_1E06ACA5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -742,14 +2942,14 @@ void *std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::_
   return result;
 }
 
-EmitterViewerSPI::ANECA12OpHandler *EmitterViewerSPI::ANECA12OpHandler::ANECA12OpHandler(EmitterViewerSPI::ANECA12OpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+EmitterViewerSPI::ANECA12OpHandler *EmitterViewerSPI::ANECA12OpHandler::ANECA12OpHandler(EmitterViewerSPI::ANECA12OpHandler *this, int8x8_t *a2, mlir::Operation *a3)
 {
   *(this + 1) = a2;
   *(this + 2) = a3;
   *(this + 3) = 0;
   *this = &unk_1F5B46920;
   v5 = *(*(a3 + 6) + 8);
-  v53 = a3;
+  v52 = a3;
   FunctionType = v5;
   AttrData = mlir::OpaqueAttr::getAttrData(&FunctionType);
   v7 = strlen(AttrData);
@@ -764,14 +2964,14 @@ EmitterViewerSPI::ANECA12OpHandler *EmitterViewerSPI::ANECA12OpHandler::ANECA12O
     operator new();
   }
 
-  v52 = v7;
+  v51 = v7;
   if (v7)
   {
     memmove(&__dst, AttrData, v7);
   }
 
   *(&__dst + v8) = 0;
-  if (v52 >= 0)
+  if (v51 >= 0)
   {
     p_dst = &__dst;
   }
@@ -784,18 +2984,18 @@ EmitterViewerSPI::ANECA12OpHandler *EmitterViewerSPI::ANECA12OpHandler::ANECA12O
   v10 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
   v11 = [MEMORY[0x1E695DF70] array];
   v12 = [MEMORY[0x1E695DF70] array];
-  v49 = [MEMORY[0x1E695DF70] array];
-  SymName = mlir::anec::A11Legacy::getSymName(&v53);
+  v48 = [MEMORY[0x1E695DF70] array];
+  SymName = mlir::anec::A11Legacy::getSymName(&v52);
   v15 = EmitViewerSPI::emitStringProperty(@"sym_name", SymName, v14);
   if (v15)
   {
-    [v49 addObject:v15];
+    [v48 addObject:v15];
   }
 
-  v47 = this;
-  v48 = v10;
+  v46 = this;
+  v47 = v10;
   v16 = 0;
-  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v53);
+  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v52);
   while (v16 < mlir::FunctionType::getNumResults(&FunctionType))
   {
     v17 = *(mlir::FunctionType::getResults(&FunctionType) + 8 * v16);
@@ -810,9 +3010,9 @@ EmitterViewerSPI::ANECA12OpHandler *EmitterViewerSPI::ANECA12OpHandler::ANECA12O
     ++v16;
   }
 
-  v50 = [MEMORY[0x1E695DF70] array];
+  v49 = [MEMORY[0x1E695DF70] array];
   v20 = 0;
-  v21 = (((v53 + 16 * ((*(v53 + 11) >> 23) & 1) + ((*(v53 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v53 + 10));
+  v21 = (((v52 + 16 * ((*(v52 + 11) >> 23) & 1) + ((*(v52 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v52 + 10));
   while (*v21 != v21)
   {
     v22 = v21[1];
@@ -837,7 +3037,7 @@ EmitterViewerSPI::ANECA12OpHandler *EmitterViewerSPI::ANECA12OpHandler::ANECA12O
     v27 = *(v26 + 8 * v20);
     if (v27)
     {
-      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(a2 + 29, *(v26 + 8 * v20)))
+      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(&a2[29], *(v26 + 8 * v20)))
       {
         v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"body_arg%d", v20];
         EmitViewerSPI::emitNodeInputPort(a2, v28, v27);
@@ -859,45 +3059,45 @@ EmitterViewerSPI::ANECA12OpHandler *EmitterViewerSPI::ANECA12OpHandler::ANECA12O
     ++v20;
   }
 
-  v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
   for (i = v21[1]; i != v21; i = i[1])
   {
-    v33 = i - 1;
+    v32 = i - 1;
     if (!i)
     {
-      v33 = 0;
+      v32 = 0;
     }
 
-    v34 = v33 + 4;
-    for (j = v33[5]; j != v34; j = j[1])
+    v33 = v32 + 4;
+    for (j = v32[5]; j != v33; j = j[1])
     {
-      v36 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(j, v30);
-      v37 = EmitViewerSPI::emitNode(a2, v36);
-      if (v37)
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      v36 = EmitViewerSPI::emitNode(a2, v35);
+      if (v36)
       {
-        [v31 addObject:v37];
+        [v30 addObject:v36];
       }
     }
   }
 
-  v38 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v31];
-  [v50 addObject:v38];
+  v37 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v30];
+  [v49 addObject:v37];
 
-  v39 = [MPSGraphViewerNodeSPI alloc];
-  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
-  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v38 = [MPSGraphViewerNodeSPI alloc];
+  v39 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
+  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v48];
   v42 = [MEMORY[0x1E695DEC8] arrayWithArray:v49];
-  v43 = [MEMORY[0x1E695DEC8] arrayWithArray:v50];
-  v44 = [(MPSGraphViewerNodeSPI *)v39 initWithType:v48 inputs:v40 outputs:v41 properties:v42 regions:v43];
-  v45 = *(v47 + 3);
-  *(v47 + 3) = v44;
+  v43 = [(MPSGraphViewerNodeSPI *)v38 initWithType:v47 inputs:v39 outputs:v40 properties:v41 regions:v42];
+  v44 = *(v46 + 3);
+  *(v46 + 3) = v43;
 
-  if (v52 < 0)
+  if (v51 < 0)
   {
     operator delete(__dst);
   }
 
-  return v47;
+  return v46;
 }
 
 void sub_1E06AD1B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -910,14 +3110,14 @@ void sub_1E06AD1B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-EmitterViewerSPI::ANECA13OpHandler *EmitterViewerSPI::ANECA13OpHandler::ANECA13OpHandler(EmitterViewerSPI::ANECA13OpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+EmitterViewerSPI::ANECA13OpHandler *EmitterViewerSPI::ANECA13OpHandler::ANECA13OpHandler(EmitterViewerSPI::ANECA13OpHandler *this, int8x8_t *a2, mlir::Operation *a3)
 {
   *(this + 1) = a2;
   *(this + 2) = a3;
   *(this + 3) = 0;
   *this = &unk_1F5B46950;
   v5 = *(*(a3 + 6) + 8);
-  v53 = a3;
+  v52 = a3;
   FunctionType = v5;
   AttrData = mlir::OpaqueAttr::getAttrData(&FunctionType);
   v7 = strlen(AttrData);
@@ -932,14 +3132,14 @@ EmitterViewerSPI::ANECA13OpHandler *EmitterViewerSPI::ANECA13OpHandler::ANECA13O
     operator new();
   }
 
-  v52 = v7;
+  v51 = v7;
   if (v7)
   {
     memmove(&__dst, AttrData, v7);
   }
 
   *(&__dst + v8) = 0;
-  if (v52 >= 0)
+  if (v51 >= 0)
   {
     p_dst = &__dst;
   }
@@ -952,18 +3152,18 @@ EmitterViewerSPI::ANECA13OpHandler *EmitterViewerSPI::ANECA13OpHandler::ANECA13O
   v10 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
   v11 = [MEMORY[0x1E695DF70] array];
   v12 = [MEMORY[0x1E695DF70] array];
-  v49 = [MEMORY[0x1E695DF70] array];
-  SymName = mlir::anec::A11Legacy::getSymName(&v53);
+  v48 = [MEMORY[0x1E695DF70] array];
+  SymName = mlir::anec::A11Legacy::getSymName(&v52);
   v15 = EmitViewerSPI::emitStringProperty(@"sym_name", SymName, v14);
   if (v15)
   {
-    [v49 addObject:v15];
+    [v48 addObject:v15];
   }
 
-  v47 = this;
-  v48 = v10;
+  v46 = this;
+  v47 = v10;
   v16 = 0;
-  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v53);
+  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v52);
   while (v16 < mlir::FunctionType::getNumResults(&FunctionType))
   {
     v17 = *(mlir::FunctionType::getResults(&FunctionType) + 8 * v16);
@@ -978,9 +3178,9 @@ EmitterViewerSPI::ANECA13OpHandler *EmitterViewerSPI::ANECA13OpHandler::ANECA13O
     ++v16;
   }
 
-  v50 = [MEMORY[0x1E695DF70] array];
+  v49 = [MEMORY[0x1E695DF70] array];
   v20 = 0;
-  v21 = (((v53 + 16 * ((*(v53 + 11) >> 23) & 1) + ((*(v53 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v53 + 10));
+  v21 = (((v52 + 16 * ((*(v52 + 11) >> 23) & 1) + ((*(v52 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v52 + 10));
   while (*v21 != v21)
   {
     v22 = v21[1];
@@ -1005,7 +3205,7 @@ EmitterViewerSPI::ANECA13OpHandler *EmitterViewerSPI::ANECA13OpHandler::ANECA13O
     v27 = *(v26 + 8 * v20);
     if (v27)
     {
-      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(a2 + 29, *(v26 + 8 * v20)))
+      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(&a2[29], *(v26 + 8 * v20)))
       {
         v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"body_arg%d", v20];
         EmitViewerSPI::emitNodeInputPort(a2, v28, v27);
@@ -1027,45 +3227,45 @@ EmitterViewerSPI::ANECA13OpHandler *EmitterViewerSPI::ANECA13OpHandler::ANECA13O
     ++v20;
   }
 
-  v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
   for (i = v21[1]; i != v21; i = i[1])
   {
-    v33 = i - 1;
+    v32 = i - 1;
     if (!i)
     {
-      v33 = 0;
+      v32 = 0;
     }
 
-    v34 = v33 + 4;
-    for (j = v33[5]; j != v34; j = j[1])
+    v33 = v32 + 4;
+    for (j = v32[5]; j != v33; j = j[1])
     {
-      v36 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(j, v30);
-      v37 = EmitViewerSPI::emitNode(a2, v36);
-      if (v37)
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      v36 = EmitViewerSPI::emitNode(a2, v35);
+      if (v36)
       {
-        [v31 addObject:v37];
+        [v30 addObject:v36];
       }
     }
   }
 
-  v38 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v31];
-  [v50 addObject:v38];
+  v37 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v30];
+  [v49 addObject:v37];
 
-  v39 = [MPSGraphViewerNodeSPI alloc];
-  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
-  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v38 = [MPSGraphViewerNodeSPI alloc];
+  v39 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
+  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v48];
   v42 = [MEMORY[0x1E695DEC8] arrayWithArray:v49];
-  v43 = [MEMORY[0x1E695DEC8] arrayWithArray:v50];
-  v44 = [(MPSGraphViewerNodeSPI *)v39 initWithType:v48 inputs:v40 outputs:v41 properties:v42 regions:v43];
-  v45 = *(v47 + 3);
-  *(v47 + 3) = v44;
+  v43 = [(MPSGraphViewerNodeSPI *)v38 initWithType:v47 inputs:v39 outputs:v40 properties:v41 regions:v42];
+  v44 = *(v46 + 3);
+  *(v46 + 3) = v43;
 
-  if (v52 < 0)
+  if (v51 < 0)
   {
     operator delete(__dst);
   }
 
-  return v47;
+  return v46;
 }
 
 void sub_1E06AD7F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -1078,14 +3278,14 @@ void sub_1E06AD7F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-EmitterViewerSPI::ANECA14OpHandler *EmitterViewerSPI::ANECA14OpHandler::ANECA14OpHandler(EmitterViewerSPI::ANECA14OpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+EmitterViewerSPI::ANECA14OpHandler *EmitterViewerSPI::ANECA14OpHandler::ANECA14OpHandler(EmitterViewerSPI::ANECA14OpHandler *this, int8x8_t *a2, mlir::Operation *a3)
 {
   *(this + 1) = a2;
   *(this + 2) = a3;
   *(this + 3) = 0;
   *this = &unk_1F5B46980;
   v5 = *(*(a3 + 6) + 8);
-  v53 = a3;
+  v52 = a3;
   FunctionType = v5;
   AttrData = mlir::OpaqueAttr::getAttrData(&FunctionType);
   v7 = strlen(AttrData);
@@ -1100,14 +3300,14 @@ EmitterViewerSPI::ANECA14OpHandler *EmitterViewerSPI::ANECA14OpHandler::ANECA14O
     operator new();
   }
 
-  v52 = v7;
+  v51 = v7;
   if (v7)
   {
     memmove(&__dst, AttrData, v7);
   }
 
   *(&__dst + v8) = 0;
-  if (v52 >= 0)
+  if (v51 >= 0)
   {
     p_dst = &__dst;
   }
@@ -1120,18 +3320,18 @@ EmitterViewerSPI::ANECA14OpHandler *EmitterViewerSPI::ANECA14OpHandler::ANECA14O
   v10 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
   v11 = [MEMORY[0x1E695DF70] array];
   v12 = [MEMORY[0x1E695DF70] array];
-  v49 = [MEMORY[0x1E695DF70] array];
-  SymName = mlir::anec::A11Legacy::getSymName(&v53);
+  v48 = [MEMORY[0x1E695DF70] array];
+  SymName = mlir::anec::A11Legacy::getSymName(&v52);
   v15 = EmitViewerSPI::emitStringProperty(@"sym_name", SymName, v14);
   if (v15)
   {
-    [v49 addObject:v15];
+    [v48 addObject:v15];
   }
 
-  v47 = this;
-  v48 = v10;
+  v46 = this;
+  v47 = v10;
   v16 = 0;
-  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v53);
+  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v52);
   while (v16 < mlir::FunctionType::getNumResults(&FunctionType))
   {
     v17 = *(mlir::FunctionType::getResults(&FunctionType) + 8 * v16);
@@ -1146,9 +3346,9 @@ EmitterViewerSPI::ANECA14OpHandler *EmitterViewerSPI::ANECA14OpHandler::ANECA14O
     ++v16;
   }
 
-  v50 = [MEMORY[0x1E695DF70] array];
+  v49 = [MEMORY[0x1E695DF70] array];
   v20 = 0;
-  v21 = (((v53 + 16 * ((*(v53 + 11) >> 23) & 1) + ((*(v53 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v53 + 10));
+  v21 = (((v52 + 16 * ((*(v52 + 11) >> 23) & 1) + ((*(v52 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v52 + 10));
   while (*v21 != v21)
   {
     v22 = v21[1];
@@ -1173,7 +3373,7 @@ EmitterViewerSPI::ANECA14OpHandler *EmitterViewerSPI::ANECA14OpHandler::ANECA14O
     v27 = *(v26 + 8 * v20);
     if (v27)
     {
-      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(a2 + 29, *(v26 + 8 * v20)))
+      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(&a2[29], *(v26 + 8 * v20)))
       {
         v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"body_arg%d", v20];
         EmitViewerSPI::emitNodeInputPort(a2, v28, v27);
@@ -1195,45 +3395,45 @@ EmitterViewerSPI::ANECA14OpHandler *EmitterViewerSPI::ANECA14OpHandler::ANECA14O
     ++v20;
   }
 
-  v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
   for (i = v21[1]; i != v21; i = i[1])
   {
-    v33 = i - 1;
+    v32 = i - 1;
     if (!i)
     {
-      v33 = 0;
+      v32 = 0;
     }
 
-    v34 = v33 + 4;
-    for (j = v33[5]; j != v34; j = j[1])
+    v33 = v32 + 4;
+    for (j = v32[5]; j != v33; j = j[1])
     {
-      v36 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(j, v30);
-      v37 = EmitViewerSPI::emitNode(a2, v36);
-      if (v37)
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      v36 = EmitViewerSPI::emitNode(a2, v35);
+      if (v36)
       {
-        [v31 addObject:v37];
+        [v30 addObject:v36];
       }
     }
   }
 
-  v38 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v31];
-  [v50 addObject:v38];
+  v37 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v30];
+  [v49 addObject:v37];
 
-  v39 = [MPSGraphViewerNodeSPI alloc];
-  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
-  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v38 = [MPSGraphViewerNodeSPI alloc];
+  v39 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
+  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v48];
   v42 = [MEMORY[0x1E695DEC8] arrayWithArray:v49];
-  v43 = [MEMORY[0x1E695DEC8] arrayWithArray:v50];
-  v44 = [(MPSGraphViewerNodeSPI *)v39 initWithType:v48 inputs:v40 outputs:v41 properties:v42 regions:v43];
-  v45 = *(v47 + 3);
-  *(v47 + 3) = v44;
+  v43 = [(MPSGraphViewerNodeSPI *)v38 initWithType:v47 inputs:v39 outputs:v40 properties:v41 regions:v42];
+  v44 = *(v46 + 3);
+  *(v46 + 3) = v43;
 
-  if (v52 < 0)
+  if (v51 < 0)
   {
     operator delete(__dst);
   }
 
-  return v47;
+  return v46;
 }
 
 void sub_1E06ADE38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -1246,14 +3446,14 @@ void sub_1E06ADE38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-EmitterViewerSPI::ANECA15OpHandler *EmitterViewerSPI::ANECA15OpHandler::ANECA15OpHandler(EmitterViewerSPI::ANECA15OpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+EmitterViewerSPI::ANECA15OpHandler *EmitterViewerSPI::ANECA15OpHandler::ANECA15OpHandler(EmitterViewerSPI::ANECA15OpHandler *this, int8x8_t *a2, mlir::Operation *a3)
 {
   *(this + 1) = a2;
   *(this + 2) = a3;
   *(this + 3) = 0;
   *this = &unk_1F5B469B0;
   v5 = *(*(a3 + 6) + 8);
-  v53 = a3;
+  v52 = a3;
   FunctionType = v5;
   AttrData = mlir::OpaqueAttr::getAttrData(&FunctionType);
   v7 = strlen(AttrData);
@@ -1268,14 +3468,14 @@ EmitterViewerSPI::ANECA15OpHandler *EmitterViewerSPI::ANECA15OpHandler::ANECA15O
     operator new();
   }
 
-  v52 = v7;
+  v51 = v7;
   if (v7)
   {
     memmove(&__dst, AttrData, v7);
   }
 
   *(&__dst + v8) = 0;
-  if (v52 >= 0)
+  if (v51 >= 0)
   {
     p_dst = &__dst;
   }
@@ -1288,18 +3488,18 @@ EmitterViewerSPI::ANECA15OpHandler *EmitterViewerSPI::ANECA15OpHandler::ANECA15O
   v10 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
   v11 = [MEMORY[0x1E695DF70] array];
   v12 = [MEMORY[0x1E695DF70] array];
-  v49 = [MEMORY[0x1E695DF70] array];
-  SymName = mlir::anec::A11Legacy::getSymName(&v53);
+  v48 = [MEMORY[0x1E695DF70] array];
+  SymName = mlir::anec::A11Legacy::getSymName(&v52);
   v15 = EmitViewerSPI::emitStringProperty(@"sym_name", SymName, v14);
   if (v15)
   {
-    [v49 addObject:v15];
+    [v48 addObject:v15];
   }
 
-  v47 = this;
-  v48 = v10;
+  v46 = this;
+  v47 = v10;
   v16 = 0;
-  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v53);
+  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v52);
   while (v16 < mlir::FunctionType::getNumResults(&FunctionType))
   {
     v17 = *(mlir::FunctionType::getResults(&FunctionType) + 8 * v16);
@@ -1314,9 +3514,9 @@ EmitterViewerSPI::ANECA15OpHandler *EmitterViewerSPI::ANECA15OpHandler::ANECA15O
     ++v16;
   }
 
-  v50 = [MEMORY[0x1E695DF70] array];
+  v49 = [MEMORY[0x1E695DF70] array];
   v20 = 0;
-  v21 = (((v53 + 16 * ((*(v53 + 11) >> 23) & 1) + ((*(v53 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v53 + 10));
+  v21 = (((v52 + 16 * ((*(v52 + 11) >> 23) & 1) + ((*(v52 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v52 + 10));
   while (*v21 != v21)
   {
     v22 = v21[1];
@@ -1341,7 +3541,7 @@ EmitterViewerSPI::ANECA15OpHandler *EmitterViewerSPI::ANECA15OpHandler::ANECA15O
     v27 = *(v26 + 8 * v20);
     if (v27)
     {
-      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(a2 + 29, *(v26 + 8 * v20)))
+      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(&a2[29], *(v26 + 8 * v20)))
       {
         v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"body_arg%d", v20];
         EmitViewerSPI::emitNodeInputPort(a2, v28, v27);
@@ -1363,45 +3563,45 @@ EmitterViewerSPI::ANECA15OpHandler *EmitterViewerSPI::ANECA15OpHandler::ANECA15O
     ++v20;
   }
 
-  v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
   for (i = v21[1]; i != v21; i = i[1])
   {
-    v33 = i - 1;
+    v32 = i - 1;
     if (!i)
     {
-      v33 = 0;
+      v32 = 0;
     }
 
-    v34 = v33 + 4;
-    for (j = v33[5]; j != v34; j = j[1])
+    v33 = v32 + 4;
+    for (j = v32[5]; j != v33; j = j[1])
     {
-      v36 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(j, v30);
-      v37 = EmitViewerSPI::emitNode(a2, v36);
-      if (v37)
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      v36 = EmitViewerSPI::emitNode(a2, v35);
+      if (v36)
       {
-        [v31 addObject:v37];
+        [v30 addObject:v36];
       }
     }
   }
 
-  v38 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v31];
-  [v50 addObject:v38];
+  v37 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v30];
+  [v49 addObject:v37];
 
-  v39 = [MPSGraphViewerNodeSPI alloc];
-  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
-  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v38 = [MPSGraphViewerNodeSPI alloc];
+  v39 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
+  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v48];
   v42 = [MEMORY[0x1E695DEC8] arrayWithArray:v49];
-  v43 = [MEMORY[0x1E695DEC8] arrayWithArray:v50];
-  v44 = [(MPSGraphViewerNodeSPI *)v39 initWithType:v48 inputs:v40 outputs:v41 properties:v42 regions:v43];
-  v45 = *(v47 + 3);
-  *(v47 + 3) = v44;
+  v43 = [(MPSGraphViewerNodeSPI *)v38 initWithType:v47 inputs:v39 outputs:v40 properties:v41 regions:v42];
+  v44 = *(v46 + 3);
+  *(v46 + 3) = v43;
 
-  if (v52 < 0)
+  if (v51 < 0)
   {
     operator delete(__dst);
   }
 
-  return v47;
+  return v46;
 }
 
 void sub_1E06AE47C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -1414,14 +3614,14 @@ void sub_1E06AE47C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-EmitterViewerSPI::ANECA16OpHandler *EmitterViewerSPI::ANECA16OpHandler::ANECA16OpHandler(EmitterViewerSPI::ANECA16OpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+EmitterViewerSPI::ANECA16OpHandler *EmitterViewerSPI::ANECA16OpHandler::ANECA16OpHandler(EmitterViewerSPI::ANECA16OpHandler *this, int8x8_t *a2, mlir::Operation *a3)
 {
   *(this + 1) = a2;
   *(this + 2) = a3;
   *(this + 3) = 0;
   *this = &unk_1F5B469E0;
   v5 = *(*(a3 + 6) + 8);
-  v53 = a3;
+  v52 = a3;
   FunctionType = v5;
   AttrData = mlir::OpaqueAttr::getAttrData(&FunctionType);
   v7 = strlen(AttrData);
@@ -1436,14 +3636,14 @@ EmitterViewerSPI::ANECA16OpHandler *EmitterViewerSPI::ANECA16OpHandler::ANECA16O
     operator new();
   }
 
-  v52 = v7;
+  v51 = v7;
   if (v7)
   {
     memmove(&__dst, AttrData, v7);
   }
 
   *(&__dst + v8) = 0;
-  if (v52 >= 0)
+  if (v51 >= 0)
   {
     p_dst = &__dst;
   }
@@ -1456,18 +3656,18 @@ EmitterViewerSPI::ANECA16OpHandler *EmitterViewerSPI::ANECA16OpHandler::ANECA16O
   v10 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
   v11 = [MEMORY[0x1E695DF70] array];
   v12 = [MEMORY[0x1E695DF70] array];
-  v49 = [MEMORY[0x1E695DF70] array];
-  SymName = mlir::anec::A11Legacy::getSymName(&v53);
+  v48 = [MEMORY[0x1E695DF70] array];
+  SymName = mlir::anec::A11Legacy::getSymName(&v52);
   v15 = EmitViewerSPI::emitStringProperty(@"sym_name", SymName, v14);
   if (v15)
   {
-    [v49 addObject:v15];
+    [v48 addObject:v15];
   }
 
-  v47 = this;
-  v48 = v10;
+  v46 = this;
+  v47 = v10;
   v16 = 0;
-  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v53);
+  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v52);
   while (v16 < mlir::FunctionType::getNumResults(&FunctionType))
   {
     v17 = *(mlir::FunctionType::getResults(&FunctionType) + 8 * v16);
@@ -1482,9 +3682,9 @@ EmitterViewerSPI::ANECA16OpHandler *EmitterViewerSPI::ANECA16OpHandler::ANECA16O
     ++v16;
   }
 
-  v50 = [MEMORY[0x1E695DF70] array];
+  v49 = [MEMORY[0x1E695DF70] array];
   v20 = 0;
-  v21 = (((v53 + 16 * ((*(v53 + 11) >> 23) & 1) + ((*(v53 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v53 + 10));
+  v21 = (((v52 + 16 * ((*(v52 + 11) >> 23) & 1) + ((*(v52 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v52 + 10));
   while (*v21 != v21)
   {
     v22 = v21[1];
@@ -1509,7 +3709,7 @@ EmitterViewerSPI::ANECA16OpHandler *EmitterViewerSPI::ANECA16OpHandler::ANECA16O
     v27 = *(v26 + 8 * v20);
     if (v27)
     {
-      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(a2 + 29, *(v26 + 8 * v20)))
+      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(&a2[29], *(v26 + 8 * v20)))
       {
         v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"body_arg%d", v20];
         EmitViewerSPI::emitNodeInputPort(a2, v28, v27);
@@ -1531,45 +3731,45 @@ EmitterViewerSPI::ANECA16OpHandler *EmitterViewerSPI::ANECA16OpHandler::ANECA16O
     ++v20;
   }
 
-  v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
   for (i = v21[1]; i != v21; i = i[1])
   {
-    v33 = i - 1;
+    v32 = i - 1;
     if (!i)
     {
-      v33 = 0;
+      v32 = 0;
     }
 
-    v34 = v33 + 4;
-    for (j = v33[5]; j != v34; j = j[1])
+    v33 = v32 + 4;
+    for (j = v32[5]; j != v33; j = j[1])
     {
-      v36 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(j, v30);
-      v37 = EmitViewerSPI::emitNode(a2, v36);
-      if (v37)
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      v36 = EmitViewerSPI::emitNode(a2, v35);
+      if (v36)
       {
-        [v31 addObject:v37];
+        [v30 addObject:v36];
       }
     }
   }
 
-  v38 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v31];
-  [v50 addObject:v38];
+  v37 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v30];
+  [v49 addObject:v37];
 
-  v39 = [MPSGraphViewerNodeSPI alloc];
-  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
-  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v38 = [MPSGraphViewerNodeSPI alloc];
+  v39 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
+  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v48];
   v42 = [MEMORY[0x1E695DEC8] arrayWithArray:v49];
-  v43 = [MEMORY[0x1E695DEC8] arrayWithArray:v50];
-  v44 = [(MPSGraphViewerNodeSPI *)v39 initWithType:v48 inputs:v40 outputs:v41 properties:v42 regions:v43];
-  v45 = *(v47 + 3);
-  *(v47 + 3) = v44;
+  v43 = [(MPSGraphViewerNodeSPI *)v38 initWithType:v47 inputs:v39 outputs:v40 properties:v41 regions:v42];
+  v44 = *(v46 + 3);
+  *(v46 + 3) = v43;
 
-  if (v52 < 0)
+  if (v51 < 0)
   {
     operator delete(__dst);
   }
 
-  return v47;
+  return v46;
 }
 
 void sub_1E06AEAC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -1582,14 +3782,14 @@ void sub_1E06AEAC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-EmitterViewerSPI::ANECA17OpHandler *EmitterViewerSPI::ANECA17OpHandler::ANECA17OpHandler(EmitterViewerSPI::ANECA17OpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+EmitterViewerSPI::ANECA17OpHandler *EmitterViewerSPI::ANECA17OpHandler::ANECA17OpHandler(EmitterViewerSPI::ANECA17OpHandler *this, int8x8_t *a2, mlir::Operation *a3)
 {
   *(this + 1) = a2;
   *(this + 2) = a3;
   *(this + 3) = 0;
   *this = &unk_1F5B46A10;
   v5 = *(*(a3 + 6) + 8);
-  v53 = a3;
+  v52 = a3;
   FunctionType = v5;
   AttrData = mlir::OpaqueAttr::getAttrData(&FunctionType);
   v7 = strlen(AttrData);
@@ -1604,14 +3804,14 @@ EmitterViewerSPI::ANECA17OpHandler *EmitterViewerSPI::ANECA17OpHandler::ANECA17O
     operator new();
   }
 
-  v52 = v7;
+  v51 = v7;
   if (v7)
   {
     memmove(&__dst, AttrData, v7);
   }
 
   *(&__dst + v8) = 0;
-  if (v52 >= 0)
+  if (v51 >= 0)
   {
     p_dst = &__dst;
   }
@@ -1624,18 +3824,18 @@ EmitterViewerSPI::ANECA17OpHandler *EmitterViewerSPI::ANECA17OpHandler::ANECA17O
   v10 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
   v11 = [MEMORY[0x1E695DF70] array];
   v12 = [MEMORY[0x1E695DF70] array];
-  v49 = [MEMORY[0x1E695DF70] array];
-  SymName = mlir::anec::A11Legacy::getSymName(&v53);
+  v48 = [MEMORY[0x1E695DF70] array];
+  SymName = mlir::anec::A11Legacy::getSymName(&v52);
   v15 = EmitViewerSPI::emitStringProperty(@"sym_name", SymName, v14);
   if (v15)
   {
-    [v49 addObject:v15];
+    [v48 addObject:v15];
   }
 
-  v47 = this;
-  v48 = v10;
+  v46 = this;
+  v47 = v10;
   v16 = 0;
-  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v53);
+  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v52);
   while (v16 < mlir::FunctionType::getNumResults(&FunctionType))
   {
     v17 = *(mlir::FunctionType::getResults(&FunctionType) + 8 * v16);
@@ -1650,9 +3850,9 @@ EmitterViewerSPI::ANECA17OpHandler *EmitterViewerSPI::ANECA17OpHandler::ANECA17O
     ++v16;
   }
 
-  v50 = [MEMORY[0x1E695DF70] array];
+  v49 = [MEMORY[0x1E695DF70] array];
   v20 = 0;
-  v21 = (((v53 + 16 * ((*(v53 + 11) >> 23) & 1) + ((*(v53 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v53 + 10));
+  v21 = (((v52 + 16 * ((*(v52 + 11) >> 23) & 1) + ((*(v52 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v52 + 10));
   while (*v21 != v21)
   {
     v22 = v21[1];
@@ -1677,7 +3877,7 @@ EmitterViewerSPI::ANECA17OpHandler *EmitterViewerSPI::ANECA17OpHandler::ANECA17O
     v27 = *(v26 + 8 * v20);
     if (v27)
     {
-      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(a2 + 29, *(v26 + 8 * v20)))
+      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(&a2[29], *(v26 + 8 * v20)))
       {
         v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"body_arg%d", v20];
         EmitViewerSPI::emitNodeInputPort(a2, v28, v27);
@@ -1699,45 +3899,45 @@ EmitterViewerSPI::ANECA17OpHandler *EmitterViewerSPI::ANECA17OpHandler::ANECA17O
     ++v20;
   }
 
-  v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
   for (i = v21[1]; i != v21; i = i[1])
   {
-    v33 = i - 1;
+    v32 = i - 1;
     if (!i)
     {
-      v33 = 0;
+      v32 = 0;
     }
 
-    v34 = v33 + 4;
-    for (j = v33[5]; j != v34; j = j[1])
+    v33 = v32 + 4;
+    for (j = v32[5]; j != v33; j = j[1])
     {
-      v36 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(j, v30);
-      v37 = EmitViewerSPI::emitNode(a2, v36);
-      if (v37)
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      v36 = EmitViewerSPI::emitNode(a2, v35);
+      if (v36)
       {
-        [v31 addObject:v37];
+        [v30 addObject:v36];
       }
     }
   }
 
-  v38 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v31];
-  [v50 addObject:v38];
+  v37 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v30];
+  [v49 addObject:v37];
 
-  v39 = [MPSGraphViewerNodeSPI alloc];
-  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
-  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v38 = [MPSGraphViewerNodeSPI alloc];
+  v39 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
+  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v48];
   v42 = [MEMORY[0x1E695DEC8] arrayWithArray:v49];
-  v43 = [MEMORY[0x1E695DEC8] arrayWithArray:v50];
-  v44 = [(MPSGraphViewerNodeSPI *)v39 initWithType:v48 inputs:v40 outputs:v41 properties:v42 regions:v43];
-  v45 = *(v47 + 3);
-  *(v47 + 3) = v44;
+  v43 = [(MPSGraphViewerNodeSPI *)v38 initWithType:v47 inputs:v39 outputs:v40 properties:v41 regions:v42];
+  v44 = *(v46 + 3);
+  *(v46 + 3) = v43;
 
-  if (v52 < 0)
+  if (v51 < 0)
   {
     operator delete(__dst);
   }
 
-  return v47;
+  return v46;
 }
 
 void sub_1E06AF104(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -1750,14 +3950,14 @@ void sub_1E06AF104(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-EmitterViewerSPI::ANECA18OpHandler *EmitterViewerSPI::ANECA18OpHandler::ANECA18OpHandler(EmitterViewerSPI::ANECA18OpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
+EmitterViewerSPI::ANECA18OpHandler *EmitterViewerSPI::ANECA18OpHandler::ANECA18OpHandler(EmitterViewerSPI::ANECA18OpHandler *this, int8x8_t *a2, mlir::Operation *a3)
 {
   *(this + 1) = a2;
   *(this + 2) = a3;
   *(this + 3) = 0;
   *this = &unk_1F5B46A40;
   v5 = *(*(a3 + 6) + 8);
-  v53 = a3;
+  v52 = a3;
   FunctionType = v5;
   AttrData = mlir::OpaqueAttr::getAttrData(&FunctionType);
   v7 = strlen(AttrData);
@@ -1772,14 +3972,14 @@ EmitterViewerSPI::ANECA18OpHandler *EmitterViewerSPI::ANECA18OpHandler::ANECA18O
     operator new();
   }
 
-  v52 = v7;
+  v51 = v7;
   if (v7)
   {
     memmove(&__dst, AttrData, v7);
   }
 
   *(&__dst + v8) = 0;
-  if (v52 >= 0)
+  if (v51 >= 0)
   {
     p_dst = &__dst;
   }
@@ -1792,18 +3992,18 @@ EmitterViewerSPI::ANECA18OpHandler *EmitterViewerSPI::ANECA18OpHandler::ANECA18O
   v10 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
   v11 = [MEMORY[0x1E695DF70] array];
   v12 = [MEMORY[0x1E695DF70] array];
-  v49 = [MEMORY[0x1E695DF70] array];
-  SymName = mlir::anec::A11Legacy::getSymName(&v53);
+  v48 = [MEMORY[0x1E695DF70] array];
+  SymName = mlir::anec::A11Legacy::getSymName(&v52);
   v15 = EmitViewerSPI::emitStringProperty(@"sym_name", SymName, v14);
   if (v15)
   {
-    [v49 addObject:v15];
+    [v48 addObject:v15];
   }
 
-  v47 = this;
-  v48 = v10;
+  v46 = this;
+  v47 = v10;
   v16 = 0;
-  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v53);
+  FunctionType = mlir::placement::ReplacedOps::getFunctionType(&v52);
   while (v16 < mlir::FunctionType::getNumResults(&FunctionType))
   {
     v17 = *(mlir::FunctionType::getResults(&FunctionType) + 8 * v16);
@@ -1818,9 +4018,9 @@ EmitterViewerSPI::ANECA18OpHandler *EmitterViewerSPI::ANECA18OpHandler::ANECA18O
     ++v16;
   }
 
-  v50 = [MEMORY[0x1E695DF70] array];
+  v49 = [MEMORY[0x1E695DF70] array];
   v20 = 0;
-  v21 = (((v53 + 16 * ((*(v53 + 11) >> 23) & 1) + ((*(v53 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v53 + 10));
+  v21 = (((v52 + 16 * ((*(v52 + 11) >> 23) & 1) + ((*(v52 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v52 + 10));
   while (*v21 != v21)
   {
     v22 = v21[1];
@@ -1845,7 +4045,7 @@ EmitterViewerSPI::ANECA18OpHandler *EmitterViewerSPI::ANECA18OpHandler::ANECA18O
     v27 = *(v26 + 8 * v20);
     if (v27)
     {
-      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(a2 + 29, *(v26 + 8 * v20)))
+      if (std::__hash_table<std::__hash_value_type<void *,unsigned long long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long long>>>::find<void *>(&a2[29], *(v26 + 8 * v20)))
       {
         v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"body_arg%d", v20];
         EmitViewerSPI::emitNodeInputPort(a2, v28, v27);
@@ -1867,45 +4067,45 @@ EmitterViewerSPI::ANECA18OpHandler *EmitterViewerSPI::ANECA18OpHandler::ANECA18O
     ++v20;
   }
 
-  v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
   for (i = v21[1]; i != v21; i = i[1])
   {
-    v33 = i - 1;
+    v32 = i - 1;
     if (!i)
     {
-      v33 = 0;
+      v32 = 0;
     }
 
-    v34 = v33 + 4;
-    for (j = v33[5]; j != v34; j = j[1])
+    v33 = v32 + 4;
+    for (j = v32[5]; j != v33; j = j[1])
     {
-      v36 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(j, v30);
-      v37 = EmitViewerSPI::emitNode(a2, v36);
-      if (v37)
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      v36 = EmitViewerSPI::emitNode(a2, v35);
+      if (v36)
       {
-        [v31 addObject:v37];
+        [v30 addObject:v36];
       }
     }
   }
 
-  v38 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v31];
-  [v50 addObject:v38];
+  v37 = [[MPSGraphViewerNodeRegionSPI alloc] initWithName:@"body" returnType:@"anec.region_return" nodes:v30];
+  [v49 addObject:v37];
 
-  v39 = [MPSGraphViewerNodeSPI alloc];
-  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
-  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v38 = [MPSGraphViewerNodeSPI alloc];
+  v39 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
+  v40 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
+  v41 = [MEMORY[0x1E695DEC8] arrayWithArray:v48];
   v42 = [MEMORY[0x1E695DEC8] arrayWithArray:v49];
-  v43 = [MEMORY[0x1E695DEC8] arrayWithArray:v50];
-  v44 = [(MPSGraphViewerNodeSPI *)v39 initWithType:v48 inputs:v40 outputs:v41 properties:v42 regions:v43];
-  v45 = *(v47 + 3);
-  *(v47 + 3) = v44;
+  v43 = [(MPSGraphViewerNodeSPI *)v38 initWithType:v47 inputs:v39 outputs:v40 properties:v41 regions:v42];
+  v44 = *(v46 + 3);
+  *(v46 + 3) = v43;
 
-  if (v52 < 0)
+  if (v51 < 0)
   {
     operator delete(__dst);
   }
 
-  return v47;
+  return v46;
 }
 
 void sub_1E06AF748(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -2986,11 +5186,11 @@ EmitterViewerSPI::ANECClampedReluOpHandler *EmitterViewerSPI::ANECClampedReluOpH
     [v15 addObject:v16];
   }
 
-  mlir::anec::DeQuant::getScale(&v35, v36);
+  mlir::anec::DeQuant::getScale(&v35, &v36);
   v18 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"max_value" dataType:268435488 shape:&unk_1F5B75E48];
   if (v18)
   {
-    v19 = [MEMORY[0x1E695DEF0] dataWithBytes:v36 length:32];
+    v19 = [MEMORY[0x1E695DEF0] dataWithBytes:&v36 length:32];
     [(MPSGraphViewerNodePropertyDataSPI *)v18 setValue:v19];
 
     [v15 addObject:v18];
@@ -3036,7 +5236,7 @@ EmitterViewerSPI::ANECClampedReluOpHandler *EmitterViewerSPI::ANECClampedReluOpH
   return this;
 }
 
-void sub_1E06B20F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+void sub_1E06B20F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
 {
   llvm::APFloat::~APFloat(&a17);
 
@@ -7027,2103 +9227,6 @@ EmitterViewerSPI::ANECGOCOpHandler *EmitterViewerSPI::ANECGOCOpHandler::ANECGOCO
   *(this + 3) = v25;
 
   if (v30 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06BB8CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-
-    _Unwind_Resume(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::ANECGatherNDOpHandler *EmitterViewerSPI::ANECGatherNDOpHandler::ANECGatherNDOpHandler(EmitterViewerSPI::ANECGatherNDOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B472B0;
-  v5 = *(*(a3 + 6) + 8);
-  v34 = a3;
-  v35 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v35);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v33 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v33 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v31 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"data", *(*(v34 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = EmitViewerSPI::emitNodeInputPort(a2, @"index", *(*(v34 + 9) + 56));
-  if (v12)
-  {
-    [v10 addObject:v12];
-  }
-
-  v13 = [MEMORY[0x1E695DF70] array];
-  if (*(v34 + 9))
-  {
-    v14 = v34 - 16;
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v14, 0);
-  v16 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v16)
-  {
-    [v13 addObject:v16];
-  }
-
-  v17 = [MEMORY[0x1E695DF70] array];
-  Axes = mlir::anec::Softmax::getAxes(&v34);
-  v19 = Axes;
-  if (Axes)
-  {
-    v20 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Axes + 8);
-  }
-
-  else
-  {
-    v20 = 0;
-  }
-
-  v21 = EmitViewerSPI::emitElementsAttrProperty(@"axes", v19, v20);
-  if (v21)
-  {
-    [v17 addObject:v21];
-  }
-
-  v22 = [MEMORY[0x1E695DF70] array];
-  v23 = [MPSGraphViewerNodeSPI alloc];
-  v24 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v25 = [MEMORY[0x1E695DEC8] arrayWithArray:v13];
-  v26 = [MEMORY[0x1E695DEC8] arrayWithArray:v17];
-  v27 = [MEMORY[0x1E695DEC8] arrayWithArray:v22];
-  v28 = [(MPSGraphViewerNodeSPI *)v23 initWithType:v31 inputs:v24 outputs:v25 properties:v26 regions:v27];
-  v29 = *(this + 3);
-  *(this + 3) = v28;
-
-  if (v33 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06BBD1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::ANECGeluOpHandler *EmitterViewerSPI::ANECGeluOpHandler::ANECGeluOpHandler(EmitterViewerSPI::ANECGeluOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B472E0;
-  v29 = *(*(a3 + 6) + 8);
-  AttrData = mlir::OpaqueAttr::getAttrData(&v29);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v28 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v28 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v26 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(a3 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = [MEMORY[0x1E695DF70] array];
-  if (*(a3 + 9))
-  {
-    v13 = a3 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v15)
-  {
-    [v12 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  v17 = [MEMORY[0x1E695DF70] array];
-  v18 = [MPSGraphViewerNodeSPI alloc];
-  v19 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v20 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
-  v21 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v22 = [MEMORY[0x1E695DEC8] arrayWithArray:v17];
-  v23 = [(MPSGraphViewerNodeSPI *)v18 initWithType:v26 inputs:v19 outputs:v20 properties:v21 regions:v22];
-  v24 = *(this + 3);
-  *(this + 3) = v23;
-
-  if (v28 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06BC0DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-
-    _Unwind_Resume(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::ANECGlobalArgMinMaxOpHandler *EmitterViewerSPI::ANECGlobalArgMinMaxOpHandler::ANECGlobalArgMinMaxOpHandler(EmitterViewerSPI::ANECGlobalArgMinMaxOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B47310;
-  v5 = *(*(a3 + 6) + 8);
-  v36 = a3;
-  v37 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v37);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v35 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v35 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v33 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v36 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = [MEMORY[0x1E695DF70] array];
-  if (*(v36 + 9))
-  {
-    v13 = v36 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v15)
-  {
-    [v12 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  LODWORD(v37) = mlir::anec::GlobalArgMinMax::getAxis(&v36);
-  v17 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"axis" dataType:32 shape:&unk_1F5B75F50];
-  if (v17)
-  {
-    v18 = [MEMORY[0x1E695DEF0] dataWithBytes:&v37 length:4];
-    [(MPSGraphViewerNodePropertyDataSPI *)v17 setValue:v18];
-
-    [v16 addObject:v17];
-  }
-
-  FlattenMode = mlir::anec::Unflatten::getFlattenMode(&v36);
-  v20 = [MEMORY[0x1E695DF70] array];
-  v21 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"Min" value:0];
-  [v20 addObject:v21];
-
-  v22 = [[MPSGraphViewerNodePropertyEnumCaseSPI alloc] initWithName:@"Max" value:1];
-  [v20 addObject:v22];
-
-  v23 = [[MPSGraphViewerNodePropertyEnumSPI alloc] initWithName:@"mode" type:@"ANECArgMinMaxMode" cases:v20 value:FlattenMode];
-  if (v23)
-  {
-    [v16 addObject:v23];
-  }
-
-  v24 = [MEMORY[0x1E695DF70] array];
-  v25 = [MPSGraphViewerNodeSPI alloc];
-  v26 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v27 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
-  v28 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v29 = [MEMORY[0x1E695DEC8] arrayWithArray:v24];
-  v30 = [(MPSGraphViewerNodeSPI *)v25 initWithType:v33 inputs:v26 outputs:v27 properties:v28 regions:v29];
-  v31 = *(this + 3);
-  *(this + 3) = v30;
-
-  if (v35 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06BC5AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::ANECHighPrecisionSigmoidOpHandler *EmitterViewerSPI::ANECHighPrecisionSigmoidOpHandler::ANECHighPrecisionSigmoidOpHandler(EmitterViewerSPI::ANECHighPrecisionSigmoidOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B47340;
-  v29 = *(*(a3 + 6) + 8);
-  AttrData = mlir::OpaqueAttr::getAttrData(&v29);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v28 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v28 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v26 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(a3 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = [MEMORY[0x1E695DF70] array];
-  if (*(a3 + 9))
-  {
-    v13 = a3 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v15)
-  {
-    [v12 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  v17 = [MEMORY[0x1E695DF70] array];
-  v18 = [MPSGraphViewerNodeSPI alloc];
-  v19 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v20 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
-  v21 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v22 = [MEMORY[0x1E695DEC8] arrayWithArray:v17];
-  v23 = [(MPSGraphViewerNodeSPI *)v18 initWithType:v26 inputs:v19 outputs:v20 properties:v21 regions:v22];
-  v24 = *(this + 3);
-  *(this + 3) = v23;
-
-  if (v28 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06BC998(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-
-    _Unwind_Resume(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::ANECInputViewOpHandler *EmitterViewerSPI::ANECInputViewOpHandler::ANECInputViewOpHandler(EmitterViewerSPI::ANECInputViewOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B47370;
-  v5 = *(*(a3 + 6) + 8);
-  v40 = a3;
-  Height = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&Height);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v39 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v39 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v33 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v34 = [MEMORY[0x1E695DF70] array];
-  v10 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v40 + 9) + 24));
-  if (v10)
-  {
-    [v34 addObject:v10];
-  }
-
-  v11 = [MEMORY[0x1E695DF70] array];
-  if (*(v40 + 9))
-  {
-    v12 = v40 - 16;
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v12, 0);
-  v14 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v14)
-  {
-    [v11 addObject:v14];
-  }
-
-  v15 = [MEMORY[0x1E695DF70] array];
-  Height = mlir::anec::Resize::getHeight(&v40);
-  v16 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"dimension" dataType:64 shape:&unk_1F5B75F68];
-  if (v16)
-  {
-    v17 = [MEMORY[0x1E695DEF0] dataWithBytes:&Height length:8];
-    [(MPSGraphViewerNodePropertyDataSPI *)v16 setValue:v17];
-
-    [v15 addObject:v16];
-  }
-
-  Offset = mlir::anec::InputView::getOffset(&v40);
-  v18 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"offset" dataType:64 shape:&unk_1F5B75F80];
-  if (v18)
-  {
-    v19 = [MEMORY[0x1E695DEF0] dataWithBytes:&Offset length:8];
-    [(MPSGraphViewerNodePropertyDataSPI *)v18 setValue:v19];
-
-    [v15 addObject:v18];
-  }
-
-  Size = mlir::anec::InputView::getSize(&v40);
-  v20 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"size" dataType:64 shape:&unk_1F5B75F98];
-  if (v20)
-  {
-    v21 = [MEMORY[0x1E695DEF0] dataWithBytes:&Size length:8];
-    [(MPSGraphViewerNodePropertyDataSPI *)v20 setValue:v21];
-
-    [v15 addObject:v20];
-  }
-
-  Step = mlir::anec::InputView::getStep(&v40);
-  v22 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"step" dataType:536870976 shape:&unk_1F5B75FB0];
-  if (v22)
-  {
-    v23 = [MEMORY[0x1E695DEF0] dataWithBytes:&Step length:8];
-    [(MPSGraphViewerNodePropertyDataSPI *)v22 setValue:v23];
-
-    [v15 addObject:v22];
-  }
-
-  v24 = [MEMORY[0x1E695DF70] array];
-  v25 = [MPSGraphViewerNodeSPI alloc];
-  v26 = [MEMORY[0x1E695DEC8] arrayWithArray:v34];
-  v27 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
-  v28 = [MEMORY[0x1E695DEC8] arrayWithArray:v15];
-  v29 = [MEMORY[0x1E695DEC8] arrayWithArray:v24];
-  v30 = [(MPSGraphViewerNodeSPI *)v25 initWithType:v33 inputs:v26 outputs:v27 properties:v28 regions:v29];
-  v31 = *(this + 3);
-  *(this + 3) = v30;
-
-  if (v39 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06BCEF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
-{
-  if (a19 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::ANECInstanceNormOpHandler *EmitterViewerSPI::ANECInstanceNormOpHandler::ANECInstanceNormOpHandler(EmitterViewerSPI::ANECInstanceNormOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  v39[3] = *MEMORY[0x1E69E9840];
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B473A0;
-  v5 = *(*(a3 + 6) + 8);
-  v37 = a3;
-  v38 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v38);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v36 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v36 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v34 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v37 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = [MEMORY[0x1E695DF70] array];
-  if (*(v37 + 9))
-  {
-    v13 = v37 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v15)
-  {
-    [v12 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  DestinationSize = mlir::anec::Unflatten::getDestinationSize(&v37);
-  v18 = DestinationSize;
-  if (DestinationSize)
-  {
-    v19 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*DestinationSize + 8);
-  }
-
-  else
-  {
-    v19 = 0;
-  }
-
-  v20 = EmitViewerSPI::emitElementsAttrProperty(@"axes", v18, v19);
-  if (v20)
-  {
-    [v16 addObject:v20];
-  }
-
-  mlir::anec::InstanceNorm::getEpsilon(&v37, &v38);
-  v21 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"epsilon" dataType:268435488 shape:&unk_1F5B75FC8];
-  if (v21)
-  {
-    v22 = [MEMORY[0x1E695DEF0] dataWithBytes:&v38 length:32];
-    [(MPSGraphViewerNodePropertyDataSPI *)v21 setValue:v22];
-
-    [v16 addObject:v21];
-  }
-
-  v23 = v39[0];
-  if (llvm::APFloatBase::PPCDoubleDouble(v24) == v23)
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v39);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::~IEEEFloat(v39);
-  }
-
-  v25 = [MEMORY[0x1E695DF70] array];
-  v26 = [MPSGraphViewerNodeSPI alloc];
-  v27 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v28 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
-  v29 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v30 = [MEMORY[0x1E695DEC8] arrayWithArray:v25];
-  v31 = [(MPSGraphViewerNodeSPI *)v26 initWithType:v34 inputs:v27 outputs:v28 properties:v29 regions:v30];
-  v32 = *(this + 3);
-  *(this + 3) = v31;
-
-  if (v36 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06BD430(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char a17)
-{
-  llvm::APFloat::~APFloat(&a17);
-
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::ANECInvertOpHandler *EmitterViewerSPI::ANECInvertOpHandler::ANECInvertOpHandler(EmitterViewerSPI::ANECInvertOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  v35[3] = *MEMORY[0x1E69E9840];
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B473D0;
-  v5 = *(*(a3 + 6) + 8);
-  v33 = a3;
-  v34 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v34);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v32 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v32 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v30 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v33 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = [MEMORY[0x1E695DF70] array];
-  if (*(v33 + 9))
-  {
-    v13 = v33 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v15)
-  {
-    [v12 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  mlir::anec::Rsqrt::getEpsilon(&v33, &v34);
-  v17 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"epsilon" dataType:268435488 shape:&unk_1F5B75FE0];
-  if (v17)
-  {
-    v18 = [MEMORY[0x1E695DEF0] dataWithBytes:&v34 length:32];
-    [(MPSGraphViewerNodePropertyDataSPI *)v17 setValue:v18];
-
-    [v16 addObject:v17];
-  }
-
-  v19 = v35[0];
-  if (llvm::APFloatBase::PPCDoubleDouble(v20) == v19)
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v35);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::~IEEEFloat(v35);
-  }
-
-  v21 = [MEMORY[0x1E695DF70] array];
-  v22 = [MPSGraphViewerNodeSPI alloc];
-  v23 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v24 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
-  v25 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v26 = [MEMORY[0x1E695DEC8] arrayWithArray:v21];
-  v27 = [(MPSGraphViewerNodeSPI *)v22 initWithType:v30 inputs:v23 outputs:v24 properties:v25 regions:v26];
-  v28 = *(this + 3);
-  *(this + 3) = v27;
-
-  if (v32 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06BD8E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char a17)
-{
-  llvm::APFloat::~APFloat(&a17);
-
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::ANECL2NormPoolOpHandler *EmitterViewerSPI::ANECL2NormPoolOpHandler::ANECL2NormPoolOpHandler(EmitterViewerSPI::ANECL2NormPoolOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B47400;
-  v5 = *(*(a3 + 6) + 8);
-  v41 = a3;
-  v42 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v42);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v40 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v40 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v10 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v11 = [MEMORY[0x1E695DF70] array];
-  v12 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v41 + 9) + 24));
-  if (v12)
-  {
-    [v11 addObject:v12];
-  }
-
-  v38 = [MEMORY[0x1E695DF70] array];
-  if (*(v41 + 9))
-  {
-    v13 = v41 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v15)
-  {
-    [v38 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  Stride = mlir::anec::MaxPool::getStride(&v41);
-  v18 = Stride;
-  if (Stride)
-  {
-    v19 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Stride + 8);
-  }
-
-  else
-  {
-    v19 = 0;
-  }
-
-  v20 = EmitViewerSPI::emitElementsAttrProperty(@"stride", v18, v19);
-  if (v20)
-  {
-    [v16 addObject:v20];
-  }
-
-  Padding = mlir::anec::MaxPool::getPadding(&v41);
-  v22 = Padding;
-  if (Padding)
-  {
-    v23 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Padding + 8);
-  }
-
-  else
-  {
-    v23 = 0;
-  }
-
-  v24 = EmitViewerSPI::emitElementsAttrProperty(@"padding", v22, v23);
-  if (v24)
-  {
-    [v16 addObject:v24];
-  }
-
-  Ksize = mlir::anec::MaxPool::getKsize(&v41);
-  v26 = Ksize;
-  if (Ksize)
-  {
-    v27 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Ksize + 8);
-  }
-
-  else
-  {
-    v27 = 0;
-  }
-
-  v28 = EmitViewerSPI::emitElementsAttrProperty(@"ksize", v26, v27);
-  if (v28)
-  {
-    [v16 addObject:v28];
-  }
-
-  v29 = [MEMORY[0x1E695DF70] array];
-  v30 = [MPSGraphViewerNodeSPI alloc];
-  v31 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
-  v32 = [MEMORY[0x1E695DEC8] arrayWithArray:v38];
-  v33 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v34 = [MEMORY[0x1E695DEC8] arrayWithArray:v29];
-  v35 = [(MPSGraphViewerNodeSPI *)v30 initWithType:v10 inputs:v31 outputs:v32 properties:v33 regions:v34];
-  v36 = *(this + 3);
-  *(this + 3) = v35;
-
-  if (v40 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06BDDA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::ANECLayerNormOpHandler *EmitterViewerSPI::ANECLayerNormOpHandler::ANECLayerNormOpHandler(EmitterViewerSPI::ANECLayerNormOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  v39[3] = *MEMORY[0x1E69E9840];
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B47430;
-  v5 = *(*(a3 + 6) + 8);
-  v37 = a3;
-  v38 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v38);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v36 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v36 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v34 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v37 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = [MEMORY[0x1E695DF70] array];
-  if (*(v37 + 9))
-  {
-    v13 = v37 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v15)
-  {
-    [v12 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  DestinationSize = mlir::anec::Unflatten::getDestinationSize(&v37);
-  v18 = DestinationSize;
-  if (DestinationSize)
-  {
-    v19 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*DestinationSize + 8);
-  }
-
-  else
-  {
-    v19 = 0;
-  }
-
-  v20 = EmitViewerSPI::emitElementsAttrProperty(@"axes", v18, v19);
-  if (v20)
-  {
-    [v16 addObject:v20];
-  }
-
-  mlir::anec::InstanceNorm::getEpsilon(&v37, &v38);
-  v21 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"epsilon" dataType:268435488 shape:&unk_1F5B75FF8];
-  if (v21)
-  {
-    v22 = [MEMORY[0x1E695DEF0] dataWithBytes:&v38 length:32];
-    [(MPSGraphViewerNodePropertyDataSPI *)v21 setValue:v22];
-
-    [v16 addObject:v21];
-  }
-
-  v23 = v39[0];
-  if (llvm::APFloatBase::PPCDoubleDouble(v24) == v23)
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v39);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::~IEEEFloat(v39);
-  }
-
-  v25 = [MEMORY[0x1E695DF70] array];
-  v26 = [MPSGraphViewerNodeSPI alloc];
-  v27 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v28 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
-  v29 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v30 = [MEMORY[0x1E695DEC8] arrayWithArray:v25];
-  v31 = [(MPSGraphViewerNodeSPI *)v26 initWithType:v34 inputs:v27 outputs:v28 properties:v29 regions:v30];
-  v32 = *(this + 3);
-  *(this + 3) = v31;
-
-  if (v36 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06BE298(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char a17)
-{
-  llvm::APFloat::~APFloat(&a17);
-
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::ANECLeakyReluOpHandler *EmitterViewerSPI::ANECLeakyReluOpHandler::ANECLeakyReluOpHandler(EmitterViewerSPI::ANECLeakyReluOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  v39[3] = *MEMORY[0x1E69E9840];
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B47460;
-  v35 = a3;
-  v38 = *(*(a3 + 6) + 8);
-  AttrData = mlir::OpaqueAttr::getAttrData(&v38);
-  v6 = strlen(AttrData);
-  if (v6 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v7 = v6;
-  if (v6 >= 0x17)
-  {
-    operator new();
-  }
-
-  v34 = v6;
-  if (v6)
-  {
-    memmove(&__dst, AttrData, v6);
-  }
-
-  *(&__dst + v7) = 0;
-  if (v34 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v32 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v9 = [MEMORY[0x1E695DF70] array];
-  v10 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v35 + 9) + 24));
-  if (v10)
-  {
-    [v9 addObject:v10];
-  }
-
-  v11 = [MEMORY[0x1E695DF70] array];
-  if (*(v35 + 9))
-  {
-    v12 = v35 - 16;
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v12, 0);
-  v14 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v14)
-  {
-    [v11 addObject:v14];
-  }
-
-  v15 = [MEMORY[0x1E695DF70] array];
-  mlir::anec::DeQuant::getScale(&v35, &v38);
-  v16 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"offset" dataType:268435488 shape:&unk_1F5B76010];
-  if (v16)
-  {
-    v17 = [MEMORY[0x1E695DEF0] dataWithBytes:&v38 length:32];
-    [(MPSGraphViewerNodePropertyDataSPI *)v16 setValue:v17];
-
-    [v15 addObject:v16];
-  }
-
-  mlir::anec::InstanceNorm::getEpsilon(&v35, v36);
-  v18 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"slope" dataType:268435488 shape:&unk_1F5B76028];
-  if (v18)
-  {
-    v19 = [MEMORY[0x1E695DEF0] dataWithBytes:v36 length:32];
-    [(MPSGraphViewerNodePropertyDataSPI *)v18 setValue:v19];
-
-    [v15 addObject:v18];
-  }
-
-  v20 = v37[0];
-  v22 = llvm::APFloatBase::PPCDoubleDouble(v21);
-  if (v22 == v20)
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v37);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::~IEEEFloat(v37);
-  }
-
-  if (v22 == v39[0])
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v39);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::~IEEEFloat(v39);
-  }
-
-  v23 = [MEMORY[0x1E695DF70] array];
-  v24 = [MPSGraphViewerNodeSPI alloc];
-  v25 = [MEMORY[0x1E695DEC8] arrayWithArray:v9];
-  v26 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
-  v27 = [MEMORY[0x1E695DEC8] arrayWithArray:v15];
-  v28 = [MEMORY[0x1E695DEC8] arrayWithArray:v23];
-  v29 = [(MPSGraphViewerNodeSPI *)v24 initWithType:v32 inputs:v25 outputs:v26 properties:v27 regions:v28];
-  v30 = *(this + 3);
-  *(this + 3) = v29;
-
-  if (v34 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06BE7E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
-{
-  llvm::APFloat::~APFloat(&a17);
-
-  llvm::APFloat::~APFloat(&a21);
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::ANECLinearOpHandler *EmitterViewerSPI::ANECLinearOpHandler::ANECLinearOpHandler(EmitterViewerSPI::ANECLinearOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B47490;
-  v5 = *(*(a3 + 6) + 8);
-  v42 = a3;
-  v43 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v43);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v41 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v41 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v10 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v11 = [MEMORY[0x1E695DF70] array];
-  v39 = v11;
-  v12 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v42 + 9) + 24));
-  if (v12)
-  {
-    [v11 addObject:{v12, v11}];
-  }
-
-  v13 = EmitViewerSPI::emitNodeInputPort(a2, @"kernel", *(*(v42 + 9) + 56));
-  if (v13)
-  {
-    [v11 addObject:v13];
-  }
-
-  v14 = [MEMORY[0x1E695DF70] array];
-  if (*(v42 + 9))
-  {
-    v15 = v42 - 16;
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v15, 0);
-  v17 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v17)
-  {
-    [v14 addObject:v17];
-  }
-
-  v18 = [MEMORY[0x1E695DF70] array];
-  KernelScale = mlir::anec::Linear::getKernelScale(&v42);
-  if (v20)
-  {
-    v21 = KernelScale;
-    if (KernelScale)
-    {
-      v22 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*KernelScale + 8);
-    }
-
-    else
-    {
-      v22 = 0;
-    }
-
-    v23 = EmitViewerSPI::emitElementsAttrProperty(@"kernel_scale", v21, v22);
-    if (v23)
-    {
-      [v18 addObject:v23];
-    }
-  }
-
-  Shape = mlir::placement::MemrefToTensor::getShape(&v42);
-  if (v25)
-  {
-    v26 = Shape;
-    if (Shape)
-    {
-      v27 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Shape + 8);
-    }
-
-    else
-    {
-      v27 = 0;
-    }
-
-    v28 = EmitViewerSPI::emitElementsAttrProperty(@"kernel_zero_point", v26, v27);
-    if (v28)
-    {
-      [v18 addObject:v28];
-    }
-  }
-
-  mlir::anec::Linear::getKernelLut(&v42);
-  v29 = [MEMORY[0x1E695DF70] array];
-  v30 = [MPSGraphViewerNodeSPI alloc];
-  v31 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
-  v32 = v10;
-  v33 = [MEMORY[0x1E695DEC8] arrayWithArray:v14];
-  v34 = [MEMORY[0x1E695DEC8] arrayWithArray:v18];
-  v35 = [MEMORY[0x1E695DEC8] arrayWithArray:v29];
-  v36 = [(MPSGraphViewerNodeSPI *)v30 initWithType:v32 inputs:v31 outputs:v33 properties:v34 regions:v35];
-  v37 = *(this + 3);
-  *(this + 3) = v36;
-
-  if (v41 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06BECD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::ANECLog2OpHandler *EmitterViewerSPI::ANECLog2OpHandler::ANECLog2OpHandler(EmitterViewerSPI::ANECLog2OpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  v35[3] = *MEMORY[0x1E69E9840];
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B474C0;
-  v5 = *(*(a3 + 6) + 8);
-  v33 = a3;
-  v34 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v34);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v32 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v32 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v30 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v33 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = [MEMORY[0x1E695DF70] array];
-  if (*(v33 + 9))
-  {
-    v13 = v33 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v15)
-  {
-    [v12 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  mlir::anec::Rsqrt::getEpsilon(&v33, &v34);
-  v17 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"epsilon" dataType:268435488 shape:&unk_1F5B76040];
-  if (v17)
-  {
-    v18 = [MEMORY[0x1E695DEF0] dataWithBytes:&v34 length:32];
-    [(MPSGraphViewerNodePropertyDataSPI *)v17 setValue:v18];
-
-    [v16 addObject:v17];
-  }
-
-  v19 = v35[0];
-  if (llvm::APFloatBase::PPCDoubleDouble(v20) == v19)
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v35);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::~IEEEFloat(v35);
-  }
-
-  v21 = [MEMORY[0x1E695DF70] array];
-  v22 = [MPSGraphViewerNodeSPI alloc];
-  v23 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v24 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
-  v25 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v26 = [MEMORY[0x1E695DEC8] arrayWithArray:v21];
-  v27 = [(MPSGraphViewerNodeSPI *)v22 initWithType:v30 inputs:v23 outputs:v24 properties:v25 regions:v26];
-  v28 = *(this + 3);
-  *(this + 3) = v27;
-
-  if (v32 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06BF170(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char a17)
-{
-  llvm::APFloat::~APFloat(&a17);
-
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::ANECMatMulOpHandler *EmitterViewerSPI::ANECMatMulOpHandler::ANECMatMulOpHandler(EmitterViewerSPI::ANECMatMulOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  v38 = *MEMORY[0x1E69E9840];
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B474F0;
-  v5 = *(*(a3 + 6) + 8);
-  v34 = a3;
-  v35 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v35);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v33 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v33 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v31 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"lhs", *(*(v34 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = EmitViewerSPI::emitNodeInputPort(a2, @"rhs", *(*(v34 + 9) + 56));
-  if (v12)
-  {
-    [v10 addObject:v12];
-  }
-
-  v13 = [MEMORY[0x1E695DF70] array];
-  if (*(v34 + 9))
-  {
-    v14 = v34 - 16;
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v14, 0);
-  v16 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v16)
-  {
-    [v13 addObject:v16];
-  }
-
-  v17 = [MEMORY[0x1E695DF70] array];
-  mlir::anec::MatMul::getBias(&v34, &v35);
-  if (v37 == 1)
-  {
-    v18 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"bias" dataType:268435488 shape:&unk_1F5B76058];
-    if (v18)
-    {
-      if ((v37 & 1) == 0)
-      {
-        std::__throw_bad_optional_access[abi:ne200100]();
-      }
-
-      v19 = [MEMORY[0x1E695DEF0] dataWithBytes:&v35 length:40];
-      [(MPSGraphViewerNodePropertyDataSPI *)v18 setValue:v19];
-
-      [v17 addObject:v18];
-    }
-
-    if (v37)
-    {
-      v21 = v36[0];
-      if (llvm::APFloatBase::PPCDoubleDouble(v20) == v21)
-      {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v36);
-      }
-
-      else
-      {
-        llvm::detail::IEEEFloat::~IEEEFloat(v36);
-      }
-    }
-  }
-
-  v22 = [MEMORY[0x1E695DF70] array];
-  v23 = [MPSGraphViewerNodeSPI alloc];
-  v24 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v25 = [MEMORY[0x1E695DEC8] arrayWithArray:v13];
-  v26 = [MEMORY[0x1E695DEC8] arrayWithArray:v17];
-  v27 = [MEMORY[0x1E695DEC8] arrayWithArray:v22];
-  v28 = [(MPSGraphViewerNodeSPI *)v23 initWithType:v31 inputs:v24 outputs:v25 properties:v26 regions:v27];
-  v29 = *(this + 3);
-  *(this + 3) = v28;
-
-  if (v33 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06BF660(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18)
-{
-  std::optional<llvm::APFloat>::~optional(&a18);
-
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-_BYTE *std::optional<llvm::APFloat>::~optional(_BYTE *result)
-{
-  if (result[32] == 1)
-  {
-    v1 = result;
-    v2 = (result + 8);
-    v3 = *(result + 1);
-    if (llvm::APFloatBase::PPCDoubleDouble(result) == v3)
-    {
-      llvm::detail::DoubleAPFloat::~DoubleAPFloat(v2);
-    }
-
-    else
-    {
-      llvm::detail::IEEEFloat::~IEEEFloat(v2);
-    }
-
-    return v1;
-  }
-
-  return result;
-}
-
-EmitterViewerSPI::ANECMaxPoolOpHandler *EmitterViewerSPI::ANECMaxPoolOpHandler::ANECMaxPoolOpHandler(EmitterViewerSPI::ANECMaxPoolOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B47520;
-  v5 = *(*(a3 + 6) + 8);
-  v41 = a3;
-  v42 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v42);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v40 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v40 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v10 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v11 = [MEMORY[0x1E695DF70] array];
-  v12 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v41 + 9) + 24));
-  if (v12)
-  {
-    [v11 addObject:v12];
-  }
-
-  v38 = [MEMORY[0x1E695DF70] array];
-  if (*(v41 + 9))
-  {
-    v13 = v41 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v15)
-  {
-    [v38 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  Stride = mlir::anec::MaxPool::getStride(&v41);
-  v18 = Stride;
-  if (Stride)
-  {
-    v19 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Stride + 8);
-  }
-
-  else
-  {
-    v19 = 0;
-  }
-
-  v20 = EmitViewerSPI::emitElementsAttrProperty(@"stride", v18, v19);
-  if (v20)
-  {
-    [v16 addObject:v20];
-  }
-
-  Padding = mlir::anec::MaxPool::getPadding(&v41);
-  v22 = Padding;
-  if (Padding)
-  {
-    v23 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Padding + 8);
-  }
-
-  else
-  {
-    v23 = 0;
-  }
-
-  v24 = EmitViewerSPI::emitElementsAttrProperty(@"padding", v22, v23);
-  if (v24)
-  {
-    [v16 addObject:v24];
-  }
-
-  Ksize = mlir::anec::MaxPool::getKsize(&v41);
-  v26 = Ksize;
-  if (Ksize)
-  {
-    v27 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Ksize + 8);
-  }
-
-  else
-  {
-    v27 = 0;
-  }
-
-  v28 = EmitViewerSPI::emitElementsAttrProperty(@"ksize", v26, v27);
-  if (v28)
-  {
-    [v16 addObject:v28];
-  }
-
-  v29 = [MEMORY[0x1E695DF70] array];
-  v30 = [MPSGraphViewerNodeSPI alloc];
-  v31 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
-  v32 = [MEMORY[0x1E695DEC8] arrayWithArray:v38];
-  v33 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v34 = [MEMORY[0x1E695DEC8] arrayWithArray:v29];
-  v35 = [(MPSGraphViewerNodeSPI *)v30 initWithType:v10 inputs:v31 outputs:v32 properties:v33 regions:v34];
-  v36 = *(this + 3);
-  *(this + 3) = v35;
-
-  if (v40 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06BFB9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::ANECNReluOpHandler *EmitterViewerSPI::ANECNReluOpHandler::ANECNReluOpHandler(EmitterViewerSPI::ANECNReluOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  v39[3] = *MEMORY[0x1E69E9840];
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B47550;
-  v35 = a3;
-  v38 = *(*(a3 + 6) + 8);
-  AttrData = mlir::OpaqueAttr::getAttrData(&v38);
-  v6 = strlen(AttrData);
-  if (v6 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v7 = v6;
-  if (v6 >= 0x17)
-  {
-    operator new();
-  }
-
-  v34 = v6;
-  if (v6)
-  {
-    memmove(&__dst, AttrData, v6);
-  }
-
-  *(&__dst + v7) = 0;
-  if (v34 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v32 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v9 = [MEMORY[0x1E695DF70] array];
-  v10 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v35 + 9) + 24));
-  if (v10)
-  {
-    [v9 addObject:v10];
-  }
-
-  v11 = [MEMORY[0x1E695DF70] array];
-  if (*(v35 + 9))
-  {
-    v12 = v35 - 16;
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v12, 0);
-  v14 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v14)
-  {
-    [v11 addObject:v14];
-  }
-
-  v15 = [MEMORY[0x1E695DF70] array];
-  mlir::anec::DeQuant::getScale(&v35, &v38);
-  v16 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"max_value" dataType:268435488 shape:&unk_1F5B76070];
-  if (v16)
-  {
-    v17 = [MEMORY[0x1E695DEF0] dataWithBytes:&v38 length:32];
-    [(MPSGraphViewerNodePropertyDataSPI *)v16 setValue:v17];
-
-    [v15 addObject:v16];
-  }
-
-  mlir::anec::InstanceNorm::getEpsilon(&v35, v36);
-  v18 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"slope" dataType:268435488 shape:&unk_1F5B76088];
-  if (v18)
-  {
-    v19 = [MEMORY[0x1E695DEF0] dataWithBytes:v36 length:32];
-    [(MPSGraphViewerNodePropertyDataSPI *)v18 setValue:v19];
-
-    [v15 addObject:v18];
-  }
-
-  v20 = v37[0];
-  v22 = llvm::APFloatBase::PPCDoubleDouble(v21);
-  if (v22 == v20)
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v37);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::~IEEEFloat(v37);
-  }
-
-  if (v22 == v39[0])
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v39);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::~IEEEFloat(v39);
-  }
-
-  v23 = [MEMORY[0x1E695DF70] array];
-  v24 = [MPSGraphViewerNodeSPI alloc];
-  v25 = [MEMORY[0x1E695DEC8] arrayWithArray:v9];
-  v26 = [MEMORY[0x1E695DEC8] arrayWithArray:v11];
-  v27 = [MEMORY[0x1E695DEC8] arrayWithArray:v15];
-  v28 = [MEMORY[0x1E695DEC8] arrayWithArray:v23];
-  v29 = [(MPSGraphViewerNodeSPI *)v24 initWithType:v32 inputs:v25 outputs:v26 properties:v27 regions:v28];
-  v30 = *(this + 3);
-  *(this + 3) = v29;
-
-  if (v34 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return this;
-}
-
-void sub_1E06C00D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
-{
-  llvm::APFloat::~APFloat(&a17);
-
-  llvm::APFloat::~APFloat(&a21);
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-EmitterViewerSPI::ANECPaddingOpHandler *EmitterViewerSPI::ANECPaddingOpHandler::ANECPaddingOpHandler(EmitterViewerSPI::ANECPaddingOpHandler *this, EmitViewerSPI *a2, mlir::Operation *a3)
-{
-  v43[3] = *MEMORY[0x1E69E9840];
-  *(this + 1) = a2;
-  *(this + 2) = a3;
-  *(this + 3) = 0;
-  *this = &unk_1F5B47580;
-  v5 = *(*(a3 + 6) + 8);
-  v41 = a3;
-  v42 = v5;
-  AttrData = mlir::OpaqueAttr::getAttrData(&v42);
-  v7 = strlen(AttrData);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v8 = v7;
-  if (v7 >= 0x17)
-  {
-    operator new();
-  }
-
-  v40 = v7;
-  if (v7)
-  {
-    memmove(&__dst, AttrData, v7);
-  }
-
-  *(&__dst + v8) = 0;
-  if (v40 >= 0)
-  {
-    p_dst = &__dst;
-  }
-
-  else
-  {
-    p_dst = __dst;
-  }
-
-  v38 = [MEMORY[0x1E696AEC0] stringWithCString:p_dst encoding:4];
-  v10 = [MEMORY[0x1E695DF70] array];
-  v11 = EmitViewerSPI::emitNodeInputPort(a2, @"input", *(*(v41 + 9) + 24));
-  if (v11)
-  {
-    [v10 addObject:v11];
-  }
-
-  v12 = [MEMORY[0x1E695DF70] array];
-  if (*(v41 + 9))
-  {
-    v13 = v41 - 16;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v13, 0);
-  v15 = EmitViewerSPI::emitNodeOutputPort(a2, @"result", NextResultAtOffset);
-  if (v15)
-  {
-    [v12 addObject:v15];
-  }
-
-  v16 = [MEMORY[0x1E695DF70] array];
-  Padding = mlir::anec::MaxPool::getPadding(&v41);
-  v18 = Padding;
-  if (Padding)
-  {
-    v19 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Padding + 8);
-  }
-
-  else
-  {
-    v19 = 0;
-  }
-
-  v20 = EmitViewerSPI::emitElementsAttrProperty(@"padding_modes", v18, v19);
-  if (v20)
-  {
-    [v16 addObject:v20];
-  }
-
-  Stride = mlir::anec::MaxPool::getStride(&v41);
-  v22 = Stride;
-  if (Stride)
-  {
-    v23 = mlir::detail::InterfaceMap::lookup<mlir::ElementsAttr>(*Stride + 8);
-  }
-
-  else
-  {
-    v23 = 0;
-  }
-
-  v24 = EmitViewerSPI::emitElementsAttrProperty(@"padding_sizes", v22, v23);
-  if (v24)
-  {
-    [v16 addObject:v24];
-  }
-
-  mlir::anec::Padding::getBackgroundValue(&v41, &v42);
-  v25 = [[MPSGraphViewerNodePropertyDataSPI alloc] initWithName:@"background_value" dataType:268435488 shape:&unk_1F5B760A0];
-  if (v25)
-  {
-    v26 = [MEMORY[0x1E695DEF0] dataWithBytes:&v42 length:32];
-    [(MPSGraphViewerNodePropertyDataSPI *)v25 setValue:v26];
-
-    [v16 addObject:v25];
-  }
-
-  v27 = v43[0];
-  if (llvm::APFloatBase::PPCDoubleDouble(v28) == v27)
-  {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v43);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::~IEEEFloat(v43);
-  }
-
-  v29 = [MEMORY[0x1E695DF70] array];
-  v30 = [MPSGraphViewerNodeSPI alloc];
-  v31 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-  v32 = [MEMORY[0x1E695DEC8] arrayWithArray:v12];
-  v33 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-  v34 = [MEMORY[0x1E695DEC8] arrayWithArray:v29];
-  v35 = [(MPSGraphViewerNodeSPI *)v30 initWithType:v38 inputs:v31 outputs:v32 properties:v33 regions:v34];
-  v36 = *(this + 3);
-  *(this + 3) = v35;
-
-  if (v40 < 0)
   {
     operator delete(__dst);
   }

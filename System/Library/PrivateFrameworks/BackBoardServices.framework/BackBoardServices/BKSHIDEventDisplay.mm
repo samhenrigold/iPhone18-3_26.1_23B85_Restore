@@ -80,7 +80,7 @@
 
 void __33__BKSHIDEventDisplay_nullDisplay__block_invoke()
 {
-  v0 = [[BKSHIDEventDisplay alloc] _initWithHardwareIdentifier:0];
+  v0 = [[BKSHIDEventDisplay alloc] _initWithHardwareIdentifier:?];
   v1 = nullDisplay___null;
   nullDisplay___null = v0;
 
@@ -89,7 +89,7 @@ void __33__BKSHIDEventDisplay_nullDisplay__block_invoke()
 
 void __36__BKSHIDEventDisplay_builtinDisplay__block_invoke()
 {
-  v0 = [[BKSHIDEventDisplay alloc] _initWithHardwareIdentifier:0];
+  v0 = [[BKSHIDEventDisplay alloc] _initWithHardwareIdentifier:?];
   v1 = builtinDisplay___builtin;
   builtinDisplay___builtin = v0;
 
@@ -122,16 +122,18 @@ void __36__BKSHIDEventDisplay_builtinDisplay__block_invoke()
 
 uint64_t __36__BKSHIDEventDisplay_protobufSchema__block_invoke(uint64_t a1)
 {
-  protobufSchema_schema_2511 = [MEMORY[0x1E698E750] buildSchemaForClass:*(a1 + 32) builder:&__block_literal_global_26];
+  v1 = [MEMORY[0x1E698E750] buildSchemaForClass:? builder:?];
+  v2 = protobufSchema_schema_2511;
+  protobufSchema_schema_2511 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 void __36__BKSHIDEventDisplay_protobufSchema__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_hardwareIdentifier" forTag:1];
-  [v2 addField:"_builtin" forTag:2];
+  [v2 addField:? forTag:?];
+  [v2 addField:? forTag:?];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -139,7 +141,7 @@ void __36__BKSHIDEventDisplay_protobufSchema__block_invoke_2(uint64_t a1, void *
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v8 = 1;
+    v6 = 1;
   }
 
   else
@@ -147,34 +149,33 @@ void __36__BKSHIDEventDisplay_protobufSchema__block_invoke_2(uint64_t a1, void *
     v5 = objc_opt_class();
     if (v5 == objc_opt_class() && self->_builtin == equalCopy->_builtin)
     {
-      hardwareIdentifier = self->_hardwareIdentifier;
-      v7 = equalCopy->_hardwareIdentifier;
-      v8 = BSEqualStrings();
+      v6 = BSEqualStrings();
     }
 
     else
     {
-      v8 = 0;
+      v6 = 0;
     }
   }
 
-  return v8;
+  return v6;
 }
 
 - (BKSHIDEventDisplay)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  if ([coderCopy decodeBoolForKey:@"builtin"])
+  if ([coderCopy decodeBoolForKey:?])
   {
     v5 = +[BKSHIDEventDisplay builtinDisplay];
   }
 
   else
   {
-    v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"hardwareIdentifier"];
+    objc_opt_class();
+    v6 = [coderCopy decodeObjectOfClass:? forKey:?];
     if (v6)
     {
-      [BKSHIDEventDisplay displayWithHardwareIdentifier:v6];
+      [BKSHIDEventDisplay displayWithHardwareIdentifier:?];
     }
 
     else
@@ -189,52 +190,51 @@ void __36__BKSHIDEventDisplay_protobufSchema__block_invoke_2(uint64_t a1, void *
 
 - (void)encodeWithCoder:(id)coder
 {
-  hardwareIdentifier = self->_hardwareIdentifier;
-  if (hardwareIdentifier)
+  if (self->_hardwareIdentifier)
   {
-    [coder encodeObject:hardwareIdentifier forKey:@"hardwareIdentifier"];
+    [coder encodeObject:? forKey:?];
   }
 
   else
   {
-    [coder encodeBool:self->_builtin forKey:@"builtin"];
+    [coder encodeBool:? forKey:?];
   }
 }
 
 - (id)_initWithHardwareIdentifier:(id)identifier
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v26.receiver = self;
-  v26.super_class = BKSHIDEventDisplay;
-  v6 = [(BKSHIDEventDisplay *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = BKSHIDEventDisplay;
+  v6 = [(BKSHIDEventDisplay *)&v25 init];
   if (v6)
   {
     v7 = objc_opt_class();
     if (v7 != objc_opt_class())
     {
-      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDEventDisplay cannot be subclassed"];
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v14 = NSStringFromSelector(a2);
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
+        v13 = NSStringFromSelector(a2);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
         *buf = 138544642;
-        v28 = v14;
-        v29 = 2114;
-        v30 = v16;
-        v31 = 2048;
-        v32 = v6;
-        v33 = 2114;
-        v34 = @"BKSHIDEventDisplay.m";
-        v35 = 1024;
-        v36 = 28;
-        v37 = 2114;
-        v38 = v13;
+        v27 = v13;
+        v28 = 2114;
+        v29 = v15;
+        v30 = 2048;
+        v31 = v6;
+        v32 = 2114;
+        v33 = @"BKSHIDEventDisplay.m";
+        v34 = 1024;
+        v35 = 28;
+        v36 = 2114;
+        v37 = v12;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v13 UTF8String];
+      [v12 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x186368828);
@@ -246,39 +246,39 @@ void __36__BKSHIDEventDisplay_protobufSchema__block_invoke_2(uint64_t a1, void *
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v17 = MEMORY[0x1E696AEC0];
+        v16 = MEMORY[0x1E696AEC0];
         classForCoder = [v8 classForCoder];
         if (!classForCoder)
         {
           classForCoder = objc_opt_class();
         }
 
-        v19 = NSStringFromClass(classForCoder);
-        v20 = objc_opt_class();
-        v21 = NSStringFromClass(v20);
-        v22 = [v17 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"hardwareIdentifier", v19, v21];
+        v18 = NSStringFromClass(classForCoder);
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
+        v21 = [v16 stringWithFormat:@"hardwareIdentifier", v18, v20];
 
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v23 = NSStringFromSelector(a2);
-          v24 = objc_opt_class();
-          v25 = NSStringFromClass(v24);
+          v22 = NSStringFromSelector(a2);
+          v23 = objc_opt_class();
+          v24 = NSStringFromClass(v23);
           *buf = 138544642;
-          v28 = v23;
-          v29 = 2114;
-          v30 = v25;
-          v31 = 2048;
-          v32 = v6;
-          v33 = 2114;
-          v34 = @"BKSHIDEventDisplay.m";
-          v35 = 1024;
-          v36 = 29;
-          v37 = 2114;
-          v38 = v22;
+          v27 = v22;
+          v28 = 2114;
+          v29 = v24;
+          v30 = 2048;
+          v31 = v6;
+          v32 = 2114;
+          v33 = @"BKSHIDEventDisplay.m";
+          v34 = 1024;
+          v35 = 29;
+          v36 = 2114;
+          v37 = v21;
           _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        [v22 UTF8String];
+        [v21 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x186368960);
@@ -290,13 +290,12 @@ void __36__BKSHIDEventDisplay_protobufSchema__block_invoke_2(uint64_t a1, void *
     v6->_hardwareIdentifier = v9;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BKSHIDEventDisplay)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"-init is not allowed on BKSHIDEventDisplay"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -325,36 +324,36 @@ void __36__BKSHIDEventDisplay_protobufSchema__block_invoke_2(uint64_t a1, void *
 
 + (BKSHIDEventDisplay)displayWithHardwareIdentifier:(id)identifier
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v6 = MEMORY[0x1E696AEC0];
   v7 = objc_opt_class();
   if (!identifierCopy)
   {
-    v11 = NSStringFromClass(v7);
-    v12 = [v6 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"hardwareIdentifier", v11];
+    v10 = NSStringFromClass(v7);
+    v11 = [v6 stringWithFormat:@"hardwareIdentifier", v10];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = NSStringFromSelector(a2);
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
+      v12 = NSStringFromSelector(a2);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       *buf = 138544642;
-      v26 = v13;
-      v27 = 2114;
-      v28 = v15;
-      v29 = 2048;
+      v25 = v12;
+      v26 = 2114;
+      v27 = v14;
+      v28 = 2048;
       selfCopy2 = self;
-      v31 = 2114;
-      v32 = @"BKSHIDEventDisplay.m";
-      v33 = 1024;
-      v34 = 66;
-      v35 = 2114;
-      v36 = v12;
+      v30 = 2114;
+      v31 = @"BKSHIDEventDisplay.m";
+      v32 = 1024;
+      v33 = 66;
+      v34 = 2114;
+      v35 = v11;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v12 UTF8String];
+    [v11 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186368C40);
@@ -362,46 +361,45 @@ void __36__BKSHIDEventDisplay_protobufSchema__block_invoke_2(uint64_t a1, void *
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v16 = MEMORY[0x1E696AEC0];
+    v15 = MEMORY[0x1E696AEC0];
     classForCoder = [identifierCopy classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v18 = NSStringFromClass(classForCoder);
-    v19 = objc_opt_class();
-    v20 = NSStringFromClass(v19);
-    v21 = [v16 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"hardwareIdentifier", v18, v20];
+    v17 = NSStringFromClass(classForCoder);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    v20 = [v15 stringWithFormat:@"hardwareIdentifier", v17, v19];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v22 = NSStringFromSelector(a2);
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
+      v21 = NSStringFromSelector(a2);
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
       *buf = 138544642;
-      v26 = v22;
-      v27 = 2114;
-      v28 = v24;
-      v29 = 2048;
+      v25 = v21;
+      v26 = 2114;
+      v27 = v23;
+      v28 = 2048;
       selfCopy2 = self;
-      v31 = 2114;
-      v32 = @"BKSHIDEventDisplay.m";
-      v33 = 1024;
-      v34 = 66;
-      v35 = 2114;
-      v36 = v21;
+      v30 = 2114;
+      v31 = @"BKSHIDEventDisplay.m";
+      v32 = 1024;
+      v33 = 66;
+      v34 = 2114;
+      v35 = v20;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v21 UTF8String];
+    [v20 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186368D78);
   }
 
-  v8 = [[BKSHIDEventDisplay alloc] _initWithHardwareIdentifier:identifierCopy];
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = [[BKSHIDEventDisplay alloc] _initWithHardwareIdentifier:?];
 
   return v8;
 }

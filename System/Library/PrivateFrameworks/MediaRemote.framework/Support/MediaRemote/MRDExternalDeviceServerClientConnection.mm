@@ -1,6 +1,7 @@
 @interface MRDExternalDeviceServerClientConnection
 - (BOOL)_wantsLibraryCommands;
 - (BOOL)hasAccessToPlayerPath:(id)path;
+- (BOOL)isAllowedToSendCommand:(unsigned int)command;
 - (BOOL)isAllowedToSendMessageType:(unint64_t)type;
 - (BOOL)isDestinationLocal;
 - (BOOL)removePendingPlaybackSessionMigrateEvent:(id)event;
@@ -44,6 +45,7 @@
 - (void)requestConnectedDestinationEndpoint:(id)endpoint;
 - (void)requestDestinationEndpoint:(id)endpoint;
 - (void)setDestinationEndpoint:(id)endpoint;
+- (void)setDiscoveryMode:(unsigned int)mode forConfiguration:(id)configuration;
 - (void)setLabel:(id)label;
 - (void)unregisterAllVirtualVoiceInputDevices;
 @end
@@ -178,31 +180,29 @@
   }
 
   v4 = objc_opt_class();
-  v26 = NSStringFromClass(v4);
+  v24 = NSStringFromClass(v4);
   deviceInfo = [(MRDExternalDeviceServerClientConnection *)self deviceInfo];
-  v25 = MRCreateIndentedDebugDescriptionFromObject();
+  v23 = MRCreateIndentedDebugDescriptionFromObject();
   supportedMessages = [(MRDExternalDeviceServerClientConnection *)self supportedMessages];
   lastSupportedMessageType = [supportedMessages lastSupportedMessageType];
-  virtualTouchDevices = self->_virtualTouchDevices;
-  v19 = MRCreateIndentedDebugDescriptionFromArray();
-  registeredVirtualVoiceInputDevices = self->_registeredVirtualVoiceInputDevices;
-  v7 = MRCreateIndentedDebugDescriptionFromArray();
+  v17 = MRCreateIndentedDebugDescriptionFromArray();
+  v5 = MRCreateIndentedDebugDescriptionFromArray();
   playbackQueueRequests = self->_playbackQueueRequests;
   pinPairingToken = self->_pinPairingToken;
   sessionPeer = self->_sessionPeer;
   WeakRetained = objc_loadWeakRetained(&self->_serverDelegate);
   subscribedPlayerPaths = [(MRDExternalDeviceServerClientConnection *)self subscribedPlayerPaths];
-  v9 = MRCreateIndentedDebugDescriptionFromArray();
+  v7 = MRCreateIndentedDebugDescriptionFromArray();
   destinationOutputDeviceUID = [(MRDExternalDeviceServerClientConnection *)self destinationOutputDeviceUID];
   destinationGroupUID = [(MRDExternalDeviceServerClientConnection *)self destinationGroupUID];
   destinationEndpoint = [(MRDExternalDeviceServerClientConnection *)self destinationEndpoint];
   connection = [(MRDExternalDeviceServerClientConnection *)self connection];
-  v14 = v3;
-  v23 = v3;
-  v15 = connection;
-  v16 = [NSString stringWithFormat:@"<%@ %p {\n    deviceInfo = %@\n    lastSupportedMessageType = %ld\n    virtualTouchDevices = %@\n    registeredVirtualVoiceInputDevices = %@\n    playbackQueueRequests = %@\n    sessionPeer = %@\n    pinPairingToken = %@\n    serverDelegate = %@\n    registeredUpdates = %@\n    subscribedPlayerPaths = %@\n    destinationOutputDeviceUID = %@\n    destinationGroupID = %@\n    destinationEndpoint = %@\n    connection = %@\n}>", v26, self, v25, lastSupportedMessageType, v19, v7, playbackQueueRequests, sessionPeer, pinPairingToken, WeakRetained, v14, v9, destinationOutputDeviceUID, destinationGroupUID, destinationEndpoint, connection];
+  v12 = v3;
+  v21 = v3;
+  v13 = connection;
+  v14 = [NSString stringWithFormat:@"<%@ %p {\n    deviceInfo = %@\n    lastSupportedMessageType = %ld\n    virtualTouchDevices = %@\n    registeredVirtualVoiceInputDevices = %@\n    playbackQueueRequests = %@\n    sessionPeer = %@\n    pinPairingToken = %@\n    serverDelegate = %@\n    registeredUpdates = %@\n    subscribedPlayerPaths = %@\n    destinationOutputDeviceUID = %@\n    destinationGroupID = %@\n    destinationEndpoint = %@\n    connection = %@\n}>", v24, self, v23, lastSupportedMessageType, v17, v5, playbackQueueRequests, sessionPeer, pinPairingToken, WeakRetained, v12, v7, destinationOutputDeviceUID, destinationGroupUID, destinationEndpoint, connection];
 
-  return v16;
+  return v14;
 }
 
 - (unsigned)connectOptions
@@ -1100,6 +1100,18 @@
   return intValue;
 }
 
+- (void)setDiscoveryMode:(unsigned int)mode forConfiguration:(id)configuration
+{
+  v4 = *&mode;
+  configurationCopy = configuration;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v7 = [NSNumber numberWithUnsignedInt:v4];
+  [(NSMutableDictionary *)selfCopy->_discoveryModes setObject:v7 forKeyedSubscript:configurationCopy];
+
+  objc_sync_exit(selfCopy);
+}
+
 - (NSArray)discoverySessionConfigurations
 {
   selfCopy = self;
@@ -1157,6 +1169,15 @@
   LOBYTE(type) = [connection isAllowedToSendMessageType:type];
 
   return type;
+}
+
+- (BOOL)isAllowedToSendCommand:(unsigned int)command
+{
+  v3 = *&command;
+  connection = [(MRDExternalDeviceServerClientConnection *)self connection];
+  LOBYTE(v3) = [connection isAllowedToSendCommand:v3];
+
+  return v3;
 }
 
 - (void)_handleEndpointDidDisconnect:(id)disconnect

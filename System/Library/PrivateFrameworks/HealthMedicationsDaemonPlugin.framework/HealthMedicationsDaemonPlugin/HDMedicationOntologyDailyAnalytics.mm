@@ -45,56 +45,52 @@
 
 - (id)makeUnrestrictedEventPayloadWithDataSource:(id)source error:(id *)error
 {
-  v30[4] = *MEMORY[0x277D85DE8];
+  v25[4] = *MEMORY[0x277D85DE8];
   v6 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:&unk_2863C2E40];
   v7 = MEMORY[0x277D10B20];
-  v8 = *MEMORY[0x277CCC5D8];
+  v8 = HDOntologyShardRegistryPredicateForCurrentSchemaEntry();
+  v25[0] = v8;
   v9 = HDOntologyShardRegistryPredicateForCurrentSchemaEntry();
-  v30[0] = v9;
-  v10 = *MEMORY[0x277CCC600];
+  v25[1] = v9;
+  v10 = HDOntologyShardRegistryPredicateForCurrentSchemaEntry();
+  v25[2] = v10;
   v11 = HDOntologyShardRegistryPredicateForCurrentSchemaEntry();
-  v30[1] = v11;
-  v12 = *MEMORY[0x277CCC5E0];
-  v13 = HDOntologyShardRegistryPredicateForCurrentSchemaEntry();
-  v30[2] = v13;
-  v14 = *MEMORY[0x277CCC5F8];
-  v15 = HDOntologyShardRegistryPredicateForCurrentSchemaEntry();
-  v30[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
-  v17 = [v7 predicateMatchingAnyPredicates:v16];
+  v25[3] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+  v13 = [v7 predicateMatchingAnyPredicates:v12];
 
   shardRegistry = [(HDMedicationOntologyDailyAnalytics *)self shardRegistry];
-  v29 = 0;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __87__HDMedicationOntologyDailyAnalytics_makeUnrestrictedEventPayloadWithDataSource_error___block_invoke;
-  v27[3] = &unk_2796CE878;
-  v19 = v6;
-  v28 = v19;
-  LOBYTE(v13) = [shardRegistry enumerateEntriesWithPredicate:v17 orderingTerms:0 error:&v29 enumerationHandler:v27];
-  v20 = v29;
+  v24 = 0;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __87__HDMedicationOntologyDailyAnalytics_makeUnrestrictedEventPayloadWithDataSource_error___block_invoke;
+  v22[3] = &unk_2796CE878;
+  v15 = v6;
+  v23 = v15;
+  LOBYTE(v10) = [shardRegistry enumerateEntriesWithPredicate:v13 orderingTerms:0 error:&v24 enumerationHandler:v22];
+  v16 = v24;
 
-  if (v13)
+  if (v10)
   {
-    v21 = v19;
+    v17 = v15;
   }
 
   else
   {
     _HKInitializeLogging();
-    v22 = HKLogMedication();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v18 = HKLogMedication();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(HDMedicationOntologyDailyAnalytics *)self makeUnrestrictedEventPayloadWithDataSource:v20 error:v22];
+      [(HDMedicationOntologyDailyAnalytics *)self makeUnrestrictedEventPayloadWithDataSource:v16 error:v18];
     }
 
-    v23 = v20;
-    if (v23)
+    v19 = v16;
+    if (v19)
     {
       if (error)
       {
-        v24 = v23;
-        *error = v23;
+        v20 = v19;
+        *error = v19;
       }
 
       else
@@ -103,12 +99,10 @@
       }
     }
 
-    v21 = 0;
+    v17 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v17;
 }
 
 uint64_t __87__HDMedicationOntologyDailyAnalytics_makeUnrestrictedEventPayloadWithDataSource_error___block_invoke(uint64_t a1, void *a2)
@@ -185,13 +179,12 @@ LABEL_10:
 
 - (void)makeUnrestrictedEventPayloadWithDataSource:(os_log_t)log error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_25181C000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Error enumerating shard registry entries: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_25181C000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Error enumerating shard registry entries: %{public}@", &v3, 0x16u);
 }
 
 @end

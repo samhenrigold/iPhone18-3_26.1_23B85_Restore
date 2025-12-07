@@ -52,7 +52,7 @@
   if (WeakRetained)
   {
     v6 = WeakRetained;
-    [WeakRetained transform];
+    objc_msgSend_transform(WeakRetained);
     WeakRetained = v6;
   }
 

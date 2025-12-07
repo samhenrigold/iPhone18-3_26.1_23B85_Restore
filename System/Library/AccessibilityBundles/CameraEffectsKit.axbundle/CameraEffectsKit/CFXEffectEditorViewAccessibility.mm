@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (BOOL)accessibilityPerformEscape;
 - (void)CFX_beginTextEditing;
+- (void)CFX_endTextEditing:(BOOL)editing;
 - (void)CFX_removeEffect;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)viewDidLoad;
@@ -73,18 +74,18 @@
 
 - (void)CFX_beginTextEditing
 {
-  v20[1] = *MEMORY[0x29EDCA608];
-  v17.receiver = self;
-  v17.super_class = CFXEffectEditorViewAccessibility;
-  [(CFXEffectEditorViewAccessibility *)&v17 CFX_beginTextEditing];
+  v19[1] = *MEMORY[0x29EDCA608];
+  v16.receiver = self;
+  v16.super_class = CFXEffectEditorViewAccessibility;
+  [(CFXEffectEditorViewAccessibility *)&v16 CFX_beginTextEditing];
   if ([(CFXEffectEditorViewAccessibility *)self safeBoolForKey:@"isTextEditing"])
   {
     v3 = objc_alloc(MEMORY[0x29EDC78E0]);
     v4 = accessibilityLocalizedString(@"close.button");
     v5 = [v3 initWithName:v4 target:self selector:sel_tapRemoveButton_];
 
-    v20[0] = v5;
-    v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v20 count:1];
+    v19[0] = v5;
+    v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v19 count:1];
     v7 = [objc_alloc(MEMORY[0x29EDC78F8]) initWithAccessibilityContainer:self];
     [(CFXEffectEditorViewAccessibility *)self accessibilityFrame];
     [v7 setAccessibilityFrame:?];
@@ -99,8 +100,8 @@
     v10 = [(CFXEffectEditorViewAccessibility *)self safeValueForKey:@"removeButton"];
     [v10 setIsAccessibilityElement:1];
 
-    v19 = v7;
-    v11 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v19 count:1];
+    v18 = v7;
+    v11 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v18 count:1];
     [(CFXEffectEditorViewAccessibility *)self _accessibilitySetAdditionalElements:v11];
 
     v12 = [(CFXEffectEditorViewAccessibility *)self _accessibilityFindAncestor:&__block_literal_global_2 startWithSelf:0];
@@ -120,8 +121,6 @@
 
     UIAccessibilityPostNotification(*MEMORY[0x29EDC7F10], 0);
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __56__CFXEffectEditorViewAccessibility_CFX_beginTextEditing__block_invoke(uint64_t a1, void *a2)
@@ -166,6 +165,41 @@ uint64_t __56__CFXEffectEditorViewAccessibility_CFX_beginTextEditing__block_invo
   v7.receiver = self;
   v7.super_class = CFXEffectEditorViewAccessibility;
   [(CFXEffectEditorViewAccessibility *)&v7 CFX_removeEffect];
+}
+
+- (void)CFX_endTextEditing:(BOOL)editing
+{
+  editingCopy = editing;
+  if ([(CFXEffectEditorViewAccessibility *)self safeBoolForKey:@"isTextEditing"])
+  {
+    [(CFXEffectEditorViewAccessibility *)self _accessibilitySetAdditionalElements:0];
+    v5 = [(CFXEffectEditorViewAccessibility *)self safeValueForKey:@"removeButton"];
+    [v5 setIsAccessibilityElement:0];
+
+    v10.receiver = self;
+    v10.super_class = CFXEffectEditorViewAccessibility;
+    [(CFXEffectEditorViewAccessibility *)&v10 CFX_endTextEditing:editingCopy];
+    _axParentView = [(CFXEffectEditorViewAccessibility *)self _axParentView];
+
+    if (_axParentView)
+    {
+      _axParentView2 = [(CFXEffectEditorViewAccessibility *)self _axParentView];
+      [_axParentView2 setAccessibilityElements:0];
+
+      _axParentView3 = [(CFXEffectEditorViewAccessibility *)self _axParentView];
+      _axParentElements = [(CFXEffectEditorViewAccessibility *)self _axParentElements];
+      [_axParentView3 _accessibilitySetAdditionalElements:_axParentElements];
+    }
+
+    UIAccessibilityPostNotification(*MEMORY[0x29EDC7F10], 0);
+  }
+
+  else
+  {
+    v10.receiver = self;
+    v10.super_class = CFXEffectEditorViewAccessibility;
+    [(CFXEffectEditorViewAccessibility *)&v10 CFX_endTextEditing:editingCopy];
+  }
 }
 
 @end

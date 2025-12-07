@@ -30,36 +30,36 @@
 {
   objc_initWeak(&location, self);
   connection = [(VSDeveloperIdentityProviderFetchAllOperation *)self connection];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __65__VSDeveloperIdentityProviderFetchAllOperation_executionDidBegin__block_invoke;
-  v9[3] = &unk_278B73358;
-  objc_copyWeak(&v10, &location);
-  v4 = [connection serviceWithErrorHandler:v9];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __65__VSDeveloperIdentityProviderFetchAllOperation_executionDidBegin__block_invoke;
+  v10[3] = &unk_278B73358;
+  objc_copyWeak(&v11, &location);
+  v4 = [connection serviceWithErrorHandler:v10];
 
-  v5 = VSDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = VSDefaultLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "Will fetch developer identity providers.", buf, 2u);
+    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Will fetch developer identity providers.", buf, 2u);
   }
 
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __65__VSDeveloperIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_5;
-  v6[3] = &unk_278B748C0;
-  objc_copyWeak(&v7, &location);
-  [v4 fetchDeveloperIdentityProvidersWithCompletionHandler:v6];
-  objc_destroyWeak(&v7);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __65__VSDeveloperIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_5;
+  v7[3] = &unk_278B748C0;
+  objc_copyWeak(&v8, &location);
+  [v4 fetchDeveloperIdentityProvidersWithCompletionHandler:v7];
+  objc_destroyWeak(&v8);
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(&location);
 }
 
 void __65__VSDeveloperIdentityProviderFetchAllOperation_executionDidBegin__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __63__VSDeveloperIdentityProviderChangeOperation_executionDidBegin__block_invoke_cold_1(v3, v4);
@@ -88,7 +88,7 @@ void __65__VSDeveloperIdentityProviderFetchAllOperation_executionDidBegin__block
 {
   v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "count")}];
@@ -101,7 +101,7 @@ void __65__VSDeveloperIdentityProviderFetchAllOperation_executionDidBegin__block
 void __65__VSDeveloperIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_8(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = VSErrorLogObject();
+  v3 = VSErrorLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __65__VSDeveloperIdentityProviderFetchAllOperation_executionDidBegin__block_invoke_8_cold_1(v2, v3);

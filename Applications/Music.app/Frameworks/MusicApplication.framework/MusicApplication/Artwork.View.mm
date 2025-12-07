@@ -40,7 +40,7 @@
   {
     v4 = v3[7];
     v5 = v3[5];
-    selfCopy = self;
+    selfCopy2 = self;
     v7 = v5;
     v8 = v4;
   }
@@ -52,14 +52,14 @@
     v8 = 0.0;
   }
 
-  Artwork.View.fittingImageSize(in:)(v7, v8);
-  v11 = v10;
-  v13 = v12;
+  Artwork.View.fittingImageSize(in:)(selfCopy2, v7, v8);
+  v10 = v9;
+  v12 = v11;
 
-  v14 = v11;
-  v15 = v13;
-  result.height = v15;
-  result.width = v14;
+  v13 = v10;
+  v14 = v12;
+  result.height = v14;
+  result.width = v13;
   return result;
 }
 
@@ -73,7 +73,7 @@
   if (v7 == 255)
   {
     selfCopy = self;
-    Artwork.View.fittingImageSize(in:)(width, height);
+    Artwork.View.fittingImageSize(in:)(selfCopy, width, height);
     v10 = v9;
     v12 = v11;
   }

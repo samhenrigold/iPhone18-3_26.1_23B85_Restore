@@ -30,46 +30,44 @@
 
 - (void)processElement:(id)element attributes:(id)attributes objectModel:(id)model completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   modelCopy = model;
   completionCopy = completion;
-  v12 = LogSubsystem();
+  v12 = LogSubsystem(completionCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = elementCopy;
-    v16 = 2112;
-    v17 = modelCopy;
-    _os_log_impl(&dword_275819000, v12, OS_LOG_TYPE_DEFAULT, "matterhorn upsell with element %@ and objectmodel %@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = elementCopy;
+    v15 = 2112;
+    v16 = modelCopy;
+    _os_log_impl(&dword_275819000, v12, OS_LOG_TYPE_DEFAULT, "matterhorn upsell with element %@ and objectmodel %@", &v13, 0x16u);
   }
 
   [(ICSMatterhornUpsellHook *)self _matterhornUpsell:completionCopy];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processObjectModel:(id)model completion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   completionCopy = completion;
-  v8 = LogSubsystem();
+  v8 = LogSubsystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = modelCopy;
-    _os_log_impl(&dword_275819000, v8, OS_LOG_TYPE_DEFAULT, "matterhorn upsell with objectModel %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = modelCopy;
+    _os_log_impl(&dword_275819000, v8, OS_LOG_TYPE_DEFAULT, "matterhorn upsell with objectModel %@", &v9, 0xCu);
   }
 
   [(ICSMatterhornUpsellHook *)self _matterhornUpsell:completionCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_matterhornUpsell:(id)upsell
 {
   upsellCopy = upsell;
   v5 = [objc_alloc(MEMORY[0x277D7F4E0]) initWithJourneyId:@"settingsHideMyEmail"];
-  v6 = LogSubsystem();
+  v6 = LogSubsystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [(ICSMatterhornUpsellHook *)v5 _matterhornUpsell:v6];
@@ -81,8 +79,7 @@
     v8 = _hookCompletion;
     _hookCompletion = v7;
 
-    [v5 setDelegate:self];
-    v9 = LogSubsystem();
+    v9 = LogSubsystem([v5 setDelegate:self]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *v10 = 0;
@@ -95,7 +92,7 @@
 
 - (void)upgradeFlowManagerDidCancel:(id)cancel
 {
-  v3 = LogSubsystem();
+  v3 = LogSubsystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [ICSMatterhornUpsellHook upgradeFlowManagerDidCancel:v3];
@@ -111,7 +108,7 @@
 
 - (void)upgradeFlowManagerDidComplete:(id)complete
 {
-  v3 = LogSubsystem();
+  v3 = LogSubsystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [ICSMatterhornUpsellHook upgradeFlowManagerDidComplete:v3];
@@ -132,11 +129,10 @@
 
 - (void)_matterhornUpsell:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_275819000, a2, OS_LOG_TYPE_DEBUG, "flowManager %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_275819000, a2, OS_LOG_TYPE_DEBUG, "flowManager %@", &v2, 0xCu);
 }
 
 @end

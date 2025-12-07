@@ -23,7 +23,7 @@
   maneuverView = self->_maneuverView;
   if (maneuverView)
   {
-    [(GuidanceManeuverView *)maneuverView arrowMetrics];
+    objc_msgSend_arrowMetrics(maneuverView);
     v3 = *(&v21 + 1);
     maneuverView = self->_maneuverView;
   }
@@ -182,7 +182,7 @@ LABEL_29:
     maneuverView = self->_maneuverView;
     if (maneuverView)
     {
-      [(GuidanceManeuverView *)maneuverView arrowMetrics];
+      objc_msgSend_arrowMetrics(maneuverView, 20.0);
       v6 = *(&v10 + 1);
       v5 = *&v11;
     }
@@ -252,7 +252,7 @@ LABEL_29:
   maneuverView = self->_maneuverView;
   if (maneuverView)
   {
-    [(GuidanceManeuverView *)maneuverView arrowMetrics];
+    objc_msgSend_arrowMetrics(maneuverView, a2);
     v5 = *(&v13 + 1);
     v4 = *&v14;
   }

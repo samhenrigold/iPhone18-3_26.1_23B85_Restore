@@ -1781,9 +1781,9 @@ LABEL_161:
                                         goto LABEL_275;
                                       }
 
-                                      [accessibilityText5 duration];
+                                      objc_msgSend_duration(accessibilityText5);
                                       accessibilityText8 = v194;
-                                      [v190 duration];
+                                      objc_msgSend_duration(v190);
                                       shieldColorString9 = v195;
 
                                       v19 = v576;

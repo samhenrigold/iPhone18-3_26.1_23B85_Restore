@@ -29,14 +29,14 @@
   }
 
   [v5 setBufferSize:v8];
-  v14 = 0;
-  v9 = [(MTLToolsDevice *)self->super.super._device newLogStateWithDescriptor:v6 error:&v14];
+  v16 = 0;
+  v9 = [(MTLToolsDevice *)self->super.super._device newLogStateWithDescriptor:v6 error:&v16];
   [v9 setUsedForShaderValidation:1];
 
-  v10 = MTLGPUDebugLog();
-  v11 = MEMORY[0x277CCACA8];
-  v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"com.apple.Metal"];
-  [v9 populateDefaultLoggerCache:objc_msgSend(v11 logger:{"stringWithFormat:", @"%@%@", v12, objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", "GPUDebug")), v10}];
+  v12 = MTLGPUDebugLog(v10, v11);
+  v13 = MEMORY[0x277CCACA8];
+  v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"com.apple.Metal"];
+  [v9 populateDefaultLoggerCache:objc_msgSend(v13 logger:{"stringWithFormat:", @"%@%@", v14, objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", "GPUDebug")), v12}];
   return v9;
 }
 
@@ -51,33 +51,33 @@
 - (void)_commit:(const void *)_commit count:(unint64_t)count options:(id)options
 {
   optionsCopy = options;
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v8 = objc_alloc_init(MEMORY[0x277CD6FA0]);
   [v8 setLabel:@"Commit Residency Set"];
-  v57 = 0;
+  v56 = 0;
   v9 = [-[MTLToolsObject baseObject](self->super.super._device "baseObject")];
 
   device = self->super.super._device;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3052000000;
-  v54 = __Block_byref_object_copy_;
-  v55 = __Block_byref_object_dispose_;
-  v56 = 0;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3052000000;
+  v53 = __Block_byref_object_copy_;
+  v54 = __Block_byref_object_dispose_;
+  v55 = 0;
   if ((BYTE4(device[2].dynamicLibraryObjectCache) & 2) != 0)
   {
     v11 = [(MTL4GPUDebugCommandQueue *)self setUpLogState:count];
-    v52[5] = v11;
+    v51[5] = v11;
   }
 
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x4812000000;
-  v45 = __Block_byref_object_copy__9;
-  v46 = __Block_byref_object_dispose__10;
-  v47 = &unk_22E286CE1;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x4812000000;
+  v44 = __Block_byref_object_copy__9;
+  v45 = __Block_byref_object_dispose__10;
+  v46 = &unk_22E286CE1;
+  v48 = 0;
   v49 = 0;
-  v50 = 0;
   __p = 0;
   if (count)
   {
@@ -85,7 +85,7 @@
     do
     {
       v13 = _commit[v12];
-      if (v52[5])
+      if (v51[5])
       {
         [_commit[v12] initReportBufferInPrivateData:?];
       }
@@ -93,38 +93,38 @@
       [v13 preCommit:{self, optionsCopy}];
       getRetainedData = [v13 getRetainedData];
       cbAllocations = [getRetainedData cbAllocations];
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
-      v16 = [cbAllocations countByEnumeratingWithState:&v38 objects:v58 count:16];
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
+      v16 = [cbAllocations countByEnumeratingWithState:&v37 objects:v57 count:16];
       if (v16)
       {
-        v17 = *v39;
+        v17 = *v38;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v39 != v17)
+            if (*v38 != v17)
             {
               objc_enumerationMutation(cbAllocations);
             }
 
-            [v9 addAllocation:*(*(&v38 + 1) + 8 * i)];
+            [v9 addAllocation:*(*(&v37 + 1) + 8 * i)];
           }
 
-          v16 = [cbAllocations countByEnumeratingWithState:&v38 objects:v58 count:16];
+          v16 = [cbAllocations countByEnumeratingWithState:&v37 objects:v57 count:16];
         }
 
         while (v16);
       }
 
-      v19 = v43;
-      v21 = v43[7];
-      v20 = v43[8];
+      v19 = v42;
+      v21 = v42[7];
+      v20 = v42[8];
       if (v21 >= v20)
       {
-        v23 = v43[6];
+        v23 = v42[6];
         v24 = (v21 - v23) >> 3;
         if ((v24 + 1) >> 61)
         {
@@ -150,7 +150,7 @@
 
         if (v27)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto19MTLGPUDebugViewable}*>>((v43 + 6), v27);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto19MTLGPUDebugViewable}*>>((v42 + 6), v27);
         }
 
         v28 = (8 * v24);
@@ -184,34 +184,33 @@
   }
 
   [v9 commit];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __50__MTL4GPUDebugCommandQueue__commit_count_options___block_invoke;
-  v37[3] = &unk_2787B4D20;
-  v37[5] = &v51;
-  v37[6] = &v42;
-  v37[4] = self;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __50__MTL4GPUDebugCommandQueue__commit_count_options___block_invoke;
+  v36[3] = &unk_2787B4D20;
+  v36[5] = &v50;
+  v36[6] = &v41;
+  v36[4] = self;
   [(NSLock *)self->_commitMutex lock];
   [(MTLToolsObject *)self->super.super._baseObject addInternalResidencySet:v9];
   [v9 requestResidency];
-  v36.receiver = self;
-  v36.super_class = MTL4GPUDebugCommandQueue;
-  [(MTL4ToolsCommandQueue *)&v36 commit:_commit count:count options:v35 preprocessHandler:v37];
+  v35.receiver = self;
+  v35.super_class = MTL4GPUDebugCommandQueue;
+  [(MTL4ToolsCommandQueue *)&v35 commit:_commit count:count options:v34 preprocessHandler:v36];
   [(MTLToolsObject *)self->super.super._baseObject removeInternalResidencySet:v9];
 
   [(NSLock *)self->_commitMutex unlock];
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v41, 8);
   if (__p)
   {
-    v49 = __p;
+    v48 = __p;
     operator delete(__p);
   }
 
-  _Block_object_dispose(&v51, 8);
-  v33 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v50, 8);
 }
 
-void __50__MTL4GPUDebugCommandQueue__commit_count_options___block_invoke(uint64_t a1, void *a2)
+void __50__MTL4GPUDebugCommandQueue__commit_count_options___block_invoke(uint64_t a1, char *a2)
 {
   if (*(*(*(a1 + 40) + 8) + 40))
   {
@@ -224,7 +223,7 @@ void __50__MTL4GPUDebugCommandQueue__commit_count_options___block_invoke(uint64_
     {
       if (*v5)
       {
-        [*v5 encoderLabels];
+        objc_msgSend_encoderLabels(*v5);
       }
 
       else

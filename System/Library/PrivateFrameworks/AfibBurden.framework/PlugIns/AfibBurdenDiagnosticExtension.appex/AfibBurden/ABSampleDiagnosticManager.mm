@@ -131,7 +131,7 @@
 
     else
     {
-      v35 = ab_get_framework_log();
+      v35 = ab_get_framework_log(0);
       if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
@@ -147,7 +147,7 @@
 
   else
   {
-    v7 = ab_get_framework_log();
+    v7 = ab_get_framework_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
@@ -194,42 +194,42 @@
 
   v8 = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierStartDate ascending:1];
   v9 = dispatch_semaphore_create(0);
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = sub_100002340;
-  v26 = sub_100002350;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_100002340;
+  v27 = sub_100002350;
+  v28 = 0;
   v10 = [HKSampleQuery alloc];
   v11 = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierAtrialFibrillationBurden];
-  v30 = v8;
-  v12 = [NSArray arrayWithObjects:&v30 count:1];
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_100002358;
-  v19[3] = &unk_100008300;
-  v19[4] = self;
-  v21 = &v22;
+  v31 = v8;
+  v12 = [NSArray arrayWithObjects:&v31 count:1];
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100002358;
+  v20[3] = &unk_100008300;
+  v20[4] = self;
+  v22 = &v23;
   v13 = v9;
-  v20 = v13;
-  v14 = [v10 initWithSampleType:v11 predicate:v7 limit:0 sortDescriptors:v12 resultsHandler:v19];
+  v21 = v13;
+  v14 = [v10 initWithSampleType:v11 predicate:v7 limit:0 sortDescriptors:v12 resultsHandler:v20];
 
-  v15 = ab_get_framework_log();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = ab_get_framework_log(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     selfCopy = self;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Executing query for samples", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Executing query for samples", buf, 0xCu);
   }
 
   [(HKHealthStore *)self->_healthStore executeQuery:v14];
-  v16 = dispatch_time(0, 60000000000);
-  dispatch_semaphore_wait(v13, v16);
-  v17 = v23[5];
+  v17 = dispatch_time(0, 60000000000);
+  dispatch_semaphore_wait(v13, v17);
+  v18 = v24[5];
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
 
-  return v17;
+  return v18;
 }
 
 @end

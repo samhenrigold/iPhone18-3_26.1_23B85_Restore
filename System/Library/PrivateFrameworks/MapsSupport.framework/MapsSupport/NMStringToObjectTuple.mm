@@ -118,31 +118,30 @@ LABEL_11:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_stringValue)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_dataValue)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    BOOLValue = self->_BOOLValue;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -161,15 +160,13 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  intValue = self->_intValue;
   PBDataWriterWriteUint64Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_10:
-    doubleValue = self->_doubleValue;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_11:
@@ -328,7 +325,7 @@ LABEL_4:
     }
 
 LABEL_24:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_25;
   }
 
@@ -337,7 +334,6 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v8 = *(equalCopy + 48);
   if (self->_BOOLValue)
   {
     if ((*(equalCopy + 48) & 1) == 0)
@@ -365,7 +361,7 @@ LABEL_10:
     goto LABEL_24;
   }
 
-  v9 = (*(equalCopy + 52) & 1) == 0;
+  v8 = (*(equalCopy + 52) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 52) & 1) == 0 || self->_doubleValue != *(equalCopy + 1))
@@ -373,12 +369,12 @@ LABEL_10:
       goto LABEL_24;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_25:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

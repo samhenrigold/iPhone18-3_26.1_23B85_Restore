@@ -1,570 +1,3 @@
-void sub_185F9E5EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
-{
-  va_start(va, a17);
-  kdu_warning::~kdu_warning(va);
-  _Unwind_Resume(a1);
-}
-
-void kd_encoder::kd_encoder(kd_encoder *this)
-{
-  *this = &unk_1EF4D3768;
-  *(this + 1) = &unk_1EF4D3798;
-  kdu_block_encoder::kdu_block_encoder((this + 16));
-}
-
-void sub_185F9E6B0(_Unwind_Exception *a1)
-{
-  *v1 = &unk_1EF4D34F0;
-  v1[1] = &unk_1EF4D3478;
-  _Unwind_Resume(a1);
-}
-
-void kd_multi_line::reset(kd_multi_line *this, int a2, double a3)
-{
-  v4 = *(this + 6);
-  if ((v4 & 2) != 0)
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-    v5 = *(this + 1);
-  }
-
-  if ((*(this + 6) & 2) != 0)
-  {
-    v6 = *(this + 1);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if (*(this + 36) != (v4 & 1))
-  {
-    kd_multi_line::reset();
-  }
-
-  if (v4)
-  {
-    if (v6)
-    {
-      v7 = *(this + 5);
-      if (a2)
-      {
-        if (v7 >= 1)
-        {
-          v8 = 0;
-          v9 = (v7 + 7) & 0xFFFFFFF8;
-          v10 = vdupq_n_s64(v7 - 1);
-          v11 = v6 + 4;
-          do
-          {
-            v12 = vdupq_n_s64(v8);
-            v13 = vmovn_s64(vcgeq_u64(v10, vorrq_s8(v12, xmmword_186205EC0)));
-            if (vuzp1_s8(vuzp1_s16(v13, *v10.i8), *v10.i8).u8[0])
-            {
-              *(v11 - 4) = a2;
-            }
-
-            if (vuzp1_s8(vuzp1_s16(v13, *&v10), *&v10).i8[1])
-            {
-              *(v11 - 3) = a2;
-            }
-
-            if (vuzp1_s8(vuzp1_s16(*&v10, vmovn_s64(vcgeq_u64(v10, vorrq_s8(v12, xmmword_186205EB0)))), *&v10).i8[2])
-            {
-              *(v11 - 2) = a2;
-              *(v11 - 1) = a2;
-            }
-
-            v14 = vmovn_s64(vcgeq_u64(v10, vorrq_s8(v12, xmmword_186205EA0)));
-            if (vuzp1_s8(*&v10, vuzp1_s16(v14, *&v10)).i32[1])
-            {
-              *v11 = a2;
-            }
-
-            if (vuzp1_s8(*&v10, vuzp1_s16(v14, *&v10)).i8[5])
-            {
-              v11[1] = a2;
-            }
-
-            if (vuzp1_s8(*&v10, vuzp1_s16(*&v10, vmovn_s64(vcgeq_u64(v10, vorrq_s8(v12, xmmword_186205E90))))).i8[6])
-            {
-              v11[2] = a2;
-              v11[3] = a2;
-            }
-
-            v8 += 8;
-            v11 += 8;
-          }
-
-          while (v9 != v8);
-        }
-
-        return;
-      }
-
-      v15 = 2 * v7;
-      goto LABEL_53;
-    }
-
-    if (!v5)
-    {
-      kd_multi_line::reset();
-    }
-
-    v16 = *(this + 5);
-    if (!a2)
-    {
-      v30 = 4 * v16;
-      v6 = v5;
-      goto LABEL_54;
-    }
-
-    if (v16 >= 1)
-    {
-      v17 = 0;
-      v18 = vdupq_n_s64(v16 - 1);
-      v19 = (v16 + 3) & 0xFFFFFFFC;
-      v20 = v5 + 2;
-      do
-      {
-        v21 = vdupq_n_s64(v17);
-        v22 = vmovn_s64(vcgeq_u64(v18, vorrq_s8(v21, xmmword_186205EC0)));
-        if (vuzp1_s16(v22, *v18.i8).u8[0])
-        {
-          *(v20 - 2) = a2;
-        }
-
-        if (vuzp1_s16(v22, *&v18).i8[2])
-        {
-          *(v20 - 1) = a2;
-        }
-
-        if (vuzp1_s16(*&v18, vmovn_s64(vcgeq_u64(v18, vorrq_s8(v21, xmmword_186205EB0)))).i32[1])
-        {
-          *v20 = a2;
-          v20[1] = a2;
-        }
-
-        v17 += 4;
-        v20 += 4;
-      }
-
-      while (v19 != v17);
-    }
-  }
-
-  else if (v6)
-  {
-    if (*&a3 == 0.0)
-    {
-      v15 = 2 * *(this + 5);
-LABEL_53:
-      v30 = v15;
-LABEL_54:
-
-      bzero(v6, v30);
-      return;
-    }
-
-    v31 = *(this + 5);
-    if (v31 >= 1)
-    {
-      v32 = 0;
-      v33 = vcvtmd_s64_f64((*&a3 * 8192.0) + 0.5);
-      v34 = vdupq_n_s64(v31 - 1);
-      v35 = (v31 + 7) & 0xFFFFFFF8;
-      v36 = v6 + 4;
-      do
-      {
-        v37 = vdupq_n_s64(v32);
-        v38 = vmovn_s64(vcgeq_u64(v34, vorrq_s8(v37, xmmword_186205EC0)));
-        if (vuzp1_s8(vuzp1_s16(v38, *v34.i8), *v34.i8).u8[0])
-        {
-          *(v36 - 4) = v33;
-        }
-
-        if (vuzp1_s8(vuzp1_s16(v38, *&v34), *&v34).i8[1])
-        {
-          *(v36 - 3) = v33;
-        }
-
-        if (vuzp1_s8(vuzp1_s16(*&v34, vmovn_s64(vcgeq_u64(v34, vorrq_s8(v37, xmmword_186205EB0)))), *&v34).i8[2])
-        {
-          *(v36 - 2) = v33;
-          *(v36 - 1) = v33;
-        }
-
-        v39 = vmovn_s64(vcgeq_u64(v34, vorrq_s8(v37, xmmword_186205EA0)));
-        if (vuzp1_s8(*&v34, vuzp1_s16(v39, *&v34)).i32[1])
-        {
-          *v36 = v33;
-        }
-
-        if (vuzp1_s8(*&v34, vuzp1_s16(v39, *&v34)).i8[5])
-        {
-          v36[1] = v33;
-        }
-
-        if (vuzp1_s8(*&v34, vuzp1_s16(*&v34, vmovn_s64(vcgeq_u64(v34, vorrq_s8(v37, xmmword_186205E90))))).i8[6])
-        {
-          v36[2] = v33;
-          v36[3] = v33;
-        }
-
-        v32 += 8;
-        v36 += 8;
-      }
-
-      while (v35 != v32);
-    }
-  }
-
-  else
-  {
-    v23 = *(this + 5);
-    if (v23 >= 1)
-    {
-      v24 = 0;
-      v25 = vdupq_n_s64(v23 - 1);
-      v26 = (v23 + 3) & 0xFFFFFFFC;
-      v27 = v5 + 2;
-      do
-      {
-        v28 = vdupq_n_s64(v24);
-        v29 = vmovn_s64(vcgeq_u64(v25, vorrq_s8(v28, xmmword_186205EC0)));
-        if (vuzp1_s16(v29, *&a3).u8[0])
-        {
-          *(v27 - 2) = LODWORD(a3);
-        }
-
-        if (vuzp1_s16(v29, *&a3).i8[2])
-        {
-          *(v27 - 1) = LODWORD(a3);
-        }
-
-        if (vuzp1_s16(*&a3, vmovn_s64(vcgeq_u64(v25, vorrq_s8(v28, xmmword_186205EB0)))).i32[1])
-        {
-          *v27 = LODWORD(a3);
-          v27[1] = LODWORD(a3);
-        }
-
-        v24 += 4;
-        v27 += 4;
-      }
-
-      while (v26 != v24);
-    }
-  }
-}
-
-uint64_t kd_multi_line::apply_offset(uint64_t this, int a2, float a3)
-{
-  if ((*(this + 6) & 2) != 0)
-  {
-    v3 = 0;
-  }
-
-  else
-  {
-    v3 = *(this + 8);
-  }
-
-  if ((*(this + 6) & 2) != 0)
-  {
-    v4 = *(this + 8);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (*(this + 36) == 1)
-  {
-    if (a2)
-    {
-      v5 = *(this + 20);
-      if (v3)
-      {
-        if (v5 >= 1)
-        {
-          v6 = v5 + 1;
-          do
-          {
-            *v3++ += a2;
-            --v6;
-          }
-
-          while (v6 > 1);
-        }
-      }
-
-      else if (v5 >= 1)
-      {
-        v9 = v5 + 1;
-        do
-        {
-          *v4++ += a2;
-          --v9;
-        }
-
-        while (v9 > 1);
-      }
-    }
-  }
-
-  else if (a3 != 0.0)
-  {
-    if (v3)
-    {
-      v7 = *(this + 20);
-      if (v7 >= 1)
-      {
-        v8 = v7 + 1;
-        do
-        {
-          *v3 = *v3 + a3;
-          ++v3;
-          --v8;
-        }
-
-        while (v8 > 1);
-      }
-    }
-
-    else
-    {
-      v10 = *(this + 20);
-      if (v10 >= 1)
-      {
-        v11 = vcvtmd_s64_f64((a3 * 8192.0) + 0.5);
-        v12 = v10 + 1;
-        do
-        {
-          *v4++ += v11;
-          --v12;
-        }
-
-        while (v12 > 1);
-      }
-    }
-  }
-
-  return this;
-}
-
-uint64_t kd_multi_line::copy(uint64_t this, kd_multi_line *a2, int a3, float a4)
-{
-  v4 = *(a2 + 5);
-  if (v4 != *(this + 20))
-  {
-    kd_multi_line::copy();
-  }
-
-  if ((*(this + 6) & 2) != 0)
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-    v5 = *(this + 8);
-  }
-
-  if ((*(this + 6) & 2) != 0)
-  {
-    v6 = *(this + 8);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if ((*(a2 + 6) & 2) != 0)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = *(a2 + 1);
-  }
-
-  if ((*(a2 + 6) & 2) != 0)
-  {
-    v8 = *(a2 + 1);
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  if (*(this + 36) == 1)
-  {
-    if ((*(a2 + 36) & 1) == 0)
-    {
-      kd_multi_line::copy();
-    }
-
-    if (v5)
-    {
-      if (v4 >= 1)
-      {
-        v9 = v4 + 1;
-        do
-        {
-          v10 = *v7++;
-          *v5++ = LODWORD(v10) + a3;
-          --v9;
-        }
-
-        while (v9 > 1);
-      }
-    }
-
-    else if (v4 >= 1)
-    {
-      v16 = v4 + 1;
-      do
-      {
-        v17 = *v8++;
-        *v6++ = v17 + a3;
-        --v16;
-      }
-
-      while (v16 > 1);
-    }
-  }
-
-  else if (v5)
-  {
-    if (*(a2 + 36) == 1)
-    {
-      if (v4 >= 1)
-      {
-        v11 = 1.0 / (1 << *(this + 40));
-        v12 = v4 + 1;
-        do
-        {
-          v13 = *v7++;
-          *v5++ = a4 + (v13 * v11);
-          --v12;
-        }
-
-        while (v12 > 1);
-      }
-    }
-
-    else
-    {
-      v18 = *(a2 + 10);
-      v19 = *(this + 40);
-      if (v18 == v19)
-      {
-        if (v4 >= 1)
-        {
-          v20 = v4 + 1;
-          do
-          {
-            v21 = *v7++;
-            *v5++ = v21 + a4;
-            --v20;
-          }
-
-          while (v20 > 1);
-        }
-      }
-
-      else if (v4 >= 1)
-      {
-        v28 = 1 << v18;
-        v29 = (1 << v19);
-        v30 = v4 + 1;
-        do
-        {
-          v31 = *v7++;
-          *v5++ = a4 + (v31 * (v28 / v29));
-          --v30;
-        }
-
-        while (v30 > 1);
-      }
-    }
-  }
-
-  else
-  {
-    v14 = (a4 * 8192.0) + 0.5;
-    if (*(a2 + 36))
-    {
-      v15 = 13;
-    }
-
-    else
-    {
-      v15 = *(a2 + 10);
-    }
-
-    v22 = vcvtmd_s64_f64(v14);
-    v23 = v15 - *(this + 40);
-    if (v23)
-    {
-      if (v23 < 1)
-      {
-        if (v4 >= 1)
-        {
-          v32 = -v23;
-          v33 = (v22 << -v23) + (1 << ~v23);
-          v34 = v4 + 1;
-          do
-          {
-            v35 = *v8++;
-            *v6++ = (v33 + v35) >> v32;
-            --v34;
-          }
-
-          while (v34 > 1);
-        }
-      }
-
-      else if (v4 >= 1)
-      {
-        v26 = v4 + 1;
-        do
-        {
-          v27 = *v8++;
-          *v6++ = (v27 << v23) + v22;
-          --v26;
-        }
-
-        while (v26 > 1);
-      }
-    }
-
-    else if (v4 >= 1)
-    {
-      v24 = v4 + 1;
-      do
-      {
-        v25 = *v8++;
-        *v6++ = v25 + v22;
-        --v24;
-      }
-
-      while (v24 > 1);
-    }
-  }
-
-  return this;
-}
-
 void kd_multi_transform::~kd_multi_transform(kd_multi_transform *this)
 {
   *this = &unk_1EF4D37F8;
@@ -647,10 +80,10 @@ void kd_multi_transform::~kd_multi_transform(kd_multi_transform *this)
   JUMPOUT(0x186602850);
 }
 
-void kd_multi_transform::construct(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+void kd_multi_transform::construct(uint64_t a1, uint64_t a2, uint64_t *a3, _BOOL4 a4, char a5, char a6, int a7, kdu_thread_entity *a8, char *a9, unsigned __int8 a10)
 {
-  v9[0] = a3;
-  v9[1] = a2;
+  v14[0] = a3;
+  v14[1] = a2;
   if (a5)
   {
     ycc = 0;
@@ -658,12 +91,12 @@ void kd_multi_transform::construct(uint64_t a1, uint64_t a2, uint64_t a3, uint64
 
   else
   {
-    ycc = kdu_tile::get_ycc(v9);
+    ycc = kdu_tile::get_ycc(v14);
   }
 
   *(a1 + 8) = ycc;
-  *v7 = 0;
-  *v8 = 0;
+  *v12 = 0;
+  *v13 = 0;
   operator new();
 }
 
@@ -1247,7 +680,7 @@ void kd_multi_transform::create_resources(kd_multi_transform *this)
           kdu_line_buf::create(v31 + v29);
           if (*(v31 + v29 + 39) == 1)
           {
-            LODWORD(v32) = *(v31 + v29 + 48);
+            v32.n128_u32[0] = *(v31 + v29 + 48);
             kd_multi_line::reset((v31 + v29), *(v31 + v29 + 44), v32);
           }
         }
@@ -1276,7 +709,7 @@ void kd_multi_transform::create_resources(kd_multi_transform *this)
           kd_multi_transform::create_resources();
         }
 
-        LODWORD(v37) = *(v36 + 48);
+        v37.n128_u32[0] = *(v36 + 48);
         kd_multi_line::reset(v36, *(v36 + 44), v37);
         v33 = *(this + 6);
         v34 = *v33;
@@ -1355,9 +788,9 @@ uint64_t kd_multi_synthesis::terminate_queues(uint64_t result, kdu_thread_entity
   return result;
 }
 
-uint64_t kd_multi_synthesis::get_size(kd_multi_synthesis *this, unsigned int a2)
+uint64_t kd_multi_synthesis::get_size(kd_multi_synthesis *this, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0 || (v2 = *(this + 7), *v2 <= a2))
+  if (a2 < 0 || (v2 = *(this + 7), *v2 <= a2))
   {
     kd_multi_synthesis::get_size();
   }
@@ -1365,9 +798,9 @@ uint64_t kd_multi_synthesis::get_size(kd_multi_synthesis *this, unsigned int a2)
   return *(*(*(v2 + 8) + 8 * a2) + 16);
 }
 
-uint64_t kd_multi_synthesis::get_line(uint64_t a1, unsigned int a2, kdu_thread_entity *a3)
+uint64_t kd_multi_synthesis::get_line(uint64_t a1, signed int a2, uint64_t a3)
 {
-  if ((a2 & 0x80000000) != 0 || (v5 = *(a1 + 56), *v5 <= a2))
+  if (a2 < 0 || (v5 = *(a1 + 56), *v5 <= a2))
   {
     kd_multi_synthesis::get_line();
   }
@@ -1381,7 +814,7 @@ uint64_t kd_multi_synthesis::get_line(uint64_t a1, unsigned int a2, kdu_thread_e
   return result;
 }
 
-uint64_t kd_multi_synthesis::get_line(uint64_t a1, uint64_t a2, uint64_t a3, kdu_thread_entity *a4)
+uint64_t kd_multi_synthesis::get_line(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (*(a2 + 56))
   {
@@ -1447,7 +880,8 @@ LABEL_5:
 
         *(v4 + 24) = a3;
         *(v4 + 32) = *(v4 + 28);
-        kd_multi_line::copy(v4, v16, *(v4 + 44), *(v4 + 48));
+        v17.n128_u32[0] = *(v4 + 48);
+        kd_multi_line::copy(v4, v16, *(v4 + 44), v17);
       }
 
       else
@@ -1457,82 +891,82 @@ LABEL_5:
           return 0;
         }
 
-        v39 = *(v12 + 40);
-        v40 = *(v12 + 24);
-        while (v39 < v40)
+        v40 = *(v12 + 40);
+        v41 = *(v12 + 24);
+        while (v40 < v41)
         {
-          v41 = *(*(v12 + 32) + 8 * v39);
-          if (v41 && *(v41 + 39) != 1)
+          v42 = *(*(v12 + 32) + 8 * v40);
+          if (v42 && *(v42 + 39) != 1)
           {
-            if (!kd_multi_synthesis::get_line(a1, v41, a3, a4))
+            if (!kd_multi_synthesis::get_line(a1, v42, a3, a4))
             {
               return 0;
             }
 
-            ++*(v41 + 32);
-            v42 = *(v41 + 64);
-            if (v42)
+            ++*(v42 + 32);
+            v43 = *(v42 + 64);
+            if (v43)
             {
-              ++*(v42 + 44);
+              ++*(v43 + 44);
             }
 
-            v39 = *(v12 + 40);
-            v40 = *(v12 + 24);
+            v40 = *(v12 + 40);
+            v41 = *(v12 + 24);
           }
 
-          *(v12 + 40) = ++v39;
+          *(v12 + 40) = ++v40;
         }
 
         (*(*v12 + 40))(v12);
         if (*(v12 + 24) >= 1)
         {
-          v44 = 0;
+          v45 = 0;
           do
           {
-            v45 = *(*(v12 + 32) + 8 * v44);
-            if (v45)
+            v46 = *(*(v12 + 32) + 8 * v45);
+            if (v46)
             {
-              if (*(v45 + 24) != a3)
+              if (*(v46 + 24) != a3)
               {
                 kd_multi_synthesis::get_line();
               }
 
-              --*(v45 + 32);
-              v46 = *(v45 + 64);
-              if (v46)
+              --*(v46 + 32);
+              v47 = *(v46 + 64);
+              if (v47)
               {
-                --*(v46 + 44);
+                --*(v47 + 44);
               }
             }
 
-            ++v44;
+            ++v45;
           }
 
-          while (v44 < *(v12 + 24));
+          while (v45 < *(v12 + 24));
         }
 
         if (*(v12 + 12) >= 1)
         {
-          v47 = 0;
           v48 = 0;
+          v49 = 0;
           do
           {
-            v49 = *(v12 + 16);
-            v50 = v49 + v47;
-            if (*(v49 + v47 + 32) || *(v50 + 24) != v6)
+            v50 = *(v12 + 16);
+            v51 = v50 + v48;
+            if (*(v50 + v48 + 32) || *(v51 + 24) != v6)
             {
               kd_multi_synthesis::get_line();
             }
 
-            *(v50 + 24) = a3;
-            v51 = *(v49 + v47 + 28);
-            *(v50 + 32) = v51;
-            *(v12 + 44) += v51;
-            ++v48;
-            v47 += 80;
+            *(v51 + 24) = a3;
+            v52 = *(v50 + v48 + 28);
+            *(v51 + 32) = v52;
+            *(v12 + 44) += v52;
+            ++v49;
+            v48 += 80;
           }
 
-          while (v48 < *(v12 + 12));
+          while (v49 < *(v12 + 12));
         }
 
         *(v12 + 40) = 0;
@@ -1541,161 +975,161 @@ LABEL_5:
 
     else
     {
-      v17 = *(a2 + 72);
-      if ((v17 & 0x80000000) != 0)
+      v18 = *(a2 + 72);
+      if ((v18 & 0x80000000) != 0)
       {
         kd_multi_synthesis::get_line();
       }
 
-      v18 = *(*(a1 + 48) + 8);
-      if (*(v18 + 8 * v17) != a2)
+      v19 = *(*(a1 + 48) + 8);
+      if (*(v19 + 8 * v18) != a2)
       {
         kd_multi_synthesis::get_line();
       }
 
-      v19 = (v17 < 3) & *(a1 + 16);
-      if (v19 == 1)
+      v20 = (v18 < 3) & *(a1 + 16);
+      if (v20 == 1)
       {
-        v20 = 0;
+        v21 = 0;
         while (1)
         {
-          v21 = *(v18 + v20);
-          if (*(v21 + 24) != v6)
+          v22 = *(v19 + v21);
+          if (*(v22 + 24) != v6)
           {
             kd_multi_synthesis::get_line();
           }
 
-          if (*(v21 + 32) >= 1)
+          if (*(v22 + 32) >= 1)
           {
             return 0;
           }
 
-          v20 += 8;
-          if (v20 == 24)
+          v21 += 8;
+          if (v21 == 24)
           {
-            v17 = 0;
+            v18 = 0;
             break;
           }
         }
       }
 
-      v22 = 160 * v17 + 136;
+      v23 = 160 * v18 + 136;
       do
       {
-        v23 = *(a1 + 40);
-        v24 = (v23 + v22);
-        v25 = *(v23 + v22 - 24);
-        if (!v25)
+        v24 = *(a1 + 40);
+        v25 = (v24 + v23);
+        v26 = *(v24 + v23 - 24);
+        if (!v26)
         {
-          if (*(v24 - 32) == 1)
+          if (*(v25 - 32) == 1)
           {
-            if (!a4 || (v26 = v23 + v22, *(v23 + v22 - 16) <= 0))
+            if (!a4 || (v27 = v24 + v23, *(v24 + v23 - 16) <= 0))
             {
               kd_multi_synthesis::get_line();
             }
 
-            kdu_thread_entity::process_jobs(a4, *(v26 - 120), 0, 1);
-            v27 = *(v26 - 20);
-            v25 = *(v26 - 16);
-            *(v26 - 28) = v27;
-            if (v27 <= 0)
+            kdu_thread_entity::process_jobs(a4, *(v27 - 120), 0, 1);
+            v28 = *(v27 - 20);
+            v26 = *(v27 - 16);
+            *(v27 - 28) = v28;
+            if (v28 <= 0)
             {
-              v28 = v25;
+              v29 = v26;
             }
 
             else
             {
-              v28 = 0;
+              v29 = 0;
             }
 
-            v29 = *(v26 - 96) - (v25 + a3);
-            if (v29 >= *(v26 - 12))
+            v30 = *(v27 - 96) - (v26 + a3);
+            if (v30 >= *(v27 - 12))
             {
-              v29 = *(v26 - 12);
+              v30 = *(v27 - 12);
             }
 
-            *(v24 - 6) = v25;
-            *(v26 - 20) = v28;
-            *(v26 - 16) = v29;
-            if (v29 >= 1)
+            *(v25 - 6) = v26;
+            *(v27 - 20) = v29;
+            *(v27 - 16) = v30;
+            if (v30 >= 1)
             {
-              kdu_thread_entity::add_jobs(a4, *(v26 - 120), 1, 0);
-              v25 = *(v24 - 6);
+              kdu_thread_entity::add_jobs(a4, *(v27 - 120), 1, 0);
+              v26 = *(v25 - 6);
             }
           }
 
           else
           {
-            v30 = v23 + v22;
-            if ((a4 == 0) != (*(v23 + v22 - 120) == 0))
+            v31 = v24 + v23;
+            if ((a4 == 0) != (*(v24 + v23 - 120) == 0))
             {
               kd_multi_synthesis::get_line();
             }
 
-            *(v30 - 28) = 0;
-            v31 = *(v30 - 96) - a3;
-            if (v31 >= *(v30 - 12))
+            *(v31 - 28) = 0;
+            v32 = *(v31 - 96) - a3;
+            if (v32 >= *(v31 - 12))
             {
-              v31 = *(v30 - 12);
+              v32 = *(v31 - 12);
             }
 
-            *(v30 - 20) = 0;
-            *(v30 - 16) = v31;
-            (*(*(v24 - 17) + 16))(v24 - 17, a4, 0);
-            v25 = *(v30 - 16);
-            *(v24 - 6) = v25;
-            *(v30 - 16) = 0;
+            *(v31 - 20) = 0;
+            *(v31 - 16) = v32;
+            (*(*(v25 - 17) + 16))(v25 - 17, a4, 0);
+            v26 = *(v31 - 16);
+            *(v25 - 6) = v26;
+            *(v31 - 16) = 0;
           }
         }
 
-        v32 = *v24;
-        v33 = *(v24 - 7);
-        *(v24 - 7) = v33 + 1;
-        *(v24 - 7) = *(v32 + 16 * v33);
-        *(v24 - 6) = v25 - 1;
-        if (v17 < 2)
+        v33 = *v25;
+        v34 = *(v25 - 7);
+        *(v25 - 7) = v34 + 1;
+        *(v25 - 7) = *(v33 + 16 * v34);
+        *(v25 - 6) = v26 - 1;
+        if (v18 < 2)
         {
-          v34 = v19;
+          v35 = v20;
         }
 
         else
         {
-          v34 = 0;
+          v35 = 0;
         }
 
-        ++v17;
-        v22 += 160;
+        ++v18;
+        v23 += 160;
       }
 
-      while ((v34 & 1) != 0);
-      if (v19)
+      while ((v35 & 1) != 0);
+      if (v20)
       {
-        v35 = *(*(a1 + 48) + 8);
-        if (kdu_convert_ycc_to_rgb(*v35, v35[1], v35[2], -1))
+        v36 = *(*(a1 + 48) + 8);
+        if (kdu_convert_ycc_to_rgb(*v36, v36[1], v36[2], -1))
         {
-          v53 = 0;
-          memset(v52, 0, sizeof(v52));
-          kdu_error::kdu_error(v52, "Kakadu Core Error:\n");
-          (*(*&v52[0] + 16))(v52, "Corrupt JP2 data");
-          kdu_error::~kdu_error(v52);
+          v54 = 0;
+          memset(v53, 0, sizeof(v53));
+          kdu_error::kdu_error(v53, "Kakadu Core Error:\n");
+          (*(*&v53[0] + 16))(v53, "Corrupt JP2 data");
+          kdu_error::~kdu_error(v53);
         }
 
         for (i = 0; i != 3; ++i)
         {
-          v37 = v35[i];
-          kd_multi_line::apply_offset(v37, *(v37 + 44), *(v37 + 48));
-          v38 = *(v37 + 28);
-          ++*(v37 + 24);
-          *(v37 + 32) = v38;
+          v38 = v36[i];
+          kd_multi_line::apply_offset(v38, *(v38 + 44), *(v38 + 48));
+          v39 = *(v38 + 28);
+          ++*(v38 + 24);
+          *(v38 + 32) = v39;
         }
       }
 
       else
       {
         kd_multi_line::apply_offset(v4, *(v4 + 44), *(v4 + 48));
-        v43 = *(v4 + 28);
+        v44 = *(v4 + 28);
         ++*(v4 + 24);
-        *(v4 + 32) = v43;
+        *(v4 + 32) = v44;
       }
     }
 
@@ -1710,7 +1144,7 @@ LABEL_5:
   return v4;
 }
 
-uint64_t kd_multi_synthesis::is_line_precise(kd_multi_synthesis *this, unsigned int a2)
+uint64_t kd_multi_synthesis::is_line_precise(kd_multi_synthesis *this, signed int a2)
 {
   v2 = 0;
   if ((a2 & 0x80000000) == 0)
@@ -1733,7 +1167,7 @@ uint64_t kd_multi_synthesis::is_line_precise(kd_multi_synthesis *this, unsigned 
   return v2 & 1;
 }
 
-uint64_t kd_multi_synthesis::is_line_absolute(kd_multi_synthesis *this, unsigned int a2)
+uint64_t kd_multi_synthesis::is_line_absolute(kd_multi_synthesis *this, signed int a2)
 {
   v2 = 0;
   if ((a2 & 0x80000000) == 0)
@@ -2103,9 +1537,9 @@ LABEL_76:
   return this;
 }
 
-uint64_t kd_multi_analysis::get_size(kd_multi_analysis *this, unsigned int a2)
+uint64_t kd_multi_analysis::get_size(kd_multi_analysis *this, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0 || (v2 = *(this + 7), *v2 <= a2))
+  if (a2 < 0 || (v2 = *(this + 7), *v2 <= a2))
   {
     kd_multi_analysis::get_size();
   }
@@ -2113,9 +1547,9 @@ uint64_t kd_multi_analysis::get_size(kd_multi_analysis *this, unsigned int a2)
   return *(*(*(v2 + 8) + 8 * a2) + 16);
 }
 
-uint64_t kd_multi_analysis::exchange_line(uint64_t a1, unsigned int a2, uint64_t a3, kdu_thread_entity *a4)
+uint64_t kd_multi_analysis::exchange_line(uint64_t a1, signed int a2, uint64_t a3, uint64_t a4)
 {
-  if ((a2 & 0x80000000) != 0 || (v6 = *(a1 + 56), *v6 <= a2))
+  if (a2 < 0 || (v6 = *(a1 + 56), *v6 <= a2))
   {
     kd_multi_analysis::exchange_line();
   }
@@ -2140,7 +1574,7 @@ uint64_t kd_multi_analysis::exchange_line(uint64_t a1, unsigned int a2, uint64_t
     }
 
     kd_multi_line::apply_offset(v8, -*(v8 + 44), -*(v8 + 48));
-    kd_multi_analysis::advance_line(a1, v8, v7, a4);
+    kd_multi_analysis::advance_line(a1, v8, v7, a4, v10);
     LODWORD(v7) = v7 + 1;
     *(*(a1 + 144) + 4 * a2) = v7;
   }
@@ -2161,7 +1595,7 @@ uint64_t kd_multi_analysis::exchange_line(uint64_t a1, unsigned int a2, uint64_t
   }
 }
 
-uint64_t kd_multi_analysis::advance_line(uint64_t result, uint64_t a2, uint64_t a3, kdu_thread_entity *a4)
+uint64_t kd_multi_analysis::advance_line(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, __n128 a5)
 {
   if (*(a2 + 28) != 1)
   {
@@ -2177,147 +1611,148 @@ uint64_t kd_multi_analysis::advance_line(uint64_t result, uint64_t a2, uint64_t 
   *(a2 + 32) = 0;
   if ((*(a2 + 39) & 1) == 0)
   {
-    v7 = result;
-    v8 = *(a2 + 64);
-    if (v8)
+    v8 = result;
+    v9 = *(a2 + 64);
+    if (v9)
     {
-      if (*(v8 + 8) != 1)
+      if (*(v9 + 8) != 1)
       {
         *(a2 + 32) = 1;
-        v37 = *(v8 + 44);
-        v29 = __OFSUB__(v37--, 1);
-        *(v8 + 44) = v37;
-        if (!((v37 < 0) ^ v29 | (v37 == 0)))
+        v39 = *(v9 + 44);
+        v31 = __OFSUB__(v39--, 1);
+        *(v9 + 44) = v39;
+        if (!((v39 < 0) ^ v31 | (v39 == 0)))
         {
           return result;
         }
 
-        v38 = *(v8 + 24);
-        v39 = *(v8 + 40);
-        if (v38 > v39)
+        v40 = *(v9 + 24);
+        v41 = *(v9 + 40);
+        if (v40 > v41)
         {
-          v40 = 8 * v39;
-          v41 = v38 - v39;
-          v42 = v39 + 1;
+          v42 = 8 * v41;
+          v43 = v40 - v41;
+          v44 = v41 + 1;
           do
           {
-            v43 = *(v8 + 32);
-            v44 = *(v43 + v40);
-            if (v44)
+            v45 = *(v9 + 32);
+            v46 = *(v45 + v42);
+            if (v46)
             {
-              if (*(v44 + 39) == 1)
+              if (*(v46 + 39) == 1)
               {
-                *(v43 + v40) = 0;
+                *(v45 + v42) = 0;
               }
 
-              else if (*(v44 + 24) < a3 && (*(v44 + 32) & 1) != 0)
+              else if (*(v46 + 24) < a3 && (*(v46 + 32) & 1) != 0)
               {
                 return result;
               }
             }
 
-            *(v8 + 40) = v42;
-            v40 += 8;
-            ++v42;
-            --v41;
+            *(v9 + 40) = v44;
+            v42 += 8;
+            ++v44;
+            --v43;
           }
 
-          while (v41);
+          while (v43);
         }
 
-        if (v38 >= 1)
+        if (v40 >= 1)
         {
-          v45 = 0;
-          v46 = 8 * v38;
+          v47 = 0;
+          v48 = 8 * v40;
           do
           {
-            v47 = *(v8 + 32);
-            v48 = *(v47 + v45);
-            if (v48 && *(v48 + 24) >= a3)
+            v49 = *(v9 + 32);
+            v50 = *(v49 + v47);
+            if (v50 && *(v50 + 24) >= a3)
             {
-              v49 = *(v48 + 28);
-              v29 = __OFSUB__(v49, 1);
-              v50 = v49 - 1;
-              if ((v50 < 0) ^ v29 | (v50 == 0))
+              v51 = *(v50 + 28);
+              v31 = __OFSUB__(v51, 1);
+              v52 = v51 - 1;
+              if ((v52 < 0) ^ v31 | (v52 == 0))
               {
                 kd_multi_analysis::advance_line();
               }
 
-              *(v48 + 28) = v50;
-              *(v47 + v45) = 0;
+              *(v50 + 28) = v52;
+              *(v49 + v47) = 0;
             }
 
-            v45 += 8;
+            v47 += 8;
           }
 
-          while (v46 != v45);
+          while (v48 != v47);
         }
 
-        result = (*(*v8 + 56))(v8);
-        v51 = *(v8 + 24);
-        if (v51 >= 1)
+        result = (*(*v9 + 56))(v9, a5);
+        v54 = *(v9 + 24);
+        if (v54 >= 1)
         {
-          for (i = 0; i < v51; ++i)
+          for (i = 0; i < v54; ++i)
           {
-            v53 = *(*(v8 + 32) + 8 * i);
-            if (v53)
+            v56 = *(*(v9 + 32) + 8 * i);
+            if (v56)
             {
-              result = kd_multi_analysis::advance_line(v7, v53, a3, a4);
-              v51 = *(v8 + 24);
+              result = kd_multi_analysis::advance_line(v8, v56, a3, a4, v53);
+              v54 = *(v9 + 24);
             }
           }
         }
 
-        if (*(v8 + 12) >= 1)
+        if (*(v9 + 12) >= 1)
         {
-          v54 = 0;
-          v55 = 0;
-          v56 = *(v8 + 16);
+          v57 = 0;
+          v58 = 0;
+          v59 = *(v9 + 16);
           do
           {
-            *(v56 + v54 + 32) = 0;
-            v56 = *(v8 + 16);
-            v57 = *(v56 + v54 + 28);
-            if (v57 >= 1)
+            *(v59 + v57 + 32) = 0;
+            v59 = *(v9 + 16);
+            v60 = *(v59 + v57 + 28);
+            if (v60 >= 1)
             {
-              if (v57 != 1)
+              if (v60 != 1)
               {
                 kd_multi_analysis::advance_line();
               }
 
-              ++*(v8 + 44);
+              ++*(v9 + 44);
             }
 
-            ++v55;
-            v54 += 80;
+            ++v58;
+            v57 += 80;
           }
 
-          while (v55 < *(v8 + 12));
+          while (v58 < *(v9 + 12));
         }
 
-        *(v8 + 40) = 0;
+        *(v9 + 40) = 0;
         goto LABEL_76;
       }
 
-      v9 = -858993459 * ((a2 - *(v8 + 16)) >> 4);
-      if (v9 < 0 || *(v8 + 24) <= v9)
+      v10 = -858993459 * ((a2 - *(v9 + 16)) >> 4);
+      if (v10 < 0 || *(v9 + 24) <= v10)
       {
         kd_multi_analysis::advance_line();
       }
 
-      v10 = *(v8 + 32);
-      v11 = v9 & 0x7FFFFFFF;
-      v12 = *(v10 + 8 * v11);
-      v13 = *(v12 + 28);
-      if (*(v12 + 24) < a3)
+      v11 = *(v9 + 32);
+      v12 = v10 & 0x7FFFFFFF;
+      v13 = *(v11 + 8 * v12);
+      v14 = *(v13 + 28);
+      if (*(v13 + 24) < a3)
       {
-        if (v13 < 1 || *(v12 + 39) == 1)
+        if (v14 < 1 || *(v13 + 39) == 1)
         {
           kd_multi_analysis::advance_line();
         }
 
-        kd_multi_line::copy(v12, a2, -*(v12 + 44), -*(v12 + 48));
-        result = kd_multi_analysis::advance_line(v7, v12, a3, a4);
+        a5.n128_f32[0] = -*(v13 + 48);
+        kd_multi_line::copy(v13, a2, -*(v13 + 44), a5);
+        result = kd_multi_analysis::advance_line(v8, v13, a3, a4, v15);
 LABEL_76:
         if (*(a2 + 32) == 1)
         {
@@ -2327,157 +1762,157 @@ LABEL_76:
         return result;
       }
 
-      v29 = __OFSUB__(v13, 1);
-      v58 = v13 - 1;
-      if ((v58 < 0) ^ v29 | (v58 == 0))
+      v31 = __OFSUB__(v14, 1);
+      v61 = v14 - 1;
+      if ((v61 < 0) ^ v31 | (v61 == 0))
       {
         kd_multi_analysis::advance_line();
       }
 
-      *(v12 + 28) = v58;
-      *(v10 + 8 * v11) = 0;
+      *(v13 + 28) = v61;
+      *(v11 + 8 * v12) = 0;
     }
 
     else
     {
-      v14 = *(a2 + 72);
-      if ((v14 & 0x80000000) != 0)
+      v16 = *(a2 + 72);
+      if ((v16 & 0x80000000) != 0)
       {
         kd_multi_analysis::advance_line();
       }
 
-      if (*(*(*(result + 48) + 8) + 8 * v14) != a2)
+      if (*(*(*(result + 48) + 8) + 8 * v16) != a2)
       {
         kd_multi_analysis::advance_line();
       }
 
-      v15 = (v14 < 3) & *(result + 16);
-      if (v15 != 1)
+      v17 = (v16 < 3) & *(result + 16);
+      if (v17 != 1)
       {
 LABEL_24:
-        v20 = ~a3;
-        v21 = 160 * v14 + 136;
+        v22 = ~a3;
+        v23 = 160 * v16 + 136;
         do
         {
-          v22 = *(v7 + 40);
-          v23 = v22 + v21;
-          v24 = *(v22 + v21 - 24);
-          if (!v24)
+          v24 = *(v8 + 40);
+          v25 = v24 + v23;
+          v26 = *(v24 + v23 - 24);
+          if (!v26)
           {
-            if (*(v23 - 32) == 1)
+            if (*(v25 - 32) == 1)
             {
               if (!a4)
               {
                 kd_multi_analysis::advance_line();
               }
 
-              v25 = v22 + v21;
-              if (*(v22 + v21 - 16) && (kdu_thread_entity::process_jobs(a4, *(v25 - 120), 0, 1), !*(v25 - 20)))
+              v27 = v24 + v23;
+              if (*(v24 + v23 - 16) && (kdu_thread_entity::process_jobs(a4, *(v27 - 120), 0, 1), !*(v27 - 20)))
               {
-                v35 = *(v25 - 16);
-                v36 = *(v22 + v21 - 28) - v35;
-                *(v25 - 20) = v35;
-                *(v25 - 16) = v36;
-                if (v35 >= 1)
+                v37 = *(v27 - 16);
+                v38 = *(v24 + v23 - 28) - v37;
+                *(v27 - 20) = v37;
+                *(v27 - 16) = v38;
+                if (v37 >= 1)
                 {
-                  *(v22 + v21 - 28) = 0;
+                  *(v24 + v23 - 28) = 0;
                 }
               }
 
               else
               {
-                v26 = *(v25 - 28);
-                *(v25 - 20) = 0;
-                *(v25 - 16) = v26;
+                v28 = *(v27 - 28);
+                *(v27 - 20) = 0;
+                *(v27 - 16) = v28;
               }
 
-              result = kdu_thread_entity::add_jobs(a4, *(v22 + v21 - 120), 1, 0);
+              result = kdu_thread_entity::add_jobs(a4, *(v24 + v23 - 120), 1, 0);
             }
 
             else
             {
-              v27 = v22 + v21;
-              if ((a4 == 0) != (*(v22 + v21 - 120) == 0))
+              v29 = v24 + v23;
+              if ((a4 == 0) != (*(v24 + v23 - 120) == 0))
               {
                 kd_multi_analysis::advance_line();
               }
 
-              v28 = *(v27 - 28);
-              *(v27 - 20) = 0;
-              *(v27 - 16) = v28;
-              *(v27 - 28) = 0;
-              result = (*(*(v23 - 136) + 16))(v23 - 136, a4, 0);
-              *(v27 - 16) = 0;
+              v30 = *(v29 - 28);
+              *(v29 - 20) = 0;
+              *(v29 - 16) = v30;
+              *(v29 - 28) = 0;
+              result = (*(*(v25 - 136) + 16))(v25 - 136, a4, 0);
+              *(v29 - 16) = 0;
             }
 
-            v24 = *(v22 + v21 - 12);
-            if (*(v22 + v21 - 96) + v20 < v24)
+            v26 = *(v24 + v23 - 12);
+            if (*(v24 + v23 - 96) + v22 < v26)
             {
-              v24 = *(v22 + v21 - 96) + v20;
+              v26 = *(v24 + v23 - 96) + v22;
             }
 
-            *(v23 - 24) = v24;
+            *(v25 - 24) = v26;
           }
 
-          v29 = __OFSUB__(v24, 1);
-          v30 = v24 - 1;
-          if (v30 < 0 == v29)
+          v31 = __OFSUB__(v26, 1);
+          v32 = v26 - 1;
+          if (v32 < 0 == v31)
           {
-            v31 = v22 + v21;
-            v32 = *(v22 + v21);
-            v33 = *(v22 + v21 - 28);
-            *(v31 - 28) = v33 + 1;
-            *(v31 - 112) = *(v32 + 16 * v33);
-            *(v23 - 24) = v30;
+            v33 = v24 + v23;
+            v34 = *(v24 + v23);
+            v35 = *(v24 + v23 - 28);
+            *(v33 - 28) = v35 + 1;
+            *(v33 - 112) = *(v34 + 16 * v35);
+            *(v25 - 24) = v32;
           }
 
-          if (v14 < 2)
+          if (v16 < 2)
           {
-            v34 = v15;
+            v36 = v17;
           }
 
           else
           {
-            v34 = 0;
+            v36 = 0;
           }
 
-          v21 += 160;
-          ++v14;
+          v23 += 160;
+          ++v16;
         }
 
-        while ((v34 & 1) != 0);
+        while ((v36 & 1) != 0);
         goto LABEL_76;
       }
 
-      v16 = 0;
+      v18 = 0;
       *(a2 + 32) = 1;
-      v17 = *(*(result + 48) + 8);
-      while (*(v17[v16] + 24) >= a3)
+      v19 = *(*(result + 48) + 8);
+      while (*(v19[v18] + 24) >= a3)
       {
-        if (++v16 == 3)
+        if (++v18 == 3)
         {
-          result = kdu_convert_rgb_to_ycc(*v17, v17[1], v17[2]);
+          result = kdu_convert_rgb_to_ycc(*v19, v19[1], v19[2]);
           if (result)
           {
-            v60 = 0;
-            memset(v59, 0, sizeof(v59));
-            kdu_error::kdu_error(v59, "Kakadu Core Error:\n");
-            (*(*&v59[0] + 16))(v59, "Corrupt JP2 data");
-            kdu_error::~kdu_error(v59);
+            v63 = 0;
+            memset(v62, 0, sizeof(v62));
+            kdu_error::kdu_error(v62, "Kakadu Core Error:\n");
+            (*(*&v62[0] + 16))(v62, "Corrupt JP2 data");
+            kdu_error::~kdu_error(v62);
           }
 
           for (j = 0; j != 3; ++j)
           {
-            v19 = v17[j];
-            if ((*(v19 + 32) & 1) == 0)
+            v21 = v19[j];
+            if ((*(v21 + 32) & 1) == 0)
             {
               kd_multi_analysis::advance_line();
             }
 
-            *(v19 + 32) = 0;
+            *(v21 + 32) = 0;
           }
 
-          v14 = 0;
+          v16 = 0;
           goto LABEL_24;
         }
       }
@@ -2487,7 +1922,7 @@ LABEL_24:
   return result;
 }
 
-uint64_t kd_multi_analysis::is_line_precise(kd_multi_analysis *this, unsigned int a2)
+uint64_t kd_multi_analysis::is_line_precise(kd_multi_analysis *this, signed int a2)
 {
   v2 = 0;
   if ((a2 & 0x80000000) == 0)
@@ -2510,7 +1945,7 @@ uint64_t kd_multi_analysis::is_line_precise(kd_multi_analysis *this, unsigned in
   return v2 & 1;
 }
 
-uint64_t kd_multi_analysis::is_line_absolute(kd_multi_analysis *this, unsigned int a2)
+uint64_t kd_multi_analysis::is_line_absolute(kd_multi_analysis *this, signed int a2)
 {
   v2 = 0;
   if ((a2 & 0x80000000) == 0)
@@ -3050,7 +2485,7 @@ LABEL_38:
 
     else
     {
-      kd_multi_matrix_block::create_short_coefficients(this);
+      kd_multi_matrix_block::create_short_coefficients(this, *v5);
       if ((*(v5 + 6) & 2) != 0)
       {
         goto LABEL_35;
@@ -3062,56 +2497,56 @@ LABEL_38:
   }
 }
 
-uint64_t kd_multi_matrix_block::create_short_coefficients(uint64_t this)
+uint64_t kd_multi_matrix_block::create_short_coefficients(uint64_t this, int a2)
 {
   if (!*(this + 80))
   {
-    v1 = *(this + 12);
-    v2 = *(this + 24);
-    if (v1 >= 1)
+    v2 = *(this + 12);
+    v3 = *(this + 24);
+    if (v2 >= 1)
     {
-      v3 = 0;
       v4 = 0;
-      v5 = 0.00001;
+      v5 = 0;
+      v6 = 0.00001;
       do
       {
-        if (v2 >= 1)
+        if (v3 >= 1)
         {
-          v6 = *(this + 32);
-          v7 = *(this + 24);
-          v8 = v3;
+          v7 = *(this + 32);
+          v8 = *(this + 24);
+          v9 = v4;
           do
           {
-            if (*v6)
+            if (*v7)
             {
-              v9 = *(*(this + 64) + v8);
-              if (v9 <= v5)
+              v10 = *(*(this + 64) + v9);
+              if (v10 <= v6)
               {
-                if (v9 < -v5)
+                if (v10 < -v6)
                 {
-                  v5 = -v9;
+                  v6 = -v10;
                 }
               }
 
               else
               {
-                v5 = *(*(this + 64) + v8);
+                v6 = *(*(this + 64) + v9);
               }
             }
 
-            v8 += 4;
-            ++v6;
-            --v7;
+            v9 += 4;
+            ++v7;
+            --v8;
           }
 
-          while (v7);
+          while (v8);
         }
 
-        ++v4;
-        v3 += 4 * v2;
+        ++v5;
+        v4 += 4 * v3;
       }
 
-      while (v4 != v1);
+      while (v5 != v2);
     }
 
     operator new[]();
@@ -3214,7 +2649,7 @@ LABEL_32:
 
           else
           {
-            kd_multi_matrix_block::create_short_inverse_coefficients(this);
+            kd_multi_matrix_block::create_short_inverse_coefficients(this, *v5);
             if ((*(v5 + 6) & 2) == 0)
             {
               goto LABEL_32;
@@ -3362,53 +2797,53 @@ LABEL_47:
   }
 }
 
-uint64_t kd_multi_matrix_block::create_short_inverse_coefficients(uint64_t this)
+uint64_t kd_multi_matrix_block::create_short_inverse_coefficients(uint64_t this, int a2)
 {
   if (!*(this + 80))
   {
-    v1 = *(this + 24);
-    if (v1 >= 1)
+    v2 = *(this + 24);
+    if (v2 >= 1)
     {
-      v2 = 0;
       v3 = 0;
-      v4 = 0.00001;
+      v4 = 0;
+      v5 = 0.00001;
       do
       {
-        if (*(*(this + 32) + 8 * v3))
+        if (*(*(this + 32) + 8 * v4))
         {
-          v5 = *(this + 12);
-          if (v5 >= 1)
+          v6 = *(this + 12);
+          if (v6 >= 1)
           {
-            v6 = (*(this + 72) + v2 * v5);
+            v7 = (*(this + 72) + v3 * v6);
             do
             {
-              v7 = *v6;
-              if (*v6 <= v4)
+              v8 = *v7;
+              if (*v7 <= v5)
               {
-                if (v7 < -v4)
+                if (v8 < -v5)
                 {
-                  v4 = -v7;
+                  v5 = -v8;
                 }
               }
 
               else
               {
-                v4 = *v6;
+                v5 = *v7;
               }
 
-              ++v6;
-              --v5;
+              ++v7;
+              --v6;
             }
 
-            while (v5);
+            while (v6);
           }
         }
 
-        ++v3;
-        v2 += 4;
+        ++v4;
+        v3 += 4;
       }
 
-      while (v3 != v1);
+      while (v4 != v2);
     }
 
     operator new[]();
@@ -3475,202 +2910,203 @@ LABEL_5:
   return v3;
 }
 
-void kd_multi_rxform_block::perform_transform(kd_multi_rxform_block *this)
+void kd_multi_rxform_block::perform_transform(kd_multi_rxform_block *this, __n128 a2)
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v1 = *(this + 3);
-  if (*(this + 6) != v1)
+  v55 = *MEMORY[0x1E69E9840];
+  v2 = *(this + 3);
+  if (*(this + 6) != v2)
   {
     kd_multi_rxform_block::perform_transform();
   }
 
-  if (v1 >= 1)
+  if (v2 >= 1)
   {
-    for (i = 0; i != v1; ++i)
+    for (i = 0; i != v2; ++i)
     {
-      v4 = (*(this + 2) + 80 * i);
-      v5 = *(*(this + 4) + 8 * i);
-      if (v5)
+      v5 = (*(this + 2) + 80 * i);
+      v6 = *(*(this + 4) + 8 * i);
+      a2.n128_u64[0] = 0;
+      if (v6)
       {
-        kd_multi_line::copy(v4, v5, 0, 0.0);
+        kd_multi_line::copy(v5, v6, 0, a2);
       }
 
       else
       {
-        kd_multi_line::reset(v4, 0, 0.0);
+        kd_multi_line::reset(v5, 0, a2);
       }
     }
   }
 
-  if ((v1 & 0x80000000) == 0)
+  if ((v2 & 0x80000000) == 0)
   {
-    v6 = 0;
-    v7 = v1 + 1;
-    v8 = vdupq_n_s64(4uLL);
+    v7 = 0;
+    v8 = v2 + 1;
+    v9 = vdupq_n_s64(4uLL);
     while (1)
     {
-      if (v6 == v1)
+      if (v7 == v2)
       {
-        v9 = -1;
+        v10 = -1;
       }
 
       else
       {
-        v9 = ~v6;
+        v10 = ~v7;
       }
 
-      v10 = (v1 + v9);
-      v11 = (*(this + 2) + 80 * v10);
-      v12 = *v11;
-      v13 = *v11;
+      v11 = (v2 + v10);
+      v12 = (*(this + 2) + 80 * v11);
+      v13 = *v12;
+      v14 = *v12;
       if (!*(this + 9))
       {
         operator new[]();
       }
 
-      v14 = *(*(this + 8) + 4 * v6 + 4 * v10 * v7);
-      if (v14 >= 0)
+      v15 = *(*(this + 8) + 4 * v7 + 4 * v11 * v8);
+      if (v15 >= 0)
       {
-        v15 = *(*(this + 8) + 4 * v6 + 4 * v10 * v7);
+        v16 = *(*(this + 8) + 4 * v7 + 4 * v11 * v8);
       }
 
       else
       {
-        v15 = -v14;
+        v16 = -v15;
       }
 
-      if (v6 == v1)
+      if (v7 == v2)
       {
-        v16 = v15;
+        v17 = v16;
       }
 
       else
       {
-        v16 = *(*(this + 8) + 4 * v6 + 4 * v10 * v7);
+        v17 = *(*(this + 8) + 4 * v7 + 4 * v11 * v8);
       }
 
-      v17 = -1;
+      v18 = -1;
       do
       {
-        ++v17;
+        ++v18;
       }
 
-      while (1 << v17 < v16);
-      if (1 << v17 != v16)
+      while (1 << v18 < v17);
+      if (1 << v18 != v17)
       {
-        v48 = 0;
-        memset(v47, 0, sizeof(v47));
-        kdu_error::kdu_error(v47, "Kakadu Core Error:\n");
-        (*(*&v47[0] + 16))(v47, "Multi-component reversible decorrelation transforms must have exact positive powers of 2 for the divisors which are used to scale and round the update terms.  The offending divisor is ");
-        v52 = 0u;
+        v49 = 0;
+        memset(v48, 0, sizeof(v48));
+        kdu_error::kdu_error(v48, "Kakadu Core Error:\n");
+        (*(*&v48[0] + 16))(v48, "Multi-component reversible decorrelation transforms must have exact positive powers of 2 for the divisors which are used to scale and round the update terms.  The offending divisor is ");
         v53 = 0u;
-        v50 = 0u;
+        v54 = 0u;
         v51 = 0u;
-        *v49 = 0u;
-        if (BYTE8(v47[0]))
+        v52 = 0u;
+        *v50 = 0u;
+        if (BYTE8(v48[0]))
         {
-          sprintf(v49, "%x");
+          sprintf(v50, "%x");
         }
 
         else
         {
-          sprintf(v49, "%d");
+          sprintf(v50, "%d");
         }
 
-        (*(*&v47[0] + 16))(v47, v49);
-        (*(*&v47[0] + 16))(v47, ".");
-        kdu_error::~kdu_error(v47);
+        (*(*&v48[0] + 16))(v48, v50);
+        (*(*&v48[0] + 16))(v48, ".");
+        kdu_error::~kdu_error(v48);
       }
 
-      if (v13 >= 1)
+      if (v14 >= 1)
       {
-        v18 = v16 >> 1;
-        v19 = (v12 + 3) & 0xFFFFFFFC;
-        v20 = vdupq_n_s64(v12 - 1);
-        v21 = (*(this + 9) + 8);
-        v22 = xmmword_186205EC0;
-        v23 = xmmword_186205EB0;
+        v19 = v17 >> 1;
+        v20 = (v13 + 3) & 0xFFFFFFFC;
+        v21 = vdupq_n_s64(v13 - 1);
+        v22 = (*(this + 9) + 8);
+        v23 = xmmword_186205EC0;
+        v24 = xmmword_186205EB0;
         do
         {
-          v24 = vmovn_s64(vcgeq_u64(v20, v22));
-          if (vuzp1_s16(v24, *v20.i8).u8[0])
+          v25 = vmovn_s64(vcgeq_u64(v21, v23));
+          if (vuzp1_s16(v25, *v21.i8).u8[0])
           {
-            *(v21 - 2) = v18;
+            *(v22 - 2) = v19;
           }
 
-          if (vuzp1_s16(v24, *&v20).i8[2])
+          if (vuzp1_s16(v25, *&v21).i8[2])
           {
-            *(v21 - 1) = v18;
+            *(v22 - 1) = v19;
           }
 
-          if (vuzp1_s16(*&v20, vmovn_s64(vcgeq_u64(v20, *&v23))).i32[1])
+          if (vuzp1_s16(*&v21, vmovn_s64(vcgeq_u64(v21, *&v24))).i32[1])
           {
-            *v21 = v18;
-            v21[1] = v18;
+            *v22 = v19;
+            v22[1] = v19;
           }
 
-          v23 = vaddq_s64(v23, v8);
-          v22 = vaddq_s64(v22, v8);
-          v21 += 4;
-          v19 -= 4;
+          v24 = vaddq_s64(v24, v9);
+          v23 = vaddq_s64(v23, v9);
+          v22 += 4;
+          v20 -= 4;
         }
 
-        while (v19);
+        while (v20);
       }
 
-      v25 = *(v11 + 6);
-      if ((v25 & 2) != 0 || (v26 = *(v11 + 1)) == 0)
+      v26 = *(v12 + 6);
+      if ((v26 & 2) != 0 || (v27 = *(v12 + 1)) == 0)
       {
-        if (v1)
+        if (v2)
         {
-          for (j = 0; j != v1; ++j)
+          for (j = 0; j != v2; ++j)
           {
-            if (j != v10)
+            if (j != v11)
             {
-              v36 = *(*(this + 8) + 4 * j * v7 + 4 * v6);
-              if (v36)
+              v37 = *(*(this + 8) + 4 * j * v8 + 4 * v7);
+              if (v37)
               {
-                v37 = *(this + 2) + 80 * j;
-                v38 = (*(v37 + 6) & 2) != 0 ? *(v37 + 8) : 0;
-                if (v13 >= 1)
+                v38 = *(this + 2) + 80 * j;
+                v39 = (*(v38 + 6) & 2) != 0 ? *(v38 + 8) : 0;
+                if (v14 >= 1)
                 {
-                  v39 = *(this + 9);
-                  v40 = v12;
+                  v40 = *(this + 9);
+                  v41 = v13;
                   do
                   {
-                    v41 = *v38++;
-                    *v39++ += v36 * v41;
-                    --v40;
+                    v42 = *v39++;
+                    *v40++ += v37 * v42;
+                    --v41;
                   }
 
-                  while (v40);
+                  while (v41);
                 }
               }
             }
           }
         }
 
-        if ((v25 & 2) != 0)
+        if ((v26 & 2) != 0)
         {
-          v42 = *(v11 + 1);
-          if (v14 < 0)
+          v43 = *(v12 + 1);
+          if (v15 < 0)
           {
 LABEL_74:
-            if (v6 != v1)
+            if (v7 != v2)
             {
               kd_multi_rxform_block::perform_transform();
             }
 
-            if (v13 >= 1)
+            if (v14 >= 1)
             {
-              v44 = 0;
+              v45 = 0;
               do
               {
-                *(v42 + 2 * v44) = (*(*(this + 9) + 4 * v44) >> v17) - *(v42 + 2 * v44);
-                ++v44;
+                *(v43 + 2 * v45) = (*(*(this + 9) + 4 * v45) >> v18) - *(v43 + 2 * v45);
+                ++v45;
               }
 
-              while (v12 != v44);
+              while (v13 != v45);
             }
 
             goto LABEL_83;
@@ -3679,105 +3115,105 @@ LABEL_74:
 
         else
         {
-          v42 = 0;
-          if (v14 < 0)
+          v43 = 0;
+          if (v15 < 0)
           {
             goto LABEL_74;
           }
         }
 
-        if (v13 >= 1)
+        if (v14 >= 1)
         {
-          v43 = 0;
+          v44 = 0;
           do
           {
-            *(v42 + 2 * v43) -= *(*(this + 9) + 4 * v43) >> v17;
-            ++v43;
+            *(v43 + 2 * v44) -= *(*(this + 9) + 4 * v44) >> v18;
+            ++v44;
           }
 
-          while (v12 != v43);
+          while (v13 != v44);
         }
       }
 
       else
       {
-        if (v1)
+        if (v2)
         {
-          for (k = 0; k != v1; ++k)
+          for (k = 0; k != v2; ++k)
           {
-            if (k != v10)
+            if (k != v11)
             {
-              v28 = *(*(this + 8) + 4 * k * v7 + 4 * v6);
-              if (v28)
+              v29 = *(*(this + 8) + 4 * k * v8 + 4 * v7);
+              if (v29)
               {
-                v29 = *(this + 2) + 80 * k;
-                v30 = (*(v29 + 6) & 2) != 0 ? 0 : *(v29 + 8);
-                if (v13 >= 1)
+                v30 = *(this + 2) + 80 * k;
+                v31 = (*(v30 + 6) & 2) != 0 ? 0 : *(v30 + 8);
+                if (v14 >= 1)
                 {
-                  v31 = *(this + 9);
-                  v32 = v12;
+                  v32 = *(this + 9);
+                  v33 = v13;
                   do
                   {
-                    v33 = *v30++;
-                    *v31++ += v33 * v28;
-                    --v32;
+                    v34 = *v31++;
+                    *v32++ += v34 * v29;
+                    --v33;
                   }
 
-                  while (v32);
+                  while (v33);
                 }
               }
             }
           }
 
-          v26 = *(v11 + 1);
+          v27 = *(v12 + 1);
         }
 
-        if (v14 < 0)
+        if (v15 < 0)
         {
-          if (v6 != v1)
+          if (v7 != v2)
           {
             kd_multi_rxform_block::perform_transform();
           }
 
-          if (v13 >= 1)
+          if (v14 >= 1)
           {
-            v45 = 0;
+            v46 = 0;
             do
             {
-              *(v26 + v45) = (*(*(this + 9) + v45) >> v17) - *(v26 + v45);
-              v45 += 4;
+              *(v27 + v46) = (*(*(this + 9) + v46) >> v18) - *(v27 + v46);
+              v46 += 4;
             }
 
-            while (4 * v12 != v45);
+            while (4 * v13 != v46);
           }
         }
 
-        else if (v13 >= 1)
+        else if (v14 >= 1)
         {
-          v34 = 0;
+          v35 = 0;
           do
           {
-            *(v26 + v34) -= *(*(this + 9) + v34) >> v17;
-            v34 += 4;
+            *(v27 + v35) -= *(*(this + 9) + v35) >> v18;
+            v35 += 4;
           }
 
-          while (4 * v12 != v34);
+          while (4 * v13 != v35);
         }
       }
 
 LABEL_83:
-      if (++v6 == v1 + 1)
+      if (++v7 == v2 + 1)
       {
-        if (v1 >= 1)
+        if (v2 >= 1)
         {
-          v46 = 0;
+          v47 = 0;
           do
           {
-            kd_multi_line::apply_offset(*(this + 2) + v46, *(*(this + 2) + v46 + 44), 0.0);
-            v46 += 80;
+            kd_multi_line::apply_offset(*(this + 2) + v47, *(*(this + 2) + v47 + 44), 0.0);
+            v47 += 80;
           }
 
-          while (80 * v1 != v46);
+          while (80 * v2 != v47);
         }
 
         return;
@@ -3797,48 +3233,49 @@ uint64_t kd_multi_rxform_block::perform_inverse(uint64_t this)
 
   v2 = this;
   v3 = v1 + 1;
-  v4 = vdupq_n_s64(4uLL);
-  v5 = *(this + 12);
+  v4.n128_u64[1] = 1;
+  v5 = vdupq_n_s64(4uLL);
+  v6 = *(this + 12);
   do
   {
-    v6 = v1 + ~(v5 % v1);
-    v7 = (v2[2] + 80 * v6);
-    v8 = *v7;
-    v9 = *v7;
+    v7 = v1 + ~(v6 % v1);
+    v8 = (v2[2] + 80 * v7);
+    v9 = *v8;
+    v10 = *v8;
     if (!v2[9])
     {
       operator new[]();
     }
 
-    v10 = *(v2[8] + 4 * (v5 + v6 * v3));
-    if (v10 >= 0)
+    v11 = *(v2[8] + 4 * (v6 + v7 * v3));
+    if (v11 >= 0)
     {
-      v11 = *(v2[8] + 4 * (v5 + v6 * v3));
+      v12 = *(v2[8] + 4 * (v6 + v7 * v3));
     }
 
     else
     {
-      v11 = -v10;
+      v12 = -v11;
     }
 
-    if (v5 == v1)
+    if (v6 == v1)
     {
-      v12 = v11;
+      v13 = v12;
     }
 
     else
     {
-      v12 = *(v2[8] + 4 * (v5 + v6 * v3));
+      v13 = *(v2[8] + 4 * (v6 + v7 * v3));
     }
 
-    v13 = -1;
+    v14 = -1;
     do
     {
-      ++v13;
+      ++v14;
     }
 
-    while (1 << v13 < v12);
-    if (1 << v13 != v12)
+    while (1 << v14 < v13);
+    if (1 << v14 != v13)
     {
       v46 = 0;
       memset(v45, 0, sizeof(v45));
@@ -3864,63 +3301,63 @@ uint64_t kd_multi_rxform_block::perform_inverse(uint64_t this)
       kdu_error::~kdu_error(v45);
     }
 
-    if (v9 >= 1)
+    if (v10 >= 1)
     {
-      v14 = v12 >> 1;
-      v15 = (v8 + 3) & 0xFFFFFFFC;
-      v16 = vdupq_n_s64(v8 - 1);
+      v15 = v13 >> 1;
+      v16 = (v9 + 3) & 0xFFFFFFFC;
+      v4 = vdupq_n_s64(v9 - 1);
       v17 = (v2[9] + 8);
       v18 = xmmword_186205EC0;
       v19 = xmmword_186205EB0;
       do
       {
-        v20 = vmovn_s64(vcgeq_u64(v16, v18));
-        if (vuzp1_s16(v20, *v16.i8).u8[0])
+        v20 = vmovn_s64(vcgeq_u64(v4, v18));
+        if (vuzp1_s16(v20, v4.n128_u64[0]).u8[0])
         {
-          *(v17 - 2) = v14;
+          *(v17 - 2) = v15;
         }
 
-        if (vuzp1_s16(v20, *&v16).i8[2])
+        if (vuzp1_s16(v20, *&v4).i8[2])
         {
-          *(v17 - 1) = v14;
+          *(v17 - 1) = v15;
         }
 
-        if (vuzp1_s16(*&v16, vmovn_s64(vcgeq_u64(v16, *&v19))).i32[1])
+        if (vuzp1_s16(*&v4, vmovn_s64(vcgeq_u64(*&v4, *&v19))).i32[1])
         {
-          *v17 = v14;
-          v17[1] = v14;
+          *v17 = v15;
+          v17[1] = v15;
         }
 
-        v19 = vaddq_s64(v19, v4);
-        v18 = vaddq_s64(v18, v4);
+        v19 = vaddq_s64(v19, v5);
+        v18 = vaddq_s64(v18, v5);
         v17 += 4;
-        v15 -= 4;
+        v16 -= 4;
       }
 
-      while (v15);
+      while (v16);
     }
 
-    v21 = *(v7 + 6);
+    v21 = *(v8 + 6);
     if ((v21 & 2) == 0)
     {
-      v22 = *(v7 + 1);
+      v22 = *(v8 + 1);
       if (v22)
       {
         if (v1)
         {
           for (i = 0; i != v1; ++i)
           {
-            if (i != v6)
+            if (i != v7)
             {
-              v24 = *(v2[8] + 4 * i * v3 + 4 * v5);
+              v24 = *(v2[8] + 4 * i * v3 + 4 * v6);
               if (v24)
               {
                 v25 = v2[2] + 80 * i;
                 v26 = (*(v25 + 6) & 2) != 0 ? 0 : *(v25 + 8);
-                if (v9 >= 1)
+                if (v10 >= 1)
                 {
                   v27 = v2[9];
-                  v28 = v8;
+                  v28 = v9;
                   do
                   {
                     v29 = *v26++;
@@ -3934,39 +3371,39 @@ uint64_t kd_multi_rxform_block::perform_inverse(uint64_t this)
             }
           }
 
-          v22 = *(v7 + 1);
+          v22 = *(v8 + 1);
         }
 
-        if (v10 < 0)
+        if (v11 < 0)
         {
-          if (v5 != v1)
+          if (v6 != v1)
           {
             kd_multi_rxform_block::perform_inverse();
           }
 
-          if (v9 >= 1)
+          if (v10 >= 1)
           {
             v41 = 0;
             do
             {
-              *(v22 + v41) = (*(v2[9] + v41) >> v13) - *(v22 + v41);
+              *(v22 + v41) = (*(v2[9] + v41) >> v14) - *(v22 + v41);
               v41 += 4;
             }
 
-            while (4 * v8 != v41);
+            while (4 * v9 != v41);
           }
         }
 
-        else if (v9 >= 1)
+        else if (v10 >= 1)
         {
           v30 = 0;
           do
           {
-            *(v22 + v30) += *(v2[9] + v30) >> v13;
+            *(v22 + v30) += *(v2[9] + v30) >> v14;
             v30 += 4;
           }
 
-          while (4 * v8 != v30);
+          while (4 * v9 != v30);
         }
 
         continue;
@@ -3977,17 +3414,17 @@ uint64_t kd_multi_rxform_block::perform_inverse(uint64_t this)
     {
       for (j = 0; j != v1; ++j)
       {
-        if (j != v6)
+        if (j != v7)
         {
-          v32 = *(v2[8] + 4 * j * v3 + 4 * v5);
+          v32 = *(v2[8] + 4 * j * v3 + 4 * v6);
           if (v32)
           {
             v33 = v2[2] + 80 * j;
             v34 = (*(v33 + 6) & 2) != 0 ? *(v33 + 8) : 0;
-            if (v9 >= 1)
+            if (v10 >= 1)
             {
               v35 = v2[9];
-              v36 = v8;
+              v36 = v9;
               do
               {
                 v37 = *v34++;
@@ -4004,20 +3441,20 @@ uint64_t kd_multi_rxform_block::perform_inverse(uint64_t this)
 
     if ((v21 & 2) != 0)
     {
-      v38 = *(v7 + 1);
-      if ((v10 & 0x80000000) == 0)
+      v38 = *(v8 + 1);
+      if ((v11 & 0x80000000) == 0)
       {
 LABEL_59:
-        if (v9 >= 1)
+        if (v10 >= 1)
         {
           v39 = 0;
           do
           {
-            *(v38 + 2 * v39) += *(v2[9] + 4 * v39) >> v13;
+            *(v38 + 2 * v39) += *(v2[9] + 4 * v39) >> v14;
             ++v39;
           }
 
-          while (v8 != v39);
+          while (v9 != v39);
         }
 
         continue;
@@ -4027,31 +3464,31 @@ LABEL_59:
     else
     {
       v38 = 0;
-      if ((v10 & 0x80000000) == 0)
+      if ((v11 & 0x80000000) == 0)
       {
         goto LABEL_59;
       }
     }
 
-    if (v5 != v1)
+    if (v6 != v1)
     {
       kd_multi_rxform_block::perform_inverse();
     }
 
-    if (v9 >= 1)
+    if (v10 >= 1)
     {
       v40 = 0;
       do
       {
-        *(v38 + 2 * v40) = (*(v2[9] + 4 * v40) >> v13) - *(v38 + 2 * v40);
+        *(v38 + 2 * v40) = (*(v2[9] + 4 * v40) >> v14) - *(v38 + 2 * v40);
         ++v40;
       }
 
-      while (v8 != v40);
+      while (v9 != v40);
     }
   }
 
-  while (v5-- > 0);
+  while (v6-- > 0);
   v43 = 0;
   v44 = 0;
   do
@@ -4059,7 +3496,8 @@ LABEL_59:
     this = *(v2[4] + 8 * v44);
     if (this)
     {
-      this = kd_multi_line::copy(this, (v2[2] + v43), -*(this + 44), 0.0);
+      v4.n128_u64[0] = 0;
+      this = kd_multi_line::copy(this, (v2[2] + v43), -*(this + 44), v4);
     }
 
     ++v44;
@@ -4292,12 +3730,12 @@ LABEL_25:
   return this;
 }
 
-uint64_t kd_multi_dependency_block::create_short_matrix(uint64_t this)
+void kd_multi_dependency_block::create_short_matrix(kd_multi_dependency_block *this)
 {
-  if (!*(this + 104) && (*(this + 64) & 1) == 0)
+  if (!*(this + 13) && (*(this + 64) & 1) == 0)
   {
-    v1 = *(this + 12);
-    if (v1 == *(this + 24))
+    v1 = *(this + 3);
+    if (v1 == *(this + 6))
     {
       if (v1 >= 1)
       {
@@ -4310,7 +3748,7 @@ uint64_t kd_multi_dependency_block::create_short_matrix(uint64_t this)
           {
             for (i = 0; i != v3; ++i)
             {
-              v6 = *(this + 88) + v2;
+              v6 = *(this + 11) + v2;
               v7 = *(v6 + 4 * i);
               if (v7 <= v4)
               {
@@ -4339,8 +3777,6 @@ uint64_t kd_multi_dependency_block::create_short_matrix(uint64_t this)
 
     kd_multi_dependency_block::create_short_matrix();
   }
-
-  return this;
 }
 
 uint64_t kd_multi_dependency_block::perform_transform(uint64_t this)
@@ -4357,7 +3793,7 @@ uint64_t kd_multi_dependency_block::perform_transform(uint64_t this)
     v2 = this;
     v3 = 0;
     v80 = vdupq_n_s64(4uLL);
-    v4.i32[1] = 0;
+    v4 = xmmword_186205EC0;
     v79 = *(this + 12);
     while (1)
     {
@@ -4377,16 +3813,16 @@ uint64_t kd_multi_dependency_block::perform_transform(uint64_t this)
       v9 = *v6;
       if ((*(v2 + 64) & 1) == 0)
       {
-        v4.i32[0] = *(*(v2 + 96) + 4 * v3);
+        v4.n128_u32[0] = *(*(v2 + 96) + 4 * v3);
         v11 = *(v2 + 16) + 80 * v3;
         if (v7)
         {
-          kd_multi_line::copy(v6, v7, 0, *v4.i32);
+          kd_multi_line::copy(v6, v7, 0, v4);
         }
 
         else
         {
-          kd_multi_line::reset(v6, 0, *v4.i64);
+          kd_multi_line::reset(v6, 0, v4);
         }
 
         v12 = v79;
@@ -4427,7 +3863,7 @@ uint64_t kd_multi_dependency_block::perform_transform(uint64_t this)
               do
               {
                 v63 = vmovn_s64(vcgeq_u64(v4, v61));
-                if (vuzp1_s16(v63, *v4.i8).u8[0])
+                if (vuzp1_s16(v63, v4.n128_u64[0]).u8[0])
                 {
                   *(v60 - 2) = v58;
                 }
@@ -4437,7 +3873,7 @@ uint64_t kd_multi_dependency_block::perform_transform(uint64_t this)
                   *(v60 - 1) = v58;
                 }
 
-                if (vuzp1_s16(*&v4, vmovn_s64(vcgeq_u64(v4, *&v62))).i32[1])
+                if (vuzp1_s16(*&v4, vmovn_s64(vcgeq_u64(*&v4, *&v62))).i32[1])
                 {
                   *v60 = v58;
                   v60[1] = v58;
@@ -4550,14 +3986,15 @@ uint64_t kd_multi_dependency_block::perform_transform(uint64_t this)
 
       v10 = *(*(v2 + 80) + 4 * v3);
       v78 = *(v2 + 16) + 80 * v3;
+      v4.n128_u64[0] = 0;
       if (v7)
       {
-        kd_multi_line::copy(v6, v7, v10, 0.0);
+        kd_multi_line::copy(v6, v7, v10, v4);
       }
 
       else
       {
-        kd_multi_line::reset(v6, v10, 0.0);
+        kd_multi_line::reset(v6, v10, v4);
       }
 
       v12 = v79;
@@ -4615,7 +4052,7 @@ uint64_t kd_multi_dependency_block::perform_transform(uint64_t this)
           do
           {
             v23 = vmovn_s64(vcgeq_u64(v4, v21));
-            if (vuzp1_s16(v23, *v4.i8).u8[0])
+            if (vuzp1_s16(v23, v4.n128_u64[0]).u8[0])
             {
               *(v20 - 2) = v18;
             }
@@ -4625,7 +4062,7 @@ uint64_t kd_multi_dependency_block::perform_transform(uint64_t this)
               *(v20 - 1) = v18;
             }
 
-            if (vuzp1_s16(*&v4, vmovn_s64(vcgeq_u64(v4, *&v22))).i32[1])
+            if (vuzp1_s16(*&v4, vmovn_s64(vcgeq_u64(*&v4, *&v22))).i32[1])
             {
               *v20 = v18;
               v20[1] = v18;
@@ -4791,7 +4228,7 @@ LABEL_111:
 
 _DWORD *kd_multi_dependency_block::perform_inverse(_DWORD *this)
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   v1 = this[3];
   if (this[6] != v1)
   {
@@ -4802,126 +4239,127 @@ _DWORD *kd_multi_dependency_block::perform_inverse(_DWORD *this)
   {
     v2 = this;
     v3 = 0;
-    v75 = vdupq_n_s64(4uLL);
-    v74 = this[3];
+    v74 = vdupq_n_s64(4uLL);
+    v4 = xmmword_186205EC0;
+    v73 = this[3];
     do
     {
       if (v3 <= 1)
       {
-        v4 = 1;
+        v5 = 1;
       }
 
       else
       {
-        v4 = v3;
+        v5 = v3;
       }
 
-      v5 = *(v2 + 16) + 80 * v3;
-      v6 = *(*(v2 + 32) + 8 * v3);
-      v7 = *v5;
-      v8 = *v5;
-      if (*(v2 + 64))
+      v6 = *(v2 + 2) + 80 * v3;
+      v7 = *(*(v2 + 4) + 8 * v3);
+      v8 = *v6;
+      v9 = *v6;
+      if (v2[16])
       {
         if (!v3)
         {
           goto LABEL_78;
         }
 
-        v73 = *(*(v2 + 32) + 8 * v3);
-        v9 = v3 * v1;
-        v10 = *(*(v2 + 72) + 4 * v3 + 4 * v1 * v3);
-        v11 = -1;
+        v72 = *(*(v2 + 4) + 8 * v3);
+        v10 = v3 * v1;
+        v11 = *(*(v2 + 9) + 4 * v3 + 4 * v1 * v3);
+        v12 = -1;
         do
         {
-          v12 = 1 << ++v11;
+          v13 = 1 << ++v12;
         }
 
-        while (1 << v11 < v10);
-        if (v12 != v10)
+        while (1 << v12 < v11);
+        if (v13 != v11)
         {
-          v77 = 0;
-          memset(v76, 0, sizeof(v76));
-          kdu_error::kdu_error(v76, "Kakadu Core Error:\n");
-          (*(*&v76[0] + 16))(v76, "Multi-component reversible dependency transforms must have exact positive powers of 2 on the diagonal of their triangular coefficient matrix; these are the divisors used to scale and round the prediction terms.  The offending divisor is ");
-          v81 = 0u;
-          v82 = 0u;
-          v79 = 0u;
+          v76 = 0;
+          memset(v75, 0, sizeof(v75));
+          kdu_error::kdu_error(v75, "Kakadu Core Error:\n");
+          (*(*&v75[0] + 16))(v75, "Multi-component reversible dependency transforms must have exact positive powers of 2 on the diagonal of their triangular coefficient matrix; these are the divisors used to scale and round the prediction terms.  The offending divisor is ");
           v80 = 0u;
-          *v78 = 0u;
-          if (BYTE8(v76[0]))
+          v81 = 0u;
+          v78 = 0u;
+          v79 = 0u;
+          *v77 = 0u;
+          if (BYTE8(v75[0]))
           {
-            sprintf(v78, "%x");
+            sprintf(v77, "%x");
           }
 
           else
           {
-            sprintf(v78, "%d");
+            sprintf(v77, "%d");
           }
 
-          (*(*&v76[0] + 16))(v76, v78);
-          (*(*&v76[0] + 16))(v76, ".");
-          kdu_error::~kdu_error(v76);
+          (*(*&v75[0] + 16))(v75, v77);
+          (*(*&v75[0] + 16))(v75, ".");
+          kdu_error::~kdu_error(v75);
         }
 
-        this = *(v2 + 120);
+        this = *(v2 + 15);
         if (!this)
         {
           operator new[]();
         }
 
-        if (v8 >= 1)
+        if (v9 >= 1)
         {
-          v13 = v12 >> 1;
-          v14 = (v7 + 3) & 0xFFFFFFFC;
-          v15 = vdupq_n_s64(v7 - 1);
+          v14 = v13 >> 1;
+          v15 = (v8 + 3) & 0xFFFFFFFC;
+          v4 = vdupq_n_s64(v8 - 1);
           v16 = this + 2;
           v17 = xmmword_186205EC0;
           v18 = xmmword_186205EB0;
           do
           {
-            v19 = vmovn_s64(vcgeq_u64(v15, v17));
-            if (vuzp1_s16(v19, *v15.i8).u8[0])
+            v19 = vmovn_s64(vcgeq_u64(v4, v17));
+            if (vuzp1_s16(v19, v4.n128_u64[0]).u8[0])
             {
-              *(v16 - 2) = v13;
+              *(v16 - 2) = v14;
             }
 
-            if (vuzp1_s16(v19, *&v15).i8[2])
+            if (vuzp1_s16(v19, *&v4).i8[2])
             {
-              *(v16 - 1) = v13;
+              *(v16 - 1) = v14;
             }
 
-            if (vuzp1_s16(*&v15, vmovn_s64(vcgeq_u64(v15, *&v18))).i32[1])
+            if (vuzp1_s16(*&v4, vmovn_s64(vcgeq_u64(*&v4, *&v18))).i32[1])
             {
-              *v16 = v13;
-              v16[1] = v13;
+              *v16 = v14;
+              v16[1] = v14;
             }
 
-            v18 = vaddq_s64(v18, v75);
-            v17 = vaddq_s64(v17, v75);
+            v18 = vaddq_s64(v18, v74);
+            v17 = vaddq_s64(v17, v74);
             v16 += 4;
-            v14 -= 4;
+            v15 -= 4;
           }
 
-          while (v14);
+          while (v15);
         }
 
-        v20 = *(v5 + 8);
-        if ((*(v5 + 6) & 2) != 0)
+        v20 = *(v6 + 8);
+        if ((*(v6 + 6) & 2) != 0)
         {
-          v21 = *(v2 + 16);
-          v22 = *(v2 + 72);
-          v1 = v74;
+          v21 = *(v2 + 2);
+          v22 = *(v2 + 9);
+          v1 = v73;
         }
 
         else
         {
-          v21 = *(v2 + 16);
-          v22 = *(v2 + 72);
-          v1 = v74;
+          v21 = *(v2 + 2);
+          v22 = *(v2 + 9);
+          v1 = v73;
           if (v20)
           {
             v23 = 0;
-            v6 = v73;
+            v7 = v72;
             do
             {
               v24 = v21 + 80 * v23;
@@ -4935,10 +4373,10 @@ _DWORD *kd_multi_dependency_block::perform_inverse(_DWORD *this)
                 v25 = *(v24 + 8);
               }
 
-              v26 = *(v22 + 4 * v9 + 4 * v23);
+              v26 = *(v22 + 4 * v10 + 4 * v23);
               if (v26)
               {
-                v27 = v7 < 1;
+                v27 = v8 < 1;
               }
 
               else
@@ -4948,7 +4386,7 @@ _DWORD *kd_multi_dependency_block::perform_inverse(_DWORD *this)
 
               if (!v27)
               {
-                v28 = v7;
+                v28 = v8;
                 v29 = this;
                 do
                 {
@@ -4963,24 +4401,24 @@ _DWORD *kd_multi_dependency_block::perform_inverse(_DWORD *this)
               ++v23;
             }
 
-            while (v23 != v4);
-            if (v8 >= 1)
+            while (v23 != v5);
+            if (v9 >= 1)
             {
               v31 = 0;
               do
               {
-                *(v20 + v31) -= *(*(v2 + 120) + v31) >> v11;
+                *(v20 + v31) -= *(*(v2 + 15) + v31) >> v12;
                 v31 += 4;
               }
 
-              while (4 * v7 != v31);
+              while (4 * v8 != v31);
             }
 
             goto LABEL_78;
           }
         }
 
-        for (i = 0; i != v4; ++i)
+        for (i = 0; i != v5; ++i)
         {
           v44 = v21 + 80 * i;
           if ((*(v44 + 6) & 2) != 0)
@@ -4993,10 +4431,10 @@ _DWORD *kd_multi_dependency_block::perform_inverse(_DWORD *this)
             v45 = 0;
           }
 
-          v46 = *(v22 + 4 * (i + v9));
+          v46 = *(v22 + 4 * (i + v10));
           if (v46)
           {
-            v47 = v8 < 1;
+            v47 = v9 < 1;
           }
 
           else
@@ -5006,7 +4444,7 @@ _DWORD *kd_multi_dependency_block::perform_inverse(_DWORD *this)
 
           if (!v47)
           {
-            v48 = v7;
+            v48 = v8;
             v49 = this;
             do
             {
@@ -5019,42 +4457,43 @@ _DWORD *kd_multi_dependency_block::perform_inverse(_DWORD *this)
           }
         }
 
-        v6 = v73;
-        if (v8 >= 1)
+        v7 = v72;
+        if (v9 >= 1)
         {
           v51 = 0;
           do
           {
-            *(v20 + 2 * v51) -= *(*(v2 + 120) + 4 * v51) >> v11;
+            *(v20 + 2 * v51) -= *(*(v2 + 15) + 4 * v51) >> v12;
             ++v51;
           }
 
-          while (v7 != v51);
+          while (v8 != v51);
         }
 
 LABEL_78:
-        if (v6)
+        if (v7)
         {
-          this = kd_multi_line::copy(v6, v5, -*(v6 + 44) - *(*(v2 + 80) + 4 * v3), 0.0);
+          v4.n128_u64[0] = 0;
+          this = kd_multi_line::copy(v7, v6, -*(v7 + 44) - *(*(v2 + 10) + 4 * v3), v4);
 LABEL_111:
-          v1 = v74;
+          v1 = v73;
           goto LABEL_112;
         }
 
         goto LABEL_112;
       }
 
-      v32 = *(*(v2 + 32) + 8 * v3);
-      if ((*(v5 + 6) & 2) == 0)
+      v32 = *(*(v2 + 4) + 8 * v3);
+      if ((*(v6 + 6) & 2) == 0)
       {
-        v33 = *(v5 + 8);
+        v33 = *(v6 + 8);
         if (v33)
         {
           if (v3)
           {
             for (j = 0; j != v3; ++j)
             {
-              v35 = *(v2 + 16) + 80 * j;
+              v35 = *(v2 + 2) + 80 * j;
               if ((*(v35 + 6) & 2) != 0)
               {
                 v36 = 0;
@@ -5065,10 +4504,10 @@ LABEL_111:
                 v36 = *(v35 + 8);
               }
 
-              v37 = *(*(v2 + 88) + 4 * j + 4 * v3 * v1);
-              if (v37 != 0.0 && v8 >= 1)
+              v37 = *(*(v2 + 11) + 4 * j + 4 * v3 * v1);
+              if (v37 != 0.0 && v9 >= 1)
               {
-                v39 = v7;
+                v39 = v8;
                 v40 = v33;
                 do
                 {
@@ -5092,9 +4531,9 @@ LABEL_111:
         goto LABEL_107;
       }
 
-      if (*(v2 + 104))
+      if (*(v2 + 13))
       {
-        if ((*(v5 + 6) & 2) == 0)
+        if ((*(v6 + 6) & 2) == 0)
         {
           goto LABEL_81;
         }
@@ -5102,10 +4541,10 @@ LABEL_111:
 
       else
       {
-        v52 = *(v2 + 16) + 80 * v3;
+        v52 = *(v2 + 2) + 80 * v3;
         kd_multi_dependency_block::create_short_matrix(v2);
-        v5 = v52;
-        v1 = v74;
+        v6 = v52;
+        v1 = v73;
         if ((*(v52 + 6) & 2) == 0)
         {
 LABEL_81:
@@ -5114,118 +4553,119 @@ LABEL_81:
         }
       }
 
-      v42 = *(v5 + 8);
+      v42 = *(v6 + 8);
 LABEL_82:
-      v53 = *(v2 + 112);
-      this = *(v2 + 120);
+      v53 = v2[28];
+      this = *(v2 + 15);
       if (!this)
       {
         operator new[]();
       }
 
-      if (v7 >= 1)
+      if (v8 >= 1)
       {
         v54 = 1 << v53 >> 1;
-        v55 = (v7 + 3) & 0xFFFFFFFC;
-        v56 = vdupq_n_s64(v7 - 1);
-        v57 = this + 2;
-        v58 = xmmword_186205EC0;
-        v59 = xmmword_186205EB0;
+        v55 = (v8 + 3) & 0xFFFFFFFC;
+        v4 = vdupq_n_s64(v8 - 1);
+        v56 = this + 2;
+        v57 = xmmword_186205EC0;
+        v58 = xmmword_186205EB0;
         do
         {
-          v60 = vmovn_s64(vcgeq_u64(v56, v58));
-          if (vuzp1_s16(v60, *v56.i8).u8[0])
+          v59 = vmovn_s64(vcgeq_u64(v4, v57));
+          if (vuzp1_s16(v59, v4.n128_u64[0]).u8[0])
           {
-            *(v57 - 2) = v54;
+            *(v56 - 2) = v54;
           }
 
-          if (vuzp1_s16(v60, *&v56).i8[2])
+          if (vuzp1_s16(v59, *&v4).i8[2])
           {
-            *(v57 - 1) = v54;
+            *(v56 - 1) = v54;
           }
 
-          if (vuzp1_s16(*&v56, vmovn_s64(vcgeq_u64(v56, *&v59))).i32[1])
+          if (vuzp1_s16(*&v4, vmovn_s64(vcgeq_u64(*&v4, *&v58))).i32[1])
           {
-            *v57 = v54;
-            v57[1] = v54;
+            *v56 = v54;
+            v56[1] = v54;
           }
 
-          v61 = vdupq_n_s64(4uLL);
-          v59 = vaddq_s64(v59, v61);
-          v58 = vaddq_s64(v58, v61);
-          v57 += 4;
+          v60 = vdupq_n_s64(4uLL);
+          v58 = vaddq_s64(v58, v60);
+          v57 = vaddq_s64(v57, v60);
+          v56 += 4;
           v55 -= 4;
         }
 
         while (v55);
       }
 
-      v62 = 0;
-      v63 = *(v2 + 16);
-      v64 = *(v2 + 104) + 2 * v3 * v1;
+      v61 = 0;
+      v62 = *(v2 + 2);
+      v63 = *(v2 + 13) + 2 * v3 * v1;
       do
       {
-        v65 = v63 + 80 * v62;
-        if ((*(v65 + 6) & 2) != 0)
+        v64 = v62 + 80 * v61;
+        if ((*(v64 + 6) & 2) != 0)
         {
-          v66 = *(v65 + 8);
+          v65 = *(v64 + 8);
         }
 
         else
         {
-          v66 = 0;
+          v65 = 0;
         }
 
-        v67 = *(v64 + 2 * v62);
-        if (*(v64 + 2 * v62))
+        v66 = *(v63 + 2 * v61);
+        if (*(v63 + 2 * v61))
         {
-          v68 = v8 < 1;
+          v67 = v9 < 1;
         }
 
         else
         {
-          v68 = 1;
+          v67 = 1;
         }
 
-        if (!v68)
+        if (!v67)
         {
-          v69 = v7;
-          v70 = this;
+          v68 = v8;
+          v69 = this;
           do
           {
-            v71 = *v66++;
-            *v70++ += v71 * v67;
-            --v69;
+            v70 = *v65++;
+            *v69++ += v70 * v66;
+            --v68;
           }
 
-          while (v69);
+          while (v68);
         }
 
-        ++v62;
+        ++v61;
       }
 
-      while (v62 != v4);
-      if (v8 >= 1)
+      while (v61 != v5);
+      if (v9 >= 1)
       {
-        v72 = 0;
+        v71 = 0;
         do
         {
-          *(v42 + 2 * v72) -= *(*(v2 + 120) + 4 * v72) >> v53;
-          ++v72;
+          *(v42 + 2 * v71) -= *(*(v2 + 15) + 4 * v71) >> v53;
+          ++v71;
         }
 
-        while (v7 != v72);
+        while (v8 != v71);
       }
 
 LABEL_107:
       if (v32)
       {
-        if ((*(v32 + 36) & 1) != 0 || *(v5 + 36) == 1)
+        if ((*(v32 + 36) & 1) != 0 || *(v6 + 36) == 1)
         {
           kd_multi_dependency_block::perform_inverse();
         }
 
-        this = kd_multi_line::copy(v32, v5, 0, -(*(v32 + 48) - ((-(1 << *(v5 + 40)) / (1 << *(v32 + 40))) * *(*(v2 + 96) + 4 * v3))));
+        v4.n128_f32[0] = -(*(v32 + 48) - ((-(1 << *(v6 + 40)) / (1 << *(v32 + 40))) * *(*(v2 + 12) + 4 * v3)));
+        this = kd_multi_line::copy(v32, v6, 0, v4);
         goto LABEL_111;
       }
 
@@ -5239,7 +4679,7 @@ LABEL_112:
   return this;
 }
 
-void kd_multi_dwt_block::initialize(uint64_t a1, int a2, int a3, uint64_t *a4, int a5, int a6, _DWORD *a7, _DWORD *a8, kd_multi_transform *a9)
+void kd_multi_dwt_block::initialize(uint64_t a1, unsigned int a2, int a3, uint64_t *a4, int a5, int a6, _DWORD *a7, _DWORD *a8, kd_multi_transform *a9)
 {
   v26[0] = a4;
   v24 = a6;
@@ -5269,6 +4709,13 @@ void kd_multi_dwt_block::initialize(uint64_t a1, int a2, int a3, uint64_t *a4, i
   }
 
   kd_multi_dwt_block::initialize();
+}
+
+void sub_185FA7290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  kdu_kernels::reset(va);
+  _Unwind_Resume(a1);
 }
 
 const char *kd_multi_dwt_block::prepare_for_inversion(kd_multi_dwt_block *this)
@@ -5644,175 +5091,176 @@ LABEL_32:
   return v17 & 1;
 }
 
-void kd_multi_dwt_block::perform_transform(kd_multi_dwt_block *this)
+void kd_multi_dwt_block::perform_transform(kd_multi_dwt_block *this, __n128 a2)
 {
   if (*(this + 16) >= 1)
   {
-    v2 = 0;
+    v3 = 0;
     while (1)
     {
-      v3 = *(this + 9) + (v2 << 6);
-      LODWORD(v4) = *(v3 + 20);
-      if (v4 >= 1)
+      v4 = *(this + 9) + (v3 << 6);
+      LODWORD(v5) = *(v4 + 20);
+      if (v5 >= 1)
       {
-        for (i = 0; i < v4; ++i)
+        for (i = 0; i < v5; ++i)
         {
-          v6 = *(*(v3 + 40) + 8 * i);
-          if (v6)
+          v7 = *(*(v4 + 40) + 8 * i);
+          if (v7)
           {
-            v7 = *(*(v3 + 32) + 8 * i);
-            v8 = *v6;
-            if (*v6)
+            v8 = *(*(v4 + 32) + 8 * i);
+            v9 = *v7;
+            if (*v7)
             {
               if (*(this + 80) == 1)
               {
-                kd_multi_line::copy(v7, v8, 0, 0.0);
+                a2.n128_u64[0] = 0;
+                kd_multi_line::copy(v8, v9, 0, a2);
               }
 
               else
               {
-                if ((*(v3 + 16) + i))
+                if ((*(v4 + 16) + i))
                 {
-                  v9 = *(v3 + 56) * 0.5;
+                  v10 = *(v4 + 56) * 0.5;
                 }
 
                 else
                 {
-                  v9 = *(v3 + 52);
+                  v10 = *(v4 + 52);
                 }
 
-                v10 = *(v7 + 20);
-                if ((*(v7 + 6) & 2) != 0 || (v11 = *(v7 + 8)) == 0)
+                v11 = *(v8 + 20);
+                if ((*(v8 + 6) & 2) != 0 || (v12 = *(v8 + 8)) == 0)
                 {
-                  if (*(v8 + 36))
+                  if (*(v9 + 36))
                   {
-                    v13 = 8192.0;
+                    v14 = 8192.0;
                   }
 
                   else
                   {
-                    v13 = (1 << *(v8 + 40));
+                    v14 = (1 << *(v9 + 40));
                   }
 
-                  v14 = (v9 / (1 << *(v7 + 40))) * v13;
-                  v15 = 0;
-                  while (v14 < 16383.0)
+                  v15 = (v10 / (1 << *(v8 + 40))) * v14;
+                  v16 = 0;
+                  while (v15 < 16383.0)
                   {
-                    v14 = v14 + v14;
-                    ++v15;
+                    v15 = v15 + v15;
+                    ++v16;
                   }
 
-                  while (v14 > 32767.0)
+                  while (v15 > 32767.0)
                   {
-                    v14 = v14 * 0.5;
-                    --v15;
+                    v15 = v15 * 0.5;
+                    --v16;
                   }
 
-                  if ((*(v8 + 6) & 2) != 0)
+                  if ((*(v9 + 6) & 2) != 0)
                   {
-                    v16 = *(v8 + 8);
-                    if ((*(v7 + 6) & 2) == 0)
+                    v17 = *(v9 + 8);
+                    if ((*(v8 + 6) & 2) == 0)
                     {
                       goto LABEL_32;
                     }
 
 LABEL_30:
-                    v17 = *(v7 + 8);
+                    v18 = *(v8 + 8);
                   }
 
                   else
                   {
-                    v16 = 0;
-                    if ((*(v7 + 6) & 2) != 0)
+                    v17 = 0;
+                    if ((*(v8 + 6) & 2) != 0)
                     {
                       goto LABEL_30;
                     }
 
 LABEL_32:
-                    v17 = 0;
+                    v18 = 0;
                   }
 
-                  v18 = vcvtmd_s64_f64(v14 + 0.5);
-                  if (v15 < 0)
+                  v19 = vcvtmd_s64_f64(v15 + 0.5);
+                  if (v16 < 0)
                   {
-                    if (v10 >= 1)
+                    if (v11 >= 1)
                     {
-                      v20 = -v15;
+                      v21 = -v16;
                       do
                       {
-                        v21 = *v16++;
-                        *v17++ = (v21 * v18) << v20;
-                        --v10;
+                        v22 = *v17++;
+                        *v18++ = (v22 * v19) << v21;
+                        --v11;
                       }
 
-                      while (v10);
+                      while (v11);
                     }
                   }
 
-                  else if (v10 >= 1)
+                  else if (v11 >= 1)
                   {
                     do
                     {
-                      v19 = *v16++;
-                      *v17++ = ((1 << v15 >> 1) + v19 * v18) >> v15;
-                      --v10;
+                      v20 = *v17++;
+                      *v18++ = ((1 << v16 >> 1) + v20 * v19) >> v16;
+                      --v11;
                     }
 
-                    while (v10);
+                    while (v11);
                   }
 
                   goto LABEL_10;
                 }
 
-                if (*(v8 + 36) == 1)
+                if (*(v9 + 36) == 1)
                 {
-                  if ((*(v8 + 6) & 2) != 0)
+                  if ((*(v9 + 6) & 2) != 0)
                   {
-                    v12 = 0;
+                    v13 = 0;
                   }
 
                   else
                   {
-                    v12 = *(v8 + 8);
+                    v13 = *(v9 + 8);
                   }
 
-                  if (v10 >= 1)
+                  if (v11 >= 1)
                   {
-                    v23 = v9 / (1 << *(v7 + 40));
+                    v24 = v10 / (1 << *(v8 + 40));
                     do
                     {
-                      v24 = *v12++;
-                      *v11++ = v23 * v24;
-                      --v10;
+                      v25 = *v13++;
+                      *v12++ = v24 * v25;
+                      --v11;
                     }
 
-                    while (v10);
+                    while (v11);
                   }
                 }
 
                 else
                 {
-                  if ((*(v8 + 6) & 2) != 0)
+                  if ((*(v9 + 6) & 2) != 0)
                   {
-                    v22 = 0;
+                    v23 = 0;
                   }
 
                   else
                   {
-                    v22 = *(v8 + 8);
+                    v23 = *(v9 + 8);
                   }
 
-                  if (v10 >= 1)
+                  if (v11 >= 1)
                   {
-                    v25 = (v9 * (1 << *(v8 + 40))) / (1 << *(v7 + 40));
+                    v26 = (v10 * (1 << *(v9 + 40))) / (1 << *(v8 + 40));
                     do
                     {
-                      v26 = *v22++;
-                      *v11++ = v25 * v26;
-                      --v10;
+                      v27 = *v23++;
+                      *v12++ = v26 * v27;
+                      --v11;
                     }
 
-                    while (v10);
+                    while (v11);
                   }
                 }
               }
@@ -5820,52 +5268,53 @@ LABEL_32:
 
             else
             {
-              kd_multi_line::reset(v7, 0, 0.0);
+              a2.n128_u64[0] = 0;
+              kd_multi_line::reset(v8, 0, a2);
             }
           }
 
 LABEL_10:
-          v4 = *(v3 + 20);
+          v5 = *(v4 + 20);
         }
       }
 
-      v27 = *(v3 + 16);
-      if (*(v3 + 4) == 1)
+      v28 = *(v4 + 16);
+      if (*(v4 + 4) == 1)
       {
-        if ((v27 & 1) != 0 && *(this + 80) == 1)
+        if ((v28 & 1) != 0 && *(this + 80) == 1)
         {
-          v28 = **(v3 + 32);
-          v29 = *(v28 + 6);
-          v30 = *(v28 + 8);
-          v31 = *(v28 + 20);
-          if ((v29 & 2) != 0 && v30)
+          v29 = **(v4 + 32);
+          v30 = *(v29 + 6);
+          v31 = *(v29 + 8);
+          v32 = *(v29 + 20);
+          if ((v30 & 2) != 0 && v31)
           {
-            if (v31 >= 1)
+            if (v32 >= 1)
             {
               do
               {
-                *v30 = *v30 >> 1;
-                v30 = (v30 + 2);
-                --v31;
+                *v31 = *v31 >> 1;
+                v31 = (v31 + 2);
+                --v32;
               }
 
-              while (v31);
+              while (v32);
             }
           }
 
-          else if (v31 >= 1)
+          else if (v32 >= 1)
           {
             do
             {
-              *v30++ >>= 1;
-              --v31;
+              *v31++ >>= 1;
+              --v32;
             }
 
-            while (v31);
+            while (v32);
           }
         }
 
-        if (*(v3 + 48))
+        if (*(v4 + 48))
         {
           kd_multi_dwt_block::perform_transform();
         }
@@ -5873,135 +5322,135 @@ LABEL_10:
         goto LABEL_122;
       }
 
-      v63 = v2;
-      v32 = *(this + 21);
-      if (v32 >= 1)
+      v64 = v3;
+      v33 = *(this + 21);
+      if (v33 >= 1)
       {
-        v33 = v27 + v4;
-        v34 = v27 + v4 - 1;
+        v34 = v28 + v5;
+        v35 = v28 + v5 - 1;
         while (1)
         {
-          v35 = ((*(v3 + 16) ^ (v32 - 1)) & 1) == 0;
-          if (v35 < v4)
+          v36 = ((*(v4 + 16) ^ (v33 - 1)) & 1) == 0;
+          if (v36 < v5)
           {
             break;
           }
 
 LABEL_101:
-          v49 = v32-- <= 1;
-          if (v49)
+          v50 = v33-- <= 1;
+          if (v50)
           {
             goto LABEL_103;
           }
         }
 
-        v36 = *(this + 11) + 32 * (v32 - 1);
+        v37 = *(this + 11) + 32 * (v33 - 1);
         while (1)
         {
-          v37 = *(*(v3 + 32) + 8 * v35);
-          v38 = *(v37 + 20);
-          v39 = *(v37 + 6);
-          v40 = *(v37 + 8);
-          v41 = (v39 & 2) != 0 ? v40 : 0;
-          v42 = (v39 & 2) != 0 ? 0 : v40;
-          v43 = *(v36 + 1);
-          if (*(v36 + 1))
+          v38 = *(*(v4 + 32) + 8 * v36);
+          v39 = *(v38 + 20);
+          v40 = *(v38 + 6);
+          v41 = *(v38 + 8);
+          v42 = (v40 & 2) != 0 ? v41 : 0;
+          v43 = (v40 & 2) != 0 ? 0 : v41;
+          v44 = *(v37 + 1);
+          if (*(v37 + 1))
           {
             break;
           }
 
 LABEL_96:
-          if (v41)
+          if (v42)
           {
-            perform_synthesis_lifting_step(v36, *(this + 16), v41, v41, v38, 0);
+            perform_synthesis_lifting_step(v37, *(this + 16), v42, v42, v39, 0);
           }
 
           else
           {
-            if (!v42)
+            if (!v43)
             {
               kd_multi_dwt_block::perform_transform();
             }
 
-            perform_synthesis_lifting_step(v36, *(this + 16), v42, v42, v38, 0);
+            perform_synthesis_lifting_step(v37, *(this + 16), v43, v43, v39, 0);
           }
 
-          v35 += 2;
-          LODWORD(v4) = *(v3 + 20);
-          if (v4 <= v35)
+          v36 += 2;
+          LODWORD(v5) = *(v4 + 20);
+          if (v5 <= v36)
           {
             goto LABEL_101;
           }
         }
 
-        v44 = 0;
-        v45 = *(v3 + 16);
-        v46 = ((v45 + v35) ^ 1) + 2 * *(v36 + 4);
+        v45 = 0;
+        v46 = *(v4 + 16);
+        v47 = ((v46 + v36) ^ 1) + 2 * *(v37 + 4);
         while (1)
         {
-          v47 = v46 < v27;
-          if (v46 < v27 || (v48 = v46, v46 >= v33))
+          v48 = v47 < v28;
+          if (v47 < v28 || (v49 = v47, v47 >= v34))
           {
-            v48 = v46;
+            v49 = v47;
             do
             {
-              if (v47)
+              if (v48)
               {
                 if (*(this + 82))
                 {
-                  v48 = 2 * v27 - v48;
+                  v49 = 2 * v28 - v49;
                 }
 
                 else
                 {
-                  v48 = ((v48 ^ v27) & 1) + v27;
+                  v49 = ((v49 ^ v28) & 1) + v28;
                 }
               }
 
               else if (*(this + 82))
               {
-                v48 = 2 * v34 - v48;
+                v49 = 2 * v35 - v49;
               }
 
               else
               {
-                v48 = v34 - ((v48 ^ v34) & 1);
+                v49 = v35 - ((v49 ^ v35) & 1);
               }
 
-              v47 = v48 < v27;
-              v49 = v48 >= v27 && v48 < v33;
+              v48 = v49 < v28;
+              v50 = v49 >= v28 && v49 < v34;
             }
 
-            while (!v49);
+            while (!v50);
           }
 
-          v50 = v48 - v45;
-          if (v48 - v45 < 0 || v50 >= v4)
+          v51 = v49 - v46;
+          if (v49 - v46 < 0 || v51 >= v5)
           {
             kd_multi_dwt_block::perform_transform();
           }
 
-          v51 = *(*(v3 + 32) + 8 * v50);
-          if (v41)
+          v52 = *(*(v4 + 32) + 8 * v51);
+          if (v42)
           {
-            if ((*(v51 + 6) & 2) != 0)
+            if ((*(v52 + 6) & 2) != 0)
             {
               goto LABEL_94;
             }
           }
 
-          else if ((*(v51 + 6) & 2) == 0)
+          else if ((*(v52 + 6) & 2) == 0)
           {
 LABEL_94:
-            v52 = *(v51 + 8);
+            v53 = *(v52 + 8);
             goto LABEL_95;
           }
 
-          v52 = 0;
+          v53 = 0;
 LABEL_95:
-          *(*(this + 16) + 8 * v44++) = v52;
-          v46 += 2;
-          if (v44 == v43)
+          *(*(this + 16) + 8 * v45++) = v53;
+          v47 += 2;
+          if (v45 == v44)
           {
             goto LABEL_96;
           }
@@ -6009,379 +5458,380 @@ LABEL_95:
       }
 
 LABEL_103:
-      v2 = v63;
-      if ((*(this + 80) & 1) == 0 && *(v3 + 48) >= 1 && v4 >= 1)
+      v3 = v64;
+      if ((*(this + 80) & 1) == 0 && *(v4 + 48) >= 1 && v5 >= 1)
       {
         break;
       }
 
 LABEL_122:
-      v60 = *(this + 16);
-      if (v2 >= v60 - 1 && *(v3 + 20) >= 1)
+      v61 = *(this + 16);
+      if (v3 >= v61 - 1 && *(v4 + 20) >= 1)
       {
-        v61 = 0;
+        v62 = 0;
         do
         {
-          v62 = *(*(v3 + 32) + 8 * v61);
-          kd_multi_line::apply_offset(v62, *(v62 + 44), *(v62 + 48));
-          ++v61;
+          v63 = *(*(v4 + 32) + 8 * v62);
+          kd_multi_line::apply_offset(v63, *(v63 + 44), *(v63 + 48));
+          ++v62;
         }
 
-        while (v61 < *(v3 + 20));
-        LODWORD(v60) = *(this + 16);
+        while (v62 < *(v4 + 20));
+        LODWORD(v61) = *(this + 16);
       }
 
-      if (++v2 >= v60)
+      if (++v3 >= v61)
       {
         return;
       }
     }
 
-    v54 = 0;
+    v55 = 0;
     while (1)
     {
-      v55 = *(*(v3 + 32) + 8 * v54);
-      v56 = *(v55 + 20);
-      v57 = *(v55 + 6);
-      v58 = *(v55 + 8);
-      if ((v57 & 2) != 0)
+      v56 = *(*(v4 + 32) + 8 * v55);
+      v57 = *(v56 + 20);
+      v58 = *(v56 + 6);
+      v59 = *(v56 + 8);
+      if ((v58 & 2) != 0)
       {
         break;
       }
 
-      v59 = *(v3 + 48);
-      if (!v58)
+      v60 = *(v4 + 48);
+      if (!v59)
       {
         goto LABEL_115;
       }
 
-      if (v56 >= 1)
+      if (v57 >= 1)
       {
         do
         {
-          *v58 = *v58 * (1 << v59);
-          ++v58;
-          --v56;
+          *v59 = *v59 * (1 << v60);
+          ++v59;
+          --v57;
         }
 
-        while (v56);
+        while (v57);
       }
 
 LABEL_117:
-      if (++v54 >= *(v3 + 20))
+      if (++v55 >= *(v4 + 20))
       {
         goto LABEL_122;
       }
     }
 
-    v59 = *(v3 + 48);
+    v60 = *(v4 + 48);
 LABEL_115:
-    if (v56 >= 1)
+    if (v57 >= 1)
     {
       do
       {
-        *v58 = *v58 << v59;
-        v58 = (v58 + 2);
-        --v56;
+        *v59 = *v59 << v60;
+        v59 = (v59 + 2);
+        --v57;
       }
 
-      while (v56);
+      while (v57);
     }
 
     goto LABEL_117;
   }
 }
 
-uint64_t kd_multi_dwt_block::perform_inverse(uint64_t this)
+uint64_t kd_multi_dwt_block::perform_inverse(uint64_t this, __n128 a2)
 {
-  v1 = *(this + 64);
-  if (v1 < 1)
+  v2 = *(this + 64);
+  if (v2 < 1)
   {
     return this;
   }
 
-  v2 = this;
+  v3 = this;
   do
   {
-    v3 = *(v2 + 72) + ((v1 - 1) << 6);
-    v4 = *(v3 + 4);
-    v58 = v1 - 1;
-    v59 = v1;
-    if (v4 == 1)
+    v4 = *(v3 + 72) + ((v2 - 1) << 6);
+    v5 = *(v4 + 4);
+    v59 = v2 - 1;
+    v60 = v2;
+    if (v5 == 1)
     {
-      if (*(v3 + 48))
+      if (*(v4 + 48))
       {
         kd_multi_dwt_block::perform_inverse();
       }
 
-      if ((*v3 & 1) != 0 && *(v2 + 80) == 1)
+      if ((*v4 & 1) != 0 && *(v3 + 80) == 1)
       {
-        v5 = **(v3 + 32);
-        v6 = *(v5 + 6);
-        v7 = *(v5 + 8);
-        v8 = *(v5 + 20);
-        if ((v6 & 2) != 0 && v7)
+        v6 = **(v4 + 32);
+        v7 = *(v6 + 6);
+        v8 = *(v6 + 8);
+        v9 = *(v6 + 20);
+        if ((v7 & 2) != 0 && v8)
         {
-          if (v8 >= 1)
+          if (v9 >= 1)
           {
             do
             {
-              *v7++ *= 2;
-              --v8;
+              *v8++ *= 2;
+              --v9;
             }
 
-            while (v8);
+            while (v9);
           }
         }
 
-        else if (v8 >= 1)
+        else if (v9 >= 1)
         {
           do
           {
-            *v7 *= 2;
-            v7 += 2;
-            --v8;
+            *v8 *= 2;
+            v8 += 2;
+            --v9;
           }
 
-          while (v8);
+          while (v9);
         }
       }
 
       goto LABEL_71;
     }
 
-    if ((*(v2 + 80) & 1) == 0 && *(v3 + 48) >= 1 && *(v3 + 20) >= 1)
+    if ((*(v3 + 80) & 1) == 0 && *(v4 + 48) >= 1 && *(v4 + 20) >= 1)
     {
-      v9 = 0;
+      v10 = 0;
       while (1)
       {
-        v10 = *(*(v3 + 32) + 8 * v9);
-        v11 = *(v10 + 20);
-        v12 = *(v10 + 6);
-        v13 = *(v10 + 8);
-        if ((v12 & 2) != 0)
+        v11 = *(*(v4 + 32) + 8 * v10);
+        v12 = *(v11 + 20);
+        v13 = *(v11 + 6);
+        v14 = *(v11 + 8);
+        if ((v13 & 2) != 0)
         {
           break;
         }
 
-        v14 = *(v3 + 48);
-        if (!v13)
+        v15 = *(v4 + 48);
+        if (!v14)
         {
           goto LABEL_22;
         }
 
-        if (v11 >= 1)
+        if (v12 >= 1)
         {
           do
           {
-            *v13 = (1.0 / (1 << v14)) * *v13;
-            ++v13;
-            --v11;
+            *v14 = (1.0 / (1 << v15)) * *v14;
+            ++v14;
+            --v12;
           }
 
-          while (v11);
+          while (v12);
         }
 
 LABEL_24:
-        if (++v9 >= *(v3 + 20))
+        if (++v10 >= *(v4 + 20))
         {
-          v4 = *(v3 + 4);
+          v5 = *(v4 + 4);
           goto LABEL_26;
         }
       }
 
-      v14 = *(v3 + 48);
+      v15 = *(v4 + 48);
 LABEL_22:
-      if (v11 >= 1)
+      if (v12 >= 1)
       {
         do
         {
-          *v13 = ((0x10000 << (v14 - 1) >> 16) + *v13) >> v14;
-          v13 = (v13 + 2);
-          --v11;
+          *v14 = ((0x10000 << (v15 - 1) >> 16) + *v14) >> v15;
+          v14 = (v14 + 2);
+          --v12;
         }
 
-        while (v11);
+        while (v12);
       }
 
       goto LABEL_24;
     }
 
 LABEL_26:
-    v15 = *(v2 + 84);
-    if (v15 < 1)
+    v16 = *(v3 + 84);
+    if (v16 < 1)
     {
       goto LABEL_71;
     }
 
-    v16 = 0;
-    v17 = *v3;
-    v18 = v4 + *v3;
-    v19 = 2 * *v3;
-    v20 = *(v3 + 20);
+    v17 = 0;
+    v18 = *v4;
+    v19 = v5 + *v4;
+    v20 = 2 * *v4;
+    v21 = *(v4 + 20);
     do
     {
-      v21 = ((*(v3 + 16) ^ v16) & 1) == 0;
-      if (v21 >= v20)
+      v22 = ((*(v4 + 16) ^ v17) & 1) == 0;
+      if (v22 >= v21)
       {
         goto LABEL_67;
       }
 
-      v22 = *(v2 + 88) + 32 * v16;
+      v23 = *(v3 + 88) + 32 * v17;
       do
       {
-        v23 = *(*(v3 + 32) + 8 * v21);
-        v24 = *(v23 + 20);
-        v25 = *(v23 + 6);
-        v26 = *(v23 + 8);
-        if ((v25 & 2) != 0)
+        v24 = *(*(v4 + 32) + 8 * v22);
+        v25 = *(v24 + 20);
+        v26 = *(v24 + 6);
+        v27 = *(v24 + 8);
+        if ((v26 & 2) != 0)
         {
-          v27 = v26;
+          v28 = v27;
         }
 
         else
-        {
-          v27 = 0;
-        }
-
-        if ((v25 & 2) != 0)
         {
           v28 = 0;
         }
 
-        else
+        if ((v26 & 2) != 0)
         {
-          v28 = v26;
+          v29 = 0;
         }
 
-        v29 = *(v22 + 1);
-        if (*(v22 + 1))
+        else
         {
-          v30 = 0;
-          v31 = *(v3 + 16);
-          v32 = ((v31 + v21) ^ 1) + 2 * *(v22 + 4);
+          v29 = v27;
+        }
+
+        v30 = *(v23 + 1);
+        if (*(v23 + 1))
+        {
+          v31 = 0;
+          v32 = *(v4 + 16);
+          v33 = ((v32 + v22) ^ 1) + 2 * *(v23 + 4);
           do
           {
-            v33 = v32 < v17;
-            if (v32 < v17 || (v34 = v32, v32 >= v18))
+            v34 = v33 < v18;
+            if (v33 < v18 || (v35 = v33, v33 >= v19))
             {
-              v34 = v32;
+              v35 = v33;
               do
               {
-                if (v33)
+                if (v34)
                 {
-                  if (*(v2 + 82))
+                  if (*(v3 + 82))
                   {
-                    v34 = v19 - v34;
+                    v35 = v20 - v35;
                   }
 
                   else
                   {
-                    v34 = ((v34 ^ v17) & 1) + v17;
+                    v35 = ((v35 ^ v18) & 1) + v18;
                   }
                 }
 
-                else if (*(v2 + 82))
+                else if (*(v3 + 82))
                 {
-                  v34 = 2 * (v18 - 1) - v34;
+                  v35 = 2 * (v19 - 1) - v35;
                 }
 
                 else
                 {
-                  v34 = v18 - 1 - ((v34 ^ (v18 - 1)) & 1);
+                  v35 = v19 - 1 - ((v35 ^ (v19 - 1)) & 1);
                 }
 
-                v33 = v34 < v17;
+                v34 = v35 < v18;
               }
 
-              while (v34 < v17 || v34 >= v18);
+              while (v35 < v18 || v35 >= v19);
             }
 
-            v36 = v34 - v31;
-            if (v34 - v31 < 0 || v36 >= v20)
+            v37 = v35 - v32;
+            if (v35 - v32 < 0 || v37 >= v21)
             {
               kd_multi_dwt_block::perform_inverse();
             }
 
-            v37 = *(*(v3 + 32) + 8 * v36);
-            if (v27)
+            v38 = *(*(v4 + 32) + 8 * v37);
+            if (v28)
             {
-              if ((*(v37 + 6) & 2) != 0)
+              if ((*(v38 + 6) & 2) != 0)
               {
                 goto LABEL_59;
               }
             }
 
-            else if ((*(v37 + 6) & 2) == 0)
+            else if ((*(v38 + 6) & 2) == 0)
             {
 LABEL_59:
-              v38 = *(v37 + 8);
+              v39 = *(v38 + 8);
               goto LABEL_60;
             }
 
-            v38 = 0;
+            v39 = 0;
 LABEL_60:
-            *(*(v2 + 128) + 8 * v30++) = v38;
-            v32 += 2;
+            *(*(v3 + 128) + 8 * v31++) = v39;
+            v33 += 2;
           }
 
-          while (v30 != v29);
+          while (v31 != v30);
         }
 
-        if (v27)
+        if (v28)
         {
-          this = perform_analysis_lifting_step(v22, *(v2 + 128), v27, v27, v24, 0);
+          this = perform_analysis_lifting_step(v23, *(v3 + 128), v28, v28, v25, 0);
         }
 
         else
         {
-          if (!v28)
+          if (!v29)
           {
             kd_multi_dwt_block::perform_inverse();
           }
 
-          this = perform_analysis_lifting_step(v22, *(v2 + 128), v28, v28, v24, 0);
+          this = perform_analysis_lifting_step(v23, *(v3 + 128), v29, v29, v25, 0);
         }
 
-        v21 += 2;
-        v20 = *(v3 + 20);
+        v22 += 2;
+        v21 = *(v4 + 20);
       }
 
-      while (v20 > v21);
-      v15 = *(v2 + 84);
+      while (v21 > v22);
+      v16 = *(v3 + 84);
 LABEL_67:
-      ++v16;
+      ++v17;
     }
 
-    while (v16 < v15);
+    while (v17 < v16);
 LABEL_71:
-    if (*(v3 + 20) >= 1)
+    if (*(v4 + 20) >= 1)
     {
-      v39 = 0;
+      v40 = 0;
       do
       {
-        v40 = *(*(v3 + 40) + 8 * v39);
-        if (v40)
+        v41 = *(*(v4 + 40) + 8 * v40);
+        if (v41)
         {
-          this = *v40;
-          if (*v40)
+          this = *v41;
+          if (*v41)
           {
-            v41 = *(*(v3 + 32) + 8 * v39);
-            if (*(v2 + 80) == 1)
+            v42 = *(*(v4 + 32) + 8 * v40);
+            if (*(v3 + 80) == 1)
             {
-              this = kd_multi_line::copy(this, v41, -*(this + 44), -*(this + 48));
+              a2.n128_f32[0] = -*(this + 48);
+              this = kd_multi_line::copy(this, v42, -*(this + 44), a2);
             }
 
             else
             {
-              if ((*(v3 + 16) + v39))
+              if ((*(v4 + 16) + v40))
               {
-                v42 = *(v3 + 56) * 0.5;
+                v43 = *(v4 + 56) * 0.5;
               }
 
               else
               {
-                v42 = *(v3 + 52);
+                v43 = *(v4 + 52);
               }
 
               if (*(this + 36) == 1)
@@ -6389,36 +5839,26 @@ LABEL_71:
                 kd_multi_dwt_block::perform_inverse();
               }
 
-              v43 = *(v41 + 20);
-              v44 = (1 << *(v41 + 40)) / (v42 * (1 << *(this + 40)));
-              if ((*(v41 + 6) & 2) != 0 || (v45 = *(v41 + 8)) == 0)
+              v44 = *(v42 + 20);
+              v45 = (1 << *(v42 + 40)) / (v43 * (1 << *(this + 40)));
+              if ((*(v42 + 6) & 2) != 0 || (v46 = *(v42 + 8)) == 0)
               {
-                v47 = 0;
-                while (v44 < 16383.0)
+                v48 = 0;
+                while (v45 < 16383.0)
                 {
-                  v44 = v44 + v44;
-                  ++v47;
+                  v45 = v45 + v45;
+                  ++v48;
                 }
 
-                while (v44 > 32767.0)
+                while (v45 > 32767.0)
                 {
-                  v44 = v44 * 0.5;
-                  --v47;
+                  v45 = v45 * 0.5;
+                  --v48;
                 }
 
-                if ((*(v41 + 6) & 2) != 0)
+                if ((*(v42 + 6) & 2) != 0)
                 {
-                  v48 = *(v41 + 8);
-                }
-
-                else
-                {
-                  v48 = 0;
-                }
-
-                if ((*(this + 6) & 2) != 0)
-                {
-                  v49 = *(this + 8);
+                  v49 = *(v42 + 8);
                 }
 
                 else
@@ -6426,35 +5866,46 @@ LABEL_71:
                   v49 = 0;
                 }
 
-                v50 = vcvtmd_s64_f64(v44 + 0.5);
-                v51 = vcvtmd_s64_f64((*(this + 48) * 8192.0) + 0.5);
-                if (v47 < 0)
+                if ((*(this + 6) & 2) != 0)
                 {
-                  if (v43 >= 1)
+                  v50 = *(this + 8);
+                }
+
+                else
+                {
+                  v50 = 0;
+                }
+
+                v51 = vcvtmd_s64_f64(v45 + 0.5);
+                a2.n128_f64[0] = (*(this + 48) * 8192.0) + 0.5;
+                v52 = vcvtmd_s64_f64(a2.n128_f64[0]);
+                if (v48 < 0)
+                {
+                  if (v44 >= 1)
                   {
-                    v54 = -v47;
+                    v55 = -v48;
                     do
                     {
-                      v55 = *v48++;
-                      *v49++ = ((v55 * v50) << v54) - v51;
-                      --v43;
+                      v56 = *v49++;
+                      *v50++ = ((v56 * v51) << v55) - v52;
+                      --v44;
                     }
 
-                    while (v43);
+                    while (v44);
                   }
                 }
 
-                else if (v43 >= 1)
+                else if (v44 >= 1)
                 {
-                  v52 = (1 << v47 >> 1) - (v51 << v47);
+                  v53 = (1 << v48 >> 1) - (v52 << v48);
                   do
                   {
-                    v53 = *v48++;
-                    *v49++ = (v52 + v53 * v50) >> v47;
-                    --v43;
+                    v54 = *v49++;
+                    *v50++ = (v53 + v54 * v51) >> v48;
+                    --v44;
                   }
 
-                  while (v43);
+                  while (v44);
                 }
               }
 
@@ -6462,41 +5913,41 @@ LABEL_71:
               {
                 if ((*(this + 6) & 2) != 0)
                 {
-                  v46 = 0;
+                  v47 = 0;
                 }
 
                 else
                 {
-                  v46 = *(this + 8);
+                  v47 = *(this + 8);
                 }
 
-                if (v43 >= 1)
+                if (v44 >= 1)
                 {
-                  v56 = -*(this + 48);
+                  v57 = -*(this + 48);
                   do
                   {
-                    v57 = *v45++;
-                    *v46++ = v56 + (v57 * v44);
-                    --v43;
+                    v58 = *v46++;
+                    *v47++ = v57 + (v58 * v45);
+                    --v44;
                   }
 
-                  while (v43);
+                  while (v44);
                 }
               }
             }
           }
         }
 
-        ++v39;
+        ++v40;
       }
 
-      while (v39 < *(v3 + 20));
+      while (v40 < *(v4 + 20));
     }
 
-    v1 = v58;
+    v2 = v59;
   }
 
-  while (v59 >= 2);
+  while (v60 >= 2);
   return this;
 }
 
@@ -7172,7 +6623,7 @@ LABEL_90:
             }
           }
 
-          v54 = &v82[256 * v51];
+          v54 = &v82[64 * v51];
           v55 = v83;
           while (2)
           {
@@ -7297,8 +6748,8 @@ LABEL_126:
           {
             v73 = v71 + 36 * v70;
             v74 = *v72;
-            v75 = v72[1];
-            *(v73 + 32) = *(v72 + 8);
+            v75 = *(v72 + 16);
+            *(v73 + 32) = *(v72 + 32);
             *v73 = v74;
             *(v73 + 16) = v75;
           }
@@ -7316,7 +6767,7 @@ LABEL_126:
           }
 
           ++v69;
-          v72 = (v72 + 36);
+          v72 += 36;
         }
 
         while (v69 < *(a1 + 68));
@@ -7376,9 +6827,9 @@ LABEL_166:
   *(v4 + 40) = v79;
 }
 
-uint64_t prepare_for_pass(uint64_t a1)
+uint64_t prepare_for_pass(uint64_t *a1)
 {
-  v2 = *(a1 + 496);
+  v2 = a1[62];
   v3 = v2[8];
   if (v3 == 2)
   {
@@ -7389,10 +6840,10 @@ uint64_t prepare_for_pass(uint64_t a1)
   {
     select_scan_parameters(a1);
     per_scan_setup(a1);
-    if (*(a1 + 460) || !*(a1 + 468))
+    if (*(a1 + 115) || !*(a1 + 117))
     {
-      (**(a1 + 560))(a1, 1);
-      result = (**(a1 + 520))(a1, 2);
+      (*a1[70])(a1, 1);
+      result = (*a1[65])(a1, 2);
       goto LABEL_21;
     }
 
@@ -7400,20 +6851,20 @@ uint64_t prepare_for_pass(uint64_t a1)
     v2[8] = 2;
     v2[9] = v7;
 LABEL_16:
-    if (!*(a1 + 296))
+    if (!*(a1 + 74))
     {
       select_scan_parameters(a1);
       per_scan_setup(a1);
     }
 
-    (**(a1 + 560))(a1, 0);
-    (**(a1 + 520))(a1, 2);
+    (*a1[70])(a1, 0);
+    (*a1[65])(a1, 2);
     if (!v2[11])
     {
-      (*(*(a1 + 528) + 8))(a1);
+      (*(a1[66] + 8))(a1);
     }
 
-    result = (*(*(a1 + 528) + 16))(a1);
+    result = (*(a1[66] + 16))(a1);
     goto LABEL_21;
   }
 
@@ -7427,15 +6878,15 @@ LABEL_16:
 
   select_scan_parameters(a1);
   per_scan_setup(a1);
-  if (!*(a1 + 288))
+  if (!*(a1 + 72))
   {
-    (**(a1 + 536))(a1);
-    (**(a1 + 544))(a1);
-    (**(a1 + 512))(a1, 0);
+    (*a1[67])(a1);
+    (*a1[68])(a1);
+    (*a1[64])(a1, 0);
   }
 
-  (**(a1 + 552))(a1);
-  (**(a1 + 560))(a1, *(a1 + 296));
+  (*a1[69])(a1);
+  (*a1[70])(a1, *(a1 + 74));
   if (v2[10] <= 1)
   {
     v4 = 0;
@@ -7446,9 +6897,9 @@ LABEL_16:
     v4 = 3;
   }
 
-  (**(a1 + 520))(a1, v4);
-  result = (**(a1 + 504))(a1, 0);
-  if (!*(a1 + 296))
+  (*a1[65])(a1, v4);
+  result = (*a1[63])(a1, 0);
+  if (!*(a1 + 74))
   {
     v2[6] = 1;
     goto LABEL_22;
@@ -7460,7 +6911,7 @@ LABEL_22:
   v8 = v2[9];
   v9 = v2[10];
   v2[7] = v8 == v9 - 1;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   if (v10)
   {
     *(v10 + 24) = v8;
@@ -7511,13 +6962,13 @@ LABEL_9:
   return result;
 }
 
-uint64_t select_scan_parameters(uint64_t result)
+uint64_t *select_scan_parameters(uint64_t *result)
 {
   v1 = result;
-  v2 = *(result + 280);
+  v2 = result[35];
   if (!v2)
   {
-    v11 = *(result + 92);
+    v11 = *(result + 23);
     if (v11 >= 5)
     {
       v12 = *result;
@@ -7563,14 +7014,14 @@ uint64_t select_scan_parameters(uint64_t result)
     goto LABEL_16;
   }
 
-  v3 = (v2 + 36 * *(*(result + 496) + 44));
+  v3 = (v2 + 36 * *(result[62] + 44));
   v4 = *v3;
-  *(result + 372) = v4;
+  *(result + 93) = v4;
   if (v4 >= 1)
   {
-    v5 = *(result + 104);
+    v5 = result[13];
     v6 = (v3 + 1);
-    v7 = (result + 376);
+    v7 = result + 47;
     do
     {
       v8 = *v6++;
@@ -7581,7 +7032,7 @@ uint64_t select_scan_parameters(uint64_t result)
     while (v4);
   }
 
-  if (!*(result + 348))
+  if (!*(result + 87))
   {
 LABEL_16:
     v9 = 0;
@@ -7593,22 +7044,22 @@ LABEL_16:
   *(result + 460) = *(v3 + 5);
   v10 = v3[7];
   v9 = v3[8];
-  *(result + 468) = v10;
+  *(result + 117) = v10;
 LABEL_17:
   *(v1 + 472) = v9;
   return result;
 }
 
-uint64_t per_scan_setup(uint64_t result)
+uint64_t *per_scan_setup(uint64_t *result)
 {
   v1 = result;
-  v2 = *(result + 372);
+  v2 = *(result + 93);
   if (v2 == 1)
   {
-    v3 = *(result + 376);
+    v3 = result[47];
     v4 = *(v3 + 32);
-    *(result + 408) = *(v3 + 28);
-    *(result + 412) = v4;
+    *(result + 102) = *(v3 + 28);
+    *(result + 103) = v4;
     v5 = *(v3 + 36);
     *(v3 + 64) = 1;
     *(v3 + 68) = v5;
@@ -7622,7 +7073,7 @@ uint64_t per_scan_setup(uint64_t result)
 
     *(v3 + 72) = 1;
     *(v3 + 76) = v7;
-    *(result + 416) = 1;
+    result[52] = 1;
   }
 
   else
@@ -7755,11 +7206,11 @@ void kdrc_overlay::~kdrc_overlay(kdrc_overlay *this)
   while (v3);
 }
 
-uint64_t kdrc_overlay::set_geometry(uint64_t result, uint64_t a2, uint64_t a3, int a4, int a5, int a6, unint64_t a7, unint64_t a8, unint64_t a9)
+uint64_t kdrc_overlay::set_geometry(uint64_t result, unint64_t a2, unint64_t a3, int a4, int a5, int a6, unint64_t a7, unint64_t a8, unint64_t a9)
 {
   v9 = HIDWORD(a7);
   v10 = HIDWORD(a8);
-  if (*(result + 24) != a2 || *(result + 32) != a3 || *(result + 40) != a4 || *(result + 41) != a5 || *(result + 42) != a6 || *(result + 44) != a7 || *(result + 52) != __PAIR128__(a9, a8))
+  if (*(result + 24) != __PAIR128__(a3, a2) || *(result + 40) != a4 || *(result + 41) != a5 || *(result + 42) != a6 || *(result + 44) != __PAIR128__(a8, a7) || *(result + 60) != a9)
   {
     *(result + 24) = a2;
     *(result + 32) = a3;
@@ -8405,7 +7856,7 @@ LABEL_45:
   return result;
 }
 
-uint64_t kdrc_overlay::update_config(kdrc_overlay *this, int a2, int a3)
+uint64_t kdrc_overlay::update_config(kdrc_overlay *this, unsigned int a2, int a3)
 {
   if (a2 <= 1)
   {
@@ -8746,11 +8197,11 @@ LABEL_7:
   return result;
 }
 
-void kdrc_codestream::init(kdrc_codestream *this, kdu_compressed_source *a2)
+void kdrc_codestream::init(kd_codestream **this, kdu_compressed_source *a2)
 {
-  if (!*(this + 36))
+  if (!this[36])
   {
-    kdu_codestream::create((this + 288), a2);
+    kdu_codestream::create(this + 36, a2);
   }
 
   kdrc_codestream::init();
@@ -8768,32 +8219,32 @@ void kdrc_codestream::init(uint64_t a1, jx_codestream_source *a2)
   kdrc_codestream::init();
 }
 
-void kdrc_codestream::init(kdrc_codestream *this, mj2_video_source *a2, uint64_t a3, uint64_t a4)
+void kdrc_codestream::init(kd_codestream **this, mj2_video_source *a2, uint64_t a3, uint64_t a4)
 {
-  if (!*(this + 36))
+  if (!this[36])
   {
     (*(*a2 + 104))(a2, a3);
     (*(*a2 + 168))(a2, a4, this + 8);
-    kdu_codestream::create((this + 288), (this + 8));
+    kdu_codestream::create(this + 36, (this + 1));
   }
 
   kdrc_codestream::init();
 }
 
-void kdrc_codestream::restart(kdrc_codestream *this, mj2_video_source *a2, uint64_t a3, uint64_t a4)
+void kdrc_codestream::restart(kd_codestream **this, mj2_video_source *a2, uint64_t a3, uint64_t a4)
 {
-  if (*(this + 36))
+  if (this[36])
   {
-    jpx_input_box::close((this + 8));
+    jpx_input_box::close((this + 1));
     (*(*a2 + 104))(a2, a3);
     (*(*a2 + 168))(a2, a4, this + 8);
-    kdu_codestream::restart((this + 288), (this + 8));
+    kdu_codestream::restart(this + 36, (this + 1));
   }
 
   kdrc_codestream::restart();
 }
 
-uint64_t kdrc_codestream::attach(kdrc_codestream *this, kdrc_stream *a2)
+uint64_t *kdrc_codestream::attach(kdrc_codestream *this, kdrc_stream *a2)
 {
   if (*(a2 + 142))
   {
@@ -8841,7 +8292,7 @@ uint64_t kdrc_codestream::attach(kdrc_codestream *this, kdrc_stream *a2)
 
   kdu_codestream::change_appearance(this + 36, 0, 0, 0);
 
-  return kdu_codestream::apply_input_restrictions(this + 288, 0, 0, 0, 0, 0, 0);
+  return kdu_codestream::apply_input_restrictions(this + 36, 0, 0, 0, 0, 0, 0);
 }
 
 kdrc_codestream *kdrc_codestream::detach(kdrc_codestream *this, kdrc_codestream **a2)
@@ -9238,7 +8689,7 @@ void kdrc_stream::configure_subsampling(kdrc_stream *this)
   v3 = v2;
   do
   {
-    kdu_codestream::apply_input_restrictions(*(this + 142) + 288, 0, 0, v3, 0, 0, *(this + 93));
+    kdu_codestream::apply_input_restrictions((*(this + 142) + 288), 0, 0, v3, 0, 0, *(this + 93));
     if (v3 == *(this + 226) && (*(this + 90) & 0x80000000) == 0)
     {
       num_components = kdu_codestream::get_num_components((*(this + 142) + 288), 1);
@@ -9312,16 +8763,16 @@ __n128 kdrc_stream::invalidate_surface(__n128 *this)
   return result;
 }
 
-void kdrc_stream::init(uint64_t a1, uint64_t a2, uint64_t a3)
+void kdrc_stream::init(uint64_t a1, uint64_t a2, uint64_t a3, jpx_source *a4, int a5, uint64_t a6)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = a3;
-  v4 = a2;
+  v8 = *MEMORY[0x1E69E9840];
+  v6 = a3;
+  v7 = a2;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
   if (!*(a1 + 48))
   {
-    *(a1 + 1104) = jpx_codestream_source::get_codestream_id(&v4);
+    *(a1 + 1104) = jpx_codestream_source::get_codestream_id(&v7, a2);
     operator new();
   }
 
@@ -9351,7 +8802,7 @@ void sub_185FABA0C(void *a1, int a2)
   sub_185FABA20();
 }
 
-void kdrc_stream::init(kdrc_stream *this, mj2_video_source *a2, uint64_t a3, unsigned int a4, kdrc_codestream **a5)
+void kdrc_stream::init(kdrc_stream *this, mj2_video_source *a2, uint64_t a3, uint64_t a4, kdrc_codestream **a5)
 {
   v19 = *MEMORY[0x1E69E9840];
   *(this + 2) = a2;
@@ -9359,8 +8810,9 @@ void kdrc_stream::init(kdrc_stream *this, mj2_video_source *a2, uint64_t a3, uns
   *(this + 7) = a4;
   if (!*(this + 6))
   {
+    v6 = a4;
     *(this + 9) = 0;
-    if (a4 > 1 || (v10 = (*(*a2 + 80))(a2), a4) && !v10)
+    if (a4 > 1 || (v10 = (*(*a2 + 80))(a2), v6) && !v10)
     {
       *&v18 = 0;
       *v16 = 0u;
@@ -9370,7 +8822,7 @@ void kdrc_stream::init(kdrc_stream *this, mj2_video_source *a2, uint64_t a3, uns
     }
 
     (*(*a2 + 104))(a2, a3);
-    *(this + 276) = mj2_video_source::get_stream_idx(a2, a4);
+    *(this + 276) = mj2_video_source::get_stream_idx(a2, v6);
     *(this + 277) = mj2_video_source::get_track_idx(a2) - 1;
     *(this + 139) = 0;
     if (!*(this + 142))
@@ -9426,21 +8878,21 @@ void sub_185FABEEC(void *a1, int a2)
   sub_185FABF00();
 }
 
-uint64_t kdrc_stream::change_frame(kdrc_stream *this, uint64_t a2)
+void kdrc_stream::change_frame(kdrc_stream *this, uint64_t a2)
 {
-  result = *(this + 2);
-  if (result && *(this + 6) != a2)
+  v3 = *(this + 2);
+  if (v3 && *(this + 6) != a2)
   {
     if (*(this + 1068) == 1)
     {
       kdu_region_decompressor::finish((this + 120));
       *(*(this + 142) + 296) = 0;
       *(this + 1068) = 0;
-      result = *(this + 2);
+      v3 = *(this + 2);
     }
 
     *(this + 6) = a2;
-    (*(*result + 104))(result, a2);
+    (*(*v3 + 104))(v3, a2);
     *(this + 276) = mj2_video_source::get_stream_idx(*(this + 2), *(this + 7));
     v5 = *(this + 142);
     if (v5)
@@ -9450,8 +8902,6 @@ uint64_t kdrc_stream::change_frame(kdrc_stream *this, uint64_t a2)
 
     operator new();
   }
-
-  return result;
 }
 
 void sub_185FAC084(void *a1)
@@ -9462,7 +8912,7 @@ void sub_185FAC084(void *a1)
   __cxa_rethrow();
 }
 
-uint64_t *kdrc_stream::set_error_level(kdrc_stream *this, int a2)
+uint64_t *kdrc_stream::set_error_level(kdrc_stream *this, uint64_t a2)
 {
   v3 = *(this + 142);
   if (!v3 || !*(v3 + 288))
@@ -9552,7 +9002,7 @@ uint64_t kdrc_stream::set_thread_env(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t kdrc_stream::set_scale(uint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6, unint64_t a7, int a8, float a9, unsigned __int8 a10, unsigned __int8 a11, _DWORD *a12)
+uint64_t kdrc_stream::set_scale(uint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6, unint64_t a7, int a8, float a9, char a10, char a11, _DWORD *a12)
 {
   *&v104 = a2;
   *(&v104 + 1) = a3;
@@ -9578,7 +9028,7 @@ uint64_t kdrc_stream::set_scale(uint64_t a1, unint64_t a2, unint64_t a3, unint64
     v18 = a2;
   }
 
-  if (*(a1 + 909) == 1 && *(a1 + 911) == a10 && *(a1 + 912) == a11 && *(a1 + 910) == a8 && *(a1 + 916) == a9 && *(a1 + 924) == v19 && *(a1 + 920) == v18 && *(a1 + 932) == v17 && *(a1 + 928) == v16 && *(a1 + 936) == a4 && *(a1 + 944) == a5 && *(a1 + 956) == HIDWORD(a6))
+  if (*(a1 + 909) == 1 && *(a1 + 911) == a10 && *(a1 + 912) == a11 && *(a1 + 910) == a8 && *(a1 + 916) == a9 && *(a1 + 924) == v19 && *(a1 + 920) == v18 && *(a1 + 932) == v17 && *(a1 + 928) == v16 && *(a1 + 936) == __PAIR128__(a5, a4) && *(a1 + 956) == HIDWORD(a6))
   {
     v20 = *(a1 + 952) == a6 && *(a1 + 964) == HIDWORD(a7) && *(a1 + 960) == a7;
   }
@@ -9798,7 +9248,7 @@ uint64_t kdrc_stream::set_scale(uint64_t a1, unint64_t a2, unint64_t a3, unint64
     {
       v44 = 0;
       v45 = 0;
-LABEL_104:
+LABEL_103:
       *v42 |= 1u;
       return v45 | v44;
     }
@@ -9871,7 +9321,7 @@ LABEL_104:
       v44 = 0;
       v45 = 0;
       *(a1 + 968) = v69;
-      goto LABEL_104;
+      goto LABEL_103;
     }
 
     ++v69;
@@ -9945,12 +9395,12 @@ LABEL_104:
         LODWORD(v17) = v17 >> 1;
         if (!v27)
         {
-          goto LABEL_125;
+          goto LABEL_124;
         }
       }
 
       v87 = v17;
-LABEL_125:
+LABEL_124:
       v83 = v87;
     }
 
@@ -9986,12 +9436,12 @@ LABEL_125:
         LODWORD(v16) = v16 >> 1;
         if (!v27)
         {
-          goto LABEL_136;
+          goto LABEL_135;
         }
       }
 
       v90 = v16;
-LABEL_136:
+LABEL_135:
       v89 = v90;
     }
 
@@ -10003,12 +9453,12 @@ LABEL_136:
   {
     LODWORD(i) = vcvtmd_s64_f64(v43 * (v86 / (v81 * v83) * a9) + 0.5);
     v91 = vcvtmd_s64_f64(v41 * (v88 / (v82 * v89) * a9) + 0.5);
-    kdu_codestream::apply_input_restrictions(v38 + 288, 0, 0, v69, 0, &v104, *(a1 + 372));
+    kdu_codestream::apply_input_restrictions((v38 + 288), 0, 0, v69, 0, &v104, *(a1 + 372));
   }
 
   else
   {
-    kdu_codestream::apply_input_restrictions(v38 + 288, 0, 0, v69, 0, 0, *(a1 + 372));
+    kdu_codestream::apply_input_restrictions((v38 + 288), 0, 0, v69, 0, 0, *(a1 + 372));
     i = 0;
     v91 = 0;
   }
@@ -10089,4 +9539,316 @@ LABEL_136:
   v44 = i << 32;
   v45 = v91;
   return v45 | v44;
+}
+
+uint64_t kdrc_stream::set_buffer_surface(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+{
+  *(&v13 + 1) = a4;
+  if ((*(a1 + 909) & 1) == 0)
+  {
+    kdrc_stream::set_buffer_surface();
+  }
+
+  v7 = (a1 + 1012);
+  *(a1 + 1040) = a2;
+  v8 = *(a1 + 1008) + HIDWORD(a3);
+  LODWORD(v13) = *(a1 + 1004) + a3;
+  DWORD1(v13) = v8;
+  *(a1 + 1012) = v13;
+  v9 = (a1 + 1020);
+  result = kdu_dims::operator&=(&v13, (a1 + 988));
+  v11 = v13 == __PAIR64__(*(a1 + 1024), *v9) && HIDWORD(v13) == *(a1 + 1032) && DWORD2(v13) == *(a1 + 1028);
+  *v9 = v13;
+  if (a5)
+  {
+    if (*(a1 + 1068) == 1)
+    {
+      result = kdu_region_decompressor::finish((a1 + 120));
+      *(*(a1 + 1136) + 296) = 0;
+      *(a1 + 1068) = 0;
+    }
+
+    v7[5] = v7[1];
+    v7[6] = 0;
+    v12 = *(v7 + 5);
+    *(a1 + 1088) = v12;
+    *(a1 + 1072) = v12;
+    *(a1 + 1124) = 0;
+    *(a1 + 1120) = 256;
+  }
+
+  else if (!v11)
+  {
+    if (*(a1 + 1068) == 1)
+    {
+      kdu_dims::operator&=((a1 + 1072), v9);
+      kdu_dims::operator&=((a1 + 1088), v9);
+      if ((*(a1 + 1100) < 1 || *(a1 + 1096) <= 0) && *(a1 + 1068) == 1)
+      {
+        kdu_region_decompressor::finish((a1 + 120));
+        *(*(a1 + 1136) + 296) = 0;
+        *(a1 + 1068) = 0;
+      }
+    }
+
+    kdu_dims::operator&=((a1 + 1052), v9);
+    return kdrc_stream::update_completion_status(a1);
+  }
+
+  return result;
+}
+
+uint64_t kdrc_stream::update_completion_status(uint64_t this)
+{
+  v1 = *(this + 1032);
+  if (v1 < 1 || (v2 = *(this + 1028), v2 < 1) || *(this + 1024) == *(this + 1056) && *(this + 1020) == *(this + 1052) && v1 == *(this + 1064) && v2 == *(this + 1060))
+  {
+    LODWORD(v3) = 0;
+    *(this + 1124) = 1;
+  }
+
+  else
+  {
+    *(this + 1124) = 0;
+    v4 = v2 * v1;
+    v5 = *(this + 1060) * *(this + 1064);
+    if (*(this + 1068) == 1)
+    {
+      v5 = v5 + *(this + 1080) * *(this + 1084) - *(this + 1096) * *(this + 1100);
+    }
+
+    v3 = ((v4 - v5) << 8) / v4;
+  }
+
+  *(this + 1120) = v3;
+  return this;
+}
+
+uint64_t kdrc_stream::process(kdrc_stream *this, int a2, int32x2_t *a3, int *a4)
+{
+  v44 = *MEMORY[0x1E69E9840];
+  *a4 = 0;
+  if (!*(this + 130))
+  {
+    kdrc_stream::process();
+  }
+
+  v8 = this + 972;
+  if ((*(this + 1068) & 1) == 0 && *(this + 258) >= 1 && *(this + 257) >= 1)
+  {
+    *(this + 1052) = *(this + 1020);
+    *(this + 1060) = 0;
+    v9 = *(this + 1020);
+    *(this + 67) = v9;
+    *(this + 68) = v9;
+    if (*(this + 271) >= 1 && *(this + 270) >= 1)
+    {
+      v10 = *(this + 142);
+      if (*(v10 + 296) == 1)
+      {
+        kdrc_stream::process();
+      }
+
+      *(this + 32) = 8;
+      v11 = *(this + 90);
+      if (v11 >= 0)
+      {
+        v12 = 0;
+      }
+
+      else
+      {
+        v12 = (this + 64);
+      }
+
+      if ((kdu_region_decompressor::start((this + 120), *(v10 + 288), v12, v11, *(this + 242), *(this + 14), *(this + 134), *(this + 135), *v8, *(this + 980), 0, *(this + 93), 1, *(this + 4), *(this + 5)) & 1) == 0)
+      {
+        goto LABEL_72;
+      }
+
+      *(*(this + 142) + 296) = 1;
+      *(this + 1068) = 1;
+    }
+  }
+
+  a3[1] = 0;
+  if (*(this + 1068) == 1)
+  {
+    v13 = *(this + 130);
+    if ((*(v13 + 27) & 1) == 0)
+    {
+      (*(*v13 + 24))(*(this + 130), 0);
+    }
+
+    v14 = *(v13 + 40);
+    v15 = *(v13 + 44);
+    v16 = *(v13 + 32);
+    if (*(this + 9) == 1)
+    {
+      v38 = *(v13 + 32);
+      v17 = kdu_region_decompressor::process(this + 120, &v38, 1u, v14, *(v8 + 5), v15, a2, 0, this + 272, a3, 8u, 1u);
+    }
+
+    else
+    {
+      if ((*(this + 90) & 0x80000000) == 0 || (v30 = *(this + 139)) == 0 || *(v30 + 232) != 1 || *(this + 17) != *(this + 16))
+      {
+        if (*(this + 17) > 3)
+        {
+          v43 = 0u;
+          v42 = 0u;
+          v38 = v16;
+          v39 = v16 + 1;
+          v40 = v16 + 2;
+          v41 = v16 + 3;
+          if (!kdu_region_decompressor::process(this + 120, &v38, 0, v14, *(v8 + 5), v15, a2, 0, this + 272, a3, 8u, 1u))
+          {
+            goto LABEL_27;
+          }
+        }
+
+        else if ((kdu_region_decompressor::process((this + 120), v16, *(v8 + 5), v14, v15, a2, 0, this + 272, a3) & 1) == 0)
+        {
+LABEL_27:
+          *(*(this + 142) + 296) = 0;
+          *(this + 1068) = 0;
+          if (kdu_region_decompressor::finish((this + 120)))
+          {
+            min_dwt_levels = kdu_codestream::get_min_dwt_levels((*(this + 142) + 288));
+            *(this + 226) = min_dwt_levels;
+            if (min_dwt_levels < *(this + 242))
+            {
+              *(this + 242) = min_dwt_levels;
+              *(this + 909) = 0;
+              v19 = *a4 | 1;
+LABEL_57:
+              *a4 = v19;
+              kdrc_stream::invalidate_surface(this);
+              return 0;
+            }
+
+            if ((*(this + 912) & 1) != 0 || *(this + 911) == 1)
+            {
+              can_flip = kdu_codestream::can_flip((*(this + 142) + 288));
+              *(this + 908) = can_flip;
+              if ((can_flip & 1) == 0)
+              {
+                *(this + 909) = 0;
+                *(this + 911) = 0;
+                v19 = *a4 | 2;
+                goto LABEL_57;
+              }
+            }
+
+            kdu_dims::operator&=(v8 + 20, this + 255);
+            kdu_dims::operator&=(this + 268, this + 255);
+            v21 = *(this + 266);
+            if (v21 < 1 || (v22 = *(v8 + 22), v22 <= 0))
+            {
+              *(v8 + 5) = *(this + 67);
+            }
+
+            else
+            {
+              v23 = *(v8 + 10);
+              v24 = HIDWORD(v23);
+              v25 = *(this + 134);
+              v26 = v21 + HIDWORD(v23);
+              v27 = v22 + v23;
+              v28 = *(this + 271) + HIDWORD(v25);
+              v29 = *(this + 270) + v25;
+              if (HIDWORD(v23) == HIDWORD(v25) && v26 == v28)
+              {
+                if (v29 >= v23 && v27 >= v25)
+                {
+                  if (v23 >= v25)
+                  {
+                    LODWORD(v23) = *(this + 134);
+                  }
+
+                  if (v27 <= v29)
+                  {
+                    v27 = *(this + 270) + v25;
+                  }
+                }
+              }
+
+              else if (v23 == v25 && v27 == v29 && v28 >= SHIDWORD(v23) && v26 >= SHIDWORD(v25))
+              {
+                v24 = SHIDWORD(v23) >= SHIDWORD(v25) ? HIDWORD(v25) : HIDWORD(v23);
+                if (v26 <= v28)
+                {
+                  v26 = *(this + 271) + HIDWORD(v25);
+                }
+              }
+
+              *(v8 + 10) = v23 | (v24 << 32);
+              *(v8 + 11) = (v27 - v23) | ((v26 - v24) << 32);
+            }
+
+            goto LABEL_68;
+          }
+
+LABEL_72:
+          exception = __cxa_allocate_exception(4uLL);
+          *exception = 0;
+          __cxa_throw(exception, MEMORY[0x1E69E5478], 0);
+        }
+
+LABEL_25:
+        if (*(this + 275) >= 1 && *(this + 274) > 0)
+        {
+LABEL_68:
+          *a3 = vsub_s32(*a3, *(v8 + 32));
+          goto LABEL_69;
+        }
+
+        goto LABEL_27;
+      }
+
+      if (*(this + 1048))
+      {
+        v31 = 2;
+      }
+
+      else
+      {
+        v31 = 1;
+      }
+
+      v32 = v16 + v31;
+      if (*(this + 1048))
+      {
+        v33 = 1;
+      }
+
+      else
+      {
+        v33 = 2;
+      }
+
+      v34 = v16 + v33;
+      v35 = 3;
+      if (*(this + 1048))
+      {
+        v35 = 0;
+      }
+
+      v38 = v32;
+      v39 = v34;
+      v40 = v16 + v35;
+      v17 = kdu_region_decompressor::process(this + 120, &v38, 1u, v14, *(v8 + 5), v15, a2, 0, this + 272, a3, 8u, 1u);
+    }
+
+    if ((v17 & 1) == 0)
+    {
+      goto LABEL_27;
+    }
+
+    goto LABEL_25;
+  }
+
+LABEL_69:
+  kdrc_stream::update_completion_status(this);
+  return 1;
 }

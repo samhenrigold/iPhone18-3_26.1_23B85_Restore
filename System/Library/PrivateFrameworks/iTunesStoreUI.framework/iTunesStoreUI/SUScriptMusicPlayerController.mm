@@ -43,7 +43,7 @@
   return v4;
 }
 
-uint64_t __52__SUScriptMusicPlayerController_initWithPlayerType___block_invoke(uint64_t a1)
+void *__52__SUScriptMusicPlayerController_initWithPlayerType___block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) isEqualToString:@"app"])
   {
@@ -215,7 +215,7 @@ uint64_t __37__SUScriptMusicPlayerController_stop__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __52__SUScriptMusicPlayerController_currentPlaybackTime__block_invoke(uint64_t a1)
+void *__52__SUScriptMusicPlayerController_currentPlaybackTime__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_msgSend(*(a1 + 32) "nativeObject")];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -248,7 +248,7 @@ uint64_t __52__SUScriptMusicPlayerController_currentPlaybackTime__block_invoke(u
   return v4;
 }
 
-uint64_t __47__SUScriptMusicPlayerController_nowPlayingItem__block_invoke(uint64_t a1)
+void *__47__SUScriptMusicPlayerController_nowPlayingItem__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_msgSend(*(a1 + 32) "nativeObject")];
   if (result)

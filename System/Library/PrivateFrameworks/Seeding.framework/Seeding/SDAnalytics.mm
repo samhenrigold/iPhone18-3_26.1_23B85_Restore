@@ -21,7 +21,7 @@
 
 void __31__SDAnalytics_deviceIdentifier__block_invoke()
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.seeding"];
   v1 = [v0 stringForKey:@"DeviceIdentifier"];
   if (v1)
@@ -34,9 +34,9 @@ void __31__SDAnalytics_deviceIdentifier__block_invoke()
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [deviceIdentifier_uuid UUIDString];
-      v12 = 138543362;
-      v13 = v5;
-      _os_log_impl(&dword_22E41E000, v4, OS_LOG_TYPE_DEFAULT, "Device identifier: %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v5;
+      _os_log_impl(&dword_22E41E000, v4, OS_LOG_TYPE_DEFAULT, "Device identifier: %{public}@", &v11, 0xCu);
     }
   }
 
@@ -50,16 +50,14 @@ void __31__SDAnalytics_deviceIdentifier__block_invoke()
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [deviceIdentifier_uuid UUIDString];
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_22E41E000, v8, OS_LOG_TYPE_DEFAULT, "Device identifier (new): %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_22E41E000, v8, OS_LOG_TYPE_DEFAULT, "Device identifier (new): %{public}@", &v11, 0xCu);
     }
 
     v10 = [deviceIdentifier_uuid UUIDString];
     [v0 setValue:v10 forKey:@"DeviceIdentifier"];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)deviceDidEnrollInSeeding

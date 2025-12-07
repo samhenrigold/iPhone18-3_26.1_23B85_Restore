@@ -219,7 +219,7 @@ uint64_t __75__CKPluginDisplayContainer__registerItemProvider_forURL_withPluginP
 
 - (id)pasteboardItemProvider
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   pluginPayload = [(CKPluginDisplayContainer *)self pluginPayload];
   v4 = pluginPayload;
   if (!pluginPayload)
@@ -247,46 +247,47 @@ uint64_t __75__CKPluginDisplayContainer__registerItemProvider_forURL_withPluginP
     if (composeImage)
     {
       v11 = UIImagePNGRepresentation(composeImage);
+      v12 = v11;
       if (v11)
       {
-        v12 = CKFrameworkBundle();
-        v13 = [v12 localizedStringForKey:@"DROPPED_PLUGIN_PREVIEW_FILE_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
-        [v6 setSuggestedName:v13];
+        v13 = CKFrameworkBundle(v11);
+        v14 = [v13 localizedStringForKey:@"DROPPED_PLUGIN_PREVIEW_FILE_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
+        [v6 setSuggestedName:v14];
 
-        v14 = *MEMORY[0x1E6963860];
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __50__CKPluginDisplayContainer_pasteboardItemProvider__block_invoke;
-        v27[3] = &unk_1E72EC878;
-        v28 = v11;
-        v15 = v11;
-        [v6 registerDataRepresentationForTypeIdentifier:v14 visibility:0 loadHandler:v27];
+        v15 = *MEMORY[0x1E6963860];
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = __50__CKPluginDisplayContainer_pasteboardItemProvider__block_invoke;
+        v28[3] = &unk_1E72EC878;
+        v29 = v12;
+        v16 = v12;
+        [v6 registerDataRepresentationForTypeIdentifier:v15 visibility:0 loadHandler:v28];
 
-        v26 = 0;
-        v16 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v26];
-        v17 = v26;
-        v18 = v17;
-        if (v16 && !v17)
+        v27 = 0;
+        v17 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v27];
+        v18 = v27;
+        v19 = v18;
+        if (v17 && !v18)
         {
-          v24[0] = MEMORY[0x1E69E9820];
-          v24[1] = 3221225472;
-          v24[2] = __50__CKPluginDisplayContainer_pasteboardItemProvider__block_invoke_60;
-          v24[3] = &unk_1E72EC878;
-          v25 = v16;
-          v19 = v16;
-          [v6 registerDataRepresentationForTypeIdentifier:@"com.apple.MobileSMS.PluginPayload" visibility:0 loadHandler:v24];
+          v25[0] = MEMORY[0x1E69E9820];
+          v25[1] = 3221225472;
+          v25[2] = __50__CKPluginDisplayContainer_pasteboardItemProvider__block_invoke_60;
+          v25[3] = &unk_1E72EC878;
+          v26 = v17;
+          v20 = v17;
+          [v6 registerDataRepresentationForTypeIdentifier:@"com.apple.MobileSMS.PluginPayload" visibility:0 loadHandler:v25];
 
           goto LABEL_15;
         }
 
         if (IMOSLoggingEnabled())
         {
-          v22 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+          v23 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v30 = v18;
-            _os_log_impl(&dword_19020E000, v22, OS_LOG_TYPE_INFO, "Failed to archive the plugin display container with error: %@", buf, 0xCu);
+            v31 = v19;
+            _os_log_impl(&dword_19020E000, v23, OS_LOG_TYPE_INFO, "Failed to archive the plugin display container with error: %@", buf, 0xCu);
           }
         }
 
@@ -295,11 +296,11 @@ uint64_t __75__CKPluginDisplayContainer__registerItemProvider_forURL_withPluginP
 
       if (IMOSLoggingEnabled())
       {
-        v21 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v22 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_19020E000, v21, OS_LOG_TYPE_INFO, "Failed to create snapshot image NSData", buf, 2u);
+          _os_log_impl(&dword_19020E000, v22, OS_LOG_TYPE_INFO, "Failed to create snapshot image NSData", buf, 2u);
         }
 
 LABEL_28:
@@ -308,11 +309,11 @@ LABEL_28:
 
     else if (IMOSLoggingEnabled())
     {
-      v21 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v22 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v21, OS_LOG_TYPE_INFO, "plugin snapshot image is unexpectedly nil, failed to create item provider", buf, 2u);
+        _os_log_impl(&dword_19020E000, v22, OS_LOG_TYPE_INFO, "plugin snapshot image is unexpectedly nil, failed to create item provider", buf, 2u);
       }
 
       goto LABEL_28;
@@ -331,7 +332,7 @@ LABEL_20:
 LABEL_15:
 LABEL_16:
     v6 = v6;
-    v20 = v6;
+    v21 = v6;
     goto LABEL_36;
   }
 
@@ -349,10 +350,10 @@ LABEL_16:
 
 LABEL_35:
 
-  v20 = 0;
+  v21 = 0;
 LABEL_36:
 
-  return v20;
+  return v21;
 }
 
 + (id)unarchiveFromData:(id)data error:(id *)error

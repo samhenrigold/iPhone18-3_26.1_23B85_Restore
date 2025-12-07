@@ -225,11 +225,11 @@
   [(_NUVideoProperties *)v5 setOriginalSize:originalSize, v11];
   if (propertiesCopy)
   {
-    [propertiesCopy cleanAperture];
+    objc_msgSend_cleanAperture(propertiesCopy);
     v25 = v27;
     v26 = v28;
     [(_NUVideoProperties *)v5 setCleanAperture:&v25];
-    [propertiesCopy originalCleanAperture];
+    objc_msgSend_originalCleanAperture(propertiesCopy);
   }
 
   else
@@ -254,11 +254,11 @@
 
   if (propertiesCopy)
   {
-    [propertiesCopy livePhotoKeyFrameTime];
+    objc_msgSend_livePhotoKeyFrameTime(propertiesCopy);
     v25 = v21;
     *&v26 = v22;
     [(_NUVideoProperties *)v5 setLivePhotoKeyFrameTime:&v25];
-    [propertiesCopy duration];
+    objc_msgSend_duration(propertiesCopy);
   }
 
   else

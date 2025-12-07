@@ -62,10 +62,10 @@
     if (UUID == v7[1] || [(NSUUID *)UUID isEqual:?])
     {
       uid = self->_uid;
-      if (uid == v7[2] || [(NSString *)uid isEqualToString:?])
+      if (uid == v7[2] || objc_msgSend_isEqualToString_(uid))
       {
         refId = self->_refId;
-        if (refId == v7[3] || [(NSString *)refId isEqualToString:?])
+        if (refId == v7[3] || objc_msgSend_isEqualToString_(refId))
         {
           refInstance = self->_refInstance;
           if (refInstance == v7[4])
@@ -75,7 +75,7 @@
 
           else
           {
-            v8 = [(NSString *)refInstance isEqualToString:?];
+            v8 = objc_msgSend_isEqualToString_(refInstance);
           }
 
           goto LABEL_16;

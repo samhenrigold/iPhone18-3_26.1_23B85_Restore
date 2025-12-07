@@ -79,41 +79,39 @@
 
 - (void)logToCoreAnalytics
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = self->_summaryMetrics;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [(NSMutableDictionary *)self->_summaryMetrics objectForKeyedSubscript:*(*(&v10 + 1) + 8 * v7), v10];
+        v8 = [(NSMutableDictionary *)self->_summaryMetrics objectForKeyedSubscript:*(*(&v9 + 1) + 8 * v7), v9];
         [v8 logToCoreAnalytics];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

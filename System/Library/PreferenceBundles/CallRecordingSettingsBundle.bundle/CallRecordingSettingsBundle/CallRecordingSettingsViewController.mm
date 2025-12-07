@@ -9,6 +9,7 @@
 - (void)emitNavigationEvent;
 - (void)setCallRecordingEnabled:(id)enabled specifier:(id)specifier;
 - (void)setValueInUserDefaults:(id)defaults forKey:(id)key;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation CallRecordingSettingsViewController
@@ -28,6 +29,14 @@
   }
 
   return v2;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CallRecordingSettingsViewController;
+  [(CallRecordingSettingsViewController *)&v4 viewDidAppear:appear];
+  [(CallRecordingSettingsViewController *)self emitNavigationEvent];
 }
 
 - (void)emitNavigationEvent

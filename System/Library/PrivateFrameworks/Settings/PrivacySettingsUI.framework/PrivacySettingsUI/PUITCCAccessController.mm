@@ -6,6 +6,8 @@
 - (void)setAccess:(id)access forSpecifier:(id)specifier;
 - (void)setSpecifier:(id)specifier;
 - (void)updateSpecifiersForImposedSettings;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PUITCCAccessController
@@ -245,50 +247,49 @@ LABEL_8:
 
 - (id)specifiers
 {
-  v119 = *MEMORY[0x277D85DE8];
+  v115 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (v3)
   {
     goto LABEL_67;
   }
 
-  v88 = *MEMORY[0x277D3FC48];
-  serviceKey = self->_serviceKey;
-  v5 = TCCAccessCopyInformation();
-  v103 = objc_opt_new();
-  v91 = objc_opt_new();
-  v101 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count") + 1}];
-  v113 = 0u;
-  v114 = 0u;
-  v111 = 0u;
-  v112 = 0u;
-  obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v111 objects:v118 count:16];
-  if (v6)
+  v84 = *MEMORY[0x277D3FC48];
+  v4 = TCCAccessCopyInformation();
+  v99 = objc_opt_new();
+  v87 = objc_opt_new();
+  v97 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count") + 1}];
+  v109 = 0u;
+  v110 = 0u;
+  v107 = 0u;
+  v108 = 0u;
+  obj = v4;
+  v5 = [obj countByEnumeratingWithState:&v107 objects:v114 count:16];
+  if (v5)
   {
-    v7 = *v112;
-    v97 = *MEMORY[0x277D40020];
-    v99 = *MEMORY[0x277D40008];
-    v93 = *MEMORY[0x277D3FE58];
-    v95 = *MEMORY[0x277D401A8];
-    v8 = MEMORY[0x277D6C0C8];
+    v6 = *v108;
+    v93 = *MEMORY[0x277D40020];
+    v95 = *MEMORY[0x277D40008];
+    v89 = *MEMORY[0x277D3FE58];
+    v91 = *MEMORY[0x277D401A8];
+    v7 = MEMORY[0x277D6C0C8];
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v112 != v7)
+        if (*v108 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v111 + 1) + 8 * i);
-        v11 = [v10 objectForKey:*v8];
-        v12 = v11;
-        if (v11)
+        v9 = *(*(&v107 + 1) + 8 * i);
+        v10 = [v9 objectForKey:*v7];
+        v11 = v10;
+        if (v10)
         {
-          v13 = CFBundleGetIdentifier(v11);
-          [v103 addObject:v13];
-          if (!PUIIsAppClip(v13))
+          v12 = CFBundleGetIdentifier(v10);
+          [v99 addObject:v12];
+          if (!PUIIsAppClip(v12))
           {
             if ([(PUITCCAccessController *)self appType]== 1)
             {
@@ -296,49 +297,49 @@ LABEL_8:
             }
 
 LABEL_16:
-            v16 = MEMORY[0x277D3FAD8];
-            v17 = PUIDisplayNameForApp(v12);
-            v18 = [v16 preferenceSpecifierNamed:v17 target:self set:sel_setAccess_forSpecifier_ get:sel_accesssForSpecifier_ detail:0 cell:6 edit:0];
+            v15 = MEMORY[0x277D3FAD8];
+            v16 = PUIDisplayNameForApp(v11);
+            v17 = [v15 preferenceSpecifierNamed:v16 target:self set:sel_setAccess_forSpecifier_ get:sel_accesssForSpecifier_ detail:0 cell:6 edit:0];
 
-            [v18 setIdentifier:v13];
-            [v18 setProperty:v13 forKey:v99];
-            [v18 setProperty:MEMORY[0x277CBEC38] forKey:v97];
-            v19 = [v10 objectForKey:*MEMORY[0x277D6C0D0]];
-            [v18 setProperty:v19 forKey:v95];
+            [v17 setIdentifier:v12];
+            [v17 setProperty:v12 forKey:v95];
+            [v17 setProperty:MEMORY[0x277CBEC38] forKey:v93];
+            v18 = [v9 objectForKey:*MEMORY[0x277D6C0D0]];
+            [v17 setProperty:v18 forKey:v91];
 
-            [v18 setProperty:v13 forKey:@"appBundleID"];
-            [v18 setProperty:v13 forKey:@"PUITCCAccessControllerBundleIDKey"];
+            [v17 setProperty:v12 forKey:@"appBundleID"];
+            [v17 setProperty:v12 forKey:@"PUITCCAccessControllerBundleIDKey"];
             specifier = [(PUITCCAccessController *)self specifier];
-            v21 = [specifier objectForKeyedSubscript:@"PUITCCAccessControllerCellClassKey"];
+            v20 = [specifier objectForKeyedSubscript:@"PUITCCAccessControllerCellClassKey"];
 
-            if (v21)
+            if (v20)
             {
               specifier2 = [(PUITCCAccessController *)self specifier];
-              v23 = [specifier2 objectForKeyedSubscript:@"PUITCCAccessControllerCellClassKey"];
-              [v18 setProperty:v23 forKey:v93];
+              v22 = [specifier2 objectForKeyedSubscript:@"PUITCCAccessControllerCellClassKey"];
+              [v17 setProperty:v22 forKey:v89];
             }
 
             specifier3 = [(PUITCCAccessController *)self specifier];
-            v25 = [specifier3 objectForKeyedSubscript:@"PUITCCAccessControllerCellDelegateKey"];
+            v24 = [specifier3 objectForKeyedSubscript:@"PUITCCAccessControllerCellDelegateKey"];
 
-            if (v25)
+            if (v24)
             {
               specifier4 = [(PUITCCAccessController *)self specifier];
-              v27 = [specifier4 objectForKeyedSubscript:@"PUITCCAccessControllerCellDelegateKey"];
-              [v18 setProperty:v27 forKey:@"PUITCCAccessControllerCellDelegateKey"];
+              v26 = [specifier4 objectForKeyedSubscript:@"PUITCCAccessControllerCellDelegateKey"];
+              [v17 setProperty:v26 forKey:@"PUITCCAccessControllerCellDelegateKey"];
             }
 
-            [v101 addObject:v18];
+            [v97 addObject:v17];
 
             goto LABEL_21;
           }
 
-          v14 = [v10 objectForKey:*MEMORY[0x277D6C0D0]];
-          bOOLValue = [v14 BOOLValue];
+          v13 = [v9 objectForKey:*MEMORY[0x277D6C0D0]];
+          bOOLValue = [v13 BOOLValue];
 
           if (bOOLValue)
           {
-            [v91 addObject:v13];
+            [v87 addObject:v12];
           }
 
           if ([(PUITCCAccessController *)self appType])
@@ -349,165 +350,163 @@ LABEL_16:
 
         else
         {
-          v13 = _PUILoggingFacility();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v12 = _PUILoggingFacility(0);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v117 = v10;
-            _os_log_impl(&dword_2657FE000, v13, OS_LOG_TYPE_DEFAULT, "TCCAccess skipping app with nil bundle: %@", buf, 0xCu);
+            v113 = v9;
+            _os_log_impl(&dword_2657FE000, v12, OS_LOG_TYPE_DEFAULT, "TCCAccess skipping app with nil bundle: %@", buf, 0xCu);
           }
         }
 
 LABEL_21:
       }
 
-      v6 = [obj countByEnumeratingWithState:&v111 objects:v118 count:16];
+      v5 = [obj countByEnumeratingWithState:&v107 objects:v114 count:16];
     }
 
-    while (v6);
+    while (v5);
   }
 
-  v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", objc_msgSend(v91, "count")];
-  v29 = PUI_LocalizedStringForPrivacy(v28);
-  [(PUITCCAccessController *)self setAppClipsCount:v29];
+  v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", objc_msgSend(v87, "count")];
+  v28 = PUI_LocalizedStringForPrivacy(v27);
+  [(PUITCCAccessController *)self setAppClipsCount:v28];
 
-  v87 = PUIGetActivePairedDevice();
-  if (![(PUITCCAccessController *)self appType]&& v87 && objc_opt_class())
+  v83 = PUIGetActivePairedDevice();
+  if (![(PUITCCAccessController *)self appType]&& v83 && objc_opt_class())
   {
-    v30 = MEMORY[0x277CBEB98];
-    v31 = self->_serviceKey;
-    v32 = TCCAccessCopyBundleIdentifiersForService();
-    v98 = [v30 setWithArray:v32];
+    v29 = MEMORY[0x277CBEB98];
+    v30 = TCCAccessCopyBundleIdentifiersForService();
+    v94 = [v29 setWithArray:v30];
 
-    v33 = MEMORY[0x277CBEB98];
-    v34 = self->_serviceKey;
-    v35 = TCCAccessCopyBundleIdentifiersDisabledForService();
-    v86 = [v33 setWithArray:v35];
+    v31 = MEMORY[0x277CBEB98];
+    v32 = TCCAccessCopyBundleIdentifiersDisabledForService();
+    v82 = [v31 setWithArray:v32];
 
-    v36 = [v98 setByAddingObjectsFromSet:v86];
+    v33 = [v94 setByAddingObjectsFromSet:v82];
     mEMORY[0x277D2BD58] = [MEMORY[0x277D2BD58] sharedInstance];
     ScreenScale();
-    if (v37 == 2)
+    if (v34 == 2)
     {
-      v38 = 47;
+      v35 = 47;
     }
 
     else
     {
-      v38 = 48;
+      v35 = 48;
     }
 
-    v94 = v38;
-    v109 = 0u;
-    v110 = 0u;
-    v107 = 0u;
-    v108 = 0u;
-    v100 = v36;
-    v39 = [v100 countByEnumeratingWithState:&v107 objects:v115 count:16];
-    if (v39)
+    v90 = v35;
+    v105 = 0u;
+    v106 = 0u;
+    v103 = 0u;
+    v104 = 0u;
+    v96 = v33;
+    v36 = [v96 countByEnumeratingWithState:&v103 objects:v111 count:16];
+    if (v36)
     {
-      v40 = *v108;
-      v92 = *MEMORY[0x277D3FFC0];
-      v90 = *MEMORY[0x277D401A8];
-      v89 = *MEMORY[0x277D3FE58];
+      v37 = *v104;
+      v88 = *MEMORY[0x277D3FFC0];
+      v86 = *MEMORY[0x277D401A8];
+      v85 = *MEMORY[0x277D3FE58];
       do
       {
-        v41 = 0;
+        v38 = 0;
         do
         {
-          if (*v108 != v40)
+          if (*v104 != v37)
           {
-            objc_enumerationMutation(v100);
+            objc_enumerationMutation(v96);
           }
 
-          v42 = *(*(&v107 + 1) + 8 * v41);
-          if (([v103 containsObject:v42] & 1) == 0)
+          v39 = *(*(&v103 + 1) + 8 * v38);
+          if (([v99 containsObject:v39] & 1) == 0)
           {
-            [v103 addObject:v42];
-            v43 = PUIDisplayNameForWatchApp(v42);
-            if (v43)
+            [v99 addObject:v39];
+            v40 = PUIDisplayNameForWatchApp(v39);
+            if (v40)
             {
-              v44 = v42;
-              v45 = MEMORY[0x277D3FAD8];
+              v41 = v39;
+              v42 = MEMORY[0x277D3FAD8];
               goto LABEL_37;
             }
 
-            v44 = PUIWatchBundleIDForBundleID(v42);
-            v43 = PUIDisplayNameForWatchApp(v44);
-            if (!(v43 | v44))
+            v41 = PUIWatchBundleIDForBundleID(v39);
+            v40 = PUIDisplayNameForWatchApp(v41);
+            if (!(v40 | v41))
             {
               goto LABEL_43;
             }
 
-            v45 = MEMORY[0x277D3FAD8];
-            v46 = v42;
-            if (v43)
+            v42 = MEMORY[0x277D3FAD8];
+            v43 = v39;
+            if (v40)
             {
 LABEL_37:
-              v46 = v43;
+              v43 = v40;
             }
 
-            v47 = [v45 preferenceSpecifierNamed:v46 target:self set:sel_setAccess_forSpecifier_ get:sel_accesssForSpecifier_ detail:0 cell:6 edit:0];
-            [v47 setIdentifier:v42];
-            v48 = PSBlankIconImage();
-            [v47 setProperty:v48 forKey:v92];
+            v44 = [v42 preferenceSpecifierNamed:v43 target:self set:sel_setAccess_forSpecifier_ get:sel_accesssForSpecifier_ detail:0 cell:6 edit:0];
+            [v44 setIdentifier:v39];
+            v45 = PSBlankIconImage();
+            [v44 setProperty:v45 forKey:v88];
 
-            v49 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v98, "containsObject:", v42)}];
-            [v47 setProperty:v49 forKey:v90];
+            v46 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v94, "containsObject:", v39)}];
+            [v44 setProperty:v46 forKey:v86];
 
-            [v47 setProperty:v42 forKey:@"appBundleID"];
-            [v47 setProperty:v42 forKey:@"PUITCCAccessControllerBundleIDKey"];
+            [v44 setProperty:v39 forKey:@"appBundleID"];
+            [v44 setProperty:v39 forKey:@"PUITCCAccessControllerBundleIDKey"];
             specifier5 = [(PUITCCAccessController *)self specifier];
-            v51 = [specifier5 objectForKeyedSubscript:@"PUITCCAccessControllerCellClassKey"];
+            v48 = [specifier5 objectForKeyedSubscript:@"PUITCCAccessControllerCellClassKey"];
 
-            if (v51)
+            if (v48)
             {
               specifier6 = [(PUITCCAccessController *)self specifier];
-              v53 = [specifier6 objectForKeyedSubscript:@"PUITCCAccessControllerCellClassKey"];
-              [v47 setProperty:v53 forKey:v89];
+              v50 = [specifier6 objectForKeyedSubscript:@"PUITCCAccessControllerCellClassKey"];
+              [v44 setProperty:v50 forKey:v85];
             }
 
             specifier7 = [(PUITCCAccessController *)self specifier];
-            v55 = [specifier7 objectForKeyedSubscript:@"PUITCCAccessControllerCellDelegateKey"];
+            v52 = [specifier7 objectForKeyedSubscript:@"PUITCCAccessControllerCellDelegateKey"];
 
-            if (v55)
+            if (v52)
             {
               specifier8 = [(PUITCCAccessController *)self specifier];
-              v57 = [specifier8 objectForKeyedSubscript:@"PUITCCAccessControllerCellDelegateKey"];
-              [v47 setProperty:v57 forKey:@"PUITCCAccessControllerCellDelegateKey"];
+              v54 = [specifier8 objectForKeyedSubscript:@"PUITCCAccessControllerCellDelegateKey"];
+              [v44 setProperty:v54 forKey:@"PUITCCAccessControllerCellDelegateKey"];
             }
 
             objc_initWeak(buf, self);
-            v104[0] = MEMORY[0x277D85DD0];
-            v104[1] = 3221225472;
-            v104[2] = __36__PUITCCAccessController_specifiers__block_invoke;
-            v104[3] = &unk_279BA1900;
-            v58 = v47;
-            v105 = v58;
-            objc_copyWeak(&v106, buf);
-            [mEMORY[0x277D2BD58] getIconForBundleID:v44 iconVariant:v94 block:v104 timeout:-1.0];
-            [v101 addObject:v58];
-            objc_destroyWeak(&v106);
+            v100[0] = MEMORY[0x277D85DD0];
+            v100[1] = 3221225472;
+            v100[2] = __36__PUITCCAccessController_specifiers__block_invoke;
+            v100[3] = &unk_279BA1900;
+            v55 = v44;
+            v101 = v55;
+            objc_copyWeak(&v102, buf);
+            [mEMORY[0x277D2BD58] getIconForBundleID:v41 iconVariant:v90 block:v100 timeout:-1.0];
+            [v97 addObject:v55];
+            objc_destroyWeak(&v102);
 
             objc_destroyWeak(buf);
           }
 
 LABEL_43:
-          ++v41;
+          ++v38;
         }
 
-        while (v39 != v41);
-        v59 = [v100 countByEnumeratingWithState:&v107 objects:v115 count:16];
-        v39 = v59;
+        while (v36 != v38);
+        v56 = [v96 countByEnumeratingWithState:&v103 objects:v111 count:16];
+        v36 = v56;
       }
 
-      while (v59);
+      while (v56);
     }
   }
 
-  [v101 sortUsingComparator:&__block_literal_global_22];
-  v60 = [v101 copy];
-  [(PUITCCAccessController *)self setAppSpecifiers:v60];
+  [v97 sortUsingComparator:&__block_literal_global_22];
+  v57 = [v97 copy];
+  [(PUITCCAccessController *)self setAppSpecifiers:v57];
 
   if (_os_feature_enabled_impl())
   {
@@ -521,9 +520,9 @@ LABEL_43:
         goto LABEL_58;
       }
 
-      v63 = MEMORY[0x277D3FAD8];
-      v64 = PUI_LocalizedStringForDimSum(@"APP_CLIPS");
-      mEMORY[0x277D262A0] = [v63 preferenceSpecifierNamed:v64 target:self set:0 get:sel_getAppClipsCount_ detail:objc_opt_class() cell:2 edit:0];
+      v60 = MEMORY[0x277D3FAD8];
+      v61 = PUI_LocalizedStringForDimSum(@"APP_CLIPS");
+      mEMORY[0x277D262A0] = [v60 preferenceSpecifierNamed:v61 target:self set:0 get:sel_getAppClipsCount_ detail:objc_opt_class() cell:2 edit:0];
 
       specifier9 = [(PUITCCAccessController *)self specifier];
       identifier = [specifier9 identifier];
@@ -533,38 +532,38 @@ LABEL_43:
       [mEMORY[0x277D262A0] setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D40020]];
       [mEMORY[0x277D262A0] setObject:@"com.apple.graphic-icon.app-clips" forKeyedSubscript:*MEMORY[0x277D3FFD8]];
       specifier10 = [(PUITCCAccessController *)self specifier];
-      v68 = [specifier10 objectForKeyedSubscript:@"PUITCCAccessControllerCellClassKey"];
+      v65 = [specifier10 objectForKeyedSubscript:@"PUITCCAccessControllerCellClassKey"];
 
-      if (v68)
+      if (v65)
       {
         specifier11 = [(PUITCCAccessController *)self specifier];
-        v70 = [specifier11 objectForKeyedSubscript:@"PUITCCAccessControllerCellClassKey"];
-        [mEMORY[0x277D262A0] setProperty:v70 forKey:@"PUITCCAccessControllerCellClassKey"];
+        v67 = [specifier11 objectForKeyedSubscript:@"PUITCCAccessControllerCellClassKey"];
+        [mEMORY[0x277D262A0] setProperty:v67 forKey:@"PUITCCAccessControllerCellClassKey"];
       }
 
-      [v101 insertObject:mEMORY[0x277D262A0] atIndex:0];
+      [v97 insertObject:mEMORY[0x277D262A0] atIndex:0];
     }
   }
 
 LABEL_58:
-  if ([v101 count] || (-[PUITCCAccessController serviceKey](self, "serviceKey"), v71 = objc_claimAutoreleasedReturnValue(), v72 = objc_msgSend(v71, "isEqualToString:", *MEMORY[0x277D6C158]), v71, (v72 & 1) == 0))
+  if ([v97 count] || (-[PUITCCAccessController serviceKey](self, "serviceKey"), v68 = objc_claimAutoreleasedReturnValue(), v69 = objc_msgSend(v68, "isEqualToString:", *MEMORY[0x277D6C158]), v68, (v69 & 1) == 0))
   {
-    v73 = [(NSString *)self->_header length];
-    v74 = MEMORY[0x277D3FF88];
-    if (v73)
+    v70 = [(NSString *)self->_header length];
+    v71 = MEMORY[0x277D3FF88];
+    if (v70)
     {
-      v75 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:0 edit:0];
-      v76 = PUI_LocalizedStringForPrivacy(self->_header);
-      [v75 setProperty:v76 forKey:*v74];
+      v72 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:0 edit:0];
+      v73 = PUI_LocalizedStringForPrivacy(self->_header);
+      [v72 setProperty:v73 forKey:*v71];
 
-      [v101 insertObject:v75 atIndex:0];
+      [v97 insertObject:v72 atIndex:0];
     }
 
-    v77 = MEMORY[0x277D3FAD8];
+    v74 = MEMORY[0x277D3FAD8];
     appGroupHeader = [(PUITCCAccessController *)self appGroupHeader];
-    v79 = [v77 preferenceSpecifierNamed:appGroupHeader target:0 set:0 get:0 detail:0 cell:0 edit:0];
+    v76 = [v74 preferenceSpecifierNamed:appGroupHeader target:0 set:0 get:0 detail:0 cell:0 edit:0];
 
-    [v79 setIdentifier:@"APP_GROUP"];
+    [v76 setIdentifier:@"APP_GROUP"];
     clipsFooter = [(PUITCCAccessController *)self clipsFooter];
 
     if (clipsFooter)
@@ -578,19 +577,18 @@ LABEL_58:
       clipsFooter2 = [(PUITCCAccessController *)self footer];
       PUI_LocalizedStringForPrivacy(clipsFooter2);
     }
-    v82 = ;
+    v79 = ;
 
-    [v79 setProperty:v82 forKey:*v74];
-    [v101 insertObject:v79 atIndex:v73 != 0];
+    [v76 setProperty:v79 forKey:*v71];
+    [v97 insertObject:v76 atIndex:v70 != 0];
   }
 
-  v83 = *(&self->super.super.super.super.super.isa + v88);
-  *(&self->super.super.super.super.super.isa + v88) = v101;
+  v80 = *(&self->super.super.super.super.super.isa + v84);
+  *(&self->super.super.super.super.super.isa + v84) = v97;
 
   [(PUITCCAccessController *)self updateSpecifiersForImposedSettings];
-  v3 = *(&self->super.super.super.super.super.isa + v88);
+  v3 = *(&self->super.super.super.super.super.isa + v84);
 LABEL_67:
-  v84 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -627,9 +625,25 @@ uint64_t __36__PUITCCAccessController_specifiers__block_invoke_3(uint64_t a1, vo
   return v7;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PUITCCAccessController;
+  [(PUITCCAccessController *)&v4 viewWillAppear:appear];
+  [(PUITCCAccessController *)self updateSpecifiersForImposedSettings];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PUITCCAccessController;
+  [(PUITCCAccessController *)&v4 viewDidAppear:appear];
+  [(PUITCCAccessController *)self provideNavigationDonations];
+}
+
 - (void)provideNavigationDonations
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   bundleURL = [v3 bundleURL];
 
@@ -637,8 +651,8 @@ uint64_t __36__PUITCCAccessController_specifiers__block_invoke_3(uint64_t a1, vo
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
   v7 = [v5 initWithKey:@"PRIVACY" table:@"Privacy" locale:currentLocale bundleURL:bundleURL];
 
-  v24[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   if ([(NSString *)self->_serviceKey isEqualToString:*MEMORY[0x277D6C1A0]])
   {
     v9 = objc_alloc(MEMORY[0x277CCAEB8]);
@@ -737,8 +751,6 @@ uint64_t __36__PUITCCAccessController_specifiers__block_invoke_3(uint64_t a1, vo
   }
 
 LABEL_25:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAccess:(id)access forSpecifier:(id)specifier
@@ -809,7 +821,7 @@ LABEL_25:
 
 void __49__PUITCCAccessController_setAccess_forSpecifier___block_invoke(id *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = *MEMORY[0x277D401A8];
   v4 = [a1[5] propertyForKey:*MEMORY[0x277D401A8]];
@@ -818,39 +830,35 @@ void __49__PUITCCAccessController_setAccess_forSpecifier___block_invoke(id *a1)
   if ((v2 & 1) == 0)
   {
     v5 = [a1[5] propertyForKey:@"appBundleID"];
-    v6 = *(a1[6] + 182);
     [a1[4] BOOLValue];
     TCCAccessSetForBundleId();
     [a1[5] setProperty:a1[4] forKey:v3];
     if ([a1[4] BOOLValue])
     {
-      v7 = 3;
+      v6 = 3;
     }
 
     else
     {
-      v7 = 2;
+      v6 = 2;
     }
 
-    [MEMORY[0x277D4D8F0] trackingStateOfRequestForSpecificApp:v7 view:@"PrivacyTracking"];
-    v8 = _PUILoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = _PUILoggingFacility([MEMORY[0x277D4D8F0] trackingStateOfRequestForSpecificApp:v6 view:@"PrivacyTracking"]);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v5;
-      _os_log_impl(&dword_2657FE000, v8, OS_LOG_TYPE_DEFAULT, "########### Quitting application (%@) in response to privacy settings change.", &v12, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&dword_2657FE000, v7, OS_LOG_TYPE_DEFAULT, "########### Quitting application (%@) in response to privacy settings change.", &v10, 0xCu);
     }
   }
 
-  v9 = [a1[6] serviceKey];
-  v10 = [v9 isEqualToString:*MEMORY[0x277D6C238]];
+  v8 = [a1[6] serviceKey];
+  v9 = [v8 isEqualToString:*MEMORY[0x277D6C238]];
 
-  if (v10)
+  if (v9)
   {
     PUIResetIDFAIfNeeded();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isServiceRestricted:(id)restricted
@@ -890,77 +898,58 @@ void __49__PUITCCAccessController_setAccess_forSpecifier___block_invoke(id *a1)
 
 - (void)updateSpecifiersForImposedSettings
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v24 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(objc_opt_class(), "isServiceRestricted:", self->_serviceKey) ^ 1}];
+  v28 = *MEMORY[0x277D85DE8];
+  v22 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(objc_opt_class(), "isServiceRestricted:", self->_serviceKey) ^ 1}];
+  v23 = 0u;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
   obj = [(PUITCCAccessController *)self appSpecifiers];
-  v3 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v3 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v26;
+    v5 = *v24;
     v6 = *MEMORY[0x277D3FF38];
-    v7 = *MEMORY[0x277D401A8];
-    v21 = *MEMORY[0x277D401A8];
-    v22 = *MEMORY[0x277D40148];
-    v8 = MEMORY[0x277D3FC90];
+    v19 = *MEMORY[0x277D401A8];
+    v20 = *MEMORY[0x277D40148];
+    v7 = MEMORY[0x277D3FC90];
     do
     {
-      v9 = 0;
+      v8 = 0;
       do
       {
-        if (*v26 != v5)
+        if (*v24 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * v9);
-        if (*&v10[*v8] == 6)
+        v9 = *(*(&v23 + 1) + 8 * v8);
+        if (*&v9[*v7] == 6)
         {
-          v11 = [*(*(&v25 + 1) + 8 * v9) propertyForKey:v6];
-          if (!v11)
+          v10 = [*(*(&v23 + 1) + 8 * v8) propertyForKey:v6];
+          if (!v10 || (v11 = v10, [v9 objectForKeyedSubscript:v6], v12 = objc_claimAutoreleasedReturnValue(), v13 = v5, v14 = v7, v15 = objc_msgSend(v12, "BOOLValue"), v16 = objc_msgSend(v22, "BOOLValue"), v12, v11, v17 = v15 == v16, v7 = v14, v5 = v13, !v17))
           {
-            goto LABEL_9;
-          }
+            [v9 setProperty:v22 forKey:{v6, v19}];
+            v18 = [v9 propertyForKey:v20];
+            [v18 setCellEnabled:{objc_msgSend(v22, "BOOLValue")}];
 
-          v12 = v11;
-          v13 = [v10 objectForKeyedSubscript:v6];
-          v14 = v5;
-          v15 = v8;
-          bOOLValue = [v13 BOOLValue];
-          bOOLValue2 = [v24 BOOLValue];
-
-          v18 = bOOLValue == bOOLValue2;
-          v8 = v15;
-          v5 = v14;
-          if (!v18)
-          {
-LABEL_9:
-            [v10 setProperty:v24 forKey:{v6, v21}];
-            v19 = [v10 propertyForKey:v22];
-            [v19 setCellEnabled:{objc_msgSend(v24, "BOOLValue")}];
-
-            if (([v24 BOOLValue] & 1) == 0)
+            if (([v22 BOOLValue] & 1) == 0)
             {
-              [v10 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:v21];
+              [v9 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:v19];
             }
           }
         }
 
-        ++v9;
+        ++v8;
       }
 
-      while (v4 != v9);
-      v4 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      while (v4 != v8);
+      v4 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v4);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

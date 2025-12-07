@@ -27,7 +27,7 @@
     v10 = 0uLL;
     if (v7)
     {
-      [v7 backend];
+      objc_msgSend_backend(v7);
       v10 = v9;
     }
 
@@ -42,7 +42,7 @@
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   v6 = v17;
   v5 = v18;
   v16.receiver = self;
@@ -119,7 +119,7 @@
 - (void)replaceWithBackendXPC:(id)c
 {
   cCopy = c;
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   v5 = v13;
   v7 = *(v12 + 88);
   v6 = *(v12 + 96);
@@ -131,7 +131,7 @@
   v11.receiver = self;
   v11.super_class = SparseBundleBackendXPC;
   [(BackendXPC *)&v11 replaceWithBackendXPC:cCopy];
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   v8 = v12;
   v9 = v13;
   if (v6)
@@ -165,7 +165,7 @@
 
 - (BOOL)isUnlocked
 {
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self, a2);
   v2 = *(v4 + 88);
   if (v5)
   {
@@ -178,7 +178,7 @@
 - (id)newWithCryptoFormat:(const void *)format error:(id *)error
 {
   v6 = objc_alloc_init(SparseBundleBackendXPC);
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   v8 = v19;
   v7 = v20;
   v10 = *format;

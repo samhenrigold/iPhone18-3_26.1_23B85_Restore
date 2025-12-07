@@ -11,7 +11,7 @@
 
 + (id)hf_errorWithCode:()HFErrorAdditions descriptionFormat:
 {
-  v9 = [self hf_errorWithCode:a3 descriptionFormat:a4 arguments:&a9];
+  v9 = [self hf_errorWithCode:a3 descriptionFormat:a4 arguments:&a9, a6, a7, a8];
 
   return v9;
 }
@@ -51,7 +51,7 @@
 
 + (id)hf_internalErrorWithDescription:()HFErrorAdditions
 {
-  v9 = [self hf_errorWithCode:-1 descriptionFormat:a3 arguments:&a9];
+  v9 = [self hf_errorWithCode:-1 descriptionFormat:a3 arguments:&a9, a6, a7, a8];
 
   return v9;
 }

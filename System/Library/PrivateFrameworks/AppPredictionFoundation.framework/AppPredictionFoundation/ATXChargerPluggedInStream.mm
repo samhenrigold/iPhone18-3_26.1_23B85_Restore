@@ -44,10 +44,10 @@ void __99__ATXChargerPluggedInStream_enumeratePluggedInEventsFromStartDate_endDa
 
   if (v3)
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __99__ATXChargerPluggedInStream_enumeratePluggedInEventsFromStartDate_endDate_filterBlock_limit_block___block_invoke_2_cold_1(v2, v4);
+      __99__ATXChargerPluggedInStream_enumeratePluggedInEventsFromStartDate_endDate_filterBlock_limit_block___block_invoke_2_cold_1(v2, v5);
     }
   }
 }
@@ -99,13 +99,11 @@ void __99__ATXChargerPluggedInStream_enumeratePluggedInEventsFromStartDate_endDa
 
 void __99__ATXChargerPluggedInStream_enumeratePluggedInEventsFromStartDate_endDate_filterBlock_limit_block___block_invoke_2_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "ATXChargerPluggedInStream: Error querying device plugged in stream: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "ATXChargerPluggedInStream: Error querying device plugged in stream: %@", &v4, 0xCu);
 }
 
 @end

@@ -107,24 +107,24 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v50 = *MEMORY[0x277D85DE8];
-  v40 = 0;
-  LOBYTE(v42) = 0;
-  v43 = 0;
-  v37 = 0uLL;
-  v35[1] = 0;
-  v36 = 0;
-  v38 = 0;
-  v34 = v35;
-  v35[0] = 0;
+  v49 = *MEMORY[0x277D85DE8];
+  v39 = 0;
+  LOBYTE(v41) = 0;
+  v42 = 0;
+  v36 = 0uLL;
+  v34[1] = 0;
+  v35 = 0;
+  v37 = 0;
+  v33 = v34;
+  v34[0] = 0;
   vendorID = [(MTROTASoftwareUpdateProviderClusterQueryImageParams *)self vendorID];
-  LOWORD(v36) = [vendorID unsignedShortValue];
+  LOWORD(v35) = [vendorID unsignedShortValue];
 
   productID = [(MTROTASoftwareUpdateProviderClusterQueryImageParams *)self productID];
-  WORD1(v36) = [productID unsignedShortValue];
+  WORD1(v35) = [productID unsignedShortValue];
 
   softwareVersion = [(MTROTASoftwareUpdateProviderClusterQueryImageParams *)self softwareVersion];
-  HIDWORD(v36) = [softwareVersion unsignedIntValue];
+  HIDWORD(v35) = [softwareVersion unsignedIntValue];
 
   protocolsSupported = [(MTROTASoftwareUpdateProviderClusterQueryImageParams *)self protocolsSupported];
   v9 = [protocolsSupported count] == 0;
@@ -134,13 +134,13 @@
     operator new();
   }
 
-  v37 = 0uLL;
+  v36 = 0uLL;
   hardwareVersion = [(MTROTASoftwareUpdateProviderClusterQueryImageParams *)self hardwareVersion];
   v11 = hardwareVersion == 0;
 
   if (!v11)
   {
-    v38 = 1;
+    v37 = 1;
     unsignedShortValue = 0;
     hardwareVersion2 = [(MTROTASoftwareUpdateProviderClusterQueryImageParams *)self hardwareVersion];
     unsignedShortValue = [hardwareVersion2 unsignedShortValue];
@@ -151,13 +151,13 @@
 
   if (!v14)
   {
-    v40 = 1;
-    v41 = 0uLL;
+    v39 = 1;
+    v40 = 0uLL;
     location2 = [(MTROTASoftwareUpdateProviderClusterQueryImageParams *)self location];
     v16 = location2;
     sub_238DB9BD8(buf, [location2 UTF8String], objc_msgSend(location2, "lengthOfBytesUsingEncoding:", 4));
 
-    v41 = *buf;
+    v40 = *buf;
   }
 
   requestorCanConsent = [(MTROTASoftwareUpdateProviderClusterQueryImageParams *)self requestorCanConsent];
@@ -165,9 +165,9 @@
 
   if (!v18)
   {
-    v42 = 1;
+    v41 = 1;
     requestorCanConsent2 = [(MTROTASoftwareUpdateProviderClusterQueryImageParams *)self requestorCanConsent];
-    HIBYTE(v42) = [requestorCanConsent2 BOOLValue];
+    HIBYTE(v41) = [requestorCanConsent2 BOOLValue];
   }
 
   metadataForProvider = [(MTROTASoftwareUpdateProviderClusterQueryImageParams *)self metadataForProvider];
@@ -175,44 +175,44 @@
 
   if (!v21)
   {
-    v43 = 1;
-    v44 = 0uLL;
+    v42 = 1;
+    v43 = 0uLL;
     metadataForProvider2 = [(MTROTASoftwareUpdateProviderClusterQueryImageParams *)self metadataForProvider];
     v23 = metadataForProvider2;
     sub_238DB6950(buf, [metadataForProvider2 bytes], objc_msgSend(metadataForProvider2, "length"));
 
-    v44 = *buf;
+    v43 = *buf;
   }
 
-  sub_2393D9C18(0x62FuLL, 0, &v33);
-  if (v33)
+  sub_2393D9C18(0x62FuLL, 0, &v32);
+  if (v32)
   {
     sub_2393C7B90(buf);
+    v46 = 0;
     v47 = 0;
+    v45 = &unk_284BB83A8;
     v48 = 0;
-    v46 = &unk_284BB83A8;
-    v49 = 0;
-    sub_238EA16C4(&v46, &v33, 0);
-    sub_2393C7BF0(buf, &v46, 0xFFFFFFFF);
-    v24 = sub_238F22E64(&v36, buf, 0x100uLL);
+    sub_238EA16C4(&v45, &v32, 0);
+    sub_2393C7BF0(buf, &v45, 0xFFFFFFFF);
+    v24 = sub_238F22E64(&v35, buf, 0x100uLL);
     v26 = v24;
-    if (v24 || (v24 = sub_238DD2EFC(buf, &v33), v26 = v24, v24))
+    if (v24 || (v24 = sub_238DD2EFC(buf, &v32), v26 = v24, v24))
     {
       v27 = v25;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v33);
+      sub_238DD2F90(reader, &v32);
       v24 = sub_2393C7114(reader, 21, 256);
-      v27 = v32;
+      v27 = v31;
       v26 = v24;
     }
 
     v28 = v24 & 0xFFFFFFFF00000000;
-    v46 = &unk_284BB83A8;
-    sub_238EA1758(&v48);
+    v45 = &unk_284BB83A8;
     sub_238EA1758(&v47);
+    sub_238EA1758(&v46);
   }
 
   else
@@ -222,14 +222,13 @@
     v26 = 11;
   }
 
-  sub_238EA1758(&v33);
-  sub_238EA1790(&v34);
-  v29 = *MEMORY[0x277D85DE8];
-  v30 = v28 | v26;
-  v31 = v27;
-  result.mFile = v31;
-  result.mError = v30;
-  result.mLine = HIDWORD(v30);
+  sub_238EA1758(&v32);
+  sub_238EA1790(&v33);
+  v29 = v28 | v26;
+  v30 = v27;
+  result.mFile = v30;
+  result.mError = v29;
+  result.mLine = HIDWORD(v29);
   return result;
 }
 

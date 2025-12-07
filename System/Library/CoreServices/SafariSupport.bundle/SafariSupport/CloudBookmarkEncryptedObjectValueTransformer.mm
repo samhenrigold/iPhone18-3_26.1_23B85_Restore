@@ -58,47 +58,48 @@
     v5 = valueCopy;
     if (v5)
     {
-      v13[0] = 0;
-      v6 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v5 error:v13];
-      v7 = v13[0];
+      v15[0] = 0;
+      v6 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v5 error:v15];
+      v7 = v15[0];
+      v9 = v7;
       if (v7)
       {
-        v8 = sub_1000D22B4();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v10 = sub_1000D22B4(v7, v8);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          safari_privacyPreservingDescription = [v7 safari_privacyPreservingDescription];
-          sub_100033174(safari_privacyPreservingDescription, buf, v8);
+          safari_privacyPreservingDescription = [v9 safari_privacyPreservingDescription];
+          sub_100033174(safari_privacyPreservingDescription, buf, v10);
         }
       }
 
-      v10 = [v6 decodeObjectOfClasses:self->_objectClasses forKey:NSKeyedArchiveRootObjectKey];
+      v12 = [v6 decodeObjectOfClasses:self->_objectClasses forKey:NSKeyedArchiveRootObjectKey];
       [v6 finishDecoding];
       if ([(NSSet *)self->_objectClasses count]> 1 || ([(NSSet *)self->_objectClasses anyObject], (objc_opt_isKindOfClass() & 1) != 0))
       {
 
-        v10 = v10;
-        v11 = v10;
+        v12 = v12;
+        v13 = v12;
       }
 
       else
       {
 
-        v11 = 0;
+        v13 = 0;
       }
     }
 
     else
     {
-      v11 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v11 = 0;
+    v13 = 0;
   }
 
-  return v11;
+  return v13;
 }
 
 @end

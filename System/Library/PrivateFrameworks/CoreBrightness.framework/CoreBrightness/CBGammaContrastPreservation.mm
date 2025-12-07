@@ -334,8 +334,6 @@
     *&v4 = updateCopy;
     [(CBGammaContrastPreservation *)selfCopy setEnableFactor:v4];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 float __63__CBGammaContrastPreservation_handleAutoBrightnessStateUpdate___block_invoke(uint64_t a1, float a2)

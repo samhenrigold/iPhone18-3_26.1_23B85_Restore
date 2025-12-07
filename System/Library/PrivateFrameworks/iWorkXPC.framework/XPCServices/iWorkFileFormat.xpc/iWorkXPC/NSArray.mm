@@ -525,8 +525,9 @@ LABEL_5:
       sub_10015C460();
     }
 
-    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Can't remove the first object of an empty array!", v6, v7, v8, v9, v10, v11, v12, "[NSArray(TSUAdditions) tsu_arrayByRemovingFirstObject]");
-    TSUCrashBreakpoint([TSUAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[NSArray(TSUAdditions) tsu_arrayByRemovingFirstObject]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/NSArrayAdditions.m"] lineNumber:245 isFatal:1 description:"Can't remove the first object of an empty array!"]);
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Can't remove the first object of an empty array!", "[NSArray(TSUAdditions) tsu_arrayByRemovingFirstObject]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/NSArrayAdditions.m", 245);
+    [TSUAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[NSArray(TSUAdditions) tsu_arrayByRemovingFirstObject]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/NSArrayAdditions.m"] lineNumber:245 isFatal:1 description:"Can't remove the first object of an empty array!"];
+    TSUCrashBreakpoint();
     abort();
   }
 
@@ -656,36 +657,35 @@ LABEL_4:
 
 - (BOOL)tsu_isHomogeneousForClass:(Class)class
 {
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [(NSArray *)self countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSArray *)self countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(self);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           return 0;
         }
 
-        v7 = v7 + 1;
+        ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)self countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSArray *)self countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;

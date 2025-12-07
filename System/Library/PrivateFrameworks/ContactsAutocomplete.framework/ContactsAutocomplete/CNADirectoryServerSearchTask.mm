@@ -51,9 +51,7 @@
 
   if (v3)
   {
-    v5 = [MEMORY[0x277CFBEA0] successWithValue:MEMORY[0x277CBEBF8]];
-    returnValue = self->_returnValue;
-    self->_returnValue = v5;
+    self->_returnValue = [MEMORY[0x277CFBEA0] successWithValue:MEMORY[0x277CBEBF8]];
 
     MEMORY[0x2821F96F8]();
   }
@@ -81,75 +79,69 @@
 
 - (void)searchServerContainers
 {
-  v31 = *MEMORY[0x277D85DE8];
-  if (([(CNCancelationToken *)self->_cancelationToken isCanceled]& 1) != 0 || self->_returnValue)
+  v27 = *MEMORY[0x277D85DE8];
+  if (([(CNCancelationToken *)self->_cancelationToken isCanceled]& 1) == 0 && !self->_returnValue)
   {
-LABEL_12:
-    v18 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  if ([(NSArray *)self->_containers count])
-  {
-    v23 = [objc_alloc(MEMORY[0x277CFBDD8]) initWithStartingCount:{-[NSArray count](self->_containers, "count")}];
-    v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_containers, "count")}];
-    v26 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    obj = self->_containers;
-    v4 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
-    if (v4)
+    if ([(NSArray *)self->_containers count])
     {
-      v5 = v4;
-      v6 = *v27;
-      do
+      v19 = [objc_alloc(MEMORY[0x277CFBDD8]) initWithStartingCount:{-[NSArray count](self->_containers, "count")}];
+      v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_containers, "count")}];
+      v22 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      v25 = 0u;
+      obj = self->_containers;
+      v4 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      if (v4)
       {
-        for (i = 0; i != v5; ++i)
+        v5 = v4;
+        v6 = *v23;
+        do
         {
-          if (*v27 != v6)
+          for (i = 0; i != v5; ++i)
           {
-            objc_enumerationMutation(obj);
+            if (*v23 != v6)
+            {
+              objc_enumerationMutation(obj);
+            }
+
+            v8 = *(*(&v22 + 1) + 8 * i);
+            v9 = [(CNADirectoryServerSearchTask *)self makeQueryForContainer:v8 withLatch:v19 andCollectConsumers:v3];
+            currentEnvironment = [MEMORY[0x277CFBE10] currentEnvironment];
+            dataAccessConnection = [currentEnvironment dataAccessConnection];
+            accountIdentifier = [v8 accountIdentifier];
+            [dataAccessConnection performServerContactsSearch:v9 forAccountWithID:accountIdentifier];
+
+            cancelationToken = self->_cancelationToken;
+            v20[0] = MEMORY[0x277D85DD0];
+            v20[1] = 3221225472;
+            v20[2] = __54__CNADirectoryServerSearchTask_searchServerContainers__block_invoke;
+            v20[3] = &unk_2781C3FB0;
+            v21 = v9;
+            v14 = v9;
+            [(CNCancelationToken *)cancelationToken addCancelationBlock:v20];
           }
 
-          v8 = *(*(&v26 + 1) + 8 * i);
-          v9 = [(CNADirectoryServerSearchTask *)self makeQueryForContainer:v8 withLatch:v23 andCollectConsumers:v3];
-          currentEnvironment = [MEMORY[0x277CFBE10] currentEnvironment];
-          dataAccessConnection = [currentEnvironment dataAccessConnection];
-          accountIdentifier = [v8 accountIdentifier];
-          [dataAccessConnection performServerContactsSearch:v9 forAccountWithID:accountIdentifier];
-
-          cancelationToken = self->_cancelationToken;
-          v24[0] = MEMORY[0x277D85DD0];
-          v24[1] = 3221225472;
-          v24[2] = __54__CNADirectoryServerSearchTask_searchServerContainers__block_invoke;
-          v24[3] = &unk_2781C3FB0;
-          v25 = v9;
-          v14 = v9;
-          [(CNCancelationToken *)cancelationToken addCancelationBlock:v24];
+          v5 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
-        v5 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+        while (v5);
       }
 
-      while (v5);
+      [v19 await];
+      v15 = +[CNDASearchQueryConsumer SuccessfulResults];
+      v16 = [v3 _cn_flatMap:v15];
+      daResults = self->_daResults;
+      self->_daResults = v16;
     }
 
-    [v23 await];
-    v15 = +[CNDASearchQueryConsumer SuccessfulResults];
-    v16 = [v3 _cn_flatMap:v15];
-    daResults = self->_daResults;
-    self->_daResults = v16;
+    else
+    {
+      self->_returnValue = [MEMORY[0x277CFBEA0] successWithValue:MEMORY[0x277CBEBF8]];
 
-    goto LABEL_12;
+      MEMORY[0x2821F96F8]();
+    }
   }
-
-  v19 = [MEMORY[0x277CFBEA0] successWithValue:MEMORY[0x277CBEBF8]];
-  returnValue = self->_returnValue;
-  self->_returnValue = v19;
-  v21 = *MEMORY[0x277D85DE8];
-
-  MEMORY[0x2821F96F8]();
 }
 
 void __54__CNADirectoryServerSearchTask_searchServerContainers__block_invoke(uint64_t a1)
@@ -216,9 +208,7 @@ void __54__CNADirectoryServerSearchTask_searchServerContainers__block_invoke(uin
       return;
     }
 
-    v6 = [MEMORY[0x277CFBEA0] successWithValue:self->_results];
-    v7 = self->_returnValue;
-    self->_returnValue = v6;
+    self->_returnValue = [MEMORY[0x277CFBEA0] successWithValue:self->_results];
   }
 
   MEMORY[0x2821F96F8]();

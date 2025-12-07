@@ -5,9 +5,13 @@
 - (int)audio_duration_ms;
 - (int)confidence;
 - (int)return_code;
+- (void)setAudio_duration_ms:(int)audio_duration_ms;
+- (void)setConfidence:(int)confidence;
+- (void)setIs_stable_result:(BOOL)is_stable_result;
 - (void)setLanguage:(id)language;
 - (void)setRecognition_text:(id)recognition_text;
 - (void)setRequest_locale:(id)request_locale;
+- (void)setReturn_code:(int)return_code;
 - (void)setReturn_str:(id)return_str;
 - (void)setSession_id:(id)session_id;
 - (void)setSpeech_id:(id)speech_id;
@@ -60,6 +64,12 @@
   return intValue;
 }
 
+- (void)setReturn_code:(int)return_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&return_code];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (void)setReturn_str:(id)return_str
 {
   v4 = [return_str copy];
@@ -80,6 +90,12 @@
   return bOOLValue;
 }
 
+- (void)setIs_stable_result:(BOOL)is_stable_result
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:is_stable_result];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int)audio_duration_ms
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"audio_duration_ms"];
@@ -88,12 +104,24 @@
   return intValue;
 }
 
+- (void)setAudio_duration_ms:(int)audio_duration_ms
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&audio_duration_ms];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int)confidence
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"confidence"];
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setConfidence:(int)confidence
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&confidence];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setLanguage:(id)language

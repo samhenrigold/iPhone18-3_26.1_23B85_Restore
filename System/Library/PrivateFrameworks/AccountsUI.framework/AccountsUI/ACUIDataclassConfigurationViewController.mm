@@ -335,7 +335,6 @@
   MEMORY[0x277D82BD8](table2);
   objc_storeStrong(&navigationItem, 0);
   objc_storeStrong(v35, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -370,7 +369,6 @@
 
   objc_storeStrong(&oslog, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -464,7 +462,6 @@ void __62__ACUIDataclassConfigurationViewController_viewWillDisappear___block_in
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_navigationTitle
@@ -589,18 +586,16 @@ void __62__ACUIDataclassConfigurationViewController_viewWillDisappear___block_in
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__ACUIDataclassConfigurationViewController_doneButtonTapped___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) shouldVerifyBeforeAccountSave];
-  v5 = [*(a1 + 32) accountOperationsHelper];
-  v4 = [*(a1 + 32) account];
-  v1 = *(*(a1 + 32) + 1544);
-  [v5 saveAccount:? withDataclassActions:? requireVerification:?];
-  MEMORY[0x277D82BD8](v4);
-  return MEMORY[0x277D82BD8](v5);
+  v4 = [*(a1 + 32) accountOperationsHelper];
+  v3 = [*(a1 + 32) account];
+  [v4 saveAccount:? withDataclassActions:? requireVerification:?];
+  MEMORY[0x277D82BD8](v3);
+  return MEMORY[0x277D82BD8](v4);
 }
 
 void __61__ACUIDataclassConfigurationViewController_doneButtonTapped___block_invoke_2(void *a1, void *a2)
@@ -653,23 +648,22 @@ void __61__ACUIDataclassConfigurationViewController_doneButtonTapped___block_inv
 
   objc_storeStrong(&rootController, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)specifiers
 {
   selfCopy = self;
-  v33 = a2;
+  v32 = a2;
   if (!*(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]))
   {
     array = [MEMORY[0x277CBEB18] array];
     account = [(ACUIDataclassConfigurationViewController *)selfCopy account];
-    v26 = account == 0;
+    v25 = account == 0;
     MEMORY[0x277D82BD8](account);
-    if (v26)
+    if (v25)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      [currentHandler handleFailureInMethod:v33 object:selfCopy file:@"ACUIDataclassConfigurationViewController.m" lineNumber:314 description:{@"Nil account in %@.", objc_opt_class()}];
+      [currentHandler handleFailureInMethod:v32 object:selfCopy file:@"ACUIDataclassConfigurationViewController.m" lineNumber:314 description:{@"Nil account in %@.", objc_opt_class()}];
       MEMORY[0x277D82BD8](currentHandler);
     }
 
@@ -682,10 +676,10 @@ void __61__ACUIDataclassConfigurationViewController_doneButtonTapped___block_inv
       if (selfCopy->_accountSummaryCellSpecifier)
       {
         displayedAccountTypeString = [(ACUIDataclassConfigurationViewController *)selfCopy displayedAccountTypeString];
-        v30 = [MEMORY[0x277D3FAD8] groupSpecifierWithName:displayedAccountTypeString];
-        [array addObject:v30];
+        v29 = [MEMORY[0x277D3FAD8] groupSpecifierWithName:displayedAccountTypeString];
+        [array addObject:v29];
         [array addObject:selfCopy->_accountSummaryCellSpecifier];
-        objc_storeStrong(&v30, 0);
+        objc_storeStrong(&v29, 0);
         objc_storeStrong(&displayedAccountTypeString, 0);
       }
     }
@@ -710,14 +704,14 @@ void __61__ACUIDataclassConfigurationViewController_doneButtonTapped___block_inv
       MEMORY[0x277D82BD8](otherSpecifiers);
       if ([(NSArray *)selfCopy->_otherSpecifiers count])
       {
-        v22 = [(NSArray *)selfCopy->_otherSpecifiers objectAtIndexedSubscript:0];
-        cellType = [v22 cellType];
-        MEMORY[0x277D82BD8](v22);
+        v21 = [(NSArray *)selfCopy->_otherSpecifiers objectAtIndexedSubscript:0];
+        cellType = [v21 cellType];
+        MEMORY[0x277D82BD8](v21);
         if (cellType)
         {
-          v20 = array;
+          v19 = array;
           emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
-          [v20 addObject:?];
+          [v19 addObject:?];
           MEMORY[0x277D82BD8](emptyGroupSpecifier);
         }
 
@@ -733,10 +727,10 @@ void __61__ACUIDataclassConfigurationViewController_doneButtonTapped___block_inv
       MEMORY[0x277D82BD8](accountSettingsCellSpecifier);
       if (selfCopy->_accountSettingsCellSpecifier)
       {
-        v28 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"accountSettingsSpecifier"];
-        [array addObject:v28];
+        v27 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"accountSettingsSpecifier"];
+        [array addObject:v27];
         [array addObject:selfCopy->_accountSettingsCellSpecifier];
-        objc_storeStrong(&v28, 0);
+        objc_storeStrong(&v27, 0);
       }
     }
 
@@ -744,19 +738,18 @@ void __61__ACUIDataclassConfigurationViewController_doneButtonTapped___block_inv
     {
       emptyGroupSpecifier2 = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
       [array addObject:emptyGroupSpecifier2];
-      v16 = MEMORY[0x277D3FAD8];
+      v15 = MEMORY[0x277D3FAD8];
       titleForDeleteButton = [(ACUIDataclassConfigurationViewController *)selfCopy titleForDeleteButton];
-      v11 = [v16 deleteButtonSpecifierWithName:? target:? action:?];
+      v11 = [v15 deleteButtonSpecifierWithName:? target:? action:?];
       deleteButtonSpecifier = selfCopy->_deleteButtonSpecifier;
       selfCopy->_deleteButtonSpecifier = v11;
       MEMORY[0x277D82BD8](deleteButtonSpecifier);
       MEMORY[0x277D82BD8](titleForDeleteButton);
       [(PSSpecifier *)selfCopy->_deleteButtonSpecifier setProperty:@"ACUIDeleteButtonSpecifierID" forKey:*MEMORY[0x277D3FFB8]];
-      v18 = selfCopy->_deleteButtonSpecifier;
-      v19 = [MEMORY[0x277CCABB0] numberWithBool:{-[ACUIDataclassConfigurationViewController shouldEnableDeleteAccountButton](selfCopy, "shouldEnableDeleteAccountButton")}];
-      v13 = *MEMORY[0x277D3FF38];
-      [PSSpecifier setProperty:v18 forKey:"setProperty:forKey:"];
-      MEMORY[0x277D82BD8](v19);
+      v17 = selfCopy->_deleteButtonSpecifier;
+      v18 = [MEMORY[0x277CCABB0] numberWithBool:{-[ACUIDataclassConfigurationViewController shouldEnableDeleteAccountButton](selfCopy, "shouldEnableDeleteAccountButton")}];
+      [PSSpecifier setProperty:v17 forKey:"setProperty:forKey:"];
+      MEMORY[0x277D82BD8](v18);
       [array addObject:selfCopy->_deleteButtonSpecifier];
       objc_storeStrong(&emptyGroupSpecifier2, 0);
     }
@@ -766,139 +759,134 @@ void __61__ACUIDataclassConfigurationViewController_doneButtonTapped___block_inv
     objc_storeStrong(&array, 0);
   }
 
-  v14 = *(&selfCopy->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
+  v13 = *(&selfCopy->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
 
-  return v14;
+  return v13;
 }
 
 - (id)specifierForAccountSummaryCell
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v30[2] = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v26[1] = a2;
-  v26[0] = 0;
+  v24[1] = a2;
+  v24[0] = 0;
   accountInfoControllerClass = [(ACUIDataclassConfigurationViewController *)self accountInfoControllerClass];
   if (accountInfoControllerClass)
   {
     if ([(ACUIDataclassConfigurationViewController *)selfCopy isAccountDataclassListRedesignFFEnabled])
     {
-      v10 = MEMORY[0x277D3FB40];
-      v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v11 = [v12 localizedStringForKey:@"LABEL" value:&stru_2850054A0 table:@"Localizable"];
-      v5 = [v10 preferenceSpecifierNamed:v11 target:selfCopy set:sel__setDescription_ get:sel__getDescription_ detail:objc_opt_class() cell:? edit:?];
-      v6 = v26[0];
-      v26[0] = v5;
-      MEMORY[0x277D82BD8](v6);
-      MEMORY[0x277D82BD8](v11);
-      MEMORY[0x277D82BD8](v12);
-      [v26[0] setKeyboardType:0 autoCaps:1 autoCorrection:?];
-      v29[0] = @"AccountSettingsAlreadyShowedEnableAndDeleteKey";
-      v30[0] = MEMORY[0x277CBEC38];
-      v29[1] = @"account";
+      v8 = MEMORY[0x277D3FB40];
+      v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v9 = [v10 localizedStringForKey:@"LABEL" value:&stru_2850054A0 table:@"Localizable"];
+      v4 = [v8 preferenceSpecifierNamed:v9 target:selfCopy set:sel__setDescription_ get:sel__getDescription_ detail:objc_opt_class() cell:? edit:?];
+      v5 = v24[0];
+      v24[0] = v4;
+      MEMORY[0x277D82BD8](v5);
+      MEMORY[0x277D82BD8](v9);
+      MEMORY[0x277D82BD8](v10);
+      [v24[0] setKeyboardType:0 autoCaps:1 autoCorrection:?];
+      v27[0] = @"AccountSettingsAlreadyShowedEnableAndDeleteKey";
+      v28[0] = MEMORY[0x277CBEC38];
+      v27[1] = @"account";
       account = [(ACUIDataclassConfigurationViewController *)selfCopy account];
-      v30[1] = account;
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+      v28[1] = account;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
       MEMORY[0x277D82BD8](account);
-      v14 = v26[0];
-      v15 = [MEMORY[0x277CCABB0] numberWithBool:{-[ACUIDataclassConfigurationViewController shouldEnableAccountSummaryCell](selfCopy, "shouldEnableAccountSummaryCell")}];
-      v7 = *MEMORY[0x277D3FF38];
-      [v14 setProperty:? forKey:?];
-      MEMORY[0x277D82BD8](v15);
-      [v26[0] setUserInfo:v21];
-      objc_storeStrong(&v21, 0);
+      v12 = v24[0];
+      v13 = [MEMORY[0x277CCABB0] numberWithBool:{-[ACUIDataclassConfigurationViewController shouldEnableAccountSummaryCell](selfCopy, "shouldEnableAccountSummaryCell")}];
+      [v12 setProperty:? forKey:?];
+      MEMORY[0x277D82BD8](v13);
+      [v24[0] setUserInfo:v19];
+      objc_storeStrong(&v19, 0);
     }
 
     else
     {
-      v23 = 0;
-      v23 = [(ACUIViewController *)selfCopy isPresentedAsModalSheet]|| ([(objc_class *)accountInfoControllerClass shouldPresentAsModalSheet]& 1) == 0;
+      v21 = 0;
+      v21 = [(ACUIViewController *)selfCopy isPresentedAsModalSheet]|| ([(objc_class *)accountInfoControllerClass shouldPresentAsModalSheet]& 1) == 0;
       account2 = [(ACUIDataclassConfigurationViewController *)selfCopy account];
       valueForAccountSummaryCell = [(ACUIDataclassConfigurationViewController *)selfCopy valueForAccountSummaryCell];
       v2 = [ACUIAccountSummaryCell specifierWithStyle:"specifierWithStyle:account:valueText:detailControllerClass:presentationStyle:" account:1 valueText:account2 detailControllerClass:? presentationStyle:?];
-      v3 = v26[0];
-      v26[0] = v2;
+      v3 = v24[0];
+      v24[0] = v2;
       MEMORY[0x277D82BD8](v3);
       MEMORY[0x277D82BD8](valueForAccountSummaryCell);
       MEMORY[0x277D82BD8](account2);
-      v31[0] = @"AccountSettingsAlreadyShowedEnableAndDeleteKey";
-      v32[0] = MEMORY[0x277CBEC38];
-      v31[1] = @"account";
+      v29[0] = @"AccountSettingsAlreadyShowedEnableAndDeleteKey";
+      v30[0] = MEMORY[0x277CBEC38];
+      v29[1] = @"account";
       account3 = [(ACUIDataclassConfigurationViewController *)selfCopy account];
-      v32[1] = account3;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+      v30[1] = account3;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
       MEMORY[0x277D82BD8](account3);
-      [v26[0] setUserInfo:v22];
-      v19 = v26[0];
-      v20 = [MEMORY[0x277CCABB0] numberWithBool:{-[ACUIDataclassConfigurationViewController shouldEnableAccountSummaryCell](selfCopy, "shouldEnableAccountSummaryCell")}];
-      v4 = *MEMORY[0x277D3FF38];
-      [v19 setProperty:? forKey:?];
-      MEMORY[0x277D82BD8](v20);
-      objc_storeStrong(&v22, 0);
+      [v24[0] setUserInfo:v20];
+      v17 = v24[0];
+      v18 = [MEMORY[0x277CCABB0] numberWithBool:{-[ACUIDataclassConfigurationViewController shouldEnableAccountSummaryCell](selfCopy, "shouldEnableAccountSummaryCell")}];
+      [v17 setProperty:? forKey:?];
+      MEMORY[0x277D82BD8](v18);
+      objc_storeStrong(&v20, 0);
     }
 
-    v28 = MEMORY[0x277D82BE0](v26[0]);
-    v24 = 1;
+    v26 = MEMORY[0x277D82BE0](v24[0]);
+    v22 = 1;
   }
 
   else
   {
-    v28 = 0;
-    v24 = 1;
+    v26 = 0;
+    v22 = 1;
   }
 
-  objc_storeStrong(v26, 0);
-  *MEMORY[0x277D85DE8];
-  v8 = v28;
+  objc_storeStrong(v24, 0);
+  v6 = v26;
 
-  return v8;
+  return v6;
 }
 
 - (id)specifierForAccountSettingsCell
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v15[1] = a2;
-  v15[0] = 0;
+  v14[1] = a2;
+  v14[0] = 0;
   accountInfoControllerClass = [(ACUIDataclassConfigurationViewController *)self accountInfoControllerClass];
   if (accountInfoControllerClass)
   {
-    v12 = 0;
-    v12 = [(ACUIViewController *)selfCopy isPresentedAsModalSheet]|| ([(objc_class *)accountInfoControllerClass shouldPresentAsModalSheet]& 1) == 0;
+    v11 = 0;
+    v11 = [(ACUIViewController *)selfCopy isPresentedAsModalSheet]|| ([(objc_class *)accountInfoControllerClass shouldPresentAsModalSheet]& 1) == 0;
     account = [(ACUIDataclassConfigurationViewController *)selfCopy account];
     v2 = [ACUIAccountSummaryCell specifierWithStyle:"specifierWithStyle:account:valueText:detailControllerClass:presentationStyle:" account:? valueText:? detailControllerClass:? presentationStyle:?];
-    v3 = v15[0];
-    v15[0] = v2;
+    v3 = v14[0];
+    v14[0] = v2;
     MEMORY[0x277D82BD8](v3);
     MEMORY[0x277D82BD8](account);
-    v18[0] = @"AccountSettingsAlreadyShowedEnableAndDeleteKey";
-    v19[0] = MEMORY[0x277CBEC38];
-    v18[1] = @"account";
+    v17[0] = @"AccountSettingsAlreadyShowedEnableAndDeleteKey";
+    v18[0] = MEMORY[0x277CBEC38];
+    v17[1] = @"account";
     account2 = [(ACUIDataclassConfigurationViewController *)selfCopy account];
-    v19[1] = account2;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v18[1] = account2;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
     MEMORY[0x277D82BD8](account2);
-    [v15[0] setUserInfo:v11];
-    v9 = v15[0];
-    v10 = [MEMORY[0x277CCABB0] numberWithBool:{-[ACUIDataclassConfigurationViewController shouldEnableAccountSettingsCell](selfCopy, "shouldEnableAccountSettingsCell")}];
-    v4 = *MEMORY[0x277D3FF38];
-    [v9 setProperty:? forKey:?];
-    MEMORY[0x277D82BD8](v10);
-    v17 = MEMORY[0x277D82BE0](v15[0]);
-    v13 = 1;
-    objc_storeStrong(&v11, 0);
+    [v14[0] setUserInfo:v10];
+    v8 = v14[0];
+    v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[ACUIDataclassConfigurationViewController shouldEnableAccountSettingsCell](selfCopy, "shouldEnableAccountSettingsCell")}];
+    [v8 setProperty:? forKey:?];
+    MEMORY[0x277D82BD8](v9);
+    v16 = MEMORY[0x277D82BE0](v14[0]);
+    v12 = 1;
+    objc_storeStrong(&v10, 0);
   }
 
   else
   {
-    v17 = 0;
-    v13 = 1;
+    v16 = 0;
+    v12 = 1;
   }
 
-  objc_storeStrong(v15, 0);
-  *MEMORY[0x277D85DE8];
-  v5 = v17;
+  objc_storeStrong(v14, 0);
+  v4 = v16;
 
-  return v5;
+  return v4;
 }
 
 - (id)_specifiersForDataclasses:(id)dataclasses
@@ -965,7 +953,6 @@ void __61__ACUIDataclassConfigurationViewController_doneButtonTapped___block_inv
   objc_storeStrong(&v18, 0);
   objc_storeStrong(&array, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1394,7 +1381,6 @@ void __61__ACUIDataclassConfigurationViewController_doneButtonTapped___block_inv
   v4 = v10;
   objc_storeStrong(&acui_dataclass, 0);
   objc_storeStrong(location, HIDWORD(v4));
-  *MEMORY[0x277D85DE8];
   return v4 & 1;
 }
 
@@ -1581,7 +1567,6 @@ void __61__ACUIDataclassConfigurationViewController_doneButtonTapped___block_inv
   objc_storeStrong(&acui_dataclass, 0);
   objc_storeStrong(&v76, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __88__ACUIDataclassConfigurationViewController_dataclassSwitchStateDidChange_withSpecifier___block_invoke(id *a1, void *a2)
@@ -1682,7 +1667,6 @@ void __88__ACUIDataclassConfigurationViewController_dataclassSwitchStateDidChang
 
   objc_storeStrong(v21, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __88__ACUIDataclassConfigurationViewController_dataclassSwitchStateDidChange_withSpecifier___block_invoke_4(uint64_t a1, char a2, id obj)
@@ -1872,7 +1856,6 @@ void __88__ACUIDataclassConfigurationViewController_dataclassSwitchStateDidChang
 
   MEMORY[0x277D82BD8](provisionedDataclasses);
   objc_storeStrong(&v29, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldAutomaticallyTryEnablingDataclassDuringSetup:(id)setup
@@ -1984,7 +1967,6 @@ void __65__ACUIDataclassConfigurationViewController_setDataclass_enabled___block
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_setDataclass:(id)dataclass enabled:(BOOL)enabled onAccount:(id)account completion:(id)completion
@@ -2225,7 +2207,6 @@ void __87__ACUIDataclassConfigurationViewController__setDataclass_enabled_onAcco
   objc_storeStrong(&v49, 0);
   objc_storeStrong(&v53, 0);
   objc_storeStrong(&v54, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 uint64_t __87__ACUIDataclassConfigurationViewController__setDataclass_enabled_onAccount_completion___block_invoke_151(uint64_t a1)
@@ -2458,7 +2439,7 @@ uint64_t __87__ACUIDataclassConfigurationViewController__setDataclass_enabled_on
   objc_storeStrong(location, 0);
 }
 
-uint64_t __77__ACUIDataclassConfigurationViewController_operationsHelper_willSaveAccount___block_invoke(uint64_t a1)
+void *__77__ACUIDataclassConfigurationViewController_operationsHelper_willSaveAccount___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isFirstTimeSetup];
   if (result == 1)
@@ -2493,31 +2474,11 @@ uint64_t __77__ACUIDataclassConfigurationViewController_operationsHelper_willSav
   v26 = [(ACUIViewController *)&v25 operationsHelper:location[0] desiredDataclassActionFromPicker:v27];
   if ([v26 type])
   {
-    if ([v26 type] == 4)
+    if ([v26 type] == 4 && (v18 = selfCopy, v19 = objc_msgSend(v27, "affectedDataclasses"), v20 = -[ACUIDataclassConfigurationViewController _confirmKeepLocalDataForDataclasses:](v18, "_confirmKeepLocalDataForDataclasses:"), MEMORY[0x277D82BD8](v19), !v20) || objc_msgSend(v26, "type") == 6 && (v15 = selfCopy, v16 = objc_msgSend(v27, "affectedDataclasses"), v17 = -[ACUIDataclassConfigurationViewController _confirmDeleteLocalDataForDataclasses:](v15, "_confirmDeleteLocalDataForDataclasses:"), MEMORY[0x277D82BD8](v16), !v17))
     {
-      v18 = selfCopy;
-      affectedDataclasses = [v27 affectedDataclasses];
-      v20 = [(ACUIDataclassConfigurationViewController *)v18 _confirmKeepLocalDataForDataclasses:?];
-      MEMORY[0x277D82BD8](affectedDataclasses);
-      if (!v20)
-      {
-        goto LABEL_6;
-      }
-    }
-
-    if ([v26 type] == 6)
-    {
-      v15 = selfCopy;
-      affectedDataclasses2 = [v27 affectedDataclasses];
-      v17 = [(ACUIDataclassConfigurationViewController *)v15 _confirmDeleteLocalDataForDataclasses:?];
-      MEMORY[0x277D82BD8](affectedDataclasses2);
-      if (!v17)
-      {
-LABEL_6:
-        v30 = [MEMORY[0x277CB8F70] actionWithType:0];
-        v24 = 1;
-        goto LABEL_21;
-      }
+      v30 = [MEMORY[0x277CB8F70] actionWithType:0];
+      v24 = 1;
+      goto LABEL_21;
     }
 
     if ([v26 type] == 2)
@@ -2529,8 +2490,8 @@ LABEL_6:
   else if (![location[0] isRemovingAccount])
   {
     memset(__b, 0, sizeof(__b));
-    affectedDataclasses3 = [v27 affectedDataclasses];
-    v14 = [affectedDataclasses3 countByEnumeratingWithState:__b objects:v31 count:16];
+    affectedDataclasses = [v27 affectedDataclasses];
+    v14 = [affectedDataclasses countByEnumeratingWithState:__b objects:v31 count:16];
     if (v14)
     {
       v10 = *__b[2];
@@ -2541,7 +2502,7 @@ LABEL_6:
         v9 = v11;
         if (*__b[2] != v10)
         {
-          objc_enumerationMutation(affectedDataclasses3);
+          objc_enumerationMutation(affectedDataclasses);
         }
 
         v23 = *(__b[1] + 8 * v11);
@@ -2555,7 +2516,7 @@ LABEL_6:
         if (v9 + 1 >= v12)
         {
           v11 = 0;
-          v12 = [affectedDataclasses3 countByEnumeratingWithState:__b objects:v31 count:16];
+          v12 = [affectedDataclasses countByEnumeratingWithState:__b objects:v31 count:16];
           if (!v12)
           {
             break;
@@ -2564,7 +2525,7 @@ LABEL_6:
       }
     }
 
-    MEMORY[0x277D82BD8](affectedDataclasses3);
+    MEMORY[0x277D82BD8](affectedDataclasses);
   }
 
   v30 = MEMORY[0x277D82BE0](v26);
@@ -2573,7 +2534,6 @@ LABEL_21:
   objc_storeStrong(&v26, 0);
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v4 = v30;
 
   return v4;
@@ -2822,7 +2782,6 @@ LABEL_14:
 LABEL_15:
   objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -2928,7 +2887,6 @@ LABEL_15:
   objc_storeStrong(&v34, 0);
   objc_storeStrong(&v35, 0);
   _Block_object_dispose(&v36, 8);
-  *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
@@ -3005,7 +2963,6 @@ void __79__ACUIDataclassConfigurationViewController__promptUserToConfirmAccountD
   objc_storeStrong(&deviceMessage, 0);
   objc_storeStrong(&v23, 0);
   _Block_object_dispose(&v24, 8);
-  *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -3480,7 +3437,6 @@ void __96__ACUIDataclassConfigurationViewController_operationsHelper_didRemoveAc
   objc_storeStrong(&v59, 0);
   _Block_object_dispose(&v60, 8);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
@@ -3503,9 +3459,9 @@ void __80__ACUIDataclassConfigurationViewController__confirmKeepLocalDataForData
   objc_storeStrong(&v7, 0);
 }
 
-intptr_t __80__ACUIDataclassConfigurationViewController__confirmKeepLocalDataForDataclasses___block_invoke_2(uint64_t a1, uint64_t a2)
+intptr_t __80__ACUIDataclassConfigurationViewController__confirmKeepLocalDataForDataclasses___block_invoke_2(uint64_t a1, _BYTE *a2)
 {
-  if (a2 != [*(a1 + 32) count] - 1)
+  if (a2 != ([*(a1 + 32) count] - 1))
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
@@ -3638,7 +3594,6 @@ intptr_t __80__ACUIDataclassConfigurationViewController__confirmKeepLocalDataFor
   objc_storeStrong(&v50, 0);
   _Block_object_dispose(&v51, 8);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
@@ -3661,9 +3616,9 @@ void __82__ACUIDataclassConfigurationViewController__confirmDeleteLocalDataForDa
   objc_storeStrong(&v7, 0);
 }
 
-intptr_t __82__ACUIDataclassConfigurationViewController__confirmDeleteLocalDataForDataclasses___block_invoke_2(uint64_t a1, uint64_t a2)
+intptr_t __82__ACUIDataclassConfigurationViewController__confirmDeleteLocalDataForDataclasses___block_invoke_2(uint64_t a1, _BYTE *a2)
 {
-  if (a2 != [*(a1 + 32) count] - 1)
+  if (a2 != ([*(a1 + 32) count] - 1))
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
@@ -3734,9 +3689,9 @@ void __62__ACUIDataclassConfigurationViewController__confirmSyncDelete__block_in
   objc_storeStrong(&v7, 0);
 }
 
-intptr_t __62__ACUIDataclassConfigurationViewController__confirmSyncDelete__block_invoke_2(uint64_t a1, uint64_t a2)
+intptr_t __62__ACUIDataclassConfigurationViewController__confirmSyncDelete__block_invoke_2(uint64_t a1, _BYTE *a2)
 {
-  if (a2 != [*(a1 + 32) count] - 1)
+  if (a2 != ([*(a1 + 32) count] - 1))
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }

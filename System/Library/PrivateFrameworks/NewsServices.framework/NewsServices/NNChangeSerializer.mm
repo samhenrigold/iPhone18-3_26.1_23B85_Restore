@@ -33,7 +33,8 @@
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
       v10 = 0;
       goto LABEL_16;
@@ -45,19 +46,19 @@
 
   if (v5 && v10)
   {
-    v19 = v5;
-    v20 = v10;
-    v11 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-    v16 = 0;
-    v12 = [NSPropertyListSerialization dataWithPropertyList:v11 format:200 options:0 error:&v16];
-    v13 = v16;
+    v21 = v5;
+    v22 = v10;
+    v12 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v18 = 0;
+    v13 = [NSPropertyListSerialization dataWithPropertyList:v12 format:200 options:0 error:&v18];
+    v14 = v18;
 
-    if (!v12)
+    if (!v13)
     {
-      v14 = NNSetupCompanionSyncLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = NNSetupCompanionSyncLog(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_100008EF8(v13, v14);
+        sub_100008EF8(v14, v16);
       }
     }
 
@@ -65,100 +66,104 @@
   }
 
 LABEL_16:
-  v13 = NNSetupCompanionSyncLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = NNSetupCompanionSyncLog(isKindOfClass);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v18 = changeCopy;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Couldn't make data for change %@", buf, 0xCu);
+    v20 = changeCopy;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Couldn't make data for change %@", buf, 0xCu);
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_19:
 
-  return v12;
+  return v13;
 }
 
 - (id)changeFromData:(id)data ofType:(int64_t)type
 {
   dataCopy = data;
-  v28 = 0;
-  v6 = [NSPropertyListSerialization propertyListWithData:dataCopy options:0 format:0 error:&v28];
-  v7 = v28;
+  v34 = 0;
+  v6 = [NSPropertyListSerialization propertyListWithData:dataCopy options:0 format:0 error:&v34];
+  v7 = v34;
+  v8 = v7;
   if (!v6)
   {
-    v8 = NNSetupCompanionSyncLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = NNSetupCompanionSyncLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_100008F70(dataCopy, v7, v8);
+      sub_100008F70(dataCopy, v8, v9);
     }
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v9 = v6;
-    if ([v9 count]!= 1)
+    v11 = v6;
+    v12 = [v11 count];
+    if (v12 != 1)
     {
-      firstObject = NNSetupCompanionSyncLog();
+      firstObject = NNSetupCompanionSyncLog(v12);
       if (os_log_type_enabled(firstObject, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v30 = v9;
+        v36 = v11;
         _os_log_impl(&_mh_execute_header, firstObject, OS_LOG_TYPE_INFO, "Expected a dictionary, got a %@", buf, 0xCu);
       }
 
       goto LABEL_23;
     }
 
-    allKeys = [v9 allKeys];
+    allKeys = [v11 allKeys];
     firstObject = [allKeys firstObject];
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v15 = objc_opt_isKindOfClass();
+    if ((v15 & 1) == 0)
     {
-      v20 = NNSetupCompanionSyncLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      v24 = NNSetupCompanionSyncLog(v15);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v30 = firstObject;
-        v31 = 2112;
-        typeCopy = v9;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Invalid objects for ClassName %@ and Dictionary %@", buf, 0x16u);
+        v36 = firstObject;
+        v37 = 2112;
+        typeCopy = v11;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Invalid objects for ClassName %@ and Dictionary %@", buf, 0x16u);
       }
 
       goto LABEL_23;
     }
 
-    v12 = objc_opt_class();
-    v13 = NSStringFromClass(v12);
-    v14 = [firstObject isEqualToString:v13];
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    v18 = [firstObject isEqualToString:v17];
 
-    if (v14)
+    if (v18)
     {
-      allValues = [v9 allValues];
+      allValues = [v11 allValues];
       firstObject2 = [allValues firstObject];
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v17 = [v9 objectForKeyedSubscript:@"identifier"];
+        v21 = [v11 objectForKeyedSubscript:@"identifier"];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
 
-          v17 = 0;
+          v21 = 0;
         }
 
-        v18 = [v9 objectForKeyedSubscript:@"date"];
+        v22 = [v11 objectForKeyedSubscript:@"date"];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
 
-          v18 = 0;
+          v22 = 0;
         }
 
-        v19 = [[NNHeadlineRequestChange alloc] initWithResultIdentifier:v17 requestDate:v18];
+        v23 = [[NNHeadlineRequestChange alloc] initWithResultIdentifier:v21 requestDate:v22];
 
         goto LABEL_35;
       }
@@ -166,71 +171,78 @@ LABEL_19:
 
     else
     {
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
-      v24 = [firstObject isEqualToString:v23];
+      v26 = objc_opt_class();
+      v27 = NSStringFromClass(v26);
+      v28 = [firstObject isEqualToString:v27];
 
-      if (!v24)
+      if (!v28)
       {
         goto LABEL_23;
       }
 
-      allValues2 = [v9 allValues];
+      allValues2 = [v11 allValues];
       firstObject2 = [allValues2 firstObject];
 
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v30 = objc_opt_isKindOfClass();
+      if (v30)
       {
-        v19 = [[NNHeadlineResultChange alloc] initWithHeadlineResult:firstObject2];
+        v23 = [[NNHeadlineResultChange alloc] initWithHeadlineResult:firstObject2];
         goto LABEL_35;
       }
 
-      v26 = NNSetupCompanionSyncLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v31 = NNSetupCompanionSyncLog(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v30 = firstObject2;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Why does this change have an invalid result %@?", buf, 0xCu);
+        v36 = firstObject2;
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "Why does this change have an invalid result %@?", buf, 0xCu);
       }
     }
 
-    v19 = 0;
+    v23 = 0;
 LABEL_35:
 
-    if (!v19 || ([(NNHeadlineRequestChange *)v19 conformsToProtocol:&OBJC_PROTOCOL___SYChange]& 1) != 0)
+    if (!v23)
     {
       goto LABEL_24;
     }
 
-    v27 = NNSetupCompanionSyncLog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+    v32 = [(NNHeadlineRequestChange *)v23 conformsToProtocol:&OBJC_PROTOCOL___SYChange];
+    if (v32)
+    {
+      goto LABEL_24;
+    }
+
+    v33 = NNSetupCompanionSyncLog(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v30 = v19;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Invalid change %@", buf, 0xCu);
+      v36 = v23;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "Invalid change %@", buf, 0xCu);
     }
 
 LABEL_23:
-    v19 = 0;
+    v23 = 0;
 LABEL_24:
 
     goto LABEL_25;
   }
 
-  v9 = NNSetupCompanionSyncLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v11 = NNSetupCompanionSyncLog(isKindOfClass);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v30 = dataCopy;
-    v31 = 2048;
+    v36 = dataCopy;
+    v37 = 2048;
     typeCopy = type;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Expected a data object, got a %@ with type %ld", buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Expected a data object, got a %@ with type %ld", buf, 0x16u);
   }
 
-  v19 = 0;
+  v23 = 0;
 LABEL_25:
 
-  return v19;
+  return v23;
 }
 
 @end

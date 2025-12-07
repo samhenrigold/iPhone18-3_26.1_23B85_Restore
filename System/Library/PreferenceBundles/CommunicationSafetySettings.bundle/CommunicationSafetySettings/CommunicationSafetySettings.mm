@@ -1,9 +1,9 @@
 Swift::Void __swiftcall CommunicationSafetySettings.viewDidLoad()()
 {
   v1 = v0;
-  v2 = (sub_1488(&qword_8118, &qword_1BB8) - 8);
-  v3 = *(*v2 + 64);
-  v4 = (__chkstk_darwin)();
+  v2 = sub_1488(&qword_8118, &qword_1BB8);
+  v3 = v2 - 8;
+  v4 = __chkstk_darwin(v2);
   v6 = &v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v4);
   v8 = &v27 - v7;
@@ -15,7 +15,7 @@ Swift::Void __swiftcall CommunicationSafetySettings.viewDidLoad()()
   v9 = sub_1968();
   sub_14D0();
   v10 = sub_1998();
-  v11 = &v8[v2[11]];
+  v11 = &v8[*(v3 + 44)];
   *v11 = v10;
   v11[1] = v9;
   sub_1528(v8, v6);
@@ -81,7 +81,6 @@ uint64_t sub_1488(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -163,12 +162,11 @@ id CommunicationSafetySettings.init(coder:)(void *a1)
   return v2;
 }
 
-uint64_t sub_1920(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_1920(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);

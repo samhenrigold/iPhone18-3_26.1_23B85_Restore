@@ -3,42 +3,42 @@
 
 @implementation NSRegularExpression
 
-uint64_t __68__NSRegularExpression_ECMessageBodyParser__ec_attributionExpression__block_invoke(uint64_t a1)
+void *__68__NSRegularExpression_ECMessageBodyParser__ec_attributionExpression__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) ec_copyAttributionRegularExpressionForType:0];
   ec_attributionExpression_regex = result;
   return result;
 }
 
-uint64_t __74__NSRegularExpression_ECMessageBodyParser__ec_attributionPrefixExpression__block_invoke(uint64_t a1)
+void *__74__NSRegularExpression_ECMessageBodyParser__ec_attributionPrefixExpression__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) ec_copyAttributionRegularExpressionForType:1];
   ec_attributionPrefixExpression_regex = result;
   return result;
 }
 
-uint64_t __73__NSRegularExpression_ECMessageBodyParser__ec_forwardSeparatorExpression__block_invoke(uint64_t a1)
+void *__73__NSRegularExpression_ECMessageBodyParser__ec_forwardSeparatorExpression__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) ec_copyAttributionRegularExpressionForType:2];
   ec_forwardSeparatorExpression_regex = result;
   return result;
 }
 
-uint64_t __66__NSRegularExpression_ECMessageBodyParser__ec_signatureExpression__block_invoke(uint64_t a1)
+void *__66__NSRegularExpression_ECMessageBodyParser__ec_signatureExpression__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) ec_copyAttributionRegularExpressionForType:3];
   ec_signatureExpression_regex = result;
   return result;
 }
 
-uint64_t __87__NSRegularExpression_ECMessageBodyParserPriceExpressions__ec_priceBeginningExpression__block_invoke(uint64_t a1)
+void *__87__NSRegularExpression_ECMessageBodyParserPriceExpressions__ec_priceBeginningExpression__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) ec_copyCurrencyRegularExpressionForType:0];
   ec_priceBeginningExpression_regex = result;
   return result;
 }
 
-uint64_t __81__NSRegularExpression_ECMessageBodyParserPriceExpressions__ec_priceEndExpression__block_invoke(uint64_t a1)
+void *__81__NSRegularExpression_ECMessageBodyParserPriceExpressions__ec_priceEndExpression__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) ec_copyCurrencyRegularExpressionForType:1];
   ec_priceEndExpression_regex = result;

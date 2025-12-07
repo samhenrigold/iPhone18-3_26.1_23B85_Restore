@@ -58,7 +58,7 @@
 
 - (BOOL)shouldProcessQueryOperation:(id)operation error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   queryErrors = [(TRISQLiteCKDatabaseFailureInjectionDelegate *)self queryErrors];
   if (queryErrors && (v9 = queryErrors, -[TRISQLiteCKDatabaseFailureInjectionDelegate queryErrors](self, "queryErrors"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 count], v10, v9, v11))
@@ -73,9 +73,9 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v22 = operationCopy;
-      v23 = 2112;
-      v24 = firstObject;
+      v21 = operationCopy;
+      v22 = 2112;
+      v23 = firstObject;
       _os_log_impl(&dword_26F567000, v15, OS_LOG_TYPE_DEFAULT, "Query operation %@ being rejected with error %@", buf, 0x16u);
     }
 
@@ -96,13 +96,12 @@
     v17 = 1;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (BOOL)shouldProcessFetchOperation:(id)operation error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   fetchErrors = [(TRISQLiteCKDatabaseFailureInjectionDelegate *)self fetchErrors];
   if (fetchErrors && (v9 = fetchErrors, -[TRISQLiteCKDatabaseFailureInjectionDelegate fetchErrors](self, "fetchErrors"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 count], v10, v9, v11))
@@ -117,9 +116,9 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v22 = operationCopy;
-      v23 = 2112;
-      v24 = firstObject;
+      v21 = operationCopy;
+      v22 = 2112;
+      v23 = firstObject;
       _os_log_impl(&dword_26F567000, v15, OS_LOG_TYPE_DEFAULT, "Fetch operation %@ being rejected with error %@", buf, 0x16u);
     }
 
@@ -140,7 +139,6 @@
     v17 = 1;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

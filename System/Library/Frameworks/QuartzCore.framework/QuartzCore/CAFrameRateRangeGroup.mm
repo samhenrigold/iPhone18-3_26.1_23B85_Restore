@@ -148,14 +148,14 @@ LABEL_7:
   v9 = range.minimum;
   impl = self->_impl;
   os_unfair_lock_lock(impl);
-  v12.minimum = v9;
-  v12.maximum = v8;
-  v12.preferred = v7;
-  CA::FrameRateRangeGroup::remove(impl, v12);
-  v13.minimum = minimum;
-  v13.maximum = maximum;
-  v13.preferred = preferred;
-  CA::FrameRateRangeGroup::add(impl, v13);
+  v16.minimum = v9;
+  v16.maximum = v8;
+  v16.preferred = v7;
+  CA::FrameRateRangeGroup::remove(impl, v16, v11, v12);
+  v17.minimum = minimum;
+  v17.maximum = maximum;
+  v17.preferred = preferred;
+  CA::FrameRateRangeGroup::add(impl, v17, v13, v14);
   CA::FrameRateRangeGroup::arbitrate_ranges(impl);
 
   os_unfair_lock_unlock(impl);
@@ -168,10 +168,10 @@ LABEL_7:
   minimum = range.minimum;
   impl = self->_impl;
   os_unfair_lock_lock(impl);
-  v8.minimum = minimum;
-  v8.maximum = maximum;
-  v8.preferred = preferred;
-  CA::FrameRateRangeGroup::remove(impl, v8);
+  v10.minimum = minimum;
+  v10.maximum = maximum;
+  v10.preferred = preferred;
+  CA::FrameRateRangeGroup::remove(impl, v10, v7, v8);
   CA::FrameRateRangeGroup::arbitrate_ranges(impl);
 
   os_unfair_lock_unlock(impl);
@@ -184,10 +184,10 @@ LABEL_7:
   minimum = range.minimum;
   impl = self->_impl;
   os_unfair_lock_lock(impl);
-  v8.minimum = minimum;
-  v8.maximum = maximum;
-  v8.preferred = preferred;
-  CA::FrameRateRangeGroup::add(impl, v8);
+  v10.minimum = minimum;
+  v10.maximum = maximum;
+  v10.preferred = preferred;
+  CA::FrameRateRangeGroup::add(impl, v10, v7, v8);
   CA::FrameRateRangeGroup::arbitrate_ranges(impl);
 
   os_unfair_lock_unlock(impl);

@@ -207,33 +207,8 @@ LABEL_14:
 {
   dictionaryCopy = dictionary;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || (v114.receiver = self, v114.super_class = ENRegionServerConfiguration, (self = [(ENRegionServerConfiguration *)&v114 init]) == 0) || (v113 = 0, CFStringGetTypeID(), CFDictionaryGetTypedValue(), v5 = objc_claimAutoreleasedReturnValue(), appBundleID = self->_appBundleID, self->_appBundleID = v5, appBundleID, CFStringGetTypeID(), CFDictionaryGetTypedValue(), v7 = objc_claimAutoreleasedReturnValue(), publicKey = self->_publicKey, self->_publicKey = v7, publicKey, v113) || (CFStringGetTypeID(), CFDictionaryGetTypedValue(), v9 = objc_claimAutoreleasedReturnValue(), publicKeyVersion = self->_publicKeyVersion, self->_publicKeyVersion = v9, publicKeyVersion, v113))
   {
-    goto LABEL_117;
-  }
-
-  v114.receiver = self;
-  v114.super_class = ENRegionServerConfiguration;
-  self = [(ENRegionServerConfiguration *)&v114 init];
-  if (!self)
-  {
-    goto LABEL_117;
-  }
-
-  v113 = 0;
-  CFStringGetTypeID();
-  v5 = CFDictionaryGetTypedValue();
-  appBundleID = self->_appBundleID;
-  self->_appBundleID = v5;
-
-  CFStringGetTypeID();
-  v7 = CFDictionaryGetTypedValue();
-  publicKey = self->_publicKey;
-  self->_publicKey = v7;
-
-  if (v113 || (CFStringGetTypeID(), CFDictionaryGetTypedValue(), v9 = objc_claimAutoreleasedReturnValue(), publicKeyVersion = self->_publicKeyVersion, self->_publicKeyVersion = v9, publicKeyVersion, v113))
-  {
-LABEL_117:
     v108 = 0;
   }
 
@@ -680,32 +655,32 @@ LABEL_117:
 
 id __64__ENRegionServerConfiguration_initWithServerResponseDictionary___block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v28 = a2;
-  v30 = [MEMORY[0x277CBEB18] array];
+  v34 = *MEMORY[0x277D85DE8];
+  v26 = a2;
+  v28 = [MEMORY[0x277CBEB18] array];
+  v29 = 0u;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v27 = a1;
+  v25 = a1;
   v3 = [*(a1 + 32) allKeys];
-  v4 = [v3 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v32;
+    v6 = *v30;
     v7 = @"agencyMessage";
-    v29 = v3;
+    v27 = v3;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v32 != v6)
+        if (*v30 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v31 + 1) + 8 * i);
+        v9 = *(*(&v29 + 1) + 8 * i);
         if ([v9 hasPrefix:v7])
         {
           v10 = [v9 componentsSeparatedByString:@"_"];
@@ -723,30 +698,27 @@ id __64__ENRegionServerConfiguration_initWithServerResponseDictionary___block_in
             v7 = v16;
             v5 = v15;
 
-            v3 = v29;
-            [v30 addObject:v18];
+            v3 = v27;
+            [v28 addObject:v18];
           }
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v5);
   }
 
-  v19 = [*(v27 + 40) preferredLocalizationsFromArray:v30];
+  v19 = [*(v25 + 40) preferredLocalizationsFromArray:v28];
   v20 = [v19 localeIdentifier];
   v21 = [v20 uppercaseString];
 
-  v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@_%@", v28, v21];
-  v23 = *(v27 + 32);
+  v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@_%@", v26, v21];
   CFStringGetTypeID();
-  v24 = CFDictionaryGetTypedValue();
+  v23 = CFDictionaryGetTypedValue();
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v23;
 }
 
 - (id)preferredLocalizationsFromArray:(id)array

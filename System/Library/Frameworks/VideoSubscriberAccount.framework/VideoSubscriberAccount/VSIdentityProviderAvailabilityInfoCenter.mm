@@ -93,7 +93,7 @@ VSIdentityProviderAvailabilityInfoCenter *__57__VSIdentityProviderAvailabilityIn
 {
   v8 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -107,20 +107,19 @@ VSIdentityProviderAvailabilityInfoCenter *__57__VSIdentityProviderAvailabilityIn
 - (void)_sendStatusChangeNotification
 {
   VSRequireMainThread();
-  v3 = VSDefaultLogObject();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = VSDefaultLogObject(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23AB8E000, v3, OS_LOG_TYPE_DEFAULT, "Will send identity provider availability status change notification.", buf, 2u);
+    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Will send identity provider availability status change notification.", buf, 2u);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter postNotificationName:@"VSIdentityProviderAvailabilityDidChangeNotification" object:self];
-  v5 = VSDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = VSDefaultLogObject([defaultCenter postNotificationName:@"VSIdentityProviderAvailabilityDidChangeNotification" object:self]);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "Did send identity provider availability status change notification.", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Did send identity provider availability status change notification.", v7, 2u);
   }
 }
 
@@ -136,8 +135,7 @@ VSIdentityProviderAvailabilityInfoCenter *__57__VSIdentityProviderAvailabilityIn
   [privateQueue addOperation:v6];
   v8 = @"MultipleSystemOperators";
   v9 = objc_alloc_init(VSAMSBagLoadOperation);
-  [(VSAMSBagLoadOperation *)v9 setBagKey:v8];
-  v10 = VSDefaultLogObject();
+  v10 = VSDefaultLogObject([(VSAMSBagLoadOperation *)v9 setBagKey:v8]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -167,165 +165,166 @@ VSIdentityProviderAvailabilityInfoCenter *__57__VSIdentityProviderAvailabilityIn
 
 void __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) preferences];
   v3 = [v2 cachedStoreProviderStatus];
   v4 = [*(a1 + 40) value];
+  v5 = v4;
   if (v4)
   {
-    v5 = VSDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = VSDefaultLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 48);
+      v7 = *(a1 + 48);
       *buf = 138412546;
-      *&buf[4] = v4;
+      *&buf[4] = v5;
       *&buf[12] = 2112;
-      *&buf[14] = v6;
-      _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "Did load value (%@) for bag key %@", buf, 0x16u);
+      *&buf[14] = v7;
+      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Did load value (%@) for bag key %@", buf, 0x16u);
     }
 
-    v7 = 0;
+    v8 = 0;
     v3 = 1;
   }
 
   else
   {
-    v5 = [*(a1 + 40) error];
-    v8 = VSDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v6 = [*(a1 + 40) error];
+    v9 = VSDefaultLogObject(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 48);
+      v10 = *(a1 + 48);
       *buf = 138412546;
-      *&buf[4] = v9;
+      *&buf[4] = v10;
       *&buf[12] = 2112;
-      *&buf[14] = v5;
-      _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Did NOT load value for bag key %@: %@", buf, 0x16u);
+      *&buf[14] = v6;
+      _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "Did NOT load value for bag key %@: %@", buf, 0x16u);
     }
 
-    if (v5)
+    if (v6)
     {
-      v7 = VSPublicError(0, 3, v5);
-      v10 = VSErrorLogObject();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v8 = VSPublicError(0, 3, v6);
+      v11 = VSErrorLogObject(v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_cold_1(v5, v10);
+        __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_cold_1(v6, v11);
       }
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
       v3 = 2;
     }
   }
 
   [v2 setCachedStoreProviderStatus:v3];
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = [v2 cachedDeveloperProviderStatus];
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = [v2 cachedDeveloperProviderStatus];
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v35 = __Block_byref_object_copy__13;
-  v36 = __Block_byref_object_dispose__13;
-  v37 = 0;
-  v11 = [*(a1 + 56) result];
-  v12 = [v11 forceUnwrapObject];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_22;
-  v27[3] = &unk_278B73428;
-  v27[4] = &v28;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_2;
-  v26[3] = &unk_278B73450;
-  v26[4] = buf;
-  [v12 unwrapObject:v27 error:v26];
+  v38 = __Block_byref_object_copy__13;
+  v39 = __Block_byref_object_dispose__13;
+  v40 = 0;
+  v12 = [*(a1 + 56) result];
+  v13 = [v12 forceUnwrapObject];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_22;
+  v30[3] = &unk_278B73428;
+  v30[4] = &v31;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_2;
+  v29[3] = &unk_278B73450;
+  v29[4] = buf;
+  [v13 unwrapObject:v30 error:v29];
 
-  [v2 setCachedDeveloperProviderStatus:v29[3]];
-  if (v3 == 1 || (v13 = v29[3], v13 == 1))
+  [v2 setCachedDeveloperProviderStatus:v32[3]];
+  if (v3 == 1 || (v14 = v32[3], v14 == 1))
   {
-    v14 = 0;
-    v15 = 1;
+    v15 = 0;
+    v16 = 1;
   }
 
-  else if (v3 == 2 || v13 == 2)
+  else if (v3 == 2 || v14 == 2)
   {
-    v14 = VSPublicError(0, 1, 0);
-    v15 = 2;
+    v15 = VSPublicError(0, 1, 0);
+    v16 = 2;
   }
 
   else
   {
-    v19 = v7;
-    if (v7 || (v19 = *(*&buf[8] + 40)) != 0)
+    v22 = v8;
+    if (v8 || (v22 = *(*&buf[8] + 40)) != 0)
     {
-      v20 = v19;
+      v23 = v22;
     }
 
     else
     {
-      v20 = VSPublicError(0, 3, 0);
+      v23 = VSPublicError(0, 3, 0);
     }
 
-    v14 = v20;
-    v15 = 0;
+    v15 = v23;
+    v16 = 0;
   }
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_25;
-  v25[3] = &unk_278B74F28;
-  v25[4] = *(a1 + 32);
-  v25[5] = v15;
-  VSPerformBlockOnMainThread(v25);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_25;
+  v28[3] = &unk_278B74F28;
+  v28[4] = *(a1 + 32);
+  v28[5] = v16;
+  VSPerformBlockOnMainThread(v28);
   if (*(a1 + 64))
   {
-    v16 = VSDefaultLogObject();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = VSDefaultLogObject(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v32 = 136315138;
-      v33 = "[VSIdentityProviderAvailabilityInfoCenter _beginStatusUpdateAttemptWithCompletionHandler:]_block_invoke_2";
-      _os_log_impl(&dword_23AB8E000, v16, OS_LOG_TYPE_DEFAULT, "Will call completion handler passed to %s", v32, 0xCu);
+      *v35 = 136315138;
+      v36 = "[VSIdentityProviderAvailabilityInfoCenter _beginStatusUpdateAttemptWithCompletionHandler:]_block_invoke_2";
+      _os_log_impl(&dword_23AB8E000, v18, OS_LOG_TYPE_DEFAULT, "Will call completion handler passed to %s", v35, 0xCu);
     }
 
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_26;
-    v21[3] = &unk_278B74268;
-    v23 = *(a1 + 64);
-    v24 = v15;
-    v22 = v14;
-    __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_26(v21);
-    v17 = VSDefaultLogObject();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_26;
+    v24[3] = &unk_278B74268;
+    v26 = *(a1 + 64);
+    v27 = v16;
+    v25 = v15;
+    v19 = (__91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_26)(v24);
+    v20 = VSDefaultLogObject(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      *v32 = 136315138;
-      v33 = "[VSIdentityProviderAvailabilityInfoCenter _beginStatusUpdateAttemptWithCompletionHandler:]_block_invoke_3";
-      _os_log_impl(&dword_23AB8E000, v17, OS_LOG_TYPE_DEFAULT, "Did call completion handler passed to %s", v32, 0xCu);
+      *v35 = 136315138;
+      v36 = "[VSIdentityProviderAvailabilityInfoCenter _beginStatusUpdateAttemptWithCompletionHandler:]_block_invoke_3";
+      _os_log_impl(&dword_23AB8E000, v20, OS_LOG_TYPE_DEFAULT, "Did call completion handler passed to %s", v35, 0xCu);
     }
 
-    v18 = v23;
+    v21 = v26;
   }
 
   else
   {
-    v18 = VSDefaultLogObject();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v21 = VSDefaultLogObject(v17);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      *v32 = 136315138;
-      v33 = "[VSIdentityProviderAvailabilityInfoCenter _beginStatusUpdateAttemptWithCompletionHandler:]_block_invoke";
-      _os_log_impl(&dword_23AB8E000, v18, OS_LOG_TYPE_DEFAULT, "No completion handler passed to %s", v32, 0xCu);
+      *v35 = 136315138;
+      v36 = "[VSIdentityProviderAvailabilityInfoCenter _beginStatusUpdateAttemptWithCompletionHandler:]_block_invoke";
+      _os_log_impl(&dword_23AB8E000, v21, OS_LOG_TYPE_DEFAULT, "No completion handler passed to %s", v35, 0xCu);
     }
   }
 
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v31, 8);
 }
 
-uint64_t __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_22(uint64_t a1, void *a2)
+void *__91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_22(uint64_t a1, void *a2)
 {
   result = [a2 count];
   v4 = 1;
@@ -341,7 +340,7 @@ uint64_t __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemp
 void __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWithCompletionHandler___block_invoke_2_cold_1(v3, v4);
@@ -406,7 +405,7 @@ void __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWit
 {
   v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -430,7 +429,7 @@ void __91__VSIdentityProviderAvailabilityInfoCenter__beginStatusUpdateAttemptWit
 
 - (void)remoteNotifier:(id)notifier didReceiveRemoteNotificationWithUserInfo:(id)info
 {
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

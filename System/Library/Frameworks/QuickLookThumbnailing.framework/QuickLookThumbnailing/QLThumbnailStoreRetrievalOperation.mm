@@ -127,7 +127,7 @@
 
 - (BOOL)_finishIfNeeded
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   isCancelled = [(QLThumbnailStoreRetrievalOperation *)selfCopy isCancelled];
@@ -136,9 +136,9 @@
     v4 = _log_0();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
-      v9 = selfCopy;
-      _os_log_impl(&dword_1CA1E7000, v4, OS_LOG_TYPE_INFO, "Finishing %@ because it is cancelled", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = selfCopy;
+      _os_log_impl(&dword_1CA1E7000, v4, OS_LOG_TYPE_INFO, "Finishing %@ because it is cancelled", &v7, 0xCu);
     }
 
     v5 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:3072 userInfo:0];
@@ -147,20 +147,19 @@
 
   objc_sync_exit(selfCopy);
 
-  v6 = *MEMORY[0x1E69E9840];
   return isCancelled;
 }
 
 - (void)_finishBecauseGenerationFailedWithUnderlyingError:(id)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = errorCopy;
   if (errorCopy)
   {
-    v15 = *MEMORY[0x1E696AA08];
-    v16[0] = errorCopy;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x1E696AA08];
+    v15[0] = errorCopy;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   }
 
   else
@@ -172,17 +171,15 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     documentURL = self->_documentURL;
-    v11 = 138412546;
-    v12 = documentURL;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_1CA1E7000, v7, OS_LOG_TYPE_INFO, "Finishing thumbnail store retrieval for %@ because generation failed with %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = documentURL;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_1CA1E7000, v7, OS_LOG_TYPE_INFO, "Finishing thumbnail store retrieval for %@ because generation failed with %@", &v10, 0x16u);
   }
 
   v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"QLThumbnailErrorDomain" code:0 userInfo:v6];
   [(QLThumbnailStoreRetrievalOperation *)self _finishWithError:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)start
@@ -201,7 +198,7 @@
 
 - (void)_generateThumbnail
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = _os_activity_create(&dword_1CA1E7000, "!quicklook/thumbnail-generation", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   generationActivity = self->_generationActivity;
   self->_generationActivity = v3;
@@ -211,9 +208,9 @@
   os_activity_scope_enter(self->_generationActivity, &state);
   v5 = NSTemporaryDirectory();
   v6 = [v5 stringByAppendingString:@"QuickLookThumbnail.XXXXXX.jpg"];
-  [v6 getFileSystemRepresentation:v17 maxLength:1024];
+  [v6 getFileSystemRepresentation:v16 maxLength:1024];
 
-  v7 = mkstemps(v17, 4);
+  v7 = mkstemps(v16, 4);
   if ((v7 & 0x80000000) != 0)
   {
     v10 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:*__error() userInfo:0];
@@ -222,7 +219,7 @@
 
   else
   {
-    v8 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:v17 isDirectory:0 relativeToURL:0];
+    v8 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:v16 isDirectory:0 relativeToURL:0];
     destinationURL = self->_destinationURL;
     self->_destinationURL = v8;
 
@@ -230,16 +227,15 @@
     v11 = [[QLThumbnailGenerationRequest alloc] initWithFileAtURL:self->_documentURL size:4 scale:1024.0 representationTypes:1024.0, 1.0];
     v12 = +[QLThumbnailGenerator sharedGenerator];
     v13 = *MEMORY[0x1E6982E58];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __56__QLThumbnailStoreRetrievalOperation__generateThumbnail__block_invoke;
-    v15[3] = &unk_1E836A050;
-    v15[4] = self;
-    [v12 saveBestRepresentationForRequest:v11 toFileHandle:v10 asContentType:v13 allowingThumbnailDownloads:0 completionHandler:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __56__QLThumbnailStoreRetrievalOperation__generateThumbnail__block_invoke;
+    v14[3] = &unk_1E836A050;
+    v14[4] = self;
+    [v12 saveBestRepresentationForRequest:v11 toFileHandle:v10 asContentType:v13 allowingThumbnailDownloads:0 completionHandler:v14];
   }
 
   os_activity_scope_leave(&state);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __56__QLThumbnailStoreRetrievalOperation__generateThumbnail__block_invoke(uint64_t a1, void *a2)
@@ -263,7 +259,7 @@ void __56__QLThumbnailStoreRetrievalOperation__generateThumbnail__block_invoke(u
 - (void)_afterDeterminingWhetherWeCanGenerate:(BOOL)generate
 {
   generateCopy = generate;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   addition = self->_addition;
   if (addition)
   {
@@ -283,13 +279,13 @@ void __56__QLThumbnailStoreRetrievalOperation__generateThumbnail__block_invoke(u
     {
       documentURL = self->_documentURL;
       thumbnailVersion = [(QLThumbnailAddition *)self->_addition thumbnailVersion];
-      v23 = 138412802;
-      v24 = documentURL;
-      v25 = 2112;
-      v26 = thumbnailVersion;
-      v27 = 2112;
-      v28 = v7;
-      _os_log_debug_impl(&dword_1CA1E7000, v8, OS_LOG_TYPE_DEBUG, "%@: Stored thumbnail version: %@, proposed version: %@", &v23, 0x20u);
+      v22 = 138412802;
+      v23 = documentURL;
+      v24 = 2112;
+      v25 = thumbnailVersion;
+      v26 = 2112;
+      v27 = v7;
+      _os_log_debug_impl(&dword_1CA1E7000, v8, OS_LOG_TYPE_DEBUG, "%@: Stored thumbnail version: %@, proposed version: %@", &v22, 0x20u);
     }
 
     thumbnailVersion2 = [(QLThumbnailAddition *)self->_addition thumbnailVersion];
@@ -298,8 +294,8 @@ void __56__QLThumbnailStoreRetrievalOperation__generateThumbnail__block_invoke(u
       v13 = _log_0();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v23) = 0;
-        _os_log_impl(&dword_1CA1E7000, v13, OS_LOG_TYPE_INFO, "Invalidating existing version. Regenerating a thumbnail.", &v23, 2u);
+        LOWORD(v22) = 0;
+        _os_log_impl(&dword_1CA1E7000, v13, OS_LOG_TYPE_INFO, "Invalidating existing version. Regenerating a thumbnail.", &v22, 2u);
       }
 
       v14 = self->_addition;
@@ -323,9 +319,9 @@ void __56__QLThumbnailStoreRetrievalOperation__generateThumbnail__block_invoke(u
       if (v16)
       {
         v17 = self->_documentURL;
-        v23 = 138412290;
-        v24 = v17;
-        _os_log_impl(&dword_1CA1E7000, v15, OS_LOG_TYPE_INFO, "No addition for %@, trying generation", &v23, 0xCu);
+        v22 = 138412290;
+        v23 = v17;
+        _os_log_impl(&dword_1CA1E7000, v15, OS_LOG_TYPE_INFO, "No addition for %@, trying generation", &v22, 0xCu);
       }
 
       [(QLThumbnailStoreRetrievalOperation *)self _generateThumbnail];
@@ -336,25 +332,22 @@ void __56__QLThumbnailStoreRetrievalOperation__generateThumbnail__block_invoke(u
       if (v16)
       {
         v18 = self->_documentURL;
-        v23 = 138412290;
-        v24 = v18;
-        _os_log_impl(&dword_1CA1E7000, v15, OS_LOG_TYPE_INFO, "No addition for %@ and generation not possible", &v23, 0xCu);
+        v22 = 138412290;
+        v23 = v18;
+        _os_log_impl(&dword_1CA1E7000, v15, OS_LOG_TYPE_INFO, "No addition for %@ and generation not possible", &v22, 0xCu);
       }
 
       v19 = [MEMORY[0x1E696ABC0] errorWithDomain:@"QLThumbnailErrorDomain" code:106 userInfo:0];
       [(QLThumbnailStoreRetrievalOperation *)self _finishWithError:v19];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)main
 {
-  OUTLINED_FUNCTION_1_3(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_1_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_2(&dword_1CA1E7000, v1, v2, "QLThumbnailStoreRetrievalOperation called on fault %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1CA1E7000, v0, v1, "QLThumbnailStoreRetrievalOperation called on fault %@", v2, v3, v4, v5);
 }
 
 uint64_t __42__QLThumbnailStoreRetrievalOperation_main__block_invoke(uint64_t a1)
@@ -362,7 +355,7 @@ uint64_t __42__QLThumbnailStoreRetrievalOperation_main__block_invoke(uint64_t a1
   v2 = _log_0();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __42__QLThumbnailStoreRetrievalOperation_main__block_invoke_cold_1(a1);
+    __42__QLThumbnailStoreRetrievalOperation_main__block_invoke_cold_1();
   }
 
   return [*(a1 + 32) _afterDeterminingWhetherWeCanGenerate:0];
@@ -370,10 +363,9 @@ uint64_t __42__QLThumbnailStoreRetrievalOperation_main__block_invoke(uint64_t a1
 
 - (void)_afterThumbnailIsGenerated
 {
-  OUTLINED_FUNCTION_1_3(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_1_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1(&dword_1CA1E7000, v1, v2, "Could NOT associate an iCloud Drive thumbnail for %@: %@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1CA1E7000, v0, v1, "Could NOT associate an iCloud Drive thumbnail for %@: %@");
 }
 
 - (void)afterThumbnailIsPutInGenstore
@@ -410,7 +402,7 @@ uint64_t __42__QLThumbnailStoreRetrievalOperation_main__block_invoke(uint64_t a1
 
 - (NSDictionary)thumbnailImagesDictionary
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   addition = self->_addition;
   if (addition)
   {
@@ -423,9 +415,9 @@ uint64_t __42__QLThumbnailStoreRetrievalOperation_main__block_invoke(uint64_t a1
       v7 = v6;
       if (v6)
       {
-        v10 = v5;
-        v11[0] = v6;
-        additionURL = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+        v9 = v5;
+        v10[0] = v6;
+        additionURL = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
       }
 
       else
@@ -439,8 +431,6 @@ uint64_t __42__QLThumbnailStoreRetrievalOperation_main__block_invoke(uint64_t a1
   {
     additionURL = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return additionURL;
 }
@@ -471,13 +461,11 @@ uint64_t __42__QLThumbnailStoreRetrievalOperation_main__block_invoke(uint64_t a1
   return isAutomaticallyGenerated;
 }
 
-void __42__QLThumbnailStoreRetrievalOperation_main__block_invoke_cold_1(uint64_t a1)
+void __42__QLThumbnailStoreRetrievalOperation_main__block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(*(a1 + 32) + 248);
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(&dword_1CA1E7000, v2, OS_LOG_TYPE_ERROR, "Could not reach the thumbnails generation service to generate thumbnail for %@", v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1CA1E7000, v0, OS_LOG_TYPE_ERROR, "Could not reach the thumbnails generation service to generate thumbnail for %@", v1, 0xCu);
 }
 
 @end

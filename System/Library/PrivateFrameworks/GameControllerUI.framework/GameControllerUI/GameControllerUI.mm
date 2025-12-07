@@ -1,6 +1,5 @@
 uint64_t sub_20E4098C0()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return MEMORY[0x2821FE8E8](v0, 24, 7);
@@ -8,55 +7,38 @@ uint64_t sub_20E4098C0()
 
 uint64_t sub_20E4098F8()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
-uint64_t OUTLINED_FUNCTION_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+uint64_t OUTLINED_FUNCTION_1(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, __int128 a10, __int128 a11, __int128 a12, uint64_t a13, ...)
 {
-  result = *(a10 + 8 * v10);
-  v12 = *(result + 16);
-  return result;
+  va_start(va, a13);
+  a9 = 0u;
+  a10 = 0u;
+  a11 = 0u;
+  a12 = 0u;
+
+  return [a1 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
-uint64_t OUTLINED_FUNCTION_1(void *a1, const char *a2, ...)
+uint64_t OUTLINED_FUNCTION_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  va_arg(va1, void);
-  va_arg(va1, void);
-  va_arg(va1, void);
-  va_arg(va1, void);
-  va_arg(va1, void);
-  va_arg(va1, void);
-  va_arg(va1, void);
-  va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v4 = 0u;
-  v6 = 0u;
-  v7 = 0u;
-  v8 = 0u;
+  va_start(va, a17);
 
-  return [a1 countByEnumeratingWithState:va objects:va1 count:16];
+  return [v17 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
-uint64_t OUTLINED_FUNCTION_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
-{
-
-  return [v18 countByEnumeratingWithState:&a9 objects:&a18 count:16];
-}
-
-id _gc_log_ui()
+id _gc_log_ui(uint64_t a1)
 {
   if (_gc_log_ui_onceToken != -1)
   {
     _gc_log_ui_cold_1();
   }
 
-  v1 = _gc_log_ui_Log;
+  v2 = _gc_log_ui_Log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___gc_log_ui_block_invoke()
@@ -110,16 +92,18 @@ uint64_t _DescendantPointerEvent(uint64_t a1)
   return v1;
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, int a2, int a3, int a4, const char *a5, const char *a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint8_t buf)
+void OUTLINED_FUNCTION_1_0(void *a1, int a2, int a3, int a4, const char *a5, const char *a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
 
-  _os_signpost_emit_with_name_impl(a1, v17, OS_SIGNPOST_INTERVAL_BEGIN, v18, a5, a6, &buf, 0x1Cu);
+  _os_signpost_emit_with_name_impl(a1, v16, OS_SIGNPOST_INTERVAL_BEGIN, v17, a5, a6, va, 0x1Cu);
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 BOOL OUTLINED_FUNCTION_5_0(NSObject *a1)
@@ -140,16 +124,16 @@ uint64_t OUTLINED_FUNCTION_8()
   return IOHIDEventGetTimeStamp();
 }
 
-id _gc_log_keyboard_and_mouse()
+id _gc_log_keyboard_and_mouse(uint64_t a1)
 {
   if (_gc_log_keyboard_and_mouse_onceToken != -1)
   {
     _gc_log_keyboard_and_mouse_cold_1();
   }
 
-  v1 = _gc_log_keyboard_and_mouse_Log;
+  v2 = _gc_log_keyboard_and_mouse_Log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___gc_log_keyboard_and_mouse_block_invoke()
@@ -159,7 +143,7 @@ uint64_t ___gc_log_keyboard_and_mouse_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t (*implicit closure #1 in variable initialization expression of static GCGameControllerConnectingOptionDefinition.sceneDelegateMethod(uint64_t a1))()
+id (*implicit closure #1 in variable initialization expression of static GCGameControllerConnectingOptionDefinition.sceneDelegateMethod(uint64_t a1))(uint64_t a1, uint64_t a2)
 {
   *(swift_allocObject() + 16) = a1;
   swift_unknownObjectRetain();
@@ -180,13 +164,12 @@ uint64_t _sSo29GCGameControllerSceneDelegate_pSo7UISceneCSo0aB17ActivationContex
   return swift_unknownObjectRetain();
 }
 
-uint64_t protocol witness for static UISceneConnectionOptionDefinition.invokeSceneDelegate(_:scene:payload:) in conformance GCGameControllerConnectingOptionDefinition(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t protocol witness for static UISceneConnectionOptionDefinition.invokeSceneDelegate(_:scene:payload:) in conformance GCGameControllerConnectingOptionDefinition(uint64_t (**a1)(uint64_t *, uint64_t *), uint64_t a2, uint64_t *a3)
 {
   v3 = *a1;
-  v4 = *(a1 + 8);
-  v6 = *a3;
-  v7 = a2;
-  return v3(&v7, &v6);
+  v5 = *a3;
+  v6 = a2;
+  return v3(&v6, &v5);
 }
 
 unint64_t lazy protocol witness table accessor for type GCGameControllerActivationContext._Box and conformance GCGameControllerActivationContext._Box()
@@ -239,21 +222,14 @@ unint64_t type metadata accessor for GCGameControllerConnectingOptionDefinition(
   return result;
 }
 
-uint64_t partial apply for thunk for @escaping @callee_guaranteed (@guaranteed UIScene, @guaranteed GCGameControllerActivationContext) -> ()(void *a1, void *a2)
-{
-  v3 = *(v2 + 16);
-  v4 = *(v2 + 24);
-  return v3(*a1, *a2);
-}
-
-uint64_t GCGameControllerActivationContext.asBSAction(with:)()
+uint64_t GCGameControllerActivationContext.asBSAction(with:)(uint64_t a1)
 {
   type metadata accessor for GCGameControllerConnectingOptionDefinition();
   lazy protocol witness table accessor for type GCGameControllerConnectingOptionDefinition and conformance GCGameControllerConnectingOptionDefinition();
-  v1 = v0;
-  v2 = static UISceneConnectionOptionDefinition.createAction(payload:responder:)();
+  v2 = v1;
+  v3 = static UISceneConnectionOptionDefinition.createAction(payload:responder:)();
 
-  return v2;
+  return v3;
 }
 
 unint64_t lazy protocol witness table accessor for type GCGameControllerConnectingOptionDefinition and conformance GCGameControllerConnectingOptionDefinition()
@@ -282,36 +258,35 @@ id @objc GCGameControllerActivationContext.asBSAction(with:)(void *a1, uint64_t 
 
 uint64_t GCGameControllerActivationContext._Box.encode(to:)(void *a1, void *a2)
 {
-  v3 = a1[4];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Encoder.singleValueContainer()();
-  v4 = [a2 previousApplicationBundleID];
-  if (v4)
+  v3 = [a2 previousApplicationBundleID];
+  if (v3)
   {
-    v5 = v4;
+    v4 = v3;
     static String._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
-  __swift_mutable_project_boxed_opaque_existential_1(v7, v7[3]);
+  __swift_mutable_project_boxed_opaque_existential_1(v6, v6[3]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
-  lazy protocol witness table accessor for type String? and conformance <A> A?(&lazy protocol witness table cache variable for type String? and conformance <A> A?);
+  lazy protocol witness table accessor for type String? and conformance <A> A?(&lazy protocol witness table cache variable for type String? and conformance <A> A?, MEMORY[0x277D837D8], MEMORY[0x277D84F40]);
   dispatch thunk of SingleValueEncodingContainer.encode<A>(_:)();
 
-  return __swift_destroy_boxed_opaque_existential_1(v7);
+  return __swift_destroy_boxed_opaque_existential_1(v6);
 }
 
-id protocol witness for Decodable.init(from:) in conformance GCGameControllerActivationContext._Box@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+id protocol witness for Decodable.init(from:) in conformance GCGameControllerActivationContext._Box@<X0>(uint64_t *a1@<X8>, void *a2@<X0>)
 {
-  result = specialized GCGameControllerActivationContext._Box.init(from:)(a1);
+  result = specialized GCGameControllerActivationContext._Box.init(from:)(a2);
   if (!v2)
   {
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
 }
 
-id specialized GCGameControllerActivationContext._Box.init(from:)(uint64_t *a1)
+id specialized GCGameControllerActivationContext._Box.init(from:)(void *a1)
 {
   v3 = a1[3];
   __swift_project_boxed_opaque_existential_1(a1, v3);
@@ -325,7 +300,7 @@ id specialized GCGameControllerActivationContext._Box.init(from:)(uint64_t *a1)
   {
     __swift_project_boxed_opaque_existential_1(v7, v7[3]);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
-    lazy protocol witness table accessor for type String? and conformance <A> A?(&lazy protocol witness table cache variable for type String? and conformance <A> A?);
+    lazy protocol witness table accessor for type String? and conformance <A> A?(&lazy protocol witness table cache variable for type String? and conformance <A> A?, MEMORY[0x277D83808], MEMORY[0x277D84F58]);
     dispatch thunk of SingleValueDecodingContainer.decode<A>(_:)();
     if (v6)
     {
@@ -356,7 +331,7 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_t a2)
+uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
   {
@@ -364,7 +339,7 @@ uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_
     return v2;
   }
 
-  return result;
+  return v3;
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
@@ -372,7 +347,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -385,7 +359,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -393,18 +366,20 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
-uint64_t lazy protocol witness table accessor for type String? and conformance <A> A?(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type String? and conformance <A> A?(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   result = *a1;
   if (!result)

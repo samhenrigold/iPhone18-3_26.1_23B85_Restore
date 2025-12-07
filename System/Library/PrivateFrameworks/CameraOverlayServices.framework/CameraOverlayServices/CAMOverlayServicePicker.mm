@@ -13,37 +13,37 @@
 
 - (CAMOverlayServicePicker)initWithIdentifier:(id)identifier title:(id)title imageName:(id)name valueTitles:(id)titles
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   titlesCopy = titles;
-  v29.receiver = self;
-  v29.super_class = CAMOverlayServicePicker;
-  v11 = [(CAMAbstractOverlayServiceControl *)&v29 _initWithIdentifier:identifier title:title imageName:name];
+  v28.receiver = self;
+  v28.super_class = CAMOverlayServicePicker;
+  v11 = [(CAMAbstractOverlayServiceControl *)&v28 _initWithIdentifier:identifier title:title imageName:name];
   v12 = v11;
   if (v11)
   {
     v11->_pickerType = 0;
     v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(titlesCopy, "count")}];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v14 = titlesCopy;
-    v15 = [v14 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v26;
+      v17 = *v25;
       do
       {
         v18 = 0;
         do
         {
-          if (*v26 != v17)
+          if (*v25 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v25 + 1) + 8 * v18);
+          v19 = *(*(&v24 + 1) + 8 * v18);
           _preferredLocale = [objc_opt_class() _preferredLocale];
           v21 = [v19 uppercaseStringWithLocale:_preferredLocale];
           [(NSArray *)v13 addObject:v21];
@@ -52,7 +52,7 @@
         }
 
         while (v16 != v18);
-        v16 = [v14 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v16);
@@ -62,7 +62,6 @@
     v12->_valueTitles = v13;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

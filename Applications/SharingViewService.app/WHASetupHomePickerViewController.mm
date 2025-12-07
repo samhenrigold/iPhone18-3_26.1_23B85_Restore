@@ -50,7 +50,7 @@
   buttonCopy = button;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupHomePickerViewController handleDismissButton:]", 30, "HomePicker Dismiss button\n");
   }
 
   [self->super._mainController dismiss:5];
@@ -61,7 +61,7 @@
   buttonCopy = button;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupHomePickerViewController handleChooseButton:]", 30, "HomePicker Choose button\n");
   }
 
   if ((BYTE1(self->_chooseButton) & 1) == 0)
@@ -106,7 +106,7 @@
   disappearCopy = disappear;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupHomePickerViewController viewDidDisappear:]", 30, "HomePicker ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -119,7 +119,7 @@
   appearCopy = appear;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupHomePickerViewController viewWillAppear:]", 30, "HomePicker ViewWillAppear\n");
   }
 
   v5.receiver = self;

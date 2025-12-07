@@ -289,7 +289,7 @@ LABEL_8:
   _elasticity = [(_UIFluidSliderInteraction *)self _elasticity];
   if (_elasticity != 2)
   {
-    if (_elasticity != 1 || ([(_UIFluidSliderInteraction *)self _lastDriverUpdate], v92 == 1))
+    if (_elasticity != 1 || (objc_msgSend__lastDriverUpdate(self), v92 == 1))
     {
       v5 = fmax(fmin(v5, 1.0), 0.0);
     }
@@ -505,7 +505,7 @@ LABEL_8:
   v91 = 0.0;
   v89 = 0u;
   v90 = 0u;
-  [(_UIFluidSliderInteraction *)self _lastDriverUpdate];
+  objc_msgSend__lastDriverUpdate(self);
   _activeDriver = [(_UIFluidSliderInteraction *)self _activeDriver];
 
   if (_activeDriver)
@@ -638,7 +638,7 @@ LABEL_8:
   {
     _feedbackConductor = [(_UIFluidSliderInteraction *)self _feedbackConductor];
     v78 = v91;
-    [(_UIFluidSliderInteraction *)self _lastDriverUpdate];
+    objc_msgSend__lastDriverUpdate(self);
     [_feedbackConductor moveToValue:v85 snappingTarget:v62 withUpdateType:v5 atLocation:v78 forced:{v51, v80}];
   }
 }
@@ -734,9 +734,9 @@ LABEL_8:
   {
     if (v7 && configurationCopy2)
     {
-      v10 = [(_UIFluidSliderInteractionConfiguration *)v7 isEqual:configurationCopy2];
+      isEqual = objc_msgSend_isEqual_(v7);
 
-      if (v10)
+      if (isEqual)
       {
         goto LABEL_70;
       }
@@ -1004,7 +1004,7 @@ LABEL_39:
 
       if (v17 && v18)
       {
-        v20 = [v17 isEqual:v18];
+        v20 = objc_msgSend_isEqual_(v17);
 
         if (v20)
         {

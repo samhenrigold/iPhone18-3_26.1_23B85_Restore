@@ -65,11 +65,11 @@
 
 - (SYSession)initWithService:(id)service
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
-  v25.receiver = self;
-  v25.super_class = SYSession;
-  v5 = [(SYSession *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = SYSession;
+  v5 = [(SYSession *)&v24 init];
   v6 = v5;
   if (v5)
   {
@@ -116,7 +116,6 @@
     v22 = v6;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -124,13 +123,11 @@
 {
   v7 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   v5 = 138543362;
-  v6 = v3;
+  v6 = v4;
   _os_log_error_impl(&dword_1DF835000, selfCopy, 0x90u, "[%{public}@ dealloc]: XPC transaction wasn't ended prior to -dealloc", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_beginTransaction
@@ -427,7 +424,7 @@ LABEL_12:
 - (void)_pause
 {
   v2 = 0;
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   atomic_compare_exchange_strong(&self->_paused, &v2, 1u);
   if (!v2)
   {
@@ -442,7 +439,7 @@ LABEL_12:
       v5 = v4;
       v6 = _SYObfuscate(self);
       *buf = 138543362;
-      v11 = v6;
+      v10 = v6;
       _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "Pausing %{public}@ ...", buf, 0xCu);
     }
 
@@ -454,13 +451,11 @@ LABEL_12:
     block[4] = self;
     dispatch_barrier_sync(queue, block);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_continue
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = 1;
   atomic_compare_exchange_strong(&self->_paused, &v2, 0);
   if (v2 == 1)
@@ -475,15 +470,13 @@ LABEL_12:
     {
       v5 = v4;
       v6 = _SYObfuscate(self);
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "... Resuming %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "... Resuming %{public}@", &v7, 0xCu);
     }
 
     dispatch_resume(self->_queue);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_readyToProcessIncomingMessages
@@ -522,7 +515,7 @@ LABEL_9:
 
 - (BOOL)_willAcquiesceToNewSessionFromPeer:(id)peer
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   peerCopy = peer;
   peerGenerationIDs = self->_peerGenerationIDs;
   peerID = [peerCopy peerID];
@@ -540,15 +533,15 @@ LABEL_9:
     identifier = [(SYSession *)self identifier];
     state = [(SYSession *)self state];
     generationID = [peerCopy generationID];
-    v34 = 138544130;
-    v35 = identifier;
-    v36 = 1024;
-    *v37 = state;
-    *&v37[4] = 2114;
-    *&v37[6] = v7;
-    *&v37[14] = 2114;
-    *&v37[16] = generationID;
-    _os_log_debug_impl(&dword_1DF835000, v23, OS_LOG_TYPE_DEBUG, "Session acquiescense test: %{public}@, %{companionsync:SYSessionState}d, my generation %{public}@, new generation %{public}@", &v34, 0x26u);
+    v33 = 138544130;
+    v34 = identifier;
+    v35 = 1024;
+    *v36 = state;
+    *&v36[4] = 2114;
+    *&v36[6] = v7;
+    *&v36[14] = 2114;
+    *&v36[16] = generationID;
+    _os_log_debug_impl(&dword_1DF835000, v23, OS_LOG_TYPE_DEBUG, "Session acquiescense test: %{public}@, %{companionsync:SYSessionState}d, my generation %{public}@, new generation %{public}@", &v33, 0x26u);
 
     if (v7)
     {
@@ -568,8 +561,8 @@ LABEL_5:
 
         v17 = v16;
         identifier2 = [(SYSession *)self identifier];
-        v34 = 138543362;
-        v35 = identifier2;
+        v33 = 138543362;
+        v34 = identifier2;
         v19 = "Session %{public}@ rejecting new session; no peer generation ID";
         goto LABEL_16;
       }
@@ -591,13 +584,13 @@ LABEL_5:
           v13 = v20;
           identifier3 = [(SYSession *)self identifier];
           generationID3 = [peerCopy generationID];
-          v34 = 138543874;
-          v35 = identifier3;
-          v36 = 2114;
-          *v37 = generationID3;
-          *&v37[8] = 2114;
-          *&v37[10] = v7;
-          _os_log_impl(&dword_1DF835000, v13, OS_LOG_TYPE_INFO, "Session %{public}@ acquiescing to new session; new generation ID %{public}@ does not match current %{public}@", &v34, 0x20u);
+          v33 = 138543874;
+          v34 = identifier3;
+          v35 = 2114;
+          *v36 = generationID3;
+          *&v36[8] = 2114;
+          *&v36[10] = v7;
+          _os_log_impl(&dword_1DF835000, v13, OS_LOG_TYPE_INFO, "Session %{public}@ acquiescing to new session; new generation ID %{public}@ does not match current %{public}@", &v33, 0x20u);
 
 LABEL_39:
           goto LABEL_40;
@@ -619,11 +612,11 @@ LABEL_39:
         {
           v13 = v11;
           identifier3 = [(SYSession *)self identifier];
-          v34 = 138543362;
-          v35 = identifier3;
+          v33 = 138543362;
+          v34 = identifier3;
           v15 = "Session %{public}@ acquiescing to new session; second strike";
 LABEL_38:
-          _os_log_impl(&dword_1DF835000, v13, OS_LOG_TYPE_INFO, v15, &v34, 0xCu);
+          _os_log_impl(&dword_1DF835000, v13, OS_LOG_TYPE_INFO, v15, &v33, 0xCu);
           goto LABEL_39;
         }
 
@@ -641,11 +634,11 @@ LABEL_38:
       {
         v17 = v22;
         identifier2 = [(SYSession *)self identifier];
-        v34 = 138543362;
-        v35 = identifier2;
+        v33 = 138543362;
+        v34 = identifier2;
         v19 = "Session %{public}@ rejecting new session: first strike";
 LABEL_16:
-        _os_log_impl(&dword_1DF835000, v17, OS_LOG_TYPE_INFO, v19, &v34, 0xCu);
+        _os_log_impl(&dword_1DF835000, v17, OS_LOG_TYPE_INFO, v19, &v33, 0xCu);
 
         goto LABEL_17;
       }
@@ -671,14 +664,14 @@ LABEL_16:
           [SYIncomingSyncAllObjectsSession _continueProcessing];
         }
 
-        v32 = qword_1EDE73420;
+        v31 = qword_1EDE73420;
         v12 = 1;
         if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_INFO))
         {
-          v13 = v32;
+          v13 = v31;
           identifier3 = [(SYSession *)self identifier];
-          v34 = 138543362;
-          v35 = identifier3;
+          v33 = 138543362;
+          v34 = identifier3;
           v15 = "Session %{public}@ acquiescing to new session; sending, not started, already rejected";
           goto LABEL_38;
         }
@@ -692,13 +685,13 @@ LABEL_16:
         [SYIncomingSyncAllObjectsSession _continueProcessing];
       }
 
-      v33 = qword_1EDE73420;
+      v32 = qword_1EDE73420;
       if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_INFO))
       {
-        v17 = v33;
+        v17 = v32;
         identifier2 = [(SYSession *)self identifier];
-        v34 = 138543362;
-        v35 = identifier2;
+        v33 = 138543362;
+        v34 = identifier2;
         v19 = "Session %{public}@ rejecting new session; sending, not started, first strike";
         goto LABEL_16;
       }
@@ -723,8 +716,8 @@ LABEL_17:
 
       v17 = v28;
       identifier2 = [(SYSession *)self identifier];
-      v34 = 138543362;
-      v35 = identifier2;
+      v33 = 138543362;
+      v34 = identifier2;
       v19 = "Session %{public}@ rejecting new session; not yet sent out my own start-session message";
       goto LABEL_16;
     }
@@ -741,21 +734,20 @@ LABEL_17:
   {
     v13 = v29;
     identifier3 = [(SYSession *)self identifier];
-    v34 = 138543362;
-    v35 = identifier3;
+    v33 = 138543362;
+    v34 = identifier3;
     v15 = "Session %{public}@ acquiescing to new session; nil current generation";
     goto LABEL_38;
   }
 
 LABEL_40:
 
-  v30 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (void)_onSessionStateChangedTo:(unsigned int)to do:(id)do
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   doCopy = do;
   if (_sync_log_facilities_pred != -1)
   {
@@ -766,7 +758,7 @@ LABEL_40:
   if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v15 = "[SYSession _onSessionStateChangedTo:do:]";
+    v14 = "[SYSession _onSessionStateChangedTo:do:]";
     _os_log_impl(&dword_1DF835000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
   }
 
@@ -777,11 +769,9 @@ LABEL_40:
   block[3] = &unk_1E86CBBD0;
   toCopy = to;
   block[4] = self;
-  v12 = doCopy;
+  v11 = doCopy;
   v9 = doCopy;
   dispatch_sync(queue, block);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __41__SYSession__onSessionStateChangedTo_do___block_invoke(uint64_t a1)
@@ -1130,20 +1120,18 @@ LABEL_7:
 
 - (void)_beginTransaction
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1DF835000, a2, OS_LOG_TYPE_DEBUG, "%{public}@: beginning XPC transaction, to stop us being Jetsammed until it's done.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DF835000, a2, OS_LOG_TYPE_DEBUG, "%{public}@: beginning XPC transaction, to stop us being Jetsammed until it's done.", &v2, 0xCu);
 }
 
 - (void)_endTransaction
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1DF835000, a2, OS_LOG_TYPE_DEBUG, "%{public}@: ending XPC transaction. We can now be jetsammed safely.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DF835000, a2, OS_LOG_TYPE_DEBUG, "%{public}@: ending XPC transaction. We can now be jetsammed safely.", &v2, 0xCu);
 }
 
 @end

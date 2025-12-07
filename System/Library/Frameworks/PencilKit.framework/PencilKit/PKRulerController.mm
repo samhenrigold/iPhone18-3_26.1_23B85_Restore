@@ -2,6 +2,7 @@
 + (id)sharedRulerView;
 - (BOOL)gestureRecognizer:(id)recognizer shouldReceiveTouch:(id)touch;
 - (CGAffineTransform)ensureRulerTransformIsFullyOnscreen:(_OWORD *)onscreen@<X8>;
+- (char)drawingCancelled:(char *)result;
 - (double)_rulerFrame;
 - (double)defaultRulerTransform;
 - (double)pixelSnapRulerTransform:(_OWORD *)transform@<X8>;
@@ -10,10 +11,9 @@
 - (id)_viewForHostingRuler;
 - (id)adjustFrames;
 - (id)initWithDelegate:(id *)delegate;
+- (id)resetRulerTransform;
 - (uint64_t)_enableRulerOnCanvasIfSharedRulerIsVisible;
-- (uint64_t)drawingCancelled:(uint64_t)result;
 - (uint64_t)getRulerCenterTValueOnScreenForTransform:(uint64_t)result;
-- (uint64_t)resetRulerTransform;
 - (uint64_t)rulerSelected;
 - (void)_adjustViewForHostingRulerView;
 - (void)_configureRuler;
@@ -143,9 +143,9 @@ void __36__PKRulerController_sharedRulerView__block_invoke()
     dispatch_once(&_MergedGlobals_142, &__block_literal_global_44);
   }
 
-  v0 = qword_1ED6A5150;
+  v1 = qword_1ED6A5150;
 
-  return v0;
+  return v1;
 }
 
 - (void)ensureRulerIsFullyOnscreen
@@ -157,7 +157,7 @@ void __36__PKRulerController_sharedRulerView__block_invoke()
     v4 = v3;
     if (v3)
     {
-      [v3 rulerTransform];
+      objc_msgSend_rulerTransform(v3);
     }
 
     else
@@ -469,16 +469,16 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)resetRulerTransform
+- (id)resetRulerTransform
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 64);
+    v2 = result[8];
     v3 = v2;
     if (v2)
     {
-      [v2 rulerTransform];
+      objc_msgSend_rulerTransform(v2);
     }
 
     else
@@ -488,19 +488,19 @@ LABEL_13:
       v6 = 0u;
     }
 
-    *(v1 + 112) = v6;
-    *(v1 + 128) = v7;
-    *(v1 + 144) = v8;
+    *(v1 + 7) = v6;
+    *(v1 + 8) = v7;
+    *(v1 + 9) = v8;
 
-    result = [*(v1 + 64) rulerAlpha];
+    result = [v1[8] rulerAlpha];
     if (v4 < 1.0)
     {
-      WeakRetained = objc_loadWeakRetained((v1 + 40));
+      WeakRetained = objc_loadWeakRetained(v1 + 5);
       [WeakRetained setRulerEnabled:0];
 
       [(PKRulerController *)v1 hideRulerAnimated:?];
-      [*(v1 + 32) setEnabled:0];
-      return [*(v1 + 32) setEnabled:1];
+      [v1[4] setEnabled:0];
+      return [v1[4] setEnabled:1];
     }
   }
 
@@ -517,7 +517,7 @@ LABEL_13:
     v5 = WeakRetained;
     if (WeakRetained)
     {
-      [WeakRetained strokeTransform];
+      objc_msgSend_strokeTransform(WeakRetained);
     }
 
     else
@@ -557,7 +557,7 @@ LABEL_13:
     if (v2)
     {
       v3 = v2;
-      [v3 rulerTransform];
+      objc_msgSend_rulerTransform(v3);
 
       memset(v27, 0, sizeof(v27));
       WeakRetained = objc_loadWeakRetained(self + 5);
@@ -588,7 +588,7 @@ LABEL_13:
       v14 = v13;
       if (v13)
       {
-        [v13 strokeTransform];
+        objc_msgSend_strokeTransform(v13);
       }
 
       else
@@ -661,8 +661,7 @@ LABEL_13:
       }
 
       v7 = v6;
-      [v7 currentAngle];
-      [PKStatisticsManager recordRulerInteractionEndedWithType:v3 angle:v2 ^ 1];
+      -[PKStatisticsManager recordRulerInteractionEndedWithType:angle:](v3, v2 ^ 1, [v7 currentAngle]);
     }
 
     *(self + 21) = 0;
@@ -670,15 +669,15 @@ LABEL_13:
   }
 }
 
-- (uint64_t)drawingCancelled:(uint64_t)result
+- (char)drawingCancelled:(char *)result
 {
   if (result)
   {
     v1 = result;
     [(PKRulerController *)result resetRulerTouches];
-    result = [*(v1 + 64) removeRulerMarkers];
+    result = [*(v1 + 8) removeRulerMarkers];
     *(v1 + 21) = 0;
-    *(v1 + 23) = 0;
+    v1[23] = 0;
   }
 
   return result;
@@ -693,7 +692,7 @@ LABEL_13:
     v3 = v2;
     if (v2)
     {
-      [v2 rulerTransform];
+      objc_msgSend_rulerTransform(v2);
     }
 
     else
@@ -793,7 +792,7 @@ LABEL_107:
       memset(&v88, 0, sizeof(v88));
       if (v27)
       {
-        [v27 freeTransform];
+        objc_msgSend_freeTransform(v27);
       }
 
       v30 = self->_rulerView;
@@ -822,7 +821,7 @@ LABEL_107:
       [(PKRulerLayer *)self->_rulerLayer setRulerAlpha:v35];
       if (v27)
       {
-        [v27 unscaledFreeTransform];
+        objc_msgSend_unscaledFreeTransform(v27);
       }
 
       else
@@ -967,7 +966,7 @@ LABEL_99:
           v66 = v65;
           if (v65)
           {
-            [(PKRulerLayer *)v65 rulerTransform];
+            objc_msgSend_rulerTransform(v65);
           }
 
           else
@@ -1120,7 +1119,7 @@ LABEL_98:
       memset(&t1, 0, sizeof(t1));
       if (gestureCopy)
       {
-        [gestureCopy rulerTransform];
+        objc_msgSend_rulerTransform(gestureCopy);
       }
 
       v91 = t1;
@@ -1171,7 +1170,7 @@ LABEL_41:
     v20 = v19;
     if (v19)
     {
-      [(PKRulerLayer *)v19 rulerTransform];
+      objc_msgSend_rulerTransform(v19);
       t1 = v85;
     }
 
@@ -1734,7 +1733,7 @@ LABEL_7:
     v5 = v4;
     if (v4)
     {
-      [v4 rulerTransform];
+      objc_msgSend_rulerTransform(v4);
     }
 
     else
@@ -1764,7 +1763,7 @@ LABEL_7:
     v5 = WeakRetained;
     if (WeakRetained)
     {
-      [WeakRetained strokeTransform];
+      objc_msgSend_strokeTransform(WeakRetained);
       v7 = *(&v16 + 1);
       v6 = *&v16;
       v9 = *(&v17 + 1);
@@ -1804,7 +1803,7 @@ LABEL_9:
     v15 = v14;
     if (v14)
     {
-      [v14 strokeTransform];
+      objc_msgSend_strokeTransform(v14);
     }
 
     else

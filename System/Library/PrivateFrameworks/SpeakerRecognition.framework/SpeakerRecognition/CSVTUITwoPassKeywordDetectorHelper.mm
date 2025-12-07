@@ -28,11 +28,11 @@
   selfCopy = self;
   sub_225E18BD8();
   v2 = *MEMORY[0x277D015D8];
-  sub_225EA272C();
-  sub_225EA268C();
+  v3 = sub_225EA272C();
+  sub_225EA268C(" CSVTUITwoPassKeywordDetectorHelper - resetting audioBuffer!", 60, 2, &dword_225E12000, v2, v3, MEMORY[0x277D84F90]);
 
-  v3 = *(&selfCopy->super.isa + OBJC_IVAR____TtC18SpeakerRecognition34CSVTUITwoPassKeywordDetectorHelper_audioBuffer);
-  [v3 reset];
+  v4 = *(&selfCopy->super.isa + OBJC_IVAR____TtC18SpeakerRecognition34CSVTUITwoPassKeywordDetectorHelper_audioBuffer);
+  [v4 reset];
 }
 
 - (id)analyzeWithBuffer:(id)buffer

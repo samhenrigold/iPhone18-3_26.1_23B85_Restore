@@ -37,20 +37,18 @@ void sub_100001AF8(uint64_t a1)
       }
     }
 
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v6 = *(*(a1 + 32) + 8);
+    v8 = *(a1 + 40);
     IDSGetDeliveryStatsWithCompletionBlock();
   }
 
   else
   {
-    v7 = *(a1 + 40);
-    if (v7)
+    v6 = *(a1 + 40);
+    if (v6)
     {
-      v8 = *(v7 + 16);
+      v7 = *(v6 + 16);
 
-      v8();
+      v7();
     }
   }
 }
@@ -157,7 +155,7 @@ void sub_100002A18(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_100002A60()
+uint64_t sub_100002A60(uint64_t a1, uint64_t a2)
 {
   if (qword_100038028 != -1)
   {
@@ -713,10 +711,11 @@ id sub_100006200(uint64_t a1, void *a2)
   return v6;
 }
 
-void sub_100006308(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100006308(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100006374(id a1)
@@ -772,7 +771,6 @@ uint64_t sub_100006A84(uint64_t a1)
   v2 = [*(a1 + 32) sessionState];
   [v2 noteActivityStarted:0 syncSession:*(a1 + 40)];
 
-  v3 = *(*(a1 + 32) + 32);
   return IDSGetDeliveryStatsWithCompletionBlock();
 }
 
@@ -786,33 +784,32 @@ id sub_100006B24(uint64_t a1, uint64_t a2)
 
 void sub_100006BFC(uint64_t a1)
 {
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_100006DA4;
-  v9[3] = &unk_10002C978;
-  v6 = *(a1 + 32);
-  v10 = vextq_s8(v6, v6, 8uLL);
-  [v6.i64[0] enumerateNewlyRunningActivitiesWithBlock:v9];
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
-  v8[2] = sub_100006E28;
-  v8[3] = &unk_10002C9A0;
-  v2 = *(a1 + 32);
-  v8[4] = *(a1 + 40);
-  [v2 enumerateChangedActivitiesWithBlock:v8];
+  v8[2] = sub_100006DA4;
+  v8[3] = &unk_10002C978;
+  v5 = *(a1 + 32);
+  v9 = vextq_s8(v5, v5, 8uLL);
+  [v5.i64[0] enumerateNewlyRunningActivitiesWithBlock:v8];
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
-  v7[2] = sub_100006F10;
+  v7[2] = sub_100006E28;
   v7[3] = &unk_10002C9A0;
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
   v7[4] = *(a1 + 40);
-  [v3 enumerateNewlyCompletedActivitiesWithBlock:v7];
+  [v2 enumerateChangedActivitiesWithBlock:v7];
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_100006F10;
+  v6[3] = &unk_10002C9A0;
+  v3 = *(a1 + 32);
+  v6[4] = *(a1 + 40);
+  [v3 enumerateNewlyCompletedActivitiesWithBlock:v6];
   if ([*(a1 + 32) didUpdateCompleteSyncSession])
   {
     v4 = [*(a1 + 40) sessionState];
     [v4 noteActivityFinished:0];
 
-    v5 = *(*(a1 + 40) + 32);
     IDSGetDeliveryStatsWithCompletionBlock();
   }
 }
@@ -855,12 +852,11 @@ void sub_100006E28(uint64_t a1, void *a2, void *a3)
 
 uint64_t sub_100006F10(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *(a1 + 32);
-  v5 = a3;
-  v6 = [v4 sessionState];
-  [v6 noteActivityFinished:v5];
+  v3 = *(a1 + 32);
+  v4 = a3;
+  v5 = [v3 sessionState];
+  [v5 noteActivityFinished:v4];
 
-  v7 = *(*(a1 + 32) + 32);
   return IDSGetDeliveryStatsWithCompletionBlock();
 }
 
@@ -1101,11 +1097,11 @@ LABEL_33:
 LABEL_34:
 }
 
-void sub_100008028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+void sub_100008028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a63, 8);
-  _Block_object_dispose(&a67, 8);
-  _Block_object_dispose(&a71, 8);
+  _Block_object_dispose(&a65, 8);
+  _Block_object_dispose(&a66, 8);
   _Block_object_dispose(&STACK[0x210], 8);
   _Block_object_dispose(&STACK[0x230], 8);
   _Block_object_dispose(&STACK[0x250], 8);
@@ -1168,9 +1164,9 @@ void sub_10000827C(uint64_t a1, void *a2)
   }
 }
 
-void sub_100008714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100008714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1550,9 +1546,9 @@ void sub_10000D8F8(id a1)
   [v1 sigTermHandler];
 }
 
-void sub_10000DCD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000DCD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2067,9 +2063,9 @@ void sub_1000137F0(uint64_t a1)
   }
 }
 
-void sub_1000141AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000141AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2689,13 +2685,15 @@ id sub_10001969C(void *a1)
 {
   v3 = a1[4];
   v2 = a1[5];
-  if (!v3)
+  if (v3)
+  {
+    return [v2 _handleInterruptionWithError:? interruptionHandler:?];
+  }
+
+  else
   {
     return [v2 _beginSyncJustDoItWithOptions:a1[6] completion:a1[8] interruptionHandler:a1[7]];
   }
-
-  v4 = a1[7];
-  return [v2 _handleInterruptionWithError:? interruptionHandler:?];
 }
 
 void sub_1000197CC(uint64_t a1, uint64_t a2, void *a3)
@@ -2720,13 +2718,15 @@ id sub_1000198A8(void *a1)
 {
   v3 = a1[4];
   v2 = a1[5];
-  if (!v3)
+  if (v3)
+  {
+    return [v2 _handleInterruptionWithError:? interruptionHandler:?];
+  }
+
+  else
   {
     return [v2 _abortSyncJustDoItWithCompletion:a1[7] interruptionHandler:a1[6]];
   }
-
-  v4 = a1[6];
-  return [v2 _handleInterruptionWithError:? interruptionHandler:?];
 }
 
 void sub_100019A24(uint64_t a1, void *a2)
@@ -2765,21 +2765,19 @@ void sub_100019AFC(uint64_t a1, char a2, void *a3)
 
 id sub_100019BD0(uint64_t a1)
 {
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
-  v4 = psd_log();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v2 = psd_log();
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
-  if (v5)
+  if (v3)
   {
-    v6 = psd_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v4 = psd_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40);
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ - invalidating the connection as part of our completion block.", &v9, 0xCu);
+      v5 = *(a1 + 40);
+      v7 = 138543362;
+      v8 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ - invalidating the connection as part of our completion block.", &v7, 0xCu);
     }
   }
 
@@ -2822,21 +2820,19 @@ void sub_100019EC4(uint64_t a1, char a2, void *a3)
 
 id sub_100019F98(uint64_t a1)
 {
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
-  v4 = psd_log();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v2 = psd_log();
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
-  if (v5)
+  if (v3)
   {
-    v6 = psd_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v4 = psd_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40);
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ - invalidating the connection as part of our completion block.", &v9, 0xCu);
+      v5 = *(a1 + 40);
+      v7 = 138543362;
+      v8 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ - invalidating the connection as part of our completion block.", &v7, 0xCu);
     }
   }
 
@@ -2878,13 +2874,17 @@ void sub_10001AB28(uint64_t a1, NSObject *a2)
 void sub_10001ABB4(void *a1)
 {
   v1 = [a1 UUIDString];
-  sub_100006308(&_mh_execute_header, v2, v3, "Failed to create NPSDomainAccessor for pairingID %{public}@ while reading initial sync status", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_100006308(&_mh_execute_header, v2, v3, "Failed to create NPSDomainAccessor for pairingID %{public}@ while reading initial sync status", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_10001AC3C(void *a1)
 {
   v1 = [a1 psy_safeDescription];
-  sub_100006308(&_mh_execute_header, v2, v3, "Could not save resume context after starting sync session: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_100006308(&_mh_execute_header, v2, v3, "Could not save resume context after starting sync session: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_10001AD18(void *a1, NSObject *a2)

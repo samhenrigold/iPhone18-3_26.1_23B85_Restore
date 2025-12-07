@@ -1,4 +1,198 @@
-uint64_t _ss12_ArrayBufferV017withUnsafeMutableB7Pointeryqd__qd__SryxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMglrzo_Tpq5(uint64_t (*a1)(unint64_t), uint64_t a2, uint64_t a3)
+uint64_t _ArrayBuffer.subscript.getter(Swift::Int a1, Swift::Int a2, int64_t a3, unint64_t *a4)
+{
+  if (_swift_isClassOrObjCExistentialType(a4, a4) && _swift_isClassOrObjCExistentialType(a4, a4) && (a3 & 0xC000000000000001) != 0 && !swift_dynamicCastMetatype(qword_1EEEAC710, a4))
+  {
+    if (a2 < a1)
+    {
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
+    }
+
+    if (a1 != a2)
+    {
+      v11 = a1;
+      do
+      {
+        if (a2 == v11)
+        {
+          _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
+        }
+
+        v12 = v11 + 1;
+        _ArrayBuffer._typeCheckSlowPath(_:)(v11);
+        v11 = v12;
+      }
+
+      while (a2 != v12);
+    }
+  }
+
+  if (_swift_isClassOrObjCExistentialType(a4, a4) && (a3 < 0 || (a3 & 0x4000000000000000) != 0))
+  {
+    if (a3 >= 0)
+    {
+      a3 &= 0xFFFFFFFFFFFFFF8uLL;
+    }
+
+    swift_unknownObjectRetain(a3);
+    v9 = _CocoaArrayWrapper.subscript.getter(a1, a2, a3);
+    swift_unknownObjectRelease(a3);
+  }
+
+  else
+  {
+    isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType(a4, a4);
+    if (a2 < 0)
+    {
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
+    }
+
+    if (isClassOrObjCExistentialType)
+    {
+      v9 = a3 & 0xFFFFFFFFFFFFFF8;
+    }
+
+    else
+    {
+      v9 = a3;
+    }
+
+    a3;
+  }
+
+  return v9;
+}
+
+uint64_t _ss12_ArrayBufferV010withUnsafeB7Pointeryqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq5(uint64_t (*a1)(char *, uint64_t, uint64_t *), uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t a5)
+{
+  if (_swift_isClassOrObjCExistentialType(a4, a4) && (a3 < 0 || (a3 & 0x4000000000000000) != 0))
+  {
+    return _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq5(a1, a2, a3, a4);
+  }
+
+  if (_swift_isClassOrObjCExistentialType(a4, a4))
+  {
+    v9 = ((*(*(a4 - 1) + 80) + 32) & ~*(*(a4 - 1) + 80)) + (a3 & 0xFFFFFFFFFFFFFF8);
+  }
+
+  else
+  {
+    v9 = a3 + ((*(*(a4 - 1) + 80) + 32) & ~*(*(a4 - 1) + 80));
+  }
+
+  if (_swift_isClassOrObjCExistentialType(a4, a4) && (a3 < 0 || (a3 & 0x4000000000000000) != 0))
+  {
+    if (a3 < 0)
+    {
+      v14 = a3;
+    }
+
+    else
+    {
+      v14 = (a3 & 0xFFFFFFFFFFFFFF8);
+    }
+
+    v15 = [v14 count];
+    if ((v15 & 0x8000000000000000) != 0)
+    {
+      _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
+    }
+
+    v12 = v15;
+  }
+
+  else
+  {
+    isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType(a4, a4);
+    v11 = a3 & 0xFFFFFFFFFFFFFF8;
+    if (!isClassOrObjCExistentialType)
+    {
+      v11 = a3;
+    }
+
+    v12 = *(v11 + 16);
+  }
+
+  return a1(v9, v12, &v16);
+}
+
+uint64_t _ss12_ArrayBufferV010withUnsafeB7Pointeryqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(uint64_t (*a1)(char *, uint64_t, char *), uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v31 = a8;
+  v32 = a2;
+  v33 = a1;
+  v13 = *(a6 - 8);
+  v14 = MEMORY[0x1EEE9AC00](a1, a2);
+  v16 = &v30 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v17);
+  v19 = &v30 - v18;
+  if (_swift_isClassOrObjCExistentialType(v20, v20) && (a3 < 0 || (a3 & 0x4000000000000000) != 0))
+  {
+    v27 = v34;
+    result = _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(v33, v32, a3, a4, a5, a6, a7, v16);
+    v19 = v16;
+    if (v27)
+    {
+      return (*(v13 + 32))(v31, v19, a6);
+    }
+  }
+
+  else
+  {
+    if (_swift_isClassOrObjCExistentialType(a4, a4))
+    {
+      v21 = (((*(*(a4 - 1) + 80) + 32) & ~*(*(a4 - 1) + 80)) + (a3 & 0xFFFFFFFFFFFFFF8));
+    }
+
+    else
+    {
+      v21 = (a3 + ((*(*(a4 - 1) + 80) + 32) & ~*(*(a4 - 1) + 80)));
+    }
+
+    if (_swift_isClassOrObjCExistentialType(a4, a4) && (a3 < 0 || (a3 & 0x4000000000000000) != 0))
+    {
+      if (a3 < 0)
+      {
+        v28 = a3;
+      }
+
+      else
+      {
+        v28 = (a3 & 0xFFFFFFFFFFFFFF8);
+      }
+
+      v29 = [v28 count];
+      if (v29 < 0)
+      {
+        _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
+      }
+
+      v24 = v29;
+    }
+
+    else
+    {
+      isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType(a4, a4);
+      v23 = a3 & 0xFFFFFFFFFFFFFF8;
+      if (!isClassOrObjCExistentialType)
+      {
+        v23 = a3;
+      }
+
+      v24 = *(v23 + 16);
+    }
+
+    v25 = v34;
+    result = v33(v21, v24, v19);
+    if (v25)
+    {
+      return (*(v13 + 32))(v31, v19, a6);
+    }
+  }
+
+  return result;
+}
+
+uint64_t _ss12_ArrayBufferV017withUnsafeMutableB7Pointeryqd__qd__SryxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMglrzo_Tpq5(uint64_t (*a1)(uint64_t), uint64_t a2, uint64_t a3)
 {
   v5 = *v3;
   v6 = *(a3 + 16);
@@ -55,12 +249,12 @@ LABEL_16:
   return a1(v7);
 }
 
-uint64_t _ss12_ArrayBufferV017withUnsafeMutableB7Pointeryqd__qd__SryxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(uint64_t (*a1)(unint64_t), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t _ss12_ArrayBufferV017withUnsafeMutableB7Pointeryqd__qd__SryxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(uint64_t (*a1)(uint64_t), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v24 = a7;
   v25 = a1;
   v9 = *(a5 - 8);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v11 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = *v7;
   v14 = *(v13 + 16);
@@ -219,7 +413,7 @@ BOOL (*_ArrayBuffer.count.modify(void *a1, uint64_t a2))(uint64_t *a1)
   return protocol witness for _ArrayBufferProtocol.count.modify in conformance _ArrayBuffer<A>;
 }
 
-id _ArrayBuffer.capacity.getter(uint64_t a1, uint64_t *a2)
+id _ArrayBuffer.capacity.getter(uint64_t a1, unint64_t *a2)
 {
   if (_swift_isClassOrObjCExistentialType(a2, a2) && (a1 < 0 || (a1 & 0x4000000000000000) != 0))
   {
@@ -256,18 +450,18 @@ id protocol witness for _ArrayBufferProtocol.owner.getter in conformance _ArrayB
   return swift_unknownObjectRetain(v2);
 }
 
-id _ArrayBuffer.owner.getter(uint64_t a1, uint64_t *a2)
+id _ArrayBuffer.owner.getter(uint64_t a1, unint64_t *a2)
 {
   v2 = specialized _ArrayBuffer.owner.getter(a1, a2);
 
   return swift_unknownObjectRetain(v2);
 }
 
-uint64_t _ArrayBuffer.identity.getter(uint64_t a1, uint64_t *a2)
+unint64_t _ArrayBuffer.identity.getter(unint64_t a1, unint64_t *a2)
 {
   if (_swift_isClassOrObjCExistentialType(a2, a2) && a1 >> 62)
   {
-    if (a1 < 0)
+    if ((a1 & 0x8000000000000000) != 0)
     {
       return a1;
     }
@@ -291,17 +485,17 @@ uint64_t _ArrayBuffer.identity.getter(uint64_t a1, uint64_t *a2)
   }
 }
 
-void _ArrayBuffer.subscript.setter(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t *a4)
+void _ArrayBuffer.subscript.setter(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t *a4)
 {
   v8 = type metadata accessor for CollectionOfOne(0, a4, a3, a4);
-  v9 = MEMORY[0x1EEE9AC00](v8);
-  v11 = &v24 - v10;
-  v12 = *(a4 - 1);
-  MEMORY[0x1EEE9AC00](v9);
-  v14 = &v24 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = MEMORY[0x1EEE9AC00](v8, v9);
+  v12 = &v26 - v11;
+  v13 = *(a4 - 1);
+  MEMORY[0x1EEE9AC00](v10, v14);
+  v16 = &v26 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (_swift_isClassOrObjCExistentialType(a4, a4) && ((a3 & 0x8000000000000000) != 0 || (a3 & 0x4000000000000000) != 0))
   {
-    v25 = a3;
+    v27 = a3;
     if (__OFADD__(a2, 1))
     {
       __break(1u);
@@ -309,13 +503,13 @@ void _ArrayBuffer.subscript.setter(uint64_t a1, uint64_t a2, unint64_t a3, uint6
 
     else if (a2 + 1 >= a2)
     {
-      (*(v12 + 32))(v11, a1, a4);
-      v19 = type metadata accessor for _ArrayBuffer(0, a4, v17, v18);
+      (*(v13 + 32))(v12, a1, a4);
+      v21 = type metadata accessor for _ArrayBuffer(0, a4, v19, v20);
       a3;
-      WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _ArrayBuffer<A>, v19, v20);
-      v23 = swift_getWitnessTable(protocol conformance descriptor for CollectionOfOne<A>, v8, v22);
-      _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(a2, a2 + 1, 1, v11, v19, v8, WitnessTable, v23);
-      v25;
+      WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _ArrayBuffer<A>, v21, v22);
+      v25 = swift_getWitnessTable(protocol conformance descriptor for CollectionOfOne<A>, v8, v24);
+      _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(a2, a2 + 1, 1, v12, v21, v8, WitnessTable, v25);
+      v27;
       return;
     }
 
@@ -324,22 +518,22 @@ void _ArrayBuffer.subscript.setter(uint64_t a1, uint64_t a2, unint64_t a3, uint6
 
   if (_swift_isClassOrObjCExistentialType(a4, a4))
   {
-    v15 = a3 & 0xFFFFFFFFFFFFFF8;
+    v17 = a3 & 0xFFFFFFFFFFFFFF8;
   }
 
   else
   {
-    v15 = a3;
+    v17 = a3;
   }
 
-  (*(v12 + 32))(v14, a1, a4);
-  v16 = v15 + ((*(v12 + 80) + 32) & ~*(v12 + 80)) + *(v12 + 72) * a2;
-  (*(v12 + 16))(a1, v16, a4);
-  (*(v12 + 8))(a1, a4);
-  (*(v12 + 40))(v16, v14, a4);
+  (*(v13 + 32))(v16, a1, a4);
+  v18 = v17 + ((*(v13 + 80) + 32) & ~*(v13 + 80)) + *(v13 + 72) * a2;
+  (*(v13 + 16))(a1, v18, a4);
+  (*(v13 + 8))(a1, a4);
+  (*(v13 + 40))(v18, v16, a4);
 }
 
-void (*protocol witness for MutableCollection.subscript.modify in conformance _ArrayBuffer<A>(void *a1, unint64_t *a2, uint64_t a3))(uint64_t ***a1, char a2)
+void (*protocol witness for MutableCollection.subscript.modify in conformance _ArrayBuffer<A>(void *a1, unint64_t *a2, uint64_t a3))(unint64_t ***a1, char a2)
 {
   if (swift_coroFrameAlloc)
   {
@@ -380,7 +574,7 @@ void (*protocol witness for MutableCollection.subscript.modify in conformance _A
   return protocol witness for MutableCollection.subscript.modify in conformance _ArrayBuffer<A>;
 }
 
-void protocol witness for MutableCollection.subscript.modify in conformance _ArrayBuffer<A>(uint64_t ***a1, char a2)
+void protocol witness for MutableCollection.subscript.modify in conformance _ArrayBuffer<A>(unint64_t ***a1, char a2)
 {
   v2 = *a1;
   v4 = (*a1)[4];
@@ -407,7 +601,7 @@ void protocol witness for MutableCollection.subscript.modify in conformance _Arr
   free(v2);
 }
 
-void (*_ArrayBuffer.subscript.modify(void *a1, unint64_t a2, uint64_t a3, uint64_t *a4))(uint64_t *a1, char a2)
+void (*_ArrayBuffer.subscript.modify(void *a1, unint64_t a2, unint64_t a3, unint64_t *a4))(uint64_t *a1, char a2)
 {
   if (swift_coroFrameAlloc)
   {
@@ -471,7 +665,7 @@ void _ArrayBuffer.subscript.modify(uint64_t *a1, char a2)
   free(v2);
 }
 
-void (*protocol witness for MutableCollection.subscript.modify in conformance _ArrayBuffer<A>(uint64_t *a1, uint64_t *a2, uint64_t a3))(id *a1, char a2)
+void (*protocol witness for MutableCollection.subscript.modify in conformance _ArrayBuffer<A>(uint64_t *a1, Swift::Int *a2, uint64_t a3))(id *a1, uint64_t a2)
 {
   *a1 = _ArrayBuffer.subscript.getter(*a2, a2[1], *v3, *(a3 + 16));
   a1[1] = v5;
@@ -480,7 +674,7 @@ void (*protocol witness for MutableCollection.subscript.modify in conformance _A
   return protocol witness for MutableCollection.subscript.modify in conformance _ArrayBuffer<A>;
 }
 
-void (*_ArrayBuffer.subscript.modify(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4))(id *a1, char a2)
+void (*_ArrayBuffer.subscript.modify(uint64_t *a1, Swift::Int a2, Swift::Int a3, uint64_t a4))(id *a1, uint64_t a2)
 {
   *a1 = _ArrayBuffer.subscript.getter(a2, a3, *v4, *(a4 + 16));
   a1[1] = v6;
@@ -489,35 +683,35 @@ void (*_ArrayBuffer.subscript.modify(uint64_t *a1, uint64_t a2, uint64_t a3, uin
   return protocol witness for MutableCollection.subscript.modify in conformance _ArrayBuffer<A>;
 }
 
-void *MutableCollection<>.partition(by:)@<X0>(uint64_t (*a1)(char *)@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+void *MutableCollection<>.partition(by:)@<X0>(uint64_t (*a1)(char *)@<X0>, uint64_t a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v21 = a6;
+  v22 = a6;
   v11 = *(a4 + 8);
   swift_getAssociatedTypeWitness(0, v11, a3, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v13 = v12;
-  v20 = *(v12 - 8);
-  MEMORY[0x1EEE9AC00](v12);
-  v15 = &v19 - v14;
-  v24 = a3;
-  v25 = a4;
-  v26 = a5;
-  v27 = a1;
-  v28 = a2;
-  v16 = v22;
-  result = (*(a5 + 80))(&v29, partial apply for closure #1 in MutableCollection<>.partition(by:), v23, &type metadata for Int, a3, a5);
-  if (!v16)
+  v21 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12, v14);
+  v16 = &v20 - v15;
+  v25 = a3;
+  v26 = a4;
+  v27 = a5;
+  v28 = a1;
+  v29 = a2;
+  v17 = v23;
+  result = (*(a5 + 80))(&v30, partial apply for closure #1 in MutableCollection<>.partition(by:), v24, &type metadata for Int, a3, a5);
+  if (!v17)
   {
-    if (v30)
+    if (v31)
     {
-      return MutableCollection<>._partitionImpl(by:)(a1, a2, a3, a4, a5, v21);
+      return MutableCollection<>._partitionImpl(by:)(a1, a2, a3, a4, a5, v22);
     }
 
     else
     {
-      v18 = v29;
+      v19 = v30;
       (*(v11 + 64))(a3, v11);
-      (*(a4 + 48))(v15, v18, a3, a4);
-      return (*(v20 + 8))(v15, v13);
+      (*(a4 + 48))(v16, v19, a3, a4);
+      return (*(v21 + 8))(v16, v13);
     }
   }
 
@@ -580,46 +774,46 @@ uint64_t specialized MutableCollection.swapAt(_:_:)(uint64_t result, uint64_t a2
   return result;
 }
 
-uint64_t MutableCollection.swapAt(_:_:)(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4)
+uint64_t MutableCollection.swapAt(_:_:)(uint64_t a1, uint64_t a2, Class *a3, uint64_t a4)
 {
   v8 = *(a4 + 8);
   swift_getAssociatedTypeWitness(0, v8, a3, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v10 = v9;
   v11 = *(v9 - 8);
-  MEMORY[0x1EEE9AC00](v9);
-  v34 = &v28 - v12;
+  MEMORY[0x1EEE9AC00](v9, v12);
+  v37 = &v31 - v13;
   swift_getAssociatedTypeWitness(0, *(v8 + 8), a3, &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Element);
-  v35 = v13;
-  v14 = *(v13 - 8);
-  v15 = MEMORY[0x1EEE9AC00](v13);
-  v33 = &v28 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v36 = &v28 - v17;
+  v38 = v14;
+  v15 = *(v14 - 8);
+  v17 = MEMORY[0x1EEE9AC00](v14, v16);
+  v36 = &v31 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17, v19);
+  v39 = &v31 - v20;
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v8, a3, v10, &protocol requirements base descriptor for Collection, associated conformance descriptor for Collection.Collection.Index: Comparable);
-  v19 = a1;
+  v22 = a1;
   result = (*(*(AssociatedConformanceWitness + 8) + 8))(a1, a2, v10);
   if ((result & 1) == 0)
   {
-    v32 = a2;
-    v29 = *(v8 + 80);
-    v21 = v29(v37, a1, a3, v8);
-    v31 = a4;
-    v28 = *(v14 + 16);
-    v28(v36);
-    v21(v37, 0);
-    v22 = *(v11 + 16);
-    v30 = v11 + 16;
-    v23 = v34;
-    v22(v34, v19, v10);
-    v24 = v29(v37, v32, a3, v8);
-    v25 = v33;
-    v28(v33);
-    v24(v37, 0);
-    v26 = v31;
-    v27 = *(v31 + 24);
-    v27(v25, v23, a3, v31);
-    v22(v23, v32, v10);
-    return (v27)(v36, v23, a3, v26);
+    v35 = a2;
+    v32 = *(v8 + 80);
+    v24 = v32(v40, a1, a3, v8);
+    v34 = a4;
+    v31 = *(v15 + 16);
+    v31(v39);
+    v24(v40, 0);
+    v25 = *(v11 + 16);
+    v33 = v11 + 16;
+    v26 = v37;
+    v25(v37, v22, v10);
+    v27 = v32(v40, v35, a3, v8);
+    v28 = v36;
+    v31(v36);
+    v27(v40, 0);
+    v29 = v34;
+    v30 = *(v34 + 24);
+    v30(v28, v26, a3, v34);
+    v25(v26, v35, v10);
+    return (v30)(v39, v26, a3, v29);
   }
 
   return result;
@@ -779,28 +973,28 @@ LABEL_7:
   return result;
 }
 
-uint64_t RandomAccessCollection<>.index(_:offsetBy:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+uint64_t RandomAccessCollection<>.index(_:offsetBy:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v26 = a1;
+  v29 = a1;
   v10 = *(*(a4 + 8) + 8);
   swift_getAssociatedTypeWitness(0, v10, a3, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v12 = v11;
-  v13 = MEMORY[0x1EEE9AC00](v11);
-  v15 = &v23 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = &v23 - v16;
-  v24 = *(a5 + 8);
-  v25 = type metadata accessor for ClosedRange(0, v12, v24, v18);
-  v19 = *(v25 - 8);
-  MEMORY[0x1EEE9AC00](v25);
-  v21 = &v23 - v20;
-  v27 = a2;
-  (*(a5 + 48))(&v27, v12, a5);
+  v14 = MEMORY[0x1EEE9AC00](v11, v13);
+  v16 = &v26 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v17);
+  v19 = &v26 - v18;
+  v27 = *(a5 + 8);
+  v28 = type metadata accessor for ClosedRange(0, v12, v27, v20);
+  v21 = *(v28 - 8);
+  MEMORY[0x1EEE9AC00](v28, v22);
+  v24 = &v26 - v23;
+  v30 = a2;
+  (*(a5 + 48))(&v30, v12, a5);
   (*(v10 + 64))(a3, v10);
   (*(v10 + 72))(a3, v10);
-  ClosedRange.init(uncheckedBounds:)(v17, v15, v12, v24, v21);
-  (*(v10 + 168))(a6, v21, a3, v10);
-  return (*(v19 + 8))(v21, v25);
+  ClosedRange.init(uncheckedBounds:)(v19, v16, v12, v27, v24);
+  (*(v10 + 168))(a6, v24, a3, v10);
+  return (*(v21 + 8))(v24, v28);
 }
 
 unint64_t specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(unsigned int a1, uint64_t a2, unsigned int a3, unsigned int a4)
@@ -906,7 +1100,7 @@ LABEL_16:
   return v8 | (v9 << 32);
 }
 
-uint64_t RandomAccessCollection.index(_:offsetBy:limitedBy:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+uint64_t RandomAccessCollection.index(_:offsetBy:limitedBy:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, Class *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
   v11 = (*(a5 + 48))(a1, a3, a4, a5);
   if (a2 < 1)
@@ -933,7 +1127,7 @@ LABEL_11:
   return v15(a6, v12, 1, v14);
 }
 
-unint64_t specialized RandomAccessCollection<>.distance(from:to:)(uint64_t a1, unint64_t a2, unsigned int a3)
+uint64_t specialized RandomAccessCollection<>.distance(from:to:)(uint64_t a1, unint64_t a2, unsigned int a3)
 {
   v3 = 1;
   if (HIWORD(a3))
@@ -1078,44 +1272,44 @@ LABEL_11:
   return a2 - a1;
 }
 
-uint64_t RandomAccessCollection<>.distance(from:to:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t RandomAccessCollection<>.distance(from:to:)(uint64_t a1, uint64_t a2, Class *a3, uint64_t a4, uint64_t a5)
 {
-  v30 = a5;
-  v31 = a2;
-  v33 = a1;
+  v32 = a5;
+  v33 = a2;
+  v35 = a1;
   v7 = *(*(a4 + 8) + 8);
   swift_getAssociatedTypeWitness(0, v7, a3, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
-  v32 = v8;
-  v9 = MEMORY[0x1EEE9AC00](v8);
-  v11 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = &v24 - v12;
-  v27 = *(a5 + 8);
-  v14 = v27;
-  v34 = type metadata accessor for ClosedRange(0, v15, v27, v16);
-  v29 = *(v34 - 8);
-  MEMORY[0x1EEE9AC00](v34);
-  v18 = &v24 - v17;
-  v28 = *(v7 + 64);
+  v34 = v8;
+  v9 = MEMORY[0x1EEE9AC00](v8, v8);
+  v11 = &v26 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9, v12);
+  v14 = &v26 - v13;
+  v29 = *(a5 + 8);
+  v15 = v29;
+  v36 = type metadata accessor for ClosedRange(0, v16, v29, v17);
+  v31 = *(v36 - 8);
+  MEMORY[0x1EEE9AC00](v36, v18);
+  v20 = &v26 - v19;
+  v30 = *(v7 + 64);
+  v30(a3, v7);
+  v28 = *(v7 + 72);
+  v26 = v11;
   v28(a3, v7);
-  v26 = *(v7 + 72);
-  v24 = v11;
-  v26(a3, v7);
-  ClosedRange.init(uncheckedBounds:)(v13, v11, v32, v14, v18);
-  v25 = *(v7 + 168);
-  v25(v33, v18, a3, v7);
-  v19 = *(v29 + 8);
-  v19(v18, v34);
+  ClosedRange.init(uncheckedBounds:)(v14, v11, v34, v15, v20);
+  v27 = *(v7 + 168);
+  v27(v35, v20, a3, v7);
+  v21 = *(v31 + 8);
+  v21(v20, v36);
+  v30(a3, v7);
+  v22 = v26;
   v28(a3, v7);
-  v20 = v24;
-  v26(a3, v7);
-  v21 = v32;
-  ClosedRange.init(uncheckedBounds:)(v13, v20, v32, v27, v18);
-  v22 = v31;
-  v25(v31, v18, a3, v7);
-  v19(v18, v34);
-  (*(v30 + 40))(&v35, v22, v21);
-  return v35;
+  v23 = v34;
+  ClosedRange.init(uncheckedBounds:)(v14, v22, v34, v29, v20);
+  v24 = v33;
+  v27(v33, v20, a3, v7);
+  v21(v20, v36);
+  (*(v32 + 40))(&v37, v24, v23);
+  return v37;
 }
 
 Swift::Int protocol witness for Collection.endIndex.getter in conformance _ArrayBuffer<A>@<X0>(Swift::Int *a1@<X8>)
@@ -1125,7 +1319,7 @@ Swift::Int protocol witness for Collection.endIndex.getter in conformance _Array
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance _ArrayBuffer<A>(uint64_t ***a1, unint64_t *a2, uint64_t a3))()
+uint64_t (*protocol witness for Collection.subscript.read in conformance _ArrayBuffer<A>(unint64_t ***a1, unint64_t *a2, uint64_t a3))()
 {
   if (swift_coroFrameAlloc)
   {
@@ -1142,7 +1336,7 @@ uint64_t (*protocol witness for Collection.subscript.read in conformance _ArrayB
   return protocol witness for Collection.subscript.read in conformance _ArrayBuffer<A>;
 }
 
-void (*specialized _ArrayBuffer.subscript.read(void *a1, unint64_t a2, uint64_t a3))(id *a1)
+void (*specialized _ArrayBuffer.subscript.read(void *a1, unint64_t a2, unint64_t a3))(id *a1)
 {
   if ((a3 & 0xC000000000000001) != 0)
   {
@@ -1158,7 +1352,7 @@ void (*specialized _ArrayBuffer.subscript.read(void *a1, unint64_t a2, uint64_t 
   return _ArrayBuffer.subscript.readspecialized ;
 }
 
-uint64_t (*_ArrayBuffer.subscript.read(uint64_t **a1, unint64_t a2, uint64_t a3, uint64_t *a4))()
+uint64_t (*_ArrayBuffer.subscript.read(unint64_t **a1, unint64_t a2, unint64_t a3, unint64_t *a4))()
 {
   v8 = *(a4 - 1);
   *a1 = a4;
@@ -1179,7 +1373,7 @@ uint64_t (*_ArrayBuffer.subscript.read(uint64_t **a1, unint64_t a2, uint64_t a3,
   return _ArrayBuffer.subscript.read;
 }
 
-uint64_t protocol witness for Collection.subscript.getter in conformance _ArrayBuffer<A>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t protocol witness for Collection.subscript.getter in conformance _ArrayBuffer<A>@<X0>(Swift::Int *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   result = _ArrayBuffer.subscript.getter(*a1, a1[1], *v3, *(a2 + 16));
   *a3 = result;
@@ -1189,55 +1383,55 @@ uint64_t protocol witness for Collection.subscript.getter in conformance _ArrayB
   return result;
 }
 
-uint64_t protocol witness for Collection.indices.getter in conformance _ArrayBuffer<A>@<X0>(unint64_t a1@<X0>, uint64_t a2@<X2>, char *a3@<X8>)
+uint64_t protocol witness for Collection.indices.getter in conformance _ArrayBuffer<A>@<X0>(unsigned __int16 *a1@<X0>, uint64_t a2@<X2>, char *a3@<X8>)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _ArrayBuffer<A>, a1, a2);
 
   return RandomAccessCollection<>.indices.getter(a1, WitnessTable, &protocol witness table for Int, a3);
 }
 
-uint64_t RandomAccessCollection<>.indices.getter@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X8>)
+uint64_t RandomAccessCollection<>.indices.getter@<X0>(Class *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X8>)
 {
-  v33 = a3;
-  v34 = a4;
+  v37 = a3;
+  v38 = a4;
   v5 = *(*(a2 + 8) + 8);
   swift_getAssociatedTypeWitness(255, v5, a1, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v7 = v6;
   swift_getTupleTypeMetadata2(0, v7, v7, "lower upper ", 0);
   v9 = v8;
   v10 = *(v8 - 8);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v32 = &v31 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = MEMORY[0x1EEE9AC00](v11);
-  v15 = &v31 - v14;
-  v16 = *(v7 - 8);
-  v17 = MEMORY[0x1EEE9AC00](v13);
-  v19 = &v31 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v21 = &v31 - v20;
+  v12 = MEMORY[0x1EEE9AC00](v8, v11);
+  v36 = &v35 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x1EEE9AC00](v12, v14);
+  v17 = &v35 - v16;
+  v18 = *(v7 - 1);
+  v20 = MEMORY[0x1EEE9AC00](v15, v19);
+  v22 = &v35 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v20, v23);
+  v25 = &v35 - v24;
   (*(v5 + 64))(a1, v5);
   (*(v5 + 72))(a1, v5);
-  v22 = *(v33 + 8);
-  if (((*(v22 + 24))(v21, v19, v7, v22) & 1) == 0)
+  v26 = *(v37 + 8);
+  if (((*(v26 + 24))(v25, v22, v7, v26) & 1) == 0)
   {
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v23 = *(v16 + 32);
-  v23(v15, v21, v7);
-  v23(&v15[*(v9 + 48)], v19, v7);
-  v24 = v32;
-  (*(v10 + 16))(v32, v15, v9);
-  v25 = *(v9 + 48);
-  v33 = v22;
-  v23(v34, v24, v7);
-  v26 = *(v16 + 8);
-  v26(&v24[v25], v7);
-  (*(v10 + 32))(v24, v15, v9);
-  v27 = *(v9 + 48);
-  v29 = type metadata accessor for Range(0, v7, v33, v28);
-  v23(&v34[*(v29 + 36)], &v24[v27], v7);
-  return (v26)(v24, v7);
+  v27 = *(v18 + 32);
+  v27(v17, v25, v7);
+  v27(&v17[*(v9 + 48)], v22, v7);
+  v28 = v36;
+  (*(v10 + 16))(v36, v17, v9);
+  v29 = *(v9 + 48);
+  v37 = v26;
+  v27(v38, v28, v7);
+  v30 = *(v18 + 8);
+  v30(&v28[v29], v7);
+  (*(v10 + 32))(v28, v17, v9);
+  v31 = *(v9 + 48);
+  v33 = type metadata accessor for Range(0, v7, v37, v32);
+  v27(&v38[*(v33 + 36)], &v28[v31], v7);
+  return (v30)(v28, v7);
 }
 
 BOOL _sSlsE7isEmptySbvgSS9UTF16ViewV_Tgq5_0(uint64_t a1, unint64_t a2)
@@ -1251,23 +1445,23 @@ BOOL _sSlsE7isEmptySbvgSS9UTF16ViewV_Tgq5_0(uint64_t a1, unint64_t a2)
   return v2 == 0;
 }
 
-uint64_t Collection.isEmpty.getter(const char *a1, uint64_t a2)
+uint64_t Collection.isEmpty.getter(Class *a1, uint64_t a2)
 {
   swift_getAssociatedTypeWitness(0, a2, a1, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v5 = v4;
   v6 = *(v4 - 8);
-  v7 = MEMORY[0x1EEE9AC00](v4);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = &v16 - v10;
+  v8 = MEMORY[0x1EEE9AC00](v4, v7);
+  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8, v11);
+  v13 = &v18 - v12;
   (*(a2 + 64))(a1, a2);
   (*(a2 + 72))(a1, a2);
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a2, a1, v5, &protocol requirements base descriptor for Collection, associated conformance descriptor for Collection.Collection.Index: Comparable);
-  v13 = (*(*(AssociatedConformanceWitness + 8) + 8))(v11, v9, v5);
-  v14 = *(v6 + 8);
-  v14(v9, v5);
-  v14(v11, v5);
-  return v13 & 1;
+  v15 = (*(*(AssociatedConformanceWitness + 8) + 8))(v13, v10, v5);
+  v16 = *(v6 + 8);
+  v16(v10, v5);
+  v16(v13, v5);
+  return v15 & 1;
 }
 
 id protocol witness for Collection.count.getter in conformance _ArrayBuffer<A>(uint64_t a1)
@@ -1295,7 +1489,7 @@ id protocol witness for Collection.count.getter in conformance _ArrayBuffer<A>(u
   }
 }
 
-id _ArrayBuffer.count.getter(uint64_t a1, uint64_t *a2)
+id _ArrayBuffer.count.getter(uint64_t a1, unint64_t *a2)
 {
   if (_swift_isClassOrObjCExistentialType(a2, a2) && (a1 < 0 || (a1 & 0x4000000000000000) != 0))
   {
@@ -1325,7 +1519,7 @@ id _ArrayBuffer.count.getter(uint64_t a1, uint64_t *a2)
   }
 }
 
-uint64_t Collection._customIndexOfEquatableElement(_:)@<X0>(unint64_t a1@<X1>, int **a2@<X2>, uint64_t a3@<X8>)
+uint64_t Collection._customIndexOfEquatableElement(_:)@<X0>(Class *a1@<X1>, int **a2@<X2>, uint64_t a3@<X8>)
 {
   swift_getAssociatedTypeWitness(255, a2, a1, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v7 = type metadata accessor for Optional(0, v4, v5, v6);
@@ -1340,15 +1534,6 @@ uint64_t Collection._customIndexOfEquatableElement(_:)@<X0>(unint64_t a1@<X1>, i
   v8 = *(*(v7 - 8) + 56);
 
   return v8(a3, 1, 1, v7);
-}
-
-uint64_t protocol witness for Collection._failEarlyRangeCheck(_:bounds:) in conformance _SliceBuffer<A>()
-{
-  return Collection._failEarlyRangeCheck(_:bounds:)();
-}
-
-{
-  return Collection._failEarlyRangeCheck(_:bounds:)();
 }
 
 uint64_t _sSlsE20_failEarlyRangeCheck_6boundsy5IndexQz_SnyADGtFs16_ValidUTF8BufferV_Tt1gq5(uint64_t result, uint64_t a2)
@@ -1391,7 +1576,7 @@ unint64_t _sSlsE20_failEarlyRangeCheck_6boundsy5IndexQz_SNyADGtFSs_Tt1gq5_0(unin
   return result;
 }
 
-uint64_t protocol witness for Collection.index(after:) in conformance _ArrayBuffer<A>@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t protocol witness for Collection.index(after:) in conformance _ArrayBuffer<A>@<X0>(uint64_t a1@<X0>, unsigned __int16 *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _ArrayBuffer<A>, a2, a3);
 
@@ -1491,12 +1676,12 @@ uint64_t specialized RandomAccessCollection<>.index(after:)(uint64_t a1, uint64_
   return a1 + 1;
 }
 
-unint64_t specialized RandomAccessCollection<>.index(after:)(unint64_t a1, uint64_t a2)
+unint64_t specialized RandomAccessCollection<>.index(after:)(unint64_t a1, unint64_t a2)
 {
   if (a2 >> 62)
   {
     v2 = a1;
-    if (a2 < 0)
+    if ((a2 & 0x8000000000000000) != 0)
     {
       v3 = a2;
     }
@@ -1529,56 +1714,56 @@ LABEL_3:
   return a1 + 1;
 }
 
-uint64_t RandomAccessCollection<>.index(after:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+uint64_t RandomAccessCollection<>.index(after:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v22 = a4;
-  v23 = a1;
-  v24 = a5;
+  v25 = a4;
+  v26 = a1;
+  v27 = a5;
   v7 = *(*(a3 + 8) + 8);
   swift_getAssociatedTypeWitness(0, v7, a2, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v9 = v8;
-  v10 = MEMORY[0x1EEE9AC00](v8);
-  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v14 = &v22 - v13;
-  v15 = *(a4 + 8);
-  v17 = type metadata accessor for Range(0, v9, v15, v16);
-  v18 = *(v17 - 8);
-  MEMORY[0x1EEE9AC00](v17);
-  v20 = &v22 - v19;
+  v11 = MEMORY[0x1EEE9AC00](v8, v10);
+  v13 = &v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11, v14);
+  v16 = &v25 - v15;
+  v17 = *(a4 + 8);
+  v19 = type metadata accessor for Range(0, v9, v17, v18);
+  v20 = *(v19 - 8);
+  MEMORY[0x1EEE9AC00](v19, v21);
+  v23 = &v25 - v22;
   (*(v7 + 64))(a2, v7);
   (*(v7 + 72))(a2, v7);
-  Range.init(uncheckedBounds:)(v14, v12, v9, v15, v20);
-  (*(v7 + 160))(v23, v20, a2, v7);
-  (*(v18 + 8))(v20, v17);
-  v25 = 1;
-  return (*(v22 + 48))(&v25, v9);
+  Range.init(uncheckedBounds:)(v16, v13, v9, v17, v23);
+  (*(v7 + 160))(v26, v23, a2, v7);
+  (*(v20 + 8))(v23, v19);
+  v28 = 1;
+  return (*(v25 + 48))(&v28, v9);
 }
 
-uint64_t Collection.formIndex(after:)(uint64_t a1, unint64_t a2, uint64_t a3)
+uint64_t Collection.formIndex(after:)(uint64_t a1, Class *a2, uint64_t a3)
 {
   swift_getAssociatedTypeWitness(0, a3, a2, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v7 = v6;
   v8 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v10 = &v12 - v9;
-  (*(v8 + 32))(&v12 - v9, a1, v7);
-  (*(a3 + 184))(v10, a2, a3);
-  return (*(v8 + 8))(v10, v7);
+  MEMORY[0x1EEE9AC00](v6, v9);
+  v11 = &v13 - v10;
+  (*(v8 + 32))(&v13 - v10, a1, v7);
+  (*(a3 + 184))(v11, a2, a3);
+  return (*(v8 + 8))(v11, v7);
 }
 
 {
   swift_getAssociatedTypeWitness(0, a3, a2, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v7 = v6;
   v8 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v10 = &v12 - v9;
-  (*(v8 + 32))(&v12 - v9, a1, v7);
-  (*(a3 + 184))(v10, a2, a3);
-  return (*(v8 + 8))(v10, v7);
+  MEMORY[0x1EEE9AC00](v6, v9);
+  v11 = &v13 - v10;
+  (*(v8 + 32))(&v13 - v10, a1, v7);
+  (*(a3 + 184))(v11, a2, a3);
+  return (*(v8 + 8))(v11, v7);
 }
 
-uint64_t protocol witness for BidirectionalCollection.index(before:) in conformance _ArrayBuffer<A>@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t protocol witness for BidirectionalCollection.index(before:) in conformance _ArrayBuffer<A>@<X0>(uint64_t a1@<X0>, unsigned __int16 *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _ArrayBuffer<A>, a2, a3);
 
@@ -1715,28 +1900,28 @@ uint64_t specialized RandomAccessCollection<>.index(before:)(uint64_t a1, uint64
   return result;
 }
 
-uint64_t RandomAccessCollection<>.index(before:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+uint64_t RandomAccessCollection<>.index(before:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v24 = a1;
+  v27 = a1;
   v8 = *(*(a3 + 8) + 8);
   swift_getAssociatedTypeWitness(0, v8, a2, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v10 = v9;
-  v11 = MEMORY[0x1EEE9AC00](v9);
-  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v15 = &v21 - v14;
-  v22 = *(a4 + 8);
-  v23 = type metadata accessor for Range(0, v10, v22, v16);
-  v17 = *(v23 - 8);
-  MEMORY[0x1EEE9AC00](v23);
-  v19 = &v21 - v18;
-  v25 = -1;
-  (*(a4 + 48))(&v25, v10, a4);
+  v12 = MEMORY[0x1EEE9AC00](v9, v11);
+  v14 = &v24 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12, v15);
+  v17 = &v24 - v16;
+  v25 = *(a4 + 8);
+  v26 = type metadata accessor for Range(0, v10, v25, v18);
+  v19 = *(v26 - 8);
+  MEMORY[0x1EEE9AC00](v26, v20);
+  v22 = &v24 - v21;
+  v28 = -1;
+  (*(a4 + 48))(&v28, v10, a4);
   (*(v8 + 64))(a2, v8);
   (*(v8 + 72))(a2, v8);
-  Range.init(uncheckedBounds:)(v15, v13, v10, v22, v19);
-  (*(v8 + 160))(a5, v19, a2, v8);
-  return (*(v17 + 8))(v19, v23);
+  Range.init(uncheckedBounds:)(v17, v14, v10, v25, v22);
+  (*(v8 + 160))(a5, v22, a2, v8);
+  return (*(v19 + 8))(v22, v26);
 }
 
 Swift::String::Index *specialized BidirectionalCollection.formIndex(before:)(Swift::String::Index *result, uint64_t a2, unint64_t a3)
@@ -1920,58 +2105,58 @@ LABEL_37:
   return result;
 }
 
-uint64_t BidirectionalCollection.formIndex(before:)(uint64_t a1, unint64_t a2, uint64_t a3)
+uint64_t BidirectionalCollection.formIndex(before:)(uint64_t a1, Class *a2, uint64_t a3)
 {
   swift_getAssociatedTypeWitness(0, *(a3 + 8), a2, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v7 = v6;
   v8 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v10 = &v12 - v9;
-  (*(v8 + 32))(&v12 - v9, a1, v7);
-  (*(a3 + 32))(v10, a2, a3);
-  return (*(v8 + 8))(v10, v7);
+  MEMORY[0x1EEE9AC00](v6, v9);
+  v11 = &v13 - v10;
+  (*(v8 + 32))(&v13 - v10, a1, v7);
+  (*(a3 + 32))(v11, a2, a3);
+  return (*(v8 + 8))(v11, v7);
 }
 
 {
   swift_getAssociatedTypeWitness(0, *(a3 + 8), a2, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v7 = v6;
   v8 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v10 = &v12 - v9;
-  (*(v8 + 32))(&v12 - v9, a1, v7);
-  (*(a3 + 32))(v10, a2, a3);
-  return (*(v8 + 8))(v10, v7);
+  MEMORY[0x1EEE9AC00](v6, v9);
+  v11 = &v13 - v10;
+  (*(v8 + 32))(&v13 - v10, a1, v7);
+  (*(a3 + 32))(v11, a2, a3);
+  return (*(v8 + 8))(v11, v7);
 }
 
-uint64_t _ss12_ArrayBufferVyxGSlsSl5index_8offsetBy5IndexQzAG_SitFTW_0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t _ss12_ArrayBufferVyxGSlsSl5index_8offsetBy5IndexQzAG_SitFTW_0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int16 *a3@<X2>, uint64_t a4@<X8>)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _ArrayBuffer<A>, a3, a3);
 
   return RandomAccessCollection<>.index(_:offsetBy:)(a1, a2, a3, WitnessTable, &protocol witness table for Int, a4);
 }
 
-uint64_t _ss12_ArrayBufferVyxGSlsSl5index_8offsetBy07limitedE05IndexQzSgAH_SiAHtFTW_0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
+uint64_t _ss12_ArrayBufferVyxGSlsSl5index_8offsetBy07limitedE05IndexQzSgAH_SiAHtFTW_0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unsigned __int16 *a4@<X3>, uint64_t a5@<X8>)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _ArrayBuffer<A>, a4, a3);
 
   return RandomAccessCollection.index(_:offsetBy:limitedBy:)(a1, a2, a3, a4, WitnessTable, a5);
 }
 
-uint64_t _ss12_ArrayBufferVyxGSlsSl8distance4from2toSi5IndexQz_AHtFTW_0(uint64_t a1, uint64_t a2, unint64_t a3)
+uint64_t _ss12_ArrayBufferVyxGSlsSl8distance4from2toSi5IndexQz_AHtFTW_0(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _ArrayBuffer<A>, a3, a3);
 
   return RandomAccessCollection<>.distance(from:to:)(a1, a2, a3, WitnessTable, &protocol witness table for Int);
 }
 
-uint64_t protocol witness for Sequence.underestimatedCount.getter in conformance _ArrayBuffer<A>(unint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t protocol witness for Sequence.underestimatedCount.getter in conformance _ArrayBuffer<A>(unsigned __int16 *a1, uint64_t a2, uint64_t a3)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _ArrayBuffer<A>, a1, a3);
 
   return Collection.underestimatedCount.getter(a1, WitnessTable);
 }
 
-int64_t specialized _ArrayBuffer._copyContents(initializing:)(char *a1, uint64_t a2, int64_t a3)
+unint64_t specialized _ArrayBuffer._copyContents(initializing:)(char *a1, uint64_t a2, unint64_t a3)
 {
   if (a3 >> 62)
   {
@@ -1982,7 +2167,7 @@ int64_t specialized _ArrayBuffer._copyContents(initializing:)(char *a1, uint64_t
         _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
       }
 
-      if (a3 < 0)
+      if ((a3 & 0x8000000000000000) != 0)
       {
         v7 = a3;
       }
@@ -2023,7 +2208,7 @@ int64_t specialized _ArrayBuffer._copyContents(initializing:)(char *a1, uint64_t
   return a3;
 }
 
-int64_t _ArrayBuffer._copyContents(initializing:)(char *a1, uint64_t a2, int64_t a3, uint64_t *a4)
+int64_t _ArrayBuffer._copyContents(initializing:)(char *a1, uint64_t a2, int64_t a3, unint64_t *a4)
 {
   if (_swift_isClassOrObjCExistentialType(a4, a4) && (a3 < 0 || (a3 & 0x4000000000000000) != 0))
   {
@@ -2147,7 +2332,7 @@ Swift::Bool __swiftcall _ArrayBuffer.beginCOWMutation()()
   return isUniquelyReferenced_nonNull_bridgeObject;
 }
 
-__objc2_class **_ContiguousArrayBuffer._asCocoaArray()(atomic_ullong *a1, uint64_t *a2, void *a3)
+__objc2_class **_ContiguousArrayBuffer._asCocoaArray()(swift *a1, unint64_t *a2, void *a3)
 {
   if (one-time initialization token for _bridgeInitializedSuccessfully != -1)
   {
@@ -2160,7 +2345,7 @@ __objc2_class **_ContiguousArrayBuffer._asCocoaArray()(atomic_ullong *a1, uint64
   }
 
   _orphanedFoundationSubclassesReparented = 1;
-  if (a1[2])
+  if (*(a1 + 2))
   {
     if (_swift_isClassOrObjCExistentialType(a2, a2))
     {
@@ -2206,7 +2391,7 @@ id _ArrayBuffer._nonNative.getter(uint64_t a1)
   return swift_unknownObjectRetain(v1);
 }
 
-__objc2_class **specialized _ArrayBuffer._consumeAndCreateNew()(unint64_t a1)
+__objc2_class **specialized _ArrayBuffer._consumeAndCreateNew()(uint64_t a1)
 {
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
 }
@@ -2223,12 +2408,12 @@ __objc2_class **specialized _ArrayBuffer._consumeAndCreateNew()(unint64_t a1)
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a1 + 16), 0, a1);
 }
 
-uint64_t specialized _ArrayBuffer._consumeAndCreateNew()(uint64_t a1)
+uint64_t specialized _ArrayBuffer._consumeAndCreateNew()(unint64_t a1)
 {
   v1 = a1;
   if (a1 >> 62)
   {
-    if (a1 >= 0)
+    if ((a1 & 0x8000000000000000) == 0)
     {
       a1 &= 0xFFFFFFFFFFFFFF8uLL;
     }
@@ -2244,7 +2429,7 @@ uint64_t specialized _ArrayBuffer._consumeAndCreateNew()(uint64_t a1)
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v2, 0, v1);
 }
 
-uint64_t _ArrayBuffer._consumeAndCreateNew()(uint64_t a1, uint64_t *a2)
+uint64_t _ArrayBuffer._consumeAndCreateNew()(uint64_t a1, unint64_t *a2)
 {
   if (_swift_isClassOrObjCExistentialType(a2, a2) && (a1 < 0 || (a1 & 0x4000000000000000) != 0))
   {
@@ -2276,12 +2461,12 @@ uint64_t _ArrayBuffer._consumeAndCreateNew()(uint64_t a1, uint64_t *a2)
   return _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v6, 0, a1, a2);
 }
 
-__objc2_class **specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(__objc2_class **result, int64_t a2, char a3, unint64_t a4)
+__objc2_class **specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(__objc2_class **result, int64_t a2, char a3, char *a4)
 {
   v5 = result;
   if (a3)
   {
-    v6 = *(a4 + 24);
+    v6 = *(a4 + 3);
     v7 = v6 >> 1;
     if ((v6 >> 1) < a2)
     {
@@ -2304,13 +2489,13 @@ __objc2_class **specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
     v7 = a2;
   }
 
-  v8 = *(a4 + 16);
+  v8 = *(a4 + 2);
   v9 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1g5Tm(v8, v7);
   v10 = v9;
   if (v5)
   {
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v8, v9 + 32);
-    *(a4 + 16) = 0;
+    specialized UnsafeMutablePointer.moveInitialize(from:count:)(a4 + 32, v8, v9 + 32);
+    *(a4 + 2) = 0;
   }
 
   else
@@ -2326,7 +2511,7 @@ __objc2_class **specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
   v5 = result;
   if (a3)
   {
-    v6 = *(a4 + 24);
+    v6 = *(a4 + 3);
     v7 = v6 >> 1;
     if ((v6 >> 1) < a2)
     {
@@ -2349,13 +2534,13 @@ __objc2_class **specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
     v7 = a2;
   }
 
-  v8 = *(a4 + 16);
+  v8 = *(a4 + 2);
   v9 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs7UnicodeO6ScalarV6scalar_AG9_NormDataV04normL0t_Tt1g5(v8, v7);
   v10 = v9;
   if (v5)
   {
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v8, v9 + 32);
-    *(a4 + 16) = 0;
+    specialized UnsafeMutablePointer.moveInitialize(from:count:)(a4 + 32, v8, v9 + 32);
+    *(a4 + 2) = 0;
   }
 
   else
@@ -2375,7 +2560,7 @@ __objc2_class **specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
     goto LABEL_8;
   }
 
-  v6 = *(a4 + 24);
+  v6 = *(a4 + 3);
   v7 = v6 >> 1;
   if ((v6 >> 1) >= a2)
   {
@@ -2391,10 +2576,10 @@ __objc2_class **specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
     }
 
 LABEL_8:
-    v8 = *(a4 + 16);
+    v8 = *(a4 + 2);
     if (v7 <= v8)
     {
-      v9 = *(a4 + 16);
+      v9 = *(a4 + 2);
     }
 
     else
@@ -2412,8 +2597,8 @@ LABEL_8:
       if (v5)
       {
 LABEL_13:
-        specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v8, v11 + 32);
-        *(a4 + 16) = 0;
+        specialized UnsafeMutablePointer.moveInitialize(from:count:)(a4 + 32, v8, v11 + 32);
+        *(a4 + 2) = 0;
 LABEL_16:
         a4;
         return v11;
@@ -2445,7 +2630,7 @@ LABEL_16:
     goto LABEL_8;
   }
 
-  v6 = *(a4 + 24);
+  v6 = *(a4 + 3);
   v7 = v6 >> 1;
   if ((v6 >> 1) >= a2)
   {
@@ -2461,10 +2646,10 @@ LABEL_16:
     }
 
 LABEL_8:
-    v8 = *(a4 + 16);
+    v8 = *(a4 + 2);
     if (v7 <= v8)
     {
-      v9 = *(a4 + 16);
+      v9 = *(a4 + 2);
     }
 
     else
@@ -2474,7 +2659,7 @@ LABEL_8:
 
     if (v9)
     {
-      v10 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<Any>();
+      v10 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<Any>(0);
       v11 = swift_allocObject(v10, (32 * v9 + 32), 7uLL);
       v12 = _swift_stdlib_malloc_size(v11);
       v13 = v12 - 32;
@@ -2497,8 +2682,8 @@ LABEL_8:
       if (result)
       {
 LABEL_15:
-        specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v8, v11 + 32);
-        *(a4 + 16) = 0;
+        specialized UnsafeMutablePointer.moveInitialize(from:count:)(a4 + 32, v8, v11 + 32);
+        *(a4 + 2) = 0;
 LABEL_18:
         a4;
         return v11;
@@ -2515,163 +2700,13 @@ LABEL_18:
 
 {
   v5 = result;
-  if (a3)
-  {
-    v6 = *(a4 + 24);
-    v7 = v6 >> 1;
-    if ((v6 >> 1) < a2)
-    {
-      if (v7 + 0x4000000000000000 < 0)
-      {
-        __break(1u);
-        return result;
-      }
-
-      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
-      {
-        v7 = a2;
-      }
-    }
-  }
-
-  else
-  {
-    v7 = a2;
-  }
-
-  v8 = *(a4 + 16);
-  if (v7 <= v8)
-  {
-    v9 = *(a4 + 16);
-  }
-
-  else
-  {
-    v9 = v7;
-  }
-
-  if (v9)
-  {
-    v10 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<String>();
-    v11 = swift_allocObject(v10, (16 * v9 + 32), 7uLL);
-    v12 = _swift_stdlib_malloc_size(v11);
-    v13 = v12 - 32;
-    if (v12 < 32)
-    {
-      v13 = v12 - 17;
-    }
-
-    v11[2] = v8;
-    v11[3] = (2 * (v13 >> 4));
-  }
-
-  else
-  {
-    v11 = &_swiftEmptyArrayStorage;
-  }
-
-  v14 = (a4 + 32);
-  v15 = (v11 + 4);
-  if (v5)
-  {
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)(v14, v8, v15);
-    *(a4 + 16) = 0;
-  }
-
-  else
-  {
-    specialized UnsafeMutablePointer.initialize(from:count:)(v14, v8, v15);
-  }
-
-  a4;
-  return v11;
-}
-
-{
-  v5 = result;
-  if (a3)
-  {
-    v6 = *(a4 + 24);
-    v7 = v6 >> 1;
-    if ((v6 >> 1) < a2)
-    {
-      if (v7 + 0x4000000000000000 < 0)
-      {
-        __break(1u);
-        return result;
-      }
-
-      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
-      {
-        v7 = a2;
-      }
-    }
-  }
-
-  else
-  {
-    v7 = a2;
-  }
-
-  v8 = *(a4 + 16);
-  if (v7 <= v8)
-  {
-    v9 = *(a4 + 16);
-  }
-
-  else
-  {
-    v9 = v7;
-  }
-
-  if (v9)
-  {
-    v10 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<String>();
-    v11 = swift_allocObject(v10, (16 * v9 + 32), 7uLL);
-    v12 = _swift_stdlib_malloc_size(v11);
-    v13 = v12 - 32;
-    if (v12 < 32)
-    {
-      v13 = v12 - 17;
-    }
-
-    v11[2] = v8;
-    v11[3] = (2 * (v13 >> 4));
-  }
-
-  else
-  {
-    v11 = &_swiftEmptyArrayStorage;
-  }
-
-  v14 = (a4 + 32);
-  v15 = (v11 + 4);
-  if (v5)
-  {
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)(v14, v8, v15);
-    *(a4 + 16) = 0;
-  }
-
-  else
-  {
-    specialized UnsafeMutablePointer.initialize(from:count:)(v14, v8, v15);
-  }
-
-  a4;
-  return v11;
-}
-
-{
-  v5 = result;
   if ((a3 & 1) == 0)
   {
     v7 = a2;
     goto LABEL_8;
   }
 
-  v6 = *(a4 + 24);
+  v6 = *(a4 + 3);
   v7 = v6 >> 1;
   if ((v6 >> 1) >= a2)
   {
@@ -2687,10 +2722,10 @@ LABEL_18:
     }
 
 LABEL_8:
-    v8 = *(a4 + 16);
+    v8 = *(a4 + 2);
     if (v7 <= v8)
     {
-      v9 = *(a4 + 16);
+      v9 = *(a4 + 2);
     }
 
     else
@@ -2700,7 +2735,7 @@ LABEL_8:
 
     if (v9)
     {
-      v10 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<Any>();
+      v10 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<Any>(0);
       v11 = swift_allocObject(v10, (32 * v9 + 32), 7uLL);
       v12 = _swift_stdlib_malloc_size(v11);
       v13 = v12 - 32;
@@ -2723,8 +2758,8 @@ LABEL_8:
       if (result)
       {
 LABEL_15:
-        specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v8, v11 + 32);
-        *(a4 + 16) = 0;
+        specialized UnsafeMutablePointer.moveInitialize(from:count:)(a4 + 32, v8, v11 + 32);
+        *(a4 + 2) = 0;
 LABEL_18:
         a4;
         return v11;
@@ -2747,7 +2782,7 @@ LABEL_18:
     goto LABEL_8;
   }
 
-  v6 = *(a4 + 24);
+  v6 = *(a4 + 3);
   v7 = v6 >> 1;
   if ((v6 >> 1) >= a2)
   {
@@ -2763,10 +2798,10 @@ LABEL_18:
     }
 
 LABEL_8:
-    v8 = *(a4 + 16);
+    v8 = *(a4 + 2);
     if (v7 <= v8)
     {
-      v9 = *(a4 + 16);
+      v9 = *(a4 + 2);
     }
 
     else
@@ -2799,8 +2834,8 @@ LABEL_8:
       if (result)
       {
 LABEL_15:
-        specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v8, v11 + 32);
-        *(a4 + 16) = 0;
+        specialized UnsafeMutablePointer.moveInitialize(from:count:)(a4 + 32, v8, v11 + 32);
+        *(a4 + 2) = 0;
 LABEL_18:
         a4;
         return v11;
@@ -2823,7 +2858,7 @@ LABEL_18:
     goto LABEL_8;
   }
 
-  v6 = *(a4 + 24);
+  v6 = *(a4 + 3);
   v7 = v6 >> 1;
   if ((v6 >> 1) >= a2)
   {
@@ -2839,10 +2874,10 @@ LABEL_18:
     }
 
 LABEL_8:
-    v8 = *(a4 + 16);
+    v8 = *(a4 + 2);
     if (v7 <= v8)
     {
-      v9 = *(a4 + 16);
+      v9 = *(a4 + 2);
     }
 
     else
@@ -2860,8 +2895,8 @@ LABEL_8:
       if (v5)
       {
 LABEL_13:
-        specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v8, v11 + 32);
-        *(a4 + 16) = 0;
+        specialized UnsafeMutablePointer.moveInitialize(from:count:)(a4 + 32, v8, v11 + 32);
+        *(a4 + 2) = 0;
 LABEL_16:
         a4;
         return v11;
@@ -2877,7 +2912,7 @@ LABEL_16:
       }
     }
 
-    specialized UnsafeMutablePointer.initialize(from:count:)((a4 + 32), v8, v11 + 32);
+    specialized UnsafeMutablePointer.initialize(from:count:)(a4 + 32, v8, v11 + 32);
     goto LABEL_16;
   }
 
@@ -2893,7 +2928,7 @@ LABEL_16:
     goto LABEL_8;
   }
 
-  v6 = *(a4 + 24);
+  v6 = *(a4 + 3);
   v7 = v6 >> 1;
   if ((v6 >> 1) >= a2)
   {
@@ -2909,10 +2944,10 @@ LABEL_16:
     }
 
 LABEL_8:
-    v8 = *(a4 + 16);
+    v8 = *(a4 + 2);
     if (v7 <= v8)
     {
-      v9 = *(a4 + 16);
+      v9 = *(a4 + 2);
     }
 
     else
@@ -2930,8 +2965,8 @@ LABEL_8:
       if (v5)
       {
 LABEL_13:
-        specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v8, v11 + 32);
-        *(a4 + 16) = 0;
+        specialized UnsafeMutablePointer.moveInitialize(from:count:)(a4 + 32, v8, v11 + 32);
+        *(a4 + 2) = 0;
 LABEL_16:
         a4;
         return v11;
@@ -2963,7 +2998,7 @@ LABEL_16:
     goto LABEL_8;
   }
 
-  v6 = *(a4 + 24);
+  v6 = *(a4 + 3);
   v7 = v6 >> 1;
   if ((v6 >> 1) >= a2)
   {
@@ -2979,10 +3014,10 @@ LABEL_16:
     }
 
 LABEL_8:
-    v8 = *(a4 + 16);
+    v8 = *(a4 + 2);
     if (v7 <= v8)
     {
-      v9 = *(a4 + 16);
+      v9 = *(a4 + 2);
     }
 
     else
@@ -3015,8 +3050,8 @@ LABEL_8:
       if (result)
       {
 LABEL_15:
-        specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v8, v11 + 32);
-        *(a4 + 16) = 0;
+        specialized UnsafeMutablePointer.moveInitialize(from:count:)(a4 + 32, v8, v11 + 32);
+        *(a4 + 2) = 0;
 LABEL_18:
         a4;
         return v11;
@@ -3029,6 +3064,157 @@ LABEL_18:
 
   __break(1u);
   return result;
+}
+
+__objc2_class **specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(__objc2_class **result, int64_t a2, char a3, unint64_t a4)
+{
+  v5 = result;
+  if (a3)
+  {
+    v6 = *(a4 + 24);
+    v7 = v6 >> 1;
+    if ((v6 >> 1) < a2)
+    {
+      if (v7 + 0x4000000000000000 < 0)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v7 = a2;
+      }
+    }
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  v8 = *(a4 + 16);
+  if (v7 <= v8)
+  {
+    v9 = *(a4 + 16);
+  }
+
+  else
+  {
+    v9 = v7;
+  }
+
+  if (v9)
+  {
+    v10 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<String>(0);
+    v11 = swift_allocObject(v10, (16 * v9 + 32), 7uLL);
+    v12 = _swift_stdlib_malloc_size(v11);
+    v13 = v12 - 32;
+    if (v12 < 32)
+    {
+      v13 = v12 - 17;
+    }
+
+    v11[2] = v8;
+    v11[3] = (2 * (v13 >> 4));
+  }
+
+  else
+  {
+    v11 = &_swiftEmptyArrayStorage;
+  }
+
+  v14 = (a4 + 32);
+  v15 = (v11 + 4);
+  if (v5)
+  {
+    specialized UnsafeMutablePointer.moveInitialize(from:count:)(v14, v8, v15);
+    *(a4 + 16) = 0;
+  }
+
+  else
+  {
+    specialized UnsafeMutablePointer.initialize(from:count:)(v14, v8, v15);
+  }
+
+  a4;
+  return v11;
+}
+
+{
+  v5 = result;
+  if (a3)
+  {
+    v6 = *(a4 + 24);
+    v7 = v6 >> 1;
+    if ((v6 >> 1) < a2)
+    {
+      if (v7 + 0x4000000000000000 < 0)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v7 = a2;
+      }
+    }
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  v8 = *(a4 + 16);
+  if (v7 <= v8)
+  {
+    v9 = *(a4 + 16);
+  }
+
+  else
+  {
+    v9 = v7;
+  }
+
+  if (v9)
+  {
+    v10 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<String>(0);
+    v11 = swift_allocObject(v10, (16 * v9 + 32), 7uLL);
+    v12 = _swift_stdlib_malloc_size(v11);
+    v13 = v12 - 32;
+    if (v12 < 32)
+    {
+      v13 = v12 - 17;
+    }
+
+    v11[2] = v8;
+    v11[3] = (2 * (v13 >> 4));
+  }
+
+  else
+  {
+    v11 = &_swiftEmptyArrayStorage;
+  }
+
+  v14 = (a4 + 32);
+  v15 = (v11 + 4);
+  if (v5)
+  {
+    specialized UnsafeMutablePointer.moveInitialize(from:count:)(v14, v8, v15);
+    *(a4 + 16) = 0;
+  }
+
+  else
+  {
+    specialized UnsafeMutablePointer.initialize(from:count:)(v14, v8, v15);
+  }
+
+  a4;
+  return v11;
 }
 
 uint64_t specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char a1, uint64_t a2, char a3, int64_t a4)
@@ -3103,7 +3289,7 @@ LABEL_9:
 
     if (a2)
     {
-      v11 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<Swift.AnyObject>();
+      v11 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<Swift.AnyObject>(0);
       v12 = swift_allocObject(v11, (8 * a2 + 32), 7uLL);
       v13 = _swift_stdlib_malloc_size(v12);
       v14 = v13 - 32;
@@ -3237,7 +3423,7 @@ LABEL_9:
 
     if (a2)
     {
-      v11 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<Swift.AnyObject>();
+      v11 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<Swift.AnyObject>(0);
       v12 = swift_allocObject(v11, (8 * a2 + 32), 7uLL);
       v13 = _swift_stdlib_malloc_size(v12);
       v14 = v13 - 32;
@@ -3377,7 +3563,7 @@ LABEL_18:
   return result;
 }
 
-__objc2_class **specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(__objc2_class **result, int64_t a2, char a3, unint64_t a4, uint64_t *a5, unsigned __int8 *a6, uint64_t *a7, unsigned __int8 *a8)
+__objc2_class **specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(__objc2_class **result, int64_t a2, char a3, char *a4, uint64_t *a5, unsigned __int8 *a6, uint64_t *a7, unsigned __int8 *a8)
 {
   v11 = result;
   if ((a3 & 1) == 0)
@@ -3386,7 +3572,7 @@ __objc2_class **specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
     goto LABEL_8;
   }
 
-  v12 = *(a4 + 24);
+  v12 = *(a4 + 3);
   v13 = v12 >> 1;
   if ((v12 >> 1) >= a2)
   {
@@ -3402,10 +3588,10 @@ __objc2_class **specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
     }
 
 LABEL_8:
-    v14 = *(a4 + 16);
+    v14 = *(a4 + 2);
     if (v13 <= v14)
     {
-      v15 = *(a4 + 16);
+      v15 = *(a4 + 2);
     }
 
     else
@@ -3423,8 +3609,8 @@ LABEL_8:
       if (v11)
       {
 LABEL_13:
-        specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v14, v17 + 32);
-        *(a4 + 16) = 0;
+        specialized UnsafeMutablePointer.moveInitialize(from:count:)(a4 + 32, v14, v17 + 32);
+        *(a4 + 2) = 0;
 LABEL_16:
         a4;
         return v17;
@@ -3448,7 +3634,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char a1, uint64_t a2, char a3, uint64_t a4, uint64_t *a5)
+uint64_t _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char a1, uint64_t a2, char a3, uint64_t a4, unint64_t *a5)
 {
   result = _ArrayBuffer.capacity.getter(a4, a5);
   if ((a3 & 1) == 0)
@@ -3782,7 +3968,7 @@ __objc2_class **_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapaci
     return &_swiftEmptyArrayStorage;
   }
 
-  v4 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<Swift.AnyObject>();
+  v4 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<Swift.AnyObject>(0);
   v5 = swift_allocObject(v4, (8 * v2 + 32), 7uLL);
   v6 = _swift_stdlib_malloc_size(v5);
   result = v5;
@@ -3799,7 +3985,7 @@ __objc2_class **_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapaci
   return result;
 }
 
-__objc2_class **_ContiguousArrayBuffer.init(_uninitializedCount:minimumCapacity:)(uint64_t a1, uint64_t a2, uint64_t *a3)
+__objc2_class **_ContiguousArrayBuffer.init(_uninitializedCount:minimumCapacity:)(uint64_t a1, uint64_t a2, unint64_t *a3)
 {
   if (a2 <= a1)
   {
@@ -3833,7 +4019,7 @@ __objc2_class **_ContiguousArrayBuffer.init(_uninitializedCount:minimumCapacity:
   return v9;
 }
 
-unint64_t _ArrayBuffer.firstElementAddress.getter(uint64_t a1, uint64_t *a2)
+unint64_t _ArrayBuffer.firstElementAddress.getter(uint64_t a1, unint64_t *a2)
 {
   isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType(a2, a2);
   v5 = a1 & 0xFFFFFFFFFFFFFF8;
@@ -4026,312 +4212,312 @@ Swift::Void __swiftcall _ArrayBuffer._typeCheckSlowPath(_:)(Swift::Int a1)
   v3 = v2;
   v4 = v1;
   v6 = *(v2 - 1);
-  v7 = MEMORY[0x1EEE9AC00](a1);
-  v9 = (&v148 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = (&v148 - v10);
-  if (_swift_isClassOrObjCExistentialType(v12, v12) && (v4 < 0 || (v4 & 0x4000000000000000) != 0))
+  v7 = (MEMORY[0x1EEE9AC00])(a1);
+  v9 = (&v155 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v7, v10);
+  v12 = (&v155 - v11);
+  if (_swift_isClassOrObjCExistentialType(v13, v13) && (v4 < 0 || (v4 & 0x4000000000000000) != 0))
   {
     if (v4 < 0)
     {
-      v14 = v4;
+      v18 = v4;
     }
 
     else
     {
-      v14 = (v4 & 0xFFFFFFFFFFFFFF8);
+      v18 = (v4 & 0xFFFFFFFFFFFFFF8);
     }
 
-    v15 = [v14 objectAtIndex_];
-    v148._countAndFlagsBits = v15;
-    swift_unknownObjectRetain(v15);
-    if (swift_dynamicCast(v9, &v148, qword_1EEEAC710, v3, 6uLL))
+    v19 = [v18 objectAtIndex_];
+    v155._countAndFlagsBits = v19;
+    swift_unknownObjectRetain(v19);
+    if (swift_dynamicCast(v9, &v155, qword_1EEEAC710, v3, 6uLL, v20, v21, v22, v155._countAndFlagsBits))
     {
-      swift_unknownObjectRelease(v15);
+      swift_unknownObjectRelease(v19);
       (*(v6 + 8))(v9, v3);
       return;
     }
 
-    v148._countAndFlagsBits = _StringGuts.init(_initialCapacity:)(85);
-    v148._object = v121;
-    v122._countAndFlagsBits = 0xD000000000000046;
-    v122._object = (0x800000018066B290 | 0x8000000000000000);
-    String.write(_:)(v122);
+    v155._countAndFlagsBits = _StringGuts.init(_initialCapacity:)(85);
+    v155._object = v128;
+    v129._countAndFlagsBits = 0xD000000000000046;
+    v129._object = (0x800000018066B290 | 0x8000000000000000);
+    String.write(_:)(v129);
     0x800000018066B290 | 0x8000000000000000;
     TypeName = swift_getTypeName(v3, 0);
-    if ((v124 & 0x8000000000000000) == 0)
+    if ((v131 & 0x8000000000000000) == 0)
     {
-      v125 = TypeName;
-      v126 = v124;
-      v127 = validateUTF8(_:)(TypeName, v124);
-      v131 = v127 < 0 ? repairUTF8(_:firstKnownBrokenRange:)(v125, v126, v128, v129) : specialized static String._uncheckedFromUTF8(_:isASCII:)(v125, v126, v127 & 1, v130);
-      v133 = v132;
-      String.write(_:)(*&v131);
-      v133;
-      v134 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" but found ", 0xBuLL, 1);
-      object = v134._object;
-      String.write(_:)(v134);
+      v132 = TypeName;
+      v133 = v131;
+      v134 = validateUTF8(_:)(TypeName, v131);
+      v138 = (v134 & 0x8000000000000000) != 0 ? repairUTF8(_:firstKnownBrokenRange:)(v132, v133, v135, v136) : specialized static String._uncheckedFromUTF8(_:isASCII:)(v132, v133, v134 & 1, v137);
+      v140 = v139;
+      String.write(_:)(*&v138);
+      v140;
+      v141 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" but found ", 0xBuLL, 1);
+      object = v141._object;
+      String.write(_:)(v141);
       object;
-      ObjectType = swift_getObjectType(v15);
-      v137 = swift_getTypeName(ObjectType, 0);
-      if ((v138 & 0x8000000000000000) == 0)
+      ObjectType = swift_getObjectType(v19);
+      v144 = swift_getTypeName(ObjectType, 0);
+      if ((v145 & 0x8000000000000000) == 0)
       {
-        v139 = v137;
-        v140 = v138;
-        v141 = validateUTF8(_:)(v137, v138);
-        if (v141 < 0)
+        v146 = v144;
+        v147 = v145;
+        v148 = validateUTF8(_:)(v144, v145);
+        if ((v148 & 0x8000000000000000) != 0)
         {
-          v145 = repairUTF8(_:firstKnownBrokenRange:)(v139, v140, v142, v143);
+          v152 = repairUTF8(_:firstKnownBrokenRange:)(v146, v147, v149, v150);
         }
 
         else
         {
-          v145 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v139, v140, v141 & 1, v144);
+          v152 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v146, v147, v148 & 1, v151);
         }
 
-        v147 = v146;
-        String.write(_:)(*&v145);
-        v147;
-        _assertionFailure(_:_:flags:)("Fatal error", 11, 2, v148._countAndFlagsBits, v148._object, 0);
+        v154 = v153;
+        String.write(_:)(*&v152);
+        v154;
+        _assertionFailure(_:_:flags:)("Fatal error", 11, 2, v155._countAndFlagsBits, v155._object, 0);
       }
     }
 
     goto LABEL_91;
   }
 
-  v13 = *((v4 & 0xFFFFFFFFFFFFFF8) + 8 * a1 + 0x20);
-  v148._countAndFlagsBits = v13;
-  swift_unknownObjectRetain(v13);
-  if (!swift_dynamicCast(v11, &v148, qword_1EEEAC710, v3, 6uLL))
+  v14 = *((v4 & 0xFFFFFFFFFFFFFF8) + 8 * a1 + 0x20);
+  v155._countAndFlagsBits = v14;
+  swift_unknownObjectRetain(v14);
+  if (!swift_dynamicCast(v12, &v155, qword_1EEEAC710, v3, 6uLL, v15, v16, v17, v155._countAndFlagsBits))
   {
-    v16 = _StringGuts.init(_initialCapacity:)(82);
-    v26 = v17;
-    v148._countAndFlagsBits = v16;
-    v148._object = v17;
-    v27 = HIBYTE(v17) & 0xF;
-    if ((v17 & 0x2000000000000000) == 0)
+    v23 = _StringGuts.init(_initialCapacity:)(82);
+    v33 = v24;
+    v155._countAndFlagsBits = v23;
+    v155._object = v24;
+    v34 = HIBYTE(v24) & 0xF;
+    if ((v24 & 0x2000000000000000) == 0)
     {
-      v27 = v16 & 0xFFFFFFFFFFFFLL;
+      v34 = v23 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v27 || (v16 & ~v17 & 0x2000000000000000) != 0)
+    if (v34 || (v23 & ~v24 & 0x2000000000000000) != 0)
     {
-      if ((0x800000018066B200 & 0x2000000000000000 & v17) != 0 && (v28 = specialized _SmallString.init(_:appending:)(v16, v17, 0xD000000000000043, 0x800000018066B200 | 0x8000000000000000), (v30 & 1) == 0))
+      if ((0x800000018066B200 & 0x2000000000000000 & v24) != 0 && (v35 = specialized _SmallString.init(_:appending:)(v23, v24, 0xD000000000000043, 0x800000018066B200 | 0x8000000000000000), (v37 & 1) == 0))
       {
-        v32 = v28;
-        v33 = v29;
-        v26;
+        v39 = v35;
+        v40 = v36;
+        v33;
         0x800000018066B200 | 0x8000000000000000;
-        v148._countAndFlagsBits = v32;
-        v148._object = v33;
+        v155._countAndFlagsBits = v39;
+        v155._object = v40;
       }
 
       else
       {
         if ((0x800000018066B200 & 0x2000000000000000) != 0)
         {
-          v31 = (0x800000018066B200 >> 56) & 0xF;
+          v38 = (0x800000018066B200 >> 56) & 0xF;
         }
 
         else
         {
-          v31 = 67;
+          v38 = 67;
         }
 
-        _StringGuts.append(_:)(0xD000000000000043, 0x800000018066B200 | 0x8000000000000000, 0, v31, v18, v19, v20, v21, v22, v23, v24, v25);
+        _StringGuts.append(_:)(0xD000000000000043, 0x800000018066B200 | 0x8000000000000000, 0, v38, v25, v26, v27, v28, v29, v30, v31, v32);
         0x800000018066B200 | 0x8000000000000000;
       }
     }
 
     else
     {
-      v17;
-      v148._countAndFlagsBits = 0xD000000000000043;
-      v148._object = (0x800000018066B200 | 0x8000000000000000);
+      v24;
+      v155._countAndFlagsBits = 0xD000000000000043;
+      v155._object = (0x800000018066B200 | 0x8000000000000000);
     }
 
-    v34 = swift_getTypeName(v3, 0);
-    if (v35 < 0)
+    v41 = swift_getTypeName(v3, 0);
+    if (v42 < 0)
     {
       goto LABEL_91;
     }
 
-    v36 = v34;
-    v37 = v35;
-    v38 = validateUTF8(_:)(v34, v35);
-    if (v38 < 0)
+    v43 = v41;
+    v44 = v42;
+    v45 = validateUTF8(_:)(v41, v42);
+    if ((v45 & 0x8000000000000000) != 0)
     {
-      v42 = repairUTF8(_:firstKnownBrokenRange:)(v36, v37, v39, v40);
+      v49 = repairUTF8(_:firstKnownBrokenRange:)(v43, v44, v46, v47);
     }
 
     else
     {
-      v42 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v36, v37, v38 & 1, v41);
+      v49 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v43, v44, v45 & 1, v48);
     }
 
-    v52 = v42;
-    v53 = v43;
-    v54 = v148._object;
-    v55 = (v148._object >> 56) & 0xF;
-    if ((v148._object & 0x2000000000000000) == 0)
+    v59 = v49;
+    v60 = v50;
+    v61 = v155._object;
+    v62 = (v155._object >> 56) & 0xF;
+    if ((v155._object & 0x2000000000000000) == 0)
     {
-      v55 = v148._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+      v62 = v155._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
     }
 
-    if (!v55 && (v148._countAndFlagsBits & ~v148._object & 0x2000000000000000) == 0)
+    if (!v62 && (v155._countAndFlagsBits & ~v155._object & 0x2000000000000000) == 0)
     {
-      v148._object;
-      v148._countAndFlagsBits = v52;
-      v148._object = v53;
+      v155._object;
+      v155._countAndFlagsBits = v59;
+      v155._object = v60;
       goto LABEL_41;
     }
 
-    if ((v148._object & 0x2000000000000000) != 0)
+    if ((v155._object & 0x2000000000000000) != 0)
     {
-      if ((v43 & 0x2000000000000000) != 0)
+      if ((v50 & 0x2000000000000000) != 0)
       {
-        v57 = specialized _SmallString.init(_:appending:)(v148._countAndFlagsBits, v148._object, v42, v43);
-        if ((v59 & 1) == 0)
+        v64 = specialized _SmallString.init(_:appending:)(v155._countAndFlagsBits, v155._object, v49, v50);
+        if ((v66 & 1) == 0)
         {
-          v115 = v57;
-          v116 = v58;
-          v54;
-          v53;
-          v148._countAndFlagsBits = v115;
-          v148._object = v116;
-          v53 = v116;
-          v52 = v115;
+          v122 = v64;
+          v123 = v65;
+          v61;
+          v60;
+          v155._countAndFlagsBits = v122;
+          v155._object = v123;
+          v60 = v123;
+          v59 = v122;
 LABEL_41:
-          v68 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" but found ", 0xBuLL, 1);
-          v69 = HIBYTE(v53) & 0xF;
-          if ((v53 & 0x2000000000000000) == 0)
+          v75 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" but found ", 0xBuLL, 1);
+          v76 = HIBYTE(v60) & 0xF;
+          if ((v60 & 0x2000000000000000) == 0)
           {
-            v69 = v52 & 0xFFFFFFFFFFFFLL;
+            v76 = v59 & 0xFFFFFFFFFFFFLL;
           }
 
-          if (!v69 && (v52 & ~v53 & 0x2000000000000000) == 0)
+          if (!v76 && (v59 & ~v60 & 0x2000000000000000) == 0)
           {
-            v53;
-            v148 = v68;
+            v60;
+            v155 = v75;
             goto LABEL_54;
           }
 
-          if ((v53 & 0x2000000000000000) != 0)
+          if ((v60 & 0x2000000000000000) != 0)
           {
-            if ((v68._object & 0x2000000000000000) != 0)
+            if ((v75._object & 0x2000000000000000) != 0)
             {
-              v71 = specialized _SmallString.init(_:appending:)(v52, v53, v68._countAndFlagsBits, v68._object);
-              if ((v73 & 1) == 0)
+              v78 = specialized _SmallString.init(_:appending:)(v59, v60, v75._countAndFlagsBits, v75._object);
+              if ((v80 & 1) == 0)
               {
-                v117 = v71;
-                v118 = v72;
-                v53;
-                v68._object;
-                v148._countAndFlagsBits = v117;
-                v148._object = v118;
+                v124 = v78;
+                v125 = v79;
+                v60;
+                v75._object;
+                v155._countAndFlagsBits = v124;
+                v155._object = v125;
 LABEL_54:
-                v74 = swift_getObjectType(v13);
-                v75 = swift_getTypeName(v74, 0);
-                if ((v76 & 0x8000000000000000) == 0)
+                v81 = swift_getObjectType(v14);
+                v82 = swift_getTypeName(v81, 0);
+                if ((v83 & 0x8000000000000000) == 0)
                 {
-                  v77 = v75;
-                  v78 = v76;
-                  v79 = validateUTF8(_:)(v75, v76);
-                  if (v79 < 0)
+                  v84 = v82;
+                  v85 = v83;
+                  v86 = validateUTF8(_:)(v82, v83);
+                  if ((v86 & 0x8000000000000000) != 0)
                   {
-                    v83 = repairUTF8(_:firstKnownBrokenRange:)(v77, v78, v80, v81);
+                    v90 = repairUTF8(_:firstKnownBrokenRange:)(v84, v85, v87, v88);
                   }
 
                   else
                   {
-                    v83 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v77, v78, v79 & 1, v82);
+                    v90 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v84, v85, v86 & 1, v89);
                   }
 
-                  v93 = v83;
-                  v94 = v84;
-                  v95 = v148._object;
-                  v96 = (v148._object >> 56) & 0xF;
-                  if ((v148._object & 0x2000000000000000) == 0)
+                  v100 = v90;
+                  v101 = v91;
+                  v102 = v155._object;
+                  v103 = (v155._object >> 56) & 0xF;
+                  if ((v155._object & 0x2000000000000000) == 0)
                   {
-                    v96 = v148._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+                    v103 = v155._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
                   }
 
-                  if (!v96 && (v148._countAndFlagsBits & ~v148._object & 0x2000000000000000) == 0)
+                  if (!v103 && (v155._countAndFlagsBits & ~v155._object & 0x2000000000000000) == 0)
                   {
-                    v148._object;
-                    v148._countAndFlagsBits = v93;
-                    v148._object = v94;
+                    v155._object;
+                    v155._countAndFlagsBits = v100;
+                    v155._object = v101;
                     goto LABEL_71;
                   }
 
-                  if ((v148._object & 0x2000000000000000) != 0)
+                  if ((v155._object & 0x2000000000000000) != 0)
                   {
-                    if ((v84 & 0x2000000000000000) != 0)
+                    if ((v91 & 0x2000000000000000) != 0)
                     {
-                      v106 = specialized _SmallString.init(_:appending:)(v148._countAndFlagsBits, v148._object, v83, v84);
-                      if ((v108 & 1) == 0)
+                      v113 = specialized _SmallString.init(_:appending:)(v155._countAndFlagsBits, v155._object, v90, v91);
+                      if ((v115 & 1) == 0)
                       {
-                        v119 = v106;
-                        v120 = v107;
-                        v95;
-                        v94;
-                        v148._countAndFlagsBits = v119;
-                        v148._object = v120;
-                        v94 = v120;
-                        v93 = v119;
+                        v126 = v113;
+                        v127 = v114;
+                        v102;
+                        v101;
+                        v155._countAndFlagsBits = v126;
+                        v155._object = v127;
+                        v101 = v127;
+                        v100 = v126;
 LABEL_71:
-                        v109 = HIBYTE(v94) & 0xF;
-                        if ((v94 & 0x2000000000000000) == 0)
+                        v116 = HIBYTE(v101) & 0xF;
+                        if ((v101 & 0x2000000000000000) == 0)
                         {
-                          v109 = v93 & 0xFFFFFFFFFFFFLL;
+                          v116 = v100 & 0xFFFFFFFFFFFFLL;
                         }
 
-                        if (v109 || (v93 & ~v94 & 0x2000000000000000) != 0)
+                        if (v116 || (v100 & ~v101 & 0x2000000000000000) != 0)
                         {
-                          if ((v94 & 0x2000000000000000) != 0 && (v112 = specialized _SmallString.init(_:appending:)(v93, v94, 0, 0xE000000000000000), (v114 & 1) == 0))
+                          if ((v101 & 0x2000000000000000) != 0 && (v119 = specialized _SmallString.init(_:appending:)(v100, v101, 0, 0xE000000000000000), (v121 & 1) == 0))
                           {
-                            countAndFlagsBits = v112;
-                            v111 = v113;
-                            v94;
+                            countAndFlagsBits = v119;
+                            v118 = v120;
+                            v101;
                             0xE000000000000000;
                           }
 
                           else
                           {
-                            _StringGuts.append(_:)(0, 0xE000000000000000, 0, 0, v97, v98, v99, v100, v101, v102, v103, v104);
+                            _StringGuts.append(_:)(0, 0xE000000000000000, 0, 0, v104, v105, v106, v107, v108, v109, v110, v111);
                             0xE000000000000000;
-                            countAndFlagsBits = v148._countAndFlagsBits;
-                            v111 = v148._object;
+                            countAndFlagsBits = v155._countAndFlagsBits;
+                            v118 = v155._object;
                           }
                         }
 
                         else
                         {
-                          v94;
+                          v101;
                           countAndFlagsBits = 0;
-                          v111 = 0xE000000000000000;
+                          v118 = 0xE000000000000000;
                         }
 
-                        _assertionFailure(_:_:flags:)("Fatal error", 11, 2, countAndFlagsBits, v111, 0);
+                        _assertionFailure(_:_:flags:)("Fatal error", 11, 2, countAndFlagsBits, v118, 0);
                       }
 
                       goto LABEL_69;
                     }
                   }
 
-                  else if ((v84 & 0x2000000000000000) != 0)
+                  else if ((v91 & 0x2000000000000000) != 0)
                   {
 LABEL_69:
-                    v105 = HIBYTE(v94) & 0xF;
+                    v112 = HIBYTE(v101) & 0xF;
                     goto LABEL_70;
                   }
 
-                  v105 = v83 & 0xFFFFFFFFFFFFLL;
+                  v112 = v90 & 0xFFFFFFFFFFFFLL;
 LABEL_70:
-                  _StringGuts.append(_:)(v93, v94, 0, v105, v85, v86, v87, v88, v89, v90, v91, v92);
-                  v94;
-                  v93 = v148._countAndFlagsBits;
-                  v94 = v148._object;
+                  _StringGuts.append(_:)(v100, v101, 0, v112, v92, v93, v94, v95, v96, v97, v98, v99);
+                  v101;
+                  v100 = v155._countAndFlagsBits;
+                  v101 = v155._object;
                   goto LABEL_71;
                 }
 
@@ -4343,17 +4529,17 @@ LABEL_91:
             }
           }
 
-          else if ((v68._object & 0x2000000000000000) != 0)
+          else if ((v75._object & 0x2000000000000000) != 0)
           {
 LABEL_52:
-            v70 = (v68._object >> 56) & 0xF;
+            v77 = (v75._object >> 56) & 0xF;
             goto LABEL_53;
           }
 
-          v70 = v68._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+          v77 = v75._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
 LABEL_53:
-          _StringGuts.append(_:)(v68._countAndFlagsBits, v68._object, 0, v70, v60, v61, v62, v63, v64, v65, v66, v67);
-          v68._object;
+          _StringGuts.append(_:)(v75._countAndFlagsBits, v75._object, 0, v77, v67, v68, v69, v70, v71, v72, v73, v74);
+          v75._object;
           goto LABEL_54;
         }
 
@@ -4361,23 +4547,23 @@ LABEL_53:
       }
     }
 
-    else if ((v43 & 0x2000000000000000) != 0)
+    else if ((v50 & 0x2000000000000000) != 0)
     {
 LABEL_39:
-      v56 = HIBYTE(v53) & 0xF;
+      v63 = HIBYTE(v60) & 0xF;
       goto LABEL_40;
     }
 
-    v56 = v42 & 0xFFFFFFFFFFFFLL;
+    v63 = v49 & 0xFFFFFFFFFFFFLL;
 LABEL_40:
-    _StringGuts.append(_:)(v52, v53, 0, v56, v44, v45, v46, v47, v48, v49, v50, v51);
-    v53;
-    v52 = v148._countAndFlagsBits;
-    v53 = v148._object;
+    _StringGuts.append(_:)(v59, v60, 0, v63, v51, v52, v53, v54, v55, v56, v57, v58);
+    v60;
+    v59 = v155._countAndFlagsBits;
+    v60 = v155._object;
     goto LABEL_41;
   }
 
-  (*(v6 + 8))(v11, v3);
+  (*(v6 + 8))(v12, v3);
 }
 
 Swift::DefaultStringInterpolation __swiftcall DefaultStringInterpolation.init(literalCapacity:interpolationCount:)(Swift::Int literalCapacity, Swift::Int interpolationCount)
@@ -4558,7 +4744,7 @@ id _CocoaArrayWrapper.subscript.getter(uint64_t a1, id a2)
   return v2;
 }
 
-void _ArrayBuffer._typeCheck(_:)(Swift::Int a1, Swift::Int a2, uint64_t a3, uint64_t *a4)
+void _ArrayBuffer._typeCheck(_:)(Swift::Int a1, Swift::Int a2, uint64_t a3, unint64_t *a4)
 {
   if (_swift_isClassOrObjCExistentialType(a4, a4) && _swift_isClassOrObjCExistentialType(a4, a4) && (a3 & 0xC000000000000001) != 0 && !swift_dynamicCastMetatype(qword_1EEEAC710, a4))
   {
@@ -4593,7 +4779,7 @@ uint64_t _CocoaArrayWrapper._copyContents(subRange:initializing:)(uint64_t a1, u
   return v5;
 }
 
-uint64_t _ContiguousArrayBuffer._copyContents(initializing:)(char *a1, uint64_t a2, uint64_t a3, unint64_t *a4)
+uint64_t _ContiguousArrayBuffer._copyContents(initializing:)(char *a1, unint64_t a2, uint64_t a3, unint64_t *a4)
 {
   if (a2 >= 1)
   {
@@ -4627,9 +4813,9 @@ uint64_t _ContiguousArrayBuffer._copyContents(initializing:)(char *a1, uint64_t 
   return a3;
 }
 
-uint64_t IndexingIterator.init(_elements:_position:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, int **a4@<X3>, uint64_t a5@<X8>)
+uint64_t IndexingIterator.init(_elements:_position:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, Class *a3@<X2>, int **a4@<X3>, uint64_t a5@<X8>)
 {
-  (*(*(a3 - 8) + 32))(a5, a1);
+  (*(*(a3 - 1) + 4))(a5, a1);
   v10 = *(type metadata accessor for IndexingIterator(0, a3, a4, v9) + 36);
   swift_getAssociatedTypeWitness(0, a4, a3, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v12 = *(*(v11 - 8) + 32);
@@ -4676,7 +4862,7 @@ id _CocoaArrayWrapper._copyContents(initializing:)(uint64_t a1, uint64_t a2, id 
   return a3;
 }
 
-uint64_t key path getter for _ArrayBuffer.subscript(_:) : <A>_ArrayBuffer<A>A@<X0>(int64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+uint64_t key path getter for _ArrayBuffer.subscript(_:) : <A>_ArrayBuffer<A>A@<X0>(int64_t *a1@<X0>, Swift::Int *a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   result = _ArrayBuffer.subscript.getter(*a2, a2[1], *a1, *(a2 + a3 - 8));
   *a4 = result;
@@ -4686,7 +4872,7 @@ uint64_t key path getter for _ArrayBuffer.subscript(_:) : <A>_ArrayBuffer<A>A@<X
   return result;
 }
 
-__objc2_class **_CocoaArrayWrapper.subscript.getter(uint64_t a1, uint64_t a2, id a3)
+__objc2_class *_CocoaArrayWrapper.subscript.getter(uint64_t a1, uint64_t a2, id a3)
 {
   v3 = a2 - a1;
   if (__OFSUB__(a2, a1))
@@ -4726,7 +4912,7 @@ LABEL_18:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v10 = result;
+  p_isa = &result->isa;
   v11 = 0;
   while (1)
   {
@@ -4741,13 +4927,13 @@ LABEL_18:
     }
 
     v12 = v11 + 1;
-    v13 = &v10[v11];
+    v13 = &p_isa[v11];
     result = [v5 objectAtIndex_];
     v13[4] = result;
     v11 = v12;
     if (v3 == v12)
     {
-      v8 = v10;
+      v8 = p_isa;
       return _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfCyXl_Tt1g5(v8, a1);
     }
   }
@@ -4789,7 +4975,7 @@ BOOL key path setter for _ArrayBuffer.count : <A>_ArrayBuffer<A>(uint64_t *a1, u
   return _ArrayBuffer.count.setter(v4, v5);
 }
 
-uint64_t _ArrayBuffer.mutableCount.getter(uint64_t a1, uint64_t *a2)
+uint64_t _ArrayBuffer.mutableCount.getter(uint64_t a1, unint64_t *a2)
 {
   isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType(a2, a2);
   v4 = a1 & 0xFFFFFFFFFFFFFF8;
@@ -4881,15 +5067,12 @@ LABEL_12:
   }
 }
 
-uint64_t _precondition(_:_:file:line:)(uint64_t (*a1)(void))
+void _precondition(_:_:file:line:)(uint64_t (*a1)(void), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, char a8, uint64_t a9)
 {
-  result = a1();
-  if ((result & 1) == 0)
+  if ((a1() & 1) == 0)
   {
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
-
-  return result;
 }
 
 Swift::Void __swiftcall _ArrayBuffer._checkInoutAndNativeTypeCheckedBounds(_:wasNativeTypeChecked:)(Swift::Int _, Swift::Bool wasNativeTypeChecked)
@@ -4938,38 +5121,38 @@ LABEL_10:
   }
 }
 
-unint64_t specialized Collection.count.getter(uint64_t a1, unint64_t a2, void (*a3)(void *__return_ptr, int *))
+unint64_t specialized Collection.count.getter(unint64_t a1, unint64_t a2, void (*a3)(void *__return_ptr, Swift::UInt32 *), uint64_t a4)
 {
   if ((a2 & 0x2000000000000000) != 0)
   {
-    v6 = HIBYTE(a2) & 0xF;
+    v8 = HIBYTE(a2) & 0xF;
   }
 
   else
   {
-    v6 = a1 & 0xFFFFFFFFFFFFLL;
+    v8 = a1 & 0xFFFFFFFFFFFFLL;
   }
 
-  v7 = 7;
+  v9 = 7;
   if (((a2 >> 60) & ((a1 & 0x800000000000000) == 0)) != 0)
   {
-    v7 = 11;
+    v9 = 11;
   }
 
-  v8 = v7 | (v6 << 16);
-  v9 = v8;
-  if (v6)
+  v10 = v9 | (v8 << 16);
+  v11 = v10;
+  if (v8)
   {
-    v9 = 15;
-    v10._rawBits = 15;
-    specialized LazyMapSequence<>.subscript.getter(v10, a1, a2, a3);
+    v11 = 15;
+    v12._rawBits = 15;
+    specialized LazyMapSequence<>.subscript.getter(v12, a1, a2, a3);
   }
 
-  v11._rawBits = v9;
-  return specialized FlattenSequence<>.distance(from:to:)(v11, 0, v6 == 0, v8, 0, 1, a1, a2, a3);
+  v13._rawBits = v11;
+  return specialized FlattenSequence<>.distance(from:to:)(v13, 0, v8 == 0, v10, 0, 1, a1, a2, a3, a4);
 }
 
-Swift::String::Index specialized Collection.count.getter(uint64_t a1, unint64_t a2)
+Swift::String::Index specialized Collection.count.getter(unint64_t a1, unint64_t a2)
 {
   v4 = HIBYTE(a2) & 0xF;
   if ((a2 & 0x2000000000000000) == 0)
@@ -5118,29 +5301,29 @@ LABEL_40:
   return 0;
 }
 
-uint64_t Collection.count.getter(unint64_t a1, uint64_t a2)
+uint64_t Collection.count.getter(Class *a1, uint64_t a2)
 {
   swift_getAssociatedTypeWitness(0, a2, a1, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v5 = v4;
   v6 = *(v4 - 8);
-  v7 = MEMORY[0x1EEE9AC00](v4);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = &v15 - v10;
+  v8 = MEMORY[0x1EEE9AC00](v4, v7);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8, v11);
+  v13 = &v17 - v12;
   (*(a2 + 64))(a1, a2);
   (*(a2 + 72))(a1, a2);
-  v12 = (*(a2 + 152))(v11, v9, a1, a2);
-  v13 = *(v6 + 8);
-  v13(v9, v5);
-  v13(v11, v5);
-  return v12;
+  v14 = (*(a2 + 152))(v13, v10, a1, a2);
+  v15 = *(v6 + 8);
+  v15(v10, v5);
+  v15(v13, v5);
+  return v14;
 }
 
-id specialized _ArrayBuffer._getElementSlowPath(_:)(unint64_t a1, uint64_t a2)
+id specialized _ArrayBuffer._getElementSlowPath(_:)(unint64_t a1, unint64_t a2)
 {
   if (a2 >> 62)
   {
-    if (a2 < 0)
+    if ((a2 & 0x8000000000000000) != 0)
     {
       v5 = a2;
     }
@@ -5168,227 +5351,227 @@ id specialized _ArrayBuffer._getElementSlowPath(_:)(unint64_t a1, uint64_t a2)
   }
 }
 
-id _ArrayBuffer._getElementSlowPath(_:)(unint64_t a1, uint64_t a2, uint64_t *a3)
+id _ArrayBuffer._getElementSlowPath(_:)(unint64_t a1, unint64_t a2, unint64_t *a3)
 {
   v6 = *(a3 - 1);
-  v7 = MEMORY[0x1EEE9AC00](a1);
-  v9 = &v184 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = &v184 - v10;
-  if (!_swift_isClassOrObjCExistentialType(v12, v12) || !(a2 >> 62))
+  v7 = MEMORY[0x1EEE9AC00](a1, a2);
+  v9 = &v185 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7, v10);
+  v12 = &v185 - v11;
+  if (!_swift_isClassOrObjCExistentialType(v13, v13) || !(a2 >> 62))
   {
     isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType(a3, a3);
-    if ((a1 & 0x8000000000000000) != 0 || (!isClassOrObjCExistentialType ? (v16 = a2) : (v16 = a2 & 0xFFFFFFFFFFFFFF8), *(v16 + 16) <= a1))
+    if ((a1 & 0x8000000000000000) != 0 || (!isClassOrObjCExistentialType ? (v17 = a2) : (v17 = a2 & 0xFFFFFFFFFFFFFF8), *(v17 + 16) <= a1))
     {
       _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
     }
 
-    v14 = *((a2 & 0xFFFFFFFFFFFFFF8) + 8 * a1 + 0x20);
-    v184._countAndFlagsBits = v14;
-    swift_unknownObjectRetain_n(v14, 2);
-    if (swift_dynamicCast(v11, &v184, &unk_1EEEAC710, a3, 6))
+    v15 = *((a2 & 0xFFFFFFFFFFFFFF8) + 8 * a1 + 0x20);
+    v185._countAndFlagsBits = v15;
+    swift_unknownObjectRetain_n(v15, 2);
+    if (swift_dynamicCast(v12, &v185, qword_1EEEAC710, a3, 6uLL))
     {
-      (*(v6 + 8))(v11, a3);
-      return v14;
+      (*(v6 + 8))(v12, a3);
+      return v15;
     }
 
-    v30 = _StringGuts.init(_initialCapacity:)(82);
-    v40 = v31;
-    v184._countAndFlagsBits = v30;
-    v184._object = v31;
-    v41 = HIBYTE(v31) & 0xF;
-    if ((v31 & 0x2000000000000000) == 0)
+    v31 = _StringGuts.init(_initialCapacity:)(82);
+    v41 = v32;
+    v185._countAndFlagsBits = v31;
+    v185._object = v32;
+    v42 = HIBYTE(v32) & 0xF;
+    if ((v32 & 0x2000000000000000) == 0)
     {
-      v41 = v30 & 0xFFFFFFFFFFFFLL;
+      v42 = v31 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v41 || (v30 & ~v31 & 0x2000000000000000) != 0)
+    if (v42 || (v31 & ~v32 & 0x2000000000000000) != 0)
     {
-      if (("ize with negative count" & 0x2000000000000000 & v31) != 0 && (v46 = specialized _SmallString.init(_:appending:)(v30, v31, 0xD000000000000043, 0x800000018066B200), (v48 & 1) == 0))
+      if (("ize with negative count" & 0x2000000000000000 & v32) != 0 && (v47 = specialized _SmallString.init(_:appending:)(v31, v32, 0xD000000000000043, 0x800000018066B200), (v49 & 1) == 0))
       {
-        v116 = v46;
         v117 = v47;
-        v40;
-        v184._countAndFlagsBits = v116;
-        v184._object = v117;
+        v118 = v48;
+        v41;
+        v185._countAndFlagsBits = v117;
+        v185._object = v118;
       }
 
       else
       {
         if (("ize with negative count" & 0x2000000000000000) != 0)
         {
-          v49 = ("ize with negative count" >> 56) & 0xF;
+          v50 = ("ize with negative count" >> 56) & 0xF;
         }
 
         else
         {
-          v49 = 67;
+          v50 = 67;
         }
 
-        _StringGuts.append(_:)(0xD000000000000043, 0x800000018066B200, 0, v49, v32, v33, v34, v35, v36, v37, v38, v39);
+        _StringGuts.append(_:)(0xD000000000000043, 0x800000018066B200, 0, v50, v33, v34, v35, v36, v37, v38, v39, v40);
       }
     }
 
     else
     {
-      v31;
-      v184._countAndFlagsBits = 0xD000000000000043;
-      v184._object = 0x800000018066B200;
+      v32;
+      v185._countAndFlagsBits = 0xD000000000000043;
+      v185._object = 0x800000018066B200;
     }
 
     TypeName = swift_getTypeName(a3, 0);
-    if (v119 < 0)
+    if (v120 < 0)
     {
       goto LABEL_133;
     }
 
-    v120 = TypeName;
-    v121 = v119;
-    v122 = validateUTF8(_:)(TypeName, v119);
-    if (v122 < 0)
+    v121 = TypeName;
+    v122 = v120;
+    v123 = validateUTF8(_:)(TypeName, v120);
+    if ((v123 & 0x8000000000000000) != 0)
     {
-      v126 = repairUTF8(_:firstKnownBrokenRange:)(v120, v121, v123, v124);
+      v127 = repairUTF8(_:firstKnownBrokenRange:)(v121, v122, v124, v125);
     }
 
     else
     {
-      v126 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v120, v121, v122 & 1, v125);
+      v127 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v121, v122, v123 & 1, v126);
     }
 
-    v136 = v126;
     v137 = v127;
-    object = v184._object;
-    v139 = (v184._object >> 56) & 0xF;
-    if ((v184._object & 0x2000000000000000) == 0)
+    v138 = v128;
+    object = v185._object;
+    v140 = (v185._object >> 56) & 0xF;
+    if ((v185._object & 0x2000000000000000) == 0)
     {
-      v139 = v184._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+      v140 = v185._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
     }
 
-    if (!v139 && (v184._countAndFlagsBits & ~v184._object & 0x2000000000000000) == 0)
+    if (!v140 && (v185._countAndFlagsBits & ~v185._object & 0x2000000000000000) == 0)
     {
-      v184._object;
-      v184._countAndFlagsBits = v136;
-      v184._object = v137;
+      v185._object;
+      v185._countAndFlagsBits = v137;
+      v185._object = v138;
       goto LABEL_97;
     }
 
-    if ((v184._object & 0x2000000000000000) != 0)
+    if ((v185._object & 0x2000000000000000) != 0)
     {
-      if ((v127 & 0x2000000000000000) != 0)
+      if ((v128 & 0x2000000000000000) != 0)
       {
-        v141 = specialized _SmallString.init(_:appending:)(v184._countAndFlagsBits, v184._object, v126, v127);
-        if ((v143 & 1) == 0)
+        v142 = specialized _SmallString.init(_:appending:)(v185._countAndFlagsBits, v185._object, v127, v128);
+        if ((v144 & 1) == 0)
         {
-          v180 = v141;
           v181 = v142;
-          v137;
+          v182 = v143;
+          v138;
           object;
-          v184._countAndFlagsBits = v180;
-          v184._object = v181;
+          v185._countAndFlagsBits = v181;
+          v185._object = v182;
+          v138 = v182;
           v137 = v181;
-          v136 = v180;
 LABEL_97:
-          v152 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" but found ", 0xBuLL, 1);
-          v153 = HIBYTE(v137) & 0xF;
-          if ((v137 & 0x2000000000000000) == 0)
+          v153 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" but found ", 0xBuLL, 1);
+          v154 = HIBYTE(v138) & 0xF;
+          if ((v138 & 0x2000000000000000) == 0)
           {
-            v153 = v136 & 0xFFFFFFFFFFFFLL;
+            v154 = v137 & 0xFFFFFFFFFFFFLL;
           }
 
-          if (!v153 && (v136 & ~v137 & 0x2000000000000000) == 0)
+          if (!v154 && (v137 & ~v138 & 0x2000000000000000) == 0)
           {
-            v137;
-            v184 = v152;
+            v138;
+            v185 = v153;
             goto LABEL_110;
           }
 
-          if ((v137 & 0x2000000000000000) != 0)
+          if ((v138 & 0x2000000000000000) != 0)
           {
-            if ((v152._object & 0x2000000000000000) != 0)
+            if ((v153._object & 0x2000000000000000) != 0)
             {
-              v155 = specialized _SmallString.init(_:appending:)(v136, v137, v152._countAndFlagsBits, v152._object);
-              if ((v157 & 1) == 0)
+              v156 = specialized _SmallString.init(_:appending:)(v137, v138, v153._countAndFlagsBits, v153._object);
+              if ((v158 & 1) == 0)
               {
-                v182 = v155;
                 v183 = v156;
-                v152._object;
-                v137;
-                v184._countAndFlagsBits = v182;
-                v184._object = v183;
+                v184 = v157;
+                v153._object;
+                v138;
+                v185._countAndFlagsBits = v183;
+                v185._object = v184;
 LABEL_110:
-                ObjectType = swift_getObjectType(v14);
-                v159 = swift_getTypeName(ObjectType, 0);
-                if ((v160 & 0x8000000000000000) == 0)
+                ObjectType = swift_getObjectType(v15);
+                v160 = swift_getTypeName(ObjectType, 0);
+                if ((v161 & 0x8000000000000000) == 0)
                 {
-                  v161 = v159;
                   v162 = v160;
-                  v163 = validateUTF8(_:)(v159, v160);
-                  if (v163 < 0)
+                  v163 = v161;
+                  v164 = validateUTF8(_:)(v160, v161);
+                  if ((v164 & 0x8000000000000000) != 0)
                   {
-                    v167 = repairUTF8(_:firstKnownBrokenRange:)(v161, v162, v164, v165);
+                    v168 = repairUTF8(_:firstKnownBrokenRange:)(v162, v163, v165, v166);
                   }
 
                   else
                   {
-                    v167 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v161, v162, v163 & 1, v166);
+                    v168 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v162, v163, v164 & 1, v167);
                   }
 
-                  v111 = v167;
                   v112 = v168;
-                  countAndFlagsBits = v184._countAndFlagsBits;
-                  v114 = v184._object;
-                  v169 = (v184._object >> 56) & 0xF;
-                  if ((v184._object & 0x2000000000000000) == 0)
+                  v113 = v169;
+                  countAndFlagsBits = v185._countAndFlagsBits;
+                  v115 = v185._object;
+                  v170 = (v185._object >> 56) & 0xF;
+                  if ((v185._object & 0x2000000000000000) == 0)
                   {
-                    v169 = v184._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+                    v170 = v185._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
                   }
 
-                  if (v169 || (v184._countAndFlagsBits & ~v184._object & 0x2000000000000000) != 0)
+                  if (v170 || (v185._countAndFlagsBits & ~v185._object & 0x2000000000000000) != 0)
                   {
 LABEL_119:
-                    if ((v114 & 0x2000000000000000) != 0)
+                    if ((v115 & 0x2000000000000000) != 0)
                     {
-                      if ((v112 & 0x2000000000000000) != 0)
+                      if ((v113 & 0x2000000000000000) != 0)
                       {
-                        v171 = specialized _SmallString.init(_:appending:)(countAndFlagsBits, v114, v111, v112);
-                        if ((v173 & 1) == 0)
+                        v172 = specialized _SmallString.init(_:appending:)(countAndFlagsBits, v115, v112, v113);
+                        if ((v174 & 1) == 0)
                         {
-                          v174 = v171;
                           v175 = v172;
-                          v112;
-                          v114;
-                          v184._countAndFlagsBits = v174;
-                          v184._object = v175;
+                          v176 = v173;
+                          v113;
+                          v115;
+                          v185._countAndFlagsBits = v175;
+                          v185._object = v176;
+                          v113 = v176;
                           v112 = v175;
-                          v111 = v174;
 LABEL_125:
-                          _assertionFailure(_:_:flags:)("Fatal error", 11, 2, v111, v112, 0);
+                          _assertionFailure(_:_:flags:)("Fatal error", 11, 2, v112, v113, 0);
                         }
 
-                        v170 = HIBYTE(v112) & 0xF;
+                        v171 = HIBYTE(v113) & 0xF;
 LABEL_124:
-                        _StringGuts.append(_:)(v111, v112, 0, v170, v103, v104, v105, v106, v107, v108, v109, v110);
-                        v112;
-                        v111 = v184._countAndFlagsBits;
-                        v112 = v184._object;
+                        _StringGuts.append(_:)(v112, v113, 0, v171, v104, v105, v106, v107, v108, v109, v110, v111);
+                        v113;
+                        v112 = v185._countAndFlagsBits;
+                        v113 = v185._object;
                         goto LABEL_125;
                       }
                     }
 
-                    else if ((v112 & 0x2000000000000000) != 0)
+                    else if ((v113 & 0x2000000000000000) != 0)
                     {
-                      v170 = HIBYTE(v112) & 0xF;
+                      v171 = HIBYTE(v113) & 0xF;
                       goto LABEL_124;
                     }
 
-                    v170 = v111 & 0xFFFFFFFFFFFFLL;
+                    v171 = v112 & 0xFFFFFFFFFFFFLL;
                     goto LABEL_124;
                   }
 
 LABEL_118:
-                  v114;
-                  v184._countAndFlagsBits = v111;
-                  v184._object = v112;
+                  v115;
+                  v185._countAndFlagsBits = v112;
+                  v185._object = v113;
                   goto LABEL_125;
                 }
 
@@ -5400,17 +5583,17 @@ LABEL_133:
             }
           }
 
-          else if ((v152._object & 0x2000000000000000) != 0)
+          else if ((v153._object & 0x2000000000000000) != 0)
           {
 LABEL_108:
-            v154 = (v152._object >> 56) & 0xF;
+            v155 = (v153._object >> 56) & 0xF;
             goto LABEL_109;
           }
 
-          v154 = v152._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+          v155 = v153._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
 LABEL_109:
-          _StringGuts.append(_:)(v152._countAndFlagsBits, v152._object, 0, v154, v144, v145, v146, v147, v148, v149, v150, v151);
-          v152._object;
+          _StringGuts.append(_:)(v153._countAndFlagsBits, v153._object, 0, v155, v145, v146, v147, v148, v149, v150, v151, v152);
+          v153._object;
           goto LABEL_110;
         }
 
@@ -5418,191 +5601,191 @@ LABEL_109:
       }
     }
 
-    else if ((v127 & 0x2000000000000000) != 0)
+    else if ((v128 & 0x2000000000000000) != 0)
     {
 LABEL_95:
-      v140 = HIBYTE(v137) & 0xF;
+      v141 = HIBYTE(v138) & 0xF;
       goto LABEL_96;
     }
 
-    v140 = v126 & 0xFFFFFFFFFFFFLL;
+    v141 = v127 & 0xFFFFFFFFFFFFLL;
 LABEL_96:
-    _StringGuts.append(_:)(v136, v137, 0, v140, v128, v129, v130, v131, v132, v133, v134, v135);
-    v137;
-    v136 = v184._countAndFlagsBits;
-    v137 = v184._object;
+    _StringGuts.append(_:)(v137, v138, 0, v141, v129, v130, v131, v132, v133, v134, v135, v136);
+    v138;
+    v137 = v185._countAndFlagsBits;
+    v138 = v185._object;
     goto LABEL_97;
   }
 
-  if (a2 < 0)
+  if ((a2 & 0x8000000000000000) != 0)
   {
-    v13 = a2;
+    v14 = a2;
   }
 
   else
   {
-    v13 = (a2 & 0xFFFFFFFFFFFFFF8);
+    v14 = (a2 & 0xFFFFFFFFFFFFFF8);
   }
 
-  v14 = [v13 objectAtIndex_];
-  v184._countAndFlagsBits = v14;
-  swift_unknownObjectRetain(v14);
-  if (!swift_dynamicCast(v9, &v184, &unk_1EEEAC710, a3, 6))
+  v15 = [v14 objectAtIndex_];
+  v185._countAndFlagsBits = v15;
+  swift_unknownObjectRetain(v15);
+  if (!swift_dynamicCast(v9, &v185, qword_1EEEAC710, a3, 6uLL))
   {
-    v18 = _StringGuts.init(_initialCapacity:)(85);
-    v28 = v19;
-    v184._countAndFlagsBits = v18;
-    v184._object = v19;
-    v29 = HIBYTE(v19) & 0xF;
-    if ((v19 & 0x2000000000000000) == 0)
+    v19 = _StringGuts.init(_initialCapacity:)(85);
+    v29 = v20;
+    v185._countAndFlagsBits = v19;
+    v185._object = v20;
+    v30 = HIBYTE(v20) & 0xF;
+    if ((v20 & 0x2000000000000000) == 0)
     {
-      v29 = v18 & 0xFFFFFFFFFFFFLL;
+      v30 = v19 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v29 || (v18 & ~v19 & 0x2000000000000000) != 0)
+    if (v30 || (v19 & ~v20 & 0x2000000000000000) != 0)
     {
-      if ((0x800000018066B290 & 0x2000000000000000 & v19) != 0 && (v42 = specialized _SmallString.init(_:appending:)(v18, v19, 0xD000000000000046, 0x800000018066B290 | 0x8000000000000000), (v44 & 1) == 0))
+      if ((0x800000018066B290 & 0x2000000000000000 & v20) != 0 && (v43 = specialized _SmallString.init(_:appending:)(v19, v20, 0xD000000000000046, 0x800000018066B290 | 0x8000000000000000), (v45 & 1) == 0))
       {
-        v50 = v42;
         v51 = v43;
+        v52 = v44;
         0x800000018066B290 | 0x8000000000000000;
-        v28;
-        v184._countAndFlagsBits = v50;
-        v184._object = v51;
+        v29;
+        v185._countAndFlagsBits = v51;
+        v185._object = v52;
       }
 
       else
       {
         if ((0x800000018066B290 & 0x2000000000000000) != 0)
         {
-          v45 = (0x800000018066B290 >> 56) & 0xF;
+          v46 = (0x800000018066B290 >> 56) & 0xF;
         }
 
         else
         {
-          v45 = 70;
+          v46 = 70;
         }
 
-        _StringGuts.append(_:)(0xD000000000000046, 0x800000018066B290 | 0x8000000000000000, 0, v45, v20, v21, v22, v23, v24, v25, v26, v27);
+        _StringGuts.append(_:)(0xD000000000000046, 0x800000018066B290 | 0x8000000000000000, 0, v46, v21, v22, v23, v24, v25, v26, v27, v28);
         0x800000018066B290 | 0x8000000000000000;
       }
     }
 
     else
     {
-      v19;
-      v184._countAndFlagsBits = 0xD000000000000046;
-      v184._object = (0x800000018066B290 | 0x8000000000000000);
+      v20;
+      v185._countAndFlagsBits = 0xD000000000000046;
+      v185._object = (0x800000018066B290 | 0x8000000000000000);
     }
 
-    v52 = swift_getTypeName(a3, 0);
-    if (v53 < 0)
+    v53 = swift_getTypeName(a3, 0);
+    if (v54 < 0)
     {
       goto LABEL_133;
     }
 
-    v54 = v52;
     v55 = v53;
-    v56 = validateUTF8(_:)(v52, v53);
-    if (v56 < 0)
+    v56 = v54;
+    v57 = validateUTF8(_:)(v53, v54);
+    if ((v57 & 0x8000000000000000) != 0)
     {
-      v60 = repairUTF8(_:firstKnownBrokenRange:)(v54, v55, v57, v58);
+      v61 = repairUTF8(_:firstKnownBrokenRange:)(v55, v56, v58, v59);
     }
 
     else
     {
-      v60 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v54, v55, v56 & 1, v59);
+      v61 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v55, v56, v57 & 1, v60);
     }
 
-    v70 = v60;
     v71 = v61;
-    v72 = v184._object;
-    v73 = (v184._object >> 56) & 0xF;
-    if ((v184._object & 0x2000000000000000) == 0)
+    v72 = v62;
+    v73 = v185._object;
+    v74 = (v185._object >> 56) & 0xF;
+    if ((v185._object & 0x2000000000000000) == 0)
     {
-      v73 = v184._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+      v74 = v185._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
     }
 
-    if (!v73 && (v184._countAndFlagsBits & ~v184._object & 0x2000000000000000) == 0)
+    if (!v74 && (v185._countAndFlagsBits & ~v185._object & 0x2000000000000000) == 0)
     {
-      v184._object;
-      v184._countAndFlagsBits = v70;
-      v184._object = v71;
+      v185._object;
+      v185._countAndFlagsBits = v71;
+      v185._object = v72;
       goto LABEL_57;
     }
 
-    if ((v184._object & 0x2000000000000000) != 0)
+    if ((v185._object & 0x2000000000000000) != 0)
     {
-      if ((v61 & 0x2000000000000000) != 0)
+      if ((v62 & 0x2000000000000000) != 0)
       {
-        v75 = specialized _SmallString.init(_:appending:)(v184._countAndFlagsBits, v184._object, v60, v61);
-        if ((v77 & 1) == 0)
+        v76 = specialized _SmallString.init(_:appending:)(v185._countAndFlagsBits, v185._object, v61, v62);
+        if ((v78 & 1) == 0)
         {
-          v176 = v75;
           v177 = v76;
-          v71;
+          v178 = v77;
           v72;
-          v184._countAndFlagsBits = v176;
-          v184._object = v177;
+          v73;
+          v185._countAndFlagsBits = v177;
+          v185._object = v178;
+          v72 = v178;
           v71 = v177;
-          v70 = v176;
 LABEL_57:
-          v86 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" but found ", 0xBuLL, 1);
-          v87 = HIBYTE(v71) & 0xF;
-          if ((v71 & 0x2000000000000000) == 0)
+          v87 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" but found ", 0xBuLL, 1);
+          v88 = HIBYTE(v72) & 0xF;
+          if ((v72 & 0x2000000000000000) == 0)
           {
-            v87 = v70 & 0xFFFFFFFFFFFFLL;
+            v88 = v71 & 0xFFFFFFFFFFFFLL;
           }
 
-          if (!v87 && (v70 & ~v71 & 0x2000000000000000) == 0)
+          if (!v88 && (v71 & ~v72 & 0x2000000000000000) == 0)
           {
-            v71;
-            v184 = v86;
+            v72;
+            v185 = v87;
             goto LABEL_70;
           }
 
-          if ((v71 & 0x2000000000000000) != 0)
+          if ((v72 & 0x2000000000000000) != 0)
           {
-            if ((v86._object & 0x2000000000000000) != 0)
+            if ((v87._object & 0x2000000000000000) != 0)
             {
-              v89 = specialized _SmallString.init(_:appending:)(v70, v71, v86._countAndFlagsBits, v86._object);
-              if ((v91 & 1) == 0)
+              v90 = specialized _SmallString.init(_:appending:)(v71, v72, v87._countAndFlagsBits, v87._object);
+              if ((v92 & 1) == 0)
               {
-                v178 = v89;
                 v179 = v90;
-                v86._object;
-                v71;
-                v184._countAndFlagsBits = v178;
-                v184._object = v179;
+                v180 = v91;
+                v87._object;
+                v72;
+                v185._countAndFlagsBits = v179;
+                v185._object = v180;
 LABEL_70:
-                v92 = swift_getObjectType(v14);
-                v93 = swift_getTypeName(v92, 0);
-                if ((v94 & 0x8000000000000000) == 0)
+                v93 = swift_getObjectType(v15);
+                v94 = swift_getTypeName(v93, 0);
+                if ((v95 & 0x8000000000000000) == 0)
                 {
-                  v95 = v93;
                   v96 = v94;
-                  v97 = validateUTF8(_:)(v93, v94);
-                  if (v97 < 0)
+                  v97 = v95;
+                  v98 = validateUTF8(_:)(v94, v95);
+                  if ((v98 & 0x8000000000000000) != 0)
                   {
-                    v101 = repairUTF8(_:firstKnownBrokenRange:)(v95, v96, v98, v99);
+                    v102 = repairUTF8(_:firstKnownBrokenRange:)(v96, v97, v99, v100);
                   }
 
                   else
                   {
-                    v101 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v95, v96, v97 & 1, v100);
+                    v102 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v96, v97, v98 & 1, v101);
                   }
 
-                  v111 = v101;
                   v112 = v102;
-                  countAndFlagsBits = v184._countAndFlagsBits;
-                  v114 = v184._object;
-                  v115 = (v184._object >> 56) & 0xF;
-                  if ((v184._object & 0x2000000000000000) == 0)
+                  v113 = v103;
+                  countAndFlagsBits = v185._countAndFlagsBits;
+                  v115 = v185._object;
+                  v116 = (v185._object >> 56) & 0xF;
+                  if ((v185._object & 0x2000000000000000) == 0)
                   {
-                    v115 = v184._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+                    v116 = v185._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
                   }
 
-                  if (v115 || (v184._countAndFlagsBits & ~v184._object & 0x2000000000000000) != 0)
+                  if (v116 || (v185._countAndFlagsBits & ~v185._object & 0x2000000000000000) != 0)
                   {
                     goto LABEL_119;
                   }
@@ -5617,17 +5800,17 @@ LABEL_70:
             }
           }
 
-          else if ((v86._object & 0x2000000000000000) != 0)
+          else if ((v87._object & 0x2000000000000000) != 0)
           {
 LABEL_68:
-            v88 = (v86._object >> 56) & 0xF;
+            v89 = (v87._object >> 56) & 0xF;
             goto LABEL_69;
           }
 
-          v88 = v86._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+          v89 = v87._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
 LABEL_69:
-          _StringGuts.append(_:)(v86._countAndFlagsBits, v86._object, 0, v88, v78, v79, v80, v81, v82, v83, v84, v85);
-          v86._object;
+          _StringGuts.append(_:)(v87._countAndFlagsBits, v87._object, 0, v89, v79, v80, v81, v82, v83, v84, v85, v86);
+          v87._object;
           goto LABEL_70;
         }
 
@@ -5635,24 +5818,24 @@ LABEL_69:
       }
     }
 
-    else if ((v61 & 0x2000000000000000) != 0)
+    else if ((v62 & 0x2000000000000000) != 0)
     {
 LABEL_55:
-      v74 = HIBYTE(v71) & 0xF;
+      v75 = HIBYTE(v72) & 0xF;
       goto LABEL_56;
     }
 
-    v74 = v60 & 0xFFFFFFFFFFFFLL;
+    v75 = v61 & 0xFFFFFFFFFFFFLL;
 LABEL_56:
-    _StringGuts.append(_:)(v70, v71, 0, v74, v62, v63, v64, v65, v66, v67, v68, v69);
-    v71;
-    v70 = v184._countAndFlagsBits;
-    v71 = v184._object;
+    _StringGuts.append(_:)(v71, v72, 0, v75, v63, v64, v65, v66, v67, v68, v69, v70);
+    v72;
+    v71 = v185._countAndFlagsBits;
+    v72 = v185._object;
     goto LABEL_57;
   }
 
   (*(v6 + 8))(v9, a3);
-  return v14;
+  return v15;
 }
 
 uint64_t unsafeBitCast<A, B>(_:to:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
@@ -5667,7 +5850,7 @@ uint64_t unsafeBitCast<A, B>(_:to:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uin
   return v5(a4, a1, a3);
 }
 
-void _ArrayBuffer.subscript.getter(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+void _ArrayBuffer.subscript.getter(unint64_t a1@<X0>, unint64_t a2@<X1>, unint64_t *a3@<X2>, uint64_t a4@<X8>)
 {
   if (_swift_isClassOrObjCExistentialType(a3, a3) && (a2 & 0xC000000000000001) != 0)
   {
@@ -5697,7 +5880,7 @@ void _ArrayBuffer.subscript.getter(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t
 void key path setter for _ArrayBuffer.subscript(_:) : <A>_ArrayBuffer<A>A(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   v5 = *(a3 + a4 - 8);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a1);
   v7 = &v11 - v6;
   v9 = *v8;
   (*(v10 + 16))(&v11 - v6);
@@ -5707,7 +5890,7 @@ void key path setter for _ArrayBuffer.subscript(_:) : <A>_ArrayBuffer<A>A(uint64
 uint64_t _ContiguousArrayBuffer.subscript.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = *(a4 - 8);
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](a1, a2);
   v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v8 + 32))(v10, a1, v11);
   v12 = a3 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * a2;
@@ -5792,22 +5975,23 @@ __objc2_class **_ArrayBuffer.getOrAllocateAssociatedObjectBuffer()(uint64_t a1, 
 
 uint64_t Optional.unsafelyUnwrapped.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = *(a1 - 8);
-  MEMORY[0x1EEE9AC00](a1);
-  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v6);
-  v7 = *(a1 + 16);
-  v8 = *(v7 - 8);
-  if ((*(v8 + 48))(v6, 1, v7) == 1)
+  v3 = v2;
+  v6 = *(a1 - 8);
+  MEMORY[0x1EEE9AC00](a1, v3);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v6 + 16))(v8);
+  v9 = *(a1 + 16);
+  v10 = *(v9 - 8);
+  if ((*(v10 + 48))(v8, 1, v9) == 1)
   {
-    (*(v4 + 8))(v6, a1);
+    (*(v6 + 8))(v8, a1);
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  return (*(v8 + 32))(a2, v6, v7);
+  return (*(v10 + 32))(a2, v8, v9);
 }
 
-void *_ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxs5NeverOSSSgIsgyrzr_AByxGAhgHRsd__AGRsd_0_r_0_lIetMggozo_Tp5(void *(*a1)(uint64_t *__return_ptr, char *, atomic_ullong), uint64_t a2, uint64_t a3, uint64_t a4)
+void *_ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxs5NeverOSSSgIsgyrzr_AByxGAhgHRsd__AGRsd_0_r_0_lIetMggozo_Tp5(void *(*a1)(uint64_t *__return_ptr, char *, uint64_t), uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a3 < 0)
   {
@@ -5863,7 +6047,7 @@ void *_ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXE
   return result;
 }
 
-void *_ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxs5NeverOSS6result_Sb11repairsMadetIsgyrzr_AByxGSSAH_SbAItAGSSAH_SbAItRsd__AGRsd_0_r_0_lIetMggozo_Tpq5(void *(*a1)(uint64_t *__return_ptr, char *, atomic_ullong), uint64_t a2, uint64_t a3, uint64_t a4)
+void *_ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxs5NeverOSS6result_Sb11repairsMadetIsgyrzr_AByxGSSAH_SbAItAGSSAH_SbAItRsd__AGRsd_0_r_0_lIetMggozo_Tpq5(void *(*a1)(uint64_t *__return_ptr, char *, uint64_t), uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a3 < 0)
   {
@@ -5919,7 +6103,7 @@ void *_ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXE
   return result;
 }
 
-uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq5yXl_ytTg581_sSa32withContiguousStorageIfAvailableyqd__Sgqd__SRyxGKXEKlFqd__ACKXEfU_yXl_ytTG5ADq_sAE_pRi_zRi0_zRi__Ri0__r0_lyyXlytIsgyrzo_Tf1ncn_n(uint64_t a1, uint64_t (*a2)(atomic_ullong *, atomic_ullong))
+uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq5yXl_ytTg581_sSa32withContiguousStorageIfAvailableyqd__Sgqd__SRyxGKXEKlFqd__ACKXEfU_yXl_ytTG5ADq_sAE_pRi_zRi0_zRi__Ri0__r0_lyyXlytIsgyrzo_Tf1ncn_n(uint64_t a1, uint64_t (*a2)(__objc2_class **, uint64_t))
 {
   if (a1 < 0)
   {
@@ -5964,7 +6148,7 @@ uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_Y
   return a2(v6 + 4, v8);
 }
 
-uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq5(uint64_t (*a1)(char *, atomic_ullong, uint64_t *), uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq5(uint64_t (*a1)(char *, uint64_t, uint64_t *), uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a3 < 0)
   {
@@ -6013,7 +6197,7 @@ uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_Y
   return a1(v9 + v16, v17, &v19);
 }
 
-uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tp5(uint64_t (*a1)(char *, __objc2_class *, uint64_t *), uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tp5(uint64_t (*a1)(char *, uint64_t, uint64_t *), uint64_t a2, uint64_t a3, uint64_t a4)
 {
   AssociatedObject = _ArrayBuffer.getOrAllocateAssociatedObjectBuffer()(a3, a4);
   v7 = (*(*(a4 - 8) + 80) + 32) & ~*(*(a4 - 8) + 80);
@@ -6022,11 +6206,11 @@ uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_Y
   return a1(AssociatedObject + v7, v8, &v10);
 }
 
-uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(uint64_t (*a1)(char *, __objc2_class *, char *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(uint64_t (*a1)(char *, uint64_t, char *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v22 = a8;
   v11 = *(a6 - 8);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   AssociatedObject = _ArrayBuffer.getOrAllocateAssociatedObjectBuffer()(v14, v15);
   v17 = (*(*(a4 - 8) + 80) + 32) & ~*(*(a4 - 8) + 80);
@@ -6052,18 +6236,18 @@ uint64_t UnsafeBufferPointer.init(start:count:)(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t _ArrayBuffer.withUnsafeBufferPointer<A>(_:)(uint64_t (*a1)(unint64_t, unint64_t), uint64_t a2, int64_t a3, uint64_t *a4)
+uint64_t _ArrayBuffer.withUnsafeBufferPointer<A>(_:)(uint64_t (*a1)(unint64_t, unint64_t), uint64_t a2, int64_t a3, unint64_t *a4)
 {
   if (_swift_isClassOrObjCExistentialType(a4, a4) && (a3 < 0 || (a3 & 0x4000000000000000) != 0))
   {
-    v21 = a3;
+    v22 = a3;
     v14 = type metadata accessor for _ArrayBuffer(0, a4, v7, v8);
     a3;
     WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _ArrayBuffer<A>, v14, v15);
     v17 = (*(WitnessTable + 56))(v14, WitnessTable);
-    v18 = MEMORY[0x1EEE9AC00](v17);
-    partial apply for thunk for @callee_guaranteed (@unowned UnsafeBufferPointer<A>) -> (@out A1, @error @owned Error)(v18 + ((*(*(a4 - 1) + 80) + 32) & ~*(*(a4 - 1) + 80)), *(v18 + 16), &v21);
-    return v18;
+    v19 = MEMORY[0x1EEE9AC00](v17, v18);
+    partial apply for thunk for @callee_guaranteed (@unowned UnsafeBufferPointer<A>) -> (@out A1, @error @owned Error)(v19 + ((*(*(a4 - 1) + 80) + 32) & ~*(*(a4 - 1) + 80)), *(v19 + 16), &v22);
+    return v19;
   }
 
   else
@@ -6082,21 +6266,21 @@ uint64_t _ArrayBuffer.withUnsafeBufferPointer<A>(_:)(uint64_t (*a1)(unint64_t, u
     {
       if (a3 < 0)
       {
-        v19 = a3;
+        v20 = a3;
       }
 
       else
       {
-        v19 = (a3 & 0xFFFFFFFFFFFFFF8);
+        v20 = (a3 & 0xFFFFFFFFFFFFFF8);
       }
 
-      v20 = [v19 count];
-      if ((v20 & 0x8000000000000000) != 0)
+      v21 = [v20 count];
+      if ((v21 & 0x8000000000000000) != 0)
       {
         _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
       }
 
-      v12 = v20;
+      v12 = v21;
     }
 
     else
@@ -6115,7 +6299,7 @@ uint64_t _ArrayBuffer.withUnsafeBufferPointer<A>(_:)(uint64_t (*a1)(unint64_t, u
   }
 }
 
-uint64_t _ArrayBuffer.withUnsafeMutableBufferPointer<A>(_:)(uint64_t (*a1)(unint64_t), uint64_t a2, uint64_t a3)
+uint64_t _ArrayBuffer.withUnsafeMutableBufferPointer<A>(_:)(uint64_t (*a1)(uint64_t), uint64_t a2, uint64_t a3)
 {
   v5 = *v3;
   v6 = *(a3 + 16);
@@ -6185,7 +6369,7 @@ uint64_t static Bool.|| infix(_:_:)(char a1, uint64_t (*a2)(void))
   }
 }
 
-uint64_t _ArrayBuffer._native.getter(unint64_t a1, uint64_t *a2)
+unint64_t _ArrayBuffer._native.getter(unint64_t a1, unint64_t *a2)
 {
   if (_swift_isClassOrObjCExistentialType(a2, a2))
   {
@@ -6264,7 +6448,7 @@ char *specialized closure #1 in _ArrayBufferProtocol.replaceSubrange<A>(_:with:e
   return swift_arrayInitWithCopy(__dst, __src, a2, qword_1EEEAC710);
 }
 
-char *closure #1 in _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(char *a1, uint64_t a2, uint64_t a3, char *a4, unint64_t a5, uint64_t a6, uint64_t a7)
+char *closure #1 in _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(char *a1, uint64_t a2, uint64_t a3, char *a4, Class *a5, uint64_t a6, uint64_t a7)
 {
   if (a2 != a3 || !a1)
   {
@@ -6324,7 +6508,7 @@ char *specialized UnsafeMutablePointer.initialize(from:count:)(char *__src, uint
     _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  return swift_arrayInitWithCopy(__dst, __src, a2, byte_1EEEAC6F8);
+  return swift_arrayInitWithCopy(__dst, __src, a2, qword_1EEEAC6F8);
 }
 
 {
@@ -6387,22 +6571,22 @@ BOOL static _Pointer.< infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64
 
 uint64_t static Strideable<>.+= infix(_:_:)(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   memcpy(&v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v8);
   return (*(*(a4 + 32) + 48))(a2, a3);
 }
 
-uint64_t _expectEnd<A>(of:is:)(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4)
+uint64_t _expectEnd<A>(of:is:)(uint64_t a1, uint64_t a2, Class *a3, uint64_t a4)
 {
   swift_getAssociatedTypeWitness(0, a4, a3, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v8 = v7;
   v9 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = &v14 - v10;
+  MEMORY[0x1EEE9AC00](v7, v10);
+  v12 = &v15 - v11;
   (*(a4 + 72))(a3, a4);
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a4, a3, v8, &protocol requirements base descriptor for Collection, associated conformance descriptor for Collection.Collection.Index: Comparable);
-  LOBYTE(a2) = (*(*(AssociatedConformanceWitness + 8) + 8))(a2, v11, v8);
-  result = (*(v9 + 8))(v11, v8);
+  LOBYTE(a2) = (*(*(AssociatedConformanceWitness + 8) + 8))(a2, v12, v8);
+  result = (*(v9 + 8))(v12, v8);
   if ((a2 & 1) == 0)
   {
     _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
@@ -6411,95 +6595,95 @@ uint64_t _expectEnd<A>(of:is:)(uint64_t a1, uint64_t a2, const char *a3, uint64_
   return result;
 }
 
-void _swift_arrayDownCastIndirect(unint64_t *a1, __objc2_class ***a2, uint64_t *a3)
+void _swift_arrayDownCastIndirect(unint64_t *a1, __objc2_class ***a2, unint64_t *a3, uint64_t a4)
 {
-  v5 = *a1;
   v6 = *a1;
-  v7 = _arrayForceCast<A, B>(_:)(v6, a3);
-  v5;
-  *a2 = v7;
+  v7 = *a1;
+  v8 = _arrayForceCast<A, B>(_:)(v7, a3);
+  v6;
+  *a2 = v8;
 }
 
-__objc2_class **specialized _arrayForceCast<A, B>(_:)(uint64_t a1, uint64_t *a2)
+__objc2_class **specialized _arrayForceCast<A, B>(_:)(unint64_t a1, unint64_t *a2)
 {
   v3 = a1;
   v4 = *(a2 - 1);
   v5 = *(v4 + 64);
-  v6 = MEMORY[0x1EEE9AC00](a1);
-  v27 = (&v24 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = &v24 - v7;
-  _swift_isClassOrObjCExistentialType(v9, v9);
-  v10 = Array._getCount()();
-  v11 = &_swiftEmptyArrayStorage;
-  if (v10)
+  v6 = MEMORY[0x1EEE9AC00](a1, a2);
+  v31 = &v28 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6, v7);
+  v9 = &v28 - v8;
+  _swift_isClassOrObjCExistentialType(v10, v10);
+  v11 = Array._getCount()();
+  v12 = &_swiftEmptyArrayStorage;
+  if (v11)
   {
-    v12 = v10;
-    v29 = &_swiftEmptyArrayStorage;
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v10 & ~(v10 >> 63), 0);
-    if (v12 < 0)
+    v13 = v11;
+    v33 = &_swiftEmptyArrayStorage;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11 & ~(v11 >> 63), 0);
+    if (v13 < 0)
     {
       _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
     }
 
-    v13 = 0;
-    v11 = v29;
-    v26 = v3 & 0xC000000000000001;
-    v24 = v5;
-    v25 = (v4 + 16);
+    v14 = 0;
+    v12 = v33;
+    v30 = v3 & 0xC000000000000001;
+    v28 = v5;
+    v29 = (v4 + 16);
     do
     {
-      v14 = v26 == 0;
-      v15 = v14 | ~_swift_isClassOrObjCExistentialType(a2, a2);
-      Array._checkSubscript(_:wasNativeTypeChecked:)(v13, v15 & 1);
-      if (v15)
+      v15 = v30 == 0;
+      v16 = v15 | ~_swift_isClassOrObjCExistentialType(a2, a2);
+      Array._checkSubscript(_:wasNativeTypeChecked:)(v14, v16 & 1);
+      if (v16)
       {
-        v16 = v3;
-        (*(v4 + 16))(v8, v3 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v13, a2);
+        v17 = v3;
+        (*(v4 + 16))(v9, v3 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v14, a2);
       }
 
       else
       {
-        v16 = v3;
-        v21 = _ArrayBuffer._getElementSlowPath(_:)(v13, v3, a2);
-        if (v24 != 8)
+        v17 = v3;
+        v25 = _ArrayBuffer._getElementSlowPath(_:)(v14, v3, a2);
+        if (v28 != 8)
         {
           _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
         }
 
-        *&v28[0] = v21;
-        v22 = v21;
-        (*v25)(v8, v28, a2);
-        swift_unknownObjectRelease(v22);
+        *&v32[0] = v25;
+        v26 = v25;
+        (*v29)(v9, v32, a2);
+        swift_unknownObjectRelease(v26);
       }
 
-      v17 = v27;
-      (*(v4 + 32))(v27, v8, a2);
-      v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss9CodingKey_pMd, _ss9CodingKey_pMR);
-      swift_dynamicCast(v28, v17, a2, v18, 7uLL);
-      v29 = v11;
-      v20 = v11[2];
-      v19 = v11[3];
-      if (v20 >= v19 >> 1)
+      v18 = v31;
+      (*(v4 + 32))(v31, v9, a2);
+      v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss9CodingKey_pMd, _ss9CodingKey_pMR);
+      swift_dynamicCast(v32, v18, a2, v19, 7uLL, v20, v21, v22, v28);
+      v33 = v12;
+      v24 = v12[2];
+      v23 = v12[3];
+      if (v24 >= v23 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1);
-        v11 = v29;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1);
+        v12 = v33;
       }
 
-      ++v13;
-      v11[2] = (v20 + 1);
-      _ss9CodingKey_pWOb_0(v28, &v11[5 * v20 + 4]);
-      v3 = v16;
+      ++v14;
+      v12[2] = (v24 + 1);
+      _ss9CodingKey_pWOb_0(v32, &v12[5 * v24 + 4]);
+      v3 = v17;
     }
 
-    while (v12 != v13);
-    if (v12 != Array._getCount()())
+    while (v13 != v14);
+    if (v13 != Array._getCount()())
     {
       _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
     }
   }
 
-  return v11;
+  return v12;
 }
 
 __objc2_class **specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
@@ -6508,35 +6692,35 @@ __objc2_class **specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
   v2 = &_swiftEmptyArrayStorage;
   if (v1)
   {
-    v18 = &_swiftEmptyArrayStorage;
+    v22 = &_swiftEmptyArrayStorage;
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v1, 0);
     v2 = &_swiftEmptyArrayStorage;
     v4 = a1 + 32;
     do
     {
-      outlined init with copy of MirrorPath(v4, v15);
-      _ss9CodingKey_pWOb_0(v15, v14);
+      outlined init with copy of MirrorPath(v4, v19);
+      _ss9CodingKey_pWOb_0(v19, v18);
       v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss9CodingKey_pMd, _ss9CodingKey_pMR);
-      swift_dynamicCast(v16, v14, v5, &type metadata for _DictionaryCodingKey, 7uLL);
-      v6 = v16[0];
-      v7 = v16[1];
-      v8 = v16[2];
-      v9 = v17;
-      v18 = v2;
-      v11 = v2[2];
-      v10 = v2[3];
-      if (v11 >= v10 >> 1)
+      swift_dynamicCast(v20, v18, v5, &type metadata for _DictionaryCodingKey, 7uLL, v6, v7, v8, v17);
+      v9 = v20[0];
+      v10 = v20[1];
+      v11 = v20[2];
+      v12 = v21;
+      v22 = v2;
+      v14 = v2[2];
+      v13 = v2[3];
+      if (v14 >= v13 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v10 > 1), v11 + 1, 1);
-        v2 = v18;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v13 > 1), v14 + 1, 1);
+        v2 = v22;
       }
 
-      v2[2] = (v11 + 1);
-      v12 = &v2[4 * v11];
-      v12[4] = v6;
-      v12[5] = v7;
-      v12[6] = v8;
-      *(v12 + 56) = v9;
+      v2[2] = (v14 + 1);
+      v15 = &v2[4 * v14];
+      v15[4] = v9;
+      v15[5] = v10;
+      v15[6] = v11;
+      *(v15 + 56) = v12;
       v4 += 40;
       --v1;
     }
@@ -6549,28 +6733,28 @@ __objc2_class **specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
 
 __objc2_class **specialized _arrayForceCast<A, B>(_:)(uint64_t a1, Class *a2)
 {
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v8 = (&v15[-1] - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v4 = MEMORY[0x1EEE9AC00](a1, a2);
+  v8 = (v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   v9 = *(v4 + 16);
   if (v9)
   {
-    v17 = &_swiftEmptyArrayStorage;
+    v20 = &_swiftEmptyArrayStorage;
     v10 = type metadata accessor for ContiguousArray(0, a2, v5, v6);
     ContiguousArray.reserveCapacity(_:)(v9);
     v11 = a1 + 32;
     do
     {
-      outlined init with copy of MirrorPath(v11, v16);
-      _ss9CodingKey_pWOb_0(v16, v15);
+      outlined init with copy of MirrorPath(v11, v19);
+      _ss9CodingKey_pWOb_0(v19, v18);
       v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss9CodingKey_pMd, _ss9CodingKey_pMR);
-      swift_dynamicCast(v8, v15, v12, a2, 7uLL);
+      swift_dynamicCast(v8, v18, v12, a2, 7uLL, v13, v14, v15, v17);
       ContiguousArray.append(_:)(v8, v10);
       v11 += 40;
       --v9;
     }
 
     while (v9);
-    return v17;
+    return v20;
   }
 
   else
@@ -6580,108 +6764,108 @@ __objc2_class **specialized _arrayForceCast<A, B>(_:)(uint64_t a1, Class *a2)
   }
 }
 
-__objc2_class **_arrayForceCast<A, B>(_:)(unint64_t a1, uint64_t *a2)
+__objc2_class **_arrayForceCast<A, B>(_:)(unint64_t a1, unint64_t *a2)
 {
   v3 = a1;
   v4 = *(a2 - 1);
   v5 = *(v4 + 64);
-  v6 = MEMORY[0x1EEE9AC00](a1);
-  v7 = &v32 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = MEMORY[0x1EEE9AC00](v6);
-  v10 = &v32 - v9;
-  v37 = v11;
-  MEMORY[0x1EEE9AC00](v8);
-  v13 = &v32 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (_swift_isClassOrObjCExistentialType(v14, v14) && _swift_isClassOrObjCExistentialType(v37, v37))
+  v6 = MEMORY[0x1EEE9AC00](a1, a2);
+  v7 = &v34 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x1EEE9AC00](v6, v8);
+  v11 = &v34 - v10;
+  v39 = v12;
+  MEMORY[0x1EEE9AC00](v9, v13);
+  v15 = &v34 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (_swift_isClassOrObjCExistentialType(v16, v16) && _swift_isClassOrObjCExistentialType(v39, v39))
   {
-    v15 = v3;
-    v16 = _ArrayBuffer.requestNativeBuffer()(v15, a2);
-    if (v16)
+    v17 = v3;
+    v18 = _ArrayBuffer.requestNativeBuffer()(v17, a2);
+    if (v18)
     {
-      v17 = v16;
-      v18 = _ContiguousArrayBuffer.storesOnlyElementsOfType<A>(_:)(v16, v16, a2, v37);
-      v17;
-      if ((v18 & 1) == 0)
+      v19 = v18;
+      v20 = _ContiguousArrayBuffer.storesOnlyElementsOfType<A>(_:)(v18, v18, a2, v39);
+      v19;
+      if ((v20 & 1) == 0)
       {
         isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType(a2, a2);
-        v20 = v3 & 0xFFFFFFFFFFFFFF8;
+        v22 = v3 & 0xFFFFFFFFFFFFFF8;
         if (!isClassOrObjCExistentialType)
         {
-          v20 = v3;
+          v22 = v3;
         }
 
-        return (v20 | 1);
+        return (v22 | 1);
       }
     }
 
     else
     {
       v3;
-      v30 = Array._bridgeToObjectiveCImpl()(v3, a2);
-      return (~(v30 >> 1) & 0x4000000000000000 | v30);
+      v32 = Array._bridgeToObjectiveCImpl()(v3, a2);
+      return (~(v32 >> 1) & 0x4000000000000000 | v32);
     }
   }
 
   else
   {
-    v21 = Array._getCount()();
-    if (v21)
+    v23 = Array._getCount()();
+    if (v23)
     {
-      v24 = v21;
-      v39 = &_swiftEmptyArrayStorage;
-      v35 = type metadata accessor for ContiguousArray(0, v37, v22, v23);
-      ContiguousArray.reserveCapacity(_:)(v24);
-      if (v24 < 0)
+      v26 = v23;
+      v41 = &_swiftEmptyArrayStorage;
+      v37 = type metadata accessor for ContiguousArray(0, v39, v24, v25);
+      ContiguousArray.reserveCapacity(_:)(v26);
+      if (v26 < 0)
       {
         _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
       }
 
-      v36 = v24;
-      v33 = v5;
-      v25 = 0;
-      v34 = v3 & 0xC000000000000001;
+      v38 = v26;
+      v35 = v5;
+      v27 = 0;
+      v36 = v3 & 0xC000000000000001;
       do
       {
-        v26 = v34 == 0;
-        v27 = v26 | ~_swift_isClassOrObjCExistentialType(a2, a2);
-        Array._checkSubscript(_:wasNativeTypeChecked:)(v25, v27 & 1);
-        if (v27)
+        v28 = v36 == 0;
+        v29 = v28 | ~_swift_isClassOrObjCExistentialType(a2, a2);
+        Array._checkSubscript(_:wasNativeTypeChecked:)(v27, v29 & 1);
+        if (v29)
         {
-          (*(v4 + 16))(v10, v3 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v25, a2);
+          (*(v4 + 16))(v11, v3 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v27, a2);
         }
 
         else
         {
-          v28 = _ArrayBuffer._getElementSlowPath(_:)(v25, v3, a2);
-          if (v33 != 8)
+          v30 = _ArrayBuffer._getElementSlowPath(_:)(v27, v3, a2);
+          if (v35 != 8)
           {
             _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
           }
 
-          v38 = v28;
-          v29 = v28;
-          (*(v4 + 16))(v10, &v38, a2);
-          swift_unknownObjectRelease(v29);
+          v40 = v30;
+          v31 = v30;
+          (*(v4 + 16))(v11, &v40, a2);
+          swift_unknownObjectRelease(v31);
         }
 
-        ++v25;
-        (*(v4 + 32))(v7, v10, a2);
-        swift_dynamicCast(v13, v7, a2, v37, 7);
-        ContiguousArray.append(_:)(v13, v35);
+        ++v27;
+        (*(v4 + 32))(v7, v11, a2);
+        swift_dynamicCast(v15, v7, a2, v39, 7uLL);
+        ContiguousArray.append(_:)(v15, v37);
       }
 
-      while (v36 != v25);
-      if (v36 != Array._getCount()())
+      while (v38 != v27);
+      if (v38 != Array._getCount()())
       {
         _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
       }
 
-      return v39;
+      return v41;
     }
 
     else
     {
-      _swift_isClassOrObjCExistentialType(v37, v37);
+      _swift_isClassOrObjCExistentialType(v39, v39);
       return &_swiftEmptyArrayStorage;
     }
   }
@@ -6689,73 +6873,73 @@ __objc2_class **_arrayForceCast<A, B>(_:)(unint64_t a1, uint64_t *a2)
   return v3;
 }
 
-uint64_t _ContiguousArrayBuffer.storesOnlyElementsOfType<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t _ContiguousArrayBuffer.storesOnlyElementsOfType<A>(_:)(uint64_t a1, uint64_t a2, Class *a3, Class *a4)
 {
   v7 = *(a4 - 1);
-  v8 = MEMORY[0x1EEE9AC00](a1);
-  v10 = &v35 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = MEMORY[0x1EEE9AC00](a1, a2);
+  v10 = &v37 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = *(v11 - 8);
-  v13 = MEMORY[0x1EEE9AC00](v8);
-  v15 = &v35 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x1EEE9AC00](v13);
-  v18 = &v35 - v17;
-  v20 = (*(*v19 + 136))(v16);
-  if (swift_dynamicCastMetatype(v20, a4))
+  v14 = MEMORY[0x1EEE9AC00](v8, v13);
+  v16 = &v37 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = MEMORY[0x1EEE9AC00](v14, v17);
+  v20 = &v37 - v19;
+  v22 = (*(*v21 + 136))(v18);
+  if (swift_dynamicCastMetatype(v22, a4))
   {
     return 1;
   }
 
-  v22 = *(a2 + 16);
-  if (!v22)
+  v24 = *(a2 + 16);
+  if (!v24)
   {
     return 1;
   }
 
-  v41 = v15;
-  v42 = a3;
-  v23 = 0;
-  v26 = *(v12 + 16);
-  v25 = v12 + 16;
-  v24 = v26;
-  v27 = v7;
-  v28 = a2 + ((*(v25 + 64) + 32) & ~*(v25 + 64));
-  v39 = *(v25 + 56);
-  v40 = (v25 + 16);
-  v38 = (v27 + 8);
-  v29 = v25;
-  v30 = a3;
+  v43 = v16;
+  v44 = a3;
+  v25 = 0;
+  v28 = *(v12 + 16);
+  v27 = v12 + 16;
+  v26 = v28;
+  v29 = v7;
+  v30 = a2 + ((*(v27 + 64) + 32) & ~*(v27 + 64));
+  v41 = *(v27 + 56);
+  v42 = (v27 + 16);
+  v40 = (v29 + 8);
+  v31 = v27;
+  v32 = a3;
   do
   {
-    v31 = v10;
-    v32 = v24;
-    v24(v18, v28, v30);
-    if (v23 >= v22)
+    v33 = v10;
+    v34 = v26;
+    v26(v20, v30, v32);
+    if (v25 >= v24)
     {
       _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
     }
 
-    v36 = v29;
-    v37 = v32;
-    v33 = v41;
-    (*v40)(v41, v18, v30);
-    v10 = v31;
-    result = swift_dynamicCast(v31, v33, v30, a4, 6);
+    v38 = v31;
+    v39 = v34;
+    v35 = v43;
+    (*v42)(v43, v20, v32);
+    v10 = v33;
+    result = swift_dynamicCast(v33, v35, v32, a4, 6uLL);
     if ((result & 1) == 0)
     {
       break;
     }
 
-    ++v23;
-    v34 = result;
-    (*v38)(v31, a4);
-    result = v34;
-    v22 = *(a2 + 16);
-    v28 += v39;
-    v29 = v36;
-    v24 = v37;
+    ++v25;
+    v36 = result;
+    (*v40)(v33, a4);
+    result = v36;
+    v24 = *(a2 + 16);
+    v30 += v41;
+    v31 = v38;
+    v26 = v39;
   }
 
-  while (v23 != v22);
+  while (v25 != v24);
   return result;
 }
 
@@ -6821,7 +7005,7 @@ LABEL_24:
 
     v13 = v12;
     v14 = validateUTF8(_:)(v10, v12);
-    if (v14 < 0)
+    if ((v14 & 0x8000000000000000) != 0)
     {
       v18 = repairUTF8(_:firstKnownBrokenRange:)(v10, v13, v15, v16);
     }
@@ -6854,7 +7038,7 @@ LABEL_24:
   return &_swiftEmptyArrayStorage;
 }
 
-uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSnySiG_SSs5NeverOTg5(void (*a1)(__objc2_class **__return_ptr, uint64_t *), uint64_t a2, uint64_t a3, uint64_t a4)
+__objc2_class **_sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSnySiG_SSs5NeverOTg5(void (*a1)(__objc2_class **__return_ptr, uint64_t *), uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = a4 - a3;
   if (__OFSUB__(a4, a3))
@@ -6935,7 +7119,7 @@ LABEL_17:
   return result;
 }
 
-BOOL _swift_arrayDownCastConditionalIndirect(unint64_t *a1, __objc2_class ***a2, uint64_t *a3, uint64_t a4)
+BOOL _swift_arrayDownCastConditionalIndirect(unint64_t *a1, __objc2_class ***a2, unint64_t *a3, Class *a4)
 {
   v7 = *a1;
   v8 = *a1;
@@ -6949,106 +7133,106 @@ BOOL _swift_arrayDownCastConditionalIndirect(unint64_t *a1, __objc2_class ***a2,
   return v10 != 0;
 }
 
-__objc2_class **_arrayConditionalCast<A, B>(_:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+__objc2_class **_arrayConditionalCast<A, B>(_:)(unint64_t a1, unint64_t *a2, Class *a3, uint64_t a4)
 {
   v7 = type metadata accessor for Optional(0, a3, a3, a4);
-  v39 = *(v7 - 8);
-  v40 = v7;
-  v8 = MEMORY[0x1EEE9AC00](v7);
-  v50 = &v38 - v9;
-  v10 = *(a3 - 8);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v48 = &v38 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = MEMORY[0x1EEE9AC00](v11);
-  v47 = &v38 - v14;
-  v51 = *(a2 - 1);
-  v15 = MEMORY[0x1EEE9AC00](v13);
-  v49 = &v38 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v38 = v16;
-  MEMORY[0x1EEE9AC00](v15);
-  v18 = &v38 - v17;
-  v53 = &_swiftEmptyArrayStorage;
-  v19 = Array._getCount()();
-  v46 = type metadata accessor for ContiguousArray(0, a3, v20, v21);
-  ContiguousArray.reserveCapacity(_:)(v19);
-  v45 = Array._getCount()();
-  if (!v45)
+  v44 = *(v7 - 8);
+  v45 = v7;
+  v9 = MEMORY[0x1EEE9AC00](v7, v8);
+  v55 = &v43 - v10;
+  v11 = *(a3 - 1);
+  v13 = MEMORY[0x1EEE9AC00](v9, v12);
+  v53 = &v43 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = MEMORY[0x1EEE9AC00](v13, v15);
+  v52 = &v43 - v17;
+  v56 = *(a2 - 1);
+  v19 = MEMORY[0x1EEE9AC00](v16, v18);
+  v54 = &v43 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v43 = v20;
+  MEMORY[0x1EEE9AC00](v19, v21);
+  v23 = &v43 - v22;
+  v58 = &_swiftEmptyArrayStorage;
+  v24 = Array._getCount()();
+  v51 = type metadata accessor for ContiguousArray(0, a3, v25, v26);
+  ContiguousArray.reserveCapacity(_:)(v24);
+  v50 = Array._getCount()();
+  if (!v50)
   {
-    return v53;
+    return v58;
   }
 
-  v22 = 0;
-  v43 = (v51 + 16);
-  v44 = a1 & 0xC000000000000001;
-  v41 = (v10 + 56);
-  v42 = (v51 + 32);
-  v23 = (v10 + 32);
-  v24 = v47;
+  v27 = 0;
+  v48 = (v56 + 16);
+  v49 = a1 & 0xC000000000000001;
+  v46 = (v11 + 56);
+  v47 = (v56 + 32);
+  v28 = (v11 + 32);
+  v29 = v52;
   while (1)
   {
-    v25 = v44 == 0;
-    v26 = v25 | ~_swift_isClassOrObjCExistentialType(a2, a2);
-    Array._checkSubscript(_:wasNativeTypeChecked:)(v22, v26 & 1);
-    if (v26)
+    v30 = v49 == 0;
+    v31 = v30 | ~_swift_isClassOrObjCExistentialType(a2, a2);
+    Array._checkSubscript(_:wasNativeTypeChecked:)(v27, v31 & 1);
+    if (v31)
     {
-      v27 = a1;
-      (*(v51 + 16))(v18, a1 + ((*(v51 + 80) + 32) & ~*(v51 + 80)) + *(v51 + 72) * v22, a2);
+      v32 = a1;
+      (*(v56 + 16))(v23, a1 + ((*(v56 + 80) + 32) & ~*(v56 + 80)) + *(v56 + 72) * v27, a2);
     }
 
     else
     {
-      v35 = _ArrayBuffer._getElementSlowPath(_:)(v22, a1, a2);
-      if (v38 != 8)
+      v40 = _ArrayBuffer._getElementSlowPath(_:)(v27, a1, a2);
+      if (v43 != 8)
       {
         goto LABEL_16;
       }
 
-      v27 = a1;
-      v52 = v35;
-      v36 = v35;
-      (*v43)(v18, &v52, a2);
-      swift_unknownObjectRelease(v36);
+      v32 = a1;
+      v57 = v40;
+      v41 = v40;
+      (*v48)(v23, &v57, a2);
+      swift_unknownObjectRelease(v41);
     }
 
-    v28 = v22 + 1;
-    v29 = v50;
-    if (__OFADD__(v22, 1))
+    v33 = v27 + 1;
+    v34 = v55;
+    if (__OFADD__(v27, 1))
     {
       __break(1u);
 LABEL_16:
       _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
     }
 
-    v30 = v49;
-    (*v42)(v49, v18, a2);
-    if ((swift_dynamicCast(v29, v30, a2, a3, 6) & 1) == 0)
+    v35 = v54;
+    (*v47)(v54, v23, a2);
+    if ((swift_dynamicCast(v34, v35, a2, a3, 6uLL) & 1) == 0)
     {
       break;
     }
 
-    (*v41)(v29, 0, 1, a3);
-    v31 = v29;
-    v32 = *v23;
-    (*v23)(v24, v31, a3);
-    v33 = v48;
-    v32(v48, v24, a3);
-    ContiguousArray.append(_:)(v33, v46);
-    ++v22;
-    v34 = v28 == v45;
-    a1 = v27;
-    if (v34)
+    (*v46)(v34, 0, 1, a3);
+    v36 = v34;
+    v37 = *v28;
+    (*v28)(v29, v36, a3);
+    v38 = v53;
+    v37(v53, v29, a3);
+    ContiguousArray.append(_:)(v38, v51);
+    ++v27;
+    v39 = v33 == v50;
+    a1 = v32;
+    if (v39)
     {
-      return v53;
+      return v58;
     }
   }
 
-  v53;
-  (*v41)(v29, 1, 1, a3);
-  (*(v39 + 8))(v29, v40);
+  v58;
+  (*v46)(v34, 1, 1, a3);
+  (*(v44 + 8))(v34, v45);
   return 0;
 }
 
-__objc2_class **specialized ContiguousArray.reserveCapacity(_:)(int64_t a1)
+__objc2_class **specialized ContiguousArray.reserveCapacity(_:)(uint64_t a1)
 {
   v3 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native(*v1);
@@ -7241,13 +7425,12 @@ unint64_t specialized Array._checkSubscript(_:wasNativeTypeChecked:)(unint64_t r
   return result;
 }
 
+void specialized Array._checkSubscript(_:wasNativeTypeChecked:)(unint64_t a1, char a2, uint64_t a3)
 {
-  if ((a2 & 1) != 0 && ((result & 0x8000000000000000) != 0 || *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10) <= result))
+  if ((a2 & 1) != 0 && ((a1 & 0x8000000000000000) != 0 || *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10) <= a1))
   {
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
-
-  return result;
 }
 
 void __swiftcall Array._checkSubscript(_:wasNativeTypeChecked:)(Swift::Int _, Swift::Bool wasNativeTypeChecked)
@@ -7275,14 +7458,12 @@ LABEL_7:
   }
 }
 
-unint64_t specialized Array._checkSubscript_mutating(_:)(unint64_t result, uint64_t a2)
+void specialized Array._checkSubscript_mutating(_:)(unint64_t a1, uint64_t a2)
 {
-  if ((result & 0x8000000000000000) != 0 || *((a2 & 0xFFFFFFFFFFFFFF8) + 0x10) <= result)
+  if ((a1 & 0x8000000000000000) != 0 || *((a2 & 0xFFFFFFFFFFFFFF8) + 0x10) <= a1)
   {
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
-
-  return result;
 }
 
 Swift::Void __swiftcall ContiguousArray._checkSubscript_mutating(_:)(Swift::Int a1)
@@ -7315,19 +7496,19 @@ LABEL_5:
   }
 }
 
-uint64_t specialized Array._checkIndex(_:)(uint64_t result, uint64_t a2)
+void specialized Array._checkIndex(_:)(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62)
   {
     v2 = (a2 & 0xFFFFFFFFFFFFFF8);
-    if (a2 < 0)
+    if ((a2 & 0x8000000000000000) != 0)
     {
       v2 = a2;
     }
 
-    v3 = result;
+    v3 = a1;
     v4 = [v2 count];
-    result = v3;
+    a1 = v3;
     if (v4 < v3)
     {
 LABEL_8:
@@ -7335,17 +7516,15 @@ LABEL_8:
     }
   }
 
-  else if (*((a2 & 0xFFFFFFFFFFFFFF8) + 0x10) < result)
+  else if (*((a2 & 0xFFFFFFFFFFFFFF8) + 0x10) < a1)
   {
     goto LABEL_8;
   }
 
-  if (result < 0)
+  if (a1 < 0)
   {
     goto LABEL_8;
   }
-
-  return result;
 }
 
 Swift::Void __swiftcall Array._checkIndex(_:)(Swift::Int a1)
@@ -7356,7 +7535,7 @@ Swift::Void __swiftcall Array._checkIndex(_:)(Swift::Int a1)
   }
 }
 
-void Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(unint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X8>)
+void Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(unint64_t a1@<X0>, char a2@<W1>, unint64_t a3@<X2>, unint64_t *a4@<X3>, uint64_t a5@<X8>)
 {
   if (a2)
   {
@@ -7383,7 +7562,7 @@ void Array._getElement(_:wasNativeTypeChecked:matchingSubscriptCheck:)(unint64_t
   }
 }
 
-unint64_t Array._getElementAddress(_:)(uint64_t a1, uint64_t a2, uint64_t *a3)
+unint64_t Array._getElementAddress(_:)(uint64_t a1, uint64_t a2, unint64_t *a3)
 {
   if (_swift_isClassOrObjCExistentialType(a3, a3))
   {
@@ -7398,7 +7577,7 @@ unint64_t Array._getElementAddress(_:)(uint64_t a1, uint64_t a2, uint64_t *a3)
   return v6 + ((*(*(a3 - 1) + 80) + 32) & ~*(*(a3 - 1) + 80)) + *(*(a3 - 1) + 72) * a1;
 }
 
-void *Array._owner.getter(int64_t a1, uint64_t *a2)
+void *Array._owner.getter(int64_t a1, unint64_t *a2)
 {
   if (_swift_isClassOrObjCExistentialType(a2, a2) && (a1 < 0 || (a1 & 0x4000000000000000) != 0))
   {
@@ -7433,7 +7612,7 @@ void *Array._owner.getter(int64_t a1, uint64_t *a2)
   return v4;
 }
 
-unint64_t Array._baseAddressIfContiguous.getter(uint64_t a1, uint64_t *a2)
+unint64_t Array._baseAddressIfContiguous.getter(uint64_t a1, unint64_t *a2)
 {
   if (!_swift_isClassOrObjCExistentialType(a2, a2) || (result = 0, (a1 & 0x8000000000000000) == 0) && (a1 & 0x4000000000000000) == 0)
   {
@@ -7492,12 +7671,12 @@ unint64_t protocol witness for _ArrayProtocol._baseAddressIfContiguous.getter in
   return result;
 }
 
-uint64_t protocol witness for _ArrayProtocol.init(_:) in conformance [A]@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
+uint64_t protocol witness for _ArrayProtocol.init(_:) in conformance [A]@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>, uint64_t a4@<X2>, uint64_t a5@<X3>)
 {
-  v7 = type metadata accessor for _ArrayBuffer(0, *(a2 + 16), a3, a4);
+  v7 = type metadata accessor for _ArrayBuffer(0, *(a2 + 16), a4, a5);
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _ArrayBuffer<A>, v7, v8);
   result = Array.init<A>(_:)(a1, v10, v7, WitnessTable);
-  *a5 = result;
+  *a3 = result;
   return result;
 }
 
@@ -7606,7 +7785,7 @@ Swift::Int __swiftcall Array.distance(from:to:)(Swift::Int from, Swift::Int to)
   return result;
 }
 
-void Array.subscript.getter(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+void Array.subscript.getter(unint64_t a1@<X0>, unint64_t a2@<X1>, unint64_t *a3@<X2>, uint64_t a4@<X8>)
 {
   isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType(a3, a3);
   v9 = ((a2 & 0xC000000000000001) == 0) | ~isClassOrObjCExistentialType;
@@ -7645,7 +7824,7 @@ uint64_t key path setter for Array.subscript(_:) : <A>[A]A(uint64_t a1, uint64_t
   return key path setter for Array.subscript(_:) : <A>[A]A(a1, a2, a3, a4, type metadata accessor for Array, Array.subscript.setter);
 }
 
-uint64_t (*Array.subscript.modify(uint64_t a1, Swift::Int a2, uint64_t a3))()
+void (*Array.subscript.modify(uint64_t a1, Swift::Int a2, uint64_t a3))()
 {
   Array._makeMutableAndUnique()();
   v5 = *(a3 + 16);
@@ -7674,7 +7853,7 @@ uint64_t Array.subscript.setter(uint64_t a1, Swift::Int a2, uint64_t a3)
   return v12(v13, a1, v8);
 }
 
-uint64_t Array.subscript.getter(Swift::Int a1, Swift::Int a2, int64_t a3, uint64_t *a4)
+uint64_t Array.subscript.getter(Swift::Int a1, Swift::Int a2, int64_t a3, unint64_t *a4)
 {
   Array._checkIndex(_:)(a1);
   Array._checkIndex(_:)(a2);
@@ -7953,29 +8132,29 @@ uint64_t Array.replaceSubrange<A>(_:with:)(uint64_t a1, Swift::Int a2, uint64_t 
 {
   v7 = v6;
   v12 = *(a4 + 16);
-  v94 = *(v12 - 1);
-  MEMORY[0x1EEE9AC00](a1);
-  v14 = &v87 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v95 = v15;
+  v97 = *(v12 - 1);
+  MEMORY[0x1EEE9AC00](a1, a2);
+  v14 = &v90 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v98 = v15;
   swift_getAssociatedTypeWitness(0, v16, v15, &protocol requirements base descriptor for Collection, associated type descriptor for Collection.Index);
   v18 = v17;
   v19 = *(v17 - 8);
-  v20 = MEMORY[0x1EEE9AC00](v17);
-  v91 = &v87 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v20);
-  v104 = &v87 - v22;
+  v21 = MEMORY[0x1EEE9AC00](v17, v20);
+  v94 = &v90 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v21, v23);
+  v107 = &v90 - v24;
   if (a1 < 0)
   {
-    LODWORD(v85) = 0;
-    v84 = 1842;
+    LODWORD(v88) = 0;
+    v87 = 1842;
     LOBYTE(WitnessTable) = 2;
     goto LABEL_59;
   }
 
   if (Array._getCount()() < a2)
   {
-    LODWORD(v85) = 0;
-    v84 = 1845;
+    LODWORD(v88) = 0;
+    v87 = 1845;
     LOBYTE(WitnessTable) = 2;
 LABEL_59:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
@@ -7987,172 +8166,172 @@ LABEL_59:
     goto LABEL_61;
   }
 
-  v102 = a2;
-  v103 = a1;
-  v23 = *(a6 + 112);
-  v93 = a3;
-  v24 = a2 - a1;
-  v25 = v23(v95, a6);
-  v26 = v25 - (a2 - a1);
-  if (__OFSUB__(v25, a2 - a1))
+  v105 = a2;
+  v106 = a1;
+  v25 = *(a6 + 112);
+  v96 = a3;
+  v26 = a2 - a1;
+  v27 = v25(v98, a6);
+  v28 = v27 - (a2 - a1);
+  if (__OFSUB__(v27, a2 - a1))
   {
 LABEL_61:
     __break(1u);
     goto LABEL_62;
   }
 
-  v27 = v25;
-  v89 = v19;
-  v90 = v18;
-  v28 = Array._getCount()();
-  v31 = v28 + v26;
-  if (__OFADD__(v28, v26))
+  v29 = v27;
+  v92 = v19;
+  v93 = v18;
+  v30 = Array._getCount()();
+  v33 = v30 + v28;
+  if (__OFADD__(v30, v28))
   {
 LABEL_62:
     __break(1u);
     goto LABEL_63;
   }
 
-  v32 = v26;
-  v88 = v14;
-  v101 = type metadata accessor for _ArrayBuffer(0, v12, v29, v30);
-  v33 = _ArrayBuffer.beginCOWMutation()();
-  if (!v33)
+  v34 = v28;
+  v91 = v14;
+  v104 = type metadata accessor for _ArrayBuffer(0, v12, v31, v32);
+  v35 = _ArrayBuffer.beginCOWMutation()();
+  if (!v35)
   {
     goto LABEL_11;
   }
 
-  v34 = *v7;
+  v36 = *v7;
   isClassOrObjCExistentialType = _swift_isClassOrObjCExistentialType(v12, v12);
-  v36 = v34 & 0xFFFFFFFFFFFFFF8;
+  v38 = v36 & 0xFFFFFFFFFFFFFF8;
   if (!isClassOrObjCExistentialType)
   {
-    v36 = v34;
+    v38 = v36;
   }
 
-  if (v31 <= *(v36 + 24) >> 1)
+  if (v33 <= *(v38 + 24) >> 1)
   {
-    v37 = v34 & 0xFFFFFFFFFFFFFF8;
+    v39 = v36 & 0xFFFFFFFFFFFFFF8;
   }
 
   else
   {
 LABEL_11:
-    v38 = *v7;
-    if (_swift_isClassOrObjCExistentialType(v12, v12) && (v38 < 0 || (v38 & 0x4000000000000000) != 0))
+    v40 = *v7;
+    if (_swift_isClassOrObjCExistentialType(v12, v12) && (v40 < 0 || (v40 & 0x4000000000000000) != 0))
     {
-      if (v38 < 0)
+      if (v40 < 0)
       {
-        v82 = v38;
+        v85 = v40;
       }
 
       else
       {
-        v82 = (v38 & 0xFFFFFFFFFFFFFF8);
+        v85 = (v40 & 0xFFFFFFFFFFFFFF8);
       }
 
-      v41 = [v82 count];
+      v43 = [v85 count];
     }
 
     else
     {
-      v39 = _swift_isClassOrObjCExistentialType(v12, v12);
-      v40 = v38 & 0xFFFFFFFFFFFFFF8;
-      if (!v39)
+      v41 = _swift_isClassOrObjCExistentialType(v12, v12);
+      v42 = v40 & 0xFFFFFFFFFFFFFF8;
+      if (!v41)
       {
-        v40 = v38;
+        v42 = v40;
       }
 
-      v41 = *(v40 + 16);
+      v43 = *(v42 + 16);
     }
 
-    if (v41 <= v31)
+    if (v43 <= v33)
     {
-      v42 = v31;
+      v44 = v33;
     }
 
     else
     {
-      v42 = v41;
+      v44 = v43;
     }
 
-    v34 = _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v33, v42, 1, v38, v12);
-    *v7 = v34;
-    v37 = v34 & 0xFFFFFFFFFFFFFF8;
+    v36 = _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v35, v44, 1, v40, v12);
+    *v7 = v36;
+    v39 = v36 & 0xFFFFFFFFFFFFFF8;
   }
 
   if (_swift_isClassOrObjCExistentialType(v12, v12))
   {
-    v43 = v37;
+    v45 = v39;
   }
 
   else
   {
-    v43 = v34;
+    v45 = v36;
   }
 
-  if (v24 < 0)
+  if (v26 < 0)
   {
 LABEL_63:
-    LODWORD(v85) = 0;
-    v84 = 1183;
+    LODWORD(v88) = 0;
+    v87 = 1183;
     LOBYTE(WitnessTable) = 2;
     _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v44 = v37;
-  v45 = v27;
-  v46 = (v43 + ((*(v94 + 80) + 32) & ~*(v94 + 80)));
-  v47 = *(v94 + 72);
-  v48 = v46 + v47 * v103;
-  v103 = v47 * v45;
-  v92 = (v48 + v47 * v45);
-  swift_arrayDestroy(v48, v24, v12);
-  v50 = v93;
-  if (!v32)
+  v46 = v39;
+  v47 = v29;
+  v48 = (v45 + ((*(v97 + 80) + 32) & ~*(v97 + 80)));
+  v49 = *(v97 + 72);
+  v50 = v48 + v49 * v106;
+  v106 = v49 * v47;
+  v95 = (v50 + v49 * v47);
+  swift_arrayDestroy(v50, v26, v12);
+  v53 = v96;
+  if (!v34)
   {
     goto LABEL_45;
   }
 
-  if (_swift_isClassOrObjCExistentialType(v12, v12) && (v34 < 0 || (v34 & 0x4000000000000000) != 0))
+  if (_swift_isClassOrObjCExistentialType(v12, v12) && (v36 < 0 || (v36 & 0x4000000000000000) != 0))
   {
     goto LABEL_66;
   }
 
   if (_swift_isClassOrObjCExistentialType(v12, v12))
   {
-    v51 = v44;
+    v54 = v46;
   }
 
   else
   {
-    v51 = v34;
+    v54 = v36;
   }
 
-  for (i = *(v51 + 16); ; i = [v79 count])
+  for (i = *(v54 + 16); ; i = [v82 count])
   {
-    if (__OFSUB__(i, v102))
+    if (__OFSUB__(i, v105))
     {
       __break(1u);
       goto LABEL_65;
     }
 
-    UnsafeMutablePointer.moveInitialize(from:count:)(v46 + v47 * v102, i - v102, v92, v12);
+    UnsafeMutablePointer.moveInitialize(from:count:)(v48 + v49 * v105, i - v105, v95, v12);
 
-    v46 = v12;
+    v48 = v12;
     if (_swift_isClassOrObjCExistentialType(v12, v12))
     {
-      v53 = v44;
+      v56 = v46;
     }
 
     else
     {
-      v53 = v34;
+      v56 = v36;
     }
 
-    v54 = *(v53 + 16);
-    v12 = (v54 + v32);
-    if (!__OFADD__(v54, v32))
+    v57 = *(v56 + 16);
+    v12 = (v57 + v34);
+    if (!__OFADD__(v57, v34))
     {
       goto LABEL_41;
     }
@@ -8160,135 +8339,135 @@ LABEL_63:
 LABEL_65:
     __break(1u);
 LABEL_66:
-    if (v34 < 0)
+    if (v36 < 0)
     {
-      v79 = v34;
+      v82 = v36;
     }
 
     else
     {
-      v79 = v44;
+      v82 = v46;
     }
   }
 
-  v46 = v12;
-  if (v34 < 0)
+  v48 = v12;
+  if (v36 < 0)
   {
-    v80 = v34;
+    v83 = v36;
   }
 
   else
   {
-    v80 = v44;
+    v83 = v46;
   }
 
-  v81 = [v80 count];
-  v12 = &v81[v32];
-  if (__OFADD__(v81, v32))
+  v84 = [v83 count];
+  v12 = &v84[v34];
+  if (__OFADD__(v84, v34))
   {
     __break(1u);
     goto LABEL_76;
   }
 
 LABEL_41:
-  v49 = _swift_isClassOrObjCExistentialType(v46, v46);
-  if (v49)
+  v51 = _swift_isClassOrObjCExistentialType(v48, v48);
+  if (v51)
   {
-    v55 = v44;
+    v58 = v46;
   }
 
   else
   {
-    v55 = v34;
+    v58 = v36;
   }
 
-  *(v55 + 16) = v12;
-  v12 = v46;
+  *(v58 + 16) = v12;
+  v12 = v48;
 LABEL_45:
-  if (v45 <= 0)
+  if (v47 <= 0)
   {
-    v78 = *(*(v95 - 1) + 8);
+    v81 = *(*(v98 - 1) + 1);
 
-    return v78(v50);
+    return v81(v53);
   }
 
   else
   {
-    v102 = v47;
-    MEMORY[0x1EEE9AC00](v49);
-    v56 = v101;
-    v57 = v95;
-    *(&v87 - 6) = v101;
-    *(&v87 - 5) = v57;
-    WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _ArrayBuffer<A>, v56, v58);
-    v84 = a6;
-    v85 = v45;
-    v86 = v48;
-    (*(*(a6 + 8) + 72))(v105, closure #1 in _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)partial apply, &v87 - 8, &unk_1EEEAC658, v57);
-    if (v105[0])
+    v105 = v49;
+    MEMORY[0x1EEE9AC00](v51, v52);
+    v59 = v104;
+    v60 = v98;
+    *(&v90 - 6) = v104;
+    *(&v90 - 5) = v60;
+    WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _ArrayBuffer<A>, v59, v61);
+    v87 = a6;
+    v88 = v47;
+    v89 = v50;
+    (*(*(a6 + 8) + 72))(v108, closure #1 in _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)partial apply, &v90 - 8, &unk_1EEEAC658, v60);
+    if (v108[0])
     {
-      (*(a6 + 64))(v57, a6);
-      v59 = v103 < 1;
-      v103 = a6;
-      v101 = v12;
-      v60 = v88;
-      v61 = v92;
-      if (!v59)
+      (*(a6 + 64))(v60, a6);
+      v62 = v106 < 1;
+      v106 = a6;
+      v104 = v12;
+      v63 = v91;
+      v64 = v95;
+      if (!v62)
       {
-        v99 = *(v103 + 80);
-        v100 = v103 + 80;
-        v97 = *(v103 + 192);
-        v98 = v103 + 192;
-        v96 = (v94 + 16);
-        v62 = (v94 + 32);
-        v63 = v103;
+        v102 = *(v106 + 80);
+        v103 = v106 + 80;
+        v100 = *(v106 + 192);
+        v101 = v106 + 192;
+        v99 = (v97 + 16);
+        v65 = (v97 + 32);
+        v66 = v106;
         do
         {
-          v64 = v57;
-          v65 = v50;
-          v66 = v104;
-          v67 = v99(v105, v104, v64, v63);
-          v68 = v101;
-          (*v96)(v60);
-          v67(v105, 0);
-          (*v62)(v48, v60, v68);
-          v48 += v102;
-          v69 = v66;
-          v50 = v65;
-          v57 = v64;
-          v97(v69, v64, v63);
+          v67 = v60;
+          v68 = v53;
+          v69 = v107;
+          v70 = v102(v108, v107, v67, v66);
+          v71 = v104;
+          (*v99)(v63);
+          v70(v108, 0);
+          (*v65)(v50, v63, v71);
+          v50 += v105;
+          v72 = v69;
+          v53 = v68;
+          v60 = v67;
+          v100(v72, v67, v66);
         }
 
-        while (v48 < v61);
+        while (v50 < v64);
       }
 
-      v70 = v103;
-      v71 = v91;
-      (*(v103 + 72))(v57, v103);
-      v72 = v90;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v70, v57, v90, &protocol requirements base descriptor for Collection, associated conformance descriptor for Collection.Collection.Index: Comparable);
-      v74 = v104;
-      v75 = (*(*(AssociatedConformanceWitness + 8) + 8))(v104, v71, v72);
-      v76 = *(v89 + 8);
-      v76(v71, v72);
-      if (v75)
+      v73 = v106;
+      v74 = v94;
+      (*(v106 + 72))(v60, v106);
+      v75 = v93;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v73, v60, v93, &protocol requirements base descriptor for Collection, associated conformance descriptor for Collection.Collection.Index: Comparable);
+      v77 = v107;
+      v78 = (*(*(AssociatedConformanceWitness + 8) + 8))(v107, v74, v75);
+      v79 = *(v92 + 8);
+      v79(v74, v75);
+      if (v78)
       {
-        (*(*(v57 - 1) + 8))(v50, v57);
-        return (v76)(v74, v72);
+        (*(*(v60 - 1) + 8))(v53, v60);
+        return (v79)(v77, v75);
       }
 
 LABEL_76:
-      LODWORD(v85) = 0;
-      v84 = 173;
+      LODWORD(v88) = 0;
+      v87 = 173;
       LOBYTE(WitnessTable) = 2;
       _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
     }
 
-    return (*(*(v57 - 1) + 8))(v50, v57);
+    return (*(*(v60 - 1) + 8))(v53, v60);
   }
 }
 
-void (*Array.subscript.modify(uint64_t **a1, Swift::Int a2, Swift::Int a3, uint64_t a4))(void ***a1, char a2)
+void (*Array.subscript.modify(uint64_t **a1, Swift::Int a2, Swift::Int a3, uint64_t a4))(void ***a1, uint64_t a2)
 {
   if (swift_coroFrameAlloc)
   {
@@ -8317,7 +8496,7 @@ void (*Array.subscript.modify(uint64_t **a1, Swift::Int a2, Swift::Int a3, uint6
   return Array.subscript.modify;
 }
 
-uint64_t protocol witness for MutableCollection.subscript.setter in conformance [A](uint64_t a1, Swift::Int *a2, uint64_t a3)
+void protocol witness for MutableCollection.subscript.setter in conformance [A](uint64_t a1, Swift::Int *a2, uint64_t a3)
 {
   v6 = *a2;
   Array._makeMutableAndUnique()();
@@ -8333,7 +8512,7 @@ uint64_t protocol witness for MutableCollection.subscript.setter in conformance 
 
   (*(*(v8 - 1) + 40))(v10 + ((*(*(v8 - 1) + 80) + 32) & ~*(*(v8 - 1) + 80)) + *(*(v8 - 1) + 72) * v6, a1, v8);
 
-  return _swift_displayCrashMessage();
+  _swift_displayCrashMessage();
 }
 
 uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance [A](void *a1, Swift::Int *a2, uint64_t a3))()
@@ -8353,7 +8532,7 @@ uint64_t (*protocol witness for MutableCollection.subscript.modify in conformanc
   return protocol witness for MutableCollection.subscript.modify in conformance ArraySlice<A>;
 }
 
-void (*protocol witness for MutableCollection.subscript.modify in conformance [A](uint64_t **a1, Swift::Int *a2, uint64_t a3))(void ***a1, char a2)
+void (*protocol witness for MutableCollection.subscript.modify in conformance [A](uint64_t **a1, Swift::Int *a2, uint64_t a3))(void ***a1, uint64_t a2)
 {
   if (swift_coroFrameAlloc)
   {
@@ -8501,7 +8680,7 @@ Swift::Int protocol witness for Collection.endIndex.getter in conformance [A]@<X
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance [A](void *a1, unint64_t *a2, uint64_t a3))()
+uint64_t (*protocol witness for Collection.subscript.read in conformance [A](unint64_t **a1, unint64_t *a2, uint64_t a3))()
 {
   if (swift_coroFrameAlloc)
   {
@@ -8518,7 +8697,7 @@ uint64_t (*protocol witness for Collection.subscript.read in conformance [A](voi
   return protocol witness for Collection.subscript.read in conformance _ArrayBuffer<A>;
 }
 
-void (*Array.subscript.read(void *a1, unint64_t a2, uint64_t a3, uint64_t *a4))(void *a1)
+void (*Array.subscript.read(unint64_t *a1, unint64_t a2, unint64_t a3, unint64_t *a4))(void *a1)
 {
   v8 = *(a4 - 1);
   v9 = v8;
@@ -8580,11 +8759,11 @@ uint64_t protocol witness for Collection.subscript.getter in conformance [A]@<X0
   return result;
 }
 
-uint64_t protocol witness for Collection.indices.getter in conformance [A]@<X0>(unint64_t a1@<X0>, uint64_t a2@<X2>, char *a3@<X8>)
+uint64_t protocol witness for Collection.indices.getter in conformance [A]@<X0>(unsigned __int16 *a1@<X0>, char *a2@<X8>, uint64_t a3@<X2>)
 {
-  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for [A], a1, a2);
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for [A], a1, a3);
 
-  return RandomAccessCollection<>.indices.getter(a1, WitnessTable, &protocol witness table for Int, a3);
+  return RandomAccessCollection<>.indices.getter(a1, WitnessTable, &protocol witness table for Int, a2);
 }
 
 void *protocol witness for Collection.index(after:) in conformance _Int128.Words@<X0>(void *result@<X0>, void *a2@<X8>)
@@ -8617,18 +8796,18 @@ void *protocol witness for Collection.formIndex(after:) in conformance _Int128.W
   return result;
 }
 
-uint64_t protocol witness for Sequence.underestimatedCount.getter in conformance [A](unint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t protocol witness for Sequence.underestimatedCount.getter in conformance [A](unsigned __int16 *a1, uint64_t a2, uint64_t a3)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for [A], a1, a3);
 
   return Collection.underestimatedCount.getter(a1, WitnessTable);
 }
 
-unint64_t Array._copyContents(initializing:)(char *a1, Swift::Int a2, unint64_t a3, uint64_t *a4)
+unint64_t Array._copyContents(initializing:)(char *a1, Swift::Int a2, unint64_t a3, unint64_t *a4)
 {
   v7 = a1;
   v8 = *(a4 - 1);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v10 = v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (Array._getCount()())
   {
@@ -8705,7 +8884,7 @@ LABEL_14:
   return a3;
 }
 
-uint64_t Array.withContiguousStorageIfAvailable<A>(_:)@<X0>(uint64_t (*a1)(void, void)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+uint64_t Array.withContiguousStorageIfAvailable<A>(_:)@<X0>(uint64_t (*a1)(void, void)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
   v20 = a4;
   v21 = a5;
@@ -8775,7 +8954,7 @@ uint64_t Array.withContiguousStorageIfAvailable<A>(_:)@<X0>(uint64_t (*a1)(void,
   return result;
 }
 
-__objc2_class **_sSa9repeating5countSayxGx_SitcfCSi_Tt1g5Tm(unint64_t a1, unint64_t a2)
+__objc2_class **_sSa9repeating5countSayxGx_SitcfCSi_Tt1g5Tm(__objc2_class *a1, unint64_t a2)
 {
   if ((a2 & 0x8000000000000000) != 0)
   {
@@ -8789,7 +8968,7 @@ __objc2_class **_sSa9repeating5countSayxGx_SitcfCSi_Tt1g5Tm(unint64_t a1, unint6
 
   result = _sSa28_allocateBufferUninitialized15minimumCapacitys06_ArrayB0VyxGSi_tFZSi_Tt0g5(a2);
   result[2] = a2;
-  v5 = (result + 4);
+  v5 = result + 4;
   if (a2 <= 3)
   {
     v6 = 0;
@@ -8808,13 +8987,13 @@ LABEL_9:
   v6 = a2 & 0x7FFFFFFFFFFFFFFCLL;
   v5 += a2 & 0x7FFFFFFFFFFFFFFCLL;
   v7 = vdupq_n_s64(a1);
-  v8 = (result + 6);
+  v8 = result + 6;
   v9 = a2 & 0x7FFFFFFFFFFFFFFCLL;
   do
   {
-    v8[-1] = v7;
+    *(v8 - 1) = v7;
     *v8 = v7;
-    v8 += 2;
+    v8 += 4;
     v9 -= 4;
   }
 
@@ -8861,7 +9040,7 @@ __objc2_class **_sSa22_allocateUninitializedySayxG_SpyxGtSiFZyXl_Tt0g5(uint64_t 
   return result;
 }
 
-uint64_t static Array._allocateUninitialized(_:)(uint64_t a1, uint64_t *a2)
+uint64_t static Array._allocateUninitialized(_:)(uint64_t a1, unint64_t *a2)
 {
   if (a1 < 0)
   {
@@ -8913,7 +9092,7 @@ __objc2_class **_sSa28_allocateBufferUninitialized15minimumCapacitys06_ArrayB0Vy
     return &_swiftEmptyArrayStorage;
   }
 
-  v2 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<Swift.AnyObject>();
+  v2 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<Swift.AnyObject>(0);
   v3 = swift_allocObject(v2, (8 * a1 + 32), 7uLL);
   v4 = _swift_stdlib_malloc_size(v3);
   result = v3;
@@ -8954,7 +9133,7 @@ __objc2_class **_sSa28_allocateBufferUninitialized15minimumCapacitys06_ArrayB0Vy
   return result;
 }
 
-__objc2_class **Array.init(_uninitializedCount:)(uint64_t a1, uint64_t *a2)
+__objc2_class **Array.init(_uninitializedCount:)(uint64_t a1, unint64_t *a2)
 {
   if (a1 < 0)
   {
@@ -9165,7 +9344,7 @@ Swift::Void __swiftcall Array._copyToNewBuffer(oldCount:)(Swift::Int oldCount)
   v9;
 }
 
-__objc2_class **_ArrayBufferProtocol._forceCreateUniqueMutableBuffer(countForNewBuffer:minNewCapacity:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+__objc2_class **_ArrayBufferProtocol._forceCreateUniqueMutableBuffer(countForNewBuffer:minNewCapacity:)(uint64_t a1, uint64_t a2, Class *a3, uint64_t a4)
 {
   v8 = *(a4 + 144);
   v9 = v8(a3, a4);
@@ -9226,7 +9405,7 @@ LABEL_21:
   return v18;
 }
 
-uint64_t (*default argument 3 of _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:)(uint64_t a1, uint64_t a2))()
+void (*default argument 3 of _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:)(uint64_t a1, uint64_t a2))()
 {
   v4 = swift_allocObject(&unk_1EEEBE9B8, 0x20, 7uLL);
   v4[2] = a1;
@@ -9234,123 +9413,123 @@ uint64_t (*default argument 3 of _ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_
   return _swift_displayCrashMessage;
 }
 
-void *_ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:)(atomic_ullong **a1, uint64_t a2, uint64_t a3, void (*a4)(char *, uint64_t), uint64_t a5, unint64_t a6, uint64_t a7)
+void *_ArrayBufferProtocol._arrayOutOfPlaceUpdate(_:_:_:_:)(uint64_t *a1, uint64_t a2, uint64_t a3, void (*a4)(char *, uint64_t), uint64_t a5, Class *a6, uint64_t a7)
 {
-  v82 = *(a6 - 8);
-  v15 = MEMORY[0x1EEE9AC00](a1);
-  v70 = &v69 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v71 = &v69 - v17;
-  v19 = *(*(v18 + 8) + 8);
-  v20 = *(v19 + 112);
-  v83 = v7;
-  v22 = v20(v21, v19);
-  v23 = *a1;
-  v24 = (*a1)[2];
-  v25 = __OFSUB__(v24, a2);
-  v26 = v24 - a2;
-  if (v25)
+  v83 = *(a6 - 1);
+  v15 = MEMORY[0x1EEE9AC00](a1, a2);
+  v71 = &v70 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15, v17);
+  v72 = &v70 - v18;
+  v20 = *(*(v19 + 8) + 8);
+  v21 = *(v20 + 112);
+  v84 = v7;
+  v23 = v21(v22, v20);
+  v24 = *a1;
+  v25 = *(*a1 + 16);
+  v26 = __OFSUB__(v25, a2);
+  v27 = v25 - a2;
+  if (v26)
   {
     __break(1u);
     goto LABEL_27;
   }
 
-  v27 = v26 - a3;
-  if (__OFSUB__(v26, a3))
+  v28 = v27 - a3;
+  if (__OFSUB__(v27, a3))
   {
 LABEL_27:
     __break(1u);
     goto LABEL_28;
   }
 
-  v28 = v22;
-  v29 = v22 - a2;
-  if (__OFSUB__(v22, a2))
+  v29 = v23;
+  v30 = v23 - a2;
+  if (__OFSUB__(v23, a2))
   {
 LABEL_28:
     __break(1u);
     goto LABEL_29;
   }
 
-  v25 = __OFSUB__(v29, v27);
-  v30 = v29 - v27;
-  if (v25)
+  v26 = __OFSUB__(v30, v28);
+  v31 = v30 - v28;
+  if (v26)
   {
 LABEL_29:
     __break(1u);
     goto LABEL_30;
   }
 
-  v80 = v30;
-  v77 = a5;
-  v78 = a4;
-  swift_getAssociatedTypeWitness(0, *(v19 + 8), a6, &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Element);
-  v32 = v31;
-  v33 = *(v31 - 1);
-  v34 = (*(v33 + 80) + 32) & ~*(v33 + 80);
-  v74 = v23;
-  v35 = v23 + v34;
-  v36 = *(v33 + 72);
-  v37 = a3;
-  v38 = v36 * a2;
-  v79 = v35;
-  v76 = v37;
-  v72 = &v35[v36 * a2];
-  v73 = v28;
-  v75 = &v72[v36 * v37];
-  v39 = v28;
-  v40 = v83;
-  v41 = (*(a7 + 56))(v39, a6, a7);
-  v42 = a7;
-  v81 = a7;
-  if (v41)
+  v81 = v31;
+  v78 = a5;
+  v79 = a4;
+  swift_getAssociatedTypeWitness(0, *(v20 + 8), a6, &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Element);
+  v33 = v32;
+  v34 = *(v32 - 1);
+  v35 = (*(v34 + 80) + 32) & ~*(v34 + 80);
+  v75 = v24;
+  v36 = (v24 + v35);
+  v37 = *(v34 + 72);
+  v38 = a3;
+  v39 = v37 * a2;
+  v80 = v36;
+  v77 = v38;
+  v73 = &v36[v37 * a2];
+  v74 = v29;
+  v76 = &v73[v37 * v38];
+  v40 = v29;
+  v41 = v84;
+  v42 = (*(a7 + 56))(v40, a6, a7);
+  v43 = a7;
+  v82 = a7;
+  if (v42)
   {
-    v43 = v41;
-    v71 = v27;
-    v44 = (*(v42 + 160))(a6);
-    if (v36)
+    v44 = v42;
+    v72 = v28;
+    v45 = (*(v43 + 160))(a6);
+    if (v37)
     {
-      v45 = v44;
-      v46 = v43 + v34;
-      v47 = v44 - v46;
-      if (v44 - v46 != 0x8000000000000000 || v36 != -1)
+      v46 = v45;
+      v47 = v44 + v35;
+      v48 = v45 - v47;
+      if (v45 - v47 != 0x8000000000000000 || v37 != -1)
       {
-        if (v47 / v36 < 0)
+        if (v48 / v37 < 0)
         {
           goto LABEL_25;
         }
 
-        swift_arrayDestroy(v46, v47 / v36, v32);
-        UnsafeMutablePointer.moveInitialize(from:count:)(v45, a2, v79, v32);
-        if (v80 < 0)
+        swift_arrayDestroy(v47, v48 / v37, v33);
+        UnsafeMutablePointer.moveInitialize(from:count:)(v46, a2, v80, v33);
+        if (v81 < 0)
         {
           goto LABEL_25;
         }
 
-        v49 = &v45[v38];
-        v50 = &v45[v38];
-        v51 = v80;
-        swift_arrayDestroy(v50, v80, v32);
-        v78(v72, v76);
-        UnsafeMutablePointer.moveInitialize(from:count:)(&v49[v36 * v51], v71, v75, v32);
-        v52 = &v45[v36 * v73];
-        v53 = v46 + *(v43 + 16) * v36 - v52;
-        if (v53 != 0x8000000000000000 || v36 != -1)
+        v50 = &v46[v39];
+        v51 = &v46[v39];
+        v52 = v81;
+        swift_arrayDestroy(v51, v81, v33);
+        v79(v73, v77);
+        UnsafeMutablePointer.moveInitialize(from:count:)(&v50[v37 * v52], v72, v76, v33);
+        v53 = &v46[v37 * v74];
+        v54 = v47 + *(v44 + 16) * v37 - v53;
+        if (v54 != 0x8000000000000000 || v37 != -1)
         {
-          if (((v53 / v36) & 0x8000000000000000) == 0)
+          if (((v54 / v37) & 0x8000000000000000) == 0)
           {
-            swift_arrayDestroy(v52, v53 / v36, v32);
-            *(v43 + 16) = 0;
-            v43;
-            v55 = *(v19 + 64);
-            v56 = v81;
+            swift_arrayDestroy(v53, v54 / v37, v33);
+            *(v44 + 16) = 0;
+            v44;
+            v56 = *(v20 + 64);
+            v57 = v82;
 LABEL_24:
-            v67 = v74;
-            v74;
-            v68 = v83;
-            v55(&v84, a6, v19);
-            (*(v82 + 8))(v68, a6);
-            return (*(v56 + 32))(v67, v84, a6, v56);
+            v68 = v75;
+            v75;
+            v69 = v84;
+            v56(&v85, a6, v20);
+            (*(v83 + 8))(v69, a6);
+            return (*(v57 + 32))(v68, v85, a6, v57);
           }
 
 LABEL_25:
@@ -9362,43 +9541,43 @@ LABEL_25:
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v55 = *(v19 + 64);
-  result = (v55)(&v84, a6, v19);
-  v58 = v84;
-  v59 = v84 + a2;
-  if (__OFADD__(v84, a2))
+  v56 = *(v20 + 64);
+  result = (v56)(&v85, a6, v20);
+  v59 = v85;
+  v60 = v85 + a2;
+  if (__OFADD__(v85, a2))
   {
     __break(1u);
   }
 
   else
   {
-    v73 = v19;
-    v60 = *(v82 + 16);
-    v60(v71, v40, a6);
-    if (v59 < v58)
+    v74 = v20;
+    v61 = *(v83 + 16);
+    v61(v72, v41, a6);
+    if (v60 < v59)
     {
       goto LABEL_30;
     }
 
-    v61 = *(v81 + 48);
-    v62 = v61(v58, v59, v79, a6);
-    result = (v78)(v62, v76);
-    v25 = __OFADD__(v59, v80);
-    v63 = v59 + v80;
-    if (!v25)
+    v62 = *(v82 + 48);
+    v63 = v62(v59, v60, v80, a6);
+    result = (v79)(v63, v77);
+    v26 = __OFADD__(v60, v81);
+    v64 = v60 + v81;
+    if (!v26)
     {
-      v80 = v61;
-      v64 = v83;
-      (*(v73 + 72))(&v84, a6);
+      v81 = v62;
       v65 = v84;
-      v60(v70, v64, a6);
-      if (v65 >= v63)
+      (*(v74 + 72))(&v85, a6);
+      v66 = v85;
+      v61(v71, v65, a6);
+      if (v66 >= v64)
       {
-        v66 = v63;
-        v56 = v81;
-        (v80)(v66, v65, v75, a6, v81);
-        v19 = v73;
+        v67 = v64;
+        v57 = v82;
+        (v81)(v67, v66, v76, a6, v82);
+        v20 = v74;
         goto LABEL_24;
       }
 
@@ -9420,6 +9599,21 @@ uint64_t specialized Array._makeUniqueAndReserveCapacityIfNotUnique()()
   return specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:));
 }
 
+uint64_t specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(uint64_t (*a1)(uint64_t, uint64_t, uint64_t, uint64_t))
+{
+  v3 = *v1;
+  result = swift_isUniquelyReferenced_nonNull_native(*v1);
+  *v1 = v3;
+  if (!result)
+  {
+    result = a1(result, *(v3 + 16) + 1, 1, v3);
+    *v1 = result;
+  }
+
+  return result;
+}
+
+unint64_t specialized Array._makeUniqueAndReserveCapacityIfNotUnique()()
 {
   v1 = *v0;
   result = swift_isUniquelyReferenced_nonNull_bridgeObject(*v0);
@@ -9448,20 +9642,6 @@ uint64_t specialized Array._makeUniqueAndReserveCapacityIfNotUnique()()
 
     result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3 + 1, 1, v1);
     *v0 = result;
-  }
-
-  return result;
-}
-
-uint64_t specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(uint64_t (*a1)(uint64_t, uint64_t, uint64_t, uint64_t))
-{
-  v3 = *v1;
-  result = swift_isUniquelyReferenced_nonNull_native(*v1);
-  *v1 = v3;
-  if (!result)
-  {
-    result = a1(result, *(v3 + 16) + 1, 1, v3);
-    *v1 = result;
   }
 
   return result;
@@ -9572,30 +9752,30 @@ uint64_t Array._appendElementAssumeUniqueAndCapacity(_:newElement:)(uint64_t a1,
   return v12(v13, a2, v8);
 }
 
-__objc2_class **specialized Array.append(_:)(uint64_t a1, uint64_t a2)
+__objc2_class **specialized Array.append(_:)(__objc2_class *a1, __objc2_class *a2)
 {
   v5 = *v2;
   result = swift_isUniquelyReferenced_nonNull_native(*v2);
   *v2 = v5;
   if ((result & 1) == 0)
   {
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v5 + 16) + 1, 1, v5);
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, &v5[2]->isa + 1, 1, v5);
     v5 = result;
     *v2 = result;
   }
 
-  v8 = *(v5 + 16);
-  v7 = *(v5 + 24);
+  v8 = v5[2];
+  v7 = v5[3];
   if (v8 >= v7 >> 1)
   {
     result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v7 > 1), v8 + 1, 1, v5);
     v5 = result;
   }
 
-  *(v5 + 16) = v8 + 1;
-  v9 = v5 + 16 * v8;
-  *(v9 + 32) = a1;
-  *(v9 + 40) = a2;
+  v5[2] = (v8 + 1);
+  v9 = &v5[2 * v8];
+  v9[4] = a1;
+  v9[5] = a2;
   *v2 = v5;
   return result;
 }

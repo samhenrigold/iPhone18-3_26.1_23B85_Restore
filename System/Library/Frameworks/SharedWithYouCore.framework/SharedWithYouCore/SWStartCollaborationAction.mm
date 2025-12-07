@@ -54,17 +54,17 @@
 
 - (SWStartCollaborationAction)initWithCoder:(id)coder
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v14.receiver = self;
-  v14.super_class = SWStartCollaborationAction;
-  v5 = [(SWAction *)&v14 initWithCoder:coderCopy];
+  v13.receiver = self;
+  v13.super_class = SWStartCollaborationAction;
+  v5 = [(SWAction *)&v13 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v15[0] = objc_opt_class();
-    v15[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+    v14[0] = objc_opt_class();
+    v14[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = NSStringFromSelector(sel_collaborationMetadata);
     v10 = [coderCopy decodeObjectOfClasses:v8 forKey:v9];
@@ -72,7 +72,6 @@
     v5->_collaborationMetadata = v10;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -144,24 +143,24 @@ LABEL_11:
 
 - (SWStartCollaborationAction)initWithDestinationAction:(id)action
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   actionCopy = action;
   info = [actionCopy info];
   v6 = [info objectForSetting:2];
 
   v7 = MEMORY[0x1E696ACD0];
   v8 = MEMORY[0x1E695DFD8];
-  v18[0] = objc_opt_class();
-  v18[1] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[0] = objc_opt_class();
+  v17[1] = objc_opt_class();
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
   v10 = [v8 setWithArray:v9];
   v11 = [v7 unarchivedObjectOfClasses:v10 fromData:v6 error:0];
 
   if (v11)
   {
-    v17.receiver = self;
-    v17.super_class = SWStartCollaborationAction;
-    v12 = [(SWAction *)&v17 initWithDestinationAction:actionCopy];
+    v16.receiver = self;
+    v16.super_class = SWStartCollaborationAction;
+    v12 = [(SWAction *)&v16 initWithDestinationAction:actionCopy];
     v13 = v12;
     if (v12)
     {
@@ -177,7 +176,6 @@ LABEL_11:
     selfCopy = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

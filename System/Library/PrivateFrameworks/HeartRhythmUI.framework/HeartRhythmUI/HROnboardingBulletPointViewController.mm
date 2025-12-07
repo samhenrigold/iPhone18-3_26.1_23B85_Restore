@@ -476,29 +476,29 @@
 
 - (NSString)titleString
 {
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0();
+  v2 = OUTLINED_FUNCTION_1_0(self, a2);
+  OUTLINED_FUNCTION_0_0(v2);
   return &stru_2864680B0;
 }
 
 - (NSString)bodyString
 {
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0();
+  v2 = OUTLINED_FUNCTION_1_0(self, a2);
+  OUTLINED_FUNCTION_0_0(v2);
   return 0;
 }
 
 - (NSArray)bulletPoints
 {
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0();
+  v2 = OUTLINED_FUNCTION_1_0(self, a2);
+  OUTLINED_FUNCTION_0_0(v2);
   return MEMORY[0x277CBEBF8];
 }
 
 - (NSString)buttonTitleString
 {
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0();
+  v2 = OUTLINED_FUNCTION_1_0(self, a2);
+  OUTLINED_FUNCTION_0_0(v2);
   return &stru_2864680B0;
 }
 

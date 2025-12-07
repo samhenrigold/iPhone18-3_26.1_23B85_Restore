@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (LSSSubscriber)init;
 - (id)lightSourceForTime:(double)time;
+- (id)subscribeOnQueue:(id)queue options:(unsigned int)options activityLevelChangeHandler:(id)handler;
 - (void)_changeActivityLevel:(unsigned __int8)level;
 - (void)client:(id)client recievedUpdate:(id)update;
 - (void)clientInvalidated:(id)invalidated;
@@ -54,6 +55,104 @@ uint64_t __31__LSSSubscriber_sharedInstance__block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
+- (id)subscribeOnQueue:(id)queue options:(unsigned int)options activityLevelChangeHandler:(id)handler
+{
+  v6 = *&options;
+  v35 = *MEMORY[0x277D85DE8];
+  queueCopy = queue;
+  handlerCopy = handler;
+  if (qword_280D2F550 != -1)
+  {
+    [LSSSubscriber subscribeOnQueue:options:activityLevelChangeHandler:];
+  }
+
+  v10 = qword_280D2F548;
+  if (os_log_type_enabled(qword_280D2F548, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v34 = v6;
+    _os_log_impl(&dword_255E8B000, v10, OS_LOG_TYPE_DEFAULT, "adding subscription. options: %u", buf, 8u);
+  }
+
+  v11 = objc_opt_new();
+  [v11 setSubscriber:self];
+  [v11 setActivityHandler:handlerCopy];
+  [v11 setQueue:queueCopy];
+  [v11 setOptions:v6];
+  os_unfair_lock_lock(&self->_lock);
+  if (!self->_client)
+  {
+    v12 = [[LSSXPCClient alloc] initWithDelegate:?];
+    client = self->_client;
+    self->_client = v12;
+  }
+
+  activityHandler = [v11 activityHandler];
+  v15 = activityHandler == 0;
+
+  if (!v15)
+  {
+    idling = self->_idling;
+    queue = [v11 queue];
+    if (idling)
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v18 = 2;
+    }
+
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __69__LSSSubscriber_subscribeOnQueue_options_activityLevelChangeHandler___block_invoke;
+    block[3] = &unk_279812848;
+    v30 = v11;
+    v31 = v18;
+    dispatch_async(queue, block);
+  }
+
+  [(NSMutableSet *)self->_subscriptions addObject:v11];
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v19 = self->_subscriptions;
+  v20 = 0;
+  v21 = [(NSMutableSet *)v19 countByEnumeratingWithState:&v25 objects:v32 count:16];
+  if (v21)
+  {
+    v22 = *v26;
+    do
+    {
+      for (i = 0; i != v21; ++i)
+      {
+        if (*v26 != v22)
+        {
+          objc_enumerationMutation(v19);
+        }
+
+        v20 |= [*(*(&v25 + 1) + 8 * i) options];
+      }
+
+      v21 = [(NSMutableSet *)v19 countByEnumeratingWithState:&v25 objects:v32 count:16];
+    }
+
+    while (v21);
+  }
+
+  [(LSSXPCClient *)self->_client setOptions:v20];
+  if (![(NSMutableSet *)self->_subscriptions count])
+  {
+    __assert_rtn("[LSSSubscriber subscribeOnQueue:options:activityLevelChangeHandler:]", "LSSSubscriber.m", 114, "[_subscriptions count] > 0");
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
+
+  return v11;
+}
+
 void __69__LSSSubscriber_subscribeOnQueue_options_activityLevelChangeHandler___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) activityHandler];
@@ -62,7 +161,7 @@ void __69__LSSSubscriber_subscribeOnQueue_options_activityLevelChangeHandler___b
 
 - (void)unsubscribe:(id)unsubscribe
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   unsubscribeCopy = unsubscribe;
   if (qword_280D2F550 != -1)
   {
@@ -79,8 +178,8 @@ void __69__LSSSubscriber_subscribeOnQueue_options_activityLevelChangeHandler___b
   os_unfair_lock_lock(&self->_lock);
   if (![(NSMutableSet *)self->_subscriptions count])
   {
-    v14 = "[_subscriptions count] > 0";
-    v15 = 124;
+    v13 = "[_subscriptions count] > 0";
+    v14 = 124;
     goto LABEL_24;
   }
 
@@ -89,29 +188,29 @@ void __69__LSSSubscriber_subscribeOnQueue_options_activityLevelChangeHandler___b
   {
     if (self->_client)
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       v6 = self->_subscriptions;
       v7 = 0;
-      v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
       if (v8)
       {
-        v9 = *v17;
+        v9 = *v16;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v17 != v9)
+            if (*v16 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v7 |= [*(*(&v16 + 1) + 8 * i) options];
+            v7 |= [*(*(&v15 + 1) + 8 * i) options];
           }
 
-          v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
+          v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v15 objects:v20 count:16];
         }
 
         while (v8);
@@ -121,10 +220,10 @@ void __69__LSSSubscriber_subscribeOnQueue_options_activityLevelChangeHandler___b
       goto LABEL_21;
     }
 
-    v14 = "_client != nil";
-    v15 = 131;
+    v13 = "_client != nil";
+    v14 = 131;
 LABEL_24:
-    __assert_rtn("[LSSSubscriber unsubscribe:]", "LSSSubscriber.m", v15, v14);
+    __assert_rtn("[LSSSubscriber unsubscribe:]", "LSSSubscriber.m", v14, v13);
   }
 
   if (qword_280D2F550 != -1)
@@ -145,13 +244,11 @@ LABEL_24:
 
 LABEL_21:
   os_unfair_lock_unlock(&self->_lock);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientInvalidated:(id)invalidated
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   invalidatedCopy = invalidated;
   if (qword_280D2F550 != -1)
   {
@@ -172,28 +269,28 @@ LABEL_21:
     __assert_rtn("[LSSSubscriber clientInvalidated:]", "LSSSubscriber.m", 145, "client == _client || _client == nil");
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v7 = self->_subscriptions;
-  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v8)
   {
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v12 + 1) + 8 * i) setSubscriber:{0, v12}];
+        [*(*(&v11 + 1) + 8 * i) setSubscriber:{0, v11}];
       }
 
-      v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v8);
@@ -201,27 +298,25 @@ LABEL_21:
 
   [(NSMutableSet *)self->_subscriptions removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)client:(id)client recievedUpdate:(id)update
 {
   var0 = update.var0;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   os_unfair_lock_lock(&self->_lock);
   events = self->_events;
   v8 = *(*&var0 + 48);
-  v17[2] = *(*&var0 + 32);
-  v17[3] = v8;
+  v16[2] = *(*&var0 + 32);
+  v16[3] = v8;
   v9 = *(*&var0 + 80);
-  v17[4] = *(*&var0 + 64);
-  v17[5] = v9;
+  v16[4] = *(*&var0 + 64);
+  v16[5] = v9;
   v10 = *(*&var0 + 16);
-  v17[0] = **&var0;
-  v17[1] = v10;
-  [(LSSEventQueue *)events schedule:v17];
+  v16[0] = **&var0;
+  v16[1] = v10;
+  [(LSSEventQueue *)events schedule:v16];
   os_unfair_lock_unlock(&self->_lock);
   v11 = *(*&var0 + 84);
   idling = self->_idling;
@@ -235,8 +330,8 @@ LABEL_21:
     v13 = qword_280D2F548;
     if (os_log_type_enabled(qword_280D2F548, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17[0]) = 0;
-      _os_log_impl(&dword_255E8B000, v13, OS_LOG_TYPE_DEFAULT, "occasional", v17, 2u);
+      LOWORD(v16[0]) = 0;
+      _os_log_impl(&dword_255E8B000, v13, OS_LOG_TYPE_DEFAULT, "occasional", v16, 2u);
     }
 
     [(LSSSubscriber *)self _changeActivityLevel:1];
@@ -255,10 +350,10 @@ LABEL_21:
     v14 = qword_280D2F548;
     if (os_log_type_enabled(qword_280D2F548, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17[0]) = 0;
+      LOWORD(v16[0]) = 0;
       v15 = "active";
 LABEL_20:
-      _os_log_impl(&dword_255E8B000, v14, OS_LOG_TYPE_DEFAULT, v15, v17, 2u);
+      _os_log_impl(&dword_255E8B000, v14, OS_LOG_TYPE_DEFAULT, v15, v16, 2u);
     }
   }
 
@@ -274,41 +369,39 @@ LABEL_20:
     v14 = qword_280D2F548;
     if (os_log_type_enabled(qword_280D2F548, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17[0]) = 0;
+      LOWORD(v16[0]) = 0;
       v15 = "idle";
       goto LABEL_20;
     }
   }
 
 LABEL_21:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_changeActivityLevel:(unsigned __int8)level
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   selfCopy = self;
   v5 = self->_subscriptions;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         activityHandler = [v9 activityHandler];
         v11 = activityHandler == 0;
 
@@ -325,14 +418,13 @@ LABEL_21:
         }
       }
 
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __38__LSSSubscriber__changeActivityLevel___block_invoke(uint64_t a1)

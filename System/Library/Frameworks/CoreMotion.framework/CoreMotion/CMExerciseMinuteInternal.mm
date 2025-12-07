@@ -40,18 +40,17 @@
   self->fHandler = 0;
 
   self->fMostRecentRecord = 0;
-  fLocationdConnection = self->fLocationdConnection;
   sub_19B428B50(&__p, "kCLConnectionMessageExerciseMinuteUpdate");
   CLConnectionClient::setHandlerForMessage();
-  if (v6 < 0)
+  if (v5 < 0)
   {
     operator delete(__p);
   }
 
   if (self->fLocationdConnection)
   {
-    v4 = MEMORY[0x19EAE71C0]();
-    MEMORY[0x19EAE76F0](v4, 0xB0C40BC2CC919);
+    v3 = MEMORY[0x19EAE71C0]();
+    MEMORY[0x19EAE76F0](v3, 0xB0C40BC2CC919);
   }
 
   self->fLocationdConnection = 0;

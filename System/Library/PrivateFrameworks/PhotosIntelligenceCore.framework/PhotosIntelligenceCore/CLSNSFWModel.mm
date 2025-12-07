@@ -211,9 +211,7 @@ LABEL_25:
   underwearNode = self->_underwearNode;
   self->_underwearNode = v21;
 
-  v23 = [[CLSSignalNode alloc] initWithIdentifier:2147483391 name:@"NSFW - MU" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
-  maleUnderwearNode = self->_maleUnderwearNode;
-  self->_maleUnderwearNode = v23;
+  self->_maleUnderwearNode = [[CLSSignalNode alloc] initWithIdentifier:2147483391 name:@"NSFW - MU" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
 
   MEMORY[0x2821F96F8]();
 }
@@ -261,9 +259,7 @@ LABEL_25:
   underwearNode = self->_underwearNode;
   self->_underwearNode = v21;
 
-  v23 = [[CLSSignalNode alloc] initWithIdentifier:2147483391 name:@"NSFW - MU" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
-  maleUnderwearNode = self->_maleUnderwearNode;
-  self->_maleUnderwearNode = v23;
+  self->_maleUnderwearNode = [[CLSSignalNode alloc] initWithIdentifier:2147483391 name:@"NSFW - MU" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
 
   MEMORY[0x2821F96F8]();
 }
@@ -311,19 +307,17 @@ LABEL_25:
   underwearNode = self->_underwearNode;
   self->_underwearNode = v21;
 
-  v23 = [[CLSSignalNode alloc] initWithIdentifier:2147483391 name:@"NSFW - MU" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
-  maleUnderwearNode = self->_maleUnderwearNode;
-  self->_maleUnderwearNode = v23;
+  self->_maleUnderwearNode = [[CLSSignalNode alloc] initWithIdentifier:2147483391 name:@"NSFW - MU" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (CLSNSFWModel)initWithSceneAnalysisVersion:(unint64_t)version
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = CLSNSFWModel;
-  v4 = [(CLSNSFWModel *)&v9 init];
+  v13 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = CLSNSFWModel;
+  v4 = [(CLSNSFWModel *)&v8 init];
   v5 = v4;
   if (v4)
   {
@@ -343,12 +337,12 @@ LABEL_25:
             v6 = objc_opt_class();
             *buf = 67109378;
             versionCopy = version;
-            v12 = 2112;
-            v13 = v6;
+            v11 = 2112;
+            v12 = v6;
             _os_log_impl(&dword_25E5F0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unsupported version %d in %@", buf, 0x12u);
           }
 
-          v5 = 0;
+          return 0;
         }
       }
 
@@ -364,7 +358,6 @@ LABEL_25:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

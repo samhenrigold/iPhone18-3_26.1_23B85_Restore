@@ -24,15 +24,14 @@
 
 - (void)_queue_removeUnderlay
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   if (self->_underlay)
   {
-    v4 = sub_1000524BC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_1000524BC();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "_queue_removeUnderlay: Removing the underlay", v6, 2u);
+      *v5 = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "_queue_removeUnderlay: Removing the underlay", v5, 2u);
     }
 
     [(BKDisplayRenderOverlayManager *)self->_renderOverlayManager removeOverlay:self->_underlay withAnimationSettings:0];
@@ -43,47 +42,46 @@
 
 - (void)_queue_addUnderlay
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
-  v4 = +[BKSDefaults localDefaults];
-  hideAppleLogoOnLaunch = [v4 hideAppleLogoOnLaunch];
+  v3 = +[BKSDefaults localDefaults];
+  hideAppleLogoOnLaunch = [v3 hideAppleLogoOnLaunch];
 
   if (hideAppleLogoOnLaunch)
   {
-    v6 = sub_1000524BC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000524BC();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "addUnderlay: Not showing the boot UI underlay because we were told to hide it", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "addUnderlay: Not showing the boot UI underlay because we were told to hide it", buf, 2u);
     }
   }
 
   else
   {
     underlay = self->_underlay;
-    v8 = sub_1000524BC();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v7 = sub_1000524BC();
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
     if (underlay)
     {
-      if (v9)
+      if (v8)
       {
-        *v13 = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "addUnderlay: Underlay already in place", v13, 2u);
+        *v12 = 0;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "addUnderlay: Underlay already in place", v12, 2u);
       }
     }
 
     else
     {
-      if (v9)
+      if (v8)
       {
-        *v14 = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "addUnderlay:  Adding the underlay", v14, 2u);
+        *v13 = 0;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "addUnderlay:  Adding the underlay", v13, 2u);
       }
 
-      LODWORD(v10) = -1.0;
-      v11 = [(BKBootUIOverlayVendor *)self->_bootUIOverlayVendor currentOverlayWithLevel:v10];
-      v12 = self->_underlay;
-      self->_underlay = v11;
+      LODWORD(v9) = -1.0;
+      v10 = [(BKBootUIOverlayVendor *)self->_bootUIOverlayVendor currentOverlayWithLevel:v9];
+      v11 = self->_underlay;
+      self->_underlay = v10;
 
       [(BKDisplayRenderOverlayManager *)self->_renderOverlayManager applyOverlay:self->_underlay withAnimationSettings:0];
     }
@@ -93,35 +91,34 @@
 - (void)_queue_addOverlayForReason:(id)reason
 {
   reasonCopy = reason;
-  queue = self->_queue;
   BSDispatchQueueAssert();
   addOverlayGeneration = self->_addOverlayGeneration;
   if (addOverlayGeneration + 1 > 1)
   {
-    v8 = addOverlayGeneration + 1;
+    v7 = addOverlayGeneration + 1;
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
-  self->_addOverlayGeneration = v8;
-  v9 = +[BKSDefaults localDefaults];
-  hideAppleLogoOnLaunch = [v9 hideAppleLogoOnLaunch];
+  self->_addOverlayGeneration = v7;
+  v8 = +[BKSDefaults localDefaults];
+  hideAppleLogoOnLaunch = [v8 hideAppleLogoOnLaunch];
 
   if (hideAppleLogoOnLaunch)
   {
-    v11 = sub_1000524BC();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_1000524BC();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      *v21 = v8;
-      *&v21[4] = 2114;
-      *&v21[6] = reasonCopy;
-      v12 = "addOverlay(%d-%{public}@): Not showing the boot UI overlay because we were told to hide it";
+      *v20 = v7;
+      *&v20[4] = 2114;
+      *&v20[6] = reasonCopy;
+      v11 = "addOverlay(%d-%{public}@): Not showing the boot UI overlay because we were told to hide it";
 LABEL_10:
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v12, buf, 0x12u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v11, buf, 0x12u);
       goto LABEL_11;
     }
 
@@ -130,14 +127,14 @@ LABEL_10:
 
   if (self->_systemActivityAssertion)
   {
-    v11 = sub_1000524BC();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_1000524BC();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      *v21 = v8;
-      *&v21[4] = 2114;
-      *&v21[6] = reasonCopy;
-      v12 = "addOverlay(%d-%{public}@): Overlay pending or already in place";
+      *v20 = v7;
+      *&v20[4] = 2114;
+      *&v20[6] = reasonCopy;
+      v11 = "addOverlay(%d-%{public}@): Overlay pending or already in place";
       goto LABEL_10;
     }
 
@@ -148,41 +145,41 @@ LABEL_11:
 
   if (self->_overlay)
   {
-    v13 = [NSString stringWithFormat:@"overlay should have been removed"];
+    v12 = [NSString stringWithFormat:@"overlay should have been removed"];
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v14 = NSStringFromSelector(a2);
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
+      v13 = NSStringFromSelector(a2);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138544642;
-      *v21 = v14;
-      *&v21[8] = 2114;
-      *&v21[10] = v16;
-      v22 = 2048;
+      *v20 = v13;
+      *&v20[8] = 2114;
+      *&v20[10] = v15;
+      v21 = 2048;
       selfCopy = self;
-      v24 = 2114;
-      v25 = @"BKBootUIPresenter.m";
-      v26 = 1024;
-      v27 = 373;
-      v28 = 2114;
-      v29 = v13;
+      v23 = 2114;
+      v24 = @"BKBootUIPresenter.m";
+      v25 = 1024;
+      v26 = 373;
+      v27 = 2114;
+      v28 = v12;
       _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v13 UTF8String];
+    [v12 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x10009C7FCLL);
   }
 
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_10009C804;
-  v17[3] = &unk_1000FD260;
-  v17[4] = self;
-  v18 = reasonCopy;
-  v19 = v8;
-  [(BKBootUIPresenter *)self _queue_acquireActivityAssertionForReason:v18 generation:v8 continuation:v17];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_10009C804;
+  v16[3] = &unk_1000FD260;
+  v16[4] = self;
+  v17 = reasonCopy;
+  v18 = v7;
+  [(BKBootUIPresenter *)self _queue_acquireActivityAssertionForReason:v17 generation:v7 continuation:v16];
 
 LABEL_12:
 }
@@ -191,92 +188,90 @@ LABEL_12:
 {
   reasonCopy = reason;
   continuationCopy = continuation;
-  queue = self->_queue;
   BSDispatchQueueAssert();
-  v12 = [[SWSystemActivityAssertion alloc] initWithIdentifier:@"BKBootUIPresenter"];
-  if (!v12)
+  v11 = [[SWSystemActivityAssertion alloc] initWithIdentifier:@"BKBootUIPresenter"];
+  if (!v11)
   {
-    v21 = [NSString stringWithFormat:@"nil activity assertion"];
+    v20 = [NSString stringWithFormat:@"nil activity assertion"];
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v22 = NSStringFromSelector(a2);
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
+      v21 = NSStringFromSelector(a2);
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
       *buf = 138544642;
-      *v32 = v22;
-      *&v32[8] = 2114;
-      *&v32[10] = v24;
-      v33 = 2048;
+      *v31 = v21;
+      *&v31[8] = 2114;
+      *&v31[10] = v23;
+      v32 = 2048;
       selfCopy = self;
-      v35 = 2114;
-      v36 = @"BKBootUIPresenter.m";
-      v37 = 1024;
-      v38 = 339;
-      v39 = 2114;
-      v40 = v21;
+      v34 = 2114;
+      v35 = @"BKBootUIPresenter.m";
+      v36 = 1024;
+      v37 = 339;
+      v38 = 2114;
+      v39 = v20;
       _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v21 UTF8String];
+    [v20 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x10009CC70);
   }
 
-  v13 = v12;
-  v14 = sub_1000524BC();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v12 = v11;
+  v13 = sub_1000524BC();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    *v32 = generation;
-    *&v32[4] = 2114;
-    *&v32[6] = reasonCopy;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "addOverlay(%d-%{public}@): waiting for activity assertion", buf, 0x12u);
+    *v31 = generation;
+    *&v31[4] = 2114;
+    *&v31[6] = reasonCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "addOverlay(%d-%{public}@): waiting for activity assertion", buf, 0x12u);
   }
 
   BSContinuousMachTimeNow();
-  v16 = v15;
-  objc_storeStrong(&self->_systemActivityAssertion, v13);
+  v15 = v14;
+  objc_storeStrong(&self->_systemActivityAssertion, v12);
   systemActivityAssertion = self->_systemActivityAssertion;
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = sub_10009CC78;
-  v25[3] = &unk_1000FD210;
-  v30 = v16;
-  v28 = continuationCopy;
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10009CC78;
+  v24[3] = &unk_1000FD210;
+  v29 = v15;
+  v27 = continuationCopy;
   generationCopy = generation;
-  v26 = reasonCopy;
-  v27 = v13;
-  v18 = v13;
-  v19 = continuationCopy;
-  v20 = reasonCopy;
-  [(SWSystemActivityAssertion *)systemActivityAssertion acquireWithTimeout:v25 handler:16.0];
+  v25 = reasonCopy;
+  v26 = v12;
+  v17 = v12;
+  v18 = continuationCopy;
+  v19 = reasonCopy;
+  [(SWSystemActivityAssertion *)systemActivityAssertion acquireWithTimeout:v24 handler:16.0];
 }
 
 - (void)_queue_continueAddingOverlayForReason:(id)reason generation:(unint64_t)generation
 {
   generationCopy = generation;
   reasonCopy = reason;
-  queue = self->_queue;
   BSDispatchQueueAssert();
   systemActivityAssertion = self->_systemActivityAssertion;
-  v9 = sub_1000524BC();
-  v10 = v9;
+  v8 = sub_1000524BC();
+  v9 = v8;
   if (systemActivityAssertion)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 67109378;
-      v16 = generationCopy;
-      v17 = 2114;
-      v18 = reasonCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "addOverlay(%d-%{public}@): Adding the overlay", &v15, 0x12u);
+      v14 = 67109378;
+      v15 = generationCopy;
+      v16 = 2114;
+      v17 = reasonCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "addOverlay(%d-%{public}@): Adding the overlay", &v14, 0x12u);
     }
 
-    LODWORD(v11) = 1161523200;
-    v12 = [(BKBootUIOverlayVendor *)self->_bootUIOverlayVendor currentOverlayWithLevel:v11];
+    LODWORD(v10) = 1161523200;
+    v11 = [(BKBootUIOverlayVendor *)self->_bootUIOverlayVendor currentOverlayWithLevel:v10];
     overlay = self->_overlay;
-    self->_overlay = v12;
+    self->_overlay = v11;
 
     [(BKDisplayRenderOverlay *)self->_overlay setAnimates:1];
     descriptor = [(BKDisplayRenderOverlay *)self->_overlay descriptor];
@@ -287,13 +282,13 @@ LABEL_12:
 
   else
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v15 = 67109378;
-      v16 = generationCopy;
-      v17 = 2114;
-      v18 = reasonCopy;
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "addOverlay(%d-%{public}@): canceled adding overlay", &v15, 0x12u);
+      v14 = 67109378;
+      v15 = generationCopy;
+      v16 = 2114;
+      v17 = reasonCopy;
+      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "addOverlay(%d-%{public}@): canceled adding overlay", &v14, 0x12u);
     }
   }
 }
@@ -301,22 +296,21 @@ LABEL_12:
 - (void)_queue_removeOverlayWithAnimationSettings:(id)settings
 {
   settingsCopy = settings;
-  queue = self->_queue;
   BSDispatchQueueAssert();
   if (self->_systemActivityAssertion)
   {
-    v6 = sub_1000524BC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000524BC();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "removeOverlayWithAnimationSettings: Removing the overlay", v10, 2u);
+      *v9 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "removeOverlayWithAnimationSettings: Removing the overlay", v9, 2u);
     }
 
     overlay = self->_overlay;
     if (overlay)
     {
       [(BKDisplayRenderOverlayManager *)self->_renderOverlayManager removeOverlay:overlay withAnimationSettings:settingsCopy];
-      v8 = self->_overlay;
+      v7 = self->_overlay;
       self->_overlay = 0;
     }
 
@@ -329,135 +323,134 @@ LABEL_12:
 - (void)_queue_updateOverlayForReason:(id)reason
 {
   reasonCopy = reason;
-  queue = self->_queue;
   BSDispatchQueueAssert();
   systemShellState = [(BKSystemShellSentinel *)self->_systemAppSentinel systemShellState];
-  v7 = systemShellState;
+  v6 = systemShellState;
   if (!systemShellState)
   {
-    v48 = 0;
-    v8 = 0;
+    v47 = 0;
+    v7 = 0;
     p_screenOwnerPID = &self->_screenOwnerPID;
     if (self->_screenOwnerPID > 0)
     {
-      v14 = 0;
+      v13 = 0;
       goto LABEL_7;
     }
 
 LABEL_31:
-    v9 = sub_1000524BC();
-    v7 = v48;
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_1000524BC();
+    v6 = v47;
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_34;
     }
 
     *buf = 0;
-    v10 = "updateOverlay: No explicit screen owner";
-    v11 = v9;
-    v12 = 2;
+    v9 = "updateOverlay: No explicit screen owner";
+    v10 = v8;
+    v11 = 2;
     goto LABEL_33;
   }
 
-  v8 = *(systemShellState + 16);
-  if (*(v7 + 8) == 1)
+  v7 = *(systemShellState + 16);
+  if (*(v6 + 8) == 1)
   {
-    v9 = sub_1000524BC();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_1000524BC();
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_34;
     }
 
     *buf = 138543362;
-    *v54 = v8;
-    v10 = "updateOverlay: Waiting for alternate shells -- (%{public}@) is temporary screen owner";
-    v11 = v9;
-    v12 = 12;
+    *v53 = v7;
+    v9 = "updateOverlay: Waiting for alternate shells -- (%{public}@) is temporary screen owner";
+    v10 = v8;
+    v11 = 12;
 LABEL_33:
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v10, buf, v12);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v9, buf, v11);
     goto LABEL_34;
   }
 
-  v48 = v7;
+  v47 = v6;
   p_screenOwnerPID = &self->_screenOwnerPID;
   if (self->_screenOwnerPID <= 0)
   {
     goto LABEL_31;
   }
 
-  v14 = *(v48 + 24);
+  v13 = *(v47 + 24);
 LABEL_7:
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v9 = v14;
-  v15 = [v9 countByEnumeratingWithState:&v49 objects:v55 count:16];
-  if (v15)
+  v8 = v13;
+  v14 = [v8 countByEnumeratingWithState:&v48 objects:v54 count:16];
+  if (v14)
   {
-    v16 = v15;
-    v17 = *v50;
-    v47 = reasonCopy;
+    v15 = v14;
+    v16 = *v49;
+    v46 = reasonCopy;
     while (2)
     {
-      for (i = 0; i != v16; i = i + 1)
+      for (i = 0; i != v15; i = i + 1)
       {
-        if (*v50 != v17)
+        if (*v49 != v16)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        v19 = *(*(&v49 + 1) + 8 * i);
-        v20 = *p_screenOwnerPID;
-        if (v20 == [v19 pid])
+        v18 = *(*(&v48 + 1) + 8 * i);
+        v19 = *p_screenOwnerPID;
+        if (v19 == [v18 pid])
         {
-          v28 = sub_1000524BC();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+          v27 = sub_1000524BC();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
-            v29 = *p_screenOwnerPID;
+            v28 = *p_screenOwnerPID;
             *buf = 67109378;
-            *v54 = v29;
-            *&v54[4] = 2114;
-            *&v54[6] = v19;
-            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "updateOverlay: pid:%d still exists (%{public}@)", buf, 0x12u);
+            *v53 = v28;
+            *&v53[4] = 2114;
+            *&v53[6] = v18;
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "updateOverlay: pid:%d still exists (%{public}@)", buf, 0x12u);
           }
 
-          v30 = v19;
-          v8 = v30;
-          reasonCopy = v47;
+          v29 = v18;
+          v7 = v29;
+          reasonCopy = v46;
           goto LABEL_24;
         }
 
         screenOwnerBundleIdentifier = self->_screenOwnerBundleIdentifier;
         if (screenOwnerBundleIdentifier)
         {
-          bundleIdentifier = [v19 bundleIdentifier];
-          v23 = [(NSString *)screenOwnerBundleIdentifier isEqual:bundleIdentifier];
+          bundleIdentifier = [v18 bundleIdentifier];
+          v22 = [(NSString *)screenOwnerBundleIdentifier isEqual:bundleIdentifier];
 
-          if (v23)
+          if (v22)
           {
-            v24 = sub_1000524BC();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+            v23 = sub_1000524BC();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              *v54 = v19;
-              _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "updateOverlay: New instance of owner shell (%{public}@)", buf, 0xCu);
+              *v53 = v18;
+              _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "updateOverlay: New instance of owner shell (%{public}@)", buf, 0xCu);
             }
 
-            v25 = v19;
-            self->_screenOwnerPID = [v25 pid];
-            bundleIdentifier2 = [v25 bundleIdentifier];
-            v27 = self->_screenOwnerBundleIdentifier;
+            v24 = v18;
+            self->_screenOwnerPID = [v24 pid];
+            bundleIdentifier2 = [v24 bundleIdentifier];
+            v26 = self->_screenOwnerBundleIdentifier;
             self->_screenOwnerBundleIdentifier = bundleIdentifier2;
 
-            v8 = v25;
+            v7 = v24;
           }
         }
       }
 
-      v16 = [v9 countByEnumeratingWithState:&v49 objects:v55 count:16];
-      reasonCopy = v47;
-      if (v16)
+      v15 = [v8 countByEnumeratingWithState:&v48 objects:v54 count:16];
+      reasonCopy = v46;
+      if (v15)
       {
         continue;
       }
@@ -468,98 +461,98 @@ LABEL_7:
 
 LABEL_24:
 
-  v31 = self->_screenOwnerBundleIdentifier;
-  bundleIdentifier3 = [v8 bundleIdentifier];
-  LOBYTE(v31) = [(NSString *)v31 isEqual:bundleIdentifier3];
+  v30 = self->_screenOwnerBundleIdentifier;
+  bundleIdentifier3 = [v7 bundleIdentifier];
+  LOBYTE(v30) = [(NSString *)v30 isEqual:bundleIdentifier3];
 
-  if (v31)
+  if (v30)
   {
-    v7 = v48;
+    v6 = v47;
   }
 
   else
   {
-    v33 = sub_1000524BC();
-    v7 = v48;
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v32 = sub_1000524BC();
+    v6 = v47;
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = self->_screenOwnerBundleIdentifier;
-      bundleIdentifier4 = [v8 bundleIdentifier];
+      v33 = self->_screenOwnerBundleIdentifier;
+      bundleIdentifier4 = [v7 bundleIdentifier];
       *buf = 138543618;
-      *v54 = v34;
-      *&v54[8] = 2114;
-      *&v54[10] = bundleIdentifier4;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "updateOverlay: Screen owner missing (expected:%{public}@) got:%{public}@", buf, 0x16u);
+      *v53 = v33;
+      *&v53[8] = 2114;
+      *&v53[10] = bundleIdentifier4;
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "updateOverlay: Screen owner missing (expected:%{public}@) got:%{public}@", buf, 0x16u);
     }
 
     self->_screenOwnerPID = -1;
-    v36 = self->_screenOwnerBundleIdentifier;
+    v35 = self->_screenOwnerBundleIdentifier;
     self->_screenOwnerBundleIdentifier = 0;
   }
 
 LABEL_34:
 
   screenOwnerPID = self->_screenOwnerPID;
-  v38 = [v8 pid];
-  if (v8)
+  v37 = [v7 pid];
+  if (v7)
   {
-    if (v7)
+    if (v6)
     {
-      v39 = *(v7 + 32);
+      v38 = *(v6 + 32);
     }
 
     else
     {
-      v39 = 0;
+      v38 = 0;
     }
 
-    v40 = v39;
-    v41 = [v40 containsObject:v8];
+    v39 = v38;
+    v40 = [v39 containsObject:v7];
   }
 
   else
   {
-    v41 = 0;
+    v40 = 0;
   }
 
-  if (screenOwnerPID == v38 || v41)
+  if (screenOwnerPID == v37 || v40)
   {
-    v42 = sub_1000524BC();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v41 = sub_1000524BC();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = [v8 pid];
+      v42 = [v7 pid];
       *buf = 67109632;
-      *v54 = v43;
-      *&v54[4] = 1024;
-      *&v54[6] = screenOwnerPID == v38;
-      *&v54[10] = 1024;
-      *&v54[12] = v41;
-      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "updateOverlay: pid:%d explicitlyDismissed:%{BOOL}u finishedStartup:%{BOOL}u", buf, 0x14u);
+      *v53 = v42;
+      *&v53[4] = 1024;
+      *&v53[6] = screenOwnerPID == v37;
+      *&v53[10] = 1024;
+      *&v53[12] = v40;
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "updateOverlay: pid:%d explicitlyDismissed:%{BOOL}u finishedStartup:%{BOOL}u", buf, 0x14u);
     }
 
     if (self->_isOverlaySustained)
     {
-      v44 = v7;
+      v43 = v6;
       self->_dismissSustainedOverlayIfUnsustained = 1;
-      v45 = sub_1000524BC();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+      v44 = sub_1000524BC();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        *v54 = reasonCopy;
-        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "updateOverlay: Not dismissing because overlay has been sustained by the system app: %{public}@ ", buf, 0xCu);
+        *v53 = reasonCopy;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "updateOverlay: Not dismissing because overlay has been sustained by the system app: %{public}@ ", buf, 0xCu);
       }
 
-      v7 = v44;
+      v6 = v43;
     }
 
     else
     {
-      v46 = sub_1000524BC();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+      v45 = sub_1000524BC();
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        *v54 = reasonCopy;
-        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "updateOverlay: Dismissing overlay: %{public}@ ", buf, 0xCu);
+        *v53 = reasonCopy;
+        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "updateOverlay: Dismissing overlay: %{public}@ ", buf, 0xCu);
       }
 
       [(BKBootUIPresenter *)self _queue_removeOverlayWithAnimationSettings:0];

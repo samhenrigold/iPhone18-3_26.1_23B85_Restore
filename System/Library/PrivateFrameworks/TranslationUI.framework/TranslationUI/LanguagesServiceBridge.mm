@@ -11,14 +11,12 @@
 
 - (NSArray)models
 {
-  v3 = OBJC_IVAR____TtC13TranslationUI22LanguagesServiceBridge_models;
   swift_beginAccess();
-  v4 = *(self + v3);
   sub_26F3B0C24(0, &qword_280F65650, 0x277CE1B00);
 
-  v5 = sub_26F49FAD8();
+  v2 = sub_26F49FAD8();
 
-  return v5;
+  return v2;
 }
 
 - (void)setModels:(id)models
@@ -27,7 +25,6 @@
   v4 = sub_26F49FAF8();
   v5 = OBJC_IVAR____TtC13TranslationUI22LanguagesServiceBridge_models;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -42,21 +39,20 @@
 {
   v4 = sub_26F49DAB8();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v14[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = &v13[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_26F49DA18();
   selfCopy = self;
   models = [(LanguagesServiceBridge *)selfCopy models];
   sub_26F3B0C24(0, &qword_280F65650, 0x277CE1B00);
-  v11 = sub_26F49FAF8();
+  v10 = sub_26F49FAF8();
 
-  v15 = v8;
-  v12 = sub_26F4007E4(sub_26F40EB5C, v14, v11);
+  v14 = v7;
+  v11 = sub_26F4007E4(sub_26F40EB5C, v13, v10);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 
-  return v12;
+  return v11;
 }
 
 - (void)downloadLocales:(id)locales
@@ -71,12 +67,11 @@
 {
   v3 = sub_26F49DAB8();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_26F49DA18();
-  _s13TranslationUI22LanguagesServiceBridgeC6delete6localey10Foundation6LocaleV_tF_0(v7);
-  (*(v4 + 8))(v7, v3);
+  _s13TranslationUI22LanguagesServiceBridgeC6delete6localey10Foundation6LocaleV_tF_0(v6);
+  (*(v4 + 8))(v6, v3);
 }
 
 @end

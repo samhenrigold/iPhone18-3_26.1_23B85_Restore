@@ -280,9 +280,9 @@ id __49__NANowPlayingViewController_initWithBackground___block_invoke_10(uint64_
   v3 = [*(a1 + 32) view];
   [v3 addSubview:v2];
 
-  v4 = NABundle();
-  v5 = [v4 localizedStringForKey:@"Collapse to mini-player" value:&stru_1F52B5BC8 table:0];
-  [v2 setAccessibilityLabel:v5];
+  v5 = NABundle(v4);
+  v6 = [v5 localizedStringForKey:@"Collapse to mini-player" value:&stru_1F52B5BC8 table:0];
+  [v2 setAccessibilityLabel:v6];
 
   return v2;
 }

@@ -99,31 +99,29 @@ LABEL_12:
 
 - (void)transceive:(id)transceive completion:(id)completion
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   transceiveCopy = transceive;
   completionCopy = completion;
   if (self && (WeakRetained = objc_loadWeakRetained(&self->_delegate)) != 0)
   {
     v12 = WeakRetained;
-    v20 = 0;
-    v13 = objc_msgSend_transceiveWithData_outError_(WeakRetained, v11, transceiveCopy, &v20);
-    v14 = v20;
+    v19 = 0;
+    v13 = objc_msgSend_transceiveWithData_outError_(WeakRetained, v11, transceiveCopy, &v19);
+    v14 = v19;
     completionCopy[2](completionCopy, v13, v14);
   }
 
   else
   {
-    sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSRemoteTransceiverProxyListener transceive:completion:]", 125, self, @"Invalid state", v7, v8, v20);
+    sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSRemoteTransceiverProxyListener transceive:completion:]", 125, self, @"Invalid state", v7, v8, v19);
     v15 = MEMORY[0x277CCA9B8];
-    v21 = *MEMORY[0x277CCA450];
-    v22[0] = off_27FF71A60;
-    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v22, &v21, 1);
+    v20 = *MEMORY[0x277CCA450];
+    v21[0] = off_27FF71A60;
+    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v21, &v20, 1);
     v14 = objc_msgSend_errorWithDomain_code_userInfo_(v15, v18, @"STSXPCHelperErrorDomain", 2, v17);
 
     completionCopy[2](completionCopy, 0, v14);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

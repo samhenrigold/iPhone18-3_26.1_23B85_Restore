@@ -3,7 +3,7 @@
 
 @implementation FigSampleCursorServer
 
-uint64_t __FigSampleCursorServer_copyMemoryPool_block_invoke()
+uint64_t __FigSampleCursorServer_copyMemoryPool_block_invoke(uint64_t a1)
 {
   result = FigSimpleMutexCreate();
   FigSampleCursorServer_copyMemoryPool_sSharedMemoryPoolWeakRefMutex = result;

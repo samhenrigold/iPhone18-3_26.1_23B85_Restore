@@ -10,10 +10,10 @@
 
 - (MCMResultWithOwnersAndGroupsBase)init
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = MCMResultWithOwnersAndGroupsBase;
-  v2 = [(MCMResultBase *)&v11 init];
+  v11 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = MCMResultWithOwnersAndGroupsBase;
+  v2 = [(MCMResultBase *)&v10 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -29,24 +29,23 @@
     v2->_facts = v7;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (BOOL)encodeResultOntoReply:(id)reply
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v26.receiver = self;
-  v26.super_class = MCMResultWithOwnersAndGroupsBase;
-  v5 = [(MCMResultBase *)&v26 encodeResultOntoReply:replyCopy];
+  v23.receiver = self;
+  v23.super_class = MCMResultWithOwnersAndGroupsBase;
+  v5 = [(MCMResultBase *)&v23 encodeResultOntoReply:replyCopy];
   if (v5)
   {
     error = [(MCMResultBase *)self error];
 
     if (!error)
     {
-      v23 = v5;
+      v20 = v5;
       v7 = [(NSMutableSet *)self->_facts count];
       if (v7 <= 1)
       {
@@ -55,18 +54,18 @@
 
       bytes = malloc_type_calloc(v7, 0x10uLL, 0x1000040451B5BE8uLL);
       __s = bytes;
+      v25 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
-      v30 = 0u;
-      v31 = 0u;
-      v22 = 48;
+      v19 = 48;
       v8 = self->_facts;
-      v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v28 objects:v27 count:16];
+      v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v25 objects:v24 count:16];
       if (v9)
       {
         v10 = v9;
         v11 = 0;
-        v12 = *v29;
+        v12 = *v26;
         do
         {
           v13 = 0;
@@ -74,12 +73,12 @@
           v11 += v10;
           do
           {
-            if (*v29 != v12)
+            if (*v26 != v12)
             {
               objc_enumerationMutation(v8);
             }
 
-            v15 = *(*(&v28 + 1) + 8 * v13);
+            v15 = *(*(&v25 + 1) + 8 * v13);
             *(v14 - 1) = [v15 ownerIndex];
             *v14 = [v15 groupIndex];
             v14 += 16;
@@ -87,26 +86,24 @@
           }
 
           while (v10 != v13);
-          v10 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v28 objects:v27 count:16];
+          v10 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v25 objects:v24 count:16];
         }
 
         while (v10);
       }
 
-      xpc_dictionary_set_data(replyCopy, "ReplyFacts", bytes, 16 * [*(&self->super.super.isa + v22) count]);
-      mutableOwnerIdentifiers = self->_mutableOwnerIdentifiers;
-      v17 = _CFXPCCreateXPCObjectFromCFObject();
-      if (v17)
+      xpc_dictionary_set_data(replyCopy, "ReplyFacts", bytes, 16 * [*(&self->super.super.isa + v19) count]);
+      v16 = _CFXPCCreateXPCObjectFromCFObject();
+      if (v16)
       {
-        xpc_dictionary_set_value(replyCopy, "ReplyOwnerIdentifiers", v17);
+        xpc_dictionary_set_value(replyCopy, "ReplyOwnerIdentifiers", v16);
       }
 
-      mutableGroupIdentifiers = self->_mutableGroupIdentifiers;
-      v19 = _CFXPCCreateXPCObjectFromCFObject();
-      LOBYTE(v5) = v23;
-      if (v19)
+      v17 = _CFXPCCreateXPCObjectFromCFObject();
+      LOBYTE(v5) = v20;
+      if (v17)
       {
-        xpc_dictionary_set_value(replyCopy, "ReplyGroupIdentifiers", v19);
+        xpc_dictionary_set_value(replyCopy, "ReplyGroupIdentifiers", v17);
       }
 
       if (bytes)
@@ -117,13 +114,11 @@
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)addOwner:(id)owner group:(id)group
 {
-  v13 = *MEMORY[0x1E69E9840];
   ownerCopy = owner;
   groupCopy = group;
   v7 = [(NSMutableArray *)self->_mutableOwnerIdentifiers indexOfObject:ownerCopy];
@@ -142,24 +137,18 @@
 
   v9 = [[MCMResultWithOwnersAndGroupsBaseFact alloc] initWithOwnerIndex:v7 groupIndex:ownerCopy];
   [(NSMutableSet *)self->_facts addObject:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)groupIdentifiers
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = [(NSMutableArray *)self->_mutableGroupIdentifiers copy];
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (NSArray)ownerIdentifiers
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = [(NSMutableArray *)self->_mutableOwnerIdentifiers copy];
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

@@ -6,6 +6,7 @@
 - (int64_t)adaptivePresentationStyle;
 - (void)containerViewWillLayoutSubviews;
 - (void)dismissPresentation:(id)presentation;
+- (void)dismissalTransitionDidEnd:(BOOL)end;
 - (void)dismissalTransitionWillBegin;
 - (void)presentationTransitionWillBegin;
 @end
@@ -86,6 +87,12 @@
   [transitionCoordinator animateAlongsideTransition:v5 completion:0];
   objc_destroyWeak(&v6);
   objc_destroyWeak(&location);
+}
+
+- (void)dismissalTransitionDidEnd:(BOOL)end
+{
+  dimmingView = [(FBAPartialPresentationController *)self dimmingView];
+  [dimmingView removeFromSuperview];
 }
 
 - (CGRect)frameOfPresentedViewInContainerView

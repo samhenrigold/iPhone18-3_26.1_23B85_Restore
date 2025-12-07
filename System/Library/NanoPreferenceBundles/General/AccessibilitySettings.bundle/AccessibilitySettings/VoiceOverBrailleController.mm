@@ -12,6 +12,7 @@
 - (id)wordWrapEnabled:(id)enabled;
 - (void)setSyncTablesEnabled:(id)enabled specifier:(id)specifier;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VoiceOverBrailleController
@@ -196,6 +197,36 @@ void __41__VoiceOverBrailleController_viewDidLoad__block_invoke_4(uint64_t a1)
   return v4;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v20[2] = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = VoiceOverBrailleController;
+  [(AccessibilityBridgeBaseController *)&v19 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"BRAILLE" table:@"VoiceOverSettings" locale:currentLocale bundleURL:bundleURL];
+
+  v8 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v3 bundleURL];
+  v11 = [v8 initWithKey:@"VOICEOVER_TITLE" table:@"AccessibilitySettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v12 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL3 = [v3 bundleURL];
+  v15 = [v12 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale3 bundleURL:bundleURL3];
+
+  v16 = MEMORY[0x277CF3470];
+  v20[0] = v15;
+  v20[1] = v11;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v18 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=VOICEOVER_ID/BrailleRow"];
+  [v16 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v7 localizedNavigationComponents:v17 deepLink:v18];
+}
+
 - (id)_currentBrailleTable:(id)table
 {
   accessibilityDomainAccessor = [(AccessibilityBridgeBaseController *)self accessibilityDomainAccessor];
@@ -233,14 +264,9 @@ LABEL_5:
     [v4 doubleValue];
   }
 
-  else
-  {
-    v5 = *MEMORY[0x277CE69D8];
-  }
+  v5 = AXLocalizedTimeSummary();
 
-  v6 = AXLocalizedTimeSummary();
-
-  return v6;
+  return v5;
 }
 
 - (id)wordWrapEnabled:(id)enabled

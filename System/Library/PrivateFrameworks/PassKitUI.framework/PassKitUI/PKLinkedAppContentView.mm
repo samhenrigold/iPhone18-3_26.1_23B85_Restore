@@ -224,10 +224,18 @@
   [(PKLinkedAppContentView *)self addSubview:self->_lockupView];
   [(PKLinkedAppContentView *)self _configureAppLockUpIfNecessary];
   [(PKLinkedAppContentView *)self bounds];
-  v6 = CGRectInset(v5, 14.0, 12.0);
-  [(ASCLockupView *)self->_lockupView sizeThatFits:v6.size.width, 1.79769313e308];
+  v17 = CGRectInset(v16, 14.0, 12.0);
+  x = v17.origin.x;
+  y = v17.origin.y;
+  width = v17.size.width;
+  height = v17.size.height;
+  [(ASCLockupView *)self->_lockupView sizeThatFits:v17.size.width, 1.79769313e308];
   lockupView = self->_lockupView;
-  PKSizeAlignedInRect();
+  v8.n128_f64[0] = x;
+  v9.n128_f64[0] = y;
+  v10.n128_f64[0] = width;
+  v11.n128_f64[0] = height;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v12, v13, v8, v9, v10, v11, v14);
 
   [(ASCLockupView *)lockupView setFrame:?];
 }
@@ -299,11 +307,11 @@
   }
 }
 
-uint64_t __56__PKLinkedAppContentView__configureAppLockUpIfNecessary__block_invoke(uint64_t result, uint64_t a2)
+void *__56__PKLinkedAppContentView__configureAppLockUpIfNecessary__block_invoke(void *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 408) setRequest:a2];
+    return [*(result[4] + 408) setRequest:a2];
   }
 
   return result;

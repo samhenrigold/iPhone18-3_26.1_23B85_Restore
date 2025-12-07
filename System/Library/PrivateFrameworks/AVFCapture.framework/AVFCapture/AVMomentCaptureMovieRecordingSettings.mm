@@ -100,7 +100,7 @@
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -144,12 +144,12 @@
 
 - (void)setMovieMetadata:(id)metadata
 {
-  v7 = 0;
-  v4 = [(AVMomentCaptureMovieRecordingSettings *)self _sanitizedMovieMetadataArrayForMovieMetadataArray:metadata exceptionReason:&v7];
-  if (v7)
+  v8 = 0;
+  v4 = [(AVMomentCaptureMovieRecordingSettings *)self _sanitizedMovieMetadataArrayForMovieMetadataArray:metadata exceptionReason:&v8];
+  if (v8)
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -159,9 +159,9 @@
 
   else
   {
-    v6 = v4;
+    v7 = v4;
 
-    self->_movieMetadata = v6;
+    self->_movieMetadata = v7;
   }
 }
 
@@ -193,12 +193,12 @@
 
 - (void)setSpatialOverCaptureMovieMetadata:(id)metadata
 {
-  v7 = 0;
-  v4 = [(AVMomentCaptureMovieRecordingSettings *)self _sanitizedMovieMetadataArrayForMovieMetadataArray:metadata exceptionReason:&v7];
-  if (v7)
+  v8 = 0;
+  v4 = [(AVMomentCaptureMovieRecordingSettings *)self _sanitizedMovieMetadataArrayForMovieMetadataArray:metadata exceptionReason:&v8];
+  if (v8)
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -208,9 +208,9 @@
 
   else
   {
-    v6 = v4;
+    v7 = v4;
 
-    self->_spatialOverCaptureMovieMetadata = v6;
+    self->_spatialOverCaptureMovieMetadata = v7;
   }
 }
 

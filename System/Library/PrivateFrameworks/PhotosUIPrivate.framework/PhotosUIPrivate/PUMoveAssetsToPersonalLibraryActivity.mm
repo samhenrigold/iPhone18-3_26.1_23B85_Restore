@@ -282,13 +282,13 @@ uint64_t __56__PUMoveAssetsToPersonalLibraryActivity_performActivity__block_invo
   return result;
 }
 
-uint64_t __56__PUMoveAssetsToPersonalLibraryActivity_performActivity__block_invoke_267()
+uint64_t __56__PUMoveAssetsToPersonalLibraryActivity_performActivity__block_invoke_267(uint64_t a1)
 {
-  v0 = PLUIGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = PLUIGetLog();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_1B36F3000, v0, OS_LOG_TYPE_INFO, "Attempting to move only user's assets to personal library. Calling PXSharedLibraryMoveAssetsToPersonalLibrary()", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B36F3000, v1, OS_LOG_TYPE_INFO, "Attempting to move only user's assets to personal library. Calling PXSharedLibraryMoveAssetsToPersonalLibrary()", v3, 2u);
   }
 
   return PXSharedLibraryMoveAssetsToPersonalLibrary();
@@ -432,13 +432,13 @@ LABEL_3:
   return v23;
 }
 
-uint64_t __122__PUMoveAssetsToPersonalLibraryActivity__multiContributorConfirmationAlertControllerForAssets_contributorName_completion___block_invoke()
+uint64_t __122__PUMoveAssetsToPersonalLibraryActivity__multiContributorConfirmationAlertControllerForAssets_contributorName_completion___block_invoke(uint64_t a1)
 {
-  v0 = PLUIGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = PLUIGetLog();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_1B36F3000, v0, OS_LOG_TYPE_INFO, "Attempting to move assets to personal library. Calling PXSharedLibraryMoveAssetsToPersonalLibrary()", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B36F3000, v1, OS_LOG_TYPE_INFO, "Attempting to move assets to personal library. Calling PXSharedLibraryMoveAssetsToPersonalLibrary()", v3, 2u);
   }
 
   return PXSharedLibraryMoveAssetsToPersonalLibrary();

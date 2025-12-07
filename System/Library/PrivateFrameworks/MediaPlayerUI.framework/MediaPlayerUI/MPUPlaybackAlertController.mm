@@ -590,7 +590,7 @@ LABEL_75:
   return v10;
 }
 
-void __81__MPUPlaybackAlertController_genericAlertControllerForItem_error_dismissalBlock___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __81__MPUPlaybackAlertController_genericAlertControllerForItem_error_dismissalBlock___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v5 = a2;
   v6 = [v5 actionType];
@@ -962,8 +962,8 @@ uint64_t __79__MPUPlaybackAlertController_userRemovedAlertControllerForItem_dism
 
 uint64_t __100__MPUPlaybackAlertController_contentRestrictedPlaybackAlertControllerForContentType_dismissalBlock___block_invoke_2_cold_1()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   return __getLSApplicationWorkspaceClass_block_invoke_cold_1();
 }
 

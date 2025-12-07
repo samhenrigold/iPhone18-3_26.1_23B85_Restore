@@ -94,7 +94,6 @@ LABEL_9:
 
 - (void)_close
 {
-  error = self->_error;
   (*(self->_handler + 2))();
   [(TSUFileIOChannel *)self->_channel close];
   channel = self->_channel;

@@ -81,26 +81,25 @@
 
 - (MTLDevice)device
 {
-  parent = self->super._parent;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v5 = self->super._parent;
+  parent = self->super._parent;
   if ((isKindOfClass & 1) == 0)
   {
     objc_opt_class();
-    v6 = objc_opt_isKindOfClass();
-    v5 = self->super._parent;
-    if ((v6 & 1) == 0)
+    v5 = objc_opt_isKindOfClass();
+    parent = self->super._parent;
+    if ((v5 & 1) == 0)
     {
       objc_opt_class();
-      v7 = objc_opt_isKindOfClass();
-      v5 = self->super._parent;
-      if ((v7 & 1) == 0)
+      v6 = objc_opt_isKindOfClass();
+      parent = self->super._parent;
+      if ((v6 & 1) == 0)
       {
         objc_opt_class();
-        v8 = objc_opt_isKindOfClass();
-        v5 = self->super._parent;
-        if ((v8 & 1) == 0)
+        v7 = objc_opt_isKindOfClass();
+        parent = self->super._parent;
+        if ((v7 & 1) == 0)
         {
           return self->super._parent;
         }
@@ -108,7 +107,7 @@
     }
   }
 
-  return [(MTLToolsObject *)v5 device];
+  return [(MTLToolsObject *)parent device];
 }
 
 - (unint64_t)maxTotalThreadsPerThreadgroup
@@ -292,7 +291,7 @@
   if (result)
   {
 
-    return [($F99D9A4FB75BC57F3386B8DC8EE08D7A *)result requiredThreadsPerTileThreadgroup];
+    return objc_msgSend_requiredThreadsPerTileThreadgroup(result);
   }
 
   else
@@ -311,7 +310,7 @@
   if (result)
   {
 
-    return [($F99D9A4FB75BC57F3386B8DC8EE08D7A *)result requiredThreadsPerObjectThreadgroup];
+    return objc_msgSend_requiredThreadsPerObjectThreadgroup(result);
   }
 
   else
@@ -330,7 +329,7 @@
   if (result)
   {
 
-    return [($F99D9A4FB75BC57F3386B8DC8EE08D7A *)result requiredThreadsPerMeshThreadgroup];
+    return objc_msgSend_requiredThreadsPerMeshThreadgroup(result);
   }
 
   else

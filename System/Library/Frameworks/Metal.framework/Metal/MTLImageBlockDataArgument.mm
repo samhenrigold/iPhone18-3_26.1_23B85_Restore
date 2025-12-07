@@ -1,9 +1,22 @@
 @interface MTLImageBlockDataArgument
 - (BOOL)isEqual:(id)equal;
+- (MTLImageBlockDataArgument)initWithName:(id)name type:(unint64_t)type access:(unint64_t)access isActive:(BOOL)active index:(unint64_t)index dataSize:(unsigned int)size masterStructMembers:(id)members aliasImplicitImageBlock:(BOOL)self0 aliasImplicitImageBlockRenderTarget:(unsigned int)self1;
 - (void)dealloc;
 @end
 
 @implementation MTLImageBlockDataArgument
+
+- (MTLImageBlockDataArgument)initWithName:(id)name type:(unint64_t)type access:(unint64_t)access isActive:(BOOL)active index:(unint64_t)index dataSize:(unsigned int)size masterStructMembers:(id)members aliasImplicitImageBlock:(BOOL)self0 aliasImplicitImageBlockRenderTarget:(unsigned int)self1
+{
+  v14.receiver = self;
+  v14.super_class = MTLImageBlockDataArgument;
+  v12 = [(MTLBindingInternal *)&v14 initWithName:name type:type access:access index:index active:active arrayLength:1];
+  v12->_dataSize = size;
+  v12->_aliasImplicitImageBlock = block;
+  v12->_aliasImplicitImageBlockRenderTarget = target;
+  v12->_masterStructMembers = members;
+  return v12;
+}
 
 - (void)dealloc
 {

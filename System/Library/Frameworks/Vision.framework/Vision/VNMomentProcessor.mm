@@ -46,67 +46,38 @@
 
 - (id)computeNaturalClusteringForClusteringTree:(id)tree error:(id *)error
 {
-  node = [tree node];
+  [tree node];
   context = [(VNMomentProcessor *)self context];
-  [VNMPImageGrouping computeNaturalClusteringForHierarchicalTree:node context:context];
+  objc_msgSend_computeNaturalClusteringForHierarchicalTree_context_(VNMPImageGrouping);
 
   __p = 0;
+  v11 = 0;
   v12 = 0;
-  v13 = 0;
-  std::vector<MPClusteringTreeNode *>::__init_with_size[abi:ne200100]<MPClusteringTreeNode **,MPClusteringTreeNode **>(&__p, v14, v15, (v15 - v14) >> 3);
-  v8 = [(VNMomentProcessor *)self convertClusterNodesListToDescriptorsList:&__p];
-  v9 = [(VNMomentProcessor *)self performClustersPostprocessing:v8 error:error];
+  std::vector<MPClusteringTreeNode *>::__init_with_size[abi:ne200100]<MPClusteringTreeNode **,MPClusteringTreeNode **>(&__p, v13, v14, (v14 - v13) >> 3);
+  v7 = [(VNMomentProcessor *)self convertClusterNodesListToDescriptorsList:&__p];
+  v8 = [(VNMomentProcessor *)self performClustersPostprocessing:v7 error:error];
 
   if (__p)
   {
-    v12 = __p;
+    v11 = __p;
     operator delete(__p);
   }
 
-  if (v14)
+  if (v13)
   {
-    v15 = v14;
-    operator delete(v14);
+    v14 = v13;
+    operator delete(v13);
   }
 
-  return v9;
+  return v8;
 }
 
 - (id)computeClusteringForClusteringTree:(id)tree usingThreshold:(float)threshold error:(id *)error
 {
-  node = [tree node];
+  [tree node];
   context = [(VNMomentProcessor *)self context];
-  *&v10 = threshold;
-  [VNMPImageGrouping computeClusteringUsingDistanceThreshold:node forHierarchicalTree:context context:v10];
-
-  __p = 0;
-  v15 = 0;
-  v16 = 0;
-  std::vector<MPClusteringTreeNode *>::__init_with_size[abi:ne200100]<MPClusteringTreeNode **,MPClusteringTreeNode **>(&__p, v17, v18, (v18 - v17) >> 3);
-  v11 = [(VNMomentProcessor *)self convertClusterNodesListToDescriptorsList:&__p];
-  v12 = [(VNMomentProcessor *)self performClustersPostprocessing:v11 error:error];
-
-  if (__p)
-  {
-    v15 = __p;
-    operator delete(__p);
-  }
-
-  if (v17)
-  {
-    v18 = v17;
-    operator delete(v17);
-  }
-
-  return v12;
-}
-
-- (id)computeClusteringForClusteringTree:(id)tree intoKGroups:(int)groups error:(id *)error
-{
-  v6 = *&groups;
-  node = [tree node];
-  context = [(VNMomentProcessor *)self context];
-  [VNMPImageGrouping computeClusteringIntoKGroups:v6 forHierarchicalTree:node context:context];
+  *&v9 = threshold;
+  objc_msgSend_computeClusteringUsingDistanceThreshold_forHierarchicalTree_context_(VNMPImageGrouping, v9);
 
   __p = 0;
   v14 = 0;
@@ -128,6 +99,34 @@
   }
 
   return v11;
+}
+
+- (id)computeClusteringForClusteringTree:(id)tree intoKGroups:(int)groups error:(id *)error
+{
+  [tree node];
+  context = [(VNMomentProcessor *)self context];
+  objc_msgSend_computeClusteringIntoKGroups_forHierarchicalTree_context_(VNMPImageGrouping);
+
+  __p = 0;
+  v12 = 0;
+  v13 = 0;
+  std::vector<MPClusteringTreeNode *>::__init_with_size[abi:ne200100]<MPClusteringTreeNode **,MPClusteringTreeNode **>(&__p, v14, v15, (v15 - v14) >> 3);
+  v8 = [(VNMomentProcessor *)self convertClusterNodesListToDescriptorsList:&__p];
+  v9 = [(VNMomentProcessor *)self performClustersPostprocessing:v8 error:error];
+
+  if (__p)
+  {
+    v12 = __p;
+    operator delete(__p);
+  }
+
+  if (v14)
+  {
+    v15 = v14;
+    operator delete(v14);
+  }
+
+  return v9;
 }
 
 - (id)convertClusterNodesListToDescriptorsList:(vector<MPClusteringTreeNode *)

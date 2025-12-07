@@ -59,7 +59,7 @@ LABEL_8:
   v11 = [(HMDServiceNameComponents *)&v38 init];
   if (v11)
   {
-    v12 = [nameCopy copy];
+    v12 = objc_msgSend_copy(nameCopy);
     [(HMDServiceNameComponents *)v11 setRawServiceName:v12];
 
     whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
@@ -72,7 +72,7 @@ LABEL_8:
 
     if (formatCopy)
     {
-      v17 = [formatCopy copy];
+      v17 = objc_msgSend_copy(formatCopy);
       [(HMDServiceNameComponents *)v11 setFormat:v17];
     }
 

@@ -250,7 +250,7 @@ LABEL_3:
   rectsCopy = rects;
   do
   {
-    [(PXOverlayFeedLayoutGenerator *)self _frameForItemAtIndex:v22 in:rects verticalOffset:0.0];
+    objc_msgSend__frameForItemAtIndex_in_verticalOffset_(self, 0.0);
     rectsCopy->origin = 0u;
     rectsCopy->size = 0u;
     ++rectsCopy;

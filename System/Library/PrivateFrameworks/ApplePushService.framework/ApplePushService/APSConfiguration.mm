@@ -73,33 +73,34 @@
 + (id)configurationForEnvironment:(id)environment connectionType:(int64_t)type
 {
   environmentCopy = environment;
-  if (!+[NSThread isMainThread])
+  v8 = +[NSThread isMainThread];
+  if ((v8 & 1) == 0)
   {
     sub_10010B244(a2, self);
   }
 
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_100014034;
-  v21 = sub_1000146AC;
-  v22 = 0;
-  v8 = sub_100012D24();
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_1000780C8;
-  v12[3] = &unk_100187EA0;
-  v13 = environmentCopy;
-  v14 = &v17;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = sub_100014034;
+  v22 = sub_1000146AC;
+  v23 = 0;
+  v9 = sub_100012D24(v8);
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_1000780C8;
+  v13[3] = &unk_100187EA0;
+  v14 = environmentCopy;
+  v15 = &v18;
   selfCopy = self;
   typeCopy = type;
-  v9 = environmentCopy;
-  dispatch_sync(v8, v12);
+  v10 = environmentCopy;
+  dispatch_sync(v9, v13);
 
-  v10 = v18[5];
-  _Block_object_dispose(&v17, 8);
+  v11 = v19[5];
+  _Block_object_dispose(&v18, 8);
 
-  return v10;
+  return v11;
 }
 
 + (void)loadConfigurationForEnvironment:(id)environment connectionType:(int64_t)type block:(id)block
@@ -111,31 +112,32 @@
     sub_10010B2B8(a2, self);
   }
 
-  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  v11 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
+  if (v11)
   {
     name = [environmentCopy name];
-    v12 = sub_10001B3FC(type);
+    v13 = sub_10001B3FC(type);
     *buf = 138412802;
-    v22 = environmentCopy;
-    v23 = 2112;
-    v24 = name;
-    v25 = 2112;
-    v26 = v12;
+    v23 = environmentCopy;
+    v24 = 2112;
+    v25 = name;
+    v26 = 2112;
+    v27 = v13;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "loadConfigurationForEnvironment: %@ %@ interface: %@", buf, 0x20u);
   }
 
-  v13 = sub_100012D24();
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_1000782D4;
-  v16[3] = &unk_100187EC8;
+  v14 = sub_100012D24(v11);
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_1000782D4;
+  v17[3] = &unk_100187EC8;
   selfCopy = self;
   typeCopy = type;
-  v17 = environmentCopy;
-  v18 = blockCopy;
-  v14 = blockCopy;
-  v15 = environmentCopy;
-  dispatch_sync(v13, v16);
+  v18 = environmentCopy;
+  v19 = blockCopy;
+  v15 = blockCopy;
+  v16 = environmentCopy;
+  dispatch_sync(v14, v17);
 }
 
 + (void)invalidateConfigurationForEnvironment:(id)environment connectionType:(int64_t)type
@@ -146,27 +148,28 @@
     sub_10010B32C(a2, self);
   }
 
-  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  v8 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
+  if (v8)
   {
     name = [environmentCopy name];
     *buf = 138412802;
     selfCopy = self;
-    v16 = 2112;
-    v17 = environmentCopy;
-    v18 = 2112;
-    v19 = name;
+    v17 = 2112;
+    v18 = environmentCopy;
+    v19 = 2112;
+    v20 = name;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@: invalidateConfigurationForEnvironment: %@ %@", buf, 0x20u);
   }
 
-  v9 = sub_100012D24();
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_10007850C;
-  v11[3] = &unk_100187EF0;
-  v12 = environmentCopy;
+  v10 = sub_100012D24(v8);
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10007850C;
+  v12[3] = &unk_100187EF0;
+  v13 = environmentCopy;
   typeCopy = type;
-  v10 = environmentCopy;
-  dispatch_sync(v9, v11);
+  v11 = environmentCopy;
+  dispatch_sync(v10, v12);
 }
 
 - (APSConfiguration)initWithEnvironment:(id)environment connectionType:(int64_t)type
@@ -275,7 +278,7 @@
 - (void)addCompletionBlock:(id)block
 {
   blockCopy = block;
-  v5 = sub_100012D24();
+  v5 = sub_100012D24(blockCopy);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_100078CAC;
@@ -320,7 +323,7 @@
 - (void)_failWithError:(id)error
 {
   errorCopy = error;
-  v5 = sub_100012D24();
+  v5 = sub_100012D24(errorCopy);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_10007906C;
@@ -433,7 +436,7 @@ LABEL_10:
 
     else
     {
-      v12 = sub_100012D24();
+      v12 = sub_100012D24(0);
       v13 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v12);
       v14 = self->_expireTimer;
       self->_expireTimer = v13;

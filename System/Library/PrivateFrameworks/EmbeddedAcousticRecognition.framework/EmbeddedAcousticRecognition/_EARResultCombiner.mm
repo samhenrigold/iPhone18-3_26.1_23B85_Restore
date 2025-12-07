@@ -127,7 +127,7 @@
                           v12 = v11;
                           if (v11)
                           {
-                            [v11 quasarToken];
+                            objc_msgSend_quasarToken(v11);
                           }
 
                           else
@@ -516,11 +516,11 @@
       std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(&v155, *v55, v55[1], 0xAAAAAAAAAAAAAAABLL * ((v55[1] - *v55) >> 3));
       array2 = [MEMORY[0x1E695DF70] array];
       v56 = *(&v155 + 1);
-      for (jj = v155; jj != v56; jj += 3)
+      for (jj = v155; jj != v56; jj += 24)
       {
         v159 = 0uLL;
         *&v160 = 0;
-        std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v159, *jj, jj[1], 0x6DB6DB6DB6DB6DB7 * ((jj[1] - *jj) >> 5));
+        std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v159, *jj, *(jj + 8), 0x6DB6DB6DB6DB6DB7 * ((*(jj + 8) - *jj) >> 5));
         array3 = [MEMORY[0x1E695DF70] array];
         v60 = *(&v159 + 1);
         for (kk = v159; kk != v60; kk = (kk + 224))
@@ -612,10 +612,10 @@
   [(_EARSystemResult *)v112 setSausage:v64];
   array4 = [MEMORY[0x1E695DF70] array];
   v67 = *(&v145 + 1);
-  for (mm = v145; mm != v67; mm += 3)
+  for (mm = v145; mm != v67; mm += 24)
   {
     memset(v175, 0, 24);
-    std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v175, *mm, mm[1], (mm[1] - *mm) >> 3);
+    std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v175, *mm, *(mm + 8), (*(mm + 8) - *mm) >> 3);
     array5 = [MEMORY[0x1E695DF70] array];
     size = v175[0].__r_.__value_.__l.__size_;
     for (nn = v175[0].__r_.__value_.__r.__words[0]; nn != size; ++nn)
@@ -651,17 +651,17 @@
   [(_EARSystemResult *)v112 setConfidences:v79];
   array7 = [MEMORY[0x1E695DF70] array];
   v81 = v142;
-  for (i2 = v143; v81 != i2; v81 = (v81 + 24))
+  for (i2 = v143; v81 != i2; v81 += 24)
   {
     if (*(v81 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(v175, *v81, *(v81 + 1));
+      std::string::__init_copy_ctor_external(v175, *v81, *(v81 + 8));
     }
 
     else
     {
       v83 = *v81;
-      v175[0].__r_.__value_.__r.__words[2] = *(v81 + 2);
+      v175[0].__r_.__value_.__r.__words[2] = *(v81 + 16);
       *&v175[0].__r_.__value_.__l.__data_ = v83;
     }
 

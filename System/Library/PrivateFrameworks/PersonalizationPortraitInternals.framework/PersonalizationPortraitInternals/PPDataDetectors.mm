@@ -128,22 +128,21 @@
 
 void __71__PPDataDetectors_addressComponentsFromString_extractedAddress_locale___block_invoke_47(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 48);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v6 = *(a1 + 32);
-  v7 = [v6 length];
-  v8 = *MEMORY[0x277D041E8];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __71__PPDataDetectors_addressComponentsFromString_extractedAddress_locale___block_invoke_2_48;
-  v11[3] = &unk_278972BB0;
-  v9 = *(a1 + 32);
-  v14 = vextq_s8(*(a1 + 48), *(a1 + 48), 8uLL);
-  v10 = *(a1 + 40);
+  v3 = a2;
+  v4 = objc_opt_class();
+  v5 = *(a1 + 32);
+  v6 = [v5 length];
+  v7 = *MEMORY[0x277D041E8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __71__PPDataDetectors_addressComponentsFromString_extractedAddress_locale___block_invoke_2_48;
+  v10[3] = &unk_278972BB0;
+  v8 = *(a1 + 32);
+  v13 = vextq_s8(*(a1 + 48), *(a1 + 48), 8uLL);
+  v9 = *(a1 + 40);
+  v11 = v8;
   v12 = v9;
-  v13 = v10;
-  [v5 scanString:v6 inRange:0 withScanner:v7 options:v4 block:{v8, v11}];
+  [v4 scanString:v5 inRange:0 withScanner:v6 options:v3 block:{v7, v10}];
 }
 
 BOOL __71__PPDataDetectors_addressComponentsFromString_extractedAddress_locale___block_invoke_2_48(uint64_t a1, uint64_t a2, int a3)
@@ -161,17 +160,16 @@ BOOL __71__PPDataDetectors_addressComponentsFromString_extractedAddress_locale__
       **(a1 + 48) = v10;
     }
 
-    v12 = *(a1 + 56);
-    v13 = objc_opt_class();
-    v14 = *(*(a1 + 40) + 8);
-    obj = *(v14 + 40);
-    v15 = [v13 isValidDataDetectorsMatch:a2 addressComponents:&obj];
-    objc_storeStrong((v14 + 40), obj);
-    if ((v15 & 1) == 0)
+    v12 = objc_opt_class();
+    v13 = *(*(a1 + 40) + 8);
+    obj = *(v13 + 40);
+    v14 = [v12 isValidDataDetectorsMatch:a2 addressComponents:&obj];
+    objc_storeStrong((v13 + 40), obj);
+    if ((v14 & 1) == 0)
     {
-      v16 = *(*(a1 + 40) + 8);
-      v17 = *(v16 + 40);
-      *(v16 + 40) = 0;
+      v15 = *(*(a1 + 40) + 8);
+      v16 = *(v15 + 40);
+      *(v15 + 40) = 0;
     }
   }
 
@@ -246,29 +244,27 @@ id __71__PPDataDetectors_addressComponentsFromString_extractedAddress_locale___b
 
 void __61__PPDataDetectors_addAddressComponentsInResult_toDictionary___block_invoke()
 {
-  v9[6] = *MEMORY[0x277D85DE8];
+  v8[6] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CCA6D8];
-  v8[0] = @"CompanyName";
-  v8[1] = @"Street";
+  v7[0] = @"CompanyName";
+  v7[1] = @"Street";
   v1 = *MEMORY[0x277CCA6E8];
-  v9[0] = v0;
-  v9[1] = v1;
+  v8[0] = v0;
+  v8[1] = v1;
   v2 = *MEMORY[0x277CCA6B0];
-  v8[2] = @"City";
-  v8[3] = @"State";
+  v7[2] = @"City";
+  v7[3] = @"State";
   v3 = *MEMORY[0x277CCA6E0];
-  v9[2] = v2;
-  v9[3] = v3;
-  v8[4] = @"ZipCode";
-  v8[5] = @"Country";
+  v8[2] = v2;
+  v8[3] = v3;
+  v7[4] = @"ZipCode";
+  v7[5] = @"Country";
   v4 = *MEMORY[0x277CCA6B8];
-  v9[4] = *MEMORY[0x277CCA6F0];
-  v9[5] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:6];
+  v8[4] = *MEMORY[0x277CCA6F0];
+  v8[5] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:6];
   v6 = addAddressComponentsInResult_toDictionary__subTypesToKeysDictionary;
   addAddressComponentsInResult_toDictionary__subTypesToKeysDictionary = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)scanString:(id)string inRange:(id)range withScanner:(__DDScanner *)scanner options:(int64_t)options block:(id)block

@@ -22,18 +22,16 @@
   return v3;
 }
 
-void __47__GKSupportedTransport_secureCodedPropertyKeys__block_invoke()
+void __47__GKSupportedTransport_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v3[0] = @"name";
-  v3[1] = @"version";
-  v4[0] = objc_opt_class();
-  v4[1] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:2];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_8;
-  secureCodedPropertyKeys_sSecureCodedKeys_8 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"name";
+  v4[1] = @"version";
+  v5[0] = objc_opt_class();
+  v5[1] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_8;
+  secureCodedPropertyKeys_sSecureCodedKeys_8 = v2;
 }
 
 - (GKSupportedTransport)initWithVersionNumber:(id)number
@@ -111,31 +109,31 @@ void __47__GKSupportedTransport_secureCodedPropertyKeys__block_invoke()
 
 + (unsigned)supportedTransportVersionSetForTransportVersionStrings:(id)strings
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [stringsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [stringsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(stringsCopy);
         }
 
-        v6 |= +[GKSupportedTransport supportedTransportVersionSetForSupportedTransportVersion:](GKSupportedTransport, "supportedTransportVersionSetForSupportedTransportVersion:", [*(*(&v11 + 1) + 8 * i) integerValue]);
+        v6 |= +[GKSupportedTransport supportedTransportVersionSetForSupportedTransportVersion:](GKSupportedTransport, "supportedTransportVersionSetForSupportedTransportVersion:", [*(*(&v10 + 1) + 8 * i) integerValue]);
       }
 
-      v5 = [stringsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [stringsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -146,7 +144,6 @@ void __47__GKSupportedTransport_secureCodedPropertyKeys__block_invoke()
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

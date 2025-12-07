@@ -221,26 +221,26 @@ LABEL_8:
 
 - (int64_t)_directActionEventFromContentTypesOfBulletin:(id)bulletin notification:(id)notification
 {
-  v30[6] = *MEMORY[0x1E69E9840];
+  v29[6] = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v6 = *MEMORY[0x1E698F668];
-  v29[0] = *MEMORY[0x1E698F660];
-  v29[1] = v6;
-  v30[0] = &unk_1F47D1740;
-  v30[1] = &unk_1F47D1740;
+  v28[0] = *MEMORY[0x1E698F660];
+  v28[1] = v6;
+  v29[0] = &unk_1F47D1740;
+  v29[1] = &unk_1F47D1740;
   v7 = *MEMORY[0x1E698F650];
-  v29[2] = *MEMORY[0x1E698F658];
-  v29[3] = v7;
-  v30[2] = &unk_1F47D1758;
-  v30[3] = &unk_1F47D1770;
+  v28[2] = *MEMORY[0x1E698F658];
+  v28[3] = v7;
+  v29[2] = &unk_1F47D1758;
+  v29[3] = &unk_1F47D1770;
   v8 = *MEMORY[0x1E698F678];
-  v29[4] = *MEMORY[0x1E698F670];
-  v29[5] = v8;
-  v30[4] = &unk_1F47D1770;
-  v30[5] = &unk_1F47D1788;
+  v28[4] = *MEMORY[0x1E698F670];
+  v28[5] = v8;
+  v29[4] = &unk_1F47D1770;
+  v29[5] = &unk_1F47D1788;
   v9 = MEMORY[0x1E695DF20];
   bulletinCopy = bulletin;
-  v11 = [v9 dictionaryWithObjects:v30 forKeys:v29 count:6];
+  v11 = [v9 dictionaryWithObjects:v29 forKeys:v28 count:6];
   contentType = [bulletinCopy contentType];
 
   v13 = [v11 objectForKeyedSubscript:contentType];
@@ -253,21 +253,21 @@ LABEL_8:
   else
   {
     v16 = *MEMORY[0x1E6983478];
-    v27[0] = *MEMORY[0x1E6983468];
-    v27[1] = v16;
-    v28[0] = &unk_1F47D1740;
-    v28[1] = &unk_1F47D1740;
+    v26[0] = *MEMORY[0x1E6983468];
+    v26[1] = v16;
+    v27[0] = &unk_1F47D1740;
+    v27[1] = &unk_1F47D1740;
     v17 = *MEMORY[0x1E6983448];
-    v27[2] = *MEMORY[0x1E6983458];
-    v27[3] = v17;
-    v28[2] = &unk_1F47D1758;
-    v28[3] = &unk_1F47D1770;
+    v26[2] = *MEMORY[0x1E6983458];
+    v26[3] = v17;
+    v27[2] = &unk_1F47D1758;
+    v27[3] = &unk_1F47D1770;
     v18 = *MEMORY[0x1E6983498];
-    v27[4] = *MEMORY[0x1E6983488];
-    v27[5] = v18;
-    v28[4] = &unk_1F47D1770;
-    v28[5] = &unk_1F47D1788;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:6];
+    v26[4] = *MEMORY[0x1E6983488];
+    v26[5] = v18;
+    v27[4] = &unk_1F47D1770;
+    v27[5] = &unk_1F47D1788;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:6];
     request = [notificationCopy request];
     content = [request content];
     contentType2 = [content contentType];
@@ -294,109 +294,105 @@ LABEL_8:
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return integerValue;
 }
 
 - (int64_t)_directActionEventFromAppIdsAndIntentIdentifiersOfBulletin:(id)bulletin notification:(id)notification
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v5 = [(SiriDirectActionContext *)self bundleId:bulletin];
-  if (v5 && (v6 = v5, -[SiriDirectActionContext bundleId](self, "bundleId"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 caseInsensitiveCompare:@"com.apple.MobileSMS"], v7, v6, !v8))
+  if (v5)
   {
-LABEL_18:
-    result = 4;
+    v6 = v5;
+    bundleId = [(SiriDirectActionContext *)self bundleId];
+    v8 = [bundleId caseInsensitiveCompare:@"com.apple.MobileSMS"];
+
+    if (!v8)
+    {
+      return 4;
+    }
+  }
+
+  bundleId2 = [(SiriDirectActionContext *)self bundleId];
+  if (bundleId2 && (v10 = bundleId2, -[SiriDirectActionContext bundleId](self, "bundleId"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 caseInsensitiveCompare:@"com.apple.Home"], v11, v10, !v12))
+  {
+    bulletin = [(SiriDirectActionContext *)self bulletin];
+    notification = [(SiriDirectActionContext *)self notification];
+    v31 = [(SiriDirectActionContext *)self _intentIdentifiersFromBulletin:bulletin notification:notification];
+
+    LOBYTE(bulletin) = [v31 containsObject:*MEMORY[0x1E696E688]];
+    if (bulletin)
+    {
+      return 16;
+    }
   }
 
   else
   {
-    bundleId = [(SiriDirectActionContext *)self bundleId];
-    if (bundleId && (v10 = bundleId, -[SiriDirectActionContext bundleId](self, "bundleId"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 caseInsensitiveCompare:@"com.apple.Home"], v11, v10, !v12))
+    bundleId3 = [(SiriDirectActionContext *)self bundleId];
+    if (bundleId3)
     {
-      bulletin = [(SiriDirectActionContext *)self bulletin];
-      notification = [(SiriDirectActionContext *)self notification];
-      v31 = [(SiriDirectActionContext *)self _intentIdentifiersFromBulletin:bulletin notification:notification];
+      v14 = bundleId3;
+      bundleId4 = [(SiriDirectActionContext *)self bundleId];
+      v16 = [bundleId4 caseInsensitiveCompare:@"com.apple.shortcuts"];
 
-      LOBYTE(bulletin) = [v31 containsObject:*MEMORY[0x1E696E688]];
-      if (bulletin)
+      if (!v16)
       {
-        result = 16;
-        goto LABEL_25;
+        return 17;
       }
     }
 
-    else
+    bulletin2 = [(SiriDirectActionContext *)self bulletin];
+    notification2 = [(SiriDirectActionContext *)self notification];
+    v19 = [(SiriDirectActionContext *)self _intentIdentifiersFromBulletin:bulletin2 notification:notification2];
+
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v20 = v19;
+    v21 = [v20 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    if (v21)
     {
-      bundleId2 = [(SiriDirectActionContext *)self bundleId];
-      if (bundleId2)
+      v22 = v21;
+      v23 = *v34;
+      v24 = *MEMORY[0x1E696E6A0];
+      v25 = *MEMORY[0x1E696E698];
+      while (2)
       {
-        v14 = bundleId2;
-        bundleId3 = [(SiriDirectActionContext *)self bundleId];
-        v16 = [bundleId3 caseInsensitiveCompare:@"com.apple.shortcuts"];
-
-        if (!v16)
+        for (i = 0; i != v22; ++i)
         {
-          result = 17;
-          goto LABEL_25;
-        }
-      }
-
-      bulletin2 = [(SiriDirectActionContext *)self bulletin];
-      notification2 = [(SiriDirectActionContext *)self notification];
-      v19 = [(SiriDirectActionContext *)self _intentIdentifiersFromBulletin:bulletin2 notification:notification2];
-
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
-      v35 = 0u;
-      v20 = v19;
-      v21 = [v20 countByEnumeratingWithState:&v34 objects:v38 count:16];
-      if (v21)
-      {
-        v22 = v21;
-        v23 = *v35;
-        v24 = *MEMORY[0x1E696E6A0];
-        v25 = *MEMORY[0x1E696E698];
-        while (2)
-        {
-          for (i = 0; i != v22; ++i)
+          if (*v34 != v23)
           {
-            if (*v35 != v23)
-            {
-              objc_enumerationMutation(v20);
-            }
-
-            v27 = *(*(&v34 + 1) + 8 * i);
-            if ([v27 containsString:{v24, v34}] & 1) != 0 || (objc_msgSend(v27, "containsString:", v25))
-            {
-
-              goto LABEL_18;
-            }
+            objc_enumerationMutation(v20);
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v34 objects:v38 count:16];
-          if (v22)
+          v27 = *(*(&v33 + 1) + 8 * i);
+          if ([v27 containsString:{v24, v33}] & 1) != 0 || (objc_msgSend(v27, "containsString:", v25))
           {
-            continue;
-          }
 
-          break;
+            return 4;
+          }
         }
+
+        v22 = [v20 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        if (v22)
+        {
+          continue;
+        }
+
+        break;
       }
     }
-
-    v32 = *MEMORY[0x1E698D0A0];
-    if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_ERROR))
-    {
-      [SiriDirectActionContext _directActionEventFromAppIdsAndIntentIdentifiersOfBulletin:v32 notification:self];
-    }
-
-    result = 0;
   }
 
-LABEL_25:
-  v33 = *MEMORY[0x1E69E9840];
-  return result;
+  v32 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_ERROR))
+  {
+    [SiriDirectActionContext _directActionEventFromAppIdsAndIntentIdentifiersOfBulletin:v32 notification:self];
+  }
+
+  return 0;
 }
 
 + (id)messageAmbiguousDirectActionWithAppBundleId:(id)id
@@ -493,19 +489,19 @@ LABEL_25:
 
 - (id)_initWithDirectActionEvent:(int64_t)event appBundleId:(id)id conversationGUID:(id)d fullName:(id)name phoneOrEmailAddress:(id)address
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   dCopy = d;
   nameCopy = name;
   addressCopy = address;
   v15 = MEMORY[0x1E695DF90];
-  v24[0] = *MEMORY[0x1E698D2A0];
+  v23[0] = *MEMORY[0x1E698D2A0];
   v16 = MEMORY[0x1E696AD98];
   idCopy = id;
   v18 = [v16 numberWithInteger:event];
-  v24[1] = @"SBSAssistantActivationContextBundleID";
-  v25[0] = v18;
-  v25[1] = idCopy;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v23[1] = @"SBSAssistantActivationContextBundleID";
+  v24[0] = v18;
+  v24[1] = idCopy;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
   v20 = [v15 dictionaryWithDictionary:v19];
 
   if ([dCopy length])
@@ -525,40 +521,36 @@ LABEL_25:
 
   v21 = [(SiriDirectActionContext *)self initWithPayload:v20];
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 - (void)_directActionEventFromContentTypesOfBulletin:(os_log_t)log notification:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = 136315650;
-  v5 = "[SiriDirectActionContext _directActionEventFromContentTypesOfBulletin:notification:]";
-  v6 = 2112;
-  v7 = a1;
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_1C8137000, log, OS_LOG_TYPE_ERROR, "%s Couldn't determine direct action from bulletin content %@ or notification content %@.", &v4, 0x20u);
-  v3 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = 136315650;
+  v4 = "[SiriDirectActionContext _directActionEventFromContentTypesOfBulletin:notification:]";
+  v5 = 2112;
+  v6 = a1;
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_1C8137000, log, OS_LOG_TYPE_ERROR, "%s Couldn't determine direct action from bulletin content %@ or notification content %@.", &v3, 0x20u);
 }
 
 - (void)_directActionEventFromAppIdsAndIntentIdentifiersOfBulletin:(void *)a1 notification:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 bundleId];
   v5 = [a2 bulletin];
   v6 = [a2 notification];
   v7 = [a2 _intentIdentifiersFromBulletin:v5 notification:v6];
-  v9 = 136315650;
-  v10 = "[SiriDirectActionContext _directActionEventFromAppIdsAndIntentIdentifiersOfBulletin:notification:]";
-  v11 = 2112;
-  v12 = v4;
-  v13 = 2112;
-  v14 = v7;
-  _os_log_error_impl(&dword_1C8137000, v3, OS_LOG_TYPE_ERROR, "%s Couldn't determine direct action from bundleId: %@ and intent identifiers: %@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 136315650;
+  v9 = "[SiriDirectActionContext _directActionEventFromAppIdsAndIntentIdentifiersOfBulletin:notification:]";
+  v10 = 2112;
+  v11 = v4;
+  v12 = 2112;
+  v13 = v7;
+  _os_log_error_impl(&dword_1C8137000, v3, OS_LOG_TYPE_ERROR, "%s Couldn't determine direct action from bundleId: %@ and intent identifiers: %@", &v8, 0x20u);
 }
 
 @end

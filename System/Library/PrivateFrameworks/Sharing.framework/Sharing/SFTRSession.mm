@@ -24,7 +24,7 @@
   if (v2)
   {
     v2->_connected = 1;
-    v4 = SFMainQueue(v2);
+    v4 = SFMainQueue();
     dispatchQueue = v3->_dispatchQueue;
     v3->_dispatchQueue = v4;
   }
@@ -36,7 +36,7 @@
 {
   if (self->_activateCalled && !self->_invalidateCalled)
   {
-    v3 = [SFRemoteAutoFillService dealloc];
+    [SFRemoteAutoFillService dealloc];
     [(SFTRSession *)v3 _cleanup];
   }
 
@@ -79,24 +79,28 @@
   dispatch_async(dispatchQueue, block);
 }
 
-void __23__SFTRSession_activate__block_invoke(uint64_t a1)
+void __23__SFTRSession_activate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFTRSession <= 30 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFTRSession <= 30)
   {
-    __23__SFTRSession_activate__block_invoke_cold_1();
+    if (gLogCategory_SFTRSession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __23__SFTRSession_activate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = objc_alloc_init(getTRAnisetteDataHandlerClass());
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  *(v3 + 16) = v2;
+  v4 = objc_alloc_init(getTRAnisetteDataHandlerClass());
+  v5 = *(v3 + 32);
+  v6 = *(v5 + 16);
+  *(v5 + 16) = v4;
 
-  v5 = *(a1 + 32);
-  v6 = v5[2];
-  v7 = [v5 trSession];
-  [v6 registerForAnisetteDataRequestsFromSession:v7];
+  v7 = *(v3 + 32);
+  v8 = v7[2];
+  v9 = [v7 trSession];
+  [v8 registerForAnisetteDataRequestsFromSession:v9];
 
-  *(*(a1 + 32) + 8) = 1;
+  *(*(v3 + 32) + 8) = 1;
 }
 
 - (void)invalidate
@@ -110,17 +114,21 @@ void __23__SFTRSession_activate__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __25__SFTRSession_invalidate__block_invoke(uint64_t a1)
+uint64_t __25__SFTRSession_invalidate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if ((*(*(a1 + 32) + 24) & 1) == 0 && gLogCategory_SFTRSession <= 30 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if ((*(*(a1 + 32) + 24) & 1) == 0 && gLogCategory_SFTRSession <= 30)
   {
-    __25__SFTRSession_invalidate__block_invoke_cold_1();
+    if (gLogCategory_SFTRSession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __25__SFTRSession_invalidate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 24) = 1;
-  v2 = *(a1 + 32);
+  *(*(v3 + 32) + 24) = 1;
+  v4 = *(v3 + 32);
 
-  return [v2 _cleanup];
+  return [v4 _cleanup];
 }
 
 - (void)handleEvent:(id)event flags:(unsigned int)flags
@@ -138,68 +146,74 @@ uint64_t __25__SFTRSession_invalidate__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-void __33__SFTRSession_handleEvent_flags___block_invoke(uint64_t a1)
+void __33__SFTRSession_handleEvent_flags___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a1 + 48) & 1) == 0)
   {
-    if (gLogCategory_SFTRSession <= 90 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFTRSession <= 90)
     {
-      __33__SFTRSession_handleEvent_flags___block_invoke_cold_5();
+      if (gLogCategory_SFTRSession != -1 || (a1 = _LogCategory_Initialize(), a1))
+      {
+        __33__SFTRSession_handleEvent_flags___block_invoke_cold_5(a1, a2, a3);
+      }
     }
 
     goto LABEL_20;
   }
 
-  v2 = *(a1 + 32);
+  v3 = a1;
   CFDataGetTypeID();
-  v3 = CFDictionaryGetTypedValue();
-  if (!v3)
+  v4 = CFDictionaryGetTypedValue();
+  if (!v4)
   {
-    if (gLogCategory_SFTRSession <= 90 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFTRSession <= 90)
     {
-      __33__SFTRSession_handleEvent_flags___block_invoke_cold_4();
+      if (gLogCategory_SFTRSession != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        __33__SFTRSession_handleEvent_flags___block_invoke_cold_4(v4, v5, v6);
+      }
     }
 
 LABEL_20:
-    v11 = 0;
+    v14 = 0;
 LABEL_21:
-    v8 = 0;
-    v6 = 0;
+    v11 = 0;
+    v9 = 0;
     goto LABEL_9;
   }
 
-  v11 = v3;
+  v14 = v4;
   getTREventMessageClass();
-  v4 = objc_opt_class();
-  v5 = [*(a1 + 40) _decodeTRMessageData:v11 kindOfClass:v4];
-  if (!v5)
+  v7 = objc_opt_class();
+  v8 = [*(v3 + 40) _decodeTRMessageData:v14 kindOfClass:v7];
+  if (!v8)
   {
     if (gLogCategory_SFTRSession <= 90 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
     {
-      __33__SFTRSession_handleEvent_flags___block_invoke_cold_3(v4);
+      __33__SFTRSession_handleEvent_flags___block_invoke_cold_3(v7);
     }
 
     goto LABEL_21;
   }
 
-  v6 = v5;
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v9 = [*(*(a1 + 40) + 32) objectForKeyedSubscript:v8];
-  if (v9)
+  v9 = v8;
+  v10 = objc_opt_class();
+  v11 = NSStringFromClass(v10);
+  v12 = [*(*(v3 + 40) + 32) objectForKeyedSubscript:v11];
+  if (v12)
   {
-    v10 = v9;
+    v13 = v12;
     if (gLogCategory_SFTRSession <= 30 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
     {
-      __33__SFTRSession_handleEvent_flags___block_invoke_cold_1(v11);
+      __33__SFTRSession_handleEvent_flags___block_invoke_cold_1(v14, v11);
     }
 
-    (v10)[2](v10, v6);
+    (v13)[2](v13, v9);
   }
 
   else if (gLogCategory_SFTRSession <= 90 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
   {
-    __33__SFTRSession_handleEvent_flags___block_invoke_cold_2();
+    __33__SFTRSession_handleEvent_flags___block_invoke_cold_2(v11);
   }
 
 LABEL_9:
@@ -223,75 +237,81 @@ LABEL_9:
   dispatch_async(dispatchQueue, v13);
 }
 
-void __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke(uint64_t a1)
+void __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a1 + 56) & 1) == 0)
   {
-    if (gLogCategory_SFTRSession <= 90 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFTRSession <= 90)
     {
-      __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_cold_5();
+      if (gLogCategory_SFTRSession != -1 || (a1 = _LogCategory_Initialize(), a1))
+      {
+        __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_cold_5(a1, a2, a3);
+      }
     }
 
     goto LABEL_18;
   }
 
-  v2 = *(a1 + 32);
+  v3 = a1;
   CFDataGetTypeID();
-  v3 = CFDictionaryGetTypedValue();
-  if (!v3)
+  v4 = CFDictionaryGetTypedValue();
+  if (!v4)
   {
-    if (gLogCategory_SFTRSession <= 90 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFTRSession <= 90)
     {
-      __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_cold_4();
+      if (gLogCategory_SFTRSession != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_cold_4(v4, v5, v6);
+      }
     }
 
 LABEL_18:
-    v4 = 0;
-LABEL_19:
-    v9 = 0;
     v7 = 0;
+LABEL_19:
+    v12 = 0;
+    v10 = 0;
     goto LABEL_9;
   }
 
-  v4 = v3;
+  v7 = v4;
   getTRRequestMessageClass();
-  v5 = objc_opt_class();
-  v6 = [*(a1 + 40) _decodeTRMessageData:v4 kindOfClass:v5];
-  if (!v6)
+  v8 = objc_opt_class();
+  v9 = [*(v3 + 40) _decodeTRMessageData:v7 kindOfClass:v8];
+  if (!v9)
   {
     if (gLogCategory_SFTRSession <= 90 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
     {
-      __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_cold_3(v5);
+      __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_cold_3(v8);
     }
 
     goto LABEL_19;
   }
 
-  v7 = v6;
-  v8 = objc_opt_class();
-  v9 = NSStringFromClass(v8);
-  v10 = [*(*(a1 + 40) + 32) objectForKeyedSubscript:v9];
-  if (v10)
+  v10 = v9;
+  v11 = objc_opt_class();
+  v12 = NSStringFromClass(v11);
+  v13 = [*(*(v3 + 40) + 32) objectForKeyedSubscript:v12];
+  if (v13)
   {
-    v11 = v10;
+    v14 = v13;
     if (gLogCategory_SFTRSession <= 30 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
     {
-      __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_cold_1(v4);
+      __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_cold_1(v7, v12);
     }
 
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_2;
-    v12[3] = &unk_1E7891388;
-    v9 = v9;
-    v13 = v9;
-    v14 = *(a1 + 48);
-    (v11)[2](v11, v7, v12);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_2;
+    v15[3] = &unk_1E7891388;
+    v12 = v12;
+    v16 = v12;
+    v17 = *(v3 + 48);
+    (v14)[2](v14, v10, v15);
   }
 
   else if (gLogCategory_SFTRSession <= 90 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
   {
-    __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_cold_2();
+    __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_cold_2(v12);
   }
 
 LABEL_9:
@@ -299,7 +319,7 @@ LABEL_9:
 
 void __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -309,9 +329,9 @@ void __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_2(uint
     v9 = v8;
     if (v8)
     {
-      v25 = @"trMsg";
-      v26 = v8;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v22 = @"trMsg";
+      v23 = v8;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
       if (gLogCategory_SFTRSession <= 30 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
       {
         __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_2_cold_1(v7, v9);
@@ -321,20 +341,20 @@ void __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_2(uint
       goto LABEL_18;
     }
 
-    v17 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A768];
-    v27 = *MEMORY[0x1E696A578];
-    v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
-    v20 = v19;
-    v21 = @"?";
-    if (v19)
+    v16 = MEMORY[0x1E696ABC0];
+    v17 = *MEMORY[0x1E696A768];
+    v24 = *MEMORY[0x1E696A578];
+    v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
+    v19 = v18;
+    v20 = @"?";
+    if (v18)
     {
-      v21 = v19;
+      v20 = v18;
     }
 
-    v28 = v21;
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-    v5 = [v17 errorWithDomain:v18 code:-6712 userInfo:v22];
+    v25 = v20;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v5 = [v16 errorWithDomain:v17 code:-6712 userInfo:v21];
 
     if (gLogCategory_SFTRSession <= 90 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
     {
@@ -350,16 +370,14 @@ LABEL_18:
 
   if (gLogCategory_SFTRSession <= 60 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
   {
-    v23 = *(a1 + 32);
-    v24 = v5;
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFTRSession, "[SFTRSession handleRequest:flags:responseHandler:]_block_invoke_2", 60, "### Response to %@ failed: %{error}\n", *(a1 + 32), v5);
   }
 
   if (!v5)
   {
     v11 = MEMORY[0x1E696ABC0];
     v12 = *MEMORY[0x1E696A768];
-    v29 = *MEMORY[0x1E696A578];
+    v26 = *MEMORY[0x1E696A578];
     v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
     v9 = v13;
     v14 = @"?";
@@ -368,8 +386,8 @@ LABEL_18:
       v14 = v13;
     }
 
-    v30[0] = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:{1, v23, v24}];
+    v27[0] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v5 = [v11 errorWithDomain:v12 code:-6700 userInfo:v15];
 
     goto LABEL_17;
@@ -378,8 +396,6 @@ LABEL_18:
   v10 = 0;
 LABEL_19:
   (*(*(a1 + 40) + 16))();
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendEvent:(id)event
@@ -398,36 +414,35 @@ LABEL_19:
 
 void __25__SFTRSession_sendEvent___block_invoke(uint64_t a1)
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:*(a1 + 32) requiringSecureCoding:1 error:0];
-  if (v5)
+  v10[2] = *MEMORY[0x1E69E9840];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:*(a1 + 32) requiringSecureCoding:1 error:0];
+  if (v4)
   {
     if (gLogCategory_SFTRSession <= 30 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
     {
-      __25__SFTRSession_sendEvent___block_invoke_cold_1(v5);
+      __25__SFTRSession_sendEvent___block_invoke_cold_1(v4, v3);
     }
 
-    v11[0] = @"op";
-    v11[1] = @"trMsg";
-    v12[0] = &unk_1F1D7D210;
-    v12[1] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
-    v7 = *(a1 + 40);
-    v8 = *(v7 + 72);
-    if (v8)
+    v9[0] = @"op";
+    v9[1] = @"trMsg";
+    v10[0] = &unk_1F1D7D210;
+    v10[1] = v4;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+    v6 = *(a1 + 40);
+    v7 = *(v6 + 72);
+    if (v7)
     {
-      (*(v8 + 16))(v8, v6, 1);
+      (*(v7 + 16))(v7, v5, 1);
     }
 
     else
     {
-      v9 = *(v7 + 56);
-      if (v9)
+      v8 = *(v6 + 56);
+      if (v8)
       {
-        [v9 sendWithFlags:1 object:v6];
+        [v8 sendWithFlags:1 object:v5];
       }
 
       else if (gLogCategory_SFTRSession <= 90 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
@@ -439,10 +454,8 @@ void __25__SFTRSession_sendEvent___block_invoke(uint64_t a1)
 
   else if (gLogCategory_SFTRSession <= 90 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
   {
-    __25__SFTRSession_sendEvent___block_invoke_cold_3();
+    __25__SFTRSession_sendEvent___block_invoke_cold_3(v3);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendRequest:(id)request withResponseHandler:(id)handler
@@ -462,44 +475,44 @@ void __25__SFTRSession_sendEvent___block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-void __47__SFTRSession_sendRequest_withResponseHandler___block_invoke(uint64_t *a1)
+void __47__SFTRSession_sendRequest_withResponseHandler___block_invoke(void *a1)
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:a1[4] requiringSecureCoding:1 error:0];
-  v3 = v2;
+  v5 = v2;
   if (v2)
   {
-    v23[0] = @"op";
-    v23[1] = @"trMsg";
-    v24[0] = &unk_1F1D7D228;
-    v24[1] = v2;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v24[0] = @"op";
+    v24[1] = @"trMsg";
+    v25[0] = &unk_1F1D7D228;
+    v25[1] = v2;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_161;
     aBlock[3] = &unk_1E78913B0;
-    v5 = a1[6];
+    v7 = a1[6];
     aBlock[4] = a1[5];
-    v20 = v5;
-    v6 = _Block_copy(aBlock);
+    v21 = v7;
+    v8 = _Block_copy(aBlock);
     if (gLogCategory_SFTRSession <= 30 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
     {
-      __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_cold_1(a1 + 4, v3);
+      __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_cold_1(a1 + 4, v5);
     }
 
-    v7 = a1[5];
-    v8 = *(v7 + 80);
-    if (v8)
+    v9 = a1[5];
+    v10 = *(v9 + 80);
+    if (v10)
     {
-      (*(v8 + 16))(v8, v4, 1, v6);
+      (*(v10 + 16))(v10, v6, 1, v8);
     }
 
     else
     {
-      v9 = *(v7 + 56);
-      if (v9)
+      v11 = *(v9 + 56);
+      if (v11)
       {
-        [v9 sendRequestWithFlags:1 object:v4 responseHandler:v6];
+        [v11 sendRequestWithFlags:1 object:v6 responseHandler:v8];
       }
 
       else
@@ -509,41 +522,42 @@ void __47__SFTRSession_sendRequest_withResponseHandler___block_invoke(uint64_t *
           __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_cold_2();
         }
 
-        v10 = a1[6];
-        v11 = MEMORY[0x1E696ABC0];
-        v12 = *MEMORY[0x1E696A768];
-        v21 = *MEMORY[0x1E696A578];
-        v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
-        v14 = v13;
-        v15 = @"?";
-        if (v13)
+        v12 = a1[6];
+        v13 = MEMORY[0x1E696ABC0];
+        v14 = *MEMORY[0x1E696A768];
+        v22 = *MEMORY[0x1E696A578];
+        v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
+        v16 = v15;
+        v17 = @"?";
+        if (v15)
         {
-          v15 = v13;
+          v17 = v15;
         }
 
-        v22 = v15;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-        v17 = [v11 errorWithDomain:v12 code:-6753 userInfo:v16];
-        (*(v10 + 16))(v10, v17, 0);
+        v23 = v17;
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+        v19 = [v13 errorWithDomain:v14 code:-6753 userInfo:v18];
+        (*(v12 + 16))(v12, v19, 0);
       }
     }
   }
 
-  else if (gLogCategory_SFTRSession <= 90 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_SFTRSession <= 90)
   {
-    __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_cold_3();
+    if (gLogCategory_SFTRSession != -1 || (v2 = _LogCategory_Initialize(), v2))
+    {
+      __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_cold_3(v2, v3, v4);
+    }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_161(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v18 = a3;
+  v20 = a3;
   v7 = a4;
-  v8 = v18;
+  v8 = v20;
   v9 = v7;
-  if (v18)
+  if (v20)
   {
     if (gLogCategory_SFTRSession <= 60)
     {
@@ -553,12 +567,12 @@ LABEL_24:
         v11 = 0;
 LABEL_29:
         v14 = 0;
-        v8 = v18;
+        v8 = v20;
         goto LABEL_9;
       }
 
-      __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_161_cold_1();
-      v8 = v18;
+      __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_161_cold_1(v20);
+      v8 = v20;
     }
 
 LABEL_25:
@@ -568,14 +582,14 @@ LABEL_25:
 
   if ((a2 & 1) == 0)
   {
-    v15 = NSErrorWithOSStatusF();
+    v15 = NSErrorWithOSStatusF(4294960528, "Unencrypted response");
     v8 = v15;
     if (gLogCategory_SFTRSession <= 90)
     {
-      v18 = v15;
-      if (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize())
+      v20 = v15;
+      if (gLogCategory_SFTRSession != -1 || (v15 = _LogCategory_Initialize(), v15))
       {
-        __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_161_cold_5();
+        __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_161_cold_5(v15, v8, v16);
       }
 
       goto LABEL_24;
@@ -588,14 +602,14 @@ LABEL_25:
   v10 = CFDictionaryGetTypedValue();
   if (!v10)
   {
-    v16 = NSErrorWithOSStatusF();
-    v8 = v16;
+    v17 = NSErrorWithOSStatusF(4294960584, "No TRMessage data in response");
+    v8 = v17;
     if (gLogCategory_SFTRSession <= 90)
     {
-      v18 = v16;
-      if (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize())
+      v20 = v17;
+      if (gLogCategory_SFTRSession != -1 || (v17 = _LogCategory_Initialize(), v17))
       {
-        __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_161_cold_4();
+        __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_161_cold_4(v17, v8, v18);
       }
 
       goto LABEL_24;
@@ -610,11 +624,11 @@ LABEL_25:
   v13 = [*(a1 + 32) _decodeTRMessageData:v11 kindOfClass:v12];
   if (!v13)
   {
-    v17 = NSErrorWithOSStatusF();
-    v8 = v17;
+    v19 = NSErrorWithOSStatusF(4294960540, "Bad response type");
+    v8 = v19;
     if (gLogCategory_SFTRSession <= 90)
     {
-      v18 = v17;
+      v20 = v19;
       if (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize())
       {
         __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_161_cold_3(v12);
@@ -636,7 +650,7 @@ LABEL_30:
 
   v8 = 0;
 LABEL_9:
-  v19 = v8;
+  v21 = v8;
   (*(*(a1 + 40) + 16))();
 }
 
@@ -714,23 +728,23 @@ void __49__SFTRSession_setRequestHandler_forRequestClass___block_invoke(uint64_t
 
 - (id)_decodeTRMessageData:(id)data kindOfClass:(Class)class
 {
-  v16[6] = *MEMORY[0x1E69E9840];
+  v15[6] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E695DFD8];
   dataCopy = data;
   v7 = [v5 alloc];
-  v16[0] = class;
-  v16[1] = objc_opt_class();
-  v16[2] = objc_opt_class();
-  v16[3] = objc_opt_class();
-  v16[4] = objc_opt_class();
-  v16[5] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:6];
+  v15[0] = class;
+  v15[1] = objc_opt_class();
+  v15[2] = objc_opt_class();
+  v15[3] = objc_opt_class();
+  v15[4] = objc_opt_class();
+  v15[5] = objc_opt_class();
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:6];
   v9 = [v7 initWithArray:v8];
 
-  v15 = 0;
-  v10 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v9 fromData:dataCopy error:&v15];
+  v14 = 0;
+  v10 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v9 fromData:dataCopy error:&v14];
 
-  v11 = v15;
+  v11 = v14;
   if (v10)
   {
     v12 = v10;
@@ -738,10 +752,8 @@ void __49__SFTRSession_setRequestHandler_forRequestClass___block_invoke(uint64_t
 
   else if (gLogCategory_SFTRSession <= 90 && (gLogCategory_SFTRSession != -1 || _LogCategory_Initialize()))
   {
-    [SFTRSession _decodeTRMessageData:kindOfClass:];
+    [SFTRSession _decodeTRMessageData:v11 kindOfClass:?];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -749,56 +761,52 @@ void __49__SFTRSession_setRequestHandler_forRequestClass___block_invoke(uint64_t
 void __33__SFTRSession_handleEvent_flags___block_invoke_cold_3(objc_class *a1)
 {
   v1 = NSStringFromClass(a1);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFTRSession, "[SFTRSession handleEvent:flags:]_block_invoke", 90, "### Event message not a %@\n", v1);
 }
 
 void __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_cold_3(objc_class *a1)
 {
   v1 = NSStringFromClass(a1);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFTRSession, "[SFTRSession handleRequest:flags:responseHandler:]_block_invoke", 90, "### Request message not a %@\n", v1);
 }
 
 void __51__SFTRSession_handleRequest_flags_responseHandler___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  [a2 length];
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFTRSession, "-[SFTRSession handleRequest:flags:responseHandler:]_block_invoke_2", 30, "Send response %@ (%ld bytes)\n", v4, [a2 length]);
 }
 
-void __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_cold_1(uint64_t *a1, void *a2)
+void __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_cold_1(void *a1, void *a2)
 {
-  v3 = *a1;
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  [a2 length];
-  LogPrintF();
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LogPrintF(&gLogCategory_SFTRSession, "-[SFTRSession sendRequest:withResponseHandler:]_block_invoke_2", 30, "Send request %@ (%ld bytes)\n", v4, [a2 length]);
 }
 
 void __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_161_cold_2(uint64_t a1, void *a2)
 {
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  [a2 length];
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFTRSession, "-[SFTRSession sendRequest:withResponseHandler:]_block_invoke", 30, "Received response %@ (%ld bytes)\n", v4, [a2 length]);
 }
 
 void __47__SFTRSession_sendRequest_withResponseHandler___block_invoke_161_cold_3(objc_class *a1)
 {
   v1 = NSStringFromClass(a1);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFTRSession, "[SFTRSession sendRequest:withResponseHandler:]_block_invoke", 90, "### Response message not a %@\n", v1);
 }
 
 void __45__SFTRSession_setEventHandler_forEventClass___block_invoke_cold_1(uint64_t a1)
 {
   v1 = NSStringFromClass(*(a1 + 48));
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFTRSession, "[SFTRSession setEventHandler:forEventClass:]_block_invoke", 30, "Set event handler for %@\n", v1);
 }
 
 void __49__SFTRSession_setRequestHandler_forRequestClass___block_invoke_cold_1(uint64_t a1)
 {
   v1 = NSStringFromClass(*(a1 + 48));
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFTRSession, "[SFTRSession setRequestHandler:forRequestClass:]_block_invoke", 30, "Set request handler for %@\n", v1);
 }
 
 @end

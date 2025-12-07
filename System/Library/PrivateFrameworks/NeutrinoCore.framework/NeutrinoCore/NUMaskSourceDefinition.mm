@@ -38,7 +38,7 @@
   identifierCopy = identifier;
   v6 = [NUMaskSourceNode alloc];
   image = [(NUCIImageSourceDefinition *)self image];
-  [(NUMaskSourceDefinition *)self croppedExtent];
+  objc_msgSend_croppedExtent(self);
   scale = [(NUMaskSourceDefinition *)self scale];
   v10 = [(NUMaskSourceNode *)v6 initWithImage:image croppedExtent:&v13 scale:scale identifier:v9 orientation:identifierCopy, [(NUCIImageSourceDefinition *)self orientation]];
 

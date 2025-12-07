@@ -1,4 +1,5 @@
 @interface SKDPipelineEvent
++ (id)_configurePipelineEventWithType:(unsigned __int8)type pipelineEventCode:(int64_t)code;
 + (id)_pipelineEventForEventType:(unsigned __int8)type code:(int64_t)code;
 - (SKDPipelineEvent)initWithEventType:(unsigned __int8)type info:(id)info;
 - (SKDPipelineEvent)initWithEventType:(unsigned __int8)type status:(unsigned __int8)status;
@@ -6,6 +7,32 @@
 @end
 
 @implementation SKDPipelineEvent
+
++ (id)_configurePipelineEventWithType:(unsigned __int8)type pipelineEventCode:(int64_t)code
+{
+  typeCopy = type;
+  v14[1] = *MEMORY[0x277D85DE8];
+  v6 = [SKDPipelineInfo alloc];
+  if (code <= 19)
+  {
+    codeCopy = code;
+  }
+
+  else
+  {
+    codeCopy = 0;
+  }
+
+  v8 = messageForPipelineEventCode_sEventCodeMap[codeCopy];
+  v13 = @"messageInfoKey";
+  v14[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v10 = [(SKDPipelineInfo *)v6 initWithDomain:@"SKDPipelineEventDomain" code:code userInfo:v9];
+
+  v11 = [[SKDPipelineEvent alloc] initWithEventType:typeCopy info:v10];
+
+  return v11;
+}
 
 + (id)_pipelineEventForEventType:(unsigned __int8)type code:(int64_t)code
 {

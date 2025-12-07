@@ -9,22 +9,22 @@
 
 - (int64_t)_datePickerModeForInputType:(id)type
 {
-  if ([type isEqualToString:@"date"])
+  if (objc_msgSend_isEqualToString_(type, a2, @"date"))
   {
     return 1;
   }
 
-  if ([type isEqualToString:@"datetime-local"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 2;
   }
 
-  if ([type isEqualToString:@"time"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 0;
   }
 
-  if ([type isEqualToString:@"month"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 4;
   }

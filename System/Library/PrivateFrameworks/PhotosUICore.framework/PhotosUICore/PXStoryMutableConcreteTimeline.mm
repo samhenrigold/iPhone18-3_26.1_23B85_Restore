@@ -31,7 +31,7 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"PXStoryConcreteTimeline.m" lineNumber:726 description:@"currently only supporting changing the start time for an empty timeline"];
   }
 
-  [(PXStoryConcreteTimeline *)self timeRange];
+  objc_msgSend_timeRange(self);
   duration = v8.duration;
   start = *time;
   CMTimeRangeMake(&v8, &start, &duration);
@@ -188,63 +188,63 @@ BOOL __80__PXStoryMutableConcreteTimeline_addClipWithTimeRange_frame_info_resour
 - (int64_t)_appendSegmentFromTimeline:(id)timeline withIdentifier:(int64_t)identifier
 {
   timelineCopy = timeline;
-  v7 = timelineCopy;
-  memset(v38, 0, sizeof(v38));
-  v37 = 0u;
+  v6 = timelineCopy;
+  memset(v37, 0, sizeof(v37));
+  v36 = 0u;
   if (timelineCopy)
   {
-    [timelineCopy timeRangeForSegmentWithIdentifier:identifier];
-    *&v34[8] = *(v38 + 8);
-    *&v34[24] = *(&v38[1] + 1);
-    *v34 = 0;
-    v33 = PXStoryTimeZero;
-    memset(v36, 0, 40);
-    v35 = PXStoryTimeMaximum;
-    [v7 infoForSegmentWithIdentifier:identifier];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(timelineCopy);
+    *&v33[8] = *(v37 + 8);
+    *&v33[24] = *(&v37[1] + 1);
+    *v33 = 0;
+    v32 = PXStoryTimeZero;
+    memset(v35, 0, 40);
+    v34 = PXStoryTimeMaximum;
+    objc_msgSend_infoForSegmentWithIdentifier_(v6);
   }
 
   else
   {
-    *&v34[8] = *(v38 + 8);
-    *&v34[24] = *(&v38[1] + 1);
-    *v34 = 0;
-    v33 = PXStoryTimeZero;
-    memset(v36, 0, 40);
-    v35 = PXStoryTimeMaximum;
-    v29 = 0;
-    memset(v28, 0, sizeof(v28));
+    *&v33[8] = *(v37 + 8);
+    *&v33[24] = *(&v37[1] + 1);
+    *v33 = 0;
+    v32 = PXStoryTimeZero;
+    memset(v35, 0, 40);
+    v34 = PXStoryTimeMaximum;
+    v28 = 0;
+    memset(v27, 0, sizeof(v27));
   }
 
-  v30 = *(v28 + 8);
-  v31 = *(&v28[1] + 8);
-  v32 = *(&v28[2] + 1);
-  v16 = v37;
-  v17 = v38[0];
-  v18 = v38[1];
-  v8 = [v7 _smallestRangeOfClipsPotentiallyIntersectingTimeRange:&v16];
-  v10 = v9;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __76__PXStoryMutableConcreteTimeline__appendSegmentFromTimeline_withIdentifier___block_invoke;
-  v24[3] = &unk_1E773BA00;
-  v26 = v8;
-  v27 = v9;
+  v29 = *(v27 + 8);
+  v30 = *(&v27[1] + 8);
+  v31 = *(&v27[2] + 1);
+  v15 = v36;
+  v16 = v37[0];
+  v17 = v37[1];
+  v7 = [v6 _smallestRangeOfClipsPotentiallyIntersectingTimeRange:&v15];
+  v9 = v8;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __76__PXStoryMutableConcreteTimeline__appendSegmentFromTimeline_withIdentifier___block_invoke;
+  v23[3] = &unk_1E773BA00;
   v25 = v7;
-  v20 = v36[0];
-  v21 = v36[1];
-  v16 = v33;
-  v17 = *v34;
-  v18 = *&v34[16];
-  v19 = v35;
-  v22 = *&v36[2];
-  v23 = 0;
-  v14[0] = v30;
-  v14[1] = v31;
+  v26 = v8;
+  v24 = v6;
+  v19 = v35[0];
+  v20 = v35[1];
   v15 = v32;
-  v11 = v7;
-  v12 = [(PXStoryMutableConcreteTimeline *)self appendSegmentWithDurationInfo:&v16 clipCount:v10 compositionInfo:v14 configuration:v24];
+  v16 = *v33;
+  v17 = *&v33[16];
+  v18 = v34;
+  v21 = *&v35[2];
+  v22 = 0;
+  v13[0] = v29;
+  v13[1] = v30;
+  v14 = v31;
+  v10 = v6;
+  v11 = [(PXStoryMutableConcreteTimeline *)self appendSegmentWithDurationInfo:&v15 clipCount:v9 compositionInfo:v13 configuration:v23];
 
-  return v12;
+  return v11;
 }
 
 - (void)appendTimeRange:(id *)range fromTimeline:(id)timeline
@@ -264,7 +264,7 @@ BOOL __80__PXStoryMutableConcreteTimeline_addClipWithTimeRange_frame_info_resour
   [v8 enumerateSegmentsInTimeRange:v9 usingBlock:v10];
 }
 
-uint64_t __63__PXStoryMutableConcreteTimeline_appendTimeRange_fromTimeline___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+id *__63__PXStoryMutableConcreteTimeline_appendTimeRange_fromTimeline___block_invoke(id *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (a2 >= 1)
   {
@@ -280,7 +280,7 @@ uint64_t __63__PXStoryMutableConcreteTimeline_appendTimeRange_fromTimeline___blo
     {
       v13 = *a4;
       a4 += 25;
-      result = [*(v12 + 32) _appendSegmentFromTimeline:*(v12 + 40) withIdentifier:{v13, v14, v15, v16, v17, v18, v19}];
+      result = [v12[4] _appendSegmentFromTimeline:v12[5] withIdentifier:{v13, v14, v15, v16, v17, v18, v19}];
       --v11;
     }
 
@@ -324,12 +324,12 @@ uint64_t __63__PXStoryMutableConcreteTimeline_appendTimeRange_fromTimeline___blo
 
 LABEL_11:
   memset(&v21, 0, sizeof(v21));
-  [(PXStoryConcreteTimeline *)self timeRange];
+  objc_msgSend_timeRange(self);
   range = rhs;
   CMTimeRangeGetEnd(&v20, &range);
   if (timelineCopy)
   {
-    [timelineCopy timeRange];
+    objc_msgSend_timeRange(timelineCopy);
   }
 
   else

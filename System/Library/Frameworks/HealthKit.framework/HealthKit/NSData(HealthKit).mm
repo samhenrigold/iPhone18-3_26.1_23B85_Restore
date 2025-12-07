@@ -12,7 +12,7 @@
 
 + (id)hk_dataWithSHA256Fingerprint:()HealthKit error:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if ([v5 lengthOfBytesUsingEncoding:1] != 95)
   {
@@ -25,8 +25,8 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  memset(v22, 0, sizeof(v22));
-  if (([v5 getCString:v22 maxLength:96 encoding:1] & 1) == 0)
+  memset(v21, 0, sizeof(v21));
+  if (([v5 getCString:v21 maxLength:96 encoding:1] & 1) == 0)
   {
     v10 = MEMORY[0x1E696ABC0];
     v11 = @"Unable to instantiate C string.";
@@ -45,30 +45,30 @@ LABEL_9:
   }
 
   v7 = v6;
-  v21 = 0;
-  *__str = v22[0];
+  v20 = 0;
+  *__str = v21[0];
   __endptr = 0;
   *v6 = strtoul(__str, &__endptr, 16);
-  if (__endptr != &v21)
+  if (__endptr != &v20)
   {
     goto LABEL_5;
   }
 
-  v17 = v22 + 4;
-  v18 = 1;
-  while (*(v17 - 2) == 58)
+  v16 = v21 + 4;
+  v17 = 1;
+  while (*(v16 - 2) == 58)
   {
-    *__str = *(v17 - 1);
+    *__str = *(v16 - 1);
     __endptr = 0;
-    v7[v18++] = strtoul(__str, &__endptr, 16);
-    v17 += 3;
-    if (__endptr != &v21)
+    v7[v17++] = strtoul(__str, &__endptr, 16);
+    v16 += 3;
+    if (__endptr != &v20)
     {
       goto LABEL_5;
     }
   }
 
-  if (*(v17 - 2))
+  if (*(v16 - 2))
   {
 LABEL_5:
     free(v7);
@@ -84,37 +84,32 @@ LABEL_11:
   v14 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v7 length:32 freeWhenDone:1];
 LABEL_12:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (id)hk_nilDataMD5
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   CC_MD5(0, 0, md);
   v0 = [MEMORY[0x1E695DEF0] dataWithBytes:md length:16];
-  v1 = *MEMORY[0x1E69E9840];
 
   return v0;
 }
 
 - (id)hk_MD5
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   CC_MD5([self bytes], objc_msgSend(self, "length"), md);
   v1 = [MEMORY[0x1E695DEF0] dataWithBytes:md length:16];
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
 
 - (id)hk_SHA256
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   CC_SHA256([self bytes], objc_msgSend(self, "length"), md);
   v1 = [MEMORY[0x1E695DEF0] dataWithBytes:md length:32];
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
@@ -208,11 +203,10 @@ LABEL_10:
 
 + (void)hk_randomDataOfLength:()HealthKit .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Failed to create random data: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Failed to create random data: %{public}@", &v2, 0xCu);
 }
 
 @end

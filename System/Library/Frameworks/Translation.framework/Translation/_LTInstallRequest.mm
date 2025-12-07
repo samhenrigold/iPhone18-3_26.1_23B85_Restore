@@ -1,6 +1,8 @@
 @interface _LTInstallRequest
 - (_LTInstallRequest)initWithCoder:(id)coder;
 - (_LTInstallRequest)initWithLocales:(id)locales useCellular:(BOOL)cellular;
+- (_LTInstallRequest)initWithLocales:(id)locales useCellular:(BOOL)cellular delegate:(id)delegate;
+- (_LTInstallRequest)initWithLocales:(id)locales useCellular:(BOOL)cellular progressHandler:(id)handler;
 - (_LTSpeechTranslationDelegate)delegate;
 - (void)_startInstallationWithService:(id)service done:(id)done;
 - (void)encodeWithCoder:(id)coder;
@@ -29,18 +31,50 @@
   return v8;
 }
 
+- (_LTInstallRequest)initWithLocales:(id)locales useCellular:(BOOL)cellular progressHandler:(id)handler
+{
+  cellularCopy = cellular;
+  handlerCopy = handler;
+  v9 = [(_LTInstallRequest *)self initWithLocales:locales useCellular:cellularCopy];
+  if (v9)
+  {
+    v10 = [handlerCopy copy];
+    progressHandler = v9->_progressHandler;
+    v9->_progressHandler = v10;
+
+    v12 = v9;
+  }
+
+  return v9;
+}
+
+- (_LTInstallRequest)initWithLocales:(id)locales useCellular:(BOOL)cellular delegate:(id)delegate
+{
+  cellularCopy = cellular;
+  delegateCopy = delegate;
+  v9 = [(_LTInstallRequest *)self initWithLocales:locales useCellular:cellularCopy];
+  v10 = v9;
+  if (v9)
+  {
+    objc_storeWeak(&v9->_delegate, delegateCopy);
+    v11 = v10;
+  }
+
+  return v10;
+}
+
 - (_LTInstallRequest)initWithCoder:(id)coder
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = _LTInstallRequest;
-  v5 = [(_LTInstallRequest *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = _LTInstallRequest;
+  v5 = [(_LTInstallRequest *)&v12 init];
   if (v5)
   {
-    v14[0] = objc_opt_class();
-    v14[1] = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[0] = objc_opt_class();
+    v13[1] = objc_opt_class();
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     v7 = [MEMORY[0x277CBEB98] setWithArray:v6];
     v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"locales"];
     locales = v5->_locales;
@@ -50,7 +84,6 @@
     v10 = v5;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -66,11 +99,11 @@
 {
   serviceCopy = service;
   doneCopy = done;
-  v8 = _LTOSLogAssets();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _LTOSLogAssets(doneCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_23AAF5000, v8, OS_LOG_TYPE_DEFAULT, "Start installation request with service", buf, 2u);
+    _os_log_impl(&dword_23AAF5000, v9, OS_LOG_TYPE_DEFAULT, "Start installation request with service", buf, 2u);
   }
 
   objc_initWeak(buf, self);
@@ -79,14 +112,14 @@
   block[1] = 3221225472;
   block[2] = __56___LTInstallRequest__startInstallationWithService_done___block_invoke;
   block[3] = &unk_278B6CCE0;
-  objc_copyWeak(&v15, buf);
-  v13 = serviceCopy;
-  v14 = doneCopy;
-  v10 = serviceCopy;
-  v11 = doneCopy;
+  objc_copyWeak(&v16, buf);
+  v14 = serviceCopy;
+  v15 = doneCopy;
+  v11 = serviceCopy;
+  v12 = doneCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
 }
 

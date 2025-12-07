@@ -22,7 +22,7 @@
 - (void)stopServer
 {
   selfCopy = self;
-  sub_100002A9C();
+  sub_100002A9C(selfCopy, v2, v3);
 }
 
 - (_TtC24MIBULoopbackServerHelper24MIBULoopbackServerHelper)init

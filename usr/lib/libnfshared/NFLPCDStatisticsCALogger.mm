@@ -6,7 +6,7 @@
 
 + (void)postAnalyticsLPCDStatistic:(id)statistic
 {
-  v40[8] = *MEMORY[0x277D85DE8];
+  v39[8] = *MEMORY[0x277D85DE8];
   statisticCopy = statistic;
   v6 = objc_msgSend_sharedCALogger(NFCALogger, v4, v5);
   v9 = objc_msgSend_generateDailyUUIDForCA(v6, v7, v8);
@@ -14,30 +14,30 @@
 
   if (v11)
   {
-    v39[0] = @"falseDetectionCount";
+    v38[0] = @"falseDetectionCount";
     v14 = objc_msgSend_objectForKeyedSubscript_(statisticCopy, v12, @"falseDetectionCount");
-    v40[0] = v14;
-    v40[1] = &unk_2843B4C98;
-    v39[1] = @"tagType1ReadSuccessCount";
-    v39[2] = @"tagType2ReadSuccessCount";
-    v40[2] = &unk_2843B4C98;
-    v40[3] = &unk_2843B4C98;
-    v39[3] = @"tagType3ReadSuccessCount";
-    v39[4] = @"tagType4ReadSuccessCount";
-    v40[4] = &unk_2843B4C98;
-    v40[5] = &unk_2843B4C98;
-    v39[5] = @"tagType5ReadSuccessCount";
-    v39[6] = @"notNDEFFormatedTagCount";
-    v39[7] = @"dailyDeviceUUID";
+    v39[0] = v14;
+    v39[1] = &unk_2843B4C98;
+    v38[1] = @"tagType1ReadSuccessCount";
+    v38[2] = @"tagType2ReadSuccessCount";
+    v39[2] = &unk_2843B4C98;
+    v39[3] = &unk_2843B4C98;
+    v38[3] = @"tagType3ReadSuccessCount";
+    v38[4] = @"tagType4ReadSuccessCount";
+    v39[4] = &unk_2843B4C98;
+    v39[5] = &unk_2843B4C98;
+    v38[5] = @"tagType5ReadSuccessCount";
+    v38[6] = @"notNDEFFormatedTagCount";
+    v38[7] = @"dailyDeviceUUID";
     v15 = @"noUUID";
     if (v9)
     {
       v15 = v9;
     }
 
-    v40[6] = &unk_2843B4C98;
-    v40[7] = v15;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v40, v39, 8);
+    v39[6] = &unk_2843B4C98;
+    v39[7] = v15;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v39, v38, 8);
     v21 = LABEL_9:;
     goto LABEL_10;
   }
@@ -46,71 +46,69 @@
 
   if (v16)
   {
-    v37[0] = @"falseDetectionCount";
-    v37[1] = @"tagType1ReadSuccessCount";
-    v38[0] = &unk_2843B4C98;
-    v38[1] = &unk_2843B4C98;
-    v37[2] = @"tagType2ReadSuccessCount";
-    v37[3] = @"tagType3ReadSuccessCount";
-    v38[2] = &unk_2843B4C98;
-    v38[3] = &unk_2843B4C98;
-    v37[4] = @"tagType4ReadSuccessCount";
-    v37[5] = @"tagType5ReadSuccessCount";
-    v38[4] = &unk_2843B4C98;
-    v38[5] = &unk_2843B4C98;
-    v37[6] = @"notNDEFFormatedTagCount";
+    v36[0] = @"falseDetectionCount";
+    v36[1] = @"tagType1ReadSuccessCount";
+    v37[0] = &unk_2843B4C98;
+    v37[1] = &unk_2843B4C98;
+    v36[2] = @"tagType2ReadSuccessCount";
+    v36[3] = @"tagType3ReadSuccessCount";
+    v37[2] = &unk_2843B4C98;
+    v37[3] = &unk_2843B4C98;
+    v36[4] = @"tagType4ReadSuccessCount";
+    v36[5] = @"tagType5ReadSuccessCount";
+    v37[4] = &unk_2843B4C98;
+    v37[5] = &unk_2843B4C98;
+    v36[6] = @"notNDEFFormatedTagCount";
     v18 = objc_msgSend_objectForKeyedSubscript_(statisticCopy, v17, @"notNDEFFormatedTagCount");
     v14 = v18;
-    v37[7] = @"dailyDeviceUUID";
+    v36[7] = @"dailyDeviceUUID";
     v20 = @"noUUID";
     if (v9)
     {
       v20 = v9;
     }
 
-    v38[6] = v18;
-    v38[7] = v20;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, v38, v37, 8);
+    v37[6] = v18;
+    v37[7] = v20;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, v37, v36, 8);
     goto LABEL_9;
   }
 
-  v36[0] = &unk_2843B4C98;
+  v35[0] = &unk_2843B4C98;
   v14 = objc_msgSend_objectForKeyedSubscript_(statisticCopy, v17, @"tagType1ReadSuccessCount", @"falseDetectionCount", @"tagType1ReadSuccessCount");
-  v36[1] = v14;
-  v35[2] = @"tagType2ReadSuccessCount";
-  v26 = objc_msgSend_objectForKeyedSubscript_(statisticCopy, v25, @"tagType2ReadSuccessCount");
-  v36[2] = v26;
-  v35[3] = @"tagType3ReadSuccessCount";
-  v28 = objc_msgSend_objectForKeyedSubscript_(statisticCopy, v27, @"tagType3ReadSuccessCount");
-  v36[3] = v28;
-  v35[4] = @"tagType4ReadSuccessCount";
-  v30 = objc_msgSend_objectForKeyedSubscript_(statisticCopy, v29, @"tagType4ReadSuccessCount");
-  v36[4] = v30;
-  v35[5] = @"tagType5ReadSuccessCount";
-  v33 = objc_msgSend_objectForKeyedSubscript_(statisticCopy, v31, @"tagType5ReadSuccessCount");
-  v36[5] = v33;
-  v36[6] = &unk_2843B4C98;
-  v35[6] = @"notNDEFFormatedTagCount";
-  v35[7] = @"dailyDeviceUUID";
+  v35[1] = v14;
+  v34[2] = @"tagType2ReadSuccessCount";
+  v25 = objc_msgSend_objectForKeyedSubscript_(statisticCopy, v24, @"tagType2ReadSuccessCount");
+  v35[2] = v25;
+  v34[3] = @"tagType3ReadSuccessCount";
+  v27 = objc_msgSend_objectForKeyedSubscript_(statisticCopy, v26, @"tagType3ReadSuccessCount");
+  v35[3] = v27;
+  v34[4] = @"tagType4ReadSuccessCount";
+  v29 = objc_msgSend_objectForKeyedSubscript_(statisticCopy, v28, @"tagType4ReadSuccessCount");
+  v35[4] = v29;
+  v34[5] = @"tagType5ReadSuccessCount";
+  v32 = objc_msgSend_objectForKeyedSubscript_(statisticCopy, v30, @"tagType5ReadSuccessCount");
+  v35[5] = v32;
+  v35[6] = &unk_2843B4C98;
+  v34[6] = @"notNDEFFormatedTagCount";
+  v34[7] = @"dailyDeviceUUID";
   if (v9)
   {
-    v34 = v9;
+    v33 = v9;
   }
 
   else
   {
-    v34 = @"noUUID";
+    v33 = @"noUUID";
   }
 
-  v36[7] = v34;
-  v21 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v32, v36, v35, 8);
+  v35[7] = v33;
+  v21 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v31, v35, v34, 8);
 
 LABEL_10:
   v22 = objc_autoreleasePoolPush();
   objc_msgSend_postCAEventFor_eventInput_(v6, v23, @"com.apple.nfcd.lpcdStatistic", v21);
   objc_autoreleasePoolPop(v22);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

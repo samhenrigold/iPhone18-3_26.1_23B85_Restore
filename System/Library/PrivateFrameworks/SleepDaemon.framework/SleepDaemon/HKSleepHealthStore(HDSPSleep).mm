@@ -8,36 +8,32 @@
 
 - (uint64_t)hdsp_startSession
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = HKSPLogForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v3 = v7;
-    _os_log_impl(&dword_269B11000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] starting session", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v3 = v6;
+    _os_log_impl(&dword_269B11000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] starting session", &v5, 0xCu);
   }
 
-  result = [self startSleepTrackingSession];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [self startSleepTrackingSession];
 }
 
 - (uint64_t)hdsp_stopSession
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = HKSPLogForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v3 = v7;
-    _os_log_impl(&dword_269B11000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] stopping session", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v3 = v6;
+    _os_log_impl(&dword_269B11000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] stopping session", &v5, 0xCu);
   }
 
-  result = [self stopSleepTrackingSession];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [self stopSleepTrackingSession];
 }
 
 - (id)hdsp_persistSessions:()HDSPSleep

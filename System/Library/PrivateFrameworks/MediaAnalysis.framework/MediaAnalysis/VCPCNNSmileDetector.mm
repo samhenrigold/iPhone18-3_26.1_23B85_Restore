@@ -21,9 +21,9 @@
   return v2;
 }
 
-uint64_t __31__VCPCNNSmileDetector_detector__block_invoke()
+uint64_t __31__VCPCNNSmileDetector_detector__block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = DeviceHasANE();
+  result = DeviceHasANE(a1, a2);
   if (result)
   {
     result = objc_opt_class();

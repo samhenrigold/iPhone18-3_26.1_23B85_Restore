@@ -54,20 +54,20 @@ LABEL_9:
   return v5;
 }
 
-uint64_t __47__NSURL_BRAdditions__br_isInLocalHomeDirectory__block_invoke(uint64_t result, uint64_t a2, char a3, char a4, uint64_t a5)
+id *__47__NSURL_BRAdditions__br_isInLocalHomeDirectory__block_invoke(id *result, uint64_t a2, char a3, char a4, uint64_t a5)
 {
   v5 = result;
   if ((a3 & 1) == 0 && (a4 & 1) == 0)
   {
-    result = [*(result + 32) _br_isInLocalHomeDirectoryUnderPersona:a2 needsPersonaSwitch:a5 != 0];
+    result = [result[4] _br_isInLocalHomeDirectoryUnderPersona:a2 needsPersonaSwitch:a5 != 0];
     a4 = result;
   }
 
-  *(*(*(v5 + 40) + 8) + 24) = a4;
+  *(*(v5[5] + 1) + 24) = a4;
   return result;
 }
 
-uint64_t __102__NSURL_BRAdditions___br_isParentOfURL_strictly_withNonMateralizingIOPolicy_ignoreHomeDirectoryCheck___block_invoke(uint64_t a1)
+void *__102__NSURL_BRAdditions___br_isParentOfURL_strictly_withNonMateralizingIOPolicy_ignoreHomeDirectoryCheck___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _br_isParentOfURL:*(a1 + 40) strictly:*(a1 + 56) ignoreHomeDirectoryCheck:*(a1 + 57)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -172,10 +172,7 @@ void __71__NSURL_BRAdditions__br_containerIDsWithExternalReferencesWithHandler__
 
 uint64_t __67__NSURL_BRAdditions__br_pathRelativeToSyncedRootURLForContainerID___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) br_pathRelativeToMobileDocuments];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) br_pathRelativeToMobileDocuments];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -212,7 +209,7 @@ void __44__NSURL_BRAdditions__br_isInSyncedDocuments__block_invoke(uint64_t a1, 
   *(*(*(a1 + 40) + 8) + 24) = [v6 br_isParentOfURL:*(a1 + 32) strictly:0];
 }
 
-uint64_t __53__NSURL_BRAdditions___br_isInSyncedLocationStrictly___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *__53__NSURL_BRAdditions___br_isInSyncedLocationStrictly___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   result = [*(a1 + 32) _br_isInSyncedLocationWithCurrentPersonaID:a2 strictly:*(a1 + 48) foundHomeDirectory:a4 adoptionError:a5];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -247,32 +244,25 @@ uint64_t __78__NSURL_BRAdditions__br_isInCloudDocsPrivateStoragesForRemoteDocume
   v11 = *(v10 + 40);
   *(v10 + 40) = v9;
 
-  v12 = [*(*(*(a1 + 32) + 8) + 40) URLByAppendingPathComponent:@"r"];
-  v13 = *(*(a1 + 32) + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = v12;
+  *(*(*(a1 + 32) + 8) + 40) = [*(*(*(a1 + 32) + 8) + 40) URLByAppendingPathComponent:@"r"];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 uint64_t __36__NSURL_BRAdditions__br_containerID__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = [*(a1 + 32) br_containerIDWithCurrentPersonaID:a2 needsPersonaSwitch:a5 != 0];
-  v7 = *(*(a1 + 40) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v6;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) br_containerIDWithCurrentPersonaID:a2 needsPersonaSwitch:a5 != 0];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
-void __61__NSURL_BRAdditions__br_containerIDIfIsDocumentsContainerURL__block_invoke_2(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void __61__NSURL_BRAdditions__br_containerIDIfIsDocumentsContainerURL__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v10 = [BRDaemonConnection mobileDocumentsURLForPersonaID:a2 needsPersonaSwitch:a5 != 0];
-  v6 = a1[4];
-  v7 = (*(a1[5] + 16))();
-  v8 = *(a1[6] + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  v9 = [BRDaemonConnection mobileDocumentsURLForPersonaID:a2 needsPersonaSwitch:a5 != 0];
+  v6 = (*(*(a1 + 40) + 16))();
+  v7 = *(*(a1 + 48) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
 }
 
 void __43__NSURL_BRAdditions__br_cloudDocsContainer__block_invoke(uint64_t a1, void *a2)

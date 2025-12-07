@@ -119,9 +119,9 @@ LABEL_9:
         v12 = [clientIdentity copy];
         [v12 setValuesWithSoftwareApplicationProxy:v5];
         [(LoadCompletedMicroPaymentsOperation *)self _runForIdentity:v12];
-LABEL_22:
+LABEL_23:
 
-        goto LABEL_23;
+        goto LABEL_24;
       }
 
       bundleIdentifier2 = [v5 bundleIdentifier];
@@ -142,51 +142,55 @@ LABEL_22:
     shouldLog = [v13 shouldLog];
     if ([v13 shouldLogToDisk])
     {
-      v15 = shouldLog | 2;
+      LODWORD(v15) = shouldLog | 2;
     }
 
     else
     {
-      v15 = shouldLog;
+      LODWORD(v15) = shouldLog;
     }
 
     oSLogObject = [v13 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = v15;
+    }
+
+    else
     {
       v15 &= 2u;
     }
 
     if (v15)
     {
-      *v21 = 138412546;
-      *&v21[4] = objc_opt_class();
-      *&v21[12] = 2112;
-      *&v21[14] = bundleIdentifier;
-      v17 = *&v21[4];
-      LODWORD(v20) = 22;
-      v18 = _os_log_send_and_compose_impl();
+      v20 = 138412546;
+      v21 = objc_opt_class();
+      v22 = 2112;
+      v23 = bundleIdentifier;
+      v17 = v21;
+      v18 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not find app for identifier: %@", &v20, 22);
 
       if (!v18)
       {
-LABEL_21:
+LABEL_22:
 
         v12 = sub_1001FA1F0();
         v19 = ISErrorWithDomain();
         [(LoadCompletedMicroPaymentsOperation *)self setError:v19];
 
-        goto LABEL_22;
+        goto LABEL_23;
       }
 
-      oSLogObject = [NSString stringWithCString:v18 encoding:4, v21, v20, *v21, *&v21[16]];
+      oSLogObject = [NSString stringWithCString:v18 encoding:4];
       free(v18);
       SSFileLog();
     }
 
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
   [(LoadCompletedMicroPaymentsOperation *)self _runForIdentity:clientIdentity];
-LABEL_23:
+LABEL_24:
 }
 
 - (id)_copyResponseForIdentity:(id)identity startID:(id)d endID:(id)iD returningError:(id *)error
@@ -349,34 +353,34 @@ LABEL_6:
   v8 = [v5 initWithObjects:{v6, v7, 0}];
 
   paymentBatchBlock = [(LoadCompletedMicroPaymentsOperation *)self paymentBatchBlock];
-  v62 = identityCopy;
+  v61 = identityCopy;
   v9 = [[ClaimStoreKitClientOperation alloc] initWithClientIdentity:identityCopy];
-  v52 = v9;
+  v51 = v9;
   if ([(LoadCompletedMicroPaymentsOperation *)self runSubOperation:v9 returningError:0])
   {
     clientIdentity = [(ClaimStoreKitClientOperation *)v9 clientIdentity];
 
-    v62 = clientIdentity;
+    v61 = clientIdentity;
   }
 
   if ([v8 count] >= 2)
   {
     v11 = 0;
-    v53 = 0;
-    v57 = 0;
+    v52 = 0;
+    v56 = 0;
     v12 = &CFDictionaryGetValue_ptr;
     selfCopy = self;
-    v58 = v8;
+    v57 = v8;
     while (1)
     {
-      if (([(LoadCompletedMicroPaymentsOperation *)self isCancelled:v50]& 1) != 0)
+      if (([(LoadCompletedMicroPaymentsOperation *)self isCancelled]& 1) != 0)
       {
         goto LABEL_56;
       }
 
       context = objc_autoreleasePoolPush();
       v13 = [v8 objectAtIndex:0];
-      v63 = [v8 objectAtIndex:1];
+      v62 = [v8 objectAtIndex:1];
       sharedDaemonConfig = [v12[412] sharedDaemonConfig];
       if (!sharedDaemonConfig)
       {
@@ -408,17 +412,16 @@ LABEL_6:
       if (v18)
       {
         v19 = objc_opt_class();
-        v65 = 138412802;
-        v66 = v19;
-        v67 = 2112;
-        *v68 = v13;
-        *&v68[8] = 2112;
-        v20 = v63;
-        *&v68[10] = v63;
+        v64 = 138412802;
+        v65 = v19;
+        v66 = 2112;
+        *v67 = v13;
+        *&v67[8] = 2112;
+        v20 = v62;
+        *&v67[10] = v62;
         v21 = v19;
-        LODWORD(v51) = 32;
-        v50 = &v65;
-        v22 = _os_log_send_and_compose_impl();
+        v50 = &v64;
+        v22 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Fetching range [%@, %@]");
 
         v12 = &CFDictionaryGetValue_ptr;
         if (!v22)
@@ -426,7 +429,7 @@ LABEL_6:
           goto LABEL_19;
         }
 
-        oSLogObject = [NSString stringWithCString:v22 encoding:4, &v65, v51];
+        oSLogObject = [NSString stringWithCString:v22 encoding:4];
         free(v22);
         v50 = oSLogObject;
         SSFileLog();
@@ -434,14 +437,14 @@ LABEL_6:
 
       else
       {
-        v20 = v63;
+        v20 = v62;
       }
 
 LABEL_19:
-      v64 = 0;
-      v61 = v13;
-      v23 = [(LoadCompletedMicroPaymentsOperation *)self _copyResponseForIdentity:v62 startID:v13 endID:v20 returningError:&v64];
-      v24 = v64;
+      v63 = 0;
+      v60 = v13;
+      v23 = [(LoadCompletedMicroPaymentsOperation *)self _copyResponseForIdentity:v61 startID:v13 endID:v20 returningError:&v63];
+      v24 = v63;
       v25 = v24;
       if (v23)
       {
@@ -451,7 +454,7 @@ LABEL_19:
           [v8 addObjectsFromArray:rangesToLoad];
         }
 
-        v59 = v25;
+        v58 = v25;
         sharedDaemonConfig2 = [v12[412] sharedDaemonConfig];
         if (!sharedDaemonConfig2)
         {
@@ -483,24 +486,23 @@ LABEL_19:
         if (v31)
         {
           v32 = objc_opt_class();
-          v55 = v32;
+          v54 = v32;
           appReceipt = [v23 appReceipt];
           v34 = [appReceipt length];
-          bundleIdentifier = [v62 bundleIdentifier];
-          v65 = 138412802;
-          v66 = v32;
-          v67 = 1024;
-          *v68 = v34;
-          *&v68[4] = 2112;
-          *&v68[6] = bundleIdentifier;
-          LODWORD(v51) = 28;
-          v50 = &v65;
-          v36 = _os_log_send_and_compose_impl();
+          bundleIdentifier = [v61 bundleIdentifier];
+          v64 = 138412802;
+          v65 = v32;
+          v66 = 1024;
+          *v67 = v34;
+          *&v67[4] = 2112;
+          *&v67[6] = bundleIdentifier;
+          v50 = &v64;
+          v36 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &_mh_execute_header, oSLogObject2, 2, "[%@] Deciding to write receipt: %d bytes -- %@");
 
-          v20 = v63;
+          v20 = v62;
           if (v36)
           {
-            oSLogObject2 = [NSString stringWithCString:v36 encoding:4, &v65, v51];
+            oSLogObject2 = [NSString stringWithCString:v36 encoding:4];
             free(v36);
             v50 = oSLogObject2;
             SSFileLog();
@@ -519,11 +521,11 @@ LABEL_33:
         if (v38)
         {
           appReceipt3 = [v23 appReceipt];
-          [AppReceipt writeReceipt:appReceipt3 forStoreKitClient:v62];
+          [AppReceipt writeReceipt:appReceipt3 forStoreKitClient:v61];
         }
 
         self = selfCopy;
-        v8 = v58;
+        v8 = v57;
         v12 = &CFDictionaryGetValue_ptr;
         if (paymentBatchBlock)
         {
@@ -531,7 +533,7 @@ LABEL_33:
         }
 
         v11 = 1;
-        v40 = v59;
+        v40 = v58;
         goto LABEL_53;
       }
 
@@ -566,30 +568,29 @@ LABEL_33:
 
       if (!v46)
       {
-        v8 = v58;
-        v20 = v63;
+        v8 = v57;
+        v20 = v62;
         goto LABEL_51;
       }
 
       v47 = objc_opt_class();
-      v65 = 138413058;
-      v66 = v47;
-      v67 = 2112;
-      *v68 = v61;
-      *&v68[8] = 2112;
-      v20 = v63;
-      *&v68[10] = v63;
-      v69 = 2112;
-      v70 = v41;
+      v64 = 138413058;
+      v65 = v47;
+      v66 = 2112;
+      *v67 = v60;
+      *&v67[8] = 2112;
+      v20 = v62;
+      *&v67[10] = v62;
+      v68 = 2112;
+      v69 = v41;
       v48 = v47;
-      LODWORD(v51) = 42;
-      v50 = &v65;
-      v49 = _os_log_send_and_compose_impl();
+      v50 = &v64;
+      v49 = _os_log_send_and_compose_impl(v46, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Range [%@, %@] failed with error: %@");
 
-      v8 = v58;
+      v8 = v57;
       if (v49)
       {
-        oSLogObject3 = [NSString stringWithCString:v49 encoding:4, &v65, v51];
+        oSLogObject3 = [NSString stringWithCString:v49 encoding:4];
         free(v49);
         v50 = oSLogObject3;
         SSFileLog();
@@ -597,9 +598,9 @@ LABEL_51:
       }
 
       v40 = v41;
-      rangesToLoad = v57;
-      v53 = 1;
-      v57 = [v41 copy];
+      rangesToLoad = v56;
+      v52 = 1;
+      v56 = [v41 copy];
 LABEL_53:
 
       [v8 removeObjectsInRange:{0, 2}];
@@ -611,14 +612,14 @@ LABEL_53:
     }
   }
 
-  v57 = 0;
-  v53 = 0;
+  v56 = 0;
+  v52 = 0;
   v11 = 0;
 LABEL_56:
   [(LoadCompletedMicroPaymentsOperation *)self lock];
-  self->_partialFailure = v11 & 1 & v53;
+  self->_partialFailure = v11 & 1 & v52;
   [(LoadCompletedMicroPaymentsOperation *)self unlock];
-  [(LoadCompletedMicroPaymentsOperation *)self setError:v57];
+  [(LoadCompletedMicroPaymentsOperation *)self setError:v56];
   [(LoadCompletedMicroPaymentsOperation *)self setSuccess:v11 & 1];
 }
 

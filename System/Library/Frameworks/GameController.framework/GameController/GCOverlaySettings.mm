@@ -56,29 +56,29 @@ void __28__GCOverlaySettings_refresh__block_invoke(uint64_t a1)
 
 - (id)gameForActiveController
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = [(GCOverlaySettingsStore *)self->_settingsStore getSettingsControllerFor:self->_controller];
   defaultGame = [(GCOverlaySettingsStore *)self->_settingsStore defaultGame];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   games = [(GCOverlaySettingsStore *)self->_settingsStore games];
-  v6 = [games countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [games countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(games);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         bundleIdentifier = [v10 bundleIdentifier];
         v12 = [bundleIdentifier isEqualToString:self->_gameBundleIdentifier];
 
@@ -95,7 +95,7 @@ void __28__GCOverlaySettings_refresh__block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [games countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [games countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -107,36 +107,34 @@ void __28__GCOverlaySettings_refresh__block_invoke(uint64_t a1)
 
 LABEL_12:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return defaultGame;
 }
 
 - (void)_refresh
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   [(GCOverlaySettingsStore *)self->_settingsStore refresh];
   v3 = objc_opt_new();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   profiles = [(GCOverlaySettingsStore *)self->_settingsStore profiles];
-  v5 = [profiles countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v5 = [profiles countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v28;
+    v7 = *v27;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v28 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(profiles);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * i);
+        v9 = *(*(&v26 + 1) + 8 * i);
         v10 = [GCOverlayProfile alloc];
         name = [v9 name];
         uuid = [v9 uuid];
@@ -145,7 +143,7 @@ LABEL_12:
         [v3 addObject:v13];
       }
 
-      v6 = [profiles countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v6 = [profiles countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v6);
@@ -181,8 +179,6 @@ LABEL_12:
       [(GCOverlaySettings *)self setSelectedProfile:0];
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setController:(id)controller
@@ -201,29 +197,29 @@ LABEL_12:
 
 - (void)setSelectedProfile:(id)profile
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   objc_storeStrong(&self->_selectedProfile, profile);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   profiles = [(GCOverlaySettingsStore *)self->_settingsStore profiles];
-  v7 = [profiles countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [profiles countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v20 != v9)
+      if (*v19 != v9)
       {
         objc_enumerationMutation(profiles);
       }
 
-      v11 = *(*(&v19 + 1) + 8 * v10);
+      v11 = *(*(&v18 + 1) + 8 * v10);
       uuid = [v11 uuid];
       identifier = [profileCopy identifier];
       v14 = [uuid isEqual:identifier];
@@ -235,7 +231,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [profiles countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [profiles countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -263,7 +259,6 @@ LABEL_3:
 LABEL_12:
 
 LABEL_13:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 @end

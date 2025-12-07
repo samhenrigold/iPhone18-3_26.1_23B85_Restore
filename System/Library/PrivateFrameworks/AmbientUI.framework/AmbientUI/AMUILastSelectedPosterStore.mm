@@ -224,10 +224,10 @@ LABEL_9:
         v20 = *(v32[0] + 40);
         *(v32[0] + 40) = lastObject;
 
-        v21 = AMUILogSwitcher();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v22 = AMUILogSwitcher(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          [(AMUILastSelectedPosterStore *)buf _performWithSelectedConfigurationsForChargerIdentifier:v32 onlyIfPresent:v37 block:v21];
+          [(AMUILastSelectedPosterStore *)buf _performWithSelectedConfigurationsForChargerIdentifier:v32 onlyIfPresent:v37 block:v22];
         }
 
         v17 = *(v32[0] + 40);
@@ -242,21 +242,19 @@ LABEL_9:
     while ([(NSMutableDictionary *)self->_cachedLastSelectedConfigurations count]> 0x32);
   }
 
-  v22 = [(NSMutableDictionary *)self->_cachedLastSelectedConfigurations copy];
+  v23 = [(NSMutableDictionary *)self->_cachedLastSelectedConfigurations copy];
   persistenceQueue = self->_persistenceQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __106__AMUILastSelectedPosterStore__performWithSelectedConfigurationsForChargerIdentifier_onlyIfPresent_block___block_invoke_15;
   block[3] = &unk_278C75DD8;
   block[4] = self;
-  v29 = v22;
-  v24 = v22;
+  v29 = v23;
+  v25 = v23;
   dispatch_async(persistenceQueue, block);
 
   v12 = v13;
 LABEL_17:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __106__AMUILastSelectedPosterStore__performWithSelectedConfigurationsForChargerIdentifier_onlyIfPresent_block___block_invoke(uint64_t a1, void *a2, void *a3)

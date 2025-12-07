@@ -16,86 +16,82 @@
 
 - (BOOL)_validForRanking
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if ([(NSSet *)self->_conditions count])
+  v15 = *MEMORY[0x277D85DE8];
+  if (![(NSSet *)self->_conditions count])
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    v3 = self->_conditions;
-    v4 = [(NSSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v4)
+    return 0;
+  }
+
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v3 = self->_conditions;
+  v4 = [(NSSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v11;
+    while (2)
     {
-      v5 = v4;
-      v6 = *v12;
-      while (2)
+      for (i = 0; i != v5; ++i)
       {
-        for (i = 0; i != v5; ++i)
+        if (*v11 != v6)
         {
-          if (*v12 != v6)
-          {
-            objc_enumerationMutation(v3);
-          }
-
-          if (![*(*(&v11 + 1) + 8 * i) _validForRanking])
-          {
-            v8 = 0;
-            goto LABEL_12;
-          }
+          objc_enumerationMutation(v3);
         }
 
-        v5 = [(NSSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-        if (v5)
+        if (![*(*(&v10 + 1) + 8 * i) _validForRanking])
         {
-          continue;
+          v8 = 0;
+          goto LABEL_12;
         }
-
-        break;
       }
+
+      v5 = [(NSSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      if (v5)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v8 = 1;
+  v8 = 1;
 LABEL_12:
-  }
 
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)_notCondition
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] setWithCapacity:{-[NSSet count](self->_conditions, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = self->_conditions;
-  v5 = [(NSSet *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [(NSSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        _notCondition = [*(*(&v15 + 1) + 8 * i) _notCondition];
+        _notCondition = [*(*(&v14 + 1) + 8 * i) _notCondition];
         [v3 addObject:_notCondition];
       }
 
-      v6 = [(NSSet *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -107,39 +103,38 @@ LABEL_12:
   v10->_conditions = v11;
 
   v10->_type = self->_type != 1;
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (_REAggregateRuleCondition)initWithConditions:(id)conditions type:(unint64_t)type
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   conditionsCopy = conditions;
   v6 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(conditionsCopy, "count")}];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v7 = conditionsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v8)
   {
     v9 = v8;
     selfCopy = self;
     v10 = 0;
     v11 = 0;
-    v12 = *v32;
+    v12 = *v31;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v32 != v12)
+        if (*v31 != v12)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v31 + 1) + 8 * i);
+        v14 = *(*(&v30 + 1) + 8 * i);
         if (([v14 isMemberOfClass:objc_opt_class()] & 1) == 0)
         {
           _validForRanking = [v14 _validForRanking];
@@ -159,7 +154,7 @@ LABEL_12:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v9);
@@ -175,9 +170,9 @@ LABEL_12:
   {
   }
 
-  v30.receiver = self;
-  v30.super_class = _REAggregateRuleCondition;
-  v23 = [(_REAggregateRuleCondition *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = _REAggregateRuleCondition;
+  v23 = [(_REAggregateRuleCondition *)&v29 init];
   if (v23)
   {
     v24 = [v6 copy];
@@ -187,78 +182,76 @@ LABEL_12:
     v23->_type = type;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (id)_dependentFeatures
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = +[(REFeatureSet *)REMutableFeatureSet];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_conditions;
-  v5 = [(NSSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        _dependentFeatures = [*(*(&v13 + 1) + 8 * i) _dependentFeatures];
+        _dependentFeatures = [*(*(&v12 + 1) + 8 * i) _dependentFeatures];
         [v3 unionFeatureSet:_dependentFeatures];
       }
 
-      v6 = [(NSSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [v3 copy];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (BOOL)_requiresTwoFeatures
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_conditions;
-  v3 = [(NSSet *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSSet *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) _requiresTwoFeatures])
+        if ([*(*(&v7 + 1) + 8 * i) _requiresTwoFeatures])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSSet *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSSet *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -270,39 +263,38 @@ LABEL_12:
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (BOOL)_needsProbability
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_conditions;
-  v3 = [(NSSet *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSSet *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) _needsProbability])
+        if ([*(*(&v7 + 1) + 8 * i) _needsProbability])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSSet *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSSet *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -314,40 +306,39 @@ LABEL_11:
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (id)_inflectionFeatureValuePairs
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([(NSSet *)self->_conditions count])
   {
     v3 = [MEMORY[0x277CBEB58] set];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v4 = self->_conditions;
-    v5 = [(NSSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [(NSSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          _inflectionFeatureValuePairs = [*(*(&v13 + 1) + 8 * i) _inflectionFeatureValuePairs];
+          _inflectionFeatureValuePairs = [*(*(&v12 + 1) + 8 * i) _inflectionFeatureValuePairs];
           [v3 unionSet:_inflectionFeatureValuePairs];
         }
 
-        v6 = [(NSSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [(NSSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
@@ -361,50 +352,48 @@ LABEL_11:
     v10 = [MEMORY[0x277CBEB98] set];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (BOOL)_acceptsFeatureMap:(id)map predictionSet:(id)set explanation:(id *)explanation
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   setCopy = set;
-  v30[0] = 0;
-  v30[1] = v30;
-  v30[2] = 0x2020000000;
-  v30[3] = explanation;
+  v29[0] = 0;
+  v29[1] = v29;
+  v29[2] = 0x2020000000;
+  v29[3] = explanation;
   if ([(NSSet *)self->_conditions count])
   {
     v10 = self->_type != 1;
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     obj = self->_conditions;
-    v11 = [(NSSet *)obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v11 = [(NSSet *)obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v11)
     {
-      v12 = *v27;
+      v12 = *v26;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v27 != v12)
+          if (*v26 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v26 + 1) + 8 * i);
-          v20[0] = MEMORY[0x277D85DD0];
-          v20[1] = 3221225472;
-          v21 = __74___REAggregateRuleCondition__acceptsFeatureMap_predictionSet_explanation___block_invoke;
-          v22 = &unk_2785FD438;
-          v23 = mapCopy;
-          v24 = setCopy;
-          v25 = v30;
-          v15 = v21(v20, v14);
+          v14 = *(*(&v25 + 1) + 8 * i);
+          v19[0] = MEMORY[0x277D85DD0];
+          v19[1] = 3221225472;
+          v20 = __74___REAggregateRuleCondition__acceptsFeatureMap_predictionSet_explanation___block_invoke;
+          v21 = &unk_2785FD438;
+          v22 = mapCopy;
+          v23 = setCopy;
+          v24 = v29;
+          v15 = v20(v19, v14);
           type = self->_type;
           if (type)
           {
@@ -438,7 +427,7 @@ LABEL_11:
           }
         }
 
-        v11 = [(NSSet *)obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v11 = [(NSSet *)obj countByEnumeratingWithState:&v25 objects:v30 count:16];
         if (v11)
         {
           continue;
@@ -456,15 +445,14 @@ LABEL_20:
     LOBYTE(v10) = 1;
   }
 
-  _Block_object_dispose(v30, 8);
+  _Block_object_dispose(v29, 8);
 
-  v17 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)_acceptsLeftFeatureMap:(id)map rightFeatureMap:(id)featureMap
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   featureMapCopy = featureMap;
   if (![(NSSet *)self->_conditions count])
@@ -474,29 +462,29 @@ LABEL_20:
   }
 
   v8 = self->_type != 1;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = self->_conditions;
-  v10 = [(NSSet *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [(NSSet *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (!v10)
   {
     goto LABEL_19;
   }
 
   v11 = v10;
-  v12 = *v19;
+  v12 = *v18;
   while (2)
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v19 != v12)
+      if (*v18 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = [*(*(&v18 + 1) + 8 * i) _acceptsLeftFeatureMap:mapCopy rightFeatureMap:{featureMapCopy, v18}];
+      v14 = [*(*(&v17 + 1) + 8 * i) _acceptsLeftFeatureMap:mapCopy rightFeatureMap:{featureMapCopy, v17}];
       type = self->_type;
       if (type == 1)
       {
@@ -525,7 +513,7 @@ LABEL_12:
       v8 = 1;
     }
 
-    v11 = [(NSSet *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v11 = [(NSSet *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v11)
     {
       continue;
@@ -537,7 +525,6 @@ LABEL_12:
 LABEL_19:
 
 LABEL_20:
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

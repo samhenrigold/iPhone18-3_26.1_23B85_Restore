@@ -21,263 +21,120 @@
 
 - (void)_logOrGenerateString:(id)string fromDictionary:(id)dictionary forServerObject:(id)object andProcessName:(id)name
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   dictionaryCopy = dictionary;
   objectCopy = object;
   nameCopy = name;
-  v14 = _ARLogGeneral_48();
+  v14 = _ARLogGeneral_48(nameCopy);
   v15 = v14;
   if (!stringCopy)
   {
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 134349056;
-      v42 = objectCopy;
+      v46 = objectCopy;
       _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] START", buf, 0xCu);
     }
 
-    v16 = _ARLogGeneral_48();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = _ARLogGeneral_48(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 134349056;
-      v42 = objectCopy;
-      _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] {", buf, 0xCu);
+      v46 = objectCopy;
+      _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] {", buf, 0xCu);
     }
 
     goto LABEL_6;
   }
 
   *buf = 134349056;
-  v42 = objectCopy;
-  LODWORD(v39) = 12;
-  v20 = _os_log_send_and_compose_impl();
+  v46 = objectCopy;
+  v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_1C241C000, v14, 1, "ARServer <%{public}p>: Status [UPDATE] START", buf, 12);
 
-  v21 = 0x1E696A000uLL;
-  if (v20)
+  v24 = 0x1E696A000uLL;
+  if (v22)
   {
-    v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] START", buf, v39}];
-    v23 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
-    if ([v23 numberOfMatchesInString:v22 options:0 range:{0, objc_msgSend(v22, "length")}])
+    v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"ARServer <%{public}p>: Status [UPDATE] START"];
+    v26 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
+    if ([v26 numberOfMatchesInString:v25 options:0 range:{0, objc_msgSend(v25, "length")}])
     {
-      v24 = [@"Privacy annotation missing:\n\t" stringByAppendingString:v22];
+      v27 = [@"Privacy annotation missing:\n\t" stringByAppendingString:v25];
 
-      v21 = 0x1E696A000;
+      v24 = 0x1E696A000;
     }
 
     else
     {
 
-      v21 = 0x1E696A000uLL;
-      v24 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:4];
+      v24 = 0x1E696A000uLL;
+      v27 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
     }
 
-    [stringCopy appendString:v24];
+    [stringCopy appendString:v27];
     [stringCopy appendString:@"\n"];
-    free(v20);
+    free(v22);
   }
 
-  v29 = _ARLogGeneral_48();
+  v33 = _ARLogGeneral_48(v23);
   *buf = 134349056;
-  v42 = objectCopy;
-  LODWORD(v39) = 12;
-  v38 = buf;
-  v30 = _os_log_send_and_compose_impl();
+  v46 = objectCopy;
+  LODWORD(v43) = 12;
+  v34 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_1C241C000, v33, 1, "ARServer <%{public}p>: Status [UPDATE] {", buf, v43);
 
-  if (v30)
+  if (v34)
   {
-    v31 = [*(v21 + 3776) stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] {", buf, v39}];
-    v32 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
-    if ([v32 numberOfMatchesInString:v31 options:0 range:{0, objc_msgSend(v31, "length")}])
+    v35 = [*(v24 + 3776) stringWithUTF8String:"ARServer <%{public}p>: Status [UPDATE] {"];
+    v36 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
+    if ([v36 numberOfMatchesInString:v35 options:0 range:{0, objc_msgSend(v35, "length")}])
     {
-      [@"Privacy annotation missing:\n\t" stringByAppendingString:v31];
-      v16 = v33 = v31;
+      [@"Privacy annotation missing:\n\t" stringByAppendingString:v35];
+      v17 = v37 = v35;
     }
 
     else
     {
 
-      v16 = [*(v21 + 3776) stringWithCString:v30 encoding:4];
+      v17 = [*(v24 + 3776) stringWithCString:v34 encoding:4];
     }
 
-    [stringCopy appendString:v16];
+    [stringCopy appendString:v17];
     [stringCopy appendString:@"\n"];
-    free(v30);
+    free(v34);
 LABEL_6:
   }
 
-  [(ARDaemonStatusLogger *)self _logProcessInformationFromDictionary:dictionaryCopy forServerObject:objectCopy andProcessName:nameCopy generatedTestString:stringCopy, v38, v39];
-  [(ARDaemonStatusLogger *)self _logSystemInformationFromDictionary:dictionaryCopy forServerObject:objectCopy generatedTestString:stringCopy];
-  v17 = _ARLogGeneral_48();
-  v18 = v17;
+  [(ARDaemonStatusLogger *)self _logProcessInformationFromDictionary:dictionaryCopy forServerObject:objectCopy andProcessName:nameCopy generatedTestString:stringCopy];
+  v18 = _ARLogGeneral_48([(ARDaemonStatusLogger *)self _logSystemInformationFromDictionary:dictionaryCopy forServerObject:objectCopy generatedTestString:stringCopy]);
+  v19 = v18;
   if (!stringCopy)
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 134349056;
-      v42 = objectCopy;
-      _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] }", buf, 0xCu);
+      v46 = objectCopy;
+      _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] }", buf, 0xCu);
     }
 
-    v19 = _ARLogGeneral_48();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v21 = _ARLogGeneral_48(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 134349056;
-      v42 = objectCopy;
-      _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] END", buf, 0xCu);
+      v46 = objectCopy;
+      _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] END", buf, 0xCu);
     }
 
     goto LABEL_12;
   }
 
   *buf = 134349056;
-  v42 = objectCopy;
-  LODWORD(v40) = 12;
-  v25 = _os_log_send_and_compose_impl();
+  v46 = objectCopy;
+  LODWORD(v42) = 12;
+  v28 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_1C241C000, v18, 1, "ARServer <%{public}p>: Status [UPDATE] }", buf, v42);
 
-  if (v25)
+  if (v28)
   {
-    v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] }", buf, v40}];
-    v27 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
-    if ([v27 numberOfMatchesInString:v26 options:0 range:{0, objc_msgSend(v26, "length")}])
-    {
-      v28 = [@"Privacy annotation missing:\n\t" stringByAppendingString:v26];
-    }
-
-    else
-    {
-
-      v28 = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:4];
-    }
-
-    [stringCopy appendString:v28];
-    [stringCopy appendString:@"\n"];
-    free(v25);
-  }
-
-  v34 = _ARLogGeneral_48();
-  *buf = 134349056;
-  v42 = objectCopy;
-  LODWORD(v40) = 12;
-  v35 = _os_log_send_and_compose_impl();
-
-  if (v35)
-  {
-    v36 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] END", buf, v40}];
-    v37 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
-    if ([v37 numberOfMatchesInString:v36 options:0 range:{0, objc_msgSend(v36, "length")}])
-    {
-      v19 = [@"Privacy annotation missing:\n\t" stringByAppendingString:v36];
-    }
-
-    else
-    {
-
-      v19 = [MEMORY[0x1E696AEC0] stringWithCString:v35 encoding:4];
-    }
-
-    [stringCopy appendString:v19];
-    [stringCopy appendString:@"\n"];
-    free(v35);
-LABEL_12:
-  }
-}
-
-- (void)_logProcessInformationFromDictionary:(id)dictionary forServerObject:(id)object andProcessName:(id)name generatedTestString:(id)string
-{
-  v68 = *MEMORY[0x1E69E9840];
-  dictionaryCopy = dictionary;
-  objectCopy = object;
-  nameCopy = name;
-  stringCopy = string;
-  v13 = [dictionaryCopy objectForKey:nameCopy];
-  v14 = _ARLogGeneral_48();
-  v15 = v14;
-  if (!stringCopy)
-  {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
-    {
-      v16 = [v13 objectForKey:@"pid"];
-      *buf = 134349570;
-      v63 = objectCopy;
-      v64 = 2114;
-      v65 = nameCopy;
-      v66 = 2114;
-      v67 = v16;
-      _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \t%{public}@: {pid: %{public}@},", buf, 0x20u);
-    }
-
-    v17 = _ARLogGeneral_48();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
-    {
-      nameCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_spawn_time", nameCopy];
-      v19 = [dictionaryCopy objectForKey:nameCopy];
-      *buf = 134349570;
-      v63 = objectCopy;
-      v64 = 2114;
-      v65 = nameCopy;
-      v66 = 2114;
-      v67 = v19;
-      _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \t%{public}@_spawn_time: %{public}@,", buf, 0x20u);
-    }
-
-    v20 = _ARLogGeneral_48();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
-    {
-      nameCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_up_time", nameCopy];
-      v22 = [dictionaryCopy objectForKey:nameCopy2];
-      *buf = 134349570;
-      v63 = objectCopy;
-      v64 = 2114;
-      v65 = nameCopy;
-      v66 = 2114;
-      v67 = v22;
-      _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \t%{public}@_up_time: %{public}@,", buf, 0x20u);
-    }
-
-    v23 = _ARLogGeneral_48();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
-    {
-      nameCopy3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_up_time_including_sleep", nameCopy];
-      v25 = [dictionaryCopy objectForKey:nameCopy3];
-      *buf = 134349570;
-      v63 = objectCopy;
-      v64 = 2114;
-      v65 = nameCopy;
-      v66 = 2114;
-      v67 = v25;
-      _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \t%{public}@_up_time_including_sleep: %{public}@,", buf, 0x20u);
-    }
-
-    v26 = _ARLogGeneral_48();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
-    {
-      nameCopy4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_up_time_including_sleep_and_drift_correction", nameCopy];
-      v28 = [dictionaryCopy objectForKey:nameCopy4];
-      *buf = 134349570;
-      v63 = objectCopy;
-      v64 = 2114;
-      v65 = nameCopy;
-      v66 = 2114;
-      v67 = v28;
-      _os_log_impl(&dword_1C241C000, v26, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \t%{public}@_up_time_including_sleep_and_drift_correction: %{public}@,", buf, 0x20u);
-    }
-
-    goto LABEL_12;
-  }
-
-  [v13 objectForKey:@"pid"];
-  *buf = 134349570;
-  v63 = objectCopy;
-  v64 = 2114;
-  v65 = nameCopy;
-  v67 = v66 = 2114;
-  LODWORD(v61) = 32;
-  v29 = _os_log_send_and_compose_impl();
-
-  if (v29)
-  {
-    v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \t%{public}@: {pid: %{public}@}, ", buf, v61}];
+    v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"ARServer <%{public}p>: Status [UPDATE] }"];
     v31 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
     if ([v31 numberOfMatchesInString:v30 options:0 range:{0, objc_msgSend(v30, "length")}])
     {
@@ -287,61 +144,169 @@ LABEL_12:
     else
     {
 
-      v32 = [MEMORY[0x1E696AEC0] stringWithCString:v29 encoding:4];
+      v32 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:4];
     }
 
     [stringCopy appendString:v32];
     [stringCopy appendString:@"\n"];
-    free(v29);
+    free(v28);
   }
 
-  v33 = _ARLogGeneral_48();
-  nameCopy5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_spawn_time", nameCopy];
-  v35 = [dictionaryCopy objectForKey:nameCopy5];
-  *buf = 134349570;
-  v63 = objectCopy;
-  v64 = 2114;
-  v65 = nameCopy;
-  v66 = 2114;
-  v67 = v35;
-  LODWORD(v61) = 32;
-  v36 = _os_log_send_and_compose_impl();
+  v38 = _ARLogGeneral_48(v29);
+  *buf = 134349056;
+  v46 = objectCopy;
+  LODWORD(v44) = 12;
+  v39 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_1C241C000, v38, 1, "ARServer <%{public}p>: Status [UPDATE] END", buf, v44);
 
-  if (v36)
+  if (v39)
   {
-    v37 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \t%{public}@_spawn_time: %{public}@, ", buf, v61}];
-    v38 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
-    if ([v38 numberOfMatchesInString:v37 options:0 range:{0, objc_msgSend(v37, "length")}])
+    v40 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"ARServer <%{public}p>: Status [UPDATE] END"];
+    v41 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
+    if ([v41 numberOfMatchesInString:v40 options:0 range:{0, objc_msgSend(v40, "length")}])
     {
-      v39 = [@"Privacy annotation missing:\n\t" stringByAppendingString:v37];
+      v21 = [@"Privacy annotation missing:\n\t" stringByAppendingString:v40];
     }
 
     else
     {
 
-      v39 = [MEMORY[0x1E696AEC0] stringWithCString:v36 encoding:4];
+      v21 = [MEMORY[0x1E696AEC0] stringWithCString:v39 encoding:4];
     }
 
-    [stringCopy appendString:v39];
+    [stringCopy appendString:v21];
     [stringCopy appendString:@"\n"];
-    free(v36);
+    free(v39);
+LABEL_12:
+  }
+}
+
+- (void)_logProcessInformationFromDictionary:(id)dictionary forServerObject:(id)object andProcessName:(id)name generatedTestString:(id)string
+{
+  v80 = *MEMORY[0x1E69E9840];
+  dictionaryCopy = dictionary;
+  objectCopy = object;
+  nameCopy = name;
+  stringCopy = string;
+  v13 = [dictionaryCopy objectForKey:nameCopy];
+  v14 = _ARLogGeneral_48(v13);
+  v15 = v14;
+  if (!stringCopy)
+  {
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    {
+      v16 = [v13 objectForKey:@"pid"];
+      *buf = 134349570;
+      v75 = objectCopy;
+      v76 = 2114;
+      v77 = nameCopy;
+      v78 = 2114;
+      v79 = v16;
+      _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \t%{public}@: {pid: %{public}@},", buf, 0x20u);
+    }
+
+    v18 = _ARLogGeneral_48(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      nameCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_spawn_time", nameCopy];
+      v20 = [dictionaryCopy objectForKey:nameCopy];
+      *buf = 134349570;
+      v75 = objectCopy;
+      v76 = 2114;
+      v77 = nameCopy;
+      v78 = 2114;
+      v79 = v20;
+      _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \t%{public}@_spawn_time: %{public}@,", buf, 0x20u);
+    }
+
+    v22 = _ARLogGeneral_48(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    {
+      nameCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_up_time", nameCopy];
+      v24 = [dictionaryCopy objectForKey:nameCopy2];
+      *buf = 134349570;
+      v75 = objectCopy;
+      v76 = 2114;
+      v77 = nameCopy;
+      v78 = 2114;
+      v79 = v24;
+      _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \t%{public}@_up_time: %{public}@,", buf, 0x20u);
+    }
+
+    v26 = _ARLogGeneral_48(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    {
+      nameCopy3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_up_time_including_sleep", nameCopy];
+      v28 = [dictionaryCopy objectForKey:nameCopy3];
+      *buf = 134349570;
+      v75 = objectCopy;
+      v76 = 2114;
+      v77 = nameCopy;
+      v78 = 2114;
+      v79 = v28;
+      _os_log_impl(&dword_1C241C000, v26, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \t%{public}@_up_time_including_sleep: %{public}@,", buf, 0x20u);
+    }
+
+    v30 = _ARLogGeneral_48(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    {
+      nameCopy4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_up_time_including_sleep_and_drift_correction", nameCopy];
+      v32 = [dictionaryCopy objectForKey:nameCopy4];
+      *buf = 134349570;
+      v75 = objectCopy;
+      v76 = 2114;
+      v77 = nameCopy;
+      v78 = 2114;
+      v79 = v32;
+      _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \t%{public}@_up_time_including_sleep_and_drift_correction: %{public}@,", buf, 0x20u);
+    }
+
+    goto LABEL_12;
   }
 
-  v40 = _ARLogGeneral_48();
-  nameCopy6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_up_time", nameCopy];
-  v42 = [dictionaryCopy objectForKey:nameCopy6];
+  v33 = [v13 objectForKey:@"pid"];
   *buf = 134349570;
-  v63 = objectCopy;
-  v64 = 2114;
-  v65 = nameCopy;
-  v66 = 2114;
-  v67 = v42;
-  LODWORD(v61) = 32;
-  v43 = _os_log_send_and_compose_impl();
+  v75 = objectCopy;
+  v76 = 2114;
+  v77 = nameCopy;
+  v78 = 2114;
+  v79 = v33;
+  v34 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_1C241C000, v15, 1, "ARServer <%{public}p>: Status [UPDATE] \t%{public}@: {pid: %{public}@},", buf, 32);
 
-  if (v43)
+  if (v34)
   {
-    v44 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \t%{public}@_up_time: %{public}@, ", buf, v61}];
+    v36 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \t%{public}@: {pid: %{public}@}, "}];
+    v37 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
+    if ([v37 numberOfMatchesInString:v36 options:0 range:{0, objc_msgSend(v36, "length")}])
+    {
+      v38 = [@"Privacy annotation missing:\n\t" stringByAppendingString:v36];
+    }
+
+    else
+    {
+
+      v38 = [MEMORY[0x1E696AEC0] stringWithCString:v34 encoding:4];
+    }
+
+    [stringCopy appendString:v38];
+    [stringCopy appendString:@"\n"];
+    free(v34);
+  }
+
+  v39 = _ARLogGeneral_48(v35);
+  nameCopy5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_spawn_time", nameCopy];
+  v41 = [dictionaryCopy objectForKey:nameCopy5];
+  *buf = 134349570;
+  v75 = objectCopy;
+  v76 = 2114;
+  v77 = nameCopy;
+  v78 = 2114;
+  v79 = v41;
+  LODWORD(v70) = 32;
+  v42 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_1C241C000, v39, 1, "ARServer <%{public}p>: Status [UPDATE] \t%{public}@_spawn_time: %{public}@,", buf, v70);
+
+  if (v42)
+  {
+    v44 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \t%{public}@_spawn_time: %{public}@, "}];
     v45 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
     if ([v45 numberOfMatchesInString:v44 options:0 range:{0, objc_msgSend(v44, "length")}])
     {
@@ -351,88 +316,120 @@ LABEL_12:
     else
     {
 
-      v46 = [MEMORY[0x1E696AEC0] stringWithCString:v43 encoding:4];
+      v46 = [MEMORY[0x1E696AEC0] stringWithCString:v42 encoding:4];
     }
 
     [stringCopy appendString:v46];
     [stringCopy appendString:@"\n"];
-    free(v43);
+    free(v42);
   }
 
-  v47 = _ARLogGeneral_48();
-  nameCopy7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_up_time_including_sleep", nameCopy];
-  v49 = [dictionaryCopy objectForKey:nameCopy7];
+  v47 = _ARLogGeneral_48(v43);
+  nameCopy6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_up_time", nameCopy];
+  v49 = [dictionaryCopy objectForKey:nameCopy6];
   *buf = 134349570;
-  v63 = objectCopy;
-  v64 = 2114;
-  v65 = nameCopy;
-  v66 = 2114;
-  v67 = v49;
-  LODWORD(v61) = 32;
-  v50 = _os_log_send_and_compose_impl();
+  v75 = objectCopy;
+  v76 = 2114;
+  v77 = nameCopy;
+  v78 = 2114;
+  v79 = v49;
+  LODWORD(v71) = 32;
+  v50 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_1C241C000, v47, 1, "ARServer <%{public}p>: Status [UPDATE] \t%{public}@_up_time: %{public}@,", buf, v71);
 
   if (v50)
   {
-    v51 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \t%{public}@_up_time_including_sleep: %{public}@, ", buf, v61}];
-    v52 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
-    if ([v52 numberOfMatchesInString:v51 options:0 range:{0, objc_msgSend(v51, "length")}])
+    v52 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \t%{public}@_up_time: %{public}@, "}];
+    v53 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
+    if ([v53 numberOfMatchesInString:v52 options:0 range:{0, objc_msgSend(v52, "length")}])
     {
-      v53 = [@"Privacy annotation missing:\n\t" stringByAppendingString:v51];
+      v54 = [@"Privacy annotation missing:\n\t" stringByAppendingString:v52];
     }
 
     else
     {
 
-      v53 = [MEMORY[0x1E696AEC0] stringWithCString:v50 encoding:4];
+      v54 = [MEMORY[0x1E696AEC0] stringWithCString:v50 encoding:4];
     }
 
-    [stringCopy appendString:v53];
+    [stringCopy appendString:v54];
     [stringCopy appendString:@"\n"];
     free(v50);
   }
 
-  v54 = _ARLogGeneral_48();
-  nameCopy8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_up_time_including_sleep_and_drift_correction", nameCopy];
-  v56 = [dictionaryCopy objectForKey:nameCopy8];
+  v55 = _ARLogGeneral_48(v51);
+  nameCopy7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_up_time_including_sleep", nameCopy];
+  v57 = [dictionaryCopy objectForKey:nameCopy7];
   *buf = 134349570;
-  v63 = objectCopy;
-  v64 = 2114;
-  v65 = nameCopy;
-  v66 = 2114;
-  v67 = v56;
-  LODWORD(v61) = 32;
-  v57 = _os_log_send_and_compose_impl();
+  v75 = objectCopy;
+  v76 = 2114;
+  v77 = nameCopy;
+  v78 = 2114;
+  v79 = v57;
+  LODWORD(v72) = 32;
+  v58 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_1C241C000, v55, 1, "ARServer <%{public}p>: Status [UPDATE] \t%{public}@_up_time_including_sleep: %{public}@,", buf, v72);
 
-  if (v57)
+  if (v58)
   {
-    v58 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \t%{public}@_up_time_including_sleep_and_drift_correction: %{public}@, ", buf, v61}];
-    v59 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
-    if ([v59 numberOfMatchesInString:v58 options:0 range:{0, objc_msgSend(v58, "length")}])
+    v60 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \t%{public}@_up_time_including_sleep: %{public}@, "}];
+    v61 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
+    if ([v61 numberOfMatchesInString:v60 options:0 range:{0, objc_msgSend(v60, "length")}])
     {
-      [@"Privacy annotation missing:\n\t" stringByAppendingString:v58];
-      v26 = v60 = v58;
+      v62 = [@"Privacy annotation missing:\n\t" stringByAppendingString:v60];
     }
 
     else
     {
 
-      v26 = [MEMORY[0x1E696AEC0] stringWithCString:v57 encoding:4];
+      v62 = [MEMORY[0x1E696AEC0] stringWithCString:v58 encoding:4];
     }
 
-    [stringCopy appendString:v26];
+    [stringCopy appendString:v62];
     [stringCopy appendString:@"\n"];
-    free(v57);
+    free(v58);
+  }
+
+  v63 = _ARLogGeneral_48(v59);
+  nameCopy8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_up_time_including_sleep_and_drift_correction", nameCopy];
+  v65 = [dictionaryCopy objectForKey:nameCopy8];
+  *buf = 134349570;
+  v75 = objectCopy;
+  v76 = 2114;
+  v77 = nameCopy;
+  v78 = 2114;
+  v79 = v65;
+  LODWORD(v73) = 32;
+  v66 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_1C241C000, v63, 1, "ARServer <%{public}p>: Status [UPDATE] \t%{public}@_up_time_including_sleep_and_drift_correction: %{public}@,", buf, v73);
+
+  if (v66)
+  {
+    v67 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \t%{public}@_up_time_including_sleep_and_drift_correction: %{public}@, "}];
+    v68 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
+    if ([v68 numberOfMatchesInString:v67 options:0 range:{0, objc_msgSend(v67, "length")}])
+    {
+      [@"Privacy annotation missing:\n\t" stringByAppendingString:v67];
+      v30 = v69 = v67;
+    }
+
+    else
+    {
+
+      v30 = [MEMORY[0x1E696AEC0] stringWithCString:v66 encoding:4];
+    }
+
+    [stringCopy appendString:v30];
+    [stringCopy appendString:@"\n"];
+    free(v66);
 LABEL_12:
   }
 }
 
 - (void)_logSystemInformationFromDictionary:(id)dictionary forServerObject:(id)object generatedTestString:(id)string
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   objectCopy = object;
   stringCopy = string;
-  v10 = _ARLogGeneral_48();
+  v10 = _ARLogGeneral_48(stringCopy);
   v11 = v10;
   if (!stringCopy)
   {
@@ -440,171 +437,171 @@ LABEL_12:
     {
       v12 = [dictionaryCopy objectForKey:@"system_boot_time"];
       *buf = 134349314;
-      v44 = objectCopy;
-      v45 = 2114;
-      v46 = v12;
+      v53 = objectCopy;
+      v54 = 2114;
+      v55 = v12;
       _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \tsystem_boot_time: %{public}@,", buf, 0x16u);
     }
 
-    v13 = _ARLogGeneral_48();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = _ARLogGeneral_48(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v14 = [dictionaryCopy objectForKey:@"system_up_time"];
+      v15 = [dictionaryCopy objectForKey:@"system_up_time"];
       *buf = 134349314;
-      v44 = objectCopy;
-      v45 = 2114;
-      v46 = v14;
-      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \tsystem_up_time: %{public}@,", buf, 0x16u);
+      v53 = objectCopy;
+      v54 = 2114;
+      v55 = v15;
+      _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \tsystem_up_time: %{public}@,", buf, 0x16u);
     }
 
-    v15 = _ARLogGeneral_48();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
-    {
-      v16 = [dictionaryCopy objectForKey:@"system_up_time_including_sleep"];
-      *buf = 134349314;
-      v44 = objectCopy;
-      v45 = 2114;
-      v46 = v16;
-      _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \tsystem_up_time_including_sleep: %{public}@,", buf, 0x16u);
-    }
-
-    v17 = _ARLogGeneral_48();
+    v17 = _ARLogGeneral_48(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v18 = [dictionaryCopy objectForKey:@"system_up_time_including_sleep_and_drift_correction"];
+      v18 = [dictionaryCopy objectForKey:@"system_up_time_including_sleep"];
       *buf = 134349314;
-      v44 = objectCopy;
-      v45 = 2114;
-      v46 = v18;
-      _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \tsystem_up_time_including_sleep_and_drift_correction: %{public}@,", buf, 0x16u);
+      v53 = objectCopy;
+      v54 = 2114;
+      v55 = v18;
+      _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \tsystem_up_time_including_sleep: %{public}@,", buf, 0x16u);
+    }
+
+    v20 = _ARLogGeneral_48(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    {
+      v21 = [dictionaryCopy objectForKey:@"system_up_time_including_sleep_and_drift_correction"];
+      *buf = 134349314;
+      v53 = objectCopy;
+      v54 = 2114;
+      v55 = v21;
+      _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_INFO, "ARServer <%{public}p>: Status [UPDATE] \tsystem_up_time_including_sleep_and_drift_correction: %{public}@,", buf, 0x16u);
     }
 
     goto LABEL_10;
   }
 
-  [dictionaryCopy objectForKey:@"system_boot_time"];
+  v22 = [dictionaryCopy objectForKey:@"system_boot_time"];
   *buf = 134349314;
-  v44 = objectCopy;
-  v46 = v45 = 2114;
-  LODWORD(v42) = 22;
-  v19 = _os_log_send_and_compose_impl();
+  v53 = objectCopy;
+  v54 = 2114;
+  v55 = v22;
+  v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_1C241C000, v11, 1, "ARServer <%{public}p>: Status [UPDATE] \tsystem_boot_time: %{public}@,", buf, 22);
 
-  v20 = 0x1E696A000uLL;
-  if (v19)
+  v25 = 0x1E696A000uLL;
+  if (v23)
   {
-    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \tsystem_boot_time: %{public}@, ", buf, v42}];
-    v22 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
-    if ([v22 numberOfMatchesInString:v21 options:0 range:{0, objc_msgSend(v21, "length")}])
+    v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \tsystem_boot_time: %{public}@, "}];
+    v27 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
+    if ([v27 numberOfMatchesInString:v26 options:0 range:{0, objc_msgSend(v26, "length")}])
     {
-      v23 = [@"Privacy annotation missing:\n\t" stringByAppendingString:v21];
+      v28 = [@"Privacy annotation missing:\n\t" stringByAppendingString:v26];
 
-      v20 = 0x1E696A000;
+      v25 = 0x1E696A000;
     }
 
     else
     {
 
-      v20 = 0x1E696A000uLL;
-      v23 = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
+      v25 = 0x1E696A000uLL;
+      v28 = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:4];
     }
 
-    [stringCopy appendString:v23];
+    [stringCopy appendString:v28];
     [stringCopy appendString:@"\n"];
-    free(v19);
+    free(v23);
   }
 
-  v24 = _ARLogGeneral_48();
-  v25 = [dictionaryCopy objectForKey:@"system_up_time"];
+  v29 = _ARLogGeneral_48(v24);
+  v30 = [dictionaryCopy objectForKey:@"system_up_time"];
   *buf = 134349314;
-  v44 = objectCopy;
-  v45 = 2114;
-  v46 = v25;
-  LODWORD(v42) = 22;
-  v26 = _os_log_send_and_compose_impl();
+  v53 = objectCopy;
+  v54 = 2114;
+  v55 = v30;
+  LODWORD(v49) = 22;
+  v31 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_1C241C000, v29, 1, "ARServer <%{public}p>: Status [UPDATE] \tsystem_up_time: %{public}@,", buf, v49);
 
-  if (v26)
+  if (v31)
   {
-    v27 = [*(v20 + 3776) stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \tsystem_up_time: %{public}@, ", buf, v42}];
-    v28 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
-    if ([v28 numberOfMatchesInString:v27 options:0 range:{0, objc_msgSend(v27, "length")}])
-    {
-      v29 = [@"Privacy annotation missing:\n\t" stringByAppendingString:v27];
-
-      v20 = 0x1E696A000;
-    }
-
-    else
-    {
-
-      v20 = 0x1E696A000uLL;
-      v29 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:4];
-    }
-
-    [stringCopy appendString:v29];
-    [stringCopy appendString:@"\n"];
-    free(v26);
-  }
-
-  v30 = _ARLogGeneral_48();
-  v31 = [dictionaryCopy objectForKey:@"system_up_time_including_sleep"];
-  *buf = 134349314;
-  v44 = objectCopy;
-  v45 = 2114;
-  v46 = v31;
-  LODWORD(v42) = 22;
-  v32 = _os_log_send_and_compose_impl();
-
-  if (v32)
-  {
-    v33 = [*(v20 + 3776) stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \tsystem_up_time_including_sleep: %{public}@, ", buf, v42}];
+    v33 = [*(v25 + 3776) stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \tsystem_up_time: %{public}@, "}];
     v34 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
     if ([v34 numberOfMatchesInString:v33 options:0 range:{0, objc_msgSend(v33, "length")}])
     {
       v35 = [@"Privacy annotation missing:\n\t" stringByAppendingString:v33];
 
-      v20 = 0x1E696A000;
+      v25 = 0x1E696A000;
     }
 
     else
     {
 
-      v20 = 0x1E696A000uLL;
-      v35 = [MEMORY[0x1E696AEC0] stringWithCString:v32 encoding:4];
+      v25 = 0x1E696A000uLL;
+      v35 = [MEMORY[0x1E696AEC0] stringWithCString:v31 encoding:4];
     }
 
     [stringCopy appendString:v35];
     [stringCopy appendString:@"\n"];
-    free(v32);
+    free(v31);
   }
 
-  v36 = _ARLogGeneral_48();
-  v37 = [dictionaryCopy objectForKey:@"system_up_time_including_sleep_and_drift_correction"];
+  v36 = _ARLogGeneral_48(v32);
+  v37 = [dictionaryCopy objectForKey:@"system_up_time_including_sleep"];
   *buf = 134349314;
-  v44 = objectCopy;
-  v45 = 2114;
-  v46 = v37;
-  LODWORD(v42) = 22;
-  v38 = _os_log_send_and_compose_impl();
+  v53 = objectCopy;
+  v54 = 2114;
+  v55 = v37;
+  LODWORD(v50) = 22;
+  v38 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_1C241C000, v36, 1, "ARServer <%{public}p>: Status [UPDATE] \tsystem_up_time_including_sleep: %{public}@,", buf, v50);
 
   if (v38)
   {
-    v39 = [*(v20 + 3776) stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \tsystem_up_time_including_sleep_and_drift_correction: %{public}@, ", buf, v42}];
-    v40 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
-    if ([v40 numberOfMatchesInString:v39 options:0 range:{0, objc_msgSend(v39, "length")}])
+    v40 = [*(v25 + 3776) stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \tsystem_up_time_including_sleep: %{public}@, "}];
+    v41 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
+    if ([v41 numberOfMatchesInString:v40 options:0 range:{0, objc_msgSend(v40, "length")}])
     {
-      [@"Privacy annotation missing:\n\t" stringByAppendingString:v39];
-      v17 = v41 = v39;
+      v42 = [@"Privacy annotation missing:\n\t" stringByAppendingString:v40];
+
+      v25 = 0x1E696A000;
     }
 
     else
     {
 
-      v17 = [*(v20 + 3776) stringWithCString:v38 encoding:4];
+      v25 = 0x1E696A000uLL;
+      v42 = [MEMORY[0x1E696AEC0] stringWithCString:v38 encoding:4];
     }
 
-    [stringCopy appendString:v17];
+    [stringCopy appendString:v42];
     [stringCopy appendString:@"\n"];
     free(v38);
+  }
+
+  v43 = _ARLogGeneral_48(v39);
+  v44 = [dictionaryCopy objectForKey:@"system_up_time_including_sleep_and_drift_correction"];
+  *buf = 134349314;
+  v53 = objectCopy;
+  v54 = 2114;
+  v55 = v44;
+  LODWORD(v51) = 22;
+  v45 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_1C241C000, v43, 1, "ARServer <%{public}p>: Status [UPDATE] \tsystem_up_time_including_sleep_and_drift_correction: %{public}@,", buf, v51);
+
+  if (v45)
+  {
+    v46 = [*(v25 + 3776) stringWithUTF8String:{"ARServer <%{public}p>: Status [UPDATE] \tsystem_up_time_including_sleep_and_drift_correction: %{public}@, "}];
+    v47 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"%[^\\{]" options:1 error:0];
+    if ([v47 numberOfMatchesInString:v46 options:0 range:{0, objc_msgSend(v46, "length")}])
+    {
+      [@"Privacy annotation missing:\n\t" stringByAppendingString:v46];
+      v20 = v48 = v46;
+    }
+
+    else
+    {
+
+      v20 = [*(v25 + 3776) stringWithCString:v45 encoding:4];
+    }
+
+    [stringCopy appendString:v20];
+    [stringCopy appendString:@"\n"];
+    free(v45);
 LABEL_10:
   }
 }

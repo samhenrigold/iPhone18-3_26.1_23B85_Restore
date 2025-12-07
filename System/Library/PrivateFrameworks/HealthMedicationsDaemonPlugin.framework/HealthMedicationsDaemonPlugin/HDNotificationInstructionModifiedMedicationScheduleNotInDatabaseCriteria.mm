@@ -7,7 +7,6 @@
 - (id)_initWithUUID:(void *)d modificationDate:;
 - (id)_initWithUUIDString:(void *)string modificationTimeInterval:;
 - (id)codableCriteria;
-- (id)description;
 - (id)messageDictionary;
 - (int64_t)isValidWithDatabaseTransaction:(id)transaction error:(id *)error;
 - (unint64_t)hash;
@@ -64,11 +63,9 @@ id __113__HDNotificationInstructionModifiedMedicationScheduleNotInDatabaseCriter
   return v2;
 }
 
-uint64_t __113__HDNotificationInstructionModifiedMedicationScheduleNotInDatabaseCriteria_isValidWithDatabaseTransaction_error___block_invoke_2(uint64_t a1)
+uint64_t __113__HDNotificationInstructionModifiedMedicationScheduleNotInDatabaseCriteria_isValidWithDatabaseTransaction_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(a1 + 32) + 8);
   HDSQLiteBindFoundationValueToStatement();
-  v3 = *(*(a1 + 32) + 16);
 
   return HDSQLiteBindFoundationValueToStatement();
 }
@@ -148,14 +145,6 @@ LABEL_12:
   return v4 ^ [(NSDate *)self->_modificationDate hash];
 }
 
-- (id)description
-{
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  UUID = self->_UUID;
-  return [v3 stringWithFormat:@"<%@ %@ mtime:%@>", v4, UUID, self->_modificationDate];
-}
-
 - (void)encodeWithCoder:(id)coder
 {
   UUID = self->_UUID;
@@ -166,22 +155,20 @@ LABEL_12:
 
 - (id)messageDictionary
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = HDNotificationInstructionModifiedMedicationScheduleNotInDatabaseCriteria;
-  messageDictionary = [(HDNotificationInstructionCriteria *)&v11 messageDictionary];
-  v12[0] = @"UUID";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = HDNotificationInstructionModifiedMedicationScheduleNotInDatabaseCriteria;
+  messageDictionary = [(HDNotificationInstructionCriteria *)&v10 messageDictionary];
+  v11[0] = @"UUID";
   uUIDString = [(NSUUID *)self->_UUID UUIDString];
-  v12[1] = @"ModificationDate";
-  v13[0] = uUIDString;
+  v11[1] = @"ModificationDate";
+  v12[0] = uUIDString;
   v5 = MEMORY[0x277CCABB0];
   [(NSDate *)self->_modificationDate timeIntervalSinceReferenceDate];
   v6 = [v5 numberWithDouble:?];
-  v13[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   v8 = [messageDictionary hk_dictionaryByAddingEntriesFromDictionary:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

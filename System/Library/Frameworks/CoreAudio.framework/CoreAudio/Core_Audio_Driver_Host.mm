@@ -3,19 +3,31 @@
 - (Core_Audio_Driver_Host)init;
 - (id).cxx_construct;
 - (id)init_with_delegate:(id)init_with_delegate;
+- (int)abort_device_configuration_change:(unsigned int)abort_device_configuration_change action:(unint64_t)action change:(unint64_t)change;
+- (int)add_device_client:(unsigned int)add_device_client client_info:(const AudioServerPlugInClientInfo *)client_info;
 - (int)create_device:(id)create_device client_info:(const AudioServerPlugInClientInfo *)client_info out_object_id:(unsigned int *)out_object_id;
+- (int)destroy_device:(unsigned int)destroy_device;
 - (int)get_property_data:(Driver_Property_Identity *)get_property_data qualifier_data_size:(unsigned int)qualifier_data_size qualifier_data:(const void *)qualifier_data data_size:(unsigned int)data_size out_data_size:(unsigned int *)out_data_size out_data:(void *)out_data;
 - (int)get_property_data_size:(Driver_Property_Identity *)get_property_data_size qualifier_data_size:(unsigned int)qualifier_data_size qualifier_data:(const void *)qualifier_data out_size:(unsigned int *)out_size;
 - (int)has_property:(Driver_Property_Identity *)has_property out_has_property:(char *)out_has_property;
 - (int)initialize_driver:(id)initialize_driver;
 - (int)is_property_settable:(Driver_Property_Identity *)is_property_settable out_settable:(char *)out_settable;
+- (int)object_was_destroyed:(unsigned int)object_was_destroyed;
+- (int)perform_device_configuration_change:(unsigned int)perform_device_configuration_change action:(unint64_t)action change:(unint64_t)change;
 - (int)register_buffer:(id)register_buffer;
+- (int)remove_device_client:(unsigned int)remove_device_client client_info:(const AudioServerPlugInClientInfo *)client_info;
 - (int)set_property_data:(Driver_Property_Identity *)set_property_data qualifier_data_size:(unsigned int)qualifier_data_size qualifier_data:(const void *)qualifier_data data_size:(unsigned int)data_size data:(const void *)data;
+- (int)start_io:(unsigned int)start_io client_info:(unsigned int)client_info;
+- (int)start_synchronous_messenger:(unsigned int)start_synchronous_messenger client_id:(unsigned int)client_id nominal_sample_rate:(double)nominal_sample_rate io_buffer_frame_size:(unsigned int)io_buffer_frame_size work_group_port:(unsigned int)work_group_port io_messenger:(id)io_messenger;
+- (int)stop_io:(unsigned int)stop_io client_info:(unsigned int)client_info;
+- (int)stop_synchronous_messenger:(unsigned int)stop_synchronous_messenger client_id:(unsigned int)client_id;
 - (int)unregister_buffer:(id)unregister_buffer;
 - (shared_ptr<Property_Type_Info>)m_property_type_info;
 - (void)copy_storage_settings:(id)copy_storage_settings reply:(id)reply;
 - (void)dealloc;
 - (void)delete_storage_settings:(id)delete_storage_settings reply:(id)reply;
+- (void)object_properties_changed:(unsigned int)object_properties_changed properties_data:(id)properties_data reply:(id)reply;
+- (void)request_config_change:(unsigned int)request_config_change change_action:(unint64_t)change_action change_token:(unint64_t)change_token reply:(id)reply;
 - (void)retain_reply_for_process_boost;
 - (void)setM_property_type_info:(shared_ptr<Property_Type_Info>)m_property_type_info;
 - (void)set_invalidation_handler:(function<void)(;
@@ -79,7 +91,7 @@
 
   if (v15)
   {
-    [(Core_Audio_Driver_Host *)self m_property_type_info];
+    objc_msgSend_m_property_type_info(self);
     property_data_and_qualifier_type_code = Property_Type_Info::get_property_data_and_qualifier_type_code(v23[0], set_property_data->var0, set_property_data->var2.mSelector);
     if (v23[1])
     {
@@ -138,25 +150,25 @@
 
 - (int)get_property_data:(Driver_Property_Identity *)get_property_data qualifier_data_size:(unsigned int)qualifier_data_size qualifier_data:(const void *)qualifier_data data_size:(unsigned int)data_size out_data_size:(unsigned int *)out_data_size out_data:(void *)out_data
 {
-  v32[3] = *MEMORY[0x1E69E9840];
-  v31 = 2003329396;
+  v31[3] = *MEMORY[0x1E69E9840];
+  v30 = 2003329396;
   v15 = objc_autoreleasePoolPush();
   connection_to_driver = [(Core_Audio_Driver_Host *)self connection_to_driver];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3321888768;
-  v30[2] = __112__Core_Audio_Driver_Host_get_property_data_qualifier_data_size_qualifier_data_data_size_out_data_size_out_data___block_invoke;
-  v30[3] = &__block_descriptor_40_ea8_32c127_ZTSKZ112__Core_Audio_Driver_Host_get_property_data_qualifier_data_size_qualifier_data_data_size_out_data_size_out_data__E4__40_e17_v16__0__NSError_8l;
-  v30[4] = &v31;
-  v17 = [connection_to_driver synchronousRemoteObjectProxyWithErrorHandler:v30];
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3321888768;
+  v29[2] = __112__Core_Audio_Driver_Host_get_property_data_qualifier_data_size_qualifier_data_data_size_out_data_size_out_data___block_invoke;
+  v29[3] = &__block_descriptor_40_ea8_32c127_ZTSKZ112__Core_Audio_Driver_Host_get_property_data_qualifier_data_size_qualifier_data_data_size_out_data_size_out_data__E4__40_e17_v16__0__NSError_8l;
+  v29[4] = &v30;
+  v17 = [connection_to_driver synchronousRemoteObjectProxyWithErrorHandler:v29];
 
   if (v17)
   {
-    v26 = v15;
-    [(Core_Audio_Driver_Host *)self m_property_type_info];
-    property_data_and_qualifier_type_code = Property_Type_Info::get_property_data_and_qualifier_type_code(v28[0], get_property_data->var0, get_property_data->var2.mSelector);
-    if (v28[1])
+    v25 = v15;
+    objc_msgSend_m_property_type_info(self);
+    property_data_and_qualifier_type_code = Property_Type_Info::get_property_data_and_qualifier_type_code(v27[0], get_property_data->var0, get_property_data->var2.mSelector);
+    if (v27[1])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v28[1]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v27[1]);
     }
 
     if (qualifier_data)
@@ -194,32 +206,32 @@
       data_sizeCopy = data_size;
     }
 
-    v32[0] = 0;
-    *v28 = *&get_property_data->var0;
+    v31[0] = 0;
+    *v27 = *&get_property_data->var0;
     mElement = get_property_data->var2.mElement;
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3321888768;
-    v27[2] = __112__Core_Audio_Driver_Host_get_property_data_qualifier_data_size_qualifier_data_data_size_out_data_size_out_data___block_invoke_152;
-    v27[3] = &__block_descriptor_48_ea8_32c127_ZTSKZ112__Core_Audio_Driver_Host_get_property_data_qualifier_data_size_qualifier_data_data_size_out_data_size_out_data__E4__41_e19_v20__0i8__NSData_12l;
-    v27[4] = &v31;
-    v27[5] = v32;
-    [v17 get_property_data:v28 qualifier:qualifier_data data_size:data_sizeCopy reply:v27];
-    if (!v31)
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3321888768;
+    v26[2] = __112__Core_Audio_Driver_Host_get_property_data_qualifier_data_size_qualifier_data_data_size_out_data_size_out_data___block_invoke_152;
+    v26[3] = &__block_descriptor_48_ea8_32c127_ZTSKZ112__Core_Audio_Driver_Host_get_property_data_qualifier_data_size_qualifier_data_data_size_out_data_size_out_data__E4__41_e19_v20__0i8__NSData_12l;
+    v26[4] = &v30;
+    v26[5] = v31;
+    [v17 get_property_data:v27 qualifier:qualifier_data data_size:data_sizeCopy reply:v26];
+    if (!v30)
     {
-      v22 = v32[0];
-      if (v32[0])
+      v22 = v31[0];
+      if (v31[0])
       {
         *out_data_size = data_size;
-        v31 = AMCP::HAL::unpack_property_data(v22, property_data_and_qualifier_type_code, out_data_size, out_data);
+        v30 = AMCP::HAL::unpack_property_data(v22, property_data_and_qualifier_type_code, out_data_size, out_data);
         if (get_property_data->var2.mSelector == 1668641652)
         {
           v23 = *out_data_size;
-          [(Core_Audio_Driver_Host *)self m_property_type_info];
-          Property_Type_Info::add_custom_properties(v28[0], get_property_data->var0, v23 / 0xCuLL, out_data);
-          v15 = v26;
-          if (v28[1])
+          objc_msgSend_m_property_type_info(self);
+          Property_Type_Info::add_custom_properties(v27[0], get_property_data->var0, v23 / 0xCuLL, out_data);
+          v15 = v25;
+          if (v27[1])
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v28[1]);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v27[1]);
           }
         }
       }
@@ -227,9 +239,7 @@
   }
 
   objc_autoreleasePoolPop(v15);
-  result = v31;
-  v25 = *MEMORY[0x1E69E9840];
-  return result;
+  return v30;
 }
 
 - (int)get_property_data_size:(Driver_Property_Identity *)get_property_data_size qualifier_data_size:(unsigned int)qualifier_data_size qualifier_data:(const void *)qualifier_data out_size:(unsigned int *)out_size
@@ -247,7 +257,7 @@
 
   if (v13)
   {
-    [(Core_Audio_Driver_Host *)self m_property_type_info];
+    objc_msgSend_m_property_type_info(self);
     property_qualifier_type_code = Property_Type_Info::get_property_qualifier_type_code(v19[0], get_property_data_size->var0, get_property_data_size->var2.mSelector);
     if (v19[1])
     {
@@ -439,6 +449,190 @@
   }
 }
 
+- (int)stop_synchronous_messenger:(unsigned int)stop_synchronous_messenger client_id:(unsigned int)client_id
+{
+  v4 = *&client_id;
+  v5 = *&stop_synchronous_messenger;
+  v12 = 0;
+  connection_to_driver = [(Core_Audio_Driver_Host *)self connection_to_driver];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3321888768;
+  v11[2] = __63__Core_Audio_Driver_Host_stop_synchronous_messenger_client_id___block_invoke;
+  v11[3] = &__block_descriptor_33_ea8_32c77_ZTSKZ63__Core_Audio_Driver_Host_stop_synchronous_messenger_client_id__E4__26_e17_v16__0__NSError_8l;
+  v7 = [connection_to_driver synchronousRemoteObjectProxyWithErrorHandler:v11];
+
+  if (v7)
+  {
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3321888768;
+    v10[2] = __63__Core_Audio_Driver_Host_stop_synchronous_messenger_client_id___block_invoke_117;
+    v10[3] = &__block_descriptor_40_ea8_32c77_ZTSKZ63__Core_Audio_Driver_Host_stop_synchronous_messenger_client_id__E4__27_e8_v12__0i8l;
+    v10[4] = &v12;
+    [v7 stop_synchronous_messenger:v5 client_id:v4 reply:v10];
+    v8 = v12;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
+- (int)start_synchronous_messenger:(unsigned int)start_synchronous_messenger client_id:(unsigned int)client_id nominal_sample_rate:(double)nominal_sample_rate io_buffer_frame_size:(unsigned int)io_buffer_frame_size work_group_port:(unsigned int)work_group_port io_messenger:(id)io_messenger
+{
+  v8 = *&io_buffer_frame_size;
+  v10 = *&client_id;
+  v11 = *&start_synchronous_messenger;
+  io_messengerCopy = io_messenger;
+  v23 = 0;
+  connection_to_driver = [(Core_Audio_Driver_Host *)self connection_to_driver];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3321888768;
+  v22[2] = __134__Core_Audio_Driver_Host_start_synchronous_messenger_client_id_nominal_sample_rate_io_buffer_frame_size_work_group_port_io_messenger___block_invoke;
+  v22[3] = &__block_descriptor_33_ea8_32c149_ZTSKZ134__Core_Audio_Driver_Host_start_synchronous_messenger_client_id_nominal_sample_rate_io_buffer_frame_size_work_group_port_io_messenger__E4__24_e17_v16__0__NSError_8l;
+  v15 = [connection_to_driver synchronousRemoteObjectProxyWithErrorHandler:v22];
+
+  if (v15)
+  {
+    v16 = xpc_mach_send_create();
+    v17 = [Core_Audio_XPC_Raw_Transporter object:v16];
+    v18 = [Core_Audio_XPC_Raw_Transporter object:io_messengerCopy];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3321888768;
+    v21[2] = __134__Core_Audio_Driver_Host_start_synchronous_messenger_client_id_nominal_sample_rate_io_buffer_frame_size_work_group_port_io_messenger___block_invoke_113;
+    v21[3] = &__block_descriptor_40_ea8_32c149_ZTSKZ134__Core_Audio_Driver_Host_start_synchronous_messenger_client_id_nominal_sample_rate_io_buffer_frame_size_work_group_port_io_messenger__E4__25_e8_v12__0i8l;
+    v21[4] = &v23;
+    [v15 start_synchronous_messenger:v11 client_id:v10 nominal_sample_rate:v8 io_buffer_frame_size:v17 work_group_port:v18 io_messenger:v21 reply:nominal_sample_rate];
+
+    v19 = v23;
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  return v19;
+}
+
+- (int)stop_io:(unsigned int)stop_io client_info:(unsigned int)client_info
+{
+  v4 = *&client_info;
+  v5 = *&stop_io;
+  v12 = 0;
+  connection_to_driver = [(Core_Audio_Driver_Host *)self connection_to_driver];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3321888768;
+  v11[2] = __46__Core_Audio_Driver_Host_stop_io_client_info___block_invoke;
+  v11[3] = &__block_descriptor_33_ea8_32c60_ZTSKZ46__Core_Audio_Driver_Host_stop_io_client_info__E4__22_e17_v16__0__NSError_8l;
+  v7 = [connection_to_driver synchronousRemoteObjectProxyWithErrorHandler:v11];
+
+  if (v7)
+  {
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3321888768;
+    v10[2] = __46__Core_Audio_Driver_Host_stop_io_client_info___block_invoke_108;
+    v10[3] = &__block_descriptor_40_ea8_32c60_ZTSKZ46__Core_Audio_Driver_Host_stop_io_client_info__E4__23_e8_v12__0i8l;
+    v10[4] = &v12;
+    [v7 stop_io:v5 client_id:v4 reply:v10];
+    v8 = v12;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
+- (int)start_io:(unsigned int)start_io client_info:(unsigned int)client_info
+{
+  v4 = *&client_info;
+  v5 = *&start_io;
+  v12 = 0;
+  connection_to_driver = [(Core_Audio_Driver_Host *)self connection_to_driver];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3321888768;
+  v11[2] = __47__Core_Audio_Driver_Host_start_io_client_info___block_invoke;
+  v11[3] = &__block_descriptor_33_ea8_32c61_ZTSKZ47__Core_Audio_Driver_Host_start_io_client_info__E4__20_e17_v16__0__NSError_8l;
+  v7 = [connection_to_driver synchronousRemoteObjectProxyWithErrorHandler:v11];
+
+  if (v7)
+  {
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3321888768;
+    v10[2] = __47__Core_Audio_Driver_Host_start_io_client_info___block_invoke_104;
+    v10[3] = &__block_descriptor_40_ea8_32c61_ZTSKZ47__Core_Audio_Driver_Host_start_io_client_info__E4__21_e8_v12__0i8l;
+    v10[4] = &v12;
+    [v7 start_io:v5 client_id:v4 reply:v10];
+    v8 = v12;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
+- (int)object_was_destroyed:(unsigned int)object_was_destroyed
+{
+  v3 = *&object_was_destroyed;
+  v13 = 2003329396;
+  v5 = objc_autoreleasePoolPush();
+  connection_to_driver = [(Core_Audio_Driver_Host *)self connection_to_driver];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3321888768;
+  v12[2] = __47__Core_Audio_Driver_Host_object_was_destroyed___block_invoke;
+  v12[3] = &__block_descriptor_40_ea8_32c61_ZTSKZ47__Core_Audio_Driver_Host_object_was_destroyed__E4__18_e17_v16__0__NSError_8l;
+  v12[4] = &v13;
+  v7 = [connection_to_driver synchronousRemoteObjectProxyWithErrorHandler:v12];
+
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3321888768;
+  v11[2] = __47__Core_Audio_Driver_Host_object_was_destroyed___block_invoke_100;
+  v11[3] = &__block_descriptor_40_ea8_32c61_ZTSKZ47__Core_Audio_Driver_Host_object_was_destroyed__E4__19_e8_v12__0i8l;
+  v11[4] = &v13;
+  [v7 object_was_destroyed:v3 reply:v11];
+  objc_msgSend_m_property_type_info(self);
+  Property_Type_Info::remove_custom_properties(v9, v3);
+  if (v10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  }
+
+  objc_autoreleasePoolPop(v5);
+  return v13;
+}
+
+- (int)destroy_device:(unsigned int)destroy_device
+{
+  v3 = *&destroy_device;
+  v11 = 2003329396;
+  v5 = objc_autoreleasePoolPush();
+  connection_to_driver = [(Core_Audio_Driver_Host *)self connection_to_driver];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3321888768;
+  v10[2] = __41__Core_Audio_Driver_Host_destroy_device___block_invoke;
+  v10[3] = &__block_descriptor_40_ea8_32c55_ZTSKZ41__Core_Audio_Driver_Host_destroy_device__E4__16_e17_v16__0__NSError_8l;
+  v10[4] = &v11;
+  v7 = [connection_to_driver synchronousRemoteObjectProxyWithErrorHandler:v10];
+
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3321888768;
+  v9[2] = __41__Core_Audio_Driver_Host_destroy_device___block_invoke_95;
+  v9[3] = &__block_descriptor_40_ea8_32c55_ZTSKZ41__Core_Audio_Driver_Host_destroy_device__E4__17_e8_v12__0i8l;
+  v9[4] = &v11;
+  [v7 destroy_device:v3 reply:v9];
+
+  objc_autoreleasePoolPop(v5);
+  return v11;
+}
+
 - (int)create_device:(id)create_device client_info:(const AudioServerPlugInClientInfo *)client_info out_object_id:(unsigned int *)out_object_id
 {
   create_deviceCopy = create_device;
@@ -471,13 +665,116 @@
   return v9;
 }
 
+- (int)remove_device_client:(unsigned int)remove_device_client client_info:(const AudioServerPlugInClientInfo *)client_info
+{
+  v5 = *&remove_device_client;
+  v17 = 2003329396;
+  v7 = objc_autoreleasePoolPush();
+  connection_to_driver = [(Core_Audio_Driver_Host *)self connection_to_driver];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3321888768;
+  v16[2] = __59__Core_Audio_Driver_Host_remove_device_client_client_info___block_invoke;
+  v16[3] = &__block_descriptor_40_ea8_32c73_ZTSKZ59__Core_Audio_Driver_Host_remove_device_client_client_info__E4__12_e17_v16__0__NSError_8l;
+  v16[4] = &v17;
+  v9 = [connection_to_driver synchronousRemoteObjectProxyWithErrorHandler:v16];
+
+  mClientID = client_info->mClientID;
+  mProcessID = client_info->mProcessID;
+  v12 = client_info->mIsNativeEndian != 0;
+  mBundleID = client_info->mBundleID;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3321888768;
+  v15[2] = __59__Core_Audio_Driver_Host_remove_device_client_client_info___block_invoke_84;
+  v15[3] = &__block_descriptor_40_ea8_32c73_ZTSKZ59__Core_Audio_Driver_Host_remove_device_client_client_info__E4__13_e8_v12__0i8l;
+  v15[4] = &v17;
+  [v9 remove_device_client:v5 client_id:mClientID process_id:mProcessID is_native_endianess:v12 bundle_id:mBundleID reply:v15];
+
+  objc_autoreleasePoolPop(v7);
+  return v17;
+}
+
+- (int)add_device_client:(unsigned int)add_device_client client_info:(const AudioServerPlugInClientInfo *)client_info
+{
+  v5 = *&add_device_client;
+  v17 = 2003329396;
+  v7 = objc_autoreleasePoolPush();
+  connection_to_driver = [(Core_Audio_Driver_Host *)self connection_to_driver];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3321888768;
+  v16[2] = __56__Core_Audio_Driver_Host_add_device_client_client_info___block_invoke;
+  v16[3] = &__block_descriptor_40_ea8_32c70_ZTSKZ56__Core_Audio_Driver_Host_add_device_client_client_info__E4__10_e17_v16__0__NSError_8l;
+  v16[4] = &v17;
+  v9 = [connection_to_driver synchronousRemoteObjectProxyWithErrorHandler:v16];
+
+  mClientID = client_info->mClientID;
+  mProcessID = client_info->mProcessID;
+  v12 = client_info->mIsNativeEndian != 0;
+  mBundleID = client_info->mBundleID;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3321888768;
+  v15[2] = __56__Core_Audio_Driver_Host_add_device_client_client_info___block_invoke_79;
+  v15[3] = &__block_descriptor_40_ea8_32c70_ZTSKZ56__Core_Audio_Driver_Host_add_device_client_client_info__E4__11_e8_v12__0i8l;
+  v15[4] = &v17;
+  [v9 add_device_client:v5 client_id:mClientID process_id:mProcessID is_native_endianess:v12 bundle_id:mBundleID reply:v15];
+
+  objc_autoreleasePoolPop(v7);
+  return v17;
+}
+
+- (int)abort_device_configuration_change:(unsigned int)abort_device_configuration_change action:(unint64_t)action change:(unint64_t)change
+{
+  v7 = *&abort_device_configuration_change;
+  v15 = 2003329396;
+  v9 = objc_autoreleasePoolPush();
+  connection_to_driver = [(Core_Audio_Driver_Host *)self connection_to_driver];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3321888768;
+  v14[2] = __74__Core_Audio_Driver_Host_abort_device_configuration_change_action_change___block_invoke;
+  v14[3] = &__block_descriptor_40_ea8_32c87_ZTSKZ74__Core_Audio_Driver_Host_abort_device_configuration_change_action_change__E3__8_e17_v16__0__NSError_8l;
+  v14[4] = &v15;
+  v11 = [connection_to_driver synchronousRemoteObjectProxyWithErrorHandler:v14];
+
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3321888768;
+  v13[2] = __74__Core_Audio_Driver_Host_abort_device_configuration_change_action_change___block_invoke_74;
+  v13[3] = &__block_descriptor_40_ea8_32c87_ZTSKZ74__Core_Audio_Driver_Host_abort_device_configuration_change_action_change__E3__9_e8_v12__0i8l;
+  v13[4] = &v15;
+  [v11 abort_device_configuration_change:v7 action:action change:change reply:v13];
+
+  objc_autoreleasePoolPop(v9);
+  return v15;
+}
+
+- (int)perform_device_configuration_change:(unsigned int)perform_device_configuration_change action:(unint64_t)action change:(unint64_t)change
+{
+  v7 = *&perform_device_configuration_change;
+  v15 = 2003329396;
+  v9 = objc_autoreleasePoolPush();
+  connection_to_driver = [(Core_Audio_Driver_Host *)self connection_to_driver];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3321888768;
+  v14[2] = __76__Core_Audio_Driver_Host_perform_device_configuration_change_action_change___block_invoke;
+  v14[3] = &__block_descriptor_40_ea8_32c89_ZTSKZ76__Core_Audio_Driver_Host_perform_device_configuration_change_action_change__E3__6_e17_v16__0__NSError_8l;
+  v14[4] = &v15;
+  v11 = [connection_to_driver synchronousRemoteObjectProxyWithErrorHandler:v14];
+
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3321888768;
+  v13[2] = __76__Core_Audio_Driver_Host_perform_device_configuration_change_action_change___block_invoke_69;
+  v13[3] = &__block_descriptor_40_ea8_32c89_ZTSKZ76__Core_Audio_Driver_Host_perform_device_configuration_change_action_change__E3__7_e8_v12__0i8l;
+  v13[4] = &v15;
+  [v11 perform_device_configuration_change:v7 action:action change:change reply:v13];
+
+  objc_autoreleasePoolPop(v9);
+  return v15;
+}
+
 - (void)set_invalidation_handler:(function<void)(
 {
-  v6 = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v5, a3);
-  [(Core_Audio_Driver_Host *)self setM_invalidation_handler:v5];
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v5);
-  v4 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v4, a3);
+  [(Core_Audio_Driver_Host *)self setM_invalidation_handler:v4];
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v4);
 }
 
 - (int)initialize_driver:(id)initialize_driver
@@ -589,6 +886,45 @@
   if (cf)
   {
     CFRelease(cf);
+  }
+
+  replyCopy[2](replyCopy, v11);
+}
+
+- (void)request_config_change:(unsigned int)request_config_change change_action:(unint64_t)change_action change_token:(unint64_t)change_token reply:(id)reply
+{
+  v8 = *&request_config_change;
+  replyCopy = reply;
+  delegate = [(Core_Audio_Driver_Host *)self delegate];
+  if (delegate)
+  {
+    delegate2 = [(Core_Audio_Driver_Host *)self delegate];
+    [delegate2 request_config_change:v8 change_action:change_action change_token:change_token];
+  }
+
+  replyCopy[2](replyCopy, 0);
+}
+
+- (void)object_properties_changed:(unsigned int)object_properties_changed properties_data:(id)properties_data reply:(id)reply
+{
+  v6 = *&object_properties_changed;
+  properties_dataCopy = properties_data;
+  replyCopy = reply;
+  if ([properties_dataCopy length])
+  {
+    delegate = [(Core_Audio_Driver_Host *)self delegate];
+    v10 = delegate;
+    if (delegate)
+    {
+      [delegate object_properties_changed:v6 data:properties_dataCopy];
+    }
+
+    v11 = 0;
+  }
+
+  else
+  {
+    v11 = 561211770;
   }
 
   replyCopy[2](replyCopy, v11);

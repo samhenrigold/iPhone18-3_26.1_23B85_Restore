@@ -15,25 +15,23 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[13] = *MEMORY[0x277D85DE8];
+  v6[13] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"RequirePasscode";
-  v7[1] = @"RequireAlphanumericPasscode";
-  v7[2] = @"RequireComplexPasscode";
-  v7[3] = @"MinimumLength";
-  v7[4] = @"MinimumComplexCharacters";
-  v7[5] = @"MaximumFailedAttempts";
-  v7[6] = @"FailedAttemptsResetInMinutes";
-  v7[7] = @"MaximumGracePeriodInMinutes";
-  v7[8] = @"MaximumInactivityInMinutes";
-  v7[9] = @"MaximumPasscodeAgeInDays";
-  v7[10] = @"PasscodeReuseLimit";
-  v7[11] = @"ChangeAtNextAuth";
-  v7[12] = @"CustomRegex";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:13];
+  v6[0] = @"RequirePasscode";
+  v6[1] = @"RequireAlphanumericPasscode";
+  v6[2] = @"RequireComplexPasscode";
+  v6[3] = @"MinimumLength";
+  v6[4] = @"MinimumComplexCharacters";
+  v6[5] = @"MaximumFailedAttempts";
+  v6[6] = @"FailedAttemptsResetInMinutes";
+  v6[7] = @"MaximumGracePeriodInMinutes";
+  v6[8] = @"MaximumInactivityInMinutes";
+  v6[9] = @"MaximumPasscodeAgeInDays";
+  v6[10] = @"PasscodeReuseLimit";
+  v6[11] = @"ChangeAtNextAuth";
+  v6[12] = @"CustomRegex";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:13];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -199,76 +197,72 @@
 
 + (id)combineConfigurations:(id)configurations
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
   v4 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = configurationsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [v4 combineWithOther:{*(*(&v12 + 1) + 8 * i), v12}];
+        [v4 combineWithOther:{*(*(&v11 + 1) + 8 * i), v11}];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)supportedOS
 {
-  v22[4] = *MEMORY[0x277D85DE8];
-  v21[0] = &unk_28746B7C8;
-  v16 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467868];
-  v20[0] = v16;
-  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467880];
-  v20[1] = v15;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
-  v22[0] = v14;
-  v21[1] = &unk_28746B7E0;
+  v21[4] = *MEMORY[0x277D85DE8];
+  v20[0] = &unk_28746B7C8;
+  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467868];
+  v19[0] = v15;
+  v14 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467880];
+  v19[1] = v14;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v21[0] = v13;
+  v20[1] = &unk_28746B7E0;
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467898];
-  v19[0] = v2;
+  v18[0] = v2;
   v3 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874678B0];
-  v19[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
-  v22[1] = v4;
-  v21[2] = &unk_28746B828;
+  v18[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v21[1] = v4;
+  v20[2] = &unk_28746B828;
   v5 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874678C8];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874678E0];
-  v18[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
-  v22[2] = v7;
-  v21[3] = &unk_28746B840;
+  v17[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v21[2] = v7;
+  v20[3] = &unk_28746B840;
   v8 = [MEMORY[0x277CBEB98] setWithArray:&unk_2874678F8];
-  v17[0] = v8;
+  v16[0] = v8;
   v9 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467910];
-  v17[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
-  v22[3] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v16[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v21[3] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
 
   return v11;
 }
@@ -286,7 +280,18 @@
   v13 = [v11 copy];
   [(RMModelPayloadBase *)self setUnknownPayloadKeys:v13];
 
-  if ([(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"RequirePasscode" forKeyPath:@"payloadRequirePasscode" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]&& [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"RequireAlphanumericPasscode" forKeyPath:@"payloadRequireAlphanumericPasscode" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]&& [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"RequireComplexPasscode" forKeyPath:@"payloadRequireComplexPasscode" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]&& [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"MinimumLength" forKeyPath:@"payloadMinimumLength" isRequired:0 defaultValue:&unk_28746B798 error:error]&& [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"MinimumComplexCharacters" forKeyPath:@"payloadMinimumComplexCharacters" isRequired:0 defaultValue:&unk_28746B798 error:error]&& [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"MaximumFailedAttempts" forKeyPath:@"payloadMaximumFailedAttempts" isRequired:0 defaultValue:&unk_28746B7B0 error:error]&& [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"FailedAttemptsResetInMinutes" forKeyPath:@"payloadFailedAttemptsResetInMinutes" isRequired:0 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"MaximumGracePeriodInMinutes" forKeyPath:@"payloadMaximumGracePeriodInMinutes" isRequired:0 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"MaximumInactivityInMinutes" forKeyPath:@"payloadMaximumInactivityInMinutes" isRequired:0 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"MaximumPasscodeAgeInDays" forKeyPath:@"payloadMaximumPasscodeAgeInDays" isRequired:0 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"PasscodeReuseLimit" forKeyPath:@"payloadPasscodeReuseLimit" isRequired:0 defaultValue:0 error:error]&& [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"ChangeAtNextAuth" forKeyPath:@"payloadChangeAtNextAuth" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error])
+  if ([(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"RequirePasscode" forKeyPath:@"payloadRequirePasscode" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]
+    && [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"RequireAlphanumericPasscode" forKeyPath:@"payloadRequireAlphanumericPasscode" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]
+    && [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"RequireComplexPasscode" forKeyPath:@"payloadRequireComplexPasscode" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error]
+    && [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"MinimumLength" forKeyPath:@"payloadMinimumLength" isRequired:0 defaultValue:&unk_28746B798 error:error]
+    && [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"MinimumComplexCharacters" forKeyPath:@"payloadMinimumComplexCharacters" isRequired:0 defaultValue:&unk_28746B798 error:error]
+    && [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"MaximumFailedAttempts" forKeyPath:@"payloadMaximumFailedAttempts" isRequired:0 defaultValue:&unk_28746B7B0 error:error]
+    && [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"FailedAttemptsResetInMinutes" forKeyPath:@"payloadFailedAttemptsResetInMinutes" isRequired:0 defaultValue:0 error:error]
+    && [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"MaximumGracePeriodInMinutes" forKeyPath:@"payloadMaximumGracePeriodInMinutes" isRequired:0 defaultValue:0 error:error]
+    && [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"MaximumInactivityInMinutes" forKeyPath:@"payloadMaximumInactivityInMinutes" isRequired:0 defaultValue:0 error:error]
+    && [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"MaximumPasscodeAgeInDays" forKeyPath:@"payloadMaximumPasscodeAgeInDays" isRequired:0 defaultValue:0 error:error]
+    && [(RMModelPayloadBase *)self loadIntegerFromDictionary:dictionaryCopy usingKey:@"PasscodeReuseLimit" forKeyPath:@"payloadPasscodeReuseLimit" isRequired:0 defaultValue:0 error:error]
+    && [(RMModelPayloadBase *)self loadBooleanFromDictionary:dictionaryCopy usingKey:@"ChangeAtNextAuth" forKeyPath:@"payloadChangeAtNextAuth" isRequired:0 defaultValue:MEMORY[0x277CBEC28] error:error])
   {
     LOWORD(v16) = type;
     v14 = [(RMModelPayloadBase *)self loadDictionaryFromDictionary:dictionaryCopy usingKey:@"CustomRegex" forKeyPath:@"payloadCustomRegex" classType:objc_opt_class() isRequired:0 defaultValue:0 serializationType:v16 error:error];

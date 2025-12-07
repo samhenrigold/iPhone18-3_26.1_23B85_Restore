@@ -63,7 +63,7 @@
 
 void __44__GCIPCRemoteConnection_initWithConnection___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   v2 = _os_activity_create(&dword_1D2C3B000, "[IPC] Connection Interrupted", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -73,49 +73,48 @@ void __44__GCIPCRemoteConnection_initWithConnection___block_invoke(uint64_t a1)
   {
     v4 = *(a1 + 32);
     *buf = 138412290;
-    v19 = v4;
+    v18 = v4;
     _os_log_impl(&dword_1D2C3B000, v3, OS_LOG_TYPE_INFO, "Connection interrupted: %@", buf, 0xCu);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = [*(a1 + 32) interruptionHandlers];
   v6 = [v5 reverseObjectEnumerator];
 
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        (*(*(*(&v12 + 1) + 8 * v10++) + 16))();
+        (*(*(*(&v11 + 1) + 8 * v10++) + 16))();
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   os_activity_scope_leave(&state);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __44__GCIPCRemoteConnection_initWithConnection___block_invoke_1(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   v2 = _os_activity_create(&dword_1D2C3B000, "[IPC] Connection Invalidated", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -125,7 +124,7 @@ void __44__GCIPCRemoteConnection_initWithConnection___block_invoke_1(uint64_t a1
   {
     v4 = *(a1 + 32);
     *buf = 138412290;
-    v19 = v4;
+    v18 = v4;
     _os_log_impl(&dword_1D2C3B000, v3, OS_LOG_TYPE_INFO, "Connection invalidated: %@", buf, 0xCu);
   }
 
@@ -135,37 +134,36 @@ void __44__GCIPCRemoteConnection_initWithConnection___block_invoke_1(uint64_t a1
   v6 = [*(a1 + 32) invalidationHandlers];
   objc_sync_exit(v5);
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v7 = [v6 reverseObjectEnumerator];
-  v8 = [v7 countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v8)
   {
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        (*(*(*(&v12 + 1) + 8 * v10++) + 16))();
+        (*(*(*(&v11 + 1) + 8 * v10++) + 16))();
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   os_activity_scope_leave(&state);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (GCIPCRemoteConnection)init
@@ -283,7 +281,7 @@ void __48__GCIPCRemoteConnection_addInvalidationHandler___block_invoke(uint64_t 
   if (connection)
   {
     v6 = connection;
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
     connection = v6;
   }
 

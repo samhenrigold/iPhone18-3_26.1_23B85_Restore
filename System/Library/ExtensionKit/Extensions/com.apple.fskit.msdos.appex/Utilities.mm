@@ -45,7 +45,8 @@
   sharedUtilities = [self sharedUtilities];
   if (![sharedUtilities useMetaRW])
   {
-    memset(__dst, 0, 11);
+    *&__dst[7] = 0;
+    *__dst = 0;
     if (flags)
     {
       v15 = (32 * *&bootsector->var2.var2[6] + (bpsCopy - 1)) / bpsCopy;

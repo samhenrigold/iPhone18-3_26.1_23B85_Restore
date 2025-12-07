@@ -67,7 +67,7 @@
 
   isEmergency = [(CKStewieTranscriptResumeButtonsChatItem *)self isEmergency];
   v6 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v7 = CKFrameworkBundle();
+  v7 = CKFrameworkBundle(v6);
   v8 = v7;
   if (isEmergency)
   {

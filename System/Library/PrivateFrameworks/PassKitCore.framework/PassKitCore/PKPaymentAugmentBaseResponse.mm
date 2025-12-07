@@ -6,10 +6,10 @@
 
 - (PKPaymentAugmentBaseResponse)initWithData:(id)data
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = PKPaymentAugmentBaseResponse;
-  v3 = [(PKWebServiceResponse *)&v16 initWithData:data];
+  v22 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = PKPaymentAugmentBaseResponse;
+  v3 = [(PKWebServiceResponse *)&v17 initWithData:data];
   v4 = v3;
   if (v3)
   {
@@ -23,23 +23,23 @@
       v4->_networkMerchantIdentifier = pk_decodeHexadecimal;
 
       v9 = [jSONObject objectForKey:@"cryptogramType"];
-      v4->_cryptogramType = PKPaymentCryptogramTypeFromString(v9);
+      v4->_cryptogramType = PKPaymentCryptogramTypeFromString(v9, v10);
     }
 
     else
     {
-      v10 = PKLogFacilityTypeGetObject(7uLL);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = PKLogFacilityTypeGetObject(7uLL);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
-        v13 = objc_opt_class();
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
+        v14 = objc_opt_class();
         *buf = 138543618;
-        v18 = v12;
-        v19 = 2112;
-        v20 = v13;
-        v14 = v13;
-        _os_log_impl(&dword_1AD337000, v10, OS_LOG_TYPE_DEFAULT, "Malformed response: expected dictionary and received %{public}@ inside %@", buf, 0x16u);
+        v19 = v13;
+        v20 = 2112;
+        v21 = v14;
+        v15 = v14;
+        _os_log_impl(&dword_1AD337000, v11, OS_LOG_TYPE_DEFAULT, "Malformed response: expected dictionary and received %{public}@ inside %@", buf, 0x16u);
       }
 
       v9 = v4;

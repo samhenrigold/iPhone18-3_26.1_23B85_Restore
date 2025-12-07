@@ -34,7 +34,7 @@
 - (CGRect)bounds
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for PaperKitDrawingCanvasView();
+  v6.super_class = type metadata accessor for PaperKitDrawingCanvasView(0);
   [(PaperKitDrawingCanvasView *)&v6 bounds];
   result.size.height = v5;
   result.size.width = v4;
@@ -49,7 +49,7 @@
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  v8 = type metadata accessor for PaperKitDrawingCanvasView();
+  v8 = type metadata accessor for PaperKitDrawingCanvasView(0);
   v19.receiver = self;
   v19.super_class = v8;
   selfCopy = self;

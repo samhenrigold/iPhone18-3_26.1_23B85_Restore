@@ -2941,17 +2941,17 @@ LABEL_22:
       else
       {
         v19 = bswap32(*v13);
-        v20 = v15 + 4;
+        v20 = (v15 + 4);
         v13 = (v13 + v19 + 4);
       }
 
-      v15 = &v20[v19];
-      if (&v20[v19] > a3)
+      v15 = (v20 + v19);
+      if (v20 + v19 > a3)
       {
         break;
       }
 
-      if (v20 >> 32 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      if (HIDWORD(v20) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
         v62 = "get_tile_info";
@@ -4084,7 +4084,7 @@ char *LGH_Syntax::refresh_probs(char *this)
     v14 = *(v1 + 10);
     if (!*(v14 + 74))
     {
-      v15 = v1 + 1905 * *(v14 + 25);
+      v15 = &v1[1905 * *(v14 + 25)];
       *(*(v1 + 12) + 10) = *(v15 + 57);
       *(*(v1 + 12) + 12) = *(v15 + 29);
       v16 = *(v1 + 12);
@@ -4103,7 +4103,7 @@ char *LGH_Syntax::refresh_probs(char *this)
   if (*(v11 + 23))
   {
     v12 = *(v1 + 12);
-    v13 = v1 + 1905 * *(v11 + 25) + 104;
+    v13 = &v1[1905 * *(v11 + 25) + 104];
 
     return memcpy(v13, v12, 0x771uLL);
   }
@@ -4807,7 +4807,7 @@ uint64_t LGH_Syntax::update_mv_prob(LGH_Syntax *this, unsigned __int8 a2)
   return a2;
 }
 
-CAHDec *createHibiscusAvcDecoder(uint64_t a1)
+CAHDecHibiscusAvc *createHibiscusAvcDecoder(CAVDAvcDecoder *a1)
 {
   v2 = operator new(0x4670uLL, MEMORY[0x277D826F0]);
   v3 = v2;
@@ -4953,7 +4953,7 @@ uint64_t CAHDecHibiscusAvc::populateSlices(CAHDecHibiscusAvc *this, unsigned int
   return 0;
 }
 
-uint64_t CAHDecHibiscusAvc::populateSliceRegisters(uint64_t a1, _DWORD *a2, signed int a3)
+uint64_t CAHDecHibiscusAvc::populateSliceRegisters(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
   v5 = 0;
   v112 = *MEMORY[0x277D85DE8];
@@ -4986,6 +4986,8 @@ uint64_t CAHDecHibiscusAvc::populateSliceRegisters(uint64_t a1, _DWORD *a2, sign
   }
 
   v95 = v10;
+  v96 = a3;
+  v17 = a3;
   v18 = v16 | v15;
   a2[1] = v18;
   if (*(v13 + 24) == 1)
@@ -5119,7 +5121,7 @@ LABEL_20:
   if (v35 <= 1)
   {
     v36 = v6 + 6760;
-    v37 = v12 + 13040 * a3;
+    v37 = v12 + 13040 * v17;
     if (*(v37 + 13032))
     {
       v38 = 0;
@@ -5386,12 +5388,12 @@ LABEL_84:
   v82 = *(v81 + 2504);
   v100 = 0;
   v101 = 0;
-  if (!CAVDAvcDecoder::GetSDataMemInfo(v81, a3, &v101, &v100))
+  if (!CAVDAvcDecoder::GetSDataMemInfo(v81, v96, &v101, &v100))
   {
     return 0xFFFFFFFFLL;
   }
 
-  v83 = 956 * a3;
+  v83 = 956 * v96;
   v84 = v101;
   if (!*v101 && !*(v101 + 152) && !*(v101 + 156))
   {

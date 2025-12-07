@@ -1,5 +1,6 @@
 @interface FPThreadedCopier
 + (FPThreadedCopier)sharedCopier;
+- (BOOL)copy:(id)copy to:(id)to overwriteDestination:(BOOL)destination progress:(id)progress error:(id *)error;
 - (BOOL)finishReading:(int)reading writing:(int)writing error:(id *)error;
 - (FPThreadedCopier)init;
 - (int)beginReading:(id)reading error:(id *)error;
@@ -24,9 +25,11 @@
 
 uint64_t __32__FPThreadedCopier_sharedCopier__block_invoke()
 {
-  sharedCopier_sharedCopier = objc_alloc_init(FPThreadedCopier);
+  v0 = objc_alloc_init(FPThreadedCopier);
+  v1 = sharedCopier_sharedCopier;
+  sharedCopier_sharedCopier = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (FPThreadedCopier)init
@@ -47,6 +50,150 @@ uint64_t __32__FPThreadedCopier_sharedCopier__block_invoke()
   }
 
   return v2;
+}
+
+- (BOOL)copy:(id)copy to:(id)to overwriteDestination:(BOOL)destination progress:(id)progress error:(id *)error
+{
+  destinationCopy = destination;
+  copyCopy = copy;
+  toCopy = to;
+  progressCopy = progress;
+  v16 = [(FPThreadedCopier *)self beginReading:copyCopy error:error];
+  if (v16 == -1 || (v17 = v16, v40 = a2, v18 = [(FPThreadedCopier *)self beginWriting:toCopy overwriteDestination:destinationCopy error:error], v18 == -1))
+  {
+    v31 = 0;
+  }
+
+  else
+  {
+    v19 = v18;
+    v41 = copyCopy;
+    v42 = toCopy;
+    [(FPThreadedCopier *)self beginOperation];
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x3032000000;
+    v54 = __Block_byref_object_copy__10;
+    v55 = __Block_byref_object_dispose__10;
+    v56 = 0;
+    v20 = *MEMORY[0x1E696A798];
+    while (!v52[5])
+    {
+      if ([progressCopy isCancelled])
+      {
+        v28 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:3072 userInfo:0];
+        goto LABEL_20;
+      }
+
+      dispatch_semaphore_wait(self->_bufferLimitSemaphore, 0xFFFFFFFFFFFFFFFFLL);
+      if (v52[5])
+      {
+        dispatch_semaphore_signal(self->_bufferLimitSemaphore);
+        break;
+      }
+
+      selfCopy = self;
+      objc_sync_enter(selfCopy);
+      firstObject = [(NSMutableArray *)self->_buffers firstObject];
+      if (!firstObject)
+      {
+        currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+        [currentHandler handleFailureInMethod:v40 object:selfCopy file:@"FPThreadedCopier.m" lineNumber:81 description:@"No more buffers in queue"];
+      }
+
+      [(NSMutableArray *)self->_buffers removeObjectAtIndex:0];
+      objc_sync_exit(selfCopy);
+
+      v23 = read(v17, [firstObject mutableBytes], 0x10000uLL);
+      v24 = v23;
+      if (v23 == -1)
+      {
+        v28 = [MEMORY[0x1E696ABC0] errorWithDomain:v20 code:*__error() userInfo:0];
+        v29 = selfCopy;
+        objc_sync_enter(v29);
+        [(NSMutableArray *)self->_buffers addObject:firstObject];
+        objc_sync_exit(v29);
+
+        dispatch_semaphore_signal(self->_bufferLimitSemaphore);
+      }
+
+      else
+      {
+        if (!v23)
+        {
+          v32 = selfCopy;
+          objc_sync_enter(v32);
+          [(NSMutableArray *)self->_buffers addObject:firstObject];
+          objc_sync_exit(v32);
+
+          bufferLimitSemaphore = [(FPThreadedCopier *)v32 bufferLimitSemaphore];
+          dispatch_semaphore_signal(bufferLimitSemaphore);
+
+          break;
+        }
+
+        v25 = qos_class_self();
+        block[0] = MEMORY[0x1E69E9820];
+        block[1] = 3221225472;
+        block[2] = __64__FPThreadedCopier_copy_to_overwriteDestination_progress_error___block_invoke;
+        block[3] = &unk_1E793B930;
+        v49 = v24;
+        v26 = firstObject;
+        v50 = v19;
+        v45 = v26;
+        v48 = &v51;
+        v46 = progressCopy;
+        v47 = selfCopy;
+        v27 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v25, 0, block);
+        dispatch_async(self->_writeQueue, v27);
+
+        v28 = 0;
+      }
+
+      if (v28)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    v28 = 0;
+LABEL_20:
+    if (error)
+    {
+      v34 = v28;
+      if (v28 || (v34 = v52[5]) != 0)
+      {
+        *error = v34;
+      }
+    }
+
+    v43 = 0;
+    toCopy = v42;
+    v35 = [(FPThreadedCopier *)self finishReading:v17 writing:v19 error:&v43];
+    v36 = v43;
+    v37 = v36;
+    if (error && !v35 && !v28 && !v52[5])
+    {
+      v38 = v36;
+      *error = v37;
+    }
+
+    [(FPThreadedCopier *)self endOperation];
+    if (v28)
+    {
+      v31 = 0;
+    }
+
+    else
+    {
+      v31 = (v52[5] | v37) == 0;
+    }
+
+    _Block_object_dispose(&v51, 8);
+    copyCopy = v41;
+  }
+
+  return v31;
 }
 
 void __64__FPThreadedCopier_copy_to_overwriteDestination_progress_error___block_invoke(uint64_t a1)
@@ -176,7 +323,7 @@ uint64_t __48__FPThreadedCopier_finishReading_writing_error___block_invoke(uint6
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v3, v5);
   }
 
   return result;

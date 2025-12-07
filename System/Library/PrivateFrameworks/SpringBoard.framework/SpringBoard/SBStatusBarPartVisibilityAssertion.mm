@@ -197,7 +197,7 @@ void __98__SBStatusBarPartVisibilityAssertion__setStatusBarPartWithIdentifier_hi
 
   v10 = v9;
 
-  v11 = [v10 containsObject:v6];
+  v11 = objc_msgSend_containsObject_(v10);
   if (a4)
   {
     if (v11)

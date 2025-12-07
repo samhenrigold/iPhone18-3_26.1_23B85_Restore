@@ -1,4 +1,5 @@
 @interface HMDRemoteMessagePolicy
++ (id)remoteMessagePolicyWithRequiresSecureMessage:(BOOL)message allowsAnonymousMessage:(BOOL)anonymousMessage requiresAccountMessage:(BOOL)accountMessage transportRestriction:(unint64_t)restriction roles:(unint64_t)roles;
 - (BOOL)isEqual:(id)equal;
 - (HMDRemoteMessagePolicy)init;
 - (id)__initWithRequiresSecureMessage:(BOOL)message allowsAnonymousMessage:(BOOL)anonymousMessage requiresAccountMessage:(BOOL)accountMessage transportRestriction:(unint64_t)restriction roles:(unint64_t)roles;
@@ -6,6 +7,13 @@
 @end
 
 @implementation HMDRemoteMessagePolicy
+
++ (id)remoteMessagePolicyWithRequiresSecureMessage:(BOOL)message allowsAnonymousMessage:(BOOL)anonymousMessage requiresAccountMessage:(BOOL)accountMessage transportRestriction:(unint64_t)restriction roles:(unint64_t)roles
+{
+  v7 = [[self alloc] __initWithRequiresSecureMessage:message allowsAnonymousMessage:anonymousMessage requiresAccountMessage:accountMessage transportRestriction:restriction roles:roles];
+
+  return v7;
+}
 
 - (BOOL)isEqual:(id)equal
 {

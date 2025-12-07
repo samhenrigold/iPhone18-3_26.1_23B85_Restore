@@ -132,26 +132,23 @@
 
 uint64_t __48__HAPAccessoryServerBrowserHAP2Adapter_delegate__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 56));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 56));
 
   return MEMORY[0x2821F96F8]();
 }
 
-void __76__HAPAccessoryServerBrowserHAP2Adapter__removeDiscoveredServerWithDeviceID___block_invoke(uint64_t a1)
+void __76__HAPAccessoryServerBrowserHAP2Adapter__removeDiscoveredServerWithDeviceID___block_invoke(void *a1)
 {
-  v2 = [(HAPAccessoryServerBrowserHAP2Adapter *)*(a1 + 32) discoveredServers];
-  v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
-  v4 = *(*(a1 + 48) + 8);
+  v2 = [(HAPAccessoryServerBrowserHAP2Adapter *)a1[4] discoveredServers];
+  v3 = [v2 objectForKeyedSubscript:a1[5]];
+  v4 = *(a1[6] + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  if (*(*(*(a1 + 48) + 8) + 40))
+  if (*(*(a1[6] + 8) + 40))
   {
-    v6 = [(HAPAccessoryServerBrowserHAP2Adapter *)*(a1 + 32) discoveredServers];
-    [v6 removeObjectForKey:*(a1 + 40)];
+    v6 = [(HAPAccessoryServerBrowserHAP2Adapter *)a1[4] discoveredServers];
+    [v6 removeObjectForKey:a1[5]];
   }
 }
 
@@ -546,10 +543,7 @@ HAPAccessoryServerHAP2Adapter *__111__HAPAccessoryServerBrowserHAP2Adapter_acces
 
 uint64_t __81__HAPAccessoryServerBrowserHAP2Adapter__setAdapterWithIdentifier_shouldBePaired___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 72) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 72) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -634,10 +628,7 @@ uint64_t __81__HAPAccessoryServerBrowserHAP2Adapter__setAdapterWithIdentifier_sh
 
 uint64_t __49__HAPAccessoryServerBrowserHAP2Adapter_isPaired___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 72) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 72) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -696,31 +687,31 @@ void __107__HAPAccessoryServerBrowserHAP2Adapter_matchAccessoryServerWithSetupID
 
 void __107__HAPAccessoryServerBrowserHAP2Adapter_matchAccessoryServerWithSetupID_serverIdentifier_completionHandler___block_invoke_2(void *a1, unsigned int a2, uint64_t a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
   v6 = a1[4];
   if (v6)
   {
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x3032000000;
-    v26 = __Block_byref_object_copy__14027;
-    v27 = __Block_byref_object_dispose__14028;
-    v28 = 0;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x3032000000;
+    v24 = __Block_byref_object_copy__14027;
+    v25 = __Block_byref_object_dispose__14028;
+    v26 = 0;
     v7 = *(v6 + 88);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __56__HAPAccessoryServerBrowserHAP2Adapter_accessoryServers__block_invoke;
-    v22[3] = &unk_2786D6E60;
-    v22[4] = v6;
-    v22[5] = &v23;
-    [v7 performReadingBlock:{v22, v18}];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __56__HAPAccessoryServerBrowserHAP2Adapter_accessoryServers__block_invoke;
+    v20[3] = &unk_2786D6E60;
+    v20[4] = v6;
+    v20[5] = &v21;
+    [v7 performReadingBlock:{v20, v16}];
 
-    v8 = v24[5];
-    _Block_object_dispose(&v23, 8);
+    v8 = v22[5];
+    _Block_object_dispose(&v21, 8);
   }
 
   else
@@ -728,32 +719,31 @@ void __107__HAPAccessoryServerBrowserHAP2Adapter_matchAccessoryServerWithSetupID
     v8 = 0;
   }
 
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v29 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v27 count:16];
   if (v9)
   {
-    v10 = *v19;
+    v10 = *v17;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v19 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         v13 = [v12 identifier];
-        v14 = a1[5];
-        v15 = HMFEqualObjects();
+        v14 = HMFEqualObjects();
 
-        if (v15)
+        if (v14)
         {
           v9 = v12;
           goto LABEL_13;
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v18 objects:v29 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v27 count:16];
       if (v9)
       {
         continue;
@@ -767,17 +757,15 @@ LABEL_13:
 
   if (a3)
   {
-    v16 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v16 = a2;
+    v15 = a2;
   }
 
-  (*(a1[6] + 16))(a1[6], v16, v9);
-
-  v17 = *MEMORY[0x277D85DE8];
+  (*(a1[6] + 16))(a1[6], v15, v9);
 }
 
 void __56__HAPAccessoryServerBrowserHAP2Adapter_accessoryServers__block_invoke(uint64_t a1)
@@ -1025,14 +1013,14 @@ void __58__HAPAccessoryServerBrowserHAP2Adapter_setDelegate_queue___block_invoke
 
 - (HAPAccessoryServerBrowserHAP2Adapter)initWithQueue:(id)queue storage:(id)storage
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   queueCopy = queue;
   v8 = [HAP2AccessoryServerBrowser alloc];
   objc_opt_self();
   v9 = objc_opt_new();
-  v16[0] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
 
   v11 = [(HAP2AccessoryServerBrowser *)v8 initWithCoordinators:v10 storage:storageCopy];
   v12 = [(HAPAccessoryServerBrowserHAP2Adapter *)self initWithHAP2Browser:v11 queue:queueCopy];
@@ -1042,7 +1030,6 @@ void __58__HAPAccessoryServerBrowserHAP2Adapter_setDelegate_queue___block_invoke
     v13 = v12;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

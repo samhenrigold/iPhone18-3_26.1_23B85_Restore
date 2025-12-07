@@ -37,7 +37,7 @@
 {
   if (location)
   {
-    [location clientLocation];
+    objc_msgSend_clientLocation(location, a2);
   }
 
   else

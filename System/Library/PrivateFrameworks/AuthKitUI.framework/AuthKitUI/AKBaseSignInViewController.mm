@@ -160,7 +160,6 @@ void __58__AKBaseSignInViewController__beginProximityAdvertisement__block_invoke
 
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_endProximityAdvertisement

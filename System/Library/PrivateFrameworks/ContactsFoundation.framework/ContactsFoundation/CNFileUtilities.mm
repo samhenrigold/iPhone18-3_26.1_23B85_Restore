@@ -33,9 +33,11 @@
 
 uint64_t __22__CNFileUtilities_log__block_invoke()
 {
-  log_cn_once_object_1 = os_log_create("com.apple.contacts", "file-utilites");
+  v0 = os_log_create("com.apple.contacts", "file-utilites");
+  v1 = log_cn_once_object_1;
+  log_cn_once_object_1 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (CNFileUtilities)sharedInstance
@@ -52,9 +54,11 @@ uint64_t __22__CNFileUtilities_log__block_invoke()
 
 uint64_t __33__CNFileUtilities_sharedInstance__block_invoke()
 {
-  sharedInstance_cn_once_object_2 = objc_alloc_init(CNFileUtilities);
+  v0 = objc_alloc_init(CNFileUtilities);
+  v1 = sharedInstance_cn_once_object_2;
+  sharedInstance_cn_once_object_2 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CNFileUtilities)init
@@ -142,16 +146,20 @@ uint64_t __33__CNFileUtilities_sharedInstance__block_invoke()
 
 uint64_t __27__CNFileUtilities_fileLock__block_invoke(uint64_t a1)
 {
-  fileLock_cn_once_object_3 = [*(a1 + 32) initializeFileLock];
+  v1 = [*(a1 + 32) initializeFileLock];
+  v2 = fileLock_cn_once_object_3;
+  fileLock_cn_once_object_3 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 uint64_t __27__CNFileUtilities_fileLock__block_invoke_2()
 {
-  fileLock_cn_once_object_4 = objc_alloc_init(CNDoNothingLock);
+  v0 = objc_alloc_init(CNDoNothingLock);
+  v1 = fileLock_cn_once_object_4;
+  fileLock_cn_once_object_4 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)initializeFileLock
@@ -180,30 +188,24 @@ uint64_t __27__CNFileUtilities_fileLock__block_invoke_2()
 
 - (BOOL)isFileAtUrlOnARemoteFileSystem:(id)system
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   path = [system path];
   fileSystemRepresentation = [path fileSystemRepresentation];
 
-  bzero(v10, 0x878uLL);
+  bzero(v9, 0x878uLL);
   p_services = &self->_services;
-  if ([(CNFileServices *)self->_services statfs:fileSystemRepresentation]< 0)
+  if (([(CNFileServices *)self->_services statfs:fileSystemRepresentation]& 0x80000000) == 0)
   {
-    v8 = [objc_opt_class() log];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      [(CNFileUtilities *)fileSystemRepresentation isFileAtUrlOnARemoteFileSystem:v8];
-    }
-
-    result = 0;
+    return (v9[65] & 0x10) == 0;
   }
 
-  else
+  v8 = [objc_opt_class() log];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    result = (v10[65] & 0x10) == 0;
+    [(CNFileUtilities *)fileSystemRepresentation isFileAtUrlOnARemoteFileSystem:v8];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (NSURL)sharedLockDirectoryUrl
@@ -282,25 +284,23 @@ void __58__CNFileUtilities_sharedLockDirectoryURLWithFileServices___block_invoke
 
 + (void)initializeFileLock
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_fault_impl(&dword_1859F0000, log, OS_LOG_TYPE_FAULT, "Unable to open file lock: %@ %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2114;
+  v6 = a2;
+  _os_log_fault_impl(&dword_1859F0000, log, OS_LOG_TYPE_FAULT, "Unable to open file lock: %@ %{public}@", &v3, 0x16u);
 }
 
 - (void)isFileAtUrlOnARemoteFileSystem:(NSObject *)a3 .cold.1(uint64_t a1, id *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [*a2 errnoValue];
-  v7 = 136315394;
-  v8 = a1;
-  v9 = 1024;
-  v10 = v5;
-  _os_log_error_impl(&dword_1859F0000, a3, OS_LOG_TYPE_ERROR, "Could not statfs file at path: %s: %d", &v7, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
+  v7 = a1;
+  v8 = 1024;
+  v9 = v5;
+  _os_log_error_impl(&dword_1859F0000, a3, OS_LOG_TYPE_ERROR, "Could not statfs file at path: %s: %d", &v6, 0x12u);
 }
 
 @end

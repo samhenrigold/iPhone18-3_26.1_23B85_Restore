@@ -51,7 +51,7 @@
 
 - (void)restoreFullScreenAudioSettings
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECEBB780);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECEBB780, &unk_1E1B029A0);
   MEMORY[0x1EEE9AC00](v0 - 8);
   v2 = &v18 - v1;
   v3 = sub_1E1AEFE6C();
@@ -66,7 +66,7 @@
   sub_1E138085C(v2);
   if ((*(v4 + 48))(v2, 1, v3) == 1)
   {
-    sub_1E1308058(v2, &unk_1ECEBB780);
+    sub_1E1308058(v2, &unk_1ECEBB780, &unk_1E1B029A0);
     v14 = sub_1E1AF5DBC();
     [standardUserDefaults setBool:0 forKey:v14];
   }
@@ -76,7 +76,7 @@
     (*(v4 + 32))(v12, v2, v3);
     sub_1E1AEFDAC();
     sub_1E1AEFE5C();
-    sub_1E1302BFC(&qword_1EE1FADC0, MEMORY[0x1E6969530]);
+    sub_1E1302BFC(&qword_1EE1FADC0, MEMORY[0x1E6969530], MEMORY[0x1E6969548]);
     v15 = sub_1E1AF5D7C();
     v16 = *(v4 + 8);
     v16(v6, v3);
@@ -90,7 +90,7 @@
 
 - (void)saveFullScreenAudioSettings
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECEBB780);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECEBB780, &unk_1E1B029A0);
   MEMORY[0x1EEE9AC00](v0 - 8);
   v2 = &v6 - v1;
   standardUserDefaults = [objc_opt_self() standardUserDefaults];

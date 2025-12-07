@@ -37,16 +37,16 @@
 
 - (void)startDetecting
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (!self->_isDetecting)
   {
     v3 = HKSPLogForCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543362;
-      v16 = objc_opt_class();
-      v4 = v16;
-      _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] startDetecting", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = objc_opt_class();
+      v4 = v15;
+      _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] startDetecting", &v14, 0xCu);
     }
 
     self->_isDetecting = 1;
@@ -70,51 +70,45 @@
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopDetecting
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] stopDetecting", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v4 = v7;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] stopDetecting", &v6, 0xCu);
   }
 
   self->_isDetecting = 0;
   onWristMonitor = [(HDSPWatchOnWristWakeDetector *)self onWristMonitor];
   [onWristMonitor removeObserver:self];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)detectedOnWristOnDate:(id)date
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   if ([(HDSPWatchOnWristWakeDetector *)self isDetecting])
   {
     v5 = HKSPLogForCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543618;
-      v10 = objc_opt_class();
-      v11 = 2114;
-      v12 = dateCopy;
-      v6 = v10;
-      _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] detectedOnWristOnDate: %{public}@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = objc_opt_class();
+      v10 = 2114;
+      v11 = dateCopy;
+      v6 = v9;
+      _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] detectedOnWristOnDate: %{public}@", &v8, 0x16u);
     }
 
     wakeDetectorDelegate = [(HDSPWatchOnWristWakeDetector *)self wakeDetectorDelegate];
     [wakeDetectorDelegate wakeDetector:self didDetectWakeUpEventOnDate:dateCopy];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HDSPWakeDetectorDelegate)wakeDetectorDelegate

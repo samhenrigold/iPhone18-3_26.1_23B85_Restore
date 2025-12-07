@@ -48,7 +48,7 @@
 
 - (Class)superclass
 {
-  v2 = type metadata accessor for CloudCoordinator();
+  v2 = type metadata accessor for CloudCoordinator(0);
 
   return _swift_getObjCClassFromMetadata(v2);
 }
@@ -148,33 +148,29 @@ LABEL_6:
 - (void)onIdentityUpdateNotification
 {
 
-  sub_10014D774();
+  sub_10014D774(v2);
 }
 
 - (void)accountDidChange:(id)change
 {
   v3 = type metadata accessor for Notification();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
 
-  sub_1001501E4();
+  sub_1001501E4(v7);
 
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 8))(v6, v3);
 }
 
 - (NSString)cloudContainerIdentifier
 {
-  v2 = &self->_TtCs12_SwiftObject_opaque[OBJC_IVAR____TtC15audioaccessoryd16CloudCoordinator_configuration];
-  v3 = &v2[*(type metadata accessor for CloudCoordinatorConfiguration() + 24)];
-  v4 = *v3;
-  v5 = *(v3 + 1);
+  type metadata accessor for CloudCoordinatorConfiguration(0);
 
-  v6 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v6;
+  return v2;
 }
 
 - (void)didReceiveWithPublicToken:(id)token
@@ -183,22 +179,23 @@ LABEL_6:
   v4 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v6 = v5;
 
-  static os_log_type_t.default.getter();
+  v7 = static os_log_type_t.default.getter();
   if (qword_1002F7AD8 != -1)
   {
     swift_once();
   }
 
+  v8 = qword_100300E28;
   sub_1000EE870(&unk_1002F8260, &unk_1002262B0);
-  v7 = swift_allocObject();
-  *(v7 + 16) = xmmword_100226100;
-  v8 = Data.hexString.getter(v4, v6);
-  v10 = v9;
-  *(v7 + 56) = &type metadata for String;
-  *(v7 + 64) = sub_1000EE954();
-  *(v7 + 32) = v8;
-  *(v7 + 40) = v10;
-  os_log(_:dso:log:_:_:)();
+  v9 = swift_allocObject();
+  *(v9 + 16) = xmmword_100226100;
+  v10 = Data.hexString.getter(v4, v6);
+  v12 = v11;
+  *(v9 + 56) = &type metadata for String;
+  *(v9 + 64) = sub_1000EE954();
+  *(v9 + 32) = v10;
+  *(v9 + 40) = v12;
+  os_log(_:dso:log:_:_:)(v7, &_mh_execute_header, v8, "APS public token: <%@>", 22, 2, v9);
   sub_1000EF870(v4, v6);
 }
 

@@ -1297,7 +1297,7 @@ LABEL_7:
       if ([v33 length])
       {
         v51 = [NSString alloc];
-        v52 = AEBundle();
+        v52 = AEBundle(v51);
         v53 = [v52 localizedStringForKey:@"Page %@" value:&stru_1E7188 table:0];
         v54 = [v51 initWithFormat:v53, v33];
 
@@ -1321,7 +1321,7 @@ LABEL_7:
     else
     {
       v80 = [NSString alloc];
-      v81 = AEBundle();
+      v81 = AEBundle(v80);
       v82 = [v81 localizedStringForKey:@"Page %@" value:&stru_1E7188 table:0];
       v83 = [NSNumberFormatter imaxLocalizedUnsignedInteger:[(BKThumbnailScrubber *)self pageNumber] usesGroupingSeparator:0];
       v84 = [v80 initWithFormat:v82, v83];
@@ -1417,14 +1417,14 @@ LABEL_7:
       v36 = v35;
       v37 = v17;
       v38 = [NSString alloc];
-      v39 = AEBundle();
+      v39 = AEBundle(v38);
       [v39 localizedStringForKey:@"Pages %@-%@" value:&stru_1E7188 table:0];
       v40 = v97 = v33;
       v41 = v36;
       v42 = [v38 initWithFormat:v40, v37, v36];
 
       v43 = [NSString alloc];
-      v44 = AEBundle();
+      v44 = AEBundle(v43);
       v45 = [v44 localizedStringForKey:@"%@-%@" value:&stru_1E7188 table:0];
       v46 = [v43 initWithFormat:v45, v37, v41];
 
@@ -1436,7 +1436,7 @@ LABEL_7:
       if ([v17 length])
       {
         v69 = [NSString alloc];
-        v70 = AEBundle();
+        v70 = AEBundle(v69);
         v71 = [v70 localizedStringForKey:@"Page %@" value:&stru_1E7188 table:0];
         v42 = [v69 initWithFormat:v71, v17];
 
@@ -1455,7 +1455,7 @@ LABEL_7:
         }
 
         v93 = [NSString alloc];
-        v94 = AEBundle();
+        v94 = AEBundle(v93);
         v95 = [v94 localizedStringForKey:@"Page %@" value:&stru_1E7188 table:0];
         v42 = [v93 initWithFormat:v95, v19];
 
@@ -1485,7 +1485,7 @@ LABEL_36:
       }
 
       v87 = [NSString alloc];
-      v88 = AEBundle();
+      v88 = AEBundle(v87);
       [v88 localizedStringForKey:@"Page %@" value:&stru_1E7188 table:0];
       v90 = v89 = v19;
       v91 = [NSNumberFormatter imaxLocalizedUnsignedInteger:rightCalloutPageNumber usesGroupingSeparator:0];
@@ -1499,7 +1499,7 @@ LABEL_36:
     else
     {
       v73 = [NSString alloc];
-      v74 = AEBundle();
+      v74 = AEBundle(v73);
       [v74 localizedStringForKey:@"Page %@" value:&stru_1E7188 table:0];
       v76 = v75 = v19;
       v77 = [NSNumberFormatter imaxLocalizedUnsignedInteger:leftCalloutPageNumber usesGroupingSeparator:0];
@@ -1517,7 +1517,7 @@ LABEL_36:
   }
 
   v55 = [NSString alloc];
-  AEBundle();
+  AEBundle(v55);
   v56 = v98 = v17;
   v57 = [v56 localizedStringForKey:@"Page %@" value:&stru_1E7188 table:0];
   [NSNumberFormatter imaxLocalizedUnsignedInteger:leftCalloutPageNumber usesGroupingSeparator:0];
@@ -1529,7 +1529,7 @@ LABEL_36:
   v46 = [v59 initWithFormat:@"%@", v60];
 
   v61 = [NSString alloc];
-  v62 = AEBundle();
+  v62 = AEBundle(v61);
   v63 = [v62 localizedStringForKey:@"Page %@" value:&stru_1E7188 table:0];
   v64 = [NSNumberFormatter imaxLocalizedUnsignedInteger:rightCalloutPageNumber usesGroupingSeparator:0];
   v65 = [v61 initWithFormat:v63, v64];

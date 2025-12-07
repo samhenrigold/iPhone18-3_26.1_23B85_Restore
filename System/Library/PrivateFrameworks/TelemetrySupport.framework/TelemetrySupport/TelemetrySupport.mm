@@ -70,9 +70,7 @@ uint64_t sub_1478()
   v0 = sub_5C074();
   __swift_allocate_value_buffer(v0, qword_789F8);
   __swift_project_value_buffer(v0, qword_789F8);
-  v1 = sub_65E8();
-  v2 = *v1;
-  v3 = v1[1];
+  sub_65E8();
 
   return sub_5C064();
 }
@@ -173,25 +171,25 @@ LABEL_5:
   sub_5C464(v1);
 }
 
-Swift::Int sub_1774()
+Swift::Int sub_1774(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
+  v2 = *v1;
+  v3 = *(v1 + 8);
   sub_5C454();
-  if (!v2)
+  if (!v3)
   {
-    v3 = 4;
+    v4 = 4;
     goto LABEL_5;
   }
 
-  if (v2 == 1)
+  if (v3 == 1)
   {
-    v3 = 5;
+    v4 = 5;
 LABEL_5:
-    sub_5C464(v3);
+    sub_5C464(v4);
   }
 
-  sub_5C464(v1);
+  sub_5C464(v2);
   return sub_5C474();
 }
 
@@ -202,36 +200,35 @@ Swift::Int sub_1814(unsigned __int8 a1)
   return sub_5C474();
 }
 
-Swift::Int sub_1878()
+Swift::Int sub_1878(uint64_t a1)
 {
   sub_5C454();
-  sub_17EC(v2, *v0);
+  sub_17EC(v3, *v1);
   return sub_5C474();
+}
+
+uint64_t sub_18B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v6 = 0;
+  v4 = type metadata accessor for OTLPGRPCClient.State(0, a1, a2, a4);
+  return sub_55D8(&v6, v4);
 }
 
 char *OTLPGRPCClient.__allocating_init(transport:configuration:)(uint64_t a1, uint64_t a2)
 {
-  v3 = v2;
-  v6 = *(v3 + 48);
-  v7 = *(v3 + 52);
   swift_allocObject();
-  v8 = sub_566C(a1, a2);
-  v10 = *(v3 + 80);
-  v9 = *(v3 + 88);
+  v4 = sub_566C(a1, a2);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   (*(*(AssociatedTypeWitness - 8) + 8))(a1, AssociatedTypeWitness);
-  return v8;
+  return v4;
 }
 
 char *OTLPGRPCClient.init(transport:configuration:)(uint64_t a1, uint64_t a2)
 {
-  v4 = *v2;
-  v5 = sub_566C(a1, a2);
-  v7 = *(v4 + 80);
-  v6 = *(v4 + 88);
+  v3 = sub_566C(a1, a2);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   (*(*(AssociatedTypeWitness - 8) + 8))(a1, AssociatedTypeWitness);
-  return v5;
+  return v3;
 }
 
 uint64_t OTLPGRPCClient.export(request:)(uint64_t a1)
@@ -246,12 +243,11 @@ uint64_t OTLPGRPCClient.export(request:)(uint64_t a1)
 
 uint64_t sub_1B30()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t OTLPGRPCClient.processExport(request:)(uint64_t a1)
@@ -261,38 +257,28 @@ uint64_t OTLPGRPCClient.processExport(request:)(uint64_t a1)
   v3 = *v1;
   v4 = sub_5C334();
   v2[7] = v4;
-  v5 = *(v4 - 8);
-  v2[8] = v5;
-  v6 = *(v5 + 64) + 15;
+  v2[8] = *(v4 - 8);
   v2[9] = swift_task_alloc();
-  v7 = sub_5BC44();
-  v2[10] = v7;
-  v8 = *(v7 - 8);
-  v2[11] = v8;
-  v9 = *(v8 + 64) + 15;
+  v5 = sub_5BC44();
+  v2[10] = v5;
+  v2[11] = *(v5 - 8);
   v2[12] = swift_task_alloc();
-  v10 = sub_5BC74();
-  v2[13] = v10;
-  v11 = *(v10 - 8);
-  v2[14] = v11;
-  v12 = *(v11 + 64) + 15;
+  v6 = sub_5BC74();
+  v2[13] = v6;
+  v2[14] = *(v6 - 8);
   v2[15] = swift_task_alloc();
   v2[16] = swift_task_alloc();
   v2[17] = swift_task_alloc();
   v2[18] = swift_task_alloc();
-  v13 = sub_5BA34();
-  v2[19] = v13;
-  v14 = *(v13 - 8);
-  v2[20] = v14;
-  v15 = *(v14 + 64) + 15;
+  v7 = sub_5BA34();
+  v2[19] = v7;
+  v2[20] = *(v7 - 8);
   v2[21] = swift_task_alloc();
   v2[22] = *(v3 + 88);
   v2[23] = *(v3 + 80);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v2[24] = AssociatedTypeWitness;
-  v17 = *(AssociatedTypeWitness - 8);
-  v2[25] = v17;
-  v18 = *(v17 + 64) + 15;
+  v2[25] = *(AssociatedTypeWitness - 8);
   v2[26] = swift_task_alloc();
   v2[27] = swift_task_alloc();
 
@@ -301,12 +287,12 @@ uint64_t OTLPGRPCClient.processExport(request:)(uint64_t a1)
 
 uint64_t sub_1ED0()
 {
-  v31 = v0;
+  v22 = v0;
   v1 = *(v0 + 48);
   v2 = *(*v1 + 120);
   *(v0 + 224) = v2;
   v3 = v1 + v2;
-  v4 = type metadata accessor for OTLPExporterConfiguration();
+  v4 = type metadata accessor for OTLPExporterConfiguration(0);
   *(v0 + 232) = v4;
   v5 = v3 + *(v4 + 20);
   *(v0 + 240) = *v5;
@@ -320,9 +306,9 @@ uint64_t sub_1ED0()
 
   else
   {
-    static TSDeadLine.now()(&v30);
-    v6 = &v29;
-    static TSDeadLine.+ infix(_:_:)(&v30, &v29);
+    static TSDeadLine.now()(&v21);
+    v6 = &v20;
+    static TSDeadLine.+ infix(_:_:)(&v21, &v20);
   }
 
   v7 = *(v0 + 176);
@@ -335,53 +321,42 @@ uint64_t sub_1ED0()
   *(v0 + 288) = *(*v8 + 112);
   *(v0 + 296) = 0;
   v10 = *(v0 + 368);
-  v11 = *(v0 + 168);
   sub_5BA24();
   if ((v10 & 1) == 0)
   {
-    v12 = *(v0 + 240);
-    v13 = *(v0 + 248);
-    v14 = *(v0 + 168);
     sub_5BA14();
   }
 
-  v15 = *(v0 + 288);
-  v16 = *(v0 + 272);
-  v17 = *(v0 + 48);
-  v28 = (*(v0 + 264) + **(v0 + 264));
-  v18 = *(*(v0 + 264) + 4);
-  v19 = swift_task_alloc();
-  *(v0 + 304) = v19;
-  *v19 = v0;
-  v19[1] = sub_20C4;
-  v21 = *(v0 + 272);
-  v20 = *(v0 + 280);
-  v22 = *(v0 + 208);
-  v24 = *(v0 + 176);
-  v23 = *(v0 + 184);
-  v25 = *(v0 + 168);
-  v26 = *(v0 + 40);
+  v19 = (*(v0 + 264) + **(v0 + 264));
+  v11 = swift_task_alloc();
+  *(v0 + 304) = v11;
+  *v11 = v0;
+  v11[1] = sub_20C4;
+  v12 = *(v0 + 280);
+  v13 = *(v0 + 208);
+  v15 = *(v0 + 176);
+  v14 = *(v0 + 184);
+  v16 = *(v0 + 168);
+  v17 = *(v0 + 40);
 
-  return v28(v22, v26, v20, v25, v23, v24);
+  return v19(v13, v17, v12, v16, v14, v15);
 }
 
 uint64_t sub_20C4()
 {
-  v2 = *(*v1 + 304);
-  v5 = *v1;
   *(*v1 + 312) = v0;
 
   if (v0)
   {
-    v3 = sub_2488;
+    v2 = sub_2488;
   }
 
   else
   {
-    v3 = sub_21D8;
+    v2 = sub_21D8;
   }
 
-  return _swift_task_switch(v3, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 uint64_t sub_21D8()
@@ -419,158 +394,130 @@ uint64_t sub_21D8()
   if (v10)
   {
     (*(v0[25] + 8))(v0[27], v0[24]);
-    v15 = v0[26];
-    v14 = v0[27];
-    v16 = v0[21];
-    v18 = v0[17];
-    v17 = v0[18];
-    v20 = v0[15];
-    v19 = v0[16];
-    v21 = v0[12];
-    v22 = v0[9];
   }
 
   else
   {
-    v24 = v0[26];
-    v25 = v0[24];
-    v26 = v0[21];
-    v28 = v0[17];
-    v27 = v0[18];
-    v30 = v0[15];
-    v29 = v0[16];
-    v31 = v0[12];
-    v32 = v0[9];
-    v33 = v0[27];
     (*(v0[25] + 8))();
   }
 
-  v23 = v0[1];
+  v14 = v0[1];
 
-  return v23();
+  return v14();
 }
 
 uint64_t sub_2488()
 {
-  v101 = v0;
+  v75 = v0;
   v1 = v0[39];
-  v2 = v0[18];
-  v3 = v0[13];
   (*(v0[20] + 8))(v0[21], v0[19]);
   v0[4] = v1;
   swift_errorRetain();
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78000, &qword_5EBF0);
   if (!swift_dynamicCast())
   {
-    v38 = v0[4];
 
     if (qword_789F0 != -1)
     {
       swift_once();
     }
 
-    v39 = v0[39];
-    v40 = sub_5C074();
-    __swift_project_value_buffer(v40, qword_789F8);
+    v35 = sub_5C074();
+    __swift_project_value_buffer(v35, qword_789F8);
     swift_errorRetain();
-    v41 = sub_5C054();
-    v42 = sub_5C2B4();
+    v36 = sub_5C054();
+    v37 = sub_5C2B4();
 
-    if (os_log_type_enabled(v41, v42))
+    if (os_log_type_enabled(v36, v37))
     {
-      v43 = v0[39];
-      v44 = swift_slowAlloc();
-      v45 = swift_slowAlloc();
-      *v44 = 138543362;
+      v38 = swift_slowAlloc();
+      v39 = swift_slowAlloc();
+      *v38 = 138543362;
       swift_errorRetain();
-      v46 = _swift_stdlib_bridgeErrorToNSError();
-      *(v44 + 4) = v46;
-      *v45 = v46;
-      _os_log_impl(&dword_0, v41, v42, "Publish failed. error=%{public}@", v44, 0xCu);
-      sub_60C4(v45, &qword_78008, &qword_5EBF8);
+      v40 = _swift_stdlib_bridgeErrorToNSError();
+      *(v38 + 4) = v40;
+      *v39 = v40;
+      _os_log_impl(&dword_0, v36, v37, "Publish failed. error=%{public}@", v38, 0xCu);
+      sub_60C4(v39, &qword_78008, &qword_5EBF8);
     }
 
-    v47 = v0[39];
-
     swift_willThrow();
-    v48 = v0[39];
     goto LABEL_16;
   }
 
-  v4 = v0[39];
-  v5 = v0[17];
-  v6 = v0[18];
-  v7 = v0[13];
-  v8 = v0[14];
-  v10 = v0[11];
-  v9 = v0[12];
-  v11 = v0[10];
+  v2 = v0[17];
+  v3 = v0[18];
+  v4 = v0[13];
+  v5 = v0[14];
+  v7 = v0[11];
+  v6 = v0[12];
+  v8 = v0[10];
 
-  (*(v8 + 32))(v5, v6, v7);
+  (*(v5 + 32))(v2, v3, v4);
   sub_5BC54();
-  v98 = RPCError.Code.isOTLPRetryable.getter();
-  v95 = *(v10 + 8);
-  v95(v9, v11);
+  v72 = RPCError.Code.isOTLPRetryable.getter();
+  v69 = *(v7 + 8);
+  v69(v6, v8);
   if (qword_789F0 != -1)
   {
     swift_once();
   }
 
-  v12 = v0[16];
-  v13 = v0[17];
-  v15 = v0[14];
-  v14 = v0[15];
-  v16 = v0[13];
-  v17 = sub_5C074();
-  v18 = __swift_project_value_buffer(v17, qword_789F8);
-  v19 = *(v15 + 16);
-  v0[40] = v18;
-  v0[41] = v19;
-  v0[42] = (v15 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v19(v12, v13, v16);
-  v96 = v19;
-  v19(v14, v13, v16);
-  v20 = sub_5C054();
-  v21 = sub_5C2B4();
-  v22 = os_log_type_enabled(v20, v21);
-  v23 = v0[16];
-  v97 = v0[15];
-  v24 = v0[13];
-  v25 = v0[14];
-  if (v22)
+  v9 = v0[16];
+  v10 = v0[17];
+  v12 = v0[14];
+  v11 = v0[15];
+  v13 = v0[13];
+  v14 = sub_5C074();
+  v15 = __swift_project_value_buffer(v14, qword_789F8);
+  v16 = *(v12 + 16);
+  v0[40] = v15;
+  v0[41] = v16;
+  v0[42] = (v12 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v16(v9, v10, v13);
+  v70 = v16;
+  v16(v11, v10, v13);
+  v17 = sub_5C054();
+  v18 = sub_5C2B4();
+  v19 = os_log_type_enabled(v17, v18);
+  v20 = v0[16];
+  v71 = v0[15];
+  v21 = v0[13];
+  v22 = v0[14];
+  if (v19)
   {
-    v26 = v0[12];
-    v92 = v0[13];
-    v27 = v0[10];
-    v28 = swift_slowAlloc();
-    v100[0] = swift_slowAlloc();
-    *v28 = 136446722;
-    log = v20;
+    v23 = v0[12];
+    v66 = v0[13];
+    v24 = v0[10];
+    v25 = swift_slowAlloc();
+    v74[0] = swift_slowAlloc();
+    *v25 = 136446722;
+    log = v17;
     sub_5BC54();
-    sub_635C(&qword_78020, &type metadata accessor for RPCError.Code);
-    v29 = sub_5C394();
-    v93 = v21;
-    v31 = v30;
-    v95(v26, v27);
-    v32 = *(v25 + 8);
-    v32(v23, v92);
-    v33 = sub_4F84(v29, v31, v100);
+    sub_635C(&qword_78020, &type metadata accessor for RPCError.Code, &protocol conformance descriptor for RPCError.Code);
+    v26 = sub_5C394();
+    v67 = v18;
+    v28 = v27;
+    v69(v23, v24);
+    v29 = *(v22 + 8);
+    v29(v20, v66);
+    v30 = sub_4F84(v26, v28, v74);
 
-    *(v28 + 4) = v33;
-    *(v28 + 12) = 2080;
-    v34 = sub_5BC64();
-    v36 = v35;
-    v32(v97, v92);
-    v37 = sub_4F84(v34, v36, v100);
+    *(v25 + 4) = v30;
+    *(v25 + 12) = 2080;
+    v31 = sub_5BC64();
+    v33 = v32;
+    v29(v71, v66);
+    v34 = sub_4F84(v31, v33, v74);
 
-    *(v28 + 14) = v37;
-    *(v28 + 22) = 1026;
-    *(v28 + 24) = v98 & 1;
-    _os_log_impl(&dword_0, log, v93, "gRPC error. grpc_error_code=%{public}s grpc_status_message=%s error_retryable=%{BOOL,public}d", v28, 0x1Cu);
+    *(v25 + 14) = v34;
+    *(v25 + 22) = 1026;
+    *(v25 + 24) = v72 & 1;
+    _os_log_impl(&dword_0, log, v67, "gRPC error. grpc_error_code=%{public}s grpc_status_message=%s error_retryable=%{BOOL,public}d", v25, 0x1Cu);
     swift_arrayDestroy();
 
-    v0[43] = v32;
-    if ((v98 & 1) == 0)
+    v0[43] = v29;
+    if ((v72 & 1) == 0)
     {
       goto LABEL_14;
     }
@@ -579,234 +526,186 @@ uint64_t sub_2488()
   else
   {
 
-    v32 = *(v25 + 8);
-    v32(v97, v24);
-    v32(v23, v24);
-    v0[43] = v32;
-    if ((v98 & 1) == 0)
+    v29 = *(v22 + 8);
+    v29(v71, v21);
+    v29(v20, v21);
+    v0[43] = v29;
+    if ((v72 & 1) == 0)
     {
 LABEL_14:
-      v50 = v0[17];
-      v51 = v0[13];
-      v52 = v0[14] + 8;
-      sub_635C(&qword_78010, &type metadata accessor for RPCError);
+      v42 = v0[17];
+      v43 = v0[13];
+      sub_635C(&qword_78010, &type metadata accessor for RPCError, &protocol conformance descriptor for RPCError);
       swift_allocError();
-      v96(v53, v50, v51);
+      v70(v44, v42, v43);
 LABEL_15:
       swift_willThrow();
-      v32(v50, v51);
-      v54 = v0[4];
+      v29(v42, v43);
 
 LABEL_16:
-      v56 = v0[26];
-      v55 = v0[27];
-      v57 = v0[21];
-      v59 = v0[17];
-      v58 = v0[18];
-      v61 = v0[15];
-      v60 = v0[16];
-      v62 = v0[12];
-      v63 = v0[9];
 
-      v64 = v0[1];
+      v45 = v0[1];
 
-      return v64();
+      return v45();
     }
   }
 
-  v49 = v0[37];
-  if (v49 == 999)
+  v41 = v0[37];
+  if (v41 == 999)
   {
     goto LABEL_14;
   }
 
-  v66 = v0[32];
-  v67 = v0[6] + v0[28];
-  v68 = (v67 + *(v0[29] + 32));
-  v69 = *v68;
-  v70 = v68[1];
-  v71 = (v67 + *(v0[29] + 28));
-  v72 = *v71;
-  v73 = v71[1];
-  exp2((v49 + 1));
-  v74 = sub_5C4B4();
-  v76 = v75;
+  v47 = v0[32];
+  v48 = (v0[6] + v0[28] + *(v0[29] + 32));
+  v49 = *v48;
+  v50 = v48[1];
+  exp2((v41 + 1));
+  v51 = sub_5C4B4();
+  v53 = v52;
   if (sub_5C4A4())
   {
-    v70 = v76;
+    v50 = v53;
   }
 
   else
   {
-    v74 = v69;
+    v51 = v49;
   }
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78018, &qword_5EC00);
-  v77 = swift_allocObject();
-  *(v77 + 16) = xmmword_5EBD0;
+  v54 = swift_allocObject();
+  *(v54 + 16) = xmmword_5EBD0;
   v0[2] = 0x3A66666F6B636162;
   v0[3] = 0xE900000000000020;
-  v103._countAndFlagsBits = sub_5C494();
-  sub_5C134(v103);
+  v77._countAndFlagsBits = sub_5C494();
+  sub_5C134(v77);
 
-  v78 = v0[2];
-  v79 = v0[3];
-  *(v77 + 56) = &type metadata for String;
-  *(v77 + 32) = v78;
-  *(v77 + 40) = v79;
+  v55 = v0[2];
+  v56 = v0[3];
+  *(v54 + 56) = &type metadata for String;
+  *(v54 + 32) = v55;
+  *(v54 + 40) = v56;
   sub_5C444();
 
-  static TSDeadLine.now()(&v99);
-  static TSDeadLine.+ infix(_:_:)(&v99, v100);
-  v99 = v66;
-  if (!static TSDeadLine.> infix(_:_:)(&v99, v100))
+  static TSDeadLine.now()(&v73);
+  static TSDeadLine.+ infix(_:_:)(&v73, v74);
+  v73 = v47;
+  if (!static TSDeadLine.> infix(_:_:)(&v73, v74))
   {
-    v50 = v0[17];
-    v51 = v0[13];
-    v90 = v0[14] + 8;
-    sub_635C(&qword_78010, &type metadata accessor for RPCError);
+    v42 = v0[17];
+    v43 = v0[13];
+    sub_635C(&qword_78010, &type metadata accessor for RPCError, &protocol conformance descriptor for RPCError);
     swift_allocError();
-    v96(v91, v50, v51);
+    v70(v65, v42, v43);
     goto LABEL_15;
   }
 
-  v80 = sub_5C054();
-  v81 = sub_5C2C4();
-  if (os_log_type_enabled(v80, v81))
+  v57 = sub_5C054();
+  v58 = sub_5C2C4();
+  if (os_log_type_enabled(v57, v58))
   {
-    v82 = swift_slowAlloc();
-    v83 = swift_slowAlloc();
-    v100[0] = v83;
-    *v82 = 136315138;
-    v84 = sub_5C494();
-    v86 = sub_4F84(v84, v85, v100);
+    v59 = swift_slowAlloc();
+    v60 = swift_slowAlloc();
+    v74[0] = v60;
+    *v59 = 136315138;
+    v61 = sub_5C494();
+    v63 = sub_4F84(v61, v62, v74);
 
-    *(v82 + 4) = v86;
-    _os_log_impl(&dword_0, v80, v81, "Waiting before reattempting request backoff=%s", v82, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v83);
+    *(v59 + 4) = v63;
+    _os_log_impl(&dword_0, v57, v58, "Waiting before reattempting request backoff=%s", v59, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v60);
   }
 
-  v87 = v0[9];
   sub_5C3F4();
-  v88 = swift_task_alloc();
-  v0[44] = v88;
-  *v88 = v0;
-  v88[1] = sub_2E00;
-  v89 = v0[9];
+  v64 = swift_task_alloc();
+  v0[44] = v64;
+  *v64 = v0;
+  v64[1] = sub_2E00;
 
-  return sub_4ACC(v74, v70, 0, 0, 1);
+  return sub_4ACC(v51, v50, 0, 0, 1);
 }
 
 uint64_t sub_2E00()
 {
   v2 = *v1;
-  v3 = *(*v1 + 352);
-  v4 = *v1;
   *(*v1 + 360) = v0;
 
   (*(v2[8] + 8))(v2[9], v2[7]);
   if (v0)
   {
-    v5 = sub_30C0;
+    v3 = sub_30C0;
   }
 
   else
   {
-    v5 = sub_2F68;
+    v3 = sub_2F68;
   }
 
-  return _swift_task_switch(v5, 0, 0);
+  return _swift_task_switch(v3, 0, 0);
 }
 
 uint64_t sub_2F68()
 {
-  v1 = *(v0 + 112) + 8;
   (*(v0 + 344))(*(v0 + 136), *(v0 + 104));
-  v2 = *(v0 + 32);
 
   ++*(v0 + 296);
-  v3 = *(v0 + 368);
-  v4 = *(v0 + 168);
+  v1 = *(v0 + 368);
   sub_5BA24();
-  if ((v3 & 1) == 0)
+  if ((v1 & 1) == 0)
   {
-    v5 = *(v0 + 240);
-    v6 = *(v0 + 248);
-    v7 = *(v0 + 168);
     sub_5BA14();
   }
 
-  v8 = *(v0 + 288);
-  v9 = *(v0 + 272);
-  v10 = *(v0 + 48);
-  v21 = (*(v0 + 264) + **(v0 + 264));
-  v11 = *(*(v0 + 264) + 4);
-  v12 = swift_task_alloc();
-  *(v0 + 304) = v12;
-  *v12 = v0;
-  v12[1] = sub_20C4;
-  v14 = *(v0 + 272);
-  v13 = *(v0 + 280);
-  v15 = *(v0 + 208);
-  v17 = *(v0 + 176);
-  v16 = *(v0 + 184);
-  v18 = *(v0 + 168);
-  v19 = *(v0 + 40);
+  v10 = (*(v0 + 264) + **(v0 + 264));
+  v2 = swift_task_alloc();
+  *(v0 + 304) = v2;
+  *v2 = v0;
+  v2[1] = sub_20C4;
+  v3 = *(v0 + 280);
+  v4 = *(v0 + 208);
+  v6 = *(v0 + 176);
+  v5 = *(v0 + 184);
+  v7 = *(v0 + 168);
+  v8 = *(v0 + 40);
 
-  return v21(v15, v19, v13, v18, v16, v17);
+  return v10(v4, v8, v3, v7, v5, v6);
 }
 
 uint64_t sub_30C0()
 {
-  v1 = v0[45];
-  v2 = v0[40];
   swift_errorRetain();
-  v3 = sub_5C054();
-  v4 = sub_5C2B4();
+  v1 = sub_5C054();
+  v2 = sub_5C2B4();
 
-  if (os_log_type_enabled(v3, v4))
+  if (os_log_type_enabled(v1, v2))
   {
-    v5 = v0[45];
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    *v6 = 138543362;
+    v3 = swift_slowAlloc();
+    v4 = swift_slowAlloc();
+    *v3 = 138543362;
     swift_errorRetain();
-    v8 = _swift_stdlib_bridgeErrorToNSError();
-    *(v6 + 4) = v8;
-    *v7 = v8;
-    _os_log_impl(&dword_0, v3, v4, "Error thrown whilst waiting to publish. error=%{public}@", v6, 0xCu);
-    sub_60C4(v7, &qword_78008, &qword_5EBF8);
+    v5 = _swift_stdlib_bridgeErrorToNSError();
+    *(v3 + 4) = v5;
+    *v4 = v5;
+    _os_log_impl(&dword_0, v1, v2, "Error thrown whilst waiting to publish. error=%{public}@", v3, 0xCu);
+    sub_60C4(v4, &qword_78008, &qword_5EBF8);
   }
 
-  v9 = v0[45];
-  v10 = v0[42];
-  v11 = v0[43];
-  v12 = v0[41];
-  v13 = v0[17];
-  v14 = v0[13];
-  v15 = v0[14];
+  v6 = v0[43];
+  v7 = v0[41];
+  v8 = v0[17];
+  v9 = v0[13];
 
-  sub_635C(&qword_78010, &type metadata accessor for RPCError);
+  sub_635C(&qword_78010, &type metadata accessor for RPCError, &protocol conformance descriptor for RPCError);
   swift_allocError();
-  v12(v16, v13, v14);
+  v7(v10, v8, v9);
   swift_willThrow();
 
-  v11(v13, v14);
-  v17 = v0[4];
+  v6(v8, v9);
 
-  v19 = v0[26];
-  v18 = v0[27];
-  v20 = v0[21];
-  v22 = v0[17];
-  v21 = v0[18];
-  v24 = v0[15];
-  v23 = v0[16];
-  v25 = v0[12];
-  v26 = v0[9];
+  v11 = v0[1];
 
-  v27 = v0[1];
-
-  return v27();
+  return v11();
 }
 
 uint64_t OTLPGRPCClient.run()()
@@ -829,20 +728,16 @@ uint64_t sub_335C()
   sub_59EC((v2 + v4));
   os_unfair_lock_unlock((v2 + v5));
 
-  v6 = async function pointer to withThrowingTaskGroup<A, B>(of:returning:isolation:body:)[1];
-  v7 = swift_task_alloc();
-  v0[4] = v7;
-  *v7 = v0;
-  v7[1] = sub_3504;
-  v8 = v0[2];
+  v6 = swift_task_alloc();
+  v0[4] = v6;
+  *v6 = v0;
+  v6[1] = sub_3504;
 
   return withThrowingTaskGroup<A, B>(of:returning:isolation:body:)();
 }
 
 uint64_t sub_3504()
 {
-  v2 = *(*v1 + 32);
-  v4 = *v1;
 
   if (v0)
   {
@@ -863,10 +758,9 @@ uint64_t sub_3628()
   return v1();
 }
 
-void sub_368C(void *a1)
+void sub_368C(uint64_t a1)
 {
-  v1 = a1[2];
-  v4 = *(*a1 + 80);
+  v1 = *(a1 + 16);
   v2 = *(*v1 + class metadata base offset for ManagedBuffer + 16);
   v3 = (*(*v1 + 48) + 3) & 0x1FFFFFFFCLL;
   os_unfair_lock_lock((v1 + v3));
@@ -878,7 +772,7 @@ uint64_t sub_374C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3[2] = a2;
   v3[3] = a3;
-  v4 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78038, &qword_5EDE8) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78038, &qword_5EDE8);
   v3[4] = swift_task_alloc();
 
   return _swift_task_switch(sub_37E8, 0, 0);
@@ -888,73 +782,66 @@ uint64_t sub_37E8()
 {
   v2 = v0[3];
   v1 = v0[4];
-  v3 = v0[2];
-  v4 = sub_5C1E4();
-  v5 = *(*(v4 - 8) + 56);
-  v5(v1, 1, 1, v4);
+  v3 = sub_5C1E4();
+  v4 = *(*(v3 - 8) + 56);
+  v4(v1, 1, 1, v3);
+  v5 = swift_allocObject();
+  v5[2] = 0;
+  v5[3] = 0;
+  v5[4] = v2;
+
+  sub_3EC0(v1, &unk_5EDF8, v5);
+  sub_60C4(v1, &qword_78038, &qword_5EDE8);
+  v4(v1, 1, 1, v3);
   v6 = swift_allocObject();
   v6[2] = 0;
   v6[3] = 0;
   v6[4] = v2;
 
-  sub_3EC0(v1, &unk_5EDF8, v6);
+  sub_3EC0(v1, &unk_5EE08, v6);
   sub_60C4(v1, &qword_78038, &qword_5EDE8);
-  v5(v1, 1, 1, v4);
+  v4(v1, 1, 1, v3);
   v7 = swift_allocObject();
   v7[2] = 0;
   v7[3] = 0;
   v7[4] = v2;
 
-  sub_3EC0(v1, &unk_5EE08, v7);
+  sub_3EC0(v1, &unk_5EE18, v7);
   sub_60C4(v1, &qword_78038, &qword_5EDE8);
-  v5(v1, 1, 1, v4);
-  v8 = swift_allocObject();
-  v8[2] = 0;
-  v8[3] = 0;
-  v8[4] = v2;
+  v8 = swift_task_alloc();
+  v0[5] = v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78040, &unk_5EE20);
+  *v8 = v0;
+  v8[1] = sub_3A60;
 
-  sub_3EC0(v1, &unk_5EE18, v8);
-  sub_60C4(v1, &qword_78038, &qword_5EDE8);
-  v9 = async function pointer to ThrowingTaskGroup.next(isolation:)[1];
-  v10 = swift_task_alloc();
-  v0[5] = v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78040, &unk_5EE20);
-  *v10 = v0;
-  v10[1] = sub_3A60;
-  v12 = v0[2];
-
-  return ThrowingTaskGroup.next(isolation:)(v0 + 7, 0, 0, v11);
+  return ThrowingTaskGroup.next(isolation:)(v0 + 7, 0, 0, v9);
 }
 
 uint64_t sub_3A60()
 {
-  v2 = *(*v1 + 40);
-  v5 = *v1;
   *(*v1 + 48) = v0;
 
   if (v0)
   {
-    v3 = sub_3C18;
+    v2 = sub_3C18;
   }
 
   else
   {
-    v3 = sub_3B74;
+    v2 = sub_3B74;
   }
 
-  return _swift_task_switch(v3, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 uint64_t sub_3B74()
 {
-  v1 = *(v0 + 32);
-  v2 = **(v0 + 16);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78000, &qword_5EBF0);
   sub_5C2A4();
 
-  v3 = *(v0 + 8);
+  v1 = *(v0 + 8);
 
-  return v3();
+  return v1();
 }
 
 uint64_t sub_3C18()
@@ -964,50 +851,43 @@ uint64_t sub_3C18()
     swift_once();
   }
 
-  v1 = *(v0 + 48);
-  v2 = sub_5C074();
-  __swift_project_value_buffer(v2, qword_789F8);
+  v1 = sub_5C074();
+  __swift_project_value_buffer(v1, qword_789F8);
   swift_errorRetain();
-  v3 = sub_5C054();
-  v4 = sub_5C2B4();
+  v2 = sub_5C054();
+  v3 = sub_5C2B4();
 
-  v5 = os_log_type_enabled(v3, v4);
-  v6 = *(v0 + 48);
-  if (v5)
+  if (os_log_type_enabled(v2, v3))
   {
-    v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    *v7 = 138543362;
+    v4 = swift_slowAlloc();
+    v5 = swift_slowAlloc();
+    *v4 = 138543362;
     swift_errorRetain();
-    v9 = _swift_stdlib_bridgeErrorToNSError();
-    *(v7 + 4) = v9;
-    *v8 = v9;
-    _os_log_impl(&dword_0, v3, v4, "Child task threw error. error=%{public}@", v7, 0xCu);
-    sub_60C4(v8, &qword_78008, &qword_5EBF8);
+    v6 = _swift_stdlib_bridgeErrorToNSError();
+    *(v4 + 4) = v6;
+    *v5 = v6;
+    _os_log_impl(&dword_0, v2, v3, "Child task threw error. error=%{public}@", v4, 0xCu);
+    sub_60C4(v5, &qword_78008, &qword_5EBF8);
   }
 
   else
   {
   }
 
-  v10 = *(v0 + 32);
-  v11 = **(v0 + 16);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78000, &qword_5EBF0);
   sub_5C2A4();
 
-  v12 = *(v0 + 8);
+  v7 = *(v0 + 8);
 
-  return v12();
+  return v7();
 }
 
 uint64_t sub_3E28()
 {
-  v1 = *(*(v0 + 16) + 24);
-  v2 = async function pointer to GRPCClient.runConnections()[1];
-  v3 = swift_task_alloc();
-  *(v0 + 24) = v3;
-  *v3 = v0;
-  v3[1] = sub_65D8;
+  v1 = swift_task_alloc();
+  *(v0 + 24) = v1;
+  *v1 = v0;
+  v1[1] = sub_65D8;
 
   return GRPCClient.runConnections()();
 }
@@ -1015,23 +895,22 @@ uint64_t sub_3E28()
 uint64_t sub_3EC0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78038, &qword_5EDE8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78038, &qword_5EDE8);
   off_708C8();
-  v9 = v19 - v8;
-  sub_628C(a1, v19 - v8);
-  v10 = sub_5C1E4();
-  v11 = *(v10 - 8);
-  if ((*(v11 + 48))(v9, 1, v10) == 1)
+  v8 = v17 - v7;
+  sub_628C(a1, v17 - v7);
+  v9 = sub_5C1E4();
+  v10 = *(v9 - 8);
+  if ((*(v10 + 48))(v8, 1, v9) == 1)
   {
-    sub_60C4(v9, &qword_78038, &qword_5EDE8);
+    sub_60C4(v8, &qword_78038, &qword_5EDE8);
     if (*(a3 + 16))
     {
 LABEL_3:
-      v12 = *(a3 + 24);
       swift_getObjectType();
       swift_unknownObjectRetain();
-      v13 = sub_5C1B4();
-      v15 = v14;
+      v11 = sub_5C1B4();
+      v13 = v12;
       swift_unknownObjectRelease();
       goto LABEL_6;
     }
@@ -1040,65 +919,59 @@ LABEL_3:
   else
   {
     sub_5C1D4();
-    (*(v11 + 8))(v9, v10);
+    (*(v10 + 8))(v8, v9);
     if (*(a3 + 16))
     {
       goto LABEL_3;
     }
   }
 
+  v11 = 0;
   v13 = 0;
-  v15 = 0;
 LABEL_6:
-  v16 = *v4;
-  v17 = (v15 | v13);
-  if (v15 | v13)
+  v14 = *v4;
+  v15 = (v13 | v11);
+  if (v13 | v11)
   {
-    v20[0] = 0;
-    v20[1] = 0;
-    v17 = v20;
-    v20[2] = v13;
-    v20[3] = v15;
+    v18[0] = 0;
+    v18[1] = 0;
+    v15 = v18;
+    v18[2] = v11;
+    v18[3] = v13;
   }
 
-  v19[1] = 1;
-  v19[2] = v17;
-  v19[3] = v16;
+  v17[1] = 1;
+  v17[2] = v15;
+  v17[3] = v14;
   swift_task_create();
 }
 
 uint64_t sub_40C0()
 {
-  v1 = *(*(v0 + 16) + *(**(v0 + 16) + 128));
-  v2 = swift_task_alloc();
-  *(v0 + 24) = v2;
-  *v2 = v0;
-  v2[1] = sub_416C;
+  v1 = swift_task_alloc();
+  *(v0 + 24) = v1;
+  *v1 = v0;
+  v1[1] = sub_416C;
 
   return EventBuffer.run()();
 }
 
 uint64_t sub_416C()
 {
-  v1 = *(*v0 + 24);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_4260(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4[3] = a4;
-  v5 = *(*a4 + 88);
-  v6 = *(*a4 + 80);
-  swift_getAssociatedTypeWitness();
-  v7 = type metadata accessor for EventBuffer.AsyncIterator();
-  v4[4] = v7;
-  v8 = *(v7 - 8);
-  v4[5] = v8;
-  v9 = *(v8 + 64) + 15;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v8 = type metadata accessor for EventBuffer.AsyncIterator(0, AssociatedTypeWitness, v6, v7);
+  v4[4] = v8;
+  v4[5] = *(v8 - 8);
   v4[6] = swift_task_alloc();
 
   return _swift_task_switch(sub_4368, 0, 0);
@@ -1106,26 +979,19 @@ uint64_t sub_4260(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 uint64_t sub_4368()
 {
-  v1 = v0[6];
-  v2 = *(v0[3] + *(*v0[3] + 128));
   EventBuffer.makeAsyncIterator()();
-  v3 = v0[4];
-  v4 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTu[1];
-  v5 = swift_task_alloc();
-  v0[7] = v5;
+  v1 = swift_task_alloc();
+  *(v0 + 56) = v1;
   WitnessTable = swift_getWitnessTable();
-  *v5 = v0;
-  v5[1] = sub_4458;
-  v7 = v0[6];
-  v8 = v0[4];
+  *v1 = v0;
+  v1[1] = sub_4458;
+  v3 = *(v0 + 32);
 
-  return _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF(v0 + 2, 0, 0, v8, WitnessTable);
+  return _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF(v0 + 16, 0, 0, v3, WitnessTable);
 }
 
 uint64_t sub_4458()
 {
-  v2 = *(*v1 + 56);
-  v4 = *v1;
 
   if (!v0)
   {
@@ -1146,7 +1012,6 @@ uint64_t sub_4568()
     v0[9] = v2;
     *v2 = v0;
     v2[1] = sub_4660;
-    v3 = v0[3];
 
     return OTLPGRPCClient.processExport(request:)(v1);
   }
@@ -1155,49 +1020,41 @@ uint64_t sub_4568()
   {
     (*(v0[5] + 8))(v0[6], v0[4]);
 
-    v5 = v0[1];
+    v4 = v0[1];
 
-    return v5();
+    return v4();
   }
 }
 
 uint64_t sub_4660()
 {
-  v2 = *v1;
-  v3 = *(*v1 + 72);
-  v7 = *v1;
   *(*v1 + 80) = v0;
 
   if (v0)
   {
-    v4 = *(v2 + 64);
 
-    v5 = sub_4850;
+    v2 = sub_4850;
   }
 
   else
   {
-    v5 = sub_477C;
+    v2 = sub_477C;
   }
 
-  return _swift_task_switch(v5, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 uint64_t sub_477C()
 {
-  v1 = v0[8];
 
-  v2 = v0[4];
-  v3 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTu[1];
-  v4 = swift_task_alloc();
-  v0[7] = v4;
+  v1 = swift_task_alloc();
+  *(v0 + 56) = v1;
   WitnessTable = swift_getWitnessTable();
-  *v4 = v0;
-  v4[1] = sub_4458;
-  v6 = v0[6];
-  v7 = v0[4];
+  *v1 = v0;
+  v1[1] = sub_4458;
+  v3 = *(v0 + 32);
 
-  return _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF(v0 + 2, 0, 0, v7, WitnessTable);
+  return _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF(v0 + 16, 0, 0, v3, WitnessTable);
 }
 
 uint64_t sub_4850()
@@ -1205,24 +1062,20 @@ uint64_t sub_4850()
   (*(v0[5] + 8))(v0[6], v0[4]);
 
   v1 = v0[1];
-  v2 = v0[10];
 
   return v1();
 }
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> OTLPGRPCClient.gracefulShutdown()()
 {
-  v2 = v0;
-  v3 = v0[2];
-  v7 = *(*v0 + 80);
-  v4 = *(*v3 + class metadata base offset for ManagedBuffer + 16);
-  v5 = (*(*v3 + 48) + 3) & 0x1FFFFFFFCLL;
-  os_unfair_lock_lock((v3 + v5));
-  sub_5B00((v3 + v4));
-  os_unfair_lock_unlock((v3 + v5));
+  v2 = *(v0 + 16);
+  v3 = *(*v2 + class metadata base offset for ManagedBuffer + 16);
+  v4 = (*(*v2 + 48) + 3) & 0x1FFFFFFFCLL;
+  os_unfair_lock_lock((v2 + v4));
+  sub_5B00((v2 + v3));
+  os_unfair_lock_unlock((v2 + v4));
   if (!v1)
   {
-    v6 = v2[3];
     sub_5B9D4();
   }
 }
@@ -1230,13 +1083,9 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
 char *OTLPGRPCClient.deinit()
 {
   v1 = *v0;
-  v2 = *(v0 + 2);
 
-  v3 = *(v0 + 3);
-
-  (*(*(*(v1 + 80) - 8) + 8))(&v0[*(*v0 + 112)]);
-  sub_5B74(&v0[*(*v0 + 120)]);
-  v4 = *&v0[*(*v0 + 128)];
+  (*(*(*(v1 + 80) - 8) + 8))(v0 + *(*v0 + 112));
+  sub_5B74(v0 + *(*v0 + 120));
 
   return v0;
 }
@@ -1244,8 +1093,6 @@ char *OTLPGRPCClient.deinit()
 uint64_t OTLPGRPCClient.__deallocating_deinit()
 {
   OTLPGRPCClient.deinit();
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
 
   return swift_deallocClassInstance();
 }
@@ -1255,9 +1102,7 @@ uint64_t sub_4ACC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
   *(v6 + 56) = v5;
   v12 = sub_5C324();
   *(v6 + 64) = v12;
-  v13 = *(v12 - 8);
-  *(v6 + 72) = v13;
-  v14 = *(v13 + 64) + 15;
+  *(v6 + 72) = *(v12 - 8);
   *(v6 + 80) = swift_task_alloc();
   *(v6 + 88) = swift_task_alloc();
   *(v6 + 40) = a1;
@@ -1272,41 +1117,35 @@ uint64_t sub_4ACC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
 uint64_t sub_4BCC()
 {
   v1 = v0[10];
-  v2 = v0[11];
-  v3 = v0[8];
-  v4 = v0[9];
-  v5 = v0[7];
-  v6 = sub_5C334();
-  v7 = sub_635C(&qword_78050, &type metadata accessor for ContinuousClock);
+  v2 = v0[8];
+  v3 = v0[9];
+  v4 = sub_5C334();
+  v5 = sub_635C(&qword_78050, &type metadata accessor for ContinuousClock, &protocol conformance descriptor for ContinuousClock);
   sub_5C3D4();
-  sub_635C(&qword_78058, &type metadata accessor for ContinuousClock.Instant);
+  sub_635C(&qword_78058, &type metadata accessor for ContinuousClock.Instant, &protocol conformance descriptor for ContinuousClock.Instant);
   sub_5C344();
-  v8 = *(v4 + 8);
-  v0[12] = v8;
-  v0[13] = (v4 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v8(v1, v3);
-  v9 = async function pointer to dispatch thunk of Clock.sleep(until:tolerance:)[1];
-  v10 = swift_task_alloc();
-  v0[14] = v10;
-  *v10 = v0;
-  v10[1] = sub_4D5C;
-  v11 = v0[11];
-  v12 = v0[7];
+  v6 = *(v3 + 8);
+  v0[12] = v6;
+  v0[13] = (v3 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v6(v1, v2);
+  v7 = swift_task_alloc();
+  v0[14] = v7;
+  *v7 = v0;
+  v7[1] = sub_4D5C;
+  v8 = v0[11];
 
-  return dispatch thunk of Clock.sleep(until:tolerance:)(v11, v0 + 2, v6, v7);
+  return dispatch thunk of Clock.sleep(until:tolerance:)(v8, v0 + 2, v4, v5);
 }
 
 uint64_t sub_4D5C()
 {
-  v2 = *(*v1 + 112);
-  v3 = *(*v1 + 104);
-  v4 = *(*v1 + 96);
-  v5 = *(*v1 + 88);
-  v6 = *(*v1 + 64);
-  v7 = *v1;
-  v7[15] = v0;
+  v2 = *(*v1 + 96);
+  v3 = *(*v1 + 88);
+  v4 = *(*v1 + 64);
+  v5 = *v1;
+  *(v5 + 120) = v0;
 
-  v4(v5, v6);
+  v2(v3, v4);
   if (v0)
   {
 
@@ -1315,27 +1154,22 @@ uint64_t sub_4D5C()
 
   else
   {
-    v9 = v7[10];
-    v8 = v7[11];
 
-    v10 = v7[1];
+    v6 = *(v5 + 8);
 
-    return v10();
+    return v6();
   }
 }
 
 uint64_t sub_4F18()
 {
-  v2 = v0[10];
-  v1 = v0[11];
 
-  v3 = v0[1];
-  v4 = v0[15];
+  v1 = *(v0 + 8);
 
-  return v3();
+  return v1();
 }
 
-uint64_t sub_4F84(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_4F84(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_5050(v11, 0, 0, 1, a1, a2);
@@ -1433,16 +1267,14 @@ LABEL_8:
   }
 }
 
-char *sub_515C(uint64_t a1, unint64_t a2)
+void *sub_515C(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_51A8(a1, a2);
+  v3 = sub_51A8(a1, a2);
   sub_52D8(&off_70C88);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
-char *sub_51A8(uint64_t a1, unint64_t a2)
+void *sub_51A8(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -1462,7 +1294,7 @@ char *sub_51A8(uint64_t a1, unint64_t a2)
 
   if (!v5)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   v6 = sub_53C4(v5, 0);
@@ -1471,7 +1303,7 @@ char *sub_51A8(uint64_t a1, unint64_t a2)
   {
     v15[0] = a1;
     v15[1] = a2 & 0xFFFFFFFFFFFFFFLL;
-    memcpy(v6 + 32, v15, HIBYTE(a2) & 0xF);
+    memcpy(v6 + 4, v15, HIBYTE(a2) & 0xF);
     return v7;
   }
 
@@ -1488,7 +1320,7 @@ char *sub_51A8(uint64_t a1, unint64_t a2)
   if (v4 >= v9)
   {
 LABEL_9:
-    memcpy(v7 + 32, v8, v9);
+    memcpy(v7 + 4, v8, v9);
     if (v9 != v4)
     {
       while (1)
@@ -1498,7 +1330,7 @@ LABEL_13:
         v10 = sub_5C144();
         if (!v10)
         {
-          return &_swiftEmptyArrayStorage;
+          return _swiftEmptyArrayStorage;
         }
 
         v11 = v10;
@@ -1539,7 +1371,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -1553,15 +1384,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_5438(result, v12, 1, v3);
+  result = sub_5438(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1576,15 +1407,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1593,12 +1424,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1621,7 +1452,7 @@ void *sub_53C4(uint64_t a1, uint64_t a2)
 
   if (!v2)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78048, &unk_638E0);
@@ -1683,7 +1514,7 @@ char *sub_5438(char *result, int64_t a2, char a3, char *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v12 = v10 + 32;
@@ -1755,7 +1586,7 @@ BOOL _s16TelemetrySupport27OTLPGRPCClientInternalErrorO2eeoiySbAC_ACtFZ_0(uint64
   }
 }
 
-uint64_t sub_55D8()
+uint64_t sub_55D8(uint64_t a1, uint64_t a2)
 {
   type metadata accessor for os_unfair_lock_s();
   sub_5C304();
@@ -1764,39 +1595,37 @@ uint64_t sub_55D8()
 
 char *sub_566C(uint64_t a1, uint64_t a2)
 {
-  v24 = a2;
+  v27 = a2;
   v3 = v2;
-  v23 = a1;
+  v26 = a1;
   v4 = *(*v2 + 80);
   v5 = *(v4 - 8);
-  v6 = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   off_708C8();
-  v8 = &v22 - v7;
-  v10 = *(v9 + 88);
+  v7 = &v25 - v6;
+  v9 = *(v8 + 88);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v12 = *(AssociatedTypeWitness - 8);
-  v13 = (*(v12 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v11 = *(AssociatedTypeWitness - 8);
   off_708C8();
-  v15 = &v22 - v14;
-  v25 = 0;
-  type metadata accessor for OTLPGRPCClient.State();
-  *(v2 + 2) = sub_55D8();
+  v13 = &v25 - v12;
+  v28 = 0;
+  v15 = type metadata accessor for OTLPGRPCClient.State(0, v4, v9, v14);
+  *(v2 + 2) = sub_55D8(&v28, v15);
   swift_getAssociatedConformanceWitness();
   sub_5BA04();
-  (*(v12 + 16))(v15, v23, AssociatedTypeWitness);
+  (*(v11 + 16))(v13, v26, AssociatedTypeWitness);
   *(v2 + 3) = sub_5B9F4();
-  v16 = *(v10 + 40);
+  v16 = *(v9 + 40);
 
-  v16(v17, v4, v10);
-  (*(v5 + 32))(&v3[*(*v3 + 112)], v8, v4);
-  v18 = v24;
-  sub_63A4(v24, &v3[*(*v3 + 120)]);
-  swift_getAssociatedTypeWitness();
-  type metadata accessor for EventBuffer();
-  v19 = type metadata accessor for OTLPExporterConfiguration();
-  v20 = sub_541B4(*(v18 + *(v19 + 36)), *(v18 + *(v19 + 40)), *(v18 + *(v19 + 40) + 8));
+  v16(v17, v4, v9);
+  (*(v5 + 32))(&v3[*(*v3 + 112)], v7, v4);
+  v18 = v27;
+  sub_63A4(v27, &v3[*(*v3 + 120)]);
+  v19 = swift_getAssociatedTypeWitness();
+  type metadata accessor for EventBuffer(0, v19, v20, v21);
+  v22 = type metadata accessor for OTLPExporterConfiguration(0);
+  v23 = sub_541B4(*(v18 + *(v22 + 36)), *(v18 + *(v22 + 40)), *(v18 + *(v22 + 40) + 8));
   sub_5B74(v18);
-  *&v2[*(*v2 + 128)] = v20;
+  *&v2[*(*v2 + 128)] = v23;
   return v2;
 }
 
@@ -1805,7 +1634,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1813,15 +1641,17 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 _BYTE *sub_59EC(_BYTE *result)
@@ -1884,7 +1714,7 @@ _BYTE *sub_5B00(_BYTE *result)
 
 uint64_t sub_5B74(uint64_t a1)
 {
-  v2 = type metadata accessor for OTLPExporterConfiguration();
+  v2 = type metadata accessor for OTLPExporterConfiguration(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -1990,15 +1820,12 @@ uint64_t sub_5CE8(uint64_t result, unsigned int a2)
 
 uint64_t sub_5D14(uint64_t a1)
 {
-  v1 = *(a1 + 80);
   result = swift_checkMetadataState();
-  if (v3 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v5 = *(result - 8) + 64;
-    result = type metadata accessor for OTLPExporterConfiguration();
-    if (v4 <= 0x3F)
+    result = type metadata accessor for OTLPExporterConfiguration(319);
+    if (v3 <= 0x3F)
     {
-      v6 = *(result - 8) + 64;
       result = swift_initClassMetadata2();
       if (!result)
       {
@@ -2215,9 +2042,7 @@ uint64_t sub_6124()
 
 uint64_t objectdestroyTm()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
@@ -2248,7 +2073,7 @@ uint64_t sub_62FC(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_635C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_635C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2263,7 +2088,7 @@ uint64_t sub_635C(unint64_t *a1, void (*a2)(uint64_t))
 
 uint64_t sub_63A4(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for OTLPExporterConfiguration();
+  v4 = type metadata accessor for OTLPExporterConfiguration(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -2290,14 +2115,11 @@ uint64_t sub_6458@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -2345,21 +2167,19 @@ uint64_t sub_65B0(uint64_t result, int a2, int a3)
 
 uint64_t sub_6624(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for OTLPExporterConfiguration();
+  v4 = type metadata accessor for OTLPExporterConfiguration(0);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
 
 uint64_t MetricExporterConfiguration.serviceName.getter()
 {
-  v1 = (v0 + *(type metadata accessor for MetricExporterConfiguration() + 20));
-  v2 = *v1;
-  v3 = v1[1];
+  v1 = *(v0 + *(type metadata accessor for MetricExporterConfiguration(0) + 20));
 
-  return v2;
+  return v1;
 }
 
-uint64_t type metadata accessor for MetricExporterConfiguration()
+uint64_t type metadata accessor for MetricExporterConfiguration(uint64_t a1)
 {
   result = qword_78D90;
   if (!qword_78D90)
@@ -2372,8 +2192,7 @@ uint64_t type metadata accessor for MetricExporterConfiguration()
 
 uint64_t MetricExporterConfiguration.serviceName.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = (v2 + *(type metadata accessor for MetricExporterConfiguration() + 20));
-  v6 = v5[1];
+  v5 = (v2 + *(type metadata accessor for MetricExporterConfiguration(0) + 20));
 
   *v5 = a1;
   v5[1] = a2;
@@ -2383,7 +2202,7 @@ uint64_t MetricExporterConfiguration.serviceName.setter(uint64_t a1, uint64_t a2
 uint64_t MetricExporterConfiguration.init(OTLPConfiguration:serviceName:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   sub_6810(a1, a4);
-  result = type metadata accessor for MetricExporterConfiguration();
+  result = type metadata accessor for MetricExporterConfiguration(0);
   v8 = (a4 + *(result + 20));
   *v8 = a2;
   v8[1] = a3;
@@ -2392,14 +2211,14 @@ uint64_t MetricExporterConfiguration.init(OTLPConfiguration:serviceName:)@<X0>(u
 
 uint64_t sub_6810(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for OTLPExporterConfiguration();
+  v4 = type metadata accessor for OTLPExporterConfiguration(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_6888(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = type metadata accessor for OTLPExporterConfiguration();
+  v6 = type metadata accessor for OTLPExporterConfiguration(0);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -2422,7 +2241,7 @@ uint64_t sub_6888(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_695C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  result = type metadata accessor for OTLPExporterConfiguration();
+  result = type metadata accessor for OTLPExporterConfiguration(0);
   v9 = *(result - 8);
   if (*(v9 + 84) == a3)
   {
@@ -2439,10 +2258,10 @@ uint64_t sub_695C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_6A18()
+uint64_t sub_6A18(uint64_t a1)
 {
-  result = type metadata accessor for OTLPExporterConfiguration();
-  if (v1 <= 0x3F)
+  result = type metadata accessor for OTLPExporterConfiguration(319);
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -2456,97 +2275,71 @@ uint64_t RPCError.Code.isOTLPRetryable.getter()
   v1 = v0;
   v2 = sub_5BC44();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = (off_708D0)();
-  v7 = &v28 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_708D0(v5);
-  v9 = &v28 - v8;
-  (*(v3 + 16))(&v28 - v8, v1, v2);
+  v4 = off_708D0(v2);
+  v6 = &v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_708D0(v4);
+  v8 = &v27 - v7;
+  (*(v3 + 16))(&v27 - v7, v1, v2);
   sub_5BC34();
   sub_6F28();
-  v10 = sub_5C114();
-  v11 = *(v3 + 8);
-  v11(v7, v2);
-  if (v10)
+  v9 = sub_5C114();
+  v10 = *(v3 + 8);
+  v10(v6, v2);
+  if (v9 & 1) != 0 || (sub_5BBB4(), v11 = sub_5C114(), v10(v6, v2), (v11) || (sub_5BBF4(), v12 = sub_5C114(), v10(v6, v2), (v12) || (sub_5BB44(), v13 = sub_5C114(), v10(v6, v2), (v13) || (sub_5BB54(), v14 = sub_5C114(), v10(v6, v2), (v14) || (sub_5BC14(), v15 = sub_5C114(), v10(v6, v2), (v15))
   {
-    goto LABEL_7;
-  }
-
-  sub_5BBB4();
-  v12 = sub_5C114();
-  v11(v7, v2);
-  if (v12)
-  {
-    goto LABEL_7;
-  }
-
-  sub_5BBF4();
-  v13 = sub_5C114();
-  v11(v7, v2);
-  if (v13)
-  {
-    goto LABEL_7;
-  }
-
-  sub_5BB44();
-  v14 = sub_5C114();
-  v11(v7, v2);
-  if (v14 & 1) != 0 || (sub_5BB54(), v15 = sub_5C114(), v11(v7, v2), (v15) || (sub_5BC14(), v16 = sub_5C114(), v11(v7, v2), (v16))
-  {
-LABEL_7:
-    v17 = 1;
+    v16 = 1;
   }
 
   else
   {
     sub_5BC04();
-    v19 = sub_5C114();
-    v11(v7, v2);
-    if ((v19 & 1) == 0)
+    v18 = sub_5C114();
+    v10(v6, v2);
+    if ((v18 & 1) == 0)
     {
       sub_5BB94();
-      v20 = sub_5C114();
-      v11(v7, v2);
-      if ((v20 & 1) == 0)
+      v19 = sub_5C114();
+      v10(v6, v2);
+      if ((v19 & 1) == 0)
       {
         sub_5BC24();
-        v21 = sub_5C114();
-        v11(v7, v2);
-        if ((v21 & 1) == 0)
+        v20 = sub_5C114();
+        v10(v6, v2);
+        if ((v20 & 1) == 0)
         {
           sub_5BB64();
-          v22 = sub_5C114();
-          v11(v7, v2);
-          if ((v22 & 1) == 0)
+          v21 = sub_5C114();
+          v10(v6, v2);
+          if ((v21 & 1) == 0)
           {
             sub_5BBC4();
-            v23 = sub_5C114();
-            v11(v7, v2);
-            if ((v23 & 1) == 0)
+            v22 = sub_5C114();
+            v10(v6, v2);
+            if ((v22 & 1) == 0)
             {
               sub_5BBA4();
-              v24 = sub_5C114();
-              v11(v7, v2);
-              if ((v24 & 1) == 0)
+              v23 = sub_5C114();
+              v10(v6, v2);
+              if ((v23 & 1) == 0)
               {
                 sub_5BBE4();
-                v25 = sub_5C114();
-                v11(v7, v2);
-                if ((v25 & 1) == 0)
+                v24 = sub_5C114();
+                v10(v6, v2);
+                if ((v24 & 1) == 0)
                 {
                   sub_5BB84();
-                  v26 = sub_5C114();
-                  v11(v7, v2);
-                  if ((v26 & 1) == 0)
+                  v25 = sub_5C114();
+                  v10(v6, v2);
+                  if ((v25 & 1) == 0)
                   {
                     sub_5BB74();
-                    v27 = sub_5C114();
-                    v11(v7, v2);
-                    if ((v27 & 1) == 0)
+                    v26 = sub_5C114();
+                    v10(v6, v2);
+                    if ((v26 & 1) == 0)
                     {
                       sub_5BBD4();
                       sub_5C114();
-                      v11(v7, v2);
+                      v10(v6, v2);
                     }
                   }
                 }
@@ -2557,11 +2350,11 @@ LABEL_7:
       }
     }
 
-    v17 = 0;
+    v16 = 0;
   }
 
-  v11(v9, v2);
-  return v17;
+  v10(v8, v2);
+  return v16;
 }
 
 unint64_t sub_6F28()
@@ -2608,13 +2401,6 @@ uint64_t sub_6F80(uint64_t a1)
   return 0x6E776F6E6B6E55;
 }
 
-uint64_t sub_7034()
-{
-  result = *v0;
-  v2 = *(v0 + 8);
-  return result;
-}
-
 uint64_t sub_7040(uint64_t result, char a2)
 {
   *v2 = result;
@@ -2625,14 +2411,12 @@ uint64_t sub_7040(uint64_t result, char a2)
 uint64_t sub_707C()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
 
 uint64_t sub_70AC(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 24);
 
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
@@ -2642,14 +2426,12 @@ uint64_t sub_70AC(uint64_t a1, uint64_t a2)
 uint64_t sub_7104()
 {
   v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
 
   return v1;
 }
 
 uint64_t sub_7134(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
 
   *(v2 + 32) = a1;
   *(v2 + 40) = a2;
@@ -2659,14 +2441,12 @@ uint64_t sub_7134(uint64_t a1, uint64_t a2)
 uint64_t sub_718C()
 {
   v1 = *(v0 + 48);
-  v2 = *(v0 + 56);
 
   return v1;
 }
 
 uint64_t sub_71BC(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 56);
 
   *(v2 + 48) = a1;
   *(v2 + 56) = a2;
@@ -2676,14 +2456,12 @@ uint64_t sub_71BC(uint64_t a1, uint64_t a2)
 uint64_t sub_7214()
 {
   v1 = *(v0 + 64);
-  v2 = *(v0 + 72);
 
   return v1;
 }
 
 uint64_t sub_7244(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 72);
 
   *(v2 + 64) = a1;
   *(v2 + 72) = a2;
@@ -2693,24 +2471,15 @@ uint64_t sub_7244(uint64_t a1, uint64_t a2)
 uint64_t sub_729C()
 {
   v1 = *(v0 + 80);
-  v2 = *(v0 + 88);
 
   return v1;
 }
 
 uint64_t sub_72CC(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 88);
 
   *(v2 + 80) = a1;
   *(v2 + 88) = a2;
-  return result;
-}
-
-uint64_t sub_7324()
-{
-  result = *(v0 + 96);
-  v2 = *(v0 + 104);
   return result;
 }
 
@@ -2724,14 +2493,12 @@ uint64_t sub_7330(uint64_t result, char a2)
 uint64_t sub_7360()
 {
   v1 = *(v0 + 112);
-  v2 = *(v0 + 120);
 
   return v1;
 }
 
 uint64_t sub_7390(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 120);
 
   *(v2 + 112) = a1;
   *(v2 + 120) = a2;
@@ -2741,14 +2508,12 @@ uint64_t sub_7390(uint64_t a1, uint64_t a2)
 uint64_t sub_73E8()
 {
   v1 = *(v0 + 128);
-  v2 = *(v0 + 136);
 
   return v1;
 }
 
 uint64_t sub_7418(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 136);
 
   *(v2 + 128) = a1;
   *(v2 + 136) = a2;
@@ -2757,7 +2522,6 @@ uint64_t sub_7418(uint64_t a1, uint64_t a2)
 
 uint64_t sub_7480(uint64_t a1)
 {
-  v3 = *(v1 + 144);
 
   *(v1 + 144) = a1;
   return result;
@@ -2766,14 +2530,12 @@ uint64_t sub_7480(uint64_t a1)
 uint64_t sub_74CC()
 {
   v1 = *(v0 + 152);
-  v2 = *(v0 + 160);
 
   return v1;
 }
 
 uint64_t sub_74FC(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 160);
 
   *(v2 + 152) = a1;
   *(v2 + 160) = a2;
@@ -2783,14 +2545,12 @@ uint64_t sub_74FC(uint64_t a1, uint64_t a2)
 uint64_t sub_7554()
 {
   v1 = *(v0 + 168);
-  v2 = *(v0 + 176);
 
   return v1;
 }
 
 uint64_t sub_7584(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 176);
 
   *(v2 + 168) = a1;
   *(v2 + 176) = a2;
@@ -2800,14 +2560,12 @@ uint64_t sub_7584(uint64_t a1, uint64_t a2)
 uint64_t sub_75DC()
 {
   v1 = *(v0 + 184);
-  v2 = *(v0 + 192);
 
   return v1;
 }
 
 uint64_t sub_760C(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 192);
 
   *(v2 + 184) = a1;
   *(v2 + 192) = a2;
@@ -2816,14 +2574,14 @@ uint64_t sub_760C(uint64_t a1, uint64_t a2)
 
 uint64_t LogEvent.timestamp.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for LogEvent() + 68);
+  v3 = *(type metadata accessor for LogEvent(0) + 68);
   v4 = sub_5B9B4();
   v5 = *(*(v4 - 8) + 16);
 
   return v5(a1, v1 + v3, v4);
 }
 
-uint64_t type metadata accessor for LogEvent()
+uint64_t type metadata accessor for LogEvent(uint64_t a1)
 {
   result = qword_78DA0;
   if (!qword_78DA0)
@@ -2836,7 +2594,7 @@ uint64_t type metadata accessor for LogEvent()
 
 uint64_t LogEvent.timestamp.setter(uint64_t a1)
 {
-  v3 = *(type metadata accessor for LogEvent() + 68);
+  v3 = *(type metadata accessor for LogEvent(0) + 68);
   v4 = sub_5B9B4();
   v5 = *(*(v4 - 8) + 40);
 
@@ -2845,13 +2603,12 @@ uint64_t LogEvent.timestamp.setter(uint64_t a1)
 
 uint64_t sub_77F0()
 {
-  v1 = *(v0 + *(type metadata accessor for LogEvent() + 72));
+  type metadata accessor for LogEvent(0);
 }
 
 uint64_t sub_7824(uint64_t a1)
 {
-  v3 = *(type metadata accessor for LogEvent() + 72);
-  v4 = *(v1 + v3);
+  v3 = *(type metadata accessor for LogEvent(0) + 72);
 
   *(v1 + v3) = a1;
   return result;
@@ -2859,13 +2616,12 @@ uint64_t sub_7824(uint64_t a1)
 
 uint64_t sub_78AC()
 {
-  v1 = *(v0 + *(type metadata accessor for LogEvent() + 76));
+  type metadata accessor for LogEvent(0);
 }
 
 uint64_t sub_78E0(uint64_t a1)
 {
-  v3 = *(type metadata accessor for LogEvent() + 76);
-  v4 = *(v1 + v3);
+  v3 = *(type metadata accessor for LogEvent(0) + 76);
 
   *(v1 + v3) = a1;
   return result;
@@ -2873,7 +2629,7 @@ uint64_t sub_78E0(uint64_t a1)
 
 uint64_t LogEvent.init(pid:serial:process:threadId:subsystem:category:logType:message:sender:arguments:timestamp:resourceAttributes:source:sourceType:index:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, __int128 a10, __int128 a11, uint64_t a12, char a13, __int128 a14, __int128 a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
-  v28 = type metadata accessor for LogEvent();
+  v28 = type metadata accessor for LogEvent(0);
   *(a9 + v28[19]) = 0;
   *a9 = a1;
   *(a9 + 8) = a2 & 1;
@@ -2948,51 +2704,46 @@ unint64_t sub_7B2C(uint64_t a1)
 LABEL_10:
   while (1)
   {
-    v13 = v8 + 1;
+    v12 = v8 + 1;
     if (__OFADD__(v8, 1))
     {
       break;
     }
 
-    if (v13 >= v6)
+    if (v12 >= v6)
     {
 
       return v2;
     }
 
-    v5 = *(a1 + 64 + 8 * v13);
+    v5 = *(a1 + 64 + 8 * v12);
     ++v8;
     if (v5)
     {
       while (1)
       {
-        v14 = __clz(__rbit64(v5));
+        v13 = __clz(__rbit64(v5));
         v5 &= v5 - 1;
-        v15 = (v13 << 10) | (16 * v14);
-        v16 = (*(a1 + 48) + v15);
-        v18 = *v16;
-        v17 = v16[1];
-        v19 = (*(a1 + 56) + v15);
-        v25 = *v19;
-        v26 = v19[1];
+        v14 = (*(a1 + 48) + ((v12 << 10) | (16 * v13)));
+        v16 = *v14;
+        v15 = v14[1];
 
         swift_dynamicCast();
-        sub_9B3C(&v27, v29);
-        sub_9B3C(v29, v30);
-        sub_9B3C(v30, &v28);
-        result = sub_9094(v18, v17);
-        if (v20)
+        sub_9B3C(&v22, v24);
+        sub_9B3C(v24, v25);
+        sub_9B3C(v25, &v23);
+        result = sub_9094(v16, v15);
+        if (v17)
         {
           v9 = (v2[6] + 16 * result);
-          v10 = v9[1];
-          *v9 = v18;
-          v9[1] = v17;
-          v11 = result;
+          *v9 = v16;
+          v9[1] = v15;
+          v10 = result;
 
-          v12 = (v2[7] + 32 * v11);
-          __swift_destroy_boxed_opaque_existential_0(v12);
-          result = sub_9B3C(&v28, v12);
-          v8 = v13;
+          v11 = (v2[7] + 32 * v10);
+          __swift_destroy_boxed_opaque_existential_0(v11);
+          result = sub_9B3C(&v23, v11);
+          v8 = v12;
           if (!v5)
           {
             goto LABEL_10;
@@ -3007,20 +2758,20 @@ LABEL_10:
           }
 
           *(v2 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-          v21 = (v2[6] + 16 * result);
-          *v21 = v18;
-          v21[1] = v17;
-          result = sub_9B3C(&v28, (v2[7] + 32 * result));
-          v22 = v2[2];
-          v23 = __OFADD__(v22, 1);
-          v24 = v22 + 1;
-          if (v23)
+          v18 = (v2[6] + 16 * result);
+          *v18 = v16;
+          v18[1] = v15;
+          result = sub_9B3C(&v23, (v2[7] + 32 * result));
+          v19 = v2[2];
+          v20 = __OFADD__(v19, 1);
+          v21 = v19 + 1;
+          if (v20)
           {
             goto LABEL_21;
           }
 
-          v2[2] = v24;
-          v8 = v13;
+          v2[2] = v21;
+          v8 = v12;
           if (!v5)
           {
             goto LABEL_10;
@@ -3028,7 +2779,7 @@ LABEL_10:
         }
 
 LABEL_9:
-        v13 = v8;
+        v12 = v8;
       }
     }
   }
@@ -3045,380 +2796,373 @@ uint64_t LogEvent.toOTLPData()()
 {
   v1 = sub_5BD24();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  (off_70908)();
-  v170 = v165 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for Opentelemetry_Proto_Logs_V1_LogsData(0);
-  v6 = *(*(v5 - 8) + 64);
-  (off_70908)();
-  v8 = v165 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(*(type metadata accessor for Opentelemetry_Proto_Resource_V1_Resource() - 8) + 64);
-  (off_70908)();
-  v168 = (v165 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v169 = *(type metadata accessor for Opentelemetry_Proto_Logs_V1_ResourceLogs(0) - 8);
-  v11 = *(v169 + 64);
-  v12 = (off_70908)();
-  v178 = v165 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_70908(v12);
-  v15 = v165 - v14;
-  v16 = type metadata accessor for Opentelemetry_Proto_Logs_V1_ScopeLogs(0);
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 64);
-  v19 = off_70908(v16 - 8);
-  v181 = v165 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_70908(v19);
-  v177 = v165 - v21;
-  v22 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
-  v23 = *(*(v22 - 8) + 64);
-  off_70908(v22 - 8);
-  v173 = v165 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = type metadata accessor for Opentelemetry_Proto_Logs_V1_LogRecord(0);
-  v174 = *(v25 - 8);
-  v26 = *(v174 + 64);
-  v27 = off_70908(v25 - 8);
-  v180 = v165 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_70908(v27);
-  v30 = (v165 - v29);
-  Opentelemetry_Proto_Logs_V1_LogRecord.init()(v165 - v29);
-  v183 = type metadata accessor for LogEvent();
-  v184 = v0;
-  v31 = (v0 + v183[17]);
+  off_70908(v1);
+  v162 = v157 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for Opentelemetry_Proto_Logs_V1_LogsData(0);
+  off_70908(v4);
+  v6 = v157 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for Opentelemetry_Proto_Resource_V1_Resource(0);
+  off_70908(v7 - 8);
+  v160 = (v157 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = type metadata accessor for Opentelemetry_Proto_Logs_V1_ResourceLogs(0);
+  v161 = *(v9 - 8);
+  v10 = off_70908(v9 - 8);
+  v170 = v157 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_70908(v10);
+  v13 = v157 - v12;
+  v14 = type metadata accessor for Opentelemetry_Proto_Logs_V1_ScopeLogs(0);
+  v15 = *(v14 - 8);
+  v16 = off_70908(v14 - 8);
+  v173 = v157 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_70908(v16);
+  v169 = v157 - v18;
+  v19 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
+  off_70908(v19 - 8);
+  v165 = (v157 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v21 = type metadata accessor for Opentelemetry_Proto_Logs_V1_LogRecord(0);
+  v166 = *(v21 - 8);
+  v22 = off_70908(v21 - 8);
+  v172 = v157 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_70908(v22);
+  v25 = (v157 - v24);
+  Opentelemetry_Proto_Logs_V1_LogRecord.init()(v157 - v24);
+  v175 = type metadata accessor for LogEvent(0);
+  v176 = v0;
+  v26 = (v0 + v175[17]);
   sub_5B994();
-  v33 = v32 * 1000000000.0;
-  if ((*&v33 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+  v28 = v27 * 1000000000.0;
+  if ((*&v28 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
   {
     goto LABEL_131;
   }
 
-  if (v33 <= -1.0)
+  if (v28 <= -1.0)
   {
     goto LABEL_132;
   }
 
-  if (v33 >= 1.84467441e19)
+  if (v28 >= 1.84467441e19)
   {
     goto LABEL_133;
   }
 
-  v172 = v17;
-  *v30 = v33;
-  v34 = v184;
-  v35 = *(v184 + 104);
-  v182 = v30;
-  if (v35)
+  v164 = v15;
+  *v25 = v28;
+  v29 = v176;
+  v30 = *(v176 + 104);
+  v174 = v25;
+  if (v30)
   {
     goto LABEL_18;
   }
 
-  v36 = *(v184 + 96);
-  if (v36 <= 1)
+  v31 = *(v176 + 96);
+  if (v31 <= 1)
   {
-    if (!v36)
+    if (!v31)
     {
-      v37 = 0xE700000000000000;
-      v38 = 0x746C7561666544;
+      v32 = 0xE700000000000000;
+      v33 = 0x746C7561666544;
       goto LABEL_17;
     }
 
-    if (v36 == 1)
+    if (v31 == 1)
     {
-      v37 = 0xE400000000000000;
-      v38 = 1868983881;
+      v32 = 0xE400000000000000;
+      v33 = 1868983881;
       goto LABEL_17;
     }
 
 LABEL_16:
-    v37 = 0xE700000000000000;
-    v38 = 0x6E776F6E6B6E55;
+    v32 = 0xE700000000000000;
+    v33 = 0x6E776F6E6B6E55;
     goto LABEL_17;
   }
 
-  if (v36 == 2)
+  if (v31 == 2)
   {
-    v37 = 0xE500000000000000;
-    v38 = 0x6775626544;
+    v32 = 0xE500000000000000;
+    v33 = 0x6775626544;
     goto LABEL_17;
   }
 
-  if (v36 == 16)
+  if (v31 == 16)
   {
-    v37 = 0xE500000000000000;
-    v38 = 0x726F727245;
+    v32 = 0xE500000000000000;
+    v33 = 0x726F727245;
     goto LABEL_17;
   }
 
-  if (v36 != 17)
+  if (v31 != 17)
   {
     goto LABEL_16;
   }
 
-  v37 = 0xE500000000000000;
-  v38 = 0x746C756146;
+  v32 = 0xE500000000000000;
+  v33 = 0x746C756146;
 LABEL_17:
-  v30 = v182;
-  v39 = v182[5];
+  v25 = v174;
 
-  v30[4] = v38;
-  v30[5] = v37;
-  v34 = v184;
+  v25[4] = v33;
+  v25[5] = v32;
+  v29 = v176;
 LABEL_18:
-  v165[1] = v5;
-  v179 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78070, &qword_5EEE0);
+  v157[1] = v4;
+  v171 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78070, &qword_5EEE0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_5EEC0;
   strcpy((inited + 32), "log.file.path");
   *(inited + 46) = -4864;
-  if (*(v34 + 160))
+  if (*(v29 + 160))
   {
-    v41 = *(v34 + 152);
-    v42 = &type metadata for String;
-    v43 = *(v34 + 160);
+    v35 = *(v29 + 152);
+    v36 = &type metadata for String;
+    v37 = *(v29 + 160);
   }
 
   else
   {
-    v41 = 0;
-    v43 = 0;
-    v42 = 0;
+    v35 = 0;
+    v37 = 0;
+    v36 = 0;
     *(inited + 64) = 0;
   }
 
-  *(inited + 48) = v41;
-  *(inited + 56) = v43;
-  *(inited + 72) = v42;
+  *(inited + 48) = v35;
+  *(inited + 56) = v37;
+  *(inited + 72) = v36;
   *(inited + 80) = 0xD000000000000010;
   *(inited + 88) = 0x8000000000065720;
-  v44 = *(v34 + 192);
-  v166 = v2;
-  v167 = v1;
-  if (v44)
+  v38 = *(v29 + 192);
+  v158 = v2;
+  v159 = v1;
+  if (v38)
   {
-    v45 = *(v34 + 184);
-    v46 = &type metadata for String;
-    v47 = v44;
+    v39 = *(v29 + 184);
+    v40 = &type metadata for String;
+    v41 = v38;
   }
 
   else
   {
-    v45 = 0;
-    v47 = 0;
-    v46 = 0;
+    v39 = 0;
+    v41 = 0;
+    v40 = 0;
     *(inited + 112) = 0;
   }
 
-  v1 = v34;
-  *(inited + 96) = v45;
-  *(inited + 104) = v47;
-  *(inited + 120) = v46;
+  v1 = v29;
+  *(inited + 96) = v39;
+  *(inited + 104) = v41;
+  *(inited + 120) = v40;
   *(inited + 128) = 0xD000000000000015;
   *(inited + 136) = 0x8000000000065740;
-  v48 = *(v34 + 176);
-  v175 = v15;
-  v176 = v8;
-  if (v48)
+  v42 = *(v29 + 176);
+  v167 = v13;
+  v168 = v6;
+  if (v42)
   {
-    v49 = *(v34 + 168);
-    v50 = &type metadata for String;
-    v51 = v48;
+    v43 = *(v29 + 168);
+    v44 = &type metadata for String;
+    v45 = v42;
   }
 
   else
   {
-    v49 = 0;
-    v51 = 0;
-    v50 = 0;
+    v43 = 0;
+    v45 = 0;
+    v44 = 0;
     *(inited + 160) = 0;
   }
 
-  *(inited + 144) = v49;
-  *(inited + 152) = v51;
-  *(inited + 168) = v50;
+  *(inited + 144) = v43;
+  *(inited + 152) = v45;
+  *(inited + 168) = v44;
   strcpy((inited + 176), "process.name");
   *(inited + 189) = 0;
   *(inited + 190) = -5120;
-  if (*(v34 + 40))
+  if (*(v29 + 40))
   {
-    v52 = *(v34 + 32);
-    v53 = &type metadata for String;
-    v54 = *(v34 + 40);
+    v46 = *(v29 + 32);
+    v47 = &type metadata for String;
+    v48 = *(v29 + 40);
   }
 
   else
   {
-    v52 = 0;
-    v54 = 0;
-    v53 = 0;
+    v46 = 0;
+    v48 = 0;
+    v47 = 0;
     *(inited + 208) = 0;
   }
 
-  *(inited + 192) = v52;
-  *(inited + 200) = v54;
-  *(inited + 216) = v53;
+  *(inited + 192) = v46;
+  *(inited + 200) = v48;
+  *(inited + 216) = v47;
   *(inited + 224) = 0x2E737365636F7270;
   *(inited + 232) = 0xEB00000000646970;
-  if (*(v34 + 8))
+  if (*(v29 + 8))
   {
-    v55 = 0;
-    v56 = 0;
+    v49 = 0;
+    v50 = 0;
     *(inited + 248) = 0;
     *(inited + 256) = 0;
   }
 
   else
   {
-    v55 = *v34;
-    v56 = &type metadata for Int;
+    v49 = *v29;
+    v50 = &type metadata for Int;
   }
 
-  *(inited + 240) = v55;
-  *(inited + 264) = v56;
+  *(inited + 240) = v49;
+  *(inited + 264) = v50;
   *(inited + 272) = 0xD000000000000017;
   *(inited + 280) = 0x8000000000065760;
-  if (*(v34 + 136))
+  if (*(v29 + 136))
   {
-    v57 = *(v34 + 128);
-    v58 = &type metadata for String;
-    v59 = *(v34 + 136);
+    v51 = *(v29 + 128);
+    v52 = &type metadata for String;
+    v53 = *(v29 + 136);
   }
 
   else
   {
-    v57 = 0;
-    v59 = 0;
-    v58 = 0;
+    v51 = 0;
+    v53 = 0;
+    v52 = 0;
     *(inited + 304) = 0;
   }
 
-  *(inited + 288) = v57;
-  *(inited + 296) = v59;
-  *(inited + 312) = v58;
+  *(inited + 288) = v51;
+  *(inited + 296) = v53;
+  *(inited + 312) = v52;
   *(inited + 320) = 0x692E646165726874;
   *(inited + 328) = 0xE900000000000064;
-  v60 = *(v34 + 56);
-  if (v60)
+  v54 = *(v29 + 56);
+  if (v54)
   {
-    v61 = *(v1 + 48);
-    v62 = &type metadata for String;
+    v55 = *(v1 + 48);
+    v56 = &type metadata for String;
   }
 
   else
   {
-    v61 = 0;
-    v62 = 0;
+    v55 = 0;
+    v56 = 0;
     *(inited + 352) = 0;
   }
 
-  *(inited + 336) = v61;
-  *(inited + 344) = v60;
-  *(inited + 360) = v62;
-  v63 = inited;
+  *(inited + 336) = v55;
+  *(inited + 344) = v54;
+  *(inited + 360) = v56;
+  v57 = inited;
 
-  v31 = sub_981C(v63);
+  v26 = sub_981C(v57);
   swift_setDeallocating();
-  v171 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78078, &qword_5EEE8);
+  v163 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78078, &qword_5EEE8);
   swift_arrayDestroy();
-  v64 = *(v1 + v183[19]);
-  if (!v64)
+  v58 = *(v1 + v175[19]);
+  if (!v58)
   {
 LABEL_68:
-    v94 = Array<A>.init(from:)(v31);
-    v95 = v30[6];
+    v88 = Array<A>.init(from:)(v26);
 
-    v30[6] = v94;
-    v96 = swift_allocObject();
-    v97 = v96;
-    *(v96 + 16) = xmmword_5EED0;
-    *(v96 + 32) = 0x6574737973627573;
-    *(v96 + 40) = 0xE90000000000006DLL;
+    v25[6] = v88;
+    v89 = swift_allocObject();
+    v90 = v89;
+    *(v89 + 16) = xmmword_5EED0;
+    *(v89 + 32) = 0x6574737973627573;
+    *(v89 + 40) = 0xE90000000000006DLL;
     if (*(v1 + 72))
     {
-      v98 = *(v1 + 64);
-      v99 = &type metadata for String;
-      v100 = *(v1 + 72);
+      v91 = *(v1 + 64);
+      v92 = &type metadata for String;
+      v93 = *(v1 + 72);
     }
 
     else
     {
-      v98 = 0;
-      v100 = 0;
-      v99 = 0;
-      *(v96 + 64) = 0;
+      v91 = 0;
+      v93 = 0;
+      v92 = 0;
+      *(v89 + 64) = 0;
     }
 
-    *(v96 + 48) = v98;
-    *(v96 + 56) = v100;
-    *(v96 + 72) = v99;
-    *(v96 + 80) = 0x79726F6765746163;
-    *(v96 + 88) = 0xE800000000000000;
+    *(v89 + 48) = v91;
+    *(v89 + 56) = v93;
+    *(v89 + 72) = v92;
+    *(v89 + 80) = 0x79726F6765746163;
+    *(v89 + 88) = 0xE800000000000000;
     if (*(v1 + 88))
     {
-      v101 = *(v1 + 80);
-      v102 = &type metadata for String;
-      v103 = *(v1 + 88);
+      v94 = *(v1 + 80);
+      v95 = &type metadata for String;
+      v96 = *(v1 + 88);
+    }
+
+    else
+    {
+      v94 = 0;
+      v96 = 0;
+      v95 = 0;
+      *(v89 + 112) = 0;
+    }
+
+    *(v89 + 96) = v94;
+    *(v89 + 104) = v96;
+    *(v89 + 120) = v95;
+    *(v89 + 128) = 0x6567617373656DLL;
+    *(v89 + 136) = 0xE700000000000000;
+    if (*(v1 + 120))
+    {
+      v97 = *(v1 + 112);
+      v98 = &type metadata for String;
+      v99 = *(v1 + 120);
+    }
+
+    else
+    {
+      v97 = 0;
+      v99 = 0;
+      v98 = 0;
+      *(v89 + 160) = 0;
+    }
+
+    *(v89 + 144) = v97;
+    *(v89 + 152) = v99;
+    *(v89 + 168) = v98;
+    *(v89 + 176) = 0x746E656D75677261;
+    *(v89 + 184) = 0xE900000000000073;
+    v100 = *(v1 + 144);
+    if (v100)
+    {
+      v101 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78098, &qword_5EF00);
     }
 
     else
     {
       v101 = 0;
-      v103 = 0;
-      v102 = 0;
-      *(v96 + 112) = 0;
+      v90[25] = 0;
+      v90[26] = 0;
     }
 
-    *(v96 + 96) = v101;
-    *(v96 + 104) = v103;
-    *(v96 + 120) = v102;
-    *(v96 + 128) = 0x6567617373656DLL;
-    *(v96 + 136) = 0xE700000000000000;
-    if (*(v1 + 120))
-    {
-      v104 = *(v1 + 112);
-      v105 = &type metadata for String;
-      v106 = *(v1 + 120);
-    }
+    v90[24] = v100;
+    v90[27] = v101;
 
-    else
-    {
-      v104 = 0;
-      v106 = 0;
-      v105 = 0;
-      *(v96 + 160) = 0;
-    }
-
-    *(v96 + 144) = v104;
-    *(v96 + 152) = v106;
-    *(v96 + 168) = v105;
-    *(v96 + 176) = 0x746E656D75677261;
-    *(v96 + 184) = 0xE900000000000073;
-    v107 = *(v1 + 144);
-    if (v107)
-    {
-      v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78098, &qword_5EF00);
-    }
-
-    else
-    {
-      v108 = 0;
-      v97[25] = 0;
-      v97[26] = 0;
-    }
-
-    v97[24] = v107;
-    v97[27] = v108;
-
-    v109 = sub_981C(v97);
+    v102 = sub_981C(v90);
     swift_setDeallocating();
     swift_arrayDestroy();
     swift_deallocClassInstance();
-    *(&v193 + 1) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78080, &unk_5EEF0);
-    *&v192 = v109;
-    v110 = v173;
-    Opentelemetry_Proto_Common_V1_AnyValue.init(from:)(&v192, v173);
-    Opentelemetry_Proto_Logs_V1_LogRecord.body.setter(v110);
-    v15 = v177;
-    Opentelemetry_Proto_Logs_V1_ScopeLogs.init()(v177);
-    sub_99B4(v30, v180, type metadata accessor for Opentelemetry_Proto_Logs_V1_LogRecord);
-    v31 = *v15;
+    *(&v185 + 1) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78080, &unk_5EEF0);
+    *&v184 = v102;
+    v103 = v165;
+    Opentelemetry_Proto_Common_V1_AnyValue.init(from:)(&v184, v165);
+    Opentelemetry_Proto_Logs_V1_LogRecord.body.setter(v103);
+    v13 = v169;
+    Opentelemetry_Proto_Logs_V1_ScopeLogs.init()(v169);
+    sub_99B4(v25, v172, type metadata accessor for Opentelemetry_Proto_Logs_V1_LogRecord);
+    v26 = *v13;
     if (swift_isUniquelyReferenced_nonNull_native())
     {
       goto LABEL_81;
@@ -3427,71 +3171,71 @@ LABEL_68:
     goto LABEL_134;
   }
 
-  v15 = (v64 + 64);
-  v65 = 1 << *(v64 + 32);
-  v66 = -1;
-  if (v65 < 64)
+  v13 = (v58 + 64);
+  v59 = 1 << *(v58 + 32);
+  v60 = -1;
+  if (v59 < 64)
   {
-    v66 = ~(-1 << v65);
+    v60 = ~(-1 << v59);
   }
 
-  v1 = v66 & *(v64 + 64);
-  v67 = (v65 + 63) >> 6;
-  v185 = v64;
+  v1 = v60 & *(v58 + 64);
+  v61 = (v59 + 63) >> 6;
+  v177 = v58;
 
-  v68 = 0;
-  v186 = v15;
+  v62 = 0;
+  v178 = v13;
   while (v1)
   {
-    v70 = v68;
+    v64 = v62;
 LABEL_54:
-    v73 = __clz(__rbit64(v1));
+    v67 = __clz(__rbit64(v1));
     v1 &= v1 - 1;
-    v74 = v73 | (v70 << 6);
-    v75 = (*(v185 + 48) + 16 * v74);
-    v77 = *v75;
-    v76 = v75[1];
-    sub_62FC(*(v185 + 56) + 32 * v74, &v187);
-    *&v189 = v77;
-    *(&v189 + 1) = v76;
-    sub_9B3C(&v187, &v190);
+    v68 = v67 | (v64 << 6);
+    v69 = (*(v177 + 48) + 16 * v68);
+    v71 = *v69;
+    v70 = v69[1];
+    sub_62FC(*(v177 + 56) + 32 * v68, &v179);
+    *&v181 = v71;
+    *(&v181 + 1) = v70;
+    sub_9B3C(&v179, &v182);
 
-    v72 = v70;
+    v66 = v64;
 LABEL_55:
-    v192 = v189;
-    v193 = v190;
-    v194 = v191;
-    v78 = *(&v189 + 1);
-    if (!*(&v189 + 1))
+    v184 = v181;
+    v185 = v182;
+    v186 = v183;
+    v72 = *(&v181 + 1);
+    if (!*(&v181 + 1))
     {
 
-      v30 = v182;
-      v1 = v184;
+      v25 = v174;
+      v1 = v176;
       goto LABEL_68;
     }
 
-    v15 = v192;
-    sub_9B3C(&v193, &v189);
-    v187 = v189;
-    v188 = v190;
+    v13 = v184;
+    sub_9B3C(&v185, &v181);
+    v179 = v181;
+    v180 = v182;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v195 = v31;
-    v80 = sub_9094(v15, v78);
-    v82 = v31[2];
-    v83 = (v81 & 1) == 0;
-    v84 = __OFADD__(v82, v83);
-    v85 = v82 + v83;
-    if (v84)
+    v187 = v26;
+    v74 = sub_9094(v13, v72);
+    v76 = v26[2];
+    v77 = (v75 & 1) == 0;
+    v78 = __OFADD__(v76, v77);
+    v79 = v76 + v77;
+    if (v78)
     {
       goto LABEL_127;
     }
 
-    v86 = v81;
-    if (v31[3] < v85)
+    v80 = v75;
+    if (v26[3] < v79)
     {
-      sub_93A0(v85, isUniquelyReferenced_nonNull_native);
-      v80 = sub_9094(v15, v78);
-      if ((v86 & 1) != (v87 & 1))
+      sub_93A0(v79, isUniquelyReferenced_nonNull_native);
+      v74 = sub_9094(v13, v72);
+      if ((v80 & 1) != (v81 & 1))
       {
 LABEL_135:
         result = sub_5C3C4();
@@ -3500,7 +3244,7 @@ LABEL_135:
       }
 
 LABEL_61:
-      if (v86)
+      if (v80)
       {
         goto LABEL_43;
       }
@@ -3513,73 +3257,73 @@ LABEL_61:
       goto LABEL_61;
     }
 
-    v93 = v80;
+    v87 = v74;
     sub_9668();
-    v80 = v93;
-    if (v86)
+    v74 = v87;
+    if (v80)
     {
 LABEL_43:
-      v69 = v80;
+      v63 = v74;
 
-      v31 = v195;
-      sub_9B4C(&v187, v195[7] + 32 * v69);
+      v26 = v187;
+      sub_9B4C(&v179, v187[7] + 32 * v63);
       goto LABEL_44;
     }
 
 LABEL_62:
-    v31 = v195;
-    v195[(v80 >> 6) + 8] |= 1 << v80;
-    v88 = (v31[6] + 16 * v80);
-    *v88 = v15;
-    v88[1] = v78;
-    v89 = (v31[7] + 32 * v80);
-    v90 = v188;
-    *v89 = v187;
-    v89[1] = v90;
-    v91 = v31[2];
-    v84 = __OFADD__(v91, 1);
-    v92 = v91 + 1;
-    if (v84)
+    v26 = v187;
+    v187[(v74 >> 6) + 8] |= 1 << v74;
+    v82 = (v26[6] + 16 * v74);
+    *v82 = v13;
+    v82[1] = v72;
+    v83 = (v26[7] + 32 * v74);
+    v84 = v180;
+    *v83 = v179;
+    v83[1] = v84;
+    v85 = v26[2];
+    v78 = __OFADD__(v85, 1);
+    v86 = v85 + 1;
+    if (v78)
     {
       goto LABEL_129;
     }
 
-    v31[2] = v92;
+    v26[2] = v86;
 LABEL_44:
-    v68 = v72;
-    v15 = v186;
+    v62 = v66;
+    v13 = v178;
   }
 
-  if (v67 <= v68 + 1)
+  if (v61 <= v62 + 1)
   {
-    v71 = v68 + 1;
+    v65 = v62 + 1;
   }
 
   else
   {
-    v71 = v67;
+    v65 = v61;
   }
 
-  v72 = v71 - 1;
+  v66 = v65 - 1;
   while (1)
   {
-    v70 = v68 + 1;
-    if (__OFADD__(v68, 1))
+    v64 = v62 + 1;
+    if (__OFADD__(v62, 1))
     {
       break;
     }
 
-    if (v70 >= v67)
+    if (v64 >= v61)
     {
       v1 = 0;
-      v190 = 0u;
-      v191 = 0u;
-      v189 = 0u;
+      v182 = 0u;
+      v183 = 0u;
+      v181 = 0u;
       goto LABEL_55;
     }
 
-    v1 = *&v15[8 * v70];
-    ++v68;
+    v1 = *&v13[8 * v64];
+    ++v62;
     if (v1)
     {
       goto LABEL_54;
@@ -3605,116 +3349,116 @@ LABEL_132:
 LABEL_133:
     __break(1u);
 LABEL_134:
-    v31 = sub_91C4(0, v31[2] + 1, 1, v31, &qword_780F0, &qword_5EF80, type metadata accessor for Opentelemetry_Proto_Logs_V1_LogRecord);
+    v26 = sub_91C4(0, v26[2] + 1, 1, v26, &qword_780F0, &qword_5EF80, type metadata accessor for Opentelemetry_Proto_Logs_V1_LogRecord);
 LABEL_81:
-    v112 = v175;
-    v111 = v176;
-    v113 = v172;
-    v115 = v31[2];
-    v114 = v31[3];
-    if (v115 >= v114 >> 1)
+    v105 = v167;
+    v104 = v168;
+    v106 = v164;
+    v108 = v26[2];
+    v107 = v26[3];
+    if (v108 >= v107 >> 1)
     {
-      v31 = sub_91C4(v114 > 1, v115 + 1, 1, v31, &qword_780F0, &qword_5EF80, type metadata accessor for Opentelemetry_Proto_Logs_V1_LogRecord);
+      v26 = sub_91C4((v107 > 1), v108 + 1, 1, v26, &qword_780F0, &qword_5EF80, type metadata accessor for Opentelemetry_Proto_Logs_V1_LogRecord);
     }
 
-    v31[2] = v115 + 1;
-    sub_9A1C(v180, v31 + ((*(v174 + 80) + 32) & ~*(v174 + 80)) + *(v174 + 72) * v115, type metadata accessor for Opentelemetry_Proto_Logs_V1_LogRecord);
-    *v15 = v31;
-    Opentelemetry_Proto_Logs_V1_ResourceLogs.init()(v112);
-    sub_99B4(v15, v181, type metadata accessor for Opentelemetry_Proto_Logs_V1_ScopeLogs);
-    v116 = *v112;
+    v26[2] = v108 + 1;
+    sub_9A1C(v172, v26 + ((*(v166 + 80) + 32) & ~*(v166 + 80)) + *(v166 + 72) * v108, type metadata accessor for Opentelemetry_Proto_Logs_V1_LogRecord);
+    *v13 = v26;
+    Opentelemetry_Proto_Logs_V1_ResourceLogs.init()(v105);
+    sub_99B4(v13, v173, type metadata accessor for Opentelemetry_Proto_Logs_V1_ScopeLogs);
+    v109 = *v105;
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      v116 = sub_91C4(0, v116[2] + 1, 1, v116, &qword_780E8, &qword_63820, type metadata accessor for Opentelemetry_Proto_Logs_V1_ScopeLogs);
+      v109 = sub_91C4(0, v109[2] + 1, 1, v109, &qword_780E8, &qword_63820, type metadata accessor for Opentelemetry_Proto_Logs_V1_ScopeLogs);
     }
 
-    v118 = v116[2];
-    v117 = v116[3];
-    if (v118 >= v117 >> 1)
+    v111 = v109[2];
+    v110 = v109[3];
+    if (v111 >= v110 >> 1)
     {
-      v116 = sub_91C4(v117 > 1, v118 + 1, 1, v116, &qword_780E8, &qword_63820, type metadata accessor for Opentelemetry_Proto_Logs_V1_ScopeLogs);
+      v109 = sub_91C4((v110 > 1), v111 + 1, 1, v109, &qword_780E8, &qword_63820, type metadata accessor for Opentelemetry_Proto_Logs_V1_ScopeLogs);
     }
 
-    v116[2] = v118 + 1;
-    sub_9A1C(v181, v116 + ((*(v113 + 80) + 32) & ~*(v113 + 80)) + *(v113 + 72) * v118, type metadata accessor for Opentelemetry_Proto_Logs_V1_ScopeLogs);
-    *v112 = v116;
-    v119 = swift_initStackObject();
-    v120 = v119;
-    *(v119 + 16) = xmmword_5EBD0;
-    *(v119 + 32) = 0x692E656369766564;
-    v121 = v119 + 32;
-    *(v119 + 40) = 0xE900000000000064;
-    v122 = *(v1 + 24);
-    if (v122)
+    v109[2] = v111 + 1;
+    sub_9A1C(v173, v109 + ((*(v106 + 80) + 32) & ~*(v106 + 80)) + *(v106 + 72) * v111, type metadata accessor for Opentelemetry_Proto_Logs_V1_ScopeLogs);
+    *v105 = v109;
+    v112 = swift_initStackObject();
+    v113 = v112;
+    *(v112 + 16) = xmmword_5EBD0;
+    *(v112 + 32) = 0x692E656369766564;
+    v114 = v112 + 32;
+    *(v112 + 40) = 0xE900000000000064;
+    v115 = *(v1 + 24);
+    if (v115)
     {
-      v123 = *(v1 + 16);
-      v124 = &type metadata for String;
+      v116 = *(v1 + 16);
+      v117 = &type metadata for String;
     }
 
     else
     {
-      v123 = 0;
-      v124 = 0;
-      *(v119 + 64) = 0;
+      v116 = 0;
+      v117 = 0;
+      *(v112 + 64) = 0;
     }
 
-    *(v119 + 48) = v123;
-    *(v119 + 56) = v122;
-    *(v119 + 72) = v124;
+    *(v112 + 48) = v116;
+    *(v112 + 56) = v115;
+    *(v112 + 72) = v117;
 
-    v31 = sub_981C(v120);
+    v26 = sub_981C(v113);
     swift_setDeallocating();
-    sub_994C(v121);
-    v125 = *(v1 + v183[18]);
-    if (v125)
+    sub_994C(v114);
+    v118 = *(v1 + v175[18]);
+    if (v118)
     {
-      v126 = (v125 + 64);
-      v127 = 1 << *(v125 + 32);
-      v128 = -1;
-      if (v127 < 64)
+      v119 = (v118 + 64);
+      v120 = 1 << *(v118 + 32);
+      v121 = -1;
+      if (v120 < 64)
       {
-        v128 = ~(-1 << v127);
+        v121 = ~(-1 << v120);
       }
 
-      v129 = v128 & *(v125 + 64);
-      v1 = (v127 + 63) >> 6;
-      v185 = v125;
+      v122 = v121 & *(v118 + 64);
+      v1 = (v120 + 63) >> 6;
+      v177 = v118;
 
-      v130 = 0;
-      if (!v129)
+      v123 = 0;
+      if (!v122)
       {
 LABEL_97:
-        if (v1 <= (v130 + 1))
+        if (v1 <= (v123 + 1))
         {
-          v133 = (v130 + 1);
+          v126 = (v123 + 1);
         }
 
         else
         {
-          v133 = v1;
+          v126 = v1;
         }
 
-        v134 = (v133 - 1);
+        v127 = (v126 - 1);
         while (1)
         {
-          v132 = (v130 + 1);
-          if (__OFADD__(v130, 1))
+          v125 = (v123 + 1);
+          if (__OFADD__(v123, 1))
           {
             goto LABEL_126;
           }
 
-          if (v132 >= v1)
+          if (v125 >= v1)
           {
-            v129 = 0;
-            v190 = 0u;
-            v191 = 0u;
-            v189 = 0u;
+            v122 = 0;
+            v182 = 0u;
+            v183 = 0u;
+            v181 = 0u;
             goto LABEL_105;
           }
 
-          v129 = *&v126[8 * v132];
-          ++v130;
-          if (v129)
+          v122 = *&v119[8 * v125];
+          ++v123;
+          if (v122)
           {
             goto LABEL_104;
           }
@@ -3722,59 +3466,59 @@ LABEL_97:
       }
 
 LABEL_96:
-      v132 = v130;
+      v125 = v123;
 LABEL_104:
-      v135 = __clz(__rbit64(v129));
-      v129 &= v129 - 1;
-      v136 = v135 | (v132 << 6);
-      v137 = (*(v185 + 48) + 16 * v136);
-      v139 = *v137;
-      v138 = v137[1];
-      sub_62FC(*(v185 + 56) + 32 * v136, &v187);
-      *&v189 = v139;
-      *(&v189 + 1) = v138;
-      sub_9B3C(&v187, &v190);
+      v128 = __clz(__rbit64(v122));
+      v122 &= v122 - 1;
+      v129 = v128 | (v125 << 6);
+      v130 = (*(v177 + 48) + 16 * v129);
+      v132 = *v130;
+      v131 = v130[1];
+      sub_62FC(*(v177 + 56) + 32 * v129, &v179);
+      *&v181 = v132;
+      *(&v181 + 1) = v131;
+      sub_9B3C(&v179, &v182);
 
-      v134 = v132;
+      v127 = v125;
 LABEL_105:
-      v192 = v189;
-      v193 = v190;
-      v194 = v191;
-      v140 = *(&v189 + 1);
-      if (!*(&v189 + 1))
+      v184 = v181;
+      v185 = v182;
+      v186 = v183;
+      v133 = *(&v181 + 1);
+      if (!*(&v181 + 1))
       {
 
-        v156 = v170;
-        v112 = v175;
-        v111 = v176;
-        v15 = v177;
+        v149 = v162;
+        v105 = v167;
+        v104 = v168;
+        v13 = v169;
         goto LABEL_120;
       }
 
-      v15 = v126;
-      v186 = v134;
-      v141 = v192;
-      sub_9B3C(&v193, &v189);
-      v187 = v189;
-      v188 = v190;
-      v142 = swift_isUniquelyReferenced_nonNull_native();
-      v195 = v31;
-      v143 = sub_9094(v141, v140);
-      v145 = v31[2];
-      v146 = (v144 & 1) == 0;
-      v84 = __OFADD__(v145, v146);
-      v147 = v145 + v146;
-      if (v84)
+      v13 = v119;
+      v178 = v127;
+      v134 = v184;
+      sub_9B3C(&v185, &v181);
+      v179 = v181;
+      v180 = v182;
+      v135 = swift_isUniquelyReferenced_nonNull_native();
+      v187 = v26;
+      v136 = sub_9094(v134, v133);
+      v138 = v26[2];
+      v139 = (v137 & 1) == 0;
+      v78 = __OFADD__(v138, v139);
+      v140 = v138 + v139;
+      if (v78)
       {
         continue;
       }
 
-      v148 = v144;
-      if (v31[3] < v147)
+      v141 = v137;
+      if (v26[3] < v140)
       {
-        sub_93A0(v147, v142);
-        v143 = sub_9094(v141, v140);
-        if ((v148 & 1) != (v149 & 1))
+        sub_93A0(v140, v135);
+        v136 = sub_9094(v134, v133);
+        if ((v141 & 1) != (v142 & 1))
         {
           goto LABEL_135;
         }
@@ -3782,11 +3526,11 @@ LABEL_105:
         goto LABEL_111;
       }
 
-      if (v142)
+      if (v135)
       {
 LABEL_111:
-        v126 = v15;
-        if (v148)
+        v119 = v13;
+        if (v141)
         {
           goto LABEL_95;
         }
@@ -3794,19 +3538,19 @@ LABEL_111:
 
       else
       {
-        v155 = v143;
+        v148 = v136;
         sub_9668();
-        v143 = v155;
-        v126 = v15;
-        if (v148)
+        v136 = v148;
+        v119 = v13;
+        if (v141)
         {
 LABEL_95:
-          v131 = v143;
+          v124 = v136;
 
-          v31 = v195;
-          sub_9B4C(&v187, v195[7] + 32 * v131);
-          v130 = v186;
-          if (!v129)
+          v26 = v187;
+          sub_9B4C(&v179, v187[7] + 32 * v124);
+          v123 = v178;
+          if (!v122)
           {
             goto LABEL_97;
           }
@@ -3815,26 +3559,26 @@ LABEL_95:
         }
       }
 
-      v31 = v195;
-      v195[(v143 >> 6) + 8] |= 1 << v143;
-      v150 = (v31[6] + 16 * v143);
-      *v150 = v141;
-      v150[1] = v140;
-      v151 = (v31[7] + 32 * v143);
-      v152 = v188;
-      *v151 = v187;
-      v151[1] = v152;
-      v153 = v31[2];
-      v84 = __OFADD__(v153, 1);
-      v154 = v153 + 1;
-      if (v84)
+      v26 = v187;
+      v187[(v136 >> 6) + 8] |= 1 << v136;
+      v143 = (v26[6] + 16 * v136);
+      *v143 = v134;
+      v143[1] = v133;
+      v144 = (v26[7] + 32 * v136);
+      v145 = v180;
+      *v144 = v179;
+      v144[1] = v145;
+      v146 = v26[2];
+      v78 = __OFADD__(v146, 1);
+      v147 = v146 + 1;
+      if (v78)
       {
         goto LABEL_130;
       }
 
-      v31[2] = v154;
-      v130 = v186;
-      if (!v129)
+      v26[2] = v147;
+      v123 = v178;
+      if (!v122)
       {
         goto LABEL_97;
       }
@@ -3845,52 +3589,50 @@ LABEL_95:
     break;
   }
 
-  v156 = v170;
+  v149 = v162;
 LABEL_120:
-  v157 = Array<A>.init(from:)(v31);
-  v158 = v168;
-  Opentelemetry_Proto_Logs_V1_ResourceLogs.resource.getter(v168);
-  v159 = *v158;
+  v150 = Array<A>.init(from:)(v26);
+  v151 = v160;
+  Opentelemetry_Proto_Logs_V1_ResourceLogs.resource.getter(v160);
 
-  *v158 = v157;
-  Opentelemetry_Proto_Logs_V1_ResourceLogs.resource.setter(v158);
-  Opentelemetry_Proto_Logs_V1_LogsData.init()(v111);
-  sub_99B4(v112, v178, type metadata accessor for Opentelemetry_Proto_Logs_V1_ResourceLogs);
-  v160 = *v111;
+  *v151 = v150;
+  Opentelemetry_Proto_Logs_V1_ResourceLogs.resource.setter(v151);
+  Opentelemetry_Proto_Logs_V1_LogsData.init()(v104);
+  sub_99B4(v105, v170, type metadata accessor for Opentelemetry_Proto_Logs_V1_ResourceLogs);
+  v152 = *v104;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
-    v160 = sub_91C4(0, v160[2] + 1, 1, v160, &qword_780E0, &unk_5EF70, type metadata accessor for Opentelemetry_Proto_Logs_V1_ResourceLogs);
+    v152 = sub_91C4(0, v152[2] + 1, 1, v152, &qword_780E0, &unk_5EF70, type metadata accessor for Opentelemetry_Proto_Logs_V1_ResourceLogs);
   }
 
-  v162 = v160[2];
-  v161 = v160[3];
-  if (v162 >= v161 >> 1)
+  v154 = v152[2];
+  v153 = v152[3];
+  if (v154 >= v153 >> 1)
   {
-    v160 = sub_91C4(v161 > 1, v162 + 1, 1, v160, &qword_780E0, &unk_5EF70, type metadata accessor for Opentelemetry_Proto_Logs_V1_ResourceLogs);
+    v152 = sub_91C4((v153 > 1), v154 + 1, 1, v152, &qword_780E0, &unk_5EF70, type metadata accessor for Opentelemetry_Proto_Logs_V1_ResourceLogs);
   }
 
-  v160[2] = v162 + 1;
-  sub_9A1C(v178, v160 + ((*(v169 + 80) + 32) & ~*(v169 + 80)) + *(v169 + 72) * v162, type metadata accessor for Opentelemetry_Proto_Logs_V1_ResourceLogs);
-  *v111 = v160;
+  v152[2] = v154 + 1;
+  sub_9A1C(v170, v152 + ((*(v161 + 80) + 32) & ~*(v161 + 80)) + *(v161 + 72) * v154, type metadata accessor for Opentelemetry_Proto_Logs_V1_ResourceLogs);
+  *v104 = v152;
   sub_5BD14();
   sub_9A84();
-  v163 = sub_5BED4();
-  (*(v166 + 8))(v156, v167);
-  sub_9ADC(v111, type metadata accessor for Opentelemetry_Proto_Logs_V1_LogsData);
-  sub_9ADC(v112, type metadata accessor for Opentelemetry_Proto_Logs_V1_ResourceLogs);
-  sub_9ADC(v15, type metadata accessor for Opentelemetry_Proto_Logs_V1_ScopeLogs);
-  sub_9ADC(v182, type metadata accessor for Opentelemetry_Proto_Logs_V1_LogRecord);
-  return v163;
+  v155 = sub_5BED4();
+  (*(v158 + 8))(v149, v159);
+  sub_9ADC(v104, type metadata accessor for Opentelemetry_Proto_Logs_V1_LogsData);
+  sub_9ADC(v105, type metadata accessor for Opentelemetry_Proto_Logs_V1_ResourceLogs);
+  sub_9ADC(v13, type metadata accessor for Opentelemetry_Proto_Logs_V1_ScopeLogs);
+  sub_9ADC(v174, type metadata accessor for Opentelemetry_Proto_Logs_V1_LogRecord);
+  return v155;
 }
 
 unint64_t sub_9094(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_5C454();
   sub_5C124();
-  v6 = sub_5C474();
+  v4 = sub_5C474();
 
-  return sub_910C(a1, a2, v6);
+  return sub_910C(a1, a2, v4);
 }
 
 unint64_t sub_910C(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3922,7 +3664,7 @@ unint64_t sub_910C(uint64_t a1, uint64_t a2, uint64_t a3)
   return v5;
 }
 
-size_t sub_91C4(size_t result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
+void *sub_91C4(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
 {
   v9 = result;
   if (a3)
@@ -3964,7 +3706,7 @@ LABEL_30:
 
   if (!v13)
   {
-    v17 = &_swiftEmptyArrayStorage;
+    v17 = _swiftEmptyArrayStorage;
     goto LABEL_19;
   }
 
@@ -3982,7 +3724,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v16 == 0x8000000000000000 && v15 == -1)
+  if ((result - v16) == 0x8000000000000000 && v15 == -1)
   {
     goto LABEL_29;
   }
@@ -4014,155 +3756,149 @@ LABEL_19:
   return v17;
 }
 
-uint64_t sub_93A0(uint64_t a1, char a2)
+uint64_t sub_93A0(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_780D8, &unk_5F9C0);
-  v39 = a2;
+  v36 = v4;
   result = sub_5C364();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
-    v38 = v3;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
     {
-      v20 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v23 = v20 | (v9 << 6);
-      v24 = (*(v5 + 48) + 16 * v23);
-      v25 = *v24;
-      v26 = v24[1];
-      v27 = (*(v5 + 56) + 32 * v23);
-      if (v39)
+      v19 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v22 = v19 | (v8 << 6);
+      v23 = (*(v5 + 48) + 16 * v22);
+      v24 = *v23;
+      v25 = v23[1];
+      v26 = (*(v5 + 56) + 32 * v22);
+      if (v36)
       {
-        v28 = v27[1];
-        v40 = *v27;
-        v41 = v28;
+        v27 = v26[1];
+        v37 = *v26;
+        v38 = v27;
       }
 
       else
       {
-        sub_A024(v27, &v40, &qword_78090, &unk_5F950);
+        sub_A024(v26, &v37, &qword_78090, &unk_5F950);
       }
 
-      v29 = *(v8 + 40);
       sub_5C454();
       sub_5C124();
       result = sub_5C474();
-      v30 = -1 << *(v8 + 32);
-      v31 = result & ~v30;
-      v32 = v31 >> 6;
-      if (((-1 << v31) & ~*(v15 + 8 * (v31 >> 6))) == 0)
+      v28 = -1 << *(v7 + 32);
+      v29 = result & ~v28;
+      v30 = v29 >> 6;
+      if (((-1 << v29) & ~*(v14 + 8 * (v29 >> 6))) == 0)
       {
-        v33 = 0;
-        v34 = (63 - v30) >> 6;
-        while (++v32 != v34 || (v33 & 1) == 0)
+        v31 = 0;
+        v32 = (63 - v28) >> 6;
+        while (++v30 != v32 || (v31 & 1) == 0)
         {
-          v35 = v32 == v34;
-          if (v32 == v34)
+          v33 = v30 == v32;
+          if (v30 == v32)
           {
-            v32 = 0;
+            v30 = 0;
           }
 
-          v33 |= v35;
-          v36 = *(v15 + 8 * v32);
-          if (v36 != -1)
+          v31 |= v33;
+          v34 = *(v14 + 8 * v30);
+          if (v34 != -1)
           {
-            v16 = __clz(__rbit64(~v36)) + (v32 << 6);
-            goto LABEL_9;
+            v15 = __clz(__rbit64(~v34)) + (v30 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_38:
+LABEL_36:
         __break(1u);
         return result;
       }
 
-      v16 = __clz(__rbit64((-1 << v31) & ~*(v15 + 8 * (v31 >> 6)))) | v31 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = (*(v8 + 48) + 16 * v16);
-      *v17 = v25;
-      v17[1] = v26;
-      v18 = (*(v8 + 56) + 32 * v16);
-      v19 = v41;
-      *v18 = v40;
-      v18[1] = v19;
-      ++*(v8 + 16);
+      v15 = __clz(__rbit64((-1 << v29) & ~*(v14 + 8 * (v29 >> 6)))) | v29 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = (*(v7 + 48) + 16 * v15);
+      *v16 = v24;
+      v16[1] = v25;
+      v17 = (*(v7 + 56) + 32 * v15);
+      v18 = v38;
+      *v17 = v37;
+      v17[1] = v18;
+      ++*(v7 + 16);
     }
 
-    v21 = v9;
+    v20 = v8;
     while (1)
     {
-      v9 = v21 + 1;
-      if (__OFADD__(v21, 1))
+      v8 = v20 + 1;
+      if (__OFADD__(v20, 1))
       {
         __break(1u);
-        goto LABEL_38;
+        goto LABEL_36;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v22 = v10[v9];
-      ++v21;
-      if (v22)
+      v21 = v9[v8];
+      ++v20;
+      if (v21)
       {
-        v20 = __clz(__rbit64(v22));
-        v13 = (v22 - 1) & v22;
-        goto LABEL_17;
+        v19 = __clz(__rbit64(v21));
+        v12 = (v21 - 1) & v21;
+        goto LABEL_15;
       }
     }
 
-    if ((v39 & 1) == 0)
+    if ((v36 & 1) == 0)
     {
 
-      v3 = v38;
-      goto LABEL_36;
+      v3 = v2;
+      goto LABEL_34;
     }
 
-    v37 = 1 << *(v5 + 32);
-    v3 = v38;
-    if (v37 >= 64)
+    v35 = 1 << *(v5 + 32);
+    v3 = v2;
+    if (v35 >= 64)
     {
-      bzero((v5 + 64), ((v37 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero((v5 + 64), ((v35 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v10 = -1 << v37;
+      *v9 = -1 << v35;
     }
 
     *(v5 + 16) = 0;
   }
 
-LABEL_36:
-  *v3 = v8;
+LABEL_34:
+  *v3 = v7;
   return result;
 }
 
@@ -4423,25 +4159,25 @@ uint64_t sub_9C9C(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_9D40()
+void sub_9D40(uint64_t a1)
 {
   sub_9F38(319, &qword_780A0, &type metadata for Int, &type metadata accessor for Optional);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_9F38(319, &qword_780A8, &type metadata for String, &type metadata accessor for Optional);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      sub_9EB8();
-      if (v2 <= 0x3F)
+      sub_9EB8(319);
+      if (v3 <= 0x3F)
       {
         sub_9FD0(319, &qword_780B8, &qword_78098, &qword_5EF00);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_5B9B4();
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             sub_9FD0(319, &qword_780C0, &qword_780C8, &unk_5EF40);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
             }
@@ -4452,15 +4188,15 @@ void sub_9D40()
   }
 }
 
-void sub_9EB8()
+void sub_9EB8(uint64_t a1)
 {
   if (!qword_780B0)
   {
     type metadata accessor for OSLogEventLogType(255);
-    v0 = sub_5C2D4();
-    if (!v1)
+    v1 = sub_5C2D4();
+    if (!v2)
     {
-      atomic_store(v0, &qword_780B0);
+      atomic_store(v1, &qword_780B0);
     }
   }
 }
@@ -4482,7 +4218,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -4519,10 +4254,10 @@ uint64_t sub_A0FC(uint64_t a1, uint64_t a2)
 
 uint64_t Opentelemetry_Proto_Common_V1_AnyValue.stringValue.getter()
 {
-  v1 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  off_709D0();
-  v3 = (&v7 - v2);
-  sub_A024(v0, &v7 - v2, &qword_78100, &unk_5EFD0);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v1 - 8);
+  v3 = &v6 - v2;
+  sub_A024(v0, &v6 - v2, &qword_78100, &unk_5EFD0);
   v4 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
   if ((*(*(v4 - 8) + 48))(v3, 1, v4) == 1)
   {
@@ -4533,9 +4268,7 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.stringValue.getter()
   {
     if (!swift_getEnumCaseMultiPayload())
     {
-      result = *v3;
-      v6 = v3[1];
-      return result;
+      return *v3;
     }
 
     sub_BF1C(v3, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
@@ -4546,8 +4279,8 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.stringValue.getter()
 
 uint64_t sub_A2BC@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  off_709D0();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v4 - 8);
   v6 = (&v11 - v5);
   sub_A024(a1, &v11 - v5, &qword_78100, &unk_5EFD0);
   v7 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
@@ -4662,14 +4395,12 @@ void sub_A648(uint64_t **a1, char a2)
   v7 = (*a1)[3];
   if (a2)
   {
-    v9 = (*a1)[1];
 
     sub_60C4(v8, &qword_78100, &unk_5EFD0);
     *v8 = v4;
     v8[1] = v3;
     swift_storeEnumTagMultiPayload();
     (*(v6 + 56))(v8, 0, 1, v5);
-    v10 = v2[1];
   }
 
   else
@@ -4688,8 +4419,8 @@ void sub_A648(uint64_t **a1, char a2)
 
 uint64_t Opentelemetry_Proto_Common_V1_AnyValue.BOOLValue.getter()
 {
-  v1 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  off_709D0();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v1 - 8);
   v3 = &v6 - v2;
   sub_A024(v0, &v6 - v2, &qword_78100, &unk_5EFD0);
   v4 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
@@ -4713,8 +4444,8 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.BOOLValue.getter()
 
 uint64_t sub_A888@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  off_709D0();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v4 - 8);
   v6 = &v10 - v5;
   sub_A024(a1, &v10 - v5, &qword_78100, &unk_5EFD0);
   v7 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
@@ -4762,7 +4493,7 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.BOOLValue.setter(char a1)
   return v4(v1, 0, 1, v3);
 }
 
-void (*Opentelemetry_Proto_Common_V1_AnyValue.BOOLValue.modify(void *a1))(_BYTE ***a1)
+uint64_t (*Opentelemetry_Proto_Common_V1_AnyValue.BOOLValue.modify(void *a1))()
 {
   v2 = v1;
   if (&_swift_coroFrameAlloc)
@@ -4836,8 +4567,8 @@ void sub_ACA4(_BYTE ***a1)
 
 uint64_t Opentelemetry_Proto_Common_V1_AnyValue.intValue.getter()
 {
-  v1 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  off_709D0();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v1 - 8);
   v3 = &v6 - v2;
   sub_A024(v0, &v6 - v2, &qword_78100, &unk_5EFD0);
   v4 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
@@ -4861,8 +4592,8 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.intValue.getter()
 
 uint64_t sub_AE78@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  off_709D0();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v4 - 8);
   v6 = (&v10 - v5);
   sub_A024(a1, &v10 - v5, &qword_78100, &unk_5EFD0);
   v7 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
@@ -4983,8 +4714,8 @@ void sub_B288(uint64_t **a1)
 
 double Opentelemetry_Proto_Common_V1_AnyValue.doubleValue.getter()
 {
-  v1 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  off_709D0();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v1 - 8);
   v3 = &v6 - v2;
   sub_A024(v0, &v6 - v2, &qword_78100, &unk_5EFD0);
   v4 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
@@ -5008,8 +4739,8 @@ double Opentelemetry_Proto_Common_V1_AnyValue.doubleValue.getter()
 
 uint64_t sub_B45C@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  off_709D0();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v4 - 8);
   v6 = (&v10 - v5);
   sub_A024(a1, &v10 - v5, &qword_78100, &unk_5EFD0);
   v7 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
@@ -5131,10 +4862,10 @@ void sub_B87C(uint64_t **a1)
 uint64_t Opentelemetry_Proto_Common_V1_AnyValue.arrayValue.getter@<X0>(void *a1@<X8>)
 {
   v2 = v1;
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  off_709D0();
-  v6 = &v10 - v5;
-  sub_A024(v2, &v10 - v5, &qword_78100, &unk_5EFD0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v4 - 8);
+  v6 = &v9 - v5;
+  sub_A024(v2, &v9 - v5, &qword_78100, &unk_5EFD0);
   v7 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
   if ((*(*(v7 - 8) + 48))(v6, 1, v7) == 1)
   {
@@ -5151,17 +4882,17 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.arrayValue.getter@<X0>(void *a1@
     sub_BF1C(v6, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
   }
 
-  *a1 = &_swiftEmptyArrayStorage;
-  v9 = a1 + *(type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue(0) + 20);
+  *a1 = _swiftEmptyArrayStorage;
+  type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue(0);
   return sub_5BCD4();
 }
 
 uint64_t sub_BAA0@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  off_709D0();
-  v6 = &v10 - v5;
-  sub_A024(a1, &v10 - v5, &qword_78100, &unk_5EFD0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v4 - 8);
+  v6 = &v9 - v5;
+  sub_A024(a1, &v9 - v5, &qword_78100, &unk_5EFD0);
   v7 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
   if ((*(*(v7 - 8) + 48))(v6, 1, v7) == 1)
   {
@@ -5178,12 +4909,12 @@ uint64_t sub_BAA0@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
     sub_BF1C(v6, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
   }
 
-  *a2 = &_swiftEmptyArrayStorage;
-  v9 = a2 + *(type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue(0) + 20);
+  *a2 = _swiftEmptyArrayStorage;
+  type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue(0);
   return sub_5BCD4();
 }
 
-void (*Opentelemetry_Proto_Common_V1_AnyValue.arrayValue.modify(void *a1))(uint64_t **a1, char a2)
+void (*Opentelemetry_Proto_Common_V1_AnyValue.arrayValue.modify(void *a1))(uint64_t **a1, uint64_t a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -5211,33 +4942,31 @@ void (*Opentelemetry_Proto_Common_V1_AnyValue.arrayValue.modify(void *a1))(uint6
 
   v7 = v6;
   v4[1] = v6;
-  v8 = type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue(0);
-  v9 = *(*(v8 - 8) + 64);
+  v8 = *(*(type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue(0) - 8) + 64);
   if (&_swift_coroFrameAlloc)
   {
     v4[2] = swift_coroFrameAlloc();
-    v10 = swift_coroFrameAlloc();
+    v9 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v4[2] = malloc(*(*(v8 - 8) + 64));
-    v10 = malloc(v9);
+    v4[2] = malloc(v8);
+    v9 = malloc(v8);
   }
 
-  v11 = v10;
-  v4[3] = v10;
+  v10 = v9;
+  v4[3] = v9;
   sub_A024(v1, v7, &qword_78100, &unk_5EFD0);
-  v12 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  v4[4] = v12;
-  v13 = *(v12 - 8);
-  v4[5] = v13;
-  if ((*(v13 + 48))(v7, 1, v12) == 1)
+  v11 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  v4[4] = v11;
+  v12 = *(v11 - 8);
+  v4[5] = v12;
+  if ((*(v12 + 48))(v7, 1, v11) == 1)
   {
     sub_60C4(v7, &qword_78100, &unk_5EFD0);
 LABEL_15:
-    *v11 = &_swiftEmptyArrayStorage;
-    v14 = v11 + *(v8 + 20);
+    *v10 = _swiftEmptyArrayStorage;
     sub_5BCD4();
     return sub_BED8;
   }
@@ -5248,7 +4977,7 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  sub_C518(v7, v11, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
+  sub_C518(v7, v10, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
   return sub_BED8;
 }
 
@@ -5262,10 +4991,10 @@ uint64_t sub_BF1C(uint64_t a1, uint64_t (*a2)(void))
 uint64_t Opentelemetry_Proto_Common_V1_AnyValue.kvlistValue.getter@<X0>(void *a1@<X8>)
 {
   v2 = v1;
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  off_709D0();
-  v6 = &v10 - v5;
-  sub_A024(v2, &v10 - v5, &qword_78100, &unk_5EFD0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v4 - 8);
+  v6 = &v9 - v5;
+  sub_A024(v2, &v9 - v5, &qword_78100, &unk_5EFD0);
   v7 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
   if ((*(*(v7 - 8) + 48))(v6, 1, v7) == 1)
   {
@@ -5282,17 +5011,17 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.kvlistValue.getter@<X0>(void *a1
     sub_BF1C(v6, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
   }
 
-  *a1 = &_swiftEmptyArrayStorage;
-  v9 = a1 + *(type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList(0) + 20);
+  *a1 = _swiftEmptyArrayStorage;
+  type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList(0);
   return sub_5BCD4();
 }
 
 uint64_t sub_C0F4@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  off_709D0();
-  v6 = &v10 - v5;
-  sub_A024(a1, &v10 - v5, &qword_78100, &unk_5EFD0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v4 - 8);
+  v6 = &v9 - v5;
+  sub_A024(a1, &v9 - v5, &qword_78100, &unk_5EFD0);
   v7 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
   if ((*(*(v7 - 8) + 48))(v6, 1, v7) == 1)
   {
@@ -5309,39 +5038,39 @@ uint64_t sub_C0F4@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
     sub_BF1C(v6, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
   }
 
-  *a2 = &_swiftEmptyArrayStorage;
-  v9 = a2 + *(type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList(0) + 20);
+  *a2 = _swiftEmptyArrayStorage;
+  type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList(0);
   return sub_5BCD4();
 }
 
-uint64_t sub_C2B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(void), uint64_t (*a7)(void))
+uint64_t sub_C2B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void), uint64_t (*a6)(void), uint64_t (*a7)(void), uint64_t a8)
 {
-  v11 = (*(*(a5(0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  off_709D0();
-  v13 = &v16 - v12;
-  sub_C944(a1, &v16 - v12, a6);
+  v12 = (a5)(0, a2, a3, a4);
+  off_709D0(v12 - 8);
+  v14 = &v17 - v13;
+  sub_C944(a1, &v17 - v13, a6);
   sub_60C4(a2, &qword_78100, &unk_5EFD0);
-  sub_C518(v13, a2, a7);
-  v14 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  sub_C518(v14, a2, a7);
+  v15 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
   swift_storeEnumTagMultiPayload();
-  return (*(*(v14 - 8) + 56))(a2, 0, 1, v14);
+  return (*(*(v15 - 8) + 56))(a2, 0, 1, v15);
 }
 
-uint64_t sub_C3E0(uint64_t a1, uint64_t (*a2)(void))
+uint64_t sub_C3E0(uint64_t a1, uint64_t (*a2)(void), uint64_t a3)
 {
-  sub_60C4(v2, &qword_78100, &unk_5EFD0);
-  sub_C518(a1, v2, a2);
-  v5 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  sub_60C4(v3, &qword_78100, &unk_5EFD0);
+  sub_C518(a1, v3, a2);
+  v6 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
   swift_storeEnumTagMultiPayload();
-  v6 = *(*(v5 - 8) + 56);
+  v7 = *(*(v6 - 8) + 56);
 
-  return v6(v2, 0, 1, v5);
+  return v7(v3, 0, 1, v6);
 }
 
 uint64_t sub_C4B0@<X0>(uint64_t (*a1)(void)@<X0>, void *a2@<X8>)
 {
-  *a2 = &_swiftEmptyArrayStorage;
-  v2 = a2 + *(a1(0) + 20);
+  *a2 = _swiftEmptyArrayStorage;
+  a1(0);
   return sub_5BCD4();
 }
 
@@ -5352,7 +5081,7 @@ uint64_t sub_C518(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-void (*Opentelemetry_Proto_Common_V1_AnyValue.kvlistValue.modify(void *a1))(uint64_t **a1, char a2)
+void (*Opentelemetry_Proto_Common_V1_AnyValue.kvlistValue.modify(void *a1))(uint64_t **a1, uint64_t a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -5380,33 +5109,31 @@ void (*Opentelemetry_Proto_Common_V1_AnyValue.kvlistValue.modify(void *a1))(uint
 
   v7 = v6;
   v4[1] = v6;
-  v8 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList(0);
-  v9 = *(*(v8 - 8) + 64);
+  v8 = *(*(type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList(0) - 8) + 64);
   if (&_swift_coroFrameAlloc)
   {
     v4[2] = swift_coroFrameAlloc();
-    v10 = swift_coroFrameAlloc();
+    v9 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v4[2] = malloc(*(*(v8 - 8) + 64));
-    v10 = malloc(v9);
+    v4[2] = malloc(v8);
+    v9 = malloc(v8);
   }
 
-  v11 = v10;
-  v4[3] = v10;
+  v10 = v9;
+  v4[3] = v9;
   sub_A024(v1, v7, &qword_78100, &unk_5EFD0);
-  v12 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  v4[4] = v12;
-  v13 = *(v12 - 8);
-  v4[5] = v13;
-  if ((*(v13 + 48))(v7, 1, v12) == 1)
+  v11 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  v4[4] = v11;
+  v12 = *(v11 - 8);
+  v4[5] = v12;
+  if ((*(v12 + 48))(v7, 1, v11) == 1)
   {
     sub_60C4(v7, &qword_78100, &unk_5EFD0);
 LABEL_15:
-    *v11 = &_swiftEmptyArrayStorage;
-    v14 = v11 + *(v8 + 20);
+    *v10 = _swiftEmptyArrayStorage;
     sub_5BCD4();
     return sub_C7A8;
   }
@@ -5417,7 +5144,7 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  sub_C518(v7, v11, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
+  sub_C518(v7, v10, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
   return sub_C7A8;
 }
 
@@ -5464,10 +5191,10 @@ uint64_t sub_C944(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 
 uint64_t Opentelemetry_Proto_Common_V1_AnyValue.bytesValue.getter()
 {
-  v1 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  off_709D0();
-  v3 = (&v7 - v2);
-  sub_A024(v0, &v7 - v2, &qword_78100, &unk_5EFD0);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v1 - 8);
+  v3 = &v6 - v2;
+  sub_A024(v0, &v6 - v2, &qword_78100, &unk_5EFD0);
   v4 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
   if ((*(*(v4 - 8) + 48))(v3, 1, v4) == 1)
   {
@@ -5478,9 +5205,7 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.bytesValue.getter()
   {
     if (swift_getEnumCaseMultiPayload() == 6)
     {
-      result = *v3;
-      v6 = v3[1];
-      return result;
+      return *v3;
     }
 
     sub_BF1C(v3, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
@@ -5491,8 +5216,8 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.bytesValue.getter()
 
 uint64_t sub_CAE0@<X0>(uint64_t a1@<X0>, __int128 *a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  off_709D0();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v4 - 8);
   v6 = (&v10 - v5);
   sub_A024(a1, &v10 - v5, &qword_78100, &unk_5EFD0);
   v7 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
@@ -5532,16 +5257,16 @@ uint64_t sub_CC28(uint64_t *a1, uint64_t *a2)
   return v6(a2, 0, 1, v5);
 }
 
-uint64_t sub_CCE4(uint64_t a1, uint64_t a2)
+uint64_t sub_CCE4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  sub_60C4(v2, &qword_78100, &unk_5EFD0);
-  *v2 = a1;
-  v2[1] = a2;
-  v5 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  sub_60C4(v3, &qword_78100, &unk_5EFD0);
+  *v3 = a1;
+  v3[1] = a2;
+  v6 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
   swift_storeEnumTagMultiPayload();
-  v6 = *(*(v5 - 8) + 56);
+  v7 = *(*(v6 - 8) + 56);
 
-  return v6(v2, 0, 1, v5);
+  return v7(v3, 0, 1, v6);
 }
 
 void (*Opentelemetry_Proto_Common_V1_AnyValue.bytesValue.modify(uint64_t *a1))(uint64_t **a1, char a2)
@@ -5632,24 +5357,24 @@ void sub_CF24(uint64_t **a1, char a2)
   free(v2);
 }
 
-uint64_t sub_D038(uint64_t a1, unint64_t a2)
+uint64_t sub_D038(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t sub_D08C(uint64_t a1, unint64_t a2)
+uint64_t sub_D08C(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -5661,9 +5386,9 @@ uint64_t sub_D1D8(void *a1, void *a2, uint64_t (*a3)(void, void), uint64_t (*a4)
     return 0;
   }
 
-  v5 = *(a4(0) + 20);
+  a4(0);
   sub_5BCE4();
-  sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage);
+  sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
   return sub_5C114() & 1;
 }
 
@@ -5671,13 +5396,12 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.init()@<X0>(uint64_t a1@<X8>)
 {
   v2 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
   (*(*(v2 - 8) + 56))(a1, 1, 1, v2);
-  v3 = a1 + *(type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0) + 20);
+  type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
   return sub_5BCD4();
 }
 
 uint64_t Opentelemetry_Proto_Common_V1_ArrayValue.values.setter(uint64_t a1)
 {
-  v3 = *v1;
 
   *v1 = a1;
   return result;
@@ -5704,14 +5428,12 @@ uint64_t sub_D41C(uint64_t a1, uint64_t (*a2)(void))
 uint64_t Opentelemetry_Proto_Common_V1_KeyValue.key.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t Opentelemetry_Proto_Common_V1_KeyValue.key.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
@@ -5721,21 +5443,45 @@ uint64_t Opentelemetry_Proto_Common_V1_KeyValue.key.setter(uint64_t a1, uint64_t
 uint64_t Opentelemetry_Proto_Common_V1_KeyValue.value.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78110, &qword_61E70);
-  v4 = *(*(v3 - 8) + 64);
   off_709D0(v3 - 8);
-  v6 = &v13 - v5;
+  v5 = &v11 - v4;
+  v6 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
+  sub_A024(v1 + *(v6 + 24), v5, &qword_78110, &qword_61E70);
+  v7 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
+  v8 = *(*(v7 - 8) + 48);
+  if (v8(v5, 1, v7) != 1)
+  {
+    return sub_C518(v5, a1, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+  }
+
+  v9 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  (*(*(v9 - 8) + 56))(a1, 1, 1, v9);
+  sub_5BCD4();
+  result = (v8)(v5, 1, v7);
+  if (result != 1)
+  {
+    return sub_60C4(v5, &qword_78110, &qword_61E70);
+  }
+
+  return result;
+}
+
+uint64_t sub_D7A8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78110, &qword_61E70);
+  off_709D0(v4 - 8);
+  v6 = &v12 - v5;
   v7 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
-  sub_A024(v1 + *(v7 + 24), v6, &qword_78110, &qword_61E70);
+  sub_A024(a1 + *(v7 + 24), v6, &qword_78110, &qword_61E70);
   v8 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
   v9 = *(*(v8 - 8) + 48);
   if (v9(v6, 1, v8) != 1)
   {
-    return sub_C518(v6, a1, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+    return sub_C518(v6, a2, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
   }
 
   v10 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  (*(*(v10 - 8) + 56))(a1, 1, 1, v10);
-  v11 = a1 + *(v8 + 20);
+  (*(*(v10 - 8) + 56))(a2, 1, 1, v10);
   sub_5BCD4();
   result = (v9)(v6, 1, v8);
   if (result != 1)
@@ -5746,46 +5492,17 @@ uint64_t Opentelemetry_Proto_Common_V1_KeyValue.value.getter@<X0>(uint64_t a1@<X
   return result;
 }
 
-uint64_t sub_D7A8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78110, &qword_61E70);
-  v5 = *(*(v4 - 8) + 64);
-  off_709D0(v4 - 8);
-  v7 = &v14 - v6;
-  v8 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
-  sub_A024(a1 + *(v8 + 24), v7, &qword_78110, &qword_61E70);
-  v9 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v7, 1, v9) != 1)
-  {
-    return sub_C518(v7, a2, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-  }
-
-  v11 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  (*(*(v11 - 8) + 56))(a2, 1, 1, v11);
-  v12 = a2 + *(v9 + 20);
-  sub_5BCD4();
-  result = (v10)(v7, 1, v9);
-  if (result != 1)
-  {
-    return sub_60C4(v7, &qword_78110, &qword_61E70);
-  }
-
-  return result;
-}
-
 uint64_t sub_D944(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   off_709D0(v4);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_C944(a1, v8, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-  v9 = *(type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0) + 24);
-  sub_60C4(a2 + v9, &qword_78110, &qword_61E70);
-  sub_C518(v8, a2 + v9, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_C944(a1, v7, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+  v8 = *(type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0) + 24);
+  sub_60C4(a2 + v8, &qword_78110, &qword_61E70);
+  sub_C518(v7, a2 + v8, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t Opentelemetry_Proto_Common_V1_KeyValue.value.setter(uint64_t a1)
@@ -5855,7 +5572,6 @@ void (*Opentelemetry_Proto_Common_V1_KeyValue.value.modify(void *a1))(uint64_t *
   {
     v16 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
     (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
-    v17 = v13 + *(v8 + 20);
     sub_5BCD4();
     if (v15(v7, 1, v8) != 1)
     {
@@ -5907,15 +5623,14 @@ void sub_DD80(uint64_t **a1, char a2)
 BOOL Opentelemetry_Proto_Common_V1_KeyValue.hasValue.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78110, &qword_61E70);
-  v2 = *(*(v1 - 8) + 64);
   off_709D0(v1 - 8);
-  v4 = &v9 - v3;
-  v5 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
-  sub_A024(v0 + *(v5 + 24), v4, &qword_78110, &qword_61E70);
-  v6 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
-  v7 = (*(*(v6 - 8) + 48))(v4, 1, v6) != 1;
-  sub_60C4(v4, &qword_78110, &qword_61E70);
-  return v7;
+  v3 = &v8 - v2;
+  v4 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
+  sub_A024(v0 + *(v4 + 24), v3, &qword_78110, &qword_61E70);
+  v5 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
+  v6 = (*(*(v5 - 8) + 48))(v3, 1, v5) != 1;
+  sub_60C4(v3, &qword_78110, &qword_61E70);
+  return v6;
 }
 
 Swift::Void __swiftcall Opentelemetry_Proto_Common_V1_KeyValue.clearValue()()
@@ -5933,13 +5648,12 @@ uint64_t Opentelemetry_Proto_Common_V1_KeyValue.init()@<X0>(char *a1@<X8>)
   *a1 = 0;
   *(a1 + 1) = 0xE000000000000000;
   v2 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
-  v3 = &a1[*(v2 + 20)];
   sub_5BCD4();
-  v4 = *(v2 + 24);
-  v5 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
-  v6 = *(*(v5 - 8) + 56);
+  v3 = *(v2 + 24);
+  v4 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
+  v5 = *(*(v4 - 8) + 56);
 
-  return v6(&a1[v4], 1, 1, v5);
+  return v5(&a1[v3], 1, 1, v4);
 }
 
 uint64_t sub_E188@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
@@ -5953,14 +5667,12 @@ uint64_t sub_E188@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
 uint64_t Opentelemetry_Proto_Common_V1_InstrumentationScope.version.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
 
 uint64_t Opentelemetry_Proto_Common_V1_InstrumentationScope.version.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 24);
 
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
@@ -5969,7 +5681,6 @@ uint64_t Opentelemetry_Proto_Common_V1_InstrumentationScope.version.setter(uint6
 
 uint64_t Opentelemetry_Proto_Common_V1_InstrumentationScope.attributes.setter(uint64_t a1)
 {
-  v3 = *(v1 + 32);
 
   *(v1 + 32) = a1;
   return result;
@@ -6001,7 +5712,7 @@ uint64_t Opentelemetry_Proto_Common_V1_InstrumentationScope.init()@<X0>(uint64_t
   *(a1 + 24) = 0xE000000000000000;
   *(a1 + 32) = _swiftEmptyArrayStorage;
   *(a1 + 40) = 0;
-  v1 = a1 + *(type metadata accessor for Opentelemetry_Proto_Common_V1_InstrumentationScope(0) + 32);
+  type metadata accessor for Opentelemetry_Proto_Common_V1_InstrumentationScope(0);
   return sub_5BCD4();
 }
 
@@ -6085,13 +5796,13 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.decodeMessage<A>(decoder:)(uint6
       switch(result)
       {
         case 1:
-          sub_E988(a1, v5);
+          sub_E988(a1, v5, a2, a3);
           break;
         case 2:
-          sub_EB7C(a1, v5);
+          sub_EB7C(a1, v5, a2, a3);
           break;
         case 3:
-          sub_ED50(a1, v5);
+          sub_ED50(a1, v5, a2, a3);
           break;
       }
     }
@@ -6105,13 +5816,13 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.decodeMessage<A>(decoder:)(uint6
 
       else if (result == 7)
       {
-        sub_FC80(a1, v5);
+        sub_FC80(a1, v5, a2, a3);
       }
     }
 
     else if (result == 4)
     {
-      sub_EF2C(a1, v5);
+      sub_EF2C(a1, v5, a2, a3);
     }
 
     else
@@ -6123,156 +5834,36 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.decodeMessage<A>(decoder:)(uint6
   return result;
 }
 
-uint64_t sub_E988(uint64_t a1, void *a2)
+uint64_t sub_E988(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v5 = *(*(v4 - 8) + 64);
-  off_709D0(v4 - 8);
-  v7 = &v13 - v6;
-  v15 = 0;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v6 - 8);
+  v8 = &v14 - v7;
   v16 = 0;
+  v17 = 0;
   result = sub_5BE44();
-  if (v2)
+  if (v4)
   {
   }
 
-  if (v16)
+  if (v17)
   {
-    v17 = v16;
-    v14 = v15;
-    sub_A024(a2, v7, &qword_78100, &unk_5EFD0);
-    v9 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-    v10 = *(v9 - 8);
-    v11 = (*(v10 + 48))(v7, 1, v9);
-    sub_60C4(v7, &qword_78100, &unk_5EFD0);
-    if (v11 != 1)
+    v18 = v17;
+    v15 = v16;
+    sub_A024(a2, v8, &qword_78100, &unk_5EFD0);
+    v10 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+    v11 = *(v10 - 8);
+    v12 = (*(v11 + 48))(v8, 1, v10);
+    sub_60C4(v8, &qword_78100, &unk_5EFD0);
+    if (v12 != 1)
     {
       sub_5BD74();
     }
 
     sub_60C4(a2, &qword_78100, &unk_5EFD0);
-    v12 = v17;
-    *a2 = v14;
-    a2[1] = v12;
-    swift_storeEnumTagMultiPayload();
-    return (*(v10 + 56))(a2, 0, 1, v9);
-  }
-
-  return result;
-}
-
-uint64_t sub_EB7C(uint64_t a1, _BYTE *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v5 = *(*(v4 - 8) + 64);
-  off_709D0(v4 - 8);
-  v7 = &v14 - v6;
-  v16 = 2;
-  result = sub_5BD84();
-  if (!v2)
-  {
-    v9 = v16;
-    if (v16 != 2)
-    {
-      v15 = 0;
-      sub_A024(a2, v7, &qword_78100, &unk_5EFD0);
-      v10 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-      v11 = *(v10 - 8);
-      v12 = (*(v11 + 48))(v7, 1, v10);
-      sub_60C4(v7, &qword_78100, &unk_5EFD0);
-      if (v12 != 1)
-      {
-        v13 = v15;
-        result = sub_5BD74();
-        if (v13)
-        {
-          return result;
-        }
-
-        v15 = 0;
-      }
-
-      sub_60C4(a2, &qword_78100, &unk_5EFD0);
-      *a2 = v9 & 1;
-      swift_storeEnumTagMultiPayload();
-      return (*(v11 + 56))(a2, 0, 1, v10);
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_ED50(uint64_t a1, void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v5 = *(*(v4 - 8) + 64);
-  off_709D0(v4 - 8);
-  v7 = &v13 - v6;
-  v15 = 0;
-  v16 = 1;
-  result = sub_5BDD4();
-  if (!v2 && (v16 & 1) == 0)
-  {
-    v17 = 0;
-    v14 = v15;
-    sub_A024(a2, v7, &qword_78100, &unk_5EFD0);
-    v9 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-    v10 = *(v9 - 8);
-    v11 = (*(v10 + 48))(v7, 1, v9);
-    sub_60C4(v7, &qword_78100, &unk_5EFD0);
-    if (v11 != 1)
-    {
-      v12 = v17;
-      result = sub_5BD74();
-      if (v12)
-      {
-        return result;
-      }
-
-      v17 = 0;
-    }
-
-    sub_60C4(a2, &qword_78100, &unk_5EFD0);
-    *a2 = v14;
-    swift_storeEnumTagMultiPayload();
-    return (*(v10 + 56))(a2, 0, 1, v9);
-  }
-
-  return result;
-}
-
-uint64_t sub_EF2C(uint64_t a1, void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v5 = *(*(v4 - 8) + 64);
-  off_709D0(v4 - 8);
-  v7 = &v14 - v6;
-  v16 = 0;
-  v17 = 1;
-  result = sub_5BE14();
-  if (!v2 && (v17 & 1) == 0)
-  {
-    v15 = 0;
-    v9 = v16;
-    sub_A024(a2, v7, &qword_78100, &unk_5EFD0);
-    v10 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-    v11 = *(v10 - 8);
-    v12 = (*(v11 + 48))(v7, 1, v10);
-    sub_60C4(v7, &qword_78100, &unk_5EFD0);
-    if (v12 != 1)
-    {
-      v13 = v15;
-      result = sub_5BD74();
-      if (v13)
-      {
-        return result;
-      }
-
-      v15 = 0;
-    }
-
-    sub_60C4(a2, &qword_78100, &unk_5EFD0);
-    *a2 = v9;
+    v13 = v18;
+    *a2 = v15;
+    a2[1] = v13;
     swift_storeEnumTagMultiPayload();
     return (*(v11 + 56))(a2, 0, 1, v10);
   }
@@ -6280,254 +5871,360 @@ uint64_t sub_EF2C(uint64_t a1, void *a2)
   return result;
 }
 
+uint64_t sub_EB7C(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v6 - 8);
+  v8 = &v15 - v7;
+  v17 = 2;
+  result = sub_5BD84();
+  if (!v4)
+  {
+    v10 = v17;
+    if (v17 != 2)
+    {
+      v16 = 0;
+      sub_A024(a2, v8, &qword_78100, &unk_5EFD0);
+      v11 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+      v12 = *(v11 - 8);
+      v13 = (*(v12 + 48))(v8, 1, v11);
+      sub_60C4(v8, &qword_78100, &unk_5EFD0);
+      if (v13 != 1)
+      {
+        v14 = v16;
+        result = sub_5BD74();
+        if (v14)
+        {
+          return result;
+        }
+
+        v16 = 0;
+      }
+
+      sub_60C4(a2, &qword_78100, &unk_5EFD0);
+      *a2 = v10 & 1;
+      swift_storeEnumTagMultiPayload();
+      return (*(v12 + 56))(a2, 0, 1, v11);
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_ED50(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v6 - 8);
+  v8 = &v14 - v7;
+  v16 = 0;
+  v17 = 1;
+  result = sub_5BDD4();
+  if (!v4 && (v17 & 1) == 0)
+  {
+    v18 = 0;
+    v15 = v16;
+    sub_A024(a2, v8, &qword_78100, &unk_5EFD0);
+    v10 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+    v11 = *(v10 - 8);
+    v12 = (*(v11 + 48))(v8, 1, v10);
+    sub_60C4(v8, &qword_78100, &unk_5EFD0);
+    if (v12 != 1)
+    {
+      v13 = v18;
+      result = sub_5BD74();
+      if (v13)
+      {
+        return result;
+      }
+
+      v18 = 0;
+    }
+
+    sub_60C4(a2, &qword_78100, &unk_5EFD0);
+    *a2 = v15;
+    swift_storeEnumTagMultiPayload();
+    return (*(v11 + 56))(a2, 0, 1, v10);
+  }
+
+  return result;
+}
+
+uint64_t sub_EF2C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v6 - 8);
+  v8 = &v15 - v7;
+  v17 = 0;
+  v18 = 1;
+  result = sub_5BE14();
+  if (!v4 && (v18 & 1) == 0)
+  {
+    v16 = 0;
+    v10 = v17;
+    sub_A024(a2, v8, &qword_78100, &unk_5EFD0);
+    v11 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+    v12 = *(v11 - 8);
+    v13 = (*(v12 + 48))(v8, 1, v11);
+    sub_60C4(v8, &qword_78100, &unk_5EFD0);
+    if (v13 != 1)
+    {
+      v14 = v16;
+      result = sub_5BD74();
+      if (v14)
+      {
+        return result;
+      }
+
+      v16 = 0;
+    }
+
+    sub_60C4(a2, &qword_78100, &unk_5EFD0);
+    *a2 = v10;
+    swift_storeEnumTagMultiPayload();
+    return (*(v12 + 56))(a2, 0, 1, v11);
+  }
+
+  return result;
+}
+
 uint64_t sub_F108(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = off_709D0(v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_709D0(v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v12 = *(*(v11 - 8) + 64);
-  off_709D0(v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = off_709D0(v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_709D0(v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78220, &qword_5F8B8);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = off_709D0(v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_709D0(v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  sub_A024(a1, v14, &qword_78100, &unk_5EFD0);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = off_709D0(v5);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_709D0(v7);
+  v40 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  v14 = *(v13 - 8);
+  v15 = off_709D0(v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_709D0(v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78220, &qword_5F8B8);
+  v21 = off_709D0(v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_709D0(v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  sub_A024(a1, v12, &qword_78100, &unk_5EFD0);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    sub_60C4(v14, &qword_78100, &unk_5EFD0);
-    v33 = v48;
-    v34 = v15;
+    sub_60C4(v12, &qword_78100, &unk_5EFD0);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    sub_C518(v14, v22, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-    sub_C518(v22, v20, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-    v34 = v15;
+    sub_C518(v12, v19, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+    sub_C518(v19, v17, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload() == 4)
     {
-      sub_60C4(v28, &qword_78220, &qword_5F8B8);
-      v35 = v44;
-      sub_C518(v20, v44, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
-      sub_C518(v35, v28, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      sub_60C4(v24, &qword_78220, &qword_5F8B8);
+      v31 = v40;
+      sub_C518(v17, v40, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
+      sub_C518(v31, v24, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
 
     else
     {
-      sub_BF1C(v20, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-      v33 = v48;
+      sub_BF1C(v17, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+      v29 = v44;
     }
   }
 
-  v36 = v46;
-  sub_153A8(&qword_78168, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
-  v37 = v47;
+  v32 = v42;
+  sub_153A8(&qword_78168, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_ArrayValue);
+  v33 = v43;
   sub_5BEB4();
-  if (v37)
+  if (v33)
   {
-    return sub_60C4(v28, &qword_78220, &qword_5F8B8);
+    return sub_60C4(v24, &qword_78220, &qword_5F8B8);
   }
 
-  sub_A024(v28, v36, &qword_78220, &qword_5F8B8);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  sub_A024(v24, v32, &qword_78220, &qword_5F8B8);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    sub_60C4(v28, &qword_78220, &qword_5F8B8);
-    return sub_60C4(v36, &qword_78220, &qword_5F8B8);
+    sub_60C4(v24, &qword_78220, &qword_5F8B8);
+    return sub_60C4(v32, &qword_78220, &qword_5F8B8);
   }
 
   else
   {
-    v39 = v43;
-    sub_C518(v36, v43, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
-    if (v32 != 1)
+    v35 = v39;
+    sub_C518(v32, v39, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
+    if (v28 != 1)
     {
       sub_5BD74();
     }
 
-    sub_60C4(v28, &qword_78220, &qword_5F8B8);
-    v40 = v42;
-    sub_60C4(v42, &qword_78100, &unk_5EFD0);
-    sub_C518(v39, v40, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
+    sub_60C4(v24, &qword_78220, &qword_5F8B8);
+    v36 = v38;
+    sub_60C4(v38, &qword_78100, &unk_5EFD0);
+    sub_C518(v35, v36, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }
 
 uint64_t sub_F6C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = off_709D0(v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_709D0(v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v12 = *(*(v11 - 8) + 64);
-  off_709D0(v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = off_709D0(v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_709D0(v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78228, &qword_5F8C0);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = off_709D0(v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_709D0(v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  sub_A024(a1, v14, &qword_78100, &unk_5EFD0);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = off_709D0(v5);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_709D0(v7);
+  v40 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  v14 = *(v13 - 8);
+  v15 = off_709D0(v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_709D0(v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78228, &qword_5F8C0);
+  v21 = off_709D0(v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_709D0(v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  sub_A024(a1, v12, &qword_78100, &unk_5EFD0);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    sub_60C4(v14, &qword_78100, &unk_5EFD0);
-    v33 = v48;
-    v34 = v15;
+    sub_60C4(v12, &qword_78100, &unk_5EFD0);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    sub_C518(v14, v22, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-    sub_C518(v22, v20, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-    v34 = v15;
+    sub_C518(v12, v19, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+    sub_C518(v19, v17, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload() == 5)
     {
-      sub_60C4(v28, &qword_78228, &qword_5F8C0);
-      v35 = v44;
-      sub_C518(v20, v44, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
-      sub_C518(v35, v28, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      sub_60C4(v24, &qword_78228, &qword_5F8C0);
+      v31 = v40;
+      sub_C518(v17, v40, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
+      sub_C518(v31, v24, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
 
     else
     {
-      sub_BF1C(v20, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-      v33 = v48;
+      sub_BF1C(v17, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+      v29 = v44;
     }
   }
 
-  v36 = v46;
-  sub_153A8(&qword_78180, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
-  v37 = v47;
+  v32 = v42;
+  sub_153A8(&qword_78180, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_KeyValueList);
+  v33 = v43;
   sub_5BEB4();
-  if (v37)
+  if (v33)
   {
-    return sub_60C4(v28, &qword_78228, &qword_5F8C0);
+    return sub_60C4(v24, &qword_78228, &qword_5F8C0);
   }
 
-  sub_A024(v28, v36, &qword_78228, &qword_5F8C0);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  sub_A024(v24, v32, &qword_78228, &qword_5F8C0);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    sub_60C4(v28, &qword_78228, &qword_5F8C0);
-    return sub_60C4(v36, &qword_78228, &qword_5F8C0);
+    sub_60C4(v24, &qword_78228, &qword_5F8C0);
+    return sub_60C4(v32, &qword_78228, &qword_5F8C0);
   }
 
   else
   {
-    v39 = v43;
-    sub_C518(v36, v43, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
-    if (v32 != 1)
+    v35 = v39;
+    sub_C518(v32, v39, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
+    if (v28 != 1)
     {
       sub_5BD74();
     }
 
-    sub_60C4(v28, &qword_78228, &qword_5F8C0);
-    v40 = v42;
-    sub_60C4(v42, &qword_78100, &unk_5EFD0);
-    sub_C518(v39, v40, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
+    sub_60C4(v24, &qword_78228, &qword_5F8C0);
+    v36 = v38;
+    sub_60C4(v38, &qword_78100, &unk_5EFD0);
+    sub_C518(v35, v36, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }
 
-uint64_t sub_FC80(uint64_t a1, __int128 *a2)
+uint64_t sub_FC80(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v5 = *(*(v4 - 8) + 64);
-  off_709D0(v4 - 8);
-  v7 = &v14 - v6;
-  v16 = xmmword_5EFB0;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v6 - 8);
+  v8 = &v15 - v7;
+  v17 = xmmword_5EFB0;
   sub_5BDB4();
-  v8 = v16;
-  if (v2 || *(&v16 + 1) >> 60 == 15)
+  v9 = v17;
+  if (v4 || *(&v17 + 1) >> 60 == 15)
   {
-    return sub_16578(v16, *(&v16 + 1));
+    return sub_16578(v17, *(&v17 + 1));
   }
 
-  sub_A024(a2, v7, &qword_78100, &unk_5EFD0);
-  v9 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  v15 = *(v9 - 8);
-  v10 = *(v15 + 48);
-  v17 = v9;
-  v11 = v10(v7, 1);
-  sub_D038(v8, *(&v8 + 1));
-  sub_60C4(v7, &qword_78100, &unk_5EFD0);
-  if (v11 != 1)
+  sub_A024(a2, v8, &qword_78100, &unk_5EFD0);
+  v10 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  v16 = *(v10 - 8);
+  v11 = *(v16 + 48);
+  v18 = v10;
+  v12 = v11(v8, 1);
+  sub_D038(v9, *(&v9 + 1));
+  sub_60C4(v8, &qword_78100, &unk_5EFD0);
+  if (v12 != 1)
   {
     sub_5BD74();
   }
 
-  sub_16578(v8, *(&v8 + 1));
+  sub_16578(v9, *(&v9 + 1));
   sub_60C4(a2, &qword_78100, &unk_5EFD0);
-  *a2 = v8;
-  v13 = v17;
+  *a2 = v9;
+  v14 = v18;
   swift_storeEnumTagMultiPayload();
-  return (*(v15 + 56))(a2, 0, 1, v13);
+  return (*(v16 + 56))(a2, 0, 1, v14);
 }
 
 uint64_t Opentelemetry_Proto_Common_V1_AnyValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v9 = *(*(v8 - 8) + 64);
   off_709D0(v8 - 8);
-  v11 = &v16 - v10;
-  sub_A024(v3, &v16 - v10, &qword_78100, &unk_5EFD0);
-  v12 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  if ((*(*(v12 - 8) + 48))(v11, 1, v12) != 1)
+  v10 = &v14 - v9;
+  sub_A024(v3, &v14 - v9, &qword_78100, &unk_5EFD0);
+  v11 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  if ((*(*(v11 - 8) + 48))(v10, 1, v11) != 1)
   {
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
     if (EnumCaseMultiPayload <= 2)
@@ -6536,7 +6233,7 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.traverse<A>(visitor:)(uint64_t a
       {
         if (EnumCaseMultiPayload == 1)
         {
-          result = sub_10294(v3);
+          result = sub_10294(v3, a1, a2, a3);
           if (v4)
           {
             return result;
@@ -6545,7 +6242,7 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.traverse<A>(visitor:)(uint64_t a
 
         else
         {
-          result = sub_103F8(v3);
+          result = sub_103F8(v3, a1, a2, a3);
           if (v4)
           {
             return result;
@@ -6555,8 +6252,8 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.traverse<A>(visitor:)(uint64_t a
 
       else
       {
-        sub_BF1C(v11, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-        result = sub_10120(v3);
+        sub_BF1C(v10, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+        result = sub_10120(v3, a1, a2, a3);
         if (v4)
         {
           return result;
@@ -6570,8 +6267,8 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.traverse<A>(visitor:)(uint64_t a
     {
       if (EnumCaseMultiPayload != 5)
       {
-        sub_BF1C(v11, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-        result = sub_10B30(v3);
+        sub_BF1C(v10, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+        result = sub_10B30(v3, a1, a2, a3);
         if (v4)
         {
           return result;
@@ -6587,7 +6284,7 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.traverse<A>(visitor:)(uint64_t a
     {
       if (EnumCaseMultiPayload == 3)
       {
-        result = sub_1055C(v3);
+        result = sub_1055C(v3, a1, a2, a3);
         if (v4)
         {
           return result;
@@ -6599,7 +6296,7 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.traverse<A>(visitor:)(uint64_t a
       sub_106C0(v3, a1, a2, a3);
     }
 
-    result = sub_BF1C(v11, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+    result = sub_BF1C(v10, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
     if (v4)
     {
       return result;
@@ -6607,273 +6304,244 @@ uint64_t Opentelemetry_Proto_Common_V1_AnyValue.traverse<A>(visitor:)(uint64_t a
   }
 
 LABEL_21:
-  v15 = v3 + *(type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0) + 20);
+  type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
   return sub_5BCC4();
 }
 
-uint64_t sub_10120(uint64_t a1)
+uint64_t sub_10120(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v3 = *(*(v2 - 8) + 64);
-  off_709D0(v2 - 8);
-  v5 = (&v10 - v4);
-  sub_A024(a1, &v10 - v4, &qword_78100, &unk_5EFD0);
-  v6 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  if ((*(*(v6 - 8) + 48))(v5, 1, v6) == 1)
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v5 - 8);
+  v7 = &v10 - v6;
+  sub_A024(a1, &v10 - v6, &qword_78100, &unk_5EFD0);
+  v8 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  if ((*(*(v8 - 8) + 48))(v7, 1, v8) == 1)
   {
-    sub_60C4(v5, &qword_78100, &unk_5EFD0);
+    sub_60C4(v7, &qword_78100, &unk_5EFD0);
     __break(1u);
   }
 
   else if (!swift_getEnumCaseMultiPayload())
   {
-    v7 = *v5;
-    v8 = v5[1];
     sub_5BFB4();
   }
 
-  result = sub_BF1C(v5, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+  result = sub_BF1C(v7, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
   __break(1u);
   return result;
 }
 
-uint64_t sub_10294(uint64_t a1)
+uint64_t sub_10294(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v3 = *(*(v2 - 8) + 64);
-  off_709D0(v2 - 8);
-  v5 = &v9 - v4;
-  sub_A024(a1, &v9 - v4, &qword_78100, &unk_5EFD0);
-  v6 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  if ((*(*(v6 - 8) + 48))(v5, 1, v6) == 1)
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v5 - 8);
+  v7 = &v10 - v6;
+  sub_A024(a1, &v10 - v6, &qword_78100, &unk_5EFD0);
+  v8 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  if ((*(*(v8 - 8) + 48))(v7, 1, v8) == 1)
   {
-    sub_60C4(v5, &qword_78100, &unk_5EFD0);
+    sub_60C4(v7, &qword_78100, &unk_5EFD0);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v7 = *v5;
     return sub_5BF44();
   }
 
-  result = sub_BF1C(v5, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+  result = sub_BF1C(v7, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
   __break(1u);
   return result;
 }
 
-uint64_t sub_103F8(uint64_t a1)
+uint64_t sub_103F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v3 = *(*(v2 - 8) + 64);
-  off_709D0(v2 - 8);
-  v5 = (&v9 - v4);
-  sub_A024(a1, &v9 - v4, &qword_78100, &unk_5EFD0);
-  v6 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  if ((*(*(v6 - 8) + 48))(v5, 1, v6) == 1)
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v5 - 8);
+  v7 = &v10 - v6;
+  sub_A024(a1, &v10 - v6, &qword_78100, &unk_5EFD0);
+  v8 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  if ((*(*(v8 - 8) + 48))(v7, 1, v8) == 1)
   {
-    sub_60C4(v5, &qword_78100, &unk_5EFD0);
+    sub_60C4(v7, &qword_78100, &unk_5EFD0);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 2)
   {
-    v7 = *v5;
     return sub_5BF84();
   }
 
-  result = sub_BF1C(v5, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+  result = sub_BF1C(v7, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
   __break(1u);
   return result;
 }
 
-uint64_t sub_1055C(uint64_t a1)
+uint64_t sub_1055C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v3 = *(*(v2 - 8) + 64);
-  off_709D0(v2 - 8);
-  v5 = (&v9 - v4);
-  sub_A024(a1, &v9 - v4, &qword_78100, &unk_5EFD0);
-  v6 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  if ((*(*(v6 - 8) + 48))(v5, 1, v6) == 1)
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v5 - 8);
+  v7 = &v10 - v6;
+  sub_A024(a1, &v10 - v6, &qword_78100, &unk_5EFD0);
+  v8 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  if ((*(*(v8 - 8) + 48))(v7, 1, v8) == 1)
   {
-    sub_60C4(v5, &qword_78100, &unk_5EFD0);
+    sub_60C4(v7, &qword_78100, &unk_5EFD0);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 3)
   {
-    v7 = *v5;
     return sub_5BF94();
   }
 
-  result = sub_BF1C(v5, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+  result = sub_BF1C(v7, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
   __break(1u);
   return result;
 }
 
 uint64_t sub_106C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v6 = *(*(v5 - 8) + 64);
   off_709D0(v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue(0);
-  v10 = *(*(v9 - 8) + 64);
-  off_709D0(v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_A024(a1, v8, &qword_78100, &unk_5EFD0);
-  v13 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue(0);
+  off_709D0(v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_A024(a1, v7, &qword_78100, &unk_5EFD0);
+  v11 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    sub_60C4(v8, &qword_78100, &unk_5EFD0);
+    sub_60C4(v7, &qword_78100, &unk_5EFD0);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 4)
   {
-    sub_C518(v8, v12, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
-    sub_153A8(&qword_78168, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
+    sub_C518(v7, v10, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
+    sub_153A8(&qword_78168, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_ArrayValue);
     sub_5C004();
-    return sub_BF1C(v12, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
+    return sub_BF1C(v10, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
   }
 
-  result = sub_BF1C(v8, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+  result = sub_BF1C(v7, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
   __break(1u);
   return result;
 }
 
 uint64_t sub_108F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v6 = *(*(v5 - 8) + 64);
   off_709D0(v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList(0);
-  v10 = *(*(v9 - 8) + 64);
-  off_709D0(v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_A024(a1, v8, &qword_78100, &unk_5EFD0);
-  v13 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList(0);
+  off_709D0(v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_A024(a1, v7, &qword_78100, &unk_5EFD0);
+  v11 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    sub_60C4(v8, &qword_78100, &unk_5EFD0);
+    sub_60C4(v7, &qword_78100, &unk_5EFD0);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 5)
   {
-    sub_C518(v8, v12, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
-    sub_153A8(&qword_78180, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
+    sub_C518(v7, v10, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
+    sub_153A8(&qword_78180, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_KeyValueList);
     sub_5C004();
-    return sub_BF1C(v12, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
+    return sub_BF1C(v10, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
   }
 
-  result = sub_BF1C(v8, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+  result = sub_BF1C(v7, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
   __break(1u);
   return result;
 }
 
-uint64_t sub_10B30(uint64_t a1)
+uint64_t sub_10B30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v3 = *(*(v2 - 8) + 64);
-  off_709D0(v2 - 8);
-  v5 = (&v10 - v4);
-  sub_A024(a1, &v10 - v4, &qword_78100, &unk_5EFD0);
-  v6 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  if ((*(*(v6 - 8) + 48))(v5, 1, v6) == 1)
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v5 - 8);
+  v7 = (&v12 - v6);
+  sub_A024(a1, &v12 - v6, &qword_78100, &unk_5EFD0);
+  v8 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  if ((*(*(v8 - 8) + 48))(v7, 1, v8) == 1)
   {
-    sub_60C4(v5, &qword_78100, &unk_5EFD0);
+    sub_60C4(v7, &qword_78100, &unk_5EFD0);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 6)
   {
-    v8 = *v5;
-    v7 = v5[1];
+    v10 = *v7;
+    v9 = v7[1];
     sub_5BF74();
-    return sub_D08C(v8, v7);
+    return sub_D08C(v10, v9);
   }
 
-  result = sub_BF1C(v5, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+  result = sub_BF1C(v7, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
   __break(1u);
   return result;
 }
 
-uint64_t sub_10CFC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_10CFC@<X0>(uint64_t a1@<X8>)
 {
-  v4 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  (*(*(v4 - 8) + 56))(a2, 1, 1, v4);
-  v5 = a2 + *(a1 + 20);
+  v2 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  (*(*(v2 - 8) + 56))(a1, 1, 1, v2);
   return sub_5BCD4();
-}
-
-uint64_t (*sub_10D94(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_1;
-  v4 = v2 + *(a2 + 20);
-  return result;
 }
 
 uint64_t sub_10DEC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_153A8(&qword_781F8, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+  v4 = sub_153A8(&qword_781F8, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_AnyValue);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
 uint64_t sub_10E90(uint64_t a1)
 {
-  v2 = sub_153A8(&qword_78120, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+  v2 = sub_153A8(&qword_78120, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_AnyValue);
 
   return Message.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_10F00()
+uint64_t sub_10F00(uint64_t a1, uint64_t a2)
 {
-  sub_153A8(&qword_78120, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+  sub_153A8(&qword_78120, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_AnyValue);
 
   return sub_5BF14();
 }
 
-uint64_t Opentelemetry_Proto_Common_V1_ArrayValue.traverse<A>(visitor:)()
+uint64_t Opentelemetry_Proto_Common_V1_ArrayValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*(*v0 + 16) || (type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0), sub_153A8(&qword_78120, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue), result = sub_5BFD4(), !v1))
+  if (!*(*v3 + 16) || (type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0), sub_153A8(&qword_78120, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_AnyValue), result = sub_5BFD4(), !v4))
   {
-    v3 = v0 + *(type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue(0) + 20);
+    type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue(0);
     return sub_5BCC4();
   }
 
   return result;
 }
 
-uint64_t sub_11188@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  *a2 = &_swiftEmptyArrayStorage;
-  v2 = a2 + *(a1 + 20);
-  return sub_5BCD4();
-}
-
 uint64_t sub_11200(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_153A8(&qword_781F0, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
+  v4 = sub_153A8(&qword_781F0, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_ArrayValue);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
 uint64_t sub_112A0(uint64_t a1)
 {
-  v2 = sub_153A8(&qword_78168, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
+  v2 = sub_153A8(&qword_78168, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_ArrayValue);
 
   return Message.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_1130C()
+uint64_t sub_1130C(uint64_t a1, uint64_t a2)
 {
-  sub_153A8(&qword_78168, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
+  sub_153A8(&qword_78168, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_ArrayValue);
 
   return sub_5BF14();
 }
@@ -6885,27 +6553,26 @@ uint64_t sub_113D4(uint64_t a1, uint64_t *a2)
   __swift_project_value_buffer(v3, a2);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78200, &unk_61A10);
   v4 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78208, &qword_5F8A0) - 8);
-  v5 = *(*v4 + 72);
-  v6 = (*(*v4 + 80) + 32) & ~*(*v4 + 80);
-  v7 = swift_allocObject();
-  *(v7 + 16) = xmmword_5EBD0;
-  v8 = v7 + v6 + v4[14];
-  *(v7 + v6) = 1;
-  *v8 = "values";
-  *(v8 + 8) = 6;
-  *(v8 + 16) = 2;
-  v9 = enum case for _NameMap.NameDescription.same(_:);
-  v10 = sub_5C024();
-  (*(*(v10 - 8) + 104))(v8, v9, v10);
+  v5 = (*(*v4 + 80) + 32) & ~*(*v4 + 80);
+  v6 = swift_allocObject();
+  *(v6 + 16) = xmmword_5EBD0;
+  v7 = v6 + v5 + v4[14];
+  *(v6 + v5) = 1;
+  *v7 = "values";
+  *(v7 + 8) = 6;
+  *(v7 + 16) = 2;
+  v8 = enum case for _NameMap.NameDescription.same(_:);
+  v9 = sub_5C024();
+  (*(*(v9 - 8) + 104))(v7, v8, v9);
   return sub_5C034();
 }
 
-uint64_t sub_115E0(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void), unint64_t *a5, void (*a6)(uint64_t))
+uint64_t sub_115E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), unint64_t *a5, uint64_t (*a6)(uint64_t), uint64_t a7)
 {
   while (1)
   {
     result = sub_5BD64();
-    if (v6 || (v11 & 1) != 0)
+    if (v7 || (v12 & 1) != 0)
     {
       break;
     }
@@ -6913,7 +6580,7 @@ uint64_t sub_115E0(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void), unin
     if (result == 1)
     {
       a4(0);
-      sub_153A8(a5, a6);
+      sub_153A8(a5, a6, a7);
       sub_5BE84();
     }
   }
@@ -6921,11 +6588,11 @@ uint64_t sub_115E0(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void), unin
   return result;
 }
 
-uint64_t Opentelemetry_Proto_Common_V1_KeyValueList.traverse<A>(visitor:)()
+uint64_t Opentelemetry_Proto_Common_V1_KeyValueList.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*(*v0 + 16) || (type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0), sub_153A8(&qword_78130, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue), result = sub_5BFD4(), !v1))
+  if (!*(*v3 + 16) || (type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0), sub_153A8(&qword_78130, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_KeyValue), result = sub_5BFD4(), !v4))
   {
-    v3 = v0 + *(type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList(0) + 20);
+    type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList(0);
     return sub_5BCC4();
   }
 
@@ -6934,35 +6601,34 @@ uint64_t Opentelemetry_Proto_Common_V1_KeyValueList.traverse<A>(visitor:)()
 
 uint64_t sub_11834(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_153A8(&qword_781E8, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
+  v4 = sub_153A8(&qword_781E8, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_KeyValueList);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
 uint64_t sub_118D4(uint64_t a1)
 {
-  v2 = sub_153A8(&qword_78180, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
+  v2 = sub_153A8(&qword_78180, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_KeyValueList);
 
   return Message.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_11940()
+uint64_t sub_11940(uint64_t a1, uint64_t a2)
 {
-  sub_153A8(&qword_78180, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
+  sub_153A8(&qword_78180, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_KeyValueList);
 
   return sub_5BF14();
 }
 
 uint64_t sub_119D4(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void, void))
 {
-  if ((a5(*a1, *a2) & 1) == 0)
+  if (((a5)(*a1, *a2, a3, a4) & 1) == 0)
   {
     return 0;
   }
 
-  v6 = *(a3 + 20);
   sub_5BCE4();
-  sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage);
+  sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
   return sub_5C114() & 1;
 }
 
@@ -6996,12 +6662,12 @@ uint64_t sub_11AA8()
   return sub_5C034();
 }
 
-uint64_t Opentelemetry_Proto_Common_V1_KeyValue.decodeMessage<A>(decoder:)()
+uint64_t Opentelemetry_Proto_Common_V1_KeyValue.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = sub_5BD64();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 1)
       {
@@ -7010,9 +6676,9 @@ uint64_t Opentelemetry_Proto_Common_V1_KeyValue.decodeMessage<A>(decoder:)()
 
       else if (result == 2)
       {
-        v3 = *(type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0) + 24);
+        type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
         type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
-        sub_153A8(&qword_78120, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+        sub_153A8(&qword_78120, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_AnyValue);
         sub_5BEB4();
       }
 
@@ -7025,20 +6691,19 @@ uint64_t Opentelemetry_Proto_Common_V1_KeyValue.decodeMessage<A>(decoder:)()
 
 uint64_t Opentelemetry_Proto_Common_V1_KeyValue.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *v3;
-  v9 = v3[1];
-  v10 = HIBYTE(v9) & 0xF;
-  if ((v9 & 0x2000000000000000) == 0)
+  v8 = v3[1];
+  v9 = HIBYTE(v8) & 0xF;
+  if ((v8 & 0x2000000000000000) == 0)
   {
-    v10 = *v3 & 0xFFFFFFFFFFFFLL;
+    v9 = *v3 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v10 || (result = sub_5BFB4(), !v4))
+  if (!v9 || (result = sub_5BFB4(), !v4))
   {
     result = sub_11E6C(v3, a1, a2, a3);
     if (!v4)
     {
-      v12 = v3 + *(type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0) + 20);
+      type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
       return sub_5BCC4();
     }
   }
@@ -7048,41 +6713,38 @@ uint64_t Opentelemetry_Proto_Common_V1_KeyValue.traverse<A>(visitor:)(uint64_t a
 
 uint64_t sub_11E6C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78110, &qword_61E70);
-  v6 = *(*(v5 - 8) + 64);
   off_709D0(v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  off_709D0(v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
-  sub_A024(a1 + *(v14 + 24), v8, &qword_78110, &qword_61E70);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
+  v9 = *(v8 - 8);
+  off_709D0(v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
+  sub_A024(a1 + *(v12 + 24), v7, &qword_78110, &qword_61E70);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_60C4(v8, &qword_78110, &qword_61E70);
+    return sub_60C4(v7, &qword_78110, &qword_61E70);
   }
 
-  sub_C518(v8, v13, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-  sub_153A8(&qword_78120, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+  sub_C518(v7, v11, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+  sub_153A8(&qword_78120, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_AnyValue);
   sub_5C004();
-  return sub_BF1C(v13, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+  return sub_BF1C(v11, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
 }
 
 uint64_t sub_120D4@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 1) = 0xE000000000000000;
-  v4 = &a2[*(a1 + 20)];
   sub_5BCD4();
-  v5 = *(a1 + 24);
-  v6 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
-  v7 = *(*(v6 - 8) + 56);
+  v4 = *(a1 + 24);
+  v5 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
+  v6 = *(*(v5 - 8) + 56);
 
-  return v7(&a2[v5], 1, 1, v6);
+  return v6(&a2[v4], 1, 1, v5);
 }
 
 uint64_t sub_12178@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -7105,21 +6767,21 @@ uint64_t sub_121EC(uint64_t a1, uint64_t a2)
 
 uint64_t sub_12290(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_153A8(&qword_781E0, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
+  v4 = sub_153A8(&qword_781E0, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_KeyValue);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
 uint64_t sub_12330(uint64_t a1)
 {
-  v2 = sub_153A8(&qword_78130, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
+  v2 = sub_153A8(&qword_78130, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_KeyValue);
 
   return Message.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_1239C()
+uint64_t sub_1239C(uint64_t a1, uint64_t a2)
 {
-  sub_153A8(&qword_78130, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
+  sub_153A8(&qword_78130, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_KeyValue);
 
   return sub_5BF14();
 }
@@ -7168,45 +6830,45 @@ uint64_t sub_12444()
   return sub_5C034();
 }
 
-uint64_t sub_126B8(void *a1, uint64_t a2)
+uint64_t sub_126B8(void *a1, uint64_t a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v3 = sub_5C044();
+  v4 = sub_5C044();
 
-  return __swift_project_value_buffer(v3, a2);
+  return __swift_project_value_buffer(v4, a2);
 }
 
-uint64_t sub_12730@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_12730@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_5C044();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = sub_5C044();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
-uint64_t Opentelemetry_Proto_Common_V1_InstrumentationScope.decodeMessage<A>(decoder:)()
+uint64_t Opentelemetry_Proto_Common_V1_InstrumentationScope.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = sub_5BD64();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result > 2)
       {
         if (result == 3)
         {
           type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
-          sub_153A8(&qword_78130, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
+          sub_153A8(&qword_78130, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_KeyValue);
           sub_5BE84();
         }
 
@@ -7228,52 +6890,51 @@ uint64_t Opentelemetry_Proto_Common_V1_InstrumentationScope.decodeMessage<A>(dec
   return result;
 }
 
-uint64_t Opentelemetry_Proto_Common_V1_InstrumentationScope.traverse<A>(visitor:)()
+uint64_t Opentelemetry_Proto_Common_V1_InstrumentationScope.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = HIBYTE(v3) & 0xF;
-  if ((v3 & 0x2000000000000000) == 0)
+  v5 = *(v3 + 8);
+  v6 = HIBYTE(v5) & 0xF;
+  if ((v5 & 0x2000000000000000) == 0)
   {
-    v4 = *v0 & 0xFFFFFFFFFFFFLL;
+    v6 = *v3 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v4 || (result = sub_5BFB4(), !v1))
+  if (!v6 || (result = sub_5BFB4(), !v4))
   {
-    v6 = v0[3];
-    v7 = HIBYTE(v6) & 0xF;
-    if ((v6 & 0x2000000000000000) == 0)
+    v8 = *(v3 + 24);
+    v9 = HIBYTE(v8) & 0xF;
+    if ((v8 & 0x2000000000000000) == 0)
     {
-      v7 = v0[2] & 0xFFFFFFFFFFFFLL;
+      v9 = *(v3 + 16) & 0xFFFFFFFFFFFFLL;
     }
 
-    if (!v7 || (result = sub_5BFB4(), !v1))
+    if (!v9 || (result = sub_5BFB4(), !v4))
     {
-      if (*(v0[4] + 16))
+      if (*(*(v3 + 32) + 16))
       {
         type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
-        sub_153A8(&qword_78130, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
+        sub_153A8(&qword_78130, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_KeyValue);
         result = sub_5BFD4();
-        if (v1)
+        if (v4)
         {
           return result;
         }
 
-        if (!*(v0 + 10))
+        if (!*(v3 + 40))
         {
           goto LABEL_15;
         }
       }
 
-      else if (!*(v0 + 10))
+      else if (!*(v3 + 40))
       {
 LABEL_15:
-        v8 = v0 + *(type metadata accessor for Opentelemetry_Proto_Common_V1_InstrumentationScope(0) + 32);
+        type metadata accessor for Opentelemetry_Proto_Common_V1_InstrumentationScope(0);
         return sub_5BCC4();
       }
 
       result = sub_5BFC4();
-      if (v1)
+      if (v4)
       {
         return result;
       }
@@ -7285,24 +6946,23 @@ LABEL_15:
   return result;
 }
 
-Swift::Int sub_12ABC(void (*a1)(void), unint64_t *a2, void (*a3)(uint64_t))
+Swift::Int sub_12ABC(uint64_t (*a1)(void), unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   sub_5C454();
   a1(0);
-  sub_153A8(a2, a3);
+  sub_153A8(a2, a3, a4);
   sub_5C104();
   return sub_5C474();
 }
 
-uint64_t sub_12B44@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_12B44@<X0>(uint64_t a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 8) = 0xE000000000000000;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0xE000000000000000;
-  *(a2 + 32) = &_swiftEmptyArrayStorage;
+  *(a2 + 32) = _swiftEmptyArrayStorage;
   *(a2 + 40) = 0;
-  v2 = a2 + *(a1 + 32);
   return sub_5BCD4();
 }
 
@@ -7324,56 +6984,49 @@ uint64_t sub_12C10(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_12C84(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_1;
-  v4 = v2 + *(a2 + 32);
-  return result;
-}
-
 uint64_t sub_12CD8(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_153A8(&qword_781D8, type metadata accessor for Opentelemetry_Proto_Common_V1_InstrumentationScope);
+  v4 = sub_153A8(&qword_781D8, type metadata accessor for Opentelemetry_Proto_Common_V1_InstrumentationScope, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_InstrumentationScope);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
-uint64_t sub_12D78@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+uint64_t sub_12D78@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_5C044();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = sub_5C044();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
 uint64_t sub_12E14(uint64_t a1)
 {
-  v2 = sub_153A8(&qword_781A8, type metadata accessor for Opentelemetry_Proto_Common_V1_InstrumentationScope);
+  v2 = sub_153A8(&qword_781A8, type metadata accessor for Opentelemetry_Proto_Common_V1_InstrumentationScope, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_InstrumentationScope);
 
   return Message.debugDescription.getter(a1, v2);
 }
 
-Swift::Int sub_12E80()
+Swift::Int sub_12E80(uint64_t a1, uint64_t a2)
 {
   sub_5C454();
   sub_5C104();
   return sub_5C474();
 }
 
-uint64_t sub_12ED8()
+uint64_t sub_12ED8(uint64_t a1, uint64_t a2)
 {
-  sub_153A8(&qword_781A8, type metadata accessor for Opentelemetry_Proto_Common_V1_InstrumentationScope);
+  sub_153A8(&qword_781A8, type metadata accessor for Opentelemetry_Proto_Common_V1_InstrumentationScope, &protocol conformance descriptor for Opentelemetry_Proto_Common_V1_InstrumentationScope);
 
   return sub_5BF14();
 }
 
-Swift::Int sub_12F54()
+Swift::Int sub_12F54(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_5C454();
   sub_5C104();
@@ -7384,203 +7037,196 @@ uint64_t sub_12FAC(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  (off_709D0)();
-  v8 = &v59 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (off_709D0)();
-  v11 = &v59 - v10;
-  v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78218, &qword_5F8B0);
-  v12 = (*(*(v67 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (off_709D0)();
-  v14 = &v59 - v13;
-  v71 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
-  v75 = *(v71 - 8);
-  v15 = *(v75 + 64);
-  (off_709D0)();
-  v73 = &v59 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_78110, &qword_61E70) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (off_709D0)();
-  v19 = &v59 - v18;
-  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78210, &qword_5F8A8);
-  v20 = (*(*(v74 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (off_709D0)();
-  v72 = &v59 - v21;
-  v76 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
-  v22 = *(*(v76 - 8) + 64);
-  v23 = (off_709D0)();
-  v25 = (&v59 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0));
-  off_709D0(v23);
-  v28 = (&v59 - v27);
-  v29 = *(a1 + 16);
-  if (v29 != *(a2 + 16))
+  off_709D0(v4);
+  v7 = &v52 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v8 - 8);
+  v10 = &v52 - v9;
+  v60 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78218, &qword_5F8B0);
+  off_709D0(v60);
+  v12 = &v52 - v11;
+  v64 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
+  v68 = *(v64 - 8);
+  off_709D0(v64);
+  v66 = &v52 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78110, &qword_61E70);
+  off_709D0(v14 - 8);
+  v16 = &v52 - v15;
+  v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78210, &qword_5F8A8);
+  off_709D0(v67);
+  v65 = &v52 - v17;
+  v69 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
+  v18 = off_709D0(v69);
+  v20 = (&v52 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
+  off_709D0(v18);
+  v23 = (&v52 - v22);
+  v24 = *(a1 + 16);
+  if (v24 != *(a2 + 16))
   {
 LABEL_31:
-    v58 = 0;
-    return v58 & 1;
+    v51 = 0;
+    return v51 & 1;
   }
 
-  if (!v29 || a1 == a2)
+  if (!v24 || a1 == a2)
   {
-    v58 = 1;
-    return v58 & 1;
+    v51 = 1;
+    return v51 & 1;
   }
 
-  v30 = *(a1 + 16);
-  v60 = v8;
-  v61 = v11;
-  v65 = v4;
-  v31 = (*(v26 + 80) + 32) & ~*(v26 + 80);
-  v32 = a1 + v31;
-  v33 = a2 + v31;
-  v68 = (v75 + 48);
-  v69 = &v59 - v27;
-  v63 = v14;
-  v64 = (v5 + 48);
-  v66 = *(v26 + 72);
-  v34 = v71;
-  v35 = v72;
-  v36 = v30;
-  v62 = v19;
-  v70 = v25;
+  v25 = *(a1 + 16);
+  v53 = v7;
+  v54 = v10;
+  v58 = v4;
+  v26 = (*(v21 + 80) + 32) & ~*(v21 + 80);
+  v27 = a1 + v26;
+  v28 = a2 + v26;
+  v61 = (v68 + 48);
+  v62 = &v52 - v22;
+  v56 = v12;
+  v57 = (v5 + 48);
+  v59 = *(v21 + 72);
+  v29 = v64;
+  v30 = v65;
+  v31 = v25;
+  v55 = v16;
+  v63 = v20;
   while (1)
   {
-    result = sub_C944(v32, v28, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
-    if (!v36)
+    result = sub_C944(v27, v23, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
+    if (!v31)
     {
       break;
     }
 
-    v75 = v36;
-    sub_C944(v33, v25, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
-    v38 = *v28 == *v25 && v28[1] == v25[1];
-    if (!v38 && (sub_5C3A4() & 1) == 0)
+    v68 = v31;
+    sub_C944(v28, v20, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
+    v33 = *v23 == *v20 && v23[1] == v20[1];
+    if (!v33 && (sub_5C3A4() & 1) == 0)
     {
       goto LABEL_30;
     }
 
-    v39 = *(v76 + 24);
-    v40 = *(v74 + 48);
-    sub_A024(v28 + v39, v35, &qword_78110, &qword_61E70);
-    sub_A024(v25 + v39, v35 + v40, &qword_78110, &qword_61E70);
-    v41 = *v68;
-    if ((*v68)(v35, 1, v34) == 1)
+    v34 = *(v69 + 24);
+    v35 = *(v67 + 48);
+    sub_A024(v23 + v34, v30, &qword_78110, &qword_61E70);
+    sub_A024(v20 + v34, v30 + v35, &qword_78110, &qword_61E70);
+    v36 = *v61;
+    if ((*v61)(v30, 1, v29) == 1)
     {
-      v42 = v41(v35 + v40, 1, v34);
-      v25 = v70;
-      if (v42 != 1)
+      v37 = v36(v30 + v35, 1, v29);
+      v20 = v63;
+      if (v37 != 1)
       {
         goto LABEL_26;
       }
 
-      sub_60C4(v35, &qword_78110, &qword_61E70);
-      v28 = v69;
+      sub_60C4(v30, &qword_78110, &qword_61E70);
+      v23 = v62;
     }
 
     else
     {
-      sub_A024(v35, v19, &qword_78110, &qword_61E70);
-      if (v41(v35 + v40, 1, v34) == 1)
+      sub_A024(v30, v16, &qword_78110, &qword_61E70);
+      if (v36(v30 + v35, 1, v29) == 1)
       {
-        sub_BF1C(v19, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-        v25 = v70;
+        sub_BF1C(v16, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+        v20 = v63;
 LABEL_26:
-        sub_60C4(v35, &qword_78210, &qword_5F8A8);
-        v28 = v69;
+        sub_60C4(v30, &qword_78210, &qword_5F8A8);
+        v23 = v62;
         goto LABEL_30;
       }
 
-      v43 = v73;
-      sub_C518(v35 + v40, v73, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-      v44 = *(v67 + 48);
-      v45 = v63;
-      sub_A024(v19, v63, &qword_78100, &unk_5EFD0);
-      sub_A024(v43, v45 + v44, &qword_78100, &unk_5EFD0);
-      v46 = v65;
-      v47 = *v64;
-      if ((*v64)(v45, 1, v65) == 1)
+      v38 = v66;
+      sub_C518(v30 + v35, v66, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+      v39 = *(v60 + 48);
+      v40 = v56;
+      sub_A024(v16, v56, &qword_78100, &unk_5EFD0);
+      sub_A024(v38, v40 + v39, &qword_78100, &unk_5EFD0);
+      v41 = v58;
+      v42 = *v57;
+      if ((*v57)(v40, 1, v58) == 1)
       {
-        if (v47(v45 + v44, 1, v46) != 1)
+        if (v42(v40 + v39, 1, v41) != 1)
         {
           goto LABEL_28;
         }
 
-        sub_60C4(v45, &qword_78100, &unk_5EFD0);
+        sub_60C4(v40, &qword_78100, &unk_5EFD0);
       }
 
       else
       {
-        v48 = v61;
-        sub_A024(v45, v61, &qword_78100, &unk_5EFD0);
-        if (v47(v45 + v44, 1, v46) == 1)
+        v43 = v54;
+        sub_A024(v40, v54, &qword_78100, &unk_5EFD0);
+        if (v42(v40 + v39, 1, v41) == 1)
         {
-          sub_BF1C(v48, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+          sub_BF1C(v43, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
 LABEL_28:
-          sub_60C4(v45, &qword_78218, &qword_5F8B0);
+          sub_60C4(v40, &qword_78218, &qword_5F8B0);
 LABEL_29:
-          sub_BF1C(v73, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-          sub_BF1C(v62, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-          sub_60C4(v72, &qword_78110, &qword_61E70);
-          v28 = v69;
-          v25 = v70;
+          sub_BF1C(v66, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+          sub_BF1C(v55, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+          sub_60C4(v65, &qword_78110, &qword_61E70);
+          v23 = v62;
+          v20 = v63;
 LABEL_30:
-          sub_BF1C(v25, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
-          sub_BF1C(v28, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
+          sub_BF1C(v20, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
+          sub_BF1C(v23, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
           goto LABEL_31;
         }
 
-        v49 = v60;
-        sub_C518(v45 + v44, v60, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-        v50 = _s16TelemetrySupport38Opentelemetry_Proto_Common_V1_AnyValueV06OneOf_H0O2eeoiySbAE_AEtFZ_0(v48, v49);
-        sub_BF1C(v49, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-        sub_BF1C(v48, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-        sub_60C4(v45, &qword_78100, &unk_5EFD0);
-        if ((v50 & 1) == 0)
+        v44 = v53;
+        sub_C518(v40 + v39, v53, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+        v45 = _s16TelemetrySupport38Opentelemetry_Proto_Common_V1_AnyValueV06OneOf_H0O2eeoiySbAE_AEtFZ_0(v43, v44);
+        sub_BF1C(v44, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+        sub_BF1C(v43, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+        sub_60C4(v40, &qword_78100, &unk_5EFD0);
+        if ((v45 & 1) == 0)
         {
           goto LABEL_29;
         }
       }
 
-      v51 = v71;
-      v52 = *(v71 + 20);
+      v46 = v64;
       sub_5BCE4();
-      sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage);
-      v53 = v62;
-      v54 = v73;
-      v55 = sub_5C114();
-      v56 = v54;
-      v34 = v51;
-      sub_BF1C(v56, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-      v19 = v53;
-      sub_BF1C(v53, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-      v35 = v72;
-      sub_60C4(v72, &qword_78110, &qword_61E70);
-      v28 = v69;
-      v25 = v70;
-      if ((v55 & 1) == 0)
+      sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+      v47 = v55;
+      v48 = v66;
+      v49 = sub_5C114();
+      v50 = v48;
+      v29 = v46;
+      sub_BF1C(v50, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+      v16 = v47;
+      sub_BF1C(v47, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+      v30 = v65;
+      sub_60C4(v65, &qword_78110, &qword_61E70);
+      v23 = v62;
+      v20 = v63;
+      if ((v49 & 1) == 0)
       {
         goto LABEL_30;
       }
     }
 
-    v57 = *(v76 + 20);
     sub_5BCE4();
-    sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage);
-    v58 = sub_5C114();
-    sub_BF1C(v25, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
-    sub_BF1C(v28, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
-    if (v58)
+    sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+    v51 = sub_5C114();
+    sub_BF1C(v20, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
+    sub_BF1C(v23, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue);
+    if (v51)
     {
-      v36 = v75 - 1;
-      v33 += v66;
-      v32 += v66;
-      if (v75 != 1)
+      v31 = v68 - 1;
+      v28 += v59;
+      v27 += v59;
+      if (v68 != 1)
       {
         continue;
       }
     }
 
-    return v58 & 1;
+    return v51 & 1;
   }
 
   __break(1u);
@@ -7591,130 +7237,125 @@ uint64_t sub_1386C(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   off_709D0(v4);
-  v45 = &v41 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v9 = *(*(v8 - 8) + 64);
-  off_709D0(v8 - 8);
-  v11 = &v41 - v10;
-  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78218, &qword_5F8B0);
-  v12 = *(*(v49 - 8) + 64);
-  off_709D0(v49);
-  v14 = &v41 - v13;
-  v48 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
-  v15 = *(*(v48 - 8) + 64);
-  v16 = off_709D0(v48);
-  v18 = &v41 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_709D0(v16);
-  v21 = &v41 - v20;
-  v22 = *(a1 + 16);
-  if (v22 != *(a2 + 16))
+  v40 = &v36 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v7 - 8);
+  v9 = &v36 - v8;
+  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78218, &qword_5F8B0);
+  off_709D0(v44);
+  v11 = &v36 - v10;
+  v43 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
+  v12 = off_709D0(v43);
+  v14 = &v36 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_709D0(v12);
+  v17 = &v36 - v16;
+  v18 = *(a1 + 16);
+  if (v18 != *(a2 + 16))
   {
 LABEL_19:
-    v38 = 0;
-    return v38 & 1;
+    v33 = 0;
+    return v33 & 1;
   }
 
-  if (!v22 || a1 == a2)
+  if (!v18 || a1 == a2)
   {
-    v38 = 1;
-    return v38 & 1;
+    v33 = 1;
+    return v33 & 1;
   }
 
-  v43 = &v41 - v20;
-  v44 = v11;
-  v23 = (*(v19 + 80) + 32) & ~*(v19 + 80);
-  v24 = a1 + v23;
-  v25 = a2 + v23;
-  v26 = (v5 + 48);
-  v46 = *(v19 + 72);
-  v47 = v4;
-  v27 = &qword_78100;
-  v42 = v18;
+  v38 = &v36 - v16;
+  v39 = v9;
+  v19 = (*(v15 + 80) + 32) & ~*(v15 + 80);
+  v20 = a1 + v19;
+  v21 = a2 + v19;
+  v22 = (v5 + 48);
+  v41 = *(v15 + 72);
+  v42 = v4;
+  v23 = &qword_78100;
+  v37 = v14;
   while (1)
   {
-    result = sub_C944(v24, v21, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-    if (!v22)
+    result = sub_C944(v20, v17, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+    if (!v18)
     {
       break;
     }
 
-    v50 = v22;
-    sub_C944(v25, v18, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-    v29 = *(v49 + 48);
-    sub_A024(v21, v14, v27, &unk_5EFD0);
-    sub_A024(v18, &v14[v29], v27, &unk_5EFD0);
-    v30 = *v26;
-    v31 = v27;
-    v32 = v47;
-    if ((*v26)(v14, 1, v47) == 1)
+    v45 = v18;
+    sub_C944(v21, v14, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+    v25 = *(v44 + 48);
+    sub_A024(v17, v11, v23, &unk_5EFD0);
+    sub_A024(v14, &v11[v25], v23, &unk_5EFD0);
+    v26 = *v22;
+    v27 = v23;
+    v28 = v42;
+    if ((*v22)(v11, 1, v42) == 1)
     {
-      if (v30(&v14[v29], 1, v32) != 1)
+      if (v26(&v11[v25], 1, v28) != 1)
       {
-        sub_BF1C(v18, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-        v40 = v21;
-        v39 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue;
+        sub_BF1C(v14, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+        v35 = v17;
+        v34 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue;
         goto LABEL_17;
       }
 
-      v27 = v31;
-      sub_60C4(v14, v31, &unk_5EFD0);
+      v23 = v27;
+      sub_60C4(v11, v27, &unk_5EFD0);
     }
 
     else
     {
-      v33 = v26;
-      v34 = v44;
-      sub_A024(v14, v44, v31, &unk_5EFD0);
-      if (v30(&v14[v29], 1, v32) == 1)
+      v29 = v22;
+      v30 = v39;
+      sub_A024(v11, v39, v27, &unk_5EFD0);
+      if (v26(&v11[v25], 1, v28) == 1)
       {
-        sub_BF1C(v42, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-        sub_BF1C(v43, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-        v39 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value;
-        v40 = v34;
+        sub_BF1C(v37, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+        sub_BF1C(v38, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+        v34 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value;
+        v35 = v30;
 LABEL_17:
-        sub_BF1C(v40, v39);
-        sub_60C4(v14, &qword_78218, &qword_5F8B0);
+        sub_BF1C(v35, v34);
+        sub_60C4(v11, &qword_78218, &qword_5F8B0);
         goto LABEL_19;
       }
 
-      v35 = v45;
-      sub_C518(&v14[v29], v45, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-      v36 = _s16TelemetrySupport38Opentelemetry_Proto_Common_V1_AnyValueV06OneOf_H0O2eeoiySbAE_AEtFZ_0(v34, v35);
-      sub_BF1C(v35, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-      sub_BF1C(v34, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-      sub_60C4(v14, v31, &unk_5EFD0);
-      v26 = v33;
-      v18 = v42;
-      v21 = v43;
-      v27 = v31;
-      if ((v36 & 1) == 0)
+      v31 = v40;
+      sub_C518(&v11[v25], v40, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+      v32 = _s16TelemetrySupport38Opentelemetry_Proto_Common_V1_AnyValueV06OneOf_H0O2eeoiySbAE_AEtFZ_0(v30, v31);
+      sub_BF1C(v31, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+      sub_BF1C(v30, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+      sub_60C4(v11, v27, &unk_5EFD0);
+      v22 = v29;
+      v14 = v37;
+      v17 = v38;
+      v23 = v27;
+      if ((v32 & 1) == 0)
       {
-        sub_BF1C(v42, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-        sub_BF1C(v21, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+        sub_BF1C(v37, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+        sub_BF1C(v17, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
         goto LABEL_19;
       }
     }
 
-    v37 = *(v48 + 20);
     sub_5BCE4();
-    sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage);
-    v38 = sub_5C114();
-    sub_BF1C(v18, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-    sub_BF1C(v21, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-    if (v38)
+    sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+    v33 = sub_5C114();
+    sub_BF1C(v14, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+    sub_BF1C(v17, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+    if (v33)
     {
-      v22 = v50 - 1;
-      v25 += v46;
-      v24 += v46;
-      if (v50 != 1)
+      v18 = v45 - 1;
+      v21 += v41;
+      v20 += v41;
+      if (v45 != 1)
       {
         continue;
       }
     }
 
-    return v38 & 1;
+    return v33 & 1;
   }
 
   __break(1u);
@@ -7965,7 +7606,7 @@ LABEL_9:
   return v12;
 }
 
-uint64_t sub_14268(uint64_t result, unint64_t a2, uint64_t a3, unint64_t a4)
+BOOL sub_14268(_BOOL8 result, unint64_t a2, uint64_t a3, unint64_t a4)
 {
   v4 = a2 >> 62;
   v5 = a4 >> 62;
@@ -8089,9 +7730,9 @@ uint64_t _s16TelemetrySupport50Opentelemetry_Proto_Common_V1_InstrumentationScop
     return 0;
   }
 
-  v6 = *(type metadata accessor for Opentelemetry_Proto_Common_V1_InstrumentationScope(0) + 32);
+  type metadata accessor for Opentelemetry_Proto_Common_V1_InstrumentationScope(0);
   sub_5BCE4();
-  sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage);
+  sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
   return sub_5C114() & 1;
 }
 
@@ -8099,163 +7740,152 @@ uint64_t _s16TelemetrySupport38Opentelemetry_Proto_Common_V1_KeyValueV2eeoiySbAC
 {
   v4 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   off_709D0(v4);
-  v8 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78110, &qword_61E70);
-  v10 = *(*(v9 - 8) + 64);
-  off_709D0(v9 - 8);
-  v12 = &v25 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78210, &qword_5F8A8);
-  v14 = *(*(v13 - 8) + 64);
-  off_709D0(v13);
-  v16 = &v25 - v15;
-  if ((*a1 != *a2 || a1[1] != a2[1]) && (sub_5C3A4() & 1) == 0)
+  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78110, &qword_61E70);
+  off_709D0(v8 - 8);
+  v10 = &v21 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78210, &qword_5F8A8);
+  off_709D0(v11);
+  v13 = &v21 - v12;
+  if (*a1 != *a2 && (sub_5C3A4() & 1) == 0)
   {
-    goto LABEL_10;
-  }
-
-  v25 = v8;
-  v26 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
-  v17 = *(v26 + 24);
-  v18 = *(v13 + 48);
-  sub_A024(a1 + v17, v16, &qword_78110, &qword_61E70);
-  sub_A024(a2 + v17, &v16[v18], &qword_78110, &qword_61E70);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) == 1)
-  {
-    if (v19(&v16[v18], 1, v4) == 1)
-    {
-      sub_60C4(v16, &qword_78110, &qword_61E70);
-LABEL_12:
-      v23 = *(v26 + 20);
-      sub_5BCE4();
-      sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage);
-      v20 = sub_5C114();
-      return v20 & 1;
-    }
-
     goto LABEL_9;
   }
 
-  sub_A024(v16, v12, &qword_78110, &qword_61E70);
-  if (v19(&v16[v18], 1, v4) == 1)
+  v21 = v7;
+  v22 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue(0);
+  v14 = *(v22 + 24);
+  v15 = *(v11 + 48);
+  sub_A024(a1 + v14, v13, &qword_78110, &qword_61E70);
+  sub_A024(a2 + v14, &v13[v15], &qword_78110, &qword_61E70);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) == 1)
   {
-    sub_BF1C(v12, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+    if (v16(&v13[v15], 1, v4) == 1)
+    {
+      sub_60C4(v13, &qword_78110, &qword_61E70);
+LABEL_11:
+      sub_5BCE4();
+      sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+      v17 = sub_5C114();
+      return v17 & 1;
+    }
+
+    goto LABEL_8;
+  }
+
+  sub_A024(v13, v10, &qword_78110, &qword_61E70);
+  if (v16(&v13[v15], 1, v4) == 1)
+  {
+    sub_BF1C(v10, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+LABEL_8:
+    sub_60C4(v13, &qword_78210, &qword_5F8A8);
+    goto LABEL_9;
+  }
+
+  v18 = v21;
+  sub_C518(&v13[v15], v21, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+  v19 = _s16TelemetrySupport38Opentelemetry_Proto_Common_V1_AnyValueV2eeoiySbAC_ACtFZ_0(v10, v18);
+  sub_BF1C(v18, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+  sub_BF1C(v10, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
+  sub_60C4(v13, &qword_78110, &qword_61E70);
+  if (v19)
+  {
+    goto LABEL_11;
+  }
+
 LABEL_9:
-    sub_60C4(v16, &qword_78210, &qword_5F8A8);
-    goto LABEL_10;
-  }
-
-  v21 = v25;
-  sub_C518(&v16[v18], v25, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-  v22 = _s16TelemetrySupport38Opentelemetry_Proto_Common_V1_AnyValueV2eeoiySbAC_ACtFZ_0(v12, v21);
-  sub_BF1C(v21, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-  sub_BF1C(v12, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue);
-  sub_60C4(v16, &qword_78110, &qword_61E70);
-  if (v22)
-  {
-    goto LABEL_12;
-  }
-
-LABEL_10:
-  v20 = 0;
-  return v20 & 1;
+  v17 = 0;
+  return v17 & 1;
 }
 
 uint64_t _s16TelemetrySupport38Opentelemetry_Proto_Common_V1_AnyValueV2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   off_709D0(v4);
-  v8 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
-  v10 = *(*(v9 - 8) + 64);
-  off_709D0(v9 - 8);
-  v12 = &v24 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78218, &qword_5F8B0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = off_709D0(v13 - 8);
-  v17 = &v24 - v16;
-  v18 = *(v15 + 56);
-  sub_A024(a1, &v24 - v16, &qword_78100, &unk_5EFD0);
-  sub_A024(a2, &v17[v18], &qword_78100, &unk_5EFD0);
-  v19 = *(v5 + 48);
-  if (v19(v17, 1, v4) == 1)
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78100, &unk_5EFD0);
+  off_709D0(v8 - 8);
+  v10 = &v20 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78218, &qword_5F8B0);
+  v12 = off_709D0(v11 - 8);
+  v14 = &v20 - v13;
+  v15 = *(v12 + 56);
+  sub_A024(a1, &v20 - v13, &qword_78100, &unk_5EFD0);
+  sub_A024(a2, &v14[v15], &qword_78100, &unk_5EFD0);
+  v16 = *(v5 + 48);
+  if (v16(v14, 1, v4) == 1)
   {
-    if (v19(&v17[v18], 1, v4) == 1)
+    if (v16(&v14[v15], 1, v4) == 1)
     {
-      sub_60C4(v17, &qword_78100, &unk_5EFD0);
+      sub_60C4(v14, &qword_78100, &unk_5EFD0);
 LABEL_9:
-      v22 = *(type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0) + 20);
+      type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue(0);
       sub_5BCE4();
-      sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage);
-      v20 = sub_5C114();
-      return v20 & 1;
+      sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+      v17 = sub_5C114();
+      return v17 & 1;
     }
 
     goto LABEL_6;
   }
 
-  sub_A024(v17, v12, &qword_78100, &unk_5EFD0);
-  if (v19(&v17[v18], 1, v4) == 1)
+  sub_A024(v14, v10, &qword_78100, &unk_5EFD0);
+  if (v16(&v14[v15], 1, v4) == 1)
   {
-    sub_BF1C(v12, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+    sub_BF1C(v10, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
 LABEL_6:
-    sub_60C4(v17, &qword_78218, &qword_5F8B0);
+    sub_60C4(v14, &qword_78218, &qword_5F8B0);
     goto LABEL_7;
   }
 
-  sub_C518(&v17[v18], v8, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-  v21 = _s16TelemetrySupport38Opentelemetry_Proto_Common_V1_AnyValueV06OneOf_H0O2eeoiySbAE_AEtFZ_0(v12, v8);
-  sub_BF1C(v8, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-  sub_BF1C(v12, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-  sub_60C4(v17, &qword_78100, &unk_5EFD0);
-  if (v21)
+  sub_C518(&v14[v15], v7, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+  v18 = _s16TelemetrySupport38Opentelemetry_Proto_Common_V1_AnyValueV06OneOf_H0O2eeoiySbAE_AEtFZ_0(v10, v7);
+  sub_BF1C(v7, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+  sub_BF1C(v10, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+  sub_60C4(v14, &qword_78100, &unk_5EFD0);
+  if (v18)
   {
     goto LABEL_9;
   }
 
 LABEL_7:
-  v20 = 0;
-  return v20 & 1;
+  v17 = 0;
+  return v17 & 1;
 }
 
 uint64_t _s16TelemetrySupport38Opentelemetry_Proto_Common_V1_AnyValueV06OneOf_H0O2eeoiySbAE_AEtFZ_0(uint64_t a1, uint64_t a2)
 {
-  v66 = a2;
-  v61 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList(0);
-  v3 = *(*(v61 - 8) + 64);
-  off_709D0(v61);
-  v63 = (&v59 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v60 = type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue(0);
-  v5 = *(*(v60 - 8) + 64);
-  off_709D0(v60);
-  v62 = (&v59 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = off_709D0(v7);
-  v11 = (&v59 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v12 = off_709D0(v9);
-  v65 = (&v59 - v13);
-  v14 = off_709D0(v12);
-  v64 = (&v59 - v15);
-  v16 = off_709D0(v14);
-  v18 = (&v59 - v17);
+  v58 = a2;
+  v53 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList(0);
+  off_709D0(v53);
+  v55 = (&v51 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v52 = type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue(0);
+  off_709D0(v52);
+  v54 = (&v51 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v5 = type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value(0);
+  v6 = off_709D0(v5);
+  v8 = (&v51 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = off_709D0(v6);
+  v57 = (&v51 - v10);
+  v11 = off_709D0(v9);
+  v56 = (&v51 - v12);
+  v13 = off_709D0(v11);
+  v15 = (&v51 - v14);
+  v16 = off_709D0(v13);
+  v18 = (&v51 - v17);
   v19 = off_709D0(v16);
-  v21 = (&v59 - v20);
-  v22 = off_709D0(v19);
-  v24 = &v59 - v23;
-  off_709D0(v22);
-  v26 = (&v59 - v25);
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78230, &qword_5F8C8);
-  v28 = *(*(v27 - 8) + 64);
-  v29 = off_709D0(v27 - 8);
-  v31 = &v59 - v30;
-  v32 = (&v59 + *(v29 + 56) - v30);
-  sub_C944(a1, &v59 - v30, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-  sub_C944(v66, v32, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+  v21 = &v51 - v20;
+  off_709D0(v19);
+  v23 = (&v51 - v22);
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78230, &qword_5F8C8);
+  v25 = off_709D0(v24 - 8);
+  v27 = &v51 - v26;
+  v28 = (&v51 + *(v25 + 56) - v26);
+  sub_C944(a1, &v51 - v26, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+  sub_C944(v58, v28, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload > 2)
   {
@@ -8263,134 +7893,130 @@ uint64_t _s16TelemetrySupport38Opentelemetry_Proto_Common_V1_AnyValueV06OneOf_H0
     {
       if (EnumCaseMultiPayload != 5)
       {
-        sub_C944(v31, v11, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-        v47 = *v11;
-        v48 = v11[1];
+        sub_C944(v27, v8, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+        v41 = *v8;
+        v42 = v8[1];
         if (swift_getEnumCaseMultiPayload() == 6)
         {
-          v50 = *v32;
-          v49 = v32[1];
-          v36 = sub_14268(v47, v48, v50, v49);
-          sub_D08C(v50, v49);
-          sub_D08C(v47, v48);
+          v44 = *v28;
+          v43 = v28[1];
+          v32 = sub_14268(v41, v42, v44, v43);
+          sub_D08C(v44, v43);
+          sub_D08C(v41, v42);
 LABEL_29:
-          sub_BF1C(v31, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-          return v36 & 1;
+          sub_BF1C(v27, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+          return v32 & 1;
         }
 
-        sub_D08C(v47, v48);
+        sub_D08C(v41, v42);
         goto LABEL_34;
       }
 
-      v37 = v65;
-      sub_C944(v31, v65, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+      v33 = v57;
+      sub_C944(v27, v57, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
       if (swift_getEnumCaseMultiPayload() == 5)
       {
-        v38 = v32;
-        v39 = v63;
-        sub_C518(v38, v63, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
-        if (sub_12FAC(*v37, *v39))
+        v34 = v28;
+        v35 = v55;
+        sub_C518(v34, v55, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList);
+        if (sub_12FAC(*v33, *v35))
         {
-          v40 = *(v61 + 20);
           sub_5BCE4();
-          sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage);
+          sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
           if (sub_5C114())
           {
-            v41 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList;
+            v36 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList;
 LABEL_26:
-            v46 = v41;
-            sub_BF1C(v39, v41);
-            sub_BF1C(v37, v46);
+            v40 = v36;
+            sub_BF1C(v35, v36);
+            sub_BF1C(v33, v40);
 LABEL_48:
-            sub_BF1C(v31, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-            v36 = 1;
-            return v36 & 1;
+            sub_BF1C(v27, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+            v32 = 1;
+            return v32 & 1;
           }
         }
 
-        v56 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList;
+        v49 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList;
         goto LABEL_45;
       }
 
-      v51 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList;
+      v45 = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList;
     }
 
     else
     {
       if (EnumCaseMultiPayload == 3)
       {
-        sub_C944(v31, v18, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+        sub_C944(v27, v15, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
         if (swift_getEnumCaseMultiPayload() == 3)
         {
-          v34 = *v18 == *v32;
+          v30 = *v15 == *v28;
           goto LABEL_19;
         }
 
         goto LABEL_34;
       }
 
-      v37 = v64;
-      sub_C944(v31, v64, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+      v33 = v56;
+      sub_C944(v27, v56, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
       if (swift_getEnumCaseMultiPayload() == 4)
       {
-        v44 = v32;
-        v39 = v62;
-        sub_C518(v44, v62, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
-        if (sub_1386C(*v37, *v39))
+        v39 = v28;
+        v35 = v54;
+        sub_C518(v39, v54, type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue);
+        if (sub_1386C(*v33, *v35))
         {
-          v45 = *(v60 + 20);
           sub_5BCE4();
-          sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage);
+          sub_153A8(&qword_78108, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
           if (sub_5C114())
           {
-            v41 = type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue;
+            v36 = type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue;
             goto LABEL_26;
           }
         }
 
-        v56 = type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue;
+        v49 = type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue;
 LABEL_45:
-        v57 = v56;
-        sub_BF1C(v39, v56);
-        sub_BF1C(v37, v57);
+        v50 = v49;
+        sub_BF1C(v35, v49);
+        sub_BF1C(v33, v50);
         goto LABEL_46;
       }
 
-      v51 = type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue;
+      v45 = type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue;
     }
 
-    sub_BF1C(v37, v51);
+    sub_BF1C(v33, v45);
 LABEL_34:
-    sub_60C4(v31, &qword_78230, &qword_5F8C8);
+    sub_60C4(v27, &qword_78230, &qword_5F8C8);
 LABEL_35:
-    v36 = 0;
-    return v36 & 1;
+    v32 = 0;
+    return v32 & 1;
   }
 
   if (!EnumCaseMultiPayload)
   {
-    sub_C944(v31, v26, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-    v43 = *v26;
-    v42 = v26[1];
+    sub_C944(v27, v23, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+    v38 = *v23;
+    v37 = v23[1];
     if (!swift_getEnumCaseMultiPayload())
     {
-      if (v43 == *v32 && v42 == v32[1])
+      if (v38 == *v28 && v37 == v28[1])
       {
-        v58 = v32[1];
 
         goto LABEL_48;
       }
 
-      v54 = v32[1];
-      v55 = sub_5C3A4();
+      v48 = sub_5C3A4();
 
-      if (v55)
+      if (v48)
       {
         goto LABEL_48;
       }
 
 LABEL_46:
-      sub_BF1C(v31, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+      sub_BF1C(v27, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
       goto LABEL_35;
     }
 
@@ -8399,31 +8025,31 @@ LABEL_46:
 
   if (EnumCaseMultiPayload != 1)
   {
-    sub_C944(v31, v21, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+    sub_C944(v27, v18, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
     if (swift_getEnumCaseMultiPayload() == 2)
     {
-      v34 = *v21 == *v32;
+      v30 = *v18 == *v28;
 LABEL_19:
-      v36 = v34;
+      v32 = v30;
       goto LABEL_29;
     }
 
     goto LABEL_34;
   }
 
-  sub_C944(v31, v24, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+  sub_C944(v27, v21, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
   if (swift_getEnumCaseMultiPayload() != 1)
   {
     goto LABEL_34;
   }
 
-  v35 = *v24 ^ *v32;
-  sub_BF1C(v31, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
-  v36 = v35 ^ 1;
-  return v36 & 1;
+  v31 = *v21 ^ *v28;
+  sub_BF1C(v27, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue.OneOf_Value);
+  v32 = v31 ^ 1;
+  return v32 & 1;
 }
 
-uint64_t sub_15370(uint64_t a1, uint64_t *a2)
+uint64_t sub_15370(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -8434,7 +8060,7 @@ uint64_t sub_15370(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_153A8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_153A8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8489,13 +8115,13 @@ uint64_t sub_15AB4(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   }
 }
 
-uint64_t sub_15C40()
+uint64_t sub_15C40(uint64_t a1)
 {
   result = type metadata accessor for Opentelemetry_Proto_Common_V1_ArrayValue(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValueList(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
       return 0;
@@ -8518,7 +8144,7 @@ void sub_15D48(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t (*
   }
 }
 
-uint64_t __swift_get_extra_inhabitant_index_16Tm(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t __swift_get_extra_inhabitant_index_16Tm(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -8645,13 +8271,13 @@ uint64_t sub_16140(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_16270()
+void sub_16270(uint64_t a1)
 {
   sub_5BCE4();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_15D48(319, &qword_781D0, type metadata accessor for Opentelemetry_Proto_Common_V1_AnyValue, &type metadata accessor for Optional);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -8701,40 +8327,38 @@ uint64_t sub_16408(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_164AC()
+void sub_164AC(uint64_t a1)
 {
   sub_15D48(319, &qword_781C8, type metadata accessor for Opentelemetry_Proto_Common_V1_KeyValue, &type metadata accessor for Array);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_5BCE4();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-uint64_t sub_16578(uint64_t a1, unint64_t a2)
+uint64_t sub_16578(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return sub_D08C(a1, a2);
+    return sub_D08C(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t Counter.name.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t Counter.name.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
@@ -8743,7 +8367,6 @@ uint64_t Counter.name.setter(uint64_t a1, uint64_t a2)
 
 uint64_t Counter.dimensions.setter(uint64_t a1)
 {
-  v3 = *(v1 + 16);
 
   *(v1 + 16) = a1;
   return result;
@@ -8752,14 +8375,12 @@ uint64_t Counter.dimensions.setter(uint64_t a1)
 uint64_t Counter.unit.getter()
 {
   v1 = *(v0 + 24);
-  v2 = *(v0 + 32);
 
   return v1;
 }
 
 uint64_t Counter.unit.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 32);
 
   *(v2 + 24) = a1;
   *(v2 + 32) = a2;
@@ -8768,14 +8389,14 @@ uint64_t Counter.unit.setter(uint64_t a1, uint64_t a2)
 
 uint64_t Counter.startTimeStamp.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for Counter() + 32);
+  v3 = *(type metadata accessor for Counter(0) + 32);
   v4 = sub_5B9B4();
   v5 = *(*(v4 - 8) + 16);
 
   return v5(a1, v1 + v3, v4);
 }
 
-uint64_t type metadata accessor for Counter()
+uint64_t type metadata accessor for Counter(uint64_t a1)
 {
   result = qword_79E30;
   if (!qword_79E30)
@@ -8788,7 +8409,7 @@ uint64_t type metadata accessor for Counter()
 
 uint64_t Counter.startTimeStamp.setter(uint64_t a1)
 {
-  v3 = *(type metadata accessor for Counter() + 32);
+  v3 = *(type metadata accessor for Counter(0) + 32);
   v4 = sub_5B9B4();
   v5 = *(*(v4 - 8) + 40);
 
@@ -8797,7 +8418,7 @@ uint64_t Counter.startTimeStamp.setter(uint64_t a1)
 
 uint64_t Counter.lastUpdateTimeStamp.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for Counter() + 36);
+  v3 = *(type metadata accessor for Counter(0) + 36);
   v4 = sub_5B9B4();
   v5 = *(*(v4 - 8) + 16);
 
@@ -8806,7 +8427,7 @@ uint64_t Counter.lastUpdateTimeStamp.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t Counter.lastUpdateTimeStamp.setter(uint64_t a1)
 {
-  v3 = *(type metadata accessor for Counter() + 36);
+  v3 = *(type metadata accessor for Counter(0) + 36);
   v4 = sub_5B9B4();
   v5 = *(*(v4 - 8) + 40);
 
@@ -8821,10 +8442,8 @@ uint64_t Counter.init(name:dimensions:unit:value:)@<X0>(uint64_t a1@<X0>, uint64
   *(a6 + 24) = a4;
   *(a6 + 32) = a5;
   *(a6 + 40) = a7;
-  v8 = type metadata accessor for Counter();
-  v9 = a6 + *(v8 + 32);
+  type metadata accessor for Counter(0);
   sub_5B9A4();
-  v10 = a6 + *(v8 + 36);
   return sub_5B9A4();
 }
 
@@ -8832,229 +8451,210 @@ Swift::Void __swiftcall Counter.increment()()
 {
   v1 = sub_5B9B4();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  off_70A08();
-  v5 = &v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_70A08(v1);
+  v4 = &v6 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   *(v0 + 40) = *(v0 + 40) + 1.0;
   sub_5B9A4();
-  v6 = type metadata accessor for Counter();
-  (*(v2 + 40))(v0 + *(v6 + 36), v5, v1);
+  v5 = type metadata accessor for Counter(0);
+  (*(v2 + 40))(v0 + *(v5 + 36), v4, v1);
 }
 
 Swift::Void __swiftcall Counter.increment(by:)(Swift::Double by)
 {
   v3 = sub_5B9B4();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  off_70A08();
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_70A08(v3);
+  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (by >= 0.0)
   {
     *(v1 + 40) = *(v1 + 40) + by;
     sub_5B9A4();
-    v8 = type metadata accessor for Counter();
-    (*(v4 + 40))(v1 + *(v8 + 36), v7, v3);
+    v7 = type metadata accessor for Counter(0);
+    (*(v4 + 40))(v1 + *(v7 + 36), v6, v3);
   }
 }
 
 uint64_t Counter.toOTLPData(serviceName:globalDimensions:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v93 = a2;
-  v92 = a1;
+  v76 = a2;
+  v75 = a1;
   v6 = sub_5BD24();
-  v103 = *(v6 - 8);
-  v104 = v6;
-  v7 = *(v103 + 64);
-  (off_70A08)();
-  v102 = &v85 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v100 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_MetricsData(0);
-  v9 = *(*(v100 - 8) + 64);
-  (off_70A08)();
-  v101 = (&v85 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v99 = *(type metadata accessor for Opentelemetry_Proto_Metrics_V1_ResourceMetrics(0) - 8);
-  v11 = *(v99 + 64);
-  v12 = (off_70A08)();
-  v105 = &v85 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_70A08(v12);
-  v108 = &v85 - v14;
-  v15 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_ScopeMetrics(0);
-  v98 = *(v15 - 8);
-  v16 = *(v98 + 64);
-  off_70A08(v15 - 8);
-  v107 = &v85 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v94 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_Metric(0);
-  v96 = *(v94 - 8);
-  v18 = *(v96 + 64);
-  off_70A08(v94);
-  v20 = &v85 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_Sum(0);
-  v22 = *(*(v21 - 8) + 64);
-  off_70A08(v21 - 8);
-  v24 = &v85 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_NumberDataPoint(0);
-  v87 = *(v25 - 8);
-  v26 = *(v87 + 64);
-  off_70A08(v25 - 8);
-  v28 = &v85 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v29 = type metadata accessor for Opentelemetry_Proto_Resource_V1_Resource();
-  v30 = *(*(v29 - 8) + 64);
-  v31 = off_70A08(v29 - 8);
-  v95 = &v85 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_70A08(v31);
-  v34 = &v85 - v33;
-  v35 = v4[1];
-  v89 = *v4;
-  v88 = v35;
-  v36 = v4[2];
-  v91 = v4[3];
-  v37 = v4[4];
-  v86 = v4[5];
-  v90 = v37;
-  v38 = type metadata accessor for Counter();
-  v39 = *(v38 + 32);
-  v40 = *(v38 + 36);
+  v86 = *(v6 - 8);
+  v87 = v6;
+  off_70A08(v6);
+  v85 = &v68 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v83 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_MetricsData(0);
+  off_70A08(v83);
+  v84 = (&v68 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_ResourceMetrics(0);
+  v82 = *(v9 - 8);
+  v10 = off_70A08(v9 - 8);
+  v88 = &v68 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_70A08(v10);
+  v91 = &v68 - v12;
+  v13 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_ScopeMetrics(0);
+  v81 = *(v13 - 8);
+  off_70A08(v13 - 8);
+  v90 = &v68 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v77 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_Metric(0);
+  v79 = *(v77 - 8);
+  off_70A08(v77);
+  v16 = &v68 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_Sum(0);
+  off_70A08(v17 - 8);
+  v19 = &v68 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_NumberDataPoint(0);
+  v70 = *(v20 - 8);
+  off_70A08(v20 - 8);
+  v22 = &v68 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = type metadata accessor for Opentelemetry_Proto_Resource_V1_Resource(0);
+  v24 = off_70A08(v23 - 8);
+  v78 = &v68 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_70A08(v24);
+  v27 = &v68 - v26;
+  v28 = v4[1];
+  v72 = *v4;
+  v71 = v28;
+  v29 = v4[2];
+  v74 = v4[3];
+  v30 = v4[4];
+  v69 = v4[5];
+  v73 = v30;
+  v31 = type metadata accessor for Counter(0);
+  v32 = *(v31 + 32);
+  v33 = *(v31 + 36);
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v110 = a3;
-  v42 = v109;
-  sub_1814C(v36, sub_18104, 0, isUniquelyReferenced_nonNull_native, &v110);
-  v97 = v42;
+  v93 = a3;
+  v35 = v92;
+  sub_1814C(v29, sub_18104, 0, isUniquelyReferenced_nonNull_native, &v93);
+  v80 = v35;
 
-  v43 = v110;
-  v106 = v34;
-  Opentelemetry_Proto_Resource_V1_Resource.init()(v34);
-  v44 = (v4 + v39);
+  v36 = v93;
+  v89 = v27;
+  Opentelemetry_Proto_Resource_V1_Resource.init()(v27);
+  v37 = (v4 + v32);
   sub_5B994();
-  v46 = v45 * 1000000000.0;
-  if (COERCE__INT64(fabs(v45 * 1000000000.0)) > 0x7FEFFFFFFFFFFFFFLL)
+  v39 = v38 * 1000000000.0;
+  if (COERCE__INT64(fabs(v38 * 1000000000.0)) > 0x7FEFFFFFFFFFFFFFLL)
   {
     __break(1u);
     goto LABEL_12;
   }
 
-  if (v46 <= -1.0)
+  if (v39 <= -1.0)
   {
 LABEL_12:
     __break(1u);
     goto LABEL_13;
   }
 
-  if (v46 >= 1.84467441e19)
+  if (v39 >= 1.84467441e19)
   {
 LABEL_13:
     __break(1u);
     goto LABEL_14;
   }
 
-  v44 = (v4 + v40);
+  v37 = (v4 + v33);
   sub_5B994();
-  v48 = v47 * 1000000000.0;
-  if ((*&v48 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+  v41 = v40 * 1000000000.0;
+  if ((*&v41 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
   {
 LABEL_14:
     __break(1u);
     goto LABEL_15;
   }
 
-  if (v48 <= -1.0)
+  if (v41 <= -1.0)
   {
 LABEL_15:
     __break(1u);
     goto LABEL_16;
   }
 
-  if (v48 < 1.84467441e19)
+  if (v41 < 1.84467441e19)
   {
-    v49 = v48;
+    v42 = v41;
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78070, &qword_5EEE0);
     inited = swift_initStackObject();
-    v109 = xmmword_5EBD0;
+    v92 = xmmword_5EBD0;
     *(inited + 16) = xmmword_5EBD0;
     strcpy((inited + 32), "service.name");
     *(inited + 72) = &type metadata for String;
     *(inited + 45) = 0;
     *(inited + 46) = -5120;
-    *(inited + 48) = v92;
-    *(inited + 56) = v93;
+    *(inited + 48) = v75;
+    *(inited + 56) = v76;
 
-    v51 = sub_981C(inited);
+    v44 = sub_981C(inited);
     swift_setDeallocating();
     sub_60C4(inited + 32, &qword_78078, &qword_5EEE8);
-    v52 = Array<A>.init(from:)(v51);
-    v53 = v106;
-    v54 = *v106;
+    v45 = Array<A>.init(from:)(v44);
+    v46 = v89;
 
-    *v53 = v52;
-    Opentelemetry_Proto_Metrics_V1_NumberDataPoint.init()(v28);
-    *(v28 + 1) = v46;
-    *(v28 + 2) = v49;
-    *(v28 + 3) = v86;
-    v28[32] = 0;
-    v55 = sub_17740(v43);
+    *v46 = v45;
+    Opentelemetry_Proto_Metrics_V1_NumberDataPoint.init()(v22);
+    *(v22 + 1) = v39;
+    *(v22 + 2) = v42;
+    *(v22 + 3) = v69;
+    v22[32] = 0;
+    v47 = sub_17740(v36);
 
-    v56 = Array<A>.init(from:)(v55);
-    v57 = *v28;
+    v48 = Array<A>.init(from:)(v47);
 
-    *v28 = v56;
-    Opentelemetry_Proto_Metrics_V1_Sum.init()(v24);
-    *(v24 + 1) = 2;
-    *(v24 + 8) = 257;
+    *v22 = v48;
+    Opentelemetry_Proto_Metrics_V1_Sum.init()(v19);
+    *(v19 + 1) = 2;
+    *(v19 + 8) = 257;
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78238, &unk_5F8D0);
-    v58 = *(v87 + 72);
-    v59 = (*(v87 + 80) + 32) & ~*(v87 + 80);
-    v60 = swift_allocObject();
-    *(v60 + 16) = v109;
-    sub_183EC(v28, v60 + v59, type metadata accessor for Opentelemetry_Proto_Metrics_V1_NumberDataPoint);
-    v61 = *v24;
+    v49 = (*(v70 + 80) + 32) & ~*(v70 + 80);
+    v50 = swift_allocObject();
+    *(v50 + 16) = v92;
+    sub_183EC(v22, v50 + v49, type metadata accessor for Opentelemetry_Proto_Metrics_V1_NumberDataPoint);
 
-    *v24 = v60;
-    Opentelemetry_Proto_Metrics_V1_Metric.init()(v20);
-    v62 = *(v20 + 1);
-    v63 = v88;
+    *v19 = v50;
+    Opentelemetry_Proto_Metrics_V1_Metric.init()(v16);
+    v51 = v71;
 
-    *v20 = v89;
-    *(v20 + 1) = v63;
-    v64 = *(v20 + 5);
-    v65 = v90;
+    *v16 = v72;
+    *(v16 + 1) = v51;
+    v52 = v73;
 
-    *(v20 + 4) = v91;
-    *(v20 + 5) = v65;
-    v66 = *(v94 + 28);
-    sub_60C4(&v20[v66], &qword_78240, &qword_5FB10);
-    sub_183EC(v24, &v20[v66], type metadata accessor for Opentelemetry_Proto_Metrics_V1_Sum);
-    v67 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_Metric.OneOf_Data(0);
+    *(v16 + 4) = v74;
+    *(v16 + 5) = v52;
+    v53 = *(v77 + 28);
+    sub_60C4(&v16[v53], &qword_78240, &qword_5FB10);
+    sub_183EC(v19, &v16[v53], type metadata accessor for Opentelemetry_Proto_Metrics_V1_Sum);
+    v54 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_Metric.OneOf_Data(0);
     swift_storeEnumTagMultiPayload();
-    (*(*(v67 - 8) + 56))(&v20[v66], 0, 1, v67);
-    v68 = v107;
-    Opentelemetry_Proto_Metrics_V1_ScopeMetrics.init()(v107);
+    (*(*(v54 - 8) + 56))(&v16[v53], 0, 1, v54);
+    v55 = v90;
+    Opentelemetry_Proto_Metrics_V1_ScopeMetrics.init()(v90);
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78248, &qword_5F8E0);
-    v69 = *(v96 + 72);
-    v70 = (*(v96 + 80) + 32) & ~*(v96 + 80);
-    v71 = swift_allocObject();
-    *(v71 + 16) = v109;
-    sub_183EC(v20, v71 + v70, type metadata accessor for Opentelemetry_Proto_Metrics_V1_Metric);
-    v72 = *v68;
+    v56 = (*(v79 + 80) + 32) & ~*(v79 + 80);
+    v57 = swift_allocObject();
+    *(v57 + 16) = v92;
+    sub_183EC(v16, v57 + v56, type metadata accessor for Opentelemetry_Proto_Metrics_V1_Metric);
 
-    *v68 = v71;
-    v73 = v108;
-    Opentelemetry_Proto_Metrics_V1_ResourceMetrics.init()(v108);
-    v74 = v95;
-    sub_183EC(v53, v95, type metadata accessor for Opentelemetry_Proto_Resource_V1_Resource);
-    Opentelemetry_Proto_Metrics_V1_ResourceMetrics.resource.setter(v74);
+    *v55 = v57;
+    v58 = v91;
+    Opentelemetry_Proto_Metrics_V1_ResourceMetrics.init()(v91);
+    v59 = v78;
+    sub_183EC(v46, v78, type metadata accessor for Opentelemetry_Proto_Resource_V1_Resource);
+    Opentelemetry_Proto_Metrics_V1_ResourceMetrics.resource.setter(v59);
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78250, &qword_5F8E8);
-    v75 = *(v98 + 72);
-    v76 = (*(v98 + 80) + 32) & ~*(v98 + 80);
-    v77 = swift_allocObject();
-    *(v77 + 16) = v109;
-    sub_183EC(v68, v77 + v76, type metadata accessor for Opentelemetry_Proto_Metrics_V1_ScopeMetrics);
-    v78 = *v73;
+    v60 = (*(v81 + 80) + 32) & ~*(v81 + 80);
+    v61 = swift_allocObject();
+    *(v61 + 16) = v92;
+    sub_183EC(v55, v61 + v60, type metadata accessor for Opentelemetry_Proto_Metrics_V1_ScopeMetrics);
 
-    *v73 = v77;
-    v40 = v101;
-    Opentelemetry_Proto_Metrics_V1_MetricsData.init()(v101);
-    sub_183EC(v73, v105, type metadata accessor for Opentelemetry_Proto_Metrics_V1_ResourceMetrics);
-    v44 = *v40;
+    *v58 = v61;
+    v33 = v84;
+    Opentelemetry_Proto_Metrics_V1_MetricsData.init()(v84);
+    sub_183EC(v58, v88, type metadata accessor for Opentelemetry_Proto_Metrics_V1_ResourceMetrics);
+    v37 = *v33;
     if (swift_isUniquelyReferenced_nonNull_native())
     {
       goto LABEL_8;
@@ -9066,32 +8666,32 @@ LABEL_15:
 LABEL_16:
   __break(1u);
 LABEL_17:
-  v44 = sub_17AF4(0, v44[2] + 1, 1, v44);
+  v37 = sub_17AF4(0, v37[2] + 1, 1, v37);
 LABEL_8:
-  v79 = v104;
-  v80 = v102;
-  v82 = v44[2];
-  v81 = v44[3];
-  if (v82 >= v81 >> 1)
+  v62 = v87;
+  v63 = v85;
+  v65 = v37[2];
+  v64 = v37[3];
+  if (v65 >= v64 >> 1)
   {
-    v44 = sub_17AF4(v81 > 1, v82 + 1, 1, v44);
+    v37 = sub_17AF4((v64 > 1), v65 + 1, 1, v37);
   }
 
-  v44[2] = v82 + 1;
-  sub_18454(v105, v44 + ((*(v99 + 80) + 32) & ~*(v99 + 80)) + *(v99 + 72) * v82);
-  *v40 = v44;
+  v37[2] = v65 + 1;
+  sub_18454(v88, v37 + ((*(v82 + 80) + 32) & ~*(v82 + 80)) + *(v82 + 72) * v65);
+  *v33 = v37;
   sub_5BD14();
   sub_184B8();
-  v83 = sub_5BED4();
-  (*(v103 + 8))(v80, v79);
-  sub_18510(v40, type metadata accessor for Opentelemetry_Proto_Metrics_V1_MetricsData);
-  sub_18510(v108, type metadata accessor for Opentelemetry_Proto_Metrics_V1_ResourceMetrics);
-  sub_18510(v107, type metadata accessor for Opentelemetry_Proto_Metrics_V1_ScopeMetrics);
-  sub_18510(v20, type metadata accessor for Opentelemetry_Proto_Metrics_V1_Metric);
-  sub_18510(v24, type metadata accessor for Opentelemetry_Proto_Metrics_V1_Sum);
-  sub_18510(v28, type metadata accessor for Opentelemetry_Proto_Metrics_V1_NumberDataPoint);
-  sub_18510(v106, type metadata accessor for Opentelemetry_Proto_Resource_V1_Resource);
-  return v83;
+  v66 = sub_5BED4();
+  (*(v86 + 8))(v63, v62);
+  sub_18510(v33, type metadata accessor for Opentelemetry_Proto_Metrics_V1_MetricsData);
+  sub_18510(v91, type metadata accessor for Opentelemetry_Proto_Metrics_V1_ResourceMetrics);
+  sub_18510(v90, type metadata accessor for Opentelemetry_Proto_Metrics_V1_ScopeMetrics);
+  sub_18510(v16, type metadata accessor for Opentelemetry_Proto_Metrics_V1_Metric);
+  sub_18510(v19, type metadata accessor for Opentelemetry_Proto_Metrics_V1_Sum);
+  sub_18510(v22, type metadata accessor for Opentelemetry_Proto_Metrics_V1_NumberDataPoint);
+  sub_18510(v89, type metadata accessor for Opentelemetry_Proto_Resource_V1_Resource);
+  return v66;
 }
 
 unint64_t sub_17740(uint64_t a1)
@@ -9126,51 +8726,46 @@ unint64_t sub_17740(uint64_t a1)
 LABEL_10:
   while (1)
   {
-    v12 = v8 + 1;
+    v11 = v8 + 1;
     if (__OFADD__(v8, 1))
     {
       break;
     }
 
-    if (v12 >= v6)
+    if (v11 >= v6)
     {
 
       return v2;
     }
 
-    v5 = *(a1 + 64 + 8 * v12);
+    v5 = *(a1 + 64 + 8 * v11);
     ++v8;
     if (v5)
     {
       while (1)
       {
-        v13 = __clz(__rbit64(v5));
+        v12 = __clz(__rbit64(v5));
         v5 &= v5 - 1;
-        v14 = (v12 << 10) | (16 * v13);
-        v15 = (*(a1 + 48) + v14);
-        v17 = *v15;
-        v16 = v15[1];
-        v18 = (*(a1 + 56) + v14);
-        v26 = *v18;
-        v27 = v18[1];
+        v13 = (*(a1 + 48) + ((v11 << 10) | (16 * v12)));
+        v15 = *v13;
+        v14 = v13[1];
 
         __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78090, &unk_5F950);
         swift_dynamicCast();
-        v31 = v29;
-        v32 = v30;
-        v28 = v29;
-        v29 = v30;
-        result = sub_9094(v17, v16);
-        if (v19)
+        v26 = v24;
+        v27 = v25;
+        v23 = v24;
+        v24 = v25;
+        result = sub_9094(v15, v14);
+        if (v16)
         {
           v9 = (v2[6] + 16 * result);
-          v10 = v9[1];
-          *v9 = v17;
-          v9[1] = v16;
-          v11 = result;
+          *v9 = v15;
+          v9[1] = v14;
+          v10 = result;
 
-          result = sub_9B4C(&v28, v2[7] + 32 * v11);
-          v8 = v12;
+          result = sub_9B4C(&v23, v2[7] + 32 * v10);
+          v8 = v11;
           if (!v5)
           {
             goto LABEL_10;
@@ -9185,23 +8780,23 @@ LABEL_10:
           }
 
           *(v2 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-          v20 = (v2[6] + 16 * result);
-          *v20 = v17;
-          v20[1] = v16;
-          v21 = (v2[7] + 32 * result);
-          v22 = v29;
-          *v21 = v28;
-          v21[1] = v22;
-          v23 = v2[2];
-          v24 = __OFADD__(v23, 1);
-          v25 = v23 + 1;
-          if (v24)
+          v17 = (v2[6] + 16 * result);
+          *v17 = v15;
+          v17[1] = v14;
+          v18 = (v2[7] + 32 * result);
+          v19 = v24;
+          *v18 = v23;
+          v18[1] = v19;
+          v20 = v2[2];
+          v21 = __OFADD__(v20, 1);
+          v22 = v20 + 1;
+          if (v21)
           {
             goto LABEL_21;
           }
 
-          v2[2] = v25;
-          v8 = v12;
+          v2[2] = v22;
+          v8 = v11;
           if (!v5)
           {
             goto LABEL_10;
@@ -9209,7 +8804,7 @@ LABEL_10:
         }
 
 LABEL_9:
-        v12 = v8;
+        v11 = v8;
       }
     }
   }
@@ -9225,7 +8820,6 @@ LABEL_21:
 uint64_t sub_1798C()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -9233,7 +8827,6 @@ uint64_t sub_1798C()
 uint64_t sub_179C4()
 {
   v1 = *(v0 + 24);
-  v2 = *(v0 + 32);
 
   return v1;
 }
@@ -9256,7 +8849,7 @@ uint64_t sub_17A68@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return v6(a2, v2 + v4, v5);
 }
 
-size_t sub_17AF4(size_t result, int64_t a2, char a3, void *a4)
+void *sub_17AF4(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -9298,7 +8891,7 @@ LABEL_30:
 
   if (!v9)
   {
-    v13 = &_swiftEmptyArrayStorage;
+    v13 = _swiftEmptyArrayStorage;
     goto LABEL_19;
   }
 
@@ -9316,7 +8909,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -9348,151 +8941,145 @@ LABEL_19:
   return v13;
 }
 
-uint64_t sub_17CCC(uint64_t a1, char a2)
+uint64_t sub_17CCC(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78270, &unk_5F9D0);
-  v40 = a2;
+  v37 = v4;
   result = sub_5C364();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
-    v38 = v3;
-    v39 = v5;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v36 = v5;
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
     {
-      v20 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v23 = 16 * (v20 | (v9 << 6));
-      v24 = (*(v5 + 48) + v23);
-      v25 = *v24;
-      v26 = v24[1];
-      v27 = (*(v5 + 56) + v23);
-      v28 = v27[1];
-      v41 = *v27;
-      if ((v40 & 1) == 0)
+      v19 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v22 = 16 * (v19 | (v8 << 6));
+      v23 = (*(v5 + 48) + v22);
+      v24 = *v23;
+      v25 = v23[1];
+      v26 = (*(v5 + 56) + v22);
+      v27 = v26[1];
+      v38 = *v26;
+      if ((v37 & 1) == 0)
       {
       }
 
-      v29 = *(v8 + 40);
       sub_5C454();
       sub_5C124();
       result = sub_5C474();
-      v30 = -1 << *(v8 + 32);
-      v31 = result & ~v30;
-      v32 = v31 >> 6;
-      if (((-1 << v31) & ~*(v15 + 8 * (v31 >> 6))) == 0)
+      v28 = -1 << *(v7 + 32);
+      v29 = result & ~v28;
+      v30 = v29 >> 6;
+      if (((-1 << v29) & ~*(v14 + 8 * (v29 >> 6))) == 0)
       {
-        v33 = 0;
-        v34 = (63 - v30) >> 6;
-        while (++v32 != v34 || (v33 & 1) == 0)
+        v31 = 0;
+        v32 = (63 - v28) >> 6;
+        while (++v30 != v32 || (v31 & 1) == 0)
         {
-          v35 = v32 == v34;
-          if (v32 == v34)
+          v33 = v30 == v32;
+          if (v30 == v32)
           {
-            v32 = 0;
+            v30 = 0;
           }
 
-          v33 |= v35;
-          v36 = *(v15 + 8 * v32);
-          if (v36 != -1)
+          v31 |= v33;
+          v34 = *(v14 + 8 * v30);
+          if (v34 != -1)
           {
-            v16 = __clz(__rbit64(~v36)) + (v32 << 6);
-            goto LABEL_9;
+            v15 = __clz(__rbit64(~v34)) + (v30 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_37:
+LABEL_35:
         __break(1u);
         return result;
       }
 
-      v16 = __clz(__rbit64((-1 << v31) & ~*(v15 + 8 * (v31 >> 6)))) | v31 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = 16 * v16;
-      v18 = (*(v8 + 48) + v17);
-      *v18 = v25;
-      v18[1] = v26;
-      v19 = (*(v8 + 56) + v17);
-      *v19 = v41;
-      v19[1] = v28;
-      ++*(v8 + 16);
-      v5 = v39;
+      v15 = __clz(__rbit64((-1 << v29) & ~*(v14 + 8 * (v29 >> 6)))) | v29 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = 16 * v15;
+      v17 = (*(v7 + 48) + v16);
+      *v17 = v24;
+      v17[1] = v25;
+      v18 = (*(v7 + 56) + v16);
+      *v18 = v38;
+      v18[1] = v27;
+      ++*(v7 + 16);
+      v5 = v36;
     }
 
-    v21 = v9;
+    v20 = v8;
     while (1)
     {
-      v9 = v21 + 1;
-      if (__OFADD__(v21, 1))
+      v8 = v20 + 1;
+      if (__OFADD__(v20, 1))
       {
         __break(1u);
-        goto LABEL_37;
+        goto LABEL_35;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v22 = v10[v9];
-      ++v21;
-      if (v22)
+      v21 = v9[v8];
+      ++v20;
+      if (v21)
       {
-        v20 = __clz(__rbit64(v22));
-        v13 = (v22 - 1) & v22;
-        goto LABEL_17;
+        v19 = __clz(__rbit64(v21));
+        v12 = (v21 - 1) & v21;
+        goto LABEL_15;
       }
     }
 
-    if ((v40 & 1) == 0)
+    if ((v37 & 1) == 0)
     {
 
-      v3 = v38;
-      goto LABEL_35;
+      v3 = v2;
+      goto LABEL_33;
     }
 
-    v37 = 1 << *(v5 + 32);
-    v3 = v38;
-    if (v37 >= 64)
+    v35 = 1 << *(v5 + 32);
+    v3 = v2;
+    if (v35 >= 64)
     {
-      bzero(v10, ((v37 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero(v9, ((v35 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v10 = -1 << v37;
+      *v9 = -1 << v35;
     }
 
     *(v5 + 16) = 0;
   }
 
-LABEL_35:
-  *v3 = v8;
+LABEL_33:
+  *v3 = v7;
   return result;
 }
 
@@ -9597,9 +9184,9 @@ uint64_t sub_18104@<X0>(void *a1@<X0>, void *a2@<X8>)
   a2[3] = v4;
 }
 
-uint64_t sub_1814C(uint64_t a1, void (*a2)(uint64_t *__return_ptr, void *), uint64_t a3, char a4, uint64_t *a5)
+uint64_t sub_1814C(uint64_t a1, void (*a2)(uint64_t *__return_ptr, void *), uint64_t a3, char a4, void *a5)
 {
-  v56 = a5;
+  v52 = a5;
   v6 = a1 + 64;
   v7 = -1 << *(a1 + 32);
   if (-v7 < 64)
@@ -9613,49 +9200,48 @@ uint64_t sub_1814C(uint64_t a1, void (*a2)(uint64_t *__return_ptr, void *), uint
   }
 
   v9 = v8 & *(a1 + 64);
-  v45 = -1 << *(a1 + 32);
   v10 = (63 - v7) >> 6;
 
   v11 = 0;
-  v46 = v10;
-  v47 = v6;
+  v42 = v10;
+  v43 = v6;
   while (v9)
   {
-    v50 = a4;
-    v14 = v11;
+    v46 = a4;
+    v13 = v11;
 LABEL_14:
-    v16 = (v14 << 10) | (16 * __clz(__rbit64(v9)));
-    v17 = (*(a1 + 48) + v16);
-    v18 = *v17;
-    v19 = v17[1];
-    v20 = (*(a1 + 56) + v16);
-    v21 = *v20;
-    v22 = v20[1];
-    v55[0] = v18;
-    v55[1] = v19;
-    v55[2] = v21;
-    v55[3] = v22;
+    v15 = (v13 << 10) | (16 * __clz(__rbit64(v9)));
+    v16 = (*(a1 + 48) + v15);
+    v17 = *v16;
+    v18 = v16[1];
+    v19 = (*(a1 + 56) + v15);
+    v20 = *v19;
+    v21 = v19[1];
+    v51[0] = v17;
+    v51[1] = v18;
+    v51[2] = v20;
+    v51[3] = v21;
 
-    a2(&v51, v55);
+    a2(&v47, v51);
 
-    v23 = v51;
-    v24 = v52;
-    v25 = v53;
-    v26 = v54;
-    v27 = *v56;
-    v29 = sub_9094(v51, v52);
-    v30 = *(v27 + 16);
-    v31 = (v28 & 1) == 0;
-    v32 = v30 + v31;
-    if (__OFADD__(v30, v31))
+    v22 = v47;
+    v23 = v48;
+    v24 = v49;
+    v25 = v50;
+    v26 = *v52;
+    v28 = sub_9094(v47, v48);
+    v29 = v26[2];
+    v30 = (v27 & 1) == 0;
+    v31 = v29 + v30;
+    if (__OFADD__(v29, v30))
     {
       goto LABEL_25;
     }
 
-    v33 = v28;
-    if (*(v27 + 24) >= v32)
+    v32 = v27;
+    if (v26[3] >= v31)
     {
-      if ((v50 & 1) == 0)
+      if ((v46 & 1) == 0)
       {
         sub_17F8C();
       }
@@ -9663,74 +9249,71 @@ LABEL_14:
 
     else
     {
-      v34 = v56;
-      sub_17CCC(v32, v50 & 1);
-      v35 = *v34;
-      v36 = sub_9094(v23, v24);
-      if ((v33 & 1) != (v37 & 1))
+      sub_17CCC(v31, v46 & 1);
+      v33 = sub_9094(v22, v23);
+      if ((v32 & 1) != (v34 & 1))
       {
         goto LABEL_27;
       }
 
-      v29 = v36;
+      v28 = v33;
     }
 
     v9 &= v9 - 1;
-    v38 = *v56;
-    if (v33)
+    v35 = *v52;
+    if (v32)
     {
 
-      v12 = (v38[7] + 16 * v29);
-      v13 = v12[1];
-      *v12 = v25;
-      v12[1] = v26;
+      v12 = (v35[7] + 16 * v28);
+      *v12 = v24;
+      v12[1] = v25;
     }
 
     else
     {
-      v38[(v29 >> 6) + 8] |= 1 << v29;
-      v39 = (v38[6] + 16 * v29);
-      *v39 = v23;
-      v39[1] = v24;
-      v40 = (v38[7] + 16 * v29);
-      *v40 = v25;
-      v40[1] = v26;
-      v41 = v38[2];
-      v42 = __OFADD__(v41, 1);
-      v43 = v41 + 1;
-      if (v42)
+      v35[(v28 >> 6) + 8] |= 1 << v28;
+      v36 = (v35[6] + 16 * v28);
+      *v36 = v22;
+      v36[1] = v23;
+      v37 = (v35[7] + 16 * v28);
+      *v37 = v24;
+      v37[1] = v25;
+      v38 = v35[2];
+      v39 = __OFADD__(v38, 1);
+      v40 = v38 + 1;
+      if (v39)
       {
         goto LABEL_26;
       }
 
-      v38[2] = v43;
+      v35[2] = v40;
     }
 
     a4 = 1;
-    v11 = v14;
-    v10 = v46;
-    v6 = v47;
+    v11 = v13;
+    v10 = v42;
+    v6 = v43;
   }
 
-  v15 = v11;
+  v14 = v11;
   while (1)
   {
-    v14 = v15 + 1;
-    if (__OFADD__(v15, 1))
+    v13 = v14 + 1;
+    if (__OFADD__(v14, 1))
     {
       break;
     }
 
-    if (v14 >= v10)
+    if (v13 >= v10)
     {
-      sub_18858();
+      sub_18858(a1);
     }
 
-    v9 = *(v6 + 8 * v14);
-    ++v15;
+    v9 = *(v6 + 8 * v13);
+    ++v14;
     if (v9)
     {
-      v50 = a4;
+      v46 = a4;
       goto LABEL_14;
     }
   }
@@ -9823,13 +9406,13 @@ uint64_t sub_18644(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_186E8()
+void sub_186E8(uint64_t a1)
 {
   sub_1878C();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_5B9B4();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -9846,4 +9429,410 @@ void sub_1878C()
       atomic_store(v0, &qword_78260);
     }
   }
+}
+
+uint64_t sub_187E8(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78078, &qword_5EEE8);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t Gauge.name.getter()
+{
+  v1 = *v0;
+
+  return v1;
+}
+
+uint64_t Gauge.name.setter(uint64_t a1, uint64_t a2)
+{
+
+  *v2 = a1;
+  v2[1] = a2;
+  return result;
+}
+
+uint64_t Gauge.dimensions.setter(uint64_t a1)
+{
+
+  *(v1 + 16) = a1;
+  return result;
+}
+
+uint64_t Gauge.unit.getter()
+{
+  v1 = *(v0 + 24);
+
+  return v1;
+}
+
+uint64_t Gauge.unit.setter(uint64_t a1, uint64_t a2)
+{
+
+  *(v2 + 24) = a1;
+  *(v2 + 32) = a2;
+  return result;
+}
+
+uint64_t Gauge.startTimeStamp.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = *(type metadata accessor for Gauge(0) + 28);
+  v4 = sub_5B9B4();
+  v5 = *(*(v4 - 8) + 16);
+
+  return v5(a1, v1 + v3, v4);
+}
+
+uint64_t type metadata accessor for Gauge(uint64_t a1)
+{
+  result = qword_79E40;
+  if (!qword_79E40)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+uint64_t Gauge.startTimeStamp.setter(uint64_t a1)
+{
+  v3 = *(type metadata accessor for Gauge(0) + 28);
+  v4 = sub_5B9B4();
+  v5 = *(*(v4 - 8) + 40);
+
+  return v5(v1 + v3, a1, v4);
+}
+
+uint64_t Gauge.lastUpdateTimeStamp.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = *(type metadata accessor for Gauge(0) + 32);
+  v4 = sub_5B9B4();
+  v5 = *(*(v4 - 8) + 16);
+
+  return v5(a1, v1 + v3, v4);
+}
+
+uint64_t Gauge.lastUpdateTimeStamp.setter(uint64_t a1)
+{
+  v3 = *(type metadata accessor for Gauge(0) + 32);
+  v4 = sub_5B9B4();
+  v5 = *(*(v4 - 8) + 40);
+
+  return v5(v1 + v3, a1, v4);
+}
+
+uint64_t Gauge.value.setter(double a1)
+{
+  result = type metadata accessor for Gauge(0);
+  *(v1 + *(result + 36)) = a1;
+  return result;
+}
+
+uint64_t Gauge.init(name:dimensions:unit:value:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>, double a7@<D0>)
+{
+  *a6 = a1;
+  a6[1] = a2;
+  a6[2] = a3;
+  a6[3] = a4;
+  a6[4] = a5;
+  *(a6 + *(type metadata accessor for Gauge(0) + 36)) = a7;
+  sub_5B9A4();
+  return sub_5B9A4();
+}
+
+Swift::Void __swiftcall Gauge.set(_:)(Swift::Double a1)
+{
+  v3 = sub_5B9B4();
+  v4 = *(v3 - 8);
+  off_70A10(v3);
+  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for Gauge(0);
+  *(v1 + *(v7 + 36)) = a1;
+  sub_5B9A4();
+  (*(v4 + 40))(v1 + *(v7 + 32), v6, v3);
+}
+
+uint64_t Gauge.toOTLPData(serviceName:globalDimensions:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = v3;
+  v76 = a2;
+  v75 = a1;
+  v6 = sub_5BD24();
+  v86 = *(v6 - 8);
+  v87 = v6;
+  off_70A10(v6);
+  v85 = &v68 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v83 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_MetricsData(0);
+  off_70A10(v83);
+  v84 = (&v68 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_ResourceMetrics(0);
+  v82 = *(v9 - 8);
+  v10 = off_70A10(v9 - 8);
+  v88 = &v68 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_70A10(v10);
+  v13 = &v68 - v12;
+  v14 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_ScopeMetrics(0);
+  v81 = *(v14 - 8);
+  off_70A10(v14 - 8);
+  v91 = &v68 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v77 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_Metric(0);
+  v79 = *(v77 - 8);
+  off_70A10(v77);
+  v17 = &v68 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_Gauge(0);
+  off_70A10(v18 - 8);
+  v90 = (&v68 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v20 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_NumberDataPoint(0);
+  v70 = *(v20 - 8);
+  off_70A10(v20 - 8);
+  v22 = &v68 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = type metadata accessor for Opentelemetry_Proto_Resource_V1_Resource(0);
+  v24 = off_70A10(v23 - 8);
+  v78 = &v68 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_70A10(v24);
+  v27 = (&v68 - v26);
+  v28 = v4[1];
+  v72 = *v4;
+  v71 = v28;
+  v29 = v4[2];
+  v30 = type metadata accessor for Gauge(0);
+  v31 = v30[8];
+  v69 = *(v4 + v30[9]);
+  v32 = v4[4];
+  v74 = v4[3];
+  v73 = v32;
+  v33 = v30[7];
+
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v93 = a3;
+  v35 = v92;
+  sub_1814C(v29, sub_18104, 0, isUniquelyReferenced_nonNull_native, &v93);
+  v80 = v35;
+
+  v36 = v93;
+  v89 = v27;
+  Opentelemetry_Proto_Resource_V1_Resource.init()(v27);
+  v37 = (v4 + v33);
+  sub_5B994();
+  v39 = v38 * 1000000000.0;
+  if (COERCE__INT64(fabs(v38 * 1000000000.0)) > 0x7FEFFFFFFFFFFFFFLL)
+  {
+    __break(1u);
+    goto LABEL_12;
+  }
+
+  if (v39 <= -1.0)
+  {
+LABEL_12:
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  if (v39 >= 1.84467441e19)
+  {
+LABEL_13:
+    __break(1u);
+    goto LABEL_14;
+  }
+
+  v37 = (v4 + v31);
+  sub_5B994();
+  v41 = v40 * 1000000000.0;
+  if ((*&v41 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+  {
+LABEL_14:
+    __break(1u);
+    goto LABEL_15;
+  }
+
+  if (v41 <= -1.0)
+  {
+LABEL_15:
+    __break(1u);
+    goto LABEL_16;
+  }
+
+  if (v41 < 1.84467441e19)
+  {
+    v42 = v41;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78070, &qword_5EEE0);
+    inited = swift_initStackObject();
+    v92 = xmmword_5EBD0;
+    *(inited + 16) = xmmword_5EBD0;
+    strcpy((inited + 32), "service.name");
+    *(inited + 72) = &type metadata for String;
+    *(inited + 45) = 0;
+    *(inited + 46) = -5120;
+    *(inited + 48) = v75;
+    *(inited + 56) = v76;
+
+    v44 = sub_981C(inited);
+    swift_setDeallocating();
+    sub_60C4(inited + 32, &qword_78078, &qword_5EEE8);
+    v45 = Array<A>.init(from:)(v44);
+    v46 = v89;
+
+    *v46 = v45;
+    Opentelemetry_Proto_Metrics_V1_NumberDataPoint.init()(v22);
+    *(v22 + 1) = v39;
+    *(v22 + 2) = v42;
+    *(v22 + 3) = v69;
+    v22[32] = 0;
+    v47 = sub_17740(v36);
+
+    v48 = Array<A>.init(from:)(v47);
+
+    *v22 = v48;
+    v49 = v90;
+    Opentelemetry_Proto_Metrics_V1_Gauge.init()(v90);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78238, &unk_5F8D0);
+    v50 = (*(v70 + 80) + 32) & ~*(v70 + 80);
+    v51 = swift_allocObject();
+    *(v51 + 16) = v92;
+    sub_199E4(v22, v51 + v50, type metadata accessor for Opentelemetry_Proto_Metrics_V1_NumberDataPoint);
+
+    *v49 = v51;
+    Opentelemetry_Proto_Metrics_V1_Metric.init()(v17);
+    v52 = v71;
+
+    *v17 = v72;
+    *(v17 + 1) = v52;
+    v53 = v73;
+
+    *(v17 + 4) = v74;
+    *(v17 + 5) = v53;
+    v54 = *(v77 + 28);
+    sub_60C4(&v17[v54], &qword_78240, &qword_5FB10);
+    sub_199E4(v49, &v17[v54], type metadata accessor for Opentelemetry_Proto_Metrics_V1_Gauge);
+    v55 = type metadata accessor for Opentelemetry_Proto_Metrics_V1_Metric.OneOf_Data(0);
+    swift_storeEnumTagMultiPayload();
+    (*(*(v55 - 8) + 56))(&v17[v54], 0, 1, v55);
+    v56 = v91;
+    Opentelemetry_Proto_Metrics_V1_ScopeMetrics.init()(v91);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78248, &qword_5F8E0);
+    v57 = (*(v79 + 80) + 32) & ~*(v79 + 80);
+    v58 = swift_allocObject();
+    *(v58 + 16) = v92;
+    sub_199E4(v17, v58 + v57, type metadata accessor for Opentelemetry_Proto_Metrics_V1_Metric);
+
+    *v56 = v58;
+    Opentelemetry_Proto_Metrics_V1_ResourceMetrics.init()(v13);
+    v59 = v78;
+    sub_199E4(v46, v78, type metadata accessor for Opentelemetry_Proto_Resource_V1_Resource);
+    Opentelemetry_Proto_Metrics_V1_ResourceMetrics.resource.setter(v59);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_78250, &qword_5F8E8);
+    v60 = (*(v81 + 80) + 32) & ~*(v81 + 80);
+    v61 = swift_allocObject();
+    *(v61 + 16) = v92;
+    sub_199E4(v56, v61 + v60, type metadata accessor for Opentelemetry_Proto_Metrics_V1_ScopeMetrics);
+
+    *v13 = v61;
+    v27 = v84;
+    Opentelemetry_Proto_Metrics_V1_MetricsData.init()(v84);
+    sub_199E4(v13, v88, type metadata accessor for Opentelemetry_Proto_Metrics_V1_ResourceMetrics);
+    v37 = *v27;
+    if (swift_isUniquelyReferenced_nonNull_native())
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_17;
+  }
+
+LABEL_16:
+  __break(1u);
+LABEL_17:
+  v37 = sub_17AF4(0, v37[2] + 1, 1, v37);
+LABEL_8:
+  v62 = v87;
+  v63 = v85;
+  v65 = v37[2];
+  v64 = v37[3];
+  if (v65 >= v64 >> 1)
+  {
+    v37 = sub_17AF4((v64 > 1), v65 + 1, 1, v37);
+  }
+
+  v37[2] = v65 + 1;
+  sub_18454(v88, v37 + ((*(v82 + 80) + 32) & ~*(v82 + 80)) + *(v82 + 72) * v65);
+  *v27 = v37;
+  sub_5BD14();
+  sub_184B8();
+  v66 = sub_5BED4();
+  (*(v86 + 8))(v63, v62);
+  sub_19A4C(v27, type metadata accessor for Opentelemetry_Proto_Metrics_V1_MetricsData);
+  sub_19A4C(v13, type metadata accessor for Opentelemetry_Proto_Metrics_V1_ResourceMetrics);
+  sub_19A4C(v91, type metadata accessor for Opentelemetry_Proto_Metrics_V1_ScopeMetrics);
+  sub_19A4C(v17, type metadata accessor for Opentelemetry_Proto_Metrics_V1_Metric);
+  sub_19A4C(v90, type metadata accessor for Opentelemetry_Proto_Metrics_V1_Gauge);
+  sub_19A4C(v22, type metadata accessor for Opentelemetry_Proto_Metrics_V1_NumberDataPoint);
+  sub_19A4C(v89, type metadata accessor for Opentelemetry_Proto_Resource_V1_Resource);
+  return v66;
+}
+
+uint64_t sub_19958@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = *(a1 + 28);
+  v5 = sub_5B9B4();
+  v6 = *(*(v5 - 8) + 16);
+
+  return v6(a2, v2 + v4, v5);
+}
+
+uint64_t sub_199E4(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t sub_19A4C(uint64_t a1, uint64_t (*a2)(void))
+{
+  v3 = a2(0);
+  (*(*(v3 - 8) + 8))(a1, v3);
+  return a1;
+}
+
+uint64_t sub_19AC0(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v4 = *(a1 + 8);
+    if (v4 >= 0xFFFFFFFF)
+    {
+      LODWORD(v4) = -1;
+    }
+
+    return (v4 + 1);
+  }
+
+  else
+  {
+    v8 = sub_5B9B4();
+    v9 = *(*(v8 - 8) + 48);
+    v10 = a1 + *(a3 + 28);
+
+    return v9(v10, a2, v8);
+  }
+}
+
+uint64_t sub_19B80(uint64_t result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *(result + 8) = (a2 - 1);
+  }
+
+  else
+  {
+    v7 = sub_5B9B4();
+    v8 = *(*(v7 - 8) + 56);
+    v9 = v5 + *(a4 + 28);
+
+    return v8(v9, a2, a2, v7);
+  }
+
+  return result;
 }

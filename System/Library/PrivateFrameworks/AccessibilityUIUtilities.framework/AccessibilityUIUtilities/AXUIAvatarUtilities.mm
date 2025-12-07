@@ -24,10 +24,10 @@
 
   else
   {
-    v5 = AvatarKitLibraryCore();
+    v5 = AvatarKitLibraryCore(0);
     if (v5)
     {
-      LOBYTE(v5) = AvatarUILibraryCore() != 0;
+      LOBYTE(v5) = AvatarUILibraryCore(0) != 0;
     }
   }
 

@@ -18,9 +18,10 @@
 
 - (void)recirculationService:(id)service didUpdateOn:(BOOL)on
 {
+  onCopy = on;
   serviceCopy = service;
   selfCopy = self;
-  sub_1000B038C(on);
+  sub_1000B038C(onCopy);
 }
 
 - (void)recirculationService:(id)service didUpdateAutoMode:(BOOL)mode

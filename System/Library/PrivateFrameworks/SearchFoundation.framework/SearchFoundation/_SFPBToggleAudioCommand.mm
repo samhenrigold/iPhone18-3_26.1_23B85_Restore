@@ -313,27 +313,21 @@ LABEL_19:
 
 - (void)setUniversalLibraryIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  universalLibraryIdentifier = self->_universalLibraryIdentifier;
-  self->_universalLibraryIdentifier = v4;
+  self->_universalLibraryIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPersistentIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  persistentIdentifier = self->_persistentIdentifier;
-  self->_persistentIdentifier = v4;
+  self->_persistentIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setLocalMediaIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  localMediaIdentifier = self->_localMediaIdentifier;
-  self->_localMediaIdentifier = v4;
+  self->_localMediaIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

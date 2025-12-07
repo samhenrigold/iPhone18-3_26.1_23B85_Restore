@@ -232,7 +232,7 @@ LABEL_10:
     v22 = type metadata accessor for DecodingError();
     swift_allocError();
     v24 = v23;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss9CodingKey_p_s13DecodingErrorO7ContextVtMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss9CodingKey_p_s13DecodingErrorO7ContextVtMd, &_ss9CodingKey_p_s13DecodingErrorO7ContextVtMR);
     v24[3] = a5;
     v24[4] = a6;
     boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v24);
@@ -297,7 +297,7 @@ LABEL_7:
     v27 = type metadata accessor for DecodingError();
     swift_allocError();
     v29 = v28;
-    v35 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_ss9CodingKey_p_s13DecodingErrorO7ContextVtMd) + 48);
+    v35 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_ss9CodingKey_p_s13DecodingErrorO7ContextVtMd, &_ss9CodingKey_p_s13DecodingErrorO7ContextVtMR) + 48);
     v29[3] = a5;
     v29[4] = a6;
     boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v29);
@@ -393,13 +393,13 @@ unint64_t JSONDecoderImpl.KeyedContainer.decodeIfPresent(_:forKey:)(uint64_t a1,
   return v30 | (v31 << 32);
 }
 
-uint64_t JSONDecoderImpl.KeyedContainer.superDecoder()@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+uint64_t JSONDecoderImpl.KeyedContainer.superDecoder()@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a6@<X8>)
 {
-  v5 = specialized JSONDecoderImpl.KeyedContainer.decoderForKeyNoThrow<A>(_:)(0x7265707573, 0xE500000000000000, 0, 0, a1, a2, a3);
-  a4[3] = type metadata accessor for JSONDecoderImpl();
-  result = lazy protocol witness table accessor for type JSONDecoderImpl and conformance JSONDecoderImpl(&lazy protocol witness table cache variable for type JSONDecoderImpl and conformance JSONDecoderImpl, type metadata accessor for JSONDecoderImpl);
-  a4[4] = result;
-  *a4 = v5;
+  v7 = specialized JSONDecoderImpl.KeyedContainer.decoderForKeyNoThrow<A>(_:)(0x7265707573, 0xE500000000000000, 0, 0, a1, a2, a3);
+  a6[3] = type metadata accessor for JSONDecoderImpl();
+  result = lazy protocol witness table accessor for type JSONDecoderImpl and conformance JSONDecoderImpl(&lazy protocol witness table cache variable for type JSONDecoderImpl and conformance JSONDecoderImpl, type metadata accessor for JSONDecoderImpl, &protocol conformance descriptor for JSONDecoderImpl);
+  a6[4] = result;
+  *a6 = v7;
   return result;
 }
 
@@ -433,7 +433,7 @@ uint64_t specialized JSONDecoderImpl.KeyedContainer.decoderForKeyNoThrow<A>(_:)(
   v22 = type metadata accessor for DecodingError();
   v43 = swift_allocError();
   v24 = v23;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss9CodingKey_p_s13DecodingErrorO7ContextVtMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss9CodingKey_p_s13DecodingErrorO7ContextVtMd, &_ss9CodingKey_p_s13DecodingErrorO7ContextVtMR);
   v24[3] = &type metadata for _CodingKey;
   v24[4] = lazy protocol witness table accessor for type _CodingKey and conformance _CodingKey();
   v25 = swift_allocObject();
@@ -551,9 +551,9 @@ LABEL_15:
   return v33;
 }
 
-uint64_t protocol witness for KeyedDecodingContainerProtocol.decodeIfPresent(_:forKey:) in conformance JSONDecoderImpl.KeyedContainer<A>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
+uint64_t protocol witness for KeyedDecodingContainerProtocol.decodeIfPresent(_:forKey:) in conformance JSONDecoderImpl.KeyedContainer<A>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
 {
-  result = a4();
+  result = a4(a1, a2, a3);
   if (v4)
   {
     return v6;
@@ -578,7 +578,7 @@ void JSONDecoderImpl.UnkeyedContainer.decodeNil()()
     v5 = JSONMap.loadValue(at:)(v4);
     if (v7 > 0xFDu)
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss7Decoder_pMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss7Decoder_pMd, &_ss7Decoder_pMR);
       v8 = MEMORY[0x1E69E73E0];
       v9 = _CodingPathNode.path.getter(*(v0 + 72));
       v10 = *(v1 + 64);
@@ -607,7 +607,7 @@ void JSONDecoderImpl.UnkeyedContainer.decodeNil()()
       v14 = type metadata accessor for DecodingError();
       swift_allocError();
       v16 = v15;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       *v16 = v8;
       DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
       (*(*(v14 - 8) + 104))(v16, *MEMORY[0x1E69E6B08], v14);
@@ -646,14 +646,14 @@ void JSONDecoderImpl.UnkeyedContainer.decodeNil()()
 
 void JSONDecoderImpl.UnkeyedContainer.decodeIfPresent<A>(_:)(ValueMetadata *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v21[1] = a3;
-  v22 = a1;
-  v25 = a4;
+  v22 = a3;
+  v23 = a1;
+  v26 = a4;
   v6 = type metadata accessor for Optional();
-  v23 = *(v6 - 8);
-  v24 = v6;
+  v24 = *(v6 - 8);
+  v25 = v6;
   MEMORY[0x1EEE9AC00](v6);
-  v8 = v21 - v7;
+  v8 = &v21 - v7;
   v9 = *(v4 + 24);
   v10 = *(v4 + 40);
   if (v10 < 0xFE)
@@ -687,8 +687,8 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v17 = v26;
-  specialized JSONDecoderImpl.unwrap<A, B>(_:as:for:_:)(v9, v15, v10, v22, *(v4 + 72), *(v4 + 64), 0, 0, v8, 2u, a2);
+  v17 = v27;
+  specialized JSONDecoderImpl.unwrap<A, B>(_:as:for:_:)(v9, v15, v10, v23, *(v4 + 72), *(v4 + 64), 0, 0, v8, 2u, a2, v22);
   if (v17)
   {
     return;
@@ -696,7 +696,7 @@ LABEL_12:
 
   (*(*(a2 - 8) + 56))(v8, 0, 1, a2);
 LABEL_13:
-  (*(v23 + 32))(v25, v8, v24);
+  (*(v24 + 32))(v26, v8, v25);
   v18 = *(v4 + 64);
   v19 = __OFADD__(v18, 1);
   v20 = v18 + 1;
@@ -718,7 +718,7 @@ uint64_t JSONDecoderImpl.UnkeyedContainer.nestedUnkeyedContainer()@<X0>(uint64_t
 {
   v3 = v2;
   v4 = v1;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss24UnkeyedDecodingContainer_pMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss24UnkeyedDecodingContainer_pMd, &_ss24UnkeyedDecodingContainer_pMR);
   v7 = v1 + 3;
   v8 = *(v1 + 40);
   if (v8 < 0xFE)
@@ -734,7 +734,7 @@ uint64_t JSONDecoderImpl.UnkeyedContainer.nestedUnkeyedContainer()@<X0>(uint64_t
     v11 = JSONMap.loadValue(at:)(v10);
     if (v13 > 0xFDu)
     {
-      if (v9 == __swift_instantiateConcreteTypeFromMangledNameV2(&_ss7Decoder_pMd))
+      if (v9 == __swift_instantiateConcreteTypeFromMangledNameV2(&_ss7Decoder_pMd, &_ss7Decoder_pMR))
       {
       }
 
@@ -926,7 +926,7 @@ LABEL_6:
   v19 = type metadata accessor for DecodingError();
   swift_allocError();
   v21 = v20;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
   *v21 = v9;
   DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
   (*(*(v19 - 8) + 104))(v21, *MEMORY[0x1E69E6B08], v19);
@@ -955,11 +955,6 @@ uint64_t protocol witness for UnkeyedDecodingContainer.decodeIfPresent(_:) in co
   }
 
   return result;
-}
-
-{
-  v0 = specialized JSONDecoderImpl.UnkeyedContainer.decodeIfPresent(_:)();
-  return v0 | ((HIDWORD(v0) & 1) << 32);
 }
 
 {
@@ -1012,15 +1007,7 @@ uint64_t protocol witness for UnkeyedDecodingContainer.decodeIfPresent(_:) in co
 }
 
 {
-  return protocol witness for UnkeyedDecodingContainer.decodeIfPresent(_:) in conformance JSONDecoderImpl.UnkeyedContainer(a1, a2, specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for:_:));
-}
-
-{
   return protocol witness for UnkeyedDecodingContainer.decodeIfPresent(_:) in conformance JSONDecoderImpl.UnkeyedContainer(a1, a2, MEMORY[0x1E69E6FD0]);
-}
-
-{
-  return protocol witness for UnkeyedDecodingContainer.decodeIfPresent(_:) in conformance JSONDecoderImpl.UnkeyedContainer(a1, a2, specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for:_:));
 }
 
 {
@@ -1035,12 +1022,16 @@ uint64_t protocol witness for UnkeyedDecodingContainer.decodeIfPresent(_:) in co
   return protocol witness for UnkeyedDecodingContainer.decodeIfPresent(_:) in conformance JSONDecoderImpl.UnkeyedContainer(a1, a2, MEMORY[0x1E69E6FE8]);
 }
 
-uint64_t protocol witness for UnkeyedDecodingContainer.decodeIfPresent(_:) in conformance JSONDecoderImpl.UnkeyedContainer(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+unint64_t protocol witness for UnkeyedDecodingContainer.decodeIfPresent(_:) in conformance JSONDecoderImpl.UnkeyedContainer(uint64_t a1, uint64_t a2)
 {
-  v3 = specialized JSONDecoderImpl.UnkeyedContainer.decodeIfPresent(_:)(a3);
-  return v3 | ((HIDWORD(v3) & 1) << 32);
+  return protocol witness for UnkeyedDecodingContainer.decodeIfPresent(_:) in conformance JSONDecoderImpl.UnkeyedContainer(a1, a2, specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for:_:));
 }
 
+{
+  return protocol witness for UnkeyedDecodingContainer.decodeIfPresent(_:) in conformance JSONDecoderImpl.UnkeyedContainer(a1, a2, specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for:_:));
+}
+
+uint64_t protocol witness for UnkeyedDecodingContainer.decodeIfPresent(_:) in conformance JSONDecoderImpl.UnkeyedContainer(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
   return specialized JSONDecoderImpl.UnkeyedContainer.decodeIfPresent(_:)(a3) & 0x1FF;
 }
@@ -1049,8 +1040,9 @@ uint64_t protocol witness for UnkeyedDecodingContainer.decodeIfPresent(_:) in co
   return specialized JSONDecoderImpl.UnkeyedContainer.decodeIfPresent(_:)(a3) & 0x1FFFF;
 }
 
+uint64_t protocol witness for UnkeyedDecodingContainer.decodeIfPresent(_:) in conformance JSONDecoderImpl.UnkeyedContainer(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t, uint64_t))
 {
-  result = a3();
+  result = a3(a1, a2);
   if (v3)
   {
     return v5;
@@ -1119,17 +1111,17 @@ uint64_t _sSf7exactlySfSgx_tcSzRzlufCs5Int64V_Tt0g5(uint64_t result)
   return result;
 }
 
-BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6UInt64V_SdTt1g5Tm(uint64_t a1, double a2)
+BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6UInt64V_SdTt1g5Tm(uint64_t a1, __n128 a2)
 {
-  v3 = (*&a2 >> 52) & 0x7FFLL;
-  v4 = *&a2 & 0xFFFFFFFFFFFFFLL;
-  v5 = v3 | *&a2 & 0xFFFFFFFFFFFFFLL;
+  v3 = (a2.n128_u64[0] >> 52) & 0x7FF;
+  v4 = a2.n128_u64[0] & 0xFFFFFFFFFFFFFLL;
+  v5 = v3 | a2.n128_u64[0] & 0xFFFFFFFFFFFFFLL;
   if (v5)
   {
     result = 0;
     v5 = 0;
     v7 = 1;
-    if (v3 != 2047 && a2 > -1.0)
+    if (v3 != 2047 && a2.n128_f64[0] > -1.0)
     {
       v8 = Double.exponent.getter();
       if (v8 <= 63)
@@ -1223,12 +1215,12 @@ LABEL_25:
   return result;
 }
 
-BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs5UInt8V_SdTt1g5(_BYTE *a1, double a2)
+BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs5UInt8V_SdTt1g5(_BYTE *a1, __n128 a2)
 {
-  v3 = LODWORD(a2);
-  v4 = (*&a2 >> 52) & 0x7FFLL;
-  v5 = *&a2 & 0xFFFFFFFFFFFFFLL;
-  v6 = v4 | *&a2 & 0xFFFFFFFFFFFFFLL;
+  v3 = a2.n128_u32[0];
+  v4 = (a2.n128_u64[0] >> 52) & 0x7FF;
+  v5 = a2.n128_u64[0] & 0xFFFFFFFFFFFFFLL;
+  v6 = v4 | a2.n128_u64[0] & 0xFFFFFFFFFFFFFLL;
   if (!v6)
   {
     v7 = 0;
@@ -1246,7 +1238,7 @@ BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs5
   else
   {
     result = 0;
-    if (a2 > -1.0)
+    if (a2.n128_f64[0] > -1.0)
     {
       v9 = Double.exponent.getter();
       if (v9 > 7)
@@ -1361,12 +1353,12 @@ LABEL_25:
   return result;
 }
 
-BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6UInt16V_SdTt1g5(uint64_t a1, double a2)
+BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6UInt16V_SdTt1g5(uint64_t a1, __n128 a2)
 {
-  v3 = LODWORD(a2);
-  v4 = (*&a2 >> 52) & 0x7FFLL;
-  v5 = *&a2 & 0xFFFFFFFFFFFFFLL;
-  v6 = v4 | *&a2 & 0xFFFFFFFFFFFFFLL;
+  v3 = a2.n128_u32[0];
+  v4 = (a2.n128_u64[0] >> 52) & 0x7FF;
+  v5 = a2.n128_u64[0] & 0xFFFFFFFFFFFFFLL;
+  v6 = v4 | a2.n128_u64[0] & 0xFFFFFFFFFFFFFLL;
   if (!v6)
   {
     v7 = 0;
@@ -1384,7 +1376,7 @@ BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6
   else
   {
     result = 0;
-    if (a2 > -1.0)
+    if (a2.n128_f64[0] > -1.0)
     {
       v9 = Double.exponent.getter();
       if (v9 > 15)
@@ -1499,12 +1491,13 @@ LABEL_25:
   return result;
 }
 
-BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs4Int8V_SdTt1g5(_BYTE *a1, double a2)
+BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs4Int8V_SdTt1g5(_BYTE *a1, __n128 a2)
 {
-  v4 = LODWORD(a2);
-  v5 = (*&a2 >> 52) & 0x7FFLL;
-  v6 = *&a2 & 0xFFFFFFFFFFFFFLL;
-  v7 = v5 | *&a2 & 0xFFFFFFFFFFFFFLL;
+  v2 = a2.n128_f64[0];
+  v4 = a2.n128_u32[0];
+  v5 = (a2.n128_u64[0] >> 52) & 0x7FF;
+  v6 = a2.n128_u64[0] & 0xFFFFFFFFFFFFFLL;
+  v7 = v5 | a2.n128_u64[0] & 0xFFFFFFFFFFFFFLL;
   if (!v7)
   {
     LOBYTE(v15) = 0;
@@ -1573,7 +1566,7 @@ LABEL_20:
     }
 
 LABEL_31:
-    if (a2 >= 0.0 || v12)
+    if (v2 >= 0.0 || v12)
     {
       goto LABEL_38;
     }
@@ -1622,7 +1615,7 @@ LABEL_23:
 
 LABEL_24:
   v15 = v12 | v14;
-  if (a2 >= 0.0)
+  if (v2 >= 0.0)
   {
     if ((v12 & 0x80) == 0)
     {
@@ -1639,7 +1632,7 @@ LABEL_24:
 LABEL_36:
     __break(1u);
 LABEL_37:
-    if (a2 >= 0.0)
+    if (v2 >= 0.0)
     {
       goto LABEL_38;
     }
@@ -1658,12 +1651,13 @@ LABEL_29:
   return result;
 }
 
-BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs5Int16V_SdTt1g5(uint64_t a1, double a2)
+BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs5Int16V_SdTt1g5(uint64_t a1, __n128 a2)
 {
-  v4 = LODWORD(a2);
-  v5 = (*&a2 >> 52) & 0x7FFLL;
-  v6 = *&a2 & 0xFFFFFFFFFFFFFLL;
-  v7 = v5 | *&a2 & 0xFFFFFFFFFFFFFLL;
+  v2 = a2.n128_f64[0];
+  v4 = a2.n128_u32[0];
+  v5 = (a2.n128_u64[0] >> 52) & 0x7FF;
+  v6 = a2.n128_u64[0] & 0xFFFFFFFFFFFFFLL;
+  v7 = v5 | a2.n128_u64[0] & 0xFFFFFFFFFFFFFLL;
   if (!v7)
   {
     LOWORD(v15) = 0;
@@ -1732,7 +1726,7 @@ LABEL_20:
     }
 
 LABEL_31:
-    if (a2 >= 0.0 || v12)
+    if (v2 >= 0.0 || v12)
     {
       goto LABEL_38;
     }
@@ -1781,7 +1775,7 @@ LABEL_23:
 
 LABEL_24:
   v15 = v12 | v14;
-  if (a2 >= 0.0)
+  if (v2 >= 0.0)
   {
     if ((v12 & 0x8000) == 0)
     {
@@ -1798,7 +1792,7 @@ LABEL_24:
 LABEL_36:
     __break(1u);
 LABEL_37:
-    if (a2 >= 0.0)
+    if (v2 >= 0.0)
     {
       goto LABEL_38;
     }
@@ -1817,12 +1811,13 @@ LABEL_29:
   return result;
 }
 
-BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs5Int32V_SdTt1g5(uint64_t a1, double a2)
+BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs5Int32V_SdTt1g5(uint64_t a1, __n128 a2)
 {
-  v4 = LODWORD(a2);
-  v5 = (*&a2 >> 52) & 0x7FFLL;
-  v6 = *&a2 & 0xFFFFFFFFFFFFFLL;
-  v7 = v5 | *&a2 & 0xFFFFFFFFFFFFFLL;
+  v2 = a2.n128_f64[0];
+  v4 = a2.n128_u32[0];
+  v5 = (a2.n128_u64[0] >> 52) & 0x7FF;
+  v6 = a2.n128_u64[0] & 0xFFFFFFFFFFFFFLL;
+  v7 = v5 | a2.n128_u64[0] & 0xFFFFFFFFFFFFFLL;
   if (!v7)
   {
     v14 = 0;
@@ -1850,7 +1845,7 @@ BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs5
   {
     __break(1u);
 LABEL_31:
-    if (a2 < 0.0 && !v7)
+    if (v2 < 0.0 && !v7)
     {
       v14 = 0x80000000;
       goto LABEL_29;
@@ -1947,7 +1942,7 @@ LABEL_23:
 
 LABEL_24:
   v14 = v7 | v13;
-  if (a2 >= 0.0)
+  if (v2 >= 0.0)
   {
     if ((v7 & 0x80000000) == 0)
     {
@@ -1964,7 +1959,7 @@ LABEL_24:
 LABEL_36:
     __break(1u);
 LABEL_37:
-    if (a2 < 0.0)
+    if (v2 < 0.0)
     {
       LOBYTE(v7) = 0;
       v14 = 0x80000000;
@@ -1982,12 +1977,12 @@ LABEL_29:
   return result;
 }
 
-BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6UInt32V_SdTt1g5(uint64_t a1, double a2)
+BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6UInt32V_SdTt1g5(uint64_t a1, __n128 a2)
 {
-  v3 = LODWORD(a2);
-  v4 = (*&a2 >> 52) & 0x7FFLL;
-  v5 = *&a2 & 0xFFFFFFFFFFFFFLL;
-  v6 = v4 | *&a2 & 0xFFFFFFFFFFFFFLL;
+  v3 = a2.n128_u32[0];
+  v4 = (a2.n128_u64[0] >> 52) & 0x7FF;
+  v5 = a2.n128_u64[0] & 0xFFFFFFFFFFFFFLL;
+  v6 = v4 | a2.n128_u64[0] & 0xFFFFFFFFFFFFFLL;
   if (!v6)
   {
     v7 = 0;
@@ -2005,7 +2000,7 @@ BOOL _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6
   else
   {
     result = 0;
-    if (a2 > -1.0)
+    if (a2.n128_f64[0] > -1.0)
     {
       v9 = Double.exponent.getter();
       if (v9 > 31)
@@ -2120,18 +2115,20 @@ LABEL_25:
   return result;
 }
 
-uint64_t _ss7UInt128V7exactlyABSgx_tcSBRzlufCSd_Tt0g5(double a1)
+uint64_t _ss7UInt128V7exactlyABSgx_tcSBRzlufCSd_Tt0g5(__n128 a1)
 {
-  v2 = trunc(a1 * 5.42101086e-20);
-  if (!_ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6UInt64V_SdTt1g5Tm(&v5, v2) || v6 == 1)
+  v1 = a1.n128_f64[0];
+  v2 = trunc(a1.n128_f64[0] * 5.42101086e-20);
+  a1.n128_f64[0] = v2;
+  if (!_ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6UInt64V_SdTt1g5Tm(&v5, a1) || v6 == 1)
   {
     return 0;
   }
 
-  v3 = a1 + v2 * -1.84467441e19;
+  v3.n128_f64[0] = v1 + v2 * -1.84467441e19;
   if (!v5)
   {
-    v3 = a1;
+    v3.n128_f64[0] = v1;
   }
 
   if (_ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6UInt64V_SdTt1g5Tm(&v5, v3) && v6 != 1)
@@ -2190,26 +2187,32 @@ void *specialized closure #1 in JSONMap.withBuffer<A>(for:perform:)@<X0>(void *r
   return result;
 }
 
-uint64_t _ss6Int128V7exactlyABSgx_tcSBRzlufCSd_Tt0g5(double a1)
+uint64_t _ss6Int128V7exactlyABSgx_tcSBRzlufCSd_Tt0g5(__n128 a1)
 {
-  v2 = fabs(a1);
-  if (v2 >= 1.84467441e19)
+  v1 = a1.n128_f64[0];
+  a1.n128_f64[0] = fabs(a1.n128_f64[0]);
+  if (a1.n128_f64[0] >= 1.84467441e19)
   {
-    v4 = floor(a1 * 5.42101086e-20);
-    if (_ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs5Int64V_SdTt1g5Tm(&v5, v4) && v6 != 1 && _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6UInt64V_SdTt1g5Tm(&v5, a1 + v4 * -1.84467441e19) && v6 != 1)
+    v3 = floor(v1 * 5.42101086e-20);
+    a1.n128_f64[0] = v3;
+    if (_ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs5Int64V_SdTt1g5Tm(&v5, a1) && v6 != 1)
     {
-      return v5;
+      v4.n128_f64[0] = v1 + v3 * -1.84467441e19;
+      if (_ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6UInt64V_SdTt1g5Tm(&v5, v4) && v6 != 1)
+      {
+        return v5;
+      }
     }
 
     return 0;
   }
 
-  if (!_ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6UInt64V_SdTt1g5Tm(&v5, v2) || v6 == 1)
+  if (!_ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6UInt64V_SdTt1g5Tm(&v5, a1) || v6 == 1)
   {
     return 0;
   }
 
-  if (a1 < 0.0)
+  if (v1 < 0.0)
   {
     return -v5;
   }
@@ -2544,17 +2547,6 @@ uint64_t partial apply for specialized closure #2 in JSONDecoderImpl.unwrapFloat
 }
 
 {
-  result = specialized closure #2 in JSONDecoderImpl.unwrapFloatingPoint<A, B>(from:as:for:_:)(a1, a2, v3[2], v3[3], v3[4], v3[5], v3[6], v3[7]);
-  if (!v4)
-  {
-    *a3 = result;
-    *(a3 + 4) = BYTE4(result) & 1;
-  }
-
-  return result;
-}
-
-{
   return partial apply for specialized closure #2 in JSONDecoderImpl.unwrapFloatingPoint<A, B>(from:as:for:_:)(a1, a2, a3);
 }
 
@@ -2567,7 +2559,7 @@ void *partial apply for specialized closure #1 in JSONMap.withBuffer<A>(for:perf
   return specialized closure #1 in JSONMap.withBuffer<A>(for:perform:)(a1, *(v2 + 16), *(v2 + 32), *(v2 + 40), a2);
 }
 
-BOOL specialized static JSONDecoderImpl.isTrueZero(_:)(unsigned __int8 *a1, uint64_t a2)
+BOOL specialized static JSONDecoderImpl.isTrueZero(_:)(unsigned __int8 *a1, unint64_t a2)
 {
   if (a2 >= 4)
   {
@@ -2663,7 +2655,7 @@ LABEL_7:
   return *a1 - 58 < 0xFFFFFFF7;
 }
 
-float specialized closure #1 in JSONDecoderImpl.unwrapFloatingPoint<A, B>(from:as:for:_:)(char *__s1, uint64_t a2, unint64_t a3, uint64_t a4, char a5, char a6)
+float specialized closure #1 in JSONDecoderImpl.unwrapFloatingPoint<A, B>(from:as:for:_:)(char *__s1, unint64_t a2, unint64_t a3, uint64_t a4, char a5, char a6)
 {
   v42 = *MEMORY[0x1E69E9840];
   if ((a5 & 1) == 0)
@@ -2816,6 +2808,17 @@ uint64_t specialized closure #2 in JSONDecoderImpl.unwrapFloatingPoint<A, B>(fro
   return v10;
 }
 
+uint64_t __swift_deallocate_boxed_opaque_existential_1(uint64_t result)
+{
+  if ((*(*(*(result + 24) - 8) + 80) & 0x20000) != 0)
+  {
+    JUMPOUT(0x1865D2690);
+  }
+
+  return result;
+}
+
+unint64_t specialized closure #2 in JSONDecoderImpl.unwrapFloatingPoint<A, B>(from:as:for:_:)(void *a1, size_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v14[0] = a3;
   v14[1] = a4;
@@ -2827,16 +2830,6 @@ uint64_t specialized closure #2 in JSONDecoderImpl.unwrapFloatingPoint<A, B>(fro
   v10 = specialized closure #1 in closure #2 in JSONDecoderImpl.unwrapFloatingPoint<A, B>(from:as:for:_:)(a1, a2, v14, v13, v12);
 
   return v10 | ((HIDWORD(v10) & 1) << 32);
-}
-
-uint64_t __swift_deallocate_boxed_opaque_existential_1(uint64_t result)
-{
-  if ((*(*(*(result + 24) - 8) + 80) & 0x20000) != 0)
-  {
-    JUMPOUT(0x1865D2690);
-  }
-
-  return result;
 }
 
 unint64_t specialized closure #2 in JSONDecoderImpl.unwrapFloatingPoint<A, B>(from:as:for:_:)(const void *a1, size_t a2, uint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8)
@@ -2878,7 +2871,7 @@ unint64_t specialized closure #2 in JSONDecoderImpl.unwrapFloatingPoint<A, B>(fr
 
       __break(1u);
 LABEL_7:
-      a3 = static String._copying(_:)();
+      a3 = static String._copying(_:)(a3, a4);
       v39 = v17;
 
       a4 = v39;
@@ -2902,7 +2895,7 @@ LABEL_10:
 LABEL_11:
   if ((a6 & 0x1000000000000000) != 0)
   {
-    a5 = static String._copying(_:)();
+    a5 = static String._copying(_:)(a5, a6);
     v22 = v21;
 
     a6 = v22;
@@ -2991,7 +2984,7 @@ LABEL_32:
     goto LABEL_38;
   }
 
-  a7 = static String._copying(_:)();
+  a7 = static String._copying(_:)(a7, a8);
   v25 = v24;
 
   a8 = v25;
@@ -3042,13 +3035,13 @@ LABEL_39:
   return v20 | (v19 << 32);
 }
 
-uint64_t specialized static JSONDecoderImpl._slowpath_unwrapFixedWidthInteger<A, B>(as:json5:numberBuffer:fullSource:digitBeginning:for:_:)(__int16 a1, const char *a2, unint64_t a3, unint64_t a4, unint64_t a5, uint64_t a6)
+uint64_t specialized static JSONDecoderImpl._slowpath_unwrapFixedWidthInteger<A, B>(as:json5:numberBuffer:fullSource:digitBeginning:for:_:)(__int16 a1, const char *a2, unint64_t a3, unint64_t a4, unint64_t a5, char *a6)
 {
   LOWORD(v9) = v6;
   LOWORD(v15) = a1;
   v133 = *MEMORY[0x1E69E9840];
   v127[0] = 0;
-  v16 = _stringshims_strtod_clocale(a2, v127);
+  v16.n128_f64[0] = _stringshims_strtod_clocale(a2, v127);
   if (v127[0])
   {
     v17 = &a2[a3] == v127[0];
@@ -3061,7 +3054,7 @@ uint64_t specialized static JSONDecoderImpl._slowpath_unwrapFixedWidthInteger<A,
 
   if (v17)
   {
-    v19 = v16;
+    v19 = v16.n128_f64[0];
     if (!_ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs5UInt8V_SdTt1g5(v127, v16) || (BYTE1(v127[0]) & 1) != 0)
     {
       goto LABEL_57;
@@ -3073,9 +3066,9 @@ uint64_t specialized static JSONDecoderImpl._slowpath_unwrapFixedWidthInteger<A,
     }
   }
 
-  if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd) != MEMORY[0x1E69E6108])
+  if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd, &_s10Foundation10BufferViewVys5UInt8VGMR) != MEMORY[0x1E69E6108])
   {
-    specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 46, 0xE100000000000000, 1, v131);
+    specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 0x2EuLL, 0xE100000000000000, 1, v131);
     if ((v132 & 1) == 0)
     {
       a3 = v131[1];
@@ -3109,7 +3102,7 @@ LABEL_311:
         goto LABEL_311;
       }
 
-      a6 = v9 - v20;
+      a6 = (v9 - v20);
       if (v9 - v20 < 0)
       {
 LABEL_312:
@@ -3242,7 +3235,7 @@ LABEL_57:
           v29 = v22 - v9;
           do
           {
-            if (a6 + v26 < 0)
+            if (&a6[v26] < 0)
             {
               goto LABEL_294;
             }
@@ -3327,7 +3320,7 @@ LABEL_77:
                         v120 = v116 - v117;
                         while (1)
                         {
-                          if ((v117 - a4 + v119) < 0 || (v120 + v118) < 1)
+                          if ((v117 - a4 + v119) < 0 || v120 + v118 < 1)
                           {
                             goto LABEL_308;
                           }
@@ -3346,7 +3339,7 @@ LABEL_77:
                               goto LABEL_274;
                             }
 
-                            if (((v117 - a4 + v119 + 1) & 0x8000000000000000) == 0 && (~v119 + v120) >= 1)
+                            if (((v117 - a4 + v119 + 1) & 0x8000000000000000) == 0 && ~v119 + v120 >= 1)
                             {
                               if (*(v122 + 1) == 10)
                               {
@@ -3562,7 +3555,7 @@ LABEL_309:
                 v92 = v88 - a4;
                 while (1)
                 {
-                  if ((v89 + a4 + v91) < 0 || (v92 + v90) < 1)
+                  if ((v89 + a4 + v91) < 0 || v92 + v90 < 1)
                   {
                     goto LABEL_302;
                   }
@@ -3602,7 +3595,7 @@ LABEL_309:
                 v94 = a4 + v91;
                 if (v35 >= a4 + v91 + 1)
                 {
-                  if (((v89 + a4 + v91 + 1) & 0x8000000000000000) != 0 || (~v91 + v92) < 1)
+                  if (((v89 + a4 + v91 + 1) & 0x8000000000000000) != 0 || ~v91 + v92 < 1)
                   {
                     goto LABEL_335;
                   }
@@ -3661,7 +3654,7 @@ LABEL_116:
                 v67 = 0;
                 v68 = v64 - v65;
 LABEL_123:
-                if ((v65 - a4 + v67) < 0 || (v68 + v66) < 1)
+                if ((v65 - a4 + v67) < 0 || v68 + v66 < 1)
                 {
                   goto LABEL_298;
                 }
@@ -3706,7 +3699,7 @@ LABEL_123:
               v70 = v65 + v67;
               if (v62 >= v65 + v67 + 1)
               {
-                if (((v65 - a4 + v67 + 1) & 0x8000000000000000) != 0 || (~v67 + v68) < 1)
+                if (((v65 - a4 + v67 + 1) & 0x8000000000000000) != 0 || ~v67 + v68 < 1)
                 {
                   goto LABEL_332;
                 }
@@ -3860,7 +3853,7 @@ LABEL_206:
             v101 = v97 - v98;
             while (1)
             {
-              if ((v98 - a4 + v100) < 0 || (v101 + v99) < 1)
+              if ((v98 - a4 + v100) < 0 || v101 + v99 < 1)
               {
                 goto LABEL_304;
               }
@@ -3905,7 +3898,7 @@ LABEL_206:
             v103 = v98 + v100;
             if (v95 >= v98 + v100 + 1)
             {
-              if (((v98 - a4 + v100 + 1) & 0x8000000000000000) != 0 || (~v100 + v101) < 1)
+              if (((v98 - a4 + v100 + 1) & 0x8000000000000000) != 0 || ~v100 + v101 < 1)
               {
                 goto LABEL_339;
               }
@@ -3972,7 +3965,7 @@ LABEL_147:
                 v77 = v73 - v74;
                 while (1)
                 {
-                  if ((v74 - a4 + v76) < 0 || (v77 + v75) < 1)
+                  if ((v74 - a4 + v76) < 0 || v77 + v75 < 1)
                   {
                     goto LABEL_299;
                   }
@@ -4017,7 +4010,7 @@ LABEL_147:
                 v79 = v74 + v76;
                 if (v71 >= v74 + v76 + 1)
                 {
-                  if (((v74 - a4 + v76 + 1) & 0x8000000000000000) != 0 || (~v76 + v77) < 1)
+                  if (((v74 - a4 + v76 + 1) & 0x8000000000000000) != 0 || ~v76 + v77 < 1)
                   {
                     goto LABEL_333;
                   }
@@ -4095,7 +4088,7 @@ LABEL_147:
                 v111 = v107 - v108;
                 while (1)
                 {
-                  if ((v108 - a4 + v110) < 0 || (v111 + v109) < 1)
+                  if ((v108 - a4 + v110) < 0 || v111 + v109 < 1)
                   {
                     goto LABEL_305;
                   }
@@ -4111,7 +4104,7 @@ LABEL_147:
                     v113 = v108 + v110;
                     if (v105 >= v108 + v110 + 1)
                     {
-                      if (((v108 - a4 + v110 + 1) & 0x8000000000000000) != 0 || (~v110 + v111) < 1)
+                      if (((v108 - a4 + v110 + 1) & 0x8000000000000000) != 0 || ~v110 + v111 < 1)
                       {
                         goto LABEL_340;
                       }
@@ -4209,7 +4202,7 @@ LABEL_326:
   v18 = v129[0];
 LABEL_56:
   v127[0] = v18;
-  v37 = HIDWORD(v18);
+  v37 = v18 >> 32;
   v127[1] = a3;
   v15 = v8 >> 16;
   v128 = v8;
@@ -4220,9 +4213,9 @@ LABEL_56:
 
   v7 = HIDWORD(a3);
   a5 = a3 >> 16;
-  a4 = HIWORD(v18);
+  a4 = v18 >> 48;
   a6 = v18;
-  v9 = HIDWORD(v18);
+  v9 = (v18 >> 32);
   LODWORD(v127[0]) = a6;
   WORD2(v127[0]) = v37;
   HIWORD(v127[0]) = a4;
@@ -4335,7 +4328,7 @@ LABEL_74:
   LOWORD(v15) = a1;
   v133 = *MEMORY[0x1E69E9840];
   v127[0] = 0;
-  v16 = _stringshims_strtod_clocale(a2, v127);
+  v16.n128_f64[0] = _stringshims_strtod_clocale(a2, v127);
   if (v127[0])
   {
     v17 = &a2[a3] == v127[0];
@@ -4348,7 +4341,7 @@ LABEL_74:
 
   if (v17)
   {
-    v19 = v16;
+    v19 = v16.n128_f64[0];
     if (!_ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6UInt16V_SdTt1g5(v127, v16) || (BYTE2(v127[0]) & 1) != 0)
     {
       goto LABEL_57;
@@ -4360,9 +4353,9 @@ LABEL_74:
     }
   }
 
-  if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd) != MEMORY[0x1E69E6108])
+  if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd, &_s10Foundation10BufferViewVys5UInt8VGMR) != MEMORY[0x1E69E6108])
   {
-    specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 46, 0xE100000000000000, 1, v131);
+    specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 0x2EuLL, 0xE100000000000000, 1, v131);
     if ((v132 & 1) == 0)
     {
       a3 = v131[1];
@@ -4396,7 +4389,7 @@ LABEL_311:
         goto LABEL_311;
       }
 
-      a6 = v9 - v20;
+      a6 = (v9 - v20);
       if (v9 - v20 < 0)
       {
 LABEL_312:
@@ -4529,7 +4522,7 @@ LABEL_57:
           v29 = v22 - v9;
           do
           {
-            if (a6 + v26 < 0)
+            if (&a6[v26] < 0)
             {
               goto LABEL_294;
             }
@@ -4614,7 +4607,7 @@ LABEL_77:
                         v120 = v116 - v117;
                         while (1)
                         {
-                          if ((v117 - a4 + v119) < 0 || (v120 + v118) < 1)
+                          if ((v117 - a4 + v119) < 0 || v120 + v118 < 1)
                           {
                             goto LABEL_308;
                           }
@@ -4633,7 +4626,7 @@ LABEL_77:
                               goto LABEL_274;
                             }
 
-                            if (((v117 - a4 + v119 + 1) & 0x8000000000000000) == 0 && (~v119 + v120) >= 1)
+                            if (((v117 - a4 + v119 + 1) & 0x8000000000000000) == 0 && ~v119 + v120 >= 1)
                             {
                               if (*(v122 + 1) == 10)
                               {
@@ -4849,7 +4842,7 @@ LABEL_309:
                 v92 = v88 - a4;
                 while (1)
                 {
-                  if ((v89 + a4 + v91) < 0 || (v92 + v90) < 1)
+                  if ((v89 + a4 + v91) < 0 || v92 + v90 < 1)
                   {
                     goto LABEL_302;
                   }
@@ -4889,7 +4882,7 @@ LABEL_309:
                 v94 = a4 + v91;
                 if (v35 >= a4 + v91 + 1)
                 {
-                  if (((v89 + a4 + v91 + 1) & 0x8000000000000000) != 0 || (~v91 + v92) < 1)
+                  if (((v89 + a4 + v91 + 1) & 0x8000000000000000) != 0 || ~v91 + v92 < 1)
                   {
                     goto LABEL_335;
                   }
@@ -4948,7 +4941,7 @@ LABEL_116:
                 v67 = 0;
                 v68 = v64 - v65;
 LABEL_123:
-                if ((v65 - a4 + v67) < 0 || (v68 + v66) < 1)
+                if ((v65 - a4 + v67) < 0 || v68 + v66 < 1)
                 {
                   goto LABEL_298;
                 }
@@ -4993,7 +4986,7 @@ LABEL_123:
               v70 = v65 + v67;
               if (v62 >= v65 + v67 + 1)
               {
-                if (((v65 - a4 + v67 + 1) & 0x8000000000000000) != 0 || (~v67 + v68) < 1)
+                if (((v65 - a4 + v67 + 1) & 0x8000000000000000) != 0 || ~v67 + v68 < 1)
                 {
                   goto LABEL_332;
                 }
@@ -5147,7 +5140,7 @@ LABEL_206:
             v101 = v97 - v98;
             while (1)
             {
-              if ((v98 - a4 + v100) < 0 || (v101 + v99) < 1)
+              if ((v98 - a4 + v100) < 0 || v101 + v99 < 1)
               {
                 goto LABEL_304;
               }
@@ -5192,7 +5185,7 @@ LABEL_206:
             v103 = v98 + v100;
             if (v95 >= v98 + v100 + 1)
             {
-              if (((v98 - a4 + v100 + 1) & 0x8000000000000000) != 0 || (~v100 + v101) < 1)
+              if (((v98 - a4 + v100 + 1) & 0x8000000000000000) != 0 || ~v100 + v101 < 1)
               {
                 goto LABEL_339;
               }
@@ -5259,7 +5252,7 @@ LABEL_147:
                 v77 = v73 - v74;
                 while (1)
                 {
-                  if ((v74 - a4 + v76) < 0 || (v77 + v75) < 1)
+                  if ((v74 - a4 + v76) < 0 || v77 + v75 < 1)
                   {
                     goto LABEL_299;
                   }
@@ -5304,7 +5297,7 @@ LABEL_147:
                 v79 = v74 + v76;
                 if (v71 >= v74 + v76 + 1)
                 {
-                  if (((v74 - a4 + v76 + 1) & 0x8000000000000000) != 0 || (~v76 + v77) < 1)
+                  if (((v74 - a4 + v76 + 1) & 0x8000000000000000) != 0 || ~v76 + v77 < 1)
                   {
                     goto LABEL_333;
                   }
@@ -5382,7 +5375,7 @@ LABEL_147:
                 v111 = v107 - v108;
                 while (1)
                 {
-                  if ((v108 - a4 + v110) < 0 || (v111 + v109) < 1)
+                  if ((v108 - a4 + v110) < 0 || v111 + v109 < 1)
                   {
                     goto LABEL_305;
                   }
@@ -5398,7 +5391,7 @@ LABEL_147:
                     v113 = v108 + v110;
                     if (v105 >= v108 + v110 + 1)
                     {
-                      if (((v108 - a4 + v110 + 1) & 0x8000000000000000) != 0 || (~v110 + v111) < 1)
+                      if (((v108 - a4 + v110 + 1) & 0x8000000000000000) != 0 || ~v110 + v111 < 1)
                       {
                         goto LABEL_340;
                       }
@@ -5496,7 +5489,7 @@ LABEL_326:
   v18 = v129[0];
 LABEL_56:
   v127[0] = v18;
-  v37 = HIDWORD(v18);
+  v37 = v18 >> 32;
   v127[1] = a3;
   v15 = v8 >> 16;
   v128 = v8;
@@ -5507,9 +5500,9 @@ LABEL_56:
 
   v7 = HIDWORD(a3);
   a5 = a3 >> 16;
-  a4 = HIWORD(v18);
+  a4 = v18 >> 48;
   a6 = v18;
-  v9 = HIDWORD(v18);
+  v9 = (v18 >> 32);
   LODWORD(v127[0]) = a6;
   WORD2(v127[0]) = v37;
   HIWORD(v127[0]) = a4;
@@ -5618,1297 +5611,11 @@ LABEL_74:
 }
 
 {
-  LOWORD(v8) = v6;
-  LOWORD(v14) = a1;
-  v139 = *MEMORY[0x1E69E9840];
-  v133[0] = 0;
-  v15 = _stringshims_strtod_clocale(a2, v133);
-  if (v133[0])
-  {
-    v16 = &a2[a3] == v133[0];
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  if (v16)
-  {
-    v19 = v15;
-    result = _ss6Int128V7exactlyABSgx_tcSBRzlufCSd_Tt0g5(v15);
-    if (v21)
-    {
-      goto LABEL_107;
-    }
-
-    if (fabs(v19) < 9.00719925e15)
-    {
-      return result;
-    }
-  }
-
-  if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd) == MEMORY[0x1E69E6108])
-  {
-    specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 0x2EuLL, 0xE100000000000000, 1, v135);
-    if (v136 != 1)
-    {
-      v14 = v135[1];
-      v17 = v135[2];
-      v18 = v135[0];
-      goto LABEL_54;
-    }
-
-LABEL_12:
-    v22 = specialized BufferView.suffix(from:)(a6, a2, a3);
-    v24 = &v22[v23];
-    if ((v14 & 1) == 0)
-    {
-      if (v23 >= 1)
-      {
-        v36 = 0;
-        v37 = v23;
-        v38 = v22;
-        v39 = v22;
-        while ((v36 & 0x8000000000000000) == 0)
-        {
-          v35 = v37-- < 1;
-          if (v35)
-          {
-            break;
-          }
-
-          if (*v39 - 58 >= 0xFFFFFFF6)
-          {
-            ++v39;
-            ++v38;
-            ++v36;
-            if (v39 < v24)
-            {
-              continue;
-            }
-          }
-
-          goto LABEL_78;
-        }
-
-        goto LABEL_296;
-      }
-
-      v38 = v22;
-      v39 = v22;
-LABEL_78:
-      if (v39 >= v24)
-      {
-LABEL_290:
-        __break(1u);
-LABEL_291:
-        __break(1u);
-        goto LABEL_292;
-      }
-
-      v52 = 0;
-      v53 = 0;
-      v54 = v38 - v22;
-      v55 = (&v22[v23] - v38);
-      v56 = &v22[v23] - v39;
-      while (1)
-      {
-        if (v39 - v22 + v52 < 0)
-        {
-          goto LABEL_291;
-        }
-
-        v35 = v56-- < 1;
-        if (v35)
-        {
-          goto LABEL_291;
-        }
-
-        v29 = v39[v52];
-        if (v29 - 58 >= 0xFFFFFFF6)
-        {
-          v34 = __OFADD__(v54++, 1);
-          if (v34)
-          {
-            goto LABEL_294;
-          }
-        }
-
-        else if (v39[v52] <= 0x2Du)
-        {
-          if (v29 != 43 && v29 != 45)
-          {
-LABEL_196:
-            v98 = &v39[v52];
-            if (&v39[v52] < a4)
-            {
-              goto LABEL_318;
-            }
-
-            v99 = a4 + a5;
-            if (a4 + a5 < v98)
-            {
-              goto LABEL_318;
-            }
-
-            if (v99 >= &v39[v52 + 1])
-            {
-              v99 = &v39[v52 + 1];
-            }
-
-            if (v99 <= a4)
-            {
-              goto LABEL_221;
-            }
-
-            v100 = a5 + a4;
-            a5 = 1;
-            v101 = a4;
-            while (1)
-            {
-LABEL_202:
-              v102 = 0;
-              v103 = 0;
-              v104 = v100 - v101;
-              while (1)
-              {
-                if ((v101 - a4 + v103) < 0 || (v104 + v102) < 1)
-                {
-                  goto LABEL_303;
-                }
-
-                v105 = *(v101 + v103);
-                if (v105 == 10)
-                {
-                  v34 = __OFADD__(a5++, 1);
-                  if (v34)
-                  {
-                    goto LABEL_329;
-                  }
-
-                  v101 += v103 + 1;
-                  if (v101 >= v99)
-                  {
-                    goto LABEL_220;
-                  }
-
-                  goto LABEL_202;
-                }
-
-                if (v105 == 13)
-                {
-                  break;
-                }
-
-                a3 = v103 + 1;
-                if (__OFADD__(v103, 1))
-                {
-                  goto LABEL_305;
-                }
-
-                ++v103;
-                --v102;
-                if (v101 + v103 >= v99)
-                {
-                  goto LABEL_223;
-                }
-              }
-
-              v106 = v101 + v103;
-              if (v98 >= v101 + v103 + 1)
-              {
-                if (((v101 - a4 + v103 + 1) & 0x8000000000000000) != 0 || (~v103 + v104) < 1)
-                {
-                  goto LABEL_338;
-                }
-
-                if (*(v106 + 1) == 10)
-                {
-                  v106 = v101 + v103 + 1;
-                }
-              }
-
-              v34 = __OFADD__(a5++, 1);
-              if (v34)
-              {
-                goto LABEL_330;
-              }
-
-              v101 = v106 + 1;
-              if (v106 + 1 >= v99)
-              {
-LABEL_220:
-                a3 = 0;
-LABEL_223:
-                v107 = &v39[v52 - a4];
-                v108 = v29;
-                lazy protocol witness table accessor for type JSONError and conformance JSONError();
-                swift_allocError();
-                *v51 = xmmword_181237560;
-                *(v51 + 16) = v108;
-                *(v51 + 24) = a5;
-                *(v51 + 32) = a3;
-                *(v51 + 40) = v107;
-                goto LABEL_224;
-              }
-            }
-          }
-
-          if (v54 || v53 != 2)
-          {
-            v81 = &v39[v52];
-            if (&v39[v52] >= a4)
-            {
-              v82 = a4 + a5;
-              if (a4 + a5 >= v81)
-              {
-                if (v82 >= &v39[v52 + 1])
-                {
-                  v82 = &v39[v52 + 1];
-                }
-
-                if (v82 <= a4)
-                {
-                  goto LABEL_221;
-                }
-
-                v83 = a5 + a4;
-                a5 = 1;
-                v84 = a4;
-                while (1)
-                {
-LABEL_152:
-                  v85 = 0;
-                  v86 = 0;
-                  v87 = v83 - v84;
-                  while (1)
-                  {
-                    if ((v84 - a4 + v86) < 0 || (v87 + v85) < 1)
-                    {
-                      goto LABEL_298;
-                    }
-
-                    v88 = *(v84 + v86);
-                    if (v88 == 10)
-                    {
-                      v34 = __OFADD__(a5++, 1);
-                      if (v34)
-                      {
-                        goto LABEL_321;
-                      }
-
-                      v84 += v86 + 1;
-                      if (v84 >= v82)
-                      {
-                        goto LABEL_220;
-                      }
-
-                      goto LABEL_152;
-                    }
-
-                    if (v88 == 13)
-                    {
-                      break;
-                    }
-
-                    a3 = v86 + 1;
-                    if (__OFADD__(v86, 1))
-                    {
-                      goto LABEL_300;
-                    }
-
-                    ++v86;
-                    --v85;
-                    if (v84 + v86 >= v82)
-                    {
-                      goto LABEL_223;
-                    }
-                  }
-
-                  v89 = v84 + v86;
-                  if (v81 >= v84 + v86 + 1)
-                  {
-                    if (((v84 - a4 + v86 + 1) & 0x8000000000000000) != 0 || (~v86 + v87) < 1)
-                    {
-                      goto LABEL_333;
-                    }
-
-                    if (*(v89 + 1) == 10)
-                    {
-                      v89 = v84 + v86 + 1;
-                    }
-                  }
-
-                  v34 = __OFADD__(a5++, 1);
-                  if (v34)
-                  {
-                    goto LABEL_323;
-                  }
-
-                  v84 = v89 + 1;
-                  if (v89 + 1 >= v82)
-                  {
-                    goto LABEL_220;
-                  }
-                }
-              }
-            }
-
-LABEL_315:
-            __break(1u);
-LABEL_316:
-            __break(1u);
-LABEL_317:
-            __break(1u);
-LABEL_318:
-            __break(1u);
-            goto LABEL_319;
-          }
-
-          v54 = 0;
-          v53 = 3;
-        }
-
-        else if (v29 == 101 || v29 == 69)
-        {
-          if (v54 < 1 || v53 >= 2)
-          {
-            goto LABEL_121;
-          }
-
-          v54 = 0;
-          v53 = 2;
-        }
-
-        else
-        {
-          if (v29 != 46)
-          {
-            goto LABEL_196;
-          }
-
-          if (v54 < 1 || v53)
-          {
-            v109 = &v39[v52];
-            if (&v39[v52] >= a4 && a4 + a5 >= v109)
-            {
-              if (a4 + a5 >= &v39[v52 + 1])
-              {
-                v110 = &v39[v52 + 1];
-              }
-
-              else
-              {
-                v110 = a4 + a5;
-              }
-
-              if (v110 > a4)
-              {
-                v111 = a5 + a4;
-                a5 = 1;
-                v112 = a4;
-                while (1)
-                {
-                  v113 = 0;
-                  v114 = 0;
-                  v115 = v111 - v112;
-                  while (1)
-                  {
-                    if ((v112 - a4 + v114) < 0 || (v115 + v113) < 1)
-                    {
-                      goto LABEL_304;
-                    }
-
-                    v116 = *(v112 + v114);
-                    if (v116 == 10)
-                    {
-                      break;
-                    }
-
-                    if (v116 == 13)
-                    {
-                      v117 = v112 + v114;
-                      if (v109 >= v112 + v114 + 1)
-                      {
-                        if (((v112 - a4 + v114 + 1) & 0x8000000000000000) != 0 || (~v114 + v115) < 1)
-                        {
-                          goto LABEL_339;
-                        }
-
-                        if (*(v117 + 1) == 10)
-                        {
-                          v117 = v112 + v114 + 1;
-                        }
-                      }
-
-                      v34 = __OFADD__(a5++, 1);
-                      if (v34)
-                      {
-                        goto LABEL_334;
-                      }
-
-                      a3 = 0;
-                      v112 = v117 + 1;
-                      goto LABEL_250;
-                    }
-
-                    a3 = v114 + 1;
-                    if (__OFADD__(v114, 1))
-                    {
-                      goto LABEL_306;
-                    }
-
-                    ++v114;
-                    --v113;
-                    if (v112 + v114 >= v110)
-                    {
-                      v29 = 46;
-                      goto LABEL_223;
-                    }
-                  }
-
-                  v34 = __OFADD__(a5++, 1);
-                  if (v34)
-                  {
-                    goto LABEL_331;
-                  }
-
-                  a3 = 0;
-                  v112 += v114 + 1;
-LABEL_250:
-                  v29 = 46;
-                  if (v112 >= v110)
-                  {
-                    goto LABEL_223;
-                  }
-                }
-              }
-
-              a3 = 0;
-              v29 = 46;
-              goto LABEL_222;
-            }
-
-LABEL_319:
-            __break(1u);
-LABEL_320:
-            __break(1u);
-LABEL_321:
-            __break(1u);
-LABEL_322:
-            __break(1u);
-LABEL_323:
-            __break(1u);
-LABEL_324:
-            __break(1u);
-LABEL_325:
-            __break(1u);
-LABEL_326:
-            __break(1u);
-            goto LABEL_327;
-          }
-
-          v54 = 0;
-          v53 = 1;
-        }
-
-        if (v55 == ++v52)
-        {
-          goto LABEL_290;
-        }
-      }
-    }
-
-    if (v23 < 1)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      v25 = *v22;
-      if (v25 == 45 || (v8 = v22, v25 == 43))
-      {
-        v8 = v22 + 1;
-      }
-
-      if (v24 >= v8)
-      {
-        v26 = v8 - v22;
-        if (v8 - v22 >= 0)
-        {
-          a3 = v24 - v8;
-          if (v24 - v8 >= 0)
-          {
-            v14 = v23;
-            v27 = v22;
-            if (a3 >= 2)
-            {
-              v28 = 2;
-            }
-
-            else
-            {
-              v28 = v24 - v8;
-            }
-
-            if (_stringshims_strncasecmp_clocale(v8, "0x", v28))
-            {
-              if (v8 < v24)
-              {
-                v30 = 0;
-                v31 = 0;
-                v32 = 0;
-                v33 = v24 - v8;
-                do
-                {
-                  if (v26 + v30 < 0)
-                  {
-                    goto LABEL_293;
-                  }
-
-                  v35 = v33-- < 1;
-                  if (v35)
-                  {
-                    goto LABEL_293;
-                  }
-
-                  LODWORD(v14) = v8[v30];
-                  if ((v14 - 58) > 0xF5u)
-                  {
-                    v34 = __OFADD__(v32++, 1);
-                    if (v34)
-                    {
-                      goto LABEL_295;
-                    }
-                  }
-
-                  else if (v8[v30] <= 0x2Du)
-                  {
-                    if (v14 != 43 && v14 != 45 || v32 || v31 != 2)
-                    {
-LABEL_74:
-                      a5 = specialized static JSONError.SourceLocation.sourceLocation(at:fullSource:)(&v8[v30], a4, a5);
-                      v24 = v47;
-                      a3 = v48;
-                      goto LABEL_75;
-                    }
-
-                    v32 = 0;
-                    v31 = 3;
-                  }
-
-                  else if (v14 == 101 || v14 == 69)
-                  {
-                    if (v31 != 1 && (v31 || v32 <= 0))
-                    {
-                      goto LABEL_74;
-                    }
-
-                    v32 = 0;
-                    v31 = 2;
-                  }
-
-                  else
-                  {
-                    if (v14 != 46)
-                    {
-                      goto LABEL_74;
-                    }
-
-                    if (v31)
-                    {
-                      v120 = &v8[v30];
-                      if (&v8[v30] >= a4)
-                      {
-                        v121 = a4 + a5;
-                        if (a4 + a5 >= v120)
-                        {
-                          if (v121 >= &v8[v30 + 1])
-                          {
-                            v121 = &v8[v30 + 1];
-                          }
-
-                          if (v121 <= a4)
-                          {
-                            v24 = 0;
-                            a5 = 1;
-                          }
-
-                          else
-                          {
-                            v122 = a5 + a4;
-                            a5 = 1;
-                            v123 = a4;
-                            do
-                            {
-                              v124 = 0;
-                              v125 = 0;
-                              v126 = v122 - v123;
-                              while (1)
-                              {
-                                if ((v123 - a4 + v125) < 0 || (v126 + v124) < 1)
-                                {
-                                  goto LABEL_307;
-                                }
-
-                                v127 = *(v123 + v125);
-                                if (v127 == 10)
-                                {
-                                  break;
-                                }
-
-                                if (v127 == 13)
-                                {
-                                  v128 = v123 + v125;
-                                  if (v120 < v123 + v125 + 1)
-                                  {
-                                    goto LABEL_281;
-                                  }
-
-                                  if (((v123 - a4 + v125 + 1) & 0x8000000000000000) == 0 && (~v125 + v126) >= 1)
-                                  {
-                                    if (*(v128 + 1) == 10)
-                                    {
-                                      v128 = v123 + v125 + 1;
-                                    }
-
-LABEL_281:
-                                    v34 = __OFADD__(a5++, 1);
-                                    if (!v34)
-                                    {
-                                      v123 = v128 + 1;
-                                      goto LABEL_285;
-                                    }
-
-LABEL_337:
-                                    __break(1u);
-LABEL_338:
-                                    __break(1u);
-LABEL_339:
-                                    __break(1u);
-                                  }
-
-                                  __break(1u);
-                                }
-
-                                v24 = (v125 + 1);
-                                if (__OFADD__(v125, 1))
-                                {
-                                  goto LABEL_308;
-                                }
-
-                                ++v125;
-                                --v124;
-                                if (v123 + v125 >= v121)
-                                {
-                                  goto LABEL_289;
-                                }
-                              }
-
-                              v34 = __OFADD__(a5++, 1);
-                              if (v34)
-                              {
-                                goto LABEL_336;
-                              }
-
-                              v123 += v125 + 1;
-LABEL_285:
-                              ;
-                            }
-
-                            while (v123 < v121);
-                            v24 = 0;
-                          }
-
-LABEL_289:
-                          a3 = &v8[v30 - a4];
-                          LOBYTE(v14) = 46;
-LABEL_75:
-                          v49 = 0xE900000000000072;
-                          v50 = 0x65626D756E206E69;
-LABEL_76:
-                          lazy protocol witness table accessor for type JSONError and conformance JSONError();
-                          swift_allocError();
-                          *v51 = v50;
-                          *(v51 + 8) = v49;
-                          *(v51 + 16) = v14;
-                          *(v51 + 24) = a5;
-                          *(v51 + 32) = v24;
-                          *(v51 + 40) = a3;
-LABEL_224:
-                          v68 = 1;
-LABEL_225:
-                          *(v51 + 48) = v68;
-                          return swift_willThrow();
-                        }
-                      }
-
-LABEL_327:
-                      __break(1u);
-LABEL_328:
-                      __break(1u);
-LABEL_329:
-                      __break(1u);
-LABEL_330:
-                      __break(1u);
-LABEL_331:
-                      __break(1u);
-LABEL_332:
-                      __break(1u);
-LABEL_333:
-                      __break(1u);
-LABEL_334:
-                      __break(1u);
-LABEL_335:
-                      __break(1u);
-LABEL_336:
-                      __break(1u);
-                      goto LABEL_337;
-                    }
-
-                    v32 = 0;
-                    v31 = 1;
-                  }
-
-                  ++v30;
-                }
-
-                while (a3 != v30);
-              }
-
-LABEL_292:
-              __break(1u);
-LABEL_293:
-              __break(1u);
-LABEL_294:
-              __break(1u);
-LABEL_295:
-              __break(1u);
-LABEL_296:
-              __break(1u);
-LABEL_297:
-              __break(1u);
-LABEL_298:
-              __break(1u);
-LABEL_299:
-              __break(1u);
-LABEL_300:
-              __break(1u);
-LABEL_301:
-              __break(1u);
-LABEL_302:
-              __break(1u);
-LABEL_303:
-              __break(1u);
-LABEL_304:
-              __break(1u);
-LABEL_305:
-              __break(1u);
-LABEL_306:
-              __break(1u);
-LABEL_307:
-              __break(1u);
-LABEL_308:
-              __break(1u);
-LABEL_309:
-              LOWORD(v57) = v24;
-              v59 = 0;
-              v44 = v130;
-              v58 = v131;
-              goto LABEL_102;
-            }
-
-            v39 = v8 + 2;
-            v52 = v24 - (v8 + 2);
-            if (v52 >= 1 && v39 < v24)
-            {
-              v52 = v39 - v27;
-              if (((v39 - v27) & 0x8000000000000000) == 0)
-              {
-                a3 = &v8[-a4 + 2];
-                v52 = &v27[v14] - v8 - 3;
-                v69 = v26 + 3;
-                v29 = 1;
-                while (1)
-                {
-                  v70 = v69;
-                  LOWORD(v14) = *v39;
-                  if ((v14 - 58) <= 0xF5u && (*v39 - 65 > 0x25 || ((1 << (v14 - 65)) & 0x3F0000003FLL) == 0))
-                  {
-                    break;
-                  }
-
-                  v35 = v52-- < 1;
-                  if (!v35 && ++v39 < v24)
-                  {
-                    ++a3;
-                    ++v69;
-                    if ((v70 & 0x8000000000000000) == 0)
-                    {
-                      continue;
-                    }
-                  }
-
-                  goto LABEL_120;
-                }
-
-                if (v39 >= a4)
-                {
-                  v90 = a4 + a5;
-                  if (a4 + a5 >= v39)
-                  {
-                    if (v90 >= (v39 + 1))
-                    {
-                      v90 = (v39 + 1);
-                    }
-
-                    if (v90 <= a4)
-                    {
-                      v24 = 0;
-                      v49 = 0xED00007265626D75;
-                      v50 = 0x6E20786568206E69;
-                      a5 = 1;
-                      goto LABEL_76;
-                    }
-
-                    v91 = a5 + a4;
-                    v92 = -a4;
-                    a5 = 1;
-                    v49 = 0xED00007265626D75;
-                    v50 = 0x6E20786568206E69;
-                    while (1)
-                    {
-                      v93 = 0;
-                      v94 = 0;
-                      v95 = v91 - a4;
-                      while (1)
-                      {
-                        if ((v92 + a4 + v94) < 0 || (v95 + v93) < 1)
-                        {
-                          goto LABEL_301;
-                        }
-
-                        v96 = *(a4 + v94);
-                        if (v96 == 10)
-                        {
-                          v34 = __OFADD__(a5++, 1);
-                          if (!v34)
-                          {
-                            a4 += v94 + 1;
-                            goto LABEL_194;
-                          }
-
-                          goto LABEL_325;
-                        }
-
-                        if (v96 == 13)
-                        {
-                          break;
-                        }
-
-                        v24 = (v94 + 1);
-                        if (__OFADD__(v94, 1))
-                        {
-                          goto LABEL_302;
-                        }
-
-                        ++v94;
-                        --v93;
-                        if (a4 + v94 >= v90)
-                        {
-                          goto LABEL_76;
-                        }
-                      }
-
-                      v97 = a4 + v94;
-                      if (v39 >= a4 + v94 + 1)
-                      {
-                        if (((v92 + a4 + v94 + 1) & 0x8000000000000000) != 0 || (~v94 + v95) < 1)
-                        {
-                          goto LABEL_335;
-                        }
-
-                        if (*(v97 + 1) == 10)
-                        {
-                          v97 = a4 + v94 + 1;
-                        }
-                      }
-
-                      v34 = __OFADD__(a5++, 1);
-                      if (v34)
-                      {
-                        goto LABEL_326;
-                      }
-
-                      a4 = v97 + 1;
-LABEL_194:
-                      if (a4 >= v90)
-                      {
-                        v24 = 0;
-                        goto LABEL_76;
-                      }
-                    }
-                  }
-                }
-
-                goto LABEL_316;
-              }
-            }
-
-LABEL_120:
-            __break(1u);
-LABEL_121:
-            v72 = &v39[v52];
-            if (&v39[v52] >= a4)
-            {
-              v73 = a4 + a5;
-              if (a4 + a5 >= v72)
-              {
-                if (v73 >= &v39[v52 + 1])
-                {
-                  v73 = &v39[v52 + 1];
-                }
-
-                if (v73 > a4)
-                {
-                  v74 = a5 + a4;
-                  a5 = 1;
-                  v75 = a4;
-                  while (1)
-                  {
-                    while (1)
-                    {
-                      v76 = 0;
-                      v77 = 0;
-                      v78 = v74 - v75;
-LABEL_128:
-                      if ((v75 - a4 + v77) < 0 || (v78 + v76) < 1)
-                      {
-                        goto LABEL_297;
-                      }
-
-                      v79 = *(v75 + v77);
-                      if (v79 != 10)
-                      {
-                        break;
-                      }
-
-                      v34 = __OFADD__(a5++, 1);
-                      if (v34)
-                      {
-                        goto LABEL_320;
-                      }
-
-                      v75 += v77 + 1;
-                      if (v75 >= v73)
-                      {
-                        goto LABEL_220;
-                      }
-                    }
-
-                    if (v79 != 13)
-                    {
-                      a3 = v77 + 1;
-                      if (__OFADD__(v77, 1))
-                      {
-                        goto LABEL_299;
-                      }
-
-                      ++v77;
-                      --v76;
-                      if (v75 + v77 >= v73)
-                      {
-                        goto LABEL_223;
-                      }
-
-                      goto LABEL_128;
-                    }
-
-                    v80 = v75 + v77;
-                    if (v72 >= v75 + v77 + 1)
-                    {
-                      if (((v75 - a4 + v77 + 1) & 0x8000000000000000) != 0 || (~v77 + v78) < 1)
-                      {
-                        goto LABEL_332;
-                      }
-
-                      if (*(v80 + 1) == 10)
-                      {
-                        v80 = v75 + v77 + 1;
-                      }
-                    }
-
-                    v34 = __OFADD__(a5++, 1);
-                    if (v34)
-                    {
-                      goto LABEL_322;
-                    }
-
-                    v75 = v80 + 1;
-                    if (v80 + 1 >= v73)
-                    {
-                      goto LABEL_220;
-                    }
-                  }
-                }
-
-LABEL_221:
-                a3 = 0;
-LABEL_222:
-                a5 = 1;
-                goto LABEL_223;
-              }
-            }
-
-            goto LABEL_314;
-          }
-
-LABEL_313:
-          __break(1u);
-LABEL_314:
-          __break(1u);
-          goto LABEL_315;
-        }
-
-LABEL_312:
-        __break(1u);
-        goto LABEL_313;
-      }
-    }
-
-    __break(1u);
-    goto LABEL_312;
-  }
-
-  specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 46, 0xE100000000000000, 1, v137);
-  if (v138)
-  {
-    goto LABEL_12;
-  }
-
-  v14 = v137[1];
-  v17 = v137[2];
-  v18 = v137[0];
-LABEL_54:
-  v133[0] = v18;
-  v24 = (v18 >> 32);
-  v7 = v18 >> 48;
-  v133[1] = v14;
-  a4 = HIDWORD(v14);
-  a3 = v17 >> 16;
-  v134 = v17;
-  isNegative_getter = _So9NSDecimala__isNegative_getter(v133);
-  v131 = v18;
-  v133[0] = v18;
-  v133[1] = v14;
-  v134 = v17;
-  v8 = (v14 >> 16);
-  LOWORD(a5) = v17;
-  if (!_So9NSDecimala__length_getter(v133) && isNegative_getter)
-  {
-LABEL_107:
-    v65 = static String._fromUTF8Repairing(_:)();
-    v67 = v66;
-    lazy protocol witness table accessor for type JSONError and conformance JSONError();
-    swift_allocError();
-    *v51 = v65;
-    *(v51 + 8) = v67;
-    *(v51 + 16) = 0u;
-    *(v51 + 32) = 0u;
-    v68 = 11;
-    goto LABEL_225;
-  }
-
-  v133[0] = v18;
-  v133[1] = v14;
-  v130 = HIWORD(v14);
-  v134 = v17;
-  v40 = _So9NSDecimala__length_getter(v133);
-  if (!v40)
-  {
-    goto LABEL_309;
-  }
-
-  v41 = v40 - 1;
-  if (v40 == 1)
-  {
-    v46 = 0;
-    v44 = HIWORD(v14);
-    goto LABEL_101;
-  }
-
-  v42 = 0;
-  v43 = 0;
-  v44 = HIWORD(v14);
-  do
-  {
-    if (v41 + 1 <= 4)
-    {
-      v45 = v18 >> 48;
-      if (v41 != 1)
-      {
-        LOWORD(v45) = v14;
-        if (v41 != 2)
-        {
-          v45 = v14 >> 16;
-          if (v41 != 3)
-          {
-LABEL_341:
-            strcpy(v133, "Invalid index ");
-            HIBYTE(v133[1]) = -18;
-            v129 = dispatch thunk of CustomStringConvertible.description.getter();
-            MEMORY[0x1865CB0E0](v129);
-
-            MEMORY[0x1865CB0E0](0x616D5F20726F6620, 0xEE0061737369746ELL);
-            result = _assertionFailure(_:_:file:line:flags:)();
-            __break(1u);
-            return result;
-          }
-        }
-      }
-    }
-
-    else if (v41 + 1 > 6)
-    {
-      LOWORD(v45) = v17;
-      if (v41 != 6)
-      {
-        v45 = v17 >> 16;
-        if (v41 != 7)
-        {
-          goto LABEL_341;
-        }
-      }
-    }
-
-    else
-    {
-      v45 = HIDWORD(v14);
-      if (v41 != 4)
-      {
-        LOWORD(v45) = HIWORD(v14);
-        if (v41 != 5)
-        {
-          goto LABEL_341;
-        }
-      }
-    }
-
-    if (v42)
-    {
-      goto LABEL_107;
-    }
-
-    v46 = (v45 | v43) << 16;
-    v42 = HIWORD(v43) != 0;
-    v43 = v46;
-    --v41;
-  }
-
-  while (v41);
-  if (v42)
-  {
-    goto LABEL_107;
-  }
-
-LABEL_101:
-  v57 = v18 >> 32;
-  v58 = v18;
-  v59 = v46 | WORD2(v18);
-LABEL_102:
-  LODWORD(v133[0]) = v58;
-  v60 = v57;
-  WORD2(v133[0]) = v57;
-  HIWORD(v133[0]) = v7;
-  LOWORD(v133[1]) = v14;
-  WORD1(v133[1]) = v8;
-  WORD2(v133[1]) = a4;
-  HIWORD(v133[1]) = v44;
-  LOWORD(v134) = a5;
-  HIWORD(v134) = a3;
-  v61 = v58;
-  if ((_So9NSDecimala__exponent_getter(v133) & 0x80000000) != 0)
-  {
-    LODWORD(v133[0]) = v61;
-    WORD2(v133[0]) = v60;
-    HIWORD(v133[0]) = v7;
-    LOWORD(v133[1]) = v14;
-    WORD1(v133[1]) = v8;
-    WORD2(v133[1]) = a4;
-    HIWORD(v133[1]) = v130;
-    LOWORD(v134) = a5;
-    HIWORD(v134) = a3;
-    v118 = _So9NSDecimala__exponent_getter(v133);
-    if (v118 <= 0)
-    {
-      if (!v118)
-      {
-        goto LABEL_259;
-      }
-
-      if (__CFADD__(v118, -v118 & ~(-v118 >> 31)))
-      {
-        do
-        {
-          v59 /= 0xAuLL;
-        }
-
-        while (!__CFADD__(v118++, 1));
-        goto LABEL_259;
-      }
-
-      goto LABEL_328;
-    }
-
-    goto LABEL_324;
-  }
-
-  LODWORD(v133[0]) = v61;
-  WORD2(v133[0]) = v60;
-  HIWORD(v133[0]) = v7;
-  LOWORD(v133[1]) = v14;
-  WORD1(v133[1]) = v8;
-  WORD2(v133[1]) = a4;
-  HIWORD(v133[1]) = v130;
-  LOWORD(v134) = a5;
-  HIWORD(v134) = a3;
-  v62 = _So9NSDecimala__exponent_getter(v133);
-  if (v62 < 0)
-  {
-    goto LABEL_317;
-  }
-
-  v63 = v62 + 1;
-  while (--v63)
-  {
-    v64 = (v59 * 0xAuLL) >> 64;
-    v59 *= 10;
-    if (v64)
-    {
-      goto LABEL_107;
-    }
-  }
-
-LABEL_259:
-  if (isNegative_getter)
-  {
-    return -v59;
-  }
-
-  else
-  {
-    return v59;
-  }
-}
-
-{
   LOWORD(v9) = v6;
   LOWORD(v15) = a1;
   v133 = *MEMORY[0x1E69E9840];
   v127[0] = 0;
-  v16 = _stringshims_strtod_clocale(a2, v127);
+  v16.n128_f64[0] = _stringshims_strtod_clocale(a2, v127);
   if (v127[0])
   {
     v17 = &a2[a3] == v127[0];
@@ -6921,7 +5628,7 @@ LABEL_259:
 
   if (v17)
   {
-    v19 = v16;
+    v19 = v16.n128_f64[0];
     if (!_ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs6UInt32V_SdTt1g5(v127, v16) || (BYTE4(v127[0]) & 1) != 0)
     {
       goto LABEL_57;
@@ -6933,9 +5640,9 @@ LABEL_259:
     }
   }
 
-  if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd) != MEMORY[0x1E69E6108])
+  if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd, &_s10Foundation10BufferViewVys5UInt8VGMR) != MEMORY[0x1E69E6108])
   {
-    specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 46, 0xE100000000000000, 1, v131);
+    specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 0x2EuLL, 0xE100000000000000, 1, v131);
     if ((v132 & 1) == 0)
     {
       a3 = v131[1];
@@ -6969,7 +5676,7 @@ LABEL_311:
         goto LABEL_311;
       }
 
-      a6 = v9 - v20;
+      a6 = (v9 - v20);
       if (v9 - v20 < 0)
       {
 LABEL_312:
@@ -7102,7 +5809,7 @@ LABEL_57:
           v29 = v22 - v9;
           do
           {
-            if (a6 + v26 < 0)
+            if (&a6[v26] < 0)
             {
               goto LABEL_294;
             }
@@ -7187,7 +5894,7 @@ LABEL_77:
                         v120 = v116 - v117;
                         while (1)
                         {
-                          if ((v117 - a4 + v119) < 0 || (v120 + v118) < 1)
+                          if ((v117 - a4 + v119) < 0 || v120 + v118 < 1)
                           {
                             goto LABEL_308;
                           }
@@ -7206,7 +5913,7 @@ LABEL_77:
                               goto LABEL_274;
                             }
 
-                            if (((v117 - a4 + v119 + 1) & 0x8000000000000000) == 0 && (~v119 + v120) >= 1)
+                            if (((v117 - a4 + v119 + 1) & 0x8000000000000000) == 0 && ~v119 + v120 >= 1)
                             {
                               if (*(v122 + 1) == 10)
                               {
@@ -7422,7 +6129,7 @@ LABEL_309:
                 v92 = v88 - a4;
                 while (1)
                 {
-                  if ((v89 + a4 + v91) < 0 || (v92 + v90) < 1)
+                  if ((v89 + a4 + v91) < 0 || v92 + v90 < 1)
                   {
                     goto LABEL_302;
                   }
@@ -7462,7 +6169,7 @@ LABEL_309:
                 v94 = a4 + v91;
                 if (v35 >= a4 + v91 + 1)
                 {
-                  if (((v89 + a4 + v91 + 1) & 0x8000000000000000) != 0 || (~v91 + v92) < 1)
+                  if (((v89 + a4 + v91 + 1) & 0x8000000000000000) != 0 || ~v91 + v92 < 1)
                   {
                     goto LABEL_335;
                   }
@@ -7521,7 +6228,7 @@ LABEL_116:
                 v67 = 0;
                 v68 = v64 - v65;
 LABEL_123:
-                if ((v65 - a4 + v67) < 0 || (v68 + v66) < 1)
+                if ((v65 - a4 + v67) < 0 || v68 + v66 < 1)
                 {
                   goto LABEL_298;
                 }
@@ -7566,7 +6273,7 @@ LABEL_123:
               v70 = v65 + v67;
               if (v62 >= v65 + v67 + 1)
               {
-                if (((v65 - a4 + v67 + 1) & 0x8000000000000000) != 0 || (~v67 + v68) < 1)
+                if (((v65 - a4 + v67 + 1) & 0x8000000000000000) != 0 || ~v67 + v68 < 1)
                 {
                   goto LABEL_332;
                 }
@@ -7720,7 +6427,7 @@ LABEL_206:
             v101 = v97 - v98;
             while (1)
             {
-              if ((v98 - a4 + v100) < 0 || (v101 + v99) < 1)
+              if ((v98 - a4 + v100) < 0 || v101 + v99 < 1)
               {
                 goto LABEL_304;
               }
@@ -7765,7 +6472,7 @@ LABEL_206:
             v103 = v98 + v100;
             if (v95 >= v98 + v100 + 1)
             {
-              if (((v98 - a4 + v100 + 1) & 0x8000000000000000) != 0 || (~v100 + v101) < 1)
+              if (((v98 - a4 + v100 + 1) & 0x8000000000000000) != 0 || ~v100 + v101 < 1)
               {
                 goto LABEL_339;
               }
@@ -7832,7 +6539,7 @@ LABEL_147:
                 v77 = v73 - v74;
                 while (1)
                 {
-                  if ((v74 - a4 + v76) < 0 || (v77 + v75) < 1)
+                  if ((v74 - a4 + v76) < 0 || v77 + v75 < 1)
                   {
                     goto LABEL_299;
                   }
@@ -7877,7 +6584,7 @@ LABEL_147:
                 v79 = v74 + v76;
                 if (v71 >= v74 + v76 + 1)
                 {
-                  if (((v74 - a4 + v76 + 1) & 0x8000000000000000) != 0 || (~v76 + v77) < 1)
+                  if (((v74 - a4 + v76 + 1) & 0x8000000000000000) != 0 || ~v76 + v77 < 1)
                   {
                     goto LABEL_333;
                   }
@@ -7955,7 +6662,7 @@ LABEL_147:
                 v111 = v107 - v108;
                 while (1)
                 {
-                  if ((v108 - a4 + v110) < 0 || (v111 + v109) < 1)
+                  if ((v108 - a4 + v110) < 0 || v111 + v109 < 1)
                   {
                     goto LABEL_305;
                   }
@@ -7971,7 +6678,7 @@ LABEL_147:
                     v113 = v108 + v110;
                     if (v105 >= v108 + v110 + 1)
                     {
-                      if (((v108 - a4 + v110 + 1) & 0x8000000000000000) != 0 || (~v110 + v111) < 1)
+                      if (((v108 - a4 + v110 + 1) & 0x8000000000000000) != 0 || ~v110 + v111 < 1)
                       {
                         goto LABEL_340;
                       }
@@ -8069,7 +6776,7 @@ LABEL_326:
   v18 = v129[0];
 LABEL_56:
   v127[0] = v18;
-  v37 = HIDWORD(v18);
+  v37 = v18 >> 32;
   v127[1] = a3;
   v15 = v8 >> 16;
   v128 = v8;
@@ -8080,9 +6787,9 @@ LABEL_56:
 
   v7 = HIDWORD(a3);
   a5 = a3 >> 16;
-  a4 = HIWORD(v18);
+  a4 = v18 >> 48;
   a6 = v18;
-  v9 = HIDWORD(v18);
+  v9 = (v18 >> 32);
   LODWORD(v127[0]) = a6;
   WORD2(v127[0]) = v37;
   HIWORD(v127[0]) = a4;
@@ -8196,7 +6903,7 @@ uint64_t specialized static JSONDecoderImpl._slowpath_unwrapFixedWidthInteger<A,
   LOWORD(v14) = a1;
   v135 = *MEMORY[0x1E69E9840];
   v129[0] = 0;
-  v15 = _stringshims_strtod_clocale(a2, v129);
+  v15.n128_f64[0] = _stringshims_strtod_clocale(a2, v129);
   if (v129[0])
   {
     v16 = &a2[a3] == v129[0];
@@ -8209,7 +6916,7 @@ uint64_t specialized static JSONDecoderImpl._slowpath_unwrapFixedWidthInteger<A,
 
   if (v16)
   {
-    v19 = v15;
+    v19 = v15.n128_f64[0];
     if (!_ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs4Int8V_SdTt1g5(v129, v15) || (BYTE1(v129[0]) & 1) != 0)
     {
       goto LABEL_288;
@@ -8221,7 +6928,7 @@ uint64_t specialized static JSONDecoderImpl._slowpath_unwrapFixedWidthInteger<A,
     }
   }
 
-  if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd) == MEMORY[0x1E69E6108])
+  if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd, &_s10Foundation10BufferViewVys5UInt8VGMR) == MEMORY[0x1E69E6108])
   {
     specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 0x2EuLL, 0xE100000000000000, 1, v131);
     if (v132 != 1)
@@ -8235,7 +6942,7 @@ uint64_t specialized static JSONDecoderImpl._slowpath_unwrapFixedWidthInteger<A,
 
   else
   {
-    specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 46, 0xE100000000000000, 1, v133);
+    specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 0x2EuLL, 0xE100000000000000, 1, v133);
     if ((v134 & 1) == 0)
     {
       a6 = v133[1];
@@ -8624,7 +7331,7 @@ LABEL_204:
             v97 = v93 - v94;
             while (1)
             {
-              if ((v94 - a4 + v96) < 0 || (v97 + v95) < 1)
+              if ((v94 - a4 + v96) < 0 || v97 + v95 < 1)
               {
                 goto LABEL_308;
               }
@@ -8669,7 +7376,7 @@ LABEL_204:
             v99 = v94 + v96;
             if (v91 >= v94 + v96 + 1)
             {
-              if (((v94 - a4 + v96 + 1) & 0x8000000000000000) != 0 || (~v96 + v97) < 1)
+              if (((v94 - a4 + v96 + 1) & 0x8000000000000000) != 0 || ~v96 + v97 < 1)
               {
                 goto LABEL_343;
               }
@@ -8736,7 +7443,7 @@ LABEL_154:
                 v80 = v76 - v77;
                 while (1)
                 {
-                  if ((v77 - a4 + v79) < 0 || (v80 + v78) < 1)
+                  if ((v77 - a4 + v79) < 0 || v80 + v78 < 1)
                   {
                     goto LABEL_303;
                   }
@@ -8781,7 +7488,7 @@ LABEL_154:
                 v82 = v77 + v79;
                 if (v74 >= v77 + v79 + 1)
                 {
-                  if (((v77 - a4 + v79 + 1) & 0x8000000000000000) != 0 || (~v79 + v80) < 1)
+                  if (((v77 - a4 + v79 + 1) & 0x8000000000000000) != 0 || ~v79 + v80 < 1)
                   {
                     goto LABEL_338;
                   }
@@ -8864,7 +7571,7 @@ LABEL_320:
               v108 = v104 - v105;
               while (1)
               {
-                if ((v105 - a4 + v107) < 0 || (v108 + v106) < 1)
+                if ((v105 - a4 + v107) < 0 || v108 + v106 < 1)
                 {
                   goto LABEL_309;
                 }
@@ -8880,7 +7587,7 @@ LABEL_320:
                   v110 = v105 + v107;
                   if (v102 >= v105 + v107 + 1)
                   {
-                    if (((v105 - a4 + v107 + 1) & 0x8000000000000000) != 0 || (~v107 + v108) < 1)
+                    if (((v105 - a4 + v107 + 1) & 0x8000000000000000) != 0 || ~v107 + v108 < 1)
                     {
                       goto LABEL_344;
                     }
@@ -9066,7 +7773,7 @@ LABEL_319:
               v88 = v84 - a4;
               while (1)
               {
-                if ((v85 + a4 + v87) < 0 || (v88 + v86) < 1)
+                if ((v85 + a4 + v87) < 0 || v88 + v86 < 1)
                 {
                   goto LABEL_306;
                 }
@@ -9082,7 +7789,7 @@ LABEL_319:
                   v90 = a4 + v87;
                   if (v36 >= a4 + v87 + 1)
                   {
-                    if (((v85 + a4 + v87 + 1) & 0x8000000000000000) != 0 || (~v87 + v88) < 1)
+                    if (((v85 + a4 + v87 + 1) & 0x8000000000000000) != 0 || ~v87 + v88 < 1)
                     {
                       goto LABEL_340;
                     }
@@ -9167,7 +7874,7 @@ LABEL_123:
               v70 = 0;
               v71 = v67 - v68;
 LABEL_130:
-              if ((v68 - a4 + v70) < 0 || (v71 + v69) < 1)
+              if ((v68 - a4 + v70) < 0 || v71 + v69 < 1)
               {
                 goto LABEL_302;
               }
@@ -9212,7 +7919,7 @@ LABEL_130:
             v73 = v68 + v70;
             if (v65 >= v68 + v70 + 1)
             {
-              if (((v68 - a4 + v70 + 1) & 0x8000000000000000) != 0 || (~v70 + v71) < 1)
+              if (((v68 - a4 + v70 + 1) & 0x8000000000000000) != 0 || ~v70 + v71 < 1)
               {
                 goto LABEL_337;
               }
@@ -9403,7 +8110,7 @@ LABEL_27:
       v119 = v115 - v116;
       while (1)
       {
-        if ((v116 - a4 + v118) < 0 || (v119 + v117) < 1)
+        if ((v116 - a4 + v118) < 0 || v119 + v117 < 1)
         {
           goto LABEL_312;
         }
@@ -9443,7 +8150,7 @@ LABEL_27:
       v121 = v116 + v118;
       if (v113 >= v116 + v118 + 1)
       {
-        if (((v116 - a4 + v118 + 1) & 0x8000000000000000) != 0 || (~v118 + v119) < 1)
+        if (((v116 - a4 + v118 + 1) & 0x8000000000000000) != 0 || ~v118 + v119 < 1)
         {
           goto LABEL_345;
         }
@@ -9496,7 +8203,7 @@ LABEL_289:
   LOWORD(v14) = a1;
   v135 = *MEMORY[0x1E69E9840];
   v129[0] = 0;
-  v15 = _stringshims_strtod_clocale(a2, v129);
+  v15.n128_f64[0] = _stringshims_strtod_clocale(a2, v129);
   if (v129[0])
   {
     v16 = &a2[a3] == v129[0];
@@ -9509,7 +8216,7 @@ LABEL_289:
 
   if (v16)
   {
-    v19 = v15;
+    v19 = v15.n128_f64[0];
     if (!_ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs5Int16V_SdTt1g5(v129, v15) || (BYTE2(v129[0]) & 1) != 0)
     {
       goto LABEL_288;
@@ -9521,7 +8228,7 @@ LABEL_289:
     }
   }
 
-  if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd) == MEMORY[0x1E69E6108])
+  if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd, &_s10Foundation10BufferViewVys5UInt8VGMR) == MEMORY[0x1E69E6108])
   {
     specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 0x2EuLL, 0xE100000000000000, 1, v131);
     if (v132 != 1)
@@ -9535,7 +8242,7 @@ LABEL_289:
 
   else
   {
-    specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 46, 0xE100000000000000, 1, v133);
+    specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 0x2EuLL, 0xE100000000000000, 1, v133);
     if ((v134 & 1) == 0)
     {
       a6 = v133[1];
@@ -9924,7 +8631,7 @@ LABEL_204:
             v97 = v93 - v94;
             while (1)
             {
-              if ((v94 - a4 + v96) < 0 || (v97 + v95) < 1)
+              if ((v94 - a4 + v96) < 0 || v97 + v95 < 1)
               {
                 goto LABEL_308;
               }
@@ -9969,7 +8676,7 @@ LABEL_204:
             v99 = v94 + v96;
             if (v91 >= v94 + v96 + 1)
             {
-              if (((v94 - a4 + v96 + 1) & 0x8000000000000000) != 0 || (~v96 + v97) < 1)
+              if (((v94 - a4 + v96 + 1) & 0x8000000000000000) != 0 || ~v96 + v97 < 1)
               {
                 goto LABEL_343;
               }
@@ -10036,7 +8743,7 @@ LABEL_154:
                 v80 = v76 - v77;
                 while (1)
                 {
-                  if ((v77 - a4 + v79) < 0 || (v80 + v78) < 1)
+                  if ((v77 - a4 + v79) < 0 || v80 + v78 < 1)
                   {
                     goto LABEL_303;
                   }
@@ -10081,7 +8788,7 @@ LABEL_154:
                 v82 = v77 + v79;
                 if (v74 >= v77 + v79 + 1)
                 {
-                  if (((v77 - a4 + v79 + 1) & 0x8000000000000000) != 0 || (~v79 + v80) < 1)
+                  if (((v77 - a4 + v79 + 1) & 0x8000000000000000) != 0 || ~v79 + v80 < 1)
                   {
                     goto LABEL_338;
                   }
@@ -10164,7 +8871,7 @@ LABEL_320:
               v108 = v104 - v105;
               while (1)
               {
-                if ((v105 - a4 + v107) < 0 || (v108 + v106) < 1)
+                if ((v105 - a4 + v107) < 0 || v108 + v106 < 1)
                 {
                   goto LABEL_309;
                 }
@@ -10180,7 +8887,7 @@ LABEL_320:
                   v110 = v105 + v107;
                   if (v102 >= v105 + v107 + 1)
                   {
-                    if (((v105 - a4 + v107 + 1) & 0x8000000000000000) != 0 || (~v107 + v108) < 1)
+                    if (((v105 - a4 + v107 + 1) & 0x8000000000000000) != 0 || ~v107 + v108 < 1)
                     {
                       goto LABEL_344;
                     }
@@ -10366,7 +9073,7 @@ LABEL_319:
               v88 = v84 - a4;
               while (1)
               {
-                if ((v85 + a4 + v87) < 0 || (v88 + v86) < 1)
+                if ((v85 + a4 + v87) < 0 || v88 + v86 < 1)
                 {
                   goto LABEL_306;
                 }
@@ -10382,7 +9089,7 @@ LABEL_319:
                   v90 = a4 + v87;
                   if (v36 >= a4 + v87 + 1)
                   {
-                    if (((v85 + a4 + v87 + 1) & 0x8000000000000000) != 0 || (~v87 + v88) < 1)
+                    if (((v85 + a4 + v87 + 1) & 0x8000000000000000) != 0 || ~v87 + v88 < 1)
                     {
                       goto LABEL_340;
                     }
@@ -10467,7 +9174,7 @@ LABEL_123:
               v70 = 0;
               v71 = v67 - v68;
 LABEL_130:
-              if ((v68 - a4 + v70) < 0 || (v71 + v69) < 1)
+              if ((v68 - a4 + v70) < 0 || v71 + v69 < 1)
               {
                 goto LABEL_302;
               }
@@ -10512,7 +9219,7 @@ LABEL_130:
             v73 = v68 + v70;
             if (v65 >= v68 + v70 + 1)
             {
-              if (((v68 - a4 + v70 + 1) & 0x8000000000000000) != 0 || (~v70 + v71) < 1)
+              if (((v68 - a4 + v70 + 1) & 0x8000000000000000) != 0 || ~v70 + v71 < 1)
               {
                 goto LABEL_337;
               }
@@ -10703,7 +9410,7 @@ LABEL_27:
       v119 = v115 - v116;
       while (1)
       {
-        if ((v116 - a4 + v118) < 0 || (v119 + v117) < 1)
+        if ((v116 - a4 + v118) < 0 || v119 + v117 < 1)
         {
           goto LABEL_312;
         }
@@ -10743,7 +9450,7 @@ LABEL_27:
       v121 = v116 + v118;
       if (v113 >= v116 + v118 + 1)
       {
-        if (((v116 - a4 + v118 + 1) & 0x8000000000000000) != 0 || (~v118 + v119) < 1)
+        if (((v116 - a4 + v118 + 1) & 0x8000000000000000) != 0 || ~v118 + v119 < 1)
         {
           goto LABEL_345;
         }
@@ -10796,7 +9503,7 @@ LABEL_289:
   LOWORD(v14) = a1;
   v135 = *MEMORY[0x1E69E9840];
   v129[0] = 0;
-  v15 = _stringshims_strtod_clocale(a2, v129);
+  v15.n128_f64[0] = _stringshims_strtod_clocale(a2, v129);
   if (v129[0])
   {
     v16 = &a2[a3] == v129[0];
@@ -10809,7 +9516,7 @@ LABEL_289:
 
   if (v16)
   {
-    v19 = v15;
+    v19 = v15.n128_f64[0];
     if (!_ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs5Int32V_SdTt1g5(v129, v15) || (BYTE4(v129[0]) & 1) != 0)
     {
       goto LABEL_288;
@@ -10821,7 +9528,7 @@ LABEL_289:
     }
   }
 
-  if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd) == MEMORY[0x1E69E6108])
+  if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd, &_s10Foundation10BufferViewVys5UInt8VGMR) == MEMORY[0x1E69E6108])
   {
     specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 0x2EuLL, 0xE100000000000000, 1, v131);
     if (v132 != 1)
@@ -10835,7 +9542,7 @@ LABEL_289:
 
   else
   {
-    specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 46, 0xE100000000000000, 1, v133);
+    specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(a2, a3, 0x2EuLL, 0xE100000000000000, 1, v133);
     if ((v134 & 1) == 0)
     {
       a6 = v133[1];
@@ -11224,7 +9931,7 @@ LABEL_204:
             v97 = v93 - v94;
             while (1)
             {
-              if ((v94 - a4 + v96) < 0 || (v97 + v95) < 1)
+              if ((v94 - a4 + v96) < 0 || v97 + v95 < 1)
               {
                 goto LABEL_308;
               }
@@ -11269,7 +9976,7 @@ LABEL_204:
             v99 = v94 + v96;
             if (v91 >= v94 + v96 + 1)
             {
-              if (((v94 - a4 + v96 + 1) & 0x8000000000000000) != 0 || (~v96 + v97) < 1)
+              if (((v94 - a4 + v96 + 1) & 0x8000000000000000) != 0 || ~v96 + v97 < 1)
               {
                 goto LABEL_343;
               }
@@ -11336,7 +10043,7 @@ LABEL_154:
                 v80 = v76 - v77;
                 while (1)
                 {
-                  if ((v77 - a4 + v79) < 0 || (v80 + v78) < 1)
+                  if ((v77 - a4 + v79) < 0 || v80 + v78 < 1)
                   {
                     goto LABEL_303;
                   }
@@ -11381,7 +10088,7 @@ LABEL_154:
                 v82 = v77 + v79;
                 if (v74 >= v77 + v79 + 1)
                 {
-                  if (((v77 - a4 + v79 + 1) & 0x8000000000000000) != 0 || (~v79 + v80) < 1)
+                  if (((v77 - a4 + v79 + 1) & 0x8000000000000000) != 0 || ~v79 + v80 < 1)
                   {
                     goto LABEL_338;
                   }
@@ -11464,7 +10171,7 @@ LABEL_320:
               v108 = v104 - v105;
               while (1)
               {
-                if ((v105 - a4 + v107) < 0 || (v108 + v106) < 1)
+                if ((v105 - a4 + v107) < 0 || v108 + v106 < 1)
                 {
                   goto LABEL_309;
                 }
@@ -11480,7 +10187,7 @@ LABEL_320:
                   v110 = v105 + v107;
                   if (v102 >= v105 + v107 + 1)
                   {
-                    if (((v105 - a4 + v107 + 1) & 0x8000000000000000) != 0 || (~v107 + v108) < 1)
+                    if (((v105 - a4 + v107 + 1) & 0x8000000000000000) != 0 || ~v107 + v108 < 1)
                     {
                       goto LABEL_344;
                     }
@@ -11666,7 +10373,7 @@ LABEL_319:
               v88 = v84 - a4;
               while (1)
               {
-                if ((v85 + a4 + v87) < 0 || (v88 + v86) < 1)
+                if ((v85 + a4 + v87) < 0 || v88 + v86 < 1)
                 {
                   goto LABEL_306;
                 }
@@ -11682,7 +10389,7 @@ LABEL_319:
                   v90 = a4 + v87;
                   if (v36 >= a4 + v87 + 1)
                   {
-                    if (((v85 + a4 + v87 + 1) & 0x8000000000000000) != 0 || (~v87 + v88) < 1)
+                    if (((v85 + a4 + v87 + 1) & 0x8000000000000000) != 0 || ~v87 + v88 < 1)
                     {
                       goto LABEL_340;
                     }
@@ -11767,7 +10474,7 @@ LABEL_123:
               v70 = 0;
               v71 = v67 - v68;
 LABEL_130:
-              if ((v68 - a4 + v70) < 0 || (v71 + v69) < 1)
+              if ((v68 - a4 + v70) < 0 || v71 + v69 < 1)
               {
                 goto LABEL_302;
               }
@@ -11812,7 +10519,7 @@ LABEL_130:
             v73 = v68 + v70;
             if (v65 >= v68 + v70 + 1)
             {
-              if (((v68 - a4 + v70 + 1) & 0x8000000000000000) != 0 || (~v70 + v71) < 1)
+              if (((v68 - a4 + v70 + 1) & 0x8000000000000000) != 0 || ~v70 + v71 < 1)
               {
                 goto LABEL_337;
               }
@@ -12003,7 +10710,7 @@ LABEL_27:
       v119 = v115 - v116;
       while (1)
       {
-        if ((v116 - a4 + v118) < 0 || (v119 + v117) < 1)
+        if ((v116 - a4 + v118) < 0 || v119 + v117 < 1)
         {
           goto LABEL_312;
         }
@@ -12043,7 +10750,7 @@ LABEL_27:
       v121 = v116 + v118;
       if (v113 >= v116 + v118 + 1)
       {
-        if (((v116 - a4 + v118 + 1) & 0x8000000000000000) != 0 || (~v118 + v119) < 1)
+        if (((v116 - a4 + v118 + 1) & 0x8000000000000000) != 0 || ~v118 + v119 < 1)
         {
           goto LABEL_345;
         }

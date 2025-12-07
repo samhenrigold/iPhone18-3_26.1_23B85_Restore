@@ -90,7 +90,7 @@
 
 - (id)_deviceInformationView
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v2 = 0x277D75000uLL;
   v3 = objc_alloc(MEMORY[0x277D75A68]);
   v4 = [v3 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
@@ -98,27 +98,27 @@
   [v4 setAlignment:3];
   [v4 setDistribution:3];
   [v4 setSpacing:20.0];
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = [self _deviceInformation];
-  v39 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
-  if (v39)
+  v38 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+  if (v38)
   {
-    v37 = *v45;
-    v38 = v4;
+    v36 = *v44;
+    v37 = v4;
     selfCopy = self;
     do
     {
-      for (i = 0; i != v39; ++i)
+      for (i = 0; i != v38; ++i)
       {
-        if (*v45 != v37)
+        if (*v44 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v44 + 1) + 8 * i);
+        v6 = *(*(&v43 + 1) + 8 * i);
         v7 = objc_alloc_init(*(v2 + 2664));
         [v7 setAxis:1];
         [v7 setAlignment:3];
@@ -133,29 +133,29 @@
         [v7 addArrangedSubview:v8];
         if ([v6 multiLineFormatted])
         {
-          v42 = 0u;
-          v43 = 0u;
-          v40 = 0u;
           v41 = 0u;
+          v42 = 0u;
+          v39 = 0u;
+          v40 = 0u;
           formattedValuesArray = [v6 formattedValuesArray];
-          v12 = [formattedValuesArray countByEnumeratingWithState:&v40 objects:v48 count:16];
+          v12 = [formattedValuesArray countByEnumeratingWithState:&v39 objects:v47 count:16];
           if (v12)
           {
             v13 = v12;
-            v34 = v6;
-            v35 = v8;
-            v36 = i;
-            v14 = *v41;
+            v33 = v6;
+            v34 = v8;
+            v35 = i;
+            v14 = *v40;
             do
             {
               for (j = 0; j != v13; ++j)
               {
-                if (*v41 != v14)
+                if (*v40 != v14)
                 {
                   objc_enumerationMutation(formattedValuesArray);
                 }
 
-                v16 = *(*(&v40 + 1) + 8 * j);
+                v16 = *(*(&v39 + 1) + 8 * j);
                 v17 = objc_alloc_init(MEMORY[0x277D756B8]);
                 v18 = [MEMORY[0x277D74300] systemFontOfSize:20.0];
                 [v17 setFont:v18];
@@ -164,21 +164,21 @@
                 [v7 addArrangedSubview:v17];
               }
 
-              v13 = [formattedValuesArray countByEnumeratingWithState:&v40 objects:v48 count:16];
+              v13 = [formattedValuesArray countByEnumeratingWithState:&v39 objects:v47 count:16];
             }
 
             while (v13);
             self = selfCopy;
             v2 = 0x277D75000;
-            v4 = v38;
-            v8 = v35;
-            i = v36;
-            v6 = v34;
+            v4 = v37;
+            v8 = v34;
+            i = v35;
+            v6 = v33;
           }
 
           else
           {
-            v4 = v38;
+            v4 = v37;
           }
         }
 
@@ -197,7 +197,7 @@
           v6 = v21;
           self = selfCopy2;
           v2 = v19;
-          v4 = v38;
+          v4 = v37;
           [v7 addArrangedSubview:formattedValuesArray];
         }
 
@@ -227,13 +227,11 @@
         }
       }
 
-      v39 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v38 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
-    while (v39);
+    while (v38);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

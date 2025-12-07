@@ -184,21 +184,19 @@
 
 - (id)attributeDescriptions
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   ckShareParticipant = [(HMBShareParticipant *)self ckShareParticipant];
   v5 = [v3 initWithName:@"CK Share Participant" value:ckShareParticipant options:2 formatter:0];
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   clientIdentifier = [(HMBShareParticipant *)self clientIdentifier];
   v8 = [v6 initWithName:@"Client Identifier" value:clientIdentifier];
-  v15[1] = v8;
+  v14[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   pendingInvitation = [(HMBShareParticipant *)self pendingInvitation];
   v11 = [v9 initWithName:@"Pending Invitation" value:pendingInvitation];
-  v15[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
 
   return v12;
 }

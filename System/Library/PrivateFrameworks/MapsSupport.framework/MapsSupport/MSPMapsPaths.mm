@@ -319,17 +319,15 @@ void __32__MSPMapsPaths_pathsAtLocation___block_invoke(uint64_t a1)
 
 void __32__MSPMapsPaths_pathsAtLocation___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() currentMapsApplicationContainerURL];
-  v9 = [v3 URLByAppendingPathComponent:@"Library" isDirectory:1];
+  v2 = [objc_opt_class() currentMapsApplicationContainerURL];
+  v7 = [v2 URLByAppendingPathComponent:@"Library" isDirectory:1];
 
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() currentMapsGroupContainerURL];
-  v6 = [v5 URLByAppendingPathComponent:@"Library" isDirectory:1];
+  v3 = [objc_opt_class() currentMapsGroupContainerURL];
+  v4 = [v3 URLByAppendingPathComponent:@"Library" isDirectory:1];
 
-  v7 = [objc_alloc(*(a1 + 32)) initWithLibraryDirectoryURL:v9 groupLibraryURL:v6 invalidationHandler:0];
-  v8 = pathsAtLocation__me_32;
-  pathsAtLocation__me_32 = v7;
+  v5 = [objc_alloc(*(a1 + 32)) initWithLibraryDirectoryURL:v7 groupLibraryURL:v4 invalidationHandler:0];
+  v6 = pathsAtLocation__me_32;
+  pathsAtLocation__me_32 = v5;
 }
 
 void __32__MSPMapsPaths_pathsAtLocation___block_invoke_3(uint64_t a1)

@@ -40,30 +40,30 @@
 
 - (id)personIDsEnabledForAlbumSharing
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   accountStore = [(MSASPlatformImplementation *)self accountStore];
   accounts = [accountStore accounts];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v6 = [accounts countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [accounts countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     v9 = *MEMORY[0x277CB91B0];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(accounts);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         if ([v11 isEnabledForDataclass:v9])
         {
           aa_personID = [v11 aa_personID];
@@ -76,13 +76,11 @@
         }
       }
 
-      v7 = [accounts countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [accounts countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -133,7 +131,7 @@
 
 - (BOOL)MSASPersonIDIsAllowedToDownloadAssets:(id)assets
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   if ([(MSASPlatformImplementation *)self deviceHasEnoughDiskSpaceRemainingToOperate])
   {
@@ -153,20 +151,20 @@
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v15) = 0;
+        LOWORD(v14) = 0;
         v9 = MEMORY[0x277D86220];
         v10 = "mstreamd is paused. Not downloading assets at this time.";
 LABEL_8:
         v11 = 2;
 LABEL_11:
-        _os_log_impl(&dword_258743000, v9, OS_LOG_TYPE_DEFAULT, v10, &v15, v11);
+        _os_log_impl(&dword_258743000, v9, OS_LOG_TYPE_DEFAULT, v10, &v14, v11);
       }
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = assetsCopy;
+      v14 = 138412290;
+      v15 = assetsCopy;
       v9 = MEMORY[0x277D86220];
       v10 = "%@ is not allowed to download assets at this time.";
       v11 = 12;
@@ -176,7 +174,7 @@ LABEL_11:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v15) = 0;
+    LOWORD(v14) = 0;
     v9 = MEMORY[0x277D86220];
     v10 = "Not enough disk space to continue downloading assets.";
     goto LABEL_8;
@@ -185,7 +183,6 @@ LABEL_11:
   v12 = 0;
 LABEL_13:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -521,15 +518,13 @@ uint64_t __72__MSASPlatformImplementation_deviceHasEnoughDiskSpaceRemainingToOpe
 
 - (void)logLevel:(int)level personID:(id)d albumGUID:(id)iD format:(id)format
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
+    v7 = 138412290;
     formatCopy = format;
-    _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unexpected call to legacy logging method, please switch to os_log(): %@", &v8, 0xCu);
+    _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unexpected call to legacy logging method, please switch to os_log(): %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (Class)pluginClass
@@ -546,13 +541,13 @@ uint64_t __72__MSASPlatformImplementation_deviceHasEnoughDiskSpaceRemainingToOpe
 
 void __41__MSASPlatformImplementation_pluginClass__block_invoke()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [@"/System/Library/MediaStreamPlugins" stringByAppendingPathComponent:@"PhotoSharingPlugin.mediastream"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v0;
-    _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Loading Shared Streams plugin from %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v0;
+    _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Loading Shared Streams plugin from %@", &v4, 0xCu);
   }
 
   v1 = [MEMORY[0x277CCA8D8] bundleWithPath:v0];
@@ -562,12 +557,10 @@ void __41__MSASPlatformImplementation_pluginClass__block_invoke()
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v5 = 138543362;
-    v6 = pluginClass_class;
-    _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Loaded class: %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = pluginClass_class;
+    _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Loaded class: %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)pathAlbumSharingDir

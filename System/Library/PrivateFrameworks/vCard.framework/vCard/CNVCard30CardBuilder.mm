@@ -122,7 +122,7 @@
   _Block_object_dispose(&v12, 8);
 }
 
-void __44__CNVCard30CardBuilder_buildWithSerializer___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __44__CNVCard30CardBuilder_buildWithSerializer___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v9 = a2;
   if ([*(a1 + 32) countOfLinesBeforePhoto] == a3)
@@ -311,20 +311,19 @@ void __42__CNVCard30CardBuilder_addBeginningOfCard__block_invoke()
 
 void __41__CNVCard30CardBuilder_addActivityAlerts__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
-  v13 = a2;
-  v14[0] = a3;
+  v12 = a2;
+  v13[0] = a3;
   v6 = MEMORY[0x277CBEAC0];
   v7 = a3;
   v8 = a2;
-  v9 = [v6 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [v5 lineWithValue:v9 label:0];
 
   v11 = [*(a1 + 40) lines];
 
   [v11 _cn_addNonNilObject:v10];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addNote
@@ -434,28 +433,28 @@ void __41__CNVCard30CardBuilder_addActivityAlerts__block_invoke(uint64_t a1, voi
 
 - (void)addUnknownProperties
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = self->_unknownProperties;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       v7 = 0;
       do
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * v7);
+        v8 = *(*(&v15 + 1) + 8 * v7);
         v9 = objc_alloc(MEMORY[0x277CBEA90]);
         originalLine = [v8 originalLine];
         v11 = [v9 initWithBase64EncodedString:originalLine options:0];
@@ -474,13 +473,11 @@ void __41__CNVCard30CardBuilder_addActivityAlerts__block_invoke(uint64_t a1, voi
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addCardDAVUID

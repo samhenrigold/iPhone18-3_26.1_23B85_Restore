@@ -10,9 +10,11 @@ uint64_t ____CPLTransactionOSLogDomain_block_invoke()
     dispatch_once(&_CPLOSLogSubsystem_onceToken, &__block_literal_global_40);
   }
 
-  __CPLTransactionOSLogDomain_result = os_log_create("com.apple.photos.cpl", "engine.store.transactions");
+  v0 = os_log_create("com.apple.photos.cpl", "engine.store.transactions");
+  v1 = __CPLTransactionOSLogDomain_result;
+  __CPLTransactionOSLogDomain_result = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

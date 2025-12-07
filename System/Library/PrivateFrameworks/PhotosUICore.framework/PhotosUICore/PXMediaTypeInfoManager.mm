@@ -397,21 +397,21 @@ uint64_t __87__PXMediaTypeInfoManager__installMobileAssetAsUserInitiated_timeout
   return result;
 }
 
-uint64_t __87__PXMediaTypeInfoManager__installMobileAssetAsUserInitiated_timeout_completionHandler___block_invoke_2(uint64_t result)
+uint64_t __87__PXMediaTypeInfoManager__installMobileAssetAsUserInitiated_timeout_completionHandler___block_invoke_2(uint64_t result, uint64_t a2)
 {
   if (*(*(*(result + 40) + 8) + 24) == 1)
   {
-    v6 = v1;
     v7 = v2;
-    v3 = result;
-    v4 = PLUIGetLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v8 = v3;
+    v4 = result;
+    v5 = PLUIGetLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1A3C1C000, v4, OS_LOG_TYPE_DEFAULT, "PXMediaTypeInfoManager - Lookup timed out.", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1A3C1C000, v5, OS_LOG_TYPE_DEFAULT, "PXMediaTypeInfoManager - Lookup timed out.", v6, 2u);
     }
 
-    return (*(*(v3 + 32) + 16))();
+    return (*(*(v4 + 32) + 16))();
   }
 
   return result;

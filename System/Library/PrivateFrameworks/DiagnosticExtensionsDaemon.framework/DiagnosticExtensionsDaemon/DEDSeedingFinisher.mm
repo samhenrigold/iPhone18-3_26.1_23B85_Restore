@@ -32,28 +32,28 @@
 
 - (id)additionalStateInfo
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:6];
   [v3 setObject:&unk_285B89A60 forKeyedSubscript:@"version"];
-  v17[0] = @"total_bytes_to_upload";
+  v16[0] = @"total_bytes_to_upload";
   v4 = [MEMORY[0x277CCABB0] numberWithLongLong:{-[DEDSeedingFinisher totalUploadSize](self, "totalUploadSize")}];
-  v17[1] = @"bytes_uploaded";
-  v18[0] = v4;
+  v16[1] = @"bytes_uploaded";
+  v17[0] = v4;
   v5 = [MEMORY[0x277CCABB0] numberWithLongLong:{-[DEDSeedingFinisher bytesUploadedFromAllFiles](self, "bytesUploadedFromAllFiles")}];
-  v18[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v17[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   [v3 setObject:v6 forKeyedSubscript:@"finisher"];
 
   config = [(DEDSeedingFinisher *)self config];
 
   if (config)
   {
-    v15 = @"allows_cellular_upload";
+    v14 = @"allows_cellular_upload";
     v8 = MEMORY[0x277CCABB0];
     config2 = [(DEDSeedingFinisher *)self config];
     v10 = [v8 numberWithBool:{objc_msgSend(config2, "allowsCellularUpload")}];
-    v16 = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v15 = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
     [v3 setObject:v11 forKeyedSubscript:@"config"];
   }
 
@@ -63,8 +63,6 @@
   }
 
   v12 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v3];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -119,7 +117,7 @@ uint64_t __33__DEDSeedingFinisher_isUploading__block_invoke(uint64_t a1, void *a
 
 - (BOOL)uploadFinished
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   client = [(DEDSeedingFinisher *)self client];
   ongoingUploads = [client ongoingUploads];
 
@@ -133,13 +131,13 @@ uint64_t __33__DEDSeedingFinisher_isUploading__block_invoke(uint64_t a1, void *a
   v10 = [(DEDSeedingFinisher *)self log];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v16 = 134218496;
-    v17 = v6;
-    v18 = 2048;
-    v19 = v7;
-    v20 = 2048;
-    v21 = v9;
-    _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_INFO, "[%lu] file promises. [%lu] uploads. [%lu] uploads completed.", &v16, 0x20u);
+    v15 = 134218496;
+    v16 = v6;
+    v17 = 2048;
+    v18 = v7;
+    v19 = 2048;
+    v20 = v9;
+    _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_INFO, "[%lu] file promises. [%lu] uploads. [%lu] uploads completed.", &v15, 0x20u);
   }
 
   if (v6)
@@ -154,7 +152,6 @@ uint64_t __33__DEDSeedingFinisher_isUploading__block_invoke(uint64_t a1, void *a
 
   v13 = !v11 && v9 == v6;
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -168,7 +165,7 @@ uint64_t __36__DEDSeedingFinisher_uploadFinished__block_invoke(uint64_t a1, void
 
 - (void)finishSession:(id)session withConfiguration:(id)configuration
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   [(DEDSeedingFinisher *)self setConfig:configuration];
   [(DEDSeedingFinisher *)self setSession:sessionCopy];
@@ -194,7 +191,7 @@ uint64_t __36__DEDSeedingFinisher_uploadFinished__block_invoke(uint64_t a1, void
   config2 = [(DEDSeedingFinisher *)self config];
   v13 = [v7 stringWithFormat:@"com.apple.diagnosticextensionsd-finishing-%s-%ld", v11, objc_msgSend(config2, "seedingSubmissionID")];
 
-  v74 = v13;
+  v73 = v13;
   [v13 UTF8String];
   v14 = os_transaction_create();
   [(DEDSeedingFinisher *)self setTransaction:v14];
@@ -223,7 +220,7 @@ uint64_t __36__DEDSeedingFinisher_uploadFinished__block_invoke(uint64_t a1, void
     session = [(DEDSeedingFinisher *)self session];
     identifier2 = [session identifier];
     *buf = 138543362;
-    v90 = identifier2;
+    v89 = identifier2;
     _os_log_impl(&dword_248AD7000, v21, OS_LOG_TYPE_DEFAULT, "Will prepare submission directory for bug session [%{public}@]", buf, 0xCu);
   }
 
@@ -234,12 +231,12 @@ uint64_t __36__DEDSeedingFinisher_uploadFinished__block_invoke(uint64_t a1, void
     session2 = [(DEDSeedingFinisher *)self session];
     identifier3 = [session2 identifier];
     *buf = 138543362;
-    v90 = identifier3;
+    v89 = identifier3;
     _os_log_impl(&dword_248AD7000, v25, OS_LOG_TYPE_DEFAULT, "Did prepare submission directory for bug session [%{public}@]", buf, 0xCu);
   }
 
-  v75 = sessionCopy;
-  v73 = v24;
+  v74 = sessionCopy;
+  v72 = v24;
   if ([v24 count])
   {
     uploads = [(DEDSeedingFinisher *)self uploads];
@@ -253,33 +250,33 @@ uint64_t __36__DEDSeedingFinisher_uploadFinished__block_invoke(uint64_t a1, void
     {
       identifier4 = [sessionCopy identifier];
       *buf = 138543362;
-      v90 = identifier4;
+      v89 = identifier4;
       _os_log_impl(&dword_248AD7000, v29, OS_LOG_TYPE_DEFAULT, "Prepared session directory but got zero upload items on [%{public}@]. Will not start any new uploads", buf, 0xCu);
     }
 
     client2 = [(DEDSeedingFinisher *)self client];
     ongoingUploads = [client2 ongoingUploads];
 
-    v86 = 0u;
-    v87 = 0u;
-    v84 = 0u;
     v85 = 0u;
+    v86 = 0u;
+    v83 = 0u;
+    v84 = 0u;
     uploads = ongoingUploads;
-    v33 = [uploads countByEnumeratingWithState:&v84 objects:v95 count:16];
+    v33 = [uploads countByEnumeratingWithState:&v83 objects:v94 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v85;
+      v35 = *v84;
       do
       {
         for (i = 0; i != v34; ++i)
         {
-          if (*v85 != v35)
+          if (*v84 != v35)
           {
             objc_enumerationMutation(uploads);
           }
 
-          v37 = *(*(&v84 + 1) + 8 * i);
+          v37 = *(*(&v83 + 1) + 8 * i);
           v38 = [(DEDSeedingFinisher *)self log];
           if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
@@ -289,22 +286,22 @@ uint64_t __36__DEDSeedingFinisher_uploadFinished__block_invoke(uint64_t a1, void
             progress = [v37 progress];
             [progress fractionCompleted];
             *buf = 138543874;
-            v90 = identifier5;
-            v91 = 2048;
-            v92 = taskIdentifier;
-            v93 = 2048;
-            v94 = v43 * 100.0;
+            v89 = identifier5;
+            v90 = 2048;
+            v91 = taskIdentifier;
+            v92 = 2048;
+            v93 = v43 * 100.0;
             _os_log_impl(&dword_248AD7000, v38, OS_LOG_TYPE_DEFAULT, "[%{public}@] found upload task [%lu] completion [%.2f%%]", buf, 0x20u);
           }
         }
 
-        v34 = [uploads countByEnumeratingWithState:&v84 objects:v95 count:16];
+        v34 = [uploads countByEnumeratingWithState:&v83 objects:v94 count:16];
       }
 
       while (v34);
     }
 
-    sessionCopy = v75;
+    sessionCopy = v74;
   }
 
   v44 = dispatch_group_create();
@@ -316,9 +313,9 @@ uint64_t __36__DEDSeedingFinisher_uploadFinished__block_invoke(uint64_t a1, void
     uploads2 = [(DEDSeedingFinisher *)self uploads];
     v48 = [uploads2 count];
     *buf = 138543618;
-    v90 = identifier6;
-    v91 = 1024;
-    LODWORD(v92) = v48;
+    v89 = identifier6;
+    v90 = 1024;
+    LODWORD(v91) = v48;
     _os_log_impl(&dword_248AD7000, v45, OS_LOG_TYPE_DEFAULT, "will dispatch uploads for [%{public}@] with [%d] uploads", buf, 0x12u);
   }
 
@@ -326,26 +323,26 @@ uint64_t __36__DEDSeedingFinisher_uploadFinished__block_invoke(uint64_t a1, void
   uploads3 = [(DEDSeedingFinisher *)self uploads];
   v51 = [v49 initWithSet:uploads3];
 
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   obj = v51;
-  v52 = [obj countByEnumeratingWithState:&v80 objects:v88 count:16];
+  v52 = [obj countByEnumeratingWithState:&v79 objects:v87 count:16];
   if (v52)
   {
     v53 = v52;
-    v54 = *v81;
+    v54 = *v80;
     do
     {
       for (j = 0; j != v53; ++j)
       {
-        if (*v81 != v54)
+        if (*v80 != v54)
         {
           objc_enumerationMutation(obj);
         }
 
-        v56 = *(*(&v80 + 1) + 8 * j);
+        v56 = *(*(&v79 + 1) + 8 * j);
         dispatch_group_enter(v44);
         promises = [(DEDSeedingFinisher *)self promises];
         extensionID = [v56 extensionID];
@@ -359,9 +356,9 @@ uint64_t __36__DEDSeedingFinisher_uploadFinished__block_invoke(uint64_t a1, void
           v62 = v54;
           v64 = v63 = v44;
           *buf = 138543618;
-          v90 = publicDescription;
-          v91 = 2114;
-          v92 = v64;
+          v89 = publicDescription;
+          v90 = 2114;
+          v91 = v64;
           _os_log_impl(&dword_248AD7000, v60, OS_LOG_TYPE_DEFAULT, "will send file %{public}@ promise: [%{public}@]", buf, 0x16u);
 
           v44 = v63;
@@ -370,19 +367,19 @@ uint64_t __36__DEDSeedingFinisher_uploadFinished__block_invoke(uint64_t a1, void
 
         client3 = [(DEDSeedingFinisher *)self client];
         attachedPath = [v56 attachedPath];
-        v77[0] = MEMORY[0x277D85DD0];
-        v77[1] = 3221225472;
-        v77[2] = __54__DEDSeedingFinisher_finishSession_withConfiguration___block_invoke;
-        v77[3] = &unk_278F65640;
-        v77[4] = v56;
-        v77[5] = self;
-        v78 = v59;
-        v79 = v44;
+        v76[0] = MEMORY[0x277D85DD0];
+        v76[1] = 3221225472;
+        v76[2] = __54__DEDSeedingFinisher_finishSession_withConfiguration___block_invoke;
+        v76[3] = &unk_278F65640;
+        v76[4] = v56;
+        v76[5] = self;
+        v77 = v59;
+        v78 = v44;
         v67 = v59;
-        [client3 sendFile:attachedPath promise:v67 withCompletion:v77];
+        [client3 sendFile:attachedPath promise:v67 withCompletion:v76];
       }
 
-      v53 = [obj countByEnumeratingWithState:&v80 objects:v88 count:16];
+      v53 = [obj countByEnumeratingWithState:&v79 objects:v87 count:16];
     }
 
     while (v53);
@@ -392,37 +389,35 @@ uint64_t __36__DEDSeedingFinisher_uploadFinished__block_invoke(uint64_t a1, void
   v68 = [(DEDSeedingFinisher *)self log];
   if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
   {
-    identifier7 = [v75 identifier];
+    identifier7 = [v74 identifier];
     *buf = 138543362;
-    v90 = identifier7;
+    v89 = identifier7;
     _os_log_impl(&dword_248AD7000, v68, OS_LOG_TYPE_DEFAULT, "did dispatch all uploads for [%{public}@]", buf, 0xCu);
   }
 
-  [v75 uploadProgress:0 total:{-[DEDSeedingFinisher totalUploadSize](self, "totalUploadSize")}];
+  [v74 uploadProgress:0 total:{-[DEDSeedingFinisher totalUploadSize](self, "totalUploadSize")}];
   v70 = [(DEDSeedingFinisher *)self log];
   if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
   {
-    identifier8 = [v75 identifier];
+    identifier8 = [v74 identifier];
     *buf = 138543362;
-    v90 = identifier8;
+    v89 = identifier8;
     _os_log_impl(&dword_248AD7000, v70, OS_LOG_TYPE_INFO, "finishSession completed (uploads are dispatched) for session [%{public}@]", buf, 0xCu);
   }
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 void __54__DEDSeedingFinisher_finishSession_withConfiguration___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
     v6 = [*(a1 + 40) log];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138543362;
-      v22 = v5;
-      _os_log_impl(&dword_248AD7000, v6, OS_LOG_TYPE_DEFAULT, "Error sending file %{public}@", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v5;
+      _os_log_impl(&dword_248AD7000, v6, OS_LOG_TYPE_DEFAULT, "Error sending file %{public}@", &v20, 0xCu);
     }
 
     v7 = [*(a1 + 40) client];
@@ -439,21 +434,21 @@ void __54__DEDSeedingFinisher_finishSession_withConfiguration___block_invoke(uin
   else
   {
     [*(a1 + 32) setUploadTask:a2];
-    v17 = [*(a1 + 32) fileSize];
-    [*(a1 + 32) setTotalBytesExpectedToSend:{objc_msgSend(v17, "longLongValue")}];
+    v16 = [*(a1 + 32) fileSize];
+    [*(a1 + 32) setTotalBytesExpectedToSend:{objc_msgSend(v16, "longLongValue")}];
 
     [*(a1 + 40) setTotalUploadSize:{objc_msgSend(*(a1 + 40), "totalUploadSize") + objc_msgSend(*(a1 + 32), "totalBytesExpectedToSend")}];
-    v18 = [*(a1 + 32) extensionID];
+    v17 = [*(a1 + 32) extensionID];
 
-    if (!v18)
+    if (!v17)
     {
       goto LABEL_7;
     }
 
-    v19 = *(a1 + 40);
+    v18 = *(a1 + 40);
     if (!*(a1 + 48))
     {
-      v7 = [v19 log];
+      v7 = [v18 log];
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __54__DEDSeedingFinisher_finishSession_withConfiguration___block_invoke_cold_1();
@@ -462,13 +457,13 @@ void __54__DEDSeedingFinisher_finishSession_withConfiguration___block_invoke(uin
       goto LABEL_6;
     }
 
-    v7 = [v19 client];
-    v20 = *(a1 + 48);
+    v7 = [v18 client];
+    v19 = *(a1 + 48);
     v9 = [*(a1 + 32) promiseFilename];
     v10 = [*(a1 + 32) fileSize];
     v11 = [v10 longLongValue];
     v12 = v7;
-    v13 = v20;
+    v13 = v19;
     v14 = v9;
     v15 = 3;
   }
@@ -478,8 +473,6 @@ void __54__DEDSeedingFinisher_finishSession_withConfiguration___block_invoke(uin
 LABEL_6:
 LABEL_7:
   dispatch_group_leave(*(a1 + 56));
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (DEDSeedingFinisher)initWithConfiguration:(id)configuration session:(id)session
@@ -521,11 +514,11 @@ LABEL_7:
 
 - (DEDSeedingFinisher)initWithCoder:(id)coder
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v21.receiver = self;
-  v21.super_class = DEDSeedingFinisher;
-  v5 = [(DEDSeedingFinisher *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = DEDSeedingFinisher;
+  v5 = [(DEDSeedingFinisher *)&v20 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB58];
@@ -555,7 +548,7 @@ LABEL_7:
     {
       v18 = v5->_promises;
       *buf = 138412290;
-      v23 = v18;
+      v22 = v18;
       _os_log_impl(&dword_248AD7000, v17, OS_LOG_TYPE_INFO, "Restoring Seeding Finisher with promises %@", buf, 0xCu);
     }
 
@@ -563,7 +556,6 @@ LABEL_7:
     +[DEDFBKFeedbackUpload cleanUpIfNeeded];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -665,7 +657,7 @@ void __46__DEDSeedingFinisher_didAdoptAttachmentGroup___block_invoke(uint64_t a1
 
 - (void)cleanup
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   promises = [(DEDSeedingFinisher *)self promises];
   allValues = [promises allValues];
   v5 = [allValues count];
@@ -679,7 +671,7 @@ void __46__DEDSeedingFinisher_didAdoptAttachmentGroup___block_invoke(uint64_t a1
       allValues2 = [promises2 allValues];
       v9 = [allValues2 valueForKeyPath:@"UUIDString"];
       *buf = 138543362;
-      v40 = v9;
+      v39 = v9;
       _os_log_impl(&dword_248AD7000, v6, OS_LOG_TYPE_DEFAULT, "Found promises on cleanup, will cancel [%{public}@]", buf, 0xCu);
     }
 
@@ -687,53 +679,53 @@ void __46__DEDSeedingFinisher_didAdoptAttachmentGroup___block_invoke(uint64_t a1
     promises3 = [(DEDSeedingFinisher *)self promises];
     v12 = [promises3 copy];
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
-    v27 = v12;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v26 = v12;
     obj = [v12 allKeys];
-    v13 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v13 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v35;
+      v15 = *v34;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v35 != v15)
+          if (*v34 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v34 + 1) + 8 * i);
-          v18 = [v27 objectForKeyedSubscript:v17];
+          v17 = *(*(&v33 + 1) + 8 * i);
+          v18 = [v26 objectForKeyedSubscript:v17];
           promises4 = [(DEDSeedingFinisher *)self promises];
           [promises4 removeObjectForKey:v17];
 
           dispatch_group_enter(v10);
           client = [(DEDSeedingFinisher *)self client];
-          v31[0] = MEMORY[0x277D85DD0];
-          v31[1] = 3221225472;
-          v31[2] = __29__DEDSeedingFinisher_cleanup__block_invoke;
-          v31[3] = &unk_278F65668;
-          v31[4] = self;
+          v30[0] = MEMORY[0x277D85DD0];
+          v30[1] = 3221225472;
+          v30[2] = __29__DEDSeedingFinisher_cleanup__block_invoke;
+          v30[3] = &unk_278F65668;
+          v30[4] = self;
           v21 = v18;
-          v32 = v21;
-          v33 = v10;
-          v28[0] = MEMORY[0x277D85DD0];
-          v28[1] = 3221225472;
-          v28[2] = __29__DEDSeedingFinisher_cleanup__block_invoke_64;
-          v28[3] = &unk_278F65690;
-          v28[4] = self;
-          v29 = v21;
-          v30 = v33;
+          v31 = v21;
+          v32 = v10;
+          v27[0] = MEMORY[0x277D85DD0];
+          v27[1] = 3221225472;
+          v27[2] = __29__DEDSeedingFinisher_cleanup__block_invoke_64;
+          v27[3] = &unk_278F65690;
+          v27[4] = self;
+          v28 = v21;
+          v29 = v32;
           v22 = v21;
-          [client cancelPromise:v22 withSuccess:v31 error:v28];
+          [client cancelPromise:v22 withSuccess:v30 error:v27];
         }
 
-        v14 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v14 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v14);
@@ -750,40 +742,36 @@ void __46__DEDSeedingFinisher_didAdoptAttachmentGroup___block_invoke(uint64_t a1
 
   client2 = [(DEDSeedingFinisher *)self client];
   [client2 cleanup];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __29__DEDSeedingFinisher_cleanup__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 40) UUIDString];
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_248AD7000, v2, OS_LOG_TYPE_DEFAULT, "did cleanup cancel promise [%{public}@]", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_248AD7000, v2, OS_LOG_TYPE_DEFAULT, "did cleanup cancel promise [%{public}@]", &v4, 0xCu);
   }
 
   dispatch_group_leave(*(a1 + 48));
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __29__DEDSeedingFinisher_cleanup__block_invoke_64(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 40) UUIDString];
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_248AD7000, v2, OS_LOG_TYPE_DEFAULT, "did failed to cleanup cancel promise [%{public}@]", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_248AD7000, v2, OS_LOG_TYPE_DEFAULT, "did failed to cleanup cancel promise [%{public}@]", &v4, 0xCu);
   }
 
   dispatch_group_leave(*(a1 + 48));
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -809,17 +797,17 @@ void __29__DEDSeedingFinisher_cleanup__block_invoke_64(uint64_t a1)
 
 - (void)uploadTask:(id)task didCompleteWithError:(id)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   v8 = [(DEDSeedingFinisher *)self log];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = 134218240;
+    v31 = 134218240;
     taskIdentifier = [taskCopy taskIdentifier];
-    v34 = 1024;
-    v35 = errorCopy != 0;
-    _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "Upload Task: [%lu] did complete. Error? [%i]", &v32, 0x12u);
+    v33 = 1024;
+    v34 = errorCopy != 0;
+    _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "Upload Task: [%lu] did complete. Error? [%i]", &v31, 0x12u);
   }
 
   v9 = [(DEDSeedingFinisher *)self uploadItemForTask:taskCopy];
@@ -902,8 +890,6 @@ void __29__DEDSeedingFinisher_cleanup__block_invoke_64(uint64_t a1)
     session2 = [(DEDSeedingFinisher *)self session];
     [session2 didFinishUploadingWithError:errorCopy];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uploadTask:(id)task didSendBytes:(int64_t)bytes totalBytesExpectedToSend:(int64_t)send
@@ -937,31 +923,31 @@ void __29__DEDSeedingFinisher_cleanup__block_invoke_64(uint64_t a1)
 
 - (void)updateUploadProgressOnSessionIfNeeded
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   uploads = [(DEDSeedingFinisher *)self uploads];
-  v4 = [uploads countByEnumeratingWithState:&v18 objects:v32 count:16];
+  v4 = [uploads countByEnumeratingWithState:&v17 objects:v31 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(uploads);
         }
 
-        v6 += [*(*(&v18 + 1) + 8 * i) bytesUploaded];
+        v6 += [*(*(&v17 + 1) + 8 * i) bytesUploaded];
       }
 
-      v5 = [uploads countByEnumeratingWithState:&v18 objects:v32 count:16];
+      v5 = [uploads countByEnumeratingWithState:&v17 objects:v31 count:16];
     }
 
     while (v5);
@@ -989,20 +975,18 @@ void __29__DEDSeedingFinisher_cleanup__block_invoke_64(uint64_t a1)
       totalUploadSize = [(DEDSeedingFinisher *)self totalUploadSize];
       uploadProgressCounter = [(DEDSeedingFinisher *)self uploadProgressCounter];
       *buf = 138544386;
-      v23 = identifier;
-      v24 = 2048;
-      v25 = lastUploadPercentageReported;
-      v26 = 2048;
-      v27 = bytesUploadedFromAllFiles;
-      v28 = 2048;
-      v29 = totalUploadSize;
-      v30 = 1024;
-      v31 = uploadProgressCounter;
+      v22 = identifier;
+      v23 = 2048;
+      v24 = lastUploadPercentageReported;
+      v25 = 2048;
+      v26 = bytesUploadedFromAllFiles;
+      v27 = 2048;
+      v28 = totalUploadSize;
+      v29 = 1024;
+      v30 = uploadProgressCounter;
       _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_INFO, "[%{public}@] upload progress: %lu%% (sent: %lu total: %lu) updateCount: %i", buf, 0x30u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldReportProgress
@@ -1031,31 +1015,31 @@ void __29__DEDSeedingFinisher_cleanup__block_invoke_64(uint64_t a1)
 
 - (BOOL)uploadsAreComplete
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   uploads = [(DEDSeedingFinisher *)self uploads];
-  v3 = [uploads countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [uploads countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     v6 = 1;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(uploads);
         }
 
-        v6 &= [*(*(&v10 + 1) + 8 * i) completed];
+        v6 &= [*(*(&v9 + 1) + 8 * i) completed];
       }
 
-      v4 = [uploads countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [uploads countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -1066,7 +1050,6 @@ void __29__DEDSeedingFinisher_cleanup__block_invoke_64(uint64_t a1)
     LOBYTE(v6) = 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1082,49 +1065,49 @@ void __29__DEDSeedingFinisher_cleanup__block_invoke_64(uint64_t a1)
 
 - (id)prepareSessionDirectoryForSubmission:(id)submission
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   submissionCopy = submission;
   [(DEDSeedingFinisher *)self setIsPreparing:1];
   selfCopy = self;
   attachmentHandler = [(DEDSeedingFinisher *)self attachmentHandler];
-  v43 = submissionCopy;
+  v42 = submissionCopy;
   identifier = [submissionCopy identifier];
-  v39 = attachmentHandler;
+  v38 = attachmentHandler;
   v7 = [attachmentHandler directoryForBugSessionIdentifier:identifier];
 
-  v38 = v7;
+  v37 = v7;
   v8 = [MEMORY[0x277D051E0] lsDir:v7];
-  v40 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v8, "count")}];
+  v39 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v8, "count")}];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   obj = v8;
-  v9 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
+  v9 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v52;
+    v11 = *v51;
     v12 = *MEMORY[0x277CBE868];
-    v41 = *MEMORY[0x277CBE868];
-    v42 = *v52;
+    v40 = *MEMORY[0x277CBE868];
+    v41 = *v51;
     do
     {
       v13 = 0;
-      v44 = v10;
+      v43 = v10;
       do
       {
-        if (*v52 != v11)
+        if (*v51 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v51 + 1) + 8 * v13);
+        v14 = *(*(&v50 + 1) + 8 * v13);
+        v48 = 0;
         v49 = 0;
-        v50 = 0;
-        [v14 getResourceValue:&v50 forKey:v12 error:&v49];
-        v15 = v50;
-        v16 = v49;
+        [v14 getResourceValue:&v49 forKey:v12 error:&v48];
+        v15 = v49;
+        v16 = v48;
         if ([v15 BOOLValue])
         {
           v17 = v16 == 0;
@@ -1160,34 +1143,34 @@ void __29__DEDSeedingFinisher_cleanup__block_invoke_64(uint64_t a1)
 
           lastPathComponent = [v14 lastPathComponent];
           promises = [(DEDSeedingFinisher *)selfCopy promises];
-          v47 = lastPathComponent;
+          v46 = lastPathComponent;
           v26 = [promises objectForKey:lastPathComponent];
 
           if (v26)
           {
             uUIDString = [v26 UUIDString];
-            v46 = v23;
-            v57[0] = v23;
+            v45 = v23;
+            v56[0] = v23;
             v28 = MEMORY[0x277CCABB0];
             config2 = [(DEDSeedingFinisher *)selfCopy config];
             v30 = [v28 numberWithInteger:{objc_msgSend(config2, "seedingSubmissionID")}];
-            v57[1] = @"promise_uuid";
-            v58[0] = v30;
-            v58[1] = uUIDString;
-            v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:2];
+            v56[1] = @"promise_uuid";
+            v57[0] = v30;
+            v57[1] = uUIDString;
+            v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
 
-            v32 = [(DEDSeedingFinisher *)selfCopy prepareUpload:v14 forSubmissionWithSession:v43 metadata:v31];
+            v32 = [(DEDSeedingFinisher *)selfCopy prepareUpload:v14 forSubmissionWithSession:v42 metadata:v31];
             [v32 setFilePromiseUUID:uUIDString];
             if (v32)
             {
-              [v40 addObject:v32];
+              [v39 addObject:v32];
             }
 
-            v12 = v41;
-            v11 = v42;
-            v10 = v44;
-            v23 = v46;
-            v33 = v47;
+            v12 = v40;
+            v11 = v41;
+            v10 = v43;
+            v23 = v45;
+            v33 = v46;
           }
 
           else
@@ -1196,16 +1179,16 @@ void __29__DEDSeedingFinisher_cleanup__block_invoke_64(uint64_t a1)
             if (os_log_type_enabled(uUIDString, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v33 = v47;
-              v56 = v47;
+              v33 = v46;
+              v55 = v46;
               _os_log_error_impl(&dword_248AD7000, uUIDString, OS_LOG_TYPE_ERROR, "found no promise for extension ID [%{public}@]", buf, 0xCu);
-              v10 = v44;
+              v10 = v43;
             }
 
             else
             {
-              v10 = v44;
-              v33 = v47;
+              v10 = v43;
+              v33 = v46;
             }
           }
         }
@@ -1214,7 +1197,7 @@ void __29__DEDSeedingFinisher_cleanup__block_invoke_64(uint64_t a1)
       }
 
       while (v10 != v13);
-      v34 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
+      v34 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
       v10 = v34;
     }
 
@@ -1222,16 +1205,14 @@ void __29__DEDSeedingFinisher_cleanup__block_invoke_64(uint64_t a1)
   }
 
   [(DEDSeedingFinisher *)selfCopy setIsPreparing:0];
-  v35 = [MEMORY[0x277CBEA60] arrayWithArray:v40];
-
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = [MEMORY[0x277CBEA60] arrayWithArray:v39];
 
   return v35;
 }
 
 - (id)prepareUpload:(id)upload forSubmissionWithSession:(id)session metadata:(id)metadata
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   uploadCopy = upload;
   metadataCopy = metadata;
   sessionCopy = session;
@@ -1296,8 +1277,8 @@ void __29__DEDSeedingFinisher_cleanup__block_invoke_64(uint64_t a1)
       if (v36)
       {
         v27 = v36;
-        v66 = [(DEDSeedingFinisher *)self log];
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        v65 = [(DEDSeedingFinisher *)self log];
+        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
         {
           [DEDSeedingFinisher prepareUpload:v27 forSubmissionWithSession:? metadata:?];
         }
@@ -1308,8 +1289,8 @@ void __29__DEDSeedingFinisher_cleanup__block_invoke_64(uint64_t a1)
       v43 = [MEMORY[0x277D051A8] archiveDirectoryAt:v35];
       if (!v43)
       {
-        v66 = [(DEDSeedingFinisher *)self log];
-        if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        v65 = [(DEDSeedingFinisher *)self log];
+        if (!os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
         {
 LABEL_65:
           v27 = 0;
@@ -1334,8 +1315,8 @@ LABEL_64:
       if (v33)
       {
         v27 = v33;
-        v66 = [(DEDSeedingFinisher *)self log];
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        v65 = [(DEDSeedingFinisher *)self log];
+        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
         {
           [DEDSeedingFinisher prepareUpload:v27 forSubmissionWithSession:? metadata:?];
         }
@@ -1359,16 +1340,16 @@ LABEL_64:
       if (v45)
       {
         v38 = v45;
-        v65 = v32;
+        v64 = v32;
         lastPathComponent4 = [v45 lastPathComponent];
 LABEL_41:
 
-        v65 = lastPathComponent4;
+        v64 = lastPathComponent4;
         goto LABEL_42;
       }
 
-      v66 = [(DEDSeedingFinisher *)self log];
-      if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+      v65 = [(DEDSeedingFinisher *)self log];
+      if (!os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_65;
       }
@@ -1378,12 +1359,12 @@ LABEL_41:
 
     if ([v28 count]!= 1)
     {
-      v65 = 0;
+      v64 = 0;
 LABEL_42:
-      v66 = [v25 URLByAppendingPathComponent:@"__fileclerk.json"];
-      v68 = 0;
-      v64 = [MEMORY[0x277CCAAA0] dataWithJSONObject:metadataCopy options:0 error:&v68];
-      v27 = v68;
+      v65 = [v25 URLByAppendingPathComponent:@"__fileclerk.json"];
+      v67 = 0;
+      v63 = [MEMORY[0x277CCAAA0] dataWithJSONObject:metadataCopy options:0 error:&v67];
+      v27 = v67;
       if (v27)
       {
         v48 = [(DEDSeedingFinisher *)self log];
@@ -1393,7 +1374,7 @@ LABEL_42:
         }
       }
 
-      [v64 writeToURL:v66 atomically:1];
+      [v63 writeToURL:v65 atomically:1];
       if ([(DEDSeedingFinisher *)self isSecurityResearchDeviceERM])
       {
         [(DEDSeedingFinisher *)self archiveAndEncryptItemsInDirectory:v25];
@@ -1411,22 +1392,22 @@ LABEL_42:
         if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
         {
           lastPathComponent5 = [v49 lastPathComponent];
-          v62 = v22;
+          v61 = v22;
           lastPathComponent6 = [uploadCopy lastPathComponent];
           *buf = 138543618;
-          v71 = lastPathComponent5;
-          v72 = 2114;
-          v73 = lastPathComponent6;
+          v70 = lastPathComponent5;
+          v71 = 2114;
+          v72 = lastPathComponent6;
           v53 = lastPathComponent6;
           _os_log_impl(&dword_248AD7000, v51, OS_LOG_TYPE_INFO, "created upload file name [%{public}@] from directory [%{public}@]", buf, 0x16u);
 
-          v22 = v62;
+          v22 = v61;
         }
 
         [MEMORY[0x277D051E0] removeFile:uploadCopy];
-        if (v65)
+        if (v64)
         {
-          v54 = v65;
+          v54 = v64;
         }
 
         else
@@ -1451,19 +1432,19 @@ LABEL_42:
     }
 
     v37 = [v28 objectAtIndexedSubscript:0];
-    v69 = 0;
-    [(__CFString *)v37 getResourceValue:&v69 forKey:*MEMORY[0x277CBE868] error:0];
-    v38 = v69;
-    v65 = v37;
+    v68 = 0;
+    [(__CFString *)v37 getResourceValue:&v68 forKey:*MEMORY[0x277CBE868] error:0];
+    v38 = v68;
+    v64 = v37;
     if ([v38 BOOLValue])
     {
-      v66 = v38;
+      v65 = v38;
       lastPathComponent7 = [(__CFString *)v37 lastPathComponent];
       v40 = [v25 URLByAppendingPathComponent:lastPathComponent7];
 
       v41 = v40;
       v27 = [MEMORY[0x277D051E0] createDirectoryWithClassCDataProtection:v40];
-      v61 = v41;
+      v60 = v41;
       if (v27)
       {
         v42 = [(DEDSeedingFinisher *)self log];
@@ -1476,25 +1457,25 @@ LABEL_29:
 
         v29 = 0;
 LABEL_60:
-        v32 = v65;
+        v32 = v64;
 LABEL_67:
 
         goto LABEL_68;
       }
 
-      if (([MEMORY[0x277D051E0] copyAllFilesFromDir:v65 toDir:v41] & 1) == 0)
+      if (([MEMORY[0x277D051E0] copyAllFilesFromDir:v64 toDir:v41] & 1) == 0)
       {
-        v57 = [(DEDSeedingFinisher *)self log];
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+        v56 = [(DEDSeedingFinisher *)self log];
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           [DEDSeedingFinisher prepareUpload:forSubmissionWithSession:metadata:];
         }
 
-        v41 = v61;
+        v41 = v60;
       }
 
-      v58 = [MEMORY[0x277D051A8] archiveDirectoryAt:v41];
-      if (!v58)
+      v57 = [MEMORY[0x277D051A8] archiveDirectoryAt:v41];
+      if (!v57)
       {
         v42 = [(DEDSeedingFinisher *)self log];
         if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
@@ -1505,11 +1486,11 @@ LABEL_67:
         goto LABEL_29;
       }
 
-      v59 = v58;
-      lastPathComponent8 = [v58 lastPathComponent];
+      v58 = v57;
+      lastPathComponent8 = [v57 lastPathComponent];
 
-      v38 = v66;
-      v47 = v61;
+      v38 = v65;
+      v47 = v60;
     }
 
     else
@@ -1532,14 +1513,12 @@ LABEL_67:
   v29 = 0;
 LABEL_68:
 
-  v55 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
 - (id)archiveAndEncryptItemsInDirectory:(id)directory
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   v5 = [(DEDSeedingFinisher *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -1550,27 +1529,27 @@ LABEL_68:
   v6 = [objc_alloc(MEMORY[0x277D051A0]) initWithURL:directoryCopy];
   if (v6)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v22 = directoryCopy;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v21 = directoryCopy;
     obj = [MEMORY[0x277D051E0] lsDir:directoryCopy];
-    v7 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
+    v7 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v25;
+      v9 = *v24;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v25 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v24 + 1) + 8 * i);
+          v11 = *(*(&v23 + 1) + 8 * i);
           v12 = [v11 URLByAppendingPathExtension:@"aea"];
           lastPathComponent = [v12 lastPathComponent];
           if (![_TtC26DiagnosticExtensionsDaemon10AEAHandler encryptWithSourceURL:v11 destinationURL:v12])
@@ -1579,11 +1558,11 @@ LABEL_68:
             if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543874;
-              v29 = v11;
-              v30 = 2114;
-              v31 = lastPathComponent;
-              v32 = 2114;
-              v33 = v12;
+              v28 = v11;
+              v29 = 2114;
+              v30 = lastPathComponent;
+              v31 = 2114;
+              v32 = v12;
               _os_log_error_impl(&dword_248AD7000, v14, OS_LOG_TYPE_ERROR, "failed to aea encrypt [%{public}@] with path name [%{public}@] to [%{public}@]", buf, 0x20u);
             }
           }
@@ -1595,26 +1574,26 @@ LABEL_68:
             {
               tarGzUrl = [v6 tarGzUrl];
               *buf = 138543874;
-              v29 = v11;
-              v30 = 2114;
-              v31 = lastPathComponent;
-              v32 = 2114;
-              v33 = tarGzUrl;
+              v28 = v11;
+              v29 = 2114;
+              v30 = lastPathComponent;
+              v31 = 2114;
+              v32 = tarGzUrl;
               v17 = tarGzUrl;
               _os_log_error_impl(&dword_248AD7000, v15, OS_LOG_TYPE_ERROR, "failed to add [%{public}@] with path name [%{public}@] to [%{public}@]", buf, 0x20u);
             }
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
+        v8 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
       }
 
       while (v8);
     }
 
     [v6 closeArchive];
-    directoryCopy = v22;
-    [MEMORY[0x277D051E0] removeFile:v22];
+    directoryCopy = v21;
+    [MEMORY[0x277D051E0] removeFile:v21];
     tarGzUrl2 = [v6 tarGzUrl];
   }
 
@@ -1629,14 +1608,12 @@ LABEL_68:
     tarGzUrl2 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return tarGzUrl2;
 }
 
 - (id)archiveItemsInDirectory:(id)directory
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   v5 = [(DEDSeedingFinisher *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -1647,27 +1624,27 @@ LABEL_68:
   v6 = [objc_alloc(MEMORY[0x277D051A0]) initWithURL:directoryCopy];
   if (v6)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
-    v20 = directoryCopy;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v19 = directoryCopy;
     v7 = [MEMORY[0x277D051E0] lsDir:directoryCopy];
-    v8 = [v7 countByEnumeratingWithState:&v21 objects:v31 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v20 objects:v30 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v22;
+      v10 = *v21;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * i);
+          v12 = *(*(&v20 + 1) + 8 * i);
           lastPathComponent = [v12 lastPathComponent];
           if (([v6 addFile:v12 withPathName:lastPathComponent] & 1) == 0)
           {
@@ -1676,25 +1653,25 @@ LABEL_68:
             {
               tarGzUrl = [v6 tarGzUrl];
               *buf = 138543874;
-              v26 = v12;
-              v27 = 2114;
-              v28 = lastPathComponent;
-              v29 = 2114;
-              v30 = tarGzUrl;
+              v25 = v12;
+              v26 = 2114;
+              v27 = lastPathComponent;
+              v28 = 2114;
+              v29 = tarGzUrl;
               _os_log_error_impl(&dword_248AD7000, v14, OS_LOG_TYPE_ERROR, "failed to add [%{public}@] with path name [%{public}@] to [%{public}@]", buf, 0x20u);
             }
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v21 objects:v31 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v20 objects:v30 count:16];
       }
 
       while (v9);
     }
 
     [v6 closeArchive];
-    directoryCopy = v20;
-    [MEMORY[0x277D051E0] removeFile:v20];
+    directoryCopy = v19;
+    [MEMORY[0x277D051E0] removeFile:v19];
     tarGzUrl2 = [v6 tarGzUrl];
   }
 
@@ -1708,8 +1685,6 @@ LABEL_68:
 
     tarGzUrl2 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return tarGzUrl2;
 }
@@ -1759,109 +1734,73 @@ uint64_t __40__DEDSeedingFinisher_uploadItemForTask___block_invoke(uint64_t a1, 
 
 void __33__DEDSeedingFinisher_isUploading__block_invoke_cold_1(id *a1, void *a2, NSObject *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = [*a1 session];
   v6 = [v5 identifier];
   v7 = [a2 taskIdentifier];
   v8 = [a2 progress];
   [v8 fractionCompleted];
-  v11 = 138543874;
-  v12 = v6;
-  v13 = 2048;
-  v14 = v7;
-  v15 = 2048;
-  v16 = v9 * 100.0;
-  _os_log_debug_impl(&dword_248AD7000, a3, OS_LOG_TYPE_DEBUG, "isUploading? | [%{public}@] found upload task [%lu] completion [%.2f%%]", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = 138543874;
+  v11 = v6;
+  v12 = 2048;
+  v13 = v7;
+  v14 = 2048;
+  v15 = v9 * 100.0;
+  _os_log_debug_impl(&dword_248AD7000, a3, OS_LOG_TYPE_DEBUG, "isUploading? | [%{public}@] found upload task [%lu] completion [%.2f%%]", &v10, 0x20u);
 }
 
 - (void)uploadTask:(void *)a1 didCompleteWithError:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 taskIdentifier];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)uploadTask:didCompleteWithError:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_0(&dword_248AD7000, v0, v1, "finished upload but found no promise for  [%{public}@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uploadTask:(void *)a1 didSendBytes:(void *)a2 totalBytesExpectedToSend:.cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a1 session];
-  v10 = [v3 identifier];
+  v9 = [v3 identifier];
   [a2 taskIdentifier];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareUpload:forSubmissionWithSession:metadata:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(&dword_248AD7000, v0, OS_LOG_TYPE_DEBUG, "_preparing upload for %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_248AD7000, v0, OS_LOG_TYPE_DEBUG, "_preparing upload for %@", v1, 0xCu);
 }
 
 - (void)prepareUpload:(void *)a1 forSubmissionWithSession:metadata:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareUpload:(void *)a1 forSubmissionWithSession:metadata:.cold.9(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)archiveAndEncryptItemsInDirectory:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 path];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_5(&dword_248AD7000, v2, v3, "archiveAndEncryptItemsInDirectory [%{public}@]", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)archiveAndEncryptItemsInDirectory:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_0(&dword_248AD7000, v0, v1, "Failed to initialize archive at [%{public}@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_248AD7000, v2, v3, "archiveAndEncryptItemsInDirectory [%{public}@]", v4, v5, v6, v7);
 }
 
 - (void)archiveItemsInDirectory:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 path];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_5(&dword_248AD7000, v2, v3, "archiveItemsInDirectory [%{public}@]", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_248AD7000, v2, v3, "archiveItemsInDirectory [%{public}@]", v4, v5, v6, v7);
 }
 
 @end

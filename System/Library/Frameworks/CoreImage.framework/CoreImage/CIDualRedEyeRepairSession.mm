@@ -68,7 +68,7 @@
 
 - (BOOL)prewarm
 {
-  v104 = *MEMORY[0x1E69E9840];
+  v107 = *MEMORY[0x1E69E9840];
   if ([(CIContext *)[(CIDualRedEyeRepairSession *)self context] loadArchive:@"redeye_repair_archive"])
   {
 LABEL_2:
@@ -81,71 +81,71 @@ LABEL_2:
   v6 = +[CIImage imageWithColor:](CIImage, "imageWithColor:", +[CIColor blueColor]);
   v7 = +[CIImage imageWithColor:](CIImage, "imageWithColor:", +[CIColor cyanColor]);
   v8 = +[CIImage imageWithColor:](CIImage, "imageWithColor:", +[CIColor magentaColor]);
-  v88 = [(CIImage *)v4 imageByCroppingToRect:0.0, 0.0, 4224.0, 3024.0];
+  v91 = [(CIImage *)v4 imageByCroppingToRect:0.0, 0.0, 4224.0, 3024.0];
   v9 = [(CIImage *)v5 imageByCroppingToRect:0.0, 0.0, 4224.0, 3024.0];
-  v86 = [(CIImage *)v6 imageByCroppingToRect:0.0, 0.0, 4224.0, 3024.0];
-  v85 = [(CIImage *)v7 imageByCroppingToRect:0.0, 0.0, 4224.0, 3024.0];
-  v84 = [(CIImage *)v8 imageByCroppingToRect:0.0, 0.0, 4224.0, 3024.0];
-  v87 = [[CIRenderDestination alloc] initWithWidth:4224 height:3024 pixelFormat:70 commandBuffer:0 mtlTextureProvider:&__block_literal_global_23];
-  if (v87)
+  v89 = [(CIImage *)v6 imageByCroppingToRect:0.0, 0.0, 4224.0, 3024.0];
+  v88 = [(CIImage *)v7 imageByCroppingToRect:0.0, 0.0, 4224.0, 3024.0];
+  v87 = [(CIImage *)v8 imageByCroppingToRect:0.0, 0.0, 4224.0, 3024.0];
+  v90 = [[CIRenderDestination alloc] initWithWidth:4224 height:3024 pixelFormat:70 commandBuffer:0 mtlTextureProvider:&__block_literal_global_23];
+  if (v90)
   {
-    v97 = 0;
-    v93 = 0u;
-    v94 = 0u;
-    v95 = 0u;
+    v100 = 0;
     v96 = 0u;
-    v10 = [&unk_1F10855C0 countByEnumeratingWithState:&v93 objects:v103 count:16];
+    v97 = 0u;
+    v98 = 0u;
+    v99 = 0u;
+    v10 = [&unk_1F10855C0 countByEnumeratingWithState:&v96 objects:v106 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0x1E75C0000uLL;
-      v13 = *v94;
+      v13 = *v97;
       selfCopy = self;
-      v76 = *v94;
-      v77 = v9;
+      v79 = *v97;
+      v80 = v9;
       while (2)
       {
         v14 = 0;
         do
         {
-          if (*v94 != v13)
+          if (*v97 != v13)
           {
             objc_enumerationMutation(&unk_1F10855C0);
           }
 
-          v79 = v14;
-          v15 = [objc_alloc(*(v12 + 2784)) initWithTuning:{objc_msgSend(*(*(&v93 + 1) + 8 * v14), "intValue")}];
+          v82 = v14;
+          v15 = [objc_alloc(*(v12 + 2784)) initWithTuning:{objc_msgSend(*(*(&v96 + 1) + 8 * v14), "intValue")}];
           v16 = [CIFilter filterWithName:@"CIRedEyeRaw"];
           -[CIFilter setValuesForKeysWithDictionary:](v16, "setValuesForKeysWithDictionary:", [v15 repairTuning]);
-          v101[0] = @"inputPrimary";
-          v101[1] = @"inputSecondary";
-          v102[0] = v88;
-          v102[1] = v9;
-          -[CIFilter setValuesForKeysWithDictionary:](v16, "setValuesForKeysWithDictionary:", [MEMORY[0x1E695DF20] dictionaryWithObjects:v102 forKeys:v101 count:2]);
-          v83 = v16;
+          v104[0] = @"inputPrimary";
+          v104[1] = @"inputSecondary";
+          v105[0] = v91;
+          v105[1] = v9;
+          -[CIFilter setValuesForKeysWithDictionary:](v16, "setValuesForKeysWithDictionary:", [MEMORY[0x1E695DF20] dictionaryWithObjects:v105 forKeys:v104 count:2]);
+          v86 = v16;
           -[CIFilter setValue:forKey:](v16, "setValue:forKey:", [objc_msgSend(v15 "sessionTuning")], @"inputUseFaceSegmentationMask");
-          v91 = 0u;
+          v94 = 0u;
+          v95 = 0u;
           v92 = 0u;
-          v89 = 0u;
-          v90 = 0u;
-          v82 = [&unk_1F10855D8 countByEnumeratingWithState:&v89 objects:v100 count:16];
-          if (v82)
+          v93 = 0u;
+          v85 = [&unk_1F10855D8 countByEnumeratingWithState:&v92 objects:v103 count:16];
+          if (v85)
           {
-            v81 = *v90;
-            v78 = v11;
+            v84 = *v93;
+            v81 = v11;
 LABEL_12:
             v17 = 0;
             while (1)
             {
-              if (*v90 != v81)
+              if (*v93 != v84)
               {
                 objc_enumerationMutation(&unk_1F10855D8);
               }
 
-              v18 = *(*(&v89 + 1) + 8 * v17);
-              [(CIImage *)v88 extent];
+              v18 = *(*(&v92 + 1) + 8 * v17);
+              [(CIImage *)v91 extent];
               v20 = v19;
-              [(CIImage *)v88 extent];
+              [(CIImage *)v91 extent];
               v22 = v21;
               [v18 floatValue];
               v24 = v23;
@@ -175,36 +175,36 @@ LABEL_12:
               [(CIVector *)v32 X];
               v48 = v47;
               [(CIVector *)v32 Y];
-              v109.origin.y = v49;
-              v105.origin.x = v44;
-              v105.origin.y = v46;
-              v105.size.width = v24;
-              v105.size.height = v33;
-              v109.origin.x = v48;
-              v109.size.width = v24;
-              v109.size.height = v33;
-              v106 = CGRectUnion(v105, v109);
-              v50 = [CIVector vectorWithCGRect:v106.origin.x, v106.origin.y, v106.size.width, v106.size.height];
+              v112.origin.y = v49;
+              v108.origin.x = v44;
+              v108.origin.y = v46;
+              v108.size.width = v24;
+              v108.size.height = v33;
+              v112.origin.x = v48;
+              v112.size.width = v24;
+              v112.size.height = v33;
+              v109 = CGRectUnion(v108, v112);
+              v50 = [CIVector vectorWithCGRect:v109.origin.x, v109.origin.y, v109.size.width, v109.size.height];
               v51 = objc_opt_new();
               [v51 setImageOrientation:0];
-              [v51 setSegmentationSkin:v86];
-              [v51 setSegmentationSclera:v84];
-              [v51 setSegmentationIris:v85];
+              [v51 setSegmentationSkin:v89];
+              [v51 setSegmentationSclera:v87];
+              [v51 setSegmentationIris:v88];
               [v51 setFaceRect:v50];
               [v51 setFaceOrientation:0.0];
-              v99[0] = v26;
-              v99[1] = v27;
-              [v51 setUvLeft:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v99, 2)}];
-              v98[0] = v26;
-              v98[1] = v27;
-              [v51 setUvRight:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v98, 2)}];
+              v102[0] = v26;
+              v102[1] = v27;
+              [v51 setUvLeft:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v102, 2)}];
+              v101[0] = v26;
+              v101[1] = v27;
+              [v51 setUvRight:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v101, 2)}];
               [v51 setRoiRenderOriginLeft:v31];
               [v51 setRoiRenderOriginRight:v32];
               [v51 setRoiRenderSize:v34];
               [v51 setPupilLeft:v38];
               [v51 setPupilRight:v42];
-              [(CIDualRedEyeRepairSession *)selfCopy customizeRepairFilter:v83 forFace:v51];
-              outputImage = [(CIFilter *)v83 outputImage];
+              [(CIDualRedEyeRepairSession *)selfCopy customizeRepairFilter:v86 forFace:v51];
+              outputImage = [(CIFilter *)v86 outputImage];
               [objc_msgSend(v51 "roiRenderOriginLeft")];
               v54 = v53;
               [objc_msgSend(v51 "roiRenderOriginLeft")];
@@ -220,26 +220,26 @@ LABEL_12:
               [objc_msgSend(v51 "roiRenderSize")];
               v66 = v65;
               [objc_msgSend(v51 "roiRenderSize")];
-              v110.size.height = v67;
-              v107.origin.x = v54;
-              v107.origin.y = v56;
-              v107.size.width = v58;
-              v107.size.height = v60;
-              v110.origin.x = v62;
-              v110.origin.y = v64;
-              v110.size.width = v66;
-              v108 = CGRectUnion(v107, v110);
-              x = v108.origin.x;
-              y = v108.origin.y;
-              width = v108.size.width;
-              height = v108.size.height;
+              v113.size.height = v67;
+              v110.origin.x = v54;
+              v110.origin.y = v56;
+              v110.size.width = v58;
+              v110.size.height = v60;
+              v113.origin.x = v62;
+              v113.origin.y = v64;
+              v113.size.width = v66;
+              v111 = CGRectUnion(v110, v113);
+              x = v111.origin.x;
+              y = v111.origin.y;
+              width = v111.size.width;
+              height = v111.size.height;
               if (![(CIDualRedEyeRepairSession *)selfCopy context])
               {
                 v3 = CI_LOG_DUALRED();
                 if (v3)
                 {
-                  v73 = ci_logger_api();
-                  v3 = os_log_type_enabled(v73, OS_LOG_TYPE_ERROR);
+                  v75 = ci_logger_api(v3, v74);
+                  LODWORD(v3) = os_log_type_enabled(v75, OS_LOG_TYPE_ERROR);
                   if (v3)
                   {
                     [CIDualRedEyeRepairSession prewarm];
@@ -250,20 +250,20 @@ LABEL_12:
                 return v3;
               }
 
-              [(CIContext *)[(CIDualRedEyeRepairSession *)selfCopy context] prepareRender:outputImage fromRect:v87 toDestination:&v97 atPoint:x error:y, width, height, x, y];
-              if (v97)
+              [(CIContext *)[(CIDualRedEyeRepairSession *)selfCopy context] prepareRender:outputImage fromRect:v90 toDestination:&v100 atPoint:x error:y, width, height, x, y];
+              if (v100)
               {
                 break;
               }
 
-              if (v82 == ++v17)
+              if (v85 == ++v17)
               {
-                v9 = v77;
-                v11 = v78;
+                v9 = v80;
+                v11 = v81;
                 v12 = 0x1E75C0000;
-                v13 = v76;
-                v82 = [&unk_1F10855D8 countByEnumeratingWithState:&v89 objects:v100 count:16];
-                if (v82)
+                v13 = v79;
+                v85 = [&unk_1F10855D8 countByEnumeratingWithState:&v92 objects:v103 count:16];
+                if (v85)
                 {
                   goto LABEL_12;
                 }
@@ -275,8 +275,8 @@ LABEL_12:
             v3 = CI_LOG_DUALRED();
             if (v3)
             {
-              v74 = ci_logger_api();
-              v3 = os_log_type_enabled(v74, OS_LOG_TYPE_ERROR);
+              v77 = ci_logger_api(v3, v76);
+              LODWORD(v3) = os_log_type_enabled(v77, OS_LOG_TYPE_ERROR);
               if (v3)
               {
                 [CIDualRedEyeRepairSession prewarm];
@@ -288,11 +288,11 @@ LABEL_12:
           }
 
 LABEL_19:
-          v14 = v79 + 1;
+          v14 = v82 + 1;
         }
 
-        while (v79 + 1 != v11);
-        v11 = [&unk_1F10855C0 countByEnumeratingWithState:&v93 objects:v103 count:16];
+        while (v82 + 1 != v11);
+        v11 = [&unk_1F10855C0 countByEnumeratingWithState:&v96 objects:v106 count:16];
         if (v11)
         {
           continue;
@@ -308,8 +308,8 @@ LABEL_19:
   v3 = CI_LOG_DUALRED();
   if (v3)
   {
-    v72 = ci_logger_api();
-    v3 = os_log_type_enabled(v72, OS_LOG_TYPE_ERROR);
+    v73 = ci_logger_api(v3, v72);
+    LODWORD(v3) = os_log_type_enabled(v73, OS_LOG_TYPE_ERROR);
     if (v3)
     {
       [CIDualRedEyeRepairSession prewarm];
@@ -356,8 +356,8 @@ LABEL_31:
     v5 = CI_LOG_DUALRED();
     if (v5)
     {
-      v6 = ci_logger_api();
-      v5 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+      v7 = ci_logger_api(v5, v6);
+      LODWORD(v5) = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
       if (v5)
       {
         [CIDualRedEyeRepairSession validateRenderState];
@@ -377,8 +377,8 @@ LABEL_12:
     v5 = CI_LOG_DUALRED();
     if (v5)
     {
-      v7 = ci_logger_api();
-      v5 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+      v9 = ci_logger_api(v5, v8);
+      LODWORD(v5) = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
       if (v5)
       {
         [CIDualRedEyeRepairSession validateRenderState];
@@ -401,10 +401,11 @@ LABEL_12:
   renderUsingProvidedCommandQueue = [(CIDualRedEyeRepairSession *)self renderUsingProvidedCommandQueue];
   if (primary && !self->_primary)
   {
-    if (CI_LOG_DUALRED())
+    v15 = CI_LOG_DUALRED();
+    if (v15)
     {
-      v13 = ci_logger_api();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v17 = ci_logger_api(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [CIDualRedEyeRepairSession validateSetPrimary];
       }
@@ -427,10 +428,11 @@ LABEL_12:
 
   if (![(CIDualRedEyeRepairSession *)self primaryTexture])
   {
-    if (CI_LOG_DUALRED())
+    v21 = CI_LOG_DUALRED();
+    if (v21)
     {
-      v15 = ci_logger_api();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v23 = ci_logger_api(v21, v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         [CIDualRedEyeRepairSession validateSetPrimary];
       }
@@ -456,10 +458,11 @@ LABEL_10:
 
   if (Height < [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")])
   {
-    if (CI_LOG_DUALRED())
+    v7 = CI_LOG_DUALRED();
+    if (v7)
     {
-      v7 = ci_logger_api();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = ci_logger_api(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [CIDualRedEyeRepairSession validateSetPrimary];
       }
@@ -470,10 +473,11 @@ LABEL_10:
 
   if (![(CIDualRedEyeRepairSession *)self observations]|| ![(NSArray *)[(CIDualRedEyeRepairSession *)self observations] count])
   {
-    if (CI_LOG_DUALRED())
+    v18 = CI_LOG_DUALRED();
+    if (v18)
     {
-      v14 = ci_logger_api();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v20 = ci_logger_api(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [CIDualRedEyeRepairSession validateSetPrimary];
       }
@@ -484,10 +488,11 @@ LABEL_10:
 
   if (![(CIDualRedEyeRepairSession *)self metadata])
   {
-    if (CI_LOG_DUALRED())
+    v24 = CI_LOG_DUALRED();
+    if (v24)
     {
-      v16 = ci_logger_api();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v26 = ci_logger_api(v24, v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [CIDualRedEyeRepairSession validateSetPrimary];
       }
@@ -496,27 +501,28 @@ LABEL_10:
     return 3;
   }
 
-  v8 = [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairSession metadata](self "metadata")];
+  v10 = [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairSession metadata](self "metadata")];
   if ([(NSDictionary *)[(CIDualRedEyeRepairSession *)self metadata] objectForKey:@"NormalizedSNR"])
   {
     [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairSession metadata](self "metadata")];
-    v10 = v9;
+    v12 = v11;
     [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
-    if ((v10 <= v11) | v8 & 1)
+    if ((v12 <= v13) | v10 & 1)
     {
       return 0;
     }
   }
 
-  else if (v8)
+  else if (v10)
   {
     return 0;
   }
 
-  if (CI_LOG_DUALRED())
+  v27 = CI_LOG_DUALRED();
+  if (v27)
   {
-    v17 = ci_logger_api();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v29 = ci_logger_api(v27, v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       [CIDualRedEyeRepairSession validateSetPrimary];
     }
@@ -544,10 +550,11 @@ LABEL_10:
           return 0;
         }
 
-        if (CI_LOG_DUALRED())
+        v17 = CI_LOG_DUALRED();
+        if (v17)
         {
-          v9 = ci_logger_api();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v19 = ci_logger_api(v17, v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             [CIDualRedEyeRepairSession validateRepair];
           }
@@ -556,10 +563,11 @@ LABEL_10:
 
       else
       {
-        if (CI_LOG_DUALRED())
+        v11 = CI_LOG_DUALRED();
+        if (v11)
         {
-          v7 = ci_logger_api();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+          v13 = ci_logger_api(v11, v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             [CIDualRedEyeRepairSession validateRepair];
           }
@@ -569,10 +577,11 @@ LABEL_10:
         {
           if (self->_secondary)
           {
-            if (CI_LOG_DUALRED())
+            v14 = CI_LOG_DUALRED();
+            if (v14)
             {
-              v8 = ci_logger_api();
-              if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+              v16 = ci_logger_api(v14, v15);
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
               {
                 [CIDualRedEyeRepairSession validateRepair];
               }
@@ -582,22 +591,27 @@ LABEL_10:
       }
     }
 
-    else if (CI_LOG_DUALRED())
+    else
     {
-      v6 = ci_logger_api();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = CI_LOG_DUALRED();
+      if (v8)
       {
-        [CIDualRedEyeRepairSession validateRepair];
+        v10 = ci_logger_api(v8, v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          [CIDualRedEyeRepairSession validateRepair];
+        }
       }
     }
 
     return 3;
   }
 
-  if (CI_LOG_DUALRED())
+  v5 = CI_LOG_DUALRED();
+  if (v5)
   {
-    v5 = ci_logger_api();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = ci_logger_api(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [CIDualRedEyeRepairSession validateRepair];
     }
@@ -609,14 +623,15 @@ LABEL_10:
 - (id)redEyeFaceFromObservation:(id)observation exifOrientation:(int)orientation
 {
   v4 = *&orientation;
-  v213 = *MEMORY[0x1E69E9840];
+  v272 = *MEMORY[0x1E69E9840];
   landmarks = [observation landmarks];
   if (!landmarks)
   {
-    if (CI_LOG_DUALRED())
+    v30 = CI_LOG_DUALRED();
+    if (v30)
     {
-      v22 = ci_logger_api();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v32 = ci_logger_api(v30, v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
       }
@@ -628,10 +643,11 @@ LABEL_10:
   v8 = landmarks;
   if (![landmarks leftEye] || !objc_msgSend(v8, "rightEye"))
   {
-    if (CI_LOG_DUALRED())
+    v27 = CI_LOG_DUALRED();
+    if (v27)
     {
-      v21 = ci_logger_api();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v29 = ci_logger_api(v27, v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
       }
@@ -642,34 +658,37 @@ LABEL_10:
 
   [observation boundingBox];
   CIVNRectInOrientedImage([(CIDualRedEyeRepairSession *)self primaryImage], v9, v10, v11, v12);
-  v215 = CGRectIntegral(v214);
-  v13 = [CIVector vectorWithCGRect:v215.origin.x, v215.origin.y, v215.size.width, v215.size.height];
+  v274 = CGRectIntegral(v273);
+  v13 = [CIVector vectorWithCGRect:v274.origin.x, v274.origin.y, v274.size.width, v274.size.height];
   v14 = CIVNLandmarkInOrientedImage([v8 leftEye], -[CIDualRedEyeRepairSession primaryImage](self, "primaryImage"));
   v15 = CIVNLandmarkInOrientedImage([v8 rightEye], -[CIDualRedEyeRepairSession primaryImage](self, "primaryImage"));
   if (CI_LOG_DUALRED())
   {
-    if (CI_LOG_DUALRED())
+    v16 = CI_LOG_DUALRED();
+    if (v16)
     {
-      v16 = ci_logger_api();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-      {
-        [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
-      }
-    }
-
-    if (CI_LOG_DUALRED())
-    {
-      v17 = ci_logger_api();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-      {
-        [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
-      }
-    }
-
-    if (CI_LOG_DUALRED())
-    {
-      v18 = ci_logger_api();
+      v18 = ci_logger_api(v16, v17);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
+      }
+    }
+
+    v19 = CI_LOG_DUALRED();
+    if (v19)
+    {
+      v21 = ci_logger_api(v19, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
+      }
+    }
+
+    v22 = CI_LOG_DUALRED();
+    if (v22)
+    {
+      v24 = ci_logger_api(v22, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [CIDualRedEyeRepairSession redEyeFaceFromObservation:? exifOrientation:?];
       }
@@ -678,18 +697,19 @@ LABEL_10:
 
   if ([v14 count] == 8)
   {
-    v19 = axesForEyePointsV2(v14);
-    v20 = axesForEyePointsV2(v15);
+    v25 = axesForEyePointsV2(v14);
+    v26 = axesForEyePointsV2(v15);
   }
 
   else
   {
     if ([v14 count] != 6)
     {
-      if (CI_LOG_DUALRED())
+      v63 = CI_LOG_DUALRED();
+      if (v63)
       {
-        v47 = ci_logger_api();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v65 = ci_logger_api(v63, v64);
+        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
         {
           [CIDualRedEyeRepairSession redEyeFaceFromObservation:v14 exifOrientation:?];
         }
@@ -698,17 +718,18 @@ LABEL_10:
       return 0;
     }
 
-    v19 = axesForEyePointsV3(v14);
-    v20 = axesForEyePointsV3(v15);
+    v25 = axesForEyePointsV3(v14);
+    v26 = axesForEyePointsV3(v15);
   }
 
-  v25 = v20;
-  if (!v19 || !v20)
+  v35 = v26;
+  if (!v25 || !v26)
   {
-    if (CI_LOG_DUALRED())
+    v60 = CI_LOG_DUALRED();
+    if (v60)
     {
-      v46 = ci_logger_api();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v62 = ci_logger_api(v60, v61);
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
       {
         [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
       }
@@ -717,68 +738,70 @@ LABEL_10:
     return 0;
   }
 
-  [objc_msgSend(v19 objectAtIndexedSubscript:{1), "_norm"}];
-  v27 = v26;
-  [objc_msgSend(v19 objectAtIndexedSubscript:{0), "_norm"}];
-  v29 = v27 / v28;
   [objc_msgSend(v25 objectAtIndexedSubscript:{1), "_norm"}];
-  v31 = v30;
+  v37 = v36;
   [objc_msgSend(v25 objectAtIndexedSubscript:{0), "_norm"}];
-  v33 = v31 / v32;
-  if (v29 >= v33)
+  v39 = v37 / v38;
+  [objc_msgSend(v35 objectAtIndexedSubscript:{1), "_norm"}];
+  v41 = v40;
+  [objc_msgSend(v35 objectAtIndexedSubscript:{0), "_norm"}];
+  v43 = v41 / v42;
+  if (v39 >= v43)
   {
-    v34 = v33;
+    v44 = v43;
   }
 
   else
   {
-    v34 = v29;
+    v44 = v39;
   }
 
-  v35 = areaForAxes([v19 objectAtIndexedSubscript:0], objc_msgSend(v19, "objectAtIndexedSubscript:", 1));
-  v36 = areaForAxes([v25 objectAtIndexedSubscript:0], objc_msgSend(v25, "objectAtIndexedSubscript:", 1));
-  if (v35 <= v36)
+  v45 = areaForAxes([v25 objectAtIndexedSubscript:0], objc_msgSend(v25, "objectAtIndexedSubscript:", 1));
+  v46 = areaForAxes([v35 objectAtIndexedSubscript:0], objc_msgSend(v35, "objectAtIndexedSubscript:", 1));
+  if (v45 <= v46)
   {
-    v35 = v36;
+    v45 = v46;
   }
 
   [v8 confidence];
-  v38 = v37;
+  v48 = v47;
   [observation faceJunkinessIndex];
-  v40 = v39;
+  v50 = v49;
   [observation faceOrientationIndex];
-  v42 = v41;
-  if (CI_LOG_DUALRED())
+  v52 = v51;
+  v53 = CI_LOG_DUALRED();
+  if (v53)
   {
-    v43 = ci_logger_api();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v55 = ci_logger_api(v53, v54);
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
       *buf = 136447234;
       *&buf[4] = "[CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:]";
       *&buf[12] = 2048;
-      *&buf[14] = v38;
+      *&buf[14] = v48;
       *&buf[22] = 2048;
-      *&buf[24] = v40;
-      *v212 = 2048;
-      *&v212[2] = v34;
-      *&v212[10] = 2048;
-      *&v212[12] = v35;
-      _os_log_error_impl(&dword_19CC36000, v43, OS_LOG_TYPE_ERROR, "%{public}s Confidence=%.3f | junk=%.3f | Anisotropy=%.3f | area=%.0f", buf, 0x34u);
+      *&buf[24] = v50;
+      *v271 = 2048;
+      *&v271[2] = v44;
+      *&v271[10] = 2048;
+      *&v271[12] = v45;
+      _os_log_error_impl(&dword_19CC36000, v55, OS_LOG_TYPE_ERROR, "%{public}s Confidence=%.3f | junk=%.3f | Anisotropy=%.3f | area=%.0f", buf, 0x34u);
     }
   }
 
   [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
-  if (v38 >= v44)
+  if (v48 >= v56)
   {
     [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
-    if (v40 > v48)
+    if (v50 > v66)
     {
-      if (CI_LOG_DUALRED())
+      v67 = CI_LOG_DUALRED();
+      if (v67)
       {
-        v49 = ci_logger_api();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        v69 = ci_logger_api(v67, v68);
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
         {
-          [CIDualRedEyeRepairSession redEyeFaceFromObservation:v40 exifOrientation:?];
+          [CIDualRedEyeRepairSession redEyeFaceFromObservation:v50 exifOrientation:?];
         }
       }
 
@@ -786,14 +809,15 @@ LABEL_10:
     }
 
     [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
-    if (v34 < v50)
+    if (v44 < v70)
     {
-      if (CI_LOG_DUALRED())
+      v71 = CI_LOG_DUALRED();
+      if (v71)
       {
-        v51 = ci_logger_api();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+        v73 = ci_logger_api(v71, v72);
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
         {
-          [CIDualRedEyeRepairSession redEyeFaceFromObservation:v34 exifOrientation:?];
+          [CIDualRedEyeRepairSession redEyeFaceFromObservation:v44 exifOrientation:?];
         }
       }
 
@@ -801,109 +825,111 @@ LABEL_10:
     }
 
     [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
-    if (v35 < v52)
+    if (v45 < v74)
     {
-      if (CI_LOG_DUALRED())
+      v75 = CI_LOG_DUALRED();
+      if (v75)
       {
-        v53 = ci_logger_api();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+        v77 = ci_logger_api(v75, v76);
+        if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
         {
-          [CIDualRedEyeRepairSession redEyeFaceFromObservation:v35 exifOrientation:?];
+          [CIDualRedEyeRepairSession redEyeFaceFromObservation:v45 exifOrientation:?];
         }
       }
 
       return 0;
     }
 
-    v197 = v42;
-    v198 = v40;
-    v199 = v35;
+    v256 = v52;
+    v257 = v50;
+    v258 = v45;
     [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
-    v210[0] = v54;
+    v269[0] = v78;
     [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
-    v210[1] = v55;
-    repairROIforEyePoints(v14, v19, v210);
-    v57 = v56;
-    v59 = v58;
-    v61 = v60;
-    v63 = v62;
-    repairROIforEyePoints(v15, v25, v210);
-    v200 = v67;
-    v202 = v66;
-    v68 = v64;
-    v69 = v65;
-    if (v61 <= v64)
+    v269[1] = v79;
+    repairROIforEyePoints(v14, v25, v269);
+    v81 = v80;
+    v83 = v82;
+    v85 = v84;
+    v87 = v86;
+    repairROIforEyePoints(v15, v35, v269);
+    v259 = v91;
+    v261 = v90;
+    v92 = v88;
+    v93 = v89;
+    if (v85 <= v88)
     {
-      v70 = v64;
+      v94 = v88;
     }
 
     else
     {
-      v70 = v61;
+      v94 = v85;
     }
 
-    if (v63 <= v65)
+    if (v87 <= v89)
     {
-      v71 = v65;
+      v95 = v89;
     }
 
     else
     {
-      v71 = v63;
+      v95 = v87;
     }
 
-    v72 = expandFromCenter(v57, v59, v61, v63, v70, v71);
-    v204 = v73;
-    v205 = v72;
-    v75 = v74;
-    v77 = v76;
-    v78 = expandFromCenter(v202, v200, v68, v69, v70, v71);
-    v80 = v79;
-    v82 = v81;
-    v84 = v83;
+    v96 = expandFromCenter(v81, v83, v85, v87, v94, v95);
+    v263 = v97;
+    v264 = v96;
+    v99 = v98;
+    v101 = v100;
+    v102 = expandFromCenter(v261, v259, v92, v93, v94, v95);
+    v104 = v103;
+    v106 = v105;
+    v108 = v107;
     [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
-    v86 = (v85 + 1.0);
-    if (v75 <= v82)
+    v110 = (v109 + 1.0);
+    if (v99 <= v106)
     {
-      v87 = v82;
+      v111 = v106;
     }
 
     else
     {
-      v87 = v75;
+      v111 = v99;
     }
 
-    v88 = v87 * v86;
-    if (v77 <= v84)
+    v112 = v111 * v110;
+    if (v101 <= v108)
     {
-      v89 = v84;
+      v113 = v108;
     }
 
     else
     {
-      v89 = v77;
+      v113 = v101;
     }
 
-    v90 = v89 * v86;
-    v192 = v75;
-    v194 = v77;
-    v91 = expandFromCenter(v205, v204, v75, v77, v88, v89 * v86);
-    v201 = v92;
-    v203 = v91;
-    v94 = v93;
-    v96 = v95;
-    v195 = v78;
-    r2 = v80;
-    v193 = v82;
-    v97 = v82;
-    v98 = v84;
-    v99 = expandFromCenter(v78, v80, v97, v84, v88, v90);
-    if (v94 != v102 || v96 != v101)
+    v114 = v113 * v110;
+    v251 = v99;
+    v253 = v101;
+    v115 = expandFromCenter(v264, v263, v99, v101, v112, v113 * v110);
+    v260 = v116;
+    v262 = v115;
+    v118 = v117;
+    v120 = v119;
+    v254 = v102;
+    r2 = v104;
+    v252 = v106;
+    v121 = v106;
+    v122 = v108;
+    v123 = expandFromCenter(v102, v104, v121, v108, v112, v114);
+    if (v118 != v126 || v120 != v125)
     {
-      if (CI_LOG_DUALRED())
+      v157 = CI_LOG_DUALRED();
+      if (v157)
       {
-        v121 = ci_logger_api();
-        if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
+        v159 = ci_logger_api(v157, v158);
+        if (os_log_type_enabled(v159, OS_LOG_TYPE_ERROR))
         {
           [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
         }
@@ -912,19 +938,20 @@ LABEL_10:
       return 0;
     }
 
-    v103 = v99;
-    v104 = v100;
-    v105 = [-[NSDictionary objectForKey:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
-    v106 = [-[NSDictionary objectForKey:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
-    v107 = [-[NSDictionary objectForKey:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
-    if ((v105 & 1) != 0 || (v106 & 1) != 0 || v107)
+    v127 = v123;
+    v128 = v124;
+    v129 = [-[NSDictionary objectForKey:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
+    v130 = [-[NSDictionary objectForKey:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
+    v131 = [-[NSDictionary objectForKey:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
+    if ((v129 & 1) != 0 || (v130 & 1) != 0 || v131)
     {
       if (![observation faceSegments])
       {
-        if (CI_LOG_DUALRED())
+        v188 = CI_LOG_DUALRED();
+        if (v188)
         {
-          v147 = ci_logger_api();
-          if (os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
+          v190 = ci_logger_api(v188, v189);
+          if (os_log_type_enabled(v190, OS_LOG_TYPE_ERROR))
           {
             [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
           }
@@ -933,13 +960,14 @@ LABEL_10:
         return 0;
       }
 
-      v122 = probabilitiesForSegment([observation faceSegments], 482, v4);
-      if (!v122)
+      v160 = probabilitiesForSegment([observation faceSegments], 482, v4);
+      if (!v160)
       {
-        if (CI_LOG_DUALRED())
+        v191 = CI_LOG_DUALRED();
+        if (v191)
         {
-          v148 = ci_logger_api();
-          if (os_log_type_enabled(v148, OS_LOG_TYPE_ERROR))
+          v193 = ci_logger_api(v191, v192);
+          if (os_log_type_enabled(v193, OS_LOG_TYPE_ERROR))
           {
             [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
           }
@@ -948,89 +976,90 @@ LABEL_10:
         return 0;
       }
 
-      v123 = v122;
-      v124 = [v122 count];
-      v125 = CI_LOG_DUALRED();
-      if (v124 != 5)
+      v161 = v160;
+      v162 = [v160 count];
+      v163 = CI_LOG_DUALRED();
+      if (v162 != 5)
       {
-        if (v125)
+        if (v163)
         {
-          v149 = ci_logger_api();
-          if (os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
+          v194 = ci_logger_api(v163, v164);
+          if (os_log_type_enabled(v194, OS_LOG_TYPE_ERROR))
           {
-            [CIDualRedEyeRepairSession redEyeFaceFromObservation:v123 exifOrientation:?];
+            [CIDualRedEyeRepairSession redEyeFaceFromObservation:v161 exifOrientation:?];
           }
         }
 
         return 0;
       }
 
-      rect_24 = v105;
-      v178 = v104;
-      v181 = v96;
-      if (v125)
+      rect_24 = v129;
+      v235 = v128;
+      v240 = v120;
+      if (v163)
       {
-        v126 = ci_logger_api();
-        if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
+        v165 = ci_logger_api(v163, v164);
+        if (os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
         {
           [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
         }
       }
 
-      v187 = [v123 objectAtIndexedSubscript:0];
-      v127 = [v123 objectAtIndexedSubscript:1];
-      v128 = [v123 objectAtIndexedSubscript:2];
-      v176 = [v123 objectAtIndexedSubscript:3];
-      v129 = [v123 objectAtIndexedSubscript:4];
-      v188 = v128;
-      v190 = v127;
-      v130 = v127;
-      v109 = v176;
-      v185 = RRmaximumRh(v130, v128);
-      v175 = v129;
-      v131 = RRmaximumRh(v176, v129);
+      v246 = [v161 objectAtIndexedSubscript:0];
+      v166 = [v161 objectAtIndexedSubscript:1];
+      v167 = [v161 objectAtIndexedSubscript:2];
+      v233 = [v161 objectAtIndexedSubscript:3];
+      v168 = [v161 objectAtIndexedSubscript:4];
+      v247 = v167;
+      v249 = v166;
+      v169 = v166;
+      v133 = v233;
+      v244 = RRmaximumRh(v169, v167);
+      v231 = v168;
+      v170 = RRmaximumRh(v233, v168);
       [objc_msgSend(observation "faceSegments")];
-      CIVNRectInOrientedImage([(CIDualRedEyeRepairSession *)self primaryImage], v132, v133, v134, v135);
-      v137 = v136;
-      v139 = v138;
-      v141 = v140;
-      v143 = v142;
-      [v187 extent];
-      if (vabdd_f64(256.0, v144) > 0.00001 || ([v187 extent], vabdd_f64(256.0, v145) > 0.00001))
+      CIVNRectInOrientedImage([(CIDualRedEyeRepairSession *)self primaryImage], v171, v172, v173, v174);
+      v176 = v175;
+      v178 = v177;
+      v180 = v179;
+      v182 = v181;
+      [v246 extent];
+      if (vabdd_f64(256.0, v183) > 0.00001 || ([v246 extent], vabdd_f64(256.0, v184) > 0.00001))
       {
-        if (CI_LOG_DUALRED())
+        v185 = CI_LOG_DUALRED();
+        if (v185)
         {
-          v146 = ci_logger_api();
-          if (os_log_type_enabled(v146, OS_LOG_TYPE_ERROR))
+          v187 = ci_logger_api(v185, v186);
+          if (os_log_type_enabled(v187, OS_LOG_TYPE_ERROR))
           {
-            [CIDualRedEyeRepairSession redEyeFaceFromObservation:v187 exifOrientation:?];
+            [CIDualRedEyeRepairSession redEyeFaceFromObservation:v246 exifOrientation:?];
           }
         }
 
         return 0;
       }
 
-      *v212 = 0u;
+      *v271 = 0u;
       memset(buf, 0, sizeof(buf));
-      CGAffineTransformMakeScale(buf, v141 * 0.00390625, v143 * 0.00390625);
-      memset(&v209, 0, sizeof(v209));
-      CGAffineTransformMakeTranslation(&v209, v137, v139);
+      CGAffineTransformMakeScale(buf, v180 * 0.00390625, v182 * 0.00390625);
+      memset(&v268, 0, sizeof(v268));
+      CGAffineTransformMakeTranslation(&v268, v176, v178);
       *&t1.a = *buf;
       *&t1.c = *&buf[16];
-      *&t1.tx = *v212;
-      memset(&v208, 0, sizeof(v208));
-      t2 = v209;
-      CGAffineTransformConcat(&v208, &t1, &t2);
-      t1 = v208;
-      v186 = [v187 imageByApplyingTransform:&t1];
-      t1 = v208;
-      v184 = [v185 imageByApplyingTransform:&t1];
-      t1 = v208;
-      v183 = [v131 imageByApplyingTransform:&t1];
-      v96 = v181;
-      v104 = v178;
-      LOBYTE(v105) = rect_24;
-      v108 = v175;
+      *&t1.tx = *v271;
+      memset(&v267, 0, sizeof(v267));
+      t2 = v268;
+      CGAffineTransformConcat(&v267, &t1, &t2);
+      t1 = v267;
+      v245 = [v246 imageByApplyingTransform:&t1];
+      t1 = v267;
+      v243 = [(CIImage *)v244 imageByApplyingTransform:&t1];
+      t1 = v267;
+      v242 = [(CIImage *)v170 imageByApplyingTransform:&t1];
+      v120 = v240;
+      v128 = v235;
+      LOBYTE(v129) = rect_24;
+      v132 = v231;
       if (rect_24)
       {
         goto LABEL_76;
@@ -1039,75 +1068,96 @@ LABEL_10:
 
     else
     {
-      v108 = 0;
-      v109 = 0;
-      v188 = 0;
-      v190 = 0;
-      v183 = 0;
-      v184 = 0;
-      v186 = 0;
-      if (v105)
+      v132 = 0;
+      v133 = 0;
+      v247 = 0;
+      v249 = 0;
+      v242 = 0;
+      v243 = 0;
+      v245 = 0;
+      if (v129)
       {
 LABEL_76:
-        v174 = v108;
-        v110 = constellationRectInSegmentationRect(-[CIDualRedEyeRepairSession primaryImage](self, "primaryImage"), [v8 rightEye], objc_msgSend(observation, "faceSegments"), 0x100uLL);
-        rect_16 = v112;
-        rect_24a = v111;
-        rect_8 = v113;
+        v230 = v132;
+        v134 = constellationRectInSegmentationRect(-[CIDualRedEyeRepairSession primaryImage](self, "primaryImage"), [v8 rightEye], objc_msgSend(observation, "faceSegments"), 0x100uLL);
+        rect_16 = v136;
+        rect_24a = v135;
+        rect_8 = v137;
         rect = constellationRectInSegmentationRect(-[CIDualRedEyeRepairSession primaryImage](self, "primaryImage"), [v8 leftEye], objc_msgSend(observation, "faceSegments"), 0x100uLL);
-        v177 = v104;
-        v115 = v114;
-        v117 = v116;
-        v119 = v118;
-        v216.origin.x = v110;
-        v216.size.width = rect_16;
-        v216.origin.y = rect_24a;
-        v216.size.height = rect_8;
-        v217 = CGRectInset(v216, -12.8000002, -12.8000002);
-        CGRectIntegral(v217);
-        v218.origin.x = rect;
-        v218.origin.y = v115;
-        v218.size.width = v117;
-        v218.size.height = v119;
-        v219 = CGRectInset(v218, -12.8000002, -12.8000002);
-        CGRectIntegral(v219);
-        v104 = v177;
-        v120 = semanticPupils([(CIDualRedEyeRepairSession *)self primaryImage], observation, v4, v109, v174, v190, v188);
-        v191 = [v120 objectAtIndexedSubscript:0];
-        v189 = [v120 objectAtIndexedSubscript:1];
+        v234 = v128;
+        v237 = v127;
+        v139 = v138;
+        v239 = v120;
+        v141 = v140;
+        v232 = v118;
+        v143 = v142;
+        v275.origin.x = v134;
+        v275.size.width = rect_16;
+        v275.origin.y = rect_24a;
+        v275.size.height = rect_8;
+        v276 = CGRectInset(v275, -12.8000002, -12.8000002);
+        v277 = CGRectIntegral(v276);
+        x = v277.origin.x;
+        y = v277.origin.y;
+        width = v277.size.width;
+        rect_24b = v277.size.height;
+        v277.origin.x = rect;
+        v277.origin.y = v139;
+        v277.size.width = v141;
+        v277.size.height = v143;
+        v278 = CGRectInset(v277, -12.8000002, -12.8000002);
+        v279 = CGRectIntegral(v278);
+        v147 = v279.origin.x;
+        v148 = v279.origin.y;
+        v149 = v279.size.width;
+        height = v279.size.height;
+        primaryImage = [(CIDualRedEyeRepairSession *)self primaryImage];
+        v152 = x;
+        v153 = width;
+        v154 = v147;
+        v155 = v148;
+        v128 = v234;
+        v127 = v237;
+        v120 = v239;
+        v118 = v232;
+        v156 = semanticPupils(primaryImage, observation, v152, y, v153, rect_24b, v154, v155, v149, height, v4, v133, v230, v249, v247);
+        v250 = [v156 objectAtIndexedSubscript:0];
+        v248 = [v156 objectAtIndexedSubscript:1];
         goto LABEL_102;
       }
     }
 
-    v189 = 0;
-    v191 = 0;
+    v248 = 0;
+    v250 = 0;
 LABEL_102:
-    v150 = orientedPupilFromLandmarks([(CIDualRedEyeRepairSession *)self primaryImage], v8, 0);
-    v151 = orientedPupilFromLandmarks([(CIDualRedEyeRepairSession *)self primaryImage], v8, 1);
-    if ((v105 & 1) == 0)
+    v195 = orientedPupilFromLandmarks([(CIDualRedEyeRepairSession *)self primaryImage], v8, 0);
+    v196 = orientedPupilFromLandmarks([(CIDualRedEyeRepairSession *)self primaryImage], v8, 1);
+    if ((v129 & 1) == 0)
     {
-      v152 = v151;
-      if (CI_LOG_DUALRED())
+      v197 = v196;
+      v198 = CI_LOG_DUALRED();
+      if (v198)
       {
-        v153 = ci_logger_api();
-        if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
+        v200 = ci_logger_api(v198, v199);
+        if (os_log_type_enabled(v200, OS_LOG_TYPE_ERROR))
         {
           [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
         }
       }
 
-      v189 = v152;
-      v191 = v150;
+      v248 = v197;
+      v250 = v195;
     }
 
     [-[NSDictionary objectForKey:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
-    if (v154 <= 0.0001 || [(CIDualRedEyeRepairSession *)self renderUsingProvidedCommandQueue])
+    if (v201 <= 0.0001 || [(CIDualRedEyeRepairSession *)self renderUsingProvidedCommandQueue])
     {
-      v155 = 0x1E75C0000;
-      if (CI_LOG_DUALRED())
+      v202 = CI_LOG_DUALRED();
+      v204 = 0x1E75C0000;
+      if (v202)
       {
-        v156 = ci_logger_api();
-        if (os_log_type_enabled(v156, OS_LOG_TYPE_ERROR))
+        v205 = ci_logger_api(v202, v203);
+        if (os_log_type_enabled(v205, OS_LOG_TYPE_ERROR))
         {
           [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
         }
@@ -1116,55 +1166,58 @@ LABEL_102:
 
     else
     {
-      v179 = v104;
-      v180 = v103;
-      v182 = v96;
-      v220.origin.y = v204;
-      v220.origin.x = v205;
-      v220.size.width = v192;
-      v223.size.width = v193;
-      v220.size.height = v194;
-      v223.origin.x = v195;
-      v223.origin.y = r2;
-      v223.size.height = v98;
-      v221 = CGRectUnion(v220, v223);
-      v222 = CGRectIntegral(v221);
-      x = v222.origin.x;
-      y = v222.origin.y;
-      width = v222.size.width;
-      height = v222.size.height;
+      v236 = v128;
+      v238 = v127;
+      v241 = v120;
+      v280.origin.y = v263;
+      v280.origin.x = v264;
+      v280.size.width = v251;
+      v283.size.width = v252;
+      v280.size.height = v253;
+      v283.origin.x = v254;
+      v283.origin.y = r2;
+      v283.size.height = v122;
+      v281 = CGRectUnion(v280, v283);
+      v282 = CGRectIntegral(v281);
+      v206 = v282.origin.x;
+      v207 = v282.origin.y;
+      v208 = v282.size.width;
+      v209 = v282.size.height;
       CFAbsoluteTimeGetCurrent();
-      LODWORD(v161) = focusStatsForRegion(x, y, width, height, self->_primary, [(CIDualRedEyeRepairSession *)self context], [(CIDualRedEyeRepairSession *)self primaryImage]);
+      LODWORD(v210) = focusStatsForRegion(v206, v207, v208, v209, self->_primary, [(CIDualRedEyeRepairSession *)self context], [(CIDualRedEyeRepairSession *)self primaryImage]);
       CFAbsoluteTimeGetCurrent();
-      v155 = 0x1E75C0000uLL;
-      if (CI_LOG_DUALRED())
+      v211 = CI_LOG_DUALRED();
+      v204 = 0x1E75C0000uLL;
+      if (v211)
       {
-        v162 = ci_logger_api();
-        if (os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
+        v213 = ci_logger_api(v211, v212);
+        if (os_log_type_enabled(v213, OS_LOG_TYPE_ERROR))
         {
           [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
         }
       }
 
-      v103 = v180;
-      v96 = v182;
-      v104 = v179;
-      if (CI_LOG_DUALRED())
+      v214 = CI_LOG_DUALRED();
+      v127 = v238;
+      v120 = v241;
+      v128 = v236;
+      if (v214)
       {
-        v163 = ci_logger_api();
-        if (os_log_type_enabled(v163, OS_LOG_TYPE_ERROR))
+        v216 = ci_logger_api(v214, v215);
+        if (os_log_type_enabled(v216, OS_LOG_TYPE_ERROR))
         {
           [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
         }
       }
 
       [-[NSDictionary objectForKey:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
-      if (v164 > v161)
+      if (v217 > v210)
       {
-        if (CI_LOG_DUALRED())
+        v221 = CI_LOG_DUALRED();
+        if (v221)
         {
-          v168 = ci_logger_api();
-          if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+          v223 = ci_logger_api(v221, v222);
+          if (os_log_type_enabled(v223, OS_LOG_TYPE_ERROR))
           {
             [CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:];
           }
@@ -1174,36 +1227,37 @@ LABEL_102:
       }
     }
 
-    v23 = objc_opt_new();
-    [v23 setImageOrientation:v4];
-    [v23 setLandmarks:v8];
-    [v23 setObservation:observation];
-    [v23 setSegmentationSkin:v186];
-    [v23 setSegmentationSclera:v184];
-    [v23 setSegmentationIris:v183];
-    [v23 setFaceRect:v13];
-    *&v165 = v198;
-    [v23 setJunkiness:v165];
-    LODWORD(v166) = v197;
-    [v23 setFaceOrientation:v166];
-    *&v167 = v199;
-    [v23 setAreaMax:v167];
-    [v23 setUvLeft:v19];
-    [v23 setUvRight:v25];
-    [v23 setRoiRenderOriginLeft:{objc_msgSend(*(v155 + 2960), "vectorWithCGPoint:", v203, v201)}];
-    [v23 setRoiRenderOriginRight:{objc_msgSend(*(v155 + 2960), "vectorWithCGPoint:", v103, v104)}];
-    [v23 setRoiRenderSize:{objc_msgSend(*(v155 + 2960), "vectorWithX:Y:", v94, v96)}];
-    [v23 setPupilLeft:v191];
-    [v23 setPupilRight:v189];
-    return v23;
+    v33 = objc_opt_new();
+    [v33 setImageOrientation:v4];
+    [v33 setLandmarks:v8];
+    [v33 setObservation:observation];
+    [v33 setSegmentationSkin:v245];
+    [v33 setSegmentationSclera:v243];
+    [v33 setSegmentationIris:v242];
+    [v33 setFaceRect:v13];
+    *&v218 = v257;
+    [v33 setJunkiness:v218];
+    LODWORD(v219) = v256;
+    [v33 setFaceOrientation:v219];
+    *&v220 = v258;
+    [v33 setAreaMax:v220];
+    [v33 setUvLeft:v25];
+    [v33 setUvRight:v35];
+    [v33 setRoiRenderOriginLeft:{objc_msgSend(*(v204 + 2960), "vectorWithCGPoint:", v262, v260)}];
+    [v33 setRoiRenderOriginRight:{objc_msgSend(*(v204 + 2960), "vectorWithCGPoint:", v127, v128)}];
+    [v33 setRoiRenderSize:{objc_msgSend(*(v204 + 2960), "vectorWithX:Y:", v118, v120)}];
+    [v33 setPupilLeft:v250];
+    [v33 setPupilRight:v248];
+    return v33;
   }
 
-  if (CI_LOG_DUALRED())
+  v57 = CI_LOG_DUALRED();
+  if (v57)
   {
-    v45 = ci_logger_api();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v59 = ci_logger_api(v57, v58);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
-      [CIDualRedEyeRepairSession redEyeFaceFromObservation:v38 exifOrientation:?];
+      [CIDualRedEyeRepairSession redEyeFaceFromObservation:v48 exifOrientation:?];
     }
   }
 
@@ -1260,7 +1314,7 @@ LABEL_102:
 
 - (BOOL)repairFace:(id)face filter:(id)filter
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   [objc_msgSend(face "roiRenderOriginLeft")];
   v8 = v7;
   [objc_msgSend(face "roiRenderOriginLeft")];
@@ -1276,125 +1330,127 @@ LABEL_102:
   [objc_msgSend(face "roiRenderSize")];
   v20 = v19;
   [objc_msgSend(face "roiRenderSize")];
-  v69.size.height = v21;
-  v65.origin.x = v8;
-  v65.origin.y = v10;
-  v65.size.width = v12;
-  v65.size.height = v14;
-  v51 = v18;
-  v53 = v16;
-  v69.origin.x = v16;
-  v69.origin.y = v18;
-  height = v69.size.height;
-  v49 = v20;
-  v69.size.width = v20;
-  v66 = CGRectIntersection(v65, v69);
-  x = v66.origin.x;
-  y = v66.origin.y;
-  width = v66.size.width;
-  v25 = v66.size.height;
-  if (CI_LOG_DUALRED())
+  v83.size.height = v21;
+  v79.origin.x = v8;
+  v79.origin.y = v10;
+  v79.size.width = v12;
+  v79.size.height = v14;
+  v65 = v18;
+  v67 = v16;
+  v83.origin.x = v16;
+  v83.origin.y = v18;
+  height = v83.size.height;
+  v63 = v20;
+  v83.size.width = v20;
+  v80 = CGRectIntersection(v79, v83);
+  x = v80.origin.x;
+  y = v80.origin.y;
+  width = v80.size.width;
+  v25 = v80.size.height;
+  v26 = CI_LOG_DUALRED();
+  if (v26)
   {
-    v26 = ci_logger_api();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v28 = ci_logger_api(v26, v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 136447234;
       *&buf[4] = "[CIDualRedEyeRepairSession repairFace:filter:]";
-      v56 = 2048;
-      v57 = x;
-      v58 = 2048;
-      v59 = y;
-      v60 = 2048;
-      v61 = width;
-      v62 = 2048;
-      v63 = v25;
-      _os_log_error_impl(&dword_19CC36000, v26, OS_LOG_TYPE_ERROR, "%{public}s Intersection: %f,%f,%f,%f", buf, 0x34u);
+      v70 = 2048;
+      v71 = x;
+      v72 = 2048;
+      v73 = y;
+      v74 = 2048;
+      v75 = width;
+      v76 = 2048;
+      v77 = v25;
+      _os_log_error_impl(&dword_19CC36000, v28, OS_LOG_TYPE_ERROR, "%{public}s Intersection: %f,%f,%f,%f", buf, 0x34u);
     }
   }
 
-  [(CIDualRedEyeRepairSession *)self customizeRepairFilter:filter forFace:face, *&height, *&v49, *&v51, *&v53];
+  [(CIDualRedEyeRepairSession *)self customizeRepairFilter:filter forFace:face, *&height, *&v63, *&v65, *&v67];
   CFAbsoluteTimeGetCurrent();
   outputImage = [filter outputImage];
-  if (CI_LOG_DUALRED())
+  v30 = CI_LOG_DUALRED();
+  if (v30)
   {
-    v28 = ci_logger_api();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v32 = ci_logger_api(v30, v31);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       [CIDualRedEyeRepairSession repairFace:filter:];
     }
   }
 
   *buf = 0;
-  v29 = [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
+  v33 = [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
   Current = CFAbsoluteTimeGetCurrent();
-  if (v29)
+  if (v33)
   {
-    v67.origin.x = v8;
-    v67.origin.y = v10;
-    v67.size.width = v12;
-    v67.size.height = v14;
-    v70.origin.y = v52;
-    v70.origin.x = v54;
-    v70.size.height = v48;
-    v70.size.width = v50;
-    v68 = CGRectUnion(v67, v70);
-    v31 = -[CIContext startTaskToRender:fromRect:toDestination:atPoint:error:](self->context, "startTaskToRender:fromRect:toDestination:atPoint:error:", [outputImage imageByCompositingOverImage:{-[CIImage imageByInsertingIntermediate:](-[CIDualRedEyeRepairSession primaryImage](self, "primaryImage"), "imageByInsertingIntermediate:", 0)}], -[CIDualRedEyeRepairSession destination](self, "destination"), buf, v68.origin.x, v68.origin.y, v68.size.width, v68.size.height, v68.origin.x, v68.origin.y);
+    v81.origin.x = v8;
+    v81.origin.y = v10;
+    v81.size.width = v12;
+    v81.size.height = v14;
+    v84.origin.y = v66;
+    v84.origin.x = v68;
+    v84.size.height = v62;
+    v84.size.width = v64;
+    v82 = CGRectUnion(v81, v84);
+    v35 = -[CIContext startTaskToRender:fromRect:toDestination:atPoint:error:](self->context, "startTaskToRender:fromRect:toDestination:atPoint:error:", [outputImage imageByCompositingOverImage:{-[CIImage imageByInsertingIntermediate:](-[CIDualRedEyeRepairSession primaryImage](self, "primaryImage"), "imageByInsertingIntermediate:", 0)}], -[CIDualRedEyeRepairSession destination](self, "destination"), buf, v82.origin.x, v82.origin.y, v82.size.width, v82.size.height, v82.origin.x, v82.origin.y);
     if (*buf)
     {
-      v32 = CI_LOG_DUALRED();
-      if (v32)
+      v36 = CI_LOG_DUALRED();
+      if (v36)
       {
-        v33 = ci_logger_api();
-        v32 = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
-        if (v32)
+        v38 = ci_logger_api(v36, v37);
+        LODWORD(v36) = os_log_type_enabled(v38, OS_LOG_TYPE_ERROR);
+        if (v36)
         {
           [CIDualRedEyeRepairSession repairFace:filter:];
 LABEL_38:
-          LOBYTE(v32) = 0;
-          return v32;
+          LOBYTE(v36) = 0;
+          return v36;
         }
       }
 
-      return v32;
+      return v36;
     }
 
-    v37 = v31;
+    v45 = v35;
     if ([(CIDualRedEyeRepairSession *)self renderUsingProvidedCommandQueue])
     {
       [(MTLCommandBuffer *)[(CIDualRedEyeRepairSession *)self commandBuffer] commit];
-      v38 = 0;
+      v46 = 0;
     }
 
     else
     {
-      v38 = [(CIRenderTask *)v37 waitUntilCompletedAndReturnError:buf];
+      v46 = [(CIRenderTask *)v45 waitUntilCompletedAndReturnError:buf];
     }
 
-    v40 = *buf;
-    v32 = CI_LOG_DUALRED();
-    if (v40)
+    v48 = *buf;
+    v36 = CI_LOG_DUALRED();
+    if (v48)
     {
-      if (v32)
+      if (v36)
       {
-        v41 = ci_logger_api();
-        v32 = os_log_type_enabled(v41, OS_LOG_TYPE_ERROR);
-        if (v32)
+        v50 = ci_logger_api(v36, v49);
+        LODWORD(v36) = os_log_type_enabled(v50, OS_LOG_TYPE_ERROR);
+        if (v36)
         {
           [CIDualRedEyeRepairSession repairFace:filter:];
           goto LABEL_38;
         }
       }
 
-      return v32;
+      return v36;
     }
 
-    if (v32)
+    if (v36)
     {
-      v44 = ci_logger_api();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v56 = ci_logger_api(v36, v49);
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
       {
         [CIDualRedEyeRepairSession repairFace:filter:];
-        if (v38)
+        if (v46)
         {
           goto LABEL_42;
         }
@@ -1404,34 +1460,36 @@ LABEL_38:
     }
 
 LABEL_41:
-    if (v38)
+    if (v46)
     {
 LABEL_42:
-      if (CI_LOG_DUALRED())
+      v57 = CI_LOG_DUALRED();
+      if (v57)
       {
-        v45 = ci_logger_api();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        v59 = ci_logger_api(v57, v58);
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
         {
-          [CIDualRedEyeRepairSession repairFace:v38 filter:?];
+          [CIDualRedEyeRepairSession repairFace:v46 filter:?];
         }
       }
     }
 
 LABEL_45:
-    LOBYTE(v32) = 1;
-    return v32;
+    LOBYTE(v36) = 1;
+    return v36;
   }
 
-  v34 = [(CIContext *)self->context startTaskToRender:outputImage fromRect:[(CIDualRedEyeRepairSession *)self destination] toDestination:buf atPoint:v8 error:v10, v12, v14, v8, v10];
+  v39 = [(CIContext *)self->context startTaskToRender:outputImage fromRect:[(CIDualRedEyeRepairSession *)self destination] toDestination:buf atPoint:v8 error:v10, v12, v14, v8, v10];
   if (![(CIDualRedEyeRepairSession *)self renderUsingProvidedCommandQueue])
   {
-    [(CIRenderTask *)v34 waitUntilCompletedAndReturnError:buf];
+    [(CIRenderTask *)v39 waitUntilCompletedAndReturnError:buf];
   }
 
-  if (CI_LOG_DUALRED())
+  v40 = CI_LOG_DUALRED();
+  if (v40)
   {
-    v35 = ci_logger_api();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v42 = ci_logger_api(v40, v41);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       [CIDualRedEyeRepairSession repairFace:filter:];
     }
@@ -1439,22 +1497,23 @@ LABEL_45:
 
   if (!*buf)
   {
-    v39 = [(CIContext *)self->context startTaskToRender:outputImage fromRect:[(CIDualRedEyeRepairSession *)self destination] toDestination:buf atPoint:v54 error:v52, v50, v48, v54, v52];
+    v47 = [(CIContext *)self->context startTaskToRender:outputImage fromRect:[(CIDualRedEyeRepairSession *)self destination] toDestination:buf atPoint:v68 error:v66, v64, v62, v68, v66];
     if ([(CIDualRedEyeRepairSession *)self renderUsingProvidedCommandQueue])
     {
       [(MTLCommandBuffer *)[(CIDualRedEyeRepairSession *)self commandBuffer] commit];
-      v38 = 0;
+      v46 = 0;
     }
 
     else
     {
-      v38 = [(CIRenderTask *)v39 waitUntilCompletedAndReturnError:buf];
+      v46 = [(CIRenderTask *)v47 waitUntilCompletedAndReturnError:buf];
     }
 
-    if (CI_LOG_DUALRED())
+    v51 = CI_LOG_DUALRED();
+    if (v51)
     {
-      v42 = ci_logger_api();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v53 = ci_logger_api(v51, v52);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
         [CIDualRedEyeRepairSession repairFace:filter:];
       }
@@ -1462,80 +1521,83 @@ LABEL_45:
 
     if (*buf)
     {
-      v32 = CI_LOG_DUALRED();
-      if (v32)
+      v36 = CI_LOG_DUALRED();
+      if (v36)
       {
-        v43 = ci_logger_api();
-        v32 = os_log_type_enabled(v43, OS_LOG_TYPE_ERROR);
-        if (v32)
+        v55 = ci_logger_api(v36, v54);
+        LODWORD(v36) = os_log_type_enabled(v55, OS_LOG_TYPE_ERROR);
+        if (v36)
         {
           [CIDualRedEyeRepairSession repairFace:filter:];
           goto LABEL_38;
         }
       }
 
-      return v32;
+      return v36;
     }
 
     goto LABEL_41;
   }
 
-  v32 = CI_LOG_DUALRED();
-  if (v32)
+  v36 = CI_LOG_DUALRED();
+  if (v36)
   {
-    v36 = ci_logger_api();
-    v32 = os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
-    if (v32)
+    v44 = ci_logger_api(v36, v43);
+    LODWORD(v36) = os_log_type_enabled(v44, OS_LOG_TYPE_ERROR);
+    if (v36)
     {
       [CIDualRedEyeRepairSession repairFace:filter:];
       goto LABEL_38;
     }
   }
 
-  return v32;
+  return v36;
 }
 
 - (BOOL)setPrimary:(__CVBuffer *)primary observations:(id)observations metadata:(id)metadata
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v96 = *MEMORY[0x1E69E9840];
   CFAbsoluteTimeGetCurrent();
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
-  v52 = 2 * [observations count];
-  v9 = ci_signpost_log_dualredeye();
+  v75 = 0;
+  v76 = &v75;
+  v77 = 0x2020000000;
+  v9 = [observations count];
+  v78 = 2 * v9;
+  v11 = ci_signpost_log_dualredeye(v9, v10);
   if (&self->super.isa + 1 >= 2)
   {
-    v18 = v9;
-    if (os_signpost_enabled(v9))
+    v28 = v11;
+    if (os_signpost_enabled(v11))
     {
-      v19 = *(v50 + 6);
+      v29 = *(v76 + 6);
       *buf = 67109120;
-      LODWORD(v56) = v19;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v18, OS_SIGNPOST_INTERVAL_BEGIN, self, "setPrimary", "eyeCount:%d", buf, 8u);
+      LODWORD(v82) = v29;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v28, OS_SIGNPOST_INTERVAL_BEGIN, self, "setPrimary", "eyeCount:%d", buf, 8u);
     }
   }
 
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v10 = v48;
-  v48[0] = __62__CIDualRedEyeRepairSession_setPrimary_observations_metadata___block_invoke;
-  v48[1] = &unk_1E75C25C0;
-  v48[2] = &v49;
-  v48[3] = self;
-  if (CI_LOG_DUALRED())
+  v73[0] = MEMORY[0x1E69E9820];
+  v73[1] = 3221225472;
+  v12 = v74;
+  v74[0] = __62__CIDualRedEyeRepairSession_setPrimary_observations_metadata___block_invoke;
+  v74[1] = &unk_1E75C25C0;
+  v74[2] = &v75;
+  v74[3] = self;
+  v13 = CI_LOG_DUALRED();
+  if (v13)
   {
-    v11 = ci_logger_api();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v15 = ci_logger_api(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      -[CIDualRedEyeRepairSession setPrimary:observations:metadata:].cold.1([observations count], v69);
+      -[CIDualRedEyeRepairSession setPrimary:observations:metadata:].cold.1([observations count], v95);
     }
   }
 
-  if (CI_LOG_DUALRED())
+  v16 = CI_LOG_DUALRED();
+  if (v16)
   {
-    v12 = ci_logger_api();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v18 = ci_logger_api(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [CIDualRedEyeRepairSession setPrimary:observations:metadata:];
     }
@@ -1547,43 +1609,45 @@ LABEL_45:
   [(CIDualRedEyeRepairSession *)self setObservations:observations];
   self->_primary = primary;
   [(CIDualRedEyeRepairTuning *)[(CIDualRedEyeRepairSession *)self tuning] setTuningParametersByPortType:[(CIDualRedEyeRepairSession *)self tuningParametersByPortType] withCameraMetadata:metadata];
-  if (CI_LOG_DUALRED())
+  v19 = CI_LOG_DUALRED();
+  if (v19)
   {
-    v13 = ci_logger_api();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v21 = ci_logger_api(v19, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [CIDualRedEyeRepairSession setPrimary:v68 observations:? metadata:?];
+      [CIDualRedEyeRepairSession setPrimary:v94 observations:? metadata:?];
     }
   }
 
-  if (CI_LOG_DUALRED())
+  v22 = CI_LOG_DUALRED();
+  if (v22)
   {
-    v14 = ci_logger_api();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v24 = ci_logger_api(v22, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      [CIDualRedEyeRepairSession setPrimary:v67 observations:? metadata:?];
+      [CIDualRedEyeRepairSession setPrimary:v93 observations:? metadata:?];
     }
   }
 
   [(CIDualRedEyeRepairSession *)self setImageProperties:0];
   if (metadata && [metadata objectForKeyedSubscript:@"ExifOrientation"])
   {
-    v15 = [metadata objectForKeyedSubscript:@"ExifOrientation"];
-    v64 = v15;
-    v65 = @"CIImageProperties";
-    v63 = *MEMORY[0x1E696DE78];
-    v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
-    -[CIDualRedEyeRepairSession setImageProperties:](self, "setImageProperties:", [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1]);
+    v25 = [metadata objectForKeyedSubscript:@"ExifOrientation"];
+    v90 = v25;
+    v91 = @"CIImageProperties";
+    v89 = *MEMORY[0x1E696DE78];
+    v92 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
+    -[CIDualRedEyeRepairSession setImageProperties:](self, "setImageProperties:", [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:&v91 count:1]);
   }
 
   else
   {
-    v15 = &unk_1F1081B60;
+    v25 = &unk_1F1081B60;
   }
 
   if ([(CIDualRedEyeRepairSession *)self renderUsingProvidedCommandQueue])
   {
-    v16 = [CIImage imageWithMTLTexture:[(CIDualRedEyeRepairSession *)self secondaryTexture] options:[(CIDualRedEyeRepairSession *)self imageProperties]];
+    v26 = [CIImage imageWithMTLTexture:[(CIDualRedEyeRepairSession *)self secondaryTexture] options:[(CIDualRedEyeRepairSession *)self imageProperties]];
   }
 
   else
@@ -1593,35 +1657,36 @@ LABEL_45:
       goto LABEL_23;
     }
 
-    v16 = [CIImage imageWithCVPixelBuffer:self->_primary options:[(CIDualRedEyeRepairSession *)self imageProperties]];
+    v26 = [CIImage imageWithCVPixelBuffer:self->_primary options:[(CIDualRedEyeRepairSession *)self imageProperties]];
   }
 
-  [(CIDualRedEyeRepairSession *)self setPrimaryImage:v16];
+  [(CIDualRedEyeRepairSession *)self setPrimaryImage:v26];
 LABEL_23:
   if (CI_LOG_DUALRED())
   {
     [(CIDualRedEyeRepairSession *)self dumpInputs];
     if ([(CIDualRedEyeRepairSession *)self primaryImage])
     {
-      v17 = [(CIImage *)[(CIDualRedEyeRepairSession *)self primaryImage] properties]? [(NSDictionary *)[(CIImage *)[(CIDualRedEyeRepairSession *)self primaryImage] properties] objectForKey:@"Orientation"]: &unk_1F1081B60;
-      if (CI_LOG_DUALRED())
+      v27 = [(CIImage *)[(CIDualRedEyeRepairSession *)self primaryImage] properties]? [(NSDictionary *)[(CIImage *)[(CIDualRedEyeRepairSession *)self primaryImage] properties] objectForKey:@"Orientation"]: &unk_1F1081B60;
+      v30 = CI_LOG_DUALRED();
+      if (v30)
       {
-        v20 = ci_logger_api();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v32 = ci_logger_api(v30, v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          intValue = [v17 intValue];
+          intValue = [v27 intValue];
           [(CIImage *)[(CIDualRedEyeRepairSession *)self primaryImage] extent];
-          v43 = v42;
+          v69 = v68;
           [(CIImage *)[(CIDualRedEyeRepairSession *)self primaryImage] extent];
           *buf = 136446978;
-          v56 = "[CIDualRedEyeRepairSession setPrimary:observations:metadata:]";
-          v57 = 1024;
-          *v58 = intValue;
-          *&v58[4] = 2048;
-          *&v58[6] = v43;
-          *&v58[14] = 2048;
-          *&v58[16] = v44;
-          _os_log_error_impl(&dword_19CC36000, v20, OS_LOG_TYPE_ERROR, "%{public}s Landmarks computed from orientation %d and size %f, %f", buf, 0x26u);
+          v82 = "[CIDualRedEyeRepairSession setPrimary:observations:metadata:]";
+          v83 = 1024;
+          *v84 = intValue;
+          *&v84[4] = 2048;
+          *&v84[6] = v69;
+          *&v84[14] = 2048;
+          *&v84[16] = v70;
+          _os_log_error_impl(&dword_19CC36000, v32, OS_LOG_TYPE_ERROR, "%{public}s Landmarks computed from orientation %d and size %f, %f", buf, 0x26u);
         }
       }
     }
@@ -1629,10 +1694,11 @@ LABEL_23:
 
   if ([(CIDualRedEyeRepairSession *)self validateSetPrimary])
   {
-    if (CI_LOG_DUALRED())
+    v33 = CI_LOG_DUALRED();
+    if (v33)
     {
-      v21 = ci_logger_api();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v35 = ci_logger_api(v33, v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         [CIDualRedEyeRepairSession setPrimary:observations:metadata:];
       }
@@ -1640,85 +1706,92 @@ LABEL_23:
 
 LABEL_37:
     [(CIDualRedEyeRepairSession *)self cleanupState];
-    v22 = 0;
+    v36 = 0;
     goto LABEL_64;
   }
 
   array = [MEMORY[0x1E695DF70] array];
   for (i = 0; [observations count] > i; ++i)
   {
-    if (CI_LOG_DUALRED())
+    v39 = CI_LOG_DUALRED();
+    if (v39)
     {
-      v25 = ci_logger_api();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v41 = ci_logger_api(v39, v40);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        v30 = [observations count];
+        v50 = [observations count];
         *buf = 136446722;
-        v56 = "[CIDualRedEyeRepairSession setPrimary:observations:metadata:]";
-        v57 = 1024;
-        *v58 = i + 1;
-        *&v58[4] = 1024;
-        *&v58[6] = v30;
-        _os_log_error_impl(&dword_19CC36000, v25, OS_LOG_TYPE_ERROR, "%{public}s Processing face observation %d / %d", buf, 0x18u);
+        v82 = "[CIDualRedEyeRepairSession setPrimary:observations:metadata:]";
+        v83 = 1024;
+        *v84 = i + 1;
+        *&v84[4] = 1024;
+        *&v84[6] = v50;
+        _os_log_error_impl(&dword_19CC36000, v41, OS_LOG_TYPE_ERROR, "%{public}s Processing face observation %d / %d", buf, 0x18u);
       }
     }
 
-    v26 = [observations objectAtIndexedSubscript:i];
+    v42 = [observations objectAtIndexedSubscript:i];
     if (CI_LOG_DUALRED() >= 2)
     {
-      [(CIDualRedEyeRepairSession *)self dumpObservation:v26 index:i];
+      [(CIDualRedEyeRepairSession *)self dumpObservation:v42 index:i];
     }
 
-    v27 = -[CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:](self, "redEyeFaceFromObservation:exifOrientation:", v26, [v15 intValue]);
-    if (v27)
+    v43 = -[CIDualRedEyeRepairSession redEyeFaceFromObservation:exifOrientation:](self, "redEyeFaceFromObservation:exifOrientation:", v42, [v25 intValue]);
+    if (v43)
     {
-      if (CI_LOG_DUALRED())
+      v44 = CI_LOG_DUALRED();
+      if (v44)
       {
-        v28 = ci_logger_api();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v46 = ci_logger_api(v44, v45);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
-          v46 = v10;
-          roiRenderSize = [v27 roiRenderSize];
-          roiRenderOriginLeft = [v27 roiRenderOriginLeft];
-          uvLeft = [v27 uvLeft];
-          roiRenderOriginRight = [v27 roiRenderOriginRight];
-          uvRight = [v27 uvRight];
+          v72 = v12;
+          roiRenderSize = [v43 roiRenderSize];
+          roiRenderOriginLeft = [v43 roiRenderOriginLeft];
+          uvLeft = [v43 uvLeft];
+          roiRenderOriginRight = [v43 roiRenderOriginRight];
+          uvRight = [v43 uvRight];
           *buf = 136447490;
-          v56 = "[CIDualRedEyeRepairSession setPrimary:observations:metadata:]";
-          v57 = 2112;
-          *v58 = roiRenderSize;
-          *&v58[8] = 2112;
-          *&v58[10] = roiRenderOriginLeft;
-          *&v58[18] = 2112;
-          *&v58[20] = uvLeft;
-          v59 = 2112;
-          v60 = roiRenderOriginRight;
-          v61 = 2112;
-          v62 = uvRight;
-          _os_log_error_impl(&dword_19CC36000, v28, OS_LOG_TYPE_ERROR, "%{public}s Good face: size %@ | left %@ axes %@ | right %@ axes %@ ", buf, 0x3Eu);
-          v10 = v46;
+          v82 = "[CIDualRedEyeRepairSession setPrimary:observations:metadata:]";
+          v83 = 2112;
+          *v84 = roiRenderSize;
+          *&v84[8] = 2112;
+          *&v84[10] = roiRenderOriginLeft;
+          *&v84[18] = 2112;
+          *&v84[20] = uvLeft;
+          v85 = 2112;
+          v86 = roiRenderOriginRight;
+          v87 = 2112;
+          v88 = uvRight;
+          _os_log_error_impl(&dword_19CC36000, v46, OS_LOG_TYPE_ERROR, "%{public}s Good face: size %@ | left %@ axes %@ | right %@ axes %@ ", buf, 0x3Eu);
+          v12 = v72;
         }
       }
 
-      [array addObject:v27];
+      [array addObject:v43];
     }
 
-    else if (CI_LOG_DUALRED())
+    else
     {
-      v29 = ci_logger_api();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v47 = CI_LOG_DUALRED();
+      if (v47)
       {
-        [CIDualRedEyeRepairSession setPrimary:&v54 observations:? metadata:?];
+        v49 = ci_logger_api(v47, v48);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        {
+          [CIDualRedEyeRepairSession setPrimary:&v80 observations:? metadata:?];
+        }
       }
     }
   }
 
   if (![array count])
   {
-    if (CI_LOG_DUALRED())
+    v64 = CI_LOG_DUALRED();
+    if (v64)
     {
-      v40 = ci_logger_api();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v66 = ci_logger_api(v64, v65);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
         [CIDualRedEyeRepairSession setPrimary:observations:metadata:];
       }
@@ -1727,56 +1800,58 @@ LABEL_37:
     goto LABEL_37;
   }
 
-  v35 = [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
-  if ([array count] > v35)
+  v55 = [-[NSDictionary objectForKeyedSubscript:](-[CIDualRedEyeRepairTuning sessionTuning](-[CIDualRedEyeRepairSession tuning](self "tuning")];
+  if ([array count] > v55)
   {
     [array sortUsingComparator:&__block_literal_global_262];
-    array = [array subarrayWithRange:{0, v35}];
+    array = [array subarrayWithRange:{0, v55}];
   }
 
   [(CIDualRedEyeRepairSession *)self setFaces:array];
   CFAbsoluteTimeGetCurrent();
-  if (CI_LOG_DUALRED())
+  v56 = CI_LOG_DUALRED();
+  if (v56)
   {
-    v36 = ci_logger_api();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v58 = ci_logger_api(v56, v57);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
     {
       [CIDualRedEyeRepairSession setPrimary:observations:metadata:];
     }
   }
 
-  if (CI_LOG_DUALRED())
+  v59 = CI_LOG_DUALRED();
+  if (v59)
   {
-    v37 = ci_logger_api();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v61 = ci_logger_api(v59, v60);
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
     {
       [CIDualRedEyeRepairSession setPrimary:observations:metadata:];
     }
   }
 
-  v38 = [(NSArray *)[(CIDualRedEyeRepairSession *)self faces] count];
-  *(v50 + 6) = 2 * v38;
-  v22 = 1;
+  v62 = [(NSArray *)[(CIDualRedEyeRepairSession *)self faces] count];
+  *(v76 + 6) = 2 * v62;
+  v36 = 1;
 LABEL_64:
-  (v48[0])(v47);
-  _Block_object_dispose(&v49, 8);
-  return v22;
+  (v74[0])(v73);
+  _Block_object_dispose(&v75, 8);
+  return v36;
 }
 
-void __62__CIDualRedEyeRepairSession_setPrimary_observations_metadata___block_invoke(uint64_t a1)
+void __62__CIDualRedEyeRepairSession_setPrimary_observations_metadata___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_dualredeye();
-  v3 = *(a1 + 40);
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_dualredeye(a1, a2);
+  v4 = *(a1 + 40);
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v4 = v2;
-    if (os_signpost_enabled(v2))
+    v5 = v3;
+    if (os_signpost_enabled(v3))
     {
-      v5 = *(*(*(a1 + 32) + 8) + 24);
-      v6[0] = 67109120;
-      v6[1] = v5;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "setPrimary", "eyeCount:%d", v6, 8u);
+      v6 = *(*(*(a1 + 32) + 8) + 24);
+      v7[0] = 67109120;
+      v7[1] = v6;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v5, OS_SIGNPOST_INTERVAL_END, v4, "setPrimary", "eyeCount:%d", v7, 8u);
     }
   }
 }
@@ -1795,59 +1870,64 @@ uint64_t __62__CIDualRedEyeRepairSession_setPrimary_observations_metadata___bloc
 
 - (BOOL)_repairPrimaryWithSecondary:(__CVBuffer *)secondary to:(__CVBuffer *)to
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   v7 = [(NSArray *)[(CIDualRedEyeRepairSession *)self faces] count];
-  v8 = ci_signpost_log_dualredeye();
+  v8 = v7;
+  v10 = ci_signpost_log_dualredeye(v7, v9);
   if (&self->super.isa + 1 >= 2)
   {
-    v40 = v8;
-    if (os_signpost_enabled(v8))
+    v60 = v10;
+    if (os_signpost_enabled(v10))
     {
       *buf = 67109120;
-      LODWORD(v58) = v7;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v40, OS_SIGNPOST_INTERVAL_BEGIN, self, "repairPrimaryWithSecondary", "eyeCount:%d", buf, 8u);
+      LODWORD(v80) = v8;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v60, OS_SIGNPOST_INTERVAL_BEGIN, self, "repairPrimaryWithSecondary", "eyeCount:%d", buf, 8u);
     }
   }
 
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v53 = __60__CIDualRedEyeRepairSession__repairPrimaryWithSecondary_to___block_invoke;
-  v54 = &__block_descriptor_44_e5_v8__0l;
+  v74[0] = MEMORY[0x1E69E9820];
+  v74[1] = 3221225472;
+  v75 = __60__CIDualRedEyeRepairSession__repairPrimaryWithSecondary_to___block_invoke;
+  v76 = &__block_descriptor_44_e5_v8__0l;
   selfCopy = self;
-  v56 = v7;
-  if (CI_LOG_DUALRED())
+  v78 = v8;
+  v11 = CI_LOG_DUALRED();
+  if (v11)
   {
-    v9 = ci_logger_api();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = ci_logger_api(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CIDualRedEyeRepairSession _repairPrimaryWithSecondary:to:];
     }
   }
 
-  if (CI_LOG_DUALRED())
+  v14 = CI_LOG_DUALRED();
+  if (v14)
   {
-    v10 = ci_logger_api();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v16 = ci_logger_api(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [CIDualRedEyeRepairSession _repairPrimaryWithSecondary:v70 to:?];
+      [CIDualRedEyeRepairSession _repairPrimaryWithSecondary:v92 to:?];
     }
   }
 
-  if (CI_LOG_DUALRED())
+  v17 = CI_LOG_DUALRED();
+  if (v17)
   {
-    v11 = ci_logger_api();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v19 = ci_logger_api(v17, v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [CIDualRedEyeRepairSession _repairPrimaryWithSecondary:v69 to:?];
+      [CIDualRedEyeRepairSession _repairPrimaryWithSecondary:v91 to:?];
     }
   }
 
   if (![(CIDualRedEyeRepairSession *)self context]|| [(CIContext *)[(CIDualRedEyeRepairSession *)self context] workingFormat]!= 2056)
   {
-    if (CI_LOG_DUALRED())
+    v20 = CI_LOG_DUALRED();
+    if (v20)
     {
-      v12 = ci_logger_api();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v22 = ci_logger_api(v20, v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [CIDualRedEyeRepairSession _repairPrimaryWithSecondary:to:];
       }
@@ -1869,31 +1949,33 @@ uint64_t __62__CIDualRedEyeRepairSession_setPrimary_observations_metadata___bloc
     [(CIDualRedEyeRepairSession *)self setSecondaryImage:[CIImage imageWithMTLTexture:[(CIDualRedEyeRepairSession *)self secondaryTexture] options:[(CIDualRedEyeRepairSession *)self imageProperties]]];
   }
 
-  if (CI_LOG_DUALRED())
+  v23 = CI_LOG_DUALRED();
+  if (v23)
   {
-    v13 = ci_logger_api();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v25 = ci_logger_api(v23, v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [(CIImage *)self->primaryImage extent];
-      v15 = v14;
-      v17 = v16;
-      v19 = v18;
+      v27 = v26;
+      v29 = v28;
+      v31 = v30;
       [(CIImage *)self->primaryImage extent];
-      [(CIDualRedEyeRepairSession *)v68 _repairPrimaryWithSecondary:v15 to:v17, v19];
+      [(CIDualRedEyeRepairSession *)v90 _repairPrimaryWithSecondary:v27 to:v29, v31];
     }
   }
 
-  if (CI_LOG_DUALRED())
+  v32 = CI_LOG_DUALRED();
+  if (v32)
   {
-    v20 = ci_logger_api();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v34 = ci_logger_api(v32, v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       [(CIImage *)self->secondaryImage extent];
-      v22 = v21;
-      v24 = v23;
-      v26 = v25;
+      v36 = v35;
+      v38 = v37;
+      v40 = v39;
       [(CIImage *)self->secondaryImage extent];
-      [(CIDualRedEyeRepairSession *)v67 _repairPrimaryWithSecondary:v22 to:v24, v26];
+      [(CIDualRedEyeRepairSession *)v89 _repairPrimaryWithSecondary:v36 to:v38, v40];
     }
   }
 
@@ -1911,58 +1993,60 @@ uint64_t __62__CIDualRedEyeRepairSession_setPrimary_observations_metadata___bloc
   {
     context = objc_autoreleasePoolPush();
     Current = CFAbsoluteTimeGetCurrent();
-    v28 = [CIFilter filterWithName:@"CIRedEyeRaw"];
-    [(CIFilter *)v28 setValuesForKeysWithDictionary:[(CIDualRedEyeRepairTuning *)[(CIDualRedEyeRepairSession *)self tuning] repairTuning]];
-    v65[0] = @"inputPrimary";
+    v42 = [CIFilter filterWithName:@"CIRedEyeRaw"];
+    [(CIFilter *)v42 setValuesForKeysWithDictionary:[(CIDualRedEyeRepairTuning *)[(CIDualRedEyeRepairSession *)self tuning] repairTuning]];
+    v87[0] = @"inputPrimary";
     primaryImage = [(CIDualRedEyeRepairSession *)self primaryImage];
-    v65[1] = @"inputSecondary";
-    v66[0] = primaryImage;
-    v66[1] = [(CIDualRedEyeRepairSession *)self secondaryImage];
-    -[CIFilter setValuesForKeysWithDictionary:](v28, "setValuesForKeysWithDictionary:", [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:v65 count:2]);
-    [(CIFilter *)v28 setValue:[(NSDictionary *)[(CIDualRedEyeRepairTuning *)[(CIDualRedEyeRepairSession *)self tuning] sessionTuning] objectForKeyedSubscript:@"kUseFaceSegmentationMask"] forKey:@"inputUseFaceSegmentationMask"];
-    v30 = 0;
-    *&v31 = 136446722;
-    v45 = v31;
+    v87[1] = @"inputSecondary";
+    v88[0] = primaryImage;
+    v88[1] = [(CIDualRedEyeRepairSession *)self secondaryImage];
+    -[CIFilter setValuesForKeysWithDictionary:](v42, "setValuesForKeysWithDictionary:", [MEMORY[0x1E695DF20] dictionaryWithObjects:v88 forKeys:v87 count:2]);
+    [(CIFilter *)v42 setValue:[(NSDictionary *)[(CIDualRedEyeRepairTuning *)[(CIDualRedEyeRepairSession *)self tuning] sessionTuning] objectForKeyedSubscript:@"kUseFaceSegmentationMask"] forKey:@"inputUseFaceSegmentationMask"];
+    v44 = 0;
+    *&v45 = 136446722;
+    v67 = v45;
     while (1)
     {
-      v32 = v30;
-      v33 = [(NSArray *)[(CIDualRedEyeRepairSession *)self faces] count];
-      if (v33 <= v32)
+      v46 = v44;
+      v47 = [(NSArray *)[(CIDualRedEyeRepairSession *)self faces] count];
+      v49 = v47;
+      if (v47 <= v46)
       {
         break;
       }
 
-      v34 = ci_signpost_log_dualredeye();
+      v50 = ci_signpost_log_dualredeye(v47, v48);
       if (&self->super.isa + 1 >= 2)
       {
-        v38 = v34;
-        if (os_signpost_enabled(v34))
+        v58 = v50;
+        if (os_signpost_enabled(v50))
         {
           *buf = 67109120;
-          LODWORD(v58) = v32;
-          _os_signpost_emit_with_name_impl(&dword_19CC36000, v38, OS_SIGNPOST_INTERVAL_BEGIN, self, "repairFace", "face:%d", buf, 8u);
+          LODWORD(v80) = v46;
+          _os_signpost_emit_with_name_impl(&dword_19CC36000, v58, OS_SIGNPOST_INTERVAL_BEGIN, self, "repairFace", "face:%d", buf, 8u);
         }
       }
 
-      v47[0] = MEMORY[0x1E69E9820];
-      v47[1] = 3221225472;
-      v48 = __60__CIDualRedEyeRepairSession__repairPrimaryWithSecondary_to___block_invoke_264;
-      v49 = &__block_descriptor_44_e5_v8__0l;
+      v69[0] = MEMORY[0x1E69E9820];
+      v69[1] = 3221225472;
+      v70 = __60__CIDualRedEyeRepairSession__repairPrimaryWithSecondary_to___block_invoke_264;
+      v71 = &__block_descriptor_44_e5_v8__0l;
       selfCopy2 = self;
-      v51 = v32;
-      if (CI_LOG_DUALRED())
+      v73 = v46;
+      v51 = CI_LOG_DUALRED();
+      if (v51)
       {
-        v35 = ci_logger_api();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v53 = ci_logger_api(v51, v52);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
-          v39 = [(NSArray *)[(CIDualRedEyeRepairSession *)self faces] count];
-          *buf = v45;
-          v58 = "[CIDualRedEyeRepairSession _repairPrimaryWithSecondary:to:]";
-          v59 = 1024;
-          v60 = v32 + 1;
-          v61 = 1024;
-          v62 = v39;
-          _os_log_error_impl(&dword_19CC36000, v35, OS_LOG_TYPE_ERROR, "%{public}s Repair %d/%d", buf, 0x18u);
+          v59 = [(NSArray *)[(CIDualRedEyeRepairSession *)self faces] count];
+          *buf = v67;
+          v80 = "[CIDualRedEyeRepairSession _repairPrimaryWithSecondary:to:]";
+          v81 = 1024;
+          v82 = v46 + 1;
+          v83 = 1024;
+          v84 = v59;
+          _os_log_error_impl(&dword_19CC36000, v53, OS_LOG_TYPE_ERROR, "%{public}s Repair %d/%d", buf, 0x18u);
         }
       }
 
@@ -1972,36 +2056,38 @@ uint64_t __62__CIDualRedEyeRepairSession_setPrimary_observations_metadata___bloc
         [(CIDualRedEyeRepairSession *)self setDestination:[[CIRenderDestination alloc] initWithMTLTexture:[(CIDualRedEyeRepairSession *)self outputTexture] commandBuffer:[(CIDualRedEyeRepairSession *)self commandBuffer]]];
       }
 
-      v36 = [(CIDualRedEyeRepairSession *)self repairFace:[(NSArray *)[(CIDualRedEyeRepairSession *)self faces] objectAtIndexedSubscript:v32] filter:v28];
-      if (!v36)
+      v54 = [(CIDualRedEyeRepairSession *)self repairFace:[(NSArray *)[(CIDualRedEyeRepairSession *)self faces] objectAtIndexedSubscript:v46] filter:v42];
+      if (!v54)
       {
-        if (CI_LOG_DUALRED())
+        v55 = CI_LOG_DUALRED();
+        if (v55)
         {
-          v37 = ci_logger_api();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v57 = ci_logger_api(v55, v56);
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
-            [CIDualRedEyeRepairSession _repairPrimaryWithSecondary:&v64 to:?];
+            [CIDualRedEyeRepairSession _repairPrimaryWithSecondary:v85 to:&v86];
           }
         }
 
         [(CIDualRedEyeRepairSession *)self cleanupState];
       }
 
-      v48(v47);
-      v30 = v32 + 1;
-      if (!v36)
+      (v70)(v69);
+      v44 = v46 + 1;
+      if (!v54)
       {
         goto LABEL_55;
       }
     }
 
-    v41 = CFAbsoluteTimeGetCurrent();
-    if (CI_LOG_DUALRED())
+    v61 = CFAbsoluteTimeGetCurrent();
+    v62 = CI_LOG_DUALRED();
+    if (v62)
     {
-      v42 = ci_logger_api();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v64 = ci_logger_api(v62, v63);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
       {
-        [[(NSArray *)[(CIDualRedEyeRepairSession *)self faces] count] _repairPrimaryWithSecondary:buf to:(v41 - Current) * 1000.0];
+        [[(NSArray *)[(CIDualRedEyeRepairSession *)self faces] count] _repairPrimaryWithSecondary:buf to:(v61 - Current) * 1000.0];
       }
     }
 
@@ -2012,52 +2098,52 @@ uint64_t __62__CIDualRedEyeRepairSession_setPrimary_observations_metadata___bloc
 
 LABEL_55:
     objc_autoreleasePoolPop(context);
-    if (v33 <= v32)
+    if (v49 <= v46)
     {
       [(CIDualRedEyeRepairSession *)self cleanupState];
-      v43 = 1;
+      v65 = 1;
       goto LABEL_57;
     }
   }
 
-  v43 = 0;
+  v65 = 0;
 LABEL_57:
-  v53(v52);
-  return v43;
+  (v75)(v74);
+  return v65;
 }
 
-void __60__CIDualRedEyeRepairSession__repairPrimaryWithSecondary_to___block_invoke(uint64_t a1)
+void __60__CIDualRedEyeRepairSession__repairPrimaryWithSecondary_to___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_dualredeye();
-  v3 = *(a1 + 32);
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_dualredeye(a1, a2);
+  v4 = *(a1 + 32);
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v4 = v2;
-    if (os_signpost_enabled(v2))
+    v5 = v3;
+    if (os_signpost_enabled(v3))
     {
-      v5 = *(a1 + 40);
-      v6[0] = 67109120;
-      v6[1] = v5;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "repairPrimaryWithSecondary", "eyeCount:%d", v6, 8u);
+      v6 = *(a1 + 40);
+      v7[0] = 67109120;
+      v7[1] = v6;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v5, OS_SIGNPOST_INTERVAL_END, v4, "repairPrimaryWithSecondary", "eyeCount:%d", v7, 8u);
     }
   }
 }
 
-void __60__CIDualRedEyeRepairSession__repairPrimaryWithSecondary_to___block_invoke_264(uint64_t a1)
+void __60__CIDualRedEyeRepairSession__repairPrimaryWithSecondary_to___block_invoke_264(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_dualredeye();
-  v3 = *(a1 + 32);
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_dualredeye(a1, a2);
+  v4 = *(a1 + 32);
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v4 = v2;
-    if (os_signpost_enabled(v2))
+    v5 = v3;
+    if (os_signpost_enabled(v3))
     {
-      v5 = *(a1 + 40);
-      v6[0] = 67109120;
-      v6[1] = v5;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "repairFace", "face:%d", v6, 8u);
+      v6 = *(a1 + 40);
+      v7[0] = 67109120;
+      v7[1] = v6;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v5, OS_SIGNPOST_INTERVAL_END, v4, "repairFace", "face:%d", v7, 8u);
     }
   }
 }
@@ -2074,14 +2160,15 @@ void __60__CIDualRedEyeRepairSession__repairPrimaryWithSecondary_to___block_invo
 - (void)dumpObservation:(id)observation index:(int)index
 {
   v4 = *&index;
-  v8 = 0;
-  v6 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:observation requiringSecureCoding:1 error:&v8];
-  if (v8)
+  v10 = 0;
+  v6 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:observation requiringSecureCoding:1 error:&v10];
+  if (v10)
   {
-    if (CI_LOG_DUALRED())
+    v7 = CI_LOG_DUALRED();
+    if (v7)
     {
-      v7 = ci_logger_api();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = ci_logger_api(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [CIDualRedEyeRepairSession dumpObservation:index:];
       }

@@ -34,37 +34,35 @@ void __78___SFFPShareCollaborationItem_loadCopyRepresentationURLWithCompletionHa
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (!v5)
   {
-    v8 = share_sheet_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = share_sheet_log(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __78___SFFPShareCollaborationItem_loadCopyRepresentationURLWithCompletionHandler___block_invoke_cold_1(WeakRetained, v6, v8);
+      __78___SFFPShareCollaborationItem_loadCopyRepresentationURLWithCompletionHandler___block_invoke_cold_1(v8, v6, v9);
     }
 
-    v5 = [WeakRetained fileURL];
+    v5 = [v8 fileURL];
   }
 
-  [WeakRetained setSendCopyRepresentationURL:v5];
+  [v8 setSendCopyRepresentationURL:v5];
   v11[0] = v5;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
-  [WeakRetained setSendCopyActivityItems:v9];
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  [v8 setSendCopyActivityItems:v10];
 
   (*(*(a1 + 32) + 16))();
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __78___SFFPShareCollaborationItem_loadCopyRepresentationURLWithCompletionHandler___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a1 fileURL];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_1A9662000, a3, OS_LOG_TYPE_ERROR, "Could not load copy representation URL, falling back to the original URL %@. Error: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_1A9662000, a3, OS_LOG_TYPE_ERROR, "Could not load copy representation URL, falling back to the original URL %@. Error: %@", &v6, 0x16u);
 }
 
 @end

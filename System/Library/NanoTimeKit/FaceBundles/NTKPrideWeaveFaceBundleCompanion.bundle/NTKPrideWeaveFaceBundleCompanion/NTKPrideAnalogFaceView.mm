@@ -22,12 +22,14 @@
 - (void)_loadSnapshotContentViews;
 - (void)_performWristRaiseAnimation;
 - (void)_prepareWristRaiseAnimation;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_setupComplicationFactoryForDevice:(id)device;
 - (void)_unloadSnapshotContentViews;
 - (void)_updateComplicationColors;
 - (void)_updatePausedState;
 - (void)dealloc;
 - (void)layoutSubviews;
+- (void)screenDidTurnOffAnimated:(BOOL)animated;
 - (void)setActiveQuad:(id)quad;
 - (void)touchesBegan:(id)began withEvent:(id)event;
 - (void)touchesCancelled:(id)cancelled withEvent:(id)event;
@@ -300,25 +302,41 @@ LABEL_7:
   self->_wasSlow = [(NTKPrideAnalogFaceView *)self isSlow];
 }
 
+- (void)screenDidTurnOffAnimated:(BOOL)animated
+{
+  [(NTKPrideAnalogFaceView *)self _updatePausedState];
+  if ((NTKIsDaemonOrFaceSnapshotService() & 1) == 0)
+  {
+    if ([(NTKPrideAnalogFaceView *)self _isActiveFace])
+    {
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_12CD0;
+      block[3] = &unk_24838;
+      block[4] = self;
+      dispatch_async(&_dispatch_main_q, block);
+    }
+  }
+}
+
 - (void)_updatePausedState
 {
   dataMode = [(NTKPrideAnalogFaceView *)self dataMode];
   isFrozen = [(NTKPrideAnalogFaceView *)self isFrozen];
-  v5 = NTKIsScreenOn();
-  bandsView = self->_bandsView;
+  v5 = isFrozen | NTKIsScreenOn() ^ 1;
   if (dataMode == &dword_0 + 1)
   {
-    v7 = isFrozen | v5 ^ 1;
+    v6 = v5;
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
-  v8 = self->_bandsView;
+  bandsView = self->_bandsView;
 
-  [(CLKUIQuadView *)v8 setPaused:v7 & 1];
+  [(CLKUIQuadView *)bandsView setPaused:v6 & 1];
 }
 
 - (void)_applyDataMode
@@ -394,29 +412,25 @@ LABEL_7:
   slotCopy = slot;
   if (mode == 12)
   {
-    style = [optionCopy style];
-    style2 = [toOptionCopy style];
-    v21 = flt_1B6F8[style];
-    v22 = flt_1B6F8[style2];
+    [optionCopy style];
+    [toOptionCopy style];
     CLKInterpolateBetweenFloatsUnclipped();
-    v24 = v23;
-    *&v23 = v24;
-    [(NTKPrideSplinesQuad *)self->_bandsQuad setFadeMultiplier:v23];
-    *&v25 = 1.0 - v24;
-    [(NTKPrideSplinesQuad *)self->_ribbonsQuad setFadeMultiplier:v25];
+    v16 = v15;
+    *&v15 = v16;
+    [(NTKPrideSplinesQuad *)self->_bandsQuad setFadeMultiplier:v15];
+    *&v17 = 1.0 - v16;
+    [(NTKPrideSplinesQuad *)self->_ribbonsQuad setFadeMultiplier:v17];
   }
 
   else if (mode == 15)
   {
-    style3 = [optionCopy style];
-    style4 = [toOptionCopy style];
-    v15 = *(&qword_1B160 + style3);
-    v16 = *(&qword_1B160 + style4);
+    [optionCopy style];
+    [toOptionCopy style];
     CLKInterpolateBetweenFloatsUnclipped();
-    *&v17 = v17;
-    v18 = *&v17;
-    [(NTKPrideCircularQuad *)self->_bandsQuad applyTransitionFromDialToFullScreenWithFraction:*&v17];
-    [(NTKPrideCircularQuad *)self->_ribbonsQuad applyTransitionFromDialToFullScreenWithFraction:v18];
+    *&v13 = v13;
+    v14 = *&v13;
+    [(NTKPrideCircularQuad *)self->_bandsQuad applyTransitionFromDialToFullScreenWithFraction:*&v13];
+    [(NTKPrideCircularQuad *)self->_ribbonsQuad applyTransitionFromDialToFullScreenWithFraction:v14];
   }
 
   [(NTKPrideSplinesQuad *)self->_ribbonsQuad forceRenderOnce];
@@ -545,6 +559,17 @@ LABEL_14:
     CGAffineTransformMakeScale(&v9, v8, v8);
     [contentView setTransform:&v9];
   }
+}
+
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKPrideAnalogFaceView;
+  groupCopy = group;
+  [(NTKPrideAnalogFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(NTKPrideSplinesQuad *)self->_activeQuad forceRenderOnce:v7.receiver];
+  [(CLKUIQuadView *)self->_bandsView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
 }
 
 - (void)touchesBegan:(id)began withEvent:(id)event

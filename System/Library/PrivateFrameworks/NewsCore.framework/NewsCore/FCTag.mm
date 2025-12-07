@@ -106,26 +106,26 @@
 
 - (FCTag)initWithTagType:(unint64_t)type identifier:(id)identifier name:(id)name
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   if (!identifierCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier != 0"];
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier != 0"];
     *buf = 136315906;
-    v20 = "[FCTag initWithTagType:identifier:name:]";
-    v21 = 2080;
-    v22 = "FCTag.m";
-    v23 = 1024;
-    v24 = 339;
-    v25 = 2114;
-    v26 = v17;
+    v19 = "[FCTag initWithTagType:identifier:name:]";
+    v20 = 2080;
+    v21 = "FCTag.m";
+    v22 = 1024;
+    v23 = 339;
+    v24 = 2114;
+    v25 = v16;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v18.receiver = self;
-  v18.super_class = FCTag;
-  v10 = [(FCTag *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = FCTag;
+  v10 = [(FCTag *)&v17 init];
   if (v10)
   {
     if ([identifierCopy length])
@@ -147,7 +147,6 @@
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -346,7 +345,7 @@
 
 - (FCTag)initWithTagRecord:(id)record assetManager:(id)manager interestToken:(id)token specialTagFeedType:(unint64_t)type
 {
-  v433 = *MEMORY[0x1E69E9840];
+  v432 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   managerCopy = manager;
   managerCopy2 = manager;
@@ -365,7 +364,7 @@
 
   base = [recordCopy base];
   identifier = [base identifier];
-  v423 = name;
+  v422 = name;
   v17 = [(FCTag *)self initWithTagType:v14 identifier:identifier name:name];
 
   if (!v17)
@@ -542,7 +541,7 @@
   v17->_supergroupConfigJson = supergroupConfigJson;
 
   v98 = [(NSString *)v17->_supergroupConfigJson dataUsingEncoding:4];
-  v417 = managerCopy2;
+  v416 = managerCopy2;
   if (v98)
   {
     v99 = objc_opt_class();
@@ -557,7 +556,7 @@
       v104 = [v102 objectForKeyedSubscript:@"contextualNames"];
       v105 = FCCheckedDynamicCast(v103, v104);
 
-      managerCopy2 = v417;
+      managerCopy2 = v416;
       v106 = [v105 fc_arrayByTransformingWithBlock:&__block_literal_global_507_0];
     }
 
@@ -589,12 +588,12 @@
   templateJson = [recordCopy templateJson];
   v115 = [templateJson dataUsingEncoding:4];
 
-  v422 = v115;
+  v421 = v115;
   if (v115)
   {
-    v426 = 0;
-    v116 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v115 options:0 error:&v426];
-    v117 = v426;
+    v425 = 0;
+    v116 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v115 options:0 error:&v425];
+    v117 = v425;
     if (v116)
     {
       if (managerCopy2)
@@ -611,17 +610,17 @@
       v120 = v116;
       v121 = v119;
       v122 = [v120 objectForKeyedSubscript:@"2"];
-      v413 = v122;
+      v412 = v122;
       if (v122)
       {
         v123 = v122;
-        v409 = v120;
+        v408 = v120;
         integerValue = [@"2" integerValue];
         v125 = v123;
         if (integerValue == 2)
         {
-          v411 = v121;
-          v408 = v121;
+          v410 = v121;
+          v407 = v121;
           v126 = [v125 objectForKeyedSubscript:@"foregroundColor"];
           foregroundColorHexString = v17->_foregroundColorHexString;
           v17->_foregroundColorHexString = v126;
@@ -659,7 +658,7 @@
           v17->_darkStyleNavigationChromeSeparatorColorHexString = v142;
 
           v144 = [v125 objectForKeyedSubscript:@"navigationChromeBackgroundGradient"];
-          v407 = v144;
+          v406 = v144;
           if (v144)
           {
             v144 = [FCColorGradient colorGradientWithConfigDict:v144];
@@ -669,7 +668,7 @@
           v17->_navigationChromeBackgroundGradient = v144;
 
           v146 = [v125 objectForKeyedSubscript:@"navigationChromeBackgroundDarkModeGradient"];
-          v406 = v146;
+          v405 = v146;
           if (v146)
           {
             v146 = [FCColorGradient colorGradientWithConfigDict:v146];
@@ -687,7 +686,7 @@
           v17->_darkStyleFeedBackgroundColorHexString = v150;
 
           v152 = [v125 objectForKeyedSubscript:@"feedBackgroundGradient"];
-          v405 = v152;
+          v404 = v152;
           if (v152)
           {
             v152 = [FCColorGradient colorGradientWithConfigDict:v152];
@@ -697,7 +696,7 @@
           v17->_feedBackgroundGradient = v152;
 
           v154 = [v125 objectForKeyedSubscript:@"darkStyleFeedBackgroundGradient"];
-          v404 = v154;
+          v403 = v154;
           if (v154)
           {
             v154 = [FCColorGradient colorGradientWithConfigDict:v154];
@@ -722,15 +721,15 @@
           darkStyleAdBackgroundColorHexString = v17->_darkStyleAdBackgroundColorHexString;
           v17->_darkStyleAdBackgroundColorHexString = v162;
 
-          v407 = [v125 objectForKeyedSubscript:@"adBackgroundGradient"];
-          v403 = v407;
-          if (v407)
+          v406 = [v125 objectForKeyedSubscript:@"adBackgroundGradient"];
+          v402 = v406;
+          if (v406)
           {
-            v407 = [FCColorGradient colorGradientWithConfigDict:v407, v407, v404, v405, v406, v407];
+            v406 = [FCColorGradient colorGradientWithConfigDict:v406, v406, v403, v404, v405, v406];
           }
 
           adBackgroundGradient = v17->_adBackgroundGradient;
-          v17->_adBackgroundGradient = v407;
+          v17->_adBackgroundGradient = v406;
 
           v166 = [v125 objectForKeyedSubscript:@"darkStyleAdBackgroundGradient"];
           v167 = v166;
@@ -747,17 +746,17 @@
           v17->_feedMastheadType = v187;
 
           v189 = [v125 objectForKeyedSubscript:@"titleFontAttributes"];
-          v190 = [FCTextInfo textInfoFromJSONValues:v189 URLGenerator:v408];
+          v190 = [FCTextInfo textInfoFromJSONValues:v189 URLGenerator:v407];
           headlineTitleTextInfo = v17->_headlineTitleTextInfo;
           v17->_headlineTitleTextInfo = v190;
 
           v192 = [v125 objectForKeyedSubscript:@"excerptFontAttributes"];
-          v193 = [FCTextInfo textInfoFromJSONValues:v192 URLGenerator:v408];
+          v193 = [FCTextInfo textInfoFromJSONValues:v192 URLGenerator:v407];
           headlineExcerptTextInfo = v17->_headlineExcerptTextInfo;
           v17->_headlineExcerptTextInfo = v193;
 
           v195 = [v125 objectForKeyedSubscript:@"bylineFontAttributes"];
-          v196 = [FCTextInfo textInfoFromJSONValues:v195 URLGenerator:v408];
+          v196 = [FCTextInfo textInfoFromJSONValues:v195 URLGenerator:v407];
 
           headlineBylineTextInfo = v17->_headlineBylineTextInfo;
           v17->_headlineBylineTextInfo = v196;
@@ -776,23 +775,23 @@
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __61__FCTag__inflateFromJSONDictionary_withVersion_URLGenerator___block_invoke;
-          *&v432 = &unk_1E7C36F98;
-          *(&v432 + 1) = v201;
+          *&v431 = &unk_1E7C36F98;
+          *(&v431 + 1) = v201;
           v203 = v201;
           v204 = [v202 initWithConstructor:buf];
           lazyContentColorMap = v17->_lazyContentColorMap;
           v17->_lazyContentColorMap = v204;
 
-          managerCopy2 = v417;
-          v121 = v411;
+          managerCopy2 = v416;
+          v121 = v410;
         }
 
-        v120 = v409;
+        v120 = v408;
       }
 
       else
       {
-        v412 = v121;
+        v411 = v121;
         v169 = v121;
         v170 = v120;
         v171 = [v170 objectForKeyedSubscript:@"foregroundColor"];
@@ -808,7 +807,7 @@
         v17->_groupTitleColorHexString = v175;
 
         __60__FCTag__inflateFromVersionlessJSONDictionary_URLGenerator___block_invoke(v170, @"headlineTitleFontName", @"headlineTitleFontResourceID");
-        v177 = v410 = v116;
+        v177 = v409 = v116;
         v178 = __60__FCTag__inflateFromVersionlessJSONDictionary_URLGenerator___block_invoke(v170, @"headlineExcerptFontName", @"headlineExcerptFontResourceID");
         v179 = __60__FCTag__inflateFromVersionlessJSONDictionary_URLGenerator___block_invoke(v170, @"headlineBylineFontName", @"headlineBylineFontResourceID");
 
@@ -824,10 +823,10 @@
 
         v185 = v17->_headlineBylineTextInfo;
         v17->_headlineBylineTextInfo = v184;
-        managerCopy2 = v417;
+        managerCopy2 = v416;
 
-        v121 = v412;
-        v116 = v410;
+        v121 = v411;
+        v116 = v409;
       }
     }
 
@@ -860,15 +859,15 @@
 
     if (v210 <= 0x23 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v402 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"name image metadata has unexpected size"];
+      v401 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"name image metadata has unexpected size"];
       *buf = 136315906;
       *&buf[4] = "[FCTag initWithTagRecord:assetManager:interestToken:specialTagFeedType:]";
       *&buf[12] = 2080;
       *&buf[14] = "FCTag.m";
       *&buf[22] = 1024;
-      LODWORD(v432) = 579;
-      WORD2(v432) = 2114;
-      *(&v432 + 6) = v402;
+      LODWORD(v431) = 579;
+      WORD2(v431) = 2114;
+      *(&v431 + 6) = v401;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -1225,33 +1224,33 @@
   if ([recordCopy hasPublisherSpecifiedArticlesJson])
   {
     v364 = MEMORY[0x1E695DF20];
-    v421 = recordCopy;
+    v420 = recordCopy;
     publisherSpecifiedArticlesJson = [recordCopy publisherSpecifiedArticlesJson];
     v366 = [v364 fc_dictionaryFromJSON:publisherSpecifiedArticlesJson];
 
     obja = v366;
     v367 = [v366 objectForKeyedSubscript:@"articles"];
     v368 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v426 = 0u;
     v427 = 0u;
     v428 = 0u;
     v429 = 0u;
-    v430 = 0u;
     v369 = v367;
-    v370 = [v369 countByEnumeratingWithState:&v427 objects:buf count:16];
+    v370 = [v369 countByEnumeratingWithState:&v426 objects:buf count:16];
     if (v370)
     {
       v371 = v370;
-      v372 = *v428;
+      v372 = *v427;
       do
       {
         for (i = 0; i != v371; ++i)
         {
-          if (*v428 != v372)
+          if (*v427 != v372)
           {
             objc_enumerationMutation(v369);
           }
 
-          v374 = [[FCPublisherSpecifiedArticle alloc] initWithDictionary:*(*(&v427 + 1) + 8 * i)];
+          v374 = [[FCPublisherSpecifiedArticle alloc] initWithDictionary:*(*(&v426 + 1) + 8 * i)];
           articleID = [(FCPublisherSpecifiedArticle *)v374 articleID];
           v376 = [articleID length];
 
@@ -1262,7 +1261,7 @@
           }
         }
 
-        v371 = [v369 countByEnumeratingWithState:&v427 objects:buf count:16];
+        v371 = [v369 countByEnumeratingWithState:&v426 objects:buf count:16];
       }
 
       while (v371);
@@ -1280,8 +1279,8 @@
 
     objc_storeStrong(&v17->_publisherSpecifiedArticles, v378);
 
-    recordCopy = v421;
-    managerCopy2 = v417;
+    recordCopy = v420;
+    managerCopy2 = v416;
   }
 
   paidBundlePaywallConfigurationJson = [recordCopy paidBundlePaywallConfigurationJson];
@@ -1323,9 +1322,9 @@ LABEL_76:
     sportsRecommendationMappingsJSON2 = [(FCTag *)v17 sportsRecommendationMappingsJSON];
     if (sportsRecommendationMappingsJSON2)
     {
-      v425 = 0;
-      v391 = [MEMORY[0x1E696ACB0] JSONObjectWithData:sportsRecommendationMappingsJSON2 options:0 error:&v425];
-      v392 = v425;
+      v424 = 0;
+      v391 = [MEMORY[0x1E696ACB0] JSONObjectWithData:sportsRecommendationMappingsJSON2 options:0 error:&v424];
+      v392 = v424;
       if (v392)
       {
         v393 = FCDefaultLog;
@@ -1358,35 +1357,34 @@ LABEL_76:
   objc_autoreleasePoolPop(context);
 LABEL_85:
 
-  v400 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (id)purchaseOfferableConfigurationsFromProtobufList:(void *)list
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   listCopy = list;
   array = [MEMORY[0x1E695DF70] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   obj = listCopy;
-  v3 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v14 + 1) + 8 * i);
         v8 = [FCPurchaseOfferableConfiguration alloc];
         purchaseId = [v7 purchaseId];
         v10 = -[FCPurchaseOfferableConfiguration initWithPurchaseID:allowsPublisherPhoneApp:allowsPublisherPadApp:allowsPublisherWebsite:preferredOffer:](v8, "initWithPurchaseID:allowsPublisherPhoneApp:allowsPublisherPadApp:allowsPublisherWebsite:preferredOffer:", purchaseId, [v7 allowsPublisherPhoneApp], objc_msgSend(v7, "allowsPublisherPadApp"), objc_msgSend(v7, "allowsPublisherWebSite"), objc_msgSend(v7, "preferredOffer"));
@@ -1394,14 +1392,13 @@ LABEL_85:
         [array addObject:v10];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
 
   v11 = [array copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -1648,39 +1645,38 @@ id __60__FCTag__inflateFromVersionlessJSONDictionary_URLGenerator___block_invoke
   return v13;
 }
 
-FCContentColorMap *__61__FCTag__inflateFromJSONDictionary_withVersion_URLGenerator___block_invoke(uint64_t a1)
+FCContentColorMap *__61__FCTag__inflateFromJSONDictionary_withVersion_URLGenerator___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
+  v33 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [*(a1 + 32) count])
   {
-    v26 = [MEMORY[0x1E695DF70] array];
+    v25 = [MEMORY[0x1E695DF70] array];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     obj = *(a1 + 32);
-    v3 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v3 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v30;
+      v5 = *v29;
       v6 = @"light";
       v7 = @"dark";
       v8 = off_1E7C34000;
       do
       {
         v9 = 0;
-        v27 = v4;
+        v26 = v4;
         do
         {
-          if (*v30 != v5)
+          if (*v29 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v29 + 1) + 8 * v9);
+          v10 = *(*(&v28 + 1) + 8 * v9);
           v11 = [v10 objectForKeyedSubscript:v6];
           v12 = [v10 objectForKeyedSubscript:v7];
           v13 = [(__objc2_class *)v8[86] nullableColorWithHexString:v11];
@@ -1703,26 +1699,26 @@ FCContentColorMap *__61__FCTag__inflateFromJSONDictionary_withVersion_URLGenerat
             v19 = v6;
             v20 = v5;
             v21 = [[FCContentColorPair alloc] initWithLightColor:v13 darkColor:v14];
-            [v26 addObject:v21];
+            [v25 addObject:v21];
 
             v5 = v20;
             v6 = v19;
             v7 = v18;
             v8 = v17;
-            v4 = v27;
+            v4 = v26;
           }
 
           ++v9;
         }
 
         while (v4 != v9);
-        v4 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v4 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v4);
     }
 
-    v22 = [[FCContentColorMap alloc] initWithColors:v26];
+    v22 = [[FCContentColorMap alloc] initWithColors:v25];
   }
 
   else
@@ -1731,14 +1727,12 @@ FCContentColorMap *__61__FCTag__inflateFromJSONDictionary_withVersion_URLGenerat
     v22 = [(FCContentColorMap *)v23 initWithColors:MEMORY[0x1E695E0F0]];
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v22;
 }
 
 - (id)initForTestingWithTagType:(unint64_t)type identifier:(id)identifier name:(id)name umcCanonicalID:(id)d
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   dCopy = d;
@@ -1746,21 +1740,21 @@ FCContentColorMap *__61__FCTag__inflateFromJSONDictionary_withVersion_URLGenerat
   {
     if (!identifierCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier != 0"];
-      *v22 = 136315906;
-      *&v22[4] = "[FCTag initWithTagType:identifier:name:umcCanonicalID:]";
-      *&v22[12] = 2080;
-      *&v22[14] = "FCTag.m";
-      v23 = 1024;
-      v24 = 360;
-      v25 = 2114;
-      v26 = v21;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v22, 0x26u);
+      v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier != 0"];
+      *v21 = 136315906;
+      *&v21[4] = "[FCTag initWithTagType:identifier:name:umcCanonicalID:]";
+      *&v21[12] = 2080;
+      *&v21[14] = "FCTag.m";
+      v22 = 1024;
+      v23 = 360;
+      v24 = 2114;
+      v25 = v20;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v21, 0x26u);
     }
 
-    *v22 = self;
-    *&v22[8] = FCTag;
-    self = objc_msgSendSuper2(v22, sel_init);
+    *v21 = self;
+    *&v21[8] = FCTag;
+    self = objc_msgSendSuper2(v21, sel_init);
     if (self)
     {
       if ([identifierCopy length])
@@ -1789,13 +1783,12 @@ FCContentColorMap *__61__FCTag__inflateFromJSONDictionary_withVersion_URLGenerat
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (id)initChannelForTestingWithIdentifier:(id)identifier name:(id)name defaultSection:(id)section publisherAuthorizationURL:(id)l publisherVerificationURL:(id)rL
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   sectionCopy = section;
@@ -1803,21 +1796,21 @@ FCContentColorMap *__61__FCTag__inflateFromJSONDictionary_withVersion_URLGenerat
   rLCopy = rL;
   if (![identifierCopy length] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier.length != 0"];
+    v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier.length != 0"];
     *buf = 136315906;
-    v33 = "[FCTag initChannelForTestingWithIdentifier:name:defaultSection:publisherAuthorizationURL:publisherVerificationURL:]";
-    v34 = 2080;
-    v35 = "FCTag.m";
-    v36 = 1024;
-    v37 = 1093;
-    v38 = 2114;
-    v39 = v30;
+    v32 = "[FCTag initChannelForTestingWithIdentifier:name:defaultSection:publisherAuthorizationURL:publisherVerificationURL:]";
+    v33 = 2080;
+    v34 = "FCTag.m";
+    v35 = 1024;
+    v36 = 1093;
+    v37 = 2114;
+    v38 = v29;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v31.receiver = self;
-  v31.super_class = FCTag;
-  v17 = [(FCTag *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = FCTag;
+  v17 = [(FCTag *)&v30 init];
   if (v17)
   {
     if ([identifierCopy length])
@@ -1851,33 +1844,32 @@ FCContentColorMap *__61__FCTag__inflateFromJSONDictionary_withVersion_URLGenerat
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (id)initChannelForTestingWithIdentifier:(id)identifier name:(id)name publisherPaidBundlePurchaseIDs:(id)ds
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   dsCopy = ds;
   if (![identifierCopy length] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier.length != 0"];
+    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier.length != 0"];
     *buf = 136315906;
-    v23 = "[FCTag initChannelForTestingWithIdentifier:name:publisherPaidBundlePurchaseIDs:]";
-    v24 = 2080;
-    v25 = "FCTag.m";
-    v26 = 1024;
-    v27 = 1119;
-    v28 = 2114;
-    v29 = v20;
+    v22 = "[FCTag initChannelForTestingWithIdentifier:name:publisherPaidBundlePurchaseIDs:]";
+    v23 = 2080;
+    v24 = "FCTag.m";
+    v25 = 1024;
+    v26 = 1119;
+    v27 = 2114;
+    v28 = v19;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v21.receiver = self;
-  v21.super_class = FCTag;
-  v11 = [(FCTag *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = FCTag;
+  v11 = [(FCTag *)&v20 init];
   if (v11)
   {
     if ([identifierCopy length])
@@ -1903,34 +1895,33 @@ FCContentColorMap *__61__FCTag__inflateFromJSONDictionary_withVersion_URLGenerat
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (id)initChannelFromNotificationWithIdentifier:(id)identifier name:(id)name nameImageAssetHandle:(id)handle nameImageMaskAssetHandle:(id)assetHandle
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   handleCopy = handle;
   assetHandleCopy = assetHandle;
   if (![identifierCopy length] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier.length != 0"];
+    v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier.length != 0"];
     *buf = 136315906;
-    v31 = "[FCTag initChannelFromNotificationWithIdentifier:name:nameImageAssetHandle:nameImageMaskAssetHandle:]";
-    v32 = 2080;
-    v33 = "FCTag.m";
-    v34 = 1024;
-    v35 = 1144;
-    v36 = 2114;
-    v37 = v28;
+    v30 = "[FCTag initChannelFromNotificationWithIdentifier:name:nameImageAssetHandle:nameImageMaskAssetHandle:]";
+    v31 = 2080;
+    v32 = "FCTag.m";
+    v33 = 1024;
+    v34 = 1144;
+    v35 = 2114;
+    v36 = v27;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v29.receiver = self;
-  v29.super_class = FCTag;
-  v14 = [(FCTag *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = FCTag;
+  v14 = [(FCTag *)&v28 init];
   if (v14)
   {
     if ([identifierCopy length])
@@ -1964,7 +1955,6 @@ FCContentColorMap *__61__FCTag__inflateFromJSONDictionary_withVersion_URLGenerat
     }
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -2638,34 +2628,28 @@ FCSelectorValue *__50__FCTag__contextualNamesFromSupergroupConfigJson___block_in
 
 - (int64_t)feedType
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   tagType = [(FCTag *)self tagType];
-  if (tagType >= 6)
+  if (tagType < 6)
   {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case not implemented"];
-      v6 = 136315906;
-      v7 = "[FCTag feedType]";
-      v8 = 2080;
-      v9 = "FCTag.m";
-      v10 = 1024;
-      v11 = 1542;
-      v12 = 2114;
-      v13 = v5;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
-    }
-
-    result = 0;
+    return qword_1B681A950[tagType];
   }
 
-  else
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    result = qword_1B681A950[tagType];
+    v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case not implemented"];
+    v5 = 136315906;
+    v6 = "[FCTag feedType]";
+    v7 = 2080;
+    v8 = "FCTag.m";
+    v9 = 1024;
+    v10 = 1542;
+    v11 = 2114;
+    v12 = v4;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (FCTagBanner)bannerImageForMask
@@ -3208,21 +3192,8 @@ FCSelectorValue *__50__FCTag__contextualNamesFromSupergroupConfigJson___block_in
     theme2 = [(FCTag *)self theme];
     foregroundColor = [theme2 foregroundColor];
 
-    if (backgroundColor)
+    if (backgroundColor && (+[FCColor whiteColor](FCColor, "whiteColor"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [backgroundColor isSimilarToColor:v10 withinPercentage:0.2], v10, v12 = backgroundColor, !v11) || foregroundColor && (+[FCColor whiteColor](FCColor, "whiteColor"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(foregroundColor, "isSimilarToColor:withinPercentage:", v13, 0.2), v13, v12 = foregroundColor, (v14 & 1) == 0))
     {
-      v10 = +[FCColor whiteColor];
-      v11 = [backgroundColor isSimilarToColor:v10 withinPercentage:0.2];
-
-      v12 = backgroundColor;
-      if (!v11)
-      {
-        goto LABEL_12;
-      }
-    }
-
-    if (foregroundColor && (+[FCColor whiteColor](FCColor, "whiteColor"), v13 = objc_claimAutoreleasedReturnValue(), v14 = [foregroundColor isSimilarToColor:v13 withinPercentage:0.2], v13, v12 = foregroundColor, (v14 & 1) == 0))
-    {
-LABEL_12:
       v5 = v12;
     }
 
@@ -3266,21 +3237,8 @@ LABEL_12:
     theme2 = [(FCTag *)self theme];
     darkStyleForegroundColor = [theme2 darkStyleForegroundColor];
 
-    if (darkStyleBackgroundColor)
+    if (darkStyleBackgroundColor && (+[FCColor blackColor](FCColor, "blackColor"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [darkStyleBackgroundColor isSimilarToColor:v10 withinPercentage:0.2], v10, v12 = darkStyleBackgroundColor, !v11) || darkStyleForegroundColor && (+[FCColor blackColor](FCColor, "blackColor"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(darkStyleForegroundColor, "isSimilarToColor:withinPercentage:", v13, 0.2), v13, v12 = darkStyleForegroundColor, (v14 & 1) == 0))
     {
-      v10 = +[FCColor blackColor];
-      v11 = [darkStyleBackgroundColor isSimilarToColor:v10 withinPercentage:0.2];
-
-      v12 = darkStyleBackgroundColor;
-      if (!v11)
-      {
-        goto LABEL_12;
-      }
-    }
-
-    if (darkStyleForegroundColor && (+[FCColor blackColor](FCColor, "blackColor"), v13 = objc_claimAutoreleasedReturnValue(), v14 = [darkStyleForegroundColor isSimilarToColor:v13 withinPercentage:0.2], v13, v12 = darkStyleForegroundColor, (v14 & 1) == 0))
-    {
-LABEL_12:
       v5 = v12;
     }
 
@@ -3367,7 +3325,7 @@ LABEL_12:
 
 - (NSArray)sportsParentTagIdentifiers
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   topLevelGroupsTagIdentifiers = [(FCTag *)self topLevelGroupsTagIdentifiers];
 
   if (topLevelGroupsTagIdentifiers)
@@ -3382,8 +3340,8 @@ LABEL_12:
     if (topLevelSportTagIdentifier)
     {
       topLevelSportTagIdentifier2 = [(FCTag *)self topLevelSportTagIdentifier];
-      v9[0] = topLevelSportTagIdentifier2;
-      topLevelGroupsTagIdentifiers2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+      v8[0] = topLevelSportTagIdentifier2;
+      topLevelGroupsTagIdentifiers2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
     }
 
     else
@@ -3391,8 +3349,6 @@ LABEL_12:
       topLevelGroupsTagIdentifiers2 = MEMORY[0x1E695E0F0];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return topLevelGroupsTagIdentifiers2;
 }

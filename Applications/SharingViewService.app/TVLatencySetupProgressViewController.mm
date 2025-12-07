@@ -43,7 +43,7 @@
   buttonCopy = button;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupProgressViewController handleDismissButton:]", 30, "Progress Dismiss button\n");
   }
 
   [self->super.super._mainController dismiss:5];
@@ -54,7 +54,7 @@
   disappearCopy = disappear;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupProgressViewController viewDidDisappear:]", 30, "Progress ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -67,7 +67,7 @@
   appearCopy = appear;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupProgressViewController viewWillAppear:]", 30, "Progress ViewWillAppear\n");
   }
 
   v12.receiver = self;

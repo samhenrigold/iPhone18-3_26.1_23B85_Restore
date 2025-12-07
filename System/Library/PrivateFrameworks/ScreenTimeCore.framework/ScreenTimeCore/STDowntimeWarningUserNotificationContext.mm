@@ -23,16 +23,14 @@
 
 - (void)setTimeLeft:(double)left
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v5 = objc_opt_new();
   [v5 setAllowedUnits:64];
   [v5 setUnitsStyle:3];
   v6 = [v5 stringFromTimeInterval:ceil(left / 60.0) * 60.0];
-  v9[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   [(STUserNotificationContext *)self setLocalizedUserNotificationBodyArguments:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)customizeNotificationContent:(id)content withCompletionBlock:(id)block

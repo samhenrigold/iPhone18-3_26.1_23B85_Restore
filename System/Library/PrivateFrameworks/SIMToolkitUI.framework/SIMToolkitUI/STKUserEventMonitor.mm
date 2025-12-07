@@ -115,30 +115,27 @@ void __57__STKUserEventMonitor__initWithAttentionAwarenessClient___block_invoke(
 
 - (void)_queue_handleAttentionAwarenessEvent:(id)event
 {
-  v13 = *MEMORY[0x277D85DE8];
-  queue = self->_queue;
+  v12 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   BSDispatchQueueAssert();
-  LOBYTE(queue) = [eventCopy eventMask];
+  eventMask = [eventCopy eventMask];
 
-  if ((queue & 1) == 0)
+  if ((eventMask & 1) == 0)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained userEventDidOccur:self];
 
     attentionAwarenessClient = self->_attentionAwarenessClient;
-    v10 = 0;
-    LOBYTE(WeakRetained) = [(AWAttentionAwarenessClient *)attentionAwarenessClient resetAttentionLostTimeoutWithError:&v10];
-    v8 = v10;
+    v9 = 0;
+    LOBYTE(WeakRetained) = [(AWAttentionAwarenessClient *)attentionAwarenessClient resetAttentionLostTimeoutWithError:&v9];
+    v8 = v9;
     if ((WeakRetained & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v12 = v8;
+      v11 = v8;
       _os_log_impl(&dword_262BB4000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unable to reset attention lost timeout due to error: %{public}@", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resume
@@ -218,22 +215,18 @@ void __31__STKUserEventMonitor__suspend__block_invoke(uint64_t a1)
 
 void __30__STKUserEventMonitor__resume__block_invoke_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v1 = [*(*a1 + 8) identifier];
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_262BB4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "attention client %{public}@ cannot resume; error: %{public}@", v3, 0x16u);
-
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_262BB4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "attention client %{public}@ cannot resume; error: %{public}@", v2, 0x16u);
 }
 
 void __31__STKUserEventMonitor__suspend__block_invoke_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v1 = [*(*a1 + 8) identifier];
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_262BB4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "attention client %{public}@ cannot suspend; error: %{public}@", v3, 0x16u);
-
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_262BB4000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "attention client %{public}@ cannot suspend; error: %{public}@", v2, 0x16u);
 }
 
 @end

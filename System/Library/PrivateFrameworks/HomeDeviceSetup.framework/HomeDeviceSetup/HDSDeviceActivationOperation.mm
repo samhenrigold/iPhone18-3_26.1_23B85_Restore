@@ -58,21 +58,21 @@ void __43__HDSDeviceActivationOperation_signpostLog__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __40__HDSDeviceActivationOperation_activate__block_invoke(uint64_t a1)
+uint64_t __40__HDSDeviceActivationOperation_activate__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (gLogCategory_HDSDeviceActivation <= 40 && (gLogCategory_HDSDeviceActivation != -1 || _LogCategory_Initialize()))
   {
-    __40__HDSDeviceActivationOperation_activate__block_invoke_cold_1(a1);
+    __40__HDSDeviceActivationOperation_activate__block_invoke_cold_1(a1, a2);
   }
 
   *(*(a1 + 32) + 40) = mach_absolute_time();
-  v2 = *(a1 + 32);
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __40__HDSDeviceActivationOperation_activate__block_invoke_2;
-  v4[3] = &unk_279714C70;
-  v4[4] = v2;
-  return [v2 _checkActivationStateWithCompletion:v4];
+  v3 = *(a1 + 32);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __40__HDSDeviceActivationOperation_activate__block_invoke_2;
+  v5[3] = &unk_279714C70;
+  v5[4] = v3;
+  return [v3 _checkActivationStateWithCompletion:v5];
 }
 
 void __40__HDSDeviceActivationOperation_activate__block_invoke_2(uint64_t a1, void *a2, int a3)
@@ -152,12 +152,11 @@ uint64_t __40__HDSDeviceActivationOperation_activate__block_invoke_3(uint64_t a1
   }
 
   mach_absolute_time();
-  startTicks = self->_startTicks;
   UpTicksToSecondsF();
-  self->_metricTotalSeconds = v7;
+  self->_metricTotalSeconds = v6;
   if (gLogCategory_HDSDeviceActivation <= 40 && (gLogCategory_HDSDeviceActivation != -1 || _LogCategory_Initialize()))
   {
-    [(HDSDeviceActivationOperation *)self _finishWithResult:result error:&self->_metricTotalSeconds];
+    [HDSDeviceActivationOperation _finishWithResult:result error:?];
   }
 
   (*(self->_completionHandler + 2))();
@@ -200,18 +199,17 @@ uint64_t __40__HDSDeviceActivationOperation_activate__block_invoke_3(uint64_t a1
 
 void __68__HDSDeviceActivationOperation__checkActivationStateWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v6 = *(a1 + 32);
-  v7 = a4;
-  v8 = a2;
-  v9 = [objc_opt_class() signpostLog];
-  v10 = [*(a1 + 32) signpostID];
-  if ((v10 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v6 = a4;
+  v7 = a2;
+  v8 = [objc_opt_class() signpostLog];
+  v9 = [*(a1 + 32) signpostID];
+  if ((v9 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v11 = v10;
-    if (os_signpost_enabled(v9))
+    v10 = v9;
+    if (os_signpost_enabled(v8))
     {
-      *v12 = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, v9, OS_SIGNPOST_INTERVAL_END, v11, "DeviceActivationStepCheckState", "", v12, 2u);
+      *v11 = 0;
+      _os_signpost_emit_with_name_impl(&dword_252F78000, v8, OS_SIGNPOST_INTERVAL_END, v10, "DeviceActivationStepCheckState", "", v11, 2u);
     }
   }
 
@@ -266,23 +264,22 @@ void __65__HDSDeviceActivationOperation__performActivationWithCompletion___block
 {
   if (a2)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __65__HDSDeviceActivationOperation__performActivationWithCompletion___block_invoke_3;
-    v9[3] = &unk_279714D10;
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9[4] = *(a1 + 32);
-    v10 = v8;
-    [v7 _continueActivationWithSessionData:a3 completion:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __65__HDSDeviceActivationOperation__performActivationWithCompletion___block_invoke_3;
+    v8[3] = &unk_279714D10;
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8[4] = *(a1 + 32);
+    v9 = v7;
+    [v6 _continueActivationWithSessionData:a3 completion:v8];
   }
 }
 
@@ -369,22 +366,21 @@ void __65__HDSDeviceActivationOperation__performActivationWithCompletion___block
 
 void __63__HDSDeviceActivationOperation__beginActivationWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v6 = *(a1 + 32);
-  v7 = a4;
-  v8 = a2;
-  v9 = [objc_opt_class() signpostLog];
-  v10 = [*(a1 + 32) signpostID];
-  if ((v10 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v6 = a4;
+  v7 = a2;
+  v8 = [objc_opt_class() signpostLog];
+  v9 = [*(a1 + 32) signpostID];
+  if ((v9 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v11 = v10;
-    if (os_signpost_enabled(v9))
+    v10 = v9;
+    if (os_signpost_enabled(v8))
     {
-      *v13 = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, v9, OS_SIGNPOST_INTERVAL_END, v11, "DeviceActivationStepCreateSession", "", v13, 2u);
+      *v12 = 0;
+      _os_signpost_emit_with_name_impl(&dword_252F78000, v8, OS_SIGNPOST_INTERVAL_END, v10, "DeviceActivationStepCreateSession", "", v12, 2u);
     }
   }
 
-  v12 = [v7 objectForKeyedSubscript:@"r"];
+  v11 = [v6 objectForKeyedSubscript:@"r"];
 
   (*(*(a1 + 40) + 16))();
 }
@@ -426,22 +422,21 @@ void __63__HDSDeviceActivationOperation__beginActivationWithCompletion___block_i
 
 void __78__HDSDeviceActivationOperation__continueActivationWithSessionData_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v6 = *(a1 + 32);
-  v7 = a4;
-  v8 = a2;
-  v9 = [objc_opt_class() signpostLog];
-  v10 = [*(a1 + 32) signpostID];
-  if ((v10 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v6 = a4;
+  v7 = a2;
+  v8 = [objc_opt_class() signpostLog];
+  v9 = [*(a1 + 32) signpostID];
+  if ((v9 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v11 = v10;
-    if (os_signpost_enabled(v9))
+    v10 = v9;
+    if (os_signpost_enabled(v8))
     {
-      *v13 = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, v9, OS_SIGNPOST_INTERVAL_END, v11, "DeviceActivationStepCreateActivation", "", v13, 2u);
+      *v12 = 0;
+      _os_signpost_emit_with_name_impl(&dword_252F78000, v8, OS_SIGNPOST_INTERVAL_END, v10, "DeviceActivationStepCreateActivation", "", v12, 2u);
     }
   }
 
-  v12 = [v7 objectForKeyedSubscript:@"r"];
+  v11 = [v6 objectForKeyedSubscript:@"r"];
 
   (*(*(a1 + 40) + 16))();
 }
@@ -485,18 +480,17 @@ void __78__HDSDeviceActivationOperation__continueActivationWithSessionData_compl
 
 void __76__HDSDeviceActivationOperation__finishActivation_responseHeader_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v6 = *(a1 + 32);
-  v7 = a4;
-  v8 = a2;
-  v9 = [objc_opt_class() signpostLog];
-  v10 = [*(a1 + 32) signpostID];
-  if ((v10 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v6 = a4;
+  v7 = a2;
+  v8 = [objc_opt_class() signpostLog];
+  v9 = [*(a1 + 32) signpostID];
+  if ((v9 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v11 = v10;
-    if (os_signpost_enabled(v9))
+    v10 = v9;
+    if (os_signpost_enabled(v8))
     {
-      *v12 = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, v9, OS_SIGNPOST_INTERVAL_END, v11, "DeviceActivationStepActivate", "", v12, 2u);
+      *v11 = 0;
+      _os_signpost_emit_with_name_impl(&dword_252F78000, v8, OS_SIGNPOST_INTERVAL_END, v10, "DeviceActivationStepActivate", "", v11, 2u);
     }
   }
 
@@ -552,7 +546,7 @@ void __76__HDSDeviceActivationOperation__finishActivation_responseHeader_complet
 
 void __77__HDSDeviceActivationOperation__sendActivationURLRequest_retries_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -569,16 +563,15 @@ void __77__HDSDeviceActivationOperation__sendActivationURLRequest_retries_comple
 
   v11 = v10;
   v12 = [v11 statusCode];
-  v13 = *(a1 + 32);
-  v14 = [objc_opt_class() signpostLog];
-  v15 = [*(a1 + 32) signpostID];
-  if ((v15 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v13 = [objc_opt_class() signpostLog];
+  v14 = [*(a1 + 32) signpostID];
+  if ((v14 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v16 = v15;
-    if (os_signpost_enabled(v14))
+    v15 = v14;
+    if (os_signpost_enabled(v13))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, v14, OS_SIGNPOST_INTERVAL_END, v16, "DeviceActivationServerRequest", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_252F78000, v13, OS_SIGNPOST_INTERVAL_END, v15, "DeviceActivationServerRequest", "", buf, 2u);
     }
   }
 
@@ -586,20 +579,20 @@ void __77__HDSDeviceActivationOperation__sendActivationURLRequest_retries_comple
   {
     if (gLogCategory_HDSDeviceActivation <= 40 && (gLogCategory_HDSDeviceActivation != -1 || _LogCategory_Initialize()))
     {
-      __77__HDSDeviceActivationOperation__sendActivationURLRequest_retries_completion___block_invoke_cold_1(a1);
+      __77__HDSDeviceActivationOperation__sendActivationURLRequest_retries_completion___block_invoke_cold_1();
     }
 
-    v17 = *(a1 + 48);
-    v18 = [v11 allHeaderFields];
-    (*(v17 + 16))(v17, 0, v7, v18);
+    v16 = *(a1 + 48);
+    v17 = [v11 allHeaderFields];
+    (*(v16 + 16))(v16, 0, v7, v17);
     goto LABEL_31;
   }
 
-  v18 = v9;
-  v19 = [v18 domain];
-  v20 = [v19 isEqualToString:*MEMORY[0x277CCA738]];
+  v17 = v9;
+  v18 = [v17 domain];
+  v19 = [v18 isEqualToString:*MEMORY[0x277CCA738]];
 
-  if (v20 && (v21 = [v18 code], (v21 + 1005) <= 4) && ((1 << (v21 - 19)) & 0x13) != 0)
+  if (v19 && (v20 = [v17 code], (v20 + 1005) <= 4) && ((1 << (v20 - 19)) & 0x13) != 0)
   {
 
     if (*(a1 + 72) >= 1)
@@ -635,45 +628,16 @@ void __77__HDSDeviceActivationOperation__sendActivationURLRequest_retries_comple
       __77__HDSDeviceActivationOperation__sendActivationURLRequest_retries_completion___block_invoke_cold_2();
     }
 
-    v22 = MEMORY[0x277CCA9B8];
-    v28 = @"sc";
-    v23 = [MEMORY[0x277CCABB0] numberWithInteger:v12];
-    v29[0] = v23;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-    v18 = [v22 errorWithDomain:@"com.apple.soundboard.activation" code:0 userInfo:v24];
+    v21 = MEMORY[0x277CCA9B8];
+    v26 = @"sc";
+    v22 = [MEMORY[0x277CCABB0] numberWithInteger:v12];
+    v27[0] = v22;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v17 = [v21 errorWithDomain:@"com.apple.soundboard.activation" code:0 userInfo:v23];
   }
 
-  (*(*(a1 + 48) + 16))(*(a1 + 48), v18, 0, 0);
+  (*(*(a1 + 48) + 16))(*(a1 + 48), v17, 0, 0);
 LABEL_31:
-
-  v25 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t __40__HDSDeviceActivationOperation_activate__block_invoke_cold_1(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  objc_opt_class();
-  v4 = *(a1 + 32);
-  return LogPrintF();
-}
-
-- (uint64_t)_finishWithResult:(uint64_t *)a3 error:.cold.2(uint64_t a1, unint64_t a2, uint64_t *a3)
-{
-  objc_opt_class();
-  if (a2 <= 3)
-  {
-    v5 = off_279714DD0[a2];
-  }
-
-  v7 = *a3;
-  return LogPrintF();
-}
-
-uint64_t __77__HDSDeviceActivationOperation__sendActivationURLRequest_retries_completion___block_invoke_cold_1(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  v3 = CFAbsoluteTimeGetCurrent() - *(a1 + 64);
-  return LogPrintF();
 }
 
 @end

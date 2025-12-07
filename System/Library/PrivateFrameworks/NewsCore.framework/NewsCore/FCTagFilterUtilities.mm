@@ -7,7 +7,7 @@
 
 + (BOOL)filterTag:(id)tag options:(int64_t)options context:(id)context
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   tagCopy = tag;
   contextCopy = context;
   v9 = +[FCAppleAccount sharedAccount];
@@ -17,13 +17,13 @@
   {
     v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "(filterOptions & FCTagFilterBlockedStorefronts) == 0 || contentStoreFrontID != nil"];
     *buf = 136315906;
-    v30 = "+[FCTagFilterUtilities filterTag:options:context:]";
-    v31 = 2080;
-    v32 = "FCTagFilterUtilities.m";
-    v33 = 1024;
-    v34 = 28;
-    v35 = 2114;
-    v36 = v12;
+    v29 = "+[FCTagFilterUtilities filterTag:options:context:]";
+    v30 = 2080;
+    v31 = "FCTagFilterUtilities.m";
+    v32 = 1024;
+    v33 = 28;
+    v34 = 2114;
+    v35 = v12;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if ((options & 2) == 0)
@@ -127,7 +127,6 @@ LABEL_24:
 
 LABEL_30:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v18 & 1;
 }
 

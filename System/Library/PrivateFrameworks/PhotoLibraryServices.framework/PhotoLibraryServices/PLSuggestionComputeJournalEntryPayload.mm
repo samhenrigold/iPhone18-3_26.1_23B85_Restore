@@ -212,7 +212,7 @@ uint64_t __57__PLSuggestionComputeJournalEntryPayload_modelProperties__block_inv
   {
     v15.receiver = self;
     v15.super_class = PLSuggestionComputeJournalEntryPayload;
-    v13 = [(PLManagedObjectJournalEntryPayload *)&v15 comparePayloadValue:valueCopy toObjectDictionaryValue:dictionaryValueCopy forPayloadProperty:propertyCopy];
+    isEqualToString = [(PLManagedObjectJournalEntryPayload *)&v15 comparePayloadValue:valueCopy toObjectDictionaryValue:dictionaryValueCopy forPayloadProperty:propertyCopy];
     goto LABEL_13;
   }
 
@@ -238,16 +238,16 @@ uint64_t __57__PLSuggestionComputeJournalEntryPayload_modelProperties__block_inv
 LABEL_9:
   if (valueCopy | dictionaryValueCopy)
   {
-    v13 = [dictionaryValueCopy isEqualToString:valueCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(dictionaryValueCopy);
   }
 
   else
   {
-    v13 = 1;
+    isEqualToString = 1;
   }
 
 LABEL_13:
-  return v13;
+  return isEqualToString;
 }
 
 - (id)payloadValueFromAttributes:(id)attributes forPayloadProperty:(id)property
@@ -277,7 +277,7 @@ LABEL_13:
   keyCopy = key;
   builderCopy = builder;
   valueCopy = value;
-  if ([keyCopy isEqualToString:@"keyAsset"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v11 = [(PLManagedObjectJournalEntryPayload *)self UUIDStringForData:valueCopy];
 
@@ -366,7 +366,7 @@ LABEL_13:
       v12 = [@"keyAssets" stringByAppendingPathExtension:@"uuid"];
       v13 = [dictionaryCopy objectForKeyedSubscript:v12];
 
-      if ([v13 count] == 1)
+      if (objc_msgSend_count(v13) == 1)
       {
         firstObject = [v13 firstObject];
         v15 = [@"keyAssets" stringByAppendingPathExtension:@"cloudAssetGUID"];

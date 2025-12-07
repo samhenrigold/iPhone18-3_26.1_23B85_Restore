@@ -5,7 +5,6 @@
 
 uint64_t __41___DPDataProtectionMaster_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sharedInstance_0 = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -39,28 +38,28 @@ void __55___DPDataProtectionMaster_handleKeyBagLockNotification__block_invoke(ui
 
 void __55___DPDataProtectionMaster_handleKeyBagLockNotification__block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = *(*(*(a1 + 48) + 8) + 40);
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
-        v8 = [*(*(*(a1 + 48) + 8) + 40) objectForKeyedSubscript:{v7, v15}];
+        v7 = *(*(&v14 + 1) + 8 * i);
+        v8 = [*(*(*(a1 + 48) + 8) + 40) objectForKeyedSubscript:{v7, v14}];
         v9 = [v8 BOOLValue];
 
         v10 = [*(a1 + 32) availableState];
@@ -74,13 +73,11 @@ void __55___DPDataProtectionMaster_handleKeyBagLockNotification__block_invoke_2(
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __46___DPDataProtectionMaster_isDataAvailableFor___block_invoke(uint64_t a1)

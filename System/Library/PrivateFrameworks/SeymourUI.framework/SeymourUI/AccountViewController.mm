@@ -72,11 +72,11 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v5.receiver = self;
-  v5.super_class = swift_getObjectType();
-  v4 = v5.receiver;
-  [(AccountViewController *)&v5 viewDidAppear:appearCopy];
-  sub_20BB696C8();
+  v6.receiver = self;
+  v6.super_class = swift_getObjectType();
+  v4 = v6.receiver;
+  [(AccountViewController *)&v6 viewDidAppear:appearCopy];
+  sub_20BB696C8(v5);
   sub_20C138C54();
 }
 

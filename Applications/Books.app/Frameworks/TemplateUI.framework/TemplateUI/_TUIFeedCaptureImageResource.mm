@@ -65,7 +65,7 @@
   v5 = objc_opt_class();
   v6 = TUIDynamicCast(v5, equalCopy);
 
-  if (v6 && ((kind = self->_kind, kind == v6[3]) || [(NSString *)kind isEqualToString:?]) && ((instance = self->_instance, instance == v6[5]) || [instance isEqual:?]))
+  if (v6 && ((kind = self->_kind, kind == v6[3]) || objc_msgSend_isEqualToString_(kind)) && ((instance = self->_instance, instance == v6[5]) || [instance isEqual:?]))
   {
     options = self->_options;
     if (options == v6[6])

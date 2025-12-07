@@ -20,7 +20,7 @@
 - (void)icmpPingProbe:(id)probe echoRequestSent:(id)sent success:(BOOL)success
 {
   successCopy = success;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   probeCopy = probe;
   sentCopy = sent;
   v9 = analyticsLogHandle;
@@ -28,27 +28,25 @@
   {
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_INFO))
     {
-      v14 = 138412290;
-      v15 = sentCopy;
+      v13 = 138412290;
+      v14 = sentCopy;
       v10 = "ping sent: %@";
       v11 = v9;
       v12 = OS_LOG_TYPE_INFO;
 LABEL_6:
-      _os_log_impl(&dword_23255B000, v11, v12, v10, &v14, 0xCu);
+      _os_log_impl(&dword_23255B000, v11, v12, v10, &v13, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v14 = 138412290;
-    v15 = sentCopy;
+    v13 = 138412290;
+    v14 = sentCopy;
     v10 = "ping failed to send: %@";
     v11 = v9;
     v12 = OS_LOG_TYPE_ERROR;
     goto LABEL_6;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

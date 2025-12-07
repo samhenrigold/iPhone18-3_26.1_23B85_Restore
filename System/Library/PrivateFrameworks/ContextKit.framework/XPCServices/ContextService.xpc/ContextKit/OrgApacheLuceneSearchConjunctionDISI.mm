@@ -1,4 +1,5 @@
 @interface OrgApacheLuceneSearchConjunctionDISI
+- (int)advanceWithInt:(int)int;
 - (int)docID;
 - (int)nextDoc;
 - (int64_t)cost;
@@ -6,6 +7,19 @@
 @end
 
 @implementation OrgApacheLuceneSearchConjunctionDISI
+
+- (int)advanceWithInt:(int)int
+{
+  lead = self->lead_;
+  if (!lead)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v5 = [(OrgApacheLuceneSearchDocIdSetIterator *)lead advanceWithInt:*&int];
+
+  return sub_100060DD8(self, v5);
+}
 
 - (int)docID
 {

@@ -11,6 +11,7 @@
 - (void)signInViewControllerDidSkip:(id)skip;
 - (void)updateLoginViewVisibility;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation FBALoginViewController
@@ -173,6 +174,20 @@
   return v4;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = FBALoginViewController;
+  [(FBALoginViewController *)&v7 viewWillAppear:appear];
+  navigationController = [(FBALoginViewController *)self navigationController];
+  [navigationController setNavigationBarHidden:1];
+
+  [(FBALoginViewController *)self updateLoginViewVisibility];
+  v5 = +[UIApplication sharedApplication];
+  delegate = [v5 delegate];
+  [delegate removeBlurView];
+}
+
 - (void)showLogInUI
 {
   signInViewController = [(FBALoginViewController *)self signInViewController];
@@ -232,7 +247,7 @@
 {
   resultsCopy = results;
   handlerCopy = handler;
-  v9 = sub_100009310();
+  v9 = sub_100009310(handlerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -261,7 +276,7 @@
 
 - (void)signInViewControllerDidCancel:(id)cancel
 {
-  v3 = sub_100009310();
+  v3 = sub_100009310(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -272,7 +287,7 @@
 
 - (void)signInViewControllerDidSkip:(id)skip
 {
-  v3 = sub_100009310();
+  v3 = sub_100009310(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -285,20 +300,20 @@
 {
   errorCopy = error;
   completionCopy = completion;
-  v10 = sub_100009310();
+  v10 = sub_100009310(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136446210;
-    v13 = "[FBALoginViewController signInViewController:shouldContinueWithAuthenticationResults:error:forContext:completion:]";
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[%{public}s", &v12, 0xCu);
+    v13 = 136446210;
+    v14 = "[FBALoginViewController signInViewController:shouldContinueWithAuthenticationResults:error:forContext:completion:]";
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[%{public}s", &v13, 0xCu);
   }
 
   if (errorCopy)
   {
-    v11 = sub_100009310();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100009310(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_100092188(errorCopy, v11);
+      sub_100092188(errorCopy, v12);
     }
   }
 
@@ -307,7 +322,7 @@
 
 - (void)signInViewControllerDidSelectChildSignIn:(id)in
 {
-  v3 = sub_100009310();
+  v3 = sub_100009310(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -318,7 +333,7 @@
 
 - (id)authenticationContext
 {
-  v3 = sub_100009310();
+  v3 = sub_100009310(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 136446210;

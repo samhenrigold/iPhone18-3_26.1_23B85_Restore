@@ -9,12 +9,12 @@ id sub_EE0(uint64_t a1, uint64_t a2)
   return [*(a1 + 32) applicationStateChanged:a2];
 }
 
-void ADEventModuleInitializer()
+void ADEventModuleInitializer(uint64_t a1)
 {
   if (!qword_4E90)
   {
-    v0 = objc_autoreleasePoolPush();
-    v1 = [ADEventListener alloc];
+    v1 = objc_autoreleasePoolPush();
+    v2 = [ADEventListener alloc];
     xpc_event_module_get_queue();
   }
 }

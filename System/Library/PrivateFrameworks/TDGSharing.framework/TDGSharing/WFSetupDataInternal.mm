@@ -11,29 +11,26 @@
 
 - (id)keyboards
 {
-  v2 = *(self + OBJC_IVAR___WFSetupDataInternal_keyboards);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (NSDictionary)localePreferences
 {
-  v2 = *(self + OBJC_IVAR___WFSetupDataInternal_localePreferences);
 
-  v3 = sub_26C6D89A8();
+  v2 = sub_26C6D89A8();
 
-  return v3;
+  return v2;
 }
 
 - (NSArray)prescriptionRecords
 {
-  v2 = *(self + OBJC_IVAR___WFSetupDataInternal_prescriptionRecords);
-  type metadata accessor for PrescriptionRecord();
+  type metadata accessor for PrescriptionRecord(0);
 
-  v3 = sub_26C6D8A98();
+  v2 = sub_26C6D8A98();
 
-  return v3;
+  return v2;
 }
 
 - (WFSetupDataInternal)initWithKeyboards:(id)keyboards appleID:(id)d usesSameAccountForiTunes:(BOOL)tunes isConnectedToWiFi:(BOOL)fi networks:(id)networks networkPasswords:(id)passwords localePreferences:(id)preferences isAutomaticTimeZoneEnabled:(BOOL)self0 timeZone:(id)self1 accessibilitySettings:(id)self2 firstName:(id)self3 deviceModel:(id)self4 deviceClass:(id)self5 hasHomeButton:(BOOL)self6 isRestoring:(BOOL)self7 deviceName:(id)self8 backupUUID:(id)self9 isBackupEnabled:(BOOL)backupEnabled isOptedInToLocationServices:(BOOL)services isOptedInToDeviceAnalytics:(BOOL)analytics locationServicesData:(id)data isOptedInToFindMyDevice:(BOOL)device isOptedInToAppAnalytics:(BOOL)appAnalytics siriAssistantIsEnabled:(BOOL)isEnabled siriVoiceTriggerIsEnabled:(BOOL)triggerIsEnabled siriAssistantLanguageCode:(id)code siriAssistantOutputVoice:(id)voice siriDataSharingIsEnabled:(BOOL)keyboards0 dictationIsEnabled:(BOOL)keyboards1 suppressDictationOptIn:(BOOL)keyboards2 deviceTermsIdentifier:(int64_t)keyboards3 productVersion:(id)keyboards4 anisetteDataProvider:(id)keyboards5 prescriptionRecords:(id)keyboards6 walletData:(id)keyboards7
@@ -168,7 +165,7 @@ LABEL_16:
   v76 = v71;
   v77 = v70;
 
-  type metadata accessor for PrescriptionRecord();
+  type metadata accessor for PrescriptionRecord(0);
   v86 = sub_26C6D8AA8();
 
   if (walletDataCopy)
@@ -194,7 +191,7 @@ LABEL_16:
 {
   coderCopy = coder;
   selfCopy = self;
-  sub_26C681410(coderCopy);
+  sub_26C681410(coderCopy, selfCopy);
 }
 
 - (WFSetupDataInternal)init

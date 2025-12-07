@@ -1,6 +1,7 @@
 @interface BRCPackageManifestReader
 - (BRCPackageManifestReader)init;
 - (BRCPackageManifestReader)initWithAsset:(id)asset;
+- (BRCPackageManifestReader)initWithDeviceID:(int)d fileID:(unint64_t)iD;
 - (BRCPackageManifestReader)initWithInputStream:(id)stream;
 - (BRCPackageManifestReader)initWithURL:(id)l;
 - (id)nextObject;
@@ -23,11 +24,11 @@
 
 - (BRCPackageManifestReader)initWithInputStream:(id)stream
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
-  v18.receiver = self;
-  v18.super_class = BRCPackageManifestReader;
-  v6 = [(BRCPackageManifestReader *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = BRCPackageManifestReader;
+  v6 = [(BRCPackageManifestReader *)&v17 init];
   v7 = v6;
   if (v6)
   {
@@ -54,13 +55,13 @@
         version = [v11 version];
         streamError = [(NSInputStream *)v7->_stream streamError];
         *buf = 138413058;
-        v20 = v11;
-        v21 = 1024;
-        v22 = version;
-        v23 = 2112;
-        v24 = streamError;
-        v25 = 2112;
-        v26 = v12;
+        v19 = v11;
+        v20 = 1024;
+        v21 = version;
+        v22 = 2112;
+        v23 = streamError;
+        v24 = 2112;
+        v25 = v12;
         _os_log_error_impl(&dword_223E7A000, v13, 0x90u, "[ERROR] unable to read package header %@ with version %d - %@%@", buf, 0x26u);
       }
 
@@ -69,7 +70,6 @@
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -100,6 +100,15 @@
   }
 
   return v11;
+}
+
+- (BRCPackageManifestReader)initWithDeviceID:(int)d fileID:(unint64_t)iD
+{
+  v5 = [MEMORY[0x277CCACA8] br_pathWithDeviceID:*&d fileID:iD];
+  v6 = [MEMORY[0x277CBEAE0] inputStreamWithFileAtPath:v5];
+  v7 = [(BRCPackageManifestReader *)self initWithInputStream:v6];
+
+  return v7;
 }
 
 - (void)dealloc
@@ -142,7 +151,7 @@
       v8 = brc_default_log();
       if (os_log_type_enabled(v8, 0x90u))
       {
-        [(BRCPackageManifestReader *)&self->_error nextObject];
+        [BRCPackageManifestReader nextObject];
       }
     }
 
@@ -154,12 +163,9 @@
 
 - (void)nextObject
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *self;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_20(v2, v3, v4, v5, v6);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_20(v0, v1, v2, v3, v4);
 }
 
 @end

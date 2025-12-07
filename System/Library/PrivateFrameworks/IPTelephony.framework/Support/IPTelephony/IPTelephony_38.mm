@@ -45,189 +45,188 @@ void std::__function::__func<void qmi::ClientRouter::setIndHandler<QMIRTPCommand
 {
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
+    v43 = 0;
     v44 = 0;
     v45 = 0;
-    v46 = 0;
-    QMIServiceMsg::serialize(&v44, this);
-    qmi::MessageBase::MessageBase(v26, v44);
-    qmi::MessageBase::validateMsgId(v26);
-    if (v44)
+    QMIServiceMsg::serialize(&v43, this);
+    qmi::MessageBase::MessageBase(v25, v43);
+    qmi::MessageBase::validateMsgId(v25);
+    if (v43)
     {
-      v45 = v44;
-      operator delete(v44);
+      v44 = v43;
+      operator delete(v43);
     }
   }
 
   else
   {
-    v5 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v26);
+    qmi::MessageBase::validateMsgId(v25);
   }
 
-  v6 = *(a1 + 8);
-  v7 = std::string::basic_string[abi:ne200100]<0>(&v44, "rtp.qmidriver");
-  v28[0] = 0;
-  v31 = 0;
-  v8 = ims::debug(v7, v28);
-  if (!v6)
+  v5 = *(a1 + 8);
+  v6 = std::string::basic_string[abi:ne200100]<0>(&v43, "rtp.qmidriver");
+  v27[0] = 0;
+  v30 = 0;
+  v7 = ims::debug(v6, v27);
+  if (!v5)
   {
     __cxa_bad_typeid();
   }
 
-  v9 = v8;
-  v10 = *(*(*v6 - 8) + 8);
-  v11 = *(v8 + 8);
-  v12 = strlen((v10 & 0x7FFFFFFFFFFFFFFFLL));
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, v10 & 0x7FFFFFFFFFFFFFFFLL, v12);
-  *(v9 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), "::", 2);
-  *(v9 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), "handleServiceUninitializeIndication", 35);
-  *(v9 + 17) = 0;
-  (*(*v9 + 64))(v9, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v9 + 17) = 0;
-  if (v31 == 1 && v30 < 0)
+  v8 = v7;
+  v9 = *(*(*v5 - 8) + 8);
+  v10 = *(v7 + 8);
+  v11 = strlen((v9 & 0x7FFFFFFFFFFFFFFFLL));
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, v9 & 0x7FFFFFFFFFFFFFFFLL, v11);
+  *(v8 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "::", 2);
+  *(v8 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "handleServiceUninitializeIndication", 35);
+  *(v8 + 17) = 0;
+  (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v8 + 17) = 0;
+  if (v30 == 1 && v29 < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v46) < 0)
+  if (SHIBYTE(v45) < 0)
   {
-    operator delete(v44);
+    operator delete(v43);
   }
 
-  if (v27)
+  if (v26)
   {
-    std::string::basic_string[abi:ne200100]<0>(v36, "rtp.qmidriver");
-    LOBYTE(v44) = 0;
-    v48 = 0;
-    v13 = ims::error(v36, &v44);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), "Error indication for request: ", 30);
-    *(v13 + 17) = 0;
-    v14 = QMIRTPCommandDriver::nameForRequestId(&v40, v26[0]);
-    (*(*v13 + 32))(v13, &v40, v14);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), " error:", 7);
-    *(v13 + 17) = 0;
-    MEMORY[0x1E6923350](*(v13 + 8), v27);
-    *(v13 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), " reason: ", 9);
-    *(v13 + 17) = 0;
-    v15 = qmi::asString();
-    v16 = strlen(v15);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), v15, v16);
-    *(v13 + 17) = 0;
-    (*(*v13 + 64))(v13, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v13 + 17) = 0;
-    if (SHIBYTE(v42) < 0)
+    std::string::basic_string[abi:ne200100]<0>(v35, "rtp.qmidriver");
+    LOBYTE(v43) = 0;
+    v47 = 0;
+    v12 = ims::error(v35, &v43);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), "Error indication for request: ", 30);
+    *(v12 + 17) = 0;
+    v13 = QMIRTPCommandDriver::nameForRequestId(&v39, v25[0]);
+    (*(*v12 + 32))(v12, &v39, v13);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), " error:", 7);
+    *(v12 + 17) = 0;
+    MEMORY[0x1E6923350](*(v12 + 8), v26);
+    *(v12 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), " reason: ", 9);
+    *(v12 + 17) = 0;
+    v14 = qmi::asString();
+    v15 = strlen(v14);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), v14, v15);
+    *(v12 + 17) = 0;
+    (*(*v12 + 64))(v12, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v12 + 17) = 0;
+    if (SHIBYTE(v41) < 0)
     {
-      operator delete(v40);
+      operator delete(v39);
     }
 
-    if (v48 == 1 && v47 < 0)
+    if (v47 == 1 && v46 < 0)
     {
-      operator delete(v46);
+      operator delete(v45);
     }
 
-    if (SHIBYTE(v37) < 0)
+    if (SHIBYTE(v36) < 0)
     {
-      operator delete(v36[0]);
+      operator delete(v35[0]);
     }
 
-    v17 = v6[21];
-    if (v17)
+    v16 = v5[21];
+    if (v16)
     {
-      v18 = std::__shared_weak_count::lock(v17);
-      if (v18)
+      v17 = std::__shared_weak_count::lock(v16);
+      if (v17)
       {
-        v19 = v18;
-        v20 = v6[20];
-        if (v20)
+        v18 = v17;
+        v19 = v5[20];
+        if (v19)
         {
-          v21 = *(v20 + 72);
-          v22 = *(v20 + 80);
-          if (v22)
+          v20 = *(v19 + 72);
+          v21 = *(v19 + 80);
+          if (v21)
           {
-            atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          RTPManager::logRTPError(v21, 24);
-          if (v22)
+          RTPManager::logRTPError(v20, 24);
+          if (v21)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v21);
           }
         }
 
-        std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v18);
       }
     }
   }
 
   else
   {
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x2000000000;
-    v43 = 0;
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 0x40000000;
-    v37 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms19ServiceUninitialize10IndicationEEENS1_9RTPStatusERKT__block_invoke;
-    v38 = &unk_1E876AF28;
-    v39 = &v40;
-    v44 = v36;
-    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v26, &v44);
-    if (*(v41 + 6))
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x2000000000;
+    v42 = 0;
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 0x40000000;
+    v36 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms19ServiceUninitialize10IndicationEEENS1_9RTPStatusERKT__block_invoke;
+    v37 = &unk_1E876AF28;
+    v38 = &v39;
+    v43 = v35;
+    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v25, &v43);
+    if (*(v40 + 6))
     {
-      std::string::basic_string[abi:ne200100]<0>(v34, "rtp.qmidriver");
-      LOBYTE(v44) = 0;
-      v48 = 0;
-      v23 = ims::error(v34, &v44);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "Error indication for request: ", 30);
-      *(v23 + 17) = 0;
-      v24 = QMIRTPCommandDriver::nameForRequestId(v32, v26[0]);
-      (*(*v23 + 32))(v23, v32, v24);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), " [error=", 8);
-      *(v23 + 17) = 0;
-      MEMORY[0x1E6923340](*(v23 + 8), *(v41 + 6));
-      *(v23 + 17) = 0;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "]", 1);
-      *(v23 + 17) = 0;
+      std::string::basic_string[abi:ne200100]<0>(v33, "rtp.qmidriver");
+      LOBYTE(v43) = 0;
+      v47 = 0;
+      v22 = ims::error(v33, &v43);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v22 + 8), "Error indication for request: ", 30);
+      *(v22 + 17) = 0;
+      v23 = QMIRTPCommandDriver::nameForRequestId(v31, v25[0]);
+      (*(*v22 + 32))(v22, v31, v23);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v22 + 8), " [error=", 8);
+      *(v22 + 17) = 0;
+      MEMORY[0x1E6923340](*(v22 + 8), *(v40 + 6));
+      *(v22 + 17) = 0;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v22 + 8), "]", 1);
+      *(v22 + 17) = 0;
     }
 
     else
     {
-      std::string::basic_string[abi:ne200100]<0>(v34, "rtp.qmidriver");
-      LOBYTE(v44) = 0;
-      v48 = 0;
-      v23 = ims::spam(v34, &v44);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "Success indication for request: ", 32);
-      *(v23 + 17) = 0;
-      v25 = QMIRTPCommandDriver::nameForRequestId(v32, v26[0]);
-      (*(*v23 + 32))(v23, v32, v25);
+      std::string::basic_string[abi:ne200100]<0>(v33, "rtp.qmidriver");
+      LOBYTE(v43) = 0;
+      v47 = 0;
+      v22 = ims::spam(v33, &v43);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v22 + 8), "Success indication for request: ", 32);
+      *(v22 + 17) = 0;
+      v24 = QMIRTPCommandDriver::nameForRequestId(v31, v25[0]);
+      (*(*v22 + 32))(v22, v31, v24);
     }
 
-    (*(*v23 + 64))(v23, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v23 + 17) = 0;
-    if (v33 < 0)
+    (*(*v22 + 64))(v22, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v22 + 17) = 0;
+    if (v32 < 0)
     {
-      operator delete(v32[0]);
+      operator delete(v31[0]);
     }
 
-    if (v48 == 1 && v47 < 0)
+    if (v47 == 1 && v46 < 0)
     {
-      operator delete(v46);
+      operator delete(v45);
     }
 
-    if (v35 < 0)
+    if (v34 < 0)
     {
-      operator delete(v34[0]);
+      operator delete(v33[0]);
     }
 
-    _Block_object_dispose(&v40, 8);
+    _Block_object_dispose(&v39, 8);
   }
 
-  qmi::MessageBase::~MessageBase(v26);
+  qmi::MessageBase::~MessageBase(v25);
 }
 
 void sub_1E4F021DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39)
@@ -272,308 +271,307 @@ void std::__function::__func<void qmi::ClientRouter::setIndHandler<QMIRTPCommand
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
-    v43 = 0;
     v44 = 0;
+    v45 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::MessageBase::MessageBase(v40, __p);
-    qmi::MessageBase::validateMsgId(v40);
+    qmi::MessageBase::MessageBase(v41, __p);
+    qmi::MessageBase::validateMsgId(v41);
     if (__p)
     {
-      v43 = __p;
+      v44 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v5 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v40);
+    qmi::MessageBase::validateMsgId(v41);
   }
 
-  v6 = *(a1 + 8);
+  v5 = *(a1 + 8);
+  v65 = 0;
+  v66 = &v65;
+  v67 = 0x2000000000;
+  v68 = 0;
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x2000000000;
   v64 = 0;
-  v65 = &v64;
-  v66 = 0x2000000000;
-  v67 = 0;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x2000000000;
-  v63 = 0;
-  if (v41)
+  if (v42)
   {
-    v7 = std::string::basic_string[abi:ne200100]<0>(&block, "rtp.qmidriver");
+    v6 = std::string::basic_string[abi:ne200100]<0>(&block, "rtp.qmidriver");
     LOBYTE(__p) = 0;
-    LOBYTE(v48) = 0;
-    v8 = ims::error(v7, &__p);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "Error indication for request: ", 30);
-    *(v8 + 17) = 0;
-    v9 = QMIRTPCommandDriver::nameForRequestId(&v50, v40[0]);
-    (*(*v8 + 32))(v8, &v50, v9);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), " error:", 7);
-    *(v8 + 17) = 0;
-    MEMORY[0x1E6923350](*(v8 + 8), v41);
-    *(v8 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), " reason: ", 9);
-    *(v8 + 17) = 0;
-    v10 = qmi::asString();
-    v11 = strlen(v10);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), v10, v11);
-    *(v8 + 17) = 0;
-    (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v8 + 17) = 0;
-    if (SHIBYTE(v52) < 0)
+    LOBYTE(v49) = 0;
+    v7 = ims::error(v6, &__p);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "Error indication for request: ", 30);
+    *(v7 + 17) = 0;
+    v8 = QMIRTPCommandDriver::nameForRequestId(&v51, v41[0]);
+    (*(*v7 + 32))(v7, &v51, v8);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), " error:", 7);
+    *(v7 + 17) = 0;
+    MEMORY[0x1E6923350](*(v7 + 8), v42);
+    *(v7 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), " reason: ", 9);
+    *(v7 + 17) = 0;
+    v9 = qmi::asString();
+    v10 = strlen(v9);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), v9, v10);
+    *(v7 + 17) = 0;
+    (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v7 + 17) = 0;
+    if (SHIBYTE(v53) < 0)
     {
-      operator delete(v50);
+      operator delete(v51);
     }
 
-    if (v48 == 1 && SHIBYTE(v46) < 0)
+    if (v49 == 1 && SHIBYTE(v47) < 0)
     {
-      operator delete(v44);
+      operator delete(v45);
     }
 
-    if (SHIBYTE(v70) < 0)
+    if (SHIBYTE(v71) < 0)
     {
       operator delete(block);
     }
 
-    v12 = v6[21];
-    if (v12)
+    v11 = v5[21];
+    if (v11)
     {
-      v13 = std::__shared_weak_count::lock(v12);
-      if (v13)
+      v12 = std::__shared_weak_count::lock(v11);
+      if (v12)
       {
-        v14 = v13;
-        v15 = v6[20];
-        if (v15)
+        v13 = v12;
+        v14 = v5[20];
+        if (v14)
         {
-          v16 = *(v15 + 72);
-          v17 = *(v15 + 80);
-          if (v17)
+          v15 = *(v14 + 72);
+          v16 = *(v14 + 80);
+          if (v16)
           {
-            atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          RTPManager::logRTPError(v16, 24);
-          if (v17)
+          RTPManager::logRTPError(v15, 24);
+          if (v16)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v16);
           }
         }
 
-        std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v13);
       }
     }
 
-    v18 = 4;
+    v17 = 4;
   }
 
   else
   {
-    v50 = 0;
-    v51 = &v50;
-    v52 = 0x2000000000;
-    v53 = 0;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x2000000000;
+    v54 = 0;
     block = MEMORY[0x1E69E9820];
-    v69 = 0x40000000;
-    v70 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms17SessionInitialize10IndicationEEENS1_9RTPStatusERKT__block_invoke;
-    v71 = &unk_1E876AF78;
-    p_p = &v50;
+    v70 = 0x40000000;
+    v71 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms17SessionInitialize10IndicationEEENS1_9RTPStatusERKT__block_invoke;
+    v72 = &unk_1E876AF78;
+    p_p = &v51;
     __p = &block;
-    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v40, &__p);
-    if (*(v51 + 6))
+    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v41, &__p);
+    if (*(v52 + 6))
     {
-      std::string::basic_string[abi:ne200100]<0>(v56, "rtp.qmidriver");
+      std::string::basic_string[abi:ne200100]<0>(v57, "rtp.qmidriver");
       LOBYTE(__p) = 0;
-      LOBYTE(v48) = 0;
-      v19 = ims::error(v56, &__p);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "Error indication for request: ", 30);
-      *(v19 + 17) = 0;
-      v20 = QMIRTPCommandDriver::nameForRequestId(v77, v40[0]);
-      (*(*v19 + 32))(v19, v77, v20);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), " [error=", 8);
-      *(v19 + 17) = 0;
-      MEMORY[0x1E6923340](*(v19 + 8), *(v51 + 6));
-      *(v19 + 17) = 0;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "]", 1);
-      *(v19 + 17) = 0;
+      LOBYTE(v49) = 0;
+      v18 = ims::error(v57, &__p);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "Error indication for request: ", 30);
+      *(v18 + 17) = 0;
+      v19 = QMIRTPCommandDriver::nameForRequestId(v78, v41[0]);
+      (*(*v18 + 32))(v18, v78, v19);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), " [error=", 8);
+      *(v18 + 17) = 0;
+      MEMORY[0x1E6923340](*(v18 + 8), *(v52 + 6));
+      *(v18 + 17) = 0;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "]", 1);
+      *(v18 + 17) = 0;
     }
 
     else
     {
-      std::string::basic_string[abi:ne200100]<0>(v56, "rtp.qmidriver");
+      std::string::basic_string[abi:ne200100]<0>(v57, "rtp.qmidriver");
       LOBYTE(__p) = 0;
-      LOBYTE(v48) = 0;
-      v19 = ims::spam(v56, &__p);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "Success indication for request: ", 32);
-      *(v19 + 17) = 0;
-      v21 = QMIRTPCommandDriver::nameForRequestId(v77, v40[0]);
-      (*(*v19 + 32))(v19, v77, v21);
+      LOBYTE(v49) = 0;
+      v18 = ims::spam(v57, &__p);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "Success indication for request: ", 32);
+      *(v18 + 17) = 0;
+      v20 = QMIRTPCommandDriver::nameForRequestId(v78, v41[0]);
+      (*(*v18 + 32))(v18, v78, v20);
     }
 
-    (*(*v19 + 64))(v19, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v19 + 17) = 0;
-    if (v78 < 0)
+    (*(*v18 + 64))(v18, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v18 + 17) = 0;
+    if (v79 < 0)
     {
-      operator delete(v77[0]);
+      operator delete(v78[0]);
     }
 
-    if (v48 == 1 && SHIBYTE(v46) < 0)
+    if (v49 == 1 && SHIBYTE(v47) < 0)
     {
-      operator delete(v44);
+      operator delete(v45);
     }
 
-    if (SHIBYTE(v57) < 0)
+    if (SHIBYTE(v58) < 0)
     {
-      operator delete(v56[0]);
+      operator delete(v57[0]);
     }
 
-    v18 = *(v51 + 6);
-    _Block_object_dispose(&v50, 8);
+    v17 = *(v52 + 6);
+    _Block_object_dispose(&v51, 8);
   }
 
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = 0x40000000;
-  v57 = ___ZN19QMIRTPCommandDriver33handleSessionInitializeIndicationERKN2ms17SessionInitialize10IndicationE_block_invoke;
-  v58 = &unk_1E876AA78;
-  v59 = &v64;
-  TlvValue = qmi::MessageBase::findTlvValue(v40);
-  v24 = TlvValue;
+  v57[0] = MEMORY[0x1E69E9820];
+  v57[1] = 0x40000000;
+  v58 = ___ZN19QMIRTPCommandDriver33handleSessionInitializeIndicationERKN2ms17SessionInitialize10IndicationE_block_invoke;
+  v59 = &unk_1E876AA78;
+  v60 = &v65;
+  TlvValue = qmi::MessageBase::findTlvValue(v41);
+  v25 = TlvValue;
   if (TlvValue)
   {
-    v25 = v23;
+    v26 = v22;
     __p = TlvValue;
-    LODWORD(block) = tlv::parseV<ms::tlv::ServiceAppData>(&__p, v23);
+    LODWORD(block) = tlv::parseV<ms::tlv::ServiceAppData>(&__p, v22, v23, v24);
     if (__p)
     {
-      v57(v56, &block);
+      v58(v57, &block);
     }
 
     else
     {
-      (*MEMORY[0x1E69E5140])(v40[0], 17, v24, v25);
+      (*MEMORY[0x1E69E5140])(v41[0], 17, v25, v26);
     }
   }
 
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x2000000000;
-  LOBYTE(v53) = 0;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x2000000000;
+  LOBYTE(v54) = 0;
   block = MEMORY[0x1E69E9820];
-  v69 = 0x40000000;
-  v70 = ___ZN19QMIRTPCommandDriver26getSessionIdFromIndicationIN2ms17SessionInitialize10IndicationEEEhRKT__block_invoke;
-  v71 = &unk_1E876AFA0;
-  p_p = &v50;
+  v70 = 0x40000000;
+  v71 = ___ZN19QMIRTPCommandDriver26getSessionIdFromIndicationIN2ms17SessionInitialize10IndicationEEEhRKT__block_invoke;
+  v72 = &unk_1E876AFA0;
+  p_p = &v51;
   __p = &block;
-  qmi::MessageBase::applyTlv<ms::tlv::RTPSessionIdentifier,void({block_pointer})(ms::tlv::RTPSessionIdentifier)>(v40, 16, &__p);
-  v26 = std::string::basic_string[abi:ne200100]<0>(v77, "rtp.qmidriver");
+  qmi::MessageBase::applyTlv<ms::tlv::RTPSessionIdentifier,void({block_pointer})(ms::tlv::RTPSessionIdentifier)>(v41, 16, &__p);
+  v27 = std::string::basic_string[abi:ne200100]<0>(v78, "rtp.qmidriver");
   LOBYTE(__p) = 0;
-  LOBYTE(v48) = 0;
-  v27 = ims::spam(v26, &__p);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v27 + 8), "Indication: ", 12);
-  *(v27 + 17) = 0;
-  v28 = QMIRTPCommandDriver::nameForRequestId(v75, v40[0]);
-  (*(*v27 + 32))(v27, v75, v28);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v27 + 8), ", with qmiSession Id: ", 22);
-  *(v27 + 17) = 0;
-  MEMORY[0x1E6923350](*(v27 + 8), *(v51 + 24));
-  *(v27 + 17) = 0;
-  (*(*v27 + 64))(v27, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v27 + 17) = 0;
-  if (v76 < 0)
+  LOBYTE(v49) = 0;
+  v28 = ims::spam(v27, &__p);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v28 + 8), "Indication: ", 12);
+  *(v28 + 17) = 0;
+  v29 = QMIRTPCommandDriver::nameForRequestId(v76, v41[0]);
+  (*(*v28 + 32))(v28, v76, v29);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v28 + 8), ", with qmiSession Id: ", 22);
+  *(v28 + 17) = 0;
+  MEMORY[0x1E6923350](*(v28 + 8), *(v52 + 24));
+  *(v28 + 17) = 0;
+  (*(*v28 + 64))(v28, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v28 + 17) = 0;
+  if (v77 < 0)
   {
-    operator delete(v75[0]);
+    operator delete(v76[0]);
   }
 
-  if (v48 == 1 && SHIBYTE(v46) < 0)
+  if (v49 == 1 && SHIBYTE(v47) < 0)
   {
-    operator delete(v44);
+    operator delete(v45);
   }
 
-  if (v78 < 0)
+  if (v79 < 0)
   {
-    operator delete(v77[0]);
+    operator delete(v78[0]);
   }
 
-  v29 = *(v51 + 24);
-  _Block_object_dispose(&v50, 8);
-  *(v61 + 24) = v29;
+  v30 = *(v52 + 24);
+  _Block_object_dispose(&v51, 8);
+  *(v62 + 24) = v30;
   std::string::basic_string[abi:ne200100]<0>(&__p, "rtp.qmidriver");
-  LOBYTE(v50) = 0;
-  v55 = 0;
-  v30 = ims::debug(&__p, &v50);
-  if (!v6)
+  LOBYTE(v51) = 0;
+  v56 = 0;
+  v31 = ims::debug(&__p, &v51);
+  if (!v5)
   {
     __cxa_bad_typeid();
   }
 
-  v31 = v30;
-  v32 = *(*(*v6 - 8) + 8);
-  v33 = *(v30 + 8);
-  v34 = strlen((v32 & 0x7FFFFFFFFFFFFFFFLL));
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, v32 & 0x7FFFFFFFFFFFFFFFLL, v34);
-  *(v31 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v31 + 8), "::", 2);
-  *(v31 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v31 + 8), "handleSessionInitializeIndication", 33);
-  *(v31 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v31 + 8), " [sessionId=", 12);
-  *(v31 + 17) = 0;
-  MEMORY[0x1E69233B0](*(v31 + 8), v65[3]);
-  *(v31 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v31 + 8), " qmiSessionId=", 14);
-  *(v31 + 17) = 0;
-  MEMORY[0x1E6923340](*(v31 + 8), *(v61 + 24));
-  *(v31 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v31 + 8), "]", 1);
-  *(v31 + 17) = 0;
-  (*(*v31 + 64))(v31, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v31 + 17) = 0;
-  if (v55 == 1 && v54 < 0)
+  v32 = v31;
+  v33 = *(*(*v5 - 8) + 8);
+  v34 = *(v31 + 8);
+  v35 = strlen((v33 & 0x7FFFFFFFFFFFFFFFLL));
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, v33 & 0x7FFFFFFFFFFFFFFFLL, v35);
+  *(v32 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v32 + 8), "::", 2);
+  *(v32 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v32 + 8), "handleSessionInitializeIndication", 33);
+  *(v32 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v32 + 8), " [sessionId=", 12);
+  *(v32 + 17) = 0;
+  MEMORY[0x1E69233B0](*(v32 + 8), v66[3]);
+  *(v32 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v32 + 8), " qmiSessionId=", 14);
+  *(v32 + 17) = 0;
+  MEMORY[0x1E6923340](*(v32 + 8), *(v62 + 24));
+  *(v32 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v32 + 8), "]", 1);
+  *(v32 + 17) = 0;
+  (*(*v32 + 64))(v32, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v32 + 17) = 0;
+  if (v56 == 1 && v55 < 0)
   {
-    operator delete(v52);
+    operator delete(v53);
   }
 
-  if (SHIBYTE(v44) < 0)
+  if (SHIBYTE(v45) < 0)
   {
     operator delete(__p);
   }
 
   __p = MEMORY[0x1E69E9820];
-  v43 = 0x40000000;
-  v44 = ___ZN19QMIRTPCommandDriver33handleSessionInitializeIndicationERKN2ms17SessionInitialize10IndicationE_block_invoke_2;
-  v45 = &unk_1E876AAA0;
-  v46 = &v64;
-  v47 = &v60;
-  v48 = v6;
-  v49 = v18;
-  v35 = v6[3];
-  if (!v35 || (v36 = v6[2], (v37 = std::__shared_weak_count::lock(v35)) == 0))
+  v44 = 0x40000000;
+  v45 = ___ZN19QMIRTPCommandDriver33handleSessionInitializeIndicationERKN2ms17SessionInitialize10IndicationE_block_invoke_2;
+  v46 = &unk_1E876AAA0;
+  v47 = &v65;
+  v48 = &v61;
+  v49 = v5;
+  v50 = v17;
+  v36 = v5[3];
+  if (!v36 || (v37 = v5[2], (v38 = std::__shared_weak_count::lock(v36)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v38 = v37;
-  v39 = v6[4];
+  v39 = v38;
+  v40 = v5[4];
   block = MEMORY[0x1E69E9820];
-  v69 = 1174405120;
-  v70 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-  v71 = &unk_1F5EDC868;
-  v73 = v36;
-  v74 = v38;
-  atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
+  v70 = 1174405120;
+  v71 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  v72 = &unk_1F5EDC868;
+  v74 = v37;
+  v75 = v39;
+  atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
   p_p = &__p;
-  dispatch_async(v39, &block);
-  if (v74)
+  dispatch_async(v40, &block);
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v74);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v38);
-  _Block_object_dispose(&v60, 8);
-  _Block_object_dispose(&v64, 8);
-  qmi::MessageBase::~MessageBase(v40);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v39);
+  _Block_object_dispose(&v61, 8);
+  _Block_object_dispose(&v65, 8);
+  qmi::MessageBase::~MessageBase(v41);
 }
 
 void sub_1E4F02DEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, char a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, uint64_t a43, char a44)
@@ -620,272 +618,271 @@ void std::__function::__func<void qmi::ClientRouter::setIndHandler<QMIRTPCommand
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v54 = 0;
     v55 = 0;
-    v56 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::MessageBase::MessageBase(v37, __p);
-    qmi::MessageBase::validateMsgId(v37);
+    qmi::MessageBase::MessageBase(v36, __p);
+    qmi::MessageBase::validateMsgId(v36);
     if (__p)
     {
-      v55 = __p;
+      v54 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v5 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v37);
+    qmi::MessageBase::validateMsgId(v36);
   }
 
-  v6 = *(a1 + 8);
-  if (v38)
+  v5 = *(a1 + 8);
+  if (v37)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v46, "rtp.qmidriver");
+    std::string::basic_string[abi:ne200100]<0>(&v45, "rtp.qmidriver");
     LOBYTE(__p) = 0;
-    LOBYTE(v60) = 0;
-    v7 = ims::error(&v46, &__p);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "Error indication for request: ", 30);
-    *(v7 + 17) = 0;
-    v8 = QMIRTPCommandDriver::nameForRequestId(&v39, v37[0]);
-    (*(*v7 + 32))(v7, &v39, v8);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), " error:", 7);
-    *(v7 + 17) = 0;
-    MEMORY[0x1E6923350](*(v7 + 8), v38);
-    *(v7 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), " reason: ", 9);
-    *(v7 + 17) = 0;
-    v9 = qmi::asString();
-    v10 = strlen(v9);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), v9, v10);
-    *(v7 + 17) = 0;
-    (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v7 + 17) = 0;
-    if (SHIBYTE(v41) < 0)
+    LOBYTE(v59) = 0;
+    v6 = ims::error(&v45, &__p);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "Error indication for request: ", 30);
+    *(v6 + 17) = 0;
+    v7 = QMIRTPCommandDriver::nameForRequestId(&v38, v36[0]);
+    (*(*v6 + 32))(v6, &v38, v7);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), " error:", 7);
+    *(v6 + 17) = 0;
+    MEMORY[0x1E6923350](*(v6 + 8), v37);
+    *(v6 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), " reason: ", 9);
+    *(v6 + 17) = 0;
+    v8 = qmi::asString();
+    v9 = strlen(v8);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), v8, v9);
+    *(v6 + 17) = 0;
+    (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v6 + 17) = 0;
+    if (SHIBYTE(v40) < 0)
     {
-      operator delete(v39);
+      operator delete(v38);
     }
 
-    if (v60 == 1 && SHIBYTE(v58) < 0)
+    if (v59 == 1 && SHIBYTE(v57) < 0)
     {
-      operator delete(v56);
+      operator delete(v55);
     }
 
-    if (SHIBYTE(v48) < 0)
+    if (SHIBYTE(v47) < 0)
     {
-      operator delete(v46);
+      operator delete(v45);
     }
 
-    v11 = v6[21];
-    if (v11)
+    v10 = v5[21];
+    if (v10)
     {
-      v12 = std::__shared_weak_count::lock(v11);
-      if (v12)
+      v11 = std::__shared_weak_count::lock(v10);
+      if (v11)
       {
-        v13 = v12;
-        v14 = v6[20];
-        if (v14)
+        v12 = v11;
+        v13 = v5[20];
+        if (v13)
         {
-          v15 = *(v14 + 72);
-          v16 = *(v14 + 80);
-          if (v16)
+          v14 = *(v13 + 72);
+          v15 = *(v13 + 80);
+          if (v15)
           {
-            atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          RTPManager::logRTPError(v15, 24);
-          if (v16)
+          RTPManager::logRTPError(v14, 24);
+          if (v15)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v15);
           }
         }
 
-        std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v12);
       }
     }
 
-    v17 = 4;
+    v16 = 4;
   }
 
   else
   {
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2000000000;
-    LODWORD(v42) = 0;
-    v46 = MEMORY[0x1E69E9820];
-    v47 = 0x40000000;
-    v48 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms19SessionUninitialize10IndicationEEENS1_9RTPStatusERKT__block_invoke;
-    v49 = &unk_1E876AFF0;
-    v50 = &v39;
-    __p = &v46;
-    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v37, &__p);
-    if (*(v40 + 24))
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x2000000000;
+    LODWORD(v41) = 0;
+    v45 = MEMORY[0x1E69E9820];
+    v46 = 0x40000000;
+    v47 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms19SessionUninitialize10IndicationEEENS1_9RTPStatusERKT__block_invoke;
+    v48 = &unk_1E876AFF0;
+    v49 = &v38;
+    __p = &v45;
+    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v36, &__p);
+    if (*(v39 + 24))
     {
-      v18 = std::string::basic_string[abi:ne200100]<0>(v61, "rtp.qmidriver");
+      v17 = std::string::basic_string[abi:ne200100]<0>(v60, "rtp.qmidriver");
       LOBYTE(__p) = 0;
-      LOBYTE(v60) = 0;
-      v19 = ims::error(v18, &__p);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "Error indication for request: ", 30);
-      *(v19 + 17) = 0;
-      v20 = QMIRTPCommandDriver::nameForRequestId(v52, v37[0]);
-      (*(*v19 + 32))(v19, v52, v20);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), " [error=", 8);
-      *(v19 + 17) = 0;
-      MEMORY[0x1E6923340](*(v19 + 8), *(v40 + 24));
-      *(v19 + 17) = 0;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "]", 1);
-      *(v19 + 17) = 0;
+      LOBYTE(v59) = 0;
+      v18 = ims::error(v17, &__p);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "Error indication for request: ", 30);
+      *(v18 + 17) = 0;
+      v19 = QMIRTPCommandDriver::nameForRequestId(v51, v36[0]);
+      (*(*v18 + 32))(v18, v51, v19);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), " [error=", 8);
+      *(v18 + 17) = 0;
+      MEMORY[0x1E6923340](*(v18 + 8), *(v39 + 24));
+      *(v18 + 17) = 0;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "]", 1);
+      *(v18 + 17) = 0;
     }
 
     else
     {
-      v21 = std::string::basic_string[abi:ne200100]<0>(v61, "rtp.qmidriver");
+      v20 = std::string::basic_string[abi:ne200100]<0>(v60, "rtp.qmidriver");
       LOBYTE(__p) = 0;
-      LOBYTE(v60) = 0;
-      v19 = ims::spam(v21, &__p);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "Success indication for request: ", 32);
-      *(v19 + 17) = 0;
-      v22 = QMIRTPCommandDriver::nameForRequestId(v52, v37[0]);
-      (*(*v19 + 32))(v19, v52, v22);
+      LOBYTE(v59) = 0;
+      v18 = ims::spam(v20, &__p);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "Success indication for request: ", 32);
+      *(v18 + 17) = 0;
+      v21 = QMIRTPCommandDriver::nameForRequestId(v51, v36[0]);
+      (*(*v18 + 32))(v18, v51, v21);
     }
 
-    (*(*v19 + 64))(v19, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v19 + 17) = 0;
-    if (v53 < 0)
+    (*(*v18 + 64))(v18, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v18 + 17) = 0;
+    if (v52 < 0)
     {
-      operator delete(v52[0]);
+      operator delete(v51[0]);
     }
 
-    if (v60 == 1 && SHIBYTE(v58) < 0)
+    if (v59 == 1 && SHIBYTE(v57) < 0)
     {
-      operator delete(v56);
+      operator delete(v55);
     }
 
-    if (v62 < 0)
+    if (v61 < 0)
     {
-      operator delete(v61[0]);
+      operator delete(v60[0]);
     }
 
-    v17 = *(v40 + 24);
-    _Block_object_dispose(&v39, 8);
+    v16 = *(v39 + 24);
+    _Block_object_dispose(&v38, 8);
   }
 
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2000000000;
-  LOBYTE(v42) = 0;
-  v46 = MEMORY[0x1E69E9820];
-  v47 = 0x40000000;
-  v48 = ___ZN19QMIRTPCommandDriver26getSessionIdFromIndicationIN2ms19SessionUninitialize10IndicationEEEhRKT__block_invoke;
-  v49 = &unk_1E876B018;
-  v50 = &v39;
-  __p = &v46;
-  qmi::MessageBase::applyTlv<ms::tlv::RTPSessionIdentifier,void({block_pointer})(ms::tlv::RTPSessionIdentifier)>(v37, 2, &__p);
-  v23 = std::string::basic_string[abi:ne200100]<0>(v61, "rtp.qmidriver");
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2000000000;
+  LOBYTE(v41) = 0;
+  v45 = MEMORY[0x1E69E9820];
+  v46 = 0x40000000;
+  v47 = ___ZN19QMIRTPCommandDriver26getSessionIdFromIndicationIN2ms19SessionUninitialize10IndicationEEEhRKT__block_invoke;
+  v48 = &unk_1E876B018;
+  v49 = &v38;
+  __p = &v45;
+  qmi::MessageBase::applyTlv<ms::tlv::RTPSessionIdentifier,void({block_pointer})(ms::tlv::RTPSessionIdentifier)>(v36, 2, &__p);
+  v22 = std::string::basic_string[abi:ne200100]<0>(v60, "rtp.qmidriver");
   LOBYTE(__p) = 0;
-  LOBYTE(v60) = 0;
-  v24 = ims::spam(v23, &__p);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "Indication: ", 12);
-  *(v24 + 17) = 0;
-  v25 = QMIRTPCommandDriver::nameForRequestId(v52, v37[0]);
-  (*(*v24 + 32))(v24, v52, v25);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), ", with qmiSession Id: ", 22);
-  *(v24 + 17) = 0;
-  MEMORY[0x1E6923350](*(v24 + 8), *(v40 + 24));
-  *(v24 + 17) = 0;
-  (*(*v24 + 64))(v24, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v24 + 17) = 0;
-  if (v53 < 0)
+  LOBYTE(v59) = 0;
+  v23 = ims::spam(v22, &__p);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "Indication: ", 12);
+  *(v23 + 17) = 0;
+  v24 = QMIRTPCommandDriver::nameForRequestId(v51, v36[0]);
+  (*(*v23 + 32))(v23, v51, v24);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), ", with qmiSession Id: ", 22);
+  *(v23 + 17) = 0;
+  MEMORY[0x1E6923350](*(v23 + 8), *(v39 + 24));
+  *(v23 + 17) = 0;
+  (*(*v23 + 64))(v23, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v23 + 17) = 0;
+  if (v52 < 0)
   {
-    operator delete(v52[0]);
+    operator delete(v51[0]);
   }
 
-  if (v60 == 1 && SHIBYTE(v58) < 0)
+  if (v59 == 1 && SHIBYTE(v57) < 0)
   {
-    operator delete(v56);
+    operator delete(v55);
   }
 
-  if (v62 < 0)
+  if (v61 < 0)
   {
-    operator delete(v61[0]);
+    operator delete(v60[0]);
   }
 
-  v26 = *(v40 + 24);
-  _Block_object_dispose(&v39, 8);
+  v25 = *(v39 + 24);
+  _Block_object_dispose(&v38, 8);
   std::string::basic_string[abi:ne200100]<0>(&__p, "rtp.qmidriver");
-  LOBYTE(v46) = 0;
-  v51 = 0;
-  v27 = ims::debug(&__p, &v46);
-  if (!v6)
+  LOBYTE(v45) = 0;
+  v50 = 0;
+  v26 = ims::debug(&__p, &v45);
+  if (!v5)
   {
     __cxa_bad_typeid();
   }
 
-  v28 = v27;
-  v29 = *(*(*v6 - 8) + 8);
-  v30 = *(v27 + 8);
-  v31 = strlen((v29 & 0x7FFFFFFFFFFFFFFFLL));
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, v29 & 0x7FFFFFFFFFFFFFFFLL, v31);
-  *(v28 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v28 + 8), "::", 2);
-  *(v28 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v28 + 8), "handleSessionUninitializeIndication", 35);
-  *(v28 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v28 + 8), " [qmiSessionId=", 15);
-  *(v28 + 17) = 0;
-  MEMORY[0x1E6923340](*(v28 + 8), v26);
-  *(v28 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v28 + 8), "]", 1);
-  *(v28 + 17) = 0;
-  (*(*v28 + 64))(v28, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v28 + 17) = 0;
-  if (v51 == 1 && SHIBYTE(v50) < 0)
+  v27 = v26;
+  v28 = *(*(*v5 - 8) + 8);
+  v29 = *(v26 + 8);
+  v30 = strlen((v28 & 0x7FFFFFFFFFFFFFFFLL));
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, v28 & 0x7FFFFFFFFFFFFFFFLL, v30);
+  *(v27 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v27 + 8), "::", 2);
+  *(v27 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v27 + 8), "handleSessionUninitializeIndication", 35);
+  *(v27 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v27 + 8), " [qmiSessionId=", 15);
+  *(v27 + 17) = 0;
+  MEMORY[0x1E6923340](*(v27 + 8), v25);
+  *(v27 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v27 + 8), "]", 1);
+  *(v27 + 17) = 0;
+  (*(*v27 + 64))(v27, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v27 + 17) = 0;
+  if (v50 == 1 && SHIBYTE(v49) < 0)
   {
-    operator delete(v48);
+    operator delete(v47);
   }
 
-  if (SHIBYTE(v56) < 0)
+  if (SHIBYTE(v55) < 0)
   {
     operator delete(__p);
   }
 
-  v39 = MEMORY[0x1E69E9820];
-  v40 = 0x40000000;
-  v41 = ___ZN19QMIRTPCommandDriver35handleSessionUninitializeIndicationERKN2ms19SessionUninitialize10IndicationE_block_invoke;
-  v42 = &__block_descriptor_tmp_79;
-  v43 = v6;
-  v45 = v26;
-  v44 = v17;
-  v32 = v6[3];
-  if (!v32 || (v33 = v6[2], (v34 = std::__shared_weak_count::lock(v32)) == 0))
+  v38 = MEMORY[0x1E69E9820];
+  v39 = 0x40000000;
+  v40 = ___ZN19QMIRTPCommandDriver35handleSessionUninitializeIndicationERKN2ms19SessionUninitialize10IndicationE_block_invoke;
+  v41 = &__block_descriptor_tmp_79;
+  v42 = v5;
+  v44 = v25;
+  v43 = v16;
+  v31 = v5[3];
+  if (!v31 || (v32 = v5[2], (v33 = std::__shared_weak_count::lock(v31)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v35 = v34;
-  v36 = v6[4];
+  v34 = v33;
+  v35 = v5[4];
   __p = MEMORY[0x1E69E9820];
-  v55 = 1174405120;
-  v56 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-  v57 = &unk_1F5EDC868;
-  v59 = v33;
-  v60 = v35;
-  atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
-  v58 = &v39;
-  dispatch_async(v36, &__p);
-  if (v60)
+  v54 = 1174405120;
+  v55 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  v56 = &unk_1F5EDC868;
+  v58 = v32;
+  v59 = v34;
+  atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+  v57 = &v38;
+  dispatch_async(v35, &__p);
+  if (v59)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v60);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v59);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v35);
-  qmi::MessageBase::~MessageBase(v37);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+  qmi::MessageBase::~MessageBase(v36);
 }
 
-void sub_1E4F03960(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, void *__p, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, char a50)
+void sub_1E4F03960(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, void *__p, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, char a50)
 {
   if (a50 == 1 && a48 < 0)
   {
@@ -927,272 +924,271 @@ void std::__function::__func<void qmi::ClientRouter::setIndHandler<QMIRTPCommand
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v54 = 0;
     v55 = 0;
-    v56 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::MessageBase::MessageBase(v37, __p);
-    qmi::MessageBase::validateMsgId(v37);
+    qmi::MessageBase::MessageBase(v36, __p);
+    qmi::MessageBase::validateMsgId(v36);
     if (__p)
     {
-      v55 = __p;
+      v54 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v5 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v37);
+    qmi::MessageBase::validateMsgId(v36);
   }
 
-  v6 = *(a1 + 8);
-  if (v38)
+  v5 = *(a1 + 8);
+  if (v37)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v46, "rtp.qmidriver");
+    std::string::basic_string[abi:ne200100]<0>(&v45, "rtp.qmidriver");
     LOBYTE(__p) = 0;
-    LOBYTE(v60) = 0;
-    v7 = ims::error(&v46, &__p);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "Error indication for request: ", 30);
-    *(v7 + 17) = 0;
-    v8 = QMIRTPCommandDriver::nameForRequestId(&v39, v37[0]);
-    (*(*v7 + 32))(v7, &v39, v8);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), " error:", 7);
-    *(v7 + 17) = 0;
-    MEMORY[0x1E6923350](*(v7 + 8), v38);
-    *(v7 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), " reason: ", 9);
-    *(v7 + 17) = 0;
-    v9 = qmi::asString();
-    v10 = strlen(v9);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), v9, v10);
-    *(v7 + 17) = 0;
-    (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v7 + 17) = 0;
-    if (SHIBYTE(v41) < 0)
+    LOBYTE(v59) = 0;
+    v6 = ims::error(&v45, &__p);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "Error indication for request: ", 30);
+    *(v6 + 17) = 0;
+    v7 = QMIRTPCommandDriver::nameForRequestId(&v38, v36[0]);
+    (*(*v6 + 32))(v6, &v38, v7);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), " error:", 7);
+    *(v6 + 17) = 0;
+    MEMORY[0x1E6923350](*(v6 + 8), v37);
+    *(v6 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), " reason: ", 9);
+    *(v6 + 17) = 0;
+    v8 = qmi::asString();
+    v9 = strlen(v8);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), v8, v9);
+    *(v6 + 17) = 0;
+    (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v6 + 17) = 0;
+    if (SHIBYTE(v40) < 0)
     {
-      operator delete(v39);
+      operator delete(v38);
     }
 
-    if (v60 == 1 && SHIBYTE(v58) < 0)
+    if (v59 == 1 && SHIBYTE(v57) < 0)
     {
-      operator delete(v56);
+      operator delete(v55);
     }
 
-    if (SHIBYTE(v48) < 0)
+    if (SHIBYTE(v47) < 0)
     {
-      operator delete(v46);
+      operator delete(v45);
     }
 
-    v11 = v6[21];
-    if (v11)
+    v10 = v5[21];
+    if (v10)
     {
-      v12 = std::__shared_weak_count::lock(v11);
-      if (v12)
+      v11 = std::__shared_weak_count::lock(v10);
+      if (v11)
       {
-        v13 = v12;
-        v14 = v6[20];
-        if (v14)
+        v12 = v11;
+        v13 = v5[20];
+        if (v13)
         {
-          v15 = *(v14 + 72);
-          v16 = *(v14 + 80);
-          if (v16)
+          v14 = *(v13 + 72);
+          v15 = *(v13 + 80);
+          if (v15)
           {
-            atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          RTPManager::logRTPError(v15, 24);
-          if (v16)
+          RTPManager::logRTPError(v14, 24);
+          if (v15)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v15);
           }
         }
 
-        std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v12);
       }
     }
 
-    v17 = 4;
+    v16 = 4;
   }
 
   else
   {
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2000000000;
-    LODWORD(v42) = 0;
-    v46 = MEMORY[0x1E69E9820];
-    v47 = 0x40000000;
-    v48 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms16SessionConfigure10IndicationEEENS1_9RTPStatusERKT__block_invoke;
-    v49 = &unk_1E876B068;
-    v50 = &v39;
-    __p = &v46;
-    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v37, &__p);
-    if (*(v40 + 24))
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x2000000000;
+    LODWORD(v41) = 0;
+    v45 = MEMORY[0x1E69E9820];
+    v46 = 0x40000000;
+    v47 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms16SessionConfigure10IndicationEEENS1_9RTPStatusERKT__block_invoke;
+    v48 = &unk_1E876B068;
+    v49 = &v38;
+    __p = &v45;
+    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v36, &__p);
+    if (*(v39 + 24))
     {
-      v18 = std::string::basic_string[abi:ne200100]<0>(v61, "rtp.qmidriver");
+      v17 = std::string::basic_string[abi:ne200100]<0>(v60, "rtp.qmidriver");
       LOBYTE(__p) = 0;
-      LOBYTE(v60) = 0;
-      v19 = ims::error(v18, &__p);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "Error indication for request: ", 30);
-      *(v19 + 17) = 0;
-      v20 = QMIRTPCommandDriver::nameForRequestId(v52, v37[0]);
-      (*(*v19 + 32))(v19, v52, v20);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), " [error=", 8);
-      *(v19 + 17) = 0;
-      MEMORY[0x1E6923340](*(v19 + 8), *(v40 + 24));
-      *(v19 + 17) = 0;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "]", 1);
-      *(v19 + 17) = 0;
+      LOBYTE(v59) = 0;
+      v18 = ims::error(v17, &__p);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "Error indication for request: ", 30);
+      *(v18 + 17) = 0;
+      v19 = QMIRTPCommandDriver::nameForRequestId(v51, v36[0]);
+      (*(*v18 + 32))(v18, v51, v19);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), " [error=", 8);
+      *(v18 + 17) = 0;
+      MEMORY[0x1E6923340](*(v18 + 8), *(v39 + 24));
+      *(v18 + 17) = 0;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "]", 1);
+      *(v18 + 17) = 0;
     }
 
     else
     {
-      v21 = std::string::basic_string[abi:ne200100]<0>(v61, "rtp.qmidriver");
+      v20 = std::string::basic_string[abi:ne200100]<0>(v60, "rtp.qmidriver");
       LOBYTE(__p) = 0;
-      LOBYTE(v60) = 0;
-      v19 = ims::spam(v21, &__p);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "Success indication for request: ", 32);
-      *(v19 + 17) = 0;
-      v22 = QMIRTPCommandDriver::nameForRequestId(v52, v37[0]);
-      (*(*v19 + 32))(v19, v52, v22);
+      LOBYTE(v59) = 0;
+      v18 = ims::spam(v20, &__p);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "Success indication for request: ", 32);
+      *(v18 + 17) = 0;
+      v21 = QMIRTPCommandDriver::nameForRequestId(v51, v36[0]);
+      (*(*v18 + 32))(v18, v51, v21);
     }
 
-    (*(*v19 + 64))(v19, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v19 + 17) = 0;
-    if (v53 < 0)
+    (*(*v18 + 64))(v18, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v18 + 17) = 0;
+    if (v52 < 0)
     {
-      operator delete(v52[0]);
+      operator delete(v51[0]);
     }
 
-    if (v60 == 1 && SHIBYTE(v58) < 0)
+    if (v59 == 1 && SHIBYTE(v57) < 0)
     {
-      operator delete(v56);
+      operator delete(v55);
     }
 
-    if (v62 < 0)
+    if (v61 < 0)
     {
-      operator delete(v61[0]);
+      operator delete(v60[0]);
     }
 
-    v17 = *(v40 + 24);
-    _Block_object_dispose(&v39, 8);
+    v16 = *(v39 + 24);
+    _Block_object_dispose(&v38, 8);
   }
 
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2000000000;
-  LOBYTE(v42) = 0;
-  v46 = MEMORY[0x1E69E9820];
-  v47 = 0x40000000;
-  v48 = ___ZN19QMIRTPCommandDriver26getSessionIdFromIndicationIN2ms16SessionConfigure10IndicationEEEhRKT__block_invoke;
-  v49 = &unk_1E876B090;
-  v50 = &v39;
-  __p = &v46;
-  qmi::MessageBase::applyTlv<ms::tlv::RTPSessionIdentifier,void({block_pointer})(ms::tlv::RTPSessionIdentifier)>(v37, 2, &__p);
-  v23 = std::string::basic_string[abi:ne200100]<0>(v61, "rtp.qmidriver");
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2000000000;
+  LOBYTE(v41) = 0;
+  v45 = MEMORY[0x1E69E9820];
+  v46 = 0x40000000;
+  v47 = ___ZN19QMIRTPCommandDriver26getSessionIdFromIndicationIN2ms16SessionConfigure10IndicationEEEhRKT__block_invoke;
+  v48 = &unk_1E876B090;
+  v49 = &v38;
+  __p = &v45;
+  qmi::MessageBase::applyTlv<ms::tlv::RTPSessionIdentifier,void({block_pointer})(ms::tlv::RTPSessionIdentifier)>(v36, 2, &__p);
+  v22 = std::string::basic_string[abi:ne200100]<0>(v60, "rtp.qmidriver");
   LOBYTE(__p) = 0;
-  LOBYTE(v60) = 0;
-  v24 = ims::spam(v23, &__p);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "Indication: ", 12);
-  *(v24 + 17) = 0;
-  v25 = QMIRTPCommandDriver::nameForRequestId(v52, v37[0]);
-  (*(*v24 + 32))(v24, v52, v25);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), ", with qmiSession Id: ", 22);
-  *(v24 + 17) = 0;
-  MEMORY[0x1E6923350](*(v24 + 8), *(v40 + 24));
-  *(v24 + 17) = 0;
-  (*(*v24 + 64))(v24, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v24 + 17) = 0;
-  if (v53 < 0)
+  LOBYTE(v59) = 0;
+  v23 = ims::spam(v22, &__p);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "Indication: ", 12);
+  *(v23 + 17) = 0;
+  v24 = QMIRTPCommandDriver::nameForRequestId(v51, v36[0]);
+  (*(*v23 + 32))(v23, v51, v24);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), ", with qmiSession Id: ", 22);
+  *(v23 + 17) = 0;
+  MEMORY[0x1E6923350](*(v23 + 8), *(v39 + 24));
+  *(v23 + 17) = 0;
+  (*(*v23 + 64))(v23, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v23 + 17) = 0;
+  if (v52 < 0)
   {
-    operator delete(v52[0]);
+    operator delete(v51[0]);
   }
 
-  if (v60 == 1 && SHIBYTE(v58) < 0)
+  if (v59 == 1 && SHIBYTE(v57) < 0)
   {
-    operator delete(v56);
+    operator delete(v55);
   }
 
-  if (v62 < 0)
+  if (v61 < 0)
   {
-    operator delete(v61[0]);
+    operator delete(v60[0]);
   }
 
-  v26 = *(v40 + 24);
-  _Block_object_dispose(&v39, 8);
+  v25 = *(v39 + 24);
+  _Block_object_dispose(&v38, 8);
   std::string::basic_string[abi:ne200100]<0>(&__p, "rtp.qmidriver");
-  LOBYTE(v46) = 0;
-  v51 = 0;
-  v27 = ims::debug(&__p, &v46);
-  if (!v6)
+  LOBYTE(v45) = 0;
+  v50 = 0;
+  v26 = ims::debug(&__p, &v45);
+  if (!v5)
   {
     __cxa_bad_typeid();
   }
 
-  v28 = v27;
-  v29 = *(*(*v6 - 8) + 8);
-  v30 = *(v27 + 8);
-  v31 = strlen((v29 & 0x7FFFFFFFFFFFFFFFLL));
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, v29 & 0x7FFFFFFFFFFFFFFFLL, v31);
-  *(v28 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v28 + 8), "::", 2);
-  *(v28 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v28 + 8), "handleSessionConfigureIndication", 32);
-  *(v28 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v28 + 8), " [qmiSessionId=", 15);
-  *(v28 + 17) = 0;
-  MEMORY[0x1E6923340](*(v28 + 8), v26);
-  *(v28 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v28 + 8), "]", 1);
-  *(v28 + 17) = 0;
-  (*(*v28 + 64))(v28, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v28 + 17) = 0;
-  if (v51 == 1 && SHIBYTE(v50) < 0)
+  v27 = v26;
+  v28 = *(*(*v5 - 8) + 8);
+  v29 = *(v26 + 8);
+  v30 = strlen((v28 & 0x7FFFFFFFFFFFFFFFLL));
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, v28 & 0x7FFFFFFFFFFFFFFFLL, v30);
+  *(v27 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v27 + 8), "::", 2);
+  *(v27 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v27 + 8), "handleSessionConfigureIndication", 32);
+  *(v27 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v27 + 8), " [qmiSessionId=", 15);
+  *(v27 + 17) = 0;
+  MEMORY[0x1E6923340](*(v27 + 8), v25);
+  *(v27 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v27 + 8), "]", 1);
+  *(v27 + 17) = 0;
+  (*(*v27 + 64))(v27, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v27 + 17) = 0;
+  if (v50 == 1 && SHIBYTE(v49) < 0)
   {
-    operator delete(v48);
+    operator delete(v47);
   }
 
-  if (SHIBYTE(v56) < 0)
+  if (SHIBYTE(v55) < 0)
   {
     operator delete(__p);
   }
 
-  v39 = MEMORY[0x1E69E9820];
-  v40 = 0x40000000;
-  v41 = ___ZN19QMIRTPCommandDriver32handleSessionConfigureIndicationERKN2ms16SessionConfigure10IndicationE_block_invoke;
-  v42 = &__block_descriptor_tmp_87;
-  v43 = v6;
-  v45 = v26;
-  v44 = v17;
-  v32 = v6[3];
-  if (!v32 || (v33 = v6[2], (v34 = std::__shared_weak_count::lock(v32)) == 0))
+  v38 = MEMORY[0x1E69E9820];
+  v39 = 0x40000000;
+  v40 = ___ZN19QMIRTPCommandDriver32handleSessionConfigureIndicationERKN2ms16SessionConfigure10IndicationE_block_invoke;
+  v41 = &__block_descriptor_tmp_87;
+  v42 = v5;
+  v44 = v25;
+  v43 = v16;
+  v31 = v5[3];
+  if (!v31 || (v32 = v5[2], (v33 = std::__shared_weak_count::lock(v31)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v35 = v34;
-  v36 = v6[4];
+  v34 = v33;
+  v35 = v5[4];
   __p = MEMORY[0x1E69E9820];
-  v55 = 1174405120;
-  v56 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-  v57 = &unk_1F5EDC868;
-  v59 = v33;
-  v60 = v35;
-  atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
-  v58 = &v39;
-  dispatch_async(v36, &__p);
-  if (v60)
+  v54 = 1174405120;
+  v55 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  v56 = &unk_1F5EDC868;
+  v58 = v32;
+  v59 = v34;
+  atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+  v57 = &v38;
+  dispatch_async(v35, &__p);
+  if (v59)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v60);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v59);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v35);
-  qmi::MessageBase::~MessageBase(v37);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+  qmi::MessageBase::~MessageBase(v36);
 }
 
-void sub_1E4F04470(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, void *__p, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, char a50)
+void sub_1E4F04470(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, void *__p, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, char a50)
 {
   if (a50 == 1 && a48 < 0)
   {
@@ -1234,131 +1230,130 @@ void std::__function::__func<void qmi::ClientRouter::setIndHandler<QMIRTPCommand
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     block = 0;
-    v38 = 0;
     v39 = 0;
+    v40 = 0;
     QMIServiceMsg::serialize(&block, this);
-    qmi::MessageBase::MessageBase(v19, block);
-    qmi::MessageBase::validateMsgId(v19);
+    qmi::MessageBase::MessageBase(v20, block);
+    qmi::MessageBase::validateMsgId(v20);
     if (block)
     {
-      v38 = block;
+      v39 = block;
       operator delete(block);
     }
   }
 
   else
   {
-    v5 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v19);
+    qmi::MessageBase::validateMsgId(v20);
   }
 
-  v6 = *(a1 + 8);
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2000000000;
-  LOBYTE(v30) = 0;
-  v20 = MEMORY[0x1E69E9820];
-  v21 = 0x40000000;
-  v22 = ___ZN19QMIRTPCommandDriver26getSessionIdFromIndicationIN2ms17SessionInactivity10IndicationEEEhRKT__block_invoke;
-  v23 = &unk_1E876B130;
-  v24 = &v27;
-  block = &v20;
-  qmi::MessageBase::applyTlv<ms::tlv::RTPSessionIdentifier,void({block_pointer})(ms::tlv::RTPSessionIdentifier)>(v19, 1, &block);
+  v5 = *(a1 + 8);
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2000000000;
+  LOBYTE(v31) = 0;
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 0x40000000;
+  v23 = ___ZN19QMIRTPCommandDriver26getSessionIdFromIndicationIN2ms17SessionInactivity10IndicationEEEhRKT__block_invoke;
+  v24 = &unk_1E876B130;
+  v25 = &v28;
+  block = &v21;
+  qmi::MessageBase::applyTlv<ms::tlv::RTPSessionIdentifier,void({block_pointer})(ms::tlv::RTPSessionIdentifier)>(v20, 1, &block);
   std::string::basic_string[abi:ne200100]<0>(__p, "rtp.qmidriver");
   LOBYTE(block) = 0;
-  LOBYTE(v43) = 0;
-  v7 = ims::spam(__p, &block);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "Indication: ", 12);
-  *(v7 + 17) = 0;
-  v8 = QMIRTPCommandDriver::nameForRequestId(v35, v19[0]);
-  (*(*v7 + 32))(v7, v35, v8);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), ", with qmiSession Id: ", 22);
-  *(v7 + 17) = 0;
-  MEMORY[0x1E6923350](*(v7 + 8), *(v28 + 24));
-  *(v7 + 17) = 0;
-  (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v7 + 17) = 0;
-  if (v36 < 0)
+  LOBYTE(v44) = 0;
+  v6 = ims::spam(__p, &block);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "Indication: ", 12);
+  *(v6 + 17) = 0;
+  v7 = QMIRTPCommandDriver::nameForRequestId(v36, v20[0]);
+  (*(*v6 + 32))(v6, v36, v7);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), ", with qmiSession Id: ", 22);
+  *(v6 + 17) = 0;
+  MEMORY[0x1E6923350](*(v6 + 8), *(v29 + 24));
+  *(v6 + 17) = 0;
+  (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v6 + 17) = 0;
+  if (v37 < 0)
   {
-    operator delete(v35[0]);
+    operator delete(v36[0]);
   }
 
-  if (v43 == 1 && SHIBYTE(v41) < 0)
+  if (v44 == 1 && SHIBYTE(v42) < 0)
   {
-    operator delete(v39);
+    operator delete(v40);
   }
 
-  if (SHIBYTE(v33) < 0)
+  if (SHIBYTE(v34) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v9 = *(v28 + 24);
-  _Block_object_dispose(&v27, 8);
+  v8 = *(v29 + 24);
+  _Block_object_dispose(&v28, 8);
   __p[0] = 0;
   __p[1] = __p;
-  v33 = 0x2000000000;
-  v34 = 255;
-  v27 = MEMORY[0x1E69E9820];
-  v28 = 0x40000000;
-  v29 = ___ZN19QMIRTPCommandDriver33handleSessionInactivityIndicationERKN2ms17SessionInactivity10IndicationE_block_invoke;
-  v30 = &unk_1E876ABC8;
-  v31 = __p;
-  TlvValue = qmi::MessageBase::findTlvValue(v19);
-  v12 = TlvValue;
+  v34 = 0x2000000000;
+  v35 = 255;
+  v28 = MEMORY[0x1E69E9820];
+  v29 = 0x40000000;
+  v30 = ___ZN19QMIRTPCommandDriver33handleSessionInactivityIndicationERKN2ms17SessionInactivity10IndicationE_block_invoke;
+  v31 = &unk_1E876ABC8;
+  v32 = __p;
+  TlvValue = qmi::MessageBase::findTlvValue(v20);
+  v13 = TlvValue;
   if (TlvValue)
   {
-    v13 = v11;
+    v14 = v10;
     block = TlvValue;
-    LODWORD(v20) = tlv::parseV<ms::tlv::SessionInactivityType>(&block, v11);
+    LODWORD(v21) = tlv::parseV<ms::tlv::SessionInactivityType>(&block, v10, v11, v12);
     if (block)
     {
-      (v29)(&v27, &v20);
+      (v30)(&v28, &v21);
     }
 
     else
     {
-      (*MEMORY[0x1E69E5140])(v19[0], 2, v12, v13);
+      (*MEMORY[0x1E69E5140])(v20[0], 2, v13, v14);
     }
   }
 
-  v20 = MEMORY[0x1E69E9820];
-  v21 = 0x40000000;
-  v22 = ___ZN19QMIRTPCommandDriver33handleSessionInactivityIndicationERKN2ms17SessionInactivity10IndicationE_block_invoke_2;
-  v23 = &unk_1E876ABF0;
-  v24 = __p;
-  v25 = v6;
-  v26 = v9;
-  v14 = v6[3];
-  if (!v14 || (v15 = v6[2], (v16 = std::__shared_weak_count::lock(v14)) == 0))
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 0x40000000;
+  v23 = ___ZN19QMIRTPCommandDriver33handleSessionInactivityIndicationERKN2ms17SessionInactivity10IndicationE_block_invoke_2;
+  v24 = &unk_1E876ABF0;
+  v25 = __p;
+  v26 = v5;
+  v27 = v8;
+  v15 = v5[3];
+  if (!v15 || (v16 = v5[2], (v17 = std::__shared_weak_count::lock(v15)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v17 = v16;
-  v18 = v6[4];
+  v18 = v17;
+  v19 = v5[4];
   block = MEMORY[0x1E69E9820];
-  v38 = 1174405120;
-  v39 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-  v40 = &unk_1F5EDC868;
-  v42 = v15;
-  v43 = v17;
-  atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
-  v41 = &v20;
-  dispatch_async(v18, &block);
-  if (v43)
+  v39 = 1174405120;
+  v40 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  v41 = &unk_1F5EDC868;
+  v43 = v16;
+  v44 = v18;
+  atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+  v42 = &v21;
+  dispatch_async(v19, &block);
+  if (v44)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v43);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   _Block_object_dispose(__p, 8);
-  qmi::MessageBase::~MessageBase(v19);
+  qmi::MessageBase::~MessageBase(v20);
 }
 
-void sub_1E4F04AE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+void sub_1E4F04AE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
   qmi::MessageBase::~MessageBase(&a10);
   v32 = *(v30 - 120);
@@ -1396,232 +1391,231 @@ void std::__function::__func<void qmi::ClientRouter::setIndHandler<QMIRTPCommand
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v43 = 0;
     v44 = 0;
-    v45 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::MessageBase::MessageBase(v32, __p);
-    qmi::MessageBase::validateMsgId(v32);
+    qmi::MessageBase::MessageBase(v31, __p);
+    qmi::MessageBase::validateMsgId(v31);
     if (__p)
     {
-      v44 = __p;
+      v43 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v5 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v32);
+    qmi::MessageBase::validateMsgId(v31);
   }
 
-  v6 = *(a1 + 8);
-  if (v33)
+  v5 = *(a1 + 8);
+  if (v32)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v34, "rtp.qmidriver");
+    std::string::basic_string[abi:ne200100]<0>(&v33, "rtp.qmidriver");
     LOBYTE(__p) = 0;
-    LOBYTE(v49) = 0;
-    v7 = ims::error(&v34, &__p);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "Error indication for request: ", 30);
-    *(v7 + 17) = 0;
-    v8 = QMIRTPCommandDriver::nameForRequestId(&v52, v32[0]);
-    (*(*v7 + 32))(v7, &v52, v8);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), " error:", 7);
-    *(v7 + 17) = 0;
-    MEMORY[0x1E6923350](*(v7 + 8), v33);
-    *(v7 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), " reason: ", 9);
-    *(v7 + 17) = 0;
-    v9 = qmi::asString();
-    v10 = strlen(v9);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), v9, v10);
-    *(v7 + 17) = 0;
-    (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v7 + 17) = 0;
-    if (SHIBYTE(v54) < 0)
+    LOBYTE(v48) = 0;
+    v6 = ims::error(&v33, &__p);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "Error indication for request: ", 30);
+    *(v6 + 17) = 0;
+    v7 = QMIRTPCommandDriver::nameForRequestId(&v51, v31[0]);
+    (*(*v6 + 32))(v6, &v51, v7);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), " error:", 7);
+    *(v6 + 17) = 0;
+    MEMORY[0x1E6923350](*(v6 + 8), v32);
+    *(v6 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), " reason: ", 9);
+    *(v6 + 17) = 0;
+    v8 = qmi::asString();
+    v9 = strlen(v8);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), v8, v9);
+    *(v6 + 17) = 0;
+    (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v6 + 17) = 0;
+    if (SHIBYTE(v53) < 0)
     {
-      operator delete(v52);
+      operator delete(v51);
     }
 
-    if (v49 == 1 && SHIBYTE(v47) < 0)
+    if (v48 == 1 && SHIBYTE(v46) < 0)
     {
-      operator delete(v45);
+      operator delete(v44);
     }
 
-    if (SHIBYTE(v36) < 0)
+    if (SHIBYTE(v35) < 0)
     {
-      operator delete(v34);
+      operator delete(v33);
     }
 
-    v11 = v6[21];
-    if (v11)
+    v10 = v5[21];
+    if (v10)
     {
-      v12 = std::__shared_weak_count::lock(v11);
-      if (v12)
+      v11 = std::__shared_weak_count::lock(v10);
+      if (v11)
       {
-        v13 = v12;
-        v14 = v6[20];
-        if (v14)
+        v12 = v11;
+        v13 = v5[20];
+        if (v13)
         {
-          v15 = *(v14 + 9);
-          v16 = *(v14 + 10);
-          if (v16)
+          v14 = *(v13 + 9);
+          v15 = *(v13 + 10);
+          if (v15)
           {
-            atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          RTPManager::logRTPError(v15, 24);
-          if (v16)
+          RTPManager::logRTPError(v14, 24);
+          if (v15)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v15);
           }
         }
 
-        std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v12);
       }
     }
 
-    v17 = 4;
+    v16 = 4;
   }
 
   else
   {
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x2000000000;
-    v55 = 0;
-    v34 = MEMORY[0x1E69E9820];
-    v35 = 0x40000000;
-    v36 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms12ServiceError10IndicationEEENS1_9RTPStatusERKT__block_invoke;
-    v37 = &unk_1E876B180;
-    v38 = &v52;
-    __p = &v34;
-    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v32, &__p);
-    if (*(v53 + 6))
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x2000000000;
+    v54 = 0;
+    v33 = MEMORY[0x1E69E9820];
+    v34 = 0x40000000;
+    v35 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms12ServiceError10IndicationEEENS1_9RTPStatusERKT__block_invoke;
+    v36 = &unk_1E876B180;
+    v37 = &v51;
+    __p = &v33;
+    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v31, &__p);
+    if (*(v52 + 6))
     {
-      v18 = std::string::basic_string[abi:ne200100]<0>(v50, "rtp.qmidriver");
+      v17 = std::string::basic_string[abi:ne200100]<0>(v49, "rtp.qmidriver");
       LOBYTE(__p) = 0;
-      LOBYTE(v49) = 0;
-      v19 = ims::error(v18, &__p);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "Error indication for request: ", 30);
-      *(v19 + 17) = 0;
-      v20 = QMIRTPCommandDriver::nameForRequestId(v41, v32[0]);
-      (*(*v19 + 32))(v19, v41, v20);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), " [error=", 8);
-      *(v19 + 17) = 0;
-      MEMORY[0x1E6923340](*(v19 + 8), *(v53 + 6));
-      *(v19 + 17) = 0;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "]", 1);
-      *(v19 + 17) = 0;
+      LOBYTE(v48) = 0;
+      v18 = ims::error(v17, &__p);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "Error indication for request: ", 30);
+      *(v18 + 17) = 0;
+      v19 = QMIRTPCommandDriver::nameForRequestId(v40, v31[0]);
+      (*(*v18 + 32))(v18, v40, v19);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), " [error=", 8);
+      *(v18 + 17) = 0;
+      MEMORY[0x1E6923340](*(v18 + 8), *(v52 + 6));
+      *(v18 + 17) = 0;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "]", 1);
+      *(v18 + 17) = 0;
     }
 
     else
     {
-      v21 = std::string::basic_string[abi:ne200100]<0>(v50, "rtp.qmidriver");
+      v20 = std::string::basic_string[abi:ne200100]<0>(v49, "rtp.qmidriver");
       LOBYTE(__p) = 0;
-      LOBYTE(v49) = 0;
-      v19 = ims::spam(v21, &__p);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "Success indication for request: ", 32);
-      *(v19 + 17) = 0;
-      v22 = QMIRTPCommandDriver::nameForRequestId(v41, v32[0]);
-      (*(*v19 + 32))(v19, v41, v22);
+      LOBYTE(v48) = 0;
+      v18 = ims::spam(v20, &__p);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "Success indication for request: ", 32);
+      *(v18 + 17) = 0;
+      v21 = QMIRTPCommandDriver::nameForRequestId(v40, v31[0]);
+      (*(*v18 + 32))(v18, v40, v21);
     }
 
-    (*(*v19 + 64))(v19, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v19 + 17) = 0;
-    if (v42 < 0)
+    (*(*v18 + 64))(v18, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v18 + 17) = 0;
+    if (v41 < 0)
     {
-      operator delete(v41[0]);
+      operator delete(v40[0]);
     }
 
-    if (v49 == 1 && SHIBYTE(v47) < 0)
+    if (v48 == 1 && SHIBYTE(v46) < 0)
     {
-      operator delete(v45);
+      operator delete(v44);
     }
 
-    if (v51 < 0)
+    if (v50 < 0)
     {
-      operator delete(v50[0]);
+      operator delete(v49[0]);
     }
 
-    v17 = *(v53 + 6);
-    _Block_object_dispose(&v52, 8);
+    v16 = *(v52 + 6);
+    _Block_object_dispose(&v51, 8);
   }
 
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x2000000000;
-  LOBYTE(v55) = 0;
-  v34 = MEMORY[0x1E69E9820];
-  v35 = 0x40000000;
-  v36 = ___ZN19QMIRTPCommandDriver26getSessionIdFromIndicationIN2ms12ServiceError10IndicationEEEhRKT__block_invoke;
-  v37 = &unk_1E876B1A8;
-  v38 = &v52;
-  __p = &v34;
-  qmi::MessageBase::applyTlv<ms::tlv::RTPSessionIdentifier,void({block_pointer})(ms::tlv::RTPSessionIdentifier)>(v32, 16, &__p);
-  v23 = std::string::basic_string[abi:ne200100]<0>(v50, "rtp.qmidriver");
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x2000000000;
+  LOBYTE(v54) = 0;
+  v33 = MEMORY[0x1E69E9820];
+  v34 = 0x40000000;
+  v35 = ___ZN19QMIRTPCommandDriver26getSessionIdFromIndicationIN2ms12ServiceError10IndicationEEEhRKT__block_invoke;
+  v36 = &unk_1E876B1A8;
+  v37 = &v51;
+  __p = &v33;
+  qmi::MessageBase::applyTlv<ms::tlv::RTPSessionIdentifier,void({block_pointer})(ms::tlv::RTPSessionIdentifier)>(v31, 16, &__p);
+  v22 = std::string::basic_string[abi:ne200100]<0>(v49, "rtp.qmidriver");
   LOBYTE(__p) = 0;
-  LOBYTE(v49) = 0;
-  v24 = ims::spam(v23, &__p);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "Indication: ", 12);
-  *(v24 + 17) = 0;
-  v25 = QMIRTPCommandDriver::nameForRequestId(v41, v32[0]);
-  (*(*v24 + 32))(v24, v41, v25);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), ", with qmiSession Id: ", 22);
-  *(v24 + 17) = 0;
-  MEMORY[0x1E6923350](*(v24 + 8), *(v53 + 24));
-  *(v24 + 17) = 0;
-  (*(*v24 + 64))(v24, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v24 + 17) = 0;
-  if (v42 < 0)
+  LOBYTE(v48) = 0;
+  v23 = ims::spam(v22, &__p);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "Indication: ", 12);
+  *(v23 + 17) = 0;
+  v24 = QMIRTPCommandDriver::nameForRequestId(v40, v31[0]);
+  (*(*v23 + 32))(v23, v40, v24);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), ", with qmiSession Id: ", 22);
+  *(v23 + 17) = 0;
+  MEMORY[0x1E6923350](*(v23 + 8), *(v52 + 24));
+  *(v23 + 17) = 0;
+  (*(*v23 + 64))(v23, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v23 + 17) = 0;
+  if (v41 < 0)
   {
-    operator delete(v41[0]);
+    operator delete(v40[0]);
   }
 
-  if (v49 == 1 && SHIBYTE(v47) < 0)
+  if (v48 == 1 && SHIBYTE(v46) < 0)
   {
-    operator delete(v45);
+    operator delete(v44);
   }
 
-  if (v51 < 0)
+  if (v50 < 0)
   {
-    operator delete(v50[0]);
+    operator delete(v49[0]);
   }
 
-  v26 = *(v53 + 24);
-  _Block_object_dispose(&v52, 8);
-  v34 = MEMORY[0x1E69E9820];
-  v35 = 0x40000000;
-  v36 = ___ZN19QMIRTPCommandDriver28handleServiceErrorIndicationERKN2ms12ServiceError10IndicationE_block_invoke;
-  v37 = &__block_descriptor_tmp_153;
-  v38 = v6;
-  v39 = v17;
-  v40 = v26;
-  v27 = v6[3];
-  if (!v27 || (v28 = v6[2], (v29 = std::__shared_weak_count::lock(v27)) == 0))
+  v25 = *(v52 + 24);
+  _Block_object_dispose(&v51, 8);
+  v33 = MEMORY[0x1E69E9820];
+  v34 = 0x40000000;
+  v35 = ___ZN19QMIRTPCommandDriver28handleServiceErrorIndicationERKN2ms12ServiceError10IndicationE_block_invoke;
+  v36 = &__block_descriptor_tmp_153;
+  v37 = v5;
+  v38 = v16;
+  v39 = v25;
+  v26 = v5[3];
+  if (!v26 || (v27 = v5[2], (v28 = std::__shared_weak_count::lock(v26)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v30 = v29;
-  v31 = v6[4];
+  v29 = v28;
+  v30 = v5[4];
   __p = MEMORY[0x1E69E9820];
-  v44 = 1174405120;
-  v45 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-  v46 = &unk_1F5EDC868;
-  v48 = v28;
-  v49 = v30;
-  atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
-  v47 = &v34;
-  dispatch_async(v31, &__p);
-  if (v49)
+  v43 = 1174405120;
+  v44 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  v45 = &unk_1F5EDC868;
+  v47 = v27;
+  v48 = v29;
+  atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
+  v46 = &v33;
+  dispatch_async(v30, &__p);
+  if (v48)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v49);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v48);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v30);
-  qmi::MessageBase::~MessageBase(v32);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+  qmi::MessageBase::~MessageBase(v31);
 }
 
 void sub_1E4F053F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, char a36)
@@ -1665,391 +1659,390 @@ void std::__function::__func<void qmi::ClientRouter::setIndHandler<QMIRTPCommand
 {
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
-    v72 = 0;
-    v73 = 0;
-    v74 = 0;
-    QMIServiceMsg::serialize(&v72, this);
-    qmi::MessageBase::MessageBase(v51, v72);
-    qmi::MessageBase::validateMsgId(v51);
-    if (v72)
+    v80 = 0;
+    v81 = 0;
+    v82 = 0;
+    QMIServiceMsg::serialize(&v80, this);
+    qmi::MessageBase::MessageBase(v59, v80);
+    qmi::MessageBase::validateMsgId(v59);
+    if (v80)
     {
-      v73 = v72;
-      operator delete(v72);
+      v81 = v80;
+      operator delete(v80);
     }
   }
 
   else
   {
-    v5 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v51);
+    qmi::MessageBase::validateMsgId(v59);
   }
 
-  v6 = *(a1 + 8);
-  if (v52)
+  v5 = *(a1 + 8);
+  if (v60)
   {
-    std::string::basic_string[abi:ne200100]<0>(v61, "rtp.qmidriver");
-    LOBYTE(v72) = 0;
-    v78 = 0;
-    v7 = ims::error(v61, &v72);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "Error indication for request: ", 30);
-    *(v7 + 17) = 0;
-    v8 = QMIRTPCommandDriver::nameForRequestId(__p, v51[0]);
-    (*(*v7 + 32))(v7, __p, v8);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), " error:", 7);
-    *(v7 + 17) = 0;
-    MEMORY[0x1E6923350](*(v7 + 8), v52);
-    *(v7 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), " reason: ", 9);
-    *(v7 + 17) = 0;
-    v9 = qmi::asString();
-    v10 = strlen(v9);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), v9, v10);
-    *(v7 + 17) = 0;
-    (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v7 + 17) = 0;
-    if (SBYTE7(v58) < 0)
+    std::string::basic_string[abi:ne200100]<0>(v69, "rtp.qmidriver");
+    LOBYTE(v80) = 0;
+    v86 = 0;
+    v6 = ims::error(v69, &v80);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "Error indication for request: ", 30);
+    *(v6 + 17) = 0;
+    v7 = QMIRTPCommandDriver::nameForRequestId(__p, v59[0]);
+    (*(*v6 + 32))(v6, __p, v7);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), " error:", 7);
+    *(v6 + 17) = 0;
+    MEMORY[0x1E6923350](*(v6 + 8), v60);
+    *(v6 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), " reason: ", 9);
+    *(v6 + 17) = 0;
+    v8 = qmi::asString();
+    v9 = strlen(v8);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), v8, v9);
+    *(v6 + 17) = 0;
+    (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v6 + 17) = 0;
+    if (SBYTE7(v66) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v78 == 1 && SHIBYTE(v76) < 0)
+    if (v86 == 1 && SHIBYTE(v84) < 0)
     {
-      operator delete(v74);
+      operator delete(v82);
     }
 
-    if (SHIBYTE(v62) < 0)
+    if (SHIBYTE(v70) < 0)
     {
-      operator delete(v61[0]);
+      operator delete(v69[0]);
     }
 
-    v11 = *(v6 + 168);
-    if (v11)
+    v10 = *(v5 + 168);
+    if (v10)
     {
-      v12 = std::__shared_weak_count::lock(v11);
-      if (!v12)
+      v11 = std::__shared_weak_count::lock(v10);
+      if (!v11)
       {
         goto LABEL_36;
       }
 
-      v13 = *(v6 + 160);
-      if (v13)
+      v12 = *(v5 + 160);
+      if (v12)
       {
-        v14 = *(v13 + 72);
-        v15 = *(v13 + 80);
-        if (v15)
+        v13 = *(v12 + 72);
+        v14 = *(v12 + 80);
+        if (v14)
         {
-          atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        RTPManager::logRTPError(v14, 24);
-        if (v15)
+        RTPManager::logRTPError(v13, 24);
+        if (v14)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v14);
         }
       }
 
-      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
     }
 
-    LODWORD(v12) = 0;
+    LODWORD(v11) = 0;
   }
 
   else
   {
     __p[0] = 0;
     __p[1] = __p;
-    *&v58 = 0x2000000000;
-    DWORD2(v58) = 0;
-    v61[0] = MEMORY[0x1E69E9820];
-    v61[1] = 0x40000000;
-    v62 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms18ServiceRtcpReports10IndicationEEENS1_9RTPStatusERKT__block_invoke;
-    v63 = &unk_1E876B1D0;
-    v64 = __p;
-    v72 = v61;
-    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v51, &v72);
+    *&v66 = 0x2000000000;
+    DWORD2(v66) = 0;
+    v69[0] = MEMORY[0x1E69E9820];
+    v69[1] = 0x40000000;
+    v70 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms18ServiceRtcpReports10IndicationEEENS1_9RTPStatusERKT__block_invoke;
+    v71 = &unk_1E876B1D0;
+    v72 = __p;
+    v80 = v69;
+    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v59, &v80);
     if (*(__p[1] + 6))
     {
-      std::string::basic_string[abi:ne200100]<0>(v53, "rtp.qmidriver");
-      LOBYTE(v72) = 0;
-      v78 = 0;
-      v16 = ims::error(v53, &v72);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v16 + 8), "Error indication for request: ", 30);
-      *(v16 + 17) = 0;
-      v17 = QMIRTPCommandDriver::nameForRequestId(&v79, v51[0]);
-      (*(*v16 + 32))(v16, &v79, v17);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v16 + 8), " [error=", 8);
-      *(v16 + 17) = 0;
-      MEMORY[0x1E6923340](*(v16 + 8), *(__p[1] + 6));
-      *(v16 + 17) = 0;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v16 + 8), "]", 1);
-      *(v16 + 17) = 0;
+      std::string::basic_string[abi:ne200100]<0>(v61, "rtp.qmidriver");
+      LOBYTE(v80) = 0;
+      v86 = 0;
+      v15 = ims::error(v61, &v80);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), "Error indication for request: ", 30);
+      *(v15 + 17) = 0;
+      v16 = QMIRTPCommandDriver::nameForRequestId(&v87, v59[0]);
+      (*(*v15 + 32))(v15, &v87, v16);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), " [error=", 8);
+      *(v15 + 17) = 0;
+      MEMORY[0x1E6923340](*(v15 + 8), *(__p[1] + 6));
+      *(v15 + 17) = 0;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), "]", 1);
+      *(v15 + 17) = 0;
     }
 
     else
     {
-      std::string::basic_string[abi:ne200100]<0>(v53, "rtp.qmidriver");
-      LOBYTE(v72) = 0;
-      v78 = 0;
-      v16 = ims::spam(v53, &v72);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v16 + 8), "Success indication for request: ", 32);
-      *(v16 + 17) = 0;
-      v18 = QMIRTPCommandDriver::nameForRequestId(&v79, v51[0]);
-      (*(*v16 + 32))(v16, &v79, v18);
+      std::string::basic_string[abi:ne200100]<0>(v61, "rtp.qmidriver");
+      LOBYTE(v80) = 0;
+      v86 = 0;
+      v15 = ims::spam(v61, &v80);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), "Success indication for request: ", 32);
+      *(v15 + 17) = 0;
+      v17 = QMIRTPCommandDriver::nameForRequestId(&v87, v59[0]);
+      (*(*v15 + 32))(v15, &v87, v17);
     }
 
-    (*(*v16 + 64))(v16, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v16 + 17) = 0;
-    if (SHIBYTE(v81) < 0)
+    (*(*v15 + 64))(v15, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v15 + 17) = 0;
+    if (SHIBYTE(v89) < 0)
     {
-      operator delete(v79);
+      operator delete(v87);
     }
 
-    if (v78 == 1 && SHIBYTE(v76) < 0)
+    if (v86 == 1 && SHIBYTE(v84) < 0)
     {
-      operator delete(v74);
+      operator delete(v82);
     }
 
-    if (SBYTE7(v54) < 0)
+    if (SBYTE7(v62) < 0)
     {
-      operator delete(v53[0]);
+      operator delete(v61[0]);
     }
 
-    v19 = *(__p[1] + 6);
+    v18 = *(__p[1] + 6);
     _Block_object_dispose(__p, 8);
-    LODWORD(v12) = v19 == 0;
+    LODWORD(v11) = v18 == 0;
   }
 
 LABEL_36:
   __p[0] = 0;
   __p[1] = __p;
-  *&v58 = 0x2000000000;
-  BYTE8(v58) = 0;
-  v61[0] = MEMORY[0x1E69E9820];
-  v61[1] = 0x40000000;
-  v62 = ___ZN19QMIRTPCommandDriver26getSessionIdFromIndicationIN2ms18ServiceRtcpReports10IndicationEEEhRKT__block_invoke;
-  v63 = &unk_1E876B1F8;
-  v64 = __p;
-  v72 = v61;
-  qmi::MessageBase::applyTlv<ms::tlv::RTPSessionIdentifier,void({block_pointer})(ms::tlv::RTPSessionIdentifier)>(v51, 2, &v72);
-  std::string::basic_string[abi:ne200100]<0>(v53, "rtp.qmidriver");
-  LOBYTE(v72) = 0;
-  v78 = 0;
-  v20 = ims::spam(v53, &v72);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v20 + 8), "Indication: ", 12);
-  *(v20 + 17) = 0;
-  v21 = QMIRTPCommandDriver::nameForRequestId(&v79, v51[0]);
-  (*(*v20 + 32))(v20, &v79, v21);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v20 + 8), ", with qmiSession Id: ", 22);
-  *(v20 + 17) = 0;
-  MEMORY[0x1E6923350](*(v20 + 8), *(__p[1] + 24));
-  *(v20 + 17) = 0;
-  (*(*v20 + 64))(v20, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v20 + 17) = 0;
-  if (SHIBYTE(v81) < 0)
+  *&v66 = 0x2000000000;
+  BYTE8(v66) = 0;
+  v69[0] = MEMORY[0x1E69E9820];
+  v69[1] = 0x40000000;
+  v70 = ___ZN19QMIRTPCommandDriver26getSessionIdFromIndicationIN2ms18ServiceRtcpReports10IndicationEEEhRKT__block_invoke;
+  v71 = &unk_1E876B1F8;
+  v72 = __p;
+  v80 = v69;
+  qmi::MessageBase::applyTlv<ms::tlv::RTPSessionIdentifier,void({block_pointer})(ms::tlv::RTPSessionIdentifier)>(v59, 2, &v80);
+  std::string::basic_string[abi:ne200100]<0>(v61, "rtp.qmidriver");
+  LOBYTE(v80) = 0;
+  v86 = 0;
+  v19 = ims::spam(v61, &v80);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "Indication: ", 12);
+  *(v19 + 17) = 0;
+  v20 = QMIRTPCommandDriver::nameForRequestId(&v87, v59[0]);
+  (*(*v19 + 32))(v19, &v87, v20);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), ", with qmiSession Id: ", 22);
+  *(v19 + 17) = 0;
+  MEMORY[0x1E6923350](*(v19 + 8), *(__p[1] + 24));
+  *(v19 + 17) = 0;
+  (*(*v19 + 64))(v19, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v19 + 17) = 0;
+  if (SHIBYTE(v89) < 0)
   {
-    operator delete(v79);
+    operator delete(v87);
   }
 
-  if (v78 == 1 && SHIBYTE(v76) < 0)
+  if (v86 == 1 && SHIBYTE(v84) < 0)
   {
-    operator delete(v74);
+    operator delete(v82);
   }
 
-  if (SBYTE7(v54) < 0)
+  if (SBYTE7(v62) < 0)
   {
-    operator delete(v53[0]);
+    operator delete(v61[0]);
   }
 
   _Block_object_dispose(__p, 8);
-  if (v12)
+  if (v11)
   {
-    v70[0] = 0;
-    v70[1] = v70;
-    v70[2] = 0x2000000000;
-    v71 = 0;
-    v66[0] = MEMORY[0x1E69E9820];
-    v66[1] = 0x40000000;
-    v67 = ___ZN19QMIRTPCommandDriver34handleServiceRtcpReportsIndicationERKN2ms18ServiceRtcpReports10IndicationE_block_invoke;
-    v68 = &unk_1E876AC38;
-    v69 = v70;
-    TlvValue = qmi::MessageBase::findTlvValue(v51);
-    v24 = TlvValue;
+    v78[0] = 0;
+    v78[1] = v78;
+    v78[2] = 0x2000000000;
+    v79 = 0;
+    v74[0] = MEMORY[0x1E69E9820];
+    v74[1] = 0x40000000;
+    v75 = ___ZN19QMIRTPCommandDriver34handleServiceRtcpReportsIndicationERKN2ms18ServiceRtcpReports10IndicationE_block_invoke;
+    v76 = &unk_1E876AC38;
+    v77 = v78;
+    TlvValue = qmi::MessageBase::findTlvValue(v59);
+    v25 = TlvValue;
     if (TlvValue)
     {
-      v25 = v23;
-      v72 = TlvValue;
-      v26 = tlv::parseV<ms::tlv::RTCPReportTypeInfoIncoming>(&v72, v23);
-      if (v72)
+      v26 = v22;
+      v80 = TlvValue;
+      v27 = tlv::parseV<ms::tlv::RTCPReportTypeInfoIncoming>(&v80, v22, v23, v24);
+      if (v80)
       {
-        v67(v66, v26);
+        v75(v74, v27);
       }
 
       else
       {
-        (*MEMORY[0x1E69E5140])(v51[0], 23, v24, v25);
+        (*MEMORY[0x1E69E5140])(v59[0], 23, v25, v26);
       }
     }
 
-    v72 = MEMORY[0x1E69E9820];
-    v73 = 0x40000000;
-    v74 = ___ZN19QMIRTPCommandDriver34handleServiceRtcpReportsIndicationERKN2ms18ServiceRtcpReports10IndicationE_block_invoke_2;
-    v75 = &unk_1E876AC60;
-    v76 = v70;
-    v77 = v6;
-    v27 = qmi::MessageBase::findTlvValue(v51);
-    v29 = v27;
-    if (v27)
+    v80 = MEMORY[0x1E69E9820];
+    v81 = 0x40000000;
+    v82 = ___ZN19QMIRTPCommandDriver34handleServiceRtcpReportsIndicationERKN2ms18ServiceRtcpReports10IndicationE_block_invoke_2;
+    v83 = &unk_1E876AC60;
+    v84 = v78;
+    v85 = v5;
+    v28 = qmi::MessageBase::findTlvValue(v59);
+    v31 = v28;
+    if (v28)
     {
-      v30 = v28;
-      v53[0] = v27;
-      v61[0] = 0;
-      v61[1] = 0;
-      v62 = 0;
-      tlv::parseV<ms::tlv::SenderReportInfo>(v53, v28, v61);
-      if (v53[0])
+      v32 = v29;
+      v61[0] = v28;
+      v69[0] = 0;
+      v69[1] = 0;
+      v70 = 0;
+      tlv::parseV<ms::tlv::SenderReportInfo>(v61, v29, v30, v69);
+      if (v61[0])
       {
-        *__p = *v61;
-        *&v58 = v62;
-        v74(&v72, __p);
+        *__p = *v69;
+        *&v66 = v70;
+        v82(&v80, __p);
       }
 
       else
       {
-        (*MEMORY[0x1E69E5140])(v51[0], 16, v29, v30);
+        (*MEMORY[0x1E69E5140])(v59[0], 16, v31, v32);
       }
     }
 
-    v61[0] = MEMORY[0x1E69E9820];
-    v61[1] = 0x40000000;
-    v62 = ___ZN19QMIRTPCommandDriver34handleServiceRtcpReportsIndicationERKN2ms18ServiceRtcpReports10IndicationE_block_invoke_159;
-    v63 = &unk_1E876AC88;
-    v64 = v70;
-    v65 = v6;
-    v31 = qmi::MessageBase::findTlvValue(v51);
-    v33 = v31;
-    if (v31)
+    v69[0] = MEMORY[0x1E69E9820];
+    v69[1] = 0x40000000;
+    v70 = ___ZN19QMIRTPCommandDriver34handleServiceRtcpReportsIndicationERKN2ms18ServiceRtcpReports10IndicationE_block_invoke_159;
+    v71 = &unk_1E876AC88;
+    v72 = v78;
+    v73 = v5;
+    v33 = qmi::MessageBase::findTlvValue(v59);
+    v36 = v33;
+    if (v33)
     {
-      v34 = v32;
-      v79 = v31;
-      LODWORD(v59) = 0;
+      v37 = v34;
+      v87 = v33;
+      LODWORD(v67) = 0;
       *__p = 0u;
-      v58 = 0u;
-      tlv::parseV<ms::tlv::ReceiverReportInfo>(&v79, v32, __p);
-      if (v79)
+      v66 = 0u;
+      tlv::parseV<ms::tlv::ReceiverReportInfo>(&v87, v34, v35, __p);
+      if (v87)
       {
-        *v53 = *__p;
-        v54 = v58;
-        LODWORD(v55) = v59;
-        v62(v61, v53);
+        *v61 = *__p;
+        v62 = v66;
+        LODWORD(v63) = v67;
+        v70(v69, v61);
       }
 
       else
       {
-        (*MEMORY[0x1E69E5140])(v51[0], 17, v33, v34);
+        (*MEMORY[0x1E69E5140])(v59[0], 17, v36, v37);
       }
     }
 
     __p[0] = MEMORY[0x1E69E9820];
     __p[1] = 0x40000000;
-    *&v58 = ___ZN19QMIRTPCommandDriver34handleServiceRtcpReportsIndicationERKN2ms18ServiceRtcpReports10IndicationE_block_invoke_165;
-    *(&v58 + 1) = &unk_1E876ACB0;
-    v59 = v70;
-    v60 = v6;
-    v35 = qmi::MessageBase::findTlvValue(v51);
-    v37 = v35;
-    if (v35)
+    *&v66 = ___ZN19QMIRTPCommandDriver34handleServiceRtcpReportsIndicationERKN2ms18ServiceRtcpReports10IndicationE_block_invoke_165;
+    *(&v66 + 1) = &unk_1E876ACB0;
+    v67 = v78;
+    v68 = v5;
+    v38 = qmi::MessageBase::findTlvValue(v59);
+    v41 = v38;
+    if (v38)
     {
-      v38 = v36;
-      v84 = v35;
-      v55 = 0;
-      *v53 = 0u;
-      v54 = 0u;
-      tlv::parseV<ms::tlv::SDESInfo>(&v84, v36, v53);
-      v39 = v84;
-      if (v84)
+      v42 = v39;
+      v92 = v38;
+      v63 = 0;
+      *v61 = 0u;
+      v62 = 0u;
+      tlv::parseV<ms::tlv::SDESInfo>(&v92, v39, v40, v61);
+      v43 = v92;
+      if (v92)
       {
-        v79 = v53[0];
-        LOWORD(v80) = v53[1];
-        v82 = 0;
-        v83 = 0;
-        v81 = 0;
-        std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v81, v54, *(&v54 + 1), *(&v54 + 1) - v54);
-        (v58)(__p, &v79);
-        if (v81)
+        v87 = v61[0];
+        LOWORD(v88) = v61[1];
+        v90 = 0;
+        v91 = 0;
+        v89 = 0;
+        std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v89, v62, *(&v62 + 1), *(&v62 + 1) - v62);
+        (v66)(__p, &v87);
+        if (v89)
         {
-          v82 = v81;
-          operator delete(v81);
+          v90 = v89;
+          operator delete(v89);
         }
       }
 
-      if (v54)
+      if (v62)
       {
-        *(&v54 + 1) = v54;
-        operator delete(v54);
+        *(&v62 + 1) = v62;
+        operator delete(v62);
       }
 
-      if (!v39)
+      if (!v43)
       {
-        (*MEMORY[0x1E69E5140])(v51[0], 18, v37, v38);
+        (*MEMORY[0x1E69E5140])(v59[0], 18, v41, v42);
       }
     }
 
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 0x40000000;
-    *&v54 = ___ZN19QMIRTPCommandDriver34handleServiceRtcpReportsIndicationERKN2ms18ServiceRtcpReports10IndicationE_block_invoke_171;
-    *(&v54 + 1) = &unk_1E876ACD8;
-    v55 = v70;
-    v56 = v6;
-    v40 = qmi::MessageBase::findTlvValue(v51);
-    v42 = v40;
-    if (v40)
+    v61[0] = MEMORY[0x1E69E9820];
+    v61[1] = 0x40000000;
+    *&v62 = ___ZN19QMIRTPCommandDriver34handleServiceRtcpReportsIndicationERKN2ms18ServiceRtcpReports10IndicationE_block_invoke_171;
+    *(&v62 + 1) = &unk_1E876ACD8;
+    v63 = v78;
+    v64 = v5;
+    v44 = qmi::MessageBase::findTlvValue(v59);
+    v48 = v44;
+    if (v44)
     {
-      v43 = v41;
-      v79 = v40;
-      v44 = tlv::parseV<ms::tlv::XRReceiverRefTime>(&v79, v41);
-      if (v79)
+      v49 = v45;
+      v87 = v44;
+      v50 = tlv::parseV<ms::tlv::XRReceiverRefTime>(&v87, v45, v46, v47);
+      if (v87)
       {
-        (v54)(v53, v44);
+        (v62)(v61, v50);
       }
 
       else
       {
-        (*MEMORY[0x1E69E5140])(v51[0], 19, v42, v43);
+        (*MEMORY[0x1E69E5140])(v59[0], 19, v48, v49);
       }
     }
 
-    v79 = MEMORY[0x1E69E9820];
-    v80 = 0x40000000;
-    v81 = ___ZN19QMIRTPCommandDriver34handleServiceRtcpReportsIndicationERKN2ms18ServiceRtcpReports10IndicationE_block_invoke_176;
-    v82 = &__block_descriptor_tmp_180;
-    v83 = v6;
-    v45 = qmi::MessageBase::findTlvValue(v51);
-    v47 = v45;
-    if (v45)
+    v87 = MEMORY[0x1E69E9820];
+    v88 = 0x40000000;
+    v89 = ___ZN19QMIRTPCommandDriver34handleServiceRtcpReportsIndicationERKN2ms18ServiceRtcpReports10IndicationE_block_invoke_176;
+    v90 = &__block_descriptor_tmp_180;
+    v91 = v5;
+    v51 = qmi::MessageBase::findTlvValue(v59);
+    v55 = v51;
+    if (v51)
     {
-      v48 = v46;
-      v84 = v45;
-      v49 = tlv::parseV<ms::tlv::XRDLRRReportInfo>(&v84, v46);
-      if (v84)
+      v56 = v52;
+      v92 = v51;
+      v57 = tlv::parseV<ms::tlv::XRDLRRReportInfo>(&v92, v52, v53, v54);
+      if (v92)
       {
-        v81(&v79, v49, v50);
+        v89(&v87, v57, v58);
       }
 
       else
       {
-        (*MEMORY[0x1E69E5140])(v51[0], 21, v47, v48);
+        (*MEMORY[0x1E69E5140])(v59[0], 21, v55, v56);
       }
     }
 
-    _Block_object_dispose(v70, 8);
+    _Block_object_dispose(v78, 8);
   }
 
-  qmi::MessageBase::~MessageBase(v51);
+  qmi::MessageBase::~MessageBase(v59);
 }
 
-void sub_1E4F06148(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
+void sub_1E4F06148(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
 {
   if (*(v42 - 136) == 1 && *(v42 - 145) < 0)
   {
@@ -2111,284 +2104,283 @@ void std::__function::__func<void qmi::ClientRouter::setIndHandler<QMIRTPCommand
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     block = 0;
-    v65 = 0;
     v66 = 0;
+    v67 = 0;
     QMIServiceMsg::serialize(&block, this);
-    qmi::MessageBase::MessageBase(v39, block);
-    qmi::MessageBase::validateMsgId(v39);
+    qmi::MessageBase::MessageBase(v40, block);
+    qmi::MessageBase::validateMsgId(v40);
     if (block)
     {
-      v65 = block;
+      v66 = block;
       operator delete(block);
     }
   }
 
   else
   {
-    v5 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v39);
+    qmi::MessageBase::validateMsgId(v40);
   }
 
-  v6 = *(a1 + 8);
-  v7 = std::string::basic_string[abi:ne200100]<0>(&block, "rtp.qmidriver");
-  v60[0] = 0;
-  v63 = 0;
-  v8 = ims::debug(v7, v60);
-  if (!v6)
+  v5 = *(a1 + 8);
+  v6 = std::string::basic_string[abi:ne200100]<0>(&block, "rtp.qmidriver");
+  v61[0] = 0;
+  v64 = 0;
+  v7 = ims::debug(v6, v61);
+  if (!v5)
   {
     __cxa_bad_typeid();
   }
 
-  v9 = v8;
-  v10 = *(*(*v6 - 8) + 8);
-  v11 = *(v8 + 8);
-  v12 = strlen((v10 & 0x7FFFFFFFFFFFFFFFLL));
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, v10 & 0x7FFFFFFFFFFFFFFFLL, v12);
-  *(v9 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), "::", 2);
-  *(v9 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), "handleUninitializeAllSessionsIndication", 39);
-  *(v9 + 17) = 0;
-  (*(*v9 + 64))(v9, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v9 + 17) = 0;
-  if (v63 == 1 && v62 < 0)
+  v8 = v7;
+  v9 = *(*(*v5 - 8) + 8);
+  v10 = *(v7 + 8);
+  v11 = strlen((v9 & 0x7FFFFFFFFFFFFFFFLL));
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, v9 & 0x7FFFFFFFFFFFFFFFLL, v11);
+  *(v8 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "::", 2);
+  *(v8 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "handleUninitializeAllSessionsIndication", 39);
+  *(v8 + 17) = 0;
+  (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v8 + 17) = 0;
+  if (v64 == 1 && v63 < 0)
   {
-    operator delete(v61);
+    operator delete(v62);
   }
 
-  if (SHIBYTE(v66) < 0)
+  if (SHIBYTE(v67) < 0)
   {
     operator delete(block);
   }
 
-  if (v40)
+  if (v41)
   {
-    std::string::basic_string[abi:ne200100]<0>(v47, "rtp.qmidriver");
+    std::string::basic_string[abi:ne200100]<0>(v48, "rtp.qmidriver");
     LOBYTE(block) = 0;
-    LOBYTE(v70) = 0;
-    v13 = ims::error(v47, &block);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), "Error indication for request: ", 30);
-    *(v13 + 17) = 0;
-    v14 = QMIRTPCommandDriver::nameForRequestId(&__p, v39[0]);
-    (*(*v13 + 32))(v13, &__p, v14);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), " error:", 7);
-    *(v13 + 17) = 0;
-    MEMORY[0x1E6923350](*(v13 + 8), v40);
-    *(v13 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), " reason: ", 9);
-    *(v13 + 17) = 0;
-    v15 = qmi::asString();
-    v16 = strlen(v15);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), v15, v16);
-    *(v13 + 17) = 0;
-    (*(*v13 + 64))(v13, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v13 + 17) = 0;
-    if (SHIBYTE(v43) < 0)
+    LOBYTE(v71) = 0;
+    v12 = ims::error(v48, &block);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), "Error indication for request: ", 30);
+    *(v12 + 17) = 0;
+    v13 = QMIRTPCommandDriver::nameForRequestId(&__p, v40[0]);
+    (*(*v12 + 32))(v12, &__p, v13);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), " error:", 7);
+    *(v12 + 17) = 0;
+    MEMORY[0x1E6923350](*(v12 + 8), v41);
+    *(v12 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), " reason: ", 9);
+    *(v12 + 17) = 0;
+    v14 = qmi::asString();
+    v15 = strlen(v14);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), v14, v15);
+    *(v12 + 17) = 0;
+    (*(*v12 + 64))(v12, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v12 + 17) = 0;
+    if (SHIBYTE(v44) < 0)
     {
       operator delete(__p);
     }
 
-    if (v70 == 1 && SHIBYTE(v68) < 0)
+    if (v71 == 1 && SHIBYTE(v69) < 0)
     {
-      operator delete(v66);
+      operator delete(v67);
     }
 
-    if (SHIBYTE(v48) < 0)
+    if (SHIBYTE(v49) < 0)
     {
-      operator delete(v47[0]);
+      operator delete(v48[0]);
     }
 
-    v17 = v6[21];
-    if (v17)
+    v16 = v5[21];
+    if (v16)
     {
-      v18 = std::__shared_weak_count::lock(v17);
-      if (v18)
+      v17 = std::__shared_weak_count::lock(v16);
+      if (v17)
       {
-        v19 = v18;
-        v20 = v6[20];
-        if (v20)
+        v18 = v17;
+        v19 = v5[20];
+        if (v19)
         {
-          v21 = *(v20 + 72);
-          v22 = *(v20 + 80);
-          if (v22)
+          v20 = *(v19 + 72);
+          v21 = *(v19 + 80);
+          if (v21)
           {
-            atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          RTPManager::logRTPError(v21, 24);
-          if (v22)
+          RTPManager::logRTPError(v20, 24);
+          if (v21)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v21);
           }
         }
 
-        std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v18);
       }
     }
 
-    v23 = 0;
+    v22 = 0;
   }
 
   else
   {
     __p = 0;
     p_p = &__p;
-    v43 = 0x2000000000;
-    LODWORD(v44) = 0;
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 0x40000000;
-    v48 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms30ServiceUninitializeAllSessions10IndicationEEENS1_9RTPStatusERKT__block_invoke;
-    v49 = &unk_1E876B270;
-    v50 = &__p;
-    block = v47;
-    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v39, &block);
+    v44 = 0x2000000000;
+    LODWORD(v45) = 0;
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 0x40000000;
+    v49 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms30ServiceUninitializeAllSessions10IndicationEEENS1_9RTPStatusERKT__block_invoke;
+    v50 = &unk_1E876B270;
+    v51 = &__p;
+    block = v48;
+    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v40, &block);
     if (*(p_p + 24))
     {
-      std::string::basic_string[abi:ne200100]<0>(v52, "rtp.qmidriver");
+      std::string::basic_string[abi:ne200100]<0>(v53, "rtp.qmidriver");
       LOBYTE(block) = 0;
-      LOBYTE(v70) = 0;
-      v24 = ims::error(v52, &block);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "Error indication for request: ", 30);
-      *(v24 + 17) = 0;
-      v25 = QMIRTPCommandDriver::nameForRequestId(&v56, v39[0]);
-      (*(*v24 + 32))(v24, &v56, v25);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), " [error=", 8);
-      *(v24 + 17) = 0;
-      MEMORY[0x1E6923340](*(v24 + 8), *(p_p + 24));
-      *(v24 + 17) = 0;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "]", 1);
-      *(v24 + 17) = 0;
+      LOBYTE(v71) = 0;
+      v23 = ims::error(v53, &block);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "Error indication for request: ", 30);
+      *(v23 + 17) = 0;
+      v24 = QMIRTPCommandDriver::nameForRequestId(&v57, v40[0]);
+      (*(*v23 + 32))(v23, &v57, v24);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), " [error=", 8);
+      *(v23 + 17) = 0;
+      MEMORY[0x1E6923340](*(v23 + 8), *(p_p + 24));
+      *(v23 + 17) = 0;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "]", 1);
+      *(v23 + 17) = 0;
     }
 
     else
     {
-      std::string::basic_string[abi:ne200100]<0>(v52, "rtp.qmidriver");
+      std::string::basic_string[abi:ne200100]<0>(v53, "rtp.qmidriver");
       LOBYTE(block) = 0;
-      LOBYTE(v70) = 0;
-      v24 = ims::spam(v52, &block);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "Success indication for request: ", 32);
-      *(v24 + 17) = 0;
-      v26 = QMIRTPCommandDriver::nameForRequestId(&v56, v39[0]);
-      (*(*v24 + 32))(v24, &v56, v26);
+      LOBYTE(v71) = 0;
+      v23 = ims::spam(v53, &block);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "Success indication for request: ", 32);
+      *(v23 + 17) = 0;
+      v25 = QMIRTPCommandDriver::nameForRequestId(&v57, v40[0]);
+      (*(*v23 + 32))(v23, &v57, v25);
     }
 
-    (*(*v24 + 64))(v24, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v24 + 17) = 0;
-    if (SHIBYTE(v58) < 0)
+    (*(*v23 + 64))(v23, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v23 + 17) = 0;
+    if (SHIBYTE(v59) < 0)
     {
-      operator delete(v56);
+      operator delete(v57);
     }
 
-    if (v70 == 1 && SHIBYTE(v68) < 0)
+    if (v71 == 1 && SHIBYTE(v69) < 0)
     {
-      operator delete(v66);
+      operator delete(v67);
     }
 
-    if (SHIBYTE(v53) < 0)
+    if (SHIBYTE(v54) < 0)
     {
-      operator delete(v52[0]);
+      operator delete(v53[0]);
     }
 
-    v27 = *(p_p + 24);
+    v26 = *(p_p + 24);
     _Block_object_dispose(&__p, 8);
-    v23 = v27 == 0;
+    v22 = v26 == 0;
   }
 
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2000000000;
-  v59 = -1;
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 0x40000000;
-  v53 = ___ZN19QMIRTPCommandDriver39handleUninitializeAllSessionsIndicationERKN2ms30ServiceUninitializeAllSessions10IndicationE_block_invoke;
-  v54 = &unk_1E876ADC0;
-  v55 = &v56;
-  TlvValue = qmi::MessageBase::findTlvValue(v39);
-  v30 = TlvValue;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2000000000;
+  v60 = -1;
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 0x40000000;
+  v54 = ___ZN19QMIRTPCommandDriver39handleUninitializeAllSessionsIndicationERKN2ms30ServiceUninitializeAllSessions10IndicationE_block_invoke;
+  v55 = &unk_1E876ADC0;
+  v56 = &v57;
+  TlvValue = qmi::MessageBase::findTlvValue(v40);
+  v31 = TlvValue;
   if (TlvValue)
   {
-    v31 = v29;
+    v32 = v28;
     block = TlvValue;
-    LODWORD(v47[0]) = tlv::parseV<ms::tlv::ApnType>(&block, v29);
+    LODWORD(v48[0]) = tlv::parseV<ms::tlv::ApnType>(&block, v28, v29, v30);
     if (block)
     {
-      v53(v52, v47);
+      v54(v53, v48);
     }
 
     else
     {
-      (*MEMORY[0x1E69E5140])(v39[0], 16, v30, v31);
+      (*MEMORY[0x1E69E5140])(v40[0], 16, v31, v32);
     }
   }
 
-  v32 = std::string::basic_string[abi:ne200100]<0>(&block, "rtp.qmidriver");
-  LOBYTE(v47[0]) = 0;
-  v51 = 0;
-  if (v23)
+  v33 = std::string::basic_string[abi:ne200100]<0>(&block, "rtp.qmidriver");
+  LOBYTE(v48[0]) = 0;
+  v52 = 0;
+  if (v22)
   {
-    v33 = ims::debug(v32, v47);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v33 + 8), "Uninitialized all sessions for [apnType=", 40);
+    v34 = ims::debug(v33, v48);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v34 + 8), "Uninitialized all sessions for [apnType=", 40);
   }
 
   else
   {
-    v33 = ims::error(v32, v47);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v33 + 8), "Failed to uninitialize all sessions for [apnType=", 49);
+    v34 = ims::error(v33, v48);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v34 + 8), "Failed to uninitialize all sessions for [apnType=", 49);
   }
 
-  *(v33 + 17) = 0;
-  MEMORY[0x1E6923340](*(v33 + 8), *(v57 + 24));
-  *(v33 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v33 + 8), "]", 1);
-  *(v33 + 17) = 0;
-  (*(*v33 + 64))(v33, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v33 + 17) = 0;
-  if (v51 == 1 && SHIBYTE(v50) < 0)
+  *(v34 + 17) = 0;
+  MEMORY[0x1E6923340](*(v34 + 8), *(v58 + 24));
+  *(v34 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v34 + 8), "]", 1);
+  *(v34 + 17) = 0;
+  (*(*v34 + 64))(v34, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v34 + 17) = 0;
+  if (v52 == 1 && SHIBYTE(v51) < 0)
   {
-    operator delete(v48);
+    operator delete(v49);
   }
 
-  if (SHIBYTE(v66) < 0)
+  if (SHIBYTE(v67) < 0)
   {
     operator delete(block);
   }
 
   __p = MEMORY[0x1E69E9820];
   p_p = 0x40000000;
-  v43 = ___ZN19QMIRTPCommandDriver39handleUninitializeAllSessionsIndicationERKN2ms30ServiceUninitializeAllSessions10IndicationE_block_invoke_2;
-  v44 = &unk_1E876ADE8;
-  v45 = &v56;
-  v46 = v6;
-  v34 = v6[3];
-  if (!v34 || (v35 = v6[2], (v36 = std::__shared_weak_count::lock(v34)) == 0))
+  v44 = ___ZN19QMIRTPCommandDriver39handleUninitializeAllSessionsIndicationERKN2ms30ServiceUninitializeAllSessions10IndicationE_block_invoke_2;
+  v45 = &unk_1E876ADE8;
+  v46 = &v57;
+  v47 = v5;
+  v35 = v5[3];
+  if (!v35 || (v36 = v5[2], (v37 = std::__shared_weak_count::lock(v35)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v37 = v36;
-  v38 = v6[4];
+  v38 = v37;
+  v39 = v5[4];
   block = MEMORY[0x1E69E9820];
-  v65 = 1174405120;
-  v66 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-  v67 = &unk_1F5EDC868;
-  v69 = v35;
-  v70 = v37;
-  atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
-  v68 = &__p;
-  dispatch_async(v38, &block);
-  if (v70)
+  v66 = 1174405120;
+  v67 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  v68 = &unk_1F5EDC868;
+  v70 = v36;
+  v71 = v38;
+  atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
+  v69 = &__p;
+  dispatch_async(v39, &block);
+  if (v71)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v70);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v71);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v37);
-  _Block_object_dispose(&v56, 8);
-  qmi::MessageBase::~MessageBase(v39);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v38);
+  _Block_object_dispose(&v57, 8);
+  qmi::MessageBase::~MessageBase(v40);
 }
 
-void sub_1E4F06CE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, char a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48)
+void sub_1E4F06CE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, char a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48)
 {
   if (*(v48 - 88) == 1 && *(v48 - 97) < 0)
   {
@@ -2433,10 +2425,10 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver14servic
   v3 = *(a1 + 32);
   v4 = *v3;
   v5 = *(v3 + 8);
-  std::string::basic_string[abi:ne200100]<0>(&v65, "rtp.qmidriver");
-  v77[0] = 0;
-  v80 = 0;
-  v6 = ims::debug(&v65, v77);
+  std::string::basic_string[abi:ne200100]<0>(&v62, "rtp.qmidriver");
+  v74[0] = 0;
+  v77 = 0;
+  v6 = ims::debug(&v62, v74);
   if (!v4)
   {
     __cxa_bad_typeid();
@@ -2460,102 +2452,101 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver14servic
   *(v7 + 17) = 0;
   (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v7 + 17) = 0;
-  if (v80 == 1 && v79 < 0)
+  if (v77 == 1 && v76 < 0)
   {
     operator delete(__p);
   }
 
-  if (SBYTE7(v66) < 0)
+  if (SBYTE7(v63) < 0)
   {
-    operator delete(v65);
+    operator delete(v62);
   }
 
   if (*(a2 + 1))
   {
-    std::string::basic_string[abi:ne200100]<0>(v59, "rtp.qmidriver");
-    LOBYTE(v65) = 0;
-    v68 = 0;
-    v11 = ims::error(v59, &v65);
+    std::string::basic_string[abi:ne200100]<0>(v56, "rtp.qmidriver");
+    LOBYTE(v62) = 0;
+    v65 = 0;
+    v11 = ims::error(v56, &v62);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), "Error response for request: ", 28);
     *(v11 + 17) = 0;
-    v12 = QMIRTPCommandDriver::nameForRequestId(v73, *a2);
-    (*(*v11 + 32))(v11, v73, v12);
+    v12 = QMIRTPCommandDriver::nameForRequestId(v70, *a2);
+    (*(*v11 + 32))(v11, v70, v12);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), " error:", 7);
     *(v11 + 17) = 0;
     MEMORY[0x1E6923350](*(v11 + 8), *(a2 + 1));
     *(v11 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), " reason: ", 9);
     *(v11 + 17) = 0;
-    v13 = *(a2 + 1);
-    v14 = qmi::asString();
-    v15 = strlen(v14);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), v14, v15);
+    v13 = qmi::asString();
+    v14 = strlen(v13);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), v13, v14);
     *(v11 + 17) = 0;
     (*(*v11 + 64))(v11, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v11 + 17) = 0;
-    if (SHIBYTE(v74) < 0)
+    if (SHIBYTE(v71) < 0)
     {
-      operator delete(v73[0]);
+      operator delete(v70[0]);
     }
 
-    if (v68 == 1 && SHIBYTE(v67) < 0)
+    if (v65 == 1 && SHIBYTE(v64) < 0)
     {
-      operator delete(v66);
+      operator delete(v63);
     }
 
-    if (SHIBYTE(v60) < 0)
+    if (SHIBYTE(v57) < 0)
     {
-      operator delete(v59[0]);
+      operator delete(v56[0]);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v65, "rtp.qmidriver");
-    LOBYTE(v73[0]) = 0;
-    v76 = 0;
-    v16 = ims::error(&v65, v73);
-    v17 = *(*(*v4 - 8) + 8);
-    v18 = strlen((v17 & 0x7FFFFFFFFFFFFFFFLL));
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v16 + 8), v17 & 0x7FFFFFFFFFFFFFFFLL, v18);
-    *(v16 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v16 + 8), "::", 2);
-    *(v16 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v16 + 8), "handleServiceBindResp", 21);
-    *(v16 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v16 + 8), " Error", 6);
-    *(v16 + 17) = 0;
-    (*(*v16 + 64))(v16, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v16 + 17) = 0;
-    if (v76 == 1 && v75 < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v62, "rtp.qmidriver");
+    LOBYTE(v70[0]) = 0;
+    v73 = 0;
+    v15 = ims::error(&v62, v70);
+    v16 = *(*(*v4 - 8) + 8);
+    v17 = strlen((v16 & 0x7FFFFFFFFFFFFFFFLL));
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), v16 & 0x7FFFFFFFFFFFFFFFLL, v17);
+    *(v15 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), "::", 2);
+    *(v15 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), "handleServiceBindResp", 21);
+    *(v15 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), " Error", 6);
+    *(v15 + 17) = 0;
+    (*(*v15 + 64))(v15, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v15 + 17) = 0;
+    if (v73 == 1 && v72 < 0)
     {
-      operator delete(v74);
+      operator delete(v71);
     }
 
-    if (SBYTE7(v66) < 0)
+    if (SBYTE7(v63) < 0)
     {
-      operator delete(v65);
+      operator delete(v62);
     }
 
-    v19 = v4[21];
-    if (v19)
+    v18 = v4[21];
+    if (v18)
     {
-      v20 = std::__shared_weak_count::lock(v19);
-      if (v20)
+      v19 = std::__shared_weak_count::lock(v18);
+      if (v19)
       {
-        v21 = v20;
-        v22 = v4[20];
-        if (v22)
+        v20 = v19;
+        v21 = v4[20];
+        if (v21)
         {
+          v58 = 0u;
+          v59 = 0u;
+          v60 = 0u;
           v61 = 0u;
-          v62 = 0u;
-          v63 = 0u;
-          v64 = 0u;
-          v59[0] = &unk_1F5EBDEF8;
-          v59[1] = &_bambiDomain;
-          LODWORD(v60) = 1073741846;
-          v23 = ImsResult::operator<<<char [28]>(v59, "Fatal baseband driver error");
-          ImsResult::ImsResult(&v65, v23);
-          (*(*v22 + 56))(v22, &v65);
-          ImsResult::~ImsResult(&v65);
-          ImsResult::~ImsResult(v59);
+          v56[0] = &unk_1F5EBDEF8;
+          v56[1] = &_bambiDomain;
+          LODWORD(v57) = 1073741846;
+          v22 = ImsResult::operator<<<char [28]>(v56, "Fatal baseband driver error");
+          ImsResult::ImsResult(&v62, v22);
+          (*(*v21 + 56))(v21, &v62);
+          ImsResult::~ImsResult(&v62);
+          ImsResult::~ImsResult(v56);
         }
 
         goto LABEL_86;
@@ -2565,283 +2556,281 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver14servic
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(&v65, "rtp.qmidriver");
-    LOBYTE(v73[0]) = 0;
-    v76 = 0;
-    v24 = ims::debug(&v65, v73);
-    v25 = *(*(*v4 - 8) + 8);
-    v26 = strlen((v25 & 0x7FFFFFFFFFFFFFFFLL));
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), v25 & 0x7FFFFFFFFFFFFFFFLL, v26);
-    *(v24 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "::", 2);
-    *(v24 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "handleServiceBindResp", 21);
-    *(v24 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), " Success", 8);
-    *(v24 + 17) = 0;
-    (*(*v24 + 64))(v24, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v24 + 17) = 0;
-    if (v76 == 1 && v75 < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v62, "rtp.qmidriver");
+    LOBYTE(v70[0]) = 0;
+    v73 = 0;
+    v23 = ims::debug(&v62, v70);
+    v24 = *(*(*v4 - 8) + 8);
+    v25 = strlen((v24 & 0x7FFFFFFFFFFFFFFFLL));
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), v24 & 0x7FFFFFFFFFFFFFFFLL, v25);
+    *(v23 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "::", 2);
+    *(v23 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "handleServiceBindResp", 21);
+    *(v23 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), " Success", 8);
+    *(v23 + 17) = 0;
+    (*(*v23 + 64))(v23, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v23 + 17) = 0;
+    if (v73 == 1 && v72 < 0)
     {
-      operator delete(v74);
+      operator delete(v71);
     }
 
-    if (SBYTE7(v66) < 0)
+    if (SBYTE7(v63) < 0)
     {
-      operator delete(v65);
+      operator delete(v62);
     }
 
-    v27 = v4[21];
-    if (v27)
+    v26 = v4[21];
+    if (v26)
     {
-      v21 = std::__shared_weak_count::lock(v27);
-      if (v21)
+      v20 = std::__shared_weak_count::lock(v26);
+      if (v20)
       {
-        v28 = v4[20];
-        if (v28)
+        v27 = v4[20];
+        if (v27)
         {
-          v29 = v28[22];
-          if (!v29)
+          v28 = v27[22];
+          if (!v28)
           {
             goto LABEL_80;
           }
 
-          v30 = v28 + 22;
+          v29 = v27 + 22;
           do
           {
-            v31 = v29[7];
-            v32 = v31 >= v5;
-            v33 = v31 < v5;
-            if (v32)
+            v30 = v28[7];
+            v31 = v30 >= v5;
+            v32 = v30 < v5;
+            if (v31)
             {
-              v30 = v29;
+              v29 = v28;
             }
 
-            v29 = *&v29[2 * v33];
+            v28 = *&v28[2 * v32];
           }
 
-          while (v29);
-          if (v30 != v28 + 22 && *(v30 + 7) <= v5 && *(v30 + 8))
+          while (v28);
+          if (v29 != v27 + 22 && *(v29 + 7) <= v5 && *(v29 + 8))
           {
-            v34 = v28[18];
-            v35 = v28 + 19;
-            if (v34 != v28 + 19)
+            v33 = v27[18];
+            v34 = v27 + 19;
+            if (v33 != v27 + 19)
             {
-              v36 = 0;
+              v35 = 0;
               do
               {
-                v67 = 0;
-                v65 = 0u;
-                v66 = 0u;
-                if (*(v34 + 55) < 0)
+                v64 = 0;
+                v62 = 0u;
+                v63 = 0u;
+                if (*(v33 + 55) < 0)
                 {
-                  std::string::__init_copy_ctor_external(&v65, v34[4], v34[5]);
+                  std::string::__init_copy_ctor_external(&v62, v33[4], v33[5]);
                 }
 
                 else
                 {
-                  v65 = *(v34 + 2);
-                  *&v66 = v34[6];
+                  v62 = *(v33 + 2);
+                  *&v63 = v33[6];
                 }
 
-                LODWORD(v67) = *(v34 + 16);
-                *(&v66 + 1) = v34[7];
-                v37 = v67;
-                if (v67 == v5)
+                LODWORD(v64) = *(v33 + 16);
+                *(&v63 + 1) = v33[7];
+                v36 = v64;
+                if (v64 == v5)
                 {
-                  std::string::basic_string[abi:ne200100]<0>(v59, "rtp.qmidriver");
-                  v69[0] = 0;
-                  v72 = 0;
-                  v38 = ims::debug(v59, v69);
-                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v38 + 8), "Using voice system Id ", 22);
-                  *(v38 + 17) = 0;
-                  MEMORY[0x1E6923350](*(v38 + 8), HIDWORD(v66));
-                  *(v38 + 17) = 0;
-                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v38 + 8), " from ", 6);
-                  *(v38 + 17) = 0;
-                  (*(*v38 + 32))(v38, &v65);
-                  (*(*v38 + 64))(v38, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-                  *(v38 + 17) = 0;
-                  if (v72 == 1 && v71 < 0)
+                  std::string::basic_string[abi:ne200100]<0>(v56, "rtp.qmidriver");
+                  v66[0] = 0;
+                  v69 = 0;
+                  v37 = ims::debug(v56, v66);
+                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v37 + 8), "Using voice system Id ", 22);
+                  *(v37 + 17) = 0;
+                  MEMORY[0x1E6923350](*(v37 + 8), HIDWORD(v63));
+                  *(v37 + 17) = 0;
+                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v37 + 8), " from ", 6);
+                  *(v37 + 17) = 0;
+                  (*(*v37 + 32))(v37, &v62);
+                  (*(*v37 + 64))(v37, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                  *(v37 + 17) = 0;
+                  if (v69 == 1 && v68 < 0)
                   {
-                    operator delete(v70);
+                    operator delete(v67);
                   }
 
-                  if (SHIBYTE(v60) < 0)
+                  if (SHIBYTE(v57) < 0)
                   {
-                    operator delete(v59[0]);
+                    operator delete(v56[0]);
                   }
 
-                  v36 = HIDWORD(v66);
+                  v35 = HIDWORD(v63);
                 }
 
-                if (SBYTE7(v66) < 0)
+                if (SBYTE7(v63) < 0)
                 {
-                  operator delete(v65);
+                  operator delete(v62);
                 }
 
-                if (v37 == v5)
+                if (v36 == v5)
                 {
                   break;
                 }
 
-                v39 = v34[1];
-                if (v39)
+                v38 = v33[1];
+                if (v38)
                 {
                   do
                   {
-                    v40 = v39;
-                    v39 = *v39;
+                    v39 = v38;
+                    v38 = *v38;
                   }
 
-                  while (v39);
+                  while (v38);
                 }
 
                 else
                 {
                   do
                   {
-                    v40 = v34[2];
-                    v41 = *v40 == v34;
-                    v34 = v40;
+                    v39 = v33[2];
+                    v40 = *v39 == v33;
+                    v33 = v39;
                   }
 
-                  while (!v41);
+                  while (!v40);
                 }
 
-                v34 = v40;
+                v33 = v39;
               }
 
-              while (v40 != v35);
-              if (v36)
+              while (v39 != v34);
+              if (v35)
               {
-                std::string::basic_string[abi:ne200100]<0>(&v65, "rtp.qmidriver");
-                LOBYTE(v59[0]) = 0;
-                BYTE8(v62) = 0;
-                v42 = ims::debug(&v65, v59);
-                v43 = *(*(*v4 - 8) + 8);
-                v44 = strlen((v43 & 0x7FFFFFFFFFFFFFFFLL));
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v42 + 8), v43 & 0x7FFFFFFFFFFFFFFFLL, v44);
-                *(v42 + 17) = 0;
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v42 + 8), "::", 2);
-                *(v42 + 17) = 0;
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v42 + 8), "serviceInitializeReq", 20);
-                *(v42 + 17) = 0;
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v42 + 8), " [voiceSystemId=", 16);
-                *(v42 + 17) = 0;
-                MEMORY[0x1E6923350](*(v42 + 8), v36);
-                *(v42 + 17) = 0;
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v42 + 8), ", instance=", 11);
-                *(v42 + 17) = 0;
-                MEMORY[0x1E6923350](*(v42 + 8), v5);
-                *(v42 + 17) = 0;
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v42 + 8), "]", 1);
-                *(v42 + 17) = 0;
-                (*(*v42 + 64))(v42, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-                *(v42 + 17) = 0;
-                if (BYTE8(v62) == 1 && SHIBYTE(v61) < 0)
+                std::string::basic_string[abi:ne200100]<0>(&v62, "rtp.qmidriver");
+                LOBYTE(v56[0]) = 0;
+                BYTE8(v59) = 0;
+                v41 = ims::debug(&v62, v56);
+                v42 = *(*(*v4 - 8) + 8);
+                v43 = strlen((v42 & 0x7FFFFFFFFFFFFFFFLL));
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v41 + 8), v42 & 0x7FFFFFFFFFFFFFFFLL, v43);
+                *(v41 + 17) = 0;
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v41 + 8), "::", 2);
+                *(v41 + 17) = 0;
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v41 + 8), "serviceInitializeReq", 20);
+                *(v41 + 17) = 0;
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v41 + 8), " [voiceSystemId=", 16);
+                *(v41 + 17) = 0;
+                MEMORY[0x1E6923350](*(v41 + 8), v35);
+                *(v41 + 17) = 0;
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v41 + 8), ", instance=", 11);
+                *(v41 + 17) = 0;
+                MEMORY[0x1E6923350](*(v41 + 8), v5);
+                *(v41 + 17) = 0;
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v41 + 8), "]", 1);
+                *(v41 + 17) = 0;
+                (*(*v41 + 64))(v41, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                *(v41 + 17) = 0;
+                if (BYTE8(v59) == 1 && SHIBYTE(v58) < 0)
                 {
-                  operator delete(v60);
+                  operator delete(v57);
                 }
 
-                if (SBYTE7(v66) < 0)
+                if (SBYTE7(v63) < 0)
                 {
-                  operator delete(v65);
+                  operator delete(v62);
                 }
 
-                v88 = 0u;
-                v89 = 0u;
-                qmi::MutableMessageBase::MutableMessageBase(&v88);
-                v86[0] = MEMORY[0x1E69E9820];
-                v86[1] = 0x40000000;
-                v86[2] = ___ZN19QMIRTPCommandDriver20serviceInitializeReqEjj_block_invoke;
-                v86[3] = &__block_descriptor_tmp_38;
-                v87 = v36;
-                v45 = *(&v88 + 1);
-                if (*(&v88 + 1) != v89)
+                v85 = 0u;
+                v86 = 0u;
+                qmi::MutableMessageBase::MutableMessageBase(&v85);
+                v83[0] = MEMORY[0x1E69E9820];
+                v83[1] = 0x40000000;
+                v83[2] = ___ZN19QMIRTPCommandDriver20serviceInitializeReqEjj_block_invoke;
+                v83[3] = &__block_descriptor_tmp_38;
+                v84 = v35;
+                v44 = *(&v85 + 1);
+                if (*(&v85 + 1) != v86)
                 {
-                  while (*(*v45 + 8) != 1)
+                  while (*(*v44 + 8) != 1)
                   {
-                    if (++v45 == v89)
+                    if (++v44 == v86)
                     {
                       goto LABEL_92;
                     }
                   }
                 }
 
-                if (v45 != v89)
+                if (v44 != v86)
                 {
-                  v49 = ***v45;
-                  if (!v50)
+                  if (!v48)
                   {
                     __cxa_bad_cast();
                   }
 
-                  ___ZN19QMIRTPCommandDriver20serviceInitializeReqEjj_block_invoke(v86, v50 + 3);
-                  v51 = v4[21];
-                  if (v51)
+                  ___ZN19QMIRTPCommandDriver20serviceInitializeReqEjj_block_invoke(v83, v48 + 3);
+                  v49 = v4[21];
+                  if (v49)
                   {
-                    v52 = std::__shared_weak_count::lock(v51);
-                    if (v52)
+                    v50 = std::__shared_weak_count::lock(v49);
+                    if (v50)
                     {
-                      v53 = v52;
-                      v54 = v4[20];
-                      if (v54)
+                      v51 = v50;
+                      v52 = v4[20];
+                      if (v52)
                       {
-                        v81[0] = MEMORY[0x1E69E9820];
-                        v81[1] = 1174405120;
-                        v82 = ___ZN19QMIRTPCommandDriver20serviceInitializeReqEjj_block_invoke_2;
-                        v83 = &__block_descriptor_tmp_40_0;
-                        v84 = v54;
-                        v85 = v52;
-                        atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
-                        v55 = *(&v88 + 1);
-                        if (*(&v88 + 1) != v89)
+                        v78[0] = MEMORY[0x1E69E9820];
+                        v78[1] = 1174405120;
+                        v79 = ___ZN19QMIRTPCommandDriver20serviceInitializeReqEjj_block_invoke_2;
+                        v80 = &__block_descriptor_tmp_40_0;
+                        v81 = v52;
+                        v82 = v50;
+                        atomic_fetch_add_explicit(&v50->__shared_owners_, 1uLL, memory_order_relaxed);
+                        v53 = *(&v85 + 1);
+                        if (*(&v85 + 1) != v86)
                         {
-                          while (*(*v55 + 8) != 17)
+                          while (*(*v53 + 8) != 17)
                           {
-                            if (++v55 == v89)
+                            if (++v53 == v86)
                             {
                               goto LABEL_103;
                             }
                           }
                         }
 
-                        if (v55 == v89)
+                        if (v53 == v86)
                         {
 LABEL_103:
                           operator new();
                         }
 
-                        v56 = ***v55;
-                        if (!v57)
+                        if (!v54)
                         {
                           __cxa_bad_cast();
                         }
 
-                        v82(v81, v57 + 9);
-                        if (v85)
+                        v79(v78, v54 + 9);
+                        if (v82)
                         {
-                          std::__shared_weak_count::__release_shared[abi:ne200100](v85);
+                          std::__shared_weak_count::__release_shared[abi:ne200100](v82);
                         }
                       }
 
-                      std::__shared_weak_count::__release_shared[abi:ne200100](v53);
+                      std::__shared_weak_count::__release_shared[abi:ne200100](v51);
                     }
                   }
 
                   if (v5)
                   {
-                    v58 = 2 * (v5 == 1);
+                    v55 = 2 * (v5 == 1);
                   }
 
                   else
                   {
-                    v58 = 1;
+                    v55 = 1;
                   }
 
                   qmi::ClientRouter::get();
-                  LODWORD(v90) = v58;
+                  LODWORD(v87) = v55;
                   operator new();
                 }
 
@@ -2850,41 +2839,41 @@ LABEL_92:
               }
             }
 
-            std::string::basic_string[abi:ne200100]<0>(v59, "rtp.qmidriver");
-            LOBYTE(v65) = 0;
-            v68 = 0;
-            v48 = ims::warn(v59, &v65);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v48 + 8), "Drop ServiceBindResponse [instance=", 35);
-            *(v48 + 17) = 0;
-            MEMORY[0x1E6923350](*(v48 + 8), v5);
-            *(v48 + 17) = 0;
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v48 + 8), " voiceSystemId=0]", 17);
-            *(v48 + 17) = 0;
-            (*(*v48 + 64))(v48, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-            *(v48 + 17) = 0;
-          }
-
-          else
-          {
-LABEL_80:
-            std::string::basic_string[abi:ne200100]<0>(v59, "rtp.qmidriver");
-            LOBYTE(v65) = 0;
-            v68 = 0;
-            v47 = ims::error(v59, &v65);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v47 + 8), "Controller has been deinitialized while waiting for Service Bind response", 73);
+            std::string::basic_string[abi:ne200100]<0>(v56, "rtp.qmidriver");
+            LOBYTE(v62) = 0;
+            v65 = 0;
+            v47 = ims::warn(v56, &v62);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v47 + 8), "Drop ServiceBindResponse [instance=", 35);
+            *(v47 + 17) = 0;
+            MEMORY[0x1E6923350](*(v47 + 8), v5);
+            *(v47 + 17) = 0;
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v47 + 8), " voiceSystemId=0]", 17);
             *(v47 + 17) = 0;
             (*(*v47 + 64))(v47, std::endl[abi:ne200100]<char,std::char_traits<char>>);
             *(v47 + 17) = 0;
           }
 
-          if (v68 == 1 && SHIBYTE(v67) < 0)
+          else
           {
-            operator delete(v66);
+LABEL_80:
+            std::string::basic_string[abi:ne200100]<0>(v56, "rtp.qmidriver");
+            LOBYTE(v62) = 0;
+            v65 = 0;
+            v46 = ims::error(v56, &v62);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v46 + 8), "Controller has been deinitialized while waiting for Service Bind response", 73);
+            *(v46 + 17) = 0;
+            (*(*v46 + 64))(v46, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+            *(v46 + 17) = 0;
           }
 
-          if (SHIBYTE(v60) < 0)
+          if (v65 == 1 && SHIBYTE(v64) < 0)
           {
-            operator delete(v59[0]);
+            operator delete(v63);
+          }
+
+          if (SHIBYTE(v57) < 0)
+          {
+            operator delete(v56[0]);
           }
 
           goto LABEL_86;
@@ -2894,31 +2883,31 @@ LABEL_80:
 
     else
     {
-      v21 = 0;
+      v20 = 0;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v59, "rtp.qmidriver");
-    LOBYTE(v65) = 0;
-    v68 = 0;
-    v46 = ims::error(v59, &v65);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v46 + 8), "No controller associated with this command driver!", 50);
-    *(v46 + 17) = 0;
-    (*(*v46 + 64))(v46, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v46 + 17) = 0;
-    if (v68 == 1 && SHIBYTE(v67) < 0)
+    std::string::basic_string[abi:ne200100]<0>(v56, "rtp.qmidriver");
+    LOBYTE(v62) = 0;
+    v65 = 0;
+    v45 = ims::error(v56, &v62);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v45 + 8), "No controller associated with this command driver!", 50);
+    *(v45 + 17) = 0;
+    (*(*v45 + 64))(v45, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v45 + 17) = 0;
+    if (v65 == 1 && SHIBYTE(v64) < 0)
     {
-      operator delete(v66);
+      operator delete(v63);
     }
 
-    if (SHIBYTE(v60) < 0)
+    if (SHIBYTE(v57) < 0)
     {
-      operator delete(v59[0]);
+      operator delete(v56[0]);
     }
 
-    if (v21)
+    if (v20)
     {
 LABEL_86:
-      std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     }
   }
 }
@@ -2976,28 +2965,27 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN2ms11ServiceBind8ResponseEEEOS1_U13
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p)
     {
-      v7 = __p;
+      v6 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_1E4F08A84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -3038,10 +3026,10 @@ uint64_t qmi::MutableMessageBase::TlvWrapper<ms::tlv::EnableAssert>::write(uint6
 void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver20serviceInitializeReqEjjE3__0EEOS1_OT__block_invoke(uint64_t a1, unsigned __int16 *a2)
 {
   v3 = **(a1 + 32);
-  std::string::basic_string[abi:ne200100]<0>(v21, "rtp.qmidriver");
-  v15[0] = 0;
-  v18 = 0;
-  v4 = ims::debug(v21, v15);
+  std::string::basic_string[abi:ne200100]<0>(v20, "rtp.qmidriver");
+  v14[0] = 0;
+  v17 = 0;
+  v4 = ims::debug(v20, v14);
   if (!v3)
   {
     __cxa_bad_typeid();
@@ -3059,52 +3047,51 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver20servic
   *(v5 + 17) = 0;
   (*(*v5 + 64))(v5, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v5 + 17) = 0;
-  if (v18 == 1 && v17 < 0)
+  if (v17 == 1 && v16 < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v22) < 0)
+  if (SHIBYTE(v21) < 0)
   {
-    operator delete(v21[0]);
+    operator delete(v20[0]);
   }
 
   if (*(a2 + 1))
   {
-    v9 = std::string::basic_string[abi:ne200100]<0>(&v25, "rtp.qmidriver");
-    LOBYTE(v21[0]) = 0;
-    v24 = 0;
-    v10 = ims::error(v9, v21);
+    v9 = std::string::basic_string[abi:ne200100]<0>(&v24, "rtp.qmidriver");
+    LOBYTE(v20[0]) = 0;
+    v23 = 0;
+    v10 = ims::error(v9, v20);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "Error response for request: ", 28);
     *(v10 + 17) = 0;
-    v11 = QMIRTPCommandDriver::nameForRequestId(v19, *a2);
-    (*(*v10 + 32))(v10, v19, v11);
+    v11 = QMIRTPCommandDriver::nameForRequestId(v18, *a2);
+    (*(*v10 + 32))(v10, v18, v11);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), " error:", 7);
     *(v10 + 17) = 0;
     MEMORY[0x1E6923350](*(v10 + 8), *(a2 + 1));
     *(v10 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), " reason: ", 9);
     *(v10 + 17) = 0;
-    v12 = *(a2 + 1);
-    v13 = qmi::asString();
-    v14 = strlen(v13);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), v13, v14);
+    v12 = qmi::asString();
+    v13 = strlen(v12);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), v12, v13);
     *(v10 + 17) = 0;
     (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v10 + 17) = 0;
-    if (v20 < 0)
+    if (v19 < 0)
     {
-      operator delete(v19[0]);
+      operator delete(v18[0]);
     }
 
-    if (v24 == 1 && v23 < 0)
+    if (v23 == 1 && v22 < 0)
     {
-      operator delete(v22);
+      operator delete(v21);
     }
 
-    if (v26 < 0)
+    if (v25 < 0)
     {
-      operator delete(v25);
+      operator delete(v24);
     }
   }
 }
@@ -3160,28 +3147,27 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN2ms17ServiceInitialize8ResponseEEEO
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p)
     {
-      v7 = __p;
+      v6 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_1E4F0909C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -3201,21 +3187,21 @@ tlv *qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(
   result = qmi::MessageBase::findTlvValue(a1);
   if (result)
   {
-    v6 = result;
-    v7 = v5;
-    v11 = result;
-    v8 = tlv::parseV<ms::tlv::IndicationStatus>(&v11, v5);
-    if (v11)
+    v8 = result;
+    v9 = v5;
+    v13 = result;
+    v10 = tlv::parseV<ms::tlv::IndicationStatus>(&v13, v5, v6, v7);
+    if (v13)
     {
-      return (*(*a2 + 16))(*a2, v8);
+      return (*(*a2 + 16))(*a2, v10);
     }
 
     else
     {
-      v9 = *MEMORY[0x1E69E5140];
-      v10 = *a1;
+      v11 = *MEMORY[0x1E69E5140];
+      v12 = *a1;
 
-      return v9(v10, 1, v6, v7);
+      return v11(v12, 1, v8, v9);
     }
   }
 
@@ -3407,34 +3393,34 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver20sessio
   if (!v5)
   {
     std::string::basic_string[abi:ne200100]<0>(block, "rtp.qmidriver");
-    LOBYTE(v30[0]) = 0;
-    LOBYTE(v35) = 0;
-    v25 = ims::error(block, v30);
+    LOBYTE(v29[0]) = 0;
+    LOBYTE(v34) = 0;
+    v24 = ims::error(block, v29);
     if (!v4)
     {
       __cxa_bad_typeid();
     }
 
-    v26 = v25;
-    v27 = *(*(*v4 - 8) + 8);
-    v28 = *(v25 + 8);
-    v29 = strlen((v27 & 0x7FFFFFFFFFFFFFFFLL));
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, v27 & 0x7FFFFFFFFFFFFFFFLL, v29);
-    *(v26 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v26 + 8), "::", 2);
-    *(v26 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v26 + 8), "handleSessionInitializeResp", 27);
-    *(v26 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v26 + 8), " session is null", 16);
-    *(v26 + 17) = 0;
-    (*(*v26 + 64))(v26, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v26 + 17) = 0;
-    if (v35 == 1 && SHIBYTE(v33) < 0)
+    v25 = v24;
+    v26 = *(*(*v4 - 8) + 8);
+    v27 = *(v24 + 8);
+    v28 = strlen((v26 & 0x7FFFFFFFFFFFFFFFLL));
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, v26 & 0x7FFFFFFFFFFFFFFFLL, v28);
+    *(v25 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), "::", 2);
+    *(v25 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), "handleSessionInitializeResp", 27);
+    *(v25 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), " session is null", 16);
+    *(v25 + 17) = 0;
+    (*(*v25 + 64))(v25, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v25 + 17) = 0;
+    if (v34 == 1 && SHIBYTE(v32) < 0)
     {
-      operator delete(v31);
+      operator delete(v30);
     }
 
-    if (SHIBYTE(v42) < 0)
+    if (SHIBYTE(v41) < 0)
     {
       operator delete(block[0]);
       if (!v6)
@@ -3449,10 +3435,10 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver20sessio
   }
 
   v7 = *(v3 + 24);
-  std::string::basic_string[abi:ne200100]<0>(v30, "rtp.qmidriver");
-  v37[0] = 0;
-  v40 = 0;
-  v8 = ims::debug(v30, v37);
+  std::string::basic_string[abi:ne200100]<0>(v29, "rtp.qmidriver");
+  v36[0] = 0;
+  v39 = 0;
+  v8 = ims::debug(v29, v36);
   if (!v4)
   {
     __cxa_bad_typeid();
@@ -3481,51 +3467,50 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver20sessio
   *(v9 + 17) = 0;
   (*(*v9 + 64))(v9, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v9 + 17) = 0;
-  if (v40 == 1 && v39 < 0)
+  if (v39 == 1 && v38 < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v31) < 0)
+  if (SHIBYTE(v30) < 0)
   {
-    operator delete(v30[0]);
+    operator delete(v29[0]);
   }
 
   v14 = *(a2 + 1);
   if (v14)
   {
     std::string::basic_string[abi:ne200100]<0>(block, "rtp.qmidriver");
-    LOBYTE(v30[0]) = 0;
-    LOBYTE(v35) = 0;
-    v15 = ims::error(block, v30);
+    LOBYTE(v29[0]) = 0;
+    LOBYTE(v34) = 0;
+    v15 = ims::error(block, v29);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), "Error response for request: ", 28);
     *(v15 + 17) = 0;
-    v16 = QMIRTPCommandDriver::nameForRequestId(v47, *a2);
-    (*(*v15 + 32))(v15, v47, v16);
+    v16 = QMIRTPCommandDriver::nameForRequestId(v46, *a2);
+    (*(*v15 + 32))(v15, v46, v16);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), " error:", 7);
     *(v15 + 17) = 0;
     MEMORY[0x1E6923350](*(v15 + 8), *(a2 + 1));
     *(v15 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), " reason: ", 9);
     *(v15 + 17) = 0;
-    v17 = *(a2 + 1);
-    v18 = qmi::asString();
-    v19 = strlen(v18);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), v18, v19);
+    v17 = qmi::asString();
+    v18 = strlen(v17);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), v17, v18);
     *(v15 + 17) = 0;
     (*(*v15 + 64))(v15, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v15 + 17) = 0;
-    if (v48 < 0)
+    if (v47 < 0)
     {
-      operator delete(v47[0]);
+      operator delete(v46[0]);
     }
 
-    if (v35 == 1 && SHIBYTE(v33) < 0)
+    if (v34 == 1 && SHIBYTE(v32) < 0)
     {
-      operator delete(v31);
+      operator delete(v30);
     }
 
-    if (SHIBYTE(v42) < 0)
+    if (SHIBYTE(v41) < 0)
     {
       operator delete(block[0]);
     }
@@ -3533,43 +3518,43 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver20sessio
     v14 = 4;
   }
 
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 1174405120;
-  v31 = ___ZN19QMIRTPCommandDriver27handleSessionInitializeRespERKN2ms17SessionInitialize8ResponseENSt3__110shared_ptrI13QMIRTPSessionEEh_block_invoke;
-  v32 = &__block_descriptor_tmp_64_0;
-  v36 = v14;
-  v33 = v4;
-  v34 = v5;
-  v35 = v6;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 1174405120;
+  v30 = ___ZN19QMIRTPCommandDriver27handleSessionInitializeRespERKN2ms17SessionInitialize8ResponseENSt3__110shared_ptrI13QMIRTPSessionEEh_block_invoke;
+  v31 = &__block_descriptor_tmp_64_0;
+  v35 = v14;
+  v32 = v4;
+  v33 = v5;
+  v34 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v20 = v4[3];
-  if (!v20 || (v21 = v4[2], (v22 = std::__shared_weak_count::lock(v20)) == 0))
+  v19 = v4[3];
+  if (!v19 || (v20 = v4[2], (v21 = std::__shared_weak_count::lock(v19)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v23 = v22;
-  v24 = v4[4];
+  v22 = v21;
+  v23 = v4[4];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 1174405120;
-  v42 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-  v43 = &unk_1F5EDC868;
-  v45 = v21;
-  v46 = v23;
-  atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
-  v44 = v30;
-  dispatch_async(v24, block);
-  if (v46)
+  v41 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  v42 = &unk_1F5EDC868;
+  v44 = v20;
+  v45 = v22;
+  atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+  v43 = v29;
+  dispatch_async(v23, block);
+  if (v45)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v46);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v45);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v23);
-  if (!v35)
+  std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+  if (!v34)
   {
 LABEL_33:
     if (!v6)
@@ -3580,7 +3565,7 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v35);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v34);
   if (!v6)
   {
     return;
@@ -3656,28 +3641,27 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN2ms17SessionInitialize8ResponseEEEO
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p)
     {
-      v7 = __p;
+      v6 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_1E4F0A274(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -3719,28 +3703,28 @@ tlv *qmi::MessageBase::applyTlv<ms::tlv::RTPSessionIdentifier,void({block_pointe
   result = qmi::MessageBase::findTlvValue(a1);
   if (result)
   {
-    v8 = result;
-    v9 = v7;
-    v13 = result;
-    v10 = tlv::parseV<ms::tlv::RTPSessionIdentifier>(&v13, v7);
-    if (v13)
+    v10 = result;
+    v11 = v7;
+    v15 = result;
+    v12 = tlv::parseV<ms::tlv::RTPSessionIdentifier>(&v15, v7, v8, v9);
+    if (v15)
     {
-      return (*(*a3 + 16))(*a3, v10);
+      return (*(*a3 + 16))(*a3, v12);
     }
 
     else
     {
-      v11 = *MEMORY[0x1E69E5140];
-      v12 = *a1;
+      v13 = *MEMORY[0x1E69E5140];
+      v14 = *a1;
 
-      return v11(v12, a2, v8, v9);
+      return v13(v14, a2, v10, v11);
     }
   }
 
   return result;
 }
 
-char *qmi::MutableMessageBase::getTLV<ms::tlv::RTPSessionIdentifier>(uint64_t a1, int a2)
+uint64_t qmi::MutableMessageBase::getTLV<ms::tlv::RTPSessionIdentifier>(uint64_t a1, int a2)
 {
   v2 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -3759,16 +3743,15 @@ char *qmi::MutableMessageBase::getTLV<ms::tlv::RTPSessionIdentifier>(uint64_t a1
   {
 LABEL_8:
 
-    qmi::MutableMessageBase::createTLV<ms::tlv::RTPSessionIdentifier>();
+    qmi::MutableMessageBase::createTLV<ms::tlv::RTPSessionIdentifier>(a1, a2);
   }
 
-  v4 = ***v2;
-  if (!v5)
+  if (!v4)
   {
     __cxa_bad_cast();
   }
 
-  return v5 + 9;
+  return v4 + 9;
 }
 
 uint64_t qmi::MutableMessageBase::TlvWrapper<ms::tlv::RTPSessionIdentifier>::write(uint64_t result, uint64_t *a2)
@@ -3797,34 +3780,34 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver22sessio
   if (!v5)
   {
     std::string::basic_string[abi:ne200100]<0>(block, "rtp.qmidriver");
-    LOBYTE(v38) = 0;
-    LOBYTE(v44) = 0;
-    v30 = ims::error(block, &v38);
+    LOBYTE(v37) = 0;
+    LOBYTE(v43) = 0;
+    v29 = ims::error(block, &v37);
     if (!v4)
     {
       __cxa_bad_typeid();
     }
 
-    v31 = v30;
-    v32 = *(*(*v4 - 8) + 8);
-    v33 = *(v30 + 8);
-    v34 = strlen((v32 & 0x7FFFFFFFFFFFFFFFLL));
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, v32 & 0x7FFFFFFFFFFFFFFFLL, v34);
-    *(v31 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v31 + 8), "::", 2);
-    *(v31 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v31 + 8), "handleSessionUninitializeResp", 29);
-    *(v31 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v31 + 8), " session is null", 16);
-    *(v31 + 17) = 0;
-    (*(*v31 + 64))(v31, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v31 + 17) = 0;
-    if (v44 == 1 && SHIBYTE(v42) < 0)
+    v30 = v29;
+    v31 = *(*(*v4 - 8) + 8);
+    v32 = *(v29 + 8);
+    v33 = strlen((v31 & 0x7FFFFFFFFFFFFFFFLL));
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, v31 & 0x7FFFFFFFFFFFFFFFLL, v33);
+    *(v30 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v30 + 8), "::", 2);
+    *(v30 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v30 + 8), "handleSessionUninitializeResp", 29);
+    *(v30 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v30 + 8), " session is null", 16);
+    *(v30 + 17) = 0;
+    (*(*v30 + 64))(v30, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v30 + 17) = 0;
+    if (v43 == 1 && SHIBYTE(v41) < 0)
     {
-      operator delete(v40);
+      operator delete(v39);
     }
 
-    if (SHIBYTE(v51) < 0)
+    if (SHIBYTE(v50) < 0)
     {
       operator delete(block[0]);
       if (!v6)
@@ -3838,10 +3821,10 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver22sessio
     goto LABEL_40;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v38, "rtp.qmidriver");
-  v46[0] = 0;
-  v49 = 0;
-  v7 = ims::debug(&v38, v46);
+  std::string::basic_string[abi:ne200100]<0>(&v37, "rtp.qmidriver");
+  v45[0] = 0;
+  v48 = 0;
+  v7 = ims::debug(&v37, v45);
   if (!v4)
   {
     __cxa_bad_typeid();
@@ -3870,14 +3853,14 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver22sessio
   *(v8 + 17) = 0;
   (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v8 + 17) = 0;
-  if (v49 == 1 && v48 < 0)
+  if (v48 == 1 && v47 < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v40) < 0)
+  if (SHIBYTE(v39) < 0)
   {
-    operator delete(v38);
+    operator delete(v37);
   }
 
   v13 = v4[21];
@@ -3888,37 +3871,36 @@ LABEL_17:
     if (v18)
     {
       std::string::basic_string[abi:ne200100]<0>(block, "rtp.qmidriver");
-      LOBYTE(v38) = 0;
-      LOBYTE(v44) = 0;
-      v19 = ims::error(block, &v38);
+      LOBYTE(v37) = 0;
+      LOBYTE(v43) = 0;
+      v19 = ims::error(block, &v37);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "Error response for request: ", 28);
       *(v19 + 17) = 0;
-      v20 = QMIRTPCommandDriver::nameForRequestId(v56, *a2);
-      (*(*v19 + 32))(v19, v56, v20);
+      v20 = QMIRTPCommandDriver::nameForRequestId(v55, *a2);
+      (*(*v19 + 32))(v19, v55, v20);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), " error:", 7);
       *(v19 + 17) = 0;
       MEMORY[0x1E6923350](*(v19 + 8), *(a2 + 1));
       *(v19 + 17) = 0;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), " reason: ", 9);
       *(v19 + 17) = 0;
-      v21 = *(a2 + 1);
-      v22 = qmi::asString();
-      v23 = strlen(v22);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), v22, v23);
+      v21 = qmi::asString();
+      v22 = strlen(v21);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), v21, v22);
       *(v19 + 17) = 0;
       (*(*v19 + 64))(v19, std::endl[abi:ne200100]<char,std::char_traits<char>>);
       *(v19 + 17) = 0;
-      if (v57 < 0)
+      if (v56 < 0)
       {
-        operator delete(v56[0]);
+        operator delete(v55[0]);
       }
 
-      if (v44 == 1 && SHIBYTE(v42) < 0)
+      if (v43 == 1 && SHIBYTE(v41) < 0)
       {
-        operator delete(v40);
+        operator delete(v39);
       }
 
-      if (SHIBYTE(v51) < 0)
+      if (SHIBYTE(v50) < 0)
       {
         operator delete(block[0]);
       }
@@ -3926,44 +3908,44 @@ LABEL_17:
       v18 = 4;
     }
 
-    v38 = MEMORY[0x1E69E9820];
-    v39 = 1174405120;
-    v40 = ___ZN19QMIRTPCommandDriver29handleSessionUninitializeRespERKN2ms19SessionUninitialize8ResponseENSt3__110shared_ptrI13QMIRTPSessionEE_block_invoke;
-    v41 = &__block_descriptor_tmp_77;
-    v45 = v18;
-    v42 = v4;
-    v43 = v5;
-    v44 = v6;
+    v37 = MEMORY[0x1E69E9820];
+    v38 = 1174405120;
+    v39 = ___ZN19QMIRTPCommandDriver29handleSessionUninitializeRespERKN2ms19SessionUninitialize8ResponseENSt3__110shared_ptrI13QMIRTPSessionEE_block_invoke;
+    v40 = &__block_descriptor_tmp_77;
+    v44 = v18;
+    v41 = v4;
+    v42 = v5;
+    v43 = v6;
     if (v6)
     {
       atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v24 = v4[3];
-    if (!v24 || (v25 = v4[2], (v26 = std::__shared_weak_count::lock(v24)) == 0))
+    v23 = v4[3];
+    if (!v23 || (v24 = v4[2], (v25 = std::__shared_weak_count::lock(v23)) == 0))
     {
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
 
-    v27 = v26;
-    v28 = v4[4];
+    v26 = v25;
+    v27 = v4[4];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 1174405120;
-    v51 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-    v52 = &unk_1F5EDC868;
-    v54 = v25;
-    v55 = v27;
-    atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
-    v53 = &v38;
-    dispatch_async(v28, block);
-    if (v55)
+    v50 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+    v51 = &unk_1F5EDC868;
+    v53 = v24;
+    v54 = v26;
+    atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+    v52 = &v37;
+    dispatch_async(v27, block);
+    if (v54)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v55);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v54);
     }
 
-    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
-    v29 = v44;
-    if (v44)
+    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+    v28 = v43;
+    if (v43)
     {
       goto LABEL_33;
     }
@@ -3984,11 +3966,11 @@ LABEL_40:
     goto LABEL_16;
   }
 
-  QMIRTPStackController::getSessionByQMIid(v16, *(v5 + 362), &v38);
-  v17 = v38;
-  if (v39)
+  QMIRTPStackController::getSessionByQMIid(&v37, v16, *(v5 + 362));
+  v17 = v37;
+  if (v38)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v39);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
   }
 
   if (v17)
@@ -3999,34 +3981,34 @@ LABEL_16:
   }
 
   std::string::basic_string[abi:ne200100]<0>(block, "rtp.qmistackcontroller");
-  LOBYTE(v38) = 0;
-  LOBYTE(v44) = 0;
-  v35 = ims::error(block, &v38);
-  v36 = *(*(*v4 - 8) + 8);
-  v37 = strlen((v36 & 0x7FFFFFFFFFFFFFFFLL));
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v35 + 8), v36 & 0x7FFFFFFFFFFFFFFFLL, v37);
-  *(v35 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v35 + 8), "::", 2);
-  *(v35 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v35 + 8), "handleSessionUninitializeResp", 29);
-  *(v35 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v35 + 8), " session is null", 16);
-  *(v35 + 17) = 0;
-  (*(*v35 + 64))(v35, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v35 + 17) = 0;
-  if (v44 == 1 && SHIBYTE(v42) < 0)
+  LOBYTE(v37) = 0;
+  LOBYTE(v43) = 0;
+  v34 = ims::error(block, &v37);
+  v35 = *(*(*v4 - 8) + 8);
+  v36 = strlen((v35 & 0x7FFFFFFFFFFFFFFFLL));
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v34 + 8), v35 & 0x7FFFFFFFFFFFFFFFLL, v36);
+  *(v34 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v34 + 8), "::", 2);
+  *(v34 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v34 + 8), "handleSessionUninitializeResp", 29);
+  *(v34 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v34 + 8), " session is null", 16);
+  *(v34 + 17) = 0;
+  (*(*v34 + 64))(v34, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v34 + 17) = 0;
+  if (v43 == 1 && SHIBYTE(v41) < 0)
   {
-    operator delete(v40);
+    operator delete(v39);
   }
 
-  if (SHIBYTE(v51) < 0)
+  if (SHIBYTE(v50) < 0)
   {
     operator delete(block[0]);
   }
 
-  v29 = v15;
+  v28 = v15;
 LABEL_33:
-  std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v28);
   if (!v6)
   {
     return;
@@ -4093,28 +4075,27 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN2ms19SessionUninitialize8ResponseEE
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p)
     {
-      v7 = __p;
+      v6 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_1E4F0AF1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -4173,34 +4154,34 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver19sessio
   if (!v5)
   {
     std::string::basic_string[abi:ne200100]<0>(block, "rtp.qmidriver");
-    LOBYTE(v29[0]) = 0;
-    LOBYTE(v34) = 0;
-    v24 = ims::error(block, v29);
+    LOBYTE(v28[0]) = 0;
+    LOBYTE(v33) = 0;
+    v23 = ims::error(block, v28);
     if (!v4)
     {
       __cxa_bad_typeid();
     }
 
-    v25 = v24;
-    v26 = *(*(*v4 - 8) + 8);
-    v27 = *(v24 + 8);
-    v28 = strlen((v26 & 0x7FFFFFFFFFFFFFFFLL));
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, v26 & 0x7FFFFFFFFFFFFFFFLL, v28);
-    *(v25 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), "::", 2);
-    *(v25 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), "handleSessionConfigureResp", 26);
-    *(v25 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), " session is null", 16);
-    *(v25 + 17) = 0;
-    (*(*v25 + 64))(v25, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v25 + 17) = 0;
-    if (v34 == 1 && SHIBYTE(v32) < 0)
+    v24 = v23;
+    v25 = *(*(*v4 - 8) + 8);
+    v26 = *(v23 + 8);
+    v27 = strlen((v25 & 0x7FFFFFFFFFFFFFFFLL));
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, v25 & 0x7FFFFFFFFFFFFFFFLL, v27);
+    *(v24 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "::", 2);
+    *(v24 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "handleSessionConfigureResp", 26);
+    *(v24 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), " session is null", 16);
+    *(v24 + 17) = 0;
+    (*(*v24 + 64))(v24, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v24 + 17) = 0;
+    if (v33 == 1 && SHIBYTE(v31) < 0)
     {
-      operator delete(v30);
+      operator delete(v29);
     }
 
-    if (SHIBYTE(v41) < 0)
+    if (SHIBYTE(v40) < 0)
     {
       operator delete(block[0]);
       if (!v6)
@@ -4214,10 +4195,10 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver19sessio
     goto LABEL_33;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v29, "rtp.qmidriver");
-  v36[0] = 0;
-  v39 = 0;
-  v7 = ims::debug(v29, v36);
+  std::string::basic_string[abi:ne200100]<0>(v28, "rtp.qmidriver");
+  v35[0] = 0;
+  v38 = 0;
+  v7 = ims::debug(v28, v35);
   if (!v4)
   {
     __cxa_bad_typeid();
@@ -4242,51 +4223,50 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver19sessio
   *(v8 + 17) = 0;
   (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v8 + 17) = 0;
-  if (v39 == 1 && v38 < 0)
+  if (v38 == 1 && v37 < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v30) < 0)
+  if (SHIBYTE(v29) < 0)
   {
-    operator delete(v29[0]);
+    operator delete(v28[0]);
   }
 
   v13 = *(a2 + 1);
   if (v13)
   {
     std::string::basic_string[abi:ne200100]<0>(block, "rtp.qmidriver");
-    LOBYTE(v29[0]) = 0;
-    LOBYTE(v34) = 0;
-    v14 = ims::error(block, v29);
+    LOBYTE(v28[0]) = 0;
+    LOBYTE(v33) = 0;
+    v14 = ims::error(block, v28);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), "Error response for request: ", 28);
     *(v14 + 17) = 0;
-    v15 = QMIRTPCommandDriver::nameForRequestId(v46, *a2);
-    (*(*v14 + 32))(v14, v46, v15);
+    v15 = QMIRTPCommandDriver::nameForRequestId(v45, *a2);
+    (*(*v14 + 32))(v14, v45, v15);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), " error:", 7);
     *(v14 + 17) = 0;
     MEMORY[0x1E6923350](*(v14 + 8), *(a2 + 1));
     *(v14 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), " reason: ", 9);
     *(v14 + 17) = 0;
-    v16 = *(a2 + 1);
-    v17 = qmi::asString();
-    v18 = strlen(v17);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), v17, v18);
+    v16 = qmi::asString();
+    v17 = strlen(v16);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), v16, v17);
     *(v14 + 17) = 0;
     (*(*v14 + 64))(v14, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v14 + 17) = 0;
-    if (v47 < 0)
+    if (v46 < 0)
     {
-      operator delete(v46[0]);
+      operator delete(v45[0]);
     }
 
-    if (v34 == 1 && SHIBYTE(v32) < 0)
+    if (v33 == 1 && SHIBYTE(v31) < 0)
     {
-      operator delete(v30);
+      operator delete(v29);
     }
 
-    if (SHIBYTE(v41) < 0)
+    if (SHIBYTE(v40) < 0)
     {
       operator delete(block[0]);
     }
@@ -4294,43 +4274,43 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver19sessio
     v13 = 4;
   }
 
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 1174405120;
-  v30 = ___ZN19QMIRTPCommandDriver26handleSessionConfigureRespERKN2ms16SessionConfigure8ResponseENSt3__110shared_ptrI13QMIRTPSessionEE_block_invoke;
-  v31 = &__block_descriptor_tmp_86;
-  v35 = v13;
-  v32 = v4;
-  v33 = v5;
-  v34 = v6;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 1174405120;
+  v29 = ___ZN19QMIRTPCommandDriver26handleSessionConfigureRespERKN2ms16SessionConfigure8ResponseENSt3__110shared_ptrI13QMIRTPSessionEE_block_invoke;
+  v30 = &__block_descriptor_tmp_86;
+  v34 = v13;
+  v31 = v4;
+  v32 = v5;
+  v33 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v19 = v4[3];
-  if (!v19 || (v20 = v4[2], (v21 = std::__shared_weak_count::lock(v19)) == 0))
+  v18 = v4[3];
+  if (!v18 || (v19 = v4[2], (v20 = std::__shared_weak_count::lock(v18)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v22 = v21;
-  v23 = v4[4];
+  v21 = v20;
+  v22 = v4[4];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 1174405120;
-  v41 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-  v42 = &unk_1F5EDC868;
-  v44 = v20;
-  v45 = v22;
-  atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
-  v43 = v29;
-  dispatch_async(v23, block);
-  if (v45)
+  v40 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  v41 = &unk_1F5EDC868;
+  v43 = v19;
+  v44 = v21;
+  atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  v42 = v28;
+  dispatch_async(v22, block);
+  if (v44)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v45);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v22);
-  if (!v34)
+  std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+  if (!v33)
   {
 LABEL_33:
     if (!v6)
@@ -4341,7 +4321,7 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v33);
   if (!v6)
   {
     return;
@@ -4417,28 +4397,27 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN2ms16SessionConfigure8ResponseEEEOS
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p)
     {
-      v7 = __p;
+      v6 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_1E4F0B7D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -4476,35 +4455,35 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver28sessio
   }
 
   v7 = *(v3 + 24);
-  v42 = v7;
+  v41 = v7;
   if (!v5)
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, "rtp.qmidriver");
-    LOBYTE(v30[0]) = 0;
-    LOBYTE(v35) = 0;
-    v25 = ims::error(&__p, v30);
+    LOBYTE(v29[0]) = 0;
+    LOBYTE(v34) = 0;
+    v24 = ims::error(&__p, v29);
     if (!v4)
     {
       __cxa_bad_typeid();
     }
 
-    v26 = v25;
-    v27 = *(*(*v4 - 8) + 8);
-    v28 = *(v25 + 8);
-    v29 = strlen((v27 & 0x7FFFFFFFFFFFFFFFLL));
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, v27 & 0x7FFFFFFFFFFFFFFFLL, v29);
-    *(v26 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v26 + 8), "::", 2);
-    *(v26 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v26 + 8), "handleSessionSetStreamDirectionResp", 35);
-    *(v26 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v26 + 8), " session is null", 16);
-    *(v26 + 17) = 0;
-    (*(*v26 + 64))(v26, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v26 + 17) = 0;
-    if (v35 == 1 && SHIBYTE(v33) < 0)
+    v25 = v24;
+    v26 = *(*(*v4 - 8) + 8);
+    v27 = *(v24 + 8);
+    v28 = strlen((v26 & 0x7FFFFFFFFFFFFFFFLL));
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, v26 & 0x7FFFFFFFFFFFFFFFLL, v28);
+    *(v25 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), "::", 2);
+    *(v25 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), "handleSessionSetStreamDirectionResp", 35);
+    *(v25 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), " session is null", 16);
+    *(v25 + 17) = 0;
+    (*(*v25 + 64))(v25, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v25 + 17) = 0;
+    if (v34 == 1 && SHIBYTE(v32) < 0)
     {
-      operator delete(v31);
+      operator delete(v30);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -4521,10 +4500,10 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver28sessio
     goto LABEL_35;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v30, "rtp.qmidriver");
-  v38[0] = 0;
-  v41 = 0;
-  v8 = ims::debug(v30, v38);
+  std::string::basic_string[abi:ne200100]<0>(v29, "rtp.qmidriver");
+  v37[0] = 0;
+  v40 = 0;
+  v8 = ims::debug(v29, v37);
   if (!v4)
   {
     __cxa_bad_typeid();
@@ -4547,7 +4526,7 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver28sessio
   *(v9 + 17) = 0;
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), " direction=", 11);
   *(v9 + 17) = 0;
-  ims::toString<ms::MediaServiceDirection>(&v42, &__p);
+  ims::toString<ms::MediaServiceDirection>(&v41, &__p);
   (*(*v9 + 32))(v9, &__p);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), "]", 1);
   *(v9 + 17) = 0;
@@ -4558,48 +4537,47 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver28sessio
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v41 == 1 && v40 < 0)
+  if (v40 == 1 && v39 < 0)
   {
-    operator delete(v39);
+    operator delete(v38);
   }
 
-  if (SHIBYTE(v31) < 0)
+  if (SHIBYTE(v30) < 0)
   {
-    operator delete(v30[0]);
+    operator delete(v29[0]);
   }
 
   v14 = *(a2 + 1);
   if (v14)
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, "rtp.qmidriver");
-    LOBYTE(v30[0]) = 0;
-    LOBYTE(v35) = 0;
-    v15 = ims::error(&__p, v30);
+    LOBYTE(v29[0]) = 0;
+    LOBYTE(v34) = 0;
+    v15 = ims::error(&__p, v29);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), "Error response for request: ", 28);
     *(v15 + 17) = 0;
-    v16 = QMIRTPCommandDriver::nameForRequestId(v48, *a2);
-    (*(*v15 + 32))(v15, v48, v16);
+    v16 = QMIRTPCommandDriver::nameForRequestId(v47, *a2);
+    (*(*v15 + 32))(v15, v47, v16);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), " error:", 7);
     *(v15 + 17) = 0;
     MEMORY[0x1E6923350](*(v15 + 8), *(a2 + 1));
     *(v15 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), " reason: ", 9);
     *(v15 + 17) = 0;
-    v17 = *(a2 + 1);
-    v18 = qmi::asString();
-    v19 = strlen(v18);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), v18, v19);
+    v17 = qmi::asString();
+    v18 = strlen(v17);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), v17, v18);
     *(v15 + 17) = 0;
     (*(*v15 + 64))(v15, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v15 + 17) = 0;
-    if (v49 < 0)
+    if (v48 < 0)
     {
-      operator delete(v48[0]);
+      operator delete(v47[0]);
     }
 
-    if (v35 == 1 && SHIBYTE(v33) < 0)
+    if (v34 == 1 && SHIBYTE(v32) < 0)
     {
-      operator delete(v31);
+      operator delete(v30);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -4610,44 +4588,44 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver28sessio
     v14 = 4;
   }
 
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 1174405120;
-  v31 = ___ZN19QMIRTPCommandDriver35handleSessionSetStreamDirectionRespERKN2ms25SessionSetStreamDirection8ResponseENSt3__110shared_ptrI13QMIRTPSessionEENS0_21MediaServiceDirectionE_block_invoke;
-  v32 = &__block_descriptor_tmp_99;
-  v36 = v14;
-  v37 = v7;
-  v33 = v4;
-  v34 = v5;
-  v35 = v6;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 1174405120;
+  v30 = ___ZN19QMIRTPCommandDriver35handleSessionSetStreamDirectionRespERKN2ms25SessionSetStreamDirection8ResponseENSt3__110shared_ptrI13QMIRTPSessionEENS0_21MediaServiceDirectionE_block_invoke;
+  v31 = &__block_descriptor_tmp_99;
+  v35 = v14;
+  v36 = v7;
+  v32 = v4;
+  v33 = v5;
+  v34 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v20 = v4[3];
-  if (!v20 || (v21 = v4[2], (v22 = std::__shared_weak_count::lock(v20)) == 0))
+  v19 = v4[3];
+  if (!v19 || (v20 = v4[2], (v21 = std::__shared_weak_count::lock(v19)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v23 = v22;
-  v24 = v4[4];
+  v22 = v21;
+  v23 = v4[4];
   __p.__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
   __p.__r_.__value_.__l.__size_ = 1174405120;
   __p.__r_.__value_.__r.__words[2] = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-  v44 = &unk_1F5EDC868;
-  v46 = v21;
-  v47 = v23;
-  atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
-  v45 = v30;
-  dispatch_async(v24, &__p);
-  if (v47)
+  v43 = &unk_1F5EDC868;
+  v45 = v20;
+  v46 = v22;
+  atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+  v44 = v29;
+  dispatch_async(v23, &__p);
+  if (v46)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v47);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v46);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v23);
-  if (!v35)
+  std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+  if (!v34)
   {
 LABEL_35:
     if (!v6)
@@ -4658,7 +4636,7 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v35);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v34);
   if (!v6)
   {
     return;
@@ -4734,28 +4712,27 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN2ms25SessionSetStreamDirection8Resp
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p)
     {
-      v7 = __p;
+      v6 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_1E4F0C124(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -4817,9 +4794,9 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver23config
   if (!v4)
   {
     v7 = std::string::basic_string[abi:ne200100]<0>(block, "rtp.qmidriver");
-    v40[0] = 0;
-    v43 = 0;
-    v8 = ims::error(v7, v40);
+    v39[0] = 0;
+    v42 = 0;
+    v8 = ims::error(v7, v39);
     if (!v5)
     {
       __cxa_bad_typeid();
@@ -4839,21 +4816,21 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver23config
     *(v9 + 17) = 0;
     (*(*v9 + 64))(v9, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v9 + 17) = 0;
-    if (v43 == 1 && v42 < 0)
+    if (v42 == 1 && v41 < 0)
     {
       operator delete(__p);
     }
 
-    if (SHIBYTE(v47) < 0)
+    if (SHIBYTE(v46) < 0)
     {
       operator delete(block[0]);
     }
   }
 
   v13 = std::string::basic_string[abi:ne200100]<0>(block, "rtp.qmidriver");
-  v36[0] = 0;
-  v39 = 0;
-  v14 = ims::debug(v13, v36);
+  v35[0] = 0;
+  v38 = 0;
+  v14 = ims::debug(v13, v35);
   if (!v5)
   {
     __cxa_bad_typeid();
@@ -4878,12 +4855,12 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver23config
   *(v15 + 17) = 0;
   (*(*v15 + 64))(v15, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v15 + 17) = 0;
-  if (v39 == 1 && v38 < 0)
+  if (v38 == 1 && v37 < 0)
   {
-    operator delete(v37);
+    operator delete(v36);
   }
 
-  if (SHIBYTE(v47) < 0)
+  if (SHIBYTE(v46) < 0)
   {
     operator delete(block[0]);
   }
@@ -4891,74 +4868,73 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver23config
   v20 = *(a2 + 1);
   if (v20)
   {
-    std::string::basic_string[abi:ne200100]<0>(v31, "rtp.qmidriver");
+    std::string::basic_string[abi:ne200100]<0>(v30, "rtp.qmidriver");
     LOBYTE(block[0]) = 0;
-    LOBYTE(v51) = 0;
-    v21 = ims::error(v31, block);
+    LOBYTE(v50) = 0;
+    v21 = ims::error(v30, block);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), "Error response for request: ", 28);
     *(v21 + 17) = 0;
-    v22 = QMIRTPCommandDriver::nameForRequestId(v44, *a2);
-    (*(*v21 + 32))(v21, v44, v22);
+    v22 = QMIRTPCommandDriver::nameForRequestId(v43, *a2);
+    (*(*v21 + 32))(v21, v43, v22);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), " error:", 7);
     *(v21 + 17) = 0;
     MEMORY[0x1E6923350](*(v21 + 8), *(a2 + 1));
     *(v21 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), " reason: ", 9);
     *(v21 + 17) = 0;
-    v23 = *(a2 + 1);
-    v24 = qmi::asString();
-    v25 = strlen(v24);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), v24, v25);
+    v23 = qmi::asString();
+    v24 = strlen(v23);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), v23, v24);
     *(v21 + 17) = 0;
     (*(*v21 + 64))(v21, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v21 + 17) = 0;
-    if (v45 < 0)
+    if (v44 < 0)
     {
-      operator delete(v44[0]);
+      operator delete(v43[0]);
     }
 
-    if (v51 == 1 && SHIBYTE(v49) < 0)
+    if (v50 == 1 && SHIBYTE(v48) < 0)
     {
-      operator delete(v47);
+      operator delete(v46);
     }
 
-    if (SHIBYTE(v32) < 0)
+    if (SHIBYTE(v31) < 0)
     {
-      operator delete(v31[0]);
+      operator delete(v30[0]);
     }
 
     v20 = 4;
   }
 
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 0x40000000;
-  v32 = ___ZN19QMIRTPCommandDriver30handleConfigureRTCPReportsRespERKN2ms27SessionConfigureRtcpReports8ResponseENSt3__110shared_ptrI13QMIRTPSessionEE_block_invoke;
-  v33 = &__block_descriptor_tmp_124;
-  v34 = v5;
-  v35 = v20;
-  v26 = v5[3];
-  if (!v26 || (v27 = v5[2], (v28 = std::__shared_weak_count::lock(v26)) == 0))
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 0x40000000;
+  v31 = ___ZN19QMIRTPCommandDriver30handleConfigureRTCPReportsRespERKN2ms27SessionConfigureRtcpReports8ResponseENSt3__110shared_ptrI13QMIRTPSessionEE_block_invoke;
+  v32 = &__block_descriptor_tmp_124;
+  v33 = v5;
+  v34 = v20;
+  v25 = v5[3];
+  if (!v25 || (v26 = v5[2], (v27 = std::__shared_weak_count::lock(v25)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v29 = v28;
-  v30 = v5[4];
+  v28 = v27;
+  v29 = v5[4];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 1174405120;
-  v47 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-  v48 = &unk_1F5EDC868;
-  v50 = v27;
-  v51 = v29;
-  atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
-  v49 = v31;
-  dispatch_async(v30, block);
-  if (v51)
+  v46 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  v47 = &unk_1F5EDC868;
+  v49 = v26;
+  v50 = v28;
+  atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
+  v48 = v30;
+  dispatch_async(v29, block);
+  if (v50)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v51);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v50);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v28);
   if (v6)
   {
 
@@ -5031,28 +5007,27 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN2ms27SessionConfigureRtcpReports8Re
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p)
     {
-      v7 = __p;
+      v6 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_1E4F0CAFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -5153,28 +5128,27 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN2ms27SessionConfigureLinkMonitor8Re
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p)
     {
-      v7 = __p;
+      v6 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_1E4F0CDEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -5283,10 +5257,10 @@ uint64_t qmi::MutableMessageBase::TlvWrapper<ms::tlv::MediaServiceNotificationSu
 void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver25subscribeNotificationsReqEjE3__0EEOS1_OT__block_invoke(uint64_t a1, unsigned __int16 *a2)
 {
   v3 = **(a1 + 32);
-  std::string::basic_string[abi:ne200100]<0>(v23, "rtp.qmidriver");
-  v17[0] = 0;
-  v20 = 0;
-  v4 = ims::debug(v23, v17);
+  std::string::basic_string[abi:ne200100]<0>(v22, "rtp.qmidriver");
+  v16[0] = 0;
+  v19 = 0;
+  v4 = ims::debug(v22, v16);
   if (!v3)
   {
     __cxa_bad_typeid();
@@ -5304,70 +5278,69 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver25subscr
   *(v5 + 17) = 0;
   (*(*v5 + 64))(v5, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v5 + 17) = 0;
-  if (v20 == 1 && v19 < 0)
+  if (v19 == 1 && v18 < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v24) < 0)
+  if (SHIBYTE(v23) < 0)
   {
-    operator delete(v23[0]);
+    operator delete(v22[0]);
   }
 
   if (*(a2 + 1))
   {
-    v9 = std::string::basic_string[abi:ne200100]<0>(v27, "rtp.qmidriver");
-    LOBYTE(v23[0]) = 0;
-    v26 = 0;
-    v10 = ims::error(v9, v23);
+    v9 = std::string::basic_string[abi:ne200100]<0>(v26, "rtp.qmidriver");
+    LOBYTE(v22[0]) = 0;
+    v25 = 0;
+    v10 = ims::error(v9, v22);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "Error response for request: ", 28);
     *(v10 + 17) = 0;
-    v11 = QMIRTPCommandDriver::nameForRequestId(v21, *a2);
-    (*(*v10 + 32))(v10, v21, v11);
+    v11 = QMIRTPCommandDriver::nameForRequestId(v20, *a2);
+    (*(*v10 + 32))(v10, v20, v11);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), " error:", 7);
     *(v10 + 17) = 0;
     MEMORY[0x1E6923350](*(v10 + 8), *(a2 + 1));
     *(v10 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), " reason: ", 9);
     *(v10 + 17) = 0;
-    v12 = *(a2 + 1);
-    v13 = qmi::asString();
-    v14 = strlen(v13);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), v13, v14);
+    v12 = qmi::asString();
+    v13 = strlen(v12);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), v12, v13);
     *(v10 + 17) = 0;
     (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v10 + 17) = 0;
-    if (v22 < 0)
+    if (v21 < 0)
     {
-      operator delete(v21[0]);
+      operator delete(v20[0]);
     }
 
-    if (v26 == 1 && v25 < 0)
+    if (v25 == 1 && v24 < 0)
     {
-      operator delete(v24);
+      operator delete(v23);
     }
 
-    if (v28 < 0)
+    if (v27 < 0)
     {
-      operator delete(v27[0]);
+      operator delete(v26[0]);
     }
 
-    v15 = std::string::basic_string[abi:ne200100]<0>(v27, "rtp.qmidriver");
-    LOBYTE(v23[0]) = 0;
-    v26 = 0;
-    v16 = ims::error(v15, v23);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v16 + 8), "subscribeNotificationsReq failed", 32);
-    *(v16 + 17) = 0;
-    (*(*v16 + 64))(v16, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v16 + 17) = 0;
-    if (v26 == 1 && v25 < 0)
+    v14 = std::string::basic_string[abi:ne200100]<0>(v26, "rtp.qmidriver");
+    LOBYTE(v22[0]) = 0;
+    v25 = 0;
+    v15 = ims::error(v14, v22);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), "subscribeNotificationsReq failed", 32);
+    *(v15 + 17) = 0;
+    (*(*v15 + 64))(v15, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v15 + 17) = 0;
+    if (v25 == 1 && v24 < 0)
     {
-      operator delete(v24);
+      operator delete(v23);
     }
 
-    if (v28 < 0)
+    if (v27 < 0)
     {
-      operator delete(v27[0]);
+      operator delete(v26[0]);
     }
   }
 }
@@ -5423,28 +5396,27 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN2ms29ServiceSubscribeNotifications8
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p)
     {
-      v7 = __p;
+      v6 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_1E4F0D604(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -5508,34 +5480,34 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver11sendDT
   if (!v5)
   {
     std::string::basic_string[abi:ne200100]<0>(block, "rtp.qmidriver");
-    LOBYTE(v29[0]) = 0;
-    LOBYTE(v34) = 0;
-    v24 = ims::error(block, v29);
+    LOBYTE(v28[0]) = 0;
+    LOBYTE(v33) = 0;
+    v23 = ims::error(block, v28);
     if (!v4)
     {
       __cxa_bad_typeid();
     }
 
-    v25 = v24;
-    v26 = *(*(*v4 - 8) + 8);
-    v27 = *(v24 + 8);
-    v28 = strlen((v26 & 0x7FFFFFFFFFFFFFFFLL));
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, v26 & 0x7FFFFFFFFFFFFFFFLL, v28);
-    *(v25 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), "::", 2);
-    *(v25 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), "handleSendDTMFResp", 18);
-    *(v25 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), " session is null", 16);
-    *(v25 + 17) = 0;
-    (*(*v25 + 64))(v25, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v25 + 17) = 0;
-    if (v34 == 1 && SHIBYTE(v32) < 0)
+    v24 = v23;
+    v25 = *(*(*v4 - 8) + 8);
+    v26 = *(v23 + 8);
+    v27 = strlen((v25 & 0x7FFFFFFFFFFFFFFFLL));
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, v25 & 0x7FFFFFFFFFFFFFFFLL, v27);
+    *(v24 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "::", 2);
+    *(v24 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "handleSendDTMFResp", 18);
+    *(v24 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), " session is null", 16);
+    *(v24 + 17) = 0;
+    (*(*v24 + 64))(v24, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v24 + 17) = 0;
+    if (v33 == 1 && SHIBYTE(v31) < 0)
     {
-      operator delete(v30);
+      operator delete(v29);
     }
 
-    if (SHIBYTE(v41) < 0)
+    if (SHIBYTE(v40) < 0)
     {
       operator delete(block[0]);
       if (!v6)
@@ -5549,10 +5521,10 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver11sendDT
     goto LABEL_33;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v29, "rtp.qmidriver");
-  v36[0] = 0;
-  v39 = 0;
-  v7 = ims::debug(v29, v36);
+  std::string::basic_string[abi:ne200100]<0>(v28, "rtp.qmidriver");
+  v35[0] = 0;
+  v38 = 0;
+  v7 = ims::debug(v28, v35);
   if (!v4)
   {
     __cxa_bad_typeid();
@@ -5577,51 +5549,50 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver11sendDT
   *(v8 + 17) = 0;
   (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v8 + 17) = 0;
-  if (v39 == 1 && v38 < 0)
+  if (v38 == 1 && v37 < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v30) < 0)
+  if (SHIBYTE(v29) < 0)
   {
-    operator delete(v29[0]);
+    operator delete(v28[0]);
   }
 
   v13 = *(a2 + 1);
   if (v13)
   {
     std::string::basic_string[abi:ne200100]<0>(block, "rtp.qmidriver");
-    LOBYTE(v29[0]) = 0;
-    LOBYTE(v34) = 0;
-    v14 = ims::error(block, v29);
+    LOBYTE(v28[0]) = 0;
+    LOBYTE(v33) = 0;
+    v14 = ims::error(block, v28);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), "Error response for request: ", 28);
     *(v14 + 17) = 0;
-    v15 = QMIRTPCommandDriver::nameForRequestId(v46, *a2);
-    (*(*v14 + 32))(v14, v46, v15);
+    v15 = QMIRTPCommandDriver::nameForRequestId(v45, *a2);
+    (*(*v14 + 32))(v14, v45, v15);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), " error:", 7);
     *(v14 + 17) = 0;
     MEMORY[0x1E6923350](*(v14 + 8), *(a2 + 1));
     *(v14 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), " reason: ", 9);
     *(v14 + 17) = 0;
-    v16 = *(a2 + 1);
-    v17 = qmi::asString();
-    v18 = strlen(v17);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), v17, v18);
+    v16 = qmi::asString();
+    v17 = strlen(v16);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), v16, v17);
     *(v14 + 17) = 0;
     (*(*v14 + 64))(v14, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v14 + 17) = 0;
-    if (v47 < 0)
+    if (v46 < 0)
     {
-      operator delete(v46[0]);
+      operator delete(v45[0]);
     }
 
-    if (v34 == 1 && SHIBYTE(v32) < 0)
+    if (v33 == 1 && SHIBYTE(v31) < 0)
     {
-      operator delete(v30);
+      operator delete(v29);
     }
 
-    if (SHIBYTE(v41) < 0)
+    if (SHIBYTE(v40) < 0)
     {
       operator delete(block[0]);
     }
@@ -5629,43 +5600,43 @@ void ___ZNO3qmi12ClientRouter9SendProxy8callbackIZN19QMIRTPCommandDriver11sendDT
     v13 = 4;
   }
 
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 1174405120;
-  v30 = ___ZN19QMIRTPCommandDriver18handleSendDTMFRespERKN2ms15SessionSendDTMF8ResponseENSt3__110shared_ptrI13QMIRTPSessionEE_block_invoke;
-  v31 = &__block_descriptor_tmp_196;
-  v35 = v13;
-  v32 = v4;
-  v33 = v5;
-  v34 = v6;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 1174405120;
+  v29 = ___ZN19QMIRTPCommandDriver18handleSendDTMFRespERKN2ms15SessionSendDTMF8ResponseENSt3__110shared_ptrI13QMIRTPSessionEE_block_invoke;
+  v30 = &__block_descriptor_tmp_196;
+  v34 = v13;
+  v31 = v4;
+  v32 = v5;
+  v33 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v19 = v4[3];
-  if (!v19 || (v20 = v4[2], (v21 = std::__shared_weak_count::lock(v19)) == 0))
+  v18 = v4[3];
+  if (!v18 || (v19 = v4[2], (v20 = std::__shared_weak_count::lock(v18)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v22 = v21;
-  v23 = v4[4];
+  v21 = v20;
+  v22 = v4[4];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 1174405120;
-  v41 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-  v42 = &unk_1F5EDC868;
-  v44 = v20;
-  v45 = v22;
-  atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
-  v43 = v29;
-  dispatch_async(v23, block);
-  if (v45)
+  v40 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  v41 = &unk_1F5EDC868;
+  v43 = v19;
+  v44 = v21;
+  atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  v42 = v28;
+  dispatch_async(v22, block);
+  if (v44)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v45);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v22);
-  if (!v34)
+  std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+  if (!v33)
   {
 LABEL_33:
     if (!v6)
@@ -5676,7 +5647,7 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v33);
   if (!v6)
   {
     return;
@@ -5752,28 +5723,27 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN2ms15SessionSendDTMF8ResponseEEEOS1
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p)
     {
-      v7 = __p;
+      v6 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_1E4F0E028(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -5835,28 +5805,27 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN2ms30ServiceUninitializeAllSessions
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p)
     {
-      v7 = __p;
+      v6 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_1E4F0E28C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -5931,28 +5900,27 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN5audio13SendCallEvent8ResponseEEEOS
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p)
     {
-      v7 = __p;
+      v6 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_1E4F0E5C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -5985,28 +5953,27 @@ void ___ZNO3qmi6Client9SendProxy8callbackIRKN5audio21CodecChangeCbRegister8Respo
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
     __p = 0;
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
     QMIServiceMsg::serialize(&__p, this);
-    qmi::ResponseBase::ResponseBase(v5, __p);
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::ResponseBase::ResponseBase(v4, __p);
+    qmi::MessageBase::validateMsgId(v4);
     if (__p)
     {
-      v7 = __p;
+      v6 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v4 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v5);
+    qmi::MessageBase::validateMsgId(v4);
   }
 
-  (*(v2 + 16))(v2, v5);
-  qmi::MessageBase::~MessageBase(v5);
+  (*(v2 + 16))(v2, v4);
+  qmi::MessageBase::~MessageBase(v4);
 }
 
 void sub_1E4F0E76C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -6053,10 +6020,10 @@ uint64_t ___Z16KAStringFromDateP6NSDate_block_invoke()
   return [v2 setDateFormat:@"HH:mm:ss"];
 }
 
-void sub_1E4F0EE0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, char a21)
+void sub_1E4F0EE0C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, char a21)
 {
   a9.super_class = KeepAliveManager;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6344,21 +6311,20 @@ BOOL SipPolymorphicVectorHeader<SipSecurityMechanism>::itemFromString(uint64_t a
   return v4 != 0;
 }
 
-BOOL SipVectorHeader<SipSecurityMechanism *>::mergeHeader(void *a1, char **lpsrc)
+BOOL SipVectorHeader<SipSecurityMechanism *>::mergeHeader(void *a1, void *lpsrc)
 {
-  v3 = **lpsrc;
-  v5 = v4;
-  if (v4)
+  v4 = v3;
+  if (v3)
   {
-    v6 = v4[8];
-    v7 = v4[9];
-    while (v6 != v7)
+    v5 = v3[8];
+    v6 = v3[9];
+    while (v5 != v6)
     {
-      SipVectorHeader<SipSecurityMechanism *>::addItem(a1, v6++);
+      SipVectorHeader<SipSecurityMechanism *>::addItem(a1, v5++);
     }
   }
 
-  return v5 != 0;
+  return v4 != 0;
 }
 
 void SipVectorHeader<SipSecurityMechanism *>::~SipVectorHeader(SipHeader *this)
@@ -6374,17 +6340,17 @@ void SipVectorHeader<SipSecurityMechanism *>::~SipVectorHeader(SipHeader *this)
   SipHeader::~SipHeader(this);
 }
 
-void ImsNetworkManager::createTransport(int a1@<W6>, uint64_t a2@<X8>)
+void ImsNetworkManager::createTransport(int a5@<W6>, uint64_t a6@<X8>)
 {
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0;
-  *(a2 + 40) = 0u;
-  *(a2 + 56) = 0u;
-  *(a2 + 72) = 0u;
-  *a2 = &unk_1F5EBDEF8;
-  *(a2 + 8) = &_bambiDomain;
-  *(a2 + 32) = 0;
-  if (a1)
+  *(a6 + 16) = 0;
+  *(a6 + 24) = 0;
+  *(a6 + 40) = 0u;
+  *(a6 + 56) = 0u;
+  *(a6 + 72) = 0u;
+  *a6 = &unk_1F5EBDEF8;
+  *(a6 + 8) = &_bambiDomain;
+  *(a6 + 32) = 0;
+  if (a5)
   {
     operator new();
   }
@@ -6392,16 +6358,16 @@ void ImsNetworkManager::createTransport(int a1@<W6>, uint64_t a2@<X8>)
   operator new();
 }
 
-void sub_1E4F103E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4F103E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ImsResult::~ImsResult(va);
-  if (v3)
+  if (v4)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   }
 
-  ImsResult::~ImsResult(v2);
+  ImsResult::~ImsResult(v3);
   _Unwind_Resume(a1);
 }
 
@@ -6426,7 +6392,7 @@ void SimpleNetworkManager::~SimpleNetworkManager(SimpleNetworkManager *this)
   JUMPOUT(0x1E69235B0);
 }
 
-void SimpleNetworkManager::copyAllInterfaces(void *a1@<X1>, uint64_t a2@<X8>)
+void SimpleNetworkManager::copyAllInterfaces(uint64_t **a1@<X1>, uint64_t a2@<X8>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "");
   v4 = SimpleNetworkManager::copyInterfaces(a1, __p);
@@ -6464,18 +6430,17 @@ void sub_1E4F105F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL SimpleNetworkManager::copyInterfaces(void *a1, const void **a2)
+BOOL SimpleNetworkManager::copyInterfaces(uint64_t **a1, const void ***a2)
 {
-  v74 = *MEMORY[0x1E69E9840];
-  v56 = 0;
-  if (getifaddrs(&v56))
+  v72 = *MEMORY[0x1E69E9840];
+  v54 = 0;
+  if (getifaddrs(&v54))
   {
-    result = 0;
-    goto LABEL_78;
+    return 0;
   }
 
-  v5 = v56;
-  if (v56)
+  v5 = v54;
+  if (v54)
   {
     while (1)
     {
@@ -6544,9 +6509,7 @@ BOOL SimpleNetworkManager::copyInterfaces(void *a1, const void **a2)
             {
               v16 = v5->ifa_addr;
               ifa_name = v5->ifa_name;
-              v73 = 0;
-              v71 = 0u;
-              v72 = 0u;
+              v71 = 0;
               v69 = 0u;
               v70 = 0u;
               v67 = 0u;
@@ -6559,11 +6522,13 @@ BOOL SimpleNetworkManager::copyInterfaces(void *a1, const void **a2)
               v62 = 0u;
               v59 = 0u;
               v60 = 0u;
-              *&v58[24] = 0u;
+              v57 = 0u;
+              v58 = 0u;
+              *&v56[24] = 0u;
               strncpy(__dst, ifa_name, 0x10uLL);
               v18 = *v16;
-              *&v58[12] = *&v16->sa_data[10];
-              *v58 = v18;
+              *&v56[12] = *&v16->sa_data[10];
+              *v56 = v18;
               if (ioctl(v15, 0xC1206949uLL, __dst) < 0)
               {
                 close(v15);
@@ -6572,23 +6537,23 @@ BOOL SimpleNetworkManager::copyInterfaces(void *a1, const void **a2)
 
               else
               {
-                v19 = v58[0];
-                if ((v58[0] & 0x80) != 0)
+                v19 = v56[0];
+                if ((v56[0] & 0x80) != 0)
                 {
                   std::string::basic_string[abi:ne200100]<0>(__dst, "net");
-                  v52[0] = 0;
-                  v55 = 0;
-                  v21 = ims::debug(__dst, v52);
+                  v50[0] = 0;
+                  v53 = 0;
+                  v21 = ims::debug(__dst, v50);
                   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), "flavorMask |= AddressFlavorTemporary", 36);
                   *(v21 + 17) = 0;
                   (*(*v21 + 64))(v21, std::endl[abi:ne200100]<char,std::char_traits<char>>);
                   *(v21 + 17) = 0;
-                  if (v55 == 1 && v54 < 0)
+                  if (v53 == 1 && v52 < 0)
                   {
                     operator delete(__p);
                   }
 
-                  if ((v58[7] & 0x80000000) != 0)
+                  if ((v56[7] & 0x80000000) != 0)
                   {
                     operator delete(*__dst);
                   }
@@ -6603,26 +6568,26 @@ BOOL SimpleNetworkManager::copyInterfaces(void *a1, const void **a2)
                 else
                 {
                   v20 = 0;
-                  if ((v58[0] & 0x10) == 0)
+                  if ((v56[0] & 0x10) == 0)
                   {
                     goto LABEL_44;
                   }
 
 LABEL_38:
                   std::string::basic_string[abi:ne200100]<0>(__dst, "net");
-                  v48[0] = 0;
-                  v51 = 0;
-                  v22 = ims::debug(__dst, v48);
+                  v46[0] = 0;
+                  v49 = 0;
+                  v22 = ims::debug(__dst, v46);
                   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v22 + 8), "flavorMask |= AddressFlavorDeprecated", 37);
                   *(v22 + 17) = 0;
                   (*(*v22 + 64))(v22, std::endl[abi:ne200100]<char,std::char_traits<char>>);
                   *(v22 + 17) = 0;
-                  if (v51 == 1 && v50 < 0)
+                  if (v49 == 1 && v48 < 0)
                   {
-                    operator delete(v49);
+                    operator delete(v47);
                   }
 
-                  if ((v58[7] & 0x80000000) != 0)
+                  if ((v56[7] & 0x80000000) != 0)
                   {
                     operator delete(*__dst);
                   }
@@ -6634,19 +6599,19 @@ LABEL_44:
                 if ((v19 & 6) != 0)
                 {
                   std::string::basic_string[abi:ne200100]<0>(__dst, "net");
-                  v44[0] = 0;
-                  v47 = 0;
-                  v23 = ims::debug(__dst, v44);
+                  v42[0] = 0;
+                  v45 = 0;
+                  v23 = ims::debug(__dst, v42);
                   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "flavorMask |= AddressFlavorNotReady", 35);
                   *(v23 + 17) = 0;
                   (*(*v23 + 64))(v23, std::endl[abi:ne200100]<char,std::char_traits<char>>);
                   *(v23 + 17) = 0;
-                  if (v47 == 1 && v46 < 0)
+                  if (v45 == 1 && v44 < 0)
                   {
-                    operator delete(v45);
+                    operator delete(v43);
                   }
 
-                  if ((v58[7] & 0x80000000) != 0)
+                  if ((v56[7] & 0x80000000) != 0)
                   {
                     operator delete(*__dst);
                   }
@@ -6657,19 +6622,19 @@ LABEL_44:
                 if ((v19 & 8) != 0)
                 {
                   std::string::basic_string[abi:ne200100]<0>(__dst, "net");
-                  v40[0] = 0;
-                  v43 = 0;
-                  v24 = ims::debug(__dst, v40);
+                  v38[0] = 0;
+                  v41 = 0;
+                  v24 = ims::debug(__dst, v38);
                   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "flavorMask |= AddressFlavorDetached", 35);
                   *(v24 + 17) = 0;
                   (*(*v24 + 64))(v24, std::endl[abi:ne200100]<char,std::char_traits<char>>);
                   *(v24 + 17) = 0;
-                  if (v43 == 1 && v42 < 0)
+                  if (v41 == 1 && v40 < 0)
                   {
-                    operator delete(v41);
+                    operator delete(v39);
                   }
 
-                  if ((v58[7] & 0x80000000) != 0)
+                  if ((v56[7] & 0x80000000) != 0)
                   {
                     operator delete(*__dst);
                   }
@@ -6680,8 +6645,8 @@ LABEL_44:
 
 LABEL_58:
               v25 = v5->ifa_name;
-              *v58 = 0;
-              *&v58[8] = 0;
+              *v56 = 0;
+              *&v56[8] = 0;
               strncpy(__dst, v25, 0x10uLL);
               ioctl(v15, 0xC0206933uLL, __dst);
               close(v15);
@@ -6699,48 +6664,47 @@ LABEL_58:
           }
 
           lpsrc = 0;
-          v39 = 0;
-          IpAddress::createAddress(v5->ifa_addr, &lpsrc);
+          v37 = 0;
+          IpAddress::createAddress(&lpsrc, v5->ifa_addr);
           v26 = lpsrc;
           if (lpsrc)
           {
             if (v20)
             {
-              v27 = **lpsrc;
-              if (v28)
+              if (v27)
               {
-                v29 = v28;
-                v30 = v39;
-                if (v39)
+                v28 = v27;
+                v29 = v37;
+                if (v37)
                 {
-                  atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
+                  atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                v28[6] = v20;
+                v27[6] = v20;
                 std::string::basic_string[abi:ne200100]<0>(__dst, "net");
-                v34[0] = 0;
-                v37 = 0;
-                v31 = ims::debug(__dst, v34);
-                (*(*v26 + 40))(v26, v31);
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v31 + 8), ": flavorMask=", 13);
-                *(v31 + 17) = 0;
-                MEMORY[0x1E6923350](*(v31 + 8), v29[6]);
-                *(v31 + 17) = 0;
-                (*(*v31 + 64))(v31, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-                *(v31 + 17) = 0;
-                if (v37 == 1 && v36 < 0)
+                v32[0] = 0;
+                v35 = 0;
+                v30 = ims::debug(__dst, v32);
+                (*(*v26 + 40))(v26, v30);
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v30 + 8), ": flavorMask=", 13);
+                *(v30 + 17) = 0;
+                MEMORY[0x1E6923350](*(v30 + 8), v28[6]);
+                *(v30 + 17) = 0;
+                (*(*v30 + 64))(v30, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                *(v30 + 17) = 0;
+                if (v35 == 1 && v34 < 0)
                 {
-                  operator delete(v35);
+                  operator delete(v33);
                 }
 
-                if ((v58[7] & 0x80000000) != 0)
+                if ((v56[7] & 0x80000000) != 0)
                 {
                   operator delete(*__dst);
                 }
 
-                if (v30)
+                if (v29)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v29);
                 }
               }
             }
@@ -6748,9 +6712,9 @@ LABEL_58:
             operator new();
           }
 
-          if (v39)
+          if (v37)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v39);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v37);
           }
         }
       }
@@ -6759,19 +6723,16 @@ LABEL_74:
       v5 = v5->ifa_next;
       if (!v5)
       {
-        v32 = v56;
+        v31 = v54;
         goto LABEL_77;
       }
     }
   }
 
-  v32 = 0;
+  v31 = 0;
 LABEL_77:
-  MEMORY[0x1E6923A80](v32);
-  result = *a1 != a1[1];
-LABEL_78:
-  v33 = *MEMORY[0x1E69E9840];
-  return result;
+  MEMORY[0x1E6923A80](v31);
+  return *a1 != a1[1];
 }
 
 void sub_1E4F10E88(_Unwind_Exception *a1, int a2)
@@ -6784,7 +6745,7 @@ void sub_1E4F10E88(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t SimpleNetworkManager::copyInterfaceWithName(uint64_t a1, const void **a2)
+uint64_t SimpleNetworkManager::copyInterfaceWithName(uint64_t a1, const void ***a2)
 {
   __p = 0;
   v10 = 0;
@@ -6851,7 +6812,7 @@ const __SCNetworkReachability *SimpleNetworkManager::isReachable(uint64_t a1, Ne
   v8 = 0;
   v9 = 0;
   v5 = (*(**a3 + 160))();
-  NetworkInterface::firstAddress(a2, v5, 1, &v8);
+  NetworkInterface::firstAddress(&v8, a2, v5, 1);
   if (v8)
   {
     Reachability = ImsNetworkReachabilityMonitor::getReachability(&v8, a3);
@@ -6880,11 +6841,11 @@ void sub_1E4F11168(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SimpleNetworkManager::createTcpSocket(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7)
+void SimpleNetworkManager::createTcpSocket(void x0_0, int a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a9)
 {
-  if (a7)
+  if (a6)
   {
-    if (a2)
+    if (a1)
     {
       operator new();
     }
@@ -6919,9 +6880,9 @@ void sub_1E4F114E0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void SimpleNetworkManager::createListenSocket(uint64_t a1, int a2)
+void SimpleNetworkManager::createListenSocket(void x0_0, int a1)
 {
-  if (a2)
+  if (a1)
   {
     operator new();
   }
@@ -6970,8 +6931,9 @@ void XcapCDRule::XcapCDRule(XcapCDRule *this)
 {
   *this = &unk_1F5ED5818;
   v2 = this + 8;
-  v4 = 1;
-  v3 = std::__tree<std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>,std::__map_value_compare<XcapNs::nsType,std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>,std::less<XcapNs::nsType>,true>,std::allocator<std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>>>::__emplace_unique_key_args<XcapNs::nsType,std::piecewise_construct_t const&,std::tuple<XcapNs::nsType const&>,std::tuple<>>(&XcapNs::_allNamespaces, &v4);
+  v5 = 1;
+  *&v4 = &v5;
+  v3 = std::__tree<std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>,std::__map_value_compare<XcapNs::nsType,std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>,std::less<XcapNs::nsType>,true>,std::allocator<std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>>>::__emplace_unique_key_args<XcapNs::nsType,std::piecewise_construct_t const&,std::tuple<XcapNs::nsType const&>,std::tuple<>>(&XcapNs::_allNamespaces, &v5, &std::piecewise_construct, &v4);
   bambi::XmlTreeItem::XmlTreeItem(v2, "rule", (v3 + 5));
   *this = &unk_1F5EDD5F8;
   *(this + 1) = &unk_1F5EDD670;
@@ -7112,46 +7074,48 @@ LABEL_23:
 
 void XcapCDRule::parseChild(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  memset(&v21, 0, sizeof(v21));
-  XcapNs::stripXcapNs(a2, &v21);
-  size = HIBYTE(v21.__r_.__value_.__r.__words[2]);
-  if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  memset(&v22, 0, sizeof(v22));
+  XcapNs::stripXcapNs(a2, &v22);
+  size = HIBYTE(v22.__r_.__value_.__r.__words[2]);
+  if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v21.__r_.__value_.__l.__size_;
+    size = v22.__r_.__value_.__l.__size_;
   }
 
   switch(size)
   {
     case 6uLL:
-      if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v16 = &v21;
+        v16 = &v22;
       }
 
       else
       {
-        v16 = v21.__r_.__value_.__r.__words[0];
+        v16 = v22.__r_.__value_.__r.__words[0];
       }
 
       data = v16->__r_.__value_.__l.__data_;
       v18 = WORD2(v16->__r_.__value_.__r.__words[0]);
       if (data == 1735549300 && v18 == 29797)
       {
-        memset(&__p, 0, sizeof(__p));
-        (*(*a1 + 72))(a1, a2, a3, &__p);
-        SipUri::fromString(a1 + 112, &__p);
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+        __p[0] = 0;
+        __p[1] = 0;
+        v21 = 0;
+        (*(*a1 + 72))(a1, a2, a3, __p);
+        SipUri::fromString(a1 + 112, __p);
+        if (SHIBYTE(v21) < 0)
         {
-          operator delete(__p.__r_.__value_.__l.__data_);
+          operator delete(__p[0]);
         }
       }
 
       break;
     case 0xAuLL:
-      v11 = &v21;
-      if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v11 = &v22;
+      if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v11 = v21.__r_.__value_.__r.__words[0];
+        v11 = v22.__r_.__value_.__r.__words[0];
       }
 
       if (v11->__r_.__value_.__r.__words[0] == 0x2D64726177726F66 && LOWORD(v11->__r_.__value_.__r.__words[1]) == 28532)
@@ -7168,10 +7132,10 @@ void XcapCDRule::parseChild(uint64_t a1, uint64_t a2, uint64_t *a3)
 
       break;
     case 7uLL:
-      v7 = &v21;
-      if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v7 = &v22;
+      if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v7 = v21.__r_.__value_.__r.__words[0];
+        v7 = v22.__r_.__value_.__r.__words[0];
       }
 
       v8 = v7->__r_.__value_.__l.__data_;
@@ -7188,9 +7152,9 @@ LABEL_25:
       break;
   }
 
-  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v21.__r_.__value_.__l.__data_);
+    operator delete(v22.__r_.__value_.__l.__data_);
   }
 }
 
@@ -7209,11 +7173,11 @@ void sub_1E4F11DA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void XcapCDRule::constructTree(void *a1@<X8>)
+void XcapCDRule::constructTree(uint64_t *a2@<X8>)
 {
-  *a1 = 0;
-  a1[1] = 0;
-  bambi::XmlTreeItem::makeNode(a1);
+  *a2 = 0;
+  a2[1] = 0;
+  bambi::XmlTreeItem::makeNode(a2);
 }
 
 void sub_1E4F1214C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, std::__shared_weak_count *a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
@@ -7307,7 +7271,7 @@ LABEL_6:
   std::string::__init_copy_ctor_external(a2, v5, v6);
 }
 
-uint64_t XcapCDRule::asString@<X0>(XcapCDRule *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *XcapCDRule::asString@<X0>(uint64_t *__return_ptr a1@<X8>, XcapCDRule *this@<X0>)
 {
   v34 = 0;
   v32 = 0u;
@@ -7346,7 +7310,7 @@ uint64_t XcapCDRule::asString@<X0>(XcapCDRule *this@<X0>, _BYTE *a2@<X8>)
   v10 = *(this + 11);
   if (v10)
   {
-    XcapCDCondition::asString(v10, v24);
+    XcapCDCondition::asString(v24, v10);
   }
 
   else
@@ -7431,7 +7395,7 @@ uint64_t XcapCDRule::asString@<X0>(XcapCDRule *this@<X0>, _BYTE *a2@<X8>)
     if ((BYTE8(v32) & 8) == 0)
     {
       v19 = 0;
-      a2[23] = 0;
+      *(a1 + 23) = 0;
       goto LABEL_39;
     }
 
@@ -7450,14 +7414,14 @@ uint64_t XcapCDRule::asString@<X0>(XcapCDRule *this@<X0>, _BYTE *a2@<X8>)
     operator new();
   }
 
-  a2[23] = v19;
+  *(a1 + 23) = v19;
   if (v19)
   {
-    memmove(a2, v21, v19);
+    memmove(a1, v21, v19);
   }
 
 LABEL_39:
-  a2[v19] = 0;
+  *(a1 + v19) = 0;
   *&v26 = *MEMORY[0x1E69E54E8];
   *(&v26 + *(v26 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
   *(&v26 + 1) = MEMORY[0x1E69E5548] + 16;
@@ -7472,15 +7436,15 @@ LABEL_39:
   return MEMORY[0x1E6923510](v33);
 }
 
-void sub_1E4F12628(_Unwind_Exception *a1, void *a2, uint64_t a3, int a4, __int16 a5, char a6, char a7, void *__p, uint64_t a9, int a10, __int16 a11, char a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+void sub_1E4F12628(_Unwind_Exception *a1, void *a2, uint64_t a3, int a4, __int16 a5, char a6, char a7, void *__p, void *a9, int a10, __int16 a11, char a12, char a13, char a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  va_start(va, a27);
-  if (a13 < 0)
+  va_start(va, a31);
+  if (SHIBYTE(a17) < 0)
   {
-    operator delete(__p);
+    operator delete(a15);
   }
 
-  std::ostringstream::~ostringstream(&a14, MEMORY[0x1E69E54E8]);
+  std::ostringstream::~ostringstream(&a18, MEMORY[0x1E69E54E8]);
   MEMORY[0x1E6923510](va);
   _Unwind_Resume(a1);
 }
@@ -7561,7 +7525,7 @@ void sub_1E4F128F8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t XcapDocumentSelector::asString@<X0>(XcapDocumentSelector *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *XcapDocumentSelector::asString@<X0>(uint64_t *__return_ptr a1@<X8>, XcapDocumentSelector *this@<X0>)
 {
   v29 = 0;
   v27 = 0u;
@@ -7640,7 +7604,7 @@ uint64_t XcapDocumentSelector::asString@<X0>(XcapDocumentSelector *this@<X0>, _B
     if ((BYTE8(v27) & 8) == 0)
     {
       v17 = 0;
-      a2[23] = 0;
+      *(a1 + 23) = 0;
       goto LABEL_26;
     }
 
@@ -7659,14 +7623,14 @@ uint64_t XcapDocumentSelector::asString@<X0>(XcapDocumentSelector *this@<X0>, _B
     operator new();
   }
 
-  a2[23] = v17;
+  *(a1 + 23) = v17;
   if (v17)
   {
-    memmove(a2, v19, v17);
+    memmove(a1, v19, v17);
   }
 
 LABEL_26:
-  a2[v17] = 0;
+  *(a1 + v17) = 0;
   *&v21 = *MEMORY[0x1E69E54E8];
   *(&v21 + *(v21 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
   *(&v21 + 1) = MEMORY[0x1E69E5548] + 16;
@@ -7728,7 +7692,7 @@ void anonymous namespace::NetworkServiceProxyHelperImpl::~NetworkServiceProxyHel
 
 void anonymous namespace::NetworkServiceProxyHelperImpl::generateAthmSpamTokenRequest(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v6 = [objc_alloc(MEMORY[0x1E69B37C0]) initATHMChallengeWithIssuerName:@"ircs-ppissuer.mtls.googleapis.com"];
   v7 = *(a1 + 64);
   *(a1 + 64) = v6;
@@ -7765,27 +7729,25 @@ void anonymous namespace::NetworkServiceProxyHelperImpl::generateAthmSpamTokenRe
   atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   v18 = *(a1 + 56);
-  ims::getQueue(&v21);
-  v19 = v21;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3321888768;
-  v22[2] = ___ZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl28generateAthmSpamTokenRequestERKNSt3__18optionalINS1_6vectorIhNS1_9allocatorIhEEEEEENS1_8functionIFv9ImsResultS6_EEE_block_invoke;
-  v22[3] = &__block_descriptor_80_ea8_32c67_ZTSNSt3__18functionIFv9ImsResultNS_6vectorIhNS_9allocatorIhEEEEEEE64c70_ZTSNSt3__18weak_ptrIN12_GLOBAL__N_129NetworkServiceProxyHelperImplEEE_e28_v24__0__NSData_8__NSError_16l;
-  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>)>::__value_func[abi:ne200100](v23, a3);
-  v23[4] = v14;
-  v24 = v16;
+  ims::getQueue(&v20);
+  v19 = v20;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3321888768;
+  v21[2] = ___ZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl28generateAthmSpamTokenRequestERKNSt3__18optionalINS1_6vectorIhNS1_9allocatorIhEEEEEENS1_8functionIFv9ImsResultS6_EEE_block_invoke;
+  v21[3] = &__block_descriptor_80_ea8_32c67_ZTSNSt3__18functionIFv9ImsResultNS_6vectorIhNS_9allocatorIhEEEEEEE64c70_ZTSNSt3__18weak_ptrIN12_GLOBAL__N_129NetworkServiceProxyHelperImplEEE_e28_v24__0__NSData_8__NSError_16l;
+  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>)>::__value_func[abi:ne200100](v22, a3);
+  v22[4] = v14;
+  v23 = v16;
   atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
-  [v18 generateTokenRequestWithQueue:v19 completionHandler:v22];
+  [v18 generateTokenRequestWithQueue:v19 completionHandler:v21];
 
-  if (v24)
+  if (v23)
   {
-    std::__shared_weak_count::__release_weak(v24);
+    std::__shared_weak_count::__release_weak(v23);
   }
 
-  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>)>::~__value_func[abi:ne200100](v23);
+  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>)>::~__value_func[abi:ne200100](v22);
   std::__shared_weak_count::__release_weak(v16);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4F133E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, std::__shared_weak_count *a19)
@@ -7803,38 +7765,38 @@ void sub_1E4F133E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t anonymous namespace::NetworkServiceProxyHelperImpl::requestPatAndReputationTokens(std::chrono::steady_clock::time_point *this, const PatAndReputationTokenParams *a2)
 {
-  v49 = *MEMORY[0x1E69E9840];
-  memset(v48, 0, 32);
-  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::__value_func[abi:ne200100](v48, a2 + 136);
+  v48 = *MEMORY[0x1E69E9840];
+  memset(v47, 0, 32);
+  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::__value_func[abi:ne200100](v47, a2 + 136);
   if (!this[7].__d_.__rep_)
   {
-    v34 = 0;
-    memset(v33, 0, sizeof(v33));
-    memset(v47, 0, 64);
+    v33 = 0;
+    memset(v32, 0, sizeof(v32));
+    memset(v46, 0, 64);
     *buf = &unk_1F5EBDEF8;
-    v45 = &_bambiDomain;
-    v46 = 1073741826;
+    v44 = &_bambiDomain;
+    v45 = 1073741826;
     v5 = ImsResult::operator<<<char [18]>(buf, "nil token Fetcher");
-    ImsResult::ImsResult(v33, v5);
+    ImsResult::ImsResult(v32, v5);
     ImsResult::~ImsResult(buf);
-    ims::getQueue(&v32);
-    std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::__value_func[abi:ne200100](buf, v48);
-    ImsResult::ImsResult(&v47[1], v33);
-    v6 = v32;
+    ims::getQueue(&v31);
+    std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::__value_func[abi:ne200100](buf, v47);
+    ImsResult::ImsResult(&v46[1], v32);
+    v6 = v31;
     operator new();
   }
 
-  v31 = [MEMORY[0x1E695DEF0] dataWithBytes:*(a2 + 7) length:*(a2 + 8) - *(a2 + 7)];
+  v30 = [MEMORY[0x1E695DEF0] dataWithBytes:*(a2 + 7) length:*(a2 + 8) - *(a2 + 7)];
   v4 = [MEMORY[0x1E695DEF0] dataWithBytes:*a2 length:*(a2 + 1) - *a2];
   if (*(a2 + 48) == 1)
   {
-    v30 = [MEMORY[0x1E695DEF0] dataWithBytes:*(a2 + 3) length:*(a2 + 4) - *(a2 + 3)];
+    v29 = [MEMORY[0x1E695DEF0] dataWithBytes:*(a2 + 3) length:*(a2 + 4) - *(a2 + 3)];
   }
 
   else
   {
-    ims::getStaticLoggerFor("nsp", buf);
-    v7 = v45;
+    ims::getStaticLoggerFor(buf, "nsp");
+    v7 = v44;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
@@ -7842,19 +7804,19 @@ uint64_t anonymous namespace::NetworkServiceProxyHelperImpl::requestPatAndReputa
       _os_log_impl(&dword_1E4C3F000, v7, OS_LOG_TYPE_DEFAULT, "#D Using PAT key from known issuer", buf, 2u);
     }
 
-    v30 = 0;
+    v29 = 0;
   }
 
-  v28 = v4;
+  v27 = v4;
   if (*(a2 + 104) == 1)
   {
-    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:*(a2 + 10) length:{*(a2 + 11) - *(a2 + 10), v4, v30}];
+    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:*(a2 + 10) length:{*(a2 + 11) - *(a2 + 10), v4, v29}];
   }
 
   else
   {
-    ims::getStaticLoggerFor("nsp", buf);
-    v9 = v45;
+    ims::getStaticLoggerFor(buf, "nsp");
+    v9 = v44;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
@@ -7878,7 +7840,7 @@ uint64_t anonymous namespace::NetworkServiceProxyHelperImpl::requestPatAndReputa
     v13 = v10;
   }
 
-  v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{v13, v28}];
+  v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{v13, v27}];
   this[11].__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
   LOBYTE(this[12].__d_.__rep_) = 1;
   rep = this[3].__d_.__rep_;
@@ -7894,36 +7856,34 @@ uint64_t anonymous namespace::NetworkServiceProxyHelperImpl::requestPatAndReputa
   v20 = this[7].__d_.__rep_;
   ims::getQueue(buf);
   v21 = *buf;
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3321888768;
-  v35[2] = ___ZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29requestPatAndReputationTokensERK27PatAndReputationTokenParams_block_invoke;
-  v35[3] = &unk_1F5EDD958;
-  v40 = this;
-  v41 = v16;
-  v42 = v18;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3321888768;
+  v34[2] = ___ZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29requestPatAndReputationTokensERK27PatAndReputationTokenParams_block_invoke;
+  v34[3] = &unk_1F5EDD958;
+  v39 = this;
+  v40 = v16;
+  v41 = v18;
   atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
-  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::__value_func[abi:ne200100](v43, v48);
+  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::__value_func[abi:ne200100](v42, v47);
   v22 = v14;
-  v36 = v22;
-  v23 = v29;
-  v37 = v23;
-  v24 = v30;
-  v38 = v24;
+  v35 = v22;
+  v23 = v28;
+  v36 = v23;
+  v24 = v29;
+  v37 = v24;
   v25 = v8;
-  v39 = v25;
-  [v20 handleTokenResponse:v31 withQueue:v21 completionHandler:v35];
+  v38 = v25;
+  [v20 handleTokenResponse:v30 withQueue:v21 completionHandler:v34];
 
-  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::~__value_func[abi:ne200100](v43);
-  if (v42)
+  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::~__value_func[abi:ne200100](v42);
+  if (v41)
   {
-    std::__shared_weak_count::__release_weak(v42);
+    std::__shared_weak_count::__release_weak(v41);
   }
 
   std::__shared_weak_count::__release_weak(v18);
 
-  result = std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::~__value_func[abi:ne200100](v48);
-  v27 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::~__value_func[abi:ne200100](v47);
 }
 
 void sub_1E4F1393C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, std::__shared_weak_count *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
@@ -8024,7 +7984,7 @@ void ___ZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl28generateAthmSpamTokenRe
   v30 = 0;
   v31 = 0;
   v32 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v30, v15, v17 + v18, v17 + v18 - v15);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v30, v15, (v17 + v18), v17 + v18 - v15);
   v19 = v30;
   v20 = v31;
   v33 = 0u;
@@ -8045,13 +8005,13 @@ void ___ZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl28generateAthmSpamTokenRe
   operator new();
 }
 
-void sub_1E4F1402C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E4F1402C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-  if (v7)
+  va_start(va, a9);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  if (v11)
   {
-    operator delete(v7);
+    operator delete(v11);
   }
 
   ImsResult::~ImsResult(va);
@@ -8076,35 +8036,35 @@ uint64_t ImsResult::operator<<<char>(uint64_t a1, char *a2)
 
 void anonymous namespace::NetworkServiceProxyHelperImpl::logTokenMetrics(uint64_t a1, int a2, unsigned __int8 a3, int a4, void *a5)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v9 = a5;
   v10 = v9;
-  v22 = 0;
-  v21[0] = a2;
-  v21[1] = a3;
-  v21[2] = a4;
-  v23 = 257;
+  v20 = 0;
+  v19[0] = a2;
+  v19[1] = a3;
+  v19[2] = a4;
+  v21 = 257;
   v11 = *(a1 + 159);
   if (v11 < 0)
   {
     v11 = *(a1 + 144);
   }
 
-  BYTE2(v23) = v11 != 0;
+  BYTE2(v21) = v11 != 0;
   if (v9 && (a3 & 1) == 0)
   {
     v12 = v9;
     v13 = [v12 code];
     if ((v13 - 1001) >= 0x10)
     {
-      ims::getStaticLoggerFor("nsp", buf);
-      v15 = *&buf[8];
+      ims::getStaticLoggerFor(buf, "nsp");
+      v15 = buf[1];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         v16 = [v12 code];
-        *buf = 134217984;
-        *&buf[4] = v16;
+        LODWORD(buf[0]) = 134217984;
+        *(buf + 4) = v16;
         _os_log_impl(&dword_1E4C3F000, v15, OS_LOG_TYPE_DEFAULT, "#D Unknown NSP error code %ld, using kNSPErrorCodeTypeServerFailure", buf, 0xCu);
       }
 
@@ -8116,31 +8076,29 @@ void anonymous namespace::NetworkServiceProxyHelperImpl::logTokenMetrics(uint64_
       v14 = v13;
     }
 
-    LODWORD(v22) = v14;
-    BYTE4(v22) = 1;
+    LODWORD(v20) = v14;
+    BYTE4(v20) = 1;
   }
 
-  v17 = pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-  v18 = off_1EE2BBBC0;
+  pthread_mutex_lock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
+  v17 = off_1EE2BBBC0;
   if (!off_1EE2BBBC0)
   {
-    IMSMetricsManager::create_default_global(v17);
+    IMSMetricsManager::create_default_global();
   }
 
-  v19 = *(&off_1EE2BBBC0 + 1);
+  v18 = *(&off_1EE2BBBC0 + 1);
   if (*(&off_1EE2BBBC0 + 1))
   {
     atomic_fetch_add_explicit((*(&off_1EE2BBBC0 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<IMSMetricsManager,IMSMetricsManager,ctu::PthreadMutexGuardPolicy<IMSMetricsManager>>::sInstance);
-  (*(**(v18 + 184) + 232))(*(v18 + 184), v21);
-  if (v19)
+  (*(**(v17 + 184) + 232))(*(v17 + 184), v19);
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4F143E4(_Unwind_Exception *a1)
@@ -8259,15 +8217,15 @@ void **_ZNSt3__110unique_ptrIZZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl28g
   return a1;
 }
 
-void **_ZZN8dispatch5asyncIZZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl28generateAthmSpamTokenRequestERKNSt3__18optionalINS3_6vectorIhNS3_9allocatorIhEEEEEENS3_8functionIFv9ImsResultS8_EEEEUb_E3__1EEvPU28objcproto17OS_dispatch_queue8NSObjectNS3_10unique_ptrIT_NS3_14default_deleteISL_EEEEENUlPvE_8__invokeESP_(void *a1)
+void **_ZZN8dispatch5asyncIZZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl28generateAthmSpamTokenRequestERKNSt3__18optionalINS3_6vectorIhNS3_9allocatorIhEEEEEENS3_8functionIFv9ImsResultS8_EEEEUb_E3__1EEvPU28objcproto17OS_dispatch_queue8NSObjectNS3_10unique_ptrIT_NS3_14default_deleteISL_EEEEENUlPvE_8__invokeESP_(uint64_t a1)
 {
   v4 = a1;
-  ImsResult::ImsResult(v8, (a1 + 4));
+  ImsResult::ImsResult(v8, (a1 + 32));
   __p = 0;
   v6 = 0;
   v7 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, a1[15], a1[16], a1[16] - a1[15]);
-  v2 = a1[3];
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *(a1 + 120), *(a1 + 128), *(a1 + 128) - *(a1 + 120));
+  v2 = *(a1 + 24);
   if (!v2)
   {
     std::__throw_bad_function_call[abi:ne200100]();
@@ -8284,26 +8242,27 @@ void **_ZZN8dispatch5asyncIZZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl28gen
   return _ZNSt3__110unique_ptrIZZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl28generateAthmSpamTokenRequestERKNS_8optionalINS_6vectorIhNS_9allocatorIhEEEEEENS_8functionIFv9ImsResultS7_EEEEUb_E3__1NS_14default_deleteISF_EEED1B8ne200100Ev(&v4);
 }
 
-void sub_1E4F147AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *__p, uint64_t a12, uint64_t a13, char a14)
+void sub_1E4F147AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *__p, uint64_t a12, uint64_t a13, ...)
 {
-  ImsResult::~ImsResult(&a14);
+  va_start(va, a13);
+  ImsResult::~ImsResult(va);
   _ZNSt3__110unique_ptrIZZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl28generateAthmSpamTokenRequestERKNS_8optionalINS_6vectorIhNS_9allocatorIhEEEEEENS_8functionIFv9ImsResultS7_EEEEUb_E3__1NS_14default_deleteISF_EEED1B8ne200100Ev(&a10);
   _Unwind_Resume(a1);
 }
 
 void ___ZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29requestPatAndReputationTokensERK27PatAndReputationTokenParams_block_invoke(void *a1, void *a2, void *a3)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   v8 = a1[8];
-  memset(&v36[2], 0, 24);
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v36[0] = &unk_1F5EBDEF8;
-  v36[1] = &_bambiDomain;
+  memset(&v31[2], 0, 24);
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v31[0] = &unk_1F5EBDEF8;
+  v31[1] = &_bambiDomain;
   if (v6)
   {
     memset(__p, 0, sizeof(__p));
@@ -8311,18 +8270,18 @@ void ___ZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29requestPatAndReputation
     v10 = v9;
     std::string::basic_string[abi:ne200100]<0>(__p, [v9 UTF8String]);
 
-    memset(v48, 0, 64);
+    memset(v43, 0, 64);
     *buf = &unk_1F5EBDEF8;
-    v46 = &_bambiDomain;
-    v47 = 0x40000000;
+    v41 = &_bambiDomain;
+    v42 = 0x40000000;
     v11 = ImsResult::operator<<<char [43]>(buf, "Failed to handle Spam ATHM TokenResponse: ");
     v12 = ImsResult::operator<<<std::string>(v11, __p);
     v13 = ImsResult::operator<<<char [3]>(v12, " (");
-    v41 = [v7 code];
-    v14 = ImsResult::operator<<<long>(v13, &v41);
-    LOBYTE(v40) = 41;
-    ImsResult::operator<<<char>(v14, &v40);
-    ImsResult::operator=(v36, v14);
+    v36 = [v7 code];
+    v14 = ImsResult::operator<<<long>(v13, &v36);
+    LOBYTE(v35) = 41;
+    ImsResult::operator<<<char>(v14, &v35);
+    ImsResult::operator=(v31, v14);
     ImsResult::~ImsResult(buf);
     v15 = a1[10];
     if (v15)
@@ -8334,14 +8293,12 @@ void ___ZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29requestPatAndReputation
         {
           if (*(v16 + 96) == 1)
           {
-            v17.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
-            v18 = ((v17.__d_.__rep_ - *(v16 + 88)) * 0x431BDE82D7B634DBLL) >> 64;
-            v19 = (LODWORD(v17.__d_.__rep_) - *(v16 + 88)) / 1000000;
+            v17 = (std::chrono::steady_clock::now().__d_.__rep_ - *(v16 + 88)) / 1000000;
           }
 
           else
           {
-            v19 = 0;
+            v17 = 0;
           }
 
           *(v16 + 96) = 0;
@@ -8349,103 +8306,99 @@ void ___ZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29requestPatAndReputation
       }
     }
 
-    ims::getQueue(&v34);
+    ims::getQueue(&v29);
     std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::__value_func[abi:ne200100](buf, (a1 + 11));
-    ImsResult::ImsResult(&v48[8], v36);
-    v26 = v34;
+    ImsResult::ImsResult(&v43[8], v31);
+    v22 = v29;
     operator new();
   }
 
-  v20 = a1[10];
-  if (v20)
+  v18 = a1[10];
+  if (v18)
   {
-    v21 = std::__shared_weak_count::lock(v20);
-    if (v21)
+    v19 = std::__shared_weak_count::lock(v18);
+    if (v19)
     {
-      v22 = a1[9];
-      if (v22)
+      v20 = a1[9];
+      if (v20)
       {
-        if (*(v22 + 96) == 1)
+        if (*(v20 + 96) == 1)
         {
-          v23.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
-          v24 = ((v23.__d_.__rep_ - *(v22 + 88)) * 0x431BDE82D7B634DBLL) >> 64;
-          v25 = (LODWORD(v23.__d_.__rep_) - *(v22 + 88)) / 1000000;
+          v21 = (std::chrono::steady_clock::now().__d_.__rep_ - *(v20 + 88)) / 1000000;
         }
 
         else
         {
-          v25 = 0;
+          v21 = 0;
         }
 
-        *(v22 + 96) = 0;
+        *(v20 + 96) = 0;
       }
     }
   }
 
   else
   {
-    v21 = 0;
+    v19 = 0;
   }
 
-  ims::getStaticLoggerFor("nsp", buf);
-  v27 = v46;
+  ims::getStaticLoggerFor(buf, "nsp");
+  v23 = v41;
   ctu::OsLogContext::~OsLogContext(buf);
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1E4C3F000, v27, OS_LOG_TYPE_DEFAULT, "#D Received Spam ATHM Token. Moving on to retrieving PAT & Reputation Tokens", buf, 2u);
+    _os_log_impl(&dword_1E4C3F000, v23, OS_LOG_TYPE_DEFAULT, "#D Received Spam ATHM Token. Moving on to retrieving PAT & Reputation Tokens", buf, 2u);
   }
 
   [MEMORY[0x1E69B37C8] saveAuxiliaryAuthenticationDataToCache:v5 type:2 forLabel:@"unused" cacheKey:a1[4]];
-  ims::getStaticLoggerFor("nsp", buf);
-  v28 = v46;
+  ims::getStaticLoggerFor(buf, "nsp");
+  v24 = v41;
   ctu::OsLogContext::~OsLogContext(buf);
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1E4C3F000, v28, OS_LOG_TYPE_DEFAULT, "#D Using new API!", buf, 2u);
+    _os_log_impl(&dword_1E4C3F000, v24, OS_LOG_TYPE_DEFAULT, "#D Using new API!", buf, 2u);
   }
 
-  v29 = [*(v8 + 64) challengeData];
-  v30 = [objc_alloc(MEMORY[0x1E69B37C8]) initWithChallenge:a1[5] tokenKey:a1[6] auxiliaryAuthenticationChallenge:v29 auxiliaryAuthenticationKey:a1[7] auxiliaryAuthenticationLabel:@"unused"];
-  [v30 setSystemClient:1];
-  [v30 setAuxiliaryAuthenticationCacheKey:a1[4]];
+  v25 = [*(v8 + 64) challengeData];
+  v26 = [objc_alloc(MEMORY[0x1E69B37C8]) initWithChallenge:a1[5] tokenKey:a1[6] auxiliaryAuthenticationChallenge:v25 auxiliaryAuthenticationKey:a1[7] auxiliaryAuthenticationLabel:@"unused"];
+  [v26 setSystemClient:1];
+  [v26 setAuxiliaryAuthenticationCacheKey:a1[4]];
   *(v8 + 104) = std::chrono::steady_clock::now();
   *(v8 + 112) = 1;
   ims::getQueue(buf);
-  v31 = *buf;
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3321888768;
-  v42[2] = ___ZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29requestPatAndReputationTokensERK27PatAndReputationTokenParams_block_invoke_25;
-  v42[3] = &__block_descriptor_80_ea8_32c70_ZTSNSt3__18weak_ptrIN12_GLOBAL__N_129NetworkServiceProxyHelperImplEEE48c70_ZTSNSt3__18functionIFv9ImsResultNS_6vectorIhNS_9allocatorIhEEEES5_EEE_e39_v32__0__NSData_8__NSData_16__NSError_24l;
-  v32 = a1[10];
-  v42[4] = a1[9];
-  v43 = v32;
-  if (v32)
+  v27 = *buf;
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3321888768;
+  v37[2] = ___ZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29requestPatAndReputationTokensERK27PatAndReputationTokenParams_block_invoke_25;
+  v37[3] = &__block_descriptor_80_ea8_32c70_ZTSNSt3__18weak_ptrIN12_GLOBAL__N_129NetworkServiceProxyHelperImplEEE48c70_ZTSNSt3__18functionIFv9ImsResultNS_6vectorIhNS_9allocatorIhEEEES5_EEE_e39_v32__0__NSData_8__NSData_16__NSError_24l;
+  v28 = a1[10];
+  v37[4] = a1[9];
+  v38 = v28;
+  if (v28)
   {
-    atomic_fetch_add_explicit(&v32->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v28->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::__value_func[abi:ne200100](v44, (a1 + 11));
-  [v30 fetchTokenAndAuxiliaryAuthenticationWithQueue:v31 completionHandler:v42];
+  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::__value_func[abi:ne200100](v39, (a1 + 11));
+  [v26 fetchTokenAndAuxiliaryAuthenticationWithQueue:v27 completionHandler:v37];
 
-  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::~__value_func[abi:ne200100](v44);
-  if (v43)
+  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::~__value_func[abi:ne200100](v39);
+  if (v38)
   {
-    std::__shared_weak_count::__release_weak(v43);
+    std::__shared_weak_count::__release_weak(v38);
   }
 
-  if (v21)
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 
-  ImsResult::~ImsResult(v36);
-
-  v33 = *MEMORY[0x1E69E9840];
+  ImsResult::~ImsResult(v31);
 }
 
-void sub_1E4F14D5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, std::__shared_weak_count *a35)
+void sub_1E4F14D5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, std::__shared_weak_count *a35)
 {
   std::__shared_weak_count::__release_shared[abi:ne200100](v37);
   if (a16 < 0)
@@ -8460,42 +8413,42 @@ void sub_1E4F14D5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29requestPatAndReputationTokensERK27PatAndReputationTokenParams_block_invoke_25(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = v9;
-  memset(&v46[2], 0, 24);
-  v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v46[0] = &unk_1F5EBDEF8;
-  v46[1] = &_bambiDomain;
+  memset(&v42[2], 0, 24);
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v42[0] = &unk_1F5EBDEF8;
+  v42[1] = &_bambiDomain;
   if (v9)
   {
-    v43 = 0;
-    v44 = 0;
-    v45 = 0;
+    v39 = 0;
+    v40 = 0;
+    v41 = 0;
     v11 = [v9 localizedDescription];
     v12 = v11;
-    std::string::basic_string[abi:ne200100]<0>(&v43, [v11 UTF8String]);
+    std::string::basic_string[abi:ne200100]<0>(&v39, [v11 UTF8String]);
 
-    v54 = 0u;
+    v50 = 0u;
     *__p_8 = 0u;
-    v56 = 0u;
-    v57 = 0u;
-    v52[0] = &unk_1F5EBDEF8;
-    v52[1] = &_bambiDomain;
-    v53 = 0x40000000;
-    v13 = ImsResult::operator<<<char [24]>(v52, "Failed to fetch tokens:");
-    v14 = ImsResult::operator<<<std::string>(v13, &v43);
+    v52 = 0u;
+    v53 = 0u;
+    v48[0] = &unk_1F5EBDEF8;
+    v48[1] = &_bambiDomain;
+    v49 = 0x40000000;
+    v13 = ImsResult::operator<<<char [24]>(v48, "Failed to fetch tokens:");
+    v14 = ImsResult::operator<<<std::string>(v13, &v39);
     v15 = ImsResult::operator<<<char [3]>(v14, " (");
-    v40 = [v10 code];
-    v16 = ImsResult::operator<<<long>(v15, &v40);
-    LOBYTE(v51) = 41;
-    ImsResult::operator<<<char>(v16, &v51);
-    ImsResult::operator=(v46, v16);
-    ImsResult::~ImsResult(v52);
+    v36 = [v10 code];
+    v16 = ImsResult::operator<<<long>(v15, &v36);
+    LOBYTE(v47) = 41;
+    ImsResult::operator<<<char>(v16, &v47);
+    ImsResult::operator=(v42, v16);
+    ImsResult::~ImsResult(v48);
     v17 = *(a1 + 40);
     if (v17)
     {
@@ -8506,14 +8459,12 @@ void ___ZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29requestPatAndReputation
         {
           if (*(v18 + 112) == 1)
           {
-            v19.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
-            v20 = ((v19.__d_.__rep_ - *(v18 + 104)) * 0x431BDE82D7B634DBLL) >> 64;
-            v21 = (LODWORD(v19.__d_.__rep_) - *(v18 + 104)) / 1000000;
+            v19 = (std::chrono::steady_clock::now().__d_.__rep_ - *(v18 + 104)) / 1000000;
           }
 
           else
           {
-            v21 = 0;
+            v19 = 0;
           }
 
           *(v18 + 112) = 0;
@@ -8521,69 +8472,67 @@ void ___ZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29requestPatAndReputation
       }
     }
 
-    ims::getQueue(&v50);
-    std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::__value_func[abi:ne200100](v52, a1 + 48);
-    ImsResult::ImsResult((&v54 + 8), v46);
-    v37 = v50;
+    ims::getQueue(&v46);
+    std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::__value_func[abi:ne200100](v48, a1 + 48);
+    ImsResult::ImsResult((&v50 + 8), v42);
+    v33 = v46;
     operator new();
   }
 
+  v20 = v7;
+  v21 = [v7 bytes];
   v22 = v7;
   v23 = [v7 bytes];
-  v24 = v7;
-  v25 = [v7 bytes];
-  v26 = [v7 length];
-  v43 = 0;
-  v44 = 0;
-  v45 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v43, v23, v25 + v26, v25 + v26 - v23);
-  v27 = v8;
-  v28 = [v8 bytes];
-  v29 = v8;
-  v30 = [v8 bytes];
-  v31 = [v8 length];
+  v24 = [v7 length];
+  v39 = 0;
   v40 = 0;
   v41 = 0;
-  v42 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v40, v28, v30 + v31, v30 + v31 - v28);
-  v32 = *(a1 + 40);
-  if (v32)
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v39, v21, (v23 + v24), v23 + v24 - v21);
+  v25 = v8;
+  v26 = [v8 bytes];
+  v27 = v8;
+  v28 = [v8 bytes];
+  v29 = [v8 length];
+  v36 = 0;
+  v37 = 0;
+  v38 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v36, v26, (v28 + v29), v28 + v29 - v26);
+  v30 = *(a1 + 40);
+  if (v30)
   {
-    if (std::__shared_weak_count::lock(v32))
+    if (std::__shared_weak_count::lock(v30))
     {
-      v33 = *(a1 + 32);
-      if (v33)
+      v31 = *(a1 + 32);
+      if (v31)
       {
-        if (*(v33 + 112) == 1)
+        if (*(v31 + 112) == 1)
         {
-          v34.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
-          v35 = ((v34.__d_.__rep_ - *(v33 + 104)) * 0x431BDE82D7B634DBLL) >> 64;
-          v36 = (LODWORD(v34.__d_.__rep_) - *(v33 + 104)) / 1000000;
+          v32 = (std::chrono::steady_clock::now().__d_.__rep_ - *(v31 + 104)) / 1000000;
         }
 
         else
         {
-          v36 = 0;
+          v32 = 0;
         }
 
-        *(v33 + 112) = 0;
+        *(v31 + 112) = 0;
       }
     }
   }
 
-  ims::getQueue(&v39);
-  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::__value_func[abi:ne200100](v52, a1 + 48);
-  *(&v54 + 1) = 0;
+  ims::getQueue(&v35);
+  std::__function::__value_func<void ()(ImsResult,std::vector<unsigned char>,std::vector<unsigned char>)>::__value_func[abi:ne200100](v48, a1 + 48);
+  *(&v50 + 1) = 0;
   *__p_8 = 0uLL;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v54 + 8, v43, v44, v44 - v43);
-  v56 = 0uLL;
-  *&v57 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v56, v40, v41, v41 - v40);
-  v38 = v39;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v50 + 1, v39, v40, v40 - v39);
+  v52 = 0uLL;
+  *&v53 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v52, v36, v37, v37 - v36);
+  v34 = v35;
   operator new();
 }
 
-void sub_1E4F153E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38)
+void sub_1E4F153E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38)
 {
   std::__shared_weak_count::__release_shared[abi:ne200100](v41);
   if (__p)
@@ -8833,7 +8782,7 @@ void **_ZNSt3__110unique_ptrIZZZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29
   return a1;
 }
 
-void **_ZZN8dispatch5asyncIZZZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29requestPatAndReputationTokensERK27PatAndReputationTokenParamsEUb0_EUb1_E3__5EEvPU28objcproto17OS_dispatch_queue8NSObjectNSt3__110unique_ptrIT_NSA_14default_deleteISC_EEEEENUlPvE_8__invokeESG_(void *a1)
+void **_ZZN8dispatch5asyncIZZZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29requestPatAndReputationTokensERK27PatAndReputationTokenParamsEUb0_EUb1_E3__5EEvPU28objcproto17OS_dispatch_queue8NSObjectNSt3__110unique_ptrIT_NSA_14default_deleteISC_EEEEENUlPvE_8__invokeESG_(uint64_t a1)
 {
   v6 = a1;
   v15 = 0u;
@@ -8845,15 +8794,15 @@ void **_ZZN8dispatch5asyncIZZZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29re
   v14 = 0;
   v11 = 0;
   v12 = 0;
-  v2 = a1[4];
-  v3 = a1[5];
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 40);
   v10 = 0;
   std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v10, v2, v3, v3 - v2);
   __p = 0;
   v8 = 0;
   v9 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, a1[7], a1[8], a1[8] - a1[7]);
-  v4 = a1[3];
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *(a1 + 56), *(a1 + 64), *(a1 + 64) - *(a1 + 56));
+  v4 = *(a1 + 24);
   if (!v4)
   {
     std::__throw_bad_function_call[abi:ne200100]();
@@ -8876,15 +8825,16 @@ void **_ZZN8dispatch5asyncIZZZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29re
   return _ZNSt3__110unique_ptrIZZZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29requestPatAndReputationTokensERK27PatAndReputationTokenParamsEUb0_EUb1_E3__5NS_14default_deleteIS6_EEED1B8ne200100Ev(&v6);
 }
 
-void sub_1E4F15BAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, char a16)
+void sub_1E4F15BAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, ...)
 {
+  va_start(va, a15);
   if (__p)
   {
     a14 = __p;
     operator delete(__p);
   }
 
-  ImsResult::~ImsResult(&a16);
+  ImsResult::~ImsResult(va);
   _ZNSt3__110unique_ptrIZZZN12_GLOBAL__N_129NetworkServiceProxyHelperImpl29requestPatAndReputationTokensERK27PatAndReputationTokenParamsEUb0_EUb1_E3__5NS_14default_deleteIS6_EEED1B8ne200100Ev(&a9);
   _Unwind_Resume(a1);
 }
@@ -8946,86 +8896,85 @@ void XcapNafServerInfo::~XcapNafServerInfo(XcapNafServerInfo *this)
   JUMPOUT(0x1E69235B0);
 }
 
-void XcapNafServerInfo::nafId(XcapNafServerInfo *this@<X0>, uint64_t a2@<X8>)
+void XcapNafServerInfo::nafId(unsigned __int8 **__return_ptr a1@<X8>, XcapNafServerInfo *this@<X0>)
 {
   if ((atomic_load_explicit(&_MergedGlobals_16, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_16))
   {
-    LODWORD(v29.__r_.__value_.__l.__data_) = 1;
-    v29.__r_.__value_.__s.__data_[4] = 2;
+    LODWORD(v28.__r_.__value_.__l.__data_) = 1;
+    v28.__r_.__value_.__s.__data_[4] = 2;
     qword_1EE2BC630 = 0;
     unk_1EE2BC638 = 0;
     qword_1EE2BC628 = 0;
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_1EE2BC628, &v29, v29.__r_.__value_.__r.__words + 5, 5);
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_1EE2BC628, &v28, &v28.__r_.__value_.__s.__data_[5], 5);
     __cxa_atexit(std::vector<unsigned char>::~vector[abi:ne200100], &qword_1EE2BC628, &dword_1E4C3F000);
     __cxa_guard_release(&_MergedGlobals_16);
   }
 
   if ((atomic_load_explicit(&qword_1EE2BC618, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE2BC618))
   {
-    LOWORD(v29.__r_.__value_.__l.__data_) = 1;
-    v29.__r_.__value_.__s.__data_[2] = 1;
+    LOWORD(v28.__r_.__value_.__l.__data_) = 1;
+    v28.__r_.__value_.__s.__data_[2] = 1;
     qword_1EE2BC648 = 0;
     unk_1EE2BC650 = 0;
     qword_1EE2BC640 = 0;
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_1EE2BC640, &v29, v29.__r_.__value_.__r.__words + 3, 3);
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_1EE2BC640, &v28, &v28.__r_.__value_.__s.__data_[3], 3);
     __cxa_atexit(std::vector<unsigned char>::~vector[abi:ne200100], &qword_1EE2BC640, &dword_1E4C3F000);
     __cxa_guard_release(&qword_1EE2BC618);
   }
 
+  v23 = 0;
   v24 = 0;
   v25 = 0;
-  v26 = 0;
   if (*(this + 204) == 1)
   {
-    std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v24, qword_1EE2BC640, qword_1EE2BC648, qword_1EE2BC648 - qword_1EE2BC640);
+    std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v23, qword_1EE2BC640, qword_1EE2BC648, qword_1EE2BC648 - qword_1EE2BC640);
     v4 = (*(**(this + 64) + 32))(*(this + 64));
-    v29.__r_.__value_.__s.__data_[0] = HIBYTE(v4);
-    std::vector<unsigned char>::push_back[abi:ne200100](&v24, &v29);
-    v29.__r_.__value_.__s.__data_[0] = v4;
-    std::vector<unsigned char>::push_back[abi:ne200100](&v24, &v29);
+    v28.__r_.__value_.__s.__data_[0] = HIBYTE(v4);
+    std::vector<unsigned char>::push_back[abi:ne200100](&v23, &v28);
+    v28.__r_.__value_.__s.__data_[0] = v4;
+    std::vector<unsigned char>::push_back[abi:ne200100](&v23, &v28);
   }
 
   else
   {
-    std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v24, qword_1EE2BC628, qword_1EE2BC630, qword_1EE2BC630 - qword_1EE2BC628);
+    std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v23, qword_1EE2BC628, qword_1EE2BC630, qword_1EE2BC630 - qword_1EE2BC628);
   }
 
-  memset(&v23, 0, sizeof(v23));
+  memset(&v22, 0, sizeof(v22));
   v5 = *(this + 66);
   if (!v5)
   {
     goto LABEL_30;
   }
 
-  v6 = **v5;
-  if (!v7)
+  if (!v6)
   {
     goto LABEL_30;
   }
 
-  memset(&v29, 0, sizeof(v29));
-  v8 = (*(*v7 + 24))(v7);
-  v9 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>((v8 + 8), "realm");
-  v10 = (v9 + 5);
-  if (!v9)
+  memset(&v28, 0, sizeof(v28));
+  v7 = (*(*v6 + 24))(v6);
+  v8 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>((v7 + 8), "realm");
+  v9 = (v8 + 5);
+  if (!v8)
   {
-    v10 = &ims::kEmptyString;
+    v9 = &ims::kEmptyString;
   }
 
-  if (*(v10 + 23) < 0)
+  if (*(v9 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v29, *v10, *(v10 + 1));
+    std::string::__init_copy_ctor_external(&v28, *v9, *(v9 + 1));
   }
 
   else
   {
-    v29 = *v10;
+    v28 = *v9;
   }
 
   memset(&__str, 0, sizeof(__str));
-  XcapNafServerInfo::_fetchMatchingRealm(&__str, this, &v29);
-  memset(&v23, 0, sizeof(v23));
-  v11 = SHIBYTE(__str.__r_.__value_.__r.__words[2]);
+  XcapNafServerInfo::_fetchMatchingRealm(&__str, this, &v28);
+  memset(&v22, 0, sizeof(v22));
+  v10 = SHIBYTE(__str.__r_.__value_.__r.__words[2]);
   if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     size = HIBYTE(__str.__r_.__value_.__r.__words[2]);
@@ -9036,97 +8985,97 @@ void XcapNafServerInfo::nafId(XcapNafServerInfo *this@<X0>, uint64_t a2@<X8>)
     size = __str.__r_.__value_.__l.__size_;
   }
 
-  if (!size || ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (p_str = &__str) : (p_str = __str.__r_.__value_.__r.__words[0]), (v14 = memchr(p_str, 64, size)) == 0 || v14 - p_str == -1))
+  if (!size || ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (p_str = &__str) : (p_str = __str.__r_.__value_.__r.__words[0]), (v13 = memchr(p_str, 64, size)) == 0 || v13 - p_str == -1))
   {
-    if (v11 < 0)
+    if (v10 < 0)
     {
       operator delete(__str.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v29.__r_.__value_.__l.__data_);
+      operator delete(v28.__r_.__value_.__l.__data_);
     }
 
 LABEL_30:
-    (*(*this + 80))(&v23, this);
+    (*(*this + 80))(&v22, this);
     goto LABEL_31;
   }
 
-  std::string::basic_string(&v27, &__str, v14 - p_str + 1, size, &v30);
-  v23 = v27;
+  std::string::basic_string(&v26, &__str, v13 - p_str + 1, size, &v29);
+  v22 = v26;
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v29.__r_.__value_.__l.__data_);
+    operator delete(v28.__r_.__value_.__l.__data_);
   }
 
 LABEL_31:
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v15 = &v23;
+    v14 = &v22;
   }
 
   else
   {
-    v15 = v23.__r_.__value_.__r.__words[0];
+    v14 = v22.__r_.__value_.__r.__words[0];
   }
 
-  if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v16 = HIBYTE(v23.__r_.__value_.__r.__words[2]);
+    v15 = HIBYTE(v22.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v16 = v23.__r_.__value_.__l.__size_;
+    v15 = v22.__r_.__value_.__l.__size_;
   }
 
-  std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<char *>,std::__wrap_iter<char *>>(a2, 0, v15, v15 + v16, v16);
-  std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(a2, *(a2 + 8), v24, v25, v25 - v24);
-  v17 = std::string::basic_string[abi:ne200100]<0>(&v29, kXcapLoggingFacility);
-  v19[0] = 0;
-  v22 = 0;
-  v18 = ims::debug(v17, v19);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), ": ", 2);
-  *(v18 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "NAF_ID: ", 8);
-  *(v18 + 17) = 0;
-  logBytes(a2, &__str);
-  (*(*v18 + 32))(v18, &__str);
-  (*(*v18 + 64))(v18, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v18 + 17) = 0;
+  std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<char *>,std::__wrap_iter<char *>>(a1, 0, v14, v14 + v15, v15);
+  std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(a1, a1[1], v23, v24, v24 - v23);
+  v16 = std::string::basic_string[abi:ne200100]<0>(&v28, kXcapLoggingFacility);
+  v18[0] = 0;
+  v21 = 0;
+  v17 = ims::debug(v16, v18);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v17 + 8), ": ", 2);
+  *(v17 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v17 + 8), "NAF_ID: ", 8);
+  *(v17 + 17) = 0;
+  logBytes(a1, &__str);
+  (*(*v17 + 32))(v17, &__str);
+  (*(*v17 + 64))(v17, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v17 + 17) = 0;
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
   }
 
-  if (v22 == 1 && v21 < 0)
+  if (v21 == 1 && v20 < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v29.__r_.__value_.__l.__data_);
+    operator delete(v28.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v23.__r_.__value_.__l.__data_);
+    operator delete(v22.__r_.__value_.__l.__data_);
   }
 
-  if (v24)
+  if (v23)
   {
-    v25 = v24;
-    operator delete(v24);
+    v24 = v23;
+    operator delete(v23);
   }
 }
 
@@ -9158,15 +9107,14 @@ void XcapNafServerInfo::host(XcapNafServerInfo *this@<X0>, std::string *a2@<X8>)
 
   else if (*(this + 199))
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 11);
-    a2->__r_.__value_.__r.__words[2] = *(this + 24);
+    *a2 = *(this + 176);
     return;
   }
 
   memset(&v18, 0, sizeof(v18));
   std::string::basic_string[abi:ne200100]<0>(&v18, "xcap.");
   memset(&__p, 0, sizeof(__p));
-  XcapServerInfo::_constructHostSuffix(this, &__p);
+  XcapServerInfo::_constructHostSuffix(&__p, this);
   v6 = XcapServerInfo::k3gppDomain;
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
@@ -9263,7 +9211,7 @@ void XcapNafServerInfo::_constructInitialHeaders(std::__shared_weak_count **this
   ((*this)[3].__shared_owners_)(v10);
   std::string::basic_string[abi:ne200100]<0>(__p, XcapServerInfo::kHostHeaderName);
   *&v12 = __p;
-  v2 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,HttpMessage::ciLess,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 58), __p);
+  v2 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,HttpMessage::ciLess,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 58, __p, &std::piecewise_construct, &v12);
   v3 = v2;
   if (*(v2 + 79) < 0)
   {
@@ -9274,7 +9222,7 @@ void XcapNafServerInfo::_constructInitialHeaders(std::__shared_weak_count **this
   *(v3 + 72) = *&v10[16];
   v10[23] = 0;
   v10[0] = 0;
-  if (SHIBYTE(v9) < 0)
+  if (SBYTE7(v9) < 0)
   {
     operator delete(__p[0]);
     if ((v10[23] & 0x80000000) != 0)
@@ -9321,7 +9269,7 @@ void XcapNafServerInfo::_constructInitialHeaders(std::__shared_weak_count **this
 
   v11 = 0;
   memset(v10, 0, sizeof(v10));
-  ImsStringOutStream::ImsStringOutStream(v10);
+  ImsStringOutStream::ImsStringOutStream(v10, 1);
 }
 
 void sub_1E4F16ED0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, uint64_t a22, void *a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, char a32, int a33, __int16 a34, char a35)
@@ -9350,80 +9298,76 @@ uint64_t XcapNafServerInfo::setDigestCredentials(XcapNafServerInfo *this, const 
 
 void XcapNafServerInfo::setGbaNafCredentials(void *a1, uint64_t *a2)
 {
-  memset(&v23, 0, sizeof(v23));
-  base64Encode(*a2, a2[1] - *a2, &v23);
+  memset(&v22, 0, sizeof(v22));
+  base64Encode(*a2, a2[1] - *a2, &v22);
   v3 = a1[66];
-  if (v3)
   {
-    v4 = **v3;
+    v4 = a1[67];
+    if (v4)
     {
-      v5 = a1[67];
-      if (v5)
-      {
-        (*(*v5 + 8))(v5);
-      }
-
-      operator new();
+      (*(*v4 + 8))(v4);
     }
+
+    operator new();
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, kXcapLoggingFacility);
-  v19[0] = 0;
-  v22 = 0;
-  v6 = ims::error(__p, v19);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), ": ", 2);
-  *(v6 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "Auth response is not Digest", 27);
-  *(v6 + 17) = 0;
-  (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v6 + 17) = 0;
-  if (v22 == 1 && v21 < 0)
+  v18[0] = 0;
+  v21 = 0;
+  v5 = ims::error(__p, v18);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v5 + 8), ": ", 2);
+  *(v5 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v5 + 8), "Auth response is not Digest", 27);
+  *(v5 + 17) = 0;
+  (*(*v5 + 64))(v5, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v5 + 17) = 0;
+  if (v21 == 1 && v20 < 0)
   {
-    operator delete(v20);
+    operator delete(v19);
   }
 
-  if (v13 < 0)
+  if (v12 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v7 = a1[8];
-  if (v7)
+  v6 = a1[8];
+  if (v6)
   {
-    v8 = std::__shared_weak_count::lock(v7);
-    if (v8)
+    v7 = std::__shared_weak_count::lock(v6);
+    if (v7)
     {
-      v9 = v8;
-      v10 = a1[7];
-      if (v10)
+      v8 = v7;
+      v9 = a1[7];
+      if (v9)
       {
+        v15 = 0u;
         v16 = 0u;
         v17 = 0u;
-        v18 = 0u;
         __p[0] = &unk_1F5EBDEF8;
         __p[1] = &_bambiDomain;
-        v12 = 0x40000000;
+        v11 = 0x40000000;
+        v13 = 0;
         v14 = 0;
-        v15 = 0;
-        XcapSession::operationFailure(v10, __p);
+        XcapSession::operationFailure(v9, __p);
         ImsResult::~ImsResult(__p);
       }
 
-      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
   }
 
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v23.__r_.__value_.__l.__data_);
+    operator delete(v22.__r_.__value_.__l.__data_);
   }
 }
 
-void sub_1E4F17A54(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, char a11, int a12, __int16 a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, char a33, uint64_t a34, void *a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, char a53)
+void sub_1E4F17A54(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, char a11, int a12, __int16 a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, char a33, uint64_t a34, void *a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, char a53)
 {
   if (a11 == 1 && a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (*(v53 - 89) < 0)
@@ -9441,7 +9385,7 @@ void sub_1E4F17A54(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void XcapNafServerInfo::_fetchMatchingRealm(uint64_t a1, _DWORD *a2, std::string *this)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   if ((atomic_load_explicit(&qword_1EE2BC620, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE2BC620))
   {
     std::string::basic_string[abi:ne200100]<0>(&qword_1EE2BC658, "3GPP-bootstrapping-uicc@");
@@ -9449,9 +9393,9 @@ void XcapNafServerInfo::_fetchMatchingRealm(uint64_t a1, _DWORD *a2, std::string
     __cxa_guard_release(&qword_1EE2BC620);
   }
 
+  v49 = 0;
   v50 = 0;
   v51 = 0;
-  v52 = 0;
   memset(&__p, 0, sizeof(__p));
   v6 = std::string::find(this, 59, 0);
   if (v6 == -1)
@@ -9465,14 +9409,14 @@ void XcapNafServerInfo::_fetchMatchingRealm(uint64_t a1, _DWORD *a2, std::string
     v8 = 0;
     do
     {
-      std::string::basic_string(&__str, this, v8, v7 - v8, v53);
+      std::string::basic_string(&__str, this, v8, v7 - v8, v52);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
       __p = __str;
-      std::vector<std::string>::push_back[abi:ne200100](&v50, &__p);
+      std::vector<std::string>::push_back[abi:ne200100](&v49, &__p);
       v8 = v7 + 1;
       v7 = std::string::find(this, 59, v7 + 1);
     }
@@ -9480,23 +9424,23 @@ void XcapNafServerInfo::_fetchMatchingRealm(uint64_t a1, _DWORD *a2, std::string
     while (v7 != -1);
   }
 
-  std::string::basic_string(&__str, this, v8, ~v8, v53);
+  std::string::basic_string(&__str, this, v8, ~v8, v52);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   __p = __str;
-  std::vector<std::string>::push_back[abi:ne200100](&v50, &__p);
+  std::vector<std::string>::push_back[abi:ne200100](&v49, &__p);
   *a1 = 0;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   v9 = a2[74];
   if (v9 == 1)
   {
-    v19 = v50;
-    v20 = v51;
-    if (v50 == v51)
+    v19 = v49;
+    v20 = v50;
+    if (v49 == v50)
     {
       goto LABEL_63;
     }
@@ -9555,9 +9499,9 @@ void XcapNafServerInfo::_fetchMatchingRealm(uint64_t a1, _DWORD *a2, std::string
       goto LABEL_63;
     }
 
-    v10 = v50;
-    v11 = v51;
-    if (v50 == v51)
+    v10 = v49;
+    v11 = v50;
+    if (v49 == v50)
     {
       goto LABEL_63;
     }
@@ -9678,8 +9622,8 @@ LABEL_63:
 
     v34 = std::string::insert(&__str, 0, v32, v33);
     v35 = v34->__r_.__value_.__r.__words[0];
-    *v53 = v34->__r_.__value_.__l.__size_;
-    *&v53[7] = *(&v34->__r_.__value_.__r.__words[1] + 7);
+    *v52 = v34->__r_.__value_.__l.__size_;
+    *&v52[7] = *(&v34->__r_.__value_.__r.__words[1] + 7);
     v36 = HIBYTE(v34->__r_.__value_.__r.__words[2]);
     v34->__r_.__value_.__l.__size_ = 0;
     v34->__r_.__value_.__r.__words[2] = 0;
@@ -9690,8 +9634,8 @@ LABEL_63:
     }
 
     *a1 = v35;
-    *(a1 + 8) = *v53;
-    *(a1 + 15) = *&v53[7];
+    *(a1 + 8) = *v52;
+    *(a1 + 15) = *&v52[7];
     *(a1 + 23) = v36;
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -9700,9 +9644,9 @@ LABEL_63:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__str, kXcapLoggingFacility);
-  v44[0] = 0;
-  v47 = 0;
-  v37 = ims::debug(&__str, v44);
+  v43[0] = 0;
+  v46 = 0;
+  v37 = ims::debug(&__str, v43);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v37 + 8), ": ", 2);
   *(v37 + 17) = 0;
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v37 + 8), "Realm from NAF Response: ", 25);
@@ -9710,9 +9654,9 @@ LABEL_63:
   (*(*v37 + 32))(v37, this);
   (*(*v37 + 64))(v37, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v37 + 17) = 0;
-  if (v47 == 1 && v46 < 0)
+  if (v46 == 1 && v45 < 0)
   {
-    operator delete(v45);
+    operator delete(v44);
   }
 
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -9721,9 +9665,9 @@ LABEL_63:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__str, kXcapLoggingFacility);
-  v40[0] = 0;
-  v43 = 0;
-  v38 = ims::debug(&__str, v40);
+  v39[0] = 0;
+  v42 = 0;
+  v38 = ims::debug(&__str, v39);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v38 + 8), ": ", 2);
   *(v38 + 17) = 0;
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v38 + 8), "Matching Realm: ", 16);
@@ -9731,9 +9675,9 @@ LABEL_63:
   (*(*v38 + 32))(v38, a1);
   (*(*v38 + 64))(v38, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v38 + 17) = 0;
-  if (v43 == 1 && v42 < 0)
+  if (v42 == 1 && v41 < 0)
   {
-    operator delete(v41);
+    operator delete(v40);
   }
 
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -9746,9 +9690,8 @@ LABEL_63:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  __p.__r_.__value_.__r.__words[0] = &v50;
+  __p.__r_.__value_.__r.__words[0] = &v49;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 void XcapNafServerInfo::handleHttpResponseSuccess(uint64_t a1)
@@ -9832,28 +9775,28 @@ void XcapNafServerInfo::handleHttpResponseAuthChallenge(void *a1, uint64_t a2, u
   if (a1[66])
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, kXcapLoggingFacility);
-    v37[0] = 0;
-    v40 = 0;
-    v5 = ims::error(&__p, v37);
+    v36[0] = 0;
+    v39 = 0;
+    v5 = ims::error(&__p, v36);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v5 + 8), ": ", 2);
     *(v5 + 17) = 0;
-    (*(*a1 + 16))(v35, a1);
-    (*(*v5 + 32))(v5, v35);
+    (*(*a1 + 16))(v34, a1);
+    (*(*v5 + 32))(v5, v34);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v5 + 8), " server has challenged us twice. Probably didn't like our response to the 1st challenge. Failing request", 104);
     *(v5 + 17) = 0;
     (*(*v5 + 64))(v5, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v5 + 17) = 0;
-    if (v36 < 0)
+    if (v35 < 0)
     {
-      operator delete(v35[0]);
+      operator delete(v34[0]);
     }
 
-    if (v40 == 1 && v39 < 0)
+    if (v39 == 1 && v38 < 0)
     {
-      operator delete(v38);
+      operator delete(v37);
     }
 
-    if (v29 < 0)
+    if (v28 < 0)
     {
       operator delete(__p);
     }
@@ -9868,14 +9811,14 @@ void XcapNafServerInfo::handleHttpResponseAuthChallenge(void *a1, uint64_t a2, u
         v9 = a1[7];
         if (v9)
         {
+          v31 = 0u;
           v32 = 0u;
           v33 = 0u;
-          v34 = 0u;
           __p = &unk_1F5EBDEF8;
-          v27 = &_bambiDomain;
-          v28 = 0x40000000;
+          v26 = &_bambiDomain;
+          v27 = 0x40000000;
+          v29 = 0;
           v30 = 0;
-          v31 = 0;
           XcapSession::operationFailure(v9, &__p);
 LABEL_35:
           ImsResult::~ImsResult(&__p);
@@ -9895,29 +9838,25 @@ LABEL_35:
     {
       v12 = (*(*v11 + 64))(v11);
       a1[66] = v12;
-      if (v12)
       {
-        v13 = **v12;
+        v13 = a1[8];
+        if (v13)
         {
-          v14 = a1[8];
+          v14 = std::__shared_weak_count::lock(v13);
           if (v14)
           {
-            v15 = std::__shared_weak_count::lock(v14);
-            if (v15)
+            v15 = v14;
+            v16 = a1[7];
+            if (v16)
             {
-              v16 = v15;
-              v17 = a1[7];
-              if (v17)
-              {
-                XcapSession::handleNafChallenge(v17);
-              }
-
-              std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+              XcapSession::handleNafChallenge(v16);
             }
-          }
 
-          return;
+            std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+          }
         }
+
+        return;
       }
     }
 
@@ -9927,54 +9866,54 @@ LABEL_35:
     }
 
     std::string::basic_string[abi:ne200100]<0>(&__p, kXcapLoggingFacility);
-    v22[0] = 0;
-    v25 = 0;
-    v18 = ims::error(&__p, v22);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), ": ", 2);
-    *(v18 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "Cannot create challenge from ", 29);
-    *(v18 + 17) = 0;
-    (*(*a1 + 16))(v35, a1);
-    (*(*v18 + 32))(v18, v35);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), " client. Challenge Header:", 26);
-    *(v18 + 17) = 0;
-    (*(*v18 + 32))(v18, a3);
-    (*(*v18 + 64))(v18, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v18 + 17) = 0;
-    if (v36 < 0)
+    v21[0] = 0;
+    v24 = 0;
+    v17 = ims::error(&__p, v21);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v17 + 8), ": ", 2);
+    *(v17 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v17 + 8), "Cannot create challenge from ", 29);
+    *(v17 + 17) = 0;
+    (*(*a1 + 16))(v34, a1);
+    (*(*v17 + 32))(v17, v34);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v17 + 8), " client. Challenge Header:", 26);
+    *(v17 + 17) = 0;
+    (*(*v17 + 32))(v17, a3);
+    (*(*v17 + 64))(v17, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v17 + 17) = 0;
+    if (v35 < 0)
     {
-      operator delete(v35[0]);
+      operator delete(v34[0]);
     }
 
-    if (v25 == 1 && v24 < 0)
+    if (v24 == 1 && v23 < 0)
     {
-      operator delete(v23);
+      operator delete(v22);
     }
 
-    if (v29 < 0)
+    if (v28 < 0)
     {
       operator delete(__p);
     }
 
-    v19 = a1[8];
-    if (v19)
+    v18 = a1[8];
+    if (v18)
     {
-      v20 = std::__shared_weak_count::lock(v19);
-      if (v20)
+      v19 = std::__shared_weak_count::lock(v18);
+      if (v19)
       {
-        v8 = v20;
-        v21 = a1[7];
-        if (v21)
+        v8 = v19;
+        v20 = a1[7];
+        if (v20)
         {
+          v31 = 0u;
           v32 = 0u;
           v33 = 0u;
-          v34 = 0u;
           __p = &unk_1F5EBDEF8;
-          v27 = &_bambiDomain;
-          v28 = 0x40000000;
+          v26 = &_bambiDomain;
+          v27 = 0x40000000;
+          v29 = 0;
           v30 = 0;
-          v31 = 0;
-          XcapSession::operationFailure(v21, &__p);
+          XcapSession::operationFailure(v20, &__p);
           goto LABEL_35;
         }
 

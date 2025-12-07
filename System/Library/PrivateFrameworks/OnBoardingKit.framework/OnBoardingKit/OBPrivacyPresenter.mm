@@ -10,6 +10,8 @@
 - (void)_presenterDidDismiss;
 - (void)dismiss;
 - (void)present;
+- (void)presentInNavigationStack:(id)stack animated:(BOOL)animated;
+- (void)setDarkMode:(BOOL)mode;
 - (void)setDisplayDeviceType:(unint64_t)type;
 - (void)setDisplayLanguage:(id)language;
 @end
@@ -18,7 +20,7 @@
 
 + (id)presenterForPrivacySplashWithBundle:(id)bundle
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   identifier = [bundleCopy identifier];
   v6 = [identifier isEqualToString:@"com.apple.onboarding.imessagefacetime"];
@@ -41,8 +43,8 @@
       [splashController setShowsLinkToUnifiedAbout:1];
 
       identifier2 = [privacyFlow identifier];
-      v15[0] = identifier2;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+      v14[0] = identifier2;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
       [(OBPrivacyPresenter *)v7 setPresentedIdentifiers:v12];
 
       [(OBPrivacyPresenter *)v7 setModalPresentationStyle:2];
@@ -54,8 +56,6 @@
       v7 = 0;
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -90,33 +90,33 @@
 
 + (id)presenterForPrivacyUnifiedAboutWithBundles:(id)bundles
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   bundlesCopy = bundles;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = bundlesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        identifier = [*(*(&v15 + 1) + 8 * i) identifier];
+        identifier = [*(*(&v14 + 1) + 8 * i) identifier];
         [v4 addObject:identifier];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -129,8 +129,6 @@
   [v11 setPresentedIdentifiers:v4];
   [v11 setModalPresentationStyle:2];
   [v11 setAnimatePresentAndDismiss:1];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -148,41 +146,39 @@
 
 + (id)presenterForPrivacyUnifiedAboutWithBundlesAtPaths:(id)paths
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = pathsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [OBBundle bundleAtPath:*(*(&v15 + 1) + 8 * i), v15];
+        v11 = [OBBundle bundleAtPath:*(*(&v14 + 1) + 8 * i), v14];
         [v5 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [self presenterForPrivacyUnifiedAboutWithBundles:v5];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -248,45 +244,45 @@
       combinedController2 = [(OBPrivacyPresenter *)self combinedController];
       [combinedController2 setCustomTintColor:customTintColor2];
 
-      v14 = [[OBPrivacyModalNavigationController alloc] initWithRootViewController:v4];
+      v15 = [[OBPrivacyModalNavigationController alloc] initWithRootViewController:v4];
       customTintColor3 = [(OBPrivacyPresenter *)self customTintColor];
-      view = [(OBPrivacyModalNavigationController *)v14 view];
+      view = [(OBPrivacyModalNavigationController *)v15 view];
       [view setTintColor:customTintColor3];
 
-      [(OBPrivacyModalNavigationController *)v14 setDarkMode:[(OBPrivacyPresenter *)self darkMode]];
-      [(OBNavigationController *)v14 setSupportedInterfaceOrientations:self->_supportedInterfaceOrientations];
-      [(OBPrivacyModalNavigationController *)v14 setModalPresentationStyle:self->_modalPresentationStyle];
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __29__OBPrivacyPresenter_present__block_invoke;
-      v23[3] = &unk_1E7C15590;
-      v23[4] = self;
-      [(OBPrivacyModalNavigationController *)v14 addDismissButtonWithPressedHandler:v23];
+      [(OBPrivacyModalNavigationController *)v15 setDarkMode:[(OBPrivacyPresenter *)self darkMode]];
+      [(OBNavigationController *)v15 setSupportedInterfaceOrientations:self->_supportedInterfaceOrientations];
+      [(OBPrivacyModalNavigationController *)v15 setModalPresentationStyle:self->_modalPresentationStyle];
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __29__OBPrivacyPresenter_present__block_invoke;
+      v24[3] = &unk_1E7C15590;
+      v24[4] = self;
+      [(OBPrivacyModalNavigationController *)v15 addDismissButtonWithPressedHandler:v24];
       dismissHandler = [(OBPrivacyPresenter *)self dismissHandler];
 
       if (dismissHandler)
       {
-        presentationController = [(OBPrivacyModalNavigationController *)v14 presentationController];
+        presentationController = [(OBPrivacyModalNavigationController *)v15 presentationController];
         [presentationController setDelegate:self];
       }
 
       presentingViewController2 = [(OBPrivacyPresenter *)self presentingViewController];
       animatePresentAndDismiss = [(OBPrivacyPresenter *)self animatePresentAndDismiss];
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __29__OBPrivacyPresenter_present__block_invoke_2;
-      v22[3] = &unk_1E7C15590;
-      v22[4] = self;
-      [presentingViewController2 presentViewController:v14 animated:animatePresentAndDismiss completion:v22];
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __29__OBPrivacyPresenter_present__block_invoke_2;
+      v23[3] = &unk_1E7C15590;
+      v23[4] = self;
+      [presentingViewController2 presentViewController:v15 animated:animatePresentAndDismiss completion:v23];
     }
 
     else
     {
-      v14 = _OBLoggingFacility();
-      if (os_log_type_enabled(&v14->super.super.super.super.super, OS_LOG_TYPE_DEFAULT))
+      v15 = _OBLoggingFacility(v6);
+      if (os_log_type_enabled(&v15->super.super.super.super.super, OS_LOG_TYPE_DEFAULT))
       {
-        *v21 = 0;
-        _os_log_impl(&dword_1B4FB6000, &v14->super.super.super.super.super, OS_LOG_TYPE_DEFAULT, "Tried to present with no presenter", v21, 2u);
+        *v22 = 0;
+        _os_log_impl(&dword_1B4FB6000, &v15->super.super.super.super.super, OS_LOG_TYPE_DEFAULT, "Tried to present with no presenter", v22, 2u);
       }
     }
   }
@@ -303,6 +299,28 @@ void __29__OBPrivacyPresenter_present__block_invoke_2(uint64_t a1)
   }
 }
 
+- (void)presentInNavigationStack:(id)stack animated:(BOOL)animated
+{
+  if (stack)
+  {
+    animatedCopy = animated;
+    [(OBPrivacyPresenter *)self setPresentingViewController:?];
+    splashController = [(OBPrivacyPresenter *)self splashController];
+    if (splashController || ([(OBPrivacyPresenter *)self combinedController], (splashController = objc_claimAutoreleasedReturnValue()) != 0))
+    {
+      v8 = splashController;
+      presentingViewController = [(OBPrivacyPresenter *)self presentingViewController];
+      [presentingViewController pushViewController:v8 animated:animatedCopy];
+    }
+  }
+
+  else
+  {
+
+    [(OBPrivacyPresenter *)self present];
+  }
+}
+
 - (void)dismiss
 {
   presentingViewController = [(OBPrivacyPresenter *)self presentingViewController];
@@ -313,6 +331,41 @@ void __29__OBPrivacyPresenter_present__block_invoke_2(uint64_t a1)
   v5[3] = &unk_1E7C15590;
   v5[4] = self;
   [presentingViewController dismissViewControllerAnimated:animatePresentAndDismiss completion:v5];
+}
+
+- (void)setDarkMode:(BOOL)mode
+{
+  modeCopy = mode;
+  self->_darkMode = mode;
+  splashController = [(OBPrivacyPresenter *)self splashController];
+  [splashController setDarkMode:modeCopy];
+
+  combinedController = [(OBPrivacyPresenter *)self combinedController];
+  [combinedController setDarkMode:modeCopy];
+
+  splashController2 = [(OBPrivacyPresenter *)self splashController];
+  v8 = splashController2;
+  if (splashController2)
+  {
+    combinedController2 = splashController2;
+  }
+
+  else
+  {
+    combinedController2 = [(OBPrivacyPresenter *)self combinedController];
+  }
+
+  v13 = combinedController2;
+
+  navigationController = [v13 navigationController];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    navigationController2 = [v13 navigationController];
+    [navigationController2 setDarkMode:modeCopy];
+  }
 }
 
 - (UIViewController)presentingViewController

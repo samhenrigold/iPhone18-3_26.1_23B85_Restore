@@ -11,7 +11,7 @@
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = PFStateCaptureGetLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -27,9 +27,9 @@
 
     stateHandle = self->_stateHandle;
     *buf = 138543618;
-    v10 = Property;
-    v11 = 2048;
-    v12 = stateHandle;
+    v9 = Property;
+    v10 = 2048;
+    v11 = stateHandle;
     _os_log_impl(&dword_1D8B9C000, v3, OS_LOG_TYPE_DEBUG, "%{public}@: Deallocating with state handle: %llu", buf, 0x16u);
   }
 
@@ -38,15 +38,14 @@
     os_state_remove_handler();
   }
 
-  v8.receiver = self;
-  v8.super_class = PFStateCaptureHandler;
-  [(PFStateCaptureHandler *)&v8 dealloc];
-  v7 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = PFStateCaptureHandler;
+  [(PFStateCaptureHandler *)&v7 dealloc];
 }
 
 - (os_state_data_s)stateDataWithHints:(os_state_hints_s *)hints
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   ++self->_callCount;
   if (hints->var2 != 1)
   {
@@ -82,9 +81,9 @@
       goto LABEL_23;
     }
 
-    v28 = 0;
-    v13 = [MEMORY[0x1E696AE40] dataWithPropertyList:stateCaptureDictionary format:200 options:0 error:&v28];
-    v14 = v28;
+    v27 = 0;
+    v13 = [MEMORY[0x1E696AE40] dataWithPropertyList:stateCaptureDictionary format:200 options:0 error:&v27];
+    v14 = v27;
     if (v13)
     {
       v15 = [v13 length];
@@ -104,7 +103,7 @@ LABEL_22:
 LABEL_23:
 LABEL_24:
 
-        goto LABEL_25;
+        return v9;
       }
 
       v20 = PFStateCaptureGetLog();
@@ -113,8 +112,8 @@ LABEL_24:
         v25 = objc_getProperty(self, v24, 56, 1);
         *buf = 138543618;
         Property = v25;
-        v31 = 2048;
-        v32 = v15 + 200;
+        v30 = 2048;
+        v31 = v15 + 200;
         v23 = "%{public}@: Unable to allocate state buffer with size %zu";
         goto LABEL_20;
       }
@@ -128,8 +127,8 @@ LABEL_24:
         v22 = objc_getProperty(self, v21, 56, 1);
         *buf = 138543618;
         Property = v22;
-        v31 = 2112;
-        v32 = v14;
+        v30 = 2112;
+        v31 = v14;
         v23 = "%{public}@: Unable to serialize state dictionary: %@";
 LABEL_20:
         _os_log_impl(&dword_1D8B9C000, v20, OS_LOG_TYPE_ERROR, v23, buf, 0x16u);
@@ -147,26 +146,24 @@ LABEL_20:
     var2 = hints->var2;
     *buf = 138543618;
     Property = v7;
-    v31 = 1024;
-    LODWORD(v32) = var2;
+    v30 = 1024;
+    LODWORD(v31) = var2;
     _os_log_impl(&dword_1D8B9C000, v5, OS_LOG_TYPE_INFO, "%{public}@: Ignoring state dump with API: %u", buf, 0x12u);
   }
 
   v9 = 0;
   ++self->_ignoreCount;
-LABEL_25:
-  v26 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (PFStateCaptureHandler)initWithProvider:(id)provider name:(id)name
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   nameCopy = name;
-  v27.receiver = self;
-  v27.super_class = PFStateCaptureHandler;
-  v8 = [(PFStateCaptureHandler *)&v27 init];
+  v25.receiver = self;
+  v25.super_class = PFStateCaptureHandler;
+  v8 = [(PFStateCaptureHandler *)&v25 init];
   if (v8)
   {
     v9 = [nameCopy copy];
@@ -184,34 +181,32 @@ LABEL_25:
     v8->_queue = v14;
 
     objc_initWeak(&location, v8);
-    v16 = v8->_queue;
-    objc_copyWeak(&v25, &location);
-    v24 = nameCopy;
+    objc_copyWeak(&v23, &location);
+    v22 = nameCopy;
     v8->_stateHandle = os_state_add_handler();
-    v17 = PFStateCaptureGetLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v16 = PFStateCaptureGetLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      Property = objc_getProperty(v8, v18, 56, 1);
+      Property = objc_getProperty(v8, v17, 56, 1);
       stateHandle = v8->_stateHandle;
       *buf = 138543618;
-      v29 = Property;
-      v30 = 2048;
-      v31 = stateHandle;
-      _os_log_impl(&dword_1D8B9C000, v17, OS_LOG_TYPE_INFO, "%{public}@: Added state handler: %llu", buf, 0x16u);
+      v27 = Property;
+      v28 = 2048;
+      v29 = stateHandle;
+      _os_log_impl(&dword_1D8B9C000, v16, OS_LOG_TYPE_INFO, "%{public}@: Added state handler: %llu", buf, 0x16u);
     }
 
-    v21 = v8;
-    objc_destroyWeak(&v25);
+    v20 = v8;
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&location);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 uint64_t __47__PFStateCaptureHandler_initWithProvider_name___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
   if (WeakRetained)
@@ -225,15 +220,14 @@ uint64_t __47__PFStateCaptureHandler_initWithProvider_name___block_invoke(uint64
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v8;
-      _os_log_impl(&dword_1D8B9C000, v7, OS_LOG_TYPE_ERROR, "STATEDUMP: %@: PFStateCaptureHandler: strongSelf is nil", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v8;
+      _os_log_impl(&dword_1D8B9C000, v7, OS_LOG_TYPE_ERROR, "STATEDUMP: %@: PFStateCaptureHandler: strongSelf is nil", &v10, 0xCu);
     }
 
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

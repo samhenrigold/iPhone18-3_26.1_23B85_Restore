@@ -35,7 +35,7 @@
 
 - (NSArray)specifiers
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   specifiers = self->_specifiers;
   if (!specifiers)
   {
@@ -43,16 +43,14 @@
     v5 = _specifierForHealthData;
     if (_specifierForHealthData)
     {
-      v10[0] = _specifierForHealthData;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+      v9[0] = _specifierForHealthData;
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
       v7 = self->_specifiers;
       self->_specifiers = v6;
     }
 
     specifiers = self->_specifiers;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return specifiers;
 }
@@ -103,30 +101,30 @@
 
   if ((v6 & 1) == 0)
   {
-    v11 = LogSubsystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = LogSubsystem(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(ICSPhotoStreamSpecifierProvider *)&self->_delegate _isPhotoStreamEnabled:v11];
+      [(ICSPhotoStreamSpecifierProvider *)&self->_delegate _isPhotoStreamEnabled:v12];
     }
 
     goto LABEL_7;
   }
 
-  v7 = objc_loadWeakRetained(&self->_delegate);
-  v8 = [v7 specifierProvider:self isDataclassAvailableForSpecifier:enabledCopy];
+  v8 = objc_loadWeakRetained(&self->_delegate);
+  v9 = [v8 specifierProvider:self isDataclassAvailableForSpecifier:enabledCopy];
 
-  if ((v8 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
 LABEL_7:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_8;
   }
 
   account = [(ICSHealthDataSpecifierProvider *)self account];
-  v10 = [account isEnabledForDataclass:*MEMORY[0x277CB89A0]];
+  v11 = [account isEnabledForDataclass:*MEMORY[0x277CB89A0]];
 
 LABEL_8:
-  return v10;
+  return v11;
 }
 
 - (AAUISpecifierProviderDelegate)delegate

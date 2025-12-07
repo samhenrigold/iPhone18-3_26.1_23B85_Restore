@@ -263,7 +263,7 @@
   if (!v7)
   {
     v9 = 0;
-    v8 = -12782;
+    v8 = 4294954514;
 LABEL_6:
     v10 = 3;
     if (!error)
@@ -544,13 +544,13 @@ uint64_t __44__AVFigAssetTrackInspector__figFormatReader__block_invoke(uint64_t 
   return self->_figTrackReader;
 }
 
-uint64_t __43__AVFigAssetTrackInspector__figTrackReader__block_invoke(uint64_t a1)
+void *__43__AVFigAssetTrackInspector__figTrackReader__block_invoke(uint64_t a1)
 {
   v13 = 0;
   v2 = *(*(a1 + 32) + 40);
   VTable = CMBaseObjectGetVTable();
   v5 = *(VTable + 16);
-  result = VTable + 16;
+  result = (VTable + 16);
   v6 = *(v5 + 32);
   if (v6)
   {
@@ -565,7 +565,7 @@ uint64_t __43__AVFigAssetTrackInspector__figTrackReader__block_invoke(uint64_t a
         v9 = *(a1 + 32);
         v10 = CMBaseObjectGetVTable();
         v11 = *(v10 + 16);
-        result = v10 + 16;
+        result = (v10 + 16);
         v12 = *(v11 + 56);
         if (v12)
         {

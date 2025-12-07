@@ -27,7 +27,7 @@
 
 - (int)_eventInfoCategory
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (_eventInfoCategory_onceToken != -1)
   {
     dispatch_once(&_eventInfoCategory_onceToken, &__block_literal_global_3967);
@@ -35,33 +35,33 @@
 
   categories = [(PGGraphPublicEventNode *)self categories];
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = categories;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [_eventInfoCategory_eventInfoCategoryByPublicEventCategory objectForKeyedSubscript:{*(*(&v15 + 1) + 8 * i), v15}];
+        v10 = [_eventInfoCategory_eventInfoCategoryByPublicEventCategory objectForKeyedSubscript:{*(*(&v14 + 1) + 8 * i), v14}];
         if (v10)
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -91,42 +91,39 @@
     intValue = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return intValue;
 }
 
 void __61__PGGraphPublicEventNode_PublicEventInfo___eventInfoCategory__block_invoke()
 {
-  v12[8] = *MEMORY[0x277D85DE8];
+  v11[8] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D27780] appleEvents];
-  v11[0] = v0;
-  v12[0] = &unk_284482208;
+  v10[0] = v0;
+  v11[0] = &unk_284482208;
   v1 = [MEMORY[0x277D27780] artsAndMuseums];
-  v11[1] = v1;
-  v12[1] = &unk_284482220;
+  v10[1] = v1;
+  v11[1] = &unk_284482220;
   v2 = [MEMORY[0x277D27780] dance];
-  v11[2] = v2;
-  v12[2] = &unk_284482238;
+  v10[2] = v2;
+  v11[2] = &unk_284482238;
   v3 = [MEMORY[0x277D27780] festivalsAndFairs];
-  v11[3] = v3;
-  v12[3] = &unk_284482250;
+  v10[3] = v3;
+  v11[3] = &unk_284482250;
   v4 = [MEMORY[0x277D27780] musicConcerts];
-  v11[4] = v4;
-  v12[4] = &unk_284482268;
+  v10[4] = v4;
+  v11[4] = &unk_284482268;
   v5 = [MEMORY[0x277D27780] nightLife];
-  v11[5] = v5;
-  v12[5] = &unk_284482280;
+  v10[5] = v5;
+  v11[5] = &unk_284482280;
   v6 = [MEMORY[0x277D27780] sports];
-  v11[6] = v6;
-  v12[6] = &unk_284482298;
+  v10[6] = v6;
+  v11[6] = &unk_284482298;
   v7 = [MEMORY[0x277D27780] theater];
-  v11[7] = v7;
-  v12[7] = &unk_2844822B0;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:8];
+  v10[7] = v7;
+  v11[7] = &unk_2844822B0;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:8];
   v9 = _eventInfoCategory_eventInfoCategoryByPublicEventCategory;
   _eventInfoCategory_eventInfoCategoryByPublicEventCategory = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (PHPublicEventInfo)publicEventInfo
@@ -496,28 +493,26 @@ void __36__PGGraphPublicEventNode_categories__block_invoke(uint64_t a1, void *a2
 
 - (id)propertyDictionary
 {
-  v13[6] = *MEMORY[0x277D85DE8];
-  v12[0] = @"id";
+  v12[6] = *MEMORY[0x277D85DE8];
+  v11[0] = @"id";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_muid];
   name = self->_name;
-  v13[0] = v3;
-  v13[1] = name;
-  v12[1] = @"name";
-  v12[2] = @"attdc";
+  v12[0] = v3;
+  v12[1] = name;
+  v11[1] = @"name";
+  v11[2] = @"attdc";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:self->_expectedAttendance];
   eventIdentifier = self->_eventIdentifier;
-  v13[2] = v5;
-  v13[3] = eventIdentifier;
-  v12[3] = @"eventID";
-  v12[4] = @"canUseWithoutBusiness";
+  v12[2] = v5;
+  v12[3] = eventIdentifier;
+  v11[3] = @"eventID";
+  v11[4] = @"canUseWithoutBusiness";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:self->_canUseWithoutBusiness];
-  v13[4] = v7;
-  v12[5] = @"supportsEventExperience";
+  v12[4] = v7;
+  v11[5] = @"supportsEventExperience";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:self->_supportsEventExperience];
-  v13[5] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[5] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
 
   return v9;
 }
@@ -530,62 +525,40 @@ void __36__PGGraphPublicEventNode_categories__block_invoke(uint64_t a1, void *a2
   {
     v6 = [v5 objectForKeyedSubscript:@"id"];
     v7 = v6;
-    if (v6 && [v6 unsignedIntegerValue] != self->_muid)
+    v13 = 0;
+    if (!v6 || [v6 unsignedIntegerValue] == self->_muid)
     {
-      goto LABEL_17;
-    }
 
-    v8 = [v5 objectForKeyedSubscript:@"name"];
-    v7 = v8;
-    if (v8)
-    {
-      if (![v8 isEqual:self->_name])
+      v8 = [v5 objectForKeyedSubscript:@"name"];
+      v7 = v8;
+      if (!v8 || [v8 isEqual:self->_name])
       {
-        goto LABEL_17;
+
+        v9 = [v5 objectForKeyedSubscript:@"attdc"];
+        v7 = v9;
+        if (!v9 || [v9 integerValue] == self->_expectedAttendance)
+        {
+
+          v10 = [v5 objectForKeyedSubscript:@"eventID"];
+          v7 = v10;
+          if (!v10 || [v10 isEqual:self->_eventIdentifier])
+          {
+
+            v11 = [v5 objectForKeyedSubscript:@"canUseWithoutBusiness"];
+            v7 = v11;
+            if (!v11 || self->_canUseWithoutBusiness == [v11 BOOLValue])
+            {
+
+              v12 = [v5 objectForKeyedSubscript:@"supportsEventExperience"];
+              v7 = v12;
+              if (!v12 || self->_supportsEventExperience == [v12 BOOLValue])
+              {
+                v13 = 1;
+              }
+            }
+          }
+        }
       }
-    }
-
-    v9 = [v5 objectForKeyedSubscript:@"attdc"];
-    v7 = v9;
-    if (v9)
-    {
-      if ([v9 integerValue] != self->_expectedAttendance)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v10 = [v5 objectForKeyedSubscript:@"eventID"];
-    v7 = v10;
-    if (v10)
-    {
-      if (![v10 isEqual:self->_eventIdentifier])
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v11 = [v5 objectForKeyedSubscript:@"canUseWithoutBusiness"];
-    v7 = v11;
-    if (v11)
-    {
-      if (self->_canUseWithoutBusiness != [v11 BOOLValue])
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v12 = [v5 objectForKeyedSubscript:@"supportsEventExperience"];
-    v7 = v12;
-    if (v12 && self->_supportsEventExperience != [v12 BOOLValue])
-    {
-LABEL_17:
-      v13 = 0;
-    }
-
-    else
-    {
-      v13 = 1;
     }
   }
 

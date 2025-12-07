@@ -74,14 +74,14 @@ void __45__BLSHInactiveProcessBudget_debugDescription__block_invoke(uint64_t a1)
   return v8;
 }
 
-uint64_t __64__BLSHInactiveProcessBudget_initWithIdentifier_osTimerProvider___block_invoke(uint64_t a1)
+uint64_t __64__BLSHInactiveProcessBudget_initWithIdentifier_osTimerProvider___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"BLSHInactiveProcessBudget : %@", *(a1 + 32)];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"BLSHInactiveProcessBudget : %@", *(a1 + 32)];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v4 = [WeakRetained debugDescription];
-  v5 = BLSStateDataWithTitleDescriptionAndHints();
+  v5 = [WeakRetained debugDescription];
+  v6 = BLSStateDataWithTitleDescriptionAndHints();
 
-  return v5;
+  return v6;
 }
 
 - (void)dealloc
@@ -262,16 +262,15 @@ LABEL_7:
 
 - (void)validateAndChargeFutureSpecifier:(uint64_t)a1 nextSpecifier:(uint64_t)a2 expectedFidelity:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 8);
-  v5 = 134218498;
-  v6 = a1;
-  v7 = 2114;
-  v8 = v3;
-  v9 = 2114;
-  v10 = a2;
-  _os_log_debug_impl(&dword_21FD11000, log, OS_LOG_TYPE_DEBUG, "%p:%{public}@ expectedFidelity:BLSUpdateFidelityNever specifier:%{public}@ denied", &v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218498;
+  v5 = a1;
+  v6 = 2114;
+  v7 = v3;
+  v8 = 2114;
+  v9 = a2;
+  _os_log_debug_impl(&dword_21FD11000, log, OS_LOG_TYPE_DEBUG, "%p:%{public}@ expectedFidelity:BLSUpdateFidelityNever specifier:%{public}@ denied", &v4, 0x20u);
 }
 
 @end

@@ -17,20 +17,16 @@
 + (uint64_t)donateUserVisitForMindfulnessSettings
 {
   v0 = sub_EC88();
-  v1 = *(*(v0 - 8) + 64);
-  __chkstk_darwin(v0 - 8);
+  __chkstk_darwin(v0 - 8, v1);
   v2 = sub_EB98();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2);
+  __chkstk_darwin(v2, v4);
   v6 = &v17[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v7 = sub_EF28();
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8);
+  __chkstk_darwin(v7 - 8, v8);
   v9 = sub_EBA8();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
+  __chkstk_darwin(v9, v11);
   v13 = &v17[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_EF18();
   *v6 = type metadata accessor for MindSettingsNavigationDonation();
@@ -46,139 +42,125 @@
 + (uint64_t)donateUserVisitForBreathRateSettings
 {
   v0 = sub_EC88();
-  v1 = *(*(v0 - 8) + 64);
-  __chkstk_darwin(v0 - 8);
-  v31 = v28 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v0 - 8, v1);
+  v28 = v25 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v3 = sub_EB98();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v3);
-  v7 = (v28 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v3, v5);
+  v7 = (v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
   v8 = sub_EF28();
-  v9 = *(*(v8 - 8) + 64);
-  __chkstk_darwin(v8 - 8);
-  v33 = sub_EBA8();
-  v28[0] = *(v33 - 8);
-  v10 = v28[0];
-  v11 = *(v28[0] + 64);
-  __chkstk_darwin(v33);
-  v13 = v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8 - 8, v9);
+  v30 = sub_EBA8();
+  v25[0] = *(v30 - 8);
+  __chkstk_darwin(v30, v10);
+  v12 = v25 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_EF18();
-  v30 = type metadata accessor for MindSettingsNavigationDonation();
-  *v7 = v30;
-  v14 = enum case for LocalizedStringResource.BundleDescription.forClass(_:);
-  v15 = *(v4 + 104);
-  v28[1] = v4 + 104;
-  v29 = v15;
-  v15(v7, enum case for LocalizedStringResource.BundleDescription.forClass(_:), v3);
+  v27 = type metadata accessor for MindSettingsNavigationDonation();
+  *v7 = v27;
+  v13 = enum case for LocalizedStringResource.BundleDescription.forClass(_:);
+  v14 = *(v4 + 104);
+  v25[1] = v4 + 104;
+  v26 = v14;
+  v14(v7, enum case for LocalizedStringResource.BundleDescription.forClass(_:), v3);
   sub_EC78();
-  v16 = v28[0];
-  v32 = v13;
+  v15 = v25[0];
+  v29 = v12;
   sub_EBB8();
   sub_B124(&qword_1DBB0, &qword_11140);
-  v17 = *(v10 + 72);
-  v18 = (*(v16 + 80) + 32) & ~*(v16 + 80);
-  v19 = swift_allocObject();
-  *(v19 + 16) = xmmword_11100;
+  v16 = swift_allocObject();
+  *(v16 + 16) = xmmword_11100;
   sub_EF18();
-  v20 = v29;
-  *v7 = v30;
-  v20(v7, v14, v3);
+  v17 = v26;
+  *v7 = v27;
+  v17(v7, v13, v3);
   sub_EC78();
   sub_EBB8();
-  v21 = sub_C014();
-  v23 = v21;
-  if (v22)
+  v18 = sub_C014();
+  v20 = v18;
+  if (v19)
   {
-    v36 = 0xD00000000000001ALL;
-    v37 = 0x8000000000011B10;
-    v34 = v21;
-    v35 = v22;
-    v34 = sub_EF88();
-    v35 = v24;
+    v33 = 0xD00000000000001ALL;
+    v34 = 0x8000000000011B10;
+    v31 = v18;
+    v32 = v19;
+    v31 = sub_EF88();
+    v32 = v21;
     sub_EF58();
-    v23 = v34;
-    v25 = v35;
+    v20 = v31;
+    v22 = v32;
   }
 
   else
   {
-    v25 = 0;
+    v22 = 0;
   }
 
-  v26 = v32;
-  sub_C0F0(v32, v19, v23, v25);
+  v23 = v29;
+  sub_C0F0(v29, v16, v20, v22);
 
-  return (*(v16 + 8))(v26, v33);
+  return (*(v15 + 8))(v23, v30);
 }
 
 + (uint64_t)donateUserVisitForHapticSettings
 {
   v0 = sub_EC88();
-  v1 = *(*(v0 - 8) + 64);
-  __chkstk_darwin(v0 - 8);
-  v31 = v28 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v0 - 8, v1);
+  v28 = v25 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v3 = sub_EB98();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v3);
-  v7 = (v28 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v3, v5);
+  v7 = (v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
   v8 = sub_EF28();
-  v9 = *(*(v8 - 8) + 64);
-  __chkstk_darwin(v8 - 8);
-  v33 = sub_EBA8();
-  v28[0] = *(v33 - 8);
-  v10 = v28[0];
-  v11 = *(v28[0] + 64);
-  __chkstk_darwin(v33);
-  v13 = v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8 - 8, v9);
+  v30 = sub_EBA8();
+  v25[0] = *(v30 - 8);
+  __chkstk_darwin(v30, v10);
+  v12 = v25 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_EF18();
-  v30 = type metadata accessor for MindSettingsNavigationDonation();
-  *v7 = v30;
-  v14 = enum case for LocalizedStringResource.BundleDescription.forClass(_:);
-  v15 = *(v4 + 104);
-  v28[1] = v4 + 104;
-  v29 = v15;
-  v15(v7, enum case for LocalizedStringResource.BundleDescription.forClass(_:), v3);
+  v27 = type metadata accessor for MindSettingsNavigationDonation();
+  *v7 = v27;
+  v13 = enum case for LocalizedStringResource.BundleDescription.forClass(_:);
+  v14 = *(v4 + 104);
+  v25[1] = v4 + 104;
+  v26 = v14;
+  v14(v7, enum case for LocalizedStringResource.BundleDescription.forClass(_:), v3);
   sub_EC78();
-  v16 = v28[0];
-  v32 = v13;
+  v15 = v25[0];
+  v29 = v12;
   sub_EBB8();
   sub_B124(&qword_1DBB0, &qword_11140);
-  v17 = *(v10 + 72);
-  v18 = (*(v16 + 80) + 32) & ~*(v16 + 80);
-  v19 = swift_allocObject();
-  *(v19 + 16) = xmmword_11100;
+  v16 = swift_allocObject();
+  *(v16 + 16) = xmmword_11100;
   sub_EF18();
-  v20 = v29;
-  *v7 = v30;
-  v20(v7, v14, v3);
+  v17 = v26;
+  *v7 = v27;
+  v17(v7, v13, v3);
   sub_EC78();
   sub_EBB8();
-  v21 = sub_C014();
-  v23 = v21;
-  if (v22)
+  v18 = sub_C014();
+  v20 = v18;
+  if (v19)
   {
-    v36 = 0xD000000000000015;
-    v37 = 0x8000000000011AB0;
-    v34 = v21;
-    v35 = v22;
-    v34 = sub_EF88();
-    v35 = v24;
+    v33 = 0xD000000000000015;
+    v34 = 0x8000000000011AB0;
+    v31 = v18;
+    v32 = v19;
+    v31 = sub_EF88();
+    v32 = v21;
     sub_EF58();
-    v23 = v34;
-    v25 = v35;
+    v20 = v31;
+    v22 = v32;
   }
 
   else
   {
-    v25 = 0;
+    v22 = 0;
   }
 
-  v26 = v32;
-  sub_C0F0(v32, v19, v23, v25);
+  v23 = v29;
+  sub_C0F0(v29, v16, v20, v22);
 
-  return (*(v16 + 8))(v26, v33);
+  return (*(v15 + 8))(v23, v30);
 }
 
 @end

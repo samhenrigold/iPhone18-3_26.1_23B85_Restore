@@ -54,10 +54,9 @@
   selfCopy = self;
   if (!self->_connection)
   {
-    connector = self->_connector;
-    v5 = (*(selfCopy->_connector + 2))();
+    v4 = (*(self->_connector + 2))();
     connection = selfCopy->_connection;
-    selfCopy->_connection = v5;
+    selfCopy->_connection = v4;
 
     if (!selfCopy->_connection)
     {
@@ -102,7 +101,7 @@
 
 - (id)mapXPCConnectionError:(id)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v9 = objc_msgSend_domain(errorCopy, v5, v6, v7, v8);
   isEqualToString = objc_msgSend_isEqualToString_(v9, v10, *MEMORY[0x277CCA050], v11, v12);
@@ -117,7 +116,7 @@
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         v28 = objc_msgSend_proxyDescription(selfCopy, v24, v25, v26, v27);
-        sub_26AA7E5F4(v28, v45, v23);
+        sub_26AA7E5F4(v28, v44, v23);
       }
 
       connection = selfCopy->_connection;
@@ -133,7 +132,7 @@
       if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         v41 = objc_msgSend_proxyDescription(selfCopy, v37, v38, v39, v40);
-        sub_26AA7E64C(v41, v45, v36);
+        sub_26AA7E64C(v41, v44, v36);
       }
 
       objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v42, @"SoftPosReader", 14002, 0);
@@ -147,14 +146,12 @@
     v35 = errorCopy;
   }
 
-  v43 = *MEMORY[0x277D85DE8];
-
   return v35;
 }
 
 - (id)connectionWithErrorHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -187,7 +184,7 @@
     {
       v20 = objc_msgSend_proxyDescription(selfCopy, v16, v17, v18, v19);
       *buf = 138412290;
-      v25 = v20;
+      v24 = v20;
       _os_log_impl(&dword_26A93A000, v15, OS_LOG_TYPE_INFO, "%@ connected", buf, 0xCu);
     }
 
@@ -197,8 +194,6 @@ LABEL_10:
 
   v21 = connection;
   objc_sync_exit(selfCopy);
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

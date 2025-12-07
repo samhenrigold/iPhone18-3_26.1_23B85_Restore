@@ -21,7 +21,7 @@
 - (PXViewControllerDismissalInteractionController)initWithViewController:(id)controller
 {
   controllerCopy = controller;
-  v4 = sub_1A482EFF4();
+  v4 = sub_1A482EFF4(controllerCopy);
 
   return v4;
 }
@@ -101,7 +101,7 @@
 {
   upCopy = up;
   selfCopy = self;
-  sub_1A482D3F0(upCopy);
+  sub_1A482D3F0(upCopy, v5);
 }
 
 - (void)handleSwipeDownOrEdgeSwipe:(id)swipe

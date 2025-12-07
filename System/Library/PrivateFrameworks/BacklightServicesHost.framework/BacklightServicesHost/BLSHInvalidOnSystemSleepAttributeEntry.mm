@@ -99,7 +99,7 @@
 
 - (void)cancelAssertionForSleep
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (self)
   {
     os_unfair_lock_lock((self + 8));
@@ -111,17 +111,15 @@
       assertion = [self assertion];
       v5 = MEMORY[0x277CCA9B8];
       v6 = *MEMORY[0x277CF0828];
-      v10 = *MEMORY[0x277CCA450];
-      v11[0] = @"canceled due to system sleep";
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+      v9 = *MEMORY[0x277CCA450];
+      v10[0] = @"canceled due to system sleep";
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
       v8 = [v5 errorWithDomain:v6 code:13 userInfo:v7];
       [service cancelAssertion:assertion withError:v8];
 
       [self invalidate];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)systemSleepMonitor:(id)monitor sleepRequestedWithResult:(id)result
@@ -140,15 +138,13 @@
 
 - (void)initForAttribute:(uint64_t)a1 fromAssertion:(NSObject *)a2 forService:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = NSStringFromBLSAssertingObject();
-  v6 = 134218242;
-  v7 = a1;
-  v8 = 2114;
-  v9 = v4;
-  _os_log_error_impl(&dword_21FD11000, a2, OS_LOG_TYPE_ERROR, "%p attempted to acquire assertion when sleep is imminent, will immediately cancel assertion:%{public}@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 134218242;
+  v6 = a1;
+  v7 = 2114;
+  v8 = v4;
+  _os_log_error_impl(&dword_21FD11000, a2, OS_LOG_TYPE_ERROR, "%p attempted to acquire assertion when sleep is imminent, will immediately cancel assertion:%{public}@", &v5, 0x16u);
 }
 
 @end

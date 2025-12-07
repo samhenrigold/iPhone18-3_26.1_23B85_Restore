@@ -13,7 +13,7 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if ([coderCopy hmd_isForXPCTransport])
   {
@@ -41,15 +41,13 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v13;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Did not encode group as transport is not XPC.", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Did not encode group as transport is not XPC.", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDSettingGroup)initWithCoder:(id)coder
@@ -132,19 +130,19 @@
   if (v17)
   {
     v17->_lock._os_unfair_lock_opaque = 0;
-    v19 = [nameCopy copy];
+    v19 = objc_msgSend_copy(nameCopy);
     name = v18->_name;
     v18->_name = v19;
 
-    v21 = [nameCopy copy];
+    v21 = objc_msgSend_copy(nameCopy);
     keyPath = v18->_keyPath;
     v18->_keyPath = v21;
 
-    v23 = [identifierCopy copy];
+    v23 = objc_msgSend_copy(identifierCopy);
     identifier = v18->_identifier;
     v18->_identifier = v23;
 
-    v25 = [parentIdentifierCopy copy];
+    v25 = objc_msgSend_copy(parentIdentifierCopy);
     parentIdentifier = v18->_parentIdentifier;
     v18->_parentIdentifier = v25;
 

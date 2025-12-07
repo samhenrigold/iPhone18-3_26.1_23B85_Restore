@@ -17,7 +17,7 @@
 
 - (NSURL)px_assetDirectory
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB853970);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB853970, &unk_1B3CFB660);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v8 - v3;
   sub_1B3897DE4(&v8 - v3);

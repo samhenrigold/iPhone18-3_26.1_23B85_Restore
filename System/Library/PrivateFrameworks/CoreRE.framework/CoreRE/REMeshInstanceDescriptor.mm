@@ -20,65 +20,72 @@
 
 - (MeshInstance)meshInstanceWithModels:(SEL)models meshManager:(const void *)manager
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   name = [(REMeshInstanceDescriptor *)self name];
   uTF8String = [name UTF8String];
-  v26 = 0;
-  v27 = &str_67;
+  v31 = 0;
+  v32 = &str_67;
   modelIndex = [(REMeshInstanceDescriptor *)self modelIndex];
   v12 = modelIndex;
   v13 = *(manager + 7);
   if (v13 <= modelIndex)
   {
-    v28 = 0;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v37 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v29 = 136315906;
-    v30 = "operator[]";
-    v31 = 1024;
-    v32 = 797;
-    v33 = 2048;
-    v34 = v12;
-    v35 = 2048;
-    v36 = v13;
-    _os_log_send_and_compose_impl();
+    v33 = 0;
+    memset(v42, 0, sizeof(v42));
+    v22 = MEMORY[0x1E69E9C10];
+    v23 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v34 = 136315906;
+    v35 = "operator[]";
+    v36 = 1024;
+    if (v23)
+    {
+      v24 = 3;
+    }
+
+    else
+    {
+      v24 = 2;
+    }
+
+    v37 = 797;
+    v38 = 2048;
+    v39 = v12;
+    v40 = 2048;
+    v41 = v13;
+    _os_log_send_and_compose_impl(v24, &v33, v42, 80, &dword_1E1C61000, v22, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v34, 38, v25, v27);
     _os_crash_msg();
     __break(1u);
   }
 
   v14 = *(*(manager + 9) + 8 * modelIndex);
   [(REMeshInstanceDescriptor *)self transform];
-  v24 = v16;
-  v25 = v15;
-  v22 = v18;
-  v23 = v17;
-  v19 = v27;
-  *&retstr->var0.var0 = v26;
+  v29 = v16;
+  v30 = v15;
+  v26 = v18;
+  v28 = v17;
+  v19 = v32;
+  *&retstr->var0.var0 = v31;
   retstr->var0.var1 = v19;
-  v26 = 0;
-  v27 = &str_67;
+  v31 = 0;
+  v32 = &str_67;
   *&retstr->var3.var1 = 0u;
   *&retstr->var4.var0 = 0u;
   *&retstr->var4.var2 = 0u;
   v20 = re::DataArray<re::MeshModel>::tryGet(a5 + 8, v14);
-  *&retstr->var2.var0.var5[2] = v25;
-  *&retstr->var2.var0.var5[6] = v24;
-  *&retstr->var2.var0.var5[10] = v23;
-  *&retstr->var2.var0.var5[14] = v22;
+  *&retstr->var2.var0.var5[2] = v30;
+  *&retstr->var2.var0.var5[6] = v29;
+  *&retstr->var2.var0.var5[10] = v28;
+  *&retstr->var2.var0.var5[14] = v26;
   retstr->var1 = v14;
-  if (v26)
+  if (v31)
   {
-    if (v26)
+    if (v31)
     {
     }
   }
 
-  v26 = 0;
-  v27 = &str_67;
+  v31 = 0;
+  v32 = &str_67;
 
   return result;
 }

@@ -108,7 +108,7 @@
 {
   [(MSUCheckpointAsyncContext *)self setCheckpoint_closure_context:checkpoint];
   step_desc = checkpoint_closure_context_get_step_desc([(MSUCheckpointAsyncContext *)self checkpoint_closure_context]);
-  ramrod_log_msg("[AsyncCP][DispatchSync] Checkpoint %s dispatched synchronously because async is disabled.\n", v5, v6, v7, v8, v9, v10, v11, *(step_desc + 8));
+  ramrod_log_msg("[AsyncCP][DispatchSync] Checkpoint %s dispatched synchronously because async is disabled.\n", *(step_desc + 8));
   workQueue = [(MSUCheckpointAsyncBlockContext *)self workQueue];
   workBlock = [(MSUCheckpointAsyncBlockContext *)self workBlock];
 
@@ -119,7 +119,7 @@
 {
   [(MSUCheckpointAsyncContext *)self setCheckpoint_closure_context:checkpoint];
   step_desc = checkpoint_closure_context_get_step_desc([(MSUCheckpointAsyncContext *)self checkpoint_closure_context]);
-  ramrod_log_msg("[AsyncCP][DispatchAsync] Checkpoint %s dispatched asynchronously.\n", v5, v6, v7, v8, v9, v10, v11, *(step_desc + 8));
+  ramrod_log_msg("[AsyncCP][DispatchAsync] Checkpoint %s dispatched asynchronously.\n", *(step_desc + 8));
   workQueue = [(MSUCheckpointAsyncBlockContext *)self workQueue];
   workBlock = [(MSUCheckpointAsyncBlockContext *)self workBlock];
 
@@ -129,17 +129,19 @@
 - (BOOL)waitUntilTime:(unint64_t)time
 {
   step_desc = checkpoint_closure_context_get_step_desc([(MSUCheckpointAsyncContext *)self checkpoint_closure_context]);
-  ramrod_log_msg("[AsyncCP][WaitStart] Start to Wait checkpoint %s.\n", v6, v7, v8, v9, v10, v11, v12, *(step_desc + 8));
-  v13 = dispatch_time(0, 1000000000);
-  if (v13 >= time)
+  ramrod_log_msg("[AsyncCP][WaitStart] Start to Wait checkpoint %s.\n", *(step_desc + 8));
+  v6 = dispatch_time(0, 1000000000);
+  if (v6 >= time)
   {
-    v23 = 0;
+    v10 = 0;
+    v8 = "fail";
   }
 
   else
   {
-    v21 = v13;
-    while (dispatch_block_wait([(MSUCheckpointAsyncBlockContext *)self workBlock], v21))
+    v7 = v6;
+    v8 = "success";
+    while (dispatch_block_wait([(MSUCheckpointAsyncBlockContext *)self workBlock], v7))
     {
       objc_sync_enter(self);
       isCanceled = [(MSUCheckpointAsyncBlockContext *)self isCanceled];
@@ -149,20 +151,21 @@
         break;
       }
 
-      v21 = dispatch_time(0, 1000000000);
-      if (v21 >= time)
+      v7 = dispatch_time(0, 1000000000);
+      if (v7 >= time)
       {
-        v23 = 0;
+        v10 = 0;
+        v8 = "fail";
         goto LABEL_9;
       }
     }
 
-    v23 = 1;
+    v10 = 1;
   }
 
 LABEL_9:
-  ramrod_log_msg("[AsyncCP][WaitEnd] Wait checkpoint %s %s.\n", v14, v15, v16, v17, v18, v19, v20, *(step_desc + 8));
-  return v23;
+  ramrod_log_msg("[AsyncCP][WaitEnd] Wait checkpoint %s %s.\n", *(step_desc + 8), v8);
+  return v10;
 }
 
 - (void)cancel

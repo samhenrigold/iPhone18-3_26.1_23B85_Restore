@@ -171,63 +171,64 @@ LABEL_7:
 
   if (isAVLessSharePlayEnabled)
   {
-    v6 = CKFrameworkBundle();
-    v7 = v6;
+    v7 = CKFrameworkBundle(v6);
+    v8 = v7;
     if (mode)
     {
-      v8 = @"FACE_TIME_DEFAULT";
+      v9 = @"FACE_TIME_DEFAULT";
     }
 
     else
     {
-      v8 = @"EXPANSE_DEFAULT";
+      v9 = @"EXPANSE_DEFAULT";
     }
   }
 
   else
   {
-    v6 = CKFrameworkBundle();
-    v7 = v6;
-    v8 = @"FACE_TIME_DEFAULT";
+    v7 = CKFrameworkBundle(v6);
+    v8 = v7;
+    v9 = @"FACE_TIME_DEFAULT";
   }
 
-  v9 = [v6 localizedStringForKey:v8 value:&stru_1F04268F8 table:@"ChatKit"];
+  v10 = [v7 localizedStringForKey:v9 value:&stru_1F04268F8 table:@"ChatKit"];
 
-  return v9;
+  return v10;
 }
 
 + (id)activityTitleForTUConversation:(id)conversation
 {
   conversationCopy = conversation;
-  if ([MEMORY[0x1E69A5B78] activeTUConversationHasActivitySession:conversationCopy])
+  v4 = [MEMORY[0x1E69A5B78] activeTUConversationHasActivitySession:conversationCopy];
+  if (v4)
   {
     if ([MEMORY[0x1E69A5B78] isScreenShareActivityForTUConversation:conversationCopy])
     {
-      v4 = [MEMORY[0x1E69A5B78] remoteParticipantHandleSharingScreenForTUConversation:conversationCopy];
-      if (v4)
+      v5 = [MEMORY[0x1E69A5B78] remoteParticipantHandleSharingScreenForTUConversation:conversationCopy];
+      if (v5)
       {
-        v5 = [CKEntity entityForAddress:v4];
-        [v5 fullName];
+        v6 = [CKEntity entityForAddress:v5];
+        [v6 fullName];
       }
 
       else
       {
-        v5 = CKFrameworkBundle();
-        [v5 localizedStringForKey:@"EXPANSE_LOCAL_SCREENSHARE" value:&stru_1F04268F8 table:@"ChatKit"];
+        v6 = CKFrameworkBundle(0);
+        [v6 localizedStringForKey:@"EXPANSE_LOCAL_SCREENSHARE" value:&stru_1F04268F8 table:@"ChatKit"];
       }
       title = ;
       goto LABEL_12;
     }
 
-    v4 = [MEMORY[0x1E69A5B78] activityMetadataForTUConversation:conversationCopy];
-    v5 = [CKTUConversationViewUtilities activityAppNameForTUConversation:conversationCopy];
+    v5 = [MEMORY[0x1E69A5B78] activityMetadataForTUConversation:conversationCopy];
+    v6 = [CKTUConversationViewUtilities activityAppNameForTUConversation:conversationCopy];
     if (objc_opt_respondsToSelector())
     {
-      title = [v4 title];
+      title = [v5 title];
 LABEL_12:
-      v7 = title;
+      v8 = title;
 
-      v5 = v7;
+      v6 = v8;
     }
   }
 
@@ -235,17 +236,17 @@ LABEL_12:
   {
     if (conversationCopy)
     {
-      v5 = +[CKTUConversationViewUtilities titleForAVMode:](CKTUConversationViewUtilities, "titleForAVMode:", [conversationCopy avMode]);
+      v6 = +[CKTUConversationViewUtilities titleForAVMode:](CKTUConversationViewUtilities, "titleForAVMode:", [conversationCopy avMode]);
       goto LABEL_14;
     }
 
-    v4 = CKFrameworkBundle();
-    v5 = [v4 localizedStringForKey:@"FACE_TIME_DEFAULT" value:&stru_1F04268F8 table:@"ChatKit"];
+    v5 = CKFrameworkBundle(v4);
+    v6 = [v5 localizedStringForKey:@"FACE_TIME_DEFAULT" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
 LABEL_14:
 
-  return v5;
+  return v6;
 }
 
 + (id)activityTextForTUConversation:(id)conversation
@@ -320,19 +321,19 @@ LABEL_14:
 
   if (v4)
   {
-    v8 = MEMORY[0x1E696AEC0];
-    v9 = IMSharedUtilitiesFrameworkBundle();
-    v10 = [v9 localizedStringForKey:@"%lu People Active" value:&stru_1F04268F8 table:@"IMSharedUtilities"];
-    v11 = [v8 localizedStringWithFormat:v10, v4];
+    v9 = MEMORY[0x1E696AEC0];
+    v10 = IMSharedUtilitiesFrameworkBundle();
+    v11 = [v10 localizedStringForKey:@"%lu People Active" value:&stru_1F04268F8 table:@"IMSharedUtilities"];
+    v12 = [v9 localizedStringWithFormat:v11, v4];
   }
 
   else
   {
-    v9 = CKFrameworkBundle();
-    v11 = [v9 localizedStringForKey:@"FACETIME_WAITING" value:&stru_1F04268F8 table:@"ChatKit"];
+    v10 = CKFrameworkBundle(v7);
+    v12 = [v10 localizedStringForKey:@"FACETIME_WAITING" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
-  return v11;
+  return v12;
 }
 
 + (unint64_t)ckTUConversationStateForTUConversation:(id)conversation
@@ -415,45 +416,52 @@ LABEL_19:
   context = [metadata context];
   identifier = [context identifier];
 
-  if (([identifier isEqualToString:@"CPGroupActivityGenericContext"] & 1) == 0 && !objc_msgSend(identifier, "isEqualToString:", @"CPGroupActivityWorkoutTogetherContext"))
+  v8 = [identifier isEqualToString:@"CPGroupActivityGenericContext"];
+  if ((v8 & 1) == 0)
   {
-    if (([identifier isEqualToString:@"CPGroupActivityListenTogetherContext"] & 1) != 0 || objc_msgSend(identifier, "isEqualToString:", @"CPGroupActivityWatchTogetherContext"))
+    v8 = [identifier isEqualToString:@"CPGroupActivityWorkoutTogetherContext"];
+    if (!v8)
     {
-      v8 = CKFrameworkBundle();
-      originator = v8;
-      v10 = @"EXPANSE_ACTIVITY_DESCRIPTION_PLAYING";
-      goto LABEL_4;
-    }
-
-    if ([identifier isEqualToString:@"CPGroupActivityScreenSharingContext"])
-    {
-      originator = [activity originator];
-      v14 = CKFrameworkBundle();
-      v15 = v14;
-      if (originator)
+      v15 = [identifier isEqualToString:@"CPGroupActivityListenTogetherContext"];
+      if ((v15 & 1) != 0 || (v15 = [identifier isEqualToString:@"CPGroupActivityWatchTogetherContext"], v15))
       {
-        v16 = @"EXPANSE_ACTIVITY_DESCRIPTIONE_VIEWING";
+        v9 = CKFrameworkBundle(v15);
+        originator = v9;
+        v11 = @"EXPANSE_ACTIVITY_DESCRIPTION_PLAYING";
+        goto LABEL_4;
       }
 
-      else
+      v8 = [identifier isEqualToString:@"CPGroupActivityScreenSharingContext"];
+      if (v8)
       {
-        v16 = @"EXPANSE_ACTIVITY_DESCRIPTION_SHARING";
+        originator = [activity originator];
+        v16 = CKFrameworkBundle(originator);
+        v17 = v16;
+        if (originator)
+        {
+          v18 = @"EXPANSE_ACTIVITY_DESCRIPTIONE_VIEWING";
+        }
+
+        else
+        {
+          v18 = @"EXPANSE_ACTIVITY_DESCRIPTION_SHARING";
+        }
+
+        v12 = [v16 localizedStringForKey:v18 value:&stru_1F04268F8 table:@"ChatKit"];
+
+        goto LABEL_5;
       }
-
-      v11 = [v14 localizedStringForKey:v16 value:&stru_1F04268F8 table:@"ChatKit"];
-
-      goto LABEL_5;
     }
   }
 
-  v8 = CKFrameworkBundle();
-  originator = v8;
-  v10 = @"EXPANSE_ACTIVITY_DESCRIPTION_DEFAULT";
+  v9 = CKFrameworkBundle(v8);
+  originator = v9;
+  v11 = @"EXPANSE_ACTIVITY_DESCRIPTION_DEFAULT";
 LABEL_4:
-  v11 = [v8 localizedStringForKey:v10 value:&stru_1F04268F8 table:@"ChatKit"];
+  v12 = [v9 localizedStringForKey:v11 value:&stru_1F04268F8 table:@"ChatKit"];
 LABEL_5:
 
-  uppercaseString = [v11 uppercaseString];
+  uppercaseString = [v12 uppercaseString];
 
   return uppercaseString;
 }

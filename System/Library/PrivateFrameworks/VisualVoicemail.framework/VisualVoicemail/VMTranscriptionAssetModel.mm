@@ -61,13 +61,13 @@
   {
     self->_transcriptionAssetModelInstalling = installingCopy;
     os_unfair_lock_unlock(&self->lock);
-    v5 = sub_100012200();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100012200(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = asNSStringBOOL();
-      v7 = 138412290;
-      v8 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "transcriptionAssetModelInstalling changed to %@", &v7, 0xCu);
+      v7 = asNSStringBOOL();
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "transcriptionAssetModelInstalling changed to %@", &v8, 0xCu);
     }
   }
 }
@@ -94,13 +94,13 @@
   {
     self->_transcriptionAssetModelWithTypeInstalling = installingCopy;
     os_unfair_lock_unlock(&self->lock);
-    v5 = sub_100012200();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100012200(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = asNSStringBOOL();
-      v7 = 138412290;
-      v8 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "transcriptionAssetModelWithTypeInstalling changed to %@", &v7, 0xCu);
+      v7 = asNSStringBOOL();
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "transcriptionAssetModelWithTypeInstalling changed to %@", &v8, 0xCu);
     }
   }
 }
@@ -109,51 +109,52 @@
 {
   assetCopy = asset;
   completionCopy = completion;
-  v8 = sub_100012200();
+  v8 = sub_100012200(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v19) = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Starting transcription model install operation.", &v19, 2u);
+    LOWORD(v22) = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Starting transcription model install operation.", &v22, 2u);
   }
 
-  v9 = sub_100012200();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v10 = sub_100012200(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (!assetCopy)
   {
-    if (v10)
+    if (v11)
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Completed transcription model install operation, speechRecognizer is nil", &v19, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Completed transcription model install operation, speechRecognizer is nil", &v22, 2u);
     }
 
     goto LABEL_15;
   }
 
-  if (v10)
+  if (v11)
   {
     locale = [assetCopy locale];
     languageIdentifier = [locale languageIdentifier];
     supportsOnDeviceRecognition = [assetCopy supportsOnDeviceRecognition];
-    v14 = @"NO";
+    v15 = @"NO";
     if (supportsOnDeviceRecognition)
     {
-      v14 = @"YES";
+      v15 = @"YES";
     }
 
-    v19 = 138412546;
-    v20 = languageIdentifier;
-    v21 = 2112;
-    v22 = v14;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "InstallAsset: language %@, supportsOnDeviceRecognition %@", &v19, 0x16u);
+    v22 = 138412546;
+    v23 = languageIdentifier;
+    v24 = 2112;
+    v25 = v15;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "InstallAsset: language %@, supportsOnDeviceRecognition %@", &v22, 0x16u);
   }
 
-  if ([assetCopy supportsOnDeviceRecognition])
+  supportsOnDeviceRecognition2 = [assetCopy supportsOnDeviceRecognition];
+  if (supportsOnDeviceRecognition2)
   {
-    v15 = sub_100012200();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100012200(supportsOnDeviceRecognition2);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Completed transcription model install operation, speech dictation model is available already", &v19, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Completed transcription model install operation, speech dictation model is available already", &v22, 2u);
     }
 
 LABEL_15:
@@ -165,13 +166,14 @@ LABEL_15:
     goto LABEL_23;
   }
 
-  if (_os_feature_enabled_impl())
+  v18 = _os_feature_enabled_impl();
+  if (v18)
   {
-    v16 = sub_100012200();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_100012200(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "VMTranscriptionAssetModel.InstallAsset: Flag lvmExpansionLiveOnEnabled enabled", &v19, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "VMTranscriptionAssetModel.InstallAsset: Flag lvmExpansionLiveOnEnabled enabled", &v22, 2u);
     }
 
     locale2 = [assetCopy locale];
@@ -192,7 +194,7 @@ LABEL_23:
 {
   languageCopy = language;
   completionCopy = completion;
-  v8 = sub_100012200();
+  v8 = sub_100012200(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -219,7 +221,7 @@ LABEL_23:
 - (void)_installLIDAsset:(id)asset
 {
   assetCopy = asset;
-  v4 = sub_100012200();
+  v4 = sub_100012200(assetCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -239,7 +241,7 @@ LABEL_23:
 {
   configCopy = config;
   completionCopy = completion;
-  v9 = sub_100012200();
+  v9 = sub_100012200(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -250,7 +252,7 @@ LABEL_23:
   }
 
   v10 = [[SFEntitledAssetConfig alloc] initWithLanguage:configCopy taskHint:hint];
-  v11 = sub_100012200();
+  v11 = sub_100012200(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     language = [v10 language];
@@ -294,6 +296,7 @@ LABEL_23:
 {
   languageCopy = language;
   completionCopy = completion;
+  v12 = completionCopy;
   if (type == 1)
   {
     [(VMTranscriptionAssetModel *)self _installSpeechAssetWithConfig:languageCopy speechTaskHint:hint completion:completionCopy];
@@ -306,22 +309,22 @@ LABEL_23:
 
   else
   {
-    v12 = sub_100012200();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100012200(completionCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [NSNumber numberWithInteger:type];
+      v14 = [NSNumber numberWithInteger:type];
       *buf = 138412290;
-      v18 = v13;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "VMTranscriptionAssetModel: invalid VMAssetModelType %@", buf, 0xCu);
+      v19 = v14;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "VMTranscriptionAssetModel: invalid VMAssetModelType %@", buf, 0xCu);
     }
 
-    v14 = [NSNumber numberWithInteger:type];
-    v15 = [NSString stringWithFormat:@"invalid VMAssetModelType %@", v14];
+    v15 = [NSNumber numberWithInteger:type];
+    v16 = [NSString stringWithFormat:@"invalid VMAssetModelType %@", v15];
 
-    v16 = [NSError errorWithDomain:kVVErrorDomain code:5001 localizedDescription:v15];
-    if (completionCopy)
+    v17 = [NSError errorWithDomain:kVVErrorDomain code:5001 localizedDescription:v16];
+    if (v12)
     {
-      completionCopy[2](completionCopy, 0, v16);
+      (v12)[2](v12, 0, v17);
     }
   }
 }
@@ -331,7 +334,7 @@ LABEL_23:
   modelCopy = model;
   queueCopy = queue;
   completionCopy = completion;
-  v13 = sub_100012200();
+  v13 = sub_100012200(completionCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = asNSStringBOOL();
@@ -362,7 +365,7 @@ LABEL_23:
   languageCopy = language;
   queueCopy = queue;
   completionCopy = completion;
-  v15 = sub_100012200();
+  v15 = sub_100012200(completionCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v16 = @"nil";

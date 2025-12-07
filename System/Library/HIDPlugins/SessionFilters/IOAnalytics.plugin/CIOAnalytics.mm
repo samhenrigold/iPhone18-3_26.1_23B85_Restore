@@ -36,7 +36,7 @@
 
 - (void)start
 {
-  v3 = [(CIOAnalytics *)self log];
+  v3 = objc_msgSend_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -61,7 +61,7 @@ void __21__CIOAnalytics_start__block_invoke(uint64_t a1)
   v3 = *(a1 + 32);
   if (v2)
   {
-    v4 = [v3 log];
+    v4 = objc_msgSend_log(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __23__AUVDMAnalytics_start__block_invoke_cold_1(v4, v5, v6);
@@ -79,7 +79,7 @@ void __21__CIOAnalytics_start__block_invoke(uint64_t a1)
 
 - (void)stop
 {
-  v3 = [(CIOAnalytics *)self log];
+  v3 = objc_msgSend_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -112,7 +112,7 @@ void __20__CIOAnalytics_stop__block_invoke(uint64_t a1)
 
   else
   {
-    v5 = [v3 log];
+    v5 = objc_msgSend_log(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __22__AUVDMAnalytics_stop__block_invoke_cold_1(v5, v6, v7);
@@ -130,14 +130,14 @@ void __20__CIOAnalytics_stop__block_invoke(uint64_t a1)
 
   else
   {
-    v3 = [(CIOAnalytics *)self log];
+    v3 = objc_msgSend_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Starting matching notifications...", buf, 2u);
     }
 
-    v4 = [(CIOAnalytics *)self log];
+    v4 = objc_msgSend_log(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v13 = 0;
@@ -151,7 +151,7 @@ void __20__CIOAnalytics_stop__block_invoke(uint64_t a1)
     IONotificationPortSetDispatchQueue(ioNotificationPort, queue);
 
     v7 = IOServiceMatching("IOThunderboltSwitch");
-    v8 = [(CIOAnalytics *)self log];
+    v8 = objc_msgSend_log(self);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [(AUVDMAnalytics *)v7 _startEventMonitoring];
@@ -178,7 +178,7 @@ void __20__CIOAnalytics_stop__block_invoke(uint64_t a1)
 {
   if ([(CIOAnalytics *)self monitoring])
   {
-    v3 = [(CIOAnalytics *)self log];
+    v3 = objc_msgSend_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -205,27 +205,27 @@ void __20__CIOAnalytics_stop__block_invoke(uint64_t a1)
   {
     memset(name, 0, 128);
     IORegistryEntryGetName(matched, name);
-    v5 = [(CIOAnalytics *)self log];
+    v5 = objc_msgSend_log(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v189 = name;
+      v196 = name;
       _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "Service matched! (serviceName: %s)", buf, 0xCu);
     }
 
     if ([(CIOAnalytics *)self analyticsEventsEnabled])
     {
-      HIDWORD(v183) = 0;
-      if (!IORegistryEntryGetParentEntry(matched, "IOPort", &v183 + 1) && HIDWORD(v183))
+      HIDWORD(v190) = 0;
+      if (!IORegistryEntryGetParentEntry(matched, "IOPort", &v190 + 1) && HIDWORD(v190))
       {
-        if (!IOObjectConformsTo(HIDWORD(v183), "IOPortTransportStateCIO"))
+        if (!IOObjectConformsTo(HIDWORD(v190), "IOPortTransportStateCIO"))
         {
-          v16 = [(CIOAnalytics *)self log];
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = objc_msgSend_log(self);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v189 = "IOPort";
-            _os_log_error_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "Could not find CIO transport in %s plane!", buf, 0xCu);
+            v196 = "IOPort";
+            _os_log_error_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "Could not find CIO transport in %s plane!", buf, 0xCu);
           }
 
           goto LABEL_100;
@@ -236,82 +236,83 @@ void __20__CIOAnalytics_stop__block_invoke(uint64_t a1)
         CFProperty = IORegistryEntryCreateCFProperty(v7, v8, v9, v10);
         objc_opt_class();
         v12 = OUTLINED_FUNCTION_3();
-        v13 = castNSObjectToType(v12);
+        v14 = castNSObjectToType(v12, v13);
 
-        if (v13)
+        if (v14)
         {
-          [v6 setObject:v13 forKey:@"PortType"];
+          [v6 setObject:v14 forKey:@"PortType"];
         }
 
         else
         {
-          v17 = [(CIOAnalytics *)self log];
-          if (OUTLINED_FUNCTION_5_0(v17))
+          v18 = objc_msgSend_log(self);
+          if (OUTLINED_FUNCTION_5_0(v18))
           {
-            OUTLINED_FUNCTION_0_1(&dword_0, v18, v19, "Could not find parent port type!", v20, v21, v22, v23, v171, v173, v175, v177, v178, v179, v180, v181, cf, v183, v184, v185, v186, v187, 0);
+            *buf = 0;
+            OUTLINED_FUNCTION_0_1(&dword_0, v19, v20, "Could not find parent port type!", v21, v22, v23, v24, v178, v180, v182, v184, v185, v186, v187, v188, cf, v190, v191, v192, v193, v194);
           }
         }
 
         OUTLINED_FUNCTION_2_1();
-        IORegistryEntryCreateCFProperty(v24, v25, v26, v27);
+        IORegistryEntryCreateCFProperty(v25, v26, v27, v28);
         OUTLINED_FUNCTION_6_0();
-        v28 = OUTLINED_FUNCTION_3();
-        v29 = castNSObjectToType(v28);
+        v29 = OUTLINED_FUNCTION_3();
+        v31 = castNSObjectToType(v29, v30);
 
-        v30 = &IOIteratorNext_ptr;
-        v174 = v29;
-        if (v29)
+        v32 = &IOIteratorNext_ptr;
+        v181 = v31;
+        if (v31)
         {
-          [v6 setObject:v29 forKey:@"PortNumber"];
-          if (v13)
+          [v6 setObject:v31 forKey:@"PortNumber"];
+          if (v14)
           {
-            v31 = IOServiceMatching("IOPort");
-            v184 = @"PortType";
-            v185 = @"PortNumber";
-            v186 = v13;
-            v187 = v29;
-            v32 = [NSDictionary dictionaryWithObjects:&v186 forKeys:&v184 count:2];
-            [(__CFDictionary *)v31 setObject:v32 forKey:@"IOPropertyMatch"];
+            v33 = IOServiceMatching("IOPort");
+            v191 = @"PortType";
+            v192 = @"PortNumber";
+            v193 = v14;
+            v194 = v31;
+            v34 = [NSDictionary dictionaryWithObjects:&v193 forKeys:&v191 count:2];
+            [(__CFDictionary *)v33 setObject:v34 forKey:@"IOPropertyMatch"];
 
-            v33 = [(CIOAnalytics *)self log];
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+            v35 = objc_msgSend_log(self);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v189 = v31;
+              v196 = v33;
               OUTLINED_FUNCTION_1_1();
-              _os_log_debug_impl(v167, v168, OS_LOG_TYPE_DEBUG, v169, v170, 0xCu);
+              _os_log_debug_impl(v174, v175, OS_LOG_TYPE_DEBUG, v176, v177, 0xCu);
             }
 
-            v30 = kIOMainPortDefault;
-            v34 = v31;
-            MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v34);
+            v32 = kIOMainPortDefault;
+            v36 = v33;
+            MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v36);
             if (MatchingService)
             {
-              v36 = MatchingService;
+              v38 = MatchingService;
               OUTLINED_FUNCTION_2_1();
-              IORegistryEntryCreateCFProperty(v37, v38, v39, v40);
+              IORegistryEntryCreateCFProperty(v39, v40, v41, v42);
               OUTLINED_FUNCTION_6_0();
-              v41 = OUTLINED_FUNCTION_3();
-              v42 = castNSObjectToType(v41);
+              v43 = OUTLINED_FUNCTION_3();
+              v45 = castNSObjectToType(v43, v44);
 
-              if (v42)
+              if (v45)
               {
-                [v6 setObject:v42 forKey:@"PortBuiltIn"];
+                [v6 setObject:v45 forKey:@"PortBuiltIn"];
               }
 
               else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                OUTLINED_FUNCTION_4(&dword_0, &_os_log_default, v55, "Could not find if parent port is built-in!", buf);
+                OUTLINED_FUNCTION_4(&dword_0, &_os_log_default, v58, "Could not find if parent port is built-in!", buf);
               }
 
               OUTLINED_FUNCTION_2_1();
-              v30 = IORegistryEntryCreateCFProperty(v56, v57, v58, v59);
+              v32 = IORegistryEntryCreateCFProperty(v59, v60, v61, v62);
               objc_opt_class();
-              v60 = OUTLINED_FUNCTION_3();
-              v33 = castNSObjectToType(v60);
+              v63 = OUTLINED_FUNCTION_3();
+              v35 = castNSObjectToType(v63, v64);
 
-              if (v33)
+              if (v35)
               {
                 OUTLINED_FUNCTION_7_0();
               }
@@ -319,288 +320,292 @@ void __20__CIOAnalytics_stop__block_invoke(uint64_t a1)
               else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                OUTLINED_FUNCTION_4(&dword_0, &_os_log_default, v61, "Could not find parent port connection UUID!", buf);
+                OUTLINED_FUNCTION_4(&dword_0, &_os_log_default, v65, "Could not find parent port connection UUID!", buf);
               }
 
-              IOObjectRelease(v36);
+              IOObjectRelease(v38);
             }
 
             else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              OUTLINED_FUNCTION_4(&dword_0, &_os_log_default, v54, "Could not find parent port!", buf);
+              OUTLINED_FUNCTION_4(&dword_0, &_os_log_default, v57, "Could not find parent port!", buf);
             }
 
 LABEL_44:
             OUTLINED_FUNCTION_2_1();
-            IORegistryEntryCreateCFProperty(v62, v63, v64, v65);
+            IORegistryEntryCreateCFProperty(v66, v67, v68, v69);
             OUTLINED_FUNCTION_6_0();
-            v66 = OUTLINED_FUNCTION_3();
-            v67 = castNSObjectToType(v66);
+            v70 = OUTLINED_FUNCTION_3();
+            v72 = castNSObjectToType(v70, v71);
 
-            if (v67)
+            if (v72)
             {
-              [v6 setObject:v67 forKey:@"Generation"];
+              [v6 setObject:v72 forKey:@"Generation"];
             }
 
             else
             {
-              v68 = [(CIOAnalytics *)self log];
-              if (OUTLINED_FUNCTION_5_0(v68))
+              v73 = objc_msgSend_log(self);
+              if (OUTLINED_FUNCTION_5_0(v73))
               {
-                OUTLINED_FUNCTION_0_1(&dword_0, v69, v70, "Could not find generation!", v71, v72, v73, v74, v171, v174, v175, v177, v178, v179, v180, v181, cf, v183, v184, v185, v186, v187, 0);
+                *buf = 0;
+                OUTLINED_FUNCTION_0_1(&dword_0, v74, v75, "Could not find generation!", v76, v77, v78, v79, v178, v181, v182, v184, v185, v186, v187, v188, cf, v190, v191, v192, v193, v194);
               }
             }
 
             OUTLINED_FUNCTION_2_1();
-            IORegistryEntryCreateCFProperty(v75, v76, v77, v78);
+            IORegistryEntryCreateCFProperty(v80, v81, v82, v83);
             OUTLINED_FUNCTION_6_0();
-            v79 = OUTLINED_FUNCTION_3();
-            v80 = castNSObjectToType(v79);
+            v84 = OUTLINED_FUNCTION_3();
+            v86 = castNSObjectToType(v84, v85);
 
-            if (v80)
+            if (v86)
             {
-              [v6 setObject:v80 forKey:@"LegacyAdapter"];
+              [v6 setObject:v86 forKey:@"LegacyAdapter"];
             }
 
             else
             {
-              v81 = [(CIOAnalytics *)self log];
-              if (OUTLINED_FUNCTION_5_0(v81))
+              v87 = objc_msgSend_log(self);
+              if (OUTLINED_FUNCTION_5_0(v87))
               {
-                OUTLINED_FUNCTION_0_1(&dword_0, v82, v83, "Could not find Legacy Adapter!", v84, v85, v86, v87, v171, v174, v175, v177, v178, v179, v180, v181, cf, v183, v184, v185, v186, v187, 0);
+                *buf = 0;
+                OUTLINED_FUNCTION_0_1(&dword_0, v88, v89, "Could not find Legacy Adapter!", v90, v91, v92, v93, v178, v181, v182, v184, v185, v186, v187, v188, cf, v190, v191, v192, v193, v194);
               }
             }
 
             OUTLINED_FUNCTION_2_1();
-            IORegistryEntryCreateCFProperty(v88, v89, v90, v91);
+            IORegistryEntryCreateCFProperty(v94, v95, v96, v97);
             OUTLINED_FUNCTION_6_0();
-            v92 = OUTLINED_FUNCTION_3();
-            v93 = castNSObjectToType(v92);
+            v98 = OUTLINED_FUNCTION_3();
+            v100 = castNSObjectToType(v98, v99);
 
-            v176 = v13;
-            if (v93)
+            v183 = v14;
+            if (v100)
             {
-              [v6 setObject:v93 forKey:@"LinkTrainingMode"];
+              [v6 setObject:v100 forKey:@"LinkTrainingMode"];
             }
 
             else
             {
-              v94 = [(CIOAnalytics *)self log];
-              if (OUTLINED_FUNCTION_5_0(v94))
+              v101 = objc_msgSend_log(self);
+              if (OUTLINED_FUNCTION_5_0(v101))
               {
-                OUTLINED_FUNCTION_0_1(&dword_0, v95, v96, "Could not find link training mode!", v97, v98, v99, v100, v171, v174, v13, v177, v178, v179, v180, v181, cf, v183, v184, v185, v186, v187, 0);
+                *buf = 0;
+                OUTLINED_FUNCTION_0_1(&dword_0, v102, v103, "Could not find link training mode!", v104, v105, v106, v107, v178, v181, v14, v184, v185, v186, v187, v188, cf, v190, v191, v192, v193, v194);
               }
             }
 
             OUTLINED_FUNCTION_2_1();
-            IORegistryEntryCreateCFProperty(v101, v102, v103, v104);
+            IORegistryEntryCreateCFProperty(v108, v109, v110, v111);
             OUTLINED_FUNCTION_6_0();
-            v105 = OUTLINED_FUNCTION_3();
-            v106 = castNSObjectToType(v105);
+            v112 = OUTLINED_FUNCTION_3();
+            v114 = castNSObjectToType(v112, v113);
 
-            if (v106)
+            if (v114)
             {
-              [v6 setObject:v106 forKey:@"CableSpeed"];
+              [v6 setObject:v114 forKey:@"CableSpeed"];
             }
 
             else
             {
-              v107 = [(CIOAnalytics *)self log];
-              if (OUTLINED_FUNCTION_5_0(v107))
+              v115 = objc_msgSend_log(self);
+              if (OUTLINED_FUNCTION_5_0(v115))
               {
-                OUTLINED_FUNCTION_0_1(&dword_0, v108, v109, "Could not find cable speed!", v110, v111, v112, v113, v171, v174, v176, v177, v178, v179, v180, v181, cf, v183, v184, v185, v186, v187, 0);
+                *buf = 0;
+                OUTLINED_FUNCTION_0_1(&dword_0, v116, v117, "Could not find cable speed!", v118, v119, v120, v121, v178, v181, v183, v184, v185, v186, v187, v188, cf, v190, v191, v192, v193, v194);
               }
             }
 
             OUTLINED_FUNCTION_2_1();
-            IORegistryEntryCreateCFProperty(v114, v115, v116, v117);
+            IORegistryEntryCreateCFProperty(v122, v123, v124, v125);
             OUTLINED_FUNCTION_6_0();
-            v118 = OUTLINED_FUNCTION_3();
-            v119 = castNSObjectToType(v118);
+            v126 = OUTLINED_FUNCTION_3();
+            v128 = castNSObjectToType(v126, v127);
 
-            if (v119)
+            if (v128)
             {
-              [v6 setObject:v119 forKey:@"CableGeneration"];
-              v120 = &IOIteratorNext_ptr;
+              [v6 setObject:v128 forKey:@"CableGeneration"];
             }
 
             else
             {
-              v121 = [(CIOAnalytics *)self log];
-              v120 = &IOIteratorNext_ptr;
-              if (OUTLINED_FUNCTION_5_0(v121))
+              v129 = objc_msgSend_log(self);
+              if (OUTLINED_FUNCTION_5_0(v129))
               {
-                OUTLINED_FUNCTION_0_1(&dword_0, v122, v123, "Could not find cable generation!", v124, v125, v126, v127, v171, v174, v176, v177, v178, v179, v180, v181, cf, v183, v184, v185, v186, v187, 0);
+                *buf = 0;
+                OUTLINED_FUNCTION_0_1(&dword_0, v130, v131, "Could not find cable generation!", v132, v133, v134, v135, v178, v181, v183, v184, v185, v186, v187, v188, cf, v190, v191, v192, v193, v194);
               }
             }
 
             OUTLINED_FUNCTION_2_1();
-            v132 = IORegistryEntryCreateCFProperty(v128, v129, v130, v131);
-            v133 = v120[120];
+            v140 = IORegistryEntryCreateCFProperty(v136, v137, v138, v139);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v134 = [v132 objectForKeyedSubscript:@"Device Vendor ID"];
-              if (v134)
-              {
-                OUTLINED_FUNCTION_8_0();
-              }
-
-              v135 = [v132 objectForKeyedSubscript:@"Device Vendor Name"];
-
-              if (v135)
-              {
-                OUTLINED_FUNCTION_7_0();
-              }
-
-              v136 = [v132 objectForKeyedSubscript:@"Device Model ID"];
-
-              if (v136)
-              {
-                OUTLINED_FUNCTION_8_0();
-              }
-
-              v137 = [v132 objectForKeyedSubscript:{@"Device Model Revision", v106}];
-
-              if (v137)
-              {
-                OUTLINED_FUNCTION_7_0();
-              }
-
-              v138 = v93;
-              v139 = [v132 objectForKeyedSubscript:@"Device Model Name"];
-
-              if (v139)
-              {
-                OUTLINED_FUNCTION_8_0();
-              }
-
-              v140 = v80;
-              v141 = [v132 objectForKeyedSubscript:@"Vendor ID"];
-
+              v141 = [v140 objectForKeyedSubscript:@"Device Vendor ID"];
               if (v141)
               {
+                OUTLINED_FUNCTION_8_0();
+              }
+
+              v142 = [v140 objectForKeyedSubscript:@"Device Vendor Name"];
+
+              if (v142)
+              {
                 OUTLINED_FUNCTION_7_0();
               }
 
-              v142 = v67;
-              v143 = [v132 objectForKeyedSubscript:@"Device ID"];
+              v143 = [v140 objectForKeyedSubscript:@"Device Model ID"];
 
               if (v143)
               {
                 OUTLINED_FUNCTION_8_0();
               }
 
-              v144 = [v132 objectForKeyedSubscript:@"ROM Version"];
+              v144 = [v140 objectForKeyedSubscript:{@"Device Model Revision", v114}];
 
               if (v144)
-              {
-                [v6 setObject:v144 forKey:@"ROMVersion"];
-              }
-
-              v33 = [v132 objectForKeyedSubscript:@"EEPROM Version"];
-
-              if (v33)
               {
                 OUTLINED_FUNCTION_7_0();
               }
 
-              v67 = v142;
-              v80 = v140;
-              v93 = v138;
-              v106 = v172;
+              v145 = v100;
+              v146 = [v140 objectForKeyedSubscript:@"Device Model Name"];
+
+              if (v146)
+              {
+                OUTLINED_FUNCTION_8_0();
+              }
+
+              v147 = v86;
+              v148 = [v140 objectForKeyedSubscript:@"Vendor ID"];
+
+              if (v148)
+              {
+                OUTLINED_FUNCTION_7_0();
+              }
+
+              v149 = v72;
+              v150 = [v140 objectForKeyedSubscript:@"Device ID"];
+
+              if (v150)
+              {
+                OUTLINED_FUNCTION_8_0();
+              }
+
+              v151 = [v140 objectForKeyedSubscript:@"ROM Version"];
+
+              if (v151)
+              {
+                [v6 setObject:v151 forKey:@"ROMVersion"];
+              }
+
+              v35 = [v140 objectForKeyedSubscript:@"EEPROM Version"];
+
+              if (v35)
+              {
+                OUTLINED_FUNCTION_7_0();
+              }
+
+              v72 = v149;
+              v86 = v147;
+              v100 = v145;
+              v114 = v179;
             }
 
             else
             {
-              v145 = [(CIOAnalytics *)self log];
-              if (OUTLINED_FUNCTION_5_0(v145))
+              v152 = objc_msgSend_log(self);
+              if (OUTLINED_FUNCTION_5_0(v152))
               {
-                OUTLINED_FUNCTION_0_1(&dword_0, v146, v147, "Could not find metadata!", v148, v149, v150, v151, v171, v174, v176, v177, v178, v179, v180, v181, cf, v183, v184, v185, v186, v187, 0);
+                *buf = 0;
+                OUTLINED_FUNCTION_0_1(&dword_0, v153, v154, "Could not find metadata!", v155, v156, v157, v158, v178, v181, v183, v184, v185, v186, v187, v188, cf, v190, v191, v192, v193, v194);
               }
             }
 
-            v152 = [(CIOAnalytics *)self log];
-            if (os_log_type_enabled(v152, OS_LOG_TYPE_DEFAULT))
+            v159 = objc_msgSend_log(self);
+            if (os_log_type_enabled(v159, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v189 = @"com.apple.ioport.transport.CIO.published";
+              v196 = @"com.apple.ioport.transport.CIO.published";
               OUTLINED_FUNCTION_1_1();
-              _os_log_impl(v153, v154, OS_LOG_TYPE_DEFAULT, v155, v156, 0xCu);
+              _os_log_impl(v160, v161, OS_LOG_TYPE_DEFAULT, v162, v163, 0xCu);
             }
 
-            v157 = [(CIOAnalytics *)self log];
-            if (os_log_type_enabled(v157, OS_LOG_TYPE_DEBUG))
+            v164 = objc_msgSend_log(self);
+            if (os_log_type_enabled(v164, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v189 = v6;
+              v196 = v6;
               OUTLINED_FUNCTION_1_1();
-              _os_log_debug_impl(v159, v160, OS_LOG_TYPE_DEBUG, v161, v162, 0xCu);
+              _os_log_debug_impl(v166, v167, OS_LOG_TYPE_DEBUG, v168, v169, 0xCu);
             }
 
-            v16 = v6;
+            v17 = v6;
             if ((AnalyticsSendEventLazy() & 1) == 0)
             {
-              v158 = [(CIOAnalytics *)self log];
-              if (os_log_type_enabled(v158, OS_LOG_TYPE_ERROR))
+              v165 = objc_msgSend_log(self);
+              if (os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v189 = @"com.apple.ioport.transport.CIO.published";
-                _os_log_error_impl(&dword_0, v158, OS_LOG_TYPE_ERROR, "Failed to send analytics event! (eventName: %@)", buf, 0xCu);
+                v196 = @"com.apple.ioport.transport.CIO.published";
+                _os_log_error_impl(&dword_0, v165, OS_LOG_TYPE_ERROR, "Failed to send analytics event! (eventName: %@)", buf, 0xCu);
               }
             }
 
 LABEL_100:
-            IOObjectRelease(HIDWORD(v183));
+            IOObjectRelease(HIDWORD(v190));
             return;
           }
         }
 
         else
         {
-          v43 = [(CIOAnalytics *)self log];
-          if (OUTLINED_FUNCTION_5_0(v43))
+          v46 = objc_msgSend_log(self);
+          if (OUTLINED_FUNCTION_5_0(v46))
           {
-            OUTLINED_FUNCTION_0_1(&dword_0, v44, v45, "Could not find parent port number!", v46, v47, v48, v49, v171, 0, v175, v177, v178, v179, v180, v181, cf, v183, v184, v185, v186, v187, 0);
+            *buf = 0;
+            OUTLINED_FUNCTION_0_1(&dword_0, v47, v48, "Could not find parent port number!", v49, v50, v51, v52, v178, 0, v182, v184, v185, v186, v187, v188, cf, v190, v191, v192, v193, v194);
           }
         }
 
         cf = 0;
         OUTLINED_FUNCTION_2_1();
-        IORegistryEntryCreateCFProperties(v50, v51, v52, v53);
-        v33 = [(CIOAnalytics *)self log];
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
+        IORegistryEntryCreateCFProperties(v53, v54, v55, v56);
+        v35 = objc_msgSend_log(self);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412290;
-          v189 = 0;
+          v196 = 0;
           OUTLINED_FUNCTION_1_1();
-          _os_log_fault_impl(v163, v164, OS_LOG_TYPE_FAULT, v165, v166, 0xCu);
+          _os_log_fault_impl(v170, v171, OS_LOG_TYPE_FAULT, v172, v173, 0xCu);
         }
 
         goto LABEL_44;
       }
 
-      v14 = [(CIOAnalytics *)self log];
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v15 = objc_msgSend_log(self);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v189 = "IOPort";
-        v15 = "Could not find parent entry in %s plane!";
+        v196 = "IOPort";
+        v16 = "Could not find parent entry in %s plane!";
         goto LABEL_14;
       }
     }
 
     else
     {
-      v14 = [(CIOAnalytics *)self log];
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v15 = objc_msgSend_log(self);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v189 = @"com.apple.ioport.transport.CIO.published";
-        v15 = "Analytics disabled for this event - ignoring... (eventName: %@)";
+        v196 = @"com.apple.ioport.transport.CIO.published";
+        v16 = "Analytics disabled for this event - ignoring... (eventName: %@)";
 LABEL_14:
-        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, v15, buf, 0xCu);
+        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, v16, buf, 0xCu);
       }
     }
   }

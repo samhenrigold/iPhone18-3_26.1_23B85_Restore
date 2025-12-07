@@ -9,10 +9,10 @@
 
 - (ARDepthSensorSettings)initWithVideoFormat:(id)format
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = ARDepthSensorSettings;
-  v3 = [(ARImageSensorSettings *)&v21 initWithVideoFormat:format];
+  v29 = *MEMORY[0x1E69E9840];
+  v22.receiver = self;
+  v22.super_class = ARDepthSensorSettings;
+  v3 = [(ARImageSensorSettings *)&v22 initWithVideoFormat:format];
   if (v3)
   {
     v4 = [ARKitUserDefaults integerForKey:@"com.apple.arkit.jasper.timeOfFlightProjectorMode"];
@@ -46,42 +46,42 @@ LABEL_16:
       [ARDepthSensorSettings initWithVideoFormat:];
     }
 
-    v10 = ARShouldUseLogTypeError_internalOSVersion;
-    v11 = _ARLogGeneral();
-    v12 = v11;
-    if (v10 == 1)
+    v11 = ARShouldUseLogTypeError_internalOSVersion;
+    v12 = _ARLogGeneral(v10);
+    v13 = v12;
+    if (v11 == 1)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
         *buf = 138543874;
-        v23 = v14;
-        v24 = 2048;
-        v25 = v3;
-        v26 = 2114;
-        v27 = v9;
-        v15 = "%{public}@ <%p>: Invalid default for ARJasperTimeOfFlightProjectorMode, falling back to %{public}@";
-        v16 = v12;
-        v17 = OS_LOG_TYPE_ERROR;
+        v24 = v15;
+        v25 = 2048;
+        v26 = v3;
+        v27 = 2114;
+        v28 = v9;
+        v16 = "%{public}@ <%p>: Invalid default for ARJasperTimeOfFlightProjectorMode, falling back to %{public}@";
+        v17 = v13;
+        v18 = OS_LOG_TYPE_ERROR;
 LABEL_14:
-        _os_log_impl(&dword_1C241C000, v16, v17, v15, buf, 0x20u);
+        _os_log_impl(&dword_1C241C000, v17, v18, v16, buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v18 = objc_opt_class();
-      v14 = NSStringFromClass(v18);
+      v19 = objc_opt_class();
+      v15 = NSStringFromClass(v19);
       *buf = 138543874;
-      v23 = v14;
-      v24 = 2048;
-      v25 = v3;
-      v26 = 2114;
-      v27 = v9;
-      v15 = "Error: %{public}@ <%p>: Invalid default for ARJasperTimeOfFlightProjectorMode, falling back to %{public}@";
-      v16 = v12;
-      v17 = OS_LOG_TYPE_INFO;
+      v24 = v15;
+      v25 = 2048;
+      v26 = v3;
+      v27 = 2114;
+      v28 = v9;
+      v16 = "Error: %{public}@ <%p>: Invalid default for ARJasperTimeOfFlightProjectorMode, falling back to %{public}@";
+      v17 = v13;
+      v18 = OS_LOG_TYPE_INFO;
       goto LABEL_14;
     }
 

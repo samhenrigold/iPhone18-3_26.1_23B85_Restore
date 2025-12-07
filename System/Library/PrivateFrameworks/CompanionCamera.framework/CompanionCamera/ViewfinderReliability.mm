@@ -69,15 +69,15 @@ uint64_t __39__ViewfinderReliability_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)logEvent:(int64_t)event
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     v6 = log;
     v7 = NSStringFromViewfinderReliabiliyEvent(event);
-    v12 = 138412290;
-    v13 = v7;
-    _os_log_impl(&dword_243CBC000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v7;
+    _os_log_impl(&dword_243CBC000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v11, 0xCu);
   }
 
   v8 = self->_events;
@@ -89,8 +89,6 @@ uint64_t __39__ViewfinderReliability_sharedInstance__block_invoke(uint64_t a1)
   [(ViewfinderReliability *)self _checkForUnexpectedEvent:event];
   [(ViewfinderReliability *)self _checkForRepeatedEvent:event];
   objc_sync_exit(v8);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerSources
@@ -157,36 +155,36 @@ void __41__ViewfinderReliability__registerSources__block_invoke_2(uint64_t a1)
 
 - (void)_print
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v13 = self->_events;
-  objc_sync_enter(v13);
+  v21 = *MEMORY[0x277D85DE8];
+  v12 = self->_events;
+  objc_sync_enter(v12);
   string = [MEMORY[0x277CCAB68] string];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   obj = self->_events;
-  v4 = [(NSCountedSet *)obj countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v4 = [(NSCountedSet *)obj countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v4)
   {
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v14 + 1) + 8 * i);
         v8 = MEMORY[0x277CCACA8];
         v9 = NSStringFromViewfinderReliabiliyEvent([v7 integerValue]);
         v10 = [v8 stringWithFormat:@"%@: %lu\n", v9, -[NSCountedSet countForObject:](self->_events, "countForObject:", v7)];
         [string appendString:v10];
       }
 
-      v4 = [(NSCountedSet *)obj countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v4 = [(NSCountedSet *)obj countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v4);
@@ -196,12 +194,11 @@ void __41__ViewfinderReliability__registerSources__block_invoke_2(uint64_t a1)
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = string;
+    v19 = string;
     _os_log_impl(&dword_243CBC000, log, OS_LOG_TYPE_DEFAULT, "Count of events:\n%@", buf, 0xCu);
   }
 
-  objc_sync_exit(v13);
-  v12 = *MEMORY[0x277D85DE8];
+  objc_sync_exit(v12);
 }
 
 - (void)_checkForUnexpectedEvent:(int64_t)event
@@ -244,22 +241,20 @@ void __41__ViewfinderReliability__registerSources__block_invoke_2(uint64_t a1)
 
 - (void)_checkForUnexpectedEvent:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = NSStringFromViewfinderReliabiliyEvent(a2);
-  OUTLINED_FUNCTION_0_0(&dword_243CBC000, v5, v6, "Unexpected event: %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_0(&dword_243CBC000, v5, v6, "Unexpected event: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)_checkForRepeatedEvent:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = NSStringFromViewfinderReliabiliyEvent(a2);
-  OUTLINED_FUNCTION_0_0(&dword_243CBC000, v5, v6, "Repeated event: %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_0(&dword_243CBC000, v5, v6, "Repeated event: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

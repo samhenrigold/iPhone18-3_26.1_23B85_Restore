@@ -122,80 +122,81 @@
 {
   v15 = *MEMORY[0x277D85DE8];
   currentServiceType = [(TPSCallForwardingController *)self currentServiceType];
-  if (currentServiceType != type)
+  if (currentServiceType == type)
   {
-    v6 = currentServiceType;
-    v7 = TPSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = [MEMORY[0x277CCACA8] tps_stringWithTPSCallForwardingServiceType:v6];
-      v9 = [MEMORY[0x277CCACA8] tps_stringWithTPSCallForwardingServiceType:type];
-      v11 = 138412546;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_DEFAULT, "Transitioning call forwarding service from %@ to %@.", &v11, 0x16u);
-    }
+    return;
+  }
 
-    if (v6 != 2)
+  v7 = currentServiceType;
+  v8 = TPSLog(currentServiceType, v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = [MEMORY[0x277CCACA8] tps_stringWithTPSCallForwardingServiceType:v7];
+    v10 = [MEMORY[0x277CCACA8] tps_stringWithTPSCallForwardingServiceType:type];
+    v11 = 138412546;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_21B8E9000, v8, OS_LOG_TYPE_DEFAULT, "Transitioning call forwarding service from %@ to %@.", &v11, 0x16u);
+  }
+
+  if (v7 == 2)
+  {
+    if ((type | 2) == 3)
     {
-      if (v6 == 3)
+      if ([(TPSCallForwardingController *)self unconditionalServiceState]== 3)
       {
-        if ((type - 1) <= 1)
+        [(TPSCallForwardingController *)self setPendingServiceType:type];
+        [(TPSCallForwardingController *)self sendSetUnconditionalServiceDisabledRequest];
+      }
+
+      else
+      {
+        [(TPSCallForwardingController *)self setCurrentServiceType:type];
+        if (type == 3)
         {
-          if ([(TPSCallForwardingController *)self conditionalServiceState]== 3)
-          {
-            [(TPSCallForwardingController *)self setPendingServiceType:type];
-            [(TPSCallForwardingController *)self sendSetAllServicesDisabledRequest];
-            goto LABEL_20;
-          }
-
-          [(TPSCallForwardingController *)self setCurrentServiceType:type];
-          if (type != 2)
-          {
-            goto LABEL_20;
-          }
-
-LABEL_19:
-          [(TPSCallForwardingController *)self enableUnconditionalServiceIfNeeded];
-          goto LABEL_20;
+          [(TPSCallForwardingController *)self enableConditionalServiceIfNeeded];
         }
       }
 
-      else if (type == 2 && v6 == 1)
-      {
-        [(TPSCallForwardingController *)self setCurrentServiceType:2];
-        goto LABEL_19;
-      }
+      return;
+    }
 
 LABEL_15:
-      [(TPSCallForwardingController *)self setCurrentServiceType:type];
-      goto LABEL_20;
-    }
-
-    if ((type | 2) != 3)
-    {
-      goto LABEL_15;
-    }
-
-    if ([(TPSCallForwardingController *)self unconditionalServiceState]== 3)
-    {
-      [(TPSCallForwardingController *)self setPendingServiceType:type];
-      [(TPSCallForwardingController *)self sendSetUnconditionalServiceDisabledRequest];
-    }
-
-    else
-    {
-      [(TPSCallForwardingController *)self setCurrentServiceType:type];
-      if (type == 3)
-      {
-        [(TPSCallForwardingController *)self enableConditionalServiceIfNeeded];
-      }
-    }
+    [(TPSCallForwardingController *)self setCurrentServiceType:type];
+    return;
   }
 
-LABEL_20:
-  v10 = *MEMORY[0x277D85DE8];
+  if (v7 != 3)
+  {
+    if (type == 2 && v7 == 1)
+    {
+      [(TPSCallForwardingController *)self setCurrentServiceType:2];
+LABEL_19:
+      [(TPSCallForwardingController *)self enableUnconditionalServiceIfNeeded];
+      return;
+    }
+
+    goto LABEL_15;
+  }
+
+  if ((type - 1) > 1)
+  {
+    goto LABEL_15;
+  }
+
+  if ([(TPSCallForwardingController *)self conditionalServiceState]== 3)
+  {
+    [(TPSCallForwardingController *)self setPendingServiceType:type];
+    [(TPSCallForwardingController *)self sendSetAllServicesDisabledRequest];
+    return;
+  }
+
+  [(TPSCallForwardingController *)self setCurrentServiceType:type];
+  if (type == 2)
+  {
+    goto LABEL_19;
+  }
 }
 
 - (void)enableConditionalServiceIfNeeded
@@ -225,7 +226,7 @@ LABEL_20:
 
 - (NSArray)conditionalServiceRequests
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   conditionalServiceRequests = self->_conditionalServiceRequests;
   if (!conditionalServiceRequests)
   {
@@ -235,19 +236,17 @@ LABEL_20:
     v7 = [TPSCallForwardingRequest alloc];
     subscriptionContext2 = [(TPSCallForwardingController *)self subscriptionContext];
     v9 = [(TPSCallForwardingRequest *)v7 initWithSubscriptionContext:subscriptionContext2 reason:2];
-    v17[1] = v9;
+    v16[1] = v9;
     v10 = [TPSCallForwardingRequest alloc];
     subscriptionContext3 = [(TPSCallForwardingController *)self subscriptionContext];
     v12 = [(TPSCallForwardingRequest *)v10 initWithSubscriptionContext:subscriptionContext3 reason:3];
-    v17[2] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
+    v16[2] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
     v14 = self->_conditionalServiceRequests;
     self->_conditionalServiceRequests = v13;
 
     conditionalServiceRequests = self->_conditionalServiceRequests;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return conditionalServiceRequests;
 }
@@ -325,7 +324,7 @@ LABEL_17:
 
 - (void)setConditionalServiceBusyPhoneNumber:(id)number
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   conditionalServiceBusyValue = [(TPSCallForwardingController *)self conditionalServiceBusyValue];
   if (conditionalServiceBusyValue)
@@ -355,13 +354,13 @@ LABEL_17:
 
       v13 = [conditionalServiceBusyValue copy];
       [v13 setSaveNumber:v9];
-      [v13 setEnabled:{objc_msgSend(v9, "length") != 0}];
-      v14 = TPSLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v14 = [v13 setEnabled:{objc_msgSend(v9, "length") != 0}];
+      v16 = TPSLog(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412290;
-        v17 = v13;
-        _os_log_impl(&dword_21B8E9000, v14, OS_LOG_TYPE_DEFAULT, "Sending set conditional call forwarding service busy phone number request for value %@.", &v16, 0xCu);
+        v17 = 138412290;
+        v18 = v13;
+        _os_log_impl(&dword_21B8E9000, v16, OS_LOG_TYPE_DEFAULT, "Sending set conditional call forwarding service busy phone number request for value %@.", &v17, 0xCu);
       }
 
       [(TPSCallForwardingController *)self sendSetRequestForValue:v13];
@@ -369,8 +368,6 @@ LABEL_17:
 
 LABEL_10:
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)conditionalServiceUnansweredPhoneNumber
@@ -385,7 +382,7 @@ LABEL_10:
 
 - (void)setConditionalServiceUnansweredPhoneNumber:(id)number
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   conditionalServiceUnansweredValue = [(TPSCallForwardingController *)self conditionalServiceUnansweredValue];
   if (conditionalServiceUnansweredValue)
@@ -415,13 +412,13 @@ LABEL_10:
 
       v13 = [conditionalServiceUnansweredValue copy];
       [v13 setSaveNumber:v9];
-      [v13 setEnabled:{objc_msgSend(v9, "length") != 0}];
-      v14 = TPSLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v14 = [v13 setEnabled:{objc_msgSend(v9, "length") != 0}];
+      v16 = TPSLog(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412290;
-        v17 = v13;
-        _os_log_impl(&dword_21B8E9000, v14, OS_LOG_TYPE_DEFAULT, "Sending set conditional call forwarding service unanswered phone number request for value %@.", &v16, 0xCu);
+        v17 = 138412290;
+        v18 = v13;
+        _os_log_impl(&dword_21B8E9000, v16, OS_LOG_TYPE_DEFAULT, "Sending set conditional call forwarding service unanswered phone number request for value %@.", &v17, 0xCu);
       }
 
       [(TPSCallForwardingController *)self sendSetRequestForValue:v13];
@@ -429,8 +426,6 @@ LABEL_10:
 
 LABEL_10:
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)conditionalServiceUnreachablePhoneNumber
@@ -445,7 +440,7 @@ LABEL_10:
 
 - (void)setConditionalServiceUnreachablePhoneNumber:(id)number
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   conditionalServiceUnreachableValue = [(TPSCallForwardingController *)self conditionalServiceUnreachableValue];
   if (conditionalServiceUnreachableValue)
@@ -475,13 +470,13 @@ LABEL_10:
 
       v13 = [conditionalServiceUnreachableValue copy];
       [v13 setSaveNumber:v9];
-      [v13 setEnabled:{objc_msgSend(v9, "length") != 0}];
-      v14 = TPSLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v14 = [v13 setEnabled:{objc_msgSend(v9, "length") != 0}];
+      v16 = TPSLog(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412290;
-        v17 = v13;
-        _os_log_impl(&dword_21B8E9000, v14, OS_LOG_TYPE_DEFAULT, "Sending set conditional call forwarding service unreachable phone number request for value %@.", &v16, 0xCu);
+        v17 = 138412290;
+        v18 = v13;
+        _os_log_impl(&dword_21B8E9000, v16, OS_LOG_TYPE_DEFAULT, "Sending set conditional call forwarding service unreachable phone number request for value %@.", &v17, 0xCu);
       }
 
       [(TPSCallForwardingController *)self sendSetRequestForValue:v13];
@@ -489,39 +484,38 @@ LABEL_10:
 
 LABEL_10:
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableUnconditionalServiceIfNeeded
 {
   unconditionalServiceValue = [(TPSCallForwardingController *)self unconditionalServiceValue];
+  v4 = unconditionalServiceValue;
   if (unconditionalServiceValue)
   {
-    [(TPSCallForwardingController *)self sendEnableSetRequestForValue:unconditionalServiceValue];
+    v5 = unconditionalServiceValue;
+    unconditionalServiceValue = [(TPSCallForwardingController *)self sendEnableSetRequestForValue:unconditionalServiceValue];
+    v4 = v5;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](unconditionalServiceValue, v4);
 }
 
 - (NSArray)unconditionalServiceRequests
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   unconditionalServiceRequests = self->_unconditionalServiceRequests;
   if (!unconditionalServiceRequests)
   {
     v4 = [TPSCallForwardingRequest alloc];
     subscriptionContext = [(TPSCallForwardingController *)self subscriptionContext];
     v6 = [(TPSCallForwardingRequest *)v4 initWithSubscriptionContext:subscriptionContext reason:0];
-    v11[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     v8 = self->_unconditionalServiceRequests;
     self->_unconditionalServiceRequests = v7;
 
     unconditionalServiceRequests = self->_unconditionalServiceRequests;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return unconditionalServiceRequests;
 }
@@ -563,7 +557,7 @@ LABEL_10:
 
 - (void)setUnconditionalServicePhoneNumber:(id)number
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   unconditionalServiceValue = [(TPSCallForwardingController *)self unconditionalServiceValue];
   if (unconditionalServiceValue)
@@ -593,13 +587,13 @@ LABEL_10:
 
       v13 = [unconditionalServiceValue copy];
       [v13 setSaveNumber:v9];
-      [v13 setEnabled:{objc_msgSend(v9, "length") != 0}];
-      v14 = TPSLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v14 = [v13 setEnabled:{objc_msgSend(v9, "length") != 0}];
+      v16 = TPSLog(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412290;
-        v17 = v13;
-        _os_log_impl(&dword_21B8E9000, v14, OS_LOG_TYPE_DEFAULT, "Sending set unconditional call forwarding service phone number request for value %@.", &v16, 0xCu);
+        v17 = 138412290;
+        v18 = v13;
+        _os_log_impl(&dword_21B8E9000, v16, OS_LOG_TYPE_DEFAULT, "Sending set unconditional call forwarding service phone number request for value %@.", &v17, 0xCu);
       }
 
       [(TPSCallForwardingController *)self sendSetRequestForValue:v13];
@@ -607,8 +601,6 @@ LABEL_10:
 
 LABEL_10:
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)carrierBundleLocalizedStringKeys
@@ -699,37 +691,40 @@ LABEL_10:
   v4 = [conditionalServiceRequests countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v4)
   {
-    v5 = v4;
-    v6 = *v13;
+    v6 = v4;
+    v7 = *v13;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v8 = 0;
+      do
       {
-        if (*v13 != v6)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(conditionalServiceRequests);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        v9 = TPSLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v9 = *(*(&v12 + 1) + 8 * v8);
+        v10 = TPSLog(v4, v5);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v17 = v8;
-          _os_log_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_DEFAULT, "Sending conditional call forwarding services request for %@.", buf, 0xCu);
+          v17 = v9;
+          _os_log_impl(&dword_21B8E9000, v10, OS_LOG_TYPE_DEFAULT, "Sending conditional call forwarding services request for %@.", buf, 0xCu);
         }
 
         requestController = [(TPSCallForwardingController *)self requestController];
-        [requestController addRequest:v8];
+        [requestController addRequest:v9];
+
+        ++v8;
       }
 
-      v5 = [conditionalServiceRequests countByEnumeratingWithState:&v12 objects:v18 count:16];
+      while (v6 != v8);
+      v4 = [conditionalServiceRequests countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v6 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendUnconditionalServicesRequest
@@ -743,42 +738,45 @@ LABEL_10:
   v4 = [unconditionalServiceRequests countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v4)
   {
-    v5 = v4;
-    v6 = *v13;
+    v6 = v4;
+    v7 = *v13;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v8 = 0;
+      do
       {
-        if (*v13 != v6)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(unconditionalServiceRequests);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        v9 = TPSLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v9 = *(*(&v12 + 1) + 8 * v8);
+        v10 = TPSLog(v4, v5);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v17 = v8;
-          _os_log_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_DEFAULT, "Sending unconditional call forwarding services request for %@.", buf, 0xCu);
+          v17 = v9;
+          _os_log_impl(&dword_21B8E9000, v10, OS_LOG_TYPE_DEFAULT, "Sending unconditional call forwarding services request for %@.", buf, 0xCu);
         }
 
         requestController = [(TPSCallForwardingController *)self requestController];
-        [requestController addRequest:v8];
+        [requestController addRequest:v9];
+
+        ++v8;
       }
 
-      v5 = [unconditionalServiceRequests countByEnumeratingWithState:&v12 objects:v18 count:16];
+      while (v6 != v8);
+      v4 = [unconditionalServiceRequests countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v6 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendServicesRequest
 {
-  v3 = TPSLog();
+  v3 = TPSLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -795,13 +793,13 @@ LABEL_10:
 
 - (void)sendSetAllServicesDisabledRequest
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([(TPSCallForwardingController *)self isConditionalServiceAvailable])
   {
     v3 = objc_alloc_init(MEMORY[0x277CC3628]);
     [v3 setClss:1];
     [v3 setEnabled:0];
-    [v3 setReason:4];
+    v4 = [v3 setReason:4];
   }
 
   else
@@ -809,38 +807,36 @@ LABEL_10:
     unconditionalServiceValue = [(TPSCallForwardingController *)self unconditionalServiceValue];
     v3 = [unconditionalServiceValue copy];
 
-    [v3 setEnabled:0];
+    v4 = [v3 setEnabled:0];
   }
 
-  v5 = TPSLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v7 = TPSLog(v4, v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "Sending disable call forwarding services request for value %@.", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_DEFAULT, "Sending disable call forwarding services request for value %@.", &v8, 0xCu);
   }
 
   [(TPSCallForwardingController *)self sendSetRequestForValue:v3];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendSetUnconditionalServiceDisabledRequest
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   unconditionalServiceValue = [(TPSCallForwardingController *)self unconditionalServiceValue];
   v4 = [unconditionalServiceValue copy];
 
-  [v4 setEnabled:0];
-  v5 = TPSLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = [v4 setEnabled:0];
+  v7 = TPSLog(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "Sending disable all unconditional call forwarding services request for value %@.", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = v4;
+    _os_log_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_DEFAULT, "Sending disable all unconditional call forwarding services request for value %@.", &v8, 0xCu);
   }
 
   [(TPSCallForwardingController *)self sendSetRequestForValue:v4];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendSetRequestForValue:(id)value
@@ -856,7 +852,7 @@ LABEL_10:
 
 - (void)sendEnableSetRequestForValue:(id)value
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if (([valueCopy enabled] & 1) == 0)
   {
@@ -866,39 +862,37 @@ LABEL_10:
     if (v6)
     {
       v7 = [valueCopy copy];
-      [v7 setEnabled:1];
-      v8 = TPSLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v8 = [v7 setEnabled:1];
+      v10 = TPSLog(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138412290;
-        v11 = v7;
-        _os_log_impl(&dword_21B8E9000, v8, OS_LOG_TYPE_DEFAULT, "Sending enable call forwarding service request for value %@.", &v10, 0xCu);
+        v11 = 138412290;
+        v12 = v7;
+        _os_log_impl(&dword_21B8E9000, v10, OS_LOG_TYPE_DEFAULT, "Sending enable call forwarding service request for value %@.", &v11, 0xCu);
       }
 
       [(TPSCallForwardingController *)self sendSetRequestForValue:v7];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestController:(id)controller didReceiveResponse:(id)response
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   responseCopy = response;
-  v6 = TPSLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = TPSLog(responseCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v30 = 138412546;
-    *&v30[4] = objc_opt_class();
-    *&v30[12] = 2112;
-    *&v30[14] = responseCopy;
-    v7 = *&v30[4];
-    _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "%@ received response %@.", v30, 0x16u);
+    *v35 = 138412546;
+    *&v35[4] = objc_opt_class();
+    *&v35[12] = 2112;
+    *&v35[14] = responseCopy;
+    v8 = *&v35[4];
+    _os_log_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_DEFAULT, "%@ received response %@.", v35, 0x16u);
   }
 
   value = [responseCopy value];
-  v9 = value;
+  v10 = value;
   if (value)
   {
     reason = [value reason];
@@ -909,49 +903,54 @@ LABEL_10:
         unconditionalServiceValue = [(TPSCallForwardingController *)self unconditionalServiceValue];
         if (unconditionalServiceValue)
         {
-          [unconditionalServiceValue setEnabled:{objc_msgSend(v9, "enabled")}];
-          saveNumber = [v9 saveNumber];
+          [unconditionalServiceValue setEnabled:{objc_msgSend(v10, "enabled")}];
+          saveNumber = [v10 saveNumber];
           [unconditionalServiceValue setSaveNumber:saveNumber];
 
-          if ([unconditionalServiceValue enabled])
+          enabled = [unconditionalServiceValue enabled];
+          if (enabled)
           {
-            v17 = TPSLog();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+            v20 = TPSLog(enabled, v19);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
-              *v30 = 138412290;
-              *&v30[4] = unconditionalServiceValue;
-              _os_log_impl(&dword_21B8E9000, v17, OS_LOG_TYPE_DEFAULT, "Setting service type to Unconditional for value %@.", v30, 0xCu);
+              *v35 = 138412290;
+              *&v35[4] = unconditionalServiceValue;
+              _os_log_impl(&dword_21B8E9000, v20, OS_LOG_TYPE_DEFAULT, "Setting service type to Unconditional for value %@.", v35, 0xCu);
             }
 
             pendingServiceType = 2;
           }
 
-          else if ([(TPSCallForwardingController *)self isConditionalServiceAvailable])
-          {
-            v18 = TPSLog();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-            {
-              *v30 = 0;
-              _os_log_impl(&dword_21B8E9000, v18, OS_LOG_TYPE_DEFAULT, "Conditional service is available; settings service type to Conditional.", v30, 2u);
-            }
-
-            pendingServiceType = 3;
-          }
-
           else
           {
-            pendingServiceType = 1;
+            isConditionalServiceAvailable = [(TPSCallForwardingController *)self isConditionalServiceAvailable];
+            if (isConditionalServiceAvailable)
+            {
+              v23 = TPSLog(isConditionalServiceAvailable, v22);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+              {
+                *v35 = 0;
+                _os_log_impl(&dword_21B8E9000, v23, OS_LOG_TYPE_DEFAULT, "Conditional service is available; settings service type to Conditional.", v35, 2u);
+              }
+
+              pendingServiceType = 3;
+            }
+
+            else
+            {
+              pendingServiceType = 1;
+            }
           }
         }
 
         else
         {
-          [(TPSCallForwardingController *)self setUnconditionalServiceValue:v9];
+          [(TPSCallForwardingController *)self setUnconditionalServiceValue:v10];
           pendingServiceType = 0;
         }
 
 LABEL_25:
-        [(TPSCallForwardingController *)self resetPendingServiceType:*v30];
+        [(TPSCallForwardingController *)self resetPendingServiceType:*v35];
 
         if (pendingServiceType)
         {
@@ -963,7 +962,7 @@ LABEL_25:
 
       if (reason == 1)
       {
-        [(TPSCallForwardingController *)self setConditionalServiceBusyValue:v9];
+        [(TPSCallForwardingController *)self setConditionalServiceBusyValue:v10];
       }
     }
 
@@ -972,23 +971,23 @@ LABEL_25:
       switch(reason)
       {
         case 2:
-          [(TPSCallForwardingController *)self setConditionalServiceUnansweredValue:v9];
+          [(TPSCallForwardingController *)self setConditionalServiceUnansweredValue:v10];
           break;
         case 3:
-          [(TPSCallForwardingController *)self setConditionalServiceUnreachableValue:v9];
+          [(TPSCallForwardingController *)self setConditionalServiceUnreachableValue:v10];
           break;
         case 4:
           conditionalServiceBusyValue = [(TPSCallForwardingController *)self conditionalServiceBusyValue];
-          [conditionalServiceBusyValue setEnabled:{objc_msgSend(v9, "enabled")}];
+          [conditionalServiceBusyValue setEnabled:{objc_msgSend(v10, "enabled")}];
           conditionalServiceUnansweredValue = [(TPSCallForwardingController *)self conditionalServiceUnansweredValue];
 
-          [conditionalServiceUnansweredValue setEnabled:{objc_msgSend(v9, "enabled")}];
+          [conditionalServiceUnansweredValue setEnabled:{objc_msgSend(v10, "enabled")}];
           conditionalServiceUnreachableValue = [(TPSCallForwardingController *)self conditionalServiceUnreachableValue];
 
-          [conditionalServiceUnreachableValue setEnabled:{objc_msgSend(v9, "enabled")}];
+          [conditionalServiceUnreachableValue setEnabled:{objc_msgSend(v10, "enabled")}];
           unconditionalServiceValue = [(TPSCallForwardingController *)self unconditionalServiceValue];
 
-          [unconditionalServiceValue setEnabled:{objc_msgSend(v9, "enabled")}];
+          [unconditionalServiceValue setEnabled:{objc_msgSend(v10, "enabled")}];
           pendingServiceType = [(TPSCallForwardingController *)self pendingServiceType];
           goto LABEL_25;
       }
@@ -1007,11 +1006,11 @@ LABEL_26:
     unconditionalServiceState = [(TPSCallForwardingController *)self unconditionalServiceState];
     if (conditionalServiceState == 3)
     {
-      v21 = TPSLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v27 = TPSLog(unconditionalServiceState, v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        *v30 = 0;
-        _os_log_impl(&dword_21B8E9000, v21, OS_LOG_TYPE_DEFAULT, "Conditional service is enabled; setting service type to Conditional.", v30, 2u);
+        *v35 = 0;
+        _os_log_impl(&dword_21B8E9000, v27, OS_LOG_TYPE_DEFAULT, "Conditional service is enabled; setting service type to Conditional.", v35, 2u);
       }
 
       pendingServiceType = 3;
@@ -1019,26 +1018,26 @@ LABEL_26:
 
     else
     {
-      v22 = unconditionalServiceState;
-      v23 = conditionalServiceState - 1;
-      v21 = TPSLog();
-      v24 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
-      if (v23 <= 1 && v22 == 2)
+      v28 = unconditionalServiceState;
+      v29 = conditionalServiceState - 1;
+      v27 = TPSLog(unconditionalServiceState, v26);
+      v30 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+      if (v29 <= 1 && v28 == 2)
       {
-        if (v24)
+        if (v30)
         {
-          *v30 = 0;
-          _os_log_impl(&dword_21B8E9000, v21, OS_LOG_TYPE_DEFAULT, "Conditional service is unavailable/disabled and Unconditional service is disabled; setting service type to None.", v30, 2u);
+          *v35 = 0;
+          _os_log_impl(&dword_21B8E9000, v27, OS_LOG_TYPE_DEFAULT, "Conditional service is unavailable/disabled and Unconditional service is disabled; setting service type to None.", v35, 2u);
         }
 
         pendingServiceType = 1;
       }
 
-      else if (v24)
+      else if (v30)
       {
-        *v30 = 0;
+        *v35 = 0;
         pendingServiceType = 2;
-        _os_log_impl(&dword_21B8E9000, v21, OS_LOG_TYPE_DEFAULT, "Unconditional service is enabled; setting service type to Unconditional.", v30, 2u);
+        _os_log_impl(&dword_21B8E9000, v27, OS_LOG_TYPE_DEFAULT, "Unconditional service is enabled; setting service type to Unconditional.", v35, 2u);
       }
 
       else
@@ -1052,13 +1051,13 @@ LABEL_41:
   if ([(TPSCallForwardingController *)self currentServiceType]== pendingServiceType)
   {
     delegate = [(TPSCallForwardingController *)self delegate];
-    v26 = objc_opt_respondsToSelector();
+    v32 = objc_opt_respondsToSelector();
 
-    if (v26)
+    if (v32)
     {
       delegate2 = [(TPSCallForwardingController *)self delegate];
       error = [responseCopy error];
-      [delegate2 callForwardingController:self didChangeValue:v9 error:error];
+      [delegate2 callForwardingController:self didChangeValue:v10 error:error];
     }
   }
 
@@ -1066,8 +1065,6 @@ LABEL_41:
   {
     [(TPSCallForwardingController *)self setCurrentServiceType:pendingServiceType];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (TPSCallForwardingControllerDelegate)delegate

@@ -1,4 +1,4 @@
-uint64_t __ActivitySharingBundle_block_invoke()
+uint64_t __ActivitySharingBundle_block_invoke(uint64_t a1, uint64_t a2)
 {
   ActivitySharingBundle_bundle = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
 
@@ -39,15 +39,14 @@ uint64_t ASUseLegacyDevelopmentContainer()
 
 id ASActivityDataZoneNames()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v3[0] = @"Achievements";
-  v3[1] = @"AchievementNotifications";
-  v3[2] = @"ActivitySnapshots";
-  v3[3] = @"ActivitySnapshotNotifications";
-  v3[4] = @"Workouts";
-  v3[5] = @"WorkoutNotifications";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:6];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[6] = *MEMORY[0x277D85DE8];
+  v2[0] = @"Achievements";
+  v2[1] = @"AchievementNotifications";
+  v2[2] = @"ActivitySnapshots";
+  v2[3] = @"ActivitySnapshotNotifications";
+  v2[4] = @"Workouts";
+  v2[5] = @"WorkoutNotifications";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:6];
 
   return v0;
 }
@@ -617,7 +616,7 @@ LABEL_66:
 
 uint64_t ASRelationshipNeedsSupportedFeaturesUpdate(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = ASSupportedPhoneFeaturesForCurrentDevice();
   v3 = [v1 supportedPhoneFeatures];
@@ -643,67 +642,66 @@ uint64_t ASRelationshipNeedsSupportedFeaturesUpdate(void *a1)
 
   if (v6)
   {
-    if (![v7 hk_isBeforeOrEqualToDate:v12])
+    v13 = [v7 hk_isBeforeOrEqualToDate:v12];
+    if (!v13)
     {
-      v14 = 1;
+      v16 = 1;
       goto LABEL_16;
     }
 
-    ASLoggingInitialize();
-    v13 = ASLogRelationships;
+    ASLoggingInitialize(v13, v14);
+    v15 = ASLogRelationships;
     if (os_log_type_enabled(ASLogRelationships, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412546;
-      v18 = v12;
-      v19 = 2112;
-      v20 = v7;
-      _os_log_impl(&dword_23E4FA000, v13, OS_LOG_TYPE_DEFAULT, "Not updating supported features due to backoff (date: %@, now %@)", &v17, 0x16u);
+      v18 = 138412546;
+      v19 = v12;
+      v20 = 2112;
+      v21 = v7;
+      _os_log_impl(&dword_23E4FA000, v15, OS_LOG_TYPE_DEFAULT, "Not updating supported features due to backoff (date: %@, now %@)", &v18, 0x16u);
     }
   }
 
-  v14 = 0;
+  v16 = 0;
 LABEL_16:
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v16;
 }
 
 void ASUpdateSupportedFeaturesForRelationship(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = ASSupportedPhoneFeaturesForCurrentDevice();
   v3 = [v1 supportedWatchFeatures];
-  ASLoggingInitialize();
-  v4 = ASLogRelationships;
-  if (os_log_type_enabled(ASLogRelationships, OS_LOG_TYPE_DEFAULT))
+  ASLoggingInitialize(v3, v4);
+  v5 = ASLogRelationships;
+  v6 = os_log_type_enabled(ASLogRelationships, OS_LOG_TYPE_DEFAULT);
+  if (v6)
   {
-    v5 = v4;
-    v10 = 67109376;
-    v11 = [v1 supportedPhoneFeatures];
-    v12 = 1024;
-    v13 = v2;
-    _os_log_impl(&dword_23E4FA000, v5, OS_LOG_TYPE_DEFAULT, "Phone features: %d -> %d", &v10, 0xEu);
+    v8 = v5;
+    v12 = 67109376;
+    v13 = [v1 supportedPhoneFeatures];
+    v14 = 1024;
+    v15 = v2;
+    _os_log_impl(&dword_23E4FA000, v8, OS_LOG_TYPE_DEFAULT, "Phone features: %d -> %d", &v12, 0xEu);
   }
 
-  ASLoggingInitialize();
-  v6 = ASLogRelationships;
+  ASLoggingInitialize(v6, v7);
+  v9 = ASLogRelationships;
   if (os_log_type_enabled(ASLogRelationships, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = v6;
-    v8 = [v1 supportedWatchFeatures];
-    v10 = 67109376;
-    v11 = v8;
-    v12 = 1024;
-    v13 = v3;
-    _os_log_impl(&dword_23E4FA000, v7, OS_LOG_TYPE_DEFAULT, "Watch features: %d -> %d", &v10, 0xEu);
+    v10 = v9;
+    v11 = [v1 supportedWatchFeatures];
+    v12 = 67109376;
+    v13 = v11;
+    v14 = 1024;
+    v15 = v3;
+    _os_log_impl(&dword_23E4FA000, v10, OS_LOG_TYPE_DEFAULT, "Watch features: %d -> %d", &v12, 0xEu);
   }
 
   [v1 setSupportedPhoneFeatures:v2];
   [v1 setSupportedWatchFeatures:v3];
   [v1 insertEventWithType:15];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 id ASMaxNumber(void *a1, void *a2)
@@ -1498,52 +1496,50 @@ void ASAnalyticsReportCompetitionRequestIgnore(uint64_t a1)
 
 void ASAnalyticsReportSmackTalk(unint64_t a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v1 = _ASBulletinTypeString(a1);
   v2 = _ASCoreAnalyticsString(1);
   FIActivityAnalyticsSubmission();
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@Notification", @"phone"];
-  v6[0] = @"activityType";
-  v6[1] = @"source";
-  v7[0] = v1;
-  v7[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v5[0] = @"activityType";
+  v5[1] = @"source";
+  v6[0] = v1;
+  v6[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
   FIActivityAnalyticsSubmissionWithPayload();
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ASAnalyticsUpdateWithFriends(void *a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 hk_filter:&__block_literal_global_16];
   v3 = [v1 hk_filter:&__block_literal_global_430];
   v4 = [v1 hk_filter:&__block_literal_global_432];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = [*(*(&v18 + 1) + 8 * i) completedCompetitions];
+        v10 = [*(*(&v17 + 1) + 8 * i) completedCompetitions];
         v7 += [v10 count];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v6);
@@ -1555,22 +1551,20 @@ void ASAnalyticsUpdateWithFriends(void *a1)
   }
 
   v11 = _ASCoreAnalyticsString(0);
-  v22[0] = @"friends";
+  v21[0] = @"friends";
   v12 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v2, "count")}];
-  v23[0] = v12;
-  v22[1] = @"currentCompetitions";
+  v22[0] = v12;
+  v21[1] = @"currentCompetitions";
   v13 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v3, "count")}];
-  v23[1] = v13;
-  v22[2] = @"friendsWithCompetitions";
+  v22[1] = v13;
+  v21[2] = @"friendsWithCompetitions";
   v14 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v4, "count")}];
-  v23[2] = v14;
-  v22[3] = @"completedCompetitions";
+  v22[2] = v14;
+  v21[3] = @"completedCompetitions";
   v15 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
-  v23[3] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:4];
+  v22[3] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
   FIActivityAnalyticsSubmissionWithPayload();
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __ASAnalyticsUpdateWithFriends_block_invoke_3(uint64_t a1, void *a2)
@@ -1591,37 +1585,35 @@ uint64_t __ASAnalyticsUpdateWithFriends_block_invoke_3(uint64_t a1, void *a2)
 
 void ASAnalyticsUpdateManateeStateWithFriends(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v22[6] = *MEMORY[0x277D85DE8];
+  v21[6] = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = a1;
-  v20 = [v8 hk_filter:&__block_literal_global_435];
+  v19 = [v8 hk_filter:&__block_literal_global_435];
   v9 = [v8 hk_filter:&__block_literal_global_437];
 
   v10 = [v7 hk_filter:&__block_literal_global_440];
   v11 = [v7 hk_filter:&__block_literal_global_445];
 
-  v21[0] = @"totalFriendCount";
-  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v20, "count")}];
-  v22[0] = v12;
-  v21[1] = @"migratedFriendCount";
+  v20[0] = @"totalFriendCount";
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v19, "count")}];
+  v21[0] = v12;
+  v20[1] = @"migratedFriendCount";
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v9, "count")}];
-  v22[1] = v13;
-  v21[2] = @"migrationEligible";
+  v21[1] = v13;
+  v20[2] = @"migrationEligible";
   v14 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-  v22[2] = v14;
-  v21[3] = @"endToEndEncryptionEnabled";
+  v21[2] = v14;
+  v20[3] = @"endToEndEncryptionEnabled";
   v15 = [MEMORY[0x277CCABB0] numberWithBool:a3];
-  v22[3] = v15;
-  v21[4] = @"legacyPhoneCount";
+  v21[3] = v15;
+  v20[4] = @"legacyPhoneCount";
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v10, "count")}];
-  v22[4] = v16;
-  v21[5] = @"legacyWatchCount";
+  v21[4] = v16;
+  v20[5] = @"legacyWatchCount";
   v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v11, "count")}];
-  v22[5] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:6];
+  v21[5] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:6];
   FIActivityAnalyticsSubmissionWithPayload();
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __ASAnalyticsUpdateManateeStateWithFriends_block_invoke_2(uint64_t a1, void *a2)
@@ -1650,68 +1642,65 @@ uint64_t __ASAnalyticsUpdateManateeStateWithFriends_block_invoke_4(uint64_t a1, 
 
 void ASAnalyticsReportAddManateeContainer(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v15[4] = *MEMORY[0x277D85DE8];
-  v14[0] = @"success";
+  v14[4] = *MEMORY[0x277D85DE8];
+  v13[0] = @"success";
   v7 = MEMORY[0x277CCABB0];
   v8 = a3;
   v9 = a2;
   v10 = [v7 numberWithBool:a1];
-  v15[0] = v10;
-  v15[1] = v9;
-  v14[1] = @"role";
-  v14[2] = @"errorDomain";
-  v15[2] = v8;
-  v14[3] = @"errorCode";
+  v14[0] = v10;
+  v14[1] = v9;
+  v13[1] = @"role";
+  v13[2] = @"errorDomain";
+  v14[2] = v8;
+  v13[3] = @"errorCode";
   v11 = [MEMORY[0x277CCABB0] numberWithInt:a4];
-  v15[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v14[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
 
   FIActivityAnalyticsSubmissionWithPayload();
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void ASAnalyticsReportManateeMigration(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v15[4] = *MEMORY[0x277D85DE8];
-  v14[0] = @"success";
+  v14[4] = *MEMORY[0x277D85DE8];
+  v13[0] = @"success";
   v7 = MEMORY[0x277CCABB0];
   v8 = a3;
   v9 = [v7 numberWithBool:a1];
-  v15[0] = v9;
-  v14[1] = @"friendCompletedMigration";
+  v14[0] = v9;
+  v13[1] = @"friendCompletedMigration";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-  v15[1] = v10;
-  v15[2] = v8;
-  v14[2] = @"errorDomain";
-  v14[3] = @"errorCode";
+  v14[1] = v10;
+  v14[2] = v8;
+  v13[2] = @"errorDomain";
+  v13[3] = @"errorCode";
   v11 = [MEMORY[0x277CCABB0] numberWithInt:a4];
-  v15[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v14[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
 
   FIActivityAnalyticsSubmissionWithPayload();
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void ASAnalyticsReportManateeDowngrade(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v15[4] = *MEMORY[0x277D85DE8];
-  v14[0] = @"success";
+  v14[4] = *MEMORY[0x277D85DE8];
+  v13[0] = @"success";
   v7 = MEMORY[0x277CCABB0];
   v8 = a3;
   v9 = [v7 numberWithBool:a1];
-  v15[0] = v9;
-  v14[1] = @"friendCompletedDowngrade";
+  v14[0] = v9;
+  v13[1] = @"friendCompletedDowngrade";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-  v15[1] = v10;
-  v15[2] = v8;
-  v14[2] = @"errorDomain";
-  v14[3] = @"errorCode";
+  v14[1] = v10;
+  v14[2] = v8;
+  v13[2] = @"errorDomain";
+  v13[3] = @"errorCode";
   v11 = [MEMORY[0x277CCABB0] numberWithInt:a4];
-  v15[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v14[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
 
   FIActivityAnalyticsSubmissionWithPayload();
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ASCodableShareLocationsReadFrom(uint64_t a1, void *a2)
@@ -1806,23 +1795,20 @@ LABEL_23:
 
 void ASSecureUnarchiveClassWithDataAndStrictness_cold_1(void *a1, objc_class *a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = NSStringFromClass(a2);
   OUTLINED_FUNCTION_0_0();
-  v9 = a3;
-  _os_log_error_impl(&dword_23E4FA000, v5, OS_LOG_TYPE_ERROR, "Error unarchiving object of class %{public}@ error: %{public}@", v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = a3;
+  _os_log_error_impl(&dword_23E4FA000, v5, OS_LOG_TYPE_ERROR, "Error unarchiving object of class %{public}@ error: %{public}@", v7, 0x16u);
 }
 
 void ASSecureUnarchiveClassesWithData_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  v4 = v0;
-  _os_log_error_impl(&dword_23E4FA000, v1, OS_LOG_TYPE_ERROR, "Error unarchiving object of classes %{public}@ error: %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_23E4FA000, v1, OS_LOG_TYPE_ERROR, "Error unarchiving object of classes %{public}@ error: %{public}@", v2, 0x16u);
 }
 
 void ASCompetitionCalculateUpdatedScores_cold_1()
@@ -1832,59 +1818,11 @@ void ASCompetitionCalculateUpdatedScores_cold_1()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void ASCompetitionCalculateUpdatedScores_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_23E4FA000, v0, v1, "Yesterday summary: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ASCompetitionCalculateUpdatedScores_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_23E4FA000, v0, v1, "Today summary: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ASValidateEligibilityForOutgoingCompetitionRequest_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_23E4FA000, v0, v1, "Contact does not support competitions: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ASValidateEligibilityForOutgoingCompetitionRequest_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_23E4FA000, v0, v1, "Activity data is currently hidden from contact: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ASValidateEligibilityForOutgoingCompetitionRequest_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_23E4FA000, v0, v1, "Competition is already active with contact: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void ASValidateEligibilityForOutgoingCompetitionRequest_cold_4()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void ASValidateEligibilityForIncomingCompetitionRequest_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_23E4FA000, v0, v1, "Friendship is not active with contact: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void ASValidateEligibilityForIncomingCompetitionRequest_cold_3()
@@ -1894,57 +1832,9 @@ void ASValidateEligibilityForIncomingCompetitionRequest_cold_3()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void ASValidateEligibilityForAcceptingCompetitionRequest_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_23E4FA000, v0, v1, "No incoming request on contact: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ASValidateEligibilityForAcceptingCompetitionRequest_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_23E4FA000, v0, v1, "Competiton is already active with contact: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void ASValidateEligibilityForAcceptingCompetitionRequest_cold_4()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __ASCompetitionsEligibleForArchival_block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_23E4FA000, v0, v1, "Competition lastPushedCacheIndex is less than endDate, not eligible: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __ASCompetitionsEligibleForArchival_block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_23E4FA000, v0, v1, "Competition lastPushedCacheIndex is zero, not eligible: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ASFriendAchievementFromTemplateAndEarnedInstance_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ASFriendAchievementFromTemplateAndEarnedInstance_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }

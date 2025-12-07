@@ -19,8 +19,9 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_24094BF0C(appear);
+  sub_24094BF0C(appearCopy);
 }
 
 - (_TtC14AppleIDSetupUI29ConnectToFamilyViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout
@@ -67,7 +68,7 @@
 
   type metadata accessor for AIDAServiceType(0);
   sub_2409194E8(0, &qword_27E50C600, 0x277CB8F30);
-  sub_24096471C(&qword_27E50BAF0, type metadata accessor for AIDAServiceType);
+  sub_24096471C(&qword_27E50BAF0, type metadata accessor for AIDAServiceType, &unk_240A2F50C);
   v6 = sub_240A2BE9C();
 
   return v6;

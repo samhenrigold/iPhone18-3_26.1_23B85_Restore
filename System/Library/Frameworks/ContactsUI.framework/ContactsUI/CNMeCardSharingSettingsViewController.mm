@@ -409,11 +409,11 @@ LABEL_6:
   [(CNMeCardSharingSettingsViewController *)self generateEditingContactWithCompletionHandler:v3];
 }
 
-uint64_t __72__CNMeCardSharingSettingsViewController_sharingSettingsHeaderWasTapped___block_invoke(uint64_t result, uint64_t a2)
+id *__72__CNMeCardSharingSettingsViewController_sharingSettingsHeaderWasTapped___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) presentPhotoPickerControllerForContact:a2];
+    return [result[4] presentPhotoPickerControllerForContact:a2];
   }
 
   return result;
@@ -1309,11 +1309,11 @@ void __84__CNMeCardSharingSettingsViewController_notifyDelegateOfChangesWithDidS
   [(CNMeCardSharingSettingsViewController *)self generateEditingContactWithCompletionHandler:v4];
 }
 
-uint64_t __57__CNMeCardSharingSettingsViewController_viewIsAppearing___block_invoke(uint64_t result, uint64_t a2)
+id *__57__CNMeCardSharingSettingsViewController_viewIsAppearing___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) preWarmContactPosterForContact:a2];
+    return [result[4] preWarmContactPosterForContact:a2];
   }
 
   return result;

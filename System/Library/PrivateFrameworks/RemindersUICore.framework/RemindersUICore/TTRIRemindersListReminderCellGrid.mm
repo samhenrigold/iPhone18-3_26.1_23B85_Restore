@@ -9,17 +9,18 @@
 
 - (void)layoutMarginsDidChange
 {
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for TTRIRemindersListReminderCellGrid();
-  v2 = v5.receiver;
-  [(TTRIRemindersListReminderCellGrid *)&v5 layoutMarginsDidChange];
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for TTRIRemindersListReminderCellGrid();
+  v2 = v6.receiver;
+  [(TTRIRemindersListReminderCellGrid *)&v6 layoutMarginsDidChange];
   v3 = *&v2[OBJC_IVAR____TtC15RemindersUICore33TTRIRemindersListReminderCellGrid_layoutMarginsDidUpdate];
   if (v3)
   {
+    v4 = *&v2[OBJC_IVAR____TtC15RemindersUICore33TTRIRemindersListReminderCellGrid_layoutMarginsDidUpdate + 8];
 
-    v3(v4);
+    v3(v5);
 
-    sub_21D0D0E88(v3);
+    sub_21D0D0E88(v3, v4);
   }
 
   else
@@ -47,7 +48,7 @@
   rowsCopy = rows;
   if (rows)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5F100);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5F100, &qword_21DC18230);
     sub_21DBFA5EC();
     v5 = (&self->super.super.super.super.super.isa + OBJC_IVAR____TtC15RemindersUICore33TTRIRemindersListReminderCellGrid_layoutMarginsDidUpdate);
     *v5 = 0;

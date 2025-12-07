@@ -1030,7 +1030,7 @@ uint64_t __69__TSADocumentViewController_p_setDocumentMode_animated_dismissOnTop
   }
 }
 
-uint64_t __57__TSADocumentViewController_p_zoomOutForCurrentSelection__block_invoke(uint64_t a1)
+void *__57__TSADocumentViewController_p_zoomOutForCurrentSelection__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) zoomOutAnimated:1];
   *(*(a1 + 32) + 1224) = 0;

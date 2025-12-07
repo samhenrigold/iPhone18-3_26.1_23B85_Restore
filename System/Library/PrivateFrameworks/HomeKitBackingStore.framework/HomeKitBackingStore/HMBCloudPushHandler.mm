@@ -14,7 +14,7 @@
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   messageCopy = message;
   v8 = objc_autoreleasePoolPush();
@@ -24,11 +24,11 @@
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v31 = v11;
-    v32 = 2112;
-    v33 = connectionCopy;
-    v34 = 2112;
-    v35 = messageCopy;
+    v30 = v11;
+    v31 = 2112;
+    v32 = connectionCopy;
+    v33 = 2112;
+    v34 = messageCopy;
     _os_log_impl(&dword_22AD27000, v10, OS_LOG_TYPE_INFO, "%{public}@connection: %@ didReceiveIncomingMessage: %@", buf, 0x20u);
   }
 
@@ -42,41 +42,41 @@
     topic = [messageCopy topic];
     userInfo = [messageCopy userInfo];
     *buf = 138543874;
-    v31 = v15;
-    v32 = 2112;
-    v33 = topic;
-    v34 = 2112;
-    v35 = userInfo;
+    v30 = v15;
+    v31 = 2112;
+    v32 = topic;
+    v33 = 2112;
+    v34 = userInfo;
     _os_log_impl(&dword_22AD27000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Handling incoming APS message with topic: %@ userInfo: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v12);
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invoke;
-  v28[3] = &unk_2786E1AB0;
-  v28[4] = v13;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invoke;
+  v27[3] = &unk_2786E1AB0;
+  v27[4] = v13;
   v18 = messageCopy;
-  v29 = v18;
-  [(HMBCloudPushHandler *)v13 _performObserverCallback:v28];
+  v28 = v18;
+  [(HMBCloudPushHandler *)v13 _performObserverCallback:v27];
   v19 = MEMORY[0x277CBC4C0];
   userInfo2 = [v18 userInfo];
   v21 = [v19 notificationFromRemoteNotificationDictionary:userInfo2];
 
   if (v21)
   {
-    v22 = v27;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
+    v22 = v26;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
     v23 = __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invoke_2;
     v24 = v21;
   }
 
   else
   {
-    v22 = v26;
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
+    v22 = v25;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
     v23 = __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invoke_3;
     v24 = v18;
   }
@@ -86,8 +86,6 @@
   v22[4] = v13;
   v22[5] = v24;
   [(HMBCloudPushHandler *)v13 _performObserverCallback:v22];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invoke(uint64_t a1, void *a2)
@@ -103,7 +101,7 @@ void __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invo
 
 - (void)_performObserverCallback:(os_unfair_lock_s *)callback
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (callback)
   {
@@ -112,37 +110,35 @@ void __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invo
     v6 = NSAllMapTableKeys(v5);
 
     os_unfair_lock_unlock(callback + 2);
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v8)
     {
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v3[2](v3, *(*(&v12 + 1) + 8 * v10++));
+          v3[2](v3, *(*(&v11 + 1) + 8 * v10++));
         }
 
         while (v8 != v10);
-        v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invoke_2(uint64_t a1, void *a2)
@@ -167,7 +163,7 @@ void __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invo
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   tokenCopy = token;
   v8 = objc_autoreleasePoolPush();
@@ -176,22 +172,21 @@ void __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invo
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543874;
-    v14 = v11;
-    v15 = 2112;
-    v16 = connectionCopy;
-    v17 = 2112;
-    v18 = tokenCopy;
-    _os_log_impl(&dword_22AD27000, v10, OS_LOG_TYPE_INFO, "%{public}@connection: %@ didReceivePublicToken: %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v11;
+    v14 = 2112;
+    v15 = connectionCopy;
+    v16 = 2112;
+    v17 = tokenCopy;
+    _os_log_impl(&dword_22AD27000, v10, OS_LOG_TYPE_INFO, "%{public}@connection: %@ didReceivePublicToken: %@", &v12, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceiveToken:(id)token forTopic:(id)topic identifier:(id)identifier
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   tokenCopy = token;
   topicCopy = topic;
@@ -202,32 +197,31 @@ void __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invo
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     v17 = HMFGetLogIdentifier();
-    v19 = 138544386;
-    v20 = v17;
-    v21 = 2112;
-    v22 = connectionCopy;
-    v23 = 2112;
-    v24 = tokenCopy;
-    v25 = 2112;
-    v26 = topicCopy;
-    v27 = 2112;
-    v28 = identifierCopy;
-    _os_log_impl(&dword_22AD27000, v16, OS_LOG_TYPE_INFO, "%{public}@connection: %@ didReceiveToken: %@ forTopic: %@ identifier: %@", &v19, 0x34u);
+    v18 = 138544386;
+    v19 = v17;
+    v20 = 2112;
+    v21 = connectionCopy;
+    v22 = 2112;
+    v23 = tokenCopy;
+    v24 = 2112;
+    v25 = topicCopy;
+    v26 = 2112;
+    v27 = identifierCopy;
+    _os_log_impl(&dword_22AD27000, v16, OS_LOG_TYPE_INFO, "%{public}@connection: %@ didReceiveToken: %@ forTopic: %@ identifier: %@", &v18, 0x34u);
   }
 
   objc_autoreleasePoolPop(v14);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllObserversForBundleIdentifier:(id)identifier
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   os_unfair_lock_lock_with_options();
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   if (self)
   {
     Property = objc_getProperty(self, v5, 24, 1);
@@ -241,21 +235,21 @@ void __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invo
   v7 = Property;
   v8 = [v7 copy];
 
-  v10 = [v8 countByEnumeratingWithState:&v41 objects:v49 count:16];
+  v10 = [v8 countByEnumeratingWithState:&v40 objects:v48 count:16];
   if (v10)
   {
-    v11 = *v42;
+    v11 = *v41;
     do
     {
       v12 = 0;
       do
       {
-        if (*v42 != v11)
+        if (*v41 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v41 + 1) + 8 * v12);
+        v13 = *(*(&v40 + 1) + 8 * v12);
         if (self)
         {
           v14 = objc_getProperty(self, v9, 24, 1);
@@ -289,7 +283,7 @@ void __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invo
       }
 
       while (v10 != v12);
-      v20 = [v8 countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v20 = [v8 countByEnumeratingWithState:&v40 objects:v48 count:16];
       v10 = v20;
     }
 
@@ -323,9 +317,9 @@ void __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invo
   {
     v31 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v46 = v31;
-    v47 = 2112;
-    v48 = v22;
+    v45 = v31;
+    v46 = 2112;
+    v47 = v22;
     _os_log_impl(&dword_22AD27000, v30, OS_LOG_TYPE_INFO, "%{public}@Removing enabled topic from APS connection: %@", buf, 0x16u);
   }
 
@@ -358,12 +352,11 @@ void __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invo
   [v38 invalidateTokenForTopic:v22 identifier:0];
 
   os_unfair_lock_unlock(lock);
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer forBundleIdentifier:(id)identifier
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   identifierCopy = identifier;
   os_unfair_lock_lock_with_options();
@@ -406,9 +399,9 @@ void __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invo
   {
     v20 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v34 = v20;
-    v35 = 2112;
-    v36 = v11;
+    v33 = v20;
+    v34 = 2112;
+    v35 = v11;
     _os_log_impl(&dword_22AD27000, v19, OS_LOG_TYPE_INFO, "%{public}@Adding enabled topic to APS connection: %@", buf, 0x16u);
   }
 
@@ -454,7 +447,6 @@ void __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invo
   [v30 requestTokenForTopic:v11 identifier:0];
 
   os_unfair_lock_unlock(&self->_apsLock);
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (HMBCloudPushHandler)initWithAPSConnection:(id)connection
@@ -491,17 +483,16 @@ void __60__HMBCloudPushHandler_connection_didReceiveIncomingMessage___block_invo
 
 uint64_t __34__HMBCloudPushHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v13;
-  logCategory__hmf_once_v13 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v13;
+  logCategory__hmf_once_v13 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)sharedHandlerForEnvironment:(id)environment
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
   if (sharedHandlerForEnvironment__onceToken != -1)
   {
@@ -523,13 +514,13 @@ uint64_t __34__HMBCloudPushHandler_logCategory__block_invoke()
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = HMFGetLogIdentifier();
-        v18 = 138543874;
-        v19 = v10;
-        v20 = 2112;
-        v21 = v6;
-        v22 = 2112;
-        v23 = @"com.apple.homed.aps";
-        _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_INFO, "%{public}@Creating APSConnection with environment: %@ namedDelegatePort: %@", &v18, 0x20u);
+        v17 = 138543874;
+        v18 = v10;
+        v19 = 2112;
+        v20 = v6;
+        v21 = 2112;
+        v22 = @"com.apple.homed.aps";
+        _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_INFO, "%{public}@Creating APSConnection with environment: %@ namedDelegatePort: %@", &v17, 0x20u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -546,8 +537,6 @@ uint64_t __34__HMBCloudPushHandler_logCategory__block_invoke()
   }
 
   objc_sync_exit(v4);
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

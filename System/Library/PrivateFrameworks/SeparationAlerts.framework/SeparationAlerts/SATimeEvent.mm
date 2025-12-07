@@ -111,18 +111,16 @@ LABEL_6:
 
 - (id)descriptionDictionary
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"EventType";
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"EventType";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v10[1] = @"SATimeEventDate";
-  v11[0] = v4;
+  v9[1] = @"SATimeEventDate";
+  v10[0] = v4;
   date = [(SATimeEvent *)self date];
   getDateString = [date getDateString];
-  v11[1] = getDateString;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[1] = getDateString;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v7;
 }

@@ -375,132 +375,113 @@ LABEL_38:
   [(_CPSpotlightUsagePropensity *)self appLaunch];
   if (v4 != 0.0)
   {
-    appLaunch = self->_appLaunch;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self onDeviceAddressBookData];
-  if (v6 != 0.0)
+  if (v5 != 0.0)
   {
-    onDeviceAddressBookData = self->_onDeviceAddressBookData;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self onDeviceOtherPersonalData];
-  if (v8 != 0.0)
+  if (v6 != 0.0)
   {
-    onDeviceOtherPersonalData = self->_onDeviceOtherPersonalData;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self punchout];
-  if (v10 != 0.0)
+  if (v7 != 0.0)
   {
-    punchout = self->_punchout;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self thirdPartyInAppContent];
-  if (v12 != 0.0)
+  if (v8 != 0.0)
   {
-    thirdPartyInAppContent = self->_thirdPartyInAppContent;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self parsec];
-  if (v14 != 0.0)
+  if (v9 != 0.0)
   {
-    parsec = self->_parsec;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self querySuggestion];
-  if (v16 != 0.0)
+  if (v10 != 0.0)
   {
-    querySuggestion = self->_querySuggestion;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self other];
-  if (v18 != 0.0)
+  if (v11 != 0.0)
   {
-    other = self->_other;
     PBDataWriterWriteFloatField();
   }
 
   if ([(_CPSpotlightUsagePropensity *)self totalEngagements])
   {
-    totalEngagements = self->_totalEngagements;
     PBDataWriterWriteInt32Field();
   }
 
   [(_CPSpotlightUsagePropensity *)self siriSuggestions];
-  if (v21 != 0.0)
+  if (v12 != 0.0)
   {
-    siriSuggestions = self->_siriSuggestions;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self parsecWeb];
-  if (v23 != 0.0)
+  if (v13 != 0.0)
   {
-    parsecWeb = self->_parsecWeb;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self parsecAppStore];
-  if (v25 != 0.0)
+  if (v14 != 0.0)
   {
-    parsecAppStore = self->_parsecAppStore;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self parsecMaps];
-  if (v27 != 0.0)
+  if (v15 != 0.0)
   {
-    parsecMaps = self->_parsecMaps;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self parsecWiki];
-  if (v29 != 0.0)
+  if (v16 != 0.0)
   {
-    parsecWiki = self->_parsecWiki;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self parsecNews];
-  if (v31 != 0.0)
+  if (v17 != 0.0)
   {
-    parsecNews = self->_parsecNews;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self parsecStocks];
-  if (v33 != 0.0)
+  if (v18 != 0.0)
   {
-    parsecStocks = self->_parsecStocks;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self parsecWeather];
-  if (v35 != 0.0)
+  if (v19 != 0.0)
   {
-    parsecWeather = self->_parsecWeather;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self parsecOther];
-  if (v37 != 0.0)
+  if (v20 != 0.0)
   {
-    parsecOther = self->_parsecOther;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSpotlightUsagePropensity *)self webSuggestions];
-  if (v39 != 0.0)
+  if (v21 != 0.0)
   {
-    webSuggestions = self->_webSuggestions;
     PBDataWriterWriteFloatField();
   }
 
@@ -522,19 +503,18 @@ LABEL_38:
 
   if ([(_CPSpotlightUsagePropensity *)self totalTopHitEngagements])
   {
-    totalTopHitEngagements = self->_totalTopHitEngagements;
     PBDataWriterWriteInt32Field();
   }
 
   engagementShareRatio = [(_CPSpotlightUsagePropensity *)self engagementShareRatio];
 
-  v47 = toCopy;
+  v27 = toCopy;
   if (engagementShareRatio)
   {
     engagementShareRatio2 = [(_CPSpotlightUsagePropensity *)self engagementShareRatio];
     PBDataWriterWriteSubmessage();
 
-    v47 = toCopy;
+    v27 = toCopy;
   }
 }
 

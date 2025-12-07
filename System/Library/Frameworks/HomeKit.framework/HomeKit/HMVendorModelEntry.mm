@@ -120,43 +120,7 @@
     {
       model = [v7 model];
       model2 = [(HMVendorModelEntry *)self model];
-      if (![model isEqualToString:model2])
-      {
-        goto LABEL_14;
-      }
-
-      appBundleID = [v7 appBundleID];
-      appBundleID2 = [(HMVendorModelEntry *)self appBundleID];
-      v14 = HMFEqualObjects();
-
-      if (!v14)
-      {
-        goto LABEL_14;
-      }
-
-      appStoreID = [v7 appStoreID];
-      appStoreID2 = [(HMVendorModelEntry *)self appStoreID];
-      v17 = HMFEqualObjects();
-
-      if (!v17)
-      {
-        goto LABEL_14;
-      }
-
-      firmwareVersion = [v7 firmwareVersion];
-      firmwareVersion2 = [(HMVendorModelEntry *)self firmwareVersion];
-      v20 = HMFEqualObjects();
-
-      if (!v20)
-      {
-        goto LABEL_14;
-      }
-
-      productData = [v7 productData];
-      productData2 = [(HMVendorModelEntry *)self productData];
-      v23 = HMFEqualObjects();
-
-      if (v23)
+      if ([model isEqualToString:model2] && (objc_msgSend(v7, "appBundleID"), v12 = objc_claimAutoreleasedReturnValue(), -[HMVendorModelEntry appBundleID](self, "appBundleID"), v13 = objc_claimAutoreleasedReturnValue(), v14 = HMFEqualObjects(), v13, v12, v14) && (objc_msgSend(v7, "appStoreID"), v15 = objc_claimAutoreleasedReturnValue(), -[HMVendorModelEntry appStoreID](self, "appStoreID"), v16 = objc_claimAutoreleasedReturnValue(), v17 = HMFEqualObjects(), v16, v15, v17) && (objc_msgSend(v7, "firmwareVersion"), v18 = objc_claimAutoreleasedReturnValue(), -[HMVendorModelEntry firmwareVersion](self, "firmwareVersion"), v19 = objc_claimAutoreleasedReturnValue(), v20 = HMFEqualObjects(), v19, v18, v20) && (objc_msgSend(v7, "productData"), v21 = objc_claimAutoreleasedReturnValue(), -[HMVendorModelEntry productData](self, "productData"), v22 = objc_claimAutoreleasedReturnValue(), v23 = HMFEqualObjects(), v22, v21, v23))
       {
         productDataAlternates = [v7 productDataAlternates];
         productDataAlternates2 = [(HMVendorModelEntry *)self productDataAlternates];
@@ -165,7 +129,6 @@
 
       else
       {
-LABEL_14:
         v26 = 0;
       }
     }
@@ -307,7 +270,7 @@ LABEL_7:
 
 + (id)vendorModelEntryFromDictionaryRepresentation:(id)representation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = [representationCopy hmf_stringForKey:@"Manufacturer"];
   v6 = [representationCopy hmf_stringForKey:@"Model"];
@@ -329,21 +292,19 @@ LABEL_7:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v15 = v18 = v7;
+      v15 = v17 = v7;
       *buf = 138543618;
-      v21 = v15;
-      v22 = 2112;
-      v23 = representationCopy;
+      v20 = v15;
+      v21 = 2112;
+      v22 = representationCopy;
       _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@vendorModelEntryFromDictionaryRepresentation cannot build object from dictionary %@", buf, 0x16u);
 
-      v7 = v18;
+      v7 = v17;
     }
 
     objc_autoreleasePoolPop(context);
     v12 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

@@ -30,7 +30,7 @@
 
 - (void)startLoading
 {
-  v3 = sub_100002CBC();
+  v3 = sub_100002CBC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     request = [(AuthURLProtocol *)self request];
@@ -49,7 +49,7 @@
   v10 = v16;
 
   client = [(AuthURLProtocol *)self client];
-  v12 = sub_100002CBC();
+  v12 = sub_100002CBC(client);
   v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
   if (v10)
   {

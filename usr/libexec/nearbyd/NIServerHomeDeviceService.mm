@@ -24,9 +24,9 @@
 
 - (id)_initInternal
 {
-  v15.receiver = self;
-  v15.super_class = NIServerHomeDeviceService;
-  v2 = [(NIServerHomeDeviceService *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = NIServerHomeDeviceService;
+  v2 = [(NIServerHomeDeviceService *)&v14 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
@@ -44,8 +44,7 @@
 
     if (+[NIPlatformInfo isInternalBuild](NIPlatformInfo, "isInternalBuild") || (+[NSUserDefaults standardUserDefaults](NSUserDefaults, "standardUserDefaults"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 BOOLForKey:@"EnableStateDump"], v10, v11))
     {
-      v12 = v2->_queue;
-      v14 = v2;
+      v13 = v2;
       os_state_add_handler();
     }
   }

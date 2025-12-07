@@ -18,7 +18,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1002C4F7C();
+  sub_1002C4F7C(selfCopy, v2);
 }
 
 - (void)_updateParticles

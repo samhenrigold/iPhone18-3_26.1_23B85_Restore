@@ -35,19 +35,19 @@
 
 - (void)correct
 {
-  v159 = *MEMORY[0x277D85DE8];
+  v158 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
-    v152[0] = MEMORY[0x277D85DD0];
-    v152[1] = 3221225472;
-    v152[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke;
-    v152[3] = &unk_279A55D70;
-    v154 = v3;
-    v153 = @"correct";
+    v151[0] = MEMORY[0x277D85DD0];
+    v151[1] = 3221225472;
+    v151[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke;
+    v151[3] = &unk_279A55D70;
+    v153 = v3;
+    v152 = @"correct";
     if (correct_defaultOnce != -1)
     {
-      dispatch_once(&correct_defaultOnce, v152);
+      dispatch_once(&correct_defaultOnce, v151);
     }
 
     v4 = correct_classDebugEnabled;
@@ -76,43 +76,43 @@
   [rootEnergyEstimate2 energy];
   v15 = v14;
 
-  v150 = 0u;
-  v151 = 0u;
-  v148 = 0u;
   v149 = 0u;
+  v150 = 0u;
+  v147 = 0u;
+  v148 = 0u;
   dependencyIDToDependenciesInRange = [(PLAccountingOwner *)self dependencyIDToDependenciesInRange];
   allKeys = [dependencyIDToDependenciesInRange allKeys];
 
   obj = allKeys;
   selfCopy = self;
-  v116 = [allKeys countByEnumeratingWithState:&v148 objects:v158 count:16];
-  if (v116)
+  v115 = [allKeys countByEnumeratingWithState:&v147 objects:v157 count:16];
+  if (v115)
   {
-    v115 = *v149;
+    v114 = *v148;
     v18 = 0.0;
     do
     {
       v19 = 0;
       do
       {
-        if (*v149 != v115)
+        if (*v148 != v114)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v148 + 1) + 8 * v19);
+        v20 = *(*(&v147 + 1) + 8 * v19);
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v21 = objc_opt_class();
-          v145[0] = MEMORY[0x277D85DD0];
-          v145[1] = 3221225472;
-          v145[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke_19;
-          v145[3] = &unk_279A55D70;
-          v147 = v21;
-          v146 = @"correct";
+          v144[0] = MEMORY[0x277D85DD0];
+          v144[1] = 3221225472;
+          v144[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke_19;
+          v144[3] = &unk_279A55D70;
+          v146 = v21;
+          v145 = @"correct";
           if (correct_defaultOnce_17 != -1)
           {
-            dispatch_once(&correct_defaultOnce_17, v145);
+            dispatch_once(&correct_defaultOnce_17, v144);
           }
 
           v22 = correct_classDebugEnabled_18;
@@ -130,7 +130,7 @@
             if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v157 = v23;
+              v156 = v23;
               _os_log_debug_impl(&dword_25EDCD000, v28, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
@@ -144,15 +144,15 @@
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v31 = objc_opt_class();
-          v142[0] = MEMORY[0x277D85DD0];
-          v142[1] = 3221225472;
-          v142[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke_25;
-          v142[3] = &unk_279A55D70;
-          v144 = v31;
-          v143 = @"correct";
+          v141[0] = MEMORY[0x277D85DD0];
+          v141[1] = 3221225472;
+          v141[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke_25;
+          v141[3] = &unk_279A55D70;
+          v143 = v31;
+          v142 = @"correct";
           if (correct_defaultOnce_23 != -1)
           {
-            dispatch_once(&correct_defaultOnce_23, v142);
+            dispatch_once(&correct_defaultOnce_23, v141);
           }
 
           v32 = correct_classDebugEnabled_24;
@@ -170,7 +170,7 @@
             if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v157 = v33;
+              v156 = v33;
               _os_log_debug_impl(&dword_25EDCD000, v38, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
@@ -178,30 +178,30 @@
           }
         }
 
-        v117 = v20;
-        v118 = v19;
-        v140 = 0u;
-        v141 = 0u;
-        v138 = 0u;
+        v116 = v20;
+        v117 = v19;
         v139 = 0u;
+        v140 = 0u;
+        v137 = 0u;
+        v138 = 0u;
         v39 = v30;
-        v40 = [v39 countByEnumeratingWithState:&v138 objects:v155 count:16];
+        v40 = [v39 countByEnumeratingWithState:&v137 objects:v154 count:16];
         if (v40)
         {
           v41 = v40;
-          v42 = *v139;
+          v42 = *v138;
           v43 = 0.0;
           do
           {
             v44 = 0;
             do
             {
-              if (*v139 != v42)
+              if (*v138 != v42)
               {
                 objc_enumerationMutation(v39);
               }
 
-              energyEvent = [*(*(&v138 + 1) + 8 * v44) energyEvent];
+              energyEvent = [*(*(&v137 + 1) + 8 * v44) energyEvent];
               if ([MEMORY[0x277D3F180] debugEnabled])
               {
                 v46 = objc_opt_class();
@@ -209,8 +209,8 @@
                 block[1] = 3221225472;
                 block[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke_31;
                 block[3] = &unk_279A55D70;
-                v136 = @"correct";
-                v137 = v46;
+                v135 = @"correct";
+                v136 = v46;
                 if (correct_defaultOnce_29 != -1)
                 {
                   dispatch_once(&correct_defaultOnce_29, block);
@@ -231,7 +231,7 @@
                   if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412290;
-                    v157 = v48;
+                    v156 = v48;
                     _os_log_debug_impl(&dword_25EDCD000, v53, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                   }
 
@@ -256,15 +256,15 @@
                 if ([MEMORY[0x277D3F180] debugEnabled])
                 {
                   v64 = objc_opt_class();
-                  v132[0] = MEMORY[0x277D85DD0];
-                  v132[1] = 3221225472;
-                  v132[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke_37;
-                  v132[3] = &unk_279A55D70;
-                  v133 = @"correct";
-                  v134 = v64;
+                  v131[0] = MEMORY[0x277D85DD0];
+                  v131[1] = 3221225472;
+                  v131[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke_37;
+                  v131[3] = &unk_279A55D70;
+                  v132 = @"correct";
+                  v133 = v64;
                   if (correct_defaultOnce_35 != -1)
                   {
-                    dispatch_once(&correct_defaultOnce_35, v132);
+                    dispatch_once(&correct_defaultOnce_35, v131);
                   }
 
                   v65 = correct_classDebugEnabled_36;
@@ -282,7 +282,7 @@
                     if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412290;
-                      v157 = v66;
+                      v156 = v66;
                       _os_log_debug_impl(&dword_25EDCD000, v71, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                     }
 
@@ -295,7 +295,7 @@
             }
 
             while (v41 != v44);
-            v41 = [v39 countByEnumeratingWithState:&v138 objects:v155 count:16];
+            v41 = [v39 countByEnumeratingWithState:&v137 objects:v154 count:16];
           }
 
           while (v41);
@@ -306,7 +306,7 @@
           v43 = 0.0;
         }
 
-        if ([v117 intValue] == 1)
+        if ([v116 intValue] == 1)
         {
           v18 = v18 + v43;
         }
@@ -316,14 +316,14 @@
           v15 = v15 + v43;
         }
 
-        v19 = v118 + 1;
+        v19 = v117 + 1;
       }
 
-      while (v118 + 1 != v116);
-      v116 = [obj countByEnumeratingWithState:&v148 objects:v158 count:16];
+      while (v117 + 1 != v115);
+      v115 = [obj countByEnumeratingWithState:&v147 objects:v157 count:16];
     }
 
-    while (v116);
+    while (v115);
   }
 
   else
@@ -344,15 +344,15 @@
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v73 = objc_opt_class();
-    v129[0] = MEMORY[0x277D85DD0];
-    v129[1] = 3221225472;
-    v129[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke_43;
-    v129[3] = &unk_279A55D70;
-    v130 = @"correct";
-    v131 = v73;
+    v128[0] = MEMORY[0x277D85DD0];
+    v128[1] = 3221225472;
+    v128[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke_43;
+    v128[3] = &unk_279A55D70;
+    v129 = @"correct";
+    v130 = v73;
     if (correct_defaultOnce_41 != -1)
     {
-      dispatch_once(&correct_defaultOnce_41, v129);
+      dispatch_once(&correct_defaultOnce_41, v128);
     }
 
     v74 = correct_classDebugEnabled_42;
@@ -383,15 +383,15 @@
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v83 = objc_opt_class();
-      v126[0] = MEMORY[0x277D85DD0];
-      v126[1] = 3221225472;
-      v126[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke_50;
-      v126[3] = &unk_279A55D70;
-      v127 = @"correct";
-      v128 = v83;
+      v125[0] = MEMORY[0x277D85DD0];
+      v125[1] = 3221225472;
+      v125[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke_50;
+      v125[3] = &unk_279A55D70;
+      v126 = @"correct";
+      v127 = v83;
       if (correct_defaultOnce_48 != -1)
       {
-        dispatch_once(&correct_defaultOnce_48, v126);
+        dispatch_once(&correct_defaultOnce_48, v125);
       }
 
       v84 = correct_classDebugEnabled_49;
@@ -409,7 +409,7 @@
         if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v157 = v85;
+          v156 = v85;
           _os_log_debug_impl(&dword_25EDCD000, v90, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
@@ -427,15 +427,15 @@
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v94 = objc_opt_class();
-      v123[0] = MEMORY[0x277D85DD0];
-      v123[1] = 3221225472;
-      v123[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke_56;
-      v123[3] = &unk_279A55D70;
-      v124 = @"correct";
-      v125 = v94;
+      v122[0] = MEMORY[0x277D85DD0];
+      v122[1] = 3221225472;
+      v122[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke_56;
+      v122[3] = &unk_279A55D70;
+      v123 = @"correct";
+      v124 = v94;
       if (correct_defaultOnce_54 != -1)
       {
-        dispatch_once(&correct_defaultOnce_54, v123);
+        dispatch_once(&correct_defaultOnce_54, v122);
       }
 
       v95 = correct_classDebugEnabled_55;
@@ -453,7 +453,7 @@
         if (os_log_type_enabled(v101, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v157 = v96;
+          v156 = v96;
           _os_log_debug_impl(&dword_25EDCD000, v101, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
@@ -467,15 +467,15 @@
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v104 = objc_opt_class();
-      v120[0] = MEMORY[0x277D85DD0];
-      v120[1] = 3221225472;
-      v120[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke_62;
-      v120[3] = &unk_279A55D70;
-      v121 = @"correct";
-      v122 = v104;
+      v119[0] = MEMORY[0x277D85DD0];
+      v119[1] = 3221225472;
+      v119[2] = __38__PLAccountingCorrectionOwner_correct__block_invoke_62;
+      v119[3] = &unk_279A55D70;
+      v120 = @"correct";
+      v121 = v104;
       if (correct_defaultOnce_60 != -1)
       {
-        dispatch_once(&correct_defaultOnce_60, v120);
+        dispatch_once(&correct_defaultOnce_60, v119);
       }
 
       v105 = correct_classDebugEnabled_61;
@@ -493,7 +493,7 @@
         if (os_log_type_enabled(v111, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v157 = v103;
+          v156 = v103;
           _os_log_debug_impl(&dword_25EDCD000, v111, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
@@ -511,8 +511,6 @@
   }
 
   while ([array count]);
-
-  v113 = *MEMORY[0x277D85DE8];
 }
 
 - (PLAccountingCorrectionOwner)initWithRootEnergyEstimate:(id)estimate
@@ -537,63 +535,63 @@
   [rootEnergyEstimate setCorrectionDate:dateCopy];
 }
 
-uint64_t __38__PLAccountingCorrectionOwner_correct__block_invoke(uint64_t a1)
+void *__38__PLAccountingCorrectionOwner_correct__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   correct_classDebugEnabled = result;
   return result;
 }
 
-uint64_t __38__PLAccountingCorrectionOwner_correct__block_invoke_19(uint64_t a1)
+void *__38__PLAccountingCorrectionOwner_correct__block_invoke_19(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   correct_classDebugEnabled_18 = result;
   return result;
 }
 
-uint64_t __38__PLAccountingCorrectionOwner_correct__block_invoke_25(uint64_t a1)
+void *__38__PLAccountingCorrectionOwner_correct__block_invoke_25(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   correct_classDebugEnabled_24 = result;
   return result;
 }
 
-uint64_t __38__PLAccountingCorrectionOwner_correct__block_invoke_31(uint64_t a1)
+void *__38__PLAccountingCorrectionOwner_correct__block_invoke_31(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   correct_classDebugEnabled_30 = result;
   return result;
 }
 
-uint64_t __38__PLAccountingCorrectionOwner_correct__block_invoke_37(uint64_t a1)
+void *__38__PLAccountingCorrectionOwner_correct__block_invoke_37(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   correct_classDebugEnabled_36 = result;
   return result;
 }
 
-uint64_t __38__PLAccountingCorrectionOwner_correct__block_invoke_43(uint64_t a1)
+void *__38__PLAccountingCorrectionOwner_correct__block_invoke_43(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   correct_classDebugEnabled_42 = result;
   return result;
 }
 
-uint64_t __38__PLAccountingCorrectionOwner_correct__block_invoke_50(uint64_t a1)
+void *__38__PLAccountingCorrectionOwner_correct__block_invoke_50(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   correct_classDebugEnabled_49 = result;
   return result;
 }
 
-uint64_t __38__PLAccountingCorrectionOwner_correct__block_invoke_56(uint64_t a1)
+void *__38__PLAccountingCorrectionOwner_correct__block_invoke_56(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   correct_classDebugEnabled_55 = result;
   return result;
 }
 
-uint64_t __38__PLAccountingCorrectionOwner_correct__block_invoke_62(uint64_t a1)
+void *__38__PLAccountingCorrectionOwner_correct__block_invoke_62(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   correct_classDebugEnabled_61 = result;

@@ -11,14 +11,11 @@
 
 - (NSString)documentType
 {
-  v2 = (self + OBJC_IVAR___WKIdentityDocumentPresentmentMobileDocumentIndividualDocumentRequest_documentType);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_23B59D810();
+  v2 = sub_23B59D810();
 
-  return v5;
+  return v2;
 }
 
 - (void)setDocumentType:(id)type
@@ -27,21 +24,18 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___WKIdentityDocumentPresentmentMobileDocumentIndividualDocumentRequest_documentType);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
 
 - (NSDictionary)namespaces
 {
-  v3 = OBJC_IVAR___WKIdentityDocumentPresentmentMobileDocumentIndividualDocumentRequest_namespaces;
   swift_beginAccess();
-  v4 = *(self + v3);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E15A7D0, &qword_23B59ED28);
-  v5 = sub_23B59D7C0();
+  v2 = sub_23B59D7C0();
 
-  return v5;
+  return v2;
 }
 
 - (void)setNamespaces:(id)namespaces
@@ -50,7 +44,6 @@
   v4 = sub_23B59D7D0();
   v5 = OBJC_IVAR___WKIdentityDocumentPresentmentMobileDocumentIndividualDocumentRequest_namespaces;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 

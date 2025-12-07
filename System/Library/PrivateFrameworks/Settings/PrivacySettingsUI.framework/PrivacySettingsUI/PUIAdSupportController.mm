@@ -152,7 +152,7 @@ LABEL_13:
 - (void)viewDidAppear:(BOOL)appear
 {
   v15 = *MEMORY[0x277D85DE8];
-  v4 = _PUILoggingFacility();
+  v4 = _PUILoggingFacility(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -168,12 +168,12 @@ LABEL_13:
   v12[4] = self;
   [adTrackingTransparency personalizedAdsAvailable:v12];
 
-  v6 = _PUILoggingFacility();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _PUILoggingFacility(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
     v14 = "[PUIAdSupportController viewDidAppear:]";
-    _os_log_impl(&dword_2657FE000, v6, OS_LOG_TYPE_DEFAULT, "%s: checking if we have a PA consent related change.", buf, 0xCu);
+    _os_log_impl(&dword_2657FE000, v7, OS_LOG_TYPE_DEFAULT, "%s: checking if we have a PA consent related change.", buf, 0xCu);
   }
 
   adTrackingTransparency2 = [(PUIAdSupportController *)self adTrackingTransparency];
@@ -191,36 +191,33 @@ LABEL_13:
   }
 
   [(PUIAdSupportController *)self provideNavigationDonations];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __40__PUIAdSupportController_viewDidAppear___block_invoke(uint64_t a1, int a2)
 {
-  v2 = a2;
   v13 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) personalizedAdsAvailable] != a2)
+  v4 = [*(a1 + 32) personalizedAdsAvailable];
+  if (v4 != a2)
   {
-    v4 = _PUILoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _PUILoggingFacility(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [MEMORY[0x277CCABB0] numberWithBool:1];
+      v6 = [MEMORY[0x277CCABB0] numberWithBool:1];
       *buf = 136315394;
       v10 = "[PUIAdSupportController viewDidAppear:]_block_invoke";
       v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_2657FE000, v4, OS_LOG_TYPE_DEFAULT, "%s: reloading: ad support state changed to: %@", buf, 0x16u);
+      v12 = v6;
+      _os_log_impl(&dword_2657FE000, v5, OS_LOG_TYPE_DEFAULT, "%s: reloading: ad support state changed to: %@", buf, 0x16u);
     }
 
     v7[0] = MEMORY[0x277D85DD0];
     v7[1] = 3221225472;
     v7[2] = __40__PUIAdSupportController_viewDidAppear___block_invoke_59;
     v7[3] = &unk_279BA1850;
-    v8 = v2;
+    v8 = a2;
     v7[4] = *(a1 + 32);
     dispatch_async(MEMORY[0x277D85CD0], v7);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __40__PUIAdSupportController_viewDidAppear___block_invoke_59(uint64_t a1)
@@ -245,7 +242,7 @@ uint64_t __40__PUIAdSupportController_viewDidAppear___block_invoke_63(uint64_t a
 
 - (void)provideNavigationDonations
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   bundleURL = [v3 bundleURL];
 
@@ -257,12 +254,10 @@ uint64_t __40__PUIAdSupportController_viewDidAppear___block_invoke_63(uint64_t a
   currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
   v10 = [v8 initWithKey:@"PRIVACY" table:@"Privacy" locale:currentLocale2 bundleURL:bundleURL];
 
-  v14[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v12 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.PrivacyAndSecurity/ADVERTISING"];
   [(PUIAdSupportController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.apple-advertising" title:v7 localizedNavigationComponents:v11 deepLink:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)personalizedAdsAvailable

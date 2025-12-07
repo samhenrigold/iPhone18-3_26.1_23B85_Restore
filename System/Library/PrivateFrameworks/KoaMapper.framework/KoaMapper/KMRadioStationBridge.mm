@@ -16,7 +16,7 @@
 
 - (BOOL)enumerateItemsWithError:(id *)error usingBlock:(id)block
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v6 = +[CarPlayConnectionManager shared];
   radioStore = [v6 radioStore];
@@ -28,40 +28,40 @@
   v10 = KMLogContextCore;
   if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_DEBUG))
   {
-    v20 = v10;
+    v19 = v10;
     *buf = 136315394;
-    v27 = "[KMRadioStationBridge enumerateItemsWithError:usingBlock:]";
-    v28 = 2048;
-    v29 = [radioStations count];
-    _os_log_debug_impl(&dword_2559DF000, v20, OS_LOG_TYPE_DEBUG, "%s #radio: %li radio stations found for donation.", buf, 0x16u);
+    v26 = "[KMRadioStationBridge enumerateItemsWithError:usingBlock:]";
+    v27 = 2048;
+    v28 = [radioStations count];
+    _os_log_debug_impl(&dword_2559DF000, v19, OS_LOG_TYPE_DEBUG, "%s #radio: %li radio stations found for donation.", buf, 0x16u);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v11 = radioStations;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        if (!*(*(&v21 + 1) + 8 * i) || (blockCopy[2](blockCopy) & 1) == 0)
+        if (!*(*(&v20 + 1) + 8 * i) || (blockCopy[2](blockCopy) & 1) == 0)
         {
           v17 = KMLogContextCore;
           if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v27 = "[KMRadioStationBridge enumerateItemsWithError:usingBlock:]";
+            v26 = "[KMRadioStationBridge enumerateItemsWithError:usingBlock:]";
             _os_log_error_impl(&dword_2559DF000, v17, OS_LOG_TYPE_ERROR, "%s #radio: Could not donate while enumerating over station list", buf, 0xCu);
           }
 
@@ -70,7 +70,7 @@
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
       v16 = 1;
       if (v13)
       {
@@ -88,7 +88,6 @@
 
 LABEL_17:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

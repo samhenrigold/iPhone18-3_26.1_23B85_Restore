@@ -18,7 +18,7 @@
 
   else
   {
-    v9 = _MSLogingFacility();
+    v9 = _MSLogingFacility(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [HMAccessorySettings(MediaSetup) _settingForKeyPath:v9];
@@ -32,29 +32,29 @@
 
 - (id)_getMusicGroup
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   rootGroup = [self rootGroup];
   groups = [rootGroup groups];
 
-  v3 = [groups countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [groups countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(groups);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v12 + 1) + 8 * i);
         keyPath = [v7 keyPath];
         v9 = [keyPath isEqualToString:@"root.music"];
 
@@ -65,7 +65,7 @@
         }
       }
 
-      v4 = [groups countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [groups countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v4)
       {
         continue;
@@ -77,8 +77,6 @@
 
   v10 = 0;
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

@@ -445,7 +445,7 @@ LABEL_170:
         }
       }
 
-      if (![eventCopy isLaunchingFromDockTransition] || !v15 || (objc_msgSend(fromAppLayout, "containsItem:", v15) & 1) != 0 || (objc_msgSend(previousDesktopItems, "containsObject:", v15) & 1) != 0 || isAutomaticStageCreationEnabled && !objc_msgSend(toAppLayout, "containsAnyItemFromAppLayout:", v157))
+      if (![eventCopy isLaunchingFromDockTransition] || !v15 || (objc_msgSend(fromAppLayout, "containsItem:", v15) & 1) != 0 || (objc_msgSend_containsObject_(previousDesktopItems) & 1) != 0 || isAutomaticStageCreationEnabled && !objc_msgSend(toAppLayout, "containsAnyItemFromAppLayout:", v157))
       {
         if (!displayItem || ![fromAppLayout containsItem:displayItem] || !objc_msgSend(previousDesktopItems, "count") || isAutomaticStageCreationEnabled & 1 | ((objc_msgSend(toAppLayout, "containsAllItemsFromSet:", previousDesktopItems) & 1) == 0))
         {
@@ -1335,7 +1335,7 @@ LABEL_40:
 LABEL_37:
     v23 = [(SBInvalidateContinuousExposeIdentifiersEventResponse *)v19 initWithTransitioningFromAppLayout:v20 transitioningToAppLayout:v22 animated:isAnimated];
 LABEL_41:
-    v24 = SBAppendSwitcherModifierResponse(v23, v10);
+    v24 = SBAppendSwitcherModifierResponse();
 
     v10 = v24;
     goto LABEL_42;
@@ -1394,7 +1394,7 @@ LABEL_10:
     }
 
     windowManagementContext2 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v14 = SBAppendSwitcherModifierResponse(v5, windowManagementContext2);
+    v14 = SBAppendSwitcherModifierResponse();
 
     v15 = [SBContinuousExposePeekSwitcherModifier alloc];
     toAppLayout2 = [eventCopy toAppLayout];
@@ -1469,7 +1469,7 @@ LABEL_29:
 
     self->_isTransitionToNilAppLayoutInProgress = 0;
     windowManagementContext = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v9 = SBAppendSwitcherModifierResponse(v5, windowManagementContext);
+    v9 = SBAppendSwitcherModifierResponse();
 
     v5 = v9;
   }
@@ -1602,7 +1602,7 @@ LABEL_28:
       continuousExposeIdentifier3 = [v34 continuousExposeIdentifier];
       continuousExposeIdentifier = [(SBContinuousExposeRootSwitcherModifier *)self appLayoutsForContinuousExposeIdentifier:continuousExposeIdentifier3];
 
-      if (![continuousExposeIdentifier containsObject:v40] || (objc_msgSend(v39, "isGestureInitiated") & 1) != 0)
+      if (!objc_msgSend_containsObject_(continuousExposeIdentifier) || ([v39 isGestureInitiated] & 1) != 0)
       {
 LABEL_26:
 
@@ -1631,7 +1631,7 @@ LABEL_29:
 uint64_t __88__SBContinuousExposeRootSwitcherModifier_handleContinuousExposeIdentifiersChangedEvent___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([*(a1 + 32) containsObject:v3])
+  if (objc_msgSend_containsObject_(*(a1 + 32)))
   {
     v4 = 0;
   }
@@ -1648,7 +1648,7 @@ uint64_t __88__SBContinuousExposeRootSwitcherModifier_handleContinuousExposeIden
 uint64_t __88__SBContinuousExposeRootSwitcherModifier_handleContinuousExposeIdentifiersChangedEvent___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([*(a1 + 32) containsObject:v3])
+  if (objc_msgSend_containsObject_(*(a1 + 32)))
   {
     v4 = 0;
   }
@@ -1689,7 +1689,7 @@ uint64_t __88__SBContinuousExposeRootSwitcherModifier_handleContinuousExposeIden
 
   self->_isStripTonguePresented = isTonguePresented;
   v7 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:4 updateMode:2];
-  v8 = SBAppendSwitcherModifierResponse(v7, v5);
+  v8 = SBAppendSwitcherModifierResponse();
 
   return v8;
 }
@@ -1702,9 +1702,9 @@ uint64_t __88__SBContinuousExposeRootSwitcherModifier_handleContinuousExposeIden
   v5 = [(SBSwitcherModifier *)&v13 handleDidEdgeProtectResizeGrabberEvent:eventCopy];
   v6 = [SBResizeGrabberHintingSwitcherModifier alloc];
   displayItem = [eventCopy displayItem];
-  corners = [eventCopy corners];
+  v8 = objc_msgSend_corners(eventCopy);
 
-  v9 = [(SBResizeGrabberHintingSwitcherModifier *)v6 initWithDisplayItem:displayItem corners:corners];
+  v9 = [(SBResizeGrabberHintingSwitcherModifier *)v6 initWithDisplayItem:displayItem corners:v8];
   identifier = [(SBResizeGrabberHintingSwitcherModifier *)v9 identifier];
   v11 = [(SBChainableModifier *)self childModifierByKey:identifier];
   if (!v11)
@@ -1752,7 +1752,7 @@ uint64_t __88__SBContinuousExposeRootSwitcherModifier_handleContinuousExposeIden
     v14 = objc_alloc_init(SBMutableSwitcherTransitionRequest);
     [(SBSwitcherTransitionRequest *)v14 setAppLayout:v13];
     v15 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v14 gestureInitiated:0];
-    v16 = SBAppendSwitcherModifierResponse(v15, v5);
+    v16 = SBAppendSwitcherModifierResponse();
 
     [eventCopy handleWithReason:@"Continuous Expose Root"];
     v5 = v16;
@@ -1801,29 +1801,11 @@ uint64_t __88__SBContinuousExposeRootSwitcherModifier_handleContinuousExposeIden
 
 - (SBSwitcherContinuousExposeStripTongueAttributes)continuousExposeStripTongueAttributes
 {
-  if (self->_isStripTonguePresented)
-  {
-    v2 = 2;
-  }
+  [(SBContinuousExposeRootSwitcherModifier *)self isRTLEnabled];
 
-  else
-  {
-    v2 = 1;
-  }
-
-  if ([(SBContinuousExposeRootSwitcherModifier *)self isRTLEnabled])
-  {
-    v3 = 2;
-  }
-
-  else
-  {
-    v3 = 1;
-  }
-
-  v4 = SBSwitcherContinuousExposeStripTongueAttributesMake(v2, v3);
-  result.direction = v5;
-  result.state = v4;
+  SBSwitcherContinuousExposeStripTongueAttributesMake();
+  result.direction = v3;
+  result.state = v2;
   return result;
 }
 

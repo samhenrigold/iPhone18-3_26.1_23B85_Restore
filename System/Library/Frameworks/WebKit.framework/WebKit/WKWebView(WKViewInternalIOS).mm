@@ -72,18 +72,6 @@
 
 - (void)_firePresentationUpdateForPendingStableStatePresentationCallbacks
 {
-  v2 = self[1];
-  *self = &unk_1F10FD270;
-  self[1] = 0;
-  if (v2)
-  {
-  }
-
-  return self;
-}
-
-- (uint64_t)_firePresentationUpdateForPendingStableStatePresentationCallbacks
-{
   result = [*(*(self + 8) + 1736) count];
   if (result)
   {
@@ -93,6 +81,18 @@
   }
 
   return result;
+}
+
+- (uint64_t)_firePresentationUpdateForPendingStableStatePresentationCallbacks
+{
+  v3 = *(this + 1);
+  *this = &unk_1F10FD270;
+  *(this + 1) = 0;
+  if (v3)
+  {
+  }
+
+  return WTF::fastFree(this, a2);
 }
 
 - (void)_endLiveResize
@@ -133,7 +133,7 @@
   }
 
   v9 = [v5 initWithFormat:v7, v3];
-  WebKit::createUIAlertController(v9, *(self + 8), &v17);
+  WebKit::createUIAlertController(&v17, v9, *(self + 8));
   if (v9)
   {
   }
@@ -186,24 +186,24 @@
     {
       v3 = result;
       WTF::RunLoop::mainSingleton(result);
-      v4 = *(v3 + 4);
-      if (v4)
+      v5 = *(v3 + 4);
+      if (v5)
       {
-        v5 = v4;
+        v6 = v5;
       }
 
-      v6 = *(v3 + 5);
+      v7 = *(v3 + 5);
       *(v3 + 5) = 0;
-      v7 = WTF::fastMalloc(0x18);
-      *v7 = &unk_1F10FD318;
-      *(v7 + 1) = v4;
-      *(v7 + 2) = v6;
-      v8 = v7;
+      v8 = WTF::fastMalloc(v4, 0x18);
+      *v8 = &unk_1F10FD318;
+      v8[1] = v5;
+      v8[2] = v7;
+      v9 = v8;
       WTF::RunLoop::dispatch();
-      result = v8;
-      if (v8)
+      result = v9;
+      if (v9)
       {
-        return (*(*v8 + 8))(v8);
+        return (*(*v9 + 8))(v9);
       }
     }
   }
@@ -396,18 +396,6 @@
 
 - (void)_scheduleVisibleContentRectUpdateAfterScrollInView:()WKViewInternalIOS
 {
-  v2 = self[1];
-  *self = &unk_1F10FD490;
-  self[1] = 0;
-  if (v2)
-  {
-  }
-
-  return self;
-}
-
-- (uint64_t)_scheduleVisibleContentRectUpdateAfterScrollInView:()WKViewInternalIOS
-{
   v1 = *(self + 8);
   result = [v1 _isValid];
   if (result)
@@ -417,6 +405,18 @@
   }
 
   return result;
+}
+
+- (uint64_t)_scheduleVisibleContentRectUpdateAfterScrollInView:()WKViewInternalIOS
+{
+  v3 = *(this + 1);
+  *this = &unk_1F10FD490;
+  *(this + 1) = 0;
+  if (v3)
+  {
+  }
+
+  return WTF::fastFree(this, a2);
 }
 
 - (void)_updateVisibleContentRects

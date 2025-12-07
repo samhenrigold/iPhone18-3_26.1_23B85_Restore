@@ -24,7 +24,7 @@
 
   selfCopy = self;
   sub_248312324(v7, v6);
-  sub_248167864(v7);
+  sub_248167864(v7, v6);
 }
 
 - (_TtC9DashBoardP33_FD9B5304F96E1F01D97887BA20EFEE2A33_DBLaunchAppFromHomeZoomAnimation)initWithSettings:(id)settings

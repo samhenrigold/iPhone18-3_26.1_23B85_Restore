@@ -9,7 +9,7 @@
 
 - (void)stopCountingZeroStatisticsWithReporter:(id)reporter
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   reporterCopy = reporter;
   continuousZeroCounter = self->_continuousZeroCounter;
   if (continuousZeroCounter > self->_zeroCounterWinSzForCSLogging)
@@ -18,13 +18,13 @@
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
       methodToken = self->_methodToken;
-      v11 = 136315650;
-      v12 = "[CSAudioZeroCounter stopCountingZeroStatisticsWithReporter:]";
-      v13 = 2112;
-      v14 = methodToken;
-      v15 = 1026;
-      v16 = continuousZeroCounter;
-      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s In %@: Continuous digital zero detected, lasting %{public}u samples per channel", &v11, 0x1Cu);
+      v10 = 136315650;
+      v11 = "[CSAudioZeroCounter stopCountingZeroStatisticsWithReporter:]";
+      v12 = 2112;
+      v13 = methodToken;
+      v14 = 1026;
+      v15 = continuousZeroCounter;
+      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s In %@: Continuous digital zero detected, lasting %{public}u samples per channel", &v10, 0x1Cu);
     }
   }
 
@@ -37,13 +37,11 @@
 
   self->_continuousZeroCounter = 0;
   self->_maxContinuousZeroCount = 0;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getZeroStatisticsFromBuffer:(id)buffer entireSamples:(unsigned int)samples
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   bufferCopy = buffer;
   bytes = [bufferCopy bytes];
   if (!self->_shouldDeinterleaveAudio)
@@ -69,11 +67,11 @@
           {
             methodToken = self->_methodToken;
             *buf = 136315650;
-            v25 = "[CSAudioZeroCounter getZeroStatisticsFromBuffer:entireSamples:]";
-            v26 = 2112;
-            v27 = methodToken;
-            v28 = 1026;
-            v29 = v16;
+            v24 = "[CSAudioZeroCounter getZeroStatisticsFromBuffer:entireSamples:]";
+            v25 = 2112;
+            v26 = methodToken;
+            v27 = 1026;
+            v28 = v16;
             _os_log_error_impl(&dword_1DDA4B000, v18, OS_LOG_TYPE_ERROR, "%s In %@: Continuous digital zero in this audio chunk detected, lasting %{public}u samples per channel", buf, 0x1Cu);
             loggingSampleHeartBeat = self->_loggingSampleHeartBeat;
           }
@@ -109,11 +107,11 @@ LABEL_19:
         v19 = self->_methodToken;
         v20 = self->_continuousZeroCounter;
         *buf = 136315650;
-        v25 = "[CSAudioZeroCounter getZeroStatisticsFromBuffer:entireSamples:]";
-        v26 = 2112;
-        v27 = v19;
-        v28 = 1026;
-        v29 = v20;
+        v24 = "[CSAudioZeroCounter getZeroStatisticsFromBuffer:entireSamples:]";
+        v25 = 2112;
+        v26 = v19;
+        v27 = 1026;
+        v28 = v20;
         _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s In %@: Continuous digital zero ended, lasting %{public}u samples per channel", buf, 0x1Cu);
       }
 
@@ -138,8 +136,6 @@ LABEL_20:
 
     self->_maxContinuousZeroCount = v22;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetWithSampleRate:(float)rate

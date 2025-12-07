@@ -32,7 +32,7 @@
   vehicleState = [(DBStatusBarDataBroadcaster *)selfCopy vehicleState];
   (*((*MEMORY[0x277D85000] & vehicleState->super.isa) + 0xC8))();
 
-  sub_24814FB28(0, &qword_27EE90740);
+  sub_24814FB28(0, &qword_27EE90740, 0x277CCABB0);
   sub_248264E40();
   v4 = sub_248383880();
 
@@ -43,7 +43,7 @@
 {
   identifierCopy = identifier;
   selfCopy = self;
-  v6 = sub_248264CE8();
+  v6 = sub_248264CE8(identifierCopy);
 
   return v6;
 }

@@ -7,7 +7,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_29E0E5410();
+  sub_29E0E5410(selfCopy);
 }
 
 @end

@@ -30,7 +30,7 @@ uint64_t ____NETRBNetworkCreateGlobalClient_block_invoke(uint64_t a1, uint64_t a
   if (!result)
   {
     *(*(*(a1 + 32) + 8) + 24) = 6003;
-    return NETRBErrorLog();
+    return NETRBErrorLog("%s: _NETRBClientCreate", "__NETRBNetworkCreateGlobalClient_block_invoke");
   }
 
   v5 = 0x27FBAA000;

@@ -11,10 +11,10 @@
 
 - (VCEffectsData)init
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = VCEffectsData;
-  v2 = [(VCEffectsData *)&v15 init];
+  v29 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = VCEffectsData;
+  v2 = [(VCEffectsData *)&v14 init];
   if (v2)
   {
     v3 = 0;
@@ -29,7 +29,7 @@
 
       if (++v3 == 4)
       {
-        goto LABEL_5;
+        return v2;
       }
     }
 
@@ -40,38 +40,38 @@
         goto LABEL_15;
       }
 
-      v8 = VRTraceErrorLogLevelToCSTR(3u);
-      v9 = gVRTraceOSLog;
+      v7 = VRTraceErrorLogLevelToCSTR(3u);
+      v8 = gVRTraceOSLog;
       if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_15;
       }
 
       *buf = 136316162;
-      v17 = v8;
-      v18 = 2080;
-      v19 = "[VCEffectsData init]";
-      v20 = 1024;
-      v21 = 34;
-      v22 = 2048;
+      v16 = v7;
+      v17 = 2080;
+      v18 = "[VCEffectsData init]";
+      v19 = 1024;
+      v20 = 34;
+      v21 = 2048;
       effectsDurationsThermalHistograms = v2->_effectsDurationsThermalHistograms;
-      v24 = 1024;
-      LODWORD(v25) = v3;
-      v10 = " [%s] %s:%d Failed to allocate effects duration histogram for _effectsDurationsThermalHistograms: %p, in iteration: %d";
-      v11 = v9;
-      v12 = 44;
+      v23 = 1024;
+      LODWORD(v24) = v3;
+      v9 = " [%s] %s:%d Failed to allocate effects duration histogram for _effectsDurationsThermalHistograms: %p, in iteration: %d";
+      v10 = v8;
+      v11 = 44;
     }
 
     else
     {
       if (objc_opt_respondsToSelector())
       {
-        v7 = [(VCEffectsData *)v2 performSelector:sel_logPrefix];
+        v6 = [(VCEffectsData *)v2 performSelector:sel_logPrefix];
       }
 
       else
       {
-        v7 = &stru_284F80940;
+        v6 = &stru_284F80940;
       }
 
       if (VRTraceGetErrorLogLevelForModule("") < 3)
@@ -79,33 +79,33 @@
         goto LABEL_15;
       }
 
-      v13 = VRTraceErrorLogLevelToCSTR(3u);
-      v14 = gVRTraceOSLog;
+      v12 = VRTraceErrorLogLevelToCSTR(3u);
+      v13 = gVRTraceOSLog;
       if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_15;
       }
 
       *buf = 136316674;
-      v17 = v13;
-      v18 = 2080;
-      v19 = "[VCEffectsData init]";
-      v20 = 1024;
-      v21 = 34;
-      v22 = 2112;
-      effectsDurationsThermalHistograms = v7;
-      v24 = 2048;
-      v25 = v2;
-      v26 = 2048;
-      v27 = v2->_effectsDurationsThermalHistograms;
-      v28 = 1024;
-      v29 = v3;
-      v10 = " [%s] %s:%d %@(%p) Failed to allocate effects duration histogram for _effectsDurationsThermalHistograms: %p, in iteration: %d";
-      v11 = v14;
-      v12 = 64;
+      v16 = v12;
+      v17 = 2080;
+      v18 = "[VCEffectsData init]";
+      v19 = 1024;
+      v20 = 34;
+      v21 = 2112;
+      effectsDurationsThermalHistograms = v6;
+      v23 = 2048;
+      v24 = v2;
+      v25 = 2048;
+      v26 = v2->_effectsDurationsThermalHistograms;
+      v27 = 1024;
+      v28 = v3;
+      v9 = " [%s] %s:%d %@(%p) Failed to allocate effects duration histogram for _effectsDurationsThermalHistograms: %p, in iteration: %d";
+      v10 = v13;
+      v11 = 64;
     }
 
-    _os_log_error_impl(&dword_23D4DF000, v11, OS_LOG_TYPE_ERROR, v10, buf, v12);
+    _os_log_error_impl(&dword_23D4DF000, v10, OS_LOG_TYPE_ERROR, v9, buf, v11);
   }
 
   else
@@ -115,10 +115,7 @@
 
 LABEL_15:
 
-  v2 = 0;
-LABEL_5:
-  v5 = *MEMORY[0x277D85DE8];
-  return v2;
+  return 0;
 }
 
 - (void)dealloc
@@ -168,24 +165,22 @@ LABEL_5:
 
 - (void)init
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     v0 = VRTraceErrorLogLevelToCSTR(3u);
     v1 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      v3 = 136315650;
-      v4 = v0;
-      v5 = 2080;
-      v6 = "[VCEffectsData init]";
-      v7 = 1024;
-      v8 = 30;
-      _os_log_error_impl(&dword_23D4DF000, v1, OS_LOG_TYPE_ERROR, " [%s] %s:%d Failed to init VCEffectsData", &v3, 0x1Cu);
+      v2 = 136315650;
+      v3 = v0;
+      v4 = 2080;
+      v5 = "[VCEffectsData init]";
+      v6 = 1024;
+      v7 = 30;
+      _os_log_error_impl(&dword_23D4DF000, v1, OS_LOG_TYPE_ERROR, " [%s] %s:%d Failed to init VCEffectsData", &v2, 0x1Cu);
     }
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

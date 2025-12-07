@@ -23,7 +23,7 @@ void __27___CDReceiverNotifier_init__block_invoke(uint64_t a1, void *a2)
 void __44___CDReceiverNotifier__publishXPCEvent_uid___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _logChannel();
+  v4 = _logChannel(v3);
   v5 = v4;
   if (v3)
   {
@@ -35,7 +35,7 @@ void __44___CDReceiverNotifier__publishXPCEvent_uid___block_invoke(uint64_t a1, 
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __44___CDReceiverNotifier__publishXPCEvent_uid___block_invoke_cold_2(a1);
+    __44___CDReceiverNotifier__publishXPCEvent_uid___block_invoke_cold_2();
   }
 }
 
@@ -61,21 +61,11 @@ uint64_t __50___CDReceiverNotifier_handleXPCNotificationEvent___block_invoke(uin
 
 void __44___CDReceiverNotifier__publishXPCEvent_uid___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_6_0(&dword_191750000, a2, a3, "Failed to event to subscriber %@ for AppIntent: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __44___CDReceiverNotifier__publishXPCEvent_uid___block_invoke_cold_2(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  *v3 = 138412546;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_6_0(&dword_191750000, a2, a3, "Failed to event to subscriber %@ for AppIntent: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

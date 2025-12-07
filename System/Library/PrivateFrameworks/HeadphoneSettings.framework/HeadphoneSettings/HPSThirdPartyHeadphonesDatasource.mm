@@ -51,7 +51,7 @@ void __41__HPSThirdPartyHeadphonesDatasource_init__block_invoke(uint64_t a1, voi
   eventType = [event eventType];
   if (eventType == 20)
   {
-    v4 = sharedBluetoothSettingsLogComponent();
+    v4 = sharedBluetoothSettingsLogComponent(20);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 0;
@@ -68,7 +68,7 @@ void __41__HPSThirdPartyHeadphonesDatasource_init__block_invoke(uint64_t a1, voi
       return;
     }
 
-    v4 = sharedBluetoothSettingsLogComponent();
+    v4 = sharedBluetoothSettingsLogComponent(10);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 0;
@@ -82,32 +82,32 @@ LABEL_7:
 
 - (NSArray)routedThirdPartyHeadphones
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   if ([(CBCentralManager *)self->_centralManager state]== 5)
   {
     selfCopy = self;
     v3 = [MEMORY[0x277D04780] getDevicesWithFlags:8 session:self->_daSession error:0];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v58 = 0u;
-    v59 = 0u;
     v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v58 objects:v66 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v60 objects:v68 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v59;
+      v8 = *v61;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v59 != v8)
+          if (*v61 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v58 + 1) + 8 * i);
+          v10 = *(*(&v60 + 1) + 8 * i);
           bluetoothIdentifier = [v10 bluetoothIdentifier];
 
           if (bluetoothIdentifier)
@@ -117,7 +117,7 @@ LABEL_7:
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v58 objects:v66 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v60 objects:v68 count:16];
       }
 
       while (v7);
@@ -128,33 +128,33 @@ LABEL_7:
     outputDevices = [mEMORY[0x277CB8698] outputDevices];
 
     array = [MEMORY[0x277CBEB18] array];
-    v54 = 0u;
-    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     v16 = outputDevices;
-    v17 = [v16 countByEnumeratingWithState:&v54 objects:v65 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v56 objects:v67 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v55;
+      v19 = *v57;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v55 != v19)
+          if (*v57 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v54 + 1) + 8 * j);
+          v21 = *(*(&v56 + 1) + 8 * j);
           if ([v21 deviceType] == 1 && (objc_msgSend(v21, "deviceSubType") == 3 || objc_msgSend(v21, "deviceSubType") == 2))
           {
             [array addObject:v21];
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v54 objects:v65 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v56 objects:v67 count:16];
       }
 
       while (v18);
@@ -163,66 +163,67 @@ LABEL_7:
     objc_storeStrong(&selfCopy->_avDevices, array);
     if ([(NSDictionary *)selfCopy->_daDevices count]&& [(NSArray *)selfCopy->_avDevices count])
     {
-      v42 = array;
-      v43 = v5;
-      v44 = dictionary;
+      v44 = array;
+      v45 = v5;
+      v46 = dictionary;
       array2 = [MEMORY[0x277CBEB18] array];
-      v50 = 0u;
-      v51 = 0u;
       v52 = 0u;
       v53 = 0u;
+      v54 = 0u;
+      v55 = 0u;
       v22 = selfCopy->_avDevices;
-      v23 = [(NSArray *)v22 countByEnumeratingWithState:&v50 objects:v64 count:16];
+      v23 = [(NSArray *)v22 countByEnumeratingWithState:&v52 objects:v66 count:16];
       if (v23)
       {
         v24 = v23;
         v25 = selfCopy;
-        v26 = *v51;
-        v48 = v22;
-        v49 = v16;
-        v47 = *v51;
+        v26 = *v53;
+        v50 = v22;
+        v51 = v16;
+        v49 = *v53;
         do
         {
           for (k = 0; k != v24; ++k)
           {
-            if (*v51 != v26)
+            if (*v53 != v26)
             {
               objc_enumerationMutation(v22);
             }
 
-            v28 = *(*(&v50 + 1) + 8 * k);
+            v28 = *(*(&v52 + 1) + 8 * k);
             if ([v28 deviceType] == 1 && (objc_msgSend(v28, "deviceSubType") == 3 || objc_msgSend(v28, "deviceSubType") == 2))
             {
               v29 = [v28 ID];
               v30 = [(CBCentralManager *)v25->_centralManager retrievePeripheralWithAddress:v29];
               v31 = [BTSDeviceLE deviceWithPeripheral:v30 manager:v25->_centralManager];
-              if ([v31 supportsCTKD])
+              supportsCTKD = [v31 supportsCTKD];
+              if (supportsCTKD)
               {
                 daDevices = v25->_daDevices;
                 identifier = [v30 identifier];
-                v34 = [(NSDictionary *)daDevices objectForKeyedSubscript:identifier];
+                v35 = [(NSDictionary *)daDevices objectForKeyedSubscript:identifier];
 
-                if (v34)
+                if (v35)
                 {
                   mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
                   identifier2 = [v30 identifier];
-                  v37 = [mEMORY[0x277CF3248] deviceFromIdentifier:identifier2];
+                  v39 = [mEMORY[0x277CF3248] deviceFromIdentifier:identifier2];
 
-                  if (v37)
+                  if (v39)
                   {
-                    v38 = [BTSDeviceClassic deviceWithDevice:v37];
-                    v39 = [[HPSThirdPartyHeadphone alloc] initWithLEDevice:v31 classicDevice:v38 daDevice:v34 avDevice:v28];
-                    [array2 addObject:v39];
+                    v41 = [BTSDeviceClassic deviceWithDevice:v39];
+                    v42 = [[HPSThirdPartyHeadphone alloc] initWithLEDevice:v31 classicDevice:v41 daDevice:v35 avDevice:v28];
+                    [array2 addObject:v42];
                   }
 
                   else
                   {
-                    v38 = sharedBluetoothSettingsLogComponent();
-                    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+                    v41 = sharedBluetoothSettingsLogComponent(v40);
+                    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412290;
-                      v63 = v31;
-                      _os_log_error_impl(&dword_25126C000, v38, OS_LOG_TYPE_ERROR, "3rd Party route does not have classic device, not displaying it in top level settings %@", buf, 0xCu);
+                      v65 = v31;
+                      _os_log_error_impl(&dword_25126C000, v41, OS_LOG_TYPE_ERROR, "3rd Party route does not have classic device, not displaying it in top level settings %@", buf, 0xCu);
                     }
                   }
 
@@ -231,44 +232,44 @@ LABEL_7:
 
                 else
                 {
-                  v37 = sharedBluetoothSettingsLogComponent();
-                  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+                  v39 = sharedBluetoothSettingsLogComponent(v36);
+                  if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v63 = v31;
-                    _os_log_error_impl(&dword_25126C000, v37, OS_LOG_TYPE_ERROR, "3rd Party route is not an ASK device, not displaying it in top level settings %@", buf, 0xCu);
+                    v65 = v31;
+                    _os_log_error_impl(&dword_25126C000, v39, OS_LOG_TYPE_ERROR, "3rd Party route is not an ASK device, not displaying it in top level settings %@", buf, 0xCu);
                   }
                 }
 
-                v22 = v48;
+                v22 = v50;
 
-                v26 = v47;
+                v26 = v49;
               }
 
               else
               {
-                v34 = sharedBluetoothSettingsLogComponent();
-                if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+                v35 = sharedBluetoothSettingsLogComponent(supportsCTKD);
+                if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v63 = v31;
-                  _os_log_error_impl(&dword_25126C000, v34, OS_LOG_TYPE_ERROR, "3rd Party route does not support CTKD, not displaying it in top level settings %@", buf, 0xCu);
+                  v65 = v31;
+                  _os_log_error_impl(&dword_25126C000, v35, OS_LOG_TYPE_ERROR, "3rd Party route does not support CTKD, not displaying it in top level settings %@", buf, 0xCu);
                 }
               }
 
-              v16 = v49;
+              v16 = v51;
             }
           }
 
-          v24 = [(NSArray *)v22 countByEnumeratingWithState:&v50 objects:v64 count:16];
+          v24 = [(NSArray *)v22 countByEnumeratingWithState:&v52 objects:v66 count:16];
         }
 
         while (v24);
       }
 
-      v5 = v43;
-      dictionary = v44;
-      array = v42;
+      v5 = v45;
+      dictionary = v46;
+      array = v44;
     }
 
     else
@@ -281,8 +282,6 @@ LABEL_7:
   {
     array2 = MEMORY[0x277CBEBF8];
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return array2;
 }

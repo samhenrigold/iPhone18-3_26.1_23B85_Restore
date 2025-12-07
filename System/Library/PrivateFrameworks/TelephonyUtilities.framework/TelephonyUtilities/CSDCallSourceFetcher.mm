@@ -107,15 +107,16 @@
             v15 = *v26;
             do
             {
-              for (j = 0; j != v14; j = j + 1)
+              v16 = 0;
+              do
               {
                 if (*v26 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v17 = *(*(&v25 + 1) + 8 * j);
-                v18 = sub_100004778();
+                v17 = *(*(&v25 + 1) + 8 * v16);
+                v18 = sub_100004778(v13);
                 if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
@@ -123,13 +124,16 @@
                   _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Calling fetch completion block for call source with identifier %@", buf, 0xCu);
                 }
 
-                (*(v17 + 16))(v17, v9);
+                v13 = (*(v17 + 16))(v17, v9);
+                v16 = v16 + 1;
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v25 objects:v35 count:16];
+              while (v14 != v16);
+              v13 = [v12 countByEnumeratingWithState:&v25 objects:v35 count:16];
+              v14 = v13;
             }
 
-            while (v14);
+            while (v13);
           }
 
           selfCopy = v21;
@@ -154,43 +158,43 @@
   serialQueue = [(CSDCallSourceFetcher *)self serialQueue];
   dispatch_assert_queue_V2(serialQueue);
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Waiting for call source with identifier %@", buf, 0xCu);
+    v27 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Waiting for call source with identifier %@", buf, 0xCu);
   }
 
   pendingCompletions = [(CSDCallSourceFetcher *)self pendingCompletions];
-  v11 = [pendingCompletions objectForKeyedSubscript:identifierCopy];
+  v12 = [pendingCompletions objectForKeyedSubscript:identifierCopy];
 
-  if (!v11)
+  if (!v12)
   {
-    v11 = +[NSMutableSet set];
+    v12 = +[NSMutableSet set];
     pendingCompletions2 = [(CSDCallSourceFetcher *)self pendingCompletions];
-    [pendingCompletions2 setObject:v11 forKeyedSubscript:identifierCopy];
+    [pendingCompletions2 setObject:v12 forKeyedSubscript:identifierCopy];
   }
 
-  v13 = [completionCopy copy];
-  v14 = objc_retainBlock(v13);
-  [v11 addObject:v14];
+  v14 = [completionCopy copy];
+  v15 = objc_retainBlock(v14);
+  [v12 addObject:v15];
 
   [(CSDCallSourceFetcher *)self timeout];
-  v16 = dispatch_time(0, (v15 * 1000000000.0));
+  v17 = dispatch_time(0, (v16 * 1000000000.0));
   serialQueue2 = [(CSDCallSourceFetcher *)self serialQueue];
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_10010AAE8;
-  v21[3] = &unk_10061BC18;
-  v21[4] = self;
-  v22 = identifierCopy;
-  v23 = v13;
-  v24 = completionCopy;
-  v18 = completionCopy;
-  v19 = v13;
-  v20 = identifierCopy;
-  dispatch_after(v16, serialQueue2, v21);
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_10010AAE8;
+  v22[3] = &unk_10061BC18;
+  v22[4] = self;
+  v23 = identifierCopy;
+  v24 = v14;
+  v25 = completionCopy;
+  v19 = completionCopy;
+  v20 = v14;
+  v21 = identifierCopy;
+  dispatch_after(v17, serialQueue2, v22);
 }
 
 - (CSDCallSourceFetcherDataSource)dataSource

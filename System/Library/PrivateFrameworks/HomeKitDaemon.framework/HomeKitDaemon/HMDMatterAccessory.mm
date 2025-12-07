@@ -10,6 +10,7 @@
 - (int64_t)reachableTransports;
 - (void)_registerForMessages;
 - (void)configureCHIPAccessory;
+- (void)configureWithHome:(id)home msgDispatcher:(id)dispatcher configurationTracker:(id)tracker initialConfiguration:(BOOL)configuration;
 - (void)didFindAccessoryServer:(id)server;
 - (void)didRemoveAccessoryServer:(id)server;
 - (void)encodeWithCoder:(id)coder;
@@ -61,7 +62,7 @@
 
 - (void)unconfigureMatterAccessoryWithCompletion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -69,11 +70,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2112;
-    v15 = selfCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Unconfiguring Native Matter accessory: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2112;
+    v14 = selfCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Unconfiguring Native Matter accessory: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -84,8 +85,6 @@
   {
     (*(v9 + 2))(v9);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCHIPReportHandler:(id)handler
@@ -120,7 +119,7 @@
 - (void)unconfigureAccessoryWithServerIdentifier:(id)identifier linkType:(int64_t)type updateReachability:(BOOL)reachability
 {
   reachabilityCopy = reachability;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v9 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -140,15 +139,15 @@
 
     v14 = v13;
     v15 = HMFBooleanToString();
-    v17 = 138544130;
-    v18 = v12;
-    v19 = 2112;
-    v20 = identifierCopy;
-    v21 = 2112;
-    v22 = v14;
-    v23 = 2112;
-    v24 = v15;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Unconfiguring from server %@/%@ updateReachability %@", &v17, 0x2Au);
+    v16 = 138544130;
+    v17 = v12;
+    v18 = 2112;
+    v19 = identifierCopy;
+    v20 = 2112;
+    v21 = v14;
+    v22 = 2112;
+    v23 = v15;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Unconfiguring from server %@/%@ updateReachability %@", &v16, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -158,8 +157,6 @@
   }
 
   logAndPostNotification(@"HMDAccessoryUnconfiguredNotification", selfCopy, 0);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unconfigure
@@ -249,7 +246,7 @@
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -308,17 +305,17 @@
     if ([pairingUsername2 isEqual:pairingUsername3])
     {
       [(HMDMatterAccessory *)self publicKey];
-      v27 = v71 = updatedCopy;
+      v27 = v70 = updatedCopy;
       [v13 publicKey];
-      v73 = transactionResult;
+      v72 = transactionResult;
       v29 = v28 = messageCopy;
-      v69 = [v27 isEqual:v29];
+      v68 = [v27 isEqual:v29];
 
       messageCopy = v28;
-      transactionResult = v73;
+      transactionResult = v72;
 
-      updatedCopy = v71;
-      if (v69)
+      updatedCopy = v70;
+      if (v68)
       {
         goto LABEL_16;
       }
@@ -359,9 +356,9 @@ LABEL_16:
 
   if (roomUUID)
   {
-    v72 = updatedCopy;
-    v74 = transactionResult;
-    v70 = messageCopy;
+    v71 = updatedCopy;
+    v73 = transactionResult;
+    v69 = messageCopy;
     room = [(HMDAccessory *)self room];
     name = [room name];
 
@@ -374,46 +371,46 @@ LABEL_16:
     v46 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
     {
-      v66 = HMFGetLogIdentifier();
-      v67 = [home roomWithUUID:v43];
-      name2 = [v67 name];
+      v65 = HMFGetLogIdentifier();
+      v66 = [home roomWithUUID:v43];
+      name2 = [v66 name];
       [(HMDAccessory *)selfCopy room];
       v48 = v47 = name;
       [v48 uuid];
-      v49 = v68 = v44;
+      v49 = v67 = v44;
       HMFEqualObjects();
 
       name = v47;
       v50 = HMFBooleanToString();
       *buf = 138544130;
-      v78 = v66;
-      v79 = 2112;
-      v80 = v47;
-      v81 = 2112;
-      v82 = name2;
-      v83 = 2112;
-      v84 = v50;
+      v77 = v65;
+      v78 = 2112;
+      v79 = v47;
+      v80 = 2112;
+      v81 = name2;
+      v82 = 2112;
+      v83 = v50;
       _os_log_impl(&dword_229538000, v46, OS_LOG_TYPE_INFO, "%{public}@transactionObjectUpdated: old: %@, new:%@, same Room: %@", buf, 0x2Au);
 
-      v44 = v68;
+      v44 = v67;
     }
 
     objc_autoreleasePoolPop(v44);
     if (v43)
     {
-      transactionResult2 = [v70 transactionResult];
+      transactionResult2 = [v69 transactionResult];
       v52 = -[HMDAccessory _updateRoom:source:](selfCopy, "_updateRoom:source:", v43, [transactionResult2 source]);
 
       if (v52)
       {
-        [v74 markChanged];
-        [v74 markSaveToAssistant];
+        [v73 markChanged];
+        [v73 markSaveToAssistant];
       }
     }
 
-    messageCopy = v70;
-    updatedCopy = v72;
-    transactionResult = v74;
+    messageCopy = v69;
+    updatedCopy = v71;
+    transactionResult = v73;
   }
 
   transactionResult3 = [messageCopy transactionResult];
@@ -456,9 +453,9 @@ LABEL_37:
     goto LABEL_38;
   }
 
-  v76.receiver = self;
-  v76.super_class = HMDMatterAccessory;
-  [(HMDAccessory *)&v76 transactionObjectUpdated:updatedCopy newValues:v54 message:messageCopy];
+  v75.receiver = self;
+  v75.super_class = HMDMatterAccessory;
+  [(HMDAccessory *)&v75 transactionObjectUpdated:updatedCopy newValues:v54 message:messageCopy];
   supportsNativeMatter = [v13 supportsNativeMatter];
   if (supportsNativeMatter)
   {
@@ -485,8 +482,6 @@ LABEL_37:
   }
 
 LABEL_38:
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForMessages
@@ -499,6 +494,28 @@ LABEL_38:
     matterAdapter = [(HMDMatterAccessory *)self matterAdapter];
     [matterAdapter registerForMessages];
   }
+}
+
+- (void)configureWithHome:(id)home msgDispatcher:(id)dispatcher configurationTracker:(id)tracker initialConfiguration:(BOOL)configuration
+{
+  configurationCopy = configuration;
+  trackerCopy = tracker;
+  dispatcherCopy = dispatcher;
+  homeCopy = home;
+  primaryResidentMessageRouter = [homeCopy primaryResidentMessageRouter];
+  [(HMDMatterAccessory *)self setPrimaryResidentMessageRouter:primaryResidentMessageRouter];
+
+  v16.receiver = self;
+  v16.super_class = HMDMatterAccessory;
+  [(HMDAccessory *)&v16 configureWithHome:homeCopy msgDispatcher:dispatcherCopy configurationTracker:trackerCopy initialConfiguration:configurationCopy];
+
+  workQueue = [(HMDAccessory *)self workQueue];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __96__HMDMatterAccessory_configureWithHome_msgDispatcher_configurationTracker_initialConfiguration___block_invoke;
+  block[3] = &unk_27868A728;
+  block[4] = self;
+  dispatch_async(workQueue, block);
 }
 
 void __96__HMDMatterAccessory_configureWithHome_msgDispatcher_configurationTracker_initialConfiguration___block_invoke(uint64_t a1)
@@ -530,14 +547,14 @@ void __96__HMDMatterAccessory_configureWithHome_msgDispatcher_configurationTrack
 
 - (void)encodeWithCoder:(id)coder
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   hmd_isForXPCTransport = [coderCopy hmd_isForXPCTransport];
   hmd_isForXPCTransportEntitledForSPIAccess = [coderCopy hmd_isForXPCTransportEntitledForSPIAccess];
   hmd_homeManagerOptions = [coderCopy hmd_homeManagerOptions];
-  v31.receiver = self;
-  v31.super_class = HMDMatterAccessory;
-  [(HMDAccessory *)&v31 encodeWithCoder:coderCopy];
+  v30.receiver = self;
+  v30.super_class = HMDMatterAccessory;
+  [(HMDAccessory *)&v30 encodeWithCoder:coderCopy];
   if ((hmd_homeManagerOptions & 0x20) != 0)
   {
     hmd_isForLocalStore = [coderCopy hmd_isForLocalStore];
@@ -624,8 +641,8 @@ LABEL_21:
     setupHash = [(HMDAccessoryTransportInformation *)v24 initWithServerIdentifier:identifier instanceID:&unk_283E73208 linkType:1];
 
     [coderCopy encodeBool:isRemotelyReachable forKey:*MEMORY[0x277CCE9D8]];
-    v32[0] = setupHash;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+    v31[0] = setupHash;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
     [coderCopy encodeObject:v26 forKey:@"HM.accessoryTransportInformation"];
 
     supportsACWGUWB = [(HMDMatterAccessory *)self supportsACWGUWB];
@@ -639,8 +656,6 @@ LABEL_21:
   }
 
 LABEL_22:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMatterAccessory)initWithCoder:(id)coder
@@ -759,7 +774,7 @@ BOOL __53__HMDMatterAccessory_handleIdentifyAccessoryMessage___block_invoke(uint
 
 - (HMDMatterAccessory)initWithTransaction:(id)transaction home:(id)home
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   homeCopy = home;
   v8 = transactionCopy;
@@ -778,9 +793,9 @@ BOOL __53__HMDMatterAccessory_handleIdentifyAccessoryMessage___block_invoke(uint
 
   if (v10)
   {
-    v89.receiver = self;
-    v89.super_class = HMDMatterAccessory;
-    v11 = [(HMDAccessory *)&v89 initWithTransaction:v8 home:homeCopy];
+    v88.receiver = self;
+    v88.super_class = HMDMatterAccessory;
+    v11 = [(HMDAccessory *)&v88 initWithTransaction:v8 home:homeCopy];
     if (v11)
     {
       v12 = +[HMDBulletinBoard sharedBulletinBoard];
@@ -992,7 +1007,7 @@ BOOL __53__HMDMatterAccessory_handleIdentifyAccessoryMessage___block_invoke(uint
     {
       v86 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v91 = v86;
+      v90 = v86;
       _os_log_impl(&dword_229538000, v85, OS_LOG_TYPE_ERROR, "%{public}@Cannot initialize a matter accessory without a matter accessory model.", buf, 0xCu);
     }
 
@@ -1000,7 +1015,6 @@ BOOL __53__HMDMatterAccessory_handleIdentifyAccessoryMessage___block_invoke(uint
     v83 = 0;
   }
 
-  v87 = *MEMORY[0x277D85DE8];
   return v83;
 }
 
@@ -1036,15 +1050,14 @@ BOOL __53__HMDMatterAccessory_handleIdentifyAccessoryMessage___block_invoke(uint
 
 void __33__HMDMatterAccessory_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15_148911;
-  logCategory__hmf_once_v15_148911 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_148911;
+  logCategory__hmf_once_v15_148911 = v0;
 }
 
 + (id)messageBindingForDispatcher:(id)dispatcher message:(id)message receiver:(id)receiver
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dispatcherCopy = dispatcher;
   messageCopy = message;
   receiverCopy = receiver;
@@ -1075,9 +1088,9 @@ void __33__HMDMatterAccessory_logCategory__block_invoke()
 
       else
       {
-        v30.receiver = self;
-        v30.super_class = &OBJC_METACLASS___HMDMatterAccessory;
-        v16 = objc_msgSendSuper2(&v30, sel_messageBindingForDispatcher_message_receiver_, dispatcherCopy, messageCopy, receiverCopy);
+        v29.receiver = self;
+        v29.super_class = &OBJC_METACLASS___HMDMatterAccessory;
+        v16 = objc_msgSendSuper2(&v29, sel_messageBindingForDispatcher_message_receiver_, dispatcherCopy, messageCopy, receiverCopy);
       }
 
       v22 = v16;
@@ -1093,11 +1106,11 @@ void __33__HMDMatterAccessory_logCategory__block_invoke()
         v26 = HMFGetLogIdentifier();
         name = [messageCopy name];
         *buf = 138543874;
-        v32 = v26;
-        v33 = 2112;
-        v34 = name;
-        v35 = 2112;
-        v36 = v12;
+        v31 = v26;
+        v32 = 2112;
+        v33 = name;
+        v34 = 2112;
+        v35 = v12;
         _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Unable to find binding for message %@, Matter accessory has no matterAdapter: %@", buf, 0x20u);
       }
 
@@ -1116,19 +1129,17 @@ void __33__HMDMatterAccessory_logCategory__block_invoke()
       v20 = HMFGetLogIdentifier();
       name2 = [messageCopy name];
       *buf = 138543874;
-      v32 = v20;
-      v33 = 2112;
-      v34 = name2;
-      v35 = 2112;
-      v36 = receiverCopy;
+      v31 = v20;
+      v32 = 2112;
+      v33 = name2;
+      v34 = 2112;
+      v35 = receiverCopy;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Unable to find binding for message %@, unexpected receiver class: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v17);
     v22 = 0;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

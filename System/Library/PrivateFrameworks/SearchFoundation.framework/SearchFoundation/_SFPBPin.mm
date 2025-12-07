@@ -510,36 +510,28 @@ LABEL_34:
 
 - (void)setPinText:(id)text
 {
-  v4 = [text copy];
-  pinText = self->_pinText;
-  self->_pinText = v4;
+  self->_pinText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setMapsData:(id)data
 {
-  v4 = [data copy];
-  mapsData = self->_mapsData;
-  self->_mapsData = v4;
+  self->_mapsData = [data copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setResultID:(id)d
 {
-  v4 = [d copy];
-  resultID = self->_resultID;
-  self->_resultID = v4;
+  self->_resultID = [d copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setLabel:(id)label
 {
-  v4 = [label copy];
-  label = self->_label;
-  self->_label = v4;
+  self->_label = [label copy];
 
   MEMORY[0x1EEE66BB8]();
 }

@@ -41,8 +41,6 @@
   _axSwitch = [(MTPodcastPlaylistSheetHeaderViewAccessibility *)self _axSwitch];
   [_axSwitch accessibilityTraits];
 
-  v3 = *MEMORY[0x29EDBDBD0];
-
   return _AXTraitsRemoveTrait();
 }
 

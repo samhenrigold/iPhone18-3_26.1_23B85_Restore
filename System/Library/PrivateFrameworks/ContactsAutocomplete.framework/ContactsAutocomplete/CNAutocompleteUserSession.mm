@@ -237,27 +237,25 @@ void __58__CNAutocompleteUserSession_didReceiveResults_forRequest___block_invoke
 
       if (!v13)
       {
-        v15 = CNALoggingContextDebug();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = CNALoggingContextDebug(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           v22 = v14;
-          _os_log_impl(&dword_2155FE000, v15, OS_LOG_TYPE_DEFAULT, "Failed to retrieve duet results with error: %@", buf, 0xCu);
+          _os_log_impl(&dword_2155FE000, v16, OS_LOG_TYPE_DEFAULT, "Failed to retrieve duet results with error: %@", buf, 0xCu);
         }
       }
 
-      v16 = [v13 count] != 0;
-      v17 = [*(a1 + 40) lastDisplayedResults];
-      [v17 setContainsDuetResults:v16];
+      v17 = [v13 count] != 0;
+      v18 = [*(a1 + 40) lastDisplayedResults];
+      [v18 setContainsDuetResults:v17];
 
       [*(a1 + 40) setDuetResultsFuture:0];
     }
 
-    v18 = [*(a1 + 40) lastDisplayedResults];
-    [v18 didReceiveBatch:*(*(*(a1 + 48) + 8) + 24)];
+    v19 = [*(a1 + 40) lastDisplayedResults];
+    [v19 didReceiveBatch:*(*(*(a1 + 48) + 8) + 24)];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __58__CNAutocompleteUserSession_didReceiveResults_forRequest___block_invoke_5(uint64_t a1, void *a2)

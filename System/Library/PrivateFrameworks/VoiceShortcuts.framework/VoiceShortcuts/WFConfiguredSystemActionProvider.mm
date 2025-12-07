@@ -16,7 +16,7 @@
 
 - (void)addObserver:(id)observer forActionType:(id)type
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   typeCopy = type;
   os_unfair_lock_lock(&self->_observersLock);
@@ -39,52 +39,50 @@
   v14 = getWFStaccatoLogObject();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315650;
-    v17 = "[WFConfiguredSystemActionProvider addObserver:forActionType:]";
-    v18 = 2112;
-    v19 = observerCopy;
-    v20 = 2112;
-    v21 = typeCopy;
-    _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_DEFAULT, "%s Added action observer: %@ for %@", &v16, 0x20u);
+    v15 = 136315650;
+    v16 = "[WFConfiguredSystemActionProvider addObserver:forActionType:]";
+    v17 = 2112;
+    v18 = observerCopy;
+    v19 = 2112;
+    v20 = typeCopy;
+    _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_DEFAULT, "%s Added action observer: %@ for %@", &v15, 0x20u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)configuredStaccatoActionFromTemplate:(id)template valuesByParameterKey:(id)key error:(id *)error
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   templateCopy = template;
   keyCopy = key;
   identifier = [templateCopy identifier];
   v11 = [(WFConfiguredSystemActionProvider *)self linkActionWithStaccatoIdentifier:identifier];
 
-  v50 = v11;
+  v49 = v11;
   if (v11)
   {
-    v48 = keyCopy;
-    v49 = templateCopy;
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
+    v47 = keyCopy;
+    v48 = templateCopy;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     v12 = keyCopy;
-    v13 = [v12 countByEnumeratingWithState:&v55 objects:v66 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v54 objects:v65 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v56;
+      v15 = *v55;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v56 != v15)
+          if (*v55 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v55 + 1) + 8 * i);
-          v18 = [v50 parameterForKey:v17];
+          v17 = *(*(&v54 + 1) + 8 * i);
+          v18 = [v49 parameterForKey:v17];
           v19 = [v12 objectForKeyedSubscript:v17];
           v20 = objc_alloc([v18 stateClass]);
           serializedState = [v19 serializedState];
@@ -94,24 +92,24 @@
           if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
           {
             *buf = 136315650;
-            v61 = "[WFConfiguredSystemActionProvider configuredStaccatoActionFromTemplate:valuesByParameterKey:error:]";
-            v62 = 2112;
-            v63 = v22;
-            v64 = 2112;
-            v65 = v17;
+            v60 = "[WFConfiguredSystemActionProvider configuredStaccatoActionFromTemplate:valuesByParameterKey:error:]";
+            v61 = 2112;
+            v62 = v22;
+            v63 = 2112;
+            v64 = v17;
             _os_log_impl(&dword_23103C000, v23, OS_LOG_TYPE_INFO, "%s Setting %@ for %@", buf, 0x20u);
           }
 
-          [v50 setParameterState:v22 forKey:v17];
+          [v49 setParameterState:v22 forKey:v17];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v55 objects:v66 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v54 objects:v65 count:16];
       }
 
       while (v14);
     }
 
-    v24 = v50;
+    v24 = v49;
     v25 = [v24 conformsToProtocol:&unk_284617330];
     if (v25)
     {
@@ -128,30 +126,30 @@
     if (v25 && (objc_opt_respondsToSelector() & 1) != 0)
     {
       defaultParameterStatesForStaccato = [v24 defaultParameterStatesForStaccato];
+      v50 = 0u;
       v51 = 0u;
       v52 = 0u;
       v53 = 0u;
-      v54 = 0u;
-      v29 = [defaultParameterStatesForStaccato countByEnumeratingWithState:&v51 objects:v59 count:16];
+      v29 = [defaultParameterStatesForStaccato countByEnumeratingWithState:&v50 objects:v58 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v52;
+        v31 = *v51;
         do
         {
           for (j = 0; j != v30; ++j)
           {
-            if (*v52 != v31)
+            if (*v51 != v31)
             {
               objc_enumerationMutation(defaultParameterStatesForStaccato);
             }
 
-            v33 = *(*(&v51 + 1) + 8 * j);
+            v33 = *(*(&v50 + 1) + 8 * j);
             v34 = [defaultParameterStatesForStaccato objectForKeyedSubscript:v33];
             [v24 setParameterState:v34 forKey:v33];
           }
 
-          v30 = [defaultParameterStatesForStaccato countByEnumeratingWithState:&v51 objects:v59 count:16];
+          v30 = [defaultParameterStatesForStaccato countByEnumeratingWithState:&v50 objects:v58 count:16];
         }
 
         while (v30);
@@ -169,8 +167,8 @@
     localizedName = [v24 localizedName];
     v43 = [v41 initWithIntent:v40 named:localizedName previewIcon:0 appShortcutIdentifier:0 templateParameterValues:v12 contextualParameters:0 shortcutsMetadata:0 colorScheme:0];
 
-    keyCopy = v48;
-    templateCopy = v49;
+    keyCopy = v47;
+    templateCopy = v48;
     goto LABEL_29;
   }
 
@@ -178,9 +176,9 @@
   if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v61 = "[WFConfiguredSystemActionProvider configuredStaccatoActionFromTemplate:valuesByParameterKey:error:]";
-    v62 = 2112;
-    v63 = templateCopy;
+    v60 = "[WFConfiguredSystemActionProvider configuredStaccatoActionFromTemplate:valuesByParameterKey:error:]";
+    v61 = 2112;
+    v62 = templateCopy;
     _os_log_impl(&dword_23103C000, v44, OS_LOG_TYPE_ERROR, "%s Failed to find link action for template: %@", buf, 0x16u);
   }
 
@@ -198,22 +196,20 @@ LABEL_29:
   v43 = 0;
 LABEL_30:
 
-  v46 = *MEMORY[0x277D85DE8];
-
   return v43;
 }
 
 - (id)linkActionWithStaccatoIdentifier:(id)identifier
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D7C0D8];
   identifierCopy = identifier;
   v5 = [v3 alloc];
   v6 = [v5 initWithActionIdentifier:identifierCopy serializedParameters:MEMORY[0x277CBEC10]];
 
   mEMORY[0x277D7C598] = [MEMORY[0x277D7C598] sharedProvider];
-  v14[0] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   [mEMORY[0x277D7C598] createActionsForRequests:v8];
 
   result = [v6 result];
@@ -238,20 +234,19 @@ LABEL_30:
 
   v11 = v10;
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)saveUpdatedAction:(id)action forActionType:(id)type
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   typeCopy = type;
   if ([typeCopy isEqualToString:*MEMORY[0x277D7A5A8]])
   {
-    v15 = 0;
-    v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:actionCopy requiringSecureCoding:1 error:&v15];
-    v8 = v15;
+    v14 = 0;
+    v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:actionCopy requiringSecureCoding:1 error:&v14];
+    v8 = v14;
     if (v7)
     {
       v9 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.springboard"];
@@ -270,13 +265,13 @@ LABEL_30:
     {
 LABEL_14:
       *buf = 136315906;
-      v17 = "[WFConfiguredSystemActionProvider saveUpdatedAction:forActionType:]";
-      v18 = 2112;
-      v19 = actionCopy;
-      v20 = 2112;
-      v21 = typeCopy;
-      v22 = 2112;
-      v23 = v8;
+      v16 = "[WFConfiguredSystemActionProvider saveUpdatedAction:forActionType:]";
+      v17 = 2112;
+      v18 = actionCopy;
+      v19 = 2112;
+      v20 = typeCopy;
+      v21 = 2112;
+      v22 = v8;
       _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_ERROR, "%s Unable to save updated action %@ of type %@ due to: %@", buf, 0x2Au);
     }
 
@@ -288,9 +283,9 @@ LABEL_15:
 
   if ([typeCopy isEqualToString:*MEMORY[0x277D7A5B0]])
   {
-    v14 = 0;
-    v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:actionCopy requiringSecureCoding:1 error:&v14];
-    v8 = v14;
+    v13 = 0;
+    v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:actionCopy requiringSecureCoding:1 error:&v13];
+    v8 = v13;
     if (v7)
     {
       v9 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.springboard"];
@@ -300,11 +295,11 @@ LABEL_15:
       {
 LABEL_8:
         *buf = 136315650;
-        v17 = "[WFConfiguredSystemActionProvider saveUpdatedAction:forActionType:]";
-        v18 = 2112;
-        v19 = actionCopy;
-        v20 = 2112;
-        v21 = typeCopy;
+        v16 = "[WFConfiguredSystemActionProvider saveUpdatedAction:forActionType:]";
+        v17 = 2112;
+        v18 = actionCopy;
+        v19 = 2112;
+        v20 = typeCopy;
         _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_DEFAULT, "%s Successfuly saved updated action %@ of type %@.", buf, 0x20u);
       }
 
@@ -328,13 +323,12 @@ LABEL_16:
   v11 = 0;
 LABEL_17:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (id)defaultSystemActionForActionType:(id)type
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D79E70];
   typeCopy = type;
   v6 = objc_alloc_init(v4);
@@ -347,8 +341,8 @@ LABEL_17:
     if (v9)
     {
       v10 = [objc_alloc(MEMORY[0x277D7A118]) initWithIdentifier:v8 sectionIdentifier:@"SilentMode" linkAction:v9];
-      v18 = 0;
-      v11 = [(WFConfiguredSystemActionProvider *)self configuredStaccatoActionFromTemplate:v10 valuesByParameterKey:MEMORY[0x277CBEC10] error:&v18];
+      v17 = 0;
+      v11 = [(WFConfiguredSystemActionProvider *)self configuredStaccatoActionFromTemplate:v10 valuesByParameterKey:MEMORY[0x277CBEC10] error:&v17];
       v12 = v11;
       if (!v11)
       {
@@ -356,9 +350,9 @@ LABEL_17:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v20 = "[WFConfiguredSystemActionProvider defaultSystemActionForActionType:]";
-          v21 = 2112;
-          v22 = v8;
+          v19 = "[WFConfiguredSystemActionProvider defaultSystemActionForActionType:]";
+          v20 = 2112;
+          v21 = v8;
           _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_ERROR, "%s Failed to find link action for default action identifier: %@", buf, 0x16u);
         }
 
@@ -374,9 +368,9 @@ LABEL_17:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v20 = "[WFConfiguredSystemActionProvider defaultSystemActionForActionType:]";
-        v21 = 2112;
-        v22 = v8;
+        v19 = "[WFConfiguredSystemActionProvider defaultSystemActionForActionType:]";
+        v20 = 2112;
+        v21 = v8;
         _os_log_impl(&dword_23103C000, v15, OS_LOG_TYPE_ERROR, "%s Failed to find link action for default action identifier: %@", buf, 0x16u);
       }
 
@@ -388,8 +382,6 @@ LABEL_17:
   {
     v14 = v6;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -424,30 +416,28 @@ LABEL_17:
 
 - (id)configuredSystemActionForActionType:(id)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v5 = [(WFConfiguredSystemActionProvider *)self userDefaultsForSystemActionType:typeCopy];
   v6 = [(WFConfiguredSystemActionProvider *)self userDefaultsKeyForSystemActionType:typeCopy];
   v7 = [v5 objectForKey:v6];
-  v13 = 0;
-  v8 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v7 error:&v13];
-  v9 = v13;
+  v12 = 0;
+  v8 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v7 error:&v12];
+  v9 = v12;
   if (!v8)
   {
     v10 = getWFStaccatoLogObject();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v15 = "[WFConfiguredSystemActionProvider configuredSystemActionForActionType:]";
-      v16 = 2112;
-      v17 = typeCopy;
-      v18 = 2112;
-      v19 = v9;
+      v14 = "[WFConfiguredSystemActionProvider configuredSystemActionForActionType:]";
+      v15 = 2112;
+      v16 = typeCopy;
+      v17 = 2112;
+      v18 = v9;
       _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_ERROR, "%s Failed to read configured action for type: %@ due to: %@", buf, 0x20u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

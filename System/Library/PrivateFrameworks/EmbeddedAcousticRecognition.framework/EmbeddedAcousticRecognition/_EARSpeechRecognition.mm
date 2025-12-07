@@ -83,7 +83,7 @@
       while (v13 != v14)
       {
         v15 = *v13;
-        v16 = *(v13 + 8);
+        v16 = v13[1];
         while (v15 != v16)
         {
           quasar::hatTextEncode(v15);
@@ -93,12 +93,12 @@
           }
 
           v17 = v21;
-          v15[2] = v22;
+          *(v15 + 2) = v22;
           *v15 = v17;
-          v15 += 28;
+          v15 = (v15 + 224);
         }
 
-        v13 += 24;
+        v13 += 3;
       }
     }
 
@@ -112,12 +112,12 @@
         quasar::QsrText::qsrToHatTokens(v18, v13, &v21, 1);
         std::vector<quasar::Token>::__vdeallocate(v13);
         *v13 = v21;
-        *(v13 + 16) = v22;
+        v13[2] = v22;
         v21 = 0uLL;
         v22 = 0;
         v24[0] = &v21;
         std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v24);
-        v13 += 24;
+        v13 += 3;
       }
 
       while (v13 != v14);
@@ -157,7 +157,7 @@
       std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(&v49, *v7, v7[1], 0xAAAAAAAAAAAAAAABLL * ((v7[1] - *v7) >> 3));
       v33 = v7;
       v8 = objc_alloc(MEMORY[0x1E695DF70]);
-      v9 = [v8 initWithCapacity:0xAAAAAAAAAAAAAAABLL * (v50 - v49)];
+      v9 = [v8 initWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v50 - v49) >> 3)];
       v11 = v49;
       v10 = v50;
       v34 = v50;
@@ -166,7 +166,7 @@
         v46 = 0;
         v47 = 0;
         v48 = 0;
-        std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v46, *v11, v11[1], 0x6DB6DB6DB6DB6DB7 * ((v11[1] - *v11) >> 5));
+        std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v46, *v11, *(v11 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(v11 + 8) - *v11) >> 5));
         v12 = objc_alloc(MEMORY[0x1E695DF70]);
         v13 = [v12 initWithCapacity:0x6DB6DB6DB6DB6DB7 * ((v47 - v46) >> 5)];
         v15 = v46;
@@ -213,7 +213,7 @@
 
         v35.__r_.__value_.__r.__words[0] = &v46;
         std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v35);
-        v11 += 3;
+        v11 += 24;
         v10 = v34;
       }
 
@@ -235,7 +235,7 @@
     do
     {
       memset(&v35, 0, sizeof(v35));
-      std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&v35, *v18, v18[1], (v18[1] - *v18) >> 2);
+      std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&v35, *v18, *(v18 + 8), (*(v18 + 8) - *v18) >> 2);
       v20 = objc_alloc(MEMORY[0x1E695DF70]);
       v21 = [v20 initWithCapacity:(v35.__r_.__value_.__l.__size_ - v35.__r_.__value_.__r.__words[0]) >> 2];
       size = v35.__r_.__value_.__l.__size_;
@@ -253,7 +253,7 @@
         operator delete(v35.__r_.__value_.__l.__data_);
       }
 
-      v18 += 3;
+      v18 += 24;
     }
 
     while (v18 != v19);
@@ -555,7 +555,7 @@
                     v33 = v32;
                     if (v32)
                     {
-                      [v32 quasarToken];
+                      objc_msgSend_quasarToken(v32);
                     }
 
                     else
@@ -646,7 +646,7 @@
 - (id)granularizedRecognition
 {
   v3 = [_EARSpeechRecognition alloc];
-  [(_EARSpeechRecognition *)self _tokenPhraseChoiceList];
+  objc_msgSend__tokenPhraseChoiceList(self);
   quasar::TextProc::GranularizedTokenPhraseChoiceList(v6, v8);
   v4 = [(_EARSpeechRecognition *)v3 _initWithTokenPhraseChoiceList:v8 earNbest:self->_nBest endsOfSentencePunctuations:self->_endsOfSentencePunctuations];
   v10 = &v9;

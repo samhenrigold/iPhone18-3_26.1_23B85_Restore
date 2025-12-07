@@ -13,35 +13,33 @@
 
 + (id)_features
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v2 = +[REFeature sentimentAnalysisFeature];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = +[REFeature negativeSentimentAnalysisFeature];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = +[REFeature sentimentAnalysisCertaintyFeature];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = +[REFeature portraitFeature];
-  v9[3] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[3] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
 - (id)_valuesForProvider:(id)provider context:(id)context features:(id)features
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   contextCopy = context;
   featuresCopy = features;
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(featuresCopy, "count")}];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = featuresCopy;
-  v10 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v10 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (!v10)
   {
     v12 = 0;
@@ -50,17 +48,17 @@
 
   v11 = v10;
   v12 = 0;
-  v13 = *v38;
+  v13 = *v37;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v38 != v13)
+      if (*v37 != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v37 + 1) + 8 * i);
+      v15 = *(*(&v36 + 1) + 8 * i);
       v16 = +[REFeature portraitFeature];
       v17 = [v15 isEqual:v16];
 
@@ -117,13 +115,11 @@ LABEL_18:
       [v9 addObject:v21];
     }
 
-    v11 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v11 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
   }
 
   while (v11);
 LABEL_22:
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

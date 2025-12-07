@@ -81,18 +81,18 @@
 
 void __117__CSVoiceTriggerEventInfoProvider_fetchVoiceTriggerInfoWithAudioContext_resultVoiceTriggerInfo_resultRTSTriggerInfo___block_invoke(void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (a1[4] && ([*(a1[5] + 8) objectForKeyedSubscript:?], v2 = objc_claimAutoreleasedReturnValue(), v2, v2))
   {
     v3 = CSLogCategoryVT;
     if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
     {
       v4 = a1[4];
-      v12 = 136315394;
-      v13 = "[CSVoiceTriggerEventInfoProvider fetchVoiceTriggerInfoWithAudioContext:resultVoiceTriggerInfo:resultRTSTriggerInfo:]_block_invoke";
-      v14 = 2114;
-      v15 = v4;
-      _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Providing voiceTriggerEventInfo with deviceId %{public}@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[CSVoiceTriggerEventInfoProvider fetchVoiceTriggerInfoWithAudioContext:resultVoiceTriggerInfo:resultRTSTriggerInfo:]_block_invoke";
+      v13 = 2114;
+      v14 = v4;
+      _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Providing voiceTriggerEventInfo with deviceId %{public}@", &v11, 0x16u);
     }
 
     v5 = [*(a1[5] + 8) objectForKeyedSubscript:a1[4]];
@@ -106,9 +106,9 @@ void __117__CSVoiceTriggerEventInfoProvider_fetchVoiceTriggerInfoWithAudioContex
     v8 = CSLogCategoryVT;
     if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315138;
-      v13 = "[CSVoiceTriggerEventInfoProvider fetchVoiceTriggerInfoWithAudioContext:resultVoiceTriggerInfo:resultRTSTriggerInfo:]_block_invoke";
-      _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Providing built-in voiceTriggerEventInfo", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[CSVoiceTriggerEventInfoProvider fetchVoiceTriggerInfoWithAudioContext:resultVoiceTriggerInfo:resultRTSTriggerInfo:]_block_invoke";
+      _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Providing built-in voiceTriggerEventInfo", &v11, 0xCu);
     }
 
     v9 = *(a1[6] + 8);
@@ -118,7 +118,6 @@ void __117__CSVoiceTriggerEventInfoProvider_fetchVoiceTriggerInfoWithAudioContex
   }
 
   objc_storeStrong((*(a1[7] + 8) + 40), *(a1[5] + 32));
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setVoiceTriggerInfo:(id)info deviceId:(id)id
@@ -160,10 +159,12 @@ uint64_t __64__CSVoiceTriggerEventInfoProvider_setVoiceTriggerInfo_deviceId___bl
         return result;
       }
 
-      [*(v1[5] + 8) setObject:objc_msgSend(result forKeyedSubscript:{"copy"), v1[6]}];
+      v6 = [result copy];
+      v4 = [*(v1[5] + 8) setObject:v6 forKeyedSubscript:v1[6]];
+      v5 = v6;
     }
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v4, v5);
   }
 
   return result;
@@ -220,9 +221,11 @@ uint64_t __64__CSVoiceTriggerEventInfoProvider_setVoiceTriggerInfo_deviceId___bl
 
 uint64_t __49__CSVoiceTriggerEventInfoProvider_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_2666 = objc_alloc_init(CSVoiceTriggerEventInfoProvider);
+  v0 = objc_alloc_init(CSVoiceTriggerEventInfoProvider);
+  v1 = sharedInstance_sharedInstance_2666;
+  sharedInstance_sharedInstance_2666 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

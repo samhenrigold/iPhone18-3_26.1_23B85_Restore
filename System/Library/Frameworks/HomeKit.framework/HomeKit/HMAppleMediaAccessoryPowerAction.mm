@@ -96,12 +96,12 @@
 
 - (HMAppleMediaAccessoryPowerAction)initWithDictionary:(id)dictionary home:(id)home
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   homeCopy = home;
-  v26.receiver = self;
-  v26.super_class = HMAppleMediaAccessoryPowerAction;
-  v8 = [(HMAction *)&v26 initWithDictionary:dictionaryCopy home:homeCopy];
+  v25.receiver = self;
+  v25.super_class = HMAppleMediaAccessoryPowerAction;
+  v8 = [(HMAction *)&v25 initWithDictionary:dictionaryCopy home:homeCopy];
   if (!v8)
   {
     goto LABEL_5;
@@ -118,9 +118,9 @@
       v17 = HMFGetLogIdentifier();
       v18 = objc_opt_class();
       *buf = 138543618;
-      v28 = v17;
-      v29 = 2112;
-      v30 = v18;
+      v27 = v17;
+      v28 = 2112;
+      v29 = v18;
       v19 = "%{public}@Unable to decode %@, missing accessory id";
       v20 = v16;
       v21 = 22;
@@ -149,11 +149,11 @@ LABEL_11:
       v17 = HMFGetLogIdentifier();
       v23 = objc_opt_class();
       *buf = 138543874;
-      v28 = v17;
-      v29 = 2112;
-      v30 = v23;
-      v31 = 2112;
-      v32 = v9;
+      v27 = v17;
+      v28 = 2112;
+      v29 = v23;
+      v30 = 2112;
+      v31 = v9;
       v19 = "%{public}@Unable to decode %@, failed to resolve accessory %@";
       v20 = v16;
       v21 = 32;
@@ -170,7 +170,6 @@ LABEL_5:
   v13 = v8;
 LABEL_12:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -281,11 +280,11 @@ LABEL_12:
 
 - (HMAppleMediaAccessoryPowerAction)initWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = HMAppleMediaAccessoryPowerAction;
-  v5 = [(HMAction *)&v17 initWithCoder:coderCopy];
+  v16.receiver = self;
+  v16.super_class = HMAppleMediaAccessoryPowerAction;
+  v5 = [(HMAction *)&v16 initWithCoder:coderCopy];
   if (!v5)
   {
     goto LABEL_4;
@@ -313,9 +312,9 @@ LABEL_4:
     v13 = HMFGetLogIdentifier();
     v14 = objc_opt_class();
     *buf = 138543618;
-    v19 = v13;
-    v20 = 2112;
-    v21 = v14;
+    v18 = v13;
+    v19 = 2112;
+    v20 = v14;
     _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to unarchive %@, missing accessory", buf, 0x16u);
   }
 
@@ -323,7 +322,6 @@ LABEL_4:
   v9 = 0;
 LABEL_8:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

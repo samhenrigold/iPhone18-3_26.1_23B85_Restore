@@ -247,108 +247,109 @@
     return;
   }
 
-  blockBufferOut = 0;
-  v36 = 0;
-  v6 = *(self + 136);
-  v7 = [a2 objectForKeyedSubscript:0x1F21A9A50];
-  v8 = MEMORY[0x1E695E480];
-  if (v7 && (v9 = v7, [v7 objectForKeyedSubscript:0x1F21A9950]))
+  v45 = 0;
+  v46 = 0;
+  v7 = *(self + 136);
+  v8 = [a2 objectForKeyedSubscript:0x1F21A9A50];
+  v9 = MEMORY[0x1E695E480];
+  if (v8 && (v10 = v8, [v8 objectForKeyedSubscript:0x1F21A9950]))
   {
+    v41 = v3;
     metadataCopy = metadata;
     __dst.duration.value = 0;
-    v10 = [v9 objectForKeyedSubscript:0x1F21A9950];
-    v11 = objc_alloc_init(MEMORY[0x1E695DF88]);
-    [getPTSerializationClass() writeObject:v10 toData:v11 options:0 error:&__dst];
-    v12 = [v11 length];
-    v13 = [a2 objectForKeyedSubscript:0x1F21A9A70];
-    if (v13)
+    v11 = [v10 objectForKeyedSubscript:0x1F21A9950];
+    v12 = objc_alloc_init(MEMORY[0x1E695DF88]);
+    [getPTSerializationClass() writeObject:v11 toData:v12 options:0 error:&__dst];
+    v13 = [v12 length];
+    v14 = [a2 objectForKeyedSubscript:0x1F21A9A70];
+    if (v14)
     {
-      v14 = v13;
-      v15 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:{objc_msgSend(v13, "sizeOfSerializedObjectWithOptions:", 0)}];
-      [v14 writeToData:v15 withOptions:0];
-      v16 = v12 + [v15 length] + 16;
+      v15 = v14;
+      v16 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:{objc_msgSend(v14, "sizeOfSerializedObjectWithOptions:", 0)}];
+      [v15 writeToData:v16 withOptions:0];
+      v17 = v13 + [v16 length] + 16;
     }
 
     else
     {
-      v15 = 0;
-      v16 = v12 + 8;
+      v16 = 0;
+      v17 = v13 + 8;
     }
 
-    v18 = [a2 objectForKeyedSubscript:0x1F21A9A90];
-    if (v18)
+    v19 = [a2 objectForKeyedSubscript:0x1F21A9A90];
+    if (v19)
     {
-      v19 = v18;
-      v20 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:{objc_msgSend(v18, "sizeOfSerializedObjectWithOptions:", 0)}];
-      [v19 writeToData:v20 withOptions:0];
-      v16 += [v20 length] + 8;
+      v20 = v19;
+      v21 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:{objc_msgSend(v19, "sizeOfSerializedObjectWithOptions:", 0)}];
+      [v20 writeToData:v21 withOptions:0];
+      v17 += [v21 length] + 8;
     }
 
     else
     {
-      v20 = 0;
+      v21 = 0;
     }
 
-    v21 = (v16 + 24);
-    v17 = malloc_type_malloc(v21, 0xA5E431BFuLL);
-    *v17 = bswap32([v11 length] + 8);
-    v17[1] = *(self + 176);
-    memcpy(v17 + 2, [v11 bytes], objc_msgSend(v11, "length"));
-    v22 = [v11 length];
-    v23 = v22 + 8;
+    v22 = (v17 + 24);
+    v18 = malloc_type_malloc(v22, 0xA5E431BFuLL);
+    *v18 = bswap32([v12 length] + 8);
+    v18[1] = *(self + 176);
+    memcpy(v18 + 2, [v12 bytes], objc_msgSend(v12, "length"));
+    v23 = [v12 length];
+    v24 = v23 + 8;
 
-    if (v15)
+    if (v16)
     {
-      *(v17 + v23) = bswap32([v15 length] + 8);
-      *(v17 + v22 + 12) = *(self + 180);
-      memcpy(v17 + v23 + 8, [v15 bytes], objc_msgSend(v15, "length"));
-      v23 = v22 + [v15 length] + 16;
+      *(v18 + v24) = bswap32([v16 length] + 8);
+      *(v18 + v23 + 12) = *(self + 180);
+      memcpy(v18 + v24 + 8, [v16 bytes], objc_msgSend(v16, "length"));
+      v24 = v23 + [v16 length] + 16;
     }
 
-    v8 = MEMORY[0x1E695E480];
-    if (v20)
+    v9 = MEMORY[0x1E695E480];
+    if (v21)
     {
-      v24 = (v17 + v23);
-      *v24 = bswap32([v20 length] + 8);
-      v24[1] = *(self + 184);
-      memcpy(v17 + v23 + 8, [v20 bytes], objc_msgSend(v20, "length"));
-      v23 += [v20 length] + 8;
+      v25 = (v18 + v24);
+      *v25 = bswap32([v21 length] + 8);
+      v25[1] = *(self + 184);
+      memcpy(v18 + v24 + 8, [v21 bytes], objc_msgSend(v21, "length"));
+      v24 += [v21 length] + 8;
     }
 
     metadata = metadataCopy;
-    v25 = (v17 + v23);
-    *v25 = 201326592;
-    v25[1] = *(self + 168);
-    [objc_msgSend(v9 objectForKeyedSubscript:{0x1F21A98F0), "floatValue"}];
-    v25[2] = bswap32(v26);
-    v25[3] = 201326592;
-    v25[4] = *(self + 172);
-    [objc_msgSend(v9 objectForKeyedSubscript:{0x1F21A9930), "floatValue"}];
-    v25[5] = bswap32(v27);
-    if (CMBlockBufferCreateWithMemoryBlock(*v8, v17, v21, *MEMORY[0x1E695E488], 0, 0, v21, 0, &blockBufferOut))
+    v26 = (v18 + v24);
+    *v26 = 201326592;
+    v26[1] = *(self + 168);
+    [objc_msgSend(v10 objectForKeyedSubscript:{0x1F21A98F0), "floatValue"}];
+    v26[2] = bswap32(v27);
+    v26[3] = 201326592;
+    v26[4] = *(self + 172);
+    [objc_msgSend(v10 objectForKeyedSubscript:{0x1F21A9930), "floatValue"}];
+    v26[5] = bswap32(v28);
+    if (CMBlockBufferCreateWithMemoryBlock(*v9, v18, v22, *MEMORY[0x1E695E488], 0, 0, v22, 0, &v45))
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_78();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOut, v35, sampleSizeArray, v39, v3, metadataCopy, __dst.duration.value, __dst.duration.timescale);
       goto LABEL_27;
     }
 
-    v28 = blockBufferOut;
-    sampleSizeArray = 0;
-    if (!blockBufferOut)
+    v29 = v45;
+    DataLength = 0;
+    if (!v45)
     {
       goto LABEL_26;
     }
 
-    v29 = 0;
+    v30 = 0;
   }
 
   else
   {
-    if (v6)
+    if (v7)
     {
-      v17 = 0;
-      sampleSizeArray = 0;
+      v18 = 0;
+      DataLength = 0;
 LABEL_27:
       *&__dst.duration.value = *&metadata->value;
       __dst.duration.epoch = metadata->epoch;
@@ -359,54 +360,55 @@ LABEL_27:
     _emptyMetadataBlockBuffer = [(BWCinematicVideoMetadataNode *)self _emptyMetadataBlockBuffer];
     if (!_emptyMetadataBlockBuffer)
     {
-      v17 = 0;
-      blockBufferOut = 0;
+      v18 = 0;
+      v45 = 0;
       goto LABEL_27;
     }
 
-    v31 = CFRetain(_emptyMetadataBlockBuffer);
-    blockBufferOut = v31;
-    if (!v31)
+    v41 = v3;
+    v32 = CFRetain(_emptyMetadataBlockBuffer);
+    v45 = v32;
+    if (!v32)
     {
 LABEL_26:
-      v17 = 0;
+      v18 = 0;
       goto LABEL_27;
     }
 
-    v28 = v31;
-    v29 = 1;
+    v29 = v32;
+    v30 = 1;
   }
 
   memcpy(&__dst, MEMORY[0x1E6960CF0], sizeof(__dst));
   __dst.presentationTimeStamp = *metadata;
-  sampleSizeArray = CMBlockBufferGetDataLength(v28);
-  if (CMSampleBufferCreate(*v8, blockBufferOut, 1u, 0, 0, *(self + 128), 1, 1, &__dst, 1, &sampleSizeArray, &v36))
+  DataLength = CMBlockBufferGetDataLength(v29);
+  if (CMSampleBufferCreate(*v9, v45, 1u, 0, 0, *(self + 128), 1, 1, &__dst, 1, &DataLength, &v46))
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_78();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOuta, v36, sampleSizeArraya, v40, v41, metadataCopy, __dst.duration.value, __dst.duration.timescale);
   }
 
-  if (!v36)
+  if (!v46)
   {
     goto LABEL_26;
   }
 
   [*(self + 160) emitSampleBuffer:?];
-  v17 = 0;
-  *(self + 136) = v29;
+  v18 = 0;
+  *(self + 136) = v30;
 LABEL_28:
-  if (blockBufferOut)
+  if (v45)
   {
-    CFRelease(blockBufferOut);
+    CFRelease(v45);
   }
 
-  if (v36)
+  if (v46)
   {
-    CFRelease(v36);
+    CFRelease(v46);
   }
 
-  free(v17);
+  free(v18);
 }
 
 - (uint64_t)_emptyMetadataBlockBuffer
@@ -420,22 +422,24 @@ LABEL_28:
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_1_12();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       }
 
       else
       {
         dataPointerOut = 0;
-        if (!CMBlockBufferGetDataPointer(*(v1 + 144), 0, 0, 0, &dataPointerOut))
+        if (CMBlockBufferGetDataPointer(*(v1 + 144), 0, 0, 0, &dataPointerOut))
         {
-          *dataPointerOut = 0x8000000;
-          return *(v1 + 144);
+          fig_log_get_emitter();
+          OUTLINED_FUNCTION_1_12();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
         }
 
-        fig_log_get_emitter();
-        OUTLINED_FUNCTION_1_12();
+        else
+        {
+          *dataPointerOut = 0x8000000;
+        }
       }
-
-      FigDebugAssert3();
     }
 
     return *(v1 + 144);

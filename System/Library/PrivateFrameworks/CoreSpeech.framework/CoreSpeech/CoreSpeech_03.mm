@@ -1,37 +1,3 @@
-uint64_t sub_1000BD4C4(uint64_t a1)
-{
-  v2 = CSLogCategoryVT;
-  if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = 136315138;
-    v9 = "[CSVoiceTriggerFirstPassJarvisAP _startListenWithCompletion:]_block_invoke_2";
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s Leaving recordWillStartGroup", &v8, 0xCu);
-  }
-
-  dispatch_group_leave(*(*(a1 + 32) + 56));
-  if (*(a1 + 56) == 1)
-  {
-    v3 = *(a1 + 32);
-    if ((v3[8] & 1) == 0)
-    {
-      v4 = CSLogCategoryVT;
-      if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
-      {
-        v8 = 136315138;
-        v9 = "[CSVoiceTriggerFirstPassJarvisAP _startListenWithCompletion:]_block_invoke";
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s didStartRecording received when CSVoiceTriggerFirstPassJarvisAP is turned off", &v8, 0xCu);
-        v3 = *(a1 + 32);
-      }
-
-      [v3 _stopListening];
-      v5 = *(a1 + 56);
-    }
-  }
-
-  v6 = *(a1 + 40);
-  return (*(*(a1 + 48) + 16))();
-}
-
 void sub_1000BD8F4(uint64_t a1)
 {
   *(*(a1 + 32) + 8) = 0;
@@ -242,8 +208,8 @@ LABEL_16:
   [*(a1 + 40) setDidTimestampFirstAudioPacket:0];
   [*(a1 + 40) setCountOfConsecutiveBoron:0];
   [*(a1 + 40) setLastKnownConsecutiveBoronStartSampleCount:0];
-  +[CSFAudioStreamBasicDescriptionFactory utteranceFileASBD];
-  +[CSFAudioStreamBasicDescriptionFactory lpcmInt16ASBD];
+  objc_msgSend_utteranceFileASBD(CSFAudioStreamBasicDescriptionFactory);
+  objc_msgSend_lpcmInt16ASBD(CSFAudioStreamBasicDescriptionFactory);
   v7 = [CSAudioFileManager createAudioFileWriterForOSDWithInputFormat:buf outputFormat:v26];
   [*(a1 + 40) setAudioFileWriter:v7];
 
@@ -1156,9 +1122,9 @@ void sub_1000C3B44(uint64_t a1)
   _Block_object_dispose(&v23, 8);
 }
 
-void sub_1000C3EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000C3EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1267,26 +1233,26 @@ void sub_1000C4C80(uint64_t a1, void *a2)
 
 id sub_1000C6600()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = qword_10029E2B0;
-  v8 = qword_10029E2B0;
+  v9 = qword_10029E2B0;
   if (!qword_10029E2B0)
   {
     v1 = sub_1000C698C();
-    v6[3] = dlsym(v1, "MTAlarmManagerAlarmFired");
-    qword_10029E2B0 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "MTAlarmManagerAlarmFired");
+    qword_10029E2B0 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    dlerror();
-    v4 = abort_report_np();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    v4 = dlerror();
+    v5 = abort_report_np("%s", v4);
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -1296,26 +1262,26 @@ id sub_1000C6600()
 
 id sub_1000C6714()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = qword_10029E2B8;
-  v8 = qword_10029E2B8;
+  v9 = qword_10029E2B8;
   if (!qword_10029E2B8)
   {
     v1 = sub_1000C698C();
-    v6[3] = dlsym(v1, "MTAlarmManagerFiringAlarmDismissed");
-    qword_10029E2B8 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "MTAlarmManagerFiringAlarmDismissed");
+    qword_10029E2B8 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    dlerror();
-    v4 = abort_report_np();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    v4 = dlerror();
+    v5 = abort_report_np("%s", v4);
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -1325,26 +1291,26 @@ id sub_1000C6714()
 
 id sub_1000C6828()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = qword_10029E2C0;
-  v8 = qword_10029E2C0;
+  v9 = qword_10029E2C0;
   if (!qword_10029E2C0)
   {
     v1 = sub_1000C698C();
-    v6[3] = dlsym(v1, "MTAlarmManagerStateReset");
-    qword_10029E2C0 = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "MTAlarmManagerStateReset");
+    qword_10029E2C0 = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    dlerror();
-    v4 = abort_report_np();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    v4 = dlerror();
+    v5 = abort_report_np("%s", v4);
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -1386,7 +1352,7 @@ uint64_t sub_1000C698C()
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
@@ -1398,7 +1364,6 @@ uint64_t sub_1000C698C()
 
 uint64_t sub_1000C6A9C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10029E2A8 = result;
   return result;
@@ -1433,7 +1398,7 @@ void sub_1000C6E24(uint64_t a1)
 
   else
   {
-    v2 = abort_report_np();
+    v2 = abort_report_np("Unable to find class %s", "MTAlarmManager");
     [(CSAlarmMonitor *)v2 initializeAlarmState];
   }
 }
@@ -1544,18 +1509,17 @@ void sub_1000C71E0(id a1, NSError *a2)
 
 id sub_1000C72A4(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   if (*(a1 + 40))
   {
-    v3 = 1;
+    v2 = 1;
   }
 
   else
   {
-    v3 = 2;
+    v2 = 2;
   }
 
-  return [*(a1 + 32) _notifyObserver:a2 alarmIsFiringState:v3];
+  return [*(a1 + 32) _notifyObserver:a2 alarmIsFiringState:v2];
 }
 
 void sub_1000C7394(id a1)
@@ -1732,9 +1696,9 @@ id sub_1000C858C()
   return v1;
 }
 
-void sub_1000C8654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000C8654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1763,7 +1727,7 @@ Class sub_1000C866C(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1774,7 +1738,7 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "CMWakeGestureManager");
   }
 
   qword_10029E2C8 = *(*(*(a1 + 32) + 8) + 24);
@@ -1783,7 +1747,6 @@ LABEL_4:
 
 uint64_t sub_1000C87C0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10029E2D0 = result;
   return result;
@@ -1905,9 +1868,9 @@ void sub_1000CA1A4(uint64_t a1)
   }
 }
 
-void sub_1000CA34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000CA34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1930,11 +1893,11 @@ void sub_1000CA37C(uint64_t a1)
   *(v4 + 40) = v3;
 }
 
-void sub_1000CA534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000CA534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3740,9 +3703,9 @@ id sub_1000D5FF8(uint64_t a1)
   return [*(a1 + 32) _setLocalSpeechRecognizerState:1];
 }
 
-void sub_1000D649C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000D649C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4549,15 +4512,13 @@ id sub_1000DC0C4(uint64_t a1)
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 136315394;
-    v8 = "[CSVoiceIdXPCConnection _handleImplicitUtteranceMessage:client:]_block_invoke_2";
-    v9 = 2114;
-    v10 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s Implicit utterance processing done with error %{public}@", &v7, 0x16u);
+    v5 = 136315394;
+    v6 = "[CSVoiceIdXPCConnection _handleImplicitUtteranceMessage:client:]_block_invoke_2";
+    v7 = 2114;
+    v8 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s Implicit utterance processing done with error %{public}@", &v5, 0x16u);
   }
 
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 56);
   return [*(a1 + 40) _sendReplyMessageWithResult:*(a1 + 32) != 0 error:? event:? client:?];
 }
 
@@ -5376,7 +5337,7 @@ uint64_t sub_1000E06EC(uint64_t a1)
   return result;
 }
 
-void sub_1000E0DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56, uint64_t a57, uint64_t a58, uint64_t a59, char a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1000E0DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a43, 8);
   _Block_object_dispose(&a56, 8);
@@ -6343,12 +6304,13 @@ uint64_t sub_1000E309C(uint64_t result)
   return result;
 }
 
-void sub_1000E3628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_1000E3628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a23, 8);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6495,9 +6457,9 @@ void sub_1000E3974(uint64_t a1)
 LABEL_17:
 }
 
-void sub_1000E3C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000E3C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6528,46 +6490,44 @@ void sub_1000E3DD0(uint64_t a1)
 void sub_1000E3ED0(uint64_t a1)
 {
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 424);
-  v2 = CSLogCategoryEP;
+  v1 = CSLogCategoryEP;
   if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(*(a1 + 40) + 8) + 24);
-    v4 = v2;
-    v5 = AFSpeechEndpointerOperationModeGetName();
-    v6 = 136315394;
-    v7 = "[CSHybridEndpointAnalyzer fetchCurrentEndpointerOperationMode]_block_invoke";
-    v8 = 2114;
-    v9 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s current EndpointerOperationMode : %{public}@", &v6, 0x16u);
+    v2 = v1;
+    v3 = AFSpeechEndpointerOperationModeGetName();
+    v4 = 136315394;
+    v5 = "[CSHybridEndpointAnalyzer fetchCurrentEndpointerOperationMode]_block_invoke";
+    v6 = 2114;
+    v7 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s current EndpointerOperationMode : %{public}@", &v4, 0x16u);
   }
 }
 
 void sub_1000E40DC(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = AFSpeechEndpointerOperationModeGetName();
-  v4 = CSLogCategoryEP;
+  v2 = AFSpeechEndpointerOperationModeGetName();
+  v3 = CSLogCategoryEP;
   if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[CSHybridEndpointAnalyzer setEndpointerOperationMode:]_block_invoke";
-    v9 = 2114;
-    v10 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s setEndpointerOperationMode : %{public}@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSHybridEndpointAnalyzer setEndpointerOperationMode:]_block_invoke";
+    v8 = 2114;
+    v9 = v2;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s setEndpointerOperationMode : %{public}@", &v6, 0x16u);
   }
 
-  v5 = *(a1 + 40);
-  *(*(a1 + 32) + 424) = v5;
-  if (v5 == 1)
+  v4 = *(a1 + 40);
+  *(*(a1 + 32) + 424) = v4;
+  if (v4 == 1)
   {
-    v6 = CSLogCategoryEP;
+    v5 = CSLogCategoryEP;
     if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[CSHybridEndpointAnalyzer setEndpointerOperationMode:]_block_invoke";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s endpointerOperationMode has been set to %@, stopping endpointer", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[CSHybridEndpointAnalyzer setEndpointerOperationMode:]_block_invoke";
+      v8 = 2112;
+      v9 = v2;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s endpointerOperationMode has been set to %@, stopping endpointer", &v6, 0x16u);
     }
 
     [*(a1 + 32) stopEndpointer];
@@ -6594,9 +6554,9 @@ void sub_1000E4354(uint64_t a1)
   }
 }
 
-void sub_1000E4528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000E4528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6982,23 +6942,20 @@ void sub_1000E9C78(void *a1)
   {
     v3 = a1[5];
     v4 = a1[6];
-    v5 = a1[7];
-    v6 = a1[8];
-    v7 = a1[9];
 
     [v2 _startRequestWithContext:v3 withVtei:v4 withVTAssets:? taskType:? withRequestId:? completion:?];
   }
 
   else
   {
-    v8 = [NSError alloc];
-    v9 = [v8 initWithDomain:CSErrorDomain code:1601 userInfo:0];
-    v10 = CSLogCategorySDSD;
+    v5 = [NSError alloc];
+    v6 = [v5 initWithDomain:CSErrorDomain code:1601 userInfo:0];
+    v7 = CSLogCategorySDSD;
     if (os_log_type_enabled(CSLogCategorySDSD, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[CSAttSiriAFTMNode startRequestWithContext:withVtei:taskType:withRequestId:completion:]_block_invoke";
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s Prefetched asset not set", &v11, 0xCu);
+      v8 = 136315138;
+      v9 = "[CSAttSiriAFTMNode startRequestWithContext:withVtei:taskType:withRequestId:completion:]_block_invoke";
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%s Prefetched asset not set", &v8, 0xCu);
     }
 
     (*(a1[9] + 16))();
@@ -7785,9 +7742,9 @@ void sub_1000EE104(uint64_t a1)
   v2 = CSLogCategoryEP;
   if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[CSEndpointDetectedSelfLogger didCompleteRecognitionTaskWithStatistics:requestId:endpointMode:error:]_block_invoke";
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSEndpointDetectedSelfLogger didCompleteRecognitionTaskWithStatistics:requestId:endpointMode:error:]_block_invoke";
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v4, 0xCu);
   }
 
   v3 = *(a1 + 32);
@@ -7795,7 +7752,6 @@ void sub_1000EE104(uint64_t a1)
   {
     if ((*(v3 + 9) & 1) == 0)
     {
-      v4 = *(v3 + 16);
       [CSEndpointDetectedSelfLogger emitEndpointDetectedEventWithEndpointerMetrics:"emitEndpointDetectedEventWithEndpointerMetrics:eventType:trpId:mhId:" eventType:? trpId:? mhId:?];
     }
   }
@@ -8306,9 +8262,9 @@ LABEL_6:
   }
 }
 
-void sub_1000F3904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000F3904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9169,4 +9125,42 @@ LABEL_4:
 
 LABEL_6:
   dispatch_semaphore_signal(*(*(a1 + 40) + 48));
+}
+
+id sub_1000F9410(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = [v3 lastPathComponent];
+  if ([v4 containsString:kCSAudioSyncedFileSuffix])
+  {
+    goto LABEL_2;
+  }
+
+  if ([v4 containsString:@"-almost"])
+  {
+LABEL_4:
+    v5 = [*(a1 + 32) shouldTransferVoiceTriggerLogFileWithURL:v3];
+    goto LABEL_5;
+  }
+
+  v7 = +[CSFPreferences sharedPreferences];
+  if ([v7 companionSyncVoiceTriggerUtterancesEnabled])
+  {
+    v8 = [v4 containsString:@"-triggered"];
+
+    if (v8)
+    {
+      goto LABEL_4;
+    }
+  }
+
+  else
+  {
+  }
+
+LABEL_2:
+  v5 = 0;
+LABEL_5:
+
+  return v5;
 }

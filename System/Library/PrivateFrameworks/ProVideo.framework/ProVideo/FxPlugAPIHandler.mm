@@ -336,7 +336,7 @@ LABEL_8:
       if (v16 && v17 && (v19 = v18) != 0)
       {
         [v22 addObject:v18];
-        [v19 start];
+        objc_msgSend_start(v19);
         v12 = 0;
       }
 

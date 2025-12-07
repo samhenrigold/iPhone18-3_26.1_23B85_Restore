@@ -12,10 +12,10 @@
   if (!lazy cache variable for type metadata for [TabCustomizationID : TabCustomizationEntry])
   {
     lazy protocol witness table accessor for type TabCustomizationID and conformance TabCustomizationID();
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [TabCustomizationID : TabCustomizationEntry]);
+      atomic_store(v1, &lazy cache variable for type metadata for [TabCustomizationID : TabCustomizationEntry]);
     }
   }
 }
@@ -25,10 +25,10 @@
   if (!lazy cache variable for type metadata for [TabCustomizationID : TabSectionCustomizationEntry])
   {
     lazy protocol witness table accessor for type TabCustomizationID and conformance TabCustomizationID();
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [TabCustomizationID : TabSectionCustomizationEntry]);
+      atomic_store(v1, &lazy cache variable for type metadata for [TabCustomizationID : TabSectionCustomizationEntry]);
     }
   }
 }
@@ -38,10 +38,10 @@
   result = *self;
   if (!result)
   {
-    a2(255);
-    lazy protocol witness table accessor for type TabCustomizationID and conformance TabCustomizationID();
-    a3();
-    result = swift_getWitnessTable();
+    v6 = a2(255);
+    v7[0] = lazy protocol witness table accessor for type TabCustomizationID and conformance TabCustomizationID();
+    v7[1] = a3();
+    result = swift_getWitnessTable(MEMORY[0x1E69E5E38], v6, v7);
     atomic_store(result, self);
   }
 
@@ -53,10 +53,10 @@
   result = *self;
   if (!result)
   {
-    a2(255);
-    lazy protocol witness table accessor for type TabCustomizationID and conformance TabCustomizationID();
-    a3();
-    result = swift_getWitnessTable();
+    v6 = a2(255);
+    v7[0] = lazy protocol witness table accessor for type TabCustomizationID and conformance TabCustomizationID();
+    v7[1] = a3();
+    result = swift_getWitnessTable(MEMORY[0x1E69E5E58], v6, v7);
     atomic_store(result, self);
   }
 

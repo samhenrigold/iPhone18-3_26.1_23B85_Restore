@@ -10,9 +10,9 @@
   if ([managerCopy isShadowed])
   {
     v4 = objc_alloc_init(OADOuterShadowEffect);
-    shadowColor = [managerCopy shadowColor];
+    v5 = objc_msgSend_shadowColor(managerCopy);
     [managerCopy shadowAlpha];
-    v6 = [OAVColor readColorFromAttribute:shadowColor alpha:managerCopy manager:?];
+    v6 = [OAVColor readColorFromAttribute:v5 alpha:managerCopy manager:?];
     [(OADShadowEffect *)v4 setColor:v6];
     LODWORD(v7) = 1.0;
     [(OADShadowEffect *)v4 setBlurRadius:v7];

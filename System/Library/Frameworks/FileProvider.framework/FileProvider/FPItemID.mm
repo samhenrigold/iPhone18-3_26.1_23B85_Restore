@@ -292,9 +292,9 @@ LABEL_7:
 - (FPItemID)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = FPItemID;
-  v5 = [(FPItemID *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = FPItemID;
+  v5 = [(FPItemID *)&v16 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_providerIdentifier"];
@@ -308,27 +308,26 @@ LABEL_7:
     if (!v5->_domainIdentifier)
     {
       objc_storeStrong(&v5->_domainIdentifier, @"NSFileProviderDomainDefaultIdentifier");
-      v10 = v5->_domainIdentifier;
     }
 
-    v11 = [MEMORY[0x1E696AEC0] fp_providerDomainIDFromProviderID:v5->_providerID domainIdentifier:?];
-    v12 = [coderCopy fp_checkProviderIdentifier:v11];
+    v10 = [MEMORY[0x1E696AEC0] fp_providerDomainIDFromProviderID:v5->_providerID domainIdentifier:?];
+    v11 = [coderCopy fp_checkProviderIdentifier:v10];
 
-    if (!v12)
+    if (!v11)
     {
-      v15 = 0;
+      v14 = 0;
       goto LABEL_8;
     }
 
-    v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_identifier"];
+    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_identifier"];
     identifier = v5->_identifier;
-    v5->_identifier = v13;
+    v5->_identifier = v12;
   }
 
-  v15 = v5;
+  v14 = v5;
 LABEL_8:
 
-  return v15;
+  return v14;
 }
 
 - (id)transformForMigratedCloudDocsProviderDomainIdentifier:(id)identifier
@@ -396,35 +395,34 @@ LABEL_12:
 
 - (FPItemID)initWithProviderID:(id)d domainIdentifier:(id)identifier coreSpotlightIdentifier:(id)spotlightIdentifier
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   spotlightIdentifierCopy = spotlightIdentifier;
+  v16 = 0;
   v17 = 0;
-  v18 = 0;
   dCopy = d;
-  [FPItemID getDomainIdentifier:&v18 andIdentifier:&v17 fromCoreSpotlightIdentifier:spotlightIdentifierCopy];
-  v11 = v18;
-  v12 = v17;
+  [FPItemID getDomainIdentifier:&v17 andIdentifier:&v16 fromCoreSpotlightIdentifier:spotlightIdentifierCopy];
+  v11 = v17;
+  v12 = v16;
   if (([v11 isEqual:identifierCopy] & 1) == 0)
   {
     v13 = fp_current_or_default_log();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446978;
-      v20 = "[FPItemID(CSSearchableItem) initWithProviderID:domainIdentifier:coreSpotlightIdentifier:]";
-      v21 = 2112;
-      v22 = identifierCopy;
-      v23 = 2112;
-      v24 = spotlightIdentifierCopy;
-      v25 = 2112;
-      v26 = v12;
+      v19 = "[FPItemID(CSSearchableItem) initWithProviderID:domainIdentifier:coreSpotlightIdentifier:]";
+      v20 = 2112;
+      v21 = identifierCopy;
+      v22 = 2112;
+      v23 = spotlightIdentifierCopy;
+      v24 = 2112;
+      v25 = v12;
       _os_log_impl(&dword_1AAAE1000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] %{public}s called with a domain identifier %@ that does not match the corresponding csIdentifier %@ (inferred %@)", buf, 0x2Au);
     }
   }
 
   v14 = [[FPItemID alloc] initWithProviderID:dCopy domainIdentifier:v11 itemIdentifier:v12];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

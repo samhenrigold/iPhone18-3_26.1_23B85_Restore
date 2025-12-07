@@ -7,15 +7,15 @@
 - (unint64_t)evaluateWithCharacteristic:(id)characteristic traits:(id *)traits
 {
   characteristicCopy = characteristic;
-  service = [characteristicCopy service];
-  accessory = [service accessory];
-  home = [accessory home];
+  v6 = objc_msgSend_service(characteristicCopy);
+  accessory = [v6 accessory];
+  v8 = objc_msgSend_home(accessory);
 
-  hf_characteristicValueManager = [home hf_characteristicValueManager];
+  hf_characteristicValueManager = [v8 hf_characteristicValueManager];
   if (hf_characteristicValueManager)
   {
     v10 = +[HFCharacteristicNotificationManager notificationsStateContainer];
-    v11 = [v10 lastNotificationsEnableRequestDateForCharacteristic:characteristicCopy forHome:home];
+    v11 = [v10 lastNotificationsEnableRequestDateForCharacteristic:characteristicCopy forHome:v8];
     valueUpdatedTime = [hf_characteristicValueManager cachedValueForCharacteristic:characteristicCopy];
 
     if (valueUpdatedTime)
@@ -40,9 +40,9 @@
           else
           {
             v11 = v13;
-            if ([v10 notificationsEnabledForCharacteristic:characteristicCopy inHome:home])
+            if ([v10 notificationsEnabledForCharacteristic:characteristicCopy inHome:v8])
             {
-              LODWORD(valueUpdatedTime) = [v10 cacheUpToDateWithNotificationsEnabledForCharacteristic:characteristicCopy inHome:home];
+              LODWORD(valueUpdatedTime) = [v10 cacheUpToDateWithNotificationsEnabledForCharacteristic:characteristicCopy inHome:v8];
               if (valueUpdatedTime)
               {
                 v17 = @"CacheUpToDate";
@@ -118,10 +118,10 @@
     if (!+[HFUtilities isInternalTest])
     {
       hf_prettyDescription = [characteristicCopy hf_prettyDescription];
-      service2 = [characteristicCopy service];
-      accessory2 = [service2 accessory];
-      home2 = [accessory2 home];
-      NSLog(&cfstr_MissingValueMa.isa, hf_prettyDescription, home2);
+      v19 = objc_msgSend_service(characteristicCopy);
+      accessory2 = [v19 accessory];
+      v21 = objc_msgSend_home(accessory2);
+      NSLog(&cfstr_MissingValueMa.isa, hf_prettyDescription, v21);
     }
 
     v22 = 1;
@@ -132,7 +132,7 @@
 
 void __61__HFCachedValueReadPolicy_evaluateWithCharacteristic_traits___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = HFLogForCategory(0x3DuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -144,24 +144,22 @@ void __61__HFCachedValueReadPolicy_evaluateWithCharacteristic_traits___block_inv
     v8 = [*(a1 + 32) valueUpdatedTime];
     v9 = *(a1 + 40);
     v10 = *(a1 + 48);
-    v12[0] = 67110658;
-    v12[1] = v4;
-    v13 = 2112;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v6;
-    v17 = 2112;
-    v18 = v7;
-    v19 = 2112;
-    v20 = v8;
-    v21 = 2112;
-    v22 = v9;
-    v23 = 2112;
-    v24 = v10;
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "HFCachedValueReadPolicy: cacheUpToDate=%{BOOL}d for characteristic %@\ncachedValue=%@, value=%@, valueUpdatedTime=%@, lastNotificationsEnableRequestDate=%@, notificationStateContainer=%@", v12, 0x44u);
+    v11[0] = 67110658;
+    v11[1] = v4;
+    v12 = 2112;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v6;
+    v16 = 2112;
+    v17 = v7;
+    v18 = 2112;
+    v19 = v8;
+    v20 = 2112;
+    v21 = v9;
+    v22 = 2112;
+    v23 = v10;
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "HFCachedValueReadPolicy: cacheUpToDate=%{BOOL}d for characteristic %@\ncachedValue=%@, value=%@, valueUpdatedTime=%@, lastNotificationsEnableRequestDate=%@, notificationStateContainer=%@", v11, 0x44u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

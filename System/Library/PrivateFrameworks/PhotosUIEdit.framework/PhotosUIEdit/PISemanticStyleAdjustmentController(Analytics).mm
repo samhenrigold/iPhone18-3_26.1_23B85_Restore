@@ -71,10 +71,10 @@
             }
 
             castKey = [MEMORY[0x277D3A968] castKey];
-            v23 = [v12 isEqualToString:castKey];
+            isEqualToString = objc_msgSend_isEqualToString_(v12);
 
             self = selfCopy;
-            if (v23)
+            if (isEqualToString)
             {
               cast = [selfCopy cast];
               [v32 setObject:cast forKeyedSubscript:@"styles_cast"];

@@ -499,10 +499,10 @@ LABEL_6:
 
 uint64_t __51__UIDocumentMenuViewController__dismissWithOption___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 identifier];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 void __51__UIDocumentMenuViewController__dismissWithOption___block_invoke_2(uint64_t a1)

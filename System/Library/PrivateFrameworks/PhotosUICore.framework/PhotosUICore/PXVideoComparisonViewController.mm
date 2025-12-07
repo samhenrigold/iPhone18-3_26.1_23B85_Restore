@@ -230,7 +230,7 @@ void __64__PXVideoComparisonViewController__prepareInputAndVariantVideos__block_
       v7 = v6;
       if (v6)
       {
-        [v6 duration];
+        objc_msgSend_duration(v6);
       }
 
       else

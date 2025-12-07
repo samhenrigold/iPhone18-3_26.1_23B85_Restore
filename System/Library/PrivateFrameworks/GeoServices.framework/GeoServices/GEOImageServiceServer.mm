@@ -121,35 +121,34 @@ LABEL_18:
 - (void)cancelImageServiceRequestWithRequest:(id)request
 {
   requestCopy = request;
-  v5 = [[GEOImageServiceReplySimple alloc] initWithRequest:requestCopy];
+  v4 = [[GEOImageServiceReplySimple alloc] initWithRequest:requestCopy];
   request = [requestCopy request];
 
   if (request)
   {
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x3032000000;
-    v14 = sub_10002DF04;
-    v15 = sub_10002DF14;
-    v16 = 0;
-    isolater = self->_isolater;
-    v10 = requestCopy;
+    v9 = 0;
+    v10 = &v9;
+    v11 = 0x3032000000;
+    v12 = sub_10002DF04;
+    v13 = sub_10002DF14;
+    v14 = 0;
+    v8 = requestCopy;
     geo_isolate_sync_data();
-    if (v12[5])
+    if (v10[5])
     {
-      v8 = +[GEOImageServiceServerRequester sharedRequester];
-      [v8 cancelSimpleImageServiceRequest:v12[5]];
+      v6 = +[GEOImageServiceServerRequester sharedRequester];
+      [v6 cancelSimpleImageServiceRequest:v10[5]];
     }
 
-    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v9, 8);
   }
 
   else
   {
-    v9 = [NSError GEOErrorWithCode:-10];
-    [v5 setError:v9];
+    v7 = [NSError GEOErrorWithCode:-10];
+    [v4 setError:v7];
 
-    [v5 send];
+    [v4 send];
   }
 }
 
@@ -161,10 +160,10 @@ LABEL_18:
 
   if (request)
   {
-    v28 = v5;
+    v27 = v5;
     request2 = [requestCopy request];
     imageIds = [request2 imageIds];
-    v33 = [imageIds mutableCopy];
+    v32 = [imageIds mutableCopy];
 
     request3 = [requestCopy request];
     width = [request3 width];
@@ -172,88 +171,87 @@ LABEL_18:
     request4 = [requestCopy request];
     height = [request4 height];
 
-    v32 = +[NSMutableArray array];
-    isolater = self->_isolater;
-    v47 = _NSConcreteStackBlock;
-    v48 = 3221225472;
-    v49 = sub_10002E3E0;
-    v50 = &unk_100083940;
+    v31 = +[NSMutableArray array];
+    v46 = _NSConcreteStackBlock;
+    v47 = 3221225472;
+    v48 = sub_10002E3E0;
+    v49 = &unk_100083940;
     selfCopy = self;
-    v29 = requestCopy;
-    v52 = requestCopy;
+    v28 = requestCopy;
+    v51 = requestCopy;
     geo_isolate_sync_data();
-    v13 = dispatch_group_create();
+    v12 = dispatch_group_create();
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v27 = v52;
-    request5 = [v52 request];
+    v26 = v51;
+    request5 = [v51 request];
     imageIds2 = [request5 imageIds];
 
     obj = imageIds2;
-    v16 = [imageIds2 countByEnumeratingWithState:&v43 objects:v53 count:16];
-    if (v16)
+    v15 = [imageIds2 countByEnumeratingWithState:&v42 objects:v52 count:16];
+    if (v15)
     {
-      v17 = v16;
-      v18 = *v44;
+      v16 = v15;
+      v17 = *v43;
       do
       {
-        v19 = 0;
+        v18 = 0;
         do
         {
-          if (*v44 != v18)
+          if (*v43 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v43 + 1) + 8 * v19);
-          dispatch_group_enter(v13);
+          v19 = *(*(&v42 + 1) + 8 * v18);
+          dispatch_group_enter(v12);
           persistence = self->_persistence;
           global_queue = geo_get_global_queue();
-          v39[0] = _NSConcreteStackBlock;
-          v39[1] = 3221225472;
-          v39[2] = sub_10002E440;
-          v39[3] = &unk_100082748;
-          v39[4] = v20;
-          v39[5] = self;
-          v40 = v33;
-          v41 = v32;
-          v42 = v13;
-          [(GEOImageServicePersistence *)persistence getDataForIdentifier:v20 width:width height:height callbackQueue:global_queue callback:v39];
+          v38[0] = _NSConcreteStackBlock;
+          v38[1] = 3221225472;
+          v38[2] = sub_10002E440;
+          v38[3] = &unk_100082748;
+          v38[4] = v19;
+          v38[5] = self;
+          v39 = v32;
+          v40 = v31;
+          v41 = v12;
+          [(GEOImageServicePersistence *)persistence getDataForIdentifier:v19 width:width height:height callbackQueue:global_queue callback:v38];
 
-          v19 = v19 + 1;
+          v18 = v18 + 1;
         }
 
-        while (v17 != v19);
-        v17 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
+        while (v16 != v18);
+        v16 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
       }
 
-      while (v17);
+      while (v16);
     }
 
-    v23 = geo_get_global_queue();
+    v22 = geo_get_global_queue();
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10002E550;
     block[3] = &unk_100083288;
     block[4] = self;
-    v35 = v27;
-    v36 = v33;
-    v37 = v32;
-    v5 = v28;
-    v38 = v28;
+    v34 = v26;
+    v35 = v32;
+    v36 = v31;
+    v5 = v27;
+    v37 = v27;
+    v23 = v31;
     v24 = v32;
-    v25 = v33;
-    dispatch_group_notify(v13, v23, block);
+    dispatch_group_notify(v12, v22, block);
 
-    requestCopy = v29;
+    requestCopy = v28;
   }
 
   else
   {
-    v26 = [NSError GEOErrorWithCode:-10];
-    [v5 setError:v26];
+    v25 = [NSError GEOErrorWithCode:-10];
+    [v5 setError:v25];
 
     [v5 send];
   }

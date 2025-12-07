@@ -13,7 +13,7 @@
 
 + ($A0D62BC7BB322857EA05296DE7D5C3FF)forwardmostCMTimeRangeInCMTimeRanges:(SEL)ranges
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a4;
   v6 = [v5 count];
   if (!v5 || !v6)
@@ -27,7 +27,7 @@
     v8 = firstObject;
     if (firstObject)
     {
-      [firstObject CMTimeRangeValue];
+      objc_msgSend_CMTimeRangeValue(firstObject);
     }
 
     else
@@ -47,37 +47,37 @@
   *&start[16] = *(MEMORY[0x277CC08A0] + 16);
   duration = **&MEMORY[0x277CC08F0];
   CMTimeRangeMake(retstr, start, &duration);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v9 = v5;
-  v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v26;
+    v12 = *v25;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v25 + 1) + 8 * i);
-        v24 = 0u;
+        v14 = *(*(&v24 + 1) + 8 * i);
+        v23 = 0u;
         memset(start, 0, sizeof(start));
         if (v14)
         {
-          [v14 CMTimeRangeValue];
+          objc_msgSend_CMTimeRangeValue(v14);
           if (start[12])
           {
-            v15 = vceqq_s32(vandq_s8(vdupq_lane_s64(__SPAIR64__(*&start[12], DWORD1(v24)), 0), xmmword_26CF4C4C0), xmmword_26CF4C4D0);
+            v15 = vceqq_s32(vandq_s8(vdupq_lane_s64(__SPAIR64__(*&start[12], DWORD1(v23)), 0), xmmword_26CF4C4C0), xmmword_26CF4C4D0);
             v16 = vmovn_s32(vmvnq_s8(v15));
             v16.i16[3] = vmovn_s32(v15).i16[3];
-            if ((vminv_u16(v16) & 1) != 0 && (BYTE4(v24) & 0x1D) == 1 && (*&start[24] & 0x8000000000000000) == 0 && !*(&v24 + 1))
+            if ((vminv_u16(v16) & 1) != 0 && (BYTE4(v23) & 0x1D) == 1 && (*&start[24] & 0x8000000000000000) == 0 && !*(&v23 + 1))
             {
               duration = *start;
               time2 = retstr->var0;
@@ -86,14 +86,14 @@
                 v17 = *&start[16];
                 *&retstr->var0.var0 = *start;
                 *&retstr->var0.var3 = v17;
-                *&retstr->var1.var1 = v24;
+                *&retstr->var1.var1 = v23;
               }
             }
           }
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v11);
@@ -111,7 +111,6 @@ LABEL_23:
 
 LABEL_26:
 
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -154,15 +153,15 @@ LABEL_26:
 
 - (double)endTime
 {
-  [(TVPTimeRange *)self startTime];
+  objc_msgSend_startTime(self, a2);
   v4 = v3;
-  [(TVPTimeRange *)self duration];
+  objc_msgSend_duration(self);
   return v4 + v5;
 }
 
 - (BOOL)containsTime:(double)time
 {
-  [(TVPTimeRange *)self startTime];
+  objc_msgSend_startTime(self, a2);
   if (v5 > time)
   {
     return 0;
@@ -179,15 +178,15 @@ LABEL_26:
   if (rangeCopy)
   {
     memset(&v17, 0, sizeof(v17));
-    [(TVPTimeRange *)self startTime];
+    objc_msgSend_startTime(self);
     CMTimeMakeWithSeconds(&start.start, v6, 1000000);
-    [(TVPTimeRange *)self duration];
+    objc_msgSend_duration(self);
     CMTimeMakeWithSeconds(&duration.start, v7, 1000000);
     CMTimeRangeMake(&v17, &start.start, &duration.start);
     memset(&start, 0, sizeof(start));
-    [rangeCopy startTime];
+    objc_msgSend_startTime(rangeCopy);
     CMTimeMakeWithSeconds(&duration.start, v8, 1000000);
-    [rangeCopy duration];
+    objc_msgSend_duration(rangeCopy);
     CMTimeMakeWithSeconds(&v14.start, v9, 1000000);
     CMTimeRangeMake(&start, &duration.start, &v14.start);
     v14 = v17;
@@ -206,9 +205,9 @@ LABEL_26:
 
 - (id)description
 {
-  [(TVPTimeRange *)self startTime];
+  objc_msgSend_startTime(self, a2);
   v4 = v3;
-  [(TVPTimeRange *)self duration];
+  objc_msgSend_duration(self);
   v6 = v5;
   [(TVPTimeRange *)self endTime];
   return [MEMORY[0x277CCACA8] stringWithFormat:@"Start time: %f End time: %f Duration: %f", v4, v7, v6];
@@ -221,14 +220,14 @@ LABEL_26:
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    [v5 startTime];
+    objc_msgSend_startTime(v5);
     v7 = v6;
-    [(TVPTimeRange *)self startTime];
+    objc_msgSend_startTime(self);
     if (v7 == v8)
     {
-      [v5 duration];
+      objc_msgSend_duration(v5);
       v10 = v9;
-      [(TVPTimeRange *)self duration];
+      objc_msgSend_duration(self);
       v12 = v10 == v11;
     }
 

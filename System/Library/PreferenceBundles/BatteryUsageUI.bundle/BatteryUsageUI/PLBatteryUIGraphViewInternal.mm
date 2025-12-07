@@ -20,9 +20,7 @@
   endDate = self->endDate;
   self->endDate = v3;
 
-  v5 = [(NSDate *)self->endDate dateByAddingTimeInterval:-43200.0];
-  startDate = self->startDate;
-  self->startDate = v5;
+  self->startDate = [(NSDate *)self->endDate dateByAddingTimeInterval:-43200.0];
 
   _objc_release_x1();
 }

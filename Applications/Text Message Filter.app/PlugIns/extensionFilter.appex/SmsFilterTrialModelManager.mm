@@ -27,7 +27,7 @@
   }
 
   v3 = v2;
-  v4 = trialLogHandle();
+  v4 = trialLogHandle(v2);
   log = v3->_log;
   v3->_log = v4;
 

@@ -45,14 +45,14 @@
 
 - (void)remoteAlertHandle:(id)handle didInvalidateWithError:(id)error
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = _ICQGetLogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = errorCopy;
-    _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "Remote alert was invalidated with error: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = errorCopy;
+    _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "Remote alert was invalidated with error: %@", &v8, 0xCu);
   }
 
   presentationWasInvalidated = self->_presentationWasInvalidated;
@@ -60,8 +60,6 @@
   {
     presentationWasInvalidated[2](presentationWasInvalidated, errorCopy);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

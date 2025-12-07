@@ -15,7 +15,9 @@
 - (id)name;
 - (unsigned)sortOrder;
 - (unsigned)type;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setValue:(char)value;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -192,6 +194,13 @@
   return int8Value;
 }
 
+- (void)setValue:(char)value
+{
+  valueCopy = value;
+  valueCharacteristic = [(CAFEqualizer *)self valueCharacteristic];
+  [valueCharacteristic setInt8Value:valueCopy];
+}
+
 - (CAFInt8Range)valueRange
 {
   valueCharacteristic = [(CAFEqualizer *)self valueCharacteristic];
@@ -240,6 +249,103 @@
   v3 = userVisibleLabelCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000033000007"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    typeCharacteristic = [(CAFEqualizer *)self typeCharacteristic];
+    uniqueIdentifier2 = [typeCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers equalizerService:self didUpdateType:{-[CAFEqualizer type](self, "type")}];
+LABEL_17:
+
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000003"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    sortOrderCharacteristic = [(CAFEqualizer *)self sortOrderCharacteristic];
+    uniqueIdentifier4 = [sortOrderCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers2 = [(CAFService *)self observers];
+      [observers2 equalizerService:self didUpdateSortOrder:{-[CAFEqualizer sortOrder](self, "sortOrder")}];
+
+      observers = [(CAFService *)self observers];
+      name = [(CAFEqualizer *)self name];
+      [observers equalizerService:self didUpdateName:name];
+LABEL_16:
+
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000033000008"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    valueCharacteristic = [(CAFEqualizer *)self valueCharacteristic];
+    uniqueIdentifier6 = [valueCharacteristic uniqueIdentifier];
+    v24 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v24)
+    {
+      observers = [(CAFService *)self observers];
+      [observers equalizerService:self didUpdateValue:{-[CAFEqualizer value](self, "value")}];
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000030000001"])
+  {
+    goto LABEL_17;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  userVisibleLabelCharacteristic = [(CAFEqualizer *)self userVisibleLabelCharacteristic];
+  uniqueIdentifier8 = [userVisibleLabelCharacteristic uniqueIdentifier];
+  v28 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v28)
+  {
+    observers = [(CAFService *)self observers];
+    name = [(CAFEqualizer *)self userVisibleLabel];
+    [observers equalizerService:self didUpdateUserVisibleLabel:name];
+    goto LABEL_16;
+  }
+
+LABEL_18:
+  v29.receiver = self;
+  v29.super_class = CAFEqualizer;
+  [(CAFService *)&v29 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForEqualizerType

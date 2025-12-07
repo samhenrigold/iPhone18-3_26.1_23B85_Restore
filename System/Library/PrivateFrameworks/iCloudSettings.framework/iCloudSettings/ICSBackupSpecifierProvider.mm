@@ -32,7 +32,7 @@
 
 - (NSArray)specifiers
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   specifiers = self->_specifiers;
   if (!specifiers)
   {
@@ -40,16 +40,14 @@
     v5 = _iCloudBackupSpecifier;
     if (_iCloudBackupSpecifier)
     {
-      v10[0] = _iCloudBackupSpecifier;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+      v9[0] = _iCloudBackupSpecifier;
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
       v7 = self->_specifiers;
       self->_specifiers = v6;
     }
 
     specifiers = self->_specifiers;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return specifiers;
 }
@@ -113,19 +111,19 @@
 
   if (v6)
   {
-    v7 = objc_loadWeakRetained(&self->_delegate);
-    v8 = [v7 specifierProvider:self isDataclassAvailableForSpecifier:stateCopy];
+    v8 = objc_loadWeakRetained(&self->_delegate);
+    v9 = [v8 specifierProvider:self isDataclassAvailableForSpecifier:stateCopy];
 
-    if (v8)
+    if (v9)
     {
       account = [(ICSBackupSpecifierProvider *)self account];
-      v10 = [account isEnabledForDataclass:*MEMORY[0x277CB8920]];
+      v11 = [account isEnabledForDataclass:*MEMORY[0x277CB8920]];
 
-      if (v10)
+      if (v11)
       {
-        v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v12 = v11;
-        v13 = @"ON";
+        v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v13 = v12;
+        v14 = @"ON";
         goto LABEL_9;
       }
     }
@@ -133,20 +131,20 @@
 
   else
   {
-    v14 = LogSubsystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = LogSubsystem(v7);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(ICSPhotoStreamSpecifierProvider *)&self->_delegate _isPhotoStreamEnabled:v14];
+      [(ICSPhotoStreamSpecifierProvider *)&self->_delegate _isPhotoStreamEnabled:v15];
     }
   }
 
-  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v12 = v11;
-  v13 = @"OFF";
+  v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v13 = v12;
+  v14 = @"OFF";
 LABEL_9:
-  v15 = [v11 localizedStringForKey:v13 value:&stru_288487370 table:@"Localizable-AppleID"];
+  v16 = [v12 localizedStringForKey:v14 value:&stru_288487370 table:@"Localizable-AppleID"];
 
-  return v15;
+  return v16;
 }
 
 - (void)_backupSpecifierWasTapped:(id)tapped
@@ -212,17 +210,18 @@ void __56__ICSBackupSpecifierProvider__backupSpecifierWasTapped___block_invoke(u
   nameCopy = name;
   bundleCopy = bundle;
   v8 = NSClassFromString(nameCopy);
-  if ([(objc_class *)v8 conformsToProtocol:&unk_2884BC2B8])
+  v9 = [(objc_class *)v8 conformsToProtocol:&unk_2884BC2B8];
+  if (v9)
   {
-    v9 = [[v8 alloc] initWithAccountManager:self->_accountManager];
+    v10 = [[v8 alloc] initWithAccountManager:self->_accountManager];
     WeakRetained = objc_loadWeakRetained(&self->_listController);
-    [v9 setDelegate:WeakRetained];
+    [v10 setDelegate:WeakRetained];
   }
 
   else
   {
-    v11 = LogSubsystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = LogSubsystem(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v14 = 138543874;
       selfCopy = self;
@@ -230,15 +229,13 @@ void __56__ICSBackupSpecifierProvider__backupSpecifierWasTapped___block_invoke(u
       v17 = nameCopy;
       v18 = 2114;
       v19 = bundleCopy;
-      _os_log_error_impl(&dword_275819000, v11, OS_LOG_TYPE_ERROR, "%{public}@ Failed to load %{public}@ from bundle: %{public}@", &v14, 0x20u);
+      _os_log_error_impl(&dword_275819000, v12, OS_LOG_TYPE_ERROR, "%{public}@ Failed to load %{public}@ from bundle: %{public}@", &v14, 0x20u);
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v10;
 }
 
 - (AAUISpecifierProviderDelegate)delegate

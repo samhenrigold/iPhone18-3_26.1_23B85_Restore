@@ -2,6 +2,7 @@
 - (BOOL)_exceededFailureLimit;
 - (BOOL)_shouldShowUIBeforeFailure;
 - (BOOL)isAvailableForPurpose:(int64_t)purpose error:(id *)error;
+- (BOOL)pause:(BOOL)pause forEvent:(int64_t)event error:(id *)error;
 - (LACRemoteUI)remoteUiDelegate;
 - (MechanismTouchId)initWithParams:(id)params request:(id)request;
 - (id)currentMatchingOperationUserId;
@@ -15,6 +16,7 @@
 - (void)_startBiometry;
 - (void)_startFingerDetectPhase;
 - (void)_startMatching;
+- (void)_stopBiometry:(BOOL)biometry;
 - (void)matchOperation:(id)operation matchedWithResult:(id)result;
 - (void)operation:(id)operation finishedWithReason:(int64_t)reason;
 - (void)operation:(id)operation presenceStateChanged:(BOOL)changed;
@@ -945,6 +947,73 @@ LABEL_20:
   block[4] = self;
   block[5] = fingerOffCounter;
   dispatch_after(v7, &_dispatch_main_q, block);
+}
+
+- (void)_stopBiometry:(BOOL)biometry
+{
+  request = [(MechanismTouchId *)self request];
+  v5 = [request log];
+
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    matchOperation = self->_matchOperation;
+    if (!matchOperation)
+    {
+      matchOperation = self->_detectOperation;
+    }
+
+    v7 = 138543618;
+    selfCopy = self;
+    v9 = 2114;
+    v10 = matchOperation;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ will stop biometric operation: %{public}@", &v7, 0x16u);
+  }
+
+  [(MechanismTouchId *)self setRemoteUiDelegate:0];
+  if (self->_matchOperation || self->_detectOperation)
+  {
+    [(MechanismTouchId *)self _cancelOperation:?];
+  }
+}
+
+- (BOOL)pause:(BOOL)pause forEvent:(int64_t)event error:(id *)error
+{
+  pauseCopy = pause;
+  v12.receiver = self;
+  v12.super_class = MechanismTouchId;
+  v7 = [(MechanismTouchId *)&v12 pause:pause forEvent:event error:error];
+  if (v7)
+  {
+    request = [(MechanismTouchId *)self request];
+    v9 = [request log];
+
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = "resume";
+      if (pauseCopy)
+      {
+        v10 = "pause";
+      }
+
+      *buf = 138543618;
+      selfCopy = self;
+      v15 = 2080;
+      v16 = v10;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ will %s the biometric operation", buf, 0x16u);
+    }
+
+    if (pauseCopy)
+    {
+      [(MechanismTouchId *)self _stopBiometry:1];
+    }
+
+    else
+    {
+      [(MechanismTouchId *)self _startBiometryMain];
+    }
+  }
+
+  return v7;
 }
 
 - (id)currentMatchingOperationUserId

@@ -669,8 +669,8 @@ LABEL_129:
     if (v119)
     {
       peerInfo2 = [account32 peerInfo];
-      v121 = sub_100220920(account32);
-      v122 = sub_100220920(account32);
+      v121 = sub_100220920(account32, 2);
+      v122 = sub_100220920(account32, 5);
       if (peerInfo2)
       {
         peerInfo2 = SOSPeerInfoCopyEnabledViews();

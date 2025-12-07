@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_accessibilityMoveToPrivacyHeaderView;
+- (void)setExpanded:(BOOL)expanded animated:(BOOL)animated;
 - (void)viewDidLoad;
 @end
 
@@ -94,6 +95,14 @@ uint64_t __102__CCUISensorAttributionExpandedViewControllerAccessibility__access
   v2 = [WeakRetained safeBoolForKey:@"isExpanded"];
 
   return v2;
+}
+
+- (void)setExpanded:(BOOL)expanded animated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = CCUISensorAttributionExpandedViewControllerAccessibility;
+  [(CCUISensorAttributionExpandedViewControllerAccessibility *)&v4 setExpanded:expanded animated:animated];
+  AXPerformBlockOnMainThreadAfterDelay();
 }
 
 @end

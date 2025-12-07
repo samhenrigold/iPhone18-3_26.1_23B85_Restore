@@ -8,7 +8,7 @@
 
 - (void)downloadForegroundBackgroundSegmentationModelBundleWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB1F30E0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB1F30E0, &qword_1A6001C30);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -33,7 +33,7 @@
 
 - (id)foregroundBackgroundSegmentationModelBundleURLAndReturnError:(id *)error
 {
-  v3 = sub_1A5D5CBF0();
+  v3 = sub_1A5D5CBF0(self);
 
   return v3;
 }

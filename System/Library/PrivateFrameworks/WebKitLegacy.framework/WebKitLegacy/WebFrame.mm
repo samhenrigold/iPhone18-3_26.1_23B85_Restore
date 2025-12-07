@@ -1540,7 +1540,7 @@ LABEL_19:
 {
   if (self)
   {
-    return unk_1F4779040(self, "_convertToDOMRange:rangeIsRelativeTo:", a4.location, a4.length, 0);
+    return unk_1F4779640(self, "_convertToDOMRange:rangeIsRelativeTo:", a4.location, a4.length, 0);
   }
 
   *&retstr->var1 = 0;
@@ -1790,7 +1790,7 @@ LABEL_9:
 {
   if (self)
   {
-    [(WebFrame *)self _convertToDOMRange:range.location, range.length];
+    objc_msgSend__convertToDOMRange_(self, a2, range.location, range.length);
   }
 
   else
@@ -2237,10 +2237,10 @@ LABEL_30:
 
 - (VisiblePosition)_visiblePositionForPoint:(SEL)point
 {
-  v7 = a4;
+  v8 = a4;
   m_ptr = self->_private->coreFrame.m_ptr;
-  WebCore::IntPoint::IntPoint(v6, &v7);
-  return WebCore::LocalFrame::visiblePositionForPoint(m_ptr, v6);
+  WebCore::IntPoint::IntPoint(v7, &v8);
+  return WebCore::LocalFrame::visiblePositionForPoint(retstr, m_ptr, v7);
 }
 
 - (id)_characterRangeAtPoint:(CGPoint)point
@@ -2597,8 +2597,8 @@ LABEL_12:
   {
     y = secondPoint.y;
     x = secondPoint.x;
-    [(WebFrame *)self _visiblePositionForPoint:point.x, point.y];
-    [(WebFrame *)self _visiblePositionForPoint:x, y];
+    objc_msgSend__visiblePositionForPoint_(self, a2, point.x, point.y);
+    objc_msgSend__visiblePositionForPoint_(self, x, y);
   }
 
   else
@@ -2701,7 +2701,7 @@ LABEL_20:
 {
   if (self)
   {
-    [(WebFrame *)self _visiblePositionForPoint:point.x, point.y];
+    objc_msgSend__visiblePositionForPoint_(self, a2, point.x, point.y);
   }
 
   else
@@ -2844,7 +2844,7 @@ LABEL_14:
 {
   if (self)
   {
-    [(WebFrame *)self _convertToDOMRange:range.location, range.length];
+    objc_msgSend__convertToDOMRange_(self, a2, range.location, range.length);
     if (v8)
     {
       WebCore::VisibleSelection::VisibleSelection();
@@ -2979,7 +2979,7 @@ LABEL_8:
 {
   if (self)
   {
-    [(WebFrame *)self _convertToDOMRange:range.location, range.length];
+    objc_msgSend__convertToDOMRange_(self, a2, range.location, range.length);
     if (v12)
     {
       WebCore::VisibleSelection::VisibleSelection();
@@ -3073,7 +3073,7 @@ LABEL_14:
   }
 }
 
-uint64_t __48__WebFrame_WebPrivate__deviceOrientationChanged__block_invoke(uint64_t a1)
+void *__48__WebFrame_WebPrivate__deviceOrientationChanged__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (!v2 || (v3 = *(*(v2 + 8) + 8)) == 0 || (v4 = *(v3 + 24)) == 0)
@@ -3369,7 +3369,7 @@ LABEL_7:
 
   if (*(v5 + 45))
   {
-    WebCore::CaretBase::computeCaretColor();
+    WebCore::CaretBase::computeCaretColor((v5 + 80), 0);
     v8 = v12;
     if ((v12 & 0x4000000000000) == 0)
     {
@@ -3393,14 +3393,14 @@ LABEL_11:
     JUMPOUT(0x1C7A74CE0);
   }
 
-  if ((*(v6 + 32) & 8) == 0)
+  if ((*(v6 + 16) & 8) == 0)
   {
 LABEL_22:
     __break(0xC471u);
     JUMPOUT(0x1C7A74CC0);
   }
 
-  WebCore::CaretBase::computeCaretColor();
+  WebCore::CaretBase::computeCaretColor((v5 + 80), v6);
   v8 = v12;
   if ((v12 & 0x4000000000000) == 0)
   {
@@ -4175,19 +4175,22 @@ LABEL_3:
 
 - (id)rangeByMovingCurrentSelection:(int)selection
 {
-  WebCore::FrameSelection::rangeByMovingCurrentSelection(*(*(self->_private->coreFrame.m_ptr + 28) + 3208));
+  WebCore::FrameSelection::rangeByMovingCurrentSelection(&v8, *(*(self->_private->coreFrame.m_ptr + 28) + 3208));
   result = kit();
-  if (v9 == 1)
+  if (v10 == 1)
   {
-    if (v8)
+    v4 = v9;
+    v9 = 0;
+    if (v4)
     {
-      if (*(v8 + 7) == 2)
+      if (*(v4 + 7) == 2)
       {
-        v5 = result;
-        WebCore::Node::removedLastRef(v8);
-        result = v5;
-        v4 = v7;
-        if (!v7)
+        v6 = result;
+        WebCore::Node::removedLastRef(v4);
+        result = v6;
+        v5 = v8;
+        v8 = 0;
+        if (!v5)
         {
           return result;
         }
@@ -4195,26 +4198,27 @@ LABEL_3:
         goto LABEL_6;
       }
 
-      *(v8 + 7) -= 2;
+      *(v4 + 7) -= 2;
     }
 
-    v4 = v7;
-    if (!v7)
+    v5 = v8;
+    v8 = 0;
+    if (!v5)
     {
       return result;
     }
 
 LABEL_6:
-    if (*(v4 + 7) == 2)
+    if (*(v5 + 7) == 2)
     {
-      v6 = result;
-      WebCore::Node::removedLastRef(v4);
-      return v6;
+      v7 = result;
+      WebCore::Node::removedLastRef(v5);
+      return v7;
     }
 
     else
     {
-      *(v4 + 7) -= 2;
+      *(v5 + 7) -= 2;
     }
   }
 
@@ -4223,19 +4227,22 @@ LABEL_6:
 
 - (id)rangeByExtendingCurrentSelection:(int)selection
 {
-  WebCore::FrameSelection::rangeByExtendingCurrentSelection(*(*(self->_private->coreFrame.m_ptr + 28) + 3208));
+  WebCore::FrameSelection::rangeByExtendingCurrentSelection(&v8, *(*(self->_private->coreFrame.m_ptr + 28) + 3208));
   result = kit();
-  if (v9 == 1)
+  if (v10 == 1)
   {
-    if (v8)
+    v4 = v9;
+    v9 = 0;
+    if (v4)
     {
-      if (*(v8 + 7) == 2)
+      if (*(v4 + 7) == 2)
       {
-        v5 = result;
-        WebCore::Node::removedLastRef(v8);
-        result = v5;
-        v4 = v7;
-        if (!v7)
+        v6 = result;
+        WebCore::Node::removedLastRef(v4);
+        result = v6;
+        v5 = v8;
+        v8 = 0;
+        if (!v5)
         {
           return result;
         }
@@ -4243,26 +4250,27 @@ LABEL_6:
         goto LABEL_6;
       }
 
-      *(v8 + 7) -= 2;
+      *(v4 + 7) -= 2;
     }
 
-    v4 = v7;
-    if (!v7)
+    v5 = v8;
+    v8 = 0;
+    if (!v5)
     {
       return result;
     }
 
 LABEL_6:
-    if (*(v4 + 7) == 2)
+    if (*(v5 + 7) == 2)
     {
-      v6 = result;
-      WebCore::Node::removedLastRef(v4);
-      return v6;
+      v7 = result;
+      WebCore::Node::removedLastRef(v5);
+      return v7;
     }
 
     else
     {
-      *(v4 + 7) -= 2;
+      *(v5 + 7) -= 2;
     }
   }
 
@@ -8134,7 +8142,7 @@ LABEL_7:
 {
   if (self)
   {
-    return [(VisiblePosition *)self _visiblePositionForPoint:a4.x, a4.y];
+    return objc_msgSend__visiblePositionForPoint_(self, point, a4.x, a4.y);
   }
 
   retstr->var0.var0.var0 = 0;
@@ -8400,7 +8408,7 @@ LABEL_65:
 {
   if (position)
   {
-    [position _visiblePosition];
+    objc_msgSend__visiblePosition(position, a2);
     v13[3] = WebCore::VisiblePosition::absoluteCaretBounds(v13, 0);
     v13[4] = v3;
     WebCore::IntRect::operator CGRect();
@@ -8504,7 +8512,7 @@ LABEL_13:
     {
       if (self)
       {
-        [(WebFrame *)self visiblePositionForPoint:x, y];
+        objc_msgSend_visiblePositionForPoint_(self, x, y);
       }
 
       else
@@ -8560,7 +8568,7 @@ LABEL_13:
           {
             if (self)
             {
-              [(WebFrame *)self visiblePositionForPoint:x, v18];
+              objc_msgSend_visiblePositionForPoint_(self, x, v18);
               v44 = v41;
             }
 
@@ -8579,7 +8587,7 @@ LABEL_13:
           {
             if (self)
             {
-              [(WebFrame *)self visiblePositionForPoint:x, y];
+              objc_msgSend_visiblePositionForPoint_(self, x, y);
               v44 = v41;
               v40 = v43;
             }
@@ -8602,7 +8610,7 @@ LABEL_13:
         {
           if (self)
           {
-            [(WebFrame *)self visiblePositionForPoint:x, v16];
+            objc_msgSend_visiblePositionForPoint_(self, x, v16);
             v44 = v41;
           }
 
@@ -9078,7 +9086,7 @@ LABEL_7:
 {
   if (self)
   {
-    [(WebFrame *)self visiblePositionForPoint:point.x, point.y];
+    objc_msgSend_visiblePositionForPoint_(self, a2, point.x, point.y);
   }
 
   else
@@ -9221,7 +9229,7 @@ LABEL_30:
 {
   if (self)
   {
-    [(WebFrame *)self visiblePositionForPoint:point.x, point.y];
+    objc_msgSend_visiblePositionForPoint_(self, a2, point.x, point.y);
   }
 
   else
@@ -9300,7 +9308,7 @@ LABEL_30:
   if (self)
   {
     v7 = coreFrame;
-    [(WebFrame *)self visiblePositionForPoint:x, y];
+    objc_msgSend_visiblePositionForPoint_(self, x, y);
     coreFrame = v7;
   }
 
@@ -9425,7 +9433,7 @@ LABEL_94:
     }
 
 LABEL_9:
-    [(WebFrame *)self visiblePositionForPoint:x, y];
+    objc_msgSend_visiblePositionForPoint_(self, x, y);
     if (v71 != 2)
     {
       goto LABEL_12;
@@ -9555,7 +9563,7 @@ LABEL_64:
       if (self)
       {
 LABEL_25:
-        [(WebFrame *)self visiblePositionForPoint:x, y];
+        objc_msgSend_visiblePositionForPoint_(self, x, y);
         if (v52 && WebCore::operator<=>() == 1)
         {
           *(v52 + 7) += 2;
@@ -9669,7 +9677,7 @@ LABEL_31:
       if (self)
       {
 LABEL_36:
-        [(WebFrame *)self visiblePositionForPoint:x, y];
+        objc_msgSend_visiblePositionForPoint_(self, x, y);
         if (v53 && WebCore::operator<=>() == 0xFF)
         {
           *(v53 + 7) += 2;
@@ -9872,8 +9880,8 @@ LABEL_98:
   [(WebFrame *)self coreFrame];
   if (self)
   {
-    [(WebFrame *)self visiblePositionForPoint:v11, v10];
-    [(WebFrame *)self visiblePositionForPoint:x, y];
+    objc_msgSend_visiblePositionForPoint_(self, v11, v10);
+    objc_msgSend_visiblePositionForPoint_(self, x, y);
     if (flippingCopy)
     {
       goto LABEL_3;
@@ -10009,8 +10017,8 @@ LABEL_33:
   {
     y = secondPoint.y;
     x = secondPoint.x;
-    [(WebFrame *)self visiblePositionForPoint:point.x, point.y];
-    [(WebFrame *)self visiblePositionForPoint:x, y];
+    objc_msgSend_visiblePositionForPoint_(self, a2, point.x, point.y);
+    objc_msgSend_visiblePositionForPoint_(self, x, y);
   }
 
   else
@@ -10080,7 +10088,7 @@ LABEL_6:
     goto LABEL_12;
   }
 
-  [(WebFrame *)self visiblePositionForPoint:v7, v6];
+  objc_msgSend_visiblePositionForPoint_(self, v7, v6);
   v10 = v22;
   if (v22)
   {
@@ -10108,7 +10116,7 @@ LABEL_6:
     v27 = BYTE4(v23);
   }
 
-  [(WebFrame *)self visiblePositionForPoint:x, y];
+  objc_msgSend_visiblePositionForPoint_(self, x, y);
   v12 = v22;
   if (!v22)
   {
@@ -10844,7 +10852,7 @@ LABEL_16:
   [(WebFrame *)self coreFrame];
   if (self)
   {
-    [(WebFrame *)self _visiblePositionForPoint:x, y];
+    objc_msgSend__visiblePositionForPoint_(self, x, y);
   }
 
   else

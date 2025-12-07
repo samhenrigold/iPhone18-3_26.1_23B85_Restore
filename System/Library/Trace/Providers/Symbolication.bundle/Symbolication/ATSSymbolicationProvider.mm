@@ -12,11 +12,10 @@
 
 - (void)dealloc
 {
-  symbolicationConfig = self->_symbolicationConfig;
   ats_destroy_symbolication_config();
-  v4.receiver = self;
-  v4.super_class = ATSSymbolicationProvider;
-  [(ATSSymbolicationProvider *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = ATSSymbolicationProvider;
+  [(ATSSymbolicationProvider *)&v3 dealloc];
 }
 
 - (BOOL)shouldInitializeWithLogger:(id)logger machine:(ktrace_machine *)machine options:(id)options error:(id *)error

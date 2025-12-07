@@ -37,17 +37,16 @@
 {
   OUTLINED_FUNCTION_38_2();
   v5 = sub_1DC510C8C();
-  v6 = OUTLINED_FUNCTION_0(v5);
-  v8 = v7;
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v6);
+  OUTLINED_FUNCTION_0();
+  v7 = v6;
+  MEMORY[0x1EEE9AC00](v8);
   OUTLINED_FUNCTION_3();
   sub_1DC510C0C();
-  v11 = v3;
+  v9 = v3;
   OUTLINED_FUNCTION_121();
   sub_1DC356CEC();
 
-  (*(v8 + 8))(v4, v5);
+  (*(v7 + 8))(v4, v5);
 }
 
 - (void)assetsUnavailable
@@ -61,17 +60,16 @@
 {
   OUTLINED_FUNCTION_38_2();
   v6 = sub_1DC510C8C();
-  v7 = OUTLINED_FUNCTION_0(v6);
-  v9 = v8;
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v7);
+  OUTLINED_FUNCTION_0();
+  v8 = v7;
+  MEMORY[0x1EEE9AC00](v9);
   OUTLINED_FUNCTION_3();
   sub_1DC510C0C();
-  v12 = v4;
+  v10 = v4;
   OUTLINED_FUNCTION_121();
   sub_1DC3571FC();
 
-  (*(v9 + 8))(v5, v6);
+  (*(v8 + 8))(v5, v6);
 }
 
 - (void)assetsUnavailableWithType:(int64_t)type

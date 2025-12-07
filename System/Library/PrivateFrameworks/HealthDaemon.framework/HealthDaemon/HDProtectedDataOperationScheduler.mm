@@ -170,7 +170,7 @@ uint64_t __76__HDProtectedDataOperationScheduler_registerProtectedDataAvailableO
 
 - (void)startEnqueuedWorkWithName:(id)name
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   daemon = [WeakRetained daemon];
@@ -183,16 +183,14 @@ uint64_t __76__HDProtectedDataOperationScheduler_registerProtectedDataAvailableO
     v9 = HKLogInfrastructure();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543618;
-      v13 = objc_opt_class();
-      v14 = 2114;
-      v15 = nameCopy;
-      v10 = v13;
-      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did not find a pending operation with name: %{public}@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = objc_opt_class();
+      v13 = 2114;
+      v14 = nameCopy;
+      v10 = v12;
+      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did not find a pending operation with name: %{public}@", &v11, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)profileDidBecomeReady:(id)ready
@@ -246,45 +244,45 @@ void __58__HDProtectedDataOperationScheduler_diagnosticDescription__block_invoke
 - (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available
 {
   availableCopy = available;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_clientQueue);
   if (availableCopy)
   {
     v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
     clientQueue_clientsAwaitingProtectedDataAvailable = self->_clientQueue_clientsAwaitingProtectedDataAvailable;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __78__HDProtectedDataOperationScheduler_database_protectedDataDidBecomeAvailable___block_invoke;
-    v21[3] = &unk_27861FDA0;
-    v21[4] = self;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __78__HDProtectedDataOperationScheduler_database_protectedDataDidBecomeAvailable___block_invoke;
+    v20[3] = &unk_27861FDA0;
+    v20[4] = self;
     v8 = v6;
-    v22 = v8;
-    [(HKSynchronousObserverSet *)clientQueue_clientsAwaitingProtectedDataAvailable notifyObservers:v21];
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
+    v21 = v8;
+    [(HKSynchronousObserverSet *)clientQueue_clientsAwaitingProtectedDataAvailable notifyObservers:v20];
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         v13 = 0;
         do
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          [(HKSynchronousObserverSet *)self->_clientQueue_clientsAwaitingProtectedDataAvailable unregisterObserver:*(*(&v17 + 1) + 8 * v13++), v17];
+          [(HKSynchronousObserverSet *)self->_clientQueue_clientsAwaitingProtectedDataAvailable unregisterObserver:*(*(&v16 + 1) + 8 * v13++), v16];
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
       }
 
       while (v11);
@@ -294,8 +292,6 @@ void __58__HDProtectedDataOperationScheduler_diagnosticDescription__block_invoke
     database = [WeakRetained database];
     [database removeProtectedDataObserver:self];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __78__HDProtectedDataOperationScheduler_database_protectedDataDidBecomeAvailable___block_invoke(uint64_t a1, void *a2)

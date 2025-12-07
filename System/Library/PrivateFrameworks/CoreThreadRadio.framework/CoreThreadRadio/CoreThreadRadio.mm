@@ -1,4 +1,4 @@
-void otSysMainloopProcess(ot::Posix::Mainloop::Manager *a1, const void *a2)
+void otSysMainloopProcess(ot::Posix::Mainloop::Manager *a1, void *a2)
 {
   v2 = ot::Posix::Mainloop::Manager::Get(a1);
   ot::Posix::Mainloop::Manager::Process(v2, a2);
@@ -96,7 +96,7 @@ void __main_block_invoke(uint64_t a1)
 
 uint64_t otUdpGetSockets(uint64_t a1)
 {
-  v1 = ot::AsCoreType<otInstance>(a1);
+  ot::AsCoreType<otInstance>(a1);
   v2 = ot::Instance::Get<ot::Ip6::Udp>(v1);
   return ot::Ip6::Udp::GetUdpSockets(v2);
 }
@@ -151,12 +151,16 @@ void **ot::Posix::Mainloop::Manager::Process(void **result, uint64_t a2)
   return result;
 }
 
-void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> ot::AsCoreType<otInstance>(uint64_t a1)
+void ot::AsCoreType<otInstance>(uint64_t a1)
 {
   if (!a1)
   {
     __assert_rtn("AsCoreType", "as_core_type.hpp", 68, "(aObject) != nullptr");
   }
+}
+
+{
+  ot::AsCoreType<otInstance>(a1);
 }
 
 uint64_t ot::Instance::Get<ot::Ip6::Udp>(uint64_t a1)
@@ -194,39 +198,42 @@ uint64_t ot::LinkedList<ot::Ip6::Udp::SocketHandle>::GetHead(uint64_t a1)
   return ot::LinkedList<ot::Ip6::Udp::SocketHandle>::GetHead(a1);
 }
 
-void ot::Posix::MulticastRoutingManager::Process(uint64_t a1, _DWORD *a2)
+void ot::Posix::MulticastRoutingManager::Process(ot::Posix::MulticastRoutingManager *a1, _DWORD *a2)
 {
+  v16 = a1;
+  v15 = a2;
   v12 = a1;
-  v11 = a2;
-  if ((ot::Posix::MulticastRoutingManager::IsEnabled(a1) & 1) != 0 && (ot::Posix::BackboneIPv6Interface::IsActive((a1 + 42032)) & 1) != 0 && ot::Posix::BackboneIPv6Interface::GetBackboneBPFFd((a1 + 42032)) != -1 && ot::Posix::MulticastRoutingManager::GetMulticastListenerCount(a1))
+  if ((ot::Posix::MulticastRoutingManager::IsEnabled(a1) & 1) != 0 && (ot::Posix::BackboneIPv6Interface::IsActive((v12 + 42032)) & 1) != 0 && ot::Posix::BackboneIPv6Interface::GetBackboneBPFFd((v12 + 42032)) != -1 && ot::Posix::MulticastRoutingManager::GetMulticastListenerCount(v12))
   {
-    BackboneBPFFd = ot::Posix::BackboneIPv6Interface::GetBackboneBPFFd((a1 + 42032));
-    v13 = v11;
-    v17 = BackboneBPFFd;
-    v16 = v11;
-    if (__darwin_check_fd_set_overflow(BackboneBPFFd, v11, 0))
+    BackboneBPFFd = ot::Posix::BackboneIPv6Interface::GetBackboneBPFFd((v12 + 42032));
+    v17 = v15;
+    v21 = BackboneBPFFd;
+    v20 = v15;
+    if (__darwin_check_fd_set_overflow(BackboneBPFFd, v15, 0))
     {
-      v15 = v13[BackboneBPFFd / 0x20uLL] & (1 << (BackboneBPFFd % 0x20uLL));
+      v19 = v17[BackboneBPFFd / 0x20uLL] & (1 << (BackboneBPFFd % 0x20uLL));
     }
 
     else
     {
-      v15 = 0;
+      v19 = 0;
     }
 
-    if (v15 && ot::Posix::MulticastRoutingManager::can_read(a1) == 1)
+    if (v19 && ot::Posix::MulticastRoutingManager::can_read(v12) == 1)
     {
-      v10 = ot::Posix::BackboneIPv6Interface::get_read((a1 + 42032), v19, 1280);
-      ot::Posix::MulticastRoutingManager::GetMulticastListenerCount(a1);
-      otThreadErrorToString(0);
-      ot::Posix::Logger<ot::Posix::MulticastRoutingManager>::LogInfo2("MulticastRoutingManager::Process call processLargeScopeMulticastTransmit packetLen=%d multicastListenerCount=%d: %s", v2, v3, v4, v5, v6, v7, v8, v10);
-      if (v10 > 0)
+      v14 = ot::Posix::BackboneIPv6Interface::get_read((v12 + 42032), v23, 1280);
+      v13 = 0;
+      v10 = v14;
+      MulticastListenerCount = ot::Posix::MulticastRoutingManager::GetMulticastListenerCount(v12);
+      v2 = otThreadErrorToString(0);
+      ot::Posix::Logger<ot::Posix::MulticastRoutingManager>::LogInfo2("MulticastRoutingManager::Process call processLargeScopeMulticastTransmit packetLen=%d multicastListenerCount=%d: %s", v3, v4, v5, v6, v7, v8, v9, v14, MulticastListenerCount, v2);
+      if (v14 > 0)
       {
-        ot::Posix::MulticastRoutingManager::processLargeScopeMulticastTransmit(a1, v19, &v10);
+        ot::Posix::MulticastRoutingManager::processLargeScopeMulticastTransmit(v12, v23, &v14);
       }
     }
 
-    ot::Posix::MulticastRoutingManager::ExpireMulticastForwardingCache(a1);
+    ot::Posix::MulticastRoutingManager::ExpireMulticastForwardingCache(v12);
   }
 }
 
@@ -304,9 +311,19 @@ void ot::Spinel::RadioSpinel::ProcessSkywalkState(ot::Spinel::RadioSpinel *this)
       if (!*(this + 28))
       {
         ot::Spinel::Logger::LogNote1(this, "[HandleTransportError Instance is null\n");
-        strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-        otExitCodeToString(4);
-        otLogCritPlat("%s() at %s:%d: %s", v1, v2, v3, v4, v5, v6, v7, "ProcessSkywalkState");
+        v5 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+        if (v5)
+        {
+          v3 = v5 + 1;
+        }
+
+        else
+        {
+          v3 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+        }
+
+        v1 = otExitCodeToString(4);
+        otLogCritPlat("%s() at %s:%d: %s", "ProcessSkywalkState", v3, 1352, v1);
         handle_daemon_exit();
         exit(4);
       }
@@ -390,27 +407,25 @@ void ot::Spinel::RadioSpinel::CalcRcpTimeOffset(const char **this)
     {
       ot::Spinel::Logger::LogDebg1(this, "Trying to get RCP time offset");
       v8 = spinel_datatype_pack(v14, 8u, "X", v1, v2, v3, v4, v5, v9);
-      if (v8 > 0 && v8 <= 8)
+      if (v8 <= 0 || v8 > 8)
       {
-        v11 = otPlatTimeGet();
-        v12 = ot::Spinel::RadioSpinel::GetWithParam(this, 2050, v14, v8, "X", &v9);
-        v10 = otPlatTimeGet();
-        if (v12)
-        {
-          this[211] = v10;
-        }
+        ot::Spinel::Logger::LogIfFail1(this, "Error calculating RCP time offset: %s", 3);
+        return;
+      }
 
-        else
-        {
-          this[212] = (v9 - (v10 / 2 + v11 / 2));
-          *(this + 948) = *(this + 948) & 0xFB | 4;
-          this[211] = (v10 + 60000000);
-        }
+      v11 = otPlatTimeGet();
+      v12 = ot::Spinel::RadioSpinel::GetWithParam(this, 0x802u, v14, v8, "X", &v9);
+      v10 = otPlatTimeGet();
+      if (v12)
+      {
+        this[211] = v10;
       }
 
       else
       {
-        v12 = 3;
+        this[212] = (v9 - (v10 / 2 + v11 / 2));
+        *(this + 948) = *(this + 948) & 0xFB | 4;
+        this[211] = (v10 + 60000000);
       }
     }
 
@@ -418,232 +433,292 @@ void ot::Spinel::RadioSpinel::CalcRcpTimeOffset(const char **this)
   }
 }
 
-void ot::Spinel::RadioSpinel::RecoverFromRcpFailure(ot::Spinel::RadioSpinel *this)
+void ot::Spinel::RadioSpinel::RecoverFromRcpFailure(uint64_t this)
 {
-  v76 = *(this + 236);
+  v45 = *(this + 944);
   if ((*(this + 952) & 7) != 0)
   {
     SpinelDriver = ot::Spinel::RadioSpinel::GetSpinelDriver(this);
     ot::Spinel::SpinelDriver::SetCoprocessorNotReady(SpinelDriver);
     ot::Spinel::Logger::LogWarn1(this, "mRcpFailure: %u", *(this + 952) & 7);
     *(this + 952) &= 0xF8u;
-    ++*(this + 432);
-    if (++*(this + 475) == 3)
+    ++*(this + 1728);
+    if (++*(this + 950) == 3)
     {
       ot::Spinel::Logger::LogCrit1(this, "Soft reset is not taking effect, try hard reset");
       *(this + 1657) = 0;
       rcp_hard_reset();
     }
 
-    if (*(this + 475) > 3)
+    if (*(this + 950) > 3)
     {
       ot::Spinel::Logger::LogCrit1(this, "Too many rcp failures, exiting");
-      strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-      otExitCodeToString(1);
-      otLogCritPlat("%s() at %s:%d: %s", v2, v3, v4, v5, v6, v7, v8, "RecoverFromRcpFailure");
+      v44 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+      if (v44)
+      {
+        v32 = v44 + 1;
+      }
+
+      else
+      {
+        v32 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+      }
+
+      v2 = otExitCodeToString(1);
+      otLogCritPlat("%s() at %s:%d: %s", "RecoverFromRcpFailure", v32, 3256, v2);
       handle_daemon_exit();
       exit(1);
     }
 
-    ot::Spinel::Logger::LogWarn1(this, "Trying to recover (%d/%d), mResetRadioOnStartup is %d", *(this + 475), 3, (*(this + 948) & 8) != 0);
-    *(this + 236) = 0;
-    v9 = ot::Spinel::RadioSpinel::GetSpinelDriver(this);
-    ot::Spinel::SpinelDriver::ClearRxBuffer(v9);
-    v10 = ot::Spinel::RadioSpinel::GetSpinelDriver(this);
-    ot::Spinel::SpinelDriver::MarkRxBufferReset(v10, 1);
-    v11 = ot::Spinel::RadioSpinel::GetSpinelDriver(this);
-    ot::Spinel::SpinelDriver::ResetCoprocessor(v11, (*(this + 948) >> 3) & 1, v12, v13, v14, v15, v16, v17);
-    *(this + 148) = 0;
+    ot::Spinel::Logger::LogWarn1(this, "Trying to recover (%d/%d), mResetRadioOnStartup is %d", *(this + 950), 3, (*(this + 948) & 8) != 0);
+    *(this + 944) = 0;
+    v3 = ot::Spinel::RadioSpinel::GetSpinelDriver(this);
+    ot::Spinel::SpinelDriver::ClearRxBuffer(v3);
+    v4 = ot::Spinel::RadioSpinel::GetSpinelDriver(this);
+    ot::Spinel::SpinelDriver::MarkRxBufferReset(v4, 1);
+    v5 = ot::Spinel::RadioSpinel::GetSpinelDriver(this);
+    ot::Spinel::SpinelDriver::ResetCoprocessor(v5, (*(this + 948) >> 3) & 1, v6, v7, v8, v9, v10, v11);
+    *(this + 296) = 0;
     *(this + 298) = 1;
     *(this + 299) = 0;
     *(this + 300) = 0;
-    *(this + 83) = 0;
+    *(this + 332) = 0;
     *(this + 948) &= ~4u;
-    v75 = ot::Spinel::RadioSpinel::Set(this, 0x20u, "b");
-    if (v75)
+    v43 = ot::Spinel::RadioSpinel::Set(this, 0x20u, "b", 1);
+    if (v43)
     {
-      strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-      if (v75 == 7)
+      v42 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+      if (v42)
       {
-        v25 = 2;
+        v31 = v42 + 1;
       }
 
       else
       {
-        v25 = 1;
+        v31 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
       }
 
-      otExitCodeToString(v25);
-      otLogCritPlat("%s() at %s:%d: %s", v26, v27, v28, v29, v30, v31, v32, "RecoverFromRcpFailure");
+      if (v43 == 7)
+      {
+        v12 = 2;
+      }
+
+      else
+      {
+        v12 = 1;
+      }
+
+      v13 = otExitCodeToString(v12);
+      otLogCritPlat("%s() at %s:%d: %s", "RecoverFromRcpFailure", v31, 3307, v13);
       handle_daemon_exit();
-      if (v75 == 7)
+      if (v43 == 7)
       {
-        v33 = 2;
+        v14 = 2;
       }
 
       else
       {
-        v33 = 1;
+        v14 = 1;
       }
 
-      exit(v33);
+      exit(v14);
     }
 
-    *(this + 236) = 1;
-    if (*(this + 28))
+    *(this + 944) = 1;
+    if (*(this + 224))
     {
-      otLogInfoPlat("Removing WED after getting RCP Reset", v18, v19, v20, v21, v22, v23, v24, 1);
-      otLinkForceWEDDetach(*(this + 28));
+      otLogInfoPlat("Removing WED after getting RCP Reset");
+      otLinkForceWEDDetach(*(this + 224));
     }
 
     ot::Spinel::RadioSpinel::RestoreProperties(this);
-    if (v76)
+    if (v45)
     {
-      if (v76 != 1)
+      if (v45 != 1)
       {
-        if (v76 == 2)
+        if (v45 == 2)
         {
-          v74 = ot::Spinel::RadioSpinel::Set(this, 0x37u, "b", 1);
-          if (v74)
+          v41 = ot::Spinel::RadioSpinel::Set(this, 0x37u, "b", 1);
+          if (v41)
           {
-            strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-            if (v74 == 7)
+            v40 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+            if (v40)
             {
-              v34 = 2;
+              v30 = v40 + 1;
             }
 
             else
             {
-              v34 = 1;
+              v30 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
             }
 
-            otExitCodeToString(v34);
-            otLogCritPlat("%s() at %s:%d: %s", v35, v36, v37, v38, v39, v40, v41, "RecoverFromRcpFailure");
+            if (v41 == 7)
+            {
+              v15 = 2;
+            }
+
+            else
+            {
+              v15 = 1;
+            }
+
+            v16 = otExitCodeToString(v15);
+            otLogCritPlat("%s() at %s:%d: %s", "RecoverFromRcpFailure", v30, 3338, v16);
             handle_daemon_exit();
-            if (v74 == 7)
+            if (v41 == 7)
             {
-              v42 = 2;
+              v17 = 2;
             }
 
             else
             {
-              v42 = 1;
+              v17 = 1;
             }
 
-            exit(v42);
+            exit(v17);
           }
 
-          *(this + 236) = 2;
+          *(this + 944) = 2;
         }
 
-        else if (v76 == 4 || v76 == 3)
+        else if (v45 == 4 || v45 == 3)
         {
-          v73 = ot::Spinel::RadioSpinel::Set(this, 0x37u, "b", 1);
-          if (v73)
+          v39 = ot::Spinel::RadioSpinel::Set(this, 0x37u, "b", 1);
+          if (v39)
           {
-            strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-            if (v73 == 7)
+            v38 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+            if (v38)
             {
-              v43 = 2;
+              v29 = v38 + 1;
             }
 
             else
             {
-              v43 = 1;
+              v29 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
             }
 
-            otExitCodeToString(v43);
-            otLogCritPlat("%s() at %s:%d: %s", v44, v45, v46, v47, v48, v49, v50, "RecoverFromRcpFailure");
+            if (v39 == 7)
+            {
+              v18 = 2;
+            }
+
+            else
+            {
+              v18 = 1;
+            }
+
+            v19 = otExitCodeToString(v18);
+            otLogCritPlat("%s() at %s:%d: %s", "RecoverFromRcpFailure", v29, 3348, v19);
             handle_daemon_exit();
-            if (v73 == 7)
+            if (v39 == 7)
             {
-              v51 = 2;
+              v20 = 2;
             }
 
             else
             {
-              v51 = 1;
+              v20 = 1;
             }
 
-            exit(v51);
+            exit(v20);
           }
 
-          *(this + 234) = 11;
-          *(this + 236) = 4;
+          *(this + 936) = 11;
+          *(this + 944) = 4;
         }
       }
     }
 
     else
     {
-      *(this + 236) = 0;
+      *(this + 944) = 0;
     }
 
     if ((*(this + 1655) & 0x80) != 0)
     {
-      v72 = ot::Spinel::RadioSpinel::EnergyScan(this, *(this + 1648), *(this + 825));
-      if (v72)
+      v37 = ot::Spinel::RadioSpinel::EnergyScan(this, *(this + 1648), *(this + 1650));
+      if (v37)
       {
-        strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-        if (v72 == 7)
+        v36 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+        if (v36)
         {
-          v52 = 2;
+          v28 = v36 + 1;
         }
 
         else
         {
-          v52 = 1;
+          v28 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
         }
 
-        otExitCodeToString(v52);
-        otLogCritPlat("%s() at %s:%d: %s", v53, v54, v55, v56, v57, v58, v59, "RecoverFromRcpFailure");
+        if (v37 == 7)
+        {
+          v21 = 2;
+        }
+
+        else
+        {
+          v21 = 1;
+        }
+
+        v22 = otExitCodeToString(v21);
+        otLogCritPlat("%s() at %s:%d: %s", "RecoverFromRcpFailure", v28, 3357, v22);
         handle_daemon_exit();
-        if (v72 == 7)
+        if (v37 == 7)
         {
-          v60 = 2;
+          v23 = 2;
         }
 
         else
         {
-          v60 = 1;
+          v23 = 1;
         }
 
-        exit(v60);
+        exit(v23);
       }
     }
 
-    --*(this + 475);
+    --*(this + 950);
     if (ot::Spinel::RadioSpinel::sSupportsLogCrashDump)
     {
       ot::Spinel::Logger::LogDebg1(this, "RCP supports crash dump logging. Requesting crash dump.");
-      v71 = ot::Spinel::RadioSpinel::Set(this, 0xB2u, 0);
-      if (v71)
+      v35 = ot::Spinel::RadioSpinel::Set(this, 0xB2u, 0);
+      if (v35)
       {
-        strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-        if (v71 == 7)
+        v34 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+        if (v34)
         {
-          v61 = 2;
+          v27 = v34 + 1;
         }
 
         else
         {
-          v61 = 1;
+          v27 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
         }
 
-        otExitCodeToString(v61);
-        otLogCritPlat("%s() at %s:%d: %s", v62, v63, v64, v65, v66, v67, v68, "RecoverFromRcpFailure");
+        if (v35 == 7)
+        {
+          v24 = 2;
+        }
+
+        else
+        {
+          v24 = 1;
+        }
+
+        v25 = otExitCodeToString(v24);
+        otLogCritPlat("%s() at %s:%d: %s", "RecoverFromRcpFailure", v27, 3365, v25);
         handle_daemon_exit();
-        if (v71 == 7)
+        if (v35 == 7)
         {
-          v69 = 2;
+          v26 = 2;
         }
 
         else
         {
-          v69 = 1;
+          v26 = 1;
         }
 
-        exit(v69);
+        exit(v26);
       }
     }
 
@@ -655,11 +730,23 @@ unint64_t otPlatTimeGet()
 {
   if (clock_gettime(_CLOCK_MONOTONIC_RAW, &__tp))
   {
-    strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/alarm.cpp", 47);
-    otExitCodeToString(1);
-    otLogCritPlat("%s() at %s:%d: %s", v0, v1, v2, v3, v4, v5, v6, "otPlatTimeGet");
+    v5 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/alarm.cpp", 47);
+    if (v5)
+    {
+      v4 = v5 + 1;
+    }
+
+    else
+    {
+      v4 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/alarm.cpp";
+    }
+
+    v2 = v4;
+    v3 = 1;
+    v0 = otExitCodeToString(1);
+    otLogCritPlat("%s() at %s:%d: %s", "otPlatTimeGet", v4, 84, v0);
     handle_daemon_exit();
-    exit(1);
+    exit(v3);
   }
 
   return 1000000 * __tp.tv_sec + __tp.tv_nsec / 0x3E8uLL;
@@ -709,19 +796,19 @@ uint64_t ot::Spinel::RadioSpinel::GetNextRadioTimeRecalcStart(ot::Spinel::RadioS
   return ot::Spinel::RadioSpinel::GetNextRadioTimeRecalcStart(this);
 }
 
-void ot::Spinel::Logger::LogIfFail1(const char **a1, const char *a2, int a3)
+void ot::Spinel::Logger::LogIfFail1(const char **result, const char *a2, uint64_t a3, ...)
 {
   if (a3)
   {
     if (a3 != 14)
     {
       v5 = otThreadErrorToString(a3);
-      ot::Spinel::Logger::LogWarn1(a1, "%s: %s", a2, v5);
+      ot::Spinel::Logger::LogWarn1(result, "%s: %s", a2, v5);
     }
   }
 }
 
-void platformAlarmProcess(uint64_t a1)
+void platformAlarmProcess(uint64_t result)
 {
   if (sIsMsRunning)
   {
@@ -731,12 +818,12 @@ void platformAlarmProcess(uint64_t a1)
       sIsMsRunning = 0;
       if (otPlatDiagModeGet())
       {
-        otPlatDiagAlarmFired(a1);
+        otPlatDiagAlarmFired(result);
       }
 
       else
       {
-        otPlatAlarmMilliFired(a1);
+        otPlatAlarmMilliFired(result);
       }
     }
   }
@@ -747,84 +834,121 @@ void platformAlarmProcess(uint64_t a1)
     if ((v1 - otPlatAlarmMicroGetNow()) <= 0)
     {
       sIsUsRunning = 0;
-      otPlatAlarmMicroFired(a1);
+      otPlatAlarmMicroFired(result);
     }
   }
 }
 
-void platformNetifProcess(uint64_t a1)
+void platformNetifProcess(char *result)
 {
-  if (!a1)
+  v11 = result;
+  if (!result)
   {
     __assert_rtn("platformNetifProcess", "netif.cpp", 2716, "aContext != nullptr");
   }
 
   if (gNetifIndex)
   {
-    v23 = sTunFd;
-    v22 = a1 + 256;
-    if (__darwin_check_fd_set_overflow(sTunFd, (a1 + 256), 0))
+    v22 = sTunFd;
+    v21 = v11 + 256;
+    v25 = sTunFd;
+    v24 = v11 + 256;
+    if (__darwin_check_fd_set_overflow(sTunFd, v11 + 256, 0))
     {
-      v24 = *(v22 + 4 * (v23 / 0x20uLL)) & (1 << (v23 % 0x20uLL));
+      v23 = *&v21[4 * (v22 / 0x20uLL)] & (1 << (v22 % 0x20uLL));
     }
 
     else
     {
-      v24 = 0;
+      v23 = 0;
     }
 
-    if (v24)
+    if (v23)
     {
       ne_tunnel_close();
-      strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/netif.cpp", 47);
-      otExitCodeToString(1);
-      otLogCritPlat("%s() at %s:%d: %s", v1, v2, v3, v4, v5, v6, v7, "platformNetifProcess");
+      v10 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/netif.cpp", 47);
+      if (v10)
+      {
+        v8 = v10 + 1;
+      }
+
+      else
+      {
+        v8 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/netif.cpp";
+      }
+
+      v6 = v8;
+      v7 = 1;
+      v1 = otExitCodeToString(1);
+      otLogCritPlat("%s() at %s:%d: %s", "platformNetifProcess", v8, 2726, v1);
       handle_daemon_exit();
-      exit(1);
+      exit(v7);
     }
 
-    v20 = sNetlinkFd;
-    if (__darwin_check_fd_set_overflow(sNetlinkFd, (a1 + 256), 0))
+    v19 = sNetlinkFd;
+    v18 = v11 + 256;
+    v28 = sNetlinkFd;
+    v27 = v11 + 256;
+    if (__darwin_check_fd_set_overflow(sNetlinkFd, v11 + 256, 0))
     {
-      v21 = *(a1 + 256 + 4 * (v20 / 0x20uLL)) & (1 << (v20 % 0x20uLL));
+      v20 = *&v18[4 * (v19 / 0x20uLL)] & (1 << (v19 % 0x20uLL));
     }
 
     else
     {
-      v21 = 0;
+      v20 = 0;
     }
 
-    if (v21)
+    if (v20)
     {
       close(sNetlinkFd);
-      strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/netif.cpp", 47);
-      otExitCodeToString(1);
-      otLogCritPlat("%s() at %s:%d: %s", v8, v9, v10, v11, v12, v13, v14, "platformNetifProcess");
+      v9 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/netif.cpp", 47);
+      if (v9)
+      {
+        v5 = v9 + 1;
+      }
+
+      else
+      {
+        v5 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/netif.cpp";
+      }
+
+      v3 = v5;
+      v4 = 1;
+      v2 = otExitCodeToString(1);
+      otLogCritPlat("%s() at %s:%d: %s", "platformNetifProcess", v5, 2732, v2);
       handle_daemon_exit();
-      exit(1);
+      exit(v4);
     }
 
     if ((rcpBuffersAvailable & 1) == 1)
     {
-      v18 = sTunFd;
-      if (__darwin_check_fd_set_overflow(sTunFd, a1, 0) ? *(a1 + 4 * (v18 / 0x20uLL)) & (1 << (v18 % 0x20uLL)) : 0)
+      v16 = sTunFd;
+      v15 = v11;
+      v31 = sTunFd;
+      v30 = v11;
+      v32 = __darwin_check_fd_set_overflow(sTunFd, v11, 0);
+      if (v32 ? *&v15[4 * (v16 / 0x20uLL)] & (1 << (v16 % 0x20uLL)) : 0)
       {
         processTransmit(gInstance);
       }
     }
 
-    v16 = sNetlinkFd;
-    if (__darwin_check_fd_set_overflow(sNetlinkFd, a1, 0))
+    v13 = sNetlinkFd;
+    v12 = v11;
+    v34 = sNetlinkFd;
+    v33 = v11;
+    if (__darwin_check_fd_set_overflow(sNetlinkFd, v11, 0))
     {
-      v17 = *(a1 + 4 * (v16 / 0x20uLL)) & (1 << (v16 % 0x20uLL));
+      v14 = *&v12[4 * (v13 / 0x20uLL)] & (1 << (v13 % 0x20uLL));
     }
 
     else
     {
-      v17 = 0;
+      v14 = 0;
     }
 
-    if (v17)
+    if (v14)
     {
       processNetlinkEvent(gInstance);
     }
@@ -835,7 +959,7 @@ BOOL hostCmdPending(void)
 {
   if (!TaskQueueWrapper::empty(RcpHostContext::sRcpHostContext))
   {
-    TaskQueueWrapper::front(RcpHostContext::sRcpHostContext, &v5);
+    TaskQueueWrapper::front(&v5, RcpHostContext::sRcpHostContext);
     v0 = v6;
     v1 = *(v5 + 8);
     if (v6)
@@ -861,7 +985,7 @@ BOOL hostCmdPending(void)
     return 0;
   }
 
-  TaskQueueWrapper::front((RcpHostContext::sRcpHostContext + 88), &v5);
+  TaskQueueWrapper::front(&v5, (RcpHostContext::sRcpHostContext + 88));
   v2 = v6;
   v3 = *(v5 + 8);
   if (v6 && atomic_fetch_add(v6 + 2, 0xFFFFFFFF) == 1)
@@ -881,18 +1005,18 @@ uint64_t processHostCmd(void)
   result = hostCmdPending();
   if (result)
   {
-    v19 = 0;
+    v21 = 0;
     if (TaskQueueWrapper::empty((RcpHostContext::sRcpHostContext + 88)))
     {
       goto LABEL_18;
     }
 
-    TaskQueueWrapper::front((RcpHostContext::sRcpHostContext + 88), &v20);
-    v1 = v21;
-    v2 = *(v20 + 8);
-    if (v21)
+    TaskQueueWrapper::front(&v22, (RcpHostContext::sRcpHostContext + 88));
+    v1 = v23;
+    v2 = *(v22 + 8);
+    if (v23)
     {
-      if (atomic_fetch_add(v21 + 2, 0xFFFFFFFF) == 1)
+      if (atomic_fetch_add(v23 + 2, 0xFFFFFFFF) == 1)
       {
         (*(*v1 + 16))(v1);
         if (atomic_fetch_add(v1 + 3, 0xFFFFFFFF) == 1)
@@ -905,10 +1029,10 @@ uint64_t processHostCmd(void)
     if (v2 != 1)
     {
 LABEL_18:
-      TaskQueueWrapper::front(RcpHostContext::sRcpHostContext, &v20);
-      v7 = v20;
-      *(v20 + 8) = 2;
-      if (*(v7 + 12) == 1)
+      TaskQueueWrapper::front(&v22, RcpHostContext::sRcpHostContext);
+      v8 = v22;
+      *(v22 + 8) = 2;
+      if (*(v8 + 12) == 1)
       {
         logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
         if (logging_obg)
@@ -925,29 +1049,29 @@ LABEL_18:
           [PowerEventHandler_Rcp init:];
         }
 
-        TaskQueueWrapper::front(RcpHostContext::sRcpHostContext, buf);
-        v11 = v17;
-        v12 = **buf;
-        if (v17)
+        TaskQueueWrapper::front(buf, RcpHostContext::sRcpHostContext);
+        v13 = v19;
+        v14 = **buf;
+        if (v19)
         {
-          if (atomic_fetch_add(v17 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v19 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v11 + 16))(v11);
-            if (atomic_fetch_add(v11 + 3, 0xFFFFFFFF) == 1)
+            (*(*v13 + 16))(v13);
+            if (atomic_fetch_add(v13 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v11 + 24))(v11);
+              (*(*v13 + 24))(v13);
             }
           }
         }
 
-        processXpcOtctl(v12, (*(v12 + 1600) - 1));
-        v13 = log_get_logging_obg("com.apple.threadradiod", "default");
-        if (v13)
+        processXpcOtctl(v14, (*(v14 + 1600) - 1));
+        v15 = log_get_logging_obg("com.apple.threadradiod", "default");
+        if (v15)
         {
-          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "++++++++++++++++++++++++++++++++++++", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "++++++++++++++++++++++++++++++++++++", buf, 2u);
           }
         }
 
@@ -959,44 +1083,44 @@ LABEL_18:
 
       else
       {
-        v9 = HostInterpreter::sHostInterpreter;
-        v10 = v21;
-        v15[0] = v7;
-        v15[1] = v21;
-        if (v21)
+        v10 = HostInterpreter::sHostInterpreter;
+        v11 = v23;
+        v17[0] = v8;
+        v17[1] = v23;
+        if (v23)
         {
-          atomic_fetch_add_explicit(v21 + 2, 1u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v23 + 2, 1u, memory_order_relaxed);
         }
 
-        HostInterpreter::processCommand(v9, v15);
-        if (v10)
+        v12 = HostInterpreter::processCommand(v10, v17);
+        if (v11)
         {
-          if (atomic_fetch_add(v10 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v11 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v10 + 16))(v10);
-            if (atomic_fetch_add(v10 + 3, 0xFFFFFFFF) == 1)
+            (*(*v11 + 16))(v11, v12);
+            if (atomic_fetch_add(v11 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v10 + 24))(v10);
+              (*(*v11 + 24))(v11);
             }
           }
         }
 
-        if ((*(v20 + 12) - 21) >= 3)
+        if ((*(v22 + 12) - 21) >= 3)
         {
           TaskQueueWrapper::pop_front(RcpHostContext::sRcpHostContext);
         }
       }
 
-      result = read(gPfdX, &v19, 1uLL);
-      v14 = v21;
-      if (v21)
+      result = read(gPfdX, &v21, 1uLL);
+      v16 = v23;
+      if (v23)
       {
-        if (atomic_fetch_add(v21 + 2, 0xFFFFFFFF) == 1)
+        if (atomic_fetch_add(v23 + 2, 0xFFFFFFFF) == 1)
         {
-          result = (*(*v14 + 16))(v14);
-          if (atomic_fetch_add(v14 + 3, 0xFFFFFFFF) == 1)
+          result = (*(*v16 + 16))(v16);
+          if (atomic_fetch_add(v16 + 3, 0xFFFFFFFF) == 1)
           {
-            return (*(*v14 + 24))(v14);
+            return (*(*v16 + 24))(v16);
           }
         }
       }
@@ -1004,24 +1128,24 @@ LABEL_18:
 
     else
     {
-      TaskQueueWrapper::front((RcpHostContext::sRcpHostContext + 88), &v20);
-      v3 = v20;
-      *(v20 + 8) = 2;
+      TaskQueueWrapper::front(&v22, (RcpHostContext::sRcpHostContext + 88));
+      v3 = v22;
+      *(v22 + 8) = 2;
       v4 = HostInterpreter::sHostInterpreter;
-      v5 = v21;
-      v18[0] = v3;
-      v18[1] = v21;
-      if (v21)
+      v5 = v23;
+      v20[0] = v3;
+      v20[1] = v23;
+      if (v23)
       {
-        atomic_fetch_add_explicit(v21 + 2, 1u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v23 + 2, 1u, memory_order_relaxed);
       }
 
-      HostInterpreter::processCommand(v4, v18);
+      v6 = HostInterpreter::processCommand(v4, v20);
       if (v5)
       {
         if (atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
         {
-          (*(*v5 + 16))(v5);
+          (*(*v5 + 16))(v5, v6);
           if (atomic_fetch_add(v5 + 3, 0xFFFFFFFF) == 1)
           {
             (*(*v5 + 24))(v5);
@@ -1030,14 +1154,14 @@ LABEL_18:
       }
 
       TaskQueueWrapper::pop_front((RcpHostContext::sRcpHostContext + 88));
-      result = read(gPfdX, &v19, 1uLL);
-      v6 = v21;
-      if (v21 && atomic_fetch_add(v21 + 2, 0xFFFFFFFF) == 1)
+      result = read(gPfdX, &v21, 1uLL);
+      v7 = v23;
+      if (v23 && atomic_fetch_add(v23 + 2, 0xFFFFFFFF) == 1)
       {
-        result = (*(*v6 + 16))(v6);
-        if (atomic_fetch_add(v6 + 3, 0xFFFFFFFF) == 1)
+        result = (*(*v7 + 16))(v7);
+        if (atomic_fetch_add(v7 + 3, 0xFFFFFFFF) == 1)
         {
-          return (*(*v6 + 24))(v6);
+          return (*(*v7 + 24))(v7);
         }
       }
     }
@@ -1046,11 +1170,11 @@ LABEL_18:
   return result;
 }
 
-void sub_100003F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100003F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   boost::shared_ptr<void>::~shared_ptr(va);
-  boost::shared_ptr<void>::~shared_ptr(v6 - 48);
+  boost::shared_ptr<void>::~shared_ptr(v11 - 48);
   _Unwind_Resume(a1);
 }
 
@@ -1067,7 +1191,7 @@ uint64_t otTaskletsProcess(uint64_t a1)
   result = otInstanceIsInitialized(a1);
   if (result)
   {
-    v2 = ot::AsCoreType<otInstance>(a1);
+    ot::AsCoreType<otInstance>(a1);
     v3 = ot::Instance::Get<ot::Tasklet::Scheduler>(v2);
     return ot::Tasklet::Scheduler::ProcessQueuedTasklets(v3);
   }
@@ -1304,7 +1428,7 @@ BOOL otTaskletsArePending(uint64_t a1)
   v4 = 0;
   if (otInstanceIsInitialized(a1))
   {
-    v1 = ot::AsCoreType<otInstance>(a1);
+    ot::AsCoreType<otInstance>(a1);
     v2 = ot::Instance::Get<ot::Tasklet::Scheduler>(v1);
     return ot::Tasklet::Scheduler::AreTaskletsPending(v2);
   }
@@ -1460,7 +1584,7 @@ uint64_t ot::Parent::Clear(ot::Parent *this)
   return result;
 }
 
-BOOL ot::Router::SetNextHopAndCost(ot::Router *this, int a2, int a3)
+uint64_t ot::Router::SetNextHopAndCost(ot::Router *this, int a2, int a3)
 {
   v3 = *(this + 140);
   v4 = v3 == a2;
@@ -1650,7 +1774,7 @@ LABEL_36:
   return 1;
 }
 
-uint64_t ot::Neighbor::MatchesFilter(uint64_t a1, int a2)
+BOOL ot::Neighbor::MatchesFilter(uint64_t a1, int a2)
 {
   v2 = 0;
   if (a2 > 3)
@@ -1796,9 +1920,9 @@ uint64_t ot::Neighbor::Init(uint64_t this, ot::Instance *a2)
   return this;
 }
 
-void ot::Neighbor::AggregateLinkMetrics(ot::Neighbor *this, int a2, char a3, unsigned __int8 a4, char a5)
+void ot::Neighbor::AggregateLinkMetrics(uint64_t this, int a2, char a3, unsigned __int8 a4, signed __int8 a5)
 {
-  v5 = *(this + 7);
+  v5 = *(this + 56);
   if (v5)
   {
     if (a2)
@@ -2035,20 +2159,17 @@ uint64_t ot::Child::ClearIp6Addresses(uint64_t this)
   return this;
 }
 
-uint64_t ot::Child::SetDeviceMode(uint64_t result, char a2)
+void ot::Child::SetDeviceMode(const ot::Neighbor *result, char a2)
 {
   if (((*(result + 30) >> 4) | 4) != a2)
   {
-    v2 = result;
-    result = ot::Neighbor::SetDeviceMode(result, a2);
-    if ((*(v2 + 30) & 0xF) == 7)
+    ot::Neighbor::SetDeviceMode(result, a2);
+    if ((*(result + 30) & 0xF) == 7)
     {
 
-      return ot::NeighborTable::Signal(&unk_1005011D8, 2u, v2);
+      ot::NeighborTable::Signal(&unk_1005011D8, 2u, result);
     }
   }
-
-  return result;
 }
 
 uint64_t ot::Child::GetMeshLocalIp6Address(ot::Child *this, ot::Ip6::Address *a2)
@@ -3132,7 +3253,7 @@ LABEL_13:
   v25 = v32;
   v26 = a1;
   v27 = v16;
-  *&v23 = *(v16 + 8);
+  *&v23 = v16[1];
   *(&v23 + 1) = v16;
   *&v24 = v32;
   *(&v24 + 1) = v16;
@@ -3186,6 +3307,13 @@ LABEL_29:
   }
 
   return result;
+}
+
+void sub_1000091F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  boost::signals2::detail::garbage_collecting_lock<boost::signals2::mutex>::~garbage_collecting_lock(va);
+  JUMPOUT(0x100009248);
 }
 
 void sub_100009200(void *a1, int a2)
@@ -3308,7 +3436,7 @@ void boost::detail::shared_count::~shared_count(atomic_uint **this)
   }
 }
 
-void *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>>::erase(void *a1, int *a2, uint64_t **a3)
+void *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>>::erase(uint64_t *a1, _DWORD *a2, uint64_t **a3)
 {
   v6 = a1 + 4;
   v5 = a1[4];
@@ -3325,7 +3453,8 @@ void *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr
     if (v12 != a1)
     {
 LABEL_43:
-      std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::__emplace_unique_key_args<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::piecewise_construct_t const&,std::tuple<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>> const&>,std::tuple<>>(v13, a2)[6] = v12;
+      v36 = a2;
+      std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::__emplace_unique_key_args<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::piecewise_construct_t const&,std::tuple<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>> const&>,std::tuple<>>(v13, a2, &std::piecewise_construct, &v36)[6] = v12;
       goto LABEL_52;
     }
 
@@ -3682,39 +3811,39 @@ LABEL_16:
   *(a1 + 176) = v4 + 1;
 }
 
-uint64_t *std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::__emplace_unique_key_args<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::piecewise_construct_t const&,std::tuple<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>> const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::__emplace_unique_key_args<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::piecewise_construct_t const&,std::tuple<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>> const&>,std::tuple<>>(uint64_t **a1, int *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_21:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   if (*a2 == 1)
   {
-    v4 = a2[2];
+    v6 = a2[2];
     while (1)
     {
-      v5 = v2;
-      v6 = *(v2 + 8);
-      if (v6 == 1)
+      v7 = v4;
+      v8 = *(v4 + 8);
+      if (v8 == 1)
       {
-        v7 = *(v2 + 10);
-        if (v4 >= v7)
+        v9 = *(v4 + 10);
+        if (v6 >= v9)
         {
-          if (v7 >= v4)
+          if (v9 >= v6)
           {
-            return v5;
+            return v7;
           }
 
           goto LABEL_10;
         }
 
 LABEL_4:
-        v2 = *v2;
-        if (!*v5)
+        v4 = *v4;
+        if (!*v7)
         {
           goto LABEL_21;
         }
@@ -3722,14 +3851,14 @@ LABEL_4:
 
       else
       {
-        if (v6 > 1)
+        if (v8 > 1)
         {
           goto LABEL_4;
         }
 
 LABEL_10:
-        v2 = v2[1];
-        if (!v2)
+        v4 = v4[1];
+        if (!v4)
         {
           goto LABEL_21;
         }
@@ -3737,19 +3866,19 @@ LABEL_10:
     }
   }
 
-  v8 = *(v2 + 8);
-  if (v3 == v8)
+  v10 = *(v4 + 8);
+  if (v5 == v10)
   {
-    return v2;
+    return v4;
   }
 
-  v5 = *(a1 + 8);
+  v7 = a1[1];
   while (1)
   {
-    if (v3 < v8)
+    if (v5 < v10)
     {
-      v2 = *v5;
-      if (!*v5)
+      v4 = *v7;
+      if (!*v7)
       {
         goto LABEL_21;
       }
@@ -3757,23 +3886,23 @@ LABEL_10:
       goto LABEL_17;
     }
 
-    if (v8 >= v3)
+    if (v10 >= v5)
     {
-      return v5;
+      return v7;
     }
 
-    v2 = v5[1];
-    if (!v2)
+    v4 = v7[1];
+    if (!v4)
     {
       goto LABEL_21;
     }
 
 LABEL_17:
-    v8 = *(v2 + 8);
-    v5 = v2;
-    if (v3 == v8)
+    v10 = *(v4 + 8);
+    v7 = v4;
+    if (v5 == v10)
     {
-      return v2;
+      return v4;
     }
   }
 }
@@ -3789,12 +3918,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   while (1)
   {
     v2 = a2[2];
-    if (v2[3])
+    if (*(v2 + 24))
     {
       return result;
     }
 
-    v3 = v2[2];
+    v3 = *(v2 + 16);
     v4 = *v3;
     if (*v3 != v2)
     {
@@ -3806,10 +3935,9 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     {
       if (*v2 == a2)
       {
-        v20 = a2[2];
         *(v2 + 24) = 1;
         *(v3 + 24) = 0;
-        v13 = v4[1];
+        v13 = *(v4 + 8);
         *v3 = v13;
         if (v13)
         {
@@ -3819,26 +3947,26 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
       else
       {
-        v10 = v2[1];
+        v10 = *(v2 + 8);
         v11 = *v10;
-        v2[1] = *v10;
+        *(v2 + 8) = *v10;
         v12 = v2;
         if (v11)
         {
-          v11[2] = v2;
-          v3 = v2[2];
+          *(v11 + 16) = v2;
+          v3 = *(v2 + 16);
           v12 = *v3;
         }
 
-        v10[2] = v3;
+        *(v10 + 16) = v3;
         v3[v12 != v2] = v10;
         *v10 = v2;
-        v2[2] = v10;
-        v3 = v10[2];
+        *(v2 + 16) = v10;
+        v3 = *(v10 + 16);
         v4 = *v3;
         *(v10 + 24) = 1;
         *(v3 + 24) = 0;
-        v13 = v4[1];
+        v13 = *(v4 + 8);
         *v3 = v13;
         if (v13)
         {
@@ -3849,8 +3977,8 @@ LABEL_15:
 
       v14 = v3[2];
       v14[*v14 != v3] = v4;
-      v4[1] = v3;
-      v4[2] = v14;
+      *(v4 + 8) = v3;
+      *(v4 + 16) = v14;
       v3[2] = v4;
       return result;
     }
@@ -3869,7 +3997,7 @@ LABEL_3:
   if (v4)
   {
     v6 = *(v4 + 24);
-    v5 = v4 + 3;
+    v5 = (v4 + 24);
     if (v6 != 1)
     {
       v7 = v5;
@@ -3880,19 +4008,19 @@ LABEL_3:
   v15 = *v2;
   if (*v2 == a2)
   {
-    v16 = *(v15 + 8);
+    v16 = v15[1];
     *v2 = v16;
     if (v16)
     {
       *(v16 + 16) = v2;
-      v3 = v2[2];
+      v3 = *(v2 + 16);
     }
 
     v3[*v3 != v2] = v15;
-    *(v15 + 8) = v2;
-    *(v15 + 16) = v3;
-    v2[2] = v15;
-    v3 = *(v15 + 16);
+    v15[1] = v2;
+    v15[2] = v3;
+    *(v2 + 16) = v15;
+    v3 = v15[2];
   }
 
   else
@@ -3938,7 +4066,7 @@ uint64_t **std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(uin
       }
 
 LABEL_6:
-      v6[1] = v2;
+      *(v6 + 8) = v2;
       v8 = *(v3 + 24);
       if (v3 == a2)
       {
@@ -4020,7 +4148,7 @@ LABEL_10:
 
   else
   {
-    v7 = v6[1];
+    v7 = *(v6 + 8);
     v8 = *(v3 + 24);
     if (v3 != a2)
     {
@@ -4050,7 +4178,6 @@ LABEL_21:
   {
     v14 = v7[2];
     v15 = *v14;
-    v16 = *(v7 + 24);
     if (*v14 == v7)
     {
       break;
@@ -4060,19 +4187,19 @@ LABEL_21:
     {
       *(v7 + 24) = 1;
       *(v14 + 24) = 0;
-      v17 = v14[1];
-      v18 = *v17;
-      v14[1] = *v17;
-      if (v18)
+      v16 = *(v14 + 8);
+      v17 = *v16;
+      *(v14 + 8) = *v16;
+      if (v17)
       {
-        *(v18 + 16) = v14;
+        *(v17 + 16) = v14;
       }
 
-      v19 = v14[2];
-      v17[2] = v19;
-      v19[*v19 != v14] = v17;
-      *v17 = v14;
-      v14[2] = v17;
+      v18 = *(v14 + 16);
+      v16[2] = v18;
+      v18[*v18 != v14] = v16;
+      *v16 = v14;
+      *(v14 + 16) = v16;
       if (result == *v7)
       {
         result = v7;
@@ -4081,63 +4208,63 @@ LABEL_21:
       v7 = *(*v7 + 8);
     }
 
-    v20 = *v7;
-    if (*v7 && *(v20 + 24) != 1)
+    v19 = *v7;
+    if (*v7 && *(v19 + 24) != 1)
     {
-      v21 = v7[1];
-      if (!v21)
+      v20 = v7[1];
+      if (!v20)
       {
         goto LABEL_62;
       }
 
 LABEL_61:
-      if (*(v21 + 24) == 1)
+      if (*(v20 + 24) == 1)
       {
 LABEL_62:
-        *(v20 + 24) = 1;
+        *(v19 + 24) = 1;
         *(v7 + 24) = 0;
-        v29 = v20[1];
-        *v7 = v29;
-        if (v29)
+        v28 = v19[1];
+        *v7 = v28;
+        if (v28)
         {
-          *(v29 + 16) = v7;
+          *(v28 + 16) = v7;
         }
 
-        v30 = v7[2];
-        v30[*v30 != v7] = v20;
-        v20[1] = v7;
-        v20[2] = v30;
-        v7[2] = v20;
-        v21 = v7;
+        v29 = v7[2];
+        v29[*v29 != v7] = v19;
+        v19[1] = v7;
+        v19[2] = v29;
+        v7[2] = v19;
+        v20 = v7;
       }
 
       else
       {
-        v20 = v7;
+        v19 = v7;
       }
 
-      v31 = v20[2];
-      *(v20 + 24) = *(v31 + 24);
-      *(v31 + 24) = 1;
-      *(v21 + 24) = 1;
-      v32 = *(v31 + 8);
-      v33 = *v32;
-      *(v31 + 8) = *v32;
-      if (v33)
+      v30 = v19[2];
+      *(v19 + 24) = *(v30 + 24);
+      *(v30 + 24) = 1;
+      *(v20 + 24) = 1;
+      v31 = *(v30 + 8);
+      v32 = *v31;
+      *(v30 + 8) = *v31;
+      if (v32)
       {
-        *(v33 + 16) = v31;
+        *(v32 + 16) = v30;
       }
 
-      v34 = *(v31 + 16);
-      v32[2] = v34;
-      v34[*v34 != v31] = v32;
-      *v32 = v31;
-      *(v31 + 16) = v32;
+      v33 = *(v30 + 16);
+      v31[2] = v33;
+      v33[*v33 != v30] = v31;
+      *v31 = v30;
+      *(v30 + 16) = v31;
       return result;
     }
 
-    v21 = v7[1];
-    if (v21 && *(v21 + 24) != 1)
+    v20 = v7[1];
+    if (v20 && *(v20 + 24) != 1)
     {
       goto LABEL_61;
     }
@@ -4157,35 +4284,35 @@ LABEL_28:
   {
     *(v7 + 24) = 1;
     *(v14 + 24) = 0;
-    v22 = v15[1];
-    *v14 = v22;
-    if (v22)
+    v21 = v15[1];
+    *v14 = v21;
+    if (v21)
     {
-      v22[2] = v14;
+      *(v21 + 16) = v14;
     }
 
-    v23 = v14[2];
-    v23[*v23 != v14] = v15;
+    v22 = *(v14 + 16);
+    v22[*v22 != v14] = v15;
     v15[1] = v14;
-    v15[2] = v23;
-    v14[2] = v15;
-    v24 = v7[1];
-    if (result == v24)
+    v15[2] = v22;
+    *(v14 + 16) = v15;
+    v23 = v7[1];
+    if (result == v23)
     {
       result = v7;
     }
 
-    v7 = *v24;
+    v7 = *v23;
   }
 
-  v25 = *v7;
-  if (*v7 && *(v25 + 24) != 1)
+  v24 = *v7;
+  if (*v7 && *(v24 + 24) != 1)
   {
     goto LABEL_69;
   }
 
-  v26 = v7[1];
-  if (!v26 || *(v26 + 24) == 1)
+  v25 = v7[1];
+  if (!v25 || *(v25 + 24) == 1)
   {
     *(v7 + 24) = 0;
     v12 = v7[2];
@@ -4199,48 +4326,48 @@ LABEL_59:
     goto LABEL_28;
   }
 
-  if (v25 && (v25[3] & 1) == 0)
+  if (v24 && (v24[3] & 1) == 0)
   {
 LABEL_69:
-    v26 = v7;
+    v25 = v7;
   }
 
   else
   {
-    *(v26 + 24) = 1;
+    *(v25 + 24) = 1;
     *(v7 + 24) = 0;
-    v27 = *v26;
-    v7[1] = *v26;
-    if (v27)
+    v26 = *v25;
+    v7[1] = *v25;
+    if (v26)
     {
-      *(v27 + 16) = v7;
+      *(v26 + 16) = v7;
     }
 
-    v28 = v7[2];
-    v26[2] = v28;
-    v28[*v28 != v7] = v26;
-    *v26 = v7;
-    v7[2] = v26;
-    v25 = v7;
+    v27 = v7[2];
+    v25[2] = v27;
+    v27[*v27 != v7] = v25;
+    *v25 = v7;
+    v7[2] = v25;
+    v24 = v7;
   }
 
-  v35 = v26[2];
-  *(v26 + 24) = *(v35 + 24);
-  *(v35 + 24) = 1;
-  *(v25 + 24) = 1;
-  v36 = *v35;
-  v37 = *(*v35 + 8);
-  *v35 = v37;
-  if (v37)
+  v34 = v25[2];
+  *(v25 + 24) = *(v34 + 24);
+  *(v34 + 24) = 1;
+  *(v24 + 24) = 1;
+  v35 = *v34;
+  v36 = *(*v34 + 8);
+  *v34 = v36;
+  if (v36)
   {
-    *(v37 + 16) = v35;
+    *(v36 + 16) = v34;
   }
 
-  v38 = v35[2];
-  v38[*v38 != v35] = v36;
-  *(v36 + 8) = v35;
-  *(v36 + 16) = v38;
-  v35[2] = v36;
+  v37 = *(v34 + 16);
+  v37[*v37 != v34] = v35;
+  *(v35 + 8) = v34;
+  *(v35 + 16) = v37;
+  *(v34 + 16) = v35;
   return result;
 }
 
@@ -4334,9 +4461,9 @@ void boost::signals2::detail::connection_body_base::disconnect(boost::signals2::
   }
 }
 
-void sub_10000A4D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000A4D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::signals2::detail::garbage_collecting_lock<boost::signals2::detail::connection_body_base>::~garbage_collecting_lock(va);
   _Unwind_Resume(a1);
 }
@@ -4569,16 +4696,16 @@ void sub_10000AF1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_10000AF3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000AF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10000AF50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000AF50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(va);
   _Unwind_Resume(a1);
 }
@@ -4833,9 +4960,9 @@ LABEL_14:
   }
 }
 
-void sub_10000B578(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000B578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::signals2::detail::garbage_collecting_lock<boost::signals2::detail::connection_body_base>::~garbage_collecting_lock(va);
   _Unwind_Resume(a1);
 }
@@ -5331,7 +5458,7 @@ void sub_10000C100(void *a1)
   JUMPOUT(0x10000C0F0);
 }
 
-uint64_t *boost::signals2::detail::signal_impl<void ()(std::string const&,boost::any const&),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(std::string const&,boost::any const&)>,boost::function<void ()(boost::signals2::connection const&,std::string const&,boost::any const&)>,boost::signals2::mutex>::invocation_janitor::~invocation_janitor(uint64_t *result)
+void *boost::signals2::detail::signal_impl<void ()(std::string const&,boost::any const&),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(std::string const&,boost::any const&)>,boost::function<void ()(boost::signals2::connection const&,std::string const&,boost::any const&)>,boost::signals2::mutex>::invocation_janitor::~invocation_janitor(void *result)
 {
   if (*(*result + 292) > *(*result + 288))
   {
@@ -5343,9 +5470,9 @@ uint64_t *boost::signals2::detail::signal_impl<void ()(std::string const&,boost:
   return result;
 }
 
-void boost::signals2::detail::signal_impl<void ()(std::string const&,boost::any const&),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(std::string const&,boost::any const&)>,boost::function<void ()(boost::signals2::connection const&,std::string const&,boost::any const&)>,boost::signals2::mutex>::force_cleanup_connections(uint64_t a1, uint64_t a2)
+void boost::signals2::detail::signal_impl<void ()(std::string const&,boost::any const&),boost::signals2::optional_last_value<void>,int,std::less<int>,boost::function<void ()(std::string const&,boost::any const&)>,boost::function<void ()(boost::signals2::connection const&,std::string const&,boost::any const&)>,boost::signals2::mutex>::force_cleanup_connections(uint64_t ***a1, uint64_t *a2)
 {
-  v4 = *(a1 + 24);
+  v4 = a1[3];
   v14 = 10;
   __p = &v13;
   v16 = 0;
@@ -5353,8 +5480,8 @@ void boost::signals2::detail::signal_impl<void ()(std::string const&,boost::any 
   pthread_mutex_lock(v4);
   if (**a1 == a2)
   {
-    v5 = *(a1 + 8);
-    if (!v5 || atomic_load_explicit((v5 + 8), memory_order_acquire) != 1)
+    v5 = a1[1];
+    if (!v5 || atomic_load_explicit(v5 + 2, memory_order_acquire) != 1)
     {
       operator new();
     }
@@ -5392,7 +5519,7 @@ LABEL_10:
       v7 = v6;
     }
 
-    *(a1 + 16) = v7;
+    a1[2] = v7;
   }
 
   pthread_mutex_unlock(v17);
@@ -5430,9 +5557,9 @@ LABEL_10:
   }
 }
 
-void sub_10000C510(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000C510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::detail::shared_count::~shared_count(va);
   _Unwind_Resume(a1);
 }
@@ -5530,28 +5657,28 @@ uint64_t boost::detail::sp_counted_base::destroy(uint64_t this)
   return this;
 }
 
-uint64_t boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>>::grouped_list(uint64_t a1, uint64_t a2)
+uint64_t *boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>>::grouped_list(uint64_t *a1, uint64_t a2)
 {
   *a1 = a1;
-  *(a1 + 8) = a1;
-  *(a1 + 16) = 0;
+  a1[1] = a1;
+  a1[2] = 0;
   if (*(a2 + 8) != a2)
   {
     operator new();
   }
 
-  *(a1 + 24) = 0;
-  *(a1 + 32) = 0;
-  *(a1 + 40) = 0;
+  a1[3] = 0;
+  a1[4] = 0;
+  a1[5] = 0;
   *(a1 + 48) = *(a2 + 48);
-  *(a1 + 24) = a1 + 32;
+  a1[3] = (a1 + 4);
   v4 = *(a2 + 24);
   v5 = (a2 + 32);
   if (v4 != (a2 + 32))
   {
     do
     {
-      if (!*std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::__find_equal<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>>((a1 + 24), (a1 + 32), &v23, &v22, v4 + 8))
+      if (!*std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::__find_equal<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>>(a1 + 3, a1 + 4, &v23, &v22, v4 + 8))
       {
         operator new();
       }
@@ -5590,8 +5717,8 @@ uint64_t boost::signals2::detail::grouped_list<int,std::less<int>,boost::shared_
   v9 = *(a2 + 24);
   if (v9 != v5)
   {
-    v10 = *(a1 + 24);
-    v11 = *(a1 + 8);
+    v10 = a1[3];
+    v11 = a1[1];
     do
     {
       v10[6] = v11;
@@ -5722,9 +5849,9 @@ void std::__list_imp<boost::shared_ptr<boost::signals2::detail::connection_body<
   }
 }
 
-uint64_t *std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::__find_equal<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t **a4, int *a5)
+uint64_t *std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::__find_equal<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t **a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2)
   {
     goto LABEL_8;
@@ -5805,14 +5932,14 @@ LABEL_24:
         if (!*v5)
         {
           *a3 = v5;
-          return a1 + 1;
+          return (a1 + 1);
         }
 
         if (v20 != 1)
         {
           while (1)
           {
-            v26 = *(v21 + 8);
+            v26 = *(v21 + 32);
             v23 = v21;
             if (v20 == v26)
             {
@@ -5836,8 +5963,8 @@ LABEL_24:
                 break;
               }
 
-              v5 = v21 + 1;
-              v21 = v21[1];
+              v5 = (v21 + 8);
+              v21 = *(v21 + 8);
               if (!v21)
               {
                 break;
@@ -5854,10 +5981,10 @@ LABEL_40:
         while (1)
         {
           v23 = v21;
-          v24 = *(v21 + 8);
+          v24 = *(v21 + 32);
           if (v24 == 1)
           {
-            v25 = *(v23 + 10);
+            v25 = *(v23 + 40);
             if (v22 >= v25)
             {
               if (v25 >= v22)
@@ -5885,8 +6012,8 @@ LABEL_27:
             }
 
 LABEL_33:
-            v5 = v23 + 1;
-            v21 = v23[1];
+            v5 = (v23 + 8);
+            v21 = *(v23 + 8);
             if (!v21)
             {
               goto LABEL_40;
@@ -5962,7 +6089,7 @@ LABEL_15:
         if (!*v5)
         {
           *a3 = v5;
-          return a1 + 1;
+          return (a1 + 1);
         }
 
         goto LABEL_60;
@@ -6002,7 +6129,7 @@ LABEL_60:
       while (1)
       {
         v29 = v31;
-        v32 = *(v31 + 8);
+        v32 = *(v31 + 32);
         if (v32 == 1)
         {
           v33 = *(v29 + 10);
@@ -6300,10 +6427,11 @@ void sub_10000D618(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void _GLOBAL__sub_I_PowerEventHandlerRcp_mm()
@@ -6592,7 +6720,7 @@ BOOL CoreAnalyticsHistogramMetricsHelper::ProcessAppAndRouteMetricsHistograms(Co
   return CoreAnalyticsHistogramMetricsHelper::ProcessAppDupCountMetricsHistograms(this, &app_rxdupcount_histograms) != 0;
 }
 
-uint64_t CoreAnalyticsHistogramMetricsHelper::ProcessGetRouteCostMetricsHistograms(uint64_t *a1, void *a2)
+uint64_t CoreAnalyticsHistogramMetricsHelper::ProcessGetRouteCostMetricsHistograms(uint64_t *a1, float *a2)
 {
   v4 = 0;
   v5 = 1;
@@ -7190,7 +7318,7 @@ void sub_10000E900(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CoreAnalyticsHistogramMetricsHelper::ProcessGetHopCountMetricsHistograms(uint64_t *a1, void *a2)
+uint64_t CoreAnalyticsHistogramMetricsHelper::ProcessGetHopCountMetricsHistograms(uint64_t *a1, float *a2)
 {
   v4 = 0;
   v5 = 1;
@@ -7801,7 +7929,7 @@ void sub_10000F42C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CoreAnalyticsHistogramMetricsHelper::ProcessAppRetryCountMetricsHistograms(uint64_t *a1, void *a2)
+uint64_t CoreAnalyticsHistogramMetricsHelper::ProcessAppRetryCountMetricsHistograms(uint64_t *a1, float *a2)
 {
   v4 = 0;
   v5 = 0;
@@ -8126,7 +8254,7 @@ void sub_10000FA68(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CoreAnalyticsHistogramMetricsHelper::ProcessAppDupCountMetricsHistograms(uint64_t *a1, void *a2)
+uint64_t CoreAnalyticsHistogramMetricsHelper::ProcessAppDupCountMetricsHistograms(uint64_t *a1, float *a2)
 {
   v4 = 0;
   v5 = 1;
@@ -8437,10 +8565,10 @@ void sub_100010058(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CoreAnalyticsHistogramMetricsHelper::AddHistogramToUMap(uint64_t a1, uint64_t a2, int a3, uint64_t a4, void *a5)
+uint64_t CoreAnalyticsHistogramMetricsHelper::AddHistogramToUMap(uint64_t a1, uint64_t a2, int a3, unsigned __int8 *a4, float *a5)
 {
   *buf = a4;
-  v9 = std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned int>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned int>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a5, a4);
+  v9 = std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned int>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned int>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a5, a4, &std::piecewise_construct, buf);
   v10 = (v9[6] - v9[5]) >> 2;
   if (v10 == a3)
   {
@@ -8450,7 +8578,7 @@ uint64_t CoreAnalyticsHistogramMetricsHelper::AddHistogramToUMap(uint64_t a1, ui
       do
       {
         *buf = a4;
-        *(std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned int>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned int>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a5, a4)[5] + v11) = *(a2 + 4 * v11);
+        *(std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned int>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned int>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a5, a4, &std::piecewise_construct, buf)[5] + v11) = *(a2 + 4 * v11);
         ++v11;
       }
 
@@ -8469,13 +8597,13 @@ uint64_t CoreAnalyticsHistogramMetricsHelper::AddHistogramToUMap(uint64_t a1, ui
       if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         v15 = a4;
-        if (*(a4 + 23) < 0)
+        if (a4[23] < 0)
         {
           v15 = *a4;
         }
 
         *buf = a4;
-        v16 = std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned int>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned int>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a5, a4);
+        v16 = std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned int>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned int>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a5, a4, &std::piecewise_construct, buf);
         v17 = (v16[6] - v16[5]) >> 2;
         *buf = 136315650;
         *&buf[4] = v15;
@@ -8508,11 +8636,11 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
   return result;
 }
 
-void *std::vector<std::string>::vector[abi:ne200100](void *result, uint64_t a2, unint64_t a3)
+std::string **std::vector<std::string>::vector[abi:ne200100](std::string **a1, __int128 *a2, unint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3)
   {
     if (a3 < 0xAAAAAAAAAAAAAABLL)
@@ -8523,13 +8651,14 @@ void *std::vector<std::string>::vector[abi:ne200100](void *result, uint64_t a2, 
     std::vector<std::string>::__throw_length_error[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
-void sub_100010410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void ***a9, uint64_t a10, char a11)
+void sub_100010410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*>>::~__exception_guard_exceptions[abi:ne200100](&a11);
-  *(v11 + 8) = v12;
+  va_start(va, a10);
+  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*>>::~__exception_guard_exceptions[abi:ne200100](va);
+  *(v10 + 8) = v11;
   std::__exception_guard_exceptions<std::vector<std::string>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
@@ -8655,99 +8784,99 @@ void std::vector<unsigned int>::__append(std::vector<unsigned int> *this, std::v
   }
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned int>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned int>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned int>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned int>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(float *a1, unsigned __int8 *a2, uint64_t a3, __int128 **a4)
 {
-  v2 = a2;
-  v4 = *(a2 + 8);
-  if (*(a2 + 23) >= 0)
+  v4 = a2;
+  v6 = *(a2 + 1);
+  if ((a2[23] & 0x80u) == 0)
   {
-    v5 = *(a2 + 23);
+    v7 = a2[23];
   }
 
   else
   {
     a2 = *a2;
-    v5 = v4;
+    v7 = v6;
   }
 
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](&v24, a2, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](&v26, a2, v7);
+  v9 = v8;
+  v10 = *(a1 + 2);
+  if (!*&v10)
   {
     goto LABEL_43;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  if (v9.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  if (v11.u32[0] > 1uLL)
   {
-    v10 = v6;
-    if (v6 >= *&v8)
+    v12 = v8;
+    if (v8 >= *&v10)
     {
-      v10 = v6 % *&v8;
+      v12 = v8 % *&v10;
     }
   }
 
   else
   {
-    v10 = (*&v8 - 1) & v6;
+    v12 = (*&v10 - 1) & v8;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_43:
     operator new();
   }
 
-  v13 = v2[23];
-  if (v13 >= 0)
+  v15 = v4[23];
+  if (v15 >= 0)
   {
-    v14 = v2[23];
+    v16 = v4[23];
   }
 
   else
   {
-    v14 = *(v2 + 1);
+    v16 = *(v4 + 1);
   }
 
-  if (v13 < 0)
+  if (v15 < 0)
   {
-    v2 = *v2;
+    v4 = *v4;
   }
 
-  if (v9.u32[0] < 2uLL)
+  if (v11.u32[0] < 2uLL)
   {
     while (1)
     {
-      v19 = v12[1];
-      if (v19 == v7)
+      v21 = v14[1];
+      if (v21 == v9)
       {
-        v20 = *(v12 + 39);
-        v21 = v20;
-        if (v20 < 0)
+        v22 = *(v14 + 39);
+        v23 = v22;
+        if (v22 < 0)
         {
-          v20 = v12[3];
+          v22 = v14[3];
         }
 
-        if (v20 == v14)
+        if (v22 == v16)
         {
-          v22 = v21 >= 0 ? (v12 + 2) : v12[2];
-          if (!memcmp(v22, v2, v14))
+          v24 = v23 >= 0 ? (v14 + 2) : v14[2];
+          if (!memcmp(v24, v4, v16))
           {
-            return v12;
+            return v14;
           }
         }
       }
 
-      else if ((v19 & (*&v8 - 1)) != v10)
+      else if ((v21 & (*&v10 - 1)) != v12)
       {
         goto LABEL_43;
       }
 
-      v12 = *v12;
-      if (!v12)
+      v14 = *v14;
+      if (!v14)
       {
         goto LABEL_43;
       }
@@ -8756,61 +8885,61 @@ LABEL_43:
 
   while (1)
   {
-    v15 = v12[1];
-    if (v15 == v7)
+    v17 = v14[1];
+    if (v17 == v9)
     {
       break;
     }
 
-    if (v15 >= *&v8)
+    if (v17 >= *&v10)
     {
-      v15 %= *&v8;
+      v17 %= *&v10;
     }
 
-    if (v15 != v10)
+    if (v17 != v12)
     {
       goto LABEL_43;
     }
 
 LABEL_20:
-    v12 = *v12;
-    if (!v12)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_43;
     }
   }
 
-  v16 = *(v12 + 39);
-  v17 = v16;
-  if (v16 < 0)
+  v18 = *(v14 + 39);
+  v19 = v18;
+  if (v18 < 0)
   {
-    v16 = v12[3];
+    v18 = v14[3];
   }
 
-  if (v16 != v14)
-  {
-    goto LABEL_20;
-  }
-
-  v18 = v17 >= 0 ? (v12 + 2) : v12[2];
-  if (memcmp(v18, v2, v14))
+  if (v18 != v16)
   {
     goto LABEL_20;
   }
 
-  return v12;
+  v20 = v19 >= 0 ? (v14 + 2) : v14[2];
+  if (memcmp(v20, v4, v16))
+  {
+    goto LABEL_20;
+  }
+
+  return v14;
 }
 
-void sub_100010A88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100010A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<unsigned int>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<unsigned int>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_100010A9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100010A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<unsigned int>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<unsigned int>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9092,13 +9221,13 @@ void _GLOBAL__sub_I_CoreAnalyticsMetricsHelper_cpp()
 
 void sub_100012A50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, void *a52, uint64_t a53, int a54, __int16 a55, char a56, char a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
 {
-  if (a74 < 0)
+  if (a69 < 0)
   {
     operator delete(__p);
-    if ((a72 & 0x80000000) == 0)
+    if ((a67 & 0x80000000) == 0)
     {
 LABEL_3:
-      if ((a69 & 0x80000000) == 0)
+      if ((a65 & 0x80000000) == 0)
       {
         goto LABEL_4;
       }
@@ -9107,13 +9236,13 @@ LABEL_3:
     }
   }
 
-  else if ((a72 & 0x80000000) == 0)
+  else if ((a67 & 0x80000000) == 0)
   {
     goto LABEL_3;
   }
 
-  operator delete(a70);
-  if ((a69 & 0x80000000) == 0)
+  operator delete(a66);
+  if ((a65 & 0x80000000) == 0)
   {
 LABEL_4:
     if ((a63 & 0x80000000) == 0)
@@ -9287,7 +9416,7 @@ void sub_100012CE0()
   }
 }
 
-id startNetworkMonitoringOnBackbone()
+id startNetworkMonitoringOnBackbone(uint64_t a1)
 {
   if (qword_100523A80 == -1)
   {
@@ -9384,7 +9513,7 @@ void getWiFiNetworkInterfaceNameOnBackbone(uint64_t a1)
   NSLog(@"BackboneIPv6InterfaceHelper: %s WiFi interface name: %s... is connected\n", "getWiFiNetworkInterfaceNameOnBackbone", a1);
 }
 
-void allocWiFiInterface()
+void allocWiFiInterface(uint64_t result, uint64_t a2)
 {
   if (allocWiFiInterface_onceToken != -1)
   {
@@ -9510,134 +9639,4 @@ void __startNetworkMonitoringOnWiFi_block_invoke(id a1)
 
   NSLog(@"%s: Is current WiFi channel in 2GHz band: %s\n", "startNetworkMonitoringOnWiFi_block_invoke", v4);
   [qword_100523A78 setEventHandler:&__block_literal_global_40];
-}
-
-void __startNetworkMonitoringOnWiFi_block_invoke_2(id a1, CWFEvent *a2)
-{
-  v2 = a2;
-  v3 = v2;
-  if (v2)
-  {
-    v4 = wifiLinkStatusMonitorQueue;
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 3221225472;
-    block[2] = __startNetworkMonitoringOnWiFi_block_invoke_3;
-    block[3] = &unk_1004C1720;
-    v6 = v2;
-    dispatch_async(v4, block);
-  }
-}
-
-void __startNetworkMonitoringOnWiFi_block_invoke_3(uint64_t a1)
-{
-  v2 = [*(a1 + 32) type];
-  if (v2 <= 0x19)
-  {
-    if (((1 << v2) & 0x200400C) != 0)
-    {
-      v3 = [qword_100523A78 channel];
-      _MergedGlobals_0 = [v3 is2GHz];
-
-      v4 = [qword_100523A78 interfaceName];
-      v5 = qword_100523A88;
-      qword_100523A88 = v4;
-
-      v6 = [qword_100523A78 opMode];
-      isLinkDown = v6 == 0;
-      v7 = [*(a1 + 32) type];
-      v8 = "false";
-      if (_MergedGlobals_0)
-      {
-        v9 = "true";
-      }
-
-      else
-      {
-        v9 = "false";
-      }
-
-      if (isLinkDown)
-      {
-        v8 = "true";
-      }
-
-      NSLog(@"%s: %ld event received: WiFiInterfaceName:%@ Is current WiFi channel in 2GHz band: %s isLinkDown:%s opmode:%d\n", "startNetworkMonitoringOnWiFi_block_invoke_3", v7, qword_100523A88, v9, v8, v6);
-      v10 = [qword_100523A88 UTF8String];
-      v11 = isLinkDown;
-      v12 = _MergedGlobals_0;
-
-      updateWiFiLinkState(v10, v11, v12);
-    }
-
-    else if (v2 == 6)
-    {
-      v13 = [qword_100523A78 channel];
-      _MergedGlobals_0 = [v13 is2GHz];
-
-      v14 = [qword_100523A78 interfaceName];
-      v15 = qword_100523A88;
-      qword_100523A88 = v14;
-
-      v16 = [*(a1 + 32) info];
-      v21 = [v16 objectForKeyedSubscript:CWFEventLinkChangeStatusKey];
-
-      if (v21)
-      {
-        v17 = [v21 isLinkDown];
-        isLinkDown = v17;
-      }
-
-      else
-      {
-        v17 = isLinkDown;
-      }
-
-      v18 = "false";
-      if (_MergedGlobals_0)
-      {
-        v19 = "true";
-      }
-
-      else
-      {
-        v19 = "false";
-      }
-
-      if (v17)
-      {
-        v18 = "true";
-      }
-
-      NSLog(@"%s: CWFEventTypeLinkChanged received: WiFiInterfaceName:%@ Is current WiFi channel in 2GHz band: %s isLinkDown:%s\n", "startNetworkMonitoringOnWiFi_block_invoke_3", qword_100523A88, v19, v18);
-      v20 = [qword_100523A88 UTF8String];
-      updateWiFiLinkState(v20, isLinkDown, _MergedGlobals_0);
-    }
-  }
-}
-
-uint64_t isWiFiChannelOn2G()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (qword_100523A78 && ([qword_100523A78 channel], v1 = objc_claimAutoreleasedReturnValue(), v1, v1))
-  {
-    v2 = [qword_100523A78 channel];
-    v3 = [v2 is2GHz];
-
-    objc_autoreleasePoolPop(v0);
-    v4 = "false";
-    if (v3)
-    {
-      v4 = "true";
-    }
-  }
-
-  else
-  {
-    objc_autoreleasePoolPop(v0);
-    v3 = 0;
-    v4 = "false";
-  }
-
-  NSLog(@"%s: is2GHzWiFi enabled:%s", "isWiFiChannelOn2G", v4);
-  return v3 & 1;
 }

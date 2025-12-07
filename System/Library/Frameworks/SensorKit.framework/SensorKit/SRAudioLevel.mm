@@ -55,12 +55,12 @@
     if (self && (isKindOfClass & 1) != 0)
     {
       v11 = MEMORY[0x1E696B098];
-      [(SRAudioLevel *)self timeRange];
+      objc_msgSend_timeRange(self);
       v12 = [v11 valueWithCMTimeRange:v17];
       v13 = MEMORY[0x1E696B098];
       if (equal)
       {
-        [equal timeRange];
+        objc_msgSend_timeRange(equal);
       }
 
       else
@@ -86,7 +86,7 @@
   v3 = MEMORY[0x1E696B098];
   if (self)
   {
-    [(SRAudioLevel *)self timeRange];
+    objc_msgSend_timeRange(self, a2);
   }
 
   else
@@ -123,7 +123,7 @@
   v6 = MEMORY[0x1E696B098];
   if (self)
   {
-    [(SRAudioLevel *)self timeRange];
+    objc_msgSend_timeRange(self);
   }
 
   else
@@ -147,7 +147,7 @@
   v8 = v7;
   if (v6)
   {
-    [v6 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(v6);
   }
 
   else

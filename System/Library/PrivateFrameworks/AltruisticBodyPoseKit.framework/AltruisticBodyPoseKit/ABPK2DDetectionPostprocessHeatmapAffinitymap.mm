@@ -1,4 +1,5 @@
 @interface ABPK2DDetectionPostprocessHeatmapAffinitymap
+- (ABPK2DDetectionPostprocessHeatmapAffinitymap)initWithInputJoints:(unint64_t)joints andOutputJoints:(unint64_t)outputJoints use3DSkeletonForExtrapolation:(BOOL)extrapolation shouldPush3DSupportSkeleton:(BOOL)skeleton withExtrapolationTime:(double)time;
 - (id)get2DDetectionResultforRotation:(int64_t)rotation croppedRect:(CGRect)rect;
 - (id)getRaw2DDetectionResultforRotation:(int64_t)rotation croppedRect:(CGRect)rect;
 - (int)extract2DSkeletonfromBuffers:(id)buffers withImagePreProcessingParams:(id)params atTimestamp:(double)timestamp previousSkeleton3D:(id)d;
@@ -11,13 +12,63 @@
 
 @implementation ABPK2DDetectionPostprocessHeatmapAffinitymap
 
+- (ABPK2DDetectionPostprocessHeatmapAffinitymap)initWithInputJoints:(unint64_t)joints andOutputJoints:(unint64_t)outputJoints use3DSkeletonForExtrapolation:(BOOL)extrapolation shouldPush3DSupportSkeleton:(BOOL)skeleton withExtrapolationTime:(double)time
+{
+  skeletonCopy = skeleton;
+  extrapolationCopy = extrapolation;
+  v30 = *MEMORY[0x277D85DE8];
+  v27.receiver = self;
+  v27.super_class = ABPK2DDetectionPostprocessHeatmapAffinitymap;
+  v12 = [(ABPK2DDetectionPostprocessHeatmapAffinitymap *)&v27 init];
+  v13 = v12;
+  if (v12)
+  {
+    v12->_numberOfInputJoints = joints;
+    v12->_numberOfOutputJoints = outputJoints;
+    v14 = [[ABPK2DDetectionPostprocessGPU alloc] initWithNumberOfChannels:v12->_numberOfInputJoints];
+    postprocessorGPU = v13->_postprocessorGPU;
+    v13->_postprocessorGPU = v14;
+
+    v16 = [[ABPK2DExtrapolationFiltering alloc] initWithUse3DSkeletonForExtrapolation:extrapolationCopy shouldPush3DSupportSkeleton:skeletonCopy withExtrapolationTime:time];
+    extrapolationFiltering = v13->_extrapolationFiltering;
+    v13->_extrapolationFiltering = v16;
+
+    v13->_humansDetected = 1;
+    v19 = __ABPKLogSharedInstance(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_23EDDC000, v19, OS_LOG_TYPE_DEBUG, " ABPK2DDetectionPostprocessHeatmapAffinitymap: Initializing ", buf, 2u);
+    }
+
+    v21 = __ABPKLogSharedInstance(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    {
+      numberOfInputJoints = v13->_numberOfInputJoints;
+      *buf = 134217984;
+      v29 = numberOfInputJoints;
+      _os_log_impl(&dword_23EDDC000, v21, OS_LOG_TYPE_DEBUG, " \t Number of input joints: %zu ", buf, 0xCu);
+    }
+
+    v24 = __ABPKLogSharedInstance(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    {
+      numberOfOutputJoints = v13->_numberOfOutputJoints;
+      *buf = 134217984;
+      v29 = numberOfOutputJoints;
+      _os_log_impl(&dword_23EDDC000, v24, OS_LOG_TYPE_DEBUG, " \t Number of output joints: %zu ", buf, 0xCu);
+    }
+  }
+
+  return v13;
+}
+
 - (int)extract2DSkeletonfromBuffers:(id)buffers withImagePreProcessingParams:(id)params atTimestamp:(double)timestamp previousSkeleton3D:(id)d
 {
   buffersCopy = buffers;
   paramsCopy = params;
   dCopy = d;
-  [(ABPK2DDetectionPostprocessHeatmapAffinitymap *)self _startExtract2DSkeletonSignpostWithTimestamp:timestamp];
-  v13 = __ABPKLogSharedInstance();
+  v13 = __ABPKLogSharedInstance([(ABPK2DDetectionPostprocessHeatmapAffinitymap *)self _startExtract2DSkeletonSignpostWithTimestamp:timestamp]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -30,60 +81,60 @@
   CVPixelBufferLockBaseAddress([buffersCopy affinityMapBuffer], 0);
   BaseAddress = CVPixelBufferGetBaseAddress([buffersCopy affinityMapBuffer]);
   [buffersCopy affinityMapShape];
-  v51 = v16;
+  v53 = v16;
   [buffersCopy affinityMapShape];
   v18 = v17;
   *buf = self->_numberOfInputJoints + 1;
-  v62 = v51;
-  v63 = v17;
-  v60[0] = 36;
-  v60[1] = v51;
-  v60[2] = v17;
+  v64 = v53;
+  v65 = v17;
+  v62[0] = 36;
+  v62[1] = v53;
+  v62[2] = v17;
   [buffersCopy affinityMapStrides];
-  v59[0] = v19;
+  v61[0] = v19;
   [buffersCopy affinityMapStrides];
-  v59[1] = v20;
+  v61[1] = v20;
   [buffersCopy affinityMapStrides];
-  v59[2] = v21;
-  v58 = 0;
+  v61[2] = v21;
+  v60 = 0;
   IOSurface = CVPixelBufferGetIOSurface([buffersCopy heatMapBuffer]);
   [(ABPK2DDetectionPostprocessHeatmapAffinitymap *)self _startMaxFilterSignpostWithTimestamp:timestamp];
-  v23 = [(ABPK2DDetectionPostprocessGPU *)self->_postprocessorGPU process:IOSurface counter:&v58 shape:v18, v51];
+  v23 = [(ABPK2DDetectionPostprocessGPU *)self->_postprocessorGPU process:IOSurface counter:&v60 shape:v18, v53];
   [(ABPK2DDetectionPostprocessHeatmapAffinitymap *)self _endMaxFilterSignpostWithTimestamp:timestamp];
   [(ABPK2DDetectionPostprocessHeatmapAffinitymap *)self _startExtractHumanSignpostWithTimestamp:timestamp];
-  v56 = 0uLL;
-  v57 = 0;
+  v58 = 0uLL;
+  v59 = 0;
   if (self->_numberOfInputJoints == 17)
   {
-    abpk::extractHumansLegacy(v23, v23, BaseAddress, buf, v60, v59, 0, v58, v54);
+    abpk::extractHumansLegacy(v23, v23, BaseAddress, buf, v62, v61, 0, v60, v56);
   }
 
   else
   {
-    abpk::extractHumans(v23, v23, BaseAddress, buf, v60, v59, 0, v58, v54);
+    abpk::extractHumans(v23, v23, BaseAddress, buf, v62, v61, 0, v60, v56);
   }
 
-  std::vector<abpk::Human>::__vdeallocate(&v56);
-  v56 = *v54;
-  v57 = v55;
-  v55 = 0;
-  memset(v54, 0, sizeof(v54));
-  v64 = v54;
-  std::vector<abpk::Human>::__destroy_vector::operator()[abi:ne200100](&v64);
+  std::vector<abpk::Human>::__vdeallocate(&v58);
+  v58 = *v56;
+  v59 = v57;
+  v57 = 0;
+  memset(v56, 0, sizeof(v56));
+  v66 = v56;
+  std::vector<abpk::Human>::__destroy_vector::operator()[abi:ne200100](&v66);
   [(ABPK2DDetectionPostprocessHeatmapAffinitymap *)self _endExtractHumanSignpostWithTimestamp:timestamp];
   CVPixelBufferUnlockBaseAddress([buffersCopy heatMapBuffer], 0);
   CVPixelBufferUnlockBaseAddress([buffersCopy affinityMapBuffer], 0);
   CVPixelBufferRelease([buffersCopy heatMapBuffer]);
   CVPixelBufferRelease([buffersCopy affinityMapBuffer]);
-  if (*(&v56 + 1) == v56)
+  if (*(&v58 + 1) == v58)
   {
     if (self->_humansDetected)
     {
-      v46 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+      v48 = __ABPKLogSharedInstance(v24);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
       {
-        *v54 = 0;
-        _os_log_impl(&dword_23EDDC000, v46, OS_LOG_TYPE_DEBUG, " No humans detected in the image ", v54, 2u);
+        *v56 = 0;
+        _os_log_impl(&dword_23EDDC000, v48, OS_LOG_TYPE_DEBUG, " No humans detected in the image ", v56, 2u);
       }
 
       self->_humansDetected = 0;
@@ -96,92 +147,91 @@
   {
     if (!self->_humansDetected)
     {
-      v24 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v25 = __ABPKLogSharedInstance(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
-        *v54 = 0;
-        _os_log_impl(&dword_23EDDC000, v24, OS_LOG_TYPE_DEBUG, " Humans detected in the image ", v54, 2u);
+        *v56 = 0;
+        _os_log_impl(&dword_23EDDC000, v25, OS_LOG_TYPE_DEBUG, " Humans detected in the image ", v56, 2u);
       }
 
       self->_humansDetected = 1;
     }
 
-    v25 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v26 = __ABPKLogSharedInstance(v24);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
-      *v54 = 0;
-      _os_log_impl(&dword_23EDDC000, v25, OS_LOG_TYPE_DEBUG, " \t Converting 2d points from ML space to image space ", v54, 2u);
+      *v56 = 0;
+      _os_log_impl(&dword_23EDDC000, v26, OS_LOG_TYPE_DEBUG, " \t Converting 2d points from ML space to image space ", v56, 2u);
     }
 
     [paramsCopy inputResolution];
-    v48 = v26;
-    v49 = v27;
+    v50 = v27;
+    v51 = v28;
     [paramsCopy outputResolution];
-    v31 = *(&v56 + 1);
-    v30 = v56;
-    if (v56 != *(&v56 + 1))
+    v32 = *(&v58 + 1);
+    v31 = v58;
+    if (v58 != *(&v58 + 1))
     {
-      v32 = v28;
       v33 = v29;
-      v34.f64[0] = v48;
-      v34.f64[1] = v49;
-      v50 = v34;
+      v34 = v30;
+      v35.f64[0] = v50;
+      v35.f64[1] = v51;
+      v52 = v35;
       do
       {
-        v35 = *v30;
-        v36 = v30[1];
-        while (v35 != v36)
+        v36 = *v31;
+        v37 = v31[1];
+        while (v36 != v37)
         {
-          LODWORD(v37) = HIDWORD(*v35);
-          if (COERCE_FLOAT(*v35) != -1.0 && v37 != -1.0)
+          LODWORD(v38) = HIDWORD(*v36);
+          if (COERCE_FLOAT(*v36) != -1.0 && v38 != -1.0)
           {
-            *&v39 = v32 * COERCE_FLOAT(*v35);
-            v40 = v33 * v37;
-            *(&v39 + 1) = v40;
-            [ABPKImagePreProcessingParams convert2DPoint:paramsCopy toInputSpaceWithParams:v39];
-            *v35 = vcvt_f32_f64(vdivq_f64(vcvtq_f64_f32(v41), v50));
+            *&v40 = v33 * COERCE_FLOAT(*v36);
+            v41 = v34 * v38;
+            *(&v40 + 1) = v41;
+            [ABPKImagePreProcessingParams convert2DPoint:paramsCopy toInputSpaceWithParams:v40];
+            *v36 = vcvt_f32_f64(vdivq_f64(vcvtq_f64_f32(v42), v52));
           }
 
-          ++v35;
+          ++v36;
         }
 
-        v30 += 15;
+        v31 += 15;
       }
 
-      while (v30 != v31);
+      while (v31 != v32);
     }
 
-    [(ABPK2DDetectionPostprocessHeatmapAffinitymap *)self _startExtrapolationSignpostWithTimestamp:timestamp];
-    v42 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+    v43 = __ABPKLogSharedInstance([(ABPK2DDetectionPostprocessHeatmapAffinitymap *)self _startExtrapolationSignpostWithTimestamp:timestamp]);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
     {
-      *v54 = 0;
-      _os_log_impl(&dword_23EDDC000, v42, OS_LOG_TYPE_DEBUG, " \t Performing extrapolation ", v54, 2u);
+      *v56 = 0;
+      _os_log_impl(&dword_23EDDC000, v43, OS_LOG_TYPE_DEBUG, " \t Performing extrapolation ", v56, 2u);
     }
 
     extrapolationFiltering = self->_extrapolationFiltering;
-    v52 = v56;
-    v53 = v57;
-    v57 = 0;
-    v56 = 0uLL;
-    timestamp = [(ABPK2DExtrapolationFiltering *)extrapolationFiltering performExtrapolationOnHumans:&v52 withImageResolution:rotationNeeded atTimestamp:dCopy rotationNeeded:v48 previousSkeleton3D:v49, timestamp];
-    *v54 = &v52;
-    std::vector<abpk::Human>::__destroy_vector::operator()[abi:ne200100](v54);
+    v54 = v58;
+    v55 = v59;
+    v59 = 0;
+    v58 = 0uLL;
+    timestamp = [(ABPK2DExtrapolationFiltering *)extrapolationFiltering performExtrapolationOnHumans:&v54 withImageResolution:rotationNeeded atTimestamp:dCopy rotationNeeded:v50 previousSkeleton3D:v51, timestamp];
+    *v56 = &v54;
+    std::vector<abpk::Human>::__destroy_vector::operator()[abi:ne200100](v56);
     [(ABPK2DDetectionPostprocessHeatmapAffinitymap *)self _endExtrapolationSignpostWithTimestamp:timestamp];
-    [(ABPK2DDetectionPostprocessHeatmapAffinitymap *)self _endExtract2DSkeletonSignpostWithTimestamp:timestamp];
+    v46 = [(ABPK2DDetectionPostprocessHeatmapAffinitymap *)self _endExtract2DSkeletonSignpostWithTimestamp:timestamp];
     if (timestamp)
     {
-      v45 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v47 = __ABPKLogSharedInstance(v46);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
-        *v54 = 0;
-        _os_log_impl(&dword_23EDDC000, v45, OS_LOG_TYPE_ERROR, " 2D Extrapolation failed ", v54, 2u);
+        *v56 = 0;
+        _os_log_impl(&dword_23EDDC000, v47, OS_LOG_TYPE_ERROR, " 2D Extrapolation failed ", v56, 2u);
       }
     }
   }
 
-  *v54 = &v56;
-  std::vector<abpk::Human>::__destroy_vector::operator()[abi:ne200100](v54);
+  *v56 = &v58;
+  std::vector<abpk::Human>::__destroy_vector::operator()[abi:ne200100](v56);
 
   return timestamp;
 }

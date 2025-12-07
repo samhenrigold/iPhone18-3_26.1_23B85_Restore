@@ -30,42 +30,65 @@
 
           if (MTLReportFailureTypeEnabled())
           {
-            goto LABEL_36;
+            v74 = objc_opt_class();
+            NSStringFromClass(v74);
+            v70 = @"[%@ initWithDevice:rnnDescriptor:] outputFeatureChannels has to be larger than zero";
+            v71 = 6309;
+            goto LABEL_37;
           }
 
-LABEL_37:
+LABEL_38:
 
           return 0;
         }
 
         if (!MTLReportFailureTypeEnabled())
         {
-          goto LABEL_37;
+          goto LABEL_38;
         }
+
+        v73 = objc_opt_class();
+        NSStringFromClass(v73);
+        v70 = @"[%@ initWithDevice:rnnDescriptor:] rnnDescriptor.inputFeatureChannels has to be larger than zero";
+        v71 = 6308;
       }
 
-      else if (!MTLReportFailureTypeEnabled())
+      else
       {
-        goto LABEL_37;
+        if (!MTLReportFailureTypeEnabled())
+        {
+          goto LABEL_38;
+        }
+
+        v72 = objc_opt_class();
+        NSStringFromClass(v72);
+        v70 = @"[%@ initWithDevice:rnnDescriptors:] device may not be nil";
+        v71 = 6307;
       }
     }
 
-    else if (!MTLReportFailureTypeEnabled())
+    else
     {
-      goto LABEL_37;
+      if (!MTLReportFailureTypeEnabled())
+      {
+        goto LABEL_38;
+      }
+
+      v65 = objc_opt_class();
+      NSStringFromClass(v65);
+      v70 = @"[%@ initWithDevice:rnnDescriptor:] rnnDescriptor may not be nil";
+      v71 = 6306;
     }
 
-LABEL_36:
-    v65 = objc_opt_class();
-    NSStringFromClass(v65);
-    MTLReportFailure();
-    goto LABEL_37;
+LABEL_37:
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSRNNLayer.mm", v71, v70, v66, v67, v68, v69);
+    goto LABEL_38;
   }
 
 LABEL_6:
-  v66.receiver = self;
-  v66.super_class = MPSRNNImageInferenceLayer;
-  v32 = [(MPSCNNKernel *)&v66 initWithDevice:device];
+  v75.receiver = self;
+  v75.super_class = MPSRNNImageInferenceLayer;
+  v32 = [(MPSCNNKernel *)&v75 initWithDevice:device];
   v33 = v32;
   if (v32)
   {
@@ -168,43 +191,43 @@ LABEL_6:
 
 - (MPSRNNImageInferenceLayer)initWithDevice:(id)device rnnDescriptors:(NSArray *)rnnDescriptors
 {
-  v282 = *MEMORY[0x277CD7378];
-  if ((*(&self->super.super.super.isa + v282) & 1) == 0)
+  v291 = *MEMORY[0x277CD7378];
+  if ((*(&self->super.super.super.isa + v291) & 1) == 0)
   {
-    if (rnnDescriptors)
-    {
-      if (device)
-      {
-        goto LABEL_4;
-      }
-
-      selfCopy2 = self;
-      if (!MTLReportFailureTypeEnabled())
-      {
-        goto LABEL_62;
-      }
-    }
-
-    else
+    if (!rnnDescriptors)
     {
       selfCopy2 = self;
       if (!MTLReportFailureTypeEnabled())
       {
         goto LABEL_62;
       }
+
+      v280 = objc_opt_class();
+      NSStringFromClass(v280);
+      v285 = @"[%@ initWithDevice:rnnDescriptors:] rnnDescriptors may not be nil";
+      v286 = 6371;
+      goto LABEL_61;
     }
 
-    v280 = objc_opt_class();
-    NSStringFromClass(v280);
-LABEL_61:
-    MTLReportFailure();
-    goto LABEL_62;
+    if (!device)
+    {
+      selfCopy2 = self;
+      if (!MTLReportFailureTypeEnabled())
+      {
+        goto LABEL_62;
+      }
+
+      v287 = objc_opt_class();
+      NSStringFromClass(v287);
+      v285 = @"[%@ initWithDevice:rnnDescriptors:] device may not be nil";
+      v286 = 6372;
+      goto LABEL_61;
+    }
   }
 
-LABEL_4:
-  v284.receiver = self;
-  v284.super_class = MPSRNNImageInferenceLayer;
-  selfCopy2 = [(MPSCNNKernel *)&v284 initWithDevice:device];
+  v293.receiver = self;
+  v293.super_class = MPSRNNImageInferenceLayer;
+  selfCopy2 = [(MPSCNNKernel *)&v293 initWithDevice:device];
   if (!selfCopy2)
   {
     return selfCopy2;
@@ -232,7 +255,7 @@ LABEL_4:
   v22 = selfCopy2->_numberOfLayers;
   if (v22)
   {
-    if (*(&selfCopy2->super.super.super.isa + v282))
+    if (*(&selfCopy2->super.super.super.isa + v291))
     {
       goto LABEL_11;
     }
@@ -314,7 +337,7 @@ LABEL_20:
             v148 = 1;
             while (1)
             {
-              if ((*(&selfCopy2->super.super.super.isa + v282) & 1) == 0)
+              if ((*(&selfCopy2->super.super.super.isa + v291) & 1) == 0)
               {
                 objc_msgSend_objectAtIndexedSubscript_(rnnDescriptors, v141, v148, v142, v143, v144, v145, v146);
                 if (!objc_msgSend_objectAtIndexedSubscript_(rnnDescriptors, v167, v148, v168, v169, v170, v171, v172))
@@ -409,7 +432,11 @@ LABEL_26:
 LABEL_59:
         if (MTLReportFailureTypeEnabled())
         {
-          goto LABEL_60;
+          v290 = objc_opt_class();
+          NSStringFromClass(v290);
+          v285 = @"[%@ initWithDevice:rnnDescriptors:] rnnDescriptors[%lu].outputFeatureChannels must be larger than zero";
+          v286 = 6403;
+          goto LABEL_61;
         }
 
 LABEL_62:
@@ -422,6 +449,11 @@ LABEL_57:
       {
         goto LABEL_62;
       }
+
+      v289 = objc_opt_class();
+      NSStringFromClass(v289);
+      v285 = @"[%@ initWithDevice:rnnDescriptors:] rnnDescriptors[%lu].inputFeatureChannels must be larger than zero";
+      v286 = 6402;
     }
 
     else
@@ -431,12 +463,16 @@ LABEL_55:
       {
         goto LABEL_62;
       }
+
+      v288 = objc_opt_class();
+      NSStringFromClass(v288);
+      v285 = @"[%@ initWithDevice:rnnDescriptors:] rnnDescriptors[%lu] may not be nil";
+      v286 = 6401;
     }
 
-LABEL_60:
-    v281 = objc_opt_class();
-    NSStringFromClass(v281);
-    goto LABEL_61;
+LABEL_61:
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSRNNLayer.mm", v286, v285, v281, v282, v283, v284);
+    goto LABEL_62;
   }
 
 LABEL_40:
@@ -614,8 +650,8 @@ LABEL_40:
 
 - (MPSRNNImageInferenceLayer)copyWithZone:(NSZone *)zone device:(id)device
 {
-  v218.receiver = self;
-  v218.super_class = MPSRNNImageInferenceLayer;
+  v229.receiver = self;
+  v229.super_class = MPSRNNImageInferenceLayer;
   v7 = [MPSCNNKernel copyWithZone:sel_copyWithZone_device_ device:?];
   v8 = v7;
   if (!v7)
@@ -651,12 +687,17 @@ LABEL_40:
   v8->layerTypes = v10;
   if (!v10)
   {
-    if (MTLReportFailureTypeEnabled())
+    if ((MTLReportFailureTypeEnabled() & 1) == 0)
     {
-      goto LABEL_70;
+      goto LABEL_74;
     }
 
-    goto LABEL_71;
+    v218 = 6959;
+LABEL_73:
+    v219 = objc_opt_class();
+    NSStringFromClass(v219);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSRNNLayer.mm", v218, @"[%@ copyWithZone:device] out of memory: could not allocate internal data", v220, v221, v222, v223);
+    goto LABEL_74;
   }
 
   memcpy(v10, self->layerTypes, 4 * self->_numberOfLayers);
@@ -664,44 +705,49 @@ LABEL_40:
   v8->layers = v11;
   if (!v11)
   {
-    if (MTLReportFailureTypeEnabled())
+    if ((MTLReportFailureTypeEnabled() & 1) == 0)
     {
-      goto LABEL_70;
+      goto LABEL_74;
     }
 
-    goto LABEL_71;
+    v218 = 6965;
+    goto LABEL_73;
   }
 
   nForwardLayers = self->nForwardLayers;
-  if (nForwardLayers)
+  if (!nForwardLayers)
   {
-    v13 = malloc_type_malloc(4 * nForwardLayers, 0x100004052888210uLL);
-    v8->forwardLayerTypes = v13;
-    if (!v13)
-    {
-      if (MTLReportFailureTypeEnabled())
-      {
-        goto LABEL_70;
-      }
-
-      goto LABEL_71;
-    }
-
-    v14 = malloc_type_malloc(8 * self->nForwardLayers, 0x80040B8603338uLL);
-    *p_forwardLayers = v14;
-    if (!v14)
-    {
-      if (MTLReportFailureTypeEnabled())
-      {
-        goto LABEL_70;
-      }
-
-      goto LABEL_71;
-    }
-
-    memcpy(v8->forwardLayerTypes, self->forwardLayerTypes, 4 * self->nForwardLayers);
+    goto LABEL_11;
   }
 
+  v13 = malloc_type_malloc(4 * nForwardLayers, 0x100004052888210uLL);
+  v8->forwardLayerTypes = v13;
+  if (!v13)
+  {
+    if ((MTLReportFailureTypeEnabled() & 1) == 0)
+    {
+      goto LABEL_74;
+    }
+
+    v218 = 6972;
+    goto LABEL_73;
+  }
+
+  v14 = malloc_type_malloc(8 * self->nForwardLayers, 0x80040B8603338uLL);
+  *p_forwardLayers = v14;
+  if (!v14)
+  {
+    if ((MTLReportFailureTypeEnabled() & 1) == 0)
+    {
+      goto LABEL_74;
+    }
+
+    v218 = 6976;
+    goto LABEL_73;
+  }
+
+  memcpy(v8->forwardLayerTypes, self->forwardLayerTypes, 4 * self->nForwardLayers);
+LABEL_11:
   nBackwardLayers = self->nBackwardLayers;
   if (!nBackwardLayers)
   {
@@ -712,12 +758,13 @@ LABEL_40:
   v8->backwardLayerTypes = v16;
   if (!v16)
   {
-    if (MTLReportFailureTypeEnabled())
+    if ((MTLReportFailureTypeEnabled() & 1) == 0)
     {
-      goto LABEL_70;
+      goto LABEL_74;
     }
 
-    goto LABEL_71;
+    v218 = 6984;
+    goto LABEL_73;
   }
 
   v17 = malloc_type_malloc(8 * self->nBackwardLayers, 0x80040B8603338uLL);
@@ -726,13 +773,11 @@ LABEL_40:
   {
     if (MTLReportFailureTypeEnabled())
     {
-LABEL_70:
-      v212 = objc_opt_class();
-      NSStringFromClass(v212);
-      MTLReportFailure();
+      v218 = 6988;
+      goto LABEL_73;
     }
 
-LABEL_71:
+LABEL_74:
 
     return 0;
   }
@@ -759,10 +804,19 @@ LABEL_15:
         {
           if (MTLReportFailureTypeEnabled())
           {
-            goto LABEL_56;
+            v216 = 6894;
+            goto LABEL_55;
           }
 
-          goto LABEL_57;
+LABEL_59:
+          v8->layers[v18] = 0;
+          v55 = v8->layers[v18];
+          if (!v55)
+          {
+            goto LABEL_18;
+          }
+
+          goto LABEL_46;
         }
 
         v64 = v58;
@@ -827,12 +881,14 @@ LABEL_15:
         v23 = malloc_type_malloc(0x98uLL, 0x10A0040D60EB3F0uLL);
         if (!v23)
         {
-          if (MTLReportFailureTypeEnabled())
+          if (!MTLReportFailureTypeEnabled())
           {
-            goto LABEL_56;
+            goto LABEL_59;
           }
 
-          goto LABEL_57;
+          v216 = 6766;
+          v217 = @"[copySingleGateLayer copyWithZone:device] out of memory: could not allocate internal data";
+          goto LABEL_58;
         }
 
         v29 = v23;
@@ -1016,21 +1072,17 @@ LABEL_18:
       goto LABEL_46;
     }
 
-    if (MTLReportFailureTypeEnabled())
+    if (!MTLReportFailureTypeEnabled())
     {
-LABEL_56:
-      MTLReportFailure();
+      goto LABEL_59;
     }
 
-LABEL_57:
-    v8->layers[v18] = 0;
-    v55 = v8->layers[v18];
-    if (!v55)
-    {
-      goto LABEL_18;
-    }
-
-    goto LABEL_46;
+    v216 = 6854;
+LABEL_55:
+    v217 = @"[copyLSTMLayer copyWithZone:device] out of memory: could not allocate internal data";
+LABEL_58:
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSRNNLayer.mm", v216, v217, v212, v213, v214, v215);
+    goto LABEL_59;
   }
 
   return v8;
@@ -1038,894 +1090,929 @@ LABEL_57:
 
 - (MPSRNNImageInferenceLayer)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v710.receiver = self;
-  v710.super_class = MPSRNNImageInferenceLayer;
+  v735.receiver = self;
+  v735.super_class = MPSRNNImageInferenceLayer;
   v5 = [MPSCNNKernel initWithCoder:sel_initWithCoder_device_ device:?];
   v12 = v5;
-  if (!v5)
+  if (v5)
   {
-    return v12;
-  }
-
-  if (*(&v5->super.super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 != 0x10000)
-  {
-    if (!MTLReportFailureTypeEnabled())
+    if (*(&v5->super.super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 != 0x10000)
     {
-      goto LABEL_152;
-    }
-
-LABEL_150:
-    v668 = objc_opt_class();
-    NSStringFromClass(v668);
-LABEL_151:
-    MTLReportFailure();
-    goto LABEL_152;
-  }
-
-  v5->_inputFeatureChannels = objc_msgSend_decodeInt64ForKey_(aDecoder, v6, @"kMPSRNNLayer._inputFeatureChannels", v7, v8, v9, v10, v11);
-  v12->_outputFeatureChannels = objc_msgSend_decodeInt64ForKey_(aDecoder, v13, @"kMPSRNNLayer._outputFeatureChannels", v14, v15, v16, v17, v18);
-  v12->_numberOfLayers = objc_msgSend_decodeInt64ForKey_(aDecoder, v19, @"kMPSRNNLayer._numberOfLayers", v20, v21, v22, v23, v24);
-  v12->_recurrentOutputIsTemporary = objc_msgSend_decodeBoolForKey_(aDecoder, v25, @"kMPSRNNLayer._recurrentOutputIsTemporary", v26, v27, v28, v29, v30);
-  v12->_storeAllIntermediateStates = objc_msgSend_decodeBoolForKey_(aDecoder, v31, @"kMPSRNNLayer._storeAllIntermediateStates", v32, v33, v34, v35, v36);
-  v12->_bidirectionalCombineMode = objc_msgSend_decodeInt64ForKey_(aDecoder, v37, @"kMPSRNNLayer._bidirectionalCombineMode", v38, v39, v40, v41, v42);
-  v12->layers = 0;
-  v12->layerTypes = 0;
-  v12->forwardLayers = 0;
-  v12->forwardLayerTypes = 0;
-  v12->backwardLayers = 0;
-  v12->backwardLayerTypes = 0;
-  v12->nForwardLayers = 0;
-  p_nBackwardLayers = &v12->nBackwardLayers;
-  v12->nBackwardLayers = 0;
-  numberOfLayers = v12->_numberOfLayers;
-  if (!numberOfLayers)
-  {
-    return v12;
-  }
-
-  p_nForwardLayers = &v12->nForwardLayers;
-  v12->layerTypes = malloc_type_malloc(4 * numberOfLayers, 0x100004052888210uLL);
-  v44 = malloc_type_malloc(8 * v12->_numberOfLayers, 0x80040B8603338uLL);
-  v12->layers = v44;
-  if (!v12->layerTypes || !v44)
-  {
-    if (!MTLReportFailureTypeEnabled())
-    {
-      goto LABEL_152;
-    }
-
-    goto LABEL_150;
-  }
-
-  v709 = 0;
-  v708 = 0;
-  v706 = sub_239BCD898(aDecoder, @"kMPSRNNLayer.layerTypes", &v709, &v708, v45, v46, v47, v48);
-  if (v709 != v12->_numberOfLayers || !v708)
-  {
-    if (!MTLReportFailureTypeEnabled())
-    {
-      goto LABEL_152;
-    }
-
-    goto LABEL_187;
-  }
-
-  v49 = &v12->nForwardLayers;
-  if (!v709)
-  {
-LABEL_154:
-    v670 = v49;
-    free(v706);
-    if (!*v670)
-    {
-LABEL_157:
-      if (!*p_nBackwardLayers)
+      if (MTLReportFailureTypeEnabled())
       {
-LABEL_160:
-        *p_nForwardLayers = 0;
-        *p_nBackwardLayers = 0;
-        v675 = v12->_numberOfLayers;
-        if (!v675)
-        {
-          return v12;
-        }
-
-        v676 = 0;
-        while (1)
-        {
-          v678 = v12->layerTypes[v676];
-          v679 = v12->layers[v676];
-          if (v679 && v679[8])
-          {
-            backwardLayerTypes = v12->backwardLayerTypes;
-            if (backwardLayerTypes)
-            {
-              backwardLayerTypes[*p_nBackwardLayers] = v678;
-            }
-
-            backwardLayers = v12->backwardLayers;
-            v682 = &v12->nBackwardLayers;
-            if (!backwardLayers)
-            {
-              goto LABEL_163;
-            }
-          }
-
-          else
-          {
-            forwardLayerTypes = v12->forwardLayerTypes;
-            if (forwardLayerTypes)
-            {
-              forwardLayerTypes[*p_nForwardLayers] = v678;
-            }
-
-            backwardLayers = v12->forwardLayers;
-            v682 = &v12->nForwardLayers;
-            if (!backwardLayers)
-            {
-              goto LABEL_163;
-            }
-          }
-
-          v677 = (*v682)++;
-          backwardLayers[v677] = v679;
-          v675 = v12->_numberOfLayers;
-LABEL_163:
-          if (++v676 >= v675)
-          {
-            return v12;
-          }
-        }
+        v680 = objc_opt_class();
+        NSStringFromClass(v680);
+        v685 = @"[%@ initWithCoder:device:] Failed: unsupported file version.";
+        v686 = 1;
+        v687 = 8123;
+        goto LABEL_151;
       }
 
-      v673 = malloc_type_malloc(4 * *p_nBackwardLayers, 0x100004052888210uLL);
-      v12->backwardLayerTypes = v673;
-      if (v673)
-      {
-        v674 = malloc_type_malloc(8 * *p_nBackwardLayers, 0x80040B8603338uLL);
-        v12->backwardLayers = v674;
-        if (!v674)
-        {
-          if (MTLReportFailureTypeEnabled())
-          {
-            goto LABEL_187;
-          }
+      goto LABEL_152;
+    }
 
+    v5->_inputFeatureChannels = objc_msgSend_decodeInt64ForKey_(aDecoder, v6, @"kMPSRNNLayer._inputFeatureChannels", v7, v8, v9, v10, v11);
+    v12->_outputFeatureChannels = objc_msgSend_decodeInt64ForKey_(aDecoder, v13, @"kMPSRNNLayer._outputFeatureChannels", v14, v15, v16, v17, v18);
+    v12->_numberOfLayers = objc_msgSend_decodeInt64ForKey_(aDecoder, v19, @"kMPSRNNLayer._numberOfLayers", v20, v21, v22, v23, v24);
+    v12->_recurrentOutputIsTemporary = objc_msgSend_decodeBoolForKey_(aDecoder, v25, @"kMPSRNNLayer._recurrentOutputIsTemporary", v26, v27, v28, v29, v30);
+    v12->_storeAllIntermediateStates = objc_msgSend_decodeBoolForKey_(aDecoder, v31, @"kMPSRNNLayer._storeAllIntermediateStates", v32, v33, v34, v35, v36);
+    v12->_bidirectionalCombineMode = objc_msgSend_decodeInt64ForKey_(aDecoder, v37, @"kMPSRNNLayer._bidirectionalCombineMode", v38, v39, v40, v41, v42);
+    v12->layers = 0;
+    v12->layerTypes = 0;
+    v12->forwardLayers = 0;
+    v12->forwardLayerTypes = 0;
+    v12->backwardLayers = 0;
+    v12->backwardLayerTypes = 0;
+    v12->nForwardLayers = 0;
+    p_nBackwardLayers = &v12->nBackwardLayers;
+    v12->nBackwardLayers = 0;
+    numberOfLayers = v12->_numberOfLayers;
+    if (numberOfLayers)
+    {
+      p_nForwardLayers = &v12->nForwardLayers;
+      v12->layerTypes = malloc_type_malloc(4 * numberOfLayers, 0x100004052888210uLL);
+      v44 = malloc_type_malloc(8 * v12->_numberOfLayers, 0x80040B8603338uLL);
+      v12->layers = v44;
+      if (!v12->layerTypes || !v44)
+      {
+        if (!MTLReportFailureTypeEnabled())
+        {
           goto LABEL_152;
         }
 
-        goto LABEL_160;
+        v704 = objc_opt_class();
+        NSStringFromClass(v704);
+        v685 = @"[%@ initWithCoder:device] out of memory: could not allocate internal data";
+        v686 = 0;
+        v687 = 8150;
+        goto LABEL_151;
       }
 
-      if (!MTLReportFailureTypeEnabled())
+      v734 = 0;
+      v733 = 0;
+      v731 = sub_239BCD898(aDecoder, @"kMPSRNNLayer.layerTypes", &v734, &v733, v45, v46, v47, v48);
+      if (v734 != v12->_numberOfLayers || !v733)
       {
-        goto LABEL_152;
-      }
-
-      goto LABEL_187;
-    }
-
-    v671 = malloc_type_malloc(4 * *v670, 0x100004052888210uLL);
-    v12->forwardLayerTypes = v671;
-    if (v671)
-    {
-      v672 = malloc_type_malloc(8 * *p_nForwardLayers, 0x80040B8603338uLL);
-      v12->forwardLayers = v672;
-      if (v672)
-      {
-        goto LABEL_157;
-      }
-
-      if (!MTLReportFailureTypeEnabled())
-      {
-        goto LABEL_152;
-      }
-    }
-
-    else if (!MTLReportFailureTypeEnabled())
-    {
-      goto LABEL_152;
-    }
-
-LABEL_187:
-    v684 = objc_opt_class();
-    NSStringFromClass(v684);
-    goto LABEL_151;
-  }
-
-  v50 = 0;
-  v51 = 1;
-  v52 = 1;
-  v53 = 1;
-  while (1)
-  {
-    v54 = *(v706 + v50);
-    v12->layerTypes[v50] = v54;
-    if (v54 >= 3)
-    {
-      break;
-    }
-
-    if (v54 == 2)
-    {
-      if (!v52)
-      {
-        v56 = 0;
-        v53 = 0;
-        goto LABEL_132;
-      }
-
-      v227 = malloc_type_calloc(1uLL, 0x1A8uLL, 0x10A0040C2E34A0CuLL);
-      if (v227)
-      {
-        v56 = v227;
-        sub_239BDA7A4(aDecoder, v227, v50, &v708);
-        v228 = objc_alloc(MEMORY[0x277CCACA8]);
-        v697 = objc_msgSend_initWithFormat_(v228, v229, @"%@%d", v230, v231, v232, v233, v234, @"MPSRNNLayer.LSTM.inputGate", v50);
-        v235 = objc_alloc(MEMORY[0x277CCACA8]);
-        v703 = objc_msgSend_initWithFormat_(v235, v236, @"%@%d", v237, v238, v239, v240, v241, @"MPSRNNLayer.LSTM.forgetGate", v50);
-        v242 = objc_alloc(MEMORY[0x277CCACA8]);
-        v701 = objc_msgSend_initWithFormat_(v242, v243, @"%@%d", v244, v245, v246, v247, v248, @"MPSRNNLayer.LSTM.cellGate", v50);
-        v249 = objc_alloc(MEMORY[0x277CCACA8]);
-        v699 = objc_msgSend_initWithFormat_(v249, v250, @"%@%d", v251, v252, v253, v254, v255, @"MPSRNNLayer.LSTM.outputGate", v50);
-        v256 = objc_alloc(MEMORY[0x277CCACA8]);
-        v263 = objc_msgSend_initWithFormat_(v256, v257, @"%@%d", v258, v259, v260, v261, v262, @"MPSRNNLayer.LSTM.recursionXFormsCombined", v50);
-        v264 = objc_alloc(MEMORY[0x277CCACA8]);
-        v271 = objc_msgSend_initWithFormat_(v264, v265, @"%@%d", v266, v267, v268, v269, v270, @"MPSRNNLayer.LSTM.finalNeuron", v50);
-        v272 = objc_alloc(MEMORY[0x277CCACA8]);
-        v279 = objc_msgSend_initWithFormat_(v272, v273, @"%@%d", v274, v275, v276, v277, v278, @"MPSRNNLayer.LSTM.inputXFormsCombined", v50);
-        v280 = objc_alloc(MEMORY[0x277CCACA8]);
-        v287 = objc_msgSend_initWithFormat_(v280, v281, @"%@%d", v282, v283, v284, v285, v286, @"MPSRNNLayer.LSTM.coupleForgetGateToInputGate", v50);
-        v288 = objc_alloc(MEMORY[0x277CCACA8]);
-        v295 = objc_msgSend_initWithFormat_(v288, v289, @"%@%d", v290, v291, v292, v293, v294, @"MPSRNNLayer.LSTM.cellClipThreshold", v50);
-        sub_239BDAD10(aDecoder, device, v697, (v56 + 96), 0, &v708);
-        v56[417] = objc_msgSend_decodeBoolForKey_(aDecoder, v296, v263, v297, v298, v299, v300, v301);
-        v308 = 0;
-        v56[416] = objc_msgSend_decodeBoolForKey_(aDecoder, v302, v279, v303, v304, v305, v306, v307);
-        if (v56[417] == 1)
+        if (!MTLReportFailureTypeEnabled())
         {
-          v308 = *(v56 + 13);
+          goto LABEL_152;
         }
 
-        sub_239BDAD10(aDecoder, device, v703, (v56 + 168), v308, &v708);
-        sub_239BDAD10(aDecoder, device, v701, (v56 + 240), v308, &v708);
-        sub_239BDAD10(aDecoder, device, v699, (v56 + 312), v308, &v708);
-        sub_239BDABDC(aDecoder, v271, v56 + 98);
-        v56[419] = objc_msgSend_decodeBoolForKey_(aDecoder, v309, v287, v310, v311, v312, v313, v314);
-        objc_msgSend_decodeFloatForKey_(aDecoder, v315, v295, v316, v317, v318, v319, v320);
-        *(v56 + 105) = v321;
-        *(v56 + 48) = 0;
-        if (v708)
-        {
-          v51 = 1;
-          v52 = 1;
-          v53 = 1;
-        }
-
-        else
-        {
-          free(v56);
-          v56 = 0;
-          v51 = 0;
-          v52 = 0;
-          v53 = 0;
-        }
+        v705 = objc_opt_class();
+        NSStringFromClass(v705);
+        v685 = @"[%@ initWithCoder:device] Problem decoding layer stack";
+        v686 = 0;
+        v687 = 8157;
+        goto LABEL_151;
       }
 
-      else
+      v49 = &v12->nForwardLayers;
+      if (v734)
       {
-        if (MTLReportFailureTypeEnabled())
+        v50 = 0;
+        v51 = 1;
+        v52 = 1;
+        v53 = 1;
+        do
         {
-          MTLReportFailure();
-        }
-
-        v56 = 0;
-        v53 = v52;
-      }
-
-      goto LABEL_131;
-    }
-
-    if (v54 == 1)
-    {
-      if (!v53)
-      {
-        v56 = 0;
-        goto LABEL_132;
-      }
-
-      v55 = malloc_type_malloc(0x108uLL, 0x10A0040E57BB8CDuLL);
-      if (!v55)
-      {
-        if (MTLReportFailureTypeEnabled())
-        {
-          MTLReportFailure();
-        }
-
-        v56 = 0;
-        goto LABEL_131;
-      }
-
-      v56 = v55;
-      sub_239BDA7A4(aDecoder, v55, v50, &v708);
-      v57 = objc_alloc(MEMORY[0x277CCACA8]);
-      v64 = objc_msgSend_initWithFormat_(v57, v58, @"%@%d", v59, v60, v61, v62, v63, @"MPSRNNLayer.GRU.inputGateInputXform", v50);
-      v65 = objc_alloc(MEMORY[0x277CCACA8]);
-      v72 = objc_msgSend_initWithFormat_(v65, v66, @"%@%d", v67, v68, v69, v70, v71, @"MPSRNNLayer.GRU.inputGateRecXform", v50);
-      v73 = objc_alloc(MEMORY[0x277CCACA8]);
-      v80 = objc_msgSend_initWithFormat_(v73, v74, @"%@%d", v75, v76, v77, v78, v79, @"MPSRNNLayer.GRU.inputGateBias", v50);
-      v81 = objc_alloc(MEMORY[0x277CCACA8]);
-      v689 = objc_msgSend_initWithFormat_(v81, v82, @"%@%d", v83, v84, v85, v86, v87, @"MPSRNNLayer.GRU.inputGateHasBias", v50);
-      v88 = objc_alloc(MEMORY[0x277CCACA8]);
-      v686 = objc_msgSend_initWithFormat_(v88, v89, @"%@%d", v90, v91, v92, v93, v94, @"MPSRNNLayer.GRU.inputNeuron", v50);
-      v95 = objc_alloc(MEMORY[0x277CCACA8]);
-      v690 = objc_msgSend_initWithFormat_(v95, v96, @"%@%d", v97, v98, v99, v100, v101, @"MPSRNNLayer.GRU.recGateInputXform", v50);
-      v102 = objc_alloc(MEMORY[0x277CCACA8]);
-      v691 = objc_msgSend_initWithFormat_(v102, v103, @"%@%d", v104, v105, v106, v107, v108, @"MPSRNNLayer.GRU.recGateRecXform", v50);
-      v109 = objc_alloc(MEMORY[0x277CCACA8]);
-      v702 = objc_msgSend_initWithFormat_(v109, v110, @"%@%d", v111, v112, v113, v114, v115, @"MPSRNNLayer.GRU.recGateBias", v50);
-      v116 = objc_alloc(MEMORY[0x277CCACA8]);
-      v692 = objc_msgSend_initWithFormat_(v116, v117, @"%@%d", v118, v119, v120, v121, v122, @"MPSRNNLayer.GRU.recGateHasBias", v50);
-      v123 = objc_alloc(MEMORY[0x277CCACA8]);
-      v687 = objc_msgSend_initWithFormat_(v123, v124, @"%@%d", v125, v126, v127, v128, v129, @"MPSRNNLayer.GRU.recurrentNeuron", v50);
-      v130 = objc_alloc(MEMORY[0x277CCACA8]);
-      v693 = objc_msgSend_initWithFormat_(v130, v131, @"%@%d", v132, v133, v134, v135, v136, @"MPSRNNLayer.GRU.outputGateInputXform", v50);
-      v137 = objc_alloc(MEMORY[0x277CCACA8]);
-      v694 = objc_msgSend_initWithFormat_(v137, v138, @"%@%d", v139, v140, v141, v142, v143, @"MPSRNNLayer.GRU.outputGateRecXform", v50);
-      v144 = objc_alloc(MEMORY[0x277CCACA8]);
-      v695 = objc_msgSend_initWithFormat_(v144, v145, @"%@%d", v146, v147, v148, v149, v150, @"MPSRNNLayer.GRU.outputGateMemoryform", v50);
-      v151 = objc_alloc(MEMORY[0x277CCACA8]);
-      v685 = objc_msgSend_initWithFormat_(v151, v152, @"%@%d", v153, v154, v155, v156, v157, @"MPSRNNLayer.GRU.outputGateBias", v50);
-      v158 = objc_alloc(MEMORY[0x277CCACA8]);
-      v696 = objc_msgSend_initWithFormat_(v158, v159, @"%@%d", v160, v161, v162, v163, v164, @"MPSRNNLayer.GRU.outputGateHasBias", v50);
-      v165 = objc_alloc(MEMORY[0x277CCACA8]);
-      v688 = objc_msgSend_initWithFormat_(v165, v166, @"%@%d", v167, v168, v169, v170, v171, @"MPSRNNLayer.GRU.outputNeuron", v50);
-      v172 = objc_alloc(MEMORY[0x277CCACA8]);
-      v700 = objc_msgSend_initWithFormat_(v172, v173, @"%@%d", v174, v175, v176, v177, v178, @"MPSRNNLayer.GRU.pNormGateValue", v50);
-      v179 = objc_alloc(MEMORY[0x277CCACA8]);
-      v698 = objc_msgSend_initWithFormat_(v179, v180, @"%@%d", v181, v182, v183, v184, v185, @"MPSRNNLayer.GRU.flipOutputGates", v50);
-      if (objc_msgSend_decodeBoolForKey_(aDecoder, v186, v64, v187, v188, v189, v190, v191))
-      {
-        v198 = v80;
-        if (v708 == 1)
-        {
-          v199 = objc_alloc(MEMORY[0x277CCACA8]);
-          v206 = objc_msgSend_initWithFormat_(v199, v200, @"%@%@", v201, v202, v203, v204, v205, v64, @".convolution");
-          v213 = objc_msgSend_decodeObjectForKey_(aDecoder, v207, v206, v208, v209, v210, v211, v212);
-          if (!v213)
+          v54 = v731[v50];
+          v12->layerTypes[v50] = v54;
+          if (v54 >= 3)
           {
-            v708 = 0;
+            if (MTLReportFailureTypeEnabled())
+            {
+              v703 = objc_opt_class();
+              NSStringFromClass(v703);
+              v685 = @"[%@ initWithCoder:device] Problem decoding layer stack";
+              v686 = 0;
+              v687 = 8164;
+              goto LABEL_151;
+            }
+
+LABEL_152:
+
+            return 0;
           }
 
-          v214 = v702;
-          *(v56 + 12) = v213;
-          if (objc_msgSend_decodeBoolForKey_(aDecoder, v215, v72, v216, v217, v218, v219, v220))
+          if (v54 == 2)
           {
-LABEL_47:
-            if (v708 == 1)
+            if (!v52)
             {
-              v403 = objc_alloc(MEMORY[0x277CCACA8]);
-              v410 = objc_msgSend_initWithFormat_(v403, v404, @"%@%@", v405, v406, v407, v408, v409, v72, @".convolution");
-              v417 = objc_msgSend_decodeObjectForKey_(aDecoder, v411, v410, v412, v413, v414, v415, v416);
-              if (!v417)
+              v56 = 0;
+              v53 = 0;
+              goto LABEL_132;
+            }
+
+            v227 = malloc_type_calloc(1uLL, 0x1A8uLL, 0x10A0040C2E34A0CuLL);
+            if (v227)
+            {
+              v56 = v227;
+              sub_239BDA7A4(aDecoder, v227, v50, &v733);
+              v228 = objc_alloc(MEMORY[0x277CCACA8]);
+              v722 = objc_msgSend_initWithFormat_(v228, v229, @"%@%d", v230, v231, v232, v233, v234, @"MPSRNNLayer.LSTM.inputGate", v50);
+              v235 = objc_alloc(MEMORY[0x277CCACA8]);
+              v728 = objc_msgSend_initWithFormat_(v235, v236, @"%@%d", v237, v238, v239, v240, v241, @"MPSRNNLayer.LSTM.forgetGate", v50);
+              v242 = objc_alloc(MEMORY[0x277CCACA8]);
+              v726 = objc_msgSend_initWithFormat_(v242, v243, @"%@%d", v244, v245, v246, v247, v248, @"MPSRNNLayer.LSTM.cellGate", v50);
+              v249 = objc_alloc(MEMORY[0x277CCACA8]);
+              v724 = objc_msgSend_initWithFormat_(v249, v250, @"%@%d", v251, v252, v253, v254, v255, @"MPSRNNLayer.LSTM.outputGate", v50);
+              v256 = objc_alloc(MEMORY[0x277CCACA8]);
+              v263 = objc_msgSend_initWithFormat_(v256, v257, @"%@%d", v258, v259, v260, v261, v262, @"MPSRNNLayer.LSTM.recursionXFormsCombined", v50);
+              v264 = objc_alloc(MEMORY[0x277CCACA8]);
+              v271 = objc_msgSend_initWithFormat_(v264, v265, @"%@%d", v266, v267, v268, v269, v270, @"MPSRNNLayer.LSTM.finalNeuron", v50);
+              v272 = objc_alloc(MEMORY[0x277CCACA8]);
+              v279 = objc_msgSend_initWithFormat_(v272, v273, @"%@%d", v274, v275, v276, v277, v278, @"MPSRNNLayer.LSTM.inputXFormsCombined", v50);
+              v280 = objc_alloc(MEMORY[0x277CCACA8]);
+              v287 = objc_msgSend_initWithFormat_(v280, v281, @"%@%d", v282, v283, v284, v285, v286, @"MPSRNNLayer.LSTM.coupleForgetGateToInputGate", v50);
+              v288 = objc_alloc(MEMORY[0x277CCACA8]);
+              v295 = objc_msgSend_initWithFormat_(v288, v289, @"%@%d", v290, v291, v292, v293, v294, @"MPSRNNLayer.LSTM.cellClipThreshold", v50);
+              sub_239BDAD10(aDecoder, device, v722, (v56 + 96), 0, &v733);
+              v56[417] = objc_msgSend_decodeBoolForKey_(aDecoder, v296, v263, v297, v298, v299, v300, v301);
+              v308 = 0;
+              v56[416] = objc_msgSend_decodeBoolForKey_(aDecoder, v302, v279, v303, v304, v305, v306, v307);
+              if (v56[417] == 1)
               {
-                v708 = 0;
+                v308 = *(v56 + 13);
               }
 
-              v214 = v702;
-LABEL_52:
-              *(v56 + 13) = v417;
-              v56[248] = objc_msgSend_decodeBoolForKey_(aDecoder, v221, v689, v222, v223, v224, v225, v226);
-              v418 = *(v56 + 7);
-              MPSDevice = MPSDevice::GetMPSDevice();
-              if (MPSDevice)
+              sub_239BDAD10(aDecoder, device, v728, (v56 + 168), v308, &v733);
+              sub_239BDAD10(aDecoder, device, v726, (v56 + 240), v308, &v733);
+              sub_239BDAD10(aDecoder, device, v724, (v56 + 312), v308, &v733);
+              sub_239BDABDC(aDecoder, v271, v56 + 98);
+              v56[419] = objc_msgSend_decodeBoolForKey_(aDecoder, v309, v287, v310, v311, v312, v313, v314);
+              objc_msgSend_decodeFloatForKey_(aDecoder, v315, v295, v316, v317, v318, v319, v320);
+              *(v56 + 105) = v321;
+              *(v56 + 48) = 0;
+              if (v733)
               {
-                v426 = MPSDevice;
-                if (objc_msgSend_decodeBoolForKey_(aDecoder, v420, v198, v421, v422, v423, v424, v425))
+                v51 = 1;
+                v52 = 1;
+                v53 = 1;
+              }
+
+              else
+              {
+                free(v56);
+                v56 = 0;
+                v51 = 0;
+                v52 = 0;
+                v53 = 0;
+              }
+            }
+
+            else
+            {
+              if (MTLReportFailureTypeEnabled())
+              {
+                MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSRNNLayer.mm", 0x1EBC, @"[initWithCoder:](decodeLSTMLayer) out of memory: could not allocate internal data", v672, v673, v674, v675);
+              }
+
+              v56 = 0;
+              v53 = v52;
+            }
+
+            goto LABEL_131;
+          }
+
+          if (v54 == 1)
+          {
+            if (!v53)
+            {
+              v56 = 0;
+              goto LABEL_132;
+            }
+
+            v55 = malloc_type_malloc(0x108uLL, 0x10A0040E57BB8CDuLL);
+            if (!v55)
+            {
+              if (MTLReportFailureTypeEnabled())
+              {
+                MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSRNNLayer.mm", 0x1F2D, @"[initWithCoder:](decodeGRULayer) out of memory: could not allocate internal data", v668, v669, v670, v671);
+              }
+
+              v56 = 0;
+              goto LABEL_131;
+            }
+
+            v56 = v55;
+            sub_239BDA7A4(aDecoder, v55, v50, &v733);
+            v57 = objc_alloc(MEMORY[0x277CCACA8]);
+            v64 = objc_msgSend_initWithFormat_(v57, v58, @"%@%d", v59, v60, v61, v62, v63, @"MPSRNNLayer.GRU.inputGateInputXform", v50);
+            v65 = objc_alloc(MEMORY[0x277CCACA8]);
+            v72 = objc_msgSend_initWithFormat_(v65, v66, @"%@%d", v67, v68, v69, v70, v71, @"MPSRNNLayer.GRU.inputGateRecXform", v50);
+            v73 = objc_alloc(MEMORY[0x277CCACA8]);
+            v80 = objc_msgSend_initWithFormat_(v73, v74, @"%@%d", v75, v76, v77, v78, v79, @"MPSRNNLayer.GRU.inputGateBias", v50);
+            v81 = objc_alloc(MEMORY[0x277CCACA8]);
+            v714 = objc_msgSend_initWithFormat_(v81, v82, @"%@%d", v83, v84, v85, v86, v87, @"MPSRNNLayer.GRU.inputGateHasBias", v50);
+            v88 = objc_alloc(MEMORY[0x277CCACA8]);
+            v711 = objc_msgSend_initWithFormat_(v88, v89, @"%@%d", v90, v91, v92, v93, v94, @"MPSRNNLayer.GRU.inputNeuron", v50);
+            v95 = objc_alloc(MEMORY[0x277CCACA8]);
+            v715 = objc_msgSend_initWithFormat_(v95, v96, @"%@%d", v97, v98, v99, v100, v101, @"MPSRNNLayer.GRU.recGateInputXform", v50);
+            v102 = objc_alloc(MEMORY[0x277CCACA8]);
+            v716 = objc_msgSend_initWithFormat_(v102, v103, @"%@%d", v104, v105, v106, v107, v108, @"MPSRNNLayer.GRU.recGateRecXform", v50);
+            v109 = objc_alloc(MEMORY[0x277CCACA8]);
+            v727 = objc_msgSend_initWithFormat_(v109, v110, @"%@%d", v111, v112, v113, v114, v115, @"MPSRNNLayer.GRU.recGateBias", v50);
+            v116 = objc_alloc(MEMORY[0x277CCACA8]);
+            v717 = objc_msgSend_initWithFormat_(v116, v117, @"%@%d", v118, v119, v120, v121, v122, @"MPSRNNLayer.GRU.recGateHasBias", v50);
+            v123 = objc_alloc(MEMORY[0x277CCACA8]);
+            v712 = objc_msgSend_initWithFormat_(v123, v124, @"%@%d", v125, v126, v127, v128, v129, @"MPSRNNLayer.GRU.recurrentNeuron", v50);
+            v130 = objc_alloc(MEMORY[0x277CCACA8]);
+            v718 = objc_msgSend_initWithFormat_(v130, v131, @"%@%d", v132, v133, v134, v135, v136, @"MPSRNNLayer.GRU.outputGateInputXform", v50);
+            v137 = objc_alloc(MEMORY[0x277CCACA8]);
+            v719 = objc_msgSend_initWithFormat_(v137, v138, @"%@%d", v139, v140, v141, v142, v143, @"MPSRNNLayer.GRU.outputGateRecXform", v50);
+            v144 = objc_alloc(MEMORY[0x277CCACA8]);
+            v720 = objc_msgSend_initWithFormat_(v144, v145, @"%@%d", v146, v147, v148, v149, v150, @"MPSRNNLayer.GRU.outputGateMemoryform", v50);
+            v151 = objc_alloc(MEMORY[0x277CCACA8]);
+            v710 = objc_msgSend_initWithFormat_(v151, v152, @"%@%d", v153, v154, v155, v156, v157, @"MPSRNNLayer.GRU.outputGateBias", v50);
+            v158 = objc_alloc(MEMORY[0x277CCACA8]);
+            v721 = objc_msgSend_initWithFormat_(v158, v159, @"%@%d", v160, v161, v162, v163, v164, @"MPSRNNLayer.GRU.outputGateHasBias", v50);
+            v165 = objc_alloc(MEMORY[0x277CCACA8]);
+            v713 = objc_msgSend_initWithFormat_(v165, v166, @"%@%d", v167, v168, v169, v170, v171, @"MPSRNNLayer.GRU.outputNeuron", v50);
+            v172 = objc_alloc(MEMORY[0x277CCACA8]);
+            v725 = objc_msgSend_initWithFormat_(v172, v173, @"%@%d", v174, v175, v176, v177, v178, @"MPSRNNLayer.GRU.pNormGateValue", v50);
+            v179 = objc_alloc(MEMORY[0x277CCACA8]);
+            v723 = objc_msgSend_initWithFormat_(v179, v180, @"%@%d", v181, v182, v183, v184, v185, @"MPSRNNLayer.GRU.flipOutputGates", v50);
+            if (objc_msgSend_decodeBoolForKey_(aDecoder, v186, v64, v187, v188, v189, v190, v191))
+            {
+              v198 = v80;
+              if (v733 == 1)
+              {
+                v199 = objc_alloc(MEMORY[0x277CCACA8]);
+                v206 = objc_msgSend_initWithFormat_(v199, v200, @"%@%@", v201, v202, v203, v204, v205, v64, @".convolution");
+                v213 = objc_msgSend_decodeObjectForKey_(aDecoder, v207, v206, v208, v209, v210, v211, v212);
+                if (!v213)
                 {
-                  v711[0] = 0;
-                  v431 = sub_239BCD898(aDecoder, v198, v711, &v708, v427, v428, v429, v430);
-                  if (v431)
+                  v733 = 0;
+                }
+
+                v214 = v727;
+                *(v56 + 12) = v213;
+                if (objc_msgSend_decodeBoolForKey_(aDecoder, v215, v72, v216, v217, v218, v219, v220))
+                {
+LABEL_47:
+                  if (v733 == 1)
                   {
-                    v432 = v431;
-                    if (v711[0] == v418)
+                    v403 = objc_alloc(MEMORY[0x277CCACA8]);
+                    v410 = objc_msgSend_initWithFormat_(v403, v404, @"%@%@", v405, v406, v407, v408, v409, v72, @".convolution");
+                    v417 = objc_msgSend_decodeObjectForKey_(aDecoder, v411, v410, v412, v413, v414, v415, v416);
+                    if (!v417)
                     {
-                      v433 = (*(*v426 + 24))(v426);
-                      v438 = objc_msgSend_newBufferWithBytes_length_options_(device, v434, v432, 4 * v418, 16 * v433, v435, v436, v437);
+                      v733 = 0;
+                    }
+
+                    v214 = v727;
+LABEL_52:
+                    *(v56 + 13) = v417;
+                    v56[248] = objc_msgSend_decodeBoolForKey_(aDecoder, v221, v714, v222, v223, v224, v225, v226);
+                    v418 = *(v56 + 7);
+                    MPSDevice = MPSDevice::GetMPSDevice();
+                    if (MPSDevice)
+                    {
+                      v426 = MPSDevice;
+                      if (objc_msgSend_decodeBoolForKey_(aDecoder, v420, v198, v421, v422, v423, v424, v425))
+                      {
+                        v736[0] = 0;
+                        v431 = sub_239BCD898(aDecoder, v198, v736, &v733, v427, v428, v429, v430);
+                        if (v431)
+                        {
+                          v432 = v431;
+                          if (v736[0] == v418)
+                          {
+                            v433 = (*(*v426 + 24))(v426);
+                            v438 = objc_msgSend_newBufferWithBytes_length_options_(device, v434, v432, 4 * v418, 16 * v433, v435, v436, v437);
+                          }
+
+                          else
+                          {
+                            v438 = 0;
+                            v733 = 0;
+                          }
+
+                          free(v432);
+                        }
+
+                        else
+                        {
+                          v438 = 0;
+                        }
+
+                        v214 = v727;
+                      }
+
+                      else
+                      {
+                        v438 = 0;
+                        v733 = 1;
+                      }
                     }
 
                     else
                     {
                       v438 = 0;
-                      v708 = 0;
+                      v733 = 0;
                     }
 
-                    free(v432);
-                  }
-
-                  else
-                  {
-                    v438 = 0;
-                  }
-
-                  v214 = v702;
-                }
-
-                else
-                {
-                  v438 = 0;
-                  v708 = 1;
-                }
-              }
-
-              else
-              {
-                v438 = 0;
-                v708 = 0;
-              }
-
-              *(v56 + 19) = v438;
-              sub_239BDABDC(aDecoder, v686, v56 + 44);
-              if (objc_msgSend_decodeBoolForKey_(aDecoder, v466, v690, v467, v468, v469, v470, v471) && v708 == 1)
-              {
-                v478 = objc_alloc(MEMORY[0x277CCACA8]);
-                v485 = objc_msgSend_initWithFormat_(v478, v479, @"%@%@", v480, v481, v482, v483, v484, v690, @".convolution");
-                v492 = objc_msgSend_decodeObjectForKey_(aDecoder, v486, v485, v487, v488, v489, v490, v491);
-                if (!v492)
-                {
-                  v708 = 0;
-                }
-
-                v214 = v702;
-                *(v56 + 14) = v492;
-                v493 = v691;
-                if (!objc_msgSend_decodeBoolForKey_(aDecoder, v494, v691, v495, v496, v497, v498, v499))
-                {
-LABEL_85:
-                  v520 = 0;
-                  goto LABEL_86;
-                }
-              }
-
-              else
-              {
-                *(v56 + 14) = 0;
-                v493 = v691;
-                if (!objc_msgSend_decodeBoolForKey_(aDecoder, v472, v691, v473, v474, v475, v476, v477))
-                {
-                  goto LABEL_85;
-                }
-              }
-
-              if (v708 != 1)
-              {
-                goto LABEL_85;
-              }
-
-              v506 = objc_alloc(MEMORY[0x277CCACA8]);
-              v513 = objc_msgSend_initWithFormat_(v506, v507, @"%@%@", v508, v509, v510, v511, v512, v493, @".convolution");
-              v520 = objc_msgSend_decodeObjectForKey_(aDecoder, v514, v513, v515, v516, v517, v518, v519);
-              if (!v520)
-              {
-                v708 = 0;
-              }
-
-              v214 = v702;
-LABEL_86:
-              *(v56 + 15) = v520;
-              v56[249] = objc_msgSend_decodeBoolForKey_(aDecoder, v500, v692, v501, v502, v503, v504, v505);
-              v521 = *(v56 + 7);
-              v522 = MPSDevice::GetMPSDevice();
-              if (v522)
-              {
-                v529 = v522;
-                if (objc_msgSend_decodeBoolForKey_(aDecoder, v523, v214, v524, v525, v526, v527, v528))
-                {
-                  v711[0] = 0;
-                  v534 = sub_239BCD898(aDecoder, v214, v711, &v708, v530, v531, v532, v533);
-                  if (v534)
-                  {
-                    v535 = v534;
-                    if (v711[0] == v521)
+                    *(v56 + 19) = v438;
+                    sub_239BDABDC(aDecoder, v711, v56 + 44);
+                    if (objc_msgSend_decodeBoolForKey_(aDecoder, v466, v715, v467, v468, v469, v470, v471) && v733 == 1)
                     {
-                      v536 = (*(*v529 + 24))(v529);
-                      v541 = objc_msgSend_newBufferWithBytes_length_options_(device, v537, v535, 4 * v521, 16 * v536, v538, v539, v540);
+                      v478 = objc_alloc(MEMORY[0x277CCACA8]);
+                      v485 = objc_msgSend_initWithFormat_(v478, v479, @"%@%@", v480, v481, v482, v483, v484, v715, @".convolution");
+                      v492 = objc_msgSend_decodeObjectForKey_(aDecoder, v486, v485, v487, v488, v489, v490, v491);
+                      if (!v492)
+                      {
+                        v733 = 0;
+                      }
+
+                      v214 = v727;
+                      *(v56 + 14) = v492;
+                      v493 = v716;
+                      if (!objc_msgSend_decodeBoolForKey_(aDecoder, v494, v716, v495, v496, v497, v498, v499))
+                      {
+LABEL_85:
+                        v520 = 0;
+                        goto LABEL_86;
+                      }
+                    }
+
+                    else
+                    {
+                      *(v56 + 14) = 0;
+                      v493 = v716;
+                      if (!objc_msgSend_decodeBoolForKey_(aDecoder, v472, v716, v473, v474, v475, v476, v477))
+                      {
+                        goto LABEL_85;
+                      }
+                    }
+
+                    if (v733 != 1)
+                    {
+                      goto LABEL_85;
+                    }
+
+                    v506 = objc_alloc(MEMORY[0x277CCACA8]);
+                    v513 = objc_msgSend_initWithFormat_(v506, v507, @"%@%@", v508, v509, v510, v511, v512, v493, @".convolution");
+                    v520 = objc_msgSend_decodeObjectForKey_(aDecoder, v514, v513, v515, v516, v517, v518, v519);
+                    if (!v520)
+                    {
+                      v733 = 0;
+                    }
+
+                    v214 = v727;
+LABEL_86:
+                    *(v56 + 15) = v520;
+                    v56[249] = objc_msgSend_decodeBoolForKey_(aDecoder, v500, v717, v501, v502, v503, v504, v505);
+                    v521 = *(v56 + 7);
+                    v522 = MPSDevice::GetMPSDevice();
+                    if (v522)
+                    {
+                      v529 = v522;
+                      if (objc_msgSend_decodeBoolForKey_(aDecoder, v523, v214, v524, v525, v526, v527, v528))
+                      {
+                        v736[0] = 0;
+                        v534 = sub_239BCD898(aDecoder, v214, v736, &v733, v530, v531, v532, v533);
+                        if (v534)
+                        {
+                          v535 = v534;
+                          if (v736[0] == v521)
+                          {
+                            v536 = (*(*v529 + 24))(v529);
+                            v541 = objc_msgSend_newBufferWithBytes_length_options_(device, v537, v535, 4 * v521, 16 * v536, v538, v539, v540);
+                          }
+
+                          else
+                          {
+                            v541 = 0;
+                            v733 = 0;
+                          }
+
+                          free(v535);
+                        }
+
+                        else
+                        {
+                          v541 = 0;
+                        }
+                      }
+
+                      else
+                      {
+                        v541 = 0;
+                        v733 = 1;
+                      }
                     }
 
                     else
                     {
                       v541 = 0;
-                      v708 = 0;
+                      v733 = 0;
                     }
 
-                    free(v535);
-                  }
+                    *(v56 + 20) = v541;
+                    sub_239BDABDC(aDecoder, v712, v56 + 50);
+                    if (objc_msgSend_decodeBoolForKey_(aDecoder, v542, v718, v543, v544, v545, v546, v547) && v733 == 1)
+                    {
+                      v554 = objc_alloc(MEMORY[0x277CCACA8]);
+                      v561 = objc_msgSend_initWithFormat_(v554, v555, @"%@%@", v556, v557, v558, v559, v560, v718, @".convolution");
+                      v568 = objc_msgSend_decodeObjectForKey_(aDecoder, v562, v561, v563, v564, v565, v566, v567);
+                      if (!v568)
+                      {
+                        v733 = 0;
+                      }
 
-                  else
-                  {
-                    v541 = 0;
-                  }
-                }
-
-                else
-                {
-                  v541 = 0;
-                  v708 = 1;
-                }
-              }
-
-              else
-              {
-                v541 = 0;
-                v708 = 0;
-              }
-
-              *(v56 + 20) = v541;
-              sub_239BDABDC(aDecoder, v687, v56 + 50);
-              if (objc_msgSend_decodeBoolForKey_(aDecoder, v542, v693, v543, v544, v545, v546, v547) && v708 == 1)
-              {
-                v554 = objc_alloc(MEMORY[0x277CCACA8]);
-                v561 = objc_msgSend_initWithFormat_(v554, v555, @"%@%@", v556, v557, v558, v559, v560, v693, @".convolution");
-                v568 = objc_msgSend_decodeObjectForKey_(aDecoder, v562, v561, v563, v564, v565, v566, v567);
-                if (!v568)
-                {
-                  v708 = 0;
-                }
-
-                *(v56 + 16) = v568;
-                v569 = v694;
-                if (!objc_msgSend_decodeBoolForKey_(aDecoder, v570, v694, v571, v572, v573, v574, v575))
-                {
+                      *(v56 + 16) = v568;
+                      v569 = v719;
+                      if (!objc_msgSend_decodeBoolForKey_(aDecoder, v570, v719, v571, v572, v573, v574, v575))
+                      {
 LABEL_108:
-                  *(v56 + 18) = 0;
-                  v597 = v695;
-                  if (objc_msgSend_decodeBoolForKey_(aDecoder, v576, v695, v577, v578, v579, v580, v581))
-                  {
-                    goto LABEL_109;
-                  }
+                        *(v56 + 18) = 0;
+                        v597 = v720;
+                        if (objc_msgSend_decodeBoolForKey_(aDecoder, v576, v720, v577, v578, v579, v580, v581))
+                        {
+                          goto LABEL_109;
+                        }
 
 LABEL_113:
-                  v624 = 0;
-                  goto LABEL_114;
-                }
-              }
+                        v624 = 0;
+                        goto LABEL_114;
+                      }
+                    }
 
-              else
-              {
-                *(v56 + 16) = 0;
-                v569 = v694;
-                if (!objc_msgSend_decodeBoolForKey_(aDecoder, v548, v694, v549, v550, v551, v552, v553))
-                {
-                  goto LABEL_108;
-                }
-              }
+                    else
+                    {
+                      *(v56 + 16) = 0;
+                      v569 = v719;
+                      if (!objc_msgSend_decodeBoolForKey_(aDecoder, v548, v719, v549, v550, v551, v552, v553))
+                      {
+                        goto LABEL_108;
+                      }
+                    }
 
-              if (v708 != 1)
-              {
-                goto LABEL_108;
-              }
+                    if (v733 != 1)
+                    {
+                      goto LABEL_108;
+                    }
 
-              v582 = objc_alloc(MEMORY[0x277CCACA8]);
-              v589 = objc_msgSend_initWithFormat_(v582, v583, @"%@%@", v584, v585, v586, v587, v588, v569, @".convolution");
-              v596 = objc_msgSend_decodeObjectForKey_(aDecoder, v590, v589, v591, v592, v593, v594, v595);
-              if (!v596)
-              {
-                v708 = 0;
-              }
+                    v582 = objc_alloc(MEMORY[0x277CCACA8]);
+                    v589 = objc_msgSend_initWithFormat_(v582, v583, @"%@%@", v584, v585, v586, v587, v588, v569, @".convolution");
+                    v596 = objc_msgSend_decodeObjectForKey_(aDecoder, v590, v589, v591, v592, v593, v594, v595);
+                    if (!v596)
+                    {
+                      v733 = 0;
+                    }
 
-              *(v56 + 18) = v596;
-              v597 = v695;
-              if (!objc_msgSend_decodeBoolForKey_(aDecoder, v598, v695, v599, v600, v601, v602, v603))
-              {
-                goto LABEL_113;
-              }
+                    *(v56 + 18) = v596;
+                    v597 = v720;
+                    if (!objc_msgSend_decodeBoolForKey_(aDecoder, v598, v720, v599, v600, v601, v602, v603))
+                    {
+                      goto LABEL_113;
+                    }
 
 LABEL_109:
-              if (v708 != 1)
-              {
-                goto LABEL_113;
-              }
+                    if (v733 != 1)
+                    {
+                      goto LABEL_113;
+                    }
 
-              v610 = objc_alloc(MEMORY[0x277CCACA8]);
-              v617 = objc_msgSend_initWithFormat_(v610, v611, @"%@%@", v612, v613, v614, v615, v616, v597, @".convolution");
-              v624 = objc_msgSend_decodeObjectForKey_(aDecoder, v618, v617, v619, v620, v621, v622, v623);
-              if (!v624)
-              {
-                v708 = 0;
-              }
+                    v610 = objc_alloc(MEMORY[0x277CCACA8]);
+                    v617 = objc_msgSend_initWithFormat_(v610, v611, @"%@%@", v612, v613, v614, v615, v616, v597, @".convolution");
+                    v624 = objc_msgSend_decodeObjectForKey_(aDecoder, v618, v617, v619, v620, v621, v622, v623);
+                    if (!v624)
+                    {
+                      v733 = 0;
+                    }
 
 LABEL_114:
-              *(v56 + 17) = v624;
-              v56[250] = objc_msgSend_decodeBoolForKey_(aDecoder, v604, v696, v605, v606, v607, v608, v609);
-              v625 = *(v56 + 7);
-              v626 = MPSDevice::GetMPSDevice();
-              if (v626)
-              {
-                v633 = v626;
-                if (objc_msgSend_decodeBoolForKey_(aDecoder, v627, v685, v628, v629, v630, v631, v632))
-                {
-                  v711[0] = 0;
-                  v638 = sub_239BCD898(aDecoder, v685, v711, &v708, v634, v635, v636, v637);
-                  if (v638)
-                  {
-                    v639 = v638;
-                    if (v711[0] == v625)
+                    *(v56 + 17) = v624;
+                    v56[250] = objc_msgSend_decodeBoolForKey_(aDecoder, v604, v721, v605, v606, v607, v608, v609);
+                    v625 = *(v56 + 7);
+                    v626 = MPSDevice::GetMPSDevice();
+                    if (v626)
                     {
-                      v640 = (*(*v633 + 24))(v633);
-                      v645 = objc_msgSend_newBufferWithBytes_length_options_(device, v641, v639, 4 * v625, 16 * v640, v642, v643, v644);
+                      v633 = v626;
+                      if (objc_msgSend_decodeBoolForKey_(aDecoder, v627, v710, v628, v629, v630, v631, v632))
+                      {
+                        v736[0] = 0;
+                        v638 = sub_239BCD898(aDecoder, v710, v736, &v733, v634, v635, v636, v637);
+                        if (v638)
+                        {
+                          v639 = v638;
+                          if (v736[0] == v625)
+                          {
+                            v640 = (*(*v633 + 24))(v633);
+                            v645 = objc_msgSend_newBufferWithBytes_length_options_(device, v641, v639, 4 * v625, 16 * v640, v642, v643, v644);
+                          }
+
+                          else
+                          {
+                            v645 = 0;
+                            v733 = 0;
+                          }
+
+                          free(v639);
+                        }
+
+                        else
+                        {
+                          v645 = 0;
+                        }
+
+                        v646 = v733 == 0;
+                      }
+
+                      else
+                      {
+                        v646 = 0;
+                        v645 = 0;
+                        v733 = 1;
+                      }
                     }
 
                     else
                     {
                       v645 = 0;
-                      v708 = 0;
+                      v733 = 0;
+                      v646 = 1;
                     }
 
-                    free(v639);
+                    *(v56 + 21) = v645;
+                    sub_239BDABDC(aDecoder, v713, v56 + 56);
+                    objc_msgSend_decodeFloatForKey_(aDecoder, v647, v725, v648, v649, v650, v651, v652);
+                    *(v56 + 63) = v653;
+                    v56[256] = objc_msgSend_decodeBoolForKey_(aDecoder, v654, v723, v655, v656, v657, v658, v659);
+                    if (!v646)
+                    {
+                      v51 = 1;
+                      v52 = 1;
+                      v53 = 1;
+                      goto LABEL_131;
+                    }
+
+LABEL_126:
+                    free(v56);
+                    v56 = 0;
+                    v51 = 0;
+LABEL_127:
+                    v52 = 0;
+                    v53 = 0;
+                    goto LABEL_131;
                   }
-
-                  else
-                  {
-                    v645 = 0;
-                  }
-
-                  v646 = v708 == 0;
-                }
-
-                else
-                {
-                  v646 = 0;
-                  v645 = 0;
-                  v708 = 1;
                 }
               }
 
               else
               {
-                v645 = 0;
-                v708 = 0;
-                v646 = 1;
+                v214 = v727;
+                *(v56 + 12) = 0;
+                if (objc_msgSend_decodeBoolForKey_(aDecoder, v192, v72, v193, v194, v195, v196, v197))
+                {
+                  goto LABEL_47;
+                }
               }
-
-              *(v56 + 21) = v645;
-              sub_239BDABDC(aDecoder, v688, v56 + 56);
-              objc_msgSend_decodeFloatForKey_(aDecoder, v647, v700, v648, v649, v650, v651, v652);
-              *(v56 + 63) = v653;
-              v56[256] = objc_msgSend_decodeBoolForKey_(aDecoder, v654, v698, v655, v656, v657, v658, v659);
-              if (!v646)
-              {
-                v51 = 1;
-                v52 = 1;
-                v53 = 1;
-                goto LABEL_131;
-              }
-
-LABEL_126:
-              free(v56);
-              v56 = 0;
-              v51 = 0;
-LABEL_127:
-              v52 = 0;
-              v53 = 0;
-              goto LABEL_131;
             }
-          }
-        }
 
-        else
-        {
-          v214 = v702;
-          *(v56 + 12) = 0;
-          if (objc_msgSend_decodeBoolForKey_(aDecoder, v192, v72, v193, v194, v195, v196, v197))
-          {
-            goto LABEL_47;
-          }
-        }
-      }
-
-      else
-      {
-        v214 = v702;
-        v198 = v80;
-        *(v56 + 12) = 0;
-        if (objc_msgSend_decodeBoolForKey_(aDecoder, v192, v72, v193, v194, v195, v196, v197))
-        {
-          goto LABEL_47;
-        }
-      }
-
-      v417 = 0;
-      goto LABEL_52;
-    }
-
-    if (!v51)
-    {
-      v56 = 0;
-      goto LABEL_127;
-    }
-
-    v322 = malloc_type_malloc(0x98uLL, 0x10A0040D60EB3F0uLL);
-    if (!v322)
-    {
-      if (MTLReportFailureTypeEnabled())
-      {
-        MTLReportFailure();
-      }
-
-      v56 = 0;
-LABEL_130:
-      v52 = v51;
-      v53 = v51;
-      goto LABEL_131;
-    }
-
-    v56 = v322;
-    sub_239BDA7A4(aDecoder, v322, v50, &v708);
-    v323 = objc_alloc(MEMORY[0x277CCACA8]);
-    v330 = objc_msgSend_initWithFormat_(v323, v324, @"%@%d", v325, v326, v327, v328, v329, @"MPSRNNLayer.SingleGate.inputXForm", v50);
-    v331 = objc_alloc(MEMORY[0x277CCACA8]);
-    v338 = objc_msgSend_initWithFormat_(v331, v332, @"%@%d", v333, v334, v335, v336, v337, @"MPSRNNLayer.SingleGate.recurrentXForm", v50);
-    v339 = objc_alloc(MEMORY[0x277CCACA8]);
-    v346 = objc_msgSend_initWithFormat_(v339, v340, @"%@%d", v341, v342, v343, v344, v345, @"MPSRNNLayer.SingleGate.hasBias", v50);
-    v347 = objc_alloc(MEMORY[0x277CCACA8]);
-    v354 = objc_msgSend_initWithFormat_(v347, v348, @"%@%d", v349, v350, v351, v352, v353, @"MPSRNNLayer.SingleGate.biasData", v50);
-    if (objc_msgSend_decodeBoolForKey_(aDecoder, v355, v330, v356, v357, v358, v359, v360) && v708 == 1)
-    {
-      v367 = objc_alloc(MEMORY[0x277CCACA8]);
-      v374 = objc_msgSend_initWithFormat_(v367, v368, @"%@%@", v369, v370, v371, v372, v373, v330, @".convolution");
-      v381 = objc_msgSend_decodeObjectForKey_(aDecoder, v375, v374, v376, v377, v378, v379, v380);
-      if (v381)
-      {
-
-        *(v56 + 12) = v381;
-        if (objc_msgSend_decodeBoolForKey_(aDecoder, v382, v338, v383, v384, v385, v386, v387))
-        {
-          goto LABEL_36;
-        }
-      }
-
-      else
-      {
-        v708 = 0;
-
-        *(v56 + 12) = 0;
-        if (objc_msgSend_decodeBoolForKey_(aDecoder, v662, v338, v663, v664, v665, v666, v667))
-        {
-LABEL_36:
-          if (v708 == 1)
-          {
-            v389 = objc_alloc(MEMORY[0x277CCACA8]);
-            v396 = objc_msgSend_initWithFormat_(v389, v390, @"%@%@", v391, v392, v393, v394, v395, v338, @".convolution");
-            v388 = objc_msgSend_decodeObjectForKey_(aDecoder, v397, v396, v398, v399, v400, v401, v402);
-            if (!v388)
+            else
             {
-              v708 = 0;
+              v214 = v727;
+              v198 = v80;
+              *(v56 + 12) = 0;
+              if (objc_msgSend_decodeBoolForKey_(aDecoder, v192, v72, v193, v194, v195, v196, v197))
+              {
+                goto LABEL_47;
+              }
+            }
+
+            v417 = 0;
+            goto LABEL_52;
+          }
+
+          if (!v51)
+          {
+            v56 = 0;
+            goto LABEL_127;
+          }
+
+          v322 = malloc_type_malloc(0x98uLL, 0x10A0040D60EB3F0uLL);
+          if (!v322)
+          {
+            if (MTLReportFailureTypeEnabled())
+            {
+              MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSRNNLayer.mm", 0x1E2B, @"[initWithCoder:] out of memory: could not allocate internal data", v676, v677, v678, v679);
+            }
+
+            v56 = 0;
+LABEL_130:
+            v52 = v51;
+            v53 = v51;
+            goto LABEL_131;
+          }
+
+          v56 = v322;
+          sub_239BDA7A4(aDecoder, v322, v50, &v733);
+          v323 = objc_alloc(MEMORY[0x277CCACA8]);
+          v330 = objc_msgSend_initWithFormat_(v323, v324, @"%@%d", v325, v326, v327, v328, v329, @"MPSRNNLayer.SingleGate.inputXForm", v50);
+          v331 = objc_alloc(MEMORY[0x277CCACA8]);
+          v338 = objc_msgSend_initWithFormat_(v331, v332, @"%@%d", v333, v334, v335, v336, v337, @"MPSRNNLayer.SingleGate.recurrentXForm", v50);
+          v339 = objc_alloc(MEMORY[0x277CCACA8]);
+          v346 = objc_msgSend_initWithFormat_(v339, v340, @"%@%d", v341, v342, v343, v344, v345, @"MPSRNNLayer.SingleGate.hasBias", v50);
+          v347 = objc_alloc(MEMORY[0x277CCACA8]);
+          v354 = objc_msgSend_initWithFormat_(v347, v348, @"%@%d", v349, v350, v351, v352, v353, @"MPSRNNLayer.SingleGate.biasData", v50);
+          if (objc_msgSend_decodeBoolForKey_(aDecoder, v355, v330, v356, v357, v358, v359, v360) && v733 == 1)
+          {
+            v367 = objc_alloc(MEMORY[0x277CCACA8]);
+            v374 = objc_msgSend_initWithFormat_(v367, v368, @"%@%@", v369, v370, v371, v372, v373, v330, @".convolution");
+            v381 = objc_msgSend_decodeObjectForKey_(aDecoder, v375, v374, v376, v377, v378, v379, v380);
+            if (v381)
+            {
+
+              *(v56 + 12) = v381;
+              if (objc_msgSend_decodeBoolForKey_(aDecoder, v382, v338, v383, v384, v385, v386, v387))
+              {
+                goto LABEL_36;
+              }
+            }
+
+            else
+            {
+              v733 = 0;
+
+              *(v56 + 12) = 0;
+              if (objc_msgSend_decodeBoolForKey_(aDecoder, v662, v338, v663, v664, v665, v666, v667))
+              {
+LABEL_36:
+                if (v733 == 1)
+                {
+                  v389 = objc_alloc(MEMORY[0x277CCACA8]);
+                  v396 = objc_msgSend_initWithFormat_(v389, v390, @"%@%@", v391, v392, v393, v394, v395, v338, @".convolution");
+                  v388 = objc_msgSend_decodeObjectForKey_(aDecoder, v397, v396, v398, v399, v400, v401, v402);
+                  if (!v388)
+                  {
+                    v733 = 0;
+                  }
+                }
+
+                else
+                {
+                  v388 = 0;
+                }
+
+                goto LABEL_60;
+              }
             }
           }
 
           else
           {
-            v388 = 0;
+            *(v56 + 12) = 0;
+            if (objc_msgSend_decodeBoolForKey_(aDecoder, v361, v338, v362, v363, v364, v365, v366))
+            {
+              goto LABEL_36;
+            }
           }
 
-          goto LABEL_60;
-        }
-      }
-    }
-
-    else
-    {
-      *(v56 + 12) = 0;
-      if (objc_msgSend_decodeBoolForKey_(aDecoder, v361, v338, v362, v363, v364, v365, v366))
-      {
-        goto LABEL_36;
-      }
-    }
-
-    v388 = 0;
+          v388 = 0;
 LABEL_60:
-    *(v56 + 13) = v388;
-    sub_239BDABDC(aDecoder, v330, v56 + 28);
-    v56[144] = objc_msgSend_decodeBoolForKey_(aDecoder, v439, v346, v440, v441, v442, v443, v444);
-    v445 = *(v56 + 7);
-    v446 = MPSDevice::GetMPSDevice();
-    if (!v446)
-    {
-      v708 = 0;
-      goto LABEL_126;
-    }
-
-    v453 = v446;
-    if (objc_msgSend_decodeBoolForKey_(aDecoder, v447, v354, v448, v449, v450, v451, v452))
-    {
-      v711[0] = 0;
-      v458 = sub_239BCD898(aDecoder, v354, v711, &v708, v454, v455, v456, v457);
-      if (v458)
-      {
-        v459 = v458;
-        if (v711[0] == v445)
-        {
-          v460 = (*(*v453 + 24))(v453);
-          v465 = objc_msgSend_newBufferWithBytes_length_options_(device, v461, v459, 4 * v445, 16 * v460, v462, v463, v464);
-          free(v459);
-          v51 = v708;
-          *(v56 + 17) = v465;
-          if (v51)
+          *(v56 + 13) = v388;
+          sub_239BDABDC(aDecoder, v330, v56 + 28);
+          v56[144] = objc_msgSend_decodeBoolForKey_(aDecoder, v439, v346, v440, v441, v442, v443, v444);
+          v445 = *(v56 + 7);
+          v446 = MPSDevice::GetMPSDevice();
+          if (!v446)
           {
-            goto LABEL_130;
+            v733 = 0;
+            goto LABEL_126;
           }
-        }
 
-        else
-        {
-          v708 = 0;
-          free(v458);
-          v51 = v708;
+          v453 = v446;
+          if (objc_msgSend_decodeBoolForKey_(aDecoder, v447, v354, v448, v449, v450, v451, v452))
+          {
+            v736[0] = 0;
+            v458 = sub_239BCD898(aDecoder, v354, v736, &v733, v454, v455, v456, v457);
+            if (v458)
+            {
+              v459 = v458;
+              if (v736[0] == v445)
+              {
+                v460 = (*(*v453 + 24))(v453);
+                v465 = objc_msgSend_newBufferWithBytes_length_options_(device, v461, v459, 4 * v445, 16 * v460, v462, v463, v464);
+                free(v459);
+                v51 = v733;
+                *(v56 + 17) = v465;
+                if (v51)
+                {
+                  goto LABEL_130;
+                }
+              }
+
+              else
+              {
+                v733 = 0;
+                free(v458);
+                v51 = v733;
+                *(v56 + 17) = 0;
+                if (v51)
+                {
+                  goto LABEL_130;
+                }
+              }
+            }
+
+            else
+            {
+              v51 = v733;
+              *(v56 + 17) = 0;
+              if (v51)
+              {
+                goto LABEL_130;
+              }
+            }
+
+            goto LABEL_126;
+          }
+
+          v51 = 1;
+          v733 = 1;
           *(v56 + 17) = 0;
-          if (v51)
+          v52 = 1;
+          v53 = 1;
+LABEL_131:
+          v49 = &v12->nForwardLayers;
+LABEL_132:
+          v12->layers[v50] = v56;
+          v660 = v12->layers[v50];
+          v661 = v49;
+          if (v660)
           {
-            goto LABEL_130;
+            v661 = &v12->nBackwardLayers;
+            if (!v660[8])
+            {
+              v661 = v49;
+            }
           }
+
+          ++*v661;
+          ++v50;
         }
+
+        while (v50 < v12->_numberOfLayers);
+      }
+
+      v689 = v49;
+      free(v731);
+      if (!*v689)
+      {
+        goto LABEL_157;
+      }
+
+      v690 = malloc_type_malloc(4 * *v689, 0x100004052888210uLL);
+      v12->forwardLayerTypes = v690;
+      if (!v690)
+      {
+        if (!MTLReportFailureTypeEnabled())
+        {
+          goto LABEL_152;
+        }
+
+        v706 = objc_opt_class();
+        NSStringFromClass(v706);
+        v685 = @"[%@ copyWithZone:device] out of memory: could not allocate internal data";
+        v686 = 0;
+        v687 = 8187;
+        goto LABEL_151;
+      }
+
+      v691 = malloc_type_malloc(8 * *p_nForwardLayers, 0x80040B8603338uLL);
+      v12->forwardLayers = v691;
+      if (!v691)
+      {
+        if (!MTLReportFailureTypeEnabled())
+        {
+          goto LABEL_152;
+        }
+
+        v707 = objc_opt_class();
+        NSStringFromClass(v707);
+        v685 = @"[%@ copyWithZone:device] out of memory: could not allocate internal data";
+        v686 = 0;
+        v687 = 0x1FFFLL;
       }
 
       else
       {
-        v51 = v708;
-        *(v56 + 17) = 0;
-        if (v51)
+LABEL_157:
+        if (!*p_nBackwardLayers)
         {
-          goto LABEL_130;
+LABEL_160:
+          *p_nForwardLayers = 0;
+          *p_nBackwardLayers = 0;
+          v694 = v12->_numberOfLayers;
+          if (!v694)
+          {
+            return v12;
+          }
+
+          v695 = 0;
+          while (1)
+          {
+            v697 = v12->layerTypes[v695];
+            v698 = v12->layers[v695];
+            if (v698 && v698[8])
+            {
+              backwardLayerTypes = v12->backwardLayerTypes;
+              if (backwardLayerTypes)
+              {
+                backwardLayerTypes[*p_nBackwardLayers] = v697;
+              }
+
+              backwardLayers = v12->backwardLayers;
+              v701 = &v12->nBackwardLayers;
+              if (!backwardLayers)
+              {
+                goto LABEL_163;
+              }
+            }
+
+            else
+            {
+              forwardLayerTypes = v12->forwardLayerTypes;
+              if (forwardLayerTypes)
+              {
+                forwardLayerTypes[*p_nForwardLayers] = v697;
+              }
+
+              backwardLayers = v12->forwardLayers;
+              v701 = &v12->nForwardLayers;
+              if (!backwardLayers)
+              {
+                goto LABEL_163;
+              }
+            }
+
+            v696 = (*v701)++;
+            backwardLayers[v696] = v698;
+            v694 = v12->_numberOfLayers;
+LABEL_163:
+            if (++v695 >= v694)
+            {
+              return v12;
+            }
+          }
+        }
+
+        v692 = malloc_type_malloc(4 * *p_nBackwardLayers, 0x100004052888210uLL);
+        v12->backwardLayerTypes = v692;
+        if (v692)
+        {
+          v693 = malloc_type_malloc(8 * *p_nBackwardLayers, 0x80040B8603338uLL);
+          v12->backwardLayers = v693;
+          if (v693)
+          {
+            goto LABEL_160;
+          }
+
+          if (!MTLReportFailureTypeEnabled())
+          {
+            goto LABEL_152;
+          }
+
+          v709 = objc_opt_class();
+          NSStringFromClass(v709);
+          v685 = @"[%@ copyWithZone:device] out of memory: could not allocate internal data";
+          v686 = 0;
+          v687 = 8202;
+        }
+
+        else
+        {
+          if (!MTLReportFailureTypeEnabled())
+          {
+            goto LABEL_152;
+          }
+
+          v708 = objc_opt_class();
+          NSStringFromClass(v708);
+          v685 = @"[%@ copyWithZone:device] out of memory: could not allocate internal data";
+          v686 = 0;
+          v687 = 8198;
         }
       }
 
-      goto LABEL_126;
-    }
-
-    v51 = 1;
-    v708 = 1;
-    *(v56 + 17) = 0;
-    v52 = 1;
-    v53 = 1;
-LABEL_131:
-    v49 = &v12->nForwardLayers;
-LABEL_132:
-    v12->layers[v50] = v56;
-    v660 = v12->layers[v50];
-    v661 = v49;
-    if (v660)
-    {
-      v661 = &v12->nBackwardLayers;
-      if (!v660[8])
-      {
-        v661 = v49;
-      }
-    }
-
-    ++*v661;
-    if (++v50 >= v12->_numberOfLayers)
-    {
-      goto LABEL_154;
+LABEL_151:
+      MTLReportFailure(v686, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSRNNLayer.mm", v687, v685, v681, v682, v683, v684);
+      goto LABEL_152;
     }
   }
 
-  if (MTLReportFailureTypeEnabled())
-  {
-    goto LABEL_187;
-  }
-
-LABEL_152:
-
-  return 0;
+  return v12;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   selfCopy = self;
   *(&self->super.super.super.isa + *MEMORY[0x277CD7358] + 2) = 1;
-  v570.receiver = self;
-  v570.super_class = MPSRNNImageInferenceLayer;
-  [(MPSCNNKernel *)&v570 encodeWithCoder:?];
+  v574.receiver = self;
+  v574.super_class = MPSRNNImageInferenceLayer;
+  [(MPSCNNKernel *)&v574 encodeWithCoder:?];
   objc_msgSend_encodeInt64_forKey_(coder, v5, selfCopy->_inputFeatureChannels, @"kMPSRNNLayer._inputFeatureChannels", v6, v7, v8, v9);
   objc_msgSend_encodeInt64_forKey_(coder, v10, selfCopy->_outputFeatureChannels, @"kMPSRNNLayer._outputFeatureChannels", v11, v12, v13, v14);
   objc_msgSend_encodeInt64_forKey_(coder, v15, selfCopy->_numberOfLayers, @"kMPSRNNLayer._numberOfLayers", v16, v17, v18, v19);
@@ -1942,7 +2029,7 @@ LABEL_152:
   {
     v551 = objc_opt_class();
     NSStringFromClass(v551);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSRNNLayer.mm", 0x2039, @"[%@ encodeWithCoder:] Problem allocating internal data", v552, v553, v554, v555);
   }
 
   v36 = selfCopy->_numberOfLayers;
@@ -1996,7 +2083,7 @@ LABEL_11:
   if (selfCopy->_numberOfLayers)
   {
     v48 = 0;
-    v569 = selfCopy;
+    v573 = selfCopy;
     do
     {
       v142 = selfCopy->layerTypes[v48];
@@ -2006,13 +2093,13 @@ LABEL_11:
           v49 = selfCopy->layers[v48];
           sub_239BDB264(coder, v49, v48);
           v50 = objc_alloc(MEMORY[0x277CCACA8]);
-          v565 = objc_msgSend_initWithFormat_(v50, v51, @"%@%d", v52, v53, v54, v55, v56, @"MPSRNNLayer.LSTM.inputGate", v48);
+          v569 = objc_msgSend_initWithFormat_(v50, v51, @"%@%d", v52, v53, v54, v55, v56, @"MPSRNNLayer.LSTM.inputGate", v48);
           v57 = objc_alloc(MEMORY[0x277CCACA8]);
-          v567 = objc_msgSend_initWithFormat_(v57, v58, @"%@%d", v59, v60, v61, v62, v63, @"MPSRNNLayer.LSTM.forgetGate", v48);
+          v571 = objc_msgSend_initWithFormat_(v57, v58, @"%@%d", v59, v60, v61, v62, v63, @"MPSRNNLayer.LSTM.forgetGate", v48);
           v64 = objc_alloc(MEMORY[0x277CCACA8]);
-          v563 = objc_msgSend_initWithFormat_(v64, v65, @"%@%d", v66, v67, v68, v69, v70, @"MPSRNNLayer.LSTM.cellGate", v48);
+          v567 = objc_msgSend_initWithFormat_(v64, v65, @"%@%d", v66, v67, v68, v69, v70, @"MPSRNNLayer.LSTM.cellGate", v48);
           v71 = objc_alloc(MEMORY[0x277CCACA8]);
-          v561 = objc_msgSend_initWithFormat_(v71, v72, @"%@%d", v73, v74, v75, v76, v77, @"MPSRNNLayer.LSTM.outputGate", v48);
+          v565 = objc_msgSend_initWithFormat_(v71, v72, @"%@%d", v73, v74, v75, v76, v77, @"MPSRNNLayer.LSTM.outputGate", v48);
           v78 = objc_alloc(MEMORY[0x277CCACA8]);
           v85 = objc_msgSend_initWithFormat_(v78, v79, @"%@%d", v80, v81, v82, v83, v84, @"MPSRNNLayer.LSTM.recursionXFormsCombined", v48);
           v86 = objc_alloc(MEMORY[0x277CCACA8]);
@@ -2023,18 +2110,18 @@ LABEL_11:
           v109 = objc_msgSend_initWithFormat_(v102, v103, @"%@%d", v104, v105, v106, v107, v108, @"MPSRNNLayer.LSTM.coupleForgetGateToInputGate", v48);
           v110 = objc_alloc(MEMORY[0x277CCACA8]);
           v117 = objc_msgSend_initWithFormat_(v110, v111, @"%@%d", v112, v113, v114, v115, v116, @"MPSRNNLayer.LSTM.cellClipThreshold", v48);
-          v118 = *(v49 + 56);
-          sub_239BDB72C(coder, v49 + 96, v565, v118, 0);
-          objc_msgSend_encodeBool_forKey_(coder, v119, *(v49 + 417), v85, v120, v121, v122, v123);
-          objc_msgSend_encodeBool_forKey_(coder, v124, *(v49 + 416), v101, v125, v126, v127, v128);
-          sub_239BDB72C(coder, v49 + 168, v567, v118, *(v49 + 417));
-          sub_239BDB72C(coder, v49 + 240, v563, v118, *(v49 + 417));
-          sub_239BDB72C(coder, v49 + 312, v561, v118, *(v49 + 417));
+          v118 = *(v49 + 7);
+          sub_239BDB72C(coder, v49 + 24, v569, v118, 0);
+          objc_msgSend_encodeBool_forKey_(coder, v119, v49[417], v85, v120, v121, v122, v123);
+          objc_msgSend_encodeBool_forKey_(coder, v124, v49[416], v101, v125, v126, v127, v128);
+          sub_239BDB72C(coder, v49 + 42, v571, v118, v49[417]);
+          sub_239BDB72C(coder, v49 + 60, v567, v118, v49[417]);
+          sub_239BDB72C(coder, v49 + 78, v565, v118, v49[417]);
           v129 = v93;
-          selfCopy = v569;
-          sub_239BDB5F8(coder, v129, (v49 + 392));
-          objc_msgSend_encodeBool_forKey_(coder, v130, *(v49 + 419), v109, v131, v132, v133, v134);
-          LODWORD(v135) = *(v49 + 420);
+          selfCopy = v573;
+          sub_239BDB5F8(coder, v129, v49 + 98);
+          objc_msgSend_encodeBool_forKey_(coder, v130, v49[419], v109, v131, v132, v133, v134);
+          LODWORD(v135) = *(v49 + 105);
           objc_msgSend_encodeFloat_forKey_(coder, v136, v117, v137, v138, v139, v140, v141, v135);
           break;
         case 1:
@@ -2045,38 +2132,38 @@ LABEL_11:
           v238 = objc_alloc(MEMORY[0x277CCACA8]);
           v245 = objc_msgSend_initWithFormat_(v238, v239, @"%@%d", v240, v241, v242, v243, v244, @"MPSRNNLayer.GRU.inputGateRecXform", v48);
           v246 = objc_alloc(MEMORY[0x277CCACA8]);
-          v556 = objc_msgSend_initWithFormat_(v246, v247, @"%@%d", v248, v249, v250, v251, v252, @"MPSRNNLayer.GRU.inputGateBias", v48);
+          v560 = objc_msgSend_initWithFormat_(v246, v247, @"%@%d", v248, v249, v250, v251, v252, @"MPSRNNLayer.GRU.inputGateBias", v48);
           v253 = objc_alloc(MEMORY[0x277CCACA8]);
-          v552 = objc_msgSend_initWithFormat_(v253, v254, @"%@%d", v255, v256, v257, v258, v259, @"MPSRNNLayer.GRU.inputGateHasBias", v48);
+          v556 = objc_msgSend_initWithFormat_(v253, v254, @"%@%d", v255, v256, v257, v258, v259, @"MPSRNNLayer.GRU.inputGateHasBias", v48);
           v260 = objc_alloc(MEMORY[0x277CCACA8]);
-          v553 = objc_msgSend_initWithFormat_(v260, v261, @"%@%d", v262, v263, v264, v265, v266, @"MPSRNNLayer.GRU.inputNeuron", v48);
+          v557 = objc_msgSend_initWithFormat_(v260, v261, @"%@%d", v262, v263, v264, v265, v266, @"MPSRNNLayer.GRU.inputNeuron", v48);
           v267 = objc_alloc(MEMORY[0x277CCACA8]);
           v274 = objc_msgSend_initWithFormat_(v267, v268, @"%@%d", v269, v270, v271, v272, v273, @"MPSRNNLayer.GRU.recGateInputXform", v48);
           v275 = objc_alloc(MEMORY[0x277CCACA8]);
           v282 = objc_msgSend_initWithFormat_(v275, v276, @"%@%d", v277, v278, v279, v280, v281, @"MPSRNNLayer.GRU.recGateRecXform", v48);
           v283 = objc_alloc(MEMORY[0x277CCACA8]);
-          v560 = objc_msgSend_initWithFormat_(v283, v284, @"%@%d", v285, v286, v287, v288, v289, @"MPSRNNLayer.GRU.recGateBias", v48);
+          v564 = objc_msgSend_initWithFormat_(v283, v284, @"%@%d", v285, v286, v287, v288, v289, @"MPSRNNLayer.GRU.recGateBias", v48);
           v290 = objc_alloc(MEMORY[0x277CCACA8]);
-          v554 = objc_msgSend_initWithFormat_(v290, v291, @"%@%d", v292, v293, v294, v295, v296, @"MPSRNNLayer.GRU.recGateHasBias", v48);
+          v558 = objc_msgSend_initWithFormat_(v290, v291, @"%@%d", v292, v293, v294, v295, v296, @"MPSRNNLayer.GRU.recGateHasBias", v48);
           v297 = objc_alloc(MEMORY[0x277CCACA8]);
-          v555 = objc_msgSend_initWithFormat_(v297, v298, @"%@%d", v299, v300, v301, v302, v303, @"MPSRNNLayer.GRU.recurrentNeuron", v48);
+          v559 = objc_msgSend_initWithFormat_(v297, v298, @"%@%d", v299, v300, v301, v302, v303, @"MPSRNNLayer.GRU.recurrentNeuron", v48);
           v304 = objc_alloc(MEMORY[0x277CCACA8]);
           v311 = objc_msgSend_initWithFormat_(v304, v305, @"%@%d", v306, v307, v308, v309, v310, @"MPSRNNLayer.GRU.outputGateInputXform", v48);
           v312 = objc_alloc(MEMORY[0x277CCACA8]);
-          v558 = objc_msgSend_initWithFormat_(v312, v313, @"%@%d", v314, v315, v316, v317, v318, @"MPSRNNLayer.GRU.outputGateRecXform", v48);
+          v562 = objc_msgSend_initWithFormat_(v312, v313, @"%@%d", v314, v315, v316, v317, v318, @"MPSRNNLayer.GRU.outputGateRecXform", v48);
           v319 = objc_alloc(MEMORY[0x277CCACA8]);
-          v564 = objc_msgSend_initWithFormat_(v319, v320, @"%@%d", v321, v322, v323, v324, v325, @"MPSRNNLayer.GRU.outputGateMemoryform", v48);
+          v568 = objc_msgSend_initWithFormat_(v319, v320, @"%@%d", v321, v322, v323, v324, v325, @"MPSRNNLayer.GRU.outputGateMemoryform", v48);
           v326 = objc_alloc(MEMORY[0x277CCACA8]);
-          v568 = objc_msgSend_initWithFormat_(v326, v327, @"%@%d", v328, v329, v330, v331, v332, @"MPSRNNLayer.GRU.outputGateBias", v48);
+          v572 = objc_msgSend_initWithFormat_(v326, v327, @"%@%d", v328, v329, v330, v331, v332, @"MPSRNNLayer.GRU.outputGateBias", v48);
           v333 = objc_alloc(MEMORY[0x277CCACA8]);
-          v559 = objc_msgSend_initWithFormat_(v333, v334, @"%@%d", v335, v336, v337, v338, v339, @"MPSRNNLayer.GRU.outputGateHasBias", v48);
+          v563 = objc_msgSend_initWithFormat_(v333, v334, @"%@%d", v335, v336, v337, v338, v339, @"MPSRNNLayer.GRU.outputGateHasBias", v48);
           v340 = objc_alloc(MEMORY[0x277CCACA8]);
-          v566 = objc_msgSend_initWithFormat_(v340, v341, @"%@%d", v342, v343, v344, v345, v346, @"MPSRNNLayer.GRU.outputNeuron", v48);
+          v570 = objc_msgSend_initWithFormat_(v340, v341, @"%@%d", v342, v343, v344, v345, v346, @"MPSRNNLayer.GRU.outputNeuron", v48);
           v347 = objc_alloc(MEMORY[0x277CCACA8]);
-          v562 = objc_msgSend_initWithFormat_(v347, v348, @"%@%d", v349, v350, v351, v352, v353, @"MPSRNNLayer.GRU.pNormGateValue", v48);
+          v566 = objc_msgSend_initWithFormat_(v347, v348, @"%@%d", v349, v350, v351, v352, v353, @"MPSRNNLayer.GRU.pNormGateValue", v48);
           v354 = objc_alloc(MEMORY[0x277CCACA8]);
-          v557 = objc_msgSend_initWithFormat_(v354, v355, @"%@%d", v356, v357, v358, v359, v360, @"MPSRNNLayer.GRU.flipOutputGates", v48);
-          v361 = *(v229 + 96);
+          v561 = objc_msgSend_initWithFormat_(v354, v355, @"%@%d", v356, v357, v358, v359, v360, @"MPSRNNLayer.GRU.flipOutputGates", v48);
+          v361 = *(v229 + 12);
           objc_msgSend_encodeBool_forKey_(coder, v362, v361 != 0, v237, v363, v364, v365, v366);
           if (v361)
           {
@@ -2085,7 +2172,7 @@ LABEL_11:
             objc_msgSend_encodeObject_forKey_(coder, v380, v361, v379, v381, v382, v383, v384);
           }
 
-          v385 = *(v229 + 104);
+          v385 = *(v229 + 13);
           objc_msgSend_encodeBool_forKey_(coder, v367, v385 != 0, v245, v368, v369, v370, v371);
           if (v385)
           {
@@ -2094,9 +2181,9 @@ LABEL_11:
             objc_msgSend_encodeObject_forKey_(coder, v399, v385, v398, v400, v401, v402, v403);
           }
 
-          objc_msgSend_encodeBool_forKey_(coder, v386, *(v229 + 248), v552, v387, v388, v389, v390);
-          v411 = *(v229 + 152);
-          v412 = *(v229 + 56);
+          objc_msgSend_encodeBool_forKey_(coder, v386, v229[248], v556, v387, v388, v389, v390);
+          v411 = *(v229 + 19);
+          v412 = *(v229 + 7);
           if (v411)
           {
             v413 = objc_msgSend_contents(v411, v404, v405, v406, v407, v408, v409, v410);
@@ -2107,9 +2194,9 @@ LABEL_11:
             v413 = 0;
           }
 
-          sub_239BCD9D8(coder, v413, v556, v412, v407, v408, v409, v410);
-          sub_239BDB5F8(coder, v553, (v229 + 176));
-          v414 = *(v229 + 112);
+          sub_239BCD9D8(coder, v413, v560, v412, v407, v408, v409, v410);
+          sub_239BDB5F8(coder, v557, v229 + 44);
+          v414 = *(v229 + 14);
           objc_msgSend_encodeBool_forKey_(coder, v415, v414 != 0, v274, v416, v417, v418, v419);
           if (v414)
           {
@@ -2118,7 +2205,7 @@ LABEL_11:
             objc_msgSend_encodeObject_forKey_(coder, v433, v414, v432, v434, v435, v436, v437);
           }
 
-          v438 = *(v229 + 120);
+          v438 = *(v229 + 15);
           objc_msgSend_encodeBool_forKey_(coder, v420, v438 != 0, v282, v421, v422, v423, v424);
           if (v438)
           {
@@ -2127,9 +2214,9 @@ LABEL_11:
             objc_msgSend_encodeObject_forKey_(coder, v452, v438, v451, v453, v454, v455, v456);
           }
 
-          objc_msgSend_encodeBool_forKey_(coder, v439, *(v229 + 249), v554, v440, v441, v442, v443);
-          v464 = *(v229 + 160);
-          v465 = *(v229 + 56);
+          objc_msgSend_encodeBool_forKey_(coder, v439, v229[249], v558, v440, v441, v442, v443);
+          v464 = *(v229 + 20);
+          v465 = *(v229 + 7);
           if (v464)
           {
             v466 = objc_msgSend_contents(v464, v457, v458, v459, v460, v461, v462, v463);
@@ -2140,10 +2227,10 @@ LABEL_11:
             v466 = 0;
           }
 
-          selfCopy = v569;
-          sub_239BCD9D8(coder, v466, v560, v465, v460, v461, v462, v463);
-          sub_239BDB5F8(coder, v555, (v229 + 200));
-          v467 = *(v229 + 128);
+          selfCopy = v573;
+          sub_239BCD9D8(coder, v466, v564, v465, v460, v461, v462, v463);
+          sub_239BDB5F8(coder, v559, v229 + 50);
+          v467 = *(v229 + 16);
           objc_msgSend_encodeBool_forKey_(coder, v468, v467 != 0, v311, v469, v470, v471, v472);
           if (v467)
           {
@@ -2152,27 +2239,27 @@ LABEL_11:
             objc_msgSend_encodeObject_forKey_(coder, v486, v467, v485, v487, v488, v489, v490);
           }
 
-          v491 = *(v229 + 144);
-          objc_msgSend_encodeBool_forKey_(coder, v473, v491 != 0, v558, v474, v475, v476, v477);
+          v491 = *(v229 + 18);
+          objc_msgSend_encodeBool_forKey_(coder, v473, v491 != 0, v562, v474, v475, v476, v477);
           if (v491)
           {
             v497 = objc_alloc(MEMORY[0x277CCACA8]);
-            v504 = objc_msgSend_initWithFormat_(v497, v498, @"%@%@", v499, v500, v501, v502, v503, v558, @".convolution");
+            v504 = objc_msgSend_initWithFormat_(v497, v498, @"%@%@", v499, v500, v501, v502, v503, v562, @".convolution");
             objc_msgSend_encodeObject_forKey_(coder, v505, v491, v504, v506, v507, v508, v509);
           }
 
-          v510 = *(v229 + 136);
-          objc_msgSend_encodeBool_forKey_(coder, v492, v510 != 0, v564, v493, v494, v495, v496);
+          v510 = *(v229 + 17);
+          objc_msgSend_encodeBool_forKey_(coder, v492, v510 != 0, v568, v493, v494, v495, v496);
           if (v510)
           {
             v516 = objc_alloc(MEMORY[0x277CCACA8]);
-            v523 = objc_msgSend_initWithFormat_(v516, v517, @"%@%@", v518, v519, v520, v521, v522, v564, @".convolution");
+            v523 = objc_msgSend_initWithFormat_(v516, v517, @"%@%@", v518, v519, v520, v521, v522, v568, @".convolution");
             objc_msgSend_encodeObject_forKey_(coder, v524, v510, v523, v525, v526, v527, v528);
           }
 
-          objc_msgSend_encodeBool_forKey_(coder, v511, *(v229 + 250), v559, v512, v513, v514, v515);
-          v536 = *(v229 + 168);
-          v537 = *(v229 + 56);
+          objc_msgSend_encodeBool_forKey_(coder, v511, v229[250], v563, v512, v513, v514, v515);
+          v536 = *(v229 + 21);
+          v537 = *(v229 + 7);
           if (v536)
           {
             v538 = objc_msgSend_contents(v536, v529, v530, v531, v532, v533, v534, v535);
@@ -2183,11 +2270,11 @@ LABEL_11:
             v538 = 0;
           }
 
-          sub_239BCD9D8(coder, v538, v568, v537, v532, v533, v534, v535);
-          sub_239BDB5F8(coder, v566, (v229 + 224));
-          LODWORD(v539) = *(v229 + 252);
-          objc_msgSend_encodeFloat_forKey_(coder, v540, v562, v541, v542, v543, v544, v545, v539);
-          objc_msgSend_encodeBool_forKey_(coder, v546, *(v229 + 256), v557, v547, v548, v549, v550);
+          sub_239BCD9D8(coder, v538, v572, v537, v532, v533, v534, v535);
+          sub_239BDB5F8(coder, v570, v229 + 56);
+          LODWORD(v539) = *(v229 + 63);
+          objc_msgSend_encodeFloat_forKey_(coder, v540, v566, v541, v542, v543, v544, v545, v539);
+          objc_msgSend_encodeBool_forKey_(coder, v546, v229[256], v561, v547, v548, v549, v550);
           break;
         case 0:
           v143 = selfCopy->layers[v48];
@@ -2200,7 +2287,7 @@ LABEL_11:
           v167 = objc_msgSend_initWithFormat_(v160, v161, @"%@%d", v162, v163, v164, v165, v166, @"MPSRNNLayer.SingleGate.hasBias", v48);
           v168 = objc_alloc(MEMORY[0x277CCACA8]);
           v175 = objc_msgSend_initWithFormat_(v168, v169, @"%@%d", v170, v171, v172, v173, v174, @"MPSRNNLayer.SingleGate.biasData", v48);
-          v176 = *(v143 + 96);
+          v176 = *(v143 + 12);
           objc_msgSend_encodeBool_forKey_(coder, v177, v176 != 0, v151, v178, v179, v180, v181);
           if (v176)
           {
@@ -2208,10 +2295,10 @@ LABEL_11:
             v194 = objc_msgSend_initWithFormat_(v187, v188, @"%@%@", v189, v190, v191, v192, v193, v151, @".convolution");
             objc_msgSend_encodeObject_forKey_(coder, v195, v176, v194, v196, v197, v198, v199);
 
-            selfCopy = v569;
+            selfCopy = v573;
           }
 
-          v200 = *(v143 + 104);
+          v200 = *(v143 + 13);
           objc_msgSend_encodeBool_forKey_(coder, v182, v200 != 0, v159, v183, v184, v185, v186);
           if (v200)
           {
@@ -2220,10 +2307,10 @@ LABEL_11:
             objc_msgSend_encodeObject_forKey_(coder, v209, v200, v208, v210, v211, v212, v213);
           }
 
-          sub_239BDB5F8(coder, v151, (v143 + 112));
-          objc_msgSend_encodeBool_forKey_(coder, v214, *(v143 + 144), v167, v215, v216, v217, v218);
-          v226 = *(v143 + 136);
-          v227 = *(v143 + 56);
+          sub_239BDB5F8(coder, v151, v143 + 28);
+          objc_msgSend_encodeBool_forKey_(coder, v214, v143[144], v167, v215, v216, v217, v218);
+          v226 = *(v143 + 17);
+          v227 = *(v143 + 7);
           if (v226)
           {
             v228 = objc_msgSend_contents(v226, v219, v220, v221, v222, v223, v224, v225);
@@ -2487,7 +2574,7 @@ LABEL_19:
             v315.depth = z;
             v314 = v316;
             v301 = objc_msgSend_destinationFeatureChannelOffset(self, v294, v295, v296, v297, v298, v299, v300);
-            sub_239BC1CF8(v111, 0, commandBuffer, v313, v111, v250, 0, 0, &v315, &v314, v301, 0);
+            sub_239BC1CF8(v111, 0, commandBuffer, v313, v111, v250, 0, 0, &v315, &v314, v301, 0, *(&self->super.super.super.isa + *MEMORY[0x277CD7370]), *(&self->super.super.super.isa + *MEMORY[0x277CD7350]));
           }
 
           v94 = v321[0];

@@ -14,80 +14,46 @@
 - (id)remoteDestinationString
 {
   preferredHandle = [(HMDRemoteDeviceMessageDestination *)self preferredHandle];
-  if (!preferredHandle)
+  if (preferredHandle && (v4 = preferredHandle, -[HMDRemoteDeviceMessageDestination device](self, "device"), v5 = objc_claimAutoreleasedReturnValue(), [v5 handles], v6 = objc_claimAutoreleasedReturnValue(), -[HMDRemoteDeviceMessageDestination preferredHandle](self, "preferredHandle"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "containsObject:", v7), v7, v6, v5, v4, v8))
   {
-    goto LABEL_4;
-  }
-
-  v4 = preferredHandle;
-  device = [(HMDRemoteDeviceMessageDestination *)self device];
-  handles = [device handles];
-  preferredHandle2 = [(HMDRemoteDeviceMessageDestination *)self preferredHandle];
-  v8 = [handles containsObject:preferredHandle2];
-
-  if (v8)
-  {
-    preferredHandle3 = [(HMDRemoteDeviceMessageDestination *)self preferredHandle];
-    destination = [preferredHandle3 destination];
+    preferredHandle2 = [(HMDRemoteDeviceMessageDestination *)self preferredHandle];
+    destination = [preferredHandle2 destination];
   }
 
   else
   {
-LABEL_4:
-    preferredHandle3 = [(HMDRemoteDeviceMessageDestination *)self device];
-    destination = [preferredHandle3 remoteDestinationString];
+    preferredHandle2 = [(HMDRemoteDeviceMessageDestination *)self device];
+    destination = [preferredHandle2 remoteDestinationString];
   }
 
   v11 = destination;
 
   if (!v11 || ([v11 hasSuffix:@"inbox.appleid.apple.com"] & 1) != 0)
   {
-    device2 = [(HMDRemoteDeviceMessageDestination *)self device];
-    account = [device2 account];
+    device = [(HMDRemoteDeviceMessageDestination *)self device];
+    account = [device account];
     isCurrentAccount = [account isCurrentAccount];
 
-    if (!isCurrentAccount)
+    if (isCurrentAccount && (-[HMDRemoteDeviceMessageDestination device](self, "device"), v15 = objc_claimAutoreleasedReturnValue(), [v15 localHandles], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "firstObject"), device2 = objc_claimAutoreleasedReturnValue(), v16, v15, device2))
     {
-      goto LABEL_10;
-    }
-
-    device3 = [(HMDRemoteDeviceMessageDestination *)self device];
-    localHandles = [device3 localHandles];
-    firstObject = [localHandles firstObject];
-
-    if (firstObject)
-    {
-      preferredHandle6 = firstObject;
+      preferredHandle4 = device2;
     }
 
     else
     {
-LABEL_10:
-      preferredHandle4 = [(HMDRemoteDeviceMessageDestination *)self preferredHandle];
-      if (!preferredHandle4)
+      preferredHandle3 = [(HMDRemoteDeviceMessageDestination *)self preferredHandle];
+      if (!preferredHandle3 || (v20 = preferredHandle3, -[HMDRemoteDeviceMessageDestination device](self, "device"), v21 = objc_claimAutoreleasedReturnValue(), [v21 handles], v22 = objc_claimAutoreleasedReturnValue(), -[HMDRemoteDeviceMessageDestination preferredHandle](self, "preferredHandle"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v22, "containsObject:", v23), v23, v22, v21, v20, !v24))
       {
-        goto LABEL_14;
-      }
-
-      v20 = preferredHandle4;
-      device4 = [(HMDRemoteDeviceMessageDestination *)self device];
-      handles2 = [device4 handles];
-      preferredHandle5 = [(HMDRemoteDeviceMessageDestination *)self preferredHandle];
-      v24 = [handles2 containsObject:preferredHandle5];
-
-      if (!v24)
-      {
-LABEL_14:
-        firstObject = [(HMDRemoteDeviceMessageDestination *)self device];
-        remoteDestinationString = [firstObject remoteDestinationString];
+        device2 = [(HMDRemoteDeviceMessageDestination *)self device];
+        remoteDestinationString = [device2 remoteDestinationString];
         goto LABEL_15;
       }
 
-      preferredHandle6 = [(HMDRemoteDeviceMessageDestination *)self preferredHandle];
-      firstObject = preferredHandle6;
+      preferredHandle4 = [(HMDRemoteDeviceMessageDestination *)self preferredHandle];
+      device2 = preferredHandle4;
     }
 
-    remoteDestinationString = [preferredHandle6 destination];
+    remoteDestinationString = [preferredHandle4 destination];
 LABEL_15:
     v26 = remoteDestinationString;
 

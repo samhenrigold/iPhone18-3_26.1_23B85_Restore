@@ -1,6 +1,6 @@
 @interface PCMatrix44Double
-+ (uint64_t)matrixWithSIMDDouble4x4:(_OWORD *)double4x4;
-+ (uint64_t)matrixWithSIMDFloat4x4:(double)float4x4;
++ (void)matrixWithSIMDDouble4x4:(_OWORD *)double4x4;
++ (void)matrixWithSIMDFloat4x4:(double)float4x4;
 - ($360FFE100060A5171365411B823D6A0E)transformInfo;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToPCMatrix44Double:(id)double;
@@ -148,14 +148,14 @@
   return [(PCMatrix44Double *)self initWithDoubles:&v8];
 }
 
-+ (uint64_t)matrixWithSIMDFloat4x4:(double)float4x4
++ (void)matrixWithSIMDFloat4x4:(double)float4x4
 {
   v5 = [self alloc];
 
   return [v5 initWithSIMDFloat4x4:{a2, float4x4, a4, a5}];
 }
 
-+ (uint64_t)matrixWithSIMDDouble4x4:(_OWORD *)double4x4
++ (void)matrixWithSIMDDouble4x4:(_OWORD *)double4x4
 {
   v4 = [self alloc];
   v5 = double4x4[5];
@@ -379,7 +379,7 @@ LABEL_3:
 {
   if (self)
   {
-    [(PCMatrix44Double *)self transformInfo];
+    objc_msgSend_transformInfo(self, a2);
   }
 
   v14 = MEMORY[0x277CCACA8];
@@ -484,7 +484,7 @@ LABEL_14:
   return v4;
 }
 
-uint64_t __25__PCMatrix44Double_array__block_invoke()
+void *__25__PCMatrix44Double_array__block_invoke()
 {
   -[PCMatrix44Double array]::sNSNumberOne = [objc_alloc(MEMORY[0x277CCABB0]) initWithDouble:1.0];
   -[PCMatrix44Double array]::sNSNumberZero = [objc_alloc(MEMORY[0x277CCABB0]) initWithDouble:0.0];
@@ -599,16 +599,19 @@ uint64_t __25__PCMatrix44Double_array__block_invoke()
 
 - (CGRect)transformRect:(CGRect)rect
 {
-  rectCopy = rect;
-  PCMatrix44Tmpl<double>::transformRect<double>(self->_pcMatrix, &rectCopy.origin.x, &rectCopy);
-  y = rectCopy.origin.y;
-  x = rectCopy.origin.x;
-  height = rectCopy.size.height;
-  width = rectCopy.size.width;
-  result.size.height = height;
-  result.size.width = width;
-  result.origin.y = y;
-  result.origin.x = x;
+  *&v7 = rect.origin.x;
+  *(&v7 + 1) = *&rect.origin.y;
+  width = rect.size.width;
+  height = rect.size.height;
+  PCMatrix44Tmpl<double>::transformRect<double>(self->_pcMatrix, &v7, &v7);
+  v4 = *(&v7 + 1);
+  v3 = *&v7;
+  v5 = width;
+  v6 = height;
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
   return result;
 }
 

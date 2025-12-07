@@ -11,9 +11,9 @@
 - (IOAccelMTLEvent)initWithShared:(__IOAccelShared *)shared options:(unint64_t)options
 {
   inputStruct[1] = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = IOAccelMTLEvent;
-  v6 = [(IOAccelMTLEvent *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = IOAccelMTLEvent;
+  v6 = [(IOAccelMTLEvent *)&v12 init];
   v7 = v6;
   if (v6)
   {
@@ -21,22 +21,21 @@
     CFRetain(shared);
     inputStruct[0] = options;
     outputStruct = 0;
-    v12 = 0uLL;
-    v10 = 24;
-    if (IOConnectCallMethod(v7->_sharedRef->var2, 9u, 0, 0, inputStruct, 8uLL, 0, 0, &outputStruct, &v10))
+    v11 = 0uLL;
+    v9 = 24;
+    if (IOConnectCallMethod(v7->_sharedRef->var2, 9u, 0, 0, inputStruct, 8uLL, 0, 0, &outputStruct, &v9))
     {
 
-      v7 = 0;
+      return 0;
     }
 
     else
     {
       v7->_eventName = outputStruct;
-      *&v7->_globalTraceObjectID = v12;
+      *&v7->_globalTraceObjectID = v11;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

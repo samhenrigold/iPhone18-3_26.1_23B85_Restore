@@ -1,6 +1,6 @@
 @interface FigCaptureCalibrationMonitor
 + (void)initializeSharedInstanceWithCaptureSourceBackings:(id)backings;
-- (id)_runAndCreateDictionaryForCalibrationContext:(unsigned int)context deviceType:(unsigned int)type devicePosition:(_DWORD *)position errors:;
+- (id)_runAndCreateDictionaryForCalibrationContext:(unsigned int)context deviceType:(unsigned int)type devicePosition:(int *)position errors:;
 - (id)apsSphereInteractionCalibrationData;
 - (id)autoFocusCalibrationData;
 - (id)autoFocusPositionSensorCalibrationData;
@@ -302,18 +302,18 @@ void __140__FigCaptureCalibrationMonitor__attemptToRunCalibrationForCalibrationC
   }
 }
 
-uint64_t __140__FigCaptureCalibrationMonitor__attemptToRunCalibrationForCalibrationContext_deviceType_devicePosition_disableHistoryChecking_resultsBlock___block_invoke_2(uint64_t result, void *a2, uint64_t a3)
+void *__140__FigCaptureCalibrationMonitor__attemptToRunCalibrationForCalibrationContext_deviceType_devicePosition_disableHistoryChecking_resultsBlock___block_invoke_2(void *result, void *a2, uint64_t a3)
 {
-  if (!*(*(*(result + 64) + 8) + 40))
+  if (!*(*(result[8] + 8) + 40))
   {
     return result;
   }
 
   v3 = a3;
   v5 = result;
-  v37 = 0;
-  v36 = 0;
-  v6 = *(result + 32);
+  v30 = 0;
+  v29 = 0;
+  v6 = result[4];
   if (v6)
   {
     v7 = *(v6 + 88);
@@ -326,20 +326,13 @@ uint64_t __140__FigCaptureCalibrationMonitor__attemptToRunCalibrationForCalibrat
 
   if (!a2)
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
+    memset(v28, 0, sizeof(v28));
     v26 = 0u;
     v27 = 0u;
     v24 = 0u;
     v25 = 0u;
     *(v6 + 64) = 0;
-    v11 = *(result + 32);
+    v11 = result[4];
     v22 = 0u;
     v23 = 0u;
     v11[6] = 0;
@@ -357,24 +350,24 @@ uint64_t __140__FigCaptureCalibrationMonitor__attemptToRunCalibrationForCalibrat
     goto LABEL_12;
   }
 
-  [a2 magneticField];
-  [a2 magneticField];
-  [a2 magneticField];
-  [a2 magneticField];
-  [a2 magneticField];
-  [a2 magneticField];
-  *(*(v5 + 32) + 64) = sqrt(*(&v30 + 1) * *(&v28 + 1) + *&v34 * *&v32 + *&v27 * *&v25);
-  v8 = *(v5 + 32);
-  [a2 magneticField];
+  objc_msgSend_magneticField(a2);
+  objc_msgSend_magneticField(a2);
+  objc_msgSend_magneticField(a2);
+  objc_msgSend_magneticField(a2);
+  objc_msgSend_magneticField(a2);
+  objc_msgSend_magneticField(a2);
+  *(v5[4] + 64) = sqrt(v28[5] * v28[1] + v28[12] * v28[8] + *&v27 * *&v25);
+  v8 = v5[4];
+  objc_msgSend_magneticField(a2);
   *(v8 + 40) = v22;
   *(v8 + 56) = v23;
-  [a2 magneticField];
+  objc_msgSend_magneticField(a2);
   if (v3 || DWORD2(v21) == -1)
   {
-    result = [a2 magneticField];
+    result = objc_msgSend_magneticField(a2);
     if (DWORD2(v19) == -1)
     {
-      v9 = *(v5 + 32);
+      v9 = v5[4];
       v10 = *(v9 + 76);
       if (v10 <= 1)
       {
@@ -390,13 +383,13 @@ LABEL_12:
 
   LOBYTE(v3) = 0;
 LABEL_14:
-  [*(*(*(v5 + 64) + 8) + 40) stopDeviceMotionUpdates];
-  v12 = *(v5 + 32);
+  [*(*(v5[8] + 8) + 40) stopDeviceMotionUpdates];
+  v12 = v5[4];
   if ((v3 & 1) != 0 || *(v12 + 64) >= v7)
   {
     v13 = 0;
     ++*(v12 + 72);
-    v15 = *(v5 + 32);
+    v15 = v5[4];
     if (*(v15 + 64) >= v7)
     {
       LODWORD(v14) = 2;
@@ -411,10 +404,10 @@ LABEL_14:
   else
   {
     v17 = 0;
-    v13 = [(FigCaptureCalibrationMonitor *)v12 _runAndCreateDictionaryForCalibrationContext:*(v5 + 72) deviceType:*(v5 + 76) devicePosition:&v17 errors:?];
+    v13 = [(FigCaptureCalibrationMonitor *)v12 _runAndCreateDictionaryForCalibrationContext:*(v5 + 18) deviceType:*(v5 + 19) devicePosition:&v17 errors:?];
     LODWORD(v14) = v17;
-    *(*(v5 + 32) + 72) = 0;
-    v15 = *(v5 + 32);
+    *(v5[4] + 72) = 0;
+    v15 = v5[4];
   }
 
   if ([(FigCaptureCalibrationMonitor *)v15 _calibrationShouldAbort])
@@ -430,24 +423,24 @@ LABEL_14:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [*(v5 + 40) setDisableHistoryChecking:*(v5 + 80)];
+    [v5[5] setDisableHistoryChecking:*(v5 + 80)];
   }
 
-  [*(v5 + 40) updateWithNewCalibrationData:v13 orExternalErrors:v14 magneticFieldAttempts:*(*(v5 + 32) + 72) magneticField:&v37 isCalibrationValid:&v36 calibrationStatus:{*(*(v5 + 32) + 40), *(*(v5 + 32) + 48), *(*(v5 + 32) + 56)}];
-  v16 = *(v5 + 56);
+  [v5[5] updateWithNewCalibrationData:v13 orExternalErrors:v14 magneticFieldAttempts:*(v5[4] + 72) magneticField:&v30 isCalibrationValid:&v29 calibrationStatus:{*(v5[4] + 40), *(v5[4] + 48), *(v5[4] + 56)}];
+  v16 = v5[7];
   if (v16)
   {
-    (*(v16 + 16))(v16, v37, v36);
+    (*(v16 + 16))(v16, v30, v29);
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [*(v5 + 40) setDisableHistoryChecking:0];
+    [v5[5] setDisableHistoryChecking:0];
   }
 
-  [*(v5 + 48) stopActivityUpdates];
-  *(*(*(v5 + 64) + 8) + 40) = 0;
+  [v5[6] stopActivityUpdates];
+  *(*(v5[8] + 8) + 40) = 0;
   return FigSimpleMutexUnlock();
 }
 
@@ -469,14 +462,14 @@ void __60__FigCaptureCalibrationMonitor__setupCalibrationForContext___block_invo
     return 0;
   }
 
-  v70.receiver = backings;
-  v70.super_class = FigCaptureCalibrationMonitor;
-  v2 = objc_msgSendSuper2(&v70, sel_init);
+  v69.receiver = backings;
+  v69.super_class = FigCaptureCalibrationMonitor;
+  v2 = objc_msgSendSuper2(&v69, sel_init);
   if (v2)
   {
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v2[1] = v4;
-    v12 = OUTLINED_FUNCTION_2_48(v4, v5, v6, v7, v8, v9, v10, v11, v30, v32, a2, v2, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, 0);
+    v12 = OUTLINED_FUNCTION_2_48(v4, v5, v6, v7, v8, v9, v10, v11, v30, v32, a2, v2, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67);
     if (v12)
     {
       v13 = v12;
@@ -512,7 +505,7 @@ void __60__FigCaptureCalibrationMonitor__setupCalibrationForContext___block_invo
           }
         }
 
-        v13 = OUTLINED_FUNCTION_2_48(v17, v18, v19, v20, v21, v22, v23, v24, v31, v33, obja, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v69);
+        v13 = OUTLINED_FUNCTION_2_48(v17, v18, v19, v20, v21, v22, v23, v24, v31, v33, obja, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68);
       }
 
       while (v13);
@@ -537,31 +530,31 @@ void __60__FigCaptureCalibrationMonitor__setupCalibrationForContext___block_invo
   if (self)
   {
     selfCopy = self;
-    v44[0] = 0;
+    v51[0] = 0;
     array = [MEMORY[0x1E695DF70] array];
     array2 = [MEMORY[0x1E695DF70] array];
     array3 = [MEMORY[0x1E695DF70] array];
     array4 = [MEMORY[0x1E695DF70] array];
     v7 = [+[BWFigCaptureDeviceVendor sharedCaptureDeviceVendor](BWFigCaptureDeviceVendor "sharedCaptureDeviceVendor")];
-    v37 = [+[BWFigCaptureDeviceVendor sharedCaptureDeviceVendor](BWFigCaptureDeviceVendor "sharedCaptureDeviceVendor")];
-    if (v37)
+    v44 = [+[BWFigCaptureDeviceVendor sharedCaptureDeviceVendor](BWFigCaptureDeviceVendor "sharedCaptureDeviceVendor")];
+    if (v44)
     {
-      v32 = array;
-      v33 = array2;
-      v34 = array3;
-      v35 = array4;
-      v29 = v7;
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
-      v41 = 0u;
-      v30 = selfCopy;
-      obj = *(selfCopy + 8);
-      v8 = [obj countByEnumeratingWithState:&v40 objects:v39 count:16];
+      v39 = array;
+      v40 = array2;
+      v41 = array3;
+      v42 = array4;
+      v31 = v7;
+      v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v34 = selfCopy;
+      obja = *(selfCopy + 8);
+      v8 = [obja countByEnumeratingWithState:&v47 objects:v46 count:16];
       if (v8)
       {
         v9 = v8;
-        v36 = *v41;
+        v43 = *v48;
         v10 = *off_1E798BC90;
         v11 = *off_1E798C160;
         v12 = *off_1E798BCD8;
@@ -570,24 +563,23 @@ void __60__FigCaptureCalibrationMonitor__setupCalibrationForContext___block_invo
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v41 != v36)
+            if (*v48 != v43)
             {
-              objc_enumerationMutation(obj);
+              objc_enumerationMutation(obja);
             }
 
-            v15 = *(*(&v40 + 1) + 8 * i);
+            v15 = *(*(&v47 + 1) + 8 * i);
             v16 = [+[BWFigCaptureDeviceVendor sharedCaptureDeviceVendor](BWFigCaptureDeviceVendor "sharedCaptureDeviceVendor")];
             v17 = v16;
-            v18 = v44[0];
-            if (v44[0])
+            v18 = v51[0];
+            if (v51[0])
             {
               fig_log_get_emitter();
-              v28 = v1;
               LODWORD(v27) = v18;
-              FigDebugAssert3();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v27, v1, v28, v1, v30, v34, obja, v39);
 
-              selfCopy = v30;
-              v7 = v29;
+              selfCopy = v35;
+              v7 = v32;
               goto LABEL_28;
             }
 
@@ -598,29 +590,29 @@ void __60__FigCaptureCalibrationMonitor__setupCalibrationForContext___block_invo
             if ([supportedProperties objectForKeyedSubscript:v10])
             {
               [v21 addObject:v10];
-              [v32 addObject:v20];
+              [v39 addObject:v20];
             }
 
             if ([supportedProperties objectForKeyedSubscript:v11])
             {
               [v21 addObject:v11];
-              [v33 addObject:v20];
+              [v40 addObject:v20];
             }
 
             if ([supportedProperties objectForKeyedSubscript:v12])
             {
               [v21 addObject:v12];
-              [v34 addObject:v20];
+              [v41 addObject:v20];
             }
 
             if ([supportedProperties objectForKeyedSubscript:v13])
             {
               [v21 addObject:v13];
-              [v35 addObject:v20];
+              [v42 addObject:v20];
             }
           }
 
-          v9 = [obj countByEnumeratingWithState:&v40 objects:v39 count:16];
+          v9 = [obja countByEnumeratingWithState:&v47 objects:v46 count:16];
           if (v9)
           {
             continue;
@@ -630,58 +622,57 @@ void __60__FigCaptureCalibrationMonitor__setupCalibrationForContext___block_invo
         }
       }
 
-      selfCopy = v30;
-      if ([v32 count])
+      selfCopy = v34;
+      if ([v39 count])
       {
-        v22 = [[FigCaptureAutoFocusCalibrationContext alloc] initWithSupportedDeviceNames:v32];
-        v30[13] = v22;
-        [(FigCaptureCalibrationMonitor *)v30 _setupCalibrationForContext:v22];
+        v22 = [[FigCaptureAutoFocusCalibrationContext alloc] initWithSupportedDeviceNames:v39];
+        *(v34 + 104) = v22;
+        [(FigCaptureCalibrationMonitor *)v34 _setupCalibrationForContext:v22];
       }
 
-      if ([v33 count])
+      if ([v40 count])
       {
-        v23 = [[FigCaptureSphereCalibrationContext alloc] initWithSupportedDeviceNames:v33];
-        v30[15] = v23;
-        [(FigCaptureCalibrationMonitor *)v30 _setupCalibrationForContext:v23];
+        v23 = [[FigCaptureSphereCalibrationContext alloc] initWithSupportedDeviceNames:v40];
+        *(v34 + 120) = v23;
+        [(FigCaptureCalibrationMonitor *)v34 _setupCalibrationForContext:v23];
       }
 
-      v7 = v29;
-      if ([v34 count])
+      v7 = v31;
+      if ([v41 count])
       {
-        v24 = [[FigCaptureAPSSphereInteractionCalibrationContext alloc] initWithSupportedDeviceNames:v34];
-        v30[14] = v24;
-        [(FigCaptureCalibrationMonitor *)v30 _setupCalibrationForContext:v24];
+        v24 = [[FigCaptureAPSSphereInteractionCalibrationContext alloc] initWithSupportedDeviceNames:v41];
+        *(v34 + 112) = v24;
+        [(FigCaptureCalibrationMonitor *)v34 _setupCalibrationForContext:v24];
       }
 
-      if ([v35 count])
+      if ([v42 count])
       {
-        v25 = [[FigCaptureSphereEndStopCalibrationContext alloc] initWithSupportedDeviceNames:v35];
-        v30[16] = v25;
-        [(FigCaptureCalibrationMonitor *)v30 _setupCalibrationForContext:v25];
+        v25 = [[FigCaptureSphereEndStopCalibrationContext alloc] initWithSupportedDeviceNames:v42];
+        *(v34 + 128) = v25;
+        [(FigCaptureCalibrationMonitor *)v34 _setupCalibrationForContext:v25];
       }
     }
 
     else
     {
       fig_log_get_emitter();
-      v28 = v1;
       LODWORD(v27) = 0;
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v27, v1, v28, v29, v30, v33, obj, v38);
     }
 
 LABEL_28:
-    if (v44[0])
+    if (v51[0])
     {
       v26 = *MEMORY[0x1E69E9CC8];
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __63__FigCaptureCalibrationMonitor__setupDuetTriggersAndScheduling__block_invoke;
-      v38[3] = &unk_1E798F870;
-      v38[4] = selfCopy;
-      [(FigCaptureCalibrationMonitor *)selfCopy _setupActivityAndTriggers:v26 interval:50 batteryLevel:v38 calibrationBlock:0 isRepeating:?];
+      v45[0] = MEMORY[0x1E69E9820];
+      v45[1] = 3221225472;
+      v45[2] = __63__FigCaptureCalibrationMonitor__setupDuetTriggersAndScheduling__block_invoke;
+      v45[3] = &unk_1E798F870;
+      v45[4] = selfCopy;
+      [(FigCaptureCalibrationMonitor *)selfCopy _setupActivityAndTriggers:v26 interval:50 batteryLevel:v45 calibrationBlock:0 isRepeating:?];
     }
 
-    [+[BWFigCaptureDeviceVendor sharedCaptureDeviceVendor](BWFigCaptureDeviceVendor sharedCaptureDeviceVendor];
+    [+[BWFigCaptureDeviceVendor sharedCaptureDeviceVendor](BWFigCaptureDeviceVendor "sharedCaptureDeviceVendor")];
   }
 }
 
@@ -744,47 +735,47 @@ LABEL_28:
   }
 }
 
-- (id)_runAndCreateDictionaryForCalibrationContext:(unsigned int)context deviceType:(unsigned int)type devicePosition:(_DWORD *)position errors:
+- (id)_runAndCreateDictionaryForCalibrationContext:(unsigned int)context deviceType:(unsigned int)type devicePosition:(int *)position errors:
 {
-  v60 = __PAIR64__(type, context);
-  v61 = a2;
+  v65 = __PAIR64__(type, context);
+  v66 = a2;
   if (!self)
   {
     return 0;
   }
 
-  v7 = 0x1E7988000uLL;
-  v51 = 0;
-  LODWORD(v50) = 0;
-  v8 = [+[BWFigCaptureDeviceVendor sharedCaptureDeviceVendor](BWFigCaptureDeviceVendor "sharedCaptureDeviceVendor")];
+  v8 = 0x1E7988000uLL;
+  LODWORD(v51) = 0;
   v9 = [+[BWFigCaptureDeviceVendor sharedCaptureDeviceVendor](BWFigCaptureDeviceVendor "sharedCaptureDeviceVendor")];
-  if (!v9)
-  {
-    v46 = 0;
-    v10 = 0;
-    v45 = 64;
-    goto LABEL_54;
-  }
-
   v10 = [+[BWFigCaptureDeviceVendor sharedCaptureDeviceVendor](BWFigCaptureDeviceVendor "sharedCaptureDeviceVendor")];
   if (!v10)
   {
+    v47 = 0;
+    v11 = 0;
+    v46 = 64;
+    goto LABEL_54;
+  }
+
+  v11 = [+[BWFigCaptureDeviceVendor sharedCaptureDeviceVendor](BWFigCaptureDeviceVendor "sharedCaptureDeviceVendor")];
+  if (!v11)
+  {
     fig_log_get_emitter();
-    FigDebugAssert3();
-    v45 = 0;
+    LODWORD(v52) = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v52, v5, v54, v55, v57, v59, v60, v62);
+    v46 = 0;
     goto LABEL_55;
   }
 
-  v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v87 = 0u;
-  v88 = 0u;
-  v89 = 0u;
-  v90 = 0u;
+  v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v92 = 0u;
+  v93 = 0u;
+  v94 = 0u;
+  v95 = 0u;
   obj = *(self + 8);
-  v62 = [obj countByEnumeratingWithState:&v87 objects:v86 count:16];
-  if (!v62)
+  v67 = [obj countByEnumeratingWithState:&v92 objects:v91 count:16];
+  if (!v67)
   {
-    v45 = 0;
+    v46 = 0;
     if (position)
     {
       goto LABEL_56;
@@ -793,64 +784,64 @@ LABEL_28:
     goto LABEL_57;
   }
 
-  v56 = v11;
+  v61 = v12;
   positionCopy = position;
-  v54 = v9;
-  HIDWORD(v55) = v8;
-  HIDWORD(v57) = 0;
-  v64 = *v88;
-  if (v60)
+  v58 = v10;
+  HIDWORD(v59) = v9;
+  HIDWORD(v62) = 0;
+  v69 = *v93;
+  if (v65)
   {
-    v12 = HIDWORD(v60) == 0;
+    v13 = HIDWORD(v65) == 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v13 = !v12;
-  HIDWORD(v63) = v13;
-  v58 = *off_1E798BCB8;
+  v14 = !v13;
+  HIDWORD(v68) = v14;
+  v63 = *off_1E798BCB8;
 LABEL_12:
-  v14 = 0;
+  v15 = 0;
   while (1)
   {
-    if (*v88 != v64)
+    if (*v93 != v69)
     {
       objc_enumerationMutation(obj);
     }
 
-    v15 = *(*(&v87 + 1) + 8 * v14);
-    v16 = [objc_msgSend(v15 objectForKeyedSubscript:{@"DeviceType", "intValue"}];
-    v17 = [objc_msgSend(v15 objectForKeyedSubscript:{@"DevicePosition", "intValue"}];
-    if (!HIDWORD(v63))
+    v16 = *(*(&v92 + 1) + 8 * v15);
+    v17 = [objc_msgSend(v16 objectForKeyedSubscript:{@"DeviceType", "intValue"}];
+    v18 = [objc_msgSend(v16 objectForKeyedSubscript:{@"DevicePosition", "intValue"}];
+    if (!HIDWORD(v68))
     {
       break;
     }
 
-    if (v16 == v60 && v17 == HIDWORD(v60))
+    if (v17 == v65 && v18 == HIDWORD(v65))
     {
       break;
     }
 
 LABEL_40:
-    if (++v14 == v62)
+    if (++v15 == v67)
     {
-      v62 = [obj countByEnumeratingWithState:&v87 objects:v86 count:16];
-      if (!v62)
+      v67 = [obj countByEnumeratingWithState:&v92 objects:v91 count:16];
+      if (!v67)
       {
         position = positionCopy;
-        v45 = HIDWORD(v57);
-        if (HIDWORD(v57))
+        v46 = HIDWORD(v62);
+        if (HIDWORD(v62))
         {
           goto LABEL_48;
         }
 
-        v7 = 0x1E7988000;
-        v8 = HIDWORD(v55);
-        v9 = v54;
-        v11 = v56;
+        v8 = 0x1E7988000;
+        v9 = HIDWORD(v59);
+        v10 = v58;
+        v12 = v61;
         if (positionCopy)
         {
           goto LABEL_56;
@@ -863,97 +854,97 @@ LABEL_40:
     }
   }
 
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
-  v83 = 0u;
-  v26 = OUTLINED_FUNCTION_1_53(v17, v18, v19, v20, v21, v22, v23, v24, v50, v51, v52, positionCopy, v54, v55, v56, v57, v58, obj, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, 0);
-  if (!v26)
+  v89 = 0u;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
+  v27 = OUTLINED_FUNCTION_1_53(v18, v19, v20, v21, v22, v23, v24, v25, v52, v53, v54, positionCopy, v58, v59, v61, v62, v63, obj, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86);
+  if (!v27)
   {
     goto LABEL_47;
   }
 
-  v27 = v26;
-  v28 = *v83;
+  v28 = v27;
+  v29 = *v88;
   while (2)
   {
-    for (i = 0; i != v27; ++i)
+    for (i = 0; i != v28; ++i)
     {
-      if (*v83 != v28)
+      if (*v88 != v29)
       {
-        objc_enumerationMutation(v10);
+        objc_enumerationMutation(v11);
       }
 
-      v30 = *(*(&v82 + 1) + 8 * i);
-      portType = [v30 portType];
-      v32 = [v15 objectForKeyedSubscript:@"PortType"];
-      if (portType == v32)
+      v31 = *(*(&v87 + 1) + 8 * i);
+      portType = [v31 portType];
+      v33 = [v16 objectForKeyedSubscript:@"PortType"];
+      if (portType == v33)
       {
-        if (!v30)
+        if (!v31)
         {
           goto LABEL_47;
         }
 
-        v40 = [v15 objectForKeyedSubscript:@"DeviceName"];
-        if ([objc_msgSend(v15 objectForKeyedSubscript:{@"SupportedCalibrations", "containsObject:", objc_msgSend(v61, "propertyName")}])
+        v41 = [v16 objectForKeyedSubscript:@"DeviceName"];
+        if ([objc_msgSend(v16 objectForKeyedSubscript:{@"SupportedCalibrations", "containsObject:", objc_msgSend(v66, "propertyName")}])
         {
-          if ([objc_msgSend(v61 "propertyName")])
+          if (objc_msgSend_isEqualToString_([v66 propertyName]))
           {
-            v41 = [objc_msgSend(v61 "lastSuccessfulCalibrationData")];
-            if (v41)
+            v42 = [objc_msgSend(v66 "lastSuccessfulCalibrationData")];
+            if (v42)
             {
-              [v30 setProperty:objc_msgSend(v61 value:{"propertyName"), v41}];
+              [v31 setProperty:objc_msgSend(v66 value:{"propertyName"), v42}];
             }
           }
 
-          HIDWORD(v65) = 0;
-          v42 = [v30 getProperty:objc_msgSend(v61 error:{"propertyName"), &v65 + 4}];
-          if (HIDWORD(v65))
+          HIDWORD(v70) = 0;
+          v43 = [v31 getProperty:objc_msgSend(v66 error:{"propertyName"), &v70 + 4}];
+          if (HIDWORD(v70))
           {
             position = positionCopy;
-            v9 = v54;
-            v7 = 0x1E7988000;
-            v8 = HIDWORD(v55);
-            v46 = v56;
-            v47 = HIDWORD(v57);
-            if (HIDWORD(v65) == -12688)
+            v10 = v58;
+            v8 = 0x1E7988000;
+            v9 = HIDWORD(v59);
+            v47 = v61;
+            v48 = HIDWORD(v62);
+            if (HIDWORD(v70) == -12688)
             {
-              v48 = 64;
+              v49 = 64;
             }
 
             else
             {
-              v48 = 0x80000000;
+              v49 = 0x80000000;
             }
 
             goto LABEL_53;
           }
 
-          v43 = v42;
-          v44 = [v42 length];
-          if (v44 != [v61 expectedDataSize])
+          v44 = v43;
+          v45 = [v43 length];
+          if (v45 != [v66 expectedDataSize])
           {
-            v48 = 0x80000000;
+            v49 = 0x80000000;
             position = positionCopy;
-            v9 = v54;
-            v7 = 0x1E7988000uLL;
-            v8 = HIDWORD(v55);
-            v46 = v56;
-            v47 = HIDWORD(v57);
+            v10 = v58;
+            v8 = 0x1E7988000uLL;
+            v9 = HIDWORD(v59);
+            v47 = v61;
+            v48 = HIDWORD(v62);
 LABEL_53:
-            v45 = v47 | v48;
+            v46 = v48 | v49;
             goto LABEL_54;
           }
 
-          if (v43)
+          if (v44)
           {
-            [objc_opt_class() printDebugInfoForRawStreamCalibrationData:v43];
-            [v56 setObject:v43 forKeyedSubscript:v40];
+            [objc_opt_class() printDebugInfoForRawStreamCalibrationData:v44];
+            [v61 setObject:v44 forKeyedSubscript:v41];
           }
 
           else
           {
-            HIDWORD(v57) |= 0x80000000;
+            HIDWORD(v62) |= 0x80000000;
           }
         }
 
@@ -961,8 +952,8 @@ LABEL_53:
       }
     }
 
-    v27 = OUTLINED_FUNCTION_1_53(v32, v33, v34, v35, v36, v37, v38, v39, v50, v51, v52, positionCopy, v54, v55, v56, v57, v58, obj, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82);
-    if (v27)
+    v28 = OUTLINED_FUNCTION_1_53(v33, v34, v35, v36, v37, v38, v39, v40, v52, v53, v54, positionCopy, v58, v59, v61, v62, v63, obj, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86);
+    if (v28)
     {
       continue;
     }
@@ -971,27 +962,27 @@ LABEL_53:
   }
 
 LABEL_47:
-  v45 = HIDWORD(v57) | 0x40;
+  v46 = HIDWORD(v62) | 0x40;
   position = positionCopy;
 LABEL_48:
-  v7 = 0x1E7988000;
-  v8 = HIDWORD(v55);
-  v9 = v54;
-  v46 = v56;
+  v8 = 0x1E7988000;
+  v9 = HIDWORD(v59);
+  v10 = v58;
+  v47 = v61;
 LABEL_54:
 
 LABEL_55:
-  v11 = 0;
+  v12 = 0;
   if (position)
   {
 LABEL_56:
-    *position = v45;
+    *position = v46;
   }
 
 LABEL_57:
 
-  [objc_msgSend(*(v7 + 3776) "sharedCaptureDeviceVendor")];
-  return v11;
+  [objc_msgSend(*(v8 + 3776) "sharedCaptureDeviceVendor")];
+  return v12;
 }
 
 - (void)_createDefaultXPCSchedulingParametersWithInterval:batteryLevel:.cold.1()

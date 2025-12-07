@@ -26,7 +26,7 @@
 
 - (void)_setDisplayRuleFromServerDict:(id)dict
 {
-  v7 = [dict objectForKeyedSubscript:@"rulesForDisplay"];
+  v7 = objc_msgSend_objectForKeyedSubscript_(dict, a2, @"rulesForDisplay");
   v4 = [v7 objectForKey:@"delegateDecision"];
 
   if (v4)
@@ -37,7 +37,7 @@
   else
   {
     self->_displayRuleType = 2;
-    v5 = [v7 objectForKeyedSubscript:@"alwaysShow"];
+    v5 = objc_msgSend_objectForKeyedSubscript_(v7);
     v6 = [v5 isEqualToString:@"true"];
 
     if (v6)
@@ -54,9 +54,9 @@
 
 - (id)_getDismissReportingRuleFromServerDict:(id)dict
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v4 = [dict objectForKeyedSubscript:@"onDismiss"];
-  v5 = [v4 objectForKeyedSubscript:@"onDismiss"];
+  v15 = *MEMORY[0x277D85DE8];
+  v4 = objc_msgSend_objectForKeyedSubscript_(dict, a2, @"onDismiss");
+  v5 = objc_msgSend_objectForKeyedSubscript_(v4);
   v6 = [v5 isEqualToString:@"UNIFIED_MESSAGING"];
 
   if (v6)
@@ -81,18 +81,16 @@ LABEL_4:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = objc_opt_class();
-      v12 = 136315394;
+      v11 = 136315394;
       Name = class_getName(v9);
-      v14 = 2112;
-      v15 = v4;
-      _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v12, 0x16u);
+      v13 = 2112;
+      v14 = v4;
+      _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", &v11, 0x16u);
     }
   }
 
   v7 = 0;
 LABEL_10:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

@@ -32,6 +32,7 @@
 - (id)__matchedScanResultsWithKnownNetworkProfiles:(id)profiles scanResults:(id)results;
 - (id)__passpointScanResults:(id)results;
 - (id)__privacyFilteredNetworkProfile:(id)profile allowSSID:(BOOL)d allowBSSID:(BOOL)iD;
+- (id)__privacyFilteredScanResult:(id)result allowSSID:(BOOL)d allowBSSID:(BOOL)iD allowCountryCode:(BOOL)code;
 - (id)__shouldPerformPreAssociation6GHzFollowupScan:(id)scan;
 - (id)__wifiNetworkSharingClientIDWithRequestParameters:(id)parameters;
 - (id)description;
@@ -115,6 +116,7 @@
 - (void)rememberCloudNetworkProfile:(id)profile reply:(id)reply;
 - (void)removeKnownBSS:(id)s knownNetworkProfile:(id)profile requestParams:(id)params reply:(id)reply;
 - (void)removeKnownNetworkProfile:(id)profile reason:(int64_t)reason requestParams:(id)params reply:(id)reply;
+- (void)reportQuickProbeResult:(BOOL)result networkProfile:(id)profile requestParams:(id)params reply:(id)reply;
 - (void)requestWiFiNetworkSharingAuthorizationWithRequestParams:(id)params reply:(id)reply;
 - (void)resetAutoJoinStatisticsWithRequestParams:(id)params reply:(id)reply;
 - (void)resume;
@@ -131,12 +133,16 @@
 - (void)setContainingAppProcessState:(id)state;
 - (void)setLQMConfiguration:(id)configuration requestParams:(id)params reply:(id)reply;
 - (void)setPassword:(id)password knownNetworkProfile:(id)profile requestParams:(id)params reply:(id)reply;
+- (void)setPower:(BOOL)power requestParams:(id)params reply:(id)reply;
 - (void)setPrivateMACAddressMode:(int64_t)mode networkProfile:(id)profile requestParams:(id)params reply:(id)reply;
 - (void)setPrivateMACAddressModeSystemSetting:(int64_t)setting requestParams:(id)params reply:(id)reply;
+- (void)setPrivateMACAddressUserJoinFailureUIState:(BOOL)state networkProfile:(id)profile requestParams:(id)params reply:(id)reply;
 - (void)setProcessState:(id)state;
+- (void)setRangeable:(BOOL)rangeable peerList:(id)list requestParams:(id)params reply:(id)reply;
 - (void)setRangingIdentifier:(id)identifier requestParams:(id)params reply:(id)reply;
 - (void)setThermalIndex:(int64_t)index requestParams:(id)params reply:(id)reply;
 - (void)setUCMExtProfile:(id)profile requestParams:(id)params error:(id)error;
+- (void)setUserAutoJoinState:(BOOL)state requestParams:(id)params reply:(id)reply;
 - (void)setUserSettings:(id)settings properties:(id)properties requestParams:(id)params reply:(id)reply;
 - (void)setWiFiNetworkSharingAskToShareStatus:(int64_t)status networkID:(id)d requestParams:(id)params reply:(id)reply;
 - (void)startAWDLPeerAssistedDiscoveryWithParameters:(id)parameters requestParams:(id)params reply:(id)reply;
@@ -149,6 +155,7 @@
 - (void)suspend;
 - (void)updateKnownBSS:(id)s knownNetworkProfile:(id)profile properties:(id)properties OSSpecificKeys:(id)keys requestParams:(id)params reply:(id)reply;
 - (void)updateKnownNetworkProfile:(id)profile properties:(id)properties OSSpecificKeys:(id)keys requestParams:(id)params reply:(id)reply;
+- (void)updateSoftAPBand:(unsigned int)band requestParams:(id)params reply:(id)reply;
 - (void)wifiNetworkSharingAskToShareNetworkListWithRequestParams:(id)params reply:(id)reply;
 - (void)wifiNetworkSharingAskToShareStatusForNetworkID:(id)d requestParams:(id)params reply:(id)reply;
 - (void)wifiNetworkSharingAuthorizationLevelWithRequestParams:(id)params reply:(id)reply;
@@ -259,7 +266,7 @@
     v5 = xPCConnection;
     if (xPCConnection)
     {
-      [xPCConnection auditToken];
+      objc_msgSend_auditToken(xPCConnection);
     }
 
     selfCopy->_codesignedByApple = 1;
@@ -305,49 +312,49 @@
 
 - (void)__didInvalidate
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   registeredEventIDs = [(CWFXPCConnection *)self registeredEventIDs];
-  v4 = [registeredEventIDs countByEnumeratingWithState:&v31 objects:v40 count:16];
+  v4 = [registeredEventIDs countByEnumeratingWithState:&v30 objects:v39 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v32;
+    v6 = *v31;
     obj = registeredEventIDs;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v32 != v6)
+        if (*v31 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v31 + 1) + 8 * i);
+        v8 = *(*(&v30 + 1) + 8 * i);
         v9 = objc_alloc_init(CWFXPCRequest);
         -[CWFXPCRequest setType:](v9, "setType:", sub_1E0BC90A8([v8 type]));
-        v38[0] = @"EventID";
-        v38[1] = @"Remove";
-        v39[0] = v8;
-        v39[1] = MEMORY[0x1E695E118];
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:2];
+        v37[0] = @"EventID";
+        v37[1] = @"Remove";
+        v38[0] = v8;
+        v38[1] = MEMORY[0x1E695E118];
+        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:2];
         [(CWFXPCRequest *)v9 setInfo:v10];
 
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = sub_1E0BCBB88;
-        v30[3] = &unk_1E86E6988;
-        v30[4] = self;
-        v30[5] = v8;
-        [(CWFXPCRequest *)v9 setResponse:v30];
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = sub_1E0BCBB88;
+        v29[3] = &unk_1E86E6988;
+        v29[4] = self;
+        v29[5] = v8;
+        [(CWFXPCRequest *)v9 setResponse:v29];
         delegate = [(CWFXPCConnection *)self delegate];
         [delegate XPCConnection:self receivedXPCRequest:v9];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
+      v5 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
     }
 
     while (v5);
@@ -356,47 +363,47 @@
     [registeredEventIDs XPCConnection:self updatedRegisteredEventIDs:0];
   }
 
-  v29 = 0u;
-  v27 = 0u;
   v28 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v25 = 0u;
   obja = [(CWFXPCConnection *)self registeredActivities];
-  v12 = [obja countByEnumeratingWithState:&v26 objects:v37 count:16];
+  v12 = [obja countByEnumeratingWithState:&v25 objects:v36 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(obja);
         }
 
-        v16 = *(*(&v26 + 1) + 8 * j);
+        v16 = *(*(&v25 + 1) + 8 * j);
         v17 = objc_alloc_init(CWFXPCRequest);
         -[CWFXPCRequest setType:](v17, "setType:", sub_1E0BD630C([v16 type]));
-        v35[0] = @"EventID";
-        v35[1] = @"Remove";
-        v36[0] = v16;
-        v36[1] = MEMORY[0x1E695E118];
-        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
+        v34[0] = @"EventID";
+        v34[1] = @"Remove";
+        v35[0] = v16;
+        v35[1] = MEMORY[0x1E695E118];
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
         [(CWFXPCRequest *)v17 setInfo:v18];
 
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = sub_1E0C32FF0;
-        v25[3] = &unk_1E86E6988;
-        v25[4] = self;
-        v25[5] = v16;
-        [(CWFXPCRequest *)v17 setResponse:v25];
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = sub_1E0C32FF0;
+        v24[3] = &unk_1E86E6988;
+        v24[4] = self;
+        v24[5] = v16;
+        [(CWFXPCRequest *)v17 setResponse:v24];
         delegate2 = [(CWFXPCConnection *)self delegate];
         [delegate2 XPCConnection:self receivedXPCRequest:v17];
       }
 
-      v13 = [obja countByEnumeratingWithState:&v26 objects:v37 count:16];
+      v13 = [obja countByEnumeratingWithState:&v25 objects:v36 count:16];
     }
 
     while (v13);
@@ -409,7 +416,6 @@
   block[3] = &unk_1E86E6010;
   block[4] = self;
   dispatch_async(mutexQueue, block);
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isWiFiNetworkSharingAppExtension
@@ -468,7 +474,7 @@
     v6 = process;
     if (process)
     {
-      [process auditToken];
+      objc_msgSend_auditToken(process);
     }
 
     selfCopy->_containingAppCodesignedByApple = 1;
@@ -484,11 +490,11 @@
 
 - (id)__codesignIDFromAuditToken:(id *)token
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = *&token->var0[4];
-  *v18 = *token->var0;
-  *&v18[16] = v3;
-  v4 = sub_1E0BC8664(v18);
+  *v17 = *token->var0;
+  *&v17[16] = v3;
+  v4 = sub_1E0BC8664(v17);
   if (!v4)
   {
     goto LABEL_14;
@@ -523,13 +529,13 @@
 
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        *v18 = 138543874;
-        *&v18[4] = v4;
-        *&v18[12] = 1024;
-        *&v18[14] = v6;
-        *&v18[18] = 2114;
-        *&v18[20] = v7;
-        _os_log_send_and_compose_impl();
+        *v17 = 138543874;
+        *&v17[4] = v4;
+        *&v17[12] = 1024;
+        *&v17[14] = v6;
+        *&v17[18] = 2114;
+        *&v17[20] = v7;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 16, "[corewifi] SecCodeCopySigningInformation() failed for %{public}@, returned err=%d (%{public}@)", v17, 28);
       }
 
       if (v7)
@@ -558,13 +564,13 @@
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    *v18 = 138543874;
-    *&v18[4] = v4;
-    *&v18[12] = 1024;
-    *&v18[14] = v5;
-    *&v18[18] = 2114;
-    *&v18[20] = v7;
-    _os_log_send_and_compose_impl();
+    *v17 = 138543874;
+    *&v17[4] = v4;
+    *&v17[12] = 1024;
+    *&v17[14] = v5;
+    *&v17[18] = 2114;
+    *&v17[20] = v7;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[corewifi] SecStaticCodeCreateWithPath() failed for %{public}@, returned err=%d (%{public}@)", v17, 28);
   }
 
   if (v7)
@@ -576,14 +582,12 @@ LABEL_14:
 
 LABEL_21:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)__codesignIDFromBundleRecord:(id)record
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   executableURL = [record executableURL];
   v4 = executableURL;
   if (!executableURL)
@@ -621,13 +625,13 @@ LABEL_21:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         path = [(__CFURL *)v4 path];
-        v20 = 138543874;
-        v21 = path;
-        v22 = 1024;
-        v23 = v6;
-        v24 = 2114;
-        v25 = v7;
-        _os_log_send_and_compose_impl();
+        v19 = 138543874;
+        v20 = path;
+        v21 = 1024;
+        v22 = v6;
+        v23 = 2114;
+        v24 = v7;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 16, "[corewifi] SecCodeCopySigningInformation() failed for %{public}@, returned err=%d (%{public}@)", &v19, 28);
       }
 
       if (v7)
@@ -657,13 +661,13 @@ LABEL_21:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     path2 = [(__CFURL *)v4 path];
-    v20 = 138543874;
-    v21 = path2;
-    v22 = 1024;
-    v23 = v5;
-    v24 = 2114;
-    v25 = v7;
-    _os_log_send_and_compose_impl();
+    v19 = 138543874;
+    v20 = path2;
+    v21 = 1024;
+    v22 = v5;
+    v23 = 2114;
+    v24 = v7;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[corewifi] SecStaticCodeCreateWithPath() failed for %{public}@, returned err=%d (%{public}@)", &v19, 28);
   }
 
   if (v7)
@@ -675,60 +679,58 @@ LABEL_14:
 
 LABEL_21:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)__bundleIDFromAuditToken:(id *)token
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v18 = 0;
-  if (!sub_1E0BC8594())
+  v27 = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  if (!sub_1E0BC8594(0))
   {
     goto LABEL_6;
   }
 
   v4 = *&token->var0[4];
-  v26 = *token->var0;
-  v27 = v4;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
+  v25 = *token->var0;
+  v26 = v4;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
   v5 = off_1ECE81AC8;
-  v25 = off_1ECE81AC8;
+  v24 = off_1ECE81AC8;
   if (!off_1ECE81AC8)
   {
-    *&v19 = MEMORY[0x1E69E9820];
-    *(&v19 + 1) = 3221225472;
-    *&v20 = sub_1E0C4B768;
-    *(&v20 + 1) = &unk_1E86E5600;
-    v21 = &v22;
-    sub_1E0C4B768(&v19);
-    v5 = v23[3];
+    *&v18 = MEMORY[0x1E69E9820];
+    *(&v18 + 1) = 3221225472;
+    *&v19 = sub_1E0C4B768;
+    *(&v19 + 1) = &unk_1E86E5600;
+    v20 = &v21;
+    sub_1E0C4B768(&v18);
+    v5 = v22[3];
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
   if (!v5)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"Boolean soft_CPCopyBundleIdentifierAndTeamFromAuditToken(audit_token_t, CFStringRef *, CFStringRef *)"}];
-    [currentHandler handleFailureInFunction:v17 file:@"CWFXPCConnection.m" lineNumber:48 description:{@"%s", dlerror()}];
+    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"Boolean soft_CPCopyBundleIdentifierAndTeamFromAuditToken(audit_token_t, CFStringRef *, CFStringRef *)"}];
+    [currentHandler handleFailureInFunction:v16 file:@"CWFXPCConnection.m" lineNumber:48 description:{@"%s", dlerror()}];
 
     __break(1u);
   }
 
+  v18 = v25;
   v19 = v26;
-  v20 = v27;
-  v5(&v19, 0, &v18);
-  v6 = v18;
-  if (!v18)
+  v5(&v18, 0, &v17);
+  v6 = v17;
+  if (!v17)
   {
 LABEL_6:
     v7 = *&token->var0[4];
-    v19 = *token->var0;
-    v20 = v7;
-    v8 = sub_1E0BC8664(&v19);
+    v18 = *token->var0;
+    v19 = v7;
+    v8 = sub_1E0BC8664(&v18);
     if (v8 && (v9 = CFURLCreateWithFileSystemPath(*MEMORY[0x1E695E480], v8, kCFURLPOSIXPathStyle, 0), (v10 = v9) != 0))
     {
       v11 = CFBundleCopyInfoDictionaryForURL(v9);
@@ -736,11 +738,11 @@ LABEL_6:
       if (v11)
       {
         Value = CFDictionaryGetValue(v11, *MEMORY[0x1E695E4F0]);
-        v18 = Value;
+        v17 = Value;
         if (Value)
         {
           CFRetain(Value);
-          v6 = v18;
+          v6 = v17;
         }
 
         else
@@ -765,55 +767,53 @@ LABEL_6:
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (void)__loadEntitlementsCache
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   sub_1E0BC1AB4(self->_serviceType);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  obj = v24 = 0u;
-  v16 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
-  if (v16)
+  obj = v23 = 0u;
+  v15 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v15)
   {
-    v15 = *v22;
+    v14 = *v21;
     do
     {
-      for (i = 0; i != v16; ++i)
+      for (i = 0; i != v15; ++i)
       {
-        if (*v22 != v15)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = sub_1E0BC2974(self->_serviceType, [*(*(&v21 + 1) + 8 * i) integerValue], 0);
+        v4 = sub_1E0BC2974(self->_serviceType, [*(*(&v20 + 1) + 8 * i) integerValue], 0);
         v5 = v4;
         if (v4)
         {
-          v19 = 0u;
-          v20 = 0u;
-          v17 = 0u;
           v18 = 0u;
-          v6 = [v4 countByEnumeratingWithState:&v17 objects:v25 count:16];
+          v19 = 0u;
+          v16 = 0u;
+          v17 = 0u;
+          v6 = [v4 countByEnumeratingWithState:&v16 objects:v24 count:16];
           if (v6)
           {
             v7 = v6;
-            v8 = *v18;
+            v8 = *v17;
             do
             {
               for (j = 0; j != v7; ++j)
               {
-                if (*v18 != v8)
+                if (*v17 != v8)
                 {
                   objc_enumerationMutation(v5);
                 }
 
-                v10 = *(*(&v17 + 1) + 8 * j);
+                v10 = *(*(&v16 + 1) + 8 * j);
                 v11 = [(NSXPCConnection *)self->_XPCConnection valueForEntitlement:v10];
                 if (v11)
                 {
@@ -827,7 +827,7 @@ LABEL_6:
                 }
               }
 
-              v7 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
+              v7 = [v5 countByEnumeratingWithState:&v16 objects:v24 count:16];
             }
 
             while (v7);
@@ -835,13 +835,11 @@ LABEL_6:
         }
       }
 
-      v16 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v15 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
-    while (v16);
+    while (v15);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (LSBundleRecord)bundleRecord
@@ -850,7 +848,7 @@ LABEL_6:
   XPCConnection = self->_XPCConnection;
   if (XPCConnection)
   {
-    [(NSXPCConnection *)XPCConnection auditToken];
+    objc_msgSend_auditToken(XPCConnection, a2);
   }
 
   else
@@ -865,12 +863,12 @@ LABEL_6:
 
 - (CWFXPCConnection)initWithServiceType:(int64_t)type XPCConnection:(id)connection bootArgs:(id)args
 {
-  v119 = *MEMORY[0x1E69E9840];
+  v117 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   argsCopy = args;
-  v110.receiver = self;
-  v110.super_class = CWFXPCConnection;
-  v11 = [(CWFXPCConnection *)&v110 init];
+  v108.receiver = self;
+  v108.super_class = CWFXPCConnection;
+  v11 = [(CWFXPCConnection *)&v108 init];
   v12 = v11;
   if ((type - 12) < 0xFFFFFFFFFFFFFFF5 || !v11)
   {
@@ -898,20 +896,20 @@ LABEL_56:
 
   objc_storeStrong(&v11->_XPCConnection, connection);
   objc_initWeak(location, v12);
-  v108[0] = MEMORY[0x1E69E9820];
-  v108[1] = 3221225472;
-  v108[2] = sub_1E0C32968;
-  v108[3] = &unk_1E86E6190;
-  objc_copyWeak(&v109, location);
-  [(NSXPCConnection *)v12->_XPCConnection setInterruptionHandler:v108];
   v106[0] = MEMORY[0x1E69E9820];
   v106[1] = 3221225472;
-  v106[2] = sub_1E0C32B0C;
+  v106[2] = sub_1E0C32968;
   v106[3] = &unk_1E86E6190;
   objc_copyWeak(&v107, location);
-  [(NSXPCConnection *)v12->_XPCConnection setInvalidationHandler:v106];
+  [(NSXPCConnection *)v12->_XPCConnection setInterruptionHandler:v106];
+  v104[0] = MEMORY[0x1E69E9820];
+  v104[1] = 3221225472;
+  v104[2] = sub_1E0C32B0C;
+  v104[3] = &unk_1E86E6190;
+  objc_copyWeak(&v105, location);
+  [(NSXPCConnection *)v12->_XPCConnection setInvalidationHandler:v104];
+  objc_destroyWeak(&v105);
   objc_destroyWeak(&v107);
-  objc_destroyWeak(&v109);
   objc_destroyWeak(location);
   bundleRecord = [(CWFXPCConnection *)v12 bundleRecord];
   objc_opt_class();
@@ -941,9 +939,7 @@ LABEL_56:
       *&location[24] = 370;
       *&location[28] = 2114;
       *&location[30] = redactedForWiFi;
-      LODWORD(v100) = 38;
-      v99 = location;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 0, "[corewifi] %{public}s (%{public}s:%u) [wifi-network-sharing] XPC connection is an appex (%{public}@)", location, 38);
     }
 
     [(CWFXPCConnection *)v12 setIsAppExtension:1];
@@ -989,15 +985,14 @@ LABEL_56:
         *&location[24] = 381;
         *&location[28] = 2114;
         *&location[30] = containingAppBundleID;
+        v111 = 2114;
+        v112 = containingAppProcessName;
         v113 = 2114;
-        v114 = containingAppProcessName;
+        v114 = containingAppCodesignID;
         v115 = 2114;
-        v116 = containingAppCodesignID;
-        v117 = 2114;
-        v118 = redactedForWiFi2;
-        LODWORD(v100) = 68;
-        v99 = location;
-        _os_log_send_and_compose_impl();
+        v116 = redactedForWiFi2;
+        LODWORD(v98) = 68;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v29, 0, "[corewifi] %{public}s (%{public}s:%u) [wifi-network-sharing] XPC connection has a containing bundle record (bundleID=%{public}@, procName=%{public}@, codesignID=%{public}@, record=%{public}@)", location, v98);
       }
     }
   }
@@ -1005,7 +1000,7 @@ LABEL_56:
   XPCConnection = v12->_XPCConnection;
   if (XPCConnection)
   {
-    [(NSXPCConnection *)XPCConnection auditToken];
+    objc_msgSend_auditToken(XPCConnection);
   }
 
   else
@@ -1027,7 +1022,7 @@ LABEL_56:
   v39 = v12->_XPCConnection;
   if (v39)
   {
-    [(NSXPCConnection *)v39 auditToken];
+    objc_msgSend_auditToken(v39);
   }
 
   else
@@ -1035,14 +1030,14 @@ LABEL_56:
     memset(location, 0, 32);
   }
 
-  v100 = [(CWFXPCConnection *)v12 __bundleIDFromAuditToken:location, v99, v100];
+  v40 = [(CWFXPCConnection *)v12 __bundleIDFromAuditToken:location];
   bundleID = v12->_bundleID;
-  v12->_bundleID = v100;
+  v12->_bundleID = v40;
 
   v42 = v12->_XPCConnection;
   if (v42)
   {
-    [(NSXPCConnection *)v42 auditToken];
+    objc_msgSend_auditToken(v42);
   }
 
   else
@@ -1189,25 +1184,25 @@ LABEL_31:
 
   [(CWFXPCConnection *)v12 __loadEntitlementsCache];
   v12->_defaultTimeoutOverride = -1;
+  v100 = 0u;
+  v101 = 0u;
   v102 = 0u;
   v103 = 0u;
-  v104 = 0u;
-  v105 = 0u;
   v91 = v12->_bootArgs;
-  v92 = [(NSArray *)v91 countByEnumeratingWithState:&v102 objects:v111 count:16];
+  v92 = [(NSArray *)v91 countByEnumeratingWithState:&v100 objects:v109 count:16];
   if (v92)
   {
-    v93 = *v103;
+    v93 = *v101;
     while (2)
     {
       for (i = 0; i != v92; ++i)
       {
-        if (*v103 != v93)
+        if (*v101 != v93)
         {
           objc_enumerationMutation(v91);
         }
 
-        v95 = *(*(&v102 + 1) + 8 * i);
+        v95 = *(*(&v100 + 1) + 8 * i);
         if ([v95 hasPrefix:@"corewifi_timeout_override="])
         {
           v96 = [v95 substringFromIndex:{objc_msgSend(@"corewifi_timeout_override=", "length")}];
@@ -1217,7 +1212,7 @@ LABEL_31:
         }
       }
 
-      v92 = [(NSArray *)v91 countByEnumeratingWithState:&v102 objects:v111 count:16];
+      v92 = [(NSArray *)v91 countByEnumeratingWithState:&v100 objects:v109 count:16];
       if (v92)
       {
         continue;
@@ -1232,7 +1227,6 @@ LABEL_53:
   v12->_OSInternalVariant = os_variant_has_internal_content();
 LABEL_54:
 
-  v97 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -1383,7 +1377,7 @@ LABEL_12:
 
 - (void)sendXPCEvent:(id)event reply:(id)reply
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   replyCopy = reply;
   eventID = [eventCopy eventID];
@@ -1397,28 +1391,26 @@ LABEL_12:
   {
     v13 = sub_1E0BC9038([eventCopy type]);
     *buf = 138412290;
-    v27 = v13;
+    v26 = v13;
     _os_signpost_emit_with_name_impl(&dword_1E0BBF000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, v11, "sendXPCEvent", "%@", buf, 0xCu);
   }
 
   mutexQueue = self->_mutexQueue;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = sub_1E0C33548;
-  v20[3] = &unk_1E86E6A00;
-  v20[4] = self;
-  v21 = eventID;
-  v22 = v9;
-  v23 = eventCopy;
-  v24 = replyCopy;
-  v25 = v11;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = sub_1E0C33548;
+  v19[3] = &unk_1E86E6A00;
+  v19[4] = self;
+  v20 = eventID;
+  v21 = v9;
+  v22 = eventCopy;
+  v23 = replyCopy;
+  v24 = v11;
   v15 = replyCopy;
   v16 = eventCopy;
   v17 = v9;
   v18 = eventID;
-  dispatch_async(mutexQueue, v20);
-
-  v19 = *MEMORY[0x1E69E9840];
+  dispatch_async(mutexQueue, v19);
 }
 
 - (BOOL)__isVisibleProcess:(id)process
@@ -1474,7 +1466,7 @@ LABEL_12:
 
 - (void)setProcessState:(id)state
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1496,17 +1488,17 @@ LABEL_12:
     processName = selfCopy->_processName;
     bundleID = selfCopy->_bundleID;
     codesignID = selfCopy->_codesignID;
-    v23 = 67110146;
-    v24 = processIdentifier;
+    v22[0] = 67110146;
+    v22[1] = processIdentifier;
+    v23 = 2114;
+    v24 = processName;
     v25 = 2114;
-    v26 = processName;
+    v26 = bundleID;
     v27 = 2114;
-    v28 = bundleID;
+    v28 = codesignID;
     v29 = 2114;
-    v30 = codesignID;
-    v31 = 2114;
-    v32 = stateCopy;
-    _os_log_send_and_compose_impl();
+    v30 = stateCopy;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 2, "[corewifi] PROCESS STATE UPDATED (pid=%d proc=%{public}@ bundleID=%{public}@ codesignID=%{public}@ state=%{public}@)", v22, 48);
   }
 
   taskState = [stateCopy taskState];
@@ -1545,7 +1537,6 @@ LABEL_12:
   }
 
 LABEL_13:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isVisible
@@ -1577,7 +1568,7 @@ LABEL_13:
 
 - (void)setContainingAppProcessState:(id)state
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1596,22 +1587,30 @@ LABEL_13:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     process = [stateCopy process];
-    [process pid];
+    v10 = [process pid];
     process2 = [stateCopy process];
     name = [process2 name];
     containingAppBundleID = [(CWFXPCConnection *)selfCopy containingAppBundleID];
-    _os_log_send_and_compose_impl();
+    v21[0] = 67109890;
+    v21[1] = v10;
+    v22 = 2114;
+    v23 = name;
+    v24 = 2114;
+    v25 = containingAppBundleID;
+    v26 = 2114;
+    v27 = stateCopy;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 2, "[corewifi] CONTAINING APP PROCESS STATE UPDATED (pid=%d proc=%{public}@ bundleID=%{public}@ state=%{public}@)", v21, 38);
   }
 
   taskState = [stateCopy taskState];
   taskState2 = [(RBSProcessState *)selfCopy->_containingAppProcessState taskState];
-  v14 = [(CWFXPCConnection *)selfCopy __isVisibleProcess:stateCopy];
-  v15 = [(CWFXPCConnection *)selfCopy __isVisibleProcess:selfCopy->_containingAppProcessState];
+  v16 = [(CWFXPCConnection *)selfCopy __isVisibleProcess:stateCopy];
+  v17 = [(CWFXPCConnection *)selfCopy __isVisibleProcess:selfCopy->_containingAppProcessState];
   containingAppProcessState = selfCopy->_containingAppProcessState;
   selfCopy->_containingAppProcessState = stateCopy;
 
   objc_sync_exit(selfCopy);
-  if ((taskState == 3) ^ (taskState2 == 3) | (v14 ^ v15) & 1)
+  if ((taskState == 3) ^ (taskState2 == 3) | (v16 ^ v17) & 1)
   {
     delegate = [(CWFXPCConnection *)selfCopy delegate];
     if (delegate)
@@ -1620,8 +1619,6 @@ LABEL_13:
       [delegate XPCConnection:selfCopy updatedProcessState:processState];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isContainingAppVisible
@@ -1636,7 +1633,7 @@ LABEL_13:
 + (int)locationAuthorizationStatusForWiFiNetworking
 {
   v2 = [MEMORY[0x1E696AAE8] bundleWithPath:@"/System/Library/PrivateFrameworks/MobileWiFi.framework"];
-  if (v2 && sub_1E0BCC5FC())
+  if (v2 && sub_1E0BCC5FC(0))
   {
     v3 = [sub_1E0C35858() authorizationStatusForBundle:v2];
   }
@@ -1671,59 +1668,151 @@ LABEL_13:
 
 - (int)locationAuthorizationStatus
 {
-  v15 = *MEMORY[0x1E69E9840];
-  if (sub_1E0BCC5FC())
+  v24 = *MEMORY[0x1E69E9840];
+  if (!sub_1E0BCC5FC(0))
   {
-    __locationBundlePathOverride = [(CWFXPCConnection *)self __locationBundlePathOverride];
-    if (__locationBundlePathOverride && [(CWFXPCConnection *)self __allowBundlePathOverride])
-    {
-      v4 = [sub_1E0C35858() authorizationStatusForBundlePath:__locationBundlePathOverride];
-    }
+    return 0;
+  }
 
-    else
-    {
-      effectiveBundleID = [(CWFXPCConnection *)self effectiveBundleID];
-      if (effectiveBundleID)
-      {
-        v4 = [sub_1E0C35858() authorizationStatusForBundleIdentifier:effectiveBundleID];
-      }
-
-      else
-      {
-        v6 = CWFGetOSLog();
-        if (v6)
-        {
-          v7 = CWFGetOSLog();
-        }
-
-        else
-        {
-          v7 = MEMORY[0x1E69E9C10];
-          v8 = MEMORY[0x1E69E9C10];
-        }
-
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-        {
-          [(NSXPCConnection *)self->_XPCConnection processIdentifier];
-          processName = self->_processName;
-          bundleID = self->_bundleID;
-          codesignID = self->_codesignID;
-          v14 = sub_1E0BC1A5C(self->_serviceType);
-          _os_log_send_and_compose_impl();
-        }
-
-        v4 = 0;
-      }
-    }
+  __locationBundlePathOverride = [(CWFXPCConnection *)self __locationBundlePathOverride];
+  if (__locationBundlePathOverride && [(CWFXPCConnection *)self __allowBundlePathOverride])
+  {
+    v4 = [sub_1E0C35858() authorizationStatusForBundlePath:__locationBundlePathOverride];
   }
 
   else
   {
-    v4 = 0;
+    effectiveBundleID = [(CWFXPCConnection *)self effectiveBundleID];
+    if (effectiveBundleID)
+    {
+      v4 = [sub_1E0C35858() authorizationStatusForBundleIdentifier:effectiveBundleID];
+    }
+
+    else
+    {
+      v6 = CWFGetOSLog();
+      if (v6)
+      {
+        v7 = CWFGetOSLog();
+      }
+
+      else
+      {
+        v7 = MEMORY[0x1E69E9C10];
+        v8 = MEMORY[0x1E69E9C10];
+      }
+
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        processIdentifier = [(NSXPCConnection *)self->_XPCConnection processIdentifier];
+        processName = self->_processName;
+        bundleID = self->_bundleID;
+        codesignID = self->_codesignID;
+        v13 = sub_1E0BC1A5C(self->_serviceType);
+        v15[0] = 67110146;
+        v15[1] = processIdentifier;
+        v16 = 2114;
+        v17 = processName;
+        v18 = 2114;
+        v19 = bundleID;
+        v20 = 2114;
+        v21 = codesignID;
+        v22 = 2114;
+        v23 = v13;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 16, "[corewifi] No bundle ID, unable to get location authorization status (pid=%d proc=%{public}@ bundleID=%{public}@ codesignID=%{public}@ service=%{public}@) ", v15, 48);
+      }
+
+      v4 = 0;
+    }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v4;
+}
+
+- (id)__privacyFilteredScanResult:(id)result allowSSID:(BOOL)d allowBSSID:(BOOL)iD allowCountryCode:(BOOL)code
+{
+  iDCopy = iD;
+  dCopy = d;
+  resultCopy = result;
+  properties = [resultCopy properties];
+  v12 = properties;
+  if (dCopy && iDCopy && code || ([properties containsObject:&unk_1F5BBC340] & 1) == 0 && (objc_msgSend(v12, "containsObject:", &unk_1F5BBC358) & 1) == 0 && (objc_msgSend(v12, "containsObject:", &unk_1F5BBC370) & 1) == 0 && (objc_msgSend(v12, "containsObject:", &unk_1F5BBC388) & 1) == 0 && !objc_msgSend(v12, "containsObject:", &unk_1F5BBC3A0))
+  {
+    v13 = resultCopy;
+    goto LABEL_28;
+  }
+
+  scanRecord = [resultCopy scanRecord];
+  v15 = [scanRecord mutableCopy];
+
+  v16 = [v12 mutableCopy];
+  if ([v12 containsObject:&unk_1F5BBC388])
+  {
+    if (dCopy)
+    {
+      if (iDCopy)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    else
+    {
+      [v15 setObject:0 forKeyedSubscript:@"SSID"];
+      [v15 setObject:0 forKeyedSubscript:@"SSID_STR"];
+      if (iDCopy)
+      {
+LABEL_13:
+        if (code)
+        {
+          goto LABEL_15;
+        }
+
+        goto LABEL_14;
+      }
+    }
+
+    [v15 setObject:0 forKeyedSubscript:@"BSSID"];
+    if (!code)
+    {
+LABEL_14:
+      [v15 setObject:0 forKeyedSubscript:@"80211D_IE"];
+      [v15 setObject:0 forKeyedSubscript:@"IE"];
+    }
+  }
+
+LABEL_15:
+  if ([v12 containsObject:&unk_1F5BBC340] && !dCopy)
+  {
+    [v16 removeObject:&unk_1F5BBC340];
+  }
+
+  if ([v12 containsObject:&unk_1F5BBC358] && !iDCopy)
+  {
+    [v16 removeObject:&unk_1F5BBC358];
+  }
+
+  if ([v12 containsObject:&unk_1F5BBC370] && !code)
+  {
+    [v16 removeObject:&unk_1F5BBC370];
+  }
+
+  if (v15)
+  {
+    v17 = [CWFScanResult alloc];
+    matchingKnownNetworkProfile = [resultCopy matchingKnownNetworkProfile];
+    v19 = [(CWFXPCConnection *)self __privacyFilteredNetworkProfile:matchingKnownNetworkProfile allowSSID:dCopy allowBSSID:iDCopy];
+    v13 = [(CWFScanResult *)v17 initWithScanRecord:v15 knownNetworkProfile:v19 includeProperties:v16];
+  }
+
+  else
+  {
+    v13 = [resultCopy filteredScanResultWithProperties:v16];
+  }
+
+LABEL_28:
+
+  return v13;
 }
 
 - (id)__privacyFilteredNetworkProfile:(id)profile allowSSID:(BOOL)d allowBSSID:(BOOL)iD
@@ -1827,26 +1916,24 @@ LABEL_23:
 
 - (void)__addXPCGetRequestWithType:(int64_t)type requestParams:(id)params reply:(id)reply
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   if (os_signpost_enabled(MEMORY[0x1E69E9C10]))
   {
     v10 = sub_1E0BC2FCC(type);
     *buf = 138412290;
-    v16 = v10;
+    v15 = v10;
     _os_signpost_emit_with_name_impl(&dword_1E0BBF000, MEMORY[0x1E69E9C10], OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "XPCGetRequestWithType", "%@", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = sub_1E0C36204;
-  v13[3] = &unk_1E86E6A50;
-  v14 = replyCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_1E0C36204;
+  v12[3] = &unk_1E86E6A50;
+  v13 = replyCopy;
   v11 = replyCopy;
-  [(CWFXPCConnection *)self __addXPCRequestWithType:type info:0 requestParams:paramsCopy reply:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(CWFXPCConnection *)self __addXPCRequestWithType:type info:0 requestParams:paramsCopy reply:v12];
 }
 
 - (BOOL)__allowXPCRequestWithType:(int64_t)type error:(id *)error
@@ -1855,11 +1942,11 @@ LABEL_23:
   v133 = 0;
   if ((type - 290) <= 0xFFFFFFFFFFFFFEDELL)
   {
-    v84 = *MEMORY[0x1E696A798];
-    v85 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
-    v23 = CWFErrorWithDescription(v84, 22, v85);
+    v85 = *MEMORY[0x1E696A798];
+    v86 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
+    v23 = CWFErrorWithDescription(v85, 22, v86);
 
-    v43 = 0;
+    v44 = 0;
     v14 = 0;
     v7 = 0;
     goto LABEL_56;
@@ -1871,11 +1958,11 @@ LABEL_23:
 
   if ((v9 & 1) == 0)
   {
-    v86 = *MEMORY[0x1E696A798];
-    v87 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
-    v23 = CWFErrorWithDescription(v86, 45, v87);
+    v87 = *MEMORY[0x1E696A798];
+    v88 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
+    v23 = CWFErrorWithDescription(v87, 45, v88);
 
-    v43 = 0;
+    v44 = 0;
     v14 = 0;
     goto LABEL_56;
   }
@@ -1901,7 +1988,7 @@ LABEL_23:
       bundleID = self->_bundleID;
       codesignID = self->_codesignID;
       v31 = sub_1E0BC1A5C(self->_serviceType);
-      sub_1E0BC2FCC(type);
+      v32 = sub_1E0BC2FCC(type);
       v135 = 67110402;
       *v136 = processIdentifier;
       *&v136[4] = 2114;
@@ -1912,17 +1999,18 @@ LABEL_23:
       *&v136[26] = codesignID;
       *&v136[34] = 2114;
       *&v136[36] = v31;
-      *&v136[46] = *&v136[44] = 2114;
-      _os_log_send_and_compose_impl();
+      *&v136[44] = 2114;
+      *&v136[46] = v32;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 2, "[corewifi] API ENFORCEMENT DISABLED (via bootarg), allowing request (pid=%d proc=%{public}@ bundleID=%{public}@ codesignID=%{public}@ service=%{public}@ req=%{public}@)", &v135, 58);
     }
 
 LABEL_47:
 
     v23 = 0;
     v13 = 0;
-    v43 = 0;
+    v44 = 0;
 LABEL_48:
-    v54 = 1;
+    v56 = 1;
     goto LABEL_49;
   }
 
@@ -1937,17 +2025,18 @@ LABEL_48:
     else
     {
       v11 = MEMORY[0x1E69E9C10];
-      v52 = MEMORY[0x1E69E9C10];
+      v53 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v53 = sub_1E0BC1A5C(self->_serviceType);
-      sub_1E0BC2FCC(type);
+      v54 = sub_1E0BC1A5C(self->_serviceType);
+      v55 = sub_1E0BC2FCC(type);
       v135 = 138543618;
-      *v136 = v53;
-      *&v136[10] = *&v136[8] = 2114;
-      _os_log_send_and_compose_impl();
+      *v136 = v54;
+      *&v136[8] = 2114;
+      *&v136[10] = v55;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 2, "[corewifi] API ENFORCEMENT DISABLED FOR LOCAL (DAEMON) CLIENT, allowing request (service=%{public}@ req=%{public}@)", &v135, 22);
     }
 
     goto LABEL_47;
@@ -1981,7 +2070,7 @@ LABEL_48:
 
           if (bOOLValue)
           {
-            v32 = v14;
+            v33 = v14;
             goto LABEL_25;
           }
         }
@@ -2012,139 +2101,136 @@ LABEL_48:
       else
       {
         v25 = MEMORY[0x1E69E9C10];
-        v57 = MEMORY[0x1E69E9C10];
+        v58 = MEMORY[0x1E69E9C10];
       }
 
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         processIdentifier2 = [(NSXPCConnection *)self->_XPCConnection processIdentifier];
-        v59 = self->_processName;
-        v60 = self->_bundleID;
+        v60 = self->_processName;
+        v61 = self->_bundleID;
         v120 = self->_codesignID;
-        v61 = sub_1E0BC1A5C(self->_serviceType);
-        v62 = sub_1E0BC2FCC(type);
-        v63 = [v14 componentsJoinedByString:@", "];
+        v62 = sub_1E0BC1A5C(self->_serviceType);
+        v63 = sub_1E0BC2FCC(type);
+        v64 = [v14 componentsJoinedByString:@", "];
         v135 = 67110658;
         *v136 = processIdentifier2;
         *&v136[4] = 2114;
-        *&v136[6] = v59;
+        *&v136[6] = v60;
         error = errorCopy;
         *&v136[14] = 2114;
-        *&v136[16] = v60;
+        *&v136[16] = v61;
         *&v136[24] = 2114;
         *&v136[26] = v120;
         *&v136[34] = 2114;
-        *&v136[36] = v61;
+        *&v136[36] = v62;
         *&v136[44] = 2114;
-        *&v136[46] = v62;
+        *&v136[46] = v63;
         *&v136[54] = 2114;
-        *&v136[56] = v63;
-        _os_log_send_and_compose_impl();
+        *&v136[56] = v64;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v25, 2, "[corewifi] MISSING ENTITLEMENT, will not continue (pid=%d proc=%{public}@ bundleID=%{public}@ codesignID=%{public}@ service=%{public}@ req=%{public}@ entitlements=[%{public}@])", &v135, 68);
       }
 
-      v43 = 0;
+      v44 = 0;
       goto LABEL_56;
     }
 
-    v90 = CWFGetOSLog();
-    if (v90)
+    v91 = CWFGetOSLog();
+    if (v91)
     {
-      v32 = CWFGetOSLog();
+      v33 = CWFGetOSLog();
     }
 
     else
     {
-      v32 = MEMORY[0x1E69E9C10];
-      v102 = MEMORY[0x1E69E9C10];
+      v33 = MEMORY[0x1E69E9C10];
+      v103 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
     {
-      v103 = self->_processName;
-      v104 = sub_1E0BC1A5C(self->_serviceType);
-      v105 = sub_1E0BC2FCC(type);
-      v106 = [v14 componentsJoinedByString:@", "];
+      v104 = self->_processName;
+      v105 = sub_1E0BC1A5C(self->_serviceType);
+      v106 = sub_1E0BC2FCC(type);
+      v107 = [v14 componentsJoinedByString:@", "];
       v135 = 138544130;
-      *v136 = v103;
+      *v136 = v104;
       *&v136[8] = 2114;
-      *&v136[10] = v104;
+      *&v136[10] = v105;
       *&v136[18] = 2114;
-      *&v136[20] = v105;
+      *&v136[20] = v106;
       *&v136[28] = 2114;
-      *&v136[30] = v106;
-      LODWORD(v118) = 42;
-      v117 = &v135;
-      _os_log_send_and_compose_impl();
+      *&v136[30] = v107;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v33, 2, "[corewifi] MISSING ENTITLEMENT (proc=%{public}@ service=%{public}@ req=%{public}@ entitlements=[%{public}@])", &v135, 42);
     }
 
 LABEL_25:
   }
 
-  v33 = sub_1E0BC5480(self->_OSInternalVariant, self->_serviceType, type, self->_processName, &v133);
+  v34 = sub_1E0BC5480(self->_OSInternalVariant, self->_serviceType, type, self->_processName, &v133);
   if (v133 != 1)
   {
-    if ((v33 & 1) == 0)
+    if ((v34 & 1) == 0)
     {
-      v88 = CWFGetOSLog();
-      if (v88)
+      v89 = CWFGetOSLog();
+      if (v89)
       {
-        v89 = CWFGetOSLog();
+        v90 = CWFGetOSLog();
       }
 
       else
       {
-        v89 = MEMORY[0x1E69E9C10];
-        v98 = MEMORY[0x1E69E9C10];
+        v90 = MEMORY[0x1E69E9C10];
+        v99 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
       {
-        v99 = self->_processName;
-        v100 = sub_1E0BC1A5C(self->_serviceType);
-        v101 = sub_1E0BC2FCC(type);
+        v100 = self->_processName;
+        v101 = sub_1E0BC1A5C(self->_serviceType);
+        v102 = sub_1E0BC2FCC(type);
         v135 = 138543874;
-        *v136 = v99;
+        *v136 = v100;
         *&v136[8] = 2114;
-        *&v136[10] = v100;
+        *&v136[10] = v101;
         *&v136[18] = 2114;
-        *&v136[20] = v101;
+        *&v136[20] = v102;
         LODWORD(v118) = 32;
-        v117 = &v135;
-        _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v90, 2, "[corewifi] PROCESS NOT ALLOWED FOR REQUEST TYPE (proc=%{public}@ service=%{public}@ req=%{public}@)", &v135, v118);
       }
     }
 
 LABEL_31:
     bootArgs = self->_bootArgs;
-    v38 = self->_processName;
+    v39 = self->_processName;
     serviceType = self->_serviceType;
     v128 = 0;
-    v41 = sub_1E0BC5208(serviceType, type, v38, bootArgs, &v128);
-    v42 = v128;
-    v43 = v42;
-    if (v41)
+    v42 = sub_1E0BC5208(serviceType, type, v39, bootArgs, &v128);
+    v43 = v128;
+    v44 = v43;
+    if (v42)
     {
       v126 = 0u;
       v127 = 0u;
       v124 = 0u;
       v125 = 0u;
-      v43 = v42;
-      v44 = [v43 countByEnumeratingWithState:&v124 objects:v134 count:16];
-      if (v44)
+      v44 = v43;
+      v45 = [v44 countByEnumeratingWithState:&v124 objects:v134 count:16];
+      if (v45)
       {
-        v45 = v44;
-        v46 = *v125;
+        v46 = v45;
+        v47 = *v125;
         while (2)
         {
-          for (j = 0; j != v45; ++j)
+          for (j = 0; j != v46; ++j)
           {
-            if (*v125 != v46)
+            if (*v125 != v47)
             {
-              objc_enumerationMutation(v43);
+              objc_enumerationMutation(v44);
             }
 
-            v118 = [(CWFXPCConnection *)self valueForEntitlement:*(*(&v124 + 1) + 8 * j), v117, v118];
-            bOOLValue2 = [v118 BOOLValue];
+            v49 = [(CWFXPCConnection *)self valueForEntitlement:*(*(&v124 + 1) + 8 * j)];
+            bOOLValue2 = [v49 BOOLValue];
 
             if (bOOLValue2)
             {
@@ -2153,8 +2239,8 @@ LABEL_31:
             }
           }
 
-          v45 = [v43 countByEnumeratingWithState:&v124 objects:v134 count:16];
-          if (v45)
+          v46 = [v44 countByEnumeratingWithState:&v124 objects:v134 count:16];
+          if (v46)
           {
             continue;
           }
@@ -2168,39 +2254,40 @@ LABEL_31:
       {
         if ([(CWFXPCConnection *)self isCodesignedByApple])
         {
-          v50 = CWFGetOSLog();
-          if (v50)
+          v51 = CWFGetOSLog();
+          if (v51)
           {
-            v51 = CWFGetOSLog();
+            v52 = CWFGetOSLog();
           }
 
           else
           {
-            v51 = MEMORY[0x1E69E9C10];
-            v77 = MEMORY[0x1E69E9C10];
+            v52 = MEMORY[0x1E69E9C10];
+            v78 = MEMORY[0x1E69E9C10];
           }
 
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
           {
             processIdentifier3 = [(NSXPCConnection *)self->_XPCConnection processIdentifier];
-            v79 = self->_processName;
-            v80 = self->_bundleID;
-            v81 = self->_codesignID;
-            v82 = sub_1E0BC1A5C(self->_serviceType);
-            v83 = sub_1E0BC2FCC(type);
+            v80 = self->_processName;
+            v81 = self->_bundleID;
+            v82 = self->_codesignID;
+            v83 = sub_1E0BC1A5C(self->_serviceType);
+            v84 = sub_1E0BC2FCC(type);
             v135 = 67110402;
             *v136 = processIdentifier3;
             *&v136[4] = 2114;
-            *&v136[6] = v79;
+            *&v136[6] = v80;
             *&v136[14] = 2114;
-            *&v136[16] = v80;
+            *&v136[16] = v81;
             *&v136[24] = 2114;
-            *&v136[26] = v81;
+            *&v136[26] = v82;
             *&v136[34] = 2114;
-            *&v136[36] = v82;
+            *&v136[36] = v83;
             *&v136[44] = 2114;
-            *&v136[46] = v83;
-            _os_log_send_and_compose_impl();
+            *&v136[46] = v84;
+            LODWORD(v118) = 58;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v52, 2, "[corewifi] Location authorization NOT required for Apple system process (pid=%d proc=%{public}@ bundleID=%{public}@ codesignID=%{public}@ service=%{public}@ req=%{public}@)", &v135, v118);
           }
 
           goto LABEL_51;
@@ -2208,97 +2295,99 @@ LABEL_31:
 
         if ((v133 & 0x100) != 0 && [(CWFXPCConnection *)self isCodesignedByApple])
         {
-          v107 = *MEMORY[0x1E696A798];
-          v108 = CWFErrorDescription(*MEMORY[0x1E696A798], 1uLL);
-          v23 = CWFErrorWithDescription(v107, 1, v108);
+          v108 = *MEMORY[0x1E696A798];
+          v109 = CWFErrorDescription(*MEMORY[0x1E696A798], 1uLL);
+          v23 = CWFErrorWithDescription(v108, 1, v109);
 
-          v109 = CWFGetOSLog();
-          if (v109)
+          v110 = CWFGetOSLog();
+          if (v110)
           {
-            v110 = CWFGetOSLog();
+            v111 = CWFGetOSLog();
           }
 
           else
           {
-            v110 = MEMORY[0x1E69E9C10];
             v111 = MEMORY[0x1E69E9C10];
+            v112 = MEMORY[0x1E69E9C10];
           }
 
-          if (os_log_type_enabled(v110, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v111, OS_LOG_TYPE_DEBUG))
           {
             processIdentifier4 = [(NSXPCConnection *)self->_XPCConnection processIdentifier];
-            v113 = self->_processName;
-            v114 = self->_bundleID;
+            v114 = self->_processName;
+            v115 = self->_bundleID;
             v122 = self->_codesignID;
-            v115 = sub_1E0BC1A5C(self->_serviceType);
-            v116 = sub_1E0BC2FCC(type);
+            v116 = sub_1E0BC1A5C(self->_serviceType);
+            v117 = sub_1E0BC2FCC(type);
             v135 = 67110402;
             *v136 = processIdentifier4;
             *&v136[4] = 2114;
-            *&v136[6] = v113;
+            *&v136[6] = v114;
             *&v136[14] = 2114;
-            *&v136[16] = v114;
+            *&v136[16] = v115;
             *&v136[24] = 2114;
             *&v136[26] = v122;
             *&v136[34] = 2114;
-            *&v136[36] = v115;
+            *&v136[36] = v116;
             *&v136[44] = 2114;
-            *&v136[46] = v116;
-            _os_log_send_and_compose_impl();
+            *&v136[46] = v117;
+            LODWORD(v118) = 58;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v111, 2, "[corewifi] Apple system process requires privacy review for API access (pid=%d proc=%{public}@ bundleID=%{public}@ codesignID=%{public}@ service=%{public}@ req=%{public}@)", &v135, v118);
           }
 
           goto LABEL_85;
         }
       }
 
-      v65 = [(CWFXPCConnection *)self locationAuthorizationStatus:v117];
-      if (v65 != 3)
+      locationAuthorizationStatus = [(CWFXPCConnection *)self locationAuthorizationStatus];
+      if (locationAuthorizationStatus != 3)
       {
-        v66 = v65;
-        if (v65 != 4 || ![(CWFXPCConnection *)self isVisible])
+        v67 = locationAuthorizationStatus;
+        if (locationAuthorizationStatus != 4 || ![(CWFXPCConnection *)self isVisible])
         {
-          v67 = *MEMORY[0x1E696A798];
-          v68 = CWFErrorDescription(*MEMORY[0x1E696A798], 1uLL);
-          v23 = CWFErrorWithDescription(v67, 1, v68);
+          v68 = *MEMORY[0x1E696A798];
+          v69 = CWFErrorDescription(*MEMORY[0x1E696A798], 1uLL);
+          v23 = CWFErrorWithDescription(v68, 1, v69);
 
-          v69 = CWFGetOSLog();
-          if (v69)
+          v70 = CWFGetOSLog();
+          if (v70)
           {
-            v70 = CWFGetOSLog();
+            v71 = CWFGetOSLog();
           }
 
           else
           {
-            v70 = MEMORY[0x1E69E9C10];
             v71 = MEMORY[0x1E69E9C10];
+            v72 = MEMORY[0x1E69E9C10];
           }
 
-          if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
           {
             processIdentifier5 = [(NSXPCConnection *)self->_XPCConnection processIdentifier];
-            v121 = v70;
-            v73 = self->_processName;
-            v74 = self->_bundleID;
+            v121 = v71;
+            v74 = self->_processName;
+            v75 = self->_bundleID;
             v119 = self->_codesignID;
-            v75 = sub_1E0BC1A5C(self->_serviceType);
-            v76 = sub_1E0BC2FCC(type);
+            v76 = sub_1E0BC1A5C(self->_serviceType);
+            v77 = sub_1E0BC2FCC(type);
             v135 = 67110658;
-            *v136 = v66;
+            *v136 = v67;
             *&v136[4] = 1024;
             *&v136[6] = processIdentifier5;
             *&v136[10] = 2114;
-            *&v136[12] = v73;
+            *&v136[12] = v74;
             *&v136[20] = 2114;
-            *&v136[22] = v74;
-            v70 = v121;
+            *&v136[22] = v75;
+            v71 = v121;
             error = errorCopy;
             *&v136[30] = 2114;
             *&v136[32] = v119;
             *&v136[40] = 2114;
-            *&v136[42] = v75;
+            *&v136[42] = v76;
             *&v136[50] = 2114;
-            *&v136[52] = v76;
-            _os_log_send_and_compose_impl();
+            *&v136[52] = v77;
+            LODWORD(v118) = 64;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v121, 2, "[corewifi] APP NOT AUTHORIZED FOR LOCATION SERVICES, will not continue (status=%d pid=%d proc=%{public}@ bundleID=%{public}@ codesignID=%{public}@ service=%{public}@ req=%{public}@)", &v135, v118);
           }
 
           v14 = v13;
@@ -2312,68 +2401,68 @@ LABEL_51:
     goto LABEL_48;
   }
 
-  if (v33)
+  if (v34)
   {
     goto LABEL_31;
   }
 
-  v34 = *MEMORY[0x1E696A798];
-  v35 = CWFErrorDescription(*MEMORY[0x1E696A798], 1uLL);
-  v23 = CWFErrorWithDescription(v34, 1, v35);
+  v35 = *MEMORY[0x1E696A798];
+  v36 = CWFErrorDescription(*MEMORY[0x1E696A798], 1uLL);
+  v23 = CWFErrorWithDescription(v35, 1, v36);
 
-  v36 = CWFGetOSLog();
-  if (v36)
+  v37 = CWFGetOSLog();
+  if (v37)
   {
-    v37 = CWFGetOSLog();
+    v38 = CWFGetOSLog();
   }
 
   else
   {
-    v37 = MEMORY[0x1E69E9C10];
-    v91 = MEMORY[0x1E69E9C10];
+    v38 = MEMORY[0x1E69E9C10];
+    v92 = MEMORY[0x1E69E9C10];
   }
 
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
   {
     processIdentifier6 = [(NSXPCConnection *)self->_XPCConnection processIdentifier];
-    v93 = self->_processName;
-    v94 = self->_bundleID;
-    v95 = self->_codesignID;
-    v96 = sub_1E0BC1A5C(self->_serviceType);
-    v97 = sub_1E0BC2FCC(type);
+    v94 = self->_processName;
+    v95 = self->_bundleID;
+    v96 = self->_codesignID;
+    v97 = sub_1E0BC1A5C(self->_serviceType);
+    v98 = sub_1E0BC2FCC(type);
     v135 = 67110402;
     *v136 = processIdentifier6;
     *&v136[4] = 2114;
-    *&v136[6] = v93;
+    *&v136[6] = v94;
     *&v136[14] = 2114;
-    *&v136[16] = v94;
+    *&v136[16] = v95;
     *&v136[24] = 2114;
-    *&v136[26] = v95;
+    *&v136[26] = v96;
     *&v136[34] = 2114;
-    *&v136[36] = v96;
+    *&v136[36] = v97;
     *&v136[44] = 2114;
-    *&v136[46] = v97;
-    _os_log_send_and_compose_impl();
+    *&v136[46] = v98;
+    LODWORD(v118) = 58;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v38, 2, "[corewifi] PROCESS NOT ALLOWED FOR REQUEST TYPE, will not continue (pid=%d proc=%{public}@ bundleID=%{public}@ codesignID=%{public}@ service=%{public}@ req=%{public}@)", &v135, v118);
   }
 
-  v43 = 0;
+  v44 = 0;
 LABEL_85:
   v14 = v13;
   error = errorCopy;
 LABEL_56:
-  v54 = 0;
+  v56 = 0;
   if (error && v23)
   {
-    v64 = v23;
-    v54 = 0;
+    v65 = v23;
+    v56 = 0;
     *error = v23;
   }
 
   v13 = v14;
 LABEL_49:
 
-  v55 = *MEMORY[0x1E69E9840];
-  return v54;
+  return v56;
 }
 
 - (BOOL)__allowAlreadyPendingRequest:(id)request
@@ -2406,27 +2495,27 @@ LABEL_49:
 
 - (BOOL)__hasPendingRequestWithType:(int64_t)type
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allValues = [(NSMutableDictionary *)self->_mutablePendingRequestMap allValues];
-  v5 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([v9 type] == type && !objc_msgSend(v9, "isSubrequest"))
         {
           v10 = 1;
@@ -2434,7 +2523,7 @@ LABEL_49:
         }
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -2447,7 +2536,6 @@ LABEL_49:
   v10 = 0;
 LABEL_12:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -2464,7 +2552,7 @@ LABEL_12:
 
 - (id)__addXPCRequestWithType:(int64_t)type info:(id)info requestParams:(id)params parentRequestUUID:(id)d isParentRequest:(BOOL)request reply:(id)reply
 {
-  v142 = *MEMORY[0x1E69E9840];
+  v138 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   paramsCopy = params;
   dCopy = d;
@@ -2472,9 +2560,9 @@ LABEL_12:
   v14 = objc_alloc_init(CWFXPCRequest);
   typeCopy = type;
   [(CWFXPCRequest *)v14 setType:type];
-  v93 = paramsCopy;
+  v89 = paramsCopy;
   [(CWFXPCRequest *)v14 setRequestParameters:paramsCopy];
-  v87 = infoCopy;
+  v83 = infoCopy;
   [(CWFXPCRequest *)v14 setInfo:infoCopy];
   date = [MEMORY[0x1E695DF00] date];
   [(CWFXPCRequest *)v14 setReceivedAt:date];
@@ -2502,14 +2590,14 @@ LABEL_12:
       v19 = @"SUBREQ";
     }
 
-    v83 = v19;
-    v86 = sub_1E0BC2FCC(type);
+    v79 = v19;
+    v82 = sub_1E0BC2FCC(type);
     processIdentifier = [(NSXPCConnection *)self->_XPCConnection processIdentifier];
     processName = self->_processName;
     bundleID = self->_bundleID;
     codesignID = self->_codesignID;
-    v85 = sub_1E0BC1A5C(self->_serviceType);
-    interfaceName = [v93 interfaceName];
+    v81 = sub_1E0BC1A5C(self->_serviceType);
+    interfaceName = [v89 interfaceName];
     uUIDString = [uUID UUIDString];
     v25 = [uUIDString substringToIndex:5];
     v26 = [(CWFXPCConnection *)self __isUserPrivacySensitiveRequestType:typeCopy];
@@ -2520,44 +2608,42 @@ LABEL_12:
 
     else
     {
-      v81 = [v87 description];
-      redactedForWiFi = [v81 redactedForWiFi];
+      v77 = [v83 description];
+      redactedForWiFi = [v77 redactedForWiFi];
     }
 
     *location = 138545922;
-    *&location[4] = v83;
+    *&location[4] = v79;
+    v120 = 2114;
+    *v121 = v82;
+    *&v121[8] = 1024;
+    *&v121[10] = processIdentifier;
+    v122 = 2114;
+    v123 = processName;
     v124 = 2114;
-    *v125 = v86;
-    *&v125[8] = 1024;
-    *&v125[10] = processIdentifier;
+    v125 = bundleID;
     v126 = 2114;
-    v127 = processName;
+    v127 = codesignID;
     v128 = 2114;
-    v129 = bundleID;
-    v130 = 2114;
-    v131 = codesignID;
+    v129 = v81;
+    v130 = 1024;
+    v131 = qos_class;
     v132 = 2114;
-    v133 = v85;
-    v134 = 1024;
-    v135 = qos_class;
+    v133 = interfaceName;
+    v134 = 2114;
+    v135 = v25;
     v136 = 2114;
-    v137 = interfaceName;
-    v138 = 2114;
-    v139 = v25;
-    v140 = 2114;
-    v141 = redactedForWiFi;
-    LODWORD(v79) = 104;
-    v77 = location;
-    _os_log_send_and_compose_impl();
+    v137 = redactedForWiFi;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v17, 0, "[corewifi] BEGIN %{public}@ [%{public}@] (pid=%d proc=%{public}@ bundleID=%{public}@ codesignID=%{public}@ service=%{public}@ qos=%d intf=%{public}@ uuid=%{public}@ info=%{public}@)", location, 104);
     if (!v26)
     {
     }
   }
 
   v28 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-  v122 = 0;
-  v29 = [(CWFXPCConnection *)self __allowXPCRequestWithType:typeCopy error:&v122];
-  v30 = v122;
+  v118 = 0;
+  v29 = [(CWFXPCConnection *)self __allowXPCRequestWithType:typeCopy error:&v118];
+  v30 = v118;
   v31 = v30;
   if (!v29)
   {
@@ -2566,14 +2652,14 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = sub_1E0C391A0;
     block[3] = &unk_1E86E6BB8;
-    v101 = replyCopy;
-    v96 = v30;
-    v97 = dCopy;
-    v102 = typeCopy;
-    v103 = v28;
+    v97 = replyCopy;
+    v92 = v30;
+    v93 = dCopy;
+    v98 = typeCopy;
+    v99 = v28;
     selfCopy = self;
-    v99 = v93;
-    v100 = uUID;
+    v95 = v89;
+    v96 = uUID;
     v36 = uUID;
     v37 = dCopy;
     v38 = replyCopy;
@@ -2595,8 +2681,8 @@ LABEL_12:
       v41 = [(CWFXPCConnection *)self __defaultTimeoutForRequestType:[(CWFXPCRequest *)v14 type]];
     }
 
-    v42 = [(CWFXPCRequest *)v14 requestParameters:v77];
-    [v42 setTimeout:v41];
+    requestParameters2 = [(CWFXPCRequest *)v14 requestParameters];
+    [requestParameters2 setTimeout:v41];
 
     v34 = defaultTimeoutOverride >> 63;
   }
@@ -2606,13 +2692,13 @@ LABEL_12:
     LOBYTE(v34) = 0;
   }
 
-  queuePriority = [v93 queuePriority];
+  queuePriority = [v89 queuePriority];
   if (queuePriority)
   {
     [(CWFXPCRequest *)v14 setQueuePriority:queuePriority];
   }
 
-  qualityOfService = [v93 qualityOfService];
+  qualityOfService = [v89 qualityOfService];
   if (!qualityOfService)
   {
     if (qos_class > 0x14)
@@ -2653,9 +2739,8 @@ LABEL_12:
         v60 = [uUIDString2 substringToIndex:5];
         *location = 138543362;
         *&location[4] = v60;
-        LODWORD(v80) = 12;
-        v78 = location;
-        _os_log_send_and_compose_impl();
+        LODWORD(v76) = 12;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v48, 0, "[corewifi] [%{public}@] Incoming QoS is less than 'default', promoting to 'default'", location, v76);
       }
 
       [(CWFXPCRequest *)v14 setQualityOfService:-1];
@@ -2682,16 +2767,15 @@ LABEL_12:
   {
     uUIDString3 = [uUID UUIDString];
     v51 = [uUIDString3 substringToIndex:5];
-    qualityOfService2 = [v93 qualityOfService];
+    qualityOfService2 = [v89 qualityOfService];
     *location = 138543874;
     *&location[4] = v51;
-    v124 = 1024;
-    *v125 = qos_class;
-    *&v125[4] = 2048;
-    *&v125[6] = qualityOfService2;
-    LODWORD(v80) = 28;
-    v78 = location;
-    _os_log_send_and_compose_impl();
+    v120 = 1024;
+    *v121 = qos_class;
+    *&v121[4] = 2048;
+    *&v121[6] = qualityOfService2;
+    LODWORD(v76) = 28;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v46, 0, "[corewifi] [%{public}@] QoS override specified for request (self=%d, override=%ld)", location, v76);
   }
 
   [(CWFXPCRequest *)v14 setQualityOfService:qualityOfService];
@@ -2738,57 +2822,55 @@ LABEL_44:
 
 LABEL_52:
   v61 = MEMORY[0x1E696AEC0];
-  v62 = [(CWFXPCConnection *)selfCopy4 UUID:v78];
-  uUIDString4 = [v62 UUIDString];
+  uUID2 = [(CWFXPCConnection *)selfCopy4 UUID];
+  uUIDString4 = [uUID2 UUIDString];
   uUIDString5 = [uUID UUIDString];
   v65 = sub_1E0BC2E18(v14);
   v66 = [v61 stringWithFormat:@"%@/%@/%@", uUIDString4, uUIDString5, v65];
   [(CWFXPCRequest *)v14 setName:v66];
 
   objc_initWeak(location, v14);
-  v114[0] = MEMORY[0x1E69E9820];
-  v114[1] = 3221225472;
-  v114[2] = sub_1E0C37D60;
-  v114[3] = &unk_1E86E6AC8;
-  objc_copyWeak(v120, location);
-  v114[4] = self;
-  v121 = qos_class;
+  v110[0] = MEMORY[0x1E69E9820];
+  v110[1] = 3221225472;
+  v110[2] = sub_1E0C37D60;
+  v110[3] = &unk_1E86E6AC8;
+  objc_copyWeak(v116, location);
+  v110[4] = self;
+  v117 = qos_class;
   v67 = uUID;
-  v115 = v67;
+  v111 = v67;
   v68 = dCopy;
-  v116 = v68;
-  v120[1] = typeCopy;
-  v120[2] = v28;
-  v117 = v93;
+  v112 = v68;
+  v116[1] = typeCopy;
+  v116[2] = v28;
+  v113 = v89;
   v69 = replyCopy;
-  v119 = v69;
-  v118 = v31;
-  [(CWFXPCRequest *)v14 setResponse:v114];
+  v115 = v69;
+  v114 = v31;
+  [(CWFXPCRequest *)v14 setResponse:v110];
   mutexQueue = self->_mutexQueue;
-  v104[0] = MEMORY[0x1E69E9820];
-  v104[1] = 3221225472;
-  v104[2] = sub_1E0C388F4;
-  v104[3] = &unk_1E86E6B90;
-  v105 = v68;
+  v100[0] = MEMORY[0x1E69E9820];
+  v100[1] = 3221225472;
+  v100[2] = sub_1E0C388F4;
+  v100[3] = &unk_1E86E6B90;
+  v101 = v68;
   selfCopy5 = self;
-  v111 = qos_class;
-  v109 = v69;
-  v110 = typeCopy;
+  v107 = qos_class;
+  v105 = v69;
+  v106 = typeCopy;
   requestCopy = request;
-  v113 = v34;
-  v107 = v14;
-  v108 = v67;
+  v109 = v34;
+  v103 = v14;
+  v104 = v67;
   v71 = v67;
   v72 = v68;
   v73 = v69;
-  v74 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, qos_class, 0, v104);
+  v74 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, qos_class, 0, v100);
   dispatch_async(mutexQueue, v74);
 
-  objc_destroyWeak(v120);
+  objc_destroyWeak(v116);
   objc_destroyWeak(location);
 LABEL_53:
-
-  v75 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -2871,7 +2953,7 @@ LABEL_53:
 
 - (void)startMonitoringEvent:(id)event requestParams:(id)params reply:(id)reply
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   paramsCopy = params;
   replyCopy = reply;
@@ -2898,54 +2980,58 @@ LABEL_53:
     codesignID = self->_codesignID;
     v20 = sub_1E0BC1A5C(self->_serviceType);
     [paramsCopy interfaceName];
-    v40 = 138544898;
-    v41 = v14;
-    v42 = 1024;
-    v43 = processIdentifier;
-    v44 = 2114;
-    v45 = processName;
-    v46 = 2114;
-    v47 = bundleID;
+    v21 = v34 = paramsCopy;
+    v41 = 138544898;
+    v42 = v14;
+    v43 = 1024;
+    v44 = processIdentifier;
+    v45 = 2114;
+    v46 = processName;
+    v47 = 2114;
+    v48 = bundleID;
     replyCopy = v17;
     eventCopy = v16;
-    v48 = 2114;
-    v49 = codesignID;
-    v50 = 2114;
-    v51 = v20;
-    v53 = v52 = 2114;
-    _os_log_send_and_compose_impl();
+    v49 = 2114;
+    v50 = codesignID;
+    v51 = 2114;
+    v52 = v20;
+    v53 = 2114;
+    v54 = v21;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 0, "[corewifi] RECV START MONITORING EVENT [%{public}@] (pid=%d proc=%{public}@ bundleID=%{public}@ codesignID=%{public}@ service=%{public}@ intf=%{public}@)", &v41, 68);
+
+    paramsCopy = v34;
   }
 
-  v21 = [eventCopy copy];
+  v22 = [eventCopy copy];
   if (([eventCopy type] - 43) <= 3)
   {
-    v22 = [(CWFXPCConnection *)self __wifiNetworkSharingClientIDWithRequestParameters:paramsCopy];
-    if (!v22)
+    v23 = [(CWFXPCConnection *)self __wifiNetworkSharingClientIDWithRequestParameters:paramsCopy];
+    if (!v23)
     {
       replyQueue = self->_replyQueue;
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = sub_1E0C39C2C;
-      v38[3] = &unk_1E86E6AF0;
-      v39 = replyCopy;
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = sub_1E0C39C2C;
+      v39[3] = &unk_1E86E6AF0;
+      v40 = replyCopy;
       v32 = replyCopy;
-      dispatch_async(replyQueue, v38);
-      v29 = v39;
+      dispatch_async(replyQueue, v39);
+      v30 = v40;
       goto LABEL_10;
     }
 
-    v23 = v22;
-    v24 = objc_alloc_init(CWFWiFiNetworkSharingEventID);
+    v24 = v23;
+    v25 = objc_alloc_init(CWFWiFiNetworkSharingEventID);
 
-    -[CWFEventID setType:](v24, "setType:", [eventCopy type]);
+    -[CWFEventID setType:](v25, "setType:", [eventCopy type]);
     interfaceName = [eventCopy interfaceName];
-    [(CWFEventID *)v24 setInterfaceName:interfaceName];
+    [(CWFEventID *)v25 setInterfaceName:interfaceName];
 
-    [(CWFWiFiNetworkSharingEventID *)v24 setClientID:v23];
+    [(CWFWiFiNetworkSharingEventID *)v25 setClientID:v24];
     wifiNetworkSharingNetworkListUpdateEventPredicateData = [paramsCopy wifiNetworkSharingNetworkListUpdateEventPredicateData];
-    [(CWFWiFiNetworkSharingEventID *)v24 setNetworkListUpdateEventPredicateData:wifiNetworkSharingNetworkListUpdateEventPredicateData];
+    [(CWFWiFiNetworkSharingEventID *)v25 setNetworkListUpdateEventPredicateData:wifiNetworkSharingNetworkListUpdateEventPredicateData];
 
-    v21 = v24;
+    v22 = v25;
   }
 
   mutexQueue = self->_mutexQueue;
@@ -2954,22 +3040,20 @@ LABEL_53:
   block[2] = sub_1E0C39CCC;
   block[3] = &unk_1E86E6C30;
   block[4] = self;
-  v21 = v21;
-  v35 = v21;
-  v36 = paramsCopy;
-  v37 = replyCopy;
-  v28 = replyCopy;
+  v22 = v22;
+  v36 = v22;
+  v37 = paramsCopy;
+  v38 = replyCopy;
+  v29 = replyCopy;
   dispatch_async(mutexQueue, block);
 
-  v29 = v35;
+  v30 = v36;
 LABEL_10:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopMonitoringEvent:(id)event requestParams:(id)params reply:(id)reply
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   paramsCopy = params;
   replyCopy = reply;
@@ -2996,22 +3080,26 @@ LABEL_10:
     codesignID = self->_codesignID;
     v20 = sub_1E0BC1A5C(self->_serviceType);
     [paramsCopy interfaceName];
-    v31 = 138544898;
-    v32 = v14;
-    v33 = 1024;
-    v34 = processIdentifier;
-    v35 = 2114;
-    v36 = processName;
-    v37 = 2114;
-    v38 = bundleID;
-    v39 = 2114;
-    v40 = codesignID;
+    v21 = v27 = paramsCopy;
+    v32 = 138544898;
+    v33 = v14;
+    v34 = 1024;
+    v35 = processIdentifier;
+    v36 = 2114;
+    v37 = processName;
+    v38 = 2114;
+    v39 = bundleID;
+    v40 = 2114;
+    v41 = codesignID;
     replyCopy = v18;
     eventCopy = v26;
-    v41 = 2114;
-    v42 = v20;
-    v44 = v43 = 2114;
-    _os_log_send_and_compose_impl();
+    v42 = 2114;
+    v43 = v20;
+    v44 = 2114;
+    v45 = v21;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 0, "[corewifi] RECV STOP MONITORING EVENT [%{public}@] (pid=%d proc=%{public}@ bundleID=%{public}@ codesignID=%{public}@ service=%{public}@ intf=%{public}@)", &v32, 68);
+
+    paramsCopy = v27;
   }
 
   mutexQueue = self->_mutexQueue;
@@ -3020,20 +3108,18 @@ LABEL_10:
   block[2] = sub_1E0C3A3C8;
   block[3] = &unk_1E86E6C30;
   block[4] = self;
-  v28 = eventCopy;
-  v29 = paramsCopy;
-  v30 = replyCopy;
-  v22 = replyCopy;
-  v23 = paramsCopy;
-  v24 = eventCopy;
+  v29 = eventCopy;
+  v30 = paramsCopy;
+  v31 = replyCopy;
+  v23 = replyCopy;
+  v24 = paramsCopy;
+  v25 = eventCopy;
   dispatch_async(mutexQueue, block);
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopMonitoringAllEventsWithRequestParams:(id)params reply:(id)reply
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v8 = CWFGetOSLog();
@@ -3055,19 +3141,20 @@ LABEL_10:
     bundleID = self->_bundleID;
     codesignID = self->_codesignID;
     v15 = sub_1E0BC1A5C(self->_serviceType);
-    [paramsCopy interfaceName];
-    v23 = 67110402;
-    v24 = processIdentifier;
-    v25 = 2114;
-    v26 = processName;
-    v27 = 2114;
-    v28 = bundleID;
-    v29 = 2114;
-    v30 = codesignID;
-    v31 = 2114;
-    v32 = v15;
-    v34 = v33 = 2114;
-    _os_log_send_and_compose_impl();
+    interfaceName = [paramsCopy interfaceName];
+    v23[0] = 67110402;
+    v23[1] = processIdentifier;
+    v24 = 2114;
+    v25 = processName;
+    v26 = 2114;
+    v27 = bundleID;
+    v28 = 2114;
+    v29 = codesignID;
+    v30 = 2114;
+    v31 = v15;
+    v32 = 2114;
+    v33 = interfaceName;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 0, "[corewifi] RECV STOP MONITORING ALL EVENTS (pid=%d proc=%{public}@ bundleID=%{public}@ codesignID=%{public}@ service=%{public}@ intf=%{public}@)", v23, 58);
   }
 
   mutexQueue = self->_mutexQueue;
@@ -3078,11 +3165,9 @@ LABEL_10:
   block[4] = self;
   v21 = paramsCopy;
   v22 = replyCopy;
-  v17 = replyCopy;
-  v18 = paramsCopy;
+  v18 = replyCopy;
+  v19 = paramsCopy;
   dispatch_async(mutexQueue, block);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginActivity:(id)activity requestParams:(id)params reply:(id)reply
@@ -3161,24 +3246,24 @@ LABEL_10:
 
 - (void)setCompanionCountryCode:(id)code requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (code)
   {
-    v21 = @"CountryCode";
-    v22[0] = code;
+    v20 = @"CountryCode";
+    v21[0] = code;
     v11 = MEMORY[0x1E695DF20];
     codeCopy = code;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C3CCE8;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:23 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C3CCE8;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:23 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -3188,12 +3273,10 @@ LABEL_10:
     block[1] = 3221225472;
     block[2] = sub_1E0C3CD00;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryCurrentKnownNetworkProfileWithRequestParams:(id)params reply:(id)reply
@@ -3252,60 +3335,11 @@ LABEL_10:
 
 - (id)__filterScanResultsForPrivacy:(id)privacy
 {
-  v25 = *MEMORY[0x1E69E9840];
-  privacyCopy = privacy;
-  v5 = [(CWFXPCConnection *)self __allowXPCRequestWithType:7 error:0];
-  v6 = [(CWFXPCConnection *)self __allowXPCRequestWithType:9 error:0];
-  v7 = [(CWFXPCConnection *)self __allowXPCRequestWithType:22 error:0];
-  array = [MEMORY[0x1E695DF70] array];
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v8 = privacyCopy;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
-  if (v9)
-  {
-    v10 = v9;
-    v11 = *v21;
-    do
-    {
-      for (i = 0; i != v10; ++i)
-      {
-        if (*v21 != v11)
-        {
-          objc_enumerationMutation(v8);
-        }
-
-        v13 = *(*(&v20 + 1) + 8 * i);
-        v14 = objc_autoreleasePoolPush();
-        v15 = [(CWFXPCConnection *)self __privacyFilteredScanResult:v13 allowSSID:v5 allowBSSID:v6 allowCountryCode:v7];
-        if (v15)
-        {
-          [array addObject:v15];
-        }
-
-        objc_autoreleasePoolPop(v14);
-      }
-
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
-    }
-
-    while (v10);
-  }
-
-  v16 = [array copy];
-  v17 = *MEMORY[0x1E69E9840];
-
-  return v16;
-}
-
-- (id)__filterNetworkProfilesForPrivacy:(id)privacy
-{
   v24 = *MEMORY[0x1E69E9840];
   privacyCopy = privacy;
   v5 = [(CWFXPCConnection *)self __allowXPCRequestWithType:7 error:0];
   v6 = [(CWFXPCConnection *)self __allowXPCRequestWithType:9 error:0];
+  v7 = [(CWFXPCConnection *)self __allowXPCRequestWithType:22 error:0];
   array = [MEMORY[0x1E695DF70] array];
   v19 = 0u;
   v20 = 0u;
@@ -3328,7 +3362,7 @@ LABEL_10:
 
         v13 = *(*(&v19 + 1) + 8 * i);
         v14 = objc_autoreleasePoolPush();
-        v15 = [(CWFXPCConnection *)self __privacyFilteredNetworkProfile:v13 allowSSID:v5 allowBSSID:v6, v19];
+        v15 = [(CWFXPCConnection *)self __privacyFilteredScanResult:v13 allowSSID:v5 allowBSSID:v6 allowCountryCode:v7];
         if (v15)
         {
           [array addObject:v15];
@@ -3344,37 +3378,84 @@ LABEL_10:
   }
 
   v16 = [array copy];
-  v17 = *MEMORY[0x1E69E9840];
+
+  return v16;
+}
+
+- (id)__filterNetworkProfilesForPrivacy:(id)privacy
+{
+  v23 = *MEMORY[0x1E69E9840];
+  privacyCopy = privacy;
+  v5 = [(CWFXPCConnection *)self __allowXPCRequestWithType:7 error:0];
+  v6 = [(CWFXPCConnection *)self __allowXPCRequestWithType:9 error:0];
+  array = [MEMORY[0x1E695DF70] array];
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v8 = privacyCopy;
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v19;
+    do
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v19 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(*(&v18 + 1) + 8 * i);
+        v14 = objc_autoreleasePoolPush();
+        v15 = [(CWFXPCConnection *)self __privacyFilteredNetworkProfile:v13 allowSSID:v5 allowBSSID:v6, v18];
+        if (v15)
+        {
+          [array addObject:v15];
+        }
+
+        objc_autoreleasePoolPop(v14);
+      }
+
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    }
+
+    while (v10);
+  }
+
+  v16 = [array copy];
 
   return v16;
 }
 
 - (id)__matchedScanResultsWithKnownNetworkProfiles:(id)profiles scanResults:(id)results
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   profilesCopy = profiles;
   resultsCopy = results;
   array = [MEMORY[0x1E695DF70] array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = resultsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         v14 = objc_autoreleasePoolPush();
         v15 = sub_1E0BED85C(v13, profilesCopy);
         if (v15)
@@ -3385,20 +3466,19 @@ LABEL_10:
 
         else
         {
-          [array addObject:{v13, v20}];
+          [array addObject:{v13, v19}];
         }
 
         objc_autoreleasePoolPop(v14);
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
 
   v17 = [array copy];
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -3449,7 +3529,7 @@ LABEL_10:
 
 - (void)__performFollowupANQPForPasspointScanResults:(id)results combinedScanResults:(id)scanResults parameters:(id)parameters parentXPCRequest:(id)request
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   scanResultsCopy = scanResults;
   parametersCopy = parameters;
@@ -3462,54 +3542,52 @@ LABEL_10:
   -[CWFANQPParameters setMaximumAge:](v14, "setMaximumAge:", [parametersCopy maximumANQPAgeForPasspointScanResults]);
   [(CWFANQPParameters *)v14 setScanResults:resultsCopy];
   objc_initWeak(&location, self);
-  v30 = @"ANQPParams";
-  v31[0] = v14;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  v29 = @"ANQPParams";
+  v30[0] = v14;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
   requestParameters = [requestCopy requestParameters];
   uUID = [requestCopy UUID];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = sub_1E0C3E43C;
-  v24[3] = &unk_1E86E6E38;
-  objc_copyWeak(&v28, &location);
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = sub_1E0C3E43C;
+  v23[3] = &unk_1E86E6E38;
+  objc_copyWeak(&v27, &location);
   v19 = scanResultsCopy;
-  v25 = v19;
+  v24 = v19;
   v20 = parametersCopy;
-  v26 = v20;
+  v25 = v20;
   v21 = requestCopy;
-  v27 = v21;
-  v22 = [(CWFXPCConnection *)self __addXPCRequestWithType:65 info:v16 requestParams:requestParameters parentRequestUUID:uUID isParentRequest:0 reply:v24];
+  v26 = v21;
+  v22 = [(CWFXPCConnection *)self __addXPCRequestWithType:65 info:v16 requestParams:requestParameters parentRequestUUID:uUID isParentRequest:0 reply:v23];
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(&location);
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)__passpointScanResults:(id)results
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [resultsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [resultsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     array = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(resultsCopy);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([v9 isPasspoint])
         {
           if (!array)
@@ -3521,7 +3599,7 @@ LABEL_10:
         }
       }
 
-      v5 = [resultsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [resultsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -3534,42 +3612,38 @@ LABEL_10:
 
   v10 = [array copy];
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (void)__performScanWithParameters:(id)parameters parentXPCRequest:(id)request
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   requestCopy = request;
   objc_initWeak(&location, self);
-  v20 = @"ScanParams";
-  v21[0] = parametersCopy;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v19 = @"ScanParams";
+  v20[0] = parametersCopy;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   requestParameters = [requestCopy requestParameters];
   uUID = [requestCopy UUID];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1E0C3E91C;
-  v15[3] = &unk_1E86E6CF8;
-  objc_copyWeak(&v18, &location);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1E0C3E91C;
+  v14[3] = &unk_1E86E6CF8;
+  objc_copyWeak(&v17, &location);
   v11 = parametersCopy;
-  v16 = v11;
+  v15 = v11;
   v12 = requestCopy;
-  v17 = v12;
-  v13 = [(CWFXPCConnection *)self __addXPCRequestWithType:64 info:v8 requestParams:requestParameters parentRequestUUID:uUID isParentRequest:0 reply:v15];
+  v16 = v12;
+  v13 = [(CWFXPCConnection *)self __addXPCRequestWithType:64 info:v8 requestParams:requestParameters parentRequestUUID:uUID isParentRequest:0 reply:v14];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performScanWithParameters:(id)parameters requestParams:(id)params reply:(id)reply
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   paramsCopy = params;
   replyCopy = reply;
@@ -3581,7 +3655,7 @@ LABEL_10:
     block[1] = 3221225472;
     block[2] = sub_1E0C3F03C;
     block[3] = &unk_1E86E6AF0;
-    v20 = replyCopy;
+    v19 = replyCopy;
     dispatch_async(replyQueue, block);
 
     goto LABEL_8;
@@ -3595,75 +3669,71 @@ LABEL_10:
 
   else if (([parametersCopy includeMatchingKnownNetworkProfiles] & 1) == 0)
   {
-    v28 = @"ScanParams";
-    v29 = parametersCopy;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = sub_1E0C3EF54;
-    v21[3] = &unk_1E86E6E60;
-    v14 = &v23;
-    objc_copyWeak(&v23, &location);
-    v22 = v11;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:64 info:v15 requestParams:paramsCopy reply:v21];
-    v16 = &v22;
+    v27 = @"ScanParams";
+    v28 = parametersCopy;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = sub_1E0C3EF54;
+    v20[3] = &unk_1E86E6E60;
+    v14 = &v22;
+    objc_copyWeak(&v22, &location);
+    v21 = v11;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:64 info:v15 requestParams:paramsCopy reply:v20];
+    v16 = &v21;
     goto LABEL_6;
   }
 
-  v30 = @"ScanParams";
-  v31[0] = parametersCopy;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = sub_1E0C3EE6C;
-  v24[3] = &unk_1E86E6E60;
-  v14 = &v26;
-  objc_copyWeak(&v26, &location);
-  v25 = v11;
-  v15 = [(CWFXPCConnection *)self __addXPCRequestWithType:64 info:v13 requestParams:paramsCopy parentRequestUUID:0 isParentRequest:1 reply:v24];
+  v29 = @"ScanParams";
+  v30[0] = parametersCopy;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = sub_1E0C3EE6C;
+  v23[3] = &unk_1E86E6E60;
+  v14 = &v25;
+  objc_copyWeak(&v25, &location);
+  v24 = v11;
+  v15 = [(CWFXPCConnection *)self __addXPCRequestWithType:64 info:v13 requestParams:paramsCopy parentRequestUUID:0 isParentRequest:1 reply:v23];
 
   [(CWFXPCConnection *)self __performScanWithParameters:parametersCopy parentXPCRequest:v15];
-  v16 = &v25;
+  v16 = &v24;
 LABEL_6:
 
   objc_destroyWeak(v14);
   objc_destroyWeak(&location);
 LABEL_8:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__performANQPWithParameters:(id)parameters parentXPCRequest:(id)request
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   requestCopy = request;
   objc_initWeak(&location, self);
-  v20 = @"ANQPParams";
-  v21[0] = parametersCopy;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v19 = @"ANQPParams";
+  v20[0] = parametersCopy;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   requestParameters = [requestCopy requestParameters];
   uUID = [requestCopy UUID];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1E0C3F2AC;
-  v15[3] = &unk_1E86E6CF8;
-  objc_copyWeak(&v18, &location);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1E0C3F2AC;
+  v14[3] = &unk_1E86E6CF8;
+  objc_copyWeak(&v17, &location);
   v11 = parametersCopy;
-  v16 = v11;
+  v15 = v11;
   v12 = requestCopy;
-  v17 = v12;
-  v13 = [(CWFXPCConnection *)self __addXPCRequestWithType:65 info:v8 requestParams:requestParameters parentRequestUUID:uUID isParentRequest:0 reply:v15];
+  v16 = v12;
+  v13 = [(CWFXPCConnection *)self __addXPCRequestWithType:65 info:v8 requestParams:requestParameters parentRequestUUID:uUID isParentRequest:0 reply:v14];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performANQPWithParameters:(id)parameters requestParams:(id)params reply:(id)reply
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   paramsCopy = params;
   replyCopy = reply;
@@ -3673,32 +3743,32 @@ LABEL_8:
     objc_initWeak(&location, self);
     if ([parametersCopy includeMatchingKnownNetworkProfiles])
     {
-      v12 = v21;
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = sub_1E0C3F678;
-      v21[3] = &unk_1E86E6E60;
-      v13 = &v22;
-      objc_copyWeak(&v22, &location);
-      v21[4] = v11;
-      v14 = [(CWFXPCConnection *)self __addXPCRequestWithType:65 info:0 requestParams:paramsCopy parentRequestUUID:0 isParentRequest:1 reply:v21];
+      v12 = v20;
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = sub_1E0C3F678;
+      v20[3] = &unk_1E86E6E60;
+      v13 = &v21;
+      objc_copyWeak(&v21, &location);
+      v20[4] = v11;
+      v14 = [(CWFXPCConnection *)self __addXPCRequestWithType:65 info:0 requestParams:paramsCopy parentRequestUUID:0 isParentRequest:1 reply:v20];
       [(CWFXPCConnection *)self __performANQPWithParameters:parametersCopy parentXPCRequest:v14];
     }
 
     else
     {
-      v24 = @"ANQPParams";
-      v25[0] = parametersCopy;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-      v12 = v19;
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = sub_1E0C3F760;
-      v19[3] = &unk_1E86E6E60;
-      v13 = &v20;
-      objc_copyWeak(&v20, &location);
-      v19[4] = v11;
-      [(CWFXPCConnection *)self __addXPCRequestWithType:65 info:v14 requestParams:paramsCopy reply:v19];
+      v23 = @"ANQPParams";
+      v24[0] = parametersCopy;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+      v12 = v18;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = sub_1E0C3F760;
+      v18[3] = &unk_1E86E6E60;
+      v13 = &v19;
+      objc_copyWeak(&v19, &location);
+      v18[4] = v11;
+      [(CWFXPCConnection *)self __addXPCRequestWithType:65 info:v14 requestParams:paramsCopy reply:v18];
     }
 
     objc_destroyWeak(v13);
@@ -3712,33 +3782,31 @@ LABEL_8:
     block[1] = 3221225472;
     block[2] = sub_1E0C3F848;
     block[3] = &unk_1E86E6AF0;
-    v18 = replyCopy;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setChannel:(id)channel requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (channel)
   {
-    v21 = @"Channel";
-    v22[0] = channel;
+    v20 = @"Channel";
+    v21[0] = channel;
     v11 = MEMORY[0x1E695DF20];
     channelCopy = channel;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C3FA88;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:17 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C3FA88;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:17 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -3748,37 +3816,94 @@ LABEL_8:
     block[1] = 3221225472;
     block[2] = sub_1E0C3FAA0;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
-- (void)performRangingWithPeerList:(id)list timeout:(unint64_t)timeout requestParams:(id)params reply:(id)reply
+- (void)setPower:(BOOL)power requestParams:(id)params reply:(id)reply
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  powerCopy = power;
+  v17[1] = *MEMORY[0x1E69E9840];
+  replyCopy = reply;
+  v16 = @"Power";
+  v9 = MEMORY[0x1E696AD98];
+  paramsCopy = params;
+  v11 = [v9 numberWithBool:powerCopy];
+  v17[0] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1E0C3FC8C;
+  v14[3] = &unk_1E86E6A50;
+  v15 = replyCopy;
+  v13 = replyCopy;
+  [(CWFXPCConnection *)self __addXPCRequestWithType:6 info:v12 requestParams:paramsCopy reply:v14];
+}
+
+- (void)setRangeable:(BOOL)rangeable peerList:(id)list requestParams:(id)params reply:(id)reply
+{
+  rangeableCopy = rangeable;
+  v24[2] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v12 = replyCopy;
   if (list)
   {
-    v25[0] = list;
-    v24[0] = @"RangingPeerList";
-    v24[1] = @"RangingTimeout";
+    v23[0] = @"Rangeable";
+    v13 = MEMORY[0x1E696AD98];
+    listCopy = list;
+    v15 = [v13 numberWithBool:rangeableCopy];
+    v23[1] = @"RangingPeerList";
+    v24[0] = v15;
+    v24[1] = listCopy;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = sub_1E0C3FE80;
+    v21[3] = &unk_1E86E6A50;
+    v17 = &v22;
+    v22 = v12;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:68 info:v16 requestParams:paramsCopy reply:v21];
+  }
+
+  else
+  {
+    replyQueue = self->_replyQueue;
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = sub_1E0C3FE98;
+    block[3] = &unk_1E86E6AF0;
+    v17 = &v20;
+    v20 = replyCopy;
+    dispatch_async(replyQueue, block);
+  }
+}
+
+- (void)performRangingWithPeerList:(id)list timeout:(unint64_t)timeout requestParams:(id)params reply:(id)reply
+{
+  v24[2] = *MEMORY[0x1E69E9840];
+  paramsCopy = params;
+  replyCopy = reply;
+  v12 = replyCopy;
+  if (list)
+  {
+    v24[0] = list;
+    v23[0] = @"RangingPeerList";
+    v23[1] = @"RangingTimeout";
     v13 = MEMORY[0x1E696AD98];
     listCopy = list;
     v15 = [v13 numberWithUnsignedInteger:timeout];
-    v25[1] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = sub_1E0C40110;
-    v22[3] = &unk_1E86E6A50;
-    v17 = &v23;
-    v23 = v12;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:69 info:v16 requestParams:paramsCopy reply:v22];
+    v24[1] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = sub_1E0C40110;
+    v21[3] = &unk_1E86E6A50;
+    v17 = &v22;
+    v22 = v12;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:69 info:v16 requestParams:paramsCopy reply:v21];
   }
 
   else
@@ -3788,25 +3913,23 @@ LABEL_8:
     block[1] = 3221225472;
     block[2] = sub_1E0C401B4;
     block[3] = &unk_1E86E6AF0;
-    v17 = &v21;
-    v21 = replyCopy;
+    v17 = &v20;
+    v20 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setRangingIdentifier:(id)identifier requestParams:(id)params reply:(id)reply
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   paramsCopy = params;
   replyCopy = reply;
   if (identifierCopy)
   {
-    v16 = @"RangingIdentifier";
-    v17[0] = identifierCopy;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = @"RangingIdentifier";
+    v16[0] = identifierCopy;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   }
 
   else
@@ -3814,40 +3937,38 @@ LABEL_8:
     v11 = 0;
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = sub_1E0C4039C;
-  v14[3] = &unk_1E86E6A50;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1E0C4039C;
+  v13[3] = &unk_1E86E6A50;
   v12 = replyCopy;
-  v15 = v12;
-  [(CWFXPCConnection *)self __addXPCRequestWithType:174 info:v11 requestParams:paramsCopy reply:v14];
+  v14 = v12;
+  [(CWFXPCConnection *)self __addXPCRequestWithType:174 info:v11 requestParams:paramsCopy reply:v13];
   if (identifierCopy)
   {
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startAWDLPeerAssistedDiscoveryWithParameters:(id)parameters requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (parameters)
   {
-    v21 = @"AWDLPeerAssistedDiscoveryParams";
-    v22[0] = parameters;
+    v20 = @"AWDLPeerAssistedDiscoveryParams";
+    v21[0] = parameters;
     v11 = MEMORY[0x1E695DF20];
     parametersCopy = parameters;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C40550;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:66 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C40550;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:66 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -3857,12 +3978,10 @@ LABEL_8:
     block[1] = 3221225472;
     block[2] = sub_1E0C40568;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopAWDLPeerAssistedDiscoveryWithRequestParams:(id)params reply:(id)reply
@@ -3879,7 +3998,7 @@ LABEL_8:
 
 - (id)__shouldPerformPreAssociation6GHzFollowupScan:(id)scan
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   scanCopy = scan;
   v4 = scanCopy;
   if (!scanCopy || ([scanCopy isFILSDiscoveryFrame] & 1) != 0 || (objc_msgSend(v4, "channel"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "is6GHz"), v5, (v6 & 1) != 0))
@@ -3896,12 +4015,12 @@ LABEL_28:
     goto LABEL_24;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   rNRBSSList = rNRBSSList;
-  v8 = [rNRBSSList countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [rNRBSSList countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (!v8)
   {
     v10 = 0;
@@ -3910,17 +4029,17 @@ LABEL_28:
 
   v9 = v8;
   v10 = 0;
-  v11 = *v21;
+  v11 = *v20;
   while (2)
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v21 != v11)
+      if (*v20 != v11)
       {
         objc_enumerationMutation(rNRBSSList);
       }
 
-      v13 = *(*(&v20 + 1) + 8 * i);
+      v13 = *(*(&v19 + 1) + 8 * i);
       channel = [v13 channel];
       is6GHz = [channel is6GHz];
 
@@ -3955,7 +4074,7 @@ LABEL_28:
       }
     }
 
-    v9 = [rNRBSSList countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [rNRBSSList countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       continue;
@@ -3967,14 +4086,13 @@ LABEL_28:
 LABEL_23:
 
 LABEL_24:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (void)__perform6GHzFollowupScanAndAssociateWithParameters:(id)parameters BSS:(id)s parentXPCRequest:(id)request
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   sCopy = s;
   requestCopy = request;
@@ -3987,8 +4105,8 @@ LABEL_24:
   [(CWFScanParameters *)v11 setBSSID:bSSID];
 
   channel = [sCopy channel];
-  v32[0] = channel;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
+  v31[0] = channel;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
   [(CWFScanParameters *)v11 setChannels:v16];
 
   [(CWFScanParameters *)v11 setBSSType:3];
@@ -4007,31 +4125,29 @@ LABEL_24:
 
   [(CWFScanParameters *)v11 setScanFlags:v17];
   objc_initWeak(&location, self);
-  v30 = @"ScanParams";
-  v31 = v11;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+  v29 = @"ScanParams";
+  v30 = v11;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
   requestParameters = [requestCopy requestParameters];
   uUID = [requestCopy UUID];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = sub_1E0C40B9C;
-  v25[3] = &unk_1E86E6CF8;
-  objc_copyWeak(&v28, &location);
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = sub_1E0C40B9C;
+  v24[3] = &unk_1E86E6CF8;
+  objc_copyWeak(&v27, &location);
   v21 = parametersCopy;
-  v26 = v21;
+  v25 = v21;
   v22 = requestCopy;
-  v27 = v22;
-  v23 = [(CWFXPCConnection *)self __addXPCRequestWithType:64 info:v18 requestParams:requestParameters parentRequestUUID:uUID isParentRequest:0 reply:v25];
+  v26 = v22;
+  v23 = [(CWFXPCConnection *)self __addXPCRequestWithType:64 info:v18 requestParams:requestParameters parentRequestUUID:uUID isParentRequest:0 reply:v24];
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(&location);
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)associateWithParameters:(id)parameters requestParams:(id)params reply:(id)reply
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   paramsCopy = params;
   replyCopy = reply;
@@ -4043,74 +4159,90 @@ LABEL_24:
 
     if (v13)
     {
-      v27 = @"AssocParams";
-      v28[0] = parametersCopy;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = sub_1E0C41018;
-      v23[3] = &unk_1E86E6A50;
-      v15 = &v24;
-      v24 = v11;
-      v16 = [(CWFXPCConnection *)self __addXPCRequestWithType:62 info:v14 requestParams:paramsCopy parentRequestUUID:0 isParentRequest:1 reply:v23];
+      v26 = @"AssocParams";
+      v27[0] = parametersCopy;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = sub_1E0C41018;
+      v22[3] = &unk_1E86E6A50;
+      v15 = &v23;
+      v23 = v11;
+      v16 = [(CWFXPCConnection *)self __addXPCRequestWithType:62 info:v14 requestParams:paramsCopy parentRequestUUID:0 isParentRequest:1 reply:v22];
 
       [(CWFXPCConnection *)self __perform6GHzFollowupScanAndAssociateWithParameters:parametersCopy BSS:v13 parentXPCRequest:v16];
     }
 
     else
     {
-      v25 = @"AssocParams";
-      v26 = parametersCopy;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = sub_1E0C41030;
-      v21[3] = &unk_1E86E6A50;
-      v15 = &v22;
-      v22 = v11;
-      [(CWFXPCConnection *)self __addXPCRequestWithType:62 info:v16 requestParams:paramsCopy reply:v21];
+      v24 = @"AssocParams";
+      v25 = parametersCopy;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = sub_1E0C41030;
+      v20[3] = &unk_1E86E6A50;
+      v15 = &v21;
+      v21 = v11;
+      [(CWFXPCConnection *)self __addXPCRequestWithType:62 info:v16 requestParams:paramsCopy reply:v20];
     }
   }
 
   else
   {
     replyQueue = self->_replyQueue;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C41048;
-    v19[3] = &unk_1E86E6AF0;
-    v20 = replyCopy;
-    dispatch_async(replyQueue, v19);
-    v13 = v20;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C41048;
+    v18[3] = &unk_1E86E6AF0;
+    v19 = replyCopy;
+    dispatch_async(replyQueue, v18);
+    v13 = v19;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)disassociateWithReason:(int64_t)reason requestParams:(id)params reply:(id)reply
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v17 = @"DisassocReason";
+  v16 = @"DisassocReason";
   v9 = MEMORY[0x1E696AD98];
   paramsCopy = params;
   v11 = [v9 numberWithInteger:reason];
-  v18[0] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1E0C41234;
-  v15[3] = &unk_1E86E6A50;
-  v16 = replyCopy;
+  v17[0] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1E0C41234;
+  v14[3] = &unk_1E86E6A50;
+  v15 = replyCopy;
   v13 = replyCopy;
-  [(CWFXPCConnection *)self __addXPCRequestWithType:63 info:v12 requestParams:paramsCopy reply:v15];
+  [(CWFXPCConnection *)self __addXPCRequestWithType:63 info:v12 requestParams:paramsCopy reply:v14];
+}
 
-  v14 = *MEMORY[0x1E69E9840];
+- (void)updateSoftAPBand:(unsigned int)band requestParams:(id)params reply:(id)reply
+{
+  v6 = *&band;
+  v17[1] = *MEMORY[0x1E69E9840];
+  replyCopy = reply;
+  v16 = @"SoftAPBand";
+  v9 = MEMORY[0x1E696AD98];
+  paramsCopy = params;
+  v11 = [v9 numberWithUnsignedInt:v6];
+  v17[0] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1E0C41398;
+  v14[3] = &unk_1E86E6A50;
+  v15 = replyCopy;
+  v13 = replyCopy;
+  [(CWFXPCConnection *)self __addXPCRequestWithType:219 info:v12 requestParams:paramsCopy reply:v14];
 }
 
 - (void)queryKnownNetworkProfileMatchingNetworkProfile:(id)profile requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   paramsCopy = params;
   replyCopy = reply;
@@ -4118,18 +4250,18 @@ LABEL_24:
   if (profileCopy)
   {
     objc_initWeak(&location, self);
-    v21 = @"NetworkProfile";
-    v22[0] = profileCopy;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = sub_1E0C415A0;
-    v17[3] = &unk_1E86E6E60;
-    objc_copyWeak(&v19, &location);
-    v18 = v11;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:55 info:v12 requestParams:paramsCopy reply:v17];
+    v20 = @"NetworkProfile";
+    v21[0] = profileCopy;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = sub_1E0C415A0;
+    v16[3] = &unk_1E86E6E60;
+    objc_copyWeak(&v18, &location);
+    v17 = v11;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:55 info:v12 requestParams:paramsCopy reply:v16];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 
@@ -4140,16 +4272,14 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C416C0;
     block[3] = &unk_1E86E6AF0;
-    v16 = replyCopy;
+    v15 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryKnownNetworkProfileMatchingScanResult:(id)result requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   resultCopy = result;
   paramsCopy = params;
   replyCopy = reply;
@@ -4157,18 +4287,18 @@ LABEL_24:
   if (resultCopy)
   {
     objc_initWeak(&location, self);
-    v21 = @"ScanResult";
-    v22[0] = resultCopy;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = sub_1E0C41954;
-    v17[3] = &unk_1E86E6E60;
-    objc_copyWeak(&v19, &location);
-    v18 = v11;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:56 info:v12 requestParams:paramsCopy reply:v17];
+    v20 = @"ScanResult";
+    v21[0] = resultCopy;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = sub_1E0C41954;
+    v16[3] = &unk_1E86E6E60;
+    objc_copyWeak(&v18, &location);
+    v17 = v11;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:56 info:v12 requestParams:paramsCopy reply:v16];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 
@@ -4179,11 +4309,9 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C41A74;
     block[3] = &unk_1E86E6AF0;
-    v16 = replyCopy;
+    v15 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryKnownNetworkProfilesWithProperties:(id)properties requestParams:(id)params reply:(id)reply
@@ -4209,24 +4337,24 @@ LABEL_24:
 
 - (void)addKnownNetworkProfile:(id)profile requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (profile)
   {
-    v21 = @"NetworkProfile";
-    v22[0] = profile;
+    v20 = @"NetworkProfile";
+    v21[0] = profile;
     v11 = MEMORY[0x1E695DF20];
     profileCopy = profile;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C41EE0;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:59 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C41EE0;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:59 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -4236,12 +4364,10 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C41EF8;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateKnownNetworkProfile:(id)profile properties:(id)properties OSSpecificKeys:(id)keys requestParams:(id)params reply:(id)reply
@@ -4281,27 +4407,27 @@ LABEL_24:
 
 - (void)removeKnownNetworkProfile:(id)profile reason:(int64_t)reason requestParams:(id)params reply:(id)reply
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v12 = replyCopy;
   if (profile)
   {
-    v25[0] = profile;
-    v24[0] = @"NetworkProfile";
-    v24[1] = @"RemoveReason";
+    v24[0] = profile;
+    v23[0] = @"NetworkProfile";
+    v23[1] = @"RemoveReason";
     v13 = MEMORY[0x1E696AD98];
     profileCopy = profile;
     v15 = [v13 numberWithInteger:reason];
-    v25[1] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = sub_1E0C423E4;
-    v22[3] = &unk_1E86E6A50;
-    v17 = &v23;
-    v23 = v12;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:60 info:v16 requestParams:paramsCopy reply:v22];
+    v24[1] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = sub_1E0C423E4;
+    v21[3] = &unk_1E86E6A50;
+    v17 = &v22;
+    v22 = v12;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:60 info:v16 requestParams:paramsCopy reply:v21];
   }
 
   else
@@ -4311,38 +4437,34 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C423FC;
     block[3] = &unk_1E86E6AF0;
-    v17 = &v21;
-    v21 = replyCopy;
+    v17 = &v20;
+    v20 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setThermalIndex:(int64_t)index requestParams:(id)params reply:(id)reply
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v17 = @"ThermalIndex";
+  v16 = @"ThermalIndex";
   v9 = MEMORY[0x1E696AD98];
   paramsCopy = params;
   v11 = [v9 numberWithInteger:index];
-  v18[0] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1E0C42608;
-  v15[3] = &unk_1E86E6A50;
-  v16 = replyCopy;
+  v17[0] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1E0C42608;
+  v14[3] = &unk_1E86E6A50;
+  v15 = replyCopy;
   v13 = replyCopy;
-  [(CWFXPCConnection *)self __addXPCRequestWithType:36 info:v12 requestParams:paramsCopy reply:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(CWFXPCConnection *)self __addXPCRequestWithType:36 info:v12 requestParams:paramsCopy reply:v14];
 }
 
 - (void)performAutoJoinWithParameters:(id)parameters requestParams:(id)params reply:(id)reply
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   paramsCopy = params;
   replyCopy = reply;
@@ -4355,61 +4477,77 @@ LABEL_24:
     [(CWFAutoJoinParameters *)v12 setMode:1];
   }
 
-  v18 = @"AutoJoinParams";
-  v19[0] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = sub_1E0C429CC;
-  v16[3] = &unk_1E86E6A50;
-  v17 = replyCopy;
+  v17 = @"AutoJoinParams";
+  v18[0] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_1E0C429CC;
+  v15[3] = &unk_1E86E6A50;
+  v16 = replyCopy;
   v14 = replyCopy;
-  [(CWFXPCConnection *)self __addXPCRequestWithType:177 info:v13 requestParams:paramsCopy reply:v16];
+  [(CWFXPCConnection *)self __addXPCRequestWithType:177 info:v13 requestParams:paramsCopy reply:v15];
+}
 
-  v15 = *MEMORY[0x1E69E9840];
+- (void)setUserAutoJoinState:(BOOL)state requestParams:(id)params reply:(id)reply
+{
+  stateCopy = state;
+  v17[1] = *MEMORY[0x1E69E9840];
+  replyCopy = reply;
+  v16 = @"UserAutoJoinState";
+  v9 = MEMORY[0x1E696AD98];
+  paramsCopy = params;
+  v11 = [v9 numberWithBool:stateCopy];
+  v17[0] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1E0C42B50;
+  v14[3] = &unk_1E86E6A50;
+  v15 = replyCopy;
+  v13 = replyCopy;
+  [(CWFXPCConnection *)self __addXPCRequestWithType:180 info:v12 requestParams:paramsCopy reply:v14];
 }
 
 - (void)setAutoHotspotMode:(int64_t)mode requestParams:(id)params reply:(id)reply
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v17 = @"AutoHotspotMode";
+  v16 = @"AutoHotspotMode";
   v9 = MEMORY[0x1E696AD98];
   paramsCopy = params;
   v11 = [v9 numberWithInteger:mode];
-  v18[0] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1E0C42CC4;
-  v15[3] = &unk_1E86E6A50;
-  v16 = replyCopy;
+  v17[0] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1E0C42CC4;
+  v14[3] = &unk_1E86E6A50;
+  v15 = replyCopy;
   v13 = replyCopy;
-  [(CWFXPCConnection *)self __addXPCRequestWithType:183 info:v12 requestParams:paramsCopy reply:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(CWFXPCConnection *)self __addXPCRequestWithType:183 info:v12 requestParams:paramsCopy reply:v14];
 }
 
 - (void)performSensingWithParameters:(id)parameters requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (parameters)
   {
-    v21 = @"SensingParams";
-    v22[0] = parameters;
+    v20 = @"SensingParams";
+    v21[0] = parameters;
     v11 = MEMORY[0x1E695DF20];
     parametersCopy = parameters;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C42E98;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:188 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C42E98;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:188 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -4419,34 +4557,32 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C42F3C;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performNearbyDeviceDiscovery:(id)discovery requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (discovery)
   {
-    v21 = @"NDDParams";
-    v22[0] = discovery;
+    v20 = @"NDDParams";
+    v21[0] = discovery;
     v11 = MEMORY[0x1E695DF20];
     discoveryCopy = discovery;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C4317C;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:238 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C4317C;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:238 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -4456,12 +4592,10 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C43194;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUserSettings:(id)settings properties:(id)properties requestParams:(id)params reply:(id)reply
@@ -4552,27 +4686,27 @@ LABEL_24:
 
 - (void)addKnownBSS:(id)s knownNetworkProfile:(id)profile requestParams:(id)params reply:(id)reply
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v12 = replyCopy;
   if (s && profile)
   {
-    v26[0] = @"NetworkProfile";
-    v26[1] = @"BSS";
-    v27[0] = profile;
-    v27[1] = s;
+    v25[0] = @"NetworkProfile";
+    v25[1] = @"BSS";
+    v26[0] = profile;
+    v26[1] = s;
     v13 = MEMORY[0x1E695DF20];
     profileCopy = profile;
     sCopy = s;
-    v16 = [v13 dictionaryWithObjects:v27 forKeys:v26 count:2];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = sub_1E0C43A48;
-    v24[3] = &unk_1E86E6A50;
-    v17 = &v25;
-    v25 = v12;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:198 info:v16 requestParams:paramsCopy reply:v24];
+    v16 = [v13 dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = sub_1E0C43A48;
+    v23[3] = &unk_1E86E6A50;
+    v17 = &v24;
+    v24 = v12;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:198 info:v16 requestParams:paramsCopy reply:v23];
   }
 
   else
@@ -4582,39 +4716,37 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C43A60;
     block[3] = &unk_1E86E6AF0;
-    v17 = &v23;
-    v23 = replyCopy;
+    v17 = &v22;
+    v22 = replyCopy;
     profileCopy2 = profile;
     sCopy2 = s;
     dispatch_async(replyQueue, block);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeKnownBSS:(id)s knownNetworkProfile:(id)profile requestParams:(id)params reply:(id)reply
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v12 = replyCopy;
   if (s && profile)
   {
-    v26[0] = @"NetworkProfile";
-    v26[1] = @"BSS";
-    v27[0] = profile;
-    v27[1] = s;
+    v25[0] = @"NetworkProfile";
+    v25[1] = @"BSS";
+    v26[0] = profile;
+    v26[1] = s;
     v13 = MEMORY[0x1E695DF20];
     profileCopy = profile;
     sCopy = s;
-    v16 = [v13 dictionaryWithObjects:v27 forKeys:v26 count:2];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = sub_1E0C43CCC;
-    v24[3] = &unk_1E86E6A50;
-    v17 = &v25;
-    v25 = v12;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:199 info:v16 requestParams:paramsCopy reply:v24];
+    v16 = [v13 dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = sub_1E0C43CCC;
+    v23[3] = &unk_1E86E6A50;
+    v17 = &v24;
+    v24 = v12;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:199 info:v16 requestParams:paramsCopy reply:v23];
   }
 
   else
@@ -4624,36 +4756,34 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C43CE4;
     block[3] = &unk_1E86E6AF0;
-    v17 = &v23;
-    v23 = replyCopy;
+    v17 = &v22;
+    v22 = replyCopy;
     profileCopy2 = profile;
     sCopy2 = s;
     dispatch_async(replyQueue, block);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryPasswordForKnownNetworkProfile:(id)profile requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (profile)
   {
-    v21 = @"NetworkProfile";
-    v22[0] = profile;
+    v20 = @"NetworkProfile";
+    v21[0] = profile;
     v11 = MEMORY[0x1E695DF20];
     profileCopy = profile;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C43F20;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:201 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C43F20;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:201 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -4663,12 +4793,10 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C43FC4;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPassword:(id)password knownNetworkProfile:(id)profile requestParams:(id)params reply:(id)reply
@@ -4742,24 +4870,24 @@ LABEL_24:
 
 - (void)setBackgroundScanConfiguration:(id)configuration requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (configuration)
   {
-    v21 = @"BackgroundScanConfiguration";
-    v22[0] = configuration;
+    v20 = @"BackgroundScanConfiguration";
+    v21[0] = configuration;
     v11 = MEMORY[0x1E695DF20];
     configurationCopy = configuration;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C44878;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:244 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C44878;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:244 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -4769,34 +4897,32 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C44890;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setBlockedBands:(id)bands requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (bands)
   {
-    v21 = @"BlockedBands";
-    v22[0] = bands;
+    v20 = @"BlockedBands";
+    v21[0] = bands;
     v11 = MEMORY[0x1E695DF20];
     bandsCopy = bands;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C44ADC;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:218 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C44ADC;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:218 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -4806,34 +4932,32 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C44AF4;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startHostAPModeWithConfiguration:(id)configuration requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (configuration)
   {
-    v21 = @"HostAPConfiguration";
-    v22[0] = configuration;
+    v20 = @"HostAPConfiguration";
+    v21[0] = configuration;
     v11 = MEMORY[0x1E695DF20];
     configurationCopy = configuration;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C44D30;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:220 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C44D30;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:220 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -4843,12 +4967,10 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C44D48;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopHostAPModeWithRequestParams:(id)params reply:(id)reply
@@ -4865,24 +4987,24 @@ LABEL_24:
 
 - (void)queryPrivateMACAddressForNetworkProfile:(id)profile requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (profile)
   {
-    v21 = @"NetworkProfile";
-    v22[0] = profile;
+    v20 = @"NetworkProfile";
+    v21[0] = profile;
     v11 = MEMORY[0x1E695DF20];
     profileCopy = profile;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C45048;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:222 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C45048;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:222 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -4892,34 +5014,32 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C450EC;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryPrivateMACAddressModeForNetworkProfile:(id)profile requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (profile)
   {
-    v21 = @"NetworkProfile";
-    v22[0] = profile;
+    v20 = @"NetworkProfile";
+    v21[0] = profile;
     v11 = MEMORY[0x1E695DF20];
     profileCopy = profile;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C4532C;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:223 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C4532C;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:223 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -4929,37 +5049,35 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C453D0;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPrivateMACAddressMode:(int64_t)mode networkProfile:(id)profile requestParams:(id)params reply:(id)reply
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v12 = replyCopy;
   if (profile)
   {
-    v25[0] = profile;
-    v24[0] = @"NetworkProfile";
-    v24[1] = @"PrivateMACMode";
+    v24[0] = profile;
+    v23[0] = @"NetworkProfile";
+    v23[1] = @"PrivateMACMode";
     v13 = MEMORY[0x1E696AD98];
     profileCopy = profile;
     v15 = [v13 numberWithInteger:mode];
-    v25[1] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = sub_1E0C4564C;
-    v22[3] = &unk_1E86E6A50;
-    v17 = &v23;
-    v23 = v12;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:224 info:v16 requestParams:paramsCopy reply:v22];
+    v24[1] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = sub_1E0C4564C;
+    v21[3] = &unk_1E86E6A50;
+    v17 = &v22;
+    v22 = v12;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:224 info:v16 requestParams:paramsCopy reply:v21];
   }
 
   else
@@ -4969,12 +5087,10 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C45664;
     block[3] = &unk_1E86E6AF0;
-    v17 = &v21;
-    v21 = replyCopy;
+    v17 = &v20;
+    v20 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryPrivateMACAddressModeSystemSettingWithRequestParams:(id)params reply:(id)reply
@@ -4991,45 +5107,82 @@ LABEL_24:
 
 - (void)setPrivateMACAddressModeSystemSetting:(int64_t)setting requestParams:(id)params reply:(id)reply
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v17 = @"PrivateMACMode";
+  v16 = @"PrivateMACMode";
   v9 = MEMORY[0x1E696AD98];
   paramsCopy = params;
   v11 = [v9 numberWithInteger:setting];
-  v18[0] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1E0C459A0;
-  v15[3] = &unk_1E86E6A50;
-  v16 = replyCopy;
+  v17[0] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1E0C459A0;
+  v14[3] = &unk_1E86E6A50;
+  v15 = replyCopy;
   v13 = replyCopy;
-  [(CWFXPCConnection *)self __addXPCRequestWithType:226 info:v12 requestParams:paramsCopy reply:v15];
+  [(CWFXPCConnection *)self __addXPCRequestWithType:226 info:v12 requestParams:paramsCopy reply:v14];
+}
 
-  v14 = *MEMORY[0x1E69E9840];
+- (void)setPrivateMACAddressUserJoinFailureUIState:(BOOL)state networkProfile:(id)profile requestParams:(id)params reply:(id)reply
+{
+  stateCopy = state;
+  v24[2] = *MEMORY[0x1E69E9840];
+  paramsCopy = params;
+  replyCopy = reply;
+  v12 = replyCopy;
+  if (profile)
+  {
+    v24[0] = profile;
+    v23[0] = @"NetworkProfile";
+    v23[1] = @"State";
+    v13 = MEMORY[0x1E696AD98];
+    profileCopy = profile;
+    v15 = [v13 numberWithBool:stateCopy];
+    v24[1] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = sub_1E0C45B90;
+    v21[3] = &unk_1E86E6A50;
+    v17 = &v22;
+    v22 = v12;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:227 info:v16 requestParams:paramsCopy reply:v21];
+  }
+
+  else
+  {
+    replyQueue = self->_replyQueue;
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = sub_1E0C45BA8;
+    block[3] = &unk_1E86E6AF0;
+    v17 = &v20;
+    v20 = replyCopy;
+    dispatch_async(replyQueue, block);
+  }
 }
 
 - (void)queryIsQuickProbeRequiredForNetworkProfile:(id)profile requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (profile)
   {
-    v21 = @"NetworkProfile";
-    v22[0] = profile;
+    v20 = @"NetworkProfile";
+    v21[0] = profile;
     v11 = MEMORY[0x1E695DF20];
     profileCopy = profile;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C45DE4;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:228 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C45DE4;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:228 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -5039,34 +5192,71 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C45E88;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
+}
 
-  v16 = *MEMORY[0x1E69E9840];
+- (void)reportQuickProbeResult:(BOOL)result networkProfile:(id)profile requestParams:(id)params reply:(id)reply
+{
+  resultCopy = result;
+  v24[2] = *MEMORY[0x1E69E9840];
+  paramsCopy = params;
+  replyCopy = reply;
+  v12 = replyCopy;
+  if (profile)
+  {
+    v24[0] = profile;
+    v23[0] = @"NetworkProfile";
+    v23[1] = @"Result";
+    v13 = MEMORY[0x1E696AD98];
+    profileCopy = profile;
+    v15 = [v13 numberWithBool:resultCopy];
+    v24[1] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = sub_1E0C46104;
+    v21[3] = &unk_1E86E6A50;
+    v17 = &v22;
+    v22 = v12;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:229 info:v16 requestParams:paramsCopy reply:v21];
+  }
+
+  else
+  {
+    replyQueue = self->_replyQueue;
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = sub_1E0C4611C;
+    block[3] = &unk_1E86E6AF0;
+    v17 = &v20;
+    v20 = replyCopy;
+    dispatch_async(replyQueue, block);
+  }
 }
 
 - (void)setLQMConfiguration:(id)configuration requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (configuration)
   {
-    v21 = @"LQMConfiguration";
-    v22[0] = configuration;
+    v20 = @"LQMConfiguration";
+    v21[0] = configuration;
     v11 = MEMORY[0x1E695DF20];
     configurationCopy = configuration;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C46378;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:235 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C46378;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:235 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -5076,73 +5266,67 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C46390;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAutoJoinDenyListForNetwork:(id)network reason:(unint64_t)reason requestParams:(id)params reply:(id)reply
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v20[0] = @"NetworkProfile";
-  v20[1] = @"AutoJoinDenyListAddReason";
-  v21[0] = network;
+  v19[0] = @"NetworkProfile";
+  v19[1] = @"AutoJoinDenyListAddReason";
+  v20[0] = network;
   v11 = MEMORY[0x1E696AD98];
   paramsCopy = params;
   networkCopy = network;
   v14 = [v11 numberWithUnsignedInteger:reason];
-  v21[1] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = sub_1E0C465C4;
-  v18[3] = &unk_1E86E6A50;
-  v19 = replyCopy;
+  v20[1] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = sub_1E0C465C4;
+  v17[3] = &unk_1E86E6A50;
+  v18 = replyCopy;
   v16 = replyCopy;
-  [(CWFXPCConnection *)self __addXPCRequestWithType:246 info:v15 requestParams:paramsCopy reply:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [(CWFXPCConnection *)self __addXPCRequestWithType:246 info:v15 requestParams:paramsCopy reply:v17];
 }
 
 - (void)clearAutoJoinDenyListForNetwork:(id)network reason:(unint64_t)reason requestParams:(id)params reply:(id)reply
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v20[0] = @"NetworkProfile";
-  v20[1] = @"AutoJoinDenyListRemoveReason";
-  v21[0] = network;
+  v19[0] = @"NetworkProfile";
+  v19[1] = @"AutoJoinDenyListRemoveReason";
+  v20[0] = network;
   v11 = MEMORY[0x1E696AD98];
   paramsCopy = params;
   networkCopy = network;
   v14 = [v11 numberWithUnsignedInteger:reason];
-  v21[1] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = sub_1E0C467DC;
-  v18[3] = &unk_1E86E6A50;
-  v19 = replyCopy;
+  v20[1] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = sub_1E0C467DC;
+  v17[3] = &unk_1E86E6A50;
+  v18 = replyCopy;
   v16 = replyCopy;
-  [(CWFXPCConnection *)self __addXPCRequestWithType:247 info:v15 requestParams:paramsCopy reply:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [(CWFXPCConnection *)self __addXPCRequestWithType:247 info:v15 requestParams:paramsCopy reply:v17];
 }
 
 - (void)queryKnownNetworkInfoForLocalNetworkPromptWithOptions:(id)options requestParams:(id)params reply:(id)reply
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   paramsCopy = params;
   replyCopy = reply;
   if (optionsCopy)
   {
-    v16 = @"KnownNetworkInfoOptions";
-    v17[0] = optionsCopy;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = @"KnownNetworkInfoOptions";
+    v16[0] = optionsCopy;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   }
 
   else
@@ -5150,15 +5334,13 @@ LABEL_24:
     v11 = 0;
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = sub_1E0C469C0;
-  v14[3] = &unk_1E86E6A50;
-  v15 = replyCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1E0C469C0;
+  v13[3] = &unk_1E86E6A50;
+  v14 = replyCopy;
   v12 = replyCopy;
-  [(CWFXPCConnection *)self __addXPCRequestWithType:248 info:v11 requestParams:paramsCopy reply:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(CWFXPCConnection *)self __addXPCRequestWithType:248 info:v11 requestParams:paramsCopy reply:v13];
 }
 
 - (void)queryNetworkSignatureForNetwork:(id)network isBSSID:(BOOL)d requestParams:(id)params reply:(id)reply
@@ -5196,24 +5378,24 @@ LABEL_24:
 
 - (void)queryNetworkManagedByMDM:(id)m requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (m)
   {
-    v21 = @"NetworkProfile";
-    v22[0] = m;
+    v20 = @"NetworkProfile";
+    v21[0] = m;
     v11 = MEMORY[0x1E695DF20];
     mCopy = m;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C46DC4;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:250 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C46DC4;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:250 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -5223,25 +5405,23 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C46E68;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryKnownNetworksInSameLanAs:(id)as requestParams:(id)params reply:(id)reply
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   asCopy = as;
   paramsCopy = params;
   replyCopy = reply;
   if (asCopy)
   {
-    v16 = @"NetworkName";
-    v17[0] = asCopy;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = @"NetworkName";
+    v16[0] = asCopy;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   }
 
   else
@@ -5249,15 +5429,13 @@ LABEL_24:
     v11 = 0;
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = sub_1E0C4705C;
-  v14[3] = &unk_1E86E6A50;
-  v15 = replyCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1E0C4705C;
+  v13[3] = &unk_1E86E6A50;
+  v14 = replyCopy;
   v12 = replyCopy;
-  [(CWFXPCConnection *)self __addXPCRequestWithType:258 info:v11 requestParams:paramsCopy reply:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(CWFXPCConnection *)self __addXPCRequestWithType:258 info:v11 requestParams:paramsCopy reply:v13];
 }
 
 - (void)queryKnownNetworksWithNetworkSignature:(id)signature requestParams:(id)params reply:(id)reply
@@ -5321,24 +5499,24 @@ LABEL_24:
 
 - (void)sendXPCEvent:(id)event requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (event)
   {
-    v21 = @"XPCEvent";
-    v22[0] = event;
+    v20 = @"XPCEvent";
+    v21[0] = event;
     v11 = MEMORY[0x1E695DF20];
     eventCopy = event;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C475E8;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:253 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C475E8;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:253 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -5348,12 +5526,10 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C47600;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getNearbyRecommendedNetworksWithRequestParams:(id)params reply:(id)reply
@@ -5396,24 +5572,24 @@ LABEL_24:
 
 - (void)dumpLogs:(id)logs requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (logs)
   {
-    v21 = @"DumpLogsURL";
-    v22[0] = logs;
+    v20 = @"DumpLogsURL";
+    v21[0] = logs;
     v11 = MEMORY[0x1E695DF20];
     logsCopy = logs;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C47BD4;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:254 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C47BD4;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:254 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -5423,12 +5599,10 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C47BEC;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rememberCloudNetworkProfile:(id)profile reply:(id)reply
@@ -5510,24 +5684,24 @@ LABEL_24:
 
 - (void)queryCaptivePortalCredentialsForKnownNetworkProfile:(id)profile requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (profile)
   {
-    v21 = @"NetworkProfile";
-    v22[0] = profile;
+    v20 = @"NetworkProfile";
+    v21[0] = profile;
     v11 = MEMORY[0x1E695DF20];
     profileCopy = profile;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C483DC;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:262 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C483DC;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:262 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -5537,12 +5711,10 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C48480;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCaptivePortalCredentials:(id)credentials knownNetworkProfile:(id)profile requestParams:(id)params reply:(id)reply
@@ -5617,24 +5789,24 @@ LABEL_24:
 
 - (void)queryNetworkOfInterestHomeStateForKnownNetworkProfile:(id)profile requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (profile)
   {
-    v21 = @"NetworkProfile";
-    v22[0] = profile;
+    v20 = @"NetworkProfile";
+    v21[0] = profile;
     v11 = MEMORY[0x1E695DF20];
     profileCopy = profile;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C48B70;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:264 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C48B70;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:264 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -5644,34 +5816,32 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C48C14;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryNetworkOfInterestWorkStateForKnownNetworkProfile:(id)profile requestParams:(id)params reply:(id)reply
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   replyCopy = reply;
   v10 = replyCopy;
   if (profile)
   {
-    v21 = @"NetworkProfile";
-    v22[0] = profile;
+    v20 = @"NetworkProfile";
+    v21[0] = profile;
     v11 = MEMORY[0x1E695DF20];
     profileCopy = profile;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C48E54;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:265 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C48E54;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:265 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -5681,36 +5851,32 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C48EF8;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = replyCopy;
+    v14 = &v17;
+    v17 = replyCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)confirmBrokenBackhaulUsingTimeout:(unint64_t)timeout count:(unint64_t)count requestParams:(id)params reply:(id)reply
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v20[0] = @"ProbeTimeout";
+  v19[0] = @"ProbeTimeout";
   v11 = MEMORY[0x1E696AD98];
   paramsCopy = params;
   v13 = [v11 numberWithUnsignedInteger:timeout];
-  v21[0] = v13;
-  v20[1] = @"ProbeCount";
+  v20[0] = v13;
+  v19[1] = @"ProbeCount";
   v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:count];
-  v21[1] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = sub_1E0C49140;
-  v18[3] = &unk_1E86E6A50;
-  v19 = replyCopy;
+  v20[1] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = sub_1E0C49140;
+  v17[3] = &unk_1E86E6A50;
+  v18 = replyCopy;
   v16 = replyCopy;
-  [(CWFXPCConnection *)self __addXPCRequestWithType:271 info:v15 requestParams:paramsCopy reply:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [(CWFXPCConnection *)self __addXPCRequestWithType:271 info:v15 requestParams:paramsCopy reply:v17];
 }
 
 - (void)nearbyConfirmBrokenBackhaulUsingTimeout:(unint64_t)timeout count:(unint64_t)count network:(id)network minimumCacheTimestamp:(unint64_t)timestamp reply:(id)reply
@@ -5752,24 +5918,24 @@ LABEL_24:
 
 - (void)setUCMExtProfile:(id)profile requestParams:(id)params error:(id)error
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   errorCopy = error;
   v10 = errorCopy;
   if (profile)
   {
-    v21 = @"UCMExtProfile";
-    v22[0] = profile;
+    v20 = @"UCMExtProfile";
+    v21[0] = profile;
     v11 = MEMORY[0x1E695DF20];
     profileCopy = profile;
-    v13 = [v11 dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1E0C495EC;
-    v19[3] = &unk_1E86E6A50;
-    v14 = &v20;
-    v20 = v10;
-    [(CWFXPCConnection *)self __addXPCRequestWithType:275 info:v13 requestParams:paramsCopy reply:v19];
+    v13 = [v11 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0C495EC;
+    v18[3] = &unk_1E86E6A50;
+    v14 = &v19;
+    v19 = v10;
+    [(CWFXPCConnection *)self __addXPCRequestWithType:275 info:v13 requestParams:paramsCopy reply:v18];
   }
 
   else
@@ -5779,12 +5945,10 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_1E0C49604;
     block[3] = &unk_1E86E6AF0;
-    v14 = &v18;
-    v18 = errorCopy;
+    v14 = &v17;
+    v17 = errorCopy;
     dispatch_async(replyQueue, block);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)presentWiFiNetworkSharingAskToShareProxCardForClientID:(id)d accessoryName:(id)name reply:(id)reply
@@ -5866,7 +6030,7 @@ LABEL_24:
 
 - (id)__wifiNetworkSharingClientIDWithRequestParameters:(id)parameters
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   wifiNetworkSharingAccessoryID = [parametersCopy wifiNetworkSharingAccessoryID];
   if (!wifiNetworkSharingAccessoryID)
@@ -5899,23 +6063,33 @@ LABEL_17:
 
     if ((bOOLValue & 1) == 0)
     {
-      v16 = CWFGetOSLog();
-      if (v16)
+      v15 = CWFGetOSLog();
+      if (v15)
       {
-        v17 = CWFGetOSLog();
+        v16 = CWFGetOSLog();
       }
 
       else
       {
+        v16 = MEMORY[0x1E69E9C10];
         v17 = MEMORY[0x1E69E9C10];
-        v18 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         wifiNetworkSharingBundleIDOverride2 = [parametersCopy wifiNetworkSharingBundleIDOverride];
-        v20 = sub_1E0BECA98([(CWFXPCConnection *)self serviceType]);
-        _os_log_send_and_compose_impl();
+        v19 = sub_1E0BECA98([(CWFXPCConnection *)self serviceType]);
+        v20 = 136447234;
+        v21 = "[CWFXPCConnection __wifiNetworkSharingClientIDWithRequestParameters:]";
+        v22 = 2082;
+        v23 = "CWFXPCConnection.m";
+        v24 = 1024;
+        v25 = 4794;
+        v26 = 2114;
+        v27 = wifiNetworkSharingBundleIDOverride2;
+        v28 = 2114;
+        v29 = v19;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 0, "[corewifi] %{public}s (%{public}s:%u) CWFRequestParameters.wifiNetworkSharingBundleIDOverride (%{public}@) not allowed for %{public}@ XPC service type", &v20, 48);
       }
 
       goto LABEL_17;
@@ -5930,7 +6104,6 @@ LABEL_9:
 LABEL_10:
   v13 = v12;
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

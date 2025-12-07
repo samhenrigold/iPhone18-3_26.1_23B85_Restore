@@ -1,12 +1,12 @@
 @interface NSMutableArray(TSUAdditions)
 - (id)pop_tsu;
-- (uint64_t)tsu_addObjects:()TSUAdditions;
-- (uint64_t)tsu_removeObjectsIdenticalToObjectsInArray:()TSUAdditions;
-- (uint64_t)tsu_removeObjectsIdenticalToObjectsInSet:()TSUAdditions;
 - (void)initWithResultsOfPerformingSelector:()TSUAdditions onObjectsFromArray:;
 - (void)initWithResultsOfPerformingSelector:()TSUAdditions withObject:onObjectsFromArray:;
 - (void)tsu_addNonNilObject:()TSUAdditions;
+- (void)tsu_addObjects:()TSUAdditions;
 - (void)tsu_addObjectsFromNonNilArray:()TSUAdditions;
+- (void)tsu_removeObjectsIdenticalToObjectsInArray:()TSUAdditions;
+- (void)tsu_removeObjectsIdenticalToObjectsInSet:()TSUAdditions;
 @end
 
 @implementation NSMutableArray(TSUAdditions)
@@ -100,7 +100,7 @@
   return lastObject;
 }
 
-- (uint64_t)tsu_addObjects:()TSUAdditions
+- (void)tsu_addObjects:()TSUAdditions
 {
   v11 = &a9;
   if (a3)
@@ -122,23 +122,23 @@
 {
   if (a3)
   {
-    return [self addObject:?];
+    return [result addObject:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)tsu_addObjectsFromNonNilArray:()TSUAdditions
 {
   if (a3)
   {
-    return [self addObjectsFromArray:?];
+    return [result addObjectsFromArray:?];
   }
 
-  return self;
+  return result;
 }
 
-- (uint64_t)tsu_removeObjectsIdenticalToObjectsInSet:()TSUAdditions
+- (void)tsu_removeObjectsIdenticalToObjectsInSet:()TSUAdditions
 {
   v14 = *MEMORY[0x277D85DE8];
   v9 = 0u;
@@ -160,7 +160,8 @@
           objc_enumerationMutation(a3);
         }
 
-        [self removeObjectIdenticalTo:*(*(&v9 + 1) + 8 * v8++)];
+        [self removeObjectIdenticalTo:*(*(&v9 + 1) + 8 * v8)];
+        v8 = v8 + 1;
       }
 
       while (v6 != v8);
@@ -174,7 +175,7 @@
   return result;
 }
 
-- (uint64_t)tsu_removeObjectsIdenticalToObjectsInArray:()TSUAdditions
+- (void)tsu_removeObjectsIdenticalToObjectsInArray:()TSUAdditions
 {
   v17 = *MEMORY[0x277D85DE8];
   if (self == a3)
@@ -214,7 +215,7 @@
             }
           }
 
-          ++v8;
+          v8 = v8 + 1;
         }
 
         while (v8 != v6);

@@ -7,11 +7,10 @@
 
 + (id)supportedBundleIds
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"com.apple.people.askToBuyRequest";
-  v5[1] = @"com.apple.people.screenTimeRequest";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"com.apple.people.askToBuyRequest";
+  v4[1] = @"com.apple.people.screenTimeRequest";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -29,7 +28,7 @@
   v14 = v6;
   [results enumerateObjectsUsingBlock:v13];
 
-  buildMaxInitiallyVisibleResults = [v6 count];
+  buildMaxInitiallyVisibleResults = objc_msgSend_count(v6);
   if (!buildMaxInitiallyVisibleResults)
   {
     v12.receiver = self;

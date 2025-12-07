@@ -28,7 +28,7 @@
 
 - (BOOL)markTemplateAvailable:(id)available error:(id *)error
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   uniqueName = [available uniqueName];
   v7 = [(ACHRemoteTemplateAvailabilityKeyProvider *)self availabilityStateKeyFromUniqueName:uniqueName creatorDevice:[(ACHRemoteTemplateAvailabilityKeyProvider *)self creatorDevice]];
 
@@ -41,9 +41,9 @@
   else
   {
     v10 = MEMORY[0x277CCA9B8];
-    v17 = *MEMORY[0x277CCA450];
-    v18[0] = @"Unable to mark template as available because its unique name is nil.";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x277CCA450];
+    v17[0] = @"Unable to mark template as available because its unique name is nil.";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v12 = [v10 errorWithDomain:@"com.apple.Achievements.availability" code:101 userInfo:v11];
 
     v13 = v12;
@@ -64,13 +64,12 @@
     v9 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)templateAvailableOnPairedDevice:(id)device error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   uniqueName = [device uniqueName];
   v7 = [(ACHRemoteTemplateAvailabilityKeyProvider *)self availabilityStateKeyFromUniqueName:uniqueName creatorDevice:[(ACHRemoteTemplateAvailabilityKeyProvider *)self creatorDevice]];
 
@@ -93,9 +92,9 @@
   else
   {
     v11 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA450];
-    v19[0] = @"Unable to read template availability on paired device because its unique name is nil.";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = @"Unable to read template availability on paired device because its unique name is nil.";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v13 = [v11 errorWithDomain:@"com.apple.Achievements.availability" code:101 userInfo:v12];
 
     v14 = v13;
@@ -116,7 +115,6 @@
     bOOLValue = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 

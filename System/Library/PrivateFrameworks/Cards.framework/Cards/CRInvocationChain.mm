@@ -69,7 +69,7 @@
   return v3;
 }
 
-uint64_t __40__CRInvocationChain_respondsToSelector___block_invoke(uint64_t a1)
+void *__40__CRInvocationChain_respondsToSelector___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _respondsToSelector:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -100,10 +100,7 @@ uint64_t __40__CRInvocationChain_respondsToSelector___block_invoke(uint64_t a1)
 
 uint64_t __48__CRInvocationChain_methodSignatureForSelector___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _methodSignatureForSelector:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _methodSignatureForSelector:*(a1 + 48)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -153,7 +150,7 @@ uint64_t __48__CRInvocationChain_methodSignatureForSelector___block_invoke(uint6
   return v3;
 }
 
-uint64_t __43__CRInvocationChain_isEligibleForSelector___block_invoke(uint64_t a1)
+void *__43__CRInvocationChain_isEligibleForSelector___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isEligibleForSelector:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -219,7 +216,7 @@ uint64_t __43__CRInvocationChain_isEligibleForSelector___block_invoke(uint64_t a
 
 - (void)_forwardInvocation:(id)invocation
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   invocationCopy = invocation;
   _chainedObjects = [(CRInvocationChain *)self _chainedObjects];
   v6 = NSStringFromSelector([invocationCopy selector]);
@@ -229,41 +226,41 @@ uint64_t __43__CRInvocationChain_isEligibleForSelector___block_invoke(uint64_t a
     [(CRInvocationChain *)v6 _forwardInvocation:_chainedObjects, v7];
   }
 
-  v20 = v6;
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
+  v19 = v6;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v8 = _chainedObjects;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     while (2)
     {
       v12 = 0;
       do
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * v12);
+        v13 = *(*(&v21 + 1) + 8 * v12);
         delegate = [(CRInvocationChain *)self delegate];
         v15 = [delegate invocationChain:self shouldForwardInvocation:invocationCopy toTarget:v13];
 
         if ((objc_opt_respondsToSelector() & 1) != 0 && v15)
         {
           v18 = CRLogContextCards;
-          v17 = v20;
+          v17 = v19;
           if (os_log_type_enabled(CRLogContextCards, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v27 = v20;
-            v28 = 2112;
-            v29 = v13;
+            v26 = v19;
+            v27 = 2112;
+            v28 = v13;
             _os_log_impl(&dword_24327C000, v18, OS_LOG_TYPE_INFO, "Invoking invocation %@ with target: %@", buf, 0x16u);
           }
 
@@ -276,7 +273,7 @@ uint64_t __43__CRInvocationChain_isEligibleForSelector___block_invoke(uint64_t a
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v21 objects:v29 count:16];
       if (v10)
       {
         continue;
@@ -287,48 +284,45 @@ uint64_t __43__CRInvocationChain_isEligibleForSelector___block_invoke(uint64_t a
   }
 
   v16 = CRLogContextCards;
-  v17 = v20;
+  v17 = v19;
   if (os_log_type_enabled(CRLogContextCards, OS_LOG_TYPE_ERROR))
   {
-    [(CRInvocationChain *)v20 _forwardInvocation:v16];
+    [(CRInvocationChain *)v19 _forwardInvocation:v16];
   }
 
-  v21.receiver = self;
-  v21.super_class = CRInvocationChain;
-  [(CRInvocationChain *)&v21 forwardInvocation:invocationCopy];
+  v20.receiver = self;
+  v20.super_class = CRInvocationChain;
+  [(CRInvocationChain *)&v20 forwardInvocation:invocationCopy];
 LABEL_18:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_respondsToSelector:(SEL)selector
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = CRInvocationChain;
-  v5 = [(CRInvocationChain *)&v18 respondsToSelector:?];
+  v18 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = CRInvocationChain;
+  v5 = [(CRInvocationChain *)&v16 respondsToSelector:?];
   if ([(CRInvocationChain *)self _isEligibleForSelector:selector])
   {
     [(CRInvocationChain *)self _chainedObjects];
+    v12 = 0u;
+    v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v6 = v17 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v6 = v15 = 0u;
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v13;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
             v5 = 1;
@@ -336,7 +330,7 @@ LABEL_18:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
         if (v8)
         {
           continue;
@@ -349,33 +343,32 @@ LABEL_18:
 LABEL_12:
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)_methodSignatureForSelector:(SEL)selector
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [(CRInvocationChain *)self _chainedObjects];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = v18 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = v17 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v15 + 1) + 8 * i) methodSignatureForSelector:selector];
+        v10 = [*(*(&v14 + 1) + 8 * i) methodSignatureForSelector:selector];
         if (v10)
         {
           v11 = v10;
@@ -384,7 +377,7 @@ LABEL_12:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -394,12 +387,10 @@ LABEL_12:
     }
   }
 
-  v14.receiver = self;
-  v14.super_class = CRInvocationChain;
-  v11 = [(CRInvocationChain *)&v14 methodSignatureForSelector:selector];
+  v13.receiver = self;
+  v13.super_class = CRInvocationChain;
+  v11 = [(CRInvocationChain *)&v13 methodSignatureForSelector:selector];
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -413,39 +404,39 @@ LABEL_11:
 
 - (void)_enumerateChainedObjectsUsingBlock:(id)block
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (blockCopy)
   {
     [(CRInvocationChain *)self _chainedObjects];
-    v15 = 0;
+    v14 = 0;
+    v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
-    v5 = v14 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+    v5 = v13 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
 LABEL_4:
       v9 = 0;
       while (1)
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v9), &v15);
-        if (v15)
+        blockCopy[2](blockCopy, *(*(&v10 + 1) + 8 * v9), &v14);
+        if (v14)
         {
           break;
         }
 
         if (v7 == ++v9)
         {
-          v7 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
           if (v7)
           {
             goto LABEL_4;
@@ -456,8 +447,6 @@ LABEL_4:
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isEligibleForSelector:(SEL)selector
@@ -487,22 +476,20 @@ void __49__CRInvocationChain__accessChainedObjectsSafely___block_invoke_cold_1(v
 
 - (void)_forwardInvocation:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_24327C000, log, OS_LOG_TYPE_DEBUG, "Forwarding invocation %@ to candidates: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_24327C000, log, OS_LOG_TYPE_DEBUG, "Forwarding invocation %@ to candidates: %@", &v3, 0x16u);
 }
 
 - (void)_forwardInvocation:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24327C000, a2, OS_LOG_TYPE_ERROR, "No members of the chain were eligble for invocation %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24327C000, a2, OS_LOG_TYPE_ERROR, "No members of the chain were eligble for invocation %@", &v2, 0xCu);
 }
 
 @end

@@ -1,5 +1,4 @@
 @interface NTKDigitalTimeGraphicCircularView
-- ($58D15C9700E10FDF418FBC0C790388C2)layoutConstants;
 - (CLKMonochromeFilterProvider)filterProvider;
 - (id)initFullColorImageViewWithDevice:(id)device;
 - (void)_startClockUpdates;
@@ -100,56 +99,57 @@
 - (id)initFullColorImageViewWithDevice:(id)device
 {
   deviceCopy = device;
-  v29.receiver = self;
-  v29.super_class = NTKDigitalTimeGraphicCircularView;
-  v5 = [(NTKDigitalTimeGraphicCircularView *)&v29 initWithFrame:CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height];
+  v30.receiver = self;
+  v30.super_class = NTKDigitalTimeGraphicCircularView;
+  v5 = [(NTKDigitalTimeGraphicCircularView *)&v30 initWithFrame:CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height];
   if (v5)
   {
-    [objc_opt_class() _layoutConstantsForDevice:deviceCopy];
-    v7 = v6;
-    v5->_layoutConstants.secondsTickSize.width = v8;
-    v5->_layoutConstants.secondsTickSize.height = v9;
-    v5->_layoutConstants.secondsDialDiameter = v10;
-    v5->_layoutConstants.timeFontSize = v6;
+    v6 = objc_opt_class();
+    objc_msgSend__layoutConstantsForDevice_(v6);
+    v8 = v7;
+    v5->_layoutConstants.secondsTickSize.width = v9;
+    v5->_layoutConstants.secondsTickSize.height = v10;
+    v5->_layoutConstants.secondsDialDiameter = v11;
+    v5->_layoutConstants.timeFontSize = v7;
     v5->_inactiveTickAccentAlpha = 0.25;
     v5->_activeTickAccentAlpha = 0.9;
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_5A38;
-    v27[3] = &unk_10508;
-    v27[4] = 60;
-    *&v27[5] = v8;
-    *&v27[6] = v9;
-    v28 = xmmword_CC80;
-    v11 = objc_retainBlock(v27);
-    v12 = [UIColor colorWithWhite:1.0 alpha:v5->_inactiveTickAccentAlpha];
-    v13 = (v11[2])(v11, v12);
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_5A38;
+    v28[3] = &unk_10508;
+    v28[4] = 60;
+    *&v28[5] = v9;
+    *&v28[6] = v10;
+    v29 = xmmword_CC80;
+    v12 = objc_retainBlock(v28);
+    v13 = [UIColor colorWithWhite:1.0 alpha:v5->_inactiveTickAccentAlpha];
+    v14 = (v12[2])(v12, v13);
     unfilledSecondsDialView = v5->_unfilledSecondsDialView;
-    v5->_unfilledSecondsDialView = v13;
+    v5->_unfilledSecondsDialView = v14;
 
     [(NTKDigitalTimeGraphicCircularView *)v5 addSubview:v5->_unfilledSecondsDialView];
-    v15 = [UIColor colorWithWhite:1.0 alpha:v5->_activeTickAccentAlpha];
-    v16 = (v11[2])(v11, v15);
+    v16 = [UIColor colorWithWhite:1.0 alpha:v5->_activeTickAccentAlpha];
+    v17 = (v12[2])(v12, v16);
     filledSecondsDialView = v5->_filledSecondsDialView;
-    v5->_filledSecondsDialView = v16;
+    v5->_filledSecondsDialView = v17;
 
-    LODWORD(v18) = 0.5;
-    [(NTKRichComplicationDialView *)v5->_filledSecondsDialView setProgress:v18];
+    LODWORD(v19) = 0.5;
+    [(NTKRichComplicationDialView *)v5->_filledSecondsDialView setProgress:v19];
     [(NTKDigitalTimeGraphicCircularView *)v5 addSubview:v5->_filledSecondsDialView];
-    v19 = [CLKFont systemFontOfSize:CLKRoundedFontDesignName weight:v7 design:UIFontWeightSemibold];
-    cLKFontWithAlternativePunctuation = [v19 CLKFontWithAlternativePunctuation];
+    v20 = [CLKFont systemFontOfSize:CLKRoundedFontDesignName weight:v8 design:UIFontWeightSemibold];
+    cLKFontWithAlternativePunctuation = [v20 CLKFontWithAlternativePunctuation];
 
-    v21 = [[NTKDigitalTimeLabel alloc] initWithTimeLabelOptions:1 forDevice:deviceCopy];
-    [v21 setFont:cLKFontWithAlternativePunctuation];
-    v22 = +[UIColor whiteColor];
-    [v21 setColor:v22];
+    v22 = [[NTKDigitalTimeLabel alloc] initWithTimeLabelOptions:1 forDevice:deviceCopy];
+    [v22 setFont:cLKFontWithAlternativePunctuation];
+    v23 = +[UIColor whiteColor];
+    [v22 setColor:v23];
 
-    v23 = +[UIColor systemOrangeColor];
-    [v21 setTextColor:v23];
+    v24 = +[UIColor systemOrangeColor];
+    [v22 setTextColor:v24];
 
     timeLabel = v5->_timeLabel;
-    v5->_timeLabel = v21;
-    v25 = v21;
+    v5->_timeLabel = v22;
+    v26 = v22;
 
     [(NTKDigitalTimeGraphicCircularView *)v5 addSubview:v5->_timeLabel];
   }
@@ -317,15 +317,6 @@
   WeakRetained = objc_loadWeakRetained(&self->_filterProvider);
 
   return WeakRetained;
-}
-
-- ($58D15C9700E10FDF418FBC0C790388C2)layoutConstants
-{
-  height = self[2].var0.height;
-  var1 = self[2].var1;
-  var2 = self[2].var2;
-  width = self[3].var0.width;
-  return self;
 }
 
 - (void)setLayoutConstants:(id *)constants

@@ -37,7 +37,7 @@
 
 - (id)queryItemsWithCookies:(id)cookies storefront:(id)storefront
 {
-  sub_192874CD0(0, &unk_1ED6DEE18);
+  sub_192874CD0(0, &unk_1ED6DEE18, 0x1E695ABF8);
   v6 = sub_192F96B0C();
   if (storefront)
   {
@@ -61,9 +61,10 @@
 
 - (AMSBagURLQueryItemsBuilder)initWithClientInfo:(id)info profile:(id)profile profileVersion:(id)version
 {
-  sub_192F967CC();
-  sub_192F967CC();
-  return BagURLQueryItemsBuilder.init(clientInfo:profile:profileVersion:)(info);
+  v6 = sub_192F967CC();
+  v8 = v7;
+  v9 = sub_192F967CC();
+  return BagURLQueryItemsBuilder.init(clientInfo:profile:profileVersion:)(info, v6, v8, v9, v10);
 }
 
 + (id)storefrontFromQueryItems:(id)items

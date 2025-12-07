@@ -13,43 +13,43 @@
 
 - (RRSchemaProvisionalRREntityPoolResolveEnded)initWithDictionary:(id)dictionary
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v23.receiver = self;
-  v23.super_class = RRSchemaProvisionalRREntityPoolResolveEnded;
-  v5 = [(RRSchemaProvisionalRREntityPoolResolveEnded *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = RRSchemaProvisionalRREntityPoolResolveEnded;
+  v5 = [(RRSchemaProvisionalRREntityPoolResolveEnded *)&v22 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"queryResults"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v20;
+        v10 = *v19;
         do
         {
           v11 = 0;
           do
           {
-            if (*v20 != v10)
+            if (*v19 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v19 + 1) + 8 * v11);
+            v12 = *(*(&v18 + 1) + 8 * v11);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
               v13 = [RRSchemaProvisionalRRAnnotatedEntity alloc];
-              v14 = [(RRSchemaProvisionalRRAnnotatedEntity *)v13 initWithDictionary:v12, v19];
+              v14 = [(RRSchemaProvisionalRRAnnotatedEntity *)v13 initWithDictionary:v12, v18];
               [(RRSchemaProvisionalRREntityPoolResolveEnded *)v5 addQueryResults:v14];
             }
 
@@ -57,14 +57,14 @@
           }
 
           while (v9 != v11);
-          v9 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
         }
 
         while (v9);
       }
     }
 
-    v15 = [dictionaryCopy objectForKeyedSubscript:{@"outcome", v19}];
+    v15 = [dictionaryCopy objectForKeyedSubscript:{@"outcome", v18}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -74,7 +74,6 @@
     v16 = v5;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -114,7 +113,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (*&self->_has)
   {
@@ -135,26 +134,26 @@
   if ([(NSArray *)self->_queryResults count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v7 = self->_queryResults;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation = [*(*(&v16 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v15 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -167,7 +166,7 @@
           }
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -176,8 +175,7 @@
     [dictionary setObject:array forKeyedSubscript:@"queryResults"];
   }
 
-  [(RRSchemaProvisionalRREntityPoolResolveEnded *)self willProduceDictionaryRepresentation:dictionary, v16];
-  v14 = *MEMORY[0x1E69E9840];
+  [(RRSchemaProvisionalRREntityPoolResolveEnded *)self willProduceDictionaryRepresentation:dictionary, v15];
 
   return dictionary;
 }
@@ -257,35 +255,34 @@ LABEL_13:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   v5 = self->_queryResults;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -293,11 +290,8 @@ LABEL_13:
 
   if (*&self->_has)
   {
-    outcome = self->_outcome;
     PBDataWriterWriteInt32Field();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addQueryResults:(id)results

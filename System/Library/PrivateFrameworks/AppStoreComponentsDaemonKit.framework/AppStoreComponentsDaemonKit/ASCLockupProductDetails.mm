@@ -25,7 +25,7 @@
 
 + (id)URLForLockupID:(id)d ofKind:(id)kind offerFlags:(int64_t)flags queryParameters:(id)parameters
 {
-  v29[3] = *MEMORY[0x277D85DE8];
+  v28[3] = *MEMORY[0x277D85DE8];
   dCopy = d;
   kindCopy = kind;
   parametersCopy = parameters;
@@ -42,24 +42,24 @@
 
   [v14 setPercentEncodedHost:@"apps.apple.com"];
   v15 = MEMORY[0x277CCACA8];
-  v29[0] = @"/";
-  v29[1] = @"app";
+  v28[0] = @"/";
+  v28[1] = @"app";
   v16 = [@"id" stringByAppendingString:v13];
-  v29[2] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
+  v28[2] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
   v18 = [v15 pathWithComponents:v17];
   [v14 setPercentEncodedPath:v18];
 
   if (parametersCopy)
   {
     v19 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(parametersCopy, "count")}];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __76__ASCLockupProductDetails_URLForLockupID_ofKind_offerFlags_queryParameters___block_invoke;
-    v27[3] = &unk_2784B14C0;
-    v28 = v19;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __76__ASCLockupProductDetails_URLForLockupID_ofKind_offerFlags_queryParameters___block_invoke;
+    v26[3] = &unk_2784B14C0;
+    v27 = v19;
     v20 = v19;
-    [parametersCopy enumerateKeysAndObjectsUsingBlock:v27];
+    [parametersCopy enumerateKeysAndObjectsUsingBlock:v26];
     [v14 setQueryItems:v20];
   }
 
@@ -67,13 +67,11 @@
   if (!v21)
   {
     kindCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Lockup id %@ of kind %@ is invalid", dCopy, kindCopy];
-    v26 = objc_alloc(MEMORY[0x277CBEAD8]);
-    objc_exception_throw([v26 initWithName:*MEMORY[0x277CBE660] reason:kindCopy userInfo:0]);
+    v25 = objc_alloc(MEMORY[0x277CBEAD8]);
+    objc_exception_throw([v25 initWithName:*MEMORY[0x277CBE660] reason:kindCopy userInfo:0]);
   }
 
   v22 = v21;
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -194,7 +192,7 @@ void __76__ASCLockupProductDetails_URLForLockupID_ofKind_offerFlags_queryParamet
 
 - (void)present:(id)present
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   presentCopy = present;
   lockup = [(ASCLockupProductDetails *)self lockup];
   v6 = [lockup id];
@@ -208,7 +206,7 @@ void __76__ASCLockupProductDetails_URLForLockupID_ofKind_offerFlags_queryParamet
       lockup2 = [(ASCLockupProductDetails *)self lockup];
       v10 = [lockup2 id];
       *buf = 138543362;
-      v33 = v10;
+      v32 = v10;
       _os_log_impl(&dword_222629000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Not presenting product details for lockup %{public}@ because ID is invalid.", buf, 0xCu);
     }
 
@@ -241,13 +239,13 @@ void __76__ASCLockupProductDetails_URLForLockupID_ofKind_offerFlags_queryParamet
       v15 = [v12 mutableCopy];
     }
 
-    v28 = v12;
+    v27 = v12;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       lockup4 = [(ASCLockupProductDetails *)self lockup];
       v17 = [lockup4 id];
       *buf = 138543362;
-      v33 = v17;
+      v32 = v17;
       _os_log_impl(&dword_222629000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Presenting product details for lockup %{public}@", buf, 0xCu);
     }
 
@@ -264,16 +262,14 @@ void __76__ASCLockupProductDetails_URLForLockupID_ofKind_offerFlags_queryParamet
 
     if (presentCopy)
     {
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __35__ASCLockupProductDetails_present___block_invoke;
-      v30[3] = &unk_2784B17A8;
-      v31 = presentCopy;
-      [v26 addFinishBlock:v30];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __35__ASCLockupProductDetails_present___block_invoke;
+      v29[3] = &unk_2784B17A8;
+      v30 = presentCopy;
+      [v26 addFinishBlock:v29];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash

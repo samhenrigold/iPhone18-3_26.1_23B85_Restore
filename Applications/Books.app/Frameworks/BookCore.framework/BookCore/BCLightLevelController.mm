@@ -161,48 +161,49 @@
     self->_currentLightLevel = level;
   }
 
-  if (currentLightLevel != [(BCLightLevelController *)self currentLightLevel])
+  currentLightLevel2 = [(BCLightLevelController *)self currentLightLevel];
+  if (currentLightLevel != currentLightLevel2)
   {
-    v8 = _BCLightLevelLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _BCLightLevelLog(currentLightLevel2);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      if (currentLightLevel == &dword_0 + 1)
+      if (currentLightLevel == 1)
       {
-        v9 = @"regular";
+        v10 = @"regular";
       }
 
       else
       {
-        v9 = @"unknown";
+        v10 = @"unknown";
       }
 
-      if (currentLightLevel == &dword_0 + 2)
+      if (currentLightLevel == 2)
       {
-        v9 = @"low";
+        v10 = @"low";
       }
 
-      v10 = v9;
+      v11 = v10;
       if (level == 1)
       {
-        v11 = @"regular";
+        v12 = @"regular";
       }
 
       else
       {
-        v11 = @"unknown";
+        v12 = @"unknown";
       }
 
       if (level == 2)
       {
-        v11 = @"low";
+        v12 = @"low";
       }
 
-      v12 = v11;
-      v13 = 138412546;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v12;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "_notifyLightLevelChange old:%@ new: %@", &v13, 0x16u);
+      v13 = v12;
+      v14 = 138412546;
+      v15 = v11;
+      v16 = 2112;
+      v17 = v13;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "_notifyLightLevelChange old:%@ new: %@", &v14, 0x16u);
     }
 
     [(BCLightLevelController *)self _notifyLightLevelChange];
@@ -266,41 +267,42 @@
     v3 = [(BrightnessSystemClient *)self->_client copyPropertyForKey:@"TrustedLux"];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v5 = _BCLightLevelLog();
-    v6 = v5;
-    if (isKindOfClass)
+    v5 = isKindOfClass;
+    v6 = _BCLightLevelLog(isKindOfClass);
+    v7 = v6;
+    if (v5)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138412290;
-        v12 = v3;
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "_updateStatsAndLightLevelNow: lux value: %@", &v11, 0xCu);
+        v12 = 138412290;
+        v13 = v3;
+        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "_updateStatsAndLightLevelNow: lux value: %@", &v12, 0xCu);
       }
 
       [v3 floatValue];
-      v7 = [(BCLightLevelController *)self _luxToLightLevel:?];
-      if (v7 <= 1)
+      v8 = [(BCLightLevelController *)self _luxToLightLevel:?];
+      if (v8 <= 1)
       {
-        v8 = 1;
+        v9 = 1;
       }
 
       else
       {
-        v8 = v7;
+        v9 = v8;
       }
 
-      [(BCLightLevelController *)self _updateCurrentLightLevel:v8 force:1];
+      [(BCLightLevelController *)self _updateCurrentLightLevel:v9 force:1];
     }
 
     else
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v11 = 138412290;
-        v12 = v10;
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "Object for 'kCBTrustedLux' was '%@' and not NSNumber like expected", &v11, 0xCu);
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
+        v12 = 138412290;
+        v13 = v11;
+        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "Object for 'kCBTrustedLux' was '%@' and not NSNumber like expected", &v12, 0xCu);
       }
     }
   }
@@ -322,8 +324,7 @@
     v8[4] = self;
     [(BrightnessSystemClient *)client registerNotificationBlock:v8 forProperties:&off_2EBDC0];
     self->_monitoring = 1;
-    [(BCLightLevelController *)self _updateStatsAndLightLevelNow];
-    v6 = _BCLightLevelLog();
+    v6 = _BCLightLevelLog([(BCLightLevelController *)self _updateStatsAndLightLevelNow]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v7 = 0;
@@ -337,8 +338,7 @@
   client = self->_client;
   if (client)
   {
-    [(BrightnessSystemClient *)client registerNotificationBlock:0 forProperties:0];
-    v4 = _BCLightLevelLog();
+    v4 = _BCLightLevelLog([(BrightnessSystemClient *)client registerNotificationBlock:0 forProperties:0]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;

@@ -16,20 +16,18 @@
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"labelName" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"labelValue" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"taskName" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"category" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:4 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"featureVector_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_387];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
@@ -133,7 +131,7 @@ LABEL_20:
 
 - (id)jsonDictionary
 {
-  v24[5] = *MEMORY[0x1E69E9840];
+  v23[5] = *MEMORY[0x1E69E9840];
   labelName = [(BMIntelligencePlatformFeatureStore *)self labelName];
   labelValue = [(BMIntelligencePlatformFeatureStore *)self labelValue];
   taskName = [(BMIntelligencePlatformFeatureStore *)self taskName];
@@ -141,48 +139,48 @@ LABEL_20:
   featureVector = [(BMIntelligencePlatformFeatureStore *)self featureVector];
   jsonDictionary = [featureVector jsonDictionary];
 
-  v19 = @"labelName";
+  v18 = @"labelName";
   null = labelName;
   if (!labelName)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17 = null;
-  v24[0] = null;
-  v20 = @"labelValue";
+  v16 = null;
+  v23[0] = null;
+  v19 = @"labelValue";
   null2 = labelValue;
   if (!labelValue)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[1] = null2;
-  v21 = @"taskName";
+  v23[1] = null2;
+  v20 = @"taskName";
   null3 = taskName;
   if (!taskName)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[2] = null3;
-  v22 = @"category";
+  v23[2] = null3;
+  v21 = @"category";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[3] = null4;
-  v23 = @"featureVector";
+  v23[3] = null4;
+  v22 = @"featureVector";
   null5 = jsonDictionary;
   if (!jsonDictionary)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[4] = null5;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v19 count:{5, v17}];
+  v23[4] = null5;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v18 count:{5, v16}];
   if (jsonDictionary)
   {
     if (v6)
@@ -240,14 +238,13 @@ LABEL_15:
 LABEL_23:
 
 LABEL_16:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (BMIntelligencePlatformFeatureStore)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v50[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"labelName"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -265,10 +262,10 @@ LABEL_4:
     errorCopy = error;
     if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v39 = 0;
+      v38 = 0;
 LABEL_7:
       v10 = [dictionaryCopy objectForKeyedSubscript:@"taskName"];
-      v37 = v8;
+      v36 = v8;
       if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         objc_opt_class();
@@ -276,29 +273,29 @@ LABEL_7:
         {
           if (!error)
           {
-            v38 = 0;
+            v37 = 0;
             selfCopy2 = 0;
             goto LABEL_49;
           }
 
           v20 = objc_alloc(MEMORY[0x1E696ABC0]);
           v21 = *MEMORY[0x1E698F240];
-          v45 = *MEMORY[0x1E696A578];
+          v44 = *MEMORY[0x1E696A578];
           v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"taskName"];
-          v46 = v12;
-          v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
-          v38 = 0;
+          v45 = v12;
+          v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+          v37 = 0;
           selfCopy2 = 0;
           *errorCopy = [v20 initWithDomain:v21 code:2 userInfo:v11];
           goto LABEL_48;
         }
 
-        v38 = v10;
+        v37 = v10;
       }
 
       else
       {
-        v38 = 0;
+        v37 = 0;
       }
 
       v11 = [dictionaryCopy objectForKeyedSubscript:@"category"];
@@ -322,18 +319,18 @@ LABEL_7:
               goto LABEL_48;
             }
 
-            v33 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v32 = objc_alloc(MEMORY[0x1E696ABC0]);
             selfCopy = self;
             v27 = *MEMORY[0x1E698F240];
-            v43 = *MEMORY[0x1E696A578];
+            v42 = *MEMORY[0x1E696A578];
             v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"category"];
-            v44 = v22;
-            v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+            v43 = v22;
+            v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
             v28 = v27;
             self = selfCopy;
             v12 = 0;
             selfCopy2 = 0;
-            *errorCopy = [v33 initWithDomain:v28 code:2 userInfo:v23];
+            *errorCopy = [v32 initWithDomain:v28 code:2 userInfo:v23];
             goto LABEL_46;
           }
 
@@ -353,14 +350,14 @@ LABEL_7:
       {
         v23 = 0;
 LABEL_33:
-        self = -[BMIntelligencePlatformFeatureStore initWithLabelName:labelValue:taskName:category:featureVector:](self, "initWithLabelName:labelValue:taskName:category:featureVector:", v37, v39, v38, [v12 intValue], v23);
+        self = -[BMIntelligencePlatformFeatureStore initWithLabelName:labelValue:taskName:category:featureVector:](self, "initWithLabelName:labelValue:taskName:category:featureVector:", v36, v38, v37, [v12 intValue], v23);
         selfCopy2 = self;
 LABEL_46:
 
 LABEL_47:
 LABEL_48:
 
-        v8 = v37;
+        v8 = v36;
         goto LABEL_49;
       }
 
@@ -369,9 +366,9 @@ LABEL_48:
       if (objc_opt_isKindOfClass())
       {
         v24 = v22;
-        v40 = 0;
-        v23 = [[BMIntelligencePlatformFeatureStoreFeatureVector alloc] initWithJSONDictionary:v24 error:&v40];
-        v25 = v40;
+        v39 = 0;
+        v23 = [[BMIntelligencePlatformFeatureStoreFeatureVector alloc] initWithJSONDictionary:v24 error:&v39];
+        v25 = v39;
         if (!v25)
         {
 
@@ -397,13 +394,13 @@ LABEL_48:
           goto LABEL_47;
         }
 
-        v32 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v31 = *MEMORY[0x1E698F240];
-        v41 = *MEMORY[0x1E696A578];
+        v31 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v30 = *MEMORY[0x1E698F240];
+        v40 = *MEMORY[0x1E696A578];
         v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"featureVector"];
-        v42 = v23;
-        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-        *errorCopy = [v32 initWithDomain:v31 code:2 userInfo:v26];
+        v41 = v23;
+        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+        *errorCopy = [v31 initWithDomain:v30 code:2 userInfo:v26];
 
         selfCopy2 = 0;
       }
@@ -415,7 +412,7 @@ LABEL_48:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v39 = v9;
+      v38 = v9;
       goto LABEL_7;
     }
 
@@ -423,11 +420,11 @@ LABEL_48:
     {
       v18 = objc_alloc(MEMORY[0x1E696ABC0]);
       v19 = *MEMORY[0x1E698F240];
-      v47 = *MEMORY[0x1E696A578];
-      v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"labelValue"];
-      v48 = v38;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-      v39 = 0;
+      v46 = *MEMORY[0x1E696A578];
+      v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"labelValue"];
+      v47 = v37;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+      v38 = 0;
       selfCopy2 = 0;
       *errorCopy = [v18 initWithDomain:v19 code:2 userInfo:v10];
 LABEL_49:
@@ -435,7 +432,7 @@ LABEL_49:
       goto LABEL_50;
     }
 
-    v39 = 0;
+    v38 = 0;
     selfCopy2 = 0;
 LABEL_50:
 
@@ -447,10 +444,10 @@ LABEL_50:
     errorCopy2 = error;
     v15 = objc_alloc(MEMORY[0x1E696ABC0]);
     v16 = *MEMORY[0x1E698F240];
-    v49 = *MEMORY[0x1E696A578];
-    v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"labelName"];
-    v50[0] = v39;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
+    v48 = *MEMORY[0x1E696A578];
+    v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"labelName"];
+    v49[0] = v38;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1];
     v8 = 0;
     selfCopy2 = 0;
     *errorCopy2 = [v15 initWithDomain:v16 code:2 userInfo:v9];
@@ -461,7 +458,6 @@ LABEL_50:
   selfCopy2 = 0;
 LABEL_51:
 
-  v29 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
@@ -492,7 +488,6 @@ LABEL_51:
     PBDataWriterWriteStringField();
   }
 
-  category = self->_category;
   PBDataWriterWriteUint32Field();
   if (self->_featureVector)
   {
@@ -732,31 +727,29 @@ LABEL_49:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"labelName" number:1 type:13 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"labelValue" number:2 type:13 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"taskName" number:3 type:13 subMessageClass:0];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"category" number:4 type:4 subMessageClass:0];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"featureVector" number:5 type:14 subMessageClass:objc_opt_class()];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
-id __45__BMIntelligencePlatformFeatureStore_columns__block_invoke(uint64_t a1, void *a2)
+id __45__BMIntelligencePlatformFeatureStore_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 featureVector];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 featureVector];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

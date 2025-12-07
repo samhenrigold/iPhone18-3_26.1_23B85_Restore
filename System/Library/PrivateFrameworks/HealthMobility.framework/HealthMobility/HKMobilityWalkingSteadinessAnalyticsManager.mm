@@ -271,64 +271,19 @@ uint64_t __97__HKMobilityWalkingSteadinessAnalyticsManager_submitOnboardingEvent
 
 - (BOOL)_collectSensitiveFieldsForNotificationMetric:(id)metric dataSource:(id)source error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   sourceCopy = source;
   if ([metricCopy isImproveHealthAndActivityAllowed])
   {
-    v35 = 0;
-    v9 = [sourceCopy notificationClassificationWithError:&v35];
-    v10 = v35;
+    v34 = 0;
+    v9 = [sourceCopy notificationClassificationWithError:&v34];
+    v10 = v34;
     [metricCopy setNotificationClassification:v9];
 
     v11 = v10;
-    if (v11)
+    if (v11 || (v33 = 0, [sourceCopy notificationTypeWithError:&v33], v12 = objc_claimAutoreleasedReturnValue(), v13 = v33, objc_msgSend(metricCopy, "setNotificationType:", v12), v12, (v11 = v13) != 0) || (v32 = 0, objc_msgSend(sourceCopy, "ageWithError:", &v32), v14 = objc_claimAutoreleasedReturnValue(), v15 = v32, objc_msgSend(metricCopy, "setAge:", v14), v14, (v11 = v15) != 0) || (v31 = 0, objc_msgSend(sourceCopy, "biologicalSexWithError:", &v31), v16 = objc_claimAutoreleasedReturnValue(), v17 = v31, objc_msgSend(metricCopy, "setBiologicalSex:", v16), v16, (v11 = v17) != 0) || (v30 = 0, objc_msgSend(sourceCopy, "daysSinceLastNotificationWithError:", &v30), v18 = objc_claimAutoreleasedReturnValue(), v19 = v30, objc_msgSend(metricCopy, "setDaysSinceLastNotification:", v18), v18, (v11 = v19) != 0) || (v29 = 0, objc_msgSend(sourceCopy, "areHealthNotificationsAuthorizedWithError:", &v29), v20 = objc_claimAutoreleasedReturnValue(), v21 = v29, objc_msgSend(metricCopy, "setAreHealthNotificationsAuthorized:", v20), v20, (v11 = v21) != 0))
     {
-      goto LABEL_8;
-    }
-
-    v34 = 0;
-    v12 = [sourceCopy notificationTypeWithError:&v34];
-    v13 = v34;
-    [metricCopy setNotificationType:v12];
-
-    v11 = v13;
-    if (v11)
-    {
-      goto LABEL_8;
-    }
-
-    v33 = 0;
-    v14 = [sourceCopy ageWithError:&v33];
-    v15 = v33;
-    [metricCopy setAge:v14];
-
-    v11 = v15;
-    if (v11)
-    {
-      goto LABEL_8;
-    }
-
-    v32 = 0;
-    v16 = [sourceCopy biologicalSexWithError:&v32];
-    v17 = v32;
-    [metricCopy setBiologicalSex:v16];
-
-    v11 = v17;
-    if (v11)
-    {
-      goto LABEL_8;
-    }
-
-    v31 = 0;
-    v18 = [sourceCopy daysSinceLastNotificationWithError:&v31];
-    v19 = v31;
-    [metricCopy setDaysSinceLastNotification:v18];
-
-    v11 = v19;
-    if (v11 || (v30 = 0, [sourceCopy areHealthNotificationsAuthorizedWithError:&v30], v20 = objc_claimAutoreleasedReturnValue(), v21 = v30, objc_msgSend(metricCopy, "setAreHealthNotificationsAuthorized:", v20), v20, (v11 = v21) != 0))
-    {
-LABEL_8:
       isShowingPregnancyContent = v11;
       if (error)
       {
@@ -360,67 +315,32 @@ LABEL_8:
     {
       v25 = v24;
       *buf = 138543362;
-      v37 = objc_opt_class();
-      v26 = v37;
+      v36 = objc_opt_class();
+      v26 = v36;
       _os_log_impl(&dword_251952000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping collecting metrics due to IH&A not allowed", buf, 0xCu);
     }
 
     v27 = 1;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 - (BOOL)_collectSensitiveFieldsForNotificationInteractionMetric:(id)metric dataSource:(id)source error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   sourceCopy = source;
   if ([metricCopy isImproveHealthAndActivityAllowed])
   {
-    v32 = 0;
-    v9 = [sourceCopy notificationClassificationWithError:&v32];
-    v10 = v32;
+    v31 = 0;
+    v9 = [sourceCopy notificationClassificationWithError:&v31];
+    v10 = v31;
     [metricCopy setNotificationClassification:v9];
 
     v11 = v10;
-    if (v11)
+    if (v11 || (v30 = 0, [sourceCopy notificationTypeWithError:&v30], v12 = objc_claimAutoreleasedReturnValue(), v13 = v30, objc_msgSend(metricCopy, "setNotificationType:", v12), v12, (v11 = v13) != 0) || (v29 = 0, objc_msgSend(sourceCopy, "ageWithError:", &v29), v14 = objc_claimAutoreleasedReturnValue(), v15 = v29, objc_msgSend(metricCopy, "setAge:", v14), v14, (v11 = v15) != 0) || (v28 = 0, objc_msgSend(sourceCopy, "biologicalSexWithError:", &v28), v16 = objc_claimAutoreleasedReturnValue(), v17 = v28, objc_msgSend(metricCopy, "setBiologicalSex:", v16), v16, (v11 = v17) != 0) || (v27 = 0, objc_msgSend(sourceCopy, "notificationInteractionTypeWithError:", &v27), v18 = objc_claimAutoreleasedReturnValue(), v19 = v27, objc_msgSend(metricCopy, "setNotificationInteractionType:", v18), v18, (v11 = v19) != 0))
     {
-      goto LABEL_7;
-    }
-
-    v31 = 0;
-    v12 = [sourceCopy notificationTypeWithError:&v31];
-    v13 = v31;
-    [metricCopy setNotificationType:v12];
-
-    v11 = v13;
-    if (v11)
-    {
-      goto LABEL_7;
-    }
-
-    v30 = 0;
-    v14 = [sourceCopy ageWithError:&v30];
-    v15 = v30;
-    [metricCopy setAge:v14];
-
-    v11 = v15;
-    if (v11)
-    {
-      goto LABEL_7;
-    }
-
-    v29 = 0;
-    v16 = [sourceCopy biologicalSexWithError:&v29];
-    v17 = v29;
-    [metricCopy setBiologicalSex:v16];
-
-    v11 = v17;
-    if (v11 || (v28 = 0, [sourceCopy notificationInteractionTypeWithError:&v28], v18 = objc_claimAutoreleasedReturnValue(), v19 = v28, objc_msgSend(metricCopy, "setNotificationInteractionType:", v18), v18, (v11 = v19) != 0))
-    {
-LABEL_7:
       isShowingPregnancyContent = v11;
       if (error)
       {
@@ -452,15 +372,14 @@ LABEL_7:
     {
       v23 = v22;
       *buf = 138543362;
-      v34 = objc_opt_class();
-      v24 = v34;
+      v33 = objc_opt_class();
+      v24 = v33;
       _os_log_impl(&dword_251952000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping collecting metrics due to IH&A not allowed", buf, 0xCu);
     }
 
     v25 = 1;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -474,75 +393,8 @@ LABEL_7:
   [metricCopy setStep:v9];
 
   v11 = v10;
-  if (v11)
+  if (v11 || (v40 = 0, [sourceCopy featureVersionWithError:&v40], v12 = objc_claimAutoreleasedReturnValue(), v13 = v40, objc_msgSend(metricCopy, "setFeatureVersion:", v12), v12, (v11 = v13) != 0) || (v39 = 0, objc_msgSend(sourceCopy, "provenanceWithError:", &v39), v14 = objc_claimAutoreleasedReturnValue(), v15 = v39, objc_msgSend(metricCopy, "setProvenance:", v14), v14, (v11 = v15) != 0) || (v38 = 0, objc_msgSend(sourceCopy, "activeWatchProductTypeWithError:", &v38), v16 = objc_claimAutoreleasedReturnValue(), v17 = v38, objc_msgSend(metricCopy, "setActiveWatchProductType:", v16), v16, (v11 = v17) != 0) || (v37 = 0, objc_msgSend(sourceCopy, "hasDefaultHeightWithError:", &v37), v18 = objc_claimAutoreleasedReturnValue(), v19 = v37, objc_msgSend(metricCopy, "setHasDefaultHeight:", v18), v18, (v11 = v19) != 0) || (v36 = 0, objc_msgSend(sourceCopy, "hasDefaultWeightWithError:", &v36), v20 = objc_claimAutoreleasedReturnValue(), v21 = v36, objc_msgSend(metricCopy, "setHasDefaultWeight:", v20), v20, (v11 = v21) != 0) || (v35 = 0, objc_msgSend(sourceCopy, "acceptDefaultHeightWithError:", &v35), v22 = objc_claimAutoreleasedReturnValue(), v23 = v35, objc_msgSend(metricCopy, "setAcceptDefaultHeight:", v22), v22, (v11 = v23) != 0) || (v34 = 0, objc_msgSend(sourceCopy, "acceptDefaultWeightWithError:", &v34), v24 = objc_claimAutoreleasedReturnValue(), v25 = v34, objc_msgSend(metricCopy, "setAcceptDefaultWeight:", v24), v24, (v11 = v25) != 0))
   {
-    goto LABEL_9;
-  }
-
-  v40 = 0;
-  v12 = [sourceCopy featureVersionWithError:&v40];
-  v13 = v40;
-  [metricCopy setFeatureVersion:v12];
-
-  v11 = v13;
-  if (v11)
-  {
-    goto LABEL_9;
-  }
-
-  v39 = 0;
-  v14 = [sourceCopy provenanceWithError:&v39];
-  v15 = v39;
-  [metricCopy setProvenance:v14];
-
-  v11 = v15;
-  if (v11)
-  {
-    goto LABEL_9;
-  }
-
-  v38 = 0;
-  v16 = [sourceCopy activeWatchProductTypeWithError:&v38];
-  v17 = v38;
-  [metricCopy setActiveWatchProductType:v16];
-
-  v11 = v17;
-  if (v11)
-  {
-    goto LABEL_9;
-  }
-
-  v37 = 0;
-  v18 = [sourceCopy hasDefaultHeightWithError:&v37];
-  v19 = v37;
-  [metricCopy setHasDefaultHeight:v18];
-
-  v11 = v19;
-  if (v11)
-  {
-    goto LABEL_9;
-  }
-
-  v36 = 0;
-  v20 = [sourceCopy hasDefaultWeightWithError:&v36];
-  v21 = v36;
-  [metricCopy setHasDefaultWeight:v20];
-
-  v11 = v21;
-  if (v11)
-  {
-    goto LABEL_9;
-  }
-
-  v35 = 0;
-  v22 = [sourceCopy acceptDefaultHeightWithError:&v35];
-  v23 = v35;
-  [metricCopy setAcceptDefaultHeight:v22];
-
-  v11 = v23;
-  if (v11 || (v34 = 0, [sourceCopy acceptDefaultWeightWithError:&v34], v24 = objc_claimAutoreleasedReturnValue(), v25 = v34, objc_msgSend(metricCopy, "setAcceptDefaultWeight:", v24), v24, (v11 = v25) != 0))
-  {
-LABEL_9:
     v26 = v11;
     if (!error)
     {
@@ -586,14 +438,14 @@ LABEL_13:
 
 - (BOOL)_collectSensitiveFieldsForOnboardingMetric:(id)metric dataSource:(id)source error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   sourceCopy = source;
   if ([metricCopy isImproveHealthAndActivityAllowed])
   {
-    v24 = 0;
-    v9 = [sourceCopy ageWithError:&v24];
-    v10 = v24;
+    v23 = 0;
+    v9 = [sourceCopy ageWithError:&v23];
+    v10 = v23;
     [metricCopy setAge:v9];
 
     v11 = v10;
@@ -613,9 +465,9 @@ LABEL_13:
 
     else
     {
-      v23 = 0;
-      v18 = [sourceCopy biologicalSexWithError:&v23];
-      v19 = v23;
+      v22 = 0;
+      v18 = [sourceCopy biologicalSexWithError:&v22];
+      v19 = v22;
       [metricCopy setBiologicalSex:v18];
 
       v12 = v19;
@@ -646,15 +498,14 @@ LABEL_14:
   {
     v16 = v15;
     *buf = 138543362;
-    v26 = objc_opt_class();
-    v17 = v26;
+    v25 = objc_opt_class();
+    v17 = v25;
     _os_log_impl(&dword_251952000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping collecting metrics due to IH&A not allowed", buf, 0xCu);
   }
 
   v14 = 1;
 LABEL_15:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

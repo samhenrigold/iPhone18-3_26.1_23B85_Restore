@@ -8,7 +8,7 @@
 {
   entityCopy = entity;
   contextCopy = context;
-  return PARSpotlightPropensity.init(entity:insertInto:)();
+  return PARSpotlightPropensity.init(entity:insertInto:)(entityCopy, context);
 }
 
 @end

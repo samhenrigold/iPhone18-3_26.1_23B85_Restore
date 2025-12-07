@@ -1,5 +1,7 @@
 @interface GKPath
++ (GKPath)pathWithFloat3Points:(vector_float3 *)points count:(size_t)count radius:(float)radius cyclical:(BOOL)cyclical;
 + (GKPath)pathWithGraphNodes:(NSArray *)graphNodes radius:(float)radius;
++ (GKPath)pathWithPoints:(vector_float2 *)points count:(size_t)count radius:(float)radius cyclical:(BOOL)cyclical;
 - (GKPath)initWithFloat3Points:(vector_float3 *)points count:(size_t)count radius:(float)radius cyclical:(BOOL)cyclical;
 - (GKPath)initWithGraphNodes:(NSArray *)graphNodes radius:(float)radius;
 - (GKPath)initWithPoints:(vector_float2 *)points count:(size_t)count radius:(float)radius cyclical:(BOOL)cyclical;
@@ -10,6 +12,16 @@
 @end
 
 @implementation GKPath
+
++ (GKPath)pathWithPoints:(vector_float2 *)points count:(size_t)count radius:(float)radius cyclical:(BOOL)cyclical
+{
+  v6 = cyclical;
+  v10 = [GKPath alloc];
+  *&v11 = radius;
+  v12 = [(GKPath *)v10 initWithPoints:points count:count radius:v6 cyclical:v11];
+
+  return v12;
+}
 
 - (GKPath)initWithPoints:(vector_float2 *)points count:(size_t)count radius:(float)radius cyclical:(BOOL)cyclical
 {
@@ -132,6 +144,16 @@ LABEL_22:
   return selfCopy2;
 }
 
++ (GKPath)pathWithFloat3Points:(vector_float3 *)points count:(size_t)count radius:(float)radius cyclical:(BOOL)cyclical
+{
+  v6 = cyclical;
+  v10 = [GKPath alloc];
+  *&v11 = radius;
+  v12 = [(GKPath *)v10 initWithFloat3Points:points count:count radius:v6 cyclical:v11];
+
+  return v12;
+}
+
 - (GKPath)initWithFloat3Points:(vector_float3 *)points count:(size_t)count radius:(float)radius cyclical:(BOOL)cyclical
 {
   v10.receiver = self;
@@ -196,11 +218,9 @@ LABEL_22:
   numPoints = [(GKPath *)self numPoints];
   if (numPoints > index)
   {
-    v7 = 12 * index;
-    v8 = *([(GKPath *)self pathway][16] + v7);
-    v9 = *([(GKPath *)self pathway][16] + v7 + 4);
+    [(GKPath *)self pathway];
+    [(GKPath *)self pathway];
     numPoints = [(GKPath *)self pathway];
-    z = numPoints->points[v7 / 0xC].z;
   }
 
   result.i64[1] = v6;

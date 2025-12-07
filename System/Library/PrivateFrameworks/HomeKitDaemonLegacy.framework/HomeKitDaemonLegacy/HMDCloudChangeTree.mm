@@ -125,7 +125,7 @@ LABEL_2:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v18 = [v7 copy];
+  v18 = objc_msgSend_copy(v7);
 
   return v18;
 }
@@ -240,7 +240,7 @@ LABEL_2:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v8 = [array copy];
+  v8 = objc_msgSend_copy(array);
 
   return v8;
 }
@@ -351,7 +351,7 @@ LABEL_2:
 
 - (void)findAndMarkOrphanedBranches
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   branchMap = [(HMDCloudChangeTree *)self branchMap];
   objectEnumerator = [branchMap objectEnumerator];
@@ -385,9 +385,9 @@ LABEL_2:
           v14 = HMFGetLogIdentifier();
           v15 = [nextObject description];
           *buf = 138543618;
-          v18 = v14;
-          v19 = 2112;
-          v20 = v15;
+          v17 = v14;
+          v18 = 2112;
+          v19 = v15;
           _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Orphaned Branch %@, marking all children as deleted", buf, 0x16u);
         }
 
@@ -399,12 +399,11 @@ LABEL_2:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)findAndDeletedChildren
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -412,9 +411,9 @@ LABEL_2:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v15 = 138543362;
-    v16 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Determining child records to delete", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Determining child records to delete", &v14, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -449,7 +448,6 @@ LABEL_2:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateNode:(id)node withCloudRecord:(id)record
@@ -466,7 +464,7 @@ LABEL_2:
 
 - (void)updateChange:(id)change
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   os_unfair_lock_lock_with_options();
   v5 = [(HMDCloudChangeTree *)self _findNodeWithRecordMapping:changeCopy];
@@ -488,31 +486,30 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v9 = objc_autoreleasePoolPush();
+  v8 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v11 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v10 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v12 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v12;
-    v15 = 2112;
-    v16 = changeCopy;
-    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Could not create object change node for change %@", &v13, 0x16u);
+    v11 = HMFGetLogIdentifier();
+    v12 = 138543618;
+    v13 = v11;
+    v14 = 2112;
+    v15 = changeCopy;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not create object change node for change %@", &v12, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v9);
+  objc_autoreleasePoolPop(v8);
   recordName = 0;
   v6 = 0;
 LABEL_6:
 
   os_unfair_lock_unlock(&self->_lock);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateModel:(id)model
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   os_unfair_lock_lock_with_options();
   uuid = [modelCopy uuid];
@@ -533,30 +530,29 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v8 = objc_autoreleasePoolPush();
+  v7 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v10 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v9 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v11 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v11;
-    v14 = 2112;
-    v15 = modelCopy;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not create object change node for model %@", &v12, 0x16u);
+    v10 = HMFGetLogIdentifier();
+    v11 = 138543618;
+    v12 = v10;
+    v13 = 2112;
+    v14 = modelCopy;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Could not create object change node for model %@", &v11, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v8);
+  objc_autoreleasePoolPop(v7);
   v6 = 0;
 LABEL_6:
 
   os_unfair_lock_unlock(&self->_lock);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateRecordMapping:(id)mapping
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   mappingCopy = mapping;
   os_unfair_lock_lock_with_options();
   v5 = [(HMDCloudChangeTree *)self _findNodeWithRecordMapping:mappingCopy];
@@ -576,29 +572,28 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v8 = objc_autoreleasePoolPush();
+  v7 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v10 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v9 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v11 = HMFGetLogIdentifier();
+    v10 = HMFGetLogIdentifier();
     uuid = [mappingCopy uuid];
     recordName = [mappingCopy recordName];
-    v14 = 138543874;
-    v15 = v11;
-    v16 = 2112;
-    v17 = uuid;
-    v18 = 2112;
-    v19 = recordName;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not create object change node for record mapping %@/%@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v10;
+    v15 = 2112;
+    v16 = uuid;
+    v17 = 2112;
+    v18 = recordName;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Could not create object change node for record mapping %@/%@", &v13, 0x20u);
   }
 
-  objc_autoreleasePoolPop(v8);
+  objc_autoreleasePoolPop(v7);
   v6 = 0;
 LABEL_6:
 
   os_unfair_lock_unlock(&self->_lock);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeNode:(id)node
@@ -663,7 +658,7 @@ LABEL_6:
 
 - (void)_updateNode:(id)node oldRecordName:(id)name
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   nameCopy = name;
   os_unfair_lock_assert_owner(&self->_lock);
@@ -710,28 +705,28 @@ LABEL_6:
 
       if ([array count])
       {
-        v48 = array;
-        v49 = nameCopy;
-        v52 = 0u;
-        v53 = 0u;
-        v50 = 0u;
+        v47 = array;
+        v48 = nameCopy;
         v51 = 0u;
+        v52 = 0u;
+        v49 = 0u;
+        v50 = 0u;
         v23 = array;
-        v24 = [v23 countByEnumeratingWithState:&v50 objects:v54 count:16];
+        v24 = [v23 countByEnumeratingWithState:&v49 objects:v53 count:16];
         if (v24)
         {
           v25 = v24;
-          v26 = *v51;
+          v26 = *v50;
           do
           {
             for (i = 0; i != v25; ++i)
             {
-              if (*v51 != v26)
+              if (*v50 != v26)
               {
                 objc_enumerationMutation(v23);
               }
 
-              v28 = *(*(&v50 + 1) + 8 * i);
+              v28 = *(*(&v49 + 1) + 8 * i);
               v29 = objc_autoreleasePoolPush();
               branchMap2 = [(HMDCloudChangeTree *)self branchMap];
               uuid4 = [v28 uuid];
@@ -740,14 +735,14 @@ LABEL_6:
               objc_autoreleasePoolPop(v29);
             }
 
-            v25 = [v23 countByEnumeratingWithState:&v50 objects:v54 count:16];
+            v25 = [v23 countByEnumeratingWithState:&v49 objects:v53 count:16];
           }
 
           while (v25);
         }
 
-        array = v48;
-        nameCopy = v49;
+        array = v47;
+        nameCopy = v48;
       }
 
       parentUuid2 = [nodeCopy parentUuid];
@@ -807,8 +802,6 @@ LABEL_6:
     recordName3 = [nodeCopy recordName];
     [recordMap2 setObject:nodeCopy forKey:recordName3];
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_findNodeWithRecordMapping:(id)mapping
@@ -884,7 +877,7 @@ LABEL_6:
 
 - (void)logChangeTreeWithIndent:(id)indent
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   indentCopy = indent;
   os_unfair_lock_lock_with_options();
   v4 = objc_autoreleasePoolPush();
@@ -896,11 +889,11 @@ LABEL_6:
     v7 = HMFGetLogIdentifier();
     shortDescription = [(HMDCloudChangeTree *)selfCopy2 shortDescription];
     *buf = 138543874;
-    v22 = v7;
-    v23 = 2112;
-    v24 = indentCopy;
-    v25 = 2112;
-    v26 = shortDescription;
+    v21 = v7;
+    v22 = 2112;
+    v23 = indentCopy;
+    v24 = 2112;
+    v25 = shortDescription;
     _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@%@HMDCloudChangeNode<%@>:", buf, 0x20u);
   }
 
@@ -928,9 +921,9 @@ LABEL_6:
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v22 = v17;
-        v23 = 2112;
-        v24 = indentCopy;
+        v21 = v17;
+        v22 = 2112;
+        v23 = indentCopy;
         _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@%@Orphaned Branch", buf, 0x16u);
       }
 
@@ -939,7 +932,6 @@ LABEL_6:
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -990,7 +982,7 @@ LABEL_6:
     zeroUUID = [MEMORY[0x277CCAD78] zeroUUID];
     [v15 addObject:zeroUUID];
 
-    v17 = [v15 copy];
+    v17 = objc_msgSend_copy(v15);
     validRootUUIDs = v6->_validRootUUIDs;
     v6->_validRootUUIDs = v17;
   }
@@ -1055,12 +1047,11 @@ uint64_t __45__HMDCloudChangeTree_modelTypeCanBeOrphaned___block_invoke()
 
 uint64_t __33__HMDCloudChangeTree_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_23589;
-  logCategory__hmf_once_v4_23589 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_23589;
+  logCategory__hmf_once_v4_23589 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)shortDescription

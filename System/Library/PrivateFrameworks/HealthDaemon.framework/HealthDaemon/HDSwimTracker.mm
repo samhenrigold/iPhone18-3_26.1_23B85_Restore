@@ -14,14 +14,13 @@
 - (_TtP12HealthDaemon20HDCMSwimTrackerProxy_)tracker
 {
   selfCopy = self;
-  v3 = sub_2289C88D8();
+  v4 = sub_2289C88D8(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setTracker:(id)tracker
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC12HealthDaemon13HDSwimTracker____lazy_storage___tracker);
   *(&self->super.isa + OBJC_IVAR____TtC12HealthDaemon13HDSwimTracker____lazy_storage___tracker) = tracker;
   swift_unknownObjectRetain();
 
@@ -47,14 +46,13 @@
 {
   v4 = sub_22911B8DC();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22911B8CC();
   selfCopy = self;
   sub_2289C8E94();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)fetchLatestDataWithCompletion:(id)completion

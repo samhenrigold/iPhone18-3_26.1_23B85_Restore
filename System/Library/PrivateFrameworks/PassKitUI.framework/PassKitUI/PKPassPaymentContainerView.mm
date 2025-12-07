@@ -1317,9 +1317,9 @@ void __99__PKPassPaymentContainerView_initWithPass_passStateProvider_context_pay
 
 - (void)layoutSubviews
 {
-  v92.receiver = self;
-  v92.super_class = PKPassPaymentContainerView;
-  [(PKPassFooterContentView *)&v92 layoutSubviews];
+  v114.receiver = self;
+  v114.super_class = PKPassPaymentContainerView;
+  [(PKPassFooterContentView *)&v114 layoutSubviews];
   physicalButtonView = self->_physicalButtonView;
   if (physicalButtonView)
   {
@@ -1351,7 +1351,7 @@ void __99__PKPassPaymentContainerView_initWithPass_passStateProvider_context_pay
   if (v8)
   {
     [bottomRule frame];
-    v20 = CGRectGetMinY(v93) - v19;
+    v20 = CGRectGetMinY(v115) - v19;
   }
 
   else
@@ -1366,89 +1366,113 @@ void __99__PKPassPaymentContainerView_initWithPass_passStateProvider_context_pay
   remainder.size.height = v20;
   if (self->_applicationsView)
   {
-    v94.origin.x = v18;
-    v94.origin.y = v19;
-    v94.size.width = v14;
-    v94.size.height = v20;
-    CGRectDivide(v94, &slice, &remainder, 85.0, CGRectMinYEdge);
+    v116.origin.x = v18;
+    v116.origin.y = v19;
+    v116.size.width = v14;
+    v116.size.height = v20;
+    CGRectDivide(v116, &slice, &remainder, 85.0, CGRectMinYEdge);
     [(PKPassPaymentApplicationView *)self->_applicationsView setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
   }
 
-  v85 = v19;
+  v107 = v19;
   rect = v18;
   [(PKPassValueAddedServiceInfoView *)self->_valueAddedServiceInfoView alpha];
   v22 = v21;
-  v23 = v20;
+  v23 = *&remainder.origin.x;
+  v24 = *&remainder.origin.y;
+  v26 = *&remainder.size.width;
+  v25 = *&remainder.size.height;
+  v27 = v20;
   if ([(PKPassPaymentContainerView *)self _shouldDisplayPrimaryView])
   {
     [(UIView *)self->_displayedPrimaryView sizeThatFits:v14, 1.79769313e308];
-    v25 = v24;
+    v29 = v28.n128_f64[0];
     displayedPrimaryView = self->_displayedPrimaryView;
-    PKSizeAlignedInRect();
+    v31.n128_u64[0] = v23;
+    v32.n128_u64[0] = v24;
+    v33.n128_u64[0] = v26;
+    v34.n128_u64[0] = v25;
+    PKSizeAlignedInRect(1, v35, v28, v31, v32, v33, v34, v36);
     [(UIView *)displayedPrimaryView setFrame:?];
-    CGRectDivide(remainder, &slice, &remainder, v25, CGRectMinYEdge);
+    CGRectDivide(remainder, &slice, &remainder, v29, CGRectMinYEdge);
     CGRectDivide(remainder, &slice, &remainder, 10.0, CGRectMinYEdge);
+    v23 = *&remainder.origin.x;
+    v24 = *&remainder.origin.y;
+    v26 = *&remainder.size.width;
+    v25 = *&remainder.size.height;
   }
 
   valueAddedServiceInfoView = self->_valueAddedServiceInfoView;
   if (valueAddedServiceInfoView)
   {
     [(PKPassValueAddedServiceInfoView *)valueAddedServiceInfoView sizeThatFits:v14, 1.79769313e308];
-    v29 = v28;
-    v30 = self->_valueAddedServiceInfoView;
-    PKSizeAlignedInRect();
-    [(PKPassValueAddedServiceInfoView *)v30 setFrame:?];
+    v39 = v38.n128_f64[0];
+    v40 = self->_valueAddedServiceInfoView;
+    v41.n128_u64[0] = v23;
+    v42.n128_u64[0] = v24;
+    v43.n128_u64[0] = v26;
+    v44.n128_u64[0] = v25;
+    PKSizeAlignedInRect(1, v45, v38, v41, v42, v43, v44, v46);
+    [(PKPassValueAddedServiceInfoView *)v40 setFrame:?];
     if (v22 > 0.0)
     {
-      CGRectDivide(remainder, &slice, &remainder, v29, CGRectMinYEdge);
+      CGRectDivide(remainder, &slice, &remainder, v39, CGRectMinYEdge);
       CGRectDivide(remainder, &slice, &remainder, 10.0, CGRectMinYEdge);
+      v23 = *&remainder.origin.x;
+      v24 = *&remainder.origin.y;
+      v26 = *&remainder.size.width;
+      v25 = *&remainder.size.height;
     }
   }
 
   if ([(PKPassPaymentContainerView *)self _shouldDisplaySecondaryView])
   {
     [(UIView *)self->_displayedSecondaryView sizeThatFits:v14, 1.79769313e308];
-    v32 = v31;
+    v48 = v47.n128_f64[0];
     displayedSecondaryView = self->_displayedSecondaryView;
-    PKSizeAlignedInRect();
+    v50.n128_u64[0] = v23;
+    v51.n128_u64[0] = v24;
+    v52.n128_u64[0] = v26;
+    v53.n128_u64[0] = v25;
+    PKSizeAlignedInRect(1, v54, v47, v50, v51, v52, v53, v55);
     [(UIView *)displayedSecondaryView setFrame:?];
     if (v22 <= 0.0)
     {
-      CGRectDivide(remainder, &slice, &remainder, v32, CGRectMinYEdge);
+      CGRectDivide(remainder, &slice, &remainder, v48, CGRectMinYEdge);
     }
   }
 
-  v34 = v19;
-  v35 = rect;
-  v36 = v23;
+  v56 = v107;
+  v57 = rect;
+  v58 = v27;
   if ([(PKPassFooterContentView *)self style]== 3)
   {
     y = remainder.origin.y;
     PKPassFrontFaceContentSize();
-    if (y <= v19 + v38 - v39)
+    if (y <= v107 + v60 - v61)
     {
       PKPassFrontFaceContentSize();
-      v40 = v19 + v41 - v42;
+      v62 = v107 + v63 - v64;
     }
 
     else
     {
-      v40 = remainder.origin.y;
+      v62 = remainder.origin.y;
     }
 
-    remainder.origin.y = v40;
+    remainder.origin.y = v62;
   }
 
   [(PKPassPaymentPayStateView *)self->_payStateView alpha];
-  if (v43 <= 0.0)
+  if (v65 <= 0.0)
   {
-    v88[0] = MEMORY[0x1E69E9820];
-    v88[1] = 3221225472;
-    v89 = remainder;
-    v88[2] = __44__PKPassPaymentContainerView_layoutSubviews__block_invoke;
-    v88[3] = &unk_1E8012160;
-    v88[4] = self;
-    [MEMORY[0x1E69DD250] performWithoutAnimation:v88];
+    v110[0] = MEMORY[0x1E69E9820];
+    v110[1] = 3221225472;
+    v111 = remainder;
+    v110[2] = __44__PKPassPaymentContainerView_layoutSubviews__block_invoke;
+    v110[3] = &unk_1E8012160;
+    v110[4] = self;
+    [MEMORY[0x1E69DD250] performWithoutAnimation:v110];
   }
 
   else
@@ -1458,46 +1482,46 @@ void __99__PKPassPaymentContainerView_initWithPass_passStateProvider_context_pay
   }
 
   remainder.origin.x = rect;
-  remainder.origin.y = v19;
+  remainder.origin.y = v107;
   remainder.size.width = v14;
-  remainder.size.height = v36;
+  remainder.size.height = v58;
   if (self->_applicationsView)
   {
-    v95.origin.x = rect;
-    v95.origin.y = v19;
-    v95.size.width = v14;
-    v95.size.height = v36;
-    CGRectDivide(v95, &slice, &remainder, 85.0, CGRectMinYEdge);
+    v117.origin.x = rect;
+    v117.origin.y = v107;
+    v117.size.width = v14;
+    v117.size.height = v58;
+    CGRectDivide(v117, &slice, &remainder, 85.0, CGRectMinYEdge);
   }
 
-  v44 = self->_displayedPrimaryView;
-  if (v44)
+  v66 = self->_displayedPrimaryView;
+  if (v66)
   {
-    [(UIView *)v44 alpha];
-    if (v45 > 0.0)
+    [(UIView *)v66 alpha];
+    if (v67 > 0.0)
     {
       [(UIView *)self->_displayedPrimaryView frame];
-      CGRectDivide(remainder, &slice, &remainder, v46, CGRectMinYEdge);
+      CGRectDivide(remainder, &slice, &remainder, v68, CGRectMinYEdge);
       CGRectDivide(remainder, &slice, &remainder, 10.0, CGRectMinYEdge);
     }
   }
 
-  v47 = self->_valueAddedServiceInfoView;
-  if (v47 && v22 > 0.0)
+  v69 = self->_valueAddedServiceInfoView;
+  if (v69 && v22 > 0.0)
   {
-    [(PKPassValueAddedServiceInfoView *)v47 frame];
-    CGRectDivide(remainder, &slice, &remainder, v48, CGRectMinYEdge);
+    [(PKPassValueAddedServiceInfoView *)v69 frame];
+    CGRectDivide(remainder, &slice, &remainder, v70, CGRectMinYEdge);
     CGRectDivide(remainder, &slice, &remainder, 10.0, CGRectMinYEdge);
   }
 
-  v49 = self->_displayedSecondaryView;
-  if (v49)
+  v71 = self->_displayedSecondaryView;
+  if (v71)
   {
-    [(UIView *)v49 alpha];
-    if (v50 > 0.0 && v22 <= 0.0)
+    [(UIView *)v71 alpha];
+    if (v72 > 0.0 && v22 <= 0.0)
     {
       [(UIView *)self->_displayedSecondaryView frame];
-      CGRectDivide(remainder, &slice, &remainder, v51, CGRectMinYEdge);
+      CGRectDivide(remainder, &slice, &remainder, v73, CGRectMinYEdge);
     }
   }
 
@@ -1505,52 +1529,52 @@ void __99__PKPassPaymentContainerView_initWithPass_passStateProvider_context_pay
   if (actionButton)
   {
     [(UIButton *)actionButton frame];
-    v54 = v53;
+    v76 = v75;
     if ((style - 1) < 3 && v8)
     {
-      v84 = v36;
+      v106 = v58;
       appIconView = [(PKPassFooterContentView *)self appIconView];
       [appIconView frame];
-      v57 = v56;
-      v59 = v58;
-      v61 = v60;
-      v63 = v62;
+      v79 = v78;
+      v81 = v80;
+      v83 = v82;
+      v85 = v84;
 
       [(PKPassFooterContentView *)self infoButtonFrame];
-      x = v96.origin.x;
-      width = v96.size.width;
-      v65 = v96.origin.y;
-      height = v96.size.height;
-      CGRectGetMinX(v96);
-      v97.origin.x = v57;
-      v97.origin.y = v59;
-      v97.size.width = v61;
-      v97.size.height = v63;
-      CGRectGetMaxX(v97);
-      v98.origin.x = v57;
-      v98.origin.y = v59;
-      v98.size.width = v61;
-      v98.size.height = v63;
-      CGRectGetMinX(v98);
-      v99.origin.x = x;
-      v99.origin.y = v65;
-      v99.size.width = width;
-      v99.size.height = height;
-      CGRectGetMaxX(v99);
+      x = v118.origin.x;
+      width = v118.size.width;
+      v87 = v118.origin.y;
+      height = v118.size.height;
+      CGRectGetMinX(v118);
+      v119.origin.x = v79;
+      v119.origin.y = v81;
+      v119.size.width = v83;
+      v119.size.height = v85;
+      CGRectGetMaxX(v119);
+      v120.origin.x = v79;
+      v120.origin.y = v81;
+      v120.size.width = v83;
+      v120.size.height = v85;
+      CGRectGetMinX(v120);
+      v121.origin.x = x;
+      v121.origin.y = v87;
+      v121.size.width = width;
+      v121.size.height = height;
+      CGRectGetMaxX(v121);
       UIRectCenteredYInRect();
       if (style == 2 || PKUIGetMinScreenWidthType())
       {
-        v34 = v85;
-        v35 = rect;
-        v36 = v84;
+        v56 = v107;
+        v57 = rect;
+        v58 = v106;
       }
 
       else
       {
         [(PKPassFooterContentView *)self infoButtonAlpha];
-        v34 = v85;
-        v35 = rect;
-        v36 = v84;
+        v56 = v107;
+        v57 = rect;
+        v58 = v106;
       }
 
       [(PKPassPaymentPayStateView *)self->_payStateView setLabelStateBottomInset:0.0];
@@ -1560,12 +1584,12 @@ void __99__PKPassPaymentContainerView_initWithPass_passStateProvider_context_pay
     {
       [(PKPassPaymentPayStateView *)self->_payStateView bounds];
       [(PKPassPaymentContainerView *)self convertRect:self->_payStateView fromView:?];
-      MaxY = CGRectGetMaxY(v100);
-      [(PKPassPaymentPayStateView *)self->_payStateView setLabelStateBottomInset:MaxY - (MaxY - v54 + -12.0)];
+      MaxY = CGRectGetMaxY(v122);
+      [(PKPassPaymentPayStateView *)self->_payStateView setLabelStateBottomInset:MaxY - (MaxY - v76 + -12.0)];
       if (![(PKPassPaymentPayStateView *)self->_payStateView layoutState])
       {
         label = [(PKPassPaymentPayStateView *)self->_payStateView label];
-        v69 = label;
+        v91 = label;
         if (label)
         {
           glyph = label;
@@ -1576,11 +1600,11 @@ void __99__PKPassPaymentContainerView_initWithPass_passStateProvider_context_pay
           glyph = [(PKPassPaymentPayStateView *)self->_payStateView glyph];
         }
 
-        v71 = glyph;
+        v93 = glyph;
 
-        [v71 bounds];
-        [(PKPassPaymentContainerView *)self convertRect:v71 fromView:?];
-        CGRectGetMaxY(v101);
+        [v93 bounds];
+        [(PKPassPaymentContainerView *)self convertRect:v93 fromView:?];
+        CGRectGetMaxY(v123);
       }
     }
 
@@ -1597,24 +1621,24 @@ void __99__PKPassPaymentContainerView_initWithPass_passStateProvider_context_pay
   if (bottomTextView)
   {
     [(UITextView *)bottomTextView frame];
-    v74 = v73;
-    v75 = v35;
-    recta = v76;
+    v96 = v95;
+    v97 = v57;
+    recta = v98;
     [(UITextView *)self->_bottomTextView sizeThatFits:v14, 1.79769313e308];
-    v77 = v14;
-    v79 = v78;
-    v80 = v36;
-    v82 = v81;
-    v102.origin.x = v75;
-    v102.origin.y = v34;
-    v102.size.width = v77;
-    v102.size.height = v80;
-    CGRectGetMaxY(v102);
-    v103.origin.x = v74;
-    v103.origin.y = recta;
-    v103.size.width = v79;
-    v103.size.height = v82;
-    CGRectGetHeight(v103);
+    v99 = v14;
+    v101 = v100;
+    v102 = v58;
+    v104 = v103;
+    v124.origin.x = v97;
+    v124.origin.y = v56;
+    v124.size.width = v99;
+    v124.size.height = v102;
+    CGRectGetMaxY(v124);
+    v125.origin.x = v96;
+    v125.origin.y = recta;
+    v125.size.width = v101;
+    v125.size.height = v104;
+    CGRectGetHeight(v125);
     UIRectCenteredXInRect();
     [(UITextView *)self->_bottomTextView setFrame:?];
   }
@@ -2202,7 +2226,7 @@ void __84__PKPassPaymentContainerView_authenticator_didTransitionToEvaluationSta
   }
 }
 
-void __84__PKPassPaymentContainerView_presentPasscodeViewController_completionHandler_reply___block_invoke(uint64_t a1, int a2)
+void __84__PKPassPaymentContainerView_presentPasscodeViewController_completionHandler_reply___block_invoke(uint64_t a1, uint64_t a2)
 {
   *(*(a1 + 32) + 840) = 0;
   v3 = *(a1 + 32);
@@ -2232,10 +2256,10 @@ LABEL_7:
   v5 = *(a1 + 40);
   if (v5)
   {
-    (*(v5 + 16))(v5, v4);
+    v5 = (*(v5 + 16))(v5, v4);
   }
 
-  PKUIEndTrackingPresentation();
+  PKUIEndTrackingPresentation(v5, a2);
 }
 
 - (void)dismissPasscodeViewController
@@ -2726,13 +2750,13 @@ LABEL_12:
 LABEL_17:
 }
 
-void __96__PKPassPaymentContainerView_contactlessInterfaceSession_didReceive18013Request_readerAuthInfo___block_invoke_164()
+void __96__PKPassPaymentContainerView_contactlessInterfaceSession_didReceive18013Request_readerAuthInfo___block_invoke_164(uint64_t a1, uint64_t a2)
 {
-  v0 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1BD026000, v0, OS_LOG_TYPE_DEFAULT, "Presented data release confirmation controller", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Presented data release confirmation controller", v3, 2u);
   }
 }
 
@@ -4747,7 +4771,7 @@ LABEL_73:
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __74__PKPassPaymentContainerView_contactlessInterfaceSessionDidSelectPayment___block_invoke(uint64_t a1)
+void *__74__PKPassPaymentContainerView_contactlessInterfaceSessionDidSelectPayment___block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) style] == 2)
   {
@@ -4782,17 +4806,17 @@ uint64_t __74__PKPassPaymentContainerView_contactlessInterfaceSessionDidSelectPa
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __89__PKPassPaymentContainerView_contactlessInterfaceSession_didTransitionFromState_toState___block_invoke(uint64_t result)
+id *__89__PKPassPaymentContainerView_contactlessInterfaceSession_didTransitionFromState_toState___block_invoke(id *result)
 {
   v1 = result;
-  if (*(result + 40) == 2)
+  if (result[5] == 2)
   {
-    result = [*(result + 32) _postDidAuthorizeNotification];
+    result = [result[4] _postDidAuthorizeNotification];
   }
 
-  if (*(v1 + 48) == 2)
+  if (v1[6] == 2)
   {
-    v2 = *(v1 + 32);
+    v2 = v1[4];
 
     return [v2 _postDidDeauthorizeNotification];
   }
@@ -4813,7 +4837,7 @@ uint64_t __89__PKPassPaymentContainerView_contactlessInterfaceSession_didTransit
   dispatch_async(MEMORY[0x1E69E96A0], v7);
 }
 
-uint64_t __92__PKPassPaymentContainerView_contactlessInterfaceSession_didReceiveExpressTransactionState___block_invoke(uint64_t a1)
+void *__92__PKPassPaymentContainerView_contactlessInterfaceSession_didReceiveExpressTransactionState___block_invoke(uint64_t a1)
 {
   if ([*(*(a1 + 32) + 496) persistentEmulationHint])
   {
@@ -4878,7 +4902,7 @@ uint64_t __92__PKPassPaymentContainerView_contactlessInterfaceSession_didReceive
       return [result _applyTerminalTransactionSubstateWithSuccess:v7 reset:v8];
     }
 
-    if (!*(result + 824))
+    if (!*(result + 103))
     {
       return [result _finishHoldingTerminalTransactionSubstateAfterDelay:1.0];
     }
@@ -5970,7 +5994,7 @@ void __65__PKPassPaymentContainerView__promoteToAuthorizedStateIfPossible__block
   }
 }
 
-uint64_t __90__PKPassPaymentContainerView__didAuthorizePaymentApplicationWithAuthenticationIdentifier___block_invoke(uint64_t a1)
+void *__90__PKPassPaymentContainerView__didAuthorizePaymentApplicationWithAuthenticationIdentifier___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 488) authenticationIdentifier];
   if (result == *(a1 + 40))
@@ -9653,29 +9677,33 @@ LABEL_13:
 {
   actionCopy = action;
   titleCopy = title;
-  PKFloatRoundToPixel();
-  v8 = v7;
-  v9 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD00], *MEMORY[0x1E69DDC40]);
-  [v9 lineHeight];
-  PKFloatRoundToPixel();
-  v14 = v10;
-  v15 = xmmword_1BE0B69E0;
-  v16 = vdupq_n_s64(2uLL);
-  v11 = [[PKContinuousButton alloc] initWithConfiguration:&v14];
-  [(PKContinuousButton *)v11 setContentEdgeInsets:v8, 25.0, 16.0 - v8, 25.0];
-  titleLabel = [(PKContinuousButton *)v11 titleLabel];
-  [titleLabel setFont:v9];
+  v7.n128_u64[0] = 8.0;
+  PKFloatRoundToPixel(v7, v8);
+  v10 = v9;
+  v11 = 16.0 - v9;
+  v12 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD00], *MEMORY[0x1E69DDC40]);
+  [v12 lineHeight];
+  v14.n128_u64[0] = 0.5;
+  v15.n128_f64[0] = (v11 + v10 + v13) * 0.5;
+  PKFloatRoundToPixel(v15, v14);
+  v20 = v16;
+  v21 = xmmword_1BE0B69E0;
+  v22 = vdupq_n_s64(2uLL);
+  v17 = [[PKContinuousButton alloc] initWithConfiguration:&v20];
+  [(PKContinuousButton *)v17 setContentEdgeInsets:v10, 25.0, 16.0 - v10, 25.0];
+  titleLabel = [(PKContinuousButton *)v17 titleLabel];
+  [titleLabel setFont:v12];
   [titleLabel setMinimumScaleFactor:0.5];
   [titleLabel setTextAlignment:1];
   [titleLabel setLineBreakMode:4];
-  [(PKContinuousButton *)v11 setTitle:titleCopy forState:0];
+  [(PKContinuousButton *)v17 setTitle:titleCopy forState:0];
 
-  [(PKContinuousButton *)v11 _setTouchInsets:-10.0, -10.0, -10.0, -10.0];
-  [(PKContinuousButton *)v11 setExclusiveTouch:1];
-  [(PKContinuousButton *)v11 sizeToFit];
-  [(PKContinuousButton *)v11 addAction:actionCopy forControlEvents:64];
+  [(PKContinuousButton *)v17 _setTouchInsets:-10.0, -10.0, -10.0, -10.0];
+  [(PKContinuousButton *)v17 setExclusiveTouch:1];
+  [(PKContinuousButton *)v17 sizeToFit];
+  [(PKContinuousButton *)v17 addAction:actionCopy forControlEvents:64];
 
-  return v11;
+  return v17;
 }
 
 - (unint64_t)_actionAfterTransaction
@@ -9958,7 +9986,7 @@ void __70__PKPassPaymentContainerView__showTerminalIsNotRequestingPaymentError__
   dispatch_after(v6, MEMORY[0x1E69E96A0], v7);
 }
 
-uint64_t __67__PKPassPaymentContainerView__showTerminalIsRequestingPaymentError__block_invoke(uint64_t a1)
+void *__67__PKPassPaymentContainerView__showTerminalIsRequestingPaymentError__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 488) authenticationIdentifier];
   if (result == *(a1 + 40))
@@ -11346,7 +11374,7 @@ void __82__PKPassPaymentContainerView__submitSignatureForTransactionIdentifier_c
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __82__PKPassPaymentContainerView__submitSignatureForTransactionIdentifier_completion___block_invoke_3_432(void *a1)
+void *__82__PKPassPaymentContainerView__submitSignatureForTransactionIdentifier_completion___block_invoke_3_432(void *a1)
 {
   (*(a1[7] + 16))();
   if (a1[4])
@@ -11354,7 +11382,7 @@ uint64_t __82__PKPassPaymentContainerView__submitSignatureForTransactionIdentifi
     result = a1[8];
     if (result)
     {
-      v3 = *(result + 16);
+      v3 = result[2];
 
       return v3();
     }
@@ -12059,7 +12087,7 @@ void __90__PKPassPaymentContainerView__submitUserConfirmation_forTransactionIden
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __90__PKPassPaymentContainerView__submitUserConfirmation_forTransactionIdentifier_completion___block_invoke_3_486(uint64_t a1)
+void *__90__PKPassPaymentContainerView__submitUserConfirmation_forTransactionIdentifier_completion___block_invoke_3_486(uint64_t a1)
 {
   (*(*(a1 + 56) + 16))();
   if (*(a1 + 32))
@@ -12067,7 +12095,7 @@ uint64_t __90__PKPassPaymentContainerView__submitUserConfirmation_forTransaction
     result = *(a1 + 64);
     if (result)
     {
-      v3 = *(result + 16);
+      v3 = result[2];
 
       return v3();
     }
@@ -12841,7 +12869,7 @@ void __86__PKPassPaymentContainerView__submitEncryptedPIN_forTransactionIdentifi
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __86__PKPassPaymentContainerView__submitEncryptedPIN_forTransactionIdentifier_completion___block_invoke_4(void *a1)
+void *__86__PKPassPaymentContainerView__submitEncryptedPIN_forTransactionIdentifier_completion___block_invoke_4(void *a1)
 {
   (*(a1[8] + 16))();
   if (a1[4])
@@ -12849,7 +12877,7 @@ uint64_t __86__PKPassPaymentContainerView__submitEncryptedPIN_forTransactionIden
     result = a1[9];
     if (result)
     {
-      v3 = *(result + 16);
+      v3 = result[2];
 
       return v3();
     }
@@ -13934,7 +13962,7 @@ void __85__PKPassPaymentContainerView_passTileGroupViewRequestsBeginSuppressingC
   }
 }
 
-uint64_t __85__PKPassPaymentContainerView_passTileGroupViewRequestsBeginSuppressingCardEmulation___block_invoke_5(uint64_t a1)
+void *__85__PKPassPaymentContainerView_passTileGroupViewRequestsBeginSuppressingCardEmulation___block_invoke_5(uint64_t a1)
 {
   result = [*(a1 + 32) invalidate];
   if (result)

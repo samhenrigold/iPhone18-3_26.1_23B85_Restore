@@ -702,7 +702,7 @@ LABEL_14:
     pairingManager2 = [(IDSDXPCPairing *)self pairingManager];
     pairedDeviceUUIDString = [pairingManager2 pairedDeviceUUIDString];
 
-    if (pairedDeviceUUIDString && ([(__CFString *)pairedDeviceUUIDString isEqualToIgnoringCase:v24]& 1) != 0)
+    if (pairedDeviceUUIDString && (objc_msgSend_isEqualToIgnoringCase_(pairedDeviceUUIDString) & 1) != 0)
     {
       v29 = OSLogHandleForTransportCategory();
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))

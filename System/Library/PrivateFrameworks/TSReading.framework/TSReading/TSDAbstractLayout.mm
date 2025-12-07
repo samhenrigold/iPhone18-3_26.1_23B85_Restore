@@ -65,7 +65,7 @@
   geometry = [(TSDAbstractLayout *)self->mParent geometry];
   if (geometry)
   {
-    [(TSDLayoutGeometry *)geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -92,7 +92,7 @@
     v6 = [(TSDAbstractLayout *)i geometry:v8];
     if (v6)
     {
-      [(TSDLayoutGeometry *)v6 transform];
+      objc_msgSend_transform(v6);
     }
 
     else
@@ -121,7 +121,7 @@
   if (result)
   {
 
-    return [(CGAffineTransform *)result transform];
+    return objc_msgSend_transform(result);
   }
 
   else
@@ -139,7 +139,7 @@
   geometry = [(TSDAbstractLayout *)self geometry];
   if (geometry)
   {
-    [(TSDLayoutGeometry *)geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -150,7 +150,7 @@
   geometry2 = [(TSDAbstractLayout *)self->mParent geometry];
   if (geometry2)
   {
-    [(TSDLayoutGeometry *)geometry2 transform];
+    objc_msgSend_transform(geometry2);
   }
 
   else
@@ -169,7 +169,7 @@
   result = [(TSDAbstractLayout *)self geometry];
   if (result)
   {
-    result = [(CGAffineTransform *)result transform];
+    result = objc_msgSend_transform(result);
   }
 
   else
@@ -187,24 +187,19 @@
       geometry = [mParent geometry];
       if (geometry)
       {
-        v8 = *&retstr->c;
-        v10[0] = *&retstr->a;
-        v10[1] = v8;
-        v10[2] = *&retstr->tx;
-        [geometry transformByConcatenatingTransformTo:v10];
+        objc_msgSend_transformByConcatenatingTransformTo_(geometry, *&retstr->a, *&retstr->b, *&retstr->c, *&retstr->d, *&retstr->tx, *&retstr->ty);
       }
 
       else
       {
-        v12 = 0u;
-        v13 = 0u;
-        v11 = 0u;
+        v9 = 0u;
+        v10 = 0u;
+        v8 = 0u;
       }
 
-      v9 = v12;
-      *&retstr->a = v11;
+      *&retstr->a = v8;
       *&retstr->c = v9;
-      *&retstr->tx = v13;
+      *&retstr->tx = v10;
       result = [mParent parent];
       mParent = result;
     }
@@ -261,7 +256,7 @@
   x = parent.origin.x;
   if (self)
   {
-    [(TSDAbstractLayout *)self transformInParent];
+    objc_msgSend_transformInParent(self, a2);
   }
 
   else
@@ -284,7 +279,7 @@
   x = root.origin.x;
   if (self)
   {
-    [(TSDAbstractLayout *)self transformInRoot];
+    objc_msgSend_transformInRoot(self, a2);
   }
 
   else
@@ -303,7 +298,7 @@
 {
   if (self)
   {
-    [(TSDAbstractLayout *)self transformInRoot];
+    objc_msgSend_transformInRoot(self, a2);
   }
 
   else
@@ -594,7 +589,7 @@
       geometry = [(TSDAbstractLayout *)self geometry];
       if (geometry)
       {
-        [(TSDLayoutGeometry *)geometry transform];
+        objc_msgSend_transform(geometry);
       }
 
       else
@@ -740,7 +735,7 @@
     parent2 = [(TSDAbstractLayout *)self parent];
     if (parent2)
     {
-      [(TSDAbstractLayout *)parent2 transformInRoot];
+      objc_msgSend_transformInRoot(parent2);
     }
 
     else
@@ -774,7 +769,7 @@
 {
   if (self)
   {
-    [(TSDAbstractLayout *)self transformInRoot];
+    objc_msgSend_transformInRoot(self, a2);
   }
 
   else

@@ -79,14 +79,12 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    wasTapped = self->_wasTapped;
     PBDataWriterWriteBOOLField();
   }
 
@@ -161,7 +159,6 @@
     return v5;
   }
 
-  v6 = *(equal + 36);
   if (*&self->_has)
   {
     if ((*(equal + 36) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -179,7 +176,6 @@
   {
     if ((*(equal + 36) & 2) != 0)
     {
-      v9 = *(equal + 32);
       if (self->_wasTapped)
       {
         if ((*(equal + 32) & 1) == 0)

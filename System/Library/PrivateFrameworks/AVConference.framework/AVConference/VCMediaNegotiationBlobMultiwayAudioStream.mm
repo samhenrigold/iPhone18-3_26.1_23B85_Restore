@@ -745,25 +745,24 @@ LABEL_12:
 
 - (void)printWithLogFile:(void *)file
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AD60] stringWithFormat:@"Multiway Audio Stream Settings: SSRC=%x maxNetworkBitrate=%d maxMediaBitrate=%d maxPacketsPerSecond=%f supportedPayloads=0x%08x streamID=%d qualityIndex=%d hasRepaired:%u repairedMaxNetworkBitrate=%d repairedStreamID=%d", self->_ssrc, self->_maxNetworkBitrate, self->_maxMediaBitrate, self->_maxPacketsPerSecond, self->_supportedPayloads, self->_streamID, self->_qualityIndex, -[VCMediaNegotiationBlobMultiwayAudioStream hasRepairedStreamID](self, "hasRepairedStreamID"), self->_repairedMaxNetworkBitrate, self->_repairedStreamID];
-  uTF8String = [v4 UTF8String];
-  VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", v6, v7, v8, v9, v10, v11, uTF8String);
+  VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", [v4 UTF8String]);
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v12 = VRTraceErrorLogLevelToCSTR();
-    v13 = *MEMORY[0x1E6986650];
+    v5 = VRTraceErrorLogLevelToCSTR();
+    v6 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v15 = v12;
-      v16 = 2080;
-      v17 = "[VCMediaNegotiationBlobMultiwayAudioStream(MultiwayAudioStream) printWithLogFile:]";
-      v18 = 1024;
-      v19 = 1350;
-      v20 = 2080;
-      uTF8String2 = [v4 UTF8String];
-      _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s\n", buf, 0x26u);
+      v8 = v5;
+      v9 = 2080;
+      v10 = "[VCMediaNegotiationBlobMultiwayAudioStream(MultiwayAudioStream) printWithLogFile:]";
+      v11 = 1024;
+      v12 = 1350;
+      v13 = 2080;
+      uTF8String = [v4 UTF8String];
+      _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s\n", buf, 0x26u);
     }
   }
 }

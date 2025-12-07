@@ -317,7 +317,7 @@ LABEL_29:
 - (void)updatePossibleUnits
 {
   selfCopy = self;
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   unitType = [(WFUnitQuantityFieldParameter *)self unitType];
   if (unitType)
   {
@@ -327,31 +327,31 @@ LABEL_29:
     if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       v6 = objc_opt_new();
+      v61 = 0u;
       v62 = 0u;
       v63 = 0u;
       v64 = 0u;
-      v65 = 0u;
       v7 = v5;
-      v8 = [v7 countByEnumeratingWithState:&v62 objects:v69 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v61 objects:v68 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v63;
+        v10 = *v62;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v63 != v10)
+            if (*v62 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = [MEMORY[0x1E69E0BE8] unitFromString:*(*(&v62 + 1) + 8 * i) unitType:unitType caseSensitive:0];
+            v12 = [MEMORY[0x1E69E0BE8] unitFromString:*(*(&v61 + 1) + 8 * i) unitType:unitType caseSensitive:0];
             symbol = [v12 symbol];
             [v6 setObject:v12 forKey:symbol];
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v62 objects:v69 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v61 objects:v68 count:16];
         }
 
         while (v9);
@@ -366,26 +366,26 @@ LABEL_29:
 
       v6 = objc_opt_new();
       v15 = objc_opt_new();
+      v57 = 0u;
       v58 = 0u;
       v59 = 0u;
       v60 = 0u;
-      v61 = 0u;
       v16 = [MEMORY[0x1E69E0BE8] availableUnitsForUnitType:unitType];
-      v17 = [v16 countByEnumeratingWithState:&v58 objects:v68 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v57 objects:v67 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v59;
+        v19 = *v58;
         do
         {
           for (j = 0; j != v18; ++j)
           {
-            if (*v59 != v19)
+            if (*v58 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v58 + 1) + 8 * j);
+            v21 = *(*(&v57 + 1) + 8 * j);
             symbol2 = [v21 symbol];
             [v6 setObject:v21 forKey:symbol2];
 
@@ -393,7 +393,7 @@ LABEL_29:
             [v15 addObject:symbol3];
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v58 objects:v68 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v57 objects:v67 count:16];
         }
 
         while (v18);
@@ -413,60 +413,60 @@ LABEL_29:
 
   else if ([(WFUnitQuantityFieldParameter *)selfCopy fallbackToAllSupportedUnits])
   {
-    v48 = selfCopy;
+    v47 = selfCopy;
     v27 = objc_opt_new();
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
     obj = [MEMORY[0x1E69E0BE8] availableUnitTypes];
-    v28 = [obj countByEnumeratingWithState:&v54 objects:v67 count:16];
+    v28 = [obj countByEnumeratingWithState:&v53 objects:v66 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v55;
+      v30 = *v54;
       do
       {
         for (k = 0; k != v29; ++k)
         {
-          if (*v55 != v30)
+          if (*v54 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v32 = *(*(&v54 + 1) + 8 * k);
+          v32 = *(*(&v53 + 1) + 8 * k);
+          v49 = 0u;
           v50 = 0u;
           v51 = 0u;
           v52 = 0u;
-          v53 = 0u;
           v33 = [MEMORY[0x1E69E0BE8] availableUnitsForUnitType:v32];
-          v34 = [v33 countByEnumeratingWithState:&v50 objects:v66 count:16];
+          v34 = [v33 countByEnumeratingWithState:&v49 objects:v65 count:16];
           if (v34)
           {
             v35 = v34;
-            v36 = *v51;
+            v36 = *v50;
             do
             {
               for (m = 0; m != v35; ++m)
               {
-                if (*v51 != v36)
+                if (*v50 != v36)
                 {
                   objc_enumerationMutation(v33);
                 }
 
-                v38 = *(*(&v50 + 1) + 8 * m);
+                v38 = *(*(&v49 + 1) + 8 * m);
                 symbol4 = [v38 symbol];
                 [v27 setObject:v38 forKey:symbol4];
               }
 
-              v35 = [v33 countByEnumeratingWithState:&v50 objects:v66 count:16];
+              v35 = [v33 countByEnumeratingWithState:&v49 objects:v65 count:16];
             }
 
             while (v35);
           }
         }
 
-        v29 = [obj countByEnumeratingWithState:&v54 objects:v67 count:16];
+        v29 = [obj countByEnumeratingWithState:&v53 objects:v66 count:16];
       }
 
       while (v29);
@@ -474,13 +474,13 @@ LABEL_29:
 
     allKeys = [v27 allKeys];
     v41 = [allKeys sortedArrayUsingSelector:sel_localizedStandardCompare_];
-    selfCopy = v48;
-    v42 = v48->_possibleUnits;
-    v48->_possibleUnits = v41;
+    selfCopy = v47;
+    v42 = v47->_possibleUnits;
+    v47->_possibleUnits = v41;
 
     v43 = [v27 copy];
-    v44 = v48->_unitSymbolMap;
-    v48->_unitSymbolMap = v43;
+    v44 = v47->_unitSymbolMap;
+    v47->_unitSymbolMap = v43;
 
     unitType = 0;
   }
@@ -495,14 +495,12 @@ LABEL_29:
   }
 
   [(WFParameter *)selfCopy attributesDidChange];
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (id)availableUnitForStringValue:(id)value
 {
   valueCopy = value;
-  if ([valueCopy isEqualToString:@"sec"])
+  if (objc_msgSend_isEqualToString_(valueCopy))
   {
     seconds = [MEMORY[0x1E696B008] seconds];
 LABEL_7:
@@ -510,13 +508,13 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if ([valueCopy isEqualToString:@"min"])
+  if (objc_msgSend_isEqualToString_(valueCopy))
   {
     seconds = [MEMORY[0x1E696B008] minutes];
     goto LABEL_7;
   }
 
-  if ([valueCopy isEqualToString:@"hr"])
+  if (objc_msgSend_isEqualToString_(valueCopy))
   {
     seconds = [MEMORY[0x1E696B008] hours];
     goto LABEL_7;
@@ -567,20 +565,19 @@ LABEL_8:
   unitType = self->_unitType;
   if (unitType != typeCopy)
   {
-    v12 = typeCopy;
-    v6 = [(NSString *)unitType isEqualToString:typeCopy];
-    typeCopy = v12;
-    if (!v6)
+    v11 = typeCopy;
+    isEqualToString = objc_msgSend_isEqualToString_(unitType, typeCopy, typeCopy);
+    typeCopy = v11;
+    if ((isEqualToString & 1) == 0)
     {
-      v7 = [(NSString *)v12 copy];
+      v7 = [(NSString *)v11 copy];
       v8 = self->_unitType;
       self->_unitType = v7;
 
-      if (v12)
+      if (v11)
       {
         [MEMORY[0x1E69E0BE8] unitClassForUnitType:?];
         p_defaultUnit = &self->_defaultUnit;
-        defaultUnit = self->_defaultUnit;
         if (objc_opt_isKindOfClass())
         {
           goto LABEL_8;
@@ -592,13 +589,13 @@ LABEL_8:
         p_defaultUnit = &self->_defaultUnit;
       }
 
-      v11 = *p_defaultUnit;
+      v10 = *p_defaultUnit;
       *p_defaultUnit = 0;
 
 LABEL_8:
       [(WFUnitQuantityFieldParameter *)self updatePossibleUnits];
       [(WFParameter *)self defaultSerializedRepresentationDidChange];
-      typeCopy = v12;
+      typeCopy = v11;
     }
   }
 }

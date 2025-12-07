@@ -31,7 +31,7 @@
 {
   tappedCopy = tapped;
   selfCopy = self;
-  sub_10016AE94();
+  sub_10016AE94(tappedCopy);
 }
 
 - (_TtC5Music25CarPlayUpNextControlsView)initWithReuseIdentifier:(id)identifier

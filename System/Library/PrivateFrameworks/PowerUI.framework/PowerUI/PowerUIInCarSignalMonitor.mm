@@ -117,7 +117,7 @@
 
 void __44__PowerUIInCarSignalMonitor_startMonitoring__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) inCar];
   *(*(a1 + 32) + 9) = 1;
   if (v2 != [*(a1 + 32) inCar])
@@ -127,11 +127,11 @@ void __44__PowerUIInCarSignalMonitor_startMonitoring__block_invoke(uint64_t a1)
     {
       v4 = *(a1 + 32);
       v5 = v3;
-      v10[0] = 67109376;
-      v10[1] = v2;
-      v11 = 1024;
-      v12 = [v4 inCar];
-      _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "Previously: %u, Now: %u", v10, 0xEu);
+      v9[0] = 67109376;
+      v9[1] = v2;
+      v10 = 1024;
+      v11 = [v4 inCar];
+      _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "Previously: %u, Now: %u", v9, 0xEu);
     }
 
     v6 = *(a1 + 32);
@@ -139,13 +139,11 @@ void __44__PowerUIInCarSignalMonitor_startMonitoring__block_invoke(uint64_t a1)
     v8 = [MEMORY[0x277CBEAA8] distantFuture];
     [v7 monitor:v6 maySuggestNewFullChargeDeadline:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __44__PowerUIInCarSignalMonitor_startMonitoring__block_invoke_31(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) inCar];
   *(*(a1 + 32) + 10) = 1;
   if (v2 != [*(a1 + 32) inCar])
@@ -155,11 +153,11 @@ void __44__PowerUIInCarSignalMonitor_startMonitoring__block_invoke_31(uint64_t a
     {
       v4 = *(a1 + 32);
       v5 = v3;
-      v10[0] = 67109376;
-      v10[1] = v2;
-      v11 = 1024;
-      v12 = [v4 inCar];
-      _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "Previously: %u, Now: %u", v10, 0xEu);
+      v9[0] = 67109376;
+      v9[1] = v2;
+      v10 = 1024;
+      v11 = [v4 inCar];
+      _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "Previously: %u, Now: %u", v9, 0xEu);
     }
 
     v6 = *(a1 + 32);
@@ -167,13 +165,11 @@ void __44__PowerUIInCarSignalMonitor_startMonitoring__block_invoke_31(uint64_t a
     v8 = [MEMORY[0x277CBEAA8] distantFuture];
     [v7 monitor:v6 maySuggestNewFullChargeDeadline:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __44__PowerUIInCarSignalMonitor_startMonitoring__block_invoke_35(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) inCar];
   *(*(a1 + 32) + 9) = 0;
   if (v2 != [*(a1 + 32) inCar])
@@ -183,11 +179,11 @@ void __44__PowerUIInCarSignalMonitor_startMonitoring__block_invoke_35(uint64_t a
     {
       v4 = *(a1 + 32);
       v5 = v3;
-      v10[0] = 67109376;
-      v10[1] = v2;
-      v11 = 1024;
-      v12 = [v4 inCar];
-      _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "Previously: %u, Now: %u", v10, 0xEu);
+      v9[0] = 67109376;
+      v9[1] = v2;
+      v10 = 1024;
+      v11 = [v4 inCar];
+      _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "Previously: %u, Now: %u", v9, 0xEu);
     }
 
     v6 = *(a1 + 32);
@@ -195,13 +191,11 @@ void __44__PowerUIInCarSignalMonitor_startMonitoring__block_invoke_35(uint64_t a
     v8 = [MEMORY[0x277CBEAA8] distantFuture];
     [v7 monitor:v6 maySuggestNewFullChargeDeadline:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __44__PowerUIInCarSignalMonitor_startMonitoring__block_invoke_36(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) inCar];
   *(*(a1 + 32) + 10) = 0;
   if (v2 != [*(a1 + 32) inCar])
@@ -211,11 +205,11 @@ void __44__PowerUIInCarSignalMonitor_startMonitoring__block_invoke_36(uint64_t a
     {
       v4 = *(a1 + 32);
       v5 = v3;
-      v10[0] = 67109376;
-      v10[1] = v2;
-      v11 = 1024;
-      v12 = [v4 inCar];
-      _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "Previously: %u, Now: %u", v10, 0xEu);
+      v9[0] = 67109376;
+      v9[1] = v2;
+      v10 = 1024;
+      v11 = [v4 inCar];
+      _os_log_impl(&dword_21B766000, v5, OS_LOG_TYPE_DEFAULT, "Previously: %u, Now: %u", v9, 0xEu);
     }
 
     v6 = *(a1 + 32);
@@ -223,8 +217,6 @@ void __44__PowerUIInCarSignalMonitor_startMonitoring__block_invoke_36(uint64_t a
     v8 = [MEMORY[0x277CBEAA8] distantFuture];
     [v7 monitor:v6 maySuggestNewFullChargeDeadline:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

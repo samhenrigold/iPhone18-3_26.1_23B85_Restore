@@ -65,9 +65,11 @@
 - (void)_setTintColor:(id)color;
 - (void)_setupDocumentURL:(id)l;
 - (void)_setupViewControllerInContainedNavController;
+- (void)_setupWithShare:(id)share error:(id)error initialShare:(BOOL)initialShare;
 - (void)_updateAllowInvitingFromShare;
 - (void)_updateCloudDocsShare;
 - (void)_updateCloudKitShare;
+- (void)_updateReachabilityStatus:(BOOL)status;
 - (void)_willAppearInRemoteViewController:(id)controller;
 - (void)changeToTopLevelSharedFolderURL;
 - (void)createUnreachableViewControllerIfNecessary;
@@ -90,6 +92,8 @@
 - (void)shareViewControllerDidActivateShowSharedFolder;
 - (void)shareViewControllerDidChooseTransport:(id)transport;
 - (void)shareViewControllerDidFinishActivity:(id)activity;
+- (void)shareViewControllerDidTogglePrimarySwitch:(BOOL)switch;
+- (void)shareViewControllerDidToggleSecondarySwitch:(BOOL)switch;
 - (void)shareViewControllerDismiss:(id)dismiss;
 - (void)shareViewControllerLeaveShare:(id)share;
 - (void)shareViewControllerPerformAuxiliaryAction:(id)action completion:(id)completion;
@@ -566,18 +570,7 @@
 {
   completionCopy = completion;
   itemURL = [(_UIShareInvitationViewServiceViewController *)self itemURL];
-  if (!itemURL)
-  {
-    goto LABEL_4;
-  }
-
-  v6 = itemURL;
-  viewController = [(_UIShareInvitationViewServiceViewController *)self viewController];
-  delegate = [viewController delegate];
-  viewController2 = [(_UIShareInvitationViewServiceViewController *)self viewController];
-  v10 = [delegate shareViewControllerIsFolderShare:viewController2];
-
-  if (v10)
+  if (itemURL && (v6 = itemURL, -[_UIShareInvitationViewServiceViewController viewController](self, "viewController"), v7 = objc_claimAutoreleasedReturnValue(), [v7 delegate], v8 = objc_claimAutoreleasedReturnValue(), -[_UIShareInvitationViewServiceViewController viewController](self, "viewController"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "shareViewControllerIsFolderShare:", v9), v9, v8, v7, v6, (v10 & 1) != 0))
   {
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
@@ -590,7 +583,6 @@
 
   else
   {
-LABEL_4:
     (*(completionCopy + 2))(completionCopy, 0);
   }
 }
@@ -611,6 +603,43 @@ LABEL_4:
   [v8 setQualityOfService:25];
   workerQueue = [(_UIShareInvitationViewServiceViewController *)self workerQueue];
   [workerQueue addOperation:v8];
+}
+
+- (void)_setupWithShare:(id)share error:(id)error initialShare:(BOOL)initialShare
+{
+  initialShareCopy = initialShare;
+  errorCopy = error;
+  [(_UIShareInvitationViewServiceViewController *)self setShare:share];
+  [(_UIShareInvitationViewServiceViewController *)self setInitialSharing:initialShareCopy];
+  itemURL = [(_UIShareInvitationViewServiceViewController *)self itemURL];
+  [(_UIShareInvitationViewServiceViewController *)self updateSharedOrModifiedByForURL:itemURL];
+
+  if ([(_UIShareInvitationViewServiceViewController *)self isShowingSpinner])
+  {
+    [(_UIShareInvitationViewServiceViewController *)self _loadInitialViewController];
+  }
+
+  viewController = [(_UIShareInvitationViewServiceViewController *)self viewController];
+  [viewController shareDidChange];
+
+  if (initialShareCopy)
+  {
+    viewController2 = [(_UIShareInvitationViewServiceViewController *)self viewController];
+    [viewController2 updatePermissionOptions];
+  }
+
+  if (errorCopy)
+  {
+    viewController3 = [(_UIShareInvitationViewServiceViewController *)self viewController];
+    [viewController3 presentError:errorCopy];
+  }
+
+  v13 = cdui_default_log();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  {
+    *v14 = 0;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "[INFO] share setup finished", v14, 2u);
+  }
 }
 
 - (int64_t)_hostApplicationType
@@ -1330,6 +1359,70 @@ LABEL_15:
   dispatch_async(&_dispatch_main_q, v4);
 }
 
+- (void)_updateReachabilityStatus:(BOOL)status
+{
+  statusCopy = status;
+  unreachableViewController = [(_UIShareInvitationViewServiceViewController *)self unreachableViewController];
+
+  if ([(BRReachabilityMonitor *)self->_reachabilityMonitor isNetworkReachable])
+  {
+    v6 = unreachableViewController == 0;
+  }
+
+  else
+  {
+    v6 = 1;
+  }
+
+  if (!v6)
+  {
+    unreachableViewController2 = [(_UIShareInvitationViewServiceViewController *)self unreachableViewController];
+    presentingViewController = [unreachableViewController2 presentingViewController];
+    [presentingViewController dismissViewControllerAnimated:statusCopy completion:0];
+
+    [(_UIShareInvitationViewServiceViewController *)self setUnreachableViewController:0];
+    if (self->_updateCloudDocsShareSkipped && [(_UIShareInvitationViewServiceViewController *)self isShowingSpinner])
+    {
+      v12 = dispatch_time(0, 2000000000);
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_1000194F8;
+      block[3] = &unk_10004C920;
+      block[4] = self;
+      dispatch_after(v12, &_dispatch_main_q, block);
+    }
+
+    viewController = cdui_default_log();
+    if (os_log_type_enabled(viewController, OS_LOG_TYPE_INFO))
+    {
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, viewController, OS_LOG_TYPE_INFO, "[INFO] Network is reachable, and we are displaying the unreachable view controller; dismissing", v13, 2u);
+    }
+
+    goto LABEL_17;
+  }
+
+  if (([(BRReachabilityMonitor *)self->_reachabilityMonitor isNetworkReachable]& 1) == 0 && !unreachableViewController)
+  {
+    v7 = cdui_default_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "[INFO] Network is not reachable, and we are not displaying the unreachable view controller; presenting", v13, 2u);
+    }
+
+    if (![(_UIShareInvitationViewServiceViewController *)self isShowingSpinner])
+    {
+      [(_UIShareInvitationViewServiceViewController *)self createUnreachableViewControllerIfNecessary];
+      viewController = [(_UIShareInvitationViewServiceViewController *)self viewController];
+      unreachableViewController3 = [(_UIShareInvitationViewServiceViewController *)self unreachableViewController];
+      [viewController presentReachabilityViewController:unreachableViewController3 animated:statusCopy];
+
+LABEL_17:
+    }
+  }
+}
+
 - (void)createUnreachableViewControllerIfNecessary
 {
   unreachableViewController = [(_UIShareInvitationViewServiceViewController *)self unreachableViewController];
@@ -1361,6 +1454,20 @@ LABEL_15:
   v4 = ;
 
   return v4;
+}
+
+- (void)shareViewControllerDidTogglePrimarySwitch:(BOOL)switch
+{
+  switchCopy = switch;
+  hostingViewController = [(_UIShareInvitationViewServiceViewController *)self hostingViewController];
+  [hostingViewController _cloudSharingControllerDidModifyPrimarySwitch:switchCopy];
+}
+
+- (void)shareViewControllerDidToggleSecondarySwitch:(BOOL)switch
+{
+  switchCopy = switch;
+  hostingViewController = [(_UIShareInvitationViewServiceViewController *)self hostingViewController];
+  [hostingViewController _cloudSharingControllerDidModifySecondarySwitch:switchCopy];
 }
 
 - (void)shareViewControllerDidActivateShowSharedFolder
@@ -2345,7 +2452,7 @@ LABEL_10:
       v13 = cdui_default_log();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
-        sub_10002CDC0(&self->_itemURL);
+        sub_10002CDC0();
       }
 
       if (error)
@@ -3151,31 +3258,30 @@ LABEL_5:
   [view5 setFrame:{v24, v26, v28, v30}];
 
   pathExtension = [typeCopy pathExtension];
-  shareInvitationViewStartDate = self->_shareInvitationViewStartDate;
   BRTelemetryReportShareInvitation();
   [(_UIShareInvitationViewServiceViewController *)self shareViewControllerDidChooseTransport:typeCopy];
   +[NSDate timeIntervalSinceReferenceDate];
-  v34 = self->_shareInvitationViewStartDate;
+  v33 = self->_shareInvitationViewStartDate;
   objc_initWeak(&location, self);
-  v43[0] = _NSConcreteStackBlock;
-  v43[1] = 3221225472;
-  v43[2] = sub_10001FB08;
-  v43[3] = &unk_10004D5B8;
-  v35 = v14;
-  v44 = v35;
-  v36 = completionCopy;
-  v48 = v36;
-  v37 = pathExtension;
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = sub_10001FB08;
+  v42[3] = &unk_10004D5B8;
+  v34 = v14;
+  v43 = v34;
+  v35 = completionCopy;
+  v47 = v35;
+  v36 = pathExtension;
+  v44 = v36;
+  v37 = v33;
   v45 = v37;
-  v38 = v34;
+  v48[1] = permission;
+  objc_copyWeak(v48, &location);
+  v38 = v40;
   v46 = v38;
-  v49[1] = permission;
-  objc_copyWeak(v49, &location);
-  v39 = v41;
-  v47 = v39;
-  [(_UIShareInvitationViewServiceViewController *)self _addParticipantsAndSaveForController:v39 participants:participantsCopy permission:permission completion:v43];
+  [(_UIShareInvitationViewServiceViewController *)self _addParticipantsAndSaveForController:v38 participants:participantsCopy permission:permission completion:v42];
 
-  objc_destroyWeak(v49);
+  objc_destroyWeak(v48);
   objc_destroyWeak(&location);
 }
 

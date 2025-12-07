@@ -40,7 +40,7 @@
     v9 = *MEMORY[0x277CCC2E8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
     {
-      [HDMCOvulationConfirmationNotificationScheduledState notificationStateFromDictionaryRepresentation:v9];
+      [(HDMCOvulationConfirmationNotificationScheduledState *)v9 notificationStateFromDictionaryRepresentation:self, representationCopy];
     }
 
     v8 = 0;

@@ -89,7 +89,7 @@ void __49__PXMemoriesFeedDataSource_diagnosticDescription__block_invoke_3(uint64
     v25 = v7;
     date = [MEMORY[0x1E695DF00] date];
     currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
-    [(PXSimpleIndexPath *)selfCopy _firstSectionIndexPath];
+    objc_msgSend__firstSectionIndexPath(selfCopy);
     v14[0] = MEMORY[0x1E69E9820];
     v14[1] = 3221225472;
     v14[2] = __62__PXMemoriesFeedDataSource_indexPathForFirstPastMemorySection__block_invoke;
@@ -208,7 +208,7 @@ void __66__PXMemoriesFeedDataSource_sectionedObjectReferenceForMemoryUUID___bloc
   v4 = *(off_1E7722228 + 1);
   v6[0] = *off_1E7722228;
   v6[1] = v4;
-  return [(PXMemoriesFeedDataSource *)self indexPathForObjectReference:a4 withHintIndexPath:v6];
+  return objc_msgSend_indexPathForObjectReference_withHintIndexPath_(self, reference, a4, v6);
 }
 
 - (PXSimpleIndexPath)indexPathForObjectReference:(SEL)reference withHintIndexPath:(id)path
@@ -233,7 +233,7 @@ void __66__PXMemoriesFeedDataSource_sectionedObjectReferenceForMemoryUUID___bloc
   v51 = 0u;
   if (pathCopy)
   {
-    [pathCopy indexPath];
+    objc_msgSend_indexPath(pathCopy);
     v12 = v44;
   }
 
@@ -254,7 +254,7 @@ void __66__PXMemoriesFeedDataSource_sectionedObjectReferenceForMemoryUUID___bloc
     v41 = 0u;
     if (pathCopy)
     {
-      [pathCopy indexPath];
+      objc_msgSend_indexPath(pathCopy);
       v15 = v40;
       v16 = v41 == 0x7FFFFFFFFFFFFFFFLL;
     }
@@ -302,7 +302,7 @@ LABEL_44:
       if (v19 == v11)
       {
 LABEL_25:
-        [(PXMemoriesFeedDataSource *)self _firstSectionIndexPath];
+        objc_msgSend__firstSectionIndexPath(self);
         v21 = v39;
         *&a5->dataSourceIdentifier = v38;
         *&a5->item = v21;
@@ -361,7 +361,7 @@ LABEL_25:
     if (v26 == v11)
     {
 LABEL_36:
-      [(PXMemoriesFeedDataSource *)self firstItemIndexPath];
+      objc_msgSend_firstItemIndexPath(self);
       v28 = v39;
       *&a5->dataSourceIdentifier = v38;
       *&a5->item = v28;
@@ -404,7 +404,7 @@ LABEL_41:
 
   if (pathCopy)
   {
-    [pathCopy indexPath];
+    objc_msgSend_indexPath(pathCopy);
   }
 
   else
@@ -426,9 +426,9 @@ LABEL_43:
   return result;
 }
 
-void __74__PXMemoriesFeedDataSource_indexPathForObjectReference_withHintIndexPath___block_invoke(uint64_t a1, _OWORD *a2, _BYTE *a3)
+void __74__PXMemoriesFeedDataSource_indexPathForObjectReference_withHintIndexPath___block_invoke(void *a1, _OWORD *a2, _BYTE *a3)
 {
-  v6 = *(a1 + 32);
+  v6 = a1[4];
   v7 = a2[1];
   v12[0] = *a2;
   v12[1] = v7;
@@ -437,12 +437,12 @@ void __74__PXMemoriesFeedDataSource_indexPathForObjectReference_withHintIndexPat
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     v11 = [MEMORY[0x1E696AAA8] currentHandler];
-    [v11 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"PXMemoriesFeedDataSource.m" lineNumber:181 description:{@"Invalid parameter not satisfying: %@", @"[e2 isKindOfClass:[PXMemoryEntryInfo class]]"}];
+    [v11 handleFailureInMethod:a1[7] object:a1[4] file:@"PXMemoriesFeedDataSource.m" lineNumber:181 description:{@"Invalid parameter not satisfying: %@", @"[e2 isKindOfClass:[PXMemoryEntryInfo class]]"}];
   }
 
-  if (_isEqualEntries(*(a1 + 40), v8))
+  if (_isEqualEntries(a1[5], v8))
   {
-    v9 = *(*(a1 + 48) + 8);
+    v9 = *(a1[6] + 8);
     v10 = a2[1];
     *(v9 + 32) = *a2;
     *(v9 + 48) = v10;
@@ -450,9 +450,9 @@ void __74__PXMemoriesFeedDataSource_indexPathForObjectReference_withHintIndexPat
   }
 }
 
-void __74__PXMemoriesFeedDataSource_indexPathForObjectReference_withHintIndexPath___block_invoke_2(uint64_t a1, _OWORD *a2, _BYTE *a3)
+void __74__PXMemoriesFeedDataSource_indexPathForObjectReference_withHintIndexPath___block_invoke_2(void *a1, _OWORD *a2, _BYTE *a3)
 {
-  v6 = *(a1 + 32);
+  v6 = a1[4];
   v7 = a2[1];
   v12[0] = *a2;
   v12[1] = v7;
@@ -461,12 +461,12 @@ void __74__PXMemoriesFeedDataSource_indexPathForObjectReference_withHintIndexPat
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     v11 = [MEMORY[0x1E696AAA8] currentHandler];
-    [v11 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"PXMemoriesFeedDataSource.m" lineNumber:198 description:{@"Invalid parameter not satisfying: %@", @"[m2 isKindOfClass:[PXMemoryInfo class]]"}];
+    [v11 handleFailureInMethod:a1[7] object:a1[4] file:@"PXMemoriesFeedDataSource.m" lineNumber:198 description:{@"Invalid parameter not satisfying: %@", @"[m2 isKindOfClass:[PXMemoryInfo class]]"}];
   }
 
-  if (_isEqualMemories(*(a1 + 40), v8))
+  if (_isEqualMemories(a1[5], v8))
   {
-    v9 = *(*(a1 + 48) + 8);
+    v9 = *(a1[6] + 8);
     v10 = a2[1];
     *(v9 + 32) = *a2;
     *(v9 + 48) = v10;

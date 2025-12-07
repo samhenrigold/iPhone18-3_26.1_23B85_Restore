@@ -30,10 +30,10 @@ uint64_t __43__MTRPluginMetricsCollector_sharedInstance__block_invoke()
 
 - (MTRPluginMetricsCollector)init
 {
-  v22[1] = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = MTRPluginMetricsCollector;
-  v2 = [(MTRPluginMetricsCollector *)&v21 init];
+  v21[1] = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = MTRPluginMetricsCollector;
+  v2 = [(MTRPluginMetricsCollector *)&v20 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277D17DC8]);
@@ -52,8 +52,8 @@ uint64_t __43__MTRPluginMetricsCollector_sharedInstance__block_invoke()
 
     metricDispatcher2 = [(MTRPluginMetricsCollector *)v2 metricDispatcher];
     transformMetrics = [(MTRPluginMetricsCollector *)v2 transformMetrics];
-    v22[0] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v21[0] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     [metricDispatcher2 addObserver:transformMetrics forEventClasses:v11];
 
     v12 = [MEMORY[0x277CBEB58] set];
@@ -75,7 +75,6 @@ uint64_t __43__MTRPluginMetricsCollector_sharedInstance__block_invoke()
     v18 = v2;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -130,7 +129,7 @@ uint64_t __43__MTRPluginMetricsCollector_sharedInstance__block_invoke()
 
 - (void)timerDidFire:(id)fire
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -144,32 +143,32 @@ uint64_t __43__MTRPluginMetricsCollector_sharedInstance__block_invoke()
     {
       metricCounter2 = [(MTRPluginMetricsCollector *)selfCopy metricCounter];
       *buf = 138412546;
-      v24 = selfCopy;
-      v25 = 2048;
-      v26 = [metricCounter2 count];
+      v23 = selfCopy;
+      v24 = 2048;
+      v25 = [metricCounter2 count];
       _os_log_impl(&dword_25830F000, v8, OS_LOG_TYPE_DEFAULT, "%@ metrics counter fired, submitting count for %ld metrics", buf, 0x16u);
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     metricCounter3 = [(MTRPluginMetricsCollector *)selfCopy metricCounter];
-    v11 = [metricCounter3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v11 = [metricCounter3 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v11)
     {
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         v13 = 0;
         do
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(metricCounter3);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * v13);
+          v14 = *(*(&v17 + 1) + 8 * v13);
           v15 = +[MTRPluginMetricsCollector sharedInstance];
           [v15 collectMetric:v14];
 
@@ -177,7 +176,7 @@ uint64_t __43__MTRPluginMetricsCollector_sharedInstance__block_invoke()
         }
 
         while (v11 != v13);
-        v11 = [metricCounter3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [metricCounter3 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -188,8 +187,6 @@ uint64_t __43__MTRPluginMetricsCollector_sharedInstance__block_invoke()
   }
 
   objc_sync_exit(selfCopy);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

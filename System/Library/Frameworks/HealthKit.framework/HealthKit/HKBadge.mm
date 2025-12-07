@@ -252,7 +252,7 @@ LABEL_8:
 
 - (NSString)stringValue
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   value = [(HKBadge *)self value];
   if (value)
   {
@@ -261,35 +261,34 @@ LABEL_8:
     {
       stringValue = value;
 LABEL_6:
-      v5 = stringValue;
+      v7 = stringValue;
       goto LABEL_10;
     }
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       stringValue = [value stringValue];
       goto LABEL_6;
     }
 
-    _HKInitializeLogging();
-    v6 = HKLogNotifications;
+    _HKInitializeLogging(isKindOfClass, v6);
+    v8 = HKLogNotifications;
     if (os_log_type_enabled(HKLogNotifications, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543618;
-      v10 = value;
-      v11 = 2114;
+      v10 = 138543618;
+      v11 = value;
+      v12 = 2114;
       selfCopy = self;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "Invalid badge value %{public}@ for %{public}@.", &v9, 0x16u);
+      _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "Invalid badge value %{public}@ for %{public}@.", &v10, 0x16u);
     }
   }
 
-  v5 = 0;
+  v7 = 0;
 LABEL_10:
 
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v7;
 }
 
 - (NSNumber)keyValueRepresentation
@@ -320,11 +319,12 @@ LABEL_10:
   if (representationCopy)
   {
     integerValue = [representationCopy integerValue];
+    v7 = integerValue;
     if (integerValue > -3)
     {
       if (integerValue == -1)
       {
-        v7 = +[HKBadge indicatorBadge];
+        v9 = +[HKBadge indicatorBadge];
       }
 
       else
@@ -338,25 +338,25 @@ LABEL_10:
         {
           [HKBadge numberBadgeWithCount:integerValue];
         }
-        v7 = ;
+        v9 = ;
       }
 
       goto LABEL_6;
     }
 
-    _HKInitializeLogging();
-    v6 = HKLogNotifications;
+    _HKInitializeLogging(integerValue, v6);
+    v8 = HKLogNotifications;
     if (os_log_type_enabled(HKLogNotifications, OS_LOG_TYPE_ERROR))
     {
-      [(HKBadge(KeyValueEntitySupport) *)integerValue badgeFromKeyValueRepresentation:v6];
+      [(HKBadge(KeyValueEntitySupport) *)v7 badgeFromKeyValueRepresentation:v8];
     }
   }
 
-  v7 = v4;
+  v9 = v4;
 LABEL_6:
-  v8 = v7;
+  v10 = v9;
 
-  return v8;
+  return v10;
 }
 
 + (HKBadge)indicatorBadge

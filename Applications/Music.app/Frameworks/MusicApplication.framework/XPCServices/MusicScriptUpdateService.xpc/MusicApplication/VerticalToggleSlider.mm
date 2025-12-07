@@ -31,7 +31,7 @@
 - (void)setEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v5 = type metadata accessor for VerticalToggleSlider();
+  v5 = type metadata accessor for VerticalToggleSlider(self, a2);
   v9.receiver = self;
   v9.super_class = v5;
   selfCopy = self;
@@ -47,25 +47,25 @@
 
 - (void)layoutSubviews
 {
-  v3 = sub_100003ABC(&qword_100610D00);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v10 - v4;
-  v6 = type metadata accessor for VerticalToggleSlider();
-  v10.receiver = self;
-  v10.super_class = v6;
+  sub_100003ABC(&qword_100610D00, &qword_1004DB780);
+  __chkstk_darwin();
+  v4 = &v11 - v3;
+  v7 = type metadata accessor for VerticalToggleSlider(v5, v6);
+  v11.receiver = self;
+  v11.super_class = v7;
   selfCopy = self;
-  [(VerticalToggleSlider *)&v10 layoutSubviews];
-  v8 = sub_1003C4B28();
+  [(VerticalToggleSlider *)&v11 layoutSubviews];
+  v9 = sub_1003C4B28();
   sub_1004BCED4();
-  v9 = sub_1004BCEE4();
-  (*(*(v9 - 8) + 56))(v5, 0, 1, v9);
+  v10 = sub_1004BCEE4();
+  (*(*(v10 - 8) + 56))(v4, 0, 1, v10);
   sub_1004BCEF4();
 }
 
 - (void)tintColorDidChange
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for VerticalToggleSlider();
+  v3.super_class = type metadata accessor for VerticalToggleSlider(self, a2);
   v2 = v3.receiver;
   [(VerticalToggleSlider *)&v3 tintColorDidChange];
   sub_1003C4E1C();
@@ -94,7 +94,7 @@
 - (void)setHighlighted:(BOOL)highlighted
 {
   highlightedCopy = highlighted;
-  v5 = type metadata accessor for VerticalToggleSlider();
+  v5 = type metadata accessor for VerticalToggleSlider(self, a2);
   v9.receiver = self;
   v9.super_class = v5;
   selfCopy = self;

@@ -2,11 +2,24 @@
 - (ASTConnectionManagerDelegate)delegate;
 - (ASTMaterializedConnectionManager)initWithSOCKSProxyServer:(id)server port:(id)port;
 - (BOOL)isValidUUID:(id)d;
+- (BOOL)postAuthInfo:(id)info allowsCellularAccess:(BOOL)access;
+- (BOOL)postProfile:(id)profile allowsCellularAccess:(BOOL)access;
+- (id)postEnrollAllowingCellularAccess:(BOOL)access;
+- (id)postRequest:(id)request allowsCellularAccess:(BOOL)access;
 - (void)cancelAllTestResults;
 - (void)connection:(id)connection connectionStateChanged:(int64_t)changed;
 - (void)connection:(id)connection didSendBodyData:(int64_t)data totalBytesSent:(int64_t)sent totalBytesExpected:(int64_t)expected;
 - (void)dealloc;
+- (void)downloadAsset:(id)asset serverURL:(id)l endpoint:(id)endpoint destinationFileHandle:(id)handle allowsCellularAccess:(BOOL)access completion:(id)completion;
+- (void)postPrepareDeviceWithIdentities:(id)identities allowsCellularAccess:(BOOL)access completionHandler:(id)handler;
 - (void)postSealableFile:(id)file fileSequence:(id)sequence totalFiles:(id)files testId:(id)id dataId:(id)dataId allowsCellularAccess:(BOOL)access completion:(id)completion;
+- (void)postSelectSelfServiceSuite:(id)suite withPayloadSigner:(id)signer allowsCellularAccess:(BOOL)access completionHandler:(id)handler;
+- (void)postSessionStatusForIdentities:(id)identities ticket:(id)ticket timeout:(double)timeout allowsCellularAccess:(BOOL)access requestQueuedSuiteInfo:(BOOL)info completion:(id)completion;
+- (void)postTestResult:(id)result allowsCellularAccess:(BOOL)access completion:(id)completion;
+- (void)requestInstructionalPromptDetailsWithInstructionID:(id)d type:(id)type withPayloadSigner:(id)signer language:(id)language locale:(id)locale allowsCellularAccess:(BOOL)access completionHandler:(id)handler;
+- (void)requestSelfServiceSuiteResultsWithDiagnosticEventID:(id)d withPayloadSigner:(id)signer allowsCellularAccess:(BOOL)access completionHandler:(id)handler;
+- (void)requestSelfServiceSuitesAvailableWithConfigCode:(id)code withPayloadSigner:(id)signer allowsCellularAccess:(BOOL)access completionHandler:(id)handler;
+- (void)requestSessionArchiveWithSessionID:(id)d withPayloadSigner:(id)signer allowsCellularAccess:(BOOL)access completionHandler:(id)handler;
 @end
 
 @implementation ASTMaterializedConnectionManager
@@ -28,9 +41,46 @@
   return v8;
 }
 
+- (void)postSessionStatusForIdentities:(id)identities ticket:(id)ticket timeout:(double)timeout allowsCellularAccess:(BOOL)access requestQueuedSuiteInfo:(BOOL)info completion:(id)completion
+{
+  infoCopy = info;
+  accessCopy = access;
+  v28 = *MEMORY[0x277D85DE8];
+  identitiesCopy = identities;
+  ticketCopy = ticket;
+  completionCopy = completion;
+  v17 = ASTLogHandleForCategory(1);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v25 = identitiesCopy;
+    v26 = 2112;
+    v27 = ticketCopy;
+    _os_log_impl(&dword_240F3C000, v17, OS_LOG_TYPE_DEFAULT, "[Session] > Identities: %@, Ticket: %@", buf, 0x16u);
+  }
+
+  v18 = [[ASTConnectionSession alloc] initWithIdentities:identitiesCopy ticket:ticketCopy requestQueuedSuiteInfo:infoCopy];
+  [(ASTMaterializedConnection *)v18 setTimeout:timeout];
+  firstObject = [identitiesCopy firstObject];
+  [(ASTMaterializedConnection *)v18 setIdentity:firstObject];
+
+  [(ASTMaterializedConnection *)v18 setAllowsCellularAccess:accessCopy];
+  [(ASTMaterializedConnection *)v18 setDelegate:self];
+  [(ASTMaterializedConnection *)v18 setRetryOnNetworkDisconnected:0];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __137__ASTMaterializedConnectionManager_postSessionStatusForIdentities_ticket_timeout_allowsCellularAccess_requestQueuedSuiteInfo_completion___block_invoke;
+  v22[3] = &unk_278CBD338;
+  v23 = completionCopy;
+  v20 = completionCopy;
+  [(ASTMaterializedConnection *)v18 setDidReceiveResponse:v22];
+  networking = [(ASTMaterializedConnectionManager *)self networking];
+  [networking addConnection:v18];
+}
+
 void __137__ASTMaterializedConnectionManager_postSessionStatusForIdentities_ticket_timeout_allowsCellularAccess_requestQueuedSuiteInfo_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = ASTLogHandleForCategory(1);
@@ -49,7 +99,7 @@ void __137__ASTMaterializedConnectionManager_postSessionStatusForIdentities_tick
     __137__ASTMaterializedConnectionManager_postSessionStatusForIdentities_ticket_timeout_allowsCellularAccess_requestQueuedSuiteInfo_completion___block_invoke_cold_1();
   }
 
-  v45 = v5;
+  v44 = v5;
 
   v8 = [v4 objectForKeyedSubscript:@"diagsChannel"];
   if (v8 && (v9 = v8, [v4 objectForKeyedSubscript:@"diagsChannel"], v10 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v10, v9, (isKindOfClass & 1) != 0))
@@ -146,17 +196,56 @@ void __137__ASTMaterializedConnectionManager_postSessionStatusForIdentities_tick
   if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v47 = v12;
+    v46 = v12;
     _os_log_impl(&dword_240F3C000, v42, OS_LOG_TYPE_DEFAULT, "[Session] Received diags channel: %@", buf, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), v4 != 0);
-  v43 = *MEMORY[0x277D85DE8];
+}
+
+- (void)downloadAsset:(id)asset serverURL:(id)l endpoint:(id)endpoint destinationFileHandle:(id)handle allowsCellularAccess:(BOOL)access completion:(id)completion
+{
+  accessCopy = access;
+  v34 = *MEMORY[0x277D85DE8];
+  assetCopy = asset;
+  completionCopy = completion;
+  handleCopy = handle;
+  endpointCopy = endpoint;
+  lCopy = l;
+  v19 = ASTLogHandleForCategory(1);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v33 = assetCopy;
+    _os_log_impl(&dword_240F3C000, v19, OS_LOG_TYPE_DEFAULT, "[Asset] > %@", buf, 0xCu);
+  }
+
+  v20 = [[ASTConnectionAsset alloc] initWithServerURL:lCopy endpoint:endpointCopy assetName:assetCopy destinationFileHandle:handleCopy];
+  identity = [(ASTMaterializedConnectionManager *)self identity];
+  [(ASTMaterializedConnection *)v20 setIdentity:identity];
+
+  sessionId = [(ASTMaterializedConnectionManager *)self sessionId];
+  [(ASTMaterializedConnection *)v20 setSessionId:sessionId];
+
+  [(ASTMaterializedConnection *)v20 setAllowsCellularAccess:accessCopy];
+  [(ASTMaterializedConnection *)v20 setDelegate:self];
+  [(ASTMaterializedConnection *)v20 setRetryOnNetworkDisconnected:1];
+  v26 = MEMORY[0x277D85DD0];
+  v27 = 3221225472;
+  v28 = __123__ASTMaterializedConnectionManager_downloadAsset_serverURL_endpoint_destinationFileHandle_allowsCellularAccess_completion___block_invoke;
+  v29 = &unk_278CBD360;
+  v30 = assetCopy;
+  v31 = completionCopy;
+  v23 = completionCopy;
+  v24 = assetCopy;
+  [(ASTMaterializedConnection *)v20 setDidReceiveResponse:&v26];
+  v25 = [(ASTMaterializedConnectionManager *)self networking:v26];
+  [v25 addConnection:v20];
 }
 
 void __123__ASTMaterializedConnectionManager_downloadAsset_serverURL_endpoint_destinationFileHandle_allowsCellularAccess_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = ASTLogHandleForCategory(1);
   v7 = v6;
@@ -165,24 +254,74 @@ void __123__ASTMaterializedConnectionManager_downloadAsset_serverURL_endpoint_de
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_240F3C000, v7, OS_LOG_TYPE_DEFAULT, "[Asset] < %@ Download Successful", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_240F3C000, v7, OS_LOG_TYPE_DEFAULT, "[Asset] < %@ Download Successful", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __123__ASTMaterializedConnectionManager_downloadAsset_serverURL_endpoint_destinationFileHandle_allowsCellularAccess_completion___block_invoke_cold_1(a1);
+    __123__ASTMaterializedConnectionManager_downloadAsset_serverURL_endpoint_destinationFileHandle_allowsCellularAccess_completion___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
+}
+
+- (id)postEnrollAllowingCellularAccess:(BOOL)access
+{
+  accessCopy = access;
+  v24 = *MEMORY[0x277D85DE8];
+  v5 = ASTLogHandleForCategory(1);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    identity = [(ASTMaterializedConnectionManager *)self identity];
+    LODWORD(buf) = 138412290;
+    *(&buf + 4) = identity;
+    _os_log_impl(&dword_240F3C000, v5, OS_LOG_TYPE_DEFAULT, "[Enroll] > Identity: %@", &buf, 0xCu);
+  }
+
+  *&buf = 0;
+  *(&buf + 1) = &buf;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__0;
+  v22 = __Block_byref_object_dispose__0;
+  v23 = 0;
+  v7 = dispatch_semaphore_create(0);
+  v8 = [ASTConnectionEnroll alloc];
+  identity2 = [(ASTMaterializedConnectionManager *)self identity];
+  v10 = [(ASTConnectionEnroll *)v8 initWithIdentity:identity2];
+
+  identity3 = [(ASTMaterializedConnectionManager *)self identity];
+  [(ASTMaterializedConnection *)v10 setIdentity:identity3];
+
+  [(ASTMaterializedConnection *)v10 setAllowsCellularAccess:accessCopy];
+  [(ASTMaterializedConnection *)v10 setDelegate:self];
+  [(ASTMaterializedConnection *)v10 setRetryOnNetworkDisconnected:1];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __69__ASTMaterializedConnectionManager_postEnrollAllowingCellularAccess___block_invoke;
+  v16[3] = &unk_278CBD388;
+  p_buf = &buf;
+  v16[4] = self;
+  v12 = v7;
+  v17 = v12;
+  [(ASTMaterializedConnection *)v10 setDidReceiveResponse:v16];
+  networking = [(ASTMaterializedConnectionManager *)self networking];
+  [networking addConnection:v10];
+
+  dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
+  [(ASTMaterializedConnectionManager *)self setSessionId:*(*(&buf + 1) + 40)];
+  v14 = *(*(&buf + 1) + 40);
+
+  _Block_object_dispose(&buf, 8);
+
+  return v14;
 }
 
 void __69__ASTMaterializedConnectionManager_postEnrollAllowingCellularAccess___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5 && ([v5 objectForKeyedSubscript:@"sessionId"], v7 = objc_claimAutoreleasedReturnValue(), v7, v7))
@@ -207,15 +346,60 @@ void __69__ASTMaterializedConnectionManager_postEnrollAllowingCellularAccess___b
   {
     v13 = [*(a1 + 32) identity];
     v14 = *(*(*(a1 + 48) + 8) + 40);
-    v16 = 138412546;
-    v17 = v13;
-    v18 = 2112;
-    v19 = v14;
-    _os_log_impl(&dword_240F3C000, v12, OS_LOG_TYPE_DEFAULT, "[Enroll] < Identity: %@, Session: %@", &v16, 0x16u);
+    v15 = 138412546;
+    v16 = v13;
+    v17 = 2112;
+    v18 = v14;
+    _os_log_impl(&dword_240F3C000, v12, OS_LOG_TYPE_DEFAULT, "[Enroll] < Identity: %@, Session: %@", &v15, 0x16u);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v15 = *MEMORY[0x277D85DE8];
+}
+
+- (BOOL)postAuthInfo:(id)info allowsCellularAccess:(BOOL)access
+{
+  accessCopy = access;
+  v24 = *MEMORY[0x277D85DE8];
+  infoCopy = info;
+  v7 = ASTLogHandleForCategory(1);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    LODWORD(buf) = 138412290;
+    *(&buf + 4) = infoCopy;
+    _os_log_impl(&dword_240F3C000, v7, OS_LOG_TYPE_DEFAULT, "[AuthInfo] > Auth info: %@", &buf, 0xCu);
+  }
+
+  *&buf = 0;
+  *(&buf + 1) = &buf;
+  v22 = 0x2020000000;
+  v23 = 1;
+  v8 = dispatch_semaphore_create(0);
+  v9 = [[ASTConnectionAuthInfo alloc] initWithAuthInfo:infoCopy];
+  identity = [(ASTMaterializedConnectionManager *)self identity];
+  [(ASTMaterializedConnection *)v9 setIdentity:identity];
+
+  sessionId = [(ASTMaterializedConnectionManager *)self sessionId];
+  [(ASTMaterializedConnection *)v9 setSessionId:sessionId];
+
+  [(ASTMaterializedConnection *)v9 setAllowsCellularAccess:accessCopy];
+  [(ASTMaterializedConnection *)v9 setDelegate:self];
+  [(ASTMaterializedConnection *)v9 setRetryOnNetworkDisconnected:1];
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __70__ASTMaterializedConnectionManager_postAuthInfo_allowsCellularAccess___block_invoke;
+  v18 = &unk_278CBD3B0;
+  p_buf = &buf;
+  v12 = v8;
+  v19 = v12;
+  [(ASTMaterializedConnection *)v9 setDidReceiveResponse:&v15];
+  v13 = [(ASTMaterializedConnectionManager *)self networking:v15];
+  [v13 addConnection:v9];
+
+  dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
+  LOBYTE(v13) = *(*(&buf + 1) + 24);
+
+  _Block_object_dispose(&buf, 8);
+  return v13 & 1;
 }
 
 void __70__ASTMaterializedConnectionManager_postAuthInfo_allowsCellularAccess___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -245,6 +429,52 @@ void __70__ASTMaterializedConnectionManager_postAuthInfo_allowsCellularAccess___
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
+- (BOOL)postProfile:(id)profile allowsCellularAccess:(BOOL)access
+{
+  accessCopy = access;
+  v24 = *MEMORY[0x277D85DE8];
+  profileCopy = profile;
+  v7 = ASTLogHandleForCategory(1);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    LODWORD(buf) = 138412290;
+    *(&buf + 4) = profileCopy;
+    _os_log_impl(&dword_240F3C000, v7, OS_LOG_TYPE_DEFAULT, "[Profile] > Profile: %@", &buf, 0xCu);
+  }
+
+  *&buf = 0;
+  *(&buf + 1) = &buf;
+  v22 = 0x2020000000;
+  v23 = 1;
+  v8 = dispatch_semaphore_create(0);
+  v9 = [[ASTConnectionProfile alloc] initWithProfile:profileCopy];
+  identity = [(ASTMaterializedConnectionManager *)self identity];
+  [(ASTMaterializedConnection *)v9 setIdentity:identity];
+
+  sessionId = [(ASTMaterializedConnectionManager *)self sessionId];
+  [(ASTMaterializedConnection *)v9 setSessionId:sessionId];
+
+  [(ASTMaterializedConnection *)v9 setAllowsCellularAccess:accessCopy];
+  [(ASTMaterializedConnection *)v9 setDelegate:self];
+  [(ASTMaterializedConnection *)v9 setRetryOnNetworkDisconnected:1];
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __69__ASTMaterializedConnectionManager_postProfile_allowsCellularAccess___block_invoke;
+  v18 = &unk_278CBD3B0;
+  p_buf = &buf;
+  v12 = v8;
+  v19 = v12;
+  [(ASTMaterializedConnection *)v9 setDidReceiveResponse:&v15];
+  v13 = [(ASTMaterializedConnectionManager *)self networking:v15];
+  [v13 addConnection:v9];
+
+  dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
+  LOBYTE(v13) = *(*(&buf + 1) + 24);
+
+  _Block_object_dispose(&buf, 8);
+  return v13 & 1;
+}
+
 void __69__ASTMaterializedConnectionManager_postProfile_allowsCellularAccess___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
@@ -272,9 +502,60 @@ void __69__ASTMaterializedConnectionManager_postProfile_allowsCellularAccess___b
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
+- (id)postRequest:(id)request allowsCellularAccess:(BOOL)access
+{
+  accessCopy = access;
+  v26 = *MEMORY[0x277D85DE8];
+  requestCopy = request;
+  v7 = ASTLogHandleForCategory(1);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    LODWORD(buf) = 138412290;
+    *(&buf + 4) = requestCopy;
+    _os_log_impl(&dword_240F3C000, v7, OS_LOG_TYPE_DEFAULT, "[Status] > %@", &buf, 0xCu);
+  }
+
+  *&buf = 0;
+  *(&buf + 1) = &buf;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__0;
+  v24 = __Block_byref_object_dispose__0;
+  v25 = 0;
+  v8 = dispatch_semaphore_create(0);
+  v9 = [[ASTConnectionClientStatus alloc] initWithClientStatus:requestCopy];
+  identity = [(ASTMaterializedConnectionManager *)self identity];
+  [(ASTMaterializedConnection *)v9 setIdentity:identity];
+
+  sessionId = [(ASTMaterializedConnectionManager *)self sessionId];
+  [(ASTMaterializedConnection *)v9 setSessionId:sessionId];
+
+  [(ASTMaterializedConnection *)v9 setAllowsCellularAccess:accessCopy];
+  [(ASTMaterializedConnection *)v9 setDelegate:self];
+  -[ASTMaterializedConnection setRetryOnNetworkDisconnected:](v9, "setRetryOnNetworkDisconnected:", [requestCopy clientStatus] != 9);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __69__ASTMaterializedConnectionManager_postRequest_allowsCellularAccess___block_invoke;
+  v17[3] = &unk_278CBD388;
+  p_buf = &buf;
+  v12 = v8;
+  v18 = v12;
+  v13 = requestCopy;
+  v19 = v13;
+  [(ASTMaterializedConnection *)v9 setDidReceiveResponse:v17];
+  networking = [(ASTMaterializedConnectionManager *)self networking];
+  [networking addConnection:v9];
+
+  dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
+  v15 = *(*(&buf + 1) + 40);
+
+  _Block_object_dispose(&buf, 8);
+
+  return v15;
+}
+
 void __69__ASTMaterializedConnectionManager_postRequest_allowsCellularAccess___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = ASTLogHandleForCategory(1);
@@ -283,11 +564,11 @@ void __69__ASTMaterializedConnectionManager_postRequest_allowsCellularAccess___b
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412546;
-      v19 = v5;
-      v20 = 2112;
-      v21 = v6;
-      _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "Response: %@, error: %@", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = v5;
+      v19 = 2112;
+      v20 = v6;
+      _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "Response: %@, error: %@", &v17, 0x16u);
     }
 
     v9 = [ASTResponse responseWithDictionary:v5];
@@ -303,9 +584,9 @@ void __69__ASTMaterializedConnectionManager_postRequest_allowsCellularAccess___b
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         v14 = *(*(*(a1 + 48) + 8) + 40);
-        v18 = 138412290;
-        v19 = v14;
-        _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "[Status] < %@", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = v14;
+        _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "[Status] < %@", &v17, 0xCu);
       }
     }
 
@@ -328,8 +609,48 @@ void __69__ASTMaterializedConnectionManager_postRequest_allowsCellularAccess___b
     v16 = [*(a1 + 40) completion];
     v16[2]();
   }
+}
 
-  v17 = *MEMORY[0x277D85DE8];
+- (void)postTestResult:(id)result allowsCellularAccess:(BOOL)access completion:(id)completion
+{
+  accessCopy = access;
+  v25 = *MEMORY[0x277D85DE8];
+  resultCopy = result;
+  completionCopy = completion;
+  v10 = ASTLogHandleForCategory(1);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    LODWORD(buf) = 138412290;
+    *(&buf + 4) = resultCopy;
+    _os_log_impl(&dword_240F3C000, v10, OS_LOG_TYPE_DEFAULT, "[Test Results] > Results: %@", &buf, 0xCu);
+  }
+
+  *&buf = 0;
+  *(&buf + 1) = &buf;
+  v23 = 0x2020000000;
+  v24 = 1;
+  v11 = [[ASTConnectionTestResult alloc] initWithTestResults:resultCopy];
+  identity = [(ASTMaterializedConnectionManager *)self identity];
+  [(ASTMaterializedConnection *)v11 setIdentity:identity];
+
+  sessionId = [(ASTMaterializedConnectionManager *)self sessionId];
+  [(ASTMaterializedConnection *)v11 setSessionId:sessionId];
+
+  [(ASTMaterializedConnection *)v11 setAllowsCellularAccess:accessCopy];
+  [(ASTMaterializedConnection *)v11 setDelegate:self];
+  [(ASTMaterializedConnection *)v11 setRetryOnNetworkDisconnected:1];
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __83__ASTMaterializedConnectionManager_postTestResult_allowsCellularAccess_completion___block_invoke;
+  v19 = &unk_278CBD3D8;
+  p_buf = &buf;
+  v14 = completionCopy;
+  v20 = v14;
+  [(ASTMaterializedConnection *)v11 setDidReceiveResponse:&v16];
+  v15 = [(ASTMaterializedConnectionManager *)self networking:v16];
+  [v15 addConnection:v11];
+
+  _Block_object_dispose(&buf, 8);
 }
 
 void __83__ASTMaterializedConnectionManager_postTestResult_allowsCellularAccess_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -341,8 +662,8 @@ void __83__ASTMaterializedConnectionManager_postTestResult_allowsCellularAccess_
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_240F3C000, v7, OS_LOG_TYPE_DEFAULT, "[Test Results] < Test Results Successful", v9, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_240F3C000, v7, OS_LOG_TYPE_DEFAULT, "[Test Results] < Test Results Successful", v8, 2u);
     }
   }
 
@@ -356,14 +677,13 @@ void __83__ASTMaterializedConnectionManager_postTestResult_allowsCellularAccess_
     *(*(*(a1 + 40) + 8) + 24) = 0;
   }
 
-  v8 = *(*(*(a1 + 40) + 8) + 24);
   (*(*(a1 + 32) + 16))();
 }
 
 - (void)postSealableFile:(id)file fileSequence:(id)sequence totalFiles:(id)files testId:(id)id dataId:(id)dataId allowsCellularAccess:(BOOL)access completion:(id)completion
 {
   accessCopy = access;
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   completionCopy = completion;
   v15 = MEMORY[0x277CCAA00];
@@ -383,9 +703,9 @@ void __83__ASTMaterializedConnectionManager_postTestResult_allowsCellularAccess_
     fileURL2 = [fileCopy fileURL];
     path2 = [fileURL2 path];
     *buf = 138412546;
-    v41 = path2;
-    v42 = 2048;
-    v43 = fileSize;
+    v40 = path2;
+    v41 = 2048;
+    v42 = fileSize;
     _os_log_impl(&dword_240F3C000, v24, OS_LOG_TYPE_DEFAULT, "[File Upload] > File: %@, File Size: %llu bytes", buf, 0x16u);
   }
 
@@ -399,19 +719,17 @@ void __83__ASTMaterializedConnectionManager_postTestResult_allowsCellularAccess_
   [(ASTMaterializedConnection *)v27 setAllowsCellularAccess:accessCopy];
   [(ASTMaterializedConnection *)v27 setDelegate:self];
   [(ASTMaterializedConnection *)v27 setRetryOnNetworkDisconnected:1];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __123__ASTMaterializedConnectionManager_postSealableFile_fileSequence_totalFiles_testId_dataId_allowsCellularAccess_completion___block_invoke;
-  v37[3] = &unk_278CBD360;
-  v38 = fileCopy;
-  v39 = completionCopy;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __123__ASTMaterializedConnectionManager_postSealableFile_fileSequence_totalFiles_testId_dataId_allowsCellularAccess_completion___block_invoke;
+  v36[3] = &unk_278CBD360;
+  v37 = fileCopy;
+  v38 = completionCopy;
   v30 = completionCopy;
   v31 = fileCopy;
-  [(ASTMaterializedConnection *)v27 setDidReceiveResponse:v37];
+  [(ASTMaterializedConnection *)v27 setDidReceiveResponse:v36];
   networking = [(ASTMaterializedConnectionManager *)self networking];
   [networking addConnection:v27];
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __123__ASTMaterializedConnectionManager_postSealableFile_fileSequence_totalFiles_testId_dataId_allowsCellularAccess_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -462,6 +780,48 @@ void __123__ASTMaterializedConnectionManager_postSealableFile_fileSequence_total
   [networking2 cancelConnectionsOfClass:objc_opt_class()];
 }
 
+- (void)requestSessionArchiveWithSessionID:(id)d withPayloadSigner:(id)signer allowsCellularAccess:(BOOL)access completionHandler:(id)handler
+{
+  accessCopy = access;
+  v29 = *MEMORY[0x277D85DE8];
+  handlerCopy = handler;
+  signerCopy = signer;
+  dCopy = d;
+  v13 = ASTLogHandleForCategory(1);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v28 = "[ASTMaterializedConnectionManager requestSessionArchiveWithSessionID:withPayloadSigner:allowsCellularAccess:completionHandler:]";
+    _os_log_impl(&dword_240F3C000, v13, OS_LOG_TYPE_DEFAULT, "[ASTConnectionManager] %s", buf, 0xCu);
+  }
+
+  v14 = dispatch_semaphore_create(0);
+  v15 = objc_alloc_init(ASTConnectionArchiveSelfServiceSession);
+  identity = [(ASTMaterializedConnectionManager *)self identity];
+  [(ASTMaterializedConnection *)v15 setIdentity:identity];
+
+  [(ASTConnectionArchiveSelfServiceSession *)v15 setSessionId:dCopy];
+  [(ASTMaterializedConnection *)v15 setAllowsCellularAccess:accessCopy];
+  [(ASTMaterializedConnection *)v15 setDelegate:self];
+  [(ASTMaterializedConnection *)v15 setRetryOnNetworkDisconnected:1];
+  v21 = MEMORY[0x277D85DD0];
+  v22 = 3221225472;
+  v23 = __128__ASTMaterializedConnectionManager_requestSessionArchiveWithSessionID_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke;
+  v24 = &unk_278CBD400;
+  v25 = v14;
+  v26 = handlerCopy;
+  v17 = v14;
+  v18 = handlerCopy;
+  [(ASTMaterializedConnection *)v15 setDidReceiveResponse:&v21];
+  [(ASTMaterializedConnection *)v15 signBodyWithPayloadSigner:signerCopy, v21, v22, v23, v24];
+
+  networking = [(ASTMaterializedConnectionManager *)self networking];
+  [networking addConnection:v15];
+
+  v20 = dispatch_time(0, 10000000000);
+  dispatch_semaphore_wait(v17, v20);
+}
+
 void __128__ASTMaterializedConnectionManager_requestSessionArchiveWithSessionID_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -506,6 +866,43 @@ LABEL_11:
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
+- (void)requestSelfServiceSuitesAvailableWithConfigCode:(id)code withPayloadSigner:(id)signer allowsCellularAccess:(BOOL)access completionHandler:(id)handler
+{
+  accessCopy = access;
+  v26 = *MEMORY[0x277D85DE8];
+  codeCopy = code;
+  handlerCopy = handler;
+  v11 = ASTLogHandleForCategory(1);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v25 = "[ASTMaterializedConnectionManager requestSelfServiceSuitesAvailableWithConfigCode:withPayloadSigner:allowsCellularAccess:completionHandler:]";
+    _os_log_impl(&dword_240F3C000, v11, OS_LOG_TYPE_DEFAULT, "[ASTConnectionManager] %s", buf, 0xCu);
+  }
+
+  v12 = [[ASTConnectionRetrieveSelfServiceSuites alloc] initWithConfigCode:codeCopy];
+  identity = [(ASTMaterializedConnectionManager *)self identity];
+  [(ASTMaterializedConnection *)v12 setIdentity:identity];
+
+  sessionId = [(ASTMaterializedConnectionManager *)self sessionId];
+  [(ASTMaterializedConnection *)v12 setSessionId:sessionId];
+
+  [(ASTMaterializedConnection *)v12 setAllowsCellularAccess:accessCopy];
+  [(ASTMaterializedConnection *)v12 setDelegate:self];
+  [(ASTMaterializedConnection *)v12 setRetryOnNetworkDisconnected:1];
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __141__ASTMaterializedConnectionManager_requestSelfServiceSuitesAvailableWithConfigCode_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke;
+  v21 = &unk_278CBD360;
+  v22 = codeCopy;
+  v23 = handlerCopy;
+  v15 = handlerCopy;
+  v16 = codeCopy;
+  [(ASTMaterializedConnection *)v12 setDidReceiveResponse:&v18];
+  v17 = [(ASTMaterializedConnectionManager *)self networking:v18];
+  [v17 addConnection:v12];
+}
+
 void __141__ASTMaterializedConnectionManager_requestSelfServiceSuitesAvailableWithConfigCode_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -531,7 +928,7 @@ void __141__ASTMaterializedConnectionManager_requestSelfServiceSuitesAvailableWi
     v11 = ASTLogHandleForCategory(1);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __141__ASTMaterializedConnectionManager_requestSelfServiceSuitesAvailableWithConfigCode_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_1(a1);
+      __141__ASTMaterializedConnectionManager_requestSelfServiceSuitesAvailableWithConfigCode_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_1();
     }
 
     v12 = *(a1 + 40);
@@ -560,46 +957,125 @@ void __141__ASTMaterializedConnectionManager_requestSelfServiceSuitesAvailableWi
   }
 }
 
+- (void)postSelectSelfServiceSuite:(id)suite withPayloadSigner:(id)signer allowsCellularAccess:(BOOL)access completionHandler:(id)handler
+{
+  accessCopy = access;
+  v26 = *MEMORY[0x277D85DE8];
+  suiteCopy = suite;
+  handlerCopy = handler;
+  signerCopy = signer;
+  v13 = ASTLogHandleForCategory(1);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v25 = "[ASTMaterializedConnectionManager postSelectSelfServiceSuite:withPayloadSigner:allowsCellularAccess:completionHandler:]";
+    _os_log_impl(&dword_240F3C000, v13, OS_LOG_TYPE_DEFAULT, "[ASTConnectionManager] %s", buf, 0xCu);
+  }
+
+  v14 = [[ASTConnectionSelectSelfServiceSuite alloc] initWithSuiteID:suiteCopy];
+  identity = [(ASTMaterializedConnectionManager *)self identity];
+  [(ASTMaterializedConnection *)v14 setIdentity:identity];
+
+  sessionId = [(ASTMaterializedConnectionManager *)self sessionId];
+  [(ASTMaterializedConnection *)v14 setSessionId:sessionId];
+
+  [(ASTMaterializedConnection *)v14 setAllowsCellularAccess:accessCopy];
+  [(ASTMaterializedConnection *)v14 setDelegate:self];
+  [(ASTMaterializedConnection *)v14 setRetryOnNetworkDisconnected:1];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __120__ASTMaterializedConnectionManager_postSelectSelfServiceSuite_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke;
+  v20[3] = &unk_278CBD450;
+  selfCopy = self;
+  v23 = handlerCopy;
+  v21 = suiteCopy;
+  v17 = handlerCopy;
+  v18 = suiteCopy;
+  [(ASTMaterializedConnection *)v14 setDidReceiveResponse:v20];
+  [(ASTMaterializedConnection *)v14 signBodyWithPayloadSigner:signerCopy];
+
+  networking = [(ASTMaterializedConnectionManager *)self networking];
+  [networking addConnection:v14];
+}
+
 void __120__ASTMaterializedConnectionManager_postSelectSelfServiceSuite_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
   if (!a2)
   {
-    v9 = ASTLogHandleForCategory(1);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = ASTLogHandleForCategory(1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __120__ASTMaterializedConnectionManager_postSelectSelfServiceSuite_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_2(a1);
+      __120__ASTMaterializedConnectionManager_postSelectSelfServiceSuite_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_2();
     }
 
-    v10 = *(a1 + 48);
-    v11 = *(a1 + 32);
+    v9 = *(a1 + 48);
     v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ASTErrorDomain" code:-7000 userInfo:0];
-    v8 = *(v10 + 16);
+    v7 = *(v9 + 16);
     goto LABEL_7;
   }
 
   v6 = [a2 objectForKeyedSubscript:@"diagnosticEventId"];
   if ([*(a1 + 40) isValidUUID:v6])
   {
-    v7 = *(a1 + 32);
-    v8 = *(*(a1 + 48) + 16);
+    v7 = *(*(a1 + 48) + 16);
 LABEL_7:
-    v8();
+    v7();
     goto LABEL_11;
   }
 
-  v12 = ASTLogHandleForCategory(1);
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v10 = ASTLogHandleForCategory(1);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     __120__ASTMaterializedConnectionManager_postSelectSelfServiceSuite_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_1();
   }
 
-  v13 = *(a1 + 48);
-  v14 = *(a1 + 32);
-  v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ASTErrorDomain" code:-7000 userInfo:0];
-  (*(v13 + 16))(v13, v14, 0, 0, v15);
+  v11 = *(a1 + 48);
+  v12 = *(a1 + 32);
+  v13 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ASTErrorDomain" code:-7000 userInfo:0];
+  (*(v11 + 16))(v11, v12, 0, 0, v13);
 
 LABEL_11:
+}
+
+- (void)requestSelfServiceSuiteResultsWithDiagnosticEventID:(id)d withPayloadSigner:(id)signer allowsCellularAccess:(BOOL)access completionHandler:(id)handler
+{
+  accessCopy = access;
+  v28 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  handlerCopy = handler;
+  signerCopy = signer;
+  v13 = ASTLogHandleForCategory(1);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v27 = "[ASTMaterializedConnectionManager requestSelfServiceSuiteResultsWithDiagnosticEventID:withPayloadSigner:allowsCellularAccess:completionHandler:]";
+    _os_log_impl(&dword_240F3C000, v13, OS_LOG_TYPE_DEFAULT, "[ASTConnectionManager] %s", buf, 0xCu);
+  }
+
+  v14 = [[ASTConnectionRetrieveSelfServiceSuiteResults alloc] initWithDiagnosticEventID:dCopy];
+  identity = [(ASTMaterializedConnectionManager *)self identity];
+  [(ASTMaterializedConnection *)v14 setIdentity:identity];
+
+  sessionId = [(ASTMaterializedConnectionManager *)self sessionId];
+  [(ASTMaterializedConnection *)v14 setSessionId:sessionId];
+
+  [(ASTMaterializedConnection *)v14 setAllowsCellularAccess:accessCopy];
+  [(ASTMaterializedConnection *)v14 setDelegate:self];
+  [(ASTMaterializedConnection *)v14 setRetryOnNetworkDisconnected:1];
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __145__ASTMaterializedConnectionManager_requestSelfServiceSuiteResultsWithDiagnosticEventID_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke;
+  v23 = &unk_278CBD360;
+  v24 = dCopy;
+  v25 = handlerCopy;
+  v17 = handlerCopy;
+  v18 = dCopy;
+  [(ASTMaterializedConnection *)v14 setDidReceiveResponse:&v20];
+  [(ASTMaterializedConnection *)v14 signBodyWithPayloadSigner:signerCopy, v20, v21, v22, v23];
+
+  networking = [(ASTMaterializedConnectionManager *)self networking];
+  [networking addConnection:v14];
 }
 
 void __145__ASTMaterializedConnectionManager_requestSelfServiceSuiteResultsWithDiagnosticEventID_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -619,13 +1095,58 @@ void __145__ASTMaterializedConnectionManager_requestSelfServiceSuiteResultsWithD
     v9 = ASTLogHandleForCategory(1);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __145__ASTMaterializedConnectionManager_requestSelfServiceSuiteResultsWithDiagnosticEventID_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_1(a1);
+      __145__ASTMaterializedConnectionManager_requestSelfServiceSuiteResultsWithDiagnosticEventID_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_1();
     }
 
     v10 = *(a1 + 40);
     v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ASTErrorDomain" code:-7000 userInfo:0];
     (*(v10 + 16))(v10, 0, v8);
   }
+}
+
+- (void)requestInstructionalPromptDetailsWithInstructionID:(id)d type:(id)type withPayloadSigner:(id)signer language:(id)language locale:(id)locale allowsCellularAccess:(BOOL)access completionHandler:(id)handler
+{
+  accessCopy = access;
+  v35 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  typeCopy = type;
+  handlerCopy = handler;
+  localeCopy = locale;
+  languageCopy = language;
+  signerCopy = signer;
+  v21 = ASTLogHandleForCategory(1);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v34 = "[ASTMaterializedConnectionManager requestInstructionalPromptDetailsWithInstructionID:type:withPayloadSigner:language:locale:allowsCellularAccess:completionHandler:]";
+    _os_log_impl(&dword_240F3C000, v21, OS_LOG_TYPE_DEFAULT, "[ASTConnectionManager] %s", buf, 0xCu);
+  }
+
+  v22 = [[ASTConnectionRetrieveInstructionalPromptDetails alloc] initWithInstructionID:dCopy type:typeCopy language:languageCopy locale:localeCopy];
+  identity = [(ASTMaterializedConnectionManager *)self identity];
+  [(ASTMaterializedConnection *)v22 setIdentity:identity];
+
+  sessionId = [(ASTMaterializedConnectionManager *)self sessionId];
+  [(ASTMaterializedConnection *)v22 setSessionId:sessionId];
+
+  [(ASTMaterializedConnection *)v22 setAllowsCellularAccess:accessCopy];
+  [(ASTMaterializedConnection *)v22 setDelegate:self];
+  [(ASTMaterializedConnection *)v22 setRetryOnNetworkDisconnected:1];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __165__ASTMaterializedConnectionManager_requestInstructionalPromptDetailsWithInstructionID_type_withPayloadSigner_language_locale_allowsCellularAccess_completionHandler___block_invoke;
+  v29[3] = &unk_278CBD478;
+  v31 = dCopy;
+  v32 = handlerCopy;
+  v30 = typeCopy;
+  v25 = dCopy;
+  v26 = typeCopy;
+  v27 = handlerCopy;
+  [(ASTMaterializedConnection *)v22 setDidReceiveResponse:v29];
+  [(ASTMaterializedConnection *)v22 signBodyWithPayloadSigner:signerCopy];
+
+  networking = [(ASTMaterializedConnectionManager *)self networking];
+  [networking addConnection:v22];
 }
 
 void __165__ASTMaterializedConnectionManager_requestInstructionalPromptDetailsWithInstructionID_type_withPayloadSigner_language_locale_allowsCellularAccess_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -686,7 +1207,7 @@ LABEL_18:
       v23 = ASTLogHandleForCategory(0);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        __165__ASTMaterializedConnectionManager_requestInstructionalPromptDetailsWithInstructionID_type_withPayloadSigner_language_locale_allowsCellularAccess_completionHandler___block_invoke_cold_2((a1 + 32));
+        __165__ASTMaterializedConnectionManager_requestInstructionalPromptDetailsWithInstructionID_type_withPayloadSigner_language_locale_allowsCellularAccess_completionHandler___block_invoke_cold_2();
       }
     }
 
@@ -708,6 +1229,41 @@ LABEL_19:
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ASTErrorDomain" code:-7000 userInfo:0];
   (*(v15 + 16))(v15, 0, v6);
 LABEL_20:
+}
+
+- (void)postPrepareDeviceWithIdentities:(id)identities allowsCellularAccess:(BOOL)access completionHandler:(id)handler
+{
+  accessCopy = access;
+  v20 = *MEMORY[0x277D85DE8];
+  handlerCopy = handler;
+  identitiesCopy = identities;
+  v10 = ASTLogHandleForCategory(1);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v19 = "[ASTMaterializedConnectionManager postPrepareDeviceWithIdentities:allowsCellularAccess:completionHandler:]";
+    _os_log_impl(&dword_240F3C000, v10, OS_LOG_TYPE_DEFAULT, "[ASTConnectionManager] %s", buf, 0xCu);
+  }
+
+  v11 = [[ASTConnectionPrepareDevice alloc] initWithIdentities:identitiesCopy];
+  identity = [(ASTMaterializedConnectionManager *)self identity];
+  [(ASTMaterializedConnection *)v11 setIdentity:identity];
+
+  sessionId = [(ASTMaterializedConnectionManager *)self sessionId];
+  [(ASTMaterializedConnection *)v11 setSessionId:sessionId];
+
+  [(ASTMaterializedConnection *)v11 setAllowsCellularAccess:accessCopy];
+  [(ASTMaterializedConnection *)v11 setDelegate:self];
+  [(ASTMaterializedConnection *)v11 setRetryOnNetworkDisconnected:1];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __107__ASTMaterializedConnectionManager_postPrepareDeviceWithIdentities_allowsCellularAccess_completionHandler___block_invoke;
+  v16[3] = &unk_278CBD338;
+  v17 = handlerCopy;
+  v14 = handlerCopy;
+  [(ASTMaterializedConnection *)v11 setDidReceiveResponse:v16];
+  networking = [(ASTMaterializedConnectionManager *)self networking];
+  [networking addConnection:v11];
 }
 
 void __107__ASTMaterializedConnectionManager_postPrepareDeviceWithIdentities_allowsCellularAccess_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -791,16 +1347,16 @@ LABEL_11:
 
 - (void)connection:(id)connection didSendBodyData:(int64_t)data totalBytesSent:(int64_t)sent totalBytesExpected:(int64_t)expected
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v9 = ASTLogHandleForCategory(1);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (expected < 1)
   {
     if (v10)
     {
-      v16 = 134218240;
+      v15 = 134218240;
       dataCopy2 = data;
-      v18 = 2048;
+      v17 = 2048;
       sentCopy2 = sent;
       v12 = "bytes sent: %lld, total bytes sent: %lld";
       v13 = v9;
@@ -812,22 +1368,20 @@ LABEL_11:
   else if (v10)
   {
     v11 = sent / expected;
-    v16 = 134218752;
+    v15 = 134218752;
     dataCopy2 = data;
-    v18 = 2048;
+    v17 = 2048;
     sentCopy2 = sent;
-    v20 = 2048;
+    v19 = 2048;
     expectedCopy = expected;
-    v22 = 2048;
-    v23 = (v11 * 100.0);
+    v21 = 2048;
+    v22 = (v11 * 100.0);
     v12 = "bytes sent: %lld, total bytes sent: %lld, expected: %lld, complete: %0.1f%%";
     v13 = v9;
     v14 = 42;
 LABEL_6:
-    _os_log_impl(&dword_240F3C000, v13, OS_LOG_TYPE_DEFAULT, v12, &v16, v14);
+    _os_log_impl(&dword_240F3C000, v13, OS_LOG_TYPE_DEFAULT, v12, &v15, v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -858,46 +1412,37 @@ LABEL_6:
 
 void __137__ASTMaterializedConnectionManager_postSessionStatusForIdentities_ticket_timeout_allowsCellularAccess_requestQueuedSuiteInfo_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __123__ASTMaterializedConnectionManager_downloadAsset_serverURL_endpoint_destinationFileHandle_allowsCellularAccess_completion___block_invoke_cold_1(uint64_t a1)
+void __123__ASTMaterializedConnectionManager_downloadAsset_serverURL_endpoint_destinationFileHandle_allowsCellularAccess_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_240F3C000, v1, v2, "[Asset] <ERROR> %@, %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_240F3C000, v0, v1, "[Asset] <ERROR> %@, %@");
 }
 
 void __69__ASTMaterializedConnectionManager_postEnrollAllowingCellularAccess___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __70__ASTMaterializedConnectionManager_postAuthInfo_allowsCellularAccess___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __69__ASTMaterializedConnectionManager_postProfile_allowsCellularAccess___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __69__ASTMaterializedConnectionManager_postRequest_allowsCellularAccess___block_invoke_cold_1()
@@ -909,42 +1454,32 @@ void __69__ASTMaterializedConnectionManager_postRequest_allowsCellularAccess___b
 
 void __69__ASTMaterializedConnectionManager_postRequest_allowsCellularAccess___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __83__ASTMaterializedConnectionManager_postTestResult_allowsCellularAccess_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __123__ASTMaterializedConnectionManager_postSealableFile_fileSequence_totalFiles_testId_dataId_allowsCellularAccess_completion___block_invoke_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) fileURL];
   v2 = [v1 path];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_6(&dword_240F3C000, v3, v4, "[File Upload] <ERROR> File: %@, Error %@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_240F3C000, v3, v4, "[File Upload] <ERROR> File: %@, Error %@", v5, v6, v7, v8);
 }
 
 void __123__ASTMaterializedConnectionManager_postSealableFile_fileSequence_totalFiles_testId_dataId_allowsCellularAccess_completion___block_invoke_cold_2(id *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [*a1 fileURL];
   v2 = [v1 path];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_6(&dword_240F3C000, v3, v4, "[File Upload] <ERROR> Could not remove file: %@, Error %@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_240F3C000, v3, v4, "[File Upload] <ERROR> Could not remove file: %@, Error %@", v5, v6, v7, v8);
 }
 
 void __128__ASTMaterializedConnectionManager_requestSessionArchiveWithSessionID_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_1()
@@ -956,19 +1491,16 @@ void __128__ASTMaterializedConnectionManager_requestSessionArchiveWithSessionID_
 
 void __128__ASTMaterializedConnectionManager_requestSessionArchiveWithSessionID_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __141__ASTMaterializedConnectionManager_requestSelfServiceSuitesAvailableWithConfigCode_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __141__ASTMaterializedConnectionManager_requestSelfServiceSuitesAvailableWithConfigCode_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_240F3C000, v1, v2, "[ASTConnectionManager] Self service session failed to retrieve the suites available for config: %@, error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_240F3C000, v0, v1, "[ASTConnectionManager] Self service session failed to retrieve the suites available for config: %@, error: %@");
 }
 
 void __120__ASTMaterializedConnectionManager_postSelectSelfServiceSuite_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_1()
@@ -978,20 +1510,18 @@ void __120__ASTMaterializedConnectionManager_postSelectSelfServiceSuite_withPayl
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __120__ASTMaterializedConnectionManager_postSelectSelfServiceSuite_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_2(uint64_t a1)
+void __120__ASTMaterializedConnectionManager_postSelectSelfServiceSuite_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_240F3C000, v1, v2, "[ASTConnectionManager] Failed to select suite with ID: %@, error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_240F3C000, v0, v1, "[ASTConnectionManager] Failed to select suite with ID: %@, error %@");
 }
 
-void __145__ASTMaterializedConnectionManager_requestSelfServiceSuiteResultsWithDiagnosticEventID_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __145__ASTMaterializedConnectionManager_requestSelfServiceSuiteResultsWithDiagnosticEventID_withPayloadSigner_allowsCellularAccess_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_240F3C000, v1, v2, "[ASTConnectionManager] Failed to retrieve suite run results, deid: %@, error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_240F3C000, v0, v1, "[ASTConnectionManager] Failed to retrieve suite run results, deid: %@, error %@");
 }
 
 void __165__ASTMaterializedConnectionManager_requestInstructionalPromptDetailsWithInstructionID_type_withPayloadSigner_language_locale_allowsCellularAccess_completionHandler___block_invoke_cold_1()
@@ -1001,22 +1531,11 @@ void __165__ASTMaterializedConnectionManager_requestInstructionalPromptDetailsWi
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __165__ASTMaterializedConnectionManager_requestInstructionalPromptDetailsWithInstructionID_type_withPayloadSigner_language_locale_allowsCellularAccess_completionHandler___block_invoke_cold_2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __165__ASTMaterializedConnectionManager_requestInstructionalPromptDetailsWithInstructionID_type_withPayloadSigner_language_locale_allowsCellularAccess_completionHandler___block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __107__ASTMaterializedConnectionManager_postPrepareDeviceWithIdentities_allowsCellularAccess_completionHandler___block_invoke_cold_1()
@@ -1028,11 +1547,9 @@ void __107__ASTMaterializedConnectionManager_postPrepareDeviceWithIdentities_all
 
 void __107__ASTMaterializedConnectionManager_postPrepareDeviceWithIdentities_allowsCellularAccess_completionHandler___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -31,6 +31,7 @@
 - (void)_clientEnsureStopped;
 - (void)_clientProximityEstimatorEnsureStarted;
 - (void)_clientProximityEstimatorEnsureStopped;
+- (void)_clientReportChangedDevice:(id)device changes:(unsigned int)changes;
 - (void)_clientReportFoundDevice:(id)device;
 - (void)_clientReportLostDevice:(id)device;
 - (void)_handleServerActivation:(id)activation;
@@ -90,29 +91,33 @@
 
 - (void)_activate
 {
-  if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D3D90 <= 30)
   {
-    sub_100119108();
+    if (dword_1001D3D90 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100119108(self, a2, v2);
+    }
   }
 
   RandomBytes();
-  if (!self->_xpcListener)
+  if (!selfCopy->_xpcListener)
   {
     if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
     {
       sub_100119124();
     }
 
-    v3 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.rapport.NearbyInvitation"];
-    xpcListener = self->_xpcListener;
-    self->_xpcListener = v3;
+    v4 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.rapport.NearbyInvitation"];
+    xpcListener = selfCopy->_xpcListener;
+    selfCopy->_xpcListener = v4;
 
-    [(NSXPCListener *)self->_xpcListener setDelegate:self];
-    [(NSXPCListener *)self->_xpcListener _setQueue:self->_dispatchQueue];
-    [(NSXPCListener *)self->_xpcListener resume];
+    [(NSXPCListener *)selfCopy->_xpcListener setDelegate:selfCopy];
+    [(NSXPCListener *)selfCopy->_xpcListener _setQueue:selfCopy->_dispatchQueue];
+    [(NSXPCListener *)selfCopy->_xpcListener resume];
   }
 
-  [(RPNearbyInvitationDaemon *)self prefsChanged];
+  [(RPNearbyInvitationDaemon *)selfCopy prefsChanged];
 }
 
 - (void)invalidate
@@ -132,9 +137,12 @@
   if (!self->_invalidateCalled)
   {
     self->_invalidateCalled = 1;
-    if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3D90 <= 30)
     {
-      sub_10011916C();
+      if (dword_1001D3D90 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_10011916C(v3, v4, v5);
+      }
     }
 
     [(NSXPCListener *)self->_xpcListener invalidate];
@@ -155,12 +163,19 @@
 - (void)_invalidated
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (self->_invalidateCalled && !self->_invalidateDone && ![(NSMutableSet *)self->_xpcConnections count]&& !self->_xpcListener)
+  if (self->_invalidateCalled && !self->_invalidateDone)
   {
-    self->_invalidateDone = 1;
-    if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    v3 = [(NSMutableSet *)self->_xpcConnections count];
+    if (!v3 && !self->_xpcListener)
     {
-      sub_100119188();
+      self->_invalidateDone = 1;
+      if (dword_1001D3D90 <= 30)
+      {
+        if (dword_1001D3D90 != -1 || (v3 = _LogCategory_Initialize(), v3))
+        {
+          sub_100119188(v3, v4, v5);
+        }
+      }
     }
   }
 }
@@ -241,46 +256,47 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  NSAppendPrintF();
+  v5 = 0;
+  NSAppendPrintF(&v5, "-- RPNearbyInvitationDaemon --\n", *&level);
+  v3 = v5;
 
-  return 0;
+  return v3;
 }
 
 - (void)setBleDeviceWantingInvitations:(id)invitations
 {
   invitationsCopy = invitations;
-  v5 = self->_bleDeviceWantingInvitations;
+  bleDeviceWantingInvitations = self->_bleDeviceWantingInvitations;
   v6 = invitationsCopy;
-  v12 = v6;
-  if (v5 == v6)
+  v11 = v6;
+  if (bleDeviceWantingInvitations == v6)
   {
 
 LABEL_12:
     goto LABEL_13;
   }
 
-  if ((v6 == 0) == (v5 != 0))
+  if ((v6 == 0) == (bleDeviceWantingInvitations != 0))
   {
 
 LABEL_7:
-    v8 = v12;
+    v8 = v11;
     if (dword_1001D3D90 <= 30)
     {
-      if (dword_1001D3D90 != -1 || (v9 = _LogCategory_Initialize(), v8 = v12, v9))
+      if (dword_1001D3D90 != -1 || (v9 = _LogCategory_Initialize(), v8 = v11, v9))
       {
-        bleDeviceWantingInvitations = self->_bleDeviceWantingInvitations;
-        LogPrintF();
-        v8 = v12;
+        LogPrintF(&dword_1001D3D90, "[RPNearbyInvitationDaemon setBleDeviceWantingInvitations:]", 30, "BLE device wanting invitations: %@ -> %@\n", self->_bleDeviceWantingInvitations, v8);
+        v8 = v11;
       }
     }
 
     v10 = v8;
-    v5 = self->_bleDeviceWantingInvitations;
+    bleDeviceWantingInvitations = self->_bleDeviceWantingInvitations;
     self->_bleDeviceWantingInvitations = v10;
     goto LABEL_12;
   }
 
-  v7 = [(RPCompanionLinkDevice *)v5 isEqual:v6];
+  v7 = [(RPCompanionLinkDevice *)bleDeviceWantingInvitations isEqual:v6];
 
   if ((v7 & 1) == 0)
   {
@@ -293,38 +309,37 @@ LABEL_13:
 - (void)setBleDeviceAcceptedInvitations:(id)invitations
 {
   invitationsCopy = invitations;
-  v5 = self->_bleDeviceAcceptedInvitations;
+  bleDeviceAcceptedInvitations = self->_bleDeviceAcceptedInvitations;
   v6 = invitationsCopy;
-  v12 = v6;
-  if (v5 == v6)
+  v11 = v6;
+  if (bleDeviceAcceptedInvitations == v6)
   {
 
 LABEL_12:
     goto LABEL_13;
   }
 
-  if ((v6 == 0) == (v5 != 0))
+  if ((v6 == 0) == (bleDeviceAcceptedInvitations != 0))
   {
 
 LABEL_7:
-    v8 = v12;
+    v8 = v11;
     if (dword_1001D3D90 <= 30)
     {
-      if (dword_1001D3D90 != -1 || (v9 = _LogCategory_Initialize(), v8 = v12, v9))
+      if (dword_1001D3D90 != -1 || (v9 = _LogCategory_Initialize(), v8 = v11, v9))
       {
-        bleDeviceAcceptedInvitations = self->_bleDeviceAcceptedInvitations;
-        LogPrintF();
-        v8 = v12;
+        LogPrintF(&dword_1001D3D90, "[RPNearbyInvitationDaemon setBleDeviceAcceptedInvitations:]", 30, "BLE device accepted invitations: %@ -> %@\n", self->_bleDeviceAcceptedInvitations, v8);
+        v8 = v11;
       }
     }
 
     v10 = v8;
-    v5 = self->_bleDeviceAcceptedInvitations;
+    bleDeviceAcceptedInvitations = self->_bleDeviceAcceptedInvitations;
     self->_bleDeviceAcceptedInvitations = v10;
     goto LABEL_12;
   }
 
-  v7 = [(RPNearbyInvitationDevice *)v5 isEqual:v6];
+  v7 = [(RPNearbyInvitationDevice *)bleDeviceAcceptedInvitations isEqual:v6];
 
   if ((v7 & 1) == 0)
   {
@@ -406,46 +421,49 @@ LABEL_13:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_clientBLENearbyActionDiscovery)
   {
-    if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3D90 <= 30)
     {
-      sub_100119370();
+      if (dword_1001D3D90 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_100119370(v3, v4, v5);
+      }
     }
 
-    v3 = objc_alloc_init(off_1001D3E00());
+    v6 = objc_alloc_init(off_1001D3E00());
     clientBLENearbyActionDiscovery = self->_clientBLENearbyActionDiscovery;
-    self->_clientBLENearbyActionDiscovery = v3;
+    self->_clientBLENearbyActionDiscovery = v6;
 
     [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery setChangeFlags:1];
     [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery setDispatchQueue:self->_dispatchQueue];
     [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery setPurpose:@"RPNearbyInvitation"];
     [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery setRssiThreshold:-70];
     [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery setDiscoveryFlags:16];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10005E1B4;
+    v12[3] = &unk_1001ACA90;
+    v12[4] = self;
+    [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery setDeviceFoundHandler:v12];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10005E1C0;
+    v11[3] = &unk_1001ACA90;
+    v11[4] = self;
+    [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery setDeviceLostHandler:v11];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_10005E1CC;
+    v10[3] = &unk_1001ACAB8;
+    v10[4] = self;
+    [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery setDeviceChangedHandler:v10];
+    [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery setInterruptionHandler:&stru_1001ACAD8];
+    v8 = self->_clientBLENearbyActionDiscovery;
     v9[0] = _NSConcreteStackBlock;
     v9[1] = 3221225472;
-    v9[2] = sub_10005E1B4;
-    v9[3] = &unk_1001ACA90;
+    v9[2] = sub_10005E224;
+    v9[3] = &unk_1001AB2C8;
     v9[4] = self;
-    [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery setDeviceFoundHandler:v9];
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10005E1C0;
-    v8[3] = &unk_1001ACA90;
-    v8[4] = self;
-    [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery setDeviceLostHandler:v8];
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_10005E1CC;
-    v7[3] = &unk_1001ACAB8;
-    v7[4] = self;
-    [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery setDeviceChangedHandler:v7];
-    [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery setInterruptionHandler:&stru_1001ACAD8];
-    v5 = self->_clientBLENearbyActionDiscovery;
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_10005E224;
-    v6[3] = &unk_1001AB2C8;
-    v6[4] = self;
-    [(SFDeviceDiscovery *)v5 activateWithCompletion:v6];
+    [(SFDeviceDiscovery *)v8 activateWithCompletion:v9];
   }
 }
 
@@ -454,9 +472,12 @@ LABEL_13:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_clientBLENearbyActionDiscovery)
   {
-    if (dword_1001D3D90 <= 50 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3D90 <= 50)
     {
-      sub_100119404();
+      if (dword_1001D3D90 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_100119404(v3, v4, v5);
+      }
     }
 
     [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery invalidate];
@@ -470,9 +491,9 @@ LABEL_13:
   clientNearbyActionDiscoveryTimer = self->_clientNearbyActionDiscoveryTimer;
   if (clientNearbyActionDiscoveryTimer)
   {
-    v7 = clientNearbyActionDiscoveryTimer;
-    dispatch_source_cancel(v7);
-    v6 = self->_clientNearbyActionDiscoveryTimer;
+    v10 = clientNearbyActionDiscoveryTimer;
+    dispatch_source_cancel(v10);
+    v9 = self->_clientNearbyActionDiscoveryTimer;
     self->_clientNearbyActionDiscoveryTimer = 0;
   }
 }
@@ -490,7 +511,7 @@ LABEL_13:
 
     if (!uUIDString)
     {
-      sub_100119694();
+      sub_100119694(foundCopy);
       goto LABEL_39;
     }
 
@@ -508,14 +529,14 @@ LABEL_13:
       v14 = [v12 authTagForData:bluetoothAddressData type:2 error:0];
       if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
       {
-        sub_100119420(foundCopy, bluetoothAddressData);
+        sub_100119420(foundCopy, bluetoothAddressData, v10, v14);
       }
 
       if (memcmp([v14 bytes], objc_msgSend(v10, "bytes"), objc_msgSend(v10, "length")))
       {
         if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001D3D90, "[RPNearbyInvitationDaemon _clientBLENearbyActionDiscoveryDeviceFound:]", 30, "Ignoring BLE device as target AuthTag <%@> did not match hash <%@>\n", v10, v14);
         }
 
 LABEL_38:
@@ -535,7 +556,7 @@ LABEL_39:
 
       if (isBLEDeviceReplaced && dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
       {
-        sub_100119508(v12);
+        sub_100119508(v12, foundCopy);
       }
 
       v18 = [v12 updateWithSFDevice:foundCopy];
@@ -546,7 +567,7 @@ LABEL_39:
         {
           if (dword_1001D3D90 <= 10 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
           {
-            sub_100119574();
+            sub_100119574(foundCopy);
           }
 
           [(RPNearbyInvitationDaemon *)self _clientReportChangedDevice:v12 changes:v19];
@@ -560,7 +581,7 @@ LABEL_39:
 
       if (dword_1001D3D90 <= 10 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001195D4();
+        sub_1001195D4(v12);
       }
     }
 
@@ -568,7 +589,7 @@ LABEL_39:
     {
       if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
       {
-        sub_100119634();
+        sub_100119634(foundCopy);
       }
 
       v12 = objc_alloc_init(RPNearbyInvitationDevice);
@@ -622,7 +643,7 @@ LABEL_40:
 
   else
   {
-    sub_100119710();
+    sub_100119710(lostCopy);
   }
 }
 
@@ -650,11 +671,15 @@ LABEL_40:
 - (void)_clientBLENearbyActionDisableDupeFilter
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (([(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery changeFlags]& 4) == 0)
+  changeFlags = [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery changeFlags];
+  if ((changeFlags & 4) == 0)
   {
-    if (dword_1001D3D90 <= 50 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3D90 <= 50)
     {
-      sub_1001197A8();
+      if (dword_1001D3D90 != -1 || (changeFlags = _LogCategory_Initialize(), changeFlags))
+      {
+        sub_1001197A8(changeFlags, v4, v5);
+      }
     }
 
     [(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery setChangeFlags:[(SFDeviceDiscovery *)self->_clientBLENearbyActionDiscovery changeFlags]| 4];
@@ -663,28 +688,28 @@ LABEL_40:
   clientDisabledDupeFilterTimer = self->_clientDisabledDupeFilterTimer;
   if (clientDisabledDupeFilterTimer)
   {
-    v4 = clientDisabledDupeFilterTimer;
-    dispatch_source_cancel(v4);
-    v5 = self->_clientDisabledDupeFilterTimer;
+    v7 = clientDisabledDupeFilterTimer;
+    dispatch_source_cancel(v7);
+    v8 = self->_clientDisabledDupeFilterTimer;
     self->_clientDisabledDupeFilterTimer = 0;
 
-    v6 = self->_clientDisabledDupeFilterTimer;
+    v9 = self->_clientDisabledDupeFilterTimer;
     self->_clientDisabledDupeFilterTimer = 0;
   }
 
-  v7 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-  v8 = self->_clientDisabledDupeFilterTimer;
-  self->_clientDisabledDupeFilterTimer = v7;
-  v9 = v7;
+  v10 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+  v11 = self->_clientDisabledDupeFilterTimer;
+  self->_clientDisabledDupeFilterTimer = v10;
+  v12 = v10;
 
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_10005EB88;
   handler[3] = &unk_1001AA970;
   handler[4] = self;
-  dispatch_source_set_event_handler(v9, handler);
+  dispatch_source_set_event_handler(v12, handler);
   CUDispatchTimerSet();
-  dispatch_activate(v9);
+  dispatch_activate(v12);
 }
 
 - (void)_clientBLENearbyActionEnableDupeFilter
@@ -692,24 +717,27 @@ LABEL_40:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_clientBLENearbyActionDiscovery)
   {
-    if (dword_1001D3D90 <= 50 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3D90 <= 50)
     {
-      sub_1001197C4();
+      if (dword_1001D3D90 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1001197C4(v3, v4, v5);
+      }
     }
 
     clientDisabledDupeFilterTimer = self->_clientDisabledDupeFilterTimer;
     if (clientDisabledDupeFilterTimer)
     {
-      v4 = clientDisabledDupeFilterTimer;
-      dispatch_source_cancel(v4);
-      v5 = self->_clientDisabledDupeFilterTimer;
+      v7 = clientDisabledDupeFilterTimer;
+      dispatch_source_cancel(v7);
+      v8 = self->_clientDisabledDupeFilterTimer;
       self->_clientDisabledDupeFilterTimer = 0;
     }
 
     clientBLENearbyActionDiscovery = self->_clientBLENearbyActionDiscovery;
-    v7 = [(SFDeviceDiscovery *)clientBLENearbyActionDiscovery changeFlags]& 0xFFFFFFFB;
+    v10 = [(SFDeviceDiscovery *)clientBLENearbyActionDiscovery changeFlags]& 0xFFFFFFFB;
 
-    [(SFDeviceDiscovery *)clientBLENearbyActionDiscovery setChangeFlags:v7];
+    [(SFDeviceDiscovery *)clientBLENearbyActionDiscovery setChangeFlags:v10];
   }
 }
 
@@ -783,22 +811,25 @@ LABEL_13:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_clientBLENearbyActionAdvertiser)
   {
-    if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3D90 <= 30)
     {
-      sub_1001197E0();
+      if (dword_1001D3D90 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1001197E0(v3, v4, v5);
+      }
     }
 
     _idleSessionConnection = [(RPNearbyInvitationDaemon *)self _idleSessionConnection];
     activatedSession = [_idleSessionConnection activatedSession];
 
-    v5 = objc_alloc_init(off_1001D3E08());
+    v8 = objc_alloc_init(off_1001D3E08());
     clientBLENearbyActionAdvertiser = self->_clientBLENearbyActionAdvertiser;
-    self->_clientBLENearbyActionAdvertiser = v5;
+    self->_clientBLENearbyActionAdvertiser = v8;
 
     [(SFService *)self->_clientBLENearbyActionAdvertiser setDeviceActionType:56];
-    [(SFService *)self->_clientBLENearbyActionAdvertiser setDispatchQueue:self->_dispatchQueue];
-    v7 = off_1001D3E10();
-    [(SFService *)self->_clientBLENearbyActionAdvertiser setIdentifier:v7];
+    v10 = [(SFService *)self->_clientBLENearbyActionAdvertiser setDispatchQueue:self->_dispatchQueue];
+    v11 = off_1001D3E10(v10);
+    [(SFService *)self->_clientBLENearbyActionAdvertiser setIdentifier:v11];
 
     [(SFService *)self->_clientBLENearbyActionAdvertiser setLabel:@"RPNearbyInvitation"];
     [(SFService *)self->_clientBLENearbyActionAdvertiser setPairSetupDisabled:1];
@@ -807,15 +838,15 @@ LABEL_13:
     [(SFService *)self->_clientBLENearbyActionAdvertiser setTargetAuthTag:bleTargetData];
 
     [(SFService *)self->_clientBLENearbyActionAdvertiser setAdvertiseRate:50];
-    v10 = self->_clientBLENearbyActionAdvertiser;
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10005EFC4;
-    v12[3] = &unk_1001AAA40;
-    v12[4] = self;
-    v13 = activatedSession;
-    v11 = activatedSession;
-    [(SFService *)v10 activateWithCompletion:v12];
+    v14 = self->_clientBLENearbyActionAdvertiser;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10005EFC4;
+    v16[3] = &unk_1001AAA40;
+    v16[4] = self;
+    v17 = activatedSession;
+    v15 = activatedSession;
+    [(SFService *)v14 activateWithCompletion:v16];
   }
 }
 
@@ -824,9 +855,12 @@ LABEL_13:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_clientBLENearbyActionAdvertiser)
   {
-    if (dword_1001D3D90 <= 50 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3D90 <= 50)
     {
-      sub_1001198B8();
+      if (dword_1001D3D90 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1001198B8(v3, v4, v5);
+      }
     }
 
     [(SFService *)self->_clientBLENearbyActionAdvertiser invalidate];
@@ -837,9 +871,9 @@ LABEL_13:
   clientNearbyActionAdvertiserTimer = self->_clientNearbyActionAdvertiserTimer;
   if (clientNearbyActionAdvertiserTimer)
   {
-    v6 = clientNearbyActionAdvertiserTimer;
-    dispatch_source_cancel(v6);
-    v5 = self->_clientNearbyActionAdvertiserTimer;
+    v9 = clientNearbyActionAdvertiserTimer;
+    dispatch_source_cancel(v9);
+    v8 = self->_clientNearbyActionAdvertiserTimer;
     self->_clientNearbyActionAdvertiserTimer = 0;
   }
 }
@@ -870,32 +904,35 @@ LABEL_13:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_proximityEstimator)
   {
-    if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3D90 <= 30)
     {
-      sub_100119930();
+      if (dword_1001D3D90 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_100119930(v3, v4, v5);
+      }
     }
 
-    v3 = objc_alloc_init(RPNIProximityEstimator);
+    v6 = objc_alloc_init(RPNIProximityEstimator);
     proximityEstimator = self->_proximityEstimator;
-    self->_proximityEstimator = v3;
+    self->_proximityEstimator = v6;
 
     [(RPNIProximityEstimator *)self->_proximityEstimator setInnerPresencePreset:6];
     [(RPNIProximityEstimator *)self->_proximityEstimator setInnerRegionName:@"nearbyInvitation-inner"];
     [(RPNIProximityEstimator *)self->_proximityEstimator setOuterRegionName:@"nearbyInvitation-outer"];
     [(RPNIProximityEstimator *)self->_proximityEstimator setDispatchQueue:self->_dispatchQueue];
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_10005F4CC;
-    v7[3] = &unk_1001ACB00;
-    v7[4] = self;
-    [(RPNIProximityEstimator *)self->_proximityEstimator setDeviceRegionChangedHandler:v7];
-    v5 = self->_proximityEstimator;
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_10005F614;
-    v6[3] = &unk_1001AB2C8;
-    v6[4] = self;
-    [(RPNIProximityEstimator *)v5 activateWithCompletion:v6];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_10005F4CC;
+    v10[3] = &unk_1001ACB00;
+    v10[4] = self;
+    [(RPNIProximityEstimator *)self->_proximityEstimator setDeviceRegionChangedHandler:v10];
+    v8 = self->_proximityEstimator;
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10005F614;
+    v9[3] = &unk_1001AB2C8;
+    v9[4] = self;
+    [(RPNIProximityEstimator *)v8 activateWithCompletion:v9];
   }
 }
 
@@ -904,9 +941,12 @@ LABEL_13:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_proximityEstimator)
   {
-    if (dword_1001D3D90 <= 50 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3D90 <= 50)
     {
-      sub_1001199A8();
+      if (dword_1001D3D90 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1001199A8(v3, v4, v5);
+      }
     }
 
     [(RPNIProximityEstimator *)self->_proximityEstimator invalidate];
@@ -917,9 +957,9 @@ LABEL_13:
   clientDisabledDupeFilterTimer = self->_clientDisabledDupeFilterTimer;
   if (clientDisabledDupeFilterTimer)
   {
-    v6 = clientDisabledDupeFilterTimer;
-    dispatch_source_cancel(v6);
-    v5 = self->_clientDisabledDupeFilterTimer;
+    v9 = clientDisabledDupeFilterTimer;
+    dispatch_source_cancel(v9);
+    v8 = self->_clientDisabledDupeFilterTimer;
     self->_clientDisabledDupeFilterTimer = 0;
   }
 }
@@ -956,6 +996,42 @@ LABEL_13:
     }
 
     while (v7);
+  }
+}
+
+- (void)_clientReportChangedDevice:(id)device changes:(unsigned int)changes
+{
+  v4 = *&changes;
+  deviceCopy = device;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v7 = self->_xpcConnections;
+  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v13;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v13 != v10)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        [*(*(&v12 + 1) + 8 * v11) reportChangedDevice:deviceCopy changes:{v4, v12}];
+        v11 = v11 + 1;
+      }
+
+      while (v9 != v11);
+      v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v9);
   }
 }
 
@@ -1069,35 +1145,39 @@ LABEL_11:
 {
   if (!self->_bleServer)
   {
-    v11[5] = v5;
-    v11[6] = v4;
-    v11[9] = v2;
-    v11[10] = v3;
-    if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    v12[5] = v6;
+    v12[6] = v5;
+    v12[9] = v3;
+    v12[10] = v4;
+    selfCopy = self;
+    if (dword_1001D3D90 <= 30)
     {
-      sub_1001199C4();
+      if (dword_1001D3D90 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001199C4(self, a2, v2);
+      }
     }
 
-    v7 = objc_alloc_init(CUBLEServer);
-    bleServer = self->_bleServer;
-    self->_bleServer = v7;
+    v8 = objc_alloc_init(CUBLEServer);
+    bleServer = selfCopy->_bleServer;
+    selfCopy->_bleServer = v8;
 
-    [(CUBLEServer *)self->_bleServer setDispatchQueue:self->_dispatchQueue];
-    [(CUBLEServer *)self->_bleServer setLabel:@"RPNearbyInvitation"];
-    [(CUBLEServer *)self->_bleServer setListenPSM:CBAssignedL2CAPPSMForNearbyInvitation];
+    [(CUBLEServer *)selfCopy->_bleServer setDispatchQueue:selfCopy->_dispatchQueue];
+    [(CUBLEServer *)selfCopy->_bleServer setLabel:@"RPNearbyInvitation"];
+    [(CUBLEServer *)selfCopy->_bleServer setListenPSM:CBAssignedL2CAPPSMForNearbyInvitation];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10005FDA8;
+    v12[3] = &unk_1001AB770;
+    v12[4] = selfCopy;
+    [(CUBLEServer *)selfCopy->_bleServer setConnectionStartedHandler:v12];
+    v10 = selfCopy->_bleServer;
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
-    v11[2] = sub_10005FDA8;
-    v11[3] = &unk_1001AB770;
-    v11[4] = self;
-    [(CUBLEServer *)self->_bleServer setConnectionStartedHandler:v11];
-    v9 = self->_bleServer;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10005FDB4;
-    v10[3] = &unk_1001AB2C8;
-    v10[4] = self;
-    [(CUBLEServer *)v9 activateWithCompletion:v10];
+    v11[2] = sub_10005FDB4;
+    v11[3] = &unk_1001AB2C8;
+    v11[4] = selfCopy;
+    [(CUBLEServer *)v10 activateWithCompletion:v11];
   }
 }
 
@@ -1230,7 +1310,7 @@ LABEL_11:
     v8 = cnxCopy;
     if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
     {
-      sub_100119AAC();
+      sub_100119AAC(v8);
     }
 
     _idleSessionConnection = [(RPNearbyInvitationDaemon *)self _idleSessionConnection];
@@ -1246,46 +1326,50 @@ LABEL_11:
 {
   if (self->_bleServer)
   {
-    if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1001D3D90 <= 30)
     {
-      sub_100119AEC();
+      if (dword_1001D3D90 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_100119AEC(self, a2, v2);
+      }
     }
 
-    v12 = 0u;
     v13 = 0u;
-    v10 = 0u;
+    v14 = 0u;
     v11 = 0u;
-    v3 = self->_bleServerConnections;
-    v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
-    if (v4)
+    v12 = 0u;
+    v4 = selfCopy->_bleServerConnections;
+    v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    if (v5)
     {
-      v5 = v4;
-      v6 = *v11;
+      v6 = v5;
+      v7 = *v12;
       do
       {
-        for (i = 0; i != v5; i = i + 1)
+        for (i = 0; i != v6; i = i + 1)
         {
-          if (*v11 != v6)
+          if (*v12 != v7)
           {
-            objc_enumerationMutation(v3);
+            objc_enumerationMutation(v4);
           }
 
-          [*(*(&v10 + 1) + 8 * i) invalidate];
+          [*(*(&v11 + 1) + 8 * i) invalidate];
         }
 
-        v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
-      while (v5);
+      while (v6);
     }
 
-    [(NSMutableSet *)self->_bleServerConnections removeAllObjects];
-    bleServerConnections = self->_bleServerConnections;
-    self->_bleServerConnections = 0;
+    [(NSMutableSet *)selfCopy->_bleServerConnections removeAllObjects];
+    bleServerConnections = selfCopy->_bleServerConnections;
+    selfCopy->_bleServerConnections = 0;
 
-    [(CUBLEServer *)self->_bleServer invalidate];
-    bleServer = self->_bleServer;
-    self->_bleServer = 0;
+    [(CUBLEServer *)selfCopy->_bleServer invalidate];
+    bleServer = selfCopy->_bleServer;
+    selfCopy->_bleServer = 0;
   }
 }
 
@@ -1343,14 +1427,17 @@ LABEL_11:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_bleNearbyInfoDiscovery)
   {
-    if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3D90 <= 30)
     {
-      sub_100119B08();
+      if (dword_1001D3D90 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_100119B08(v3, v4, v5);
+      }
     }
 
-    v3 = objc_alloc_init(RPCompanionLinkClient);
+    v6 = objc_alloc_init(RPCompanionLinkClient);
     bleNearbyInfoDiscovery = self->_bleNearbyInfoDiscovery;
-    self->_bleNearbyInfoDiscovery = v3;
+    self->_bleNearbyInfoDiscovery = v6;
 
     [(RPCompanionLinkClient *)self->_bleNearbyInfoDiscovery setDispatchQueue:self->_dispatchQueue];
     [(RPCompanionLinkClient *)self->_bleNearbyInfoDiscovery setEncodeSensitiveProperties:1];
@@ -1366,31 +1453,31 @@ LABEL_11:
       [(RPCompanionLinkClient *)self->_bleNearbyInfoDiscovery setRssiThreshold:-57];
     }
 
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100060B60;
+    v12[3] = &unk_1001ACB48;
+    v12[4] = self;
+    [(RPCompanionLinkClient *)self->_bleNearbyInfoDiscovery setDeviceFoundHandler:v12];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100060B6C;
+    v11[3] = &unk_1001ACB48;
+    v11[4] = self;
+    [(RPCompanionLinkClient *)self->_bleNearbyInfoDiscovery setDeviceLostHandler:v11];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100060B78;
+    v10[3] = &unk_1001ACB70;
+    v10[4] = self;
+    [(RPCompanionLinkClient *)self->_bleNearbyInfoDiscovery setDeviceChangedHandler:v10];
+    v8 = self->_bleNearbyInfoDiscovery;
     v9[0] = _NSConcreteStackBlock;
     v9[1] = 3221225472;
-    v9[2] = sub_100060B60;
-    v9[3] = &unk_1001ACB48;
+    v9[2] = sub_100060B84;
+    v9[3] = &unk_1001AB2C8;
     v9[4] = self;
-    [(RPCompanionLinkClient *)self->_bleNearbyInfoDiscovery setDeviceFoundHandler:v9];
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100060B6C;
-    v8[3] = &unk_1001ACB48;
-    v8[4] = self;
-    [(RPCompanionLinkClient *)self->_bleNearbyInfoDiscovery setDeviceLostHandler:v8];
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_100060B78;
-    v7[3] = &unk_1001ACB70;
-    v7[4] = self;
-    [(RPCompanionLinkClient *)self->_bleNearbyInfoDiscovery setDeviceChangedHandler:v7];
-    v5 = self->_bleNearbyInfoDiscovery;
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_100060B84;
-    v6[3] = &unk_1001AB2C8;
-    v6[4] = self;
-    [(RPCompanionLinkClient *)v5 activateWithCompletion:v6];
+    [(RPCompanionLinkClient *)v8 activateWithCompletion:v9];
   }
 }
 
@@ -1399,9 +1486,12 @@ LABEL_11:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_bleNearbyInfoDiscovery)
   {
-    if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3D90 <= 30)
     {
-      sub_100119B80();
+      if (dword_1001D3D90 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_100119B80(v3, v4, v5);
+      }
     }
 
     [(RPCompanionLinkClient *)self->_bleNearbyInfoDiscovery invalidate];
@@ -1443,7 +1533,7 @@ LABEL_11:
 
           if (dword_1001D3D90 <= 10 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
           {
-            sub_100119B9C();
+            sub_100119B9C(foundCopy);
           }
 
           goto LABEL_21;
@@ -1542,7 +1632,7 @@ LABEL_3:
 
     if (dword_1001D3D90 <= 50 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
     {
-      sub_100119C38();
+      sub_100119C38(lostCopy);
     }
 
     [(NSMutableSet *)self->_devicesWantingInvitations removeObject:v11];
@@ -1564,41 +1654,44 @@ LABEL_16:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_bleNearbyActionDiscovery)
   {
-    if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3D90 <= 30)
     {
-      sub_100119C78();
+      if (dword_1001D3D90 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_100119C78(v3, v4, v5);
+      }
     }
 
-    v3 = objc_alloc_init(off_1001D3E00());
+    v6 = objc_alloc_init(off_1001D3E00());
     bleNearbyActionDiscovery = self->_bleNearbyActionDiscovery;
-    self->_bleNearbyActionDiscovery = v3;
+    self->_bleNearbyActionDiscovery = v6;
 
     [(SFDeviceDiscovery *)self->_bleNearbyActionDiscovery setChangeFlags:1];
     [(SFDeviceDiscovery *)self->_bleNearbyActionDiscovery setDispatchQueue:self->_dispatchQueue];
     [(SFDeviceDiscovery *)self->_bleNearbyActionDiscovery setPurpose:@"RPNearbyInvitation"];
     [(SFDeviceDiscovery *)self->_bleNearbyActionDiscovery setRssiThreshold:-60];
     [(SFDeviceDiscovery *)self->_bleNearbyActionDiscovery setDiscoveryFlags:16];
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10006127C;
-    v8[3] = &unk_1001ACA90;
-    v8[4] = self;
-    [(SFDeviceDiscovery *)self->_bleNearbyActionDiscovery setDeviceFoundHandler:v8];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10006127C;
+    v11[3] = &unk_1001ACA90;
+    v11[4] = self;
+    [(SFDeviceDiscovery *)self->_bleNearbyActionDiscovery setDeviceFoundHandler:v11];
     [(SFDeviceDiscovery *)self->_bleNearbyActionDiscovery setDeviceLostHandler:&stru_1001ACBB0];
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_100061300;
-    v7[3] = &unk_1001ACAB8;
-    v7[4] = self;
-    [(SFDeviceDiscovery *)self->_bleNearbyActionDiscovery setDeviceChangedHandler:v7];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100061300;
+    v10[3] = &unk_1001ACAB8;
+    v10[4] = self;
+    [(SFDeviceDiscovery *)self->_bleNearbyActionDiscovery setDeviceChangedHandler:v10];
     [(SFDeviceDiscovery *)self->_bleNearbyActionDiscovery setInterruptionHandler:&stru_1001ACBD0];
-    v5 = self->_bleNearbyActionDiscovery;
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_100061358;
-    v6[3] = &unk_1001AB2C8;
-    v6[4] = self;
-    [(SFDeviceDiscovery *)v5 activateWithCompletion:v6];
+    v8 = self->_bleNearbyActionDiscovery;
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100061358;
+    v9[3] = &unk_1001AB2C8;
+    v9[4] = self;
+    [(SFDeviceDiscovery *)v8 activateWithCompletion:v9];
   }
 }
 
@@ -1626,8 +1719,7 @@ LABEL_16:
       {
         if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
         {
-          v10 = self->_bleDeviceAcceptedInvitations;
-          LogPrintF();
+          LogPrintF(&dword_1001D3D90, "[RPNearbyInvitationDaemon _serverBLENearbyActionDiscoveryDeviceFound:]", 30, "Ignoring new BLE device (%@) that accepted invitation while accepting from existing device (%@)\n", foundCopy, self->_bleDeviceAcceptedInvitations);
         }
       }
 
@@ -1635,7 +1727,7 @@ LABEL_16:
       {
         if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
         {
-          sub_100119DC8();
+          sub_100119DC8(foundCopy);
         }
 
         v9 = objc_alloc_init(RPNearbyInvitationDevice);
@@ -1649,13 +1741,13 @@ LABEL_16:
 
     else if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
     {
-      sub_100119E08();
+      sub_100119E08(foundCopy);
     }
   }
 
   else
   {
-    sub_100119D4C();
+    sub_100119D4C(foundCopy);
   }
 }
 
@@ -1667,7 +1759,7 @@ LABEL_16:
   bleNearbyActionAdvertiser = self->_bleNearbyActionAdvertiser;
   if (bleNearbyActionAdvertiser)
   {
-    targetAuthTag = [(SFService *)bleNearbyActionAdvertiser targetAuthTag];
+    targetAuthTag = [bleNearbyActionAdvertiser targetAuthTag];
     if ([(NSMutableSet *)self->_devicesWantingInvitations count]>= 2)
     {
 
@@ -1678,54 +1770,53 @@ LABEL_16:
     {
       if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
-        [(SFService *)self->_bleNearbyActionAdvertiser setTargetAuthTag:bleTargetData, targetAuthTag, bleTargetData];
+        LogPrintF(&dword_1001D3D90, "[RPNearbyInvitationDaemon _serverBLENearbyActionAdvertiserEnsureStarted]", 30, "BLE NearbyAction advertiser updating target %@ -> %@ \n", targetAuthTag, bleTargetData);
       }
 
-      else
-      {
-        [(SFService *)self->_bleNearbyActionAdvertiser setTargetAuthTag:bleTargetData, v13, v14];
-      }
+      [(SFService *)self->_bleNearbyActionAdvertiser setTargetAuthTag:bleTargetData];
     }
   }
 
   else
   {
-    if (dword_1001D3D90 <= 30 && (dword_1001D3D90 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D3D90 <= 30)
     {
-      sub_100119E48();
+      if (dword_1001D3D90 != -1 || (bleNearbyActionAdvertiser = _LogCategory_Initialize(), bleNearbyActionAdvertiser))
+      {
+        sub_100119E48(bleNearbyActionAdvertiser, v4, v5);
+      }
     }
 
-    v7 = objc_alloc_init(off_1001D3E08());
-    v8 = self->_bleNearbyActionAdvertiser;
-    self->_bleNearbyActionAdvertiser = v7;
+    v9 = objc_alloc_init(off_1001D3E08());
+    v10 = self->_bleNearbyActionAdvertiser;
+    self->_bleNearbyActionAdvertiser = v9;
 
     [(SFService *)self->_bleNearbyActionAdvertiser setDeviceActionType:84];
-    [(SFService *)self->_bleNearbyActionAdvertiser setDispatchQueue:self->_dispatchQueue];
-    v9 = off_1001D3E18();
-    [(SFService *)self->_bleNearbyActionAdvertiser setIdentifier:v9];
+    v11 = [(SFService *)self->_bleNearbyActionAdvertiser setDispatchQueue:self->_dispatchQueue];
+    v12 = off_1001D3E18(v11);
+    [(SFService *)self->_bleNearbyActionAdvertiser setIdentifier:v12];
 
     [(SFService *)self->_bleNearbyActionAdvertiser setLabel:@"RPNearbyInvitation"];
     [(SFService *)self->_bleNearbyActionAdvertiser setPairSetupDisabled:1];
     [(SFService *)self->_bleNearbyActionAdvertiser setAdvertiseRate:50];
-    v10 = [(NSMutableSet *)self->_devicesWantingInvitations count];
-    if (v10 == 1)
+    v13 = [(NSMutableSet *)self->_devicesWantingInvitations count];
+    if (v13 == 1)
     {
       [(SFService *)self->_bleNearbyActionAdvertiser setTargetAuthTag:bleTargetData];
     }
 
-    v11 = v10 == 1;
-    v12 = self->_bleNearbyActionAdvertiser;
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_1000618C8;
-    v15[3] = &unk_1001ACBF8;
-    v15[4] = self;
-    v18 = v11;
-    v16 = bleDeviceWantingInvitations;
+    v14 = v13 == 1;
+    v15 = self->_bleNearbyActionAdvertiser;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_1000618C8;
+    v16[3] = &unk_1001ACBF8;
+    v16[4] = self;
+    v19 = v14;
+    v17 = bleDeviceWantingInvitations;
     bleTargetData = bleTargetData;
-    v17 = bleTargetData;
-    [(SFService *)v12 activateWithCompletion:v15];
+    v18 = bleTargetData;
+    [(SFService *)v15 activateWithCompletion:v16];
   }
 }
 
@@ -1754,37 +1845,44 @@ LABEL_16:
     serverNearbyActionAdvertiserTimer = self->_serverNearbyActionAdvertiserTimer;
     if (serverNearbyActionAdvertiserTimer)
     {
-      v4 = serverNearbyActionAdvertiserTimer;
-      dispatch_source_cancel(v4);
-      v5 = self->_serverNearbyActionAdvertiserTimer;
+      v6 = serverNearbyActionAdvertiserTimer;
+      dispatch_source_cancel(v6);
+      v7 = self->_serverNearbyActionAdvertiserTimer;
       self->_serverNearbyActionAdvertiserTimer = 0;
 
       if (dword_1001D3D90 > 50 || dword_1001D3D90 == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_10;
       }
+
+      v8 = "Restarting HasInvitation advertiser timer\n";
     }
 
-    else if (dword_1001D3D90 > 50 || dword_1001D3D90 == -1 && !_LogCategory_Initialize())
+    else
     {
-      goto LABEL_10;
+      if (dword_1001D3D90 > 50 || dword_1001D3D90 == -1 && !_LogCategory_Initialize())
+      {
+        goto LABEL_10;
+      }
+
+      v8 = "Starting HasInvitation advertiser timer\n";
     }
 
-    sub_100119F04();
+    sub_100119F04(v8, v3, v4);
 LABEL_10:
-    v6 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-    v7 = self->_serverNearbyActionAdvertiserTimer;
-    self->_serverNearbyActionAdvertiserTimer = v6;
-    v8 = v6;
+    v9 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+    v10 = self->_serverNearbyActionAdvertiserTimer;
+    self->_serverNearbyActionAdvertiserTimer = v9;
+    v11 = v9;
 
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_100061BD0;
     handler[3] = &unk_1001AA970;
     handler[4] = self;
-    dispatch_source_set_event_handler(v8, handler);
+    dispatch_source_set_event_handler(v11, handler);
     CUDispatchTimerSet();
-    dispatch_activate(v8);
+    dispatch_activate(v11);
   }
 }
 

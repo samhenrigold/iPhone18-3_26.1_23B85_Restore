@@ -389,12 +389,12 @@ LABEL_7:
   hdrColor = [(PKInk *)self hdrColor];
   [(PKInk *)self hdrHeadroom];
   v8 = v7;
-  version = [(PKInk *)self version];
+  v9 = objc_msgSend_version(self);
   variant = [(PKInk *)self variant];
   [(PKInk *)self weight];
   v12 = v11;
   [(PKInk *)self _azimuth];
-  v14 = [(PKInk *)v3 initWithUncheckedIdentifier:identifier color:sdrColor hdrColor:hdrColor hdrHeadroom:version version:variant variant:v8 weight:v12 azimuth:v13];
+  v14 = [(PKInk *)v3 initWithUncheckedIdentifier:identifier color:sdrColor hdrColor:hdrColor hdrHeadroom:v9 version:variant variant:v8 weight:v12 azimuth:v13];
 
   [(PKInk *)v14 _setupCustomizedSixChannelColors];
   [(PKInk *)v14 set_weightIsUndefined:[(PKInk *)self _weightIsUndefined]];
@@ -550,7 +550,7 @@ LABEL_7:
     v13 = [v12 numberWithDouble:?];
     v42[3] = v13;
     v41[4] = @"PKInkVersionProperty";
-    v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[PKInk version](self, "version")}];
+    v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:objc_msgSend_version(self)];
     v42[4] = v14;
     v41[5] = @"PKInkVariantProperty";
     variant = [(PKInk *)self variant];
@@ -889,9 +889,9 @@ LABEL_7:
   HIBYTE(v72) = 0;
   LOBYTE(v71) = 0;
 
-  version = [(PKInk *)self version];
+  v33 = objc_msgSend_version(self);
   *(archive + 112) |= 8u;
-  *(archive + 12) = version;
+  *(archive + 12) = v33;
   variantForArchiving = [(PKInk *)self variantForArchiving];
   v35 = variantForArchiving == 0;
 
@@ -1142,9 +1142,9 @@ LABEL_12:
   HIBYTE(v22) = 0;
   LOBYTE(v21) = 0;
 
-  version = [(PKInk *)self version];
+  v20 = objc_msgSend_version(self);
   *(archive + 32) |= 1u;
-  *(archive + 3) = version;
+  *(archive + 3) = v20;
 }
 
 - (PKInk)initWithRawValue:(id)value
@@ -1474,11 +1474,11 @@ LABEL_23:
   hdrColor = [(PKInk *)self hdrColor];
   [(PKInk *)self hdrHeadroom];
   v10 = v9;
-  version = [(PKInk *)self version];
+  v11 = objc_msgSend_version(self);
   [(PKInk *)self weight];
   v13 = v12;
   [(PKInk *)self _azimuth];
-  v15 = [v5 initWithUncheckedIdentifier:identifier color:sdrColor hdrColor:hdrColor hdrHeadroom:version version:variantCopy variant:v10 weight:v13 azimuth:v14];
+  v15 = [v5 initWithUncheckedIdentifier:identifier color:sdrColor hdrColor:hdrColor hdrHeadroom:v11 version:variantCopy variant:v10 weight:v13 azimuth:v14];
 
   [v15 set_weightIsUndefined:{-[PKInk _weightIsUndefined](self, "_weightIsUndefined")}];
   return v15;
@@ -1497,12 +1497,12 @@ LABEL_23:
     hdrColor = [(PKInk *)selfCopy hdrColor];
     [(PKInk *)selfCopy hdrHeadroom];
     v9 = v8;
-    version = [(PKInk *)selfCopy version];
+    v10 = objc_msgSend_version(selfCopy);
     variant = [(PKInk *)selfCopy variant];
     [(PKInk *)selfCopy weight];
     v13 = v12;
     [(PKInk *)selfCopy _azimuth];
-    v15 = [v4 initWithUncheckedIdentifier:identifier color:sdrColor hdrColor:hdrColor hdrHeadroom:version version:variant variant:v9 weight:v13 azimuth:v14];
+    v15 = [v4 initWithUncheckedIdentifier:identifier color:sdrColor hdrColor:hdrColor hdrHeadroom:v10 version:variant variant:v9 weight:v13 azimuth:v14];
 
     if (v15)
     {
@@ -1974,14 +1974,14 @@ LABEL_21:
       v7 = [PKInk alloc];
       identifier = [inkCopy identifier];
       sdrColor = [inkCopy sdrColor];
-      version = [inkCopy version];
+      v10 = objc_msgSend_version(inkCopy);
       variant = [inkCopy variant];
       [inkCopy weight];
       v13 = v12;
       [inkCopy _azimuth];
       v15 = v14;
       behavior = [inkCopy behavior];
-      v17 = [(PKInk *)v7 initWithIdentifier:identifier color:sdrColor hdrColor:0 hdrHeadroom:version version:variant variant:behavior weight:0.0 azimuth:v13 behavior:v15];
+      v17 = [(PKInk *)v7 initWithIdentifier:identifier color:sdrColor hdrColor:0 hdrHeadroom:v10 version:variant variant:behavior weight:0.0 azimuth:v13 behavior:v15];
 
       inkCopy = v17;
     }
@@ -1996,14 +1996,14 @@ LABEL_21:
   colorCopy = color;
   v7 = [PKInk alloc];
   identifier = [inkCopy identifier];
-  version = [inkCopy version];
+  v9 = objc_msgSend_version(inkCopy);
   variant = [inkCopy variant];
   [inkCopy weight];
   v12 = v11;
   [inkCopy _azimuth];
   v14 = v13;
   behavior = [inkCopy behavior];
-  v16 = [(PKInk *)v7 initWithIdentifier:identifier color:colorCopy hdrColor:0 hdrHeadroom:version version:variant variant:behavior weight:0.0 azimuth:v12 behavior:v14];
+  v16 = [(PKInk *)v7 initWithIdentifier:identifier color:colorCopy hdrColor:0 hdrHeadroom:v9 version:variant variant:behavior weight:0.0 azimuth:v12 behavior:v14];
 
   if ([inkCopy _shouldSaveRequiredContentVersionOverride])
   {
@@ -2027,14 +2027,14 @@ LABEL_21:
   hdrColorCopy = hdrColor;
   v12 = [PKInk alloc];
   identifier = [inkCopy identifier];
-  version = [inkCopy version];
+  v14 = objc_msgSend_version(inkCopy);
   variant = [inkCopy variant];
   [inkCopy weight];
   v17 = v16;
   [inkCopy _azimuth];
   v19 = v18;
   behavior = [inkCopy behavior];
-  v21 = [(PKInk *)v12 initWithIdentifier:identifier color:colorCopy hdrColor:hdrColorCopy hdrHeadroom:version version:variant variant:behavior weight:headroom azimuth:v17 behavior:v19];
+  v21 = [(PKInk *)v12 initWithIdentifier:identifier color:colorCopy hdrColor:hdrColorCopy hdrHeadroom:v14 version:variant variant:behavior weight:headroom azimuth:v17 behavior:v19];
 
   if ([inkCopy _shouldSaveRequiredContentVersionOverride])
   {
@@ -2060,12 +2060,12 @@ LABEL_21:
   hdrColor = [inkCopy hdrColor];
   [inkCopy hdrHeadroom];
   v11 = v10;
-  version = [inkCopy version];
+  v12 = objc_msgSend_version(inkCopy);
   variant = [inkCopy variant];
   [inkCopy _azimuth];
   v15 = v14;
   behavior = [inkCopy behavior];
-  v17 = [(PKInk *)v6 initWithIdentifier:identifier color:sdrColor hdrColor:hdrColor hdrHeadroom:version version:variant variant:behavior weight:v11 azimuth:weight behavior:v15];
+  v17 = [(PKInk *)v6 initWithIdentifier:identifier color:sdrColor hdrColor:hdrColor hdrHeadroom:v12 version:variant variant:behavior weight:v11 azimuth:weight behavior:v15];
 
   if ([inkCopy _shouldSaveRequiredContentVersionOverride])
   {
@@ -2086,12 +2086,12 @@ LABEL_21:
   hdrColor = [inkCopy hdrColor];
   [inkCopy hdrHeadroom];
   v11 = v10;
-  version = [inkCopy version];
+  v12 = objc_msgSend_version(inkCopy);
   variant = [inkCopy variant];
   [inkCopy weight];
   v15 = v14;
   behavior = [inkCopy behavior];
-  v17 = [(PKInk *)v6 initWithIdentifier:identifier color:sdrColor hdrColor:hdrColor hdrHeadroom:version version:variant variant:behavior weight:v11 azimuth:v15 behavior:azimuth];
+  v17 = [(PKInk *)v6 initWithIdentifier:identifier color:sdrColor hdrColor:hdrColor hdrHeadroom:v12 version:variant variant:behavior weight:v11 azimuth:v15 behavior:azimuth];
 
   if ([inkCopy _shouldSaveRequiredContentVersionOverride])
   {
@@ -2196,8 +2196,8 @@ LABEL_21:
       cGColor3 = [hdrColor2 CGColor];
       if (cGColor2 == cGColor3 || !cGColor2 || !cGColor3 || DKUColorIsEqualToColorIgnoringOpacityWithTolerance(cGColor2, cGColor3, 0, 0.000000999999997))
       {
-        version = [(PKInk *)self version];
-        if (version == [(PKInk *)inkCopy version])
+        v14 = objc_msgSend_version(self);
+        if (v14 == objc_msgSend_version(inkCopy))
         {
           [(PKInk *)self _sixChannelAddColor];
           v36 = v15;
@@ -2301,12 +2301,12 @@ LABEL_32:
   v4 = [identifier hash];
   sdrColor = [(PKInk *)self sdrColor];
   v6 = [sdrColor hash];
-  version = [(PKInk *)self version];
+  v7 = objc_msgSend_version(self);
   variant = [(PKInk *)self variant];
   v9 = [variant hash];
   [(PKInk *)self weight];
   v11 = [(PKInk *)self hashValueForFloat:v10 + 1.0];
-  v12 = v6 ^ v4 ^ version ^ v9 ^ [(PKInk *)self _requiredContentVersionOverride];
+  v12 = v6 ^ v4 ^ v7 ^ v9 ^ [(PKInk *)self _requiredContentVersionOverride];
 
   return v12 ^ v11;
 }
@@ -2319,7 +2319,7 @@ LABEL_32:
   identifier = [(PKInk *)self identifier];
   sdrColor = [(PKInk *)self sdrColor];
   variant = [(PKInk *)self variant];
-  v9 = [v3 stringWithFormat:@"<%@ %p %@ %@ %@ %lu>", v5, self, identifier, sdrColor, variant, -[PKInk version](self, "version")];
+  v9 = [v3 stringWithFormat:@"<%@ %p %@ %@ %@ %lu>", v5, self, identifier, sdrColor, variant, objc_msgSend_version(self)];
 
   return v9;
 }

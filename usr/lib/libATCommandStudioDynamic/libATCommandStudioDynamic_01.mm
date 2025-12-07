@@ -53,7 +53,7 @@ void qmi::Transaction::~Transaction(qmi::Transaction *this, uint64_t a2, uint64_
 
   if (*this)
   {
-    (*(**this + 16))(*this);
+    (*(**this + 16))(*this, a2, a3, a4, a5, a6);
     v7 = *this;
     *this = 0;
     if (v7)
@@ -74,7 +74,7 @@ void qmi::Transaction::~Transaction(qmi::Transaction *this, uint64_t a2, uint64_
     goto LABEL_9;
   }
 
-  (v8->__on_zero_shared)(v8);
+  (v8->__on_zero_shared)(v8, a2, a3, a4, a5, a6);
   std::__shared_weak_count::__release_weak(v8);
   v9 = *(this + 1);
   if (v9)
@@ -88,7 +88,7 @@ LABEL_10:
   *this = 0;
   if (v10)
   {
-    (*(*v10 + 8))(v10);
+    (*(*v10 + 8))(v10, a2, a3, a4, a5, a6);
   }
 }
 
@@ -244,7 +244,7 @@ const void ***std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:
     v14 = a5;
     while (1)
     {
-      v15 = &a7[-v13] >> 3;
+      v15 = (a7 - v13) >> 3;
       if ((v14 - a3) >> 3 < v15)
       {
         v15 = (v14 - a3) >> 3;
@@ -264,7 +264,7 @@ const void ***std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:
 
       v16 = *--v8;
       v13 = v16;
-      a7 = (v16 + 4096);
+      a7 = v16 + 4096;
     }
 
     goto LABEL_40;
@@ -277,7 +277,7 @@ const void ***std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:
     v20 = a5;
     while (1)
     {
-      v21 = &a7[-v19] >> 3;
+      v21 = (a7 - v19) >> 3;
       if ((v20 - v18) >> 3 < v21)
       {
         v21 = (v20 - v18) >> 3;
@@ -297,7 +297,7 @@ const void ***std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:
 
       v22 = *--v8;
       v19 = v22;
-      a7 = (v22 + 4096);
+      a7 = v22 + 4096;
     }
 
     if (*v8 + 4096 == a7)
@@ -372,7 +372,7 @@ LABEL_32:
     v32 = *v8;
     while (1)
     {
-      v33 = &a7[-v32] >> 3;
+      v33 = (a7 - v32) >> 3;
       if ((v31 - a3) >> 3 < v33)
       {
         v33 = (v31 - a3) >> 3;
@@ -392,7 +392,7 @@ LABEL_32:
 
       v34 = *--v8;
       v32 = v34;
-      a7 = (v34 + 4096);
+      a7 = v34 + 4096;
     }
 
 LABEL_40:
@@ -425,9 +425,9 @@ void dispatch::async<qmi::Transaction::invoke(dispatch_queue_s *,qmi::ResponseBa
   operator delete(a1);
 }
 
-void sub_2962EB1EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2962EB1EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<qmi::Transaction::invoke(dispatch_queue_s *,qmi::ResponseBase const&)::$_0,std::default_delete<qmi::Transaction::invoke(dispatch_queue_s *,qmi::ResponseBase const&)::$_0>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -519,11 +519,11 @@ LABEL_8:
   operator delete(v7);
 }
 
-void sub_2962EB3F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2962EB3F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](va1);
   std::unique_ptr<QMux::State::powerUp_sync(void)::$_0,std::default_delete<QMux::State::powerUp_sync(void)::$_0>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -531,7 +531,7 @@ void sub_2962EB3F4(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void QMux::State::powerUp_signalClients_sync(QMux::State *this)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v2 = *(this + 5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -566,8 +566,8 @@ void QMux::State::powerUp_signalClients_sync(QMux::State *this)
         *&buf[4] = v6;
         *&buf[12] = 1024;
         *&buf[14] = v7;
-        v18 = 1024;
-        v19 = v8;
+        v17 = 1024;
+        v18 = v8;
         _os_log_impl(&dword_2962DD000, v5, OS_LOG_TYPE_DEFAULT, "#I [%s] EXTRA:     -- signal QMIClient(svc=%d client=%d) to resume", buf, 0x18u);
       }
 
@@ -635,13 +635,11 @@ LABEL_7:
 
     while (v14 != (this + 112));
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
-void sub_2962EB64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2962EB64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2912,7 +2910,7 @@ void sub_2962ED2C4(_Unwind_Exception *exception_object)
 
 void qmi::ClientProxy::State::triggerExitLowPower_sync(qmi::ClientProxy::State *this)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v2 = *(this + 29);
   if (v2)
   {
@@ -2987,12 +2985,10 @@ void qmi::ClientProxy::State::triggerExitLowPower_sync(qmi::ClientProxy::State *
       }
 
       *buf = 136315138;
-      v13 = v6;
+      v12 = v6;
       _os_log_error_impl(&dword_2962DD000, v5, OS_LOG_TYPE_ERROR, "Client: [%s], invalid fTransport when triggering exit low power state", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962ED500(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object)
@@ -3148,16 +3144,16 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x29EDC9488], MEMORY[0x29EDC9370]);
 }
 
-uint64_t ___ZZNK3qmi12ClientRouter10setHandlerENS_6Client5EventENSt3__18functionIFvNS_16SubscriptionTypeEEEEENK3__0clIS5_NS_11ClientStateEEEDaT_RKT0__block_invoke(uint64_t a1)
+uint64_t ___ZZNK3qmi12ClientRouter10setHandlerENS_6Client5EventENSt3__18functionIFvNS_16SubscriptionTypeEEEEENK3__0clIS5_NS_11ClientStateEEEDaT_RKT0__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 64);
-  v1 = *(a1 + 56);
-  if (!v1)
+  v4 = *(a1 + 64);
+  v2 = *(a1 + 56);
+  if (!v2)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  return (*(*v1 + 48))(v1, &v3);
+  return (*(*v2 + 48))(v2, &v4);
 }
 
 void __destroy_helper_block_e8_32c24_ZTSNSt3__18weak_ptrIvEE48c44_ZTSN8dispatch5blockIU13block_pointerFvPvEEE(uint64_t a1)
@@ -3381,7 +3377,7 @@ void _ATCSException::triggerAssertion(_ATCSException *this, const char *a2, cons
 LABEL_2:
     v15 = qword_2A18999F8;
     v14 = off_2A1899A00;
-    v18 = off_2A1899A00;
+    v17 = off_2A1899A00;
     if (!off_2A1899A00)
     {
       goto LABEL_9;
@@ -3390,20 +3386,19 @@ LABEL_2:
     goto LABEL_8;
   }
 
-  v18 = v14;
+  v17 = v14;
 LABEL_8:
   atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
 LABEL_9:
   pthread_mutex_unlock(&ctu::Singleton<ATCSExceptionHandlerGlobal,ATCSExceptionHandlerGlobal,ctu::PthreadMutexGuardPolicy<ATCSExceptionHandlerGlobal>>::sInstance);
   (*v15)(__b);
-  if (v18 && !atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v18->__on_zero_shared)(v18);
-    std::__shared_weak_count::__release_weak(v18);
+    (v17->__on_zero_shared)(v17);
+    std::__shared_weak_count::__release_weak(v17);
   }
 
   std::exception::~exception(__b);
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962EDF94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, std::exception a17)
@@ -3416,16 +3411,16 @@ void sub_2962EDF94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ATCSAdaptiveTimer::create_default_global(ATCSAdaptiveTimer **a1@<X8>)
 {
-  v3 = operator new(0x28uLL);
-  *(v3 + 1) = 0;
-  *(v3 + 2) = 0;
-  *v3 = &unk_2A1D47A58;
-  *(v3 + 4) = 0;
-  a1[1] = v3;
-  *(v3 + 3) = 0;
-  v3 = (v3 + 24);
-  *a1 = v3;
-  ATCSAdaptiveTimer::initialize(v3);
+  v2 = operator new(0x28uLL);
+  *(v2 + 1) = 0;
+  *(v2 + 2) = 0;
+  *v2 = &unk_2A1D47A58;
+  *(v2 + 4) = 0;
+  a1[1] = v2;
+  *(v2 + 3) = 0;
+  v2 = (v2 + 24);
+  *a1 = v2;
+  ATCSAdaptiveTimer::initialize(v2);
 }
 
 void ATCSAdaptiveTimer::initialize(ATCSAdaptiveTimer *this)
@@ -3517,7 +3512,7 @@ LABEL_10:
   }
 }
 
-void sub_2962EE64C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19)
+void sub_2962EE64C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, char *a19)
 {
   if (a15 < 0)
   {
@@ -3581,7 +3576,7 @@ void *ATCSAdaptiveTimer::getTimerService@<X0>(void *this@<X0>, void *a2@<X8>)
   return this;
 }
 
-void **std::vector<std::shared_ptr<ctu::TimerScalingScenario>>::~vector[abi:ne200100](void **a1)
+char **std::vector<std::shared_ptr<ctu::TimerScalingScenario>>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -3700,7 +3695,7 @@ void sub_2962EEA18(_Unwind_Exception *a1)
 
 void qmi::ClientProxy::State::init(uint64_t a1, xpc_object_t *a2)
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   if (*(a1 + 232))
   {
     v3 = *(a1 + 16);
@@ -3720,30 +3715,30 @@ void qmi::ClientProxy::State::init(uint64_t a1, xpc_object_t *a2)
 
     *&v9 = 0xAAAAAAAAAAAAAAAALL;
     *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v34 = v9;
-    v35 = v9;
-    atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
-    *&v34 = &unk_2A1D47EE0;
-    *(&v34 + 1) = v5;
-    *&v35 = v7;
-    *(&v35 + 1) = &v34;
-    v32 = v9;
     v33 = v9;
+    v34 = v9;
     atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
-    *&v32 = &unk_2A1D47F70;
-    *(&v32 + 1) = v5;
-    *&v33 = v7;
-    *(&v33 + 1) = &v32;
+    *&v33 = &unk_2A1D47EE0;
+    *(&v33 + 1) = v5;
+    *&v34 = v7;
+    *(&v34 + 1) = &v33;
+    v31 = v9;
+    v32 = v9;
+    atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
+    *&v31 = &unk_2A1D47F70;
+    *(&v31 + 1) = v5;
+    *&v32 = v7;
+    *(&v32 + 1) = &v31;
     v10 = *(a1 + 232);
-    v11 = *(&v35 + 1);
-    if (*(&v35 + 1))
+    v11 = *(&v34 + 1);
+    if (*(&v34 + 1))
     {
-      if (*(&v35 + 1) == &v34)
+      if (*(&v34 + 1) == &v33)
       {
-        v31 = v30;
-        (*(**(&v35 + 1) + 24))();
-        v11 = v31;
-        if (!v31)
+        v30 = v29;
+        (*(**(&v34 + 1) + 24))();
+        v11 = v30;
+        if (!v30)
         {
           goto LABEL_18;
         }
@@ -3751,27 +3746,27 @@ void qmi::ClientProxy::State::init(uint64_t a1, xpc_object_t *a2)
         goto LABEL_16;
       }
 
-      v11 = (*(**(&v35 + 1) + 16))();
+      v11 = (*(**(&v34 + 1) + 16))();
     }
 
-    v31 = v11;
+    v30 = v11;
     if (!v11)
     {
       goto LABEL_18;
     }
 
 LABEL_16:
-    if (v11 == v30)
+    if (v11 == v29)
     {
-      v38 = buf;
+      v37 = buf;
       (*(*v11 + 24))(v11, buf);
 LABEL_20:
       std::__function::__value_func<void ()(xpc::dict)>::swap[abi:ne200100](buf, (v10 + 32));
-      if (v38 == buf)
+      if (v37 == buf)
       {
-        (*(*v38 + 32))(v38);
-        v14 = v31;
-        if (v31 != v30)
+        (*(*v37 + 32))(v37);
+        v14 = v30;
+        if (v30 != v29)
         {
           goto LABEL_24;
         }
@@ -3779,13 +3774,13 @@ LABEL_20:
 
       else
       {
-        if (v38)
+        if (v37)
         {
-          (*(*v38 + 40))(v38);
+          (*(*v37 + 40))(v37);
         }
 
-        v14 = v31;
-        if (v31 != v30)
+        v14 = v30;
+        if (v30 != v29)
         {
 LABEL_24:
           if (v14)
@@ -3794,8 +3789,8 @@ LABEL_24:
           }
 
           v15 = *(a1 + 232);
-          v16 = *(&v33 + 1);
-          if (!*(&v33 + 1))
+          v16 = *(&v32 + 1);
+          if (!*(&v32 + 1))
           {
             goto LABEL_32;
           }
@@ -3806,19 +3801,19 @@ LABEL_24:
 
       (*(*v14 + 32))(v14);
       v15 = *(a1 + 232);
-      v16 = *(&v33 + 1);
-      if (!*(&v33 + 1))
+      v16 = *(&v32 + 1);
+      if (!*(&v32 + 1))
       {
         goto LABEL_32;
       }
 
 LABEL_30:
-      if (v16 == &v32)
+      if (v16 == &v31)
       {
-        v29 = v28;
-        (*(*v16 + 24))(v16, v28);
-        v16 = v29;
-        if (!v29)
+        v28 = v27;
+        (*(*v16 + 24))(v16, v27);
+        v16 = v28;
+        if (!v28)
         {
           goto LABEL_37;
         }
@@ -3828,24 +3823,24 @@ LABEL_30:
 
       v16 = (*(*v16 + 16))(v16);
 LABEL_32:
-      v29 = v16;
+      v28 = v16;
       if (!v16)
       {
         goto LABEL_37;
       }
 
 LABEL_35:
-      if (v16 == v28)
+      if (v16 == v27)
       {
-        v38 = buf;
+        v37 = buf;
         (*(*v16 + 24))(v16, buf);
 LABEL_39:
         std::__function::__value_func<void ()(xpc::object const&)>::swap[abi:ne200100](buf, (v15 + 64));
-        if (v38 == buf)
+        if (v37 == buf)
         {
-          (*(*v38 + 32))(v38);
-          v17 = v29;
-          if (v29 != v28)
+          (*(*v37 + 32))(v37);
+          v17 = v28;
+          if (v28 != v27)
           {
             goto LABEL_43;
           }
@@ -3853,13 +3848,13 @@ LABEL_39:
 
         else
         {
-          if (v38)
+          if (v37)
           {
-            (*(*v38 + 40))(v38);
+            (*(*v37 + 40))(v37);
           }
 
-          v17 = v29;
-          if (v29 != v28)
+          v17 = v28;
+          if (v28 != v27)
           {
 LABEL_43:
             if (v17)
@@ -3915,11 +3910,11 @@ LABEL_51:
               }
 
               xpc_release(v18);
-              if (*(&v33 + 1) == &v32)
+              if (*(&v32 + 1) == &v31)
               {
-                (*(**(&v33 + 1) + 32))(*(&v33 + 1));
-                v26 = *(&v35 + 1);
-                if (*(&v35 + 1) != &v34)
+                (*(**(&v32 + 1) + 32))(*(&v32 + 1));
+                v26 = *(&v34 + 1);
+                if (*(&v34 + 1) != &v33)
                 {
 LABEL_61:
                   if (v26)
@@ -3933,13 +3928,13 @@ LABEL_61:
 
               else
               {
-                if (*(&v33 + 1))
+                if (*(&v32 + 1))
                 {
-                  (*(**(&v33 + 1) + 40))();
+                  (*(**(&v32 + 1) + 40))();
                 }
 
-                v26 = *(&v35 + 1);
-                if (*(&v35 + 1) != &v34)
+                v26 = *(&v34 + 1);
+                if (*(&v34 + 1) != &v33)
                 {
                   goto LABEL_61;
                 }
@@ -3948,7 +3943,7 @@ LABEL_61:
               (*(*v26 + 32))(v26);
 LABEL_65:
               std::__shared_weak_count::__release_weak(v7);
-              goto LABEL_66;
+              return;
             }
 
 LABEL_50:
@@ -3975,13 +3970,13 @@ LABEL_50:
 
       v16 = (*(*v16 + 16))(v16);
 LABEL_37:
-      v38 = v16;
+      v37 = v16;
       goto LABEL_39;
     }
 
     v11 = (*(*v11 + 16))(v11);
 LABEL_18:
-    v38 = v11;
+    v37 = v11;
     goto LABEL_20;
   }
 
@@ -3995,20 +3990,18 @@ LABEL_18:
     }
 
     *buf = 136315138;
-    v37 = v13;
+    v36 = v13;
     _os_log_error_impl(&dword_2962DD000, v12, OS_LOG_TYPE_ERROR, "Client: [%s], invalid fTransport passed in as parameter to state constructor", buf, 0xCu);
   }
-
-LABEL_66:
-  v27 = *MEMORY[0x29EDCA608];
 }
 
-void sub_2962EF120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+void sub_2962EF120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
+  va_start(va, a20);
   std::function<void ()(xpc::object const&)>::~function(&a9);
   std::function<void ()(xpc::object const&)>::~function(&a17);
-  std::function<void ()(xpc::dict)>::~function(&a21);
-  std::__shared_weak_count::__release_weak(v21);
+  std::function<void ()(xpc::dict)>::~function(va);
+  std::__shared_weak_count::__release_weak(v20);
   _Unwind_Resume(a1);
 }
 
@@ -4189,7 +4182,7 @@ uint64_t qmi::ClientProxy::State::isStopped(qmi::ClientProxy::State *this)
   return v13 & 1;
 }
 
-void qmi::ClientProxy::registerResponse(uint64_t a1, __int16 a2, uint64_t a3)
+void qmi::ClientProxy::registerResponse(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a1 + 16);
   v10 = 0;
@@ -4216,7 +4209,7 @@ void qmi::ClientProxy::registerResponse(uint64_t a1, __int16 a2, uint64_t a3)
     v11 = &v8[v6];
     memcpy(v8, v5, v6);
     v10 = &v8[v6];
-    a2 = v7;
+    LOWORD(a2) = v7;
   }
 
   qmi::ClientProxy::State::registerResponse(v3, a2, &v9);
@@ -4702,25 +4695,22 @@ LABEL_15:
 
 void qmi::ClientProxy::State::handleServerError(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if (*a2 == MEMORY[0x29EDCA9D0])
   {
-    v6 = *(a1 + 40);
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = *(a1 + 40);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_11;
-    }
+      v6 = (a1 + 48);
+      if (*(a1 + 71) < 0)
+      {
+        v6 = *v6;
+      }
 
-    v7 = (a1 + 48);
-    if (*(a1 + 71) < 0)
-    {
-      v7 = *v7;
+      v9 = 136315138;
+      v10 = v6;
+      _os_log_impl(&dword_2962DD000, v5, OS_LOG_TYPE_DEFAULT, "#I client '%s' ignoring XPC_ERROR_TERMINATION_IMMINENT", &v9, 0xCu);
     }
-
-    v13 = 136315138;
-    v14 = v7;
-    _os_log_impl(&dword_2962DD000, v6, OS_LOG_TYPE_DEFAULT, "#I client '%s' ignoring XPC_ERROR_TERMINATION_IMMINENT", &v13, 0xCu);
-    v8 = *MEMORY[0x29EDCA608];
   }
 
   else
@@ -4730,36 +4720,32 @@ void qmi::ClientProxy::State::handleServerError(uint64_t a1, void *a2)
     if (v3)
     {
       v4 = *(*v3 + 8);
-      v5 = *MEMORY[0x29EDCA608];
 
       v4();
-      return;
     }
 
-    v9 = *(a1 + 40);
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    else
     {
-LABEL_11:
-      v10 = *MEMORY[0x29EDCA608];
-      return;
-    }
+      v7 = *(a1 + 40);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        v8 = (a1 + 48);
+        if (*(a1 + 71) < 0)
+        {
+          v8 = *v8;
+        }
 
-    v11 = (a1 + 48);
-    if (*(a1 + 71) < 0)
-    {
-      v11 = *v11;
+        v9 = 136315138;
+        v10 = v8;
+        _os_log_error_impl(&dword_2962DD000, v7, OS_LOG_TYPE_ERROR, "Client: [%s], invalid fTransport in server error handler", &v9, 0xCu);
+      }
     }
-
-    v13 = 136315138;
-    v14 = v11;
-    _os_log_error_impl(&dword_2962DD000, v9, OS_LOG_TYPE_ERROR, "Client: [%s], invalid fTransport in server error handler", &v13, 0xCu);
-    v12 = *MEMORY[0x29EDCA608];
   }
 }
 
 void qmi::ClientProxy::State::handleStatus_sync(uint64_t a1, unsigned int a2)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   v4 = *(a1 + 40);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -4777,13 +4763,13 @@ LABEL_4:
 LABEL_5:
           v8 = "(unknown)";
 LABEL_9:
-          v19 = 136315650;
-          v20 = v5;
-          v21 = 2080;
-          v22 = v6;
-          v23 = 2080;
-          v24 = v8;
-          _os_log_impl(&dword_2962DD000, v4, OS_LOG_TYPE_DEFAULT, "#I [%s]: handleStatus_sync(%s), current fQMuxState=%s", &v19, 0x20u);
+          v18 = 136315650;
+          v19 = v5;
+          v20 = 2080;
+          v21 = v6;
+          v22 = 2080;
+          v23 = v8;
+          _os_log_impl(&dword_2962DD000, v4, OS_LOG_TYPE_DEFAULT, "#I [%s]: handleStatus_sync(%s), current fQMuxState=%s", &v18, 0x20u);
           goto LABEL_10;
         }
 
@@ -4819,15 +4805,15 @@ LABEL_10:
         v13 = *(a1 + 40);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
-          v18 = (a1 + 48);
+          v17 = (a1 + 48);
           if (*(a1 + 71) < 0)
           {
-            v18 = *v18;
+            v17 = *v17;
           }
 
-          v19 = 136315138;
-          v20 = v18;
-          _os_log_debug_impl(&dword_2962DD000, v13, OS_LOG_TYPE_DEBUG, "#D [%s]: Stopping client before it started; will re-start", &v19, 0xCu);
+          v18 = 136315138;
+          v19 = v17;
+          _os_log_debug_impl(&dword_2962DD000, v13, OS_LOG_TYPE_DEBUG, "#D [%s]: Stopping client before it started; will re-start", &v18, 0xCu);
         }
 
         (*(*a1 + 24))(a1);
@@ -4849,15 +4835,15 @@ LABEL_10:
       v11 = *(a1 + 40);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v16 = (a1 + 48);
+        v15 = (a1 + 48);
         if (*(a1 + 71) < 0)
         {
-          v16 = *v16;
+          v15 = *v15;
         }
 
-        v19 = 136315138;
-        v20 = v16;
-        _os_log_debug_impl(&dword_2962DD000, v11, OS_LOG_TYPE_DEBUG, "#D [%s]: Stopping client and cleaning up", &v19, 0xCu);
+        v18 = 136315138;
+        v19 = v15;
+        _os_log_debug_impl(&dword_2962DD000, v11, OS_LOG_TYPE_DEBUG, "#D [%s]: Stopping client and cleaning up", &v18, 0xCu);
       }
 
       (*(*a1 + 24))(a1);
@@ -4879,22 +4865,20 @@ LABEL_10:
     v9 = *(a1 + 40);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v17 = (a1 + 48);
+      v16 = (a1 + 48);
       if (*(a1 + 71) < 0)
       {
-        v17 = *v17;
+        v16 = *v16;
       }
 
-      v19 = 136315138;
-      v20 = v17;
-      _os_log_debug_impl(&dword_2962DD000, v9, OS_LOG_TYPE_DEBUG, "#D [%s]: Starting client", &v19, 0xCu);
+      v18 = 136315138;
+      v19 = v16;
+      _os_log_debug_impl(&dword_2962DD000, v9, OS_LOG_TYPE_DEBUG, "#D [%s]: Starting client", &v18, 0xCu);
     }
 
     (*(*a1 + 32))(a1);
     *(a1 + 76) = 0;
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 void qmi::ClientProxy::State::handleSendNotReady_sync(uint64_t a1, xpc_object_t *a2)
@@ -4963,7 +4947,7 @@ LABEL_8:
 
   v12 = *(a1 + 208);
   v11 = (a1 + 208);
-  v13 = v11 - 1;
+  v13 = (v11 - 1);
   std::__tree<unsigned short>::destroy((v11 - 1), v12);
   *v11 = 0;
   v11[1] = 0;
@@ -5131,11 +5115,12 @@ xpc_object_t __Block_byref_object_copy__15(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void qmi::ClientProxy::State::sendInternalErrorResponseForTxId_sync(qmi::ClientProxy::State *this, int a2, int a3)
+void qmi::ClientProxy::State::sendInternalErrorResponseForTxId_sync(qmi::ClientProxy::State *this, int a2, uint64_t a3)
 {
   v3 = *(this + 12);
   if (*(this + 13) != v3)
   {
+    v4 = a3;
     v6 = *(this + 15);
     v7 = (v3 + 8 * (v6 >> 7));
     v8 = *v7;
@@ -5171,7 +5156,7 @@ void qmi::ClientProxy::State::sendInternalErrorResponseForTxId_sync(qmi::ClientP
         v13 = v11;
       }
 
-      qmi::ClientProxy::State::sendInternalErrorResponseForRemoteId_sync(this, &v13, a3);
+      qmi::ClientProxy::State::sendInternalErrorResponseForRemoteId_sync(this, &v13, v4);
       xpc_release(v11);
     }
   }
@@ -5179,7 +5164,7 @@ void qmi::ClientProxy::State::sendInternalErrorResponseForTxId_sync(qmi::ClientP
 
 void qmi::ClientProxy::State::sendInternalErrorResponseForRemoteId_sync(uint64_t a1, xpc_object_t *a2, int a3)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v4 = *(a1 + 232);
   if (v4)
   {
@@ -5268,12 +5253,10 @@ void qmi::ClientProxy::State::sendInternalErrorResponseForRemoteId_sync(uint64_t
       }
 
       *buf = 136315138;
-      v21 = v10;
+      v20 = v10;
       _os_log_error_impl(&dword_2962DD000, v9, OS_LOG_TYPE_ERROR, "Client: [%s], invalid fTransport when sending internal error response for remote id", buf, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962F0EEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object)
@@ -5550,7 +5533,7 @@ LABEL_47:
 
 void qmi::ClientProxy::State::sendDisconnectMessage_sync(qmi::ClientProxy::State *this, BOOL a2)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v3 = *(this + 29);
   if (v3)
   {
@@ -5631,12 +5614,10 @@ void qmi::ClientProxy::State::sendDisconnectMessage_sync(qmi::ClientProxy::State
       }
 
       *buf = 136315138;
-      v17 = v8;
+      v16 = v8;
       _os_log_error_impl(&dword_2962DD000, v7, OS_LOG_TYPE_ERROR, "Client: [%s], invalid fTransport when sending disconnect message", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962F1608(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object)
@@ -5659,7 +5640,7 @@ void ___ZN3qmi11ClientProxy5State22handleSentMessage_syncEt_block_invoke(uint64_
 
   v3 = *(a1 + 32);
   v4 = std::__shared_weak_count::lock(v2);
-  v39 = v4;
+  v38 = v4;
   if (!v4)
   {
     return;
@@ -5670,36 +5651,36 @@ void ___ZN3qmi11ClientProxy5State22handleSentMessage_syncEt_block_invoke(uint64_
 LABEL_29:
     if (!atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      v26 = v4;
+      v25 = v4;
       (v4->__on_zero_shared)();
-      std::__shared_weak_count::__release_weak(v26);
+      std::__shared_weak_count::__release_weak(v25);
     }
 
     return;
   }
 
   qmi::ClientProxy::State::sendInternalErrorResponseForTxId_sync(v3, *(a1 + 56), 0);
-  v37 = 0xAAAAAAAAAAAAAAAALL;
+  v36 = 0xAAAAAAAAAAAAAAAALL;
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v36[7] = v5;
-  v36[8] = v5;
-  v36[5] = v5;
-  v36[6] = v5;
-  v36[3] = v5;
-  v36[4] = v5;
-  v36[1] = v5;
-  v36[2] = v5;
-  v36[0] = v5;
+  v35[7] = v5;
+  v35[8] = v5;
+  v35[5] = v5;
+  v35[6] = v5;
+  v35[3] = v5;
+  v35[4] = v5;
+  v35[1] = v5;
+  v35[2] = v5;
+  v35[0] = v5;
+  v33 = v5;
   v34 = v5;
-  v35 = v5;
-  v32 = v5;
-  *__p = v5;
-  v30 = v5;
   v31 = v5;
+  *__p = v5;
   v29 = v5;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v29);
-  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v29, "ATCS_TIMEOUT on message for svc=", 32);
+  v30 = v5;
+  v28 = v5;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v28);
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, "ATCS_TIMEOUT on message for svc=", 32);
   v7 = MEMORY[0x29C259270](v6, *(v3 + 72));
   v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, " client=", 8);
   v9 = (*(*v3 + 64))(v3);
@@ -5708,45 +5689,44 @@ LABEL_29:
   v12 = MEMORY[0x29C259270](v11, *(a1 + 56));
   v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, " msgid=0x", 9);
   *(v13 + *(*v13 - 24) + 8) = *(v13 + *(*v13 - 24) + 8) & 0xFFFFFFB5 | 8;
-  v14 = *(a1 + 58);
-  v15 = MEMORY[0x29C259270]();
-  *(v15 + *(*v15 - 24) + 8) = *(v15 + *(*v15 - 24) + 8) & 0xFFFFFFB5 | 2;
-  v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, ") [", 3);
-  v17 = *(v3 + 71);
-  if (v17 >= 0)
+  v14 = MEMORY[0x29C259270]();
+  *(v14 + *(*v14 - 24) + 8) = *(v14 + *(*v14 - 24) + 8) & 0xFFFFFFB5 | 2;
+  v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, ") [", 3);
+  v16 = *(v3 + 71);
+  if (v16 >= 0)
   {
-    v18 = v3 + 48;
+    v17 = v3 + 48;
   }
 
   else
   {
-    v18 = *(v3 + 48);
+    v17 = *(v3 + 48);
   }
 
-  if (v17 >= 0)
+  if (v16 >= 0)
   {
-    v19 = *(v3 + 71);
+    v18 = *(v3 + 71);
   }
 
   else
   {
-    v19 = *(v3 + 56);
+    v18 = *(v3 + 56);
   }
 
-  v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, v18, v19);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "]", 1);
-  if ((BYTE8(v35) & 0x10) != 0)
+  v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, v17, v18);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "]", 1);
+  if ((BYTE8(v34) & 0x10) != 0)
   {
-    v23 = v35;
-    if (v35 < *(&v32 + 1))
+    v22 = v34;
+    if (v34 < *(&v31 + 1))
     {
-      *&v35 = *(&v32 + 1);
-      v23 = *(&v32 + 1);
+      *&v34 = *(&v31 + 1);
+      v22 = *(&v31 + 1);
     }
 
-    v24 = v32;
-    v21 = v23 - v32;
-    if ((v23 - v32) >= 0x7FFFFFFFFFFFFFF8)
+    v23 = v31;
+    v20 = v22 - v31;
+    if ((v22 - v31) >= 0x7FFFFFFFFFFFFFF8)
     {
       goto LABEL_33;
     }
@@ -5754,72 +5734,72 @@ LABEL_29:
 
   else
   {
-    if ((BYTE8(v35) & 8) == 0)
+    if ((BYTE8(v34) & 8) == 0)
     {
-      v21 = 0;
-      HIBYTE(v28) = 0;
-      v22 = __dst;
+      v20 = 0;
+      HIBYTE(v27) = 0;
+      v21 = __dst;
       goto LABEL_24;
     }
 
-    v24 = *(&v30 + 1);
-    v21 = *(&v31 + 1) - *(&v30 + 1);
-    if (*(&v31 + 1) - *(&v30 + 1) >= 0x7FFFFFFFFFFFFFF8uLL)
+    v23 = *(&v29 + 1);
+    v20 = *(&v30 + 1) - *(&v29 + 1);
+    if (*(&v30 + 1) - *(&v29 + 1) >= 0x7FFFFFFFFFFFFFF8uLL)
     {
 LABEL_33:
       std::string::__throw_length_error[abi:ne200100]();
     }
   }
 
-  if (v21 >= 0x17)
+  if (v20 >= 0x17)
   {
-    if ((v21 | 7) == 0x17)
+    if ((v20 | 7) == 0x17)
     {
-      v25 = 25;
+      v24 = 25;
     }
 
     else
     {
-      v25 = (v21 | 7) + 1;
+      v24 = (v20 | 7) + 1;
     }
 
-    v22 = operator new(v25);
-    __dst[1] = v21;
-    v28 = v25 | 0x8000000000000000;
-    __dst[0] = v22;
+    v21 = operator new(v24);
+    __dst[1] = v20;
+    v27 = v24 | 0x8000000000000000;
+    __dst[0] = v21;
     goto LABEL_23;
   }
 
-  HIBYTE(v28) = v21;
-  v22 = __dst;
-  if (v21)
+  HIBYTE(v27) = v20;
+  v21 = __dst;
+  if (v20)
   {
 LABEL_23:
-    memmove(v22, v24, v21);
+    memmove(v21, v23, v20);
   }
 
 LABEL_24:
-  *(v22 + v21) = 0;
+  *(v21 + v20) = 0;
   (*(*v3 + 40))(v3, __dst);
-  if (SHIBYTE(v28) < 0)
+  if (SHIBYTE(v27) < 0)
   {
     operator delete(__dst[0]);
   }
 
-  *&v29 = *MEMORY[0x29EDC9538];
-  *(&v29 + *(v29 - 24)) = *(MEMORY[0x29EDC9538] + 24);
-  *(&v29 + 1) = MEMORY[0x29EDC9570] + 16;
-  if (SHIBYTE(v34) < 0)
+  *&v28 = *MEMORY[0x29EDC9538];
+  *(&v28 + *(v28 - 24)) = *(MEMORY[0x29EDC9538] + 24);
+  *(&v28 + 1) = MEMORY[0x29EDC9570] + 16;
+  if (SHIBYTE(v33) < 0)
   {
     operator delete(__p[1]);
   }
 
-  *(&v29 + 1) = MEMORY[0x29EDC9568] + 16;
-  std::locale::~locale(&v30);
+  *(&v28 + 1) = MEMORY[0x29EDC9568] + 16;
+  std::locale::~locale(&v29);
   std::ostream::~ostream();
-  MEMORY[0x29C259330](v36);
-  v4 = v39;
-  if (v39)
+  MEMORY[0x29C259330](v35);
+  v4 = v38;
+  if (v38)
   {
     goto LABEL_29;
   }
@@ -5922,7 +5902,7 @@ uint64_t std::ostringstream::~ostringstream(uint64_t a1)
 
 void qmi::ClientProxy::State::dumpState_sync(qmi::ClientProxy::State *this)
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v41 = *MEMORY[0x29EDCA608];
   v1 = *(this + 25);
   v2 = this + 208;
   memset(&__p, 0, sizeof(__p));
@@ -5931,11 +5911,11 @@ void qmi::ClientProxy::State::dumpState_sync(qmi::ClientProxy::State *this)
     goto LABEL_54;
   }
 
-  std::to_string(v37, *(v1 + 13));
+  std::to_string(v36, *(v1 + 13));
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    __p = *v37;
+    __p = *v36;
     v3 = *(v1 + 1);
     if (!v3)
     {
@@ -5945,7 +5925,7 @@ void qmi::ClientProxy::State::dumpState_sync(qmi::ClientProxy::State *this)
 
   else
   {
-    __p = *v37;
+    __p = *v36;
     v3 = *(v1 + 1);
     if (!v3)
     {
@@ -6036,31 +6016,31 @@ LABEL_28:
       v16 = (v15 + v8);
 LABEL_38:
       *v16 = 0;
-      std::to_string(v37, *(v4 + 13));
-      if (v37[23] >= 0)
+      std::to_string(v36, *(v4 + 13));
+      if (v36[23] >= 0)
       {
-        v18 = v37;
+        v18 = v36;
       }
 
       else
       {
-        v18 = *v37;
+        v18 = *v36;
       }
 
-      if (v37[23] >= 0)
+      if (v36[23] >= 0)
       {
-        v19 = v37[23];
+        v19 = v36[23];
       }
 
       else
       {
-        v19 = *&v37[8];
+        v19 = *&v36[8];
       }
 
       std::string::append(&__p, v18, v19);
-      if ((v37[23] & 0x80000000) != 0)
+      if ((v36[23] & 0x80000000) != 0)
       {
-        operator delete(*v37);
+        operator delete(*v36);
         v20 = *(v4 + 1);
         if (v20)
         {
@@ -6154,24 +6134,24 @@ LABEL_54:
   }
 
   v24 = *(this + 72);
-  qmi::ClientProxy::State::getStateString_sync(this, v34);
-  v25 = v35;
-  v26 = v34[0];
-  qmi::ClientProxy::State::getTxQueueState_sync(this, v32);
-  v27 = v34;
+  qmi::ClientProxy::State::getStateString_sync(v33, this);
+  v25 = v34;
+  v26 = v33[0];
+  qmi::ClientProxy::State::getTxQueueState_sync(v31, this);
+  v27 = v33;
   if (v25 < 0)
   {
     v27 = v26;
   }
 
-  if (v33 >= 0)
+  if (v32 >= 0)
   {
-    v28 = v32;
+    v28 = v31;
   }
 
   else
   {
-    v28 = v32[0];
+    v28 = v31[0];
   }
 
   v29 = &__p;
@@ -6180,49 +6160,43 @@ LABEL_54:
     v29 = __p.__r_.__value_.__r.__words[0];
   }
 
-  *v37 = 136447234;
-  *&v37[4] = v23;
-  *&v37[12] = 1024;
-  *&v37[14] = v24;
-  *&v37[18] = 2082;
-  *&v37[20] = v27;
-  v38 = 2082;
-  v39 = v28;
-  v40 = 2082;
-  v41 = v29;
-  _os_log_impl(&dword_2962DD000, v22, OS_LOG_TYPE_DEFAULT, "#I [%{public}s]   qmi::ClientProxy(svc=%d) [%{public}s] %{public}s ind_wake=[%{public}s]", v37, 0x30u);
-  if ((v33 & 0x80000000) == 0)
+  *v36 = 136447234;
+  *&v36[4] = v23;
+  *&v36[12] = 1024;
+  *&v36[14] = v24;
+  *&v36[18] = 2082;
+  *&v36[20] = v27;
+  v37 = 2082;
+  v38 = v28;
+  v39 = 2082;
+  v40 = v29;
+  _os_log_impl(&dword_2962DD000, v22, OS_LOG_TYPE_DEFAULT, "#I [%{public}s]   qmi::ClientProxy(svc=%d) [%{public}s] %{public}s ind_wake=[%{public}s]", v36, 0x30u);
+  if (v32 < 0)
   {
-    if ((v35 & 0x80000000) == 0)
+    operator delete(v31[0]);
+    if ((v34 & 0x80000000) == 0)
     {
-      goto LABEL_66;
-    }
-
-LABEL_70:
-    operator delete(v34[0]);
-    if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_68;
-    }
-
-    goto LABEL_67;
-  }
-
-  operator delete(v32[0]);
-  if (v35 < 0)
-  {
-    goto LABEL_70;
-  }
-
 LABEL_66:
+      if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      {
+        return;
+      }
+
+      goto LABEL_67;
+    }
+  }
+
+  else if ((v34 & 0x80000000) == 0)
+  {
+    goto LABEL_66;
+  }
+
+  operator delete(v33[0]);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
 LABEL_67:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-LABEL_68:
-  v30 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962F2220(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -6240,104 +6214,103 @@ void sub_2962F2220(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t qmi::ClientProxy::State::getStateString_sync@<X0>(qmi::ClientProxy::State *this@<X0>, void *a2@<X8>)
+unint64_t qmi::ClientProxy::State::getStateString_sync@<X0>(uint64_t *__return_ptr a1@<X8>, qmi::ClientProxy::State *this@<X0>)
 {
-  v4 = *(this + 19);
-  if (v4 <= 7)
+  v3 = *(this + 19);
+  if (v3 <= 7)
   {
-    v5 = off_29EE31300[v4];
+    v4 = off_29EE31300[v3];
     if (*(this + 24))
     {
       goto LABEL_3;
     }
 
 LABEL_7:
-    result = strlen(v5);
+    result = strlen(v4);
     if (result > 0x7FFFFFFFFFFFFFF7)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v13 = result;
+    v11 = result;
     if (result >= 0x17)
     {
       if ((result | 7) == 0x17)
       {
-        v18 = 25;
+        v16 = 25;
       }
 
       else
       {
-        v18 = (result | 7) + 1;
+        v16 = (result | 7) + 1;
       }
 
-      v19 = operator new(v18);
-      a2[1] = v13;
-      a2[2] = v18 | 0x8000000000000000;
-      *a2 = v19;
-      a2 = v19;
+      v17 = operator new(v16);
+      a1[1] = v11;
+      a1[2] = v16 | 0x8000000000000000;
+      *a1 = v17;
+      a1 = v17;
     }
 
     else
     {
-      *(a2 + 23) = result;
+      *(a1 + 23) = result;
       if (!result)
       {
         goto LABEL_30;
       }
     }
 
-    result = memcpy(a2, v5, v13);
+    result = memcpy(a1, v4, v11);
 LABEL_30:
-    *(a2 + v13) = 0;
+    *(a1 + v11) = 0;
     return result;
   }
 
-  v5 = "(unknown)";
+  v4 = "(unknown)";
   if (!*(this + 24))
   {
     goto LABEL_7;
   }
 
 LABEL_3:
-  v28 = 0xAAAAAAAAAAAAAAAALL;
-  *&v6 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v27[7] = v6;
-  v27[8] = v6;
-  v27[5] = v6;
-  v27[6] = v6;
-  v27[3] = v6;
-  v27[4] = v6;
-  v27[1] = v6;
-  v27[2] = v6;
-  v26 = v6;
-  v27[0] = v6;
-  *__p = v6;
-  v25 = v6;
-  v22 = v6;
-  *__src = v6;
-  v20 = v6;
-  v21 = v6;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v20);
-  v7 = strlen(v5);
-  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, v5, v7);
-  v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ", lowpower=", 11);
-  *(v9 + *(*v9 - 24) + 8) = *(v9 + *(*v9 - 24) + 8) & 0xFFFFFFB5 | 8;
-  v10 = *(this + 24);
+  v26 = 0xAAAAAAAAAAAAAAAALL;
+  *&v5 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v25[7] = v5;
+  v25[8] = v5;
+  v25[5] = v5;
+  v25[6] = v5;
+  v25[3] = v5;
+  v25[4] = v5;
+  v25[1] = v5;
+  v25[2] = v5;
+  v24 = v5;
+  v25[0] = v5;
+  *__p = v5;
+  v23 = v5;
+  v20 = v5;
+  *__src = v5;
+  v18 = v5;
+  v19 = v5;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v18);
+  v6 = strlen(v4);
+  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, v4, v6);
+  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ", lowpower=", 11);
+  *(v8 + *(*v8 - 24) + 8) = *(v8 + *(*v8 - 24) + 8) & 0xFFFFFFB5 | 8;
   MEMORY[0x29C259250]();
-  if ((BYTE8(v26) & 0x10) != 0)
+  if ((BYTE8(v24) & 0x10) != 0)
   {
-    v14 = v26;
-    if (v26 < __src[1])
+    v12 = v24;
+    if (v24 < __src[1])
     {
-      *&v26 = __src[1];
-      v14 = __src[1];
+      *&v24 = __src[1];
+      v12 = __src[1];
     }
 
-    v15 = __src[0];
-    v11 = v14 - __src[0];
-    if ((v14 - __src[0]) > 0x7FFFFFFFFFFFFFF7)
+    v13 = __src[0];
+    v9 = v12 - __src[0];
+    if ((v12 - __src[0]) > 0x7FFFFFFFFFFFFFF7)
     {
       goto LABEL_32;
     }
@@ -6345,92 +6318,92 @@ LABEL_3:
 
   else
   {
-    if ((BYTE8(v26) & 8) == 0)
+    if ((BYTE8(v24) & 8) == 0)
     {
-      v11 = 0;
-      *(a2 + 23) = 0;
+      v9 = 0;
+      *(a1 + 23) = 0;
       goto LABEL_22;
     }
 
-    v15 = *(&v21 + 1);
-    v11 = *(&v22 + 1) - *(&v21 + 1);
-    if (*(&v22 + 1) - *(&v21 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
+    v13 = *(&v19 + 1);
+    v9 = *(&v20 + 1) - *(&v19 + 1);
+    if (*(&v20 + 1) - *(&v19 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
     {
 LABEL_32:
       std::string::__throw_length_error[abi:ne200100]();
     }
   }
 
-  if (v11 >= 0x17)
+  if (v9 >= 0x17)
   {
-    if ((v11 | 7) == 0x17)
+    if ((v9 | 7) == 0x17)
     {
-      v16 = 25;
+      v14 = 25;
     }
 
     else
     {
-      v16 = (v11 | 7) + 1;
+      v14 = (v9 | 7) + 1;
     }
 
-    v17 = operator new(v16);
-    a2[1] = v11;
-    a2[2] = v16 | 0x8000000000000000;
-    *a2 = v17;
-    a2 = v17;
+    v15 = operator new(v14);
+    a1[1] = v9;
+    a1[2] = v14 | 0x8000000000000000;
+    *a1 = v15;
+    a1 = v15;
   }
 
   else
   {
-    *(a2 + 23) = v11;
-    if (!v11)
+    *(a1 + 23) = v9;
+    if (!v9)
     {
       goto LABEL_22;
     }
   }
 
-  memmove(a2, v15, v11);
+  memmove(a1, v13, v9);
 LABEL_22:
-  *(a2 + v11) = 0;
-  *&v20 = *MEMORY[0x29EDC9538];
-  *(&v20 + *(v20 - 24)) = *(MEMORY[0x29EDC9538] + 24);
-  *(&v20 + 1) = MEMORY[0x29EDC9570] + 16;
-  if (SHIBYTE(v25) < 0)
+  *(a1 + v9) = 0;
+  *&v18 = *MEMORY[0x29EDC9538];
+  *(&v18 + *(v18 - 24)) = *(MEMORY[0x29EDC9538] + 24);
+  *(&v18 + 1) = MEMORY[0x29EDC9570] + 16;
+  if (SHIBYTE(v23) < 0)
   {
     operator delete(__p[1]);
   }
 
-  *(&v20 + 1) = MEMORY[0x29EDC9568] + 16;
-  std::locale::~locale(&v21);
+  *(&v18 + 1) = MEMORY[0x29EDC9568] + 16;
+  std::locale::~locale(&v19);
   std::ostream::~ostream();
-  return MEMORY[0x29C259330](v27);
+  return MEMORY[0x29C259330](v25);
 }
 
-uint64_t qmi::ClientProxy::State::getTxQueueState_sync@<X0>(qmi::ClientProxy::State *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *qmi::ClientProxy::State::getTxQueueState_sync@<X0>(uint64_t *__return_ptr a1@<X8>, qmi::ClientProxy::State *this@<X0>)
 {
-  v34 = 0xAAAAAAAAAAAAAAAALL;
+  v33 = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v33[7] = v4;
-  v33[8] = v4;
-  v33[5] = v4;
-  v33[6] = v4;
-  v33[3] = v4;
-  v33[4] = v4;
-  v33[1] = v4;
-  v33[2] = v4;
-  v32 = v4;
-  v33[0] = v4;
-  *__p = v4;
+  v32[7] = v4;
+  v32[8] = v4;
+  v32[5] = v4;
+  v32[6] = v4;
+  v32[3] = v4;
+  v32[4] = v4;
+  v32[1] = v4;
+  v32[2] = v4;
   v31 = v4;
-  v28 = v4;
-  *__src = v4;
-  v26 = v4;
+  v32[0] = v4;
+  *__p = v4;
+  v30 = v4;
   v27 = v4;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v26);
-  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v26, "sendable=", 9);
+  *__src = v4;
+  v25 = v4;
+  v26 = v4;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v25);
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v25, "sendable=", 9);
   MEMORY[0x29C259260](v5, (*(this + 21) - *(this + 32)));
-  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v26, " simSlot=", 9);
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v25, " simSlot=", 9);
   MEMORY[0x29C259260](v6, *(this + 184));
   v7 = *(this + 16);
   if (v7)
@@ -6444,19 +6417,18 @@ uint64_t qmi::ClientProxy::State::getTxQueueState_sync@<X0>(qmi::ClientProxy::St
       v12 = *(v8 + (((v9 + v7) >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * ((v9 + v7) & 0x7F);
       while (v11 != v12)
       {
-        v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v26, " sent(", 6);
+        v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v25, " sent(", 6);
         v14 = MEMORY[0x29C259290](v13, *(*(v11 + 16) + 26));
         v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, ":0x", 3);
         *(v15 + *(*v15 - 24) + 8) = *(v15 + *(*v15 - 24) + 8) & 0xFFFFFFB5 | 8;
-        v16 = *(*(v11 + 16) + 24);
-        v17 = MEMORY[0x29C259290]();
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, ")", 1);
+        v16 = MEMORY[0x29C259290]();
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, ")", 1);
         v11 += 32;
         if (v11 - *v10 == 4096)
         {
-          v18 = v10[1];
+          v17 = v10[1];
           ++v10;
-          v11 = v18;
+          v11 = v17;
         }
       }
     }
@@ -6464,22 +6436,22 @@ uint64_t qmi::ClientProxy::State::getTxQueueState_sync@<X0>(qmi::ClientProxy::St
 
   if (*(this + 22))
   {
-    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v26, " pending=", 9);
-    MEMORY[0x29C259280](v19, *(this + 22));
+    v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v25, " pending=", 9);
+    MEMORY[0x29C259280](v18, *(this + 22));
   }
 
-  if ((BYTE8(v32) & 0x10) != 0)
+  if ((BYTE8(v31) & 0x10) != 0)
   {
-    v21 = v32;
-    if (v32 < __src[1])
+    v20 = v31;
+    if (v31 < __src[1])
     {
-      *&v32 = __src[1];
-      v21 = __src[1];
+      *&v31 = __src[1];
+      v20 = __src[1];
     }
 
-    v22 = __src[0];
-    v20 = v21 - __src[0];
-    if ((v21 - __src[0]) >= 0x7FFFFFFFFFFFFFF8)
+    v21 = __src[0];
+    v19 = v20 - __src[0];
+    if ((v20 - __src[0]) >= 0x7FFFFFFFFFFFFFF8)
     {
       goto LABEL_28;
     }
@@ -6487,63 +6459,63 @@ uint64_t qmi::ClientProxy::State::getTxQueueState_sync@<X0>(qmi::ClientProxy::St
 
   else
   {
-    if ((BYTE8(v32) & 8) == 0)
+    if ((BYTE8(v31) & 8) == 0)
     {
-      v20 = 0;
-      a2[23] = 0;
+      v19 = 0;
+      *(a1 + 23) = 0;
       goto LABEL_24;
     }
 
-    v22 = *(&v27 + 1);
-    v20 = *(&v28 + 1) - *(&v27 + 1);
-    if (*(&v28 + 1) - *(&v27 + 1) >= 0x7FFFFFFFFFFFFFF8uLL)
+    v21 = *(&v26 + 1);
+    v19 = *(&v27 + 1) - *(&v26 + 1);
+    if (*(&v27 + 1) - *(&v26 + 1) >= 0x7FFFFFFFFFFFFFF8uLL)
     {
 LABEL_28:
       std::string::__throw_length_error[abi:ne200100]();
     }
   }
 
-  if (v20 >= 0x17)
+  if (v19 >= 0x17)
   {
-    if ((v20 | 7) == 0x17)
+    if ((v19 | 7) == 0x17)
     {
-      v23 = 25;
+      v22 = 25;
     }
 
     else
     {
-      v23 = (v20 | 7) + 1;
+      v22 = (v19 | 7) + 1;
     }
 
-    v24 = operator new(v23);
-    *(a2 + 1) = v20;
-    *(a2 + 2) = v23 | 0x8000000000000000;
-    *a2 = v24;
-    a2 = v24;
+    v23 = operator new(v22);
+    a1[1] = v19;
+    a1[2] = v22 | 0x8000000000000000;
+    *a1 = v23;
+    a1 = v23;
     goto LABEL_23;
   }
 
-  a2[23] = v20;
-  if (v20)
+  *(a1 + 23) = v19;
+  if (v19)
   {
 LABEL_23:
-    memmove(a2, v22, v20);
+    memmove(a1, v21, v19);
   }
 
 LABEL_24:
-  a2[v20] = 0;
-  *&v26 = *MEMORY[0x29EDC9538];
-  *(&v26 + *(v26 - 24)) = *(MEMORY[0x29EDC9538] + 24);
-  *(&v26 + 1) = MEMORY[0x29EDC9570] + 16;
-  if (SHIBYTE(v31) < 0)
+  *(a1 + v19) = 0;
+  *&v25 = *MEMORY[0x29EDC9538];
+  *(&v25 + *(v25 - 24)) = *(MEMORY[0x29EDC9538] + 24);
+  *(&v25 + 1) = MEMORY[0x29EDC9570] + 16;
+  if (SHIBYTE(v30) < 0)
   {
     operator delete(__p[1]);
   }
 
-  *(&v26 + 1) = MEMORY[0x29EDC9568] + 16;
-  std::locale::~locale(&v27);
+  *(&v25 + 1) = MEMORY[0x29EDC9568] + 16;
+  std::locale::~locale(&v26);
   std::ostream::~ostream();
-  return MEMORY[0x29C259330](v33);
+  return MEMORY[0x29C259330](v32);
 }
 
 void *qmi::ClientProxy::State::createCallBacksHandler_sync(void *this)
@@ -6695,7 +6667,7 @@ uint64_t std::function<void ()(xpc::object const&)>::~function(uint64_t a1)
 
 void qmi::ClientProxy::State::setConnected_sync(qmi::ClientProxy::State *this)
 {
-  *&v27[5] = *MEMORY[0x29EDCA608];
+  *&v26[5] = *MEMORY[0x29EDCA608];
   v2 = *(this + 5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -6717,9 +6689,9 @@ void qmi::ClientProxy::State::setConnected_sync(qmi::ClientProxy::State *this)
     }
 
     *buf = 136315394;
-    v25 = v10;
-    v26 = 2080;
-    *v27 = v12;
+    v24 = v10;
+    v25 = 2080;
+    *v26 = v12;
     _os_log_debug_impl(&dword_2962DD000, v2, OS_LOG_TYPE_DEBUG, "#D [%s]: Client connected to modem; old state=%s", buf, 0x16u);
     v3 = *(this + 19);
     if (v3 != 1)
@@ -6748,11 +6720,11 @@ LABEL_3:
           v6 = *(this + 72);
           v7 = (*(*this + 64))(this);
           *buf = 136315650;
-          v25 = v5;
-          v26 = 1024;
-          *v27 = v6;
-          v27[2] = 1024;
-          *&v27[3] = v7;
+          v24 = v5;
+          v25 = 1024;
+          *v26 = v6;
+          v26[2] = 1024;
+          *&v26[3] = v7;
           _os_log_impl(&dword_2962DD000, v4, OS_LOG_TYPE_DEFAULT, "#I [%s]: Client id received successfully: svc=0x%x id=%d; starting client", buf, 0x18u);
         }
 
@@ -6831,7 +6803,7 @@ LABEL_3:
             }
 
             *buf = 136315138;
-            v25 = v17;
+            v24 = v17;
             _os_log_error_impl(&dword_2962DD000, v16, OS_LOG_TYPE_ERROR, "Client: [%s], invalid fTransport when setting connected state", buf, 0xCu);
           }
         }
@@ -6839,7 +6811,7 @@ LABEL_3:
         xpc_release(v9);
       }
 
-      goto LABEL_40;
+      return;
     }
   }
 
@@ -6855,17 +6827,15 @@ LABEL_3:
     v20 = *(this + 72);
     v21 = (*(*this + 64))(this);
     *buf = 136315650;
-    v25 = v19;
-    v26 = 1024;
-    *v27 = v20;
-    v27[2] = 1024;
-    *&v27[3] = v21;
+    v24 = v19;
+    v25 = 1024;
+    *v26 = v20;
+    v26[2] = 1024;
+    *&v26[3] = v21;
     _os_log_impl(&dword_2962DD000, v18, OS_LOG_TYPE_DEFAULT, "#I [%s]: Received client id (svc=0x%x id=%d), but client was manually released; releasing id now.", buf, 0x18u);
   }
 
   (*(*this + 24))(this);
-LABEL_40:
-  v22 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962F3094(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object)
@@ -6880,13 +6850,13 @@ void sub_2962F3094(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void qmi::ClientProxy::State::triggerLowPower_sync(qmi::ClientProxy::State *this, const group *a2)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   v4 = *(this + 19);
   if (v4 <= 7)
   {
     if (((1 << v4) & 0x8E) != 0)
     {
-      goto LABEL_48;
+      return;
     }
 
     if (((1 << v4) & 0x60) != 0)
@@ -6907,9 +6877,9 @@ void qmi::ClientProxy::State::triggerLowPower_sync(qmi::ClientProxy::State *this
         }
 
         *buf = 136315394;
-        v31 = v6;
-        v32 = 2080;
-        v33 = v7;
+        v30 = v6;
+        v31 = 2080;
+        v32 = v7;
         _os_log_impl(&dword_2962DD000, v5, OS_LOG_TYPE_DEFAULT, "#E [%s]: ERROR: Triggered enter-low-power but we are in state %s already!", buf, 0x16u);
       }
     }
@@ -6935,17 +6905,17 @@ void qmi::ClientProxy::State::triggerLowPower_sync(qmi::ClientProxy::State *this
     v10 = *(this + 5);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v24 = (this + 48);
+      v23 = (this + 48);
       if (*(this + 71) < 0)
       {
-        v24 = *v24;
+        v23 = *v23;
       }
 
-      v25 = a2->gr_name;
+      v24 = a2->gr_name;
       *buf = 136315394;
-      v31 = v24;
-      v32 = 2048;
-      v33 = v25;
+      v30 = v23;
+      v31 = 2048;
+      v32 = v24;
       _os_log_debug_impl(&dword_2962DD000, v10, OS_LOG_TYPE_DEBUG, "#D [%s]: Client low-power group ++ Holding open (%p)", buf, 0x16u);
     }
 
@@ -7015,31 +6985,31 @@ void qmi::ClientProxy::State::triggerLowPower_sync(qmi::ClientProxy::State *this
         object = xpc_null_create();
       }
 
-      v26[0] = MEMORY[0x29EDCA5F8];
-      v26[1] = 1174405120;
-      v26[2] = ___ZN3qmi11ClientProxy5State20triggerLowPower_syncERKN8dispatch5groupE_block_invoke;
-      v26[3] = &__block_descriptor_tmp_38_0;
-      v26[4] = this;
-      v26[5] = v16;
-      v27 = v18;
+      v25[0] = MEMORY[0x29EDCA5F8];
+      v25[1] = 1174405120;
+      v25[2] = ___ZN3qmi11ClientProxy5State20triggerLowPower_syncERKN8dispatch5groupE_block_invoke;
+      v25[3] = &__block_descriptor_tmp_38_0;
+      v25[4] = this;
+      v25[5] = v16;
+      v26 = v18;
       atomic_fetch_add_explicit(&v18->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      v28 = v19;
+      v27 = v19;
       if (v19)
       {
         dispatch_retain(v19);
       }
 
-      (*(*v20 + 32))(v20, &object, v26);
+      (*(*v20 + 32))(v20, &object, v25);
       xpc_release(object);
       object = 0;
-      if (v28)
-      {
-        dispatch_release(v28);
-      }
-
       if (v27)
       {
-        std::__shared_weak_count::__release_weak(v27);
+        dispatch_release(v27);
+      }
+
+      if (v26)
+      {
+        std::__shared_weak_count::__release_weak(v26);
       }
     }
 
@@ -7055,7 +7025,7 @@ void qmi::ClientProxy::State::triggerLowPower_sync(qmi::ClientProxy::State *this
         }
 
         *buf = 136315138;
-        v31 = v22;
+        v30 = v22;
         _os_log_error_impl(&dword_2962DD000, v21, OS_LOG_TYPE_ERROR, "Client: [%s], invalid fTransport when triggering low power state", buf, 0xCu);
       }
     }
@@ -7074,9 +7044,6 @@ void qmi::ClientProxy::State::triggerLowPower_sync(qmi::ClientProxy::State *this
     *(this + 19) = 5;
     qmi::ClientProxy::State::checkIfLowPower_sync(this);
   }
-
-LABEL_48:
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962F355C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, dispatch_object_t object, xpc_object_t a18)
@@ -7091,66 +7058,59 @@ void sub_2962F355C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN3qmi11ClientProxy5State20triggerLowPower_syncERKN8dispatch5groupE_block_invoke(void *a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v2 = a1[6];
-  if (!v2)
+  if (v2)
   {
-    goto LABEL_10;
-  }
-
-  v3 = a1[4];
-  v4 = std::__shared_weak_count::lock(v2);
-  if (!v4)
-  {
-    goto LABEL_10;
-  }
-
-  v5 = v4;
-  if (a1[5])
-  {
-    v6 = *(v3 + 40);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v3 = a1[4];
+    v4 = std::__shared_weak_count::lock(v2);
+    if (v4)
     {
-      v8 = (v3 + 48);
-      if (*(v3 + 71) < 0)
+      v5 = v4;
+      if (a1[5])
       {
-        v8 = *v8;
-      }
+        v6 = *(v3 + 40);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        {
+          v7 = (v3 + 48);
+          if (*(v3 + 71) < 0)
+          {
+            v7 = *v7;
+          }
 
-      v9 = a1[7];
-      v10 = 136315394;
-      v11 = v8;
-      v12 = 2048;
-      v13 = v9;
-      _os_log_debug_impl(&dword_2962DD000, v6, OS_LOG_TYPE_DEBUG, "#D [%s]: Client low-power group -- Done (%p)", &v10, 0x16u);
-      if (*(v3 + 192) != a1[7])
-      {
-        goto LABEL_8;
-      }
+          v8 = a1[7];
+          v9 = 136315394;
+          v10 = v7;
+          v11 = 2048;
+          v12 = v8;
+          _os_log_debug_impl(&dword_2962DD000, v6, OS_LOG_TYPE_DEBUG, "#D [%s]: Client low-power group -- Done (%p)", &v9, 0x16u);
+          if (*(v3 + 192) != a1[7])
+          {
+            goto LABEL_8;
+          }
 
-      goto LABEL_6;
-    }
+          goto LABEL_6;
+        }
 
-    if (*(v3 + 192) == a1[7])
-    {
+        if (*(v3 + 192) == a1[7])
+        {
 LABEL_6:
-      if (*(v3 + 76) == 4)
-      {
-        *(v3 + 76) = 5;
-        qmi::ClientProxy::State::checkIfLowPower_sync(v3);
+          if (*(v3 + 76) == 4)
+          {
+            *(v3 + 76) = 5;
+            qmi::ClientProxy::State::checkIfLowPower_sync(v3);
+          }
+        }
       }
-    }
-  }
 
 LABEL_8:
-  if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v5->__on_zero_shared)(v5);
-    std::__shared_weak_count::__release_weak(v5);
+      if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v5->__on_zero_shared)(v5);
+        std::__shared_weak_count::__release_weak(v5);
+      }
+    }
   }
-
-LABEL_10:
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void __copy_helper_block_e8_40c48_ZTSNSt3__18weak_ptrIN3qmi11ClientProxy5StateEEE56c21_ZTSN8dispatch5groupE(void *a1, void *a2)
@@ -7189,7 +7149,7 @@ void __destroy_helper_block_e8_40c48_ZTSNSt3__18weak_ptrIN3qmi11ClientProxy5Stat
 
 void qmi::ClientProxy::State::init_sync(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   v3 = *(a1 + 232);
   v4 = *(a1 + 40);
   if (v3)
@@ -7204,9 +7164,9 @@ void qmi::ClientProxy::State::init_sync(uint64_t a1, uint64_t a2)
 
       v7 = *(a1 + 72);
       *buf = 136315394;
-      v15 = v6;
-      v16 = 1024;
-      v17 = v7;
+      v12 = v6;
+      v13 = 1024;
+      v14 = v7;
       _os_log_impl(&dword_2962DD000, v4, OS_LOG_TYPE_DEFAULT, "#I [%s]: Client created of type 0x%x", buf, 0x12u);
       v3 = *(a1 + 232);
     }
@@ -7222,30 +7182,21 @@ void qmi::ClientProxy::State::init_sync(uint64_t a1, uint64_t a2)
     if (object)
     {
       dispatch_release(object);
-      v9 = *MEMORY[0x29EDCA608];
-      return;
+    }
+  }
+
+  else if (os_log_type_enabled(*(a1 + 40), OS_LOG_TYPE_ERROR))
+  {
+    v9 = (a1 + 48);
+    if (*(a1 + 71) < 0)
+    {
+      v9 = *v9;
     }
 
-    goto LABEL_11;
+    *buf = 136315138;
+    v12 = v9;
+    _os_log_error_impl(&dword_2962DD000, v4, OS_LOG_TYPE_ERROR, "Client: [%s], invalid fTransport at time of initialization", buf, 0xCu);
   }
-
-  if (!os_log_type_enabled(*(a1 + 40), OS_LOG_TYPE_ERROR))
-  {
-LABEL_11:
-    v10 = *MEMORY[0x29EDCA608];
-    return;
-  }
-
-  v11 = (a1 + 48);
-  if (*(a1 + 71) < 0)
-  {
-    v11 = *v11;
-  }
-
-  *buf = 136315138;
-  v15 = v11;
-  _os_log_error_impl(&dword_2962DD000, v4, OS_LOG_TYPE_ERROR, "Client: [%s], invalid fTransport at time of initialization", buf, 0xCu);
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962F3988(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, dispatch_object_t object)
@@ -7260,7 +7211,7 @@ void sub_2962F3988(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void qmi::ClientProxy::State::setDisconnected_sync(qmi::ClientProxy::State *this, int a2)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v4 = *(this + 5);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -7283,13 +7234,13 @@ void qmi::ClientProxy::State::setDisconnected_sync(qmi::ClientProxy::State *this
 LABEL_4:
         v7 = off_29EE31300[v6];
 LABEL_7:
-        v12 = 136315650;
-        v13 = v5;
-        v14 = 1024;
-        v15 = a2;
-        v16 = 2080;
-        v17 = v7;
-        _os_log_impl(&dword_2962DD000, v4, OS_LOG_TYPE_DEFAULT, "#I [%s]: Client disconnect from modem; temp failure=%d; old state=%s", &v12, 0x1Cu);
+        v11 = 136315650;
+        v12 = v5;
+        v13 = 1024;
+        v14 = a2;
+        v15 = 2080;
+        v16 = v7;
+        _os_log_impl(&dword_2962DD000, v4, OS_LOG_TYPE_DEFAULT, "#I [%s]: Client disconnect from modem; temp failure=%d; old state=%s", &v11, 0x1Cu);
         goto LABEL_8;
       }
     }
@@ -7338,8 +7289,6 @@ LABEL_8:
 
     qmi::ClientProxy::State::sendDisconnectMessage_sync(this, 1);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t qmi::ClientProxy::State::Transaction::Transaction(uint64_t result, uint64_t *a2, int a3)
@@ -7512,7 +7461,7 @@ uint64_t qmi::QmiClientProxyAdapter::QmiClientProxyAdapter(uint64_t a1, uint64_t
   v19 = v12;
   if (v12)
   {
-    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
   }
 
   v13 = *a5;
@@ -7551,14 +7500,15 @@ uint64_t qmi::QmiClientProxyAdapter::QmiClientProxyAdapter(uint64_t a1, uint64_t
   return a1;
 }
 
-void sub_2962F4098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+void sub_2962F4098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](&a9);
-  std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](&a11);
-  *v11 = v13;
-  if (*(v11 + 31) < 0)
+  std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](va);
+  *v10 = v12;
+  if (*(v10 + 31) < 0)
   {
-    operator delete(*v12);
+    operator delete(*v11);
   }
 
   _Unwind_Resume(a1);
@@ -7671,17 +7621,18 @@ LABEL_15:
   }
 }
 
-void sub_2962F4368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13)
+void sub_2962F4368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](&a9);
   std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](&a11);
-  QMux::~QMux(&a13);
+  QMux::~QMux(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2962F438C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2962F438C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   QMux::~QMux(va);
   _Unwind_Resume(a1);
 }
@@ -7749,17 +7700,18 @@ LABEL_15:
   }
 }
 
-void sub_2962F4528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13)
+void sub_2962F4528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](&a9);
   std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](&a11);
-  QMux::~QMux(&a13);
+  QMux::~QMux(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2962F454C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2962F454C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   QMux::~QMux(va);
   _Unwind_Resume(a1);
 }
@@ -7886,17 +7838,17 @@ LABEL_5:
   return result;
 }
 
-void qmi::QmiClientProxyAdapter::notifyRegisterFailure(uint64_t a1)
+void qmi::QmiClientProxyAdapter::notifyRegisterFailure(uint64_t a1, uint64_t a2)
 {
   isInternalError = qmi::isInternalError();
 
   qmi::ClientProxy::State::setDisconnected_sync((a1 + 48), isInternalError);
 }
 
-uint64_t *qmi::QmiClientProxyAdapter::appendPowerModeSet(uint64_t *result, uint64_t *a2)
+uint64_t *qmi::QmiClientProxyAdapter::appendPowerModeSet(uint64_t *result, uint64_t ***a2)
 {
   v2 = result[31];
-  v3 = result + 32;
+  v3 = (result + 32);
   if (v2 != (result + 32))
   {
     do
@@ -7930,7 +7882,7 @@ uint64_t *qmi::QmiClientProxyAdapter::appendPowerModeSet(uint64_t *result, uint6
         }
 
         result = std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(a2[1], v7);
-        ++a2[2];
+        a2[2] = (a2[2] + 1);
         v5 = *(v2 + 1);
         if (v5)
         {
@@ -8130,17 +8082,17 @@ void *ctu::SharedSynchronizable<qmi::ClientProxy::State>::~SharedSynchronizable(
   return a1;
 }
 
-uint64_t std::insert_iterator<std::set<unsigned short>>::operator=[abi:ne200100](uint64_t a1, unsigned __int16 *a2)
+uint64_t ***std::insert_iterator<std::set<unsigned short>>::operator=[abi:ne200100](uint64_t ***a1, unsigned __int16 *a2)
 {
   v5 = *a1;
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   v15 = 0xAAAAAAAAAAAAAAAALL;
   v16 = 0xAAAAAAAAAAAAAAAALL;
   v6 = std::__tree<unsigned short>::__find_equal<unsigned short>(v5, v4, &v16, &v15, a2);
   v7 = *v6;
   if (*v6)
   {
-    *(a1 + 8) = v7;
+    a1[1] = v7;
     v8 = v7[1];
     if (!v8)
     {
@@ -8175,7 +8127,7 @@ LABEL_9:
 
     std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v5[1], v7);
     v5[2] = (v5[2] + 1);
-    *(a1 + 8) = v7;
+    a1[1] = v7;
     v8 = v7[1];
     if (!v8)
     {
@@ -8191,13 +8143,13 @@ LABEL_9:
 
   while (v8);
 LABEL_11:
-  *(a1 + 8) = v12;
+  a1[1] = v12;
   return a1;
 }
 
-uint64_t *std::__tree<unsigned short>::__find_equal<unsigned short>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t **a4, unsigned __int16 *a5)
+uint64_t *std::__tree<unsigned short>::__find_equal<unsigned short>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t **a4, unsigned __int16 *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 13), v6 < v7))
   {
     v8 = *a2;
@@ -8224,7 +8176,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -8289,7 +8241,7 @@ LABEL_25:
     else
     {
       *a3 = v5;
-      return a1 + 1;
+      return (a1 + 1);
     }
   }
 
@@ -8385,7 +8337,7 @@ LABEL_41:
       else
       {
         *a3 = v5;
-        return a1 + 1;
+        return (a1 + 1);
       }
     }
   }
@@ -8402,12 +8354,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   while (1)
   {
     v2 = a2[2];
-    if (v2[3])
+    if (*(v2 + 24))
     {
       return result;
     }
 
-    v3 = v2[2];
+    v3 = *(v2 + 16);
     v4 = *v3;
     if (*v3 != v2)
     {
@@ -8419,10 +8371,9 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     {
       if (*v2 == a2)
       {
-        v20 = a2[2];
         *(v2 + 24) = 1;
         *(v3 + 24) = 0;
-        v13 = v4[1];
+        v13 = *(v4 + 8);
         *v3 = v13;
         if (v13)
         {
@@ -8432,26 +8383,26 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
       else
       {
-        v10 = v2[1];
+        v10 = *(v2 + 8);
         v11 = *v10;
-        v2[1] = *v10;
+        *(v2 + 8) = *v10;
         v12 = v2;
         if (v11)
         {
-          v11[2] = v2;
-          v3 = v2[2];
+          *(v11 + 16) = v2;
+          v3 = *(v2 + 16);
           v12 = *v3;
         }
 
-        v10[2] = v3;
+        *(v10 + 16) = v3;
         v3[v12 != v2] = v10;
         *v10 = v2;
-        v2[2] = v10;
-        v3 = v10[2];
+        *(v2 + 16) = v10;
+        v3 = *(v10 + 16);
         v4 = *v3;
         *(v10 + 24) = 1;
         *(v3 + 24) = 0;
-        v13 = v4[1];
+        v13 = *(v4 + 8);
         *v3 = v13;
         if (v13)
         {
@@ -8462,8 +8413,8 @@ LABEL_15:
 
       v14 = v3[2];
       v14[*v14 != v3] = v4;
-      v4[1] = v3;
-      v4[2] = v14;
+      *(v4 + 8) = v3;
+      *(v4 + 16) = v14;
       v3[2] = v4;
       return result;
     }
@@ -8482,7 +8433,7 @@ LABEL_3:
   if (v4)
   {
     v6 = *(v4 + 24);
-    v5 = v4 + 3;
+    v5 = (v4 + 24);
     if (v6 != 1)
     {
       v7 = v5;
@@ -8493,19 +8444,19 @@ LABEL_3:
   v15 = *v2;
   if (*v2 == a2)
   {
-    v16 = *(v15 + 8);
+    v16 = v15[1];
     *v2 = v16;
     if (v16)
     {
       *(v16 + 16) = v2;
-      v3 = v2[2];
+      v3 = *(v2 + 16);
     }
 
     v3[*v3 != v2] = v15;
-    *(v15 + 8) = v2;
-    *(v15 + 16) = v3;
-    v2[2] = v15;
-    v3 = *(v15 + 16);
+    v15[1] = v2;
+    v15[2] = v3;
+    *(v2 + 16) = v15;
+    v3 = v15[2];
   }
 
   else
@@ -8538,10 +8489,10 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   MEMORY[0x29C259220](v14, a1);
   if (LOBYTE(v14[0]) == 1)
   {
-    v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v6 = (a1 + *(*a1 - 24));
+    rdbuf = v6->__rdbuf_;
+    fmtflags = v6->__fmtflags_;
+    v9 = v6[1].__fmtflags_;
     if (v9 == -1)
     {
       v10 = (a1 + *(*a1 - 24));
@@ -8553,7 +8504,7 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
       v10[1].__fmtflags_ = v9;
     }
 
-    if ((v8 & 0xB0) == 0x20)
+    if ((fmtflags & 0xB0) == 0x20)
     {
       v12 = a2 + a3;
     }
@@ -8563,7 +8514,7 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
       v12 = a2;
     }
 
-    if (!std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(v7, a2, v12, a2 + a3, v6, v9))
+    if (!std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(rdbuf, a2, v12, a2 + a3, v6, v9))
     {
       std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 5);
     }
@@ -8573,9 +8524,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_2962F53BC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_2962F53BC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x29C259230](&a10);
+  MEMORY[0x29C259230](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -8984,14 +8935,15 @@ void dispatch::async<void ctu::SharedSynchronizable<qmi::ClientProxy::State>::ex
   operator delete(a1);
 }
 
-void sub_2962F5CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10)
+void sub_2962F5CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, ...)
 {
-  std::unique_ptr<qmi::ClientProxy::State::registerResponse(unsigned short,std::vector<unsigned char>)::$_0,std::default_delete<qmi::ClientProxy::State::registerResponse(unsigned short,std::vector<unsigned char>)::$_0>>::~unique_ptr[abi:ne200100](&a10);
+  va_start(va, a9);
+  std::unique_ptr<qmi::ClientProxy::State::registerResponse(unsigned short,std::vector<unsigned char>)::$_0,std::default_delete<qmi::ClientProxy::State::registerResponse(unsigned short,std::vector<unsigned char>)::$_0>>::~unique_ptr[abi:ne200100](va);
   std::unique_ptr<void ctu::SharedSynchronizable<qmi::ClientProxy::State>::execute_wrapped<qmi::ClientProxy::State::registerResponse(unsigned short,std::vector<unsigned char>)::$_0>(qmi::ClientProxy::State::registerResponse(unsigned short,std::vector<unsigned char>)::$_0 &&)::{lambda(void)#1},std::default_delete<qmi::ClientProxy::State::registerResponse(unsigned short,std::vector<unsigned char>)::$_0 &&>>::~unique_ptr[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_2962F5D0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17)
+void sub_2962F5D0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17)
 {
   if (__p)
   {
@@ -9320,9 +9272,10 @@ void dispatch::async<void ctu::SharedSynchronizable<qmi::ClientProxy::State>::ex
   operator delete(a1);
 }
 
-void sub_2962F642C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, xpc_object_t *a10)
+void sub_2962F642C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, ...)
 {
-  std::unique_ptr<qmi::ClientProxy::State::init(xpc::connection const&)::$_2,std::default_delete<qmi::ClientProxy::State::init(xpc::connection const&)::$_2>>::~unique_ptr[abi:ne200100](&a10);
+  va_start(va, a9);
+  std::unique_ptr<qmi::ClientProxy::State::init(xpc::connection const&)::$_2,std::default_delete<qmi::ClientProxy::State::init(xpc::connection const&)::$_2>>::~unique_ptr[abi:ne200100](va);
   std::unique_ptr<void ctu::SharedSynchronizable<qmi::ClientProxy::State>::execute_wrapped<qmi::ClientProxy::State::registerResponse(unsigned short,std::vector<unsigned char>)::$_0>(qmi::ClientProxy::State::registerResponse(unsigned short,std::vector<unsigned char>)::$_0 &&)::{lambda(void)#1},std::default_delete<qmi::ClientProxy::State::registerResponse(unsigned short,std::vector<unsigned char>)::$_0 &&>>::~unique_ptr[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
@@ -9344,38 +9297,31 @@ xpc_object_t **std::unique_ptr<qmi::ClientProxy::State::init(xpc::connection con
 
 uint64_t ___ZNK3ctu20SharedSynchronizableIN3qmi11ClientProxy5StateEE20execute_wrapped_syncIZNKS3_7isValidEvE3__0EEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 40);
   v2 = *v1;
   v3 = *(*v1 + 232);
   if (v3)
   {
     v4 = *(*v3 + 16);
-    v5 = *MEMORY[0x29EDCA608];
 
     return v4();
   }
 
   else
   {
-    v7 = *(v2 + 40);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = *(v2 + 40);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = (v2 + 48);
+      v7 = (v2 + 48);
       if (*(v2 + 71) < 0)
       {
-        v9 = *v9;
+        v7 = *v7;
       }
 
-      v11 = 136315138;
-      v12 = v9;
-      _os_log_error_impl(&dword_2962DD000, v7, OS_LOG_TYPE_ERROR, "Client: [%s], invalid fTransport when checking client validity", &v11, 0xCu);
-      v10 = *MEMORY[0x29EDCA608];
-    }
-
-    else
-    {
-      v8 = *MEMORY[0x29EDCA608];
+      v8 = 136315138;
+      v9 = v7;
+      _os_log_error_impl(&dword_2962DD000, v6, OS_LOG_TYPE_ERROR, "Client: [%s], invalid fTransport when checking client validity", &v8, 0xCu);
     }
 
     return 0;
@@ -9496,38 +9442,31 @@ uint64_t ctu::PthreadMutexGuardPolicy<ATCSAdaptiveTimer>::~PthreadMutexGuardPoli
 
 void ___ZNK3ctu20SharedSynchronizableIN3qmi11ClientProxy5StateEE20execute_wrapped_syncIZNS1_21QmiClientProxyAdapter8shutdownEvE3__0EEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS8__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 40);
   v2 = *v1;
   v3 = *(*v1 + 280);
   if (v3)
   {
     v4 = *(*v3 + 40);
-    v5 = *MEMORY[0x29EDCA608];
 
     v4();
   }
 
   else
   {
-    v6 = *(v2 + 88);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = *(v2 + 88);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = (v2 + 96);
+      v6 = (v2 + 96);
       if (*(v2 + 119) < 0)
       {
-        v8 = *v8;
+        v6 = *v6;
       }
 
-      v10 = 136315138;
-      v11 = v8;
-      _os_log_error_impl(&dword_2962DD000, v6, OS_LOG_TYPE_ERROR, "Client: [%s], invalid fTransport when shutting down", &v10, 0xCu);
-      v9 = *MEMORY[0x29EDCA608];
-    }
-
-    else
-    {
-      v7 = *MEMORY[0x29EDCA608];
+      v7 = 136315138;
+      v8 = v6;
+      _os_log_error_impl(&dword_2962DD000, v5, OS_LOG_TYPE_ERROR, "Client: [%s], invalid fTransport when shutting down", &v7, 0xCu);
     }
   }
 }
@@ -9666,9 +9605,10 @@ uint64_t ATCSDPCQueue::cancel(ATCSDPCQueue *this)
   return pthread_mutex_unlock(v7);
 }
 
-uint64_t ATCSDPCQueue::startTimer(ATCSDPCQueue *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, const char *a6)
+uint64_t ATCSDPCQueue::startTimer(ATCSDPCQueue *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, const char *a6)
 {
-  if (a2 < 0)
+  v6 = a2;
+  if ((a2 & 0x80000000) != 0)
   {
     _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/Common/Timers/ATCSDPCQueue.cpp", 0x29, "timeout", "<=", "std::numeric_limits<int>::max()", a6);
   }
@@ -9679,7 +9619,7 @@ uint64_t ATCSDPCQueue::startTimer(ATCSDPCQueue *this, int a2, uint64_t a3, uint6
   v8[2] = ATCSDPCQueue::handleTimer;
   v8[3] = 0;
 
-  return ATCSTimer::set(this, a2, v8);
+  return ATCSTimer::set(this, v6, v8);
 }
 
 uint64_t ATCSDPCQueue::handleTimer(ATCSDPCQueue *this)
@@ -9767,4 +9707,378 @@ LABEL_13:
   pthread_self();
   v17[1].__sig = 0;
   return pthread_mutex_unlock(v17);
+}
+
+void sub_2962F7100(_Unwind_Exception *a1)
+{
+  v3 = *(v1 + 56);
+  pthread_self();
+  v3[1].__sig = 0;
+  pthread_mutex_unlock(v3);
+  _Unwind_Resume(a1);
+}
+
+uint64_t ATCSDPCQueue::enqueue(ATCSDPCQueue *this, ATCSDPCQueue::Callback *a2)
+{
+  v4 = *(this + 7);
+  pthread_mutex_lock(v4);
+  v5 = pthread_self();
+  v7 = *(this + 10);
+  v6 = *(this + 11);
+  v8 = v6 - v7;
+  v4[1].__sig = v5;
+  if (v6 == v7)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    v9 = ((v6 - v7) << 6) - 1;
+  }
+
+  v11 = *(this + 13);
+  v10 = *(this + 14);
+  v12 = v10 + v11;
+  if (v9 == v10 + v11)
+  {
+    if (v11 >= 0x200)
+    {
+      *(this + 13) = v11 - 512;
+      v71 = *v7;
+      *(this + 10) = v7 + 8;
+      std::__split_buffer<qmi::ClientProxy::State::Transaction *>::emplace_back<qmi::ClientProxy::State::Transaction *&>(this + 9, &v71);
+LABEL_62:
+      v7 = *(this + 10);
+      v10 = *(this + 14);
+      v12 = *(this + 13) + v10;
+      goto LABEL_63;
+    }
+
+    v13 = *(this + 12);
+    v14 = *(this + 9);
+    if (v8 < (v13 - v14))
+    {
+      v15 = operator new(0x1000uLL);
+      if (v13 != v6)
+      {
+        *v6 = v15;
+        *(this + 11) = v6 + 8;
+        goto LABEL_62;
+      }
+
+      if (v7 != v14)
+      {
+        v26 = v7;
+LABEL_61:
+        *(v26 - 1) = v15;
+        v71 = v15;
+        *(this + 10) = v26;
+        std::__split_buffer<qmi::ClientProxy::State::Transaction *>::emplace_back<qmi::ClientProxy::State::Transaction *&>(this + 9, &v71);
+        goto LABEL_62;
+      }
+
+      if (v6 == v7)
+      {
+        v49 = 1;
+      }
+
+      else
+      {
+        v49 = (v13 - v7) >> 2;
+      }
+
+      if (!(v49 >> 61))
+      {
+        v50 = v15;
+        v51 = operator new(8 * v49);
+        v15 = v50;
+        v52 = (v49 + 3) >> 2;
+        v26 = &v51[8 * v52];
+        v53 = v26;
+        if (v6 != v7)
+        {
+          v53 = &v26[v8];
+          v54 = v6 - v7 - 8;
+          v55 = &v51[8 * v52];
+          v56 = v7;
+          if (v54 < 0x38)
+          {
+            goto LABEL_75;
+          }
+
+          v57 = &v51[8 * v52];
+          v55 = v57;
+          v56 = v7;
+          if ((v57 - v7) < 0x20)
+          {
+            goto LABEL_75;
+          }
+
+          v58 = (v54 >> 3) + 1;
+          v59 = 8 * (v58 & 0x3FFFFFFFFFFFFFFCLL);
+          v55 = &v26[v59];
+          v56 = &v7[v59];
+          v60 = (v7 + 16);
+          v61 = v57 + 16;
+          v62 = v58 & 0x3FFFFFFFFFFFFFFCLL;
+          do
+          {
+            v63 = *v60;
+            *(v61 - 1) = *(v60 - 1);
+            *v61 = v63;
+            v60 += 2;
+            v61 += 2;
+            v62 -= 4;
+          }
+
+          while (v62);
+          if (v58 != (v58 & 0x3FFFFFFFFFFFFFFCLL))
+          {
+LABEL_75:
+            do
+            {
+              v64 = *v56;
+              v56 += 8;
+              *v55 = v64;
+              v55 += 8;
+            }
+
+            while (v55 != v53);
+          }
+        }
+
+        *(this + 9) = v51;
+        *(this + 10) = v26;
+        *(this + 11) = v53;
+        *(this + 12) = &v51[8 * v49];
+        if (v7)
+        {
+          operator delete(v14);
+          v15 = v50;
+          v26 = *(this + 10);
+        }
+
+        goto LABEL_61;
+      }
+
+LABEL_71:
+      std::__throw_bad_array_new_length[abi:ne200100]();
+    }
+
+    v16 = (v13 - v14) >> 2;
+    if (v13 == v14)
+    {
+      v16 = 1;
+    }
+
+    if (v16 >> 61)
+    {
+      goto LABEL_71;
+    }
+
+    v17 = 8 * v16;
+    v18 = operator new(8 * v16);
+    v19 = operator new(0x1000uLL);
+    v20 = v19;
+    v21 = &v18[v8];
+    v22 = &v18[v17];
+    if (v8 != v17)
+    {
+      goto LABEL_16;
+    }
+
+    if (v8 >= 1)
+    {
+      v21 -= ((v8 >> 1) + 4) & 0xFFFFFFFFFFFFFFF8;
+LABEL_16:
+      *v21 = v19;
+      v23 = v21 + 8;
+      if (v6 != v7)
+      {
+        goto LABEL_30;
+      }
+
+LABEL_17:
+      v24 = v21;
+LABEL_18:
+      v25 = *(this + 9);
+      *(this + 9) = v18;
+      *(this + 10) = v24;
+      *(this + 11) = v23;
+      *(this + 12) = v22;
+      if (v25)
+      {
+        operator delete(v25);
+      }
+
+      goto LABEL_62;
+    }
+
+    if (v6 == v7)
+    {
+      v27 = 1;
+    }
+
+    else
+    {
+      v27 = v8 >> 2;
+    }
+
+    if (v27 >> 61)
+    {
+      std::__throw_bad_array_new_length[abi:ne200100]();
+    }
+
+    v21 = operator new(8 * v27);
+    v22 = &v21[8 * v27];
+    operator delete(v18);
+    v28 = *(this + 10);
+    v6 = *(this + 11);
+    v18 = v21;
+    *v21 = v20;
+    v23 = v21 + 8;
+    if (v6 == v28)
+    {
+      goto LABEL_17;
+    }
+
+LABEL_30:
+    while (v21 != v18)
+    {
+      v29 = v21;
+LABEL_29:
+      v30 = *(v6 - 1);
+      v6 -= 8;
+      *(v29 - 1) = v30;
+      v24 = v29 - 8;
+      v21 = v24;
+      if (v6 == *(this + 10))
+      {
+        goto LABEL_18;
+      }
+    }
+
+    if (v23 < v22)
+    {
+      v29 = &v18[8 * ((((v22 - v23) >> 3) + 1 + ((((v22 - v23) >> 3) + 1) >> 63)) >> 1)];
+      v32 = v23 - v18;
+      v31 = v23 == v18;
+      v23 += 8 * ((((v22 - v23) >> 3) + 1 + ((((v22 - v23) >> 3) + 1) >> 63)) >> 1);
+      if (!v31)
+      {
+        memmove(v29, v21, v32);
+      }
+
+      goto LABEL_29;
+    }
+
+    if (v22 == v18)
+    {
+      v33 = 1;
+    }
+
+    else
+    {
+      v33 = (v22 - v18) >> 2;
+    }
+
+    if (v33 >> 61)
+    {
+      std::__throw_bad_array_new_length[abi:ne200100]();
+    }
+
+    v34 = operator new(8 * v33);
+    v35 = v34;
+    v36 = (v33 + 3) >> 2;
+    v29 = &v34[8 * v36];
+    v37 = v23 - v18;
+    v31 = v23 == v18;
+    v23 = v29;
+    if (!v31)
+    {
+      v23 = &v29[v37];
+      v38 = v37 - 8;
+      if (v38 >= 0x18 && (v39 = 8 * v36, (&v34[8 * v36] - v21) >= 0x20))
+      {
+        v43 = (v38 >> 3) + 1;
+        v44 = 8 * (v43 & 0x3FFFFFFFFFFFFFFCLL);
+        v40 = &v29[v44];
+        v41 = &v21[v44];
+        v45 = (v21 + 16);
+        v46 = &v34[v39 + 16];
+        v47 = v43 & 0x3FFFFFFFFFFFFFFCLL;
+        do
+        {
+          v48 = *v45;
+          *(v46 - 1) = *(v45 - 1);
+          *v46 = v48;
+          v45 += 2;
+          v46 += 32;
+          v47 -= 4;
+        }
+
+        while (v47);
+        if (v43 == (v43 & 0x3FFFFFFFFFFFFFFCLL))
+        {
+          goto LABEL_43;
+        }
+      }
+
+      else
+      {
+        v40 = &v34[8 * v36];
+        v41 = v21;
+      }
+
+      do
+      {
+        v42 = *v41;
+        v41 += 8;
+        *v40 = v42;
+        v40 += 8;
+      }
+
+      while (v40 != v23);
+    }
+
+LABEL_43:
+    v22 = &v34[8 * v33];
+    operator delete(v18);
+    v18 = v35;
+    goto LABEL_29;
+  }
+
+LABEL_63:
+  *(*&v7[(v12 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v12 & 0x1FF)) = a2;
+  *(this + 14) = v10 + 1;
+  if (*(this + 64))
+  {
+    v65 = *(this + 7);
+    pthread_self();
+    v65[1].__sig = 0;
+    return pthread_mutex_unlock(v65);
+  }
+
+  else
+  {
+    *(this + 64) = 1;
+    v67 = *(this + 7);
+    pthread_self();
+    v67[1].__sig = 0;
+    pthread_mutex_unlock(v67);
+    v69 = (*(*a2 + 24))(a2);
+    if (v69 < 0)
+    {
+      _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/Common/Timers/ATCSDPCQueue.cpp", 0x29, "timeout", "<=", "std::numeric_limits<int>::max()", v68);
+    }
+
+    v70 = operator new(0x20uLL);
+    *v70 = &unk_2A1D480D8;
+    v70[1] = this;
+    v70[2] = ATCSDPCQueue::handleTimer;
+    v70[3] = 0;
+
+    return ATCSTimer::set(this, v69, v70);
+  }
 }

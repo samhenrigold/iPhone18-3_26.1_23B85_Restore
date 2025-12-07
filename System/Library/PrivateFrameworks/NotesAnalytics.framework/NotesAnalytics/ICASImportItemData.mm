@@ -24,8 +24,8 @@
 
 - (id)toDict
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"importFileType";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"importFileType";
   importFileType = [(ICASImportItemData *)self importFileType];
   if (importFileType)
   {
@@ -38,8 +38,8 @@
   }
 
   v5 = importFileType2;
-  v12[1] = @"importItemCount";
-  v13[0] = importFileType2;
+  v11[1] = @"importItemCount";
+  v12[0] = importFileType2;
   importItemCount = [(ICASImportItemData *)self importItemCount];
   if (importItemCount)
   {
@@ -52,10 +52,8 @@
   }
 
   v8 = importItemCount2;
-  v13[1] = importItemCount2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = importItemCount2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }

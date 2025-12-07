@@ -67,34 +67,34 @@
   return Serial;
 }
 
-uint64_t __36__BKIOHIDService__serviceWasRemoved__block_invoke(uint64_t result)
+void *__36__BKIOHIDService__serviceWasRemoved__block_invoke(void *result)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
+  v19 = *MEMORY[0x277D85DE8];
+  v1 = *(result + 4);
   if (v1)
   {
-    [*(result + 32) _workQueue_stopIOServiceRemovalNotifications];
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
+    [*(result + 4) _workQueue_stopIOServiceRemovalNotifications];
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v2 = *(v1 + 48);
-    v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v16;
+      v5 = *v15;
       do
       {
         v6 = 0;
         do
         {
-          if (*v16 != v5)
+          if (*v15 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v15 + 1) + 8 * v6);
+          v7 = *(*(&v14 + 1) + 8 * v6);
           if (v7)
           {
             WeakRetained = objc_loadWeakRetained(&v7[1].isa);
@@ -111,14 +111,14 @@ uint64_t __36__BKIOHIDService__serviceWasRemoved__block_invoke(uint64_t result)
 
             if (!v9)
             {
-              v12[0] = MEMORY[0x277D85DD0];
-              v12[1] = 3221225472;
-              v12[2] = __46__BKIOHIDService__workQueue_serviceWasRemoved__block_invoke;
-              v12[3] = &unk_2784F7270;
+              v11[0] = MEMORY[0x277D85DD0];
+              v11[1] = 3221225472;
+              v11[2] = __46__BKIOHIDService__workQueue_serviceWasRemoved__block_invoke;
+              v11[3] = &unk_2784F7270;
               WeakRetained = WeakRetained;
-              v13 = WeakRetained;
-              v14 = v1;
-              dispatch_async(v7, v12);
+              v12 = WeakRetained;
+              v13 = v1;
+              dispatch_async(v7, v11);
             }
           }
 
@@ -131,17 +131,16 @@ uint64_t __36__BKIOHIDService__serviceWasRemoved__block_invoke(uint64_t result)
         }
 
         while (v4 != v6);
-        v10 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
         v4 = v10;
       }
 
       while (v10);
     }
 
-    result = [*(v1 + 48) removeAllObjects];
+    return [*(v1 + 48) removeAllObjects];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -205,7 +204,7 @@ LABEL_6:
 
 - (void)_setUpInitialProperties
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = [(BKIOHIDService *)self propertyForKey:@"displayUUID"];
   v4 = [v3 copy];
   displayUUID = self->_displayUUID;
@@ -321,10 +320,10 @@ LABEL_84:
       }
     }
 
-    v34 = [(BKIOHIDService *)selfCopy propertyForKey:@"AppleBluetoothRemote"];
-    if (v34 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v33 = [(BKIOHIDService *)selfCopy propertyForKey:@"AppleBluetoothRemote"];
+    if (v33 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      bOOLValue = [v34 BOOLValue];
+      bOOLValue = [v33 BOOLValue];
 
       if (bOOLValue)
       {
@@ -493,11 +492,11 @@ LABEL_46:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       primaryUsage = self->_primaryUsage;
-      v36[0] = 67109378;
-      v36[1] = primaryUsage;
-      v37 = 2114;
+      v35[0] = 67109378;
+      v35[1] = primaryUsage;
+      v36 = 2114;
       selfCopy2 = self;
-      _os_log_error_impl(&dword_223CBE000, v28, OS_LOG_TYPE_ERROR, "strangeness: primary page is zero; primary usage is:%X %{public}@", v36, 0x12u);
+      _os_log_error_impl(&dword_223CBE000, v28, OS_LOG_TYPE_ERROR, "strangeness: primary page is zero; primary usage is:%X %{public}@", v35, 0x12u);
     }
   }
 
@@ -516,8 +515,6 @@ LABEL_46:
     senderDescriptorForKeyboardEvents = self->_senderDescriptorForKeyboardEvents;
     self->_senderDescriptorForKeyboardEvents = v31;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_workQueue_startIOServiceRemovalNotifications
@@ -528,9 +525,7 @@ LABEL_46:
   if (!self->_workQueue_removalNotification)
   {
     objc_storeStrong(&self->_strongSelf, self);
-    IOHIDService = self->_IOHIDService;
     self->_workQueue_removalNotification = IOHIDServiceCreateRemovalNotification();
-    v5 = self->_IOHIDService;
     self->_workQueue_willTerminateNotification = IOHIDServiceCreateRequestTerminationNotification();
   }
 }
@@ -560,10 +555,7 @@ LABEL_46:
 
 uint64_t __41__BKIOHIDService__disappearanceObservers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 48) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 48) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -669,7 +661,7 @@ uint64_t __41__BKIOHIDService__disappearanceObservers__block_invoke(uint64_t a1)
 
 void __46__BKIOHIDService_removeDisappearanceObserver___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v1)
@@ -677,27 +669,27 @@ void __46__BKIOHIDService_removeDisappearanceObserver___block_invoke(uint64_t a1
     v3 = [(BKIOHIDService *)v1 _workQueue];
     dispatch_assert_queue_V2(v3);
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v4 = v1[6];
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         v8 = 0;
         do
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * v8);
+          v9 = *(*(&v13 + 1) + 8 * v8);
           if (v9)
           {
             WeakRetained = objc_loadWeakRetained(v9 + 1);
@@ -717,7 +709,7 @@ void __46__BKIOHIDService_removeDisappearanceObserver___block_invoke(uint64_t a1
               goto LABEL_17;
             }
 
-            [v1[6] removeObject:{v12, v14}];
+            [v1[6] removeObject:{v12, v13}];
             goto LABEL_18;
           }
 
@@ -725,7 +717,7 @@ void __46__BKIOHIDService_removeDisappearanceObserver___block_invoke(uint64_t a1
         }
 
         while (v6 != v8);
-        v11 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v11 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
         v6 = v11;
         if (v11)
         {
@@ -744,8 +736,6 @@ LABEL_18:
       [v1 _workQueue_stopIOServiceRemovalNotifications];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDisappearanceObserver:(id)observer queue:(id)queue
@@ -824,36 +814,30 @@ void __49__BKIOHIDService_addDisappearanceObserver_queue___block_invoke(uint64_t
   dispatch_async(_workQueue, block);
 }
 
-void __53__BKIOHIDService_setElementValue_forUsagePage_usage___block_invoke(uint64_t a1)
+void __53__BKIOHIDService_setElementValue_forUsagePage_usage___block_invoke(_DWORD *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = *(*(a1 + 32) + 96);
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 44);
-  v5 = *(a1 + 48);
-  v6 = IOHIDServiceSetElementValue();
-  if (v6)
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = IOHIDServiceSetElementValue();
+  if (v2)
   {
-    v7 = v6;
-    v8 = BKLogHID();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v3 = v2;
+    v4 = BKLogHID();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 44);
-      v10 = *(a1 + 48);
-      v12 = *(a1 + 40);
-      v13[0] = 67109888;
-      v13[1] = v10;
-      v14 = 1024;
-      v15 = v12;
-      v16 = 1024;
-      v17 = v11;
-      v18 = 1024;
-      v19 = v7;
-      _os_log_error_impl(&dword_223CBE000, v8, OS_LOG_TYPE_ERROR, "setElementValue:(%X) page:%X usage:%X failed:%X", v13, 0x1Au);
+      v6 = a1[11];
+      v5 = a1[12];
+      v7 = a1[10];
+      v8[0] = 67109888;
+      v8[1] = v5;
+      v9 = 1024;
+      v10 = v7;
+      v11 = 1024;
+      v12 = v6;
+      v13 = 1024;
+      v14 = v3;
+      _os_log_error_impl(&dword_223CBE000, v4, OS_LOG_TYPE_ERROR, "setElementValue:(%X) page:%X usage:%X failed:%X", v8, 0x1Au);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)asyncSetProperties:(id)properties
@@ -918,17 +902,14 @@ void __61__BKIOHIDService_asyncSetProperty_forKey_andDelayForSeconds___block_inv
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v7 = WeakRetained;
-    v3 = WeakRetained[12];
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
+    v4 = WeakRetained;
     IOHIDServiceSetProperty();
-    WeakRetained = v7;
-    v6 = *(a1 + 56);
-    if (v6 > 0.0)
+    WeakRetained = v4;
+    v3 = *(a1 + 56);
+    if (v3 > 0.0)
     {
-      usleep((v6 * 1000000.0));
-      WeakRetained = v7;
+      usleep((v3 * 1000000.0));
+      WeakRetained = v4;
     }
   }
 }
@@ -988,19 +969,16 @@ uint64_t __32__BKIOHIDService_setProperties___block_invoke(uint64_t a1)
   return self;
 }
 
-uint64_t __37__BKIOHIDService_setProperty_forKey___block_invoke(void *a1)
+uint64_t __37__BKIOHIDService_setProperty_forKey___block_invoke(uint64_t a1)
 {
-  v2 = a1[5];
-  v3 = *(a1[4] + 96);
-  v4 = a1[6];
   result = IOHIDServiceSetProperty();
-  *(*(a1[7] + 8) + 24) = result != 0;
+  *(*(*(a1 + 56) + 8) + 24) = result != 0;
   return result;
 }
 
 - (id)propertyOfClass:(Class)class forKey:(id)key
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v7 = [(BKIOHIDService *)self propertyForKey:keyCopy];
   if (v7 && (objc_opt_isKindOfClass() & 1) == 0)
@@ -1008,20 +986,18 @@ uint64_t __37__BKIOHIDService_setProperty_forKey___block_invoke(void *a1)
     v8 = BKLogHID();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138543874;
-      v13 = keyCopy;
-      v14 = 2114;
+      v11 = 138543874;
+      v12 = keyCopy;
+      v13 = 2114;
       classCopy = class;
-      v16 = 2114;
-      v17 = objc_opt_class();
-      v11 = v17;
-      _os_log_error_impl(&dword_223CBE000, v8, OS_LOG_TYPE_ERROR, "expected %{public}@ to be of class kind %{public}@, got %{public}@ instead", &v12, 0x20u);
+      v15 = 2114;
+      v16 = objc_opt_class();
+      v10 = v16;
+      _os_log_error_impl(&dword_223CBE000, v8, OS_LOG_TYPE_ERROR, "expected %{public}@ to be of class kind %{public}@, got %{public}@ instead", &v11, 0x20u);
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1054,12 +1030,7 @@ uint64_t __37__BKIOHIDService_setProperty_forKey___block_invoke(void *a1)
 
 uint64_t __33__BKIOHIDService_propertyForKey___block_invoke(void *a1)
 {
-  v2 = a1[5];
-  v3 = *(a1[4] + 96);
-  v4 = IOHIDServiceGetProperty();
-  v5 = *(a1[6] + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  *(*(a1[6] + 8) + 40) = IOHIDServiceGetProperty();
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1076,116 +1047,112 @@ uint64_t __33__BKIOHIDService_propertyForKey___block_invoke(void *a1)
 {
   usageCopy = usage;
   pageCopy = page;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (self->_primaryUsagePage == page && self->_primaryUsage == usage)
   {
-    v6 = 1;
+    return 1;
   }
 
-  else
+  [(BKIOHIDService *)self propertyForKey:@"DeviceUsagePairs"];
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  obj = v34 = 0u;
+  v7 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  if (v7)
   {
-    [(BKIOHIDService *)self propertyForKey:@"DeviceUsagePairs"];
-    v32 = 0u;
-    v33 = 0u;
-    v34 = 0u;
-    obj = v35 = 0u;
-    v7 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
-    if (v7)
+    v8 = v7;
+    v29 = usageCopy;
+    v9 = *v32;
+    while (2)
     {
-      v8 = v7;
-      v30 = usageCopy;
-      v9 = *v33;
-      while (2)
+      for (i = 0; i != v8; ++i)
       {
-        for (i = 0; i != v8; ++i)
+        if (*v32 != v9)
         {
-          if (*v33 != v9)
-          {
-            objc_enumerationMutation(obj);
-          }
+          objc_enumerationMutation(obj);
+        }
 
-          v11 = *(*(&v32 + 1) + 8 * i);
-          v12 = objc_opt_class();
-          v13 = v11;
-          if (v12)
+        v11 = *(*(&v31 + 1) + 8 * i);
+        v12 = objc_opt_class();
+        v13 = v11;
+        if (v12)
+        {
+          if (objc_opt_isKindOfClass())
           {
-            if (objc_opt_isKindOfClass())
-            {
-              v14 = v13;
-            }
-
-            else
-            {
-              v14 = 0;
-            }
+            v14 = v13;
           }
 
           else
           {
             v14 = 0;
           }
+        }
 
-          v15 = v14;
+        else
+        {
+          v14 = 0;
+        }
 
-          if (v15)
+        v15 = v14;
+
+        if (v15)
+        {
+          v16 = [v15 objectForKeyedSubscript:@"DeviceUsagePage"];
+          v17 = objc_opt_class();
+          v18 = v16;
+          if (v17)
           {
-            v16 = [v15 objectForKeyedSubscript:@"DeviceUsagePage"];
-            v17 = objc_opt_class();
-            v18 = v16;
-            if (v17)
-            {
-              v19 = (objc_opt_isKindOfClass() & 1) != 0 ? v18 : 0;
-            }
+            v19 = (objc_opt_isKindOfClass() & 1) != 0 ? v18 : 0;
+          }
 
-            else
-            {
-              v19 = 0;
-            }
+          else
+          {
+            v19 = 0;
+          }
 
-            v20 = v19;
+          v20 = v19;
 
-            v21 = [v15 objectForKeyedSubscript:@"DeviceUsage"];
-            v22 = objc_opt_class();
-            v23 = v21;
-            if (v22)
-            {
-              v24 = (objc_opt_isKindOfClass() & 1) != 0 ? v23 : 0;
-            }
+          v21 = [v15 objectForKeyedSubscript:@"DeviceUsage"];
+          v22 = objc_opt_class();
+          v23 = v21;
+          if (v22)
+          {
+            v24 = (objc_opt_isKindOfClass() & 1) != 0 ? v23 : 0;
+          }
 
-            else
-            {
-              v24 = 0;
-            }
+          else
+          {
+            v24 = 0;
+          }
 
-            v25 = v24;
+          v25 = v24;
 
-            intValue = [v20 intValue];
-            intValue2 = [v25 intValue];
+          intValue = [v20 intValue];
+          intValue2 = [v25 intValue];
 
-            if (pageCopy == intValue && intValue2 == v30)
-            {
+          if (pageCopy == intValue && intValue2 == v29)
+          {
 
-              v6 = 1;
-              goto LABEL_31;
-            }
+            v6 = 1;
+            goto LABEL_31;
           }
         }
-
-        v8 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
-        if (v8)
-        {
-          continue;
-        }
-
-        break;
       }
-    }
 
-    v6 = 0;
-LABEL_31:
+      v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      if (v8)
+      {
+        continue;
+      }
+
+      break;
+    }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+LABEL_31:
+
   return v6;
 }
 
@@ -1221,18 +1188,17 @@ LABEL_31:
   v10 = [succinctDescriptionBuilder appendObject:v9 withName:@"senderID"];
 
   v11 = [succinctDescriptionBuilder appendObject:self->_displayUUID withName:@"displayUUID"];
-  eventSource = self->_eventSource;
-  v13 = NSStringFromBKSHIDEventSource();
-  v14 = [succinctDescriptionBuilder appendObject:v13 withName:@"eventSource"];
+  v12 = NSStringFromBKSHIDEventSource();
+  v13 = [succinctDescriptionBuilder appendObject:v12 withName:@"eventSource"];
 
-  v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"0x%X", self->_primaryUsagePage];
-  v16 = [succinctDescriptionBuilder appendObject:v15 withName:@"primaryUsagePage"];
+  v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"0x%X", self->_primaryUsagePage];
+  v15 = [succinctDescriptionBuilder appendObject:v14 withName:@"primaryUsagePage"];
 
-  v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"0x%X", self->_primaryUsage];
-  v18 = [succinctDescriptionBuilder appendObject:v17 withName:@"primaryUsage"];
+  v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"0x%X", self->_primaryUsage];
+  v17 = [succinctDescriptionBuilder appendObject:v16 withName:@"primaryUsage"];
 
-  v19 = [succinctDescriptionBuilder appendBool:self->_authenticated withName:@"authenticated"];
-  v20 = [succinctDescriptionBuilder appendBool:self->_builtIn withName:@"builtIn"];
+  v18 = [succinctDescriptionBuilder appendBool:self->_authenticated withName:@"authenticated"];
+  v19 = [succinctDescriptionBuilder appendBool:self->_builtIn withName:@"builtIn"];
 
   return succinctDescriptionBuilder;
 }
@@ -1255,39 +1221,39 @@ LABEL_31:
 
 - (BKIOHIDService)initWithHIDServiceRef:(__IOHIDService *)ref
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (!ref)
   {
-    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"hidService"];
+    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"hidService"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v11 = NSStringFromSelector(a2);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v10 = NSStringFromSelector(a2);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       *buf = 138544642;
-      v16 = v11;
-      v17 = 2114;
-      v18 = v13;
-      v19 = 2048;
+      v15 = v10;
+      v16 = 2114;
+      v17 = v12;
+      v18 = 2048;
       selfCopy = self;
-      v21 = 2114;
-      v22 = @"BKIOHIDService.m";
-      v23 = 1024;
-      v24 = 240;
-      v25 = 2114;
-      v26 = v10;
+      v20 = 2114;
+      v21 = @"BKIOHIDService.m";
+      v22 = 1024;
+      v23 = 240;
+      v24 = 2114;
+      v25 = v9;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v10 UTF8String];
+    [v9 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CDB4D4);
   }
 
-  v14.receiver = self;
-  v14.super_class = BKIOHIDService;
-  v5 = [(BKIOHIDService *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = BKIOHIDService;
+  v5 = [(BKIOHIDService *)&v13 init];
   if (v5)
   {
     CFRetain(ref);
@@ -1297,7 +1263,6 @@ LABEL_31:
     [(BKIOHIDService *)v5 _setUpInitialProperties];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

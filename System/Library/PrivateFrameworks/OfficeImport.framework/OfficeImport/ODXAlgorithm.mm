@@ -11,7 +11,7 @@
   v2 = +[ODXAlgorithm typeMap]::typeMap;
   if (!+[ODXAlgorithm typeMap]::typeMap)
   {
-    if ((atomic_load_explicit(&_MergedGlobals_53, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(_MergedGlobals_53, memory_order_acquire) & 1) == 0)
     {
       +[ODXAlgorithm typeMap];
     }
@@ -35,7 +35,7 @@
 
 + (void)typeMap
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_53))
+  if (__cxa_guard_acquire(_MergedGlobals_53))
   {
     qword_27FC3F1E8 = "unknown";
     dword_27FC3F1F0 = 1;
@@ -61,7 +61,7 @@
     qword_27FC3F288 = "snake";
     *algn_27FC3F290 = TCXmlEnumSentinel;
 
-    __cxa_guard_release(&_MergedGlobals_53);
+    __cxa_guard_release(_MergedGlobals_53);
   }
 }
 

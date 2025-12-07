@@ -184,43 +184,24 @@
   download = [(BACloudKitDownloadManager *)self download];
   applicationInfo = [download applicationInfo];
 
-  if (!applicationInfo)
+  v14 = 1;
+  if (applicationInfo)
   {
-    goto LABEL_5;
-  }
+    download2 = [(BACloudKitDownloadManager *)self download];
+    applicationInfo2 = [download2 applicationInfo];
+    download3 = [(BACloudKitDownloadManager *)self download];
+    v9 = [applicationInfo2 remainingDownloadAllowanceWithNecessity:{objc_msgSend(download3, "necessity")}];
 
-  download2 = [(BACloudKitDownloadManager *)self download];
-  applicationInfo2 = [download2 applicationInfo];
-  download3 = [(BACloudKitDownloadManager *)self download];
-  v9 = [applicationInfo2 remainingDownloadAllowanceWithNecessity:{objc_msgSend(download3, "necessity")}];
-
-  if (!v9)
-  {
-    goto LABEL_4;
-  }
-
-  download4 = [(BACloudKitDownloadManager *)self download];
-  applicationInfo3 = [download4 applicationInfo];
-  assetSize = [(BACloudKitDownloadManager *)self assetSize];
-  download5 = [(BACloudKitDownloadManager *)self download];
-  LOBYTE(assetSize) = [applicationInfo3 consumeAllowanceShouldStopWithAdditionalBytes:assetSize downloadNecessity:objc_msgSend(download5 isManifest:{"necessity"), 0}];
-
-  if (assetSize)
-  {
-LABEL_4:
-    v14 = 0;
-  }
-
-  else
-  {
-LABEL_5:
-    v14 = 1;
+    if (!v9 || (-[BACloudKitDownloadManager download](self, "download"), v10 = objc_claimAutoreleasedReturnValue(), [v10 applicationInfo], v11 = objc_claimAutoreleasedReturnValue(), v12 = -[BACloudKitDownloadManager assetSize](self, "assetSize"), -[BACloudKitDownloadManager download](self, "download"), v13 = objc_claimAutoreleasedReturnValue(), LOBYTE(v12) = objc_msgSend(v11, "consumeAllowanceShouldStopWithAdditionalBytes:downloadNecessity:isManifest:", v12, objc_msgSend(v13, "necessity"), 0), v13, v11, v10, (v12 & 1) != 0))
+    {
+      v14 = 0;
+    }
   }
 
   stateLock2 = [(BACloudKitDownloadManager *)self stateLock];
   [stateLock2 unlock];
 
-  return v14 & 1;
+  return v14;
 }
 
 - (void)_downloadActualAsset

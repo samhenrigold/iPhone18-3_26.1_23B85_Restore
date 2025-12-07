@@ -1,6 +1,7 @@
 @interface HDCodableBloodPressureJournalScheduleTimeInterval
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)dayWindowTypeAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (int)StringAsDayWindowType:(id)type;
@@ -24,6 +25,29 @@
   {
     return 0;
   }
+}
+
+- (id)dayWindowTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"BedTime";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"WakeUp";
+  }
+
+  return v4;
 }
 
 - (int)StringAsDayWindowType:(id)type
@@ -94,18 +118,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    dayWindowType = self->_dayWindowType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_scheduledTime)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -151,7 +174,6 @@
     goto LABEL_9;
   }
 
-  v5 = *(equalCopy + 24);
   if (*&self->_has)
   {
     if ((*(equalCopy + 24) & 1) == 0 || self->_dayWindowType != *(equalCopy + 2))
@@ -163,24 +185,24 @@
   else if (*(equalCopy + 24))
   {
 LABEL_9:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
   scheduledTime = self->_scheduledTime;
   if (scheduledTime | *(equalCopy + 2))
   {
-    v7 = [(HDCodableDateComponents *)scheduledTime isEqual:?];
+    v6 = [(HDCodableDateComponents *)scheduledTime isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_10:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash
@@ -212,18 +234,30 @@ LABEL_10:
   v7 = *(v5 + 2);
   if (scheduledTime)
   {
-    if (v7)
+    if (!v7)
     {
-      [(HDCodableDateComponents *)scheduledTime mergeFrom:?];
+      goto LABEL_9;
     }
+
+    v8 = v5;
+    scheduledTime = [(HDCodableDateComponents *)scheduledTime mergeFrom:?];
   }
 
-  else if (v7)
+  else
   {
-    [(HDCodableBloodPressureJournalScheduleTimeInterval *)self setScheduledTime:?];
+    if (!v7)
+    {
+      goto LABEL_9;
+    }
+
+    v8 = v5;
+    scheduledTime = [(HDCodableBloodPressureJournalScheduleTimeInterval *)self setScheduledTime:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  v5 = v8;
+LABEL_9:
+
+  MEMORY[0x2821F96F8](scheduledTime, v5);
 }
 
 @end

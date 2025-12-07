@@ -10,17 +10,18 @@
 {
   v4 = MEMORY[0x277D1AE20];
   clockCopy = clock;
-  v6 = +[_TSF_TSDgPTPClock iokitMatchingDictionaryForClockIdentifier:](_TSF_TSDgPTPClock, "iokitMatchingDictionaryForClockIdentifier:", [clockCopy clockIdentity]);
-  v7 = [v4 matchingService:v6];
+  [clockCopy clockIdentity];
+  v6 = [_TSF_TSDgPTPClock iokitMatchingDictionaryForClockIdentifier:?];
+  v7 = [v4 matchingService:?];
 
   iodProperties = [v7 iodProperties];
   clockIdentity = [clockCopy clockIdentity];
 
   self->_clockIdentity = clockIdentity;
-  v10 = [iodProperties objectForKeyedSubscript:@"GrandmasterChangesCounter"];
+  v10 = [iodProperties objectForKeyedSubscript:?];
   if (v10)
   {
-    v11 = [iodProperties objectForKeyedSubscript:@"GrandmasterChangesCounter"];
+    v11 = [iodProperties objectForKeyedSubscript:?];
     self->_gmChangesCount = [v11 unsignedIntValue];
   }
 
@@ -29,10 +30,10 @@
     self->_gmChangesCount = 0;
   }
 
-  v12 = [iodProperties objectForKeyedSubscript:@"TimeToChangeGrandmaster"];
+  v12 = [iodProperties objectForKeyedSubscript:?];
   if (v12)
   {
-    v13 = [iodProperties objectForKeyedSubscript:@"TimeToChangeGrandmaster"];
+    v13 = [iodProperties objectForKeyedSubscript:?];
     self->_timeToChangeGm = [v13 unsignedLongLongValue];
   }
 
@@ -41,10 +42,10 @@
     self->_timeToChangeGm = 0;
   }
 
-  v14 = [iodProperties objectForKeyedSubscript:@"TimeToLock"];
+  v14 = [iodProperties objectForKeyedSubscript:?];
   if (v14)
   {
-    v15 = [iodProperties objectForKeyedSubscript:@"TimeToLock"];
+    v15 = [iodProperties objectForKeyedSubscript:?];
     self->_timeToLock = [v15 unsignedLongLongValue];
   }
 
@@ -53,10 +54,10 @@
     self->_timeToLock = 0;
   }
 
-  v16 = [iodProperties objectForKeyedSubscript:@"CoreAudioReanchors"];
+  v16 = [iodProperties objectForKeyedSubscript:?];
   if (v16)
   {
-    v17 = [iodProperties objectForKeyedSubscript:@"CoreAudioReanchors"];
+    v17 = [iodProperties objectForKeyedSubscript:?];
     self->_coreAudioReanchors = [v17 unsignedIntValue];
   }
 
@@ -80,15 +81,15 @@
 - (id)getDelta:(id)delta
 {
   deltaCopy = delta;
-  v5 = objc_alloc_init(_TSF_TSDClockMetrics);
-  [(_TSF_TSDClockMetrics *)v5 setClockIdentity:self->_clockIdentity];
-  -[_TSF_TSDClockMetrics setGmChangesCount:](v5, "setGmChangesCount:", self->_gmChangesCount - [deltaCopy gmChangesCount]);
-  coreAudioReanchors = self->_coreAudioReanchors;
-  coreAudioReanchors = [deltaCopy coreAudioReanchors];
+  v4 = objc_alloc_init(_TSF_TSDClockMetrics);
+  [(_TSF_TSDClockMetrics *)v4 setClockIdentity:?];
+  [deltaCopy gmChangesCount];
+  [(_TSF_TSDClockMetrics *)v4 setGmChangesCount:?];
+  [deltaCopy coreAudioReanchors];
 
-  [(_TSF_TSDClockMetrics *)v5 setCoreAudioReanchors:coreAudioReanchors - coreAudioReanchors];
+  [(_TSF_TSDClockMetrics *)v4 setCoreAudioReanchors:?];
 
-  return v5;
+  return v4;
 }
 
 @end

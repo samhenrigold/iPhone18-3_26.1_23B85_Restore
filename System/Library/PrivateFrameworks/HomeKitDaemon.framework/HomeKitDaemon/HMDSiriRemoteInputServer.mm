@@ -21,27 +21,27 @@
 
 - (id)sessionForIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   siriSessions = [(HMDSiriRemoteInputServer *)self siriSessions];
-  v6 = [siriSessions countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [siriSessions countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(siriSessions);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [identifier isEqual:identifierCopy];
 
@@ -52,7 +52,7 @@
         }
       }
 
-      v6 = [siriSessions countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [siriSessions countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -63,8 +63,6 @@
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -123,7 +121,7 @@ LABEL_11:
 
 - (void)handleCheckInMsg:(id)msg
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   msgCopy = msg;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -131,18 +129,17 @@ LABEL_11:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Siri checked in", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Siri checked in", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMsg:(id)msg args:(id)args
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   msgCopy = msg;
   argsCopy = args;
   v8 = xpc_dictionary_create(0, 0, 0);
@@ -160,25 +157,23 @@ LABEL_11:
   {
     v13 = HMFGetLogIdentifier();
     xpcConnection = [(HMDSiriRemoteInputServer *)selfCopy xpcConnection];
-    v17 = 138543874;
-    v18 = v13;
-    v19 = 2048;
-    v20 = xpcConnection;
-    v21 = 2112;
-    v22 = v8;
-    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Sending Siri XPC message to %p: %@", &v17, 0x20u);
+    v16 = 138543874;
+    v17 = v13;
+    v18 = 2048;
+    v19 = xpcConnection;
+    v20 = 2112;
+    v21 = v8;
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Sending Siri XPC message to %p: %@", &v16, 0x20u);
   }
 
   objc_autoreleasePoolPop(v10);
   xpcConnection2 = [(HMDSiriRemoteInputServer *)selfCopy xpcConnection];
   xpc_connection_send_message(xpcConnection2, v8);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMsgIfCheckedIn:(id)in args:(id)args
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   inCopy = in;
   argsCopy = args;
   xpcConnection = [(HMDSiriRemoteInputServer *)self xpcConnection];
@@ -196,20 +191,18 @@ LABEL_11:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Cannot send; no XPC client is checked in yet", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Cannot send; no XPC client is checked in yet", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMsg:(id)msg
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   msgCopy = msg;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -218,13 +211,13 @@ LABEL_11:
   {
     v8 = HMFGetLogIdentifier();
     xpcConnection = [(HMDSiriRemoteInputServer *)selfCopy xpcConnection];
-    v20 = 138543874;
-    v21 = v8;
-    v22 = 2048;
-    v23 = xpcConnection;
-    v24 = 2112;
-    v25 = msgCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received Siri XPC message to %p: %@", &v20, 0x20u);
+    v19 = 138543874;
+    v20 = v8;
+    v21 = 2048;
+    v22 = xpcConnection;
+    v23 = 2112;
+    v24 = msgCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received Siri XPC message to %p: %@", &v19, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -267,22 +260,20 @@ LABEL_11:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v18;
-      v22 = 2080;
-      v23 = string;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unexpected message: '%s'", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v18;
+      v21 = 2080;
+      v22 = string;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unexpected message: '%s'", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleConnectionEvent:(id)event
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = MEMORY[0x22AAD53D0]();
   if (v5 != MEMORY[0x277D86468])
@@ -304,10 +295,10 @@ LABEL_11:
       }
 
       v9 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v9;
-      v14 = 2112;
-      v15 = eventCopy;
+      v11 = 138543618;
+      v12 = v9;
+      v13 = 2112;
+      v14 = eventCopy;
       v10 = "%{public}@Siri XPC connection error: %@";
     }
 
@@ -325,27 +316,25 @@ LABEL_10:
       }
 
       v9 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v9;
-      v14 = 2112;
-      v15 = eventCopy;
+      v11 = 138543618;
+      v12 = v9;
+      v13 = 2112;
+      v14 = eventCopy;
       v10 = "%{public}@Unexpected Siri XPC connection event: %@";
     }
 
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, v10, &v12, 0x16u);
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, v10, &v11, 0x16u);
 
     goto LABEL_10;
   }
 
   [(HMDSiriRemoteInputServer *)self handleMsg:eventCopy];
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDisconnection
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -354,38 +343,38 @@ LABEL_11:
     v6 = HMFGetLogIdentifier();
     xpcConnection = [(HMDSiriRemoteInputServer *)selfCopy xpcConnection];
     *buf = 138543618;
-    v21 = v6;
-    v22 = 2112;
-    v23 = xpcConnection;
+    v20 = v6;
+    v21 = 2112;
+    v22 = xpcConnection;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Siri received disconnect on XPC connection: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   siriSessions = [(HMDSiriRemoteInputServer *)selfCopy siriSessions];
-  v9 = [siriSessions countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [siriSessions countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(siriSessions);
         }
 
-        [*(*(&v15 + 1) + 8 * v12++) handleResetStream];
+        [*(*(&v14 + 1) + 8 * v12++) handleResetStream];
       }
 
       while (v10 != v12);
-      v10 = [siriSessions countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [siriSessions countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
@@ -394,13 +383,11 @@ LABEL_11:
   [(HMDSiriRemoteInputServer *)selfCopy setXpcConnection:0];
   xpcServer = [(HMDSiriRemoteInputServer *)selfCopy xpcServer];
   xpc_connection_resume(xpcServer);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleConnection:(id)connection
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v5 = xpc_connection_copy_entitlement_value();
   v6 = v5;
@@ -413,11 +400,11 @@ LABEL_11:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v33 = v10;
-      v34 = 2048;
-      v35 = connectionCopy;
-      v36 = 2112;
-      v37 = connectionCopy;
+      v32 = v10;
+      v33 = 2048;
+      v34 = connectionCopy;
+      v35 = 2112;
+      v36 = connectionCopy;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Siri received incoming XPC connection: %p %@", buf, 0x20u);
     }
 
@@ -441,31 +428,31 @@ LABEL_11:
     xpcConnection3 = [(HMDSiriRemoteInputServer *)selfCopy xpcConnection];
     xpc_connection_resume(xpcConnection3);
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     siriSessions = [(HMDSiriRemoteInputServer *)selfCopy siriSessions];
-    v17 = [siriSessions countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v17 = [siriSessions countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v27;
+      v19 = *v26;
       do
       {
         v20 = 0;
         do
         {
-          if (*v27 != v19)
+          if (*v26 != v19)
           {
             objc_enumerationMutation(siriSessions);
           }
 
-          [*(*(&v26 + 1) + 8 * v20++) publish];
+          [*(*(&v25 + 1) + 8 * v20++) publish];
         }
 
         while (v18 != v20);
-        v18 = [siriSessions countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v18 = [siriSessions countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v18);
@@ -481,20 +468,18 @@ LABEL_11:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v24;
+      v32 = v24;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Siri received incoming XPC connection but was not entitled; closing.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v21);
     xpc_connection_cancel(connectionCopy);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleServerEvent:(id)event
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (MEMORY[0x22AAD53D0]() == MEMORY[0x277D86450])
   {
@@ -509,62 +494,58 @@ LABEL_11:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = eventCopy;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unexpected Siri XPC server event: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = eventCopy;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unexpected Siri XPC server event: %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   siriSessions = [(HMDSiriRemoteInputServer *)self siriSessions];
   weakObjectsHashTable = [MEMORY[0x277CCAA50] weakObjectsHashTable];
   [(HMDSiriRemoteInputServer *)self setSiriSessions:weakObjectsHashTable];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = siriSessions;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(HMDSiriRemoteInputServer *)self deregisterSiriSession:*(*(&v11 + 1) + 8 * v9++), v11];
+        [(HMDSiriRemoteInputServer *)self deregisterSiriSession:*(*(&v10 + 1) + 8 * v9++), v10];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterSiriSession:(id)session
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   identifier = [sessionCopy identifier];
   v6 = [(HMDSiriRemoteInputServer *)self sessionForIdentifier:identifier];
@@ -578,11 +559,11 @@ LABEL_11:
     if (v10)
     {
       v11 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v11;
-      v18 = 2112;
-      v19 = sessionCopy;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Deregistering session %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v11;
+      v17 = 2112;
+      v18 = sessionCopy;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Deregistering session %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -599,22 +580,20 @@ LABEL_11:
     {
       v13 = HMFGetLogIdentifier();
       identifier2 = [sessionCopy identifier];
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2112;
-      v19 = identifier2;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Session deregistration with identifier %@ but was not registered!", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2112;
+      v18 = identifier2;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Session deregistration with identifier %@ but was not registered!", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)registerSiriSession:(id)session
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   identifier = [sessionCopy identifier];
   v6 = [(HMDSiriRemoteInputServer *)self sessionForIdentifier:identifier];
@@ -629,11 +608,11 @@ LABEL_11:
     {
       v11 = HMFGetLogIdentifier();
       identifier2 = [sessionCopy identifier];
-      v17 = 138543618;
-      v18 = v11;
-      v19 = 2112;
-      v20 = identifier2;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Session with identifier %@ already exists!", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v11;
+      v18 = 2112;
+      v19 = identifier2;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Session with identifier %@ already exists!", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -644,11 +623,11 @@ LABEL_11:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v13;
-      v19 = 2112;
-      v20 = sessionCopy;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Registering session %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v13;
+      v18 = 2112;
+      v19 = sessionCopy;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Registering session %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -659,13 +638,12 @@ LABEL_11:
     [sessionCopy publish];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v6 == 0;
 }
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = notify_set_state(xpcServerNotifyToken, 0);
   if (v3)
   {
@@ -673,7 +651,7 @@ LABEL_11:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v10 = v4;
+      v9 = v4;
       _os_log_impl(&dword_229538000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[Siri Server] Notify: failed to set state to stopped (%d)", buf, 8u);
     }
   }
@@ -685,24 +663,23 @@ LABEL_11:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v10 = v6;
+      v9 = v6;
       _os_log_impl(&dword_229538000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[Siri Server] Notify: failed to post (%d)", buf, 8u);
     }
   }
 
-  v8.receiver = self;
-  v8.super_class = HMDSiriRemoteInputServer;
-  [(HMDSiriRemoteInputServer *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = HMDSiriRemoteInputServer;
+  [(HMDSiriRemoteInputServer *)&v7 dealloc];
 }
 
 - (HMDSiriRemoteInputServer)initWithQueue:(id)queue
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
-  v26.receiver = self;
-  v26.super_class = HMDSiriRemoteInputServer;
-  v6 = [(HMDSiriRemoteInputServer *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = HMDSiriRemoteInputServer;
+  v6 = [(HMDSiriRemoteInputServer *)&v25 init];
   v7 = v6;
   if (v6)
   {
@@ -724,7 +701,7 @@ LABEL_11:
     handler[2] = __42__HMDSiriRemoteInputServer_initWithQueue___block_invoke;
     handler[3] = &unk_27867D068;
     v14 = v7;
-    v25 = v14;
+    v24 = v14;
     xpc_connection_set_event_handler(xpcServer, handler);
 
     xpcServer2 = [(HMDSiriRemoteInputServer *)v14 xpcServer];
@@ -732,14 +709,14 @@ LABEL_11:
 
     if (xpcServerNotifyToken == -1)
     {
-      v22 = notify_register_check("com.apple.homekit.audio.running", &xpcServerNotifyToken);
-      if (v22)
+      v21 = notify_register_check("com.apple.homekit.audio.running", &xpcServerNotifyToken);
+      if (v21)
       {
-        v23 = v22;
+        v22 = v21;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          v28 = v23;
+          v27 = v22;
           _os_log_impl(&dword_229538000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[Siri Server] Notify: failed to retrieve token (%d)", buf, 8u);
         }
       }
@@ -752,7 +729,7 @@ LABEL_11:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v28 = v17;
+        v27 = v17;
         _os_log_impl(&dword_229538000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[Siri Server] Notify: failed to set state to ready (%d)", buf, 8u);
       }
     }
@@ -764,13 +741,12 @@ LABEL_11:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v28 = v19;
+        v27 = v19;
         _os_log_impl(&dword_229538000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[Siri Server] Notify: failed to post (%d)", buf, 8u);
       }
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

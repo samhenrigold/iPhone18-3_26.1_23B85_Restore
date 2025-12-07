@@ -140,10 +140,7 @@ void __52__AccessibilityNodeAccessibility_automationElements__block_invoke(uint6
 
 uint64_t __83__AccessibilityNodeAccessibility__accessibilityHitTestShouldFallbackToNearestChild__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) accessibilityCustomAttribute:@"AXHitTestShouldFallbackToNearestChild"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) accessibilityCustomAttribute:@"AXHitTestShouldFallbackToNearestChild"];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -179,10 +176,7 @@ uint64_t __83__AccessibilityNodeAccessibility__accessibilityHitTestShouldFallbac
 
 uint64_t __83__AccessibilityNodeAccessibility__accessibilityShouldIncludeMediaDescriptionsRotor__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) accessibilityCustomAttribute:@"AXShouldIncludeMediaDescriptionsRotor"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) accessibilityCustomAttribute:@"AXShouldIncludeMediaDescriptionsRotor"];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -218,10 +212,7 @@ uint64_t __83__AccessibilityNodeAccessibility__accessibilityShouldIncludeMediaDe
 
 uint64_t __77__AccessibilityNodeAccessibility__accessibilityEffectiveMediaAnalysisOptions__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) accessibilityCustomAttribute:@"AXIgnoreMediaAnalysis"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) accessibilityCustomAttribute:@"AXIgnoreMediaAnalysis"];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -257,10 +248,7 @@ uint64_t __77__AccessibilityNodeAccessibility__accessibilityEffectiveMediaAnalys
 
 uint64_t __83__AccessibilityNodeAccessibility__accessibilityUseElementAtPositionAfterActivation__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) accessibilityCustomAttribute:@"AXUseElementAtPositionAfterActivationAttribute"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) accessibilityCustomAttribute:@"AXUseElementAtPositionAfterActivationAttribute"];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -313,10 +301,7 @@ uint64_t __83__AccessibilityNodeAccessibility__accessibilityUseElementAtPosition
 
 uint64_t __65__AccessibilityNodeAccessibility__accessibilityAXAttributedLabel__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) accessibilityCustomAttribute:@"AXLabelUIAccessibilityTokenBrailleOverride"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) accessibilityCustomAttribute:@"AXLabelUIAccessibilityTokenBrailleOverride"];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -358,10 +343,7 @@ uint64_t __65__AccessibilityNodeAccessibility__accessibilityAXAttributedLabel__b
 
 uint64_t __59__AccessibilityNodeAccessibility_accessibilityMathEquation__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) accessibilityCustomAttribute:@"AXMathEquation"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) accessibilityCustomAttribute:@"AXMathEquation"];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -403,10 +385,7 @@ uint64_t __59__AccessibilityNodeAccessibility_accessibilityMathEquation__block_i
 
 uint64_t __76__AccessibilityNodeAccessibility__accessibilityShouldSpeakMathEquationTrait__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) accessibilityCustomAttribute:@"AXShouldSpeakMathEquationTrait"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) accessibilityCustomAttribute:@"AXShouldSpeakMathEquationTrait"];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -448,10 +427,7 @@ uint64_t __76__AccessibilityNodeAccessibility__accessibilityShouldSpeakMathEquat
 
 uint64_t __72__AccessibilityNodeAccessibility__accessibilityShouldExpandMathEquation__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) accessibilityCustomAttribute:@"AXShouldExpandMathEquation"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) accessibilityCustomAttribute:@"AXShouldExpandMathEquation"];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -493,10 +469,7 @@ uint64_t __72__AccessibilityNodeAccessibility__accessibilityShouldExpandMathEqua
 
 uint64_t __69__AccessibilityNodeAccessibility__accessibilitySoftwareMimicKeyboard__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) accessibilityCustomAttribute:@"AXIsSoftwareMimicKeyboardAttribute"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) accessibilityCustomAttribute:@"AXIsSoftwareMimicKeyboardAttribute"];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -538,10 +511,7 @@ uint64_t __69__AccessibilityNodeAccessibility__accessibilitySoftwareMimicKeyboar
 
 uint64_t __71__AccessibilityNodeAccessibility__accessibilityIsSoftwareKeyboardMimic__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) accessibilityCustomAttribute:@"AXIsSoftwareMimicKeyboardAttribute"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) accessibilityCustomAttribute:@"AXIsSoftwareMimicKeyboardAttribute"];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -583,10 +553,7 @@ uint64_t __71__AccessibilityNodeAccessibility__accessibilityIsSoftwareKeyboardMi
 
 uint64_t __69__AccessibilityNodeAccessibility__accessibilitySwipeIslandIdentifier__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) accessibilityCustomAttribute:@"AXSwipeIslandIdentifier"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) accessibilityCustomAttribute:@"AXSwipeIslandIdentifier"];
 
   return MEMORY[0x2A1C71028]();
 }

@@ -597,7 +597,7 @@ uint64_t __37__WebPreferences_standardPreferences__block_invoke()
   }
 
   v59 = MEMORY[0x1E696AD98];
-  v60 = [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
+  v60 = objc_msgSend_bundleIdentifier([MEMORY[0x1E696AAE8] mainBundle]);
   context = objc_autoreleasePoolPush();
   uTF8String = [v60 UTF8String];
   if (!uTF8String)
@@ -1250,7 +1250,7 @@ LABEL_224:
   return v9;
 }
 
-uint64_t __31__WebPreferences__valueForKey___block_invoke(void *a1)
+void *__31__WebPreferences__valueForKey___block_invoke(void *a1)
 {
   result = [*(*(a1[4] + 8) + 8) objectForKey:a1[5]];
   *(*(a1[6] + 8) + 40) = result;
@@ -1705,7 +1705,7 @@ uint64_t __51__WebPreferences__setUnsignedLongLongValue_forKey___block_invoke(vo
         {
           selfCopy = self;
           toCopy = to;
-          NetworkStorageSessionMap::destroySession(0x8000000000000001, a2);
+          NetworkStorageSessionMap::destroySession(0x8000000000000001, a2, to);
           self = selfCopy;
           to = toCopy;
         }

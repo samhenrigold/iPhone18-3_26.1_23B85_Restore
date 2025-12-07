@@ -2,6 +2,7 @@
 - (OrgApacheLuceneUtilFstBytesStore_$1)initWithOrgApacheLuceneUtilFstBytesStore:(id)store;
 - (char)readByte;
 - (void)dealloc;
+- (void)readBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)setPositionWithLong:(int64_t)long;
 - (void)skipBytesWithLong:(int64_t)long;
 @end
@@ -50,6 +51,49 @@ LABEL_8:
   [(OrgApacheLuceneUtilFstBytesStore_$1 *)self setPositionWithLong:v4];
 }
 
+- (void)readBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  if (withInt >= 1)
+  {
+    v5 = *&withInt;
+    v6 = *&int;
+    for (i = self->nextRead_; ; i = 0)
+    {
+      v10 = self->this$0_;
+      v11 = (v10->blockSize_ - i);
+      if (v5 <= v11)
+      {
+        break;
+      }
+
+      if (v11 >= 1)
+      {
+        JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->current_, i, array, v6, v11);
+        v6 = (v11 + v6);
+        v10 = self->this$0_;
+        v5 = (v5 - v11);
+      }
+
+      blocks = v10->blocks_;
+      if (!blocks)
+      {
+        JreThrowNullPointerException();
+      }
+
+      ++self->nextBuffer_;
+      JreStrongAssign(&self->current_, [(JavaUtilList *)blocks getWithInt:?]);
+      self->nextRead_ = 0;
+      if (v5 <= 0)
+      {
+        return;
+      }
+    }
+
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->current_, i, array, v6, v5);
+    self->nextRead_ += v5;
+  }
+}
+
 - (void)setPositionWithLong:(int64_t)long
 {
   longCopy = long;
@@ -67,7 +111,7 @@ LABEL_8:
 - (OrgApacheLuceneUtilFstBytesStore_$1)initWithOrgApacheLuceneUtilFstBytesStore:(id)store
 {
   JreStrongAssign(&self->this$0_, store);
-  OrgApacheLuceneUtilFstFST_BytesReader_init(self, v5);
+  OrgApacheLuceneUtilFstFST_BytesReader_init();
   self->nextRead_ = *(store + 6);
   return self;
 }

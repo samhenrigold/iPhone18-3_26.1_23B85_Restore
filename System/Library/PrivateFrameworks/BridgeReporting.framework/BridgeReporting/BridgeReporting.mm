@@ -12,12 +12,12 @@ void sub_241ECCE68(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_241ECD2EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_241ECD2EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 128), 8);
-  _Block_object_dispose((v17 - 96), 8);
+  _Block_object_dispose((v24 - 128), 8);
+  _Block_object_dispose((v24 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -28,7 +28,7 @@ void sub_241ECDDA4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t BRIsInternalInstall()
+uint64_t BRIsInternalInstall(uint64_t a1, uint64_t a2)
 {
   if (BRIsInternalInstall___onceToken != -1)
   {
@@ -45,7 +45,7 @@ uint64_t __BRIsInternalInstall_block_invoke()
   return result;
 }
 
-uint64_t BRAutomation()
+uint64_t BRAutomation(uint64_t a1, uint64_t a2)
 {
   if (BRIsInternalInstall___onceToken != -1)
   {
@@ -73,32 +73,32 @@ uint64_t BRAutomation()
 
 id BRGetCurrentMetricIDFromMetricDir()
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v0 = @"/var/mobile/Library/Caches/com.apple.Bridge/PairingMetric";
   v1 = [MEMORY[0x277CCAA00] defaultManager];
   if ([v1 fileExistsAtPath:v0])
   {
     v2 = [v1 contentsOfDirectoryAtPath:v0 error:0];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v3)
     {
       v4 = v3;
       v5 = 0;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v2);
           }
 
-          v8 = *(*(&v12 + 1) + 8 * i);
+          v8 = *(*(&v11 + 1) + 8 * i);
           if ([v8 containsString:@"pairing_metric"])
           {
             v9 = v8;
@@ -107,7 +107,7 @@ id BRGetCurrentMetricIDFromMetricDir()
           }
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v4);
@@ -124,35 +124,33 @@ id BRGetCurrentMetricIDFromMetricDir()
     v5 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 id BRGetAllMetricKeysAndValues()
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v0 = objc_opt_new();
   v1 = MEMORY[0x277CCACA8];
-  v21[0] = @"/var/mobile/Library/Caches/com.apple.Bridge/PairingMetric";
+  v20[0] = @"/var/mobile/Library/Caches/com.apple.Bridge/PairingMetric";
   v2 = BRGetCurrentMetricIDFromMetricDir();
-  v21[1] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[1] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   v4 = [v1 pathWithComponents:v3];
 
   v5 = MEMORY[0x277CBEBC0];
   v6 = MEMORY[0x277CCACA8];
-  v20[0] = v4;
-  v20[1] = @"BridgePairingMetricDetails.plist";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[0] = v4;
+  v19[1] = @"BridgePairingMetricDetails.plist";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   v8 = [v6 pathWithComponents:v7];
   v9 = [v5 fileURLWithPath:v8];
 
   v10 = MEMORY[0x277CBEBC0];
   v11 = MEMORY[0x277CCACA8];
-  v19[0] = v4;
-  v19[1] = @"NRPairingMetricDetails.plist";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v18[0] = v4;
+  v18[1] = @"NRPairingMetricDetails.plist";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
   v13 = [v11 pathWithComponents:v12];
   v14 = [v10 fileURLWithPath:v13];
 
@@ -168,45 +166,38 @@ id BRGetAllMetricKeysAndValues()
     [v0 addEntriesFromDictionary:v16];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v0;
 }
 
 BOOL BRStaleOrNoPairingMetric()
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v0 = BRGetCurrentMetricIDFromMetricDir();
 
-  if (v0)
+  if (!v0)
   {
-    v1 = MEMORY[0x277CCACA8];
-    v16[0] = @"/var/mobile/Library/Caches/com.apple.Bridge/PairingMetric";
-    v2 = BRGetCurrentMetricIDFromMetricDir();
-    v16[1] = v2;
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
-    v4 = [v1 pathWithComponents:v3];
-
-    v5 = MEMORY[0x277CBEBC0];
-    v6 = MEMORY[0x277CCACA8];
-    v15[0] = v4;
-    v15[1] = @"NRPairingMetricDetails.plist";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
-    v8 = [v6 pathWithComponents:v7];
-    v9 = [v5 fileURLWithPath:v8];
-
-    v10 = [MEMORY[0x277CBEB38] dictionaryWithContentsOfURL:v9];
-    v11 = [v10 objectForKey:@"MetricSubmitted"];
-
-    v12 = v11 != 0;
+    return 1;
   }
 
-  else
-  {
-    v12 = 1;
-  }
+  v1 = MEMORY[0x277CCACA8];
+  v15[0] = @"/var/mobile/Library/Caches/com.apple.Bridge/PairingMetric";
+  v2 = BRGetCurrentMetricIDFromMetricDir();
+  v15[1] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v4 = [v1 pathWithComponents:v3];
 
-  v13 = *MEMORY[0x277D85DE8];
+  v5 = MEMORY[0x277CBEBC0];
+  v6 = MEMORY[0x277CCACA8];
+  v14[0] = v4;
+  v14[1] = @"NRPairingMetricDetails.plist";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v8 = [v6 pathWithComponents:v7];
+  v9 = [v5 fileURLWithPath:v8];
+
+  v10 = [MEMORY[0x277CBEB38] dictionaryWithContentsOfURL:v9];
+  v11 = [v10 objectForKey:@"MetricSubmitted"];
+
+  v12 = v11 != 0;
   return v12;
 }
 
@@ -574,16 +565,16 @@ void ___utilityQueue_block_invoke()
   _utilityQueue_queue = v0;
 }
 
-id br_metriccollection_log()
+id br_metriccollection_log(uint64_t a1)
 {
   if (br_metriccollection_log_onceToken != -1)
   {
     br_metriccollection_log_cold_1();
   }
 
-  v1 = br_metriccollection_log___logger;
+  v2 = br_metriccollection_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __br_metriccollection_log_block_invoke()
@@ -593,9 +584,9 @@ uint64_t __br_metriccollection_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_241ED10B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241ED10B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

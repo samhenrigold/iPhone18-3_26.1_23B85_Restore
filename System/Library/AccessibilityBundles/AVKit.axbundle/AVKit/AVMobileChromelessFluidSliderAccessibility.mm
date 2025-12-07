@@ -184,7 +184,6 @@ uint64_t __70__AVMobileChromelessFluidSliderAccessibility__accessibilityBumpValu
   if (!*(a1 + 40))
   {
     [*(a1 + 32) sendActionsForControlEvents:4096];
-    v3 = *(a1 + 40);
   }
 
   if (objc_opt_respondsToSelector())
@@ -192,24 +191,22 @@ uint64_t __70__AVMobileChromelessFluidSliderAccessibility__accessibilityBumpValu
     [*(a1 + 40) mediaTimelineControlWillBeginChanging:*(a1 + 48)];
   }
 
-  v4 = *(a1 + 40);
   if (objc_opt_respondsToSelector())
   {
-    v5 = *(a1 + 64);
-    *&v5 = v5;
-    [*(a1 + 40) mediaTimelineControl:*(a1 + 56) didChangeValue:v5];
+    v3 = *(a1 + 64);
+    *&v3 = v3;
+    [*(a1 + 40) mediaTimelineControl:*(a1 + 56) didChangeValue:v3];
   }
 
-  v6 = *(a1 + 40);
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 40) mediaTimelineControlDidEndChanging:*(a1 + 48)];
   }
 
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 32);
+  v4 = *(a1 + 56);
+  v5 = *(a1 + 32);
 
-  return [v7 _sliderFluidInteractionDidEnd:v8];
+  return [v4 _sliderFluidInteractionDidEnd:v5];
 }
 
 - (void)_accessibilityAnnounceNewValue

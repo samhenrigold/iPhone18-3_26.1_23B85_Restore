@@ -10,16 +10,16 @@ void __73___SFSafariViewControllerPrewarmingSession__sharedSessionCreateIfNeeded
   _sharedSessionCreateIfNeeded__sharedSession = v0;
 }
 
-uint64_t __69___SFSafariViewControllerPrewarmingSession_tokenWithIDDidInvalidate___block_invoke(uint64_t a1)
+void *__69___SFSafariViewControllerPrewarmingSession_tokenWithIDDidInvalidate___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _hasValidTokens];
   if ((result & 1) == 0)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXPrewarming();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = WBS_LOG_CHANNEL_PREFIXPrewarming(result, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_INFO, "All tokens are invalidated, disconnecting from service", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_1D4644000, v4, OS_LOG_TYPE_INFO, "All tokens are invalidated, disconnecting from service", v5, 2u);
     }
 
     return [*(a1 + 32) _disconnectFromService];
@@ -39,18 +39,18 @@ void __61___SFSafariViewControllerPrewarmingSession__connectToService__block_inv
   if (v6)
   {
     objc_storeStrong((*(a1 + 32) + 40), a2);
-    v10 = [*(*(a1 + 32) + 40) serviceViewControllerProxy];
-    [*(*(a1 + 32) + 8) setTarget:v10];
+    v12 = [*(*(a1 + 32) + 40) serviceViewControllerProxy];
+    [*(*(a1 + 32) + 8) setTarget:v12];
 
     [*(*(a1 + 32) + 40) setDelegate:?];
   }
 
   else
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXPrewarming();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXPrewarming(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __61___SFSafariViewControllerPrewarmingSession__connectToService__block_invoke_cold_1(v11, v7);
+      __61___SFSafariViewControllerPrewarmingSession__connectToService__block_invoke_cold_1(v13, v7);
     }
   }
 }

@@ -12,14 +12,13 @@
 - (RSDPreferences)initWithPrefDomain:(id)domain
 {
   domainCopy = domain;
-  v10.receiver = self;
-  v10.super_class = RSDPreferences;
-  v6 = [(RSDPreferences *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = RSDPreferences;
+  v6 = [(RSDPreferences *)&v9 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_prefDomain, domain);
-    prefDomain = v7->_prefDomain;
     _CFPreferencesSetBackupDisabled();
   }
 

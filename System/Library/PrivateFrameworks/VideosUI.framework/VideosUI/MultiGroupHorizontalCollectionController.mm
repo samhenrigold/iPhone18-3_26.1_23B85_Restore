@@ -81,7 +81,7 @@
   viewCopy = view;
   displayCopy = display;
   v15 = v5;
-  sub_1E408B880(v15, displayCopy);
+  sub_1E408B880(v15, displayCopy, v6);
 
   (*(v11 + 8))(v6, v9);
 }
@@ -134,7 +134,7 @@
 
 - (CGSize)collectionView:(id)view layout:(id)layout sizeForItemAtIndexPath:(id)path
 {
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF309A0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF309A0, &qword_1E42A7870);
   OUTLINED_FUNCTION_17_2(v10);
   OUTLINED_FUNCTION_5_7();
   MEMORY[0x1EEE9AC00](v11);
@@ -159,7 +159,7 @@
   sub_1E408C028(selfCopy, v17, v5);
   OUTLINED_FUNCTION_18_3();
 
-  sub_1E325F7FC(v5, &qword_1ECF309A0);
+  sub_1E325F7FC(v5, &qword_1ECF309A0, &qword_1E42A7870);
   v18 = OUTLINED_FUNCTION_17_4();
   result.height = v19;
   result.width = v18;
@@ -198,7 +198,7 @@
 
 - (UIEdgeInsets)collectionView:(id)view layout:(id)layout selectionMarginsForItemAtIndexPath:(id)path
 {
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF309A0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF309A0, &qword_1E42A7870);
   OUTLINED_FUNCTION_17_2(v10);
   OUTLINED_FUNCTION_5_7();
   MEMORY[0x1EEE9AC00](v11);
@@ -224,7 +224,7 @@
   sub_1E408CC98(v17, v18, v5);
   OUTLINED_FUNCTION_3();
 
-  sub_1E325F7FC(v5, &qword_1ECF309A0);
+  sub_1E325F7FC(v5, &qword_1ECF309A0, &qword_1E42A7870);
   v19 = OUTLINED_FUNCTION_6();
   result.right = v22;
   result.bottom = v21;
@@ -247,18 +247,18 @@
 {
   OUTLINED_FUNCTION_17_0();
   OUTLINED_FUNCTION_0_10();
-  MEMORY[0x1EEE9AC00](v7);
+  MEMORY[0x1EEE9AC00](v8);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_16_39();
-  v8 = v5;
-  v9 = v6;
-  v10 = OUTLINED_FUNCTION_50();
-  v11 = sub_1E408E994(v10);
+  v9 = v5;
+  v10 = v6;
+  v11 = OUTLINED_FUNCTION_50();
+  v12 = sub_1E408E994(v11, v7);
 
-  v12 = OUTLINED_FUNCTION_53();
-  v13(v12);
+  v13 = OUTLINED_FUNCTION_53();
+  v14(v13);
 
-  return v11;
+  return v12;
 }
 
 - (void)vuiCollectionView:(id)view willPerformPreviewActionForMenuWith:(id)with animator:(id)animator

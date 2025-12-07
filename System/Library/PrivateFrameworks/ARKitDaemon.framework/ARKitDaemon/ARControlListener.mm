@@ -61,7 +61,7 @@
 {
   v35 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
-  v6 = _ARLogDaemon_1();
+  v6 = _ARLogDaemon_1(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = objc_opt_class();
@@ -83,6 +83,7 @@
 
   [connectionCopy _setQueue:v14];
   v15 = [objc_alloc(self->_controlClass) initWithConnection:connectionCopy];
+  v16 = v15;
   if (!v15)
   {
     if (ARShouldUseLogTypeError_onceToken != -1)
@@ -90,64 +91,63 @@
       [ARControlListener listener:shouldAcceptNewConnection:];
     }
 
-    v20 = ARShouldUseLogTypeError_internalOSVersion;
-    v21 = _ARLogDaemon_1();
-    v22 = v21;
-    if (v20 == 1)
+    v21 = ARShouldUseLogTypeError_internalOSVersion;
+    v22 = _ARLogDaemon_1(v15);
+    v23 = v22;
+    if (v21 == 1)
     {
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v23 = objc_opt_class();
-        v24 = NSStringFromClass(v23);
+        v24 = objc_opt_class();
+        v25 = NSStringFromClass(v24);
         *buf = 138543618;
-        v32 = v24;
+        v32 = v25;
         v33 = 2048;
         selfCopy4 = self;
-        v25 = "%{public}@ <%p>: Failed to create control.";
-        v26 = v22;
-        v27 = OS_LOG_TYPE_ERROR;
+        v26 = "%{public}@ <%p>: Failed to create control.";
+        v27 = v23;
+        v28 = OS_LOG_TYPE_ERROR;
 LABEL_14:
-        _os_log_impl(&dword_23D391000, v26, v27, v25, buf, 0x16u);
+        _os_log_impl(&dword_23D391000, v27, v28, v26, buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v28 = objc_opt_class();
-      v24 = NSStringFromClass(v28);
+      v29 = objc_opt_class();
+      v25 = NSStringFromClass(v29);
       *buf = 138543618;
-      v32 = v24;
+      v32 = v25;
       v33 = 2048;
       selfCopy4 = self;
-      v25 = "Error: %{public}@ <%p>: Failed to create control.";
-      v26 = v22;
-      v27 = OS_LOG_TYPE_INFO;
+      v26 = "Error: %{public}@ <%p>: Failed to create control.";
+      v27 = v23;
+      v28 = OS_LOG_TYPE_INFO;
       goto LABEL_14;
     }
 
     goto LABEL_16;
   }
 
-  v16 = _ARLogDaemon_1();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = _ARLogDaemon_1(v15);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
     *buf = 138543618;
-    v32 = v18;
+    v32 = v19;
     v33 = 2048;
     selfCopy4 = self;
-    _os_log_impl(&dword_23D391000, v16, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Accepted connection for control.", buf, 0x16u);
+    _os_log_impl(&dword_23D391000, v17, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Accepted connection for control.", buf, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  [WeakRetained didDiscoverControl:v15];
+  [WeakRetained didDiscoverControl:v16];
 
   [connectionCopy resume];
 LABEL_16:
 
-  v29 = *MEMORY[0x277D85DE8];
-  return v15 != 0;
+  return v16 != 0;
 }
 
 - (ARControlListenerDelegate)delegate

@@ -125,7 +125,7 @@ LABEL_19:
 
 - (id)MSInitWithBase64Encoding:()MSDataUtilities
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [v4 length];
   v6 = malloc_type_malloc(3 * (v5 >> 2), 0x100004077774924uLL);
@@ -144,7 +144,7 @@ LABEL_19:
     v7 = v5;
   }
 
-  v8 = &v25 - ((2 * v7 + 15) & 0xFF0);
+  v8 = &v24 - ((2 * v7 + 15) & 0xFF0);
   [v4 getCharacters:v8 range:{0, v7}];
   if (!v5)
   {
@@ -152,9 +152,9 @@ LABEL_19:
     goto LABEL_29;
   }
 
-  v25 = &v25;
+  v24 = &v24;
   selfCopy = self;
-  v27 = v6;
+  v26 = v6;
   v9 = 0;
   v10 = 0;
   v11 = 0;
@@ -172,7 +172,7 @@ LABEL_19:
         v16 = v5 - (v13 + v16);
       }
 
-      [v4 getCharacters:v8 range:{v11, v16, v25}];
+      [v4 getCharacters:v8 range:{v11, v16, v24}];
       v10 = 0;
       v13 = v11;
     }
@@ -195,10 +195,10 @@ LABEL_19:
 
         else if (v15)
         {
-          v24 = v11 == v5;
+          v23 = v11 == v5;
           self = selfCopy;
-          v6 = v27;
-          if (!v24 || (v14 & 3) != 0 || v15 > 2)
+          v6 = v26;
+          if (!v23 || (v14 & 3) != 0 || v15 > 2)
           {
             goto LABEL_27;
           }
@@ -210,8 +210,8 @@ LABEL_19:
         v12 = v18 + (v12 << 6);
         if ((v14 & 3) == 0)
         {
-          v19 = v27;
-          *(v27 + v9) = BYTE2(v12);
+          v19 = v26;
+          *(v26 + v9) = BYTE2(v12);
           if (v15 > 1)
           {
             ++v9;
@@ -244,7 +244,7 @@ LABEL_24:
 
   while (v5 != v11);
   self = selfCopy;
-  v6 = v27;
+  v6 = v26;
   if ((v14 & 3) != 0 || v15 >= 3)
   {
 LABEL_27:
@@ -256,8 +256,6 @@ LABEL_27:
 LABEL_29:
   v21 = [self initWithBytesNoCopy:v6 length:v9 freeWhenDone:1];
 LABEL_30:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

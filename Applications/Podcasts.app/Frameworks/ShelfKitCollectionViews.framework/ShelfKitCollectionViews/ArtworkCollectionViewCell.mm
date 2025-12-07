@@ -13,7 +13,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC23ShelfKitCollectionViews25ArtworkCollectionViewCell_artworkView) = [objc_allocWithZone(type metadata accessor for ArtworkView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC23ShelfKitCollectionViews25ArtworkCollectionViewCell_artworkView) = [objc_allocWithZone(type metadata accessor for ArtworkView(0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   v11.receiver = self;
   v11.super_class = type metadata accessor for ArtworkCollectionViewCell();
   height = [(ArtworkCollectionViewCell *)&v11 initWithFrame:x, y, width, height];

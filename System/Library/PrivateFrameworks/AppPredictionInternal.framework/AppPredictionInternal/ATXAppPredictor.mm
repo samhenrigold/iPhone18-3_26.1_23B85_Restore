@@ -14,47 +14,47 @@ float __77___ATXAppPredictor__copyValidScoreInputsFromPredictionItem_toPredictio
   return *&v2;
 }
 
-void __65___ATXAppPredictor_scoreAppsWithFeaturesUsingCoreML_scoreLogger___block_invoke(uint64_t a1, uint64_t *a2, void *a3)
+void __65___ATXAppPredictor_scoreAppsWithFeaturesUsingCoreML_scoreLogger___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  [v5 score];
-  v7 = v6;
-  v8 = __atxlog_handle_app_prediction();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v6 = [v5 score];
+  v8 = v7;
+  v9 = __atxlog_handle_app_prediction(v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    __65___ATXAppPredictor_scoreAppsWithFeaturesUsingCoreML_scoreLogger___block_invoke_cold_1(a2);
+    __65___ATXAppPredictor_scoreAppsWithFeaturesUsingCoreML_scoreLogger___block_invoke_cold_1();
   }
 
-  v9 = v7;
-  *(a2 + 832) = v9;
-  v10 = +[_ATXGlobals sharedInstance];
-  [v10 appPredictionMediumConfidenceThresholdForBlendingLayerCoreML];
-  *(a2 + 3332) = v7 >= v11;
+  v10 = v8;
+  *(a2 + 3328) = v10;
+  v11 = +[_ATXGlobals sharedInstance];
+  [v11 appPredictionMediumConfidenceThresholdForBlendingLayerCoreML];
+  *(a2 + 3332) = v8 >= v12;
 
-  v12 = +[_ATXGlobals sharedInstance];
-  [v12 appPredictionHighConfidenceThresholdForBlendingLayerCoreML];
-  *(a2 + 3333) = v7 >= v13;
+  v13 = +[_ATXGlobals sharedInstance];
+  [v13 appPredictionHighConfidenceThresholdForBlendingLayerCoreML];
+  *(a2 + 3333) = v8 >= v14;
 
   if (*(a1 + 32))
   {
-    v14 = [v5 intermediateValues];
-    if (v14)
+    v15 = [v5 intermediateValues];
+    if (v15)
     {
-      v15 = [v5 intermediateValues];
-      v16 = [v15 mutableCopy];
+      v16 = [v5 intermediateValues];
+      v17 = [v16 mutableCopy];
     }
 
     else
     {
-      v16 = [MEMORY[0x277CBEB38] dictionary];
+      v17 = [MEMORY[0x277CBEB38] dictionary];
     }
 
-    v17 = [MEMORY[0x277CCABB0] numberWithDouble:v7];
-    [v16 setObject:v17 forKeyedSubscript:@"TotalScore"];
+    v18 = [MEMORY[0x277CCABB0] numberWithDouble:v8];
+    [v17 setObject:v18 forKeyedSubscript:@"TotalScore"];
 
-    v18 = *(a1 + 32);
-    v19 = [v5 inputs];
-    [v18 logInputs:v19 subscores:v16 forBundleId:*a2];
+    v19 = *(a1 + 32);
+    v20 = [v5 inputs];
+    [v19 logInputs:v20 subscores:v17 forBundleId:*a2];
   }
 }
 
@@ -62,108 +62,104 @@ void __84___ATXAppPredictor_scoreActionsWithFeaturesUsingCoreML_consumerSubType_
 {
   v29 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  [v5 score];
-  v7 = v6;
-  v8 = __atxlog_handle_action_prediction();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v6 = [v5 score];
+  v8 = v7;
+  v9 = __atxlog_handle_action_prediction(v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v21 = *a2;
     v22 = *(a1 + 32);
     v23 = 134218498;
-    v24 = v7;
+    v24 = v8;
     v25 = 2112;
     v26 = v21;
     v27 = 2112;
     v28 = v22;
-    _os_log_debug_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEBUG, "Got a score of %f for %@ by model %@", &v23, 0x20u);
+    _os_log_debug_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEBUG, "Got a score of %f for %@ by model %@", &v23, 0x20u);
   }
 
-  v9 = v7;
-  a2[832] = v9;
-  v10 = +[_ATXGlobals sharedInstance];
-  [v10 actionPredictionMediumConfidenceThresholdForBlendingLayerCoreML];
-  *(a2 + 3332) = v7 >= v11;
+  v10 = v8;
+  a2[832] = v10;
+  v11 = +[_ATXGlobals sharedInstance];
+  [v11 actionPredictionMediumConfidenceThresholdForBlendingLayerCoreML];
+  *(a2 + 3332) = v8 >= v12;
 
-  v12 = +[_ATXGlobals sharedInstance];
-  [v12 actionPredictionHighConfidenceThresholdForBlendingLayerCoreML];
-  *(a2 + 3333) = v7 >= v13;
+  v13 = +[_ATXGlobals sharedInstance];
+  [v13 actionPredictionHighConfidenceThresholdForBlendingLayerCoreML];
+  *(a2 + 3333) = v8 >= v14;
 
   if (*(a1 + 40))
   {
-    v14 = [v5 intermediateValues];
-    if (v14)
+    v15 = [v5 intermediateValues];
+    if (v15)
     {
-      v15 = [v5 intermediateValues];
-      v16 = [v15 mutableCopy];
+      v16 = [v5 intermediateValues];
+      v17 = [v16 mutableCopy];
     }
 
     else
     {
-      v16 = [MEMORY[0x277CBEB38] dictionary];
+      v17 = [MEMORY[0x277CBEB38] dictionary];
     }
 
-    v17 = [MEMORY[0x277CCABB0] numberWithDouble:v7];
-    [v16 setObject:v17 forKeyedSubscript:@"TotalScore"];
+    v18 = [MEMORY[0x277CCABB0] numberWithDouble:v8];
+    [v17 setObject:v18 forKeyedSubscript:@"TotalScore"];
 
-    v18 = *(a1 + 40);
-    v19 = [v5 inputs];
-    [v18 logInputs:v19 subscores:v16 forBundleId:*a2];
+    v19 = *(a1 + 40);
+    v20 = [v5 inputs];
+    [v19 logInputs:v20 subscores:v17 forBundleId:*a2];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __52___ATXAppPredictor_scoreAppWithFeaturesUsingCoreML___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  [v5 score];
-  v7 = v6;
-  v8 = __atxlog_handle_app_prediction();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v6 = [v5 score];
+  v8 = v7;
+  v9 = __atxlog_handle_app_prediction(v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    __65___ATXAppPredictor_scoreAppsWithFeaturesUsingCoreML_scoreLogger___block_invoke_cold_1(a2);
+    __65___ATXAppPredictor_scoreAppsWithFeaturesUsingCoreML_scoreLogger___block_invoke_cold_1();
   }
 
-  *(*(*(a1 + 32) + 8) + 24) = v7;
-  v9 = +[_ATXGlobals sharedInstance];
-  [v9 appPredictionMediumConfidenceThresholdForBlendingLayerCoreML];
-  *(a2 + 3332) = v7 >= v10;
+  *(*(*(a1 + 32) + 8) + 24) = v8;
+  v10 = +[_ATXGlobals sharedInstance];
+  [v10 appPredictionMediumConfidenceThresholdForBlendingLayerCoreML];
+  *(a2 + 3332) = v8 >= v11;
 
-  v11 = +[_ATXGlobals sharedInstance];
-  [v11 appPredictionHighConfidenceThresholdForBlendingLayerCoreML];
-  *(a2 + 3333) = v7 >= v12;
+  v12 = +[_ATXGlobals sharedInstance];
+  [v12 appPredictionHighConfidenceThresholdForBlendingLayerCoreML];
+  *(a2 + 3333) = v8 >= v13;
 }
 
 void __71___ATXAppPredictor_scoreActionWithFeaturesUsingCoreML_consumerSubType___block_invoke(uint64_t a1, uint64_t *a2, void *a3)
 {
   v22 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  [v5 score];
-  v7 = v6;
-  v8 = __atxlog_handle_action_prediction();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v6 = [v5 score];
+  v8 = v7;
+  v9 = __atxlog_handle_action_prediction(v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v14 = *a2;
     v15 = *(a1 + 32);
     v16 = 134218498;
-    v17 = v7;
+    v17 = v8;
     v18 = 2112;
     v19 = v14;
     v20 = 2112;
     v21 = v15;
-    _os_log_debug_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEBUG, "Got a score of %f for %@ by model %@", &v16, 0x20u);
+    _os_log_debug_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEBUG, "Got a score of %f for %@ by model %@", &v16, 0x20u);
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = v7;
-  v9 = +[_ATXGlobals sharedInstance];
-  [v9 actionPredictionMediumConfidenceThresholdForBlendingLayerCoreML];
-  *(a2 + 3332) = v7 >= v10;
+  *(*(*(a1 + 40) + 8) + 24) = v8;
+  v10 = +[_ATXGlobals sharedInstance];
+  [v10 actionPredictionMediumConfidenceThresholdForBlendingLayerCoreML];
+  *(a2 + 3332) = v8 >= v11;
 
-  v11 = +[_ATXGlobals sharedInstance];
-  [v11 actionPredictionHighConfidenceThresholdForBlendingLayerCoreML];
-  *(a2 + 3333) = v7 >= v12;
-
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = +[_ATXGlobals sharedInstance];
+  [v12 actionPredictionHighConfidenceThresholdForBlendingLayerCoreML];
+  *(a2 + 3333) = v8 >= v13;
 }
 
 float __119___ATXAppPredictor__getPredictionForItems_clipBundleIdsToRank_consumerSubType_intent_scoreLogger_context_featureCache___block_invoke(uint64_t a1, unint64_t a2)
@@ -244,8 +240,7 @@ void __52___ATXAppPredictor__initAppLaunchAndInstallMonitors__block_invoke(uint6
     v20 = *(v19 + 80);
     *(v19 + 80) = v18;
 
-    [*(*(a1 + 32) + 80) start];
-    v21 = __atxlog_handle_app_prediction();
+    v21 = __atxlog_handle_app_prediction([*(*(a1 + 32) + 80) start]);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       __52___ATXAppPredictor__initAppLaunchAndInstallMonitors__block_invoke_cold_1();
@@ -270,8 +265,7 @@ void __52___ATXAppPredictor__initAppLaunchAndInstallMonitors__block_invoke(uint6
     v34 = *(v33 + 88);
     *(v33 + 88) = v32;
 
-    [*(*(a1 + 32) + 88) start];
-    v35 = __atxlog_handle_default();
+    v35 = __atxlog_handle_default([*(*(a1 + 32) + 88) start]);
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
       __52___ATXAppPredictor__initAppLaunchAndInstallMonitors__block_invoke_cold_2();
@@ -297,30 +291,30 @@ void __52___ATXAppPredictor__initAppLaunchAndInstallMonitors__block_invoke(uint6
   }
 }
 
-void __37___ATXAppPredictor__initDependencies__block_invoke(uint64_t a1)
+void __37___ATXAppPredictor__initDependencies__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = atomic_load((*(a1 + 32) + 137));
-  if ((v1 & 1) == 0)
+  v2 = atomic_load((*(a1 + 32) + 137));
+  if ((v2 & 1) == 0)
   {
-    v3 = objc_opt_new();
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 128);
-    *(v4 + 128) = v3;
+    v4 = objc_opt_new();
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 128);
+    *(v5 + 128) = v4;
 
-    v6 = objc_opt_new();
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 216);
-    *(v7 + 216) = v6;
+    v7 = objc_opt_new();
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 216);
+    *(v8 + 216) = v7;
 
-    v9 = +[ATXBBNotificationManager sharedInstance];
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 120);
-    *(v10 + 120) = v9;
+    v10 = +[ATXBBNotificationManager sharedInstance];
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 120);
+    *(v11 + 120) = v10;
 
-    v12 = objc_opt_new();
-    v13 = *(a1 + 32);
-    v14 = *(v13 + 184);
-    *(v13 + 184) = v12;
+    v13 = objc_opt_new();
+    v14 = *(a1 + 32);
+    v15 = *(v14 + 184);
+    *(v14 + 184) = v13;
 
     atomic_store(1u, (*(a1 + 32) + 137));
   }
@@ -328,7 +322,7 @@ void __37___ATXAppPredictor__initDependencies__block_invoke(uint64_t a1)
 
 void __200___ATXAppPredictor_predictWithLimit_consumerSubType_intent_candidateBundleIdentifiers_candidateActiontypes_scoreLogger_predictionItemsToKeep_predictedItemsOutParameter_context_datastore_featureCache___block_invoke(uint64_t a1)
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 152);
   v4 = *(a1 + 32);
   v3 = *(a1 + 40);
@@ -337,7 +331,7 @@ void __200___ATXAppPredictor_predictWithLimit_consumerSubType_intent_candidateBu
   v7 = *(a1 + 64);
   v8 = +[ATXDigitalHealthBlacklist sharedInstance];
   v9 = [v8 blacklistedBundleIds];
-  v65 = [v4 _appsToPredictWithConsumerSubType:v2 intent:v3 candidateBundleIdentifiers:v5 allSBApps:v6 appPredictionBlacklist:v7 digitalHealthBlacklist:v9];
+  v66 = [v4 _appsToPredictWithConsumerSubType:v2 intent:v3 candidateBundleIdentifiers:v5 allSBApps:v6 appPredictionBlacklist:v7 digitalHealthBlacklist:v9];
 
   v10 = objc_opt_new();
   if ([MEMORY[0x277CEBCF0] consumerTypeForSubType:*(a1 + 152)] == 8)
@@ -354,8 +348,8 @@ void __200___ATXAppPredictor_predictWithLimit_consumerSubType_intent_candidateBu
       v13 = 0;
     }
 
-    v22 = [_ATXActionUtils actionKeyFilterForCandidateBundleIds:v65 candidateActionTypes:v13 blacklist:*(*(a1 + 32) + 160)];
-    v21 = [v11 allKeysFilteredBy:v22];
+    v23 = [_ATXActionUtils actionKeyFilterForCandidateBundleIds:v66 candidateActionTypes:v13 blacklist:*(*(a1 + 32) + 160)];
+    v22 = [v11 allKeysFilteredBy:v23];
 
     if (v12)
     {
@@ -364,57 +358,58 @@ void __200___ATXAppPredictor_predictWithLimit_consumerSubType_intent_candidateBu
 
   else
   {
-    v14 = [v65 allObjects];
-    if (+[ATXHeroClipManager clipsSupported])
+    v14 = [v66 allObjects];
+    v15 = +[ATXHeroClipManager clipsSupported];
+    if (v15)
     {
-      v72 = 0u;
       v73 = 0u;
-      v70 = 0u;
+      v74 = 0u;
       v71 = 0u;
-      v15 = [MEMORY[0x277CFA6E8] appClips];
-      v16 = [v15 countByEnumeratingWithState:&v70 objects:v81 count:16];
-      if (v16)
+      v72 = 0u;
+      v16 = [MEMORY[0x277CFA6E8] appClips];
+      v17 = [v16 countByEnumeratingWithState:&v71 objects:v82 count:16];
+      if (v17)
       {
-        v17 = *v71;
+        v18 = *v72;
         do
         {
-          for (i = 0; i != v16; ++i)
+          for (i = 0; i != v17; ++i)
           {
-            if (*v71 != v17)
+            if (*v72 != v18)
             {
-              objc_enumerationMutation(v15);
+              objc_enumerationMutation(v16);
             }
 
-            v19 = [*(*(&v70 + 1) + 8 * i) bundleIdentifier];
-            [v10 addObject:v19];
+            v20 = [*(*(&v71 + 1) + 8 * i) bundleIdentifier];
+            [v10 addObject:v20];
           }
 
-          v16 = [v15 countByEnumeratingWithState:&v70 objects:v81 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v71 objects:v82 count:16];
         }
 
-        while (v16);
+        while (v17);
       }
     }
 
     else
     {
-      v20 = __atxlog_handle_hero();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = __atxlog_handle_hero(v15);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEFAULT, "Not predicting installed App Clips, since not allowed by MCProfileConnection", buf, 2u);
+        _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_DEFAULT, "Not predicting installed App Clips, since not allowed by MCProfileConnection", buf, 2u);
       }
     }
 
-    v21 = v14;
+    v22 = v14;
   }
 
-  v66 = [_ATXAppPredictor pruneItemsToRankForConsumerSubType:*(a1 + 152) itemsToRank:v21 datastore:*(a1 + 80)];
+  v67 = [_ATXAppPredictor pruneItemsToRankForConsumerSubType:*(a1 + 152) itemsToRank:v22 datastore:*(a1 + 80)];
 
-  v23 = *(a1 + 32);
-  if (v23)
+  v24 = *(a1 + 32);
+  if (v24)
   {
-    [v23 _getPredictionForItems:v66 clipBundleIdsToRank:v10 consumerSubType:*(a1 + 152) intent:*(a1 + 40) scoreLogger:*(a1 + 88) context:*(a1 + 96) featureCache:*(a1 + 104)];
+    objc_msgSend__getPredictionForItems_clipBundleIdsToRank_consumerSubType_intent_scoreLogger_context_featureCache_(v24, *(a1 + 104));
   }
 
   else
@@ -422,137 +417,136 @@ void __200___ATXAppPredictor_predictWithLimit_consumerSubType_intent_candidateBu
     memset(buf, 0, sizeof(buf));
   }
 
-  v24 = *(a1 + 120);
-  std::vector<ATXPredictionItem>::__vdeallocate(v24);
-  *v24 = *buf;
-  *(v24 + 16) = *&buf[16];
+  v25 = *(a1 + 120);
+  std::vector<ATXPredictionItem>::__vdeallocate(v25);
+  *v25 = *buf;
+  *(v25 + 16) = *&buf[16];
   memset(buf, 0, sizeof(buf));
-  v74 = buf;
-  std::vector<ATXPredictionItem>::__destroy_vector::operator()[abi:ne200100](&v74);
-  v25 = __atxlog_handle_default();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v75 = buf;
+  std::vector<ATXPredictionItem>::__destroy_vector::operator()[abi:ne200100](&v75);
+  v27 = __atxlog_handle_default(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = *(a1 + 32);
-    v27 = objc_opt_class();
-    v28 = NSStringFromClass(v27);
-    v29 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:*(a1 + 152)];
-    v30 = [v66 count];
-    v31 = [v10 count];
-    v32 = 0x13A524387AC82261 * ((*(*(a1 + 120) + 8) - **(a1 + 120)) >> 3);
+    v28 = objc_opt_class();
+    v29 = NSStringFromClass(v28);
+    v30 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:*(a1 + 152)];
+    v31 = [v67 count];
+    v32 = [v10 count];
+    v33 = 0x13A524387AC82261 * ((*(*(a1 + 120) + 8) - **(a1 + 120)) >> 3);
     *buf = 138544386;
-    *&buf[4] = v28;
+    *&buf[4] = v29;
     *&buf[12] = 2114;
-    *&buf[14] = v29;
+    *&buf[14] = v30;
     *&buf[22] = 2050;
-    v76 = v30;
-    v77 = 2050;
-    v78 = v31;
-    v79 = 2050;
-    v80 = v32;
-    _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ - finished app predictions for consumerSubType: %{public}@, num app candidates: %{public}lu, num clip candidates: %{public}lu, num predicted items: %{public}lu", buf, 0x34u);
+    v77 = v31;
+    v78 = 2050;
+    v79 = v32;
+    v80 = 2050;
+    v81 = v33;
+    _os_log_impl(&dword_2263AA000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ - finished app predictions for consumerSubType: %{public}@, num app candidates: %{public}lu, num clip candidates: %{public}lu, num predicted items: %{public}lu", buf, 0x34u);
   }
 
-  v67 = objc_alloc_init(MEMORY[0x277CEB7C8]);
-  v33 = objc_alloc(MEMORY[0x277CEB550]);
-  v34 = [*(*(a1 + 32) + 208) objectAtIndexedSubscript:*(a1 + 152)];
-  v35 = [v33 initWithABGroup:v34 assetVersion:{objc_msgSend(MEMORY[0x277CEB3C0], "version")}];
+  v68 = objc_alloc_init(MEMORY[0x277CEB7C8]);
+  v34 = objc_alloc(MEMORY[0x277CEB550]);
+  v35 = [*(*(a1 + 32) + 208) objectAtIndexedSubscript:*(a1 + 152)];
+  v36 = [v34 initWithABGroup:v35 assetVersion:{objc_msgSend(MEMORY[0x277CEB3C0], "version")}];
 
-  v36 = +[_ATXAppLaunchHistogramManager sharedInstance];
-  v37 = [v36 histogramForLaunchType:0];
+  v37 = +[_ATXAppLaunchHistogramManager sharedInstance];
+  v38 = [v37 histogramForLaunchType:0];
 
-  v38 = *(a1 + 128);
-  if (v38 && *(*(a1 + 120) + 8) != **(a1 + 120))
+  v39 = *(a1 + 128);
+  if (v39 && *(*(a1 + 120) + 8) != **(a1 + 120))
   {
-    v39 = 0;
     v40 = 0;
-    v41 = 3328;
+    v41 = 0;
+    v42 = 3328;
     do
     {
-      v42 = objc_autoreleasePoolPush();
-      v43 = *(**(a1 + 120) + v41 - 3328);
-      if ([MEMORY[0x277CEBCF0] consumerTypeForSubType:*(a1 + 152)] == 8 || ATXShouldPredictBundle(*(*(a1 + 32) + 176), v43, v37))
+      v43 = objc_autoreleasePoolPush();
+      v44 = *(**(a1 + 120) + v42 - 3328);
+      if ([MEMORY[0x277CEBCF0] consumerTypeForSubType:*(a1 + 152)] == 8 || ATXShouldPredictBundle(*(*(a1 + 32) + 176), v44, v38))
       {
-        if (v43)
+        if (v44)
         {
-          LODWORD(v44) = *(**(a1 + 120) + v41);
-          [v67 recordPrediction:v43 score:v44];
-          v45 = **(a1 + 120) + v41;
-          LODWORD(v46) = *v45;
-          [v35 recordPrediction:v43 actionHash:0 totalScore:v45 - 3312 scoreInputs:*(v45 + 4) isMediumConfidenceForBlendingLayer:*(v45 + 5) isHighConfidenceForBlendingLayer:v46];
+          LODWORD(v45) = *(**(a1 + 120) + v42);
+          [v68 recordPrediction:v44 score:v45];
+          v46 = **(a1 + 120) + v42;
+          LODWORD(v47) = *v46;
+          [v36 recordPrediction:v44 actionHash:0 totalScore:v46 - 3312 scoreInputs:*(v46 + 4) isMediumConfidenceForBlendingLayer:*(v46 + 5) isHighConfidenceForBlendingLayer:v47];
         }
 
-        ++v39;
+        ++v40;
       }
 
-      objc_autoreleasePoolPop(v42);
-      v38 = *(a1 + 128);
-      if (v38 <= v39)
+      objc_autoreleasePoolPop(v43);
+      v39 = *(a1 + 128);
+      if (v39 <= v40)
       {
         break;
       }
 
-      ++v40;
-      v41 += 3336;
+      ++v41;
+      v42 += 3336;
     }
 
-    while (0x13A524387AC82261 * ((*(*(a1 + 120) + 8) - **(a1 + 120)) >> 3) > v40);
+    while (0x13A524387AC82261 * ((*(*(a1 + 120) + 8) - **(a1 + 120)) >> 3) > v41);
   }
 
-  v47 = *(a1 + 136);
-  if (v47)
+  v48 = *(a1 + 136);
+  if (v48)
   {
-    v48 = *(a1 + 120);
-    v49 = +[_ATXGlobals sharedInstance];
-    ATXKeepRandomPredictionItemsBelowLimit(v48, v38, v47, [v49 numberOfRandomAppActionTypesToKeepForLogging]);
+    v49 = *(a1 + 120);
+    v50 = +[_ATXGlobals sharedInstance];
+    ATXKeepRandomPredictionItemsBelowLimit(v49, v39, v48, [v50 numberOfRandomAppActionTypesToKeepForLogging]);
   }
 
-  v50 = [ATXAppPredictorPredictionChunks alloc];
-  v51 = [v67 finish];
-  v52 = [v35 finish];
-  v53 = [(ATXAppPredictorPredictionChunks *)v50 initWithPredictionSetChunk:v51 feedbackStateChunk:v52];
-  v54 = *(*(a1 + 112) + 8);
-  v55 = *(v54 + 40);
-  *(v54 + 40) = v53;
+  v51 = [ATXAppPredictorPredictionChunks alloc];
+  v52 = [v68 finish];
+  v53 = [v36 finish];
+  v54 = [(ATXAppPredictorPredictionChunks *)v51 initWithPredictionSetChunk:v52 feedbackStateChunk:v53];
+  v55 = *(*(a1 + 112) + 8);
+  v56 = *(v55 + 40);
+  *(v55 + 40) = v54;
 
   if ([MEMORY[0x277CEBCF0] consumerTypeForSubType:*(a1 + 152)] != 8)
   {
-    v56 = atomic_load((*(a1 + 32) + 136));
-    if (v56)
+    v57 = atomic_load((*(a1 + 32) + 136));
+    if (v57)
     {
-      v57 = [*(*(a1 + 32) + 176) allAppsWithInstallDate];
-      if ([v57 count])
+      v58 = [*(*(a1 + 32) + 176) allAppsWithInstallDate];
+      if ([v58 count])
       {
 LABEL_45:
 
         goto LABEL_46;
       }
 
-      v58 = _ZZZ200___ATXAppPredictor_predictWithLimit_consumerSubType_intent_candidateBundleIdentifiers_candidateActiontypes_scoreLogger_predictionItemsToKeep_predictedItemsOutParameter_context_datastore_featureCache__EUb_E23hasRunFirstTimeTraining;
+      v59 = _ZZZ200___ATXAppPredictor_predictWithLimit_consumerSubType_intent_candidateBundleIdentifiers_candidateActiontypes_scoreLogger_predictionItemsToKeep_predictedItemsOutParameter_context_datastore_featureCache__EUb_E23hasRunFirstTimeTraining;
 
-      if ((v58 & 1) == 0)
+      if ((v59 & 1) == 0)
       {
         _ZZZ200___ATXAppPredictor_predictWithLimit_consumerSubType_intent_candidateBundleIdentifiers_candidateActiontypes_scoreLogger_predictionItemsToKeep_predictedItemsOutParameter_context_datastore_featureCache__EUb_E23hasRunFirstTimeTraining = 1;
-        v59 = __atxlog_handle_default();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+        v61 = __atxlog_handle_default(v60);
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_2263AA000, v59, OS_LOG_TYPE_INFO, "Since app prediction expert has never been trained, training in background.", buf, 2u);
+          _os_log_impl(&dword_2263AA000, v61, OS_LOG_TYPE_INFO, "Since app prediction expert has never been trained, training in background.", buf, 2u);
         }
 
         sel_getName(*(a1 + 144));
-        v60 = os_transaction_create();
-        v61 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-        v57 = dispatch_queue_attr_make_with_qos_class(v61, QOS_CLASS_BACKGROUND, 0);
+        v62 = os_transaction_create();
+        v63 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+        v58 = dispatch_queue_attr_make_with_qos_class(v63, QOS_CLASS_BACKGROUND, 0);
 
-        v62 = dispatch_queue_create("ATXAppPrediction-initialTrain", v57);
+        v64 = dispatch_queue_create("ATXAppPrediction-initialTrain", v58);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __200___ATXAppPredictor_predictWithLimit_consumerSubType_intent_candidateBundleIdentifiers_candidateActiontypes_scoreLogger_predictionItemsToKeep_predictedItemsOutParameter_context_datastore_featureCache___block_invoke_188;
         block[3] = &unk_2785A0168;
         block[4] = *(a1 + 32);
-        v69 = v60;
-        v63 = v60;
-        dispatch_async(v62, block);
+        v70 = v62;
+        v65 = v62;
+        dispatch_async(v64, block);
 
         goto LABEL_45;
       }
@@ -560,8 +554,6 @@ LABEL_45:
   }
 
 LABEL_46:
-
-  v64 = *MEMORY[0x277D85DE8];
 }
 
 id __200___ATXAppPredictor_predictWithLimit_consumerSubType_intent_candidateBundleIdentifiers_candidateActiontypes_scoreLogger_predictionItemsToKeep_predictedItemsOutParameter_context_datastore_featureCache___block_invoke_188(uint64_t a1)
@@ -569,7 +561,6 @@ id __200___ATXAppPredictor_predictWithLimit_consumerSubType_intent_candidateBund
   v2 = objc_autoreleasePoolPush();
   [*(a1 + 32) train];
   objc_autoreleasePoolPop(v2);
-  v3 = *(a1 + 40);
   return objc_opt_self();
 }
 
@@ -584,18 +575,16 @@ id __161___ATXAppPredictor_receiveFeedbackForConsumerType_consumerSubType_atxRes
   v6 = *(a1 + 96);
   v7 = *(a1 + 112);
   v8 = [ATXAppPredictionFeedbackItem feedbackItemsForResponse:*(a1 + 40)];
-  v9 = *(*(*(a1 + 88) + 8) + 40);
-  [ATXAppPredictorFeedback receiveFeedbackForConsumerType:v6 consumerSubType:v7 feedbackItemsForResponse:v8 engagementType:*(a1 + 104) engagedBundleId:*(a1 + 48) bundleIdsShown:*(a1 + 56) explicitlyRejectedBundleIds:*(a1 + 64) abGroupIdentifier:v9 context:*(a1 + 72)];
+  [ATXAppPredictorFeedback receiveFeedbackForConsumerType:v6 consumerSubType:v7 feedbackItemsForResponse:v8 engagementType:*(a1 + 104) engagedBundleId:*(a1 + 48) bundleIdsShown:*(a1 + 56) explicitlyRejectedBundleIds:*(a1 + 64) abGroupIdentifier:*(*(*(a1 + 88) + 8) + 40) context:*(a1 + 72)];
 
   objc_autoreleasePoolPop(v5);
-  v10 = *(a1 + 80);
   return objc_opt_self();
 }
 
 void __34___ATXAppPredictor_trainWithTask___block_invoke(uint64_t a1)
 {
-  v137 = *MEMORY[0x277D85DE8];
-  v2 = __atxlog_handle_default();
+  v149 = *MEMORY[0x277D85DE8];
+  v2 = __atxlog_handle_default(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -605,84 +594,84 @@ void __34___ATXAppPredictor_trainWithTask___block_invoke(uint64_t a1)
   v3 = +[_ATXDataStore sharedInstance];
   v4 = +[_ATXGlobals sharedInstance];
   v5 = +[ATXHeroAndClipConstants sharedInstance];
-  v6 = __atxlog_handle_default();
+  v6 = __atxlog_handle_default(v5);
   v7 = os_signpost_id_generate(v6);
 
-  v8 = __atxlog_handle_default();
-  v9 = v8;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v9 = __atxlog_handle_default(v8);
+  v10 = v9;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 136446210;
-    v136 = "TOP_LEVEL";
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "Train", "Component=%{public,signpost.telemetry:string1}s  enableTelemetry=YES ", buf, 0xCu);
+    v148 = "TOP_LEVEL";
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v7, "Train", "Component=%{public,signpost.telemetry:string1}s  enableTelemetry=YES ", buf, 0xCu);
   }
 
-  v10 = os_transaction_create();
-  v11 = __atxlog_handle_default();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_INFO, "Checking data store integrity", buf, 2u);
-  }
-
-  [v3 integrityCheckOrAbort];
-  v12 = __atxlog_handle_default();
+  v11 = os_transaction_create();
+  v12 = __atxlog_handle_default(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_INFO, "Check for actions without titles", buf, 2u);
+    _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_INFO, "Checking data store integrity", buf, 2u);
   }
 
-  [v3 removeActionsWithoutTitle];
-  v13 = __atxlog_handle_default();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v13 = __atxlog_handle_default([v3 integrityCheckOrAbort]);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_INFO, "Check for actions without titles", buf, 2u);
+  }
+
+  v14 = __atxlog_handle_default([v3 removeActionsWithoutTitle]);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     __34___ATXAppPredictor_trainWithTask___block_invoke_cold_1();
   }
 
-  v14 = objc_autoreleasePoolPush();
-  v15 = [*(a1 + 32) appInstallMonitor];
-  [v15 train];
+  v15 = objc_autoreleasePoolPush();
+  v16 = [*(a1 + 32) appInstallMonitor];
+  [v16 train];
 
-  objc_autoreleasePoolPop(v14);
-  if ([*(a1 + 40) didDefer])
+  objc_autoreleasePoolPop(v15);
+  v17 = [*(a1 + 40) didDefer];
+  if (v17)
   {
-    v16 = __atxlog_handle_default();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = __atxlog_handle_default(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v17 = "App prediction training deferring after app install monitor training";
+      v19 = "App prediction training deferring after app install monitor training";
 LABEL_29:
-      _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, v17, buf, 2u);
+      _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, v19, buf, 2u);
       goto LABEL_30;
     }
 
     goto LABEL_30;
   }
 
-  [*(a1 + 40) setProgressUnits:20];
-  v18 = __atxlog_handle_default();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v20 = __atxlog_handle_default([*(a1 + 40) setProgressUnits:20]);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     __34___ATXAppPredictor_trainWithTask___block_invoke_cold_2();
   }
 
-  v19 = objc_autoreleasePoolPush();
+  v21 = objc_autoreleasePoolPush();
   [*(*(a1 + 32) + 48) train];
-  objc_autoreleasePoolPop(v19);
-  if (![*(a1 + 40) didDefer])
+  objc_autoreleasePoolPop(v21);
+  v22 = [*(a1 + 40) didDefer];
+  if (!v22)
   {
     [*(a1 + 40) setProgressUnits:30];
-    v20 = objc_autoreleasePoolPush();
+    v23 = objc_autoreleasePoolPush();
     [*(*(a1 + 32) + 184) train];
-    objc_autoreleasePoolPop(v20);
-    if ([*(a1 + 40) didDefer])
+    objc_autoreleasePoolPop(v23);
+    v24 = [*(a1 + 40) didDefer];
+    if (v24)
     {
-      v16 = __atxlog_handle_default();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = __atxlog_handle_default(v24);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v17 = "App prediction training deferring after micro location training";
+        v19 = "App prediction training deferring after micro location training";
         goto LABEL_29;
       }
 
@@ -690,16 +679,17 @@ LABEL_29:
     }
 
     [*(a1 + 40) setProgressUnits:40];
-    v21 = objc_autoreleasePoolPush();
+    v25 = objc_autoreleasePoolPush();
     [*(*(a1 + 32) + 56) train];
-    objc_autoreleasePoolPop(v21);
-    if ([*(a1 + 40) didDefer])
+    objc_autoreleasePoolPop(v25);
+    v26 = [*(a1 + 40) didDefer];
+    if (v26)
     {
-      v16 = __atxlog_handle_default();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = __atxlog_handle_default(v26);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v17 = "App prediction training deferring after app daily dose training";
+        v19 = "App prediction training deferring after app daily dose training";
         goto LABEL_29;
       }
 
@@ -707,424 +697,426 @@ LABEL_29:
     }
 
     [*(a1 + 40) setProgressUnits:50];
-    v22 = objc_autoreleasePoolPush();
+    v27 = objc_autoreleasePoolPush();
     [*(*(a1 + 32) + 176) train];
-    objc_autoreleasePoolPop(v22);
-    if ([*(a1 + 40) didDefer])
+    objc_autoreleasePoolPop(v27);
+    v28 = [*(a1 + 40) didDefer];
+    if (v28)
     {
-      v16 = __atxlog_handle_default();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = __atxlog_handle_default(v28);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v17 = "App prediction training deferring after app info manager training";
+        v19 = "App prediction training deferring after app info manager training";
         goto LABEL_29;
       }
 
       goto LABEL_30;
     }
 
-    [*(a1 + 40) setProgressUnits:60];
-    v24 = __atxlog_handle_default();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v29 = __atxlog_handle_default([*(a1 + 40) setProgressUnits:60]);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
       __34___ATXAppPredictor_trainWithTask___block_invoke_cold_3();
     }
 
-    v16 = +[_ATXAppLaunchHistogramManager sharedInstance];
-    v134 = +[_ATXAppLaunchSequenceManager sharedInstance];
-    v133 = +[ATXHistogramBundleIdTable sharedInstance];
-    v25 = [[ATXPredictionDataHistograms alloc] initWithAppInfoManager:*(*(a1 + 32) + 176) bundleIdTable:v133 launchSequenceManager:v134 histogramManager:v16];
-    [(ATXPredictionDataHistograms *)v25 verifyHistograms];
-    if ([*(a1 + 40) didDefer])
+    v18 = +[_ATXAppLaunchHistogramManager sharedInstance];
+    v146 = +[_ATXAppLaunchSequenceManager sharedInstance];
+    v145 = +[ATXHistogramBundleIdTable sharedInstance];
+    v30 = [[ATXPredictionDataHistograms alloc] initWithAppInfoManager:*(*(a1 + 32) + 176) bundleIdTable:v145 launchSequenceManager:v146 histogramManager:v18];
+    [(ATXPredictionDataHistograms *)v30 verifyHistograms];
+    v31 = [*(a1 + 40) didDefer];
+    if (v31)
     {
-      v26 = __atxlog_handle_default();
-      if (os_log_type_enabled(&v26->super, OS_LOG_TYPE_DEFAULT))
+      v32 = __atxlog_handle_default(v31);
+      if (os_log_type_enabled(&v32->super, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v27 = "App prediction training deferring after histogram verification";
+        v33 = "App prediction training deferring after histogram verification";
 LABEL_47:
-        _os_log_impl(&dword_2263AA000, &v26->super, OS_LOG_TYPE_DEFAULT, v27, buf, 2u);
+        _os_log_impl(&dword_2263AA000, &v32->super, OS_LOG_TYPE_DEFAULT, v33, buf, 2u);
       }
     }
 
     else
     {
       [*(a1 + 40) setProgressUnits:70];
-      v28 = [(ATXPredictionDataHistograms *)v25 appLaunchHistogram];
+      v34 = [(ATXPredictionDataHistograms *)v30 appLaunchHistogram];
       [v4 appLaunchDecayHalflife];
-      [v28 decayWithHalfLifeInDays:?];
-
-      v29 = [(ATXPredictionDataHistograms *)v25 spotlightLaunchHistogram];
-      [v4 spotlightLaunchDecayHalflife];
-      [v29 decayWithHalfLifeInDays:?];
-
-      v30 = [(ATXPredictionDataHistograms *)v25 homescreenLaunchHistogram];
-      [v4 homescreenLaunchDecayHalflife];
-      [v30 decayWithHalfLifeInDays:?];
-
-      v31 = [(ATXPredictionDataHistograms *)v25 appDirectoryLaunchHistogram];
-      [v4 appDirectoryLaunchDecayHalflife];
-      [v31 decayWithHalfLifeInDays:?];
-
-      v32 = [(ATXPredictionDataHistograms *)v25 airplaneModeLaunchHistogram];
-      [v4 airplaneModeLaunchDecayHalflife];
-      [v32 decayWithHalfLifeInDays:?];
-
-      v33 = [(ATXPredictionDataHistograms *)v25 trendingLaunchHistogram];
-      [v4 trendingLaunchDecayHalflife];
-      [v33 decayWithHalfLifeInDays:?];
-
-      v34 = [(ATXPredictionDataHistograms *)v25 wifiLaunchHistogram];
-      [v4 wifiSSIDLaunchDecayHalflife];
       [v34 decayWithHalfLifeInDays:?];
 
-      v35 = [(ATXPredictionDataHistograms *)v25 coreMotionLaunchHistogram];
-      [v4 coreMotionLaunchDecayHalflife];
+      v35 = [(ATXPredictionDataHistograms *)v30 spotlightLaunchHistogram];
+      [v4 spotlightLaunchDecayHalflife];
       [v35 decayWithHalfLifeInDays:?];
 
-      v36 = [(ATXPredictionDataHistograms *)v25 timeAndDayHistogram];
-      [v4 timeAndDayAppLaunchesDecayHalflife];
+      v36 = [(ATXPredictionDataHistograms *)v30 homescreenLaunchHistogram];
+      [v4 homescreenLaunchDecayHalflife];
       [v36 decayWithHalfLifeInDays:?];
 
-      v37 = [(ATXPredictionDataHistograms *)v25 notificationsHistoryHistogram];
-      [v4 notificationsHistoryDecayHalflife];
+      v37 = [(ATXPredictionDataHistograms *)v30 appDirectoryLaunchHistogram];
+      [v4 appDirectoryLaunchDecayHalflife];
       [v37 decayWithHalfLifeInDays:?];
 
-      v38 = [(ATXPredictionDataHistograms *)v25 appCoarseTimePOWLocationLaunchesHistogram];
-      [v4 appAndActionCoarseTimePowLocationDecayHalflife];
+      v38 = [(ATXPredictionDataHistograms *)v30 airplaneModeLaunchHistogram];
+      [v4 airplaneModeLaunchDecayHalflife];
       [v38 decayWithHalfLifeInDays:?];
 
-      v39 = [(ATXPredictionDataHistograms *)v25 appSpecificTimeDOWLocationLaunchesHistogram];
-      [v4 appAndActionSpecificTimePowLocationDecayHalflife];
+      v39 = [(ATXPredictionDataHistograms *)v30 trendingLaunchHistogram];
+      [v4 trendingLaunchDecayHalflife];
       [v39 decayWithHalfLifeInDays:?];
 
-      v40 = [(ATXPredictionDataHistograms *)v25 appCoarseTimePOWLocationConfirmsHistogram];
-      [v4 appAndActionCoarseTimePowLocationDecayHalflife];
+      v40 = [(ATXPredictionDataHistograms *)v30 wifiLaunchHistogram];
+      [v4 wifiSSIDLaunchDecayHalflife];
       [v40 decayWithHalfLifeInDays:?];
 
-      v41 = [(ATXPredictionDataHistograms *)v25 appSpecificTimeDOWLocationConfirmsHistogram];
-      [v4 appAndActionSpecificTimePowLocationDecayHalflife];
+      v41 = [(ATXPredictionDataHistograms *)v30 coreMotionLaunchHistogram];
+      [v4 coreMotionLaunchDecayHalflife];
       [v41 decayWithHalfLifeInDays:?];
 
-      v42 = [(ATXPredictionDataHistograms *)v25 appCoarseTimePOWLocationRejectsHistogram];
-      [v4 appAndActionCoarseTimePowLocationDecayHalflife];
+      v42 = [(ATXPredictionDataHistograms *)v30 timeAndDayHistogram];
+      [v4 timeAndDayAppLaunchesDecayHalflife];
       [v42 decayWithHalfLifeInDays:?];
 
-      v43 = [(ATXPredictionDataHistograms *)v25 appSpecificTimeDOWLocationRejectsHistogram];
-      [v4 appAndActionSpecificTimePowLocationDecayHalflife];
+      v43 = [(ATXPredictionDataHistograms *)v30 notificationsHistoryHistogram];
+      [v4 notificationsHistoryDecayHalflife];
       [v43 decayWithHalfLifeInDays:?];
 
-      v44 = [(ATXPredictionDataHistograms *)v25 appSpecificGeoHashHistogram];
-      [v4 appSpecificGeoHashDecayHalflife];
+      v44 = [(ATXPredictionDataHistograms *)v30 appCoarseTimePOWLocationLaunchesHistogram];
+      [v4 appAndActionCoarseTimePowLocationDecayHalflife];
       [v44 decayWithHalfLifeInDays:?];
 
-      v45 = [(ATXPredictionDataHistograms *)v25 appCoarseGeoHashHistogram];
-      [v4 appCoarseGeoHashDecayHalflife];
+      v45 = [(ATXPredictionDataHistograms *)v30 appSpecificTimeDOWLocationLaunchesHistogram];
+      [v4 appAndActionSpecificTimePowLocationDecayHalflife];
       [v45 decayWithHalfLifeInDays:?];
 
-      v46 = [(ATXPredictionDataHistograms *)v25 appZoom7GeoHashHistogram];
-      [v4 appZoom7GeoHashDecayHalflife];
+      v46 = [(ATXPredictionDataHistograms *)v30 appCoarseTimePOWLocationConfirmsHistogram];
+      [v4 appAndActionCoarseTimePowLocationDecayHalflife];
       [v46 decayWithHalfLifeInDays:?];
 
-      v47 = [(ATXPredictionDataHistograms *)v25 appLaunchesTwoHourTimeInterval];
-      [v4 appLaunchesTwoHourTimeIntervalDecayHalflife];
+      v47 = [(ATXPredictionDataHistograms *)v30 appSpecificTimeDOWLocationConfirmsHistogram];
+      [v4 appAndActionSpecificTimePowLocationDecayHalflife];
       [v47 decayWithHalfLifeInDays:?];
 
-      v48 = [(ATXPredictionDataHistograms *)v25 appConfirmsTwoHourTimeInterval];
-      [v4 appConfirmsTwoHourTimeIntervalDecayHalflife];
+      v48 = [(ATXPredictionDataHistograms *)v30 appCoarseTimePOWLocationRejectsHistogram];
+      [v4 appAndActionCoarseTimePowLocationDecayHalflife];
       [v48 decayWithHalfLifeInDays:?];
 
-      v49 = [(ATXPredictionDataHistograms *)v25 appRejectsTwoHourTimeInterval];
-      [v4 appRejectsTwoHourTimeIntervalDecayHalflife];
+      v49 = [(ATXPredictionDataHistograms *)v30 appSpecificTimeDOWLocationRejectsHistogram];
+      [v4 appAndActionSpecificTimePowLocationDecayHalflife];
       [v49 decayWithHalfLifeInDays:?];
 
-      v50 = [(ATXPredictionDataHistograms *)v25 appConfirmsDayOfWeek];
-      [v4 appConfirmsDayOfWeekDecayHalflife];
+      v50 = [(ATXPredictionDataHistograms *)v30 appSpecificGeoHashHistogram];
+      [v4 appSpecificGeoHashDecayHalflife];
       [v50 decayWithHalfLifeInDays:?];
 
-      v51 = [(ATXPredictionDataHistograms *)v25 appRejectsDayOfWeek];
-      [v4 appRejectsDayOfWeekDecayHalflife];
+      v51 = [(ATXPredictionDataHistograms *)v30 appCoarseGeoHashHistogram];
+      [v4 appCoarseGeoHashDecayHalflife];
       [v51 decayWithHalfLifeInDays:?];
 
-      v52 = [(ATXPredictionDataHistograms *)v25 appConfirmsCoarseGeoHash];
-      [v4 appConfirmsCoarseGeoHashDecayHalflife];
+      v52 = [(ATXPredictionDataHistograms *)v30 appZoom7GeoHashHistogram];
+      [v4 appZoom7GeoHashDecayHalflife];
       [v52 decayWithHalfLifeInDays:?];
 
-      v53 = [(ATXPredictionDataHistograms *)v25 appRejectsCoarseGeoHash];
-      [v4 appRejectsCoarseGeoHashDecayHalflife];
+      v53 = [(ATXPredictionDataHistograms *)v30 appLaunchesTwoHourTimeInterval];
+      [v4 appLaunchesTwoHourTimeIntervalDecayHalflife];
       [v53 decayWithHalfLifeInDays:?];
 
-      v54 = [(ATXPredictionDataHistograms *)v25 appConfirmsSpecificGeoHash];
-      [v4 appConfirmsSpecificGeoHashDecayHalflife];
+      v54 = [(ATXPredictionDataHistograms *)v30 appConfirmsTwoHourTimeInterval];
+      [v4 appConfirmsTwoHourTimeIntervalDecayHalflife];
       [v54 decayWithHalfLifeInDays:?];
 
-      v55 = [(ATXPredictionDataHistograms *)v25 appRejectsSpecificGeoHash];
-      [v4 appRejectsSpecificGeoHashDecayHalflife];
+      v55 = [(ATXPredictionDataHistograms *)v30 appRejectsTwoHourTimeInterval];
+      [v4 appRejectsTwoHourTimeIntervalDecayHalflife];
       [v55 decayWithHalfLifeInDays:?];
 
-      v56 = [(ATXPredictionDataHistograms *)v25 appExplicitRejectsCoarseTimePOWLocationHistogram];
-      [v4 appExplicitRejectsCoarseTimePOWLocationDecayHalflife];
+      v56 = [(ATXPredictionDataHistograms *)v30 appConfirmsDayOfWeek];
+      [v4 appConfirmsDayOfWeekDecayHalflife];
       [v56 decayWithHalfLifeInDays:?];
 
-      v57 = [(ATXPredictionDataHistograms *)v25 appClipsFeedbackHistogram];
-      [v5 appClipsFeedbackHistogramHalfLifeInDays];
+      v57 = [(ATXPredictionDataHistograms *)v30 appRejectsDayOfWeek];
+      [v4 appRejectsDayOfWeekDecayHalflife];
       [v57 decayWithHalfLifeInDays:?];
 
-      v58 = [(ATXPredictionDataHistograms *)v25 unlockTimeHistogram];
-      [v4 unlockTimeDecayHalflife];
+      v58 = [(ATXPredictionDataHistograms *)v30 appConfirmsCoarseGeoHash];
+      [v4 appConfirmsCoarseGeoHashDecayHalflife];
       [v58 decayWithHalfLifeInDays:?];
 
-      v59 = [(ATXPredictionDataHistograms *)v25 dayOfWeekLaunchHistogram];
-      [v4 dayOfWeekLaunchDecayHalflife];
+      v59 = [(ATXPredictionDataHistograms *)v30 appRejectsCoarseGeoHash];
+      [v4 appRejectsCoarseGeoHashDecayHalflife];
       [v59 decayWithHalfLifeInDays:?];
 
-      v60 = [(ATXPredictionDataHistograms *)v25 homeScreenAppConfirmsCoarseTimePOWLocationHistogram];
-      [v4 homeScreenAppConfirmsCoarseTimePOWLocationDecayHalflife];
+      v60 = [(ATXPredictionDataHistograms *)v30 appConfirmsSpecificGeoHash];
+      [v4 appConfirmsSpecificGeoHashDecayHalflife];
       [v60 decayWithHalfLifeInDays:?];
 
-      v61 = [(ATXPredictionDataHistograms *)v25 homeScreenAppConfirmsSpecificTimeDOWLocationHistogram];
-      [v4 homeScreenAppConfirmsSpecificTimeDOWLocationDecayHalflife];
+      v61 = [(ATXPredictionDataHistograms *)v30 appRejectsSpecificGeoHash];
+      [v4 appRejectsSpecificGeoHashDecayHalflife];
       [v61 decayWithHalfLifeInDays:?];
 
-      v62 = [(ATXPredictionDataHistograms *)v25 homeScreenAppConfirmsTwoHourTimeIntervalHistogram];
-      [v4 homeScreenAppConfirmsTwoHourTimeIntervalDecayHalflife];
+      v62 = [(ATXPredictionDataHistograms *)v30 appExplicitRejectsCoarseTimePOWLocationHistogram];
+      [v4 appExplicitRejectsCoarseTimePOWLocationDecayHalflife];
       [v62 decayWithHalfLifeInDays:?];
 
-      v63 = [(ATXPredictionDataHistograms *)v25 homeScreenAppConfirmsDayOfWeekHistogram];
-      [v4 homeScreenAppConfirmsDayOfWeekDecayHalflife];
+      v63 = [(ATXPredictionDataHistograms *)v30 appClipsFeedbackHistogram];
+      [v5 appClipsFeedbackHistogramHalfLifeInDays];
       [v63 decayWithHalfLifeInDays:?];
 
-      v64 = [(ATXPredictionDataHistograms *)v25 homeScreenAppConfirmsCoarseGeohashHistogram];
-      [v4 homeScreenAppConfirmsCoarseGeohashDecayHalflife];
+      v64 = [(ATXPredictionDataHistograms *)v30 unlockTimeHistogram];
+      [v4 unlockTimeDecayHalflife];
       [v64 decayWithHalfLifeInDays:?];
 
-      v65 = [(ATXPredictionDataHistograms *)v25 homeScreenAppConfirmsSpecificGeohashHistogram];
-      [v4 homeScreenAppConfirmsSpecificGeohashDecayHalflife];
+      v65 = [(ATXPredictionDataHistograms *)v30 dayOfWeekLaunchHistogram];
+      [v4 dayOfWeekLaunchDecayHalflife];
       [v65 decayWithHalfLifeInDays:?];
 
-      v66 = [(ATXPredictionDataHistograms *)v25 homeScreenAppRejectsCoarseTimePOWLocationHistogram];
-      [v4 homeScreenAppRejectsCoarseTimePOWLocationDecayHalflife];
+      v66 = [(ATXPredictionDataHistograms *)v30 homeScreenAppConfirmsCoarseTimePOWLocationHistogram];
+      [v4 homeScreenAppConfirmsCoarseTimePOWLocationDecayHalflife];
       [v66 decayWithHalfLifeInDays:?];
 
-      v67 = [(ATXPredictionDataHistograms *)v25 homeScreenAppRejectsSpecificTimeDOWLocationHistogram];
-      [v4 homeScreenAppRejectsSpecificTimeDOWLocationDecayHalflife];
+      v67 = [(ATXPredictionDataHistograms *)v30 homeScreenAppConfirmsSpecificTimeDOWLocationHistogram];
+      [v4 homeScreenAppConfirmsSpecificTimeDOWLocationDecayHalflife];
       [v67 decayWithHalfLifeInDays:?];
 
-      v68 = [(ATXPredictionDataHistograms *)v25 homeScreenAppRejectsTwoHourTimeIntervalHistogram];
-      [v4 homeScreenAppRejectsTwoHourTimeIntervalDecayHalflife];
+      v68 = [(ATXPredictionDataHistograms *)v30 homeScreenAppConfirmsTwoHourTimeIntervalHistogram];
+      [v4 homeScreenAppConfirmsTwoHourTimeIntervalDecayHalflife];
       [v68 decayWithHalfLifeInDays:?];
 
-      v69 = [(ATXPredictionDataHistograms *)v25 homeScreenAppRejectsDayOfWeekHistogram];
-      [v4 homeScreenAppRejectsDayOfWeekDecayHalflife];
+      v69 = [(ATXPredictionDataHistograms *)v30 homeScreenAppConfirmsDayOfWeekHistogram];
+      [v4 homeScreenAppConfirmsDayOfWeekDecayHalflife];
       [v69 decayWithHalfLifeInDays:?];
 
-      v70 = [(ATXPredictionDataHistograms *)v25 homeScreenAppRejectsCoarseGeohashHistogram];
-      [v4 homeScreenAppRejectsCoarseGeohashDecayHalflife];
+      v70 = [(ATXPredictionDataHistograms *)v30 homeScreenAppConfirmsCoarseGeohashHistogram];
+      [v4 homeScreenAppConfirmsCoarseGeohashDecayHalflife];
       [v70 decayWithHalfLifeInDays:?];
 
-      v71 = [(ATXPredictionDataHistograms *)v25 homeScreenAppRejectsSpecificGeohashHistogram];
-      [v4 homeScreenAppRejectsSpecificGeohashDecayHalflife];
+      v71 = [(ATXPredictionDataHistograms *)v30 homeScreenAppConfirmsSpecificGeohashHistogram];
+      [v4 homeScreenAppConfirmsSpecificGeohashDecayHalflife];
       [v71 decayWithHalfLifeInDays:?];
 
-      v72 = [(ATXPredictionDataHistograms *)v25 homeScreenAppExplicitRejectsCoarseTimePOWLocationHistogram];
-      [v4 homeScreenAppExplicitRejectsCoarseTimePOWLocationDecayHalflife];
+      v72 = [(ATXPredictionDataHistograms *)v30 homeScreenAppRejectsCoarseTimePOWLocationHistogram];
+      [v4 homeScreenAppRejectsCoarseTimePOWLocationDecayHalflife];
       [v72 decayWithHalfLifeInDays:?];
 
-      v73 = [(ATXPredictionDataHistograms *)v25 appDirectoryConfirmsCoarseTimePOWLocationHistogram];
-      [v4 appDirectoryConfirmsCoarseTimePOWLocationDecayHalflife];
+      v73 = [(ATXPredictionDataHistograms *)v30 homeScreenAppRejectsSpecificTimeDOWLocationHistogram];
+      [v4 homeScreenAppRejectsSpecificTimeDOWLocationDecayHalflife];
       [v73 decayWithHalfLifeInDays:?];
 
-      v74 = [(ATXPredictionDataHistograms *)v25 appDirectoryConfirmsSpecificTimeDOWLocationHistogram];
-      [v4 appDirectoryConfirmsSpecificTimeDOWLocationDecayHalflife];
+      v74 = [(ATXPredictionDataHistograms *)v30 homeScreenAppRejectsTwoHourTimeIntervalHistogram];
+      [v4 homeScreenAppRejectsTwoHourTimeIntervalDecayHalflife];
       [v74 decayWithHalfLifeInDays:?];
 
-      v75 = [(ATXPredictionDataHistograms *)v25 appDirectoryConfirmsTwoHourTimeIntervalHistogram];
-      [v4 appDirectoryConfirmsTwoHourTimeIntervalDecayHalflife];
+      v75 = [(ATXPredictionDataHistograms *)v30 homeScreenAppRejectsDayOfWeekHistogram];
+      [v4 homeScreenAppRejectsDayOfWeekDecayHalflife];
       [v75 decayWithHalfLifeInDays:?];
 
-      v76 = [(ATXPredictionDataHistograms *)v25 appDirectoryConfirmsDayOfWeekHistogram];
-      [v4 appDirectoryConfirmsDayOfWeekDecayHalflife];
+      v76 = [(ATXPredictionDataHistograms *)v30 homeScreenAppRejectsCoarseGeohashHistogram];
+      [v4 homeScreenAppRejectsCoarseGeohashDecayHalflife];
       [v76 decayWithHalfLifeInDays:?];
 
-      v77 = [(ATXPredictionDataHistograms *)v25 appDirectoryConfirmsCoarseGeohashHistogram];
-      [v4 appDirectoryConfirmsCoarseGeohashDecayHalflife];
+      v77 = [(ATXPredictionDataHistograms *)v30 homeScreenAppRejectsSpecificGeohashHistogram];
+      [v4 homeScreenAppRejectsSpecificGeohashDecayHalflife];
       [v77 decayWithHalfLifeInDays:?];
 
-      v78 = [(ATXPredictionDataHistograms *)v25 appDirectoryConfirmsSpecificGeohashHistogram];
-      [v4 appDirectoryConfirmsSpecificGeohashDecayHalflife];
+      v78 = [(ATXPredictionDataHistograms *)v30 homeScreenAppExplicitRejectsCoarseTimePOWLocationHistogram];
+      [v4 homeScreenAppExplicitRejectsCoarseTimePOWLocationDecayHalflife];
       [v78 decayWithHalfLifeInDays:?];
 
-      v79 = [(ATXPredictionDataHistograms *)v25 appDirectoryRejectsCoarseTimePOWLocationHistogram];
-      [v4 appDirectoryRejectsCoarseTimePOWLocationDecayHalflife];
+      v79 = [(ATXPredictionDataHistograms *)v30 appDirectoryConfirmsCoarseTimePOWLocationHistogram];
+      [v4 appDirectoryConfirmsCoarseTimePOWLocationDecayHalflife];
       [v79 decayWithHalfLifeInDays:?];
 
-      v80 = [(ATXPredictionDataHistograms *)v25 appDirectoryRejectsSpecificTimeDOWLocationHistogram];
-      [v4 appDirectoryRejectsSpecificTimeDOWLocationDecayHalflife];
+      v80 = [(ATXPredictionDataHistograms *)v30 appDirectoryConfirmsSpecificTimeDOWLocationHistogram];
+      [v4 appDirectoryConfirmsSpecificTimeDOWLocationDecayHalflife];
       [v80 decayWithHalfLifeInDays:?];
 
-      v81 = [(ATXPredictionDataHistograms *)v25 appDirectoryRejectsTwoHourTimeIntervalHistogram];
-      [v4 appDirectoryRejectsTwoHourTimeIntervalDecayHalflife];
+      v81 = [(ATXPredictionDataHistograms *)v30 appDirectoryConfirmsTwoHourTimeIntervalHistogram];
+      [v4 appDirectoryConfirmsTwoHourTimeIntervalDecayHalflife];
       [v81 decayWithHalfLifeInDays:?];
 
-      v82 = [(ATXPredictionDataHistograms *)v25 appDirectoryRejectsDayOfWeekHistogram];
-      [v4 appDirectoryRejectsDayOfWeekDecayHalflife];
+      v82 = [(ATXPredictionDataHistograms *)v30 appDirectoryConfirmsDayOfWeekHistogram];
+      [v4 appDirectoryConfirmsDayOfWeekDecayHalflife];
       [v82 decayWithHalfLifeInDays:?];
 
-      v83 = [(ATXPredictionDataHistograms *)v25 appDirectoryRejectsCoarseGeohashHistogram];
-      [v4 appDirectoryRejectsCoarseGeohashDecayHalflife];
+      v83 = [(ATXPredictionDataHistograms *)v30 appDirectoryConfirmsCoarseGeohashHistogram];
+      [v4 appDirectoryConfirmsCoarseGeohashDecayHalflife];
       [v83 decayWithHalfLifeInDays:?];
 
-      v84 = [(ATXPredictionDataHistograms *)v25 appDirectoryRejectsSpecificGeohashHistogram];
-      [v4 appDirectoryRejectsSpecificGeohashDecayHalflife];
+      v84 = [(ATXPredictionDataHistograms *)v30 appDirectoryConfirmsSpecificGeohashHistogram];
+      [v4 appDirectoryConfirmsSpecificGeohashDecayHalflife];
       [v84 decayWithHalfLifeInDays:?];
 
-      v85 = [(ATXPredictionDataHistograms *)v25 appDirectoryExplicitRejectsCoarseTimePOWLocationHistogram];
-      [v4 appDirectoryExplicitRejectsCoarseTimePOWLocationDecayHalflife];
+      v85 = [(ATXPredictionDataHistograms *)v30 appDirectoryRejectsCoarseTimePOWLocationHistogram];
+      [v4 appDirectoryRejectsCoarseTimePOWLocationDecayHalflife];
       [v85 decayWithHalfLifeInDays:?];
 
-      [v4 launchSequenceDecayHalflife];
-      [v134 decayAllLaunchSequencesWithHalfLifeInDays:?];
-      [v4 appActionLaunchSequenceDecayHalflife];
-      [v134 decayAllAppActionLaunchSequencesWithHalfLifeInDays:?];
-      v86 = [(ATXPredictionDataHistograms *)v25 appIntentLaunchHistogram];
-      [v4 appActionLaunchDecayHalflife];
+      v86 = [(ATXPredictionDataHistograms *)v30 appDirectoryRejectsSpecificTimeDOWLocationHistogram];
+      [v4 appDirectoryRejectsSpecificTimeDOWLocationDecayHalflife];
       [v86 decayWithHalfLifeInDays:?];
 
-      v87 = [(ATXPredictionDataHistograms *)v25 appIntentAirplaneModeLaunchHistogram];
-      [v4 appActionAirplaneModeLaunchDecayHalflife];
+      v87 = [(ATXPredictionDataHistograms *)v30 appDirectoryRejectsTwoHourTimeIntervalHistogram];
+      [v4 appDirectoryRejectsTwoHourTimeIntervalDecayHalflife];
       [v87 decayWithHalfLifeInDays:?];
 
-      v88 = [(ATXPredictionDataHistograms *)v25 appIntentTrendingLaunchHistogram];
-      [v4 appActionTrendingLaunchDecayHalflife];
+      v88 = [(ATXPredictionDataHistograms *)v30 appDirectoryRejectsDayOfWeekHistogram];
+      [v4 appDirectoryRejectsDayOfWeekDecayHalflife];
       [v88 decayWithHalfLifeInDays:?];
 
-      v89 = [(ATXPredictionDataHistograms *)v25 appIntentWifiHistogram];
-      [v4 appActionWifiSSIDLaunchDecayHalflife];
+      v89 = [(ATXPredictionDataHistograms *)v30 appDirectoryRejectsCoarseGeohashHistogram];
+      [v4 appDirectoryRejectsCoarseGeohashDecayHalflife];
       [v89 decayWithHalfLifeInDays:?];
 
-      v90 = [(ATXPredictionDataHistograms *)v25 appIntentCoreMotionLaunchHistogram];
-      [v4 appActionCoreMotionLaunchDecayHalflife];
+      v90 = [(ATXPredictionDataHistograms *)v30 appDirectoryRejectsSpecificGeohashHistogram];
+      [v4 appDirectoryRejectsSpecificGeohashDecayHalflife];
       [v90 decayWithHalfLifeInDays:?];
 
-      v91 = [(ATXPredictionDataHistograms *)v25 appIntentUnlockTimeHistogram];
-      [v4 appActionUnlockTimeDecayHalflife];
+      v91 = [(ATXPredictionDataHistograms *)v30 appDirectoryExplicitRejectsCoarseTimePOWLocationHistogram];
+      [v4 appDirectoryExplicitRejectsCoarseTimePOWLocationDecayHalflife];
       [v91 decayWithHalfLifeInDays:?];
 
-      v92 = [(ATXPredictionDataHistograms *)v25 appIntentDayOfWeekHistogram];
-      [v4 appActionDayOfWeekLaunchDecayHalflife];
+      [v4 launchSequenceDecayHalflife];
+      [v146 decayAllLaunchSequencesWithHalfLifeInDays:?];
+      [v4 appActionLaunchSequenceDecayHalflife];
+      [v146 decayAllAppActionLaunchSequencesWithHalfLifeInDays:?];
+      v92 = [(ATXPredictionDataHistograms *)v30 appIntentLaunchHistogram];
+      [v4 appActionLaunchDecayHalflife];
       [v92 decayWithHalfLifeInDays:?];
 
-      v93 = [(ATXPredictionDataHistograms *)v25 appForAllIntentsLaunchHistogram];
-      [v4 appActionLaunchDecayHalflife];
+      v93 = [(ATXPredictionDataHistograms *)v30 appIntentAirplaneModeLaunchHistogram];
+      [v4 appActionAirplaneModeLaunchDecayHalflife];
       [v93 decayWithHalfLifeInDays:?];
 
-      v94 = [(ATXPredictionDataHistograms *)v25 appForAllIntentsAirplaneModeLaunchHistogram];
-      [v4 appActionAirplaneModeLaunchDecayHalflife];
+      v94 = [(ATXPredictionDataHistograms *)v30 appIntentTrendingLaunchHistogram];
+      [v4 appActionTrendingLaunchDecayHalflife];
       [v94 decayWithHalfLifeInDays:?];
 
-      v95 = [(ATXPredictionDataHistograms *)v25 appForAllIntentsTrendingLaunchHistogram];
-      [v4 appActionTrendingLaunchDecayHalflife];
+      v95 = [(ATXPredictionDataHistograms *)v30 appIntentWifiHistogram];
+      [v4 appActionWifiSSIDLaunchDecayHalflife];
       [v95 decayWithHalfLifeInDays:?];
 
-      v96 = [(ATXPredictionDataHistograms *)v25 appForAllIntentsWifiHistogram];
-      [v4 appActionWifiSSIDLaunchDecayHalflife];
+      v96 = [(ATXPredictionDataHistograms *)v30 appIntentCoreMotionLaunchHistogram];
+      [v4 appActionCoreMotionLaunchDecayHalflife];
       [v96 decayWithHalfLifeInDays:?];
 
-      v97 = [(ATXPredictionDataHistograms *)v25 appForAllIntentsUnlockTimeHistogram];
+      v97 = [(ATXPredictionDataHistograms *)v30 appIntentUnlockTimeHistogram];
       [v4 appActionUnlockTimeDecayHalflife];
       [v97 decayWithHalfLifeInDays:?];
 
-      v98 = [(ATXPredictionDataHistograms *)v25 appForAllIntentsDayOfWeekHistogram];
+      v98 = [(ATXPredictionDataHistograms *)v30 appIntentDayOfWeekHistogram];
       [v4 appActionDayOfWeekLaunchDecayHalflife];
       [v98 decayWithHalfLifeInDays:?];
 
-      v99 = [(ATXPredictionDataHistograms *)v25 appForAllIntentsCoreMotionLaunchHistogram];
-      [v4 appActionCoreMotionLaunchDecayHalflife];
+      v99 = [(ATXPredictionDataHistograms *)v30 appForAllIntentsLaunchHistogram];
+      [v4 appActionLaunchDecayHalflife];
       [v99 decayWithHalfLifeInDays:?];
 
-      v100 = [(ATXPredictionDataHistograms *)v25 poiCategoryHistogram];
-      [v4 poiCategoryDecayHalfLife];
+      v100 = [(ATXPredictionDataHistograms *)v30 appForAllIntentsAirplaneModeLaunchHistogram];
+      [v4 appActionAirplaneModeLaunchDecayHalflife];
       [v100 decayWithHalfLifeInDays:?];
 
-      v101 = [(ATXPredictionDataHistograms *)v25 documentOpenHistogram];
-      [v4 documentOpenDecayHalflife];
+      v101 = [(ATXPredictionDataHistograms *)v30 appForAllIntentsTrendingLaunchHistogram];
+      [v4 appActionTrendingLaunchDecayHalflife];
       [v101 decayWithHalfLifeInDays:?];
 
-      v102 = [(ATXPredictionDataHistograms *)v25 documentDayOfWeekHistogram];
-      [v4 documentDayOfWeekDecayHalflife];
+      v102 = [(ATXPredictionDataHistograms *)v30 appForAllIntentsWifiHistogram];
+      [v4 appActionWifiSSIDLaunchDecayHalflife];
       [v102 decayWithHalfLifeInDays:?];
 
-      v103 = [(ATXPredictionDataHistograms *)v25 documentUnlockTimeHistogram];
-      [v4 documentUnlockTimeDecayHalflife];
+      v103 = [(ATXPredictionDataHistograms *)v30 appForAllIntentsUnlockTimeHistogram];
+      [v4 appActionUnlockTimeDecayHalflife];
       [v103 decayWithHalfLifeInDays:?];
 
-      v104 = [(ATXPredictionDataHistograms *)v25 documentAirplaneModeHistogram];
-      [v4 documentAirplaneModeDecayHalflife];
+      v104 = [(ATXPredictionDataHistograms *)v30 appForAllIntentsDayOfWeekHistogram];
+      [v4 appActionDayOfWeekLaunchDecayHalflife];
       [v104 decayWithHalfLifeInDays:?];
 
-      v105 = [(ATXPredictionDataHistograms *)v25 documentTrendingOpenHistogram];
-      [v4 documentTrendingOpenDecayHalflife];
+      v105 = [(ATXPredictionDataHistograms *)v30 appForAllIntentsCoreMotionLaunchHistogram];
+      [v4 appActionCoreMotionLaunchDecayHalflife];
       [v105 decayWithHalfLifeInDays:?];
 
-      v106 = [(ATXPredictionDataHistograms *)v25 documentConfirmsHistogram];
-      [v4 documentConfirmsDecayHalflife];
+      v106 = [(ATXPredictionDataHistograms *)v30 poiCategoryHistogram];
+      [v4 poiCategoryDecayHalfLife];
       [v106 decayWithHalfLifeInDays:?];
 
-      v107 = [(ATXPredictionDataHistograms *)v25 documentRejectsHistogram];
-      [v4 documentConfirmsDecayHalflife];
+      v107 = [(ATXPredictionDataHistograms *)v30 documentOpenHistogram];
+      [v4 documentOpenDecayHalflife];
       [v107 decayWithHalfLifeInDays:?];
 
-      v108 = [(ATXPredictionDataHistograms *)v25 documentCategoryOpenHistogram];
-      [v4 documentCategoryOpenDecayHalflife];
+      v108 = [(ATXPredictionDataHistograms *)v30 documentDayOfWeekHistogram];
+      [v4 documentDayOfWeekDecayHalflife];
       [v108 decayWithHalfLifeInDays:?];
 
-      v109 = [(ATXPredictionDataHistograms *)v25 documentCategoryDayOfWeekHistogram];
-      [v4 documentCategoryDayOfWeekDecayHalflife];
+      v109 = [(ATXPredictionDataHistograms *)v30 documentUnlockTimeHistogram];
+      [v4 documentUnlockTimeDecayHalflife];
       [v109 decayWithHalfLifeInDays:?];
 
-      v110 = [(ATXPredictionDataHistograms *)v25 documentCategoryTrendingOpenHistogram];
-      [v4 documentCategoryTrendingOpenDecayHalflife];
+      v110 = [(ATXPredictionDataHistograms *)v30 documentAirplaneModeHistogram];
+      [v4 documentAirplaneModeDecayHalflife];
       [v110 decayWithHalfLifeInDays:?];
 
-      v111 = [(ATXPredictionDataHistograms *)v25 documentWifiOpenHistogram];
-      [v4 documentWifiOpenDecayHalflife];
+      v111 = [(ATXPredictionDataHistograms *)v30 documentTrendingOpenHistogram];
+      [v4 documentTrendingOpenDecayHalflife];
       [v111 decayWithHalfLifeInDays:?];
 
-      v112 = [(ATXPredictionDataHistograms *)v25 documentCoreMotionOpenHistogram];
-      [v4 documentCoreMotionOpenDecayHalflife];
+      v112 = [(ATXPredictionDataHistograms *)v30 documentConfirmsHistogram];
+      [v4 documentConfirmsDecayHalflife];
       [v112 decayWithHalfLifeInDays:?];
 
-      v113 = [(ATXPredictionDataHistograms *)v25 documentPartOfWeekHistogram];
-      [v4 documentPartOfWeekDecayHalflife];
+      v113 = [(ATXPredictionDataHistograms *)v30 documentRejectsHistogram];
+      [v4 documentConfirmsDecayHalflife];
       [v113 decayWithHalfLifeInDays:?];
 
-      v114 = [(ATXPredictionDataHistograms *)v25 documentAmbientLightHistogram];
-      [v4 documentAmbientLightDecayHalflife];
+      v114 = [(ATXPredictionDataHistograms *)v30 documentCategoryOpenHistogram];
+      [v4 documentCategoryOpenDecayHalflife];
       [v114 decayWithHalfLifeInDays:?];
 
-      v115 = [(ATXPredictionDataHistograms *)v25 documentCategoryPartOfWeekHistogram];
-      [v4 documentCategoryPartOfWeekDecayHalflife];
+      v115 = [(ATXPredictionDataHistograms *)v30 documentCategoryDayOfWeekHistogram];
+      [v4 documentCategoryDayOfWeekDecayHalflife];
       [v115 decayWithHalfLifeInDays:?];
 
-      v116 = __atxlog_handle_default();
-      if (os_log_type_enabled(v116, OS_LOG_TYPE_DEBUG))
+      v116 = [(ATXPredictionDataHistograms *)v30 documentCategoryTrendingOpenHistogram];
+      [v4 documentCategoryTrendingOpenDecayHalflife];
+      [v116 decayWithHalfLifeInDays:?];
+
+      v117 = [(ATXPredictionDataHistograms *)v30 documentWifiOpenHistogram];
+      [v4 documentWifiOpenDecayHalflife];
+      [v117 decayWithHalfLifeInDays:?];
+
+      v118 = [(ATXPredictionDataHistograms *)v30 documentCoreMotionOpenHistogram];
+      [v4 documentCoreMotionOpenDecayHalflife];
+      [v118 decayWithHalfLifeInDays:?];
+
+      v119 = [(ATXPredictionDataHistograms *)v30 documentPartOfWeekHistogram];
+      [v4 documentPartOfWeekDecayHalflife];
+      [v119 decayWithHalfLifeInDays:?];
+
+      v120 = [(ATXPredictionDataHistograms *)v30 documentAmbientLightHistogram];
+      [v4 documentAmbientLightDecayHalflife];
+      [v120 decayWithHalfLifeInDays:?];
+
+      v121 = [(ATXPredictionDataHistograms *)v30 documentCategoryPartOfWeekHistogram];
+      [v4 documentCategoryPartOfWeekDecayHalflife];
+      [v121 decayWithHalfLifeInDays:?];
+
+      v123 = __atxlog_handle_default(v122);
+      if (os_log_type_enabled(v123, OS_LOG_TYPE_DEBUG))
       {
         __34___ATXAppPredictor_trainWithTask___block_invoke_cold_4();
       }
 
-      v117 = +[_ATXFeedback sharedInstance];
-      [v117 decayCounts];
+      v124 = +[_ATXFeedback sharedInstance];
+      [v124 decayCounts];
 
-      v118 = +[ATXActionFeedback sharedInstance];
-      [v118 decayCounts];
+      v125 = +[ATXActionFeedback sharedInstance];
+      [v125 decayCounts];
 
-      if ([*(a1 + 40) didDefer])
+      v126 = [*(a1 + 40) didDefer];
+      if (v126)
       {
-        v26 = __atxlog_handle_default();
-        if (os_log_type_enabled(&v26->super, OS_LOG_TYPE_DEFAULT))
+        v32 = __atxlog_handle_default(v126);
+        if (os_log_type_enabled(&v32->super, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          v27 = "App prediction training deferring after decaying histograms and feedback";
+          v33 = "App prediction training deferring after decaying histograms and feedback";
           goto LABEL_47;
         }
       }
@@ -1132,14 +1124,15 @@ LABEL_47:
       else
       {
         [*(a1 + 40) setProgressUnits:85];
-        [(ATXPredictionDataHistograms *)v25 removeExpiredData];
-        if ([*(a1 + 40) didDefer])
+        [(ATXPredictionDataHistograms *)v30 removeExpiredData];
+        v127 = [*(a1 + 40) didDefer];
+        if (v127)
         {
-          v26 = __atxlog_handle_default();
-          if (os_log_type_enabled(&v26->super, OS_LOG_TYPE_DEFAULT))
+          v32 = __atxlog_handle_default(v127);
+          if (os_log_type_enabled(&v32->super, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            v27 = "App prediction training deferring after removing expired apps data";
+            v33 = "App prediction training deferring after removing expired apps data";
             goto LABEL_47;
           }
         }
@@ -1147,57 +1140,59 @@ LABEL_47:
         else
         {
           [v3 deleteSamplesThatAreMoreThan28DaysOldFromActionDatabases];
-          if (![*(a1 + 40) didDefer])
+          v128 = [*(a1 + 40) didDefer];
+          if (!v128)
           {
-            v119 = [*(*(a1 + 32) + 176) allApps];
-            [v3 trimActionHistoryWithAppWhitelist:v119];
+            v129 = [*(*(a1 + 32) + 176) allApps];
+            [v3 trimActionHistoryWithAppWhitelist:v129];
 
-            v120 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:{objc_msgSend(v4, "messageContentTimeElapsed")}];
-            [v3 pruneMessageRecipientsAddedBefore:v120];
+            v130 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:{objc_msgSend(v4, "messageContentTimeElapsed")}];
+            [v3 pruneMessageRecipientsAddedBefore:v130];
 
-            v26 = [[ATXExpiredDataProvider alloc] initWithAppInfoManager:*(*(a1 + 32) + 176) histogramBundleIdTable:v133];
-            v121 = [(ATXExpiredDataProvider *)v26 expiredBundleIdsAndActionKeys];
-            v129 = *(*(a1 + 32) + 176);
-            v132 = v121;
-            v122 = [v121 expiredBundleIds];
-            v123 = v129;
-            v130 = v122;
-            [v123 removeBundleIds:v122];
+            v32 = [[ATXExpiredDataProvider alloc] initWithAppInfoManager:*(*(a1 + 32) + 176) histogramBundleIdTable:v145];
+            v131 = [(ATXExpiredDataProvider *)v32 expiredBundleIdsAndActionKeys];
+            v141 = *(*(a1 + 32) + 176);
+            v144 = v131;
+            v132 = [v131 expiredBundleIds];
+            v133 = v141;
+            v142 = v132;
+            [v133 removeBundleIds:v132];
 
-            v131 = [v132 expiredBundleIds];
-            [v133 removeBundleIds:v131];
+            v143 = [v144 expiredBundleIds];
+            [v145 removeBundleIds:v143];
 
-            v124 = __atxlog_handle_default();
-            v125 = v124;
+            v135 = __atxlog_handle_default(v134);
+            v136 = v135;
             if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
             {
-              v126 = v124;
-              v127 = os_signpost_enabled(v124);
-              v125 = v126;
-              if (v127)
+              v137 = v135;
+              v138 = os_signpost_enabled(v135);
+              v136 = v137;
+              if (v138)
               {
                 *buf = 136446210;
-                v136 = "TOP_LEVEL";
-                _os_signpost_emit_with_name_impl(&dword_2263AA000, v126, OS_SIGNPOST_INTERVAL_END, v7, "Train", "Component=%{public,signpost.telemetry:string1}s  enableTelemetry=YES ", buf, 0xCu);
-                v125 = v126;
+                v148 = "TOP_LEVEL";
+                _os_signpost_emit_with_name_impl(&dword_2263AA000, v137, OS_SIGNPOST_INTERVAL_END, v7, "Train", "Component=%{public,signpost.telemetry:string1}s  enableTelemetry=YES ", buf, 0xCu);
+                v136 = v137;
               }
             }
 
             [*(a1 + 40) setProgressUnits:95];
-            if ([*(a1 + 40) setDone])
+            v139 = [*(a1 + 40) setDone];
+            if (v139)
             {
-              v128 = __atxlog_handle_default();
-              if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
+              v140 = __atxlog_handle_default(v139);
+              if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_2263AA000, v128, OS_LOG_TYPE_DEFAULT, "App prediction training activity successfully set to DONE", buf, 2u);
+                _os_log_impl(&dword_2263AA000, v140, OS_LOG_TYPE_DEFAULT, "App prediction training activity successfully set to DONE", buf, 2u);
               }
             }
 
             else
             {
-              v128 = __atxlog_handle_default();
-              if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
+              v140 = __atxlog_handle_default(v139);
+              if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
               {
                 __34___ATXAppPredictor_trainWithTask___block_invoke_cold_5();
               }
@@ -1206,11 +1201,11 @@ LABEL_47:
             goto LABEL_48;
           }
 
-          v26 = __atxlog_handle_default();
-          if (os_log_type_enabled(&v26->super, OS_LOG_TYPE_DEFAULT))
+          v32 = __atxlog_handle_default(v128);
+          if (os_log_type_enabled(&v32->super, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            v27 = "App prediction training deferring after removing expired actions data";
+            v33 = "App prediction training deferring after removing expired actions data";
             goto LABEL_47;
           }
         }
@@ -1222,26 +1217,23 @@ LABEL_48:
     goto LABEL_30;
   }
 
-  v16 = __atxlog_handle_default();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v18 = __atxlog_handle_default(v22);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    v17 = "App prediction training deferring after app launch location training";
+    v19 = "App prediction training deferring after app launch location training";
     goto LABEL_29;
   }
 
 LABEL_30:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-void __65___ATXAppPredictor_scoreAppsWithFeaturesUsingCoreML_scoreLogger___block_invoke_cold_1(uint64_t *a1)
+void __65___ATXAppPredictor_scoreAppsWithFeaturesUsingCoreML_scoreLogger___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_8_2(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_6_2();
   OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __52___ATXAppPredictor__initAppLaunchAndInstallMonitors__block_invoke_cold_1()

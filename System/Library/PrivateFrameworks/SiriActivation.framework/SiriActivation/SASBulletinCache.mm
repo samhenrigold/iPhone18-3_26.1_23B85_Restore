@@ -103,13 +103,13 @@
 
 - (id)allBulletins
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   os_unfair_lock_lock(&cacheLock);
   v4 = self->_oldestNode;
   v5 = MEMORY[0x1E698D0A0];
   *&v6 = 136315650;
-  v16 = v6;
+  v15 = v6;
   do
   {
     bulletin = [(SASBulletinCacheNode *)v4 bulletin];
@@ -129,12 +129,12 @@
         {
           v12 = v10;
           bbBulletin = [v8 bbBulletin];
-          *buf = v16;
-          v18 = "[SASBulletinCache allBulletins]";
-          v19 = 2112;
-          v20 = v8;
-          v21 = 2112;
-          v22 = bbBulletin;
+          *buf = v15;
+          v17 = "[SASBulletinCache allBulletins]";
+          v18 = 2112;
+          v19 = v8;
+          v20 = 2112;
+          v21 = bbBulletin;
           _os_log_error_impl(&dword_1C8137000, v12, OS_LOG_TYPE_ERROR, "%s Bulletin cache contains a bulletin with a nil identifier; not including the bulletin as part of the return value of -allBulletins (bulletin: %@; bbBulletin: %@)", buf, 0x20u);
         }
       }
@@ -147,7 +147,6 @@
 
   while (nextNode);
   os_unfair_lock_unlock(&cacheLock);
-  v14 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -238,18 +237,16 @@
 
 - (void)insertBulletin:(void *)a1 fromFeed:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [a1 bbBulletin];
-  v6 = 136315650;
-  v7 = "[SASBulletinCache insertBulletin:fromFeed:]";
-  v8 = 2112;
-  v9 = a1;
-  v10 = 2112;
-  v11 = v4;
-  _os_log_error_impl(&dword_1C8137000, v3, OS_LOG_TYPE_ERROR, "%s Bulletin cache is being asked to insert a bulletin with no ID; ignoring the request because bulletin lookup is ID-based and so there's no reason to store a bulletin with no ID (bulletin: %@; bbBulletin: %@)", &v6, 0x20u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 136315650;
+  v6 = "[SASBulletinCache insertBulletin:fromFeed:]";
+  v7 = 2112;
+  v8 = a1;
+  v9 = 2112;
+  v10 = v4;
+  _os_log_error_impl(&dword_1C8137000, v3, OS_LOG_TYPE_ERROR, "%s Bulletin cache is being asked to insert a bulletin with no ID; ignoring the request because bulletin lookup is ID-based and so there's no reason to store a bulletin with no ID (bulletin: %@; bbBulletin: %@)", &v5, 0x20u);
 }
 
 @end

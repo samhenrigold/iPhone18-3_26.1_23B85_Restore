@@ -16,7 +16,7 @@
 {
   swift_getObjCClassMetadata();
   idCopy = id;
-  sub_227A3F22C(idCopy);
+  sub_227A3F22C(idCopy, v4);
 }
 
 @end

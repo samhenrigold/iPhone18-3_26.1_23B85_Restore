@@ -548,7 +548,7 @@
   if (plug)
   {
     [(MCPlug *)plug setPhaseInDuration:duration];
-    [(MPNavigatorInternal *)self->_internal duration];
+    objc_msgSend_duration(self->_internal);
     v7 = v6;
     [(MPNavigatorInternal *)self->_internal phaseInDuration];
     v9 = v7 - v8;
@@ -572,7 +572,7 @@
   if (plug)
   {
     [(MCPlug *)plug setPhaseOutDuration:duration];
-    [(MPNavigatorInternal *)self->_internal duration];
+    objc_msgSend_duration(self->_internal);
     v7 = v6;
     [(MPNavigatorInternal *)self->_internal phaseInDuration];
     v9 = v7 - v8;
@@ -596,7 +596,7 @@
   if (plug)
   {
     [(MCPlug *)plug setNumberOfLoops:loops];
-    [(MPNavigatorInternal *)self->_internal duration];
+    objc_msgSend_duration(self->_internal);
     v7 = v6;
     [(MPNavigatorInternal *)self->_internal phaseInDuration];
     v9 = v7 - v8;
@@ -977,7 +977,7 @@
       }
     }
 
-    [(MPNavigatorInternal *)self->_internal duration];
+    objc_msgSend_duration(self->_internal);
     v24 = v23;
     [(MPNavigatorInternal *)self->_internal phaseInDuration];
     v26 = v24 - v25;
@@ -1265,7 +1265,7 @@
   -[MPNavigatorInternal setZIndex:](self->_internal, "setZIndex:", [struct zIndex]);
   [struct numberOfLoops];
   [(MPNavigatorInternal *)self->_internal setNumberOfLoops:?];
-  [struct duration];
+  objc_msgSend_duration(struct);
   [(MPNavigatorInternal *)self->_internal setDuration:?];
   [struct timeIn];
   [(MPNavigatorInternal *)self->_internal setTimeIn:?];

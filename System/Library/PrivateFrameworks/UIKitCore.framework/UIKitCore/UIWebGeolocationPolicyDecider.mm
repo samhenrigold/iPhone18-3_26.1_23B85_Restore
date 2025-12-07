@@ -284,13 +284,13 @@ uint64_t __43__UIWebGeolocationPolicyDecider_clearCache__block_invoke(uint64_t a
   dispatch_async(global_queue, v9);
 }
 
-uint64_t __47__UIWebGeolocationPolicyDecider_clearAllCaches__block_invoke_2(uint64_t a1, void *a2)
+void *__47__UIWebGeolocationPolicyDecider_clearAllCaches__block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 dataContainerURL];
   if (result)
   {
     v4 = result;
-    result = [result isEqual:*(a1 + 32)];
+    result = objc_msgSend_isEqual_(result);
     if ((result & 1) == 0)
     {
       v5 = *(a1 + 40);
@@ -346,39 +346,39 @@ uint64_t __47__UIWebGeolocationPolicyDecider_clearAllCaches__block_invoke_3(uint
 
 - (void)clearAuthorizationForDomain:(id)domain
 {
-  v18 = *MEMORY[0x1E69E9840];
-  domain = [MEMORY[0x1E696AEC0] stringWithFormat:@"www.%@", domain];
+  v16 = *MEMORY[0x1E69E9840];
+  [MEMORY[0x1E696AEC0] stringWithFormat:@"www.%@", domain];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   allKeys = [(NSMutableDictionary *)self->_sites allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v7)
+  v5 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v5)
   {
-    v8 = v7;
-    v9 = *v14;
+    v6 = v5;
+    v7 = *v12;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v9)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
-        v12 = [objc_msgSend(MEMORY[0x1E695DFF8] URLWithString:{v11), "host"}];
-        if (([v12 isEqualToString:domain] & 1) != 0 || objc_msgSend(v12, "isEqualToString:", domain))
+        v9 = *(*(&v11 + 1) + 8 * i);
+        v10 = [objc_msgSend(MEMORY[0x1E695DFF8] URLWithString:{v9), "host"}];
+        if ((objc_msgSend_isEqualToString_(v10) & 1) != 0 || objc_msgSend_isEqualToString_(v10))
         {
-          [(NSMutableDictionary *)self->_sites removeObjectForKey:v11];
+          [(NSMutableDictionary *)self->_sites removeObjectForKey:v9];
         }
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v8);
+    while (v6);
   }
 
   [(UIWebGeolocationPolicyDecider *)self _save];
@@ -433,7 +433,7 @@ uint64_t __47__UIWebGeolocationPolicyDecider_clearAllCaches__block_invoke_3(uint
   }
 
   v6 = v5;
-  if ([objc_msgSend(l "scheme")])
+  if (objc_msgSend_isEqualToString_([l scheme]))
   {
     return 0;
   }

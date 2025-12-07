@@ -7,7 +7,7 @@
 
 - (id)resultsTriggeredWithContext:(id)context inGraph:(id)graph progressReporter:(id)reporter
 {
-  v175[2] = *MEMORY[0x277D85DE8];
+  v174[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   graphCopy = graph;
   reporterCopy = reporter;
@@ -28,59 +28,59 @@
   else
   {
     localDate = [contextCopy localDate];
-    v137 = contextCopy;
+    v136 = contextCopy;
     timeZone = [contextCopy timeZone];
-    v119 = localDate;
-    v118 = [MEMORY[0x277D27690] startOfDayForDate:localDate];
-    v136 = timeZone;
+    v118 = localDate;
+    v117 = [MEMORY[0x277D27690] startOfDayForDate:localDate];
+    v135 = timeZone;
     v14 = [MEMORY[0x277D27690] universalDateFromLocalDate:? inTimeZone:?];
     v15 = [v14 dateByAddingTimeInterval:86400.0];
-    v117 = v14;
+    v116 = v14;
     v16 = [v14 dateByAddingTimeInterval:345600.0];
-    v124 = [PGGraphMemoryNodeCollection memoryNodesOfCategory:1 inGraph:graphCopy];
-    v125 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v123 = [PGGraphMemoryNodeCollection memoryNodesOfCategory:1 inGraph:graphCopy];
+    v124 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v17 = MEMORY[0x277D276F0];
-    v115 = v16;
-    v116 = v15;
-    v175[0] = v15;
-    v175[1] = v16;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v175 count:2];
+    v114 = v16;
+    v115 = v15;
+    v174[0] = v15;
+    v174[1] = v16;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v174 count:2];
     v19 = [v17 clueWithDates:v18 serviceManager:self->_serviceManager];
 
-    v114 = v19;
+    v113 = v19;
     [v19 events];
+    v165 = 0u;
     v166 = 0u;
     v167 = 0u;
-    v168 = 0u;
-    v20 = v169 = 0u;
-    v21 = [v20 countByEnumeratingWithState:&v166 objects:v174 count:16];
-    v138 = graphCopy;
-    v122 = reporterCopy;
-    v123 = v20;
+    v20 = v168 = 0u;
+    v21 = [v20 countByEnumeratingWithState:&v165 objects:v173 count:16];
+    v137 = graphCopy;
+    v121 = reporterCopy;
+    v122 = v20;
     selfCopy = self;
     if (v21)
     {
       v22 = v21;
-      v23 = *v167;
+      v23 = *v166;
       v24 = *MEMORY[0x277CE4208];
       v25 = *MEMORY[0x277CE4228] + *MEMORY[0x277CE4228];
-      v120 = *v167;
+      v119 = *v166;
       while (2)
       {
         v26 = 0;
-        v121 = v22;
+        v120 = v22;
         do
         {
-          if (*v167 != v23)
+          if (*v166 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v27 = *(*(&v166 + 1) + 8 * v26);
+          v27 = *(*(&v165 + 1) + 8 * v26);
           v28 = objc_autoreleasePoolPush();
           if ([reporterCopy isCancelledWithProgress:0.5])
           {
-            contextCopy = v137;
+            contextCopy = v136;
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
@@ -93,27 +93,27 @@
             objc_autoreleasePoolPop(v28);
             v11 = MEMORY[0x277CBEBF8];
             v111 = v20;
-            graphCopy = v138;
+            graphCopy = v137;
             goto LABEL_77;
           }
 
           if (([v27 hasMeetingRoom] & 1) == 0)
           {
-            v133 = v28;
+            v132 = v28;
             endDate = [v27 endDate];
-            v134 = [v125 objectForKeyedSubscript:endDate];
-            if (!v134)
+            v133 = [v124 objectForKeyedSubscript:endDate];
+            if (!v133)
             {
-              v134 = objc_alloc_init(MEMORY[0x277D22BD0]);
-              [v125 setObject:? forKeyedSubscript:?];
+              v133 = objc_alloc_init(MEMORY[0x277D22BD0]);
+              [v124 setObject:? forKeyedSubscript:?];
             }
 
-            v131 = endDate;
+            v130 = endDate;
             v30 = objc_alloc_init(MEMORY[0x277CBEB58]);
             attendees = [v27 attendees];
             v32 = [attendees valueForKey:@"name"];
             v33 = v32;
-            v132 = v26;
+            v131 = v26;
             if (v32)
             {
               v34 = v32;
@@ -127,30 +127,30 @@
             v35 = v34;
 
             v36 = MEMORY[0x277D276E8];
-            v130 = v35;
+            v129 = v35;
             allObjects = [v35 allObjects];
             v38 = [v36 cluesWithPeoples:allObjects serviceManager:self->_serviceManager];
 
-            v164 = 0u;
-            v165 = 0u;
-            v162 = 0u;
             v163 = 0u;
+            v164 = 0u;
+            v161 = 0u;
+            v162 = 0u;
             v39 = v38;
-            v40 = [v39 countByEnumeratingWithState:&v162 objects:v173 count:16];
+            v40 = [v39 countByEnumeratingWithState:&v161 objects:v172 count:16];
             if (v40)
             {
               v41 = v40;
-              v42 = *v163;
+              v42 = *v162;
               do
               {
                 for (i = 0; i != v41; ++i)
                 {
-                  if (*v163 != v42)
+                  if (*v162 != v42)
                   {
                     objc_enumerationMutation(v39);
                   }
 
-                  v44 = *(*(&v162 + 1) + 8 * i);
+                  v44 = *(*(&v161 + 1) + 8 * i);
                   [v44 prepareIfNeeded];
                   person = [v44 person];
                   v46 = person;
@@ -178,52 +178,52 @@
                   }
                 }
 
-                v41 = [v39 countByEnumeratingWithState:&v162 objects:v173 count:16];
+                v41 = [v39 countByEnumeratingWithState:&v161 objects:v172 count:16];
               }
 
               while (v41);
             }
 
-            v129 = [PGGraphPersonNodeCollection personNodesForContactIdentifiers:v30 inGraph:v138];
-            momentNodes = [v129 momentNodes];
+            v128 = [PGGraphPersonNodeCollection personNodesForContactIdentifiers:v30 inGraph:v137];
+            momentNodes = [v128 momentNodes];
             memoryNodes = [momentNodes memoryNodes];
-            v52 = [memoryNodes collectionByIntersecting:v124];
+            v52 = [memoryNodes collectionByIntersecting:v123];
             elementIdentifiers = [v52 elementIdentifiers];
 
-            v127 = objc_alloc_init(MEMORY[0x277D22BD0]);
-            v161 = 0.0;
+            v126 = objc_alloc_init(MEMORY[0x277D22BD0]);
             v160 = 0.0;
+            v159 = 0.0;
             location = [v27 location];
             [location coordinate];
-            v160 = v54;
-            v161 = v55;
+            v159 = v54;
+            v160 = v55;
 
-            v56 = [(CLSLocationCache *)self->_locationCache placemarksForLocationCoordinate:v160 withHorizontalAccuracy:v161 queryAccuracy:v24, v25];
-            v126 = v56;
+            v56 = [(CLSLocationCache *)self->_locationCache placemarksForLocationCoordinate:v159 withHorizontalAccuracy:v160 queryAccuracy:v24, v25];
+            v125 = v56;
             if ([v56 count])
             {
-              v158 = 0u;
-              v159 = 0u;
-              v156 = 0u;
               v157 = 0u;
+              v158 = 0u;
+              v155 = 0u;
+              v156 = 0u;
               v57 = v56;
-              v58 = [v57 countByEnumeratingWithState:&v156 objects:v172 count:16];
+              v58 = [v57 countByEnumeratingWithState:&v155 objects:v171 count:16];
               if (v58)
               {
                 v59 = v58;
                 loggingConnection3 = 0;
-                v61 = *v157;
+                v61 = *v156;
                 v62 = 1.79769313e308;
                 do
                 {
                   for (j = 0; j != v59; ++j)
                   {
-                    if (*v157 != v61)
+                    if (*v156 != v61)
                     {
                       objc_enumerationMutation(v57);
                     }
 
-                    v64 = *(*(&v156 + 1) + 8 * j);
+                    v64 = *(*(&v155 + 1) + 8 * j);
                     *&buf[8] = 0;
                     *buf = 0;
                     location2 = [v64 location];
@@ -242,7 +242,7 @@
                     }
                   }
 
-                  v59 = [v57 countByEnumeratingWithState:&v156 objects:v172 count:16];
+                  v59 = [v57 countByEnumeratingWithState:&v155 objects:v171 count:16];
                 }
 
                 while (v59);
@@ -259,14 +259,14 @@
               if (locality)
               {
                 locality2 = [loggingConnection3 locality];
-                v75 = [(PGGraphNamedLocationNodeCollection *)PGGraphLocationCityNodeCollection locationNodeWithName:locality2 inGraph:v138];
+                v75 = [(PGGraphNamedLocationNodeCollection *)PGGraphLocationCityNodeCollection locationNodeWithName:locality2 inGraph:v137];
 
                 administrativeArea = [loggingConnection3 administrativeArea];
 
                 if (administrativeArea)
                 {
                   administrativeArea2 = [loggingConnection3 administrativeArea];
-                  administrativeArea = [(PGGraphNamedLocationNodeCollection *)PGGraphLocationStateNodeCollection locationNodeWithName:administrativeArea2 inGraph:v138];
+                  administrativeArea = [(PGGraphNamedLocationNodeCollection *)PGGraphLocationStateNodeCollection locationNodeWithName:administrativeArea2 inGraph:v137];
                 }
 
                 iSOcountryCode = [loggingConnection3 ISOcountryCode];
@@ -274,20 +274,20 @@
                 if (iSOcountryCode)
                 {
                   iSOcountryCode2 = [loggingConnection3 ISOcountryCode];
-                  iSOcountryCode = [(PGGraphNamedLocationNodeCollection *)PGGraphLocationCountryNodeCollection locationNodeWithName:iSOcountryCode2 inGraph:v138];
+                  iSOcountryCode = [(PGGraphNamedLocationNodeCollection *)PGGraphLocationCountryNodeCollection locationNodeWithName:iSOcountryCode2 inGraph:v137];
                 }
 
-                v151[0] = MEMORY[0x277D85DD0];
-                v151[1] = 3221225472;
-                v151[2] = __93__PGMemoryTriggerUpcomingCalendarEvent_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke;
-                v151[3] = &unk_278888EE0;
-                v154 = administrativeArea != 0;
-                v155 = iSOcountryCode != 0;
-                v152 = administrativeArea;
-                v153 = iSOcountryCode;
+                v150[0] = MEMORY[0x277D85DD0];
+                v150[1] = 3221225472;
+                v150[2] = __93__PGMemoryTriggerUpcomingCalendarEvent_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke;
+                v150[3] = &unk_278888EE0;
+                v153 = administrativeArea != 0;
+                v154 = iSOcountryCode != 0;
+                v151 = administrativeArea;
+                v152 = iSOcountryCode;
                 v80 = administrativeArea;
                 v81 = iSOcountryCode;
-                v82 = [v75 filteredCollectionUsingBlock:v151];
+                v82 = [v75 filteredCollectionUsingBlock:v150];
                 v83 = v75;
                 loggingConnection2 = v82;
 
@@ -297,17 +297,17 @@
                 v88 = v87;
                 v90 = v89;
 
-                v145[0] = MEMORY[0x277D85DD0];
-                v145[1] = 3221225472;
-                v145[2] = __93__PGMemoryTriggerUpcomingCalendarEvent_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke_2;
-                v145[3] = &unk_278888F30;
-                v148 = v88;
-                v149 = v90;
-                v150 = v62;
-                v71 = v127;
-                v146 = v127;
-                v147 = v124;
-                [momentNodes2 enumerateIdentifiersAsCollectionsWithBlock:v145];
+                v144[0] = MEMORY[0x277D85DD0];
+                v144[1] = 3221225472;
+                v144[2] = __93__PGMemoryTriggerUpcomingCalendarEvent_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke_2;
+                v144[3] = &unk_278888F30;
+                v147 = v88;
+                v148 = v90;
+                v149 = v62;
+                v71 = v126;
+                v145 = v126;
+                v146 = v123;
+                [momentNodes2 enumerateIdentifiersAsCollectionsWithBlock:v144];
 
                 v72 = elementIdentifiers;
               }
@@ -318,19 +318,19 @@
                 if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_INFO))
                 {
                   *buf = 134283777;
-                  *&buf[4] = v160;
+                  *&buf[4] = v159;
                   *&buf[12] = 2049;
-                  *&buf[14] = v161;
+                  *&buf[14] = v160;
                   _os_log_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_INFO, "[PGMemoryTriggerUpcomingCalendarEvent] closestPlacemark.locality is nil, not going to try matching location for event coordinate (%{private}f, %{private}f)", buf, 0x16u);
                 }
 
-                v71 = v127;
+                v71 = v126;
                 v72 = elementIdentifiers;
               }
 
-              v20 = v123;
-              v23 = v120;
-              v22 = v121;
+              v20 = v122;
+              v23 = v119;
+              v22 = v120;
             }
 
             else
@@ -339,16 +339,16 @@
               if (os_log_type_enabled(loggingConnection3, OS_LOG_TYPE_INFO))
               {
                 *buf = 134283777;
-                *&buf[4] = v160;
+                *&buf[4] = v159;
                 *&buf[12] = 2049;
-                *&buf[14] = v161;
+                *&buf[14] = v160;
                 _os_log_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_INFO, "[PGMemoryTriggerUpcomingCalendarEvent] No placemarks found matching event coordinate (%{private}f, %{private}f)", buf, 0x16u);
               }
 
-              v20 = v123;
-              v23 = v120;
-              v22 = v121;
-              v71 = v127;
+              v20 = v122;
+              v23 = v119;
+              v22 = v120;
+              v71 = v126;
               v72 = elementIdentifiers;
             }
 
@@ -357,15 +357,15 @@
             v93 = v91;
             if (!v92)
             {
-              [v134 unionWithIdentifierSet:v72];
+              [v133 unionWithIdentifierSet:v72];
               v93 = v71;
             }
 
-            [v134 unionWithIdentifierSet:v93];
+            [v133 unionWithIdentifierSet:v93];
 
-            v26 = v132;
-            v28 = v133;
-            reporterCopy = v122;
+            v26 = v131;
+            v28 = v132;
+            reporterCopy = v121;
           }
 
           objc_autoreleasePoolPop(v28);
@@ -373,7 +373,7 @@
         }
 
         while (v26 != v22);
-        v22 = [v20 countByEnumeratingWithState:&v166 objects:v174 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v165 objects:v173 count:16];
         if (v22)
         {
           continue;
@@ -383,55 +383,55 @@
       }
     }
 
-    v139 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v138 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v140 = 0u;
     v141 = 0u;
     v142 = 0u;
     v143 = 0u;
-    v144 = 0u;
-    v94 = v125;
-    v95 = [v94 countByEnumeratingWithState:&v141 objects:v170 count:16];
+    v94 = v124;
+    v95 = [v94 countByEnumeratingWithState:&v140 objects:v169 count:16];
     if (v95)
     {
       v96 = v95;
-      v135 = *v142;
+      v134 = *v141;
       do
       {
         for (k = 0; k != v96; ++k)
         {
-          if (*v142 != v135)
+          if (*v141 != v134)
           {
             objc_enumerationMutation(v94);
           }
 
-          v98 = *(*(&v141 + 1) + 8 * k);
+          v98 = *(*(&v140 + 1) + 8 * k);
           v99 = [v94 objectForKeyedSubscript:v98];
-          v100 = [(MAElementCollection *)[PGGraphMemoryNodeCollection alloc] initWithGraph:v138 elementIdentifiers:v99];
+          v100 = [(MAElementCollection *)[PGGraphMemoryNodeCollection alloc] initWithGraph:v137 elementIdentifiers:v99];
           v101 = MEMORY[0x277D27690];
           v102 = [v98 dateByAddingTimeInterval:-259200.0];
-          v103 = [v101 localDateFromUniversalDate:v102 inTimeZone:v136];
+          v103 = [v101 localDateFromUniversalDate:v102 inTimeZone:v135];
 
           v104 = MEMORY[0x277D27690];
           v105 = [v98 dateByAddingTimeInterval:-86400.0];
-          v106 = [v104 localDateFromUniversalDate:v105 inTimeZone:v136];
+          v106 = [v104 localDateFromUniversalDate:v105 inTimeZone:v135];
 
           v107 = objc_opt_class();
-          timeZone2 = [v137 timeZone];
+          timeZone2 = [v136 timeZone];
           v109 = [v107 validityIntervalForLocalStartDate:v103 localEndDate:v106 timeZone:timeZone2];
 
           v110 = [objc_opt_class() memoryTriggerResultsForMemoryNodes:v100 withValidityInterval:v109];
-          [v139 addObjectsFromArray:v110];
+          [v138 addObjectsFromArray:v110];
         }
 
-        v96 = [v94 countByEnumeratingWithState:&v141 objects:v170 count:16];
+        v96 = [v94 countByEnumeratingWithState:&v140 objects:v169 count:16];
       }
 
       while (v96);
     }
 
-    reporterCopy = v122;
-    if ([v122 isCancelledWithProgress:1.0])
+    reporterCopy = v121;
+    if ([v121 isCancelledWithProgress:1.0])
     {
-      v20 = v123;
+      v20 = v122;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
@@ -442,24 +442,22 @@
       }
 
       v11 = MEMORY[0x277CBEBF8];
-      contextCopy = v137;
-      graphCopy = v138;
-      v111 = v139;
+      contextCopy = v136;
+      graphCopy = v137;
+      v111 = v138;
     }
 
     else
     {
-      v111 = v139;
+      v111 = v138;
       v11 = v111;
-      contextCopy = v137;
-      graphCopy = v138;
-      v20 = v123;
+      contextCopy = v136;
+      graphCopy = v137;
+      v20 = v122;
     }
 
 LABEL_77:
   }
-
-  v112 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

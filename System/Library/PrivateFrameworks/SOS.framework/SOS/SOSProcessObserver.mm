@@ -10,32 +10,31 @@
 
 - (SOSProcessObserver)initWithBundleIdentifier:(id)identifier
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v15.receiver = self;
-  v15.super_class = SOSProcessObserver;
-  v5 = [(SOSProcessObserver *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = SOSProcessObserver;
+  v5 = [(SOSProcessObserver *)&v14 init];
   if (v5)
   {
     v6 = objc_alloc(MEMORY[0x277CEEE90]);
-    v16[0] = identifierCopy;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = identifierCopy;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     v8 = [v6 initWithBundleIDs:v7 states:0];
     applicationMonitor = v5->_applicationMonitor;
     v5->_applicationMonitor = v8;
 
     objc_initWeak(&location, v5);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __47__SOSProcessObserver_initWithBundleIdentifier___block_invoke;
-    v12[3] = &unk_279B53D08;
-    objc_copyWeak(&v13, &location);
-    [(BKSApplicationStateMonitor *)v5->_applicationMonitor setHandler:v12];
-    objc_destroyWeak(&v13);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __47__SOSProcessObserver_initWithBundleIdentifier___block_invoke;
+    v11[3] = &unk_279B53D08;
+    objc_copyWeak(&v12, &location);
+    [(BKSApplicationStateMonitor *)v5->_applicationMonitor setHandler:v11];
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -31,10 +31,10 @@ void __41__SDNetworkQualityInquiry_sharedInstance__block_invoke()
 
   if (!sharedInstance_sharedSelf)
   {
-    v2 = SPLogForSPLogCategoryDefault();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = SPLogForSPLogCategoryDefault(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __41__SDNetworkQualityInquiry_sharedInstance__block_invoke_cold_1(v2);
+      __41__SDNetworkQualityInquiry_sharedInstance__block_invoke_cold_1(v3);
     }
   }
 }
@@ -118,38 +118,36 @@ LABEL_6:
 
 - (void)didStopTrackingAllNOIs:(id)is
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   isCopy = is;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [isCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [isCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(isCopy);
         }
 
-        [(SDNetworkQualityInquiry *)self didStopTrackingNOI:*(*(&v10 + 1) + 8 * v8++)];
+        [(SDNetworkQualityInquiry *)self didStopTrackingNOI:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [isCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [isCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)getNetworkQuality
@@ -173,29 +171,29 @@ LABEL_6:
 
 void __44__SDNetworkQualityInquiry_getNetworkQuality__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) areKnownNetworksReady])
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v2 = [*(a1 + 32) knownNetworks];
-    v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v11;
+      v5 = *v10;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v11 != v5)
+          if (*v10 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v10 + 1) + 8 * i);
+          v7 = *(*(&v9 + 1) + 8 * i);
           if ([v7 linkQuality] == 100)
           {
             *(*(*(a1 + 40) + 8) + 24) = 0;
@@ -215,14 +213,12 @@ void __44__SDNetworkQualityInquiry_getNetworkQuality__block_invoke(uint64_t a1)
           }
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v4);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

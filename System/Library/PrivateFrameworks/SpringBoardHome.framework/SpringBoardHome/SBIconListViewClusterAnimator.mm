@@ -417,14 +417,14 @@ void __116__SBIconListViewClusterAnimator_iconListView_wantsAnimatedLayoutForIco
       v4 = *(a1 + 64);
       if (*(a1 + 152) == 1)
       {
-        [*(a1 + 48) bounds];
+        objc_msgSend_bounds(*(a1 + 48));
         v4 = v4 + v6;
       }
 
       else
       {
         v7 = [*MEMORY[0x1E69DDA98] userInterfaceLayoutDirection];
-        [*(a1 + 48) bounds];
+        objc_msgSend_bounds(*(a1 + 48));
         v9 = -v8;
         if (v7 != 1)
         {
@@ -525,14 +525,14 @@ void __97__SBIconListViewClusterAnimator_iconListView_wantsAnimatedRemovalForIco
 
           if (*(a1 + 56) == 1)
           {
-            [*(a1 + 48) bounds];
+            objc_msgSend_bounds(*(a1 + 48));
             v13 = v13 + v19 * v18;
           }
 
           else
           {
             v20 = [*MEMORY[0x1E69DDA98] userInterfaceLayoutDirection];
-            [*(a1 + 48) bounds];
+            objc_msgSend_bounds(*(a1 + 48));
             v22 = -v21;
             if (v20 != 1)
             {

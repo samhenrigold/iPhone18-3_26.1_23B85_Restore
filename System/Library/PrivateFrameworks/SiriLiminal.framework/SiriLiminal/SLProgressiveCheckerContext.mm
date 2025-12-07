@@ -6,11 +6,11 @@
 
 - (SLProgressiveCheckerContext)initWithContext:(id)context error:(id *)error
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v29.receiver = self;
-  v29.super_class = SLProgressiveCheckerContext;
-  v7 = [(SLProgressiveCheckerContext *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = SLProgressiveCheckerContext;
+  v7 = [(SLProgressiveCheckerContext *)&v28 init];
   if (!v7)
   {
 LABEL_18:
@@ -60,9 +60,9 @@ LABEL_14:
         if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v31 = "[SLProgressiveCheckerContext initWithContext:error:]";
-          v32 = 2114;
-          v33 = v7;
+          v30 = "[SLProgressiveCheckerContext initWithContext:error:]";
+          v31 = 2114;
+          v32 = v7;
           _os_log_impl(&dword_26754E000, v26, OS_LOG_TYPE_INFO, "%s Created SLAcousticContext: %{public}@", buf, 0x16u);
         }
 
@@ -84,25 +84,24 @@ LABEL_14:
   }
 
   v15 = MEMORY[0x277CCA9B8];
-  v34 = @"reason";
-  v35[0] = v13;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+  v33 = @"reason";
+  v34[0] = v13;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
   *error = [v15 errorWithDomain:@"com.apple.sl" code:102 userInfo:v16];
 
   v17 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v31 = "[SLProgressiveCheckerContext initWithContext:error:]";
-    v32 = 2114;
-    v33 = v14;
+    v30 = "[SLProgressiveCheckerContext initWithContext:error:]";
+    v31 = 2114;
+    v32 = v14;
     _os_log_error_impl(&dword_26754E000, v17, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
   }
 
   v18 = 0;
 LABEL_19:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

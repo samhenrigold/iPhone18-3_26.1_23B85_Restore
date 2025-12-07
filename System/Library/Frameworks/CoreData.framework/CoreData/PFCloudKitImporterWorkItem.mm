@@ -32,9 +32,9 @@
 
 - (void)doWorkForStore:(id)store inMonitor:(id)monitor completion:(id)completion
 {
-  objc_opt_class();
+  v7 = objc_opt_class();
 
-  NSRequestConcreteImplementation();
+  NSRequestConcreteImplementation(self, a2, v7, v8, v9, v10, v11, v12);
 }
 
 @end

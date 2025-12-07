@@ -27,7 +27,7 @@
   return sharedPluginLoader_loader;
 }
 
-uint64_t __36__DYPluginLoader_sharedPluginLoader__block_invoke()
+uint64_t __36__DYPluginLoader_sharedPluginLoader__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = objc_opt_new();
   sharedPluginLoader_loader = result;
@@ -84,31 +84,31 @@ uint64_t __36__DYPluginLoader_sharedPluginLoader__block_invoke()
 - (id)loadLatestPlatformSupportPlugInWithProvider:(id)provider baseExtension:(id)extension preferredPluginExtension:(id)pluginExtension
 {
   v9 = [MEMORY[0x277CBEB58] set];
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3052000000;
+  v27 = __Block_byref_object_copy__0;
+  v28 = __Block_byref_object_dispose__0;
+  v29 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3052000000;
+  v21 = __Block_byref_object_copy__0;
+  v22 = __Block_byref_object_dispose__0;
   v23 = 0;
-  v24 = &v23;
-  v25 = 0x3052000000;
-  v26 = __Block_byref_object_copy__0;
-  v27 = __Block_byref_object_dispose__0;
-  v28 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3052000000;
-  v20 = __Block_byref_object_copy__0;
-  v21 = __Block_byref_object_dispose__0;
-  v22 = 0;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __101__DYPluginLoader_loadLatestPlatformSupportPlugInWithProvider_baseExtension_preferredPluginExtension___block_invoke;
-  v16[3] = &unk_279309EF0;
-  v16[4] = v9;
-  v16[5] = extension;
-  v16[8] = &v17;
-  v16[9] = &v23;
-  v16[6] = @"GPUToolsPlatformSupport-";
-  v16[7] = pluginExtension;
-  [provider enumerateDirectories:v16];
-  v10 = v18[5];
-  if (v10 && (v11 = [v10 lastPathComponent]) != 0 && (-[NSMutableSet containsObject:](self->_loadedPluginNames, "containsObject:", v11) & 1) == 0 && (v12 = objc_msgSend(MEMORY[0x277CCA8D8], "bundleWithURL:", v18[5])) != 0 && -[DYPluginLoader _loadBundle:](self, "_loadBundle:", v12))
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __101__DYPluginLoader_loadLatestPlatformSupportPlugInWithProvider_baseExtension_preferredPluginExtension___block_invoke;
+  v17[3] = &unk_279309EF0;
+  v17[4] = v9;
+  v17[5] = extension;
+  v17[8] = &v18;
+  v17[9] = &v24;
+  v17[6] = @"GPUToolsPlatformSupport-";
+  v17[7] = pluginExtension;
+  [provider enumerateDirectories:v17];
+  v10 = v19[5];
+  if (v10 && (v11 = [v10 lastPathComponent]) != 0 && (-[NSMutableSet containsObject:](self->_loadedPluginNames, "containsObject:", v11) & 1) == 0 && (v12 = objc_msgSend(MEMORY[0x277CCA8D8], "bundleWithURL:", v19[5])) != 0 && -[DYPluginLoader _loadBundle:](self, "_loadBundle:", v12))
   {
     v13 = [objc_msgSend(objc_msgSend(v11 "stringByDeletingPathExtension")];
   }
@@ -118,65 +118,63 @@ uint64_t __36__DYPluginLoader_sharedPluginLoader__block_invoke()
     v13 = 0;
   }
 
-  [v18[5] fileSystemRepresentation];
-  [v24[5] UTF8String];
-  v14 = *MEMORY[0x277D0B238];
-  DYLog();
+  fileSystemRepresentation = [v19[5] fileSystemRepresentation];
+  uTF8String = [v25[5] UTF8String];
+  DYLog(*MEMORY[0x277D0B238], "Loaded latest platform-support plug-in '%s' with version %s", fileSystemRepresentation, uTF8String);
 
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v24, 8);
   return v13;
 }
 
 void __101__DYPluginLoader_loadLatestPlatformSupportPlugInWithProvider_baseExtension_preferredPluginExtension___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
   v5 = *MEMORY[0x277CBE868];
-  v17 = v4;
+  v15 = v4;
   v6 = [v4 contentsOfDirectoryAtURL:a2 includingPropertiesForKeys:objc_msgSend(MEMORY[0x277CBEA60] options:"arrayWithObjects:" error:{*MEMORY[0x277CBE8E8], *MEMORY[0x277CBE868], 0), 0, 0}];
+  v18 = 0u;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v32 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
-    v18 = *MEMORY[0x277CBED58];
+    v9 = *v19;
+    v16 = *MEMORY[0x277CBED58];
     do
     {
       v10 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * v10);
-        v19 = 0;
-        [v11 getResourceValue:&v19 forKey:v5 error:0];
+        v11 = *(*(&v18 + 1) + 8 * v10);
+        v17 = 0;
+        [v11 getResourceValue:&v17 forKey:v5 error:0];
         v12 = [v11 lastPathComponent];
-        if (([*(a1 + 32) containsObject:v12] & 1) == 0 && objc_msgSend(objc_msgSend(v12, "pathExtension"), "hasPrefix:", *(a1 + 40)) && objc_msgSend(v12, "hasPrefix:", *(a1 + 48)) && objc_msgSend(v19, "BOOLValue"))
+        if (([*(a1 + 32) containsObject:v12] & 1) == 0 && objc_msgSend(objc_msgSend(v12, "pathExtension"), "hasPrefix:", *(a1 + 40)) && objc_msgSend(v12, "hasPrefix:", *(a1 + 48)) && objc_msgSend(v17, "BOOLValue"))
         {
-          v13 = [(__CFDictionary *)CFBundleCopyInfoDictionaryForURL(v11) objectForKeyedSubscript:v18];
+          v13 = [(__CFDictionary *)CFBundleCopyInfoDictionaryForURL(v11) objectForKeyedSubscript:v16];
           if (*(*(*(a1 + 64) + 8) + 40))
           {
-            v30 = 0u;
-            v31 = 0u;
-            _LSGetVersionFromString();
             v28 = 0u;
             v29 = 0u;
-            v14 = *(*(*(a1 + 72) + 8) + 40);
             _LSGetVersionFromString();
-            v26 = v30;
-            v27 = v31;
+            v26 = 0u;
+            v27 = 0u;
+            _LSGetVersionFromString();
             v24 = v28;
             v25 = v29;
-            v15 = _LSVersionNumberCompare();
-            if (v15 == 1 || !v15 && [objc_msgSend(v12 "pathExtension")])
+            v22 = v26;
+            v23 = v27;
+            v14 = _LSVersionNumberCompare();
+            if (v14 == 1 || !v14 && [objc_msgSend(v12 "pathExtension")])
             {
 
               *(*(*(a1 + 64) + 8) + 40) = v11;
@@ -198,13 +196,11 @@ LABEL_16:
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v20 objects:v32 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v30 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)loadPluginsWithProvider:(id)provider pathExtension:(id)extension matchingRegex:(id)regex
@@ -251,42 +247,39 @@ LABEL_16:
 
 - (BOOL)_loadBundle:(id)bundle
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (!bundle)
   {
     [DYPluginLoader _loadBundle:];
   }
 
-  v38 = 0;
+  v32 = 0;
   v5 = CFBundleCopyInfoDictionaryForURL([bundle bundleURL]);
   if (!v5)
   {
-    v11 = *MEMORY[0x277D0B240];
-    goto LABEL_31;
+    DYLog(*MEMORY[0x277D0B240], "failed to copy info dictionary");
+    return 0;
   }
 
   v6 = v5;
   v7 = [bundle URLForResource:@"PlugIn" withExtension:@"plist"];
   if (!v7)
   {
-    v12 = *MEMORY[0x277D0B240];
-    goto LABEL_31;
+    DYLog(*MEMORY[0x277D0B240], "failed to get PlugIn.plist from bundle");
+    return 0;
   }
 
-  v8 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v7 options:0 error:&v38];
+  v8 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v7 options:0 error:&v32];
   if (v8)
   {
-    v9 = [MEMORY[0x277CCAC58] propertyListWithData:v8 options:0 format:0 error:&v38];
+    v9 = [MEMORY[0x277CCAC58] propertyListWithData:v8 options:0 format:0 error:&v32];
     if (!v9)
     {
       v10 = *MEMORY[0x277D0B240];
       [objc_msgSend(bundle "bundlePath")];
-      [objc_msgSend(v38 "localizedDescription")];
-LABEL_31:
-      DYLog();
-LABEL_32:
-      result = 0;
-      goto LABEL_33;
+      [objc_msgSend(v32 "localizedDescription")];
+      DYLog(v10, "failed to parse plug-in plist: %s: %s");
+      return 0;
     }
   }
 
@@ -300,82 +293,87 @@ LABEL_32:
     [DYPluginLoader _loadBundle:];
   }
 
-  if (([bundle loadAndReturnError:&v38] & 1) == 0)
+  if (([bundle loadAndReturnError:&v32] & 1) == 0)
   {
     executablePath = [bundle executablePath];
     if (executablePath)
     {
-      v26 = dlopen_preflight([executablePath fileSystemRepresentation]);
-      v27 = *MEMORY[0x277D0B240];
+      v24 = dlopen_preflight([executablePath fileSystemRepresentation]);
+      v25 = *MEMORY[0x277D0B240];
       [objc_msgSend(bundle "bundlePath")];
-      [objc_msgSend(v38 "localizedDescription")];
-      if (!v26)
+      [objc_msgSend(v32 "localizedDescription")];
+      if (v24)
+      {
+        DYLog(v25, "failed to load: %s: %s");
+      }
+
+      else
       {
         dlerror();
+        DYLog(v25, "failed to load: %s: %s\n%s");
       }
     }
 
     else
     {
-      v28 = *MEMORY[0x277D0B240];
+      v26 = *MEMORY[0x277D0B240];
       [objc_msgSend(bundle "bundlePath")];
+      DYLog(v26, "failed to load: %s: Missing executable");
     }
 
-    goto LABEL_31;
+    return 0;
   }
 
-  v13 = [(__CFDictionary *)v6 objectForKey:@"NSPrincipalClass"];
-  if (v13)
+  v11 = [(__CFDictionary *)v6 objectForKey:@"NSPrincipalClass"];
+  if (v11)
   {
-    v14 = v13;
+    v12 = v11;
     if (![bundle principalClass])
     {
-      v31 = *MEMORY[0x277D0B240];
-      v32 = [objc_msgSend(bundle "bundlePath")];
-      uTF8String = [v14 UTF8String];
-      DYLog();
+      DYLog(*MEMORY[0x277D0B240], "failed to get principal class: plug-in=%s, class=%s", [objc_msgSend(bundle "bundlePath")], objc_msgSend(v12, "UTF8String"));
       [bundle unload];
-      goto LABEL_32;
+      return 0;
     }
   }
 
   if (v9)
   {
-    v15 = +[DYExtensionRegistry sharedExtensionRegistry];
-    v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v16 = [v9 objectForKey:@"extensions"];
-    v17 = [v16 countByEnumeratingWithState:&v34 objects:v39 count:16];
-    if (v17)
+    v13 = +[DYExtensionRegistry sharedExtensionRegistry];
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v14 = [v9 objectForKey:@"extensions"];
+    v15 = [v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    if (v15)
     {
-      v18 = v17;
-      v19 = *v35;
+      v16 = v15;
+      v17 = *v29;
       while (2)
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v35 != v19)
+          if (*v29 != v17)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v14);
           }
 
-          v21 = *(*(&v34 + 1) + 8 * i);
-          v22 = [[DYExtension alloc] _initWithDictionary:v21 bundle:bundle];
-          if (!v22)
+          v19 = *(*(&v28 + 1) + 8 * i);
+          v20 = [[DYExtension alloc] _initWithDictionary:v19 bundle:bundle];
+          if (!v20)
           {
-            v30 = *MEMORY[0x277D0B240];
-            [objc_msgSend(v21 "description")];
-            goto LABEL_31;
+            v27 = *MEMORY[0x277D0B240];
+            [objc_msgSend(v19 "description")];
+            DYLog(v27, "failed to create extension: %s");
+            return 0;
           }
 
-          v23 = v22;
-          [v15 registerExtension:v22];
+          v21 = v20;
+          [v13 registerExtension:v20];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v34 objects:v39 count:16];
-        if (v18)
+        v16 = [v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        if (v16)
         {
           continue;
         }
@@ -386,10 +384,7 @@ LABEL_32:
   }
 
   -[NSMutableSet addObject:](self->_loadedPluginNames, "addObject:", [objc_msgSend(bundle "bundleURL")]);
-  result = 1;
-LABEL_33:
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t __30__DYPluginLoader__loadBundle___block_invoke()
@@ -444,36 +439,36 @@ uint64_t __30__DYPluginLoader__loadBundle___block_invoke()
 
 - (id)_loadPluginsInDirectory:(id)directory pathExtension:(id)extension matchingRegex:(id)regex
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v23 = [MEMORY[0x277CBEB58] set];
+  v29 = *MEMORY[0x277D85DE8];
+  v21 = [MEMORY[0x277CBEB58] set];
   v9 = objc_opt_new();
   v10 = *MEMORY[0x277CBE868];
-  v22 = v9;
+  v20 = v9;
   v11 = [v9 contentsOfDirectoryAtURL:directory includingPropertiesForKeys:objc_msgSend(MEMORY[0x277CBEA60] options:"arrayWithObjects:" error:{*MEMORY[0x277CBE8E8], *MEMORY[0x277CBE868], 0), 0, 0}];
+  v24 = 0u;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
-    v24 = *MEMORY[0x277D0B240];
+    v14 = *v25;
+    v22 = *MEMORY[0x277D0B240];
     do
     {
       v15 = 0;
       do
       {
-        if (*v27 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v26 + 1) + 8 * v15);
-        v25 = 0;
-        [v16 getResourceValue:&v25 forKey:v10 error:{0, v21}];
-        if ([objc_msgSend(v16 "pathExtension")] && objc_msgSend(v25, "BOOLValue") && (!regex || objc_msgSend(regex, "numberOfMatchesInString:options:range:", objc_msgSend(v16, "lastPathComponent"), 0, 0, objc_msgSend(objc_msgSend(v16, "lastPathComponent"), "length"))) && (-[NSMutableSet containsObject:](self->_loadedPluginNames, "containsObject:", objc_msgSend(v16, "lastPathComponent")) & 1) == 0)
+        v16 = *(*(&v24 + 1) + 8 * v15);
+        v23 = 0;
+        [v16 getResourceValue:&v23 forKey:v10 error:0];
+        if ([objc_msgSend(v16 "pathExtension")] && objc_msgSend(v23, "BOOLValue") && (!regex || objc_msgSend(regex, "numberOfMatchesInString:options:range:", objc_msgSend(v16, "lastPathComponent"), 0, 0, objc_msgSend(objc_msgSend(v16, "lastPathComponent"), "length"))) && (-[NSMutableSet containsObject:](self->_loadedPluginNames, "containsObject:", objc_msgSend(v16, "lastPathComponent")) & 1) == 0)
         {
           v17 = [MEMORY[0x277CCA8D8] bundleWithURL:v16];
           if (v17)
@@ -481,14 +476,13 @@ uint64_t __30__DYPluginLoader__loadBundle___block_invoke()
             v18 = v17;
             if ([(DYPluginLoader *)self _loadBundle:v17])
             {
-              [v23 addObject:{objc_msgSend(objc_msgSend(v18, "bundleURL"), "lastPathComponent")}];
+              [v21 addObject:{objc_msgSend(objc_msgSend(v18, "bundleURL"), "lastPathComponent")}];
             }
           }
 
           else
           {
-            v21 = [objc_msgSend(v16 "path")];
-            DYLog();
+            DYLog(v22, "failed to create bundle for plug-in: %s", [objc_msgSend(v16 "path")]);
           }
         }
 
@@ -496,14 +490,13 @@ uint64_t __30__DYPluginLoader__loadBundle___block_invoke()
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v13);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v21;
 }
 
 - (id)_loadPluginsWithProvider:(id)provider pathExtension:(id)extension matchingRegex:(id)regex

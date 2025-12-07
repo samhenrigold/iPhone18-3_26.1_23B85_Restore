@@ -53,7 +53,7 @@
 
   sub_1330AC(v6);
 
-  sub_11B940(&qword_22CF68);
+  sub_11B940(&qword_22CF68, &qword_194670);
   v4.super.isa = sub_139A30().super.isa;
 
   return v4.super.isa;
@@ -84,7 +84,7 @@
   selfCopy = self;
   sub_139890();
 
-  type metadata accessor for Page();
+  type metadata accessor for Page(0);
   v4.super.isa = sub_139A30().super.isa;
 
   return v4.super.isa;
@@ -92,7 +92,7 @@
 
 - (void)setPages:(id)pages
 {
-  type metadata accessor for Page();
+  type metadata accessor for Page(0);
   sub_139A40();
   swift_getKeyPath();
   swift_getKeyPath();

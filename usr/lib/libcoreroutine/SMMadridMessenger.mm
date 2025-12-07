@@ -219,152 +219,152 @@ void __92__SMMadridMessenger_sendMadridMessage_associatedGUID_toConversation_sum
   dispatch_group_leave(*(a1 + 48));
 }
 
-void __92__SMMadridMessenger_sendMadridMessage_associatedGUID_toConversation_summaryText_completion___block_invoke_127(uint64_t a1)
+void __92__SMMadridMessenger_sendMadridMessage_associatedGUID_toConversation_summaryText_completion___block_invoke_127(uint64_t a1, uint64_t a2)
 {
-  v70 = *MEMORY[0x277D85DE8];
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = [*(a1 + 32) getIMPluginPayloadFromMSMessage:*(a1 + 40)];
-  v5 = [MEMORY[0x277CBEAA8] date];
+  v71 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = [*(a1 + 32) getIMPluginPayloadFromMSMessage:*(a1 + 40)];
+  v6 = [MEMORY[0x277CBEAA8] date];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v6 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = [*(a1 + 48) sessionID];
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
-      v10 = NSStringFromSelector(*(a1 + 88));
-      v11 = [*(a1 + 48) messageID];
-      v12 = *(*(*(a1 + 80) + 8) + 40);
+      v8 = [*(a1 + 48) sessionID];
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = NSStringFromSelector(*(a1 + 88));
+      v12 = [*(a1 + 48) messageID];
+      v13 = *(*(*(a1 + 80) + 8) + 40);
       *buf = 138413314;
-      v57 = v7;
-      v58 = 2112;
-      v59 = v9;
-      v60 = 2112;
-      v61 = v10;
-      v62 = 2112;
-      v63 = v11;
-      v64 = 2112;
-      v65 = v12;
-      _os_log_impl(&dword_2304B3000, v6, OS_LOG_TYPE_INFO, "#SafetyCache,sessionID:%@,%@,%@,messageID:%@,sending message to chatGUID,%@", buf, 0x34u);
+      v58 = v8;
+      v59 = 2112;
+      v60 = v10;
+      v61 = 2112;
+      v62 = v11;
+      v63 = 2112;
+      v64 = v12;
+      v65 = 2112;
+      v66 = v13;
+      _os_log_impl(&dword_2304B3000, v7, OS_LOG_TYPE_INFO, "#SafetyCache,sessionID:%@,%@,%@,messageID:%@,sending message to chatGUID,%@", buf, 0x34u);
     }
   }
 
-  v13 = [v4 data];
-  v14 = [*(a1 + 56) receiverPrimaryHandles];
-  v53 = *(a1 + 48);
-  v15 = v3;
-  v16 = IMSPISendMSMessagePayloadWithSummaryTextReturningGUID();
+  v14 = [v5 data];
+  v15 = [*(a1 + 56) receiverPrimaryHandles];
+  v54 = *(a1 + 48);
+  v16 = v4;
+  v17 = IMSPISendMSMessagePayloadWithSummaryTextReturningGUID();
 
-  v17 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-  v18 = v17;
-  if (v16)
+  v18 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+  v19 = v18;
+  if (v17)
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = [*(a1 + 48) sessionID];
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
-      v22 = NSStringFromSelector(*(a1 + 88));
-      v23 = [*(a1 + 48) messageID];
-      v25 = *(a1 + 56);
-      v24 = *(a1 + 64);
-      v26 = *(a1 + 48);
+      v20 = [*(a1 + 48) sessionID];
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      v23 = NSStringFromSelector(*(a1 + 88));
+      v24 = [*(a1 + 48) messageID];
+      v26 = *(a1 + 56);
+      v25 = *(a1 + 64);
+      v27 = *(a1 + 48);
       *buf = 138413827;
-      v57 = v19;
-      v58 = 2112;
-      v59 = v21;
-      v60 = 2112;
-      v61 = v22;
-      v62 = 2112;
-      v63 = v23;
-      v64 = 2112;
-      v65 = v25;
-      v66 = 2112;
-      v67 = v24;
-      v68 = 2117;
-      v69 = v26;
-      _os_log_impl(&dword_2304B3000, v18, OS_LOG_TYPE_DEFAULT, "#SafetyCache,sessionID:%@,%@,%@,messageID:%@,Messages accepted message to conversation %@,associatedGUID,%@,message,%{sensitive}@", buf, 0x48u);
+      v58 = v20;
+      v59 = 2112;
+      v60 = v22;
+      v61 = 2112;
+      v62 = v23;
+      v63 = 2112;
+      v64 = v24;
+      v65 = 2112;
+      v66 = v26;
+      v67 = 2112;
+      v68 = v25;
+      v69 = 2117;
+      v70 = v27;
+      _os_log_impl(&dword_2304B3000, v19, OS_LOG_TYPE_DEFAULT, "#SafetyCache,sessionID:%@,%@,%@,messageID:%@,Messages accepted message to conversation %@,associatedGUID,%@,message,%{sensitive}@", buf, 0x48u);
     }
 
     (*(*(a1 + 72) + 16))();
-    v27 = [SMMadridMessageWaitingForAck alloc];
-    v28 = [*(a1 + 48) messageID];
-    v29 = [v28 UUIDString];
-    v30 = [objc_opt_class() messageType];
-    v31 = *(a1 + 56);
-    v32 = _Block_copy(*(a1 + 72));
-    v33 = [(SMMadridMessageWaitingForAck *)v27 initWithIdentifier:v29 messageType:v30 messageSentDate:v5 pendingRetryCount:0 conversation:v31 callback:v32];
+    v28 = [SMMadridMessageWaitingForAck alloc];
+    v29 = [*(a1 + 48) messageID];
+    v30 = [v29 UUIDString];
+    v31 = [objc_opt_class() messageType];
+    v32 = *(a1 + 56);
+    v33 = _Block_copy(*(a1 + 72));
+    v34 = [(SMMadridMessageWaitingForAck *)v28 initWithIdentifier:v30 messageType:v31 messageSentDate:v6 pendingRetryCount:0 conversation:v32 callback:v33];
 
-    if (v33)
+    if (v34)
     {
-      v34 = [*(a1 + 32) madridMessagesWaitingForAck];
-      [v34 addObject:v33];
+      v35 = [*(a1 + 32) madridMessagesWaitingForAck];
+      [v35 addObject:v34];
     }
 
     else
     {
-      v34 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+      v35 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
       {
-        v49 = objc_opt_class();
-        v50 = NSStringFromClass(v49);
-        v51 = NSStringFromSelector(*(a1 + 88));
+        v50 = objc_opt_class();
+        v51 = NSStringFromClass(v50);
+        v52 = NSStringFromSelector(*(a1 + 88));
         *buf = 138412546;
-        v57 = v50;
-        v58 = 2112;
-        v59 = v51;
-        _os_log_fault_impl(&dword_2304B3000, v34, OS_LOG_TYPE_FAULT, "#SafetyCache,%@,%@,failed to create SMMadridMessageWaitingForAck", buf, 0x16u);
+        v58 = v51;
+        v59 = 2112;
+        v60 = v52;
+        _os_log_fault_impl(&dword_2304B3000, v35, OS_LOG_TYPE_FAULT, "#SafetyCache,%@,%@,failed to create SMMadridMessageWaitingForAck", buf, 0x16u);
       }
 
-      v33 = 0;
+      v34 = 0;
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v41 = [*(a1 + 48) sessionID];
-      v42 = objc_opt_class();
-      v43 = NSStringFromClass(v42);
-      v44 = NSStringFromSelector(*(a1 + 88));
-      v45 = [*(a1 + 48) messageID];
-      v47 = *(a1 + 56);
-      v46 = *(a1 + 64);
-      v48 = *(a1 + 48);
+      v42 = [*(a1 + 48) sessionID];
+      v43 = objc_opt_class();
+      v44 = NSStringFromClass(v43);
+      v45 = NSStringFromSelector(*(a1 + 88));
+      v46 = [*(a1 + 48) messageID];
+      v48 = *(a1 + 56);
+      v47 = *(a1 + 64);
+      v49 = *(a1 + 48);
       *buf = 138413827;
-      v57 = v41;
-      v58 = 2112;
-      v59 = v43;
-      v60 = 2112;
-      v61 = v44;
-      v62 = 2112;
-      v63 = v45;
-      v64 = 2112;
-      v65 = v47;
-      v66 = 2112;
-      v67 = v46;
-      v68 = 2117;
-      v69 = v48;
-      _os_log_error_impl(&dword_2304B3000, v18, OS_LOG_TYPE_ERROR, "#SafetyCache,sessionID:%@,%@,%@,messageID:%@,Messages rejected message to conversation,%@,associatedGUID,%@,message,%{sensitive}@", buf, 0x48u);
+      v58 = v42;
+      v59 = 2112;
+      v60 = v44;
+      v61 = 2112;
+      v62 = v45;
+      v63 = 2112;
+      v64 = v46;
+      v65 = 2112;
+      v66 = v48;
+      v67 = 2112;
+      v68 = v47;
+      v69 = 2117;
+      v70 = v49;
+      _os_log_error_impl(&dword_2304B3000, v19, OS_LOG_TYPE_ERROR, "#SafetyCache,sessionID:%@,%@,%@,messageID:%@,Messages rejected message to conversation,%@,associatedGUID,%@,message,%{sensitive}@", buf, 0x48u);
     }
 
-    v35 = MEMORY[0x277CCA9B8];
-    v36 = *MEMORY[0x277D01448];
-    v54 = *MEMORY[0x277CCA450];
-    v55 = @"Messages rejected message";
-    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-    v33 = [v35 errorWithDomain:v36 code:0 userInfo:v37];
+    v36 = MEMORY[0x277CCA9B8];
+    v37 = *MEMORY[0x277D01448];
+    v55 = *MEMORY[0x277CCA450];
+    v56 = @"Messages rejected message";
+    v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+    v34 = [v36 errorWithDomain:v37 code:0 userInfo:v38];
 
     (*(*(a1 + 72) + 16))();
-    v38 = [objc_opt_class() messageType];
-    [v5 timeIntervalSinceNow];
-    v40 = -v39;
-    v34 = [*(a1 + 56) receiverHandles];
-    LOBYTE(v52) = 0;
-    [SMMessagingService submitCAMetricForMessageType:v38 scheduledSend:0 cancelationAttempt:0 attemptNumber:1 wasFinalAttempt:1 timeToSendMessage:v33 sendError:v40 success:v52 numReceivers:[v34 count]];
+    v39 = [objc_opt_class() messageType];
+    [v6 timeIntervalSinceNow];
+    v41 = -v40;
+    v35 = [*(a1 + 56) receiverHandles];
+    LOBYTE(v53) = 0;
+    [SMMessagingService submitCAMetricForMessageType:v39 scheduledSend:0 cancelationAttempt:0 attemptNumber:1 wasFinalAttempt:1 timeToSendMessage:v34 sendError:v41 success:v53 numReceivers:[v35 count]];
   }
 }
 

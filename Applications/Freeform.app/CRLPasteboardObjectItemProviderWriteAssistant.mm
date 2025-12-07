@@ -17,7 +17,7 @@
 
 - (void)writePasteboardObject:(_TtC8Freeform19CRLPasteboardObject *)object to:(NSItemProvider *)to completionHandler:(id)handler
 {
-  v9 = sub_1005B981C(&qword_1019FB750);
+  v9 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);

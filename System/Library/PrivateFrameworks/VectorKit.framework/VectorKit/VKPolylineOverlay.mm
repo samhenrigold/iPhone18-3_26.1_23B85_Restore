@@ -218,31 +218,31 @@
   *(&retstr[1]._name.__rep_.__l + 1) = 0u;
   *retstr->_name.__rep_.__s.__data_ = 0u;
   *(&retstr->_name.__rep_.__l + 1) = 0u;
-  std::string::basic_string[abi:nn200100]<0>(__p, "traffic timestamp");
+  std::string::basic_string[abi:nn200100]<0>(&__p, "traffic timestamp");
   [v2 trafficTimeStamp];
-  gdc::DebugTreeValue::DebugTreeValue(v29, v4);
-  gdc::DebugTreeNode::addProperty(&retstr->_name.__rep_.__l, __p, v29);
-  if (v31 < 0)
+  gdc::DebugTreeValue::DebugTreeValue(v28, v4);
+  gdc::DebugTreeNode::addProperty(retstr, &__p, v28);
+  if (v30 < 0)
   {
-    operator delete(v30);
+    operator delete(v29);
   }
 
-  if (v21 < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  std::string::basic_string[abi:nn200100]<0>(__p, "selected");
-  gdc::DebugTreeValue::DebugTreeValue(v26, [v2 selected]);
-  gdc::DebugTreeNode::addProperty(&retstr->_name.__rep_.__l, __p, v26);
-  if (v28 < 0)
+  std::string::basic_string[abi:nn200100]<0>(&__p, "selected");
+  gdc::DebugTreeValue::DebugTreeValue(v25, [v2 selected]);
+  gdc::DebugTreeNode::addProperty(retstr, &__p, v25);
+  if (v27 < 0)
   {
-    operator delete(v27);
+    operator delete(v26);
   }
 
-  if (v21 < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   v6 = v2[10];
@@ -257,7 +257,7 @@
       v9->__r_.__value_.__l.__size_ = 0;
       v9->__r_.__value_.__r.__words[2] = 0;
       v9->__r_.__value_.__r.__words[0] = 0;
-      gdc::DebugTreeNode::DebugTreeNode(__p, &v19);
+      gdc::DebugTreeNode::DebugTreeNode(&__p, &v19);
       if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v19.__r_.__value_.__l.__data_);
@@ -276,7 +276,7 @@
       }
 
       gdc::DebugTreeValue::DebugTreeValue(v15, *(v10 + v7));
-      gdc::DebugTreeNode::addProperty(__p, &v19, v15);
+      gdc::DebugTreeNode::addProperty(&__p, &v19, v15);
       if (v17 < 0)
       {
         operator delete(v16);
@@ -296,7 +296,7 @@ LABEL_32:
       }
 
       gdc::DebugTreeValue::DebugTreeValue(v12, *(v11 + v7 + 4));
-      gdc::DebugTreeNode::addProperty(__p, &v19, v12);
+      gdc::DebugTreeNode::addProperty(&__p, &v19, v12);
       if (v14 < 0)
       {
         operator delete(v13);
@@ -307,19 +307,19 @@ LABEL_32:
         operator delete(v19.__r_.__value_.__l.__data_);
       }
 
-      gdc::DebugTreeNode::addChildNode(retstr, __p);
-      v19.__r_.__value_.__r.__words[0] = &v25;
-      std::vector<gdc::DebugTreeProperty>::__destroy_vector::operator()[abi:nn200100](&v19);
+      gdc::DebugTreeNode::addChildNode(retstr, &__p);
       v19.__r_.__value_.__r.__words[0] = &v24;
+      std::vector<gdc::DebugTreeProperty>::__destroy_vector::operator()[abi:nn200100](&v19);
+      v19.__r_.__value_.__r.__words[0] = &v23;
       std::vector<gdc::DebugTreeNode>::__destroy_vector::operator()[abi:nn200100](&v19);
-      if (v23 < 0)
+      if (v22 < 0)
       {
-        operator delete(v22);
+        operator delete(v21);
       }
 
-      if (v21 < 0)
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(__p[0]);
+        operator delete(__p.__r_.__value_.__l.__data_);
       }
 
       v6 = v2[10];
@@ -350,8 +350,8 @@ LABEL_32:
     v192 = 0u;
     v189 = 0u;
     v190 = 0u;
-    sections = [(GEOComposedRoute *)self->_composedRoute sections];
-    v15 = [sections countByEnumeratingWithState:&v189 objects:v197 count:16];
+    v14 = objc_msgSend_sections(self->_composedRoute);
+    v15 = [v14 countByEnumeratingWithState:&v189 objects:v197 count:16];
     if (v15)
     {
       v16 = *v190;
@@ -361,7 +361,7 @@ LABEL_32:
         {
           if (*v190 != v16)
           {
-            objc_enumerationMutation(sections);
+            objc_enumerationMutation(v14);
           }
 
           v18 = *(*(&v189 + 1) + 8 * i);
@@ -374,7 +374,7 @@ LABEL_32:
           self = selfCopy;
         }
 
-        v15 = [sections countByEnumeratingWithState:&v189 objects:v197 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v189 objects:v197 count:16];
       }
 
       while (v15);
@@ -485,7 +485,7 @@ LABEL_13:
         v188 = 0u;
         v185 = 0u;
         v186 = 0u;
-        obj = [(GEOComposedRoute *)selfCopy->_composedRoute sections];
+        obj = objc_msgSend_sections(selfCopy->_composedRoute);
         v50 = [obj countByEnumeratingWithState:&v185 objects:v196 count:16];
         if (v50)
         {
@@ -508,7 +508,7 @@ LABEL_13:
               v160 = v56;
               if (v57)
               {
-                [v57 bounds];
+                objc_msgSend_bounds(v57);
                 *&v51 = __p[0];
                 v58 = *&__p[1];
                 v59 = v184;
@@ -923,8 +923,8 @@ LABEL_162:
     v181 = 0u;
     v178 = 0u;
     v179 = 0u;
-    sections2 = [(GEOComposedRoute *)v41->_composedRoute sections];
-    v140 = [sections2 countByEnumeratingWithState:&v178 objects:v195 count:16];
+    v139 = objc_msgSend_sections(v41->_composedRoute);
+    v140 = [v139 countByEnumeratingWithState:&v178 objects:v195 count:16];
     if (v140)
     {
       v141 = *v179;
@@ -934,7 +934,7 @@ LABEL_162:
         {
           if (*v179 != v141)
           {
-            objc_enumerationMutation(sections2);
+            objc_enumerationMutation(v139);
           }
 
           v143 = [*(*(&v178 + 1) + 8 * j) pathsForRenderRegion:regionCopy inOverlay:v41 excludedSegments:__p elevationSource:source elevationSourceContext:context];
@@ -943,7 +943,7 @@ LABEL_162:
           v41 = selfCopy;
         }
 
-        v140 = [sections2 countByEnumeratingWithState:&v178 objects:v195 count:16];
+        v140 = [v139 countByEnumeratingWithState:&v178 objects:v195 count:16];
       }
 
       while (v140);
@@ -965,8 +965,8 @@ LABEL_162:
     v177 = 0u;
     v174 = 0u;
     v175 = 0u;
-    sections3 = [(GEOComposedRoute *)self->_composedRoute sections];
-    v36 = [sections3 countByEnumeratingWithState:&v174 objects:v194 count:16];
+    v35 = objc_msgSend_sections(self->_composedRoute);
+    v36 = [v35 countByEnumeratingWithState:&v174 objects:v194 count:16];
     if (v36)
     {
       v37 = *v175;
@@ -976,7 +976,7 @@ LABEL_162:
         {
           if (*v175 != v37)
           {
-            objc_enumerationMutation(sections3);
+            objc_enumerationMutation(v35);
           }
 
           v39 = [*(*(&v174 + 1) + 8 * k) pathsForRenderRegion:regionCopy inOverlay:self elevationSource:source elevationSourceContext:context];
@@ -985,7 +985,7 @@ LABEL_162:
           self = selfCopy;
         }
 
-        v36 = [sections3 countByEnumeratingWithState:&v174 objects:v194 count:16];
+        v36 = [v35 countByEnumeratingWithState:&v174 objects:v194 count:16];
       }
 
       while (v36);
@@ -1001,8 +1001,8 @@ LABEL_162:
     v173 = 0u;
     v170 = 0u;
     v171 = 0u;
-    sections = v162;
-    v145 = [sections countByEnumeratingWithState:&v170 objects:v193 count:16];
+    v14 = v162;
+    v145 = [v14 countByEnumeratingWithState:&v170 objects:v193 count:16];
     if (v145)
     {
       v146 = *v171;
@@ -1012,7 +1012,7 @@ LABEL_162:
         {
           if (*v171 != v146)
           {
-            objc_enumerationMutation(sections);
+            objc_enumerationMutation(v14);
           }
 
           v148 = *(*(&v170 + 1) + 8 * m);
@@ -1031,7 +1031,7 @@ LABEL_162:
           }
         }
 
-        v145 = [sections countByEnumeratingWithState:&v170 objects:v193 count:16];
+        v145 = [v14 countByEnumeratingWithState:&v170 objects:v193 count:16];
       }
 
       while (v145);
@@ -1246,15 +1246,15 @@ void __153__VKPolylineOverlay_createMatchedSegmentAndAddToPaths_section_pathStar
 {
   v35 = *MEMORY[0x1E69E9840];
   v33 = a3;
-  sections = [(GEOComposedRoute *)self->_composedRoute sections];
-  v5 = [sections count];
+  v4 = objc_msgSend_sections(self->_composedRoute, a2);
+  v5 = [v4 count];
 
   v31 = 0u;
   v32 = 0u;
   v29 = 0u;
   v30 = 0u;
-  sections2 = [(GEOComposedRoute *)self->_composedRoute sections];
-  v7 = [sections2 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v6 = objc_msgSend_sections(self->_composedRoute);
+  v7 = [v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v7)
   {
     LODWORD(v24) = 0;
@@ -1269,7 +1269,7 @@ void __153__VKPolylineOverlay_createMatchedSegmentAndAddToPaths_section_pathStar
       {
         if (*v30 != v8)
         {
-          objc_enumerationMutation(sections2);
+          objc_enumerationMutation(v6);
         }
 
         [*(*(&v29 + 1) + 8 * v9) vkBounds];
@@ -1317,7 +1317,7 @@ void __153__VKPolylineOverlay_createMatchedSegmentAndAddToPaths_section_pathStar
       }
 
       while (v9 != v7);
-      v7 = [sections2 countByEnumeratingWithState:&v29 objects:v34 count:{16, v19}];
+      v7 = [v6 countByEnumeratingWithState:&v29 objects:v34 count:{16, v19}];
     }
 
     while (v7);

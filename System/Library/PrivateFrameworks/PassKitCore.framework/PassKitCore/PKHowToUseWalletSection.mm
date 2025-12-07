@@ -283,9 +283,9 @@ LABEL_10:
 
   if (v10 && v11)
   {
-    v13 = [v10 isEqualToString:v11];
+    isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-    if ((v13 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_18;
     }

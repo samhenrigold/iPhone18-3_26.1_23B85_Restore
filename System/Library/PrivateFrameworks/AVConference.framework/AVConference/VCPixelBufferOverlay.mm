@@ -34,7 +34,7 @@
     *v14 = xmmword_1DBD4F0C0;
     memset(&v14[16], 255, 32);
     v13 = xmmword_1DBD4F0B0;
-    [(VCPixelBufferOverlay *)v3 currentDetails];
+    objc_msgSend_currentDetails(v3);
     LOWORD(v13) = 257;
     *(&v13 + 4) = 0;
     *&v14[24] = v10;

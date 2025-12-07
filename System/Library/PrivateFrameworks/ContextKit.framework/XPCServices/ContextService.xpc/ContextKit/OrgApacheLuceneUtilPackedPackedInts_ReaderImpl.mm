@@ -6,7 +6,7 @@
 
 - (OrgApacheLuceneUtilPackedPackedInts_ReaderImpl)initWithInt:(int)int
 {
-  OrgApacheLuceneIndexNumericDocValues_init(self, a2);
+  OrgApacheLuceneIndexNumericDocValues_init();
   self->valueCount_ = int;
   return self;
 }

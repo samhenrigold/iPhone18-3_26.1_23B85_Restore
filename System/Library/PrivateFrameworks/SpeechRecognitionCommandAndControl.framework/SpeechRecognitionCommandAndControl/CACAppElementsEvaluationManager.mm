@@ -97,23 +97,23 @@ LABEL_9:
 
 - (id)actionableAXElementsFromAXElements:(id)elements forAppIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   elementsCopy = elements;
   [(CACAppElementsEvaluationManager *)self evaluatorClassForAppIdentifier:identifier];
   v7 = objc_opt_new();
   v8 = [v7 actionableAXElementsFromAXElements:elementsCopy];
   v9 = [(CACAppElementsEvaluationManager *)self _trimmedArrayOfActionableAXElements:v8];
 
-  v10 = CACLogElementEvaluation();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = CACLogElementEvaluation(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138478339;
-    v13 = elementsCopy;
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2113;
-    v17 = v9;
-    _os_log_debug_impl(&dword_26B354000, v10, OS_LOG_TYPE_DEBUG, "Actionable elements from %{private}@ using evaluator %@ were %{private}@", &v12, 0x20u);
+    v13 = 138478339;
+    v14 = elementsCopy;
+    v15 = 2112;
+    v16 = v7;
+    v17 = 2113;
+    v18 = v9;
+    _os_log_debug_impl(&dword_26B354000, v11, OS_LOG_TYPE_DEBUG, "Actionable elements from %{private}@ using evaluator %@ were %{private}@", &v13, 0x20u);
   }
 
   return v9;

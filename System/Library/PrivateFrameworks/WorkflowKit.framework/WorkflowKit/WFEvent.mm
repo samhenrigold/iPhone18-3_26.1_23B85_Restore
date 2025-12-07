@@ -42,28 +42,28 @@
 
 - (id)serializableEvent
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init([(WFEvent *)self codableEventClass]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   propertyNames = [(WFEvent *)self propertyNames];
-  v5 = [propertyNames countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [propertyNames countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(propertyNames);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [(WFEvent *)self valueForKey:v9];
         serializablePropertyTransformers = [objc_opt_class() serializablePropertyTransformers];
         v12 = [serializablePropertyTransformers objectForKey:v9];
@@ -83,13 +83,11 @@
         [v3 setValue:v10 forKey:v9];
       }
 
-      v6 = [propertyNames countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [propertyNames countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

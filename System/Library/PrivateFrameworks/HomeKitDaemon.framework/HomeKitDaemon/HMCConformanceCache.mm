@@ -29,7 +29,7 @@
   v5 = [(HMCConformanceCache *)&v11 init];
   if (v5)
   {
-    v6 = [protocolsCopy copy];
+    v6 = objc_msgSend_copy(protocolsCopy);
     protocols = v5->_protocols;
     v5->_protocols = v6;
 

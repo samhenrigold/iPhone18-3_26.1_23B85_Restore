@@ -11,9 +11,9 @@
     +[RMLog(statusPublisherDelegate) statusPublisherDelegate];
   }
 
-  v1 = statusPublisherDelegate_result;
+  v2 = statusPublisherDelegate_result;
 
-  return v1;
+  return v2;
 }
 
 @end

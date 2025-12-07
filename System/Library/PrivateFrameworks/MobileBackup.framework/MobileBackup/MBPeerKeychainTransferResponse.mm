@@ -31,47 +31,20 @@
   v16.receiver = self;
   v16.super_class = MBPeerKeychainTransferResponse;
   v7 = [(MBPeerKeychainTransferResponse *)&v16 init];
-  if (!v7)
+  if (!v7 || ([dictionaryCopy objectForKeyedSubscript:@"MBKeyBag"], v8 = objc_claimAutoreleasedReturnValue(), keybagData = v7->_keybagData, v7->_keybagData = v8, keybagData, objc_msgSend(dictionaryCopy, "objectForKeyedSubscript:", @"MBKeyBagPassword"), v10 = objc_claimAutoreleasedReturnValue(), passwordData = v7->_passwordData, v7->_passwordData = v10, passwordData, objc_msgSend(dictionaryCopy, "objectForKeyedSubscript:", @"MBKeychainFileName"), v12 = objc_claimAutoreleasedReturnValue(), keychainFileName = v7->_keychainFileName, v7->_keychainFileName = v12, keychainFileName, v7->_keybagData) && v7->_passwordData && v7->_keychainFileName)
   {
-    goto LABEL_5;
-  }
-
-  v8 = [dictionaryCopy objectForKeyedSubscript:@"MBKeyBag"];
-  keybagData = v7->_keybagData;
-  v7->_keybagData = v8;
-
-  v10 = [dictionaryCopy objectForKeyedSubscript:@"MBKeyBagPassword"];
-  passwordData = v7->_passwordData;
-  v7->_passwordData = v10;
-
-  v12 = [dictionaryCopy objectForKeyedSubscript:@"MBKeychainFileName"];
-  keychainFileName = v7->_keychainFileName;
-  v7->_keychainFileName = v12;
-
-  if (!v7->_keybagData)
-  {
-    goto LABEL_6;
-  }
-
-  if (v7->_passwordData && v7->_keychainFileName)
-  {
-LABEL_5:
     v14 = v7;
+  }
+
+  else if (error)
+  {
+    [MBError errorWithCode:11 format:@"Failed to decode request. Missing property in dictionary %@", dictionaryCopy];
+    *error = v14 = 0;
   }
 
   else
   {
-LABEL_6:
-    if (error)
-    {
-      [MBError errorWithCode:11 format:@"Failed to decode request. Missing property in dictionary %@", dictionaryCopy];
-      *error = v14 = 0;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
+    v14 = 0;
   }
 
   return v14;

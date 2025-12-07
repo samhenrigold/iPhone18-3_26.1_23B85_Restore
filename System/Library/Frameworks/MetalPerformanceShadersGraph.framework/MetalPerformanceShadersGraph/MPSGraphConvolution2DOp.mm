@@ -7,90 +7,91 @@
 
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphConvolution2DOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphConvolutionOps.mm", __p);
+  mpsFileLoc(__p, "[MPSGraphConvolution2DOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphConvolutionOps.mm");
   v11 = nameCopy;
-  v64 = 260;
-  v63[0] = __p;
-  StringAttr = mlir::Builder::getStringAttr(builder, v63);
-  v14 = mlir::FileLineColLoc::get(StringAttr, 0x118u, 0);
+  v63 = 260;
+  v62[0] = __p;
+  StringAttr = mlir::Builder::getStringAttr(builder, v62);
+  v15 = mlir::FileLineColLoc::get(StringAttr, 0x118u, 0);
   if (v11)
   {
-    v15 = v11;
+    v16 = v11;
     uTF8String = [v11 UTF8String];
-    v17 = strlen(uTF8String);
-    if (v17 >= 0x7FFFFFFFFFFFFFF8)
+    v18 = strlen(uTF8String);
+    if (v18 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v18 = v17;
-    if (v17 >= 0x17)
+    v19 = v18;
+    if (v18 >= 0x17)
     {
       operator new();
     }
 
-    v62 = v17;
-    if (v17)
+    *(&__dst.__r_.__value_.__s + 23) = v18;
+    if (v18)
     {
-      memmove(__dst, uTF8String, v17);
+      memmove(&__dst, uTF8String, v18);
     }
 
-    v19 = &__dst[v18];
+    v20 = &__dst + v19;
   }
 
   else
   {
-    v62 = 11;
-    qmemcpy(__dst, "mps.conv_2d", sizeof(__dst));
-    v19 = v61;
+    *(&__dst.__r_.__value_.__s + 23) = 11;
+    *(__dst.__r_.__value_.__r.__words + 7) = 1681022838;
+    __dst.__r_.__value_.__r.__words[0] = *"mps.conv_2d";
+    v20 = &__dst.__r_.__value_.__s.__data_[11];
   }
 
-  *v19 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, __dst, v13, &v57);
-  v20 = v57.__r_.__value_.__r.__words[0];
-  if ((v57.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  *v20 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, &v58, v13, v14);
+  v21 = v58.__r_.__value_.__r.__words[0];
+  if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v20 = &v57;
+    v21 = &v58;
   }
 
-  v21 = 1;
-  HIBYTE(v64) = 1;
-  if (v20->__r_.__value_.__s.__data_[0])
+  v22 = 1;
+  HIBYTE(v63) = 1;
+  if (v21->__r_.__value_.__s.__data_[0])
   {
-    v63[0] = v20;
-    v21 = 3;
+    v62[0] = v21;
+    v22 = 3;
   }
 
-  LOBYTE(v64) = v21;
-  v22 = mlir::Builder::getStringAttr(builder, v63);
-  v50 = mlir::NameLoc::get(v22, v14);
-  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+  LOBYTE(v63) = v22;
+  v23 = mlir::Builder::getStringAttr(builder, v62);
+  v51 = mlir::NameLoc::get(v23, v15);
+  if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v57.__r_.__value_.__l.__data_);
-    if ((v62 & 0x80000000) == 0)
+    operator delete(v58.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
   }
 
-  else if ((v62 & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_16;
   }
 
-  operator delete(*__dst);
+  operator delete(__dst.__r_.__value_.__l.__data_);
 LABEL_16:
 
   builderCopy = builder;
-  if (v53 < 0)
+  if (v54 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v48 = v11;
-  v23 = *values;
+  v49 = v11;
+  v24 = *values;
   if (*(values + 1) - *values <= 8uLL)
   {
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
@@ -104,44 +105,44 @@ LABEL_16:
   paddingLeft = [(MPSGraphConvolution2DOpDescriptor *)self->super._desc paddingLeft];
   paddingRight = [(MPSGraphConvolution2DOpDescriptor *)self->super._desc paddingRight];
   paddingTop = [(MPSGraphConvolution2DOpDescriptor *)self->super._desc paddingTop];
-  v45 = paddingLeft;
+  v46 = paddingLeft;
   paddingBottom = [(MPSGraphConvolution2DOpDescriptor *)self->super._desc paddingBottom];
-  v31 = dilationRateInY;
-  v44 = dilationRateInX;
+  v32 = dilationRateInY;
+  v45 = dilationRateInX;
   paddingStyle = [(MPSGraphConvolution2DOpDescriptor *)self->super._desc paddingStyle];
   dataLayout = [(MPSGraphConvolution2DOpDescriptor *)self->super._desc dataLayout];
   weightsLayout = [(MPSGraphConvolution2DOpDescriptor *)self->super._desc weightsLayout];
-  v54 = v50;
-  Context = mlir::Attribute::getContext(&v54);
-  v36 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::Conv2DOp,void>::id, Context);
-  if ((v37 & 1) == 0)
+  v55 = v51;
+  Context = mlir::Attribute::getContext(&v55);
+  v37 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::Conv2DOp,void>::id, Context);
+  if ((v38 & 1) == 0)
   {
-    v59 = 1283;
-    v57.__r_.__value_.__r.__words[2] = "mps.conv_2d";
-    v58 = 11;
-    v56 = 259;
-    llvm::operator+(&v57, &v55, __dst);
-    llvm::report_fatal_error(__dst, 1);
+    v60 = 1283;
+    v58.__r_.__value_.__r.__words[2] = "mps.conv_2d";
+    v59 = 11;
+    v57 = 259;
+    llvm::operator+(&v58, &v56, &__dst);
+    llvm::report_fatal_error(&__dst, 1);
   }
 
-  mlir::OperationState::OperationState(v63, v50, v36);
-  mlir::mps::Conv2DOp::build(builderCopy, v63, *v23, v23[1], groups, strideInX, strideInY, v44, v31, v45, paddingRight, paddingTop, paddingBottom, paddingStyle, dataLayout, weightsLayout);
-  v38 = mlir::OpBuilder::create(builderCopy, v63);
-  v39 = *(*(v38 + 48) + 16);
-  mlir::OperationState::~OperationState(v63);
-  if (v39 == &mlir::detail::TypeIDResolver<mlir::mps::Conv2DOp,void>::id)
+  mlir::OperationState::OperationState(v62, v51, v37);
+  mlir::mps::Conv2DOp::build(builderCopy, v62, *v24, v24[1], groups, strideInX, strideInY, v45, v32, v46, paddingRight, paddingTop, paddingBottom, __SPAIR64__(dataLayout, paddingStyle), weightsLayout);
+  v39 = mlir::OpBuilder::create(builderCopy, v62);
+  v40 = *(*(v39 + 6) + 16);
+  mlir::OperationState::~OperationState(v62);
+  if (v40 == &mlir::detail::TypeIDResolver<mlir::mps::Conv2DOp,void>::id)
   {
-    v40 = v38;
+    v41 = v39;
   }
 
   else
   {
-    v40 = 0;
+    v41 = 0;
   }
 
-  v51 = v40 - 16;
-  mlir::Value::getDefiningOp(&v51);
-  DefiningOp = mlir::Value::getDefiningOp(&v51);
+  v52 = v41 - 16;
+  mlir::Value::getDefiningOp(&v52);
+  DefiningOp = mlir::Value::getDefiningOp(&v52);
 
   return DefiningOp;
 }

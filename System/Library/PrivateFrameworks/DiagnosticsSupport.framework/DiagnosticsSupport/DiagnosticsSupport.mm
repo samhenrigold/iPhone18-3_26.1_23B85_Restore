@@ -58,26 +58,27 @@ const char *IOReturnName(int a1)
   return "unknown error";
 }
 
-uint64_t callIOFunction(int a1, mach_port_t a2, const void *a3, void *a4)
+uint64_t callIOFunction(uint64_t a1, mach_port_t a2, const void *a3, void *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v7 = a1;
+  v16 = *MEMORY[0x277D85DE8];
   v8 = DiagnosticLogHandleForCategory(6);
   v9 = v8;
-  if (a1 == 2)
+  if (v7 == 2)
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14[0]) = 0;
-      _os_log_impl(&dword_248BD5000, v9, OS_LOG_TYPE_DEFAULT, "SMC::callIOFunction kSMCHandleYPCEvent command", v14, 2u);
+      LOWORD(v13[0]) = 0;
+      _os_log_impl(&dword_248BD5000, v9, OS_LOG_TYPE_DEFAULT, "SMC::callIOFunction kSMCHandleYPCEvent command", v13, 2u);
     }
 
-    v14[0] = 168;
-    v10 = IOConnectCallStructMethod(a2, 2u, a3, 0xA8uLL, a4, v14);
+    v13[0] = 168;
+    v10 = IOConnectCallStructMethod(a2, 2u, a3, 0xA8uLL, a4, v13);
     v11 = DiagnosticLogHandleForCategory(6);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v16 = v10;
+      v15 = v10;
       _os_log_impl(&dword_248BD5000, v11, OS_LOG_TYPE_DEFAULT, "SMC::callIOFunction IOConnectCallStructMethod result = %d", buf, 8u);
     }
   }
@@ -86,13 +87,12 @@ uint64_t callIOFunction(int a1, mach_port_t a2, const void *a3, void *a4)
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      callIOFunction_cold_1(a1, v9);
+      callIOFunction_cold_1(v7, v9);
     }
 
-    v10 = 3758097084;
+    return 3758097084;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -125,7 +125,7 @@ uint64_t smckSMCMakeUInt32Key(const char *a1)
 
 uint64_t returnEnumForDataTypeStr(int a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = 5;
   if (a1 > 1936734262)
   {
@@ -717,16 +717,15 @@ LABEL_182:
   v4 = DiagnosticLogHandleForCategory(6);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109632;
-    v7[1] = a1;
-    v8 = 1024;
-    v9 = v2;
-    v10 = 1024;
-    v11 = 38;
-    _os_log_impl(&dword_248BD5000, v4, OS_LOG_TYPE_DEFAULT, "SMC::convertValue value %u result %d %d", v7, 0x14u);
+    v6[0] = 67109632;
+    v6[1] = a1;
+    v7 = 1024;
+    v8 = v2;
+    v9 = 1024;
+    v10 = 38;
+    _os_log_impl(&dword_248BD5000, v4, OS_LOG_TYPE_DEFAULT, "SMC::convertValue value %u result %d %d", v6, 0x14u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -747,51 +746,40 @@ double convertKeyToValueMiniT(int a1, size_t __n, void *__src, double a4)
     switch(a1)
     {
       case 2:
-        v4 = 0.0;
-        break;
+        return 0.0;
       case 3:
       case 23:
         goto LABEL_5;
       case 5:
         goto LABEL_18;
       case 6:
-        v7 = SLOBYTE(__dst[0]);
-        goto LABEL_45;
+        return SLOBYTE(__dst[0]);
       case 7:
-        v8 = vcvtd_n_f64_u32(LOWORD(__dst[0]), 8uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_u32(LOWORD(__dst[0]), 8uLL);
       case 9:
       case 44:
         v9 = SLOWORD(__dst[0]);
-        goto LABEL_96;
+        return vcvtd_n_f64_s32(v9, 8uLL);
       case 11:
         *&a4 = SLOWORD(__dst[0]);
         goto LABEL_57;
       case 12:
-        v8 = vcvtd_n_f64_u32(LOWORD(__dst[0]), 0xAuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_u32(LOWORD(__dst[0]), 0xAuLL);
       case 13:
-        v8 = vcvtd_n_f64_u32(LOWORD(__dst[0]), 0xFuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_u32(LOWORD(__dst[0]), 0xFuLL);
       case 14:
       case 22:
-        v8 = vcvtd_n_f64_u32(LOWORD(__dst[0]), 0xEuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_u32(LOWORD(__dst[0]), 0xEuLL);
       case 15:
-        v8 = vcvtd_n_f64_u32(LOWORD(__dst[0]), 0xDuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_u32(LOWORD(__dst[0]), 0xDuLL);
       case 16:
-        v8 = vcvtd_n_f64_u32(LOWORD(__dst[0]), 0xBuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_u32(LOWORD(__dst[0]), 0xBuLL);
       case 17:
-        v8 = vcvtd_n_f64_u32(LOWORD(__dst[0]), 9uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_u32(LOWORD(__dst[0]), 9uLL);
       case 18:
-        v8 = vcvtd_n_f64_u32(LOWORD(__dst[0]), 0xCuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_u32(LOWORD(__dst[0]), 0xCuLL);
       case 19:
-        v8 = vcvtd_n_f64_u32(LOWORD(__dst[0]), 2uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_u32(LOWORD(__dst[0]), 2uLL);
       case 20:
         a4 = vcvtd_n_f64_u32(LOWORD(__dst[0]), 2uLL);
         goto LABEL_85;
@@ -807,7 +795,7 @@ LABEL_85:
         LOWORD(a4) = __dst[0];
         *&a4 = LODWORD(a4);
         v20 = 10000.0;
-        goto LABEL_88;
+        return (*&a4 / v20);
       case 26:
         LOWORD(a4) = __dst[0];
         *&a4 = LODWORD(a4);
@@ -821,222 +809,169 @@ LABEL_86:
         v25 = 1120403456;
 LABEL_87:
         v20 = *&v25;
-LABEL_88:
-        v10 = *&a4 / v20;
-        goto LABEL_109;
+        return (*&a4 / v20);
       case 29:
       case 52:
-        v7 = SLOWORD(__dst[0]);
-        goto LABEL_45;
+        return SLOWORD(__dst[0]);
       case 31:
       case 102:
         goto LABEL_113;
       case 33:
-        v8 = vcvtd_n_f64_u32(LOWORD(__dst[0]), 6uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_u32(LOWORD(__dst[0]), 6uLL);
       case 36:
         v22 = DiagnosticLogHandleForCategory(6);
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = 67110912;
-          v32 = LOBYTE(__dst[0]);
-          v33 = 1024;
-          v34 = BYTE1(__dst[0]);
-          v35 = 1024;
-          v36 = BYTE2(__dst[0]);
-          v37 = 1024;
-          v38 = BYTE3(__dst[0]);
-          v39 = 1024;
-          v40 = BYTE4(__dst[0]);
-          v41 = 1024;
-          v42 = BYTE5(__dst[0]);
-          v43 = 1024;
-          v44 = BYTE6(__dst[0]);
-          v45 = 1024;
-          v46 = HIBYTE(__dst[0]);
-          _os_log_impl(&dword_248BD5000, v22, OS_LOG_TYPE_DEFAULT, "Value = %c%c%c%c%c%c%c%c\n", &v31, 0x32u);
+          v30 = 67110912;
+          v31 = LOBYTE(__dst[0]);
+          v32 = 1024;
+          v33 = BYTE1(__dst[0]);
+          v34 = 1024;
+          v35 = BYTE2(__dst[0]);
+          v36 = 1024;
+          v37 = BYTE3(__dst[0]);
+          v38 = 1024;
+          v39 = BYTE4(__dst[0]);
+          v40 = 1024;
+          v41 = BYTE5(__dst[0]);
+          v42 = 1024;
+          v43 = BYTE6(__dst[0]);
+          v44 = 1024;
+          v45 = HIBYTE(__dst[0]);
+          _os_log_impl(&dword_248BD5000, v22, OS_LOG_TYPE_DEFAULT, "Value = %c%c%c%c%c%c%c%c\n", &v30, 0x32u);
         }
 
         v23 = DiagnosticLogHandleForCategory(6);
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = 67109120;
-          v32 = LOBYTE(__dst[0]);
-          _os_log_impl(&dword_248BD5000, v23, OS_LOG_TYPE_DEFAULT, "Value2 = %c\n", &v31, 8u);
+          v30 = 67109120;
+          v31 = LOBYTE(__dst[0]);
+          _os_log_impl(&dword_248BD5000, v23, OS_LOG_TYPE_DEFAULT, "Value2 = %c\n", &v30, 8u);
         }
 
-        break;
+        return v4;
       case 37:
         v27 = SLOWORD(__dst[0]);
-        goto LABEL_98;
+        return vcvtd_n_f64_s32(v27, 0xFuLL);
       case 38:
         v24 = SLOWORD(__dst[0]);
-        goto LABEL_103;
+        return vcvtd_n_f64_s32(v24, 0xEuLL);
       case 39:
         v14 = SLOWORD(__dst[0]);
-        goto LABEL_79;
+        return vcvtd_n_f64_s32(v14, 0xDuLL);
       case 40:
         v19 = SLOWORD(__dst[0]);
-        goto LABEL_81;
+        return vcvtd_n_f64_s32(v19, 0xCuLL);
       case 41:
         v18 = SLOWORD(__dst[0]);
-        goto LABEL_71;
+        return vcvtd_n_f64_s32(v18, 0xBuLL);
       case 42:
         v28 = SLOWORD(__dst[0]);
-        goto LABEL_93;
+        return vcvtd_n_f64_s32(v28, 0xAuLL);
       case 43:
         v11 = SLOWORD(__dst[0]);
-        goto LABEL_29;
+        return vcvtd_n_f64_s32(v11, 9uLL);
       case 45:
         v26 = SLOWORD(__dst[0]);
-        goto LABEL_100;
+        return vcvtd_n_f64_s32(v26, 7uLL);
       case 46:
         v16 = SLOWORD(__dst[0]);
-        goto LABEL_47;
+        return vcvtd_n_f64_s32(v16, 6uLL);
       case 47:
         v15 = SLOWORD(__dst[0]);
-        goto LABEL_105;
+        return vcvtd_n_f64_s32(v15, 5uLL);
       case 48:
         v21 = SLOWORD(__dst[0]);
-        goto LABEL_83;
+        return vcvtd_n_f64_s32(v21, 4uLL);
       case 49:
         v12 = SLOWORD(__dst[0]);
-        goto LABEL_59;
+        return vcvtd_n_f64_s32(v12, 3uLL);
       case 50:
         v17 = SLOWORD(__dst[0]);
-        goto LABEL_75;
+        return vcvtd_n_f64_s32(v17, 2uLL);
       case 51:
         v13 = SLOWORD(__dst[0]);
-        goto LABEL_67;
+        return vcvtd_n_f64_s32(v13, 1uLL);
       case 53:
-        v8 = vcvtd_n_f64_s32(__dst[0], 0x1FuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(__dst[0], 0x1FuLL);
       case 54:
-        v8 = vcvtd_n_f64_s32(__dst[0], 0x1EuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(__dst[0], 0x1EuLL);
       case 55:
-        v8 = vcvtd_n_f64_s32(__dst[0], 0x1DuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(__dst[0], 0x1DuLL);
       case 56:
-        v8 = vcvtd_n_f64_s32(__dst[0], 0x1CuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(__dst[0], 0x1CuLL);
       case 57:
-        v8 = vcvtd_n_f64_s32(__dst[0], 0x1BuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(__dst[0], 0x1BuLL);
       case 58:
-        v8 = vcvtd_n_f64_s32(__dst[0], 0x1AuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(__dst[0], 0x1AuLL);
       case 59:
-        v8 = vcvtd_n_f64_s32(__dst[0], 0x19uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(__dst[0], 0x19uLL);
       case 60:
-        v8 = vcvtd_n_f64_s32(__dst[0], 0x18uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(__dst[0], 0x18uLL);
       case 61:
-        v8 = vcvtd_n_f64_s32(__dst[0], 0x17uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(__dst[0], 0x17uLL);
       case 62:
-        v8 = vcvtd_n_f64_s32(__dst[0], 0x16uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(__dst[0], 0x16uLL);
       case 63:
-        v8 = SLODWORD(__dst[0]) / 2097408.0;
-        goto LABEL_108;
+        return (SLODWORD(__dst[0]) / 2097408.0);
       case 64:
-        v8 = vcvtd_n_f64_s32(__dst[0], 0x14uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(__dst[0], 0x14uLL);
       case 65:
-        v8 = vcvtd_n_f64_s32(__dst[0], 0x13uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(__dst[0], 0x13uLL);
       case 66:
-        v8 = vcvtd_n_f64_s32(__dst[0], 0x12uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(__dst[0], 0x12uLL);
       case 67:
-        v8 = vcvtd_n_f64_s32(__dst[0], 0x11uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(__dst[0], 0x11uLL);
       case 68:
-        v8 = vcvtd_n_f64_s32(__dst[0], 0x10uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(__dst[0], 0x10uLL);
       case 69:
         v27 = __dst[0];
-LABEL_98:
-        v8 = vcvtd_n_f64_s32(v27, 0xFuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(v27, 0xFuLL);
       case 70:
         v24 = __dst[0];
-LABEL_103:
-        v8 = vcvtd_n_f64_s32(v24, 0xEuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(v24, 0xEuLL);
       case 71:
         v14 = __dst[0];
-LABEL_79:
-        v8 = vcvtd_n_f64_s32(v14, 0xDuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(v14, 0xDuLL);
       case 72:
         v19 = __dst[0];
-LABEL_81:
-        v8 = vcvtd_n_f64_s32(v19, 0xCuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(v19, 0xCuLL);
       case 73:
         v18 = __dst[0];
-LABEL_71:
-        v8 = vcvtd_n_f64_s32(v18, 0xBuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(v18, 0xBuLL);
       case 74:
         v28 = __dst[0];
-LABEL_93:
-        v8 = vcvtd_n_f64_s32(v28, 0xAuLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(v28, 0xAuLL);
       case 75:
         v11 = __dst[0];
-LABEL_29:
-        v8 = vcvtd_n_f64_s32(v11, 9uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(v11, 9uLL);
       case 76:
         v9 = __dst[0];
-LABEL_96:
-        v8 = vcvtd_n_f64_s32(v9, 8uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(v9, 8uLL);
       case 78:
         v26 = __dst[0];
-LABEL_100:
-        v8 = vcvtd_n_f64_s32(v26, 7uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(v26, 7uLL);
       case 79:
         v16 = __dst[0];
-LABEL_47:
-        v8 = vcvtd_n_f64_s32(v16, 6uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(v16, 6uLL);
       case 80:
         v15 = __dst[0];
-LABEL_105:
-        v8 = vcvtd_n_f64_s32(v15, 5uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(v15, 5uLL);
       case 81:
         v21 = __dst[0];
-LABEL_83:
-        v8 = vcvtd_n_f64_s32(v21, 4uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(v21, 4uLL);
       case 82:
         v12 = __dst[0];
-LABEL_59:
-        v8 = vcvtd_n_f64_s32(v12, 3uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(v12, 3uLL);
       case 83:
         v17 = __dst[0];
-LABEL_75:
-        v8 = vcvtd_n_f64_s32(v17, 2uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(v17, 2uLL);
       case 84:
         v13 = __dst[0];
-LABEL_67:
-        v8 = vcvtd_n_f64_s32(v13, 1uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_s32(v13, 1uLL);
       case 85:
       case 100:
-        v7 = __dst[0];
-LABEL_45:
-        v4 = v7;
-        break;
+        return SLODWORD(__dst[0]);
       case 87:
         if (v5 <= 3)
         {
@@ -1050,48 +985,37 @@ LABEL_18:
           {
             if (v5 != 2)
             {
-              break;
+              return v4;
             }
 
 LABEL_5:
             LOWORD(a4) = __dst[0];
           }
 
-          goto LABEL_114;
+          return *&a4;
         }
 
         if (v5 == 4 || v5 == 8)
         {
 LABEL_113:
           a4 = *__dst;
-LABEL_114:
-          v4 = *&a4;
-          break;
+          return *&a4;
         }
 
         break;
       case 90:
-        v8 = vcvtd_n_f64_u32(LOWORD(__dst[0]), 4uLL);
-        goto LABEL_108;
+        return vcvtd_n_f64_u32(LOWORD(__dst[0]), 4uLL);
       case 91:
-        v10 = *__dst;
-        goto LABEL_109;
+        return *__dst;
       case 101:
-        v4 = __dst[0];
-        break;
+        return __dst[0];
       case 103:
-        v8 = __dst[0] * 0.0000152587891;
-LABEL_108:
-        v10 = v8;
-LABEL_109:
-        v4 = v10;
-        break;
+        return (__dst[0] * 0.0000152587891);
       default:
-        break;
+        return v4;
     }
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1103,25 +1027,25 @@ uint64_t translateFloatToFixed(uint64_t result, char *__dst, size_t a3, float a4
   switch(result)
   {
     case 1:
-      break;
+      return result;
     case 3:
     case 29:
-      v9 = a4;
-      v10 = a4 + 255;
+      v8 = a4;
+      v9 = a4 + 255;
       if (a4 >= 0)
       {
-        BYTE1(v10) = a4 >> 8;
+        BYTE1(v9) = a4 >> 8;
       }
 
-      __dst[1] = BYTE1(v10);
+      __dst[1] = BYTE1(v9);
       goto LABEL_36;
     case 5:
     case 6:
       __dst[3] = 0;
       *(__dst + 1) = 0;
-      v9 = a4;
+      v8 = a4;
 LABEL_36:
-      *__dst = v9;
+      *__dst = v8;
       goto LABEL_30;
     case 7:
     case 9:
@@ -1331,7 +1255,6 @@ LABEL_30:
       break;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1358,8 +1281,8 @@ id DiagnosticLogHandleForCategory(uint64_t a1)
 uint64_t __DiagnosticLogHandleForCategory_block_invoke()
 {
   v0 = os_log_create("com.apple.Diagnostics", "unspecified");
-  v1 = DiagnosticLogHandleForCategory_logHandles;
-  DiagnosticLogHandleForCategory_logHandles = v0;
+  v1 = DiagnosticLogHandleForCategory_logHandles[0];
+  DiagnosticLogHandleForCategory_logHandles[0] = v0;
 
   v2 = os_log_create("com.apple.Diagnostics", "host");
   v3 = qword_281511630;
@@ -1406,10 +1329,11 @@ uint64_t __DiagnosticLogHandleForCategory_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_248BD9E6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_248BD9E6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1420,19 +1344,20 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_248BDA124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_248BDA124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
-  objc_destroyWeak((v12 + 40));
+  va_start(va, a19);
+  objc_destroyWeak((v19 + 40));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v13 - 72));
+  objc_destroyWeak((v20 - 72));
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t buttonHIDEventFilterCallback(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -1715,26 +1640,28 @@ LABEL_40:
   return v34;
 }
 
-void sub_248BDD654(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_248BDD654(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 40));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_248BDDC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_248BDEA60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_248BDDC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  objc_destroyWeak((v17 + 48));
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_248BDEA60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
+{
+  va_start(va, location);
+  objc_destroyWeak((v16 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1753,26 +1680,25 @@ uint64_t DSArchiveWrite(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
   return a4;
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void callIOFunction_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_248BD5000, a2, OS_LOG_TYPE_ERROR, "SMC::callIOFunction unrecognized index: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_248BD5000, a2, OS_LOG_TYPE_ERROR, "SMC::callIOFunction unrecognized index: %d", v2, 8u);
 }
 
 void buttonHIDEventFilterCallback_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_248BD5000, a2, OS_LOG_TYPE_DEBUG, "[HID Event] %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_248BD5000, a2, OS_LOG_TYPE_DEBUG, "[HID Event] %@", &v2, 0xCu);
 }

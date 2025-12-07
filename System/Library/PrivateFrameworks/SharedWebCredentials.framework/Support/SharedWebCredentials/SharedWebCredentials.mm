@@ -25,7 +25,7 @@ void sub_1000017E4(uint64_t a1, void *a2)
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_1000018D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
+void sub_1000018D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   sub_100005CD4(&a9);
 
@@ -46,7 +46,7 @@ void sub_100002FB8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_100003D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_100003D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -89,19 +89,19 @@ void sub_100004084(uint64_t a1)
     {
       v9 = *(a1 + 40);
       *buf = 138412290;
-      v37 = v9;
+      v36 = v9;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Domain %@ is invalid. Will not attempt a download.", buf, 0xCu);
     }
 
     v10 = [NSError alloc];
-    v42[0] = &off_10002E608;
-    v41[0] = @"Line";
-    v41[1] = @"Function";
+    v41[0] = &off_10002E608;
+    v40[0] = @"Line";
+    v40[1] = @"Function";
     v11 = [NSString stringWithUTF8String:"[SWCDownloader(Private) _downloadAASAFileForDomain:applicationIdentifier:downloadRoute:discretionary:completionHandlers:]_block_invoke"];
-    v42[1] = v11;
-    v41[2] = @"Domain";
-    v42[2] = *(a1 + 40);
-    v12 = [NSDictionary dictionaryWithObjects:v42 forKeys:v41 count:3];
+    v41[1] = v11;
+    v40[2] = @"Domain";
+    v41[2] = *(a1 + 40);
+    v12 = [NSDictionary dictionaryWithObjects:v41 forKeys:v40 count:3];
     v3 = [v10 initWithDomain:_SWCErrorDomain code:8 userInfo:v12];
 
     v7 = [*(a1 + 32) delegate];
@@ -110,29 +110,28 @@ void sub_100004084(uint64_t a1)
       [v7 downloader:*(a1 + 32) failedToDownloadAASAFileFromDomain:*(a1 + 40) error:v3];
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v13 = *(a1 + 48);
-    v14 = [(SWCDownloadTaskState *)v13 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v14 = [(SWCDownloadTaskState *)v13 countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v14)
     {
-      v15 = *v33;
+      v15 = *v32;
       do
       {
         for (i = 0; i != v14; i = i + 1)
         {
-          if (*v33 != v15)
+          if (*v32 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          v17 = *(a1 + 80);
-          (*(*(*(&v32 + 1) + 8 * i) + 16))(*(*(&v32 + 1) + 8 * i));
+          (*(*(*(&v31 + 1) + 8 * i) + 16))(*(*(&v31 + 1) + 8 * i));
         }
 
-        v14 = [(SWCDownloadTaskState *)v13 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v14 = [(SWCDownloadTaskState *)v13 countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
       while (v14);
@@ -146,29 +145,29 @@ void sub_100004084(uint64_t a1)
   {
     if (*(a1 + 56) && !*(a1 + 80))
     {
-      v18 = +[_SWCDomain appleDomain];
-      if ([v18 encompassesDomain:*(a1 + 40)])
+      v17 = +[_SWCDomain appleDomain];
+      if ([v17 encompassesDomain:*(a1 + 40)])
       {
-        v19 = +[_SWCPrefs sharedPrefs];
-        v20 = [v19 isAppleInternal];
+        v18 = +[_SWCPrefs sharedPrefs];
+        v19 = [v18 isAppleInternal];
 
-        if (v20 && !arc4random_uniform(0x64u))
+        if (v19 && !arc4random_uniform(0x64u))
         {
           if (qword_100032510 != -1)
           {
             dispatch_once(&qword_100032510, &stru_10002C8E8);
           }
 
-          v21 = qword_100032508;
+          v20 = qword_100032508;
           if (os_log_type_enabled(qword_100032508, OS_LOG_TYPE_FAULT))
           {
-            v22 = *(a1 + 56);
-            v23 = *(a1 + 40);
+            v21 = *(a1 + 56);
+            v22 = *(a1 + 40);
             *buf = 138412546;
-            v37 = v22;
-            v38 = 2112;
-            v39 = v23;
-            _os_log_fault_impl(&_mh_execute_header, v21, OS_LOG_TYPE_FAULT, "Application %@ is attempting to download AASA data from %@ over the public Internet (via an Apple-controlled CDN.) Doing so may leak information about unannounced apps or features. This application must be updated. Please file a bug report against this application.", buf, 0x16u);
+            v36 = v21;
+            v37 = 2112;
+            v38 = v22;
+            _os_log_fault_impl(&_mh_execute_header, v20, OS_LOG_TYPE_FAULT, "Application %@ is attempting to download AASA data from %@ over the public Internet (via an Apple-controlled CDN.) Doing so may leak information about unannounced apps or features. This application must be updated. Please file a bug report against this application.", buf, 0x16u);
           }
         }
       }
@@ -187,14 +186,14 @@ void sub_100004084(uint64_t a1)
     v13 = [[SWCDownloadTaskState alloc] initWithDownloader:*(a1 + 32) domain:*(a1 + 40) downloadRoute:*(a1 + 80)];
     if (!v13)
     {
-      v31 = +[NSAssertionHandler currentHandler];
-      [v31 handleFailureInMethod:*(a1 + 72) object:*(a1 + 32) file:@"SWCDownloader.mm" lineNumber:571 description:@"Failed to create download state object"];
+      v30 = +[NSAssertionHandler currentHandler];
+      [v30 handleFailureInMethod:*(a1 + 72) object:*(a1 + 32) file:@"SWCDownloader.mm" lineNumber:571 description:@"Failed to create download state object"];
     }
 
     if (*(a1 + 48))
     {
-      v24 = [(SWCDownloadTaskState *)v13 completionHandlers];
-      [v24 addObjectsFromArray:*(a1 + 48)];
+      v23 = [(SWCDownloadTaskState *)v13 completionHandlers];
+      [v23 addObjectsFromArray:*(a1 + 48)];
     }
 
     if (*(a1 + 81) == 1)
@@ -204,31 +203,31 @@ void sub_100004084(uint64_t a1)
         dispatch_once(&qword_100032510, &stru_10002C8E8);
       }
 
-      v25 = qword_100032508;
+      v24 = qword_100032508;
       if (os_log_type_enabled(qword_100032508, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = *(a1 + 40);
+        v25 = *(a1 + 40);
         *buf = 138412290;
-        v37 = v26;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Downloading discretionary data for domain %@", buf, 0xCu);
+        v36 = v25;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Downloading discretionary data for domain %@", buf, 0xCu);
       }
 
-      v27 = *(a1 + 81);
+      v26 = *(a1 + 81);
     }
 
     else
     {
-      v27 = 0;
+      v26 = 0;
     }
 
-    [(SWCDownloadTaskState *)v13 setDiscretionary:v27 & 1];
-    v28 = *(*(a1 + 32) + 48);
-    v29 = [(SWCDownloadTaskState *)v13 taskDescription];
-    [v28 setObject:v13 forKey:v29];
+    [(SWCDownloadTaskState *)v13 setDiscretionary:v26 & 1];
+    v27 = *(*(a1 + 32) + 48);
+    v28 = [(SWCDownloadTaskState *)v13 taskDescription];
+    [v27 setObject:v13 forKey:v28];
 
     [*(a1 + 32) _resumePendingTasks];
-    v30 = +[SWCAnalyticsLogger sharedLogger];
-    [v30 logAASAFileDownloadEventWithDomain:*(a1 + 40) route:*(a1 + 80)];
+    v29 = +[SWCAnalyticsLogger sharedLogger];
+    [v29 logAASAFileDownloadEventWithDomain:*(a1 + 40) route:*(a1 + 80)];
 
     v3 = 0;
 LABEL_51:
@@ -252,9 +251,9 @@ LABEL_51:
     }
 
     *buf = 138412546;
-    v37 = v5;
-    v38 = 2112;
-    v39 = v6;
+    v36 = v5;
+    v37 = 2112;
+    v38 = v6;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Already downloading data for domain %@, so skipping a second download (%@)", buf, 0x16u);
   }
 
@@ -266,10 +265,12 @@ LABEL_52:
   }
 }
 
-void sub_100004F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_100004F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  sub_100005D54(v33 + 48);
+  va_start(va, a30);
+
+  _Block_object_dispose(va, 8);
+  sub_100005D54(v32 + 48);
   _Unwind_Resume(a1);
 }
 
@@ -323,7 +324,7 @@ void sub_100005044(uint64_t a1, void *a2)
     v7 = [*(a1 + 32) _sessionIDForTaskState:v3];
     v5 = *(*(a1 + 40) + 8);
     v8 = &v7;
-    v6 = sub_100005DA0((v5 + 48), v7);
+    v6 = sub_100005DA0((v5 + 48), v7, &v8);
     v6[3] = (v6[3] + 1);
   }
 }
@@ -338,7 +339,7 @@ void sub_1000050E4(uint64_t a1, void *a2)
     v8 = [*(a1 + 32) _sessionIDForTaskState:v3];
     v5 = *(*(a1 + 48) + 8);
     v9 = &v8;
-    v6 = sub_100005DA0((v5 + 48), v8);
+    v6 = sub_100005DA0((v5 + 48), v8, &v9);
     v7 = v6[3];
     if (v7 < [*(a1 + 32) _maximumActiveTaskCountForSessionID:v8])
     {
@@ -380,32 +381,32 @@ uint64_t sub_100005D54(uint64_t a1)
   return a1;
 }
 
-uint64_t **sub_100005DA0(void *a1, unsigned __int8 a2)
+uint64_t **sub_100005DA0(float *a1, unsigned __int8 a2, _BYTE **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % a1[1];
+      v5 = a2 % *(a1 + 1);
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -413,44 +414,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 16) != a2)
+  if (*(v7 + 16) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 __CFString *sub_1000061C0(uint64_t a1)
@@ -775,9 +776,9 @@ LABEL_9:
   return v8;
 }
 
-void sub_10000C564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, ...)
+void sub_10000C564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -788,15 +789,15 @@ void sub_10000C5C4(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
-  v17 = 0;
-  v8 = [[NSData alloc] initWithContentsOfURL:v6 options:1 error:&v17];
-  v9 = v17;
+  v16 = 0;
+  v8 = [[NSData alloc] initWithContentsOfURL:v6 options:1 error:&v16];
+  v9 = v16;
   if (v8)
   {
     v10 = +[SWCSecurityGuard sharedSecurityGuard];
-    v16 = v9;
-    v11 = [v10 JSONObjectWithSignedJSONData:v8 error:&v16];
-    v12 = v16;
+    v15 = v9;
+    v11 = [v10 JSONObjectWithSignedJSONData:v8 error:&v15];
+    v12 = v15;
 
     if (!v11)
     {
@@ -809,9 +810,9 @@ void sub_10000C5C4(uint64_t a1, void *a2, void *a3)
       if (os_log_type_enabled(qword_100032540, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v19 = v6;
-        v20 = 2112;
-        v21 = v12;
+        v18 = v6;
+        v19 = 2112;
+        v20 = v12;
         _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to decode JSON object from file %@: %@", buf, 0x16u);
       }
 
@@ -830,9 +831,9 @@ void sub_10000C5C4(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(qword_100032540, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v19 = v6;
-      v20 = 2112;
-      v21 = v9;
+      v18 = v6;
+      v19 = 2112;
+      v20 = v9;
       _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to read JSON file %@: %@", buf, 0x16u);
     }
 
@@ -843,12 +844,11 @@ void sub_10000C5C4(uint64_t a1, void *a2, void *a3)
   objc_autoreleasePoolPop(v7);
   if (v11)
   {
-    v15 = *(*(*(a1 + 40) + 8) + 24);
     (*(*(a1 + 32) + 16))();
   }
 }
 
-void sub_10000CA84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
+void sub_10000CA84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
 {
   _Block_object_dispose(&a24, 8);
 
@@ -970,9 +970,9 @@ uint64_t sub_10000D1D4(uint64_t a1, void *a2)
   return _objc_release_x1();
 }
 
-void sub_10000D64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10000D64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -1018,7 +1018,7 @@ id sub_10000DAC0(uint64_t a1)
   return v2;
 }
 
-void start(int a1)
+void start(unsigned int a1, const void *a2)
 {
   if (a1)
   {
@@ -1030,7 +1030,7 @@ void start(int a1)
     sub_1000061B0();
   }
 
-  v1 = objc_autoreleasePoolPush();
+  v2 = objc_autoreleasePoolPush();
   sub_10000E618();
 }
 
@@ -1073,7 +1073,7 @@ void sub_10000E630(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-_BYTE *sub_10000E80C(_BYTE *a1, char *__s)
+void *sub_10000E80C(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -1087,113 +1087,113 @@ _BYTE *sub_10000E80C(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void sub_10000E8C4(_BYTE *a1)
+void sub_10000E8C4(std::string *a1, unsigned __int8 *a2)
 {
-  *a1 = 0;
-  a1[64] = 0;
-  sub_10000E80C(v4, "help");
-  v5[0] = off_10002CB60;
-  v5[1] = sub_10000F39C;
-  v5[3] = v5;
-  v6 = 0;
-  sub_10000E80C(v7, "add-all-apps");
-  v8[0] = off_10002CB60;
-  v8[1] = sub_10000F3A0;
-  v8[3] = v8;
-  v9 = 1;
-  sub_10000E80C(v10, "add");
-  v11[0] = off_10002CB60;
-  v11[1] = sub_10000F43C;
-  v11[3] = v11;
-  v12 = 1;
-  sub_10000E80C(v13, "dl");
-  v14[0] = off_10002CB60;
-  v14[1] = sub_10000F584;
-  v14[3] = v14;
-  v15 = 0;
-  sub_10000E80C(v16, "loaddb");
-  v17[0] = off_10002CB60;
-  v17[1] = sub_10000F7C0;
-  v17[3] = v17;
-  v18 = 1;
-  sub_10000E80C(v19, "get");
-  v20[0] = off_10002CB60;
-  v20[1] = sub_10000F94C;
-  v20[3] = v20;
-  v21 = 0;
-  sub_10000E80C(v22, "openul");
-  v23[0] = off_10002CB60;
-  v23[1] = sub_10000FB7C;
-  v23[3] = v23;
-  v24 = 0;
-  sub_10000E80C(v25, "remove");
-  v26[0] = off_10002CB60;
-  v26[1] = sub_10000FDEC;
-  v26[3] = v26;
-  v27 = 1;
-  sub_10000E80C(v28, "set");
-  v29[0] = off_10002CB60;
-  v29[1] = sub_10000FF14;
-  v29[3] = v29;
-  v30 = 1;
-  sub_10000E80C(v31, "show");
-  v32[0] = off_10002CB60;
-  v32[1] = sub_1000101B0;
-  v32[3] = v32;
-  v33 = 0;
-  sub_10000E80C(v34, "verify");
-  v35[0] = off_10002CB60;
-  v35[1] = sub_100010298;
-  v35[3] = v35;
-  v36 = 0;
-  sub_10000E80C(v37, "reset");
-  v38[0] = off_10002CB60;
-  v38[1] = sub_10001096C;
-  v38[3] = v38;
-  v39 = 0;
-  sub_10000E80C(v40, "watch");
-  v41[0] = off_10002CB60;
-  v41[1] = sub_100010A08;
-  v41[3] = v41;
-  v42 = 0;
-  sub_10000E80C(v43, "read-settings");
-  v44[0] = off_10002CB60;
-  v44[1] = sub_100010C20;
-  v44[3] = v44;
-  v45 = 1;
-  sub_10000E80C(v46, "write-settings");
-  v47[0] = off_10002CB60;
-  v47[1] = sub_100011200;
-  v47[3] = v47;
-  v48 = 1;
-  sub_10000E80C(v49, "match");
-  v50[0] = off_10002CB60;
-  v50[1] = sub_100011720;
-  v50[3] = v50;
-  v51 = 0;
-  sub_10000E80C(v52, "developer-mode");
-  v53[0] = off_10002CB60;
-  v53[1] = sub_100011B74;
-  v53[3] = v53;
-  v54 = 1;
-  sub_10000E80C(v55, "get-tdi-epoch");
-  v56[0] = off_10002CB60;
-  v56[1] = sub_100011CD8;
-  v56[3] = v56;
-  v57 = 1;
-  v2 = 0;
+  a1->__r_.__value_.__s.__data_[0] = 0;
+  a1[2].__r_.__value_.__s.__data_[16] = 0;
+  sub_10000E80C(v5, "help");
+  v6[0] = off_10002CB60;
+  v6[1] = sub_10000F39C;
+  v6[3] = v6;
+  v7 = 0;
+  sub_10000E80C(v8, "add-all-apps");
+  v9[0] = off_10002CB60;
+  v9[1] = sub_10000F3A0;
+  v9[3] = v9;
+  v10 = 1;
+  sub_10000E80C(v11, "add");
+  v12[0] = off_10002CB60;
+  v12[1] = sub_10000F43C;
+  v12[3] = v12;
+  v13 = 1;
+  sub_10000E80C(v14, "dl");
+  v15[0] = off_10002CB60;
+  v15[1] = sub_10000F584;
+  v15[3] = v15;
+  v16 = 0;
+  sub_10000E80C(v17, "loaddb");
+  v18[0] = off_10002CB60;
+  v18[1] = sub_10000F7C0;
+  v18[3] = v18;
+  v19 = 1;
+  sub_10000E80C(v20, "get");
+  v21[0] = off_10002CB60;
+  v21[1] = sub_10000F94C;
+  v21[3] = v21;
+  v22 = 0;
+  sub_10000E80C(v23, "openul");
+  v24[0] = off_10002CB60;
+  v24[1] = sub_10000FB7C;
+  v24[3] = v24;
+  v25 = 0;
+  sub_10000E80C(v26, "remove");
+  v27[0] = off_10002CB60;
+  v27[1] = sub_10000FDEC;
+  v27[3] = v27;
+  v28 = 1;
+  sub_10000E80C(v29, "set");
+  v30[0] = off_10002CB60;
+  v30[1] = sub_10000FF14;
+  v30[3] = v30;
+  v31 = 1;
+  sub_10000E80C(v32, "show");
+  v33[0] = off_10002CB60;
+  v33[1] = sub_1000101B0;
+  v33[3] = v33;
+  v34 = 0;
+  sub_10000E80C(v35, "verify");
+  v36[0] = off_10002CB60;
+  v36[1] = sub_100010298;
+  v36[3] = v36;
+  v37 = 0;
+  sub_10000E80C(v38, "reset");
+  v39[0] = off_10002CB60;
+  v39[1] = sub_10001096C;
+  v39[3] = v39;
+  v40 = 0;
+  sub_10000E80C(v41, "watch");
+  v42[0] = off_10002CB60;
+  v42[1] = sub_100010A08;
+  v42[3] = v42;
+  v43 = 0;
+  sub_10000E80C(v44, "read-settings");
+  v45[0] = off_10002CB60;
+  v45[1] = sub_100010C20;
+  v45[3] = v45;
+  v46 = 1;
+  sub_10000E80C(v47, "write-settings");
+  v48[0] = off_10002CB60;
+  v48[1] = sub_100011200;
+  v48[3] = v48;
+  v49 = 1;
+  sub_10000E80C(v50, "match");
+  v51[0] = off_10002CB60;
+  v51[1] = sub_100011720;
+  v51[3] = v51;
+  v52 = 0;
+  sub_10000E80C(v53, "developer-mode");
+  v54[0] = off_10002CB60;
+  v54[1] = sub_100011B74;
+  v54[3] = v54;
+  v55 = 1;
+  sub_10000E80C(v56, "get-tdi-epoch");
+  v57[0] = off_10002CB60;
+  v57[1] = sub_100011CD8;
+  v57[3] = v57;
+  v58 = 1;
   v3 = 0;
-  v1 = 0;
+  v4 = 0;
+  v2 = 0;
   operator new();
 }
 
@@ -1224,7 +1224,7 @@ uint64_t sub_10000F354(uint64_t a1)
   return a1;
 }
 
-void sub_10000F3A0(int a1, char *const *a2)
+void sub_10000F3A0(uint64_t a1, char *const *a2)
 {
   v2 = sub_100013B58(a1, a2, "");
   v4 = _SWCGetServerConnection();
@@ -1232,7 +1232,7 @@ void sub_10000F3A0(int a1, char *const *a2)
   [v3 addAllAppsWithCompletionHandler:&stru_10002CC60];
 }
 
-void sub_10000F43C(int a1, char *const *a2)
+void sub_10000F43C(uint64_t a1, char *const *a2)
 {
   v2 = sub_100013B58(a1, a2, "a:d:s:");
   v3 = sub_100013D98(v2);
@@ -1254,7 +1254,7 @@ void sub_10000F43C(int a1, char *const *a2)
   [v6 addServiceWithServiceSpecifier:v7 completionHandler:v8];
 }
 
-void sub_10000F584(int a1, char *const *a2)
+void sub_10000F584(uint64_t a1, char *const *a2)
 {
   v2 = sub_100013B58(a1, a2, "d:t:");
   v3 = [v2 objectForKeyedSubscript:@"d"];
@@ -1300,7 +1300,7 @@ void sub_10000F584(int a1, char *const *a2)
   }
 }
 
-void sub_10000F7C0(int a1, char *const *a2)
+void sub_10000F7C0(uint64_t a1, char *const *a2)
 {
   v2 = sub_100013B58(a1, a2, "f:");
   v3 = [v2 objectForKeyedSubscript:@"f"];
@@ -1334,7 +1334,7 @@ void sub_10000F8FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_10000F94C(int a1, char *const *a2)
+void sub_10000F94C(uint64_t a1, char *const *a2)
 {
   v14 = sub_100013B58(a1, a2, "a:d:s:");
   v2 = sub_100013D98(v14);
@@ -1380,7 +1380,7 @@ void sub_10000F94C(int a1, char *const *a2)
   }
 }
 
-void sub_10000FB7C(int a1, char *const *a2)
+void sub_10000FB7C(uint64_t a1, char *const *a2)
 {
   v2 = sub_100013B58(a1, a2, "u:r:");
   v3 = [v2 objectForKeyedSubscript:@"u"];
@@ -1430,7 +1430,7 @@ void sub_10000FB7C(int a1, char *const *a2)
   dispatch_semaphore_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
 }
 
-void sub_10000FDEC(int a1, char *const *a2)
+void sub_10000FDEC(uint64_t a1, char *const *a2)
 {
   v2 = sub_100013B58(a1, a2, "a:d:s:");
   v3 = sub_100013D98(v2);
@@ -1445,7 +1445,7 @@ void sub_10000FDEC(int a1, char *const *a2)
   [v5 removeServiceWithServiceSpecifier:v6 completionHandler:v7];
 }
 
-void sub_10000FF14(int a1, char *const *a2)
+void sub_10000FF14(uint64_t a1, char *const *a2)
 {
   v2 = sub_100013B58(a1, a2, "a:d:s:j:u:");
   v3 = sub_100013D98(v2);
@@ -1524,7 +1524,7 @@ LABEL_15:
   }
 }
 
-void sub_1000101B0(int a1, char *const *a2)
+void sub_1000101B0(uint64_t a1, char *const *a2)
 {
   v2 = sub_100013B58(a1, a2, "");
   v5 = _SWCGetServerConnection();
@@ -1533,7 +1533,7 @@ void sub_1000101B0(int a1, char *const *a2)
   [v3 showWithVerbosity:byte_100032564 isTTY:_SWCFileIsTTY() fileDescriptor:v4 completionHandler:&stru_10002CDB8];
 }
 
-void sub_100010298(int a1, char *const *a2)
+void sub_100010298(uint64_t a1, char *const *a2)
 {
   v45 = sub_100013B58(a1, a2, "d:j:u:");
   v2 = [v45 objectForKeyedSubscript:@"d"];
@@ -1725,7 +1725,7 @@ LABEL_41:
 LABEL_42:
 }
 
-void sub_10001096C(int a1, char *const *a2)
+void sub_10001096C(uint64_t a1, char *const *a2)
 {
   v2 = sub_100013B58(a1, a2, "");
   v4 = _SWCGetServerConnection();
@@ -1733,7 +1733,7 @@ void sub_10001096C(int a1, char *const *a2)
   [v3 resetWithCompletionHandler:&stru_10002CDF8];
 }
 
-void sub_100010A08(int a1, char *const *a2)
+void sub_100010A08(uint64_t a1, char *const *a2)
 {
   v2 = sub_100013B58(a1, a2, "");
   v3 = [&off_10002E7A0 mutableCopy];
@@ -1787,13 +1787,13 @@ void sub_100010A08(int a1, char *const *a2)
   sub_100014864(@"/usr/bin/log", v6);
 }
 
-void sub_100010C20(int a1, char *const *a2)
+void sub_100010C20(uint64_t a1, char *const *a2)
 {
   v2 = sub_100013B58(a1, a2, "s:a:d:k:jp");
   v3 = [v2 objectForKeyedSubscript:@"s"];
   if (!v3 || ([v2 objectForKeyedSubscript:@"k"], v4 = objc_claimAutoreleasedReturnValue(), v4, v3, !v4))
   {
-    (sub_10000E618)();
+    sub_10000E618();
   }
 
   v5 = [v2 objectForKeyedSubscript:@"j"];
@@ -1803,9 +1803,9 @@ void sub_100010C20(int a1, char *const *a2)
   v8 = [v7 BOOLValue];
 
   v9 = sub_100013D98(v2);
-  v48 = 0;
-  v10 = [_SWCServiceSettings serviceSettingsWithServiceSpecifier:v9 error:&v48];
-  v11 = v48;
+  v47 = 0;
+  v10 = [_SWCServiceSettings serviceSettingsWithServiceSpecifier:v9 error:&v47];
+  v11 = v47;
   v12 = v11;
   if (!v10)
   {
@@ -1828,26 +1828,26 @@ void sub_100010C20(int a1, char *const *a2)
 
   if ((v6 & v8) == 1)
   {
-    v41 = fwrite("Cannot specify both -j and -p.\n", 0x1FuLL, 1uLL, __stderrp);
-    sub_10000E618(v41);
+    fwrite("Cannot specify both -j and -p.\n", 0x1FuLL, 1uLL, __stderrp);
+    sub_10000E618();
   }
 
   if (!v6)
   {
     if (v8)
     {
-      v49 = v13;
-      v50 = v14;
-      v22 = [NSDictionary dictionaryWithObjects:&v50 forKeys:&v49 count:1];
-      v46 = 0;
-      v17 = [NSPropertyListSerialization dataWithPropertyList:v22 format:100 options:0 error:&v46];
-      v18 = v46;
+      v48 = v13;
+      v49 = v14;
+      v22 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+      v45 = 0;
+      v17 = [NSPropertyListSerialization dataWithPropertyList:v22 format:100 options:0 error:&v45];
+      v18 = v45;
 
       if (!v17)
       {
-        v44 = __stderrp;
-        v45 = sub_100013848(v18);
-        fprintf(v44, "%s\n", v45);
+        v43 = __stderrp;
+        v44 = sub_100013848(v18);
+        fprintf(v43, "%s\n", v44);
         exit(1);
       }
 
@@ -1898,18 +1898,18 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v51 = v13;
-  v52 = v14;
-  v16 = [NSDictionary dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-  v47 = v12;
-  v17 = [NSJSONSerialization dataWithJSONObject:v16 options:5 error:&v47];
-  v18 = v47;
+  v50 = v13;
+  v51 = v14;
+  v16 = [NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+  v46 = v12;
+  v17 = [NSJSONSerialization dataWithJSONObject:v16 options:5 error:&v46];
+  v18 = v46;
 
   if (!v17)
   {
-    v42 = __stderrp;
-    v43 = sub_100013848(v18);
-    fprintf(v42, "%s\n", v43);
+    v41 = __stderrp;
+    v42 = sub_100013848(v18);
+    fprintf(v41, "%s\n", v42);
     exit(1);
   }
 
@@ -1922,140 +1922,139 @@ LABEL_12:
 LABEL_21:
 }
 
-void sub_100011200(int a1, char *const *a2)
+void sub_100011200(uint64_t a1, char *const *a2)
 {
   v2 = sub_100013B58(a1, a2, "s:a:d:k:v:jp");
   v3 = [v2 objectForKeyedSubscript:@"s"];
-  v4 = v3;
   if (!v3)
   {
 LABEL_21:
-    sub_10000E618(v3);
+    sub_10000E618();
   }
 
-  v5 = [v2 objectForKeyedSubscript:@"k"];
+  v4 = [v2 objectForKeyedSubscript:@"k"];
+  if (!v4)
+  {
+
+    goto LABEL_21;
+  }
+
+  v5 = [v2 objectForKeyedSubscript:@"v"];
+
   if (!v5)
   {
-
     goto LABEL_21;
   }
 
-  v6 = [v2 objectForKeyedSubscript:@"v"];
+  v6 = [v2 objectForKeyedSubscript:@"j"];
+  v7 = [v6 BOOLValue];
 
-  if (!v6)
+  v8 = [v2 objectForKeyedSubscript:@"p"];
+  v9 = [v8 BOOLValue];
+
+  v10 = sub_100013D98(v2);
+  v34 = 0;
+  v11 = [_SWCServiceSettings serviceSettingsWithServiceSpecifier:v10 error:&v34];
+  v12 = v34;
+  v13 = v12;
+  if (!v11)
   {
-    goto LABEL_21;
-  }
-
-  v7 = [v2 objectForKeyedSubscript:@"j"];
-  v8 = [v7 BOOLValue];
-
-  v9 = [v2 objectForKeyedSubscript:@"p"];
-  v10 = [v9 BOOLValue];
-
-  v11 = sub_100013D98(v2);
-  v36 = 0;
-  v12 = [_SWCServiceSettings serviceSettingsWithServiceSpecifier:v11 error:&v36];
-  v13 = v36;
-  v14 = v13;
-  if (!v12)
-  {
-    v26 = __stderrp;
-    v27 = sub_100013848(v13);
-    fprintf(v26, "%s\n", v27);
+    v25 = __stderrp;
+    v26 = sub_100013848(v12);
+    fprintf(v25, "%s\n", v26);
     exit(1);
   }
 
-  v15 = [v2 objectForKeyedSubscript:@"k"];
-  v16 = [v2 objectForKeyedSubscript:@"v"];
-  v17 = v16;
-  if ((v8 & v10) == 1)
+  v14 = [v2 objectForKeyedSubscript:@"k"];
+  v15 = [v2 objectForKeyedSubscript:@"v"];
+  v16 = v15;
+  if ((v7 & v9) == 1)
   {
-    v28 = fwrite("Cannot specify both -j and -p.\n", 0x1FuLL, 1uLL, __stderrp);
-    sub_10000E618(v28);
+    fwrite("Cannot specify both -j and -p.\n", 0x1FuLL, 1uLL, __stderrp);
+    sub_10000E618();
   }
 
-  if (v8)
+  if (v7)
   {
-    v18 = [v16 dataUsingEncoding:4];
-    if (!v18)
+    v17 = [v15 dataUsingEncoding:4];
+    if (!v17)
     {
-      fprintf(__stderrp, "Could not create UTF-8 data representation of value %s.\n", [v17 UTF8String]);
+      fprintf(__stderrp, "Could not create UTF-8 data representation of value %s.\n", [v16 UTF8String]);
       exit(1);
     }
 
-    v35 = v14;
-    v19 = [NSJSONSerialization JSONObjectWithData:v18 options:4 error:&v35];
-    v20 = v35;
+    v33 = v13;
+    v18 = [NSJSONSerialization JSONObjectWithData:v17 options:4 error:&v33];
+    v19 = v33;
 
-    if (!v19)
+    if (!v18)
     {
-      v21 = __stderrp;
-      v22 = sub_100013848(v20);
-      fprintf(v21, "%s\n", v22);
+      v20 = __stderrp;
+      v21 = sub_100013848(v19);
+      fprintf(v20, "%s\n", v21);
       exit(1);
     }
   }
 
   else
   {
-    if (!v10)
+    if (!v9)
     {
       goto LABEL_14;
     }
 
-    v18 = [v16 dataUsingEncoding:4];
+    v17 = [v15 dataUsingEncoding:4];
+    if (!v17)
+    {
+      fprintf(__stderrp, "Could not create UTF-8 data representation of value %s.\n", [v16 UTF8String]);
+      exit(1);
+    }
+
+    v32 = 0;
+    v18 = [NSPropertyListSerialization propertyListWithData:v17 options:0 format:0 error:&v32];
+    v19 = v32;
+
     if (!v18)
     {
-      fprintf(__stderrp, "Could not create UTF-8 data representation of value %s.\n", [v17 UTF8String]);
-      exit(1);
-    }
-
-    v34 = 0;
-    v19 = [NSPropertyListSerialization propertyListWithData:v18 options:0 format:0 error:&v34];
-    v20 = v34;
-
-    if (!v19)
-    {
-      v31 = __stderrp;
-      v32 = sub_100013848(v20);
-      fprintf(v31, "%s\n", v32);
+      v29 = __stderrp;
+      v30 = sub_100013848(v19);
+      fprintf(v29, "%s\n", v30);
       exit(1);
     }
   }
 
-  v14 = v20;
-  v17 = v19;
+  v13 = v19;
+  v16 = v18;
 LABEL_14:
-  v23 = +[NSNull null];
+  v22 = +[NSNull null];
 
-  if (v17 == v23)
+  if (v16 == v22)
   {
 
-    v17 = 0;
+    v16 = 0;
   }
 
-  else if (![NSPropertyListSerialization propertyList:v17 isValidForFormat:200])
+  else if (![NSPropertyListSerialization propertyList:v16 isValidForFormat:200])
   {
-    fprintf(__stderrp, "Value %s could not be stored in a property list.\n", [v17 UTF8String]);
+    fprintf(__stderrp, "Value %s could not be stored in a property list.\n", [v16 UTF8String]);
     exit(1);
   }
 
-  [v12 setObject:v17 forKey:v15];
-  v33 = v14;
-  v24 = [v12 commitReturningError:&v33];
-  v25 = v33;
+  [v11 setObject:v16 forKey:v14];
+  v31 = v13;
+  v23 = [v11 commitReturningError:&v31];
+  v24 = v31;
 
-  if ((v24 & 1) == 0)
+  if ((v23 & 1) == 0)
   {
-    v29 = __stderrp;
-    v30 = sub_100013848(v25);
-    fprintf(v29, "%s\n", v30);
+    v27 = __stderrp;
+    v28 = sub_100013848(v24);
+    fprintf(v27, "%s\n", v28);
     exit(1);
   }
 }
 
-void sub_100011720(int a1, char *const *a2)
+void sub_100011720(uint64_t a1, char *const *a2)
 {
   v2 = sub_100013B58(a1, a2, "u:j:");
   v3 = objc_autoreleasePoolPush();
@@ -2080,8 +2079,8 @@ void sub_100011720(int a1, char *const *a2)
 
     if (_NSIsNSDictionary())
     {
-      v30 = v9;
-      v10 = [NSArray arrayWithObjects:&v30 count:1];
+      v29 = v9;
+      v10 = [NSArray arrayWithObjects:&v29 count:1];
 LABEL_10:
 
       v9 = v10;
@@ -2090,11 +2089,11 @@ LABEL_10:
 
     if (_NSIsNSString())
     {
-      v27 = @"/";
-      v28 = v9;
-      v11 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-      v29 = v11;
-      v10 = [NSArray arrayWithObjects:&v29 count:1];
+      v26 = @"/";
+      v27 = v9;
+      v11 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      v28 = v11;
+      v10 = [NSArray arrayWithObjects:&v28 count:1];
 
       v9 = v11;
       goto LABEL_10;
@@ -2102,10 +2101,10 @@ LABEL_10:
 
     if ((_NSIsNSArray() & 1) == 0)
     {
-      v24 = __stderrp;
-      v25 = objc_opt_class();
-      Name = class_getName(v25);
-      fprintf(v24, "Unexpected JSON object type %s.\n", Name);
+      v23 = __stderrp;
+      v24 = objc_opt_class();
+      Name = class_getName(v24);
+      fprintf(v23, "Unexpected JSON object type %s.\n", Name);
       exit(1);
     }
   }
@@ -2119,45 +2118,45 @@ LABEL_12:
   objc_autoreleasePoolPop(v6);
   if (!v5 || !v9)
   {
-    sub_10000E618(v12);
+    sub_10000E618();
   }
 
-  v13 = [[_SWCPatternMatchingEngine alloc] initWithPatternDictionaries:v9];
-  v14 = [v13 evaluateURLComponents:v5];
-  if (v14)
+  v12 = [[_SWCPatternMatchingEngine alloc] initWithPatternDictionaries:v9];
+  v13 = [v12 evaluateURLComponents:v5];
+  if (v13)
   {
-    v15 = objc_autoreleasePoolPush();
-    v16 = [v9 objectAtIndexedSubscript:{objc_msgSend(v14, "index")}];
-    v17 = [NSJSONSerialization dataWithJSONObject:v16 options:15 error:0];
+    v14 = objc_autoreleasePoolPush();
+    v15 = [v9 objectAtIndexedSubscript:{objc_msgSend(v13, "index")}];
+    v16 = [NSJSONSerialization dataWithJSONObject:v15 options:15 error:0];
 
-    if (v17)
+    if (v16)
     {
-      v18 = [[NSString alloc] initWithData:v17 encoding:4];
+      v17 = [[NSString alloc] initWithData:v16 encoding:4];
     }
 
     else
     {
-      v19 = [v9 objectAtIndexedSubscript:{objc_msgSend(v14, "index")}];
-      v18 = [v19 description];
+      v18 = [v9 objectAtIndexedSubscript:{objc_msgSend(v13, "index")}];
+      v17 = [v18 description];
     }
 
-    objc_autoreleasePoolPop(v15);
-    v20 = [v14 isExcluded];
-    v21 = __stdoutp;
-    if (v20)
+    objc_autoreleasePoolPop(v14);
+    v19 = [v13 isExcluded];
+    v20 = __stdoutp;
+    if (v19)
     {
-      [v14 index];
-      v22 = v18;
-      [v18 UTF8String];
-      fprintf(v21, "Excluded by pattern at index %lu: %s\n");
+      [v13 index];
+      v21 = v17;
+      [v17 UTF8String];
+      fprintf(v20, "Excluded by pattern at index %lu: %s\n");
     }
 
     else
     {
-      [v14 index];
-      v23 = v18;
-      [v18 UTF8String];
-      fprintf(v21, "Matched by pattern at index %lu: %s\n");
+      [v13 index];
+      v22 = v17;
+      [v17 UTF8String];
+      fprintf(v20, "Matched by pattern at index %lu: %s\n");
     }
   }
 
@@ -2167,7 +2166,7 @@ LABEL_12:
   }
 }
 
-void sub_100011B74(int a1, char *const *a2)
+void sub_100011B74(uint64_t a1, char *const *a2)
 {
   v2 = sub_100013B58(a1, a2, "e:");
   v3 = objc_autoreleasePoolPush();
@@ -2203,10 +2202,11 @@ void sub_100011B74(int a1, char *const *a2)
   }
 }
 
-void sub_100011CD8(int a1, char *const *a2)
+void sub_100011CD8(uint64_t a1, char *const *a2)
 {
+  v3 = a1;
   v14 = +[_SWCTrackingDomainInfo lastDatabaseUpdate];
-  v4 = sub_100013B58(a1, a2, "pz:");
+  v4 = sub_100013B58(v3, a2, "pz:");
   v5 = [v4 objectForKeyedSubscript:@"p"];
   v6 = [v5 BOOLValue];
 
@@ -2228,7 +2228,7 @@ void sub_100011CD8(int a1, char *const *a2)
         v10 = [NSTimeZone timeZoneWithName:v9];
         if (!v10)
         {
-          sub_10000E618(0);
+          sub_10000E618();
         }
       }
     }
@@ -2266,18 +2266,20 @@ uint64_t sub_100011ED4(uint64_t a1)
 
 void sub_100011F10()
 {
+  v0 = __stderrp;
   getprogname();
-  sub_100013004();
+  sub_100013004(v0);
   fputc(32, __stderrp);
-  sub_100013004();
-  v0 = +[_SWCPrefs sharedPrefs];
-  [v0 isAppleInternal];
+  sub_100013004(__stderrp);
+  v1 = +[_SWCPrefs sharedPrefs];
+  [v1 isAppleInternal];
 
-  sub_100013004();
-  sub_100013004();
-  sub_100013004();
-  sub_100013004();
-  sub_100013080("--leaks");
+  sub_100013004(__stderrp);
+  sub_100013004(__stderrp);
+  sub_100013004(__stderrp);
+  sub_100013004(__stderrp);
+  memset(v2, 0, 24);
+  sub_100013080("--leaks", "Run leaks before termination.", v2);
 }
 
 void sub_100012AE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -2287,13 +2289,13 @@ void sub_100012AE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100013004()
+void sub_100013004(uint64_t a1)
 {
-  v0 = [NSString stringWithUTF8String:?];
+  v1 = [NSString stringWithUTF8String:?];
   _SWCLogObject();
 }
 
-void sub_1000134E0(void ***a1)
+void sub_1000134E0(void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -2817,7 +2819,7 @@ void sub_100014AB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100014B1C(uint64_t a1, void *a2)
+void sub_100014B1C(uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -2985,7 +2987,7 @@ uint64_t sub_100014F10(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void sub_100014FA8(void ***a1)
+void sub_100014FA8(void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -3176,7 +3178,6 @@ BOOL sub_100015498(void *a1, void *a2)
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -3333,7 +3334,7 @@ void sub_100016AE4(uint64_t a1, void *a2)
 {
   if (*(a1 + 32))
   {
-    v5 = [a2 domain];
+    v4 = [a2 domain];
     if ([*(a1 + 32) isEqual:?])
     {
       (*(*(a1 + 40) + 16))();
@@ -3342,14 +3343,13 @@ void sub_100016AE4(uint64_t a1, void *a2)
 
   else
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 }
 
-void sub_100016D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_100016D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -3484,7 +3484,6 @@ void sub_100017C94(uint64_t a1, void *a2)
 
 uint64_t sub_1000188C0(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v7 = *(a1 + 40);
   result = objc_opt_isKindOfClass();
   if ((result & 1) == 0 || (result = [NSPropertyListSerialization propertyList:a3 isValidForFormat:200], (result & 1) == 0))
   {

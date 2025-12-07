@@ -1,3 +1,277 @@
+void sub_29A49EA88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, std::__shared_weak_count *a21)
+{
+  v23 = *(v21 - 88);
+  if (v23)
+  {
+    sub_29A014BEC(v23);
+  }
+
+  if (a21)
+  {
+    sub_29A014BEC(a21);
+  }
+
+  sub_29A49F064(&a11);
+  sub_29A1DCEA8(&a15);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_29A49EBEC(uint64_t a1)
+{
+  v2 = (a1 + 16);
+  v4 = *(a1 + 16);
+  v8 = *(a1 + 48);
+  if (pxrInternal__aapl__pxrReserved__::PcpPropertyIterator::equal(&v4, &v8))
+  {
+    *&v4 = "tf/iterator.h";
+    *(&v4 + 1) = "operator++";
+    v5 = 233;
+    v6 = "TfIterator<T, Reverse> &pxrInternal__aapl__pxrReserved__::TfIterator<const std::pair<pxrInternal__aapl__pxrReserved__::PcpPropertyIterator, pxrInternal__aapl__pxrReserved__::PcpPropertyIterator>, true>::operator++() [T = const std::pair<pxrInternal__aapl__pxrReserved__::PcpPropertyIterator, pxrInternal__aapl__pxrReserved__::PcpPropertyIterator>, Reverse = true]";
+    v7 = 0;
+    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v4, 1, "iterator exhausted");
+  }
+
+  else
+  {
+    pxrInternal__aapl__pxrReserved__::PcpPropertyIterator::decrement(v2);
+  }
+
+  return a1;
+}
+
+void pxrInternal__aapl__pxrReserved__::PcpBuildTargetIndex(uint64_t a1, pxrInternal__aapl__pxrReserved__::PcpPropertyIndex *a2, uint64_t a3, __int128 *a4, uint64_t a5)
+{
+  v5 = 0;
+  pxrInternal__aapl__pxrReserved__::PcpBuildFilteredTargetIndex(a1, a2, a3, 0, &v5, 0, 0, a4, 0, a5);
+  pxrInternal__aapl__pxrReserved__::SdfSpec::~SdfSpec(&v5);
+}
+
+void sub_29A49ECD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  pxrInternal__aapl__pxrReserved__::SdfSpec::~SdfSpec(va);
+  _Unwind_Resume(a1);
+}
+
+void *sub_29A49ECE4(void *a1, uint64_t a2)
+{
+  pxrInternal__aapl__pxrReserved__::PcpLayerStackIdentifier::operator=(a1, a2);
+  sub_29A2258F0(a1 + 20, (a2 + 80));
+  sub_29A225948(a1 + 21, (a2 + 84));
+  return a1;
+}
+
+uint64_t sub_29A49ED28(pxrInternal__aapl__pxrReserved__::SdfPath *a1, pxrInternal__aapl__pxrReserved__::SdfPath *a2, pxrInternal__aapl__pxrReserved__::PcpNodeRef *a3, pxrInternal__aapl__pxrReserved__::PcpCache **a4)
+{
+  v37 = *MEMORY[0x29EDCA608];
+  pxrInternal__aapl__pxrReserved__::SdfPath::GetPrimPath(&v31, a1);
+  v7 = sub_29A49F09C(a4);
+  pxrInternal__aapl__pxrReserved__::PcpPrimIndex::GetRootNode(v7);
+  *&v32[0] = v8;
+  *(&v32[0] + 1) = v9;
+  if ((pxrInternal__aapl__pxrReserved__::PcpNodeRef::IsInert(v32) & 1) == 0)
+  {
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetPrimPath(&v30, a2);
+    LayerStack = pxrInternal__aapl__pxrReserved__::PcpNodeRef::GetLayerStack(a3);
+    pxrInternal__aapl__pxrReserved__::PcpLayerStackSite::PcpLayerStackSite(&v27, LayerStack, &v30);
+    v25 = 0;
+    v26 = -1;
+    pxrInternal__aapl__pxrReserved__::PcpPrimIndex::GetNodeRange(v7, 6, v32);
+    if (v32[0] != v32[1])
+    {
+      v21 = v32[0];
+      pxrInternal__aapl__pxrReserved__::PcpNodeRef::GetSite(&v17, &v21);
+      pxrInternal__aapl__pxrReserved__::PcpLayerStackSite::operator==(&v17, &v27);
+      pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v19);
+      sub_29A1DE3A4(&v18);
+      sub_29A41B088(&v17);
+    }
+
+    pxrInternal__aapl__pxrReserved__::PcpCache::GetPrimIndexInputs(*a4, v32);
+    if ((v36 & 1) == 0)
+    {
+      *&v21 = "pcp/targetIndex.cpp";
+      *(&v21 + 1) = "_TargetIsPermitted";
+      v22 = 276;
+      v23 = "Pcp_PathTranslationError pxrInternal__aapl__pxrReserved__::_TargetIsPermitted(const SdfPath &, const SdfPath &, const PcpNodeRef &, Pcp_TargetIndexContext &)";
+      v24 = 0;
+      sub_29A453CD0(&v27);
+      Text = pxrInternal__aapl__pxrReserved__::SdfPath::GetText(&v31);
+      v15 = &v17;
+      if (v20 < 0)
+      {
+        v15 = v17;
+      }
+
+      v16 = pxrInternal__aapl__pxrReserved__::Tf_VerifyStringFormat("Could not find expected node for site %s in prim index for <%s>", v13, v14, v15, Text);
+      pxrInternal__aapl__pxrReserved__::Tf_FailedVerifyHelper(&v21, "context.GetCache()->GetPrimIndexInputs().cull", v16);
+      if (v20 < 0)
+      {
+        operator delete(v17);
+      }
+    }
+
+    if (v35 < 0)
+    {
+      operator delete(__p);
+    }
+
+    sub_29A346EB0(&v33);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v29);
+    sub_29A1DE3A4(&v28);
+    sub_29A41B088(&v27);
+  }
+
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v31 + 1);
+  sub_29A1DE3A4(&v31);
+  return 2;
+}
+
+uint64_t sub_29A49F064(uint64_t a1)
+{
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL((a1 + 20));
+  sub_29A1DE3A4((a1 + 16));
+  return a1;
+}
+
+uint64_t sub_29A49F09C(uint64_t a1)
+{
+  result = *(a1 + 24);
+  if (!result)
+  {
+    v3 = *a1;
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetPrimPath(&v4, (a1 + 16));
+    *(a1 + 24) = pxrInternal__aapl__pxrReserved__::PcpCache::ComputePrimIndex(v3, &v4, *(a1 + 8));
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v4 + 1);
+    sub_29A1DE3A4(&v4);
+    return *(a1 + 24);
+  }
+
+  return result;
+}
+
+void sub_29A49F114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  sub_29A1DCEA8(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_29A49F128(pxrInternal__aapl__pxrReserved__::SdfPath *a1, uint64_t a2)
+{
+  IsPropertyPath = pxrInternal__aapl__pxrReserved__::SdfPath::IsPropertyPath(a1);
+  v5 = *(a2 + 8);
+  v36 = *a2;
+  v37 = v5;
+  v6 = **(v36 + 16);
+  v7 = *(v6 + 48 * v5 + 28);
+  v30 = v36;
+  v31 = v7;
+  v32 = v6;
+  v33 = v36;
+  v8 = 0xFFFFLL;
+  v34 = 0xFFFFLL;
+  v35 = v6;
+  while (v7 != v8 || v30 != v33)
+  {
+    v9 = sub_29A41E444(&v30);
+    if ((pxrInternal__aapl__pxrReserved__::PcpNodeRef::IsRestricted(v9) & 1) != 0 || pxrInternal__aapl__pxrReserved__::PcpNodeRef::GetPermission(v9) == 1)
+    {
+      return 1;
+    }
+
+    pxrInternal__aapl__pxrReserved__::PcpTranslatePathFromRootToNode(v9, a1, 0, &v28);
+    if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator BOOL(&v28))
+    {
+      if (IsPropertyPath)
+      {
+        LayerStack = pxrInternal__aapl__pxrReserved__::PcpNodeRef::GetLayerStack(v9);
+        v11 = sub_29A4184C4(LayerStack);
+        Layers = pxrInternal__aapl__pxrReserved__::PcpLayerStack::GetLayers(v11);
+        v13 = Layers[1];
+        v26 = *Layers;
+        v27 = v13;
+        while (v26 != v27)
+        {
+          sub_29A1E21F4(&v24, &v28);
+          sub_29A1E2240(&v25, &v29);
+          IsPrimPath = pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimPath(&v24);
+          if (!IsPrimPath)
+          {
+            if (!pxrInternal__aapl__pxrReserved__::SdfPath::IsPropertyPath(&v24))
+            {
+              goto LABEL_15;
+            }
+
+            v17 = sub_29A433804(&v26, v15, v16);
+            v18 = sub_29A3302A8(v17);
+            pxrInternal__aapl__pxrReserved__::SdfLayer::GetPropertyAtPath(&v23, v18, &v24);
+            if ((pxrInternal__aapl__pxrReserved__::SdfSpec::IsDormant(&v23) & 1) != 0 || (v19 = sub_29A1F190C(&v23), pxrInternal__aapl__pxrReserved__::SdfPropertySpec::GetPermission(v19) != 1))
+            {
+              pxrInternal__aapl__pxrReserved__::SdfSpec::~SdfSpec(&v23);
+LABEL_15:
+              pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v23, &v24);
+              pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
+            }
+
+            pxrInternal__aapl__pxrReserved__::SdfSpec::~SdfSpec(&v23);
+            a2 = 1;
+          }
+
+          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v25);
+          sub_29A1DE3A4(&v24);
+          if (!IsPrimPath)
+          {
+            v20 = 0;
+            goto LABEL_24;
+          }
+
+          sub_29A433884(&v26);
+        }
+      }
+
+      v21 = sub_29A49F128(a1, v9);
+      v20 = v21 == 0;
+      if (v21)
+      {
+        a2 = v21;
+      }
+
+      else
+      {
+        a2 = a2;
+      }
+    }
+
+    else
+    {
+      v20 = 0;
+      a2 = 2;
+    }
+
+LABEL_24:
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v29);
+    sub_29A1DE3A4(&v28);
+    if (!v20)
+    {
+      return a2;
+    }
+
+    sub_29A41E490(&v30);
+    v7 = v31;
+    v8 = v34;
+  }
+
+  return 0;
+}
+
+void sub_29A49F36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  sub_29A1DCEA8(va);
+  _Unwind_Resume(a1);
+}
+
 void *sub_29A49F3C0(void *a1)
 {
   v2 = pxrInternal__aapl__pxrReserved__::PcpPropertyIterator::PcpPropertyIterator(a1);
@@ -49,30 +323,30 @@ uint64_t sub_29A49F510(uint64_t a1, uint64_t a2)
 
 void sub_29A49F55C()
 {
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A204E198, 0, "PcpArcTypeRoot", "root");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A204E198, 1, "PcpArcTypeInherit", "inherit");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A204E198, 3, "PcpArcTypeRelocate", "relocate");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A204E198, 2, "PcpArcTypeVariant", "variant");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A204E198, 4, "PcpArcTypeReference", "reference");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A204E198, 5, "PcpArcTypePayload", "payload");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A204E198, 6, "PcpArcTypeSpecialize", "specialize");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2050440, 0, "PcpRangeTypeRoot", "root");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2050440, 1, "PcpRangeTypeInherit", "inherit");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2050440, 2, "PcpRangeTypeVariant", "variant");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2050440, 3, "PcpRangeTypeReference", "reference");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2050440, 4, "PcpRangeTypePayload", "payload");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2050440, 5, "PcpRangeTypeSpecialize", "specialize");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2050440, 6, "PcpRangeTypeAll", "all");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2050440, 7, "PcpRangeTypeWeakerThanRoot", "weaker than root");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2050440, 8, "PcpRangeTypeStrongerThanPayload", "stronger than payload");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A204E198, 0, "PcpArcTypeRoot", "root");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A204E198, 1, "PcpArcTypeInherit", "inherit");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A204E198, 3, "PcpArcTypeRelocate", "relocate");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A204E198, 2, "PcpArcTypeVariant", "variant");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A204E198, 4, "PcpArcTypeReference", "reference");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A204E198, 5, "PcpArcTypePayload", "payload");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A204E198, 6, "PcpArcTypeSpecialize", "specialize");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2050440, 0, "PcpRangeTypeRoot", "root");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2050440, 1, "PcpRangeTypeInherit", "inherit");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2050440, 2, "PcpRangeTypeVariant", "variant");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2050440, 3, "PcpRangeTypeReference", "reference");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2050440, 4, "PcpRangeTypePayload", "payload");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2050440, 5, "PcpRangeTypeSpecialize", "specialize");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2050440, 6, "PcpRangeTypeAll", "all");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2050440, 7, "PcpRangeTypeWeakerThanRoot", "weaker than root");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2050440, 8, "PcpRangeTypeStrongerThanPayload", "stronger than payload");
 
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A2050440, 9, "PcpRangeTypeInvalid", "invalid");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A2050440, 9, "PcpRangeTypeInvalid", "invalid");
 }
 
-void pxrInternal__aapl__pxrReserved__::usd_initialize(const void ***this, const pxrInternal__aapl__pxrReserved__::USDInitializeConfiguration *a2)
+void pxrInternal__aapl__pxrReserved__::usd_initialize(pxrInternal__aapl__pxrReserved__ *this, const pxrInternal__aapl__pxrReserved__::USDInitializeConfiguration *a2)
 {
   sub_29A3479FC(v3, this);
-  sub_29A3479FC(v4, this + 3);
+  sub_29A3479FC(v4, this + 24);
   if (atomic_load_explicit(&qword_2A17420B8, memory_order_acquire) != -1)
   {
     v6 = v3;
@@ -123,7 +397,7 @@ void pxrInternal__aapl__pxrReserved__::USDInitializeConfiguration::~USDInitializ
   sub_29A019EE8(this, this[1]);
 }
 
-uint64_t *pxrInternal__aapl__pxrReserved__::USDInitializeConfiguration::AppendUserPluginPaths(uint64_t *result, const void ***a2)
+uint64_t **pxrInternal__aapl__pxrReserved__::USDInitializeConfiguration::AppendUserPluginPaths(uint64_t **result, const void ***a2)
 {
   v2 = *a2;
   v3 = a2[1];
@@ -192,114 +466,126 @@ LABEL_8:
     v6 = __cxa_guard_acquire(&qword_2A17420C8);
     if (v6)
     {
-      v23 = operator new(8uLL);
-      pxrInternal__aapl__pxrReserved__::Tf_RegistryInit::Tf_RegistryInit(v23, "usd");
-      qword_2A17420C0 = v23;
+      v106 = operator new(8uLL);
+      pxrInternal__aapl__pxrReserved__::Tf_RegistryInit::Tf_RegistryInit(v106, "usd");
+      qword_2A17420C0 = v106;
       __cxa_guard_release(&qword_2A17420C8);
     }
   }
 
   pxrInternal__aapl__pxrReserved__::Work_InitializeThreading(v6);
-  pxrInternal__aapl__pxrReserved__::Plug_SetUSDLibInitEntitlements(v1);
+  pxrInternal__aapl__pxrReserved__::Plug_SetUSDLibInitEntitlements(v1, v7);
   memset(&buf, 0, sizeof(buf));
-  v7 = dyld_image_path_containing_address();
+  v8 = dyld_image_path_containing_address();
   dyld_image_header_containing_address();
-  v8 = macho_dylib_install_name();
-  v9 = [objc_msgSend(MEMORY[0x29EDB8E70] fileURLWithPath:{objc_msgSend(MEMORY[0x29EDBA0F8], "stringWithUTF8String:", v7)), "URLByResolvingSymlinksInPath"}];
-  v10 = [objc_msgSend(MEMORY[0x29EDB8E70] fileURLWithPath:{objc_msgSend(MEMORY[0x29EDBA0F8], "stringWithUTF8String:", v8)), "URLByResolvingSymlinksInPath"}];
-  sub_29A008E78(v33, [objc_msgSend(objc_msgSend(v9 "URLByDeletingLastPathComponent")]);
-  sub_29A008E78(v31, [objc_msgSend(objc_msgSend(v10 "URLByDeletingLastPathComponent")]);
-  if ((v34 & 0x80u) == 0)
+  v9 = macho_dylib_install_name();
+  v10 = MEMORY[0x29EDB8E70];
+  v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v11, v8, v12, v13, v14);
+  v20 = objc_msgSend_fileURLWithPath_(v10, v16, v15, v17, v18, v19);
+  v26 = objc_msgSend_URLByResolvingSymlinksInPath(v20, v21, v22, v23, v24, v25);
+  v27 = MEMORY[0x29EDB8E70];
+  v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v28, v9, v29, v30, v31);
+  v37 = objc_msgSend_fileURLWithPath_(v27, v33, v32, v34, v35, v36);
+  v43 = objc_msgSend_URLByResolvingSymlinksInPath(v37, v38, v39, v40, v41, v42);
+  PathComponent = objc_msgSend_URLByDeletingLastPathComponent(v26, v44, v45, v46, v47, v48);
+  v55 = objc_msgSend_path(PathComponent, v50, v51, v52, v53, v54);
+  v60 = objc_msgSend_cStringUsingEncoding_(v55, v56, 4, v57, v58, v59);
+  sub_29A008E78(v116, v60);
+  v66 = objc_msgSend_URLByDeletingLastPathComponent(v43, v61, v62, v63, v64, v65);
+  v72 = objc_msgSend_path(v66, v67, v68, v69, v70, v71);
+  v77 = objc_msgSend_cStringUsingEncoding_(v72, v73, 4, v74, v75, v76);
+  sub_29A008E78(v114, v77);
+  if ((v117 & 0x80u) == 0)
   {
-    v11 = v34;
+    v78 = v117;
   }
 
   else
   {
-    v11 = v33[1];
+    v78 = v116[1];
   }
 
-  v12 = &v29;
-  sub_29A022DE0(&v29, v11 + 5);
-  if ((v29.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v79 = &v112;
+  sub_29A022DE0(&v112, v78 + 5);
+  if ((v112.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v12 = v29.__pn_.__r_.__value_.__r.__words[0];
+    v79 = v112.__pn_.__r_.__value_.__r.__words[0];
   }
 
-  if (v11)
+  if (v78)
   {
-    if ((v34 & 0x80u) == 0)
+    if ((v117 & 0x80u) == 0)
     {
-      v13 = v33;
+      v80 = v116;
     }
 
     else
     {
-      v13 = v33[0];
+      v80 = v116[0];
     }
 
-    memmove(v12, v13, v11);
+    memmove(v79, v80, v78);
   }
 
-  strcpy(v12 + v11, "/usd/");
-  v30 = v29;
-  if ((v32 & 0x80u) == 0)
+  strcpy(v79 + v78, "/usd/");
+  v113 = v112;
+  if ((v115 & 0x80u) == 0)
   {
-    v14 = v32;
+    v81 = v115;
   }
 
   else
   {
-    v14 = v31[1];
+    v81 = v114[1];
   }
 
-  v15 = &v28;
-  sub_29A022DE0(&v28, v14 + 5);
-  if ((v28.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v82 = &v111;
+  sub_29A022DE0(&v111, v81 + 5);
+  if ((v111.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v15 = v28.__pn_.__r_.__value_.__r.__words[0];
+    v82 = v111.__pn_.__r_.__value_.__r.__words[0];
   }
 
-  if (v14)
+  if (v81)
   {
-    if ((v32 & 0x80u) == 0)
+    if ((v115 & 0x80u) == 0)
     {
-      v16 = v31;
+      v83 = v114;
     }
 
     else
     {
-      v16 = v31[0];
+      v83 = v114[0];
     }
 
-    memmove(v15, v16, v14);
+    memmove(v82, v83, v81);
   }
 
-  strcpy(v15 + v14, "/usd/");
-  v29 = v28;
-  std::__fs::filesystem::__status(&v30, 0);
-  if (v28.__pn_.__r_.__value_.__s.__data_[0] && v28.__pn_.__r_.__value_.__s.__data_[0] != 255)
+  strcpy(v82 + v81, "/usd/");
+  v112 = v111;
+  std::__fs::filesystem::__status(&v113, 0);
+  if (v111.__pn_.__r_.__value_.__s.__data_[0] && v111.__pn_.__r_.__value_.__s.__data_[0] != 255)
   {
-    v17 = &v30;
+    v84 = &v113;
     goto LABEL_40;
   }
 
-  std::__fs::filesystem::__status(&v29, 0);
-  if (v28.__pn_.__r_.__value_.__s.__data_[0] && v28.__pn_.__r_.__value_.__s.__data_[0] != 255)
+  std::__fs::filesystem::__status(&v112, 0);
+  if (v111.__pn_.__r_.__value_.__s.__data_[0] && v111.__pn_.__r_.__value_.__s.__data_[0] != 255)
   {
-    v17 = &v29;
+    v84 = &v112;
 LABEL_40:
-    std::string::operator=(&buf, &v17->__pn_);
+    std::string::operator=(&buf, &v84->__pn_);
   }
 
   if ((SHIBYTE(buf.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (*(&buf.__r_.__value_.__s + 23))
     {
-      memset(&v28, 0, sizeof(v28));
-      v25 = 0;
-      v26 = 0;
-      v27 = 0;
+      memset(&v111, 0, sizeof(v111));
+      v108 = 0;
+      v109 = 0;
+      v110 = 0;
       __p = buf;
       goto LABEL_46;
     }
@@ -307,8 +593,8 @@ LABEL_40:
 LABEL_49:
     if (LogInstance && v5 + 1 >= 2 && os_signpost_enabled(LogInstance))
     {
-      LOWORD(v28.__pn_.__r_.__value_.__l.__data_) = 0;
-      _os_signpost_emit_with_name_impl(&dword_299FE7000, LogInstance, OS_SIGNPOST_INTERVAL_END, v5, "usd_initialize", &unk_29B9D452D, &v28, 2u);
+      LOWORD(v111.__pn_.__r_.__value_.__l.__data_) = 0;
+      _os_signpost_emit_with_name_impl(&dword_299FE7000, LogInstance, OS_SIGNPOST_INTERVAL_END, v5, "usd_initialize", &unk_29B9D452D, &v111, 2u);
     }
 
     goto LABEL_65;
@@ -319,13 +605,13 @@ LABEL_49:
     goto LABEL_49;
   }
 
-  memset(&v28, 0, sizeof(v28));
-  v25 = 0;
-  v26 = 0;
-  v27 = 0;
+  memset(&v111, 0, sizeof(v111));
+  v108 = 0;
+  v109 = 0;
+  v110 = 0;
   sub_29A008D14(&__p, buf.__r_.__value_.__l.__data_, buf.__r_.__value_.__l.__size_);
 LABEL_46:
-  sub_29A091654(&v28.__pn_.__r_.__value_.__l.__data_, &__p);
+  sub_29A091654(&v111.__pn_.__r_.__value_.__l.__data_, &__p);
   if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (!v4)
@@ -334,11 +620,13 @@ LABEL_46:
     }
 
 LABEL_54:
-    v18 = [objc_msgSend(MEMORY[0x29EDB8E78] standardUserDefaults];
-    if (v18)
+    v90 = objc_msgSend_standardUserDefaults(MEMORY[0x29EDB8E78], v85, v86, v87, v88, v89, __p.__r_.__value_.__r.__words[0], __p.__r_.__value_.__l.__size_, __p.__r_.__value_.__r.__words[2], v108, v109, v110, v111.__pn_.__r_.__value_.__r.__words[0], v111.__pn_.__r_.__value_.__l.__size_, v111.__pn_.__r_.__value_.__r.__words[2]);
+    v95 = objc_msgSend_stringForKey_(v90, v91, @"ExtraPluginPath", v92, v93, v94);
+    if (v95)
     {
-      sub_29A008E78(&__p, [v18 UTF8String]);
-      sub_29A091654(&v28.__pn_.__r_.__value_.__l.__data_, &__p);
+      v101 = objc_msgSend_UTF8String(v95, v96, v97, v98, v99, v100);
+      sub_29A008E78(&__p, v101);
+      sub_29A091654(&v111.__pn_.__r_.__value_.__l.__data_, &__p);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -355,51 +643,51 @@ LABEL_54:
   }
 
 LABEL_57:
-  sub_29A0935F4(&v28.__pn_.__r_.__value_.__l.__data_, v28.__pn_.__r_.__value_.__l.__size_, *(v1 + 24), (v1 + 32));
-  pxrInternal__aapl__pxrReserved__::Plug_SetPaths(&v28, &v25, 1);
-  pxrInternal__aapl__pxrReserved__::aapl_vt_castRegistry_init(v19);
+  sub_29A0935F4(&v111.__pn_.__r_.__value_.__l.__data_, v111.__pn_.__r_.__value_.__l.__size_, v1[3], v1 + 4);
+  pxrInternal__aapl__pxrReserved__::Plug_SetPaths(&v111, &v108, 1);
+  pxrInternal__aapl__pxrReserved__::aapl_vt_castRegistry_init(v102);
   if (&qword_2A1B6E1C8 < &qword_2A1B71768)
   {
-    v22 = &qword_2A1B6E1C8;
+    v105 = &qword_2A1B6E1C8;
     do
     {
-      pxrInternal__aapl__pxrReserved__::Tf_RegistryInit::Add(*v22, v22[1], v22[2], v21);
-      v22 += 3;
+      pxrInternal__aapl__pxrReserved__::Tf_RegistryInit::Add(*v105, v105[1], v105[2], v104);
+      v105 += 3;
     }
 
-    while (v22 < &qword_2A1B71768);
+    while (v105 < &qword_2A1B71768);
   }
 
-  pxrInternal__aapl__pxrReserved__::__usdlib_internal_mtlx_intialize(v20);
+  pxrInternal__aapl__pxrReserved__::__usdlib_internal_mtlx_intialize(v103);
   if (LogInstance && v5 + 1 >= 2 && os_signpost_enabled(LogInstance))
   {
     LOWORD(__p.__r_.__value_.__l.__data_) = 0;
     _os_signpost_emit_with_name_impl(&dword_299FE7000, LogInstance, OS_SIGNPOST_INTERVAL_END, v5, "usd_initialize", &unk_29B9D452D, &__p, 2u);
   }
 
-  __p.__r_.__value_.__r.__words[0] = &v25;
+  __p.__r_.__value_.__r.__words[0] = &v108;
   sub_29A012C90(&__p);
-  v25 = &v28;
-  sub_29A012C90(&v25);
+  v108 = &v111;
+  sub_29A012C90(&v108);
 LABEL_65:
-  if (SHIBYTE(v29.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v112.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v29.__pn_.__r_.__value_.__l.__data_);
+    operator delete(v112.__pn_.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v30.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v113.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v30.__pn_.__r_.__value_.__l.__data_);
+    operator delete(v113.__pn_.__r_.__value_.__l.__data_);
   }
 
-  if (v32 < 0)
+  if (v115 < 0)
   {
-    operator delete(v31[0]);
+    operator delete(v114[0]);
   }
 
-  if (v34 < 0)
+  if (v117 < 0)
   {
-    operator delete(v33[0]);
+    operator delete(v116[0]);
   }
 
   if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
@@ -415,16 +703,16 @@ void sub_29A49FFD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<BOOL>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<BOOL>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A0244(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A0244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -488,13 +776,13 @@ double pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(pxrI
   return v2;
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(pxrInternal__aapl__pxrReserved__::Usd_Clip *this@<X0>, void *a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::Usd_Clip *this@<X0>)
 {
   v23 = *MEMORY[0x29EDCA608];
   if (*(this + 136) != 1)
   {
     v19 = 0;
-    v3 = sub_29B293A0C(this + 24);
+    v3 = sub_29B293A0C(this + 3);
     if (!(v4 & 1 | v3))
     {
       __p.__r_.__value_.__r.__words[0] = "usd/clip.cpp";
@@ -522,7 +810,7 @@ void pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(pxrInternal__a
           v8 = sub_29A4AAFA8();
         }
 
-        v9 = *(v8 + 8) & 0xFFFFFFFFFFFFFFF8;
+        v9 = v8[1] & 0xFFFFFFFFFFFFFFF8;
         if (v9)
         {
           v10 = (v9 + 16);
@@ -573,7 +861,7 @@ void pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(pxrInternal__a
     sub_29A419260(this);
   }
 
-  *a2 = *(this + 26);
+  *a1 = *(this + 26);
 
   pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::SdfLayer>::_AddRef();
 }
@@ -588,16 +876,16 @@ uint64_t sub_29A4A0784(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<BOOL>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<BOOL>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A0954(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A0954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -612,16 +900,16 @@ uint64_t sub_29A4A097C(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<unsigned char>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<unsigned char>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A0B4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A0B4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -636,16 +924,16 @@ uint64_t sub_29A4A0B74(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<unsigned char>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<unsigned char>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A0D44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A0D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -660,16 +948,16 @@ uint64_t sub_29A4A0D6C(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<int>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<int>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A0F3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A0F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -684,16 +972,16 @@ uint64_t sub_29A4A0F64(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<int>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<int>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A1134(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A1134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -708,16 +996,16 @@ uint64_t sub_29A4A115C(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<unsigned int>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<unsigned int>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A132C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A132C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -732,16 +1020,16 @@ uint64_t sub_29A4A1354(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<unsigned int>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<unsigned int>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A1524(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A1524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -756,16 +1044,16 @@ uint64_t sub_29A4A154C(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<long long>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<long long>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A171C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A171C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -780,16 +1068,16 @@ uint64_t sub_29A4A1744(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<long long>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<long long>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A1914(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A1914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -804,16 +1092,16 @@ uint64_t sub_29A4A193C(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<unsigned long long>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<unsigned long long>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A1B0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A1B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -828,16 +1116,16 @@ uint64_t sub_29A4A1B34(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<unsigned long long>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<unsigned long long>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A1D04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A1D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -852,16 +1140,16 @@ uint64_t sub_29A4A1D2C(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::pxr_half::half>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::pxr_half::half>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A1EFC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A1EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -876,16 +1164,16 @@ uint64_t sub_29A4A1F24(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::pxr_half::half>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::pxr_half::half>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A20F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A20F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -900,16 +1188,16 @@ uint64_t sub_29A4A211C(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<float>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<float>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A22EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A22EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -924,16 +1212,16 @@ uint64_t sub_29A4A2314(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<float>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<float>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A24E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A24E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -948,16 +1236,16 @@ uint64_t sub_29A4A250C(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<double>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<double>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A26DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A26DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -972,16 +1260,16 @@ uint64_t sub_29A4A2704(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<double>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<double>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A28D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A28D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -996,16 +1284,16 @@ uint64_t sub_29A4A28FC(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::SdfTimeCode>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::SdfTimeCode>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), double *a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A2AE4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A2AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1020,16 +1308,16 @@ uint64_t sub_29A4A2B0C(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::SdfTimeCode>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::SdfTimeCode>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), unint64_t *a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A2D1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A2D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1044,16 +1332,16 @@ uint64_t sub_29A4A2D48(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<std::string>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<std::string>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A2F18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A2F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1068,16 +1356,16 @@ uint64_t sub_29A4A2F40(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<std::string>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<std::string>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A3110(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A3110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1092,16 +1380,16 @@ uint64_t sub_29A4A3138(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::TfToken>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::TfToken>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A3308(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A3308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1116,16 +1404,16 @@ uint64_t sub_29A4A3330(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::TfToken>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::TfToken>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A3500(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A3500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1140,16 +1428,16 @@ uint64_t sub_29A4A3528(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::SdfAssetPath>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::SdfAssetPath>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A36F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A36F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1164,16 +1452,16 @@ uint64_t sub_29A4A3720(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::SdfAssetPath>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::SdfAssetPath>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A38F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A38F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1188,16 +1476,16 @@ uint64_t sub_29A4A3918(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::SdfOpaqueValue>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::SdfOpaqueValue>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A3AE8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A3AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1212,16 +1500,16 @@ uint64_t sub_29A4A3B10(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::SdfOpaqueValue>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::SdfOpaqueValue>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A3CE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A3CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1236,16 +1524,16 @@ uint64_t sub_29A4A3D08(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::SdfPathExpression>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::SdfPathExpression>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A3ED8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A3ED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1260,16 +1548,16 @@ uint64_t sub_29A4A3F00(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::SdfPathExpression>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::SdfPathExpression>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A40D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A40D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1284,16 +1572,16 @@ uint64_t sub_29A4A40F8(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfMatrix2d>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfMatrix2d>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A42C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A42C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1308,16 +1596,16 @@ uint64_t sub_29A4A42F0(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix2d>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix2d>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A44C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A44C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1332,16 +1620,16 @@ uint64_t sub_29A4A44E8(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfMatrix3d>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfMatrix3d>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A46B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A46B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1356,16 +1644,16 @@ uint64_t sub_29A4A46E0(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix3d>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix3d>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A48B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A48B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1380,16 +1668,16 @@ uint64_t sub_29A4A48D8(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfMatrix4d>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfMatrix4d>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A4AA8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A4AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1404,16 +1692,16 @@ uint64_t sub_29A4A4AD0(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix4d>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix4d>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A4CA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A4CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1428,16 +1716,16 @@ uint64_t sub_29A4A4CC8(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfQuath>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfQuath>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A4E98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A4E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1452,16 +1740,16 @@ uint64_t sub_29A4A4EC0(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuath>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuath>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A5090(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A5090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1476,16 +1764,16 @@ uint64_t sub_29A4A50B8(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfQuatf>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfQuatf>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A5288(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A5288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1500,16 +1788,16 @@ uint64_t sub_29A4A52B0(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatf>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatf>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A5480(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A5480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1524,16 +1812,16 @@ uint64_t sub_29A4A54A8(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfQuatd>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfQuatd>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A5678(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A5678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1548,16 +1836,16 @@ uint64_t sub_29A4A56A0(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatd>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatd>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A5870(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A5870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1572,16 +1860,16 @@ uint64_t sub_29A4A5898(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec2i>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec2i>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A5A68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A5A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1596,16 +1884,16 @@ uint64_t sub_29A4A5A90(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2i>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2i>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A5C60(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A5C60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1620,16 +1908,16 @@ uint64_t sub_29A4A5C88(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec2h>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec2h>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A5E58(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A5E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1644,16 +1932,16 @@ uint64_t sub_29A4A5E80(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2h>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2h>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A6050(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A6050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1668,16 +1956,16 @@ uint64_t sub_29A4A6078(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec2f>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec2f>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A6248(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A6248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1692,16 +1980,16 @@ uint64_t sub_29A4A6270(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2f>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2f>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A6440(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A6440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1716,16 +2004,16 @@ uint64_t sub_29A4A6468(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec2d>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec2d>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A6638(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A6638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1740,16 +2028,16 @@ uint64_t sub_29A4A6660(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2d>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2d>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A6830(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A6830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1764,16 +2052,16 @@ uint64_t sub_29A4A6858(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec3i>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec3i>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A6A28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A6A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1788,16 +2076,16 @@ uint64_t sub_29A4A6A50(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3i>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3i>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A6C20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A6C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1812,16 +2100,16 @@ uint64_t sub_29A4A6C48(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec3h>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec3h>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A6E18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A6E18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1836,16 +2124,16 @@ uint64_t sub_29A4A6E40(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3h>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3h>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A7010(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A7010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1860,16 +2148,16 @@ uint64_t sub_29A4A7038(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec3f>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec3f>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A7208(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A7208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1884,16 +2172,16 @@ uint64_t sub_29A4A7230(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3f>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3f>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A7400(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A7400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1908,16 +2196,16 @@ uint64_t sub_29A4A7428(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec3d>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec3d>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A75F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A75F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1932,16 +2220,16 @@ uint64_t sub_29A4A7620(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3d>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3d>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A77F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A77F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1956,16 +2244,16 @@ uint64_t sub_29A4A7818(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec4i>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec4i>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A79E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A79E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -1980,16 +2268,16 @@ uint64_t sub_29A4A7A10(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4i>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4i>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A7BE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A7BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -2004,16 +2292,16 @@ uint64_t sub_29A4A7C08(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec4h>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec4h>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A7DD8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A7DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -2028,16 +2316,16 @@ uint64_t sub_29A4A7E00(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4h>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4h>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A7FD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A7FD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -2052,16 +2340,16 @@ uint64_t sub_29A4A7FF8(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec4f>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec4f>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A81C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A81C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -2076,16 +2364,16 @@ uint64_t sub_29A4A81F0(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4f>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4f>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A83C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A83C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -2100,16 +2388,16 @@ uint64_t sub_29A4A83E8(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec4d>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::GfVec4d>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A85B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A85B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -2124,16 +2412,16 @@ uint64_t sub_29A4A85E0(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4d>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4d>>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A87B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4A87B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -2148,34 +2436,26 @@ uint64_t sub_29A4A87D8(pxrInternal__aapl__pxrReserved__::SdfLayer *a1, const pxr
   return pxrInternal__aapl__pxrReserved__::SdfLayer::QueryTimeSample(a1, a2, a4, 0);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::SdfAbstractDataValue>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::SdfAbstractDataValue>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), uint64_t a4, double a5)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
-void sub_29A4A8B6C(uint64_t a1, uint64_t a2, ...)
+void sub_29A4A8B6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, int a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v2 = va_arg(va1, void);
-  v4 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  sub_29A213190(va1);
-  sub_29A213190(va);
-  sub_29A321930();
+  sub_29A213190(&a18);
+  sub_29A213190(&a12);
+  sub_29A321930(&a9);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtValue>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, double a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::QueryTimeSample<pxrInternal__aapl__pxrReserved__::VtValue>(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *this, uint64_t (***a3)(void, uint64_t *, uint64_t *, double, double), pxrInternal__aapl__pxrReserved__::VtValue *a4, double a5)
 {
-  v6[16] = *MEMORY[0x29EDCA608];
-  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(v6, this, (a1 + 16), (a1 + 88), 1);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a3);
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(a1, &v5);
+  v8[16] = *MEMORY[0x29EDCA608];
+  pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(v8, this, (a1 + 16), (a1 + 88), 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToInternal(a1, a5);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(&v7, a1);
 }
 
 void sub_29A4A8E94(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
@@ -2210,7 +2490,7 @@ BOOL pxrInternal__aapl__pxrReserved__::UsdIsClipRelatedField(pxrInternal__aapl__
   return (*(v5 + 2) ^ *this) < 8uLL;
 }
 
-void *pxrInternal__aapl__pxrReserved__::UsdGetClipRelatedFields@<X0>(void *a1@<X8>)
+uint64_t *pxrInternal__aapl__pxrReserved__::UsdGetClipRelatedFields@<X0>(uint64_t *a2@<X8>)
 {
   v14 = *MEMORY[0x29EDCA608];
   v3 = atomic_load(&pxrInternal__aapl__pxrReserved__::UsdTokens);
@@ -2247,10 +2527,10 @@ void *pxrInternal__aapl__pxrReserved__::UsdGetClipRelatedFields@<X0>(void *a1@<X
     }
   }
 
-  *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
-  result = sub_29A12EF7C(a1, &v12, &v14, 2uLL);
+  *a2 = 0;
+  a2[1] = 0;
+  a2[2] = 0;
+  result = sub_29A12EF7C(a2, &v12, &v14, 2uLL);
   for (i = 8; i != -8; i -= 8)
   {
     v11 = *(&v12 + i);
@@ -2312,15 +2592,15 @@ void sub_29A4A93AC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::Usd_Clip(uint64_t a1, void *a2, _DWORD *a3)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::Usd_Clip(uint64_t a1, uint64_t *a2, _DWORD *a3, unint64_t a4, __int128 *a5, _DWORD *a6, void *a7, double a8, double a9, double a10)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   *a1 = *a2;
-  v6 = a2[1];
-  *(a1 + 8) = v6;
-  if (v6)
+  v13 = a2[1];
+  *(a1 + 8) = v13;
+  if (v13)
   {
-    atomic_fetch_add_explicit((v6 + 8), 1u, memory_order_relaxed);
+    atomic_fetch_add_explicit((v13 + 8), 1u, memory_order_relaxed);
   }
 
   sub_29A1E21F4((a1 + 16), a3);
@@ -2354,14 +2634,16 @@ void sub_29A4A96F0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_29A4A9B90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A4A9B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a4);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v9 = va_arg(va1, void);
   sub_29A1DCEA8(va);
-  sub_29A321930();
+  sub_29A321930(va1);
 }
 
-BOOL sub_29A4A9BC8(void *a1, unint64_t *a2, unint64_t *a3, double a4)
+BOOL sub_29A4A9BC8(double **a1, unint64_t *a2, unint64_t *a3, double a4)
 {
   v4 = *a1;
   v5 = a1 + 1;
@@ -2433,7 +2715,7 @@ LABEL_13:
     v11 = a1[1];
   }
 
-  v23 = 0xAAAAAAAAAAAAAAABLL * ((v11 - v10) >> 3);
+  v23 = 0xAAAAAAAAAAAAAAABLL * (v11 - v10);
   if (v22 >= v23)
   {
     sub_29B2A8FE8(v25, v5, a1, &v27);
@@ -2448,19 +2730,19 @@ LABEL_13:
   return v4 != v6;
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::GetBracketingTimeSamplesForPath(pxrInternal__aapl__pxrReserved__::Usd_Clip *this, const pxrInternal__aapl__pxrReserved__::SdfPath *a2, double a3, double *a4, double *a5)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::GetBracketingTimeSamplesForPath(double ***this, const pxrInternal__aapl__pxrReserved__::SdfPath *a2, double a3, double *a4, double *a5)
 {
   v6 = 0;
   memset(v5, 0, sizeof(v5));
   pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetBracketingTimeSamplesForPathFromClipLayer(this, a2, a3, v5, v5 + 1);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_Clip::ListTimeSamplesForPath(pxrInternal__aapl__pxrReserved__::Usd_Clip *this@<X0>, void *a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::Usd_Clip::ListTimeSamplesForPath(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::Usd_Clip *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a3@<X1>)
 {
-  a2[2] = 0;
-  a2[1] = 0;
-  *a2 = a2 + 1;
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_ListTimeSamplesForPathFromClipLayer(this);
+  a1[2] = 0;
+  a1[1] = 0;
+  *a1 = (a1 + 1);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_ListTimeSamplesForPathFromClipLayer(this, a3, a1);
 }
 
 uint64_t pxrInternal__aapl__pxrReserved__::Usd_Clip::_TranslateTimeToExternal(uint64_t this, double a2, uint64_t a3, uint64_t a4)
@@ -2492,10 +2774,10 @@ void pxrInternal__aapl__pxrReserved__::Usd_Clip::IsBlocked(pxrInternal__aapl__px
   v3[3] = &stru_2A2048EE0;
   v4 = 0;
   v3[1] = &unk_2A2050460;
-  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(this, v3);
+  pxrInternal__aapl__pxrReserved__::Usd_Clip::_GetLayerForClip(v3, this);
 }
 
-pxrInternal__aapl__pxrReserved__::Usd_Clip *pxrInternal__aapl__pxrReserved__::Usd_Clip::GetLayerIfOpen@<X0>(pxrInternal__aapl__pxrReserved__::Usd_Clip *this@<X0>, void *a2@<X8>)
+pxrInternal__aapl__pxrReserved__::Usd_Clip *pxrInternal__aapl__pxrReserved__::Usd_Clip::GetLayerIfOpen@<X0>(pxrInternal__aapl__pxrReserved__::Usd_Clip *this@<X0>, uint64_t *a2@<X8>)
 {
   if (*(this + 136))
   {
@@ -2823,42 +3105,42 @@ LABEL_4:
   return result;
 }
 
-unint64_t sub_29A4AAFA8()
+uint64_t *sub_29A4AAFA8()
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v0 = operator new(0x28uLL);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0, "dummy_clip", 0);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 1, "dummy_clip.%s", v11);
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0, "dummy_clip");
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(v0 + 1, "dummy_clip.%s");
   v1 = v0 + 2;
   v2 = *v0;
-  v12 = v2;
+  v11 = v2;
   if ((v2 & 7) != 0)
   {
     v3 = (v2 & 0xFFFFFFFFFFFFFFF8);
     if ((atomic_fetch_add_explicit(v3, 2u, memory_order_relaxed) & 1) == 0)
     {
-      v12 = v3;
+      v11 = v3;
     }
   }
 
   v4 = v0[1];
-  v13 = v4;
+  v12 = v4;
   if ((v4 & 7) != 0)
   {
     v5 = (v4 & 0xFFFFFFFFFFFFFFF8);
     if ((atomic_fetch_add_explicit(v5, 2u, memory_order_relaxed) & 1) == 0)
     {
-      v13 = v5;
+      v12 = v5;
     }
   }
 
   *v1 = 0;
   v0[3] = 0;
   v0[4] = 0;
-  sub_29A12EF7C(v1, &v12, &v14, 2uLL);
+  sub_29A12EF7C(v1, &v11, &v13, 2uLL);
   for (i = 8; i != -8; i -= 8)
   {
-    v7 = *(&v12 + i);
+    v7 = *(&v11 + i);
     if ((v7 & 7) != 0)
     {
       atomic_fetch_add_explicit((v7 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
@@ -2908,12 +3190,12 @@ void sub_29A4AB0EC(_Unwind_Exception *a1)
   }
 }
 
-uint64_t sub_29A4AB170(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AB170(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A2CB120(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -2946,9 +3228,9 @@ uint64_t sub_29A4AB170(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4AB1F8(__int128 *result, __int128 *a2)
+__int128 *sub_29A4AB1F8(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -2966,7 +3248,7 @@ __int128 *sub_29A4AB1F8(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<BOOL>::_DecRef();
     }
@@ -2974,7 +3256,7 @@ __int128 *sub_29A4AB1F8(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<BOOL>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4AB2B4(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -3011,12 +3293,12 @@ uint64_t sub_29A4AB2B4(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4AB344(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AB344(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A19E5FC(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -3049,9 +3331,9 @@ uint64_t sub_29A4AB344(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4AB3CC(__int128 *result, __int128 *a2)
+__int128 *sub_29A4AB3CC(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -3069,7 +3351,7 @@ __int128 *sub_29A4AB3CC(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<unsigned char>::_DecRef();
     }
@@ -3077,7 +3359,7 @@ __int128 *sub_29A4AB3CC(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<unsigned char>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4AB488(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -3402,12 +3684,12 @@ uint64_t sub_29A4AB908(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4AB998(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AB998(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A18E100(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -3440,9 +3722,9 @@ uint64_t sub_29A4AB998(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4ABA20(__int128 *result, __int128 *a2)
+__int128 *sub_29A4ABA20(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -3460,7 +3742,7 @@ __int128 *sub_29A4ABA20(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::pxr_half::half>::_DecRef();
     }
@@ -3468,7 +3750,7 @@ __int128 *sub_29A4ABA20(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::pxr_half::half>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4ABADC(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -3577,12 +3859,12 @@ uint64_t sub_29A4ABBFC(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4ABC8C(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4ABC8C(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A190184(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -3615,9 +3897,9 @@ uint64_t sub_29A4ABC8C(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4ABD14(__int128 *result, __int128 *a2)
+__int128 *sub_29A4ABD14(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -3635,7 +3917,7 @@ __int128 *sub_29A4ABD14(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<double>::_DecRef();
     }
@@ -3643,7 +3925,7 @@ __int128 *sub_29A4ABD14(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<double>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4ABDD0(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -3680,12 +3962,12 @@ uint64_t sub_29A4ABDD0(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4ABE60(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4ABE60(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A3FA330(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -3872,12 +4154,12 @@ uint64_t sub_29A4AC0C4(uint64_t a1, const std::string **a2)
   return result;
 }
 
-uint64_t sub_29A4AC168(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AC168(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A1FA80C(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -3980,12 +4262,12 @@ uint64_t sub_29A4AC2AC(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4AC32C(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AC32C(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A3FB114(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -4056,12 +4338,12 @@ uint64_t sub_29A4AC3B4(uint64_t a1, __int128 *a2)
   return a1;
 }
 
-uint64_t sub_29A4AC470(uint64_t a1, uint64_t *a2)
+uint64_t sub_29A4AC470(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A1FD484(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -4075,7 +4357,7 @@ uint64_t sub_29A4AC470(uint64_t a1, uint64_t *a2)
     v6 = *(a1 + 8);
     if (v6 != v5)
     {
-      sub_29A36CF34(v6, *v5, *(v5 + 8), (*(v5 + 8) - *v5) >> 2);
+      sub_29A36CF34(&v6->__r_.__value_.__l.__data_, *v5, *(v5 + 8), (*(v5 + 8) - *v5) >> 2);
       sub_29A3960A0(&v6[1], *(v5 + 24), *(v5 + 32), (*(v5 + 32) - *(v5 + 24)) >> 5);
       sub_29A39625C(&v6[2], *(v5 + 48), *(v5 + 56), (*(v5 + 56) - *(v5 + 48)) >> 6);
     }
@@ -4102,12 +4384,12 @@ uint64_t sub_29A4AC470(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_29A4AC54C(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AC54C(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A1FD578(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -4219,12 +4501,12 @@ uint64_t sub_29A4AC690(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4AC720(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AC720(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A3FBB48(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -4257,9 +4539,9 @@ uint64_t sub_29A4AC720(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4AC7A8(__int128 *result, __int128 *a2)
+__int128 *sub_29A4AC7A8(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -4277,7 +4559,7 @@ __int128 *sub_29A4AC7A8(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix2d>::_DecRef();
     }
@@ -4285,15 +4567,15 @@ __int128 *sub_29A4AC7A8(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix2d>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
-uint64_t sub_29A4AC864(uint64_t a1, uint64_t *a2)
+uint64_t sub_29A4AC864(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A3FBEFC(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -4334,12 +4616,12 @@ uint64_t sub_29A4AC864(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_29A4AC90C(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AC90C(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A3FC06C(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -4372,9 +4654,9 @@ uint64_t sub_29A4AC90C(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4AC994(__int128 *result, __int128 *a2)
+__int128 *sub_29A4AC994(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -4392,7 +4674,7 @@ __int128 *sub_29A4AC994(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix3d>::_DecRef();
     }
@@ -4400,7 +4682,7 @@ __int128 *sub_29A4AC994(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix3d>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4ACA50(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -4455,12 +4737,12 @@ uint64_t sub_29A4ACA50(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4ACAF8(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4ACAF8(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A19833C(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -4493,9 +4775,9 @@ uint64_t sub_29A4ACAF8(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4ACB80(__int128 *result, __int128 *a2)
+__int128 *sub_29A4ACB80(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -4513,7 +4795,7 @@ __int128 *sub_29A4ACB80(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix4d>::_DecRef();
     }
@@ -4521,7 +4803,7 @@ __int128 *sub_29A4ACB80(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix4d>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4ACC3C(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -4558,12 +4840,12 @@ uint64_t sub_29A4ACC3C(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4ACCCC(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4ACCCC(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A1996F4(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -4596,9 +4878,9 @@ uint64_t sub_29A4ACCCC(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4ACD54(__int128 *result, __int128 *a2)
+__int128 *sub_29A4ACD54(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -4616,7 +4898,7 @@ __int128 *sub_29A4ACD54(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuath>::_DecRef();
     }
@@ -4624,7 +4906,7 @@ __int128 *sub_29A4ACD54(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuath>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4ACE10(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -4665,12 +4947,12 @@ uint64_t sub_29A4ACE10(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4ACEA0(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4ACEA0(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A199B6C(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -4703,9 +4985,9 @@ uint64_t sub_29A4ACEA0(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4ACF28(__int128 *result, __int128 *a2)
+__int128 *sub_29A4ACF28(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -4723,7 +5005,7 @@ __int128 *sub_29A4ACF28(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatf>::_DecRef();
     }
@@ -4731,7 +5013,7 @@ __int128 *sub_29A4ACF28(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatf>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4ACFE4(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -4775,12 +5057,12 @@ uint64_t sub_29A4ACFE4(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4AD074(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AD074(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A19B1C0(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -4813,9 +5095,9 @@ uint64_t sub_29A4AD074(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4AD0FC(__int128 *result, __int128 *a2)
+__int128 *sub_29A4AD0FC(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -4833,7 +5115,7 @@ __int128 *sub_29A4AD0FC(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatd>::_DecRef();
     }
@@ -4841,7 +5123,7 @@ __int128 *sub_29A4AD0FC(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfQuatd>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4AD1B8(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -4878,12 +5160,12 @@ uint64_t sub_29A4AD1B8(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4AD248(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AD248(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A3FCEC4(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -4916,9 +5198,9 @@ uint64_t sub_29A4AD248(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4AD2D0(__int128 *result, __int128 *a2)
+__int128 *sub_29A4AD2D0(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -4936,7 +5218,7 @@ __int128 *sub_29A4AD2D0(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2i>::_DecRef();
     }
@@ -4944,7 +5226,7 @@ __int128 *sub_29A4AD2D0(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2i>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4AD38C(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -4981,12 +5263,12 @@ uint64_t sub_29A4AD38C(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4AD41C(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AD41C(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A190BD0(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -5019,9 +5301,9 @@ uint64_t sub_29A4AD41C(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4AD4A4(__int128 *result, __int128 *a2)
+__int128 *sub_29A4AD4A4(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -5039,7 +5321,7 @@ __int128 *sub_29A4AD4A4(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2h>::_DecRef();
     }
@@ -5047,7 +5329,7 @@ __int128 *sub_29A4AD4A4(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2h>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4AD560(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -5084,12 +5366,12 @@ uint64_t sub_29A4AD560(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4AD5F0(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AD5F0(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A19104C(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -5122,9 +5404,9 @@ uint64_t sub_29A4AD5F0(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4AD678(__int128 *result, __int128 *a2)
+__int128 *sub_29A4AD678(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -5142,7 +5424,7 @@ __int128 *sub_29A4AD678(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2f>::_DecRef();
     }
@@ -5150,7 +5432,7 @@ __int128 *sub_29A4AD678(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2f>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4AD734(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -5191,12 +5473,12 @@ uint64_t sub_29A4AD734(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4AD7C4(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AD7C4(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A192658(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -5229,9 +5511,9 @@ uint64_t sub_29A4AD7C4(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4AD84C(__int128 *result, __int128 *a2)
+__int128 *sub_29A4AD84C(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -5249,7 +5531,7 @@ __int128 *sub_29A4AD84C(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2d>::_DecRef();
     }
@@ -5257,15 +5539,15 @@ __int128 *sub_29A4AD84C(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2d>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
-uint64_t sub_29A4AD908(uint64_t a1, uint64_t *a2)
+uint64_t sub_29A4AD908(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A3FD868(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -5301,12 +5583,12 @@ uint64_t sub_29A4AD908(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_29A4AD9A0(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AD9A0(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A3FD9D0(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -5339,9 +5621,9 @@ uint64_t sub_29A4AD9A0(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4ADA28(__int128 *result, __int128 *a2)
+__int128 *sub_29A4ADA28(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -5359,7 +5641,7 @@ __int128 *sub_29A4ADA28(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3i>::_DecRef();
     }
@@ -5367,7 +5649,7 @@ __int128 *sub_29A4ADA28(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3i>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4ADAE4(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -5376,7 +5658,7 @@ uint64_t sub_29A4ADAE4(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   *(a1 + 24) = 0;
   if (sub_29A3FDC80(a2))
   {
-    v4 = *(v2 + 8);
+    v4 = *(v2 + 1);
     if ((v4 & 4) != 0)
     {
       v2 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(v2);
@@ -5384,7 +5666,7 @@ uint64_t sub_29A4ADAE4(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
 
     v5 = *(a1 + 8);
     v6 = *v2;
-    *(v5 + 4) = *(v2 + 4);
+    *(v5 + 4) = *(v2 + 2);
     *v5 = v6;
     return 1;
   }
@@ -5407,12 +5689,12 @@ uint64_t sub_29A4ADAE4(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4ADB7C(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4ADB7C(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A1931E0(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -5445,9 +5727,9 @@ uint64_t sub_29A4ADB7C(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4ADC04(__int128 *result, __int128 *a2)
+__int128 *sub_29A4ADC04(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -5465,7 +5747,7 @@ __int128 *sub_29A4ADC04(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3h>::_DecRef();
     }
@@ -5473,15 +5755,15 @@ __int128 *sub_29A4ADC04(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3h>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
-uint64_t sub_29A4ADCC0(uint64_t a1, uint64_t *a2)
+uint64_t sub_29A4ADCC0(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A3FDE60(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -5517,12 +5799,12 @@ uint64_t sub_29A4ADCC0(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_29A4ADD58(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4ADD58(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A1936C8(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -5555,9 +5837,9 @@ uint64_t sub_29A4ADD58(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4ADDE0(__int128 *result, __int128 *a2)
+__int128 *sub_29A4ADDE0(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -5575,7 +5857,7 @@ __int128 *sub_29A4ADDE0(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3f>::_DecRef();
     }
@@ -5583,15 +5865,15 @@ __int128 *sub_29A4ADDE0(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3f>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
-uint64_t sub_29A4ADE9C(uint64_t a1, uint64_t *a2)
+uint64_t sub_29A4ADE9C(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A3FE138(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -5627,12 +5909,12 @@ uint64_t sub_29A4ADE9C(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_29A4ADF34(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4ADF34(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A194DC4(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -5665,9 +5947,9 @@ uint64_t sub_29A4ADF34(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4ADFBC(__int128 *result, __int128 *a2)
+__int128 *sub_29A4ADFBC(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -5685,7 +5967,7 @@ __int128 *sub_29A4ADFBC(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3d>::_DecRef();
     }
@@ -5693,7 +5975,7 @@ __int128 *sub_29A4ADFBC(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec3d>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4AE078(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -5734,12 +6016,12 @@ uint64_t sub_29A4AE078(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4AE108(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AE108(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A3FE614(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -5772,9 +6054,9 @@ uint64_t sub_29A4AE108(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4AE190(__int128 *result, __int128 *a2)
+__int128 *sub_29A4AE190(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -5792,7 +6074,7 @@ __int128 *sub_29A4AE190(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4i>::_DecRef();
     }
@@ -5800,7 +6082,7 @@ __int128 *sub_29A4AE190(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4i>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4AE24C(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -5837,12 +6119,12 @@ uint64_t sub_29A4AE24C(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4AE2DC(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AE2DC(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A195848(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -5875,9 +6157,9 @@ uint64_t sub_29A4AE2DC(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4AE364(__int128 *result, __int128 *a2)
+__int128 *sub_29A4AE364(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -5895,7 +6177,7 @@ __int128 *sub_29A4AE364(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4h>::_DecRef();
     }
@@ -5903,7 +6185,7 @@ __int128 *sub_29A4AE364(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4h>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4AE420(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -5944,12 +6226,12 @@ uint64_t sub_29A4AE420(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4AE4B0(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AE4B0(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A195CC0(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -5982,9 +6264,9 @@ uint64_t sub_29A4AE4B0(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4AE538(__int128 *result, __int128 *a2)
+__int128 *sub_29A4AE538(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -6002,7 +6284,7 @@ __int128 *sub_29A4AE538(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4f>::_DecRef();
     }
@@ -6010,7 +6292,7 @@ __int128 *sub_29A4AE538(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4f>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4AE5F4(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
@@ -6054,12 +6336,12 @@ uint64_t sub_29A4AE5F4(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a
   return result;
 }
 
-uint64_t sub_29A4AE684(uint64_t a1, __int128 **a2)
+uint64_t sub_29A4AE684(uint64_t a1, pxrInternal__aapl__pxrReserved__::VtValue *a2)
 {
   *(a1 + 24) = 0;
   if (sub_29A197328(a2))
   {
-    v4 = a2[1];
+    v4 = *(a2 + 1);
     if ((v4 & 4) != 0)
     {
       v5 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a2);
@@ -6092,9 +6374,9 @@ uint64_t sub_29A4AE684(uint64_t a1, __int128 **a2)
   return result;
 }
 
-__int128 *sub_29A4AE70C(__int128 *result, __int128 *a2)
+__int128 *sub_29A4AE70C(__int128 *a1, __int128 *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     v2 = a2[1];
     v5 = *a2;
@@ -6112,7 +6394,7 @@ __int128 *sub_29A4AE70C(__int128 *result, __int128 *a2)
       atomic_fetch_add_explicit(v4, 1uLL, memory_order_relaxed);
     }
 
-    if (&v5 != result)
+    if (&v5 != a1)
     {
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4d>::_DecRef();
     }
@@ -6120,7 +6402,7 @@ __int128 *sub_29A4AE70C(__int128 *result, __int128 *a2)
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec4d>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t pxrInternal__aapl__pxrReserved__::Usd_ClipCache::ConcurrentPopulationContext::ConcurrentPopulationContext(uint64_t this, pxrInternal__aapl__pxrReserved__::Usd_ClipCache *a2, char *a3)
@@ -6289,7 +6571,7 @@ void pxrInternal__aapl__pxrReserved__::Usd_ClipCache::_ComputeClipsFromPrimIndex
         v15 = v14 != 0;
         if (v14)
         {
-          pxrInternal__aapl__pxrReserved__::SdfAssetPath::SdfAssetPath(&v29);
+          pxrInternal__aapl__pxrReserved__::SdfAssetPath::SdfAssetPath(&v29, v14 + 6);
           sub_29A4AEEE4((v11 + 3), &v29);
           if (v32 < 0)
           {
@@ -6316,7 +6598,7 @@ void pxrInternal__aapl__pxrReserved__::Usd_ClipCache::_ComputeClipsFromPrimIndex
 
       v29 = 0uLL;
       v30 = 0;
-      pxrInternal__aapl__pxrReserved__::Usd_ClipSet::New(&v12[v8], v11, &v29, &v28);
+      pxrInternal__aapl__pxrReserved__::Usd_ClipSet::New(v11, &v29, &v28, &v12[v8]);
       v16 = HIBYTE(v30);
       if (v30 < 0)
       {
@@ -6445,14 +6727,12 @@ uint64_t sub_29A4AEEE4(uint64_t a1, __int128 *a2)
     v6 = *a2;
     *(a1 + 16) = *(a2 + 2);
     *a1 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = *(a2 + 24);
     *(a1 + 40) = *(a2 + 5);
     *(a1 + 24) = v7;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     *(a1 + 48) = 1;
   }
@@ -6496,11 +6776,11 @@ BOOL pxrInternal__aapl__pxrReserved__::Usd_ClipCache::PopulateClipsForPrim(pxrIn
       v8 = 0;
     }
 
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(a2, &v20);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v20, a2);
     if (!pxrInternal__aapl__pxrReserved__::SdfPath::IsAbsoluteRootPath(&v20))
     {
       sub_29A41AA50(this, &v20);
-      pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v20, &v15);
+      pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v15, &v20);
       pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
     }
 
@@ -6544,7 +6824,7 @@ BOOL pxrInternal__aapl__pxrReserved__::Usd_ClipCache::PopulateClipsForPrim(pxrIn
   return v6 != *(&v6 + 1);
 }
 
-void sub_29A4AF29C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, void **a18)
+void sub_29A4AF29C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void **a18)
 {
   sub_29A1DCEA8(&a18);
   if (v19)
@@ -6558,7 +6838,7 @@ void sub_29A4AF29C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-char *sub_29A4AF324(void *a1, _DWORD *a2)
+uint64_t sub_29A4AF324(void *a1, _DWORD *a2)
 {
   sub_29A1E21F4(&v7, a2);
   sub_29A1E2240(&v8, a2 + 1);
@@ -6574,11 +6854,12 @@ char *sub_29A4AF324(void *a1, _DWORD *a2)
   return v4 + 8;
 }
 
-void sub_29A4AF3C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_29A4AF3C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  sub_29A4B01AC(&a12);
-  *(v12 - 40) = &a9;
-  sub_29A0176E4((v12 - 40));
+  va_start(va, a11);
+  sub_29A4B01AC(va);
+  *(v11 - 40) = &a9;
+  sub_29A0176E4((v11 - 40));
   _Unwind_Resume(a1);
 }
 
@@ -6808,7 +7089,7 @@ pxrInternal__aapl__pxrReserved__::SdfChangeBlock *pxrInternal__aapl__pxrReserved
 
 void sub_29A4AF980(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, uint64_t a18, uint64_t a19, char a20)
 {
-  sub_29A4B1120(v20 - 96);
+  sub_29A4B1120((v20 - 96));
   sub_29A1DD644((v20 - 56));
   _Unwind_Resume(a1);
 }
@@ -6859,7 +7140,7 @@ uint64_t *sub_29A4AFB0C(void *a1, _DWORD *a2)
     v8 = sub_29A41AA50(a1, &v11);
     if (!v8)
     {
-      pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v11, &v10);
+      pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v10, &v11);
       pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
     }
 
@@ -6870,7 +7151,7 @@ uint64_t *sub_29A4AFB0C(void *a1, _DWORD *a2)
   sub_29A1DE3A4(&v11);
   if (v6 == v7)
   {
-    if (atomic_load_explicit(&qword_2A14F7F18, memory_order_acquire))
+    if (atomic_load_explicit(byte_2A14F7F18, memory_order_acquire))
     {
       return &qword_2A14F7F00;
     }
@@ -6885,9 +7166,9 @@ uint64_t *sub_29A4AFB0C(void *a1, _DWORD *a2)
   return v2;
 }
 
-void sub_29A4AFC10(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4AFC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -6933,7 +7214,7 @@ BOOL pxrInternal__aapl__pxrReserved__::Usd_ClipCache::InvalidateClipsForPrim(pxr
         v7 += 16;
       }
 
-      v5 = *(v17 + 40);
+      v5 = v17[5];
       if (!v5)
       {
         v5 = sub_29A41AAB8(&v17);
@@ -6948,13 +7229,13 @@ BOOL pxrInternal__aapl__pxrReserved__::Usd_ClipCache::InvalidateClipsForPrim(pxr
   return sub_29A4AFF38(this, a2);
 }
 
-void sub_29A4AFED8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, atomic_uint *a21)
+void sub_29A4AFED8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, atomic_uint *a21)
 {
   if (a21)
   {
     if (atomic_fetch_add_explicit(a21 + 2, 0xFFFFFFFF, memory_order_release) == 1)
     {
-      (*(*a21 + 8))(a21);
+      (*(*a21 + 8))(a21, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -7138,14 +7419,14 @@ uint64_t sub_29A4B0304(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_29A4B033C(uint64_t result)
+uint64_t sub_29A4B033C(uint64_t a1)
 {
-  if (*(result + 40) == 1)
+  if (*(a1 + 40) == 1)
   {
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfVec2d>::_DecRef();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_29A4B0378(uint64_t a1)
@@ -7397,20 +7678,20 @@ pxrInternal__aapl__pxrReserved__::SdfPath *sub_29A4B0784(void *a1, unsigned int 
 _DWORD *sub_29A4B07D8(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath **a2)
 {
   v3 = *a2;
-  pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(*a2, &v12);
+  pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v12, *a2);
   if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator BOOL(&v12))
   {
     sub_29A1E21F4(&v9, &v12);
-    sub_29A1E2240(&v10, &v13);
+    sub_29A1E2240(&v10, &v12 + 1);
     memset(v11, 0, sizeof(v11));
     memset(v8, 0, sizeof(v8));
     v4 = sub_29A4B0784(a1, &v9);
-    v14 = v11;
-    sub_29A0176E4(&v14);
+    v13 = v11;
+    sub_29A0176E4(&v13);
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v10);
     sub_29A1DE3A4(&v9);
-    v14 = v8;
-    sub_29A0176E4(&v14);
+    v13 = v8;
+    sub_29A0176E4(&v13);
     v5 = *(v4 + 40);
     if (v5)
     {
@@ -7426,25 +7707,25 @@ _DWORD *sub_29A4B07D8(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath **a
     *(v4 + 40) = v3;
   }
 
-  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v13);
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v12 + 1);
   return sub_29A1DE3A4(&v12);
 }
 
-void sub_29A4B08C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4B08C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   sub_29A4B01AC(va1);
-  *(v2 - 40) = va;
-  sub_29A0176E4((v2 - 40));
-  sub_29A1DCEA8((v2 - 48));
+  *(v3 - 40) = va;
+  sub_29A0176E4((v3 - 40));
+  sub_29A1DCEA8((v3 - 48));
   _Unwind_Resume(a1);
 }
 
-void *sub_29A4B08F8(void *a1, unsigned int *a2, uint64_t *a3)
+void *sub_29A4B08F8(void *a1, unsigned int *a2, void *a3)
 {
   v6 = a1[4];
   if (!v6)
@@ -7574,14 +7855,14 @@ void sub_29A4B0A3C(uint64_t a1)
   }
 }
 
-void sub_29A4B0BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29A4B0BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   sub_29A0E9CEC(va);
   _Unwind_Resume(a1);
 }
 
-void *sub_29A4B0BD4(void *a1, unint64_t a2)
+uint64_t *sub_29A4B0BD4(uint64_t *a1, unint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -7591,7 +7872,7 @@ void *sub_29A4B0BD4(void *a1, unint64_t a2)
     sub_29A00C968(a1, a2);
     v4 = a1[1];
     bzero(v4, 8 * a2);
-    a1[1] = &v4[8 * a2];
+    a1[1] = v4 + 8 * a2;
   }
 
   return a1;
@@ -7609,14 +7890,14 @@ void sub_29A4B0C30(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_29A4B0C4C(uint64_t a1, uint64_t a2)
+uint64_t sub_29A4B0C4C(uint64_t a1, _DWORD *a2)
 {
   v4 = sub_29A1E21F4(a1, a2);
-  sub_29A1E2240(v4 + 1, (a2 + 4));
+  sub_29A1E2240(v4 + 1, a2 + 1);
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
-  sub_29A4B0CB4((a1 + 8), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 4);
+  sub_29A4B0CB4((a1 + 8), *(a2 + 1), *(a2 + 2), (*(a2 + 2) - *(a2 + 1)) >> 4);
   return a1;
 }
 
@@ -7626,8 +7907,8 @@ void *sub_29A4B0CB4(void *result, void *a2, void *a3, unint64_t a4)
   {
     v6 = result;
     sub_29A0D0518(result, a4);
-    result = sub_29A4B0D3C(v6, a2, a3, *(v6 + 8));
-    *(v6 + 8) = result;
+    result = sub_29A4B0D3C(v6, a2, a3, v6[1]);
+    v6[1] = result;
   }
 
   return result;
@@ -7748,7 +8029,7 @@ LABEL_11:
   *(a1 + 8) = v15;
 }
 
-uint64_t *sub_29A4B0F3C(void *a1, void *a2, uint64_t *a3, void *a4, uint64_t a5)
+uint64_t *sub_29A4B0F3C(void *a1, uint64_t *a2, uint64_t *a3, void *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -7860,9 +8141,9 @@ uint64_t *sub_29A4B0F3C(void *a1, void *a2, uint64_t *a3, void *a4, uint64_t a5)
   return v5;
 }
 
-uint64_t sub_29A4B1120(uint64_t a1)
+void **sub_29A4B1120(void **a1)
 {
-  sub_29A4B115C(a1, *(a1 + 16));
+  sub_29A4B115C(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -8107,14 +8388,14 @@ void sub_29A4B14FC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_29A4B1518(uint64_t a1, __int128 *a2)
+void sub_29A4B1518(uint64_t *result, __int128 *a2)
 {
-  if (!*(a1 + 8))
+  if (!*(result + 2))
   {
-    v4 = *a1;
-    if (!*(a1 + 24))
+    v4 = *result;
+    if (!result[3])
     {
-      v5 = *(a1 + 32);
+      v5 = result[4];
       if (!v5)
       {
         goto LABEL_10;
@@ -8126,12 +8407,12 @@ void sub_29A4B1518(uint64_t a1, __int128 *a2)
         goto LABEL_19;
       }
 
-      v5 = *(a1 + 32);
+      v5 = result[4];
       if (v5)
       {
-        if (*(a1 + 24))
+        if (result[3])
         {
-          v7 = a1;
+          v7 = result;
         }
 
         else
@@ -8180,13 +8461,13 @@ LABEL_10:
     }
 
 LABEL_19:
-    sub_29B2A9344(a1, v4, a2);
+    sub_29B2A9344(result, v4, a2);
 LABEL_18:
-    ++*a1;
+    ++*result;
     return;
   }
 
-  sub_29B2A92C8(a1);
+  sub_29B2A92C8(result);
 }
 
 void sub_29A4B161C(_Unwind_Exception *exception_object)
@@ -8199,177 +8480,177 @@ void sub_29A4B161C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *sub_29A4B1638(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
+void *sub_29A4B1638(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
-  v8 = sub_29A4B053C(a1, a2);
-  v9 = v8;
-  v10 = *(a1 + 8);
-  if (v10)
+  v9 = sub_29A4B053C(a1, a2);
+  v10 = v9;
+  v11 = *(a1 + 8);
+  if (v11)
   {
-    v11 = vcnt_s8(v10);
-    v11.i16[0] = vaddlv_u8(v11);
-    v12 = v11.u32[0];
-    if (v11.u32[0] > 1uLL)
+    v12 = vcnt_s8(v11);
+    v12.i16[0] = vaddlv_u8(v12);
+    v13 = v12.u32[0];
+    if (v12.u32[0] > 1uLL)
     {
-      v4 = v8;
-      if (v8 >= v10)
+      v5 = v9;
+      if (v9 >= v11)
       {
-        v4 = v8 % v10;
+        v5 = v9 % v11;
       }
     }
 
     else
     {
-      v4 = (v10 - 1) & v8;
+      v5 = (v11 - 1) & v9;
     }
 
-    v13 = *(*a1 + 8 * v4);
-    if (v13)
+    v14 = *(*a1 + 8 * v5);
+    if (v14)
     {
-      v14 = *v13;
-      if (*v13)
+      v15 = *v14;
+      if (*v14)
       {
         do
         {
-          v15 = v14[1];
-          if (v15 == v9)
+          v16 = v15[1];
+          if (v16 == v10)
           {
-            v28[0] = v14 + 2;
-            v28[1] = v14 + 3;
-            v28[2] = v14 + 6;
-            v28[3] = v14 + 7;
-            v27[0] = a2;
-            v27[1] = a2 + 2;
-            v27[2] = a2 + 8;
-            v27[3] = a2 + 10;
-            if (sub_29A4B068C(&v29, v28, v27))
+            v29[0] = v15 + 2;
+            v29[1] = v15 + 3;
+            v29[2] = v15 + 6;
+            v29[3] = v15 + 7;
+            v28[0] = a2;
+            v28[1] = a2 + 2;
+            v28[2] = a2 + 8;
+            v28[3] = a2 + 10;
+            if (sub_29A4B068C(&v30, v29, v28))
             {
-              return v14;
+              return v15;
             }
           }
 
           else
           {
-            if (v12 > 1)
+            if (v13 > 1)
             {
-              if (v15 >= v10)
+              if (v16 >= v11)
               {
-                v15 %= v10;
+                v16 %= v11;
               }
             }
 
             else
             {
-              v15 &= v10 - 1;
+              v16 &= v11 - 1;
             }
 
-            if (v15 != v4)
+            if (v16 != v5)
             {
               break;
             }
           }
 
-          v14 = *v14;
+          v15 = *v15;
         }
 
-        while (v14);
+        while (v15);
       }
     }
   }
 
-  sub_29A4B18DC(a1, v9, a4, v28);
-  v16 = (*(a1 + 24) + 1);
-  v17 = *(a1 + 32);
-  if (!v10 || (v17 * v10) < v16)
+  sub_29A4B18DC(a1, v10, a4, v29);
+  v17 = (*(a1 + 24) + 1);
+  v18 = *(a1 + 32);
+  if (!v11 || (v18 * v11) < v17)
   {
-    v18 = 1;
-    if (v10 >= 3)
+    v19 = 1;
+    if (v11 >= 3)
     {
-      v18 = (v10 & (v10 - 1)) != 0;
+      v19 = (v11 & (v11 - 1)) != 0;
     }
 
-    v19 = v18 | (2 * v10);
-    v20 = vcvtps_u32_f32(v16 / v17);
-    if (v19 <= v20)
+    v20 = v19 | (2 * v11);
+    v21 = vcvtps_u32_f32(v17 / v18);
+    if (v20 <= v21)
     {
-      v21 = v20;
+      v22 = v21;
     }
 
     else
     {
-      v21 = v19;
+      v22 = v20;
     }
 
-    sub_29A019AA0(a1, v21);
-    v10 = *(a1 + 8);
-    if ((v10 & (v10 - 1)) != 0)
+    sub_29A019AA0(a1, v22);
+    v11 = *(a1 + 8);
+    if ((v11 & (v11 - 1)) != 0)
     {
-      if (v9 >= v10)
+      if (v10 >= v11)
       {
-        v4 = v9 % v10;
+        v5 = v10 % v11;
       }
 
       else
       {
-        v4 = v9;
+        v5 = v10;
       }
     }
 
     else
     {
-      v4 = (v10 - 1) & v9;
+      v5 = (v11 - 1) & v10;
     }
   }
 
-  v22 = *a1;
-  v23 = *(*a1 + 8 * v4);
-  if (v23)
+  v23 = *a1;
+  v24 = *(*a1 + 8 * v5);
+  if (v24)
   {
-    v14 = v28[0];
-    *v28[0] = *v23;
-    *v23 = v14;
+    v15 = v29[0];
+    *v29[0] = *v24;
+    *v24 = v15;
   }
 
   else
   {
-    v24 = v28[0];
-    *v28[0] = *(a1 + 16);
-    *(a1 + 16) = v24;
-    *(v22 + 8 * v4) = a1 + 16;
-    v14 = v28[0];
-    if (*v28[0])
+    v25 = v29[0];
+    *v29[0] = *(a1 + 16);
+    *(a1 + 16) = v25;
+    *(v23 + 8 * v5) = a1 + 16;
+    v15 = v29[0];
+    if (*v29[0])
     {
-      v25 = *(*v28[0] + 8);
-      if ((v10 & (v10 - 1)) != 0)
+      v26 = *(*v29[0] + 8);
+      if ((v11 & (v11 - 1)) != 0)
       {
-        if (v25 >= v10)
+        if (v26 >= v11)
         {
-          v25 %= v10;
+          v26 %= v11;
         }
       }
 
       else
       {
-        v25 &= v10 - 1;
+        v26 &= v11 - 1;
       }
 
-      *(*a1 + 8 * v25) = v28[0];
-      v14 = v28[0];
+      *(*a1 + 8 * v26) = v29[0];
+      v15 = v29[0];
     }
   }
 
   ++*(a1 + 24);
-  return v14;
+  return v15;
 }
 
-void sub_29A4B18C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_29A4B18C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   sub_29A4B19FC(va, 0);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29A4B18DC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _DWORD **a3@<X3>, void *a4@<X8>)
+uint64_t sub_29A4B18DC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X3>, void *a4@<X8>)
 {
   v8 = operator new(0x78uLL);
   *a4 = v8;
@@ -8433,14 +8714,14 @@ void sub_29A4B1A58(pxrInternal__aapl__pxrReserved__::SdfPath *a1, uint64_t *a2)
   sub_29A4B1B98(a1, v3);
 }
 
-void sub_29A4B1AA8(void *a1, uint64_t a2)
+void sub_29A4B1AA8(void *result, uint64_t a2)
 {
   v2 = *(a2 + 40);
   if (v2)
   {
-    sub_29A4B1C44(a1, *(a2 + 40));
+    sub_29A4B1C44(result, *(a2 + 40));
 
-    sub_29A4B1B98(a1, v2);
+    sub_29A4B1B98(result, v2);
   }
 }
 
@@ -8449,9 +8730,9 @@ void *sub_29A4B1AFC(pxrInternal__aapl__pxrReserved__::SdfPath *a1, pxrInternal__
   result = pxrInternal__aapl__pxrReserved__::SdfPath::AbsoluteRootPath(a1);
   if (*a2 != *result)
   {
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(a2, &v6);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v6, a2);
     v5 = sub_29A41AA50(a1, &v6);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v7);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v6 + 1);
     sub_29A1DE3A4(&v6);
     return sub_29A41AD08(v5, a2);
   }
@@ -8459,9 +8740,9 @@ void *sub_29A4B1AFC(pxrInternal__aapl__pxrReserved__::SdfPath *a1, pxrInternal__
   return result;
 }
 
-void sub_29A4B1B84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4B1B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -8488,7 +8769,7 @@ void sub_29A4B1B98(void *a1, unsigned int *a2)
 
 void sub_29A4B1C44(void *a1, uint64_t a2)
 {
-  (sub_29A4B1AA8)();
+  sub_29A4B1AA8(a1, a2);
   v4 = *(a2 + 48);
   v5 = v4 & 0xFFFFFFFFFFFFFFF8;
   if ((v4 & 7) != 0 && v5 != 0)
@@ -8515,15 +8796,15 @@ void sub_29A4B1C44(void *a1, uint64_t a2)
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_GenerateClipManifest(uint64_t a1@<X0>, pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, uint64_t *a3@<X2>, int a4@<W3>, uint64_t *a5@<X8>)
+void pxrInternal__aapl__pxrReserved__::Usd_GenerateClipManifest(pxrInternal__aapl__pxrReserved__::Usd_Clip ***a1@<X0>, pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, uint64_t **a3@<X2>, int a4@<W3>, uint64_t *a5@<X8>)
 {
   memset(v14, 0, sizeof(v14));
-  sub_29A38A1A8(v14, (*(a1 + 8) - *a1) >> 4);
+  sub_29A38A1A8(v14, (a1[1] - *a1) >> 4);
   __p = 0;
   v12 = 0;
   v13 = 0;
-  sub_29A08AF9C(&__p, (*(a1 + 8) - *a1) >> 4);
-  if (*a1 != *(a1 + 8))
+  sub_29A08AF9C(&__p, (a1[1] - *a1) >> 4);
+  if (*a1 != a1[1])
   {
     pxrInternal__aapl__pxrReserved__::Usd_Clip::GetLayer(**a1);
   }
@@ -8556,10 +8837,10 @@ void sub_29A4B1EB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_GenerateClipManifest(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X1>, uint64_t *a2@<X0>, uint64_t *a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
+void pxrInternal__aapl__pxrReserved__::Usd_GenerateClipManifest(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X1>, std::string::size_type *a2@<X0>, uint64_t **a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  v34 = *MEMORY[0x29EDCA608];
-  v27 = a4;
+  v35 = *MEMORY[0x29EDCA608];
+  v28 = a4;
   if (pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimPath(this))
   {
     v10 = a2[1];
@@ -8592,38 +8873,38 @@ void pxrInternal__aapl__pxrReserved__::Usd_GenerateClipManifest(pxrInternal__aap
       }
 
       pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s.%s", v9, v10, a3, v13);
-      v29 = 0;
       v30 = 0;
-      v28 = &v29;
-      pxrInternal__aapl__pxrReserved__::SdfLayer::CreateAnonymous(&__p, &v28, a5);
-      sub_29A01752C(&v28, v29);
+      v31 = 0;
+      v29 = &v30;
+      pxrInternal__aapl__pxrReserved__::SdfLayer::CreateAnonymous(&__p, &v29, a5);
+      sub_29A01752C(&v29, v30);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      pxrInternal__aapl__pxrReserved__::SdfChangeBlock::SdfChangeBlock(v26);
+      pxrInternal__aapl__pxrReserved__::SdfChangeBlock::SdfChangeBlock(v27);
       if (*a2 != a2[1])
       {
         sub_29A1DA6E4(*a2);
       }
 
-      if (v27)
+      if (v28)
       {
-        v23 = 0;
         v24 = 0;
         v25 = 0;
+        v26 = 0;
         v15 = sub_29A3302A8(a5);
         v16 = operator new(0x20uLL);
         *v16 = &unk_2A20512F8;
         *(v16 + 1) = a2;
-        *(v16 + 2) = &v27;
-        *(v16 + 3) = &v23;
-        v32 = v16;
+        *(v16 + 2) = &v28;
+        *(v16 + 3) = &v24;
+        v33 = v16;
         pxrInternal__aapl__pxrReserved__::SdfLayer::Traverse(v15, this, &__p);
         sub_29A34A974(&__p);
-        v17 = v23;
-        for (i = v24; v17 != i; v17 += 32)
+        v17 = v24;
+        for (i = v25; v17 != i; v17 += 32)
         {
           sub_29A4B33D0(&__p, v17);
           v20 = __p.__r_.__value_.__r.__words[2];
@@ -8632,12 +8913,13 @@ void pxrInternal__aapl__pxrReserved__::Usd_GenerateClipManifest(pxrInternal__aap
           {
             do
             {
-              v21 = sub_29A3302A8(a5);
-              v29 = &v22;
-              v30 = &stru_2A2048EE0;
-              v28 = &unk_2A2051378;
-              pxrInternal__aapl__pxrReserved__::SdfLayer::SetTimeSample(v21, &__p, &v28);
-              size += 8;
+              v21 = *size;
+              v22 = sub_29A3302A8(a5);
+              v30 = &v23;
+              v31 = &stru_2A2048EE0;
+              v29 = &unk_2A2051378;
+              pxrInternal__aapl__pxrReserved__::SdfLayer::SetTimeSample(v22, &__p, &v29, v21);
+              ++size;
             }
 
             while (size != v20);
@@ -8654,11 +8936,11 @@ void pxrInternal__aapl__pxrReserved__::Usd_GenerateClipManifest(pxrInternal__aap
           sub_29A1DE3A4(&__p);
         }
 
-        __p.__r_.__value_.__r.__words[0] = &v23;
+        __p.__r_.__value_.__r.__words[0] = &v24;
         sub_29A4B4058(&__p);
       }
 
-      sub_29A1DD644(v26);
+      sub_29A1DD644(v27);
     }
   }
 
@@ -8667,21 +8949,21 @@ void pxrInternal__aapl__pxrReserved__::Usd_GenerateClipManifest(pxrInternal__aap
     __p.__r_.__value_.__r.__words[0] = "usd/clipSet.cpp";
     __p.__r_.__value_.__l.__size_ = "Usd_GenerateClipManifest";
     __p.__r_.__value_.__r.__words[2] = 75;
-    v32 = "SdfLayerRefPtr pxrInternal__aapl__pxrReserved__::Usd_GenerateClipManifest(const SdfLayerHandleVector &, const SdfPath &, const std::string &, const std::vector<double> *)";
-    v33 = 0;
+    v33 = "SdfLayerRefPtr pxrInternal__aapl__pxrReserved__::Usd_GenerateClipManifest(const SdfLayerHandleVector &, const SdfPath &, const std::string &, const std::vector<double> *)";
+    v34 = 0;
     Text = pxrInternal__aapl__pxrReserved__::SdfPath::GetText(this);
     pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&__p, 1, "<%s> must be a prim path", Text);
     *a5 = 0;
   }
 }
 
-void sub_29A4B2274(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, char *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
+void sub_29A4B2274(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, char *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
 {
   sub_29A34A974(&__p);
   __p = &a13;
   sub_29A4B4058(&__p);
   sub_29A1DD644(&a16);
-  sub_29A321930();
+  sub_29A321930(v26);
 }
 
 _DWORD *sub_29A4B2324(uint64_t a1)
@@ -8698,26 +8980,26 @@ _DWORD *sub_29A4B2324(uint64_t a1)
   return sub_29A1DE3A4(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::Usd_ClipSet::New(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void pxrInternal__aapl__pxrReserved__::Usd_ClipSet::New(uint64_t a1@<X1>, uint64_t a2@<X2>, void *a3@<X8>, __int128 *a4@<X0>)
 {
-  if (*(a2 + 40) != 1 || *(a2 + 128) != 1 || (*(a2 + 176) & 1) == 0)
+  if (*(a1 + 40) != 1 || *(a1 + 128) != 1 || (*(a1 + 176) & 1) == 0)
   {
     goto LABEL_52;
   }
 
-  v7 = *(a2 + 127);
+  v7 = *(a1 + 127);
   if ((v7 & 0x80u) != 0)
   {
-    v7 = *(a2 + 112);
+    v7 = *(a1 + 112);
   }
 
   if (v7)
   {
-    v9 = *(a2 + 224);
-    v10 = *a2;
-    if (*a2)
+    v9 = *(a1 + 224);
+    v10 = *a1;
+    if (*a1)
     {
-      v11 = (*(a2 + 32) + 23);
+      v11 = (*(a1 + 32) + 23);
       v12 = 48 * v10;
       while (1)
       {
@@ -8761,23 +9043,23 @@ void pxrInternal__aapl__pxrReserved__::Usd_ClipSet::New(__int128 *a1@<X0>, uint6
         v34 = "";
       }
 
-      pxrInternal__aapl__pxrReserved__::TfStringPrintf("Empty clip asset path in '%s'", a2, a3, v34);
+      pxrInternal__aapl__pxrReserved__::TfStringPrintf("Empty clip asset path in '%s'", a1, a2, v34);
       goto LABEL_49;
     }
 
 LABEL_13:
-    v14 = a2 + 104;
-    if (!pxrInternal__aapl__pxrReserved__::SdfPath::IsValidPathString((a2 + 104), a3))
+    v14 = a1 + 104;
+    if (!pxrInternal__aapl__pxrReserved__::SdfPath::IsValidPathString((a1 + 104), a2))
     {
       goto LABEL_52;
     }
 
-    v15 = pxrInternal__aapl__pxrReserved__::SdfPath::SdfPath(&v67, a2 + 104);
+    v15 = pxrInternal__aapl__pxrReserved__::SdfPath::SdfPath(&v67, a1 + 104);
     if (!pxrInternal__aapl__pxrReserved__::SdfPath::IsAbsolutePath(v15) || !pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimPath(&v67))
     {
-      if (*(a2 + 127) < 0)
+      if (*(a1 + 127) < 0)
       {
-        v14 = *(a2 + 104);
+        v14 = *(a1 + 104);
       }
 
       v35 = atomic_load(&pxrInternal__aapl__pxrReserved__::UsdClipsAPIInfoKeys);
@@ -8803,21 +9085,21 @@ LABEL_13:
 
       pxrInternal__aapl__pxrReserved__::TfStringPrintf("Path '%s' in '%s' must be an absolute path to a prim", v16, v17, v14, v37);
 LABEL_55:
-      if (*(a3 + 23) < 0)
+      if (*(a2 + 23) < 0)
       {
-        operator delete(*a3);
+        operator delete(*a2);
       }
 
       v38 = 0;
-      *a3 = v61;
-      *(a3 + 16) = v62;
+      *a2 = v61;
+      *(a2 + 16) = v62;
       goto LABEL_58;
     }
 
-    v18 = *(a2 + 136);
+    v18 = *(a1 + 136);
     if (v18)
     {
-      v19 = *(a2 + 168);
+      v19 = *(a1 + 168);
       v20 = v10;
       v21 = 16 * v18;
       v22 = v19 + 1;
@@ -8902,14 +9184,14 @@ LABEL_55:
       }
 
       pxrInternal__aapl__pxrReserved__::TfStringPrintf("Clip %d cannot be active at time %.3f in '%s' because clip %d was already specified as active at this time.", v27, v28, v52, v51, v55, *(v50 + 10));
-      if (*(a3 + 23) < 0)
+      if (*(a2 + 23) < 0)
       {
-        operator delete(*a3);
+        operator delete(*a2);
       }
 
       v38 = 0;
-      *a3 = v61;
-      *(a3 + 16) = v62;
+      *a2 = v61;
+      *(a2 + 16) = v62;
       goto LABEL_95;
     }
 
@@ -8922,10 +9204,10 @@ LABEL_63:
       v61 = 0u;
       v62 = 0u;
       v63 = 1065353216;
-      v40 = *(a2 + 184);
+      v40 = *(a1 + 184);
       if (v40)
       {
-        v41 = *(a2 + 216);
+        v41 = *(a1 + 216);
         v42 = 16 * v40;
         while (1)
         {
@@ -8968,13 +9250,13 @@ LABEL_63:
         }
 
         pxrInternal__aapl__pxrReserved__::TfStringPrintf("Cannot have more than two entries in '%s' with the same stage time (%.3f).", v44, v45, v58, *v41);
-        if (*(a3 + 23) < 0)
+        if (*(a2 + 23) < 0)
         {
-          operator delete(*a3);
+          operator delete(*a2);
         }
 
-        *a3 = v59;
-        *(a3 + 16) = v60;
+        *a2 = v59;
+        *(a2 + 16) = v60;
         sub_29A0EB570(&v61);
         v38 = 0;
         goto LABEL_95;
@@ -8992,13 +9274,13 @@ LABEL_58:
     sub_29A1DE3A4(&v67);
     if (v38)
     {
-      if ((*(a2 + 96) & 1) == 0)
+      if ((*(a1 + 96) & 1) == 0)
       {
-        MEMORY[0x29C2C1A60](a3, "No clip manifest specified. Performance may be improved if a manifest is specified.");
+        MEMORY[0x29C2C1A60](a2, "No clip manifest specified. Performance may be improved if a manifest is specified.");
       }
 
       v39 = operator new(0x78uLL);
-      pxrInternal__aapl__pxrReserved__::Usd_ClipSet::Usd_ClipSet(v39, a1, a2);
+      pxrInternal__aapl__pxrReserved__::Usd_ClipSet::Usd_ClipSet(v39, a4, a1);
     }
 
     goto LABEL_52;
@@ -9025,21 +9307,21 @@ LABEL_58:
     v31 = "";
   }
 
-  pxrInternal__aapl__pxrReserved__::TfStringPrintf("No clip prim path specified in '%s'", a2, a3, v31);
+  pxrInternal__aapl__pxrReserved__::TfStringPrintf("No clip prim path specified in '%s'", a1, a2, v31);
 LABEL_49:
-  if (*(a3 + 23) < 0)
+  if (*(a2 + 23) < 0)
   {
-    operator delete(*a3);
+    operator delete(*a2);
   }
 
-  *a3 = v61;
-  *(a3 + 16) = v62;
+  *a2 = v61;
+  *(a2 + 16) = v62;
 LABEL_52:
-  *a4 = 0;
-  a4[1] = 0;
+  *a3 = 0;
+  a3[1] = 0;
 }
 
-void sub_29A4B28BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, void *a24)
+void sub_29A4B28BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24)
 {
   sub_29A0EB570(&a17);
   sub_29A082B84(&a23, a24);
@@ -9062,7 +9344,7 @@ uint64_t sub_29A4B291C(uint64_t a1)
   return a1;
 }
 
-char *sub_29A4B2960(void *a1, char *__src, __n128 *a3)
+__n128 *sub_29A4B2960(void *a1, __n128 *__src, __n128 *a3)
 {
   v4 = __src;
   v6 = a1[1];
@@ -9070,7 +9352,7 @@ char *sub_29A4B2960(void *a1, char *__src, __n128 *a3)
   if (v6 >= v7)
   {
     v11 = *a1;
-    v12 = 0xAAAAAAAAAAAAAAABLL * (&v6[-*a1] >> 3) + 1;
+    v12 = 0xAAAAAAAAAAAAAAABLL * ((v6 - *a1) >> 3) + 1;
     if (v12 > 0xAAAAAAAAAAAAAAALL)
     {
       sub_29A00C9A4();
@@ -9081,7 +9363,7 @@ char *sub_29A4B2960(void *a1, char *__src, __n128 *a3)
     v15 = 2 * v14;
     if (2 * v14 <= v12)
     {
-      v15 = 0xAAAAAAAAAAAAAAABLL * (&v6[-*a1] >> 3) + 1;
+      v15 = 0xAAAAAAAAAAAAAAABLL * ((v6 - *a1) >> 3) + 1;
     }
 
     if (v14 >= 0x555555555555555)
@@ -9139,14 +9421,14 @@ char *sub_29A4B2960(void *a1, char *__src, __n128 *a3)
   else if (__src == v6)
   {
     v19 = *a3;
-    *(v6 + 2) = a3[1].n128_u64[0];
+    *(v6 + 16) = a3[1].n128_u64[0];
     *v6 = v19;
     a1[1] = v6 + 24;
   }
 
   else
   {
-    v8 = __src + 24;
+    v8 = &__src[1].n128_i8[8];
     if (v6 < 0x18)
     {
       v9 = a1[1];
@@ -9154,9 +9436,9 @@ char *sub_29A4B2960(void *a1, char *__src, __n128 *a3)
 
     else
     {
-      v9 = v6 + 24;
+      v9 = (v6 + 24);
       v10 = *(v6 - 24);
-      *(v6 + 2) = *(v6 - 1);
+      *(v6 + 16) = *(v6 - 8);
       *v6 = v10;
     }
 
@@ -9174,9 +9456,9 @@ char *sub_29A4B2960(void *a1, char *__src, __n128 *a3)
       v28 = 0;
     }
 
-    v29 = a3 + v28;
+    v29 = (a3 + v28);
     v30 = *v29;
-    v4[16] = v29[16];
+    v4[1].n128_u8[0] = v29[1].n128_u8[0];
     *v4 = v30;
   }
 
@@ -9207,36 +9489,36 @@ void sub_29A4B2B90(void *a1, uint64_t a2)
   }
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::Usd_ClipSet::_ClipContributesValue(uint64_t a1, uint64_t a2, pxrInternal__aapl__pxrReserved__::SdfPath *a3)
+uint64_t pxrInternal__aapl__pxrReserved__::Usd_ClipSet::_ClipContributesValue(uint64_t a1, pxrInternal__aapl__pxrReserved__::Usd_Clip **a2, pxrInternal__aapl__pxrReserved__::SdfPath *a3)
 {
   if (*(a1 + 112) == 1)
   {
-    pxrInternal__aapl__pxrReserved__::Usd_Clip::IsBlocked(*(a1 + 72), a3, *(*a2 + 96));
+    pxrInternal__aapl__pxrReserved__::Usd_Clip::IsBlocked(*(a1 + 72), a3, *(*a2 + 12));
   }
 
   return 1;
 }
 
-void sub_29A4B2C68(pxrInternal__aapl__pxrReserved__::Usd_Clip **a1, uint64_t a2, uint64_t a3)
+void sub_29A4B2C68(pxrInternal__aapl__pxrReserved__::Usd_Clip **a1, const pxrInternal__aapl__pxrReserved__::SdfPath *a2, uint64_t a3)
 {
-  v3 = *a1;
-  v4 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfFieldKeys);
+  v4 = *a1;
+  v5 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfFieldKeys);
   if (a3)
   {
-    if (!v4)
+    if (!v5)
     {
-      sub_29A1DF3A0(&pxrInternal__aapl__pxrReserved__::SdfFieldKeys);
+      v5 = sub_29A1DF3A0(&pxrInternal__aapl__pxrReserved__::SdfFieldKeys);
     }
 
-    sub_29A4B5C34(v3);
+    sub_29A4B5C34(v4, a2, v5 + 88, a3);
   }
 
-  if (!v4)
+  if (!v5)
   {
-    sub_29A1DF3A0(&pxrInternal__aapl__pxrReserved__::SdfFieldKeys);
+    v5 = sub_29A1DF3A0(&pxrInternal__aapl__pxrReserved__::SdfFieldKeys);
   }
 
-  sub_29A4B5B54(v3);
+  sub_29A4B5B54(v4, a2, v5 + 88);
 }
 
 uint64_t pxrInternal__aapl__pxrReserved__::Usd_ClipSet::GetBracketingTimeSamplesForPath(pxrInternal__aapl__pxrReserved__::Usd_ClipSet *this, const pxrInternal__aapl__pxrReserved__::SdfPath *a2, double a3, double *a4, double *a5)
@@ -9256,7 +9538,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::Usd_ClipSet::GetBracketingTimeSamples
     do
     {
       v15 = *(this + 11);
-      if (pxrInternal__aapl__pxrReserved__::Usd_ClipSet::_ClipContributesValue(this, v15 + v13, a2))
+      if (pxrInternal__aapl__pxrReserved__::Usd_ClipSet::_ClipContributesValue(this, (v15 + v13), a2))
       {
         v21 = 0.0;
         v22 = 0.0;
@@ -9280,7 +9562,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::Usd_ClipSet::GetBracketingTimeSamples
     }
 
     v17 = v12 + 16;
-    v18 = pxrInternal__aapl__pxrReserved__::Usd_ClipSet::_ClipContributesValue(this, v16 + v12 + 16, a2);
+    v18 = pxrInternal__aapl__pxrReserved__::Usd_ClipSet::_ClipContributesValue(this, (v16 + v12 + 16), a2);
     v12 += 16;
     if (v18)
     {
@@ -9353,36 +9635,34 @@ LABEL_11:
   return v11;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::Usd_ClipSet::ListTimeSamplesForPath@<X0>(pxrInternal__aapl__pxrReserved__::Usd_ClipSet *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, uint64_t a3@<X8>)
+void pxrInternal__aapl__pxrReserved__::Usd_ClipSet::ListTimeSamplesForPath(pxrInternal__aapl__pxrReserved__::Usd_ClipSet *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, void *a3@<X8>)
 {
-  *(a3 + 16) = 0;
-  *(a3 + 8) = 0;
-  *a3 = a3 + 8;
+  a3[2] = 0;
+  a3[1] = 0;
+  *a3 = a3 + 1;
   v5 = *(this + 11);
   v6 = *(this + 12);
   if (v5 == v6)
   {
-    return sub_29A99E5B8(a3, (**(this + 11) + 96), (**(this + 11) + 96));
+    goto LABEL_6;
   }
 
   do
   {
-    result = pxrInternal__aapl__pxrReserved__::Usd_ClipSet::_ClipContributesValue(this, v5, a2);
-    if (result)
+    if (pxrInternal__aapl__pxrReserved__::Usd_ClipSet::_ClipContributesValue(this, v5, a2))
     {
-      pxrInternal__aapl__pxrReserved__::Usd_Clip::ListTimeSamplesForPath(*v5, &v9);
+      pxrInternal__aapl__pxrReserved__::Usd_Clip::ListTimeSamplesForPath(&v8, *v5, a2);
     }
 
     v5 += 2;
   }
 
   while (v5 != v6);
-  if (!*(a3 + 16))
+  if (!a3[2])
   {
-    return sub_29A99E5B8(a3, (**(this + 11) + 96), (**(this + 11) + 96));
+LABEL_6:
+    sub_29A99E5B8(a3, (**(this + 11) + 96), (**(this + 11) + 96));
   }
-
-  return result;
 }
 
 void pxrInternal__aapl__pxrReserved__::Usd_ClipSet::GetTimeSamplesInInterval(pxrInternal__aapl__pxrReserved__::SdfPath *a1@<X1>, uint64_t a2@<X0>, uint64_t a3@<X2>, uint64_t a4@<X8>)
@@ -9421,7 +9701,7 @@ void pxrInternal__aapl__pxrReserved__::Usd_ClipSet::GetTimeSamplesInInterval(pxr
     v22 = 0;
     if ((sub_29A13E948(a3, &v19) & 1) != 0 && pxrInternal__aapl__pxrReserved__::Usd_ClipSet::_ClipContributesValue(a2, v8, a1))
     {
-      pxrInternal__aapl__pxrReserved__::Usd_Clip::ListTimeSamplesForPath(*v8, &v19);
+      pxrInternal__aapl__pxrReserved__::Usd_Clip::ListTimeSamplesForPath(&v19, *v8, a1);
     }
 
     v8 += 2;
@@ -9436,13 +9716,13 @@ LABEL_11:
     if (v13 == v14)
     {
 LABEL_18:
-      v17 = *(*v13 + 96);
+      v17 = *(*v13 + 12);
       if (*a3 < v17 || *a3 == v17 && *(a3 + 8) == 1)
       {
         v18 = *(a3 + 16);
         if (v18 > v17 || v18 == v17 && *(a3 + 24) == 1)
         {
-          sub_29A08B03C(a4, (*v13 + 96));
+          sub_29A08B03C(a4, *v13 + 12);
         }
       }
 
@@ -9452,7 +9732,7 @@ LABEL_18:
     do
     {
       v15 = pxrInternal__aapl__pxrReserved__::Usd_ClipSet::_ClipContributesValue(a2, v13, a1);
-      v13 += 16;
+      v13 += 2;
       if (v13 == v14)
       {
         v16 = 1;
@@ -9522,10 +9802,10 @@ pxrInternal__aapl__pxrReserved__::UsdClipsAPIInfoKeys_StaticTokenType *sub_29A4B
   return v0;
 }
 
-uint64_t **sub_29A4B34C4(uint64_t **a1, double *a2, uint64_t a3)
+uint64_t **sub_29A4B34C4(uint64_t a1, double *a2, uint64_t a3)
 {
-  v6 = a1 + 1;
-  v5 = a1[1];
+  v6 = (a1 + 8);
+  v5 = *(a1 + 8);
   if (v5)
   {
     v7 = *a2;
@@ -9564,7 +9844,7 @@ uint64_t **sub_29A4B34C4(uint64_t **a1, double *a2, uint64_t a3)
 
   else
   {
-    v8 = a1 + 1;
+    v8 = (a1 + 8);
 LABEL_10:
     v10 = operator new(0x30uLL);
     v11 = *(a3 + 8);
@@ -9575,480 +9855,4 @@ LABEL_10:
   }
 
   return v8;
-}
-
-double *sub_29A4B3588(uint64_t a1, double *a2, double *a3, _DWORD *a4)
-{
-  if (*a2 == 0.0)
-  {
-    v8 = 0.0;
-  }
-
-  else
-  {
-    v8 = *a2;
-  }
-
-  v9 = *(a1 + 8);
-  if (v9)
-  {
-    v10 = vcnt_s8(v9);
-    v10.i16[0] = vaddlv_u8(v10);
-    if (v10.u32[0] > 1uLL)
-    {
-      v4 = v8;
-      if (*&v8 >= v9)
-      {
-        *&v4 = *&v8 % v9;
-      }
-    }
-
-    else
-    {
-      *&v4 = (v9 - 1) & *&v8;
-    }
-
-    v11 = *(*a1 + 8 * *&v4);
-    if (v11)
-    {
-      v12 = *v11;
-      if (*v11)
-      {
-        do
-        {
-          v13 = *(v12 + 1);
-          if (v13 == *&v8)
-          {
-            if (v12[2] == *a2)
-            {
-              return v12;
-            }
-          }
-
-          else
-          {
-            if (v10.u32[0] > 1uLL)
-            {
-              if (v13 >= v9)
-              {
-                v13 %= v9;
-              }
-            }
-
-            else
-            {
-              v13 &= v9 - 1;
-            }
-
-            if (v13 != *&v4)
-            {
-              break;
-            }
-          }
-
-          v12 = *v12;
-        }
-
-        while (v12);
-      }
-    }
-  }
-
-  v12 = operator new(0x20uLL);
-  *v12 = 0.0;
-  v12[1] = v8;
-  v12[2] = *a3;
-  *(v12 + 6) = *a4;
-  v14 = (*(a1 + 24) + 1);
-  v15 = *(a1 + 32);
-  if (!v9 || (v15 * v9) < v14)
-  {
-    v16 = 1;
-    if (v9 >= 3)
-    {
-      v16 = (v9 & (v9 - 1)) != 0;
-    }
-
-    v17 = v16 | (2 * v9);
-    v18 = vcvtps_u32_f32(v14 / v15);
-    if (v17 <= v18)
-    {
-      v19 = v18;
-    }
-
-    else
-    {
-      v19 = v17;
-    }
-
-    sub_29A019AA0(a1, v19);
-    v9 = *(a1 + 8);
-    if ((v9 & (v9 - 1)) != 0)
-    {
-      if (*&v8 >= v9)
-      {
-        *&v4 = *&v8 % v9;
-      }
-
-      else
-      {
-        v4 = v8;
-      }
-    }
-
-    else
-    {
-      *&v4 = (v9 - 1) & *&v8;
-    }
-  }
-
-  v20 = *a1;
-  v21 = *(*a1 + 8 * *&v4);
-  if (v21)
-  {
-    *v12 = *v21;
-LABEL_41:
-    *v21 = v12;
-    goto LABEL_42;
-  }
-
-  *v12 = *(a1 + 16);
-  *(a1 + 16) = v12;
-  *(v20 + 8 * *&v4) = a1 + 16;
-  if (*v12)
-  {
-    v22 = *(*v12 + 8);
-    if ((v9 & (v9 - 1)) != 0)
-    {
-      if (v22 >= v9)
-      {
-        v22 %= v9;
-      }
-    }
-
-    else
-    {
-      v22 &= v9 - 1;
-    }
-
-    v21 = (*a1 + 8 * v22);
-    goto LABEL_41;
-  }
-
-LABEL_42:
-  ++*(a1 + 24);
-  return v12;
-}
-
-char *sub_29A4B37C4(void *a1, char *a2, void *a3, void *a4)
-{
-  if (a3 == a4)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = 0;
-    v5 = a3;
-    do
-    {
-      v6 = v5[1];
-      if (v6)
-      {
-        do
-        {
-          v7 = v6;
-          v6 = *v6;
-        }
-
-        while (v6);
-      }
-
-      else
-      {
-        do
-        {
-          v7 = v5[2];
-          v8 = *v7 == v5;
-          v5 = v7;
-        }
-
-        while (!v8);
-      }
-
-      ++v4;
-      v5 = v7;
-    }
-
-    while (v7 != a4);
-  }
-
-  return sub_29A4B381C(a1, a2, a3, a4, v4);
-}
-
-char *sub_29A4B381C(void *a1, char *__src, void *a3, void *a4, uint64_t a5)
-{
-  if (a5 < 1)
-  {
-    return __src;
-  }
-
-  v6 = a5;
-  v7 = a3;
-  v10 = a1[1];
-  v9 = a1[2];
-  if (a5 <= (v9 - v10) >> 3)
-  {
-    v18 = (v10 - __src) >> 3;
-    if (v18 >= a5)
-    {
-      v30 = &__src[8 * a5];
-      v31 = &v10[-8 * a5];
-      v32 = a1[1];
-      while (v31 < v10)
-      {
-        v33 = *v31;
-        v31 += 8;
-        *v32++ = v33;
-      }
-
-      a1[1] = v32;
-      if (v10 != v30)
-      {
-        memmove(&__src[8 * a5], __src, v10 - v30);
-      }
-
-      *__src = v7[4];
-      if (v6 != 1)
-      {
-        v34 = __src;
-        do
-        {
-          v35 = v7[1];
-          if (v35)
-          {
-            do
-            {
-              v36 = v35;
-              v35 = *v35;
-            }
-
-            while (v35);
-          }
-
-          else
-          {
-            do
-            {
-              v36 = v7[2];
-              v25 = *v36 == v7;
-              v7 = v36;
-            }
-
-            while (!v25);
-          }
-
-          *(v34 + 1) = v36[4];
-          v34 += 8;
-          v7 = v36;
-        }
-
-        while (v6-- > 2);
-      }
-    }
-
-    else
-    {
-      v53 = a3;
-      sub_29A095B38(&v53, (v10 - __src) >> 3);
-      v20 = v53;
-      v21 = a1[1];
-      if (v53 != a4)
-      {
-        v22 = v53;
-        do
-        {
-          *v21 = v22[4];
-          v23 = v22[1];
-          if (v23)
-          {
-            do
-            {
-              v24 = v23;
-              v23 = *v23;
-            }
-
-            while (v23);
-          }
-
-          else
-          {
-            do
-            {
-              v24 = v22[2];
-              v25 = *v24 == v22;
-              v22 = v24;
-            }
-
-            while (!v25);
-          }
-
-          v21 += 8;
-          v22 = v24;
-        }
-
-        while (v24 != a4);
-      }
-
-      a1[1] = v21;
-      if (v18 >= 1)
-      {
-        v26 = &__src[8 * v6];
-        v27 = &v21[-8 * v6];
-        v28 = v21;
-        while (v27 < v10)
-        {
-          v29 = *v27;
-          v27 += 8;
-          *v28 = v29;
-          v28 += 8;
-        }
-
-        a1[1] = v28;
-        if (v21 != v26)
-        {
-          memmove(&__src[8 * v6], __src, v21 - v26);
-        }
-
-        if (v20 != v7)
-        {
-          v49 = __src;
-          do
-          {
-            *v49 = v7[4];
-            v50 = v7[1];
-            if (v50)
-            {
-              do
-              {
-                v51 = v50;
-                v50 = *v50;
-              }
-
-              while (v50);
-            }
-
-            else
-            {
-              do
-              {
-                v51 = v7[2];
-                v25 = *v51 == v7;
-                v7 = v51;
-              }
-
-              while (!v25);
-            }
-
-            ++v49;
-            v7 = v51;
-          }
-
-          while (v51 != v20);
-        }
-      }
-    }
-
-    return __src;
-  }
-
-  v11 = *a1;
-  v12 = a5 + (&v10[-*a1] >> 3);
-  if (v12 >> 61)
-  {
-    sub_29A00C9A4();
-  }
-
-  v13 = __src - v11;
-  v14 = v9 - v11;
-  if (v14 >> 2 > v12)
-  {
-    v12 = v14 >> 2;
-  }
-
-  if (v14 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    v15 = 0x1FFFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    v15 = v12;
-  }
-
-  v16 = v13 >> 3;
-  if (v15)
-  {
-    v17 = sub_29A00C9BC(a1, v15);
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  v38 = &v17[8 * v16];
-  v39 = &v38[8 * v6];
-  v40 = v38;
-  do
-  {
-    *v40 = v7[4];
-    v40 += 8;
-    v41 = v7[1];
-    if (v41)
-    {
-      do
-      {
-        v42 = v41;
-        v41 = *v41;
-      }
-
-      while (v41);
-    }
-
-    else
-    {
-      do
-      {
-        v42 = v7[2];
-        v25 = *v42 == v7;
-        v7 = v42;
-      }
-
-      while (!v25);
-    }
-
-    v7 = v42;
-  }
-
-  while (v40 != v39);
-  v43 = &v17[8 * v15];
-  memcpy(v39, __src, a1[1] - __src);
-  v44 = *a1;
-  v45 = &v39[a1[1] - __src];
-  a1[1] = __src;
-  v46 = (__src - v44);
-  v47 = &v38[-(__src - v44)];
-  memcpy(v47, v44, v46);
-  v48 = *a1;
-  *a1 = v47;
-  a1[1] = v45;
-  a1[2] = v43;
-  if (v48)
-  {
-    operator delete(v48);
-  }
-
-  return v38;
 }

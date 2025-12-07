@@ -15,6 +15,7 @@
 - (QLDiskCacheDelegate)delegate;
 - (id)_checkConsistency;
 - (id)checkConsistency;
+- (id)enumeratorForAllFilesUbiquitousFiles:(BOOL)files withExtraInfo:(BOOL)info;
 - (id)enumeratorForAllThumbnailsWithFileIdentifier:(id)identifier;
 - (id)enumeratorForThumbnailRequests:(id)requests;
 - (id)lastResetWithDate:(id *)date;
@@ -57,12 +58,12 @@
 
 - (void)logCacheSizeBeforeCleanup
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v10 = @"QLMTCacheSizeLastCheckAbsoluteTime";
-  v11[0] = &unk_2873E9618;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"QLMTCacheSizeLastCheckAbsoluteTime";
+  v10[0] = &unk_2873E9618;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   [standardUserDefaults registerDefaults:v5];
 
   [standardUserDefaults doubleForKey:@"QLMTCacheSizeLastCheckAbsoluteTime"];
@@ -73,20 +74,15 @@
     v8 = +[QLTAnalyticsManager sharedManager];
     [v8 sendCacheSizeEventWithCacheSize:v7];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeDirtyLock
 {
-  v11 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v2 = __error();
   strerror(*v2);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_3(&dword_2615D3000, v3, v4, "error removing dirty file: %s", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_2615D3000, v3, v4, "error removing dirty file: %s", v5, v6, v7, v8);
 }
 
 + (id)defaultLocation
@@ -323,6 +319,13 @@ LABEL_18:
   return v5;
 }
 
+- (id)enumeratorForAllFilesUbiquitousFiles:(BOOL)files withExtraInfo:(BOOL)info
+{
+  v4 = [[QLDiskCacheFileInfoEnumerator alloc] initWithDiskCache:self forUbiquitousFiles:files extraInfo:info];
+
+  return v4;
+}
+
 - (id)enumeratorForAllThumbnailsWithFileIdentifier:(id)identifier
 {
   identifierCopy = identifier;
@@ -333,9 +336,9 @@ LABEL_18:
 
 - (BOOL)_setThumbnailData:(id)data
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v73 = 0;
+  v72 = 0;
   if ([dataCopy setState:1])
   {
     fileIdentifier = [dataCopy fileIdentifier];
@@ -344,33 +347,33 @@ LABEL_18:
     version = [dataCopy version];
     v9 = [v6 initWithFileIdentifier:fileIdentifier2 version:version];
 
-    v10 = [(QLCacheIndexDatabase *)self->_indexDatabase insertOrUpdateThumbnailWithVersionedFileIdentifier:v9 shouldInvalidAllThumbnailSizes:&v73 + 1 added:&v73];
-    v66 = v10;
-    if (HIBYTE(v73) == 1)
+    v10 = [(QLCacheIndexDatabase *)self->_indexDatabase insertOrUpdateThumbnailWithVersionedFileIdentifier:v9 shouldInvalidAllThumbnailSizes:&v72 + 1 added:&v72];
+    v65 = v10;
+    if (HIBYTE(v72) == 1)
     {
       v11 = [(QLCacheIndexDatabase *)self->_indexDatabase removeAllThumbnailsForCacheId:v10];
+      v68 = 0u;
       v69 = 0u;
       v70 = 0u;
       v71 = 0u;
-      v72 = 0u;
-      v12 = [v11 countByEnumeratingWithState:&v69 objects:v74 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v68 objects:v73 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v70;
+        v14 = *v69;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v70 != v14)
+            if (*v69 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            [(QLCacheMMAPBlobDatabase *)self->_blobDatabase deleteBlobWithInfo:*(*(&v69 + 1) + 8 * i)];
+            [(QLCacheMMAPBlobDatabase *)self->_blobDatabase deleteBlobWithInfo:*(*(&v68 + 1) + 8 * i)];
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v69 objects:v74 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v68 objects:v73 count:16];
         }
 
         while (v13);
@@ -392,12 +395,12 @@ LABEL_18:
       iconVariant = [dataCopy iconVariant];
       interpolationQuality = [dataCopy interpolationQuality];
       externalGeneratorDataHash = [dataCopy externalGeneratorDataHash];
+      v66 = 0;
       v67 = 0;
-      v68 = 0;
       LODWORD(v27) = v21;
-      [(QLCacheIndexDatabase *)indexDatabase getBlobInfoForCacheId:v66 size:iconMode iconMode:badgeType badgeType:iconVariant iconVariant:interpolationQuality interpolationQuality:externalGeneratorDataHash externalGeneratorDataHash:v27 bitmapDataBlobInfo:&v68 plistBufferBlobInfo:&v67];
-      v11 = v68;
-      v28 = v67;
+      [(QLCacheIndexDatabase *)indexDatabase getBlobInfoForCacheId:v65 size:iconMode iconMode:badgeType badgeType:iconVariant iconVariant:interpolationQuality interpolationQuality:externalGeneratorDataHash externalGeneratorDataHash:v27 bitmapDataBlobInfo:&v67 plistBufferBlobInfo:&v66];
+      v11 = v67;
+      v28 = v66;
       if (v11)
       {
         [(QLCacheMMAPBlobDatabase *)self->_blobDatabase deleteBlobWithInfo:v11];
@@ -418,7 +421,7 @@ LABEL_23:
       v30 = *(v29 + 32);
     }
 
-    v65 = v9;
+    v64 = v9;
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
       [(QLDiskCache *)v30 _setThumbnailData:dataCopy];
@@ -441,15 +444,15 @@ LABEL_23:
     v46 = v45;
     v48 = v47;
     externalGeneratorDataHash2 = [dataCopy externalGeneratorDataHash];
-    LODWORD(v63) = flavor;
+    LODWORD(v62) = flavor;
     LODWORD(v50) = v33;
-    v18 = [(QLCacheIndexDatabase *)v31 insertOrUpdateImageDataForCacheId:v66 size:iconMode2 iconMode:badgeType2 badgeType:iconVariant2 iconVariant:interpolationQuality2 interpolationQuality:bitmapFormat bitmapFormat:v50 bitmapDataBlobInfo:v42 metadataBlobInfo:v44 flavor:v46 contentRect:v48 externalGeneratorDataHash:bitmapDataToValidate lastHitDate:metadataToValidate, v63, externalGeneratorDataHash2, 0];
+    v18 = [(QLCacheIndexDatabase *)v31 insertOrUpdateImageDataForCacheId:v65 size:iconMode2 iconMode:badgeType2 badgeType:iconVariant2 iconVariant:interpolationQuality2 interpolationQuality:bitmapFormat bitmapFormat:v50 bitmapDataBlobInfo:v42 metadataBlobInfo:v44 flavor:v46 contentRect:v48 externalGeneratorDataHash:bitmapDataToValidate lastHitDate:metadataToValidate, v62, externalGeneratorDataHash2, 0];
 
     if (v18)
     {
       bitmapDataToValidate2 = [dataCopy bitmapDataToValidate];
 
-      v52 = v65;
+      v52 = v64;
       if (bitmapDataToValidate2)
       {
         bitmapDataToValidate3 = [dataCopy bitmapDataToValidate];
@@ -473,7 +476,7 @@ LABEL_23:
     {
       v56 = MEMORY[0x277CDAB78];
       v57 = *(MEMORY[0x277CDAB78] + 32);
-      v52 = v65;
+      v52 = v64;
       if (!v57)
       {
         QLTInitLogging();
@@ -528,7 +531,6 @@ LABEL_41:
   LOBYTE(v18) = 0;
 LABEL_42:
 
-  v61 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -649,7 +651,7 @@ LABEL_42:
   return self;
 }
 
-uint64_t __25__QLDiskCache_doReading___block_invoke(uint64_t a1)
+void *__25__QLDiskCache_doReading___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isOpened];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -698,7 +700,7 @@ uint64_t __25__QLDiskCache_doReading___block_invoke(uint64_t a1)
   return v8;
 }
 
-uint64_t __25__QLDiskCache_doWriting___block_invoke(uint64_t a1)
+void *__25__QLDiskCache_doWriting___block_invoke(uint64_t a1)
 {
   v2 = MEMORY[0x277CDAB78];
   v3 = *(MEMORY[0x277CDAB78] + 32);
@@ -759,107 +761,103 @@ uint64_t __25__QLDiskCache_doWriting___block_invoke(uint64_t a1)
 
 - (void)writeThumbnailDataBatch:(id)batch
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [batchCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [batchCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(batchCopy);
         }
 
-        [(QLDiskCache *)self _setThumbnailData:*(*(&v10 + 1) + 8 * v8++)];
+        [(QLDiskCache *)self _setThumbnailData:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [batchCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [batchCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)discardThumbnailDataBatchForReset:(id)reset
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   resetCopy = reset;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [resetCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [resetCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(resetCopy);
         }
 
-        [(QLDiskCache *)self _discardThumbnailDataForReset:*(*(&v10 + 1) + 8 * v8++)];
+        [(QLDiskCache *)self _discardThumbnailDataForReset:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [resetCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [resetCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_deleteBlobArrayFromDatabase:(id)database
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [databaseCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [databaseCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(databaseCopy);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([(QLCacheMMAPBlobDatabase *)self->_blobDatabase deleteBlobWithInfo:v10])
         {
           v7 += [v10 length];
         }
       }
 
-      v6 = [databaseCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [databaseCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -870,7 +868,6 @@ uint64_t __25__QLDiskCache_doWriting___block_invoke(uint64_t a1)
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -920,7 +917,7 @@ uint64_t __25__QLDiskCache_doWriting___block_invoke(uint64_t a1)
 
 - (BOOL)_open
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CDAB78];
   v4 = *(MEMORY[0x277CDAB78] + 32);
   if (!v4)
@@ -959,31 +956,32 @@ uint64_t __25__QLDiskCache_doWriting___block_invoke(uint64_t a1)
 
     v11 = [(NSMutableDictionary *)self->_metaData objectForKeyedSubscript:@"QLCacheDebugModeMetadataKey"];
     bOOLValue = [v11 BOOLValue];
-    v13 = QLCacheInDebugMode();
+    v13 = bOOLValue;
+    v15 = QLCacheInDebugMode(bOOLValue, v14);
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     if ([defaultManager fileExistsAtPath:self->_dirtyFilePath])
     {
-      v15 = *(v3 + 32);
-      if (!v15)
+      v17 = *(v3 + 32);
+      if (!v17)
       {
         QLTInitLogging();
-        v15 = *(v3 + 32);
+        v17 = *(v3 + 32);
       }
 
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_2615D3000, v15, OS_LOG_TYPE_INFO, "dirty lock is on disk, resetting cache", buf, 2u);
+        _os_log_impl(&dword_2615D3000, v17, OS_LOG_TYPE_INFO, "dirty lock is on disk, resetting cache", buf, 2u);
       }
 
-      v16 = @"dirty atomic write";
+      v18 = @"dirty atomic write";
     }
 
     else
     {
-      v31 = [defaultManager fileExistsAtPath:self->_resetFilePath];
-      if ((v31 & 1) == 0 && ((bOOLValue ^ v13) & 1) == 0)
+      v35 = [defaultManager fileExistsAtPath:self->_resetFilePath];
+      if ((v35 & 1) == 0 && ((v13 ^ v15) & 1) == 0)
       {
         doesExist = [(QLCacheIndexDatabase *)self->_indexDatabase doesExist];
         doesExist2 = [(QLCacheMMAPBlobDatabase *)self->_blobDatabase doesExist];
@@ -991,14 +989,14 @@ uint64_t __25__QLDiskCache_doWriting___block_invoke(uint64_t a1)
         {
           if (((doesExist | doesExist2) & 1) == 0)
           {
-            v48 = *(v3 + 32);
-            if (!v48)
+            v52 = *(v3 + 32);
+            if (!v52)
             {
               QLTInitLogging();
-              v48 = *(v3 + 32);
+              v52 = *(v3 + 32);
             }
 
-            if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
             {
               [QLDiskCache _open];
             }
@@ -1007,14 +1005,14 @@ uint64_t __25__QLDiskCache_doWriting___block_invoke(uint64_t a1)
 
         else
         {
-          v34 = *(v3 + 32);
-          if (!v34)
+          v38 = *(v3 + 32);
+          if (!v38)
           {
             QLTInitLogging();
-            v34 = *(v3 + 32);
+            v38 = *(v3 + 32);
           }
 
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
             [(QLDiskCache *)&self->_indexDatabase _open];
           }
@@ -1023,61 +1021,61 @@ uint64_t __25__QLDiskCache_doWriting___block_invoke(uint64_t a1)
           [(QLDiskCache *)self _closeWhatIsOpen];
           if (doesExist)
           {
-            v35 = @"blob not found";
+            v39 = @"blob not found";
           }
 
           else
           {
-            v35 = @"index not found";
+            v39 = @"index not found";
           }
 
-          [(QLDiskCache *)self _resetWithReason:v35];
+          [(QLDiskCache *)self _resetWithReason:v39];
           [(QLDiskCache *)self _removeDirtyLock];
         }
 
         goto LABEL_17;
       }
 
-      v36 = *(v3 + 32);
-      if (v31)
+      v40 = *(v3 + 32);
+      if (v35)
       {
-        if (!v36)
+        if (!v40)
         {
           QLTInitLogging();
-          v36 = *(v3 + 32);
+          v40 = *(v3 + 32);
         }
 
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_2615D3000, v36, OS_LOG_TYPE_INFO, "marked as needing reset on previous session", buf, 2u);
+          _os_log_impl(&dword_2615D3000, v40, OS_LOG_TYPE_INFO, "marked as needing reset on previous session", buf, 2u);
         }
 
-        v16 = @"marked as needing reset on previous session";
+        v18 = @"marked as needing reset on previous session";
       }
 
       else
       {
-        if (!v36)
+        if (!v40)
         {
           QLTInitLogging();
-          v36 = *(v3 + 32);
+          v40 = *(v3 + 32);
         }
 
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
         {
-          v47 = v36;
+          v50 = v40;
           *buf = 67109120;
-          v55 = QLCacheInDebugMode();
-          _os_log_impl(&dword_2615D3000, v47, OS_LOG_TYPE_INFO, "changed debug mode to %d", buf, 8u);
+          v59 = QLCacheInDebugMode(v50, v51);
+          _os_log_impl(&dword_2615D3000, v50, OS_LOG_TYPE_INFO, "changed debug mode to %d", buf, 8u);
         }
 
-        v16 = @"cache debug mode changed";
+        v18 = @"cache debug mode changed";
       }
     }
 
     [(QLDiskCache *)self _closeWhatIsOpen];
-    [(QLDiskCache *)self _resetWithReason:v16];
+    [(QLDiskCache *)self _resetWithReason:v18];
     [(QLDiskCache *)self _removeDirtyLock];
     [(QLDiskCache *)self _cleanupForceResetAtNextLaunch];
 LABEL_17:
@@ -1091,33 +1089,33 @@ LABEL_17:
     {
       if ([(QLCacheIndexDatabase *)*p_indexDatabase isValid])
       {
-        v19 = @"valid";
+        v21 = @"valid";
       }
 
       else
       {
-        v19 = @"invalid";
+        v21 = @"invalid";
       }
 
       if ([(QLCacheMMAPBlobDatabase *)*p_blobDatabase isValid])
       {
-        v20 = @"valid";
+        v22 = @"valid";
       }
 
       else
       {
-        v20 = @"invalid";
+        v22 = @"invalid";
       }
 
-      NSLog(&cfstr_SomethingIsWro.isa, v19, v20);
-      v21 = *(v3 + 32);
-      if (!v21)
+      NSLog(&cfstr_SomethingIsWro.isa, v21, v22);
+      v23 = *(v3 + 32);
+      if (!v23)
       {
         QLTInitLogging();
-        v21 = *(v3 + 32);
+        v23 = *(v3 + 32);
       }
 
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         [(QLDiskCache *)&self->_indexDatabase _open];
       }
@@ -1129,14 +1127,14 @@ LABEL_17:
       self->_opened = 1;
       if (![(QLCacheIndexDatabase *)self->_indexDatabase isValid]|| ![(QLCacheMMAPBlobDatabase *)*p_blobDatabase isValid])
       {
-        v22 = *(v3 + 32);
-        if (!v22)
+        v24 = *(v3 + 32);
+        if (!v24)
         {
           QLTInitLogging();
-          v22 = *(v3 + 32);
+          v24 = *(v3 + 32);
         }
 
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           [QLDiskCache _open];
         }
@@ -1153,32 +1151,32 @@ LABEL_17:
     allReservedBuffers = [(QLCacheIndexDatabase *)*p_indexDatabase allReservedBuffers];
     if ([(QLCacheMMAPBlobDatabase *)*p_blobDatabase deleteBlobsWithArray:allReservedBuffers])
     {
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v24 = allReservedBuffers;
-      v25 = [v24 countByEnumeratingWithState:&v49 objects:v53 count:16];
-      if (v25)
+      v55 = 0u;
+      v56 = 0u;
+      v53 = 0u;
+      v54 = 0u;
+      v26 = allReservedBuffers;
+      v27 = [v26 countByEnumeratingWithState:&v53 objects:v57 count:16];
+      if (v27)
       {
-        v26 = v25;
-        v27 = *v50;
+        v28 = v27;
+        v29 = *v54;
         do
         {
-          for (i = 0; i != v26; ++i)
+          for (i = 0; i != v28; ++i)
           {
-            if (*v50 != v27)
+            if (*v54 != v29)
             {
-              objc_enumerationMutation(v24);
+              objc_enumerationMutation(v26);
             }
 
-            [(QLCacheIndexDatabase *)*p_indexDatabase removeReservedBufferWithBlobInfo:*(*(&v49 + 1) + 8 * i)];
+            [(QLCacheIndexDatabase *)*p_indexDatabase removeReservedBufferWithBlobInfo:*(*(&v53 + 1) + 8 * i)];
           }
 
-          v26 = [v24 countByEnumeratingWithState:&v49 objects:v53 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v53 objects:v57 count:16];
         }
 
-        while (v26);
+        while (v28);
       }
 
       v8 = 0x277CBE000;
@@ -1187,14 +1185,14 @@ LABEL_17:
     else
     {
       NSLog(&cfstr_ProblemToFreeA.isa);
-      v37 = *(v3 + 32);
-      if (!v37)
+      v41 = *(v3 + 32);
+      if (!v41)
       {
         QLTInitLogging();
-        v37 = *(v3 + 32);
+        v41 = *(v3 + 32);
       }
 
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         [QLDiskCache _open];
       }
@@ -1204,21 +1202,21 @@ LABEL_17:
       [(QLCacheIndexDatabase *)self->_indexDatabase open];
       [(QLCacheMMAPBlobDatabase *)self->_blobDatabase open];
       self->_opened = 1;
-      if (![(QLCacheIndexDatabase *)self->_indexDatabase isValid]|| ![(QLCacheMMAPBlobDatabase *)*p_blobDatabase isValid])
+      if (![(QLCacheIndexDatabase *)self->_indexDatabase isValid]|| (_closeWhatIsOpen = [(QLCacheMMAPBlobDatabase *)*p_blobDatabase isValid], (_closeWhatIsOpen & 1) == 0))
       {
-        v38 = *(v3 + 32);
-        if (!v38)
+        v42 = *(v3 + 32);
+        if (!v42)
         {
           QLTInitLogging();
-          v38 = *(v3 + 32);
+          v42 = *(v3 + 32);
         }
 
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
           [QLDiskCache _open];
         }
 
-        [(QLDiskCache *)self _closeWhatIsOpen];
+        _closeWhatIsOpen = [(QLDiskCache *)self _closeWhatIsOpen];
       }
     }
 
@@ -1226,20 +1224,20 @@ LABEL_17:
     {
       if (!self->_metaData)
       {
-        v39 = [*(v8 + 2872) dictionaryWithContentsOfFile:self->_metaDataFilePath];
-        v40 = self->_metaData;
-        self->_metaData = v39;
+        v43 = [*(v8 + 2872) dictionaryWithContentsOfFile:self->_metaDataFilePath];
+        v44 = self->_metaData;
+        self->_metaData = v43;
 
         if (!self->_metaData)
         {
-          v41 = objc_alloc_init(*(v8 + 2872));
-          v42 = self->_metaData;
-          self->_metaData = v41;
+          v45 = objc_alloc_init(*(v8 + 2872));
+          v46 = self->_metaData;
+          self->_metaData = v45;
         }
       }
 
-      v43 = [MEMORY[0x277CCABB0] numberWithBool:QLCacheInDebugMode()];
-      [(QLDiskCache *)self setMetaData:v43 forKey:@"QLCacheDebugModeMetadataKey"];
+      v47 = [MEMORY[0x277CCABB0] numberWithBool:{QLCacheInDebugMode(_closeWhatIsOpen, v32)}];
+      [(QLDiskCache *)self setMetaData:v47 forKey:@"QLCacheDebugModeMetadataKey"];
     }
 
     if (!self->_opened)
@@ -1249,14 +1247,14 @@ LABEL_85:
       {
         if (close(*p_exclusiveFD))
         {
-          v44 = *(v3 + 32);
-          if (!v44)
+          v48 = *(v3 + 32);
+          if (!v48)
           {
             QLTInitLogging();
-            v44 = *(v3 + 32);
+            v48 = *(v3 + 32);
           }
 
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
           {
             [QLDiskCache _open];
           }
@@ -1272,26 +1270,23 @@ LABEL_85:
     [(QLDiskCache *)self _removeDirtyLock];
     opened = self->_opened;
 
-    goto LABEL_93;
+    return opened;
   }
 
   *p_exclusiveFD = 0;
-  v29 = *(v3 + 32);
-  if (!v29)
+  v33 = *(v3 + 32);
+  if (!v33)
   {
     QLTInitLogging();
-    v29 = *(v3 + 32);
+    v33 = *(v3 + 32);
   }
 
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
-    [(QLDiskCache *)v29 _open];
+    [(QLDiskCache *)v33 _open];
   }
 
-  opened = 0;
-LABEL_93:
-  v45 = *MEMORY[0x277D85DE8];
-  return opened;
+  return 0;
 }
 
 - (void)_closeWhatIsOpen
@@ -1422,7 +1417,7 @@ LABEL_93:
   return v2;
 }
 
-uint64_t __19__QLDiskCache_open__block_invoke(uint64_t a1)
+void *__19__QLDiskCache_open__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _open];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1583,7 +1578,7 @@ uint64_t __31__QLDiskCache_checkConsistency__block_invoke(uint64_t a1)
 
 - (id)reserveBufferForData:(id)data
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([dataCopy length])
   {
@@ -1606,9 +1601,9 @@ uint64_t __31__QLDiskCache_checkConsistency__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = v7;
-        v11 = 134217984;
-        v12 = [dataCopy length];
-        _os_log_impl(&dword_2615D3000, v8, OS_LOG_TYPE_INFO, "cannot reserve buffer %llu", &v11, 0xCu);
+        v10 = 134217984;
+        v11 = [dataCopy length];
+        _os_log_impl(&dword_2615D3000, v8, OS_LOG_TYPE_INFO, "cannot reserve buffer %llu", &v10, 0xCu);
       }
     }
   }
@@ -1617,8 +1612,6 @@ uint64_t __31__QLDiskCache_checkConsistency__block_invoke(uint64_t a1)
   {
     v5 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1763,67 +1756,49 @@ LABEL_13:
 
 + (void)defaultLocation
 {
-  v11 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v2 = __error();
   strerror(*v2);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_3(&dword_2615D3000, v3, v4, "Failed to convert the thumbnail cache to datavault (%s)", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)setupCacheAtLocationIfNecessary:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v0, v1, "Creating directory '%@'", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_2615D3000, v3, v4, "Failed to convert the thumbnail cache to datavault (%s)", v5, v6, v7, v8);
 }
 
 + (void)setupCacheAtLocationIfNecessary:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_fault_impl(&dword_2615D3000, v0, OS_LOG_TYPE_FAULT, "Could not create %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2615D3000, v0, OS_LOG_TYPE_FAULT, "Could not create %@", v1, 0xCu);
 }
 
 + (void)setupCacheAtLocationIfNecessary:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithPathLocation:(uint64_t)a3 cacheSize:(uint64_t)a4 cacheThread:(uint64_t)a5 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, a2, a3, "init cache, _exclusivePath = %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_2_0(&dword_2615D3000, a2, a3, "init cache, _exclusivePath = %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_setThumbnailData:(void *)a1 .cold.1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_9_0() fileIdentifier];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_11(&dword_2615D3000, v4, v5, "pending thumbnail data has been invalidated, so we don't save it to the disk cache %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_11(&dword_2615D3000, v4, v5, "pending thumbnail data has been invalidated, so we don't save it to the disk cache %@", v6, v7, v8, v9);
 }
 
 - (void)_setThumbnailData:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   log = a1;
   v3 = [a2 fileIdentifier];
-  v16 = [a2 bitmapFormat];
-  v14 = [v16 width];
+  v15 = [a2 bitmapFormat];
+  v13 = [v15 width];
   v4 = [a2 bitmapFormat];
   v5 = [v4 height];
   v6 = [a2 bitmapDataToValidate];
@@ -1834,106 +1809,82 @@ LABEL_13:
   v11 = [v10 location];
   v12 = [a2 metadataToValidate];
   *buf = 138413826;
-  v18 = v3;
-  v19 = 2048;
-  v20 = v14;
-  v21 = 2048;
-  v22 = v5;
-  v23 = 2048;
-  v24 = v7;
-  v25 = 2048;
-  v26 = v9;
-  v27 = 2048;
-  v28 = v11;
-  v29 = 2048;
-  v30 = [v12 length];
+  v17 = v3;
+  v18 = 2048;
+  v19 = v13;
+  v20 = 2048;
+  v21 = v5;
+  v22 = 2048;
+  v23 = v7;
+  v24 = 2048;
+  v25 = v9;
+  v26 = 2048;
+  v27 = v11;
+  v28 = 2048;
+  v29 = [v12 length];
   _os_log_debug_impl(&dword_2615D3000, log, OS_LOG_TYPE_DEBUG, "insert data %@ {%zu, %zu} thumbnail location : %llu length : %llu content rect location : %llu length : %llu", buf, 0x48u);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createDirtyLockInformDelegate:(void *)a1 .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = __error();
   strerror(*v2);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_3(&dword_2615D3000, v3, v4, "error opening dirty file: %s", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_2615D3000, v3, v4, "error opening dirty file: %s", v5, v6, v7, v8);
 }
 
 - (void)_open
 {
-  v11 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v2 = __error();
   strerror(*v2);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_3(&dword_2615D3000, v3, v4, "Disk cache failed to open: %s (i)", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_2615D3000, v3, v4, "Disk cache failed to open: %s (i)", v5, v6, v7, v8);
 }
 
-- (void)reserveBufferWithLength:(void *)a3 .cold.1(uint64_t *a1, void *a2, void *a3)
+- (void)reserveBufferWithLength:(void *)a3 .cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = *a1;
-  v6 = a2;
+  v5 = a2;
   [OUTLINED_FUNCTION_6_1() bufferPointedToByBlobInfo:a3];
   [OUTLINED_FUNCTION_9_0() location];
   [a3 length];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_7_1(&dword_2615D3000, v7, v8, "buffer reserved, pointer: %p location: %lld length: %lld", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_2615D3000, v6, v7, "buffer reserved, pointer: %p location: %lld length: %lld", v8, v9, v10, v11);
 }
 
 - (void)validateReservedBuffer:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)validateReservedBuffer:(void *)a3 .cold.2(uint64_t *a1, void *a2, void *a3)
+- (void)validateReservedBuffer:(void *)a3 .cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = *a1;
-  v6 = a2;
+  v5 = a2;
   [OUTLINED_FUNCTION_6_1() bufferPointedToByBlobInfo:a3];
   [OUTLINED_FUNCTION_9_0() location];
   [a3 length];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_7_1(&dword_2615D3000, v7, v8, "buffer validated, pointer: %p location: %lld length: %lld", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_2615D3000, v6, v7, "buffer validated, pointer: %p location: %lld length: %lld", v8, v9, v10, v11);
 }
 
 - (void)discardReservedBuffer:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)discardReservedBuffer:(void *)a3 .cold.2(uint64_t *a1, void *a2, void *a3)
+- (void)discardReservedBuffer:(void *)a3 .cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = *a1;
-  v6 = a2;
+  v5 = a2;
   [OUTLINED_FUNCTION_6_1() bufferPointedToByBlobInfo:a3];
   [OUTLINED_FUNCTION_9_0() location];
   [a3 length];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_7_1(&dword_2615D3000, v7, v8, "buffer discarded, pointer: %p location: %lld length: %lld", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_2615D3000, v6, v7, "buffer discarded, pointer: %p location: %lld length: %lld", v8, v9, v10, v11);
 }
 
 @end

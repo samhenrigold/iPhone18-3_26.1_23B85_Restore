@@ -88,10 +88,11 @@
     selfCopy2 = self;
     v9 = 0;
     v8 = 0;
+    v6 = 0;
   }
 
   [v7 dissociateCloudDataFromSyncWithCompletion_];
-  sub_1E45EB5D8(v8);
+  sub_1E45EB5D8(v8, v6);
   _Block_release(v9);
 }
 

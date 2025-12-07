@@ -283,16 +283,16 @@
   if (v4 && (v5 = self, v6 = v4, CanvasElementViewController<>.imageDescription.getter(), v8 = v7, v5, v6, v8))
   {
     v9 = String._bridgeToObjectiveC()();
-
-    v10 = v9;
+    v8, v10, v11, v12, v13, v14, v15, v16;
+    v17 = v9;
   }
 
   else
   {
-    v10 = 0;
+    v17 = 0;
   }
 
-  return v10;
+  return v17;
 }
 
 - (void)deselectAllAnnotations
@@ -347,19 +347,20 @@
 {
   screenshotCopy = screenshot;
   selfCopy = self;
-  v6 = sub_10006CC68(screenshotCopy, 0, 1, 0.0);
+  v6 = sub_10006CC68(screenshotCopy, 0, 1, 0.0, 0.0);
 
   return v6;
 }
 
 - (id)generateImageForScreenshot:(id)screenshot shouldApplyCrop:(BOOL)crop allowHDR:(BOOL)r targetSize:(CGSize)size
 {
+  height = size.height;
   width = size.width;
   screenshotCopy = screenshot;
   selfCopy = self;
-  v12 = sub_10006CC68(screenshotCopy, crop, r, width);
+  v13 = sub_10006CC68(screenshotCopy, crop, r, width, height);
 
-  return v12;
+  return v13;
 }
 
 - (void)imageGeneratorImageMarkedAsBeingEdited:(id)edited
@@ -388,29 +389,30 @@
 
 - (id)generateImageDataForScreenshot:(id)screenshot shouldApplyCrop:(BOOL)crop allowHDR:(BOOL)r targetSize:(CGSize)size imageType:(id)type
 {
+  height = size.height;
   width = size.width;
-  v13 = type metadata accessor for UTType();
-  v14 = *(v13 - 8);
-  __chkstk_darwin(v13);
-  v16 = &v26 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for UTType();
+  v15 = *(v14 - 8);
+  __chkstk_darwin(v14);
+  v17 = &v27 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   screenshotCopy = screenshot;
   typeCopy = type;
   selfCopy = self;
   static UTType._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v20 = sub_10006F4F8(screenshotCopy, crop, r, width);
-  v22 = v21;
+  v21 = sub_10006F4F8(screenshotCopy, crop, r, width, height);
+  v23 = v22;
 
-  (*(v14 + 8))(v16, v13);
-  v23 = 0;
-  if (v22 >> 60 != 15)
+  (*(v15 + 8))(v17, v14);
+  v24 = 0;
+  if (v23 >> 60 != 15)
   {
     isa = Data._bridgeToObjectiveC()().super.isa;
-    sub_100057E78(v20, v22);
-    v23 = isa;
+    sub_100057E78(v21, v23);
+    v24 = isa;
   }
 
-  return v23;
+  return v24;
 }
 
 - (void)toolPickerVisibilityDidChange:(id)change

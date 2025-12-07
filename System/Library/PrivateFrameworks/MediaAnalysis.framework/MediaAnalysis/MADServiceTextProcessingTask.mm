@@ -52,18 +52,18 @@ void __85__MADServiceTextProcessingTask_initWithRequests_asset_cancelBlock_compl
 
 - (BOOL)run:(id *)run
 {
-  v73[1] = *MEMORY[0x1E69E9840];
-  v5 = VCPSignPostLog();
+  v75[1] = *MEMORY[0x1E69E9840];
+  v5 = VCPSignPostLog(self);
   v6 = os_signpost_id_generate(v5);
 
-  v7 = VCPSignPostLog();
-  v8 = v7;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v8 = VCPSignPostLog(v7);
+  v9 = v8;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     signpostPayload = self->_signpostPayload;
     *buf = 138412290;
-    v66 = signpostPayload;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "MADServiceTextProcessingTask_Run", "%@", buf, 0xCu);
+    v68 = signpostPayload;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "MADServiceTextProcessingTask_Run", "%@", buf, 0xCu);
   }
 
   cancelQueue = self->_cancelQueue;
@@ -86,52 +86,52 @@ void __85__MADServiceTextProcessingTask_initWithRequests_asset_cancelBlock_compl
       return 0;
     }
 
-    v11 = MEMORY[0x1E696ABC0];
-    v12 = *MEMORY[0x1E696A768];
-    v72 = *MEMORY[0x1E696A578];
+    v12 = MEMORY[0x1E696ABC0];
+    v13 = *MEMORY[0x1E696A768];
+    v74 = *MEMORY[0x1E696A578];
     array = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request was canceled"];
-    v73[0] = array;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:&v72 count:1];
-    v15 = [v11 errorWithDomain:v12 code:-128 userInfo:v14];
-    v16 = *run;
-    *run = v15;
+    v75[0] = array;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:&v74 count:1];
+    v16 = [v12 errorWithDomain:v13 code:-128 userInfo:v15];
+    v17 = *run;
+    *run = v16;
 
 LABEL_39:
-    v41 = 0;
+    v43 = 0;
   }
 
   else
   {
     spid = v6;
-    v51 = v6 - 1;
+    v53 = v6 - 1;
     runCopy = run;
+    v61 = 0u;
+    v62 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v57 = 0u;
-    v58 = 0u;
     array = self->_subtasks;
-    v17 = [(NSMutableArray *)array countByEnumeratingWithState:&v57 objects:v71 count:16];
-    if (v17)
+    v18 = [(NSMutableArray *)array countByEnumeratingWithState:&v59 objects:v73 count:16];
+    if (v18)
     {
-      v18 = v17;
-      v19 = *v58;
-      v20 = MEMORY[0x1E69E9C10];
+      v19 = v18;
+      v20 = *v60;
+      v21 = MEMORY[0x1E69E9C10];
       while (2)
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v58 != v19)
+          if (*v60 != v20)
           {
             objc_enumerationMutation(array);
           }
 
-          v22 = *(*(&v57 + 1) + 8 * i);
-          v23 = objc_autoreleasePoolPush();
-          v24 = [v22 run];
-          if (v24)
+          v23 = *(*(&v59 + 1) + 8 * i);
+          v24 = objc_autoreleasePoolPush();
+          v25 = [v23 run];
+          if (v25)
           {
-            v25 = v24;
-            if (v24 == -128)
+            v26 = v25;
+            if (v25 == -128)
             {
               if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
               {
@@ -141,38 +141,38 @@ LABEL_39:
 
               if (runCopy)
               {
-                v43 = MEMORY[0x1E696ABC0];
-                v44 = *MEMORY[0x1E696A768];
-                v69 = *MEMORY[0x1E696A578];
-                v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request was canceled"];
-                v70 = v45;
-                v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
-                v47 = [v43 errorWithDomain:v44 code:-128 userInfo:v46];
-                v48 = *runCopy;
-                *runCopy = v47;
+                v45 = MEMORY[0x1E696ABC0];
+                v46 = *MEMORY[0x1E696A768];
+                v71 = *MEMORY[0x1E696A578];
+                v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request was canceled"];
+                v72 = v47;
+                v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+                v49 = [v45 errorWithDomain:v46 code:-128 userInfo:v48];
+                v50 = *runCopy;
+                *runCopy = v49;
               }
 
-              objc_autoreleasePoolPop(v23);
+              objc_autoreleasePoolPop(v24);
               goto LABEL_39;
             }
 
-            if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+            if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
-              v26 = objc_opt_class();
-              v27 = NSStringFromClass(v26);
+              v27 = objc_opt_class();
+              v28 = NSStringFromClass(v27);
               *buf = 138412546;
-              v66 = v27;
-              v67 = 1024;
-              v68 = v25;
-              _os_log_impl(&dword_1C9B70000, v20, OS_LOG_TYPE_DEFAULT, "%@ returned unexpected status (%d)", buf, 0x12u);
+              v68 = v28;
+              v69 = 1024;
+              v70 = v26;
+              _os_log_impl(&dword_1C9B70000, v21, OS_LOG_TYPE_DEFAULT, "%@ returned unexpected status (%d)", buf, 0x12u);
             }
           }
 
-          objc_autoreleasePoolPop(v23);
+          objc_autoreleasePoolPop(v24);
         }
 
-        v18 = [(NSMutableArray *)array countByEnumeratingWithState:&v57 objects:v71 count:16];
-        if (v18)
+        v19 = [(NSMutableArray *)array countByEnumeratingWithState:&v59 objects:v73 count:16];
+        if (v19)
         {
           continue;
         }
@@ -182,61 +182,61 @@ LABEL_39:
     }
 
     array = [MEMORY[0x1E695DF70] array];
-    v53 = 0u;
-    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v28 = self->_requests;
-    v29 = [(NSArray *)v28 countByEnumeratingWithState:&v53 objects:v64 count:16];
-    if (v29)
+    v57 = 0u;
+    v58 = 0u;
+    v29 = self->_requests;
+    v30 = [(NSArray *)v29 countByEnumeratingWithState:&v55 objects:v66 count:16];
+    if (v30)
     {
-      v30 = v29;
-      v31 = *v54;
+      v31 = v30;
+      v32 = *v56;
       do
       {
-        for (j = 0; j != v30; ++j)
+        for (j = 0; j != v31; ++j)
         {
-          if (*v54 != v31)
+          if (*v56 != v32)
           {
-            objc_enumerationMutation(v28);
+            objc_enumerationMutation(v29);
           }
 
-          v33 = *(*(&v53 + 1) + 8 * j);
-          v34 = objc_alloc_init(MEMORY[0x1E69AE400]);
-          results = [v33 results];
-          [v34 setResults:results];
+          v34 = *(*(&v55 + 1) + 8 * j);
+          v35 = objc_alloc_init(MEMORY[0x1E69AE400]);
+          results = [v34 results];
+          [v35 setResults:results];
 
-          error = [v33 error];
-          [v34 setError:error];
+          error = [v34 error];
+          [v35 setError:error];
 
-          [(NSMutableArray *)array addObject:v34];
+          [(NSMutableArray *)array addObject:v35];
         }
 
-        v30 = [(NSArray *)v28 countByEnumeratingWithState:&v53 objects:v64 count:16];
+        v31 = [(NSArray *)v29 countByEnumeratingWithState:&v55 objects:v66 count:16];
       }
 
-      while (v30);
+      while (v31);
     }
 
-    v37 = VCPSignPostLog();
-    v38 = v37;
-    if (v51 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
+    v39 = VCPSignPostLog(v38);
+    v40 = v39;
+    if (v53 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
     {
-      v39 = self->_signpostPayload;
+      v41 = self->_signpostPayload;
       *buf = 138412290;
-      v66 = v39;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v38, OS_SIGNPOST_INTERVAL_END, spid, "MADServiceTextProcessingTask_Run", "%@", buf, 0xCu);
+      v68 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v40, OS_SIGNPOST_INTERVAL_END, spid, "MADServiceTextProcessingTask_Run", "%@", buf, 0xCu);
     }
 
     completionHandler = [(VCPMABaseTask *)self completionHandler];
-    v62 = @"Payloads";
-    v63 = array;
-    v41 = 1;
-    v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-    (completionHandler)[2](completionHandler, v42, 0);
+    v64 = @"Payloads";
+    v65 = array;
+    v43 = 1;
+    v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+    (completionHandler)[2](completionHandler, v44, 0);
   }
 
-  return v41;
+  return v43;
 }
 
 void __36__MADServiceTextProcessingTask_run___block_invoke(uint64_t a1)

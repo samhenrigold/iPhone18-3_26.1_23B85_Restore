@@ -48,9 +48,9 @@
 
           v20 = *(*(&v34 + 1) + 8 * i);
           lowercaseString = [v20 lowercaseString];
-          v22 = [lowercaseString isEqualToString:@"disclosure_footer"];
+          isEqualToString = objc_msgSend_isEqualToString_(lowercaseString);
 
-          v17 |= v22;
+          v17 |= isEqualToString;
           v23 = [optionsCopy PKDictionaryForKey:v20];
           v24 = [PKPaymentSetupField paymentSetupFieldWithIdentifier:v20 configuration:v23];
           [array safelyAddObject:v24];

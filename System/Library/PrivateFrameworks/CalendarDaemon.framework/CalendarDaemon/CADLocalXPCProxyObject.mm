@@ -223,7 +223,7 @@ uint64_t __59__CADLocalXPCProxyObject__forwardInvocationAsynchronously___block_i
 
 - (void)_fixupArgumentsForInvocation:(id)invocation
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   invocationCopy = invocation;
   methodSignature = [invocationCopy methodSignature];
   if ([methodSignature numberOfArguments])
@@ -232,38 +232,38 @@ uint64_t __59__CADLocalXPCProxyObject__forwardInvocationAsynchronously___block_i
     do
     {
       v7 = [methodSignature getArgumentTypeAtIndex:v6];
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
-      v8 = [&unk_2837C7598 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [&unk_2837C7598 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v19;
+        v10 = *v18;
         do
         {
           v11 = 0;
           do
           {
-            if (*v19 != v10)
+            if (*v18 != v10)
             {
               objc_enumerationMutation(&unk_2837C7598);
             }
 
-            if (!strcmp(v7, [*(*(&v18 + 1) + 8 * v11) UTF8String]))
+            if (!strcmp(v7, [*(*(&v17 + 1) + 8 * v11) UTF8String]))
             {
-              v17 = 0;
-              [invocationCopy getArgument:&v17 atIndex:v6];
-              if (v17)
+              v16 = 0;
+              [invocationCopy getArgument:&v16 atIndex:v6];
+              if (v16)
               {
                 v12 = [(CADLocalXPCProxyObject *)self _updatedArgumentValueForArgumentValue:?];
-                v16 = v12;
+                v15 = v12;
                 if (v12)
                 {
                   v13 = CFRetain(v12);
                   CFAutorelease(v13);
-                  [invocationCopy setArgument:&v16 atIndex:v6];
+                  [invocationCopy setArgument:&v15 atIndex:v6];
                 }
               }
             }
@@ -272,7 +272,7 @@ uint64_t __59__CADLocalXPCProxyObject__forwardInvocationAsynchronously___block_i
           }
 
           while (v9 != v11);
-          v14 = [&unk_2837C7598 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v14 = [&unk_2837C7598 countByEnumeratingWithState:&v17 objects:v21 count:16];
           v9 = v14;
         }
 
@@ -284,8 +284,6 @@ uint64_t __59__CADLocalXPCProxyObject__forwardInvocationAsynchronously___block_i
 
     while ([methodSignature numberOfArguments] != v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_updatedArgumentValueForArgumentValue:(id)value

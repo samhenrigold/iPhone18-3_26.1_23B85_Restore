@@ -37,9 +37,9 @@ LABEL_12:
 
     if (selectedBackgroundView)
     {
-      v7 = [selectedBackgroundView isEqual:v5];
+      isEqual = objc_msgSend_isEqual_(selectedBackgroundView);
 
-      if (v7)
+      if (isEqual)
       {
         goto LABEL_13;
       }
@@ -116,7 +116,7 @@ LABEL_13:
     v10 = v9;
 
     _backgroundShape = [(_UIContextMenuCell *)self _backgroundShape];
-    v12 = [_backgroundShape isEqual:v10] ^ 1;
+    v12 = objc_msgSend_isEqual_(_backgroundShape) ^ 1;
 
     if ([(_UIContextMenuCell *)self _selectedBackgroundViewNeedsUpdate]|| v12)
     {
@@ -173,7 +173,7 @@ LABEL_13:
     v10 = v9;
 
     _backgroundShape = [(_UIContextMenuCell *)self _backgroundShape];
-    v12 = [_backgroundShape isEqual:v10] ^ 1;
+    v12 = objc_msgSend_isEqual_(_backgroundShape) ^ 1;
 
     if ([(_UIContextMenuCell *)self _highlightBackgroundViewNeedsUpdate]|| v12)
     {

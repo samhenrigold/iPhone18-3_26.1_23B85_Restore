@@ -54,7 +54,7 @@
 
 - (void)handleCallback
 {
-  v118[3] = *MEMORY[0x277D85DE8];
+  v117[3] = *MEMORY[0x277D85DE8];
   context = [(PowerUIIntelligenceManager *)self context];
   keyPathForBatteryStateDataDictionary = [MEMORY[0x277CFE338] keyPathForBatteryStateDataDictionary];
   v5 = [context objectForKeyedSubscript:keyPathForBatteryStateDataDictionary];
@@ -79,32 +79,32 @@
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v109 = v7;
-      *&v109[4] = 1024;
-      *&v109[6] = bOOLValue;
+      *v108 = v7;
+      *&v108[4] = 1024;
+      *&v108[6] = bOOLValue;
       _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Handling callback in intelligence manager isPluggedIn: %d, notificationsEnabled: %d", buf, 0xEu);
     }
 
     if (v7)
     {
       chargingPredictor = self->_chargingPredictor;
-      v107 = 0;
-      v12 = [(_OSChargingPredictor *)chargingPredictor chargePredictionOutputOfScheme:1 withError:&v107];
-      v13 = v107;
+      v106 = 0;
+      v12 = [(_OSChargingPredictor *)chargingPredictor chargePredictionOutputOfScheme:1 withError:&v106];
+      v13 = v106;
       v14 = self->_chargingPredictor;
-      v106 = v13;
-      v102 = [(_OSChargingPredictor *)v14 chargePredictionOutputOfScheme:0 withError:&v106];
-      v15 = v106;
+      v105 = v13;
+      v101 = [(_OSChargingPredictor *)v14 chargePredictionOutputOfScheme:0 withError:&v105];
+      v15 = v105;
 
       v16 = self->_chargingPredictor;
-      v105 = 0;
-      v17 = [(_OSChargingPredictor *)v16 chargePredictionOutputOfScheme:6 withError:&v105];
-      v103 = v105;
+      v104 = 0;
+      v17 = [(_OSChargingPredictor *)v16 chargePredictionOutputOfScheme:6 withError:&v104];
+      v102 = v104;
       v18 = self->_log;
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        *v109 = v103;
+        *v108 = v102;
         _os_log_impl(&dword_21B766000, v18, OS_LOG_TYPE_INFO, "draError: %@", buf, 0xCu);
       }
 
@@ -113,84 +113,84 @@
         [(PowerUIIntelligenceManager *)self postPluginNotificationWithPredictorOutput:v17 andError:v15 andState:v5];
       }
 
-      v100 = v5;
-      v101 = v15;
-      v97 = +[PowerUISmartChargeUtilities lastPluggedInDate];
-      v117[0] = @"predictedDurationSeconds";
+      v99 = v5;
+      v100 = v15;
+      v96 = +[PowerUISmartChargeUtilities lastPluggedInDate];
+      v116[0] = @"predictedDurationSeconds";
       v19 = MEMORY[0x277CCABB0];
-      [v102 chargingDuration];
+      [v101 chargingDuration];
       v20 = [v19 numberWithDouble:?];
-      v118[0] = v20;
-      v117[1] = @"confidence";
+      v117[0] = v20;
+      v116[1] = @"confidence";
       v21 = MEMORY[0x277CCABB0];
-      [v102 confidence];
+      [v101 confidence];
       v22 = [v21 numberWithDouble:?];
-      v118[1] = v22;
-      v117[2] = @"meetsThreshold";
-      v23 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v102, "meetsSystemConfidenceThreshold")}];
-      v118[2] = v23;
-      v95 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v118 forKeys:v117 count:3];
+      v117[1] = v22;
+      v116[2] = @"meetsThreshold";
+      v23 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v101, "meetsSystemConfidenceThreshold")}];
+      v117[2] = v23;
+      v94 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v117 forKeys:v116 count:3];
 
-      v115[0] = @"predictedDurationSeconds";
+      v114[0] = @"predictedDurationSeconds";
       v24 = MEMORY[0x277CCABB0];
       [v12 chargingDuration];
       v25 = [v24 numberWithDouble:?];
-      v116[0] = v25;
-      v115[1] = @"confidence";
+      v115[0] = v25;
+      v114[1] = @"confidence";
       v26 = MEMORY[0x277CCABB0];
       [v12 confidence];
       v27 = [v26 numberWithDouble:?];
-      v116[1] = v27;
-      v115[2] = @"meetsThreshold";
-      v99 = v12;
+      v115[1] = v27;
+      v114[2] = @"meetsThreshold";
+      v98 = v12;
       v28 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v12, "meetsSystemConfidenceThreshold")}];
-      v116[2] = v28;
-      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v116 forKeys:v115 count:3];
+      v115[2] = v28;
+      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v115 forKeys:v114 count:3];
 
-      v113[0] = @"predictedDurationSeconds";
+      v112[0] = @"predictedDurationSeconds";
       v30 = MEMORY[0x277CCABB0];
       [v17 chargingDuration];
       v31 = [v30 numberWithDouble:?];
-      v114[0] = v31;
-      v113[1] = @"confidence";
+      v113[0] = v31;
+      v112[1] = @"confidence";
       v32 = MEMORY[0x277CCABB0];
       [v17 confidence];
       v33 = [v32 numberWithDouble:?];
-      v114[1] = v33;
-      v113[2] = @"engagementDecision";
-      v98 = v17;
+      v113[1] = v33;
+      v112[2] = @"engagementDecision";
+      v97 = v17;
       v34 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v17, "meetsSystemConfidenceThreshold")}];
       v35 = v34;
       v36 = MEMORY[0x277CBEC38];
-      if (!v103)
+      if (!v102)
       {
         v36 = MEMORY[0x277CBEC28];
       }
 
-      v114[2] = v34;
-      v114[3] = v36;
-      v113[3] = @"returnedError";
-      v113[4] = @"isWireless";
+      v113[2] = v34;
+      v113[3] = v36;
+      v112[3] = @"returnedError";
+      v112[4] = @"isWireless";
       v37 = MEMORY[0x277CCABB0];
       context3 = [(PowerUIIntelligenceManager *)self context];
       v39 = [v37 numberWithBool:{+[PowerUISmartChargeUtilities deviceConnectedToWirelessChargerWithContext:](PowerUISmartChargeUtilities, "deviceConnectedToWirelessChargerWithContext:", context3)}];
-      v114[4] = v39;
-      v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v114 forKeys:v113 count:5];
+      v113[4] = v39;
+      v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v113 forKeys:v112 count:5];
 
-      v111[0] = @"classicPredictionInfo";
-      v111[1] = @"onPluginPredictionInfo";
-      v112[0] = v96;
-      v112[1] = v29;
-      v111[2] = @"draPredictionInfo";
-      v111[3] = @"pluginDate";
-      v112[2] = v40;
-      v112[3] = v97;
-      v111[4] = @"isWireless";
+      v110[0] = @"classicPredictionInfo";
+      v110[1] = @"onPluginPredictionInfo";
+      v111[0] = v95;
+      v111[1] = v29;
+      v110[2] = @"draPredictionInfo";
+      v110[3] = @"pluginDate";
+      v111[2] = v40;
+      v111[3] = v96;
+      v110[4] = @"isWireless";
       v41 = MEMORY[0x277CCABB0];
       context4 = [(PowerUIIntelligenceManager *)self context];
       v43 = [v41 numberWithBool:{+[PowerUISmartChargeUtilities deviceConnectedToWirelessChargerWithContext:](PowerUISmartChargeUtilities, "deviceConnectedToWirelessChargerWithContext:", context4)}];
-      v112[4] = v43;
-      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v112 forKeys:v111 count:5];
+      v111[4] = v43;
+      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v111 forKeys:v110 count:5];
 
       objc_storeStrong(&self->_lastPluginPredictionInfo, v44);
       [PowerUISmartChargeUtilities setDict:v44 forPreferenceKey:@"intelligence-manager-predictions" inDomain:self->_defaultsDomain];
@@ -198,14 +198,14 @@
       if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        *v109 = v44;
+        *v108 = v44;
         _os_log_impl(&dword_21B766000, v45, OS_LOG_TYPE_INFO, "Wrote prediction information %@ to defaults", buf, 0xCu);
       }
 
 LABEL_18:
-      v46 = v99;
-      v5 = v100;
-      v47 = v101;
+      v46 = v98;
+      v5 = v99;
+      v47 = v100;
 LABEL_31:
 
       goto LABEL_32;
@@ -237,100 +237,100 @@ LABEL_31:
 
       if (v52 <= 300.0)
       {
-        v59 = [(NSDictionary *)v47 objectForKey:@"classicPredictionInfo"];
-        if (v59)
+        v58 = [(NSDictionary *)v47 objectForKey:@"classicPredictionInfo"];
+        if (v58)
         {
-          v60 = v59;
-          v61 = [(NSDictionary *)v47 objectForKey:@"onPluginPredictionInfo"];
+          v59 = v58;
+          v60 = [(NSDictionary *)v47 objectForKey:@"onPluginPredictionInfo"];
 
-          if (v61)
+          if (v60)
           {
-            v62 = [MEMORY[0x277CBEAA8] now];
-            [v62 timeIntervalSinceDate:v46];
-            v104 = (v63 / 60.0);
+            v61 = [MEMORY[0x277CBEAA8] now];
+            [v61 timeIntervalSinceDate:v46];
+            v103 = (v62 / 60.0);
 
-            v64 = self->_log;
-            if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
+            v63 = self->_log;
+            if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              *v109 = v46;
-              _os_log_impl(&dword_21B766000, v64, OS_LOG_TYPE_INFO, "Logging metrics for charge session started at %@", buf, 0xCu);
+              *v108 = v46;
+              _os_log_impl(&dword_21B766000, v63, OS_LOG_TYPE_INFO, "Logging metrics for charge session started at %@", buf, 0xCu);
             }
 
-            v100 = v5;
-            v101 = v47;
-            v65 = [(NSDictionary *)v47 objectForKeyedSubscript:@"classicPredictionInfo"];
-            v66 = self->_log;
-            if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+            v99 = v5;
+            v100 = v47;
+            v64 = [(NSDictionary *)v47 objectForKeyedSubscript:@"classicPredictionInfo"];
+            v65 = self->_log;
+            if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_21B766000, v66, OS_LOG_TYPE_DEFAULT, "Posting metrics from classic predictions", buf, 2u);
+              _os_log_impl(&dword_21B766000, v65, OS_LOG_TYPE_DEFAULT, "Posting metrics from classic predictions", buf, 2u);
             }
 
-            v67 = [v65 objectForKeyedSubscript:@"predictedDurationSeconds"];
-            v68 = [v67 integerValue] / 60;
+            v66 = [v64 objectForKeyedSubscript:@"predictedDurationSeconds"];
+            v67 = [v66 integerValue] / 60;
 
-            v69 = [v65 objectForKeyedSubscript:@"confidence"];
-            [v69 doubleValue];
-            v71 = v70;
-            v72 = [v65 objectForKeyedSubscript:@"meetsThreshold"];
-            integerValue = [v72 integerValue];
-            v74 = [(NSDictionary *)v101 objectForKeyedSubscript:@"isWireless"];
-            -[PowerUIIntelligenceManager postAnalyticsEventForNewEventTypeWithPredictedDurationMinutes:andActualDurationMinutes:andConfidence:didMeetThreshold:andWasWireless:andPredictionScheme:](self, "postAnalyticsEventForNewEventTypeWithPredictedDurationMinutes:andActualDurationMinutes:andConfidence:didMeetThreshold:andWasWireless:andPredictionScheme:", v68, v104, integerValue, [v74 BOOLValue], @"classic", v71);
+            v68 = [v64 objectForKeyedSubscript:@"confidence"];
+            [v68 doubleValue];
+            v70 = v69;
+            v71 = [v64 objectForKeyedSubscript:@"meetsThreshold"];
+            integerValue = [v71 integerValue];
+            v73 = [(NSDictionary *)v100 objectForKeyedSubscript:@"isWireless"];
+            -[PowerUIIntelligenceManager postAnalyticsEventForNewEventTypeWithPredictedDurationMinutes:andActualDurationMinutes:andConfidence:didMeetThreshold:andWasWireless:andPredictionScheme:](self, "postAnalyticsEventForNewEventTypeWithPredictedDurationMinutes:andActualDurationMinutes:andConfidence:didMeetThreshold:andWasWireless:andPredictionScheme:", v67, v103, integerValue, [v73 BOOLValue], @"classic", v70);
 
-            v75 = [(NSDictionary *)v101 objectForKeyedSubscript:@"onPluginPredictionInfo"];
-            v76 = self->_log;
-            if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+            v74 = [(NSDictionary *)v100 objectForKeyedSubscript:@"onPluginPredictionInfo"];
+            v75 = self->_log;
+            if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_21B766000, v76, OS_LOG_TYPE_DEFAULT, "Posting metrics from on plugin predictions", buf, 2u);
+              _os_log_impl(&dword_21B766000, v75, OS_LOG_TYPE_DEFAULT, "Posting metrics from on plugin predictions", buf, 2u);
             }
 
-            v99 = v46;
-            v77 = [v75 objectForKeyedSubscript:@"predictedDurationSeconds"];
-            v78 = [v77 integerValue] / 60;
+            v98 = v46;
+            v76 = [v74 objectForKeyedSubscript:@"predictedDurationSeconds"];
+            v77 = [v76 integerValue] / 60;
 
-            [(PowerUIIntelligenceManager *)self postAnalyticsEventForOldEventTypeWithPredictedDurationMinutes:v78 andActualDurationMinutes:v104];
-            v79 = [v75 objectForKeyedSubscript:@"confidence"];
-            [v79 doubleValue];
-            v81 = v80;
-            v82 = [v75 objectForKeyedSubscript:@"meetsThreshold"];
-            integerValue2 = [v82 integerValue];
-            v84 = [(NSDictionary *)v101 objectForKeyedSubscript:@"isWireless"];
-            -[PowerUIIntelligenceManager postAnalyticsEventForNewEventTypeWithPredictedDurationMinutes:andActualDurationMinutes:andConfidence:didMeetThreshold:andWasWireless:andPredictionScheme:](self, "postAnalyticsEventForNewEventTypeWithPredictedDurationMinutes:andActualDurationMinutes:andConfidence:didMeetThreshold:andWasWireless:andPredictionScheme:", v78, v104, integerValue2, [v84 BOOLValue], @"onplugin", v81);
+            [(PowerUIIntelligenceManager *)self postAnalyticsEventForOldEventTypeWithPredictedDurationMinutes:v77 andActualDurationMinutes:v103];
+            v78 = [v74 objectForKeyedSubscript:@"confidence"];
+            [v78 doubleValue];
+            v80 = v79;
+            v81 = [v74 objectForKeyedSubscript:@"meetsThreshold"];
+            integerValue2 = [v81 integerValue];
+            v83 = [(NSDictionary *)v100 objectForKeyedSubscript:@"isWireless"];
+            -[PowerUIIntelligenceManager postAnalyticsEventForNewEventTypeWithPredictedDurationMinutes:andActualDurationMinutes:andConfidence:didMeetThreshold:andWasWireless:andPredictionScheme:](self, "postAnalyticsEventForNewEventTypeWithPredictedDurationMinutes:andActualDurationMinutes:andConfidence:didMeetThreshold:andWasWireless:andPredictionScheme:", v77, v103, integerValue2, [v83 BOOLValue], @"onplugin", v80);
 
-            v85 = [(NSDictionary *)v101 objectForKeyedSubscript:@"draPredictionInfo"];
-            v86 = self->_log;
-            if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
+            v84 = [(NSDictionary *)v100 objectForKeyedSubscript:@"draPredictionInfo"];
+            v85 = self->_log;
+            if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_21B766000, v86, OS_LOG_TYPE_DEFAULT, "Posting metrics from DRA predictions", buf, 2u);
+              _os_log_impl(&dword_21B766000, v85, OS_LOG_TYPE_DEFAULT, "Posting metrics from DRA predictions", buf, 2u);
             }
 
-            v87 = [v85 objectForKeyedSubscript:@"predictedDurationSeconds"];
-            v88 = [v87 integerValue] / 60;
+            v86 = [v84 objectForKeyedSubscript:@"predictedDurationSeconds"];
+            v87 = [v86 integerValue] / 60;
 
-            v89 = [v85 objectForKeyedSubscript:@"engagementDecision"];
-            bOOLValue2 = [v89 BOOLValue];
-            v91 = [v85 objectForKeyedSubscript:@"isWireless"];
-            bOOLValue3 = [v91 BOOLValue];
-            v93 = [v85 objectForKeyedSubscript:@"returnedError"];
-            -[PowerUIIntelligenceManager postAnalyticsEventForDynamicRuntimeAllocationWithPredictedDurationMinutes:andActualDurationMinutes:andEngagementDecision:andWasWireless:andSPIError:](self, "postAnalyticsEventForDynamicRuntimeAllocationWithPredictedDurationMinutes:andActualDurationMinutes:andEngagementDecision:andWasWireless:andSPIError:", v88, v104, bOOLValue2, bOOLValue3, [v93 BOOLValue]);
+            v88 = [v84 objectForKeyedSubscript:@"engagementDecision"];
+            bOOLValue2 = [v88 BOOLValue];
+            v90 = [v84 objectForKeyedSubscript:@"isWireless"];
+            bOOLValue3 = [v90 BOOLValue];
+            v92 = [v84 objectForKeyedSubscript:@"returnedError"];
+            -[PowerUIIntelligenceManager postAnalyticsEventForDynamicRuntimeAllocationWithPredictedDurationMinutes:andActualDurationMinutes:andEngagementDecision:andWasWireless:andSPIError:](self, "postAnalyticsEventForDynamicRuntimeAllocationWithPredictedDurationMinutes:andActualDurationMinutes:andEngagementDecision:andWasWireless:andSPIError:", v87, v103, bOOLValue2, bOOLValue3, [v92 BOOLValue]);
 
             goto LABEL_18;
           }
         }
 
-        v94 = self->_log;
-        if (!os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
+        v93 = self->_log;
+        if (!os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_31;
         }
 
         *buf = 138412290;
-        *v109 = v47;
+        *v108 = v47;
         v54 = "Corrupted saved prediction doesn't contain classic/plugin prediction info %@";
-        v55 = v94;
+        v55 = v93;
         v56 = 12;
       }
 
@@ -343,9 +343,9 @@ LABEL_31:
         }
 
         *buf = 138412546;
-        *v109 = v47;
-        *&v109[8] = 2112;
-        v110 = v46;
+        *v108 = v47;
+        *&v108[8] = 2112;
+        v109 = v46;
         v54 = "Can't retrieve information on plugin that matches the saved prediction, \n saved info: %@ \n biome info %@";
         v55 = v53;
         v56 = 22;
@@ -371,13 +371,11 @@ LABEL_31:
   }
 
 LABEL_32:
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 id __117__PowerUIIntelligenceManager_postAnalyticsEventForOldEventTypeWithPredictedDurationMinutes_andActualDurationMinutes___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   *&v3 = *(a1 + 40) / 60.0;
   v4 = [MEMORY[0x277CCABB0] numberWithFloat:v3];
@@ -394,14 +392,12 @@ id __117__PowerUIIntelligenceManager_postAnalyticsEventForOldEventTypeWithPredic
   v9 = [*(a1 + 32) log];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = v2;
-    v14 = 2112;
-    v15 = @"com.apple.smartcharging.plugoutpredictions";
-    _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_DEFAULT, "Logged %@ to %@ event in CA", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v2;
+    v13 = 2112;
+    v14 = @"com.apple.smartcharging.plugoutpredictions";
+    _os_log_impl(&dword_21B766000, v9, OS_LOG_TYPE_DEFAULT, "Logged %@ to %@ event in CA", &v11, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -415,7 +411,7 @@ id __117__PowerUIIntelligenceManager_postAnalyticsEventForOldEventTypeWithPredic
 
 id __183__PowerUIIntelligenceManager_postAnalyticsEventForNewEventTypeWithPredictedDurationMinutes_andActualDurationMinutes_andConfidence_didMeetThreshold_andWasWireless_andPredictionScheme___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = [MEMORY[0x277CCABB0] numberWithInt:(30 * (*(a1 + 48) / 30))];
   [v2 setObject:v3 forKeyedSubscript:@"actualDuration"];
@@ -454,20 +450,18 @@ id __183__PowerUIIntelligenceManager_postAnalyticsEventForNewEventTypeWithPredic
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v20 = v2;
-    v21 = 2112;
-    v22 = @"com.apple.smartcharging.plugoutpredictions.discrete.v2";
+    v19 = v2;
+    v20 = 2112;
+    v21 = @"com.apple.smartcharging.plugoutpredictions.discrete.v2";
     _os_log_impl(&dword_21B766000, v16, OS_LOG_TYPE_DEFAULT, "Logged %@ to %@ event in CA", buf, 0x16u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 id __178__PowerUIIntelligenceManager_postAnalyticsEventForDynamicRuntimeAllocationWithPredictedDurationMinutes_andActualDurationMinutes_andEngagementDecision_andWasWireless_andSPIError___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = [MEMORY[0x277CCABB0] numberWithLong:*(a1 + 40)];
   [v2 setObject:v3 forKeyedSubscript:@"actualDuration"];
@@ -517,21 +511,19 @@ id __178__PowerUIIntelligenceManager_postAnalyticsEventForDynamicRuntimeAllocati
   v16 = [*(a1 + 32) log];
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412546;
-    v20 = v2;
-    v21 = 2112;
-    v22 = @"com.apple.smartcharging.plugoutpredictions.dra";
-    _os_log_impl(&dword_21B766000, v16, OS_LOG_TYPE_DEFAULT, "Logged %@ to %@ event in CA", &v19, 0x16u);
+    v18 = 138412546;
+    v19 = v2;
+    v20 = 2112;
+    v21 = @"com.apple.smartcharging.plugoutpredictions.dra";
+    _os_log_impl(&dword_21B766000, v16, OS_LOG_TYPE_DEFAULT, "Logged %@ to %@ event in CA", &v18, 0x16u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (void)postPluginNotificationWithPredictorOutput:(id)output andError:(id)error andState:(id)state
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   outputCopy = output;
   errorCopy = error;
   stateCopy = state;
@@ -542,10 +534,10 @@ id __178__PowerUIIntelligenceManager_postAnalyticsEventForDynamicRuntimeAllocati
       log = self->_log;
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v25) = 0;
+        LOWORD(v24) = 0;
         v12 = "Plugin Notification error: Not enough history, do not post";
 LABEL_12:
-        _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, v12, &v25, 2u);
+        _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, v12, &v24, 2u);
       }
     }
 
@@ -559,9 +551,9 @@ LABEL_12:
         {
           v15 = v14;
           localizedDescription = [errorCopy localizedDescription];
-          v25 = 138412290;
-          v26 = localizedDescription;
-          _os_log_impl(&dword_21B766000, v15, OS_LOG_TYPE_DEFAULT, "Error querying the predictor %@", &v25, 0xCu);
+          v24 = 138412290;
+          v25 = localizedDescription;
+          _os_log_impl(&dword_21B766000, v15, OS_LOG_TYPE_DEFAULT, "Error querying the predictor %@", &v24, 0xCu);
         }
 
         v17 = +[PowerUINotificationManager sharedInstance];
@@ -582,14 +574,12 @@ LABEL_12:
       log = self->_log;
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v25) = 0;
+        LOWORD(v24) = 0;
         v12 = "Posted plugin notification ";
         goto LABEL_12;
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePluginNotification
@@ -610,7 +600,7 @@ LABEL_12:
 
 - (id)ttrURLforBadPredictionsWithStateDictionary:(id)dictionary
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   context = self->_context;
   dictionaryCopy = dictionary;
   v6 = [PowerUISmartChargeUtilities currentBatteryLevelWithContext:context];
@@ -628,11 +618,9 @@ LABEL_12:
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = v14;
+    v18 = v14;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "TTR URL is %@", buf, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

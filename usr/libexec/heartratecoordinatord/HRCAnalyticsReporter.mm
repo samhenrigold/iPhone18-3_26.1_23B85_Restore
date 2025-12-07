@@ -75,45 +75,46 @@
 
   v6 = [analyticsCopy mutableCopy];
   allKeys = [v6 allKeys];
-  if (![(HRCAnalyticsReporter *)self _improveHealthAndActivityAllowed])
+  _improveHealthAndActivityAllowed = [(HRCAnalyticsReporter *)self _improveHealthAndActivityAllowed];
+  if ((_improveHealthAndActivityAllowed & 1) == 0)
   {
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
-    v8 = allKeys;
-    v9 = [v8 countByEnumeratingWithState:&v13 objects:v19 count:16];
-    if (v9)
+    v15 = 0u;
+    v9 = allKeys;
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v20 count:16];
+    if (v10)
     {
-      v10 = *v14;
+      v11 = *v15;
       do
       {
-        v11 = 0;
+        v12 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v15 != v11)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          [v6 setObject:&off_1000431E0 forKeyedSubscript:{*(*(&v13 + 1) + 8 * v11), v13}];
-          v11 = v11 + 1;
+          [v6 setObject:&off_1000431E0 forKeyedSubscript:{*(*(&v14 + 1) + 8 * v12), v14}];
+          v12 = v12 + 1;
         }
 
-        while (v9 != v11);
-        v9 = [v8 countByEnumeratingWithState:&v13 objects:v19 count:16];
+        while (v10 != v12);
+        v10 = [v9 countByEnumeratingWithState:&v14 objects:v20 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
   }
 
-  v12 = sub_10000132C();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = sub_10000132C(_improveHealthAndActivityAllowed);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v18 = v6;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Saving algs analytics %{public}@", buf, 0xCu);
+    v19 = v6;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Saving algs analytics %{public}@", buf, 0xCu);
   }
 
   [(HRCAnalyticsReporter *)self setPendingAlgsAnalytics:v6];
@@ -414,13 +415,14 @@ LABEL_9:
   queue = [(HRCAnalyticsReporter *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  if ([(HRCAnalyticsReporter *)self streamingMode])
+  streamingMode = [(HRCAnalyticsReporter *)self streamingMode];
+  if (streamingMode)
   {
-    v4 = sub_10000132C();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_10000132C(streamingMode);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "system log collection triggered", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "system log collection triggered", v6, 2u);
     }
 
     [(HRCAnalyticsReporter *)self setSysdiagnoseTriggered:1];
@@ -436,10 +438,10 @@ LABEL_9:
 
   if (pendingHostAnalytics)
   {
-    v7 = sub_10000132C();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_10000132C(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10000BE14(std.__d_.__rep_, v7);
+      sub_10000BE14(std.__d_.__rep_, v8);
     }
 
     [(HRCAnalyticsReporter *)self _resetState];
@@ -447,10 +449,10 @@ LABEL_9:
   }
 
   [(HRCAnalyticsReporter *)self aacpStreamingStartTime];
-  if (v8)
+  if (v9)
   {
     aacpStreamingStartTime = [(HRCAnalyticsReporter *)self aacpStreamingStartTime];
-    if ((v10 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
       goto LABEL_43;
     }
@@ -459,13 +461,13 @@ LABEL_9:
   }
 
   [(HRCAnalyticsReporter *)self bleStreamingStartTime];
-  if ((v11 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
     goto LABEL_11;
   }
 
   bleStreamingStartTime = [(HRCAnalyticsReporter *)self bleStreamingStartTime];
-  if ((v13 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
 LABEL_43:
     sub_10000BDC8();
@@ -475,10 +477,10 @@ LABEL_43:
 LABEL_11:
   selfCopy = self;
   [(HRCAnalyticsReporter *)selfCopy firstPublishedHeartRateTime];
-  if (v15)
+  if (v16)
   {
     firstPublishedHeartRateTime = [(HRCAnalyticsReporter *)selfCopy firstPublishedHeartRateTime];
-    if (v17)
+    if (v18)
     {
       if (firstPublishedHeartRateTime < [(HRCAnalyticsReporter *)selfCopy streamingModeStartTime])
       {
@@ -486,9 +488,9 @@ LABEL_11:
       }
 
       firstPublishedHeartRateTime2 = [(HRCAnalyticsReporter *)selfCopy firstPublishedHeartRateTime];
-      if (v20)
+      if (v21)
       {
-        v18 = (firstPublishedHeartRateTime2 - [(HRCAnalyticsReporter *)selfCopy streamingModeStartTime]) / 1000000000;
+        v19 = (firstPublishedHeartRateTime2 - [(HRCAnalyticsReporter *)selfCopy streamingModeStartTime]) / 1000000000;
         goto LABEL_17;
       }
     }
@@ -497,124 +499,131 @@ LABEL_11:
   }
 
 LABEL_14:
-  v18 = -1;
+  v19 = -1;
 LABEL_17:
 
-  v53[0] = @"duration_streaming_seconds";
+  v55[0] = @"duration_streaming_seconds";
   1000000000 = [NSNumber numberWithLongLong:(std.__d_.__rep_ - [(HRCAnalyticsReporter *)selfCopy streamingModeStartTime]) / 1000000000];
-  v54[0] = 1000000000;
-  v53[1] = @"duration_aacp_streaming_seconds";
+  v56[0] = 1000000000;
+  v55[1] = @"duration_aacp_streaming_seconds";
   10000000002 = [NSNumber numberWithLongLong:[(HRCAnalyticsReporter *)selfCopy aacpStreamingDuration]/ 1000000000];
-  v54[1] = 10000000002;
-  v53[2] = @"duration_ble_streaming_seconds";
+  v56[1] = 10000000002;
+  v55[2] = @"duration_ble_streaming_seconds";
   10000000003 = [NSNumber numberWithLongLong:[(HRCAnalyticsReporter *)selfCopy bleStreamingDuration]/ 1000000000];
-  v54[2] = 10000000003;
-  v53[3] = @"num_airpod_connects";
-  v22 = [NSNumber numberWithUnsignedLongLong:[(HRCAnalyticsReporter *)selfCopy numAacpConnects]];
-  v54[3] = v22;
-  v53[4] = @"num_secs_first_hr_to_hk";
-  v23 = [NSNumber numberWithLongLong:v18];
-  v54[4] = v23;
-  v53[5] = @"workout_type";
+  v56[2] = 10000000003;
+  v55[3] = @"num_airpod_connects";
+  v23 = [NSNumber numberWithUnsignedLongLong:[(HRCAnalyticsReporter *)selfCopy numAacpConnects]];
+  v56[3] = v23;
+  v55[4] = @"num_secs_first_hr_to_hk";
+  v24 = [NSNumber numberWithLongLong:v19];
+  v56[4] = v24;
+  v55[5] = @"workout_type";
   [(HRCAnalyticsReporter *)selfCopy activityType];
-  v25 = v24;
-  if (v24)
+  v26 = v25;
+  if (v25)
   {
     activityType = [(HRCAnalyticsReporter *)selfCopy activityType];
-    if ((v27 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
       sub_10000BDC8();
     }
 
-    v28 = [NSNumber numberWithUnsignedInteger:activityType];
+    v29 = [NSNumber numberWithUnsignedInteger:activityType];
   }
 
   else
   {
-    v28 = &off_1000431F8;
+    v29 = &off_1000431F8;
   }
 
-  v54[5] = v28;
-  v53[6] = @"location_type";
+  v56[5] = v29;
+  v55[6] = @"location_type";
   [(HRCAnalyticsReporter *)selfCopy locationType];
-  v30 = v29;
-  if (v29)
-  {
-    locationType = [(HRCAnalyticsReporter *)selfCopy locationType];
-    if ((v32 & 1) == 0)
-    {
-      sub_10000BDC8();
-    }
-
-    v33 = [NSNumber numberWithInteger:locationType];
-  }
-
-  else
-  {
-    v33 = &off_100043210;
-  }
-
-  v54[6] = v33;
-  v53[7] = @"sysdiagnose_triggered";
-  v34 = [NSNumber numberWithBool:[(HRCAnalyticsReporter *)selfCopy sysdiagnoseTriggered]];
-  v54[7] = v34;
-  v35 = [NSDictionary dictionaryWithObjects:v54 forKeys:v53 count:8];
-
+  v31 = v30;
   if (v30)
   {
+    locationType = [(HRCAnalyticsReporter *)selfCopy locationType];
+    if ((v33 & 1) == 0)
+    {
+      sub_10000BDC8();
+    }
+
+    v34 = [NSNumber numberWithInteger:locationType];
   }
 
-  if (v25)
+  else
+  {
+    v34 = &off_100043210;
+  }
+
+  v56[6] = v34;
+  v55[7] = @"sysdiagnose_triggered";
+  v35 = [NSNumber numberWithBool:[(HRCAnalyticsReporter *)selfCopy sysdiagnoseTriggered]];
+  v56[7] = v35;
+  v36 = [NSDictionary dictionaryWithObjects:v56 forKeys:v55 count:8];
+
+  if (v31)
+  {
+  }
+
+  if (v26)
   {
   }
 
   [(HRCAnalyticsReporter *)selfCopy _resetState];
-  v36 = [v35 mutableCopy];
-  if (![(HRCAnalyticsReporter *)selfCopy _improveHealthAndActivityAllowed])
+  v37 = [v36 mutableCopy];
+  _improveHealthAndActivityAllowed = [(HRCAnalyticsReporter *)selfCopy _improveHealthAndActivityAllowed];
+  if ((_improveHealthAndActivityAllowed & 1) == 0)
   {
+    v50 = 0u;
+    v51 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v37 = [&off_1000437C0 countByEnumeratingWithState:&v46 objects:v52 count:16];
-    if (v37)
+    _improveHealthAndActivityAllowed = [&off_1000437C0 countByEnumeratingWithState:&v48 objects:v54 count:16];
+    v39 = _improveHealthAndActivityAllowed;
+    if (_improveHealthAndActivityAllowed)
     {
-      v38 = *v47;
+      v40 = *v49;
       do
       {
-        for (i = 0; i != v37; i = i + 1)
+        v41 = 0;
+        do
         {
-          if (*v47 != v38)
+          if (*v49 != v40)
           {
             objc_enumerationMutation(&off_1000437C0);
           }
 
-          v40 = *(*(&v46 + 1) + 8 * i);
-          v41 = [v36 objectForKeyedSubscript:v40];
-          v42 = v41 == 0;
+          v42 = *(*(&v48 + 1) + 8 * v41);
+          v43 = [v37 objectForKeyedSubscript:v42];
+          v44 = v43 == 0;
 
-          if (!v42)
+          if (!v44)
           {
-            [v36 setObject:&off_100043228 forKeyedSubscript:v40];
+            [v37 setObject:&off_100043228 forKeyedSubscript:v42];
           }
+
+          ++v41;
         }
 
-        v37 = [&off_1000437C0 countByEnumeratingWithState:&v46 objects:v52 count:16];
+        while (v39 != v41);
+        _improveHealthAndActivityAllowed = [&off_1000437C0 countByEnumeratingWithState:&v48 objects:v54 count:16];
+        v39 = _improveHealthAndActivityAllowed;
       }
 
-      while (v37);
+      while (_improveHealthAndActivityAllowed);
     }
   }
 
-  v43 = sub_10000132C();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+  v45 = sub_10000132C(_improveHealthAndActivityAllowed);
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
   {
     *buf = 138739971;
-    v51 = v36;
-    _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, "Saving analytics %{sensitive}@", buf, 0xCu);
+    v53 = v37;
+    _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "Saving analytics %{sensitive}@", buf, 0xCu);
   }
 
-  [(HRCAnalyticsReporter *)selfCopy setPendingHostAnalytics:v36];
+  [(HRCAnalyticsReporter *)selfCopy setPendingHostAnalytics:v37];
 }
 
 - (void)_resetState
@@ -662,19 +671,20 @@ LABEL_17:
 {
   reportCopy = report;
   dataCopy = data;
+  v7 = dataCopy;
   switch(reportCopy)
   {
     case 2:
       queue = [(HRCAnalyticsReporter *)self queue];
-      v11[0] = _NSConcreteStackBlock;
-      v11[1] = 3221225472;
-      v11[2] = sub_10000C444;
-      v11[3] = &unk_100040BC8;
-      v11[4] = self;
-      v12 = dataCopy;
-      dispatch_async(queue, v11);
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_10000C444;
+      v12[3] = &unk_100040BC8;
+      v12[4] = self;
+      v13 = v7;
+      dispatch_async(queue, v12);
 
-      v9 = v12;
+      v10 = v13;
       goto LABEL_9;
     case 1:
       queue2 = [(HRCAnalyticsReporter *)self queue];
@@ -683,16 +693,16 @@ LABEL_17:
       block[2] = sub_10000C438;
       block[3] = &unk_100040BC8;
       block[4] = self;
-      v14 = dataCopy;
+      v15 = v7;
       dispatch_async(queue2, block);
 
-      v9 = v14;
+      v10 = v15;
 LABEL_9:
 
       break;
     case 0:
-      v7 = sub_10000132C();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v8 = sub_10000132C(dataCopy);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         sub_10000FD8C();
       }
@@ -761,31 +771,33 @@ LABEL_9:
   queue = [(HRCAnalyticsReporter *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  if ([analyticsCopy length] > 4)
+  v9 = [analyticsCopy length];
+  if (v9 > 4)
   {
-    [analyticsCopy getBytes:v31 length:5];
-    if (v31[0] == 1)
+    v12 = [analyticsCopy getBytes:v36 length:5];
+    if (v36[0] == 1)
     {
       defaultBudAnalytics = [(HRCAnalyticsReporter *)self defaultBudAnalytics];
-      v11 = sub_10000132C();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v13 = sub_10000132C(defaultBudAnalytics);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        sub_10000FE4C(v31, v11);
+        sub_10000FE4C(v36, v13);
       }
 
-      if (v32)
+      if (v37)
       {
-        v13 = 0;
-        v14 = 5;
-        *&v12 = 138543362;
-        v25 = v12;
+        v16 = 0;
+        v17 = 5;
+        *&v15 = 138543362;
+        v30 = v15;
         while (1)
         {
-          v15 = v14 + 4;
-          if ([analyticsCopy length] < v14 + 4)
+          v18 = [analyticsCopy length];
+          v19 = v17 + 4;
+          if (v18 < v17 + 4)
           {
-            v24 = sub_10000132C();
-            if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+            v29 = sub_10000132C(v18);
+            if (!os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
             {
               goto LABEL_29;
             }
@@ -793,60 +805,61 @@ LABEL_9:
             goto LABEL_28;
           }
 
-          [analyticsCopy getBytes:&v30 range:{v14, 4}];
-          v16 = [analyticsCopy length];
-          if (v16 < v15 + HIBYTE(v30))
+          [analyticsCopy getBytes:&v35 range:{v17, 4}];
+          v20 = [analyticsCopy length];
+          if (v20 < v19 + HIBYTE(v35))
           {
             break;
           }
 
-          v17 = [analyticsCopy subdataWithRange:v14 + 4];
-          v18 = sub_10000132C();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+          v21 = [analyticsCopy subdataWithRange:v17 + 4];
+          v22 = sub_10000132C(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
             *buf = 67109888;
-            *v34 = BYTE2(v30);
-            *&v34[4] = 256;
-            v34[6] = v30;
-            *&v34[7] = 1024;
-            v35 = HIBYTE(v30);
-            v36 = 256;
-            v37 = BYTE1(v30);
-            _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Subpacket ver:%d id:%d size:%d side:%d", buf, 0x14u);
+            *v39 = BYTE2(v35);
+            *&v39[4] = 256;
+            v39[6] = v35;
+            *&v39[7] = 1024;
+            v40 = HIBYTE(v35);
+            v41 = 256;
+            v42 = BYTE1(v35);
+            _os_log_debug_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "Subpacket ver:%d id:%d size:%d side:%d", buf, 0x14u);
           }
 
-          v19 = HIBYTE(v30);
-          v20 = v30;
-          v28 = 0;
-          v29 = 0;
+          v23 = HIBYTE(v35);
+          v24 = v35;
+          v33 = 0;
+          v34 = 0;
           __p = 0;
           sub_10000FCF4(&__p, hrc_bud_analytics->var0, hrc_bud_analytics->var1, hrc_bud_analytics->var1 - hrc_bud_analytics->var0);
-          v4 = v4 & 0xFFFFFFFF00000000 | v20;
-          v21 = [(HRCAnalyticsReporter *)self _handleAnalyticsSubpacket:v4 data:v17 expectedFields:&__p];
+          v4 = v4 & 0xFFFFFFFF00000000 | v24;
+          v25 = [(HRCAnalyticsReporter *)self _handleAnalyticsSubpacket:v4 data:v21 expectedFields:&__p];
+          v26 = __p;
           if (__p)
           {
-            v28 = __p;
+            v33 = __p;
             operator delete(__p);
           }
 
-          v22 = sub_10000132C();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+          v27 = sub_10000132C(v26);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v25;
-            *v34 = v21;
-            _os_log_debug_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "SubPacket:%{public}@", buf, 0xCu);
+            *buf = v30;
+            *v39 = v25;
+            _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "SubPacket:%{public}@", buf, 0xCu);
           }
 
-          [defaultBudAnalytics addEntriesFromDictionary:v21];
-          v14 = v15 + v19;
-          if (++v13 >= v32)
+          [defaultBudAnalytics addEntriesFromDictionary:v25];
+          v17 = v19 + v23;
+          if (++v16 >= v37)
           {
             goto LABEL_22;
           }
         }
 
-        v24 = sub_10000132C();
-        if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+        v29 = sub_10000132C(v20);
+        if (!os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
         {
           goto LABEL_29;
         }
@@ -855,32 +868,32 @@ LABEL_28:
         sub_10000FEE4();
 LABEL_29:
 
-        v9 = defaultBudAnalytics;
+        v10 = defaultBudAnalytics;
       }
 
       else
       {
 LABEL_22:
-        v23 = sub_10000132C();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v28 = sub_10000132C(v14);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
         {
           *buf = 138739971;
-          *v34 = defaultBudAnalytics;
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Setting bud analytics %{sensitive}@", buf, 0xCu);
+          *v39 = defaultBudAnalytics;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Setting bud analytics %{sensitive}@", buf, 0xCu);
         }
 
-        v9 = defaultBudAnalytics;
+        v10 = defaultBudAnalytics;
         [(HRCAnalyticsReporter *)self setPendingBudAnalytics:defaultBudAnalytics];
       }
     }
 
     else
     {
-      v9 = sub_10000132C();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = sub_10000132C(v12);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v10 = v9;
-        sub_10000FDC0(v31, v9);
+        v11 = v10;
+        sub_10000FDC0(v36, v10);
         goto LABEL_21;
       }
     }
@@ -888,13 +901,13 @@ LABEL_22:
 
   else
   {
-    v9 = sub_10000132C();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_10000132C(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v10 = v9;
+      v11 = v10;
       sub_10000FF18();
 LABEL_21:
-      v9 = v10;
+      v10 = v11;
     }
   }
 }
@@ -908,20 +921,20 @@ LABEL_21:
   v10 = v6;
   v11 = HIBYTE(v6);
 
-  v12 = &stru_100042498;
+  v13 = &stru_100042498;
   if (v11 == 2)
   {
-    v12 = @"_right";
+    v13 = @"_right";
   }
 
   if (v11 == 1)
   {
-    v13 = @"_left";
+    v14 = @"_left";
   }
 
   else
   {
-    v13 = v12;
+    v14 = v13;
   }
 
   var0 = hrc_bud_analytics->var0;
@@ -940,21 +953,21 @@ LABEL_21:
 
   if (var0 == var1)
   {
-    v17 = sub_10000132C();
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_10000132C(v12);
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_20:
 
-      v20 = 0;
+      v21 = 0;
       goto LABEL_36;
     }
 
     *buf = 16908544;
-    v25 = v10;
-    v18 = "Skipping unknown analytics subpacket ID %{public}u";
-    v19 = buf;
+    v26 = v10;
+    v19 = "Skipping unknown analytics subpacket ID %{public}u";
+    v20 = buf;
 LABEL_19:
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v18, v19, 5u);
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, v19, v20, 5u);
     goto LABEL_20;
   }
 
@@ -964,13 +977,13 @@ LABEL_19:
     {
       if (v10 == 1)
       {
-        v16 = [(HRCAnalyticsReporter *)self _handleSessionMetrics:dataCopy side:v13];
+        v17 = [(HRCAnalyticsReporter *)self _handleSessionMetrics:dataCopy side:v14];
         goto LABEL_35;
       }
 
       if (v10 == 2)
       {
-        v16 = [(HRCAnalyticsReporter *)self _handleSystemMetrics:dataCopy, v13];
+        v17 = [(HRCAnalyticsReporter *)self _handleSystemMetrics:dataCopy, v14];
         goto LABEL_35;
       }
 
@@ -979,15 +992,15 @@ LABEL_19:
 
     if (v10 == 4)
     {
-      [(HRCAnalyticsReporter *)self _handleWxHealthMerged:dataCopy, v13];
+      [(HRCAnalyticsReporter *)self _handleWxHealthMerged:dataCopy, v14];
     }
 
     else
     {
-      [(HRCAnalyticsReporter *)self _handleAgcOpc:dataCopy side:v13];
+      [(HRCAnalyticsReporter *)self _handleAgcOpc:dataCopy side:v14];
     }
 
-    v16 = LABEL_27:;
+    v17 = LABEL_27:;
     goto LABEL_35;
   }
 
@@ -995,12 +1008,12 @@ LABEL_19:
   {
     if (v10 == 6)
     {
-      [(HRCAnalyticsReporter *)self _handlePreprocessorFoms:dataCopy side:v13];
+      [(HRCAnalyticsReporter *)self _handlePreprocessorFoms:dataCopy side:v14];
     }
 
     else
     {
-      [(HRCAnalyticsReporter *)self _handleDriverStats:dataCopy side:v13];
+      [(HRCAnalyticsReporter *)self _handleDriverStats:dataCopy side:v14];
     }
 
     goto LABEL_27;
@@ -1008,38 +1021,38 @@ LABEL_19:
 
   if (v10 == 8)
   {
-    v16 = [(HRCAnalyticsReporter *)self _handlePalMetric:dataCopy side:v13];
+    v17 = [(HRCAnalyticsReporter *)self _handlePalMetric:dataCopy side:v14];
     goto LABEL_35;
   }
 
   if (v10 == 9)
   {
-    v16 = [(HRCAnalyticsReporter *)self _handleScanMitigation:dataCopy side:v13];
+    v17 = [(HRCAnalyticsReporter *)self _handleScanMitigation:dataCopy side:v14];
     goto LABEL_35;
   }
 
   if (v10 != 10)
   {
 LABEL_39:
-    v17 = sub_10000132C();
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_10000132C(v12);
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_20;
     }
 
-    v22 = 16777472;
-    v23 = v10;
-    v18 = "Unhandled metric ID %u";
-    v19 = &v22;
+    v23 = 16777472;
+    v24 = v10;
+    v19 = "Unhandled metric ID %u";
+    v20 = &v23;
     goto LABEL_19;
   }
 
-  v16 = [(HRCAnalyticsReporter *)self _handleSolisMetric:dataCopy side:v13];
+  v17 = [(HRCAnalyticsReporter *)self _handleSolisMetric:dataCopy side:v14];
 LABEL_35:
-  v20 = v16;
+  v21 = v17;
 LABEL_36:
 
-  return v20;
+  return v21;
 }
 
 - (id)_handleWxHealthMerged:(id)merged
@@ -1821,11 +1834,11 @@ LABEL_36:
   dispatch_assert_queue_V2(self->_queue);
   if (self->_analyticsInFlight)
   {
-    v3 = sub_10000132C();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_10000132C(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Analytics currently in flight. Not sending again", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Analytics currently in flight. Not sending again", buf, 2u);
     }
 
     pendingHostAnalytics = self->_pendingHostAnalytics;
@@ -1838,22 +1851,22 @@ LABEL_36:
   else
   {
     self->_analyticsInFlight = 1;
-    v6 = sub_10000132C();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_10000132C(v3);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Workout ended. Holding transaction while preparing to send analytics", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Workout ended. Holding transaction while preparing to send analytics", buf, 2u);
     }
 
-    v7 = os_transaction_create();
+    v8 = os_transaction_create();
     transaction = self->_transaction;
-    self->_transaction = v7;
+    self->_transaction = v8;
 
     rep = self->_budAnalyticsWaitTime.__rep_;
-    v10 = self->_pendingHostAnalytics;
-    if (v10)
+    v11 = self->_pendingHostAnalytics;
+    if (v11)
     {
-      defaultHostAnalytics = v10;
+      defaultHostAnalytics = v11;
     }
 
     else
@@ -1861,24 +1874,24 @@ LABEL_36:
       defaultHostAnalytics = [(HRCAnalyticsReporter *)self defaultHostAnalytics];
     }
 
-    v12 = defaultHostAnalytics;
-    v13 = self->_pendingAlgsAnalytics;
-    if (v13)
+    v13 = defaultHostAnalytics;
+    v14 = self->_pendingAlgsAnalytics;
+    if (v14)
     {
       goto LABEL_14;
     }
 
-    v14 = sub_10000132C();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = sub_10000132C(defaultHostAnalytics);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      sub_10001B39C(v14);
+      sub_10001B39C(v15);
     }
 
-    v13 = self->_pendingAlgsAnalytics;
-    if (v13)
+    v14 = self->_pendingAlgsAnalytics;
+    if (v14)
     {
 LABEL_14:
-      defaultAlgsAnalytics = v13;
+      defaultAlgsAnalytics = v14;
     }
 
     else
@@ -1886,23 +1899,23 @@ LABEL_14:
       defaultAlgsAnalytics = [(HRCAnalyticsReporter *)self defaultAlgsAnalytics];
     }
 
-    v16 = defaultAlgsAnalytics;
-    v17 = dispatch_time(0, 1000000000 * rep);
+    v17 = defaultAlgsAnalytics;
+    v18 = dispatch_time(0, 1000000000 * rep);
     queue = self->_queue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10001B02C;
     block[3] = &unk_100040F70;
     block[4] = self;
-    v23 = v12;
-    v24 = v16;
-    v19 = v16;
-    pendingAlgsAnalytics = v12;
-    dispatch_after(v17, queue, block);
-    v20 = self->_pendingHostAnalytics;
+    v24 = v13;
+    v25 = v17;
+    v20 = v17;
+    pendingAlgsAnalytics = v13;
+    dispatch_after(v18, queue, block);
+    v21 = self->_pendingHostAnalytics;
     self->_pendingHostAnalytics = 0;
 
-    v21 = self->_pendingAlgsAnalytics;
+    v22 = self->_pendingAlgsAnalytics;
     self->_pendingAlgsAnalytics = 0;
   }
 }
@@ -1934,11 +1947,11 @@ LABEL_14:
   transaction = self->_transaction;
   self->_transaction = 0;
 
-  v13 = sub_10000132C();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_10000132C(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Sent analytics and released transaction", v14, 2u);
+    *v15 = 0;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Sent analytics and released transaction", v15, 2u);
   }
 }
 

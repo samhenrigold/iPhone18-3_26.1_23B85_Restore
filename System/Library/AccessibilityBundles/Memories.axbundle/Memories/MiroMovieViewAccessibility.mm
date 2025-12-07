@@ -23,7 +23,7 @@
     v7 = currentItem;
     if (currentItem)
     {
-      [currentItem currentTime];
+      objc_msgSend_currentTime(currentItem);
     }
 
     else

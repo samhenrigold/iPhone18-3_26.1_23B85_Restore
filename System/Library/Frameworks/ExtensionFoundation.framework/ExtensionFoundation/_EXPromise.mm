@@ -38,22 +38,21 @@
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v3 = _EXDefaultLog();
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = _EXDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = self->_identifier;
     *buf = 138543362;
-    v9 = identifier;
+    v8 = identifier;
   }
 
   v5 = +[_EXPromiseManager sharedInstance];
   [v5 unregisterPromise:self];
 
-  v7.receiver = self;
-  v7.super_class = _EXPromise;
-  [(_EXPromise *)&v7 dealloc];
-  v6 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = _EXPromise;
+  [(_EXPromise *)&v6 dealloc];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -63,9 +62,10 @@
   p_identifier = &self->_identifier;
   [coderCopy encodeObject:self->_identifier forKey:@"identifier"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v13 = _EXDefaultLog();
+    v13 = _EXDefaultLog(isKindOfClass);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(_EXPromise *)p_identifier encodeWithCoder:v13, v14, v15, v16, v17, v18, v19];
@@ -75,24 +75,22 @@
     objc_exception_throw([v20 initWithName:@"EXPromiseCoderException" reason:@"This class may only be encoded by an NSXPCCoder" userInfo:MEMORY[0x1E695E0F8]]);
   }
 
-  v6 = coderCopy;
-  v7 = _EXDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v7 = coderCopy;
+  v8 = _EXDefaultLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    connection = [v6 connection];
+    connection = [v7 connection];
     v21 = 138543362;
     v22 = connection;
-    _os_log_impl(&dword_1847D1000, v7, OS_LOG_TYPE_DEFAULT, "Registering promise to send over XPC connection: %{public}@", &v21, 0xCu);
+    _os_log_impl(&dword_1847D1000, v8, OS_LOG_TYPE_DEFAULT, "Registering promise to send over XPC connection: %{public}@", &v21, 0xCu);
   }
 
-  v9 = +[_EXPromiseManager sharedInstance];
-  [v9 registerPromise:self];
-
   v10 = +[_EXPromiseManager sharedInstance];
-  endpoint = [v10 endpoint];
-  [v6 encodeObject:endpoint forKey:@"endpoint"];
+  [v10 registerPromise:self];
 
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = +[_EXPromiseManager sharedInstance];
+  endpoint = [v11 endpoint];
+  [v7 encodeObject:endpoint forKey:@"endpoint"];
 }
 
 - (_EXPromise)initWithCoder:(id)coder
@@ -210,9 +208,8 @@
 
 - (void)encodeWithCoder:(uint64_t)a3 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
 }
 
 @end

@@ -134,50 +134,47 @@ void __121__UNSAuthorizationAlertController__presentAuthorizationAlertForBundleI
 
 - (void)_queue_sendResponse:(int64_t)response forBundleIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v6 = [(NSMutableDictionary *)self->_bundleIdentifiersToResultBlocks objectForKey:identifierCopy];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        (*(*(*(&v12 + 1) + 8 * v10++) + 16))();
+        (*(*(*(&v11 + 1) + 8 * v10++) + 16))();
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
 
   [(NSMutableDictionary *)self->_bundleIdentifiersToResultBlocks removeObjectForKey:identifierCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestAuthorizationForBundleIdentifier:(uint64_t)a1 displayName:(NSObject *)a2 usageDescription:withResult:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_270AA8000, a2, OS_LOG_TYPE_DEBUG, "%@ is hidden by appprotection, blocking alert", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_270AA8000, a2, OS_LOG_TYPE_DEBUG, "%@ is hidden by appprotection, blocking alert", &v2, 0xCu);
 }
 
 @end

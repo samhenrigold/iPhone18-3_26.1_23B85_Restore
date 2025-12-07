@@ -7,11 +7,11 @@
 - (double)_widthForStroke:(double)stroke withDrawingScale:;
 - (id)_accessibilityUserTestingChildren;
 - (id)_affordanceForLocationInSelectionView:(double)view inputType:(double)type;
+- (id)_didEndDragKnobLocation:(uint64_t)location knobDragMode:(unint64_t)mode;
+- (id)_resetKnobAppearance;
 - (id)initForLiveSelectionWithRenderingDelegate:(id)delegate;
 - (id)setKnobsVisible:(id *)result;
-- (uint64_t)_didEndDragKnobLocation:(uint64_t)location knobDragMode:(unint64_t)mode;
 - (uint64_t)_highlightColor;
-- (uint64_t)_resetKnobAppearance;
 - (void)_createPathAroundStrokes:(id *)strokes inDrawing:(void *)drawing isLive:(void *)live liveScrollOffset:(int)offset;
 - (void)_renderLiveSelectionPath:(CGPath *)path forStrokes:(id)strokes inDrawing:(id)drawing liveScrollOffset:(CGPoint)offset;
 - (void)_setupHighlightIfNecessary;
@@ -183,9 +183,9 @@ LABEL_12:
     dispatch_once(&_MergedGlobals_118, &__block_literal_global_3);
   }
 
-  v0 = qword_1ED6A4F58;
+  v1 = qword_1ED6A4F58;
 
-  return v0;
+  return v1;
 }
 
 void __48__PKSelectionGlowRenderer_sharedStrokePathCache__block_invoke()
@@ -202,9 +202,9 @@ void __48__PKSelectionGlowRenderer_sharedStrokePathCache__block_invoke()
 
 + (void)invalidateSharedStrokePathCache
 {
-  objc_opt_self();
-  v0 = +[PKSelectionGlowRenderer sharedStrokePathCache];
-  [(PKLRUCache *)v0 removeAllObjects];
+  v1 = objc_opt_self();
+  v2 = +[(PKSelectionGlowRenderer *)v1];
+  [(PKLRUCache *)v2 removeAllObjects];
 }
 
 - (id)_affordanceForLocationInSelectionView:(double)view inputType:(double)type
@@ -335,11 +335,11 @@ LABEL_16:
   {
     v3 = result;
     [result[3] setHidden:a2 ^ 1u];
-    [*(v3 + 32) setHidden:a2 ^ 1u];
+    [v3[4] setHidden:a2 ^ 1u];
     _highlightColor = [(PKSelectionGlowRenderer *)v3 _highlightColor];
-    [(PKSelectionModificationKnob *)*(v3 + 24) setKnobColor:_highlightColor];
+    [(PKSelectionModificationKnob *)v3[3] setKnobColor:_highlightColor];
     _highlightColor2 = [(PKSelectionGlowRenderer *)v3 _highlightColor];
-    v6 = *(v3 + 32);
+    v6 = v3[4];
 
     return [(PKSelectionModificationKnob *)v6 setKnobColor:_highlightColor2];
   }
@@ -349,34 +349,34 @@ LABEL_16:
 
 - (void)_createPathAroundStrokes:(id *)strokes inDrawing:(void *)drawing isLive:(void *)live liveScrollOffset:(int)offset
 {
-  v232 = *MEMORY[0x1E69E9840];
+  v233 = *MEMORY[0x1E69E9840];
   drawingCopy = drawing;
   liveCopy = live;
   if (strokes)
   {
     if (drawingCopy && [drawingCopy count])
     {
-      v159 = liveCopy;
+      v160 = liveCopy;
       v9 = liveCopy;
       v10 = *(MEMORY[0x1E695EFD0] + 16);
-      *&v222.a = *MEMORY[0x1E695EFD0];
-      *&v222.c = v10;
-      *&v222.tx = *(MEMORY[0x1E695EFD0] + 32);
+      *&v223.a = *MEMORY[0x1E695EFD0];
+      *&v223.c = v10;
+      *&v223.tx = *(MEMORY[0x1E695EFD0] + 32);
       if (offset)
       {
         WeakRetained = objc_loadWeakRetained(strokes + 11);
         v12 = WeakRetained;
         if (WeakRetained)
         {
-          [WeakRetained transformFromStrokeSpaceToViewInDrawing:v9];
+          objc_msgSend_transformFromStrokeSpaceToViewInDrawing_(WeakRetained);
         }
 
         else
         {
-          memset(&v225, 0, sizeof(v225));
+          memset(&v226, 0, sizeof(v226));
         }
 
-        v222 = v225;
+        v223 = v226;
       }
 
       else
@@ -389,11 +389,11 @@ LABEL_16:
         [v17 scaleForDrawing:drawing];
         v20 = v19;
 
-        memset(&v225, 0, sizeof(v225));
-        CGAffineTransformMakeTranslation(&v225, -v14, -v16);
+        memset(&v226, 0, sizeof(v226));
+        CGAffineTransformMakeTranslation(&v226, -v14, -v16);
         CGAffineTransformMakeScale(&t2, v20, v20);
-        t1 = v225;
-        CGAffineTransformConcat(&v222, &t1, &t2);
+        t1 = v226;
+        CGAffineTransformConcat(&v223, &t1, &t2);
       }
 
       v21 = objc_loadWeakRetained(strokes + 11);
@@ -406,17 +406,17 @@ LABEL_16:
       aBlock[3] = &unk_1E82D6DF8;
       aBlock[4] = strokes;
       *&aBlock[5] = v23;
-      v221 = v222;
-      v174 = _Block_copy(aBlock);
+      v222 = v223;
+      v175 = _Block_copy(aBlock);
       v24 = objc_loadWeakRetained(strokes + 11);
       [v24 attachmentBoundsForDrawing:v9];
       r2_24 = v26;
-      v190 = v25;
+      v191 = v25;
       r2_8 = v28;
       r2_16 = v27;
 
       v29 = objc_loadWeakRetained(strokes + 11);
-      v161 = v29;
+      v162 = v29;
       if (v29)
       {
         v30 = objc_loadWeakRetained(v29 + 15);
@@ -435,93 +435,93 @@ LABEL_16:
         viewRep = [v32 viewRep];
         [viewRep frame];
         r2_24 = v35;
-        v190 = v34;
+        v191 = v34;
         r2_8 = v37;
         r2_16 = v36;
       }
 
-      v162 = v32;
+      v163 = v32;
       v38 = *(MEMORY[0x1E695F050] + 8);
       r2 = *MEMORY[0x1E695F050];
       v40 = *(MEMORY[0x1E695F050] + 16);
       v39 = *(MEMORY[0x1E695F050] + 24);
-      v218 = 0u;
       v219 = 0u;
-      v216 = 0u;
+      v220 = 0u;
       v217 = 0u;
+      v218 = 0u;
       v41 = drawingCopy;
-      v42 = [v41 countByEnumeratingWithState:&v216 objects:v231 count:16];
+      v42 = [v41 countByEnumeratingWithState:&v217 objects:v232 count:16];
       if (v42)
       {
         v43 = v42;
-        v44 = *v217;
+        v44 = *v218;
         do
         {
           for (i = 0; i != v43; ++i)
           {
-            if (*v217 != v44)
+            if (*v218 != v44)
             {
               objc_enumerationMutation(v41);
             }
 
-            v233.origin.x = v174[2](v174, *(*(&v216 + 1) + 8 * i));
-            x = v233.origin.x;
-            y = v233.origin.y;
-            width = v233.size.width;
-            height = v233.size.height;
-            v249.origin.y = r2_24;
-            v249.origin.x = v190;
-            v249.size.height = r2_8;
-            v249.size.width = r2_16;
-            if (CGRectIntersectsRect(v233, v249))
+            v234.origin.x = v175[2](v175, *(*(&v217 + 1) + 8 * i));
+            x = v234.origin.x;
+            y = v234.origin.y;
+            width = v234.size.width;
+            height = v234.size.height;
+            v250.origin.y = r2_24;
+            v250.origin.x = v191;
+            v250.size.height = r2_8;
+            v250.size.width = r2_16;
+            if (CGRectIntersectsRect(v234, v250))
             {
-              v234.origin.x = x;
-              v234.origin.y = y;
-              v234.size.width = width;
-              v234.size.height = height;
-              v250.origin.x = r2;
-              v250.origin.y = v38;
-              v250.size.width = v40;
-              v250.size.height = v39;
-              v235 = CGRectUnion(v234, v250);
-              r2 = v235.origin.x;
-              v38 = v235.origin.y;
-              v40 = v235.size.width;
-              v39 = v235.size.height;
+              v235.origin.x = x;
+              v235.origin.y = y;
+              v235.size.width = width;
+              v235.size.height = height;
+              v251.origin.x = r2;
+              v251.origin.y = v38;
+              v251.size.width = v40;
+              v251.size.height = v39;
+              v236 = CGRectUnion(v235, v251);
+              r2 = v236.origin.x;
+              v38 = v236.origin.y;
+              v40 = v236.size.width;
+              v39 = v236.size.height;
             }
           }
 
-          v43 = [v41 countByEnumeratingWithState:&v216 objects:v231 count:16];
+          v43 = [v41 countByEnumeratingWithState:&v217 objects:v232 count:16];
         }
 
         while (v43);
       }
 
       offsetCopy = offset;
-      v160 = drawingCopy;
-      v165 = v41;
+      v161 = drawingCopy;
+      v166 = v41;
 
-      v236.origin.y = r2_24;
-      v236.origin.x = v190;
-      v236.size.height = r2_8;
-      v236.size.width = r2_16;
-      v251.origin.x = r2;
-      v251.origin.y = v38;
-      v251.size.width = v40;
-      v251.size.height = v39;
-      v237 = CGRectUnion(v236, v251);
-      v50 = v237.origin.x;
-      v191 = v237.origin.y;
-      r2_16a = v237.size.width;
-      v51 = v237.size.height;
+      v237.origin.y = r2_24;
+      v237.origin.x = v191;
+      v237.size.height = r2_8;
+      v237.size.width = r2_16;
+      v252.origin.x = r2;
+      v252.origin.y = v38;
+      v252.size.width = v40;
+      v252.size.height = v39;
+      v238 = CGRectUnion(v237, v252);
+      v50 = v238.origin.x;
+      v192 = v238.origin.y;
+      r2_16a = v238.size.width;
+      v51 = v238.size.height;
       v52 = MEMORY[0x1E695DFA8];
       allKeys = [strokes[8] allKeys];
-      v163 = [v52 setWithArray:allKeys];
+      v164 = [v52 setWithArray:allKeys];
 
       r2_24a = strokes;
       LODWORD(v54) = 1050253722;
       [strokes[2] setOpacity:v54];
-      v164 = [MEMORY[0x1E695DFA8] set];
+      v165 = [MEMORY[0x1E695DFA8] set];
       r2a = vcvtpd_s64_f64(v51 * 0.00390625);
       if (r2a >= 1)
       {
@@ -534,54 +534,54 @@ LABEL_16:
           {
             for (j = 0; j != v56; ++j)
             {
-              v238.size.width = 256.0;
-              v238.origin.x = v50 + j * 256.0;
-              v238.origin.y = v191 + r2_8a * 256.0;
-              v238.size.height = 256.0;
-              v252.origin.x = v50;
-              v252.origin.y = v191;
-              v252.size.width = r2_16a;
-              v252.size.height = v55;
-              v239 = CGRectIntersection(v238, v252);
-              v58 = v239.origin.x;
-              v59 = v239.origin.y;
-              v60 = v239.size.width;
-              v61 = v239.size.height;
-              if (!CGRectIsNull(v239))
+              v239.size.width = 256.0;
+              v239.origin.x = v50 + j * 256.0;
+              v239.origin.y = v192 + r2_8a * 256.0;
+              v239.size.height = 256.0;
+              v253.origin.x = v50;
+              v253.origin.y = v192;
+              v253.size.width = r2_16a;
+              v253.size.height = v55;
+              v240 = CGRectIntersection(v239, v253);
+              v58 = v240.origin.x;
+              v59 = v240.origin.y;
+              v60 = v240.size.width;
+              v61 = v240.size.height;
+              if (!CGRectIsNull(v240))
               {
                 array = [MEMORY[0x1E695DF70] array];
-                v212 = 0u;
                 v213 = 0u;
                 v214 = 0u;
                 v215 = 0u;
+                v216 = 0u;
                 v63 = v41;
-                v64 = [v63 countByEnumeratingWithState:&v212 objects:v230 count:16];
+                v64 = [v63 countByEnumeratingWithState:&v213 objects:v231 count:16];
                 if (v64)
                 {
                   v65 = v64;
-                  v66 = *v213;
+                  v66 = *v214;
                   do
                   {
                     for (k = 0; k != v65; ++k)
                     {
-                      if (*v213 != v66)
+                      if (*v214 != v66)
                       {
                         objc_enumerationMutation(v63);
                       }
 
-                      v68 = *(*(&v212 + 1) + 8 * k);
-                      v240.origin.x = v174[2](v174, v68);
-                      v253.origin.x = v58;
-                      v253.origin.y = v59;
-                      v253.size.width = v60;
-                      v253.size.height = v61;
-                      if (CGRectIntersectsRect(v240, v253))
+                      v68 = *(*(&v213 + 1) + 8 * k);
+                      v241.origin.x = v175[2](v175, v68);
+                      v254.origin.x = v58;
+                      v254.origin.y = v59;
+                      v254.size.width = v60;
+                      v254.size.height = v61;
+                      if (CGRectIntersectsRect(v241, v254))
                       {
                         [array addObject:v68];
                       }
                     }
 
-                    v65 = [v63 countByEnumeratingWithState:&v212 objects:v230 count:16];
+                    v65 = [v63 countByEnumeratingWithState:&v213 objects:v231 count:16];
                   }
 
                   while (v65);
@@ -590,7 +590,7 @@ LABEL_16:
                 if ([array count])
                 {
                   v69 = [[PKSelectionTileProperties alloc] initWithFrame:array strokes:v58, v59, v60, v61];
-                  [v164 addObject:v69];
+                  [v165 addObject:v69];
                 }
               }
             }
@@ -602,150 +602,151 @@ LABEL_16:
         while (r2_8a != r2a);
       }
 
-      v70 = [v164 mutableCopy];
-      [v70 minusSet:v163];
-      v71 = [v163 mutableCopy];
-      [v71 minusSet:v164];
-      v210 = 0u;
+      v70 = [v165 mutableCopy];
+      [v70 minusSet:v164];
+      v71 = [v164 mutableCopy];
+      [v71 minusSet:v165];
       v211 = 0u;
-      v208 = 0u;
+      v212 = 0u;
       v209 = 0u;
+      v210 = 0u;
       v72 = v71;
-      v73 = [v72 countByEnumeratingWithState:&v208 objects:v229 count:16];
+      v73 = [v72 countByEnumeratingWithState:&v209 objects:v230 count:16];
       if (v73)
       {
         v74 = v73;
-        v75 = *v209;
+        v75 = *v210;
         do
         {
           for (m = 0; m != v74; ++m)
           {
-            if (*v209 != v75)
+            if (*v210 != v75)
             {
               objc_enumerationMutation(v72);
             }
 
-            v77 = *(*(&v208 + 1) + 8 * m);
-            v78 = [*(r2_24a + 64) objectForKeyedSubscript:v77];
+            v77 = *(*(&v209 + 1) + 8 * m);
+            v78 = [r2_24a[8] objectForKeyedSubscript:v77];
             [v78 removeFromSuperlayer];
-            [*(r2_24a + 64) removeObjectForKey:v77];
+            [r2_24a[8] removeObjectForKey:v77];
           }
 
-          v74 = [v72 countByEnumeratingWithState:&v208 objects:v229 count:16];
+          v74 = [v72 countByEnumeratingWithState:&v209 objects:v230 count:16];
         }
 
         while (v74);
       }
 
-      v156 = v72;
+      v157 = v72;
 
-      v206 = 0u;
       v207 = 0u;
-      v204 = 0u;
+      v208 = 0u;
       v205 = 0u;
+      v206 = 0u;
       v79 = v70;
-      v80 = [v79 countByEnumeratingWithState:&v204 objects:v228 count:16];
+      v80 = [v79 countByEnumeratingWithState:&v205 objects:v229 count:16];
       if (v80)
       {
         v81 = v80;
-        v82 = *v205;
+        v82 = *v206;
         do
         {
           for (n = 0; n != v81; ++n)
           {
-            if (*v205 != v82)
+            if (*v206 != v82)
             {
               objc_enumerationMutation(v79);
             }
 
-            v84 = *(*(&v204 + 1) + 8 * n);
+            v84 = *(*(&v205 + 1) + 8 * n);
             v85 = [[PKSelectionTile alloc] initWithProperties:v84];
             [v84 frame];
             [(PKSelectionTile *)v85 setFrame:?];
-            [*(r2_24a + 64) setObject:v85 forKeyedSubscript:v84];
-            [*(r2_24a + 16) addSublayer:v85];
+            [r2_24a[8] setObject:v85 forKeyedSubscript:v84];
+            [r2_24a[2] addSublayer:v85];
           }
 
-          v81 = [v79 countByEnumeratingWithState:&v204 objects:v228 count:16];
+          v81 = [v79 countByEnumeratingWithState:&v205 objects:v229 count:16];
         }
 
         while (v81);
       }
 
-      v202 = 0u;
       v203 = 0u;
-      v200 = 0u;
+      v204 = 0u;
       v201 = 0u;
+      v202 = 0u;
       obj = v79;
       v86 = r2_24a;
-      v170 = [obj countByEnumeratingWithState:&v200 objects:v227 count:16];
-      if (v170)
+      v171 = [obj countByEnumeratingWithState:&v201 objects:v228 count:16];
+      if (v171)
       {
-        v168 = *v201;
+        v169 = *v202;
         r2_16b = *MEMORY[0x1E6979E78];
         r2_8b = *MEMORY[0x1E6979E98];
+        v87 = off_1E82D4000;
         do
         {
-          v87 = 0;
+          v88 = 0;
           do
           {
-            if (*v201 != v168)
+            if (*v202 != v169)
             {
               objc_enumerationMutation(obj);
             }
 
-            v172 = v87;
-            v88 = *(*(&v200 + 1) + 8 * v87);
-            v192 = [*(v86 + 64) objectForKeyedSubscript:v88];
-            v196 = 0u;
+            v173 = v88;
+            v89 = *(*(&v201 + 1) + 8 * v88);
+            v193 = [*(v86 + 64) objectForKeyedSubscript:v89];
             v197 = 0u;
             v198 = 0u;
             v199 = 0u;
-            r2b = [v88 strokes];
-            v89 = [r2b countByEnumeratingWithState:&v196 objects:v226 count:16];
-            if (v89)
+            v200 = 0u;
+            r2b = [v89 strokes];
+            v90 = [r2b countByEnumeratingWithState:&v197 objects:v227 count:16];
+            if (v90)
             {
-              v90 = v89;
-              v91 = *v197;
+              v91 = v90;
+              v92 = *v198;
               do
               {
-                for (ii = 0; ii != v90; ++ii)
+                for (ii = 0; ii != v91; ++ii)
                 {
-                  if (*v197 != v91)
+                  if (*v198 != v92)
                   {
                     objc_enumerationMutation(r2b);
                   }
 
-                  v93 = *(*(&v196 + 1) + 8 * ii);
-                  v94 = +[PKSelectionGlowRenderer sharedStrokePathCache];
-                  _strokeUUID = [v93 _strokeUUID];
-                  v96 = [(PKLRUCache *)v94 objectForKey:_strokeUUID];
+                  v94 = *(*(&v197 + 1) + 8 * ii);
+                  v95 = +[(PKSelectionGlowRenderer *)v87[295]];
+                  _strokeUUID = [v94 _strokeUUID];
+                  v97 = [(PKLRUCache *)v95 objectForKey:_strokeUUID];
 
-                  if (v96)
+                  if (v97)
                   {
-                    v97 = CGPathRetain([v96 CGPath]);
+                    v98 = CGPathRetain([v97 CGPath]);
                   }
 
                   else
                   {
-                    LODWORD(v225.a) = 0;
-                    v97 = [v93 newSelectionPathRepresentationWithPointsCount:&v225];
-                    v98 = +[PKSelectionGlowRenderer sharedStrokePathCache];
-                    v99 = [MEMORY[0x1E69DC728] bezierPathWithCGPath:v97];
-                    _strokeUUID2 = [v93 _strokeUUID];
-                    [(PKLRUCache *)v98 setObject:v99 forKey:_strokeUUID2 cost:16 * SLODWORD(v225.a)];
+                    LODWORD(v226.a) = 0;
+                    v98 = [v94 newSelectionPathRepresentationWithPointsCount:&v226];
+                    v99 = +[(PKSelectionGlowRenderer *)v87[295]];
+                    v100 = [MEMORY[0x1E69DC728] bezierPathWithCGPath:v98];
+                    _strokeUUID2 = [v94 _strokeUUID];
+                    [(PKLRUCache *)v99 setObject:v100 forKey:_strokeUUID2 cost:16 * SLODWORD(v226.a)];
                   }
 
                   layer = [MEMORY[0x1E69794A0] layer];
-                  memset(&v225, 0, sizeof(v225));
-                  [v88 frame];
-                  v103 = -v102;
-                  [v88 frame];
-                  CGAffineTransformMakeTranslation(&v225, v103, -v104);
+                  memset(&v226, 0, sizeof(v226));
+                  [v89 frame];
+                  v104 = -v103;
+                  [v89 frame];
+                  CGAffineTransformMakeTranslation(&v226, v104, -v105);
                   memset(&t2, 0, sizeof(t2));
-                  if (v93)
+                  if (v94)
                   {
-                    [v93 _transform];
+                    objc_msgSend__transform(v94);
                   }
 
                   else
@@ -753,216 +754,218 @@ LABEL_16:
                     memset(&t1, 0, sizeof(t1));
                   }
 
-                  v195 = v222;
-                  CGAffineTransformConcat(&t2, &t1, &v195);
-                  v195 = t2;
-                  v194 = v225;
-                  CGAffineTransformConcat(&t1, &v195, &v194);
+                  v196 = v223;
+                  CGAffineTransformConcat(&t2, &t1, &v196);
+                  v196 = t2;
+                  v195 = v226;
+                  CGAffineTransformConcat(&t1, &v196, &v195);
                   t2 = t1;
-                  v105 = CGPathCreateMutableCopyByTransformingPath(v97, &t2);
+                  v106 = CGPathCreateMutableCopyByTransformingPath(v98, &t2);
                   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
                   [mainScreen scale];
                   [layer setContentsScale:?];
 
-                  [layer setPath:v105];
-                  _strokeMask = [v93 _strokeMask];
+                  [layer setPath:v106];
+                  _strokeMask = [v94 _strokeMask];
 
                   if (_strokeMask)
                   {
                     v86 = r2_24a;
                     [layer setFillColor:-[PKSelectionGlowRenderer _highlightColor](r2_24a)];
-                    v108 = 10.0;
+                    v109 = 10.0;
                   }
 
                   else
                   {
                     [layer setFillColor:0];
-                    v109 = v93;
+                    v110 = v94;
                     v86 = r2_24a;
-                    v108 = [(PKSelectionGlowRenderer *)r2_24a _widthForStroke:v109 withDrawingScale:v23]+ 10.0;
+                    v109 = [(PKSelectionGlowRenderer *)r2_24a _widthForStroke:v110 withDrawingScale:v23]+ 10.0;
                   }
 
-                  [layer setLineWidth:v108];
+                  [layer setLineWidth:v109];
                   [layer setLineCap:r2_16b];
                   [layer setLineJoin:r2_8b];
                   [layer setStrokeColor:-[PKSelectionGlowRenderer _highlightColor](v86)];
-                  CGPathRelease(v97);
-                  CGPathRelease(v105);
-                  [v192 addSublayer:layer];
+                  CGPathRelease(v98);
+                  CGPathRelease(v106);
+                  [v193 addSublayer:layer];
+
+                  v87 = off_1E82D4000;
                 }
 
-                v90 = [r2b countByEnumeratingWithState:&v196 objects:v226 count:16];
+                v91 = [r2b countByEnumeratingWithState:&v197 objects:v227 count:16];
               }
 
-              while (v90);
+              while (v91);
             }
 
-            v87 = v172 + 1;
+            v88 = v173 + 1;
           }
 
-          while (v172 + 1 != v170);
-          v170 = [obj countByEnumeratingWithState:&v200 objects:v227 count:16];
+          while (v173 + 1 != v171);
+          v171 = [obj countByEnumeratingWithState:&v201 objects:v228 count:16];
         }
 
-        while (v170);
+        while (v171);
       }
 
-      drawingCopy = v160;
-      v110 = v162;
-      if (offsetCopy && v162 && [v162 isExternalAttachment])
+      drawingCopy = v161;
+      v111 = v163;
+      if (offsetCopy && v163 && [v163 isExternalAttachment])
       {
         adornmentLayer = [v86 adornmentLayer];
-        v112 = adornmentLayer;
-        if (v161 && adornmentLayer && (objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_respondsToSelector() & 1) != 0)
+        v113 = adornmentLayer;
+        if (v162 && adornmentLayer && (objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_respondsToSelector() & 1) != 0)
         {
-          contentWindowCoordinateSpace = [v162 contentWindowCoordinateSpace];
-          contentScaledCoordinateSpace = [v162 contentScaledCoordinateSpace];
-          v115 = objc_loadWeakRetained(v161 + 15);
-          [v115 frame];
+          contentWindowCoordinateSpace = [v163 contentWindowCoordinateSpace];
+          contentScaledCoordinateSpace = [v163 contentScaledCoordinateSpace];
+          v116 = objc_loadWeakRetained(v162 + 15);
+          [v116 frame];
           [contentWindowCoordinateSpace convertRect:contentScaledCoordinateSpace toCoordinateSpace:?];
-          [v112 setFrame:?];
+          [v113 setFrame:?];
 
           if (objc_opt_respondsToSelector())
           {
-            [v161 updateLiveSelectionForStrokesInLayer:v112 inDrawing:v151];
+            [v162 updateLiveSelectionForStrokesInLayer:v113 inDrawing:v152];
           }
 
-          v110 = v162;
+          v111 = v163;
         }
       }
 
       if ((*(v86 + 48) & 1) == 0)
       {
-        a = v222.a;
-        b = v222.b;
-        r2_16c = v222.d;
-        tx = v222.tx;
-        r2c = v222.c;
-        r2_8c = v222.ty;
-        v117 = v165;
-        v118 = objc_loadWeakRetained((v86 + 88));
-        v119 = [v118 _firstStrokesInStrokes:v117];
+        a = v223.a;
+        b = v223.b;
+        r2_16c = v223.d;
+        tx = v223.tx;
+        r2c = v223.c;
+        r2_8c = v223.ty;
+        v118 = v166;
+        v119 = objc_loadWeakRetained((v86 + 88));
+        v120 = [v119 _firstStrokesInStrokes:v118];
 
-        v120 = objc_loadWeakRetained((v86 + 88));
-        v121 = [v120 _lastStrokesInStrokes:v117];
+        v121 = objc_loadWeakRetained((v86 + 88));
+        v122 = [v121 _lastStrokesInStrokes:v118];
 
-        [PKDrawing _boundingBoxForStrokeArray:v119];
-        v123 = v122;
-        v125 = v124;
-        v127 = v126;
-        v129 = v128;
-        [PKDrawing _boundingBoxForStrokeArray:v121];
-        v166 = v130;
-        v169 = v131;
-        v171 = v132;
-        v134 = v133;
+        [PKDrawing _boundingBoxForStrokeArray:v120];
+        v124 = v123;
+        v126 = v125;
+        v128 = v127;
+        v130 = v129;
+        [PKDrawing _boundingBoxForStrokeArray:v122];
+        v167 = v131;
+        v170 = v132;
+        v172 = v133;
+        v135 = v134;
         MaxX = *MEMORY[0x1E695EFF8];
         MinY = *(MEMORY[0x1E695EFF8] + 8);
-        v137 = objc_loadWeakRetained((v86 + 88));
-        LOBYTE(v120) = [v137 isRTL];
+        v138 = objc_loadWeakRetained((v86 + 88));
+        LOBYTE(v121) = [v138 isRTL];
 
-        v138 = [v119 count];
+        v139 = [v120 count];
         r2_24b = a;
-        v158 = MaxX;
-        if (v120)
+        v159 = MaxX;
+        if (v121)
         {
-          v152 = MinY;
-          if (v138)
+          v153 = MinY;
+          if (v139)
           {
-            v241.origin.x = v123;
-            v241.origin.y = v125;
-            v241.size.width = v127;
-            v241.size.height = v129;
-            MaxX = CGRectGetMaxX(v241);
-            v242.origin.x = v123;
-            v242.origin.y = v125;
-            v242.size.width = v127;
-            v242.size.height = v129;
-            MinY = CGRectGetMinY(v242);
+            v242.origin.x = v124;
+            v242.origin.y = v126;
+            v242.size.width = v128;
+            v242.size.height = v130;
+            MaxX = CGRectGetMaxX(v242);
+            v243.origin.x = v124;
+            v243.origin.y = v126;
+            v243.size.width = v128;
+            v243.size.height = v130;
+            MinY = CGRectGetMinY(v243);
           }
 
-          if ([v121 count])
+          if ([v122 count])
           {
-            v243.origin.x = v166;
-            v243.origin.y = v169;
-            v243.size.width = v171;
-            v243.size.height = v134;
-            MinX = CGRectGetMinX(v243);
-            v244.size.height = v134;
-            v140 = MinX;
-            v244.origin.x = v166;
-            v244.origin.y = v169;
-            v244.size.width = v171;
-            MaxY = CGRectGetMaxY(v244);
+            v244.origin.x = v167;
+            v244.origin.y = v170;
+            v244.size.width = v172;
+            v244.size.height = v135;
+            MinX = CGRectGetMinX(v244);
+            v245.size.height = v135;
+            v141 = MinX;
+            v245.origin.x = v167;
+            v245.origin.y = v170;
+            v245.size.width = v172;
+            MaxY = CGRectGetMaxY(v245);
           }
 
           else
           {
-            MaxY = v153;
-            v140 = v158;
+            MaxY = v154;
+            v141 = v159;
           }
         }
 
         else
         {
-          v154 = v134;
+          v155 = v135;
           MaxY = MinY;
-          v140 = MaxX;
-          if (v138)
+          v141 = MaxX;
+          if (v139)
           {
-            v245.origin.x = v123;
-            v245.origin.y = v125;
-            v245.size.width = v127;
-            v245.size.height = v129;
-            v140 = CGRectGetMinX(v245);
-            v246.origin.x = v123;
-            v246.origin.y = v125;
-            v246.size.width = v127;
-            v246.size.height = v129;
-            MaxY = CGRectGetMinY(v246);
+            v246.origin.x = v124;
+            v246.origin.y = v126;
+            v246.size.width = v128;
+            v246.size.height = v130;
+            v141 = CGRectGetMinX(v246);
+            v247.origin.x = v124;
+            v247.origin.y = v126;
+            v247.size.width = v128;
+            v247.size.height = v130;
+            MaxY = CGRectGetMinY(v247);
           }
 
-          if ([v121 count])
+          if ([v122 count])
           {
-            v247.origin.x = v166;
-            v247.origin.y = v169;
-            v247.size.width = v171;
-            v247.size.height = v155;
-            MaxX = CGRectGetMaxX(v247);
-            v248.origin.x = v166;
-            v248.origin.y = v169;
-            v248.size.width = v171;
-            v248.size.height = v155;
-            MinY = CGRectGetMaxY(v248);
+            v248.origin.x = v167;
+            v248.origin.y = v170;
+            v248.size.width = v172;
+            v248.size.height = v156;
+            MaxX = CGRectGetMaxX(v248);
+            v249.origin.x = v167;
+            v249.origin.y = v170;
+            v249.size.width = v172;
+            v249.size.height = v156;
+            MinY = CGRectGetMaxY(v249);
           }
         }
 
-        v142 = tx + r2c * MaxY + r2_24b * v140;
-        v143 = r2_8c + r2_16c * MaxY + b * v140;
-        v144 = tx + r2c * MinY + r2_24b * MaxX;
-        v145 = r2_8c + r2_16c * MinY + b * MaxX;
-        v146 = objc_loadWeakRetained((v86 + 88));
-        isRTL = [v146 isRTL];
+        v143 = tx + r2c * MaxY + r2_24b * v141;
+        v144 = r2_8c + r2_16c * MaxY + b * v141;
+        v145 = tx + r2c * MinY + r2_24b * MaxX;
+        v146 = r2_8c + r2_16c * MinY + b * MaxX;
+        v147 = objc_loadWeakRetained((v86 + 88));
+        isRTL = [v147 isRTL];
 
         if (isRTL)
         {
-          v148 = -1.0;
+          v149 = -1.0;
         }
 
         else
         {
-          v148 = 1.0;
+          v149 = 1.0;
         }
 
-        v149 = v143 - v148;
-        v150 = v145 + v148;
-        [*(v86 + 24) setPosition:{v142 + -1.0, v149}];
-        [*(v86 + 32) setPosition:{v144 + 1.0, v150}];
+        v150 = v144 - v149;
+        v151 = v146 + v149;
+        [*(v86 + 24) setPosition:{v143 + -1.0, v150}];
+        [*(v86 + 32) setPosition:{v145 + 1.0, v151}];
 
-        v110 = v162;
+        v111 = v163;
       }
 
-      liveCopy = v159;
+      liveCopy = v160;
     }
 
     else
@@ -1042,7 +1045,7 @@ LABEL_16:
     v11 = 0.0;
     if (v6)
     {
-      [v6 transform];
+      objc_msgSend_transform(v6, 0.0, 0.0);
       v11 = v20;
       v10 = v21;
     }
@@ -1192,27 +1195,27 @@ void __86__PKSelectionGlowRenderer__createPathAroundStrokes_inDrawing_isLive_liv
   {
     if (a2)
     {
-      v12 = 32;
+      v12 = 4;
     }
 
     else
     {
-      v12 = 24;
+      v12 = 3;
     }
 
-    v13 = *(self + v12);
+    v13 = self[v12];
     if (a2)
     {
-      v14 = 24;
+      v14 = 3;
     }
 
     else
     {
-      v14 = 32;
+      v14 = 4;
     }
 
     v28 = v13;
-    v15 = *(self + v14);
+    v15 = self[v14];
     [(PKSelectionGlowRenderer *)self _resetKnobAppearance];
     v17 = 1.0;
     if (a2 == 1)
@@ -1236,16 +1239,16 @@ void __86__PKSelectionGlowRenderer__createPathAroundStrokes_inDrawing_isLive_liv
   }
 }
 
-- (uint64_t)_resetKnobAppearance
+- (id)_resetKnobAppearance
 {
   if (result)
   {
     v2 = result;
     LODWORD(a2) = 1.0;
-    [*(result + 24) setOpacity:a2];
+    [result[3] setOpacity:a2];
     LODWORD(v3) = 1.0;
-    [*(v2 + 32) setOpacity:v3];
-    v4 = *(v2 + 24);
+    [v2[4] setOpacity:v3];
+    v4 = v2[3];
     v12 = *(MEMORY[0x1E69792E8] + 80);
     v18 = *(MEMORY[0x1E69792E8] + 64);
     v13 = v18;
@@ -1263,7 +1266,7 @@ void __86__PKSelectionGlowRenderer__createPathAroundStrokes_inDrawing_isLive_liv
     v7 = v16;
     v17 = v6;
     [v4 setTransform:&v14];
-    v5 = *(v2 + 32);
+    v5 = v2[4];
     v18 = v13;
     v19 = v12;
     v20 = v11;
@@ -1278,18 +1281,18 @@ void __86__PKSelectionGlowRenderer__createPathAroundStrokes_inDrawing_isLive_liv
   return result;
 }
 
-- (uint64_t)_didEndDragKnobLocation:(uint64_t)location knobDragMode:(unint64_t)mode
+- (id)_didEndDragKnobLocation:(uint64_t)location knobDragMode:(unint64_t)mode
 {
   if (result)
   {
     v4 = result;
     if (mode <= 2)
     {
-      [(PKSelectionModificationKnob *)*(result + 32) didEndBrushSelection];
-      [(PKSelectionModificationKnob *)*(v4 + 24) didEndBrushSelection];
+      [(PKSelectionModificationKnob *)result[4] didEndBrushSelection];
+      [(PKSelectionModificationKnob *)v4[3] didEndBrushSelection];
     }
 
-    strokes = [*(v4 + 80) strokes];
+    strokes = [v4[10] strokes];
     -[PKSelectionGlowRenderer setKnobsVisible:](v4, [strokes count] != 0);
 
     *(v4 + 48) = 0;

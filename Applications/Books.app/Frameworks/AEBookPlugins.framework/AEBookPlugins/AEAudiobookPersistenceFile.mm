@@ -34,7 +34,7 @@
         else
         {
           v14 = [[AEAudiobookBookmarkTimeSnapshot alloc] initWithCoder:v12];
-          v15 = _AEBookPluginsAudiobookLog();
+          v15 = _AEBookPluginsAudiobookLog(v14);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             [(AEAudiobookBookmarkTimeSnapshot *)v14 bookmarkTime];
@@ -99,9 +99,9 @@
     if (v13)
     {
       v14 = +[NSFileManager defaultManager];
-      v26 = 0;
-      [v14 createDirectoryAtPath:v13 withIntermediateDirectories:1 attributes:0 error:&v26];
-      v15 = v26;
+      v27 = 0;
+      [v14 createDirectoryAtPath:v13 withIntermediateDirectories:1 attributes:0 error:&v27];
+      v15 = v27;
 
       if (!v15)
       {
@@ -110,53 +110,53 @@
 
         if (v17)
         {
-          v18 = _AEBookPluginsAudiobookLog();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v19 = _AEBookPluginsAudiobookLog(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             [(AEAudiobookBookmarkTimeSnapshot *)v11 bookmarkTime];
-            v20 = v19;
+            v21 = v20;
             bookmarkTimeTimestamp = [(AEAudiobookBookmarkTimeSnapshot *)v11 bookmarkTimeTimestamp];
             *buf = 134218498;
-            v28 = v20;
-            v29 = 2112;
-            v30 = assetID;
-            v31 = 2114;
-            v32 = bookmarkTimeTimestamp;
-            _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Archiving bookmarkTimeSnapshot:%lf assetID:%@ timestamp:%{public}@", buf, 0x20u);
+            v29 = v21;
+            v30 = 2112;
+            v31 = assetID;
+            v32 = 2114;
+            v33 = bookmarkTimeTimestamp;
+            _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Archiving bookmarkTimeSnapshot:%lf assetID:%@ timestamp:%{public}@", buf, 0x20u);
           }
 
-          v25 = 0;
-          [encodedData writeToURL:v17 options:1 error:&v25];
-          v22 = v25;
+          v26 = 0;
+          [encodedData writeToURL:v17 options:1 error:&v26];
+          v23 = v26;
         }
 
         else
         {
-          v22 = [NSError errorWithDomain:AssetEngineErrorDomain code:2006 userInfo:0];
+          v23 = [NSError errorWithDomain:AssetEngineErrorDomain code:2006 userInfo:0];
         }
 
-        v15 = v22;
+        v15 = v23;
       }
 
-      v23 = 0;
+      v24 = 0;
     }
 
     else
     {
-      v23 = [NSError errorWithDomain:AssetEngineErrorDomain code:2006 userInfo:0];
+      v24 = [NSError errorWithDomain:AssetEngineErrorDomain code:2006 userInfo:0];
     }
   }
 
   else
   {
-    v23 = [NSError errorWithDomain:AssetEngineErrorDomain code:2006 userInfo:0];
+    v24 = [NSError errorWithDomain:AssetEngineErrorDomain code:2006 userInfo:0];
   }
 
-  v24 = objc_retainBlock(completionCopy);
+  v25 = objc_retainBlock(completionCopy);
 
-  if (v24)
+  if (v25)
   {
-    v24[2](v24, v23);
+    v25[2](v25, v24);
   }
 }
 

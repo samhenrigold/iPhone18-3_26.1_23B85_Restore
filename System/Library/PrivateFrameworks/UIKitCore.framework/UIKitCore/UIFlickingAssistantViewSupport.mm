@@ -1521,7 +1521,7 @@ void __78__UIFlickingAssistantViewSupport__updateKeyboardLayoutGuideForAssistant
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
   changeCopy = change;
-  if ([path isEqualToString:@"bounds"])
+  if (objc_msgSend_isEqualToString_(path))
   {
     v8 = [changeCopy objectForKey:*MEMORY[0x1E696A4F0]];
     [v8 CGRectValue];

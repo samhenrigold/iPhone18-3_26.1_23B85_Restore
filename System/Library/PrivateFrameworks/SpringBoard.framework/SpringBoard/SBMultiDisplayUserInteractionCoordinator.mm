@@ -294,7 +294,7 @@
   v6 = WeakRetained;
   if (WeakRetained && WeakRetained == disconnectCopy)
   {
-    v7 = SBLogPointer();
+    v7 = SBLogPointer(WeakRetained);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       _sceneIdentifier = [v6 _sceneIdentifier];
@@ -328,7 +328,7 @@
   if (windowScene)
   {
     WeakRetained = objc_loadWeakRetained(&self->_activeTouchDownOriginatedWindowScene);
-    v6 = SBLogPointer();
+    v6 = SBLogPointer(WeakRetained);
     v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     if (WeakRetained)
     {
@@ -358,17 +358,18 @@
 
 - (void)eventSnifferHandledPointerTouchUp:(id)up
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_activeTouchDownOriginatedWindowScene);
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = SBLogPointer();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogPointer(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      _sceneIdentifier = [WeakRetained _sceneIdentifier];
-      v7 = 138543362;
-      v8 = _sceneIdentifier;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Clearing pointer touch down window scene: %{public}@ - touch up", &v7, 0xCu);
+      _sceneIdentifier = [v5 _sceneIdentifier];
+      v8 = 138543362;
+      v9 = _sceneIdentifier;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Clearing pointer touch down window scene: %{public}@ - touch up", &v8, 0xCu);
     }
 
     objc_storeWeak(&self->_activeTouchDownOriginatedWindowScene, 0);

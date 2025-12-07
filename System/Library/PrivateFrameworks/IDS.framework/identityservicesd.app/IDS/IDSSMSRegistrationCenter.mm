@@ -200,7 +200,7 @@
           bOOLValue = [v18 BOOLValue];
 
           v20 = [copyDictionaryRepresentation objectForKey:IDSPNRRegStatusMetricPNRTimestampKey];
-          [v20 doubleValue];
+          objc_msgSend_doubleValue(v20);
           v22 = v21;
 
           v23 = +[IDSCurrentServerTime sharedInstance];

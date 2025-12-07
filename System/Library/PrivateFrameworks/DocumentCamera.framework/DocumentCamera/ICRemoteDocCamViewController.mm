@@ -6,7 +6,6 @@
 - (id)makeNoDevicesAlertController;
 - (id)makeProgressAlertControllerForDevice:(id)device;
 - (id)progressAlertMessageForDevice:(id)device;
-- (uint64_t)viewDidLoad;
 - (void)cancelSidecarRequest;
 - (void)makeSidecarRequestToDevice:(id)device;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
@@ -34,57 +33,9 @@
 
 - (void)viewDidLoad
 {
-  v11.receiver = self;
-  v11.super_class = ICRemoteDocCamViewController;
-  [(ICRemoteDocCamViewController *)&v11 viewDidLoad];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2050000000;
-  v3 = getSidecarServiceClass_softClass;
-  v20 = getSidecarServiceClass_softClass;
-  if (!getSidecarServiceClass_softClass)
-  {
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __getSidecarServiceClass_block_invoke;
-    v15 = &unk_278F931A0;
-    v16 = &v17;
-    __getSidecarServiceClass_block_invoke(&v12);
-    v3 = v18[3];
-  }
-
-  v4 = v3;
-  _Block_object_dispose(&v17, 8);
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v5 = getSidecarServiceNameScanDocumentSymbolLoc_ptr;
-  v20 = getSidecarServiceNameScanDocumentSymbolLoc_ptr;
-  if (!getSidecarServiceNameScanDocumentSymbolLoc_ptr)
-  {
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __getSidecarServiceNameScanDocumentSymbolLoc_block_invoke;
-    v15 = &unk_278F931A0;
-    v16 = &v17;
-    v6 = SidecarCoreLibrary();
-    v7 = dlsym(v6, "SidecarServiceNameScanDocument");
-    *(v16[1] + 24) = v7;
-    getSidecarServiceNameScanDocumentSymbolLoc_ptr = *(v16[1] + 24);
-    v5 = v18[3];
-  }
-
-  _Block_object_dispose(&v17, 8);
-  if (!v5)
-  {
-    viewDidLoad = [ICRemoteDocCamViewController viewDidLoad];
-    _Block_object_dispose(&v17, 8);
-    _Unwind_Resume(viewDidLoad);
-  }
-
-  v8 = *v5;
-  v9 = [v3 serviceWithName:v8];
-  [(ICRemoteDocCamViewController *)self setSidecarService:v9];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [ICRemoteDocCamViewController viewDidAppear:];
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -392,7 +343,7 @@ void __59__ICRemoteDocCamViewController_makeSidecarRequestToDevice___block_invok
 {
   sidecarRequest = [self sidecarRequest];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1(&dword_249253000, v2, v3, "Canceling sidecar request… {request: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1(&dword_249253000, v2, v3, "Canceling sidecar request… {request: %@}", v4, v5, v6, v7);
 }
 
 void __52__ICRemoteDocCamViewController_cancelSidecarRequest__block_invoke(uint64_t a1)
@@ -416,7 +367,7 @@ void __52__ICRemoteDocCamViewController_cancelSidecarRequest__block_invoke(uint6
   sidecarRequest = [self sidecarRequest];
   error = [sidecarRequest error];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1(&dword_249253000, v3, v4, "Sidecar request finished {error: %@}", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1(&dword_249253000, v3, v4, "Sidecar request finished {error: %@}", v5, v6, v7, v8);
 }
 
 uint64_t __55__ICRemoteDocCamViewController_sidecarRequestDidFinish__block_invoke(uint64_t a1)
@@ -530,13 +481,6 @@ void __55__ICRemoteDocCamViewController_sidecarRequestDidFinish__block_invoke_69
   return WeakRetained;
 }
 
-- (uint64_t)viewDidLoad
-{
-  dlerror();
-  v0 = abort_report_np();
-  return [ICRemoteDocCamViewController viewDidAppear:v0];
-}
-
 - (void)makeSidecarRequestToDevice:.cold.1()
 {
   v2 = *MEMORY[0x277D85DE8];
@@ -548,7 +492,7 @@ void __59__ICRemoteDocCamViewController_makeSidecarRequestToDevice___block_invok
 {
   v1 = [*a1 sidecarRequest];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1(&dword_249253000, v2, v3, "Made sidecar request {request: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1(&dword_249253000, v2, v3, "Made sidecar request {request: %@}", v4, v5, v6, v7);
 }
 
 void __55__ICRemoteDocCamViewController_sidecarRequestDidFinish__block_invoke_cold_1(id *a1, NSObject *a2)

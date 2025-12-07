@@ -1,10 +1,14 @@
 @interface IRMiloLslPredictionDO
++ (IRMiloLslPredictionDO)miloLslPredictionDOWithPredictionId:(id)id isPredictionValid:(BOOL)valid isMapValid:(BOOL)mapValid isMotionDetected:(BOOL)detected scores:(id)scores predictionTime:(id)time;
 - (BOOL)canUse;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToMiloLslPredictionDO:(id)o;
 - (BOOL)isTemporarilyUnavailable;
 - (IRMiloLslPredictionDO)initWithCoder:(id)coder;
 - (IRMiloLslPredictionDO)initWithPredictionId:(id)id isPredictionValid:(BOOL)valid isMapValid:(BOOL)mapValid isMotionDetected:(BOOL)detected scores:(id)scores predictionTime:(id)time;
+- (id)copyWithReplacementIsMapValid:(BOOL)valid;
+- (id)copyWithReplacementIsMotionDetected:(BOOL)detected;
+- (id)copyWithReplacementIsPredictionValid:(BOOL)valid;
 - (id)copyWithReplacementPredictionId:(id)id;
 - (id)copyWithReplacementPredictionTime:(id)time;
 - (id)copyWithReplacementScores:(id)scores;
@@ -19,34 +23,34 @@
 
 - (id)exportAsDictionary
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   predictionId = [(IRMiloLslPredictionDO *)self predictionId];
-  v22 = v3;
+  v21 = v3;
   [v3 setObject:predictionId forKeyedSubscript:@"predictionId"];
 
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   selfCopy = self;
   scores = [(IRMiloLslPredictionDO *)self scores];
-  v7 = [scores countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [scores countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(scores);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         v12 = MEMORY[0x277CCABB0];
         [v11 score];
         v13 = [v12 numberWithDouble:?];
@@ -56,33 +60,31 @@
         [v5 setObject:eventID forKeyedSubscript:@"eventID"];
       }
 
-      v8 = [scores countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [scores countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v8);
   }
 
-  [v22 setObject:v5 forKeyedSubscript:@"scores"];
+  [v21 setObject:v5 forKeyedSubscript:@"scores"];
   v15 = [MEMORY[0x277CCABB0] numberWithBool:{-[IRMiloLslPredictionDO isPredictionValid](selfCopy, "isPredictionValid")}];
-  [v22 setObject:v15 forKeyedSubscript:@"isPredictionValid"];
+  [v21 setObject:v15 forKeyedSubscript:@"isPredictionValid"];
 
   v16 = [MEMORY[0x277CCABB0] numberWithBool:{-[IRMiloLslPredictionDO isMapValid](selfCopy, "isMapValid")}];
-  [v22 setObject:v16 forKeyedSubscript:@"isMapValid"];
+  [v21 setObject:v16 forKeyedSubscript:@"isMapValid"];
 
   v17 = [MEMORY[0x277CCABB0] numberWithBool:{-[IRMiloLslPredictionDO isMotionDetected](selfCopy, "isMotionDetected")}];
-  [v22 setObject:v17 forKeyedSubscript:@"isMotionDetected"];
+  [v21 setObject:v17 forKeyedSubscript:@"isMotionDetected"];
 
   predictionTime = [(IRMiloLslPredictionDO *)selfCopy predictionTime];
-  [v22 setObject:predictionTime forKeyedSubscript:@"predictionTime"];
+  [v21 setObject:predictionTime forKeyedSubscript:@"predictionTime"];
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 - (id)scoreForPredictionEventEvent:(id)event
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if ([(IRMiloLslPredictionDO *)self canUse])
   {
@@ -97,25 +99,25 @@
 
     else
     {
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       scores = [(IRMiloLslPredictionDO *)self scores];
-      v8 = [scores countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [scores countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v8)
       {
-        v10 = *v20;
+        v10 = *v19;
         while (2)
         {
           for (i = 0; i != v8; i = i + 1)
           {
-            if (*v20 != v10)
+            if (*v19 != v10)
             {
               objc_enumerationMutation(scores);
             }
 
-            v12 = *(*(&v19 + 1) + 8 * i);
+            v12 = *(*(&v18 + 1) + 8 * i);
             eventID = [v12 eventID];
             label = [eventCopy label];
             v15 = [eventID isEqual:label];
@@ -129,7 +131,7 @@
             }
           }
 
-          v8 = [scores countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v8 = [scores countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v8)
           {
             continue;
@@ -147,8 +149,6 @@ LABEL_15:
   {
     v8 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -198,12 +198,64 @@ LABEL_15:
   return v19;
 }
 
++ (IRMiloLslPredictionDO)miloLslPredictionDOWithPredictionId:(id)id isPredictionValid:(BOOL)valid isMapValid:(BOOL)mapValid isMotionDetected:(BOOL)detected scores:(id)scores predictionTime:(id)time
+{
+  detectedCopy = detected;
+  mapValidCopy = mapValid;
+  validCopy = valid;
+  timeCopy = time;
+  scoresCopy = scores;
+  idCopy = id;
+  v17 = [[self alloc] initWithPredictionId:idCopy isPredictionValid:validCopy isMapValid:mapValidCopy isMotionDetected:detectedCopy scores:scoresCopy predictionTime:timeCopy];
+
+  return v17;
+}
+
 - (id)copyWithReplacementPredictionId:(id)id
 {
   idCopy = id;
   v5 = [objc_alloc(objc_opt_class()) initWithPredictionId:idCopy isPredictionValid:self->_isPredictionValid isMapValid:self->_isMapValid isMotionDetected:self->_isMotionDetected scores:self->_scores predictionTime:self->_predictionTime];
 
   return v5;
+}
+
+- (id)copyWithReplacementIsPredictionValid:(BOOL)valid
+{
+  validCopy = valid;
+  v5 = objc_alloc(objc_opt_class());
+  isMapValid = self->_isMapValid;
+  isMotionDetected = self->_isMotionDetected;
+  predictionId = self->_predictionId;
+  scores = self->_scores;
+  predictionTime = self->_predictionTime;
+
+  return [v5 initWithPredictionId:predictionId isPredictionValid:validCopy isMapValid:isMapValid isMotionDetected:isMotionDetected scores:scores predictionTime:predictionTime];
+}
+
+- (id)copyWithReplacementIsMapValid:(BOOL)valid
+{
+  validCopy = valid;
+  v5 = objc_alloc(objc_opt_class());
+  isPredictionValid = self->_isPredictionValid;
+  isMotionDetected = self->_isMotionDetected;
+  predictionId = self->_predictionId;
+  scores = self->_scores;
+  predictionTime = self->_predictionTime;
+
+  return [v5 initWithPredictionId:predictionId isPredictionValid:isPredictionValid isMapValid:validCopy isMotionDetected:isMotionDetected scores:scores predictionTime:predictionTime];
+}
+
+- (id)copyWithReplacementIsMotionDetected:(BOOL)detected
+{
+  detectedCopy = detected;
+  v5 = objc_alloc(objc_opt_class());
+  isPredictionValid = self->_isPredictionValid;
+  isMapValid = self->_isMapValid;
+  predictionId = self->_predictionId;
+  scores = self->_scores;
+  predictionTime = self->_predictionTime;
+
+  return [v5 initWithPredictionId:predictionId isPredictionValid:isPredictionValid isMapValid:isMapValid isMotionDetected:detectedCopy scores:scores predictionTime:predictionTime];
 }
 
 - (id)copyWithReplacementScores:(id)scores
@@ -226,82 +278,13 @@ LABEL_15:
 {
   oCopy = o;
   v5 = oCopy;
-  if (!oCopy)
-  {
-    goto LABEL_14;
-  }
-
-  v6 = self->_predictionId == 0;
-  predictionId = [oCopy predictionId];
-  v8 = predictionId != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_14;
-  }
-
-  predictionId = self->_predictionId;
-  if (predictionId)
-  {
-    predictionId2 = [v5 predictionId];
-    v11 = [(NSString *)predictionId isEqual:predictionId2];
-
-    if (!v11)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  isPredictionValid = self->_isPredictionValid;
-  if (isPredictionValid != [v5 isPredictionValid])
-  {
-    goto LABEL_14;
-  }
-
-  isMapValid = self->_isMapValid;
-  if (isMapValid != [v5 isMapValid])
-  {
-    goto LABEL_14;
-  }
-
-  isMotionDetected = self->_isMotionDetected;
-  if (isMotionDetected != [v5 isMotionDetected])
-  {
-    goto LABEL_14;
-  }
-
-  v15 = self->_scores == 0;
-  scores = [v5 scores];
-  v17 = scores != 0;
-
-  if (v15 == v17)
-  {
-    goto LABEL_14;
-  }
-
-  scores = self->_scores;
-  if (scores)
-  {
-    scores2 = [v5 scores];
-    v20 = [(NSSet *)scores isEqual:scores2];
-
-    if (!v20)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  v21 = self->_predictionTime == 0;
-  predictionTime = [v5 predictionTime];
-  v23 = predictionTime != 0;
-
-  if (v21 != v23)
+  if (oCopy && (v6 = self->_predictionId == 0, [oCopy predictionId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 != v8) && ((predictionId = self->_predictionId) == 0 || (objc_msgSend(v5, "predictionId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](predictionId, "isEqual:", v10), v10, v11)) && (isPredictionValid = self->_isPredictionValid, isPredictionValid == objc_msgSend(v5, "isPredictionValid")) && (isMapValid = self->_isMapValid, isMapValid == objc_msgSend(v5, "isMapValid")) && (isMotionDetected = self->_isMotionDetected, isMotionDetected == objc_msgSend(v5, "isMotionDetected")) && (v15 = self->_scores == 0, objc_msgSend(v5, "scores"), v16 = objc_claimAutoreleasedReturnValue(), v17 = v16 != 0, v16, v15 != v17) && ((scores = self->_scores) == 0 || (objc_msgSend(v5, "scores"), v19 = objc_claimAutoreleasedReturnValue(), v20 = -[NSSet isEqual:](scores, "isEqual:", v19), v19, v20)) && (v21 = self->_predictionTime == 0, objc_msgSend(v5, "predictionTime"), v22 = objc_claimAutoreleasedReturnValue(), v23 = v22 != 0, v22, v21 != v23))
   {
     predictionTime = self->_predictionTime;
     if (predictionTime)
     {
-      predictionTime2 = [v5 predictionTime];
-      v26 = [(NSDate *)predictionTime isEqual:predictionTime2];
+      predictionTime = [v5 predictionTime];
+      v26 = [(NSDate *)predictionTime isEqual:predictionTime];
     }
 
     else
@@ -312,7 +295,6 @@ LABEL_15:
 
   else
   {
-LABEL_14:
     v26 = 0;
   }
 
@@ -348,7 +330,7 @@ LABEL_14:
 
 - (IRMiloLslPredictionDO)initWithCoder:(id)coder
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"predictionId"];
   if (!v5)
@@ -379,11 +361,11 @@ LABEL_9:
 
       if (([coderCopy containsValueForKey:@"isPredictionValid"] & 1) == 0)
       {
-        v41 = *MEMORY[0x277CCA450];
-        v42 = @"Missing serialized value for IRMiloLslPredictionDO.isPredictionValid";
+        v40 = *MEMORY[0x277CCA450];
+        v41 = @"Missing serialized value for IRMiloLslPredictionDO.isPredictionValid";
         v26 = MEMORY[0x277CBEAC0];
-        v27 = &v42;
-        v28 = &v41;
+        v27 = &v41;
+        v28 = &v40;
         goto LABEL_31;
       }
     }
@@ -400,11 +382,11 @@ LABEL_9:
 
       if (([coderCopy containsValueForKey:@"isMapValid"] & 1) == 0)
       {
-        v39 = *MEMORY[0x277CCA450];
-        v40 = @"Missing serialized value for IRMiloLslPredictionDO.isMapValid";
+        v38 = *MEMORY[0x277CCA450];
+        v39 = @"Missing serialized value for IRMiloLslPredictionDO.isMapValid";
         v26 = MEMORY[0x277CBEAC0];
-        v27 = &v40;
-        v28 = &v39;
+        v27 = &v39;
+        v28 = &v38;
         goto LABEL_31;
       }
     }
@@ -440,9 +422,9 @@ LABEL_12:
           v22 = objc_opt_class();
           v11 = NSStringFromClass(v22);
           v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRMiloLslPredictionDO key predictionTime (expected %@, decoded %@)", v10, v11, 0];
-          v35 = *MEMORY[0x277CCA450];
-          v36 = v12;
-          v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+          v34 = *MEMORY[0x277CCA450];
+          v35 = v12;
+          v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
           v24 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRMiloLslPredictionDOOCNTErrorDomain" code:3 userInfo:v23];
           [coderCopy failWithError:v24];
 
@@ -474,11 +456,11 @@ LABEL_12:
         goto LABEL_12;
       }
 
-      v37 = *MEMORY[0x277CCA450];
-      v38 = @"Missing serialized value for IRMiloLslPredictionDO.isMotionDetected";
+      v36 = *MEMORY[0x277CCA450];
+      v37 = @"Missing serialized value for IRMiloLslPredictionDO.isMotionDetected";
       v26 = MEMORY[0x277CBEAC0];
-      v27 = &v38;
-      v28 = &v37;
+      v27 = &v37;
+      v28 = &v36;
 LABEL_31:
       v7 = [v26 dictionaryWithObjects:v27 forKeys:v28 count:1];
       v9 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRMiloLslPredictionDOOCNTErrorDomain" code:1 userInfo:v7];
@@ -496,9 +478,9 @@ LABEL_23:
   v8 = objc_opt_class();
   v9 = NSStringFromClass(v8);
   v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRMiloLslPredictionDO key predictionId (expected %@, decoded %@)", v7, v9, 0];
-  v43 = *MEMORY[0x277CCA450];
-  v44[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+  v42 = *MEMORY[0x277CCA450];
+  v43[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
   v12 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRMiloLslPredictionDOOCNTErrorDomain" code:3 userInfo:v11];
   [coderCopy failWithError:v12];
 LABEL_4:
@@ -510,7 +492,6 @@ LABEL_6:
 LABEL_7:
 LABEL_24:
 
-  v31 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

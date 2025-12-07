@@ -551,7 +551,6 @@ LABEL_19:
   has = self->_has;
   if ((*&has & 0x10) != 0)
   {
-    duration = self->_duration;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((*&has & 2) == 0)
@@ -571,7 +570,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  activeDuration = self->_activeDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -586,7 +584,6 @@ LABEL_4:
   }
 
 LABEL_24:
-  normalSleepDuration = self->_normalSleepDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -601,7 +598,6 @@ LABEL_5:
   }
 
 LABEL_25:
-  deepSleepDuration = self->_deepSleepDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -616,7 +612,6 @@ LABEL_6:
   }
 
 LABEL_26:
-  deepSleepCycleCount = self->_deepSleepCycleCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -631,7 +626,6 @@ LABEL_7:
   }
 
 LABEL_27:
-  voltLowDuration = self->_voltLowDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -646,7 +640,6 @@ LABEL_8:
   }
 
 LABEL_28:
-  voltMedDuration = self->_voltMedDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -661,7 +654,6 @@ LABEL_9:
   }
 
 LABEL_29:
-  voltHighDuration = self->_voltHighDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -676,7 +668,6 @@ LABEL_10:
   }
 
 LABEL_30:
-  zspClkOpt0Duration = self->_zspClkOpt0Duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -691,7 +682,6 @@ LABEL_11:
   }
 
 LABEL_31:
-  zspClkOpt1Duration = self->_zspClkOpt1Duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -706,7 +696,6 @@ LABEL_12:
   }
 
 LABEL_32:
-  zspClkOpt2Duration = self->_zspClkOpt2Duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -721,7 +710,6 @@ LABEL_13:
   }
 
 LABEL_33:
-  zspClkOpt3Duration = self->_zspClkOpt3Duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -736,7 +724,6 @@ LABEL_14:
   }
 
 LABEL_34:
-  zspClkOpt4Duration = self->_zspClkOpt4Duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -751,7 +738,6 @@ LABEL_15:
   }
 
 LABEL_35:
-  zspClkOpt5Duration = self->_zspClkOpt5Duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -766,7 +752,6 @@ LABEL_16:
   }
 
 LABEL_36:
-  thClkOpt0Duration = self->_thClkOpt0Duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -781,12 +766,10 @@ LABEL_17:
   }
 
 LABEL_37:
-  thClkOpt1Duration = self->_thClkOpt1Duration;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_18:
-    startTime = self->_startTime;
     PBDataWriterWriteUint64Field();
   }
 

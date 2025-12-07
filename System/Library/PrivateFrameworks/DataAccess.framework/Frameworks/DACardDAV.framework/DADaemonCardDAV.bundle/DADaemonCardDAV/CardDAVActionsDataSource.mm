@@ -2,6 +2,7 @@
 + (id)dataSourceWithAddressBook:(void *)book;
 + (id)dataSourceWithContactStore:(id)store;
 - (BOOL)changeHistoryIsValid;
+- (id)_copyCoalescedChangesInContainer:(id)container isPrimaryAppleAccount:(BOOL)account isU18Account:(BOOL)u18Account isImageUploadRestricted:(BOOL)restricted databaseHelper:(id)helper accountHomeURL:(id)l changeTrackingID:(id)d existingActions:(id)self0 maxImageSize:(int64_t)self1 maxResourceSize:(int64_t)self2 changeContext:(id)self3 outTouchedDB:(BOOL *)self4;
 - (id)copyWithoutImageAction:(id)action withFolderURL:(id)l maxResourceSize:(int64_t)size;
 - (void)prepareChangeHistoryForClientWithIdentifier:(id)identifier forContainer:(id)container withChangeContext:(id)context;
 @end
@@ -35,6 +36,14 @@
   [v4 handleFailureInMethod:a2 object:self file:@"CardDAVActionsDataSource.m" lineNumber:29 description:@"Subclasses implement"];
 
   return 0;
+}
+
+- (id)_copyCoalescedChangesInContainer:(id)container isPrimaryAppleAccount:(BOOL)account isU18Account:(BOOL)u18Account isImageUploadRestricted:(BOOL)restricted databaseHelper:(id)helper accountHomeURL:(id)l changeTrackingID:(id)d existingActions:(id)self0 maxImageSize:(int64_t)self1 maxResourceSize:(int64_t)self2 changeContext:(id)self3 outTouchedDB:(BOOL *)self4
+{
+  v16 = [NSAssertionHandler currentHandler:container];
+  [v16 handleFailureInMethod:a2 object:self file:@"CardDAVActionsDataSource.m" lineNumber:46 description:@"Subclasses implement"];
+
+  return &__NSArray0__struct;
 }
 
 - (id)copyWithoutImageAction:(id)action withFolderURL:(id)l maxResourceSize:(int64_t)size

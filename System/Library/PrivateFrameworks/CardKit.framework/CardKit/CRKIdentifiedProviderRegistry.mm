@@ -23,13 +23,13 @@
   return v2;
 }
 
-uint64_t __47__CRKIdentifiedProviderRegistry_sharedInstance__block_invoke()
+uint64_t __47__CRKIdentifiedProviderRegistry_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = sharedInstance_sRegistry;
-  sharedInstance_sRegistry = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance_sRegistry;
+  sharedInstance_sRegistry = v1;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (CRKIdentifiedProviderRegistry)init

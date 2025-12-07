@@ -221,32 +221,32 @@ LABEL_11:
 
 - (id)addStoreWithCoordinator:(id)coordinator migrationUUID:(id)d storeURL:(id)l options:(id)options description:(id)description fromVersion:(int)version toVersion:(int)toVersion progress:(id)self0 progressUnitCount:(unint64_t)self1 error:(id *)self2
 {
-  v41 = *&version;
-  v102 = *MEMORY[0x1E69E9840];
+  v42 = *&version;
+  v103 = *MEMORY[0x1E69E9840];
   coordinatorCopy = coordinator;
   dCopy = d;
   lCopy = l;
   optionsCopy = options;
   descriptionCopy = description;
   progressCopy = progress;
+  v60 = 0;
+  v61 = &v60;
+  v62 = 0x3032000000;
+  v63 = __Block_byref_object_copy__56805;
+  v64 = __Block_byref_object_dispose__56806;
+  v65 = 0;
+  v54 = 0;
+  v55 = &v54;
+  v56 = 0x3032000000;
+  v57 = __Block_byref_object_copy__56805;
+  v58 = __Block_byref_object_dispose__56806;
   v59 = 0;
-  v60 = &v59;
-  v61 = 0x3032000000;
-  v62 = __Block_byref_object_copy__56805;
-  v63 = __Block_byref_object_dispose__56806;
-  v64 = 0;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__56805;
-  v57 = __Block_byref_object_dispose__56806;
-  v58 = 0;
   obj = 0;
   LOBYTE(description) = [(PLModelMigration *)self isMigrationCancelledWithError:&obj];
-  objc_storeStrong(&v58, obj);
+  objc_storeStrong(&v59, obj);
   if ((description & 1) == 0)
   {
-    toVersion = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ (version: %d -> %d)", descriptionCopy, v41, toVersion];
+    toVersion = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ (version: %d -> %d)", descriptionCopy, v42, toVersion];
     v20 = [PLModelMigrationActionProcessor alloc];
     pathManager = [(PLModelMigration *)self pathManager];
     analyticsEventManager = [(PLModelMigration *)self analyticsEventManager];
@@ -257,18 +257,18 @@ LABEL_11:
     progress = [(PLModelMigrationActionProcessor *)v24 progress];
     [progressCopy addChild:progress withPendingUnitCount:count];
 
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __142__PLModelMigration_addStoreWithCoordinator_migrationUUID_storeURL_options_description_fromVersion_toVersion_progress_progressUnitCount_error___block_invoke;
-    v45[3] = &unk_1E756E3C8;
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __142__PLModelMigration_addStoreWithCoordinator_migrationUUID_storeURL_options_description_fromVersion_toVersion_progress_progressUnitCount_error___block_invoke;
+    v46[3] = &unk_1E756E3C8;
     v26 = v24;
-    v46 = v26;
-    v50 = &v59;
-    v51 = &v53;
-    v47 = coordinatorCopy;
-    v48 = lCopy;
-    v49 = optionsCopy;
-    [(PLModelMigrationActionProcessor *)v26 performActionWithName:toVersion ifRequired:1 block:v45];
+    v47 = v26;
+    v51 = &v60;
+    v52 = &v54;
+    v48 = coordinatorCopy;
+    v49 = lCopy;
+    v50 = optionsCopy;
+    [(PLModelMigrationActionProcessor *)v26 performActionWithName:toVersion ifRequired:1 block:v46];
     if (![(PLModelMigrationActionProcessor *)v26 isSuccess])
     {
       v27 = PLMigrationGetLog();
@@ -281,72 +281,81 @@ LABEL_11:
 
         if (v30)
         {
-          v35 = PLMigrationGetLog();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v36 = PLMigrationGetLog();
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
-            v36 = v54[5];
+            v37 = v55[5];
             LODWORD(buf) = 67109634;
-            DWORD1(buf) = v41;
+            DWORD1(buf) = v42;
             WORD4(buf) = 1024;
             *(&buf + 10) = toVersion;
             HIWORD(buf) = 2112;
-            *&v71 = v36;
-            _os_log_impl(&dword_19BF1F000, v35, OS_LOG_TYPE_ERROR, "Failed to open store for migration from version %d to %d. Error %@", &buf, 0x18u);
+            *&v72 = v37;
+            _os_log_impl(&dword_19BF1F000, v36, OS_LOG_TYPE_ERROR, "Failed to open store for migration from version %d to %d. Error %@", &buf, 0x18u);
           }
         }
 
         else
         {
-          v100 = 0u;
           v101 = 0u;
-          v98 = 0u;
+          v102 = 0u;
           v99 = 0u;
-          v96 = 0u;
+          v100 = 0u;
           v97 = 0u;
-          v94 = 0u;
+          v98 = 0u;
           v95 = 0u;
-          v92 = 0u;
+          v96 = 0u;
           v93 = 0u;
-          v90 = 0u;
+          v94 = 0u;
           v91 = 0u;
-          v88 = 0u;
+          v92 = 0u;
           v89 = 0u;
-          v86 = 0u;
+          v90 = 0u;
           v87 = 0u;
-          v84 = 0u;
+          v88 = 0u;
           v85 = 0u;
-          v82 = 0u;
+          v86 = 0u;
           v83 = 0u;
-          v80 = 0u;
+          v84 = 0u;
           v81 = 0u;
-          v78 = 0u;
+          v82 = 0u;
           v79 = 0u;
-          v76 = 0u;
+          v80 = 0u;
           v77 = 0u;
-          v74 = 0u;
+          v78 = 0u;
           v75 = 0u;
-          v72 = 0u;
+          v76 = 0u;
           v73 = 0u;
+          v74 = 0u;
           buf = 0u;
-          v71 = 0u;
+          v72 = 0u;
           v31 = PLMigrationGetLog();
-          os_log_type_enabled(v31, OS_LOG_TYPE_ERROR);
-          v32 = v54[5];
-          v65[0] = 67109634;
-          v65[1] = v41;
-          v66 = 1024;
-          toVersionCopy = toVersion;
-          v68 = 2112;
-          v69 = v32;
-          LODWORD(v39) = 24;
-          v33 = _os_log_send_and_compose_impl();
-
-          v34 = [(PLModelMigration *)self logger:v65];
-          [v34 logWithMessage:v33 fromCodeLocation:"PLModelMigration.m" type:{686, 16}];
-
-          if (v33 != &buf)
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
-            free(v33);
+            v32 = 3;
+          }
+
+          else
+          {
+            v32 = 2;
+          }
+
+          v33 = v55[5];
+          v66[0] = 67109634;
+          v66[1] = v42;
+          v67 = 1024;
+          toVersionCopy = toVersion;
+          v69 = 2112;
+          v70 = v33;
+          LODWORD(v40) = 24;
+          v34 = _os_log_send_and_compose_impl(v32, 0, &buf, 512, &dword_19BF1F000, v31, 16, "Failed to open store for migration from version %d to %d. Error %@", v66, v40);
+
+          logger3 = [(PLModelMigration *)self logger];
+          [logger3 logWithMessage:v34 fromCodeLocation:"PLModelMigration.m" type:{686, 16}];
+
+          if (v34 != &buf)
+          {
+            free(v34);
           }
         }
       }
@@ -355,15 +364,15 @@ LABEL_11:
 
   if (error)
   {
-    *error = v54[5];
+    *error = v55[5];
   }
 
-  v37 = v60[5];
-  _Block_object_dispose(&v53, 8);
+  v38 = v61[5];
+  _Block_object_dispose(&v54, 8);
 
-  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v60, 8);
 
-  return v37;
+  return v38;
 }
 
 BOOL __142__PLModelMigration_addStoreWithCoordinator_migrationUUID_storeURL_options_description_fromVersion_toVersion_progress_progressUnitCount_error___block_invoke(uint64_t a1)
@@ -424,7 +433,7 @@ id __142__PLModelMigration_addStoreWithCoordinator_migrationUUID_storeURL_option
 
 - (int64_t)migratePostProcessingWithActions:(id)actions migrationActionType:(int64_t)type progress:(id)progress progressUnitCount:(unint64_t)count error:(id *)error
 {
-  v120 = *MEMORY[0x1E69E9840];
+  v121 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   progressCopy = progress;
   if (type == 6)
@@ -433,27 +442,27 @@ id __142__PLModelMigration_addStoreWithCoordinator_migrationUUID_storeURL_option
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLModelMigration.m" lineNumber:612 description:{@"Invalid parameter not satisfying: %@", @"type != PLMigrationActionTypeBackground"}];
   }
 
-  v78 = 0;
-  v79 = &v78;
-  v80 = 0x3032000000;
-  v81 = __Block_byref_object_copy__56805;
-  v82 = __Block_byref_object_dispose__56806;
-  v83 = 0;
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x2020000000;
+  v79 = 0;
+  v80 = &v79;
+  v81 = 0x3032000000;
+  v82 = __Block_byref_object_copy__56805;
+  v83 = __Block_byref_object_dispose__56806;
+  v84 = 0;
+  v75 = 0;
+  v76 = &v75;
+  v77 = 0x2020000000;
   obj = 0;
   selfCopy = self;
   v12 = [(PLModelMigration *)self isMigrationCancelledWithError:&obj];
-  objc_storeStrong(&v83, obj);
+  objc_storeStrong(&v84, obj);
   v13 = 1;
   if (v12)
   {
     v13 = 2;
   }
 
-  v77 = v13;
-  if ([actionsCopy count] && v75[3] == 1)
+  v78 = v13;
+  if (objc_msgSend_count(actionsCopy) && v76[3] == 1)
   {
     v14 = [PLModelMigrationActionProcessor alloc];
     migrationUUID = [(PLModelMigration *)self migrationUUID];
@@ -485,25 +494,25 @@ id __142__PLModelMigration_addStoreWithCoordinator_migrationUUID_storeURL_option
     store = [migrationContext store];
     persistentStoreCoordinator = [store persistentStoreCoordinator];
 
+    v73 = 0u;
+    v71 = 0u;
     v72 = 0u;
     v70 = 0u;
-    v71 = 0u;
-    v69 = 0u;
-    v59 = actionsCopy;
-    v25 = [v59 countByEnumeratingWithState:&v69 objects:v119 count:16];
+    v60 = actionsCopy;
+    v25 = [v60 countByEnumeratingWithState:&v70 objects:v120 count:16];
     if (v25)
     {
-      v60 = *v70;
+      v61 = *v71;
 LABEL_14:
       v26 = 0;
       while (1)
       {
-        if (*v70 != v60)
+        if (*v71 != v61)
         {
-          objc_enumerationMutation(v59);
+          objc_enumerationMutation(v60);
         }
 
-        v27 = *(*(&v69 + 1) + 8 * v26);
+        v27 = *(*(&v70 + 1) + 8 * v26);
         v28 = objc_autoreleasePoolPush();
         progress3 = [v27 progress];
         progress4 = [(PLModelMigrationActionProcessor *)v20 progress];
@@ -512,29 +521,29 @@ LABEL_14:
         v31 = MEMORY[0x1E696AEC0];
         actionDescription = [objc_opt_class() actionDescription];
         v33 = [v31 stringWithFormat:@"%@", actionDescription];
-        v64[0] = MEMORY[0x1E69E9820];
-        v64[1] = 3221225472;
-        v64[2] = __106__PLModelMigration_migratePostProcessingWithActions_migrationActionType_progress_progressUnitCount_error___block_invoke;
-        v64[3] = &unk_1E756E3C8;
-        v67 = &v74;
-        v64[4] = selfCopy;
-        v64[5] = v27;
-        v65 = persistentStoreCoordinator;
-        v68 = &v78;
+        v65[0] = MEMORY[0x1E69E9820];
+        v65[1] = 3221225472;
+        v65[2] = __106__PLModelMigration_migratePostProcessingWithActions_migrationActionType_progress_progressUnitCount_error___block_invoke;
+        v65[3] = &unk_1E756E3C8;
+        v68 = &v75;
+        v65[4] = selfCopy;
+        v65[5] = v27;
+        v66 = persistentStoreCoordinator;
+        v69 = &v79;
         v34 = progress3;
-        v66 = v34;
-        [(PLModelMigrationActionProcessor *)v20 performActionWithName:v33 ifRequired:1 block:v64];
+        v67 = v34;
+        [(PLModelMigrationActionProcessor *)v20 performActionWithName:v33 ifRequired:1 block:v65];
 
         if ([(PLModelMigrationActionProcessor *)v20 isSuccess])
         {
-          v35 = (v79 + 5);
-          v63 = v79[5];
-          v36 = [(PLModelMigration *)selfCopy isMigrationCancelledWithError:&v63];
-          objc_storeStrong(v35, v63);
+          v35 = (v80 + 5);
+          v64 = v80[5];
+          v36 = [(PLModelMigration *)selfCopy isMigrationCancelledWithError:&v64];
+          objc_storeStrong(v35, v64);
           if (v36)
           {
             v37 = 0;
-            v75[3] = 2;
+            v76[3] = 2;
           }
 
           else
@@ -555,71 +564,80 @@ LABEL_14:
 
             if (v41)
             {
-              v48 = PLMigrationGetLog();
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+              v49 = PLMigrationGetLog();
+              if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
               {
-                v49 = objc_opt_class();
-                v50 = NSStringFromClass(v49);
-                v51 = v79[5];
+                v50 = objc_opt_class();
+                v51 = NSStringFromClass(v50);
+                v52 = v80[5];
                 *buf = 138543618;
-                *&buf[4] = v50;
+                *&buf[4] = v51;
                 *&buf[12] = 2114;
-                *&buf[14] = v51;
-                _os_log_impl(&dword_19BF1F000, v48, OS_LOG_TYPE_ERROR, "%{public}@ failed. Error: %{public}@", buf, 0x16u);
+                *&buf[14] = v52;
+                _os_log_impl(&dword_19BF1F000, v49, OS_LOG_TYPE_ERROR, "%{public}@ failed. Error: %{public}@", buf, 0x16u);
               }
             }
 
             else
             {
-              v117 = 0u;
               v118 = 0u;
-              v115 = 0u;
+              v119 = 0u;
               v116 = 0u;
-              v113 = 0u;
+              v117 = 0u;
               v114 = 0u;
-              v111 = 0u;
+              v115 = 0u;
               v112 = 0u;
-              v109 = 0u;
+              v113 = 0u;
               v110 = 0u;
-              v107 = 0u;
+              v111 = 0u;
               v108 = 0u;
-              v105 = 0u;
+              v109 = 0u;
               v106 = 0u;
-              v103 = 0u;
+              v107 = 0u;
               v104 = 0u;
-              v101 = 0u;
+              v105 = 0u;
               v102 = 0u;
-              v99 = 0u;
+              v103 = 0u;
               v100 = 0u;
-              v97 = 0u;
+              v101 = 0u;
               v98 = 0u;
-              v95 = 0u;
+              v99 = 0u;
               v96 = 0u;
-              v93 = 0u;
+              v97 = 0u;
               v94 = 0u;
-              v91 = 0u;
+              v95 = 0u;
               v92 = 0u;
-              v89 = 0u;
+              v93 = 0u;
               v90 = 0u;
+              v91 = 0u;
               memset(buf, 0, sizeof(buf));
               v42 = PLMigrationGetLog();
-              os_log_type_enabled(v42, OS_LOG_TYPE_ERROR);
-              v43 = objc_opt_class();
-              v44 = NSStringFromClass(v43);
-              v45 = v79[5];
-              v84 = 138543618;
-              v85 = v44;
-              v86 = 2114;
-              v87 = v45;
-              LODWORD(v55) = 22;
-              v46 = _os_log_send_and_compose_impl();
-
-              v47 = [(PLModelMigration *)selfCopy logger:&v84];
-              [v47 logWithMessage:v46 fromCodeLocation:"PLModelMigration.m" type:{649, 16}];
-
-              if (v46 != buf)
+              if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
               {
-                free(v46);
+                v43 = 3;
+              }
+
+              else
+              {
+                v43 = 2;
+              }
+
+              v44 = objc_opt_class();
+              v45 = NSStringFromClass(v44);
+              v46 = v80[5];
+              v85 = 138543618;
+              v86 = v45;
+              v87 = 2114;
+              v88 = v46;
+              LODWORD(v56) = 22;
+              v47 = _os_log_send_and_compose_impl(v43, 0, buf, 512, &dword_19BF1F000, v42, 16, "%{public}@ failed. Error: %{public}@", &v85, v56);
+
+              logger3 = [(PLModelMigration *)selfCopy logger];
+              [logger3 logWithMessage:v47 fromCodeLocation:"PLModelMigration.m" type:{649, 16}];
+
+              if (v47 != buf)
+              {
+                free(v47);
               }
             }
           }
@@ -635,7 +653,7 @@ LABEL_14:
 
         if (v25 == ++v26)
         {
-          v25 = [v59 countByEnumeratingWithState:&v69 objects:v119 count:16];
+          v25 = [v60 countByEnumeratingWithState:&v70 objects:v120 count:16];
           if (v25)
           {
             goto LABEL_14;
@@ -649,14 +667,14 @@ LABEL_14:
 
   if (error)
   {
-    *error = v79[5];
+    *error = v80[5];
   }
 
-  v52 = v75[3];
-  _Block_object_dispose(&v74, 8);
-  _Block_object_dispose(&v78, 8);
+  v53 = v76[3];
+  _Block_object_dispose(&v75, 8);
+  _Block_object_dispose(&v79, 8);
 
-  return v52;
+  return v53;
 }
 
 BOOL __106__PLModelMigration_migratePostProcessingWithActions_migrationActionType_progress_progressUnitCount_error___block_invoke(uint64_t a1)
@@ -798,7 +816,7 @@ LABEL_11:
 
 - (int64_t)migrateSchemaMigrationWithAutoMigrationOptions:(id)options currentStoreVersion:(id)version error:(id *)error
 {
-  v121 = *MEMORY[0x1E69E9840];
+  v123 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   v8 = MEMORY[0x1E696AD98];
   optionsCopy = options;
@@ -806,7 +824,7 @@ LABEL_11:
   v11 = [v8 numberWithUnsignedShort:{objc_msgSend(migrationContext, "previousStoreVersion")}];
   v12 = [v11 isEqual:versionCopy];
 
-  v80 = versionCopy;
+  v82 = versionCopy;
   if ((v12 & 1) == 0)
   {
     v13 = PLMigrationGetLog();
@@ -818,6 +836,8 @@ LABEL_11:
 
       if (logger)
       {
+        v121 = 0u;
+        v122 = 0u;
         v119 = 0u;
         v120 = 0u;
         v117 = 0u;
@@ -846,45 +866,51 @@ LABEL_11:
         v96 = 0u;
         v93 = 0u;
         v94 = 0u;
-        v91 = 0u;
-        v92 = 0u;
         memset(buf, 0, sizeof(buf));
         v16 = PLMigrationGetLog();
-        os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
-        v17 = MEMORY[0x1E696AD98];
-        migrationContext2 = [(PLModelMigration *)self migrationContext];
-        v19 = [v17 numberWithUnsignedShort:{objc_msgSend(migrationContext2, "previousStoreVersion")}];
-        v86 = 138543618;
-        v87 = v19;
-        v88 = 1024;
-        LODWORD(v89[0]) = +[PLModelMigration currentModelVersion];
-        LODWORD(v76) = 18;
-        v20 = _os_log_send_and_compose_impl();
-
-        v21 = [(PLModelMigration *)self logger:&v86];
-        [v21 logWithMessage:v20 fromCodeLocation:"PLModelMigration.m" type:{536, 1}];
-
-        if (v20 != buf)
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          free(v20);
+          v17 = 3;
         }
 
-        versionCopy = v80;
+        else
+        {
+          v17 = 2;
+        }
+
+        v18 = MEMORY[0x1E696AD98];
+        migrationContext2 = [(PLModelMigration *)self migrationContext];
+        v20 = [v18 numberWithUnsignedShort:{objc_msgSend(migrationContext2, "previousStoreVersion")}];
+        v88 = 138543618;
+        v89 = v20;
+        v90 = 1024;
+        LODWORD(v91[0]) = +[PLModelMigration currentModelVersion];
+        v21 = _os_log_send_and_compose_impl(v17, 0, buf, 512, &dword_19BF1F000, v16, 1, "Staged lightweight migration completed, post processing from version %{public}@ to %d.", &v88, 18);
+
+        logger2 = [(PLModelMigration *)self logger];
+        [logger2 logWithMessage:v21 fromCodeLocation:"PLModelMigration.m" type:{536, 1}];
+
+        if (v21 != buf)
+        {
+          free(v21);
+        }
+
+        versionCopy = v82;
       }
 
       else
       {
-        v22 = PLMigrationGetLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+        v23 = PLMigrationGetLog();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v23 = MEMORY[0x1E696AD98];
+          v24 = MEMORY[0x1E696AD98];
           migrationContext3 = [(PLModelMigration *)self migrationContext];
-          v25 = [v23 numberWithUnsignedShort:{objc_msgSend(migrationContext3, "previousStoreVersion")}];
+          v26 = [v24 numberWithUnsignedShort:{objc_msgSend(migrationContext3, "previousStoreVersion")}];
           *buf = 138543618;
-          *&buf[4] = v25;
+          *&buf[4] = v26;
           *&buf[12] = 1024;
           *&buf[14] = +[PLModelMigration currentModelVersion];
-          _os_log_impl(&dword_19BF1F000, v22, OS_LOG_TYPE_INFO, "Staged lightweight migration completed, post processing from version %{public}@ to %d.", buf, 0x12u);
+          _os_log_impl(&dword_19BF1F000, v23, OS_LOG_TYPE_INFO, "Staged lightweight migration completed, post processing from version %{public}@ to %d.", buf, 0x12u);
         }
       }
     }
@@ -892,7 +918,7 @@ LABEL_11:
 
   analyticsEventManager = [(PLModelMigration *)self analyticsEventManager];
   [analyticsEventManager startRecordingTimedEventToken];
-  v28 = v27;
+  v29 = v28;
 
   migrationContext4 = [(PLModelMigration *)self migrationContext];
   coordinator = [migrationContext4 coordinator];
@@ -900,70 +926,72 @@ LABEL_11:
   migrationContext5 = [(PLModelMigration *)self migrationContext];
   storeURL = [migrationContext5 storeURL];
   intValue = [versionCopy intValue];
-  v35 = +[PLModelMigration currentModelVersion];
+  v36 = +[PLModelMigration currentModelVersion];
   progress = [(PLModelMigration *)self progress];
-  v83 = 0;
-  LODWORD(v75) = v35;
-  v37 = [(PLModelMigration *)self addStoreWithCoordinator:coordinator migrationUUID:migrationUUID storeURL:storeURL options:optionsCopy description:@"Adding lightweight migration store" fromVersion:intValue toVersion:v75 progress:progress progressUnitCount:10 error:&v83];
+  v85 = 0;
+  LODWORD(v78) = v36;
+  v38 = [(PLModelMigration *)self addStoreWithCoordinator:coordinator migrationUUID:migrationUUID storeURL:storeURL options:optionsCopy description:@"Adding lightweight migration store" fromVersion:intValue toVersion:v78 progress:progress progressUnitCount:10 error:&v85];
 
-  v38 = v83;
+  v39 = v85;
   migrationContext6 = [(PLModelMigration *)self migrationContext];
-  [migrationContext6 setStore:v37];
+  [migrationContext6 setStore:v38];
 
   analyticsEventManager2 = [(PLModelMigration *)self analyticsEventManager];
-  [analyticsEventManager2 addRecordingTimedEventSnippetWithToken:*MEMORY[0x1E69BF718] forKey:*MEMORY[0x1E69BF6D0] onEventWithName:v28];
+  [analyticsEventManager2 addRecordingTimedEventSnippetWithToken:*MEMORY[0x1E69BF718] forKey:*MEMORY[0x1E69BF6D0] onEventWithName:v29];
 
   migrationContext7 = [(PLModelMigration *)self migrationContext];
   store = [migrationContext7 store];
 
   if (store)
   {
-    v43 = flt_19C60AD80[(self->_performedActionKinds & 1) == 0];
+    v44 = flt_19C60AD80[(self->_performedActionKinds & 1) == 0];
     if ((self->_performedActionKinds & 2) != 0)
     {
-      v44 = v43 + -0.1;
-      v43 = v44;
+      v45 = v44 + -0.1;
+      v44 = v45;
     }
 
-    v82 = v38;
-    v45 = [(PLModelMigration *)self migratePostProcessingWithProgressUnitCount:(v43 * 100.0) error:&v82];
-    v46 = v82;
+    v84 = v39;
+    v46 = [(PLModelMigration *)self migratePostProcessingWithProgressUnitCount:(v44 * 100.0) error:&v84];
+    v47 = v84;
 
-    if (v45 == 1)
+    if (v46 == 1)
     {
       errorCopy3 = error;
-      v48 = v80;
+      v49 = v82;
       if (!error)
       {
-        goto LABEL_36;
+        goto LABEL_45;
       }
 
-      goto LABEL_35;
+      goto LABEL_44;
     }
 
     migrationContext8 = [(PLModelMigration *)self migrationContext];
     coordinator2 = [migrationContext8 coordinator];
     migrationContext9 = [(PLModelMigration *)self migrationContext];
     store2 = [migrationContext9 store];
-    v81 = 0;
-    v62 = [coordinator2 removePersistentStore:store2 error:&v81];
-    v49 = v81;
+    v83 = 0;
+    v64 = [coordinator2 removePersistentStore:store2 error:&v83];
+    v50 = v83;
 
-    if (v62)
-    {
-      goto LABEL_24;
-    }
-
-    v63 = PLMigrationGetLog();
-    v64 = os_log_type_enabled(v63, OS_LOG_TYPE_ERROR);
-
-    v48 = v80;
     if (v64)
     {
-      logger2 = [(PLModelMigration *)self logger];
+      goto LABEL_30;
+    }
 
-      if (logger2)
+    v65 = PLMigrationGetLog();
+    v66 = os_log_type_enabled(v65, OS_LOG_TYPE_ERROR);
+
+    v49 = v82;
+    if (v66)
+    {
+      logger3 = [(PLModelMigration *)self logger];
+
+      if (logger3)
       {
+        v121 = 0u;
+        v122 = 0u;
         v119 = 0u;
         v120 = 0u;
         v117 = 0u;
@@ -992,75 +1020,84 @@ LABEL_11:
         v96 = 0u;
         v93 = 0u;
         v94 = 0u;
-        v91 = 0u;
-        v92 = 0u;
         memset(buf, 0, sizeof(buf));
-        v66 = PLMigrationGetLog();
-        os_log_type_enabled(v66, OS_LOG_TYPE_ERROR);
-        v67 = +[PLModelMigration currentModelVersion];
-        v86 = 138543874;
-        v87 = v80;
-        v88 = 1024;
-        LODWORD(v89[0]) = v67;
-        WORD2(v89[0]) = 2114;
-        *(v89 + 6) = v49;
-        LODWORD(v77) = 28;
-        v68 = _os_log_send_and_compose_impl();
-
-        v69 = [(PLModelMigration *)self logger:&v86];
-        [v69 logWithMessage:v68 fromCodeLocation:"PLModelMigration.m" type:{546, 16}];
-
-        if (v68 != buf)
+        v68 = PLMigrationGetLog();
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
         {
-          free(v68);
+          v69 = 3;
         }
 
-LABEL_24:
+        else
+        {
+          v69 = 2;
+        }
+
+        v70 = +[PLModelMigration currentModelVersion];
+        v88 = 138543874;
+        v89 = v82;
+        v90 = 1024;
+        LODWORD(v91[0]) = v70;
+        WORD2(v91[0]) = 2114;
+        *(v91 + 6) = v50;
+        LODWORD(v79) = 28;
+        v71 = _os_log_send_and_compose_impl(v69, 0, buf, 512, &dword_19BF1F000, v68, 16, "Failed to remove store after lightweight migration failure %{public}@ to %d.  Error %{public}@", &v88, v79);
+
+        logger4 = [(PLModelMigration *)self logger];
+        [logger4 logWithMessage:v71 fromCodeLocation:"PLModelMigration.m" type:{546, 16}];
+
+        if (v71 != buf)
+        {
+          free(v71);
+        }
+
+LABEL_30:
         errorCopy3 = error;
-        v48 = v80;
-        goto LABEL_34;
+        v49 = v82;
+        goto LABEL_43;
       }
 
-      v73 = PLMigrationGetLog();
-      if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+      v76 = PLMigrationGetLog();
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
       {
-        v74 = +[PLModelMigration currentModelVersion];
+        v77 = +[PLModelMigration currentModelVersion];
         *buf = 138543874;
-        *&buf[4] = v80;
+        *&buf[4] = v82;
         *&buf[12] = 1024;
-        *&buf[14] = v74;
+        *&buf[14] = v77;
         *&buf[18] = 2114;
-        *&buf[20] = v49;
-        _os_log_impl(&dword_19BF1F000, v73, OS_LOG_TYPE_ERROR, "Failed to remove store after lightweight migration failure %{public}@ to %d.  Error %{public}@", buf, 0x1Cu);
+        *&buf[20] = v50;
+        _os_log_impl(&dword_19BF1F000, v76, OS_LOG_TYPE_ERROR, "Failed to remove store after lightweight migration failure %{public}@ to %d.  Error %{public}@", buf, 0x1Cu);
       }
     }
   }
 
   else
   {
-    v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to open and lightweight migrate store from schema version based on %@ to %d", v80, +[PLModelMigration currentModelVersion](PLModelMigration, "currentModelVersion")];
-    v84 = *MEMORY[0x1E696A588];
-    v85 = v49;
-    v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
-    v51 = [v50 mutableCopy];
+    v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to open and lightweight migrate store from schema version based on %@ to %d", v82, +[PLModelMigration currentModelVersion](PLModelMigration, "currentModelVersion")];
+    v86 = *MEMORY[0x1E696A588];
+    v87 = v50;
+    v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+    v52 = [v51 mutableCopy];
 
-    if (v38)
+    if (v39)
     {
-      [v51 setObject:v38 forKeyedSubscript:*MEMORY[0x1E696AA08]];
+      [v52 setObject:v39 forKeyedSubscript:*MEMORY[0x1E696AA08]];
     }
 
-    v46 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69BFF48] code:46008 userInfo:v51];
+    v47 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E69BFF48] code:46008 userInfo:v52];
 
-    v52 = PLMigrationGetLog();
-    v53 = os_log_type_enabled(v52, OS_LOG_TYPE_ERROR);
+    v53 = PLMigrationGetLog();
+    v54 = os_log_type_enabled(v53, OS_LOG_TYPE_ERROR);
 
-    v48 = v80;
-    if (v53)
+    v49 = v82;
+    if (v54)
     {
-      logger3 = [(PLModelMigration *)self logger];
+      logger5 = [(PLModelMigration *)self logger];
 
-      if (logger3)
+      if (logger5)
       {
+        v121 = 0u;
+        v122 = 0u;
         v119 = 0u;
         v120 = 0u;
         v117 = 0u;
@@ -1089,64 +1126,71 @@ LABEL_24:
         v96 = 0u;
         v93 = 0u;
         v94 = 0u;
-        v91 = 0u;
-        v92 = 0u;
         memset(buf, 0, sizeof(buf));
-        v55 = PLMigrationGetLog();
-        os_log_type_enabled(v55, OS_LOG_TYPE_ERROR);
-        v86 = 138543618;
-        v87 = v49;
-        v88 = 2114;
-        v89[0] = v46;
-        LODWORD(v78) = 22;
-        v56 = _os_log_send_and_compose_impl();
-
-        v57 = [(PLModelMigration *)self logger:&v86];
-        [v57 logWithMessage:v56 fromCodeLocation:"PLModelMigration.m" type:{557, 16}];
-
-        if (v56 != buf)
+        v56 = PLMigrationGetLog();
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
-          free(v56);
+          v57 = 3;
         }
 
-        v48 = v80;
+        else
+        {
+          v57 = 2;
+        }
+
+        v88 = 138543618;
+        v89 = v50;
+        v90 = 2114;
+        v91[0] = v47;
+        LODWORD(v80) = 22;
+        v58 = _os_log_send_and_compose_impl(v57, 0, buf, 512, &dword_19BF1F000, v56, 16, "%{public}@. Error: %{public}@", &v88, v80);
+
+        logger6 = [(PLModelMigration *)self logger];
+        [logger6 logWithMessage:v58 fromCodeLocation:"PLModelMigration.m" type:{557, 16}];
+
+        if (v58 != buf)
+        {
+          free(v58);
+        }
+
+        v49 = v82;
       }
 
       else
       {
-        v70 = PLMigrationGetLog();
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+        v73 = PLMigrationGetLog();
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          *&buf[4] = v49;
+          *&buf[4] = v50;
           *&buf[12] = 2114;
-          *&buf[14] = v46;
-          _os_log_impl(&dword_19BF1F000, v70, OS_LOG_TYPE_ERROR, "%{public}@. Error: %{public}@", buf, 0x16u);
+          *&buf[14] = v47;
+          _os_log_impl(&dword_19BF1F000, v73, OS_LOG_TYPE_ERROR, "%{public}@. Error: %{public}@", buf, 0x16u);
         }
       }
     }
 
-    v45 = 3;
+    v46 = 3;
   }
 
   errorCopy3 = error;
-LABEL_34:
+LABEL_43:
 
   if (errorCopy3)
   {
-LABEL_35:
-    v71 = v46;
-    *errorCopy3 = v46;
+LABEL_44:
+    v74 = v47;
+    *errorCopy3 = v47;
   }
 
-LABEL_36:
+LABEL_45:
 
-  return v45;
+  return v46;
 }
 
 - (int64_t)migrateStagedMigrationWithAutoMigrationOptions:(id)options currentStoreVersion:(id)version error:(id *)error
 {
-  v147 = *MEMORY[0x1E69E9840];
+  v151 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   versionCopy = version;
   v9 = MEMORY[0x1E696AD98];
@@ -1157,38 +1201,38 @@ LABEL_36:
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v13 = MEMORY[0x1E696AE38];
   v14 = &unk_1F0FBFE20;
-  v15 = [v13 discreteProgressWithTotalUnitCount:{5 * objc_msgSend(&unk_1F0FBFE20, "count")}];
+  v15 = [v13 discreteProgressWithTotalUnitCount:5 * objc_msgSend_count(&unk_1F0FBFE20)];
 
   if (!v12)
   {
     v19 = 0;
-    v55 = 1;
-    goto LABEL_46;
+    v56 = 1;
+    goto LABEL_55;
   }
 
   errorCopy = error;
   self->_performedActionKinds |= 2uLL;
   progress = [(PLModelMigration *)self progress];
-  v92 = v15;
+  v96 = v15;
   [progress addChild:v15 withPendingUnitCount:10];
 
   v17 = 0;
-  v90 = *MEMORY[0x1E69BF718];
-  v93 = *MEMORY[0x1E69BF6D0];
-  v94 = *MEMORY[0x1E696A588];
-  v95 = *MEMORY[0x1E69BFF48];
-  v89 = *MEMORY[0x1E69BF720];
-  v87 = *MEMORY[0x1E696AA08];
+  v94 = *MEMORY[0x1E69BF718];
+  v97 = *MEMORY[0x1E69BF6D0];
+  v98 = *MEMORY[0x1E696A588];
+  v99 = *MEMORY[0x1E69BFF48];
+  v93 = *MEMORY[0x1E69BF720];
+  v91 = *MEMORY[0x1E696AA08];
   while (1)
   {
-    v103 = v17;
-    v18 = [(PLModelMigration *)self isMigrationCancelledWithError:&v103];
-    v19 = v103;
+    v107 = v17;
+    v18 = [(PLModelMigration *)self isMigrationCancelledWithError:&v107];
+    v19 = v107;
 
     if (v18)
     {
-      v55 = 2;
-      goto LABEL_45;
+      v56 = 2;
+      goto LABEL_54;
     }
 
     v20 = objc_autoreleasePoolPush();
@@ -1203,6 +1247,10 @@ LABEL_36:
       if (logger)
       {
         v25 = v20;
+        v149 = 0u;
+        v150 = 0u;
+        v147 = 0u;
+        v148 = 0u;
         v145 = 0u;
         v146 = 0u;
         v143 = 0u;
@@ -1229,29 +1277,34 @@ LABEL_36:
         v124 = 0u;
         v121 = 0u;
         v122 = 0u;
-        v119 = 0u;
-        v120 = 0u;
-        v117 = 0u;
-        v118 = 0u;
         memset(buf, 0, sizeof(buf));
         v26 = PLMigrationGetLog();
-        os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
-        path = [v21 path];
-        v110 = 138543874;
-        v111 = versionCopy;
-        v112 = 2114;
-        v113 = v12;
-        v114 = 2112;
-        v115 = path;
-        LODWORD(v85) = 32;
-        v28 = _os_log_send_and_compose_impl();
-
-        v29 = [(PLModelMigration *)self logger:&v110];
-        [v29 logWithMessage:v28 fromCodeLocation:"PLModelMigration.m" type:{469, 0}];
-
-        if (v28 != buf)
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          free(v28);
+          v27 = 3;
+        }
+
+        else
+        {
+          v27 = 2;
+        }
+
+        path = [v21 path];
+        v114 = 138543874;
+        v115 = versionCopy;
+        v116 = 2114;
+        v117 = v12;
+        v118 = 2112;
+        v119 = path;
+        LODWORD(v89) = 32;
+        v29 = _os_log_send_and_compose_impl(v27, 0, buf, 512, &dword_19BF1F000, v26, 0, "Starting migration stage from version %{public}@ to %{public}@, with model %@.", &v114, v89);
+
+        logger2 = [(PLModelMigration *)self logger];
+        [logger2 logWithMessage:v29 fromCodeLocation:"PLModelMigration.m" type:{469, 0}];
+
+        if (v29 != buf)
+        {
+          free(v29);
         }
 
         v20 = v25;
@@ -1259,8 +1312,8 @@ LABEL_36:
 
       else
       {
-        v30 = PLMigrationGetLog();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v31 = PLMigrationGetLog();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
           path2 = [v21 path];
           *buf = 138543874;
@@ -1269,110 +1322,114 @@ LABEL_36:
           *&buf[14] = v12;
           *&buf[22] = 2112;
           *&buf[24] = path2;
-          _os_log_impl(&dword_19BF1F000, v30, OS_LOG_TYPE_DEFAULT, "Starting migration stage from version %{public}@ to %{public}@, with model %@.", buf, 0x20u);
+          _os_log_impl(&dword_19BF1F000, v31, OS_LOG_TYPE_DEFAULT, "Starting migration stage from version %{public}@ to %{public}@, with model %@.", buf, 0x20u);
         }
       }
     }
 
-    v32 = [(PLModelMigration *)self _managedObjectModelForLightweightMigrationStageWithURL:v21];
-    v100 = v21;
-    if (v32)
+    v33 = [(PLModelMigration *)self _managedObjectModelForLightweightMigrationStageWithURL:v21];
+    v104 = v21;
+    if (v33)
     {
-      v97 = v20;
-      v98 = v32;
-      v33 = [objc_alloc(MEMORY[0x1E695D6C0]) initWithManagedObjectModel:v32];
+      v101 = v20;
+      v102 = v33;
+      v34 = [objc_alloc(MEMORY[0x1E695D6C0]) initWithManagedObjectModel:v33];
       analyticsEventManager = [(PLModelMigration *)self analyticsEventManager];
       [analyticsEventManager startRecordingTimedEventToken];
-      v36 = v35;
+      v37 = v36;
 
       migrationUUID = [(PLModelMigration *)self migrationUUID];
       migrationContext2 = [(PLModelMigration *)self migrationContext];
       storeURL = [migrationContext2 storeURL];
       intValue = [versionCopy intValue];
       intValue2 = [v12 intValue];
-      v102 = v19;
-      LODWORD(v84) = intValue2;
-      v99 = v33;
-      v42 = [(PLModelMigration *)self addStoreWithCoordinator:v33 migrationUUID:migrationUUID storeURL:storeURL options:optionsCopy description:@"Adding staged migration store" fromVersion:intValue toVersion:v84 progress:v92 progressUnitCount:1 error:&v102];
-      v43 = v102;
+      v106 = v19;
+      LODWORD(v88) = intValue2;
+      v103 = v34;
+      v43 = [(PLModelMigration *)self addStoreWithCoordinator:v34 migrationUUID:migrationUUID storeURL:storeURL options:optionsCopy description:@"Adding staged migration store" fromVersion:intValue toVersion:v88 progress:v96 progressUnitCount:1 error:&v106];
+      v44 = v106;
 
-      if (v42)
+      if (v43)
       {
         analyticsEventManager2 = [(PLModelMigration *)self analyticsEventManager];
-        [analyticsEventManager2 addRecordingTimedEventSnippetWithToken:v90 forKey:v93 onEventWithName:v36];
+        [analyticsEventManager2 addRecordingTimedEventSnippetWithToken:v94 forKey:v97 onEventWithName:v37];
 
         analyticsEventManager3 = [(PLModelMigration *)self analyticsEventManager];
         [analyticsEventManager3 startRecordingTimedEventToken];
-        v47 = v46;
+        v48 = v47;
 
         legacyMigrationDelegate = [(PLModelMigration *)self legacyMigrationDelegate];
         migrationUUID2 = [(PLModelMigration *)self migrationUUID];
-        v50 = [legacyMigrationDelegate processWelterweightMigrationStageOnStore:v42 migrationUUID:migrationUUID2 fromVersion:objc_msgSend(versionCopy toVersion:"intValue") migrationContext:objc_msgSend(v12 progress:"intValue") progressUnitCount:{dictionary, v92, 2}];
+        v51 = [legacyMigrationDelegate processWelterweightMigrationStageOnStore:v43 migrationUUID:migrationUUID2 fromVersion:objc_msgSend(versionCopy toVersion:"intValue") migrationContext:objc_msgSend(v12 progress:"intValue") progressUnitCount:{dictionary, v96, 2}];
 
-        if (v50)
+        if (v51)
         {
-          v51 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v52 = objc_alloc_init(MEMORY[0x1E695DF70]);
           actionsStaged = self->_actionsStaged;
-          self->_actionsStaged = v51;
+          self->_actionsStaged = v52;
 
           PLModelMigrationActionRegistration_Staged(self, [versionCopy intValue], objc_msgSend(v12, "intValue"));
           migrationContext3 = [(PLModelMigration *)self migrationContext];
-          [migrationContext3 setStore:v42];
+          [migrationContext3 setStore:v43];
 
-          v54 = self->_actionsStaged;
-          v101 = v43;
-          v55 = [(PLModelMigration *)self migratePostProcessingWithActions:v54 migrationActionType:5 progress:v92 progressUnitCount:2 error:&v101];
-          v17 = v101;
+          v55 = self->_actionsStaged;
+          v105 = v44;
+          v56 = [(PLModelMigration *)self migratePostProcessingWithActions:v55 migrationActionType:5 progress:v96 progressUnitCount:2 error:&v105];
+          v17 = v105;
         }
 
         else
         {
-          v77 = MEMORY[0x1E696ABC0];
-          v108 = v94;
-          v109 = @"Legacy Staged migration failed";
-          v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
-          v17 = [v77 errorWithDomain:v95 code:46013 userInfo:v78];
+          v81 = MEMORY[0x1E696ABC0];
+          v112 = v98;
+          v113 = @"Legacy Staged migration failed";
+          v82 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v113 forKeys:&v112 count:1];
+          v17 = [v81 errorWithDomain:v99 code:46013 userInfo:v82];
 
-          v43 = v78;
-          v55 = 3;
+          v44 = v82;
+          v56 = 3;
         }
 
         analyticsEventManager4 = [(PLModelMigration *)self analyticsEventManager];
-        [analyticsEventManager4 addRecordingTimedEventSnippetWithToken:v89 forKey:v93 onEventWithName:v47];
-        v20 = v97;
+        [analyticsEventManager4 addRecordingTimedEventSnippetWithToken:v93 forKey:v97 onEventWithName:v48];
+        v20 = v101;
       }
 
       else
       {
-        v66 = MEMORY[0x1E696AEC0];
-        path3 = [v100 path];
-        analyticsEventManager4 = [v66 stringWithFormat:@"Failed to open store for staged migration from version %@ to %@, with model %@", versionCopy, v12, path3];
+        v68 = MEMORY[0x1E696AEC0];
+        path3 = [v104 path];
+        analyticsEventManager4 = [v68 stringWithFormat:@"Failed to open store for staged migration from version %@ to %@, with model %@", versionCopy, v12, path3];
 
-        v106 = v94;
-        v107 = analyticsEventManager4;
-        v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
-        v70 = [v69 mutableCopy];
+        v110 = v98;
+        v111 = analyticsEventManager4;
+        v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
+        v72 = [v71 mutableCopy];
 
-        if (v43)
+        if (v44)
         {
-          [v70 setObject:v43 forKeyedSubscript:v87];
+          [v72 setObject:v44 forKeyedSubscript:v91];
         }
 
-        v88 = v70;
-        v17 = [MEMORY[0x1E696ABC0] errorWithDomain:v95 code:46013 userInfo:v70];
+        v92 = v72;
+        v17 = [MEMORY[0x1E696ABC0] errorWithDomain:v99 code:46013 userInfo:v72];
 
-        v71 = PLMigrationGetLog();
-        v72 = os_log_type_enabled(v71, OS_LOG_TYPE_ERROR);
+        v73 = PLMigrationGetLog();
+        v74 = os_log_type_enabled(v73, OS_LOG_TYPE_ERROR);
 
-        v20 = v97;
-        v32 = v98;
-        v42 = 0;
-        if (v72)
+        v20 = v101;
+        v33 = v102;
+        v43 = 0;
+        if (v74)
         {
-          logger2 = [(PLModelMigration *)self logger];
+          logger3 = [(PLModelMigration *)self logger];
 
-          if (logger2)
+          if (logger3)
           {
+            v149 = 0u;
+            v150 = 0u;
+            v147 = 0u;
+            v148 = 0u;
             v145 = 0u;
             v146 = 0u;
             v143 = 0u;
@@ -1399,87 +1456,97 @@ LABEL_36:
             v124 = 0u;
             v121 = 0u;
             v122 = 0u;
-            v119 = 0u;
-            v120 = 0u;
-            v117 = 0u;
-            v118 = 0u;
             memset(buf, 0, sizeof(buf));
-            v74 = PLMigrationGetLog();
-            os_log_type_enabled(v74, OS_LOG_TYPE_ERROR);
-            v110 = 138543618;
-            v111 = analyticsEventManager4;
-            v112 = 2114;
-            v113 = v17;
-            LODWORD(v85) = 22;
-            v75 = _os_log_send_and_compose_impl();
-
-            v76 = [(PLModelMigration *)self logger:&v110];
-            [v76 logWithMessage:v75 fromCodeLocation:"PLModelMigration.m" type:{508, 16}];
-
-            if (v75 != buf)
+            v76 = PLMigrationGetLog();
+            v77 = os_log_type_enabled(v76, OS_LOG_TYPE_ERROR);
+            v114 = 138543618;
+            if (v77)
             {
-              free(v75);
+              v78 = 3;
             }
 
-            v42 = 0;
+            else
+            {
+              v78 = 2;
+            }
+
+            v115 = analyticsEventManager4;
+            v116 = 2114;
+            v117 = v17;
+            LODWORD(v89) = 22;
+            v79 = _os_log_send_and_compose_impl(v78, 0, buf, 512, &dword_19BF1F000, v76, 16, "%{public}@. Error: %{public}@", &v114, v89);
+
+            logger4 = [(PLModelMigration *)self logger];
+            [logger4 logWithMessage:v79 fromCodeLocation:"PLModelMigration.m" type:{508, 16}];
+
+            if (v79 != buf)
+            {
+              free(v79);
+            }
+
+            v43 = 0;
           }
 
           else
           {
-            v80 = PLMigrationGetLog();
-            if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+            v84 = PLMigrationGetLog();
+            if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
               *&buf[4] = analyticsEventManager4;
               *&buf[12] = 2114;
               *&buf[14] = v17;
-              _os_log_impl(&dword_19BF1F000, v80, OS_LOG_TYPE_ERROR, "%{public}@. Error: %{public}@", buf, 0x16u);
+              _os_log_impl(&dword_19BF1F000, v84, OS_LOG_TYPE_ERROR, "%{public}@. Error: %{public}@", buf, 0x16u);
             }
           }
         }
 
-        v55 = 3;
+        v56 = 3;
       }
     }
 
     else
     {
-      v56 = MEMORY[0x1E696AEC0];
+      v57 = MEMORY[0x1E696AEC0];
       path4 = [v21 path];
-      v58 = [v56 stringWithFormat:@"Failed to open model for staged migration from version %@ to %@, with model path %@", versionCopy, v12, path4];
+      v59 = [v57 stringWithFormat:@"Failed to open model for staged migration from version %@ to %@, with model path %@", versionCopy, v12, path4];
 
-      v59 = MEMORY[0x1E696ABC0];
-      v104 = v94;
-      v105 = v58;
-      v99 = v58;
-      v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
-      v17 = [v59 errorWithDomain:v95 code:46013 userInfo:v60];
+      v60 = MEMORY[0x1E696ABC0];
+      v108 = v98;
+      v109 = v59;
+      v103 = v59;
+      v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
+      v17 = [v60 errorWithDomain:v99 code:46013 userInfo:v61];
 
-      v61 = PLMigrationGetLog();
-      LODWORD(v60) = os_log_type_enabled(v61, OS_LOG_TYPE_ERROR);
+      v62 = PLMigrationGetLog();
+      LODWORD(v61) = os_log_type_enabled(v62, OS_LOG_TYPE_ERROR);
 
-      if (!v60)
+      if (!v61)
       {
-        goto LABEL_33;
+        goto LABEL_42;
       }
 
-      logger3 = [(PLModelMigration *)self logger];
+      logger5 = [(PLModelMigration *)self logger];
 
-      if (!logger3)
+      if (!logger5)
       {
-        v79 = PLMigrationGetLog();
-        if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+        v83 = PLMigrationGetLog();
+        if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          *&buf[4] = v99;
-          _os_log_impl(&dword_19BF1F000, v79, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          *&buf[4] = v103;
+          _os_log_impl(&dword_19BF1F000, v83, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
-LABEL_33:
-        v55 = 3;
-        goto LABEL_39;
+LABEL_42:
+        v56 = 3;
+        goto LABEL_48;
       }
 
+      v149 = 0u;
+      v150 = 0u;
+      v147 = 0u;
+      v148 = 0u;
       v145 = 0u;
       v146 = 0u;
       v143 = 0u;
@@ -1506,64 +1573,69 @@ LABEL_33:
       v124 = 0u;
       v121 = 0u;
       v122 = 0u;
-      v119 = 0u;
-      v120 = 0u;
-      v117 = 0u;
-      v118 = 0u;
       memset(buf, 0, sizeof(buf));
-      v63 = PLMigrationGetLog();
-      os_log_type_enabled(v63, OS_LOG_TYPE_ERROR);
-      v110 = 138543362;
-      v111 = v99;
-      LODWORD(v85) = 12;
-      v64 = _os_log_send_and_compose_impl();
-
-      v65 = [(PLModelMigration *)self logger:&v110];
-      [v65 logWithMessage:v64 fromCodeLocation:"PLModelMigration.m" type:{514, 16}];
-
-      if (v64 != buf)
+      v64 = PLMigrationGetLog();
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
       {
-        free(v64);
+        v65 = 3;
       }
 
-      v55 = 3;
+      else
+      {
+        v65 = 2;
+      }
+
+      v114 = 138543362;
+      v115 = v103;
+      LODWORD(v89) = 12;
+      v66 = _os_log_send_and_compose_impl(v65, 0, buf, 512, &dword_19BF1F000, v64, 16, "%{public}@", &v114, v89);
+
+      logger6 = [(PLModelMigration *)self logger];
+      [logger6 logWithMessage:v66 fromCodeLocation:"PLModelMigration.m" type:{514, 16}];
+
+      if (v66 != buf)
+      {
+        free(v66);
+      }
+
+      v56 = 3;
     }
 
-LABEL_39:
+LABEL_48:
 
     objc_autoreleasePoolPop(v20);
-    if (v55 != 1)
+    if (v56 != 1)
     {
       break;
     }
 
-    v81 = v12;
+    v85 = v12;
 
-    v12 = [(PLModelMigration *)self _nextRequiredStagedMigrationVersionAfterVersion:v81];
+    v12 = [(PLModelMigration *)self _nextRequiredStagedMigrationVersionAfterVersion:v85];
 
-    versionCopy = v81;
+    versionCopy = v85;
     if (!v12)
     {
-      versionCopy = v81;
+      versionCopy = v85;
       v19 = v17;
-      v55 = 1;
-      goto LABEL_45;
+      v56 = 1;
+      goto LABEL_54;
     }
   }
 
   v19 = v17;
-LABEL_45:
+LABEL_54:
   error = errorCopy;
-  v15 = v92;
-LABEL_46:
+  v15 = v96;
+LABEL_55:
   [v15 setCompletedUnitCount:{objc_msgSend(v15, "totalUnitCount")}];
   if (error)
   {
-    v82 = v19;
+    v86 = v19;
     *error = v19;
   }
 
-  return v55;
+  return v56;
 }
 
 - (int64_t)migratePreSchemaMigrationWithCurrentStoreVersion:(id)version error:(id *)error
@@ -1636,7 +1708,7 @@ LABEL_46:
     self->_actionsPreSchema = v27;
 
     PLModelMigrationActionRegistration_PreSchema(self);
-    v29 = [(NSMutableArray *)self->_actionsPreSchema count];
+    v29 = objc_msgSend_count(self->_actionsPreSchema);
     migrationContext = [(PLModelMigration *)self migrationContext];
     [migrationContext setStore:v25];
 
@@ -1662,7 +1734,7 @@ LABEL_46:
 
 - (int64_t)setupWithError:(id *)error
 {
-  v139 = *MEMORY[0x1E69E9840];
+  v145 = *MEMORY[0x1E69E9840];
   v5 = PLMigrationGetLog();
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
 
@@ -1672,6 +1744,12 @@ LABEL_46:
 
     if (logger)
     {
+      v143 = 0u;
+      v144 = 0u;
+      v141 = 0u;
+      v142 = 0u;
+      v139 = 0u;
+      v140 = 0u;
       v137 = 0u;
       v138 = 0u;
       v135 = 0u;
@@ -1696,147 +1774,77 @@ LABEL_46:
       v118 = 0u;
       v115 = 0u;
       v116 = 0u;
-      v113 = 0u;
-      v114 = 0u;
-      v111 = 0u;
-      v112 = 0u;
-      v109 = 0u;
-      v110 = 0u;
       *buf = 0u;
-      v108 = 0u;
+      v114 = 0u;
       v8 = PLMigrationGetLog();
-      os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
-      migrationContext = [(PLModelMigration *)self migrationContext];
-      v103 = 67109376;
-      previousStoreVersion = [migrationContext previousStoreVersion];
-      v105 = 1024;
-      v106 = +[PLModelMigration currentModelVersion];
-      LODWORD(v92) = 14;
-      v10 = _os_log_send_and_compose_impl();
-
-      v11 = [(PLModelMigration *)self logger:&v103];
-      [v11 logWithMessage:v10 fromCodeLocation:"PLModelMigration.m" type:{359, 1}];
-
-      if (v10 != buf)
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        free(v10);
+        v9 = 3;
+      }
+
+      else
+      {
+        v9 = 2;
+      }
+
+      migrationContext = [(PLModelMigration *)self migrationContext];
+      v109 = 67109376;
+      previousStoreVersion = [migrationContext previousStoreVersion];
+      v111 = 1024;
+      v112 = +[PLModelMigration currentModelVersion];
+      v11 = _os_log_send_and_compose_impl(v9, 0, buf, 512, &dword_19BF1F000, v8, 1, "Store has incompatible model version %d, will attempt migration to current version %d.", &v109, 14);
+
+      logger2 = [(PLModelMigration *)self logger];
+      [logger2 logWithMessage:v11 fromCodeLocation:"PLModelMigration.m" type:{359, 1}];
+
+      if (v11 != buf)
+      {
+        free(v11);
       }
     }
 
     else
     {
-      v12 = PLMigrationGetLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = PLMigrationGetLog();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         migrationContext2 = [(PLModelMigration *)self migrationContext];
         *buf = 67109376;
         *&buf[4] = [migrationContext2 previousStoreVersion];
         *&buf[8] = 1024;
         *&buf[10] = +[PLModelMigration currentModelVersion];
-        _os_log_impl(&dword_19BF1F000, v12, OS_LOG_TYPE_INFO, "Store has incompatible model version %d, will attempt migration to current version %d.", buf, 0xEu);
+        _os_log_impl(&dword_19BF1F000, v13, OS_LOG_TYPE_INFO, "Store has incompatible model version %d, will attempt migration to current version %d.", buf, 0xEu);
       }
     }
   }
 
-  v14 = +[PLModelMigration currentModelVersion];
+  v15 = +[PLModelMigration currentModelVersion];
   migrationContext3 = [(PLModelMigration *)self migrationContext];
   previousStoreVersion2 = [migrationContext3 previousStoreVersion];
 
-  if (v14 < previousStoreVersion2)
+  if (v15 < previousStoreVersion2)
   {
     allowRebuild = self->_allowRebuild;
-    v18 = PLMigrationGetLog();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
+    v19 = PLMigrationGetLog();
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
 
     if (allowRebuild)
     {
-      if (!v19)
+      if (!v20)
       {
-        goto LABEL_25;
-      }
-
-      logger2 = [(PLModelMigration *)self logger];
-
-      if (logger2)
-      {
-        v137 = 0u;
-        v138 = 0u;
-        v135 = 0u;
-        v136 = 0u;
-        v133 = 0u;
-        v134 = 0u;
-        v131 = 0u;
-        v132 = 0u;
-        v129 = 0u;
-        v130 = 0u;
-        v127 = 0u;
-        v128 = 0u;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v121 = 0u;
-        v122 = 0u;
-        v119 = 0u;
-        v120 = 0u;
-        v117 = 0u;
-        v118 = 0u;
-        v115 = 0u;
-        v116 = 0u;
-        v113 = 0u;
-        v114 = 0u;
-        v111 = 0u;
-        v112 = 0u;
-        v109 = 0u;
-        v110 = 0u;
-        *buf = 0u;
-        v108 = 0u;
-        v21 = PLMigrationGetLog();
-        os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
-        migrationContext4 = [(PLModelMigration *)self migrationContext];
-        previousStoreVersion3 = [migrationContext4 previousStoreVersion];
-        v24 = +[PLModelMigration currentModelVersion];
-        v103 = 67109376;
-        previousStoreVersion = previousStoreVersion3;
-        v105 = 1024;
-        v106 = v24;
-        LODWORD(v92) = 14;
-        v25 = _os_log_send_and_compose_impl();
-
-        v26 = [(PLModelMigration *)self logger:&v103];
-        v27 = v26;
-        v28 = v25;
-        v29 = 366;
-        goto LABEL_23;
-      }
-
-      v70 = PLMigrationGetLog();
-      if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
-      {
-        migrationContext5 = [(PLModelMigration *)self migrationContext];
-        previousStoreVersion4 = [migrationContext5 previousStoreVersion];
-        v73 = +[PLModelMigration currentModelVersion];
-        *buf = 67109376;
-        *&buf[4] = previousStoreVersion4;
-        *&buf[8] = 1024;
-        *&buf[10] = v73;
-        v74 = "*** MIGRATION INVERSION ***\n***\n***\n***\n*** Photos database has a model version [%d] that is newer than the Photos frameworks model version [%d].\n***\n*** Frameworks and database are out of sync.\n*** This will trigger a rebuild from file system.\n***\n***\n";
-LABEL_46:
-        _os_log_impl(&dword_19BF1F000, v70, OS_LOG_TYPE_ERROR, v74, buf, 0xEu);
-      }
-    }
-
-    else
-    {
-      if (!v19)
-      {
-        goto LABEL_25;
+        goto LABEL_37;
       }
 
       logger3 = [(PLModelMigration *)self logger];
 
       if (logger3)
       {
+        v143 = 0u;
+        v144 = 0u;
+        v141 = 0u;
+        v142 = 0u;
+        v139 = 0u;
+        v140 = 0u;
         v137 = 0u;
         v138 = 0u;
         v135 = 0u;
@@ -1861,111 +1869,199 @@ LABEL_46:
         v118 = 0u;
         v115 = 0u;
         v116 = 0u;
-        v113 = 0u;
-        v114 = 0u;
-        v111 = 0u;
-        v112 = 0u;
-        v109 = 0u;
-        v110 = 0u;
         *buf = 0u;
-        v108 = 0u;
-        v55 = PLMigrationGetLog();
-        os_log_type_enabled(v55, OS_LOG_TYPE_ERROR);
-        migrationContext6 = [(PLModelMigration *)self migrationContext];
-        previousStoreVersion5 = [migrationContext6 previousStoreVersion];
-        v58 = +[PLModelMigration currentModelVersion];
-        v103 = 67109376;
-        previousStoreVersion = previousStoreVersion5;
-        v105 = 1024;
-        v106 = v58;
-        LODWORD(v92) = 14;
-        v25 = _os_log_send_and_compose_impl();
-
-        v26 = [(PLModelMigration *)self logger:&v103];
-        v27 = v26;
-        v28 = v25;
-        v29 = 368;
-LABEL_23:
-        [v26 logWithMessage:v28 fromCodeLocation:"PLModelMigration.m" type:{v29, 16}];
-
-        if (v25 != buf)
+        v114 = 0u;
+        v22 = PLMigrationGetLog();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          free(v25);
+          v23 = 3;
         }
 
-LABEL_25:
+        else
+        {
+          v23 = 2;
+        }
+
+        migrationContext4 = [(PLModelMigration *)self migrationContext];
+        previousStoreVersion3 = [migrationContext4 previousStoreVersion];
+        v26 = +[PLModelMigration currentModelVersion];
+        v109 = 67109376;
+        previousStoreVersion = previousStoreVersion3;
+        v111 = 1024;
+        v112 = v26;
+        v27 = _os_log_send_and_compose_impl(v23, 0, buf, 512, &dword_19BF1F000, v22, 16, "*** MIGRATION INVERSION ***\n***\n***\n***\n*** Photos database has a model version [%d] that is newer than the Photos frameworks model version [%d].\n***\n*** Frameworks and database are out of sync.\n*** This will trigger a rebuild from file system.\n***\n***\n", &v109, 14);
+
+        logger4 = [(PLModelMigration *)self logger];
+        v29 = logger4;
+        v30 = v27;
+        v31 = 366;
+LABEL_35:
+        [logger4 logWithMessage:v30 fromCodeLocation:"PLModelMigration.m" type:{v31, 16}];
+
+        if (v27 != buf)
+        {
+          free(v27);
+        }
+
+LABEL_37:
         if (error)
         {
-LABEL_26:
-          v94 = *MEMORY[0x1E69BFF48];
-          v96 = MEMORY[0x1E696ABC0];
-          v101[0] = *MEMORY[0x1E696A368];
-          migrationContext7 = [(PLModelMigration *)self migrationContext];
-          storeURL = [migrationContext7 storeURL];
+LABEL_38:
+          v100 = *MEMORY[0x1E69BFF48];
+          v102 = MEMORY[0x1E696ABC0];
+          v107[0] = *MEMORY[0x1E696A368];
+          migrationContext5 = [(PLModelMigration *)self migrationContext];
+          storeURL = [migrationContext5 storeURL];
           [storeURL path];
-          v41 = v98 = error;
-          v102[0] = v41;
-          v101[1] = *MEMORY[0x1E696A998];
-          migrationContext8 = [(PLModelMigration *)self migrationContext];
-          storeURL2 = [migrationContext8 storeURL];
+          v44 = v104 = error;
+          v108[0] = v44;
+          v107[1] = *MEMORY[0x1E696A998];
+          migrationContext6 = [(PLModelMigration *)self migrationContext];
+          storeURL2 = [migrationContext6 storeURL];
           uRLByDeletingLastPathComponent = [storeURL2 URLByDeletingLastPathComponent];
-          v44URLByDeletingLastPathComponent = [uRLByDeletingLastPathComponent URLByDeletingLastPathComponent];
-          v102[1] = v44URLByDeletingLastPathComponent;
-          v101[2] = *MEMORY[0x1E696A278];
-          v59 = MEMORY[0x1E696AEC0];
-          migrationContext9 = [(PLModelMigration *)self migrationContext];
-          6006 = [v59 stringWithFormat:@"Database schema version %d is newer than the current schema version %d. A newer version of Photos needs to be installed.", objc_msgSend(migrationContext9, "previousStoreVersion"), +[PLModelMigration currentModelVersion](PLModelMigration, "currentModelVersion")];
-          v102[2] = 6006;
-          v49 = 3;
-          v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v102 forKeys:v101 count:3];
-          v52 = v94;
-          v51 = v96;
-          v53 = 46006;
-          goto LABEL_27;
+          v47URLByDeletingLastPathComponent = [uRLByDeletingLastPathComponent URLByDeletingLastPathComponent];
+          v108[1] = v47URLByDeletingLastPathComponent;
+          v107[2] = *MEMORY[0x1E696A278];
+          v63 = MEMORY[0x1E696AEC0];
+          migrationContext7 = [(PLModelMigration *)self migrationContext];
+          6006 = [v63 stringWithFormat:@"Database schema version %d is newer than the current schema version %d. A newer version of Photos needs to be installed.", objc_msgSend(migrationContext7, "previousStoreVersion"), +[PLModelMigration currentModelVersion](PLModelMigration, "currentModelVersion")];
+          v108[2] = 6006;
+          v52 = 3;
+          v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v108 forKeys:v107 count:3];
+          v55 = v100;
+          v54 = v102;
+          v56 = 46006;
+          goto LABEL_39;
         }
 
         return 3;
       }
 
-      v70 = PLMigrationGetLog();
-      if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+      v75 = PLMigrationGetLog();
+      if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
       {
-        migrationContext5 = [(PLModelMigration *)self migrationContext];
-        previousStoreVersion6 = [migrationContext5 previousStoreVersion];
-        v79 = +[PLModelMigration currentModelVersion];
+        migrationContext8 = [(PLModelMigration *)self migrationContext];
+        previousStoreVersion4 = [migrationContext8 previousStoreVersion];
+        v78 = +[PLModelMigration currentModelVersion];
+        *buf = 67109376;
+        *&buf[4] = previousStoreVersion4;
+        *&buf[8] = 1024;
+        *&buf[10] = v78;
+        v79 = "*** MIGRATION INVERSION ***\n***\n***\n***\n*** Photos database has a model version [%d] that is newer than the Photos frameworks model version [%d].\n***\n*** Frameworks and database are out of sync.\n*** This will trigger a rebuild from file system.\n***\n***\n";
+LABEL_61:
+        _os_log_impl(&dword_19BF1F000, v75, OS_LOG_TYPE_ERROR, v79, buf, 0xEu);
+      }
+    }
+
+    else
+    {
+      if (!v20)
+      {
+        goto LABEL_37;
+      }
+
+      logger5 = [(PLModelMigration *)self logger];
+
+      if (logger5)
+      {
+        v143 = 0u;
+        v144 = 0u;
+        v141 = 0u;
+        v142 = 0u;
+        v139 = 0u;
+        v140 = 0u;
+        v137 = 0u;
+        v138 = 0u;
+        v135 = 0u;
+        v136 = 0u;
+        v133 = 0u;
+        v134 = 0u;
+        v131 = 0u;
+        v132 = 0u;
+        v129 = 0u;
+        v130 = 0u;
+        v127 = 0u;
+        v128 = 0u;
+        v125 = 0u;
+        v126 = 0u;
+        v123 = 0u;
+        v124 = 0u;
+        v121 = 0u;
+        v122 = 0u;
+        v119 = 0u;
+        v120 = 0u;
+        v117 = 0u;
+        v118 = 0u;
+        v115 = 0u;
+        v116 = 0u;
+        *buf = 0u;
+        v114 = 0u;
+        v58 = PLMigrationGetLog();
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+        {
+          v59 = 3;
+        }
+
+        else
+        {
+          v59 = 2;
+        }
+
+        migrationContext9 = [(PLModelMigration *)self migrationContext];
+        previousStoreVersion5 = [migrationContext9 previousStoreVersion];
+        v62 = +[PLModelMigration currentModelVersion];
+        v109 = 67109376;
+        previousStoreVersion = previousStoreVersion5;
+        v111 = 1024;
+        v112 = v62;
+        v27 = _os_log_send_and_compose_impl(v59, 0, buf, 512, &dword_19BF1F000, v58, 16, "*** MIGRATION INVERSION ***\n***\n***\n***\n*** Photos database has a model version [%d] that is newer than the Photos frameworks model version [%d].\n***\n***\n", &v109, 14);
+
+        logger4 = [(PLModelMigration *)self logger];
+        v29 = logger4;
+        v30 = v27;
+        v31 = 368;
+        goto LABEL_35;
+      }
+
+      v75 = PLMigrationGetLog();
+      if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+      {
+        migrationContext8 = [(PLModelMigration *)self migrationContext];
+        previousStoreVersion6 = [migrationContext8 previousStoreVersion];
+        v84 = +[PLModelMigration currentModelVersion];
         *buf = 67109376;
         *&buf[4] = previousStoreVersion6;
         *&buf[8] = 1024;
-        *&buf[10] = v79;
-        v74 = "*** MIGRATION INVERSION ***\n***\n***\n***\n*** Photos database has a model version [%d] that is newer than the Photos frameworks model version [%d].\n***\n***\n";
-        goto LABEL_46;
+        *&buf[10] = v84;
+        v79 = "*** MIGRATION INVERSION ***\n***\n***\n***\n*** Photos database has a model version [%d] that is newer than the Photos frameworks model version [%d].\n***\n***\n";
+        goto LABEL_61;
       }
     }
 
     if (error)
     {
-      goto LABEL_26;
+      goto LABEL_38;
     }
 
     return 3;
   }
 
   migrationContext10 = [(PLModelMigration *)self migrationContext];
-  v31 = [migrationContext10 previousStoreVersion] >> 1;
+  v33 = [migrationContext10 previousStoreVersion] >> 1;
 
-  if (v31 <= 0xBBA)
+  if (v33 <= 0xBBA)
   {
-    v32 = PLMigrationGetLog();
-    v33 = os_log_type_enabled(v32, OS_LOG_TYPE_ERROR);
+    v34 = PLMigrationGetLog();
+    v35 = os_log_type_enabled(v34, OS_LOG_TYPE_ERROR);
 
-    if (v33)
+    if (v35)
     {
-      logger4 = [(PLModelMigration *)self logger];
+      logger6 = [(PLModelMigration *)self logger];
 
-      if (!logger4)
+      if (!logger6)
       {
-        v75 = PLMigrationGetLog();
-        if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+        v80 = PLMigrationGetLog();
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
         {
           migrationContext11 = [(PLModelMigration *)self migrationContext];
           previousStoreVersion7 = [migrationContext11 previousStoreVersion];
@@ -1973,7 +2069,7 @@ LABEL_26:
           *&buf[4] = previousStoreVersion7;
           *&buf[8] = 1024;
           *&buf[10] = 6006;
-          _os_log_impl(&dword_19BF1F000, v75, OS_LOG_TYPE_ERROR, "Cannot perform lightweight migration, store model version %d is older than oldest supported version %d", buf, 0xEu);
+          _os_log_impl(&dword_19BF1F000, v80, OS_LOG_TYPE_ERROR, "Cannot perform lightweight migration, store model version %d is older than oldest supported version %d", buf, 0xEu);
         }
 
         if (!error)
@@ -1981,9 +2077,15 @@ LABEL_26:
           return 3;
         }
 
-        goto LABEL_19;
+        goto LABEL_28;
       }
 
+      v143 = 0u;
+      v144 = 0u;
+      v141 = 0u;
+      v142 = 0u;
+      v139 = 0u;
+      v140 = 0u;
       v137 = 0u;
       v138 = 0u;
       v135 = 0u;
@@ -2008,31 +2110,33 @@ LABEL_26:
       v118 = 0u;
       v115 = 0u;
       v116 = 0u;
-      v113 = 0u;
-      v114 = 0u;
-      v111 = 0u;
-      v112 = 0u;
-      v109 = 0u;
-      v110 = 0u;
       *buf = 0u;
-      v108 = 0u;
-      v35 = PLMigrationGetLog();
-      os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
+      v114 = 0u;
+      v37 = PLMigrationGetLog();
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      {
+        v38 = 3;
+      }
+
+      else
+      {
+        v38 = 2;
+      }
+
       migrationContext12 = [(PLModelMigration *)self migrationContext];
       previousStoreVersion8 = [migrationContext12 previousStoreVersion];
-      v103 = 67109376;
+      v109 = 67109376;
       previousStoreVersion = previousStoreVersion8;
-      v105 = 1024;
-      v106 = 6006;
-      LODWORD(v92) = 14;
-      v38 = _os_log_send_and_compose_impl();
+      v111 = 1024;
+      v112 = 6006;
+      v41 = _os_log_send_and_compose_impl(v38, 0, buf, 512, &dword_19BF1F000, v37, 16, "Cannot perform lightweight migration, store model version %d is older than oldest supported version %d", &v109, 14);
 
-      v39 = [(PLModelMigration *)self logger:&v103];
-      [v39 logWithMessage:v38 fromCodeLocation:"PLModelMigration.m" type:{375, 16}];
+      logger7 = [(PLModelMigration *)self logger];
+      [logger7 logWithMessage:v41 fromCodeLocation:"PLModelMigration.m" type:{375, 16}];
 
-      if (v38 != buf)
+      if (v41 != buf)
       {
-        free(v38);
+        free(v41);
       }
     }
 
@@ -2041,35 +2145,35 @@ LABEL_26:
       return 3;
     }
 
-LABEL_19:
-    v93 = *MEMORY[0x1E69BFF48];
-    v95 = MEMORY[0x1E696ABC0];
-    v99[0] = *MEMORY[0x1E696A368];
-    migrationContext7 = [(PLModelMigration *)self migrationContext];
-    storeURL = [migrationContext7 storeURL];
+LABEL_28:
+    v99 = *MEMORY[0x1E69BFF48];
+    v101 = MEMORY[0x1E696ABC0];
+    v105[0] = *MEMORY[0x1E696A368];
+    migrationContext5 = [(PLModelMigration *)self migrationContext];
+    storeURL = [migrationContext5 storeURL];
     [storeURL path];
-    v41 = v98 = error;
-    v100[0] = v41;
-    v99[1] = *MEMORY[0x1E696A998];
-    migrationContext8 = [(PLModelMigration *)self migrationContext];
-    storeURL2 = [migrationContext8 storeURL];
+    v44 = v104 = error;
+    v106[0] = v44;
+    v105[1] = *MEMORY[0x1E696A998];
+    migrationContext6 = [(PLModelMigration *)self migrationContext];
+    storeURL2 = [migrationContext6 storeURL];
     uRLByDeletingLastPathComponent = [storeURL2 URLByDeletingLastPathComponent];
-    v44URLByDeletingLastPathComponent = [uRLByDeletingLastPathComponent URLByDeletingLastPathComponent];
-    v100[1] = v44URLByDeletingLastPathComponent;
-    v99[2] = *MEMORY[0x1E696A578];
-    v46 = MEMORY[0x1E696AEC0];
-    migrationContext9 = [(PLModelMigration *)self migrationContext];
-    6006 = [v46 stringWithFormat:@"Store version %d is unsupported for migration (older than %d).", objc_msgSend(migrationContext9, "previousStoreVersion"), 6006];
-    v100[2] = 6006;
-    v49 = 3;
-    v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v100 forKeys:v99 count:3];
-    v52 = v93;
-    v51 = v95;
-    v53 = 46011;
-LABEL_27:
-    *v98 = [v51 errorWithDomain:v52 code:v53 userInfo:v50];
+    v47URLByDeletingLastPathComponent = [uRLByDeletingLastPathComponent URLByDeletingLastPathComponent];
+    v106[1] = v47URLByDeletingLastPathComponent;
+    v105[2] = *MEMORY[0x1E696A578];
+    v49 = MEMORY[0x1E696AEC0];
+    migrationContext7 = [(PLModelMigration *)self migrationContext];
+    6006 = [v49 stringWithFormat:@"Store version %d is unsupported for migration (older than %d).", objc_msgSend(migrationContext7, "previousStoreVersion"), 6006];
+    v106[2] = 6006;
+    v52 = 3;
+    v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v106 forKeys:v105 count:3];
+    v55 = v99;
+    v54 = v101;
+    v56 = 46011;
+LABEL_39:
+    *v104 = [v54 errorWithDomain:v55 code:v56 userInfo:v53];
 
-    return v49;
+    return v52;
   }
 
   if (!self->_allowRebuild)
@@ -2081,12 +2185,12 @@ LABEL_27:
       return 1;
     }
 
-    v67 = MEMORY[0x1E69BF2A0];
+    v72 = MEMORY[0x1E69BF2A0];
     pathManager = [(PLModelMigration *)self pathManager];
     libraryURL = [pathManager libraryURL];
-    LODWORD(v67) = [v67 isSystemPhotoLibraryURL:libraryURL];
+    LODWORD(v72) = [v72 isSystemPhotoLibraryURL:libraryURL];
 
-    if (!v67)
+    if (!v72)
     {
       return 1;
     }
@@ -2097,15 +2201,21 @@ LABEL_27:
     return 1;
   }
 
-  v60 = PLMigrationGetLog();
-  v61 = os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT);
+  v64 = PLMigrationGetLog();
+  v65 = os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT);
 
-  if (v61)
+  if (v65)
   {
-    logger5 = [(PLModelMigration *)self logger];
+    logger8 = [(PLModelMigration *)self logger];
 
-    if (logger5)
+    if (logger8)
     {
+      v143 = 0u;
+      v144 = 0u;
+      v141 = 0u;
+      v142 = 0u;
+      v139 = 0u;
+      v140 = 0u;
       v137 = 0u;
       v138 = 0u;
       v135 = 0u;
@@ -2130,41 +2240,44 @@ LABEL_27:
       v118 = 0u;
       v115 = 0u;
       v116 = 0u;
-      v113 = 0u;
-      v114 = 0u;
-      v111 = 0u;
-      v112 = 0u;
-      v109 = 0u;
-      v110 = 0u;
       *buf = 0u;
-      v108 = 0u;
-      v63 = PLMigrationGetLog();
-      os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT);
-      LOWORD(v103) = 0;
-      LODWORD(v92) = 2;
-      v64 = _os_log_send_and_compose_impl();
-
-      v65 = [(PLModelMigration *)self logger:&v103];
-      [v65 logWithMessage:v64 fromCodeLocation:"PLModelMigration.m" type:{383, 0}];
-
-      if (v64 != buf)
+      v114 = 0u;
+      v67 = PLMigrationGetLog();
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
       {
-        free(v64);
+        v68 = 3;
+      }
+
+      else
+      {
+        v68 = 2;
+      }
+
+      LOWORD(v109) = 0;
+      LODWORD(v98) = 2;
+      v69 = _os_log_send_and_compose_impl(v68, 0, buf, 512, &dword_19BF1F000, v67, 0, "Creating sqlite error indicator file", &v109, v98);
+
+      logger9 = [(PLModelMigration *)self logger];
+      [logger9 logWithMessage:v69 fromCodeLocation:"PLModelMigration.m" type:{383, 0}];
+
+      if (v69 != buf)
+      {
+        free(v69);
       }
     }
 
     else
     {
-      v80 = PLMigrationGetLog();
-      if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
+      v85 = PLMigrationGetLog();
+      if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_19BF1F000, v80, OS_LOG_TYPE_DEFAULT, "Creating sqlite error indicator file", buf, 2u);
+        _os_log_impl(&dword_19BF1F000, v85, OS_LOG_TYPE_DEFAULT, "Creating sqlite error indicator file", buf, 2u);
       }
     }
   }
 
-  v49 = 1;
+  v52 = 1;
   self->_didCreateSqliteErrorIndicator = 1;
   pathManager2 = [(PLModelMigration *)self pathManager];
   [pathManager2 setSqliteErrorForRebuildReason:4 allowsExit:0];
@@ -2174,15 +2287,21 @@ LABEL_27:
 
   if ((sqliteErrorIndicatorFileExists & 1) == 0)
   {
-    v84 = PLMigrationGetLog();
-    v85 = os_log_type_enabled(v84, OS_LOG_TYPE_ERROR);
+    v89 = PLMigrationGetLog();
+    v90 = os_log_type_enabled(v89, OS_LOG_TYPE_ERROR);
 
-    if (v85)
+    if (v90)
     {
-      logger6 = [(PLModelMigration *)self logger];
+      logger10 = [(PLModelMigration *)self logger];
 
-      if (logger6)
+      if (logger10)
       {
+        v143 = 0u;
+        v144 = 0u;
+        v141 = 0u;
+        v142 = 0u;
+        v139 = 0u;
+        v140 = 0u;
         v137 = 0u;
         v138 = 0u;
         v135 = 0u;
@@ -2207,36 +2326,39 @@ LABEL_27:
         v118 = 0u;
         v115 = 0u;
         v116 = 0u;
-        v113 = 0u;
-        v114 = 0u;
-        v111 = 0u;
-        v112 = 0u;
-        v109 = 0u;
-        v110 = 0u;
         *buf = 0u;
-        v108 = 0u;
-        v87 = PLMigrationGetLog();
-        os_log_type_enabled(v87, OS_LOG_TYPE_ERROR);
-        LOWORD(v103) = 0;
-        LODWORD(v92) = 2;
-        v88 = _os_log_send_and_compose_impl();
-
-        v89 = [(PLModelMigration *)self logger:&v103];
-        [v89 logWithMessage:v88 fromCodeLocation:"PLModelMigration.m" type:{388, 16}];
-
-        if (v88 != buf)
+        v114 = 0u;
+        v92 = PLMigrationGetLog();
+        if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
         {
-          free(v88);
+          v93 = 3;
+        }
+
+        else
+        {
+          v93 = 2;
+        }
+
+        LOWORD(v109) = 0;
+        LODWORD(v98) = 2;
+        v94 = _os_log_send_and_compose_impl(v93, 0, buf, 512, &dword_19BF1F000, v92, 16, "Failed to create sqlite error indicator file to guard against lightweight migration crash loop", &v109, v98);
+
+        logger11 = [(PLModelMigration *)self logger];
+        [logger11 logWithMessage:v94 fromCodeLocation:"PLModelMigration.m" type:{388, 16}];
+
+        if (v94 != buf)
+        {
+          free(v94);
         }
       }
 
       else
       {
-        v90 = PLMigrationGetLog();
-        if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+        v96 = PLMigrationGetLog();
+        if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_19BF1F000, v90, OS_LOG_TYPE_ERROR, "Failed to create sqlite error indicator file to guard against lightweight migration crash loop", buf, 2u);
+          _os_log_impl(&dword_19BF1F000, v96, OS_LOG_TYPE_ERROR, "Failed to create sqlite error indicator file to guard against lightweight migration crash loop", buf, 2u);
         }
       }
     }
@@ -2244,17 +2366,17 @@ LABEL_27:
     return 3;
   }
 
-  return v49;
+  return v52;
 }
 
 - (int64_t)migrateWithError:(id *)error
 {
-  v127[1] = *MEMORY[0x1E69E9840];
+  v129[1] = *MEMORY[0x1E69E9840];
   Current = CFAbsoluteTimeGetCurrent();
   start = [MEMORY[0x1E69BF318] start];
-  v87 = 0;
-  v7 = [(PLModelMigration *)self setupWithError:&v87];
-  v8 = v87;
+  v89 = 0;
+  v7 = [(PLModelMigration *)self setupWithError:&v89];
+  v8 = v89;
   migrationContext = [(PLModelMigration *)self migrationContext];
   store = [migrationContext store];
   if (store)
@@ -2265,7 +2387,7 @@ LABEL_27:
       goto LABEL_13;
     }
 
-    v81 = start;
+    v83 = start;
     analyticsEventManager = [(PLModelMigration *)self analyticsEventManager];
     v12 = MEMORY[0x1E696AD98];
     migrationContext2 = [(PLModelMigration *)self migrationContext];
@@ -2279,10 +2401,10 @@ LABEL_27:
     stringValue = [v18 stringValue];
     [analyticsEventManager2 setPayloadValue:stringValue forKey:*MEMORY[0x1E69BF730] onEventWithName:v16];
 
-    v83 = v8;
-    v7 = [(PLModelMigration *)self migratePostProcessingWithProgressUnitCount:100 error:&v83];
+    v85 = v8;
+    v7 = [(PLModelMigration *)self migratePostProcessingWithProgressUnitCount:100 error:&v85];
     v20 = v8;
-    v8 = v83;
+    v8 = v85;
   }
 
   else
@@ -2293,7 +2415,7 @@ LABEL_27:
       goto LABEL_13;
     }
 
-    v81 = start;
+    v83 = start;
     migrationContext3 = [(PLModelMigration *)self migrationContext];
     options = [migrationContext3 options];
     v20 = [options mutableCopy];
@@ -2302,8 +2424,8 @@ LABEL_27:
     [v20 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E695D380]];
     [v20 setObject:v23 forKeyedSubscript:*MEMORY[0x1E695D318]];
     v24 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v127[0] = v24;
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v127 count:1];
+    v129[0] = v24;
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v129 count:1];
     [v20 setObject:v25 forKeyedSubscript:*MEMORY[0x1E695D3D8]];
 
     v26 = MEMORY[0x1E696AD98];
@@ -2324,24 +2446,24 @@ LABEL_27:
     [analyticsEventManager5 startRecordingTimedEventToken];
     v36 = v35;
 
-    v86 = v8;
-    v7 = [(PLModelMigration *)self migratePreSchemaMigrationWithCurrentStoreVersion:v28 error:&v86];
-    v37 = v86;
+    v88 = v8;
+    v7 = [(PLModelMigration *)self migratePreSchemaMigrationWithCurrentStoreVersion:v28 error:&v88];
+    v37 = v88;
 
     analyticsEventManager6 = [(PLModelMigration *)self analyticsEventManager];
     [analyticsEventManager6 addRecordingTimedEventSnippetWithToken:*MEMORY[0x1E69BF708] forKey:v16 onEventWithName:v36];
 
     if (v7 == 1)
     {
-      v85 = v37;
-      v7 = [(PLModelMigration *)self migrateStagedMigrationWithAutoMigrationOptions:v20 currentStoreVersion:v28 error:&v85];
-      v39 = v85;
+      v87 = v37;
+      v7 = [(PLModelMigration *)self migrateStagedMigrationWithAutoMigrationOptions:v20 currentStoreVersion:v28 error:&v87];
+      v39 = v87;
 
       if (v7 == 1)
       {
-        v84 = v39;
-        v7 = [(PLModelMigration *)self migrateSchemaMigrationWithAutoMigrationOptions:v20 currentStoreVersion:v28 error:&v84];
-        v37 = v84;
+        v86 = v39;
+        v7 = [(PLModelMigration *)self migrateSchemaMigrationWithAutoMigrationOptions:v20 currentStoreVersion:v28 error:&v86];
+        v37 = v86;
       }
 
       else
@@ -2368,24 +2490,26 @@ LABEL_27:
     [analyticsEventManager8 setPayloadValue:v47 forKey:*MEMORY[0x1E69BF6F8] onEventWithName:v16];
 
     v7 = 1;
-    start = v81;
-    goto LABEL_19;
+    start = v83;
+    goto LABEL_22;
   }
 
-  start = v81;
+  start = v83;
 LABEL_13:
   v48 = PLMigrationGetLog();
   v49 = os_log_type_enabled(v48, OS_LOG_TYPE_ERROR);
 
   if (!v49)
   {
-    goto LABEL_17;
+    goto LABEL_20;
   }
 
   logger = [(PLModelMigration *)self logger];
 
   if (logger)
   {
+    v127 = 0u;
+    v128 = 0u;
     v125 = 0u;
     v126 = 0u;
     v123 = 0u;
@@ -2412,72 +2536,80 @@ LABEL_13:
     v104 = 0u;
     v101 = 0u;
     v102 = 0u;
-    v99 = 0u;
     v100 = 0u;
-    v98 = 0u;
-    v97 = 0u;
+    v99 = 0u;
     memset(buf, 0, sizeof(buf));
     v51 = PLMigrationGetLog();
-    os_log_type_enabled(v51, OS_LOG_TYPE_ERROR);
-    v88 = 138412290;
-    v89 = v8;
-    LODWORD(v80) = 12;
-    v52 = _os_log_send_and_compose_impl();
-
-    v53 = [(PLModelMigration *)self logger:&v88];
-    [v53 logWithMessage:v52 fromCodeLocation:"PLModelMigration.m" type:{339, 16}];
-
-    if (v52 != buf)
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
     {
-      free(v52);
+      v52 = 3;
     }
 
-LABEL_17:
+    else
+    {
+      v52 = 2;
+    }
+
+    v90 = 138412290;
+    v91 = v8;
+    v53 = _os_log_send_and_compose_impl(v52, 0, buf, 512, &dword_19BF1F000, v51, 16, "Failed to migrate library. Error: %@", &v90, 12);
+
+    logger2 = [(PLModelMigration *)self logger];
+    [logger2 logWithMessage:v53 fromCodeLocation:"PLModelMigration.m" type:{339, 16}];
+
+    if (v53 != buf)
+    {
+      free(v53);
+    }
+
+LABEL_20:
     if (!error)
     {
-      goto LABEL_19;
+      goto LABEL_22;
     }
 
-    goto LABEL_18;
+    goto LABEL_21;
   }
 
-  v79 = PLMigrationGetLog();
-  if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+  v81 = PLMigrationGetLog();
+  if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
     *&buf[4] = v8;
-    _os_log_impl(&dword_19BF1F000, v79, OS_LOG_TYPE_ERROR, "Failed to migrate library. Error: %@", buf, 0xCu);
+    _os_log_impl(&dword_19BF1F000, v81, OS_LOG_TYPE_ERROR, "Failed to migrate library. Error: %@", buf, 0xCu);
   }
 
   if (error)
   {
-LABEL_18:
-    v54 = v8;
+LABEL_21:
+    v55 = v8;
     *error = v8;
   }
 
-LABEL_19:
-  v55 = CFAbsoluteTimeGetCurrent() - Current;
+LABEL_22:
+  v56 = CFAbsoluteTimeGetCurrent() - Current;
   if (Current <= 0.0)
   {
-    v56 = 0.0;
+    v57 = 0.0;
   }
 
   else
   {
-    v56 = v55;
+    v57 = v56;
   }
 
   stop = [start stop];
-  v58 = PLMigrationGetLog();
-  v59 = os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT);
+  v59 = PLMigrationGetLog();
+  v60 = os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT);
 
-  if (v59)
+  if (v60)
   {
-    logger2 = [(PLModelMigration *)self logger];
+    logger3 = [(PLModelMigration *)self logger];
 
-    if (logger2)
+    if (logger3)
     {
+      v127 = 0u;
+      v128 = 0u;
       v125 = 0u;
       v126 = 0u;
       v123 = 0u;
@@ -2504,65 +2636,72 @@ LABEL_19:
       v104 = 0u;
       v101 = 0u;
       v102 = 0u;
-      v99 = 0u;
       v100 = 0u;
-      v98 = 0u;
-      v97 = 0u;
+      v99 = 0u;
       memset(buf, 0, sizeof(buf));
-      v61 = PLMigrationGetLog();
-      os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT);
-      v62 = PLStringFromModelMigrationActionResultShort(v7);
-      v82 = start;
-      v63 = [start perfCheckLogStringWithPerfCheckInfo:stop];
-      progress = [(PLModelMigration *)self progress];
-      v65 = [progress completedUnitCount] * 100.0;
-      progress2 = [(PLModelMigration *)self progress];
-      totalUnitCount = [progress2 totalUnitCount];
-      v88 = 138544130;
-      v89 = v62;
-      v90 = 2048;
-      v91 = v56;
-      v92 = 2114;
-      v93 = v63;
-      v94 = 2048;
-      v95 = v65 / totalUnitCount;
-      LODWORD(v80) = 42;
-      v68 = _os_log_send_and_compose_impl();
-
-      v69 = [(PLModelMigration *)self logger:&v88];
-      [v69 logWithMessage:v68 fromCodeLocation:"PLModelMigration.m" type:{349, 0}];
-
-      if (v68 != buf)
+      v62 = PLMigrationGetLog();
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
       {
-        free(v68);
+        v63 = 3;
       }
 
-      start = v82;
+      else
+      {
+        v63 = 2;
+      }
+
+      v64 = PLStringFromModelMigrationActionResultShort(v7);
+      v84 = start;
+      v65 = [start perfCheckLogStringWithPerfCheckInfo:stop];
+      progress = [(PLModelMigration *)self progress];
+      v67 = [progress completedUnitCount] * 100.0;
+      progress2 = [(PLModelMigration *)self progress];
+      totalUnitCount = [progress2 totalUnitCount];
+      v90 = 138544130;
+      v91 = v64;
+      v92 = 2048;
+      v93 = v57;
+      v94 = 2114;
+      v95 = v65;
+      v96 = 2048;
+      v97 = v67 / totalUnitCount;
+      LODWORD(v82) = 42;
+      v70 = _os_log_send_and_compose_impl(v63, 0, buf, 512, &dword_19BF1F000, v62, 0, "Completed migration - Result: %{public}@. Metrics: %.2lfs%{public}@, action progress:(%.2lf %%)", &v90, v82);
+
+      logger4 = [(PLModelMigration *)self logger];
+      [logger4 logWithMessage:v70 fromCodeLocation:"PLModelMigration.m" type:{349, 0}];
+
+      if (v70 != buf)
+      {
+        free(v70);
+      }
+
+      start = v84;
     }
 
     else
     {
-      v70 = PLMigrationGetLog();
-      if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+      v72 = PLMigrationGetLog();
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
       {
-        v71 = PLStringFromModelMigrationActionResultShort(v7);
-        v72 = [start perfCheckLogStringWithPerfCheckInfo:stop];
+        v73 = PLStringFromModelMigrationActionResultShort(v7);
+        v74 = [start perfCheckLogStringWithPerfCheckInfo:stop];
         [(PLModelMigration *)self progress];
-        v74 = v73 = start;
-        v75 = [v74 completedUnitCount] * 100.0;
+        v76 = v75 = start;
+        v77 = [v76 completedUnitCount] * 100.0;
         progress3 = [(PLModelMigration *)self progress];
         totalUnitCount2 = [progress3 totalUnitCount];
         *buf = 138544130;
-        *&buf[4] = v71;
+        *&buf[4] = v73;
         *&buf[12] = 2048;
-        *&buf[14] = v56;
+        *&buf[14] = v57;
         *&buf[22] = 2114;
-        *&buf[24] = v72;
-        LOWORD(v97) = 2048;
-        *(&v97 + 2) = v75 / totalUnitCount2;
-        _os_log_impl(&dword_19BF1F000, v70, OS_LOG_TYPE_DEFAULT, "Completed migration - Result: %{public}@. Metrics: %.2lfs%{public}@, action progress:(%.2lf %%)", buf, 0x2Au);
+        *&buf[24] = v74;
+        LOWORD(v99) = 2048;
+        *(&v99 + 2) = v77 / totalUnitCount2;
+        _os_log_impl(&dword_19BF1F000, v72, OS_LOG_TYPE_DEFAULT, "Completed migration - Result: %{public}@. Metrics: %.2lfs%{public}@, action progress:(%.2lf %%)", buf, 0x2Au);
 
-        start = v73;
+        start = v75;
       }
     }
   }
@@ -2572,13 +2711,13 @@ LABEL_19:
 
 - (void)resetBackgroundActionClass:(Class)class onCondition:(BOOL)condition
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   if (condition)
   {
     pathManager = [(PLModelMigration *)self pathManager];
-    v39 = 0;
-    v7 = [PLBackgroundModelMigration resetBackgroundActionClass:class pathManager:pathManager error:&v39];
-    v8 = v39;
+    v41 = 0;
+    v7 = [PLBackgroundModelMigration resetBackgroundActionClass:class pathManager:pathManager error:&v41];
+    v8 = v41;
 
     v9 = PLMigrationGetLog();
     v10 = v9;
@@ -2592,6 +2731,8 @@ LABEL_19:
 
         if (logger)
         {
+          v75 = 0u;
+          v76 = 0u;
           v73 = 0u;
           v74 = 0u;
           v71 = 0u;
@@ -2620,52 +2761,68 @@ LABEL_19:
           v50 = 0u;
           v47 = 0u;
           v48 = 0u;
-          v45 = 0u;
-          v46 = 0u;
           memset(buf, 0, sizeof(buf));
           v13 = PLMigrationGetLog();
-          os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-          v14 = NSStringFromClass(class);
-          v40 = 138543362;
-          v41 = v14;
-          LODWORD(v38) = 12;
-          v15 = _os_log_send_and_compose_impl();
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          {
+            v14 = 3;
+          }
 
-          v16 = [(PLModelMigration *)self logger:&v40];
-          v17 = v16;
-          v18 = v15;
-          v19 = 286;
-          v20 = 0;
-          goto LABEL_13;
+          else
+          {
+            v14 = 2;
+          }
+
+          v15 = NSStringFromClass(class);
+          v42 = 138543362;
+          v43 = v15;
+          v16 = _os_log_send_and_compose_impl(v14, 0, buf, 512, &dword_19BF1F000, v13, 0, "[ResetBackgroundAction] Successfully reset background action class: %{public}@.", &v42, 12);
+
+          logger2 = [(PLModelMigration *)self logger];
+          v18 = logger2;
+          v19 = v16;
+          v20 = 286;
+          v21 = 0;
+LABEL_22:
+          [logger2 logWithMessage:v19 fromCodeLocation:"PLModelMigration.m" type:{v20, v21}];
+
+          if (v16 != buf)
+          {
+            free(v16);
+          }
+
+          goto LABEL_32;
         }
 
-        v32 = PLMigrationGetLog();
-        if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v35 = PLMigrationGetLog();
+        if (!os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_22;
+          goto LABEL_31;
         }
 
-        v33 = NSStringFromClass(class);
+        v36 = NSStringFromClass(class);
         *buf = 138543362;
-        *&buf[4] = v33;
-        v34 = "[ResetBackgroundAction] Successfully reset background action class: %{public}@.";
-        v35 = v32;
-        v36 = OS_LOG_TYPE_DEFAULT;
-        v37 = 12;
-        goto LABEL_21;
+        *&buf[4] = v36;
+        v37 = "[ResetBackgroundAction] Successfully reset background action class: %{public}@.";
+        v38 = v35;
+        v39 = OS_LOG_TYPE_DEFAULT;
+        v40 = 12;
+        goto LABEL_30;
       }
     }
 
     else
     {
-      v28 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+      v30 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
 
-      if (v28)
+      if (v30)
       {
-        logger2 = [(PLModelMigration *)self logger];
+        logger3 = [(PLModelMigration *)self logger];
 
-        if (logger2)
+        if (logger3)
         {
+          v75 = 0u;
+          v76 = 0u;
           v73 = 0u;
           v74 = 0u;
           v71 = 0u;
@@ -2694,89 +2851,89 @@ LABEL_19:
           v50 = 0u;
           v47 = 0u;
           v48 = 0u;
-          v45 = 0u;
-          v46 = 0u;
           memset(buf, 0, sizeof(buf));
-          v30 = PLMigrationGetLog();
-          os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
-          v31 = NSStringFromClass(class);
-          v40 = 138543618;
-          v41 = v31;
-          v42 = 2114;
-          v43 = v8;
-          LODWORD(v38) = 22;
-          v15 = _os_log_send_and_compose_impl();
-
-          v16 = [(PLModelMigration *)self logger:&v40];
-          v17 = v16;
-          v18 = v15;
-          v19 = 288;
-          v20 = 16;
-LABEL_13:
-          [v16 logWithMessage:v18 fromCodeLocation:"PLModelMigration.m" type:{v19, v20}];
-
-          if (v15 != buf)
+          v32 = PLMigrationGetLog();
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
-            free(v15);
+            v33 = 3;
           }
 
-          goto LABEL_23;
-        }
+          else
+          {
+            v33 = 2;
+          }
 
-        v32 = PLMigrationGetLog();
-        if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
-        {
+          v34 = NSStringFromClass(class);
+          v42 = 138543618;
+          v43 = v34;
+          v44 = 2114;
+          v45 = v8;
+          v16 = _os_log_send_and_compose_impl(v33, 0, buf, 512, &dword_19BF1F000, v32, 16, "[ResetBackgroundAction] Failed to reset background action class: %{public}@. Error: %{public}@", &v42, 22);
+
+          logger2 = [(PLModelMigration *)self logger];
+          v18 = logger2;
+          v19 = v16;
+          v20 = 288;
+          v21 = 16;
           goto LABEL_22;
         }
 
-        v33 = NSStringFromClass(class);
+        v35 = PLMigrationGetLog();
+        if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_31;
+        }
+
+        v36 = NSStringFromClass(class);
         *buf = 138543618;
-        *&buf[4] = v33;
+        *&buf[4] = v36;
         *&buf[12] = 2114;
         *&buf[14] = v8;
-        v34 = "[ResetBackgroundAction] Failed to reset background action class: %{public}@. Error: %{public}@";
-        v35 = v32;
-        v36 = OS_LOG_TYPE_ERROR;
-        v37 = 22;
-LABEL_21:
-        _os_log_impl(&dword_19BF1F000, v35, v36, v34, buf, v37);
+        v37 = "[ResetBackgroundAction] Failed to reset background action class: %{public}@. Error: %{public}@";
+        v38 = v35;
+        v39 = OS_LOG_TYPE_ERROR;
+        v40 = 22;
+LABEL_30:
+        _os_log_impl(&dword_19BF1F000, v38, v39, v37, buf, v40);
 
-        goto LABEL_22;
+        goto LABEL_31;
       }
     }
 
-LABEL_23:
+LABEL_32:
 
     return;
   }
 
-  v21 = PLMigrationGetLog();
-  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+  v22 = PLMigrationGetLog();
+  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
 
-  if (!v22)
+  if (!v23)
   {
     return;
   }
 
-  logger3 = [(PLModelMigration *)self logger];
+  logger4 = [(PLModelMigration *)self logger];
 
-  if (!logger3)
+  if (!logger4)
   {
     v8 = PLMigrationGetLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = NSStringFromClass(class);
+      v35 = NSStringFromClass(class);
       *buf = 138543362;
-      *&buf[4] = v32;
+      *&buf[4] = v35;
       _os_log_impl(&dword_19BF1F000, v8, OS_LOG_TYPE_DEFAULT, "[ResetBackgroundAction] Skipping reset background action class: %{public}@", buf, 0xCu);
-LABEL_22:
+LABEL_31:
 
-      goto LABEL_23;
+      goto LABEL_32;
     }
 
-    goto LABEL_23;
+    goto LABEL_32;
   }
 
+  v75 = 0u;
+  v76 = 0u;
   v73 = 0u;
   v74 = 0u;
   v71 = 0u;
@@ -2805,23 +2962,29 @@ LABEL_22:
   v50 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
   memset(buf, 0, sizeof(buf));
-  v24 = PLMigrationGetLog();
-  os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-  v25 = NSStringFromClass(class);
-  v40 = 138543362;
-  v41 = v25;
-  LODWORD(v38) = 12;
-  v26 = _os_log_send_and_compose_impl();
-
-  v27 = [(PLModelMigration *)self logger:&v40];
-  [v27 logWithMessage:v26 fromCodeLocation:"PLModelMigration.m" type:{291, 0}];
-
-  if (v26 != buf)
+  v25 = PLMigrationGetLog();
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    free(v26);
+    v26 = 3;
+  }
+
+  else
+  {
+    v26 = 2;
+  }
+
+  v27 = NSStringFromClass(class);
+  v42 = 138543362;
+  v43 = v27;
+  v28 = _os_log_send_and_compose_impl(v26, 0, buf, 512, &dword_19BF1F000, v25, 0, "[ResetBackgroundAction] Skipping reset background action class: %{public}@", &v42, 12);
+
+  logger5 = [(PLModelMigration *)self logger];
+  [logger5 logWithMessage:v28 fromCodeLocation:"PLModelMigration.m" type:{291, 0}];
+
+  if (v28 != buf)
+  {
+    free(v28);
   }
 }
 
@@ -2927,31 +3090,39 @@ LABEL_3:
       *buf = 0u;
       v23 = 0u;
       v13 = PLMigrationGetLog();
-      os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-      v14 = NSStringFromClass(class);
-      v20 = 138543362;
-      v21 = v14;
-      LODWORD(v19) = 12;
-      v15 = _os_log_send_and_compose_impl();
-
-      v16 = [(PLModelMigration *)self logger:&v20];
-      [v16 logWithMessage:v15 fromCodeLocation:"PLModelMigration.m" type:{263, 0}];
-
-      if (v15 != buf)
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        free(v15);
+        v14 = 3;
+      }
+
+      else
+      {
+        v14 = 2;
+      }
+
+      v15 = NSStringFromClass(class);
+      v20 = 138543362;
+      v21 = v15;
+      v16 = _os_log_send_and_compose_impl(v14, 0, buf, 512, &dword_19BF1F000, v13, 0, "Skipping registering post repair action class: %{public}@", &v20, 12);
+
+      logger2 = [(PLModelMigration *)self logger];
+      [logger2 logWithMessage:v16 fromCodeLocation:"PLModelMigration.m" type:{263, 0}];
+
+      if (v16 != buf)
+      {
+        free(v16);
       }
     }
 
     else
     {
-      v17 = PLMigrationGetLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = PLMigrationGetLog();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = NSStringFromClass(class);
+        v19 = NSStringFromClass(class);
         *buf = 138543362;
-        *&buf[4] = v18;
-        _os_log_impl(&dword_19BF1F000, v17, OS_LOG_TYPE_DEFAULT, "Skipping registering post repair action class: %{public}@", buf, 0xCu);
+        *&buf[4] = v19;
+        _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "Skipping registering post repair action class: %{public}@", buf, 0xCu);
       }
     }
   }
@@ -3026,31 +3197,39 @@ LABEL_3:
       *buf = 0u;
       v23 = 0u;
       v13 = PLMigrationGetLog();
-      os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-      v14 = NSStringFromClass(class);
-      v20 = 138543362;
-      v21 = v14;
-      LODWORD(v19) = 12;
-      v15 = _os_log_send_and_compose_impl();
-
-      v16 = [(PLModelMigration *)self logger:&v20];
-      [v16 logWithMessage:v15 fromCodeLocation:"PLModelMigration.m" type:{253, 0}];
-
-      if (v15 != buf)
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        free(v15);
+        v14 = 3;
+      }
+
+      else
+      {
+        v14 = 2;
+      }
+
+      v15 = NSStringFromClass(class);
+      v20 = 138543362;
+      v21 = v15;
+      v16 = _os_log_send_and_compose_impl(v14, 0, buf, 512, &dword_19BF1F000, v13, 0, "Skipping registering pre repair action class: %{public}@", &v20, 12);
+
+      logger2 = [(PLModelMigration *)self logger];
+      [logger2 logWithMessage:v16 fromCodeLocation:"PLModelMigration.m" type:{253, 0}];
+
+      if (v16 != buf)
+      {
+        free(v16);
       }
     }
 
     else
     {
-      v17 = PLMigrationGetLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = PLMigrationGetLog();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = NSStringFromClass(class);
+        v19 = NSStringFromClass(class);
         *buf = 138543362;
-        *&buf[4] = v18;
-        _os_log_impl(&dword_19BF1F000, v17, OS_LOG_TYPE_DEFAULT, "Skipping registering pre repair action class: %{public}@", buf, 0xCu);
+        *&buf[4] = v19;
+        _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "Skipping registering pre repair action class: %{public}@", buf, 0xCu);
       }
     }
   }
@@ -3125,31 +3304,39 @@ LABEL_3:
       *buf = 0u;
       v23 = 0u;
       v13 = PLMigrationGetLog();
-      os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-      v14 = NSStringFromClass(class);
-      v20 = 138543362;
-      v21 = v14;
-      LODWORD(v19) = 12;
-      v15 = _os_log_send_and_compose_impl();
-
-      v16 = [(PLModelMigration *)self logger:&v20];
-      [v16 logWithMessage:v15 fromCodeLocation:"PLModelMigration.m" type:{243, 0}];
-
-      if (v15 != buf)
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        free(v15);
+        v14 = 3;
+      }
+
+      else
+      {
+        v14 = 2;
+      }
+
+      v15 = NSStringFromClass(class);
+      v20 = 138543362;
+      v21 = v15;
+      v16 = _os_log_send_and_compose_impl(v14, 0, buf, 512, &dword_19BF1F000, v13, 0, "Skipping registering staged action class: %{public}@", &v20, 12);
+
+      logger2 = [(PLModelMigration *)self logger];
+      [logger2 logWithMessage:v16 fromCodeLocation:"PLModelMigration.m" type:{243, 0}];
+
+      if (v16 != buf)
+      {
+        free(v16);
       }
     }
 
     else
     {
-      v17 = PLMigrationGetLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = PLMigrationGetLog();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = NSStringFromClass(class);
+        v19 = NSStringFromClass(class);
         *buf = 138543362;
-        *&buf[4] = v18;
-        _os_log_impl(&dword_19BF1F000, v17, OS_LOG_TYPE_DEFAULT, "Skipping registering staged action class: %{public}@", buf, 0xCu);
+        *&buf[4] = v19;
+        _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "Skipping registering staged action class: %{public}@", buf, 0xCu);
       }
     }
   }
@@ -3224,31 +3411,39 @@ LABEL_3:
       *buf = 0u;
       v23 = 0u;
       v13 = PLMigrationGetLog();
-      os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-      v14 = NSStringFromClass(class);
-      v20 = 138543362;
-      v21 = v14;
-      LODWORD(v19) = 12;
-      v15 = _os_log_send_and_compose_impl();
-
-      v16 = [(PLModelMigration *)self logger:&v20];
-      [v16 logWithMessage:v15 fromCodeLocation:"PLModelMigration.m" type:{233, 0}];
-
-      if (v15 != buf)
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        free(v15);
+        v14 = 3;
+      }
+
+      else
+      {
+        v14 = 2;
+      }
+
+      v15 = NSStringFromClass(class);
+      v20 = 138543362;
+      v21 = v15;
+      v16 = _os_log_send_and_compose_impl(v14, 0, buf, 512, &dword_19BF1F000, v13, 0, "Skipping registering pre schema action class: %{public}@", &v20, 12);
+
+      logger2 = [(PLModelMigration *)self logger];
+      [logger2 logWithMessage:v16 fromCodeLocation:"PLModelMigration.m" type:{233, 0}];
+
+      if (v16 != buf)
+      {
+        free(v16);
       }
     }
 
     else
     {
-      v17 = PLMigrationGetLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = PLMigrationGetLog();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = NSStringFromClass(class);
+        v19 = NSStringFromClass(class);
         *buf = 138543362;
-        *&buf[4] = v18;
-        _os_log_impl(&dword_19BF1F000, v17, OS_LOG_TYPE_DEFAULT, "Skipping registering pre schema action class: %{public}@", buf, 0xCu);
+        *&buf[4] = v19;
+        _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "Skipping registering pre schema action class: %{public}@", buf, 0xCu);
       }
     }
   }
@@ -3323,31 +3518,39 @@ LABEL_3:
       *buf = 0u;
       v23 = 0u;
       v13 = PLMigrationGetLog();
-      os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-      v14 = NSStringFromClass(class);
-      v20 = 138543362;
-      v21 = v14;
-      LODWORD(v19) = 12;
-      v15 = _os_log_send_and_compose_impl();
-
-      v16 = [(PLModelMigration *)self logger:&v20];
-      [v16 logWithMessage:v15 fromCodeLocation:"PLModelMigration.m" type:{223, 0}];
-
-      if (v15 != buf)
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        free(v15);
+        v14 = 3;
+      }
+
+      else
+      {
+        v14 = 2;
+      }
+
+      v15 = NSStringFromClass(class);
+      v20 = 138543362;
+      v21 = v15;
+      v16 = _os_log_send_and_compose_impl(v14, 0, buf, 512, &dword_19BF1F000, v13, 0, "Skipping registering action class: %{public}@", &v20, 12);
+
+      logger2 = [(PLModelMigration *)self logger];
+      [logger2 logWithMessage:v16 fromCodeLocation:"PLModelMigration.m" type:{223, 0}];
+
+      if (v16 != buf)
+      {
+        free(v16);
       }
     }
 
     else
     {
-      v17 = PLMigrationGetLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = PLMigrationGetLog();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = NSStringFromClass(class);
+        v19 = NSStringFromClass(class);
         *buf = 138543362;
-        *&buf[4] = v18;
-        _os_log_impl(&dword_19BF1F000, v17, OS_LOG_TYPE_DEFAULT, "Skipping registering action class: %{public}@", buf, 0xCu);
+        *&buf[4] = v19;
+        _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "Skipping registering action class: %{public}@", buf, 0xCu);
       }
     }
   }
@@ -3482,28 +3685,36 @@ void __52__PLModelMigration_initWithMigrationContext_logger___block_invoke(uint6
       *buf = 0u;
       v14 = 0u;
       v6 = PLMigrationGetLog();
-      os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-      v12[0] = 0;
-      LODWORD(v11) = 2;
-      v7 = _os_log_send_and_compose_impl();
-
-      v8 = objc_loadWeakRetained((a1 + 32));
-      v9 = [v8 logger];
-      [v9 logWithMessage:v7 fromCodeLocation:"PLModelMigration.m" type:{173, 0}];
-
-      if (v7 != buf)
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        free(v7);
+        v7 = 3;
+      }
+
+      else
+      {
+        v7 = 2;
+      }
+
+      v12[0] = 0;
+      v8 = _os_log_send_and_compose_impl(v7, 0, buf, 512, &dword_19BF1F000, v6, 0, "Migration was cancelled", v12, 2);
+
+      v9 = objc_loadWeakRetained((a1 + 32));
+      v10 = [v9 logger];
+      [v10 logWithMessage:v8 fromCodeLocation:"PLModelMigration.m" type:{173, 0}];
+
+      if (v8 != buf)
+      {
+        free(v8);
       }
     }
 
     else
     {
-      v10 = PLMigrationGetLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = PLMigrationGetLog();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_19BF1F000, v10, OS_LOG_TYPE_DEFAULT, "Migration was cancelled", buf, 2u);
+        _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_DEFAULT, "Migration was cancelled", buf, 2u);
       }
     }
   }

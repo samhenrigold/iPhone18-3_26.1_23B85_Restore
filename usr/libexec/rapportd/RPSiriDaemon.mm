@@ -37,12 +37,13 @@
   objc_storeStrong(&self->_dispatchQueue, dispatchQueue);
 
   v7 = self->_messenger;
+  v15 = v7;
   if (!v7)
   {
-    v9 = RPErrorF();
+    v17 = RPErrorF(4294960591, "No messenger provided", v9, v10, v11, v12, v13, v14, v20);
     if (dword_1001D4E40 <= 90 && (dword_1001D4E40 != -1 || _LogCategory_Initialize()))
     {
-      sub_10012B2B0();
+      sub_10012B2B0(v17);
       if (!error)
       {
         goto LABEL_13;
@@ -56,64 +57,71 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v10 = v9;
-    *error = v9;
+    v18 = v17;
+    *error = v17;
     goto LABEL_13;
   }
 
-  if (dword_1001D4E40 <= 30 && (dword_1001D4E40 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4E40 <= 30)
   {
-    sub_10012B2F0();
+    if (dword_1001D4E40 != -1 || (v7 = _LogCategory_Initialize(), v7))
+    {
+      sub_10012B2F0(v7, v8, v9);
+    }
   }
 
-  v16 = @"statusFlags";
-  v17 = &off_1001B8068;
-  v8 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_1000BC964;
-  v15[3] = &unk_1001AC870;
-  v15[4] = self;
-  [(RPMessageable *)v7 registerEventID:@"_siA" options:v8 handler:v15];
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_1000BC970;
-  v14[3] = &unk_1001AB798;
-  v14[4] = self;
-  [(RPMessageable *)v7 registerRequestID:@"_siriStart" options:v8 handler:v14];
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_1000BCA28;
-  v13[3] = &unk_1001AB798;
-  v13[4] = self;
-  [(RPMessageable *)v7 registerRequestID:@"_siriStop" options:v8 handler:v13];
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_1000BCA3C;
-  v12[3] = &unk_1001AB798;
-  v12[4] = self;
-  [(RPMessageable *)v7 registerRequestID:@"_siriStartWhileRecording" options:v8 handler:v12];
+  v25 = @"statusFlags";
+  v26 = &off_1001B8068;
+  v16 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_1000BC964;
+  v24[3] = &unk_1001AC870;
+  v24[4] = self;
+  [(RPMessageable *)v15 registerEventID:@"_siA" options:v16 handler:v24];
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_1000BC970;
+  v23[3] = &unk_1001AB798;
+  v23[4] = self;
+  [(RPMessageable *)v15 registerRequestID:@"_siriStart" options:v16 handler:v23];
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_1000BCA28;
+  v22[3] = &unk_1001AB798;
+  v22[4] = self;
+  [(RPMessageable *)v15 registerRequestID:@"_siriStop" options:v16 handler:v22];
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_1000BCA3C;
+  v21[3] = &unk_1001AB798;
+  v21[4] = self;
+  [(RPMessageable *)v15 registerRequestID:@"_siriStartWhileRecording" options:v16 handler:v21];
 
 LABEL_14:
-  return v7 != 0;
+  return v15 != 0;
 }
 
 - (void)invalidate
 {
-  if (dword_1001D4E40 <= 30 && (dword_1001D4E40 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1001D4E40 <= 30)
   {
-    sub_10012B30C();
+    if (dword_1001D4E40 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_10012B30C(self, a2, v2);
+    }
   }
 
-  [(RPSiriAudioSession *)self->_siriAudioSession invalidate];
-  siriAudioSession = self->_siriAudioSession;
-  self->_siriAudioSession = 0;
+  [(RPSiriAudioSession *)selfCopy->_siriAudioSession invalidate];
+  siriAudioSession = selfCopy->_siriAudioSession;
+  selfCopy->_siriAudioSession = 0;
 
-  [(RPMessageable *)self->_messenger deregisterEventID:@"_siA"];
-  [(RPMessageable *)self->_messenger deregisterRequestID:@"_siriStart"];
-  [(RPMessageable *)self->_messenger deregisterRequestID:@"_siriStop"];
-  messenger = self->_messenger;
-  self->_messenger = 0;
+  [(RPMessageable *)selfCopy->_messenger deregisterEventID:@"_siA"];
+  [(RPMessageable *)selfCopy->_messenger deregisterRequestID:@"_siriStart"];
+  [(RPMessageable *)selfCopy->_messenger deregisterRequestID:@"_siriStop"];
+  messenger = selfCopy->_messenger;
+  selfCopy->_messenger = 0;
 }
 
 - (void)_handleSiriAudio:(id)audio
@@ -145,8 +153,8 @@ LABEL_7:
 - (void)_handleSiriStart:(id)start options:(id)options responseHandler:(id)handler
 {
   handlerCopy = handler;
-  v7 = RPErrorF();
-  (*(handler + 2))(handlerCopy, 0, 0, v7);
+  v14 = RPErrorF(4294960561, "Remote Siri not supported on this platform", v7, v8, v9, v10, v11, v12, v13);
+  (*(handler + 2))(handlerCopy, 0, 0, v14);
 }
 
 - (void)_handleSiriStop:(id)stop options:(id)options responseHandler:(id)handler
@@ -156,7 +164,7 @@ LABEL_7:
   handlerCopy = handler;
   if (dword_1001D4E40 <= 30 && (dword_1001D4E40 != -1 || _LogCategory_Initialize()))
   {
-    sub_10012B348();
+    sub_10012B348(stopCopy);
   }
 
   (*(handlerCopy + 2))(handlerCopy, &__NSDictionary0__struct, 0, 0);
@@ -169,11 +177,11 @@ LABEL_7:
   handlerCopy = handler;
   if (dword_1001D4E40 <= 30 && (dword_1001D4E40 != -1 || _LogCategory_Initialize()))
   {
-    sub_10012B388();
+    sub_10012B388(recordingCopy);
   }
 
-  v9 = RPErrorF();
-  (*(handlerCopy + 2))(handlerCopy, 0, 0, v9);
+  v15 = RPErrorF(4294960561, "Remote Siri not supported on this platform", v8, v9, v10, v11, v12, v13, v16);
+  (*(handlerCopy + 2))(handlerCopy, 0, 0, v15);
 }
 
 @end

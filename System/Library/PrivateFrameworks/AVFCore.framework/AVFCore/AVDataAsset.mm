@@ -149,7 +149,7 @@ LABEL_10:
   return self->_tracks;
 }
 
-uint64_t __21__AVDataAsset_tracks__block_invoke(uint64_t a1)
+void *__21__AVDataAsset_tracks__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [objc_msgSend(*(a1 + 32) _tracksWithClass:{objc_opt_class()), "copy"}];
   *(*(a1 + 32) + 40) = result;

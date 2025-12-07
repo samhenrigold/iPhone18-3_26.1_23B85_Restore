@@ -37,7 +37,7 @@
 
 + (id)representativeTitlePropertySet
 {
-  sub_10010FC20(&unk_1011AAAB0);
+  sub_10010FC20(&unk_1011AAAB0, &unk_100EF3570);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_100EBDC20;
   *(v2 + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();

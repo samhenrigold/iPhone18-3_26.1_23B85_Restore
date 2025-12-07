@@ -108,86 +108,86 @@ LABEL_20:
 
 - (id)MCVerboseDescription
 {
-  v2 = MEMORY[0x1E696AD60];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = [v2 stringWithFormat:@"%@:\n", v4];
+  v3 = MEMORY[0x1E696AD60];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"%@:\n", v5];
 
   localizedDescription = [self localizedDescription];
-  v7 = localizedDescription;
+  v8 = localizedDescription;
   if (localizedDescription)
   {
-    [v5 appendFormat:@"Desc   : %@\n", localizedDescription];
+    [v6 appendFormat:@"Desc   : %@\n", localizedDescription];
   }
 
   localizedRecoverySuggestion = [self localizedRecoverySuggestion];
-  v9 = localizedRecoverySuggestion;
+  v10 = localizedRecoverySuggestion;
   if (localizedRecoverySuggestion)
   {
-    [v5 appendFormat:@"Sugg   : %@\n", localizedRecoverySuggestion];
+    [v6 appendFormat:@"Sugg   : %@\n", localizedRecoverySuggestion];
   }
 
   mCUSEnglishDescription = [self MCUSEnglishDescription];
-  v11 = mCUSEnglishDescription;
+  v12 = mCUSEnglishDescription;
   if (mCUSEnglishDescription)
   {
-    [v5 appendFormat:@"US Desc: %@\n", mCUSEnglishDescription];
+    [v6 appendFormat:@"US Desc: %@\n", mCUSEnglishDescription];
   }
 
-  v27 = v7;
+  v28 = v8;
   mCUSEnglishSuggestion = [self MCUSEnglishSuggestion];
-  v13 = mCUSEnglishSuggestion;
+  v14 = mCUSEnglishSuggestion;
   if (mCUSEnglishSuggestion)
   {
-    [v5 appendFormat:@"US Sugg: %@\n", mCUSEnglishSuggestion];
+    [v6 appendFormat:@"US Sugg: %@\n", mCUSEnglishSuggestion];
   }
 
   domain = [self domain];
-  [v5 appendFormat:@"Domain : %@\nCode   : %d\n", domain, objc_msgSend(self, "code")];
+  [v6 appendFormat:@"Domain : %@\nCode   : %d\n", domain, objc_msgSend(self, "code")];
 
   userInfo = [self userInfo];
-  v16 = [userInfo objectForKey:@"MCErrorType"];
+  v17 = [userInfo objectForKey:@"MCErrorType"];
 
-  if (v16)
+  if (v17)
   {
-    [v5 appendFormat:@"Type   : %@\n", v16];
+    [v6 appendFormat:@"Type   : %@\n", v17];
   }
 
-  v26 = v9;
+  v27 = v10;
   userInfo2 = [self userInfo];
-  v18 = [userInfo2 objectForKey:@"descriptionParameters"];
+  v19 = [userInfo2 objectForKey:@"descriptionParameters"];
 
-  if (v18)
+  if (v19)
   {
-    [v5 appendFormat:@"Params : %@\n", v18];
+    [v6 appendFormat:@"Params : %@\n", v19];
   }
 
   userInfo3 = [self userInfo];
-  v20 = *MEMORY[0x1E696AA08];
-  v21 = [userInfo3 objectForKey:*MEMORY[0x1E696AA08]];
+  v21 = *MEMORY[0x1E696AA08];
+  v22 = [userInfo3 objectForKey:*MEMORY[0x1E696AA08]];
 
-  if (v21)
+  if (v22)
   {
-    mCVerboseDescription = [v21 MCVerboseDescription];
-    [v5 appendFormat:@"...Underlying error:\n%@", mCVerboseDescription];
+    mCVerboseDescription = [v22 MCVerboseDescription];
+    [v6 appendFormat:@"...Underlying error:\n%@", mCVerboseDescription];
   }
 
   userInfo4 = [self userInfo];
-  v24 = [userInfo4 mutableCopy];
+  v25 = [userInfo4 mutableCopy];
 
-  [v24 removeObjectForKey:*MEMORY[0x1E696A578]];
-  [v24 removeObjectForKey:*MEMORY[0x1E696A598]];
-  [v24 removeObjectForKey:@"USEnglishDescription"];
-  [v24 removeObjectForKey:@"USEnglishSuggestion"];
-  [v24 removeObjectForKey:@"MCErrorType"];
-  [v24 removeObjectForKey:@"descriptionParameters"];
-  [v24 removeObjectForKey:v20];
-  if ([v24 count])
+  [v25 removeObjectForKey:*MEMORY[0x1E696A578]];
+  [v25 removeObjectForKey:*MEMORY[0x1E696A598]];
+  [v25 removeObjectForKey:@"USEnglishDescription"];
+  [v25 removeObjectForKey:@"USEnglishSuggestion"];
+  [v25 removeObjectForKey:@"MCErrorType"];
+  [v25 removeObjectForKey:@"descriptionParameters"];
+  [v25 removeObjectForKey:v21];
+  if ([v25 count])
   {
-    [v5 appendFormat:@"Extra info:\n%@", v24];
+    [v6 appendFormat:@"Extra info:\n%@", v25];
   }
 
-  return v5;
+  return v6;
 }
 
 - (id)MCFindPrimaryError

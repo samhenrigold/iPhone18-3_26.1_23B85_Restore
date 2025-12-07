@@ -40,7 +40,7 @@
     if ((*(notification + 12) & 1) == 0)
     {
       *(notification + 12) = 1;
-      sub_100037690();
+      sub_100037690(v2);
     }
 
     os_unfair_lock_unlock((notification + 8));

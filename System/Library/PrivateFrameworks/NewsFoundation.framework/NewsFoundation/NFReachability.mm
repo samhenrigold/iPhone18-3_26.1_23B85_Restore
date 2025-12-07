@@ -63,38 +63,32 @@ uint64_t __32__NFReachability_sharedInstance__block_invoke()
 
 + (int64_t)_currentNetworkStatus
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   *&address.sa_data[6] = 0;
   *&address.sa_len = 528;
   v2 = SCNetworkReachabilityCreateWithAddress(*MEMORY[0x277CBECE8], &address);
-  if (v2 && (flags = 0, SCNetworkReachabilityGetFlags(v2, &flags)))
+  if (!v2)
   {
-    if ((flags & 2) != 0)
-    {
-      if ((flags & 4) != 0 && ((flags & 0x28) == 0 || (flags & 0x10) != 0))
-      {
-        result = (flags >> 17) & 2;
-      }
-
-      else
-      {
-        result = 1;
-      }
-    }
-
-    else
-    {
-      result = 0;
-    }
+    return 3;
   }
 
-  else
+  flags = 0;
+  if (!SCNetworkReachabilityGetFlags(v2, &flags))
   {
-    result = 3;
+    return 3;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  if ((flags & 2) == 0)
+  {
+    return 0;
+  }
+
+  if ((flags & 4) != 0 && ((flags & 0x28) == 0 || (flags & 0x10) != 0))
+  {
+    return (flags >> 17) & 2;
+  }
+
+  return 1;
 }
 
 void __22__NFReachability_init__block_invoke(uint64_t a1, void *a2)

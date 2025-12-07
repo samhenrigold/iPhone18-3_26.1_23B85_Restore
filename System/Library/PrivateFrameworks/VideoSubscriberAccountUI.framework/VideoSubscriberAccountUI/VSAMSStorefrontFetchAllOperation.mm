@@ -90,20 +90,18 @@ void __53__VSAMSStorefrontFetchAllOperation_executionDidBegin__block_invoke_4(ui
 
 void __53__VSAMSStorefrontFetchAllOperation_executionDidBegin__block_invoke_5(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = VSDefaultLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_270DD4000, v5, OS_LOG_TYPE_DEFAULT, "storefronts task finished with error %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_270DD4000, v5, OS_LOG_TYPE_DEFAULT, "storefronts task finished with error %@", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained finishExecutionIfPossible];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

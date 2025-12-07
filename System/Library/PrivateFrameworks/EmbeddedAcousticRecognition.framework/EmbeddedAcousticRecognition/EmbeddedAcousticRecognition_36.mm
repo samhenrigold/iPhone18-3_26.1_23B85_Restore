@@ -1,4 +1,1175 @@
-void std::vector<std::vector<float>>::resize(size_t *a1, unint64_t a2, uint64_t *a3)
+void sub_1B52B11A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, void **a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *a46)
+{
+  quasar::Token::~Token(&a46);
+  a11 = a10;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&a11);
+  _Unwind_Resume(a1);
+}
+
+void quasar::PhoneticMatchDecoder::getPhoneSegmentation(uint64_t a1, __int128 **a2, float *a3, uint64_t *a4, const void **a5)
+{
+  v7 = *a4;
+    ;
+  }
+
+  a4[1] = v7;
+  if (a2[1] != *a2)
+  {
+    quasar::copyAndTrim((*a2 + 3), &v9);
+    std::string::basic_string[abi:ne200100]<0>(&__p, " ");
+    quasar::split(&v9, &v11, &__p, 0);
+  }
+}
+
+void sub_1B52B166C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, int a50, __int16 a51, char a52, char a53)
+{
+  __p = (v53 - 160);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
+  _Unwind_Resume(a1);
+}
+
+uint64_t quasar::PhoneticMatchDecoder::doPm(uint64_t a1, clockid_t a2, void *a3, uint64_t a4, uint64_t *a5, _BYTE *a6, float *a7, float *a8)
+{
+  v46 = 0;
+  v47 = 0;
+  v48 = 0;
+  v14 = *a5;
+  for (i = a5[1]; i != v14; std::allocator<quasar::PhoneticMatchResult>::destroy[abi:ne200100](a5, i))
+  {
+    i -= 72;
+  }
+
+  a5[1] = v14;
+  *a7 = 0.0;
+  *a8 = 0.0;
+  v15 = a3[1];
+  if (*a3 == v15)
+  {
+LABEL_13:
+    v18 = quasar::StopWatch::StopWatch(v45, a2);
+    quasar::StopWatch::resume(v18, v19);
+    if (v47 != v46)
+    {
+      fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>>::VectorFst(&v44);
+    }
+
+    if (quasar::gLogLevel >= 4)
+    {
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
+      v27 = 0u;
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v27);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v27, "Number of phones is 0", 21);
+      quasar::QuasarInfoMessage::~QuasarInfoMessage(&v27);
+    }
+
+    *&v27 = v45;
+    std::vector<quasar::TextTokenizer::Token>::__destroy_vector::operator()[abi:ne200100](&v27);
+    goto LABEL_26;
+  }
+
+  v16 = *a3 + 48;
+  while (*(v16 + 23) < 0)
+  {
+    if (*(v16 + 8))
+    {
+      goto LABEL_10;
+    }
+
+LABEL_12:
+    v17 = v16 + 176;
+    v16 += 224;
+    if (v17 == v15)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  if (!*(v16 + 23))
+  {
+    goto LABEL_12;
+  }
+
+LABEL_10:
+  LODWORD(v26) = (*(**(*(a1 + 944) + 40) + 96))(*(*(a1 + 944) + 40), v16, a3, a4);
+  if (v26 != -1)
+  {
+    std::vector<int>::push_back[abi:ne200100](&v46, &v26);
+    goto LABEL_12;
+  }
+
+  if (quasar::gLogLevel >= 4)
+  {
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v27 = 0u;
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v27);
+    v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v27, "Phone '", 7);
+    v21 = *(v16 + 23);
+    if (v21 >= 0)
+    {
+      v22 = v16;
+    }
+
+    else
+    {
+      v22 = *v16;
+    }
+
+    if (v21 >= 0)
+    {
+      v23 = *(v16 + 23);
+    }
+
+    else
+    {
+      v23 = *(v16 + 8);
+    }
+
+    v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, v22, v23);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, "' is not a valid phone symbol", 29);
+    quasar::QuasarInfoMessage::~QuasarInfoMessage(&v27);
+  }
+
+LABEL_26:
+  if (v46)
+  {
+    v47 = v46;
+    operator delete(v46);
+  }
+
+  return 0;
+}
+
+void sub_1B52B2050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void **a57)
+{
+  fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>::~ImplToFst(&a44);
+  a9 = &a46;
+  std::vector<quasar::TextTokenizer::Token>::__destroy_vector::operator()[abi:ne200100](&a9);
+  kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::~SymbolDecoder(&a57);
+  fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::MutableFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::~ImplToFst(&STACK[0x2C8]);
+  a57 = &STACK[0x2D8];
+  std::vector<quasar::PhoneticMatchResult>::__destroy_vector::operator()[abi:ne200100](&a57);
+  a57 = &STACK[0x2F0];
+  std::vector<quasar::PhoneticMatchResult>::__destroy_vector::operator()[abi:ne200100](&a57);
+  fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>>>::~ImplToFst((v57 - 248));
+  a57 = (v57 - 232);
+  std::vector<quasar::TextTokenizer::Token>::__destroy_vector::operator()[abi:ne200100](&a57);
+  v59 = *(v57 - 144);
+  if (v59)
+  {
+    *(v57 - 136) = v59;
+    operator delete(v59);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::Decode(uint64_t a1, uint64_t *a2, void *a3, uint64_t a4)
+{
+  v8 = *(a1 + 56);
+  if (v8 != -1)
+  {
+    v9 = *(a1 + 72);
+    do
+    {
+      v10 = (v9 + 16 * v8);
+      v10[1] = 0;
+      v8 = *v10;
+    }
+
+    while (v8 != -1);
+  }
+
+  v11 = *(a1 + 48);
+  *(a1 + 48) = 0;
+  *(a1 + 56) = -1;
+  if (v11)
+  {
+    v12 = *(a1 + 96);
+    do
+    {
+      v13 = v11;
+      v11 = *(v11 + 8);
+      *(v13 + 8) = v12;
+      v12 = v13;
+    }
+
+    while (v11);
+    *(a1 + 96) = v13;
+  }
+
+  *(a1 + 16) = *(a1 + 8);
+  *(a1 + 32) = 0;
+  v14 = (*(**(a1 + 128) + 24))(*(a1 + 128));
+  if (v14 == -1)
+  {
+    std::string::basic_string[abi:ne200100]<0>(__p, "INFO");
+    v27 = fst::LogMessage::LogMessage(&v36, __p);
+    v28 = fst::cerr(v27);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "Cannot perform phonetic match since LG FST is empty", 51);
+  }
+
+  else
+  {
+    if (a2[1] - *a2 == a3[1] - *a3)
+    {
+      v15.n128_u64[0] = 0;
+      kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::insertTracebackLink(a1, v14, 0, 0, 0xFFFFFFFFLL, 0, 0, v15);
+      kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::ProcessNonemitting(a1, *(a1 + 168));
+      v16 = *a2;
+      if (a2[1] != *a2)
+      {
+        v17 = 0;
+        do
+        {
+          if (kaldi::g_kaldi_verbose_level >= 5)
+          {
+            kaldi::KaldiVlogMessage::KaldiVlogMessage(__p, 5);
+            v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "Frame ", 6);
+            MEMORY[0x1B8C84C00](v18, v17);
+            kaldi::KaldiVlogMessage::~KaldiVlogMessage(__p);
+            v16 = *a2;
+          }
+
+          v19 = kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::ProcessEmitting(a1, *(v16 + 4 * v17), *(*a3 + 4 * v17));
+          kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::ProcessNonemitting(a1, v19);
+          ++v17;
+          v16 = *a2;
+        }
+
+        while (v17 != (a2[1] - *a2) >> 2);
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(__p, "INFO");
+      v20 = fst::LogMessage::LogMessage(&v36, __p);
+      v21 = fst::cerr(v20);
+      v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "Allocated max tokens ", 21);
+      MEMORY[0x1B8C84C30](v22, *(a1 + 32));
+      fst::LogMessage::~LogMessage(&v36);
+      if (v35 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(__p, "INFO");
+      v23 = fst::LogMessage::LogMessage(&v36, __p);
+      v24 = fst::cerr(v23);
+      v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, "Max tokens ", 11);
+      MEMORY[0x1B8C84C30](v25, *(a1 + 272));
+      fst::LogMessage::~LogMessage(&v36);
+      if (v35 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      return kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::GetBestPath(a1, a4);
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(__p, "INFO");
+    v29 = fst::LogMessage::LogMessage(&v36, __p);
+    v30 = fst::cerr(v29);
+    v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "Phone features size of ", 23);
+    v32 = MEMORY[0x1B8C84C30](v31, (a2[1] - *a2) >> 2);
+    v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, " != wildcard LM costs size of ", 30);
+    MEMORY[0x1B8C84C30](v33, (a3[1] - *a3) >> 2);
+  }
+
+  fst::LogMessage::~LogMessage(&v36);
+  if (v35 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  return 0;
+}
+
+void sub_1B52B24C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_1B52B2528(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a2 == 1)
+  {
+    v16 = __cxa_begin_catch(a1);
+    std::deque<int>::clear((v14 + 200));
+    std::string::basic_string[abi:ne200100]<0>(&__p, "INFO");
+    v17 = fst::LogMessage::LogMessage((v15 - 65), &__p);
+    v18 = fst::cerr(v17);
+    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "Max tokens ", 11);
+    v20 = MEMORY[0x1B8C84C00](v19, *(v14 + 188));
+    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, " exceeded - ", 12);
+    v22 = (*(*v16 + 16))(v16);
+    v23 = strlen(v22);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, v22, v23);
+    fst::LogMessage::~LogMessage((v15 - 65));
+    if (a14 < 0)
+    {
+      operator delete(__p);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1B52B24A8);
+  }
+
+  JUMPOUT(0x1B52B2508);
+}
+
+void sub_1B52B25F8(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  __cxa_end_catch();
+  JUMPOUT(0x1B52B2508);
+}
+
+uint64_t quasar::PhoneticMatchDecoder::runImpl(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+{
+  v8 = *(*a3 + 448);
+  v54 = *(*a3 + 440);
+  v55 = v8;
+  if (v8)
+  {
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  quasar::PhoneticMatchDecoder::FactoryChoirJournalistNursery::FactoryChoirJournalistNursery(&v56, &v54);
+  if (v55)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v55);
+  }
+
+  v65 = *(a2 + 656) ^ 1;
+  kaldi::quasar::Vocab::OOvWord(a1, &v37);
+  if (SHIBYTE(v64) < 0)
+  {
+    operator delete(__p);
+  }
+
+  __p = v37;
+  v64 = v38;
+  MEMORY[0x1B8C84820](&v57, "n/a");
+  MEMORY[0x1B8C84820](&v60, "n/a");
+  v59 = 0;
+  v56 = 0.0;
+  v61 = 0;
+  v9 = *a3;
+  if ((*(*a3 + 644) & 1) == 0)
+  {
+    if (quasar::gLogLevel >= 2)
+    {
+      v52 = 0u;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v37 = 0u;
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v37);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "No LM cost found. Skipping PM. Hint: Did you include lattice-lm-rescore?", 72);
+      quasar::QuasarWarnMessage::~QuasarWarnMessage(&v37);
+    }
+
+    goto LABEL_34;
+  }
+
+  v56 = -*(v9 + 648);
+  v10 = *(a1 + 668);
+  v62 = v10 < v56;
+  if (v10 < v56)
+  {
+    if (quasar::gLogLevel < 4)
+    {
+LABEL_12:
+      v13 = 0;
+      goto LABEL_35;
+    }
+
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v37 = 0u;
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v37);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "LVCSR LM logprob=", 17);
+    v11 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, " is greater than threshold ", 27);
+    v12 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, ". Skipping PM.", 14);
+LABEL_11:
+    quasar::QuasarInfoMessage::~QuasarInfoMessage(&v37);
+    goto LABEL_12;
+  }
+
+  v14 = *(v9 + 368);
+  if (!v14)
+  {
+    quasar::Decoder::calculateNBest(a2, a3, *(*a4 + 16));
+    v14 = *(*a3 + 368);
+  }
+
+  v16 = v14;
+  v15 = *v14;
+  if (v16[1] == v15)
+  {
+LABEL_34:
+    v13 = 2;
+    goto LABEL_35;
+  }
+
+  v17 = (v15 + 24 * *(a2 + 656));
+  quasar::TextProc::GetOrthography(v17, 1, &v37);
+  if (SHIBYTE(v58) < 0)
+  {
+    operator delete(v57);
+  }
+
+  v57 = v37;
+  v58 = v38;
+  if (quasar::gLogLevel >= 5)
+  {
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v37 = 0u;
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v37);
+    v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "pmInput=", 9);
+    if (v58 >= 0)
+    {
+      v19 = &v57;
+    }
+
+    else
+    {
+      v19 = v57;
+    }
+
+    if (v58 >= 0)
+    {
+      v20 = HIBYTE(v58);
+    }
+
+    else
+    {
+      v20 = *(&v57 + 1);
+    }
+
+    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, v19, v20);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "", 1);
+    quasar::QuasarDebugMessage::~QuasarDebugMessage(&v37);
+  }
+
+  v22 = *(a1 + 960);
+  if (v22 && !quasar::URegularExpressionWrapper::isMatch(v22, &v57))
+  {
+    LODWORD(v59) = 0;
+    if (quasar::gLogLevel < 4)
+    {
+      goto LABEL_12;
+    }
+
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v37 = 0u;
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v37);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "Not a match with the regex whitelist. Skipping PM.", 50);
+    goto LABEL_11;
+  }
+
+  LODWORD(v59) = 1;
+  v23 = *(a1 + 976);
+  if (v23 && quasar::URegularExpressionWrapper::isMatch(v23, &v57))
+  {
+    HIDWORD(v59) = 1;
+    if (quasar::gLogLevel < 4)
+    {
+      goto LABEL_12;
+    }
+
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v37 = 0u;
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v37);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "Matches the regex blacklist. Skipping PM.", 41);
+    goto LABEL_11;
+  }
+
+  HIDWORD(v59) = 0;
+  v36 = 0;
+  memset(v35, 0, sizeof(v35));
+  memset(v34, 0, sizeof(v34));
+  memset(v33, 0, sizeof(v33));
+  quasar::PhoneticMatchDecoder::applyPlaceholders(a1, v17, v32);
+  v29 = 0;
+  v30 = 0;
+  v31 = 0;
+  quasar::PhoneticMatchDecoder::getPhoneSegmentation(v25, v32, (*a3 + 648), v34, &v29);
+  memset(v28, 0, sizeof(v28));
+  if (quasar::PhoneticMatchDecoder::doPm(a1, v26, v34, &v29, v28, &v36, &v66, &v67))
+  {
+    memset(&v27[10], 0, 24);
+    std::string::basic_string[abi:ne200100]<0>(v27, ",");
+    quasar::split((a1 + 744), &v37, v27, 0);
+  }
+
+  v13 = 2;
+  *&v37 = v28;
+  std::vector<quasar::PhoneticMatchResult>::__destroy_vector::operator()[abi:ne200100](&v37);
+  if (v29)
+  {
+    v30 = v29;
+    operator delete(v29);
+  }
+
+  *&v37 = v32;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v37);
+  *&v37 = v33;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v37);
+  *&v37 = v34;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v37);
+  *&v37 = v35;
+  std::vector<quasar::PhoneticMatchAlignmentSpan>::__destroy_vector::operator()[abi:ne200100](&v37);
+LABEL_35:
+  quasar::PhoneticMatchDecoder::FactoryChoirJournalistNursery::~FactoryChoirJournalistNursery(&v56);
+  return v13;
+}
+
+void sub_1B52B3554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char *a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, char *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, void *__p, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, char a56, uint64_t a57, uint64_t a58, char a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t *a63)
+{
+  quasar::QuasarInfoMessage::~QuasarInfoMessage(&a63);
+  a63 = &a21;
+  std::vector<quasar::ItnOverride>::__destroy_vector::operator()[abi:ne200100](&a63);
+  a63 = &a25;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&a63);
+  a25 = &a28;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a25);
+  quasar::PhoneticMatchResult::~PhoneticMatchResult(&a31);
+  a31 = &a41;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a31);
+  a31 = &a44;
+  std::vector<quasar::PhoneticMatchResult>::__destroy_vector::operator()[abi:ne200100](&a31);
+  if (__p)
+  {
+    a48 = __p;
+    operator delete(__p);
+  }
+
+  a31 = &a50;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&a31);
+  a31 = &a53;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&a31);
+  a31 = &a56;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&a31);
+  a31 = &a59;
+  std::vector<quasar::PhoneticMatchAlignmentSpan>::__destroy_vector::operator()[abi:ne200100](&a31);
+  quasar::PhoneticMatchDecoder::FactoryChoirJournalistNursery::~FactoryChoirJournalistNursery(&STACK[0x2D0]);
+  _Unwind_Resume(a1);
+}
+
+void quasar::PhoneticMatchDecoder::FactoryChoirJournalistNursery::~FactoryChoirJournalistNursery(quasar::PhoneticMatchDecoder::FactoryChoirJournalistNursery *this)
+{
+  if (*(this + 120) == 1)
+  {
+    v2 = *(this + 20);
+    std::string::basic_string[abi:ne200100]<0>(v18, "PM-input");
+    std::operator+<char>();
+    v3 = std::string::append(&v16, "");
+    v4 = *&v3->__r_.__value_.__l.__data_;
+    __p.__r_.__value_.__r.__words[2] = v3->__r_.__value_.__r.__words[2];
+    *&__p.__r_.__value_.__l.__data_ = v4;
+    v3->__r_.__value_.__l.__size_ = 0;
+    v3->__r_.__value_.__r.__words[2] = 0;
+    v3->__r_.__value_.__r.__words[0] = 0;
+    quasar::SpeechRequestResultData::addDumpAA(v2, v18, &__p);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v16.__r_.__value_.__l.__data_);
+    }
+
+    if (v19 < 0)
+    {
+      operator delete(v18[0]);
+    }
+
+    v5 = *(this + 20);
+    std::string::basic_string[abi:ne200100]<0>(v18, "PM-output");
+    std::operator+<char>();
+    v6 = std::string::append(&v16, "");
+    v7 = *&v6->__r_.__value_.__l.__data_;
+    __p.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
+    *&__p.__r_.__value_.__l.__data_ = v7;
+    v6->__r_.__value_.__l.__size_ = 0;
+    v6->__r_.__value_.__r.__words[2] = 0;
+    v6->__r_.__value_.__r.__words[0] = 0;
+    quasar::SpeechRequestResultData::addDumpAA(v5, v18, &__p);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v16.__r_.__value_.__l.__data_);
+    }
+
+    if (v19 < 0)
+    {
+      operator delete(v18[0]);
+    }
+
+    v8 = *(this + 20);
+    std::string::basic_string[abi:ne200100]<0>(v18, "PM-used");
+    LOBYTE(v9) = *(this + 88);
+    quasar::SpeechRequestResultData::addDumpAA(v8, v18, 1, v9);
+    if (v19 < 0)
+    {
+      operator delete(v18[0]);
+    }
+
+    v10 = *(this + 20);
+    std::string::basic_string[abi:ne200100]<0>(v18, "PM-partial");
+    LOBYTE(v11) = *(this + 89);
+    quasar::SpeechRequestResultData::addDumpAA(v10, v18, 1, v11);
+    if (v19 < 0)
+    {
+      operator delete(v18[0]);
+    }
+
+    v12 = *(this + 20);
+    std::string::basic_string[abi:ne200100]<0>(v18, "PM-decoder");
+    quasar::SpeechRequestResultData::addDumpAA(v12, v18, this + 4);
+    if (v19 < 0)
+    {
+      operator delete(v18[0]);
+    }
+  }
+
+  v13 = *(this + 17);
+  v14 = *(this + 18);
+  while (v13 != v14)
+  {
+    if (*(v13 + 70) == 1)
+    {
+      quasar::SpeechRequestResultData::storePhoneticMatchResult(*(this + 20), v13);
+    }
+
+    v13 = (v13 + 72);
+  }
+
+  quasar::SpeechRequestResultData::storePhoneticMatchDecoderStats(*(this + 20), this + 6, *(this + 90), *(this + 8) != 0, *(this + 9) != 0, *(this + 31), *(this + 32));
+  v15 = *(this + 21);
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+  }
+
+  v18[0] = this + 136;
+  std::vector<quasar::PhoneticMatchResult>::__destroy_vector::operator()[abi:ne200100](v18);
+  if (*(this + 119) < 0)
+  {
+    operator delete(*(this + 12));
+  }
+
+  if (*(this + 87) < 0)
+  {
+    operator delete(*(this + 8));
+  }
+
+  if (*(this + 63) < 0)
+  {
+    operator delete(*(this + 5));
+  }
+
+  if (*(this + 31) < 0)
+  {
+    operator delete(*(this + 1));
+  }
+}
+
+void quasar::PhoneticMatchDecoder::~PhoneticMatchDecoder(quasar::PhoneticMatchDecoder *this)
+{
+  quasar::PhoneticMatchDecoder::~PhoneticMatchDecoder(this);
+
+  JUMPOUT(0x1B8C85350);
+}
+
+{
+  *this = &unk_1F2D0B5F8;
+  std::__hash_table<std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::__unordered_map_hasher<std::shared_ptr<quasar::URegularExpressionWrapper>,std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::hash<std::shared_ptr<quasar::URegularExpressionWrapper>>,std::equal_to<std::shared_ptr<quasar::URegularExpressionWrapper>>,true>,std::__unordered_map_equal<std::shared_ptr<quasar::URegularExpressionWrapper>,std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::equal_to<std::shared_ptr<quasar::URegularExpressionWrapper>>,std::hash<std::shared_ptr<quasar::URegularExpressionWrapper>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>>>::~__hash_table(this + 1032);
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(this + 992);
+  v2 = *(this + 123);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  v3 = *(this + 121);
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  }
+
+  std::unique_ptr<kaldi::quasar::Phonomap>::reset[abi:ne200100](this + 119, 0);
+  std::unique_ptr<kaldi::quasar::Phonomap>::reset[abi:ne200100](this + 118, 0);
+  v4 = *(this + 117);
+  if (v4)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+  }
+
+  v5 = *(this + 111);
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  }
+
+  v6 = *(this + 109);
+  if (v6)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+  }
+
+  v7 = *(this + 107);
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  if (*(this + 847) < 0)
+  {
+    operator delete(*(this + 103));
+  }
+
+  if (*(this + 823) < 0)
+  {
+    operator delete(*(this + 100));
+  }
+
+  if (*(this + 791) < 0)
+  {
+    operator delete(*(this + 96));
+  }
+
+  if (*(this + 767) < 0)
+  {
+    operator delete(*(this + 93));
+  }
+
+  v8 = *(this + 89);
+  if (v8)
+  {
+    *(this + 90) = v8;
+    operator delete(v8);
+  }
+
+  if (*(this + 703) < 0)
+  {
+    operator delete(*(this + 85));
+  }
+
+  if (*(this + 647) < 0)
+  {
+    operator delete(*(this + 78));
+  }
+
+  if (*(this + 623) < 0)
+  {
+    operator delete(*(this + 75));
+  }
+
+  if (*(this + 599) < 0)
+  {
+    operator delete(*(this + 72));
+  }
+
+  if (*(this + 575) < 0)
+  {
+    operator delete(*(this + 69));
+  }
+
+  if (*(this + 551) < 0)
+  {
+    operator delete(*(this + 66));
+  }
+
+  if (*(this + 527) < 0)
+  {
+    operator delete(*(this + 63));
+  }
+
+  if (*(this + 503) < 0)
+  {
+    operator delete(*(this + 60));
+  }
+
+  if (*(this + 479) < 0)
+  {
+    operator delete(*(this + 57));
+  }
+
+  quasar::Decoder::~Decoder(this);
+}
+
+void std::allocator_traits<std::allocator<quasar::PhoneticMatchAlignmentSpan>>::destroy[abi:ne200100]<quasar::PhoneticMatchAlignmentSpan,0>(uint64_t a1, void **a2)
+{
+  v3 = a2 + 6;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v3);
+  v3 = a2 + 3;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v3);
+  v3 = a2;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v3);
+}
+
+uint64_t quasar::PhoneticMatchDecoder::FactoryChoirJournalistNursery::FactoryChoirJournalistNursery(uint64_t a1, void *a2)
+{
+  *a1 = -971228160;
+  std::string::basic_string[abi:ne200100]<0>((a1 + 8), "<n/a>");
+  *(a1 + 32) = -1;
+  std::string::basic_string[abi:ne200100]<0>((a1 + 40), "<n/a>");
+  std::string::basic_string[abi:ne200100]<0>((a1 + 64), "<n/a>");
+  *(a1 + 88) = 0;
+  *(a1 + 90) = 0;
+  std::string::basic_string[abi:ne200100]<0>((a1 + 96), "<n/a>");
+  *(a1 + 120) = 0;
+  *(a1 + 124) = 0;
+  *(a1 + 128) = 0;
+  *(a1 + 144) = 0;
+  *(a1 + 152) = 0;
+  *(a1 + 136) = 0;
+  v4 = a2[1];
+  *(a1 + 160) = *a2;
+  *(a1 + 168) = v4;
+  if (v4)
+  {
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return a1;
+}
+
+void sub_1B52B3DAC(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 87) < 0)
+  {
+    operator delete(*(v1 + 64));
+  }
+
+  if (*(v1 + 63) < 0)
+  {
+    operator delete(*(v1 + 40));
+  }
+
+  if (*(v1 + 31) < 0)
+  {
+    operator delete(*(v1 + 8));
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__hash_table<std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::__unordered_map_hasher<std::shared_ptr<quasar::URegularExpressionWrapper>,std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::hash<std::shared_ptr<quasar::URegularExpressionWrapper>>,std::equal_to<std::shared_ptr<quasar::URegularExpressionWrapper>>,true>,std::__unordered_map_equal<std::shared_ptr<quasar::URegularExpressionWrapper>,std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::equal_to<std::shared_ptr<quasar::URegularExpressionWrapper>>,std::hash<std::shared_ptr<quasar::URegularExpressionWrapper>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>>>::~__hash_table(uint64_t a1)
+{
+  std::__hash_table<std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::__unordered_map_hasher<std::shared_ptr<quasar::URegularExpressionWrapper>,std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::hash<std::shared_ptr<quasar::URegularExpressionWrapper>>,std::equal_to<std::shared_ptr<quasar::URegularExpressionWrapper>>,true>,std::__unordered_map_equal<std::shared_ptr<quasar::URegularExpressionWrapper>,std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::equal_to<std::shared_ptr<quasar::URegularExpressionWrapper>>,std::hash<std::shared_ptr<quasar::URegularExpressionWrapper>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>>>::__deallocate_node(a1, *(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void std::__hash_table<std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::__unordered_map_hasher<std::shared_ptr<quasar::URegularExpressionWrapper>,std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::hash<std::shared_ptr<quasar::URegularExpressionWrapper>>,std::equal_to<std::shared_ptr<quasar::URegularExpressionWrapper>>,true>,std::__unordered_map_equal<std::shared_ptr<quasar::URegularExpressionWrapper>,std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::equal_to<std::shared_ptr<quasar::URegularExpressionWrapper>>,std::hash<std::shared_ptr<quasar::URegularExpressionWrapper>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>>>::__deallocate_node(uint64_t a1, void *a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    do
+    {
+      v3 = *v2;
+      std::__destroy_at[abi:ne200100]<std::pair<std::shared_ptr<quasar::URegularExpressionWrapper> const,std::string>,0>((v2 + 2));
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+}
+
+void std::__destroy_at[abi:ne200100]<std::pair<std::shared_ptr<quasar::URegularExpressionWrapper> const,std::string>,0>(uint64_t a1)
+{
+  if (*(a1 + 39) < 0)
+  {
+    operator delete(*(a1 + 16));
+  }
+
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+}
+
+uint64_t **std::unique_ptr<kaldi::quasar::Phonomap>::reset[abi:ne200100](uint64_t **result, uint64_t *a2)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v4 = (v2 + 1);
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v4);
+    v3 = *v2;
+    *v2 = 0;
+    if (v3)
+    {
+      (*(*v3 + 8))(v3);
+    }
+
+    return MEMORY[0x1B8C85350](v2, 0x1060C40D0C22456);
+  }
+
+  return result;
+}
+
+void *std::__shared_ptr_emplace<quasar::URegularExpressionWrapper>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::allocator<quasar::URegularExpressionWrapper>,0>(void *a1, uint64_t *a2)
+{
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = &unk_1F2D05C98;
+  quasar::URegularExpressionWrapper::URegularExpressionWrapper((a1 + 3), a2, 0);
+  return a1;
+}
+
+uint64_t *kaldi::quasar::Phonomap::Phonomap(uint64_t *a1, uint64_t *a2, uint64_t a3, float a4)
+{
+  v8 = a1 + 1;
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  v9 = fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::Read(a2);
+  v10 = *a1;
+  *a1 = v9;
+  if (v10)
+  {
+    (*(*v10 + 8))(v10);
+    v9 = *a1;
+  }
+
+  a1[5] = (*(*v9 + 112))(v9);
+  v11 = (*(**a1 + 120))();
+  a1[4] = v11;
+  memset(&v36, 0, sizeof(v36));
+  v12 = (*(*v11 + 120))(v11);
+  std::vector<int>::resize(&v36, v12);
+  v13 = (*(*a1[5] + 120))(a1[5]);
+  std::vector<std::vector<float>>::resize(v8, v13, &v36);
+  v14 = *(*(*a1 + 8) + 72) - *(*(*a1 + 8) + 64);
+  if ((v14 >> 3) >= 1)
+  {
+    v15 = 0;
+    v16 = (v14 >> 3) & 0x7FFFFFFF;
+    do
+    {
+      v17 = *(*(*(*(*a1 + 8) + 64) + 8 * v15) + 24);
+      v18 = *(*(*(*(*a1 + 8) + 64) + 8 * v15) + 32) - v17;
+      if (v18)
+      {
+        v19 = v18 >> 4;
+        if (v19 <= 1)
+        {
+          v20 = 1;
+        }
+
+        else
+        {
+          v20 = v19;
+        }
+
+        v21 = (v17 + 4);
+        do
+        {
+          v22 = *v21;
+          v23 = (*(*a1[4] + 96))(a1[4], a3);
+          v24 = v21[1];
+          if (v23 == v22)
+          {
+            v24 = v24 * a4;
+          }
+
+          *(*(*v8 + 24 * *(v21 - 1)) + 4 * *v21) = v24;
+          v21 += 4;
+          --v20;
+        }
+
+        while (v20);
+      }
+
+      ++v15;
+    }
+
+    while (v15 != v16);
+  }
+
+  *(a1 + 12) = (*(*a1[4] + 96))(a1[4], a3);
+  if ((*(*a1[5] + 120))(a1[5]) >= 0x101)
+  {
+    std::string::basic_string[abi:ne200100]<0>(__p, "FATAL");
+    v25 = fst::LogMessage::LogMessage(&v35, __p);
+    v26 = fst::cerr(v25);
+    v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "Greated than 256 rec symbols (phones) in phonomap ", 50);
+    v28 = *(a2 + 23);
+    v29 = v28 >= 0 ? a2 : *a2;
+    v30 = v28 >= 0 ? *(a2 + 23) : a2[1];
+    v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, v29, v30);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, " can't be supported", 19);
+    fst::LogMessage::~LogMessage(&v35);
+    if (v34 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  if (v36.__begin_)
+  {
+    v36.__end_ = v36.__begin_;
+    operator delete(v36.__begin_);
+  }
+
+  return a1;
+}
+
+void sub_1B52B44D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a20)
+  {
+    a21 = a20;
+    operator delete(a20);
+  }
+
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&a20);
+  v23 = *v21;
+  *v21 = 0;
+  if (v23)
+  {
+    (*(*v23 + 8))(v23);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void std::vector<std::vector<float>>::resize(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
   v4 = a1[1];
   v5 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 3);
@@ -37,7 +1208,7 @@ void std::vector<std::vector<float>>::resize(size_t *a1, unint64_t a2, uint64_t 
   }
 }
 
-size_t *std::vector<std::vector<float>>::__append(size_t *result, unint64_t a2, uint64_t *a3)
+uint64_t *std::vector<std::vector<float>>::__append(uint64_t *result, unint64_t a2, uint64_t a3)
 {
   v5 = result;
   v7 = result[1];
@@ -53,7 +1224,7 @@ size_t *std::vector<std::vector<float>>::__append(size_t *result, unint64_t a2, 
         *v7 = 0;
         v7[1] = 0;
         v7[2] = 0;
-        result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v7, *a3, a3[1], (a3[1] - *a3) >> 2);
+        result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v7, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
         v7 += 3;
         v13 -= 24;
       }
@@ -117,17 +1288,17 @@ size_t *std::vector<std::vector<float>>::__append(size_t *result, unint64_t a2, 
   return result;
 }
 
-void sub_1B52B4788(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B52B4788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<int>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__split_buffer<std::vector<float>>::__construct_at_end(uint64_t result, uint64_t a2, uint64_t *a3)
+uint64_t *std::__split_buffer<std::vector<float>>::__construct_at_end(uint64_t *result, uint64_t a2, uint64_t a3)
 {
   v3 = result;
-  v4 = *(result + 16);
+  v4 = result[2];
   if (a2)
   {
     v6 = &v4[3 * a2];
@@ -137,7 +1308,7 @@ uint64_t std::__split_buffer<std::vector<float>>::__construct_at_end(uint64_t re
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *a3, a3[1], (a3[1] - *a3) >> 2);
+      result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
       v4 += 3;
       v7 -= 24;
     }
@@ -146,11 +1317,11 @@ uint64_t std::__split_buffer<std::vector<float>>::__construct_at_end(uint64_t re
     v4 = v6;
   }
 
-  *(v3 + 16) = v4;
+  v3[2] = v4;
   return result;
 }
 
-void std::__shared_ptr_emplace<kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>>::__shared_ptr_emplace[abi:ne200100]<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,kaldi::quasar::Phonomap&,kaldi::quasar::SymbolDecoderOptions &,std::allocator<kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>>,0>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::__shared_ptr_emplace<kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>>::__shared_ptr_emplace[abi:ne200100]<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,kaldi::quasar::Phonomap&,kaldi::quasar::SymbolDecoderOptions &,std::allocator<kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>>,0>(void *a1, uint64_t a2, uint64_t a3, __int128 *a4)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -166,35 +1337,35 @@ void std::__shared_ptr_emplace<kaldi::quasar::SymbolDecoder<kaldi::quasar::Phono
   JUMPOUT(0x1B8C85350);
 }
 
-void *std::__hash_table<std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::__unordered_map_hasher<std::shared_ptr<quasar::URegularExpressionWrapper>,std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::hash<std::shared_ptr<quasar::URegularExpressionWrapper>>,std::equal_to<std::shared_ptr<quasar::URegularExpressionWrapper>>,true>,std::__unordered_map_equal<std::shared_ptr<quasar::URegularExpressionWrapper>,std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::equal_to<std::shared_ptr<quasar::URegularExpressionWrapper>>,std::hash<std::shared_ptr<quasar::URegularExpressionWrapper>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>>>::__emplace_unique_key_args<std::shared_ptr<quasar::URegularExpressionWrapper>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<quasar::URegularExpressionWrapper> const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::__unordered_map_hasher<std::shared_ptr<quasar::URegularExpressionWrapper>,std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::hash<std::shared_ptr<quasar::URegularExpressionWrapper>>,std::equal_to<std::shared_ptr<quasar::URegularExpressionWrapper>>,true>,std::__unordered_map_equal<std::shared_ptr<quasar::URegularExpressionWrapper>,std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,std::equal_to<std::shared_ptr<quasar::URegularExpressionWrapper>>,std::hash<std::shared_ptr<quasar::URegularExpressionWrapper>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>>>::__emplace_unique_key_args<std::shared_ptr<quasar::URegularExpressionWrapper>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<quasar::URegularExpressionWrapper> const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, void **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -202,49 +1373,49 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
-void sub_1B52B4C24(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B52B4C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::shared_ptr<quasar::URegularExpressionWrapper>,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -266,18 +1437,18 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::shared_ptr
   return a1;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*,false>(__int128 *a1, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *), uint64_t a4, char a5, __n128 a6)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*,false>(__int128 *result, __int128 *a2, uint64_t (**a3)(uint64_t, uint64_t), uint64_t a4, char a5, __n128 a6)
 {
 LABEL_1:
-  v10 = (a2 - 72);
+  v10 = a2 - 72;
   v50 = (a2 - 216);
   v51 = a2 - 9;
-  matched = a1;
+  matched = result;
 LABEL_2:
   v12 = 1 - a4;
   while (1)
   {
-    a1 = matched;
+    result = matched;
     v13 = v12;
     v14 = a2 - matched;
     v15 = 0x8E38E38E38E38E39 * ((a2 - matched) >> 3);
@@ -290,7 +1461,7 @@ LABEL_2:
 
       if (v15 == 2)
       {
-        if ((*a3)((a2 - 72), matched))
+        if ((*a3)(a2 - 72, matched))
         {
 LABEL_82:
           v46 = matched;
@@ -322,19 +1493,19 @@ LABEL_84:
     if (v15 == 5)
     {
       std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*,0>(matched, (matched + 72), matched + 9, (matched + 216), a3);
-      if (!(*a3)((a2 - 72), (matched + 216)))
+      if (!(*a3)(a2 - 72, matched + 216))
       {
         return;
       }
 
       std::swap[abi:ne200100]<quasar::PhoneticMatchResult>((matched + 216), (a2 - 72));
-      if (!(*a3)((matched + 216), matched + 9))
+      if (!(*a3)(matched + 216, (matched + 9)))
       {
         return;
       }
 
       std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(matched + 9, (matched + 216));
-      if (!(*a3)(matched + 9, (matched + 72)))
+      if (!(*a3)((matched + 9), matched + 72))
       {
         return;
       }
@@ -343,7 +1514,7 @@ LABEL_84:
       v48 = matched + 9;
 LABEL_100:
       std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(v47, v48);
-      if ((*a3)((matched + 72), matched))
+      if ((*a3)(matched + 72, matched))
       {
         v49 = (matched + 72);
         v46 = matched;
@@ -388,17 +1559,17 @@ LABEL_10:
     if (v14 >= 0x2401)
     {
       v19 = v18(v17, matched);
-      v20 = (*a3)((a2 - 72), v17);
+      v20 = (*a3)(a2 - 72, v17);
       if (v19)
       {
         if (v20)
         {
-          v21 = a1;
+          v21 = result;
           goto LABEL_27;
         }
 
-        std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(a1, v17);
-        if ((*a3)((a2 - 72), v17))
+        std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(result, v17);
+        if ((*a3)(a2 - 72, v17))
         {
           v21 = v17;
 LABEL_27:
@@ -411,29 +1582,29 @@ LABEL_28:
       else if (v20)
       {
         std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(v17, (a2 - 72));
-        if ((*a3)(v17, a1))
+        if ((*a3)(v17, result))
         {
-          v21 = a1;
+          v21 = result;
           v25 = v17;
           goto LABEL_28;
         }
       }
 
-      v27 = (a1 + 72 * v16 - 72);
-      v28 = (*a3)(v27, (a1 + 72));
+      v27 = (result + 72 * v16 - 72);
+      v28 = (*a3)(v27, result + 72);
       v29 = (*a3)(v51, v27);
       if (v28)
       {
         if (v29)
         {
-          v30 = (a1 + 72);
+          v30 = (result + 72);
           goto LABEL_40;
         }
 
-        std::swap[abi:ne200100]<quasar::PhoneticMatchResult>((a1 + 72), (a1 + 72 * v16 - 72));
-        if ((*a3)(v51, (a1 + 72 * v16 - 72)))
+        std::swap[abi:ne200100]<quasar::PhoneticMatchResult>((result + 72), (result + 72 * v16 - 72));
+        if ((*a3)(v51, result + 72 * v16 - 72))
         {
-          v30 = (a1 + 72 * v16 - 72);
+          v30 = (result + 72 * v16 - 72);
 LABEL_40:
           v31 = a2 - 9;
 LABEL_41:
@@ -443,27 +1614,27 @@ LABEL_41:
 
       else if (v29)
       {
-        std::swap[abi:ne200100]<quasar::PhoneticMatchResult>((a1 + 72 * v16 - 72), v51);
-        if ((*a3)((a1 + 72 * v16 - 72), (a1 + 72)))
+        std::swap[abi:ne200100]<quasar::PhoneticMatchResult>((result + 72 * v16 - 72), v51);
+        if ((*a3)(result + 72 * v16 - 72, result + 72))
         {
-          v30 = (a1 + 72);
-          v31 = (a1 + 72 * v16 - 72);
+          v30 = (result + 72);
+          v31 = (result + 72 * v16 - 72);
           goto LABEL_41;
         }
       }
 
-      v32 = a1 + 72 * v16;
-      v33 = (*a3)((v32 + 72), a1 + 9);
+      v32 = result + 72 * v16;
+      v33 = (*a3)((v32 + 72), (result + 9));
       v34 = (*a3)(v50, (v32 + 72));
       if (v33)
       {
         if (v34)
         {
-          v35 = a1 + 9;
+          v35 = result + 9;
           goto LABEL_50;
         }
 
-        std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(a1 + 9, (v32 + 72));
+        std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(result + 9, (v32 + 72));
         if ((*a3)(v50, (v32 + 72)))
         {
           v35 = (v32 + 72);
@@ -477,9 +1648,9 @@ LABEL_51:
       else if (v34)
       {
         std::swap[abi:ne200100]<quasar::PhoneticMatchResult>((v32 + 72), v50);
-        if ((*a3)((v32 + 72), a1 + 9))
+        if ((*a3)((v32 + 72), (result + 9)))
         {
-          v35 = a1 + 9;
+          v35 = result + 9;
           v36 = (v32 + 72);
           goto LABEL_51;
         }
@@ -517,7 +1688,7 @@ LABEL_60:
         }
       }
 
-      v24 = a1;
+      v24 = result;
       v26 = v17;
 LABEL_62:
       std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(v24, v26);
@@ -525,7 +1696,7 @@ LABEL_62:
     }
 
     v22 = v18(matched, v17);
-    v23 = (*a3)((a2 - 72), a1);
+    v23 = (*a3)(a2 - 72, result);
     if (v22)
     {
       if (v23)
@@ -536,39 +1707,39 @@ LABEL_37:
         goto LABEL_62;
       }
 
-      std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(v17, a1);
-      if ((*a3)((a2 - 72), a1))
+      std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(v17, result);
+      if ((*a3)(a2 - 72, result))
       {
-        v24 = a1;
+        v24 = result;
         goto LABEL_37;
       }
     }
 
     else if (v23)
     {
-      std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(a1, (a2 - 72));
-      if ((*a3)(a1, v17))
+      std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(result, (a2 - 72));
+      if ((*a3)(result, v17))
       {
         v24 = v17;
-        v26 = a1;
+        v26 = result;
         goto LABEL_62;
       }
     }
 
 LABEL_63:
-    if ((a5 & 1) == 0 && ((*a3)((a1 - 72), a1) & 1) == 0)
+    if ((a5 & 1) == 0 && ((*a3)(result - 72, result) & 1) == 0)
     {
-      matched = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,quasar::PhoneticMatchResult *,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&)>(a1, a2, a3);
+      matched = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,quasar::PhoneticMatchResult *,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&)>(result, a2, a3);
       goto LABEL_70;
     }
 
-    v41 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,quasar::PhoneticMatchResult *,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&)>(a1, a2, a3);
+    v41 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,quasar::PhoneticMatchResult *,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&)>(result, a2, a3);
     if ((v42 & 1) == 0)
     {
       goto LABEL_68;
     }
 
-    v43 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>(a1, v41, a3);
+    v43 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>(result, v41, a3);
     matched = (v41 + 72);
     if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>((v41 + 72), a2, a3))
     {
@@ -583,10 +1754,10 @@ LABEL_63:
     }
 
     v12 = v13 + 1;
-    if ((v43 & 1) == 0)
+    if (!v43)
     {
 LABEL_68:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*,false>(a1, v41, a3, -v13, a5 & 1);
+      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*,false>(result, v41, a3, -v13, a5 & 1);
       matched = (v41 + 72);
 LABEL_70:
       a5 = 0;
@@ -595,8 +1766,8 @@ LABEL_70:
     }
   }
 
-  v44 = (*a3)((matched + 72), matched);
-  v45 = (*a3)(v10, (matched + 72));
+  v44 = (*a3)(matched + 72, matched);
+  v45 = (*a3)(v10, matched + 72);
   if ((v44 & 1) == 0)
   {
     if (!v45)
@@ -615,14 +1786,14 @@ LABEL_70:
   }
 
   std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(matched, (matched + 72));
-  if ((*a3)(v10, (matched + 72)))
+  if ((*a3)(v10, matched + 72))
   {
     v46 = (matched + 72);
     goto LABEL_83;
   }
 }
 
-void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*,0>(__int128 *a1, __int128 *a2, __int128 *a3, __int128 *a4, uint64_t (**a5)(__int128 *, __int128 *))
+void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*,0>(__int128 *a1, __int128 *a2, __int128 *a3, __int128 *a4, uint64_t (**a5)(uint64_t, uint64_t))
 {
   v10 = (*a5)(a2, a1);
   v11 = (*a5)(a3, a2);
@@ -671,7 +1842,7 @@ LABEL_10:
   }
 }
 
-void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>(_OWORD *a1, _OWORD *a2, uint64_t (**a3)(__int128 *, uint64_t))
+void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>(__int128 *a1, __int128 *a2, uint64_t (**a3)(__int128 *, uint64_t))
 {
   if (a1 != a2)
   {
@@ -707,21 +1878,21 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar
             v14 = a1 + v12;
             *(a1 + v12 + 72) = *(a1 + v12);
             std::vector<quasar::PhoneticMatchAlignmentSpan>::__vdeallocate((a1 + v12 + 88));
-            *(v14 + 88) = *(v14 + 16);
-            *(v14 + 104) = *(v14 + 32);
-            *(v14 + 24) = 0;
-            *(v14 + 32) = 0;
-            *(v14 + 16) = 0;
-            if (*(v14 + 135) < 0)
+            *(v14 + 88) = *(v14 + 1);
+            *(v14 + 13) = *(v14 + 4);
+            *(v14 + 3) = 0;
+            *(v14 + 4) = 0;
+            *(v14 + 2) = 0;
+            if (v14[135] < 0)
             {
-              operator delete(*(v14 + 112));
+              operator delete(*(v14 + 14));
             }
 
-            *(v14 + 112) = *(v14 + 40);
-            *(v14 + 128) = *(v14 + 56);
-            *(v14 + 63) = 0;
-            *(v14 + 40) = 0;
-            *(v14 + 136) = *(v14 + 64);
+            *(v14 + 7) = *(v14 + 40);
+            *(v14 + 16) = *(v14 + 7);
+            v14[63] = 0;
+            v14[40] = 0;
+            *(v14 + 34) = *(v14 + 16);
             *(v14 + 139) = *(v14 + 67);
             if (!v13)
             {
@@ -732,7 +1903,7 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar
             v12 = v13 - 72;
             if ((v15 & 1) == 0)
             {
-              v16 = (a1 + v13);
+              v16 = a1 + v13;
               goto LABEL_12;
             }
           }
@@ -741,20 +1912,20 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar
 LABEL_12:
           *v16 = v18;
           v17 = a1 + v13;
-          std::vector<quasar::PhoneticMatchAlignmentSpan>::__vdeallocate((v17 + 16));
-          *(v17 + 16) = *v19;
+          std::vector<quasar::PhoneticMatchAlignmentSpan>::__vdeallocate(v17 + 2);
+          *(v17 + 2) = *v19;
           *(v16 + 24) = *&v19[8];
           memset(v19, 0, sizeof(v19));
-          if (*(v16 + 63) < 0)
+          if (v16[63] < 0)
           {
-            operator delete(*(v17 + 40));
+            operator delete(*(v17 + 5));
           }
 
           *(v17 + 40) = v20;
-          *(v17 + 56) = v21;
+          *(v17 + 7) = v21;
           HIBYTE(v21) = 0;
           LOBYTE(v20) = 0;
-          *(v17 + 64) = v22[0];
+          *(v17 + 16) = v22[0];
           *(v17 + 67) = *(v22 + 3);
           v23 = v19;
           std::vector<quasar::PhoneticMatchAlignmentSpan>::__destroy_vector::operator()[abi:ne200100](&v23);
@@ -770,7 +1941,7 @@ LABEL_12:
   }
 }
 
-void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>(_OWORD *a1, _OWORD *a2, uint64_t (**a3)(__int128 *, uint64_t))
+void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>(__int128 *a1, __int128 *a2, uint64_t (**a3)(__int128 *, uint64_t))
 {
   if (a1 != a2)
   {
@@ -856,25 +2027,23 @@ void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (
   }
 }
 
-__int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,quasar::PhoneticMatchResult *,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&)>(uint64_t a1, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *))
+__int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,quasar::PhoneticMatchResult *,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&)>(__int128 *a1, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *))
 {
   v4 = a2;
-  v6 = (a1 + 16);
-  v7 = *(a1 + 16);
+  v6 = (a1 + 1);
+  v7 = a1[1];
   v21 = *a1;
   v22 = v7;
-  v23 = *(a1 + 32);
+  v23 = *(a1 + 4);
   v8 = *(a1 + 40);
-  *(a1 + 24) = 0;
-  *(a1 + 32) = 0;
-  *(a1 + 16) = 0;
+  *(a1 + 24) = 0uLL;
+  *(a1 + 2) = 0;
   *__p = v8;
-  v25 = *(a1 + 56);
-  *(a1 + 48) = 0;
-  *(a1 + 56) = 0;
-  v10 = (a1 + 64);
-  v9 = *(a1 + 64);
-  *(a1 + 40) = 0;
+  v25 = *(a1 + 7);
+  a1[3] = 0uLL;
+  v10 = a1 + 4;
+  v9 = *(a1 + 16);
+  *(a1 + 5) = 0;
   *&v26[3] = *(a1 + 67);
   *v26 = v9;
   if ((*a3)(&v21, (a2 - 72)))
@@ -938,18 +2107,18 @@ __int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   {
     *a1 = *v14;
     std::vector<quasar::PhoneticMatchAlignmentSpan>::__vdeallocate(v6);
-    *(a1 + 16) = *(v11 - 56);
-    *(a1 + 32) = *(v11 - 5);
+    a1[1] = *(v11 - 56);
+    *(a1 + 4) = *(v11 - 5);
     *(v11 - 7) = 0;
     *(v11 - 6) = 0;
     *(v11 - 5) = 0;
     if (*(a1 + 63) < 0)
     {
-      operator delete(*(a1 + 40));
+      operator delete(*(a1 + 5));
     }
 
     v15 = *(v11 - 2);
-    *(a1 + 56) = *(v11 - 2);
+    *(a1 + 7) = *(v11 - 2);
     *(a1 + 40) = v15;
     *(v11 - 9) = 0;
     *(v11 - 32) = 0;
@@ -988,26 +2157,24 @@ __int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   return v11;
 }
 
-char *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,quasar::PhoneticMatchResult *,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&)>(uint64_t a1, __int128 *a2, uint64_t (**a3)(uint64_t, __int128 *))
+unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,quasar::PhoneticMatchResult *,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&)>(__int128 *a1, __int128 *a2, uint64_t (**a3)(uint64_t, __int128 *))
 {
   v6 = 0;
-  v7 = (a1 + 16);
-  v8 = *(a1 + 16);
+  v7 = (a1 + 1);
+  v8 = a1[1];
   v22 = *a1;
   v23 = v8;
-  v24 = *(a1 + 32);
-  *(a1 + 16) = 0;
+  v24 = *(a1 + 4);
+  *(a1 + 2) = 0;
   v9 = *(a1 + 40);
-  *(a1 + 24) = 0;
-  *(a1 + 32) = 0;
+  *(a1 + 24) = 0uLL;
   *__p = v9;
-  v26 = *(a1 + 56);
-  *(a1 + 40) = 0;
-  *(a1 + 48) = 0;
-  *(a1 + 56) = 0;
+  v26 = *(a1 + 7);
+  *(a1 + 40) = 0uLL;
+  *(a1 + 7) = 0;
   *&v27[3] = *(a1 + 67);
-  v10 = (a1 + 64);
-  *v27 = *(a1 + 64);
+  v10 = a1 + 4;
+  *v27 = *(a1 + 16);
   do
   {
     v11 = (*a3)(a1 + v6 + 72, &v22);
@@ -1070,18 +2237,18 @@ char *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy
   {
     *a1 = *v15;
     std::vector<quasar::PhoneticMatchAlignmentSpan>::__vdeallocate(v7);
-    *(a1 + 16) = *(v13 - 56);
-    *(a1 + 32) = *(v13 - 5);
+    a1[1] = *(v13 - 56);
+    *(a1 + 4) = *(v13 - 5);
     *(v13 - 7) = 0;
     *(v13 - 6) = 0;
     *(v13 - 5) = 0;
     if (*(a1 + 63) < 0)
     {
-      operator delete(*(a1 + 40));
+      operator delete(*(a1 + 5));
     }
 
     v16 = *(v13 - 2);
-    *(a1 + 56) = *(v13 - 2);
+    *(a1 + 7) = *(v13 - 2);
     *(a1 + 40) = v16;
     *(v13 - 9) = 0;
     *(v13 - 32) = 0;
@@ -1120,7 +2287,7 @@ char *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy
   return v13 - 72;
 }
 
-uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>(__int128 *a1, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *))
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>(__int128 *a1, __int128 *a2, uint64_t (**a3)(uint64_t, uint64_t))
 {
   v6 = 0x8E38E38E38E38E39 * ((a2 - a1) >> 3);
   if (v6 <= 2)
@@ -1132,7 +2299,7 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,B
 
     if (v6 == 2)
     {
-      if ((*a3)((a2 - 72), a1))
+      if ((*a3)(a2 - 72, a1))
       {
         v7 = a1;
         v8 = (a2 - 72);
@@ -1145,9 +2312,9 @@ LABEL_30:
     }
 
 LABEL_16:
-    v15 = a1 + 9;
-    v16 = (*a3)((a1 + 72), a1);
-    v17 = (*a3)(a1 + 9, (a1 + 72));
+    v15 = (a1 + 9);
+    v16 = (*a3)(a1 + 72, a1);
+    v17 = (*a3)((a1 + 9), a1 + 72);
     if (v16)
     {
       if (v17)
@@ -1158,7 +2325,7 @@ LABEL_16:
       else
       {
         std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(a1, (a1 + 72));
-        if (!(*a3)(a1 + 9, (a1 + 72)))
+        if (!(*a3)((a1 + 9), a1 + 72))
         {
           goto LABEL_35;
         }
@@ -1171,10 +2338,10 @@ LABEL_16:
 
     else
     {
-      if (!v17 || (std::swap[abi:ne200100]<quasar::PhoneticMatchResult>((a1 + 72), a1 + 9), !(*a3)((a1 + 72), a1)))
+      if (!v17 || (std::swap[abi:ne200100]<quasar::PhoneticMatchResult>((a1 + 72), a1 + 9), !(*a3)(a1 + 72, a1)))
       {
 LABEL_35:
-        v20 = (a1 + 216);
+        v20 = a1 + 216;
         if ((a1 + 216) != a2)
         {
           v21 = 0;
@@ -1183,22 +2350,22 @@ LABEL_35:
           {
             if ((*a3)(v20, v15))
             {
-              v23 = v20[1];
+              v23 = *(v20 + 16);
               v33 = *v20;
               *v34 = v23;
-              *&v34[16] = *(v20 + 4);
-              *(v20 + 2) = 0;
-              *(v20 + 3) = 0;
+              *&v34[16] = *(v20 + 32);
+              *(v20 + 16) = 0;
+              *(v20 + 24) = 0;
               v24 = *(v20 + 40);
-              *(v20 + 4) = 0;
-              *(v20 + 5) = 0;
+              *(v20 + 32) = 0;
+              *(v20 + 40) = 0;
               v35 = v24;
-              v36 = *(v20 + 7);
+              v36 = *(v20 + 56);
               *(v37 + 3) = *(v20 + 67);
-              v37[0] = *(v20 + 16);
+              v37[0] = *(v20 + 64);
               v25 = v21;
-              *(v20 + 6) = 0;
-              *(v20 + 7) = 0;
+              *(v20 + 48) = 0;
+              *(v20 + 56) = 0;
               while (1)
               {
                 v26 = v25;
@@ -1226,11 +2393,11 @@ LABEL_35:
                   break;
                 }
 
-                v28 = (*a3)(&v33, (a1 + v26 + 72));
+                v28 = (*a3)(&v33, a1 + v26 + 72);
                 v25 = v26 - 72;
                 if ((v28 & 1) == 0)
                 {
-                  v29 = a1 + v25 + 216;
+                  v29 = (a1 + v25 + 216);
                   goto LABEL_45;
                 }
               }
@@ -1256,7 +2423,7 @@ LABEL_45:
               *(v30 + 211) = *(v37 + 3);
               if (++v22 == 8)
               {
-                v31 = (v20 + 72) == a2;
+                v31 = v20 + 72 == a2;
                 v38 = v34;
                 std::vector<quasar::PhoneticMatchAlignmentSpan>::__destroy_vector::operator()[abi:ne200100](&v38);
                 return v31;
@@ -1268,7 +2435,7 @@ LABEL_45:
 
             v15 = v20;
             v21 += 72;
-            v20 = (v20 + 72);
+            v20 += 72;
             if (v20 == a2)
             {
               return 1;
@@ -1302,19 +2469,19 @@ LABEL_45:
 
     v9 = (a2 - 72);
     std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*,0>(a1, (a1 + 72), a1 + 9, (a1 + 216), a3);
-    if (!(*a3)(v9, (a1 + 216)))
+    if (!(*a3)(v9, a1 + 216))
     {
       return 1;
     }
 
     std::swap[abi:ne200100]<quasar::PhoneticMatchResult>((a1 + 216), v9);
-    if (!(*a3)((a1 + 216), a1 + 9))
+    if (!(*a3)(a1 + 216, (a1 + 9)))
     {
       return 1;
     }
 
     std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(a1 + 9, (a1 + 216));
-    if (!(*a3)(a1 + 9, (a1 + 72)))
+    if (!(*a3)((a1 + 9), a1 + 72))
     {
       return 1;
     }
@@ -1324,9 +2491,9 @@ LABEL_45:
     goto LABEL_22;
   }
 
-  v12 = (a2 - 72);
-  v13 = (*a3)((a1 + 72), a1);
-  v14 = (*a3)(v12, (a1 + 72));
+  v12 = a2 - 72;
+  v13 = (*a3)(a1 + 72, a1);
+  v14 = (*a3)(v12, a1 + 72);
   if (v13)
   {
     if (v14)
@@ -1337,7 +2504,7 @@ LABEL_45:
     else
     {
       std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(a1, (a1 + 72));
-      if (!(*a3)(v12, (a1 + 72)))
+      if (!(*a3)(v12, a1 + 72))
       {
         return 1;
       }
@@ -1355,7 +2522,7 @@ LABEL_45:
     v11 = v12;
 LABEL_22:
     std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(v10, v11);
-    if ((*a3)((a1 + 72), a1))
+    if ((*a3)(a1 + 72, a1))
     {
       v8 = (a1 + 72);
       v7 = a1;
@@ -1376,13 +2543,11 @@ void std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(__int128 *a1, __int128
   v11 = *(a1 + 24);
   v12 = v4;
   v14 = *(a1 + 3);
-  *(a1 + 2) = 0;
-  *(a1 + 3) = 0;
+  a1[1] = 0uLL;
   *(a1 + 4) = 0;
   v16 = *(a1 + 40);
   v17 = *(a1 + 7);
-  *(a1 + 6) = 0;
-  *(a1 + 7) = 0;
+  a1[3] = 0uLL;
   v8 = a1 + 4;
   v7 = *(a1 + 16);
   *(a1 + 5) = 0;
@@ -1430,7 +2595,7 @@ void std::swap[abi:ne200100]<quasar::PhoneticMatchResult>(__int128 *a1, __int128
   std::vector<quasar::PhoneticMatchAlignmentSpan>::__destroy_vector::operator()[abi:ne200100](&v19);
 }
 
-__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*,quasar::PhoneticMatchResult*>(__int128 *a1, __int128 *a2, __int128 *a3, unsigned int (**a4)(uint64_t, uint64_t), __n128 matched)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*,quasar::PhoneticMatchResult*>(char *a1, char *a2, __int128 *a3, uint64_t (**a4)(uint64_t, __int128 *), __n128 matched)
 {
   if (a1 != a2)
   {
@@ -1441,7 +2606,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
     {
       v11 = (v10 - 2) >> 1;
       v12 = v11 + 1;
-      v13 = (a1 + 72 * v11);
+      v13 = &a1[72 * v11];
       do
       {
         matched = std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>(a1, a4, v10, v13);
@@ -1476,7 +2641,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
       do
       {
         std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>(a1, v7, a4, v15);
-        v7 -= 72;
+        v7 = (v7 - 72);
       }
 
       while (v15-- > 2);
@@ -1488,7 +2653,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
   return a3;
 }
 
-__n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>(uint64_t a1, unsigned int (**a2)(uint64_t, uint64_t), uint64_t a3, __int128 *a4)
+__n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>(uint64_t a1, uint64_t (**a2)(uint64_t, __int128 *), uint64_t a3, __int128 *a4)
 {
   v4 = a3 - 2;
   if (a3 >= 2)
@@ -1500,7 +2665,7 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::P
       v9 = (0x1C71C71C71C71C72 * ((a4 - a1) >> 3)) | 1;
       v10 = a1 + 72 * v9;
       v11 = 0x1C71C71C71C71C72 * ((a4 - a1) >> 3) + 2;
-      if (v11 < a3 && (*a2)(a1 + 72 * v9, v10 + 72))
+      if (v11 < a3 && (*a2)(a1 + 72 * v9, (v10 + 72)))
       {
         v10 += 72;
         v9 = v11;
@@ -1560,7 +2725,7 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::P
             v9 = v19;
           }
 
-          else if ((*a2)(a1 + 72 * v19, v10 + 72))
+          else if ((*a2)(a1 + 72 * v19, (v10 + 72)))
           {
             v10 += 72;
           }
@@ -1576,22 +2741,22 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::P
         while (!(*a2)(v10, &v23));
         *v15 = v23;
         std::vector<quasar::PhoneticMatchAlignmentSpan>::__vdeallocate(v16);
-        v15[1] = v24;
-        *(v15 + 4) = v25;
+        *(v15 + 16) = v24;
+        *(v15 + 32) = v25;
         v24 = 0uLL;
         v25 = 0;
         if (*(v15 + 63) < 0)
         {
-          operator delete(*(v15 + 5));
+          operator delete(*(v15 + 40));
         }
 
         v20 = v26;
-        *(v15 + 7) = v27;
+        *(v15 + 56) = v27;
         *(v15 + 40) = v20;
         HIBYTE(v27) = 0;
         LOBYTE(v26) = 0;
         v21 = *&v28[3];
-        *(v15 + 16) = *v28;
+        *(v15 + 64) = *v28;
         *(v15 + 67) = v21;
         v29 = &v24;
         std::vector<quasar::PhoneticMatchAlignmentSpan>::__destroy_vector::operator()[abi:ne200100](&v29);
@@ -1602,31 +2767,28 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::P
   return result;
 }
 
-void sub_1B52B66E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B52B66E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   quasar::PhoneticMatchResult::~PhoneticMatchResult(va);
   _Unwind_Resume(a1);
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>(uint64_t a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>(__int128 *a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
 {
   if (a4 >= 2)
   {
     v18 = *a1;
-    v19 = *(a1 + 16);
-    v20 = *(a1 + 32);
-    *(a1 + 16) = 0;
-    *(a1 + 24) = 0;
+    v19 = a1[1];
+    v20 = *(a1 + 4);
+    a1[1] = 0uLL;
     v7 = *(a1 + 40);
-    *(a1 + 32) = 0;
-    *(a1 + 40) = 0;
+    a1[2] = 0uLL;
     *__p = v7;
-    v22 = *(a1 + 56);
-    *(a1 + 48) = 0;
-    *(a1 + 56) = 0;
+    v22 = *(a1 + 7);
+    a1[3] = 0uLL;
     *&v23[3] = *(a1 + 67);
-    *v23 = *(a1 + 64);
+    *v23 = *(a1 + 16);
     matched = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::PhoneticMatchResult const&,quasar::PhoneticMatchResult const&),quasar::PhoneticMatchResult*>(a1, a3, a4);
     v9 = matched;
     v10 = (a2 - 72);
@@ -1839,21 +3001,21 @@ void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(quasar::Phone
   }
 }
 
-uint64_t std::vector<quasar::PhoneticMatchAlignmentSpan>::__construct_one_at_end[abi:ne200100]<quasar::PhoneticMatchAlignmentSpan const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<quasar::PhoneticMatchAlignmentSpan>::__construct_one_at_end[abi:ne200100]<quasar::PhoneticMatchAlignmentSpan const&>(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 8);
   *v4 = 0;
   v4[1] = 0;
   v4[2] = 0;
-  std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v4, *a2, a2[1], 0x6DB6DB6DB6DB6DB7 * ((a2[1] - *a2) >> 5));
+  std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v4, *a2, *(a2 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 8) - *a2) >> 5));
   v4[3] = 0;
   v4[4] = 0;
   v4[5] = 0;
-  std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>((v4 + 3), a2[3], a2[4], 0x6DB6DB6DB6DB6DB7 * ((a2[4] - a2[3]) >> 5));
+  std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v4 + 3, *(a2 + 24), *(a2 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 32) - *(a2 + 24)) >> 5));
   v4[6] = 0;
   v4[7] = 0;
   v4[8] = 0;
-  result = std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>((v4 + 6), a2[6], a2[7], 0x6DB6DB6DB6DB6DB7 * ((a2[7] - a2[6]) >> 5));
+  result = std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v4 + 6, *(a2 + 48), *(a2 + 56), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 56) - *(a2 + 48)) >> 5));
   *(a1 + 8) = v4 + 9;
   return result;
 }
@@ -1867,21 +3029,21 @@ void sub_1B52B6CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<quasar::PhoneticMatchAlignmentSpan>::__emplace_back_slow_path<quasar::PhoneticMatchAlignmentSpan const&>(uint64_t a1, uint64_t *a2)
+uint64_t std::vector<quasar::PhoneticMatchAlignmentSpan>::__emplace_back_slow_path<quasar::PhoneticMatchAlignmentSpan const&>(void *a1, uint64_t a2)
 {
-  v2 = 0x8E38E38E38E38E39 * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0x38E38E38E38E38ELL)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x1C71C71C71C71C72 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x1C71C71C71C71C72 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0x8E38E38E38E38E39 * ((*(a1 + 16) - *a1) >> 3) >= 0x1C71C71C71C71C7)
+  if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 3) >= 0x1C71C71C71C71C7)
   {
     v6 = 0x38E38E38E38E38ELL;
   }
@@ -1904,24 +3066,24 @@ uint64_t std::vector<quasar::PhoneticMatchAlignmentSpan>::__emplace_back_slow_pa
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v7, *a2, a2[1], 0x6DB6DB6DB6DB6DB7 * ((a2[1] - *a2) >> 5));
+  std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v7, *a2, *(a2 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 8) - *a2) >> 5));
   *(v7 + 24) = 0;
   *(v7 + 32) = 0;
   *(v7 + 40) = 0;
-  std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v7 + 24, a2[3], a2[4], 0x6DB6DB6DB6DB6DB7 * ((a2[4] - a2[3]) >> 5));
+  std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>((v7 + 24), *(a2 + 24), *(a2 + 32), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 32) - *(a2 + 24)) >> 5));
   *(v7 + 48) = 0;
   *(v7 + 56) = 0;
   *(v7 + 64) = 0;
-  std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v7 + 48, a2[6], a2[7], 0x6DB6DB6DB6DB6DB7 * ((a2[7] - a2[6]) >> 5));
+  std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>((v7 + 48), *(a2 + 48), *(a2 + 56), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 56) - *(a2 + 48)) >> 5));
   *&v16 = v16 + 72;
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = (v15 + *a1 - v8);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<quasar::PhoneticMatchAlignmentSpan>,quasar::PhoneticMatchAlignmentSpan*>(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -1930,15 +3092,15 @@ uint64_t std::vector<quasar::PhoneticMatchAlignmentSpan>::__emplace_back_slow_pa
   return v13;
 }
 
-void sub_1B52B6ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B52B6ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
   std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](va1);
   std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](va1);
   std::__split_buffer<quasar::PhoneticMatchAlignmentSpan>::~__split_buffer(va);
@@ -1965,7 +3127,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<qu
     do
     {
       std::allocator<quasar::PhoneticMatchAlignmentSpan>::construct[abi:ne200100]<quasar::PhoneticMatchAlignmentSpan,quasar::PhoneticMatchAlignmentSpan>(a1, a4, v7);
-      v7 += 72;
+      v7 += 9;
       a4 = v12 + 9;
       v12 += 9;
     }
@@ -2078,7 +3240,7 @@ uint64_t std::vector<quasar::PhoneticMatchResult>::__emplace_back_slow_path<quas
   *(v8 + 16) = 0;
   *(v7 + 24) = 0;
   *(v7 + 32) = 0;
-  std::vector<quasar::PhoneticMatchAlignmentSpan>::__init_with_size[abi:ne200100]<quasar::PhoneticMatchAlignmentSpan*,quasar::PhoneticMatchAlignmentSpan*>(v8 + 16, *(a2 + 16), *(a2 + 24), 0x8E38E38E38E38E39 * ((*(a2 + 24) - *(a2 + 16)) >> 3));
+  std::vector<quasar::PhoneticMatchAlignmentSpan>::__init_with_size[abi:ne200100]<quasar::PhoneticMatchAlignmentSpan*,quasar::PhoneticMatchAlignmentSpan*>((v8 + 16), *(a2 + 16), *(a2 + 24), 0x8E38E38E38E38E39 * ((*(a2 + 24) - *(a2 + 16)) >> 3));
   if (*(a2 + 63) < 0)
   {
     std::string::__init_copy_ctor_external((v7 + 40), *(a2 + 40), *(a2 + 48));
@@ -2111,21 +3273,21 @@ uint64_t std::vector<quasar::PhoneticMatchResult>::__emplace_back_slow_path<quas
   return v16;
 }
 
-void sub_1B52B7250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B52B7250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void *);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, void *);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
   std::vector<quasar::PhoneticMatchAlignmentSpan>::__destroy_vector::operator()[abi:ne200100](va1);
   std::__split_buffer<quasar::PhoneticMatchResult>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::insertTracebackLink(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7, float a8)
+uint64_t kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::insertTracebackLink(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, __n128 a8)
 {
   v14 = a1 + 6;
   v15 = a2;
@@ -2146,12 +3308,12 @@ uint64_t kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::insertTracebackL
     {
       if (*i == a2)
       {
-        if (*(*a1 + 28 * (*(i + 4) - 1) + 20) <= a8)
+        if (*(*a1 + 28 * (*(i + 4) - 1) + 20) <= a8.n128_f32[0])
         {
           return 0;
         }
 
-        v42 = kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::NewToken(a1, a2, a3, a4, a5, a6, a7, a8);
+        v42 = kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::NewToken(a1, a2, a3, a4, a5, a6, a7, a8.n128_f32[0]);
         *(i + 4) = v42;
         if (kaldi::g_kaldi_verbose_level < 5)
         {
@@ -2179,7 +3341,7 @@ uint64_t kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::insertTracebackL
     }
   }
 
-  v23 = kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::NewToken(a1, a2, a3, a4, a5, a6, a7, a8);
+  v23 = kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::NewToken(a1, a2, a3, a4, a5, a6, a7, a8.n128_f32[0]);
   v24 = v15 % a1[8];
   v25 = (a1[9] + 16 * v24);
   v26 = kaldi::HashList<int,unsigned int,std::hash<int>,std::equal_to<int>>::New(v14);
@@ -2285,15 +3447,15 @@ void kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::ProcessNonemitting(v
       goto LABEL_35;
     }
 
-    v13 = kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::finalWeight(a1, &v27);
-    *&v28[0].__locale_ = v13;
+    v13.n128_f32[0] = kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::finalWeight(a1, &v27);
+    LODWORD(v28[0].__locale_) = v13.n128_u32[0];
     LODWORD(v26) = 2139095040;
-    if (v13 != INFINITY)
+    if (v13.n128_f32[0] != INFINITY)
     {
       v14 = *(v12 + 24);
       if (v14 != -1)
       {
-        v15 = v13 + *(v12 + 20);
+        v15 = v13.n128_f32[0] + *(v12 + 20);
         if (kaldi::g_kaldi_verbose_level >= 5)
         {
           kaldi::KaldiVlogMessage::KaldiVlogMessage(v28, 5);
@@ -2307,10 +3469,11 @@ void kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::ProcessNonemitting(v
           v14 = *(v12 + 24);
         }
 
-        if (kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::insertTracebackLink(a1, v14, 0, 0, -1, v11, 0, v15))
+        v13.n128_f32[0] = v15;
+        if (kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::insertTracebackLink(a1, v14, 0, 0, 0xFFFFFFFFLL, v11, 0, v13))
         {
           LODWORD(v28[0].__locale_) = *(v12 + 24);
-          std::deque<int>::push_front(a1 + 25, v28);
+          std::deque<int>::push_front((a1 + 25), v28);
         }
       }
     }
@@ -2348,10 +3511,10 @@ LABEL_25:
       v25 = HIDWORD(v26);
       v22 = kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::modifyArcForSubroutineEntry(a1, DWORD1(v26), &v25, *(v12 + 24));
       v24 = *(**(a1[5] + 8) + 4 * v26);
-      v23 = kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::ComputeWeight(a1, &v26, &v24, v11);
-      if (v23 < a2 && kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::insertTracebackLink(a1, v25, v26, DWORD1(v26), v22, v11, 0, v23))
+      v23.n128_f32[0] = kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::ComputeWeight(a1, &v26, &v24, v11);
+      if (v23.n128_f32[0] < a2 && kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::insertTracebackLink(a1, v25, v26, DWORD1(v26), v22, v11, 0, v23))
       {
-        std::deque<int>::push_front(a1 + 25, &v25);
+        std::deque<int>::push_front((a1 + 25), &v25);
       }
 
       if (v28[0].__locale_)
@@ -2384,27 +3547,27 @@ LABEL_35:
   while (v5);
 }
 
-void sub_1B52B79E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B52B79E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   kaldi::KaldiVlogMessage::~KaldiVlogMessage(va);
   _Unwind_Resume(a1);
 }
 
-float kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::ProcessEmitting(uint64_t a1, uint64_t a2, float a3)
+float kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::ProcessEmitting(float *a1, uint64_t a2, float a3)
 {
   if (kaldi::g_kaldi_verbose_level >= 5)
   {
-    kaldi::KaldiVlogMessage::KaldiVlogMessage(&v61, 5);
-    v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v61, "Process emitting isym=", 22);
+    kaldi::KaldiVlogMessage::KaldiVlogMessage(&v63, 5);
+    v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v63, "Process emitting isym=", 22);
     MEMORY[0x1B8C84C00](v6, a2);
-    kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v61);
+    kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v63);
   }
 
-  v7 = *(a1 + 56);
+  v7 = *(a1 + 7);
   if (v7 != -1)
   {
-    v8 = *(a1 + 72);
+    v8 = *(a1 + 9);
     do
     {
       v9 = (v8 + 16 * v7);
@@ -2415,44 +3578,44 @@ float kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::ProcessEmitting(uin
     while (v7 != -1);
   }
 
-  v10 = *(a1 + 48);
-  *(a1 + 48) = 0;
-  *(a1 + 56) = -1;
+  v10 = *(a1 + 6);
+  *(a1 + 6) = 0;
+  *(a1 + 7) = -1;
+  v62 = 0;
+  v61 = 0.0;
   v60 = 0;
-  v59 = 0.0;
-  v58 = 0;
-  kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::GetCutoff(a1, v10, &v60, &v59, &v58, a3);
-  v12 = v11;
-  v13 = (*(a1 + 180) * v60);
-  if (*(a1 + 64) < v13)
+  kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::GetCutoff(a1, v10, &v62, &v61, &v60, a3);
+  v14 = v13;
+  v15 = (a1[45] * v62);
+  if (*(a1 + 8) < v15)
   {
-    kaldi::HashList<int,unsigned int,std::hash<int>,std::equal_to<int>>::SetSize(a1 + 48, v13);
+    kaldi::HashList<int,unsigned int,std::hash<int>,std::equal_to<int>>::SetSize((a1 + 12), v15, v11, v12);
   }
 
-  if (!v58)
+  if (!v60)
   {
-    v19 = 1.0e10;
+    v21 = 1.0e10;
     if (!v10)
     {
-      return v19;
+      return v21;
     }
 
     goto LABEL_35;
   }
 
-  v14 = *v58;
-  v15 = *a1;
-  v16 = v58[1] - 1;
-  v17 = *(a1 + 128);
-  v65 = 0;
-  (*(*v17 + 136))(v17, v14, &v61);
-  v18 = (v15 + 28 * v16 + 20);
-  v19 = 1.0e10;
+  v16 = *v60;
+  v17 = *a1;
+  v18 = v60[1] - 1;
+  v19 = *(a1 + 16);
+  v67 = 0;
+  (*(*v19 + 136))(v19, v16, &v63);
+  v20 = (v17 + 28 * v18 + 20);
+  v21 = 1.0e10;
   while (1)
   {
-    if (!v61.__locale_)
+    if (!v63.__locale_)
     {
-      if (v65 >= v63)
+      if (v67 >= v65)
       {
         goto LABEL_30;
       }
@@ -2460,138 +3623,139 @@ float kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::ProcessEmitting(uin
       goto LABEL_15;
     }
 
-    if ((*(*v61.__locale_ + 24))(v61.__locale_))
+    if ((*(*v63.__locale_ + 24))(v63.__locale_))
     {
       break;
     }
 
-    if (v61.__locale_)
+    if (v63.__locale_)
     {
-      v20 = (*(*v61.__locale_ + 32))();
+      v22 = (*(*v63.__locale_ + 32))();
       goto LABEL_16;
     }
 
 LABEL_15:
-    v20 = (v62 + 16 * v65);
+    v22 = (v64 + 16 * v67);
 LABEL_16:
-    v21 = *v20;
-    if (v21)
+    v23 = *v22;
+    if (v23)
     {
-      v22 = *(a1 + 40);
-      v23 = *(v22 + 48) != v21 || a2 == 0;
-      v24 = *(*(*(v22 + 8) + 24 * a2) + 4 * v21);
-      if (!v23)
+      v24 = *(a1 + 5);
+      v25 = *(v24 + 48) != v23 || a2 == 0;
+      v26 = *(*(*(v24 + 8) + 24 * a2) + 4 * v23);
+      if (!v25)
       {
-        v24 = v24 + a3;
+        v26 = v26 + a3;
       }
 
-      v25 = v59 + (v24 + (v20[2] + *v18));
-      if (v25 < v19)
+      v27 = v61 + (v26 + (v22[2] + *v20));
+      if (v27 < v21)
       {
-        v19 = v25;
+        v21 = v27;
       }
     }
 
-    if (v61.__locale_)
+    if (v63.__locale_)
     {
-      (*(*v61.__locale_ + 40))(v61.__locale_);
+      (*(*v63.__locale_ + 40))(v63.__locale_);
     }
 
     else
     {
-      ++v65;
+      ++v67;
     }
   }
 
-  if (v61.__locale_)
+  if (v63.__locale_)
   {
-    (*(*v61.__locale_ + 8))();
+    (*(*v63.__locale_ + 8))();
     if (!v10)
     {
-      return v19;
+      return v21;
     }
 
     goto LABEL_35;
   }
 
 LABEL_30:
-  if (v64)
+  if (v66)
   {
-    --*v64;
+    --*v66;
   }
 
   if (!v10)
   {
-    return v19;
+    return v21;
   }
 
 LABEL_35:
   while (2)
   {
-    v26 = *(v10 + 4);
-    v57 = *v10;
-    v27 = *a1 + 28 * (v26 - 1);
-    if (*(v27 + 20) >= v12)
+    v28 = *(v10 + 4);
+    v59 = *v10;
+    v29 = *a1 + 28 * (v28 - 1);
+    if (*(v29 + 20) >= v14)
     {
       goto LABEL_81;
     }
 
-    v28 = kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::finalWeight(a1, &v57);
-    *&v61.__locale_ = v28;
-    v66[0] = 2139095040;
-    if (v28 != INFINITY)
+    v31 = kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::finalWeight(a1, &v59);
+    *&v63.__locale_ = v31;
+    v68[0] = 2139095040;
+    if (v31 != INFINITY)
     {
-      v29 = *(v27 + 24);
-      if (v29 != -1)
+      v32 = *(v29 + 24);
+      if (v32 != -1)
       {
-        v30 = *(a1 + 40);
-        if (*(v30 + 48))
+        v33 = *(a1 + 5);
+        if (*(v33 + 48))
         {
-          v31 = 1;
+          v34 = 1;
         }
 
         else
         {
-          v31 = a2 == 0;
+          v34 = a2 == 0;
         }
 
-        v32 = *(*(v30 + 8) + 24 * a2);
-        v33 = *(v27 + 20);
-        if (v31)
+        v35 = *(*(v33 + 8) + 24 * a2);
+        v36 = *(v29 + 20);
+        if (v34)
         {
-          v34 = *v32;
+          v37 = *v35;
         }
 
         else
         {
-          v34 = *v32 + 0.0;
+          v37 = *v35 + 0.0;
         }
 
         if (kaldi::g_kaldi_verbose_level >= 5)
         {
-          kaldi::KaldiVlogMessage::KaldiVlogMessage(&v61, 5);
-          v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v61, "Exit subroutine state=", 22);
-          v36 = MEMORY[0x1B8C84C00](v35, v57);
-          v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, " nextstate=", 11);
-          v38 = MEMORY[0x1B8C84C00](v37, *(v27 + 24));
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, " weight=", 8);
+          kaldi::KaldiVlogMessage::KaldiVlogMessage(&v63, 5);
+          v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v63, "Exit subroutine state=", 22);
+          v39 = MEMORY[0x1B8C84C00](v38, v59);
+          v40 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, " nextstate=", 11);
+          v41 = MEMORY[0x1B8C84C00](v40, *(v29 + 24));
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, " weight=", 8);
           std::ostream::operator<<();
-          kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v61);
-          v29 = *(v27 + 24);
+          kaldi::KaldiVlogMessage::~KaldiVlogMessage(&v63);
+          v32 = *(v29 + 24);
         }
 
-        kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::insertTracebackLink(a1, v29, 0, 0, -1, *(v10 + 4), a2, v28 + (v33 + v34));
+        v30.n128_f32[0] = v31 + (v36 + v37);
+        kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::insertTracebackLink(a1, v32, 0, 0, 0xFFFFFFFFLL, *(v10 + 4), a2, v30);
       }
     }
 
-    v39 = *(a1 + 128);
-    v65 = 0;
-    (*(*v39 + 136))(v39, v57, &v61);
+    v42 = *(a1 + 16);
+    v67 = 0;
+    (*(*v42 + 136))(v42, v59, &v63);
     while (2)
     {
-      if (!v61.__locale_)
+      if (!v63.__locale_)
       {
-        if (v65 >= v63)
+        if (v67 >= v65)
         {
           goto LABEL_70;
         }
@@ -2599,48 +3763,48 @@ LABEL_35:
         goto LABEL_53;
       }
 
-      if (!(*(*v61.__locale_ + 24))(v61.__locale_))
+      if (!(*(*v63.__locale_ + 24))(v63.__locale_))
       {
-        if (v61.__locale_)
+        if (v63.__locale_)
         {
-          v40 = (*(*v61.__locale_ + 32))();
+          v44 = (*(*v63.__locale_ + 32))();
           goto LABEL_54;
         }
 
 LABEL_53:
-        v40 = (v62 + 16 * v65);
+        v44 = (v64 + 16 * v67);
 LABEL_54:
-        v66[0] = v40[3];
-        v41 = *v40;
-        if (v41)
+        v68[0] = v44[3];
+        v45 = *v44;
+        if (v45)
         {
-          v42 = *(a1 + 40);
-          v43 = *(v42 + 48) != v41 || a2 == 0;
-          v44 = v40[2];
-          v45 = *(v27 + 20);
-          v46 = *(*(v42 + 8) + 24 * a2);
-          v47 = v43 ? *(v46 + 4 * v41) : *(v46 + 4 * v41) + a3;
-          v48 = kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::modifyArcForSubroutineEntry(a1, *(v40 + 1), v66, *(v27 + 24));
-          v49 = (v44 + v45) + v47;
-          if (v49 < v19)
+          v46 = *(a1 + 5);
+          v47 = *(v46 + 48) != v45 || a2 == 0;
+          v48 = v44[2];
+          v49 = *(v29 + 20);
+          v50 = *(*(v46 + 8) + 24 * a2);
+          v51 = v47 ? *(v50 + 4 * v45) : *(v50 + 4 * v45) + a3;
+          v52 = kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::modifyArcForSubroutineEntry(a1, *(v44 + 1), v68, *(v29 + 24));
+          v43.n128_f32[0] = (v48 + v49) + v51;
+          if (v43.n128_f32[0] < v21)
           {
-            if ((v49 + v59) < v19)
+            if ((v43.n128_f32[0] + v61) < v21)
             {
-              v19 = v49 + v59;
+              v21 = v43.n128_f32[0] + v61;
             }
 
-            kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::insertTracebackLink(a1, v66[0], *v40, *(v40 + 1), v48, *(v10 + 4), a2, v49);
+            kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::insertTracebackLink(a1, v68[0], *v44, *(v44 + 1), v52, *(v10 + 4), a2, v43);
           }
         }
 
-        if (v61.__locale_)
+        if (v63.__locale_)
         {
-          (*(*v61.__locale_ + 40))(v61.__locale_);
+          (*(*v63.__locale_ + 40))(v63.__locale_);
         }
 
         else
         {
-          ++v65;
+          ++v67;
         }
 
         continue;
@@ -2649,65 +3813,65 @@ LABEL_54:
       break;
     }
 
-    if (v61.__locale_)
+    if (v63.__locale_)
     {
-      (*(*v61.__locale_ + 8))();
+      (*(*v63.__locale_ + 8))();
       goto LABEL_72;
     }
 
 LABEL_70:
-    if (v64)
+    if (v66)
     {
-      --*v64;
+      --*v66;
     }
 
 LABEL_72:
-    v50 = *(a1 + 40);
-    if (*(v50 + 48))
+    v53 = *(a1 + 5);
+    if (*(v53 + 48))
     {
-      v51 = 1;
+      v54 = 1;
     }
 
     else
     {
-      v51 = a2 == 0;
+      v54 = a2 == 0;
     }
 
-    v52 = *(*(v50 + 8) + 24 * a2);
-    v53 = *v52;
-    if (!v51)
+    v55 = *(*(v53 + 8) + 24 * a2);
+    v56 = *v55;
+    if (!v54)
     {
-      v53 = *v52 + 0.0;
+      v56 = *v55 + 0.0;
     }
 
-    v54 = *(v27 + 20) + v53;
-    if (v54 < v19)
+    v43.n128_f32[0] = *(v29 + 20) + v56;
+    if (v43.n128_f32[0] < v21)
     {
-      if ((v54 + v59) < v19)
+      if ((v43.n128_f32[0] + v61) < v21)
       {
-        v19 = v54 + v59;
+        v21 = v43.n128_f32[0] + v61;
       }
 
-      kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::insertTracebackLink(a1, v57, a2, 0, *(v27 + 24), *(v10 + 4), a2, v54);
+      kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::insertTracebackLink(a1, v59, a2, 0, *(v29 + 24), *(v10 + 4), a2, v43);
     }
 
 LABEL_81:
-    v55 = *(v10 + 8);
-    *(v10 + 8) = *(a1 + 96);
-    *(a1 + 96) = v10;
-    v10 = v55;
-    if (v55)
+    v57 = *(v10 + 8);
+    *(v10 + 8) = *(a1 + 12);
+    *(a1 + 12) = v10;
+    v10 = v57;
+    if (v57)
     {
       continue;
     }
 
-    return v19;
+    return v21;
   }
 }
 
-void sub_1B52B80C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B52B80C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   kaldi::KaldiVlogMessage::~KaldiVlogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2927,15 +4091,15 @@ unint64_t kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::NewToken(uint64
   return v9;
 }
 
-uint64_t kaldi::HashList<int,unsigned int,std::hash<int>,std::equal_to<int>>::New(uint64_t a1)
+uint64_t kaldi::HashList<int,unsigned int,std::hash<int>,std::equal_to<int>>::New(void *a1)
 {
-  result = *(a1 + 48);
+  result = a1[6];
   if (!result)
   {
     operator new[]();
   }
 
-  *(a1 + 48) = *(result + 8);
+  a1[6] = *(result + 8);
   return result;
 }
 
@@ -3119,10 +4283,10 @@ LABEL_13:
   return result;
 }
 
-void kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::GetCutoff(uint64_t a1, uint64_t a2, void *a3, float *a4, void *a5, float a6)
+void kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::GetCutoff(uint64_t result, uint64_t a2, void *a3, float *a4, uint64_t *a5, float a6)
 {
   v7 = a2;
-  if (*(a1 + 172) == 0x7FFFFFFF)
+  if (*(result + 172) == 0x7FFFFFFF)
   {
     v9 = 0;
     v10 = 1.0e10;
@@ -3130,7 +4294,7 @@ void kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::GetCutoff(uint64_t a
     {
       do
       {
-        v11 = *(*a1 + 28 * (*(v7 + 4) - 1) + 20);
+        v11 = *(*result + 28 * (*(v7 + 4) - 1) + 20);
         if (v11 >= v10)
         {
           v12 = 1;
@@ -3138,7 +4302,7 @@ void kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::GetCutoff(uint64_t a
 
         else
         {
-          v10 = *(*a1 + 28 * (*(v7 + 4) - 1) + 20);
+          v10 = *(*result + 28 * (*(v7 + 4) - 1) + 20);
           v12 = a5 == 0;
         }
 
@@ -3162,23 +4326,23 @@ void kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::GetCutoff(uint64_t a
 
     if (a4)
     {
-      *a4 = *(a1 + 168);
+      *a4 = *(result + 168);
     }
   }
 
   else
   {
-    v13 = (a1 + 248);
-    *(a1 + 256) = *(a1 + 248);
+    v13 = (result + 248);
+    *(result + 256) = *(result + 248);
     v14 = 0;
     v15 = 1.0e10;
     if (a2)
     {
       do
       {
-        v16 = *(*a1 + 28 * (*(v7 + 4) - 1) + 20);
-        v18 = *(a1 + 256);
-        v17 = *(a1 + 264);
+        v16 = *(*result + 28 * (*(v7 + 4) - 1) + 20);
+        v18 = *(result + 256);
+        v17 = *(result + 264);
         if (v18 >= v17)
         {
           v20 = *v13;
@@ -3208,16 +4372,16 @@ void kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::GetCutoff(uint64_t a
 
           if (v25)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(a1 + 248, v25);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(result + 248, v25);
           }
 
           *(4 * v22) = v16;
           v19 = 4 * v22 + 4;
           memcpy(0, v20, v21);
-          v26 = *(a1 + 248);
-          *(a1 + 248) = 0;
-          *(a1 + 256) = v19;
-          *(a1 + 264) = 0;
+          v26 = *(result + 248);
+          *(result + 248) = 0;
+          *(result + 256) = v19;
+          *(result + 264) = 0;
           if (v26)
           {
             operator delete(v26);
@@ -3230,7 +4394,7 @@ void kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::GetCutoff(uint64_t a
           v19 = (v18 + 1);
         }
 
-        *(a1 + 256) = v19;
+        *(result + 256) = v19;
         if (v16 >= v15)
         {
           v27 = 1;
@@ -3260,33 +4424,33 @@ void kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::GetCutoff(uint64_t a
       *a3 = v14;
     }
 
-    v28 = *(a1 + 248);
-    v29 = *(a1 + 256);
+    v28 = *(result + 248);
+    v29 = *(result + 256);
     v30 = v29 - v28;
-    v31 = *(a1 + 172);
+    v31 = *(result + 172);
     if (v30 <= v31)
     {
       if (a4)
       {
-        *a4 = *(a1 + 168);
+        *a4 = *(result + 168);
       }
     }
 
     else
     {
-      if (v30 > *(a1 + 272))
+      if (v30 > *(result + 272))
       {
-        *(a1 + 272) = v30;
+        *(result + 272) = v30;
       }
 
       v32 = &v28[v31];
       if (v32 != v29)
       {
         std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(v28, v32, v29, a6);
-        v32 = (*(a1 + 248) + 4 * *(a1 + 172));
+        v32 = (*(result + 248) + 4 * *(result + 172));
       }
 
-      v33 = *(a1 + 168);
+      v33 = *(result + 168);
       v34 = v15 + v33;
       if (*v32 < (v15 + v33))
       {
@@ -3295,7 +4459,7 @@ void kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::GetCutoff(uint64_t a
 
       if (a4)
       {
-        v35 = *(a1 + 176);
+        v35 = *(result + 176);
         if (((v34 - v15) + v35) < v33)
         {
           v33 = (v34 - v15) + v35;
@@ -3307,11 +4471,11 @@ void kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::GetCutoff(uint64_t a
   }
 }
 
-void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(float *a1, float *a2, float *a3, float a4)
+void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(float *result, float *a2, float *a3, float a4)
 {
   while (a3 != a2)
   {
-    v4 = a3 - a1;
+    v4 = a3 - result;
     if (v4 < 2)
     {
       break;
@@ -3319,11 +4483,11 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
 
     if (v4 == 3)
     {
-      v37 = a1[1];
+      v37 = result[1];
       v38 = *(a3 - 1);
       if (v37 < v38)
       {
-        v39 = *(a1 + 1);
+        v39 = *(result + 1);
       }
 
       else
@@ -3337,46 +4501,46 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
       }
 
       *(a3 - 1) = v37;
-      *(a1 + 1) = v39;
+      *(result + 1) = v39;
       v40 = *(a3 - 1);
-      if (v40 < *a1)
+      if (v40 < *result)
       {
         v41 = *(a3 - 1);
       }
 
       else
       {
-        v41 = *a1;
+        v41 = *result;
       }
 
-      if (v40 < *a1)
+      if (v40 < *result)
       {
-        v40 = *a1;
+        v40 = *result;
       }
 
       *(a3 - 1) = v40;
-      v42 = a1[1];
+      v42 = result[1];
       if (v41 < v42)
       {
-        v41 = a1[1];
+        v41 = result[1];
       }
 
       else
       {
-        *a1 = v42;
+        *result = v42;
       }
 
-      a1[1] = v41;
+      result[1] = v41;
       return;
     }
 
     if (v4 == 2)
     {
       v43 = *(a3 - 1);
-      v44 = *a1;
-      if (v43 < *a1)
+      v44 = *result;
+      if (v43 < *result)
       {
-        *a1 = v43;
+        *result = v43;
         *(a3 - 1) = v44;
       }
 
@@ -3385,11 +4549,11 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
 
     if (v4 <= 7)
     {
-      std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(a1, a3, a4);
+      std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(result, a3, a4);
       return;
     }
 
-    v5 = &a1[(a3 - a1) >> 3];
+    v5 = &result[(a3 - result) >> 3];
     v6 = a3 - 1;
     v7 = *(a3 - 1);
     v8 = *v5;
@@ -3416,20 +4580,20 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
     *v6 = v10;
     *v5 = v9;
     v11 = *v6;
-    v12 = *a1;
-    if (*v6 < *a1)
+    v12 = *result;
+    if (*v6 < *result)
     {
       v13 = *v6;
     }
 
     else
     {
-      v13 = *a1;
+      v13 = *result;
     }
 
-    if (*v6 < *a1)
+    if (*v6 < *result)
     {
-      v14 = *a1;
+      v14 = *result;
     }
 
     else
@@ -3442,7 +4606,7 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
     v16 = *v5;
     if (v13 >= *v5)
     {
-      *a1 = v15;
+      *result = v15;
       v16 = v13;
     }
 
@@ -3458,15 +4622,15 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
       v17 = 1;
     }
 
-    a4 = *a1;
-    if (*a1 >= v16)
+    a4 = *result;
+    if (*result >= v16)
     {
       v18 = a3 - 1;
-      while (--v18 != a1)
+      while (--v18 != result)
       {
         if (*v18 < v16)
         {
-          *a1 = *v18;
+          *result = *v18;
           *v18 = a4;
           if (v17)
           {
@@ -3482,7 +4646,7 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
         }
       }
 
-      v28 = a1 + 1;
+      v28 = result + 1;
       if (a4 >= *v6)
       {
         while (v28 != v6)
@@ -3509,7 +4673,7 @@ LABEL_65:
 
       while (1)
       {
-        v32 = *a1;
+        v32 = *result;
         do
         {
           v33 = *v28++;
@@ -3534,7 +4698,7 @@ LABEL_65:
         *v6 = a4;
       }
 
-      a1 = v28 - 1;
+      result = v28 - 1;
       if (v34 > a2)
       {
         return;
@@ -3545,15 +4709,15 @@ LABEL_65:
     {
       v18 = a3 - 1;
 LABEL_33:
-      v19 = a1 + 1;
-      if (a1 + 1 >= v18)
+      v19 = result + 1;
+      if (result + 1 >= v18)
       {
-        v23 = a1 + 1;
+        v23 = result + 1;
       }
 
       else
       {
-        v20 = a1 + 1;
+        v20 = result + 1;
         while (1)
         {
           v21 = *v5;
@@ -3639,7 +4803,7 @@ LABEL_33:
 LABEL_49:
       if (v23 <= a2)
       {
-        a1 = v23 + 1;
+        result = v23 + 1;
       }
 
       else
@@ -3860,11 +5024,11 @@ LABEL_37:
   return result;
 }
 
-void sub_1B52B9800(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, _DWORD *a14)
+void sub_1B52B9800(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, _DWORD *a14)
 {
   if (a11)
   {
-    (*(*a11 + 8))(a11);
+    (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else if (a14)
@@ -3931,11 +5095,11 @@ uint64_t fst::ArcMap<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::RmWeigh
   return result;
 }
 
-void sub_1B52B9B60(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_1B52B9B60(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    (*(*a11 + 8))(a11);
+    (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4162,7 +5326,7 @@ void sub_1B52BA170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void fst::RemoveEpsLocalClass<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::ReweightPlusDefault<fst::TropicalWeightTpl<float>>>::RemoveEpsPattern1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void fst::RemoveEpsLocalClass<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::ReweightPlusDefault<fst::TropicalWeightTpl<float>>>::RemoveEpsPattern1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
   v44 = a4;
   v45 = a5;
@@ -4436,7 +5600,7 @@ void sub_1B52BA87C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void fst::RemoveEpsLocalClass<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::ReweightPlusDefault<fst::TropicalWeightTpl<float>>>::RemoveEpsPattern2(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void fst::RemoveEpsLocalClass<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::ReweightPlusDefault<fst::TropicalWeightTpl<float>>>::RemoveEpsPattern2(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
   v5 = *&a5;
   v27 = a4;
@@ -4550,11 +5714,11 @@ LABEL_36:
   }
 }
 
-void sub_1B52BADF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_1B52BADF0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    (*(*a14 + 8))(a14);
+    (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4701,11 +5865,11 @@ uint64_t fst::RemoveEpsLocalClass<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>
   return result;
 }
 
-void sub_1B52BB2B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_1B52BB2B4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a16)
   {
-    (*(*a16 + 8))(a16);
+    (*(*a16 + 8))(a16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4759,11 +5923,11 @@ uint64_t fst::ArcMap<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Project
   return result;
 }
 
-void sub_1B52BB650(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_1B52BB650(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    (*(*a12 + 8))(a12);
+    (*(*a12 + 8))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5100,21 +6264,21 @@ uint64_t *kaldi::quasar::SymbolDecoder<kaldi::quasar::Phonomap>::~SymbolDecoder(
   return a1;
 }
 
-void std::vector<quasar::PhoneticMatchResult>::__assign_with_size[abi:ne200100]<quasar::PhoneticMatchResult*,quasar::PhoneticMatchResult*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<quasar::PhoneticMatchResult>::__assign_with_size[abi:ne200100]<quasar::PhoneticMatchResult*,quasar::PhoneticMatchResult*>(char **a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v8 = *a1;
-  if (0x8E38E38E38E38E39 * ((*(a1 + 16) - *a1) >> 3) < a4)
+  if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 3) < a4)
   {
     std::vector<quasar::PhoneticMatchResult>::__vdeallocate(a1);
     if (a4 <= 0x38E38E38E38E38ELL)
     {
-      v9 = 0x1C71C71C71C71C72 * ((*(a1 + 16) - *a1) >> 3);
+      v9 = 0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 3);
       if (v9 <= a4)
       {
         v9 = a4;
       }
 
-      if (0x8E38E38E38E38E39 * ((*(a1 + 16) - *a1) >> 3) >= 0x1C71C71C71C71C7)
+      if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 3) >= 0x1C71C71C71C71C7)
       {
         v10 = 0x38E38E38E38E38ELL;
       }
@@ -5130,12 +6294,12 @@ void std::vector<quasar::PhoneticMatchResult>::__assign_with_size[abi:ne200100]<
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  v11 = *(a1 + 8) - v8;
+  v11 = a1[1] - v8;
   if (0x8E38E38E38E38E39 * (v11 >> 3) >= a4)
   {
     std::__copy_impl::operator()[abi:ne200100]<quasar::PhoneticMatchResult *,quasar::PhoneticMatchResult *,quasar::PhoneticMatchResult *>(&v16, a2, a3, v8);
     v13 = v12;
-    v14 = *(a1 + 8);
+    v14 = a1[1];
     if (v14 != v12)
     {
       do
@@ -5147,17 +6311,17 @@ void std::vector<quasar::PhoneticMatchResult>::__assign_with_size[abi:ne200100]<
       while (v14 != v13);
     }
 
-    *(a1 + 8) = v13;
+    a1[1] = v13;
   }
 
   else
   {
     std::__copy_impl::operator()[abi:ne200100]<quasar::PhoneticMatchResult *,quasar::PhoneticMatchResult *,quasar::PhoneticMatchResult *>(&v15, a2, a2 + v11, v8);
-    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<quasar::PhoneticMatchResult>,quasar::PhoneticMatchResult*,quasar::PhoneticMatchResult*,quasar::PhoneticMatchResult*>(a1, a2 + v11, a3, *(a1 + 8));
+    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<quasar::PhoneticMatchResult>,quasar::PhoneticMatchResult*,quasar::PhoneticMatchResult*,quasar::PhoneticMatchResult*>(a1, a2 + v11, a3, a1[1]);
   }
 }
 
-void std::vector<quasar::PhoneticMatchResult>::__vdeallocate(void **a1)
+void std::vector<quasar::PhoneticMatchResult>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -5184,7 +6348,7 @@ void std::vector<quasar::PhoneticMatchResult>::__vdeallocate(void **a1)
   }
 }
 
-void std::vector<quasar::PhoneticMatchResult>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<quasar::PhoneticMatchResult>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x38E38E38E38E38FLL)
   {
@@ -5212,7 +6376,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<q
       *(v4 + 16) = 0;
       *(v4 + 24) = 0;
       *(v4 + 32) = 0;
-      std::vector<quasar::PhoneticMatchAlignmentSpan>::__init_with_size[abi:ne200100]<quasar::PhoneticMatchAlignmentSpan*,quasar::PhoneticMatchAlignmentSpan*>(v4 + 16, *(v6 - 3), *(v6 - 2), 0x8E38E38E38E38E39 * ((*(v6 - 2) - *(v6 - 3)) >> 3));
+      std::vector<quasar::PhoneticMatchAlignmentSpan>::__init_with_size[abi:ne200100]<quasar::PhoneticMatchAlignmentSpan*,quasar::PhoneticMatchAlignmentSpan*>((v4 + 16), *(v6 - 3), *(v6 - 2), 0x8E38E38E38E38E39 * ((*(v6 - 2) - *(v6 - 3)) >> 3));
       v7 = v6 - 40;
       if (*(v6 + 23) < 0)
       {
@@ -5242,16 +6406,16 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<q
   return v4;
 }
 
-void sub_1B52BC208(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B52BC208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
   std::vector<quasar::PhoneticMatchAlignmentSpan>::__destroy_vector::operator()[abi:ne200100](va1);
   std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<quasar::PhoneticMatchResult>,quasar::PhoneticMatchResult*>>::~__exception_guard_exceptions[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -5272,7 +6436,7 @@ uint64_t std::__copy_impl::operator()[abi:ne200100]<quasar::PhoneticMatchResult 
     *a4 = *(v6 - 24);
     if (a4 != v6 - 24)
     {
-      std::vector<quasar::PhoneticMatchAlignmentSpan>::__assign_with_size[abi:ne200100]<quasar::PhoneticMatchAlignmentSpan*,quasar::PhoneticMatchAlignmentSpan*>((a4 + 16), *(v6 - 8), *v6, 0x8E38E38E38E38E39 * ((*v6 - *(v6 - 8)) >> 3));
+      std::vector<quasar::PhoneticMatchAlignmentSpan>::__assign_with_size[abi:ne200100]<quasar::PhoneticMatchAlignmentSpan*,quasar::PhoneticMatchAlignmentSpan*>(a4 + 16, *(v6 - 8), *v6, 0x8E38E38E38E38E39 * ((*v6 - *(v6 - 8)) >> 3));
     }
 
     std::string::operator=((a4 + 40), (v6 + 16));
@@ -5622,7 +6786,7 @@ LABEL_6:
   return 0;
 }
 
-void quasar::PhonesetMapping::getMappedPhonemes(int a1, uint64_t a2, uint64_t a3)
+void quasar::PhonesetMapping::getMappedPhonemes(uint64_t a1, void *a2, uint64_t a3)
 {
   if (*(a3 + 23) < 0)
   {
@@ -5657,13 +6821,6 @@ void sub_1B52BCCF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::PhonesetMapping::getIpaPhoneSequence(uint64_t a1, uint64_t a2)
-{
-  v3 = a1;
-  quasar::PhonesetMapPerLanguage::getAsrToIpaMap(a1);
-  quasar::PhonesetMapping::getMappedPhonemes(v3, v4, a2);
-}
-
 void sub_1B52BCEA0(_Unwind_Exception *a1)
 {
   if (*(v1 + 23) < 0)
@@ -5675,645 +6832,584 @@ void sub_1B52BCEA0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-double quasar::PhonesetMapPerLanguage::getAsrToIpaMap(uint64_t a1)
+double quasar::PhonesetMapPerLanguage::getAsrToIpaMap(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = MEMORY[0x1EEE9AC00](a1);
-  v2 = v1;
+  v3 = MEMORY[0x1EEE9AC00](a1, a2, a3);
   v4 = v3;
-  *&v204[1] = *MEMORY[0x1E69E9840];
-  v5 = *(v1 + 23);
-  if (v5 < 0)
+  v6 = v5;
+  *&v206[1] = *MEMORY[0x1E69E9840];
+  v7 = *(v3 + 23);
+  if (v7 < 0)
   {
-    if (v1[1] != 5 || (**v1 == 1432317541 ? (v12 = *(*v1 + 4) == 83) : (v12 = 0), !v12))
+    if (v3[1] != 5 || (**v3 == 1432317541 ? (v14 = *(*v3 + 4) == 83) : (v14 = 0), !v14))
     {
-      if (v1[1] != 5 || (**v1 == 1130326138 ? (v13 = *(*v1 + 4) == 78) : (v13 = 0), !v13))
+      if (v3[1] != 5 || (**v3 == 1130326138 ? (v15 = *(*v3 + 4) == 78) : (v15 = 0), !v15))
       {
-        if (v1[1] != 5 || (**v1 == 1096773221 ? (v14 = *(*v1 + 4) == 85) : (v14 = 0), !v14))
+        if (v3[1] != 5 || (**v3 == 1096773221 ? (v16 = *(*v3 + 4) == 85) : (v16 = 0), !v16))
         {
-          if (v1[1] != 5 || (**v1 == 1197436517 ? (v15 = *(*v1 + 4) == 66) : (v15 = 0), !v15))
+          if (v3[1] != 5 || (**v3 == 1197436517 ? (v17 = *(*v3 + 4) == 66) : (v17 = 0), !v17))
           {
-            if (v1[1] == 5)
+            if (v3[1] == 5)
             {
-              if (**v1 == 1163883365 && *(*v1 + 4) == 83)
+              if (**v3 == 1163883365 && *(*v3 + 4) == 83)
               {
 LABEL_117:
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v47, "AA", "ˈa");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v48, "AU", "ˈa w");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v49, "AY", "ˈa j");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v50, "EE", "ˈe");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v51, "EY", "ˈe j");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v52, "II", "ˈi");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v53, "OO", "ˈo");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v54, "OY", "ˈo j");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v55, "UU", "ˈu");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v56, "UY", "ˈu i");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v57, "Z", "θ");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v58, "aa", "a");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v59, "b", "b");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v60, "ch", "t͡ʃ");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v61, "d", "ð");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v62, "ee", "e");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v63, "f", "f");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v64, "g", "g");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v65, "ii", "i");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v66, "j", "x");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v67, "k", "k");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v68, "ks", "ks");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v69, "l", "l");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v70, "m", "m");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v71, "n", "n");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v72, "nn", "ɲ");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v73, "oo", "o");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v74, "p", "p");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v75, "r", "ɾ");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v76, "rr", "r");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "s", "s");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v78, "t", "t");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v79, "uu", "u");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v80, "w", "w");
-                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v81, "y", "j");
-                std::unordered_map<std::string,std::string>::unordered_map(v4, v47, 35);
-                v37 = 210;
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v49, "AA", "ˈa");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v50, "AU", "ˈa w");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v51, "AY", "ˈa j");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v52, "EE", "ˈe");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v53, "EY", "ˈe j");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v54, "II", "ˈi");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v55, "OO", "ˈo");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v56, "OY", "ˈo j");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v57, "UU", "ˈu");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v58, "UY", "ˈu i");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v59, "Z", "θ");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v60, "aa", "a");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v61, "b", "b");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v62, "ch", "t͡ʃ");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v63, "d", "ð");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v64, "ee", "e");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v65, "f", "f");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v66, "g", "g");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v67, "ii", "i");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v68, "j", "x");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v69, "k", "k");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v70, "ks", "ks");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v71, "l", "l");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "m", "m");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v73, "n", "n");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v74, "nn", "ɲ");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v75, "oo", "o");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v76, "p", "p");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v77, "r", "ɾ");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v78, "rr", "r");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v79, "s", "s");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v80, "t", "t");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v81, "uu", "u");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v82, "w", "w");
+                std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v83, "y", "j");
+                std::unordered_map<std::string,std::string>::unordered_map(v6, v49, 35);
+                v39 = 210;
                 do
                 {
-                  v38 = &v47[v37];
-                  if (SHIBYTE(v47[v37 - 1]) < 0)
+                  v40 = &v49[v39];
+                  if (SHIBYTE(v49[v39 - 1]) < 0)
                   {
-                    operator delete(*(v38 - 3));
+                    operator delete(*(v40 - 3));
                   }
 
-                  if (*(v38 - 25) < 0)
+                  if (*(v40 - 25) < 0)
                   {
-                    operator delete(*(v38 - 6));
+                    operator delete(*(v40 - 6));
                   }
 
-                  v37 -= 6;
+                  v39 -= 6;
                 }
 
-                while (v37 * 8);
+                while (v39 * 8);
                 return result;
               }
 
-              if ((v5 & 0x80000000) == 0)
+              if ((v7 & 0x80000000) == 0)
               {
                 goto LABEL_57;
               }
             }
 
-            if (v1[1] != 5)
+            if (v3[1] != 5)
             {
               goto LABEL_57;
             }
 
-            v11 = *v1;
+            v13 = *v3;
             goto LABEL_53;
           }
 
 LABEL_102:
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v47, "AA", "ˈæ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[12],0>(v48, "AE", "ˈɛ͡ə ɻ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v49, "AH", "ˈɑ ɻ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v50, "AW", "ˈɒ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v51, "AWH", "ˈɔ ɻ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v52, "AY", "ˈa͡ɪ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v53, "EE", "ˈi");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v54, "EH", "ˈɛ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v55, "EY", "ˈe͡ɪ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v56, "IH", "ˈɪ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v57, "OH", "ˈo͡ʊ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v58, "OO", "ˈʊ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v59, "OOH", "ˈu");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v60, "OW", "ˈa͡ʊ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v61, "OY", "ˈɔ͡ɪ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v62, "UH", "ˈʌ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v63, "UR", "ˈɜ ɻ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v64, "b", "b");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v65, "ch", "t͡ʃ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v66, "d", "d");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v67, "dh", "ð");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v68, "ee", "i");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v69, "eh", "ɪ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v70, "f", "f");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v71, "g", "g");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "h", "h");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v73, "ih", "ɪ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[6],0>(v74, "j", "d͡ʒ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v75, "k", "k");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v76, "l", "l");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "m", "m");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v78, "n", "n");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v79, "ng", "ŋ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v80, "oh", "o͡ʊ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v81, "p", "p");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v82, "r", "ɻ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v83, "s", "s");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v84, "sh", "ʃ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v85, "t", "t");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v86, "th", "θ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v87, "uh", "ə");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v88, "ul", "ə l");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v89, "um", "ə m");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v90, "un", "ə n");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v91, "ur", "ə ɻ");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v92, "v", "v");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v93, "w", "w");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v94, "y", "j");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v95, "z", "z");
-          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v96, "zh", "ʒ");
-          std::unordered_map<std::string,std::string>::unordered_map(v4, v47, 50);
-          v33 = 300;
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v49, "AA", "ˈæ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[12],0>(v50, "AE", "ˈɛ͡ə ɻ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v51, "AH", "ˈɑ ɻ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v52, "AW", "ˈɒ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v53, "AWH", "ˈɔ ɻ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v54, "AY", "ˈa͡ɪ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v55, "EE", "ˈi");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v56, "EH", "ˈɛ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v57, "EY", "ˈe͡ɪ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v58, "IH", "ˈɪ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v59, "OH", "ˈo͡ʊ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v60, "OO", "ˈʊ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v61, "OOH", "ˈu");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v62, "OW", "ˈa͡ʊ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v63, "OY", "ˈɔ͡ɪ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v64, "UH", "ˈʌ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v65, "UR", "ˈɜ ɻ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v66, "b", "b");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v67, "ch", "t͡ʃ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v68, "d", "d");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v69, "dh", "ð");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v70, "ee", "i");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v71, "eh", "ɪ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "f", "f");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v73, "g", "g");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v74, "h", "h");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v75, "ih", "ɪ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[6],0>(v76, "j", "d͡ʒ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "k", "k");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v78, "l", "l");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v79, "m", "m");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v80, "n", "n");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v81, "ng", "ŋ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v82, "oh", "o͡ʊ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v83, "p", "p");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v84, "r", "ɻ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v85, "s", "s");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v86, "sh", "ʃ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v87, "t", "t");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v88, "th", "θ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v89, "uh", "ə");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v90, "ul", "ə l");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v91, "um", "ə m");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v92, "un", "ə n");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v93, "ur", "ə ɻ");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v94, "v", "v");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v95, "w", "w");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v96, "y", "j");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v97, "z", "z");
+          std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v98, "zh", "ʒ");
+          std::unordered_map<std::string,std::string>::unordered_map(v6, v49, 50);
+          v35 = 300;
           do
           {
-            v34 = &v47[v33];
-            if (SHIBYTE(v47[v33 - 1]) < 0)
+            v36 = &v49[v35];
+            if (SHIBYTE(v49[v35 - 1]) < 0)
             {
-              operator delete(*(v34 - 3));
+              operator delete(*(v36 - 3));
             }
 
-            if (*(v34 - 25) < 0)
+            if (*(v36 - 25) < 0)
             {
-              operator delete(*(v34 - 6));
+              operator delete(*(v36 - 6));
             }
 
-            v33 -= 6;
+            v35 -= 6;
           }
 
-          while (v33 * 8);
+          while (v35 * 8);
           return result;
         }
 
 LABEL_95:
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v47, "AA", "ˈæ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[12],0>(v48, "AE", "ˈɛ͡ə ɻ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v49, "AH", "ˈɑ ɻ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v50, "AW", "ˈɒ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v51, "AWH", "ˈɔ ɻ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v52, "AY", "ˈa͡ɪ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v53, "EE", "ˈi");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v54, "EH", "ˈɛ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v55, "EY", "ˈe͡ɪ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v56, "IH", "ˈɪ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v57, "OH", "ˈo͡ʊ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v58, "OO", "ˈʊ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v59, "OOH", "ˈu");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v60, "OW", "ˈa͡ʊ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v61, "OY", "ˈɔ͡ɪ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v62, "UH", "ˈʌ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v63, "UR", "ˈɜ ɻ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v64, "b", "b");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v65, "ch", "t͡ʃ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v66, "d", "d");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v67, "dh", "ð");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v68, "ee", "i");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v69, "eh", "ɪ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v70, "f", "f");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v71, "g", "g");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "h", "h");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v73, "ih", "ɪ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[6],0>(v74, "j", "d͡ʒ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v75, "k", "k");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v76, "l", "l");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "m", "m");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v78, "n", "n");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v79, "ng", "ŋ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v80, "oh", "o͡ʊ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v81, "p", "p");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v82, "r", "ɻ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v83, "s", "s");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v84, "sh", "ʃ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v85, "t", "t");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v86, "th", "θ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v87, "uh", "ə");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v88, "ul", "ə l");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v89, "um", "ə m");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v90, "un", "ə n");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v91, "ur", "ə ɻ");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v92, "v", "v");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v93, "w", "w");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v94, "y", "j");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v95, "z", "z");
-        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v96, "zh", "ʒ");
-        std::unordered_map<std::string,std::string>::unordered_map(v4, v47, 50);
-        v31 = 300;
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v49, "AA", "ˈæ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[12],0>(v50, "AE", "ˈɛ͡ə ɻ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v51, "AH", "ˈɑ ɻ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v52, "AW", "ˈɒ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v53, "AWH", "ˈɔ ɻ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v54, "AY", "ˈa͡ɪ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v55, "EE", "ˈi");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v56, "EH", "ˈɛ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v57, "EY", "ˈe͡ɪ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v58, "IH", "ˈɪ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v59, "OH", "ˈo͡ʊ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v60, "OO", "ˈʊ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v61, "OOH", "ˈu");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v62, "OW", "ˈa͡ʊ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v63, "OY", "ˈɔ͡ɪ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v64, "UH", "ˈʌ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v65, "UR", "ˈɜ ɻ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v66, "b", "b");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v67, "ch", "t͡ʃ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v68, "d", "d");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v69, "dh", "ð");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v70, "ee", "i");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v71, "eh", "ɪ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "f", "f");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v73, "g", "g");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v74, "h", "h");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v75, "ih", "ɪ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[6],0>(v76, "j", "d͡ʒ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "k", "k");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v78, "l", "l");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v79, "m", "m");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v80, "n", "n");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v81, "ng", "ŋ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v82, "oh", "o͡ʊ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v83, "p", "p");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v84, "r", "ɻ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v85, "s", "s");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v86, "sh", "ʃ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v87, "t", "t");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v88, "th", "θ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v89, "uh", "ə");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v90, "ul", "ə l");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v91, "um", "ə m");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v92, "un", "ə n");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v93, "ur", "ə ɻ");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v94, "v", "v");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v95, "w", "w");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v96, "y", "j");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v97, "z", "z");
+        std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v98, "zh", "ʒ");
+        std::unordered_map<std::string,std::string>::unordered_map(v6, v49, 50);
+        v33 = 300;
         do
         {
-          v32 = &v47[v31];
-          if (SHIBYTE(v47[v31 - 1]) < 0)
+          v34 = &v49[v33];
+          if (SHIBYTE(v49[v33 - 1]) < 0)
           {
-            operator delete(*(v32 - 3));
+            operator delete(*(v34 - 3));
           }
 
-          if (*(v32 - 25) < 0)
+          if (*(v34 - 25) < 0)
           {
-            operator delete(*(v32 - 6));
+            operator delete(*(v34 - 6));
           }
 
-          v31 -= 6;
+          v33 -= 6;
         }
 
-        while (v31 * 8);
+        while (v33 * 8);
         return result;
       }
 
 LABEL_80:
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v47, "A1", "a˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v48, "A2", "a˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v49, "A3", "a˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v50, "A4", "a˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v51, "A5", "a˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v52, "AG1", "ɑŋ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v53, "AG2", "ɑŋ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v54, "AG3", "ɑŋ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v55, "AG4", "ɑŋ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v56, "AG5", "ɑŋ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v57, "AI1", "a͡ɪ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v58, "AI2", "a͡ɪ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v59, "AI3", "a͡ɪ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v60, "AI4", "a͡ɪ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v61, "AI5", "a͡ɪ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v62, "AN1", "an˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v63, "AN2", "an˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v64, "AN3", "an˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v65, "AN4", "an˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v66, "AN5", "an˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v67, "AO1", "a͡ʊ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v68, "AO2", "a͡ʊ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v69, "AO3", "a͡ʊ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v70, "AO4", "a͡ʊ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v71, "AO5", "a͡ʊ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "B", "p");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v73, "BI", "pj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v74, "BU", "p");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[7],0>(v75, "C", "t͡sʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v76, "CH", "t͡ʂʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v77, "CHU", "t͡ʂʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v78, "CU", "t͡sʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v79, "D", "t");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v80, "DI", "tj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v81, "DU", "tw");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v82, "E1", "ɤ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v83, "E2", "ɤ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v84, "E3", "ɤ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v85, "E4", "ɤ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v86, "E5", "ɤ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v87, "EG1", "əŋ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v88, "EG2", "əŋ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v89, "EG3", "əŋ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v90, "EG4", "əŋ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v91, "EG5", "əŋ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v92, "EI1", "e͡ɪ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v93, "EI2", "e͡ɪ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v94, "EI3", "e͡ɪ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v95, "EI4", "e͡ɪ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v96, "EI5", "e͡ɪ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v97, "EN1", "ən˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v98, "EN2", "ən˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v99, "EN3", "ən˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v100, "EN4", "ən˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v101, "EN5", "ən˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v102, "ER2", "ə˞˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v103, "ER3", "ə˞˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v104, "ER4", "ə˞˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v105, "ER5", "ə˞˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v106, "F", "f");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v107, "G", "k");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[1],0>(v108, "GS", "");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v109, "GU", "kw");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v110, "H", "χ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v111, "HU", "χw");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v112, "I1", "i˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v113, "I2", "i˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v114, "I3", "i˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v115, "I4", "i˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v116, "I5", "i˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v117, "IE1", "ɛ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v118, "IE2", "ɛ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v119, "IE3", "ɛ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v120, "IE4", "ɛ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v121, "IE5", "ɛ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v122, "IG1", "iŋ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v123, "IG2", "iŋ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v124, "IG3", "iŋ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v125, "IG4", "iŋ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v126, "IG5", "iŋ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v127, "IH1", "ɪ̈˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v128, "IH2", "ɪ̈˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v129, "IH3", "ɪ̱˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v130, "IH4", "ɪ̈˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v131, "IH5", "ɪ̱˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v132, "IN1", "in˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v133, "IN2", "in˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v134, "IN3", "in˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v135, "IN4", "in˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v136, "IN5", "in˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v137, "JI", "t͡ɕj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v138, "JU", "t͡ɕy");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v139, "K", "kʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v140, "KU", "kʰw");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v141, "L", "l");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v142, "LI", "lj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v143, "LU", "l");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v144, "LYU", "ly");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v145, "M", "m");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v146, "MI", "mj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v147, "MU", "m");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v148, "N", "n");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v149, "NI", "nj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v150, "NU", "n");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v151, "NYU", "ny");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v152, "O1", "ɔ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v153, "O2", "ɔ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v154, "O3", "ɔ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v155, "O4", "ɔ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v156, "O5", "ɔ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v157, "OG1", "oŋ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v158, "OG2", "oŋ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v159, "OG3", "oŋ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v160, "OG4", "oŋ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v161, "OG5", "oŋ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v162, "OU1", "o͡ʊ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v163, "OU2", "o͡ʊ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v164, "OU3", "o͡ʊ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v165, "OU4", "o͡ʊ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v166, "OU5", "o͡ʊ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v167, "P", "pʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v168, "PI", "pʰj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v169, "QI", "t͡ɕʰj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v170, "QU", "t͡ɕʰy");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v171, "R", "ʐ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v172, "RU", "ʐ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v173, "S", "s");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v174, "SH", "ʂ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v175, "SHU", "ʂ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v176, "SU", "sw");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v177, "T", "tʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v178, "TI", "tʰj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v179, "TU", "tʰw");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v180, "U1", "u˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v181, "U2", "u˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v182, "U3", "u˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v183, "U4", "u˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v184, "U5", "u˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v185, "UN1", "wn˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v186, "UN2", "wn˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v187, "UN3", "wn˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v188, "UN4", "wn˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v189, "UN5", "wn˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v190, "W", "w");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v191, "XI", "ɕj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v192, "XU", "ɕy");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v193, "Y", "j");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v194, "YU", "jy");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v195, "YU1", "˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v196, "YU2", "˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v197, "YU3", "˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v198, "YU4", "˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v199, "YU5", "˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[5],0>(v200, "Z", "t͡s");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v201, "ZH", "t͡ʂ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v202, "ZHU", "t͡ʂ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v203, "ZU", "t͡sw");
-      std::unordered_map<std::string,std::string>::unordered_map(v4, v47, 157);
-      v27 = v204;
-      v28 = -7536;
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v49, "A1", "a˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v50, "A2", "a˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v51, "A3", "a˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v52, "A4", "a˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v53, "A5", "a˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v54, "AG1", "ɑŋ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v55, "AG2", "ɑŋ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v56, "AG3", "ɑŋ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v57, "AG4", "ɑŋ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v58, "AG5", "ɑŋ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v59, "AI1", "a͡ɪ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v60, "AI2", "a͡ɪ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v61, "AI3", "a͡ɪ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v62, "AI4", "a͡ɪ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v63, "AI5", "a͡ɪ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v64, "AN1", "an˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v65, "AN2", "an˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v66, "AN3", "an˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v67, "AN4", "an˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v68, "AN5", "an˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v69, "AO1", "a͡ʊ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v70, "AO2", "a͡ʊ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v71, "AO3", "a͡ʊ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v72, "AO4", "a͡ʊ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v73, "AO5", "a͡ʊ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v74, "B", "p");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v75, "BI", "pj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v76, "BU", "p");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[7],0>(v77, "C", "t͡sʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v78, "CH", "t͡ʂʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v79, "CHU", "t͡ʂʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v80, "CU", "t͡sʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v81, "D", "t");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v82, "DI", "tj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v83, "DU", "tw");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v84, "E1", "ɤ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v85, "E2", "ɤ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v86, "E3", "ɤ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v87, "E4", "ɤ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v88, "E5", "ɤ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v89, "EG1", "əŋ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v90, "EG2", "əŋ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v91, "EG3", "əŋ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v92, "EG4", "əŋ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v93, "EG5", "əŋ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v94, "EI1", "e͡ɪ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v95, "EI2", "e͡ɪ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v96, "EI3", "e͡ɪ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v97, "EI4", "e͡ɪ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v98, "EI5", "e͡ɪ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v99, "EN1", "ən˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v100, "EN2", "ən˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v101, "EN3", "ən˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v102, "EN4", "ən˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v103, "EN5", "ən˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v104, "ER2", "ə˞˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v105, "ER3", "ə˞˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v106, "ER4", "ə˞˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v107, "ER5", "ə˞˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v108, "F", "f");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v109, "G", "k");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[1],0>(v110, "GS", "");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v111, "GU", "kw");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v112, "H", "χ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v113, "HU", "χw");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v114, "I1", "i˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v115, "I2", "i˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v116, "I3", "i˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v117, "I4", "i˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v118, "I5", "i˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v119, "IE1", "ɛ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v120, "IE2", "ɛ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v121, "IE3", "ɛ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v122, "IE4", "ɛ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v123, "IE5", "ɛ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v124, "IG1", "iŋ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v125, "IG2", "iŋ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v126, "IG3", "iŋ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v127, "IG4", "iŋ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v128, "IG5", "iŋ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v129, "IH1", "ɪ̈˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v130, "IH2", "ɪ̈˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v131, "IH3", "ɪ̱˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v132, "IH4", "ɪ̈˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v133, "IH5", "ɪ̱˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v134, "IN1", "in˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v135, "IN2", "in˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v136, "IN3", "in˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v137, "IN4", "in˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v138, "IN5", "in˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v139, "JI", "t͡ɕj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v140, "JU", "t͡ɕy");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v141, "K", "kʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v142, "KU", "kʰw");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v143, "L", "l");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v144, "LI", "lj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v145, "LU", "l");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v146, "LYU", "ly");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v147, "M", "m");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v148, "MI", "mj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v149, "MU", "m");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v150, "N", "n");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v151, "NI", "nj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v152, "NU", "n");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v153, "NYU", "ny");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v154, "O1", "ɔ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v155, "O2", "ɔ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v156, "O3", "ɔ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v157, "O4", "ɔ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v158, "O5", "ɔ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v159, "OG1", "oŋ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v160, "OG2", "oŋ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v161, "OG3", "oŋ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v162, "OG4", "oŋ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v163, "OG5", "oŋ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v164, "OU1", "o͡ʊ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v165, "OU2", "o͡ʊ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v166, "OU3", "o͡ʊ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v167, "OU4", "o͡ʊ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v168, "OU5", "o͡ʊ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v169, "P", "pʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v170, "PI", "pʰj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v171, "QI", "t͡ɕʰj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v172, "QU", "t͡ɕʰy");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v173, "R", "ʐ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v174, "RU", "ʐ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v175, "S", "s");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v176, "SH", "ʂ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v177, "SHU", "ʂ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v178, "SU", "sw");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v179, "T", "tʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v180, "TI", "tʰj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v181, "TU", "tʰw");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v182, "U1", "u˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v183, "U2", "u˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v184, "U3", "u˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v185, "U4", "u˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v186, "U5", "u˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v187, "UN1", "wn˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v188, "UN2", "wn˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v189, "UN3", "wn˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v190, "UN4", "wn˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v191, "UN5", "wn˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v192, "W", "w");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v193, "XI", "ɕj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v194, "XU", "ɕy");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v195, "Y", "j");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v196, "YU", "jy");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v197, "YU1", "˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v198, "YU2", "˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v199, "YU3", "˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v200, "YU4", "˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v201, "YU5", "˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[5],0>(v202, "Z", "t͡s");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v203, "ZH", "t͡ʂ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v204, "ZHU", "t͡ʂ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v205, "ZU", "t͡sw");
+      std::unordered_map<std::string,std::string>::unordered_map(v6, v49, 157);
+      v29 = v206;
+      v30 = -7536;
       do
       {
-        if (*v27 < 0)
+        if (*v29 < 0)
         {
-          operator delete(*(v27 - 23));
+          operator delete(*(v29 - 23));
         }
 
-        if (*(v27 - 24) < 0)
+        if (*(v29 - 24) < 0)
         {
-          operator delete(*(v27 - 47));
+          operator delete(*(v29 - 47));
         }
 
-        v27 -= 48;
-        v28 += 48;
+        v29 -= 48;
+        v30 += 48;
       }
 
-      while (v28);
+      while (v30);
       return result;
     }
 
 LABEL_73:
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v47, "AA", "ˈæ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v48, "AE", "ˈɛ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v49, "AH", "ˈɑ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v50, "AW", "ˈɑ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v51, "AWH", "ˈɔ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v52, "AY", "ˈa͡ɪ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v53, "EE", "ˈi");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v54, "EH", "ˈɛ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v55, "EY", "ˈe͡ɪ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v56, "IH", "ˈɪ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v57, "OH", "ˈo͡ʊ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v58, "OO", "ˈʊ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v59, "OOH", "ˈu");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v60, "OW", "ˈa͡ʊ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v61, "OY", "ˈɔ͡ɪ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v62, "UH", "ˈʌ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v63, "UR", "ˈɜ ɻ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v64, "b", "b");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v65, "ch", "t͡ʃ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v66, "d", "d");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v67, "dh", "ð");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v68, "ee", "i");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v69, "eh", "ɛ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v70, "f", "f");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v71, "g", "g");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "h", "h");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v73, "ih", "ɪ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[6],0>(v74, "j", "d͡ʒ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v75, "k", "k");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v76, "l", "l");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "m", "m");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v78, "n", "n");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v79, "ng", "ŋ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v80, "oh", "o͡ʊ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v81, "p", "p");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v82, "r", "ɻ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v83, "s", "s");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v84, "sh", "ʃ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v85, "t", "t");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v86, "th", "θ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v87, "uh", "ə");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v88, "ul", "ə l");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v89, "um", "ə m");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v90, "un", "ə n");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v91, "ur", "ə ɻ");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v92, "v", "v");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v93, "w", "w");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v94, "y", "j");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v95, "z", "z");
-    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v96, "zh", "ʒ");
-    std::unordered_map<std::string,std::string>::unordered_map(v4, v47, 50);
-    v25 = 300;
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v49, "AA", "ˈæ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v50, "AE", "ˈɛ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v51, "AH", "ˈɑ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v52, "AW", "ˈɑ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v53, "AWH", "ˈɔ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v54, "AY", "ˈa͡ɪ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v55, "EE", "ˈi");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v56, "EH", "ˈɛ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v57, "EY", "ˈe͡ɪ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v58, "IH", "ˈɪ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v59, "OH", "ˈo͡ʊ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v60, "OO", "ˈʊ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v61, "OOH", "ˈu");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v62, "OW", "ˈa͡ʊ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v63, "OY", "ˈɔ͡ɪ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v64, "UH", "ˈʌ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v65, "UR", "ˈɜ ɻ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v66, "b", "b");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v67, "ch", "t͡ʃ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v68, "d", "d");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v69, "dh", "ð");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v70, "ee", "i");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v71, "eh", "ɛ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "f", "f");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v73, "g", "g");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v74, "h", "h");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v75, "ih", "ɪ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[6],0>(v76, "j", "d͡ʒ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "k", "k");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v78, "l", "l");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v79, "m", "m");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v80, "n", "n");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v81, "ng", "ŋ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v82, "oh", "o͡ʊ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v83, "p", "p");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v84, "r", "ɻ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v85, "s", "s");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v86, "sh", "ʃ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v87, "t", "t");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v88, "th", "θ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v89, "uh", "ə");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v90, "ul", "ə l");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v91, "um", "ə m");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v92, "un", "ə n");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v93, "ur", "ə ɻ");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v94, "v", "v");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v95, "w", "w");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v96, "y", "j");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v97, "z", "z");
+    std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v98, "zh", "ʒ");
+    std::unordered_map<std::string,std::string>::unordered_map(v6, v49, 50);
+    v27 = 300;
     do
     {
-      v26 = &v47[v25];
-      if (SHIBYTE(v47[v25 - 1]) < 0)
+      v28 = &v49[v27];
+      if (SHIBYTE(v49[v27 - 1]) < 0)
       {
-        operator delete(*(v26 - 3));
+        operator delete(*(v28 - 3));
       }
 
-      if (*(v26 - 25) < 0)
+      if (*(v28 - 25) < 0)
       {
-        operator delete(*(v26 - 6));
+        operator delete(*(v28 - 6));
       }
 
-      v25 -= 6;
+      v27 -= 6;
     }
 
-    while (v25 * 8);
+    while (v27 * 8);
     return result;
   }
 
-  if (v5 != 5)
+  if (v7 != 5)
   {
     goto LABEL_57;
   }
 
-  if (*v1 == 1432317541 && *(v1 + 4) == 83)
+  if (*v3 == 1432317541 && *(v3 + 4) == 83)
   {
     goto LABEL_73;
   }
 
-  if (*v1 == 1130326138 && *(v1 + 4) == 78)
+  if (*v3 == 1130326138 && *(v3 + 4) == 78)
   {
     goto LABEL_80;
   }
 
-  if (*v1 == 1096773221 && *(v1 + 4) == 85)
+  if (*v3 == 1096773221 && *(v3 + 4) == 85)
   {
     goto LABEL_95;
   }
 
-  if (*v1 == 1197436517 && *(v1 + 4) == 66)
+  if (*v3 == 1197436517 && *(v3 + 4) == 66)
   {
     goto LABEL_102;
   }
 
-  v10 = *v1 == 1163883365 && *(v1 + 4) == 83;
-  v11 = v1;
-  if (v10)
+  v12 = *v3 == 1163883365 && *(v3 + 4) == 83;
+  v13 = v3;
+  if (v12)
   {
     goto LABEL_117;
   }
 
 LABEL_53:
-  v17 = *v11;
-  v18 = *(v11 + 4);
-  if (v17 != 1432318821 || v18 != 83)
+  v19 = *v13;
+  v20 = *(v13 + 4);
+  if (v19 != 1432318821 || v20 != 83)
   {
 LABEL_57:
-    if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v1, "fr_CA"))
+    if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v3, "fr_CA"))
     {
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v47, "ACI", "ɑ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v48, "AE", "ə");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v49, "AGR", "a");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v50, "AN", "an");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v51, "EAC", "e");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v52, "ECI", "ɛ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v53, "EN", "ẽ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v54, "II", "i");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v55, "OCI", "o");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v56, "OE", "ə");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v57, "OEE", "ø");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v58, "OEN", "œn");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v59, "ON", "ən");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v60, "OO", "ɔ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v61, "QQ", "ə");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v62, "UGR", "u");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v63, "UY", "y");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v64, "b", "b");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v65, "d", "d");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v66, "f", "f");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v67, "g", "g");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v68, "ge", "ʒ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v69, "gn", "ɲ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v70, "k", "k");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v71, "l", "l");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "m", "m");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v73, "n", "n");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v74, "ng", "ŋ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v75, "p", "p");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v76, "r", "ʀ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "s", "s");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v78, "sh", "ʃ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v79, "t", "t");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v80, "v", "v");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v81, "w", "w");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v82, "y", "j");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v83, "yw", "ɥ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v84, "z", "z");
-      std::unordered_map<std::string,std::string>::unordered_map(v4, v47, 38);
-      v21 = 228;
-      do
-      {
-        v22 = &v47[v21];
-        if (SHIBYTE(v47[v21 - 1]) < 0)
-        {
-          operator delete(*(v22 - 3));
-        }
-
-        if (*(v22 - 25) < 0)
-        {
-          operator delete(*(v22 - 6));
-        }
-
-        v21 -= 6;
-      }
-
-      while (v21 * 8);
-    }
-
-    else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v2, "fr_FR"))
-    {
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v47, "ACI", "a");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v48, "AE", "ə");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v49, "AGR", "a");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v50, "AN", "ɑ̃");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v51, "EAC", "e");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v52, "ECI", "ɛ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v53, "EN", "ɛ̃");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v54, "II", "i");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v55, "OCI", "o");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v56, "OE", "œ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v57, "OEE", "ø");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v58, "OEN", "œ̃");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v59, "ON", "ɔ̃");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v60, "OO", "ɔ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v61, "QQ", "ə");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v62, "UGR", "u");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v63, "UY", "y");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v64, "b", "b");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v65, "d", "d");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v66, "f", "f");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v67, "g", "g");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v68, "ge", "ʒ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v69, "gn", "ɲ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v70, "k", "k");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v71, "l", "l");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "m", "m");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v73, "n", "n");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v74, "ng", "ŋg");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v75, "p", "p");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v76, "r", "ʀ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "s", "s");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v78, "sh", "ʃ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v79, "t", "t");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v80, "v", "v");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v81, "w", "w");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v82, "y", "j");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v83, "yw", "ɥ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v84, "z", "z");
-      std::unordered_map<std::string,std::string>::unordered_map(v4, v47, 38);
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v49, "ACI", "ɑ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v50, "AE", "ə");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v51, "AGR", "a");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v52, "AN", "an");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v53, "EAC", "e");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v54, "ECI", "ɛ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v55, "EN", "ẽ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v56, "II", "i");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v57, "OCI", "o");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v58, "OE", "ə");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v59, "OEE", "ø");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v60, "OEN", "œn");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v61, "ON", "ən");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v62, "OO", "ɔ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v63, "QQ", "ə");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v64, "UGR", "u");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v65, "UY", "y");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v66, "b", "b");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v67, "d", "d");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v68, "f", "f");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v69, "g", "g");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v70, "ge", "ʒ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v71, "gn", "ɲ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "k", "k");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v73, "l", "l");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v74, "m", "m");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v75, "n", "n");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v76, "ng", "ŋ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "p", "p");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v78, "r", "ʀ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v79, "s", "s");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v80, "sh", "ʃ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v81, "t", "t");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v82, "v", "v");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v83, "w", "w");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v84, "y", "j");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v85, "yw", "ɥ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v86, "z", "z");
+      std::unordered_map<std::string,std::string>::unordered_map(v6, v49, 38);
       v23 = 228;
       do
       {
-        v24 = &v47[v23];
-        if (SHIBYTE(v47[v23 - 1]) < 0)
+        v24 = &v49[v23];
+        if (SHIBYTE(v49[v23 - 1]) < 0)
         {
           operator delete(*(v24 - 3));
         }
@@ -6329,497 +7425,387 @@ LABEL_57:
       while (v23 * 8);
     }
 
-    else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v2, "it_IT"))
+    else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v4, "fr_FR"))
     {
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v47, "AA", "ˈa");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v48, "AI", "ˈa j");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v49, "AU", "ˈa w");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v50, "EE", "ˈe");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v51, "EI", "ˈe j");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v52, "ETT", "ˈɛ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v53, "II", "ˈi");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v54, "OI", "ˈo j");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v55, "OO", "ˈo");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v56, "OTT", "ˈɔ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v57, "UU", "ˈu");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v58, "aa", "a");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v59, "b", "b");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v60, "ci", "t͡ʃ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v61, "d", "d");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v62, "ee", "e");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v63, "f", "f");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v64, "g", "g");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v65, "gi", "d͡ʒ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v66, "gl", "ʎː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v67, "gn", "ɲː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v68, "ii", "i");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v69, "j", "j");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v70, "k", "k");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v71, "l", "l");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "m", "m");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v73, "n", "n");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v74, "oo", "o");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v75, "p", "p");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v76, "r", "r");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v77, "rr", "r");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v78, "s", "s");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v79, "sci", "ʃ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v80, "t", "t");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v81, "uu", "u");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v49, "ACI", "a");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v50, "AE", "ə");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v51, "AGR", "a");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v52, "AN", "ɑ̃");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v53, "EAC", "e");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v54, "ECI", "ɛ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v55, "EN", "ɛ̃");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v56, "II", "i");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v57, "OCI", "o");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v58, "OE", "œ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v59, "OEE", "ø");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v60, "OEN", "œ̃");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v61, "ON", "ɔ̃");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v62, "OO", "ɔ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v63, "QQ", "ə");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v64, "UGR", "u");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v65, "UY", "y");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v66, "b", "b");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v67, "d", "d");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v68, "f", "f");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v69, "g", "g");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v70, "ge", "ʒ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v71, "gn", "ɲ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "k", "k");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v73, "l", "l");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v74, "m", "m");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v75, "n", "n");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v76, "ng", "ŋg");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "p", "p");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v78, "r", "ʀ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v79, "s", "s");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v80, "sh", "ʃ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v81, "t", "t");
       std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v82, "v", "v");
       std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v83, "w", "w");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v84, "z", "z");
-      std::unordered_map<std::string,std::string>::unordered_map(v4, v47, 38);
-      v29 = 228;
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v84, "y", "j");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v85, "yw", "ɥ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v86, "z", "z");
+      std::unordered_map<std::string,std::string>::unordered_map(v6, v49, 38);
+      v25 = 228;
       do
       {
-        v30 = &v47[v29];
-        if (SHIBYTE(v47[v29 - 1]) < 0)
+        v26 = &v49[v25];
+        if (SHIBYTE(v49[v25 - 1]) < 0)
         {
-          operator delete(*(v30 - 3));
+          operator delete(*(v26 - 3));
         }
 
-        if (*(v30 - 25) < 0)
+        if (*(v26 - 25) < 0)
         {
-          operator delete(*(v30 - 6));
+          operator delete(*(v26 - 6));
         }
 
-        v29 -= 6;
+        v25 -= 6;
       }
 
-      while (v29 * 8);
+      while (v25 * 8);
     }
 
-    else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v2, "ja-JP"))
+    else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v4, "it_IT"))
     {
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[5],0>(v47, "A", "ɑː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v48, "E", "i");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v49, "I", "iː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v50, "N", "ɴ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v51, "O", "ɯ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v52, "Qb", "bː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v53, "Qch", "t͡ɕː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v54, "Qd", "dː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v55, "Qf", "ɸːw");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v56, "Qg", "gː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v57, "Qh", "hː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v58, "Qj", "zj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v59, "Qk", "kː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v60, "Qky", "kːj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v61, "Qp", "pː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v62, "Qpy", "pːj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v63, "Qs", "sː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v64, "Qsh", "ʃː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v65, "Qt", "tː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v66, "Qts", "t͡sː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v67, "Qz", "z");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v68, "U", "ɯ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v69, "a", "ɑ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v70, "b", "b");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v71, "by", "bj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v72, "ch", "t͡ʃ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v73, "d", "d");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v74, "dy", "d");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v75, "e", "e");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v76, "f", "ɸ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v77, "g", "ŋ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v78, "gy", "ŋj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v79, "h", "h");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v80, "hy", "çj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v81, "i", "i");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v82, "j", "ʒ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v83, "k", "k");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v84, "ky", "kj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v85, "m", "m");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v86, "my", "mj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v87, "n", "n");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v88, "ny", "ɲj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v89, "o", "o");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v90, "p", "p");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v91, "py", "pj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v92, "r", "ɾ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v93, "ry", "ɾj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v94, "s", "s");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v95, "sh", "ɕ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v96, "t", "t");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v97, "ts", "t͡s");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v98, "u", "ɯ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v99, "w", "w");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v100, "y", "j");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v101, "z", "z");
-      std::unordered_map<std::string,std::string>::unordered_map(v4, v47, 55);
-      v35 = 330;
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v49, "AA", "ˈa");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v50, "AI", "ˈa j");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v51, "AU", "ˈa w");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v52, "EE", "ˈe");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v53, "EI", "ˈe j");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v54, "ETT", "ˈɛ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v55, "II", "ˈi");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v56, "OI", "ˈo j");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v57, "OO", "ˈo");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v58, "OTT", "ˈɔ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v59, "UU", "ˈu");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v60, "aa", "a");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v61, "b", "b");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v62, "ci", "t͡ʃ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v63, "d", "d");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v64, "ee", "e");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v65, "f", "f");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v66, "g", "g");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v67, "gi", "d͡ʒ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v68, "gl", "ʎː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v69, "gn", "ɲː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v70, "ii", "i");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v71, "j", "j");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "k", "k");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v73, "l", "l");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v74, "m", "m");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v75, "n", "n");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v76, "oo", "o");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "p", "p");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v78, "r", "r");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v79, "rr", "r");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v80, "s", "s");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v81, "sci", "ʃ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v82, "t", "t");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v83, "uu", "u");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v84, "v", "v");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v85, "w", "w");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v86, "z", "z");
+      std::unordered_map<std::string,std::string>::unordered_map(v6, v49, 38);
+      v31 = 228;
       do
       {
-        v36 = &v47[v35];
-        if (SHIBYTE(v47[v35 - 1]) < 0)
+        v32 = &v49[v31];
+        if (SHIBYTE(v49[v31 - 1]) < 0)
         {
-          operator delete(*(v36 - 3));
+          operator delete(*(v32 - 3));
         }
 
-        if (*(v36 - 25) < 0)
+        if (*(v32 - 25) < 0)
         {
-          operator delete(*(v36 - 6));
+          operator delete(*(v32 - 6));
         }
 
-        v35 -= 6;
+        v31 -= 6;
       }
 
-      while (v35 * 8);
+      while (v31 * 8);
     }
 
-    else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v2, "ko_KR"))
+    else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v4, "ja-JP"))
     {
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v47, "A", "a");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v48, "E", "ɛ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v49, "I", "ɯ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v50, "U", "ɔ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v51, "b", "p");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v52, "d", "d");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v53, "dZ", "ɟ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v54, "e", "e");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v55, "g", "k");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v56, "h", "ɦ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v57, "i", "i");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v58, "j", "j");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v59, "k", "kʼ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v60, "kH", "kʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v61, "l", "l");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v62, "m", "m");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v63, "n", "n");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v64, "ng", "ŋ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v65, "o", "o");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v66, "p", "pʼ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v67, "pH", "pʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v68, "s", "sʼ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v69, "t", "tʼ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v70, "tH", "tʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v71, "tS", "cʼ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v72, "tSH", "cʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v73, "u", "u");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v74, "w", "w");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v75, "z", "s");
-      std::unordered_map<std::string,std::string>::unordered_map(v4, v47, 29);
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[5],0>(v49, "A", "ɑː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v50, "E", "i");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v51, "I", "iː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v52, "N", "ɴ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v53, "O", "ɯ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v54, "Qb", "bː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v55, "Qch", "t͡ɕː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v56, "Qd", "dː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v57, "Qf", "ɸːw");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v58, "Qg", "gː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v59, "Qh", "hː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v60, "Qj", "zj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v61, "Qk", "kː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v62, "Qky", "kːj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v63, "Qp", "pː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v64, "Qpy", "pːj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v65, "Qs", "sː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v66, "Qsh", "ʃː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v67, "Qt", "tː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v68, "Qts", "t͡sː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v69, "Qz", "z");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v70, "U", "ɯ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v71, "a", "ɑ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "b", "b");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v73, "by", "bj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v74, "ch", "t͡ʃ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v75, "d", "d");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v76, "dy", "d");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "e", "e");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v78, "f", "ɸ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v79, "g", "ŋ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v80, "gy", "ŋj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v81, "h", "h");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v82, "hy", "çj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v83, "i", "i");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v84, "j", "ʒ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v85, "k", "k");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v86, "ky", "kj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v87, "m", "m");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v88, "my", "mj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v89, "n", "n");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v90, "ny", "ɲj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v91, "o", "o");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v92, "p", "p");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v93, "py", "pj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v94, "r", "ɾ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v95, "ry", "ɾj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v96, "s", "s");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v97, "sh", "ɕ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v98, "t", "t");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v99, "ts", "t͡s");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v100, "u", "ɯ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v101, "w", "w");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v102, "y", "j");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v103, "z", "z");
+      std::unordered_map<std::string,std::string>::unordered_map(v6, v49, 55);
+      v37 = 330;
+      do
+      {
+        v38 = &v49[v37];
+        if (SHIBYTE(v49[v37 - 1]) < 0)
+        {
+          operator delete(*(v38 - 3));
+        }
+
+        if (*(v38 - 25) < 0)
+        {
+          operator delete(*(v38 - 6));
+        }
+
+        v37 -= 6;
+      }
+
+      while (v37 * 8);
+    }
+
+    else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v4, "ko_KR"))
+    {
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v49, "A", "a");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v50, "E", "ɛ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v51, "I", "ɯ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v52, "U", "ɔ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v53, "b", "p");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v54, "d", "d");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v55, "dZ", "ɟ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v56, "e", "e");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v57, "g", "k");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v58, "h", "ɦ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v59, "i", "i");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v60, "j", "j");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v61, "k", "kʼ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v62, "kH", "kʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v63, "l", "l");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v64, "m", "m");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v65, "n", "n");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v66, "ng", "ŋ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v67, "o", "o");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v68, "p", "pʼ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v69, "pH", "pʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v70, "s", "sʼ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v71, "t", "tʼ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v72, "tH", "tʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v73, "tS", "cʼ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v74, "tSH", "cʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v75, "u", "u");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v76, "w", "w");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "z", "s");
+      std::unordered_map<std::string,std::string>::unordered_map(v6, v49, 29);
       for (i = 168; i != -6; i -= 6)
       {
-        std::pair<std::string,std::string>::~pair(&v47[i]);
+        std::pair<std::string,std::string>::~pair(&v49[i]);
       }
     }
 
-    else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v2, "zh_HK"))
+    else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v4, "zh_HK"))
     {
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v47, "a1", "ɐ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v48, "a2", "ɐ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v49, "a3", "ɐ˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v50, "a4", "ɐ˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v51, "a5", "ɐ˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v52, "a6", "ɐ˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v53, "aa1", "a˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v54, "aa2", "a˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v55, "aa3", "a˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v56, "aa4", "a˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v57, "aa5", "a˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v58, "aa6", "a˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[7],0>(v59, "aai1", "a͡i˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[9],0>(v60, "aai2", "a͡i˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[7],0>(v61, "aai3", "a͡i˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[9],0>(v62, "aai4", "a͡i˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[9],0>(v63, "aai5", "a͡i˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[7],0>(v64, "aai6", "a͡i˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[7],0>(v65, "aau1", "a͡u˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[9],0>(v66, "aau2", "a͡u˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[7],0>(v67, "aau3", "a͡u˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[9],0>(v68, "aau4", "a͡u˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[9],0>(v69, "aau5", "a͡u˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[7],0>(v70, "aau6", "a͡u˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v71, "ai1", "ɐ͡i˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v72, "ai2", "ɐ͡i˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v73, "ai3", "ɐ͡i˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v74, "ai4", "ɐ͡i˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v75, "ai5", "ɐ͡i˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v76, "ai6", "ɐ͡i˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v77, "au1", "ɐ͡u˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v78, "au2", "ɐ͡u˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v79, "au3", "ɐ͡u˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v80, "au4", "ɐ͡u˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v81, "au5", "ɐ͡u˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v82, "au6", "ɐ͡u˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v83, "b", "p");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[7],0>(v84, "c", "t͡sʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v85, "d", "t");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v86, "e1", "ɛ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v87, "e2", "ɛ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v88, "e3", "ɛ˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v89, "e4", "ɛ˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v90, "e5", "ɛ˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v91, "e6", "ɛ˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v92, "ei1", "e͡i˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v93, "ei2", "e͡i˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v94, "ei3", "e͡i˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v95, "ei4", "e͡i˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v96, "ei5", "e͡i˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v97, "ei6", "e͡i˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v98, "eo1", "œ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v99, "eo2", "œ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v100, "eo3", "œ˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v101, "eo4", "œ˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v102, "eo5", "œ˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v103, "eo6", "œ˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[8],0>(v104, "eoi1", "ɵ͡y˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[10],0>(v105, "eoi2", "ɵ͡y˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[8],0>(v106, "eoi3", "ɵ͡y˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[10],0>(v107, "eoi4", "ɵ͡y˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[10],0>(v108, "eoi5", "ɵ͡y˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[8],0>(v109, "eoi6", "ɵ͡y˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v110, "f", "f");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v111, "g", "k");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v112, "gw", "kʷ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v113, "h", "h");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v114, "i1", "i˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v115, "i2", "i˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v116, "i3", "i˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v117, "i4", "i˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v118, "i5", "i˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v119, "i6", "i˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v120, "iu1", "i͡u˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v121, "iu2", "i͡u˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v122, "iu3", "i͡u˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v123, "iu4", "i͡u˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v124, "iu5", "i͡u˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v125, "iu6", "i͡u˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v126, "j", "j");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v127, "k", "kʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v128, "kw", "kʷʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v129, "l", "l");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v130, "m", "m");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v131, "m4", "m˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v132, "m5", "ŋ˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v133, "n", "n");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v134, "ng", "ŋ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v135, "ng4", "ŋ˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v136, "ng5", "ŋ˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v137, "ng6", "ŋ˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v138, "o1", "ɔ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v139, "o2", "ɔ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v140, "o3", "ɔ˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v141, "o4", "ɔ˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v142, "o5", "ɔ˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v143, "o6", "ɔ˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v144, "oe1", "œ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v145, "oe2", "œ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v146, "oe3", "œ˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v147, "oe4", "œ˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v148, "oe5", "œ˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v149, "oe6", "œ˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v150, "oi1", "ɔ͡i˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v151, "oi2", "ɔ͡i˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v152, "oi3", "ɔ͡i˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v153, "oi4", "ɔ͡i˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v154, "oi5", "ɔ͡i˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v155, "oi6", "ɔ͡i˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v156, "ou1", "o͡u˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v157, "ou2", "o͡u˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v158, "ou3", "o͡u˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v159, "ou4", "o͡u˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v160, "ou5", "o͡u˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v161, "ou6", "o͡u˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v162, "p", "pʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v163, "s", "s");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v164, "t", "tʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v165, "u1", "u˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v166, "u2", "u˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v167, "u3", "u˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v168, "u4", "u˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v169, "u5", "u˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v170, "u6", "u˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v171, "ui1", "u͡i˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v172, "ui2", "u͡i˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v173, "ui3", "u͡i˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v174, "ui4", "u͡i˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v175, "ui5", "u͡i˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v176, "ui6", "u͡i˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v177, "w", "w");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v178, "yu1", "y˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v179, "yu2", "y˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v180, "yu3", "y˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v181, "yu4", "y˨˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v182, "yu5", "y˩˧");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v183, "yu6", "y˨");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[5],0>(v184, "z", "t͡s");
-      std::unordered_map<std::string,std::string>::unordered_map(v4, v47, 138);
-      v42 = v184;
-      v43 = -6624;
-      do
-      {
-        v42 = (std::pair<std::string,std::string>::~pair(v42) - 48);
-        v43 += 48;
-      }
-
-      while (v43);
-    }
-
-    else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v2, "zh_TW"))
-    {
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v47, "A1", "a˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v48, "A2", "a˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v49, "A3", "a˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v50, "A4", "a˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v51, "A5", "a˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v52, "AG1", "ɑŋ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v53, "AG2", "ɑŋ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v54, "AG3", "ɑŋ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v55, "AG4", "ɑŋ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v56, "AG5", "ɑŋ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v57, "AI1", "a͡ɪ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v58, "AI2", "a͡ɪ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v59, "AI3", "a͡ɪ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v60, "AI4", "a͡ɪ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v61, "AI5", "a͡ɪ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v62, "AN1", "an˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v63, "AN2", "an˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v64, "AN3", "an˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v65, "AN4", "an˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v66, "AN5", "an˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v67, "AO1", "a͡ʊ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v68, "AO2", "a͡ʊ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v69, "AO3", "a͡ʊ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v70, "AO4", "a͡ʊ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v71, "AO5", "a͡ʊ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "B", "p");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v73, "BI", "pj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v74, "BU", "p");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[7],0>(v75, "C", "t͡sʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v76, "CH", "t͡ʂʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v77, "CHU", "t͡ʂʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v78, "CU", "t͡sʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v79, "D", "t");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v80, "DI", "tj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v81, "DU", "tw");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v82, "E1", "ɤ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v83, "E2", "ɤ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v84, "E3", "ɤ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v85, "E4", "ɤ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v86, "E5", "ɤ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v87, "EG1", "əŋ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v88, "EG2", "əŋ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v89, "EG3", "əŋ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v90, "EG4", "əŋ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v91, "EG5", "əŋ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v92, "EI1", "e͡ɪ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v93, "EI2", "e͡ɪ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v94, "EI3", "e͡ɪ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v95, "EI4", "e͡ɪ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v96, "EI5", "e͡ɪ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v97, "EN1", "ən˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v98, "EN2", "ən˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v99, "EN3", "ən˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v100, "EN4", "ən˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v101, "EN5", "ən˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v102, "ER2", "ə˞˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v103, "ER3", "ə˞˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v104, "ER4", "ə˞˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v105, "ER5", "ə˞˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v106, "F", "f");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v107, "G", "k");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[1],0>(v108, "GS", "");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v109, "GU", "kw");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v110, "H", "χ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v111, "HU", "χw");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v112, "I1", "i˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v113, "I2", "i˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v114, "I3", "i˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v115, "I4", "i˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v116, "I5", "i˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v117, "IE1", "ɛ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v118, "IE2", "ɛ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v119, "IE3", "ɛ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v120, "IE4", "ɛ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v121, "IE5", "ɛ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v122, "IG1", "iŋ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v123, "IG2", "iŋ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v124, "IG3", "iŋ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v125, "IG4", "iŋ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v126, "IG5", "iŋ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v127, "IH1", "ɪ̈˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v128, "IH2", "ɪ̈˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v129, "IH3", "ɪ̱˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v130, "IH4", "ɪ̈˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v131, "IH5", "ɪ̱˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v132, "IN1", "in˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v133, "IN2", "in˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v134, "IN3", "in˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v135, "IN4", "in˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v136, "IN5", "in˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v137, "JI", "t͡ɕj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v138, "JU", "t͡ɕy");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v139, "K", "kʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v140, "KU", "kʰw");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v141, "L", "l");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v142, "LI", "lj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v143, "LU", "l");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v144, "LYU", "ly");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v145, "M", "m");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v146, "MI", "mj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v147, "MU", "m");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v148, "N", "n");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v149, "NI", "nj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v150, "NU", "n");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v151, "NYU", "ny");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v152, "O1", "ɔ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v153, "O2", "ɔ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v154, "O3", "ɔ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v155, "O4", "ɔ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v156, "O5", "ɔ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v157, "OG1", "oŋ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v158, "OG2", "oŋ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v159, "OG3", "oŋ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v160, "OG4", "oŋ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v161, "OG5", "oŋ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v162, "OU1", "o͡ʊ˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v163, "OU2", "o͡ʊ˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v164, "OU3", "o͡ʊ˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v165, "OU4", "o͡ʊ˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v166, "OU5", "o͡ʊ˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v167, "P", "pʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v168, "PI", "pʰj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v169, "QI", "t͡ɕʰj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v170, "QU", "t͡ɕʰy");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v171, "R", "ʐ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v172, "RU", "ʐ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v173, "S", "s");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v174, "SH", "ʂ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v175, "SHU", "ʂ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v176, "SU", "sw");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v177, "T", "tʰ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v178, "TI", "tʰj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v179, "TU", "tʰw");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v180, "U1", "u˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v181, "U2", "u˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v182, "U3", "u˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v183, "U4", "u˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v184, "U5", "u˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v185, "UN1", "wn˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v186, "UN2", "wn˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v187, "UN3", "wn˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v188, "UN4", "wn˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v189, "UN5", "wn˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v190, "W", "w");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v191, "XI", "ɕj");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v192, "XU", "ɕy");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v193, "Y", "j");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v194, "YU", "jy");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v195, "YU1", "˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v196, "YU2", "˧˥");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v197, "YU3", "˨˩˦");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v198, "YU4", "˥˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v199, "YU5", "˩");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[5],0>(v200, "Z", "t͡s");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v201, "ZH", "t͡ʂ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v202, "ZHU", "t͡ʂ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v203, "ZU", "t͡sw");
-      std::unordered_map<std::string,std::string>::unordered_map(v4, v47, 157);
-      v44 = v203;
-      v45 = -7536;
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v49, "a1", "ɐ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v50, "a2", "ɐ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v51, "a3", "ɐ˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v52, "a4", "ɐ˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v53, "a5", "ɐ˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v54, "a6", "ɐ˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v55, "aa1", "a˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v56, "aa2", "a˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v57, "aa3", "a˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v58, "aa4", "a˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v59, "aa5", "a˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v60, "aa6", "a˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[7],0>(v61, "aai1", "a͡i˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[9],0>(v62, "aai2", "a͡i˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[7],0>(v63, "aai3", "a͡i˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[9],0>(v64, "aai4", "a͡i˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[9],0>(v65, "aai5", "a͡i˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[7],0>(v66, "aai6", "a͡i˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[7],0>(v67, "aau1", "a͡u˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[9],0>(v68, "aau2", "a͡u˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[7],0>(v69, "aau3", "a͡u˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[9],0>(v70, "aau4", "a͡u˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[9],0>(v71, "aau5", "a͡u˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[7],0>(v72, "aau6", "a͡u˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v73, "ai1", "ɐ͡i˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v74, "ai2", "ɐ͡i˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v75, "ai3", "ɐ͡i˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v76, "ai4", "ɐ͡i˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v77, "ai5", "ɐ͡i˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v78, "ai6", "ɐ͡i˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v79, "au1", "ɐ͡u˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v80, "au2", "ɐ͡u˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v81, "au3", "ɐ͡u˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v82, "au4", "ɐ͡u˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v83, "au5", "ɐ͡u˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v84, "au6", "ɐ͡u˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v85, "b", "p");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[7],0>(v86, "c", "t͡sʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v87, "d", "t");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v88, "e1", "ɛ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v89, "e2", "ɛ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v90, "e3", "ɛ˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v91, "e4", "ɛ˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v92, "e5", "ɛ˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v93, "e6", "ɛ˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v94, "ei1", "e͡i˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v95, "ei2", "e͡i˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v96, "ei3", "e͡i˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v97, "ei4", "e͡i˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v98, "ei5", "e͡i˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v99, "ei6", "e͡i˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v100, "eo1", "œ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v101, "eo2", "œ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v102, "eo3", "œ˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v103, "eo4", "œ˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v104, "eo5", "œ˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v105, "eo6", "œ˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[8],0>(v106, "eoi1", "ɵ͡y˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[10],0>(v107, "eoi2", "ɵ͡y˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[8],0>(v108, "eoi3", "ɵ͡y˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[10],0>(v109, "eoi4", "ɵ͡y˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[10],0>(v110, "eoi5", "ɵ͡y˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[8],0>(v111, "eoi6", "ɵ͡y˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v112, "f", "f");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v113, "g", "k");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v114, "gw", "kʷ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v115, "h", "h");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v116, "i1", "i˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v117, "i2", "i˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v118, "i3", "i˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v119, "i4", "i˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v120, "i5", "i˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v121, "i6", "i˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v122, "iu1", "i͡u˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v123, "iu2", "i͡u˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v124, "iu3", "i͡u˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v125, "iu4", "i͡u˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v126, "iu5", "i͡u˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v127, "iu6", "i͡u˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v128, "j", "j");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v129, "k", "kʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v130, "kw", "kʷʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v131, "l", "l");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v132, "m", "m");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v133, "m4", "m˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v134, "m5", "ŋ˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v135, "n", "n");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v136, "ng", "ŋ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v137, "ng4", "ŋ˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v138, "ng5", "ŋ˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v139, "ng6", "ŋ˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v140, "o1", "ɔ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v141, "o2", "ɔ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v142, "o3", "ɔ˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v143, "o4", "ɔ˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v144, "o5", "ɔ˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v145, "o6", "ɔ˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v146, "oe1", "œ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v147, "oe2", "œ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v148, "oe3", "œ˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v149, "oe4", "œ˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v150, "oe5", "œ˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v151, "oe6", "œ˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v152, "oi1", "ɔ͡i˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v153, "oi2", "ɔ͡i˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v154, "oi3", "ɔ͡i˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v155, "oi4", "ɔ͡i˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v156, "oi5", "ɔ͡i˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v157, "oi6", "ɔ͡i˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v158, "ou1", "o͡u˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v159, "ou2", "o͡u˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v160, "ou3", "o͡u˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v161, "ou4", "o͡u˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v162, "ou5", "o͡u˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v163, "ou6", "o͡u˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v164, "p", "pʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v165, "s", "s");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v166, "t", "tʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v167, "u1", "u˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v168, "u2", "u˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v169, "u3", "u˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v170, "u4", "u˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v171, "u5", "u˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v172, "u6", "u˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v173, "ui1", "u͡i˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v174, "ui2", "u͡i˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v175, "ui3", "u͡i˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v176, "ui4", "u͡i˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v177, "ui5", "u͡i˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v178, "ui6", "u͡i˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v179, "w", "w");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v180, "yu1", "y˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v181, "yu2", "y˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v182, "yu3", "y˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v183, "yu4", "y˨˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v184, "yu5", "y˩˧");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v185, "yu6", "y˨");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[5],0>(v186, "z", "t͡s");
+      std::unordered_map<std::string,std::string>::unordered_map(v6, v49, 138);
+      v44 = v186;
+      v45 = -6624;
       do
       {
         v44 = (std::pair<std::string,std::string>::~pair(v44) - 48);
@@ -6829,128 +7815,299 @@ LABEL_57:
       while (v45);
     }
 
-    else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v2, "de_DE"))
+    else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v4, "zh_TW"))
     {
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v47, "@@", "ə");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v48, "AEH", "ˈɛ:");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v49, "AH", "ˈaː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v50, "ATT", "ˈa");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v51, "EH", "ˈeː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v52, "ETT", "ˈɛ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v53, "EU", "ˈɔ͡y");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v54, "IH", "ˈiː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v55, "ITT", "ˈɪ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v56, "OE", "ˈœ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v57, "OEH", "ˈø");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v58, "OH", "ˈoː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v59, "OTT", "ˈɔ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v60, "UE", "ˈʏ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v61, "UEH", "ˈyː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v62, "UH", "ˈuː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v63, "UTT", "ˈʊ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v64, "ach", "x");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v65, "att", "a");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v66, "b", "b");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v67, "d", "d");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v68, "ett", "ɛ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v69, "eu", "ɔ͡y");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v70, "f", "f");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v71, "g", "g");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "h", "h");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v73, "hr", "ʀ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v74, "ich", "ç");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v75, "itt", "ɪ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v76, "j", "j");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "k", "k");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v78, "l", "l");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v79, "m", "m");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v80, "n", "n");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v81, "ng", "ŋ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v82, "oe", "ø");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v83, "ott", "oː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v84, "p", "p");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v85, "r", "ʀ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v86, "s", "s");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v87, "sch", "ʃ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v88, "t", "t");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v89, "ue", "yː");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v90, "utt", "ʊ");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v91, "w", "v");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v92, "wu", "a͡u");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v93, "z", "z");
-      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v94, "zh", "ʒ");
-      std::unordered_map<std::string,std::string>::unordered_map(v4, v47, 48);
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v49, "A1", "a˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v50, "A2", "a˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v51, "A3", "a˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v52, "A4", "a˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v53, "A5", "a˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v54, "AG1", "ɑŋ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v55, "AG2", "ɑŋ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v56, "AG3", "ɑŋ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v57, "AG4", "ɑŋ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v58, "AG5", "ɑŋ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v59, "AI1", "a͡ɪ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v60, "AI2", "a͡ɪ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v61, "AI3", "a͡ɪ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v62, "AI4", "a͡ɪ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v63, "AI5", "a͡ɪ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v64, "AN1", "an˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v65, "AN2", "an˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v66, "AN3", "an˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v67, "AN4", "an˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v68, "AN5", "an˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v69, "AO1", "a͡ʊ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v70, "AO2", "a͡ʊ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v71, "AO3", "a͡ʊ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v72, "AO4", "a͡ʊ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v73, "AO5", "a͡ʊ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v74, "B", "p");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v75, "BI", "pj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v76, "BU", "p");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[7],0>(v77, "C", "t͡sʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v78, "CH", "t͡ʂʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v79, "CHU", "t͡ʂʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v80, "CU", "t͡sʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v81, "D", "t");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v82, "DI", "tj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v83, "DU", "tw");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v84, "E1", "ɤ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v85, "E2", "ɤ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v86, "E3", "ɤ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v87, "E4", "ɤ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v88, "E5", "ɤ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v89, "EG1", "əŋ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v90, "EG2", "əŋ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v91, "EG3", "əŋ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v92, "EG4", "əŋ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v93, "EG5", "əŋ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v94, "EI1", "e͡ɪ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v95, "EI2", "e͡ɪ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v96, "EI3", "e͡ɪ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v97, "EI4", "e͡ɪ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v98, "EI5", "e͡ɪ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v99, "EN1", "ən˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v100, "EN2", "ən˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v101, "EN3", "ən˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v102, "EN4", "ən˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v103, "EN5", "ən˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v104, "ER2", "ə˞˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v105, "ER3", "ə˞˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v106, "ER4", "ə˞˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v107, "ER5", "ə˞˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v108, "F", "f");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v109, "G", "k");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[1],0>(v110, "GS", "");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v111, "GU", "kw");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v112, "H", "χ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v113, "HU", "χw");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v114, "I1", "i˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v115, "I2", "i˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v116, "I3", "i˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v117, "I4", "i˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v118, "I5", "i˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v119, "IE1", "ɛ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v120, "IE2", "ɛ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v121, "IE3", "ɛ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v122, "IE4", "ɛ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v123, "IE5", "ɛ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v124, "IG1", "iŋ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v125, "IG2", "iŋ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v126, "IG3", "iŋ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v127, "IG4", "iŋ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v128, "IG5", "iŋ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v129, "IH1", "ɪ̈˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v130, "IH2", "ɪ̈˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(v131, "IH3", "ɪ̱˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v132, "IH4", "ɪ̈˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v133, "IH5", "ɪ̱˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v134, "IN1", "in˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v135, "IN2", "in˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v136, "IN3", "in˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v137, "IN4", "in˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v138, "IN5", "in˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v139, "JI", "t͡ɕj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v140, "JU", "t͡ɕy");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v141, "K", "kʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v142, "KU", "kʰw");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v143, "L", "l");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v144, "LI", "lj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v145, "LU", "l");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v146, "LYU", "ly");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v147, "M", "m");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v148, "MI", "mj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v149, "MU", "m");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v150, "N", "n");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v151, "NI", "nj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v152, "NU", "n");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v153, "NYU", "ny");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v154, "O1", "ɔ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v155, "O2", "ɔ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v156, "O3", "ɔ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(v157, "O4", "ɔ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v158, "O5", "ɔ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v159, "OG1", "oŋ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v160, "OG2", "oŋ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v161, "OG3", "oŋ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v162, "OG4", "oŋ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v163, "OG5", "oŋ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v164, "OU1", "o͡ʊ˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v165, "OU2", "o͡ʊ˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(v166, "OU3", "o͡ʊ˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(v167, "OU4", "o͡ʊ˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(v168, "OU5", "o͡ʊ˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v169, "P", "pʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v170, "PI", "pʰj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v171, "QI", "t͡ɕʰj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(v172, "QU", "t͡ɕʰy");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v173, "R", "ʐ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v174, "RU", "ʐ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v175, "S", "s");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v176, "SH", "ʂ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v177, "SHU", "ʂ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v178, "SU", "sw");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(v179, "T", "tʰ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v180, "TI", "tʰj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v181, "TU", "tʰw");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v182, "U1", "u˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v183, "U2", "u˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v184, "U3", "u˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v185, "U4", "u˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v186, "U5", "u˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v187, "UN1", "wn˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v188, "UN2", "wn˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(v189, "UN3", "wn˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v190, "UN4", "wn˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v191, "UN5", "wn˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v192, "W", "w");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v193, "XI", "ɕj");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v194, "XU", "ɕy");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v195, "Y", "j");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v196, "YU", "jy");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v197, "YU1", "˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v198, "YU2", "˧˥");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(v199, "YU3", "˨˩˦");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v200, "YU4", "˥˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v201, "YU5", "˩");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[5],0>(v202, "Z", "t͡s");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v203, "ZH", "t͡ʂ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v204, "ZHU", "t͡ʂ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v205, "ZU", "t͡sw");
+      std::unordered_map<std::string,std::string>::unordered_map(v6, v49, 157);
+      v46 = v205;
+      v47 = -7536;
+      do
+      {
+        v46 = (std::pair<std::string,std::string>::~pair(v46) - 48);
+        v47 += 48;
+      }
+
+      while (v47);
+    }
+
+    else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v4, "de_DE"))
+    {
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v49, "@@", "ə");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v50, "AEH", "ˈɛ:");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v51, "AH", "ˈaː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v52, "ATT", "ˈa");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v53, "EH", "ˈeː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v54, "ETT", "ˈɛ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(v55, "EU", "ˈɔ͡y");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v56, "IH", "ˈiː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v57, "ITT", "ˈɪ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v58, "OE", "ˈœ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v59, "OEH", "ˈø");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v60, "OH", "ˈoː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v61, "OTT", "ˈɔ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v62, "UE", "ˈʏ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(v63, "UEH", "ˈyː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v64, "UH", "ˈuː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(v65, "UTT", "ˈʊ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v66, "ach", "x");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(v67, "att", "a");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v68, "b", "b");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v69, "d", "d");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v70, "ett", "ɛ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v71, "eu", "ɔ͡y");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "f", "f");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v73, "g", "g");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v74, "h", "h");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v75, "hr", "ʀ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v76, "ich", "ç");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v77, "itt", "ɪ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v78, "j", "j");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v79, "k", "k");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v80, "l", "l");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v81, "m", "m");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v82, "n", "n");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v83, "ng", "ŋ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v84, "oe", "ø");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(v85, "ott", "oː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v86, "p", "p");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v87, "r", "ʀ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v88, "s", "s");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v89, "sch", "ʃ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v90, "t", "t");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v91, "ue", "yː");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(v92, "utt", "ʊ");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v93, "w", "v");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(v94, "wu", "a͡u");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v95, "z", "z");
+      std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v96, "zh", "ʒ");
+      std::unordered_map<std::string,std::string>::unordered_map(v6, v49, 48);
       for (j = 282; j != -6; j -= 6)
       {
-        std::pair<std::string,std::string>::~pair(&v47[j]);
+        std::pair<std::string,std::string>::~pair(&v49[j]);
       }
     }
 
     else
     {
       result = 0.0;
-      *v4 = 0u;
-      *(v4 + 16) = 0u;
-      *(v4 + 32) = 1065353216;
+      *v6 = 0u;
+      *(v6 + 16) = 0u;
+      *(v6 + 32) = 1065353216;
     }
 
     return result;
   }
 
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v47, "AA", "ˈa");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v48, "AU", "ˈa w");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v49, "AY", "ˈa j");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v50, "EE", "ˈe");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v51, "EY", "ˈe j");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v52, "II", "ˈi");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v53, "OO", "ˈo");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v54, "OY", "ˈo j");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v55, "UU", "ˈu");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v56, "UY", "w ˈi");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v57, "Z", "s");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v58, "aa", "a");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v59, "b", "β");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v60, "ch", "t͡ʃ");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v61, "d", "ð");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v62, "ee", "e");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v63, "f", "f");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v64, "g", "ɣ");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v65, "ii", "i");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v66, "j", "x");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v67, "k", "k");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v68, "ks", "ks");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v69, "l", "l");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v70, "m", "m");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v71, "n", "n");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v72, "nn", "ɲ");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v73, "oo", "o");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v74, "p", "p");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v75, "r", "ɾ");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v76, "rr", "r");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v77, "s", "s");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v78, "t", "t");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v79, "uu", "u");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v80, "w", "w");
-  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[6],0>(v81, "y", "d͡ʒ");
-  std::unordered_map<std::string,std::string>::unordered_map(v4, v47, 35);
-  v39 = 210;
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v49, "AA", "ˈa");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v50, "AU", "ˈa w");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v51, "AY", "ˈa j");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v52, "EE", "ˈe");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v53, "EY", "ˈe j");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v54, "II", "ˈi");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v55, "OO", "ˈo");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v56, "OY", "ˈo j");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(v57, "UU", "ˈu");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v58, "UY", "w ˈi");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v59, "Z", "s");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v60, "aa", "a");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v61, "b", "β");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(v62, "ch", "t͡ʃ");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v63, "d", "ð");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v64, "ee", "e");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v65, "f", "f");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v66, "g", "ɣ");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v67, "ii", "i");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v68, "j", "x");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v69, "k", "k");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v70, "ks", "ks");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v71, "l", "l");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v72, "m", "m");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v73, "n", "n");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(v74, "nn", "ɲ");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v75, "oo", "o");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v76, "p", "p");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(v77, "r", "ɾ");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v78, "rr", "r");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v79, "s", "s");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v80, "t", "t");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(v81, "uu", "u");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(v82, "w", "w");
+  std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[6],0>(v83, "y", "d͡ʒ");
+  std::unordered_map<std::string,std::string>::unordered_map(v6, v49, 35);
+  v41 = 210;
   do
   {
-    v40 = &v47[v39];
-    if (SHIBYTE(v47[v39 - 1]) < 0)
+    v42 = &v49[v41];
+    if (SHIBYTE(v49[v41 - 1]) < 0)
     {
-      operator delete(*(v40 - 3));
+      operator delete(*(v42 - 3));
     }
 
-    if (*(v40 - 25) < 0)
+    if (*(v42 - 25) < 0)
     {
-      operator delete(*(v40 - 6));
+      operator delete(*(v42 - 6));
     }
 
-    v39 -= 6;
+    v41 -= 6;
   }
 
-  while (v39 * 8);
+  while (v41 * 8);
   return result;
 }
 
@@ -6998,89 +8155,89 @@ uint64_t quasar::PhonesetMapping::getSupportedXsampaProns@<X0>(uint64_t a1@<X8>)
   *a1 = 0;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
-  quasar::PhonesetMapPerLanguage::getXSampaToNvASRMap(v20);
-  for (i = v21; i; i = *i)
+  quasar::PhonesetMapPerLanguage::getXSampaToNvASRMap(v19);
+  for (i = v20; i; i = *i)
   {
     if (*(i + 39) < 0)
     {
-      std::string::__init_copy_ctor_external(&v22, i[2], i[3]);
+      std::string::__init_copy_ctor_external(&v21, i[2], i[3]);
     }
 
     else
     {
-      v22 = *(i + 2);
+      v21 = *(i + 2);
     }
 
-    v5 = *(a1 + 8);
-    v4 = *(a1 + 16);
-    if (v5 >= v4)
+    v4 = *(a1 + 8);
+    v3 = *(a1 + 16);
+    if (v4 >= v3)
     {
-      v7 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 3);
-      v8 = v7 + 1;
-      if (v7 + 1 > 0xAAAAAAAAAAAAAAALL)
+      v6 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 3);
+      v7 = v6 + 1;
+      if (v6 + 1 > 0xAAAAAAAAAAAAAAALL)
       {
         std::vector<int>::__throw_length_error[abi:ne200100]();
       }
 
-      v9 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 3);
-      if (2 * v9 > v8)
+      v8 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 3);
+      if (2 * v8 > v7)
       {
-        v8 = 2 * v9;
+        v7 = 2 * v8;
       }
 
-      if (v9 >= 0x555555555555555)
+      if (v8 >= 0x555555555555555)
       {
-        v10 = 0xAAAAAAAAAAAAAAALL;
+        v9 = 0xAAAAAAAAAAAAAAALL;
       }
 
       else
       {
-        v10 = v8;
+        v9 = v7;
       }
 
-      v23.__end_cap_.__value_ = a1;
-      if (v10)
+      v22.__end_cap_.__value_ = a1;
+      if (v9)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(a1, v10);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(a1, v9);
       }
 
-      v11 = 24 * v7;
-      v12 = *&v22.__r_.__value_.__l.__data_;
-      *(v11 + 16) = *(&v22.__r_.__value_.__l + 2);
-      *v11 = v12;
-      memset(&v22, 0, sizeof(v22));
-      v13 = 24 * v7 + 24;
-      v14 = *(a1 + 8) - *a1;
-      v15 = 24 * v7 - v14;
-      memcpy((v11 - v14), *a1, v14);
-      v16 = *a1;
-      *a1 = v15;
-      *(a1 + 8) = v13;
-      v17 = *(a1 + 16);
+      v10 = 24 * v6;
+      v11 = *&v21.__r_.__value_.__l.__data_;
+      *(v10 + 16) = *(&v21.__r_.__value_.__l + 2);
+      *v10 = v11;
+      memset(&v21, 0, sizeof(v21));
+      v12 = 24 * v6 + 24;
+      v13 = *(a1 + 8) - *a1;
+      v14 = 24 * v6 - v13;
+      memcpy((v10 - v13), *a1, v13);
+      v15 = *a1;
+      *a1 = v14;
+      *(a1 + 8) = v12;
+      v16 = *(a1 + 16);
       *(a1 + 16) = 0;
-      v23.__end_ = v16;
-      v23.__end_cap_.__value_ = v17;
-      v23.__first_ = v16;
-      v23.__begin_ = v16;
-      std::__split_buffer<std::string>::~__split_buffer(&v23);
-      v18 = SHIBYTE(v22.__r_.__value_.__r.__words[2]);
-      *(a1 + 8) = v13;
-      if (v18 < 0)
+      v22.__end_ = v15;
+      v22.__end_cap_.__value_ = v16;
+      v22.__first_ = v15;
+      v22.__begin_ = v15;
+      std::__split_buffer<std::string>::~__split_buffer(&v22);
+      v17 = SHIBYTE(v21.__r_.__value_.__r.__words[2]);
+      *(a1 + 8) = v12;
+      if (v17 < 0)
       {
-        operator delete(v22.__r_.__value_.__l.__data_);
+        operator delete(v21.__r_.__value_.__l.__data_);
       }
     }
 
     else
     {
-      v6 = *&v22.__r_.__value_.__l.__data_;
-      *(v5 + 16) = *(&v22.__r_.__value_.__l + 2);
-      *v5 = v6;
-      *(a1 + 8) = v5 + 24;
+      v5 = *&v21.__r_.__value_.__l.__data_;
+      *(v4 + 16) = *(&v21.__r_.__value_.__l + 2);
+      *v4 = v5;
+      *(a1 + 8) = v4 + 24;
     }
   }
 
-  return std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v20);
+  return std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v19);
 }
 
 void sub_1B52F12B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
@@ -7090,10 +8247,10 @@ void sub_1B52F12B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[5],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7107,10 +8264,10 @@ void sub_1B52F1334(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[5],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7124,10 +8281,10 @@ void sub_1B52F1388(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[8],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7141,10 +8298,10 @@ void sub_1B52F13DC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[4],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7158,10 +8315,10 @@ void sub_1B52F1430(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[4],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7175,10 +8332,10 @@ void sub_1B52F1484(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[9],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7192,10 +8349,10 @@ void sub_1B52F14D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[2],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7209,10 +8366,10 @@ void sub_1B52F152C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[6],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7226,10 +8383,10 @@ void sub_1B52F1580(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[3],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7243,10 +8400,10 @@ void sub_1B52F15D4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[2],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7260,10 +8417,10 @@ void sub_1B52F1628(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[6],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[6],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7277,10 +8434,10 @@ void sub_1B52F167C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[3],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7294,10 +8451,10 @@ void sub_1B52F16D0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7311,10 +8468,10 @@ void sub_1B52F1724(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[9],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7328,10 +8485,10 @@ void sub_1B52F1778(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[11],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7345,10 +8502,10 @@ void sub_1B52F17CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[8],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7362,10 +8519,10 @@ void sub_1B52F1820(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[10],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7379,10 +8536,10 @@ void sub_1B52F1874(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[12],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7396,10 +8553,10 @@ void sub_1B52F18C8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7413,10 +8570,10 @@ void sub_1B52F191C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7430,10 +8587,10 @@ void sub_1B52F1970(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[6],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7447,10 +8604,10 @@ void sub_1B52F19C4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[4],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7464,10 +8621,10 @@ void sub_1B52F1A18(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[3],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7481,10 +8638,10 @@ void sub_1B52F1A6C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[5],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[5],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7498,10 +8655,10 @@ void sub_1B52F1AC0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[12],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[3],char const(&)[12],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7515,10 +8672,10 @@ void sub_1B52F1B14(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[2],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7532,10 +8689,10 @@ void sub_1B52F1B68(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7549,10 +8706,10 @@ void sub_1B52F1BBC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[9],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[9],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7566,10 +8723,10 @@ void sub_1B52F1C10(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[8],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[8],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7583,10 +8740,10 @@ void sub_1B52F1C64(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[10],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[10],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7600,10 +8757,10 @@ void sub_1B52F1CB8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[1],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[2],char const(&)[1],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7617,10 +8774,10 @@ void sub_1B52F1D0C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[6],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[6],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7634,10 +8791,10 @@ void sub_1B52F1D60(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[6],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[6],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7651,10 +8808,10 @@ void sub_1B52F1DB4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[4],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[4],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7668,10 +8825,10 @@ void sub_1B52F1E08(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[3],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[3],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7685,10 +8842,10 @@ void sub_1B52F1E5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[4],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[4],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7702,10 +8859,10 @@ void sub_1B52F1EB0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[4],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[4],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7719,10 +8876,10 @@ void sub_1B52F1F04(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[4],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[4],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7736,10 +8893,10 @@ void sub_1B52F1F58(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[4],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[4],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7753,10 +8910,10 @@ void sub_1B52F1FAC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[4],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[4],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7770,10 +8927,10 @@ void sub_1B52F2000(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[2],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[2],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7787,10 +8944,10 @@ void sub_1B52F2054(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[4],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[4],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7804,10 +8961,10 @@ void sub_1B52F20A8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[2],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[2],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7821,10 +8978,10 @@ void sub_1B52F20FC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[1],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[1],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7838,10 +8995,10 @@ void sub_1B52F2150(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[1],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[4],char const(&)[1],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7855,10 +9012,10 @@ void sub_1B52F21A4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[5],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[5],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7872,10 +9029,10 @@ void sub_1B52F21F8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[5],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[5],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7889,10 +9046,10 @@ void sub_1B52F224C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[5],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[5],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7906,10 +9063,10 @@ void sub_1B52F22A0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[3],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[3],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7923,10 +9080,10 @@ void sub_1B52F22F4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[19],char const(&)[9],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[19],char const(&)[9],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7940,10 +9097,10 @@ void sub_1B52F2348(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[18],char const(&)[9],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[18],char const(&)[9],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7957,10 +9114,10 @@ void sub_1B52F239C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[9],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[9],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7974,10 +9131,10 @@ void sub_1B52F23F0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[8],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[8],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7991,10 +9148,10 @@ void sub_1B52F2444(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[10],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[17],char const(&)[10],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8008,10 +9165,10 @@ void sub_1B52F2498(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8025,10 +9182,10 @@ void sub_1B52F24EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[9],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[9],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8042,10 +9199,10 @@ void sub_1B52F2540(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[15],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[15],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8059,10 +9216,10 @@ void sub_1B52F2594(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[15],char const(&)[9],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[15],char const(&)[9],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8076,10 +9233,10 @@ void sub_1B52F25E8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[15],char const(&)[8],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[15],char const(&)[8],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8093,10 +9250,10 @@ void sub_1B52F263C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[15],char const(&)[10],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[15],char const(&)[10],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8110,10 +9267,10 @@ void sub_1B52F2690(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[8],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[8],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8127,10 +9284,10 @@ void sub_1B52F26E4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8144,10 +9301,10 @@ void sub_1B52F2738(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[6],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[6],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8161,10 +9318,10 @@ void sub_1B52F278C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[9],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[9],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8178,10 +9335,10 @@ void sub_1B52F27E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[10],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[10],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8195,10 +9352,10 @@ void sub_1B52F2834(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8212,10 +9369,10 @@ void sub_1B52F2888(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[8],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[8],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8229,10 +9386,10 @@ void sub_1B52F28DC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[9],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[9],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8246,10 +9403,10 @@ void sub_1B52F2930(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[10],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[13],char const(&)[10],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8263,10 +9420,10 @@ void sub_1B52F2984(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8280,10 +9437,10 @@ void sub_1B52F29D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[8],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[8],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8297,10 +9454,10 @@ void sub_1B52F2A2C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[6],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[6],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8314,10 +9471,10 @@ void sub_1B52F2A80(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[9],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[12],char const(&)[9],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8331,10 +9488,10 @@ void sub_1B52F2AD4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8348,10 +9505,10 @@ void sub_1B52F2B28(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[8],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[8],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8365,10 +9522,10 @@ void sub_1B52F2B7C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[6],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[6],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8382,10 +9539,10 @@ void sub_1B52F2BD0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[9],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[11],char const(&)[9],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8399,10 +9556,10 @@ void sub_1B52F2C24(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8416,10 +9573,10 @@ void sub_1B52F2C78(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[6],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[6],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8433,10 +9590,10 @@ void sub_1B52F2CCC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[8],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[8],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8450,10 +9607,10 @@ void sub_1B52F2D20(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[3],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[3],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8467,10 +9624,10 @@ void sub_1B52F2D74(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[9],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[9],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8484,10 +9641,10 @@ void sub_1B52F2DC8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[6],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[6],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8501,10 +9658,10 @@ void sub_1B52F2E1C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8518,10 +9675,10 @@ void sub_1B52F2E70(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[10],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[10],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8535,10 +9692,10 @@ void sub_1B52F2EC4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[8],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[9],char const(&)[8],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8552,10 +9709,10 @@ void sub_1B52F2F18(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8569,10 +9726,10 @@ void sub_1B52F2F6C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[3],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[3],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8586,10 +9743,10 @@ void sub_1B52F2FC0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[6],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[8],char const(&)[6],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8603,10 +9760,10 @@ void sub_1B52F3014(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[3],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[3],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8620,10 +9777,10 @@ void sub_1B52F3068(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[6],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[6],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8637,10 +9794,10 @@ void sub_1B52F30BC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8654,10 +9811,10 @@ void sub_1B52F3110(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[8],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[8],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8671,10 +9828,10 @@ void sub_1B52F3164(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[7],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[6],char const(&)[7],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8688,10 +9845,10 @@ void sub_1B52F31B8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[5],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[5],char const(&)[5],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -8705,1171 +9862,9 @@ void sub_1B52F320C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[8],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[7],char const(&)[8],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
-}
-
-void sub_1B52F3260(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[10],char const(&)[4],0>(_BYTE *a1, char *a2, char *a3)
-{
-  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
-  return a1;
-}
-
-void sub_1B52F32B4(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void Vocab::~Vocab(Vocab *this)
-{
-  *this = &unk_1F2D2A398;
-  LHash<unsigned int,float>::clear(this + 7, 0);
-  LHash<unsigned int,float>::clear(this + 6, 0);
-  v2 = *(this + 3);
-  if (v2)
-  {
-    MEMORY[0x1B8C85310](v2, 0x50C80EE9192B6);
-  }
-
-  LHash<char const*,unsigned int>::clear(this + 1, 0);
-}
-
-{
-  Vocab::~Vocab(this);
-
-  JUMPOUT(0x1B8C85350);
-}
-
-uint64_t Vocab::numWords(Vocab *this)
-{
-  v1 = *(this + 1);
-  if (v1)
-  {
-    return *v1 >> 5;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t Vocab::unkIndex(Vocab *this)
-{
-  return *(this + 16);
-}
-
-{
-  return this + 64;
-}
-
-uint64_t Vocab::ssIndex(Vocab *this)
-{
-  return *(this + 17);
-}
-
-{
-  return this + 68;
-}
-
-uint64_t Vocab::seIndex(Vocab *this)
-{
-  return *(this + 18);
-}
-
-{
-  return this + 72;
-}
-
-uint64_t Vocab::pauseIndex(Vocab *this)
-{
-  return *(this + 19);
-}
-
-{
-  return this + 76;
-}
-
-uint64_t Vocab::isNonEvent(Vocab *this, const char *a2)
-{
-  v3 = (*(*this + 40))(this, a2, 0xFFFFFFFFLL);
-  v4 = *(*this + 176);
-
-  return v4(this, v3);
-}
-
-uint64_t Vocab::addNonEvent(Vocab *this, const char *a2)
-{
-  v3 = (*(*this + 16))(this, a2);
-  v4 = *(*this + 184);
-
-  return v4(this, v3);
-}
-
-uint64_t Vocab::typeOfMetaTag(Vocab *this, unsigned int a2)
-{
-  v4 = 0;
-  if (LHash<unsigned int,float>::locate(this + 7, a2, &v4))
-  {
-    return *(*(this + 7) + 8 * v4 + 4);
-  }
-
-  else
-  {
-    return 0xFFFFFFFFLL;
-  }
-}
-
-void *Vocab::use(Vocab *this)
-{
-  v2 = _ZTWN5Vocab14outputVocabTLSE();
-  result = *v2;
-  if (!*v2)
-  {
-    result = malloc_type_calloc(1uLL, 8uLL, 0x2004093837F09uLL);
-    *v2 = result;
-  }
-
-  *result = this;
-  return result;
-}
-
-uint64_t quasar::corrective_reranking::VoiceEditingWFST::Edge::Edge(uint64_t a1, int a2, std::string *this, const std::string *a4, double a5)
-{
-  *(a1 + 8) = 0u;
-  v10 = (a1 + 8);
-  *(a1 + 24) = 0u;
-  *(a1 + 40) = 0u;
-  if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__str, this->__r_.__value_.__l.__data_, this->__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    __str = *this;
-  }
-
-  if (std::string::find(this, 35, 0) != -1)
-  {
-    std::string::basic_string[abi:ne200100]<0>(__p, "#");
-    quasar::splitStringSimple(this, __p, &v13);
-  }
-
-  *a1 = a2;
-  std::string::operator=(v10, &__str);
-  std::string::operator=(v10 + 1, a4);
-  *(a1 + 56) = a5;
-  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__str.__r_.__value_.__l.__data_);
-  }
-
-  return a1;
-}
-
-void sub_1B52F369C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
-{
-  if (*(v23 + 55) < 0)
-  {
-    operator delete(v24[3]);
-  }
-
-  if (*(v23 + 31) < 0)
-  {
-    operator delete(*v24);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-BOOL quasar::corrective_reranking::VoiceEditingWFST::Edge::accepts(uint64_t a1, uint64_t a2)
-{
-  v4 = (a1 + 8);
-  v5 = strlen(quasar::corrective_reranking::VoiceEditingWFST::star[0]);
-  v6 = v5;
-  v7 = *(a1 + 31);
-  if ((v7 & 0x8000000000000000) == 0)
-  {
-    v8 = v4;
-    if (v6 != v7)
-    {
-      goto LABEL_8;
-    }
-
-LABEL_7:
-    if (memcmp(v8, quasar::corrective_reranking::VoiceEditingWFST::star[0], v6))
-    {
-      goto LABEL_8;
-    }
-
-    v15 = strlen(quasar::corrective_reranking::VoiceEditingWFST::eps[0]);
-    v16 = v15;
-    v17 = *(a2 + 23);
-    if (v17 < 0)
-    {
-      if (v15 != *(a2 + 8))
-      {
-        return 1;
-      }
-
-      if (v15 == -1)
-      {
-        std::string::__throw_out_of_range[abi:ne200100]();
-      }
-
-      v18 = *a2;
-    }
-
-    else
-    {
-      v18 = a2;
-      if (v16 != v17)
-      {
-        return 1;
-      }
-    }
-
-    if (!memcmp(v18, quasar::corrective_reranking::VoiceEditingWFST::eps[0], v16))
-    {
-      goto LABEL_8;
-    }
-
-    return 1;
-  }
-
-  if (v5 == *(a1 + 16))
-  {
-    if (v5 == -1)
-    {
-      std::string::__throw_out_of_range[abi:ne200100]();
-    }
-
-    v8 = *v4;
-    goto LABEL_7;
-  }
-
-LABEL_8:
-  if ((v7 & 0x80000000) == 0)
-  {
-    v9 = v7;
-  }
-
-  else
-  {
-    v9 = *(a1 + 16);
-  }
-
-  v10 = *(a2 + 23);
-  v11 = v10;
-  if ((v10 & 0x80u) != 0)
-  {
-    v10 = *(a2 + 8);
-  }
-
-  if (v9 != v10)
-  {
-    return 0;
-  }
-
-  if ((v7 & 0x80000000) == 0)
-  {
-    v12 = v4;
-  }
-
-  else
-  {
-    v12 = *v4;
-  }
-
-  if (v11 >= 0)
-  {
-    v13 = a2;
-  }
-
-  else
-  {
-    v13 = *a2;
-  }
-
-  return memcmp(v12, v13, v9) == 0;
-}
-
-uint64_t quasar::corrective_reranking::VoiceEditingWFST::Path::Path(uint64_t a1, int a2, std::string **a3)
-{
-  v5[0] = a2;
-  *(a1 + 16) = 0u;
-  *(a1 + 64) = 0u;
-  *(a1 + 32) = 0u;
-  *(a1 + 48) = 0u;
-  *(a1 + 80) = 0;
-  *a1 = a2;
-  *(a1 + 8) = 0;
-  if ((a1 + 16) != a3)
-  {
-    std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 16), *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 3));
-  }
-
-  std::vector<int>::push_back[abi:ne200100]((a1 + 40), v5);
-  return a1;
-}
-
-void sub_1B52F38F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
-{
-  v12 = v11;
-  a10 = v12;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a10);
-  v14 = *(v10 + 40);
-  if (v14)
-  {
-    *(v10 + 48) = v14;
-    operator delete(v14);
-  }
-
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a10);
-  _Unwind_Resume(a1);
-}
-
-void quasar::corrective_reranking::VoiceEditingWFST::Path::advance(uint64_t a1, int *a2)
-{
-  *(a1 + 8) = *(a2 + 7) + *(a1 + 8);
-  if (*(a2 + 31) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__s1, *(a2 + 1), *(a2 + 2));
-  }
-
-  else
-  {
-    __s1 = *(a2 + 2);
-  }
-
-  v4 = strlen(quasar::corrective_reranking::VoiceEditingWFST::eps[0]);
-  if ((SHIBYTE(__s1.__r_.__value_.__r.__words[2]) & 0x8000000000000000) == 0)
-  {
-    if (v4 == SHIBYTE(__s1.__r_.__value_.__r.__words[2]) && !memcmp(&__s1, quasar::corrective_reranking::VoiceEditingWFST::eps[0], v4))
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_13;
-  }
-
-  if (v4 != __s1.__r_.__value_.__l.__size_)
-  {
-    operator delete(__s1.__r_.__value_.__l.__data_);
-LABEL_13:
-    memset(&__s1, 0, sizeof(__s1));
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&__s1, *(a1 + 16), *(a1 + 24), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 24) - *(a1 + 16)) >> 3));
-    v7 = *&__s1.__r_.__value_.__l.__data_;
-    p_s1 = &__s1;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&p_s1);
-    if (*(&v7 + 1) != v7)
-    {
-      quasar::corrective_reranking::VoiceEditingWFST::Path::removeTopInToken(a1);
-    }
-
-    goto LABEL_15;
-  }
-
-  if (v4 == -1)
-  {
-    std::string::__throw_out_of_range[abi:ne200100]();
-  }
-
-  v5 = __s1.__r_.__value_.__r.__words[0];
-  v6 = memcmp(__s1.__r_.__value_.__l.__data_, quasar::corrective_reranking::VoiceEditingWFST::eps[0], v4);
-  operator delete(v5);
-  if (v6)
-  {
-    goto LABEL_13;
-  }
-
-LABEL_15:
-  if (*(a2 + 55) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__s1, *(a2 + 4), *(a2 + 5));
-  }
-
-  else
-  {
-    __s1 = *(a2 + 8);
-  }
-
-  v8 = strlen(quasar::corrective_reranking::VoiceEditingWFST::eps[0]);
-  if ((SHIBYTE(__s1.__r_.__value_.__r.__words[2]) & 0x8000000000000000) == 0)
-  {
-    if (v8 == SHIBYTE(__s1.__r_.__value_.__r.__words[2]) && !memcmp(&__s1, quasar::corrective_reranking::VoiceEditingWFST::eps[0], v8))
-    {
-      goto LABEL_32;
-    }
-
-    goto LABEL_27;
-  }
-
-  if (v8 != __s1.__r_.__value_.__l.__size_)
-  {
-    operator delete(__s1.__r_.__value_.__l.__data_);
-LABEL_27:
-    if (*(a2 + 55) < 0)
-    {
-      std::string::__init_copy_ctor_external(&__s1, *(a2 + 4), *(a2 + 5));
-    }
-
-    else
-    {
-      __s1 = *(a2 + 8);
-    }
-
-    std::vector<std::string>::push_back[abi:ne200100](a1 + 64, &__s1);
-    if (SHIBYTE(__s1.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__s1.__r_.__value_.__l.__data_);
-    }
-
-    goto LABEL_32;
-  }
-
-  if (v8 == -1)
-  {
-    std::string::__throw_out_of_range[abi:ne200100]();
-  }
-
-  v9 = __s1.__r_.__value_.__r.__words[0];
-  v10 = memcmp(__s1.__r_.__value_.__l.__data_, quasar::corrective_reranking::VoiceEditingWFST::eps[0], v8);
-  operator delete(v9);
-  if (v10)
-  {
-    goto LABEL_27;
-  }
-
-LABEL_32:
-  v11 = *a2;
-  *a1 = *a2;
-  LODWORD(__s1.__r_.__value_.__l.__data_) = v11;
-  std::vector<int>::push_back[abi:ne200100]((a1 + 40), &__s1);
-}
-
-void sub_1B52F3B7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void quasar::corrective_reranking::VoiceEditingWFST::Path::removeTopInToken(quasar::corrective_reranking::VoiceEditingWFST::Path *this)
-{
-  std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::string *,std::string *,std::string *>(&v6, (*(this + 2) + 24), *(this + 3), *(this + 2));
-  v3 = v2;
-  v4 = *(this + 3);
-  if (v4 != v2)
-  {
-    do
-    {
-      v5 = *(v4 - 1);
-      v4 -= 3;
-      if (v5 < 0)
-      {
-        operator delete(*v4);
-      }
-    }
-
-    while (v4 != v3);
-  }
-
-  *(this + 3) = v3;
-}
-
-uint64_t quasar::corrective_reranking::VoiceEditingWFST::Path::getOutputs@<X0>(quasar::corrective_reranking::VoiceEditingWFST::Path *this@<X0>, void *a2@<X8>)
-{
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  return std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a2, *(this + 8), *(this + 9), 0xAAAAAAAAAAAAAAABLL * ((*(this + 9) - *(this + 8)) >> 3));
-}
-
-uint64_t quasar::corrective_reranking::VoiceEditingWFST::VoiceEditingWFST(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
-{
-  v54[19] = *MEMORY[0x1E69E9840];
-  *a1 = a4;
-  *(a1 + 16) = 0;
-  *(a1 + 8) = a1 + 16;
-  *(a1 + 24) = 0;
-  *(a1 + 32) = 0u;
-  *(a1 + 48) = 0u;
-  *(a1 + 64) = 1065353216;
-  *(a1 + 72) = 0u;
-  *(a1 + 88) = 0u;
-  *(a1 + 104) = 1065353216;
-  std::ifstream::basic_ifstream(v52);
-  if ((v53[*(v52[0] - 24) + 16] & 5) != 0)
-  {
-    v49 = 0u;
-    memset(v50, 0, 240);
-    *&v48[0].__locale_ = 0u;
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(v48);
-    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, "Could not open isyms file ", 26);
-    v18 = *(a3 + 23);
-    if (v18 >= 0)
-    {
-      v19 = a3;
-    }
-
-    else
-    {
-      v19 = *a3;
-    }
-
-    if (v18 >= 0)
-    {
-      v20 = *(a3 + 23);
-    }
-
-    else
-    {
-      v20 = *(a3 + 8);
-    }
-
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v19, v20);
-    quasar::QuasarExceptionMessage::~QuasarExceptionMessage(v48);
-  }
-
-  v46[0] = 0;
-  v46[1] = 0;
-  v47 = 0;
-  v6 = MEMORY[0x1E69E5318];
-  std::ios_base::getloc((v52 + *(v52[0] - 24)));
-  v7 = std::locale::use_facet(v48, v6);
-  v8 = (v7->__vftable[2].~facet_0)(v7, 10);
-  std::locale::~locale(v48);
-  v9 = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v52, v46, v8);
-  if ((*(v9 + *(*v9 - 24) + 32) & 5) == 0)
-  {
-    std::string::basic_string[abi:ne200100]<0>(__p, " \t");
-    quasar::splitStringSimple(v46, __p, v48);
-  }
-
-  if (!*(a1 + 24))
-  {
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(v48);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, "_vocab.size() > 0", 17);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v48);
-  }
-
-  std::ifstream::basic_ifstream(v48);
-  if ((v50[*(v48[0].__locale_ - 3)] & 5) != 0)
-  {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    *v31 = 0u;
-    *__p = 0u;
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
-    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "Could not open fst text file ", 29);
-    v22 = *(a2 + 23);
-    if (v22 >= 0)
-    {
-      v23 = a2;
-    }
-
-    else
-    {
-      v23 = *a2;
-    }
-
-    if (v22 >= 0)
-    {
-      v24 = *(a2 + 23);
-    }
-
-    else
-    {
-      v24 = *(a2 + 8);
-    }
-
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, v23, v24);
-    quasar::QuasarExceptionMessage::~QuasarExceptionMessage(__p);
-  }
-
-  v27[0] = 0;
-  v27[1] = 0;
-  v28 = 0;
-  v10 = MEMORY[0x1E69E5318];
-  std::ios_base::getloc((v48 + *(v48[0].__locale_ - 3)));
-  v11 = std::locale::use_facet(__p, v10);
-  v12 = (v11->__vftable[2].~facet_0)(v11, 10);
-  std::locale::~locale(__p);
-  v13 = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v48, v27, v12);
-  if ((*(v13 + *(*v13 - 24) + 32) & 5) == 0)
-  {
-    std::string::basic_string[abi:ne200100]<0>(__p, " \t");
-    quasar::splitStringSimple(v27, __p, &v26);
-  }
-
-  if (!*(a1 + 56))
-  {
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "!edgeLists.empty()", 18);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(__p);
-  }
-
-  if (SHIBYTE(v28) < 0)
-  {
-    operator delete(v27[0]);
-  }
-
-  v48[0] = *MEMORY[0x1E69E54C8];
-  locale = v48[0].__locale_;
-  v15 = *(MEMORY[0x1E69E54C8] + 24);
-  *(&v48[0].__locale_ + *(v48[0].__locale_ - 3)) = v15;
-  MEMORY[0x1B8C84A00](&v49);
-  std::istream::~istream();
-  MEMORY[0x1B8C85200](&v51);
-  if (SHIBYTE(v47) < 0)
-  {
-    operator delete(v46[0]);
-  }
-
-  v52[0] = locale;
-  *(v52 + *(locale - 3)) = v15;
-  MEMORY[0x1B8C84A00](v53);
-  std::istream::~istream();
-  MEMORY[0x1B8C85200](v54);
-  return a1;
-}
-
-void sub_1B52F4560(void *a1, int a2)
-{
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
-  JUMPOUT(0x1B52F45CCLL);
-}
-
-uint64_t std::vector<quasar::corrective_reranking::VoiceEditingWFST::Edge>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
-{
-  v3 = a1[1];
-  if (v3 >= a1[2])
-  {
-    result = std::vector<quasar::corrective_reranking::VoiceEditingWFST::Edge>::__emplace_back_slow_path<quasar::corrective_reranking::VoiceEditingWFST::Edge const&>(a1, a2);
-  }
-
-  else
-  {
-    std::vector<quasar::corrective_reranking::VoiceEditingWFST::Edge>::__construct_one_at_end[abi:ne200100]<quasar::corrective_reranking::VoiceEditingWFST::Edge const&>(a1, a2);
-    result = v3 + 64;
-  }
-
-  a1[1] = result;
-  return result;
-}
-
-uint64_t quasar::corrective_reranking::VoiceEditingWFST::search@<X0>(uint64_t result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, void *a5@<X8>)
-{
-  v25 = result;
-  v33 = a4;
-  if (!a4 || *a2 != a2[1])
-  {
-    if ((a3 & 0x100000000) == 0)
-    {
-      v6 = *(result + 48);
-      v7 = *v6;
-      if (*result == 1)
-      {
-        for (; v7; v7 = *v7)
-        {
-          LODWORD(v26.__first_) = *(v6 + 4);
-          memset(&v26.__begin_, 0, 24);
-          std::vector<quasar::corrective_reranking::VoiceEditingWFST::Edge>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::VoiceEditingWFST::Edge*,quasar::corrective_reranking::VoiceEditingWFST::Edge*>(&v26.__begin_, v6[3], v6[4], (v6[4] - v6[3]) >> 6);
-          LODWORD(p_begin) = *(v7 + 4);
-          v36 = 0;
-          v37 = 0;
-          v35 = 0;
-          std::vector<quasar::corrective_reranking::VoiceEditingWFST::Edge>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::VoiceEditingWFST::Edge*,quasar::corrective_reranking::VoiceEditingWFST::Edge*>(&v35, v7[3], v7[4], (v7[4] - v7[3]) >> 6);
-          v8 = p_begin;
-          v30 = &v35;
-          std::vector<quasar::corrective_reranking::VoiceEditingWFST::Edge>::__destroy_vector::operator()[abi:ne200100](&v30);
-          p_begin = &v26.__begin_;
-          std::vector<quasar::corrective_reranking::VoiceEditingWFST::Edge>::__destroy_vector::operator()[abi:ne200100](&p_begin);
-          if (SLODWORD(v26.__first_) < v8)
-          {
-            v6 = v7;
-          }
-        }
-      }
-
-      else
-      {
-        for (; v7; v7 = *v7)
-        {
-          LODWORD(v26.__first_) = *(v7 + 4);
-          memset(&v26.__begin_, 0, 24);
-          std::vector<quasar::corrective_reranking::VoiceEditingWFST::Edge>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::VoiceEditingWFST::Edge*,quasar::corrective_reranking::VoiceEditingWFST::Edge*>(&v26.__begin_, v7[3], v7[4], (v7[4] - v7[3]) >> 6);
-          LODWORD(p_begin) = *(v6 + 4);
-          v36 = 0;
-          v37 = 0;
-          v35 = 0;
-          std::vector<quasar::corrective_reranking::VoiceEditingWFST::Edge>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::VoiceEditingWFST::Edge*,quasar::corrective_reranking::VoiceEditingWFST::Edge*>(&v35, v6[3], v6[4], (v6[4] - v6[3]) >> 6);
-          v9 = p_begin;
-          v30 = &v35;
-          std::vector<quasar::corrective_reranking::VoiceEditingWFST::Edge>::__destroy_vector::operator()[abi:ne200100](&v30);
-          p_begin = &v26.__begin_;
-          std::vector<quasar::corrective_reranking::VoiceEditingWFST::Edge>::__destroy_vector::operator()[abi:ne200100](&p_begin);
-          if (SLODWORD(v26.__first_) < v9)
-          {
-            v6 = v7;
-          }
-        }
-      }
-    }
-
-    p_begin = 0;
-    v35 = 0;
-    v36 = 0;
-    v30 = 0;
-    v31 = 0;
-    v32 = 0;
-    v10 = *a2;
-    v11 = a2[1];
-    if (*a2 != v11)
-    {
-      do
-      {
-        v12 = *(v10 + 23);
-        if (v12 < 0)
-        {
-          v13 = *v10;
-          v12 = *(v10 + 8);
-        }
-
-        else
-        {
-          v13 = v10;
-        }
-
-        quasar::utf8::convertToLowerCaseOrThrow(v13, v12, &v29);
-        std::vector<std::string>::push_back[abi:ne200100](&p_begin, &v29);
-        if (v25 + 16 == std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::find<std::string>(v25 + 8, &v29.__r_.__value_.__l.__data_))
-        {
-          std::string::basic_string[abi:ne200100]<0>(__p, quasar::corrective_reranking::VoiceEditingWFST::unk);
-          v14 = v31;
-          if (v31 >= v32)
-          {
-            v16 = 0xAAAAAAAAAAAAAAABLL * ((v31 - v30) >> 3);
-            v17 = v16 + 1;
-            if (v16 + 1 > 0xAAAAAAAAAAAAAAALL)
-            {
-              std::vector<int>::__throw_length_error[abi:ne200100]();
-            }
-
-            if (0x5555555555555556 * ((v32 - v30) >> 3) > v17)
-            {
-              v17 = 0x5555555555555556 * ((v32 - v30) >> 3);
-            }
-
-            if (0xAAAAAAAAAAAAAAABLL * ((v32 - v30) >> 3) >= 0x555555555555555)
-            {
-              v18 = 0xAAAAAAAAAAAAAAALL;
-            }
-
-            else
-            {
-              v18 = v17;
-            }
-
-            v26.__end_cap_.__value_ = &v30;
-            if (v18)
-            {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(&v30, v18);
-            }
-
-            v19 = 8 * ((v31 - v30) >> 3);
-            v20 = *__p;
-            *(v19 + 16) = v28;
-            *v19 = v20;
-            __p[1] = 0;
-            v28 = 0;
-            __p[0] = 0;
-            v21 = 24 * v16 + 24;
-            v22 = (24 * v16 - (v31 - v30));
-            memcpy((v19 - (v31 - v30)), v30, v31 - v30);
-            v23 = v30;
-            v24 = v32;
-            v30 = v22;
-            v31 = v21;
-            v32 = 0;
-            v26.__end_ = v23;
-            v26.__end_cap_.__value_ = v24;
-            v26.__first_ = v23;
-            v26.__begin_ = v23;
-            std::__split_buffer<std::string>::~__split_buffer(&v26);
-            v31 = v21;
-            if (SHIBYTE(v28) < 0)
-            {
-              operator delete(__p[0]);
-            }
-          }
-
-          else
-          {
-            v15 = *__p;
-            *(v31 + 2) = v28;
-            *v14 = v15;
-            v31 = v14 + 24;
-          }
-        }
-
-        else
-        {
-          std::vector<std::string>::push_back[abi:ne200100](&v30, &v29);
-        }
-
-        if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v29.__r_.__value_.__l.__data_);
-        }
-
-        v10 += 24;
-      }
-
-      while (v10 != v11);
-    }
-
-    if (v33)
-    {
-      operator new();
-    }
-
-    operator new();
-  }
-
-  *a5 = 0;
-  a5[1] = 0;
-  a5[2] = 0;
-  return result;
-}
-
-void sub_1B52F53A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36)
-{
-  *(v36 - 184) = a9;
-  std::vector<quasar::corrective_reranking::VoiceEditingWFST::Path>::__destroy_vector::operator()[abi:ne200100]((v36 - 184));
-  if (a30)
-  {
-    (*(*a30 + 8))(a30);
-  }
-
-  if (a13)
-  {
-    (*(*a13 + 8))(a13);
-  }
-
-  *(v36 - 184) = v36 - 160;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v36 - 184));
-  *(v36 - 160) = v36 - 128;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v36 - 160));
-  _Unwind_Resume(a1);
-}
-
-void quasar::corrective_reranking::Paths::add(quasar::corrective_reranking::Paths *this, const quasar::corrective_reranking::VoiceEditingWFST::Path *a2)
-{
-  (*(*this + 16))(__p);
-  v4 = v16;
-  if ((v16 & 0x80u) != 0)
-  {
-    v4 = __p[1];
-  }
-
-  if (!v4)
-  {
-    v10 = *(this + 2);
-    if (v10 < *(this + 3))
-    {
-      std::vector<quasar::corrective_reranking::VoiceEditingWFST::Path>::__construct_one_at_end[abi:ne200100]<quasar::corrective_reranking::VoiceEditingWFST::Path const&>(this + 8, a2);
-      v11 = v10 + 88;
-LABEL_14:
-      *(this + 2) = v11;
-      goto LABEL_15;
-    }
-
-LABEL_13:
-    v11 = std::vector<quasar::corrective_reranking::VoiceEditingWFST::Path>::__emplace_back_slow_path<quasar::corrective_reranking::VoiceEditingWFST::Path const&>(this + 1, a2);
-    goto LABEL_14;
-  }
-
-  v5 = std::__hash_table<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>>>::find<std::string>(this + 4, __p);
-  if (!v5)
-  {
-    v12 = *(this + 1);
-    v13 = *(this + 2);
-    v17 = __p;
-    std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 4, __p)[5] = (0x2E8BA2E8BA2E8BA3 * ((v13 - v12) >> 3));
-    v14 = *(this + 2);
-    if (v14 < *(this + 3))
-    {
-      std::vector<quasar::corrective_reranking::VoiceEditingWFST::Path>::__construct_one_at_end[abi:ne200100]<quasar::corrective_reranking::VoiceEditingWFST::Path const&>(this + 8, a2);
-      v11 = v14 + 88;
-      goto LABEL_14;
-    }
-
-    goto LABEL_13;
-  }
-
-  v6 = v5[5];
-  v7 = *(this + 1);
-  if (0x2E8BA2E8BA2E8BA3 * ((*(this + 2) - v7) >> 3) <= v6)
-  {
-    std::vector<int>::__throw_out_of_range[abi:ne200100]();
-  }
-
-  v8 = v7 + 88 * v6;
-  v9 = *(v8 + 8);
-  if (*(a2 + 1) < v9)
-  {
-    v9 = *(a2 + 1);
-  }
-
-  *(v8 + 8) = v9;
-LABEL_15:
-  if (v16 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_1B52F56F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void quasar::corrective_reranking::VoiceEditingWFST::Path::~Path(quasar::corrective_reranking::VoiceEditingWFST::Path *this)
-{
-  v3 = (this + 64);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-  v2 = *(this + 5);
-  if (v2)
-  {
-    *(this + 6) = v2;
-    operator delete(v2);
-  }
-
-  v3 = (this + 16);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-}
-
-void quasar::corrective_reranking::VoiceEditingWFST::search(std::vector<std::string> const&,std::optional<int>,BOOL,std::optional<int>)::$_2::operator()(uint64_t *a1, __int128 *a2, int *a3)
-{
-  v6 = *a1;
-  v18 = *a2;
-  v20 = 0;
-  v21 = 0;
-  v19 = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v19, *(a2 + 2), *(a2 + 3), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 3) - *(a2 + 2)) >> 3));
-  v22 = 0;
-  v23 = 0;
-  v24 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v22, *(a2 + 5), *(a2 + 6), (*(a2 + 6) - *(a2 + 5)) >> 2);
-  v25 = 0;
-  v26 = 0;
-  v27 = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v25, *(a2 + 8), *(a2 + 9), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 9) - *(a2 + 8)) >> 3));
-  quasar::corrective_reranking::VoiceEditingWFST::Path::advance(&v18, a3);
-  v12 = 0uLL;
-  v13[0] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v12, v19, v20, 0xAAAAAAAAAAAAAAABLL * ((v20 - v19) >> 3));
-  v7 = v12;
-  v28 = &v12;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v28);
-  if (*(&v7 + 1) != v7)
-  {
-    quasar::corrective_reranking::Paths::add(*a1[1], &v18);
-    goto LABEL_12;
-  }
-
-  LODWORD(v12) = v18;
-  v8 = std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>((v6 + 72), &v12);
-  if (v8)
-  {
-    *(&v18 + 1) = *(&v18 + 1) + *(v8 + 5);
-    v9 = 2;
-LABEL_11:
-    quasar::corrective_reranking::Paths::add(*a1[v9], &v18);
-    goto LABEL_12;
-  }
-
-  if (*a1[3] != 1 || (v12 = 0uLL, v13[0] = 0, std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v12, v25, v26, 0xAAAAAAAAAAAAAAABLL * ((v26 - v25) >> 3)), v10 = *(&v12 + 1) - v12, v11 = *(a1[4] + 8) - *a1[4], v28 = &v12, std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v28), v10 != v11))
-  {
-    v9 = 1;
-    goto LABEL_11;
-  }
-
-  v12 = v18;
-  memset(v13, 0, sizeof(v13));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v13, v19, v20, 0xAAAAAAAAAAAAAAABLL * ((v20 - v19) >> 3));
-  __p = 0;
-  v15 = 0;
-  v16 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v22, v23, (v23 - v22) >> 2);
-  memset(v17, 0, 24);
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v17, v25, v26, 0xAAAAAAAAAAAAAAABLL * ((v26 - v25) >> 3));
-  *(&v12 + 1) = *(&v12 + 1) + 1000000.0;
-  quasar::corrective_reranking::Paths::add(*a1[2], &v12);
-  v28 = v17;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v28);
-  if (__p)
-  {
-    v15 = __p;
-    operator delete(__p);
-  }
-
-  v28 = v13;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v28);
-LABEL_12:
-  *&v12 = &v25;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v12);
-  if (v22)
-  {
-    v23 = v22;
-    operator delete(v22);
-  }
-
-  *&v12 = &v19;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v12);
-}
-
-void sub_1B52F5A4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27)
-{
-  quasar::corrective_reranking::VoiceEditingWFST::Path::~Path(&a9);
-  quasar::corrective_reranking::VoiceEditingWFST::Path::~Path(&a21);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::vector<quasar::corrective_reranking::VoiceEditingWFST::Edge>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::VoiceEditingWFST::Edge*,quasar::corrective_reranking::VoiceEditingWFST::Edge*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<quasar::corrective_reranking::VoiceEditingWFST::Edge>::__vallocate[abi:ne200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_1B52F5B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
-{
-  *(v9 + 8) = v10;
-  std::vector<quasar::corrective_reranking::VoiceEditingWFST::Edge>::__destroy_vector::operator()[abi:ne200100](&a9);
-  _Unwind_Resume(a1);
-}
-
-void std::vector<quasar::corrective_reranking::VoiceEditingWFST::Edge>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
-{
-  if (!(a2 >> 58))
-  {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<quasar::corrective_reranking::VoiceEditingWFST::Edge>>(a1, a2);
-  }
-
-  std::vector<int>::__throw_length_error[abi:ne200100]();
-}
-
-void std::__allocate_at_least[abi:ne200100]<std::allocator<quasar::corrective_reranking::VoiceEditingWFST::Edge>>(uint64_t a1, unint64_t a2)
-{
-  if (!(a2 >> 58))
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:ne200100]();
-}
-
-uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<quasar::corrective_reranking::VoiceEditingWFST::Edge>,quasar::corrective_reranking::VoiceEditingWFST::Edge*,quasar::corrective_reranking::VoiceEditingWFST::Edge*,quasar::corrective_reranking::VoiceEditingWFST::Edge*>(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
-{
-  v4 = a4;
-  v13 = a4;
-  v14 = a4;
-  v11[0] = a1;
-  v11[1] = &v13;
-  v11[2] = &v14;
-  v12 = 0;
-  if (a2 != a3)
-  {
-    v6 = a2 + 2;
-    do
-    {
-      v7 = v6 - 2;
-      *v4 = *(v6 - 8);
-      if (*(v6 - 1) < 0)
-      {
-        std::string::__init_copy_ctor_external((v4 + 8), *(v6 - 3), *(v6 - 2));
-      }
-
-      else
-      {
-        v8 = *(v6 - 24);
-        *(v4 + 24) = *(v6 - 1);
-        *(v4 + 8) = v8;
-      }
-
-      if (*(v6 + 23) < 0)
-      {
-        std::string::__init_copy_ctor_external((v4 + 32), *v6, *(v6 + 1));
-      }
-
-      else
-      {
-        v9 = *v6;
-        *(v4 + 48) = *(v6 + 2);
-        *(v4 + 32) = v9;
-      }
-
-      *(v4 + 56) = *(v6 + 3);
-      v4 = v14 + 64;
-      v14 += 64;
-      v6 += 4;
-    }
-
-    while (v7 + 4 != a3);
-  }
-
-  v12 = 1;
-  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<quasar::corrective_reranking::VoiceEditingWFST::Edge>,quasar::corrective_reranking::VoiceEditingWFST::Edge*>>::~__exception_guard_exceptions[abi:ne200100](v11);
-  return v4;
 }

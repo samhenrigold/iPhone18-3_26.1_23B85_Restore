@@ -184,9 +184,9 @@ LABEL_16:
 {
   errorCopy = error;
   domain = [errorCopy domain];
-  v5 = [domain isEqualToString:@"PKDisplayableError"];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (v5)
+  if (isEqualToString)
   {
     userInfo = [errorCopy userInfo];
     v7 = [userInfo objectForKey:*MEMORY[0x1E696AA08]];
@@ -195,7 +195,7 @@ LABEL_16:
   }
 
   domain2 = [errorCopy domain];
-  v9 = [domain2 isEqualToString:@"PKPeerPaymentWebServiceErrorDomain"];
+  v9 = objc_msgSend_isEqualToString_(domain2);
 
   if (v9)
   {
@@ -526,9 +526,9 @@ void __74__PKAnalyticsReporter_LocalAuthentication___isDTOPasscodeFallbackAllowe
 {
   errorCopy = error;
   domain = [errorCopy domain];
-  v5 = [domain isEqualToString:*MEMORY[0x1E696EE30]];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (v5)
+  if (isEqualToString)
   {
     code = [errorCopy code];
     v7 = @"authenticationError";
@@ -614,9 +614,9 @@ void __74__PKAnalyticsReporter_LocalAuthentication___isDTOPasscodeFallbackAllowe
     goto LABEL_9;
   }
 
-  v7 = [(__CFString *)subjectCopy isEqualToString:@"p2p"];
+  isEqualToString = objc_msgSend_isEqualToString_(subjectCopy);
 
-  if (v7)
+  if (isEqualToString)
   {
 LABEL_7:
     [eventCopy setObject:@"cash" forKey:@"featureType"];
@@ -714,7 +714,7 @@ LABEL_9:
 
   v11 = reportingCopy;
   v12 = v11;
-  if (v11 == @"appleCardEngagement" || v11 && (v13 = [(__CFString *)v11 isEqualToString:@"appleCardEngagement"], v12, v13))
+  if (v11 == @"appleCardEngagement" || v11 && (isEqualToString = objc_msgSend_isEqualToString_(v11), v12, isEqualToString))
   {
     v15[0] = @"eventType";
     v15[1] = @"dnuIsEnabled";
@@ -1203,41 +1203,7 @@ void __51__PKAnalyticsReporter_initWithParentToken_subject___block_invoke(uint64
   v91[3] = *MEMORY[0x1E69E9840];
   v6 = [event mutableCopy];
   v7 = self->_subject;
-  if (v7 == @"appleCardEngagement"
-    || (v8 = v7) != 0 && (v9 = [(__CFString *)v7 isEqualToString:@"appleCardEngagement"], v8, (v9 & 1) != 0)
-    || (v10 = self->_subject, v10 == @"appleCardOnboarding")
-    || (v11 = v10) != 0 && (v12 = [(__CFString *)v10 isEqualToString:@"appleCardOnboarding"], v11, (v12 & 1) != 0)
-    || (v13 = self->_subject, v13 == @"fhOnboarding")
-    || (v14 = v13) != 0 && (v15 = [(__CFString *)v13 isEqualToString:@"fhOnboarding"], v14, (v15 & 1) != 0)
-    || (v16 = self->_subject, v16 == @"shareInitiation")
-    || (v17 = v16) != 0 && (v18 = [(__CFString *)v16 isEqualToString:@"shareInitiation"], v17, (v18 & 1) != 0)
-    || (v19 = self->_subject, v19 == @"shareRedemption")
-    || (v20 = v19) != 0 && (v21 = [(__CFString *)v19 isEqualToString:@"shareRedemption"], v20, (v21 & 1) != 0)
-    || (v22 = self->_subject, v22 == @"orderManagement")
-    || (v23 = v22) != 0 && (v24 = [(__CFString *)v22 isEqualToString:@"orderManagement"], v23, (v24 & 1) != 0)
-    || (v25 = self->_subject, v25 == @"passManagement")
-    || (v26 = v25) != 0 && (v27 = [(__CFString *)v25 isEqualToString:@"passManagement"], v26, (v27 & 1) != 0)
-    || (v28 = self->_subject, v28 == @"identityInApp")
-    || (v29 = v28) != 0 && (v30 = [(__CFString *)v28 isEqualToString:@"identityInApp"], v29, (v30 & 1) != 0)
-    || (v31 = self->_subject, v31 == @"accessProvisioning")
-    || (v32 = v31) != 0 && (v33 = [(__CFString *)v31 isEqualToString:@"accessProvisioning"], v32, (v33 & 1) != 0)
-    || (v34 = self->_subject, v34 == @"expressPresentment")
-    || (v35 = v34) != 0 && (v36 = [(__CFString *)v34 isEqualToString:@"expressPresentment"], v35, (v36 & 1) != 0)
-    || (v37 = self->_subject, v37 == @"inApp")
-    || (v38 = v37) != 0 && (v39 = [(__CFString *)v37 isEqualToString:@"inApp"], v38, (v39 & 1) != 0)
-    || (v40 = self->_subject, v40 == @"vasPasses")
-    || (v41 = v40) != 0 && (v42 = [(__CFString *)v40 isEqualToString:@"vasPasses"], v41, (v42 & 1) != 0)
-    || (v43 = self->_subject, v43 == @"walletProvisioning")
-    || (v44 = v43) != 0 && (v45 = [(__CFString *)v43 isEqualToString:@"walletProvisioning"], v44, (v45 & 1) != 0)
-    || (v46 = self->_subject, v46 == @"marketingProvisioning")
-    || (v47 = v46) != 0 && (v48 = [(__CFString *)v46 isEqualToString:@"marketingProvisioning"], v47, (v48 & 1) != 0)
-    || (v49 = self->_subject, v49 == @"p2p")
-    || (v50 = v49) != 0 && (v51 = [(__CFString *)v49 isEqualToString:@"p2p"], v50, (v51 & 1) != 0)
-    || (v52 = self->_subject, v52 == @"contactless")
-    || (v53 = v52) != 0 && (v54 = [(__CFString *)v52 isEqualToString:@"contactless"], v53, (v54 & 1) != 0)
-    || (v55 = self->_subject, v55 == @"financeKitSetup")
-    || (v56 = v55) != 0 && (v57 = [(__CFString *)v55 isEqualToString:@"financeKitSetup"], v56, (v57 & 1) != 0)
-    || (v58 = self->_subject, v58 == @"financeKitTransactionPicker"))
+  if (v7 == @"appleCardEngagement" || (v8 = v7) != 0 && (isEqualToString = objc_msgSend_isEqualToString_(v7), v8, (isEqualToString & 1) != 0) || (v10 = self->_subject, v10 == @"appleCardOnboarding") || (v11 = v10) != 0 && (v12 = objc_msgSend_isEqualToString_(v10), v11, (v12 & 1) != 0) || (v13 = self->_subject, v13 == @"fhOnboarding") || (v14 = v13) != 0 && (v15 = objc_msgSend_isEqualToString_(v13), v14, (v15 & 1) != 0) || (v16 = self->_subject, v16 == @"shareInitiation") || (v17 = v16) != 0 && (v18 = objc_msgSend_isEqualToString_(v16), v17, (v18 & 1) != 0) || (v19 = self->_subject, v19 == @"shareRedemption") || (v20 = v19) != 0 && (v21 = objc_msgSend_isEqualToString_(v19), v20, (v21 & 1) != 0) || (v22 = self->_subject, v22 == @"orderManagement") || (v23 = v22) != 0 && (v24 = objc_msgSend_isEqualToString_(v22), v23, (v24 & 1) != 0) || (v25 = self->_subject, v25 == @"passManagement") || (v26 = v25) != 0 && (v27 = objc_msgSend_isEqualToString_(v25), v26, (v27 & 1) != 0) || (v28 = self->_subject, v28 == @"identityInApp") || (v29 = v28) != 0 && (v30 = objc_msgSend_isEqualToString_(v28), v29, (v30 & 1) != 0) || (v31 = self->_subject, v31 == @"accessProvisioning") || (v32 = v31) != 0 && (v33 = objc_msgSend_isEqualToString_(v31), v32, (v33 & 1) != 0) || (v34 = self->_subject, v34 == @"expressPresentment") || (v35 = v34) != 0 && (v36 = objc_msgSend_isEqualToString_(v34), v35, (v36 & 1) != 0) || (v37 = self->_subject, v37 == @"inApp") || (v38 = v37) != 0 && (v39 = objc_msgSend_isEqualToString_(v37), v38, (v39 & 1) != 0) || (v40 = self->_subject, v40 == @"vasPasses") || (v41 = v40) != 0 && (v42 = objc_msgSend_isEqualToString_(v40), v41, (v42 & 1) != 0) || (v43 = self->_subject, v43 == @"walletProvisioning") || (v44 = v43) != 0 && (v45 = objc_msgSend_isEqualToString_(v43), v44, (v45 & 1) != 0) || (v46 = self->_subject, v46 == @"marketingProvisioning") || (v47 = v46) != 0 && (v48 = objc_msgSend_isEqualToString_(v46), v47, (v48 & 1) != 0) || (v49 = self->_subject, v49 == @"p2p") || (v50 = v49) != 0 && (v51 = objc_msgSend_isEqualToString_(v49), v50, (v51 & 1) != 0) || (v52 = self->_subject, v52 == @"contactless") || (v53 = v52) != 0 && (v54 = objc_msgSend_isEqualToString_(v52), v53, (v54 & 1) != 0) || (v55 = self->_subject, v55 == @"financeKitSetup") || (v56 = v55) != 0 && (v57 = objc_msgSend_isEqualToString_(v55), v56, (v57 & 1) != 0) || (v58 = self->_subject, v58 == @"financeKitTransactionPicker"))
   {
 LABEL_55:
     date = [MEMORY[0x1E695DF00] date];
@@ -1255,7 +1221,7 @@ LABEL_55:
   v59 = v58;
   if (v58)
   {
-    v60 = [(__CFString *)v58 isEqualToString:@"financeKitTransactionPicker"];
+    v60 = objc_msgSend_isEqualToString_(v58);
 
     if (!v60)
     {
@@ -1304,7 +1270,7 @@ LABEL_56:
     }
 
     v74 = self->_subject;
-    if (v74 == @"p2p" || (v75 = v74) != 0 && (v76 = [(__CFString *)v74 isEqualToString:@"p2p"], v75, v76))
+    if (v74 == @"p2p" || (v75 = v74) != 0 && (v76 = objc_msgSend_isEqualToString_(v74), v75, v76))
     {
       [(PKAnalyticsReporter *)self clampSessionDurationFromMilliseconds:v71];
       v78 = [objc_alloc(MEMORY[0x1E696AB90]) initWithDouble:v77];

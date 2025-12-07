@@ -7,7 +7,7 @@ uint64_t __59__MDLMesh_SCNModelIO__meshWithSCNGeometry_bufferAllocator___block_i
 {
   v2 = [a2 semantic];
 
-  return [v2 isEqualToString:@"kGeometrySourceSemanticVertex"];
+  return objc_msgSend_isEqualToString_(v2);
 }
 
 @end

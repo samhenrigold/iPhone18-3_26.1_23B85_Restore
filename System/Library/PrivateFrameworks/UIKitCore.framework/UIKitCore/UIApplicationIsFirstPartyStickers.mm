@@ -6,7 +6,7 @@
 void ___UIApplicationIsFirstPartyStickers_block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  byte_1EA992DB4 = [v0 isEqualToString:@"com.apple.Stickers.UserGenerated.MessagesExtension"];
+  byte_1EA992DB4 = objc_msgSend_isEqualToString_(v0);
 }
 
 @end

@@ -23,6 +23,7 @@
 - (void)tableView:(id)view didDeselectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation DSContinuityController
@@ -73,6 +74,19 @@
   }
 
   return v6;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = DSContinuityController;
+  [(OBTableWelcomeController *)&v5 viewWillAppear:appear];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __41__DSContinuityController_viewWillAppear___block_invoke;
+  v4[3] = &unk_278F75408;
+  v4[4] = self;
+  [(DSContinuityController *)self getDevicesWithCompletion:v4];
 }
 
 uint64_t __41__DSContinuityController_viewWillAppear___block_invoke(uint64_t a1)
@@ -136,7 +150,7 @@ void __51__DSContinuityController_shouldShowWithCompletion___block_invoke(uint64
 
 void __51__DSContinuityController_getDevicesWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -150,50 +164,50 @@ void __51__DSContinuityController_getDevicesWithCompletion___block_invoke(uint64
 
   else
   {
-    v31 = a1;
-    v35 = +[DSDeviceManager sharedInstance];
+    v30 = a1;
+    v34 = +[DSDeviceManager sharedInstance];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
-    v32 = v5;
+    v31 = v5;
     obj = v5;
-    v36 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
-    if (v36)
+    v35 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+    if (v35)
     {
-      v34 = *v46;
+      v33 = *v45;
       do
       {
         v14 = 0;
         do
         {
-          if (*v46 != v34)
+          if (*v45 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v37 = v14;
-          v15 = *(*(&v45 + 1) + 8 * v14);
+          v36 = v14;
+          v15 = *(*(&v44 + 1) + 8 * v14);
+          v40 = 0u;
           v41 = 0u;
           v42 = 0u;
           v43 = 0u;
-          v44 = 0u;
-          v16 = [v35 remoteDevices];
-          v17 = [v16 countByEnumeratingWithState:&v41 objects:v49 count:16];
+          v16 = [v34 remoteDevices];
+          v17 = [v16 countByEnumeratingWithState:&v40 objects:v48 count:16];
           if (v17)
           {
             v18 = v17;
-            v19 = *v42;
+            v19 = *v41;
             do
             {
               for (i = 0; i != v18; ++i)
               {
-                if (*v42 != v19)
+                if (*v41 != v19)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                v21 = *(*(&v41 + 1) + 8 * i);
+                v21 = *(*(&v40 + 1) + 8 * i);
                 v22 = [v15 pushToken];
                 v23 = [v21 pushToken];
                 v24 = [v22 isEqualToString:v23];
@@ -215,39 +229,37 @@ void __51__DSContinuityController_getDevicesWithCompletion___block_invoke(uint64
                 }
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v41 objects:v49 count:16];
+              v18 = [v16 countByEnumeratingWithState:&v40 objects:v48 count:16];
             }
 
             while (v18);
           }
 
-          v14 = v37 + 1;
+          v14 = v36 + 1;
         }
 
-        while (v37 + 1 != v36);
-        v36 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+        while (v36 + 1 != v35);
+        v35 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
       }
 
-      while (v36);
+      while (v35);
     }
 
     v28 = [obj sortedArrayUsingComparator:&__block_literal_global_10];
     v29 = [MEMORY[0x277CBEB18] arrayWithArray:v28];
-    a1 = v31;
-    [*(v31 + 32) setContinuityDevices:v29];
+    a1 = v30;
+    [*(v30 + 32) setContinuityDevices:v29];
 
     v6 = 0;
-    v5 = v32;
+    v5 = v31;
   }
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __51__DSContinuityController_getDevicesWithCompletion___block_invoke_2;
   block[3] = &unk_278F75490;
-  v39 = *(a1 + 40);
+  v38 = *(a1 + 40);
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__DSContinuityController_getDevicesWithCompletion___block_invoke_368(uint64_t a1, void *a2, void *a3)
@@ -600,31 +612,31 @@ LABEL_8:
 
 - (void)removeDetailViewControllerFromStack
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   navigationController = [(DSContinuityController *)self navigationController];
   viewControllers = [navigationController viewControllers];
 
-  v6 = [viewControllers countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [viewControllers countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(viewControllers);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         v11 = objc_opt_class();
         if (v11 != objc_opt_class())
         {
@@ -635,7 +647,7 @@ LABEL_8:
       }
 
       while (v7 != v9);
-      v7 = [viewControllers countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [viewControllers countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -643,31 +655,27 @@ LABEL_8:
 
   navigationController2 = [(DSContinuityController *)self navigationController];
   [navigationController2 setViewControllers:v3];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)returnFromDetailAndRemoveDevice:(id)device
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   boldButton = [(DSTableWelcomeController *)self boldButton];
   [boldButton showsBusyIndicator];
 
   continuityStore = [(DSContinuityController *)self continuityStore];
   deviceID = [deviceCopy deviceID];
-  v13[0] = deviceID;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __58__DSContinuityController_returnFromDetailAndRemoveDevice___block_invoke;
-  v11[3] = &unk_278F759E8;
-  v11[4] = self;
-  v12 = deviceCopy;
+  v12[0] = deviceID;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __58__DSContinuityController_returnFromDetailAndRemoveDevice___block_invoke;
+  v10[3] = &unk_278F759E8;
+  v10[4] = self;
+  v11 = deviceCopy;
   v9 = deviceCopy;
-  [continuityStore unpairDevicesWithIDs:v8 completion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [continuityStore unpairDevicesWithIDs:v8 completion:v10];
 }
 
 void __58__DSContinuityController_returnFromDetailAndRemoveDevice___block_invoke(uint64_t a1, void *a2)
@@ -783,107 +791,103 @@ void __58__DSContinuityController_returnFromDetailAndRemoveDevice___block_invoke
 
 - (id)allComputerNames
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   continuityDevices = [(DSContinuityController *)self continuityDevices];
-  v5 = [continuityDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [continuityDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(continuityDevices);
         }
 
-        name = [*(*(&v12 + 1) + 8 * i) name];
+        name = [*(*(&v11 + 1) + 8 * i) name];
         [array addObject:name];
       }
 
-      v6 = [continuityDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [continuityDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)selectedComputerNames
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   selectedDevices = [(DSContinuityController *)self selectedDevices];
-  v5 = [selectedDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [selectedDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(selectedDevices);
         }
 
-        v9 = [(DSContinuityController *)self computerNameWithUUID:*(*(&v12 + 1) + 8 * i)];
+        v9 = [(DSContinuityController *)self computerNameWithUUID:*(*(&v11 + 1) + 8 * i)];
         if (v9)
         {
           [array addObject:v9];
         }
       }
 
-      v6 = [selectedDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [selectedDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)computerNameWithUUID:(id)d
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   continuityDevices = [(DSContinuityController *)self continuityDevices];
-  v6 = [continuityDevices countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v6 = [continuityDevices countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(continuityDevices);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
         deviceID = [v10 deviceID];
         v12 = [deviceID isEqual:dCopy];
 
@@ -895,7 +899,7 @@ void __58__DSContinuityController_returnFromDetailAndRemoveDevice___block_invoke
         }
       }
 
-      v7 = [continuityDevices countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v7 = [continuityDevices countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v7)
       {
         continue;
@@ -913,8 +917,6 @@ void __58__DSContinuityController_returnFromDetailAndRemoveDevice___block_invoke
 
   name = 0;
 LABEL_13:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return name;
 }
@@ -951,23 +953,23 @@ void __51__DSContinuityController_remoteDeviceListModified___block_invoke(uint64
 
 void __51__DSContinuityController_getDevicesWithCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_248C7E000, a2, a3, "Failed to fetch devices from continuity store, error: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_248C7E000, a2, a3, "Failed to fetch devices from continuity store, error: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)presentUnpairErrorAlert:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_248C7E000, a2, a3, "Failed to unpair device(s), error: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_248C7E000, a2, a3, "Failed to unpair device(s), error: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)computerNameWithUUID:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_248C7E000, a2, a3, "Couldn't find a computer with uuid %@, this should never happen!", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_248C7E000, a2, a3, "Couldn't find a computer with uuid %@, this should never happen!", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

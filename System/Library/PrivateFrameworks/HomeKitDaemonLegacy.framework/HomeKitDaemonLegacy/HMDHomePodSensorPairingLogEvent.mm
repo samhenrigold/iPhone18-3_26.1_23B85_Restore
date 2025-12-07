@@ -30,7 +30,7 @@
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDHomePodSensorPairingLogEvent failureReason](self, "failureReason")}];
   [dictionary setObject:v12 forKeyedSubscript:@"failureReason"];
 
-  v13 = [dictionary copy];
+  v13 = objc_msgSend_copy(dictionary);
 
   return v13;
 }

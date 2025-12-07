@@ -24,7 +24,7 @@
 
   if (auditToken)
   {
-    [auditToken realToken];
+    objc_msgSend_realToken(auditToken);
   }
 
   else

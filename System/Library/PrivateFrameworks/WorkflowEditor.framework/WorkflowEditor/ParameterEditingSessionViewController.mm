@@ -23,7 +23,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_274503DDC();
+  sub_274503DDC(state);
   swift_unknownObjectRelease();
 }
 

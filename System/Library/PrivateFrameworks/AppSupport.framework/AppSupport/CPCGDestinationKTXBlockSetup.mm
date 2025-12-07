@@ -69,7 +69,7 @@ LABEL_16:
 
 uint64_t ____CPCGDestinationKTXBlockSetup_block_invoke_2(uint64_t a1, int a2, CGImageRef image, CFErrorRef *a4)
 {
-  if (*(a1 + 56) == 1 && (v7 = *(*(*(a1 + 32) + 8) + 24), CGImageGetColorSpace(image), (CGColorSpaceEqualToColorSpace() & 1) == 0))
+  if (*(a1 + 56) == 1 && (CGImageGetColorSpace(image), (CGColorSpaceEqualToColorSpace() & 1) == 0))
   {
     if (a4)
     {

@@ -20,6 +20,7 @@
 - (BOOL)enumerateFileMetadataWithError:(id *)error block:(id)block;
 - (BOOL)enumerateFilesWithDomain:(id)domain error:(id *)error block:(id)block;
 - (BOOL)enumerateSymlinkTargets:(id *)targets block:(id)block;
+- (BOOL)fetchAssetMetdataWithInode:(unint64_t)inode genCount:(unsigned int)count outAssetMetadata:(id *)metadata error:(id *)error;
 - (BOOL)fetchEncryptionKeyForInode:(unint64_t)inode outEncryptionKey:(id *)key error:(id *)error;
 - (BOOL)fetchFileListStats:(id *)stats error:(id *)error;
 - (BOOL)finishTranscription:(id *)transcription;
@@ -28,6 +29,7 @@
 - (BOOL)markFileAsPresent:(id)present error:(id *)error;
 - (BOOL)setFileMetadata:(id)metadata forPath:(id)path error:(id *)error;
 - (id)_initWithPath:(id)path domainName:(id)name;
+- (id)_initializeDatabaseAt:(id)at withFlags:(int)flags error:(id *)error;
 - (id)description;
 - (id)fileMetadataForPath:(id)path fetchXattrs:(BOOL)xattrs error:(id *)error;
 - (void)dealloc;
@@ -57,12 +59,13 @@
   v18 = MBGetDefaultLog();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
+    v19 = v17 - Current;
     *buf = 138412546;
     selfCopy = self;
-    v22 = 2048;
-    v23 = v17 - Current;
+    v23 = 2048;
+    v24 = v19;
     _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Opened %@ in %.3fs", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"I ", "Opened %@ in %.3fs", self, *&v19);
   }
 
   return v16;
@@ -76,9 +79,9 @@
   Current = CFAbsoluteTimeGetCurrent();
   v14 = MBFileListDBPath(inCopy, dCopy, nameCopy);
   v15 = [[MBFileListDB alloc] _initWithPath:v14 domainName:nameCopy];
-  v28 = 0;
-  v16 = [v15 _openOrCreateWithError:&v28];
-  v17 = v28;
+  v29 = 0;
+  v16 = [v15 _openOrCreateWithError:&v29];
+  v17 = v29;
   v18 = v17;
   if (v16)
   {
@@ -107,10 +110,10 @@ LABEL_10:
       {
         *buf = 138412546;
         selfCopy = v14;
-        v31 = 2112;
-        v32 = *&v18;
+        v32 = 2112;
+        v33 = *&v18;
         _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_FAULT, "Invalid FileList database at %@, deleting it and trying again: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"F ", "Invalid FileList database at %@, deleting it and trying again: %@", v14, v18);
       }
 
       v24 = v14;
@@ -144,12 +147,13 @@ LABEL_14:
   v26 = MBGetDefaultLog();
   if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
+    v27 = v25 - Current;
     *buf = 138412546;
     selfCopy = self;
-    v31 = 2048;
-    v32 = v25 - Current;
+    v32 = 2048;
+    v33 = v27;
     _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Opened/created %@ in %.3fs", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"I ", "Opened/created %@ in %.3fs", self, *&v27);
   }
 
   return v19;
@@ -233,6 +237,90 @@ LABEL_14:
   return v13;
 }
 
+- (id)_initializeDatabaseAt:(id)at withFlags:(int)flags error:(id *)error
+{
+  v6 = *&flags;
+  atCopy = at;
+  if (!atCopy)
+  {
+    __assert_rtn("[MBFileListDB _initializeDatabaseAt:withFlags:error:]", "MBFileListDB.m", 151, "path");
+  }
+
+  v9 = atCopy;
+  v10 = [NSURL fileURLWithPath:atCopy];
+  v11 = objc_opt_new();
+  if ([v11 openAtURL:v10 withFlags:v6 error:error])
+  {
+    v28 = v10;
+    errorCopy = error;
+    v36 = @"CREATE TABLE IF NOT EXISTS FileMetadata (relativePath TEXT NOT NULL PRIMARY KEY, inode INTEGER NOT NULL, size INTEGER NOT NULL, birth INTEGER NOT NULL, modified INTEGER NOT NULL, statusChanged INTEGER NOT NULL, userID INTEGER NOT NULL, groupID INTEGER NOT NULL, mode INTEGER NOT NULL, flags INTEGER NOT NULL, protectionClass INTEGER NOT NULL, xattrs BLOB);";
+    v27 = [NSArray arrayWithObjects:&v36 count:1];
+    v26 = [MBPQLSchemaUpgrade upgradeWithVersion:1 shouldVacuum:0 statements:v27];
+    v37[0] = v26;
+    v35[0] = @"CREATE INDEX IF NOT EXISTS FileMetadataInodeIndex ON FileMetadata (inode);";
+    v35[1] = @"CREATE TABLE IF NOT EXISTS SymlinkTargets (inode INTEGER NOT NULL PRIMARY KEY, targetPath TEXT NOT NULL);";
+    v25 = [NSArray arrayWithObjects:v35 count:2];
+    v12 = [MBPQLSchemaUpgrade upgradeWithVersion:2 shouldVacuum:0 statements:v25];
+    v37[1] = v12;
+    v34[0] = @"CREATE TABLE IF NOT EXISTS Assets (inode INTEGER NOT NULL PRIMARY KEY, genCount INTEGER NOT NULL, recordIDSuffix TEXT, assetType INTEGER NOT NULL, compressionMethod INTEGER NOT NULL, encryptionKey BLOB, assetSignature BLOB, assetSize INTEGER NOT NULL);";
+    v34[1] = @"CREATE INDEX IF NOT EXISTS AssetSignatureIsNull ON Assets (assetSignature) WHERE assetSignature IS NULL";
+    v13 = [NSArray arrayWithObjects:v34 count:2];
+    v14 = [MBPQLSchemaUpgrade upgradeWithVersion:3 shouldVacuum:0 statements:v13];
+    v37[2] = v14;
+    v33 = @"CREATE TABLE IF NOT EXISTS Properties(key TEXT NOT NULL PRIMARY KEY, value BLOB);";
+    v15 = [NSArray arrayWithObjects:&v33 count:1];
+    v16 = [MBPQLSchemaUpgrade upgradeWithVersion:4 shouldVacuum:0 statements:v15];
+    v37[3] = v16;
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_1001FD23C;
+    v30[3] = &unk_1003C08F0;
+    v30[4] = self;
+    v17 = [MBPQLSchemaUpgrade upgradeWithVersion:5 shouldVacuum:0 upgradeBlock:v30];
+    v37[4] = v17;
+    v18 = [NSArray arrayWithObjects:v37 count:5];
+    v19 = [v11 performSchemaUpgrades:v18 isReadOnly:0 error:errorCopy];
+
+    if (!v19)
+    {
+      v20 = 0;
+      goto LABEL_7;
+    }
+
+    if ([v11 setupPragmas])
+    {
+      [v11 setAutoRollbackHandler:&stru_1003C1768];
+      v20 = v11;
+LABEL_7:
+      v10 = v28;
+      goto LABEL_14;
+    }
+
+    v10 = v28;
+    if (errorCopy)
+    {
+      *errorCopy = [v11 lastError];
+    }
+
+    v21 = MBGetDefaultLog();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      lastError = [v11 lastError];
+      *buf = 138412290;
+      v32 = lastError;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to setup pragmas: %@", buf, 0xCu);
+
+      lastError2 = [v11 lastError];
+      _MBLog(@"E ", "Failed to setup pragmas: %@", lastError2);
+    }
+  }
+
+  v20 = 0;
+LABEL_14:
+
+  return v20;
+}
+
 - (void)dealloc
 {
   if (self->_db)
@@ -242,17 +330,16 @@ LABEL_14:
     {
       path = self->_path;
       *buf = 138412290;
-      v8 = path;
+      v7 = path;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Database (%@) was not closed before dealloc", buf, 0xCu);
-      v5 = self->_path;
-      _MBLog();
+      _MBLog(@"E ", "Database (%@) was not closed before dealloc", self->_path);
     }
   }
 
-  [(MBFileListDB *)self close:0, v5];
-  v6.receiver = self;
-  v6.super_class = MBFileListDB;
-  [(MBFileListDB *)&v6 dealloc];
+  [(MBFileListDB *)self close:0];
+  v5.receiver = self;
+  v5.super_class = MBFileListDB;
+  [(MBFileListDB *)&v5 dealloc];
 }
 
 - (BOOL)close:(id *)close
@@ -264,9 +351,9 @@ LABEL_14:
     self->_db = 0;
 
     Current = CFAbsoluteTimeGetCurrent();
-    v15 = 0;
-    v8 = [(PQLConnection *)v5 close:&v15];
-    v9 = v15;
+    v16 = 0;
+    v8 = [(PQLConnection *)v5 close:&v16];
+    v9 = v16;
     if ((v8 & 1) == 0)
     {
       v10 = MBGetDefaultLog();
@@ -274,10 +361,10 @@ LABEL_14:
       {
         *buf = 138412546;
         selfCopy2 = self;
-        v18 = 2112;
-        v19 = *&v9;
+        v19 = 2112;
+        v20 = *&v9;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to close %@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Failed to close %@: %@", self, v9);
       }
 
       if (close)
@@ -291,12 +378,13 @@ LABEL_14:
     v13 = MBGetDefaultLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
+      v14 = v12 - Current;
       *buf = 138412546;
       selfCopy2 = self;
-      v18 = 2048;
-      v19 = v12 - Current;
+      v19 = 2048;
+      v20 = v14;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Closed %@ in %.3fs", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"I ", "Closed %@ in %.3fs", self, *&v14);
     }
   }
 
@@ -413,6 +501,53 @@ LABEL_22:
   return v18;
 }
 
+- (BOOL)fetchAssetMetdataWithInode:(unint64_t)inode genCount:(unsigned int)count outAssetMetadata:(id *)metadata error:(id *)error
+{
+  v8 = *&count;
+  v11 = self->_db;
+  if (!v11)
+  {
+    __assert_rtn("[MBFileListDB fetchAssetMetdataWithInode:genCount:outAssetMetadata:error:]", "MBFileListDB.m", 324, "db");
+  }
+
+  if (!metadata)
+  {
+    __assert_rtn("[MBFileListDB fetchAssetMetdataWithInode:genCount:outAssetMetadata:error:]", "MBFileListDB.m", 325, "outAssetMetadata");
+  }
+
+  v12 = v11;
+  v13 = [(PQLConnection *)self->_db fetch:@"SELECT recordIDSuffix, encryptionKey, compressionMethod, assetType, assetSize, assetSignature FROM Assets WHERE inode = %llu AND genCount = %d", inode, v8];
+  if ([v13 next])
+  {
+    v19 = 0;
+    *metadata = [v13 assetMetadataFromIndex:&v19];
+    v14 = 1;
+  }
+
+  else
+  {
+    lastError = [(PQLConnection *)v12 lastError];
+    excludingNotFound = [lastError excludingNotFound];
+
+    v14 = excludingNotFound == 0;
+    if (excludingNotFound)
+    {
+      if (error)
+      {
+        v17 = excludingNotFound;
+        *error = excludingNotFound;
+      }
+    }
+
+    else
+    {
+      *metadata = 0;
+    }
+  }
+
+  return v14;
+}
+
 - (BOOL)fetchEncryptionKeyForInode:(unint64_t)inode outEncryptionKey:(id *)key error:(id *)error
 {
   v9 = self->_db;
@@ -520,8 +655,8 @@ LABEL_22:
 
 - (BOOL)_markInProgressVolumeTransition:(id *)transition
 {
-  v11 = 1;
-  v5 = [NSData dataWithBytes:&v11 length:1];
+  v10 = 1;
+  v5 = [NSData dataWithBytes:&v10 length:1];
   v6 = [(MBFileListDB *)self _setPropertyValue:v5 forKey:@"volumeTransitionIsInProgress" error:transition];
   if (v6)
   {
@@ -530,10 +665,9 @@ LABEL_22:
     {
       domainName = self->_domainName;
       *buf = 138412290;
-      v13 = domainName;
+      v12 = domainName;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Marked in progress volume transition for %@", buf, 0xCu);
-      v10 = self->_domainName;
-      _MBLog();
+      _MBLog(@"Df", "Marked in progress volume transition for %@", self->_domainName);
     }
   }
 
@@ -550,12 +684,11 @@ LABEL_22:
     {
       domainName = self->_domainName;
       *buf = 138412546;
-      v13 = domainName;
-      v14 = 2112;
-      v15 = dCopy;
+      v12 = domainName;
+      v13 = 2112;
+      v14 = dCopy;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Updated backupVolumeUUID for %@ to %@", buf, 0x16u);
-      v11 = self->_domainName;
-      _MBLog();
+      _MBLog(@"Df", "Updated backupVolumeUUID for %@ to %@", self->_domainName, dCopy);
     }
 
     v9 = 1;
@@ -619,7 +752,7 @@ LABEL_22:
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Cannot perform volume transition for %@ - found %llu unsupported inodes", buf, 0x16u);
 
       domainName2 = [(MBFileListDB *)self domainName];
-      _MBLog();
+      _MBLog(@"I ", "Cannot perform volume transition for %@ - found %llu unsupported inodes", domainName2, v19);
       v13 = 0;
       goto LABEL_7;
     }
@@ -639,7 +772,7 @@ LABEL_12:
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Can perform volume transition for %@ - in progress marker detected", buf, 0xCu);
 
     domainName2 = [(MBFileListDB *)self domainName];
-    _MBLog();
+    _MBLog(@"I ", "Can perform volume transition for %@ - in progress marker detected", domainName2);
 LABEL_7:
   }
 

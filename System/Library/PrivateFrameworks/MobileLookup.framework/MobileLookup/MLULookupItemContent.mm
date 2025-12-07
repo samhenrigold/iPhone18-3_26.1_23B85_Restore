@@ -67,12 +67,12 @@
 
 - (BOOL)commitPreviewInController:(id)controller
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   commitType = [(MLULookupItemContent *)self commitType];
   if (commitType == 2)
   {
     [(MLULookupItemContent *)self setupViewControllerInCommitMode];
-    result = 1;
+    return 1;
   }
 
   else
@@ -82,21 +82,21 @@
       commitURL = [(MLULookupItemContent *)self commitURL];
       mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
       v7 = mEMORY[0x277D75128];
-      if (commitURL && [mEMORY[0x277D75128] canOpenURL:commitURL])
+      if (commitURL)
       {
-        defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-        v12 = *MEMORY[0x277D67150];
-        v13[0] = MEMORY[0x277CBEC38];
-        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-        [defaultWorkspace openURL:commitURL withOptions:v9];
+        if ([mEMORY[0x277D75128] canOpenURL:commitURL])
+        {
+          defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
+          v11 = *MEMORY[0x277D67150];
+          v12[0] = MEMORY[0x277CBEC38];
+          v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+          [defaultWorkspace openURL:commitURL withOptions:v9];
+        }
       }
     }
 
-    result = 0;
+    return 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)dismissViewController

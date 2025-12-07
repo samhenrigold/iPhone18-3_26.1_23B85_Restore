@@ -1,14 +1,14 @@
 @interface NSMutableSet(TSUAdditions)
-- (uint64_t)tsu_removeEqualObject:()TSUAdditions;
-- (uint64_t)tsu_xorSet:()TSUAdditions;
 - (void)tsu_addNonNilObject:()TSUAdditions;
 - (void)tsu_addObjectsFromNonNilArray:()TSUAdditions;
+- (void)tsu_removeEqualObject:()TSUAdditions;
 - (void)tsu_removeObjectsPassingTest:()TSUAdditions;
+- (void)tsu_xorSet:()TSUAdditions;
 @end
 
 @implementation NSMutableSet(TSUAdditions)
 
-- (uint64_t)tsu_xorSet:()TSUAdditions
+- (void)tsu_xorSet:()TSUAdditions
 {
   v15 = *MEMORY[0x277D85DE8];
   v10 = 0u;
@@ -41,7 +41,7 @@
           [self addObject:v9];
         }
 
-        ++v8;
+        v8 = v8 + 1;
       }
 
       while (v6 != v8);
@@ -59,23 +59,23 @@
 {
   if (a3)
   {
-    return [self addObject:?];
+    return [result addObject:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)tsu_addObjectsFromNonNilArray:()TSUAdditions
 {
   if (a3)
   {
-    return [self addObjectsFromArray:?];
+    return [result addObjectsFromArray:?];
   }
 
-  return self;
+  return result;
 }
 
-- (uint64_t)tsu_removeEqualObject:()TSUAdditions
+- (void)tsu_removeEqualObject:()TSUAdditions
 {
   v16 = *MEMORY[0x277D85DE8];
   allObjects = [self allObjects];
@@ -104,7 +104,7 @@
           [self removeObject:v10];
         }
 
-        ++v9;
+        v9 = v9 + 1;
       }
 
       while (v7 != v9);

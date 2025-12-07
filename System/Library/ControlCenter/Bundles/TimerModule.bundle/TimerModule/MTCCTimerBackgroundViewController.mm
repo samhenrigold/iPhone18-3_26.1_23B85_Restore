@@ -26,17 +26,17 @@
 
 - (MTCCTimerBackgroundViewController)init
 {
-  v13 = *MEMORY[0x29EDCA608];
-  v10.receiver = self;
-  v10.super_class = MTCCTimerBackgroundViewController;
-  v2 = [(MTCCTimerBackgroundViewController *)&v10 init];
+  v12 = *MEMORY[0x29EDCA608];
+  v9.receiver = self;
+  v9.super_class = MTCCTimerBackgroundViewController;
+  v2 = [(MTCCTimerBackgroundViewController *)&v9 init];
   if (v2)
   {
     v3 = MTLogForCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v12 = v2;
+      v11 = v2;
       _os_log_impl(&dword_29C9FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ initialized", buf, 0xCu);
     }
 
@@ -48,13 +48,12 @@
     objc_msgSend_setUnitsStyle_(v2->_dateComponentsFormatter, v7, 3);
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   v3 = MTLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -66,10 +65,9 @@
   v6 = objc_msgSend_displayLink(self, v4, v5);
   objc_msgSend_invalidate(v6, v7, v8);
 
-  v10.receiver = self;
-  v10.super_class = MTCCTimerBackgroundViewController;
-  [(MTCCTimerBackgroundViewController *)&v10 dealloc];
-  v9 = *MEMORY[0x29EDCA608];
+  v9.receiver = self;
+  v9.super_class = MTCCTimerBackgroundViewController;
+  [(MTCCTimerBackgroundViewController *)&v9 dealloc];
 }
 
 - (void)setTimer:(id)timer
@@ -241,13 +239,12 @@
   v6 = objc_msgSend_titleLabel(self, v4, v5);
   objc_msgSend_setFont_(v6, v7, v3);
 
-  v20 = objc_msgSend_preferredFontForTextStyle_(MEMORY[0x29EDC76B0], v8, *MEMORY[0x29EDC8128]);
+  v19 = objc_msgSend_preferredFontForTextStyle_(MEMORY[0x29EDC76B0], v8, *MEMORY[0x29EDC8128]);
   v9 = MEMORY[0x29EDC76B0];
-  objc_msgSend_pointSize(v20, v10, v11);
-  v12 = *MEMORY[0x29EDC76F8];
-  v15 = objc_msgSend_monospacedDigitSystemFontOfSize_weight_(v9, v13, v14);
-  v18 = objc_msgSend_timeLabel(self, v16, v17);
-  objc_msgSend_setFont_(v18, v19, v15);
+  objc_msgSend_pointSize(v19, v10, v11);
+  v14 = objc_msgSend_monospacedDigitSystemFontOfSize_weight_(v9, v12, v13);
+  v17 = objc_msgSend_timeLabel(self, v15, v16);
+  objc_msgSend_setFont_(v17, v18, v14);
 }
 
 - (void)setupImage
@@ -280,13 +277,12 @@
   v6 = objc_msgSend_titleLabel(self, v4, v5);
   objc_msgSend_setFont_(v6, v7, v3);
 
-  v20 = objc_msgSend_accessibilityCappedFontForStyle_(self, v8, *MEMORY[0x29EDC8128]);
+  v19 = objc_msgSend_accessibilityCappedFontForStyle_(self, v8, *MEMORY[0x29EDC8128]);
   v9 = MEMORY[0x29EDC76B0];
-  objc_msgSend_pointSize(v20, v10, v11);
-  v12 = *MEMORY[0x29EDC76F8];
-  v15 = objc_msgSend_monospacedDigitSystemFontOfSize_weight_(v9, v13, v14);
-  v18 = objc_msgSend_timeLabel(self, v16, v17);
-  objc_msgSend_setFont_(v18, v19, v15);
+  objc_msgSend_pointSize(v19, v10, v11);
+  v14 = objc_msgSend_monospacedDigitSystemFontOfSize_weight_(v9, v12, v13);
+  v17 = objc_msgSend_timeLabel(self, v15, v16);
+  objc_msgSend_setFont_(v17, v18, v14);
 }
 
 - (id)accessibilityCappedFontForStyle:(id)style
@@ -818,13 +814,13 @@
 
 - (void)handleContentSizeChange:(id)change
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v4 = MTLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543362;
+    v16 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_29C9FA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ handling content size chaged", &v17, 0xCu);
+    _os_log_impl(&dword_29C9FA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ handling content size chaged", &v16, 0xCu);
   }
 
   objc_msgSend_setupFonts(self, v5, v6);
@@ -832,22 +828,20 @@
   objc_msgSend_setupConstraints(self, v9, v10);
   v13 = objc_msgSend_view(self, v11, v12);
   objc_msgSend_setNeedsLayout(v13, v14, v15);
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 - (void)startStopButtonTapped:(id)tapped
 {
-  v50 = *MEMORY[0x29EDCA608];
+  v49 = *MEMORY[0x29EDCA608];
   v4 = MTLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = objc_msgSend_timer(self, v5, v6);
-    v46 = 138543618;
+    v45 = 138543618;
     selfCopy = self;
-    v48 = 2050;
-    v49 = objc_msgSend_state(v7, v8, v9);
-    _os_log_impl(&dword_29C9FA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ button tapped, current state:%{public}lu", &v46, 0x16u);
+    v47 = 2050;
+    v48 = objc_msgSend_state(v7, v8, v9);
+    _os_log_impl(&dword_29C9FA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ button tapped, current state:%{public}lu", &v45, 0x16u);
   }
 
   v12 = objc_msgSend_timer(self, v10, v11);
@@ -889,29 +883,25 @@
   v40 = objc_msgSend_delegate(self, v38, v39);
   v43 = objc_msgSend_timer(self, v41, v42);
   objc_msgSend_timerBackgroundViewController_timerDidChange_(v40, v44, self, v43);
-
-  v45 = *MEMORY[0x29EDCA608];
 }
 
 - (void)addTimerButtonTapped:(id)tapped forEvent:(id)event
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   eventCopy = event;
   v6 = MTLogForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = objc_msgSend_timer(self, v7, v8);
-    v17 = 138543618;
+    v16 = 138543618;
     selfCopy = self;
-    v19 = 2050;
-    v20 = objc_msgSend_state(v9, v10, v11);
-    _os_log_impl(&dword_29C9FA000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ add button tapped, current state:%{public}lu", &v17, 0x16u);
+    v18 = 2050;
+    v19 = objc_msgSend_state(v9, v10, v11);
+    _os_log_impl(&dword_29C9FA000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ add button tapped, current state:%{public}lu", &v16, 0x16u);
   }
 
   v14 = objc_msgSend_delegate(self, v12, v13);
   objc_msgSend_timerBackgroundViewControllerAddButtonTapped_withEvent_(v14, v15, self, eventCopy);
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_updateLabels

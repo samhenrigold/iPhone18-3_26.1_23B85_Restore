@@ -7,9 +7,9 @@
 - (UniLibrary)initWithDevice:(id)device metalOnly:(BOOL)only
 {
   deviceCopy = device;
-  v25.receiver = self;
-  v25.super_class = UniLibrary;
-  v7 = [(UniLibrary *)&v25 init];
+  v26.receiver = self;
+  v26.super_class = UniLibrary;
+  v7 = [(UniLibrary *)&v26 init];
   if (!v7)
   {
     goto LABEL_7;
@@ -39,20 +39,20 @@
   {
 
 LABEL_7:
-    v21 = v7;
+    v22 = v7;
     goto LABEL_11;
   }
 
-  v22 = uni_logger_compile();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v23 = uni_logger_compile(v21);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    sub_2956CEFD0(v11, v22, v23);
+    sub_2956CEFD0(v11, v23, v24);
   }
 
-  v21 = 0;
+  v22 = 0;
 LABEL_11:
 
-  return v21;
+  return v22;
 }
 
 @end

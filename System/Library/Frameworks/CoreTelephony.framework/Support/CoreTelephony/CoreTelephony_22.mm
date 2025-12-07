@@ -1,4 +1,4 @@
-BOOL CellularPlanListModelLocal::launchPreferencesURL(uint64_t a1, uint64_t a2, char a3)
+BOOL CellularPlanListModelLocal::launchPreferencesURL(uint64_t a1, __int128 *a2, char a3)
 {
   v4 = *(a1 + 80);
   if (v4)
@@ -21,7 +21,7 @@ BOOL CellularPlanListModelLocal::launchPreferencesURL(uint64_t a1, uint64_t a2, 
 
       else
       {
-        v11 = *(a2 + 8);
+        v11 = *(a2 + 1);
       }
 
       v12 = *(a1 + 919);
@@ -91,7 +91,7 @@ LABEL_29:
             v29 = *(a1 + 40);
             if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
-              sub_100160214(&__p);
+              sub_100160214(a2, &__p);
               v30 = v35 >= 0 ? &__p : __p;
               *buf = 136315138;
               *&buf[4] = v30;
@@ -102,17 +102,17 @@ LABEL_29:
               }
             }
 
-            sub_100160214(&__p);
+            sub_100160214(a2, &__p);
             v32[3] = v28;
             if (*(a2 + 23) < 0)
             {
-              sub_100005F2C(v32, *a2, *(a2 + 8));
+              sub_100005F2C(v32, *a2, *(a2 + 1));
             }
 
             else
             {
               *v32 = *a2;
-              v32[2] = *(a2 + 16);
+              v32[2] = *(a2 + 2);
             }
 
             v37 = 0;
@@ -170,47 +170,47 @@ void sub_100159BBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CellularPlanListModelLocal::enableUserSelectedProfiles_sync(CellularPlanListModelLocal *this, int a2)
+uint64_t CellularPlanListModelLocal::enableUserSelectedProfiles_sync(uint64_t **this, int a2)
 {
-  v66 = 0;
-  v67[0] = 0;
-  v67[1] = 0;
-  CellularPlanListModelLocal::getEnabledIccids(this, a2, &v66);
-  v4 = v66;
-  if (v66 != v67)
+  v67 = 0;
+  v68[0] = 0;
+  v68[1] = 0;
+  CellularPlanListModelLocal::getEnabledIccids(&v67, this, a2);
+  v4 = v67;
+  if (v67 != v68)
   {
     do
     {
-      hasIccid_sync = CellularPlanListModelLocal::hasIccid_sync(hasIccid_sync, &v4[1].__r_.__value_.__l.__size_, this + 18);
+      hasIccid_sync = CellularPlanListModelLocal::hasIccid_sync(hasIccid_sync, (v4 + 4), this + 18, (this + 15));
       if (!hasIccid_sync)
       {
-        if (os_log_type_enabled(*(this + 5), OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(this[5], OS_LOG_TYPE_ERROR))
         {
-          sub_100074B94(v66, v67, ",", 1, &buf);
+          sub_100074B94(v67, v68, ",", 1, &buf);
           sub_101762414(&buf);
         }
 
-        v37 = 0;
+        v38 = 0;
         goto LABEL_135;
       }
 
-      size = v4->__r_.__value_.__l.__size_;
-      if (size)
+      v5 = v4[1];
+      if (v5)
       {
         do
         {
-          v6 = size;
-          size = *size;
+          v6 = v5;
+          v5 = *v5;
         }
 
-        while (size);
+        while (v5);
       }
 
       else
       {
         do
         {
-          v6 = v4->__r_.__value_.__r.__words[2];
+          v6 = v4[2];
           v7 = *v6 == v4;
           v4 = v6;
         }
@@ -221,11 +221,11 @@ uint64_t CellularPlanListModelLocal::enableUserSelectedProfiles_sync(CellularPla
       v4 = v6;
     }
 
-    while (v6 != v67);
+    while (v6 != v68);
   }
 
-  v8 = *(this + 15);
-  v9 = *(this + 16);
+  v8 = this[15];
+  v9 = this[16];
   if (v8 == v9)
   {
     goto LABEL_49;
@@ -233,35 +233,35 @@ uint64_t CellularPlanListModelLocal::enableUserSelectedProfiles_sync(CellularPla
 
   do
   {
-    if (*(v8 + 12) != 3)
+    if (*(v8 + 3) != 3)
     {
       goto LABEL_48;
     }
 
     *(&__dst + 1) = 0;
-    v73 = 0;
+    v74 = 0;
     *&__dst = &__dst + 8;
-    *(&v70 + 1) = 0;
-    v71 = 0;
-    *&v70 = &v70 + 8;
+    *(&v71 + 1) = 0;
+    v72 = 0;
+    *&v71 = &v71 + 8;
     if (*(v8 + 80) != 1)
     {
       goto LABEL_47;
     }
 
-    v10 = *(v8 + 56);
-    v11 = *(v8 + 64);
+    v10 = v8[7];
+    v11 = v8[8];
     while (v10 != v11)
     {
-      if (sub_10016FA58(&v66, (v10 + 16)))
+      if (sub_10016FA58(&v67, (v10 + 16)))
       {
         p_dst = &__dst;
 LABEL_31:
-        sub_100005BA0(p_dst, (v10 + 16));
+        sub_100005BA0(p_dst, (v10 + 16), v10 + 16);
         goto LABEL_32;
       }
 
-      if (sub_10016FA58(this + 944, (v10 + 16)))
+      if (sub_10016FA58((this + 118), (v10 + 16)))
       {
         v13 = *(this + 919);
         if (v13 >= 0)
@@ -271,7 +271,7 @@ LABEL_31:
 
         else
         {
-          v14 = *(this + 113);
+          v14 = this[113];
         }
 
         v15 = *(v10 + 39);
@@ -281,9 +281,9 @@ LABEL_31:
           v15 = *(v10 + 24);
         }
 
-        if (v14 != v15 || (v13 >= 0 ? (v17 = this + 896) : (v17 = *(this + 112)), v16 >= 0 ? (v18 = (v10 + 16)) : (v18 = *(v10 + 16)), memcmp(v17, v18, v14)))
+        if (v14 != v15 || (v13 >= 0 ? (v17 = this + 112) : (v17 = this[112]), v16 >= 0 ? (v18 = (v10 + 16)) : (v18 = *(v10 + 16)), memcmp(v17, v18, v14)))
         {
-          p_dst = &v70;
+          p_dst = &v71;
           goto LABEL_31;
         }
       }
@@ -292,26 +292,26 @@ LABEL_32:
       v10 += 216;
     }
 
-    v19 = *(this + 10);
+    v19 = this[10];
     if (v19)
     {
       v20 = std::__shared_weak_count::lock(v19);
       if (v20)
       {
         v21 = v20;
-        v22 = *(this + 9);
+        v22 = this[9];
         if (v22)
         {
-          v23 = *(this + 5);
+          v23 = this[5];
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
-            v60 = v73;
-            v61 = v23;
-            sub_100074B94(__dst, (&__dst + 8), ",", 1, &v65);
-            v24 = SHIBYTE(v65.__r_.__value_.__r.__words[2]);
-            v25 = v65.__r_.__value_.__r.__words[0];
-            sub_100074B94(v70, (&v70 + 8), ",", 1, &__p);
-            v26 = &v65;
+            v61 = v74;
+            v62 = v23;
+            sub_100074B94(__dst, (&__dst + 8), ",", 1, &v66);
+            v24 = SHIBYTE(v66.__r_.__value_.__r.__words[2]);
+            v25 = v66.__r_.__value_.__r.__words[0];
+            sub_100074B94(v71, (&v71 + 8), ",", 1, &__p);
+            v26 = &v66;
             if (v24 < 0)
             {
               v26 = v25;
@@ -324,24 +324,24 @@ LABEL_32:
             }
 
             LODWORD(buf.__r_.__value_.__l.__data_) = 134218498;
-            *(buf.__r_.__value_.__r.__words + 4) = v60;
+            *(buf.__r_.__value_.__r.__words + 4) = v61;
             WORD2(buf.__r_.__value_.__r.__words[1]) = 2080;
             *(&buf.__r_.__value_.__r.__words[1] + 6) = v26;
             HIWORD(buf.__r_.__value_.__r.__words[2]) = 2080;
-            v69 = p_p;
-            _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "#I Activating (%lu) profiles [%s], usable [%s]", &buf, 0x20u);
+            v70 = p_p;
+            _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "#I Activating (%lu) profiles [%s], usable [%s]", &buf, 0x20u);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v65.__r_.__value_.__l.__data_);
+              operator delete(v66.__r_.__value_.__l.__data_);
             }
           }
 
-          (*(*v22 + 144))(v22, v8 + 16, &__dst, &v70);
+          (*(*v22 + 144))(v22, v8 + 2, &__dst, &v71);
         }
 
         sub_100004A34(v21);
@@ -349,116 +349,118 @@ LABEL_32:
     }
 
 LABEL_47:
-    sub_100009970(&v70, *(&v70 + 1));
+    sub_100009970(&v71, *(&v71 + 1));
     sub_100009970(&__dst, *(&__dst + 1));
 LABEL_48:
-    v8 += 88;
+    v8 += 11;
   }
 
   while (v8 != v9);
 LABEL_49:
   if (CellularPlanListModelLocal::isPartialActiveSupported_sync(this))
   {
-    (***(this + 7))(&buf);
+    (**this[7])(&buf);
     ServiceMap = Registry::getServiceMap(buf.__r_.__value_.__l.__data_);
-    v29 = ServiceMap;
-    if (v30 < 0)
+    v29 = this + 15;
+    v30 = ServiceMap;
+    if (v31 < 0)
     {
-      v31 = (v30 & 0x7FFFFFFFFFFFFFFFLL);
-      v32 = 5381;
+      v32 = (v31 & 0x7FFFFFFFFFFFFFFFLL);
+      v33 = 5381;
       do
       {
-        v30 = v32;
-        v33 = *v31++;
-        v32 = (33 * v32) ^ v33;
+        v31 = v33;
+        v34 = *v32++;
+        v33 = (33 * v33) ^ v34;
       }
 
-      while (v33);
+      while (v34);
     }
 
     std::mutex::lock(ServiceMap);
-    *&__dst = v30;
-    v34 = sub_100009510(&v29[1].__m_.__sig, &__dst);
-    if (v34)
+    *&__dst = v31;
+    v35 = sub_100009510(&v30[1].__m_.__sig, &__dst);
+    if (v35)
     {
-      v36 = v34[3];
-      v35 = v34[4];
-      if (v35)
+      v37 = v35[3];
+      v36 = v35[4];
+      if (v36)
       {
-        atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::mutex::unlock(v29);
-        atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
-        sub_100004A34(v35);
-        v62 = 0;
+        atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::mutex::unlock(v30);
+        atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
+        v29 = this + 15;
+        sub_100004A34(v36);
+        v63 = 0;
         goto LABEL_61;
       }
     }
 
     else
     {
-      v36 = 0;
+      v37 = 0;
     }
 
-    std::mutex::unlock(v29);
-    v35 = 0;
-    v62 = 1;
+    std::mutex::unlock(v30);
+    v36 = 0;
+    v63 = 1;
 LABEL_61:
-    v38 = buf.__r_.__value_.__l.__size_;
+    size = buf.__r_.__value_.__l.__size_;
     if (buf.__r_.__value_.__l.__size_)
     {
       sub_100004A34(buf.__r_.__value_.__l.__size_);
     }
 
-    v63 = v35;
-    if (v36)
+    v64 = v36;
+    if (v37)
     {
-      v39 = *(this + 118);
-      v40 = (this + 952);
-      if (v39 != (this + 952))
+      v40 = this[118];
+      v41 = this + 119;
+      if (v40 != (this + 119))
       {
         do
         {
-          v41 = (v39 + 32);
-          v42 = *(this + 919);
-          if (v42 >= 0)
+          v42 = (v40 + 4);
+          v43 = *(this + 919);
+          if (v43 >= 0)
           {
-            v43 = *(this + 919);
+            v44 = *(this + 919);
           }
 
           else
           {
-            v43 = *(this + 113);
+            v44 = this[113];
           }
 
-          v44 = *(v39 + 55);
-          v45 = v44;
-          v46 = *(v39 + 40);
-          if ((v44 & 0x80u) != 0)
+          v45 = *(v40 + 55);
+          v46 = v45;
+          v47 = v40[5];
+          if ((v45 & 0x80u) != 0)
           {
-            v44 = *(v39 + 40);
+            v45 = v40[5];
           }
 
-          if (v43 == v44 && (v42 >= 0 ? (v47 = this + 896) : (v47 = *(this + 112)), v45 >= 0 ? (v48 = (v39 + 32)) : (v48 = *v41), v38 = memcmp(v47, v48, v43), !v38))
+          if (v44 == v45 && (v43 >= 0 ? (v48 = this + 112) : (v48 = this[112]), v46 >= 0 ? (v49 = v40 + 4) : (v49 = *v42), size = memcmp(v48, v49, v44), !size))
           {
-            v50 = *(v39 + 8);
-            if (v50)
+            v51 = v40[1];
+            if (v51)
             {
               do
               {
-                v51 = v50;
-                v50 = *v50;
+                v52 = v51;
+                v51 = *v51;
               }
 
-              while (v50);
+              while (v51);
             }
 
             else
             {
               do
               {
-                v51 = *(v39 + 16);
-                v7 = *v51 == v39;
-                v39 = v51;
+                v52 = v40[2];
+                v7 = *v52 == v40;
+                v40 = v52;
               }
 
               while (!v7);
@@ -468,84 +470,84 @@ LABEL_61:
           else
           {
             memset(&buf, 0, sizeof(buf));
-            if (v45 < 0)
+            if (v46 < 0)
             {
-              v38 = sub_100005F2C(&buf, *v41, v46);
+              size = sub_100005F2C(&buf, *v42, v47);
             }
 
             else
             {
-              *&buf.__r_.__value_.__l.__data_ = *v41;
-              buf.__r_.__value_.__r.__words[2] = *(v39 + 48);
+              *&buf.__r_.__value_.__l.__data_ = *v42;
+              buf.__r_.__value_.__r.__words[2] = v40[6];
             }
 
-            if (CellularPlanListModelLocal::hasIccid_sync(v38, v39 + 32, this + 18))
+            if (CellularPlanListModelLocal::hasIccid_sync(size, (v40 + 4), this + 18, v29))
             {
               __dst = 0uLL;
-              (**v36)(&__dst, v36, &buf);
+              (**v37)(&__dst, v37, &buf);
               if (!__dst || *(__dst + 49) != 3)
               {
-                LOBYTE(v70) = 3;
-                (*(*v36 + 80))(v36, &buf, &v70);
+                LOBYTE(v71) = 3;
+                (*(*v37 + 80))(v37, &buf, &v71);
               }
 
-              (*(*v36 + 112))(&v70, v36, &buf);
-              v49 = v70;
-              sub_10001021C(&v70);
-              if (!v49)
+              (*(*v37 + 112))(&v71, v37, &buf);
+              v50 = v71;
+              sub_10001021C(&v71);
+              if (!v50)
               {
-                v65.__r_.__value_.__r.__words[0] = 0;
-                CellularPlanListModelLocal::getUsableSimCarrierSettings(this, (v39 + 32), &v65);
-                if (v65.__r_.__value_.__r.__words[0])
+                v66.__r_.__value_.__r.__words[0] = 0;
+                CellularPlanListModelLocal::getUsableSimCarrierSettings(this, v40 + 2, &v66);
+                if (v66.__r_.__value_.__r.__words[0])
                 {
-                  (*(*v36 + 104))(v36, &buf);
+                  (*(*v37 + 104))(v37, &buf);
                 }
 
                 else
                 {
-                  v52 = *(this + 5);
-                  if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+                  v53 = this[5];
+                  if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
                   {
-                    if (*(v39 + 55) < 0)
+                    if (*(v40 + 55) < 0)
                     {
-                      v41 = *v41;
+                      v42 = *v42;
                     }
 
-                    LODWORD(v70) = 136315138;
-                    *(&v70 + 4) = v41;
-                    _os_log_error_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "Missing Usable Carrier Settings for (%s)", &v70, 0xCu);
+                    LODWORD(v71) = 136315138;
+                    *(&v71 + 4) = v42;
+                    _os_log_error_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "Missing Usable Carrier Settings for (%s)", &v71, 0xCu);
                   }
                 }
 
-                sub_10001021C(&v65.__r_.__value_.__l.__data_);
+                sub_10001021C(&v66.__r_.__value_.__l.__data_);
               }
 
-              (*(*v36 + 96))(v36, &buf, 1);
-              v53 = *(v39 + 8);
-              if (v53)
+              (*(*v37 + 96))(v37, &buf, 1);
+              v54 = v40[1];
+              if (v54)
               {
                 do
                 {
-                  v51 = v53;
-                  v53 = *v53;
+                  v52 = v54;
+                  v54 = *v54;
                 }
 
-                while (v53);
+                while (v54);
               }
 
               else
               {
                 do
                 {
-                  v51 = *(v39 + 16);
-                  v7 = *v51 == v39;
-                  v39 = v51;
+                  v52 = v40[2];
+                  v7 = *v52 == v40;
+                  v40 = v52;
                 }
 
                 while (!v7);
               }
 
-              v38 = *(&__dst + 1);
+              size = *(&__dst + 1);
               if (*(&__dst + 1))
               {
                 sub_100004A34(*(&__dst + 1));
@@ -555,21 +557,21 @@ LABEL_61:
             else
             {
               __dst = 0uLL;
-              v73 = 0;
-              if (*(v39 + 55) < 0)
+              v74 = 0;
+              if (*(v40 + 55) < 0)
               {
-                sub_100005F2C(&__dst, *(v39 + 32), *(v39 + 40));
+                sub_100005F2C(&__dst, v40[4], v40[5]);
               }
 
               else
               {
-                __dst = *v41;
-                v73 = *(v39 + 48);
+                __dst = *v42;
+                v74 = v40[6];
               }
 
-              v51 = sub_100075658(this + 118, v39);
+              v52 = sub_100075658(this + 118, v40);
               CellularPlanListModelLocal::removeManagedPersonality(this, &__dst, 1);
-              if (SHIBYTE(v73) < 0)
+              if (SHIBYTE(v74) < 0)
               {
                 operator delete(__dst);
               }
@@ -581,82 +583,82 @@ LABEL_61:
             }
           }
 
-          v39 = v51;
+          v40 = v52;
         }
 
-        while (v51 != v40);
+        while (v52 != v41);
       }
 
-      v54 = v66;
-      if (v66 != v67)
+      v55 = v67;
+      if (v67 != v68)
       {
         do
         {
-          if (v40 == sub_100007A6C(this + 944, &v54[1].__r_.__value_.__l.__size_) && (*(*v36 + 328))(v36, &v54[1].__r_.__value_.__l.__size_))
+          if (v41 == sub_100007A6C((this + 118), v55 + 32) && (*(*v37 + 328))(v37, v55 + 4))
           {
-            v55 = *(this + 5);
-            if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+            v56 = this[5];
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
             {
-              p_size = &v54[1].__r_.__value_.__l.__size_;
-              if (v54[2].__r_.__value_.__s.__data_[7] < 0)
+              v59 = (v55 + 4);
+              if (*(v55 + 55) < 0)
               {
-                p_size = v54[1].__r_.__value_.__l.__size_;
+                v59 = v55[4];
               }
 
               LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
-              *(buf.__r_.__value_.__r.__words + 4) = p_size;
-              _os_log_error_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "Limited Use sim found:%s", &buf, 0xCu);
+              *(buf.__r_.__value_.__r.__words + 4) = v59;
+              _os_log_error_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "Limited Use sim found:%s", &buf, 0xCu);
             }
 
-            CellularPlanListModelLocal::removeManagedPersonality(this, &v54[1].__r_.__value_.__l.__size_, 0);
+            CellularPlanListModelLocal::removeManagedPersonality(this, (v55 + 4), 0);
           }
 
-          v56 = v54->__r_.__value_.__l.__size_;
-          if (v56)
+          v57 = v55[1];
+          if (v57)
           {
             do
             {
-              v57 = v56;
-              v56 = *v56;
+              v58 = v57;
+              v57 = *v57;
             }
 
-            while (v56);
+            while (v57);
           }
 
           else
           {
             do
             {
-              v57 = v54->__r_.__value_.__r.__words[2];
-              v7 = *v57 == v54;
-              v54 = v57;
+              v58 = v55[2];
+              v7 = *v58 == v55;
+              v55 = v58;
             }
 
             while (!v7);
           }
 
-          v54 = v57;
+          v55 = v58;
         }
 
-        while (v57 != v67);
+        while (v58 != v68);
       }
     }
 
-    else if (os_log_type_enabled(*(this + 5), OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(this[5], OS_LOG_TYPE_ERROR))
     {
       sub_10176247C();
     }
 
-    if ((v62 & 1) == 0)
+    if ((v63 & 1) == 0)
     {
-      sub_100004A34(v63);
+      sub_100004A34(v64);
     }
   }
 
-  v37 = 1;
+  v38 = 1;
 LABEL_135:
-  sub_100009970(&v66, v67[0]);
-  return v37;
+  sub_100009970(&v67, v68[0]);
+  return v38;
 }
 
 void CellularPlanListModelLocal::setUserActiveDataSelectionChangeIccid_sync(CellularPlanListModelLocal *this, std::string *a2, int a3)
@@ -699,7 +701,7 @@ void CellularPlanListModelLocal::setUserActiveDataSelectionChangeIccid_sync(Cell
             v12 = *(this + 54);
           }
 
-          if (v12 == size && (v13 >= 0 ? (v14 = this + 424) : (v14 = *(this + 53)), v5 >= 0 ? (v15 = a2) : (v15 = a2->__r_.__value_.__r.__words[0]), !memcmp(v14, v15, size)) || sub_10016FA58(this + 784, &a2->__r_.__value_.__l.__data_))
+          if (v12 == size && (v13 >= 0 ? (v14 = this + 424) : (v14 = *(this + 53)), v5 >= 0 ? (v15 = a2) : (v15 = a2->__r_.__value_.__r.__words[0]), !memcmp(v14, v15, size)) || sub_10016FA58(this + 784, a2))
           {
             v16 = *(this + 5);
             if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
@@ -730,7 +732,7 @@ void CellularPlanListModelLocal::setUserActiveDataSelectionChangeIccid_sync(Cell
 
         else
         {
-          v18 = sub_10016FA58(this + 784, &a2->__r_.__value_.__l.__data_);
+          v18 = sub_10016FA58(this + 784, a2);
           v19 = *(this + 5);
           if (v18)
           {
@@ -764,7 +766,7 @@ void CellularPlanListModelLocal::setUserActiveDataSelectionChangeIccid_sync(Cell
                 if (v24)
                 {
                   *(this + 222) = CellularPlanListModelLocal::calculateLegacySlot(this, this + 108);
-                  CellularPlanListModelLocal::getUserEnabledIccidsSet_sync(this, &v25);
+                  CellularPlanListModelLocal::getUserEnabledIccidsSet_sync(&v25, this);
                   (*(*v24 + 152))(v24, &v25, this + 864);
                   sub_100009970(&v25, *(v26 + 4));
                   (*(*v24 + 40))(v24);
@@ -904,11 +906,11 @@ void sub_10015AB50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void CellularPlanListModelLocal::handleSimStateAndLabelsForTravel_sync(os_log_t *a1, uint64_t a2, int a3)
+void CellularPlanListModelLocal::handleSimStateAndLabelsForTravel_sync(CellularPlanListModelLocal *a1, uint64_t a2, int a3)
 {
-  if (a1 + 32 == sub_100007A6C((a1 + 31), a2))
+  if ((a1 + 256) == sub_100007A6C(a1 + 248, a2))
   {
-    if (os_log_type_enabled(a1[5], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(*(a1 + 5), OS_LOG_TYPE_ERROR))
     {
       sub_101762580();
     }
@@ -934,56 +936,56 @@ void CellularPlanListModelLocal::handleSimStateAndLabelsForTravel_sync(os_log_t 
     }
 
     BYTE8(v11) = 1;
-    v16 = a2;
-    v6 = sub_1001705A0((a1 + 31), a2);
+    v17 = a2;
+    v6 = sub_1001705A0(a1 + 31, a2, &unk_101802C98, &v17, &v16);
     if (*(v6 + 103) < 0)
     {
-      sub_100005F2C(v12, *(v6 + 80), *(v6 + 88));
+      sub_100005F2C(v12, v6[10], v6[11]);
     }
 
     else
     {
-      *v12 = *(v6 + 80);
-      v13[0] = *(v6 + 96);
+      *v12 = *(v6 + 5);
+      v13[0] = *(v6 + 12);
     }
 
-    v16 = a2;
-    v7 = sub_1001705A0((a1 + 31), a2);
+    v17 = a2;
+    v7 = sub_1001705A0(a1 + 31, a2, &unk_101802C98, &v17, &v16);
     if (*(v7 + 127) < 0)
     {
-      sub_100005F2C(&v13[1], *(v7 + 104), *(v7 + 112));
+      sub_100005F2C(&v13[1], v7[13], v7[14]);
     }
 
     else
     {
-      *&v13[1] = *(v7 + 104);
-      v13[3] = *(v7 + 120);
+      *&v13[1] = *(v7 + 13);
+      v13[3] = *(v7 + 15);
     }
 
-    v16 = a2;
-    v8 = sub_1001705A0((a1 + 31), a2);
+    v17 = a2;
+    v8 = sub_1001705A0(a1 + 31, a2, &unk_101802C98, &v17, &v16);
     if (*(v8 + 151) < 0)
     {
-      sub_100005F2C(v14, *(v8 + 128), *(v8 + 136));
+      sub_100005F2C(v14, v8[16], v8[17]);
     }
 
     else
     {
-      *v14 = *(v8 + 128);
-      __p[0] = *(v8 + 144);
+      *v14 = *(v8 + 8);
+      __p[0] = *(v8 + 18);
     }
 
-    v16 = a2;
-    v9 = sub_1001705A0((a1 + 31), a2);
+    v17 = a2;
+    v9 = sub_1001705A0(a1 + 31, a2, &unk_101802C98, &v17, &v16);
     if (*(v9 + 175) < 0)
     {
-      sub_100005F2C(&__p[1], *(v9 + 152), *(v9 + 160));
+      sub_100005F2C(&__p[1], v9[19], v9[20]);
     }
 
     else
     {
-      *&__p[1] = *(v9 + 152);
-      __p[3] = *(v9 + 168);
+      *&__p[1] = *(v9 + 19);
+      __p[3] = *(v9 + 21);
     }
 
     CellularPlanListModelLocal::handleSimLabelsForTravel_sync(a1, v10, 0);
@@ -1228,7 +1230,7 @@ LABEL_19:
 
     (*(**(a1 + 56) + 160))(&v38);
     v37 = 0;
-    CellularPlanListModelLocal::getLocalizedString_sync(a1, @"TRAVEL_SIM_LABEL_PREFIX", &v37);
+    CellularPlanListModelLocal::getLocalizedString_sync(&v37, a1, @"TRAVEL_SIM_LABEL_PREFIX");
     buf = 0uLL;
     *&v54 = 0;
     ctu::cf::assign();
@@ -1392,7 +1394,7 @@ LABEL_65:
   }
 }
 
-void sub_10015B47C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *__p, uint64_t a58, int a59, __int16 a60, char a61, char a62)
+void sub_10015B47C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *__p, uint64_t a58, int a59, __int16 a60, char a61, char a62)
 {
   sub_100FB0A00(&a37);
   if (a62 < 0)
@@ -1418,11 +1420,11 @@ void sub_10015B550(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x10015B544);
 }
 
-void CellularPlanListModelLocal::getCachedCarrierDescriptors_sync(CellularPlanListModelLocal *this@<X0>, void *a2@<X8>)
+void CellularPlanListModelLocal::getCachedCarrierDescriptors_sync(CellularPlanListModelLocal *this@<X0>, uint64_t **a2@<X8>)
 {
   a2[2] = 0;
   a2[1] = 0;
-  *a2 = a2 + 1;
+  *a2 = (a2 + 1);
   v3 = *(this + 31);
   v4 = this + 256;
   if (v3 != (this + 256))
@@ -1505,42 +1507,42 @@ void CellularPlanListModelLocal::getCachedCarrierDescriptors_sync(CellularPlanLi
             v23 = v34;
           }
 
-          v35 = __dst;
-          v8 = sub_100174060(a2, __dst);
-          sub_10016A270(v8 + 56, v13);
+          v36 = __dst;
+          v8 = sub_100174060(a2, __dst, &unk_101802C98, &v36, &v35);
+          sub_10016A270((v8 + 7), v13);
           if (*(v8 + 111) < 0)
           {
-            operator delete(*(v8 + 88));
+            operator delete(v8[11]);
           }
 
-          *(v8 + 104) = v17;
-          *(v8 + 88) = v16;
+          v8[13] = v17;
+          *(v8 + 11) = v16;
           HIBYTE(v17) = 0;
           LOBYTE(v16) = 0;
           if (*(v8 + 135) < 0)
           {
-            operator delete(*(v8 + 112));
+            operator delete(v8[14]);
           }
 
-          *(v8 + 128) = v19;
-          *(v8 + 112) = v18;
+          v8[16] = v19;
+          *(v8 + 7) = v18;
           HIBYTE(v19) = 0;
           LOBYTE(v18) = 0;
           if (*(v8 + 159) < 0)
           {
-            operator delete(*(v8 + 136));
+            operator delete(v8[17]);
           }
 
-          *(v8 + 152) = v21;
-          *(v8 + 136) = __p;
+          v8[19] = v21;
+          *(v8 + 17) = __p;
           HIBYTE(v21) = 0;
           LOBYTE(__p) = 0;
           if (*(v8 + 183) < 0)
           {
-            operator delete(*(v8 + 160));
+            operator delete(v8[20]);
             v9 = SHIBYTE(v21);
-            *(v8 + 160) = v22;
-            *(v8 + 176) = v23;
+            *(v8 + 10) = v22;
+            v8[22] = v23;
             HIBYTE(v23) = 0;
             LOBYTE(v22) = 0;
             if (v9 < 0)
@@ -1551,8 +1553,8 @@ void CellularPlanListModelLocal::getCachedCarrierDescriptors_sync(CellularPlanLi
 
           else
           {
-            *(v8 + 160) = v22;
-            *(v8 + 176) = v23;
+            *(v8 + 10) = v22;
+            v8[22] = v23;
             HIBYTE(v23) = 0;
             LOBYTE(v22) = 0;
           }
@@ -1934,7 +1936,7 @@ void sub_10015BE4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void CellularPlanListModelLocal::applyRemapSelection_sync(os_log_t *a1, uint64_t a2)
+void CellularPlanListModelLocal::applyRemapSelection_sync(char *a1, uint64_t a2)
 {
   v3 = a1;
   __p[0] = 0;
@@ -1959,7 +1961,7 @@ void CellularPlanListModelLocal::applyRemapSelection_sync(os_log_t *a1, uint64_t
 
   if (!v4)
   {
-    if (os_log_type_enabled(v3[5], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(*(v3 + 5), OS_LOG_TYPE_ERROR))
     {
       sub_101762650();
     }
@@ -1967,9 +1969,9 @@ void CellularPlanListModelLocal::applyRemapSelection_sync(os_log_t *a1, uint64_t
     goto LABEL_49;
   }
 
-  if ((CellularPlanListModelLocal::hasIccid_sync(a1, __p, v3 + 18) & 1) == 0)
+  if ((CellularPlanListModelLocal::hasIccid_sync(a1, __p, v3 + 18, (v3 + 120)) & 1) == 0)
   {
-    v20 = v3[5];
+    v20 = *(v3 + 5);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = __p;
@@ -1983,7 +1985,7 @@ void CellularPlanListModelLocal::applyRemapSelection_sync(os_log_t *a1, uint64_t
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#I Drop placeholder iccid: [%s]", buf, 0xCu);
     }
 
-    (*v3[7]->isa)(&v32);
+    (***(v3 + 7))(&v32);
     ServiceMap = Registry::getServiceMap(v32);
     v23 = ServiceMap;
     if (v24 < 0)
@@ -2053,7 +2055,7 @@ LABEL_43:
   {
     while (1)
     {
-      v7 = v3[5];
+      v7 = *(v3 + 5);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = v5;
@@ -2075,7 +2077,7 @@ LABEL_43:
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I Applying Remap from: [%s] to: [%s]", buf, 0x16u);
       }
 
-      (*v3[7]->isa)(buf);
+      (***(v3 + 7))(buf);
       v10 = Registry::getServiceMap(*buf);
       v11 = v10;
       if (v12 < 0)
@@ -2217,7 +2219,7 @@ void CellularPlanListModelLocal::remapSimLabelForPlaceHolder_sync(uint64_t a1, _
 
 void CellularPlanListModelLocal::setSystemSelectionChange_sync(uint64_t a1, uint64_t a2, const std::string *a3)
 {
-  if (CellularPlanListModelLocal::hasIccid_sync(a1, a2, (a1 + 144)))
+  if (CellularPlanListModelLocal::hasIccid_sync(a1, a2, (a1 + 144), a1 + 120))
   {
     v6 = SHIBYTE(a3->__r_.__value_.__r.__words[2]);
     if (v6 >= 0)
@@ -2335,18 +2337,18 @@ void CellularPlanListModelLocal::setSystemSelectionChange_sync(uint64_t a1, uint
 
       std::string::operator=((a1 + 896), a2);
       std::string::operator=((a1 + 920), a3);
-      v60 = 0u;
       v61 = 0u;
-      v58 = 0u;
+      v62 = 0u;
       v59 = 0u;
-      v56 = 0u;
+      v60 = 0u;
       v57 = 0u;
-      v54 = 0u;
+      v58 = 0u;
       v55 = 0u;
-      v53 = 0u;
+      v56 = 0u;
+      v54 = 0u;
       memset(buf, 0, sizeof(buf));
       sGetProfileDetails();
-      atomic_store(BYTE8(v61) & BYTE9(v53), (a1 + 768));
+      atomic_store(BYTE8(v62) & BYTE9(v54), (a1 + 768));
       v28 = *(a1 + 80);
       if (v28)
       {
@@ -2357,7 +2359,7 @@ void CellularPlanListModelLocal::setSystemSelectionChange_sync(uint64_t a1, uint
           v31 = *(a1 + 72);
           if (v31)
           {
-            memset(&v51, 0, sizeof(v51));
+            memset(&v52, 0, sizeof(v52));
             v32 = *(a1 + 943);
             if (v32 < 0)
             {
@@ -2396,10 +2398,10 @@ LABEL_68:
               v34 = (a1 + 864);
             }
 
-            std::string::operator=(&v51, v34);
-            *(a1 + 888) = CellularPlanListModelLocal::calculateLegacySlot(a1, &v51.__r_.__value_.__l.__data_);
-            CellularPlanListModelLocal::getEnabledIccids(a1, 1, __p);
-            (*(*v31 + 152))(v31, __p, &v51);
+            std::string::operator=(&v52, v34);
+            *(a1 + 888) = CellularPlanListModelLocal::calculateLegacySlot(a1, &v52.__r_.__value_.__l.__data_);
+            CellularPlanListModelLocal::getEnabledIccids(__p, a1, 1);
+            (*(*v31 + 152))(v31, __p, &v52);
             sub_100009970(__p, __p[1]);
             v36 = *(a1 + 919);
             if (v36 < 0)
@@ -2473,7 +2475,7 @@ LABEL_92:
 
             else
             {
-              CellularPlanListModelLocal::calculateHomeCountryList_sync(a1, v50);
+              CellularPlanListModelLocal::calculateHomeCountryList_sync(v50, a1);
               CellularPlanListModelLocal::getSubscriberDataIdInfo_sync(a1, __p);
               (*(*v31 + 72))(v31, v50, __p);
               if (v49 < 0)
@@ -2481,16 +2483,16 @@ LABEL_92:
                 operator delete(__p[0]);
               }
 
-              if (v50[24] == 1)
+              if (v51 == 1)
               {
                 __p[0] = v50;
                 sub_1000087B4(__p);
               }
             }
 
-            if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v51.__r_.__value_.__l.__data_);
+              operator delete(v52.__r_.__value_.__l.__data_);
             }
           }
 
@@ -2498,7 +2500,7 @@ LABEL_92:
         }
       }
 
-      if (BYTE8(v61) == 1)
+      if (BYTE8(v62) == 1)
       {
         sub_100E3A5D4(buf);
       }
@@ -2511,7 +2513,7 @@ LABEL_92:
   }
 }
 
-void sub_10015C9BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
+void sub_10015C9BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
 {
   if (a15 < 0)
   {
@@ -2538,7 +2540,7 @@ void sub_10015C9BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void CellularPlanListModelLocal::calculateHomeCountryList_sync(CellularPlanListModelLocal *this@<X0>, uint64_t a2@<X8>)
+void CellularPlanListModelLocal::calculateHomeCountryList_sync(uint64_t *__return_ptr a1@<X8>, CellularPlanListModelLocal *this@<X0>)
 {
   if (((*(**(this + 7) + 40))(*(this + 7)) & 1) == 0)
   {
@@ -2554,8 +2556,8 @@ void CellularPlanListModelLocal::calculateHomeCountryList_sync(CellularPlanListM
     }
 
 LABEL_12:
-    *a2 = 0;
-    *(a2 + 24) = 0;
+    *a1 = 0;
+    *(a1 + 24) = 0;
     return;
   }
 
@@ -2569,12 +2571,12 @@ LABEL_12:
 
     if (v6)
     {
-      *a2 = 0;
-      *(a2 + 8) = 0;
-      *(a2 + 16) = 0;
+      *a1 = 0;
+      a1[1] = 0;
+      a1[2] = 0;
       *&v32 = 0;
       v31 = 0uLL;
-      *(a2 + 24) = 1;
+      *(a1 + 24) = 1;
       __dst[0] = &v31;
       sub_1000087B4(__dst);
       return;
@@ -2605,11 +2607,11 @@ LABEL_12:
     v9 = *(v7 + 400);
     if (v8 != v9)
     {
-      *a2 = 0;
-      *(a2 + 8) = 0;
-      *(a2 + 16) = 0;
-      sub_10004EFD0(a2, v8, v9, 0xAAAAAAAAAAAAAAABLL * ((v9 - v8) >> 3));
-      *(a2 + 24) = 1;
+      *a1 = 0;
+      a1[1] = 0;
+      a1[2] = 0;
+      sub_10004EFD0(a1, v8, v9, 0xAAAAAAAAAAAAAAABLL * ((v9 - v8) >> 3));
+      *(a1 + 24) = 1;
       goto LABEL_54;
     }
   }
@@ -2634,8 +2636,8 @@ LABEL_12:
     if (BYTE8(v38) != 1)
     {
 LABEL_51:
-      *a2 = 0;
-      *(a2 + 24) = 0;
+      *a1 = 0;
+      *(a1 + 24) = 0;
 LABEL_52:
       if (BYTE8(v38) == 1)
       {
@@ -2731,11 +2733,11 @@ LABEL_40:
         operator delete(__p[0]);
       }
 
-      *a2 = v22;
-      *(a2 + 16) = v23;
+      *a1 = v22;
+      a1[2] = v23;
       v22 = 0uLL;
       v23 = 0;
-      *(a2 + 24) = 1;
+      *(a1 + 24) = 1;
       __p[0] = &v22;
       sub_1000087B4(__p);
       v21 = 0;
@@ -2767,8 +2769,8 @@ LABEL_46:
     goto LABEL_49;
   }
 
-  *a2 = 0;
-  *(a2 + 24) = 0;
+  *a1 = 0;
+  *(a1 + 24) = 0;
 LABEL_54:
   if (SHIBYTE(v27) < 0)
   {
@@ -2776,7 +2778,7 @@ LABEL_54:
   }
 }
 
-void sub_10015CE84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59)
+void sub_10015CE84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59)
 {
   if (a17 < 0)
   {
@@ -2831,8 +2833,8 @@ void CellularPlanListModelLocal::setDisplaySubscriptionInfo_sync(uint64_t a1, ui
     do
     {
       __p = (v4 + 8);
-      v6 = sub_1001705A0(a1 + 248, (v4 + 8));
-      sub_10015D2DC(v6 + 240, v4);
+      v6 = sub_1001705A0((a1 + 248), (v4 + 8), &unk_101802C98, &__p, &p_p);
+      sub_10015D2DC((v6 + 30), v4);
       v4 += 200;
     }
 
@@ -2905,10 +2907,10 @@ void CellularPlanListModelLocal::setDisplaySubscriptionInfo_sync(uint64_t a1, ui
     }
 
     v13 = *(a1 + 104);
-    memset(v23, 0, sizeof(v23));
-    sub_10016B908(v23, v12, v8, 0x8F5C28F5C28F5C29 * ((v8 - v12) >> 3));
-    (*(*v13 + 40))(v13, v23);
-    p_p = v23;
+    memset(v24, 0, sizeof(v24));
+    sub_10016B908(v24, v12, v8, 0x8F5C28F5C28F5C29 * ((v8 - v12) >> 3));
+    (*(*v13 + 40))(v13, v24);
+    p_p = v24;
     sub_1000E2698(&p_p);
     p_p = &__p;
     sub_1000E2698(&p_p);
@@ -2945,7 +2947,7 @@ LABEL_22:
       v18 = *(a1 + 72);
       if (v18)
       {
-        CellularPlanListModelLocal::calculateHomeCountryList_sync(a1, v22);
+        CellularPlanListModelLocal::calculateHomeCountryList_sync(v22, a1);
         CellularPlanListModelLocal::getSubscriberDataIdInfo_sync(a1, &__p);
         (*(*v18 + 72))(v18, v22, &__p);
         if (SHIBYTE(v21) < 0)
@@ -2953,7 +2955,7 @@ LABEL_22:
           operator delete(__p);
         }
 
-        if (v22[24] == 1)
+        if (v23 == 1)
         {
           __p = v22;
           sub_1000087B4(&__p);
@@ -3013,7 +3015,7 @@ uint64_t sub_10015D2DC(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void CellularPlanListModelLocal::updateEntitlementSubscriptionInfo_sync(CellularPlanListModelLocal *this)
+void CellularPlanListModelLocal::updateEntitlementSubscriptionInfo_sync(NSObject **this)
 {
   memset(&__str, 0, sizeof(__str));
   CellularPlanListModelLocal::getUserSelectedIccid_sync(this, &__str);
@@ -3021,15 +3023,15 @@ void CellularPlanListModelLocal::updateEntitlementSubscriptionInfo_sync(Cellular
   {
     if (*(&__str.__r_.__value_.__s + 23))
     {
-      v2 = (this + 152);
-      v3 = *(this + 19);
-      v4 = *(this + 18);
+      v2 = this + 19;
+      v3 = this[19];
+      v4 = this[18];
       __p = __str;
       goto LABEL_6;
     }
 
 LABEL_31:
-    v13 = *(this + 5);
+    v13 = this[5];
     if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_44;
@@ -3047,9 +3049,9 @@ LABEL_43:
     goto LABEL_31;
   }
 
-  v2 = (this + 152);
-  v3 = *(this + 19);
-  v4 = *(this + 18);
+  v2 = this + 19;
+  v3 = this[19];
+  v4 = this[18];
   sub_100005F2C(&__p, __str.__r_.__value_.__l.__data_, __str.__r_.__value_.__l.__size_);
 LABEL_6:
   v5 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
@@ -3084,27 +3086,27 @@ LABEL_23:
     p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  v8 = v4 + 18;
+  v8 = v4 + 9;
   while (1)
   {
-    v9 = *(v8 + 23);
-    v10 = v9;
-    if ((v9 & 0x80u) != 0)
+    isa_high = HIBYTE(v8[2].isa);
+    v10 = isa_high;
+    if (isa_high < 0)
     {
-      v9 = *(v8 + 1);
+      isa_high = v8[1].isa;
     }
 
-    if (size == v9)
+    if (size == isa_high)
     {
-      v11 = v10 >= 0 ? v8 : *v8;
+      v11 = v10 >= 0 ? v8 : v8->isa;
       if (!memcmp(p_p, v11, size))
       {
         break;
       }
     }
 
-    v12 = v8 + 24;
-    v8 += 42;
+    v12 = v8 + 12;
+    v8 += 21;
     if (v12 == v3)
     {
       v4 = v3;
@@ -3112,7 +3114,7 @@ LABEL_23:
     }
   }
 
-  v4 = v8 - 18;
+  v4 = v8 - 9;
   if (v5 < 0)
   {
 LABEL_24:
@@ -3122,7 +3124,7 @@ LABEL_24:
 LABEL_25:
   if (v4 == *v2)
   {
-    v13 = *(this + 5);
+    v13 = this[5];
     if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_44;
@@ -3133,9 +3135,9 @@ LABEL_25:
     goto LABEL_43;
   }
 
-  if (!*v4)
+  if (!LODWORD(v4->isa))
   {
-    v13 = *(this + 5);
+    v13 = this[5];
     if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_44;
@@ -3146,9 +3148,9 @@ LABEL_25:
     goto LABEL_43;
   }
 
-  if (v4[16] != 3)
+  if (LODWORD(v4[8].isa) != 3)
   {
-    v13 = *(this + 5);
+    v13 = this[5];
     if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_44;
@@ -3159,9 +3161,9 @@ LABEL_25:
     goto LABEL_43;
   }
 
-  if (v4[2] != 5)
+  if (LODWORD(v4[1].isa) != 5)
   {
-    v13 = *(this + 5);
+    v13 = this[5];
     if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_44;
@@ -3188,9 +3190,9 @@ LABEL_25:
     operator delete(__dst.__r_.__value_.__l.__data_);
   }
 
-  if (v39 == 1)
+  if (v38 == 1)
   {
-    v15 = *(this + 5);
+    v15 = this[5];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v27[0]) = 0;
@@ -3202,8 +3204,8 @@ LABEL_53:
 
   else
   {
-    v17 = sub_100007A6C(this + 248, &v38);
-    if ((this + 256) == v17 || *(v17 + 640) != 1 || (v18 = *(v17 + 448), v18 <= CFAbsoluteTimeGetCurrent()))
+    v17 = sub_100007A6C((this + 31), &buf[16]);
+    if (this + 32 == v17 || *(v17 + 640) != 1 || (v18 = *(v17 + 448), v18 <= CFAbsoluteTimeGetCurrent()))
     {
       v30 = 0u;
       memset(v31, 0, sizeof(v31));
@@ -3219,7 +3221,7 @@ LABEL_53:
       CellularPlanListModelLocal::getCsnForIccid_sync(this, &__str, v35);
       if (v36 == 1)
       {
-        ctu::hex(&v24, v35, 0x10, v19);
+        ctu::hex(v35, 0x10, v19);
         if (v28 == 1)
         {
           if (SHIBYTE(v27[2]) < 0)
@@ -3239,28 +3241,28 @@ LABEL_53:
         }
       }
 
-      v20 = *(this + 5);
+      v20 = this[5];
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v24) = 0;
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#I fetching subscription account info", &v24, 2u);
       }
 
-      v21 = *(this + 11);
+      v21 = this[11];
       sub_10016BA80(v23, v27);
       v22[0] = _NSConcreteStackBlock;
       v22[1] = 0x40000000;
       v22[2] = sub_10015DED0;
       v22[3] = &unk_101E2CA78;
       v22[4] = this;
-      (*(*v21 + 16))(v21, 1, v23, 1, v22);
+      (*(v21->isa + 2))(v21, 1, v23, 1, v22);
       sub_10015E224(v23);
       sub_10015E2C8(v26);
       sub_10015E224(v27);
       goto LABEL_68;
     }
 
-    v15 = *(this + 5);
+    v15 = this[5];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v27[0]) = 0;
@@ -3289,9 +3291,9 @@ void sub_10015D918(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_BYTE *CellularPlanListModelLocal::getUserSelectedIccid_sync@<X0>(_BYTE *this@<X0>, uint64_t a2@<X8>)
+void *CellularPlanListModelLocal::getUserSelectedIccid_sync@<X0>(void *this@<X0>, void *a2@<X8>)
 {
-  if (*(this + 193) >= 2u || (v3 = this, v4 = *(this + 98), v5 = this + 792, v4 == (this + 792)))
+  if (*(this + 193) >= 2u || (v3 = this, v4 = this[98], v5 = this + 99, v4 == this + 99))
   {
 LABEL_10:
 
@@ -3302,7 +3304,7 @@ LABEL_10:
   {
     while (1)
     {
-      this = CellularPlanListModelLocal::hasIccid_sync(this, (v4 + 4), v3 + 18);
+      this = CellularPlanListModelLocal::hasIccid_sync(this, (v4 + 4), v3 + 18, (v3 + 15));
       if (this)
       {
         break;
@@ -3350,7 +3352,7 @@ LABEL_10:
     else
     {
       v9 = *(v4 + 2);
-      *(a2 + 16) = v4[6];
+      a2[2] = v4[6];
       *a2 = v9;
     }
   }
@@ -3651,9 +3653,9 @@ void sub_10015DE6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_10015DED0(uint64_t a1, uint64_t *a2, unint64_t a3)
+void sub_10015DED0(uint64_t result, uint64_t *a2, unint64_t a3)
 {
-  v3 = *(a1 + 32);
+  v3 = *(result + 32);
   if (a3 && (v4 = *a2) != 0)
   {
     if (*v4 == 6000)
@@ -3698,7 +3700,7 @@ void sub_10015DED0(uint64_t a1, uint64_t *a2, unint64_t a3)
               }
 
               v23 = v10;
-              ctu::hex(&v18, (*(v3 + 120) + 16), 0x10, a3);
+              ctu::hex((*(v3 + 120) + 16), 0x10, a3);
               v11 = (v10 - 184);
               if (*(v10 - 161) < 0)
               {
@@ -3760,9 +3762,9 @@ void sub_10015DED0(uint64_t a1, uint64_t *a2, unint64_t a3)
                 *(v10 - 135) = sub_100BFED0C(*v8);
               }
 
-              v25 = v8 - 64;
-              v14 = sub_1001705A0(v3 + 248, (v8 - 64));
-              sub_100156E08(v14 + 448, v10 - 192);
+              v26 = v8 - 64;
+              v14 = sub_1001705A0((v3 + 248), (v8 - 64), &unk_101802C98, &v26, &v25);
+              sub_100156E08((v14 + 56), v10 - 192);
             }
 
             else if (os_log_type_enabled(*(v3 + 40), OS_LOG_TYPE_ERROR))
@@ -3937,7 +3939,7 @@ uint64_t sub_10015E3CC(uint64_t a1)
   return a1;
 }
 
-uint64_t CellularPlanListModelLocal::getTransferSupportedOptionForPlanInfo_sync(uint64_t a1, void **a2, int a3, _DWORD *a4, char a5)
+uint64_t CellularPlanListModelLocal::getTransferSupportedOptionForPlanInfo_sync(uint64_t a1, char *a2, int a3, _DWORD *a4, char a5)
 {
   (***(a1 + 56))(&v26);
   Registry::getTelephonyCapabilities(v29, v26);
@@ -4077,9 +4079,9 @@ LABEL_25:
   return v11;
 }
 
-void sub_10015E764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_10015E764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (a66 == 1)
+  if (a65 == 1)
   {
     sub_100E3A5D4(&a39);
   }
@@ -4087,11 +4089,11 @@ void sub_10015E764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-std::string *sub_10015E7F8@<X0>(std::string *result@<X0>, uint64_t a2@<X8>)
+std::string *sub_10015E7F8@<X0>(std::string *result@<X0>, _OWORD *a2@<X8>)
 {
   v2 = result;
   *a2 = 0u;
-  *(a2 + 16) = 0u;
+  a2[1] = 0u;
   if (result->__r_.__value_.__s.__data_[0] == 1)
   {
     result = sub_10016C728(a2, &result->__r_.__value_.__r.__words[1]);
@@ -4336,13 +4338,13 @@ LABEL_49:
   return result;
 }
 
-void CellularPlanListModelLocal::maybeDisableColdPhysicalSim_sync(uint64_t a1@<X0>, uint64_t a2@<X1>, void **a3@<X2>, uint64_t **a4@<X8>)
+void CellularPlanListModelLocal::maybeDisableColdPhysicalSim_sync(uint64_t a1@<X0>, char *a2@<X1>, void **a3@<X2>, uint64_t **a4@<X8>)
 {
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
-  v8 = (a2 + 8);
-  sub_100174CD8(a4, *a2, (a2 + 8));
+  v8 = a2 + 8;
+  sub_100174CD8(a4, *a2, a2 + 8);
   memset(&v78, 0, sizeof(v78));
   v9 = *a2;
   if (v9 == v8)
@@ -4352,7 +4354,7 @@ void CellularPlanListModelLocal::maybeDisableColdPhysicalSim_sync(uint64_t a1@<X
 
   do
   {
-    if (CellularPlanListModelLocal::isIccidForPhySlot_sync(a1, (v9 + 4)))
+    if (CellularPlanListModelLocal::isIccidForPhySlot_sync(a1, (v9 + 32)))
     {
       size = HIBYTE(v78.__r_.__value_.__r.__words[2]);
       v11 = SHIBYTE(v78.__r_.__value_.__r.__words[2]);
@@ -4366,10 +4368,10 @@ void CellularPlanListModelLocal::maybeDisableColdPhysicalSim_sync(uint64_t a1@<X
         goto LABEL_165;
       }
 
-      std::string::operator=(&v78, (v9 + 4));
+      std::string::operator=(&v78, (v9 + 32));
     }
 
-    v12 = v9[1];
+    v12 = *(v9 + 1);
     if (v12)
     {
       do
@@ -4385,7 +4387,7 @@ void CellularPlanListModelLocal::maybeDisableColdPhysicalSim_sync(uint64_t a1@<X
     {
       do
       {
-        v13 = v9[2];
+        v13 = *(v9 + 2);
         v14 = *v13 == v9;
         v9 = v13;
       }
@@ -4418,7 +4420,7 @@ void CellularPlanListModelLocal::maybeDisableColdPhysicalSim_sync(uint64_t a1@<X
     __dst = v78;
   }
 
-  v15 = sub_100007A6C(a1 + 328, &__dst.__r_.__value_.__l.__data_);
+  v15 = sub_100007A6C(a1 + 328, &__dst);
   if (a1 + 336 == v15)
   {
     if (os_log_type_enabled(*(a1 + 40), OS_LOG_TYPE_ERROR))
@@ -4734,7 +4736,7 @@ LABEL_122:
             _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "#I Disable blocked physical SIM!", &buf, 2u);
           }
 
-          sub_1000727F0(a4, &v78.__r_.__value_.__l.__data_);
+          sub_1000727F0(a4, &v78);
           v54 = *(a1 + 40);
           if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
           {
@@ -4878,7 +4880,7 @@ LABEL_165:
   }
 }
 
-void sub_10015F5C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, std::__shared_weak_count *a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54, void *a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59)
+void sub_10015F5C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54, void *a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59)
 {
   if (a18)
   {
@@ -5152,7 +5154,7 @@ void sub_10015FB18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *CellularPlanListModelLocal::getCarrierNameForIccid_sync@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void *CellularPlanListModelLocal::getCarrierNameForIccid_sync@<X0>(uint64_t a1@<X0>, char *a2@<X1>, void *a3@<X8>)
 {
   result = sub_100007A6C(a1 + 248, a2);
   if ((a1 + 256) == result)
@@ -5160,7 +5162,7 @@ _BYTE *CellularPlanListModelLocal::getCarrierNameForIccid_sync@<X0>(uint64_t a1@
     v8 = *(a1 + 40);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(a2 + 23) >= 0)
+      if (a2[23] >= 0)
       {
         v9 = a2;
       }
@@ -5178,25 +5180,25 @@ _BYTE *CellularPlanListModelLocal::getCarrierNameForIccid_sync@<X0>(uint64_t a1@
     return sub_10000501C(a3, "");
   }
 
-  else if (result[79] < 0)
+  else if (*(result + 79) < 0)
   {
-    v10 = *(result + 7);
-    v11 = *(result + 8);
+    v10 = result[7];
+    v11 = result[8];
 
     return sub_100005F2C(a3, v10, v11);
   }
 
   else
   {
-    v7 = *(result + 56);
-    *(a3 + 16) = *(result + 9);
+    v7 = *(result + 7);
+    a3[2] = result[9];
     *a3 = v7;
   }
 
   return result;
 }
 
-void CellularPlanListModelLocal::getLocalizedString_sync(CellularPlanListModelLocal *this@<X0>, const __CFString *a2@<X1>, void *a3@<X8>)
+void CellularPlanListModelLocal::getLocalizedString_sync(uint64_t *__return_ptr a1@<X8>, CellularPlanListModelLocal *this@<X0>, const __CFString *a3@<X1>)
 {
   (***(this + 7))(&v16);
   ServiceMap = Registry::getServiceMap(v16);
@@ -5249,7 +5251,7 @@ LABEL_9:
 
   if (v14)
   {
-    (*(*v14 + 32))(v14, kCoreTelephonyBundleID, kCBMessageLocalizationTable, a2, 1);
+    (*(*v14 + 32))(v14, kCoreTelephonyBundleID, kCBMessageLocalizationTable, a3, 1);
     if (v15)
     {
       return;
@@ -5263,7 +5265,7 @@ LABEL_9:
     sub_101762958();
   }
 
-  *a3 = 0;
+  *a1 = 0;
   if ((v15 & 1) == 0)
   {
 LABEL_13:
@@ -5459,81 +5461,102 @@ void sub_1001601A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_100160214@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_100160214@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
 {
-  v26 = 0;
-  v24 = 0u;
+  v31 = 0;
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
+  v22 = 0u;
   *__p = 0u;
-  v15 = 0u;
-  v12 = 0u;
+  v20 = 0u;
+  v17 = 0u;
   *__src = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v9 = 0u;
-  sub_10000C320(&v9);
-  v2 = sub_10000C030(&v10);
-  v3 = sub_10000C030(v2);
-  sub_10000C030(v3);
-  if ((BYTE8(v16) & 0x10) != 0)
+  v15 = 0u;
+  v16 = 0u;
+  v14 = 0u;
+  sub_10000C320(&v14);
+  v4 = sub_10000C030(&v15, "prefs:root=MOBILE_DATA_SETTINGS_ID&client=com.apple.CommCenter&path=CELLULAR&type=enablement", 92);
+  v5 = sub_10000C030(v4, "&simIccidToEnable=", 18);
+  v6 = *(a1 + 23);
+  if (v6 >= 0)
   {
-    v5 = v16;
-    if (v16 < __src[1])
-    {
-      *&v16 = __src[1];
-      v5 = __src[1];
-    }
-
-    v6 = __src[0];
+    v7 = a1;
   }
 
   else
   {
-    if ((BYTE8(v16) & 8) == 0)
-    {
-      v4 = 0;
-      a1[23] = 0;
-      goto LABEL_14;
-    }
-
-    v6 = *(&v11 + 1);
-    v5 = *(&v12 + 1);
+    v7 = *a1;
   }
 
-  v4 = v5 - v6;
-  if ((v5 - v6) >= 0x7FFFFFFFFFFFFFF8)
+  if (v6 >= 0)
+  {
+    v8 = *(a1 + 23);
+  }
+
+  else
+  {
+    v8 = *(a1 + 8);
+  }
+
+  sub_10000C030(v5, v7, v8);
+  if ((BYTE8(v21) & 0x10) != 0)
+  {
+    v10 = v21;
+    if (v21 < __src[1])
+    {
+      *&v21 = __src[1];
+      v10 = __src[1];
+    }
+
+    v11 = __src[0];
+  }
+
+  else
+  {
+    if ((BYTE8(v21) & 8) == 0)
+    {
+      v9 = 0;
+      a2[23] = 0;
+      goto LABEL_20;
+    }
+
+    v11 = *(&v16 + 1);
+    v10 = *(&v17 + 1);
+  }
+
+  v9 = v10 - v11;
+  if ((v10 - v11) >= 0x7FFFFFFFFFFFFFF8)
   {
     sub_1000A2378();
   }
 
-  if (v4 >= 0x17)
+  if (v9 >= 0x17)
   {
     operator new();
   }
 
-  a1[23] = v4;
-  if (v4)
+  a2[23] = v9;
+  if (v9)
   {
-    memmove(a1, v6, v4);
+    memmove(a2, v11, v9);
   }
 
-LABEL_14:
-  a1[v4] = 0;
-  *&v10 = v7;
-  if (SHIBYTE(v15) < 0)
+LABEL_20:
+  a2[v9] = 0;
+  *&v15 = v12;
+  if (SHIBYTE(v20) < 0)
   {
     operator delete(__p[1]);
   }
 
-  std::locale::~locale(&v11);
+  std::locale::~locale(&v16);
   std::iostream::~basic_iostream();
   return std::ios::~ios();
 }
@@ -5544,7 +5567,7 @@ void sub_1001604B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t CellularPlanListModelLocal::updateProvisioningPlanInfo_sync(uint64_t a1, uint64_t a2)
+uint64_t CellularPlanListModelLocal::updateProvisioningPlanInfo_sync(uint64_t a1, __int128 *a2)
 {
   if (!CellularPlanListModelLocal::isVinylAvailable_sync(a1, 3))
   {
@@ -5563,16 +5586,16 @@ uint64_t CellularPlanListModelLocal::updateProvisioningPlanInfo_sync(uint64_t a1
   if (*(a2 + 240) == 1)
   {
     v133 = *a2;
-    std::string::operator=(v134, (a2 + 16));
+    std::string::operator=(v134, (a2 + 1));
     std::string::operator=(&v134[1], (a2 + 40));
-    std::string::operator=(&v135, (a2 + 64));
-    DWORD2(v136) = *(a2 + 88);
+    std::string::operator=(&v135, (a2 + 4));
+    DWORD2(v136) = *(a2 + 22);
     BYTE12(v136) = *(a2 + 92);
-    std::string::operator=(&v137, (a2 + 96));
-    std::string::operator=((&v138 + 8), (a2 + 120));
-    std::string::operator=(v140, (a2 + 144));
-    std::string::operator=(&v140[1], (a2 + 168));
-    std::string::operator=(&v141, (a2 + 192));
+    std::string::operator=(&v137, a2 + 4);
+    std::string::operator=((&v138 + 8), a2 + 5);
+    std::string::operator=(v140, a2 + 6);
+    std::string::operator=(&v140[1], a2 + 7);
+    std::string::operator=(&v141, a2 + 8);
     sGetProfileDetails();
     if (BYTE8(v121))
     {
@@ -5647,21 +5670,21 @@ uint64_t CellularPlanListModelLocal::updateProvisioningPlanInfo_sync(uint64_t a1
 
     if (size)
     {
-      if (*(a2 + 240))
+      if (a2[15])
       {
         *v6 = *a2;
-        std::string::operator=((a1 + 424), (a2 + 16));
+        std::string::operator=((a1 + 424), (a2 + 1));
         std::string::operator=((a1 + 448), (a2 + 40));
-        std::string::operator=((a1 + 472), (a2 + 64));
-        v9 = *(a2 + 88);
+        std::string::operator=((a1 + 472), (a2 + 4));
+        v9 = *(a2 + 22);
         *(a1 + 500) = *(a2 + 92);
         *(a1 + 496) = v9;
-        std::string::operator=((a1 + 504), (a2 + 96));
-        std::string::operator=((a1 + 528), (a2 + 120));
-        std::string::operator=((a1 + 552), (a2 + 144));
-        std::string::operator=((a1 + 576), (a2 + 168));
-        std::string::operator=((a1 + 600), (a2 + 192));
-        std::string::operator=((a1 + 624), (a2 + 216));
+        std::string::operator=((a1 + 504), a2 + 4);
+        std::string::operator=((a1 + 528), a2 + 5);
+        std::string::operator=((a1 + 552), a2 + 6);
+        std::string::operator=((a1 + 576), a2 + 7);
+        std::string::operator=((a1 + 600), a2 + 8);
+        std::string::operator=((a1 + 624), a2 + 9);
         v10 = *(a1 + 40);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
@@ -5776,13 +5799,13 @@ uint64_t CellularPlanListModelLocal::updateProvisioningPlanInfo_sync(uint64_t a1
 
         else
         {
-          sub_100073EE8(a1 + 656, &v134[0].__r_.__value_.__l.__data_);
-          CellularPlanListModelLocal::getUserEnabledIccidsSet_sync(a1, buf);
+          sub_100073EE8((a1 + 656), v134, v134);
+          CellularPlanListModelLocal::getUserEnabledIccidsSet_sync(buf, a1);
           CellularPlanListModelLocal::updatePlaceholderEnabledIccids_sync(a1, buf, 0);
           sub_100009970(buf, *&buf[8]);
           if (*(a1 + 672) > *(a1 + 772))
           {
-            sub_1000727F0((a1 + 656), &v134[0].__r_.__value_.__l.__data_);
+            sub_1000727F0((a1 + 656), v134);
           }
         }
 
@@ -5979,18 +6002,18 @@ LABEL_138:
       if (*(a2 + 240) == 1)
       {
         *v6 = *a2;
-        std::string::operator=((a1 + 424), (a2 + 16));
+        std::string::operator=((a1 + 424), (a2 + 1));
         std::string::operator=((a1 + 448), (a2 + 40));
-        std::string::operator=((a1 + 472), (a2 + 64));
-        v61 = *(a2 + 88);
+        std::string::operator=((a1 + 472), (a2 + 4));
+        v61 = *(a2 + 22);
         *(a1 + 500) = *(a2 + 92);
         *(a1 + 496) = v61;
-        std::string::operator=((a1 + 504), (a2 + 96));
-        std::string::operator=((a1 + 528), (a2 + 120));
-        std::string::operator=((a1 + 552), (a2 + 144));
-        std::string::operator=((a1 + 576), (a2 + 168));
-        std::string::operator=((a1 + 600), (a2 + 192));
-        std::string::operator=((a1 + 624), (a2 + 216));
+        std::string::operator=((a1 + 504), a2 + 4);
+        std::string::operator=((a1 + 528), a2 + 5);
+        std::string::operator=((a1 + 552), a2 + 6);
+        std::string::operator=((a1 + 576), a2 + 7);
+        std::string::operator=((a1 + 600), a2 + 8);
+        std::string::operator=((a1 + 624), a2 + 9);
         return sub_100E3A5D4(&v133);
       }
     }
@@ -6132,8 +6155,8 @@ LABEL_138:
         goto LABEL_248;
       }
 
-      CellularPlanListModelLocal::calculatePlaceholderEnabledIccids_sync(a1, v130, &v98, &v92);
-      sub_100173768(&v110 + 8, &v92);
+      CellularPlanListModelLocal::calculatePlaceholderEnabledIccids_sync(&v92, a1, v130, &v98);
+      sub_100173768(&v110 + 1, &v92);
       sub_100009970(&v92, v93);
     }
 
@@ -6141,8 +6164,8 @@ LABEL_138:
     {
 LABEL_146:
       sub_10000501C(v95, "");
-      CellularPlanListModelLocal::calculatePlaceholderEnabledIccids_sync(a1, v95, &v98, &v92);
-      sub_100173768(&v110 + 8, &v92);
+      CellularPlanListModelLocal::calculatePlaceholderEnabledIccids_sync(&v92, a1, v95, &v98);
+      sub_100173768(&v110 + 1, &v92);
       sub_100009970(&v92, v93);
       if (v96 < 0)
       {
@@ -6167,7 +6190,7 @@ LABEL_178:
   while (1)
   {
     v64 = (v63 + 32);
-    if ((CellularPlanListModelLocal::hasIccid_sync(v30, v63 + 32, (a1 + 144)) & 1) == 0)
+    if ((CellularPlanListModelLocal::hasIccid_sync(v30, v63 + 32, (a1 + 144), a1 + 120) & 1) == 0)
     {
       break;
     }
@@ -6254,7 +6277,7 @@ LABEL_179:
   v92 = 0;
   v93 = 0;
   v94 = 0;
-  CellularPlanListModelLocal::getUserEnabledIccidsSet_sync(a1, &v92);
+  CellularPlanListModelLocal::getUserEnabledIccidsSet_sync(&v92, a1);
   if (v73)
   {
 LABEL_198:
@@ -6348,7 +6371,7 @@ LABEL_198:
       sub_10028084C(buf);
     }
 
-    CellularPlanListModelLocal::getUserEnabledIccidsSet_sync(a1, buf);
+    CellularPlanListModelLocal::getUserEnabledIccidsSet_sync(buf, a1);
     if (*(&v111 + 1) == *&buf[16])
     {
       v81 = sub_1001737D4(*(&v110 + 1), &v111, *buf);
@@ -6423,11 +6446,11 @@ LABEL_198:
     if (*(&v111 + 1) >= 2uLL)
     {
       CellularPlanListModelLocal::maybeDisableColdPhysicalSim_sync(a1, &v110 + 8, &v98, buf);
-      sub_100173768(&v110 + 8, buf);
+      sub_100173768(&v110 + 1, buf);
       sub_100009970(buf, *&buf[8]);
     }
 
-    sub_100158EF4(&v110 + 8, 0, buf);
+    sub_100158EF4(&v110 + 1, 0, buf);
     CellularPlanListModelLocal::setEnabledIccids_sync(a1, buf, 0, 0);
     sub_100009970(buf, *&buf[8]);
     CellularPlanListModelLocal::applyRemapSelection_sync(a1, v97);
@@ -6447,9 +6470,9 @@ LABEL_198:
       {
         do
         {
-          if (!sub_10016FA58(&v92, v74 + 4))
+          if (!sub_10016FA58(&v92, v74 + 32))
           {
-            sub_100005BA0(&v92, v74 + 4);
+            sub_100005BA0(&v92, v74 + 4, (v74 + 4));
           }
 
           v75 = v74[1];
@@ -6529,7 +6552,7 @@ LABEL_249:
   return sub_100E3A5D4(&v133);
 }
 
-void sub_100161874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, void *a61)
+void sub_100161874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, void *a61)
 {
   if (LOBYTE(STACK[0x6A0]) == 1)
   {
@@ -6574,7 +6597,7 @@ uint64_t sub_100161ABC(uint64_t a1, uint64_t a2)
     *(a2 + 239) = 0;
     *(a2 + 216) = 0;
     *(a1 + 240) = *(a2 + 240);
-    sub_100173768(a1 + 248, (a2 + 248));
+    sub_100173768((a1 + 248), (a2 + 248));
     if (*(a1 + 295) < 0)
     {
       operator delete(*(a1 + 272));
@@ -6713,7 +6736,7 @@ uint64_t sub_100161CFC(uint64_t a1)
   return sub_100E3A5D4(a1);
 }
 
-void CellularPlanListModelLocal::updatePlaceholderEnabledIccids_sync(uint64_t a1, void **a2, int a3)
+void CellularPlanListModelLocal::updatePlaceholderEnabledIccids_sync(uint64_t a1, std::string **a2, int a3)
 {
   if (*(a1 + 736) == 1)
   {
@@ -6756,7 +6779,7 @@ void CellularPlanListModelLocal::updatePlaceholderEnabledIccids_sync(uint64_t a1
       isHydraSupported_sync = CellularPlanListModelLocal::isHydraSupported_sync(a1);
       if (isHydraSupported_sync)
       {
-        sub_100074978((a1 + 656), *a2, a2 + 1);
+        sub_100074978((a1 + 656), *a2, a2 + 8);
       }
 
       else if (capabilities::ct::supportsGemini(isHydraSupported_sync))
@@ -6765,7 +6788,7 @@ void CellularPlanListModelLocal::updatePlaceholderEnabledIccids_sync(uint64_t a1
         *(a1 + 656) = a1 + 664;
         *(a1 + 664) = 0u;
         v10 = *a2;
-        v8 = (a2 + 1);
+        v8 = a2 + 1;
         v9 = v10;
         if (v10 != v8)
         {
@@ -6773,7 +6796,7 @@ void CellularPlanListModelLocal::updatePlaceholderEnabledIccids_sync(uint64_t a1
           {
             if ((CellularPlanListModelLocal::isIccidForPhySlot_sync(a1, &v9[1].__r_.__value_.__l.__size_) & 1) != 0 || (__p[0] & 1) == 0)
             {
-              sub_100005BA0(a1 + 656, &v9[1].__r_.__value_.__l.__size_);
+              sub_100005BA0(a1 + 656, &v9[1].__r_.__value_.__l.__size_, &v9[1].__r_.__value_.__l.__size_);
             }
 
             size = v9->__r_.__value_.__l.__size_;
@@ -6793,7 +6816,7 @@ void CellularPlanListModelLocal::updatePlaceholderEnabledIccids_sync(uint64_t a1
               do
               {
                 v12 = v9->__r_.__value_.__r.__words[2];
-                v13 = v12->__r_.__value_.__r.__words[0] == v9;
+                v13 = *v12 == v9;
                 v9 = v12;
               }
 
@@ -6808,7 +6831,7 @@ void CellularPlanListModelLocal::updatePlaceholderEnabledIccids_sync(uint64_t a1
 
         if (__p[0])
         {
-          sub_100005BA0(a1 + 656, (a1 + 424));
+          sub_100005BA0(a1 + 656, (a1 + 424), a1 + 424);
         }
       }
 
@@ -6873,7 +6896,7 @@ void CellularPlanListModelLocal::replacePaddedAliasWithBase(uint64_t a1, uint64_
       }
 
       std::string::push_back(&__p, v8);
-      v9 = sub_100007A6C(a2, &__p.__r_.__value_.__l.__data_);
+      v9 = sub_100007A6C(a2, &__p);
       if (v7 != v9)
       {
         break;
@@ -6893,7 +6916,7 @@ void CellularPlanListModelLocal::replacePaddedAliasWithBase(uint64_t a1, uint64_
     sub_100075658(a2, v9);
     if (!sub_10016FA58(a2, a3))
     {
-      sub_100005BA0(a2, a3);
+      sub_100005BA0(a2, a3, a3);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7349,7 +7372,7 @@ LABEL_114:
   }
 }
 
-void sub_1001628A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *__p, uint64_t a50, int a51, __int16 a52, char a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, char a60)
+void sub_1001628A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *__p, uint64_t a50, int a51, __int16 a52, char a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60)
 {
   if (LOBYTE(STACK[0x680]) == 1)
   {
@@ -7583,9 +7606,9 @@ void sub_100162BAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *CellularPlanListModelLocal::getBootstrapProfileIccid_sync@<X0>(_BYTE *result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void *CellularPlanListModelLocal::getBootstrapProfileIccid_sync@<X0>(void *result@<X0>, int a2@<W1>, void *a3@<X8>)
 {
-  for (i = *(result + 15); i != *(result + 16); i += 88)
+  for (i = result[15]; i != result[16]; i += 88)
   {
     if (*(i + 4) == a2)
     {
@@ -7604,7 +7627,7 @@ _BYTE *CellularPlanListModelLocal::getBootstrapProfileIccid_sync@<X0>(_BYTE *res
           }
 
           v5 = *(j + 16);
-          *(a3 + 16) = *(j + 32);
+          a3[2] = *(j + 32);
           *a3 = v5;
           return result;
         }
@@ -7615,10 +7638,10 @@ _BYTE *CellularPlanListModelLocal::getBootstrapProfileIccid_sync@<X0>(_BYTE *res
   return sub_10000501C(a3, "");
 }
 
-_BYTE *CellularPlanListModelLocal::getUserSelectedActiveDataIccid_sync@<X0>(CellularPlanListModelLocal *this@<X0>, uint64_t a2@<X8>)
+void *CellularPlanListModelLocal::getUserSelectedActiveDataIccid_sync@<X0>(CellularPlanListModelLocal *this@<X0>, uint64_t a2@<X8>)
 {
   v4 = this + 864;
-  result = CellularPlanListModelLocal::hasIccid_sync(this, this + 864, this + 18);
+  result = CellularPlanListModelLocal::hasIccid_sync(this, this + 864, this + 18, this + 120);
   if (result)
   {
     if (*(this + 887) < 0)
@@ -7645,10 +7668,10 @@ _BYTE *CellularPlanListModelLocal::getUserSelectedActiveDataIccid_sync@<X0>(Cell
   return result;
 }
 
-_BYTE *CellularPlanListModelLocal::getUserSelectedActiveVoiceIccid_sync@<X0>(CellularPlanListModelLocal *this@<X0>, uint64_t a2@<X8>)
+void *CellularPlanListModelLocal::getUserSelectedActiveVoiceIccid_sync@<X0>(CellularPlanListModelLocal *this@<X0>, uint64_t a2@<X8>)
 {
   v4 = this + 832;
-  result = CellularPlanListModelLocal::hasIccid_sync(this, this + 832, this + 18);
+  result = CellularPlanListModelLocal::hasIccid_sync(this, this + 832, this + 18, this + 120);
   if (result)
   {
     if (*(this + 855) < 0)
@@ -7817,10 +7840,10 @@ LABEL_8:
   return result;
 }
 
-_BYTE *CellularPlanListModelLocal::getCardVersionForSlot_sync@<X0>(_BYTE *result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void *CellularPlanListModelLocal::getCardVersionForSlot_sync@<X0>(void *result@<X0>, int a2@<W1>, void *a3@<X8>)
 {
-  v3 = *(result + 15);
-  v4 = *(result + 16);
+  v3 = result[15];
+  v4 = result[16];
   if (v3 != v4)
   {
     while (*(v3 + 4) != a2)
@@ -7844,7 +7867,7 @@ _BYTE *CellularPlanListModelLocal::getCardVersionForSlot_sync@<X0>(_BYTE *result
   }
 
   v5 = *(v3 + 32);
-  *(a3 + 16) = *(v3 + 48);
+  a3[2] = *(v3 + 48);
   *a3 = v5;
   return result;
 }
@@ -7888,25 +7911,12 @@ BOOL CellularPlanListModelLocal::hasDisableNotAllowedProfile_sync(uint64_t a1, i
   return v5 != v4;
 }
 
-uint64_t CellularPlanListModelLocal::getWebsheetLaunchInfoForIccid_sync@<X0>(uint64_t a1@<X0>, void **a2@<X1>, _BYTE *a3@<X8>)
+void *CellularPlanListModelLocal::getWebsheetLaunchInfoForIccid_sync@<X0>(uint64_t a1@<X0>, char *a2@<X1>, _BYTE *a3@<X8>)
 {
   result = sub_100007A6C(a1 + 248, a2);
-  if (a1 + 256 != result)
+  if ((a1 + 256) != result)
   {
-    v19 = 0u;
-    v18 = 0u;
-    v17 = 0u;
-    v16 = 0u;
-    v15 = 0u;
-    v14 = 0u;
-    v13 = 0u;
-    v12 = 0u;
-    v11 = 0u;
-    v10 = 0u;
-    v9 = 0u;
-    v8 = 0u;
-    v7 = 0u;
-    v6 = 0u;
+    memset(v6, 0, sizeof(v6));
     result = sGetProfileDetails();
   }
 
@@ -8292,28 +8302,28 @@ char *CellularPlanListModelLocal::getProvisioningPlanSourceIccid_sync@<X0>(char 
   return this;
 }
 
-_BYTE *CellularPlanListModelLocal::getProvisioningCarrierName_sync@<X0>(_BYTE *this@<X0>, uint64_t a2@<X8>)
+void *CellularPlanListModelLocal::getProvisioningCarrierName_sync@<X0>(void *this@<X0>, void *a2@<X8>)
 {
-  if (this[736] != 1)
+  if (*(this + 736) != 1)
   {
     return sub_10000501C(a2, "");
   }
 
-  if (this[495] < 0)
+  if (*(this + 495) < 0)
   {
-    return sub_100005F2C(a2, *(this + 59), *(this + 60));
+    return sub_100005F2C(a2, this[59], this[60]);
   }
 
-  *a2 = *(this + 472);
-  *(a2 + 16) = *(this + 61);
+  *a2 = *(this + 59);
+  a2[2] = this[61];
   return this;
 }
 
-void CellularPlanListModelLocal::getCarrierNamesAndDescriptorsForInstalledPlans_sync(CellularPlanListModelLocal *this@<X0>, void *a2@<X8>)
+void CellularPlanListModelLocal::getCarrierNamesAndDescriptorsForInstalledPlans_sync(CellularPlanListModelLocal *this@<X0>, uint64_t **a2@<X8>)
 {
   a2[2] = 0;
   a2[1] = 0;
-  *a2 = a2 + 1;
+  *a2 = (a2 + 1);
   v4 = *(this + 18);
   v5 = *(this + 19);
   if (v4 != v5)
@@ -8403,42 +8413,42 @@ LABEL_13:
                 v32 = *(v9 + 168);
               }
 
-              v33 = v9 + 56;
-              v11 = sub_100174060(a2, (v9 + 56));
-              sub_10016A270(v11 + 56, v22);
+              v34 = v9 + 56;
+              v11 = sub_100174060(a2, (v9 + 56), &unk_101802C98, &v34, &v33);
+              sub_10016A270((v11 + 7), v22);
               if (*(v11 + 111) < 0)
               {
-                operator delete(*(v11 + 88));
+                operator delete(v11[11]);
               }
 
-              *(v11 + 104) = v26;
-              *(v11 + 88) = v25;
+              v11[13] = v26;
+              *(v11 + 11) = v25;
               HIBYTE(v26) = 0;
               LOBYTE(v25) = 0;
               if (*(v11 + 135) < 0)
               {
-                operator delete(*(v11 + 112));
+                operator delete(v11[14]);
               }
 
-              *(v11 + 128) = v28;
-              *(v11 + 112) = v27;
+              v11[16] = v28;
+              *(v11 + 7) = v27;
               HIBYTE(v28) = 0;
               LOBYTE(v27) = 0;
               if (*(v11 + 159) < 0)
               {
-                operator delete(*(v11 + 136));
+                operator delete(v11[17]);
               }
 
-              *(v11 + 152) = v30;
-              *(v11 + 136) = __p;
+              v11[19] = v30;
+              *(v11 + 17) = __p;
               HIBYTE(v30) = 0;
               LOBYTE(__p) = 0;
               if (*(v11 + 183) < 0)
               {
-                operator delete(*(v11 + 160));
+                operator delete(v11[20]);
                 v12 = SHIBYTE(v30);
-                *(v11 + 160) = v31;
-                *(v11 + 176) = v32;
+                *(v11 + 10) = v31;
+                v11[22] = v32;
                 HIBYTE(v32) = 0;
                 LOBYTE(v31) = 0;
                 if (v12 < 0)
@@ -8449,8 +8459,8 @@ LABEL_13:
 
               else
               {
-                *(v11 + 160) = v31;
-                *(v11 + 176) = v32;
+                *(v11 + 10) = v31;
+                v11[22] = v32;
                 HIBYTE(v32) = 0;
                 LOBYTE(v31) = 0;
               }
@@ -8598,42 +8608,42 @@ LABEL_94:
             v32 = *(v19 + 168);
           }
 
-          v33 = v19 + 56;
-          v20 = sub_100174060(a2, (v19 + 56));
-          sub_10016A270(v20 + 56, v22);
+          v34 = v19 + 56;
+          v20 = sub_100174060(a2, (v19 + 56), &unk_101802C98, &v34, &v33);
+          sub_10016A270((v20 + 7), v22);
           if (*(v20 + 111) < 0)
           {
-            operator delete(*(v20 + 88));
+            operator delete(v20[11]);
           }
 
-          *(v20 + 104) = v26;
-          *(v20 + 88) = v25;
+          v20[13] = v26;
+          *(v20 + 11) = v25;
           HIBYTE(v26) = 0;
           LOBYTE(v25) = 0;
           if (*(v20 + 135) < 0)
           {
-            operator delete(*(v20 + 112));
+            operator delete(v20[14]);
           }
 
-          *(v20 + 128) = v28;
-          *(v20 + 112) = v27;
+          v20[16] = v28;
+          *(v20 + 7) = v27;
           HIBYTE(v28) = 0;
           LOBYTE(v27) = 0;
           if (*(v20 + 159) < 0)
           {
-            operator delete(*(v20 + 136));
+            operator delete(v20[17]);
           }
 
-          *(v20 + 152) = v30;
-          *(v20 + 136) = __p;
+          v20[19] = v30;
+          *(v20 + 17) = __p;
           HIBYTE(v30) = 0;
           LOBYTE(__p) = 0;
           if (*(v20 + 183) < 0)
           {
-            operator delete(*(v20 + 160));
+            operator delete(v20[20]);
             v21 = SHIBYTE(v30);
-            *(v20 + 160) = v31;
-            *(v20 + 176) = v32;
+            *(v20 + 10) = v31;
+            v20[22] = v32;
             HIBYTE(v32) = 0;
             LOBYTE(v31) = 0;
             if (v21 < 0)
@@ -8644,8 +8654,8 @@ LABEL_94:
 
           else
           {
-            *(v20 + 160) = v31;
-            *(v20 + 176) = v32;
+            *(v20 + 10) = v31;
+            v20[22] = v32;
             HIBYTE(v32) = 0;
             LOBYTE(v31) = 0;
           }
@@ -8699,7 +8709,7 @@ void sub_1001640B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void CellularPlanListModelLocal::getIccidFromIccidHash_sync(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void CellularPlanListModelLocal::getIccidFromIccidHash_sync(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = *(a1 + 120);
   v20 = *(a1 + 128);
@@ -8778,7 +8788,7 @@ LABEL_38:
 
       else
       {
-        v11 = *(a2 + 8);
+        v11 = a2[1];
       }
 
       v12 = v8 == 0;
@@ -8812,7 +8822,7 @@ LABEL_38:
       {
         v15 = v10;
 LABEL_30:
-        v17 = v15 == &v10[v11] && v12;
+        v17 = v15 == v10 + v11 && v12;
       }
 
       std::locale::~locale(&v24);
@@ -8860,7 +8870,7 @@ void sub_10016434C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CellularPlanListModelLocal::isIccidPresentOrInstalling_sync(uint64_t a1, uint64_t a2)
+uint64_t CellularPlanListModelLocal::isIccidPresentOrInstalling_sync(uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 120);
   v3 = *(a1 + 128);
@@ -8923,7 +8933,7 @@ uint64_t CellularPlanListModelLocal::isIccidPresentOrInstalling_sync(uint64_t a1
 
         else
         {
-          v11 = *(a2 + 8);
+          v11 = a2[1];
         }
 
         v12 = v7 == 0;
@@ -8957,7 +8967,7 @@ uint64_t CellularPlanListModelLocal::isIccidPresentOrInstalling_sync(uint64_t a1
         {
           v15 = v10;
 LABEL_30:
-          v17 = &v10[v11];
+          v17 = v10 + v11;
           std::locale::~locale(&v56);
           if (v12 && v15 == v17)
           {
@@ -9007,7 +9017,7 @@ LABEL_30:
 
         else
         {
-          v24 = *(a2 + 8);
+          v24 = a2[1];
         }
 
         v25 = v21 == 0;
@@ -9041,7 +9051,7 @@ LABEL_30:
         {
           v28 = v23;
 LABEL_57:
-          v19 = v28 == &v23[v24] && v25;
+          v19 = v28 == v23 + v24 && v25;
         }
 
         std::locale::~locale(&v63);
@@ -9114,7 +9124,7 @@ LABEL_66:
 
   else
   {
-    v34 = *(a2 + 8);
+    v34 = a2[1];
   }
 
   v35 = v30 == 0;
@@ -9180,7 +9190,7 @@ LABEL_94:
 
     else
     {
-      v45 = *(a2 + 8);
+      v45 = a2[1];
     }
 
     v46 = v42 == 0;
@@ -9214,7 +9224,7 @@ LABEL_94:
     {
       v49 = v44;
 LABEL_113:
-      v40 = v49 == &v44[v45] && v46;
+      v40 = v49 == v44 + v45 && v46;
     }
 
     std::locale::~locale(&v63);
@@ -9230,7 +9240,7 @@ LABEL_113:
   v38 = v33;
 LABEL_90:
   std::locale::~locale(&v56);
-  if (!v35 || v38 != &v33[v34])
+  if (!v35 || v38 != v33 + v34)
   {
     goto LABEL_94;
   }
@@ -9257,7 +9267,7 @@ void sub_1001647F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void CellularPlanListModelLocal::updatePlanExpired(uint64_t a1, uint64_t a2)
+void CellularPlanListModelLocal::updatePlanExpired(uint64_t **result, uint64_t a2)
 {
   v2 = *(a2 + 23);
   if ((v2 & 0x80u) != 0)
@@ -9268,15 +9278,15 @@ void CellularPlanListModelLocal::updatePlanExpired(uint64_t a1, uint64_t a2)
   if (v2)
   {
     v10 = a2;
-    v4 = sub_1001705A0(a1 + 248, a2);
-    if (v4[233] == 1 && v4[232] == 1 && v4[640] == 1)
+    v4 = sub_1001705A0(result + 31, a2, &unk_101802C98, &v10, &v13);
+    if (__PAIR64__(v4[233], v4[232]) == 0x100000001 && v4[640] == 1)
     {
       v4[504] = 4;
       v10 = 0;
       v11 = 0;
       v12 = 0;
-      v5 = *(a1 + 248);
-      if (v5 != (a1 + 256))
+      v5 = result[31];
+      if (v5 != (result + 32))
       {
         v6 = 0;
         do
@@ -9324,17 +9334,17 @@ void CellularPlanListModelLocal::updatePlanExpired(uint64_t a1, uint64_t a2)
           v5 = v8;
         }
 
-        while (v8 != (a1 + 256));
+        while (v8 != result + 32);
       }
 
-      (*(**(a1 + 104) + 56))(*(a1 + 104), &v10);
+      (*(*result[13] + 56))(result[13], &v10);
       v13 = &v10;
       sub_10016BF8C(&v13);
     }
   }
 }
 
-void sub_1001649BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+void sub_1001649BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t *a12)
 {
   a12 = &a9;
   sub_10016BF8C(&a12);
@@ -9361,7 +9371,8 @@ LABEL_7:
           if (v4 == this)
           {
             v7 = dword_101FB16F8++;
-            this = sub_1001705A0(v1 + 248, v5);
+            v15 = v5;
+            this = sub_1001705A0((v1 + 248), v5, &unk_101802C98, &v15, &v14);
             *(this + 176) = v7;
           }
 
@@ -9470,7 +9481,7 @@ uint64_t CellularPlanListModelLocal::getNumProfiles_sync(uint64_t a1, int a2, ch
       {
         do
         {
-          v7 = v6[2];
+          v7 = *(v6 + 2);
           v8 = *v7 == v6;
           v6 = v7;
         }
@@ -9489,11 +9500,11 @@ uint64_t CellularPlanListModelLocal::getNumProfiles_sync(uint64_t a1, int a2, ch
   return v4;
 }
 
-void CellularPlanListModelLocal::getIccidsForSlot_sync(uint64_t a1@<X0>, int a2@<W1>, char a3@<W2>, void *a4@<X8>)
+void CellularPlanListModelLocal::getIccidsForSlot_sync(uint64_t a1@<X0>, int a2@<W1>, char a3@<W2>, uint64_t **a4@<X8>)
 {
   a4[2] = 0;
   a4[1] = 0;
-  *a4 = a4 + 1;
+  *a4 = (a4 + 1);
   v5 = *(a1 + 120);
   for (i = *(a1 + 128); v5 != i; v5 += 88)
   {
@@ -9543,8 +9554,8 @@ void CellularPlanListModelLocal::getIccidsForSlot_sync(uint64_t a1@<X0>, int a2@
         while (v12 != v11);
         if (v13 != v16)
         {
-          v19 = v5 + 16;
-          v15 = (sub_1001753B0(a4, (v5 + 16)) + 48);
+          v19 = (v5 + 16);
+          v15 = (sub_1001753B0(a4, (v5 + 16), &unk_101802C98, &v19) + 48);
           if (v15 != &v16)
           {
             sub_100008234(v15, v16, v17, 0xAAAAAAAAAAAAAAABLL * ((v17 - v16) >> 3));
@@ -9566,68 +9577,68 @@ void sub_100164D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t CellularPlanListModelLocal::hasIccid_sync(uint64_t a1, uint64_t a2, void *a3)
+uint64_t CellularPlanListModelLocal::hasIccid_sync(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v3 = *(a2 + 23);
-  if ((v3 & 0x80u) != 0)
+  v4 = *(a2 + 23);
+  if ((v4 & 0x80u) != 0)
   {
-    v3 = *(a2 + 8);
+    v4 = *(a2 + 8);
   }
 
-  if (!v3)
+  if (!v4)
   {
     return 1;
   }
 
-  v5 = a3[1];
-  if (*a3 != v5)
+  v6 = a3[1];
+  if (*a3 != v6)
   {
-    v6 = *a3 + 64;
+    v7 = *a3 + 64;
     do
     {
-      v7 = *(v6 + 31);
-      if (v7 >= 0)
+      v8 = *(v7 + 31);
+      if (v8 >= 0)
       {
-        v8 = *(v6 + 31);
+        v9 = *(v7 + 31);
       }
 
       else
       {
-        v8 = *(v6 + 16);
+        v9 = *(v7 + 16);
       }
 
-      v9 = *(a2 + 23);
-      v10 = v9;
-      if ((v9 & 0x80u) != 0)
+      v10 = *(a2 + 23);
+      v11 = v10;
+      if ((v10 & 0x80u) != 0)
       {
-        v9 = *(a2 + 8);
+        v10 = *(a2 + 8);
       }
 
-      if (v8 == v9)
+      if (v9 == v10)
       {
-        v11 = v7 >= 0 ? (v6 + 8) : *(v6 + 8);
-        v12 = v10 >= 0 ? a2 : *a2;
-        if (!memcmp(v11, v12, v8) && !subscriber::isEsimCapable())
+        v12 = v8 >= 0 ? (v7 + 8) : *(v7 + 8);
+        v13 = v11 >= 0 ? a2 : *a2;
+        if (!memcmp(v12, v13, v9) && !subscriber::isEsimCapable())
         {
           return 1;
         }
       }
 
-      v13 = v6 + 104;
-      v6 += 168;
+      v14 = v7 + 104;
+      v7 += 168;
     }
 
-    while (v13 != v5);
+    while (v14 != v6);
   }
 
   sGetProfileDetails();
-  v14 = v17;
-  if (v17 == 1)
+  v15 = v18;
+  if (v18 == 1)
   {
-    sub_100E3A5D4(v16);
+    sub_100E3A5D4(v17);
   }
 
-  return v14;
+  return v15;
 }
 
 double CellularPlanListModelLocal::getUserProfileCountsByCountryCode_sync@<D0>(CellularPlanListModelLocal *this@<X0>, char a2@<W1>, uint64_t a3@<X8>)
@@ -9655,12 +9666,12 @@ double CellularPlanListModelLocal::getUserProfileCountsByCountryCode_sync@<D0>(C
             {
               __p[0] = 0;
               __p[1] = 0;
-              *&v20[0] = 0;
+              *&v21[0] = 0;
               CellularPlanListModelLocal::getCountryCode(this, v12 - 72, v12 - 48, v12 - 152, __p);
               v16[0] = __p;
-              v13 = sub_100175570(a3, __p);
+              v13 = sub_100175570(a3, __p, &unk_101802C98, v16, &v19);
               ++*(v13 + 10);
-              if (SBYTE7(v20[0]) < 0)
+              if (SBYTE7(v21[0]) < 0)
               {
                 operator delete(__p[0]);
               }
@@ -9677,17 +9688,17 @@ double CellularPlanListModelLocal::getUserProfileCountsByCountryCode_sync@<D0>(C
 
     if ((a2 & 1) != 0 && *(this + 736) == 1)
     {
-      v22 = 0;
-      memset(v21, 0, sizeof(v21));
+      v23 = 0;
+      memset(v22, 0, sizeof(v22));
       *__p = 0u;
-      memset(v20, 0, sizeof(v20));
+      memset(v21, 0, sizeof(v21));
       sub_100F11F00(__p, this + 408);
       v16[0] = 0;
       v16[1] = 0;
       v17 = 0;
-      CellularPlanListModelLocal::getCountryCode(this, v21, &v21[1] + 8, v20, v16);
-      v18 = v16;
-      v15 = sub_100175570(a3, v16);
+      CellularPlanListModelLocal::getCountryCode(this, v22, &v22[1] + 8, v21, v16);
+      v19 = v16;
+      v15 = sub_100175570(a3, v16, &unk_101802C98, &v19, &v18);
       ++*(v15 + 10);
       if (SHIBYTE(v17) < 0)
       {

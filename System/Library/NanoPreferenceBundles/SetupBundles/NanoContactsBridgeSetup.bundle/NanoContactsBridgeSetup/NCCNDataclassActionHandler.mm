@@ -4,7 +4,9 @@
 - (BOOL)mergeContactsFromLocalSourceIntoSource:(id)source;
 - (BOOL)perform;
 - (NCCNDataclassActionHandler)initWithParameters:(id)parameters;
+- (id)copyDefaultAddressBookSourceForAccount:(id)account withChildren:(id)children createIfNecessary:(BOOL)necessary;
 - (void)disableLocalSourceIfNeededAddingAccount:(id)account;
+- (void)setLocalSourceEnabled:(BOOL)enabled;
 @end
 
 @implementation NCCNDataclassActionHandler
@@ -73,6 +75,17 @@
   return v6;
 }
 
+- (id)copyDefaultAddressBookSourceForAccount:(id)account withChildren:(id)children createIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  childrenCopy = children;
+  accountCopy = account;
+  implementation = [(NCCNDataclassActionHandler *)self implementation];
+  v11 = [implementation defaultContainerForParentAccount:accountCopy withChildAccounts:childrenCopy createIfNecessary:necessaryCopy];
+
+  return v11;
+}
+
 - (void)disableLocalSourceIfNeededAddingAccount:(id)account
 {
   if (([account MCIsManaged] & 1) == 0)
@@ -86,6 +99,13 @@
 
     [(NCCNDataclassActionHandler *)self setLocalSourceEnabled:0];
   }
+}
+
+- (void)setLocalSourceEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  implementation = [(NCCNDataclassActionHandler *)self implementation];
+  [implementation setLocalContainerEnabled:enabledCopy];
 }
 
 @end

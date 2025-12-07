@@ -6,7 +6,7 @@
 
 - (CNKCallDetailsCoordinatorProtocol)coordinator
 {
-  v2 = sub_1001645C0();
+  v2 = sub_1001645C0(self, a2);
 
   return v2;
 }

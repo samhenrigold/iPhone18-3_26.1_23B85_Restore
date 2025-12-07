@@ -38,20 +38,20 @@
 
 - (id)initForWritingAtURL:(id)l
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v8 = objc_msgSend_safePath(lCopy, v5, v6, v7);
   v12 = objc_msgSend_URLByDeletingLastPathComponent(lCopy, v9, v10, v11);
   v13 = objc_alloc_init(MEMORY[0x1E696AC08]);
-  v24 = 0;
-  objc_msgSend_createDirectoryAtURL_withIntermediateDirectories_attributes_error_(v13, v14, v12, 1, 0, &v24);
-  v15 = v24;
+  v23 = 0;
+  objc_msgSend_createDirectoryAtURL_withIntermediateDirectories_attributes_error_(v13, v14, v12, 1, 0, &v23);
+  v15 = v23;
 
   if (!v15)
   {
-    v23 = 0;
-    v18 = objc_msgSend__constructFileForURL_forMode_error_(APStorageFile, v16, lCopy, "w", &v23);
-    v15 = v23;
+    v22 = 0;
+    v18 = objc_msgSend__constructFileForURL_forMode_error_(APStorageFile, v16, lCopy, "w", &v22);
+    v15 = v22;
     if (v18)
     {
       self = objc_msgSend__initForWritingFile_forURL_loggablePath_(self, v19, v18, lCopy, v8);
@@ -59,21 +59,20 @@
       goto LABEL_5;
     }
 
-    v22 = APLogForCategory(0x33uLL);
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = APLogForCategory(0x33uLL);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138740227;
-      v26 = v8;
-      v27 = 2114;
-      v28 = v15;
-      _os_log_impl(&dword_1BADC1000, v22, OS_LOG_TYPE_ERROR, "ERROR: Unable to open file(%{sensitive}@): %{public}@", buf, 0x16u);
+      v25 = v8;
+      v26 = 2114;
+      v27 = v15;
+      _os_log_impl(&dword_1BADC1000, v21, OS_LOG_TYPE_ERROR, "ERROR: Unable to open file(%{sensitive}@): %{public}@", buf, 0x16u);
     }
   }
 
   selfCopy = 0;
 LABEL_5:
 
-  v20 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -97,14 +96,14 @@ LABEL_5:
 
 - (id)initForAppendingAtURL:(id)l
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v9 = objc_msgSend_safePath(lCopy, v6, v7, v8);
   v13 = objc_msgSend_URLByDeletingLastPathComponent(lCopy, v10, v11, v12);
   v14 = objc_alloc_init(MEMORY[0x1E696AC08]);
-  v36 = 0;
-  objc_msgSend_createDirectoryAtURL_withIntermediateDirectories_attributes_error_(v14, v15, v13, 1, 0, &v36);
-  v16 = v36;
+  v35 = 0;
+  objc_msgSend_createDirectoryAtURL_withIntermediateDirectories_attributes_error_(v14, v15, v13, 1, 0, &v35);
+  v16 = v35;
 
   if (v16)
   {
@@ -119,17 +118,17 @@ LABEL_4:
 
 LABEL_3:
     *buf = 138740227;
-    v40 = v9;
-    v41 = 2114;
-    v42 = v16;
+    v39 = v9;
+    v40 = 2114;
+    v41 = v16;
     _os_log_impl(&dword_1BADC1000, v18, OS_LOG_TYPE_ERROR, "ERROR: Unable to open file(%{sensitive}@): %{public}@", buf, 0x16u);
     goto LABEL_4;
   }
 
-  v35 = 0;
-  v22 = objc_msgSend__constructFileForURL_forMode_error_(APStorageFile, v17, lCopy, "a+", &v35);
-  v16 = v35;
-  if (!v22)
+  v34 = 0;
+  v21 = objc_msgSend__constructFileForURL_forMode_error_(APStorageFile, v17, lCopy, "a+", &v34);
+  v16 = v34;
+  if (!v21)
   {
     v18 = APLogForCategory(0x33uLL);
     if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -140,60 +139,59 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  if (fseek(v22, 0, 2))
+  if (fseek(v21, 0, 2))
   {
-    v24 = MEMORY[0x1E696ABC0];
-    v25 = kSFSFileInconsistencyError;
-    v37 = @"reason";
-    v38 = @"Could not seek to end of file.";
-    v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v23, &v38, &v37, 1);
-    v28 = objc_msgSend_errorWithDomain_code_userInfo_(v24, v27, @"com.apple.ap.StorageFileSystem", v25, v26);
+    v23 = MEMORY[0x1E696ABC0];
+    v24 = kSFSFileInconsistencyError;
+    v36 = @"reason";
+    v37 = @"Could not seek to end of file.";
+    v25 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v22, &v37, &v36, 1);
+    v27 = objc_msgSend_errorWithDomain_code_userInfo_(v23, v26, @"com.apple.ap.StorageFileSystem", v24, v25);
 
-    v29 = APLogForCategory(0x33uLL);
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v28 = APLogForCategory(0x33uLL);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 138740227;
-      v40 = v9;
-      v41 = 2114;
-      v42 = v28;
-      _os_log_impl(&dword_1BADC1000, v29, OS_LOG_TYPE_ERROR, "ERROR: Could not initialize file(%{sensitive}@) for appending: %{public}@", buf, 0x16u);
+      v39 = v9;
+      v40 = 2114;
+      v41 = v27;
+      _os_log_impl(&dword_1BADC1000, v28, OS_LOG_TYPE_ERROR, "ERROR: Could not initialize file(%{sensitive}@) for appending: %{public}@", buf, 0x16u);
     }
 
-    fclose(v22);
+    fclose(v21);
     v19 = 0;
-    v16 = v28;
+    v16 = v27;
   }
 
   else
   {
-    if (MEMORY[0x1BFB05610](v22))
+    if (MEMORY[0x1BFB05610](v21))
     {
-      v34.receiver = self;
-      v34.super_class = APStorageFile;
-      v31 = [(APStorageFile *)&v34 init];
-      p_isa = &v31->super.isa;
-      if (v31)
+      v33.receiver = self;
+      v33.super_class = APStorageFile;
+      v30 = [(APStorageFile *)&v33 init];
+      p_isa = &v30->super.isa;
+      if (v30)
       {
-        v31->_fp = v22;
-        objc_storeStrong(&v31->_fileURL, l);
+        v30->_fp = v21;
+        objc_storeStrong(&v30->_fileURL, l);
         objc_storeStrong(p_isa + 3, v9);
       }
 
-      v33 = p_isa;
+      v32 = p_isa;
     }
 
     else
     {
-      v33 = objc_msgSend__initForWritingFile_forURL_loggablePath_(self, v30, v22, lCopy, v9);
+      v32 = objc_msgSend__initForWritingFile_forURL_loggablePath_(self, v29, v21, lCopy, v9);
     }
 
-    self = v33;
-    v19 = v33;
+    self = v32;
+    v19 = v32;
   }
 
 LABEL_5:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -313,14 +311,14 @@ LABEL_7:
 
 - (id)nextObject
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v8 = objc_msgSend_nextObjectData(self, a2, v2, v3);
   if (v8)
   {
     v9 = objc_msgSend_classes(APSupportedSecureEncodedClass, v5, v6, v7);
-    v31 = 0;
-    v11 = objc_msgSend_unarchivedObjectOfClasses_fromData_error_(MEMORY[0x1E696ACD0], v10, v9, v8, &v31);
-    v12 = v31;
+    v30 = 0;
+    v11 = objc_msgSend_unarchivedObjectOfClasses_fromData_error_(MEMORY[0x1E696ACD0], v10, v9, v8, &v30);
+    v12 = v30;
     if (v12)
     {
       v13 = APLogForCategory(0x33uLL);
@@ -330,16 +328,16 @@ LABEL_7:
         v15 = NSStringFromClass(v14);
         loggablePath = self->_loggablePath;
         *buf = 138478339;
-        v35 = v15;
-        v36 = 2117;
-        v37 = loggablePath;
-        v38 = 2114;
-        v39 = v12;
+        v34 = v15;
+        v35 = 2117;
+        v36 = loggablePath;
+        v37 = 2114;
+        v38 = v12;
         _os_log_impl(&dword_1BADC1000, v13, OS_LOG_TYPE_ERROR, "[%{private}@] Error occurred getting nextObject for file(%{sensitive}@):%{public}@", buf, 0x20u);
       }
 
       objc_msgSend__removeCorruptedFile_(self, v17, v12, v18);
-      v32[0] = @"storage_error";
+      v31[0] = @"storage_error";
       v22 = objc_msgSend_debugDescription(v12, v19, v20, v21);
       v24 = v22;
       v25 = @"nil";
@@ -353,15 +351,15 @@ LABEL_7:
         v26 = @"nil";
       }
 
-      v32[1] = @"storage_path";
-      v33[0] = v26;
+      v31[1] = @"storage_path";
+      v32[0] = v26;
       if (self->_loggablePath)
       {
         v25 = self->_loggablePath;
       }
 
-      v33[1] = v25;
-      v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v23, v33, v32, 2);
+      v32[1] = v25;
+      v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v23, v32, v31, 2);
 
       CreateDiagnosticReport(@"Error occurred getting nextObject for file", v27, @"Storage File");
       v28 = 0;
@@ -378,14 +376,12 @@ LABEL_7:
     v28 = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v28;
 }
 
 - (BOOL)addData:(id)data error:(id *)error
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v10 = objc_msgSend_length(dataCopy, v7, v8, v9);
   v14 = v10;
@@ -405,9 +401,9 @@ LABEL_11:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
-      v50 = v14;
-      v51 = 1024;
-      v52 = 0x10000;
+      v49 = v14;
+      v50 = 1024;
+      v51 = 0x10000;
       _os_log_impl(&dword_1BADC1000, v15, OS_LOG_TYPE_ERROR, "EFS size warning: The data of length(%lu) is larger than %d.", buf, 0x12u);
     }
   }
@@ -423,7 +419,7 @@ LABEL_11:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v50 = v25;
+      v49 = v25;
       _os_log_impl(&dword_1BADC1000, v26, OS_LOG_TYPE_DEBUG, "bytesWritten = %zu", buf, 0xCu);
     }
 
@@ -440,9 +436,9 @@ LABEL_11:
 
     v37 = MEMORY[0x1E696ABC0];
     v38 = kSFSFileInconsistencyError;
-    v45 = @"reason";
-    v46 = @"Bytes written did not match expectation for encrypted data.";
-    v39 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v30, &v46, &v45, 1);
+    v44 = @"reason";
+    v45 = @"Bytes written did not match expectation for encrypted data.";
+    v39 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v30, &v45, &v44, 1);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v37, v40, @"com.apple.ap.StorageFileSystem", v38, v39);
 
     objc_msgSend_sendAnalyticError_domain_code_(APStorageManager, v41, @"Failed", @"SFS", 16104);
@@ -462,9 +458,9 @@ LABEL_18:
   {
     v33 = MEMORY[0x1E696ABC0];
     v34 = kSFSWritingToFileError;
-    v47 = @"reason";
-    v48 = @"Couldn't write header for data object.";
-    v35 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v32, &v48, &v47, 1);
+    v46 = @"reason";
+    v47 = @"Couldn't write header for data object.";
+    v35 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v32, &v47, &v46, 1);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v33, v36, @"com.apple.ap.StorageFileSystem", v34, v35);
 
     goto LABEL_18;
@@ -472,13 +468,12 @@ LABEL_18:
 
 LABEL_19:
 
-  v42 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (id)nextObjectData
 {
-  v90[2] = *MEMORY[0x1E69E9840];
+  v89[2] = *MEMORY[0x1E69E9840];
   if (!objc_msgSend_fp(self, a2, v2, v3))
   {
     v13 = 0;
@@ -497,9 +492,9 @@ LABEL_19:
       v11 = NSStringFromClass(v10);
       loggablePath = self->_loggablePath;
       *buf = 138478083;
-      v82 = v11;
-      v83 = 2117;
-      v84 = loggablePath;
+      v81 = v11;
+      v82 = 2117;
+      v83 = loggablePath;
       _os_log_impl(&dword_1BADC1000, v9, OS_LOG_TYPE_INFO, "[%{private}@] Reached End of File for file(%{sensitive}@)", buf, 0x16u);
     }
 
@@ -510,12 +505,12 @@ LABEL_19:
   {
     v27 = MEMORY[0x1E696ABC0];
     v28 = kSFSFileInconsistencyError;
-    v90[0] = @"Could not read item header.";
-    v89[0] = @"reason";
-    v89[1] = @"code";
+    v89[0] = @"Could not read item header.";
+    v88[0] = @"reason";
+    v88[1] = @"code";
     v29 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v7, v6, v8);
-    v90[1] = v29;
-    v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v30, v90, v89, 2);
+    v89[1] = v29;
+    v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v30, v89, v88, 2);
     v9 = objc_msgSend_errorWithDomain_code_userInfo_(v27, v32, @"com.apple.ap.StorageFileSystem", v28, v31);
 
     v33 = APLogForCategory(0x33uLL);
@@ -525,11 +520,11 @@ LABEL_19:
       v35 = NSStringFromClass(v34);
       v36 = self->_loggablePath;
       *buf = 138478339;
-      v82 = v35;
-      v83 = 2117;
-      v84 = v36;
-      v85 = 2112;
-      v86 = v9;
+      v81 = v35;
+      v82 = 2117;
+      v83 = v36;
+      v84 = 2112;
+      v85 = v9;
       _os_log_impl(&dword_1BADC1000, v33, OS_LOG_TYPE_ERROR, "[%{private}@] Read error occurred getting nextObjectData for file(%{sensitive}@):\n%@", buf, 0x20u);
     }
 
@@ -544,15 +539,15 @@ LABEL_19:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v82) = v14;
+      LODWORD(v81) = v14;
       _os_log_impl(&dword_1BADC1000, v15, OS_LOG_TYPE_ERROR, "data appears to be corrupt, data.length(%d) is too big.  We are aborting reading file data.", buf, 8u);
     }
 
     v16 = MEMORY[0x1E696ABC0];
     v17 = kSFSFileInconsistencyError;
-    v87 = @"reason";
-    v88 = @"Data is larger than intended for read.";
-    v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v18, &v88, &v87, 1);
+    v86 = @"reason";
+    v87 = @"Data is larger than intended for read.";
+    v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v18, &v87, &v86, 1);
     v9 = objc_msgSend_errorWithDomain_code_userInfo_(v16, v20, @"com.apple.ap.StorageFileSystem", v17, v19);
 
     v21 = APLogForCategory(0x33uLL);
@@ -562,11 +557,11 @@ LABEL_19:
       v23 = NSStringFromClass(v22);
       v24 = self->_loggablePath;
       *buf = 138478339;
-      v82 = v23;
-      v83 = 2117;
-      v84 = v24;
-      v85 = 2114;
-      v86 = v9;
+      v81 = v23;
+      v82 = 2117;
+      v83 = v24;
+      v84 = 2114;
+      v85 = v9;
       _os_log_impl(&dword_1BADC1000, v21, OS_LOG_TYPE_ERROR, "[%{private}@] Header error occurred getting nextObjectData for file(%{sensitive}@):\n%{public}@", buf, 0x20u);
     }
 
@@ -575,80 +570,79 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v40 = objc_alloc(MEMORY[0x1E695DF88]);
-  v9 = objc_msgSend_initWithCapacity_(v40, v41, v14, v42);
-  v46 = 0;
+  v39 = objc_alloc(MEMORY[0x1E695DF88]);
+  v9 = objc_msgSend_initWithCapacity_(v39, v40, v14, v41);
+  v45 = 0;
   if (v14)
   {
     while (1)
     {
-      v47 = objc_autoreleasePoolPush();
-      v48 = v14 - v46 >= 0x40 ? 64 : v14 - v46;
-      v49 = fread(buf, 1uLL, v48, self->_fp);
-      if (v49 != v48)
+      v46 = objc_autoreleasePoolPush();
+      v47 = v14 - v45 >= 0x40 ? 64 : v14 - v45;
+      v48 = fread(buf, 1uLL, v47, self->_fp);
+      if (v48 != v47)
       {
         break;
       }
 
-      v51 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x1E695DEF0], v50, buf, v48, 0);
-      objc_msgSend_appendData_(v9, v52, v51, v53);
-      v57 = objc_msgSend_length(v51, v54, v55, v56);
+      v50 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x1E695DEF0], v49, buf, v47, 0);
+      objc_msgSend_appendData_(v9, v51, v50, v52);
+      v56 = objc_msgSend_length(v50, v53, v54, v55);
 
-      v46 += v57;
-      objc_autoreleasePoolPop(v47);
-      if (v46 >= v14)
+      v45 += v56;
+      objc_autoreleasePoolPop(v46);
+      if (v45 >= v14)
       {
         goto LABEL_30;
       }
     }
 
-    v46 += v49;
-    objc_autoreleasePoolPop(v47);
+    v45 += v48;
+    objc_autoreleasePoolPop(v46);
   }
 
 LABEL_30:
-  if (v46 == v14)
+  if (v45 == v14)
   {
     v13 = v9;
     goto LABEL_18;
   }
 
-  v58 = MEMORY[0x1E696AEC0];
-  v59 = objc_msgSend_length(v9, v43, v44, v45);
-  v62 = objc_msgSend_stringWithFormat_(v58, v60, @"The data is wrong length(%lu) not (%lu).", v61, v59, v14);
-  v63 = MEMORY[0x1E696ABC0];
-  v64 = kSFSFileInconsistencyError;
-  v79 = @"reason";
-  v80 = v62;
-  v66 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v65, &v80, &v79, 1);
-  v68 = objc_msgSend_errorWithDomain_code_userInfo_(v63, v67, @"com.apple.ap.StorageFileSystem", v64, v66);
+  v57 = MEMORY[0x1E696AEC0];
+  v58 = objc_msgSend_length(v9, v42, v43, v44);
+  v61 = objc_msgSend_stringWithFormat_(v57, v59, @"The data is wrong length(%lu) not (%lu).", v60, v58, v14);
+  v62 = MEMORY[0x1E696ABC0];
+  v63 = kSFSFileInconsistencyError;
+  v78 = @"reason";
+  v79 = v61;
+  v65 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v64, &v79, &v78, 1);
+  v67 = objc_msgSend_errorWithDomain_code_userInfo_(v62, v66, @"com.apple.ap.StorageFileSystem", v63, v65);
 
-  v69 = APLogForCategory(0x33uLL);
-  if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+  v68 = APLogForCategory(0x33uLL);
+  if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
   {
-    v70 = objc_opt_class();
-    v71 = NSStringFromClass(v70);
-    *v75 = 138478083;
-    v76 = v71;
-    v77 = 2114;
-    v78 = v68;
-    _os_log_impl(&dword_1BADC1000, v69, OS_LOG_TYPE_ERROR, "[%{private}@] %{public}@", v75, 0x16u);
+    v69 = objc_opt_class();
+    v70 = NSStringFromClass(v69);
+    *v74 = 138478083;
+    v75 = v70;
+    v76 = 2114;
+    v77 = v67;
+    _os_log_impl(&dword_1BADC1000, v68, OS_LOG_TYPE_ERROR, "[%{private}@] %{public}@", v74, 0x16u);
   }
 
-  objc_msgSend__removeCorruptedFile_(self, v72, v68, v73);
+  objc_msgSend__removeCorruptedFile_(self, v71, v67, v72);
 LABEL_17:
   v13 = 0;
 LABEL_18:
 
 LABEL_19:
-  v38 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 + (__sFILE)_constructFileForURL:(id)l forMode:(char *)mode error:(id *)error
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   v11 = objc_msgSend_fileSystemRepresentation(lCopy, v8, v9, v10);
   v12 = fopen(v11, mode);
@@ -657,19 +651,18 @@ LABEL_19:
   {
     v15 = MEMORY[0x1E696ABC0];
     v16 = kSFSInvalidPathError;
-    v21 = @"reason";
-    v22[0] = @"Invalid path for SFS.";
-    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v13, v22, &v21, 1);
+    v20 = @"reason";
+    v21[0] = @"Invalid path for SFS.";
+    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v13, v21, &v20, 1);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v15, v18, @"com.apple.ap.StorageFileSystem", v16, v17);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (void)_removeCorruptedFile:(id)file
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v4 = APLogForCategory(0x33uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
@@ -677,18 +670,18 @@ LABEL_19:
     v6 = NSStringFromClass(v5);
     loggablePath = self->_loggablePath;
     *buf = 138478083;
-    v23 = v6;
-    v24 = 2117;
-    v25 = loggablePath;
+    v22 = v6;
+    v23 = 2117;
+    v24 = loggablePath;
     _os_log_impl(&dword_1BADC1000, v4, OS_LOG_TYPE_ERROR, "[%{private}@] Removing corrupted file at path: %{sensitive}@", buf, 0x16u);
   }
 
   objc_msgSend_close(self, v8, v9, v10);
   v11 = objc_alloc_init(MEMORY[0x1E696AC08]);
   fileURL = self->_fileURL;
-  v21 = 0;
-  objc_msgSend_removeItemAtURL_error_(v11, v13, fileURL, &v21);
-  v14 = v21;
+  v20 = 0;
+  objc_msgSend_removeItemAtURL_error_(v11, v13, fileURL, &v20);
+  v14 = v20;
 
   if (v14)
   {
@@ -699,18 +692,16 @@ LABEL_19:
       v18 = NSStringFromClass(v17);
       v19 = self->_loggablePath;
       *buf = 138478339;
-      v23 = v18;
-      v24 = 2117;
-      v25 = v19;
-      v26 = 2114;
-      v27 = v14;
+      v22 = v18;
+      v23 = 2117;
+      v24 = v19;
+      v25 = 2114;
+      v26 = v14;
       _os_log_impl(&dword_1BADC1000, v16, OS_LOG_TYPE_ERROR, "[%{private}@] Failed to remove file(%{sensitive}@):\n%{public}@", buf, 0x20u);
     }
   }
 
   objc_msgSend_sendAnalyticError_domain_code_(APStorageManager, v15, @"Failed", @"SFS", 16106);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 @end

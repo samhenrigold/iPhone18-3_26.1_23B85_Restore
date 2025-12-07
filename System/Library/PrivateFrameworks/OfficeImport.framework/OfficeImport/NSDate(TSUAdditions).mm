@@ -93,10 +93,11 @@
 
         else if ([v11 hour] < 1)
         {
-          if ([v11 minute] < 1)
+          minute = [v11 minute];
+          if (minute < 1)
           {
-            v20 = SFUBundle();
-            v18 = [v20 localizedStringForKey:@"Just now" value:&stru_286EE1130 table:@"TSUtility"];
+            v22 = SFUBundle(minute, v21);
+            v18 = [v22 localizedStringForKey:@"Just now" value:&stru_286EE1130 table:@"TSUtility"];
 
             goto LABEL_22;
           }
@@ -138,7 +139,7 @@ LABEL_23:
 
 - (id)p_rule1To59MinutesAgo:()TSUAdditions
 {
-  v4 = SFUBundle();
+  v4 = SFUBundle(self, a2);
   v5 = [v4 localizedStringForKey:@"%ld min ago" value:&stru_286EE1130 table:@"TSUtility"];
 
   v6 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v5, a3];
@@ -149,7 +150,7 @@ LABEL_23:
 - (id)p_rule1To23HoursAgo:()TSUAdditions
 {
   v4 = MEMORY[0x277CCACA8];
-  v5 = SFUBundle();
+  v5 = SFUBundle(self, a2);
   v6 = [v5 localizedStringForKey:@"%ld hour(s) ago" value:&stru_286EE1130 table:@"TSUtility"];
   v7 = [v4 localizedStringWithFormat:v6, a3];
 
@@ -158,10 +159,10 @@ LABEL_23:
 
 - (id)p_ruleForYesterdayShortAsPossible:()TSUAdditions
 {
-  v0 = SFUBundle();
-  v1 = [v0 localizedStringForKey:@"Yesterday" value:&stru_286EE1130 table:@"TSUtility"];
+  v2 = SFUBundle(self, a2);
+  v3 = [v2 localizedStringForKey:@"Yesterday" value:&stru_286EE1130 table:@"TSUtility"];
 
-  return v1;
+  return v3;
 }
 
 - (id)p_ruleForYesterday:()TSUAdditions withDateFormatter:
@@ -173,15 +174,15 @@ LABEL_23:
     v6 = objc_alloc_init(MEMORY[0x277CCA968]);
   }
 
-  [v6 setLocalizedDateFormatFromTemplate:@"hhmma"];
-  v7 = SFUBundle();
-  v8 = [v7 localizedStringForKey:@"Yesterday value:%@" table:{&stru_286EE1130, @"TSUtility"}];
+  v7 = [v6 setLocalizedDateFormatFromTemplate:@"hhmma"];
+  v9 = SFUBundle(v7, v8);
+  v10 = [v9 localizedStringForKey:@"Yesterday value:%@" table:{&stru_286EE1130, @"TSUtility"}];
 
-  v9 = MEMORY[0x277CCACA8];
-  v10 = [v6 stringFromDate:v5];
-  v11 = [v9 stringWithFormat:v8, v10];
+  v11 = MEMORY[0x277CCACA8];
+  v12 = [v6 stringFromDate:v5];
+  v13 = [v11 stringWithFormat:v10, v12];
 
-  return v11;
+  return v13;
 }
 
 - (id)p_ruleForUpToSevenDaysAgoAndNotYesterdayForDate:()TSUAdditions withDateFormatter:

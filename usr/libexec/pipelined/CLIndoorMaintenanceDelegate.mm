@@ -5,6 +5,7 @@
 - (void)clearTiles:(id)tiles withCallback:(id)callback;
 - (void)eraseAllData:(id)data;
 - (void)numFloors:(id)floors;
+- (void)prefetch:(id)prefetch callback:(id)callback when:(unsigned __int8)when;
 - (void)retrieveLocationRelevancyDurationWithCompletionHandler:(id)handler;
 - (void)shutdown;
 @end
@@ -40,6 +41,56 @@
   v5 = v4;
 
   handlerCopy[2](v5);
+}
+
+- (void)prefetch:(id)prefetch callback:(id)callback when:(unsigned __int8)when
+{
+  whenCopy = when;
+  prefetchCopy = prefetch;
+  callbackCopy = callback;
+  if (+[Keybag afterFirstUserUnlock])
+  {
+    v10 = [NSSet setWithArray:prefetchCopy];
+    if (qword_10045B070 != -1)
+    {
+      sub_100387B20();
+    }
+
+    v11 = qword_10045B078;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      v12 = [v10 count];
+      v13 = [prefetchCopy count];
+      v14 = [prefetchCopy description];
+      v17 = 134349571;
+      v18 = v12;
+      v19 = 2050;
+      v20 = v13;
+      v21 = 2113;
+      v22 = v14;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%{public}lu/%{public}lu requests unique. Full request: %{private}@", &v17, 0x20u);
+    }
+
+    serviceDelegate = [(CLIndoorMaintenanceDelegate *)self serviceDelegate];
+    [serviceDelegate prefetch:v10 callback:callbackCopy when:whenCopy];
+  }
+
+  else
+  {
+    if (qword_10045B070 != -1)
+    {
+      sub_100387B20();
+    }
+
+    v16 = qword_10045B078;
+    if (os_log_type_enabled(qword_10045B078, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v17) = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Attempt to request prefetch before first unlock - ignoring", &v17, 2u);
+    }
+
+    callbackCopy[2](callbackCopy);
+  }
 }
 
 - (void)eraseAllData:(id)data

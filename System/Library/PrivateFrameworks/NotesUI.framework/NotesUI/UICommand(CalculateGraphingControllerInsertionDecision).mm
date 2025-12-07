@@ -10,7 +10,7 @@
   propertyList = [self propertyList];
   v3 = ICDynamicCast();
 
-  v4 = [v3 objectForKeyedSubscript:@"cacheKey"];
+  v4 = objc_msgSend_objectForKeyedSubscript_(v3);
   if (v4)
   {
     v5 = +[ICCalculateGraphingControllerInsertionDecision cache];
@@ -22,7 +22,7 @@
     v6 = 0;
   }
 
-  v7 = [v3 objectForKeyedSubscript:@"graphableVariable"];
+  v7 = objc_msgSend_objectForKeyedSubscript_(v3);
   [v6 setGraphableVariable:v7];
 
   return v6;

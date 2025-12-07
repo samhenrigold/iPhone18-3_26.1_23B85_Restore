@@ -12,9 +12,9 @@
 
 - (ATXLockscreenBlacklist)init
 {
-  v26.receiver = self;
-  v26.super_class = ATXLockscreenBlacklist;
-  v2 = [(ATXLockscreenBlacklist *)&v26 init];
+  v27.receiver = self;
+  v27.super_class = ATXLockscreenBlacklist;
+  v2 = [(ATXLockscreenBlacklist *)&v27 init];
   if (v2)
   {
     v3 = objc_alloc(MEMORY[0x277D425F8]);
@@ -28,18 +28,18 @@
     aBlock[1] = 3221225472;
     aBlock[2] = __30__ATXLockscreenBlacklist_init__block_invoke;
     aBlock[3] = &unk_27859E948;
-    objc_copyWeak(&v24, &location);
+    objc_copyWeak(&v25, &location);
     v7 = v2;
-    v23 = v7;
+    v24 = v7;
     v8 = _Block_copy(aBlock);
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __30__ATXLockscreenBlacklist_init__block_invoke_33;
-    v20[3] = &unk_27859E970;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __30__ATXLockscreenBlacklist_init__block_invoke_33;
+    v21[3] = &unk_27859E970;
     v10 = v8;
-    v21 = v10;
-    v11 = [defaultCenter addObserverForName:@"com.apple.duetexpertd.prefschanged" object:0 queue:0 usingBlock:v20];
+    v22 = v10;
+    v11 = [defaultCenter addObserverForName:@"com.apple.duetexpertd.prefschanged" object:0 queue:0 usingBlock:v21];
     notificationCenterToken = v7->_notificationCenterToken;
     v7->_notificationCenterToken = v11;
 
@@ -50,19 +50,19 @@
     handler[2] = __30__ATXLockscreenBlacklist_init__block_invoke_2_35;
     handler[3] = &unk_27859E998;
     v15 = v10;
-    v19 = v15;
+    v20 = v15;
     LODWORD(v7) = notify_register_dispatch(uTF8String, &v7->_libnotifyToken, v14, handler);
 
     if (v7)
     {
-      v16 = __atxlog_handle_default();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = __atxlog_handle_default(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [(ATXLockscreenBlacklist *)v16 init];
+        [(ATXLockscreenBlacklist *)v17 init];
       }
     }
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&location);
   }
 
@@ -71,44 +71,39 @@
 
 void __30__ATXLockscreenBlacklist_init__block_invoke(uint64_t a1, int a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = WeakRetained;
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained[1] runWithLockAcquired:&__block_literal_global_145];
-    v6 = __atxlog_handle_default();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v5 = __atxlog_handle_default([WeakRetained[1] runWithLockAcquired:&__block_literal_global_145]);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
     if (a2)
     {
-      if (v7)
+      if (v6)
       {
-        v8 = *(a1 + 32);
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v15 = 138412290;
-        v16 = v10;
-        v11 = "%@ - lockscreen blacklist update before daemon launch";
+        v7 = objc_opt_class();
+        v8 = NSStringFromClass(v7);
+        v11 = 138412290;
+        v12 = v8;
+        v9 = "%@ - lockscreen blacklist update before daemon launch";
 LABEL_7:
-        _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, v11, &v15, 0xCu);
+        _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, v9, &v11, 0xCu);
       }
     }
 
-    else if (v7)
+    else if (v6)
     {
-      v12 = *(a1 + 32);
-      v13 = objc_opt_class();
-      v10 = NSStringFromClass(v13);
-      v15 = 138412290;
-      v16 = v10;
-      v11 = "%@ - lockscreen blacklist update";
+      v10 = objc_opt_class();
+      v8 = NSStringFromClass(v10);
+      v11 = 138412290;
+      v12 = v8;
+      v9 = "%@ - lockscreen blacklist update";
       goto LABEL_7;
     }
 
     ATXUpdatePredictionsImmediatelyWithReason(15);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __30__ATXLockscreenBlacklist_init__block_invoke_2(uint64_t a1, void *a2)
@@ -159,13 +154,12 @@ void __30__ATXLockscreenBlacklist_init__block_invoke_2(uint64_t a1, void *a2)
 
 void __40__ATXLockscreenBlacklist_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_31;
-  sharedInstance__pasExprOnceResult_31 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_31;
+  sharedInstance__pasExprOnceResult_31 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 - (id)blacklist
@@ -203,7 +197,7 @@ void __40__ATXLockscreenBlacklist_sharedInstance__block_invoke(uint64_t a1)
 
 void __35__ATXLockscreenBlacklist_blacklist__block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3[1];
   if (v4)
@@ -247,24 +241,21 @@ void __35__ATXLockscreenBlacklist_blacklist__block_invoke(uint64_t a1, void *a2)
     v14 = v3[1];
     v3[1] = v13;
 
-    v15 = __atxlog_handle_default();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = __atxlog_handle_default(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 32);
       v17 = objc_opt_class();
       v18 = NSStringFromClass(v17);
       v19 = v3[1];
-      v21 = 138412546;
-      v22 = v18;
-      v23 = 2112;
-      v24 = v19;
-      _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "%@ read lockscreen action blacklist: %@", &v21, 0x16u);
+      v20 = 138412546;
+      v21 = v18;
+      v22 = 2112;
+      v23 = v19;
+      _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "%@ read lockscreen action blacklist: %@", &v20, 0x16u);
     }
 
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), v3[1]);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isPredictionGloballyDisabled
@@ -288,7 +279,7 @@ void __35__ATXLockscreenBlacklist_blacklist__block_invoke(uint64_t a1, void *a2)
 
 void __54__ATXLockscreenBlacklist_isPredictionGloballyDisabled__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3[2];
   if (v4)
@@ -303,22 +294,19 @@ void __54__ATXLockscreenBlacklist_isPredictionGloballyDisabled__block_invoke(uin
     v6 = v3[2];
     v3[2] = v5;
 
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_default(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
       v9 = objc_opt_class();
       v10 = NSStringFromClass(v9);
       v11 = *(*(*(a1 + 40) + 8) + 24);
-      v13 = 138412546;
-      v14 = v10;
-      v15 = 1024;
-      v16 = v11;
-      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%@ - read lockscreen action global disabled: %d", &v13, 0x12u);
+      v12 = 138412546;
+      v13 = v10;
+      v14 = 1024;
+      v15 = v11;
+      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "%@ - read lockscreen action global disabled: %d", &v12, 0x12u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)appsLockedOrHiddenByAppProtection
@@ -331,11 +319,10 @@ void __54__ATXLockscreenBlacklist_isPredictionGloballyDisabled__block_invoke(uin
 
 - (void)init
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"com.apple.duetexpertd.prefschanged";
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "Failed to register notification callback for %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"com.apple.duetexpertd.prefschanged";
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "Failed to register notification callback for %@", &v1, 0xCu);
 }
 
 @end

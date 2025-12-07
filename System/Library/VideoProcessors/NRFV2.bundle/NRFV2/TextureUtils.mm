@@ -4,6 +4,8 @@
 - (int)_fillTexturePaddedArea10BitPacked:(__CVBuffer *)packed roi:(const CGRect *)roi fullWidth:(unsigned int)width fullHeight:(unsigned int)height useSeparateCommandQueue:(BOOL)queue;
 - (int)_fillTexturePaddedArea:(id)area roi:(const CGRect *)roi useSeparateCommandQueue:(BOOL)queue;
 - (int)copyTexture:(id)texture outTex:(id)tex;
+- (int)fillPaddedAreaInFrame:(__CVBuffer *)frame cfp:(frameProperties_t *)cfp useSeparateCommandQueue:(BOOL)queue;
+- (int)fillPaddedAreaInFrame:(__CVBuffer *)frame roi:(const CGRect *)roi didExtend:(BOOL *)extend useSeparateCommandQueue:(BOOL)queue;
 @end
 
 @implementation TextureUtils
@@ -259,7 +261,7 @@ LABEL_26:
 - (int)_fillTexturePaddedArea10BitPacked:(__CVBuffer *)packed roi:(const CGRect *)roi fullWidth:(unsigned int)width fullHeight:(unsigned int)height useSeparateCommandQueue:(BOOL)queue
 {
   queueCopy = queue;
-  v109[0] = width;
+  v105[0] = width;
   IOSurface = CVPixelBufferGetIOSurface(packed);
   v13 = IOSurface;
   if (IOSurface)
@@ -277,24 +279,24 @@ LABEL_26:
     kdebug_trace();
   }
 
-  v94 = ID;
+  v90 = ID;
   if (!CVPixelBufferIsPlanar(packed))
   {
-    sub_2958C4544(&v103);
+    sub_2958C4544(&v99);
 LABEL_27:
     v25 = 0;
 LABEL_29:
     v52 = 0;
     v32 = 0;
 LABEL_34:
-    v92 = v103;
-    v74 = MEMORY[0x29EDB9270];
+    v88 = v99;
+    v70 = MEMORY[0x29EDB9270];
     goto LABEL_21;
   }
 
   if (!CVPixelBufferGetPlaneCount(packed))
   {
-    sub_2958C44A8(&v103);
+    sub_2958C44A8(&v99);
     goto LABEL_27;
   }
 
@@ -302,25 +304,25 @@ LABEL_34:
   v16 = IOSurfaceGetBaseAddressOfPlane(v13, 1uLL);
   if (BaseAddressOfPlane >= v16)
   {
-    sub_2958C419C(&v103);
+    sub_2958C419C(&v99);
     goto LABEL_27;
   }
 
   v17 = v16;
-  v95 = ID;
+  v91 = ID;
   BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(packed, 0);
-  v107 = BytesPerRowOfPlane >> 3;
-  v108 = BytesPerRowOfPlane >> 2;
+  v103 = BytesPerRowOfPlane >> 3;
+  v104 = BytesPerRowOfPlane >> 2;
   v22 = objc_msgSend_device(self->_metal, v19, v20, v21);
   v25 = objc_msgSend_newBufferWithIOSurface_(v22, v23, v13, v24);
 
   if (!v25)
   {
-    sub_2958C440C(&v103);
+    sub_2958C440C(&v99);
     goto LABEL_29;
   }
 
-  v96 = queueCopy;
+  v92 = queueCopy;
   if (queueCopy)
   {
     v32 = objc_msgSend_commandBuffer(self->_separateCommandQueue, v26, v27, v28);
@@ -334,7 +336,7 @@ LABEL_34:
 
   if (!v32)
   {
-    sub_2958C4370(&v103);
+    sub_2958C4370(&v99);
 LABEL_32:
     v52 = 0;
     goto LABEL_34;
@@ -343,91 +345,342 @@ LABEL_32:
   v37 = objc_msgSend_computeCommandEncoder(v32, v29, v30, v31);
   if (!v37)
   {
-    sub_2958C42D4(&v103);
+    sub_2958C42D4(&v99);
     goto LABEL_32;
   }
 
   v40 = v37;
   objc_msgSend_setComputePipelineState_(v37, v38, self->_shaders->_fillTexturePaddedArea10BitPacked_Luma, v39);
   objc_msgSend_setBuffer_offset_atIndex_(v40, v41, v25, 0, 0);
-  objc_msgSend_setBytes_length_atIndex_(v40, v42, v109, 4, 1);
-  objc_msgSend_setBytes_length_atIndex_(v40, v43, &v108, 4, 2);
-  v106 = vuzp1q_s32(vcvtq_u64_f64(roi->origin), vcvtq_u64_f64(roi->size));
-  objc_msgSend_setBytes_length_atIndex_(v40, v44, &v106, 16, 3);
-  v103 = (v109[0] + 2) / 3uLL;
+  objc_msgSend_setBytes_length_atIndex_(v40, v42, v105, 4, 1);
+  objc_msgSend_setBytes_length_atIndex_(v40, v43, &v104, 4, 2);
+  v102 = vuzp1q_s32(vcvtq_u64_f64(roi->origin), vcvtq_u64_f64(roi->size));
+  objc_msgSend_setBytes_length_atIndex_(v40, v44, &v102, 16, 3);
+  v99 = (v105[0] + 2) / 3uLL;
   heightCopy = height;
-  v105 = 1;
-  v101 = xmmword_2959D6450;
-  v102 = 1;
-  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v40, v45, &v103, &v101);
+  v101 = 1;
+  v97 = xmmword_2959D6450;
+  v98 = 1;
+  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v40, v45, &v99, &v97);
   objc_msgSend_endEncoding(v40, v46, v47, v48);
-  v109[0] >>= 1;
+  v105[0] >>= 1;
   v52 = objc_msgSend_computeCommandEncoder(v32, v49, v50, v51);
 
   if (!v52)
   {
-    sub_2958C4238(&v103);
+    sub_2958C4238(&v99);
     goto LABEL_34;
   }
 
   objc_msgSend_setComputePipelineState_(v52, v53, self->_shaders->_fillTexturePaddedArea10BitPacked_Chroma, v54);
   objc_msgSend_setBuffer_offset_atIndex_(v52, v55, v25, (v17 - BaseAddressOfPlane), 0);
-  objc_msgSend_setBytes_length_atIndex_(v52, v56, v109, 4, 1);
-  objc_msgSend_setBytes_length_atIndex_(v52, v57, &v107, 4, 2);
-  x = roi->origin.x;
-  y = roi->origin.y;
-  width = roi->size.width;
-  height = roi->size.height;
+  objc_msgSend_setBytes_length_atIndex_(v52, v56, v105, 4, 1);
+  objc_msgSend_setBytes_length_atIndex_(v52, v57, &v103, 4, 2);
   makeChromaROI();
-  v63.f64[1] = v62;
-  v65.f64[1] = v64;
-  v106 = vuzp1q_s32(vcvtq_u64_f64(v63), vcvtq_u64_f64(v65));
-  objc_msgSend_setBytes_length_atIndex_(v52, v66, &v106, 16, 3);
-  v103 = (v109[0] + 2) / 3uLL;
+  v59.f64[1] = v58;
+  v61.f64[1] = v60;
+  v102 = vuzp1q_s32(vcvtq_u64_f64(v59), vcvtq_u64_f64(v61));
+  objc_msgSend_setBytes_length_atIndex_(v52, v62, &v102, 16, 3);
+  v99 = (v105[0] + 2) / 3uLL;
   heightCopy = height >> 1;
-  v105 = 1;
-  v101 = xmmword_2959D6450;
-  v102 = 1;
-  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v52, v67, &v103, &v101);
-  objc_msgSend_endEncoding(v52, v68, v69, v70);
-  v74 = MEMORY[0x29EDB9270];
+  v101 = 1;
+  v97 = xmmword_2959D6450;
+  v98 = 1;
+  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v52, v63, &v99, &v97);
+  objc_msgSend_endEncoding(v52, v64, v65, v66);
+  v70 = MEMORY[0x29EDB9270];
   if (*MEMORY[0x29EDB9270])
   {
-    v75 = objc_msgSend_commandQueue(v32, v71, v72, v73);
-    v79 = objc_msgSend_commandBuffer(v75, v76, v77, v78);
+    v71 = objc_msgSend_commandQueue(v32, v67, v68, v69);
+    v75 = objc_msgSend_commandBuffer(v71, v72, v73, v74);
 
-    objc_msgSend_setLabel_(v79, v80, @"KTRACE_MTLCMDBUF", v81);
-    v99[0] = MEMORY[0x29EDCA5F8];
-    v99[1] = 3221225472;
-    v99[2] = sub_2958666DC;
-    v99[3] = &unk_29EDDC4B0;
-    v99[4] = packed;
-    v100 = v95;
-    objc_msgSend_addCompletedHandler_(v79, v82, v99, v83);
-    objc_msgSend_commit(v79, v84, v85, v86);
-    v97[0] = MEMORY[0x29EDCA5F8];
-    v97[1] = 3221225472;
-    v97[2] = sub_295866710;
-    v97[3] = &unk_29EDDC4B0;
-    v97[4] = packed;
-    v98 = v95;
-    objc_msgSend_addCompletedHandler_(v32, v87, v97, v88);
+    objc_msgSend_setLabel_(v75, v76, @"KTRACE_MTLCMDBUF", v77);
+    v95[0] = MEMORY[0x29EDCA5F8];
+    v95[1] = 3221225472;
+    v95[2] = sub_2958666DC;
+    v95[3] = &unk_29EDDC4B0;
+    v95[4] = packed;
+    v96 = v91;
+    objc_msgSend_addCompletedHandler_(v75, v78, v95, v79);
+    objc_msgSend_commit(v75, v80, v81, v82);
+    v93[0] = MEMORY[0x29EDCA5F8];
+    v93[1] = 3221225472;
+    v93[2] = sub_295866710;
+    v93[3] = &unk_29EDDC4B0;
+    v93[4] = packed;
+    v94 = v91;
+    objc_msgSend_addCompletedHandler_(v32, v83, v93, v84);
   }
 
-  objc_msgSend_commit(v32, v71, v72, v73, v94);
-  if (v96)
+  objc_msgSend_commit(v32, v67, v68, v69, v90);
+  if (v92)
   {
-    objc_msgSend_waitUntilScheduled(v32, v89, v90, v91);
+    objc_msgSend_waitUntilScheduled(v32, v85, v86, v87);
   }
 
-  v92 = 0;
+  v88 = 0;
 LABEL_21:
-  if (*v74 == 1)
+  if (*v70 == 1)
   {
     kdebug_trace();
   }
 
-  return v92;
+  return v88;
+}
+
+- (int)fillPaddedAreaInFrame:(__CVBuffer *)frame roi:(const CGRect *)roi didExtend:(BOOL *)extend useSeparateCommandQueue:(BOOL)queue
+{
+  queueCopy = queue;
+  if (!CVPixelBufferIsPlanar(frame))
+  {
+    sub_2958C47D8(&v46);
+    v19 = 0;
+    v20 = 0;
+    goto LABEL_54;
+  }
+
+  WidthOfPlane = CVPixelBufferGetWidthOfPlane(frame, 0);
+  HeightOfPlane = CVPixelBufferGetHeightOfPlane(frame, 0);
+  v48[0] = 0;
+  v48[1] = 0;
+  *&v48[2] = WidthOfPlane;
+  *&v48[3] = HeightOfPlane;
+  roiCopy2 = v48;
+  if (roi)
+  {
+    roiCopy = roi;
+  }
+
+  else
+  {
+    roiCopy = v48;
+  }
+
+  v15 = (WidthOfPlane + 15) & 0xFFFFFFF0;
+  v16 = (HeightOfPlane + 15) & 0xFFFFFFF0;
+  if (roiCopy->origin.x == 0.0)
+  {
+    if (roi)
+    {
+      roiCopy2 = roi;
+    }
+
+    if (roiCopy2->origin.y == 0.0)
+    {
+      roiCopy3 = v48;
+      v18 = roi ? roi : v48;
+      if (v18->size.width == v15)
+      {
+        if (roi)
+        {
+          roiCopy3 = roi;
+        }
+
+        if (roiCopy3->size.height == v16)
+        {
+          v19 = 0;
+          v20 = 0;
+LABEL_51:
+          v30 = 0;
+          goto LABEL_52;
+        }
+      }
+    }
+  }
+
+  PixelFormatType = CVPixelBufferGetPixelFormatType(frame);
+  v22 = 0;
+  if (PixelFormatType > 792225327)
+  {
+    if (PixelFormatType > 2084070959)
+    {
+      if (PixelFormatType == 2084070960)
+      {
+        goto LABEL_29;
+      }
+
+      v23 = 2088265264;
+    }
+
+    else
+    {
+      if (PixelFormatType == 792225328)
+      {
+        goto LABEL_29;
+      }
+
+      v23 = 796419632;
+    }
+
+LABEL_28:
+    if (PixelFormatType != v23)
+    {
+      goto LABEL_30;
+    }
+
+    goto LABEL_29;
+  }
+
+  if (PixelFormatType > 758670895)
+  {
+    if (PixelFormatType == 758670896)
+    {
+      goto LABEL_29;
+    }
+
+    v23 = 762865200;
+    goto LABEL_28;
+  }
+
+  if (PixelFormatType != 641230384)
+  {
+    v23 = 645424688;
+    goto LABEL_28;
+  }
+
+LABEL_29:
+  v22 = 1;
+LABEL_30:
+  v24 = 1;
+  if (PixelFormatType <= 796419631)
+  {
+    if (PixelFormatType == 645424688)
+    {
+LABEL_37:
+      v24 = 0;
+      goto LABEL_38;
+    }
+
+    v25 = 762865200;
+  }
+
+  else
+  {
+    if (PixelFormatType == 796419632 || PixelFormatType == 2088265264)
+    {
+      goto LABEL_37;
+    }
+
+    v25 = 1885745712;
+  }
+
+  if (PixelFormatType == v25)
+  {
+    goto LABEL_37;
+  }
+
+LABEL_38:
+  extraRowsOnBottom = 0;
+  CVPixelBufferGetExtendedPixels(frame, 0, 0, 0, &extraRowsOnBottom);
+  if (CVPixelBufferGetBytesPerRowOfPlane(frame, 0) >= v15)
+  {
+    v26 = CVPixelBufferGetHeightOfPlane(frame, 0);
+    if (extraRowsOnBottom + v26 >= v16)
+    {
+      if (queueCopy)
+      {
+        objc_msgSend_waitForSchedule(self->_metal, v27, v28, v29);
+      }
+
+      if (((v22 | v24) & 1) == 0)
+      {
+        objc_msgSend__fillTexturePaddedArea10BitPacked_roi_fullWidth_fullHeight_useSeparateCommandQueue_(self, v27, frame, roiCopy, v15, v16, queueCopy);
+        v19 = 0;
+        v20 = 0;
+        if (!extend)
+        {
+          goto LABEL_51;
+        }
+
+        goto LABEL_49;
+      }
+
+      MetalLumaFormat = objc_msgSend_getMetalLumaFormat_(LumaChromaImage, v27, frame, v29);
+      v20 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_alignmentFactor_(self->_metal, v32, frame, MetalLumaFormat, 7, 0, 16);
+      if (v20)
+      {
+        v34 = objc_msgSend__fillTexturePaddedArea_roi_useSeparateCommandQueue_(self, v33, v20, roiCopy, queueCopy);
+        if (v34)
+        {
+          v30 = v34;
+          sub_2958C45E0();
+          v19 = 0;
+          goto LABEL_52;
+        }
+
+        makeChromaROI();
+        MetalChromaFormat = objc_msgSend_getMetalChromaFormat_(LumaChromaImage, v35, frame, v36, v37, v38, v39, v40);
+        v19 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_alignmentFactor_(self->_metal, v42, frame, MetalChromaFormat, 7, 1, 8);
+        if (!v19)
+        {
+          sub_2958C46A0(&v49);
+          v30 = v49;
+          goto LABEL_52;
+        }
+
+        v44 = objc_msgSend__fillTexturePaddedArea_roi_useSeparateCommandQueue_(self, v43, v19, &v46, queueCopy);
+        if (v44)
+        {
+          v30 = v44;
+          sub_2958C4640();
+          goto LABEL_52;
+        }
+
+        if (!extend)
+        {
+          goto LABEL_51;
+        }
+
+LABEL_49:
+        v30 = 0;
+        *extend = 1;
+        goto LABEL_52;
+      }
+
+      sub_2958C473C(&v46);
+      v19 = 0;
+LABEL_54:
+      v30 = v46;
+      goto LABEL_52;
+    }
+  }
+
+  v19 = 0;
+  v20 = 0;
+  v30 = -1;
+LABEL_52:
+
+  return v30;
+}
+
+- (int)fillPaddedAreaInFrame:(__CVBuffer *)frame cfp:(frameProperties_t *)cfp useSeparateCommandQueue:(BOOL)queue
+{
+  v5 = &cfp->meta.ltmCurves.ccmLut.ccmV1.lutsData[2044];
+  if (LOBYTE(cfp[1].meta.exposureParams.ltm_soft_gain))
+  {
+    return 0;
+  }
+
+  v12 = 0;
+  v8 = objc_msgSend_fillPaddedAreaInFrame_roi_didExtend_useSeparateCommandQueue_(self, a2, frame, &cfp->meta.ROI, &v12, queue);
+  v6 = v8;
+  if (v8)
+  {
+    sub_2958C4874(v8);
+  }
+
+  else
+  {
+    v9 = v12;
+    LOBYTE(v5[49].GG.mid) = v12;
+    if (v9 == 1)
+    {
+      WidthOfPlane = CVPixelBufferGetWidthOfPlane(frame, 0);
+      *&v5[49].GB.highlights = *&vadd_s32(__PAIR64__(CVPixelBufferGetHeightOfPlane(frame, 0), WidthOfPlane), 0xF0000000FLL) & 0xFFFFFFF0FFFFFFF0;
+    }
+  }
+
+  return v6;
 }
 
 - (int)copyTexture:(id)texture outTex:(id)tex

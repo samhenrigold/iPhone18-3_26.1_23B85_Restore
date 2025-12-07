@@ -63,7 +63,7 @@
   {
     text = self->_text;
     text = [equalCopy text];
-    if (-[NSString isEqualToString:](text, "isEqualToString:", text) && (removeSpaceBefore = self->_removeSpaceBefore, removeSpaceBefore == [equalCopy removeSpaceBefore]))
+    if (objc_msgSend_isEqualToString_(text) && (removeSpaceBefore = self->_removeSpaceBefore, removeSpaceBefore == [equalCopy removeSpaceBefore]))
     {
       removeSpaceAfter = self->_removeSpaceAfter;
       v9 = removeSpaceAfter == [equalCopy removeSpaceAfter];

@@ -19,8 +19,9 @@
 
 - (GPImageXPCWrapper)initWithImage:(CGImage *)image orientation:(unsigned int)orientation
 {
+  v4 = *&orientation;
   v6 = objc_allocWithZone(swift_getObjectType());
-  v7 = ImageXPCWrapper.init(_:orientation:)(image, orientation);
+  v7 = ImageXPCWrapper.init(_:orientation:)(image, v4);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
   return v7;

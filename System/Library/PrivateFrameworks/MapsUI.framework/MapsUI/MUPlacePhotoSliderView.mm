@@ -11,6 +11,7 @@
 - (void)_setupConstraints;
 - (void)_setupSubviews;
 - (void)collectionView:(id)view didSelectItemAtIndexPath:(id)path;
+- (void)displayPhotos:(BOOL)photos;
 - (void)enumerateImageViewsWithBlock:(id)block;
 - (void)layoutSubviews;
 - (void)scrollToViewAtIndex:(unint64_t)index;
@@ -206,29 +207,29 @@ LABEL_6:
 
 - (void)enumerateImageViewsWithBlock:(id)block
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   blockCopy = block;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   visibleCells = [(UICollectionView *)self->_contentCollectionView visibleCells];
-  v6 = [visibleCells countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [visibleCells countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -240,13 +241,11 @@ LABEL_6:
       }
 
       while (v7 != v9);
-      v7 = [visibleCells countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [visibleCells countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scrollToViewAtIndex:(unint64_t)index
@@ -277,38 +276,86 @@ LABEL_6:
 
 - (void)updateViewsWithAlpha:(double)alpha
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   visibleCells = [(UICollectionView *)self->_contentCollectionView visibleCells];
-  v5 = [visibleCells countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [visibleCells countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) setAlpha:alpha];
+        [*(*(&v9 + 1) + 8 * v8++) setAlpha:alpha];
       }
 
       while (v6 != v8);
-      v6 = [visibleCells countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [visibleCells countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (void)displayPhotos:(BOOL)photos
+{
+  photosCopy = photos;
+  v18[1] = *MEMORY[0x1E69E9840];
+  v5 = MUGetMUPhotoSliderViewLog();
+  if (os_signpost_enabled(v5))
+  {
+    *v17 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C5620000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "MUPhotoSliderViewDisplayPhotos", "", v17, 2u);
+  }
+
+  v6 = objc_alloc_init(MEMORY[0x1E69955A0]);
+  v18[0] = @"kPhotosSection";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  [v6 appendSectionsWithIdentifiers:v7];
+
+  WeakRetained = objc_loadWeakRetained(&self->_dataSource);
+  v9 = [WeakRetained photoSliderViewRequestsViewModels:self];
+
+  v10 = [v9 copy];
+  photoModels = self->_photoModels;
+  self->_photoModels = v10;
+
+  if ([v9 count])
+  {
+    v12 = [v9 copy];
+    [v6 appendItemsWithIdentifiers:v12 intoSectionWithIdentifier:@"kPhotosSection"];
+  }
+
+  if ([v9 count])
+  {
+    v13 = objc_loadWeakRetained(&self->_dataSource);
+    v14 = [v13 attributionViewModelsForPhotoSliderView:self];
+
+    if ([v14 count])
+    {
+      v15 = [v14 copy];
+      [v6 appendItemsWithIdentifiers:v15 intoSectionWithIdentifier:@"kPhotosSection"];
+    }
+  }
+
+  [(UICollectionViewDiffableDataSource *)self->_diffableDataSource applySnapshot:v6 animatingDifferences:photosCopy];
+  v16 = MUGetMUPhotoSliderViewLog();
+  if (os_signpost_enabled(v16))
+  {
+    *v17 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C5620000, v16, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "MUPhotoSliderViewDisplayPhotos", "", v17, 2u);
+  }
 }
 
 - (id)imageViewForIndex:(unint64_t)index
@@ -329,20 +376,17 @@ LABEL_6:
 
 - (void)_setupConstraints
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v3 = self->_contentCollectionView;
   v4 = [[MUEdgeLayout alloc] initWithItem:v3 container:self];
   v5 = [MUSizeLayout alloc];
   +[MUSizeLayout useIntrinsicContentSize];
-  height = self->_photoTileSize.height;
-  v7 = [(MUSizeLayout *)v5 initWithItem:v3 size:?];
-  v8 = MEMORY[0x1E696ACD8];
-  v11[0] = v4;
-  v11[1] = v7;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
-  [v8 _mapsui_activateLayouts:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v6 = [(MUSizeLayout *)v5 initWithItem:v3 size:?];
+  v7 = MEMORY[0x1E696ACD8];
+  v9[0] = v4;
+  v9[1] = v6;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  [v7 _mapsui_activateLayouts:v8];
 }
 
 - (void)_setupSubviews

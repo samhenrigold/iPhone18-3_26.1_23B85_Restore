@@ -1,8 +1,24 @@
 @interface NPTFileSizeConverter
++ (id)getFileSizeAsString:(int)string;
 + (int)fileSizeFromInt:(int64_t)int;
 @end
 
 @implementation NPTFileSizeConverter
+
++ (id)getFileSizeAsString:(int)string
+{
+  if (string == 1000)
+  {
+    v4 = @"1g";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%um", *&string];
+  }
+
+  return v4;
+}
 
 + (int)fileSizeFromInt:(int64_t)int
 {

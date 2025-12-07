@@ -70,12 +70,11 @@
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  dataProvider = self->_dataProvider;
-  v6 = objc_opt_class();
+  v5 = objc_opt_class();
   sectionIdentifier = [(BBRemoteDataProvider *)self->_dataProvider sectionIdentifier];
-  v8 = [v3 stringWithFormat:@"<%@ %p dataProvider: %@ (%@)>", v4, self, v6, sectionIdentifier];;
+  v7 = [v3 stringWithFormat:@"<%@ %p dataProvider: %@ (%@)>", v4, self, v5, sectionIdentifier];;
 
-  return v8;
+  return v7;
 }
 
 - (void)updateIdentity:(id)identity
@@ -104,7 +103,7 @@ void __38__BBDataProviderProxy_updateIdentity___block_invoke(uint64_t a1, uint64
 
 - (void)setServerProxy:(id)proxy
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   v5 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
@@ -113,28 +112,26 @@ void __38__BBDataProviderProxy_updateIdentity___block_invoke(uint64_t a1, uint64
     v7 = objc_opt_class();
     v8 = NSStringFromClass(v7);
     *buf = 138543618;
-    v16 = v8;
-    v17 = 2114;
-    v18 = proxyCopy;
+    v15 = v8;
+    v16 = 2114;
+    v17 = proxyCopy;
     _os_log_impl(&dword_241EFF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ setting server proxy: %{public}@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __38__BBDataProviderProxy_setServerProxy___block_invoke;
-  v12[3] = &unk_278D2A628;
-  v13 = proxyCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __38__BBDataProviderProxy_setServerProxy___block_invoke;
+  v11[3] = &unk_278D2A628;
+  v12 = proxyCopy;
   selfCopy = self;
   v10 = proxyCopy;
-  dispatch_async(queue, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v11);
 }
 
 void __38__BBDataProviderProxy_setServerProxy___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   v6 = *(v2 + 48);
@@ -166,16 +163,15 @@ void __38__BBDataProviderProxy_setServerProxy___block_invoke(uint64_t a1)
 
       if (v8)
       {
-        v17 = BBLogConnection;
+        v16 = BBLogConnection;
         if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = *(a1 + 40);
-          v19 = v17;
-          v20 = objc_opt_class();
-          v21 = NSStringFromClass(v20);
-          v23 = 138543362;
-          v24 = v21;
-          _os_log_impl(&dword_241EFF000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ resuming proxy queue", &v23, 0xCu);
+          v17 = v16;
+          v18 = objc_opt_class();
+          v19 = NSStringFromClass(v18);
+          v20 = 138543362;
+          v21 = v19;
+          _os_log_impl(&dword_241EFF000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ resuming proxy queue", &v20, 0xCu);
         }
 
         *(*(a1 + 40) + 56) = 1;
@@ -194,24 +190,21 @@ void __38__BBDataProviderProxy_setServerProxy___block_invoke(uint64_t a1)
       v9 = BBLogConnection;
       if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *(a1 + 40);
-        v12 = v9;
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
-        v23 = 138543362;
-        v24 = v14;
-        _os_log_impl(&dword_241EFF000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ suspending proxy queue", &v23, 0xCu);
+        v11 = v9;
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
+        v20 = 138543362;
+        v21 = v13;
+        _os_log_impl(&dword_241EFF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ suspending proxy queue", &v20, 0xCu);
       }
 
       *(*(a1 + 40) + 56) = 0;
       dispatch_suspend(*(*(a1 + 40) + 40));
-      v15 = *(a1 + 40);
-      v16 = *(v15 + 48);
-      *(v15 + 48) = 0;
+      v14 = *(a1 + 40);
+      v15 = *(v14 + 48);
+      *(v14 + 48) = 0;
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_makeServerRequest:(id)request
@@ -270,7 +263,7 @@ uint64_t __42__BBDataProviderProxy__makeClientRequest___block_invoke(uint64_t a1
 
 - (void)addBulletin:(id)bulletin forDestinations:(unint64_t)destinations
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
   v7 = BBLogBulletinLife;
   if (os_log_type_enabled(BBLogBulletinLife, OS_LOG_TYPE_DEFAULT))
@@ -279,26 +272,24 @@ uint64_t __42__BBDataProviderProxy__makeClientRequest___block_invoke(uint64_t a1
     identity = [(BBDataProviderProxy *)self identity];
     sectionIdentifier = [identity sectionIdentifier];
     *buf = 138543362;
-    v17 = sectionIdentifier;
+    v16 = sectionIdentifier;
     _os_log_impl(&dword_241EFF000, v8, OS_LOG_TYPE_DEFAULT, "BBDataProviderProxy %{public}@ has enqueued a bulletin request", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __51__BBDataProviderProxy_addBulletin_forDestinations___block_invoke;
-  v13[3] = &unk_278D2BC68;
-  v13[4] = self;
-  v14 = bulletinCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __51__BBDataProviderProxy_addBulletin_forDestinations___block_invoke;
+  v12[3] = &unk_278D2BC68;
+  v12[4] = self;
+  v13 = bulletinCopy;
   destinationsCopy = destinations;
   v11 = bulletinCopy;
-  [(BBDataProviderProxy *)self _makeServerRequest:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(BBDataProviderProxy *)self _makeServerRequest:v12];
 }
 
 void __51__BBDataProviderProxy_addBulletin_forDestinations___block_invoke(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = BBLogBulletinLife;
   if (os_log_type_enabled(BBLogBulletinLife, OS_LOG_TYPE_DEFAULT))
@@ -307,14 +298,12 @@ void __51__BBDataProviderProxy_addBulletin_forDestinations___block_invoke(void *
     v6 = v4;
     v7 = [v5 identity];
     v8 = [v7 sectionIdentifier];
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_241EFF000, v6, OS_LOG_TYPE_DEFAULT, "BBDataProviderProxy %{public}@ is now sending enqueued bulletin request to BBServer", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_241EFF000, v6, OS_LOG_TYPE_DEFAULT, "BBDataProviderProxy %{public}@ is now sending enqueued bulletin request to BBServer", &v9, 0xCu);
   }
 
   [v3 addBulletin:a1[5] forDestinations:a1[6]];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)modifyBulletin:(id)bulletin
@@ -451,18 +440,17 @@ void __52__BBDataProviderProxy_updateClearedInfoWithHandler___block_invoke_2(uin
 
 void __52__BBDataProviderProxy_updateClearedInfoWithHandler___block_invoke_3(void *a1)
 {
-  v2 = a1[4];
-  v3 = (*(a1[6] + 16))();
-  v4 = v3;
-  if (v3 != a1[4])
+  v2 = (*(a1[6] + 16))();
+  v3 = v2;
+  if (v2 != a1[4])
   {
-    v5 = a1[5];
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __52__BBDataProviderProxy_updateClearedInfoWithHandler___block_invoke_4;
-    v6[3] = &unk_278D2BC90;
-    v7 = v3;
-    [v5 _makeServerRequest:v6];
+    v4 = a1[5];
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __52__BBDataProviderProxy_updateClearedInfoWithHandler___block_invoke_4;
+    v5[3] = &unk_278D2BC90;
+    v6 = v2;
+    [v4 _makeServerRequest:v5];
   }
 }
 
@@ -540,38 +528,37 @@ LABEL_5:
 
 void __63__BBDataProviderProxy_updateSectionInfoWithHandler_completion___block_invoke_3(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = (*(*(a1 + 48) + 16))();
-  v4 = v3;
-  if (v3)
+  v2 = (*(*(a1 + 48) + 16))();
+  v3 = v2;
+  if (v2)
   {
-    v5 = *(a1 + 40);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __63__BBDataProviderProxy_updateSectionInfoWithHandler_completion___block_invoke_4;
-    v12[3] = &unk_278D2BDA8;
-    v6 = v13;
-    v13[0] = v3;
-    v7 = *(a1 + 56);
-    v13[1] = *(a1 + 40);
-    v14 = v7;
-    [v5 _makeServerRequest:v12];
+    v4 = *(a1 + 40);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __63__BBDataProviderProxy_updateSectionInfoWithHandler_completion___block_invoke_4;
+    v11[3] = &unk_278D2BDA8;
+    v5 = v12;
+    v12[0] = v2;
+    v6 = *(a1 + 56);
+    v12[1] = *(a1 + 40);
+    v13 = v6;
+    [v4 _makeServerRequest:v11];
 
 LABEL_5:
     goto LABEL_6;
   }
 
-  v8 = *(a1 + 56);
-  if (v8)
+  v7 = *(a1 + 56);
+  if (v7)
   {
-    v9 = *(a1 + 40);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __63__BBDataProviderProxy_updateSectionInfoWithHandler_completion___block_invoke_6;
-    v10[3] = &unk_278D2BD80;
-    v6 = &v11;
-    v11 = v8;
-    [v9 _makeClientRequest:v10];
+    v8 = *(a1 + 40);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __63__BBDataProviderProxy_updateSectionInfoWithHandler_completion___block_invoke_6;
+    v9[3] = &unk_278D2BD80;
+    v5 = &v10;
+    v10 = v7;
+    [v8 _makeClientRequest:v9];
     goto LABEL_5;
   }
 
@@ -635,41 +622,40 @@ void __77__BBDataProviderProxy_bulletinsWithRequestParameters_lastCleared_comple
   v4 = [*(a1 + 32) identity];
   if (([v4 traits] & 4) != 0)
   {
-    v8 = [v3 bulletinsWithRequestParameters:*(a1 + 40) lastCleared:*(a1 + 48)];
+    v7 = [v3 bulletinsWithRequestParameters:*(a1 + 40) lastCleared:*(a1 + 48)];
 LABEL_6:
-    v7 = v8;
+    v6 = v7;
     goto LABEL_8;
   }
 
   if (([v4 traits] & 0x10) != 0)
   {
-    v9 = [*(a1 + 40) enabledSectionIDs];
-    v7 = [v3 bulletinsFilteredBy:0 enabledSectionIDs:v9 count:objc_msgSend(*(a1 + 40) lastCleared:{"maximumCount"), *(a1 + 48)}];
+    v8 = [*(a1 + 40) enabledSectionIDs];
+    v6 = [v3 bulletinsFilteredBy:0 enabledSectionIDs:v8 count:objc_msgSend(*(a1 + 40) lastCleared:{"maximumCount"), *(a1 + 48)}];
 
     goto LABEL_8;
   }
 
   if (([v4 traits] & 8) != 0)
   {
-    v8 = [v3 bulletinsFilteredBy:0 count:objc_msgSend(*(a1 + 40) lastCleared:{"maximumCount"), *(a1 + 48)}];
+    v7 = [v3 bulletinsFilteredBy:0 count:objc_msgSend(*(a1 + 40) lastCleared:{"maximumCount"), *(a1 + 48)}];
     goto LABEL_6;
   }
 
-  v5 = *(a1 + 32);
-  v6 = objc_opt_class();
-  NSLog(&cfstr_DataProviderDo.isa, v6, v3);
-  v7 = 0;
+  v5 = objc_opt_class();
+  NSLog(&cfstr_DataProviderDo.isa, v5, v3);
+  v6 = 0;
 LABEL_8:
-  v10 = *(a1 + 32);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __77__BBDataProviderProxy_bulletinsWithRequestParameters_lastCleared_completion___block_invoke_2;
-  v13[3] = &unk_278D2BE68;
-  v11 = *(a1 + 56);
-  v14 = v7;
-  v15 = v11;
-  v12 = v7;
-  [v10 _makeServerRequest:v13];
+  v9 = *(a1 + 32);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __77__BBDataProviderProxy_bulletinsWithRequestParameters_lastCleared_completion___block_invoke_2;
+  v12[3] = &unk_278D2BE68;
+  v10 = *(a1 + 56);
+  v13 = v6;
+  v14 = v10;
+  v11 = v6;
+  [v9 _makeServerRequest:v12];
 }
 
 - (void)clearedInfoForClearingAllBulletinsWithLastClearedInfo:(id)info completion:(id)completion
@@ -696,27 +682,26 @@ void __88__BBDataProviderProxy_clearedInfoForClearingAllBulletinsWithLastCleared
 
   if ((v5 & 0x40) != 0)
   {
-    v8 = [v3 clearedInfoForClearingAllBulletinsWithLastClearedInfo:*(a1 + 40)];
+    v7 = [v3 clearedInfoForClearingAllBulletinsWithLastClearedInfo:*(a1 + 40)];
   }
 
   else
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    NSLog(&cfstr_DataProviderDo_0.isa, v7, v3);
-    v8 = 0;
+    v6 = objc_opt_class();
+    NSLog(&cfstr_DataProviderDo_0.isa, v6, v3);
+    v7 = 0;
   }
 
-  v9 = *(a1 + 32);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __88__BBDataProviderProxy_clearedInfoForClearingAllBulletinsWithLastClearedInfo_completion___block_invoke_2;
-  v12[3] = &unk_278D2BE68;
-  v10 = *(a1 + 48);
-  v13 = v8;
-  v14 = v10;
-  v11 = v8;
-  [v9 _makeServerRequest:v12];
+  v8 = *(a1 + 32);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __88__BBDataProviderProxy_clearedInfoForClearingAllBulletinsWithLastClearedInfo_completion___block_invoke_2;
+  v11[3] = &unk_278D2BE68;
+  v9 = *(a1 + 48);
+  v12 = v7;
+  v13 = v9;
+  v10 = v7;
+  [v8 _makeServerRequest:v11];
 }
 
 - (void)clearedInfoForClearingBulletinsFromDate:(id)date toDate:(id)toDate lastClearedInfo:(id)info completion:(id)completion
@@ -749,27 +734,26 @@ void __97__BBDataProviderProxy_clearedInfoForClearingBulletinsFromDate_toDate_la
 
   if (v5 < 0)
   {
-    v8 = [v3 clearedInfoForClearingBulletinsFromDate:*(a1 + 40) toDate:*(a1 + 48) lastClearedInfo:*(a1 + 56)];
+    v7 = [v3 clearedInfoForClearingBulletinsFromDate:*(a1 + 40) toDate:*(a1 + 48) lastClearedInfo:*(a1 + 56)];
   }
 
   else
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    NSLog(&cfstr_DataProviderDo_0.isa, v7, v3);
-    v8 = 0;
+    v6 = objc_opt_class();
+    NSLog(&cfstr_DataProviderDo_0.isa, v6, v3);
+    v7 = 0;
   }
 
-  v9 = *(a1 + 32);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __97__BBDataProviderProxy_clearedInfoForClearingBulletinsFromDate_toDate_lastClearedInfo_completion___block_invoke_2;
-  v12[3] = &unk_278D2BE68;
-  v10 = *(a1 + 64);
-  v13 = v8;
-  v14 = v10;
-  v11 = v8;
-  [v9 _makeServerRequest:v12];
+  v8 = *(a1 + 32);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __97__BBDataProviderProxy_clearedInfoForClearingBulletinsFromDate_toDate_lastClearedInfo_completion___block_invoke_2;
+  v11[3] = &unk_278D2BE68;
+  v9 = *(a1 + 64);
+  v12 = v7;
+  v13 = v9;
+  v10 = v7;
+  [v8 _makeServerRequest:v11];
 }
 
 - (void)clearedInfoForBulletins:(id)bulletins lastClearedInfo:(id)info completion:(id)completion
@@ -818,9 +802,8 @@ void __74__BBDataProviderProxy_clearedInfoForBulletins_lastClearedInfo_completio
   {
     if (*(a1 + 65) != 1)
     {
-      v7 = *(a1 + 48);
-      v8 = objc_opt_class();
-      NSLog(&cfstr_DataProviderDo_1.isa, v8, v4);
+      v7 = objc_opt_class();
+      NSLog(&cfstr_DataProviderDo_1.isa, v7, v4);
       v6 = 0;
       goto LABEL_7;
     }
@@ -830,16 +813,16 @@ void __74__BBDataProviderProxy_clearedInfoForBulletins_lastClearedInfo_completio
 
   v6 = v5;
 LABEL_7:
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __74__BBDataProviderProxy_clearedInfoForBulletins_lastClearedInfo_completion___block_invoke_2;
-  v12[3] = &unk_278D2BE68;
-  v9 = *(a1 + 48);
-  v10 = *(a1 + 56);
-  v13 = v6;
-  v14 = v10;
-  v11 = v6;
-  [v9 _makeServerRequest:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __74__BBDataProviderProxy_clearedInfoForBulletins_lastClearedInfo_completion___block_invoke_2;
+  v11[3] = &unk_278D2BE68;
+  v8 = *(a1 + 48);
+  v9 = *(a1 + 56);
+  v12 = v6;
+  v13 = v9;
+  v10 = v6;
+  [v8 _makeServerRequest:v11];
 }
 
 - (void)noteSectionInfoDidChange:(id)change
@@ -886,16 +869,16 @@ LABEL_7:
 
 void __68__BBDataProviderProxy_deliverBulletinActionResponse_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = BBLogGeneral;
   if (os_log_type_enabled(BBLogGeneral, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138543618;
-    v13 = v3;
-    v14 = 2114;
-    v15 = v5;
+    v12 = v3;
+    v13 = 2114;
+    v14 = v5;
     _os_log_impl(&dword_241EFF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ handling bulletin action response %{public}@", buf, 0x16u);
   }
 
@@ -903,12 +886,12 @@ void __68__BBDataProviderProxy_deliverBulletinActionResponse_withCompletion___bl
   v7 = *(a1 + 32);
   if (v6)
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __68__BBDataProviderProxy_deliverBulletinActionResponse_withCompletion___block_invoke_36;
-    v10[3] = &unk_278D2BF80;
-    v11 = *(a1 + 40);
-    [v3 handleBulletinActionResponse:v7 withCompletion:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __68__BBDataProviderProxy_deliverBulletinActionResponse_withCompletion___block_invoke_36;
+    v9[3] = &unk_278D2BF80;
+    v10 = *(a1 + 40);
+    [v3 handleBulletinActionResponse:v7 withCompletion:v9];
   }
 
   else
@@ -920,8 +903,6 @@ void __68__BBDataProviderProxy_deliverBulletinActionResponse_withCompletion___bl
       (*(v8 + 16))(v8, 1);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateClearedInfoWithHandler:.cold.1()

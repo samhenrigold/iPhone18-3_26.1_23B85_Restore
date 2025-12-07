@@ -202,7 +202,7 @@
     detectedObjects2 = [(ARObjectDetectionResultData *)self detectedObjects];
     if ([detectedObjects isEqual:detectedObjects2])
     {
-      [v5 timestamp];
+      objc_msgSend_timestamp(v5);
       v9 = v8 == self->_timestamp;
     }
 

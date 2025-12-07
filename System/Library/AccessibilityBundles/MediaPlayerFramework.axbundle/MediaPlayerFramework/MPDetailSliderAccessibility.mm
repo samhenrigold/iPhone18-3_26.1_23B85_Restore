@@ -1,6 +1,7 @@
 @interface MPDetailSliderAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (BOOL)continueTrackingWithTouch:(id)touch withEvent:(id)event;
+- (CGPoint)accessibilityActivationPoint;
 - (CGRect)accessibilityFrame;
 - (id)accessibilityValue;
 - (unint64_t)accessibilityTraits;
@@ -72,6 +73,17 @@
   result.size.width = v5;
   result.origin.y = v4;
   result.origin.x = v3;
+  return result;
+}
+
+- (CGPoint)accessibilityActivationPoint
+{
+  [(MPDetailSliderAccessibility *)self safeCGRectForKey:@"thumbHitRect"];
+  v8 = UIAccessibilityConvertFrameToScreenCoordinates(v7, self);
+
+  MEMORY[0x2A1C5ECC8](v8.origin, *&v8.origin.y, v8.size, *&v8.size.height);
+  result.y = v4;
+  result.x = v3;
   return result;
 }
 

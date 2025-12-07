@@ -51,7 +51,7 @@
 - (id)createSerializableObject
 {
   v5[21] = *MEMORY[0x277D85DE8];
-  [(PXGSpriteStyleSerializable *)self spriteStyle];
+  objc_msgSend_spriteStyle(self, a2);
   v3 = PXGSerializeSpriteStyle(v5, v2);
 
   return v3;

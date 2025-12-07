@@ -47,27 +47,27 @@ uint64_t __53__RadioArtworkCollection__artworksBySortingArtworks___block_invoke(
 {
   height = size.height;
   width = size.width;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = self->_artworks;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v19 != v9)
+      if (*v18 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v18 + 1) + 8 * v10);
+      v11 = *(*(&v17 + 1) + 8 * v10);
       [v11 pixelSize];
       if (v13 >= width || v12 >= height)
       {
@@ -76,7 +76,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -101,7 +101,6 @@ LABEL_13:
 
   lastObject = [(NSArray *)self->_artworks lastObject];
 LABEL_16:
-  v16 = *MEMORY[0x277D85DE8];
 
   return lastObject;
 }
@@ -134,30 +133,30 @@ LABEL_7:
 
 - (RadioArtworkCollection)initWithArtworkVariants:(id)variants
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   variantsCopy = variants;
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(variantsCopy, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v6 = variantsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * v10);
+        v11 = *(*(&v20 + 1) + 8 * v10);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -172,7 +171,7 @@ LABEL_7:
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
@@ -180,9 +179,9 @@ LABEL_7:
 
   if ([v5 count])
   {
-    v20.receiver = self;
-    v20.super_class = RadioArtworkCollection;
-    v13 = [(RadioArtworkCollection *)&v20 init];
+    v19.receiver = self;
+    v19.super_class = RadioArtworkCollection;
+    v13 = [(RadioArtworkCollection *)&v19 init];
     v14 = v13;
     if (v13)
     {
@@ -200,7 +199,6 @@ LABEL_7:
     selfCopy = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

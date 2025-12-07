@@ -17,6 +17,7 @@
 - (void)handleSendEmail;
 - (void)setParameters:(id)parameters;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CKVettingAddressSelectionController
@@ -95,6 +96,78 @@
 
   v7 = [parametersCopy objectAtIndexedSubscript:2];
   [(CKVettingAddressSelectionController *)self setShareURL:v7];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v20.receiver = self;
+  v20.super_class = CKVettingAddressSelectionController;
+  [(CKVettingAddressSelectionController *)&v20 viewWillAppear:appear];
+  [(CKVettingAddressSelectionController *)self _setupBarButtons];
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  tripples = [(CKVettingAddressSelectionController *)self tripples];
+  v5 = [tripples countByEnumeratingWithState:&v16 objects:v21 count:16];
+  if (!v5)
+  {
+
+LABEL_21:
+    v15 = @"PHONES";
+    goto LABEL_22;
+  }
+
+  v6 = v5;
+  v7 = 0;
+  v8 = 0;
+  v9 = *v17;
+  do
+  {
+    for (i = 0; i != v6; i = i + 1)
+    {
+      if (*v17 != v9)
+      {
+        objc_enumerationMutation(tripples);
+      }
+
+      v11 = *(*(&v16 + 1) + 8 * i);
+      v12 = [v11 objectAtIndexedSubscript:1];
+      v13 = [v11 objectAtIndexedSubscript:2];
+      if ([v12 length])
+      {
+        ++v8;
+      }
+
+      if ([v13 length])
+      {
+        ++v7;
+      }
+    }
+
+    v6 = [tripples countByEnumeratingWithState:&v16 objects:v21 count:16];
+  }
+
+  while (v6);
+
+  if (v7 <= 0 || v8 <= 0)
+  {
+    v15 = @"EMAILS";
+  }
+
+  else
+  {
+    v15 = @"MIX";
+  }
+
+  if (v8 <= 0)
+  {
+    goto LABEL_21;
+  }
+
+LABEL_22:
+  [(CKVettingAddressSelectionController *)self _setupSectionHeader:v15];
+  [(CKVettingAddressSelectionController *)self _setupSectionFooter:v15];
 }
 
 - (void)handleCancel
@@ -321,11 +394,11 @@
 
 - (void)_setupBarButtons
 {
-  v15 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:1 target:self action:"handleCancel"];
+  v28 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:1 target:self action:"handleCancel"];
   navigationController = [(CKVettingAddressSelectionController *)self navigationController];
   topViewController = [navigationController topViewController];
   navigationItem = [topViewController navigationItem];
-  [navigationItem setLeftBarButtonItem:v15];
+  [navigationItem setLeftBarButtonItem:v28];
 
   v6 = +[UIDevice currentDevice];
   userInterfaceIdiom = [v6 userInterfaceIdiom];
@@ -333,8 +406,8 @@
   if (userInterfaceIdiom)
   {
     v8 = [UIBarButtonItem alloc];
-    v9 = sub_16B8(@"CLOUDKIT_VETTING_FOOTER_SEND_EMAIL", &stru_14980);
-    navigationController2 = [v8 initWithTitle:v9 style:2 target:self action:"handleSendEmail"];
+    v15 = sub_16B8(@"CLOUDKIT_VETTING_FOOTER_SEND_EMAIL", &stru_14980, v9, v10, v11, v12, v13, v14, v27);
+    navigationController2 = [v8 initWithTitle:v15 style:2 target:self action:"handleSendEmail"];
 
     [(CKVettingAddressSelectionController *)self setSendEmailBarButton:navigationController2];
   }
@@ -347,9 +420,9 @@
     [navigationItem2 setRightBarButtonItem:0];
   }
 
-  v13 = sub_16B8(@"CLOUDKIT_VETTING_TITLE", &stru_14980);
+  v25 = sub_16B8(@"CLOUDKIT_VETTING_TITLE", &stru_14980, v19, v20, v21, v22, v23, v24, v27);
   navigationItem3 = [(CKVettingAddressSelectionController *)self navigationItem];
-  [navigationItem3 setTitle:v13];
+  [navigationItem3 setTitle:v25];
 }
 
 - (id)_labelWithText:(id)text maxWidth:(double)width
@@ -380,46 +453,46 @@
 {
   v4 = [@"CLOUDKIT_VETTING_HEADER_" stringByAppendingString:header];
   sharedItem = [(CKVettingAddressSelectionController *)self sharedItem];
-  v5 = sub_16B8(v4, @"%@");
+  v12 = sub_16B8(v4, @"%@", v6, v7, v8, v9, v10, v11, sharedItem);
 
   tableView = [(CKVettingAddressSelectionController *)self tableView];
   [tableView frame];
-  v8 = [(CKVettingAddressSelectionController *)self _labelWithText:v5 maxWidth:v7 + -16.0];
+  v15 = [(CKVettingAddressSelectionController *)self _labelWithText:v12 maxWidth:v14 + -16.0];
 
-  v9 = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
-  [v8 setFont:v9];
+  v16 = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+  [v15 setFont:v16];
 
-  v10 = +[UIColor labelColor];
-  [v8 setTextColor:v10];
+  v17 = +[UIColor labelColor];
+  [v15 setTextColor:v17];
 
-  [v8 frame];
-  [v8 sizeThatFits:{v11, v12}];
-  v25[0] = @"textHeight";
-  v14 = [NSNumber numberWithDouble:v13];
-  v25[1] = @"padding";
-  v26[0] = v14;
-  v26[1] = &off_16380;
-  v15 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:2];
+  [v15 frame];
+  [v15 sizeThatFits:{v18, v19}];
+  v31[0] = @"textHeight";
+  v21 = [NSNumber numberWithDouble:v20];
+  v31[1] = @"padding";
+  v32[0] = v21;
+  v32[1] = &off_16380;
+  v22 = [NSDictionary dictionaryWithObjects:v32 forKeys:v31 count:2];
 
-  v16 = [UIView alloc];
+  v23 = [UIView alloc];
   tableView2 = [(CKVettingAddressSelectionController *)self tableView];
   [tableView2 frame];
-  v18 = [v16 initWithFrame:{0.0, 0.0}];
+  v25 = [v23 initWithFrame:{0.0, 0.0}];
 
-  [v18 addSubview:v8];
-  v19 = _NSDictionaryOfVariableBindings(@"t", v8, 0);
-  v20 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"H:|-(padding)-[t]-(padding)-|", 0, v15, v19);
-  [v18 addConstraints:v20];
+  [v25 addSubview:v15];
+  v26 = _NSDictionaryOfVariableBindings(@"t", v15, 0);
+  v27 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"H:|-(padding)-[t]-(padding)-|", 0, v22, v26);
+  [v25 addConstraints:v27];
 
-  v21 = [NSLayoutConstraint constraintWithItem:v8 attribute:9 relatedBy:0 toItem:v18 attribute:9 multiplier:1.0 constant:0.0];
-  [v18 addConstraint:v21];
+  v28 = [NSLayoutConstraint constraintWithItem:v15 attribute:9 relatedBy:0 toItem:v25 attribute:9 multiplier:1.0 constant:0.0];
+  [v25 addConstraint:v28];
 
-  v22 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"V:|-(padding)-[t(textHeight)]-(padding)-|", 0, v15, v19);
-  [v18 addConstraints:v22];
+  v29 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"V:|-(padding)-[t(textHeight)]-(padding)-|", 0, v22, v26);
+  [v25 addConstraints:v29];
 
-  [v18 setNeedsLayout];
+  [v25 setNeedsLayout];
   tableView3 = [(CKVettingAddressSelectionController *)self tableView];
-  [tableView3 setTableHeaderView:v18];
+  [tableView3 setTableHeaderView:v25];
 }
 
 - (void)_setupSectionFooter:(id)footer
@@ -431,50 +504,50 @@
 
   v8 = [@"CLOUDKIT_VETTING_FOOTER_TEXT_" stringByAppendingString:footerCopy];
 
-  v9 = sub_16B8(v8, &stru_14980);
-  v10 = [(CKVettingAddressSelectionController *)self _labelWithText:v9 maxWidth:v7];
+  v15 = sub_16B8(v8, &stru_14980, v9, v10, v11, v12, v13, v14, v59);
+  v16 = [(CKVettingAddressSelectionController *)self _labelWithText:v15 maxWidth:v7];
 
-  v11 = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
-  [v10 setFont:v11];
+  v17 = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+  [v16 setFont:v17];
 
-  v12 = +[UIColor secondaryLabelColor];
-  [v10 setTextColor:v12];
+  v18 = +[UIColor secondaryLabelColor];
+  [v16 setTextColor:v18];
 
-  v13 = sub_16B8(@"CLOUDKIT_VETTING_FOOTER_SEND_EMAIL", &stru_14980);
-  v14 = [(CKVettingAddressSelectionController *)self _buttonWithText:v13 maxWidth:v7];
+  v25 = sub_16B8(@"CLOUDKIT_VETTING_FOOTER_SEND_EMAIL", &stru_14980, v19, v20, v21, v22, v23, v24, v60);
+  v26 = [(CKVettingAddressSelectionController *)self _buttonWithText:v25 maxWidth:v7];
 
-  [v14 addTarget:self action:"handleSendEmail" forControlEvents:64];
-  [v14 setEnabled:0];
-  [(CKVettingAddressSelectionController *)self setSendEmailButton:v14];
-  v15 = +[UIDevice currentDevice];
-  v16 = [v15 userInterfaceIdiom] == &dword_0 + 1;
+  [v26 addTarget:self action:"handleSendEmail" forControlEvents:64];
+  [v26 setEnabled:0];
+  [(CKVettingAddressSelectionController *)self setSendEmailButton:v26];
+  v27 = +[UIDevice currentDevice];
+  v28 = [v27 userInterfaceIdiom] == &dword_0 + 1;
   sendEmailButton = [(CKVettingAddressSelectionController *)self sendEmailButton];
-  [sendEmailButton setHidden:v16];
+  [sendEmailButton setHidden:v28];
 
-  v48 = v10;
-  [v10 frame];
-  [v10 sizeThatFits:{v18, v19}];
-  v21 = v20;
-  [v14 frame];
-  [v14 sizeThatFits:{v22, v23}];
-  v25 = v24;
-  v49[0] = @"textHeight";
-  v26 = [NSNumber numberWithDouble:v21];
-  v50[0] = v26;
-  v49[1] = @"sendEmailHeight";
-  v27 = [NSNumber numberWithDouble:v25];
-  v50[1] = v27;
-  v49[2] = @"sendEmailSpacing";
-  v28 = [NSNumber numberWithDouble:v25 + 8.0];
-  v49[3] = @"padding";
-  v50[2] = v28;
-  v50[3] = &off_16380;
-  v47 = [NSDictionary dictionaryWithObjects:v50 forKeys:v49 count:4];
+  v62 = v16;
+  [v16 frame];
+  [v16 sizeThatFits:{v30, v31}];
+  v33 = v32;
+  [v26 frame];
+  [v26 sizeThatFits:{v34, v35}];
+  v37 = v36;
+  v63[0] = @"textHeight";
+  v38 = [NSNumber numberWithDouble:v33];
+  v64[0] = v38;
+  v63[1] = @"sendEmailHeight";
+  v39 = [NSNumber numberWithDouble:v37];
+  v64[1] = v39;
+  v63[2] = @"sendEmailSpacing";
+  v40 = [NSNumber numberWithDouble:v37 + 8.0];
+  v63[3] = @"padding";
+  v64[2] = v40;
+  v64[3] = &off_16380;
+  v61 = [NSDictionary dictionaryWithObjects:v64 forKeys:v63 count:4];
 
   tableView2 = [(CKVettingAddressSelectionController *)self tableView];
   [tableView2 frame];
-  v30 = +[UIApplication sharedApplication];
-  [v30 statusBarFrame];
+  v42 = +[UIApplication sharedApplication];
+  [v42 statusBarFrame];
   navigationController = [(CKVettingAddressSelectionController *)self navigationController];
   navigationBar = [navigationController navigationBar];
   [navigationBar frame];
@@ -486,32 +559,32 @@
   tableView4 = [(CKVettingAddressSelectionController *)self tableView];
   [tableView4 contentInset];
 
-  v37 = [UIView alloc];
+  v49 = [UIView alloc];
   tableView5 = [(CKVettingAddressSelectionController *)self tableView];
   [tableView5 frame];
-  v39 = [v37 initWithFrame:{0.0, 0.0}];
+  v51 = [v49 initWithFrame:{0.0, 0.0}];
 
-  [v39 addSubview:v48];
-  [v39 addSubview:v14];
-  v40 = _NSDictionaryOfVariableBindings(@"text, sendEmail", v48, v14, 0);
-  v41 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"H:|-(padding)-[text]-(padding)-|", 0, v47, v40);
-  [v39 addConstraints:v41];
+  [v51 addSubview:v62];
+  [v51 addSubview:v26];
+  v52 = _NSDictionaryOfVariableBindings(@"text, sendEmail", v62, v26, 0);
+  v53 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"H:|-(padding)-[text]-(padding)-|", 0, v61, v52);
+  [v51 addConstraints:v53];
 
-  v42 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"H:|-(padding)-[sendEmail]-(padding)-|", 0, v47, v40);
-  [v39 addConstraints:v42];
+  v54 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"H:|-(padding)-[sendEmail]-(padding)-|", 0, v61, v52);
+  [v51 addConstraints:v54];
 
-  v43 = [NSLayoutConstraint constraintWithItem:v48 attribute:9 relatedBy:0 toItem:v39 attribute:9 multiplier:1.0 constant:0.0];
-  [v39 addConstraint:v43];
+  v55 = [NSLayoutConstraint constraintWithItem:v62 attribute:9 relatedBy:0 toItem:v51 attribute:9 multiplier:1.0 constant:0.0];
+  [v51 addConstraint:v55];
 
-  v44 = [NSLayoutConstraint constraintWithItem:v14 attribute:9 relatedBy:0 toItem:v39 attribute:9 multiplier:1.0 constant:0.0];
-  [v39 addConstraint:v44];
+  v56 = [NSLayoutConstraint constraintWithItem:v26 attribute:9 relatedBy:0 toItem:v51 attribute:9 multiplier:1.0 constant:0.0];
+  [v51 addConstraint:v56];
 
-  v45 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"V:|-(padding)-[text(textHeight)]-(>=padding)-[sendEmail(sendEmailHeight)]-(sendEmailSpacing)-|", 0, v47, v40);
-  [v39 addConstraints:v45];
+  v57 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"V:|-(padding)-[text(textHeight)]-(>=padding)-[sendEmail(sendEmailHeight)]-(sendEmailSpacing)-|", 0, v61, v52);
+  [v51 addConstraints:v57];
 
-  [v39 setNeedsLayout];
+  [v51 setNeedsLayout];
   tableView6 = [(CKVettingAddressSelectionController *)self tableView];
-  [tableView6 setTableFooterView:v39];
+  [tableView6 setTableFooterView:v51];
 }
 
 @end

@@ -10,9 +10,11 @@
 - (id)displayFilterUIClient;
 - (void)_appTransition;
 - (void)_didHideAlert;
+- (void)_fireHomeButtons:(BOOL)buttons;
 - (void)_handleZoomInBuddyAlertResult:(int64_t)result;
 - (void)_launchAccessibilityReader;
 - (void)_promptToDisableBrightnessFilters:(id)filters data:(id)data;
+- (void)_setHearingAidControlVisible:(BOOL)visible;
 - (void)_setVoiceOverWasToggledSinceBoot:(BOOL)boot;
 - (void)_springBoardDied:(id)died;
 - (void)_startVoiceOverSequence;
@@ -67,23 +69,21 @@
 
 void __52__AXBHomeClickController__writeNoteToNewUserSession__block_invoke()
 {
-  v7[2] = *MEMORY[0x29EDCA608];
+  v6[2] = *MEMORY[0x29EDCA608];
   if (AXSessionIsLoginSession())
   {
-    v6[0] = *MEMORY[0x29EDBDEC8];
+    v5[0] = *MEMORY[0x29EDBDEC8];
     v0 = [MEMORY[0x29EDBA070] numberWithUnsignedChar:_AXSVoiceOverTouchEnabled()];
-    v7[0] = v0;
-    v6[1] = *MEMORY[0x29EDBDED0];
+    v6[0] = v0;
+    v5[1] = *MEMORY[0x29EDBDED0];
     v1 = [MEMORY[0x29EDBA070] numberWithUnsignedChar:_AXSZoomTouchEnabled()];
-    v7[1] = v1;
-    v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+    v6[1] = v1;
+    v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
     v3 = [MEMORY[0x29EDBA0C0] dataWithPropertyList:v2 format:200 options:0 error:0];
     v4 = [MEMORY[0x29EDBD5F8] sharedManager];
     [v4 writeData:v3 toFileAtAccessibilityContainerPath:*MEMORY[0x29EDBDEC0] completion:&__block_literal_global_287_0];
   }
-
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __52__AXBHomeClickController__writeNoteToNewUserSession__block_invoke_2(uint64_t a1, uint64_t a2)
@@ -185,7 +185,7 @@ uint64_t __65__AXBHomeClickController__promptToDisableBrightnessFilters_data___b
   }
 
   v3 = _AXSVoiceOverTouchEnabled();
-  v5 = _AXSTripleClickCopyOptions();
+  v4 = _AXSTripleClickCopyOptions();
   if (v3)
   {
     if (_AXSTripleClickContainsOption())
@@ -206,7 +206,6 @@ uint64_t __65__AXBHomeClickController__promptToDisableBrightnessFilters_data___b
       _AXSApplicationAccessibilitySetEnabled();
 LABEL_13:
       _AXSSetTripleClickOptions();
-      v4 = *MEMORY[0x29EDC8530];
       _AXSAccessibilitySetiTunesPreference();
       goto LABEL_14;
     }
@@ -315,6 +314,13 @@ LABEL_14:
   [mEMORY[0x29EDBDFA0] setAssistiveTouchMouseOnDeviceEyeTrackingEnabled:v2];
 }
 
+- (void)_setHearingAidControlVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  server = [MEMORY[0x29EDBDFA8] server];
+  [server setHearingAidControlVisible:visibleCopy];
+}
+
 - (void)_didHideAlert
 {
   if ([(AXBHomeClickController *)self didShowHoldDurationTripleClickHelp])
@@ -386,13 +392,13 @@ LABEL_14:
 
 uint64_t __48__AXBHomeClickController__toggleDisplayAskSheet__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v4 = AXLogBackboardServer();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
-    v9 = a2;
-    _os_log_impl(&dword_29BBBD000, v4, OS_LOG_TYPE_DEFAULT, "Triple click: handling from backboardd with %ld.", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = a2;
+    _os_log_impl(&dword_29BBBD000, v4, OS_LOG_TYPE_DEFAULT, "Triple click: handling from backboardd with %ld.", &v7, 0xCu);
   }
 
   [MEMORY[0x29EDBDFB8] registerObserverForTripleClickOption:a2];
@@ -435,16 +441,14 @@ LABEL_16:
   v5 = AXLogReader();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v8) = 0;
-    _os_log_impl(&dword_29BBBD000, v5, OS_LOG_TYPE_DEFAULT, "Launching reader from ASK Sheet", &v8, 2u);
+    LOWORD(v7) = 0;
+    _os_log_impl(&dword_29BBBD000, v5, OS_LOG_TYPE_DEFAULT, "Launching reader from ASK Sheet", &v7, 2u);
   }
 
   [*(a1 + 32) _launchAccessibilityReader];
 LABEL_17:
   *(*(a1 + 32) + 8) = 0;
-  result = [*(a1 + 32) _didHideAlert];
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  return [*(a1 + 32) _didHideAlert];
 }
 
 - (void)_startVoiceOverSequence
@@ -794,15 +798,15 @@ uint64_t __43__AXBHomeClickController_captureHomeClick___block_invoke()
   return result;
 }
 
-uint64_t __43__AXBHomeClickController_captureHomeClick___block_invoke_2(uint64_t result)
+void *__43__AXBHomeClickController_captureHomeClick___block_invoke_2(void *result)
 {
-  if (*(*(result + 32) + 8) == 1)
+  if (*(result[4] + 8) == 1)
   {
     v1 = result;
     LOBYTE(v2) = 1;
     _AXLogWithFacility();
-    result = [*(v1 + 32) _didHideAlert];
-    *(*(v1 + 32) + 8) = 0;
+    result = [v1[4] _didHideAlert];
+    *(v1[4] + 8) = 0;
   }
 
   return result;
@@ -851,7 +855,7 @@ LABEL_10:
 
 - (void)_appTransition
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   if ([MEMORY[0x29EDBA108] isMainThread])
   {
     _AXAssert();
@@ -864,18 +868,18 @@ LABEL_10:
   if ((isBuddyRunning & 1) == 0 && ![(AXBHomeClickController *)self _purpleBuddySetupComplete]&& (IsLoginSession & 1) == 0)
   {
     AXPerformBlockOnMainThreadAfterDelay();
-    goto LABEL_50;
+    return;
   }
 
   v7 = VOTLogLifeCycle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
-    *v26 = isBuddyRunning;
-    *&v26[4] = 1024;
-    *&v26[6] = IsLoginSession;
-    v27 = 1024;
-    v28 = 0;
+    *v25 = isBuddyRunning;
+    *&v25[4] = 1024;
+    *&v25[6] = IsLoginSession;
+    v26 = 1024;
+    v27 = 0;
     _os_log_impl(&dword_29BBBD000, v7, OS_LOG_TYPE_DEFAULT, "Home click controller transition %d %d %d", buf, 0x14u);
   }
 
@@ -891,7 +895,7 @@ LABEL_10:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v26 = _PreBuddyOptions;
+        *v25 = _PreBuddyOptions;
         _os_log_impl(&dword_29BBBD000, v8, OS_LOG_TYPE_DEFAULT, "Prebuddy options: %@", buf, 0xCu);
       }
 
@@ -920,7 +924,7 @@ LABEL_10:
             if (os_log_type_enabled(v13, v14))
             {
               *buf = 138543362;
-              *v26 = v16;
+              *v25 = v16;
               _os_log_impl(&dword_29BBBD000, v13, v14, "%{public}@", buf, 0xCu);
             }
           }
@@ -993,9 +997,6 @@ LABEL_27:
       [(AXBHomeClickController *)self clearNoteToUserSession];
     }
   }
-
-LABEL_50:
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_triggerAppTransition
@@ -1120,28 +1121,28 @@ LABEL_34:
 
 - (BOOL)_accessibilityIsFactoryDiskImagePresent
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = MobileStorageCopyDevices();
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = *MEMORY[0x29EDC5D50];
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = [*(*(&v13 + 1) + 8 * i) objectForKeyedSubscript:{v5, v13}];
+        v8 = [*(*(&v12 + 1) + 8 * i) objectForKeyedSubscript:{v5, v12}];
         v9 = [v8 hasPrefix:@"/private/var/personalized_factory"];
 
         if (v9)
@@ -1151,7 +1152,7 @@ LABEL_34:
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v4)
       {
         continue;
@@ -1164,7 +1165,6 @@ LABEL_34:
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
@@ -1192,12 +1192,89 @@ void __58__AXBHomeClickController__handleZoomActivationDuringBuddy__block_invoke
   }
 }
 
+- (void)_fireHomeButtons:(BOOL)buttons
+{
+  v4 = _MergedGlobals == 1 && buttons;
+  [(NSLock *)self->_menuButtonLock lock];
+  p_menuButtonClientIds = &self->_menuButtonClientIds;
+  v6 = [(NSMutableArray *)self->_menuButtonClientIds count];
+  v7 = _MergedGlobals;
+  v8 = qword_2A178F7B8;
+  if (v6 == qword_2A178F7B8 + _MergedGlobals)
+  {
+    if (_MergedGlobals >= 1)
+    {
+      v9 = 0;
+      do
+      {
+        if ([(NSMutableArray *)*p_menuButtonClientIds count]<= v9)
+        {
+          v10 = 0;
+        }
+
+        else
+        {
+          v10 = [(NSMutableArray *)*p_menuButtonClientIds objectAtIndex:v9];
+        }
+
+        if ([(NSMutableArray *)*p_menuButtonClientIds count]<= ++v9)
+        {
+          v11 = 0;
+        }
+
+        else
+        {
+          v11 = [(NSMutableArray *)*p_menuButtonClientIds objectAtIndex:v9];
+        }
+
+        _postHomeButtonPress(0, v4, v10);
+        _postHomeButtonPress(1, v4, v11);
+
+        v7 = _MergedGlobals;
+      }
+
+      while (_MergedGlobals > v9);
+      v8 = qword_2A178F7B8;
+    }
+
+    if (v7 < v8)
+    {
+      if (v8 - 1 >= [(NSMutableArray *)*p_menuButtonClientIds count])
+      {
+        v12 = 0;
+      }
+
+      else
+      {
+        v12 = [(NSMutableArray *)*p_menuButtonClientIds objectAtIndex:qword_2A178F7B8 - 1];
+      }
+
+      _postHomeButtonPress(0, v4, v12);
+    }
+
+    [(NSMutableArray *)self->_menuButtonClientIds removeAllObjects];
+    [(NSLock *)self->_menuButtonLock unlock];
+    _MergedGlobals = 0;
+    qword_2A178F7B8 = 0;
+  }
+
+  else
+  {
+    v13 = AXLogCommon();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      [(AXBHomeClickController *)&self->_menuButtonClientIds _fireHomeButtons:v13];
+    }
+
+    [(NSLock *)self->_menuButtonLock unlock];
+  }
+}
+
 - (void)_handleZoomInBuddyAlertResult:(int64_t)result
 {
   if (!result)
   {
     _AXSZoomTouchSetEnabled();
-    v4 = *MEMORY[0x29EDC8550];
 
     _AXSAccessibilitySetiTunesPreference();
   }
@@ -1213,65 +1290,62 @@ void __58__AXBHomeClickController__handleZoomActivationDuringBuddy__block_invoke
 
 - (void)_updateEventTapSettings
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   v3 = AXLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [MEMORY[0x29EDBA070] numberWithBool:_HomeClickEnabled];
     v5 = [MEMORY[0x29EDBA070] numberWithBool:_TripleHomeEnabled];
     v6 = [MEMORY[0x29EDBA070] numberWithBool:{-[AXBHomeClickController _sideButtonEnabled](self, "_sideButtonEnabled")}];
-    v15 = 138412802;
-    v16 = v4;
-    v17 = 2112;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v6;
-    _os_log_impl(&dword_29BBBD000, v3, OS_LOG_TYPE_DEFAULT, "Home click controller enabling tap: Home click: %@, triple click %@, side button: %@", &v15, 0x20u);
+    v14 = 138412802;
+    v15 = v4;
+    v16 = 2112;
+    v17 = v5;
+    v18 = 2112;
+    v19 = v6;
+    _os_log_impl(&dword_29BBBD000, v3, OS_LOG_TYPE_DEFAULT, "Home click controller enabling tap: Home click: %@, triple click %@, side button: %@", &v14, 0x20u);
   }
 
-  if ((_HomeClickEnabled & 1) == 0 && (_TripleHomeEnabled & 1) == 0 && ![(AXBHomeClickController *)self _sideButtonEnabled])
+  if ((_HomeClickEnabled & 1) != 0 || (_TripleHomeEnabled & 1) != 0 || [(AXBHomeClickController *)self _sideButtonEnabled])
   {
-    if (!self->_eventTapIdentifier)
+    if (self->_eventTapIdentifier)
     {
-      goto LABEL_11;
+      return;
     }
 
-    v13 = AXLogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_29BBBD000, v13, OS_LOG_TYPE_DEFAULT, "Removing home click event tap", &v15, 2u);
-    }
-
-    mEMORY[0x29EDBDF60] = [MEMORY[0x29EDBDF60] sharedManager];
-    [mEMORY[0x29EDBDF60] removeEventTap:self->_eventTapIdentifier];
-
-    eventTapIdentifier = self->_eventTapIdentifier;
-    self->_eventTapIdentifier = 0;
-    goto LABEL_10;
-  }
-
-  if (!self->_eventTapIdentifier)
-  {
     v7 = AXLogCommon();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_29BBBD000, v7, OS_LOG_TYPE_DEFAULT, "Installing home click event tap", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_29BBBD000, v7, OS_LOG_TYPE_DEFAULT, "Installing home click event tap", &v14, 2u);
     }
 
-    mEMORY[0x29EDBDF60]2 = [MEMORY[0x29EDBDF60] sharedManager];
-    v9 = [mEMORY[0x29EDBDF60]2 installEventTap:&__block_literal_global_369 identifier:@"HomeClick" type:0];
-    v10 = self->_eventTapIdentifier;
+    mEMORY[0x29EDBDF60] = [MEMORY[0x29EDBDF60] sharedManager];
+    v9 = [mEMORY[0x29EDBDF60] installEventTap:&__block_literal_global_369 identifier:@"HomeClick" type:0];
+    eventTapIdentifier = self->_eventTapIdentifier;
     self->_eventTapIdentifier = v9;
 
-    eventTapIdentifier = [MEMORY[0x29EDBDF60] sharedManager];
-    [eventTapIdentifier setEventTapPriority:self->_eventTapIdentifier priority:70];
-LABEL_10:
+    mEMORY[0x29EDBDF60]2 = [MEMORY[0x29EDBDF60] sharedManager];
+    [mEMORY[0x29EDBDF60]2 setEventTapPriority:self->_eventTapIdentifier priority:70];
+    goto LABEL_10;
   }
 
-LABEL_11:
-  v12 = *MEMORY[0x29EDCA608];
+  if (self->_eventTapIdentifier)
+  {
+    v12 = AXLogCommon();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_29BBBD000, v12, OS_LOG_TYPE_DEFAULT, "Removing home click event tap", &v14, 2u);
+    }
+
+    mEMORY[0x29EDBDF60]3 = [MEMORY[0x29EDBDF60] sharedManager];
+    [mEMORY[0x29EDBDF60]3 removeEventTap:self->_eventTapIdentifier];
+
+    mEMORY[0x29EDBDF60]2 = self->_eventTapIdentifier;
+    self->_eventTapIdentifier = 0;
+LABEL_10:
+  }
 }
 
 uint64_t __49__AXBHomeClickController__updateEventTapSettings__block_invoke(uint64_t a1, void *a2)
@@ -1380,16 +1454,15 @@ uint64_t __43__AXBHomeClickController_initializeMonitor__block_invoke()
 
 - (void)_fireHomeButtons:(uint64_t *)a1 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v2 = *a1;
-  v4 = 138412802;
-  v5 = v2;
-  v6 = 1024;
-  v7 = _MergedGlobals;
-  v8 = 1024;
-  v9 = qword_2A178F7B8;
-  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Our menu button ids are messed up: %@ != %d + %d", &v4, 0x18u);
-  v3 = *MEMORY[0x29EDCA608];
+  v3 = 138412802;
+  v4 = v2;
+  v5 = 1024;
+  v6 = _MergedGlobals;
+  v7 = 1024;
+  v8 = qword_2A178F7B8;
+  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Our menu button ids are messed up: %@ != %d + %d", &v3, 0x18u);
 }
 
 @end

@@ -69,50 +69,50 @@
 
 - (id)serializeWithError:(id *)error
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
+  v47 = *MEMORY[0x1E69E9840];
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v26 = 0u;
   TLV8BufferInit();
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   statuses = [(HMNetworkRouterWANStatusList *)self statuses];
-  v6 = [statuses countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [statuses countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v23;
+    v9 = *v22;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v23 != v9)
+      if (*v22 != v9)
       {
         objc_enumerationMutation(statuses);
       }
 
-      v11 = *(*(&v22 + 1) + 8 * v10);
+      v11 = *(*(&v21 + 1) + 8 * v10);
       if (v8)
       {
         v12 = TLV8BufferAppend();
@@ -122,9 +122,9 @@ LABEL_3:
         }
       }
 
-      v21 = 0;
-      v13 = [v11 serializeWithError:&v21];
-      v14 = v21;
+      v20 = 0;
+      v13 = [v11 serializeWithError:&v20];
+      v14 = v20;
       if (v14)
       {
         v17 = v14;
@@ -153,7 +153,7 @@ LABEL_3:
       v8 = 1;
       if (v7 == v10)
       {
-        v7 = [statuses countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v7 = [statuses countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -182,12 +182,10 @@ LABEL_19:
 
 LABEL_12:
 
-  v16 = [MEMORY[0x1E695DEF0] dataWithBytes:v27 length:?];
+  v16 = [MEMORY[0x1E695DEF0] dataWithBytes:v26 length:?];
   v17 = 0;
 LABEL_20:
   TLV8BufferFree();
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

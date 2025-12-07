@@ -127,7 +127,7 @@
       goto LABEL_7;
     }
 
-    [(HDCodableWorkoutConfiguration *)workoutConfiguration mergeFrom:?];
+    workoutConfiguration = [(HDCodableWorkoutConfiguration *)workoutConfiguration mergeFrom:?];
   }
 
   else
@@ -137,17 +137,18 @@
       goto LABEL_7;
     }
 
-    [(HDCodableWorkoutSessionConfiguration *)self setWorkoutConfiguration:?];
+    workoutConfiguration = [(HDCodableWorkoutSessionConfiguration *)self setWorkoutConfiguration:?];
   }
 
   fromCopy = v7;
 LABEL_7:
   if (fromCopy[1])
   {
-    [(HDCodableWorkoutSessionConfiguration *)self setSourceBundleIdentifier:?];
+    workoutConfiguration = [(HDCodableWorkoutSessionConfiguration *)self setSourceBundleIdentifier:?];
+    fromCopy = v7;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](workoutConfiguration, fromCopy);
 }
 
 @end

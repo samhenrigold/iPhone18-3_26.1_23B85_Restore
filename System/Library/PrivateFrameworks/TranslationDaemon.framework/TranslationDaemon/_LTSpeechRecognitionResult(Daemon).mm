@@ -65,33 +65,32 @@
     }
 
     v26 = _LTPreferencesOfflineASRWordLevelConfidenceThreshold(v15, v16);
-    v27 = _LTOSLogSpeech();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v28 = _LTOSLogSpeech(v26, v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      [_LTSpeechRecognitionResult(Daemon) initWithPackage:v27 locale:v15 modelVersion:v26 taskHint:? isFinal:? endOfUtterance:?];
+      [_LTSpeechRecognitionResult(Daemon) initWithPackage:v28 locale:v15 modelVersion:v26 taskHint:? isFinal:? endOfUtterance:?];
     }
 
-    v28 = objc_alloc(MEMORY[0x277CE1B98]);
+    v29 = objc_alloc(MEMORY[0x277CE1B98]);
     recognition = [v14 recognition];
-    v30 = [v28 initWithRecognition:recognition wordConfidenceThreshold:v26];
-    [v18 setBestRecognitionAlternatives:v30];
+    v31 = [v29 initWithRecognition:recognition wordConfidenceThreshold:v26];
+    [v18 setBestRecognitionAlternatives:v31];
 
-    v31 = v18;
+    v32 = v18;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (void)initWithResult:()Daemon locale:modelVersion:taskHint:isFinal:
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v12 = a3;
   v13 = a4;
   v14 = a5;
-  v22.receiver = self;
-  v22.super_class = &off_28488EEE8;
-  v15 = objc_msgSendSuper2(&v22, sel_init);
+  v21.receiver = self;
+  v21.super_class = &off_28488EEE8;
+  v15 = objc_msgSendSuper2(&v21, sel_init);
   v16 = v15;
   if (v15)
   {
@@ -101,24 +100,23 @@
     [v16 setModelVersion:v14];
     [v16 setTaskHint:a6];
     v17 = [v16 _transcriptionWithResult:v12 locale:v13];
-    v23[0] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    v22[0] = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
     [v16 setTranscriptions:v18];
 
     v19 = v16;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)initEmptyResultWithLocale:()Daemon isFinal:
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v6 = a3;
-  v14.receiver = self;
-  v14.super_class = &off_28488EEE8;
-  v7 = objc_msgSendSuper2(&v14, sel_init);
+  v13.receiver = self;
+  v13.super_class = &off_28488EEE8;
+  v7 = objc_msgSendSuper2(&v13, sel_init);
   v8 = v7;
   if (v7)
   {
@@ -126,14 +124,13 @@
     [v8 setStable:1];
     [v8 setLocale:v6];
     v9 = [objc_alloc(MEMORY[0x277CE1BA8]) initWithFormattedString:&stru_284834138 locale:v6 confidence:0.0 minConfidence:0.0 maxConfidence:0.0];
-    v15[0] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     [v8 setTranscriptions:v10];
 
     v11 = v8;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -177,20 +174,20 @@
 
 - (id)_transcriptionWithResult:()Daemon locale:
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v6 = a3;
-  v33 = a4;
+  v32 = a4;
   string = [MEMORY[0x277CCAB68] string];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   tokens = [v6 tokens];
-  v9 = [tokens countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v9 = [tokens countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v35;
+    v11 = *v34;
     v12 = 0.0;
     v13 = 1000.0;
     v14 = 0.0;
@@ -198,12 +195,12 @@
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v35 != v11)
+        if (*v34 != v11)
         {
           objc_enumerationMutation(tokens);
         }
 
-        v16 = *(*(&v34 + 1) + 8 * i);
+        v16 = *(*(&v33 + 1) + 8 * i);
         [v16 confidence];
         v18 = v17;
         [v16 confidence];
@@ -234,7 +231,7 @@
         v14 = v14 + v18;
       }
 
-      v10 = [tokens countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v10 = [tokens countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v10);
@@ -252,7 +249,7 @@
 
   if ([self taskHint] == 10)
   {
-    v24 = [MEMORY[0x277CE1AB0] trimPrependingPunctuation:v23 locale:v33];
+    v24 = [MEMORY[0x277CE1AB0] trimPrependingPunctuation:v23 locale:v32];
 
     v23 = v24;
   }
@@ -282,25 +279,21 @@
     v28 = v29;
   }
 
-  v30 = [objc_alloc(MEMORY[0x277CE1BA8]) initWithFormattedString:v23 locale:v33 confidence:v28 minConfidence:v13 maxConfidence:v12];
-
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = [objc_alloc(MEMORY[0x277CE1BA8]) initWithFormattedString:v23 locale:v32 confidence:v28 minConfidence:v13 maxConfidence:v12];
 
   return v30;
 }
 
 - (void)initWithPackage:()Daemon locale:modelVersion:taskHint:isFinal:endOfUtterance:.cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 localeIdentifier];
-  v8 = 134218242;
-  v9 = a3;
-  v10 = 2114;
-  v11 = v6;
-  _os_log_debug_impl(&dword_232E53000, v5, OS_LOG_TYPE_DEBUG, "Sausage conf %zd for locale %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218242;
+  v8 = a3;
+  v9 = 2114;
+  v10 = v6;
+  _os_log_debug_impl(&dword_232E53000, v5, OS_LOG_TYPE_DEBUG, "Sausage conf %zd for locale %{public}@", &v7, 0x16u);
 }
 
 @end

@@ -13,7 +13,7 @@
   __chkstk_darwin(v3);
   v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  sub_1006DF5C0();
+  sub_1006DF5C0(selfCopy);
 
   v8.super.super.isa = sub_10079B234().super.super.isa;
   (*(v4 + 8))(v6, v3);

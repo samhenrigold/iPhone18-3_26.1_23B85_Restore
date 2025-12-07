@@ -98,41 +98,41 @@ void __55___SFDownloadManager__loadDownloadHistoryAsynchronous___block_invoke(ui
   }
 }
 
-void __55___SFDownloadManager__loadDownloadHistoryAsynchronous___block_invoke_2(uint64_t a1)
+void __55___SFDownloadManager__loadDownloadHistoryAsynchronous___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() downloadRepresentationsAtURL:*(a1 + 40)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v3 = [objc_opt_class() downloadRepresentationsAtURL:*(a1 + 40)];
+  v4 = *(*(a1 + 56) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  v5 = *(*(*(a1 + 56) + 8) + 40);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __55___SFDownloadManager__loadDownloadHistoryAsynchronous___block_invoke_3;
-  v12[3] = &unk_1E8495DE0;
-  v6 = *(a1 + 72);
-  v12[4] = *(a1 + 32);
-  v12[5] = v6;
-  v7 = [v5 safari_mapObjectsUsingBlock:v12];
-  v8 = *(*(a1 + 64) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  v6 = *(*(*(a1 + 56) + 8) + 40);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __55___SFDownloadManager__loadDownloadHistoryAsynchronous___block_invoke_3;
+  v13[3] = &unk_1E8495DE0;
+  v7 = *(a1 + 72);
+  v13[4] = *(a1 + 32);
+  v13[5] = v7;
+  v8 = [v6 safari_mapObjectsUsingBlock:v13];
+  v9 = *(*(a1 + 64) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v8;
 
-  v10 = [*(*(*(a1 + 56) + 8) + 40) count];
-  if (v10 != [*(*(*(a1 + 64) + 8) + 40) count])
+  v11 = [*(*(*(a1 + 56) + 8) + 40) count];
+  if (v11 != [*(*(*(a1 + 64) + 8) + 40) count])
   {
     *(*(*(a1 + 72) + 8) + 24) = 1;
   }
 
-  v11 = *(a1 + 48);
+  v12 = *(a1 + 48);
   if (*(a1 + 80) == 1)
   {
-    dispatch_async(MEMORY[0x1E69E96A0], v11);
+    dispatch_async(MEMORY[0x1E69E96A0], v12);
   }
 
   else
   {
-    v11[2](*(a1 + 48));
+    v12[2](*(a1 + 48));
   }
 }
 
@@ -209,16 +209,16 @@ void __61___SFDownloadManager_downloadDidImportFileToDownloadsFolder___block_inv
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   v4 = *(a1 + 32);
   v3 = (a1 + 32);
-  v7 = 0;
-  [v2 removeItemAtURL:v4 error:&v7];
-  v5 = v7;
+  v9 = 0;
+  [v2 removeItemAtURL:v4 error:&v9];
+  v5 = v9;
 
   if (v5)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXDownloads(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __61___SFDownloadManager_downloadDidImportFileToDownloadsFolder___block_invoke_cold_1(v3, v6, v5);
+      __61___SFDownloadManager_downloadDidImportFileToDownloadsFolder___block_invoke_cold_1(v3, v8, v5);
     }
   }
 }

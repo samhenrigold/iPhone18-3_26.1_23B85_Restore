@@ -47,7 +47,7 @@
 
   if ([v5 unsignedIntegerValue] == 5)
   {
-    v6 = nfm_log();
+    v6 = nfm_log(5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -62,7 +62,7 @@
 
 - (void)updatePingMyWatchSupportStateIfNeeded
 {
-  v3 = nfm_log();
+  v3 = nfm_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -87,16 +87,16 @@ void __66__NFMPingMyWatchCoordinator_updatePingMyWatchSupportStateIfNeeded__bloc
 {
   v7 = *MEMORY[0x277D85DE8];
   AppBooleanValue = CFPreferencesGetAppBooleanValue(@"isPingMySupported", @"com.apple.NanoLeash.NFMPingMyWatch", 0);
-  v3 = nfm_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = AppBooleanValue;
+  v4 = nfm_log(AppBooleanValue);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6[0] = 67109120;
-    v6[1] = AppBooleanValue != 0;
-    _os_log_impl(&dword_25B17F000, v3, OS_LOG_TYPE_DEFAULT, "########### Reading PingMyWatch support value: %{BOOL}d", v6, 8u);
+    v6[1] = v3 != 0;
+    _os_log_impl(&dword_25B17F000, v4, OS_LOG_TYPE_DEFAULT, "########### Reading PingMyWatch support value: %{BOOL}d", v6, 8u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-  return AppBooleanValue != 0;
+  return v3 != 0;
 }
 
 + (void)_updateActiveDeviceSupportedState:(id)state
@@ -115,51 +115,50 @@ void __66__NFMPingMyWatchCoordinator_updatePingMyWatchSupportStateIfNeeded__bloc
 
 void __63__NFMPingMyWatchCoordinator__updateActiveDeviceSupportedState___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D2BCF8] sharedInstance];
   v3 = [v2 getActivePairedDevice];
 
   v4 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"C5BAD2E8-BB79-4E9E-8A0D-757C60D31053"];
   v5 = [v3 supportsCapability:v4];
 
-  v6 = v5 ^ [*(a1 + 40) isPingMySupportedOnActiveDevice];
-  if (v6 == 1)
+  v6 = [*(a1 + 40) isPingMySupportedOnActiveDevice];
+  v7 = v5 ^ v6;
+  if (v7 == 1)
   {
     CFPreferencesSetAppValue(@"isPingMySupported", [MEMORY[0x277CCABB0] numberWithBool:v5], @"com.apple.NanoLeash.NFMPingMyWatch");
-    v7 = nfm_log();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = nfm_log(v8);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_7;
     }
 
-    v11 = 67109120;
-    v12 = v5;
-    v8 = "########### Updated PingMyWatch support to: %{BOOL}d";
+    v12 = 67109120;
+    v13 = v5;
+    v10 = "########### Updated PingMyWatch support to: %{BOOL}d";
   }
 
   else
   {
-    v7 = nfm_log();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = nfm_log(v6);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_7;
     }
 
-    v11 = 67109120;
-    v12 = v5;
-    v8 = "###########  PingMyWatch support has not changed. isSupported: %{BOOL}d";
+    v12 = 67109120;
+    v13 = v5;
+    v10 = "###########  PingMyWatch support has not changed. isSupported: %{BOOL}d";
   }
 
-  _os_log_impl(&dword_25B17F000, v7, OS_LOG_TYPE_DEFAULT, v8, &v11, 8u);
+  _os_log_impl(&dword_25B17F000, v9, OS_LOG_TYPE_DEFAULT, v10, &v12, 8u);
 LABEL_7:
 
-  v9 = *(a1 + 32);
-  if (v9)
+  v11 = *(a1 + 32);
+  if (v11)
   {
-    (*(v9 + 16))(v9, v6);
+    (*(v11 + 16))(v11, v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NFMPingMyWatchCoordinatorDelegate)delegate

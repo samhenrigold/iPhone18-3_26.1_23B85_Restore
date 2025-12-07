@@ -1,6 +1,7 @@
 @interface Tasking
 + (void)startDpTaskingMonitorOnDispatchQ:(id)q andWorkDir:(id)dir;
 - (BOOL)LoadTasking;
+- (BOOL)evaluateTaskingCriteria:(id)criteria doWhiteListCheck:(BOOL)check;
 - (BOOL)isDeviceTasked;
 - (BOOL)validate;
 - (Tasking)initWithWorkDir:(id)dir;
@@ -278,6 +279,25 @@
   v14 = v10 && v11;
 
   return v13 & v14;
+}
+
+- (BOOL)evaluateTaskingCriteria:(id)criteria doWhiteListCheck:(BOOL)check
+{
+  checkCopy = check;
+  criteriaCopy = criteria;
+  if ([(Tasking *)self validate])
+  {
+    getTaskingCriteria = [(Tasking *)self getTaskingCriteria];
+    v8 = [[TaskingCriteriaRange alloc] initFromTaskingCrit:getTaskingCriteria];
+    v9 = [v8 evaluateCriteriaUsingStatsProvider:criteriaCopy doWhiteListCheck:checkCopy];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
 }
 
 @end

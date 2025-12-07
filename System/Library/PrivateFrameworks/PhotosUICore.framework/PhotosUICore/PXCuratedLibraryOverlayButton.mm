@@ -59,15 +59,80 @@
     userData = [(PXCuratedLibraryOverlayButton *)self userData];
     [(PXCuratedLibraryOverlayButton *)self _updateEffectViewBackgroundStyle];
     v5 = userData;
-    [v5 segment];
+    segment = [v5 segment];
     spec = [v5 spec];
     [spec buttonHeight];
+    v9 = v8 * 0.5;
 
-    [v5 style];
+    style = [v5 style];
+    v11 = 0.0;
+    v12 = 4.0;
+    v13 = 5.0;
+    if (((1 << style) & 0xC0) == 0)
+    {
+      v13 = 0.0;
+    }
+
+    if (((1 << style) & 0x1C00) != 0)
+    {
+      v13 = 0.0;
+    }
+
+    else
+    {
+      v12 = v9;
+    }
+
+    if (((1 << style) & 0x3C) != 0)
+    {
+      v13 = 0.0;
+      v12 = 0.0;
+    }
+
+    if (style > 0xC)
+    {
+      v12 = v9;
+    }
+
+    else
+    {
+      v11 = v13;
+    }
+
+    if (segment == 2)
+    {
+      v14 = v11;
+    }
+
+    else
+    {
+      v14 = v12;
+    }
+
+    if (segment == 1)
+    {
+      v15 = v11;
+    }
+
+    else
+    {
+      v15 = v12;
+    }
+
     spec2 = [v5 spec];
 
-    [spec2 layoutDirection];
-    PXFloatApproximatelyEqualToFloat();
+    layoutDirection = [spec2 layoutDirection];
+    if (layoutDirection == 2)
+    {
+      v18 = v15;
+    }
+
+    else
+    {
+      v18 = v14;
+    }
+
+    PXFloatApproximatelyEqualToFloat(v18);
   }
 }
 
@@ -620,17 +685,17 @@ LABEL_11:
 
       v28 = *v27;
       spec = [v11 spec];
-      options = [spec options];
+      v30 = objc_msgSend_options(spec);
 
       v31 = MEMORY[0x1E69DDCF8];
-      if ((options & 4) == 0)
+      if ((v30 & 4) == 0)
       {
         v31 = MEMORY[0x1E69DDD78];
       }
 
       v32 = *v31;
       v33 = [MEMORY[0x1E69DB878] px_preferredFontForTextStyle:v32 maxContentSizeCategory:v28 withSymbolicTraits:32770];
-      if ((options & 4) != 0 || ([systemImageName isEqualToString:@"person.fill"] & 1) != 0 || objc_msgSend(systemImageName, "isEqualToString:", @"person.2.fill"))
+      if ((v30 & 4) != 0 || ([systemImageName isEqualToString:@"person.fill"] & 1) != 0 || objc_msgSend(systemImageName, "isEqualToString:", @"person.2.fill"))
       {
         v34 = 1;
       }
@@ -1054,17 +1119,17 @@ LABEL_37:
 
       v40 = *v39;
       spec3 = [v22 spec];
-      options = [spec3 options];
+      v42 = objc_msgSend_options(spec3);
 
       v43 = MEMORY[0x1E69DDCF8];
-      if ((options & 4) == 0)
+      if ((v42 & 4) == 0)
       {
         v43 = MEMORY[0x1E69DDD78];
       }
 
       v44 = *v43;
       v45 = [MEMORY[0x1E69DB878] px_preferredFontForTextStyle:v44 maxContentSizeCategory:v40 withSymbolicTraits:32770];
-      if ((options & 4) != 0 || ([systemImageName isEqualToString:@"person.fill"] & 1) != 0 || objc_msgSend(systemImageName, "isEqualToString:", @"person.2.fill"))
+      if ((v42 & 4) != 0 || ([systemImageName isEqualToString:@"person.fill"] & 1) != 0 || objc_msgSend(systemImageName, "isEqualToString:", @"person.2.fill"))
       {
         v46 = 1;
       }
@@ -2251,17 +2316,17 @@ LABEL_9:
 
         v20 = *v19;
         spec = [configurationCopy spec];
-        options = [spec options];
+        v22 = objc_msgSend_options(spec);
 
         v23 = MEMORY[0x1E69DDCF8];
-        if ((options & 4) == 0)
+        if ((v22 & 4) == 0)
         {
           v23 = MEMORY[0x1E69DDD78];
         }
 
         v24 = *v23;
         v25 = [MEMORY[0x1E69DB878] px_preferredFontForTextStyle:v24 maxContentSizeCategory:v20 withSymbolicTraits:32770];
-        if ((options & 4) != 0 || ([systemImageName isEqualToString:@"person.fill"] & 1) != 0 || objc_msgSend(systemImageName, "isEqualToString:", @"person.2.fill"))
+        if ((v22 & 4) != 0 || ([systemImageName isEqualToString:@"person.fill"] & 1) != 0 || objc_msgSend(systemImageName, "isEqualToString:", @"person.2.fill"))
         {
           v26 = 1;
         }

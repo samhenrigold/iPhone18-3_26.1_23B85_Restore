@@ -114,8 +114,8 @@
     goto LABEL_15;
   }
 
-  [(AVCaption *)caption timeRange];
-  if ((v34 & 1) == 0 || ([(AVCaption *)caption timeRange], (v33 & 1) == 0) || ([(AVCaption *)caption timeRange], v32) || ([(AVCaption *)caption timeRange], v31 < 0))
+  objc_msgSend_timeRange(caption);
+  if ((v34 & 1) == 0 || (objc_msgSend_timeRange(caption), (v33 & 1) == 0) || (objc_msgSend_timeRange(caption), v32) || (objc_msgSend_timeRange(caption), v31 < 0))
   {
     v13 = MEMORY[0x1E695DF30];
     v14 = *MEMORY[0x1E695D940];
@@ -127,7 +127,7 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  [(AVCaption *)caption timeRange];
+  objc_msgSend_timeRange(caption);
   if ((v30 & 0x1D) != 1)
   {
     v13 = MEMORY[0x1E695DF30];
@@ -136,7 +136,7 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  [(AVCaption *)caption timeRange];
+  objc_msgSend_timeRange(caption);
   if ((v29 & 0x1D) != 1)
   {
     v13 = MEMORY[0x1E695DF30];
@@ -173,8 +173,8 @@ LABEL_16:
     goto LABEL_15;
   }
 
-  [(AVCaptionGroup *)captionGroup timeRange];
-  if ((v34 & 1) == 0 || ([(AVCaptionGroup *)captionGroup timeRange], (v33 & 1) == 0) || ([(AVCaptionGroup *)captionGroup timeRange], v32) || ([(AVCaptionGroup *)captionGroup timeRange], v31 < 0))
+  objc_msgSend_timeRange(captionGroup);
+  if ((v34 & 1) == 0 || (objc_msgSend_timeRange(captionGroup), (v33 & 1) == 0) || (objc_msgSend_timeRange(captionGroup), v32) || (objc_msgSend_timeRange(captionGroup), v31 < 0))
   {
     v13 = MEMORY[0x1E695DF30];
     v14 = *MEMORY[0x1E695D940];
@@ -186,7 +186,7 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  [(AVCaptionGroup *)captionGroup timeRange];
+  objc_msgSend_timeRange(captionGroup);
   if ((v30 & 0x1D) != 1)
   {
     v13 = MEMORY[0x1E695DF30];
@@ -195,7 +195,7 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  [(AVCaptionGroup *)captionGroup timeRange];
+  objc_msgSend_timeRange(captionGroup);
   if ((v29 & 0x1D) != 1)
   {
     v13 = MEMORY[0x1E695DF30];

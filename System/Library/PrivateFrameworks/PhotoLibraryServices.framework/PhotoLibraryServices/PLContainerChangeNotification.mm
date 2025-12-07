@@ -191,7 +191,7 @@
   movedIndexes = self->_movedIndexes;
   if (movedIndexes)
   {
-    LOBYTE(movedIndexes) = [(NSIndexSet *)movedIndexes count]!= 0;
+    LOBYTE(movedIndexes) = objc_msgSend_count(movedIndexes, a2) != 0;
   }
 
   return movedIndexes;
@@ -206,7 +206,7 @@
   {
     if (self->_movedFromIndexes)
     {
-      [(NSIndexSet *)self->_movedIndexes count];
+      objc_msgSend_count(self->_movedIndexes);
       CFArrayGetCount(self->_movedFromIndexes);
       movedIndexes = self->_movedIndexes;
     }
@@ -364,8 +364,8 @@ uint64_t __57__PLContainerChangeNotification_enumerateMovesWithBlock___block_inv
       self->_changedIndexes = indexSet3;
     }
 
-    v23 = [v29 count];
-    self->_countDidChange = v23 != [v28 count];
+    v23 = objc_msgSend_count(v29);
+    self->_countDidChange = v23 != objc_msgSend_count(v28);
   }
 }
 

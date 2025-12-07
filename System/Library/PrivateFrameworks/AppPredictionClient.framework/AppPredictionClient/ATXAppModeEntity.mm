@@ -16,28 +16,29 @@
 {
   idCopy = id;
   idsCopy = ids;
-  v13.receiver = self;
-  v13.super_class = ATXAppModeEntity;
-  v8 = [(ATXAppModeEntity *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = ATXAppModeEntity;
+  v8 = [(ATXAppModeEntity *)&v14 init];
+  v9 = v8;
   if (v8)
   {
     if (!idCopy)
     {
-      v9 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v10 = __atxlog_handle_notification_management(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        [ATXAppModeEntity initWithBundleId:v9 itunesGenreIds:?];
+        [ATXAppModeEntity initWithBundleId:v10 itunesGenreIds:?];
       }
     }
 
-    v10 = [idCopy copy];
-    bundleId = v8->_bundleId;
-    v8->_bundleId = v10;
+    v11 = [idCopy copy];
+    bundleId = v9->_bundleId;
+    v9->_bundleId = v11;
 
-    objc_storeStrong(&v8->_itunesGenreIds, ids);
+    objc_storeStrong(&v9->_itunesGenreIds, ids);
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)jsonDict
@@ -161,7 +162,7 @@
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_notification_management();
+  v7 = __atxlog_handle_notification_management(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"codingKeyForBundleId" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.decode.appModeEntity" errorCode:-1 logHandle:v7];
 
   if (v8 && ([coderCopy error], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
@@ -172,8 +173,8 @@
     v14 = objc_opt_class();
     v15 = [v13 initWithObjects:{v14, objc_opt_class(), 0}];
     objc_autoreleasePoolPop(v12);
-    v16 = __atxlog_handle_notification_management();
-    v17 = [v11 robustDecodeObjectOfClasses:v15 forKey:@"codingKeyForItunesGenreIds" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.decode.appModeEntity" errorCode:-1 logHandle:v16];
+    v17 = __atxlog_handle_notification_management(v16);
+    v18 = [v11 robustDecodeObjectOfClasses:v15 forKey:@"codingKeyForItunesGenreIds" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.decode.appModeEntity" errorCode:-1 logHandle:v17];
 
     error = [coderCopy error];
 
@@ -184,10 +185,10 @@
 
     else
     {
-      v19 = MEMORY[0x1E69C5D78];
-      v20 = objc_opt_class();
-      v21 = __atxlog_handle_notification_management();
-      v22 = [v19 robustDecodeObjectOfClass:v20 forKey:@"codingKeyForScoreMetadata" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.decode.appModeEntity" errorCode:-1 logHandle:v21];
+      v20 = MEMORY[0x1E69C5D78];
+      v21 = objc_opt_class();
+      v22 = __atxlog_handle_notification_management(v21);
+      v23 = [v20 robustDecodeObjectOfClass:v21 forKey:@"codingKeyForScoreMetadata" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.decode.appModeEntity" errorCode:-1 logHandle:v22];
 
       error2 = [coderCopy error];
 
@@ -198,8 +199,8 @@
 
       else
       {
-        self = [(ATXAppModeEntity *)self initWithBundleId:v8 itunesGenreIds:v17];
-        [(ATXAppModeEntity *)self setScoreMetadata:v22];
+        self = [(ATXAppModeEntity *)self initWithBundleId:v8 itunesGenreIds:v18];
+        [(ATXAppModeEntity *)self setScoreMetadata:v23];
         selfCopy = self;
       }
     }

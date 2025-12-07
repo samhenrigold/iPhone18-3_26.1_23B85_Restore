@@ -20,7 +20,7 @@
 
 - (void)_handleConnectionActivated
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (self->_lock_pendingAcquire)
   {
@@ -30,8 +30,8 @@
       v3 = CRSUILogForCategory(1uLL);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v13[0]) = 0;
-        _os_log_impl(&dword_243218000, v3, OS_LOG_TYPE_DEFAULT, "Acquiring assertion for Siri presentation", v13, 2u);
+        LOWORD(v12[0]) = 0;
+        _os_log_impl(&dword_243218000, v3, OS_LOG_TYPE_DEFAULT, "Acquiring assertion for Siri presentation", v12, 2u);
       }
 
       connection = [(CRSUIStatusBarStyleAssertion *)self connection];
@@ -44,8 +44,8 @@
       v6 = CRSUILogForCategory(1uLL);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v13[0]) = 0;
-        _os_log_impl(&dword_243218000, v6, OS_LOG_TYPE_DEFAULT, "Acquiring assertion for StandBy screen", v13, 2u);
+        LOWORD(v12[0]) = 0;
+        _os_log_impl(&dword_243218000, v6, OS_LOG_TYPE_DEFAULT, "Acquiring assertion for StandBy screen", v12, 2u);
       }
 
       connection = [(CRSUIStatusBarStyleAssertion *)self connection];
@@ -78,11 +78,11 @@
       v7 = CRSUILogForCategory(1uLL);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v13[0] = 67109376;
-        v13[1] = [(CRSUIStatusBarStyleAssertion *)self interfaceStyle];
-        v14 = 1024;
+        v12[0] = 67109376;
+        v12[1] = [(CRSUIStatusBarStyleAssertion *)self interfaceStyle];
+        v13 = 1024;
         colorVariant = [(CRSUIStatusBarStyleAssertion *)self colorVariant];
-        _os_log_impl(&dword_243218000, v7, OS_LOG_TYPE_DEFAULT, "Acquiring assertion for interface style: %d, contrast: %d", v13, 0xEu);
+        _os_log_impl(&dword_243218000, v7, OS_LOG_TYPE_DEFAULT, "Acquiring assertion for interface style: %d, contrast: %d", v12, 0xEu);
       }
 
       connection2 = [(CRSUIStatusBarStyleAssertion *)self connection];
@@ -101,7 +101,6 @@
 
   self->_lock_connectionActivated = 1;
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (CRSUIStatusBarStyleAssertion)initWithInterfaceStyle:(int64_t)style contrast:(int64_t)contrast
@@ -131,10 +130,10 @@
 
 - (id)_initWithInterfaceStyle:(int64_t)style colorVariant:(int64_t)variant siriPresentation:(BOOL)presentation standByScreen:(BOOL)screen
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v29.receiver = self;
-  v29.super_class = CRSUIStatusBarStyleAssertion;
-  v10 = [(CRSUIStatusBarStyleAssertion *)&v29 init];
+  v31 = *MEMORY[0x277D85DE8];
+  v28.receiver = self;
+  v28.super_class = CRSUIStatusBarStyleAssertion;
+  v10 = [(CRSUIStatusBarStyleAssertion *)&v28 init];
   v11 = v10;
   if (v10)
   {
@@ -158,29 +157,28 @@
 
     objc_initWeak(&location, v11);
     v20 = v11->_connection;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __100__CRSUIStatusBarStyleAssertion__initWithInterfaceStyle_colorVariant_siriPresentation_standByScreen___block_invoke;
-    v25[3] = &unk_278DA0B58;
-    v26 = v11;
-    objc_copyWeak(&v27, &location);
-    [(BSServiceConnection *)v20 configureConnection:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __100__CRSUIStatusBarStyleAssertion__initWithInterfaceStyle_colorVariant_siriPresentation_standByScreen___block_invoke;
+    v24[3] = &unk_278DA0B58;
+    v25 = v11;
+    objc_copyWeak(&v26, &location);
+    [(BSServiceConnection *)v20 configureConnection:v24];
     v21 = CRSUILogForCategory(1uLL);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       v22 = v11->_connection;
       *buf = 138412290;
-      v31 = v22;
+      v30 = v22;
       _os_log_impl(&dword_243218000, v21, OS_LOG_TYPE_DEFAULT, "Activating connection! %@", buf, 0xCu);
     }
 
     [(BSServiceConnection *)v11->_connection activate];
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v26);
 
     objc_destroyWeak(&location);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -207,20 +205,18 @@ void __100__CRSUIStatusBarStyleAssertion__initWithInterfaceStyle_colorVariant_si
 
 void __100__CRSUIStatusBarStyleAssertion__initWithInterfaceStyle_colorVariant_siriPresentation_standByScreen___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = CRSUILogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_243218000, v4, OS_LOG_TYPE_DEFAULT, "Connection activated! %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_243218000, v4, OS_LOG_TYPE_DEFAULT, "Connection activated! %@", &v6, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _handleConnectionActivated];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __100__CRSUIStatusBarStyleAssertion__initWithInterfaceStyle_colorVariant_siriPresentation_standByScreen___block_invoke_5(uint64_t a1, void *a2)
@@ -245,7 +241,7 @@ void __100__CRSUIStatusBarStyleAssertion__initWithInterfaceStyle_colorVariant_si
 
 - (void)acquireWithAnimationSettings:(id)settings
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   BSDispatchQueueAssertMain();
   os_unfair_lock_lock(&self->_lock);
@@ -257,8 +253,8 @@ void __100__CRSUIStatusBarStyleAssertion__initWithInterfaceStyle_colorVariant_si
       v7 = CRSUILogForCategory(1uLL);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v15[0]) = 0;
-        _os_log_impl(&dword_243218000, v7, OS_LOG_TYPE_DEFAULT, "Acquiring assertion for Siri presentation", v15, 2u);
+        LOWORD(v14[0]) = 0;
+        _os_log_impl(&dword_243218000, v7, OS_LOG_TYPE_DEFAULT, "Acquiring assertion for Siri presentation", v14, 2u);
       }
 
       connection = [(CRSUIStatusBarStyleAssertion *)self connection];
@@ -271,8 +267,8 @@ void __100__CRSUIStatusBarStyleAssertion__initWithInterfaceStyle_colorVariant_si
       v10 = CRSUILogForCategory(1uLL);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v15[0]) = 0;
-        _os_log_impl(&dword_243218000, v10, OS_LOG_TYPE_DEFAULT, "Acquiring assertion for StandBy screen", v15, 2u);
+        LOWORD(v14[0]) = 0;
+        _os_log_impl(&dword_243218000, v10, OS_LOG_TYPE_DEFAULT, "Acquiring assertion for StandBy screen", v14, 2u);
       }
 
       connection = [(CRSUIStatusBarStyleAssertion *)self connection];
@@ -305,11 +301,11 @@ void __100__CRSUIStatusBarStyleAssertion__initWithInterfaceStyle_colorVariant_si
       v11 = CRSUILogForCategory(1uLL);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v15[0] = 67109376;
-        v15[1] = [(CRSUIStatusBarStyleAssertion *)self interfaceStyle];
-        v16 = 1024;
+        v14[0] = 67109376;
+        v14[1] = [(CRSUIStatusBarStyleAssertion *)self interfaceStyle];
+        v15 = 1024;
         colorVariant = [(CRSUIStatusBarStyleAssertion *)self colorVariant];
-        _os_log_impl(&dword_243218000, v11, OS_LOG_TYPE_DEFAULT, "Acquiring assertion for interface style: %d, color variant: %d", v15, 0xEu);
+        _os_log_impl(&dword_243218000, v11, OS_LOG_TYPE_DEFAULT, "Acquiring assertion for interface style: %d, color variant: %d", v14, 0xEu);
       }
 
       connection2 = [(CRSUIStatusBarStyleAssertion *)self connection];
@@ -328,8 +324,6 @@ void __100__CRSUIStatusBarStyleAssertion__initWithInterfaceStyle_colorVariant_si
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)relinquishWithAnimationSettings:(id)settings
@@ -359,7 +353,7 @@ void __100__CRSUIStatusBarStyleAssertion__initWithInterfaceStyle_colorVariant_si
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (!self->_lock_invalidated)
   {
@@ -367,9 +361,9 @@ void __100__CRSUIStatusBarStyleAssertion__initWithInterfaceStyle_colorVariant_si
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       connection = self->_connection;
-      v6 = 138412290;
-      v7 = connection;
-      _os_log_impl(&dword_243218000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating connection! %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = connection;
+      _os_log_impl(&dword_243218000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating connection! %@", &v5, 0xCu);
     }
 
     [(BSServiceConnection *)self->_connection invalidate];
@@ -378,16 +372,14 @@ void __100__CRSUIStatusBarStyleAssertion__initWithInterfaceStyle_colorVariant_si
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __100__CRSUIStatusBarStyleAssertion__initWithInterfaceStyle_colorVariant_siriPresentation_standByScreen___block_invoke_5_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_243218000, a2, OS_LOG_TYPE_ERROR, "Connection interrupted! %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_243218000, a2, OS_LOG_TYPE_ERROR, "Connection interrupted! %@", &v2, 0xCu);
 }
 
 @end

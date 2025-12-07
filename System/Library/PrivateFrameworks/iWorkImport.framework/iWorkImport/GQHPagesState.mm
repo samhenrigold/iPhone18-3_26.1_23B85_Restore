@@ -2,6 +2,7 @@
 - ($0AC6E346AE4835514AAA8AC86D8F4844)rangeForSectionStyleAtPageIndex:(int)index;
 - (CGSize)pageSize;
 - (GQHPagesState)initWithState:(id)state documentSize:(CGSize)size;
+- (__CFArray)pageDrawables:(int)drawables;
 - (__CFString)cssZOrderClassForDrawable:(id)drawable;
 - (__CFString)cssZOrderClassForDrawablePagesOrder:(int)order;
 - (const)wrapPoints;
@@ -10,7 +11,9 @@
 - (id)drawableAtIndex:(int)index;
 - (id)footerForName:(__CFString *)name;
 - (id)headerForName:(__CFString *)name;
+- (id)sectionStyleForPageIndex:(int)index;
 - (id)sectionStyleRunForRunBeforePageIndex:(int)index;
+- (id)wrapPointSetForPage:(int)page;
 - (int)floatingDrawablesCount;
 - (int64_t)nextAttachmentId;
 - (unsigned)tocDepth;
@@ -166,6 +169,14 @@
   CFDictionaryRemoveValue(self->mFloatingDrawables, key);
 }
 
+- (__CFArray)pageDrawables:(int)drawables
+{
+  v4 = [[NSNumber alloc] initWithInt:*&drawables];
+  Value = CFDictionaryGetValue(self->mFloatingDrawables, v4);
+
+  return Value;
+}
+
 - (id)headerForName:(__CFString *)name
 {
   result = self->mHeaders;
@@ -309,6 +320,34 @@ LABEL_9:
   }
 
   _objc_release_x1();
+}
+
+- (id)sectionStyleForPageIndex:(int)index
+{
+  if (index < 0)
+  {
+    return 0;
+  }
+
+  v3 = *&index;
+  if (CFArrayGetCount(self->mSectionStyles) > index)
+  {
+    ValueAtIndex = CFArrayGetValueAtIndex(self->mSectionStyles, v3);
+    if (ValueAtIndex != kCFNull)
+    {
+      return ValueAtIndex[1];
+    }
+
+    return 0;
+  }
+
+  mCurrentSectionStyle = self->mCurrentSectionStyle;
+  if (mCurrentSectionStyle)
+  {
+    [(GQHPagesState *)self addSectionStyle:self->mCurrentSectionStyle pageIndex:v3 numPages:1];
+  }
+
+  return mCurrentSectionStyle;
 }
 
 - ($0AC6E346AE4835514AAA8AC86D8F4844)rangeForSectionStyleAtPageIndex:(int)index
@@ -791,7 +830,7 @@ LABEL_60:
   mWrapPointSet = self->mCurrentWrapPointSet->mWrapPointSet;
   pointCopy = point;
   pointCopy2 = point;
-  sub_9828(mWrapPointSet, &pointCopy);
+  sub_9828(mWrapPointSet, &pointCopy, &pointCopy);
 }
 
 - (const)wrapPoints
@@ -986,6 +1025,14 @@ LABEL_60:
       self->mProgressiveIndex = 2 * self->mCurrentPageIndex + 4;
     }
   }
+}
+
+- (id)wrapPointSetForPage:(int)page
+{
+  v4 = [[NSNumber alloc] initWithInt:*&page];
+  Value = CFDictionaryGetValue(self->mPageWrapPointsMap, v4);
+
+  return Value;
 }
 
 - (void)startSection

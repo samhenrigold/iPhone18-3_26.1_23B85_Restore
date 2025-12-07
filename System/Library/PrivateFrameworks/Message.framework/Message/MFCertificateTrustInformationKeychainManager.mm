@@ -121,7 +121,7 @@ void __51__MFCertificateTrustInformationKeychainManager_log__block_invoke(uint64
 
 - (void)addTrustException
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v3 = self->_keychainManager;
@@ -143,15 +143,13 @@ void __51__MFCertificateTrustInformationKeychainManager_log__block_invoke(uint64
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     addressForSaving2 = [(MFCertificateTrustInformationKeychainManager *)self addressForSaving];
-    v12 = 138412290;
-    v13 = addressForSaving2;
-    _os_log_impl(&dword_1B0389000, v8, OS_LOG_TYPE_DEFAULT, "Added trust exception for %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = addressForSaving2;
+    _os_log_impl(&dword_1B0389000, v8, OS_LOG_TYPE_DEFAULT, "Added trust exception for %@", &v11, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter postNotificationName:@"MFCertificateTrustDidChangeNotification" object:self];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveCertificateToKeychain
@@ -197,7 +195,7 @@ void __51__MFCertificateTrustInformationKeychainManager_log__block_invoke(uint64
 - (void)removeTrustException
 {
   selfCopy = self;
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self)
   {
     self = self->_trustInformation;
@@ -231,86 +229,80 @@ void __51__MFCertificateTrustInformationKeychainManager_log__block_invoke(uint64
   {
     addressForSaving2 = [(MFCertificateTrustInformationKeychainManager *)selfCopy addressForSaving];
     *buf = 138412290;
-    v13 = addressForSaving2;
+    v12 = addressForSaving2;
     _os_log_impl(&dword_1B0389000, v7, OS_LOG_TYPE_DEFAULT, "Removed trust exception for %@", buf, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter postNotificationName:@"MFCertificateTrustDidChangeNotification" object:selfCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)keychainStatus
 {
   selfCopy = self;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (self)
   {
     self = self->_trustInformation;
   }
 
-  if ([(MFCertificateTrustInformationKeychainManager *)self certificateType]== 1)
+  if ([(MFCertificateTrustInformationKeychainManager *)self certificateType]!= 1)
   {
-    addressForSaving = [(MFCertificateTrustInformationKeychainManager *)selfCopy addressForSaving];
-    v15 = 0;
-    v4 = [MFMessageKeychainManager copyEncryptionCertificateForAddress:addressForSaving error:&v15];
-    v5 = v15;
+    return 0;
+  }
 
-    if (v4)
+  addressForSaving = [(MFCertificateTrustInformationKeychainManager *)selfCopy addressForSaving];
+  v14 = 0;
+  v4 = [MFMessageKeychainManager copyEncryptionCertificateForAddress:addressForSaving error:&v14];
+  v5 = v14;
+
+  if (v4)
+  {
+    if (selfCopy)
     {
-      if (selfCopy)
-      {
-        trustInformation = selfCopy->_trustInformation;
-      }
-
-      else
-      {
-        trustInformation = 0;
-      }
-
-      v7 = trustInformation;
-      v8 = CFEqual([(EMCertificateTrustInformation *)v7 certificate], v4);
-
-      CFRelease(v4);
-      if (v8)
-      {
-        v9 = 1;
-      }
-
-      else
-      {
-        v9 = 2;
-      }
+      trustInformation = selfCopy->_trustInformation;
     }
 
     else
     {
-      if (v5)
-      {
-        v10 = +[MFCertificateTrustInformationKeychainManager log];
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-        {
-          addressForSaving2 = [(MFCertificateTrustInformationKeychainManager *)selfCopy addressForSaving];
-          ef_publicDescription = [v5 ef_publicDescription];
-          *buf = 138412546;
-          v17 = addressForSaving2;
-          v18 = 2114;
-          v19 = ef_publicDescription;
-          _os_log_error_impl(&dword_1B0389000, v10, OS_LOG_TYPE_ERROR, "Error when retrieving encryption certificate for %@: %{public}@", buf, 0x16u);
-        }
-      }
+      trustInformation = 0;
+    }
 
-      v9 = 0;
+    v7 = trustInformation;
+    v8 = CFEqual([(EMCertificateTrustInformation *)v7 certificate], v4);
+
+    CFRelease(v4);
+    if (v8)
+    {
+      v9 = 1;
+    }
+
+    else
+    {
+      v9 = 2;
     }
   }
 
   else
   {
+    if (v5)
+    {
+      v10 = +[MFCertificateTrustInformationKeychainManager log];
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        addressForSaving2 = [(MFCertificateTrustInformationKeychainManager *)selfCopy addressForSaving];
+        ef_publicDescription = [v5 ef_publicDescription];
+        *buf = 138412546;
+        v16 = addressForSaving2;
+        v17 = 2114;
+        v18 = ef_publicDescription;
+        _os_log_error_impl(&dword_1B0389000, v10, OS_LOG_TYPE_ERROR, "Error when retrieving encryption certificate for %@: %{public}@", buf, 0x16u);
+      }
+    }
+
     v9 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

@@ -266,4 +266,18 @@ LABEL_25:
   return v42;
 }
 
+- (void)_performAnnotationWithEvents:(void *)a1 handler:.cold.1(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 count];
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v1, v2, "#swy, Base Events, %lu", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+- (void)_performAnnotationWithEvents:(void *)a1 handler:.cold.2(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 count];
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v1, v2, "#swy, Bundles count, %lu", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
 @end

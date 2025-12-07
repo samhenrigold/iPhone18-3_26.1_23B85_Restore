@@ -1,8 +1,25 @@
 @interface AAWalrusRecoveryContactRemovedScreenModel
+- (AAWalrusRecoveryContactRemovedScreenModel)initWithHasRecoveryContact:(BOOL)contact hasRecoveryKey:(BOOL)key;
 - (void)_setupModelWithHasRecoveryContact:(BOOL)contact hasRecoveryKey:(BOOL)key;
 @end
 
 @implementation AAWalrusRecoveryContactRemovedScreenModel
+
+- (AAWalrusRecoveryContactRemovedScreenModel)initWithHasRecoveryContact:(BOOL)contact hasRecoveryKey:(BOOL)key
+{
+  keyCopy = key;
+  contactCopy = contact;
+  v9.receiver = self;
+  v9.super_class = AAWalrusRecoveryContactRemovedScreenModel;
+  v6 = [(AAWalrusRecoveryContactRemovedScreenModel *)&v9 init];
+  v7 = v6;
+  if (v6)
+  {
+    [(AAWalrusRecoveryContactRemovedScreenModel *)v6 _setupModelWithHasRecoveryContact:contactCopy hasRecoveryKey:keyCopy];
+  }
+
+  return v7;
+}
 
 - (void)_setupModelWithHasRecoveryContact:(BOOL)contact hasRecoveryKey:(BOOL)key
 {

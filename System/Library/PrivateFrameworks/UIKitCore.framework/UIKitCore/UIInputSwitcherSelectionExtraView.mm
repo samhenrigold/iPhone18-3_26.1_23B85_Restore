@@ -46,8 +46,8 @@
   }
 
   CGContextSaveGState(v7);
-  menu = [(UIInputSwitcherSelectionExtraView *)self menu];
-  containerView = [menu containerView];
+  v8 = objc_msgSend_menu(self);
+  containerView = [v8 containerView];
   [(UIInputSwitcherSelectionExtraView *)self keyRect];
   [containerView convertRect:self toView:?];
   v11 = v10;
@@ -55,8 +55,8 @@
   v15 = v14;
   v17 = v16;
 
-  menu2 = [(UIInputSwitcherSelectionExtraView *)self menu];
-  table = [menu2 table];
+  v18 = objc_msgSend_menu(self);
+  table = [v18 table];
   isScrollEnabled = [table isScrollEnabled];
 
   v21 = v11 + 0.0;
@@ -79,8 +79,8 @@
     v24 = 8.0;
   }
 
-  menu3 = [(UIInputSwitcherSelectionExtraView *)self menu];
-  table2 = [menu3 table];
+  v25 = objc_msgSend_menu(self);
+  table2 = [v25 table];
   [table2 frame];
   v28 = v27;
 
@@ -97,8 +97,8 @@
   y = v40.origin.y;
   width = v40.size.width;
   height = v40.size.height;
-  menu4 = [(UIInputSwitcherSelectionExtraView *)self menu];
-  PopupPath = UIInputSwitcherCreatePopupPath([menu4 usesStraightLeftEdge], 1, -[UIInputSwitcherSelectionExtraView roundedCorners](self, "roundedCorners"), -[UIView _keyboardOrientation](self, "_keyboardOrientation"), x, y, width, height, v11, v13, v15, v17);
+  v33 = objc_msgSend_menu(self);
+  PopupPath = UIInputSwitcherCreatePopupPath([v33 usesStraightLeftEdge], 1, -[UIInputSwitcherSelectionExtraView roundedCorners](self, "roundedCorners"), -[UIView _keyboardOrientation](self, "_keyboardOrientation"), x, y, width, height, v11, v13, v15, v17);
 
   CGContextAddPath(v7, PopupPath);
   v35 = +[UIColor systemBlueColor];

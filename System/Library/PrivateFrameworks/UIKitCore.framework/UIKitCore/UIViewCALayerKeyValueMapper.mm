@@ -39,7 +39,7 @@ id __72___UIViewCALayerKeyValueMapper_CALayerValueForUIViewValue_forUIViewKey___
   v2 = MEMORY[0x1E696B098];
   if (a2)
   {
-    [a2 CGAffineTransformValue];
+    objc_msgSend_CGAffineTransformValue(a2);
   }
 
   else

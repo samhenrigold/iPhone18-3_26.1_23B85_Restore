@@ -51,7 +51,7 @@ id __40__PKTileContextCompositionalLayout_init__block_invoke(uint64_t a1, uint64
 
   if (v9 < 1)
   {
-    v30 = 0;
+    v37 = 0;
   }
 
   else
@@ -87,47 +87,60 @@ id __40__PKTileContextCompositionalLayout_init__block_invoke(uint64_t a1, uint64
     }
 
     [v6 frame];
+    v15 = v14;
     [v6 safeAreaInsets];
-    v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v15 = 0;
-    v16 = 0.0;
+    v18 = v15 - v16 - v17;
+    v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v20 = 0;
+    v21 = 0.0;
     do
     {
-      v17 = [MEMORY[0x1E696AC88] indexPathForRow:v15 inSection:indexCopy];
-      [delegate collectionView:v6 layout:self sizeForItemAtIndexPath:v17];
-      v19 = v18;
-      PKFloatRoundToPixel();
+      v22 = [MEMORY[0x1E696AC88] indexPathForRow:v20 inSection:indexCopy];
+      [delegate collectionView:v6 layout:self sizeForItemAtIndexPath:v22];
+      v25 = v24.n128_f64[0];
+      if (v18 >= v23.n128_f64[0])
+      {
+        v26 = v23.n128_f64[0];
+      }
+
+      else
+      {
+        v26 = v18;
+      }
+
+      v23.n128_f64[0] = (v15 - v26) * 0.5;
+      PKFloatRoundToPixel(v23, v24);
       [MEMORY[0x1E6995570] customItemWithFrame:?];
-      v20 = indexCopy;
-      v21 = v6;
-      v23 = v22 = delegate;
-      [v14 addObject:v23];
+      v27 = indexCopy;
+      v28 = v6;
+      v30 = v29 = delegate;
+      [v19 addObject:v30];
 
-      delegate = v22;
-      v6 = v21;
-      indexCopy = v20;
-      v16 = v16 + v19;
+      delegate = v29;
+      v6 = v28;
+      indexCopy = v27;
+      v21 = v21 + v25;
 
-      ++v15;
+      ++v20;
     }
 
-    while (v9 != v15);
-    v24 = [MEMORY[0x1E6995558] fractionalWidthDimension:1.0];
-    v25 = [MEMORY[0x1E6995558] absoluteDimension:v16];
-    v26 = [MEMORY[0x1E6995588] sizeWithWidthDimension:v24 heightDimension:v25];
-    v27 = MEMORY[0x1E6995568];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __75__PKTileContextCompositionalLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke;
-    v32[3] = &unk_1E80139E8;
-    v33 = v14;
-    v28 = v14;
-    v29 = [v27 customGroupWithLayoutSize:v26 itemProvider:v32];
-    v30 = [MEMORY[0x1E6995580] sectionWithGroup:v29];
-    [v30 setContentInsets:{v13, 0.0, v12, 0.0}];
+    while (v9 != v20);
+    v31 = [MEMORY[0x1E6995558] fractionalWidthDimension:1.0];
+    v32 = [MEMORY[0x1E6995558] absoluteDimension:v21];
+    v33 = [MEMORY[0x1E6995588] sizeWithWidthDimension:v31 heightDimension:v32];
+    v34 = MEMORY[0x1E6995568];
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __75__PKTileContextCompositionalLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke;
+    v39[3] = &unk_1E80139E8;
+    v40 = v19;
+    v35 = v19;
+    v36 = [v34 customGroupWithLayoutSize:v33 itemProvider:v39];
+    v37 = [MEMORY[0x1E6995580] sectionWithGroup:v36];
+    [v37 setContentInsets:{v13, 0.0, v12, 0.0}];
   }
 
-  return v30;
+  return v37;
 }
 
 @end

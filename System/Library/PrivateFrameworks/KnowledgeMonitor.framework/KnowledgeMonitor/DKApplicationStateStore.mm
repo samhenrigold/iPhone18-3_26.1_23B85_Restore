@@ -57,39 +57,39 @@
 
 - (void)updateElements:(id)elements displayType:(unint64_t)type
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   elementsCopy = elements;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = elementsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       v12 = 0;
       do
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * v12);
+        v13 = *(*(&v19 + 1) + 8 * v12);
         v14 = [DKApplicationState alloc];
-        v15 = [(DKApplicationState *)v14 initWithDisplayType:type element:v13, v20];
+        v15 = [(DKApplicationState *)v14 initWithDisplayType:type element:v13, v19];
         [v7 addObject:v15];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
@@ -103,8 +103,6 @@
     v18 = v17[1];
     v17[1] = firstObject;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

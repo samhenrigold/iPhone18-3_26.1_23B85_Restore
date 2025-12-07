@@ -204,58 +204,48 @@ uint64_t __67__UIAccessibilityElementTraversalOptions_defaultSpeakScreenOptions_
   v5 = v4;
   if ([(UIAccessibilityElementTraversalOptions *)self shouldOnlyIncludeElementsWithVisibleFrame])
   {
-    v16 = @"only include elements with visible frame";
-    v21 = @"__AXStringForVariablesSentinel";
-    v6 = __UIAXStringForVariables();
+    v13 = __UIAXStringForVariables(v5, v6, v7, v8, v9, v10, v11, v12, @"only include elements with visible frame");
 
-    v5 = v6;
+    v5 = v13;
   }
 
-  if ([(UIAccessibilityElementTraversalOptions *)self shouldReturnScannerGroups:v16])
+  if ([(UIAccessibilityElementTraversalOptions *)self shouldReturnScannerGroups])
   {
-    v17 = @"scanner groups";
-    v22 = @"__AXStringForVariablesSentinel";
-    v7 = __UIAXStringForVariables();
+    v21 = __UIAXStringForVariables(v5, v14, v15, v16, v17, v18, v19, v20, @"scanner groups");
 
-    v5 = v7;
+    v5 = v21;
   }
 
-  v8 = [(UIAccessibilityElementTraversalOptions *)self leafNodePredicate:v17];
+  leafNodePredicate = [(UIAccessibilityElementTraversalOptions *)self leafNodePredicate];
 
-  if (v8)
+  if (leafNodePredicate)
   {
-    v18 = @"has predicate";
-    v23 = @"__AXStringForVariablesSentinel";
-    v9 = __UIAXStringForVariables();
+    v30 = __UIAXStringForVariables(v5, v23, v24, v25, v26, v27, v28, v29, @"has predicate");
 
-    v5 = v9;
+    v5 = v30;
   }
 
-  if ([(UIAccessibilityElementTraversalOptions *)self forSpeakScreen:v18])
+  if ([(UIAccessibilityElementTraversalOptions *)self forSpeakScreen])
   {
-    v19 = @"for Speak Screen";
-    v24 = @"__AXStringForVariablesSentinel";
-    v10 = __UIAXStringForVariables();
+    v38 = __UIAXStringForVariables(v5, v31, v32, v33, v34, v35, v36, v37, @"for Speak Screen");
 
-    v5 = v10;
+    v5 = v38;
   }
 
-  if ([(UIAccessibilityElementTraversalOptions *)self shouldUseAllSubviews:v19])
+  if ([(UIAccessibilityElementTraversalOptions *)self shouldUseAllSubviews])
   {
-    v20 = @"use all subviews";
-    v25 = @"__AXStringForVariablesSentinel";
-    v11 = __UIAXStringForVariables();
+    v46 = __UIAXStringForVariables(v5, v39, v40, v41, v42, v43, v44, v45, @"use all subviews");
 
-    v5 = v11;
+    v5 = v46;
   }
 
-  v12 = MEMORY[0x1E696AEC0];
-  v26.receiver = self;
-  v26.super_class = UIAccessibilityElementTraversalOptions;
-  v13 = [(UIAccessibilityElementTraversalOptions *)&v26 description:v20];
-  v14 = [v12 stringWithFormat:@"%@ - %@", v13, v5];
+  v47 = MEMORY[0x1E696AEC0];
+  v51.receiver = self;
+  v51.super_class = UIAccessibilityElementTraversalOptions;
+  v48 = [(UIAccessibilityElementTraversalOptions *)&v51 description];
+  v49 = [v47 stringWithFormat:@"%@ - %@", v48, v5];
 
-  return v14;
+  return v49;
 }
 
 - (void)setAllowedElementsForTraversal:(id)traversal

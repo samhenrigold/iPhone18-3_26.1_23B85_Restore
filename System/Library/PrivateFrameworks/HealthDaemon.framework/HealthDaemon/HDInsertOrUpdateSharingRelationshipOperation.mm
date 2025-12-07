@@ -15,7 +15,7 @@
   v7 = [(HDInsertOrUpdateSharingRelationshipOperation *)&v11 init];
   if (v7)
   {
-    v8 = [relationshipsCopy copy];
+    v8 = objc_msgSend_copy(relationshipsCopy);
     relationships = v7->_relationships;
     v7->_relationships = v8;
 

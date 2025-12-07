@@ -76,17 +76,17 @@
 
 - (void)layoutSubviews
 {
-  v3 = sub_10010FC20(&qword_1011B7710);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v9 - v4;
-  v6 = type metadata accessor for SymbolButton.BadgeView();
-  v9.receiver = self;
-  v9.super_class = v6;
+  sub_10010FC20(&qword_1011B7710, &qword_100EFF6F0);
+  __chkstk_darwin();
+  v4 = &v8 - v3;
+  v5 = type metadata accessor for SymbolButton.BadgeView();
+  v8.receiver = self;
+  v8.super_class = v5;
   selfCopy = self;
-  [(SymbolButton.BadgeView *)&v9 layoutSubviews];
+  [(SymbolButton.BadgeView *)&v8 layoutSubviews];
   static UIView.Corner.rounded.getter();
-  v8 = type metadata accessor for UIView.Corner();
-  (*(*(v8 - 8) + 56))(v5, 0, 1, v8);
+  v7 = type metadata accessor for UIView.Corner();
+  (*(*(v7 - 8) + 56))(v4, 0, 1, v7);
   UIView.corner.setter();
   sub_100BF2078();
 }

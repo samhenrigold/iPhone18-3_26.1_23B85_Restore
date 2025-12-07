@@ -7,6 +7,8 @@
 - (void)_axHandleAnnouncementFinished;
 - (void)_axNotifyWillBeginUserInteraction:(BOOL)interaction;
 - (void)_logNotificationMessage:(id)message;
+- (void)dismissViewControllerWithTransition:(int)transition completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation NCNotificationViewControllerAccessibility
@@ -76,7 +78,29 @@ uint64_t __105__NCNotificationViewControllerAccessibility__accessibilityAppearan
   return v3;
 }
 
-uint64_t __59__NCNotificationViewControllerAccessibility_viewDidAppear___block_invoke(uint64_t a1)
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = NCNotificationViewControllerAccessibility;
+  [(NCNotificationViewControllerAccessibility *)&v5 viewDidAppear:appear];
+  _axLongLookView = [(NCNotificationViewControllerAccessibility *)self _axLongLookView];
+  if (!_axLongLookView)
+  {
+    if (_AXSAutomationEnabled())
+    {
+      UIAccessibilityPostNotification(0x3EEu, 0);
+    }
+
+    MEMORY[0x29ED3E970](*MEMORY[0x29EDC7F10]);
+    UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
+    if (![(NCNotificationViewControllerAccessibility *)self _accessibilityAppearanceAnnouncementHandledByEnclosingEntity])
+    {
+      AXPerformBlockOnMainThreadAfterDelay();
+    }
+  }
+}
+
+void *__59__NCNotificationViewControllerAccessibility_viewDidAppear___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _axHasSentAnnouncement];
   if ((result & 1) == 0)
@@ -169,7 +193,7 @@ void __75__NCNotificationViewControllerAccessibility__axNotifyDidEndUserInteract
 
 - (void)_logNotificationMessage:(id)message
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   messageCopy = message;
   buf[0] = 0;
   v5 = [(NCNotificationViewControllerAccessibility *)self safeValueForKey:@"view"];
@@ -192,18 +216,35 @@ void __75__NCNotificationViewControllerAccessibility__axNotifyDidEndUserInteract
       if (os_log_type_enabled(v11, v12))
       {
         *buf = 138543362;
-        v17 = v14;
+        v16 = v14;
         _os_log_impl(&dword_29C6DA000, v11, v12, "%{public}@", buf, 0xCu);
       }
     }
   }
+}
 
-  v15 = *MEMORY[0x29EDCA608];
+- (void)dismissViewControllerWithTransition:(int)transition completion:(id)completion
+{
+  v4 = *&transition;
+  completionCopy = completion;
+  _axLongLookView = [(NCNotificationViewControllerAccessibility *)self _axLongLookView];
+  v8 = _axLongLookView == 0;
+
+  v12[0] = MEMORY[0x29EDCA5F8];
+  v12[1] = 3221225472;
+  v12[2] = __92__NCNotificationViewControllerAccessibility_dismissViewControllerWithTransition_completion___block_invoke;
+  v12[3] = &unk_29F317298;
+  v14 = v8;
+  v13 = completionCopy;
+  v9 = completionCopy;
+  v10 = MEMORY[0x29ED3EC50](v12);
+  v11.receiver = self;
+  v11.super_class = NCNotificationViewControllerAccessibility;
+  [(NCNotificationViewControllerAccessibility *)&v11 dismissViewControllerWithTransition:v4 completion:v10];
 }
 
 uint64_t __92__NCNotificationViewControllerAccessibility_dismissViewControllerWithTransition_completion___block_invoke(uint64_t a1)
 {
-  v3 = *(a1 + 40);
   AXPerformBlockOnMainThreadAfterDelay();
   result = *(a1 + 32);
   if (result)

@@ -1,8 +1,17 @@
 @interface AVCaptureVideoPreviewLayerInvertColorsAccessibility
 - (void)_accessibilityLoadInvertColors;
+- (void)layerDidBecomeVisible:(BOOL)visible;
 @end
 
 @implementation AVCaptureVideoPreviewLayerInvertColorsAccessibility
+
+- (void)layerDidBecomeVisible:(BOOL)visible
+{
+  v4.receiver = self;
+  v4.super_class = AVCaptureVideoPreviewLayerInvertColorsAccessibility;
+  [(AVCaptureVideoPreviewLayerInvertColorsAccessibility *)&v4 layerDidBecomeVisible:visible];
+  [(AVCaptureVideoPreviewLayerInvertColorsAccessibility *)self _accessibilityLoadInvertColors];
+}
 
 - (void)_accessibilityLoadInvertColors
 {

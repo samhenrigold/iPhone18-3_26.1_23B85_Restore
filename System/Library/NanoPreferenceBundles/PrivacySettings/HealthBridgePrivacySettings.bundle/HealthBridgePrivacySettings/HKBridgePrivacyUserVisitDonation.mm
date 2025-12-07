@@ -7,25 +7,25 @@
 
 + (void)donateUserVisitForPrivacySection
 {
-  objc_opt_class();
-  v4 = sub_13AC();
+  v3 = objc_opt_class();
+  v5 = sub_13AC(v3);
   objc_opt_class();
   objc_opt_self();
-  v3 = [NSString stringWithFormat:@"bridge:root=%@", @"PRIVACY_ID"];
-  sub_128C(self, v4, &__NSArray0__struct, v3);
+  v4 = [NSString stringWithFormat:@"bridge:root=%@", @"PRIVACY_ID"];
+  sub_128C(self, v5, &__NSArray0__struct, v4);
 }
 
 + (void)donateUserVisitForHeadphonePrivacySection
 {
-  objc_opt_class();
-  v3 = sub_1450();
-  objc_opt_class();
-  v4 = sub_13AC();
-  v7 = v4;
-  v5 = [NSArray arrayWithObjects:&v7 count:1];
-  objc_opt_class();
-  v6 = sub_1590();
-  sub_128C(self, v3, v5, v6);
+  v3 = objc_opt_class();
+  v4 = sub_1450(v3);
+  v5 = objc_opt_class();
+  v6 = sub_13AC(v5);
+  v10 = v6;
+  v7 = [NSArray arrayWithObjects:&v10 count:1];
+  v8 = objc_opt_class();
+  v9 = sub_1590(v8);
+  sub_128C(self, v4, v7, v9);
 }
 
 @end

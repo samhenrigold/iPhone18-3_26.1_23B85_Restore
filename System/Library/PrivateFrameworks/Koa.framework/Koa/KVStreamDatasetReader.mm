@@ -15,7 +15,7 @@
 
 - (BOOL)enumerateItemsWithError:(id *)error usingBlock:(id)block
 {
-  v73[1] = *MEMORY[0x277D85DE8];
+  v72[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v10 = objc_msgSend_buffer(self->_datasetInfo, v5, v6, v7, v8, v9);
   self->_offset = objc_msgSend_length(v10, v11, v12, v13, v14, v15) + 4;
@@ -41,10 +41,10 @@ LABEL_11:
     if (v38 - offset < v43)
     {
       v50 = MEMORY[0x277CCA9B8];
-      v72 = *MEMORY[0x277CCA450];
+      v71 = *MEMORY[0x277CCA450];
       v51 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v34, @"Size prefix indicates item length %u exceeding remaining profile buffer length %llu.", v35, v36, v37, v43, v38);
-      v73[0] = v51;
-      v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v52, v73, &v72, 1, v53);
+      v72[0] = v51;
+      v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v52, v72, &v71, 1, v53);
       v57 = objc_msgSend_errorWithDomain_code_userInfo_(v50, v55, @"com.apple.koa.profile", 10, v54, v56);
       if (error && v57)
       {
@@ -58,10 +58,10 @@ LABEL_11:
     if (v43 >= 0xC801)
     {
       v58 = MEMORY[0x277CCA9B8];
-      v70 = *MEMORY[0x277CCA450];
+      v69 = *MEMORY[0x277CCA450];
       v59 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v34, @"Size prefix indicates item length %u exceeding max item length %u.", v35, v36, v37, v43, 51200);
-      v71 = v59;
-      v62 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v60, &v71, &v70, 1, v61);
+      v70 = v59;
+      v62 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v60, &v70, &v69, 1, v61);
       v65 = objc_msgSend_errorWithDomain_code_userInfo_(v58, v63, @"com.apple.koa.profile", 7, v62, v64);
       if (error && v65)
       {
@@ -101,7 +101,6 @@ LABEL_20:
 LABEL_22:
 
 LABEL_23:
-  v66 = *MEMORY[0x277D85DE8];
   return v39;
 }
 

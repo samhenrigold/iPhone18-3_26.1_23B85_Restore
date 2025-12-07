@@ -96,10 +96,10 @@
 
 - (id)codableRepresentationForPersistentID:(int64_t)d row:(HDSQLiteRow *)row error:(id *)error
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   profile = [(HDEntityEncoder *)self profile];
   transaction = [(HDEntityEncoder *)self transaction];
-  v54 = profile;
+  v53 = profile;
   v10 = transaction;
   v11 = objc_opt_self();
   v12 = objc_alloc_init(HDCodableUserDomainConcept);
@@ -107,9 +107,9 @@
   [(HDCodableUserDomainConcept *)v12 setUuid:v13];
 
   v14 = HDSQLiteColumnWithNameAsInt64();
-  v53 = HDSQLiteColumnWithNameAsString();
-  v52 = [objc_alloc(MEMORY[0x277CCDB50]) initWithCode:v14 schema:v53];
-  codableRepresentationForSync = [v52 codableRepresentationForSync];
+  v52 = HDSQLiteColumnWithNameAsString();
+  v51 = [objc_alloc(MEMORY[0x277CCDB50]) initWithCode:v14 schema:v52];
+  codableRepresentationForSync = [v51 codableRepresentationForSync];
   [(HDCodableUserDomainConcept *)v12 setIdentifier:codableRepresentationForSync];
 
   [(HDCodableUserDomainConcept *)v12 setDeleted:HDSQLiteColumnWithNameAsBoolean()];
@@ -126,32 +126,32 @@
   v17 = HDSQLiteColumnWithNameAsData();
   [(HDCodableUserDomainConcept *)v12 setLinksData:v17];
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   privateDataEntities = [v11 privateDataEntities];
-  v19 = [privateDataEntities countByEnumeratingWithState:&v55 objects:v80 count:16];
+  v19 = [privateDataEntities countByEnumeratingWithState:&v54 objects:v79 count:16];
   if (v19)
   {
-    v20 = *v56;
+    v20 = *v55;
     while (2)
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v56 != v20)
+        if (*v55 != v20)
         {
           objc_enumerationMutation(privateDataEntities);
         }
 
-        if (![*(*(&v55 + 1) + 8 * i) addPropertyDataToCodable:v12 userDomainConceptID:d transaction:v10 error:error])
+        if (![*(*(&v54 + 1) + 8 * i) addPropertyDataToCodable:v12 userDomainConceptID:d transaction:v10 error:error])
         {
           v36 = 0;
           goto LABEL_39;
         }
       }
 
-      v19 = [privateDataEntities countByEnumeratingWithState:&v55 objects:v80 count:16];
+      v19 = [privateDataEntities countByEnumeratingWithState:&v54 objects:v79 count:16];
       if (v19)
       {
         continue;
@@ -161,9 +161,9 @@
     }
   }
 
-  daemon = [v54 daemon];
+  daemon = [v53 daemon];
   userDomainConceptEntityRegistry = [daemon userDomainConceptEntityRegistry];
-  v24 = [userDomainConceptEntityRegistry userDomainConceptEntityClassForTypeIdentifier:v52];
+  v24 = [userDomainConceptEntityRegistry userDomainConceptEntityClassForTypeIdentifier:v51];
 
   if (!v24 || v24 == objc_opt_class() || ![v24 encodesCodableUserDomainConceptSubclassData])
   {
@@ -171,7 +171,7 @@
   }
 
   v25 = v10;
-  v26 = v54;
+  v26 = v53;
   objc_opt_self();
   v27 = [v24 entityEncoderForProfile:v26 transaction:v25 purpose:0 encodingOptions:0 authorizationFilter:0];
 
@@ -179,62 +179,62 @@
   v29 = v25;
   objc_opt_self();
   entityClass = [v28 entityClass];
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x3032000000;
-  v77 = __Block_byref_object_copy__182;
-  v78 = __Block_byref_object_dispose__182;
-  v79 = 0;
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x3032000000;
-  v71 = __Block_byref_object_copy__182;
-  v72 = __Block_byref_object_dispose__182;
   v73 = 0;
-  v51 = [[entityClass alloc] initWithPersistentID:d];
+  v74 = &v73;
+  v75 = 0x3032000000;
+  v76 = __Block_byref_object_copy__182;
+  v77 = __Block_byref_object_dispose__182;
+  v78 = 0;
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x3032000000;
+  v70 = __Block_byref_object_copy__182;
+  v71 = __Block_byref_object_dispose__182;
+  v72 = 0;
+  v50 = [[entityClass alloc] initWithPersistentID:d];
   orderedProperties = [v28 orderedProperties];
   protectedDatabase = [v29 protectedDatabase];
-  v63[0] = MEMORY[0x277D85DD0];
-  v63[1] = 3221225472;
-  v63[2] = __97__HDUserDomainConceptEntity__codableSubclassForForUserDomainConceptID_encoder_transaction_error___block_invoke;
-  v63[3] = &unk_27862C648;
-  v65 = &v74;
-  v50 = v28;
-  v64 = v50;
-  v66 = &v68;
+  v62[0] = MEMORY[0x277D85DD0];
+  v62[1] = 3221225472;
+  v62[2] = __97__HDUserDomainConceptEntity__codableSubclassForForUserDomainConceptID_encoder_transaction_error___block_invoke;
+  v62[3] = &unk_27862C648;
+  v64 = &v73;
+  v49 = v28;
+  v63 = v49;
+  v65 = &v67;
   dCopy = d;
-  LOBYTE(v26) = [v51 getValuesForProperties:orderedProperties database:protectedDatabase error:error handler:v63];
+  LOBYTE(v26) = [v50 getValuesForProperties:orderedProperties database:protectedDatabase error:error handler:v62];
 
   if (v26)
   {
-    if (v75[5])
+    if (v74[5])
     {
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
       v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       privateDataEntities2 = [(objc_class *)entityClass privateDataEntities];
-      v33 = [privateDataEntities2 countByEnumeratingWithState:&v59 objects:buf count:16];
+      v33 = [privateDataEntities2 countByEnumeratingWithState:&v58 objects:buf count:16];
       if (v33)
       {
-        v34 = *v60;
+        v34 = *v59;
         while (2)
         {
           for (j = 0; j != v33; ++j)
           {
-            if (*v60 != v34)
+            if (*v59 != v34)
             {
               objc_enumerationMutation(privateDataEntities2);
             }
 
-            if (([*(*(&v59 + 1) + 8 * j) addPropertyDataToCodable:v75[5] userDomainConceptID:d transaction:v29 error:{error, entityClass}] & 1) == 0)
+            if (([*(*(&v58 + 1) + 8 * j) addPropertyDataToCodable:v74[5] userDomainConceptID:d transaction:v29 error:{error, entityClass}] & 1) == 0)
             {
 
               goto LABEL_30;
             }
           }
 
-          v33 = [privateDataEntities2 countByEnumeratingWithState:&v59 objects:buf count:16];
+          v33 = [privateDataEntities2 countByEnumeratingWithState:&v58 objects:buf count:16];
           if (v33)
           {
             continue;
@@ -244,11 +244,11 @@
         }
       }
 
-      v36 = v75[5];
+      v36 = v74[5];
       goto LABEL_31;
     }
 
-    v37 = v69[5];
+    v37 = v68[5];
     v38 = v37;
     if (v37)
     {
@@ -269,8 +269,8 @@ LABEL_30:
   v36 = 0;
 LABEL_31:
 
-  _Block_object_dispose(&v68, 8);
-  _Block_object_dispose(&v74, 8);
+  _Block_object_dispose(&v67, 8);
+  _Block_object_dispose(&v73, 8);
 
   if (!v36)
   {
@@ -282,10 +282,10 @@ LABEL_31:
 
 LABEL_33:
   v41 = HDSQLiteColumnWithNameAsInt64();
-  syncIdentityManager = [v54 syncIdentityManager];
-  v63[0] = 0;
-  v43 = [syncIdentityManager identityForEntityID:v41 transaction:v10 error:v63];
-  privateDataEntities = v63[0];
+  syncIdentityManager = [v53 syncIdentityManager];
+  v62[0] = 0;
+  v43 = [syncIdentityManager identityForEntityID:v41 transaction:v10 error:v62];
+  privateDataEntities = v62[0];
 
   if (v43)
   {
@@ -303,7 +303,7 @@ LABEL_33:
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v82 = privateDataEntities;
+      v81 = privateDataEntities;
       _os_log_fault_impl(&dword_228986000, v46, OS_LOG_TYPE_FAULT, "Unable to fetch sync identity from HDUserDomainConceptEntity %{public}@", buf, 0xCu);
     }
 
@@ -312,8 +312,6 @@ LABEL_33:
 
 LABEL_39:
 LABEL_40:
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v36;
 }

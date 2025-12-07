@@ -54,13 +54,9 @@
 
 - (void)doc_commonInit
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v3 = *self;
-  v4 = 138412546;
-  v5 = v3;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1E57D8000, log, OS_LOG_TYPE_ERROR, "UIDocumentBrowserTransitionController: Unable to wrap url %@ with error %@", &v4, 0x16u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_0_1(&dword_1E57D8000, a2, a3, "Retrieving transition controller from item: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __55__UIDocumentBrowserTransitionController_doc_commonInit__block_invoke(uint64_t a1, void *a2)
@@ -454,109 +450,109 @@ void __59__UIDocumentBrowserTransitionController_animateTransition___block_invok
   }
 }
 
-void __59__UIDocumentBrowserTransitionController_animateTransition___block_invoke_3(uint64_t a1)
+void __59__UIDocumentBrowserTransitionController_animateTransition___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E699A450];
-  v3 = *MEMORY[0x1E699A450];
+  v3 = MEMORY[0x1E699A450];
+  v4 = *MEMORY[0x1E699A450];
   if (*(a1 + 32))
   {
-    if (!v3)
+    if (!v4)
     {
       DOCInitLogging();
-      v3 = *v2;
+      v4 = *v3;
     }
 
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E57D8000, v3, OS_LOG_TYPE_INFO, "Item has a service browser, trying to get the display information", buf, 2u);
+      _os_log_impl(&dword_1E57D8000, v4, OS_LOG_TYPE_INFO, "Item has a service browser, trying to get the display information", buf, 2u);
     }
 
-    v4 = *(a1 + 64);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __59__UIDocumentBrowserTransitionController_animateTransition___block_invoke_28;
-    v11[3] = &unk_1E87830F8;
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    v8 = *(a1 + 56);
-    *&v9 = v7;
-    *(&v9 + 1) = v8;
-    *&v10 = v5;
-    *(&v10 + 1) = v6;
-    v12 = v10;
-    v13 = v9;
-    [v5 getDisplayInformation:v4 withCompletionBlock:v11];
+    v5 = *(a1 + 64);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __59__UIDocumentBrowserTransitionController_animateTransition___block_invoke_28;
+    v12[3] = &unk_1E87830F8;
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 56);
+    *&v10 = v8;
+    *(&v10 + 1) = v9;
+    *&v11 = v6;
+    *(&v11 + 1) = v7;
+    v13 = v11;
+    v14 = v10;
+    [v6 getDisplayInformation:v5 withCompletionBlock:v12];
   }
 
   else
   {
-    if (!v3)
+    if (!v4)
     {
       DOCInitLogging();
-      v3 = *v2;
+      v4 = *v3;
     }
 
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E57D8000, v3, OS_LOG_TYPE_INFO, "No item service browser. Just adding the view.", buf, 2u);
+      _os_log_impl(&dword_1E57D8000, v4, OS_LOG_TYPE_INFO, "No item service browser. Just adding the view.", buf, 2u);
     }
 
     (*(*(a1 + 56) + 16))(*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24));
   }
 }
 
-void __59__UIDocumentBrowserTransitionController_animateTransition___block_invoke_28(id *a1, void *a2)
+void __59__UIDocumentBrowserTransitionController_animateTransition___block_invoke_28(id *a1, void *a2, uint64_t a3, double a4, double a5, double a6, double a7)
 {
-  v10 = a2;
-  v3 = a1[4];
-  v4 = a1[5];
-  v5 = a1[6];
-  v6 = a1[7];
-  *&v7 = v5;
-  *(&v7 + 1) = v6;
-  *&v8 = v3;
-  *(&v8 + 1) = v4;
-  v11 = v8;
-  v12 = v7;
-  v9 = v10;
+  v15 = a2;
+  v8 = a1[4];
+  v9 = a1[5];
+  v10 = a1[6];
+  v11 = a1[7];
+  *&v12 = v10;
+  *(&v12 + 1) = v11;
+  *&v13 = v8;
+  *(&v13 + 1) = v9;
+  v16 = v13;
+  v17 = v12;
+  v14 = v15;
   DOCRunInMainThread();
 }
 
-uint64_t __59__UIDocumentBrowserTransitionController_animateTransition___block_invoke_2_29(uint64_t a1)
+uint64_t __59__UIDocumentBrowserTransitionController_animateTransition___block_invoke_2_29(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v2 = MEMORY[0x1E699A450];
-  v3 = *MEMORY[0x1E699A450];
+  v22 = *MEMORY[0x1E69E9840];
+  v3 = MEMORY[0x1E699A450];
+  v4 = *MEMORY[0x1E699A450];
   if (!*MEMORY[0x1E699A450])
   {
     DOCInitLogging();
-    v3 = *v2;
+    v4 = *v3;
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 72);
-    v6 = *(a1 + 80);
-    v7 = *(a1 + 88);
-    v8 = *(a1 + 96);
-    v9 = *(a1 + 104);
-    v10 = v3;
-    v22.origin.x = v6;
-    v22.origin.y = v7;
-    v22.size.width = v8;
-    v22.size.height = v9;
-    v11 = NSStringFromCGRect(v22);
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 72);
+    v7 = *(a1 + 80);
+    v8 = *(a1 + 88);
+    v9 = *(a1 + 96);
+    v10 = *(a1 + 104);
+    v11 = v4;
+    v23.origin.x = v7;
+    v23.origin.y = v8;
+    v23.size.width = v9;
+    v23.size.height = v10;
+    v12 = NSStringFromCGRect(v23);
     *buf = 138412802;
-    v16 = v4;
-    v17 = 2048;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v11;
-    _os_log_impl(&dword_1E57D8000, v10, OS_LOG_TYPE_INFO, "Display information received thumbnail: %@ style: %lu sourceRect: %@. Starting transition.", buf, 0x20u);
+    v17 = v5;
+    v18 = 2048;
+    v19 = v6;
+    v20 = 2112;
+    v21 = v12;
+    _os_log_impl(&dword_1E57D8000, v11, OS_LOG_TYPE_INFO, "Display information received thumbnail: %@ style: %lu sourceRect: %@. Starting transition.", buf, 0x20u);
   }
 
   if (*(a1 + 32))
@@ -565,7 +561,7 @@ uint64_t __59__UIDocumentBrowserTransitionController_animateTransition___block_i
     block[1] = 3221225472;
     block[2] = __59__UIDocumentBrowserTransitionController_animateTransition___block_invoke_30;
     block[3] = &unk_1E87829A0;
-    v14 = *(a1 + 40);
+    v15 = *(a1 + 40);
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
@@ -586,6 +582,13 @@ void __55__UIDocumentBrowserTransitionController_doc_commonInit__block_invoke_co
   v2 = 138412290;
   v3 = a1;
   _os_log_error_impl(&dword_1E57D8000, a2, OS_LOG_TYPE_ERROR, "Remote object proxy disconnected with error: %@", &v2, 0xCu);
+}
+
+void __55__UIDocumentBrowserTransitionController_doc_commonInit__block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1E57D8000, a2, a3, "Transition controller received %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

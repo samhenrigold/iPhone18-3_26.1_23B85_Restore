@@ -228,20 +228,19 @@
   {
     fig_log_get_emitter();
     sub_B550();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 LABEL_16:
-    FigDebugAssert3();
-LABEL_17:
     selfCopy = 0;
     goto LABEL_12;
   }
 
-  v42.receiver = self;
-  v42.super_class = MitigationGPU;
-  v11 = [(MitigationGPU *)&v42 init];
+  v39.receiver = self;
+  v39.super_class = MitigationGPU;
+  v11 = [(MitigationGPU *)&v39 init];
   self = v11;
   if (!v11)
   {
-    goto LABEL_17;
+    goto LABEL_16;
   }
 
   objc_storeStrong(&v11->_metalToolbox, box);
@@ -256,53 +255,17 @@ LABEL_17:
 
   if ([(MitigationGPU *)self _compileShaders])
   {
-    goto LABEL_17;
+    goto LABEL_16;
   }
 
   *&self->_forceWaitForComplete = 0;
   v16 = sub_D1B0();
   self->_temporalMitigated = v16;
-  if (!v16)
+  if (!v16 || (v17 = sub_D1B0(), (self->_spatialMitigated = v17) == 0) || (PixelBuffer = CreatePixelBuffer(), (self->_inputCopy = PixelBuffer) == 0) || (sub_D1A0(), sub_C6CC(v19, v20, v21, v22), v23 = objc_claimAutoreleasedReturnValue(), temporalMitigatedTexture = self->_temporalMitigatedTexture, self->_temporalMitigatedTexture = v23, temporalMitigatedTexture, !self->_temporalMitigatedTexture) || (sub_D1A0(), sub_C6CC(v25, v26, v27, v28), v29 = objc_claimAutoreleasedReturnValue(), spatialMitigatedTexture = self->_spatialMitigatedTexture, self->_spatialMitigatedTexture = v29, spatialMitigatedTexture, !self->_spatialMitigatedTexture) || (sub_D1A0(), sub_C6CC(v31, v32, v33, v34), v35 = objc_claimAutoreleasedReturnValue(), inputCopyTexture = self->_inputCopyTexture, self->_inputCopyTexture = v35, inputCopyTexture, !self->_inputCopyTexture))
   {
-    goto LABEL_15;
-  }
-
-  v17 = sub_D1B0();
-  self->_spatialMitigated = v17;
-  if (!v17)
-  {
-    goto LABEL_15;
-  }
-
-  PixelBuffer = CreatePixelBuffer();
-  self->_inputCopy = PixelBuffer;
-  if (!PixelBuffer)
-  {
-    goto LABEL_15;
-  }
-
-  temporalMitigated = self->_temporalMitigated;
-  sub_D1A0();
-  v24 = sub_C6CC(v20, v21, v22, v23);
-  temporalMitigatedTexture = self->_temporalMitigatedTexture;
-  self->_temporalMitigatedTexture = v24;
-
-  if (!self->_temporalMitigatedTexture)
-  {
-    goto LABEL_15;
-  }
-
-  spatialMitigated = self->_spatialMitigated;
-  sub_D1A0();
-  v31 = sub_C6CC(v27, v28, v29, v30);
-  spatialMitigatedTexture = self->_spatialMitigatedTexture;
-  self->_spatialMitigatedTexture = v31;
-
-  if (!self->_spatialMitigatedTexture || (inputCopy = self->_inputCopy, sub_D1A0(), sub_C6CC(v34, v35, v36, v37), v38 = objc_claimAutoreleasedReturnValue(), inputCopyTexture = self->_inputCopyTexture, self->_inputCopyTexture = v38, inputCopyTexture, !self->_inputCopyTexture))
-  {
-LABEL_15:
     fig_log_get_emitter();
     sub_B550();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     goto LABEL_16;
   }
 

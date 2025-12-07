@@ -53,37 +53,33 @@ void __24__MSAutosaveSession_log__block_invoke(uint64_t a1)
 
 - (void)didReconnectRemoteSession:(id)session remoteService:(id)service
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   serviceCopy = service;
   v8 = +[MSAutosaveSession log];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     autosaveIdentifier = [(MSAutosaveSession *)self autosaveIdentifier];
-    v11 = 138412290;
-    v12 = autosaveIdentifier;
-    _os_log_impl(&dword_1D876A000, v8, OS_LOG_TYPE_INFO, "Reconnected to remote autosave session (autosaveID=%@)", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = autosaveIdentifier;
+    _os_log_impl(&dword_1D876A000, v8, OS_LOG_TYPE_INFO, "Reconnected to remote autosave session (autosaveID=%@)", &v10, 0xCu);
   }
 
   [(MSAutosaveSession *)self setRemoteSession:sessionCopy];
   [(MSAutosaveSession *)self setRemoteService:serviceCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteSessionDisconnectedWithError:(id)error
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = +[MSAutosaveSession log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     autosaveIdentifier = [(MSAutosaveSession *)self autosaveIdentifier];
     ef_publicDescription = [errorCopy ef_publicDescription];
-    [(MSAutosaveSession *)autosaveIdentifier remoteSessionDisconnectedWithError:ef_publicDescription, v9, v5];
+    [(MSAutosaveSession *)autosaveIdentifier remoteSessionDisconnectedWithError:ef_publicDescription, v8, v5];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteSessionDisconnectedWithError:(uint8_t *)buf .cold.1(void *a1, void *a2, uint8_t *buf, os_log_t log)

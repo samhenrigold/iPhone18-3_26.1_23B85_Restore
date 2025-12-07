@@ -49,15 +49,15 @@
 
 - (void)schemaVersionWillChangeForDatabase:(sqlite3 *)database fromSchemaVersion:(int64_t)version toSchemaVersion:(int64_t)schemaVersion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v8 = ABSLogCommon();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v14 = "[BCSLinkItemPersistentStore schemaVersionWillChangeForDatabase:fromSchemaVersion:toSchemaVersion:]";
-    v15 = 2048;
+    v13 = "[BCSLinkItemPersistentStore schemaVersionWillChangeForDatabase:fromSchemaVersion:toSchemaVersion:]";
+    v14 = 2048;
     versionCopy = version;
-    v17 = 2048;
+    v16 = 2048;
     schemaVersionCopy = schemaVersion;
     _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "%s schema version will change from '%ld' to '%ld', dropping link_items table", buf, 0x20u);
   }
@@ -70,22 +70,20 @@
       v9 = ABSLogCommon();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v11 = sqlite3_errmsg(database);
+        v10 = sqlite3_errmsg(database);
         *buf = 136315138;
-        v14 = v11;
+        v13 = v10;
         _os_log_error_impl(&dword_242072000, v9, OS_LOG_TYPE_ERROR, "error while dropping link_items table: %s", buf, 0xCu);
       }
     }
 
     sqlite3_finalize(ppStmt);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)itemMatching:(id)matching
 {
-  v61[1] = *MEMORY[0x277D85DE8];
+  v60[1] = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   if ([matchingCopy type] != 2 || self == 0)
   {
@@ -116,89 +114,89 @@
       if (sqlite3_step(ppStmt) == 100)
       {
         v11 = ppStmt;
-        v59[0] = MEMORY[0x277D85DD0];
-        v59[1] = 3221225472;
-        v59[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke;
-        v59[3] = &__block_descriptor_40_e18___NSString_12__0i8l;
-        v59[4] = ppStmt;
-        v12 = MEMORY[0x245D07100](v59);
-        v57[0] = MEMORY[0x277D85DD0];
-        v57[1] = 3221225472;
-        v57[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_2;
-        v57[3] = &unk_278D38B78;
-        v13 = v12;
-        v58 = v13;
-        v14 = MEMORY[0x245D07100](v57);
+        v58[0] = MEMORY[0x277D85DD0];
+        v58[1] = 3221225472;
+        v58[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke;
+        v58[3] = &__block_descriptor_40_e18___NSString_12__0i8l;
+        v58[4] = ppStmt;
+        v12 = MEMORY[0x245D07100](v58);
         v56[0] = MEMORY[0x277D85DD0];
         v56[1] = 3221225472;
-        v56[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_3;
-        v56[3] = &__block_descriptor_40_e30___NSObject_20__0__NSArray_8i16l;
-        v56[4] = v11;
-        v15 = MEMORY[0x245D07100](v56);
-        v54[0] = MEMORY[0x277D85DD0];
-        v54[1] = 3221225472;
-        v54[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_32;
-        v54[3] = &unk_278D38BC0;
+        v56[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_2;
+        v56[3] = &unk_278D38B78;
+        v13 = v12;
+        v57 = v13;
+        v14 = MEMORY[0x245D07100](v56);
+        v55[0] = MEMORY[0x277D85DD0];
+        v55[1] = 3221225472;
+        v55[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_3;
+        v55[3] = &__block_descriptor_40_e30___NSObject_20__0__NSArray_8i16l;
+        v55[4] = v11;
+        v15 = MEMORY[0x245D07100](v55);
+        v53[0] = MEMORY[0x277D85DD0];
+        v53[1] = 3221225472;
+        v53[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_32;
+        v53[3] = &unk_278D38BC0;
         v16 = v15;
-        v55 = v16;
-        v17 = MEMORY[0x245D07100](v54);
-        v52[0] = MEMORY[0x277D85DD0];
-        v52[1] = 3221225472;
-        v52[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_35;
-        v52[3] = &unk_278D38BE8;
+        v54 = v16;
+        v17 = MEMORY[0x245D07100](v53);
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_35;
+        v51[3] = &unk_278D38BE8;
         v18 = v16;
-        v53 = v18;
-        v46 = MEMORY[0x245D07100](v52);
-        v50[0] = MEMORY[0x277D85DD0];
-        v50[1] = 3221225472;
-        v50[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_38;
-        v50[3] = &unk_278D38C10;
-        v39 = v18;
-        v51 = v39;
-        v37 = MEMORY[0x245D07100](v50);
+        v52 = v18;
+        v45 = MEMORY[0x245D07100](v51);
         v49[0] = MEMORY[0x277D85DD0];
         v49[1] = 3221225472;
-        v49[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_41;
-        v49[3] = &__block_descriptor_40_e16___NSDate_12__0i8l;
-        v49[4] = v11;
-        v19 = MEMORY[0x245D07100](v49);
+        v49[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_38;
+        v49[3] = &unk_278D38C10;
+        v38 = v18;
+        v50 = v38;
+        v36 = MEMORY[0x245D07100](v49);
         v48[0] = MEMORY[0x277D85DD0];
         v48[1] = 3221225472;
-        v48[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_2_44;
-        v48[3] = &__block_descriptor_40_e8_B12__0i8l;
+        v48[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_41;
+        v48[3] = &__block_descriptor_40_e16___NSDate_12__0i8l;
         v48[4] = v11;
-        v20 = MEMORY[0x245D07100](v48);
-        v45 = (*(v14 + 16))(v14, 0);
-        v44 = (*(v13 + 2))(v13, 1);
-        v43 = (*(v13 + 2))(v13, 2);
-        v35 = (*(v13 + 2))(v13, 3);
-        v41 = v14;
+        v19 = MEMORY[0x245D07100](v48);
+        v47[0] = MEMORY[0x277D85DD0];
+        v47[1] = 3221225472;
+        v47[2] = __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_2_44;
+        v47[3] = &__block_descriptor_40_e8_B12__0i8l;
+        v47[4] = v11;
+        v20 = MEMORY[0x245D07100](v47);
+        v44 = (*(v14 + 16))(v14, 0);
+        v43 = (*(v13 + 2))(v13, 1);
+        v42 = (*(v13 + 2))(v13, 2);
+        v34 = (*(v13 + 2))(v13, 3);
+        v40 = v14;
         v21 = (*(v14 + 16))(v14, 4);
-        v34 = sqlite3_column_int(v11, 5);
-        v38 = v19;
-        v42 = (*(v19 + 16))(v19, 6);
-        v61[0] = objc_opt_class();
-        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:1];
-        v40 = v17;
+        v33 = sqlite3_column_int(v11, 5);
+        v37 = v19;
+        v41 = (*(v19 + 16))(v19, 6);
+        v60[0] = objc_opt_class();
+        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:1];
+        v39 = v17;
         v23 = (*(v17 + 16))(v17, v22, 7);
 
         LOBYTE(v22) = v20[2](v20, 8);
-        v60[0] = objc_opt_class();
-        v60[1] = objc_opt_class();
-        v60[2] = objc_opt_class();
-        v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:3];
-        v25 = (v46)[2](v46, v24, 9);
+        v59[0] = objc_opt_class();
+        v59[1] = objc_opt_class();
+        v59[2] = objc_opt_class();
+        v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:3];
+        v25 = (v45)[2](v45, v24, 9);
 
-        v26 = v37[2](v37, 10);
-        v36 = v23;
-        v33 = v23;
+        v26 = v36[2](v36, 10);
+        v35 = v23;
+        v32 = v23;
         v27 = v21;
-        v28 = [[BCSLinkItemModel alloc] initWithLinkURL:v45 bundleID:v44 heroImageURLString:v43 iconImageURLString:v35 redirectURL:v21 action:v34 mapIconStyleAttributes:v25 mapItemMUID:v26 businessLinkContentItemModels:v33 isPoweredBy:v22];
+        v28 = [[BCSLinkItemModel alloc] initWithLinkURL:v44 bundleID:v43 heroImageURLString:v42 iconImageURLString:v34 redirectURL:v21 action:v33 mapIconStyleAttributes:v25 mapItemMUID:v26 businessLinkContentItemModels:v32 isPoweredBy:v22];
         if (v28)
         {
           v29 = [BCSLinkItem alloc];
           v30 = objc_alloc_init(BCSLocaleHelper);
-          v6 = [(BCSLinkItem *)v29 initWithLinkItemModel:v28 expirationDate:v42 localeHelper:v30];
+          v6 = [(BCSLinkItem *)v29 initWithLinkItemModel:v28 expirationDate:v41 localeHelper:v30];
         }
 
         else
@@ -218,14 +216,12 @@
     [(BCSPersistentStore *)self endBatch];
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)updateItem:(id)item withItemIdentifier:(id)identifier
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   identifierCopy = identifier;
   objc_opt_class();
@@ -237,7 +233,7 @@
     [(BCSPersistentStore *)self beginBatch];
     [(BCSLinkItemPersistentStore *)self deleteItemMatching:v8];
     v10 = v9;
-    v60 = v8;
+    v59 = v8;
     [(BCSPersistentStore *)self beginBatch];
     ppStmt = 0;
     v11 = MEMORY[0x277CCAAB0];
@@ -254,7 +250,7 @@
     }
 
     v15 = v14;
-    v61 = [v11 archivedDataWithRootObject:v15 requiringSecureCoding:1 error:0];
+    v60 = [v11 archivedDataWithRootObject:v15 requiringSecureCoding:1 error:0];
 
     model2 = [v10 model];
     mapIconStyleAttributes = [model2 mapIconStyleAttributes];
@@ -286,20 +282,20 @@
       v27 = 0;
     }
 
-    v28 = v60;
+    v28 = v59;
 
     if (!sqlite3_prepare_v2(-[BCSPersistentStore openedDatabase](self, "openedDatabase"), [@"INSERT INTO link_items (full_hash_string link:bundle_id_string url:{hero_image_url_string, icon_image_url_string, redirect_url_string, action, expiration_date, content_item_models, is_powered_by, map_icon_style_attributes, map_item_muid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", "UTF8String"}string], -1, &ppStmt, 0))
     {
-      itemIdentifier = [v60 itemIdentifier];
+      itemIdentifier = [v59 itemIdentifier];
       objc_opt_class();
       v30 = objc_opt_isKindOfClass();
 
       if (v30)
       {
-        itemIdentifier2 = [v60 itemIdentifier];
+        itemIdentifier2 = [v59 itemIdentifier];
         v32 = ppStmt;
-        v59 = itemIdentifier2;
-        sqlite3_bind_text(v32, 1, [v59 UTF8String], -1, 0);
+        v58 = itemIdentifier2;
+        sqlite3_bind_text(v32, 1, [v58 UTF8String], -1, 0);
         v33 = ppStmt;
         model6 = [v10 model];
         linkURL = [model6 linkURL];
@@ -333,7 +329,7 @@
         [expirationDate timeIntervalSince1970];
         sqlite3_bind_double(v50, 8, v52);
 
-        sqlite3_bind_blob(ppStmt, 9, [v61 bytes], objc_msgSend(v61, "length"), 0xFFFFFFFFFFFFFFFFLL);
+        sqlite3_bind_blob(ppStmt, 9, [v60 bytes], objc_msgSend(v60, "length"), 0xFFFFFFFFFFFFFFFFLL);
         v53 = ppStmt;
         model11 = [v10 model];
         sqlite3_bind_int(v53, 10, [model11 isPoweredBy]);
@@ -347,12 +343,12 @@
           v56 = ABSLogCommon();
           if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
           {
-            v58 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
+            v57 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
             *buf = 134218242;
-            v65 = v55;
-            v28 = v60;
-            v66 = 2080;
-            v67 = v58;
+            v64 = v55;
+            v28 = v59;
+            v65 = 2080;
+            v66 = v57;
             _os_log_error_impl(&dword_242072000, v56, OS_LOG_TYPE_ERROR, "Error while finalizing insert link item %lu %s", buf, 0x16u);
           }
         }
@@ -363,8 +359,6 @@
 
     [(BCSPersistentStore *)self endBatch];
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteItemMatching:(id)matching
@@ -462,7 +456,7 @@ id __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke
 
 id __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_3(uint64_t a1, void *a2, int a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = sqlite3_column_blob(*(a1 + 32), a3);
   v7 = [MEMORY[0x277CBEA90] dataWithBytes:v6 length:{sqlite3_column_bytes(*(a1 + 32), a3)}];
@@ -471,9 +465,9 @@ id __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke
   {
     v9 = MEMORY[0x277CCAAC8];
     v10 = [MEMORY[0x277CBEB98] setWithArray:v5];
-    v16 = 0;
-    v11 = [v9 unarchivedObjectOfClasses:v10 fromData:v8 error:&v16];
-    v12 = v16;
+    v15 = 0;
+    v11 = [v9 unarchivedObjectOfClasses:v10 fromData:v8 error:&v15];
+    v12 = v15;
 
     if (v12)
     {
@@ -481,9 +475,9 @@ id __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v18 = v5;
-        v19 = 2112;
-        v20 = v12;
+        v17 = v5;
+        v18 = 2112;
+        v19 = v12;
         _os_log_error_impl(&dword_242072000, v13, OS_LOG_TYPE_ERROR, "error while unarchiving items of classes %@ - error: %@", buf, 0x16u);
       }
     }
@@ -494,14 +488,12 @@ id __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke
     v11 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 id __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_32(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = [v5 arrayByAddingObject:objc_opt_class()];
@@ -513,11 +505,11 @@ id __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke
     v9 = ABSLogCommon();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_error_impl(&dword_242072000, v9, OS_LOG_TYPE_ERROR, "error while unarchiving object - expected NSArray type but got %@", &v14, 0xCu);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_error_impl(&dword_242072000, v9, OS_LOG_TYPE_ERROR, "error while unarchiving object - expected NSArray type but got %@", &v13, 0xCu);
     }
 
     v8 = 0;
@@ -527,15 +519,13 @@ id __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke
   {
     v8 = v7;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 id __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_35(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = [v5 arrayByAddingObject:objc_opt_class()];
@@ -547,11 +537,11 @@ id __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke
     v9 = ABSLogCommon();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_error_impl(&dword_242072000, v9, OS_LOG_TYPE_ERROR, "error while unarchiving object - expected NSDictionary type but got %@", &v14, 0xCu);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_error_impl(&dword_242072000, v9, OS_LOG_TYPE_ERROR, "error while unarchiving object - expected NSDictionary type but got %@", &v13, 0xCu);
     }
 
     v8 = 0;
@@ -562,17 +552,15 @@ id __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke
     v8 = v7;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 id __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke_38(uint64_t a1, uint64_t a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v14[0] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v5 = (*(v3 + 16))(v3, v4, a2);
 
   if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -580,11 +568,11 @@ id __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke
     v7 = ABSLogCommon();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = 138412290;
-      v13 = v11;
-      _os_log_error_impl(&dword_242072000, v7, OS_LOG_TYPE_ERROR, "error while unarchiving object - expected NSNumber type but got %@", &v12, 0xCu);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_error_impl(&dword_242072000, v7, OS_LOG_TYPE_ERROR, "error while unarchiving object - expected NSNumber type but got %@", &v11, 0xCu);
     }
 
     v6 = 0;
@@ -594,8 +582,6 @@ id __60__BCSLinkItemPersistentStore__extractLinkItemFromStatement___block_invoke
   {
     v6 = v5;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

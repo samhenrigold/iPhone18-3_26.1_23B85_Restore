@@ -2543,11 +2543,11 @@ LABEL_26:
   return v17;
 }
 
-uint64_t AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(void *a1, const char *a2)
+uint64_t AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(void *a1, const char *a2, uint64_t a3)
 {
   location = 0;
   objc_storeStrong(&location, a1);
-  v5 = a2;
+  v6 = a2;
   if (!location)
   {
     objc_storeStrong(&location, &_os_log_default);
@@ -2555,10 +2555,10 @@ uint64_t AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(void *a1, const 
 
   if (!a2)
   {
-    v5 = "com.apple.MobileAccessoryUpdater";
+    v6 = "com.apple.MobileAccessoryUpdater";
   }
 
-  inited = AUSandboxPlatformInitAllOS(location, v5);
+  inited = AUSandboxPlatformInitAllOS(location, v6);
   objc_storeStrong(&location, 0);
   return inited;
 }
@@ -2573,20 +2573,20 @@ uint64_t AUSandboxPlatformInitAllOS(void *a1, uint64_t a2)
   return v4;
 }
 
-uint64_t AUSandboxPlatformInitWithBundleIdentifier(void *a1, const char *a2)
+uint64_t AUSandboxPlatformInitWithBundleIdentifier(void *a1, const char *a2, uint64_t a3)
 {
   location = 0;
   objc_storeStrong(&location, a1);
-  v4 = AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(location, a2);
+  v6 = AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(location, a2, a3);
   objc_storeStrong(&location, 0);
-  return v4;
+  return v6;
 }
 
 uint64_t AUSandboxPlatformInit(void *a1, const char *a2)
 {
   location = 0;
   objc_storeStrong(&location, a1);
-  v4 = AUSandboxPlatformInitWithBundleIdentifier(location, a2);
+  v4 = AUSandboxPlatformInitWithBundleIdentifier(location, a2, 0);
   objc_storeStrong(&location, 0);
   return v4;
 }
@@ -2595,7 +2595,7 @@ uint64_t AUSandboxPlatformInitWithHomeDirectory(void *a1, const char *a2)
 {
   location = 0;
   objc_storeStrong(&location, a1);
-  v4 = AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(location, a2);
+  v4 = AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(location, a2, 0);
   objc_storeStrong(&location, 0);
   return v4;
 }

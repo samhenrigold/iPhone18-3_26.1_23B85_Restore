@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)usageTypeAsString:(int)string;
 - (int)StringAsUsageType:(id)type;
 - (int)usageType;
 - (unint64_t)hash;
@@ -43,6 +44,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)usageTypeAsString:(int)string
+{
+  if (string >= 0x15)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E540D0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsUsageType:(id)type
@@ -333,7 +349,7 @@
 
 - (void)writeTo:(id)to
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_uniqueID)
   {
@@ -343,14 +359,12 @@
   has = self->_has;
   if (has)
   {
-    absoluteTimestamp = self->_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    usageType = self->_usageType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -386,7 +400,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    badge = self->_badge;
     PBDataWriterWriteUint64Field();
   }
 
@@ -405,42 +418,38 @@
     PBDataWriterWriteStringField();
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v9 = self->_contactIDs;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v10)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_contactIDs;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v11 = v10;
-    v12 = *v18;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v12)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v11);
+    while (v8);
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    isGroupMessage = self->_isGroupMessage;
     PBDataWriterWriteBOOLField();
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -548,7 +557,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_uniqueID copyWithZone:zone];
   v7 = *(v5 + 104);
@@ -610,30 +619,30 @@
   v26 = *(v5 + 72);
   *(v5 + 72) = v25;
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v27 = self->_contactIDs;
-  v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v36;
+    v30 = *v35;
     do
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v36 != v30)
+        if (*v35 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = [*(*(&v35 + 1) + 8 * i) copyWithZone:{zone, v35}];
+        v32 = [*(*(&v34 + 1) + 8 * i) copyWithZone:{zone, v34}];
         [v5 addContactIDs:v32];
       }
 
-      v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v29);
@@ -645,7 +654,6 @@
     *(v5 + 120) |= 8u;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -666,7 +674,6 @@
     }
   }
 
-  v6 = *(equalCopy + 120);
   if (*&self->_has)
   {
     if ((*(equalCopy + 120) & 1) == 0 || self->_absoluteTimestamp != *(equalCopy + 1))
@@ -744,7 +751,6 @@
     }
   }
 
-  v13 = *(equalCopy + 120);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 120) & 2) == 0 || self->_badge != *(equalCopy + 2))
@@ -791,13 +797,13 @@
     }
   }
 
-  v18 = (*(equalCopy + 120) & 8) == 0;
+  v16 = (*(equalCopy + 120) & 8) == 0;
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 120) & 8) == 0)
     {
 LABEL_41:
-      v18 = 0;
+      v16 = 0;
       goto LABEL_42;
     }
 
@@ -814,12 +820,12 @@ LABEL_41:
       goto LABEL_41;
     }
 
-    v18 = 1;
+    v16 = 1;
   }
 
 LABEL_42:
 
-  return v18;
+  return v16;
 }
 
 - (unint64_t)hash
@@ -904,7 +910,7 @@ LABEL_42:
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 13))
   {
@@ -976,29 +982,29 @@ LABEL_42:
     [(BMPBNotificationEvent *)self setSectionID:?];
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = *(fromCopy + 6);
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(BMPBNotificationEvent *)self addContactIDs:*(*(&v12 + 1) + 8 * i), v12];
+        [(BMPBNotificationEvent *)self addContactIDs:*(*(&v11 + 1) + 8 * i), v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
@@ -1009,8 +1015,6 @@ LABEL_42:
     self->_isGroupMessage = *(fromCopy + 116);
     *&self->_has |= 8u;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

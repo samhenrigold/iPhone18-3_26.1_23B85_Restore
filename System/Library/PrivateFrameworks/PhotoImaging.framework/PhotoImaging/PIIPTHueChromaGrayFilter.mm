@@ -63,7 +63,7 @@
     v23 = [v16 vectorWithX:v18 Y:v20 Z:v22];
     filterLumaKernel = [objc_opt_class() filterLumaKernel];
     inputImage2 = [(PIIPTHueChromaGrayFilter *)self inputImage];
-    [inputImage2 extent];
+    objc_msgSend_extent(inputImage2);
     v27 = v26;
     v29 = v28;
     v31 = v30;

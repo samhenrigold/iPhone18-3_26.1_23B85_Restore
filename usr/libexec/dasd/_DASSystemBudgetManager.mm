@@ -231,7 +231,7 @@
 
   v6 = objc_alloc_init(NSMutableArray);
   [(NSDictionary *)v6 addObjectsFromArray:v5];
-  v7 = [(NSDictionary *)v6 count];
+  v7 = objc_msgSend_count(v6);
   log = self->_log;
   v9 = os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT);
   if (v7)
@@ -612,12 +612,12 @@ LABEL_9:
   relatedApplications = [activityCopy relatedApplications];
   involvedProcesses = [activityCopy involvedProcesses];
 
-  if ([involvedProcesses count])
+  if (objc_msgSend_count(involvedProcesses))
   {
     [v7 addObjectsFromArray:involvedProcesses];
   }
 
-  if ([relatedApplications count])
+  if (objc_msgSend_count(relatedApplications))
   {
     [v7 addObjectsFromArray:relatedApplications];
   }

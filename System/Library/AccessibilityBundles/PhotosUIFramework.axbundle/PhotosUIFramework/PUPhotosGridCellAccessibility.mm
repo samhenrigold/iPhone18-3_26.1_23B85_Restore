@@ -163,10 +163,7 @@ LABEL_6:
 
 uint64_t __43__PUPhotosGridCellAccessibility__axPHAsset__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) photoCollectionAtIndex:{objc_msgSend(*(a1 + 40), "section")}];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) photoCollectionAtIndex:{objc_msgSend(*(a1 + 40), "section")}];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -183,10 +180,7 @@ void __43__PUPhotosGridCellAccessibility__axPHAsset__block_invoke_2(uint64_t a1)
 
 uint64_t __43__PUPhotosGridCellAccessibility__axPHAsset__block_invoke_3(uint64_t a1)
 {
-  v2 = [*(a1 + 32) objectAtIndex:{objc_msgSend(*(a1 + 40), "item")}];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) objectAtIndex:{objc_msgSend(*(a1 + 40), "item")}];
 
   return MEMORY[0x2A1C71028]();
 }

@@ -13,11 +13,11 @@
 {
   height = resolution.height;
   width = resolution.width;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v22.receiver = self;
-  v22.super_class = SIBaseScaler;
-  v13 = [(SIBaseScaler *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = SIBaseScaler;
+  v13 = [(SIBaseScaler *)&v21 init];
   v14 = v13;
   if (!v13)
   {
@@ -28,17 +28,17 @@ LABEL_10:
 
   if (width == 0.0 || height == 0.0)
   {
-    v19 = __SceneIntelligenceLogSharedInstance();
+    v19 = __SceneIntelligenceLogSharedInstance(v13);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 136381443;
       *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Scaler/SIBaseScaler.m";
-      v24 = 1025;
-      v25 = 47;
-      v26 = 2048;
-      v27 = width;
-      v28 = 2048;
-      v29 = height;
+      v23 = 1025;
+      v24 = 47;
+      v25 = 2048;
+      v26 = width;
+      v27 = 2048;
+      v28 = height;
       _os_log_impl(&dword_21DE0D000, v19, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to initialize the scale: Unsupported Resolution (%.2f, %.2f) ***", buf, 0x26u);
     }
 
@@ -63,41 +63,38 @@ LABEL_10:
   v18 = v14;
 LABEL_11:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (BOOL)scaleImage:(__CVBuffer *)image outputBuffer:(__CVBuffer *)buffer
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v4 = __SceneIntelligenceLogSharedInstance();
+  v10 = *MEMORY[0x277D85DE8];
+  v4 = __SceneIntelligenceLogSharedInstance(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 136380931;
-    v8 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Scaler/SIBaseScaler.m";
-    v9 = 1025;
-    v10 = 108;
-    _os_log_impl(&dword_21DE0D000, v4, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Not implemented in base class. ***", &v7, 0x12u);
+    v6 = 136380931;
+    v7 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Scaler/SIBaseScaler.m";
+    v8 = 1025;
+    v9 = 108;
+    _os_log_impl(&dword_21DE0D000, v4, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Not implemented in base class. ***", &v6, 0x12u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (__CVBuffer)createScaledImage:(__CVBuffer *)image
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = __SceneIntelligenceLogSharedInstance();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = __SceneIntelligenceLogSharedInstance(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136380931;
-    v7 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Scaler/SIBaseScaler.m";
-    v8 = 1025;
-    v9 = 114;
-    _os_log_impl(&dword_21DE0D000, v3, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Not implemented in base class. ***", &v6, 0x12u);
+    v5 = 136380931;
+    v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Scaler/SIBaseScaler.m";
+    v7 = 1025;
+    v8 = 114;
+    _os_log_impl(&dword_21DE0D000, v3, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Not implemented in base class. ***", &v5, 0x12u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

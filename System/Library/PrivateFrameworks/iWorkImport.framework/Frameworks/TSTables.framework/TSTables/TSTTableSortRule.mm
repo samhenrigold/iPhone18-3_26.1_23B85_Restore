@@ -14,9 +14,9 @@
 {
   v4 = *&direction;
   v6 = objc_alloc(objc_opt_class());
-  v9 = objc_msgSend_initWithBaseIndex_direction_(v6, v7, index._index, v4, v8);
+  v8 = objc_msgSend_initWithBaseIndex_direction_(v6, v7, index._index, v4);
 
-  return v9;
+  return v8;
 }
 
 - (TSTTableSortRule)initWithBaseIndex:(TSUModelColumnOrRowIndex)index direction:(int)direction
@@ -36,28 +36,28 @@
 - (id)ruleByChangingBaseIndexTo:(TSUModelColumnOrRowIndex)to
 {
   v5 = objc_alloc(objc_opt_class());
-  v8 = objc_msgSend_initWithBaseIndex_direction_(v5, v6, to._index, self->_direction, v7);
+  v7 = objc_msgSend_initWithBaseIndex_direction_(v5, v6, to._index, self->_direction);
 
-  return v8;
+  return v7;
 }
 
 - (id)ruleByChangingDirectionTo:(int)to
 {
   v3 = *&to;
   v5 = objc_alloc(objc_opt_class());
-  v8 = objc_msgSend_initWithBaseIndex_direction_(v5, v6, self->_baseIndex._index, v3, v7);
+  v7 = objc_msgSend_initWithBaseIndex_direction_(v5, v6, self->_baseIndex._index, v3);
 
-  return v8;
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v5 = objc_opt_class();
-  v9 = objc_msgSend_allocWithZone_(v5, v6, zone, v7, v8);
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
   index = self->_baseIndex._index;
   direction = self->_direction;
 
-  return objc_msgSend_initWithBaseIndex_direction_(v9, v10, index, direction, v11);
+  return objc_msgSend_initWithBaseIndex_direction_(v8, v9, index, direction);
 }
 
 - (BOOL)isEqual:(id)equal
@@ -65,10 +65,10 @@
   equalCopy = equal;
   objc_opt_class();
   v5 = TSUDynamicCast();
-  v10 = v5;
-  v15 = v5 && objc_msgSend_baseIndex(v5, v6, v7, v8, v9) == self->_baseIndex._index && objc_msgSend_direction(v10, v11, v12, v13, v14) == self->_direction;
+  v9 = v5;
+  v13 = v5 && objc_msgSend_baseIndex(v5, v6, v7, v8) == self->_baseIndex._index && objc_msgSend_direction(v9, v10, v11, v12) == self->_direction;
 
-  return v15;
+  return v13;
 }
 
 - (void)encodeToArchive:(void *)archive

@@ -32,7 +32,7 @@
 
 - (void)startWithPasscode:(id)passcode
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   passcodeCopy = passcode;
   presentedViewController = [(PABSFaceIDEnrollmentCoordinator *)self presentedViewController];
   navigationBar = [presentedViewController navigationBar];
@@ -68,8 +68,8 @@
   aBlock[3] = &unk_279A02FB8;
   aBlock[4] = self;
   v15 = passcodeCopy;
-  v34 = v15;
-  objc_copyWeak(&v35, &location);
+  v33 = v15;
+  objc_copyWeak(&v34, &location);
   v16 = _Block_copy(aBlock);
   configuration = [(PABSFaceIDEnrollmentCoordinator *)self configuration];
   if (configuration < 2)
@@ -82,20 +82,20 @@
     if (configuration == 2)
     {
       v25 = objc_alloc(MEMORY[0x277CF1C40]);
-      v19 = v32;
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __53__PABSFaceIDEnrollmentCoordinator_startWithPasscode___block_invoke_3;
-      v32[3] = &unk_279A02FE0;
-      v32[4] = v16;
+      v19 = v31;
       v31[0] = MEMORY[0x277D85DD0];
       v31[1] = 3221225472;
-      v31[2] = __53__PABSFaceIDEnrollmentCoordinator_startWithPasscode___block_invoke_4;
-      v31[3] = &unk_279A03008;
-      v31[4] = self;
-      v20 = [v25 initInBuddy:0 bkDevice:0 upsell:0 withEndEnrollmentActionPrimary:v32 enrollmentActionSecondary:v31];
-      v38[0] = v20;
-      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
+      v31[2] = __53__PABSFaceIDEnrollmentCoordinator_startWithPasscode___block_invoke_3;
+      v31[3] = &unk_279A02FE0;
+      v31[4] = v16;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __53__PABSFaceIDEnrollmentCoordinator_startWithPasscode___block_invoke_4;
+      v30[3] = &unk_279A03008;
+      v30[4] = self;
+      v20 = [v25 initInBuddy:0 bkDevice:0 upsell:0 withEndEnrollmentActionPrimary:v31 enrollmentActionSecondary:v30];
+      v37[0] = v20;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
       presentedViewController4 = [(PABSFaceIDEnrollmentCoordinator *)self presentedViewController];
       [presentedViewController4 setViewControllers:v26];
 
@@ -108,20 +108,20 @@
     if (configuration == 3)
     {
       v18 = objc_alloc(MEMORY[0x277CF1C38]);
-      v19 = v30;
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __53__PABSFaceIDEnrollmentCoordinator_startWithPasscode___block_invoke_5;
-      v30[3] = &unk_279A02FE0;
-      v30[4] = v16;
+      v19 = v29;
       v29[0] = MEMORY[0x277D85DD0];
       v29[1] = 3221225472;
-      v29[2] = __53__PABSFaceIDEnrollmentCoordinator_startWithPasscode___block_invoke_6;
-      v29[3] = &unk_279A03008;
-      v29[4] = self;
-      v20 = [v18 initInBuddy:0 isDemo:0 bkDevice:0 withEndEnrollmentActionPrimary:v30 enrollmentActionSecondary:v29];
-      v37 = v20;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+      v29[2] = __53__PABSFaceIDEnrollmentCoordinator_startWithPasscode___block_invoke_5;
+      v29[3] = &unk_279A02FE0;
+      v29[4] = v16;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __53__PABSFaceIDEnrollmentCoordinator_startWithPasscode___block_invoke_6;
+      v28[3] = &unk_279A03008;
+      v28[4] = self;
+      v20 = [v18 initInBuddy:0 isDemo:0 bkDevice:0 withEndEnrollmentActionPrimary:v29 enrollmentActionSecondary:v28];
+      v36 = v20;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
       presentedViewController6 = [(PABSFaceIDEnrollmentCoordinator *)self presentedViewController];
       [presentedViewController6 setViewControllers:v21];
 
@@ -132,10 +132,8 @@ LABEL_10:
     }
   }
 
-  objc_destroyWeak(&v35);
+  objc_destroyWeak(&v34);
   objc_destroyWeak(&location);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __53__PABSFaceIDEnrollmentCoordinator_startWithPasscode___block_invoke(uint64_t a1, char a2)
@@ -237,7 +235,7 @@ void __95__PABSFaceIDEnrollmentCoordinator_preloadAndCreateEnrollmentControllerW
 
 - (void)pearlEnrollController:(id)controller finishedEnrollWithError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = PABSLogForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -252,9 +250,9 @@ void __95__PABSFaceIDEnrollmentCoordinator_preloadAndCreateEnrollmentControllerW
       v7 = &stru_286FD1EF8;
     }
 
-    v10 = 138412290;
-    v11 = v7;
-    _os_log_impl(&dword_25E0E9000, v6, OS_LOG_TYPE_DEFAULT, "Finished Pearl enroll %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v7;
+    _os_log_impl(&dword_25E0E9000, v6, OS_LOG_TYPE_DEFAULT, "Finished Pearl enroll %@", &v9, 0xCu);
     if (errorCopy)
     {
     }
@@ -262,8 +260,6 @@ void __95__PABSFaceIDEnrollmentCoordinator_preloadAndCreateEnrollmentControllerW
 
   delegate = [(PABSFaceIDEnrollmentCoordinator *)self delegate];
   [delegate faceIDEnrollmentCoordinator:self finishedEnrollmentWithError:errorCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enrollmentNavigationControllerWillDismiss:(id)dismiss

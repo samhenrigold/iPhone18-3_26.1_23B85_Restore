@@ -20,14 +20,14 @@
 - (_TtC3SMS30SMSServiceReachabilityDelegate)initWithServiceSession:(id)session
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for SMSServiceReachabilityDelegate();
+  v5.super_class = type metadata accessor for SMSServiceReachabilityDelegate(self, a2);
   return [(SMSServiceReachabilityDelegate *)&v5 initWithServiceSession:session];
 }
 
 - (_TtC3SMS30SMSServiceReachabilityDelegate)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for SMSServiceReachabilityDelegate();
+  v3.super_class = type metadata accessor for SMSServiceReachabilityDelegate(self, a2);
   return [(SMSServiceReachabilityDelegate *)&v3 init];
 }
 

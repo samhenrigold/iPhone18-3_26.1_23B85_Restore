@@ -72,10 +72,7 @@
 
 - (void)setKeyWrappingOperation:(id)operation
 {
-  v4 = [operation copy];
-  wrappedKeyEncryptionOperationInternal = self->_wrappedKeyEncryptionOperationInternal;
-  v6 = wrappedKeyEncryptionOperationInternal[1];
-  wrappedKeyEncryptionOperationInternal[1] = v4;
+  *(self->_wrappedKeyEncryptionOperationInternal + 1) = [operation copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -89,10 +86,7 @@
 
 - (void)setSessionEncryptionOperation:(id)operation
 {
-  v4 = [operation copy];
-  wrappedKeyEncryptionOperationInternal = self->_wrappedKeyEncryptionOperationInternal;
-  v6 = wrappedKeyEncryptionOperationInternal[2];
-  wrappedKeyEncryptionOperationInternal[2] = v4;
+  *(self->_wrappedKeyEncryptionOperationInternal + 2) = [operation copy];
 
   MEMORY[0x2821F96F8]();
 }

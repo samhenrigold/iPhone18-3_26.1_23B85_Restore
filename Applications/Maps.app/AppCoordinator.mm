@@ -2358,8 +2358,8 @@ LABEL_34:
         goto LABEL_32;
       }
 
-      configuration = [v18 configuration];
-      source = [configuration source];
+      v36 = objc_msgSend_configuration(v18);
+      source = [v36 source];
 
       if (source == 1)
       {
@@ -3803,11 +3803,11 @@ LABEL_78:
     selfCopy = self;
     v73 = observedNavigationSession;
     v74 = v10;
-    configuration = [v15 configuration];
-    sharedTripPrefetchContext = [configuration sharedTripPrefetchContext];
+    v18 = objc_msgSend_configuration(v15);
+    sharedTripPrefetchContext = [v18 sharedTripPrefetchContext];
 
-    configuration2 = [v12 configuration];
-    automaticSharingContacts = [configuration2 automaticSharingContacts];
+    v20 = objc_msgSend_configuration(v12);
+    automaticSharingContacts = [v20 automaticSharingContacts];
     v68 = sharedTripPrefetchContext;
     [sharedTripPrefetchContext setAutomaticSharingContacts:automaticSharingContacts];
 

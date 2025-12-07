@@ -35,7 +35,7 @@
 
 - (id)getLocalizedStringWithBundle:(id)bundle table:(id)table key:(id)key languageCode:(id)code gender:(int64_t)gender
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
   tableCopy = table;
   keyCopy = key;
@@ -58,17 +58,17 @@
 
     v19 = v18;
     *buf = 136316418;
-    v51 = "[SVXBundleUtils getLocalizedStringWithBundle:table:key:languageCode:gender:]";
-    v52 = 2112;
-    v53 = bundleIdentifier;
-    v54 = 2112;
-    v55 = tableCopy;
-    v56 = 2112;
-    v57 = keyCopy;
-    v58 = 2112;
-    v59 = codeCopy;
-    v60 = 2112;
-    v61 = v19;
+    v50 = "[SVXBundleUtils getLocalizedStringWithBundle:table:key:languageCode:gender:]";
+    v51 = 2112;
+    v52 = bundleIdentifier;
+    v53 = 2112;
+    v54 = tableCopy;
+    v55 = 2112;
+    v56 = keyCopy;
+    v57 = 2112;
+    v58 = codeCopy;
+    v59 = 2112;
+    v60 = v19;
     _os_log_impl(&dword_2695B9000, v16, OS_LOG_TYPE_INFO, "%s Getting localized string with bundleIdentifier: %@, table: %@, key: %@, languageCode: %@, gender: %@", buf, 0x3Eu);
   }
 
@@ -90,102 +90,88 @@
     v36 = v20;
   }
 
+  else if (bundleCopy && ([bundleCopy bundleIdentifier], v23 = objc_claimAutoreleasedReturnValue(), -[SVXBundleUtils getSiriVOXFramework](self, "getSiriVOXFramework"), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "bundleIdentifier"), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v23, "isEqualToString:", v25), v25, v24, v23, !v26))
+  {
+    v22 = [(AFLocalization *)self->_afLocalization localizedStringForKey:keyCopy gender:gender table:0 bundle:bundleCopy languageCode:codeCopy];
+    v36 = 0;
+  }
+
   else
   {
-    if (!bundleCopy)
+    v27 = *v14;
+    if (os_log_type_enabled(*v14, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_11;
+      *buf = 136315138;
+      v50 = "[SVXBundleUtils getLocalizedStringWithBundle:table:key:languageCode:gender:]";
+      _os_log_impl(&dword_2695B9000, v27, OS_LOG_TYPE_INFO, "%s No table provided. Checking standard localization tables for result.", buf, 0xCu);
     }
 
-    bundleIdentifier2 = [bundleCopy bundleIdentifier];
-    getSiriVOXFramework2 = [(SVXBundleUtils *)self getSiriVOXFramework];
-    bundleIdentifier3 = [getSiriVOXFramework2 bundleIdentifier];
-    v26 = [bundleIdentifier2 isEqualToString:bundleIdentifier3];
-
-    if (!v26)
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v28 = SVXLocalizationGetAllTables();
+    v29 = [v28 countByEnumeratingWithState:&v44 objects:v48 count:16];
+    if (v29)
     {
-      v22 = [(AFLocalization *)self->_afLocalization localizedStringForKey:keyCopy gender:gender table:0 bundle:bundleCopy languageCode:codeCopy];
+      v30 = v29;
+      v31 = *v45;
+      while (2)
+      {
+        for (i = 0; i != v30; ++i)
+        {
+          if (*v45 != v31)
+          {
+            objc_enumerationMutation(v28);
+          }
+
+          v33 = *(*(&v44 + 1) + 8 * i);
+          v34 = self->_afLocalization;
+          if (bundleCopy)
+          {
+            v22 = [(AFLocalization *)self->_afLocalization localizedStringForKey:keyCopy gender:gender table:*(*(&v44 + 1) + 8 * i) bundle:bundleCopy languageCode:codeCopy];
+            if (v22)
+            {
+              goto LABEL_27;
+            }
+          }
+
+          else
+          {
+            getSiriVOXFramework2 = [(SVXBundleUtils *)self getSiriVOXFramework];
+            v22 = [(AFLocalization *)v34 localizedStringForKey:keyCopy gender:gender table:v33 bundle:getSiriVOXFramework2 languageCode:codeCopy];
+
+            if (v22)
+            {
+LABEL_27:
+              v36 = v33;
+              goto LABEL_28;
+            }
+          }
+        }
+
+        v30 = [v28 countByEnumeratingWithState:&v44 objects:v48 count:16];
+        if (v30)
+        {
+          continue;
+        }
+
+        break;
+      }
+
       v36 = 0;
+      v22 = 0;
+LABEL_28:
+      v14 = MEMORY[0x277CEF098];
     }
 
     else
     {
-LABEL_11:
-      v27 = *v14;
-      if (os_log_type_enabled(*v14, OS_LOG_TYPE_INFO))
-      {
-        *buf = 136315138;
-        v51 = "[SVXBundleUtils getLocalizedStringWithBundle:table:key:languageCode:gender:]";
-        _os_log_impl(&dword_2695B9000, v27, OS_LOG_TYPE_INFO, "%s No table provided. Checking standard localization tables for result.", buf, 0xCu);
-      }
-
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
-      v46 = 0u;
-      v28 = SVXLocalizationGetAllTables();
-      v29 = [v28 countByEnumeratingWithState:&v45 objects:v49 count:16];
-      if (v29)
-      {
-        v30 = v29;
-        v31 = *v46;
-        while (2)
-        {
-          for (i = 0; i != v30; ++i)
-          {
-            if (*v46 != v31)
-            {
-              objc_enumerationMutation(v28);
-            }
-
-            v33 = *(*(&v45 + 1) + 8 * i);
-            v34 = self->_afLocalization;
-            if (bundleCopy)
-            {
-              v22 = [(AFLocalization *)self->_afLocalization localizedStringForKey:keyCopy gender:gender table:*(*(&v45 + 1) + 8 * i) bundle:bundleCopy languageCode:codeCopy];
-              if (v22)
-              {
-                goto LABEL_27;
-              }
-            }
-
-            else
-            {
-              getSiriVOXFramework3 = [(SVXBundleUtils *)self getSiriVOXFramework];
-              v22 = [(AFLocalization *)v34 localizedStringForKey:keyCopy gender:gender table:v33 bundle:getSiriVOXFramework3 languageCode:codeCopy];
-
-              if (v22)
-              {
-LABEL_27:
-                v36 = v33;
-                goto LABEL_28;
-              }
-            }
-          }
-
-          v30 = [v28 countByEnumeratingWithState:&v45 objects:v49 count:16];
-          if (v30)
-          {
-            continue;
-          }
-
-          break;
-        }
-
-        v36 = 0;
-        v22 = 0;
-LABEL_28:
-        v14 = MEMORY[0x277CEF098];
-      }
-
-      else
-      {
-        v36 = 0;
-        v22 = 0;
-      }
-
-      v20 = 0;
+      v36 = 0;
+      v22 = 0;
     }
+
+    v20 = 0;
   }
 
   v38 = *v14;
@@ -193,26 +179,24 @@ LABEL_28:
   {
     v39 = @"true";
     *buf = 136316162;
-    v51 = "[SVXBundleUtils getLocalizedStringWithBundle:table:key:languageCode:gender:]";
-    v52 = 2112;
+    v50 = "[SVXBundleUtils getLocalizedStringWithBundle:table:key:languageCode:gender:]";
+    v51 = 2112;
     if (!v22)
     {
       v39 = @"false";
     }
 
-    v53 = v39;
-    v54 = 2112;
-    v55 = v36;
-    v56 = 2112;
-    v57 = keyCopy;
-    v58 = 2112;
-    v59 = codeCopy;
+    v52 = v39;
+    v53 = 2112;
+    v54 = v36;
+    v55 = 2112;
+    v56 = keyCopy;
+    v57 = 2112;
+    v58 = codeCopy;
     _os_log_impl(&dword_2695B9000, v38, OS_LOG_TYPE_INFO, "%s Localized string found (%@) for table %@, key %@, and languageCode %@", buf, 0x34u);
   }
 
   v40 = [v22 stringByReplacingOccurrencesOfString:@"\\ESC" withString:@"\x1B"];
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v40;
 }

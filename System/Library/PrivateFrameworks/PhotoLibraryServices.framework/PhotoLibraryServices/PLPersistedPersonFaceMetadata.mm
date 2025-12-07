@@ -193,14 +193,14 @@
         *diff = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
       }
 
-      if ([dictionary count])
+      if (objc_msgSend_count(dictionary))
       {
         v22 = 0;
       }
 
       else
       {
-        v22 = [dictionary2 count] == 0;
+        v22 = objc_msgSend_count(dictionary2) == 0;
       }
     }
 
@@ -228,18 +228,18 @@
 
 uint64_t __111__PLPersistedPersonFaceMetadata_matchesEntityInLibraryBackedByManagedObjectContext_forRejectedPersonUUID_diff___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 personUUID];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 personUUID];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 uint64_t __111__PLPersistedPersonFaceMetadata_matchesEntityInLibraryBackedByManagedObjectContext_forRejectedPersonUUID_diff___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [a2 personUUID];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 personUUID];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)matchesEntityInLibraryBackedByManagedObjectContext:(id)context forConfirmedPersonUUID:(id)d diff:(id *)diff
@@ -313,14 +313,14 @@ uint64_t __111__PLPersistedPersonFaceMetadata_matchesEntityInLibraryBackedByMana
       *diff = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
     }
 
-    if ([dictionary count])
+    if (objc_msgSend_count(dictionary))
     {
       v29 = 0;
     }
 
     else
     {
-      v29 = [dictionary2 count] == 0;
+      v29 = objc_msgSend_count(dictionary2) == 0;
     }
   }
 
@@ -675,14 +675,14 @@ LABEL_13:
   v81 = *MEMORY[0x1E69E9840];
   facesCopy = faces;
   metadataCopy = metadata;
-  if ([facesCopy count])
+  if (objc_msgSend_count(facesCopy))
   {
     personUUID = [metadataCopy personUUID];
     v10 = PLMigrationGetLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v78 = [facesCopy count];
+      v78 = objc_msgSend_count(facesCopy);
       v79 = 2112;
       v80 = personUUID;
       _os_log_impl(&dword_19BF1F000, v10, OS_LOG_TYPE_DEFAULT, "Migrating %lu faces metadata for person %@", buf, 0x16u);
@@ -920,8 +920,8 @@ LABEL_56:
         while (v41);
       }
 
-      v45 = [facesCopy count];
-      v46 = [array count];
+      v45 = objc_msgSend_count(facesCopy);
+      v46 = objc_msgSend_count(array);
       v47 = v45 - v46;
       if (v45 != v46)
       {

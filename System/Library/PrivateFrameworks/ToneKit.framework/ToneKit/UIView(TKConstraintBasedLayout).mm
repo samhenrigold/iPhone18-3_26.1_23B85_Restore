@@ -187,7 +187,7 @@ LABEL_7:
 
 - (id)_tk_recursiveAutolayoutTraceAtLevel:()TKConstraintBasedLayout anyDescendantHasAmbiguousLayout:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = [MEMORY[0x277CCAB68] stringWithFormat:@"\n"];
   if (a3 >= 1)
   {
@@ -219,35 +219,33 @@ LABEL_7:
   }
 
   subviews = [self subviews];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v15 = [subviews countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v15 = [subviews countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v19 = [*(*(&v22 + 1) + 8 * i) _tk_recursiveAutolayoutTraceAtLevel:a3 + 1 anyDescendantHasAmbiguousLayout:a4];
+        v19 = [*(*(&v21 + 1) + 8 * i) _tk_recursiveAutolayoutTraceAtLevel:a3 + 1 anyDescendantHasAmbiguousLayout:a4];
         [v7 appendString:v19];
       }
 
-      v16 = [subviews countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v16 = [subviews countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

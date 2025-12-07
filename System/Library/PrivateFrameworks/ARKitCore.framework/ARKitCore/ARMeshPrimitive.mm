@@ -1,5 +1,5 @@
 @interface ARMeshPrimitive
-+ (id)planeWithTransform:min:max:texture:;
++ (ARMeshPrimitive)planeWithTransform:min:max:texture:;
 - (ARMeshPrimitive)initAsPlaneWithTransform:(__n128)transform min:(__n128)min max:(__n128)max texture:(__n128)texture;
 @end
 
@@ -57,7 +57,7 @@
   return v13;
 }
 
-+ (id)planeWithTransform:min:max:texture:
++ (ARMeshPrimitive)planeWithTransform:min:max:texture:
 {
   v0 = objc_opt_new();
 

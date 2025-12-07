@@ -1,4 +1,4 @@
-uint64_t _malloc_default_reader_6(int a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t _malloc_default_reader_6(unsigned int a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = 1;
   if (a1)
@@ -28,26 +28,23 @@ uint64_t register_msl_dylib()
 
 void *malloc_freezedry()
 {
-  v5 = j__malloc(0x10uLL);
-  *v5 = 6;
-  *(v5 + 1) = malloc_num_zones;
-  v5[1] = j__calloc(malloc_num_zones, 0x4A00uLL);
+  v2 = j__malloc(0x10uLL);
+  *v2 = 6;
+  *(v2 + 1) = malloc_num_zones;
+  *(v2 + 1) = j__calloc(malloc_num_zones, 0x4A00uLL);
   for (i = 0; i < malloc_num_zones; ++i)
   {
-    v0 = *(*(malloc_zones + i) + 72);
     if (_platform_strcmp())
     {
-      _free(v5[1]);
-      _free(v5);
+      _free(*(v2 + 1));
+      _free(v2);
       return 0;
     }
 
-    v1 = v5[1] + 18944 * i;
-    v2 = *(malloc_zones + i);
     _platform_memmove();
   }
 
-  return v5;
+  return v2;
 }
 
 uint64_t malloc_jumpstart(uint64_t a1)
@@ -160,7 +157,7 @@ uint64_t malloc_jumpstart(uint64_t a1)
   }
 }
 
-void *frozen_realloc(uint64_t a1, unint64_t a2, size_t a3)
+unint64_t frozen_realloc(uint64_t a1, unint64_t a2, size_t a3)
 {
   v5 = szone_size(a1, a2);
   if (a3 <= v5)
@@ -204,7 +201,7 @@ void tiny_print_region_free_list(uint64_t a1, unsigned int a2)
   }
 }
 
-unint64_t tiny_finalize_region(unint64_t result, uint64_t a2)
+uint64_t tiny_finalize_region(uint64_t result, uint64_t a2)
 {
   v9 = result;
   v8 = a2;
@@ -289,43 +286,44 @@ uint64_t set_tiny_meta_header_middle(uint64_t result)
   return result;
 }
 
-void tiny_free_list_remove_ptr(uint64_t a1, uint64_t a2, unint64_t a3, unsigned __int16 a4)
+void tiny_free_list_remove_ptr(uint64_t a1, uint64_t a2, unint64_t *a3, unsigned __int16 a4)
 {
   v5 = tiny_slot_from_msize(a4);
-  v10 = *(a3 + 8);
-  v9 = *a3;
+  v11 = a3[1];
+  v10 = *a3;
   if (*a3)
   {
-    if (*(v9 + 8) != a3)
+    v9 = *(v10 + 8);
+    if (v9 != a3)
     {
-      malloc_zone_error(*(a1 + 620), 1, "tiny_free_list_remove_ptr: Internal invariant broken (next ptr of prev): ptr=%p, prev_next=%p\n");
+      malloc_zone_error(*(a1 + 620), 1, "tiny_free_list_remove_ptr: Internal invariant broken (next ptr of prev): ptr=%p, prev_next=%p\n", a3, v9);
       __break(1u);
     }
 
-    *(v9 + 8) = *(a3 + 8);
+    *(v10 + 8) = a3[1];
   }
 
   else
   {
-    *(a2 + 32 + 8 * v5) = v10;
-    if (!v10)
+    *(a2 + 32 + 8 * v5) = v11;
+    if (!v11)
     {
       *(a2 + 2088 + 4 * (v5 >> 5)) &= ~(1 << (v5 & 0x1F));
     }
   }
 
-  if (v10)
+  if (v11)
   {
-    if (*v10 != a3)
+    if (*v11 != a3)
     {
-      malloc_zone_error(*(a1 + 620), 1, "tiny_free_list_remove_ptr: Internal invariant broken (prev ptr of next): ptr=%p, next_prev=%p\n");
+      malloc_zone_error(*(a1 + 620), 1, "tiny_free_list_remove_ptr: Internal invariant broken (prev ptr of next): ptr=%p, next_prev=%p\n", a3, *v11);
       __break(1u);
     }
 
-    *v10 = *a3;
+    *v11 = *a3;
   }
 
-  v4 = (a3 - ((a3 & 0xFFFFFFFFFFF00000) + 16512)) >> 4;
+  v4 = (a3 - (a3 & 0xFFFFFFFFFFF00000) - 16512) >> 4;
   if (*(&loc_3F28 + 4 * v5 + (a3 & 0xFFFFFFFFFFF00000)) == v4 + 1 && *(&loc_3F28 + 4 * v5 + (a3 & 0xFFFFFFFFFFF00000) + 2) == v4 + 1)
   {
     *(&loc_3F28 + 4 * v5 + (a3 & 0xFFFFFFFFFFF00000) + 2) = 0;
@@ -334,24 +332,24 @@ void tiny_free_list_remove_ptr(uint64_t a1, uint64_t a2, unint64_t a3, unsigned 
 
   else if (*(&loc_3F28 + 4 * v5 + (a3 & 0xFFFFFFFFFFF00000)) == v4 + 1)
   {
-    if (!v10)
+    if (!v11)
     {
       __break(1u);
       JUMPOUT(0x9BD18);
     }
 
-    *(&loc_3F28 + 4 * v5 + (a3 & 0xFFFFFFFFFFF00000)) = ((v10 - ((v10 & 0xFFFFFFFFFFF00000) + 16512)) >> 4) + 1;
+    *(&loc_3F28 + 4 * v5 + (a3 & 0xFFFFFFFFFFF00000)) = ((v11 - ((v11 & 0xFFFFFFFFFFF00000) + 16512)) >> 4) + 1;
   }
 
   else if (*(&loc_3F28 + 4 * v5 + (a3 & 0xFFFFFFFFFFF00000) + 2) == v4 + 1)
   {
-    if (!v9)
+    if (!v10)
     {
       __break(1u);
       JUMPOUT(0x9BD70);
     }
 
-    *(&loc_3F28 + 4 * v5 + (a3 & 0xFFFFFFFFFFF00000) + 2) = ((v9 - ((v9 & 0xFFFFFFFFFFF00000) + 16512)) >> 4) + 1;
+    *(&loc_3F28 + 4 * v5 + (a3 & 0xFFFFFFFFFFF00000) + 2) = ((v10 - ((v10 & 0xFFFFFFFFFFF00000) + 16512)) >> 4) + 1;
   }
 }
 
@@ -365,7 +363,7 @@ uint64_t zero_tiny_free_inline_meta_following(uint64_t result, unsigned __int16 
   return result;
 }
 
-unint64_t tiny_free_list_add_ptr(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int16 a4)
+uint64_t tiny_free_list_add_ptr(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int16 a4)
 {
   if (a4 && a4 <= 0x3Fu)
   {
@@ -447,8 +445,8 @@ uint64_t tiny_free_detach_region(uint64_t a1, uint64_t a2, uint64_t a3)
   v12 = a1;
   v11 = a2;
   v10 = a3;
-  v9 = a3 + 16512;
-  v8 = a3 + 16512;
+  v9 = (a3 + 16512);
+  v8 = (a3 + 16512);
   v7 = a3 + 0x100000;
   v6 = 0;
   while (v8 < v7)
@@ -472,7 +470,7 @@ uint64_t tiny_free_detach_region(uint64_t a1, uint64_t a2, uint64_t a3)
       tiny_free_list_remove_ptr(v12, v11, v8, tiny_meta_header);
     }
 
-    v8 += 16 * tiny_meta_header;
+    v8 += 2 * tiny_meta_header;
   }
 
   return *(a3 + 20);
@@ -515,7 +513,7 @@ uint64_t tiny_free_reattach_region(uint64_t a1, uint64_t a2, uint64_t a3)
   return v4;
 }
 
-void tiny_free_scan_madvise_free(uint64_t a1, atomic_uint *a2, uint64_t a3)
+void tiny_free_scan_madvise_free(uint64_t a1, os_unfair_lock_s *a2, uint64_t a3)
 {
   v31 = a1;
   v30 = a2;
@@ -604,7 +602,7 @@ void tiny_free_scan_madvise_free(uint64_t a1, atomic_uint *a2, uint64_t a3)
     {
       v15 = (v29 + (v13[2 * i] << vm_kernel_page_shift));
       v14 = v13[2 * i + 1] << vm_kernel_page_shift;
-      mvm_madvise_free(v31, v29, v15, v15 + v14, 0, *(v31 + 620) & 0x20);
+      mvm_madvise_free(v31, v29, v15, &v15[v14], 0, *(v31 + 620) & 0x20);
     }
 
     v34 = v30;
@@ -641,7 +639,7 @@ void tiny_free_scan_madvise_free(uint64_t a1, atomic_uint *a2, uint64_t a3)
   }
 }
 
-uint64_t tiny_free_no_lock(unint64_t a1, atomic_uint *a2, int a3, uint64_t a4, unint64_t a5, unsigned __int16 a6, int a7)
+uint64_t tiny_free_no_lock(uint64_t a1, atomic_uint *a2, unsigned int a3, _DWORD *a4, unint64_t *a5, unsigned __int16 a6, int a7)
 {
   v26 = a1;
   v25 = a2;
@@ -652,9 +650,9 @@ uint64_t tiny_free_no_lock(unint64_t a1, atomic_uint *a2, int a3, uint64_t a4, u
   v20 = a7;
   v19 = a5;
   v18 = 16 * a6;
-  v17 = (a5 + v18);
+  v17 = &a5[v18 / 8];
   v16 = 0;
-  region_check_cookie(a4, (a4 + 16508));
+  region_check_cookie(a4, a4 + 4127);
   v14 = tiny_previous_preceding_free(v22, &v16);
   if (v14)
   {
@@ -665,7 +663,7 @@ uint64_t tiny_free_no_lock(unint64_t a1, atomic_uint *a2, int a3, uint64_t a4, u
     v21 += v16;
   }
 
-  if (v17 < v23 + 0x100000 && tiny_meta_header_is_free(v17))
+  if (v17 < v23 + 0x20000 && tiny_meta_header_is_free(v17))
   {
     tiny_free_size = get_tiny_free_size(v17);
     if (tiny_free_size > 0x3Fu)
@@ -717,8 +715,8 @@ uint64_t tiny_free_no_lock(unint64_t a1, atomic_uint *a2, int a3, uint64_t a4, u
       set_tiny_meta_header_free(v22, v21);
       v11 = ((v13 - ((v13 & 0xFFFFFFFFFFF00000) + 16512)) >> 4) + 1;
       v10 = ((v22 - ((v22 & 0xFFFFFFFFFFF00000) + 16512)) >> 4) + 1;
-      v9 = (v23 + 16420);
-      if (*(v23 + 16420) == v11)
+      v9 = v23 + 4105;
+      if (*(v23 + 8210) == v11)
       {
         *v9 = v10;
       }
@@ -746,10 +744,10 @@ uint64_t tiny_free_no_lock(unint64_t a1, atomic_uint *a2, int a3, uint64_t a4, u
 LABEL_22:
   *(v25 + 269) -= v18;
   v8 = v23;
-  *(v23 + 16) -= v18;
+  v23[4] -= v18;
   if ((v20 & 1) == 0)
   {
-    --*(v8 + 20);
+    --v8[5];
     --*(v25 + 542);
   }
 
@@ -803,13 +801,13 @@ uint64_t set_tiny_meta_header_free(uint64_t result, unsigned __int16 a2)
   return result;
 }
 
-unint64_t tiny_madvise_free_range_no_lock(unint64_t result, atomic_uint *a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, unsigned __int16 a7)
+uint64_t tiny_madvise_free_range_no_lock(uint64_t result, atomic_uint *a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t *a6, unsigned __int16 a7)
 {
   v17 = result;
-  if (((a6 + 18 + vm_kernel_page_mask) & ~vm_kernel_page_mask) < ((a6 + 16 * a7 - 2) & ~vm_kernel_page_mask))
+  if (((a6 + vm_kernel_page_mask + 18) & ~vm_kernel_page_mask) < ((&a6[2 * a7 - 1] + 6) & ~vm_kernel_page_mask))
   {
-    v11 = (((a6 + 18 + vm_kernel_page_mask) & ~vm_kernel_page_mask) <= ((a4 - 2) & ~vm_kernel_page_mask) ? (a4 - 2) & ~vm_kernel_page_mask : (a6 + 18 + vm_kernel_page_mask) & ~vm_kernel_page_mask);
-    v10 = ((a6 + 16 * a7 - 2) & ~vm_kernel_page_mask) >= ((a4 + a5 + 18 + vm_kernel_page_mask) & ~vm_kernel_page_mask) ? (a4 + a5 + 18 + vm_kernel_page_mask) & ~vm_kernel_page_mask : (a6 + 16 * a7 - 2) & ~vm_kernel_page_mask;
+    v11 = (((a6 + vm_kernel_page_mask + 18) & ~vm_kernel_page_mask) <= ((a4 - 2) & ~vm_kernel_page_mask) ? (a4 - 2) & ~vm_kernel_page_mask : (a6 + vm_kernel_page_mask + 18) & ~vm_kernel_page_mask);
+    v10 = (((&a6[2 * a7 - 1] + 6) & ~vm_kernel_page_mask) >= ((a4 + a5 + 18 + vm_kernel_page_mask) & ~vm_kernel_page_mask) ? (a4 + a5 + 18 + vm_kernel_page_mask) & ~vm_kernel_page_mask : (&a6[2 * a7 - 1] + 6) & ~vm_kernel_page_mask);
     if (v11 < v10)
     {
       tiny_free_list_remove_ptr(result, a2, a6, a7);
@@ -840,7 +838,7 @@ unint64_t tiny_madvise_free_range_no_lock(unint64_t result, atomic_uint *a2, uin
   return result;
 }
 
-uint64_t tiny_free_try_recirc_to_depot(unint64_t a1, atomic_uint *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, unsigned __int16 a8)
+uint64_t tiny_free_try_recirc_to_depot(uint64_t a1, atomic_uint *a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, unsigned __int16 a8)
 {
   v12 = *(a4 + 16);
   if (a3 != -1)
@@ -893,7 +891,7 @@ uint64_t tiny_free_try_recirc_to_depot(unint64_t a1, atomic_uint *a2, int a3, ui
   return 0;
 }
 
-unint64_t tiny_memalign(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+unsigned __int8 *tiny_memalign(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v18 = (a4 + 15) >> 4;
   v17 = tiny_malloc_should_clear(a1 + 16512, v18, 0);
@@ -917,9 +915,9 @@ unint64_t tiny_memalign(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v14 = v18 - v16 - v15;
   if (v15)
   {
-    v13 = v17 + v9;
+    v13 = &v17[v9];
     v12 = mag_lock_zine_for_region_trailer_0(*(a1 + 17136), v17 & 0xFFFFFFFFFFF00000, *(&dword_18 + (v17 & 0xFFFFFFFFFFF00000)));
-    set_tiny_meta_header_in_use(v17 + v9, v16);
+    set_tiny_meta_header_in_use(&v17[v9], v16);
     ++*(v12 + 542);
     if (v14)
     {
@@ -935,13 +933,13 @@ unint64_t tiny_memalign(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
       os_unfair_lock_unlock(v12);
     }
 
-    free_tiny(a1 + 16512, v17, v17 & 0xFFFFFFFFFFF00000, 16 * v15, 1);
+    free_tiny(a1 + 16512, v17, (v17 & 0xFFFFFFFFFFF00000), 16 * v15, 1);
     v17 += v9;
   }
 
   if (v14)
   {
-    v11 = v17 + 16 * v16;
+    v11 = &v17[16 * v16];
     v10 = mag_lock_zine_for_region_trailer_0(*(a1 + 17136), v17 & 0xFFFFFFFFFFF00000, *(&dword_18 + (v17 & 0xFFFFFFFFFFF00000)));
     set_tiny_meta_header_in_use(v11, v14);
     ++*(v10 + 542);
@@ -953,7 +951,7 @@ unint64_t tiny_memalign(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
       os_unfair_lock_unlock(v10);
     }
 
-    free_tiny(a1 + 16512, v11, v11 & 0xFFFFFFFFFFF00000, 16 * v14, 1);
+    free_tiny(a1 + 16512, v11, (v11 & 0xFFFFFFFFFFF00000), 16 * v14, 1);
   }
 
   return v17;
@@ -1184,7 +1182,7 @@ uint64_t set_tiny_meta_header_in_use(uint64_t result, __int16 a2)
   return result;
 }
 
-void free_tiny(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, int a5)
+void free_tiny(uint64_t a1, unint64_t *a2, _DWORD *a3, uint64_t a4, int a5)
 {
   v29 = a1;
   v28 = a2;
@@ -1193,7 +1191,7 @@ void free_tiny(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, int a5)
   v25 = a5;
   tiny_meta_header = 0;
   v23 = 0;
-  v22 = *(a3 + 24);
+  v22 = a3[6];
   v21 = *(a1 + 624) + 2560 * v22;
   v20 = 0;
   if (malloc_tracing_enabled)
@@ -1212,7 +1210,7 @@ void free_tiny(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, int a5)
     if (v23)
     {
 LABEL_6:
-      free_tiny_botch(v29);
+      free_tiny_botch(v29, v28);
       return;
     }
   }
@@ -1326,7 +1324,7 @@ LABEL_6:
   v16 = v27;
   while (1)
   {
-    v15 = *(v16 + 24);
+    v15 = v16[6];
     if (v22 == v15)
     {
       break;
@@ -1432,7 +1430,7 @@ BOOL tiny_claimed_address(uint64_t a1, unint64_t a2)
   return v3;
 }
 
-uint64_t tiny_try_shrink_in_place(unint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
+uint64_t tiny_try_shrink_in_place(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
 {
   v10 = a4 >> 4;
   v9 = (a3 >> 4) - v10;
@@ -1450,7 +1448,7 @@ uint64_t tiny_try_shrink_in_place(unint64_t a1, uint64_t a2, unint64_t a3, unint
       os_unfair_lock_unlock(v7);
     }
 
-    free_tiny(a1, v8, v8 & 0xFFFFFFFFFFF00000, 0, 1);
+    free_tiny(a1, v8, (v8 & 0xFFFFFFFFFFF00000), 0, 1);
   }
 
   return a2;
@@ -1591,7 +1589,7 @@ LABEL_36:
   }
 }
 
-void tiny_check_zero_or_clear(unsigned __int8 *a1, unsigned __int16 a2, int a3)
+void tiny_check_zero_or_clear(unsigned __int8 *result, unsigned __int16 a2, int a3)
 {
   if (malloc_zero_policy)
   {
@@ -1616,7 +1614,7 @@ void tiny_check_zero_or_clear(unsigned __int8 *a1, unsigned __int16 a2, int a3)
   {
     if (_platform_memcmp_zero_aligned8())
     {
-      tiny_zero_corruption_abort(a1, a2);
+      tiny_zero_corruption_abort(result, a2);
     }
   }
 }
@@ -1636,161 +1634,127 @@ uint64_t set_tiny_meta_header_in_use_1(uint64_t result)
 
 uint64_t tiny_check_region(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
-  v39 = a1;
-  v38 = a2;
-  v37 = a3;
-  v36 = a4;
-  v35 = 0;
-  v34 = 0;
-  v33 = 0;
-  v32 = 0;
-  v31 = 0;
-  tiny_meta_header = 0;
-  v29 = 0;
+  v32 = a1;
+  v31 = a2;
+  v30 = a3;
+  v29 = a4;
   v28 = 0;
   v27 = 0;
   v26 = 0;
-  v25 = *(a2 + 24);
-  v24 = (*(a1 + 624) + 2560 * v25);
+  v25 = 0;
+  v24 = 0;
+  tiny_meta_header = 0;
+  v22 = 0;
+  v21 = 0;
+  v20 = 0;
+  v19 = 0;
+  v18 = *(a2 + 24);
+  v17 = (*(a1 + 624) + 2560 * v18);
   if (*(a2 + 28))
   {
-    v35 = (v38 + 16512);
-    v34 = (v38 + 16512);
-    if (v38 == v24[268] && (v34 = (v34 + v24[267])) != 0 && ((tiny_meta_header = get_tiny_meta_header((v34 - 2), &v31), v31) || tiny_meta_header != 1))
+    v28 = (v31 + 16512);
+    v27 = (v31 + 16512);
+    if (v31 == v17[268] && (v27 += v17[267]) != 0 && ((tiny_meta_header = get_tiny_meta_header((v27 - 16), &v24), v24) || tiny_meta_header != 1))
     {
-      v5 = v37;
-      v6 = v36;
-      v7 = v34 - 2;
-      v8 = tiny_meta_header;
-      v9 = v31;
-      malloc_zone_check_fail(tiny_check_fail_msg[0], "%ld, counter=%d\n*** invariant broken for leader block %p - %d %d\n");
+      malloc_zone_check_fail(tiny_check_fail_msg[0], "%ld, counter=%d\n*** invariant broken for leader block %p - %d %d\n", v30, v29, v27 - 16, tiny_meta_header, v24);
       return 0;
     }
 
     else
     {
-      v33 = v38 + 0x100000;
-      if (v38 == v24[268])
+      v26 = (v31 + 0x100000);
+      if (v31 == v17[268])
       {
-        v33 -= v24[266];
+        v26 -= v17[266];
       }
 
-      while (v34 < v33)
+      while (v27 < v26)
       {
-        tiny_meta_header = get_tiny_meta_header(v34, &v31);
-        if (v31 && !tiny_meta_header && v34 == v35)
+        tiny_meta_header = get_tiny_meta_header(v27, &v24);
+        if (v24 && !tiny_meta_header && v27 == v28)
         {
           return 1;
         }
 
         if (!tiny_meta_header)
         {
-          v5 = v37;
-          v6 = v36;
-          v7 = v34;
-          v8 = 0;
-          malloc_zone_check_fail(tiny_check_fail_msg[0], "%ld, counter=%d\n*** invariant broken for tiny block %p this msize=%d - size is too small\n");
+          malloc_zone_check_fail(tiny_check_fail_msg[0], "%ld, counter=%d\n*** invariant broken for tiny block %p this msize=%d - size is too small\n", v30, v29, v27, 0);
           return 0;
         }
 
-        if (v31)
+        if (v24)
         {
-          v32 = 1;
-          v29 = v34;
-          v50 = v39;
-          v49 = v34;
-          v48 = *v34;
-          v47 = v48;
-          v53 = v39;
-          v52 = v48;
-          v51 = v48;
-          v46 = v48;
-          v27 = v48;
-          v45 = v39;
-          v44 = v34 + 1;
-          v43 = v34[1];
-          v42 = v43;
-          v56 = v39;
-          v55 = v43;
-          v54 = v43;
-          v41 = v43;
-          v26 = v43;
-          if (v48 && !tiny_meta_header_is_free(v27))
+          v25 = 1;
+          v22 = v27;
+          v43 = v32;
+          v42 = v27;
+          v41 = *v27;
+          v40 = v41;
+          v46 = v32;
+          v45 = v41;
+          v44 = v41;
+          v39 = v41;
+          v20 = v41;
+          v38 = v32;
+          v37 = v27 + 8;
+          v36 = *(v27 + 1);
+          v35 = v36;
+          v49 = v32;
+          v48 = v36;
+          v47 = v36;
+          v34 = v36;
+          v19 = v36;
+          if (v41 && !tiny_meta_header_is_free(v20))
           {
-            v5 = v37;
-            v6 = v36;
-            v7 = v34;
-            v8 = v27;
-            malloc_zone_check_fail(tiny_check_fail_msg[0], "%ld, counter=%d\n*** invariant broken for %p (previous %p is not a free pointer)\n");
+            malloc_zone_check_fail(tiny_check_fail_msg[0], "%ld, counter=%d\n*** invariant broken for %p (previous %p is not a free pointer)\n", v30, v29, v27, v20);
             return 0;
           }
 
-          if (v26 && !tiny_meta_header_is_free(v26))
+          if (v19 && !tiny_meta_header_is_free(v19))
           {
-            v5 = v37;
-            v6 = v36;
-            v7 = v34;
-            v8 = v26;
-            malloc_zone_check_fail(tiny_check_fail_msg[0], "%ld, counter=%d\n*** invariant broken for %p (next in free list %p is not a free pointer)\n");
+            malloc_zone_check_fail(tiny_check_fail_msg[0], "%ld, counter=%d\n*** invariant broken for %p (next in free list %p is not a free pointer)\n", v30, v29, v27, v19);
             return 0;
           }
 
-          v28 = &v34[2 * tiny_meta_header];
-          if (v28 != v33 && get_tiny_previous_free_msize(v28) != tiny_meta_header)
+          v21 = &v27[16 * tiny_meta_header];
+          if (v21 != v26 && get_tiny_previous_free_msize(v21) != tiny_meta_header)
           {
-            v22 = tiny_check_fail_msg[0];
-            v14 = v37;
-            v15 = v36;
-            v16 = v34;
-            v17 = v28;
-            v18 = v38;
-            v19 = v38 + 16512;
-            v20 = v33;
-            v21 = tiny_meta_header;
-            v23 = &v5;
-            v5 = v37;
-            v6 = v36;
-            v7 = v34;
-            v8 = v28;
-            v9 = v38;
-            v10 = v38 + 16512;
-            v11 = v33;
-            v12 = tiny_meta_header;
-            tiny_previous_free_msize = get_tiny_previous_free_msize(v28);
-            malloc_zone_check_fail(v22, "%ld, counter=%d\n*** invariant broken for tiny free %p followed by %p in region %p [%p-%p] (end marker incorrect) should be %d; in fact %d\n");
+            v15 = tiny_check_fail_msg[0];
+            v7 = v30;
+            v8 = v29;
+            v9 = v27;
+            v10 = v21;
+            v11 = v31;
+            v12 = (v31 + 16512);
+            v13 = v26;
+            v14 = tiny_meta_header;
+            tiny_previous_free_msize = get_tiny_previous_free_msize(v21);
+            v16 = &v6;
+            malloc_zone_check_fail(v15, "%ld, counter=%d\n*** invariant broken for tiny free %p followed by %p in region %p [%p-%p] (end marker incorrect) should be %d; in fact %d\n", v7, v8, v9, v21, v11, v12, v13, tiny_meta_header, tiny_previous_free_msize);
             return 0;
           }
 
-          v34 = v28;
+          v27 = v21;
         }
 
         else
         {
-          v32 = 0;
+          v25 = 0;
           if (tiny_meta_header > 0x3Fu)
           {
-            v5 = v37;
-            v6 = v36;
-            v7 = v34;
-            v8 = tiny_meta_header;
-            malloc_zone_check_fail(tiny_check_fail_msg[0], "%ld, counter=%d\n*** invariant broken for %p this tiny msize=%d - size is too large\n");
+            malloc_zone_check_fail(tiny_check_fail_msg[0], "%ld, counter=%d\n*** invariant broken for %p this tiny msize=%d - size is too large\n", v30, v29, v27, tiny_meta_header);
             return 0;
           }
 
-          v34 += 2 * tiny_meta_header;
+          v27 += 16 * tiny_meta_header;
         }
       }
 
-      if (v34 == v33)
+      if (v27 == v26)
       {
-        if (v38 == v24[268] && v24[266] && ((tiny_meta_header = get_tiny_meta_header(v34, &v31), v31) || tiny_meta_header != 1))
+        if (v31 == v17[268] && v17[266] && ((tiny_meta_header = get_tiny_meta_header(v27, &v24), v24) || tiny_meta_header != 1))
         {
-          v5 = v37;
-          v6 = v36;
-          v7 = v34;
-          v8 = tiny_meta_header;
-          v9 = v31;
-          malloc_zone_check_fail(tiny_check_fail_msg[0], "%ld, counter=%d\n*** invariant broken for blocker block %p - %d %d\n");
+          malloc_zone_check_fail(tiny_check_fail_msg[0], "%ld, counter=%d\n*** invariant broken for blocker block %p - %d %d\n", v30, v29, v27, tiny_meta_header, v24);
           return 0;
         }
 
@@ -1802,11 +1766,7 @@ uint64_t tiny_check_region(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a
 
       else
       {
-        v5 = v37;
-        v6 = v36;
-        v7 = v34;
-        v8 = v33;
-        malloc_zone_check_fail(tiny_check_fail_msg[0], "%ld, counter=%d\n*** invariant broken for region end %p - %p\n");
+        malloc_zone_check_fail(tiny_check_fail_msg[0], "%ld, counter=%d\n*** invariant broken for region end %p - %p\n", v30, v29, v27, v26);
         return 0;
       }
     }
@@ -2023,8 +1983,8 @@ LABEL_51:
           ++v17;
         }
 
-        v49[2 * v32] = v30 + 16512 + v8;
-        v49[2 * v32++ + 1] = 16 * v17;
+        *&v49[v32] = v30 + 16512 + v8;
+        *(&v49[v32++] + 1) = 16 * v17;
         if (v32 >= 0x100)
         {
           v36(v41, v40, 1, v49, v32);
@@ -2047,62 +2007,62 @@ LABEL_48:
 
 uint64_t tiny_malloc_from_free_list(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int16 a4)
 {
-  v15 = tiny_slot_from_msize(a4);
-  v18 = *(a2 + 32 + 8 * v15);
-  if (v18)
+  v14 = tiny_slot_from_msize(a4);
+  v17 = *(a2 + 32 + 8 * v14);
+  if (v17)
   {
-    v11 = *(v18 + 8);
+    v11 = *(v17 + 8);
     if (v11)
     {
-      *v11 = *v18;
+      *v11 = *v17;
     }
 
     else
     {
-      *(a2 + 2088 + 4 * (v15 >> 5)) &= ~(1 << (v15 & 0x1F));
+      *(a2 + 2088 + 4 * (v14 >> 5)) &= ~(1 << (v14 & 0x1F));
     }
 
-    *(a2 + 32 + 8 * v15) = v11;
+    *(a2 + 32 + 8 * v14) = v11;
     tiny_free_size = a4;
-    tiny_update_region_free_list_for_remove(v15, v18, v11);
+    tiny_update_region_free_list_for_remove(v14, v17, v11);
     if (!malloc_zero_policy)
     {
-      _tiny_check_and_zero_inline_meta_from_freelist(a1, v18, a4);
+      _tiny_check_and_zero_inline_meta_from_freelist(a1, v17, a4);
     }
 
     goto LABEL_38;
   }
 
-  v9 = *(a2 + 2088) & ~((1 << v15) - 1);
+  v9 = *(a2 + 2088) & ~((1 << v14) - 1);
   if (v9)
   {
-    v16 = __clz(__rbit64(v9));
+    v15 = __clz(__rbit64(v9));
     v10 = (a2 + 536);
-    v14 = (a2 + 32 + 8 * v16);
-    if (v14 < a2 + 536)
+    v13 = (a2 + 32 + 8 * v15);
+    if (v13 < a2 + 536)
     {
-      v18 = *v14;
-      if (*v14)
+      v17 = *v13;
+      if (*v13)
       {
-        v12 = *(v18 + 8);
-        *v14 = v12;
-        if (v12)
+        v22 = *(v17 + 8);
+        *v13 = v22;
+        if (v22)
         {
-          *v12 = *v18;
+          *v22 = *v17;
         }
 
         else
         {
-          *(a2 + 2088 + 4 * (v16 >> 5)) &= ~(1 << (v16 & 0x1F));
+          *(a2 + 2088 + 4 * (v15 >> 5)) &= ~(1 << (v15 & 0x1F));
         }
 
-        tiny_free_size = get_tiny_free_size(v18);
+        tiny_free_size = get_tiny_free_size(v17);
         if (tiny_free_size < a4)
         {
-          malloc_zone_error(256, 1, "Corruption of tiny freelist %p: size too small (%u/%u)\n");
+          malloc_zone_error(256, 1, "Corruption of tiny freelist %p: size too small (%u/%u)\n", v17, tiny_free_size, a4);
         }
 
-        tiny_update_region_free_list_for_remove(v16, v18, v12);
+        tiny_update_region_free_list_for_remove(v15, v17, v22);
         if (malloc_zero_policy)
         {
           goto LABEL_35;
@@ -2112,56 +2072,56 @@ uint64_t tiny_malloc_from_free_list(uint64_t a1, uint64_t a2, uint64_t a3, unsig
       }
     }
 
-    v18 = *v10;
+    v17 = *v10;
     if (*v10)
     {
-      tiny_free_size = get_tiny_free_size(v18);
+      tiny_free_size = get_tiny_free_size(v17);
       if (tiny_free_size < a4)
       {
-        malloc_zone_error(256, 1, "Corruption of tiny freelist %p: size too small (%u/%u)\n");
+        malloc_zone_error(256, 1, "Corruption of tiny freelist %p: size too small (%u/%u)\n", v17, tiny_free_size, a4);
       }
 
-      v13 = *(v18 + 8);
+      v12 = *(v17 + 8);
       if (tiny_free_size - a4 > 63)
       {
-        v8 = (v18 + 16 * a4);
-        v7 = *v18;
+        v8 = (v17 + 16 * a4);
+        v7 = *v17;
         if (!malloc_zero_policy)
         {
-          _tiny_check_and_zero_inline_meta_from_freelist(a1, v18, tiny_free_size);
+          _tiny_check_and_zero_inline_meta_from_freelist(a1, v17, tiny_free_size);
         }
 
         *v10 = v8;
-        if (v13)
+        if (v12)
         {
-          *v13 = v8;
+          *v12 = v8;
         }
 
         *v8 = v7;
         set_tiny_meta_header_free(v8, tiny_free_size - a4);
         tiny_free_size = a4;
-        tiny_update_region_free_list_for_remove(63, v18, v8);
+        tiny_update_region_free_list_for_remove(63, v17, v8);
         goto LABEL_38;
       }
 
-      if (v13)
+      if (v12)
       {
-        *v13 = *v18;
+        *v12 = *v17;
       }
 
-      *v10 = v13;
-      tiny_update_region_free_list_for_remove(v16, v18, v13);
+      *v10 = v12;
+      tiny_update_region_free_list_for_remove(v15, v17, v12);
       if (malloc_zero_policy)
       {
         goto LABEL_35;
       }
 
 LABEL_16:
-      _tiny_check_and_zero_inline_meta_from_freelist(a1, v18, tiny_free_size);
+      _tiny_check_and_zero_inline_meta_from_freelist(a1, v17, tiny_free_size);
 LABEL_35:
       if (!tiny_free_size || tiny_free_size > a4)
       {
-        tiny_free_list_add_ptr(a1, a2, v18 + 16 * a4, tiny_free_size - a4);
+        tiny_free_list_add_ptr(a1, a2, v17 + 16 * a4, tiny_free_size - a4);
         tiny_free_size = a4;
       }
 
@@ -2174,38 +2134,38 @@ LABEL_35:
     return 0;
   }
 
-  v18 = *(a2 + 2144) + 0x100000 - *(a2 + 2128);
+  v17 = *(a2 + 2144) + 0x100000 - *(a2 + 2128);
   *(a2 + 2128) -= 16 * a4;
   if (*(a2 + 2128))
   {
-    set_tiny_meta_header_in_use_1(v18 + 16 * a4);
+    set_tiny_meta_header_in_use_1(v17 + 16 * a4);
   }
 
   tiny_free_size = a4;
 LABEL_38:
   ++*(a2 + 2168);
   *(a2 + 2152) += 16 * tiny_free_size;
-  region_check_cookie(v18 & 0xFFFFFFFFFFF00000, ((v18 & 0xFFFFFFFFFFF00000) + 16508));
-  v6 = v18 & 0xFFFFFFFFFFF00000;
-  v5 = *(dword_10 + (v18 & 0xFFFFFFFFFFF00000)) + 16 * tiny_free_size;
+  region_check_cookie((v17 & 0xFFFFFFFFFFF00000), ((v17 & 0xFFFFFFFFFFF00000) + 16508));
+  v6 = v17 & 0xFFFFFFFFFFF00000;
+  v5 = *(dword_10 + (v17 & 0xFFFFFFFFFFF00000)) + 16 * tiny_free_size;
   *(v6 + 16) = v5;
   ++*(v6 + 20);
   if (v5 >= 0xBCFA0)
   {
-    *(&stru_20.cmd + (v18 & 0xFFFFFFFFFFF00000)) = 0;
+    *(&stru_20.cmd + (v17 & 0xFFFFFFFFFFF00000)) = 0;
   }
 
   if (tiny_free_size <= 1u)
   {
-    set_tiny_meta_header_in_use_1(v18);
+    set_tiny_meta_header_in_use_1(v17);
   }
 
   else
   {
-    set_tiny_meta_header_in_use(v18, tiny_free_size);
+    set_tiny_meta_header_in_use(v17, tiny_free_size);
   }
 
-  return v18;
+  return v17;
 }
 
 uint64_t tiny_slot_from_msize(unsigned __int16 a1)
@@ -2252,26 +2212,26 @@ uint64_t tiny_update_region_free_list_for_remove(uint64_t result, uint64_t a2, u
 
 uint64_t tiny_get_region_from_depot(uint64_t a1, uint64_t a2, int a3, unsigned __int16 a4)
 {
-  v17 = *(a1 + 624) - 2560;
+  v16 = *(a1 + 624) - 2560;
   v4 = 0;
-  atomic_compare_exchange_strong_explicit(v17, &v4, *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24), memory_order_acquire, memory_order_acquire);
+  atomic_compare_exchange_strong_explicit(v16, &v4, *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24), memory_order_acquire, memory_order_acquire);
   if (v4)
   {
     os_unfair_lock_lock_with_options();
   }
 
-  v15 = a4;
+  v14 = a4;
   while (1)
   {
-    msize_region = tiny_find_msize_region(a1, v17, 0xFFFFFFFFLL, v15);
+    msize_region = tiny_find_msize_region(a1, v16, 0xFFFFFFFFLL, v14);
     if (!msize_region)
     {
       v5 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
       v6 = v5;
-      atomic_compare_exchange_strong_explicit(v17, &v6, 0, memory_order_release, memory_order_relaxed);
+      atomic_compare_exchange_strong_explicit(v16, &v6, 0, memory_order_release, memory_order_relaxed);
       if (v6 != v5)
       {
-        os_unfair_lock_unlock(v17);
+        os_unfair_lock_unlock(v16);
       }
 
       return 0;
@@ -2282,14 +2242,14 @@ uint64_t tiny_get_region_from_depot(uint64_t a1, uint64_t a2, int a3, unsigned _
       break;
     }
 
-    if (++v15 > 0x3Fu)
+    if (++v14 > 0x3Fu)
     {
       v7 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
       v8 = v7;
-      atomic_compare_exchange_strong_explicit(v17, &v8, 0, memory_order_release, memory_order_relaxed);
+      atomic_compare_exchange_strong_explicit(v16, &v8, 0, memory_order_release, memory_order_relaxed);
       if (v8 != v7)
       {
-        os_unfair_lock_unlock(v17);
+        os_unfair_lock_unlock(v16);
       }
 
       return 0;
@@ -2303,7 +2263,7 @@ uint64_t tiny_get_region_from_depot(uint64_t a1, uint64_t a2, int a3, unsigned _
 
   else
   {
-    *(v17 + 2176) = *(msize_region + 8);
+    *(v16 + 2176) = *(msize_region + 8);
   }
 
   if (*(msize_region + 8))
@@ -2313,13 +2273,13 @@ uint64_t tiny_get_region_from_depot(uint64_t a1, uint64_t a2, int a3, unsigned _
 
   else
   {
-    *(v17 + 2184) = *msize_region;
+    *(v16 + 2184) = *msize_region;
   }
 
   *msize_region = 0;
   *(msize_region + 8) = 0;
-  --*(v17 + 2172);
-  v14 = tiny_free_detach_region(a1, v17, msize_region);
+  --*(v16 + 2172);
+  v13 = tiny_free_detach_region(a1, v16, msize_region);
   *(msize_region + 24) = a3;
   if (*(msize_region + 28))
   {
@@ -2327,13 +2287,13 @@ uint64_t tiny_get_region_from_depot(uint64_t a1, uint64_t a2, int a3, unsigned _
     JUMPOUT(0xA1F44);
   }
 
-  v13 = tiny_free_reattach_region(a1, a2, msize_region);
-  *(v17 + 2152) -= v13;
-  *(v17 + 2160) -= 1032064;
-  *(v17 + 2168) -= v14;
-  *(a2 + 2152) += v13;
+  v12 = tiny_free_reattach_region(a1, a2, msize_region);
+  *(v16 + 2152) -= v12;
+  *(v16 + 2160) -= 1032064;
+  *(v16 + 2168) -= v13;
+  *(a2 + 2152) += v12;
   *(a2 + 2160) += 1032064;
-  *(a2 + 2168) += v14;
+  *(a2 + 2168) += v13;
   if (*(a2 + 2184))
   {
     *msize_region = *(a2 + 2184);
@@ -2352,19 +2312,18 @@ uint64_t tiny_get_region_from_depot(uint64_t a1, uint64_t a2, int a3, unsigned _
   ++*(a2 + 2172);
   v9 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
   v10 = v9;
-  atomic_compare_exchange_strong_explicit(v17, &v10, 0, memory_order_release, memory_order_relaxed);
+  atomic_compare_exchange_strong_explicit(v16, &v10, 0, memory_order_release, memory_order_relaxed);
   if (v10 != v9)
   {
-    os_unfair_lock_unlock(v17);
+    os_unfair_lock_unlock(v16);
   }
 
-  v11 = *(msize_region + 16);
   return 1;
 }
 
-unint64_t tiny_malloc_from_region_no_lock(atomic_uint *a1, uint64_t a2, int a3, unsigned __int16 a4, unint64_t a5)
+unint64_t tiny_malloc_from_region_no_lock(atomic_uint *a1, uint64_t a2, int a3, __int16 a4, unint64_t a5)
 {
-  if (*(a2 + 2128) || *(a2 + 2136))
+  if (*(a2 + 2128) != 0)
   {
     tiny_finalize_region(a1, a2);
   }
@@ -2458,7 +2417,6 @@ uint64_t tiny_batch_malloc(uint64_t a1, uint64_t a2, uint64_t *a3, unsigned int 
     v13 = 1;
   }
 
-  v17 = *(a1 + 17136) + 2560 * v11;
   v4 = 0;
   atomic_compare_exchange_strong_explicit(v10, &v4, *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24), memory_order_acquire, memory_order_acquire);
   if (v4)
@@ -2542,8 +2500,8 @@ void tiny_batch_free(uint64_t a1, uint64_t a2, unsigned int a3)
           v11 = tiny_region_for_ptr_no_lock(v16 + 16512, v12);
           if (v11)
           {
-            v8 = mag_lock_zine_for_region_trailer_0(*(v16 + 17136), v11, *(v11 + 24));
-            v7 = *(v11 + 24);
+            v8 = mag_lock_zine_for_region_trailer_0(*(v16 + 17136), v11, v11[6]);
+            v7 = v11[6];
           }
         }
 
@@ -2609,57 +2567,74 @@ void tiny_batch_free(uint64_t a1, uint64_t a2, unsigned int a3)
   }
 }
 
-uint64_t print_tiny_free_list(unsigned int a1, unsigned int (*a2)(void, const void *, uint64_t, uint64_t *), void (*a3)(const char *, ...), const void *a4)
+uint64_t print_tiny_free_list(uint64_t a1, unsigned int (*a2)(void, const void *, uint64_t, uint64_t *), uint64_t (*a3)(const char *), const void *a4)
 {
-  v16 = a1;
-  v15 = a2;
-  v14 = a3;
-  v13 = a4;
-  v12 = 0;
+  v20 = a1;
+  v19 = a2;
+  v18 = a3;
+  v17 = a4;
+  v16 = 0;
   result = _simple_salloc();
-  v11 = result;
+  v15 = result;
   i = 0;
   if (result)
   {
-    v9 = 0;
-    v8 = 0;
-    if (v15(v16, v13, 768, &v9))
+    v13 = 0;
+    v12 = 0;
+    if (v19(v20, v17, 768, &v13))
     {
-      return (v14)("Failed to map tiny rack\n");
+      return v18("Failed to map tiny rack\n");
     }
 
     else
     {
       _simple_sappend();
-      if (v15(v16, *(v9 + 624), 2560 * *(v9 + 608), &v8))
+      if (v19(v20, *(v13 + 624), 2560 * *(v13 + 608), &v12))
       {
-        return (v14)("Failed to map tiny rack magazines\n");
+        return v18("Failed to map tiny rack magazines\n");
       }
 
       else
       {
-        for (i = -1; i < *(v9 + 608); ++i)
+        for (i = -1; i < *(v13 + 608); ++i)
         {
-          v7 = 0;
-          _simple_sprintf();
-          while (v7 <= 0x3F)
+          v11 = 0;
+          if (i == -1)
           {
-            v12 = *(v8 + 2560 * i + 32 + 8 * v7);
-            if (v12)
+            _simple_sprintf(v15, "\tRecirc depot: ");
+          }
+
+          else
+          {
+            _simple_sprintf(v15, "\tMagazine %d: ", i);
+          }
+
+          while (v11 <= 0x3F)
+          {
+            v16 = *(v12 + 2560 * i + 32 + 8 * v11);
+            if (v16)
             {
-              free_list_count(v16, v15, v14, v9, v12);
-              _simple_sprintf();
+              v10 = v15;
+              v5 = ">=";
+              if (v11 != 63)
+              {
+                v5 = &unk_B18C2;
+              }
+
+              v9 = v5;
+              v6 = free_list_count(v20, v19, v18, v13, v16);
+              _simple_sprintf(v10, "%s%y[%d]; ", v9, 16 * (v11 + 1), v6);
             }
 
-            ++v7;
+            ++v11;
           }
 
           _simple_sappend();
         }
 
-        v6 = v14;
-        v5 = _simple_string();
-        v6("%s\n", v5);
+        v8 = v18;
+        v7 = _simple_string();
+        v8("%s\n", v7);
         return _simple_sfree();
       }
     }
@@ -2700,38 +2675,38 @@ uint64_t free_list_count(unsigned int a1, unsigned int (*a2)(void, const void *,
   return v7;
 }
 
-uint64_t print_tiny_region(unsigned int a1, unsigned int (*a2)(void, void, void, void), uint64_t (*a3)(const char *, ...), int a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t print_tiny_region(unsigned int a1, uint64_t (*a2)(void, void, void, void), uint64_t (*a3)(const char *, ...), int a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v33 = a1;
-  v32 = a2;
-  v31 = a3;
-  v30 = a4;
-  v29 = a5;
-  v28 = a6;
-  v27 = a7;
-  v26 = 0;
-  v25 = (a5 + 16512);
-  v24 = (a5 + 16512 + a6);
-  v23 = a5 + 0x100000 - a7;
-  v22 = 0;
-  v21 = 0;
-  v18 = 0;
-  if (a2(a1, a5 + 16512, 0x100000, &v22))
+  v31 = a1;
+  v30 = a2;
+  v29 = a3;
+  v28 = a4;
+  v27 = a5;
+  v26 = a6;
+  v25 = a7;
+  v24 = 0;
+  v23 = (a5 + 16512);
+  v22 = (a5 + 16512 + a6);
+  v21 = a5 + 0x100000 - a7;
+  v20 = 0;
+  v19 = 0;
+  v15 = 0;
+  if (a2(a1, a5 + 16512, 0x100000, &v20))
   {
-    return v31("Failed to map tiny region at %p\n", v25);
+    return v29("Failed to map tiny region at %p\n", v23);
   }
 
-  v17 = v22 - v25;
-  v16 = v22;
-  if (v29 == -1)
+  v14 = v20 - v23;
+  v13 = v20;
+  if (v27 == -1)
   {
     result = _simple_salloc();
     if (result)
     {
-      _simple_sprintf();
-      v14 = v31;
+      _simple_sprintf(result, "Tiny region [unknown address] was returned to the OS\n");
+      v11 = v29;
       v8 = _simple_string();
-      v14("%s\n", v8);
+      v11("%s\n", v8);
       return _simple_sfree();
     }
   }
@@ -2739,28 +2714,30 @@ uint64_t print_tiny_region(unsigned int a1, unsigned int (*a2)(void, void, void,
   else
   {
     _platform_memset();
-    while (v24 < v23)
+    while (v22 < v21)
     {
-      tiny_meta_header_offset = get_tiny_meta_header_offset(v24, v17, &v21);
-      if (v21)
+      tiny_meta_header_offset = get_tiny_meta_header_offset(v22, v14, &v19);
+      if (v19 && !tiny_meta_header_offset && v22 == v23)
       {
-        if (!tiny_meta_header_offset && v24 == v25)
+        if ((&v23[vm_page_size + 17] & ~(vm_page_size - 1)) < ((v23 + 1048574) & ~(vm_page_size - 1)))
         {
-          break;
+          v15 += ((v23 + 1048574) & ~(vm_page_size - 1)) - (&v23[vm_page_size + 17] & ~(vm_page_size - 1));
         }
+
+        break;
       }
 
       if (!tiny_meta_header_offset)
       {
-        v31("*** error with %p: msize=%d\n", v24, 0);
+        v29("*** error with %p: msize=%d\n", v22, 0);
         break;
       }
 
-      if (v21)
+      if (v19)
       {
-        if ((&v24[vm_page_size + 17] & ~(vm_page_size - 1)) < (&v24[16 * tiny_meta_header_offset - 2] & ~(vm_page_size - 1)))
+        if ((&v22[vm_page_size + 17] & ~(vm_page_size - 1)) < (&v22[16 * tiny_meta_header_offset - 2] & ~(vm_page_size - 1)))
         {
-          v18 += (&v24[16 * tiny_meta_header_offset - 2] & ~(vm_page_size - 1)) - (&v24[vm_page_size + 17] & ~(vm_page_size - 1));
+          v15 += (&v22[16 * tiny_meta_header_offset - 2] & ~(vm_page_size - 1)) - (&v22[vm_page_size + 17] & ~(vm_page_size - 1));
         }
       }
 
@@ -2768,57 +2745,76 @@ uint64_t print_tiny_region(unsigned int a1, unsigned int (*a2)(void, void, void,
       {
         if (tiny_meta_header_offset > 0x3Fu)
         {
-          v31("*** error at %p msize for in_use is %d\n", v24, tiny_meta_header_offset);
+          v29("*** error at %p msize for in_use is %d\n", v22, tiny_meta_header_offset);
         }
 
         if (tiny_meta_header_offset < 0x400u)
         {
-          ++v34[tiny_meta_header_offset];
+          ++v32[tiny_meta_header_offset];
         }
 
-        ++v26;
+        ++v24;
       }
 
-      v24 += 16 * tiny_meta_header_offset;
+      v22 += 16 * tiny_meta_header_offset;
     }
 
     result = _simple_salloc();
+    v16 = result;
     if (result)
     {
-      v15 = *(v16 + 24);
-      _simple_sprintf();
-      _simple_sprintf();
-      v10 = *(v16 + 16);
-      v12 = (100.0 * *(v16 + 16)) / 0x100000uLL;
-      _simple_sprintf();
-      if (v27 || v28)
+      v12 = *(v13 + 24);
+      _simple_sprintf(result, "Tiny region [%p-%p, %y] \t", v23, v27 + 0x100000, 0x100000);
+      if (v12 == -1)
       {
-        _simple_sprintf();
+        _simple_sprintf(v16, "Recirc depot \t");
       }
 
-      if (v15 != -1)
+      else
       {
-        _simple_sprintf();
-        tiny_region_below_recirc_threshold(v16);
+        _simple_sprintf(v16, "Magazine=%d \t", v12);
       }
 
-      _simple_sprintf();
-      if (v30 >= 2 && v26)
+      _simple_sprintf(v16, "Allocations in use=%d \t Bytes in use=%ly (%d%%) \t", v24, *(v13 + 16), (100.0 * *(v13 + 16)) / 0x100000uLL);
+      if (v25 || v26)
+      {
+        _simple_sprintf(v16, "Untouched=%ly ", v25 + v26);
+      }
+
+      if (v12 == -1)
+      {
+        _simple_sprintf(v16, "Advised MADV_FREE=%ly", v15);
+      }
+
+      else
+      {
+        _simple_sprintf(v16, "Fragments subject to reclamation=%ly", v15);
+        if (tiny_region_below_recirc_threshold(v13))
+        {
+          _simple_sprintf(v16, "\tEmpty enough to be moved to recirc depot");
+        }
+
+        else
+        {
+          _simple_sprintf(v16, "\tNot empty enough to be moved to recirc depot");
+        }
+      }
+
+      if (v28 >= 2 && v24)
       {
         _simple_sappend();
         for (i = 0; i < 0x400; ++i)
         {
-          if (v34[i])
+          if (v32[i])
           {
-            v11 = v34[i];
-            _simple_sprintf();
+            _simple_sprintf(v16, "%y[%d] ", 16 * i, v32[i]);
           }
         }
       }
 
-      v13 = v31;
+      v10 = v29;
       v9 = _simple_string();
-      v13("%s\n", v9);
+      v10("%s\n", v9);
       return _simple_sfree();
     }
   }
@@ -2871,90 +2867,90 @@ uint64_t get_tiny_meta_header_offset(uint64_t a1, uint64_t a2, _DWORD *a3)
   }
 }
 
-uint64_t tiny_free_list_check(uint64_t a1, unsigned int a2)
+uint64_t tiny_free_list_check(uint64_t a1, unsigned int a2, int a3)
 {
   for (i = -1; i < *(a1 + 608); ++i)
   {
-    v17 = (*(a1 + 624) + 2560 * i);
-    v2 = 0;
-    atomic_compare_exchange_strong_explicit(v17, &v2, *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24), memory_order_acquire, memory_order_acquire);
-    if (v2)
+    v18 = (*(a1 + 624) + 2560 * i);
+    v3 = 0;
+    atomic_compare_exchange_strong_explicit(v18, &v3, *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24), memory_order_acquire, memory_order_acquire);
+    if (v3)
     {
       os_unfair_lock_lock_with_options();
     }
 
-    v16 = 0;
-    v15 = *(*(a1 + 624) + 2560 * i + 32 + 8 * a2);
-    v14 = 0;
-    while (v15)
+    v17 = 0;
+    v16 = *(*(a1 + 624) + 2560 * i + 32 + 8 * a2);
+    v15 = 0;
+    while (v16)
     {
-      if (!tiny_meta_header_is_free(v15))
+      if (!tiny_meta_header_is_free(v16))
       {
-        malloc_zone_check_fail(tiny_freelist_fail_msg, " (slot=%u), counter=%d\n*** in-use ptr in free list slot=%u count=%d ptr=%p\n");
-        v3 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
-        v4 = v3;
-        atomic_compare_exchange_strong_explicit(v17, &v4, 0, memory_order_release, memory_order_relaxed);
-        if (v4 != v3)
+        malloc_zone_check_fail(tiny_freelist_fail_msg, " (slot=%u), counter=%d\n*** in-use ptr in free list slot=%u count=%d ptr=%p\n", a2, a3, a2, v17, v16);
+        v4 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
+        v5 = v4;
+        atomic_compare_exchange_strong_explicit(v18, &v5, 0, memory_order_release, memory_order_relaxed);
+        if (v5 != v4)
         {
-          os_unfair_lock_unlock(v17);
+          os_unfair_lock_unlock(v18);
         }
 
         return 0;
       }
 
-      if ((v15 & 0xF) != 0)
+      if ((v16 & 0xF) != 0)
       {
-        malloc_zone_check_fail(tiny_freelist_fail_msg, " (slot=%u), counter=%d\n*** unaligned ptr in free list slot=%u count=%d ptr=%p\n");
-        v5 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
-        v6 = v5;
-        atomic_compare_exchange_strong_explicit(v17, &v6, 0, memory_order_release, memory_order_relaxed);
-        if (v6 != v5)
+        malloc_zone_check_fail(tiny_freelist_fail_msg, " (slot=%u), counter=%d\n*** unaligned ptr in free list slot=%u count=%d ptr=%p\n", a2, a3, a2, v17, v16);
+        v6 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
+        v7 = v6;
+        atomic_compare_exchange_strong_explicit(v18, &v7, 0, memory_order_release, memory_order_relaxed);
+        if (v7 != v6)
         {
-          os_unfair_lock_unlock(v17);
+          os_unfair_lock_unlock(v18);
         }
 
         return 0;
       }
 
-      if (!tiny_region_for_ptr_no_lock(a1, v15))
+      if (!tiny_region_for_ptr_no_lock(a1, v16))
       {
-        malloc_zone_check_fail(tiny_freelist_fail_msg, " (slot=%u), counter=%d\n*** ptr not in szone slot=%d  count=%u ptr=%p\n");
-        v7 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
-        v8 = v7;
-        atomic_compare_exchange_strong_explicit(v17, &v8, 0, memory_order_release, memory_order_relaxed);
-        if (v8 != v7)
+        malloc_zone_check_fail(tiny_freelist_fail_msg, " (slot=%u), counter=%d\n*** ptr not in szone slot=%d  count=%u ptr=%p\n", a2, a3, a2, v17, v16);
+        v8 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
+        v9 = v8;
+        atomic_compare_exchange_strong_explicit(v18, &v9, 0, memory_order_release, memory_order_relaxed);
+        if (v9 != v8)
         {
-          os_unfair_lock_unlock(v17);
+          os_unfair_lock_unlock(v18);
         }
 
         return 0;
       }
 
-      if (*v15 != v14)
+      if (*v16 != v15)
       {
-        malloc_zone_check_fail(tiny_freelist_fail_msg, " (slot=%u), counter=%d\n*** previous incorrectly set slot=%u count=%d ptr=%p\n");
-        v9 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
-        v10 = v9;
-        atomic_compare_exchange_strong_explicit(v17, &v10, 0, memory_order_release, memory_order_relaxed);
-        if (v10 != v9)
+        malloc_zone_check_fail(tiny_freelist_fail_msg, " (slot=%u), counter=%d\n*** previous incorrectly set slot=%u count=%d ptr=%p\n", a2, a3, a2, v17, v16);
+        v10 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
+        v11 = v10;
+        atomic_compare_exchange_strong_explicit(v18, &v11, 0, memory_order_release, memory_order_relaxed);
+        if (v11 != v10)
         {
-          os_unfair_lock_unlock(v17);
+          os_unfair_lock_unlock(v18);
         }
 
         return 0;
       }
 
-      v14 = v15;
-      v15 = *(v15 + 8);
-      ++v16;
+      v15 = v16;
+      v16 = *(v16 + 8);
+      ++v17;
     }
 
-    v11 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
-    v12 = v11;
-    atomic_compare_exchange_strong_explicit(v17, &v12, 0, memory_order_release, memory_order_relaxed);
-    if (v12 != v11)
+    v12 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
+    v13 = v12;
+    atomic_compare_exchange_strong_explicit(v18, &v13, 0, memory_order_release, memory_order_relaxed);
+    if (v13 != v12)
     {
-      os_unfair_lock_unlock(v17);
+      os_unfair_lock_unlock(v18);
     }
   }
 
@@ -2965,40 +2961,36 @@ uint64_t tiny_check(uint64_t a1, unsigned int a2)
 {
   for (i = 0; i < **(a1 + 24); ++i)
   {
-    v9 = *(*(*(a1 + 24) + 16) + 8 * i);
-    if (v9 != -1)
+    v8 = *(*(*(a1 + 24) + 16) + 8 * i);
+    if (v8 != -1 && v8)
     {
-      v2 = *(*(*(a1 + 24) + 16) + 8 * i);
-      if (v9)
+      v7 = mag_lock_zine_for_region_trailer_0(*(a1 + 624), v8, *(v8 + 24));
+      if (!tiny_check_region(a1, v8, i, a2))
       {
-        v8 = mag_lock_zine_for_region_trailer_0(*(a1 + 624), v9, *(v9 + 24));
-        if (!tiny_check_region(a1, v9, i, a2))
+        v2 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
+        v3 = v2;
+        atomic_compare_exchange_strong_explicit(v7, &v3, 0, memory_order_release, memory_order_relaxed);
+        if (v3 != v2)
         {
-          v3 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
-          v4 = v3;
-          atomic_compare_exchange_strong_explicit(v8, &v4, 0, memory_order_release, memory_order_relaxed);
-          if (v4 != v3)
-          {
-            os_unfair_lock_unlock(v8);
-          }
-
-          return 0;
+          os_unfair_lock_unlock(v7);
         }
 
-        v5 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
-        v6 = v5;
-        atomic_compare_exchange_strong_explicit(v8, &v6, 0, memory_order_release, memory_order_relaxed);
-        if (v6 != v5)
-        {
-          os_unfair_lock_unlock(v8);
-        }
+        return 0;
+      }
+
+      v4 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
+      v5 = v4;
+      atomic_compare_exchange_strong_explicit(v7, &v5, 0, memory_order_release, memory_order_relaxed);
+      if (v5 != v4)
+      {
+        os_unfair_lock_unlock(v7);
       }
     }
   }
 
   for (j = 0; j < 0x3F; ++j)
   {
-    if (!tiny_free_list_check(a1, j))
+    if (!tiny_free_list_check(a1, j, a2))
     {
       return 0;
     }
@@ -3069,35 +3061,34 @@ uint64_t get_tiny_free_size_offset(uint64_t a1, uint64_t a2)
 
 BOOL tiny_magazine_below_recirc_threshold(uint64_t a1)
 {
-  v5 = *(a1 + 2160);
-  v4 = *(a1 + 2152);
-  v3 = 0;
-  if (v5 - v4 > 0x179F40)
+  v4 = *(a1 + 2160);
+  v3 = *(a1 + 2152);
+  v2 = 0;
+  if (v4 - v3 > 0x179F40)
   {
-    v1 = *(a1 + 2160);
-    return v4 < v5 - (v5 >> 2);
+    return v3 < v4 - (v4 >> 2);
   }
 
-  return v3;
+  return v2;
 }
 
-uint64_t tiny_free_do_recirc_to_depot(unint64_t a1, uint64_t a2)
+uint64_t tiny_free_do_recirc_to_depot(uint64_t a1, uint64_t a2)
 {
   for (i = *(a2 + 2184); ; i = *i)
   {
-    v10 = 0;
+    v9 = 0;
     if (i)
     {
-      v9 = 1;
+      v8 = 1;
       if (*(i + 32))
       {
-        v9 = *(i + 28) != 0;
+        v8 = *(i + 28) != 0;
       }
 
-      v10 = v9;
+      v9 = v8;
     }
 
-    if (!v10)
+    if (!v9)
     {
       break;
     }
@@ -3105,7 +3096,7 @@ uint64_t tiny_free_do_recirc_to_depot(unint64_t a1, uint64_t a2)
 
   if (i)
   {
-    v15 = i & 0xFFFFFFFFFFF00000;
+    v14 = i & 0xFFFFFFFFFFF00000;
     if ((i & 0xFFFFFFFFFFF00000) == *(a2 + 2144) && (*(a2 + 2128) || *(a2 + 2136)))
     {
       tiny_finalize_region(a1, a2);
@@ -3134,10 +3125,10 @@ uint64_t tiny_free_do_recirc_to_depot(unint64_t a1, uint64_t a2)
     *i = 0;
     *(i + 8) = 0;
     --*(a2 + 2172);
-    v14 = tiny_free_detach_region(a1, a2, v15);
-    v13 = *(a1 + 624) - 2560;
+    v13 = tiny_free_detach_region(a1, a2, v14);
+    v12 = *(a1 + 624) - 2560;
     v2 = 0;
-    atomic_compare_exchange_strong_explicit(v13, &v2, *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24), memory_order_acquire, memory_order_acquire);
+    atomic_compare_exchange_strong_explicit(v12, &v2, *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24), memory_order_acquire, memory_order_acquire);
     if (v2)
     {
       os_unfair_lock_lock_with_options();
@@ -3145,10 +3136,10 @@ uint64_t tiny_free_do_recirc_to_depot(unint64_t a1, uint64_t a2)
 
     *(&dword_18 + (i & 0xFFFFFFFFFFF00000)) = -1;
     *(i + 28) = 0;
-    v12 = tiny_free_reattach_region(a1, v13, v15);
-    *(a2 + 2152) -= v12;
+    v11 = tiny_free_reattach_region(a1, v12, v14);
+    *(a2 + 2152) -= v11;
     *(a2 + 2160) -= 1032064;
-    *(a2 + 2168) -= v14;
+    *(a2 + 2168) -= v13;
     v3 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
     v4 = v3;
     atomic_compare_exchange_strong_explicit(a2, &v4, 0, memory_order_release, memory_order_relaxed);
@@ -3157,50 +3148,49 @@ uint64_t tiny_free_do_recirc_to_depot(unint64_t a1, uint64_t a2)
       os_unfair_lock_unlock(a2);
     }
 
-    *(v13 + 2152) += v12;
-    *(v13 + 2160) += 1032064;
-    *(v13 + 2168) += v14;
-    if (*(v13 + 2184))
+    *(v12 + 2152) += v11;
+    *(v12 + 2160) += 1032064;
+    *(v12 + 2168) += v13;
+    if (*(v12 + 2184))
     {
-      *i = *(v13 + 2184);
-      *(*(v13 + 2184) + 8) = i;
+      *i = *(v12 + 2184);
+      *(*(v12 + 2184) + 8) = i;
     }
 
     else
     {
-      *(v13 + 2176) = i;
+      *(v12 + 2176) = i;
       *i = 0;
     }
 
-    *(v13 + 2184) = i;
+    *(v12 + 2184) = i;
     *(i + 8) = 0;
     *(i + 32) = 0;
-    ++*(v13 + 2172);
-    v5 = *(dword_10 + (i & 0xFFFFFFFFFFF00000));
+    ++*(v12 + 2172);
     if ((aggressive_madvise_enabled & 1) == 0)
     {
-      tiny_free_scan_madvise_free(a1, v13, v15);
+      tiny_free_scan_madvise_free(a1, v12, v14);
     }
 
-    v11 = tiny_free_try_depot_unmap_no_lock(a1, v13, i);
-    v6 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
-    v7 = v6;
-    atomic_compare_exchange_strong_explicit(v13, &v7, 0, memory_order_release, memory_order_relaxed);
-    if (v7 != v6)
+    v10 = tiny_free_try_depot_unmap_no_lock(a1, v12, i);
+    v5 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 24);
+    v6 = v5;
+    atomic_compare_exchange_strong_explicit(v12, &v6, 0, memory_order_release, memory_order_relaxed);
+    if (v6 != v5)
     {
-      os_unfair_lock_unlock(v13);
+      os_unfair_lock_unlock(v12);
     }
 
-    if (v11)
+    if (v10)
     {
       if ((*(a1 + 620) & 4) != 0)
       {
-        mvm_deallocate_pages(v11, 0x100000uLL, *(a1 + 620) & 0xFFFE);
+        mvm_deallocate_pages(v10, 0x100000uLL, *(a1 + 620) & 0xFFFE);
       }
 
       else
       {
-        mvm_deallocate_pages(v11, 0x100000uLL, *(a1 + 620) & 0xFFFC);
+        mvm_deallocate_pages(v10, 0x100000uLL, *(a1 + 620) & 0xFFFC);
       }
     }
 
@@ -3213,7 +3203,7 @@ uint64_t tiny_free_do_recirc_to_depot(unint64_t a1, uint64_t a2)
   }
 }
 
-unint64_t tiny_free_try_depot_unmap_no_lock(uint64_t a1, uint64_t a2, uint64_t a3)
+const void *tiny_free_try_depot_unmap_no_lock(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a3 + 16) || *(a3 + 28) > 0 || *(a2 + 2172) < recirc_retained_regions)
   {
@@ -3243,17 +3233,18 @@ unint64_t tiny_free_try_depot_unmap_no_lock(uint64_t a1, uint64_t a2, uint64_t a
   *a3 = 0;
   *(a3 + 8) = 0;
   --*(a2 + 2172);
-  v4 = a3 & 0xFFFFFFFFFFF00000;
-  if (tiny_free_detach_region(a1, a2, a3 & 0xFFFFFFFFFFF00000))
+  v5 = (a3 & 0xFFFFFFFFFFF00000);
+  v4 = tiny_free_detach_region(a1, a2, a3 & 0xFFFFFFFFFFF00000);
+  if (v4)
   {
-    malloc_zone_error(*(a1 + 620), 1, "tiny_free_try_depot_unmap_no_lock objects_in_use not zero: %d\n");
+    malloc_zone_error(*(a1 + 620), 1, "tiny_free_try_depot_unmap_no_lock objects_in_use not zero: %d\n", v4);
     return 0;
   }
 
-  else if (rack_region_remove(a1, v4, a3))
+  else if (rack_region_remove(a1, v5, a3))
   {
     *(a2 + 2160) -= 1032064;
-    return v4;
+    return v5;
   }
 
   else
@@ -3280,37 +3271,36 @@ uint64_t zero_on_free_should_sample()
   return v2 & 1;
 }
 
-void _tiny_check_and_zero_inline_meta_from_freelist(uint64_t a1, uint64_t *a2, unsigned __int16 a3)
+void _tiny_check_and_zero_inline_meta_from_freelist(uint64_t a1, unsigned __int16 *a2, unsigned __int16 a3)
 {
-  v7 = *a2;
   *a2 = 0uLL;
   if (a3 <= 1u)
   {
-    if (!a3 && *(a2 + 8))
+    if (!a3 && a2[8])
     {
-      v3 = *(a2 + 8);
-      malloc_zone_error(256, 1, "Corruption at %p: unexpected nonzero msize %u\n");
+      malloc_zone_error(256, 1, "Corruption at %p: unexpected nonzero msize %u\n", a2, a2[8]);
     }
   }
 
   else
   {
-    v5 = *(a2 + 8);
-    v4 = &a2[2 * a3];
-    if (v5 == *(v4 - 1))
+    v5 = a2[8];
+    v4 = &a2[8 * a3];
+    v3 = *(v4 - 1);
+    if (v5 == v3)
     {
       if (v5 != a3)
       {
-        malloc_zone_error(256, 1, "Corruption at %p: unexpected msizes %u/%u\n");
+        malloc_zone_error(256, 1, "Corruption at %p: unexpected msizes %u/%u\n", a2, v5, a3);
       }
     }
 
     else
     {
-      malloc_zone_error(256, 1, "Corruption of free object %p: msizes %u/%u disagree\n");
+      malloc_zone_error(256, 1, "Corruption of free object %p: msizes %u/%u disagree\n", a2, v5, v3);
     }
 
-    *(a2 + 8) = 0;
+    a2[8] = 0;
     *(v4 - 1) = 0;
   }
 }
@@ -3410,44 +3400,46 @@ char *malloc_print_configure()
   return result;
 }
 
-void malloc_vreport(__int16 a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void malloc_vreport(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v6 = 0;
-  if (_simple_salloc())
+  v20 = a1;
+  v15 = 0;
+  v14 = _simple_salloc();
+  if (v14)
   {
-    if ((a1 & 0x20) == 0)
+    if ((v20 & 0x20) == 0)
     {
-      _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-      getprogname();
-      getpid();
-      _simple_sprintf();
+      v12 = (_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) - 224);
+      v9 = getprogname();
+      v7 = getpid();
+      _simple_sprintf(v14, "%s(%d,%p) malloc: ", v9, v7, v12);
     }
 
     if (a3)
     {
-      _simple_sprintf();
+      _simple_sprintf(v14, a3, a4);
     }
 
     _simple_vsprintf();
-    if ((a1 & 0x100) != 0)
+    if ((v20 & 0x100) != 0)
     {
-      _malloc_append_backtrace();
+      _malloc_append_backtrace(v14);
     }
 
-    if ((a1 & 0x200) == 0 && (debug_mode == 2 || debug_mode == 1 && (a1 & 0x40) != 0))
+    if ((v20 & 0x200) == 0 && (debug_mode == 2 || debug_mode == 1 && (v20 & 0x40) != 0))
     {
       _simple_put();
     }
 
-    if (!_malloc_no_asl_log && (a1 & 0x10) == 0)
+    if (!_malloc_no_asl_log && (v20 & 0x10) == 0)
     {
       _simple_string();
       _simple_asl_log();
     }
 
-    if ((a1 & 0x40) != 0)
+    if ((v20 & 0x40) != 0)
     {
-      v6 = _simple_string();
+      v15 = _simple_string();
     }
 
     else
@@ -3458,39 +3450,40 @@ void malloc_vreport(__int16 a1, unsigned int a2, uint64_t a3, uint64_t a4, uint6
 
   else
   {
-    if ((a1 & 0x200) == 0 && (debug_mode == 2 || debug_mode == 1 && (a1 & 0x40) != 0))
+    if ((v20 & 0x200) == 0 && (debug_mode == 2 || debug_mode == 1 && (v20 & 0x40) != 0))
     {
-      if ((a1 & 0x20) == 0)
+      if ((v20 & 0x20) == 0)
       {
-        _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-        getprogname();
-        getpid();
-        _simple_dprintf();
+        v13 = (_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) - 224);
+        v11 = malloc_debug_file;
+        v10 = getprogname();
+        v6 = getpid();
+        _simple_dprintf(v11, "%s(%d,%p) malloc: ", v10, v6, v13);
       }
 
       if (a3)
       {
-        _simple_dprintf();
+        _simple_dprintf(malloc_debug_file, a3, a4);
       }
 
       _simple_vdprintf();
     }
 
-    if ((a1 & 0x40) != 0)
+    if ((v20 & 0x40) != 0)
     {
-      v6 = a5;
+      v15 = a5;
     }
   }
 
-  if ((a1 & 0xC0) != 0)
+  if ((v20 & 0xC0) != 0)
   {
-    _malloc_put(a1, "*** set a breakpoint in malloc_error_break to debug\n");
+    _malloc_put(v20, "*** set a breakpoint in malloc_error_break to debug\n");
     malloc_error_break();
     if (malloc_error_stop)
     {
       _malloc_put(5, "*** sending SIGSTOP to help debug\n");
-      v5 = getpid();
-      kill(v5, 17);
+      v8 = getpid();
+      kill(v8, 17);
     }
 
     else if (a2)
@@ -3500,25 +3493,25 @@ void malloc_vreport(__int16 a1, unsigned int a2, uint64_t a3, uint64_t a4, uint6
     }
   }
 
-  if ((a1 & 0x40) != 0)
+  if ((v20 & 0x40) != 0)
   {
-    qword_D8128 = v6;
+    qword_D8128 = v15;
     abort();
   }
 }
 
-void _malloc_append_backtrace()
+void _malloc_append_backtrace(uint64_t a1)
 {
   bzero(array, 0x190uLL);
-  v0 = backtrace(array, 50);
-  *size = v0;
-  if (v0)
+  v1 = backtrace(array, 50);
+  *size = v1;
+  if (v1)
   {
-    backtrace_image_offsets(array, image_offsets, v0);
+    backtrace_image_offsets(array, image_offsets, v1);
     for (i = 0; i < *size; ++i)
     {
       *uu1 = 0;
-      v6 = 0;
+      v7 = 0;
       if (i && !uuid_compare(uu1, image_offsets[i].uuid))
       {
         _simple_sappend();
@@ -3532,32 +3525,33 @@ void _malloc_append_backtrace()
         _simple_sappend();
       }
 
-      offset = image_offsets[i].offset;
-      _simple_sprintf();
+      _simple_sprintf(a1, "+%u,", image_offsets[i].offset);
     }
   }
 }
 
-ssize_t _malloc_put(__int16 a1, const void *a2)
+ssize_t _malloc_put(uint64_t a1, const char *a2)
 {
+  v14 = a1;
   result = _simple_salloc();
+  v12 = result;
   if (result)
   {
-    if ((a1 & 0x20) == 0)
+    if ((v14 & 0x20) == 0)
     {
-      _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-      getprogname();
-      getpid();
-      _simple_sprintf();
+      v10 = (_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) - 224);
+      v6 = getprogname();
+      v5 = getpid();
+      _simple_sprintf(v12, "%s(%d,%p) malloc: ", v6, v5, v10);
     }
 
-    _simple_sprintf();
-    if ((a1 & 0x200) == 0 && (debug_mode == 2 || debug_mode == 1 && (a1 & 0x40) != 0))
+    _simple_sprintf(v12, "%s", a2);
+    if ((v14 & 0x200) == 0 && (debug_mode == 2 || debug_mode == 1 && (v14 & 0x40) != 0))
     {
       _simple_put();
     }
 
-    if ((_malloc_no_asl_log & ((a1 & 0x10) == 0)) != 0)
+    if ((_malloc_no_asl_log & ((v14 & 0x10) == 0)) != 0)
     {
       _simple_string();
       _simple_asl_log();
@@ -3566,26 +3560,35 @@ ssize_t _malloc_put(__int16 a1, const void *a2)
     return _simple_sfree();
   }
 
-  else if ((a1 & 0x200) == 0 && (debug_mode == 2 || debug_mode == 1 && (a1 & 0x40) != 0))
+  else if ((v14 & 0x200) == 0 && (debug_mode == 2 || debug_mode == 1 && (v14 & 0x40) != 0))
   {
-    if ((a1 & 0x20) == 0)
+    if ((v14 & 0x20) == 0)
     {
-      _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-      getprogname();
-      getpid();
-      _simple_dprintf();
+      v11 = (_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) - 224);
+      v9 = malloc_debug_file;
+      v8 = getprogname();
+      v3 = getpid();
+      _simple_dprintf(v9, "%s(%d,%p) malloc: ", v8, v3, v11);
     }
 
     __fd = malloc_debug_file;
-    v3 = _platform_strlen();
-    return write(__fd, a2, v3);
+    v4 = _platform_strlen();
+    return write(__fd, a2, v4);
   }
 
   return result;
 }
 
-void malloc_zone_error(__int16 a1, char a2, uint64_t a3)
+void malloc_report(unsigned int a1, const char *a2, ...)
 {
+  va_start(va, a2);
+  v2 = _malloc_default_debug_sleep_time();
+  malloc_vreport(a1, v2, 0, 0, a2, va);
+}
+
+void malloc_zone_error(__int16 a1, char a2, const char *a3, ...)
+{
+  va_start(va, a3);
   v4 = 144;
   if ((a2 & 1) != 0 && (a1 & 0x100) != 0 || (a1 & 0x40) != 0)
   {
@@ -3593,7 +3596,7 @@ void malloc_zone_error(__int16 a1, char a2, uint64_t a3)
   }
 
   v3 = _malloc_default_debug_sleep_time();
-  malloc_vreport(v4 | 3, v3, 0, 0, a3);
+  malloc_vreport(v4 | 3u, v3, 0, 0, a3, va);
 }
 
 void internal_check()
@@ -3617,172 +3620,332 @@ void internal_check()
 
 void tiny_zero_corruption_abort(unsigned __int8 *a1, unsigned __int16 a2)
 {
-  v35 = a1;
-  v34 = &a1[16 * a2];
-  while (!*v35)
+  v36 = a1;
+  v35 = 16 * a2;
+  v34 = &a1[v35];
+  while (!*v36)
   {
-    ++v35;
+    ++v36;
   }
 
-  if (v35 < v34)
+  v33 = v36 - a1;
+  if (v36 >= v34)
   {
-    v33 = *v35;
+    v32 = 0;
   }
 
-  if ((v35 + 1) < v34)
+  else
   {
-    v32 = v35[1];
+    v32 = *v36;
   }
 
-  if ((v35 + 2) < v34)
+  if (v36 + 1 >= v34)
   {
-    v31 = v35[2];
+    v31 = 0;
   }
 
-  if ((v35 + 3) < v34)
+  else
   {
-    v30 = v35[3];
+    v31 = v36[1];
   }
 
-  if ((v35 + 4) < v34)
+  if (v36 + 2 >= v34)
   {
-    v29 = v35[4];
+    v30 = 0;
   }
 
-  if ((v35 + 5) < v34)
+  else
   {
-    v28 = v35[5];
+    v30 = v36[2];
   }
 
-  if ((v35 + 6) < v34)
+  if (v36 + 3 >= v34)
   {
-    v27 = v35[6];
+    v29 = 0;
   }
 
-  if ((v35 + 7) < v34)
+  else
   {
-    v26 = v35[7];
+    v29 = v36[3];
   }
 
-  if ((v35 + 8) < v34)
+  if (v36 + 4 >= v34)
   {
-    v25 = v35[8];
+    v28 = 0;
   }
 
-  if ((v35 + 9) < v34)
+  else
   {
-    v24 = v35[9];
+    v28 = v36[4];
   }
 
-  if ((v35 + 10) < v34)
+  if (v36 + 5 >= v34)
   {
-    v23 = v35[10];
+    v27 = 0;
   }
 
-  if ((v35 + 11) < v34)
+  else
   {
-    v22 = v35[11];
+    v27 = v36[5];
   }
 
-  if ((v35 + 12) < v34)
+  if (v36 + 6 >= v34)
   {
-    v21 = v35[12];
+    v26 = 0;
   }
 
-  if ((v35 + 13) < v34)
+  else
   {
-    v20 = v35[13];
+    v26 = v36[6];
   }
 
-  if ((v35 + 14) < v34)
+  if (v36 + 7 >= v34)
   {
-    v19 = v35[14];
+    v25 = 0;
   }
 
-  if ((v35 + 15) < v34)
+  else
   {
-    v18 = v35[15];
+    v25 = v36[7];
   }
 
-  if ((v35 + 16) < v34)
+  if (v36 + 8 >= v34)
   {
-    v17 = v35[16];
+    v24 = 0;
   }
 
-  if ((v35 + 17) < v34)
+  else
   {
-    v16 = v35[17];
+    v24 = v36[8];
   }
 
-  if ((v35 + 18) < v34)
+  if (v36 + 9 >= v34)
   {
-    v15 = v35[18];
+    v23 = 0;
   }
 
-  if ((v35 + 19) < v34)
+  else
   {
-    v14 = v35[19];
+    v23 = v36[9];
   }
 
-  if ((v35 + 20) < v34)
+  if (v36 + 10 >= v34)
   {
-    v13 = v35[20];
+    v22 = 0;
   }
 
-  if ((v35 + 21) < v34)
+  else
   {
-    v12 = v35[21];
+    v22 = v36[10];
   }
 
-  if ((v35 + 22) < v34)
+  if (v36 + 11 >= v34)
   {
-    v11 = v35[22];
+    v21 = 0;
   }
 
-  if ((v35 + 23) < v34)
+  else
   {
-    v10 = v35[23];
+    v21 = v36[11];
   }
 
-  if ((v35 + 24) < v34)
+  if (v36 + 12 >= v34)
   {
-    v9 = v35[24];
+    v20 = 0;
   }
 
-  if ((v35 + 25) < v34)
+  else
   {
-    v8 = v35[25];
+    v20 = v36[12];
   }
 
-  if ((v35 + 26) < v34)
+  if (v36 + 13 >= v34)
   {
-    v7 = v35[26];
+    v19 = 0;
   }
 
-  if ((v35 + 27) < v34)
+  else
   {
-    v6 = v35[27];
+    v19 = v36[13];
   }
 
-  if ((v35 + 28) < v34)
+  if (v36 + 14 >= v34)
   {
-    v5 = v35[28];
+    v18 = 0;
   }
 
-  if ((v35 + 29) < v34)
+  else
   {
-    v4 = v35[29];
+    v18 = v36[14];
   }
 
-  if ((v35 + 30) < v34)
+  if (v36 + 15 >= v34)
   {
-    v3 = v35[30];
+    v17 = 0;
   }
 
-  if ((v35 + 31) < v34)
+  else
   {
-    v2 = v35[31];
+    v17 = v36[15];
   }
 
-  malloc_zone_error(256, 1, "Corruption detected in block %p of size %u at offset %u, first 32 bytes at that offset are %02X %02X %02X %02X %02X %02X %02X %02X | %02X %02X %02X %02X %02X %02X %02X %02X | %02X %02X %02X %02X %02X %02X %02X %02X | %02X %02X %02X %02X %02X %02X %02X %02X\n");
+  if (v36 + 16 >= v34)
+  {
+    v16 = 0;
+  }
+
+  else
+  {
+    v16 = v36[16];
+  }
+
+  if (v36 + 17 >= v34)
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = v36[17];
+  }
+
+  if (v36 + 18 >= v34)
+  {
+    v14 = 0;
+  }
+
+  else
+  {
+    v14 = v36[18];
+  }
+
+  if (v36 + 19 >= v34)
+  {
+    v13 = 0;
+  }
+
+  else
+  {
+    v13 = v36[19];
+  }
+
+  if (v36 + 20 >= v34)
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v12 = v36[20];
+  }
+
+  if (v36 + 21 >= v34)
+  {
+    v11 = 0;
+  }
+
+  else
+  {
+    v11 = v36[21];
+  }
+
+  if (v36 + 22 >= v34)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = v36[22];
+  }
+
+  if (v36 + 23 >= v34)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    v9 = v36[23];
+  }
+
+  if (v36 + 24 >= v34)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = v36[24];
+  }
+
+  if (v36 + 25 >= v34)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = v36[25];
+  }
+
+  if (v36 + 26 >= v34)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = v36[26];
+  }
+
+  if (v36 + 27 >= v34)
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = v36[27];
+  }
+
+  if (v36 + 28 >= v34)
+  {
+    v4 = 0;
+  }
+
+  else
+  {
+    v4 = v36[28];
+  }
+
+  if (v36 + 29 >= v34)
+  {
+    v3 = 0;
+  }
+
+  else
+  {
+    v3 = v36[29];
+  }
+
+  if (v36 + 30 >= v34)
+  {
+    v2 = 0;
+  }
+
+  else
+  {
+    v2 = v36[30];
+  }
+
+  if (v36 + 31 >= v34)
+  {
+    malloc_zone_error(256, 1, "Corruption detected in block %p of size %u at offset %u, first 32 bytes at that offset are %02X %02X %02X %02X %02X %02X %02X %02X | %02X %02X %02X %02X %02X %02X %02X %02X | %02X %02X %02X %02X %02X %02X %02X %02X | %02X %02X %02X %02X %02X %02X %02X %02X\n", a1, v35, v33, v32, v31, v30, v29, v28, v27, v26, v25, v24, v23, v22, v21, v20, v19, v18, v17, v16, v15, v14, v13, v12, v11, v10, v9, v8, v7, v6, v5, v4, v3, v2, 0);
+  }
+
+  else
+  {
+    malloc_zone_error(256, 1, "Corruption detected in block %p of size %u at offset %u, first 32 bytes at that offset are %02X %02X %02X %02X %02X %02X %02X %02X | %02X %02X %02X %02X %02X %02X %02X %02X | %02X %02X %02X %02X %02X %02X %02X %02X | %02X %02X %02X %02X %02X %02X %02X %02X\n", a1, v35, v33, v32, v31, v30, v29, v28, v27, v26, v25, v24, v23, v22, v21, v20, v19, v18, v17, v16, v15, v14, v13, v12, v11, v10, v9, v8, v7, v6, v5, v4, v3, v2, v36[31]);
+  }
 }

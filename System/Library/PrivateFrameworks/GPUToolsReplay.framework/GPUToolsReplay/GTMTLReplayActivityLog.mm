@@ -14,6 +14,9 @@
 - (void)enterLoadArchiveWithPath:(id)path;
 - (void)enterMessage:(id)message;
 - (void)enterOptimizeRestores;
+- (void)enterPerformFrameTimingForIndex:(int)index;
+- (void)enterRestoreCommandBufferAtIndex:(unsigned int)index;
+- (void)enterRestoreResources:(const GTResourceRestoreRequest *)resources count:(int)count;
 - (void)enterRewind;
 - (void)leaveActivity;
 - (void)logActivitiesToFile:(id)file;
@@ -34,6 +37,12 @@
 - (void)enterDisplayAttachmentAtIndex:(id)index
 {
   v4 = [[GTMTLReplayActivityDisplayAttachment alloc] initWithIndex:index];
+  [(GTMTLReplayActivityLog *)self enterActivity:v4];
+}
+
+- (void)enterPerformFrameTimingForIndex:(int)index
+{
+  v4 = [[GTMTLReplayActivityPerformFrameTiming alloc] initWithIndex:*&index];
   [(GTMTLReplayActivityLog *)self enterActivity:v4];
 }
 
@@ -67,6 +76,18 @@
 {
   v3 = [[GTMTLReplayActivity alloc] initWithType:@"rewind"];
   [(GTMTLReplayActivityLog *)self enterActivity:v3];
+}
+
+- (void)enterRestoreResources:(const GTResourceRestoreRequest *)resources count:(int)count
+{
+  v5 = [[GTMTLReplayActivityRestoreResources alloc] initWithRequests:resources count:*&count];
+  [(GTMTLReplayActivityLog *)self enterActivity:v5];
+}
+
+- (void)enterRestoreCommandBufferAtIndex:(unsigned int)index
+{
+  v4 = [[GTMTLReplayActivityRestoreCommandBuffer alloc] initWithIndex:*&index];
+  [(GTMTLReplayActivityLog *)self enterActivity:v4];
 }
 
 - (void)enterHarvestResourceObjectWithAttributes:(id)attributes
@@ -182,7 +203,7 @@
 
 void __62__GTMTLReplayActivityLog_logMTL4Queue_commit_options_atIndex___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = g_signpostLog;
   v5 = os_signpost_id_make_with_pointer(g_signpostLog, *(a1 + 32));
@@ -193,7 +214,7 @@ void __62__GTMTLReplayActivityLog_logMTL4Queue_commit_options_atIndex___block_in
     {
       v7 = [v3 error];
       *buf = 134217984;
-      v21 = [v7 code];
+      v20 = [v7 code];
       _os_signpost_emit_with_name_impl(&dword_24D764000, v4, OS_SIGNPOST_INTERVAL_END, v6, "Replayer-3-commandQueue", "%lu", buf, 0xCu);
     }
   }
@@ -203,18 +224,18 @@ void __62__GTMTLReplayActivityLog_logMTL4Queue_commit_options_atIndex___block_in
   if (v8)
   {
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{*(a1 + 72), @"GTErrorKeyFunctionIndex"}];
-    v19[0] = v9;
-    v18[1] = @"GTErrorKeyMTL4CommitFeedback";
+    v18[0] = v9;
+    v17[1] = @"GTErrorKeyMTL4CommitFeedback";
     v10 = GTMTLReplay_dictionaryFromCommitFeedback(v3);
-    v19[1] = v10;
-    v18[2] = @"GTErrorKeyReplayerContext";
+    v18[1] = v10;
+    v17[2] = @"GTErrorKeyReplayerContext";
     v11 = BreadcrumbSummary(*(a1 + 40));
-    v19[2] = v11;
-    v18[3] = @"GTErrorKeyReplayerBreadcrumbs";
+    v18[2] = v11;
+    v17[3] = @"GTErrorKeyReplayerBreadcrumbs";
     v12 = ArrayFromActivities(*(a1 + 40), 1);
     v13 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v12 options:3 error:0];
-    v19[3] = v13;
-    v18[4] = @"GTErrorKeyGputracePath";
+    v18[3] = v13;
+    v17[4] = @"GTErrorKeyGputracePath";
     v14 = *(a1 + 48);
     v15 = v14;
     if (!v14)
@@ -222,8 +243,8 @@ void __62__GTMTLReplayActivityLog_logMTL4Queue_commit_options_atIndex___block_in
       v15 = [MEMORY[0x277CBEB68] null];
     }
 
-    v19[4] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:5];
+    v18[4] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
     if (!v14)
     {
     }
@@ -231,8 +252,6 @@ void __62__GTMTLReplayActivityLog_logMTL4Queue_commit_options_atIndex___block_in
     [*(a1 + 56) logActivitiesToFile:*(a1 + 64)];
     GTMTLReplay_handleMTL4CommitFeedbackError(v3, v16);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logMTL4Queue:(id)queue commit:(id)commit options:(id)options withKeys:(id)keys
@@ -267,7 +286,7 @@ void __62__GTMTLReplayActivityLog_logMTL4Queue_commit_options_atIndex___block_in
 
 void __63__GTMTLReplayActivityLog_logMTL4Queue_commit_options_withKeys___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = g_signpostLog;
   v5 = os_signpost_id_make_with_pointer(g_signpostLog, *(a1 + 32));
@@ -278,7 +297,7 @@ void __63__GTMTLReplayActivityLog_logMTL4Queue_commit_options_withKeys___block_i
     {
       v7 = [v3 error];
       *buf = 134217984;
-      v20 = [v7 code];
+      v19 = [v7 code];
       _os_signpost_emit_with_name_impl(&dword_24D764000, v4, OS_SIGNPOST_INTERVAL_END, v6, "Replayer-3-commandQueue", "%lu", buf, 0xCu);
     }
   }
@@ -287,19 +306,19 @@ void __63__GTMTLReplayActivityLog_logMTL4Queue_commit_options_withKeys___block_i
 
   if (v8)
   {
-    v18[0] = *(a1 + 40);
-    v17[0] = @"GTErrorKeyTraceStreamID";
-    v17[1] = @"GTErrorKeyMTL4CommitFeedback";
+    v17[0] = *(a1 + 40);
+    v16[0] = @"GTErrorKeyTraceStreamID";
+    v16[1] = @"GTErrorKeyMTL4CommitFeedback";
     v9 = GTMTLReplay_dictionaryFromCommitFeedback(v3);
-    v18[1] = v9;
-    v17[2] = @"GTErrorKeyReplayerContext";
+    v17[1] = v9;
+    v16[2] = @"GTErrorKeyReplayerContext";
     v10 = BreadcrumbSummary(*(a1 + 48));
-    v18[2] = v10;
-    v17[3] = @"GTErrorKeyReplayerBreadcrumbs";
+    v17[2] = v10;
+    v16[3] = @"GTErrorKeyReplayerBreadcrumbs";
     v11 = ArrayFromActivities(*(a1 + 48), 1);
     v12 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v11 options:3 error:{0, @"GTErrorKeyTraceStreamID", @"GTErrorKeyMTL4CommitFeedback", @"GTErrorKeyReplayerContext", @"GTErrorKeyReplayerBreadcrumbs"}];
-    v18[3] = v12;
-    v17[4] = @"GTErrorKeyGputracePath";
+    v17[3] = v12;
+    v16[4] = @"GTErrorKeyGputracePath";
     v13 = *(a1 + 56);
     v14 = v13;
     if (!v13)
@@ -307,8 +326,8 @@ void __63__GTMTLReplayActivityLog_logMTL4Queue_commit_options_withKeys___block_i
       v14 = [MEMORY[0x277CBEB68] null];
     }
 
-    v18[4] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
+    v17[4] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
     if (!v13)
     {
     }
@@ -316,8 +335,6 @@ void __63__GTMTLReplayActivityLog_logMTL4Queue_commit_options_withKeys___block_i
     [*(a1 + 64) logActivitiesToFile:*(a1 + 72)];
     GTMTLReplay_handleMTL4CommitFeedbackError(v3, v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logCommandBuffer:(id)buffer withKey:(unint64_t)key
@@ -349,7 +366,7 @@ void __63__GTMTLReplayActivityLog_logMTL4Queue_commit_options_withKeys___block_i
 
 void __51__GTMTLReplayActivityLog_logCommandBuffer_withKey___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = g_signpostLog;
   v5 = os_signpost_id_make_with_pointer(g_signpostLog, v3);
@@ -359,7 +376,7 @@ void __51__GTMTLReplayActivityLog_logCommandBuffer_withKey___block_invoke(uint64
     if (os_signpost_enabled(v4))
     {
       *buf = 134217984;
-      v19 = [v3 status];
+      v18 = [v3 status];
       _os_signpost_emit_with_name_impl(&dword_24D764000, v4, OS_SIGNPOST_INTERVAL_END, v6, "Replayer-3-commandQueue", "%lu", buf, 0xCu);
     }
   }
@@ -367,18 +384,18 @@ void __51__GTMTLReplayActivityLog_logCommandBuffer_withKey___block_invoke(uint64
   if ([v3 status] == 5)
   {
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{*(a1 + 64), @"GTErrorKeyTraceStreamID"}];
-    v17[0] = v7;
-    v16[1] = @"GTErrorKeyMTLCommandBuffer";
+    v16[0] = v7;
+    v15[1] = @"GTErrorKeyMTLCommandBuffer";
     v8 = GTMTLReplay_dictionaryFromCommandBuffer(v3);
-    v17[1] = v8;
-    v16[2] = @"GTErrorKeyReplayerContext";
+    v16[1] = v8;
+    v15[2] = @"GTErrorKeyReplayerContext";
     v9 = BreadcrumbSummary(*(a1 + 32));
-    v17[2] = v9;
-    v16[3] = @"GTErrorKeyReplayerBreadcrumbs";
+    v16[2] = v9;
+    v15[3] = @"GTErrorKeyReplayerBreadcrumbs";
     v10 = ArrayFromActivities(*(a1 + 32), 1);
     v11 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v10 options:3 error:0];
-    v17[3] = v11;
-    v16[4] = @"GTErrorKeyGputracePath";
+    v16[3] = v11;
+    v15[4] = @"GTErrorKeyGputracePath";
     v12 = *(a1 + 40);
     v13 = v12;
     if (!v12)
@@ -386,8 +403,8 @@ void __51__GTMTLReplayActivityLog_logCommandBuffer_withKey___block_invoke(uint64
       v13 = [MEMORY[0x277CBEB68] null];
     }
 
-    v17[4] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
+    v16[4] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
     if (!v12)
     {
     }
@@ -395,8 +412,6 @@ void __51__GTMTLReplayActivityLog_logCommandBuffer_withKey___block_invoke(uint64
     [*(a1 + 48) logActivitiesToFile:*(a1 + 56)];
     GTMTLReplay_handleCommandBufferError(v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logCommandBuffer:(id)buffer atIndex:(unsigned int)index
@@ -428,7 +443,7 @@ void __51__GTMTLReplayActivityLog_logCommandBuffer_withKey___block_invoke(uint64
 
 void __51__GTMTLReplayActivityLog_logCommandBuffer_atIndex___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = g_signpostLog;
   v5 = os_signpost_id_make_with_pointer(g_signpostLog, v3);
@@ -438,7 +453,7 @@ void __51__GTMTLReplayActivityLog_logCommandBuffer_atIndex___block_invoke(uint64
     if (os_signpost_enabled(v4))
     {
       *buf = 134217984;
-      v19 = [v3 status];
+      v18 = [v3 status];
       _os_signpost_emit_with_name_impl(&dword_24D764000, v4, OS_SIGNPOST_INTERVAL_END, v6, "Replayer-3-commandQueue", "%lu", buf, 0xCu);
     }
   }
@@ -446,18 +461,18 @@ void __51__GTMTLReplayActivityLog_logCommandBuffer_atIndex___block_invoke(uint64
   if ([v3 status] == 5)
   {
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{*(a1 + 64), @"GTErrorKeyFunctionIndex"}];
-    v17[0] = v7;
-    v16[1] = @"GTErrorKeyMTLCommandBuffer";
+    v16[0] = v7;
+    v15[1] = @"GTErrorKeyMTLCommandBuffer";
     v8 = GTMTLReplay_dictionaryFromCommandBuffer(v3);
-    v17[1] = v8;
-    v16[2] = @"GTErrorKeyReplayerContext";
+    v16[1] = v8;
+    v15[2] = @"GTErrorKeyReplayerContext";
     v9 = BreadcrumbSummary(*(a1 + 32));
-    v17[2] = v9;
-    v16[3] = @"GTErrorKeyReplayerBreadcrumbs";
+    v16[2] = v9;
+    v15[3] = @"GTErrorKeyReplayerBreadcrumbs";
     v10 = ArrayFromActivities(*(a1 + 32), 1);
     v11 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v10 options:3 error:0];
-    v17[3] = v11;
-    v16[4] = @"GTErrorKeyGputracePath";
+    v16[3] = v11;
+    v15[4] = @"GTErrorKeyGputracePath";
     v12 = *(a1 + 40);
     v13 = v12;
     if (!v12)
@@ -465,8 +480,8 @@ void __51__GTMTLReplayActivityLog_logCommandBuffer_atIndex___block_invoke(uint64
       v13 = [MEMORY[0x277CBEB68] null];
     }
 
-    v17[4] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
+    v16[4] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
     if (!v12)
     {
     }
@@ -474,13 +489,11 @@ void __51__GTMTLReplayActivityLog_logCommandBuffer_atIndex___block_invoke(uint64
     [*(a1 + 48) logActivitiesToFile:*(a1 + 56)];
     GTMTLReplay_handleCommandBufferError(v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logActivitiesToFile:(id)file
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = ArrayFromActivities(file, 1);
   v5 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v4 options:3 error:0];
 
@@ -495,12 +508,10 @@ void __51__GTMTLReplayActivityLog_logCommandBuffer_atIndex___block_invoke(uint64
   {
     v11 = log;
     path = [v9 path];
-    v14 = 138543362;
-    v15 = path;
-    _os_log_impl(&dword_24D764000, v11, OS_LOG_TYPE_INFO, "logPath:\t%{public}@", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = path;
+    _os_log_impl(&dword_24D764000, v11, OS_LOG_TYPE_INFO, "logPath:\t%{public}@", &v13, 0xCu);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

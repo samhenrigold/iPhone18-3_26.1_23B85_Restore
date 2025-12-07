@@ -96,7 +96,7 @@ id __54__CHSControlActionMetadata_succinctDescriptionBuilder__block_invoke(uint6
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v12 = 1;
+    v6 = 1;
   }
 
   else
@@ -105,28 +105,24 @@ id __54__CHSControlActionMetadata_succinctDescriptionBuilder__block_invoke(uint6
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      intentType = self->_intentType;
-      v7 = v5->_intentType;
-      if (BSEqualStrings() && (isLauncher = self->_isLauncher, v9 = v5->_isLauncher, BSEqualBools()))
+      if (BSEqualStrings() && BSEqualBools())
       {
-        isCameraCapture = self->_isCameraCapture;
-        v11 = v5->_isCameraCapture;
-        v12 = BSEqualBools();
+        v6 = BSEqualBools();
       }
 
       else
       {
-        v12 = 0;
+        v6 = 0;
       }
     }
 
     else
     {
-      v12 = 0;
+      v6 = 0;
     }
   }
 
-  return v12;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder

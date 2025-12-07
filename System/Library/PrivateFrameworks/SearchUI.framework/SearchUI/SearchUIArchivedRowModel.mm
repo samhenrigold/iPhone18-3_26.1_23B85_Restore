@@ -38,7 +38,7 @@
   swift_beginAccess();
   sub_1DA225128(self + v3, v5);
   LOBYTE(self) = v6 != 0;
-  sub_1DA179568(v5, &qword_1ECBA2D68);
+  sub_1DA179568(v5, &qword_1ECBA2D68, &qword_1DA272EF8);
   return self;
 }
 

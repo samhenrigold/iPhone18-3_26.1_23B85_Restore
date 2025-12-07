@@ -14,7 +14,6 @@
 - (CGRect)primaryCaptureRect;
 - (CMISmartStyleProcessorInputOutputV1)init;
 - (__n128)setSpotlightAffineTransform:(__n128)transform;
-- (__n128)spotlightAffineTransform;
 - (void)dealloc;
 - (void)setInputDeltaMapPixelBuffer:(__CVBuffer *)buffer;
 - (void)setInputGainMapPixelBuffer:(__CVBuffer *)buffer;
@@ -666,14 +665,6 @@
   result.size.width = width;
   result.origin.y = y;
   result.origin.x = x;
-  return result;
-}
-
-- (__n128)spotlightAffineTransform
-{
-  result = *(self + 688);
-  v2 = *(self + 704);
-  v3 = *(self + 720);
   return result;
 }
 

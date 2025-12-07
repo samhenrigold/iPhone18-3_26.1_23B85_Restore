@@ -6,6 +6,9 @@
 + (BOOL)cancelCoordinatorForAppWithIdentity:(id)identity withReason:(id)reason client:(unint64_t)client error:(id *)error;
 + (BOOL)cancelCoordinatorsForAppsWithApplicationIdentities:(id)identities withReason:(id)reason client:(unint64_t)client error:(id *)error;
 + (BOOL)cancelCoordinatorsForAppsWithBundleIDs:(id)ds withReason:(id)reason client:(unint64_t)client error:(id *)error;
++ (BOOL)demoteAppToPlaceholderWithApplicationIdentity:(id)identity forReason:(unint64_t)reason waitForDeletion:(BOOL)deletion ignoreRemovability:(BOOL)removability error:(id *)error;
++ (BOOL)demoteAppToPlaceholderWithBundleID:(id)d forReason:(unint64_t)reason waitForDeletion:(BOOL)deletion error:(id *)error;
++ (BOOL)demoteAppToPlaceholderWithBundleID:(id)d forReason:(unint64_t)reason waitForDeletion:(BOOL)deletion ignoreRemovability:(BOOL)removability error:(id *)error;
 + (BOOL)enumerateCoordinatorsWithError:(id *)error usingBlock:(id)block;
 + (BOOL)killDaemonForTesting;
 + (BOOL)pauseCoordinatorForAppWithBundleID:(id)d error:(id *)error;
@@ -27,9 +30,11 @@
 + (BOOL)revertAppWithIdentity:(id)identity resultingApplicationRecord:(id *)record error:(id *)error;
 + (BOOL)setKnownOSModuleURLs:(id)ls options:(id)options error:(id *)error;
 + (BOOL)setTestModeForIdentifierPrefix:(id)prefix testMode:(unint64_t)mode testSpecificValidationData:(id)data;
++ (BOOL)setTestingEnabled:(BOOL)enabled;
 + (BOOL)simulateClientDeath;
 + (BOOL)testReturnEarlyDemoteAppToPlaceholderWithApplicationIdentity:(id)identity forReason:(unint64_t)reason error:(id *)error;
 + (BOOL)uninstallAppWithBundleID:(id)d options:(id)options disposition:(unint64_t *)disposition error:(id *)error legacyProgressBlock:(id)block;
++ (BOOL)uninstallAppWithBundleID:(id)d requestUserConfirmation:(BOOL)confirmation waitForDeletion:(BOOL)deletion error:(id *)error;
 + (BOOL)uninstallAppWithIdentity:(id)identity options:(id)options disposition:(unint64_t *)disposition error:(id *)error legacyProgressBlock:(id)block;
 + (BOOL)unregisterContentsForDiskImageAtURL:(id)l options:(id)options withError:(id *)error;
 + (BOOL)updateSINFForAppWithIdentity:(id)identity sinfData:(id)data options:(id)options error:(id *)error;
@@ -39,12 +44,16 @@
 + (BOOL)updateiTunesMetadataForAppWithIdentity:(id)identity plistData:(id)data options:(id)options error:(id *)error;
 + (BOOL)updateiTunesMetadataForAppWithIdentity:(id)identity wrapperURL:(id)l plistData:(id)data error:(id *)error;
 + (Class)classForIntent:(unint64_t)intent;
++ (id)_coordinatorForAppWithIdentity:(id)identity targetingInstallationDomain:(unint64_t)domain withClientID:(unint64_t)d intent:(unint64_t)intent createIfNotExisting:(BOOL)existing requireMatchingIntent:(BOOL)matchingIntent scopeRequirement:(unsigned __int8)requirement created:(BOOL *)self0 error:(id *)self1;
 + (id)_coordinatorForIdentity:(id)identity created:(BOOL *)created error:(id *)error;
 + (id)_temporaryStagingLocationForInstallLocation:(id)location withSandboxExtensionHandle:(int64_t *)handle error:(id *)error;
++ (id)coordinatorForAppWithBundleID:(id)d withClientID:(unint64_t)iD createIfNotExisting:(BOOL)existing created:(BOOL *)created error:(id *)error;
++ (id)coordinatorForAppWithIdentity:(id)identity targetingInstallationDomain:(unint64_t)domain withClientID:(unint64_t)d createIfNotExisting:(BOOL)existing created:(BOOL *)created error:(id *)error;
 + (id)defaultAppMetadataForAppIdentity:(id)identity error:(id *)error;
 + (id)defaultAppMetadataListWithError:(id *)error;
 + (id)existingCoordinatorForAppWithBundleID:(id)d error:(id *)error;
 + (id)existingCoordinatorForAppWithIdentity:(id)identity error:(id *)error;
++ (id)processScopedCoordinatorForAppWithIdentity:(id)identity targetingInstallationDomain:(unint64_t)domain withClientID:(unint64_t)d createIfNotExisting:(BOOL)existing created:(BOOL *)created error:(id *)error;
 + (id)removabilityDataWithChangeClock:(id *)clock error:(id *)error;
 + (id)stagingLocationForInstallLocation:(id)location withSandboxExtension:(id *)extension error:(id *)error;
 + (id)unregisterContentsForOSModuleAtURL:(id)l options:(id)options error:(id *)error;
@@ -53,8 +62,10 @@
 + (unint64_t)removabilityForAppWithIdentity:(id)identity byClient:(unint64_t)client error:(id *)error;
 + (unint64_t)removabilityForAppWithIdentity:(id)identity error:(id *)error;
 + (void)_asynchronouslyEnumerateCoordinatorsForIntent:(unint64_t)intent usingBlock:(id)block;
++ (void)_beginInstallForURL:(id)l forPersonaUniqueString:(id)string consumeSource:(BOOL)source options:(id)options progressBlock:(id)block completion:(id)completion;
 + (void)_beginInstallForURL:(id)l forPersonaUniqueString:(id)string consumeSource:(BOOL)source options:(id)options progressBlock:(id)block completionWithIdentity:(id)identity;
 + (void)_demoteAppToPlaceholderWithApplicationIdentity:(id)identity forReason:(unint64_t)reason waitForDeletion:(BOOL)deletion ignoreRemovability:(BOOL)removability returnEarlyForTesting:(BOOL)testing completion:(id)completion;
++ (void)_demoteAppToPlaceholderWithBundleID:(id)d forReason:(unint64_t)reason waitForDeletion:(BOOL)deletion ignoreRemovability:(BOOL)removability completion:(id)completion;
 + (void)_validatePreconditionForIntent:(unint64_t)intent matchesCurrentInstallStateForBundleID:(id)d;
 + (void)cancelCoordinatorForAppWithBundleID:(id)d withReason:(id)reason client:(unint64_t)client completion:(id)completion;
 + (void)cancelCoordinatorForAppWithIdentity:(id)identity withReason:(id)reason client:(unint64_t)client completion:(id)completion;
@@ -63,6 +74,7 @@
 + (void)defaultAppMetadataForAppIdentity:(id)identity completion:(id)completion;
 + (void)defaultAppMetadataListWithCompletion:(id)completion;
 + (void)enumerateCoordinatorsUsingBlock:(id)block;
++ (void)installApplication:(id)application consumeSource:(BOOL)source options:(id)options legacyProgressBlock:(id)block completion:(id)completion;
 + (void)installApplication:(id)application toTargetDirectory:(id)directory consumeSource:(BOOL)source options:(id)options completion:(id)completion;
 + (void)installApplication:(id)application toTargetDirectory:(id)directory consumeSource:(BOOL)source shouldOverrideGatekeeper:(BOOL)gatekeeper options:(id)options completion:(id)completion;
 + (void)installApplication:(id)application toURL:(id)l consumeSource:(BOOL)source options:(id)options completion:(id)completion;
@@ -83,6 +95,7 @@
 + (void)setRemovability:(unint64_t)removability forAppWithBundleID:(id)d byClient:(unint64_t)client completion:(id)completion;
 + (void)setRemovability:(unint64_t)removability forAppWithIdentity:(id)identity byClient:(unint64_t)client completion:(id)completion;
 + (void)uninstallAppWithBundleID:(id)d options:(id)options completion:(id)completion;
++ (void)uninstallAppWithBundleID:(id)d requestUserConfirmation:(BOOL)confirmation waitForDeletion:(BOOL)deletion completion:(id)completion;
 + (void)uninstallAppWithIdentity:(id)identity options:(id)options completion:(id)completion;
 - (BOOL)appAssetPromiseHasBegunFulfillment:(BOOL *)fulfillment error:(id *)error;
 - (BOOL)cancelForReason:(id)reason client:(unint64_t)client error:(id *)error;
@@ -115,6 +128,7 @@
 - (BOOL)setInstallOptions:(id)options error:(id *)error;
 - (BOOL)setInstallTargetDirectoryURL:(id)l error:(id *)error;
 - (BOOL)setManagedInstallUUID:(id)d error:(id *)error;
+- (BOOL)setNeedsPostProcessing:(BOOL)processing error:(id *)error;
 - (BOOL)setPlaceholderDisposition:(unint64_t)disposition error:(id *)error;
 - (BOOL)setPlaceholderPromise:(id)promise error:(id *)error;
 - (BOOL)setPreparationPromise:(id)promise withError:(id *)error;
@@ -171,7 +185,9 @@
 - (void)_clientDelegate_shouldPause;
 - (void)_clientDelegate_shouldPrioritize;
 - (void)_clientDelegate_shouldResume;
+- (void)_conveyCurrentPriorityBoostReplacingExisting:(BOOL)existing;
 - (void)_onObserverCalloutQueue_handleObserverForCompletedCoordinator:(id)coordinator completedApplicationRecord:(id)record error:(id)error client:(unint64_t)client;
+- (void)_updateInitWithSeed:(id)seed notifyDaemon:(BOOL)daemon;
 - (void)dealloc;
 - (void)setComplete:(BOOL)complete;
 - (void)setComplete:(BOOL)complete forApplicationRecord:(id)record;
@@ -238,32 +254,59 @@ void __40__IXAppInstallCoordinator_internalQueue__block_invoke()
   internalQueue_sInternalQueue = v0;
 }
 
+- (void)_conveyCurrentPriorityBoostReplacingExisting:(BOOL)existing
+{
+  existingCopy = existing;
+  objc_initWeak(&location, self);
+  uniqueIdentifier = [(IXAppInstallCoordinator *)self uniqueIdentifier];
+  v6 = +[IXServerConnection sharedConnection];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __72__IXAppInstallCoordinator__conveyCurrentPriorityBoostReplacingExisting___block_invoke;
+  v13[3] = &unk_1E85C53D0;
+  objc_copyWeak(&v15, &location);
+  v7 = uniqueIdentifier;
+  v14 = v7;
+  v8 = [v6 remoteObjectProxyWithErrorHandler:v13];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __72__IXAppInstallCoordinator__conveyCurrentPriorityBoostReplacingExisting___block_invoke_7;
+  v10[3] = &unk_1E85C53D0;
+  objc_copyWeak(&v12, &location);
+  v9 = v7;
+  v11 = v9;
+  [v8 _remote_IXSCoordinatedAppInstall:v9 conveyPriorityReplacingExisting:existingCopy withCompletion:v10];
+
+  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v15);
+
+  objc_destroyWeak(&location);
+}
+
 void __72__IXAppInstallCoordinator__conveyCurrentPriorityBoostReplacingExisting___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 136315906;
-    v9 = "[IXAppInstallCoordinator _conveyCurrentPriorityBoostReplacingExisting:]_block_invoke";
-    v10 = 2112;
-    v11 = v6;
-    v12 = 2112;
-    v13 = WeakRetained;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to convey priority boost for coordinator UUID %@ : %@ : %@", &v8, 0x2Au);
+    v7 = 136315906;
+    v8 = "[IXAppInstallCoordinator _conveyCurrentPriorityBoostReplacingExisting:]_block_invoke";
+    v9 = 2112;
+    v10 = v6;
+    v11 = 2112;
+    v12 = WeakRetained;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to convey priority boost for coordinator UUID %@ : %@ : %@", &v7, 0x2Au);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __72__IXAppInstallCoordinator__conveyCurrentPriorityBoostReplacingExisting___block_invoke_7(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
@@ -273,38 +316,57 @@ void __72__IXAppInstallCoordinator__conveyCurrentPriorityBoostReplacingExisting_
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v7 = *(a1 + 32);
-      v9 = 136315906;
-      v10 = "[IXAppInstallCoordinator _conveyCurrentPriorityBoostReplacingExisting:]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2112;
-      v14 = WeakRetained;
-      v15 = 2112;
-      v16 = v3;
-      _os_log_error_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_ERROR, "%s: Got error in priority boost conveyance completion block for coordinator UUID %@ : %@ : %@", &v9, 0x2Au);
+      v8 = 136315906;
+      v9 = "[IXAppInstallCoordinator _conveyCurrentPriorityBoostReplacingExisting:]_block_invoke";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2112;
+      v13 = WeakRetained;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_error_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_ERROR, "%s: Got error in priority boost conveyance completion block for coordinator UUID %@ : %@ : %@", &v8, 0x2Au);
     }
   }
 
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __72__IXAppInstallCoordinator__conveyCurrentPriorityBoostReplacingExisting___block_invoke_7_cold_1(a1);
+    __72__IXAppInstallCoordinator__conveyCurrentPriorityBoostReplacingExisting___block_invoke_7_cold_1();
+  }
+}
+
+- (void)_updateInitWithSeed:(id)seed notifyDaemon:(BOOL)daemon
+{
+  daemonCopy = daemon;
+  seedCopy = seed;
+  if (![(IXAppInstallCoordinatorSeed *)seedCopy creator]|| ([(IXAppInstallCoordinatorSeed *)seedCopy uniqueIdentifier], v7 = objc_claimAutoreleasedReturnValue(), v7, !v7))
+  {
+    v8 = MEMORY[0x1E695DF30];
+    v9 = *MEMORY[0x1E695D930];
+    creator = [(IXAppInstallCoordinatorSeed *)seedCopy creator];
+    uniqueIdentifier = [(IXAppInstallCoordinatorSeed *)seedCopy uniqueIdentifier];
+    [v8 raise:v9 format:{@"Expected client and uniqueID to be initialized but instead got %lu %@", creator, uniqueIdentifier}];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
+  seed = self->_seed;
+  self->_seed = seedCopy;
+  v13 = seedCopy;
+
+  v14 = +[IXServerConnection sharedConnection];
+
+  [v14 registerAppInstallCoordinatorForUpdates:self notifyDaemon:daemonCopy];
 }
 
 - (void)dealloc
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(&dword_1DA47A000, v0, OS_LOG_TYPE_DEBUG, "%s: %@: Skipping unregistering with daemon because not currently registered", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DA47A000, v0, OS_LOG_TYPE_DEBUG, "%s: %@: Skipping unregistering with daemon because not currently registered", v1, 0x16u);
 }
 
 + (void)_validatePreconditionForIntent:(unint64_t)intent matchesCurrentInstallStateForBundleID:(id)d
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (![self skipIntentValidation])
   {
@@ -368,13 +430,13 @@ void __72__IXAppInstallCoordinator__conveyCurrentPriorityBoostReplacingExisting_
 
         v19 = _StringForIXCoordinatorIntent(intent);
         *buf = 136315906;
-        v23 = "+[IXAppInstallCoordinator _validatePreconditionForIntent:matchesCurrentInstallStateForBundleID:]";
-        v24 = 2112;
-        v25 = v19;
-        v26 = 2112;
-        v27 = dCopy;
-        v28 = 2112;
-        v29 = intent;
+        v22 = "+[IXAppInstallCoordinator _validatePreconditionForIntent:matchesCurrentInstallStateForBundleID:]";
+        v23 = 2112;
+        v24 = v19;
+        v25 = 2112;
+        v26 = dCopy;
+        v27 = 2112;
+        v28 = intent;
         v20 = "%s: Warning: client is attempting to create a coordinator of type %@ for %@, but the app is already installed! (%@)";
         goto LABEL_36;
       }
@@ -405,13 +467,13 @@ LABEL_32:
 
       v19 = _StringForIXCoordinatorIntent(intent);
       *buf = 136315906;
-      v23 = "+[IXAppInstallCoordinator _validatePreconditionForIntent:matchesCurrentInstallStateForBundleID:]";
-      v24 = 2112;
-      v25 = v19;
-      v26 = 2112;
-      v27 = dCopy;
-      v28 = 2112;
-      v29 = intent;
+      v22 = "+[IXAppInstallCoordinator _validatePreconditionForIntent:matchesCurrentInstallStateForBundleID:]";
+      v23 = 2112;
+      v24 = v19;
+      v25 = 2112;
+      v26 = dCopy;
+      v27 = 2112;
+      v28 = intent;
       v20 = "%s: Warning: client is attempting to create a coordinator of type %@ for %@, but the app is not currently installed! (%@)";
 LABEL_36:
       _os_log_fault_impl(&dword_1DA47A000, v18, OS_LOG_TYPE_FAULT, v20, buf, 0x2Au);
@@ -473,40 +535,182 @@ LABEL_44:
     }
 
     *buf = 136315650;
-    v23 = "+[IXAppInstallCoordinator _validatePreconditionForIntent:matchesCurrentInstallStateForBundleID:]";
-    v24 = 2112;
-    v25 = dCopy;
-    v26 = 2112;
-    v27 = intent;
+    v22 = "+[IXAppInstallCoordinator _validatePreconditionForIntent:matchesCurrentInstallStateForBundleID:]";
+    v23 = 2112;
+    v24 = dCopy;
+    v25 = 2112;
+    v26 = intent;
     _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Skipping intent validation for bundle ID %@ with intent %@", buf, 0x20u);
     goto LABEL_44;
   }
 
 LABEL_45:
+}
 
-  v21 = *MEMORY[0x1E69E9840];
++ (id)_coordinatorForAppWithIdentity:(id)identity targetingInstallationDomain:(unint64_t)domain withClientID:(unint64_t)d intent:(unint64_t)intent createIfNotExisting:(BOOL)existing requireMatchingIntent:(BOOL)matchingIntent scopeRequirement:(unsigned __int8)requirement created:(BOOL *)self0 error:(id *)self1
+{
+  matchingIntentCopy = matchingIntent;
+  existingCopy = existing;
+  v62 = *MEMORY[0x1E69E9840];
+  identityCopy = identity;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy_;
+  v59 = __Block_byref_object_dispose_;
+  v60 = 0;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x2020000000;
+  v54 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy_;
+  v45 = __Block_byref_object_dispose_;
+  v46 = 0;
+  if (!identityCopy)
+  {
+    v25 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    {
+      +[IXAppInstallCoordinator _coordinatorForAppWithIdentity:targetingInstallationDomain:withClientID:intent:createIfNotExisting:requireMatchingIntent:scopeRequirement:created:error:];
+    }
+
+    v27 = _CreateError("+[IXAppInstallCoordinator _coordinatorForAppWithIdentity:targetingInstallationDomain:withClientID:intent:createIfNotExisting:requireMatchingIntent:scopeRequirement:created:error:]", 318, @"IXErrorDomain", 4uLL, 0, 0, @"Expected a non-nil application identity", v26, v36);
+    v19 = 0;
+    v20 = 0;
+    goto LABEL_13;
+  }
+
+  v18 = +[IXServerConnection sharedConnection];
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __179__IXAppInstallCoordinator__coordinatorForAppWithIdentity_targetingInstallationDomain_withClientID_intent_createIfNotExisting_requireMatchingIntent_scopeRequirement_created_error___block_invoke;
+  v40[3] = &unk_1E85C53F8;
+  v40[4] = &v47;
+  v40[5] = &v41;
+  v19 = [v18 synchronousRemoteObjectProxyWithErrorHandler:v40];
+
+  if (!v19)
+  {
+    v20 = 0;
+    goto LABEL_15;
+  }
+
+  v20 = objc_opt_new();
+  [v20 setCreator:d];
+  [v20 setIntent:intent];
+  [v20 setIdentity:identityCopy];
+  [v20 setInstallationDomain:domain];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __179__IXAppInstallCoordinator__coordinatorForAppWithIdentity_targetingInstallationDomain_withClientID_intent_createIfNotExisting_requireMatchingIntent_scopeRequirement_created_error___block_invoke_24;
+  v38[3] = &unk_1E85C5420;
+  v38[4] = &v41;
+  v38[5] = &v47;
+  v39 = matchingIntentCopy;
+  v38[6] = &v55;
+  v38[7] = &v51;
+  v38[8] = intent;
+  [v19 _remote_createAppInstallCoordinatorWithSeed:v20 createIfNotExisting:existingCopy requireMatchingIntent:matchingIntentCopy scopeRequirement:requirement completion:v38];
+  if (v48[3])
+  {
+    goto LABEL_15;
+  }
+
+  if (*(v52 + 24) == 1)
+  {
+    bundleID = [identityCopy bundleID];
+    [self _validatePreconditionForIntent:intent matchesCurrentInstallStateForBundleID:bundleID];
+  }
+
+  v22 = [self classForIntent:{objc_msgSend(v56[5], "intent")}];
+  if (!v22)
+  {
+    v30 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    {
+      v31 = _StringForIXCoordinatorIntent([v56[5] intent]);
+      identity = [v56[5] identity];
+      [IXAppInstallCoordinator _coordinatorForAppWithIdentity:v31 targetingInstallationDomain:identity withClientID:v61 intent:? createIfNotExisting:? requireMatchingIntent:? scopeRequirement:? created:? error:?];
+    }
+
+    intent = [v56[5] intent];
+    if (intent >= 8)
+    {
+      v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown intent value %lu", intent];
+    }
+
+    else
+    {
+      v34 = off_1E85C5E60[intent];
+    }
+
+    identity2 = [v56[5] identity];
+    v27 = _CreateError("+[IXAppInstallCoordinator _coordinatorForAppWithIdentity:targetingInstallationDomain:withClientID:intent:createIfNotExisting:requireMatchingIntent:scopeRequirement:created:error:]", 372, @"IXErrorDomain", 1uLL, 0, 0, @"Failed to find class for coordinator intent %@ for coordinator %@", v35, v34);
+
+LABEL_13:
+    v28 = v42[5];
+    v42[5] = v27;
+
+    goto LABEL_15;
+  }
+
+  v23 = objc_alloc_init(v22);
+  v24 = v23;
+  if (v23)
+  {
+    [v23 _updateInitWithSeed:v56[5] notifyDaemon:0];
+    [v24 _conveyCurrentPriorityBoostReplacingExisting:*(v52 + 24)];
+    [v24 setIsRegisteredWithDaemon:1];
+    if (created)
+    {
+      *created = *(v52 + 24);
+    }
+
+    goto LABEL_17;
+  }
+
+LABEL_15:
+  v24 = 0;
+  if (error)
+  {
+    *error = v42[5];
+  }
+
+LABEL_17:
+
+  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v55, 8);
+
+  return v24;
 }
 
 void __179__IXAppInstallCoordinator__coordinatorForAppWithIdentity_targetingInstallationDomain_withClientID_intent_createIfNotExisting_requireMatchingIntent_scopeRequirement_created_error___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator _coordinatorForAppWithIdentity:targetingInstallationDomain:withClientID:intent:createIfNotExisting:requireMatchingIntent:scopeRequirement:created:error:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator _coordinatorForAppWithIdentity:targetingInstallationDomain:withClientID:intent:createIfNotExisting:requireMatchingIntent:scopeRequirement:created:error:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v7, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 1;
   v5 = *(*(a1 + 40) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __179__IXAppInstallCoordinator__coordinatorForAppWithIdentity_targetingInstallationDomain_withClientID_intent_createIfNotExisting_requireMatchingIntent_scopeRequirement_created_error___block_invoke_24(uint64_t a1, void *a2, char a3, void *a4)
@@ -531,7 +735,7 @@ void __179__IXAppInstallCoordinator__coordinatorForAppWithIdentity_targetingInst
     v12 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __179__IXAppInstallCoordinator__coordinatorForAppWithIdentity_targetingInstallationDomain_withClientID_intent_createIfNotExisting_requireMatchingIntent_scopeRequirement_created_error___block_invoke_24_cold_1((a1 + 64), v8);
+      __179__IXAppInstallCoordinator__coordinatorForAppWithIdentity_targetingInstallationDomain_withClientID_intent_createIfNotExisting_requireMatchingIntent_scopeRequirement_created_error___block_invoke_24_cold_1(a1 + 64, v8);
     }
 
     v17 = *(a1 + 64);
@@ -548,6 +752,40 @@ LABEL_7:
   *(*(*(a1 + v10) + 8) + 24) = a3;
 }
 
++ (id)coordinatorForAppWithBundleID:(id)d withClientID:(unint64_t)iD createIfNotExisting:(BOOL)existing created:(BOOL *)created error:(id *)error
+{
+  existingCopy = existing;
+  dCopy = d;
+  intent = [objc_opt_class() intent];
+  if (intent)
+  {
+    v14 = intent;
+    v15 = [[IXApplicationIdentity alloc] initWithBundleIdentifier:dCopy];
+    LOBYTE(v21) = 2;
+    v16 = [self _coordinatorForAppWithIdentity:v15 targetingInstallationDomain:1 withClientID:iD intent:v14 createIfNotExisting:existingCopy requireMatchingIntent:1 scopeRequirement:v21 created:created error:error];
+  }
+
+  else
+  {
+    v17 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      +[IXAppInstallCoordinator coordinatorForAppWithBundleID:withClientID:createIfNotExisting:created:error:];
+    }
+
+    v19 = _CreateError("+[IXAppInstallCoordinator coordinatorForAppWithBundleID:withClientID:createIfNotExisting:created:error:]", 405, @"IXErrorDomain", 4uLL, 0, 0, @"%s must be called on a concrete subclass, not the abstract superclass", v18, "+[IXAppInstallCoordinator coordinatorForAppWithBundleID:withClientID:createIfNotExisting:created:error:]");
+    if (error)
+    {
+      v19 = v19;
+      *error = v19;
+    }
+
+    v16 = 0;
+  }
+
+  return v16;
+}
+
 + (id)existingCoordinatorForAppWithBundleID:(id)d error:(id *)error
 {
   dCopy = d;
@@ -556,6 +794,70 @@ LABEL_7:
   v8 = [self existingCoordinatorForAppWithIdentity:v7 error:error];
 
   return v8;
+}
+
++ (id)coordinatorForAppWithIdentity:(id)identity targetingInstallationDomain:(unint64_t)domain withClientID:(unint64_t)d createIfNotExisting:(BOOL)existing created:(BOOL *)created error:(id *)error
+{
+  existingCopy = existing;
+  identityCopy = identity;
+  intent = [objc_opt_class() intent];
+  if (intent)
+  {
+    LOBYTE(v21) = 2;
+    v16 = [self _coordinatorForAppWithIdentity:identityCopy targetingInstallationDomain:domain withClientID:d intent:intent createIfNotExisting:existingCopy requireMatchingIntent:1 scopeRequirement:v21 created:created error:error];
+  }
+
+  else
+  {
+    v17 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      +[IXAppInstallCoordinator coordinatorForAppWithIdentity:targetingInstallationDomain:withClientID:createIfNotExisting:created:error:];
+    }
+
+    v19 = _CreateError("+[IXAppInstallCoordinator coordinatorForAppWithIdentity:targetingInstallationDomain:withClientID:createIfNotExisting:created:error:]", 431, @"IXErrorDomain", 4uLL, 0, 0, @"%s must be called on concrete subclasses, not the abstract superclass", v18, "+[IXAppInstallCoordinator coordinatorForAppWithIdentity:targetingInstallationDomain:withClientID:createIfNotExisting:created:error:]");
+    if (error)
+    {
+      v19 = v19;
+      *error = v19;
+    }
+
+    v16 = 0;
+  }
+
+  return v16;
+}
+
++ (id)processScopedCoordinatorForAppWithIdentity:(id)identity targetingInstallationDomain:(unint64_t)domain withClientID:(unint64_t)d createIfNotExisting:(BOOL)existing created:(BOOL *)created error:(id *)error
+{
+  existingCopy = existing;
+  identityCopy = identity;
+  intent = [objc_opt_class() intent];
+  if (intent)
+  {
+    LOBYTE(v21) = 1;
+    v16 = [self _coordinatorForAppWithIdentity:identityCopy targetingInstallationDomain:domain withClientID:d intent:intent createIfNotExisting:existingCopy requireMatchingIntent:1 scopeRequirement:v21 created:created error:error];
+  }
+
+  else
+  {
+    v17 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      +[IXAppInstallCoordinator processScopedCoordinatorForAppWithIdentity:targetingInstallationDomain:withClientID:createIfNotExisting:created:error:];
+    }
+
+    v19 = _CreateError("+[IXAppInstallCoordinator processScopedCoordinatorForAppWithIdentity:targetingInstallationDomain:withClientID:createIfNotExisting:created:error:]", 450, @"IXErrorDomain", 4uLL, 0, 0, @"%s must be called on a concrete subclass, not the abstract superclass", v18, "+[IXAppInstallCoordinator processScopedCoordinatorForAppWithIdentity:targetingInstallationDomain:withClientID:createIfNotExisting:created:error:]");
+    if (error)
+    {
+      v19 = v19;
+      *error = v19;
+    }
+
+    v16 = 0;
+  }
+
+  return v16;
 }
 
 + (id)existingCoordinatorForAppWithIdentity:(id)identity error:(id *)error
@@ -584,7 +886,7 @@ LABEL_7:
 
 + (Class)classForIntent:(unint64_t)intent
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (intent <= 3)
   {
     if (intent == 1 || intent == 2 || intent == 3)
@@ -603,16 +905,15 @@ LABEL_14:
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator classForIntent:]";
-    v10 = 2048;
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator classForIntent:]";
+    v9 = 2048;
     intentCopy = intent;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: No class for intent %lu", &v8, 0x16u);
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: No class for intent %lu", &v7, 0x16u);
   }
 
   v5 = 0;
 LABEL_15:
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -660,30 +961,28 @@ void __84__IXAppInstallCoordinator__asynchronouslyEnumerateCoordinatorsForIntent
 
 void __84__IXAppInstallCoordinator__asynchronouslyEnumerateCoordinatorsForIntent_usingBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v13 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke_2";
-    v14 = 2112;
-    v15 = v3;
+    v12 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke_2";
+    v13 = 2112;
+    v14 = v3;
     _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", buf, 0x16u);
   }
 
   v5 = IXQueueForConcurrentOperations();
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __84__IXAppInstallCoordinator__asynchronouslyEnumerateCoordinatorsForIntent_usingBlock___block_invoke_46;
-  v9[3] = &unk_1E85C5448;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __84__IXAppInstallCoordinator__asynchronouslyEnumerateCoordinatorsForIntent_usingBlock___block_invoke_46;
+  v8[3] = &unk_1E85C5448;
   v6 = *(a1 + 32);
-  v10 = v3;
-  v11 = v6;
+  v9 = v3;
+  v10 = v6;
   v7 = v3;
-  IXDispatchAsyncWithAutoreleasePool(v5, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  IXDispatchAsyncWithAutoreleasePool(v5, v8);
 }
 
 void __84__IXAppInstallCoordinator__asynchronouslyEnumerateCoordinatorsForIntent_usingBlock___block_invoke_2_47(uint64_t a1, void *a2, void *a3)
@@ -919,7 +1218,7 @@ void __84__IXAppInstallCoordinator__asynchronouslyEnumerateCoordinatorsForIntent
 
 void __84__IXAppInstallCoordinator__asynchronouslyEnumerateCoordinatorsForIntent_usingBlock___block_invoke_4_65(uint64_t a1)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -935,9 +1234,9 @@ void __84__IXAppInstallCoordinator__asynchronouslyEnumerateCoordinatorsForIntent
         {
           v6 = [*(a1 + 40) identity];
           *buf = 136315394;
-          v36 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke_4";
-          v37 = 2112;
-          v38 = v6;
+          v30 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke_4";
+          v31 = 2112;
+          v32 = v6;
           v7 = "%s: When enumerating coordinators, existing coordinator for %@ had a different intent than expected (likely recreated)";
 LABEL_15:
           _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, v7, buf, 0x16u);
@@ -954,21 +1253,21 @@ LABEL_26:
     {
     }
 
-    v14 = [*(a1 + 32) domain];
-    if ([v14 isEqualToString:@"IXErrorDomain"])
+    v13 = [*(a1 + 32) domain];
+    if ([v13 isEqualToString:@"IXErrorDomain"])
     {
-      v15 = [*(a1 + 32) code];
+      v14 = [*(a1 + 32) code];
 
-      if (v15 == 6)
+      if (v14 == 6)
       {
         v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           v6 = [*(a1 + 40) identity];
           *buf = 136315394;
-          v36 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke";
-          v37 = 2112;
-          v38 = v6;
+          v30 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke";
+          v31 = 2112;
+          v32 = v6;
           v7 = "%s: When enumerating coordinators, coordinator for %@ no longer existed when we tried to fetch it";
           goto LABEL_15;
         }
@@ -978,24 +1277,21 @@ LABEL_27:
 LABEL_28:
         if ([*(a1 + 64) count])
         {
-          v30 = IXQueueForConcurrentOperations();
-          IXDispatchAsyncWithAutoreleasePool(v30, *(a1 + 80));
+          v27 = IXQueueForConcurrentOperations();
+          IXDispatchAsyncWithAutoreleasePool(v27, *(a1 + 80));
 
-          goto LABEL_34;
+          return;
         }
 
-        v31 = IXGetLoggingHandle(kIXLoggingSubsystem);
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        v15 = IXGetLoggingHandle(kIXLoggingSubsystem);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v36 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke";
-          _os_log_impl(&dword_1DA47A000, v31, OS_LOG_TYPE_DEFAULT, "%s: Enumeration complete; calling client block to signal", buf, 0xCu);
+          v30 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke";
+          _os_log_impl(&dword_1DA47A000, v15, OS_LOG_TYPE_DEFAULT, "%s: Enumeration complete; calling client block to signal", buf, 0xCu);
         }
 
-        v20 = *(*(a1 + 72) + 16);
-LABEL_33:
-        v20();
-        goto LABEL_34;
+        goto LABEL_32;
       }
     }
 
@@ -1003,23 +1299,24 @@ LABEL_33:
     {
     }
 
-    v16 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = [*(a1 + 40) identity];
-      v18 = *(a1 + 32);
+      v16 = [*(a1 + 40) identity];
+      v17 = *(a1 + 32);
       *buf = 136315650;
-      v36 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke";
-      v37 = 2112;
-      v38 = v17;
-      v39 = 2112;
-      v40 = v18;
-      _os_log_impl(&dword_1DA47A000, v16, OS_LOG_TYPE_DEFAULT, "%s: When enumerating coordinators, got unexpected error when trying to fetch coordinator for %@ : %@", buf, 0x20u);
+      v30 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke";
+      v31 = 2112;
+      v32 = v16;
+      v33 = 2112;
+      v34 = v17;
+      _os_log_impl(&dword_1DA47A000, v15, OS_LOG_TYPE_DEFAULT, "%s: When enumerating coordinators, got unexpected error when trying to fetch coordinator for %@ : %@", buf, 0x20u);
     }
 
-    v19 = *(a1 + 32);
-    v20 = *(*(a1 + 72) + 16);
-    goto LABEL_33;
+LABEL_32:
+
+    (*(*(a1 + 72) + 16))();
+    return;
   }
 
   if (*(a1 + 96) == 1)
@@ -1033,34 +1330,33 @@ LABEL_33:
     v9 = [*(a1 + 40) identity];
     v5 = _CreateError("+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke", 611, @"IXErrorDomain", 1uLL, 0, 0, @"Unexpectedly created coordinator for %@ while enumerating canceling it", v10, v9);;
 
-    v11 = *(a1 + 88);
-    v12 = objc_opt_class();
-    v13 = [*(a1 + 40) identity];
-    [v12 cancelCoordinatorForAppWithIdentity:v13 withReason:v5 client:15 error:0];
+    v11 = objc_opt_class();
+    v12 = [*(a1 + 40) identity];
+    [v11 cancelCoordinatorForAppWithIdentity:v12 withReason:v5 client:15 error:0];
 
     goto LABEL_27;
   }
 
-  v21 = [*(a1 + 48) uniqueIdentifier];
-  v22 = [*(a1 + 40) uniqueIdentifier];
-  v23 = [v21 isEqual:v22];
+  v18 = [*(a1 + 48) uniqueIdentifier];
+  v19 = [*(a1 + 40) uniqueIdentifier];
+  v20 = [v18 isEqual:v19];
 
-  if ((v23 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
     v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [*(a1 + 40) identity];
-      v28 = [*(a1 + 48) uniqueIdentifier];
-      v29 = [*(a1 + 40) uniqueIdentifier];
+      v25 = [*(a1 + 48) uniqueIdentifier];
+      v26 = [*(a1 + 40) uniqueIdentifier];
       *buf = 136315906;
-      v36 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke";
-      v37 = 2112;
-      v38 = v6;
-      v39 = 2112;
-      v40 = v28;
-      v41 = 2112;
-      v42 = v29;
+      v30 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke";
+      v31 = 2112;
+      v32 = v6;
+      v33 = 2112;
+      v34 = v25;
+      v35 = 2112;
+      v36 = v26;
       _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Got back a different coordinator for %@ than fetched originally; got %@ expected %@ (likely recreated in the meantime)", buf, 0x2Au);
 
       goto LABEL_26;
@@ -1070,90 +1366,86 @@ LABEL_33:
   }
 
   [*(a1 + 56) _updateInitWithSeed:*(a1 + 48) notifyDaemon:0];
-  v24 = IXGetLoggingHandle(kIXLoggingSubsystem);
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v21 = IXGetLoggingHandle(kIXLoggingSubsystem);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = [*(a1 + 56) bundleID];
-    v26 = [*(a1 + 48) intent];
-    if (v26 >= 8)
+    v22 = [*(a1 + 56) bundleID];
+    v23 = [*(a1 + 48) intent];
+    if (v23 >= 8)
     {
-      v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown intent value %lu", v26];
+      v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown intent value %lu", v23];
     }
 
     else
     {
-      v27 = off_1E85C5E60[v26];
+      v24 = off_1E85C5E60[v23];
     }
 
     *buf = 136315650;
-    v36 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke";
-    v37 = 2112;
-    v38 = v25;
-    v39 = 2112;
-    v40 = v27;
-    _os_log_impl(&dword_1DA47A000, v24, OS_LOG_TYPE_DEFAULT, "%s: Enumeration is calling client block with coordinator for %@ intent %@", buf, 0x20u);
+    v30 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke";
+    v31 = 2112;
+    v32 = v22;
+    v33 = 2112;
+    v34 = v24;
+    _os_log_impl(&dword_1DA47A000, v21, OS_LOG_TYPE_DEFAULT, "%s: Enumeration is calling client block with coordinator for %@ intent %@", buf, 0x20u);
   }
 
-  v33 = *(a1 + 56);
   if ((*(*(a1 + 72) + 16))())
   {
     goto LABEL_28;
   }
 
-  v34 = IXGetLoggingHandle(kIXLoggingSubsystem);
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  v28 = IXGetLoggingHandle(kIXLoggingSubsystem);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v36 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke";
-    _os_log_impl(&dword_1DA47A000, v34, OS_LOG_TYPE_DEFAULT, "%s: Client returned NO from enumeration block so we're stopping", buf, 0xCu);
+    v30 = "+[IXAppInstallCoordinator _asynchronouslyEnumerateCoordinatorsForIntent:usingBlock:]_block_invoke";
+    _os_log_impl(&dword_1DA47A000, v28, OS_LOG_TYPE_DEFAULT, "%s: Client returned NO from enumeration block so we're stopping", buf, 0xCu);
   }
-
-LABEL_34:
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)_synchronouslyEnumerateCoordinatorsForIntent:(unint64_t)intent error:(id *)error usingBlock:(id)block
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x3032000000;
-  v66 = __Block_byref_object_copy_;
-  v67 = __Block_byref_object_dispose_;
-  v68 = 0;
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x3032000000;
-  v60 = __Block_byref_object_copy_;
-  v61 = __Block_byref_object_dispose_;
   v62 = 0;
+  v63 = &v62;
+  v64 = 0x3032000000;
+  v65 = __Block_byref_object_copy_;
+  v66 = __Block_byref_object_dispose_;
+  v67 = 0;
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x3032000000;
+  v59 = __Block_byref_object_copy_;
+  v60 = __Block_byref_object_dispose_;
+  v61 = 0;
   v6 = +[IXServerConnection sharedConnection];
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = 3221225472;
-  v56[2] = __89__IXAppInstallCoordinator__synchronouslyEnumerateCoordinatorsForIntent_error_usingBlock___block_invoke;
-  v56[3] = &unk_1E85C5560;
-  v56[4] = &v63;
-  v47 = [v6 synchronousRemoteObjectProxyWithErrorHandler:v56];
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = 3221225472;
+  v55[2] = __89__IXAppInstallCoordinator__synchronouslyEnumerateCoordinatorsForIntent_error_usingBlock___block_invoke;
+  v55[3] = &unk_1E85C5560;
+  v55[4] = &v62;
+  v46 = [v6 synchronousRemoteObjectProxyWithErrorHandler:v55];
 
-  if (!v47 || (v55[0] = MEMORY[0x1E69E9820], v55[1] = 3221225472, v55[2] = __89__IXAppInstallCoordinator__synchronouslyEnumerateCoordinatorsForIntent_error_usingBlock___block_invoke_70, v55[3] = &unk_1E85C5588, v55[4] = &v63, v55[5] = &v57, [v47 _remote_fetchSeedsForCoordinatorsWithIntent:intent completion:v55], v64[5]))
+  if (!v46 || (v54[0] = MEMORY[0x1E69E9820], v54[1] = 3221225472, v54[2] = __89__IXAppInstallCoordinator__synchronouslyEnumerateCoordinatorsForIntent_error_usingBlock___block_invoke_70, v54[3] = &unk_1E85C5588, v54[4] = &v62, v54[5] = &v56, [v46 _remote_fetchSeedsForCoordinatorsWithIntent:intent completion:v54], v63[5]))
   {
 LABEL_3:
     LOBYTE(v7) = 0;
     if (error)
     {
-      *error = v64[5];
+      *error = v63[5];
     }
 
     goto LABEL_49;
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
-  obj = v58[5];
-  v7 = [obj countByEnumeratingWithState:&v51 objects:v77 count:16];
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  obj = v57[5];
+  v7 = [obj countByEnumeratingWithState:&v50 objects:v76 count:16];
   if (!v7)
   {
 LABEL_43:
@@ -1161,26 +1453,26 @@ LABEL_43:
     goto LABEL_46;
   }
 
-  v48 = *v52;
+  v47 = *v51;
 LABEL_8:
   v8 = 0;
   while (1)
   {
-    if (*v52 != v48)
+    if (*v51 != v47)
     {
       objc_enumerationMutation(obj);
     }
 
-    v9 = *(*(&v51 + 1) + 8 * v8);
+    v9 = *(*(&v50 + 1) + 8 * v8);
     v10 = objc_autoreleasePoolPush();
     identity = [v9 identity];
     installationDomain = [v9 installationDomain];
     creator = [v9 creator];
     intent = [v9 intent];
-    v50 = 0;
-    LOBYTE(v43) = 0;
-    v15 = [self _coordinatorForAppWithIdentity:identity targetingInstallationDomain:installationDomain withClientID:creator intent:intent createIfNotExisting:0 requireMatchingIntent:1 scopeRequirement:v43 created:0 error:&v50];
-    v16 = v50;
+    v49 = 0;
+    LOBYTE(v42) = 0;
+    v15 = [self _coordinatorForAppWithIdentity:identity targetingInstallationDomain:installationDomain withClientID:creator intent:intent createIfNotExisting:0 requireMatchingIntent:1 scopeRequirement:v42 created:0 error:&v49];
+    v16 = v49;
 
     if (!v15)
     {
@@ -1196,9 +1488,9 @@ LABEL_8:
           {
             identity2 = [v9 identity];
             *buf = 136315394;
-            v70 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]";
-            v71 = 2112;
-            v72 = identity2;
+            v69 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]";
+            v70 = 2112;
+            v71 = identity2;
             _os_log_impl(&dword_1DA47A000, v20, OS_LOG_TYPE_DEFAULT, "%s: When enumerating coordinators, existing coordinator for %@ had a different intent than expected (likely recreated)", buf, 0x16u);
           }
 
@@ -1220,15 +1512,15 @@ LABEL_29:
         {
           identity3 = [v9 identity];
           *buf = 136315650;
-          v70 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]";
-          v71 = 2112;
-          v72 = identity3;
-          v73 = 2112;
-          v74 = v16;
+          v69 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]";
+          v70 = 2112;
+          v71 = identity3;
+          v72 = 2112;
+          v73 = v16;
           _os_log_impl(&dword_1DA47A000, v36, OS_LOG_TYPE_DEFAULT, "%s: When enumerating coordinators, got unexpected error when trying to fetch coordinator for %@ : %@", buf, 0x20u);
         }
 
-        v38 = v64;
+        v38 = v63;
         v39 = v16;
         v32 = 0;
         v20 = v38[5];
@@ -1249,9 +1541,9 @@ LABEL_29:
       {
         identity4 = [v9 identity];
         *buf = 136315394;
-        v70 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]";
-        v71 = 2112;
-        v72 = identity4;
+        v69 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]";
+        v70 = 2112;
+        v71 = identity4;
         _os_log_impl(&dword_1DA47A000, v20, OS_LOG_TYPE_DEFAULT, "%s: When enumerating coordinators, coordinator for %@ no longer existed when we tried to fetch it", buf, 0x16u);
       }
 
@@ -1272,13 +1564,13 @@ LABEL_29:
         uniqueIdentifier3 = [v15 uniqueIdentifier];
         uniqueIdentifier4 = [v9 uniqueIdentifier];
         *buf = 136315906;
-        v70 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]";
-        v71 = 2112;
-        v72 = identity5;
-        v73 = 2112;
-        v74 = uniqueIdentifier3;
-        v75 = 2112;
-        v76 = uniqueIdentifier4;
+        v69 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]";
+        v70 = 2112;
+        v71 = identity5;
+        v72 = 2112;
+        v73 = uniqueIdentifier3;
+        v74 = 2112;
+        v75 = uniqueIdentifier4;
         _os_log_impl(&dword_1DA47A000, v20, OS_LOG_TYPE_DEFAULT, "%s: Got back a different coordinator for %@ than fetched originally; got %@ expected %@ (likely recreated in the meantime)", buf, 0x2Au);
       }
 
@@ -1303,11 +1595,11 @@ LABEL_22:
       }
 
       *buf = 136315650;
-      v70 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]";
-      v71 = 2112;
-      v72 = bundleID;
-      v73 = 2112;
-      v74 = v24;
+      v69 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]";
+      v70 = 2112;
+      v71 = bundleID;
+      v72 = 2112;
+      v73 = v24;
       _os_log_impl(&dword_1DA47A000, v20, OS_LOG_TYPE_DEFAULT, "%s: Enumeration is calling client block with coordinator for %@ intent %@", buf, 0x20u);
     }
 
@@ -1322,7 +1614,7 @@ LABEL_22:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v70 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]";
+      v69 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]";
       _os_log_impl(&dword_1DA47A000, v20, OS_LOG_TYPE_DEFAULT, "%s: Client returned NO from enumeration block so we're stopping", buf, 0xCu);
     }
 
@@ -1339,7 +1631,7 @@ LABEL_40:
 
     if (v7 == ++v8)
     {
-      v7 = [obj countByEnumeratingWithState:&v51 objects:v77 count:16];
+      v7 = [obj countByEnumeratingWithState:&v50 objects:v76 count:16];
       if (v7)
       {
         goto LABEL_8;
@@ -1361,7 +1653,7 @@ LABEL_46:
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v70 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]";
+      v69 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]";
       _os_log_impl(&dword_1DA47A000, v40, OS_LOG_TYPE_DEFAULT, "%s: Enumeration complete", buf, 0xCu);
     }
 
@@ -1370,32 +1662,29 @@ LABEL_46:
 
 LABEL_49:
 
-  _Block_object_dispose(&v57, 8);
-  _Block_object_dispose(&v63, 8);
+  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v62, 8);
 
-  v41 = *MEMORY[0x1E69E9840];
   return v7 & 1;
 }
 
 void __89__IXAppInstallCoordinator__synchronouslyEnumerateCoordinatorsForIntent_error_usingBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator _synchronouslyEnumerateCoordinatorsForIntent:error:usingBlock:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __89__IXAppInstallCoordinator__synchronouslyEnumerateCoordinatorsForIntent_error_usingBlock___block_invoke_70(uint64_t a1, void *a2, void *a3)
@@ -1502,23 +1791,21 @@ LABEL_7:
 
 void __87__IXAppInstallCoordinator_cancelCoordinatorForAppWithIdentity_withReason_client_error___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator cancelCoordinatorForAppWithIdentity:withReason:client:error:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator cancelCoordinatorForAppWithIdentity:withReason:client:error:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __87__IXAppInstallCoordinator_cancelCoordinatorForAppWithIdentity_withReason_client_error___block_invoke_71(uint64_t a1, int a2, void *a3)
@@ -1568,20 +1855,19 @@ void __87__IXAppInstallCoordinator_cancelCoordinatorForAppWithIdentity_withReaso
 
 void __92__IXAppInstallCoordinator_cancelCoordinatorForAppWithIdentity_withReason_client_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[IXAppInstallCoordinator cancelCoordinatorForAppWithIdentity:withReason:client:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[IXAppInstallCoordinator cancelCoordinatorForAppWithIdentity:withReason:client:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __92__IXAppInstallCoordinator_cancelCoordinatorForAppWithIdentity_withReason_client_completion___block_invoke_74(uint64_t a1, int a2, void *a3)
@@ -1675,23 +1961,21 @@ LABEL_7:
 
 void __102__IXAppInstallCoordinator_cancelCoordinatorsForAppsWithApplicationIdentities_withReason_client_error___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator cancelCoordinatorsForAppsWithApplicationIdentities:withReason:client:error:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator cancelCoordinatorsForAppsWithApplicationIdentities:withReason:client:error:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __102__IXAppInstallCoordinator_cancelCoordinatorsForAppsWithApplicationIdentities_withReason_client_error___block_invoke_75(uint64_t a1, void *a2, void *a3)
@@ -1759,20 +2043,19 @@ void __102__IXAppInstallCoordinator_cancelCoordinatorsForAppsWithApplicationIden
 
 void __107__IXAppInstallCoordinator_cancelCoordinatorsForAppsWithApplicationIdentities_withReason_client_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[IXAppInstallCoordinator cancelCoordinatorsForAppsWithApplicationIdentities:withReason:client:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[IXAppInstallCoordinator cancelCoordinatorsForAppsWithApplicationIdentities:withReason:client:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __107__IXAppInstallCoordinator_cancelCoordinatorsForAppsWithApplicationIdentities_withReason_client_completion___block_invoke_78(uint64_t a1, void *a2, void *a3)
@@ -1861,23 +2144,21 @@ void __107__IXAppInstallCoordinator_cancelCoordinatorsForAppsWithApplicationIden
 
 void __68__IXAppInstallCoordinator_pauseCoordinatorForAppWithIdentity_error___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator pauseCoordinatorForAppWithIdentity:error:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator pauseCoordinatorForAppWithIdentity:error:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)pauseCoordinatorForAppWithIdentity:(id)identity completion:(id)completion
@@ -1898,20 +2179,19 @@ void __68__IXAppInstallCoordinator_pauseCoordinatorForAppWithIdentity_error___bl
 
 void __73__IXAppInstallCoordinator_pauseCoordinatorForAppWithIdentity_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[IXAppInstallCoordinator pauseCoordinatorForAppWithIdentity:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[IXAppInstallCoordinator pauseCoordinatorForAppWithIdentity:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)resumeCoordinatorForAppWithBundleID:(id)d error:(id *)error
@@ -1970,23 +2250,21 @@ void __73__IXAppInstallCoordinator_pauseCoordinatorForAppWithIdentity_completion
 
 void __69__IXAppInstallCoordinator_resumeCoordinatorForAppWithIdentity_error___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator resumeCoordinatorForAppWithIdentity:error:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator resumeCoordinatorForAppWithIdentity:error:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)resumeCoordinatorForAppWithIdentity:(id)identity completion:(id)completion
@@ -2007,20 +2285,19 @@ void __69__IXAppInstallCoordinator_resumeCoordinatorForAppWithIdentity_error___b
 
 void __74__IXAppInstallCoordinator_resumeCoordinatorForAppWithIdentity_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[IXAppInstallCoordinator resumeCoordinatorForAppWithIdentity:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[IXAppInstallCoordinator resumeCoordinatorForAppWithIdentity:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)prioritizeCoordinatorForAppWithBundleID:(id)d error:(id *)error
@@ -2079,23 +2356,21 @@ void __74__IXAppInstallCoordinator_resumeCoordinatorForAppWithIdentity_completio
 
 void __73__IXAppInstallCoordinator_prioritizeCoordinatorForAppWithIdentity_error___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator prioritizeCoordinatorForAppWithIdentity:error:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator prioritizeCoordinatorForAppWithIdentity:error:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __73__IXAppInstallCoordinator_prioritizeCoordinatorForAppWithIdentity_error___block_invoke_81(uint64_t a1, int a2, void *a3)
@@ -2136,20 +2411,19 @@ void __73__IXAppInstallCoordinator_prioritizeCoordinatorForAppWithIdentity_error
 
 void __78__IXAppInstallCoordinator_prioritizeCoordinatorForAppWithIdentity_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[IXAppInstallCoordinator prioritizeCoordinatorForAppWithIdentity:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[IXAppInstallCoordinator prioritizeCoordinatorForAppWithIdentity:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __78__IXAppInstallCoordinator_prioritizeCoordinatorForAppWithIdentity_completion___block_invoke_82(uint64_t a1, int a2, void *a3)
@@ -2162,6 +2436,65 @@ void __78__IXAppInstallCoordinator_prioritizeCoordinatorForAppWithIdentity_compl
   }
 
   (*(*(a1 + 32) + 16))();
+}
+
++ (BOOL)uninstallAppWithBundleID:(id)d requestUserConfirmation:(BOOL)confirmation waitForDeletion:(BOOL)deletion error:(id *)error
+{
+  deletionCopy = deletion;
+  confirmationCopy = confirmation;
+  dCopy = d;
+  v15 = 0;
+  v11 = objc_opt_new();
+  [v11 setRequestUserConfirmation:confirmationCopy];
+  [v11 setWaitForDeletion:deletionCopy];
+  [v11 setShowArchiveOption:0];
+  if (![self uninstallAppWithBundleID:dCopy options:v11 disposition:&v15 error:error])
+  {
+    goto LABEL_5;
+  }
+
+  if (v15 != 1)
+  {
+    v13 = 1;
+    goto LABEL_7;
+  }
+
+  if (error)
+  {
+    _CreateError("+[IXAppInstallCoordinator uninstallAppWithBundleID:requestUserConfirmation:waitForDeletion:error:]", 1057, @"IXErrorDomain", 0x15uLL, 0, 0, @"User canceled the uninstall of the app with bundle ID %@", v12, dCopy);
+    *error = v13 = 0;
+  }
+
+  else
+  {
+LABEL_5:
+    v13 = 0;
+  }
+
+LABEL_7:
+
+  return v13;
+}
+
++ (void)uninstallAppWithBundleID:(id)d requestUserConfirmation:(BOOL)confirmation waitForDeletion:(BOOL)deletion completion:(id)completion
+{
+  deletionCopy = deletion;
+  confirmationCopy = confirmation;
+  dCopy = d;
+  completionCopy = completion;
+  v12 = objc_opt_new();
+  [v12 setRequestUserConfirmation:confirmationCopy];
+  [v12 setWaitForDeletion:deletionCopy];
+  [v12 setShowArchiveOption:0];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __103__IXAppInstallCoordinator_uninstallAppWithBundleID_requestUserConfirmation_waitForDeletion_completion___block_invoke;
+  v15[3] = &unk_1E85C5650;
+  v16 = dCopy;
+  v17 = completionCopy;
+  v13 = completionCopy;
+  v14 = dCopy;
+  [self uninstallAppWithBundleID:v14 options:v12 completion:v15];
 }
 
 void __103__IXAppInstallCoordinator_uninstallAppWithBundleID_requestUserConfirmation_waitForDeletion_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -2199,49 +2532,49 @@ void __103__IXAppInstallCoordinator_uninstallAppWithBundleID_requestUserConfirma
 
 + (BOOL)uninstallAppWithIdentity:(id)identity options:(id)options disposition:(unint64_t *)disposition error:(id *)error legacyProgressBlock:(id)block
 {
-  v60[2] = *MEMORY[0x1E69E9840];
+  v59[2] = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   optionsCopy = options;
   blockCopy = block;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = __Block_byref_object_copy_;
-  v49 = __Block_byref_object_dispose_;
-  v50 = 0;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
   v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy_;
+  v48 = __Block_byref_object_dispose_;
+  v49 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 0;
   if (blockCopy)
   {
-    v59[0] = @"PercentComplete";
-    v59[1] = @"Status";
-    v60[0] = &unk_1F5607388;
+    v58[0] = @"PercentComplete";
+    v58[1] = @"Status";
+    v59[0] = &unk_1F5607388;
     v15 = IXStatusForUninstallationProgress(50);
-    v60[1] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:v59 count:2];
+    v59[1] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:2];
     blockCopy[2](blockCopy, v16);
   }
 
   v17 = +[IXServerConnection sharedConnection];
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __98__IXAppInstallCoordinator_uninstallAppWithIdentity_options_disposition_error_legacyProgressBlock___block_invoke;
-  v40[3] = &unk_1E85C5560;
-  v40[4] = &v45;
-  v18 = [v17 synchronousRemoteObjectProxyWithErrorHandler:v40];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __98__IXAppInstallCoordinator_uninstallAppWithIdentity_options_disposition_error_legacyProgressBlock___block_invoke_96;
-  v36[3] = &unk_1E85C5678;
-  v38 = &v45;
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __98__IXAppInstallCoordinator_uninstallAppWithIdentity_options_disposition_error_legacyProgressBlock___block_invoke;
+  v39[3] = &unk_1E85C5560;
+  v39[4] = &v44;
+  v18 = [v17 synchronousRemoteObjectProxyWithErrorHandler:v39];
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __98__IXAppInstallCoordinator_uninstallAppWithIdentity_options_disposition_error_legacyProgressBlock___block_invoke_96;
+  v35[3] = &unk_1E85C5678;
+  v37 = &v44;
   v19 = identityCopy;
-  v37 = v19;
-  v39 = &v41;
-  [v18 _remote_uninstallAppWithIdentity:v19 options:optionsCopy completion:v36];
+  v36 = v19;
+  v38 = &v40;
+  [v18 _remote_uninstallAppWithIdentity:v19 options:optionsCopy completion:v35];
 
-  v20 = v42[3];
+  v20 = v41[3];
   if (v20 != 4)
   {
 LABEL_6:
@@ -2250,7 +2583,7 @@ LABEL_6:
       v24 = IXGetLoggingHandle(kIXLoggingSubsystem);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        if (v42[3] == 3)
+        if (v41[3] == 3)
         {
           v25 = @"uninstall";
         }
@@ -2261,11 +2594,11 @@ LABEL_6:
         }
 
         *buf = 136315650;
-        v54 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:disposition:error:legacyProgressBlock:]";
-        v55 = 2112;
-        v56 = v19;
-        v57 = 2112;
-        v58 = v25;
+        v53 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:disposition:error:legacyProgressBlock:]";
+        v54 = 2112;
+        v55 = v19;
+        v56 = 2112;
+        v57 = v25;
         _os_log_impl(&dword_1DA47A000, v24, OS_LOG_TYPE_DEFAULT, "%s: Resyncing local LS database to ensure it knows about %@ of %@", buf, 0x20u);
       }
 
@@ -2275,7 +2608,7 @@ LABEL_6:
       v27 = IXGetLoggingHandle(kIXLoggingSubsystem);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        if (v42[3] == 3)
+        if (v41[3] == 3)
         {
           v28 = @"uninstall";
         }
@@ -2286,11 +2619,11 @@ LABEL_6:
         }
 
         *buf = 136315650;
-        v54 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:disposition:error:legacyProgressBlock:]";
-        v55 = 2112;
-        v56 = v19;
-        v57 = 2112;
-        v58 = v28;
+        v53 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:disposition:error:legacyProgressBlock:]";
+        v54 = 2112;
+        v55 = v19;
+        v56 = 2112;
+        v57 = v28;
         _os_log_impl(&dword_1DA47A000, v27, OS_LOG_TYPE_DEFAULT, "%s: Resync of local LS database complete after %@ of %@", buf, 0x20u);
       }
     }
@@ -2304,54 +2637,53 @@ LABEL_6:
   }
 
   waitForDeletion = [optionsCopy waitForDeletion];
-  v22 = (v46 + 5);
-  obj = v46[5];
+  v22 = (v45 + 5);
+  obj = v45[5];
   v23 = [self demoteAppToPlaceholderWithApplicationIdentity:v19 forReason:2 waitForDeletion:waitForDeletion ignoreRemovability:0 error:&obj];
   objc_storeStrong(v22, obj);
   if (v23)
   {
-    v20 = v42[3];
+    v20 = v41[3];
     goto LABEL_6;
   }
 
-  v42[3] = 0;
+  v41[3] = 0;
   if (disposition)
   {
 LABEL_19:
-    *disposition = v42[3];
+    *disposition = v41[3];
   }
 
 LABEL_20:
   if (blockCopy)
   {
-    v51[0] = @"PercentComplete";
-    v51[1] = @"Status";
-    v52[0] = &unk_1F56073A0;
+    v50[0] = @"PercentComplete";
+    v50[1] = @"Status";
+    v51[0] = &unk_1F56073A0;
     v29 = IXStatusForUninstallationProgress(90);
-    v52[1] = v29;
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:2];
+    v51[1] = v29;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:2];
     blockCopy[2](blockCopy, v30);
   }
 
-  v31 = v46[5];
+  v31 = v45[5];
   if (error && v31)
   {
     *error = v31;
-    v31 = v46[5];
+    v31 = v45[5];
   }
 
   v32 = v31 == 0;
 
-  _Block_object_dispose(&v41, 8);
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v44, 8);
 
-  v33 = *MEMORY[0x1E69E9840];
   return v32;
 }
 
 void __98__IXAppInstallCoordinator_uninstallAppWithIdentity_options_disposition_error_legacyProgressBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -2359,20 +2691,18 @@ void __98__IXAppInstallCoordinator_uninstallAppWithIdentity_options_disposition_
     v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:disposition:error:legacyProgressBlock:]_block_invoke";
-      v9 = 2112;
-      v10 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:disposition:error:legacyProgressBlock:]_block_invoke";
+      v8 = 2112;
+      v9 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __98__IXAppInstallCoordinator_uninstallAppWithIdentity_options_disposition_error_legacyProgressBlock___block_invoke_96(void *a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -2382,13 +2712,13 @@ void __98__IXAppInstallCoordinator_uninstallAppWithIdentity_options_disposition_
     {
       v8 = a1[4];
       v9 = *(*(a1[5] + 8) + 40);
-      v13 = 136315650;
-      v14 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:disposition:error:legacyProgressBlock:]_block_invoke";
-      v15 = 2112;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to uninstall bundleID:%@ with:%@", &v13, 0x20u);
+      v12 = 136315650;
+      v13 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:disposition:error:legacyProgressBlock:]_block_invoke";
+      v14 = 2112;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to uninstall bundleID:%@ with:%@", &v12, 0x20u);
     }
   }
 
@@ -2400,17 +2730,15 @@ void __98__IXAppInstallCoordinator_uninstallAppWithIdentity_options_disposition_
     {
       v10 = IXStringForUninstallDisposition(*(*(a1[6] + 8) + 24));
       v11 = a1[4];
-      v13 = 136315650;
-      v14 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:disposition:error:legacyProgressBlock:]_block_invoke";
-      v15 = 2112;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v11;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from installcoordinationd for bundleID %@", &v13, 0x20u);
+      v12 = 136315650;
+      v13 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:disposition:error:legacyProgressBlock:]_block_invoke";
+      v14 = 2112;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v11;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from installcoordinationd for bundleID %@", &v12, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)uninstallAppWithIdentity:(id)identity options:(id)options completion:(id)completion
@@ -2443,7 +2771,7 @@ void __98__IXAppInstallCoordinator_uninstallAppWithIdentity_options_disposition_
 
 void __71__IXAppInstallCoordinator_uninstallAppWithIdentity_options_completion___block_invoke(uint64_t a1, unint64_t a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -2451,11 +2779,11 @@ void __71__IXAppInstallCoordinator_uninstallAppWithIdentity_options_completion__
     v7 = IXStringForUninstallDisposition(a2);
     v8 = *(a1 + 32);
     *buf = 136315650;
-    v24 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:completion:]_block_invoke";
-    v25 = 2112;
-    v26 = v7;
-    v27 = 2112;
-    v28 = v8;
+    v23 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:completion:]_block_invoke";
+    v24 = 2112;
+    v25 = v7;
+    v26 = 2112;
+    v27 = v8;
     _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from installcoordinationd for %@", buf, 0x20u);
   }
 
@@ -2464,7 +2792,7 @@ void __71__IXAppInstallCoordinator_uninstallAppWithIdentity_options_completion__
     v9 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __71__IXAppInstallCoordinator_uninstallAppWithIdentity_options_completion___block_invoke_cold_1(a1);
+      __71__IXAppInstallCoordinator_uninstallAppWithIdentity_options_completion___block_invoke_cold_1();
     }
 
     v10 = *(*(a1 + 48) + 16);
@@ -2478,9 +2806,9 @@ void __71__IXAppInstallCoordinator_uninstallAppWithIdentity_options_completion__
     {
       v15 = *(a1 + 32);
       *buf = 136315394;
-      v24 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:completion:]_block_invoke";
-      v25 = 2112;
-      v26 = v15;
+      v23 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:completion:]_block_invoke";
+      v24 = 2112;
+      v25 = v15;
       _os_log_impl(&dword_1DA47A000, v14, OS_LOG_TYPE_DEFAULT, "%s: Resyncing local LS database to ensure it knows about uninstall of %@", buf, 0x16u);
     }
 
@@ -2492,9 +2820,9 @@ void __71__IXAppInstallCoordinator_uninstallAppWithIdentity_options_completion__
     {
       v18 = *(a1 + 32);
       *buf = 136315394;
-      v24 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:completion:]_block_invoke";
-      v25 = 2112;
-      v26 = v18;
+      v23 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:completion:]_block_invoke";
+      v24 = 2112;
+      v25 = v18;
       _os_log_impl(&dword_1DA47A000, v17, OS_LOG_TYPE_DEFAULT, "%s: Resync of local LS database complete after uninstall of %@", buf, 0x16u);
     }
 
@@ -2513,84 +2841,76 @@ LABEL_16:
   v11 = *(a1 + 56);
   v12 = *(a1 + 32);
   v13 = [*(a1 + 40) waitForDeletion];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __71__IXAppInstallCoordinator_uninstallAppWithIdentity_options_completion___block_invoke_105;
-  v20[3] = &unk_1E85C56A0;
-  v22 = *(a1 + 48);
-  v21 = *(a1 + 32);
-  [v11 demoteAppToPlaceholderWithApplicationIdentity:v12 forReason:2 waitForDeletion:v13 ignoreRemovability:0 completion:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __71__IXAppInstallCoordinator_uninstallAppWithIdentity_options_completion___block_invoke_105;
+  v19[3] = &unk_1E85C56A0;
+  v21 = *(a1 + 48);
+  v20 = *(a1 + 32);
+  [v11 demoteAppToPlaceholderWithApplicationIdentity:v12 forReason:2 waitForDeletion:v13 ignoreRemovability:0 completion:v19];
 
 LABEL_17:
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __71__IXAppInstallCoordinator_uninstallAppWithIdentity_options_completion___block_invoke_105(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
-    v5 = *MEMORY[0x1E69E9840];
+    v3 = *(*(a1 + 40) + 16);
 
-    return v4();
+    return v3();
   }
 
   else
   {
-    v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v13 = 136315394;
-      v14 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:completion:]_block_invoke";
-      v15 = 2112;
-      v16 = v8;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Resyncing local LS database to ensure it knows about demotion of %@", &v13, 0x16u);
+      v6 = *(a1 + 32);
+      v10 = 136315394;
+      v11 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:completion:]_block_invoke";
+      v12 = 2112;
+      v13 = v6;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Resyncing local LS database to ensure it knows about demotion of %@", &v10, 0x16u);
     }
 
-    v9 = [MEMORY[0x1E6963608] defaultWorkspace];
-    [v9 acquireDatabase];
+    v7 = [MEMORY[0x1E6963608] defaultWorkspace];
+    [v7 acquireDatabase];
 
-    v10 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v8 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
-      v13 = 136315394;
-      v14 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:completion:]_block_invoke";
-      v15 = 2112;
-      v16 = v11;
-      _os_log_impl(&dword_1DA47A000, v10, OS_LOG_TYPE_DEFAULT, "%s: Resync of local LS database complete after demotion of %@", &v13, 0x16u);
+      v9 = *(a1 + 32);
+      v10 = 136315394;
+      v11 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:completion:]_block_invoke";
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Resync of local LS database complete after demotion of %@", &v10, 0x16u);
     }
 
-    result = (*(*(a1 + 40) + 16))();
-    v12 = *MEMORY[0x1E69E9840];
+    return (*(*(a1 + 40) + 16))();
   }
-
-  return result;
 }
 
 void __71__IXAppInstallCoordinator_uninstallAppWithIdentity_options_completion___block_invoke_106(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315394;
-      v7 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:completion:]_block_invoke";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "+[IXAppInstallCoordinator uninstallAppWithIdentity:options:completion:]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)revertAppWithBundleID:(id)d resultingApplicationRecord:(id *)record error:(id *)error
@@ -2743,24 +3063,22 @@ void __82__IXAppInstallCoordinator_revertAppWithIdentity_resultingApplicationRec
 
 void __81__IXAppInstallCoordinator_revertAppWithIdentity_completionWithApplicationRecord___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315394;
-      v7 = "+[IXAppInstallCoordinator revertAppWithIdentity:completionWithApplicationRecord:]_block_invoke";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "+[IXAppInstallCoordinator revertAppWithIdentity:completionWithApplicationRecord:]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __81__IXAppInstallCoordinator_revertAppWithIdentity_completionWithApplicationRecord___block_invoke_110(uint64_t a1, void *a2, uint64_t a3)
@@ -2791,18 +3109,18 @@ void __81__IXAppInstallCoordinator_revertAppWithIdentity_completionWithApplicati
 
 + (unint64_t)removabilityForAppWithIdentity:(id)identity error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy_;
-  v24 = __Block_byref_object_dispose_;
-  v25 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
   v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy_;
+  v23 = __Block_byref_object_dispose_;
+  v24 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   v6 = IXGetUncachedRemovabilityMetadataForApp(identityCopy, 1, 1, 0);
   removability = [v6 removability];
   if (removability)
@@ -2812,75 +3130,72 @@ void __81__IXAppInstallCoordinator_revertAppWithIdentity_completionWithApplicati
     {
       v9 = IXStringForAppRemovability(removability);
       *buf = 136315650;
-      v27 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:error:]";
-      v28 = 2112;
-      v29 = v9;
-      v30 = 2112;
-      v31 = identityCopy;
+      v26 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:error:]";
+      v27 = 2112;
+      v28 = v9;
+      v29 = 2112;
+      v30 = identityCopy;
       _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Returning locally read removability, %@, for identity:%@", buf, 0x20u);
     }
 
-    v17[3] = removability;
+    v16[3] = removability;
   }
 
   else
   {
-    removability = v17[3];
+    removability = v16[3];
     if (!removability)
     {
       v10 = +[IXServerConnection sharedConnection];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __64__IXAppInstallCoordinator_removabilityForAppWithIdentity_error___block_invoke;
-      v15[3] = &unk_1E85C5560;
-      v15[4] = &v20;
-      v11 = [v10 synchronousRemoteObjectProxyWithErrorHandler:v15];
       v14[0] = MEMORY[0x1E69E9820];
       v14[1] = 3221225472;
-      v14[2] = __64__IXAppInstallCoordinator_removabilityForAppWithIdentity_error___block_invoke_111;
-      v14[3] = &unk_1E85C5768;
-      v14[4] = &v20;
-      v14[5] = &v16;
-      [v11 _remote_removabilityForAppWithIdentity:identityCopy completion:v14];
+      v14[2] = __64__IXAppInstallCoordinator_removabilityForAppWithIdentity_error___block_invoke;
+      v14[3] = &unk_1E85C5560;
+      v14[4] = &v19;
+      v11 = [v10 synchronousRemoteObjectProxyWithErrorHandler:v14];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __64__IXAppInstallCoordinator_removabilityForAppWithIdentity_error___block_invoke_111;
+      v13[3] = &unk_1E85C5768;
+      v13[4] = &v19;
+      v13[5] = &v15;
+      [v11 _remote_removabilityForAppWithIdentity:identityCopy completion:v13];
 
-      removability = v17[3];
+      removability = v16[3];
       if (error)
       {
         if (!removability)
         {
-          *error = v21[5];
-          removability = v17[3];
+          *error = v20[5];
+          removability = v16[3];
         }
       }
     }
   }
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v19, 8);
 
-  v12 = *MEMORY[0x1E69E9840];
   return removability;
 }
 
 void __64__IXAppInstallCoordinator_removabilityForAppWithIdentity_error___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:error:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:error:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __64__IXAppInstallCoordinator_removabilityForAppWithIdentity_error___block_invoke_111(uint64_t a1, uint64_t a2, void *a3)
@@ -2901,18 +3216,18 @@ void __64__IXAppInstallCoordinator_removabilityForAppWithIdentity_error___block_
 
 + (unint64_t)removabilityForAppWithIdentity:(id)identity byClient:(unint64_t)client error:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy_;
-  v26 = __Block_byref_object_dispose_;
-  v27 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
   v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy_;
+  v25 = __Block_byref_object_dispose_;
+  v26 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   v8 = IXGetUncachedRemovabilityMetadataForAppByClient(identityCopy, client, 1, 0);
   if (v8)
   {
@@ -2922,77 +3237,74 @@ void __64__IXAppInstallCoordinator_removabilityForAppWithIdentity_error___block_
       v10 = IXStringForAppRemovability(v8);
       v11 = IXStringForAppRemovabilityClient(client);
       *buf = 136315906;
-      v29 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:byClient:error:]";
-      v30 = 2112;
-      v31 = v10;
-      v32 = 2112;
-      v33 = v11;
-      v34 = 2112;
-      v35 = identityCopy;
+      v28 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:byClient:error:]";
+      v29 = 2112;
+      v30 = v10;
+      v31 = 2112;
+      v32 = v11;
+      v33 = 2112;
+      v34 = identityCopy;
       _os_log_impl(&dword_1DA47A000, v9, OS_LOG_TYPE_DEFAULT, "%s: Returning locally read removability, %@ set by client %@, for identity:%@", buf, 0x2Au);
     }
 
-    v19[3] = v8;
+    v18[3] = v8;
   }
 
   else
   {
-    v8 = v19[3];
+    v8 = v18[3];
     if (!v8)
     {
       v12 = +[IXServerConnection sharedConnection];
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __73__IXAppInstallCoordinator_removabilityForAppWithIdentity_byClient_error___block_invoke;
-      v17[3] = &unk_1E85C5560;
-      v17[4] = &v22;
-      v13 = [v12 synchronousRemoteObjectProxyWithErrorHandler:v17];
       v16[0] = MEMORY[0x1E69E9820];
       v16[1] = 3221225472;
-      v16[2] = __73__IXAppInstallCoordinator_removabilityForAppWithIdentity_byClient_error___block_invoke_112;
-      v16[3] = &unk_1E85C5768;
-      v16[4] = &v22;
-      v16[5] = &v18;
-      [v13 _remote_removabilityForAppWithIdentity:identityCopy byClient:client completion:v16];
+      v16[2] = __73__IXAppInstallCoordinator_removabilityForAppWithIdentity_byClient_error___block_invoke;
+      v16[3] = &unk_1E85C5560;
+      v16[4] = &v21;
+      v13 = [v12 synchronousRemoteObjectProxyWithErrorHandler:v16];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __73__IXAppInstallCoordinator_removabilityForAppWithIdentity_byClient_error___block_invoke_112;
+      v15[3] = &unk_1E85C5768;
+      v15[4] = &v21;
+      v15[5] = &v17;
+      [v13 _remote_removabilityForAppWithIdentity:identityCopy byClient:client completion:v15];
 
-      v8 = v19[3];
+      v8 = v18[3];
       if (error)
       {
         if (!v8)
         {
-          *error = v23[5];
-          v8 = v19[3];
+          *error = v22[5];
+          v8 = v18[3];
         }
       }
     }
   }
 
-  _Block_object_dispose(&v18, 8);
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 void __73__IXAppInstallCoordinator_removabilityForAppWithIdentity_byClient_error___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:byClient:error:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:byClient:error:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __73__IXAppInstallCoordinator_removabilityForAppWithIdentity_byClient_error___block_invoke_112(uint64_t a1, uint64_t a2, void *a3)
@@ -3038,7 +3350,7 @@ void __73__IXAppInstallCoordinator_removabilityForAppWithIdentity_byClient_error
 
 void __69__IXAppInstallCoordinator_removabilityForAppWithIdentity_completion___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = IXGetUncachedRemovabilityMetadataForApp(*(a1 + 32), 1, 1, 0);
   v3 = [v2 removability];
   if (v3)
@@ -3050,11 +3362,11 @@ void __69__IXAppInstallCoordinator_removabilityForAppWithIdentity_completion___b
       v6 = IXStringForAppRemovability(v4);
       v7 = *(a1 + 32);
       *buf = 136315650;
-      v14 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:completion:]_block_invoke";
-      v15 = 2112;
-      v16 = v6;
-      v17 = 2112;
-      v18 = v7;
+      v13 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:completion:]_block_invoke";
+      v14 = 2112;
+      v15 = v6;
+      v16 = 2112;
+      v17 = v7;
       _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Returning locally read removability, %@, for %@.", buf, 0x20u);
     }
 
@@ -3064,35 +3376,32 @@ void __69__IXAppInstallCoordinator_removabilityForAppWithIdentity_completion___b
   else
   {
     v8 = +[IXServerConnection sharedConnection];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __69__IXAppInstallCoordinator_removabilityForAppWithIdentity_completion___block_invoke_113;
-    v11[3] = &unk_1E85C5470;
-    v12 = *(a1 + 40);
-    v9 = [v8 remoteObjectProxyWithErrorHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __69__IXAppInstallCoordinator_removabilityForAppWithIdentity_completion___block_invoke_113;
+    v10[3] = &unk_1E85C5470;
+    v11 = *(a1 + 40);
+    v9 = [v8 remoteObjectProxyWithErrorHandler:v10];
 
     [v9 _remote_removabilityForAppWithIdentity:*(a1 + 32) completion:*(a1 + 40)];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __69__IXAppInstallCoordinator_removabilityForAppWithIdentity_completion___block_invoke_113(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)removabilityForAppWithIdentity:(id)identity byClient:(unint64_t)client completion:(id)completion
@@ -3114,7 +3423,7 @@ void __69__IXAppInstallCoordinator_removabilityForAppWithIdentity_completion___b
 
 void __78__IXAppInstallCoordinator_removabilityForAppWithIdentity_byClient_completion___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = IXGetUncachedRemovabilityMetadataForAppByClient(*(a1 + 32), *(a1 + 48), 1, 0);
   if (v2)
   {
@@ -3125,11 +3434,11 @@ void __78__IXAppInstallCoordinator_removabilityForAppWithIdentity_byClient_compl
       v5 = IXStringForAppRemovability(v3);
       v6 = *(a1 + 32);
       *buf = 136315650;
-      v13 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:byClient:completion:]_block_invoke";
-      v14 = 2112;
-      v15 = v5;
-      v16 = 2112;
-      v17 = v6;
+      v12 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:byClient:completion:]_block_invoke";
+      v13 = 2112;
+      v14 = v5;
+      v15 = 2112;
+      v16 = v6;
       _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Returning locally read removability, %@, for %@.", buf, 0x20u);
     }
 
@@ -3139,35 +3448,32 @@ void __78__IXAppInstallCoordinator_removabilityForAppWithIdentity_byClient_compl
   else
   {
     v7 = +[IXServerConnection sharedConnection];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __78__IXAppInstallCoordinator_removabilityForAppWithIdentity_byClient_completion___block_invoke_114;
-    v10[3] = &unk_1E85C5470;
-    v11 = *(a1 + 40);
-    v8 = [v7 remoteObjectProxyWithErrorHandler:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __78__IXAppInstallCoordinator_removabilityForAppWithIdentity_byClient_completion___block_invoke_114;
+    v9[3] = &unk_1E85C5470;
+    v10 = *(a1 + 40);
+    v8 = [v7 remoteObjectProxyWithErrorHandler:v9];
 
     [v8 _remote_removabilityForAppWithIdentity:*(a1 + 32) byClient:*(a1 + 48) completion:*(a1 + 40)];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __78__IXAppInstallCoordinator_removabilityForAppWithIdentity_byClient_completion___block_invoke_114(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:byClient:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[IXAppInstallCoordinator removabilityForAppWithIdentity:byClient:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)setRemovability:(unint64_t)removability forAppWithBundleID:(id)d byClient:(unint64_t)client completion:(id)completion
@@ -3199,7 +3505,7 @@ void __78__IXAppInstallCoordinator_removabilityForAppWithIdentity_byClient_compl
 
 void __82__IXAppInstallCoordinator_setRemovability_forAppWithIdentity_byClient_completion___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = IXGetUncachedRemovabilityMetadataForAppByClient(*(a1 + 32), *(a1 + 48), 1, 0);
   if (v2 && *(a1 + 56) == v2)
   {
@@ -3209,11 +3515,11 @@ void __82__IXAppInstallCoordinator_setRemovability_forAppWithIdentity_byClient_c
       v4 = *(a1 + 32);
       v5 = IXStringForAppRemovability(*(a1 + 56));
       *buf = 136315650;
-      v12 = "+[IXAppInstallCoordinator setRemovability:forAppWithIdentity:byClient:completion:]_block_invoke";
-      v13 = 2112;
-      v14 = v4;
-      v15 = 2112;
-      v16 = v5;
+      v11 = "+[IXAppInstallCoordinator setRemovability:forAppWithIdentity:byClient:completion:]_block_invoke";
+      v12 = 2112;
+      v13 = v4;
+      v14 = 2112;
+      v15 = v5;
       _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Removability requested to be set for %@ is unchanged: %@; skipping write.", buf, 0x20u);
     }
 
@@ -3223,35 +3529,32 @@ void __82__IXAppInstallCoordinator_setRemovability_forAppWithIdentity_byClient_c
   else
   {
     v6 = +[IXServerConnection sharedConnection];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __82__IXAppInstallCoordinator_setRemovability_forAppWithIdentity_byClient_completion___block_invoke_115;
-    v9[3] = &unk_1E85C5470;
-    v10 = *(a1 + 40);
-    v7 = [v6 remoteObjectProxyWithErrorHandler:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __82__IXAppInstallCoordinator_setRemovability_forAppWithIdentity_byClient_completion___block_invoke_115;
+    v8[3] = &unk_1E85C5470;
+    v9 = *(a1 + 40);
+    v7 = [v6 remoteObjectProxyWithErrorHandler:v8];
 
     [v7 _remote_setRemovability:*(a1 + 56) forAppWithIdentity:*(a1 + 32) byClient:*(a1 + 48) completion:*(a1 + 40)];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __82__IXAppInstallCoordinator_setRemovability_forAppWithIdentity_byClient_completion___block_invoke_115(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[IXAppInstallCoordinator setRemovability:forAppWithIdentity:byClient:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[IXAppInstallCoordinator setRemovability:forAppWithIdentity:byClient:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (id)removabilityDataWithChangeClock:(id *)clock error:(id *)error
@@ -3327,23 +3630,21 @@ void __82__IXAppInstallCoordinator_setRemovability_forAppWithIdentity_byClient_c
 
 void __65__IXAppInstallCoordinator_removabilityDataWithChangeClock_error___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator removabilityDataWithChangeClock:error:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator removabilityDataWithChangeClock:error:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __65__IXAppInstallCoordinator_removabilityDataWithChangeClock_error___block_invoke_116(uint64_t a1, void *a2, void *a3, void *a4)
@@ -3384,50 +3685,49 @@ void __65__IXAppInstallCoordinator_removabilityDataWithChangeClock_error___block
   IXDispatchAsyncWithAutoreleasePool(v4, v6);
 }
 
-void __58__IXAppInstallCoordinator_removabilityDataWithCompletion___block_invoke(uint64_t a1)
+void __58__IXAppInstallCoordinator_removabilityDataWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = 0;
-  v2 = IXGetUncachedRemovabilityDataStore(&v13);
-  v3 = v13;
-  if (v2)
+  v14 = 0;
+  v3 = IXGetUncachedRemovabilityDataStore(&v14);
+  v4 = v14;
+  if (v3)
   {
-    v4 = _ProcessRemovabilityMetadataListMap(v2);
+    v5 = _ProcessRemovabilityMetadataListMap(v3);
     (*(*(a1 + 32) + 16))();
-    v5 = v3;
-    v3 = v4;
+    v6 = v4;
+    v4 = v5;
   }
 
   else
   {
-    v6 = +[IXServerConnection sharedConnection];
-    v8 = MEMORY[0x1E69E9820];
-    v9 = 3221225472;
-    v10 = __58__IXAppInstallCoordinator_removabilityDataWithCompletion___block_invoke_2;
-    v11 = &unk_1E85C5470;
-    v12 = *(a1 + 32);
-    v7 = [v6 remoteObjectProxyWithErrorHandler:&v8];
+    v7 = +[IXServerConnection sharedConnection];
+    v9 = MEMORY[0x1E69E9820];
+    v10 = 3221225472;
+    v11 = __58__IXAppInstallCoordinator_removabilityDataWithCompletion___block_invoke_2;
+    v12 = &unk_1E85C5470;
+    v13 = *(a1 + 32);
+    v8 = [v7 remoteObjectProxyWithErrorHandler:&v9];
 
-    [v7 _remote_removabilityDataWithCompletion:{*(a1 + 32), v8, v9, v10, v11}];
-    v5 = v12;
+    [v8 _remote_removabilityDataWithCompletion:{*(a1 + 32), v9, v10, v11, v12}];
+    v6 = v13;
   }
 }
 
 void __58__IXAppInstallCoordinator_removabilityDataWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[IXAppInstallCoordinator removabilityDataWithCompletion:]_block_invoke_2";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[IXAppInstallCoordinator removabilityDataWithCompletion:]_block_invoke_2";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (id)defaultAppMetadataForAppIdentity:(id)identity error:(id *)error
@@ -3481,23 +3781,21 @@ void __58__IXAppInstallCoordinator_removabilityDataWithCompletion___block_invoke
 
 void __66__IXAppInstallCoordinator_defaultAppMetadataForAppIdentity_error___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator defaultAppMetadataForAppIdentity:error:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator defaultAppMetadataForAppIdentity:error:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __66__IXAppInstallCoordinator_defaultAppMetadataForAppIdentity_error___block_invoke_118(uint64_t a1, void *a2, void *a3)
@@ -3572,23 +3870,21 @@ void __66__IXAppInstallCoordinator_defaultAppMetadataForAppIdentity_error___bloc
 
 void __59__IXAppInstallCoordinator_defaultAppMetadataListWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator defaultAppMetadataListWithError:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator defaultAppMetadataListWithError:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __59__IXAppInstallCoordinator_defaultAppMetadataListWithError___block_invoke_120(uint64_t a1, void *a2, void *a3)
@@ -3636,20 +3932,19 @@ void __59__IXAppInstallCoordinator_defaultAppMetadataListWithError___block_invok
 
 void __71__IXAppInstallCoordinator_defaultAppMetadataForAppIdentity_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[IXAppInstallCoordinator defaultAppMetadataForAppIdentity:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[IXAppInstallCoordinator defaultAppMetadataForAppIdentity:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)defaultAppMetadataListWithCompletion:(id)completion
@@ -3674,20 +3969,19 @@ void __71__IXAppInstallCoordinator_defaultAppMetadataForAppIdentity_completion__
 
 void __64__IXAppInstallCoordinator_defaultAppMetadataListWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[IXAppInstallCoordinator defaultAppMetadataListWithCompletion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[IXAppInstallCoordinator defaultAppMetadataListWithCompletion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)updateSINFForAppWithIdentity:(id)identity wrapperURL:(id)l sinfData:(id)data error:(id *)error
@@ -3755,7 +4049,7 @@ void __64__IXAppInstallCoordinator_defaultAppMetadataListWithCompletion___block_
 
 void __79__IXAppInstallCoordinator_updateSINFForAppWithIdentity_sinfData_options_error___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -3763,20 +4057,18 @@ void __79__IXAppInstallCoordinator_updateSINFForAppWithIdentity_sinfData_options
     v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "+[IXAppInstallCoordinator updateSINFForAppWithIdentity:sinfData:options:error:]_block_invoke";
-      v9 = 2112;
-      v10 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "+[IXAppInstallCoordinator updateSINFForAppWithIdentity:sinfData:options:error:]_block_invoke";
+      v8 = 2112;
+      v9 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __79__IXAppInstallCoordinator_updateSINFForAppWithIdentity_sinfData_options_error___block_invoke_126(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -3786,13 +4078,13 @@ void __79__IXAppInstallCoordinator_updateSINFForAppWithIdentity_sinfData_options
     {
       v6 = a1[4];
       v7 = *(*(a1[5] + 8) + 40);
-      v9 = 136315650;
-      v10 = "+[IXAppInstallCoordinator updateSINFForAppWithIdentity:sinfData:options:error:]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to update SINF for identity:%@ with:%@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "+[IXAppInstallCoordinator updateSINFForAppWithIdentity:sinfData:options:error:]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to update SINF for identity:%@ with:%@", &v8, 0x20u);
     }
   }
 
@@ -3800,8 +4092,6 @@ void __79__IXAppInstallCoordinator_updateSINFForAppWithIdentity_sinfData_options
   {
     *(*(a1[6] + 8) + 24) = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)updateiTunesMetadataForAppWithIdentity:(id)identity wrapperURL:(id)l plistData:(id)data error:(id *)error
@@ -3924,7 +4214,7 @@ void __79__IXAppInstallCoordinator_updateSINFForAppWithIdentity_sinfData_options
 
 void __73__IXAppInstallCoordinator_updateiTunesMetadata_forAppWithIdentity_error___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -3932,20 +4222,18 @@ void __73__IXAppInstallCoordinator_updateiTunesMetadata_forAppWithIdentity_error
     v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "+[IXAppInstallCoordinator updateiTunesMetadata:forAppWithIdentity:error:]_block_invoke";
-      v9 = 2112;
-      v10 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to update iTunesMetadata: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "+[IXAppInstallCoordinator updateiTunesMetadata:forAppWithIdentity:error:]_block_invoke";
+      v8 = 2112;
+      v9 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to update iTunesMetadata: %@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __73__IXAppInstallCoordinator_updateiTunesMetadata_forAppWithIdentity_error___block_invoke_131(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -3955,13 +4243,13 @@ void __73__IXAppInstallCoordinator_updateiTunesMetadata_forAppWithIdentity_error
     {
       v6 = a1[4];
       v7 = *(*(a1[5] + 8) + 40);
-      v9 = 136315650;
-      v10 = "+[IXAppInstallCoordinator updateiTunesMetadata:forAppWithIdentity:error:]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to update iTunesMetadata for identity %@ : %@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "+[IXAppInstallCoordinator updateiTunesMetadata:forAppWithIdentity:error:]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to update iTunesMetadata for identity %@ : %@", &v8, 0x20u);
     }
   }
 
@@ -3969,16 +4257,14 @@ void __73__IXAppInstallCoordinator_updateiTunesMetadata_forAppWithIdentity_error
   {
     *(*(a1[6] + 8) + 24) = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)refreshDataContainerForBundleID:(id)d reason:(id)reason error:(id *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dCopy = d;
   reasonCopy = reason;
-  v41 = 1;
+  v40 = 1;
   v9 = IXGetLoggingHandle(kIXLoggingSubsystem);
   v10 = v9;
   if (!reasonCopy)
@@ -3998,11 +4284,11 @@ void __73__IXAppInstallCoordinator_updateiTunesMetadata_forAppWithIdentity_error
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v43 = "+[IXAppInstallCoordinator refreshDataContainerForBundleID:reason:error:]";
-    v44 = 2112;
-    v45 = dCopy;
-    v46 = 2112;
-    v47 = reasonCopy;
+    v42 = "+[IXAppInstallCoordinator refreshDataContainerForBundleID:reason:error:]";
+    v43 = 2112;
+    v44 = dCopy;
+    v45 = 2112;
+    v46 = reasonCopy;
     _os_log_impl(&dword_1DA47A000, v10, OS_LOG_TYPE_DEFAULT, "%s: Request to refresh data container for identifier %@ with reason %@", buf, 0x20u);
   }
 
@@ -4029,11 +4315,11 @@ void __73__IXAppInstallCoordinator_updateiTunesMetadata_forAppWithIdentity_error
     goto LABEL_33;
   }
 
+  v38 = 0;
   v39 = 0;
-  v40 = 0;
-  v17 = [v16 execute:&v40 error:&v39];
-  v18 = v40;
-  v19 = v39;
+  v17 = [v16 execute:&v39 error:&v38];
+  v18 = v39;
+  v19 = v38;
   v20 = v19;
   if (v17)
   {
@@ -4059,13 +4345,13 @@ LABEL_25:
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v43 = "+[IXAppInstallCoordinator refreshDataContainerForBundleID:reason:error:]";
-      v44 = 2112;
-      v45 = dCopy;
-      v46 = 2112;
-      v47 = v18;
-      v48 = 2112;
-      v49 = v20;
+      v42 = "+[IXAppInstallCoordinator refreshDataContainerForBundleID:reason:error:]";
+      v43 = 2112;
+      v44 = dCopy;
+      v45 = 2112;
+      v46 = v18;
+      v47 = 2112;
+      v48 = v20;
       _os_log_error_impl(&dword_1DA47A000, v32, OS_LOG_TYPE_ERROR, "%s: Failed to execute termination request for identifier %@: assertion = %@ : %@", buf, 0x2Au);
     }
 
@@ -4094,7 +4380,7 @@ LABEL_7:
     v34 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      [IXAppInstallCoordinator refreshDataContainerForBundleID:dCopy reason:&v41 error:?];
+      +[IXAppInstallCoordinator refreshDataContainerForBundleID:reason:error:];
     }
 
     v27 = _CreateError("+[IXAppInstallCoordinator refreshDataContainerForBundleID:reason:error:]", 1832, @"IXErrorDomain", 0x23uLL, 0, 0, @"Failed to look up container for identifier %@: container error = %llu", v35, dCopy);
@@ -4105,14 +4391,14 @@ LABEL_32:
   }
 
   v22 = v21;
-  v41 = container_delete_all_container_content();
-  v23 = v41 == 1;
-  if (v41 != 1)
+  v40 = container_delete_all_container_content();
+  v23 = v40 == 1;
+  if (v40 != 1)
   {
     v24 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      [IXAppInstallCoordinator refreshDataContainerForBundleID:dCopy reason:&v41 error:?];
+      +[IXAppInstallCoordinator refreshDataContainerForBundleID:reason:error:];
     }
 
     v26 = _CreateError("+[IXAppInstallCoordinator refreshDataContainerForBundleID:reason:error:]", 1837, @"IXErrorDomain", 0x23uLL, 0, 0, @"Failed to refresh data container for identifier %@: container error = %llu", v25, dCopy);
@@ -4135,7 +4421,6 @@ LABEL_34:
 
 LABEL_36:
 
-  v37 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -4336,31 +4621,29 @@ LABEL_15:
 
 void __56__IXAppInstallCoordinator_cancelForReason_client_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator cancelForReason:client:error:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator cancelForReason:client:error:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __56__IXAppInstallCoordinator_cancelForReason_client_error___block_invoke_161(void *a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -4368,13 +4651,13 @@ void __56__IXAppInstallCoordinator_cancelForReason_client_error___block_invoke_1
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = a1[4];
-      v11 = 136315650;
-      v12 = "[IXAppInstallCoordinator cancelForReason:client:error:]_block_invoke";
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel %@ : %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[IXAppInstallCoordinator cancelForReason:client:error:]_block_invoke";
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel %@ : %@", &v10, 0x20u);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a3);
@@ -4390,8 +4673,6 @@ void __56__IXAppInstallCoordinator_cancelForReason_client_error___block_invoke_1
 
     *(*(a1[6] + 8) + 24) = 1;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __56__IXAppInstallCoordinator_cancelForReason_client_error___block_invoke_162(uint64_t a1)
@@ -4403,18 +4684,18 @@ void __56__IXAppInstallCoordinator_cancelForReason_client_error___block_invoke_1
 
 - (BOOL)setPlaceholderPromise:(id)promise error:(id *)error
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   promiseCopy = promise;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy_;
-  v51 = __Block_byref_object_dispose_;
-  v52 = 0;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
   v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy_;
+  v50 = __Block_byref_object_dispose_;
+  v51 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
   validInstallTypes = [(IXAppInstallCoordinator *)self validInstallTypes];
   if (!promiseCopy)
   {
@@ -4438,8 +4719,8 @@ void __56__IXAppInstallCoordinator_cancelForReason_client_error___block_invoke_1
 
     v18 = _CreateError("[IXAppInstallCoordinator setPlaceholderPromise:error:]", 1982, @"IXErrorDomain", 4uLL, 0, 0, @"App extension placeholder promise passed to %s instead of app placeholder promise", v20, "[IXAppInstallCoordinator setPlaceholderPromise:error:]");
 LABEL_13:
-    v21 = v48[5];
-    v48[5] = v18;
+    v21 = v47[5];
+    v47[5] = v18;
 LABEL_14:
 
     goto LABEL_15;
@@ -4451,63 +4732,63 @@ LABEL_14:
   if ((v9 & 1) == 0)
   {
     v21 = [validInstallTypes componentsJoinedByString:{@", "}];
-    v25 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v24 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v31 = objc_opt_class();
-      v32 = NSStringFromClass(v31);
+      v30 = objc_opt_class();
+      v31 = NSStringFromClass(v30);
       installType = [promiseCopy installType];
       *buf = 136316418;
-      v54 = "[IXAppInstallCoordinator setPlaceholderPromise:error:]";
-      v55 = 2080;
-      v56 = "[IXAppInstallCoordinator setPlaceholderPromise:error:]";
-      v57 = 2112;
-      v58 = v32;
-      v59 = 2048;
-      v60 = installType;
-      v61 = 2112;
-      v62 = v21;
-      v63 = 2112;
-      v64 = 0;
-      _os_log_error_impl(&dword_1DA47A000, v25, OS_LOG_TYPE_ERROR, "%s: Placeholder promise passed to %s for %@ has unpermitted install type %lu (permitted types %@) : %@", buf, 0x3Eu);
+      v53 = "[IXAppInstallCoordinator setPlaceholderPromise:error:]";
+      v54 = 2080;
+      v55 = "[IXAppInstallCoordinator setPlaceholderPromise:error:]";
+      v56 = 2112;
+      v57 = v31;
+      v58 = 2048;
+      v59 = installType;
+      v60 = 2112;
+      v61 = v21;
+      v62 = 2112;
+      v63 = 0;
+      _os_log_error_impl(&dword_1DA47A000, v24, OS_LOG_TYPE_ERROR, "%s: Placeholder promise passed to %s for %@ has unpermitted install type %lu (permitted types %@) : %@", buf, 0x3Eu);
     }
 
-    v26 = objc_opt_class();
-    v27 = NSStringFromClass(v26);
+    v25 = objc_opt_class();
+    v26 = NSStringFromClass(v25);
     [promiseCopy installType];
-    v29 = _CreateError("[IXAppInstallCoordinator setPlaceholderPromise:error:]", 1988, @"IXErrorDomain", 4uLL, 0, 0, @"Placeholder promise passed to %s for %@ has unpermitted install type %lu (permitted types %@)", v28, "[IXAppInstallCoordinator setPlaceholderPromise:error:]");
+    v28 = _CreateError("[IXAppInstallCoordinator setPlaceholderPromise:error:]", 1988, @"IXErrorDomain", 4uLL, 0, 0, @"Placeholder promise passed to %s for %@ has unpermitted install type %lu (permitted types %@)", v27, "[IXAppInstallCoordinator setPlaceholderPromise:error:]");
 
-    v30 = v48[5];
-    v48[5] = v29;
+    v29 = v47[5];
+    v47[5] = v28;
 
     goto LABEL_14;
   }
 
   v10 = +[IXServerConnection sharedConnection];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __55__IXAppInstallCoordinator_setPlaceholderPromise_error___block_invoke;
-  v39[3] = &unk_1E85C5920;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __55__IXAppInstallCoordinator_setPlaceholderPromise_error___block_invoke;
+  v38[3] = &unk_1E85C5920;
   v11 = promiseCopy;
-  v40 = v11;
+  v39 = v11;
   selfCopy = self;
-  v42 = &v47;
-  v12 = [v10 synchronousRemoteObjectProxyWithErrorHandler:v39];
+  v41 = &v46;
+  v12 = [v10 synchronousRemoteObjectProxyWithErrorHandler:v38];
   uniqueIdentifier = [(IXAppInstallCoordinator *)self uniqueIdentifier];
   uniqueIdentifier2 = [v11 uniqueIdentifier];
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __55__IXAppInstallCoordinator_setPlaceholderPromise_error___block_invoke_175;
-  v34[3] = &unk_1E85C5948;
-  v35 = v11;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __55__IXAppInstallCoordinator_setPlaceholderPromise_error___block_invoke_175;
+  v33[3] = &unk_1E85C5948;
+  v34 = v11;
   selfCopy2 = self;
-  v37 = &v47;
-  v38 = &v43;
-  [v12 _remote_IXSCoordinatedAppInstall:uniqueIdentifier setPlaceholderPromiseUUID:uniqueIdentifier2 completion:v34];
+  v36 = &v46;
+  v37 = &v42;
+  [v12 _remote_IXSCoordinatedAppInstall:uniqueIdentifier setPlaceholderPromiseUUID:uniqueIdentifier2 completion:v33];
 
-  if ((v44[3] & 1) == 0)
+  if ((v43[3] & 1) == 0)
   {
-    v15 = v48[5];
+    v15 = v47[5];
     if (v15)
     {
       [(IXAppInstallCoordinator *)self cancelForReason:v15 client:15 error:0];
@@ -4515,50 +4796,47 @@ LABEL_14:
   }
 
 LABEL_15:
-  v22 = *(v44 + 24);
-  if (error && (v44[3] & 1) == 0)
+  v22 = *(v43 + 24);
+  if (error && (v43[3] & 1) == 0)
   {
-    *error = v48[5];
-    v22 = *(v44 + 24);
+    *error = v47[5];
+    v22 = *(v43 + 24);
   }
 
-  _Block_object_dispose(&v43, 8);
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v46, 8);
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22 & 1;
 }
 
 void __55__IXAppInstallCoordinator_setPlaceholderPromise_error___block_invoke(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
     v6 = a1[5];
-    v10 = 136315906;
-    v11 = "[IXAppInstallCoordinator setPlaceholderPromise:error:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set placeholder promise %@ on %@ : %@", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[IXAppInstallCoordinator setPlaceholderPromise:error:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set placeholder promise %@ on %@ : %@", &v9, 0x2Au);
   }
 
   v7 = *(a1[6] + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __55__IXAppInstallCoordinator_setPlaceholderPromise_error___block_invoke_175(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -4567,15 +4845,15 @@ void __55__IXAppInstallCoordinator_setPlaceholderPromise_error___block_invoke_17
     {
       v6 = a1[4];
       v7 = a1[5];
-      v9 = 136315906;
-      v10 = "[IXAppInstallCoordinator setPlaceholderPromise:error:]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set placeholder promise %@ on %@ : %@", &v9, 0x2Au);
+      v8 = 136315906;
+      v9 = "[IXAppInstallCoordinator setPlaceholderPromise:error:]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set placeholder promise %@ on %@ : %@", &v8, 0x2Au);
     }
 
     objc_storeStrong((*(a1[6] + 8) + 40), a2);
@@ -4585,8 +4863,6 @@ void __55__IXAppInstallCoordinator_setPlaceholderPromise_error___block_invoke_17
   {
     *(*(a1[7] + 8) + 24) = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)placeholderPromiseWithError:(id *)error
@@ -4636,28 +4912,26 @@ void __55__IXAppInstallCoordinator_setPlaceholderPromise_error___block_invoke_17
 
 void __55__IXAppInstallCoordinator_placeholderPromiseWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[IXAppInstallCoordinator placeholderPromiseWithError:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get placeholder promise: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[IXAppInstallCoordinator placeholderPromiseWithError:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get placeholder promise: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __55__IXAppInstallCoordinator_placeholderPromiseWithError___block_invoke_176(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v7 = a3;
   if (!v7)
@@ -4712,7 +4986,7 @@ void __55__IXAppInstallCoordinator_placeholderPromiseWithError___block_invoke_17
 
     else
     {
-      v18 = _CreateError("[IXAppInstallCoordinator placeholderPromiseWithError:]_block_invoke", 2030, @"IXErrorDomain", 0x17uLL, 0, 0, @"A placeholder promise is not currently set.", v6, v26);
+      v18 = _CreateError("[IXAppInstallCoordinator placeholderPromiseWithError:]_block_invoke", 2030, @"IXErrorDomain", 0x17uLL, 0, 0, @"A placeholder promise is not currently set.", v6, v25);
       v19 = *(*(a1 + 32) + 8);
       v20 = *(v19 + 40);
       *(v19 + 40) = v18;
@@ -4725,16 +4999,14 @@ void __55__IXAppInstallCoordinator_placeholderPromiseWithError___block_invoke_17
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v28 = "[IXAppInstallCoordinator placeholderPromiseWithError:]_block_invoke";
-    v29 = 2112;
-    v30 = v7;
+    v27 = "[IXAppInstallCoordinator placeholderPromiseWithError:]_block_invoke";
+    v28 = 2112;
+    v29 = v7;
     _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get placeholder promise: %@", buf, 0x16u);
   }
 
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
 LABEL_17:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasPlaceholderPromise
@@ -4766,27 +5038,25 @@ LABEL_17:
 
 void __48__IXAppInstallCoordinator_hasPlaceholderPromise__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXAppInstallCoordinator hasPlaceholderPromise]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has a placeholder promise: %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXAppInstallCoordinator hasPlaceholderPromise]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has a placeholder promise: %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __48__IXAppInstallCoordinator_hasPlaceholderPromise__block_invoke_188(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -4794,13 +5064,13 @@ void __48__IXAppInstallCoordinator_hasPlaceholderPromise__block_invoke_188(uint6
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 136315650;
-      v10 = "[IXAppInstallCoordinator hasPlaceholderPromise]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has a placeholder promise: %@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[IXAppInstallCoordinator hasPlaceholderPromise]_block_invoke";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has a placeholder promise: %@", &v8, 0x20u);
     }
   }
 
@@ -4808,8 +5078,6 @@ void __48__IXAppInstallCoordinator_hasPlaceholderPromise__block_invoke_188(uint6
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setAppAssetPromise:(id)promise error:(id *)error
@@ -4891,34 +5159,32 @@ LABEL_7:
 
 void __52__IXAppInstallCoordinator_setAppAssetPromise_error___block_invoke(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
     v6 = a1[5];
-    v10 = 136315906;
-    v11 = "[IXAppInstallCoordinator setAppAssetPromise:error:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set app asset promise %@ on %@ : %@", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[IXAppInstallCoordinator setAppAssetPromise:error:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set app asset promise %@ on %@ : %@", &v9, 0x2Au);
   }
 
   v7 = *(a1[6] + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __52__IXAppInstallCoordinator_setAppAssetPromise_error___block_invoke_189(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -4927,15 +5193,15 @@ void __52__IXAppInstallCoordinator_setAppAssetPromise_error___block_invoke_189(v
     {
       v6 = a1[4];
       v7 = a1[5];
-      v9 = 136315906;
-      v10 = "[IXAppInstallCoordinator setAppAssetPromise:error:]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set app asset promise %@ on %@ : %@", &v9, 0x2Au);
+      v8 = 136315906;
+      v9 = "[IXAppInstallCoordinator setAppAssetPromise:error:]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set app asset promise %@ on %@ : %@", &v8, 0x2Au);
     }
 
     objc_storeStrong((*(a1[6] + 8) + 40), a2);
@@ -4945,8 +5211,6 @@ void __52__IXAppInstallCoordinator_setAppAssetPromise_error___block_invoke_189(v
   {
     *(*(a1[7] + 8) + 24) = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)appAssetPromiseWithError:(id *)error
@@ -4996,28 +5260,26 @@ void __52__IXAppInstallCoordinator_setAppAssetPromise_error___block_invoke_189(v
 
 void __52__IXAppInstallCoordinator_appAssetPromiseWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[IXAppInstallCoordinator appAssetPromiseWithError:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get app asset promise: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[IXAppInstallCoordinator appAssetPromiseWithError:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get app asset promise: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __52__IXAppInstallCoordinator_appAssetPromiseWithError___block_invoke_190(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v7 = a3;
   if (!v7)
@@ -5072,7 +5334,7 @@ void __52__IXAppInstallCoordinator_appAssetPromiseWithError___block_invoke_190(u
 
     else
     {
-      v18 = _CreateError("[IXAppInstallCoordinator appAssetPromiseWithError:]_block_invoke", 2104, @"IXErrorDomain", 0x17uLL, 0, 0, @"An app asset promise is not currently set.", v6, v26);
+      v18 = _CreateError("[IXAppInstallCoordinator appAssetPromiseWithError:]_block_invoke", 2104, @"IXErrorDomain", 0x17uLL, 0, 0, @"An app asset promise is not currently set.", v6, v25);
       v19 = *(*(a1 + 32) + 8);
       v20 = *(v19 + 40);
       *(v19 + 40) = v18;
@@ -5085,16 +5347,14 @@ void __52__IXAppInstallCoordinator_appAssetPromiseWithError___block_invoke_190(u
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v28 = "[IXAppInstallCoordinator appAssetPromiseWithError:]_block_invoke";
-    v29 = 2112;
-    v30 = v7;
+    v27 = "[IXAppInstallCoordinator appAssetPromiseWithError:]_block_invoke";
+    v28 = 2112;
+    v29 = v7;
     _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get app asset promise: %@", buf, 0x16u);
   }
 
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
 LABEL_17:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasAppAssetPromise
@@ -5126,27 +5386,25 @@ LABEL_17:
 
 void __45__IXAppInstallCoordinator_hasAppAssetPromise__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXAppInstallCoordinator hasAppAssetPromise]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has an app asset promise: %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXAppInstallCoordinator hasAppAssetPromise]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has an app asset promise: %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __45__IXAppInstallCoordinator_hasAppAssetPromise__block_invoke_198(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -5154,13 +5412,13 @@ void __45__IXAppInstallCoordinator_hasAppAssetPromise__block_invoke_198(uint64_t
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 136315650;
-      v10 = "[IXAppInstallCoordinator hasAppAssetPromise]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has an app asset promise: %@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[IXAppInstallCoordinator hasAppAssetPromise]_block_invoke";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has an app asset promise: %@", &v8, 0x20u);
     }
   }
 
@@ -5168,8 +5426,6 @@ void __45__IXAppInstallCoordinator_hasAppAssetPromise__block_invoke_198(uint64_t
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)appAssetPromiseHasBegunFulfillment:(BOOL *)fulfillment error:(id *)error
@@ -5212,26 +5468,24 @@ void __45__IXAppInstallCoordinator_hasAppAssetPromise__block_invoke_198(uint64_t
 
 void __68__IXAppInstallCoordinator_appAssetPromiseHasBegunFulfillment_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator appAssetPromiseHasBegunFulfillment:error:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if app asset promise for %@ has begun fulfillment : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator appAssetPromiseHasBegunFulfillment:error:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if app asset promise for %@ has begun fulfillment : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __68__IXAppInstallCoordinator_appAssetPromiseHasBegunFulfillment_error___block_invoke_199(uint64_t a1, char a2, void *a3)
@@ -5309,23 +5563,21 @@ void __68__IXAppInstallCoordinator_appAssetPromiseHasBegunFulfillment_error___bl
 
 void __69__IXAppInstallCoordinator_setAppAssetPromiseResponsibleClient_error___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[IXAppInstallCoordinator setAppAssetPromiseResponsibleClient:error:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set app asset promise responsible client: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[IXAppInstallCoordinator setAppAssetPromiseResponsibleClient:error:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set app asset promise responsible client: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __69__IXAppInstallCoordinator_setAppAssetPromiseResponsibleClient_error___block_invoke_203(uint64_t a1, void *a2)
@@ -5387,23 +5639,21 @@ void __69__IXAppInstallCoordinator_setAppAssetPromiseResponsibleClient_error___b
 
 void __69__IXAppInstallCoordinator_appAssetPromiseResponsibleClientWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[IXAppInstallCoordinator appAssetPromiseResponsibleClientWithError:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get app asset promise responsible client: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[IXAppInstallCoordinator appAssetPromiseResponsibleClientWithError:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get app asset promise responsible client: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setInstallOptions:(id)options error:(id *)error
@@ -5528,31 +5778,29 @@ LABEL_20:
 
 void __51__IXAppInstallCoordinator_setInstallOptions_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator setInstallOptions:error:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set install options on %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator setInstallOptions:error:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set install options on %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __51__IXAppInstallCoordinator_setInstallOptions_error___block_invoke_215(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -5560,13 +5808,13 @@ void __51__IXAppInstallCoordinator_setInstallOptions_error___block_invoke_215(vo
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = a1[4];
-      v8 = 136315650;
-      v9 = "[IXAppInstallCoordinator setInstallOptions:error:]_block_invoke";
-      v10 = 2112;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set install options on %@ : %@", &v8, 0x20u);
+      v7 = 136315650;
+      v8 = "[IXAppInstallCoordinator setInstallOptions:error:]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set install options on %@ : %@", &v7, 0x20u);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a2);
@@ -5576,8 +5824,6 @@ void __51__IXAppInstallCoordinator_setInstallOptions_error___block_invoke_215(vo
   {
     *(*(a1[6] + 8) + 24) = 1;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasInstallOptions
@@ -5609,27 +5855,25 @@ void __51__IXAppInstallCoordinator_setInstallOptions_error___block_invoke_215(vo
 
 void __44__IXAppInstallCoordinator_hasInstallOptions__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXAppInstallCoordinator hasInstallOptions]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has install options: %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXAppInstallCoordinator hasInstallOptions]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has install options: %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __44__IXAppInstallCoordinator_hasInstallOptions__block_invoke_216(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -5637,13 +5881,13 @@ void __44__IXAppInstallCoordinator_hasInstallOptions__block_invoke_216(uint64_t 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 136315650;
-      v10 = "[IXAppInstallCoordinator hasInstallOptions]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has install options: %@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[IXAppInstallCoordinator hasInstallOptions]_block_invoke";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has install options: %@", &v8, 0x20u);
     }
   }
 
@@ -5651,8 +5895,6 @@ void __44__IXAppInstallCoordinator_hasInstallOptions__block_invoke_216(uint64_t 
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)installOptionsWithError:(id *)error
@@ -5703,26 +5945,24 @@ void __44__IXAppInstallCoordinator_hasInstallOptions__block_invoke_216(uint64_t 
 
 void __51__IXAppInstallCoordinator_installOptionsWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator installOptionsWithError:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has install options: %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator installOptionsWithError:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has install options: %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __51__IXAppInstallCoordinator_installOptionsWithError___block_invoke_217(uint64_t a1, void *a2, void *a3)
@@ -5795,34 +6035,32 @@ void __51__IXAppInstallCoordinator_installOptionsWithError___block_invoke_217(ui
 
 void __47__IXAppInstallCoordinator_setImportance_error___block_invoke(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = IXStringForCoordinatorImportance(a1[6]);
     v6 = a1[4];
-    v10 = 136315906;
-    v11 = "[IXAppInstallCoordinator setImportance:error:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set importance to %@ on %@ : %@", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[IXAppInstallCoordinator setImportance:error:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set importance to %@ on %@ : %@", &v9, 0x2Au);
   }
 
   v7 = *(a1[5] + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __47__IXAppInstallCoordinator_setImportance_error___block_invoke_219(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -5831,15 +6069,15 @@ void __47__IXAppInstallCoordinator_setImportance_error___block_invoke_219(void *
     {
       v6 = IXStringForCoordinatorImportance(a1[7]);
       v7 = a1[4];
-      v9 = 136315906;
-      v10 = "[IXAppInstallCoordinator setImportance:error:]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set importance to %@ on %@ : %@", &v9, 0x2Au);
+      v8 = 136315906;
+      v9 = "[IXAppInstallCoordinator setImportance:error:]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set importance to %@ on %@ : %@", &v8, 0x2Au);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a2);
@@ -5849,8 +6087,6 @@ void __47__IXAppInstallCoordinator_setImportance_error___block_invoke_219(void *
   {
     *(*(a1[6] + 8) + 24) = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)importanceWithError:(id *)error
@@ -5898,31 +6134,29 @@ void __47__IXAppInstallCoordinator_setImportance_error___block_invoke_219(void *
 
 void __47__IXAppInstallCoordinator_importanceWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator importanceWithError:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get importance from %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator importanceWithError:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get importance from %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __47__IXAppInstallCoordinator_importanceWithError___block_invoke_220(void *a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -5930,13 +6164,13 @@ void __47__IXAppInstallCoordinator_importanceWithError___block_invoke_220(void *
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = a1[4];
-      v10 = 136315650;
-      v11 = "[IXAppInstallCoordinator importanceWithError:]_block_invoke";
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to get importance from %@ : %@", &v10, 0x20u);
+      v9 = 136315650;
+      v10 = "[IXAppInstallCoordinator importanceWithError:]_block_invoke";
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to get importance from %@ : %@", &v9, 0x20u);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a3);
@@ -5946,72 +6180,70 @@ void __47__IXAppInstallCoordinator_importanceWithError___block_invoke_220(void *
   {
     *(*(a1[6] + 8) + 24) = a2;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setInitialODRAssetPromises:(id)promises error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   promisesCopy = promises;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy_;
-  v30 = __Block_byref_object_dispose_;
   v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy_;
+  v29 = __Block_byref_object_dispose_;
+  v30 = 0;
   v7 = objc_opt_new();
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v8 = promisesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v36 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v35 count:16];
   if (v9)
   {
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        uniqueIdentifier = [*(*(&v22 + 1) + 8 * i) uniqueIdentifier];
+        uniqueIdentifier = [*(*(&v21 + 1) + 8 * i) uniqueIdentifier];
         [v7 addObject:uniqueIdentifier];
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v22 objects:v36 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v21 objects:v35 count:16];
     }
 
     while (v9);
   }
 
   v13 = +[IXServerConnection sharedConnection];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __60__IXAppInstallCoordinator_setInitialODRAssetPromises_error___block_invoke;
-  v21[3] = &unk_1E85C58D0;
-  v21[4] = self;
-  v21[5] = &v26;
-  v14 = [v13 synchronousRemoteObjectProxyWithErrorHandler:v21];
-  uniqueIdentifier2 = [(IXAppInstallCoordinator *)self uniqueIdentifier];
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
-  v20[2] = __60__IXAppInstallCoordinator_setInitialODRAssetPromises_error___block_invoke_222;
-  v20[3] = &unk_1E85C5A10;
+  v20[2] = __60__IXAppInstallCoordinator_setInitialODRAssetPromises_error___block_invoke;
+  v20[3] = &unk_1E85C58D0;
   v20[4] = self;
-  v20[5] = &v26;
-  v20[6] = &v32;
-  [v14 _remote_IXSCoordinatedAppInstall:uniqueIdentifier2 setInitialODRAssetPromiseUUIDs:v7 completion:v20];
+  v20[5] = &v25;
+  v14 = [v13 synchronousRemoteObjectProxyWithErrorHandler:v20];
+  uniqueIdentifier2 = [(IXAppInstallCoordinator *)self uniqueIdentifier];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __60__IXAppInstallCoordinator_setInitialODRAssetPromises_error___block_invoke_222;
+  v19[3] = &unk_1E85C5A10;
+  v19[4] = self;
+  v19[5] = &v25;
+  v19[6] = &v31;
+  [v14 _remote_IXSCoordinatedAppInstall:uniqueIdentifier2 setInitialODRAssetPromiseUUIDs:v7 completion:v19];
 
-  v16 = *(v33 + 24);
+  v16 = *(v32 + 24);
   if (v16)
   {
 LABEL_11:
@@ -6023,11 +6255,11 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v17 = v27[5];
+  v17 = v26[5];
   if (v17)
   {
     [(IXAppInstallCoordinator *)self cancelForReason:v17 client:15 error:0];
-    v16 = *(v33 + 24);
+    v16 = *(v32 + 24);
     goto LABEL_11;
   }
 
@@ -6040,46 +6272,43 @@ LABEL_11:
 LABEL_12:
   if ((v16 & 1) == 0)
   {
-    *error = v27[5];
-    v16 = *(v33 + 24);
+    *error = v26[5];
+    v16 = *(v32 + 24);
   }
 
 LABEL_14:
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v31, 8);
 
-  v18 = *MEMORY[0x1E69E9840];
   return v16 & 1;
 }
 
 void __60__IXAppInstallCoordinator_setInitialODRAssetPromises_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator setInitialODRAssetPromises:error:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set initial ODR asset promises on %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator setInitialODRAssetPromises:error:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set initial ODR asset promises on %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __60__IXAppInstallCoordinator_setInitialODRAssetPromises_error___block_invoke_222(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -6087,13 +6316,13 @@ void __60__IXAppInstallCoordinator_setInitialODRAssetPromises_error___block_invo
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = a1[4];
-      v8 = 136315650;
-      v9 = "[IXAppInstallCoordinator setInitialODRAssetPromises:error:]_block_invoke";
-      v10 = 2112;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set initial ODR asset promises on %@ : %@", &v8, 0x20u);
+      v7 = 136315650;
+      v8 = "[IXAppInstallCoordinator setInitialODRAssetPromises:error:]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set initial ODR asset promises on %@ : %@", &v7, 0x20u);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a2);
@@ -6103,42 +6332,40 @@ void __60__IXAppInstallCoordinator_setInitialODRAssetPromises_error___block_invo
   {
     *(*(a1[6] + 8) + 24) = 1;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initialODRAssetPromisesWithError:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy_;
-  v51 = __Block_byref_object_dispose_;
-  v52 = 0;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy_;
-  v45 = __Block_byref_object_dispose_;
+  v53 = *MEMORY[0x1E69E9840];
   v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy_;
+  v50 = __Block_byref_object_dispose_;
+  v51 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy_;
+  v44 = __Block_byref_object_dispose_;
+  v45 = 0;
   v4 = +[IXServerConnection sharedConnection];
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __60__IXAppInstallCoordinator_initialODRAssetPromisesWithError___block_invoke;
-  v40[3] = &unk_1E85C5560;
-  v40[4] = &v47;
-  v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v40];
-  uniqueIdentifier = [(IXAppInstallCoordinator *)self uniqueIdentifier];
   v39[0] = MEMORY[0x1E69E9820];
   v39[1] = 3221225472;
-  v39[2] = __60__IXAppInstallCoordinator_initialODRAssetPromisesWithError___block_invoke_223;
-  v39[3] = &unk_1E85C5588;
-  v39[4] = &v47;
-  v39[5] = &v41;
-  [v5 _remote_IXSCoordinatedAppInstall:uniqueIdentifier getInitialODRAssetPromises:v39];
+  v39[2] = __60__IXAppInstallCoordinator_initialODRAssetPromisesWithError___block_invoke;
+  v39[3] = &unk_1E85C5560;
+  v39[4] = &v46;
+  v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v39];
+  uniqueIdentifier = [(IXAppInstallCoordinator *)self uniqueIdentifier];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __60__IXAppInstallCoordinator_initialODRAssetPromisesWithError___block_invoke_223;
+  v38[3] = &unk_1E85C5588;
+  v38[4] = &v46;
+  v38[5] = &v40;
+  [v5 _remote_IXSCoordinatedAppInstall:uniqueIdentifier getInitialODRAssetPromises:v38];
 
-  if (v48[5])
+  if (v47[5])
   {
     v7 = 0;
     v8 = 0;
@@ -6146,28 +6373,28 @@ void __60__IXAppInstallCoordinator_setInitialODRAssetPromises_error___block_invo
   }
 
   v8 = objc_opt_new();
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  v9 = v42[5];
-  v10 = [v9 countByEnumeratingWithState:&v35 objects:v53 count:16];
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v9 = v41[5];
+  v10 = [v9 countByEnumeratingWithState:&v34 objects:v52 count:16];
   if (!v10)
   {
     goto LABEL_13;
   }
 
-  v11 = *v36;
+  v11 = *v35;
   while (2)
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v36 != v11)
+      if (*v35 != v11)
       {
         objc_enumerationMutation(v9);
       }
 
-      v13 = *(*(&v35 + 1) + 8 * i);
+      v13 = *(*(&v34 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -6181,11 +6408,11 @@ void __60__IXAppInstallCoordinator_setInitialODRAssetPromises_error___block_invo
         }
 
         v18 = objc_opt_class();
-        v33 = NSStringFromClass(v18);
+        v32 = NSStringFromClass(v18);
         v20 = _CreateError("[IXAppInstallCoordinator initialODRAssetPromisesWithError:]", 2411, @"IXErrorDomain", 1uLL, 0, 0, @"Seed object %@ should have been for an opaque data promise seed subclass but was instead for class %@", v19, v13);
 
-        v15 = v48[5];
-        v48[5] = v20;
+        v15 = v47[5];
+        v47[5] = v20;
         goto LABEL_24;
       }
 
@@ -6224,8 +6451,8 @@ void __60__IXAppInstallCoordinator_setInitialODRAssetPromises_error___block_invo
 LABEL_23:
         v29 = v24;
 
-        v30 = v48[5];
-        v48[5] = v29;
+        v30 = v47[5];
+        v47[5] = v29;
 
 LABEL_24:
         v7 = 0;
@@ -6235,7 +6462,7 @@ LABEL_24:
       [v8 addObject:v15];
     }
 
-    v10 = [v9 countByEnumeratingWithState:&v35 objects:v53 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v34 objects:v52 count:16];
     if (v10)
     {
       continue;
@@ -6250,41 +6477,37 @@ LABEL_13:
 LABEL_25:
   if (error && !v7)
   {
-    *error = v48[5];
+    *error = v47[5];
   }
 
-  _Block_object_dispose(&v41, 8);
-  _Block_object_dispose(&v47, 8);
-
-  v31 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v46, 8);
 
   return v7;
 }
 
 void __60__IXAppInstallCoordinator_initialODRAssetPromisesWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[IXAppInstallCoordinator initialODRAssetPromisesWithError:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get initial ODR asset promises: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[IXAppInstallCoordinator initialODRAssetPromisesWithError:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get initial ODR asset promises: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __60__IXAppInstallCoordinator_initialODRAssetPromisesWithError___block_invoke_223(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v8 = a3;
   if (v8)
@@ -6292,11 +6515,11 @@ void __60__IXAppInstallCoordinator_initialODRAssetPromisesWithError___block_invo
     v9 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 136315394;
-      *&v16[4] = "[IXAppInstallCoordinator initialODRAssetPromisesWithError:]_block_invoke";
-      v17 = 2112;
-      v18 = v8;
-      _os_log_impl(&dword_1DA47A000, v9, OS_LOG_TYPE_DEFAULT, "%s: Failed to get initial ODR asset promises: %@", v16, 0x16u);
+      *v15 = 136315394;
+      *&v15[4] = "[IXAppInstallCoordinator initialODRAssetPromisesWithError:]_block_invoke";
+      v16 = 2112;
+      v17 = v8;
+      _os_log_impl(&dword_1DA47A000, v9, OS_LOG_TYPE_DEFAULT, "%s: Failed to get initial ODR asset promises: %@", v15, 0x16u);
     }
 
     v10 = (*(*(a1 + 32) + 8) + 40);
@@ -6307,10 +6530,10 @@ void __60__IXAppInstallCoordinator_initialODRAssetPromisesWithError___block_invo
   {
     if (!v6)
     {
-      v13 = _CreateError("[IXAppInstallCoordinator initialODRAssetPromisesWithError:]_block_invoke", 2398, @"IXErrorDomain", 0x17uLL, 0, 0, @"No Initial ODR asset promises are currently set.", v7, *v16);
-      v14 = *(*(a1 + 32) + 8);
-      v15 = *(v14 + 40);
-      *(v14 + 40) = v13;
+      v12 = _CreateError("[IXAppInstallCoordinator initialODRAssetPromisesWithError:]_block_invoke", 2398, @"IXErrorDomain", 0x17uLL, 0, 0, @"No Initial ODR asset promises are currently set.", v7, *v15);
+      v13 = *(*(a1 + 32) + 8);
+      v14 = *(v13 + 40);
+      *(v13 + 40) = v12;
 
       goto LABEL_8;
     }
@@ -6321,8 +6544,6 @@ void __60__IXAppInstallCoordinator_initialODRAssetPromisesWithError___block_invo
 
   objc_storeStrong(v10, v11);
 LABEL_8:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasInitialODRAssetPromises
@@ -6354,27 +6575,25 @@ LABEL_8:
 
 void __53__IXAppInstallCoordinator_hasInitialODRAssetPromises__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXAppInstallCoordinator hasInitialODRAssetPromises]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has initial ODR asset promises: %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXAppInstallCoordinator hasInitialODRAssetPromises]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has initial ODR asset promises: %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __53__IXAppInstallCoordinator_hasInitialODRAssetPromises__block_invoke_238(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -6382,13 +6601,13 @@ void __53__IXAppInstallCoordinator_hasInitialODRAssetPromises__block_invoke_238(
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 136315650;
-      v10 = "[IXAppInstallCoordinator hasInitialODRAssetPromises]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has initial ODR asset promises: %@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[IXAppInstallCoordinator hasInitialODRAssetPromises]_block_invoke";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has initial ODR asset promises: %@", &v8, 0x20u);
     }
   }
 
@@ -6396,8 +6615,6 @@ void __53__IXAppInstallCoordinator_hasInitialODRAssetPromises__block_invoke_238(
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setUserDataPromise:(id)promise error:(id *)error
@@ -6479,34 +6696,32 @@ LABEL_7:
 
 void __52__IXAppInstallCoordinator_setUserDataPromise_error___block_invoke(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
     v6 = a1[5];
-    v10 = 136315906;
-    v11 = "[IXAppInstallCoordinator setUserDataPromise:error:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set user data promise %@ on %@ : %@", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[IXAppInstallCoordinator setUserDataPromise:error:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set user data promise %@ on %@ : %@", &v9, 0x2Au);
   }
 
   v7 = *(a1[6] + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __52__IXAppInstallCoordinator_setUserDataPromise_error___block_invoke_239(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -6515,15 +6730,15 @@ void __52__IXAppInstallCoordinator_setUserDataPromise_error___block_invoke_239(v
     {
       v6 = a1[4];
       v7 = a1[5];
-      v9 = 136315906;
-      v10 = "[IXAppInstallCoordinator setUserDataPromise:error:]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set user data promise %@ on %@ : %@", &v9, 0x2Au);
+      v8 = 136315906;
+      v9 = "[IXAppInstallCoordinator setUserDataPromise:error:]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set user data promise %@ on %@ : %@", &v8, 0x2Au);
     }
 
     objc_storeStrong((*(a1[6] + 8) + 40), a2);
@@ -6533,8 +6748,6 @@ void __52__IXAppInstallCoordinator_setUserDataPromise_error___block_invoke_239(v
   {
     *(*(a1[7] + 8) + 24) = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)userDataPromiseWithError:(id *)error
@@ -6584,28 +6797,26 @@ void __52__IXAppInstallCoordinator_setUserDataPromise_error___block_invoke_239(v
 
 void __52__IXAppInstallCoordinator_userDataPromiseWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[IXAppInstallCoordinator userDataPromiseWithError:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get user data promise: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[IXAppInstallCoordinator userDataPromiseWithError:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get user data promise: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __52__IXAppInstallCoordinator_userDataPromiseWithError___block_invoke_240(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v7 = a3;
   if (!v7)
@@ -6660,7 +6871,7 @@ void __52__IXAppInstallCoordinator_userDataPromiseWithError___block_invoke_240(u
 
     else
     {
-      v18 = _CreateError("[IXAppInstallCoordinator userDataPromiseWithError:]_block_invoke", 2490, @"IXErrorDomain", 0x17uLL, 0, 0, @"A user data promise is not currently set.", v6, v26);
+      v18 = _CreateError("[IXAppInstallCoordinator userDataPromiseWithError:]_block_invoke", 2490, @"IXErrorDomain", 0x17uLL, 0, 0, @"A user data promise is not currently set.", v6, v25);
       v19 = *(*(a1 + 32) + 8);
       v20 = *(v19 + 40);
       *(v19 + 40) = v18;
@@ -6673,16 +6884,14 @@ void __52__IXAppInstallCoordinator_userDataPromiseWithError___block_invoke_240(u
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v28 = "[IXAppInstallCoordinator userDataPromiseWithError:]_block_invoke";
-    v29 = 2112;
-    v30 = v7;
+    v27 = "[IXAppInstallCoordinator userDataPromiseWithError:]_block_invoke";
+    v28 = 2112;
+    v29 = v7;
     _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get user data promise: %@", buf, 0x16u);
   }
 
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
 LABEL_17:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasUserDataPromise
@@ -6714,27 +6923,25 @@ LABEL_17:
 
 void __45__IXAppInstallCoordinator_hasUserDataPromise__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXAppInstallCoordinator hasUserDataPromise]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has a user data promise: %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXAppInstallCoordinator hasUserDataPromise]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has a user data promise: %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __45__IXAppInstallCoordinator_hasUserDataPromise__block_invoke_248(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -6742,13 +6949,13 @@ void __45__IXAppInstallCoordinator_hasUserDataPromise__block_invoke_248(uint64_t
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 136315650;
-      v10 = "[IXAppInstallCoordinator hasUserDataPromise]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has a user data promise: %@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[IXAppInstallCoordinator hasUserDataPromise]_block_invoke";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has a user data promise: %@", &v8, 0x20u);
     }
   }
 
@@ -6756,8 +6963,6 @@ void __45__IXAppInstallCoordinator_hasUserDataPromise__block_invoke_248(uint64_t
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)userDataRestoreShouldBegin:(BOOL *)begin
@@ -6794,31 +6999,29 @@ void __45__IXAppInstallCoordinator_hasUserDataPromise__block_invoke_248(uint64_t
 
 void __54__IXAppInstallCoordinator_userDataRestoreShouldBegin___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator userDataRestoreShouldBegin:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ should begin user data restore: %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator userDataRestoreShouldBegin:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ should begin user data restore: %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __54__IXAppInstallCoordinator_userDataRestoreShouldBegin___block_invoke_249(void *a1, char a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -6826,13 +7029,13 @@ void __54__IXAppInstallCoordinator_userDataRestoreShouldBegin___block_invoke_249
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = a1[4];
-      v13 = 136315650;
-      v14 = "[IXAppInstallCoordinator userDataRestoreShouldBegin:]_block_invoke";
-      v15 = 2112;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ should begin user data restore: %@", &v13, 0x20u);
+      v12 = 136315650;
+      v13 = "[IXAppInstallCoordinator userDataRestoreShouldBegin:]_block_invoke";
+      v14 = 2112;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ should begin user data restore: %@", &v12, 0x20u);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a3);
@@ -6850,8 +7053,6 @@ void __54__IXAppInstallCoordinator_userDataRestoreShouldBegin___block_invoke_249
     v11 = *(v10 + 40);
     *(v10 + 40) = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)preparationPromiseWithError:(id *)error
@@ -6901,28 +7102,26 @@ void __54__IXAppInstallCoordinator_userDataRestoreShouldBegin___block_invoke_249
 
 void __55__IXAppInstallCoordinator_preparationPromiseWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[IXAppInstallCoordinator preparationPromiseWithError:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get user data promise: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[IXAppInstallCoordinator preparationPromiseWithError:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get user data promise: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __55__IXAppInstallCoordinator_preparationPromiseWithError___block_invoke_250(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v7 = a3;
   if (!v7)
@@ -6977,7 +7176,7 @@ void __55__IXAppInstallCoordinator_preparationPromiseWithError___block_invoke_25
 
     else
     {
-      v18 = _CreateError("[IXAppInstallCoordinator preparationPromiseWithError:]_block_invoke", 2558, @"IXErrorDomain", 0x17uLL, 0, 0, @"A preparation promise is not currently set.", v6, v26);
+      v18 = _CreateError("[IXAppInstallCoordinator preparationPromiseWithError:]_block_invoke", 2558, @"IXErrorDomain", 0x17uLL, 0, 0, @"A preparation promise is not currently set.", v6, v25);
       v19 = *(*(a1 + 32) + 8);
       v20 = *(v19 + 40);
       *(v19 + 40) = v18;
@@ -6990,16 +7189,14 @@ void __55__IXAppInstallCoordinator_preparationPromiseWithError___block_invoke_25
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v28 = "[IXAppInstallCoordinator preparationPromiseWithError:]_block_invoke";
-    v29 = 2112;
-    v30 = v7;
+    v27 = "[IXAppInstallCoordinator preparationPromiseWithError:]_block_invoke";
+    v28 = 2112;
+    v29 = v7;
     _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get preparation promise: %@", buf, 0x16u);
   }
 
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
 LABEL_17:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setPreparationPromise:(id)promise withError:(id *)error
@@ -7081,34 +7278,32 @@ LABEL_7:
 
 void __59__IXAppInstallCoordinator_setPreparationPromise_withError___block_invoke(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
     v6 = a1[5];
-    v10 = 136315906;
-    v11 = "[IXAppInstallCoordinator setPreparationPromise:withError:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set preparation promise %@ on %@ : %@", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[IXAppInstallCoordinator setPreparationPromise:withError:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set preparation promise %@ on %@ : %@", &v9, 0x2Au);
   }
 
   v7 = *(a1[6] + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __59__IXAppInstallCoordinator_setPreparationPromise_withError___block_invoke_254(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -7117,15 +7312,15 @@ void __59__IXAppInstallCoordinator_setPreparationPromise_withError___block_invok
     {
       v6 = a1[4];
       v7 = a1[5];
-      v9 = 136315906;
-      v10 = "[IXAppInstallCoordinator setPreparationPromise:withError:]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set preparation promise %@ on %@ : %@", &v9, 0x2Au);
+      v8 = 136315906;
+      v9 = "[IXAppInstallCoordinator setPreparationPromise:withError:]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set preparation promise %@ on %@ : %@", &v8, 0x2Au);
     }
 
     objc_storeStrong((*(a1[6] + 8) + 40), a2);
@@ -7135,8 +7330,6 @@ void __59__IXAppInstallCoordinator_setPreparationPromise_withError___block_invok
   {
     *(*(a1[7] + 8) + 24) = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setDeviceSecurityPromise:(id)promise error:(id *)error
@@ -7218,34 +7411,32 @@ LABEL_7:
 
 void __58__IXAppInstallCoordinator_setDeviceSecurityPromise_error___block_invoke(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
     v6 = a1[5];
-    v10 = 136315906;
-    v11 = "[IXAppInstallCoordinator setDeviceSecurityPromise:error:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set device security promise %@ on %@ : %@", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[IXAppInstallCoordinator setDeviceSecurityPromise:error:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set device security promise %@ on %@ : %@", &v9, 0x2Au);
   }
 
   v7 = *(a1[6] + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __58__IXAppInstallCoordinator_setDeviceSecurityPromise_error___block_invoke_255(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -7254,15 +7445,15 @@ void __58__IXAppInstallCoordinator_setDeviceSecurityPromise_error___block_invoke
     {
       v6 = a1[4];
       v7 = a1[5];
-      v9 = 136315906;
-      v10 = "[IXAppInstallCoordinator setDeviceSecurityPromise:error:]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set device security promise %@ on %@ : %@", &v9, 0x2Au);
+      v8 = 136315906;
+      v9 = "[IXAppInstallCoordinator setDeviceSecurityPromise:error:]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set device security promise %@ on %@ : %@", &v8, 0x2Au);
     }
 
     objc_storeStrong((*(a1[6] + 8) + 40), a2);
@@ -7272,8 +7463,6 @@ void __58__IXAppInstallCoordinator_setDeviceSecurityPromise_error___block_invoke
   {
     *(*(a1[7] + 8) + 24) = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)deviceSecurityPromiseWithError:(id *)error
@@ -7323,28 +7512,26 @@ void __58__IXAppInstallCoordinator_setDeviceSecurityPromise_error___block_invoke
 
 void __58__IXAppInstallCoordinator_deviceSecurityPromiseWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[IXAppInstallCoordinator deviceSecurityPromiseWithError:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get device security promise: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[IXAppInstallCoordinator deviceSecurityPromiseWithError:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get device security promise: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __58__IXAppInstallCoordinator_deviceSecurityPromiseWithError___block_invoke_256(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v7 = a3;
   if (!v7)
@@ -7399,7 +7586,7 @@ void __58__IXAppInstallCoordinator_deviceSecurityPromiseWithError___block_invoke
 
     else
     {
-      v18 = _CreateError("[IXAppInstallCoordinator deviceSecurityPromiseWithError:]_block_invoke", 2644, @"IXErrorDomain", 0x17uLL, 0, 0, @"A device security promise is not currently set.", v6, v26);
+      v18 = _CreateError("[IXAppInstallCoordinator deviceSecurityPromiseWithError:]_block_invoke", 2644, @"IXErrorDomain", 0x17uLL, 0, 0, @"A device security promise is not currently set.", v6, v25);
       v19 = *(*(a1 + 32) + 8);
       v20 = *(v19 + 40);
       *(v19 + 40) = v18;
@@ -7412,16 +7599,14 @@ void __58__IXAppInstallCoordinator_deviceSecurityPromiseWithError___block_invoke
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v28 = "[IXAppInstallCoordinator deviceSecurityPromiseWithError:]_block_invoke";
-    v29 = 2112;
-    v30 = v7;
+    v27 = "[IXAppInstallCoordinator deviceSecurityPromiseWithError:]_block_invoke";
+    v28 = 2112;
+    v29 = v7;
     _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get device security promise: %@", buf, 0x16u);
   }
 
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
 LABEL_17:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getHasDeviceSecurityPromise:(BOOL *)promise error:(id *)error
@@ -7470,31 +7655,29 @@ LABEL_17:
 
 void __61__IXAppInstallCoordinator_getHasDeviceSecurityPromise_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator getHasDeviceSecurityPromise:error:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has a device security promise: %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator getHasDeviceSecurityPromise:error:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has a device security promise: %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __61__IXAppInstallCoordinator_getHasDeviceSecurityPromise_error___block_invoke_260(void *a1, char a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -7502,13 +7685,13 @@ void __61__IXAppInstallCoordinator_getHasDeviceSecurityPromise_error___block_inv
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = a1[4];
-      v11 = 136315650;
-      v12 = "[IXAppInstallCoordinator getHasDeviceSecurityPromise:error:]_block_invoke";
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has a device security promise: %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[IXAppInstallCoordinator getHasDeviceSecurityPromise:error:]_block_invoke";
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has a device security promise: %@", &v10, 0x20u);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a3);
@@ -7524,37 +7707,104 @@ void __61__IXAppInstallCoordinator_getHasDeviceSecurityPromise_error___block_inv
 
     *(*(a1[6] + 8) + 24) = 1;
   }
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (BOOL)setNeedsPostProcessing:(BOOL)processing error:(id *)error
+{
+  processingCopy = processing;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy_;
+  v23 = __Block_byref_object_dispose_;
+  v24 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
+  v7 = +[IXServerConnection sharedConnection];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __56__IXAppInstallCoordinator_setNeedsPostProcessing_error___block_invoke;
+  v14[3] = &unk_1E85C58D0;
+  v14[4] = self;
+  v14[5] = &v19;
+  v8 = [v7 synchronousRemoteObjectProxyWithErrorHandler:v14];
+  uniqueIdentifier = [(IXAppInstallCoordinator *)self uniqueIdentifier];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __56__IXAppInstallCoordinator_setNeedsPostProcessing_error___block_invoke_261;
+  v13[3] = &unk_1E85C5A10;
+  v13[4] = self;
+  v13[5] = &v19;
+  v13[6] = &v15;
+  [v8 _remote_IXSCoordinatedAppInstall:uniqueIdentifier setNeedsPostProcessing:processingCopy completion:v13];
+
+  v10 = *(v16 + 24);
+  if (v10)
+  {
+LABEL_4:
+    if (!error)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_5;
+  }
+
+  v11 = v20[5];
+  if (v11)
+  {
+    [(IXAppInstallCoordinator *)self cancelForReason:v11 client:15 error:0];
+    v10 = *(v16 + 24);
+    goto LABEL_4;
+  }
+
+  v10 = 0;
+  if (!error)
+  {
+    goto LABEL_7;
+  }
+
+LABEL_5:
+  if ((v10 & 1) == 0)
+  {
+    *error = v20[5];
+    v10 = *(v16 + 24);
+  }
+
+LABEL_7:
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v19, 8);
+
+  return v10 & 1;
 }
 
 void __56__IXAppInstallCoordinator_setNeedsPostProcessing_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator setNeedsPostProcessing:error:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set needs post processing on %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator setNeedsPostProcessing:error:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set needs post processing on %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __56__IXAppInstallCoordinator_setNeedsPostProcessing_error___block_invoke_261(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -7562,13 +7812,13 @@ void __56__IXAppInstallCoordinator_setNeedsPostProcessing_error___block_invoke_2
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = a1[4];
-      v8 = 136315650;
-      v9 = "[IXAppInstallCoordinator setNeedsPostProcessing:error:]_block_invoke";
-      v10 = 2112;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set needs post processing on %@ : %@", &v8, 0x20u);
+      v7 = 136315650;
+      v8 = "[IXAppInstallCoordinator setNeedsPostProcessing:error:]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set needs post processing on %@ : %@", &v7, 0x20u);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a2);
@@ -7578,8 +7828,6 @@ void __56__IXAppInstallCoordinator_setNeedsPostProcessing_error___block_invoke_2
   {
     *(*(a1[6] + 8) + 24) = 1;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getNeedsPostProcessing:(BOOL *)processing error:(id *)error
@@ -7628,31 +7876,29 @@ void __56__IXAppInstallCoordinator_setNeedsPostProcessing_error___block_invoke_2
 
 void __56__IXAppInstallCoordinator_getNeedsPostProcessing_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator getNeedsPostProcessing:error:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ needs post processing: %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator getNeedsPostProcessing:error:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ needs post processing: %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __56__IXAppInstallCoordinator_getNeedsPostProcessing_error___block_invoke_262(void *a1, char a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -7660,13 +7906,13 @@ void __56__IXAppInstallCoordinator_getNeedsPostProcessing_error___block_invoke_2
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = a1[4];
-      v11 = 136315650;
-      v12 = "[IXAppInstallCoordinator getNeedsPostProcessing:error:]_block_invoke";
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ needs post processing: %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[IXAppInstallCoordinator getNeedsPostProcessing:error:]_block_invoke";
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ needs post processing: %@", &v10, 0x20u);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a3);
@@ -7682,8 +7928,6 @@ void __56__IXAppInstallCoordinator_getNeedsPostProcessing_error___block_invoke_2
 
     *(*(a1[6] + 8) + 24) = 1;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getPostProcessingShouldBegin:(BOOL *)begin error:(id *)error
@@ -7732,31 +7976,29 @@ void __56__IXAppInstallCoordinator_getNeedsPostProcessing_error___block_invoke_2
 
 void __62__IXAppInstallCoordinator_getPostProcessingShouldBegin_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator getPostProcessingShouldBegin:error:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ should begin post processing: %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator getPostProcessingShouldBegin:error:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ should begin post processing: %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __62__IXAppInstallCoordinator_getPostProcessingShouldBegin_error___block_invoke_263(void *a1, char a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -7764,13 +8006,13 @@ void __62__IXAppInstallCoordinator_getPostProcessingShouldBegin_error___block_in
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = a1[4];
-      v11 = 136315650;
-      v12 = "[IXAppInstallCoordinator getPostProcessingShouldBegin:error:]_block_invoke";
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ should begin post processing: %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[IXAppInstallCoordinator getPostProcessingShouldBegin:error:]_block_invoke";
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ should begin post processing: %@", &v10, 0x20u);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a3);
@@ -7786,73 +8028,71 @@ void __62__IXAppInstallCoordinator_getPostProcessingShouldBegin_error___block_in
 
     *(*(a1[6] + 8) + 24) = 1;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setEssentialAssetPromises:(id)promises error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   promisesCopy = promises;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy_;
-  v31 = __Block_byref_object_dispose_;
   v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy_;
+  v30 = __Block_byref_object_dispose_;
+  v31 = 0;
   v7 = objc_opt_new();
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v8 = promisesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v37 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v36 count:16];
   if (v9)
   {
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        uniqueIdentifier = [*(*(&v23 + 1) + 8 * i) uniqueIdentifier];
+        uniqueIdentifier = [*(*(&v22 + 1) + 8 * i) uniqueIdentifier];
         [v7 addObject:uniqueIdentifier];
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v23 objects:v37 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v22 objects:v36 count:16];
     }
 
     while (v9);
   }
 
   v13 = +[IXServerConnection sharedConnection];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __59__IXAppInstallCoordinator_setEssentialAssetPromises_error___block_invoke;
-  v22[3] = &unk_1E85C58D0;
-  v22[4] = self;
-  v22[5] = &v27;
-  v14 = [v13 synchronousRemoteObjectProxyWithErrorHandler:v22];
-  uniqueIdentifier2 = [(IXAppInstallCoordinator *)self uniqueIdentifier];
-  v16 = [v7 copy];
   v21[0] = MEMORY[0x1E69E9820];
   v21[1] = 3221225472;
-  v21[2] = __59__IXAppInstallCoordinator_setEssentialAssetPromises_error___block_invoke_264;
-  v21[3] = &unk_1E85C5A10;
+  v21[2] = __59__IXAppInstallCoordinator_setEssentialAssetPromises_error___block_invoke;
+  v21[3] = &unk_1E85C58D0;
   v21[4] = self;
-  v21[5] = &v27;
-  v21[6] = &v33;
-  [v14 _remote_IXSCoordinatedAppInstall:uniqueIdentifier2 setEssentialAssetPromiseUUIDs:v16 completion:v21];
+  v21[5] = &v26;
+  v14 = [v13 synchronousRemoteObjectProxyWithErrorHandler:v21];
+  uniqueIdentifier2 = [(IXAppInstallCoordinator *)self uniqueIdentifier];
+  v16 = [v7 copy];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __59__IXAppInstallCoordinator_setEssentialAssetPromises_error___block_invoke_264;
+  v20[3] = &unk_1E85C5A10;
+  v20[4] = self;
+  v20[5] = &v26;
+  v20[6] = &v32;
+  [v14 _remote_IXSCoordinatedAppInstall:uniqueIdentifier2 setEssentialAssetPromiseUUIDs:v16 completion:v20];
 
-  v17 = *(v34 + 24);
+  v17 = *(v33 + 24);
   if (v17)
   {
 LABEL_11:
@@ -7864,11 +8104,11 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v18 = v28[5];
+  v18 = v27[5];
   if (v18)
   {
     [(IXAppInstallCoordinator *)self cancelForReason:v18 client:15 error:0];
-    v17 = *(v34 + 24);
+    v17 = *(v33 + 24);
     goto LABEL_11;
   }
 
@@ -7881,46 +8121,43 @@ LABEL_11:
 LABEL_12:
   if ((v17 & 1) == 0)
   {
-    *error = v28[5];
-    v17 = *(v34 + 24);
+    *error = v27[5];
+    v17 = *(v33 + 24);
   }
 
 LABEL_14:
 
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v32, 8);
 
-  v19 = *MEMORY[0x1E69E9840];
   return v17 & 1;
 }
 
 void __59__IXAppInstallCoordinator_setEssentialAssetPromises_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator setEssentialAssetPromises:error:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set essential asset promises on %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator setEssentialAssetPromises:error:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set essential asset promises on %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __59__IXAppInstallCoordinator_setEssentialAssetPromises_error___block_invoke_264(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -7928,13 +8165,13 @@ void __59__IXAppInstallCoordinator_setEssentialAssetPromises_error___block_invok
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = a1[4];
-      v8 = 136315650;
-      v9 = "[IXAppInstallCoordinator setEssentialAssetPromises:error:]_block_invoke";
-      v10 = 2112;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set essential asset promises on %@ : %@", &v8, 0x20u);
+      v7 = 136315650;
+      v8 = "[IXAppInstallCoordinator setEssentialAssetPromises:error:]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set essential asset promises on %@ : %@", &v7, 0x20u);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a2);
@@ -7944,42 +8181,40 @@ void __59__IXAppInstallCoordinator_setEssentialAssetPromises_error___block_invok
   {
     *(*(a1[6] + 8) + 24) = 1;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)essentialAssetPromisesWithError:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy_;
-  v51 = __Block_byref_object_dispose_;
-  v52 = 0;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy_;
-  v45 = __Block_byref_object_dispose_;
+  v53 = *MEMORY[0x1E69E9840];
   v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy_;
+  v50 = __Block_byref_object_dispose_;
+  v51 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy_;
+  v44 = __Block_byref_object_dispose_;
+  v45 = 0;
   v4 = +[IXServerConnection sharedConnection];
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __59__IXAppInstallCoordinator_essentialAssetPromisesWithError___block_invoke;
-  v40[3] = &unk_1E85C5560;
-  v40[4] = &v47;
-  v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v40];
-  uniqueIdentifier = [(IXAppInstallCoordinator *)self uniqueIdentifier];
   v39[0] = MEMORY[0x1E69E9820];
   v39[1] = 3221225472;
-  v39[2] = __59__IXAppInstallCoordinator_essentialAssetPromisesWithError___block_invoke_265;
-  v39[3] = &unk_1E85C5588;
-  v39[4] = &v47;
-  v39[5] = &v41;
-  [v5 _remote_IXSCoordinatedAppInstall:uniqueIdentifier getEssentialAssetPromises:v39];
+  v39[2] = __59__IXAppInstallCoordinator_essentialAssetPromisesWithError___block_invoke;
+  v39[3] = &unk_1E85C5560;
+  v39[4] = &v46;
+  v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v39];
+  uniqueIdentifier = [(IXAppInstallCoordinator *)self uniqueIdentifier];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __59__IXAppInstallCoordinator_essentialAssetPromisesWithError___block_invoke_265;
+  v38[3] = &unk_1E85C5588;
+  v38[4] = &v46;
+  v38[5] = &v40;
+  [v5 _remote_IXSCoordinatedAppInstall:uniqueIdentifier getEssentialAssetPromises:v38];
 
-  if (v48[5])
+  if (v47[5])
   {
     v7 = 0;
     v8 = 0;
@@ -7987,28 +8222,28 @@ void __59__IXAppInstallCoordinator_setEssentialAssetPromises_error___block_invok
   }
 
   v8 = objc_opt_new();
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  v9 = v42[5];
-  v10 = [v9 countByEnumeratingWithState:&v35 objects:v53 count:16];
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v9 = v41[5];
+  v10 = [v9 countByEnumeratingWithState:&v34 objects:v52 count:16];
   if (!v10)
   {
     goto LABEL_13;
   }
 
-  v11 = *v36;
+  v11 = *v35;
   while (2)
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v36 != v11)
+      if (*v35 != v11)
       {
         objc_enumerationMutation(v9);
       }
 
-      v13 = *(*(&v35 + 1) + 8 * i);
+      v13 = *(*(&v34 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -8022,11 +8257,11 @@ void __59__IXAppInstallCoordinator_setEssentialAssetPromises_error___block_invok
         }
 
         v18 = objc_opt_class();
-        v33 = NSStringFromClass(v18);
+        v32 = NSStringFromClass(v18);
         v20 = _CreateError("[IXAppInstallCoordinator essentialAssetPromisesWithError:]", 2832, @"IXErrorDomain", 1uLL, 0, 0, @"Seed object %@ should have been for an opaque data promise seed subclass but was instead for class %@", v19, v13);
 
-        v15 = v48[5];
-        v48[5] = v20;
+        v15 = v47[5];
+        v47[5] = v20;
         goto LABEL_24;
       }
 
@@ -8065,8 +8300,8 @@ void __59__IXAppInstallCoordinator_setEssentialAssetPromises_error___block_invok
 LABEL_23:
         v29 = v24;
 
-        v30 = v48[5];
-        v48[5] = v29;
+        v30 = v47[5];
+        v47[5] = v29;
 
 LABEL_24:
         v7 = 0;
@@ -8076,7 +8311,7 @@ LABEL_24:
       [v8 addObject:v15];
     }
 
-    v10 = [v9 countByEnumeratingWithState:&v35 objects:v53 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v34 objects:v52 count:16];
     if (v10)
     {
       continue;
@@ -8091,41 +8326,37 @@ LABEL_13:
 LABEL_25:
   if (error && !v7)
   {
-    *error = v48[5];
+    *error = v47[5];
   }
 
-  _Block_object_dispose(&v41, 8);
-  _Block_object_dispose(&v47, 8);
-
-  v31 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v46, 8);
 
   return v7;
 }
 
 void __59__IXAppInstallCoordinator_essentialAssetPromisesWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[IXAppInstallCoordinator essentialAssetPromisesWithError:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get essential asset promises: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[IXAppInstallCoordinator essentialAssetPromisesWithError:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get essential asset promises: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __59__IXAppInstallCoordinator_essentialAssetPromisesWithError___block_invoke_265(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v8 = a3;
   if (v8)
@@ -8133,11 +8364,11 @@ void __59__IXAppInstallCoordinator_essentialAssetPromisesWithError___block_invok
     v9 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 136315394;
-      *&v16[4] = "[IXAppInstallCoordinator essentialAssetPromisesWithError:]_block_invoke";
-      v17 = 2112;
-      v18 = v8;
-      _os_log_impl(&dword_1DA47A000, v9, OS_LOG_TYPE_DEFAULT, "%s: Failed to get essential asset promises: %@", v16, 0x16u);
+      *v15 = 136315394;
+      *&v15[4] = "[IXAppInstallCoordinator essentialAssetPromisesWithError:]_block_invoke";
+      v16 = 2112;
+      v17 = v8;
+      _os_log_impl(&dword_1DA47A000, v9, OS_LOG_TYPE_DEFAULT, "%s: Failed to get essential asset promises: %@", v15, 0x16u);
     }
 
     v10 = (*(*(a1 + 32) + 8) + 40);
@@ -8148,10 +8379,10 @@ void __59__IXAppInstallCoordinator_essentialAssetPromisesWithError___block_invok
   {
     if (!v6)
     {
-      v13 = _CreateError("[IXAppInstallCoordinator essentialAssetPromisesWithError:]_block_invoke", 2819, @"IXErrorDomain", 0x17uLL, 0, 0, @"No essential asset promises are currently set.", v7, *v16);
-      v14 = *(*(a1 + 32) + 8);
-      v15 = *(v14 + 40);
-      *(v14 + 40) = v13;
+      v12 = _CreateError("[IXAppInstallCoordinator essentialAssetPromisesWithError:]_block_invoke", 2819, @"IXErrorDomain", 0x17uLL, 0, 0, @"No essential asset promises are currently set.", v7, *v15);
+      v13 = *(*(a1 + 32) + 8);
+      v14 = *(v13 + 40);
+      *(v13 + 40) = v12;
 
       goto LABEL_8;
     }
@@ -8162,8 +8393,6 @@ void __59__IXAppInstallCoordinator_essentialAssetPromisesWithError___block_invok
 
   objc_storeStrong(v10, v11);
 LABEL_8:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getHasEssentialAssetPromises:(BOOL *)promises error:(id *)error
@@ -8212,31 +8441,29 @@ LABEL_8:
 
 void __62__IXAppInstallCoordinator_getHasEssentialAssetPromises_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator getHasEssentialAssetPromises:error:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has essential asset promises: %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator getHasEssentialAssetPromises:error:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has essential asset promises: %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __62__IXAppInstallCoordinator_getHasEssentialAssetPromises_error___block_invoke_269(void *a1, char a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -8244,13 +8471,13 @@ void __62__IXAppInstallCoordinator_getHasEssentialAssetPromises_error___block_in
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = a1[4];
-      v11 = 136315650;
-      v12 = "[IXAppInstallCoordinator getHasEssentialAssetPromises:error:]_block_invoke";
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has essential asset promises: %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[IXAppInstallCoordinator getHasEssentialAssetPromises:error:]_block_invoke";
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has essential asset promises: %@", &v10, 0x20u);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a3);
@@ -8266,73 +8493,71 @@ void __62__IXAppInstallCoordinator_getHasEssentialAssetPromises_error___block_in
 
     *(*(a1[6] + 8) + 24) = 1;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setDataImportPromises:(id)promises error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   promisesCopy = promises;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy_;
-  v31 = __Block_byref_object_dispose_;
   v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy_;
+  v30 = __Block_byref_object_dispose_;
+  v31 = 0;
   v7 = objc_opt_new();
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v8 = promisesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v37 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v36 count:16];
   if (v9)
   {
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        uniqueIdentifier = [*(*(&v23 + 1) + 8 * i) uniqueIdentifier];
+        uniqueIdentifier = [*(*(&v22 + 1) + 8 * i) uniqueIdentifier];
         [v7 addObject:uniqueIdentifier];
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v23 objects:v37 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v22 objects:v36 count:16];
     }
 
     while (v9);
   }
 
   v13 = +[IXServerConnection sharedConnection];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __55__IXAppInstallCoordinator_setDataImportPromises_error___block_invoke;
-  v22[3] = &unk_1E85C58D0;
-  v22[4] = self;
-  v22[5] = &v27;
-  v14 = [v13 synchronousRemoteObjectProxyWithErrorHandler:v22];
-  uniqueIdentifier2 = [(IXAppInstallCoordinator *)self uniqueIdentifier];
-  v16 = [v7 copy];
   v21[0] = MEMORY[0x1E69E9820];
   v21[1] = 3221225472;
-  v21[2] = __55__IXAppInstallCoordinator_setDataImportPromises_error___block_invoke_270;
-  v21[3] = &unk_1E85C5A10;
+  v21[2] = __55__IXAppInstallCoordinator_setDataImportPromises_error___block_invoke;
+  v21[3] = &unk_1E85C58D0;
   v21[4] = self;
-  v21[5] = &v27;
-  v21[6] = &v33;
-  [v14 _remote_IXSCoordinatedAppInstall:uniqueIdentifier2 setDataImportPromiseUUIDs:v16 completion:v21];
+  v21[5] = &v26;
+  v14 = [v13 synchronousRemoteObjectProxyWithErrorHandler:v21];
+  uniqueIdentifier2 = [(IXAppInstallCoordinator *)self uniqueIdentifier];
+  v16 = [v7 copy];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __55__IXAppInstallCoordinator_setDataImportPromises_error___block_invoke_270;
+  v20[3] = &unk_1E85C5A10;
+  v20[4] = self;
+  v20[5] = &v26;
+  v20[6] = &v32;
+  [v14 _remote_IXSCoordinatedAppInstall:uniqueIdentifier2 setDataImportPromiseUUIDs:v16 completion:v20];
 
-  v17 = *(v34 + 24);
+  v17 = *(v33 + 24);
   if (v17)
   {
 LABEL_11:
@@ -8344,11 +8569,11 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v18 = v28[5];
+  v18 = v27[5];
   if (v18)
   {
     [(IXAppInstallCoordinator *)self cancelForReason:v18 client:15 error:0];
-    v17 = *(v34 + 24);
+    v17 = *(v33 + 24);
     goto LABEL_11;
   }
 
@@ -8361,46 +8586,43 @@ LABEL_11:
 LABEL_12:
   if ((v17 & 1) == 0)
   {
-    *error = v28[5];
-    v17 = *(v34 + 24);
+    *error = v27[5];
+    v17 = *(v33 + 24);
   }
 
 LABEL_14:
 
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v32, 8);
 
-  v19 = *MEMORY[0x1E69E9840];
   return v17 & 1;
 }
 
 void __55__IXAppInstallCoordinator_setDataImportPromises_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator setDataImportPromises:error:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set data import promises on %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator setDataImportPromises:error:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set data import promises on %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __55__IXAppInstallCoordinator_setDataImportPromises_error___block_invoke_270(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -8408,13 +8630,13 @@ void __55__IXAppInstallCoordinator_setDataImportPromises_error___block_invoke_27
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = a1[4];
-      v8 = 136315650;
-      v9 = "[IXAppInstallCoordinator setDataImportPromises:error:]_block_invoke";
-      v10 = 2112;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set data import promises on %@ : %@", &v8, 0x20u);
+      v7 = 136315650;
+      v8 = "[IXAppInstallCoordinator setDataImportPromises:error:]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set data import promises on %@ : %@", &v7, 0x20u);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a2);
@@ -8424,42 +8646,40 @@ void __55__IXAppInstallCoordinator_setDataImportPromises_error___block_invoke_27
   {
     *(*(a1[6] + 8) + 24) = 1;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dataImportPromisesWithError:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy_;
-  v51 = __Block_byref_object_dispose_;
-  v52 = 0;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy_;
-  v45 = __Block_byref_object_dispose_;
+  v53 = *MEMORY[0x1E69E9840];
   v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy_;
+  v50 = __Block_byref_object_dispose_;
+  v51 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy_;
+  v44 = __Block_byref_object_dispose_;
+  v45 = 0;
   v4 = +[IXServerConnection sharedConnection];
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __55__IXAppInstallCoordinator_dataImportPromisesWithError___block_invoke;
-  v40[3] = &unk_1E85C5560;
-  v40[4] = &v47;
-  v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v40];
-  uniqueIdentifier = [(IXAppInstallCoordinator *)self uniqueIdentifier];
   v39[0] = MEMORY[0x1E69E9820];
   v39[1] = 3221225472;
-  v39[2] = __55__IXAppInstallCoordinator_dataImportPromisesWithError___block_invoke_271;
-  v39[3] = &unk_1E85C5588;
-  v39[4] = &v47;
-  v39[5] = &v41;
-  [v5 _remote_IXSCoordinatedAppInstall:uniqueIdentifier getDataImportPromises:v39];
+  v39[2] = __55__IXAppInstallCoordinator_dataImportPromisesWithError___block_invoke;
+  v39[3] = &unk_1E85C5560;
+  v39[4] = &v46;
+  v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v39];
+  uniqueIdentifier = [(IXAppInstallCoordinator *)self uniqueIdentifier];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __55__IXAppInstallCoordinator_dataImportPromisesWithError___block_invoke_271;
+  v38[3] = &unk_1E85C5588;
+  v38[4] = &v46;
+  v38[5] = &v40;
+  [v5 _remote_IXSCoordinatedAppInstall:uniqueIdentifier getDataImportPromises:v38];
 
-  if (v48[5])
+  if (v47[5])
   {
     v7 = 0;
     v8 = 0;
@@ -8467,28 +8687,28 @@ void __55__IXAppInstallCoordinator_setDataImportPromises_error___block_invoke_27
   }
 
   v8 = objc_opt_new();
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  v9 = v42[5];
-  v10 = [v9 countByEnumeratingWithState:&v35 objects:v53 count:16];
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v9 = v41[5];
+  v10 = [v9 countByEnumeratingWithState:&v34 objects:v52 count:16];
   if (!v10)
   {
     goto LABEL_13;
   }
 
-  v11 = *v36;
+  v11 = *v35;
   while (2)
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v36 != v11)
+      if (*v35 != v11)
       {
         objc_enumerationMutation(v9);
       }
 
-      v13 = *(*(&v35 + 1) + 8 * i);
+      v13 = *(*(&v34 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -8502,11 +8722,11 @@ void __55__IXAppInstallCoordinator_setDataImportPromises_error___block_invoke_27
         }
 
         v18 = objc_opt_class();
-        v33 = NSStringFromClass(v18);
+        v32 = NSStringFromClass(v18);
         v20 = _CreateError("[IXAppInstallCoordinator dataImportPromisesWithError:]", 2944, @"IXErrorDomain", 1uLL, 0, 0, @"Seed object %@ should have been for an opaque data promise seed subclass but was instead for class %@", v19, v13);
 
-        v15 = v48[5];
-        v48[5] = v20;
+        v15 = v47[5];
+        v47[5] = v20;
         goto LABEL_24;
       }
 
@@ -8545,8 +8765,8 @@ void __55__IXAppInstallCoordinator_setDataImportPromises_error___block_invoke_27
 LABEL_23:
         v29 = v24;
 
-        v30 = v48[5];
-        v48[5] = v29;
+        v30 = v47[5];
+        v47[5] = v29;
 
 LABEL_24:
         v7 = 0;
@@ -8556,7 +8776,7 @@ LABEL_24:
       [v8 addObject:v15];
     }
 
-    v10 = [v9 countByEnumeratingWithState:&v35 objects:v53 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v34 objects:v52 count:16];
     if (v10)
     {
       continue;
@@ -8571,41 +8791,37 @@ LABEL_13:
 LABEL_25:
   if (error && !v7)
   {
-    *error = v48[5];
+    *error = v47[5];
   }
 
-  _Block_object_dispose(&v41, 8);
-  _Block_object_dispose(&v47, 8);
-
-  v31 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v46, 8);
 
   return v7;
 }
 
 void __55__IXAppInstallCoordinator_dataImportPromisesWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[IXAppInstallCoordinator dataImportPromisesWithError:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get data import promises: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[IXAppInstallCoordinator dataImportPromisesWithError:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get data import promises: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __55__IXAppInstallCoordinator_dataImportPromisesWithError___block_invoke_271(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v8 = a3;
   if (v8)
@@ -8613,11 +8829,11 @@ void __55__IXAppInstallCoordinator_dataImportPromisesWithError___block_invoke_27
     v9 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 136315394;
-      *&v16[4] = "[IXAppInstallCoordinator dataImportPromisesWithError:]_block_invoke";
-      v17 = 2112;
-      v18 = v8;
-      _os_log_impl(&dword_1DA47A000, v9, OS_LOG_TYPE_DEFAULT, "%s: Failed to get data import promises: %@", v16, 0x16u);
+      *v15 = 136315394;
+      *&v15[4] = "[IXAppInstallCoordinator dataImportPromisesWithError:]_block_invoke";
+      v16 = 2112;
+      v17 = v8;
+      _os_log_impl(&dword_1DA47A000, v9, OS_LOG_TYPE_DEFAULT, "%s: Failed to get data import promises: %@", v15, 0x16u);
     }
 
     v10 = (*(*(a1 + 32) + 8) + 40);
@@ -8628,10 +8844,10 @@ void __55__IXAppInstallCoordinator_dataImportPromisesWithError___block_invoke_27
   {
     if (!v6)
     {
-      v13 = _CreateError("[IXAppInstallCoordinator dataImportPromisesWithError:]_block_invoke", 2931, @"IXErrorDomain", 0x17uLL, 0, 0, @"No data import promises are currently set.", v7, *v16);
-      v14 = *(*(a1 + 32) + 8);
-      v15 = *(v14 + 40);
-      *(v14 + 40) = v13;
+      v12 = _CreateError("[IXAppInstallCoordinator dataImportPromisesWithError:]_block_invoke", 2931, @"IXErrorDomain", 0x17uLL, 0, 0, @"No data import promises are currently set.", v7, *v15);
+      v13 = *(*(a1 + 32) + 8);
+      v14 = *(v13 + 40);
+      *(v13 + 40) = v12;
 
       goto LABEL_8;
     }
@@ -8642,8 +8858,6 @@ void __55__IXAppInstallCoordinator_dataImportPromisesWithError___block_invoke_27
 
   objc_storeStrong(v10, v11);
 LABEL_8:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getHasDataImportPromises:(BOOL *)promises error:(id *)error
@@ -8692,31 +8906,29 @@ LABEL_8:
 
 void __58__IXAppInstallCoordinator_getHasDataImportPromises_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator getHasDataImportPromises:error:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has data import promises: %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator getHasDataImportPromises:error:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has data import promises: %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __58__IXAppInstallCoordinator_getHasDataImportPromises_error___block_invoke_275(void *a1, char a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -8724,13 +8936,13 @@ void __58__IXAppInstallCoordinator_getHasDataImportPromises_error___block_invoke
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = a1[4];
-      v11 = 136315650;
-      v12 = "[IXAppInstallCoordinator getHasDataImportPromises:error:]_block_invoke";
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has data import promises: %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[IXAppInstallCoordinator getHasDataImportPromises:error:]_block_invoke";
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to check if %@ has data import promises: %@", &v10, 0x20u);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a3);
@@ -8746,8 +8958,6 @@ void __58__IXAppInstallCoordinator_getHasDataImportPromises_error___block_invoke
 
     *(*(a1[6] + 8) + 24) = 1;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)stagingLocationForInstallLocation:(id)location withSandboxExtension:(id *)extension error:(id *)error
@@ -8816,31 +9026,29 @@ void __58__IXAppInstallCoordinator_getHasDataImportPromises_error___block_invoke
 
 void __88__IXAppInstallCoordinator_stagingLocationForInstallLocation_withSandboxExtension_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "+[IXAppInstallCoordinator stagingLocationForInstallLocation:withSandboxExtension:error:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get temporary staging directory for install location %@: %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "+[IXAppInstallCoordinator stagingLocationForInstallLocation:withSandboxExtension:error:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get temporary staging directory for install location %@: %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __88__IXAppInstallCoordinator_stagingLocationForInstallLocation_withSandboxExtension_error___block_invoke_276(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v8 = a2;
   v9 = a3;
   v10 = a4;
@@ -8850,13 +9058,13 @@ void __88__IXAppInstallCoordinator_stagingLocationForInstallLocation_withSandbox
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 32);
-      v15 = 136315650;
-      v16 = "+[IXAppInstallCoordinator stagingLocationForInstallLocation:withSandboxExtension:error:]_block_invoke";
-      v17 = 2112;
-      v18 = v12;
-      v19 = 2112;
-      v20 = v10;
-      _os_log_impl(&dword_1DA47A000, v11, OS_LOG_TYPE_DEFAULT, "%s: Failed to get temporary staging directory for install location %@: %@", &v15, 0x20u);
+      v14 = 136315650;
+      v15 = "+[IXAppInstallCoordinator stagingLocationForInstallLocation:withSandboxExtension:error:]_block_invoke";
+      v16 = 2112;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v10;
+      _os_log_impl(&dword_1DA47A000, v11, OS_LOG_TYPE_DEFAULT, "%s: Failed to get temporary staging directory for install location %@: %@", &v14, 0x20u);
     }
 
     v13 = 40;
@@ -8870,8 +9078,6 @@ void __88__IXAppInstallCoordinator_stagingLocationForInstallLocation_withSandbox
   }
 
   objc_storeStrong((*(*(a1 + v13) + 8) + 40), a4);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setInstallTargetDirectoryURL:(id)l error:(id *)error
@@ -9119,34 +9325,32 @@ void __88__IXAppInstallCoordinator_stagingLocationForInstallLocation_withSandbox
 
 void __58__IXAppInstallCoordinator_setRemovability_byClient_error___block_invoke(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = IXStringForAppRemovability(a1[6]);
     v6 = a1[4];
-    v10 = 136315906;
-    v11 = "[IXAppInstallCoordinator setRemovability:byClient:error:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set removability state to %@ on %@ : %@", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[IXAppInstallCoordinator setRemovability:byClient:error:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set removability state to %@ on %@ : %@", &v9, 0x2Au);
   }
 
   v7 = *(a1[5] + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __58__IXAppInstallCoordinator_setRemovability_byClient_error___block_invoke_278(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -9155,15 +9359,15 @@ void __58__IXAppInstallCoordinator_setRemovability_byClient_error___block_invoke
     {
       v6 = IXStringForAppRemovability(a1[7]);
       v7 = a1[4];
-      v9 = 136315906;
-      v10 = "[IXAppInstallCoordinator setRemovability:byClient:error:]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set removability state to %@ on %@ : %@", &v9, 0x2Au);
+      v8 = 136315906;
+      v9 = "[IXAppInstallCoordinator setRemovability:byClient:error:]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set removability state to %@ on %@ : %@", &v8, 0x2Au);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a2);
@@ -9173,8 +9377,6 @@ void __58__IXAppInstallCoordinator_setRemovability_byClient_error___block_invoke
   {
     *(*(a1[6] + 8) + 24) = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)removabilityWithError:(id *)error
@@ -9222,31 +9424,29 @@ void __58__IXAppInstallCoordinator_setRemovability_byClient_error___block_invoke
 
 void __49__IXAppInstallCoordinator_removabilityWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator removabilityWithError:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get removability state from %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator removabilityWithError:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get removability state from %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __49__IXAppInstallCoordinator_removabilityWithError___block_invoke_279(void *a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -9254,13 +9454,13 @@ void __49__IXAppInstallCoordinator_removabilityWithError___block_invoke_279(void
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = a1[4];
-      v10 = 136315650;
-      v11 = "[IXAppInstallCoordinator removabilityWithError:]_block_invoke";
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to get removability state from %@ : %@", &v10, 0x20u);
+      v9 = 136315650;
+      v10 = "[IXAppInstallCoordinator removabilityWithError:]_block_invoke";
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to get removability state from %@ : %@", &v9, 0x20u);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a3);
@@ -9270,8 +9470,6 @@ void __49__IXAppInstallCoordinator_removabilityWithError___block_invoke_279(void
   {
     *(*(a1[6] + 8) + 24) = a2;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setPlaceholderDisposition:(unint64_t)disposition error:(id *)error
@@ -9321,34 +9519,32 @@ void __49__IXAppInstallCoordinator_removabilityWithError___block_invoke_279(void
 
 void __59__IXAppInstallCoordinator_setPlaceholderDisposition_error___block_invoke(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = IXStringForPlaceholderDisposition(a1[6]);
     v6 = a1[4];
-    v10 = 136315906;
-    v11 = "[IXAppInstallCoordinator setPlaceholderDisposition:error:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set placeholder disposition to %@ on %@ : %@", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[IXAppInstallCoordinator setPlaceholderDisposition:error:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set placeholder disposition to %@ on %@ : %@", &v9, 0x2Au);
   }
 
   v7 = *(a1[5] + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __59__IXAppInstallCoordinator_setPlaceholderDisposition_error___block_invoke_280(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -9357,15 +9553,15 @@ void __59__IXAppInstallCoordinator_setPlaceholderDisposition_error___block_invok
     {
       v6 = IXStringForPlaceholderDisposition(a1[7]);
       v7 = a1[4];
-      v9 = 136315906;
-      v10 = "[IXAppInstallCoordinator setPlaceholderDisposition:error:]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set placeholder disposition to %@ on %@ : %@", &v9, 0x2Au);
+      v8 = 136315906;
+      v9 = "[IXAppInstallCoordinator setPlaceholderDisposition:error:]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set placeholder disposition to %@ on %@ : %@", &v8, 0x2Au);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a2);
@@ -9375,8 +9571,6 @@ void __59__IXAppInstallCoordinator_setPlaceholderDisposition_error___block_invok
   {
     *(*(a1[6] + 8) + 24) = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)placeholderDispositionWithError:(id *)error
@@ -9424,31 +9618,29 @@ void __59__IXAppInstallCoordinator_setPlaceholderDisposition_error___block_invok
 
 void __59__IXAppInstallCoordinator_placeholderDispositionWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator placeholderDispositionWithError:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get placeholder disposition from %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator placeholderDispositionWithError:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get placeholder disposition from %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __59__IXAppInstallCoordinator_placeholderDispositionWithError___block_invoke_281(void *a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
@@ -9456,13 +9648,13 @@ void __59__IXAppInstallCoordinator_placeholderDispositionWithError___block_invok
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = a1[4];
-      v10 = 136315650;
-      v11 = "[IXAppInstallCoordinator placeholderDispositionWithError:]_block_invoke";
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to get placeholder disposition from %@ : %@", &v10, 0x20u);
+      v9 = 136315650;
+      v10 = "[IXAppInstallCoordinator placeholderDispositionWithError:]_block_invoke";
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to get placeholder disposition from %@ : %@", &v9, 0x20u);
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a3);
@@ -9472,8 +9664,6 @@ void __59__IXAppInstallCoordinator_placeholderDispositionWithError___block_invok
   {
     *(*(a1[6] + 8) + 24) = a2;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (unsigned)coordinatorScopeWithError:(id *)error
@@ -9520,26 +9710,24 @@ void __59__IXAppInstallCoordinator_placeholderDispositionWithError___block_invok
 
 void __53__IXAppInstallCoordinator_coordinatorScopeWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator coordinatorScopeWithError:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get coordinator scope from %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator coordinatorScopeWithError:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get coordinator scope from %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __53__IXAppInstallCoordinator_coordinatorScopeWithError___block_invoke_282(uint64_t a1, char a2, void *a3)
@@ -9602,26 +9790,24 @@ void __53__IXAppInstallCoordinator_coordinatorScopeWithError___block_invoke_282(
 
 void __71__IXAppInstallCoordinator_convertToGloballyScopedCoordinatorWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator convertToGloballyScopedCoordinatorWithError:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to convert to global scope for %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator convertToGloballyScopedCoordinatorWithError:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to convert to global scope for %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __71__IXAppInstallCoordinator_convertToGloballyScopedCoordinatorWithError___block_invoke_284(uint64_t a1, void *a2)
@@ -9688,28 +9874,26 @@ void __71__IXAppInstallCoordinator_convertToGloballyScopedCoordinatorWithError__
 
 void __49__IXAppInstallCoordinator_progressHintWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[IXAppInstallCoordinator progressHintWithError:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[IXAppInstallCoordinator progressHintWithError:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __49__IXAppInstallCoordinator_progressHintWithError___block_invoke_285(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   if (v7)
@@ -9718,13 +9902,13 @@ void __49__IXAppInstallCoordinator_progressHintWithError___block_invoke_285(uint
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v12 = 136315650;
-      v13 = "[IXAppInstallCoordinator progressHintWithError:]_block_invoke";
-      v14 = 2112;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v7;
-      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get progress hint for %@ : %@", &v12, 0x20u);
+      v11 = 136315650;
+      v12 = "[IXAppInstallCoordinator progressHintWithError:]_block_invoke";
+      v13 = 2112;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v7;
+      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get progress hint for %@ : %@", &v11, 0x20u);
     }
 
     v10 = 40;
@@ -9737,8 +9921,6 @@ void __49__IXAppInstallCoordinator_progressHintWithError___block_invoke_285(uint
   }
 
   objc_storeStrong((*(*(a1 + v10) + 8) + 40), a3);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setProgressHint:(id)hint withError:(id *)error
@@ -9819,34 +10001,32 @@ LABEL_7:
 
 void __53__IXAppInstallCoordinator_setProgressHint_withError___block_invoke(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
     v6 = a1[5];
-    v10 = 136315906;
-    v11 = "[IXAppInstallCoordinator setProgressHint:withError:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set progress hint %@ on %@ : %@", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[IXAppInstallCoordinator setProgressHint:withError:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set progress hint %@ on %@ : %@", &v9, 0x2Au);
   }
 
   v7 = *(a1[6] + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __53__IXAppInstallCoordinator_setProgressHint_withError___block_invoke_287(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -9855,15 +10035,15 @@ void __53__IXAppInstallCoordinator_setProgressHint_withError___block_invoke_287(
     {
       v6 = a1[4];
       v7 = a1[5];
-      v9 = 136315906;
-      v10 = "[IXAppInstallCoordinator setProgressHint:withError:]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set progress hint %@ on %@ : %@", &v9, 0x2Au);
+      v8 = 136315906;
+      v9 = "[IXAppInstallCoordinator setProgressHint:withError:]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set progress hint %@ on %@ : %@", &v8, 0x2Au);
     }
 
     objc_storeStrong((*(a1[6] + 8) + 40), a2);
@@ -9873,8 +10053,6 @@ void __53__IXAppInstallCoordinator_setProgressHint_withError___block_invoke_287(
   {
     *(*(a1[7] + 8) + 24) = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (NSError)error
@@ -9950,31 +10128,29 @@ void __32__IXAppInstallCoordinator_error__block_invoke(void *a1)
 
 void __32__IXAppInstallCoordinator_error__block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator error]_block_invoke_2";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get error property for %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator error]_block_invoke_2";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get error property for %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __32__IXAppInstallCoordinator_error__block_invoke_288(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = v6;
   if (a2 && v6)
@@ -9985,8 +10161,8 @@ void __32__IXAppInstallCoordinator_error__block_invoke_288(uint64_t a1, uint64_t
     block[2] = __32__IXAppInstallCoordinator_error__block_invoke_2_289;
     block[3] = &unk_1E85C52A8;
     block[4] = *(a1 + 32);
-    v13 = v7;
-    v14 = a2;
+    v12 = v7;
+    v13 = a2;
     dispatch_sync(v8, block);
 
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
@@ -9999,18 +10175,16 @@ void __32__IXAppInstallCoordinator_error__block_invoke_288(uint64_t a1, uint64_t
     {
       v10 = *(a1 + 32);
       *buf = 136315650;
-      v16 = "[IXAppInstallCoordinator error]_block_invoke";
-      v17 = 2112;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v7;
+      v15 = "[IXAppInstallCoordinator error]_block_invoke";
+      v16 = 2112;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v7;
       _os_log_impl(&dword_1DA47A000, v9, OS_LOG_TYPE_DEFAULT, "%s: Failed to get error property for %@ : %@", buf, 0x20u);
     }
 
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setError:(id)error
@@ -10079,27 +10253,25 @@ void __32__IXAppInstallCoordinator_error__block_invoke_288(uint64_t a1, uint64_t
 
 void __48__IXAppInstallCoordinator_errorSourceIdentifier__block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXAppInstallCoordinator errorSourceIdentifier]_block_invoke_2";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get error source for %@ : %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXAppInstallCoordinator errorSourceIdentifier]_block_invoke_2";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get error source for %@ : %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __48__IXAppInstallCoordinator_errorSourceIdentifier__block_invoke_290(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = v5;
   if (a2 && v5)
@@ -10110,8 +10282,8 @@ void __48__IXAppInstallCoordinator_errorSourceIdentifier__block_invoke_290(uint6
     block[2] = __48__IXAppInstallCoordinator_errorSourceIdentifier__block_invoke_2_291;
     block[3] = &unk_1E85C52A8;
     block[4] = *(a1 + 32);
-    v12 = v6;
-    v13 = a2;
+    v11 = v6;
+    v12 = a2;
     dispatch_sync(v7, block);
 
     *(*(*(a1 + 40) + 8) + 24) = a2;
@@ -10124,16 +10296,14 @@ void __48__IXAppInstallCoordinator_errorSourceIdentifier__block_invoke_290(uint6
     {
       v9 = *(a1 + 32);
       *buf = 136315650;
-      v15 = "[IXAppInstallCoordinator errorSourceIdentifier]_block_invoke";
-      v16 = 2112;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v6;
+      v14 = "[IXAppInstallCoordinator errorSourceIdentifier]_block_invoke";
+      v15 = 2112;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v6;
       _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get error source for %@ : %@", buf, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setErrorSourceIdentifier:(unint64_t)identifier
@@ -10207,27 +10377,25 @@ void __48__IXAppInstallCoordinator_errorSourceIdentifier__block_invoke_290(uint6
 
 void __37__IXAppInstallCoordinator_isComplete__block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXAppInstallCoordinator isComplete]_block_invoke_2";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get isComplete property for %@ : %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXAppInstallCoordinator isComplete]_block_invoke_2";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get isComplete property for %@ : %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __37__IXAppInstallCoordinator_isComplete__block_invoke_292(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -10235,13 +10403,13 @@ void __37__IXAppInstallCoordinator_isComplete__block_invoke_292(uint64_t a1, cha
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 136315650;
-      v10 = "[IXAppInstallCoordinator isComplete]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to get isComplete property for %@ : %@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[IXAppInstallCoordinator isComplete]_block_invoke";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to get isComplete property for %@ : %@", &v8, 0x20u);
     }
   }
 
@@ -10249,8 +10417,6 @@ void __37__IXAppInstallCoordinator_isComplete__block_invoke_292(uint64_t a1, cha
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setComplete:(BOOL)complete forApplicationRecord:(id)record
@@ -10451,27 +10617,25 @@ void __39__IXAppInstallCoordinator_setObserver___block_invoke_2(void *a1)
 
 void __39__IXAppInstallCoordinator_setObserver___block_invoke_3(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXAppInstallCoordinator setObserver:]_block_invoke_3";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to fire observer methods for newly added observer to %@ : %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXAppInstallCoordinator setObserver:]_block_invoke_3";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to fire observer methods for newly added observer to %@ : %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __39__IXAppInstallCoordinator_setObserver___block_invoke_304(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) observerCalloutQueue];
   dispatch_assert_queue_V2(v4);
@@ -10487,7 +10651,7 @@ void __39__IXAppInstallCoordinator_setObserver___block_invoke_304(uint64_t a1, v
       *&buf[12] = 2112;
       *&buf[14] = v6;
       *&buf[22] = 2112;
-      v27 = v3;
+      v26 = v3;
       _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to fire observers for %@ : %@", buf, 0x20u);
     }
   }
@@ -10502,35 +10666,35 @@ void __39__IXAppInstallCoordinator_setObserver___block_invoke_304(uint64_t a1, v
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v27 = __Block_byref_object_copy_;
-      v28 = __Block_byref_object_dispose_;
-      v29 = 0;
-      v22 = 0;
-      v23 = &v22;
-      v24 = 0x2020000000;
-      v25 = 0;
-      v16 = 0;
-      v17 = &v16;
-      v18 = 0x3032000000;
-      v19 = __Block_byref_object_copy_;
-      v20 = __Block_byref_object_dispose_;
+      v26 = __Block_byref_object_copy_;
+      v27 = __Block_byref_object_dispose_;
+      v28 = 0;
       v21 = 0;
+      v22 = &v21;
+      v23 = 0x2020000000;
+      v24 = 0;
+      v15 = 0;
+      v16 = &v15;
+      v17 = 0x3032000000;
+      v18 = __Block_byref_object_copy_;
+      v19 = __Block_byref_object_dispose_;
+      v20 = 0;
       v9 = [*(a1 + 32) internalQueue];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __39__IXAppInstallCoordinator_setObserver___block_invoke_305;
       block[3] = &unk_1E85C5D08;
       block[4] = *(a1 + 32);
-      v13 = buf;
-      v14 = &v22;
-      v15 = &v16;
-      v12 = v3;
+      v12 = buf;
+      v13 = &v21;
+      v14 = &v15;
+      v11 = v3;
       dispatch_sync(v9, block);
 
-      [*(a1 + 32) _onObserverCalloutQueue_handleObserverForCompletedCoordinator:*(a1 + 40) completedApplicationRecord:v17[5] error:*(*&buf[8] + 40) client:v23[3]];
-      _Block_object_dispose(&v16, 8);
+      [*(a1 + 32) _onObserverCalloutQueue_handleObserverForCompletedCoordinator:*(a1 + 40) completedApplicationRecord:v16[5] error:*(*&buf[8] + 40) client:v22[3]];
+      _Block_object_dispose(&v15, 8);
 
-      _Block_object_dispose(&v22, 8);
+      _Block_object_dispose(&v21, 8);
       _Block_object_dispose(buf, 8);
     }
   }
@@ -10538,8 +10702,6 @@ void __39__IXAppInstallCoordinator_setObserver___block_invoke_304(uint64_t a1, v
   else
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __39__IXAppInstallCoordinator_setObserver___block_invoke_305(uint64_t a1)
@@ -10618,26 +10780,24 @@ LABEL_7:
 
 void __42__IXAppInstallCoordinator_pauseWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator pauseWithError:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to send pause message to coordinator: %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator pauseWithError:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to send pause message to coordinator: %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)resumeWithError:(id *)error
@@ -10679,26 +10839,24 @@ void __42__IXAppInstallCoordinator_pauseWithError___block_invoke(uint64_t a1, vo
 
 void __43__IXAppInstallCoordinator_resumeWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator resumeWithError:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to send resume message to coordinator: %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator resumeWithError:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to send resume message to coordinator: %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isPaused:(BOOL *)paused withError:(id *)error
@@ -10741,26 +10899,24 @@ void __43__IXAppInstallCoordinator_resumeWithError___block_invoke(uint64_t a1, v
 
 void __46__IXAppInstallCoordinator_isPaused_withError___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator isPaused:withError:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to send resume message to coordinator: %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator isPaused:withError:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to send resume message to coordinator: %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __46__IXAppInstallCoordinator_isPaused_withError___block_invoke_308(uint64_t a1, char a2, void *a3)
@@ -10818,26 +10974,24 @@ void __46__IXAppInstallCoordinator_isPaused_withError___block_invoke_308(uint64_
 
 void __47__IXAppInstallCoordinator_prioritizeWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXAppInstallCoordinator prioritizeWithError:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to send resume message to coordinator: %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXAppInstallCoordinator prioritizeWithError:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to send resume message to coordinator: %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)description
@@ -10980,27 +11134,25 @@ uint64_t __44__IXAppInstallCoordinator_coordinationState__block_invoke(uint64_t 
 
 void __44__IXAppInstallCoordinator_coordinationState__block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXAppInstallCoordinator coordinationState]_block_invoke_2";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get coordination state for %@ : %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXAppInstallCoordinator coordinationState]_block_invoke_2";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to get coordination state for %@ : %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __44__IXAppInstallCoordinator_coordinationState__block_invoke_316(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -11008,13 +11160,13 @@ void __44__IXAppInstallCoordinator_coordinationState__block_invoke_316(uint64_t 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 136315650;
-      v10 = "[IXAppInstallCoordinator coordinationState]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to get coordination state for %@ : %@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[IXAppInstallCoordinator coordinationState]_block_invoke";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to get coordination state for %@ : %@", &v8, 0x20u);
     }
   }
 
@@ -11022,8 +11174,6 @@ void __44__IXAppInstallCoordinator_coordinationState__block_invoke_316(uint64_t 
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)bundleID
@@ -11068,13 +11218,13 @@ void __44__IXAppInstallCoordinator_coordinationState__block_invoke_316(uint64_t 
 
 - (void)_clientDelegate_didRegisterForObservation
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v8 = "[IXAppInstallCoordinator _clientDelegate_didRegisterForObservation]";
-    v9 = 2112;
+    v7 = "[IXAppInstallCoordinator _clientDelegate_didRegisterForObservation]";
+    v8 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: %@: Got observer registration delegate", buf, 0x16u);
   }
@@ -11086,13 +11236,11 @@ void __44__IXAppInstallCoordinator_coordinationState__block_invoke_316(uint64_t 
   block[3] = &unk_1E85C5D58;
   block[4] = self;
   dispatch_async(observerCalloutQueue, block);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __68__IXAppInstallCoordinator__clientDelegate_didRegisterForObservation__block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) observer];
   if (!v2)
   {
@@ -11100,13 +11248,13 @@ void __68__IXAppInstallCoordinator__clientDelegate_didRegisterForObservation__bl
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v18 = 136315394;
-      v19 = "[IXAppInstallCoordinator _clientDelegate_didRegisterForObservation]_block_invoke";
-      v20 = 2112;
-      v21 = v10;
+      v17 = 136315394;
+      v18 = "[IXAppInstallCoordinator _clientDelegate_didRegisterForObservation]_block_invoke";
+      v19 = 2112;
+      v20 = v10;
       v11 = "%s: %@: Ignoring delegate message; no observer set";
 LABEL_11:
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, v11, &v18, 0x16u);
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, v11, &v17, 0x16u);
     }
 
 LABEL_12:
@@ -11120,10 +11268,10 @@ LABEL_12:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 32);
-      v18 = 136315394;
-      v19 = "[IXAppInstallCoordinator _clientDelegate_didRegisterForObservation]_block_invoke";
-      v20 = 2112;
-      v21 = v12;
+      v17 = 136315394;
+      v18 = "[IXAppInstallCoordinator _clientDelegate_didRegisterForObservation]_block_invoke";
+      v19 = 2112;
+      v20 = v12;
       v11 = "%s: %@: Ignoring delegate message; already called";
       goto LABEL_11;
     }
@@ -11139,21 +11287,21 @@ LABEL_12:
   {
     if (v5)
     {
-      v14 = *(a1 + 32);
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v17 = NSStringFromSelector(sel_coordinatorDidRegisterForObservation_);
-      v18 = 136316162;
-      v19 = "[IXAppInstallCoordinator _clientDelegate_didRegisterForObservation]_block_invoke";
-      v20 = 2112;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v16;
-      v24 = 2048;
-      v25 = v2;
-      v26 = 2112;
-      v27 = v17;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@", &v18, 0x34u);
+      v13 = *(a1 + 32);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v16 = NSStringFromSelector(sel_coordinatorDidRegisterForObservation_);
+      v17 = 136316162;
+      v18 = "[IXAppInstallCoordinator _clientDelegate_didRegisterForObservation]_block_invoke";
+      v19 = 2112;
+      v20 = v13;
+      v21 = 2112;
+      v22 = v15;
+      v23 = 2048;
+      v24 = v2;
+      v25 = 2112;
+      v26 = v16;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@", &v17, 0x34u);
     }
 
     goto LABEL_12;
@@ -11165,34 +11313,32 @@ LABEL_12:
     v7 = NSStringFromSelector(sel_coordinatorDidRegisterForObservation_);
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
-    v18 = 136316162;
-    v19 = "[IXAppInstallCoordinator _clientDelegate_didRegisterForObservation]_block_invoke";
-    v20 = 2112;
-    v21 = v6;
-    v22 = 2112;
-    v23 = v7;
-    v24 = 2112;
-    v25 = v9;
-    v26 = 2048;
-    v27 = v2;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v18, 0x34u);
+    v17 = 136316162;
+    v18 = "[IXAppInstallCoordinator _clientDelegate_didRegisterForObservation]_block_invoke";
+    v19 = 2112;
+    v20 = v6;
+    v21 = 2112;
+    v22 = v7;
+    v23 = 2112;
+    v24 = v9;
+    v25 = 2048;
+    v26 = v2;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v17, 0x34u);
   }
 
   [v2 coordinatorDidRegisterForObservation:*(a1 + 32)];
 LABEL_13:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clientDelegate_shouldPrioritize
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v8 = "[IXAppInstallCoordinator _clientDelegate_shouldPrioritize]";
-    v9 = 2112;
+    v7 = "[IXAppInstallCoordinator _clientDelegate_shouldPrioritize]";
+    v8 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: %@: Got should prioritize delegate", buf, 0x16u);
   }
@@ -11204,13 +11350,11 @@ LABEL_13:
   block[3] = &unk_1E85C5D58;
   block[4] = self;
   dispatch_async(observerCalloutQueue, block);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __59__IXAppInstallCoordinator__clientDelegate_shouldPrioritize__block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) observer];
   if (!v2)
   {
@@ -11218,11 +11362,11 @@ void __59__IXAppInstallCoordinator__clientDelegate_shouldPrioritize__block_invok
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v16 = 136315394;
-      v17 = "[IXAppInstallCoordinator _clientDelegate_shouldPrioritize]_block_invoke";
-      v18 = 2112;
-      v19 = v10;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Ignoring delegate message; no observer set", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[IXAppInstallCoordinator _clientDelegate_shouldPrioritize]_block_invoke";
+      v17 = 2112;
+      v18 = v10;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Ignoring delegate message; no observer set", &v15, 0x16u);
     }
 
     goto LABEL_10;
@@ -11239,17 +11383,17 @@ void __59__IXAppInstallCoordinator__clientDelegate_shouldPrioritize__block_invok
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
       v14 = NSStringFromSelector(sel_coordinatorShouldPrioritize_);
-      v16 = 136316162;
-      v17 = "[IXAppInstallCoordinator _clientDelegate_shouldPrioritize]_block_invoke";
-      v18 = 2112;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v13;
-      v22 = 2048;
-      v23 = v2;
-      v24 = 2112;
-      v25 = v14;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@", &v16, 0x34u);
+      v15 = 136316162;
+      v16 = "[IXAppInstallCoordinator _clientDelegate_shouldPrioritize]_block_invoke";
+      v17 = 2112;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v13;
+      v21 = 2048;
+      v22 = v2;
+      v23 = 2112;
+      v24 = v14;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@", &v15, 0x34u);
     }
 
 LABEL_10:
@@ -11263,34 +11407,32 @@ LABEL_10:
     v7 = NSStringFromSelector(sel_coordinatorShouldPrioritize_);
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
-    v16 = 136316162;
-    v17 = "[IXAppInstallCoordinator _clientDelegate_shouldPrioritize]_block_invoke";
-    v18 = 2112;
-    v19 = v6;
-    v20 = 2112;
-    v21 = v7;
-    v22 = 2112;
-    v23 = v9;
-    v24 = 2048;
-    v25 = v2;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v16, 0x34u);
+    v15 = 136316162;
+    v16 = "[IXAppInstallCoordinator _clientDelegate_shouldPrioritize]_block_invoke";
+    v17 = 2112;
+    v18 = v6;
+    v19 = 2112;
+    v20 = v7;
+    v21 = 2112;
+    v22 = v9;
+    v23 = 2048;
+    v24 = v2;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v15, 0x34u);
   }
 
   [v2 coordinatorShouldPrioritize:*(a1 + 32)];
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clientDelegate_shouldResume
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v8 = "[IXAppInstallCoordinator _clientDelegate_shouldResume]";
-    v9 = 2112;
+    v7 = "[IXAppInstallCoordinator _clientDelegate_shouldResume]";
+    v8 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: %@: Got should resume delegate", buf, 0x16u);
   }
@@ -11302,13 +11444,11 @@ LABEL_11:
   block[3] = &unk_1E85C5D58;
   block[4] = self;
   dispatch_async(observerCalloutQueue, block);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __55__IXAppInstallCoordinator__clientDelegate_shouldResume__block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) observer];
   if (!v2)
   {
@@ -11316,11 +11456,11 @@ void __55__IXAppInstallCoordinator__clientDelegate_shouldResume__block_invoke(ui
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v16 = 136315394;
-      v17 = "[IXAppInstallCoordinator _clientDelegate_shouldResume]_block_invoke";
-      v18 = 2112;
-      v19 = v10;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Ignoring delegate message; no observer set", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[IXAppInstallCoordinator _clientDelegate_shouldResume]_block_invoke";
+      v17 = 2112;
+      v18 = v10;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Ignoring delegate message; no observer set", &v15, 0x16u);
     }
 
     goto LABEL_10;
@@ -11337,17 +11477,17 @@ void __55__IXAppInstallCoordinator__clientDelegate_shouldResume__block_invoke(ui
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
       v14 = NSStringFromSelector(sel_coordinatorShouldResume_);
-      v16 = 136316162;
-      v17 = "[IXAppInstallCoordinator _clientDelegate_shouldResume]_block_invoke";
-      v18 = 2112;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v13;
-      v22 = 2048;
-      v23 = v2;
-      v24 = 2112;
-      v25 = v14;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@", &v16, 0x34u);
+      v15 = 136316162;
+      v16 = "[IXAppInstallCoordinator _clientDelegate_shouldResume]_block_invoke";
+      v17 = 2112;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v13;
+      v21 = 2048;
+      v22 = v2;
+      v23 = 2112;
+      v24 = v14;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@", &v15, 0x34u);
     }
 
 LABEL_10:
@@ -11361,34 +11501,32 @@ LABEL_10:
     v7 = NSStringFromSelector(sel_coordinatorShouldResume_);
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
-    v16 = 136316162;
-    v17 = "[IXAppInstallCoordinator _clientDelegate_shouldResume]_block_invoke";
-    v18 = 2112;
-    v19 = v6;
-    v20 = 2112;
-    v21 = v7;
-    v22 = 2112;
-    v23 = v9;
-    v24 = 2048;
-    v25 = v2;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v16, 0x34u);
+    v15 = 136316162;
+    v16 = "[IXAppInstallCoordinator _clientDelegate_shouldResume]_block_invoke";
+    v17 = 2112;
+    v18 = v6;
+    v19 = 2112;
+    v20 = v7;
+    v21 = 2112;
+    v22 = v9;
+    v23 = 2048;
+    v24 = v2;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v15, 0x34u);
   }
 
   [v2 coordinatorShouldResume:*(a1 + 32)];
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clientDelegate_shouldPause
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v8 = "[IXAppInstallCoordinator _clientDelegate_shouldPause]";
-    v9 = 2112;
+    v7 = "[IXAppInstallCoordinator _clientDelegate_shouldPause]";
+    v8 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: %@: Got should pause delegate", buf, 0x16u);
   }
@@ -11400,13 +11538,11 @@ LABEL_11:
   block[3] = &unk_1E85C5D58;
   block[4] = self;
   dispatch_async(observerCalloutQueue, block);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __54__IXAppInstallCoordinator__clientDelegate_shouldPause__block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) observer];
   if (!v2)
   {
@@ -11414,11 +11550,11 @@ void __54__IXAppInstallCoordinator__clientDelegate_shouldPause__block_invoke(uin
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v16 = 136315394;
-      v17 = "[IXAppInstallCoordinator _clientDelegate_shouldPause]_block_invoke";
-      v18 = 2112;
-      v19 = v10;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Ignoring delegate message; no observer set", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[IXAppInstallCoordinator _clientDelegate_shouldPause]_block_invoke";
+      v17 = 2112;
+      v18 = v10;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Ignoring delegate message; no observer set", &v15, 0x16u);
     }
 
     goto LABEL_10;
@@ -11435,17 +11571,17 @@ void __54__IXAppInstallCoordinator__clientDelegate_shouldPause__block_invoke(uin
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
       v14 = NSStringFromSelector(sel_coordinatorShouldPause_);
-      v16 = 136316162;
-      v17 = "[IXAppInstallCoordinator _clientDelegate_shouldPause]_block_invoke";
-      v18 = 2112;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v13;
-      v22 = 2048;
-      v23 = v2;
-      v24 = 2112;
-      v25 = v14;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@", &v16, 0x34u);
+      v15 = 136316162;
+      v16 = "[IXAppInstallCoordinator _clientDelegate_shouldPause]_block_invoke";
+      v17 = 2112;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v13;
+      v21 = 2048;
+      v22 = v2;
+      v23 = 2112;
+      v24 = v14;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@", &v15, 0x34u);
     }
 
 LABEL_10:
@@ -11459,55 +11595,51 @@ LABEL_10:
     v7 = NSStringFromSelector(sel_coordinatorShouldPause_);
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
-    v16 = 136316162;
-    v17 = "[IXAppInstallCoordinator _clientDelegate_shouldPause]_block_invoke";
-    v18 = 2112;
-    v19 = v6;
-    v20 = 2112;
-    v21 = v7;
-    v22 = 2112;
-    v23 = v9;
-    v24 = 2048;
-    v25 = v2;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v16, 0x34u);
+    v15 = 136316162;
+    v16 = "[IXAppInstallCoordinator _clientDelegate_shouldPause]_block_invoke";
+    v17 = 2112;
+    v18 = v6;
+    v19 = 2112;
+    v20 = v7;
+    v21 = 2112;
+    v22 = v9;
+    v23 = 2048;
+    v24 = v2;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v15, 0x34u);
   }
 
   [v2 coordinatorShouldPause:*(a1 + 32)];
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clientDelegate_promiseDidBeginFulfillmentWithIdentifier:(unint64_t)identifier
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v10 = "[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]";
-    v11 = 2112;
+    v9 = "[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]";
+    v10 = 2112;
     selfCopy = self;
-    v13 = 2048;
+    v12 = 2048;
     identifierCopy = identifier;
     _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@: Got promise did begin fulfillment for identifier %lu", buf, 0x20u);
   }
 
   observerCalloutQueue = [(IXAppInstallCoordinator *)self observerCalloutQueue];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __84__IXAppInstallCoordinator__clientDelegate_promiseDidBeginFulfillmentWithIdentifier___block_invoke;
-  v8[3] = &unk_1E85C5C40;
-  v8[4] = self;
-  v8[5] = identifier;
-  dispatch_async(observerCalloutQueue, v8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __84__IXAppInstallCoordinator__clientDelegate_promiseDidBeginFulfillmentWithIdentifier___block_invoke;
+  v7[3] = &unk_1E85C5C40;
+  v7[4] = self;
+  v7[5] = identifier;
+  dispatch_async(observerCalloutQueue, v7);
 }
 
 void __84__IXAppInstallCoordinator__clientDelegate_promiseDidBeginFulfillmentWithIdentifier___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) observer];
   if (!v2)
   {
@@ -11515,13 +11647,13 @@ void __84__IXAppInstallCoordinator__clientDelegate_promiseDidBeginFulfillmentWit
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v30 = 136315394;
-      v31 = "[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]_block_invoke";
-      v32 = 2112;
-      v33 = v6;
+      v29 = 136315394;
+      v30 = "[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]_block_invoke";
+      v31 = 2112;
+      v32 = v6;
       v7 = "%s: %@: Ignoring delegate message; no observer set";
 LABEL_10:
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, v7, &v30, 0x16u);
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, v7, &v29, 0x16u);
     }
 
 LABEL_11:
@@ -11546,10 +11678,10 @@ LABEL_11:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v30 = 136315394;
-      v31 = "[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]_block_invoke";
-      v32 = 2112;
-      v33 = v8;
+      v29 = 136315394;
+      v30 = "[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]_block_invoke";
+      v31 = 2112;
+      v32 = v8;
       v7 = "%s: %@: Ignoring delegate message; already called";
       goto LABEL_10;
     }
@@ -11558,27 +11690,27 @@ LABEL_11:
   }
 
   [*(a1 + 32) setObserversCalled:{objc_msgSend(*(a1 + 32), "observersCalled") | v4}];
-  v10 = objc_opt_respondsToSelector();
-  if (v10)
+  v9 = objc_opt_respondsToSelector();
+  if (v9)
   {
-    v11 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a1 + 32);
-      v13 = NSStringFromSelector(sel_promiseDidBeginFulfillmentWithIdentifier_);
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
-      v30 = 136316162;
-      v31 = "[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]_block_invoke";
-      v32 = 2112;
-      v33 = v12;
-      v34 = 2112;
-      v35 = v13;
-      v36 = 2112;
-      v37 = v15;
-      v38 = 2048;
-      v39 = v2;
-      _os_log_impl(&dword_1DA47A000, v11, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v30, 0x34u);
+      v11 = *(a1 + 32);
+      v12 = NSStringFromSelector(sel_promiseDidBeginFulfillmentWithIdentifier_);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      v29 = 136316162;
+      v30 = "[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]_block_invoke";
+      v31 = 2112;
+      v32 = v11;
+      v33 = 2112;
+      v34 = v12;
+      v35 = 2112;
+      v36 = v14;
+      v37 = 2048;
+      v38 = v2;
+      _os_log_impl(&dword_1DA47A000, v10, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v29, 0x34u);
     }
 
     [v2 promiseDidBeginFulfillmentWithIdentifier:*(a1 + 40)];
@@ -11588,7 +11720,7 @@ LABEL_11:
   {
     if ((objc_opt_respondsToSelector() & 1) == 0)
     {
-      if (v10)
+      if (v9)
       {
         goto LABEL_12;
       }
@@ -11596,21 +11728,21 @@ LABEL_11:
       v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = *(a1 + 32);
-        v27 = objc_opt_class();
-        v28 = NSStringFromClass(v27);
-        v29 = NSStringFromSelector(sel_coordinator_configuredPromiseDidBeginFulfillment_);
-        v30 = 136316162;
-        v31 = "[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]_block_invoke";
-        v32 = 2112;
-        v33 = v26;
-        v34 = 2112;
-        v35 = v28;
-        v36 = 2048;
-        v37 = v2;
-        v38 = 2112;
-        v39 = v29;
-        _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@ (or any deprecated equivalent)", &v30, 0x34u);
+        v25 = *(a1 + 32);
+        v26 = objc_opt_class();
+        v27 = NSStringFromClass(v26);
+        v28 = NSStringFromSelector(sel_coordinator_configuredPromiseDidBeginFulfillment_);
+        v29 = 136316162;
+        v30 = "[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]_block_invoke";
+        v31 = 2112;
+        v32 = v25;
+        v33 = 2112;
+        v34 = v27;
+        v35 = 2048;
+        v36 = v2;
+        v37 = 2112;
+        v38 = v28;
+        _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@ (or any deprecated equivalent)", &v29, 0x34u);
       }
 
       goto LABEL_11;
@@ -11619,67 +11751,65 @@ LABEL_11:
     goto LABEL_23;
   }
 
-  v16 = IXGetLoggingHandle(kIXLoggingSubsystem);
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v15 = IXGetLoggingHandle(kIXLoggingSubsystem);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = *(a1 + 32);
-    v18 = NSStringFromSelector(sel_coordinator_configuredPromisePromiseDidBeginFulfillment_);
-    v19 = objc_opt_class();
-    v20 = NSStringFromClass(v19);
-    v30 = 136316162;
-    v31 = "[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]_block_invoke";
-    v32 = 2112;
-    v33 = v17;
-    v34 = 2112;
-    v35 = v18;
-    v36 = 2112;
-    v37 = v20;
-    v38 = 2048;
-    v39 = v2;
-    _os_log_impl(&dword_1DA47A000, v16, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v30, 0x34u);
+    v16 = *(a1 + 32);
+    v17 = NSStringFromSelector(sel_coordinator_configuredPromisePromiseDidBeginFulfillment_);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    v29 = 136316162;
+    v30 = "[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]_block_invoke";
+    v31 = 2112;
+    v32 = v16;
+    v33 = 2112;
+    v34 = v17;
+    v35 = 2112;
+    v36 = v19;
+    v37 = 2048;
+    v38 = v2;
+    _os_log_impl(&dword_1DA47A000, v15, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v29, 0x34u);
   }
 
   [v2 coordinator:*(a1 + 32) configuredPromisePromiseDidBeginFulfillment:*(a1 + 40)];
   if (objc_opt_respondsToSelector())
   {
 LABEL_23:
-    v21 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v20 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = *(a1 + 32);
-      v23 = NSStringFromSelector(sel_coordinator_configuredPromiseDidBeginFulfillment_);
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
-      v30 = 136316162;
-      v31 = "[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]_block_invoke";
-      v32 = 2112;
-      v33 = v22;
-      v34 = 2112;
-      v35 = v23;
-      v36 = 2112;
-      v37 = v25;
-      v38 = 2048;
-      v39 = v2;
-      _os_log_impl(&dword_1DA47A000, v21, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v30, 0x34u);
+      v21 = *(a1 + 32);
+      v22 = NSStringFromSelector(sel_coordinator_configuredPromiseDidBeginFulfillment_);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
+      v29 = 136316162;
+      v30 = "[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]_block_invoke";
+      v31 = 2112;
+      v32 = v21;
+      v33 = 2112;
+      v34 = v22;
+      v35 = 2112;
+      v36 = v24;
+      v37 = 2048;
+      v38 = v2;
+      _os_log_impl(&dword_1DA47A000, v20, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v29, 0x34u);
     }
 
     [v2 coordinator:*(a1 + 32) configuredPromiseDidBeginFulfillment:*(a1 + 40)];
   }
 
 LABEL_12:
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clientDelegate_shouldBeginRestoringUserData
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v8 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginRestoringUserData]";
-    v9 = 2112;
+    v7 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginRestoringUserData]";
+    v8 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: %@: Got should begin restoring user data delegate", buf, 0x16u);
   }
@@ -11691,13 +11821,11 @@ LABEL_12:
   block[3] = &unk_1E85C5D58;
   block[4] = self;
   dispatch_async(observerCalloutQueue, block);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __71__IXAppInstallCoordinator__clientDelegate_shouldBeginRestoringUserData__block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) observer];
   if (!v2)
   {
@@ -11705,13 +11833,13 @@ void __71__IXAppInstallCoordinator__clientDelegate_shouldBeginRestoringUserData_
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v18 = 136315394;
-      v19 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginRestoringUserData]_block_invoke";
-      v20 = 2112;
-      v21 = v10;
+      v17 = 136315394;
+      v18 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginRestoringUserData]_block_invoke";
+      v19 = 2112;
+      v20 = v10;
       v11 = "%s: %@: Ignoring delegate message; no observer set";
 LABEL_11:
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, v11, &v18, 0x16u);
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, v11, &v17, 0x16u);
     }
 
 LABEL_12:
@@ -11725,10 +11853,10 @@ LABEL_12:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 32);
-      v18 = 136315394;
-      v19 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginRestoringUserData]_block_invoke";
-      v20 = 2112;
-      v21 = v12;
+      v17 = 136315394;
+      v18 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginRestoringUserData]_block_invoke";
+      v19 = 2112;
+      v20 = v12;
       v11 = "%s: %@: Ignoring delegate message; already called";
       goto LABEL_11;
     }
@@ -11744,21 +11872,21 @@ LABEL_12:
   {
     if (v5)
     {
-      v14 = *(a1 + 32);
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v17 = NSStringFromSelector(sel_coordinatorShouldBeginRestoringUserData_);
-      v18 = 136316162;
-      v19 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginRestoringUserData]_block_invoke";
-      v20 = 2112;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v16;
-      v24 = 2048;
-      v25 = v2;
-      v26 = 2112;
-      v27 = v17;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@", &v18, 0x34u);
+      v13 = *(a1 + 32);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v16 = NSStringFromSelector(sel_coordinatorShouldBeginRestoringUserData_);
+      v17 = 136316162;
+      v18 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginRestoringUserData]_block_invoke";
+      v19 = 2112;
+      v20 = v13;
+      v21 = 2112;
+      v22 = v15;
+      v23 = 2048;
+      v24 = v2;
+      v25 = 2112;
+      v26 = v16;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@", &v17, 0x34u);
     }
 
     goto LABEL_12;
@@ -11770,57 +11898,53 @@ LABEL_12:
     v7 = NSStringFromSelector(sel_coordinatorShouldBeginRestoringUserData_);
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
-    v18 = 136316162;
-    v19 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginRestoringUserData]_block_invoke";
-    v20 = 2112;
-    v21 = v6;
-    v22 = 2112;
-    v23 = v7;
-    v24 = 2112;
-    v25 = v9;
-    v26 = 2048;
-    v27 = v2;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v18, 0x34u);
+    v17 = 136316162;
+    v18 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginRestoringUserData]_block_invoke";
+    v19 = 2112;
+    v20 = v6;
+    v21 = 2112;
+    v22 = v7;
+    v23 = 2112;
+    v24 = v9;
+    v25 = 2048;
+    v26 = v2;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v17, 0x34u);
   }
 
   [v2 coordinatorShouldBeginRestoringUserData:*(a1 + 32)];
 LABEL_13:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clientDelegate_shouldBeginPostProcessingForApplicationRecord:(id)record
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v12 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginPostProcessingForApplicationRecord:]";
-    v13 = 2112;
+    v11 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginPostProcessingForApplicationRecord:]";
+    v12 = 2112;
     selfCopy = self;
-    v15 = 2112;
-    v16 = recordCopy;
+    v14 = 2112;
+    v15 = recordCopy;
     _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@: Got should begin post processing delegate for app record %@", buf, 0x20u);
   }
 
   observerCalloutQueue = [(IXAppInstallCoordinator *)self observerCalloutQueue];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __89__IXAppInstallCoordinator__clientDelegate_shouldBeginPostProcessingForApplicationRecord___block_invoke;
-  v9[3] = &unk_1E85C5BF0;
-  v9[4] = self;
-  v10 = recordCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __89__IXAppInstallCoordinator__clientDelegate_shouldBeginPostProcessingForApplicationRecord___block_invoke;
+  v8[3] = &unk_1E85C5BF0;
+  v8[4] = self;
+  v9 = recordCopy;
   v7 = recordCopy;
-  dispatch_async(observerCalloutQueue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(observerCalloutQueue, v8);
 }
 
 void __89__IXAppInstallCoordinator__clientDelegate_shouldBeginPostProcessingForApplicationRecord___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) observer];
   if (!v2)
   {
@@ -11828,13 +11952,13 @@ void __89__IXAppInstallCoordinator__clientDelegate_shouldBeginPostProcessingForA
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v18 = 136315394;
-      v19 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginPostProcessingForApplicationRecord:]_block_invoke";
-      v20 = 2112;
-      v21 = v10;
+      v17 = 136315394;
+      v18 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginPostProcessingForApplicationRecord:]_block_invoke";
+      v19 = 2112;
+      v20 = v10;
       v11 = "%s: %@: Ignoring delegate message; no observer set";
 LABEL_11:
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, v11, &v18, 0x16u);
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, v11, &v17, 0x16u);
     }
 
 LABEL_12:
@@ -11848,10 +11972,10 @@ LABEL_12:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 32);
-      v18 = 136315394;
-      v19 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginPostProcessingForApplicationRecord:]_block_invoke";
-      v20 = 2112;
-      v21 = v12;
+      v17 = 136315394;
+      v18 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginPostProcessingForApplicationRecord:]_block_invoke";
+      v19 = 2112;
+      v20 = v12;
       v11 = "%s: %@: Ignoring delegate message; already called";
       goto LABEL_11;
     }
@@ -11867,21 +11991,21 @@ LABEL_12:
   {
     if (v5)
     {
-      v14 = *(a1 + 32);
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v17 = NSStringFromSelector(sel_coordinatorShouldBeginPostProcessing_forApplicationRecord_);
-      v18 = 136316162;
-      v19 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginPostProcessingForApplicationRecord:]_block_invoke";
-      v20 = 2112;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v16;
-      v24 = 2048;
-      v25 = v2;
-      v26 = 2112;
-      v27 = v17;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@", &v18, 0x34u);
+      v13 = *(a1 + 32);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v16 = NSStringFromSelector(sel_coordinatorShouldBeginPostProcessing_forApplicationRecord_);
+      v17 = 136316162;
+      v18 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginPostProcessingForApplicationRecord:]_block_invoke";
+      v19 = 2112;
+      v20 = v13;
+      v21 = 2112;
+      v22 = v15;
+      v23 = 2048;
+      v24 = v2;
+      v25 = 2112;
+      v26 = v16;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@", &v17, 0x34u);
     }
 
     goto LABEL_12;
@@ -11893,57 +12017,53 @@ LABEL_12:
     v7 = NSStringFromSelector(sel_coordinatorShouldBeginPostProcessing_forApplicationRecord_);
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
-    v18 = 136316162;
-    v19 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginPostProcessingForApplicationRecord:]_block_invoke";
-    v20 = 2112;
-    v21 = v6;
-    v22 = 2112;
-    v23 = v7;
-    v24 = 2112;
-    v25 = v9;
-    v26 = 2048;
-    v27 = v2;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v18, 0x34u);
+    v17 = 136316162;
+    v18 = "[IXAppInstallCoordinator _clientDelegate_shouldBeginPostProcessingForApplicationRecord:]_block_invoke";
+    v19 = 2112;
+    v20 = v6;
+    v21 = 2112;
+    v22 = v7;
+    v23 = 2112;
+    v24 = v9;
+    v25 = 2048;
+    v26 = v2;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v17, 0x34u);
   }
 
   [v2 coordinatorShouldBeginPostProcessing:*(a1 + 32) forApplicationRecord:*(a1 + 40)];
 LABEL_13:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clientDelegate_placeholderDidInstallForApplicationRecord:(id)record
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v12 = "[IXAppInstallCoordinator _clientDelegate_placeholderDidInstallForApplicationRecord:]";
-    v13 = 2112;
+    v11 = "[IXAppInstallCoordinator _clientDelegate_placeholderDidInstallForApplicationRecord:]";
+    v12 = 2112;
     selfCopy = self;
-    v15 = 2112;
-    v16 = recordCopy;
+    v14 = 2112;
+    v15 = recordCopy;
     _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@: Got placeholder did install delegate for app record %@", buf, 0x20u);
   }
 
   observerCalloutQueue = [(IXAppInstallCoordinator *)self observerCalloutQueue];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __85__IXAppInstallCoordinator__clientDelegate_placeholderDidInstallForApplicationRecord___block_invoke;
-  v9[3] = &unk_1E85C5BF0;
-  v9[4] = self;
-  v10 = recordCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __85__IXAppInstallCoordinator__clientDelegate_placeholderDidInstallForApplicationRecord___block_invoke;
+  v8[3] = &unk_1E85C5BF0;
+  v8[4] = self;
+  v9 = recordCopy;
   v7 = recordCopy;
-  dispatch_async(observerCalloutQueue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(observerCalloutQueue, v8);
 }
 
 void __85__IXAppInstallCoordinator__clientDelegate_placeholderDidInstallForApplicationRecord___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) observer];
   if (!v2)
   {
@@ -11951,13 +12071,13 @@ void __85__IXAppInstallCoordinator__clientDelegate_placeholderDidInstallForAppli
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v23 = 136315394;
-      v24 = "[IXAppInstallCoordinator _clientDelegate_placeholderDidInstallForApplicationRecord:]_block_invoke";
-      v25 = 2112;
-      v26 = v9;
+      v22 = 136315394;
+      v23 = "[IXAppInstallCoordinator _clientDelegate_placeholderDidInstallForApplicationRecord:]_block_invoke";
+      v24 = 2112;
+      v25 = v9;
       v10 = "%s: %@: Ignoring delegate message; no observer set";
 LABEL_12:
-      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, v10, &v23, 0x16u);
+      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, v10, &v22, 0x16u);
     }
 
 LABEL_13:
@@ -11971,10 +12091,10 @@ LABEL_13:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(a1 + 32);
-      v23 = 136315394;
-      v24 = "[IXAppInstallCoordinator _clientDelegate_placeholderDidInstallForApplicationRecord:]_block_invoke";
-      v25 = 2112;
-      v26 = v11;
+      v22 = 136315394;
+      v23 = "[IXAppInstallCoordinator _clientDelegate_placeholderDidInstallForApplicationRecord:]_block_invoke";
+      v24 = 2112;
+      v25 = v11;
       v10 = "%s: %@: Ignoring delegate message; already called";
       goto LABEL_12;
     }
@@ -11992,17 +12112,17 @@ LABEL_13:
       v5 = NSStringFromSelector(sel_coordinatorDidInstallPlaceholder_);
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
-      v23 = 136316162;
-      v24 = "[IXAppInstallCoordinator _clientDelegate_placeholderDidInstallForApplicationRecord:]_block_invoke";
-      v25 = 2112;
-      v26 = v4;
-      v27 = 2112;
-      v28 = v5;
-      v29 = 2112;
-      v30 = v7;
-      v31 = 2048;
-      v32 = v2;
-      _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v23, 0x34u);
+      v22 = 136316162;
+      v23 = "[IXAppInstallCoordinator _clientDelegate_placeholderDidInstallForApplicationRecord:]_block_invoke";
+      v24 = 2112;
+      v25 = v4;
+      v26 = 2112;
+      v27 = v5;
+      v28 = 2112;
+      v29 = v7;
+      v30 = 2048;
+      v31 = v2;
+      _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v22, 0x34u);
     }
 
     [v2 coordinatorDidInstallPlaceholder:*(a1 + 32)];
@@ -12017,89 +12137,85 @@ LABEL_13:
     if (objc_opt_respondsToSelector())
     {
 LABEL_16:
-      v13 = IXGetLoggingHandle(kIXLoggingSubsystem);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v12 = IXGetLoggingHandle(kIXLoggingSubsystem);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = *(a1 + 32);
-        v15 = NSStringFromSelector(sel_coordinatorDidInstallPlaceholder_forApplicationRecord_);
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
-        v23 = 136316162;
-        v24 = "[IXAppInstallCoordinator _clientDelegate_placeholderDidInstallForApplicationRecord:]_block_invoke";
-        v25 = 2112;
-        v26 = v14;
-        v27 = 2112;
-        v28 = v15;
-        v29 = 2112;
-        v30 = v17;
-        v31 = 2048;
-        v32 = v2;
-        _os_log_impl(&dword_1DA47A000, v13, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v23, 0x34u);
+        v13 = *(a1 + 32);
+        v14 = NSStringFromSelector(sel_coordinatorDidInstallPlaceholder_forApplicationRecord_);
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
+        v22 = 136316162;
+        v23 = "[IXAppInstallCoordinator _clientDelegate_placeholderDidInstallForApplicationRecord:]_block_invoke";
+        v24 = 2112;
+        v25 = v13;
+        v26 = 2112;
+        v27 = v14;
+        v28 = 2112;
+        v29 = v16;
+        v30 = 2048;
+        v31 = v2;
+        _os_log_impl(&dword_1DA47A000, v12, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v22, 0x34u);
       }
 
       [v2 coordinatorDidInstallPlaceholder:*(a1 + 32) forApplicationRecord:*(a1 + 40)];
       goto LABEL_14;
     }
 
-    v18 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v17 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *(a1 + 32);
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
-      v22 = NSStringFromSelector(sel_coordinatorDidInstallPlaceholder_forApplicationRecord_);
-      v23 = 136316162;
-      v24 = "[IXAppInstallCoordinator _clientDelegate_placeholderDidInstallForApplicationRecord:]_block_invoke";
-      v25 = 2112;
-      v26 = v19;
-      v27 = 2112;
-      v28 = v21;
-      v29 = 2048;
-      v30 = v2;
-      v31 = 2112;
-      v32 = v22;
-      _os_log_impl(&dword_1DA47A000, v18, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@ (or any deprecated equivalent)", &v23, 0x34u);
+      v18 = *(a1 + 32);
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
+      v21 = NSStringFromSelector(sel_coordinatorDidInstallPlaceholder_forApplicationRecord_);
+      v22 = 136316162;
+      v23 = "[IXAppInstallCoordinator _clientDelegate_placeholderDidInstallForApplicationRecord:]_block_invoke";
+      v24 = 2112;
+      v25 = v18;
+      v26 = 2112;
+      v27 = v20;
+      v28 = 2048;
+      v29 = v2;
+      v30 = 2112;
+      v31 = v21;
+      _os_log_impl(&dword_1DA47A000, v17, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@ (or any deprecated equivalent)", &v22, 0x34u);
     }
   }
 
 LABEL_14:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clientDelegate_didCompleteForApplicationRecord:(id)record
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v12 = "[IXAppInstallCoordinator _clientDelegate_didCompleteForApplicationRecord:]";
-    v13 = 2112;
+    v11 = "[IXAppInstallCoordinator _clientDelegate_didCompleteForApplicationRecord:]";
+    v12 = 2112;
     selfCopy = self;
-    v15 = 2112;
-    v16 = recordCopy;
+    v14 = 2112;
+    v15 = recordCopy;
     _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@: Got completion delegate for app record %@", buf, 0x20u);
   }
 
   [(IXAppInstallCoordinator *)self setComplete:1 forApplicationRecord:recordCopy];
   observerCalloutQueue = [(IXAppInstallCoordinator *)self observerCalloutQueue];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __75__IXAppInstallCoordinator__clientDelegate_didCompleteForApplicationRecord___block_invoke;
-  v9[3] = &unk_1E85C5BF0;
-  v9[4] = self;
-  v10 = recordCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __75__IXAppInstallCoordinator__clientDelegate_didCompleteForApplicationRecord___block_invoke;
+  v8[3] = &unk_1E85C5BF0;
+  v8[4] = self;
+  v9 = recordCopy;
   v7 = recordCopy;
-  dispatch_async(observerCalloutQueue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(observerCalloutQueue, v8);
 }
 
 void __75__IXAppInstallCoordinator__clientDelegate_didCompleteForApplicationRecord___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) observer];
   if (!v2)
   {
@@ -12107,13 +12223,13 @@ void __75__IXAppInstallCoordinator__clientDelegate_didCompleteForApplicationReco
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v23 = 136315394;
-      v24 = "[IXAppInstallCoordinator _clientDelegate_didCompleteForApplicationRecord:]_block_invoke";
-      v25 = 2112;
-      v26 = v9;
+      v22 = 136315394;
+      v23 = "[IXAppInstallCoordinator _clientDelegate_didCompleteForApplicationRecord:]_block_invoke";
+      v24 = 2112;
+      v25 = v9;
       v10 = "%s: %@: Ignoring delegate message; no observer set";
 LABEL_12:
-      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, v10, &v23, 0x16u);
+      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, v10, &v22, 0x16u);
     }
 
 LABEL_13:
@@ -12127,10 +12243,10 @@ LABEL_13:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(a1 + 32);
-      v23 = 136315394;
-      v24 = "[IXAppInstallCoordinator _clientDelegate_didCompleteForApplicationRecord:]_block_invoke";
-      v25 = 2112;
-      v26 = v11;
+      v22 = 136315394;
+      v23 = "[IXAppInstallCoordinator _clientDelegate_didCompleteForApplicationRecord:]_block_invoke";
+      v24 = 2112;
+      v25 = v11;
       v10 = "%s: %@: Ignoring delegate message; already called";
       goto LABEL_12;
     }
@@ -12148,17 +12264,17 @@ LABEL_13:
       v5 = NSStringFromSelector(sel_coordinatorDidCompleteSuccessfully_);
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
-      v23 = 136316162;
-      v24 = "[IXAppInstallCoordinator _clientDelegate_didCompleteForApplicationRecord:]_block_invoke";
-      v25 = 2112;
-      v26 = v4;
-      v27 = 2112;
-      v28 = v5;
-      v29 = 2112;
-      v30 = v7;
-      v31 = 2048;
-      v32 = v2;
-      _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v23, 0x34u);
+      v22 = 136316162;
+      v23 = "[IXAppInstallCoordinator _clientDelegate_didCompleteForApplicationRecord:]_block_invoke";
+      v24 = 2112;
+      v25 = v4;
+      v26 = 2112;
+      v27 = v5;
+      v28 = 2112;
+      v29 = v7;
+      v30 = 2048;
+      v31 = v2;
+      _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v22, 0x34u);
     }
 
     [v2 coordinatorDidCompleteSuccessfully:*(a1 + 32)];
@@ -12173,72 +12289,70 @@ LABEL_13:
     if (objc_opt_respondsToSelector())
     {
 LABEL_16:
-      v13 = IXGetLoggingHandle(kIXLoggingSubsystem);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v12 = IXGetLoggingHandle(kIXLoggingSubsystem);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = *(a1 + 32);
-        v15 = NSStringFromSelector(sel_coordinatorDidCompleteSuccessfully_forApplicationRecord_);
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
-        v23 = 136316162;
-        v24 = "[IXAppInstallCoordinator _clientDelegate_didCompleteForApplicationRecord:]_block_invoke";
-        v25 = 2112;
-        v26 = v14;
-        v27 = 2112;
-        v28 = v15;
-        v29 = 2112;
-        v30 = v17;
-        v31 = 2048;
-        v32 = v2;
-        _os_log_impl(&dword_1DA47A000, v13, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v23, 0x34u);
+        v13 = *(a1 + 32);
+        v14 = NSStringFromSelector(sel_coordinatorDidCompleteSuccessfully_forApplicationRecord_);
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
+        v22 = 136316162;
+        v23 = "[IXAppInstallCoordinator _clientDelegate_didCompleteForApplicationRecord:]_block_invoke";
+        v24 = 2112;
+        v25 = v13;
+        v26 = 2112;
+        v27 = v14;
+        v28 = 2112;
+        v29 = v16;
+        v30 = 2048;
+        v31 = v2;
+        _os_log_impl(&dword_1DA47A000, v12, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v22, 0x34u);
       }
 
       [v2 coordinatorDidCompleteSuccessfully:*(a1 + 32) forApplicationRecord:*(a1 + 40)];
       goto LABEL_14;
     }
 
-    v18 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v17 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *(a1 + 32);
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
-      v22 = NSStringFromSelector(sel_coordinatorDidCompleteSuccessfully_forApplicationRecord_);
-      v23 = 136316162;
-      v24 = "[IXAppInstallCoordinator _clientDelegate_didCompleteForApplicationRecord:]_block_invoke";
-      v25 = 2112;
-      v26 = v19;
-      v27 = 2112;
-      v28 = v21;
-      v29 = 2048;
-      v30 = v2;
-      v31 = 2112;
-      v32 = v22;
-      _os_log_impl(&dword_1DA47A000, v18, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@ (or any deprecated equivalent)", &v23, 0x34u);
+      v18 = *(a1 + 32);
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
+      v21 = NSStringFromSelector(sel_coordinatorDidCompleteSuccessfully_forApplicationRecord_);
+      v22 = 136316162;
+      v23 = "[IXAppInstallCoordinator _clientDelegate_didCompleteForApplicationRecord:]_block_invoke";
+      v24 = 2112;
+      v25 = v18;
+      v26 = 2112;
+      v27 = v20;
+      v28 = 2048;
+      v29 = v2;
+      v30 = 2112;
+      v31 = v21;
+      _os_log_impl(&dword_1DA47A000, v17, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@ (or any deprecated equivalent)", &v22, 0x34u);
     }
   }
 
 LABEL_14:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clientDelegate_didCancelWithError:(id)error client:(unint64_t)client
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = IXStringForClientID(client);
     *buf = 136315906;
-    v21 = "[IXAppInstallCoordinator _clientDelegate_didCancelWithError:client:]";
-    v22 = 2112;
+    v20 = "[IXAppInstallCoordinator _clientDelegate_didCancelWithError:client:]";
+    v21 = 2112;
     selfCopy = self;
-    v24 = 2112;
-    v25 = errorCopy;
-    v26 = 2112;
-    v27 = v8;
+    v23 = 2112;
+    v24 = errorCopy;
+    v25 = 2112;
+    v26 = v8;
     _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: %@: Got cancel delegate with reason %@ client %@", buf, 0x2Au);
   }
 
@@ -12249,22 +12363,20 @@ LABEL_14:
   block[3] = &unk_1E85C52A8;
   block[4] = self;
   v10 = errorCopy;
-  v18 = v10;
+  v17 = v10;
   clientCopy = client;
   dispatch_sync(internalQueue, block);
 
   observerCalloutQueue = [(IXAppInstallCoordinator *)self observerCalloutQueue];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __69__IXAppInstallCoordinator__clientDelegate_didCancelWithError_client___block_invoke_2;
-  v14[3] = &unk_1E85C52A8;
-  v14[4] = self;
-  v15 = v10;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __69__IXAppInstallCoordinator__clientDelegate_didCancelWithError_client___block_invoke_2;
+  v13[3] = &unk_1E85C52A8;
+  v13[4] = self;
+  v14 = v10;
   clientCopy2 = client;
   v12 = v10;
-  dispatch_async(observerCalloutQueue, v14);
-
-  v13 = *MEMORY[0x1E69E9840];
+  dispatch_async(observerCalloutQueue, v13);
 }
 
 void __69__IXAppInstallCoordinator__clientDelegate_didCancelWithError_client___block_invoke(uint64_t a1)
@@ -12276,7 +12388,7 @@ void __69__IXAppInstallCoordinator__clientDelegate_didCancelWithError_client___b
 
 void __69__IXAppInstallCoordinator__clientDelegate_didCancelWithError_client___block_invoke_2(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) observer];
   if (!v2)
   {
@@ -12284,13 +12396,13 @@ void __69__IXAppInstallCoordinator__clientDelegate_didCancelWithError_client___b
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v23 = 136315394;
-      v24 = "[IXAppInstallCoordinator _clientDelegate_didCancelWithError:client:]_block_invoke_2";
-      v25 = 2112;
-      v26 = v9;
+      v22 = 136315394;
+      v23 = "[IXAppInstallCoordinator _clientDelegate_didCancelWithError:client:]_block_invoke_2";
+      v24 = 2112;
+      v25 = v9;
       v10 = "%s: %@: Ignoring delegate message; no observer set";
 LABEL_12:
-      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, v10, &v23, 0x16u);
+      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, v10, &v22, 0x16u);
     }
 
 LABEL_13:
@@ -12304,10 +12416,10 @@ LABEL_13:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(a1 + 32);
-      v23 = 136315394;
-      v24 = "[IXAppInstallCoordinator _clientDelegate_didCancelWithError:client:]_block_invoke";
-      v25 = 2112;
-      v26 = v11;
+      v22 = 136315394;
+      v23 = "[IXAppInstallCoordinator _clientDelegate_didCancelWithError:client:]_block_invoke";
+      v24 = 2112;
+      v25 = v11;
       v10 = "%s: %@: Ignoring delegate message; already called";
       goto LABEL_12;
     }
@@ -12325,17 +12437,17 @@ LABEL_13:
       v5 = NSStringFromSelector(sel_coordinator_canceledWithReason_);
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
-      v23 = 136316162;
-      v24 = "[IXAppInstallCoordinator _clientDelegate_didCancelWithError:client:]_block_invoke";
-      v25 = 2112;
-      v26 = v4;
-      v27 = 2112;
-      v28 = v5;
-      v29 = 2112;
-      v30 = v7;
-      v31 = 2048;
-      v32 = v2;
-      _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v23, 0x34u);
+      v22 = 136316162;
+      v23 = "[IXAppInstallCoordinator _clientDelegate_didCancelWithError:client:]_block_invoke";
+      v24 = 2112;
+      v25 = v4;
+      v26 = 2112;
+      v27 = v5;
+      v28 = 2112;
+      v29 = v7;
+      v30 = 2048;
+      v31 = v2;
+      _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v22, 0x34u);
     }
 
     [v2 coordinator:*(a1 + 32) canceledWithReason:*(a1 + 40)];
@@ -12350,59 +12462,57 @@ LABEL_13:
     if (objc_opt_respondsToSelector())
     {
 LABEL_16:
-      v13 = IXGetLoggingHandle(kIXLoggingSubsystem);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v12 = IXGetLoggingHandle(kIXLoggingSubsystem);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = *(a1 + 32);
-        v15 = NSStringFromSelector(sel_coordinator_canceledWithReason_client_);
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
-        v23 = 136316162;
-        v24 = "[IXAppInstallCoordinator _clientDelegate_didCancelWithError:client:]_block_invoke";
-        v25 = 2112;
-        v26 = v14;
-        v27 = 2112;
-        v28 = v15;
-        v29 = 2112;
-        v30 = v17;
-        v31 = 2048;
-        v32 = v2;
-        _os_log_impl(&dword_1DA47A000, v13, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v23, 0x34u);
+        v13 = *(a1 + 32);
+        v14 = NSStringFromSelector(sel_coordinator_canceledWithReason_client_);
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
+        v22 = 136316162;
+        v23 = "[IXAppInstallCoordinator _clientDelegate_didCancelWithError:client:]_block_invoke";
+        v24 = 2112;
+        v25 = v13;
+        v26 = 2112;
+        v27 = v14;
+        v28 = 2112;
+        v29 = v16;
+        v30 = 2048;
+        v31 = v2;
+        _os_log_impl(&dword_1DA47A000, v12, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v22, 0x34u);
       }
 
       [v2 coordinator:*(a1 + 32) canceledWithReason:*(a1 + 40) client:*(a1 + 48)];
       goto LABEL_14;
     }
 
-    v18 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v17 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *(a1 + 32);
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
-      v22 = NSStringFromSelector(sel_coordinator_canceledWithReason_client_);
-      v23 = 136316162;
-      v24 = "[IXAppInstallCoordinator _clientDelegate_didCancelWithError:client:]_block_invoke";
-      v25 = 2112;
-      v26 = v19;
-      v27 = 2112;
-      v28 = v21;
-      v29 = 2048;
-      v30 = v2;
-      v31 = 2112;
-      v32 = v22;
-      _os_log_impl(&dword_1DA47A000, v18, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@ (or any deprecated equivalent)", &v23, 0x34u);
+      v18 = *(a1 + 32);
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
+      v21 = NSStringFromSelector(sel_coordinator_canceledWithReason_client_);
+      v22 = 136316162;
+      v23 = "[IXAppInstallCoordinator _clientDelegate_didCancelWithError:client:]_block_invoke";
+      v24 = 2112;
+      v25 = v18;
+      v26 = 2112;
+      v27 = v20;
+      v28 = 2048;
+      v29 = v2;
+      v30 = 2112;
+      v31 = v21;
+      _os_log_impl(&dword_1DA47A000, v17, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@ (or any deprecated equivalent)", &v22, 0x34u);
     }
   }
 
 LABEL_14:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clientDelegate_didUpdateProgress:(double)progress forPhase:(unint64_t)phase overallProgress:(double)overallProgress
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v9 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
@@ -12417,14 +12527,14 @@ LABEL_14:
     }
 
     *buf = 136316162;
-    v15 = "[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]";
-    v16 = 2112;
+    v14 = "[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]";
+    v15 = 2112;
     selfCopy = self;
-    v18 = 2048;
+    v17 = 2048;
     progressCopy = progress;
-    v20 = 2112;
-    v21 = phase;
-    v22 = 2048;
+    v19 = 2112;
+    v20 = phase;
+    v21 = 2048;
     overallProgressCopy = overallProgress;
     _os_log_impl(&dword_1DA47A000, v9, OS_LOG_TYPE_DEFAULT, "%s: %@: Got did update progress delegate with percentComplete %f phase %@ overallProgress %f", buf, 0x34u);
   }
@@ -12439,13 +12549,11 @@ LABEL_14:
   block[6] = phase;
   *&block[7] = overallProgress;
   dispatch_async(observerCalloutQueue, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __86__IXAppInstallCoordinator__clientDelegate_didUpdateProgress_forPhase_overallProgress___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) observer];
   if (v2)
   {
@@ -12458,17 +12566,17 @@ void __86__IXAppInstallCoordinator__clientDelegate_didUpdateProgress_forPhase_ov
         v5 = NSStringFromSelector(sel_coordinator_didUpdateProgress_forPhase_overallProgress_);
         v6 = objc_opt_class();
         v7 = NSStringFromClass(v6);
-        v16 = 136316162;
-        v17 = "[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke";
-        v18 = 2112;
-        v19 = v4;
-        v20 = 2112;
-        v21 = v5;
-        v22 = 2112;
-        v23 = v7;
-        v24 = 2048;
-        v25 = v2;
-        _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v16, 0x34u);
+        v15 = 136316162;
+        v16 = "[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke";
+        v17 = 2112;
+        v18 = v4;
+        v19 = 2112;
+        v20 = v5;
+        v21 = 2112;
+        v22 = v7;
+        v23 = 2048;
+        v24 = v2;
+        _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: %@: Calling selector %@ on observer <%@ 0x%p>", &v15, 0x34u);
       }
 
       [v2 coordinator:*(a1 + 32) didUpdateProgress:*(a1 + 48) forPhase:*(a1 + 40) overallProgress:*(a1 + 56)];
@@ -12483,17 +12591,17 @@ void __86__IXAppInstallCoordinator__clientDelegate_didUpdateProgress_forPhase_ov
         v12 = objc_opt_class();
         v13 = NSStringFromClass(v12);
         v14 = NSStringFromSelector(sel_coordinator_didUpdateProgress_forPhase_overallProgress_);
-        v16 = 136316162;
-        v17 = "[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke";
-        v18 = 2112;
-        v19 = v11;
-        v20 = 2112;
-        v21 = v13;
-        v22 = 2048;
-        v23 = v2;
-        v24 = 2112;
-        v25 = v14;
-        _os_log_impl(&dword_1DA47A000, v10, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@", &v16, 0x34u);
+        v15 = 136316162;
+        v16 = "[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke";
+        v17 = 2112;
+        v18 = v11;
+        v19 = 2112;
+        v20 = v13;
+        v21 = 2048;
+        v22 = v2;
+        v23 = 2112;
+        v24 = v14;
+        _os_log_impl(&dword_1DA47A000, v10, OS_LOG_TYPE_DEFAULT, "%s: %@: Observer <%@ 0x%p> does not respond to %@", &v15, 0x34u);
       }
 
       [*(a1 + 32) setObserversCalled:{objc_msgSend(*(a1 + 32), "observersCalled") | 0x1000}];
@@ -12506,15 +12614,13 @@ void __86__IXAppInstallCoordinator__clientDelegate_didUpdateProgress_forPhase_ov
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v16 = 136315394;
-      v17 = "[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke";
-      v18 = 2112;
-      v19 = v9;
-      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: %@: Ignoring delegate message; no observer set", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke";
+      v17 = 2112;
+      v18 = v9;
+      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: %@: Ignoring delegate message; no observer set", &v15, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)purgeAllCoordinatorsAndPromisesForCreator:(unint64_t)creator
@@ -12544,114 +12650,111 @@ void __86__IXAppInstallCoordinator__clientDelegate_didUpdateProgress_forPhase_ov
 
 void __80__IXAppInstallCoordinator_IXTesting__purgeAllCoordinatorsAndPromisesForCreator___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[IXAppInstallCoordinator(IXTesting) purgeAllCoordinatorsAndPromisesForCreator:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[IXAppInstallCoordinator(IXTesting) purgeAllCoordinatorsAndPromisesForCreator:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 0;
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __80__IXAppInstallCoordinator_IXTesting__purgeAllCoordinatorsAndPromisesForCreator___block_invoke_685(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315394;
-      v7 = "+[IXAppInstallCoordinator(IXTesting) purgeAllCoordinatorsAndPromisesForCreator:]_block_invoke";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to purge registered coordinators and promises: %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "+[IXAppInstallCoordinator(IXTesting) purgeAllCoordinatorsAndPromisesForCreator:]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to purge registered coordinators and promises: %@", &v5, 0x16u);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)killDaemonForTesting
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = -1;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = -2;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 1;
+  v34 = *MEMORY[0x1E69E9840];
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = -1;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = -2;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 1;
   v2 = +[IXServerConnection sharedConnection];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke;
-  v16[3] = &unk_1E85C5560;
-  v16[4] = &v17;
-  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v16];
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
-  v15[2] = __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke_686;
-  v15[3] = &unk_1E85C5DA8;
-  v15[4] = &v17;
-  v15[5] = &v25;
-  [v3 _remote_pingDaemonWithCompletion:v15];
+  v15[2] = __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke;
+  v15[3] = &unk_1E85C5560;
+  v15[4] = &v16;
+  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke_686;
+  v14[3] = &unk_1E85C5DA8;
+  v14[4] = &v16;
+  v14[5] = &v24;
+  [v3 _remote_pingDaemonWithCompletion:v14];
 
-  if (v18[3])
+  if (v17[3])
   {
     v4 = +[IXServerConnection sharedConnection];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke_688;
-    v14[3] = &unk_1E85C5560;
-    v14[4] = &v17;
-    v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v14];
-    [v5 _remote_killDaemonForTestingWithCompletion:&__block_literal_global_691];
-
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
-    v13[2] = __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke_692;
-    v13[3] = &unk_1E85C5DF0;
-    v13[4] = &v21;
-    v6 = [IXServerConnection retrySynchronousIPC:v13];
-    if (*(v26 + 6) == *(v22 + 6))
+    v13[2] = __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke_688;
+    v13[3] = &unk_1E85C5560;
+    v13[4] = &v16;
+    v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v13];
+    [v5 _remote_killDaemonForTestingWithCompletion:&__block_literal_global_691];
+
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke_692;
+    v12[3] = &unk_1E85C5DF0;
+    v12[4] = &v20;
+    v6 = [IXServerConnection retrySynchronousIPC:v12];
+    if (*(v25 + 6) == *(v21 + 6))
     {
       v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(v26 + 6);
-        v9 = *(v22 + 6);
+        v8 = *(v25 + 6);
+        v9 = *(v21 + 6);
         *buf = 136315650;
-        v30 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]";
-        v31 = 1024;
-        v32 = v8;
-        v33 = 1024;
-        v34 = v9;
+        v29 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]";
+        v30 = 1024;
+        v31 = v8;
+        v32 = 1024;
+        v33 = v9;
         _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Daemon restart didn't work - before PID equal to after PID (%d == %d)", buf, 0x18u);
       }
 
       v10 = 0;
-      *(v18 + 24) = 0;
+      *(v17 + 24) = 0;
     }
 
     else
     {
-      v10 = *(v18 + 24);
+      v10 = *(v17 + 24);
     }
   }
 
@@ -12660,45 +12763,43 @@ void __80__IXAppInstallCoordinator_IXTesting__purgeAllCoordinatorsAndPromisesFor
     v10 = 0;
   }
 
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v25, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v24, 8);
   return v10 & 1;
 }
 
 void __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Ping got error %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Ping got error %@", &v5, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 0;
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke_686(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]_block_invoke";
-      v10 = 2112;
-      v11 = v5;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Ping got completion error %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]_block_invoke";
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Ping got completion error %@", &v7, 0x16u);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 0;
@@ -12708,13 +12809,11 @@ void __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke_688(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 domain];
   if ([v4 isEqualToString:*MEMORY[0x1E696A250]])
@@ -12734,22 +12833,20 @@ void __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke
   v6 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v7, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 0;
 LABEL_8:
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke_689(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = IXGetLoggingHandle(kIXLoggingSubsystem);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
@@ -12757,29 +12854,27 @@ void __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke
   {
     if (v4)
     {
-      v9 = 136315394;
-      v10 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]_block_invoke";
-      v11 = 2112;
-      v12 = v2;
+      v8 = 136315394;
+      v9 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]_block_invoke";
+      v10 = 2112;
+      v11 = v2;
       v5 = "%s: Got completion error: %@";
       v6 = v3;
       v7 = 22;
 LABEL_6:
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, v5, &v9, v7);
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, v5, &v8, v7);
     }
   }
 
   else if (v4)
   {
-    v9 = 136315138;
-    v10 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]_block_invoke";
+    v8 = 136315138;
+    v9 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]_block_invoke";
     v5 = "%s: Got completion";
     v6 = v3;
     v7 = 12;
     goto LABEL_6;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 id __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke_692(uint64_t a1)
@@ -12814,39 +12909,37 @@ id __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke_6
 
 void __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]_block_invoke_2";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Ping got error %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]_block_invoke_2";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Ping got error %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke_693(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
     v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Ping got completion error %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "+[IXAppInstallCoordinator(IXTesting) killDaemonForTesting]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Ping got completion error %@", &v8, 0x16u);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
@@ -12856,8 +12949,6 @@ void __58__IXAppInstallCoordinator_IXTesting__killDaemonForTesting__block_invoke
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (int)daemonPid
@@ -12909,39 +13000,37 @@ id __47__IXAppInstallCoordinator_IXTesting__daemonPid__block_invoke(uint64_t a1)
 
 void __47__IXAppInstallCoordinator_IXTesting__daemonPid__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator(IXTesting) daemonPid]_block_invoke_2";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Ping got error %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator(IXTesting) daemonPid]_block_invoke_2";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Ping got error %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __47__IXAppInstallCoordinator_IXTesting__daemonPid__block_invoke_695(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
     v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "+[IXAppInstallCoordinator(IXTesting) daemonPid]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Ping got completion error %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "+[IXAppInstallCoordinator(IXTesting) daemonPid]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Ping got completion error %@", &v8, 0x16u);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
@@ -12951,8 +13040,6 @@ void __47__IXAppInstallCoordinator_IXTesting__daemonPid__block_invoke_695(uint64
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)postNSCurrentLocaleDidChangeNotification
@@ -12982,7 +13069,7 @@ void __47__IXAppInstallCoordinator_IXTesting__daemonPid__block_invoke_695(uint64
 
 void __78__IXAppInstallCoordinator_IXTesting__postNSCurrentLocaleDidChangeNotification__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 domain];
   if ([v4 isEqualToString:*MEMORY[0x1E696A250]])
@@ -13002,76 +13089,91 @@ void __78__IXAppInstallCoordinator_IXTesting__postNSCurrentLocaleDidChangeNotifi
   v6 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator(IXTesting) postNSCurrentLocaleDidChangeNotification]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator(IXTesting) postNSCurrentLocaleDidChangeNotification]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v7, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 0;
 LABEL_8:
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __78__IXAppInstallCoordinator_IXTesting__postNSCurrentLocaleDidChangeNotification__block_invoke_696(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315394;
-      v7 = "+[IXAppInstallCoordinator(IXTesting) postNSCurrentLocaleDidChangeNotification]_block_invoke";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Posting NSCurrentLocaleDidChange got completion error: %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "+[IXAppInstallCoordinator(IXTesting) postNSCurrentLocaleDidChangeNotification]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Posting NSCurrentLocaleDidChange got completion error: %@", &v5, 0x16u);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 0;
   }
+}
 
-  v5 = *MEMORY[0x1E69E9840];
++ (BOOL)setTestingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = 0;
+  v4 = +[IXServerConnection sharedConnection];
+  v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_698];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __56__IXAppInstallCoordinator_IXTesting__setTestingEnabled___block_invoke_699;
+  v7[3] = &unk_1E85C5560;
+  v7[4] = &v8;
+  [v5 _remote_setTestingEnabled:enabledCopy completion:v7];
+
+  LOBYTE(enabledCopy) = *(v9 + 24);
+  _Block_object_dispose(&v8, 8);
+  return enabledCopy;
 }
 
 void __56__IXAppInstallCoordinator_IXTesting__setTestingEnabled___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "+[IXAppInstallCoordinator(IXTesting) setTestingEnabled:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "+[IXAppInstallCoordinator(IXTesting) setTestingEnabled:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __56__IXAppInstallCoordinator_IXTesting__setTestingEnabled___block_invoke_699(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "+[IXAppInstallCoordinator(IXTesting) setTestingEnabled:]_block_invoke";
-      v11 = 2112;
-      v12 = v3;
+      v8 = 136315394;
+      v9 = "+[IXAppInstallCoordinator(IXTesting) setTestingEnabled:]_block_invoke";
+      v10 = 2112;
+      v11 = v3;
       v5 = "%s: Got completion error: %@";
       v6 = v4;
       v7 = 22;
 LABEL_6:
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, v5, &v9, v7);
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, v5, &v8, v7);
     }
   }
 
@@ -13081,16 +13183,14 @@ LABEL_6:
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "+[IXAppInstallCoordinator(IXTesting) setTestingEnabled:]_block_invoke";
+      v8 = 136315138;
+      v9 = "+[IXAppInstallCoordinator(IXTesting) setTestingEnabled:]_block_invoke";
       v5 = "%s: Got completion";
       v6 = v4;
       v7 = 12;
       goto LABEL_6;
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)setTestModeForIdentifierPrefix:(id)prefix testMode:(unint64_t)mode testSpecificValidationData:(id)data
@@ -13118,39 +13218,37 @@ LABEL_6:
 
 void __105__IXAppInstallCoordinator_IXTesting__setTestModeForIdentifierPrefix_testMode_testSpecificValidationData___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "+[IXAppInstallCoordinator(IXTesting) setTestModeForIdentifierPrefix:testMode:testSpecificValidationData:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "+[IXAppInstallCoordinator(IXTesting) setTestModeForIdentifierPrefix:testMode:testSpecificValidationData:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __105__IXAppInstallCoordinator_IXTesting__setTestModeForIdentifierPrefix_testMode_testSpecificValidationData___block_invoke_702(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "+[IXAppInstallCoordinator(IXTesting) setTestModeForIdentifierPrefix:testMode:testSpecificValidationData:]_block_invoke";
-      v11 = 2112;
-      v12 = v3;
+      v8 = 136315394;
+      v9 = "+[IXAppInstallCoordinator(IXTesting) setTestModeForIdentifierPrefix:testMode:testSpecificValidationData:]_block_invoke";
+      v10 = 2112;
+      v11 = v3;
       v5 = "%s: Got completion error: %@";
       v6 = v4;
       v7 = 22;
 LABEL_6:
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, v5, &v9, v7);
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, v5, &v8, v7);
     }
   }
 
@@ -13160,69 +13258,67 @@ LABEL_6:
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "+[IXAppInstallCoordinator(IXTesting) setTestModeForIdentifierPrefix:testMode:testSpecificValidationData:]_block_invoke";
+      v8 = 136315138;
+      v9 = "+[IXAppInstallCoordinator(IXTesting) setTestModeForIdentifierPrefix:testMode:testSpecificValidationData:]_block_invoke";
       v5 = "%s: Got completion";
       v6 = v4;
       v7 = 12;
       goto LABEL_6;
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)simulateClientDeath
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = -1;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = -2;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 1;
+  v34 = *MEMORY[0x1E69E9840];
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = -1;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = -2;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 1;
   v2 = +[IXServerConnection sharedConnection];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __57__IXAppInstallCoordinator_IXTesting__simulateClientDeath__block_invoke;
-  v16[3] = &unk_1E85C5560;
-  v16[4] = &v17;
-  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v16];
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
-  v15[2] = __57__IXAppInstallCoordinator_IXTesting__simulateClientDeath__block_invoke_703;
-  v15[3] = &unk_1E85C5DA8;
-  v15[4] = &v17;
-  v15[5] = &v25;
-  [v3 _remote_pingDaemonWithCompletion:v15];
+  v15[2] = __57__IXAppInstallCoordinator_IXTesting__simulateClientDeath__block_invoke;
+  v15[3] = &unk_1E85C5560;
+  v15[4] = &v16;
+  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __57__IXAppInstallCoordinator_IXTesting__simulateClientDeath__block_invoke_703;
+  v14[3] = &unk_1E85C5DA8;
+  v14[4] = &v16;
+  v14[5] = &v24;
+  [v3 _remote_pingDaemonWithCompletion:v14];
 
-  if (v18[3])
+  if (v17[3])
   {
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v30 = "+[IXAppInstallCoordinator(IXTesting) simulateClientDeath]";
+      v29 = "+[IXAppInstallCoordinator(IXTesting) simulateClientDeath]";
       _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Simulating client death by resetting daemon connection", buf, 0xCu);
     }
 
     [v2 resetDaemonConnection];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __57__IXAppInstallCoordinator_IXTesting__simulateClientDeath__block_invoke_704;
-    v12[3] = &unk_1E85C5E18;
-    v13 = v2;
-    v14 = &v21;
-    v5 = [IXServerConnection retrySynchronousIPC:v12];
-    if (*(v26 + 6) == *(v22 + 6))
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __57__IXAppInstallCoordinator_IXTesting__simulateClientDeath__block_invoke_704;
+    v11[3] = &unk_1E85C5E18;
+    v12 = v2;
+    v13 = &v20;
+    v5 = [IXServerConnection retrySynchronousIPC:v11];
+    if (*(v25 + 6) == *(v21 + 6))
     {
-      v6 = *(v18 + 24);
+      v6 = *(v17 + 24);
     }
 
     else
@@ -13230,19 +13326,19 @@ LABEL_6:
       v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(v26 + 6);
-        v9 = *(v22 + 6);
+        v8 = *(v25 + 6);
+        v9 = *(v21 + 6);
         *buf = 136315650;
-        v30 = "+[IXAppInstallCoordinator(IXTesting) simulateClientDeath]";
-        v31 = 1024;
-        v32 = v8;
-        v33 = 1024;
-        v34 = v9;
+        v29 = "+[IXAppInstallCoordinator(IXTesting) simulateClientDeath]";
+        v30 = 1024;
+        v31 = v8;
+        v32 = 1024;
+        v33 = v9;
         _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Daemon died when we reset our connection to it (%d != %d)", buf, 0x18u);
       }
 
       v6 = 0;
-      *(v18 + 24) = 0;
+      *(v17 + 24) = 0;
     }
   }
 
@@ -13251,45 +13347,43 @@ LABEL_6:
     v6 = 0;
   }
 
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v25, 8);
-  v10 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v24, 8);
   return v6 & 1;
 }
 
 void __57__IXAppInstallCoordinator_IXTesting__simulateClientDeath__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[IXAppInstallCoordinator(IXTesting) simulateClientDeath]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Ping got error %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[IXAppInstallCoordinator(IXTesting) simulateClientDeath]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Ping got error %@", &v5, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 0;
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __57__IXAppInstallCoordinator_IXTesting__simulateClientDeath__block_invoke_703(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "+[IXAppInstallCoordinator(IXTesting) simulateClientDeath]_block_invoke";
-      v10 = 2112;
-      v11 = v5;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Ping got completion error %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "+[IXAppInstallCoordinator(IXTesting) simulateClientDeath]_block_invoke";
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Ping got completion error %@", &v7, 0x16u);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 0;
@@ -13299,8 +13393,6 @@ void __57__IXAppInstallCoordinator_IXTesting__simulateClientDeath__block_invoke_
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 id __57__IXAppInstallCoordinator_IXTesting__simulateClientDeath__block_invoke_704(uint64_t a1)
@@ -13335,39 +13427,37 @@ id __57__IXAppInstallCoordinator_IXTesting__simulateClientDeath__block_invoke_70
 
 void __57__IXAppInstallCoordinator_IXTesting__simulateClientDeath__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXAppInstallCoordinator(IXTesting) simulateClientDeath]_block_invoke_2";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Ping got error %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXAppInstallCoordinator(IXTesting) simulateClientDeath]_block_invoke_2";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Ping got error %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __57__IXAppInstallCoordinator_IXTesting__simulateClientDeath__block_invoke_705(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (v6)
   {
     v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "+[IXAppInstallCoordinator(IXTesting) simulateClientDeath]_block_invoke";
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Ping got completion error %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "+[IXAppInstallCoordinator(IXTesting) simulateClientDeath]_block_invoke";
+      v10 = 2112;
+      v11 = v6;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Ping got completion error %@", &v8, 0x16u);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
@@ -13377,8 +13467,6 @@ void __57__IXAppInstallCoordinator_IXTesting__simulateClientDeath__block_invoke_
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)associateMultiPersonaAppsWithBundleIDs:(id)ds withPersona:(id)persona withError:(id *)error
@@ -13459,7 +13547,7 @@ void __113__IXAppInstallCoordinator_IXPersonaBasedMultiUser__associateMultiPerso
     v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __113__IXAppInstallCoordinator_IXPersonaBasedMultiUser__associateMultiPersonaAppsWithBundleIDs_withPersona_withError___block_invoke_1_cold_1(a1);
+      __113__IXAppInstallCoordinator_IXPersonaBasedMultiUser__associateMultiPersonaAppsWithBundleIDs_withPersona_withError___block_invoke_1_cold_1();
     }
 
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
@@ -13546,7 +13634,7 @@ void __92__IXAppInstallCoordinator_IXPersonaBasedMultiUser__addBundleIDs_toMappi
     v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __92__IXAppInstallCoordinator_IXPersonaBasedMultiUser__addBundleIDs_toMappingsForPersona_error___block_invoke_4_cold_1(a1);
+      __92__IXAppInstallCoordinator_IXPersonaBasedMultiUser__addBundleIDs_toMappingsForPersona_error___block_invoke_4_cold_1();
     }
 
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
@@ -13633,7 +13721,7 @@ void __97__IXAppInstallCoordinator_IXPersonaBasedMultiUser__removeBundleIDs_from
     v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __97__IXAppInstallCoordinator_IXPersonaBasedMultiUser__removeBundleIDs_fromMappingsForPersona_error___block_invoke_5_cold_1(a1);
+      __97__IXAppInstallCoordinator_IXPersonaBasedMultiUser__removeBundleIDs_fromMappingsForPersona_error___block_invoke_5_cold_1();
     }
 
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
@@ -13834,6 +13922,24 @@ void __101__IXAppInstallCoordinator_IXDiskImageMounter__unregisterContentsForDis
   return v14;
 }
 
++ (void)_beginInstallForURL:(id)l forPersonaUniqueString:(id)string consumeSource:(BOOL)source options:(id)options progressBlock:(id)block completion:(id)completion
+{
+  sourceCopy = source;
+  completionCopy = completion;
+  blockCopy = block;
+  optionsCopy = options;
+  stringCopy = string;
+  lCopy = l;
+  v18 = objc_opt_class();
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __136__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completion___block_invoke;
+  v20[3] = &unk_1E85C63E8;
+  v21 = completionCopy;
+  v19 = completionCopy;
+  [v18 _beginInstallForURL:lCopy forPersonaUniqueString:stringCopy consumeSource:sourceCopy options:optionsCopy progressBlock:blockCopy completionWithIdentity:v20];
+}
+
 void __136__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v4 = *(a1 + 32);
@@ -13923,7 +14029,7 @@ LABEL_17:
 + (void)_beginInstallForURL:(id)l forPersonaUniqueString:(id)string consumeSource:(BOOL)source options:(id)options progressBlock:(id)block completionWithIdentity:(id)identity
 {
   sourceCopy = source;
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   lCopy = l;
   stringCopy = string;
   optionsCopy = options;
@@ -13940,8 +14046,8 @@ LABEL_17:
     path = [lCopy path];
     v21 = path;
     *buf = 136315906;
-    v39 = "+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]";
-    v40 = 2112;
+    v38 = "+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]";
+    v39 = 2112;
     if (sourceCopy)
     {
       v22 = 89;
@@ -13952,11 +14058,11 @@ LABEL_17:
       v22 = 78;
     }
 
-    v41 = path;
-    v42 = 1024;
-    v43 = v22;
-    v44 = 2112;
-    v45 = optionsCopy;
+    v40 = path;
+    v41 = 1024;
+    v42 = v22;
+    v43 = 2112;
+    v44 = optionsCopy;
     _os_log_impl(&dword_1DA47A000, v19, OS_LOG_TYPE_DEFAULT, "%s: Beginning install for %@ consuming source:%c options:%@", buf, 0x26u);
   }
 
@@ -13965,12 +14071,12 @@ LABEL_17:
   block[1] = 3221225472;
   block[2] = __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_126;
   block[3] = &unk_1E85C6438;
-  v31 = lCopy;
-  v32 = stringCopy;
-  v37 = sourceCopy;
-  v33 = optionsCopy;
-  v34 = identityCopy;
-  v35 = blockCopy;
+  v30 = lCopy;
+  v31 = stringCopy;
+  v36 = sourceCopy;
+  v32 = optionsCopy;
+  v33 = identityCopy;
+  v34 = blockCopy;
   selfCopy = self;
   v24 = blockCopy;
   v25 = optionsCopy;
@@ -13978,8 +14084,6 @@ LABEL_17:
   v27 = stringCopy;
   v28 = lCopy;
   dispatch_async(v23, block);
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke()
@@ -13996,40 +14100,40 @@ void __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPe
 
 void __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_126(uint64_t a1)
 {
-  v120 = *MEMORY[0x1E69E9840];
-  v110 = 0;
+  v119 = *MEMORY[0x1E69E9840];
+  v109 = 0;
   v2 = +[IXFileManager defaultManager];
-  v109 = 1;
-  v103 = 0;
-  v104 = &v103;
-  v105 = 0x3032000000;
-  v106 = __Block_byref_object_copy__8;
-  v107 = __Block_byref_object_dispose__8;
-  v108 = 0;
-  v99 = 0;
-  v100 = &v99;
-  v101 = 0x2020000000;
-  v102 = -1;
-  v75 = *(a1 + 32);
-  v74 = *(a1 + 40);
-  v92[0] = MEMORY[0x1E69E9820];
-  v92[1] = 3221225472;
-  v92[2] = __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_127;
-  v92[3] = &unk_1E85C6410;
-  v98 = *(a1 + 80);
+  v108 = 1;
+  v102 = 0;
+  v103 = &v102;
+  v104 = 0x3032000000;
+  v105 = __Block_byref_object_copy__8;
+  v106 = __Block_byref_object_dispose__8;
+  v107 = 0;
+  v98 = 0;
+  v99 = &v98;
+  v100 = 0x2020000000;
+  v101 = -1;
+  v74 = *(a1 + 32);
+  v73 = *(a1 + 40);
+  v91[0] = MEMORY[0x1E69E9820];
+  v91[1] = 3221225472;
+  v91[2] = __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_127;
+  v91[3] = &unk_1E85C6410;
+  v97 = *(a1 + 80);
   v3 = v2;
-  v93 = v3;
-  v94 = *(a1 + 32);
-  v96 = &v103;
-  v97 = &v99;
-  v95 = *(a1 + 56);
-  v77 = MEMORY[0x1DA74F400](v92);
+  v92 = v3;
+  v93 = *(a1 + 32);
+  v95 = &v102;
+  v96 = &v98;
+  v94 = *(a1 + 56);
+  v76 = MEMORY[0x1DA74F400](v91);
   v4 = objc_opt_new();
   if (!v4)
   {
+    v71 = 0;
     v72 = 0;
-    v73 = 0;
-    v76 = 0;
+    v75 = 0;
     v9 = 0;
     v10 = 0;
     v11 = 0;
@@ -14051,8 +14155,8 @@ LABEL_15:
   v5 = *(a1 + 48);
   if (v5)
   {
-    v76 = v5;
-    if ([v76 installTargetType] != 1)
+    v75 = v5;
+    if ([v75 installTargetType] != 1)
     {
       v6 = IXGetLoggingHandle(kIXLoggingSubsystem);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -14060,21 +14164,21 @@ LABEL_15:
         __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_126_cold_1();
       }
 
-      v8 = _CreateError("+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke", 366, @"IXErrorDomain", 4uLL, 0, 0, @"This SPI can only install apps", v7, v69);
+      v8 = _CreateError("+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke", 366, @"IXErrorDomain", 4uLL, 0, 0, @"This SPI can only install apps", v7, v68);
       goto LABEL_12;
     }
   }
 
   else
   {
-    v76 = objc_opt_new();
-    [v76 setInstallTargetType:1];
+    v75 = objc_opt_new();
+    [v75 setInstallTargetType:1];
   }
 
   v13 = *(a1 + 32);
-  v91 = 0;
-  v14 = [v3 itemExistsAtURL:v13 isDirectory:&v109 error:&v91];
-  v15 = v91;
+  v90 = 0;
+  v14 = [v3 itemExistsAtURL:v13 isDirectory:&v108 error:&v90];
+  v15 = v90;
   v8 = v15;
   if (!v14)
   {
@@ -14084,90 +14188,90 @@ LABEL_12:
 LABEL_13:
     v10 = 0;
     v9 = 0;
+    v71 = 0;
     v72 = 0;
-    v73 = 0;
     goto LABEL_14;
   }
 
-  if (v109)
+  if (v108)
   {
     v16 = v15;
   }
 
   else
   {
-    v29 = *(a1 + 72);
-    v90 = v8;
-    v30 = [v29 _temporaryStagingLocationForInstallLocation:v4 withSandboxExtensionHandle:v100 + 3 error:&v90];
-    v31 = v90;
+    v28 = *(a1 + 72);
+    v89 = v8;
+    v29 = [v28 _temporaryStagingLocationForInstallLocation:v4 withSandboxExtensionHandle:v99 + 3 error:&v89];
+    v30 = v89;
 
-    v32 = v104[5];
-    v104[5] = v30;
+    v31 = v103[5];
+    v103[5] = v29;
 
-    v33 = v104[5];
-    if (!v33)
+    v32 = v103[5];
+    if (!v32)
     {
-      v51 = IXGetLoggingHandle(kIXLoggingSubsystem);
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v50 = IXGetLoggingHandle(kIXLoggingSubsystem);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
         __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_126_cold_2();
       }
 
-      v8 = _CreateError("+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke", 382, @"IXErrorDomain", 1uLL, v31, 0, @"Failed to create temporary staging directory for installation", v52, v69);
+      v8 = _CreateError("+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke", 382, @"IXErrorDomain", 1uLL, v30, 0, @"Failed to create temporary staging directory for installation", v51, v68);
       v11 = 0;
       v9 = 0;
+      v71 = 0;
       v72 = 0;
-      v73 = 0;
       goto LABEL_61;
     }
 
-    v34 = *(a1 + 32);
-    v89 = v31;
-    v35 = [MEMORY[0x1E69B1980] extractZipArchiveAtURL:v34 toURL:v33 withError:&v89];
-    v16 = v89;
+    v33 = *(a1 + 32);
+    v88 = v30;
+    v34 = [MEMORY[0x1E69B1980] extractZipArchiveAtURL:v33 toURL:v32 withError:&v88];
+    v16 = v88;
 
-    if ((v35 & 1) == 0)
+    if ((v34 & 1) == 0)
     {
-      v53 = IXGetLoggingHandle(kIXLoggingSubsystem);
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+      v52 = IXGetLoggingHandle(kIXLoggingSubsystem);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
-        v65 = [*(a1 + 32) path];
-        v66 = [v104[5] path];
+        v64 = [*(a1 + 32) path];
+        v65 = [v103[5] path];
         *buf = 136315906;
-        v113 = "+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke";
-        v114 = 2112;
-        v115 = v65;
-        v116 = 2112;
-        v117 = v66;
-        v118 = 2112;
-        v119 = v16;
-        _os_log_error_impl(&dword_1DA47A000, v53, OS_LOG_TYPE_ERROR, "%s: Failed to extract %@ to %@ : %@", buf, 0x2Au);
+        v112 = "+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke";
+        v113 = 2112;
+        v114 = v64;
+        v115 = 2112;
+        v116 = v65;
+        v117 = 2112;
+        v118 = v16;
+        _os_log_error_impl(&dword_1DA47A000, v52, OS_LOG_TYPE_ERROR, "%s: Failed to extract %@ to %@ : %@", buf, 0x2Au);
       }
 
-      v45 = [*(a1 + 32) path];
-      v71 = [v104[5] path];
-      v8 = _CreateError("+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke", 387, @"IXErrorDomain", 0x2AuLL, v16, 0, @"Failed to extract %@ to %@", v54, v45);
+      v44 = [*(a1 + 32) path];
+      v70 = [v103[5] path];
+      v8 = _CreateError("+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke", 387, @"IXErrorDomain", 0x2AuLL, v16, 0, @"Failed to extract %@ to %@", v53, v44);
 
       v11 = 0;
       v9 = 0;
+      v71 = 0;
       v72 = 0;
-      v73 = 0;
       goto LABEL_60;
     }
 
-    v36 = v104[5];
+    v35 = v103[5];
 
-    v37 = [v104[5] URLByDeletingLastPathComponent];
-    v38 = v104[5];
-    v104[5] = v37;
+    v36 = [v103[5] URLByDeletingLastPathComponent];
+    v37 = v103[5];
+    v103[5] = v36;
 
-    v75 = v36;
+    v74 = v35;
   }
 
-  v39 = [v76 iTunesMetadata];
-  v88 = v16;
-  v11 = [IXPlaceholder placeholderForInstallable:v75 client:12 installType:1 metadata:v39 location:v4 error:&v88];
-  v8 = v88;
+  v38 = [v75 iTunesMetadata];
+  v87 = v16;
+  v11 = [IXPlaceholder placeholderForInstallable:v74 client:12 installType:1 metadata:v38 location:v4 error:&v87];
+  v8 = v87;
 
   if (!v11)
   {
@@ -14175,38 +14279,38 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v73 = [v11 bundleID];
-  v40 = v74;
-  if (!v74)
+  v72 = [v11 bundleID];
+  v39 = v73;
+  if (!v73)
   {
-    v40 = @"PersonalPersonaPlaceholderString";
+    v39 = @"PersonalPersonaPlaceholderString";
   }
 
-  v74 = v40;
-  v72 = [[IXApplicationIdentity alloc] initWithBundleIdentifier:v73 personaUniqueString:v40 location:v4];
-  v41 = [IXPromisedTransferToPath alloc];
-  v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"App Asset: %@"];
-  v87 = v8;
-  v9 = [(IXPromisedTransferToPath *)v41 initWithName:v42 client:12 transferPath:v75 diskSpaceNeeded:0 location:v4 error:&v87];
-  v43 = v87;
+  v73 = v39;
+  v71 = [[IXApplicationIdentity alloc] initWithBundleIdentifier:v72 personaUniqueString:v39 location:v4];
+  v40 = [IXPromisedTransferToPath alloc];
+  v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"App Asset: %@"];
+  v86 = v8;
+  v9 = [(IXPromisedTransferToPath *)v40 initWithName:v41 client:12 transferPath:v74 diskSpaceNeeded:0 location:v4 error:&v86];
+  v42 = v86;
 
   if (!v9)
   {
     v12 = 0;
     v10 = 0;
-    v8 = v43;
+    v8 = v42;
     goto LABEL_14;
   }
 
-  if ((*(a1 + 80) & 1) == 0 && !v104[5])
+  if ((*(a1 + 80) & 1) == 0 && !v103[5])
   {
     [(IXPromisedTransferToPath *)v9 setShouldCopy:1];
   }
 
-  v44 = *(a1 + 72);
-  v86 = v43;
-  v10 = [v44 _coordinatorForIdentity:v72 created:&v110 error:&v86];
-  v8 = v86;
+  v43 = *(a1 + 72);
+  v85 = v42;
+  v10 = [v43 _coordinatorForIdentity:v71 created:&v109 error:&v85];
+  v8 = v85;
 
   if (!v10)
   {
@@ -14214,84 +14318,84 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  if (v110)
+  if (v109)
   {
     v12 = v10;
-    v45 = v8;
+    v44 = v8;
     goto LABEL_46;
   }
 
   if ([v10 creatorIdentifier] != 12)
   {
 
-    v60 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+    v59 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
       __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_126_cold_3();
     }
 
-    _CreateError("+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke", 459, @"IXErrorDomain", 0x1DuLL, 0, 0, @"A coordinated install for %@ (not initiated by IXClientSimpleSPI) is already pending.", v61, v73);
-    v8 = v31 = v8;
+    _CreateError("+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke", 459, @"IXErrorDomain", 0x1DuLL, 0, 0, @"A coordinated install for %@ (not initiated by IXClientSimpleSPI) is already pending.", v60, v72);
+    v8 = v30 = v8;
     goto LABEL_61;
   }
 
-  v55 = IXGetLoggingHandle(kIXLoggingSubsystem);
-  if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+  v54 = IXGetLoggingHandle(kIXLoggingSubsystem);
+  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v113 = "+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke";
-    v114 = 2112;
-    v115 = v73;
-    _os_log_impl(&dword_1DA47A000, v55, OS_LOG_TYPE_DEFAULT, "%s: A coordinated install for %@ is already pending. Trying to cancel the existing one to create a new one.", buf, 0x16u);
+    v112 = "+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke";
+    v113 = 2112;
+    v114 = v72;
+    _os_log_impl(&dword_1DA47A000, v54, OS_LOG_TYPE_DEFAULT, "%s: A coordinated install for %@ is already pending. Trying to cancel the existing one to create a new one.", buf, 0x16u);
   }
 
-  v16 = _CreateError("+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke", 437, @"IXErrorDomain", 0x20uLL, 0, 0, @"IXSimpleInstaller canceling existing coordinator", v56, v73);
-  v85 = v8;
-  v57 = [v10 cancelForReason:v16 client:12 error:&v85];
-  v45 = v85;
+  v16 = _CreateError("+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke", 437, @"IXErrorDomain", 0x20uLL, 0, 0, @"IXSimpleInstaller canceling existing coordinator", v55, v72);
+  v84 = v8;
+  v56 = [v10 cancelForReason:v16 client:12 error:&v84];
+  v44 = v84;
 
-  if (!v57)
+  if (!v56)
   {
 
-    v62 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+    v61 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
     {
       __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_126_cold_4();
     }
 
-    v64 = _CreateError("+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke", 454, @"IXErrorDomain", 0x1DuLL, 0, 0, @"Failed to cancel an already existing coordinator.", v63, v70);
+    v63 = _CreateError("+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke", 454, @"IXErrorDomain", 0x1DuLL, 0, 0, @"Failed to cancel an already existing coordinator.", v62, v69);
     goto LABEL_84;
   }
 
-  v110 = 0;
-  v58 = *(a1 + 72);
-  v59 = v45;
-  v84 = v45;
-  v12 = [v58 _coordinatorForIdentity:v72 created:&v110 error:&v84];
-  v45 = v84;
+  v109 = 0;
+  v57 = *(a1 + 72);
+  v58 = v44;
+  v83 = v44;
+  v12 = [v57 _coordinatorForIdentity:v71 created:&v109 error:&v83];
+  v44 = v83;
 
   if (!v12)
   {
-    v31 = v16;
-    v8 = v45;
+    v30 = v16;
+    v8 = v44;
     goto LABEL_61;
   }
 
-  if ((v110 & 1) == 0)
+  if ((v109 & 1) == 0)
   {
 
-    v67 = IXGetLoggingHandle(kIXLoggingSubsystem);
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+    v66 = IXGetLoggingHandle(kIXLoggingSubsystem);
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
       __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_126_cold_5();
     }
 
-    v64 = _CreateError("+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke", 449, @"IXErrorDomain", 0x1DuLL, 0, 0, @"Failed to re-create a coordinator for %@.", v68, v73);
+    v63 = _CreateError("+[IXAppInstallCoordinator(IXSimpleInstaller) _beginInstallForURL:forPersonaUniqueString:consumeSource:options:progressBlock:completionWithIdentity:]_block_invoke", 449, @"IXErrorDomain", 0x1DuLL, 0, 0, @"Failed to re-create a coordinator for %@.", v67, v72);
 LABEL_84:
-    v8 = v64;
+    v8 = v63;
 LABEL_60:
 
-    v31 = v16;
+    v30 = v16;
 LABEL_61:
 
     v12 = 0;
@@ -14301,40 +14405,40 @@ LABEL_61:
 
 LABEL_46:
   v10 = objc_opt_new();
-  [v10 setBundleID:v73];
+  [v10 setBundleID:v72];
   [v10 setCoordinator:v12];
-  [v10 setCompletion:v77];
+  [v10 setCompletion:v76];
   [v10 setProgressBlock:*(a1 + 64)];
   [v12 setObserver:v10];
-  if (![v76 isUserInitiated] || (v83 = v45, v46 = objc_msgSend(v12, "setImportance:error:", 3, &v83), v8 = v83, v45, v45 = v8, v46))
+  if (![v75 isUserInitiated] || (v82 = v44, v45 = objc_msgSend(v12, "setImportance:error:", 3, &v82), v8 = v82, v44, v44 = v8, v45))
   {
-    v82 = v45;
-    v47 = [v12 setInstallOptions:v76 error:&v82];
-    v8 = v82;
+    v81 = v44;
+    v46 = [v12 setInstallOptions:v75 error:&v81];
+    v8 = v81;
 
-    if (v47)
+    if (v46)
     {
-      v81 = v8;
-      v48 = [v12 setAppAssetPromise:v9 error:&v81];
-      v17 = v81;
+      v80 = v8;
+      v47 = [v12 setAppAssetPromise:v9 error:&v80];
+      v17 = v80;
 
-      if (v48)
+      if (v47)
       {
-        v80 = v17;
-        v49 = [v12 setInitialODRAssetPromises:MEMORY[0x1E695E0F0] error:&v80];
-        v8 = v80;
+        v79 = v17;
+        v48 = [v12 setInitialODRAssetPromises:MEMORY[0x1E695E0F0] error:&v79];
+        v8 = v79;
 
-        if (!v49)
+        if (!v48)
         {
           goto LABEL_75;
         }
 
         [(IXPromisedTransferToPath *)v9 setComplete:1];
-        v79 = v8;
-        v50 = [v12 setPlaceholderPromise:v11 error:&v79];
-        v17 = v79;
+        v78 = v8;
+        v49 = [v12 setPlaceholderPromise:v11 error:&v78];
+        v17 = v78;
 
-        if (v50)
+        if (v49)
         {
           _AddDelegateToMap(v10);
           goto LABEL_32;
@@ -14375,37 +14479,35 @@ LABEL_18:
     [(IXDataPromise *)v9 cancelForReason:v17 client:12 error:0];
   }
 
-  v22 = v104[5];
+  v22 = v103[5];
   if (v22)
   {
-    v78 = 0;
-    v23 = [v3 removeItemAtURL:v22 error:&v78];
-    v24 = v78;
+    v77 = 0;
+    v23 = [v3 removeItemAtURL:v22 error:&v77];
+    v24 = v77;
     if ((v23 & 1) == 0)
     {
       v25 = IXGetLoggingHandle(kIXLoggingSubsystem);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        v26 = [v104[5] path];
-        __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_126_cold_7(v26, v24, v111, v25);
+        v26 = [v103[5] path];
+        __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_126_cold_7(v26, v24, v110, v25);
       }
     }
 
-    v27 = v104[5];
-    v104[5] = 0;
+    v27 = v103[5];
+    v103[5] = 0;
   }
 
   if (*(a1 + 56))
   {
-    (v77)[2](v77, 0, v17);
+    (v76)[2](v76, 0, v17);
   }
 
 LABEL_32:
 
-  _Block_object_dispose(&v99, 8);
-  _Block_object_dispose(&v103, 8);
-
-  v28 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v98, 8);
+  _Block_object_dispose(&v102, 8);
 }
 
 void __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_127(uint64_t a1, void *a2, void *a3)
@@ -14575,6 +14677,25 @@ void __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPe
     v14 = v11;
     dispatch_async(v12, block);
   }
+}
+
++ (void)installApplication:(id)application consumeSource:(BOOL)source options:(id)options legacyProgressBlock:(id)block completion:(id)completion
+{
+  sourceCopy = source;
+  blockCopy = block;
+  completionCopy = completion;
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = __125__IXAppInstallCoordinator_IXSimpleInstallerPrivate__installApplication_consumeSource_options_legacyProgressBlock_completion___block_invoke;
+  v22 = &unk_1E85C6460;
+  v23 = blockCopy;
+  v24 = completionCopy;
+  v14 = completionCopy;
+  v15 = blockCopy;
+  optionsCopy = options;
+  applicationCopy = application;
+  v18 = MEMORY[0x1DA74F400](&v19);
+  [self _beginInstallForURL:applicationCopy forPersonaUniqueString:0 consumeSource:sourceCopy options:optionsCopy progressBlock:v15 completion:{v18, v19, v20, v21, v22}];
 }
 
 void __125__IXAppInstallCoordinator_IXSimpleInstallerPrivate__installApplication_consumeSource_options_legacyProgressBlock_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -14862,7 +14983,7 @@ void __100__IXAppInstallCoordinator_IXOSModuleRegistration__unregisterContentsFo
 
 void __100__IXAppInstallCoordinator_IXOSModuleRegistration__unregisterContentsForOSModuleAtURL_options_error___block_invoke_5(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -14871,11 +14992,11 @@ void __100__IXAppInstallCoordinator_IXOSModuleRegistration__unregisterContentsFo
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = [*(a1 + 40) path];
-      v12 = 136315394;
-      v13 = "+[IXAppInstallCoordinator(IXOSModuleRegistration) unregisterContentsForOSModuleAtURL:options:error:]_block_invoke";
-      v14 = 2112;
-      v15 = v7;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_INFO, "%s: Successfully unregistered contents for OSModule at %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "+[IXAppInstallCoordinator(IXOSModuleRegistration) unregisterContentsForOSModuleAtURL:options:error:]_block_invoke";
+      v13 = 2112;
+      v14 = v7;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_INFO, "%s: Successfully unregistered contents for OSModule at %@", &v11, 0x16u);
     }
   }
 
@@ -14892,8 +15013,6 @@ void __100__IXAppInstallCoordinator_IXOSModuleRegistration__unregisterContentsFo
     v6 = *(v9 + 40);
     *(v9 + 40) = v10;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)setKnownOSModuleURLs:(id)ls options:(id)options error:(id *)error
@@ -14992,6 +15111,17 @@ void __86__IXAppInstallCoordinator_IXOSModuleRegistration__setKnownOSModuleURLs_
   *(*(*(a1 + 48) + 8) + 24) = a2;
 }
 
++ (void)_demoteAppToPlaceholderWithBundleID:(id)d forReason:(unint64_t)reason waitForDeletion:(BOOL)deletion ignoreRemovability:(BOOL)removability completion:(id)completion
+{
+  removabilityCopy = removability;
+  deletionCopy = deletion;
+  completionCopy = completion;
+  dCopy = d;
+  v14 = [[IXApplicationIdentity alloc] initWithBundleIdentifier:dCopy];
+
+  [self demoteAppToPlaceholderWithApplicationIdentity:v14 forReason:reason waitForDeletion:deletionCopy ignoreRemovability:removabilityCopy completion:completionCopy];
+}
+
 + (void)_demoteAppToPlaceholderWithApplicationIdentity:(id)identity forReason:(unint64_t)reason waitForDeletion:(BOOL)deletion ignoreRemovability:(BOOL)removability returnEarlyForTesting:(BOOL)testing completion:(id)completion
 {
   identityCopy = identity;
@@ -15053,7 +15183,7 @@ void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlacehold
   v2 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_cold_1(a1);
+    __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_cold_1();
   }
 
   v4 = _CreateError("+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke", 108, @"IXErrorDomain", 4uLL, 0, 0, @"Invalid IXAppInstallCoordinatorDemotionReason %lu passed to %s", v3, *(a1 + 40));
@@ -15066,27 +15196,27 @@ void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlacehold
 
 void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101(uint64_t a1)
 {
-  v63 = *MEMORY[0x1E69E9840];
-  v56 = 0;
+  v62 = *MEMORY[0x1E69E9840];
+  v55 = 0;
   v2 = objc_opt_new();
   [v2 setWaitForDeletion:*(a1 + 56)];
   v4 = (a1 + 32);
   v3 = *(a1 + 32);
-  v55 = 0;
-  v5 = [(IXAppInstallCoordinator *)IXDemotingAppInstallCoordinator processScopedCoordinatorForAppWithIdentity:v3 withClientID:12 createIfNotExisting:1 created:&v56 error:&v55];
-  v6 = v55;
+  v54 = 0;
+  v5 = [(IXAppInstallCoordinator *)IXDemotingAppInstallCoordinator processScopedCoordinatorForAppWithIdentity:v3 withClientID:12 createIfNotExisting:1 created:&v55 error:&v54];
+  v6 = v54;
   if (!v5)
   {
     goto LABEL_32;
   }
 
-  if ((v56 & 1) == 0)
+  if ((v55 & 1) == 0)
   {
 
     v15 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_1((a1 + 32));
+      __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_1();
     }
 
     v17 = _CreateError("+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke", 140, @"IXErrorDomain", 0x1DuLL, 0, 0, @"A demotion for %@ is already pending.", v16, *v4);
@@ -15103,7 +15233,7 @@ void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlacehold
       __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_6();
     }
 
-    v9 = _CreateError("+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke", 147, @"IXErrorDomain", 0x36uLL, 0, 0, @"Triggered early return intended for testing.", v8, v45);
+    v9 = _CreateError("+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke", 147, @"IXErrorDomain", 0x36uLL, 0, 0, @"Triggered early return intended for testing.", v8, v44);
 
     v10 = *(a1 + 40);
     if (v10)
@@ -15118,9 +15248,9 @@ void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlacehold
     goto LABEL_53;
   }
 
-  v54 = v6;
-  v18 = [v5 setImportance:3 error:&v54];
-  v17 = v54;
+  v53 = v6;
+  v18 = [v5 setImportance:3 error:&v53];
+  v17 = v53;
 
   if (!v18)
   {
@@ -15134,9 +15264,9 @@ void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlacehold
     {
       v20 = *v4;
       *buf = 136315394;
-      v58 = "+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke";
-      v59 = 2112;
-      v60 = v20;
+      v57 = "+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke";
+      v58 = 2112;
+      v59 = v20;
       _os_log_impl(&dword_1DA47A000, v19, OS_LOG_TYPE_DEFAULT, "%s: Client requested to ignore removability while demoting %@", buf, 0x16u);
     }
 
@@ -15144,9 +15274,9 @@ void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlacehold
   }
 
   v21 = *v4;
-  v53 = v17;
-  v22 = [IXAppInstallCoordinator removabilityForAppWithIdentity:v21 error:&v53];
-  v6 = v53;
+  v52 = v17;
+  v22 = [IXAppInstallCoordinator removabilityForAppWithIdentity:v21 error:&v52];
+  v6 = v52;
 
   if (v22 != 1)
   {
@@ -15157,11 +15287,11 @@ void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlacehold
       {
         v24 = *v4;
         *buf = 136315650;
-        v58 = "+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke";
-        v59 = 2112;
-        v60 = v24;
-        v61 = 2112;
-        v62 = v6;
+        v57 = "+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke";
+        v58 = 2112;
+        v59 = v24;
+        v60 = 2112;
+        v61 = v6;
         _os_log_impl(&dword_1DA47A000, v23, OS_LOG_TYPE_DEFAULT, "%s: Failed to fetch removability for app with identity %@: %@", buf, 0x20u);
       }
 
@@ -15175,7 +15305,7 @@ void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlacehold
     }
 
     v37 = *v4;
-    v46 = IXStringForAppRemovability(v22);
+    v45 = IXStringForAppRemovability(v22);
     v17 = _CreateError("+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke", 166, @"IXErrorDomain", 0x25uLL, 0, 0, @"Cannot demote app with identity %@ because removability is %@", v38, v37);
 
 LABEL_42:
@@ -15191,9 +15321,9 @@ LABEL_42:
 LABEL_24:
   v25 = objc_alloc(MEMORY[0x1E69635F8]);
   v26 = [*v4 bundleID];
-  v52 = v17;
-  v13 = [v25 initWithBundleIdentifier:v26 allowPlaceholder:1 error:&v52];
-  v27 = v52;
+  v51 = v17;
+  v13 = [v25 initWithBundleIdentifier:v26 allowPlaceholder:1 error:&v51];
+  v27 = v51;
 
   if (v13)
   {
@@ -15202,7 +15332,7 @@ LABEL_24:
       v28 = IXGetLoggingHandle(kIXLoggingSubsystem);
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_4((a1 + 32));
+        __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_4();
       }
 
       _CreateError("+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke", 180, @"IXErrorDomain", 4uLL, 0, 0, @"Cannot demote app with identity %@ because it is a placeholder", v29, *v4);
@@ -15215,9 +15345,9 @@ LABEL_24:
       {
         v12 = v32;
         v33 = *(a1 + 48);
-        v51 = v27;
-        v11 = [IXPlaceholder placeholderForInstallable:v32 client:12 installType:v33 metadata:0 error:&v51];
-        v6 = v51;
+        v50 = v27;
+        v11 = [IXPlaceholder placeholderForInstallable:v32 client:12 installType:v33 metadata:0 error:&v50];
+        v6 = v50;
 
         if (v11)
         {
@@ -15227,18 +15357,18 @@ LABEL_24:
 
           [v14 setCoordinator:v5];
           [v5 setObserver:v14];
-          v50 = v6;
-          v47 = [v5 setInstallOptions:v2 error:&v50];
-          v9 = v50;
+          v49 = v6;
+          v46 = [v5 setInstallOptions:v2 error:&v49];
+          v9 = v49;
 
-          if (v47)
+          if (v46)
           {
             v35 = v9;
-            v49 = v9;
-            v48 = [v5 setPlaceholderPromise:v11 error:&v49];
-            v9 = v49;
+            v48 = v9;
+            v47 = [v5 setPlaceholderPromise:v11 error:&v48];
+            v9 = v48;
 
-            if (v48)
+            if (v47)
             {
               _AddDelegateToMap_0(v14);
               [v14 setCompletion:*(a1 + 40)];
@@ -15261,13 +15391,13 @@ LABEL_24:
         goto LABEL_43;
       }
 
-      v43 = IXGetLoggingHandle(kIXLoggingSubsystem);
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v42 = IXGetLoggingHandle(kIXLoggingSubsystem);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
-        __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_3((a1 + 32));
+        __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_3();
       }
 
-      _CreateError("+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke", 186, @"IXErrorDomain", 4uLL, 0, 0, @"LSApplicationProxy for %@ did not contain a bundleURL during demotion", v44, *v4);
+      _CreateError("+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke", 186, @"IXErrorDomain", 4uLL, 0, 0, @"LSApplicationProxy for %@ did not contain a bundleURL during demotion", v43, *v4);
     }
     v6 = ;
 
@@ -15278,7 +15408,7 @@ LABEL_24:
   v30 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
-    __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_5((a1 + 32));
+    __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_5();
   }
 
   v6 = _CreateError("+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke", 175, @"IXErrorDomain", 1uLL, v27, 0, @"No LSApplicationRecord found for %@ during demotion", v31, *v4);
@@ -15296,7 +15426,7 @@ LABEL_43:
     v39 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_7((a1 + 32));
+      __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_7();
     }
 
     v9 = _CreateError("+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke", 222, @"IXErrorDomain", 1uLL, 0, 0, @"An unknown error occured while demoting %@", v40, *v4);
@@ -15320,8 +15450,67 @@ LABEL_43:
   }
 
 LABEL_53:
+}
 
-  v42 = *MEMORY[0x1E69E9840];
++ (BOOL)demoteAppToPlaceholderWithBundleID:(id)d forReason:(unint64_t)reason waitForDeletion:(BOOL)deletion error:(id *)error
+{
+  deletionCopy = deletion;
+  dCopy = d;
+  v11 = [[IXApplicationIdentity alloc] initWithBundleIdentifier:dCopy];
+
+  LOBYTE(error) = [self demoteAppToPlaceholderWithApplicationIdentity:v11 forReason:reason waitForDeletion:deletionCopy ignoreRemovability:0 error:error];
+  return error;
+}
+
++ (BOOL)demoteAppToPlaceholderWithBundleID:(id)d forReason:(unint64_t)reason waitForDeletion:(BOOL)deletion ignoreRemovability:(BOOL)removability error:(id *)error
+{
+  removabilityCopy = removability;
+  deletionCopy = deletion;
+  dCopy = d;
+  v13 = [[IXApplicationIdentity alloc] initWithBundleIdentifier:dCopy];
+
+  LOBYTE(error) = [self demoteAppToPlaceholderWithApplicationIdentity:v13 forReason:reason waitForDeletion:deletionCopy ignoreRemovability:removabilityCopy error:error];
+  return error;
+}
+
++ (BOOL)demoteAppToPlaceholderWithApplicationIdentity:(id)identity forReason:(unint64_t)reason waitForDeletion:(BOOL)deletion ignoreRemovability:(BOOL)removability error:(id *)error
+{
+  removabilityCopy = removability;
+  deletionCopy = deletion;
+  identityCopy = identity;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 1;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__12;
+  v26 = __Block_byref_object_dispose__12;
+  v27 = 0;
+  v13 = dispatch_semaphore_create(0);
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __147__IXAppInstallCoordinator_IXDemoteToPlaceholder__demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_error___block_invoke;
+  v18[3] = &unk_1E85C6898;
+  v20 = &v22;
+  v21 = &v28;
+  v14 = v13;
+  v19 = v14;
+  v15 = MEMORY[0x1DA74F400](v18);
+  [self demoteAppToPlaceholderWithApplicationIdentity:identityCopy forReason:reason waitForDeletion:deletionCopy ignoreRemovability:removabilityCopy completion:v15];
+  dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
+  v16 = *(v29 + 24);
+  if (error && (v29[3] & 1) == 0)
+  {
+    *error = v23[5];
+    v16 = *(v29 + 24);
+  }
+
+  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v28, 8);
+
+  return v16 & 1;
 }
 
 void __147__IXAppInstallCoordinator_IXDemoteToPlaceholder__demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_error___block_invoke(uint64_t a1, void *a2)
@@ -15386,48 +15575,42 @@ void __134__IXAppInstallCoordinator_IXDemoteToPlaceholderTesting__testReturnEarl
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void __72__IXAppInstallCoordinator__conveyCurrentPriorityBoostReplacingExisting___block_invoke_7_cold_1(uint64_t a1)
+void __72__IXAppInstallCoordinator__conveyCurrentPriorityBoostReplacingExisting___block_invoke_7_cold_1()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v7[0] = 136315650;
+  v8 = *MEMORY[0x1E69E9840];
+  v4[0] = 136315650;
   OUTLINED_FUNCTION_11();
-  v8 = v2;
-  v9 = v3;
-  v10 = v4;
-  _os_log_debug_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEBUG, "%s: Completion block called in client for priority boost conveyance for coordinator UUID %@ : %@", v7, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = v0;
+  v6 = v1;
+  v7 = v2;
+  _os_log_debug_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEBUG, "%s: Completion block called in client for priority boost conveyance for coordinator UUID %@ : %@", v4, 0x20u);
 }
 
 + (void)_validatePreconditionForIntent:matchesCurrentInstallStateForBundleID:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_0_1();
-  v5 = v0;
-  v6 = v1;
-  _os_log_fault_impl(&dword_1DA47A000, v2, OS_LOG_TYPE_FAULT, "%s: Warning: client is attempting to create a promoting coordinator for %@, which is not currently a placeholder (%@).", v4, 0x20u);
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = v0;
+  v5 = v1;
+  _os_log_fault_impl(&dword_1DA47A000, v2, OS_LOG_TYPE_FAULT, "%s: Warning: client is attempting to create a promoting coordinator for %@, which is not currently a placeholder (%@).", v3, 0x20u);
 }
 
 + (void)_validatePreconditionForIntent:matchesCurrentInstallStateForBundleID:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_fault_impl(&dword_1DA47A000, v0, OS_LOG_TYPE_FAULT, "%s: Warning: client is attempting to create a promoting coordinator for %@, which is not currently installed at all.", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1DA47A000, v0, OS_LOG_TYPE_FAULT, "%s: Warning: client is attempting to create a promoting coordinator for %@, which is not currently installed at all.", v1, 0x16u);
 }
 
 + (void)_validatePreconditionForIntent:(unint64_t)a1 matchesCurrentInstallStateForBundleID:(NSObject *)a2 .cold.3(unint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = _StringForIXCoordinatorIntent(a1);
-  v5[0] = 136315394;
+  v4[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_fault_impl(&dword_1DA47A000, a2, OS_LOG_TYPE_FAULT, "%s: Unknown intent: %@", v5, 0x16u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1DA47A000, a2, OS_LOG_TYPE_FAULT, "%s: Unknown intent: %@", v4, 0x16u);
 }
 
 + (void)_coordinatorForAppWithIdentity:(_DWORD *)a3 targetingInstallationDomain:withClientID:intent:createIfNotExisting:requireMatchingIntent:scopeRequirement:created:error:.cold.1(void *a1, void *a2, _DWORD *a3)
@@ -15439,237 +15622,181 @@ void __72__IXAppInstallCoordinator__conveyCurrentPriorityBoostReplacingExisting_
 
 + (void)_coordinatorForAppWithIdentity:targetingInstallationDomain:withClientID:intent:createIfNotExisting:requireMatchingIntent:scopeRequirement:created:error:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __179__IXAppInstallCoordinator__coordinatorForAppWithIdentity_targetingInstallationDomain_withClientID_intent_createIfNotExisting_requireMatchingIntent_scopeRequirement_created_error___block_invoke_24_cold_1(uint64_t *a1, void *a2)
+void __179__IXAppInstallCoordinator__coordinatorForAppWithIdentity_targetingInstallationDomain_withClientID_intent_createIfNotExisting_requireMatchingIntent_scopeRequirement_created_error___block_invoke_24_cold_1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *a1;
   [a2 intent];
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)coordinatorForAppWithBundleID:withClientID:createIfNotExisting:created:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)coordinatorForAppWithIdentity:targetingInstallationDomain:withClientID:createIfNotExisting:created:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)processScopedCoordinatorForAppWithIdentity:targetingInstallationDomain:withClientID:createIfNotExisting:created:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __84__IXAppInstallCoordinator__asynchronouslyEnumerateCoordinatorsForIntent_usingBlock___block_invoke_50_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __84__IXAppInstallCoordinator__asynchronouslyEnumerateCoordinatorsForIntent_usingBlock___block_invoke_50_cold_2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = _StringForIXCoordinatorIntent([a1 intent]);
-  v9 = [a1 identity];
+  v8 = [a1 identity];
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __84__IXAppInstallCoordinator__asynchronouslyEnumerateCoordinatorsForIntent_usingBlock___block_invoke_50_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __84__IXAppInstallCoordinator__asynchronouslyEnumerateCoordinatorsForIntent_usingBlock___block_invoke_50_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __84__IXAppInstallCoordinator__asynchronouslyEnumerateCoordinatorsForIntent_usingBlock___block_invoke_4_65_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 40) identity];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __71__IXAppInstallCoordinator_uninstallAppWithIdentity_options_completion___block_invoke_cold_1(uint64_t a1)
+void __71__IXAppInstallCoordinator_uninstallAppWithIdentity_options_completion___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_14();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void __82__IXAppInstallCoordinator_revertAppWithIdentity_resultingApplicationRecord_error___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)updateSINFForAppWithIdentity:wrapperURL:sinfData:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)updateiTunesMetadataForAppWithIdentity:wrapperURL:plistData:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)updateiTunesMetadataForAppWithIdentity:plistData:options:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)updateiTunesMetadata:forAppWithIdentity:wrapperURL:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-+ (void)refreshDataContainerForBundleID:(uint64_t)a1 reason:(uint64_t *)a2 error:.cold.1(uint64_t a1, uint64_t *a2)
++ (void)refreshDataContainerForBundleID:reason:error:.cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_14();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
-+ (void)refreshDataContainerForBundleID:(uint64_t)a1 reason:(uint64_t *)a2 error:.cold.2(uint64_t a1, uint64_t *a2)
++ (void)refreshDataContainerForBundleID:reason:error:.cold.2()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_14();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
 + (void)refreshDataContainerForBundleID:reason:error:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)refreshDataContainerForBundleID:reason:error:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __85__IXAppInstallCoordinator_refreshContainersWithOptions_forApplicationIdentity_error___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelForReason:client:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelForReason:client:error:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPlaceholderPromise:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPlaceholderPromise:error:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __55__IXAppInstallCoordinator_placeholderPromiseWithError___block_invoke_176_cold_1()
@@ -15680,21 +15807,16 @@ void __55__IXAppInstallCoordinator_placeholderPromiseWithError___block_invoke_17
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __55__IXAppInstallCoordinator_placeholderPromiseWithError___block_invoke_176_cold_2()
 {
   OUTLINED_FUNCTION_15();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __52__IXAppInstallCoordinator_appAssetPromiseWithError___block_invoke_190_cold_1()
@@ -15705,48 +15827,37 @@ void __52__IXAppInstallCoordinator_appAssetPromiseWithError___block_invoke_190_c
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __52__IXAppInstallCoordinator_appAssetPromiseWithError___block_invoke_190_cold_2()
 {
   OUTLINED_FUNCTION_15();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAppAssetPromiseResponsibleClient:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setInstallOptions:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setInstallOptions:error:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initialODRAssetPromisesWithError:.cold.1()
@@ -15781,21 +15892,16 @@ void __52__IXAppInstallCoordinator_userDataPromiseWithError___block_invoke_240_c
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __52__IXAppInstallCoordinator_userDataPromiseWithError___block_invoke_240_cold_2()
 {
   OUTLINED_FUNCTION_15();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __55__IXAppInstallCoordinator_preparationPromiseWithError___block_invoke_250_cold_1()
@@ -15806,21 +15912,16 @@ void __55__IXAppInstallCoordinator_preparationPromiseWithError___block_invoke_25
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __55__IXAppInstallCoordinator_preparationPromiseWithError___block_invoke_250_cold_2()
 {
   OUTLINED_FUNCTION_15();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __58__IXAppInstallCoordinator_deviceSecurityPromiseWithError___block_invoke_256_cold_1()
@@ -15831,21 +15932,16 @@ void __58__IXAppInstallCoordinator_deviceSecurityPromiseWithError___block_invoke
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __58__IXAppInstallCoordinator_deviceSecurityPromiseWithError___block_invoke_256_cold_2()
 {
   OUTLINED_FUNCTION_15();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)essentialAssetPromisesWithError:.cold.1()
@@ -15898,241 +15994,188 @@ void __58__IXAppInstallCoordinator_deviceSecurityPromiseWithError___block_invoke
 
 - (void)setInstallTargetDirectoryURL:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)installTargetDirectoryURLWithError:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTargetBundleURL:preservingTargetBundleNameOnUpdate:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPreserveTargetBundleNameOnUpdate:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)targetBundleURLWithError:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAppQuitPromise:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)appQuitPromiseWithError:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setManagedInstallUUID:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)managedInstallUUIDWithError:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setShouldOverrideGatekeeper:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getShouldOverrideGatekeeperValue:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __113__IXAppInstallCoordinator_IXPersonaBasedMultiUser__associateMultiPersonaAppsWithBundleIDs_withPersona_withError___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: Failed to contact daemon: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: Failed to contact daemon: %@", v2, v3, v4, v5, v6);
 }
 
-void __113__IXAppInstallCoordinator_IXPersonaBasedMultiUser__associateMultiPersonaAppsWithBundleIDs_withPersona_withError___block_invoke_1_cold_1(uint64_t a1)
+void __113__IXAppInstallCoordinator_IXPersonaBasedMultiUser__associateMultiPersonaAppsWithBundleIDs_withPersona_withError___block_invoke_1_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v6 = 136315906;
+  v2 = 136315906;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_2_1(&dword_1DA47A000, v3, v4, "%s: Failed to set data separated apps: %@ with persona %@ : %@", v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_1DA47A000, v0, v1, "%s: Failed to set data separated apps: %@ with persona %@ : %@", v2);
 }
 
 void __92__IXAppInstallCoordinator_IXPersonaBasedMultiUser__addBundleIDs_toMappingsForPersona_error___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: Failed to contact daemon: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: Failed to contact daemon: %@", v2, v3, v4, v5, v6);
 }
 
-void __92__IXAppInstallCoordinator_IXPersonaBasedMultiUser__addBundleIDs_toMappingsForPersona_error___block_invoke_4_cold_1(uint64_t a1)
+void __92__IXAppInstallCoordinator_IXPersonaBasedMultiUser__addBundleIDs_toMappingsForPersona_error___block_invoke_4_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v6 = 136315906;
+  v2 = 136315906;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_2_1(&dword_1DA47A000, v3, v4, "%s: Failed to add data separated apps: %@ with persona %@ : %@", v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_1DA47A000, v0, v1, "%s: Failed to add data separated apps: %@ with persona %@ : %@", v2);
 }
 
 void __97__IXAppInstallCoordinator_IXPersonaBasedMultiUser__removeBundleIDs_fromMappingsForPersona_error___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: Failed to contact daemon: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: Failed to contact daemon: %@", v2, v3, v4, v5, v6);
 }
 
-void __97__IXAppInstallCoordinator_IXPersonaBasedMultiUser__removeBundleIDs_fromMappingsForPersona_error___block_invoke_5_cold_1(uint64_t a1)
+void __97__IXAppInstallCoordinator_IXPersonaBasedMultiUser__removeBundleIDs_fromMappingsForPersona_error___block_invoke_5_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v6 = 136315906;
+  v2 = 136315906;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_2_1(&dword_1DA47A000, v3, v4, "%s: Failed to remove data separated apps: %@ with persona %@ : %@", v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_1DA47A000, v0, v1, "%s: Failed to remove data separated apps: %@ with persona %@ : %@", v2);
 }
 
 void __99__IXAppInstallCoordinator_IXDiskImageMounter__registerContentsForDiskImageAtURL_options_withError___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_1DA47A000, v0, OS_LOG_TYPE_ERROR, "%s: Failed to contact daemon: %@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DA47A000, v0, OS_LOG_TYPE_ERROR, "%s: Failed to contact daemon: %@", v1, 0x16u);
 }
 
 void __99__IXAppInstallCoordinator_IXDiskImageMounter__registerContentsForDiskImageAtURL_options_withError___block_invoke_1_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) path];
+  v8 = 136315650;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_3(&dword_1DA47A000, v2, v3, "%s: Failed to register contents on disk image at %@ : %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_1DA47A000, v2, v3, "%s: Failed to register contents on disk image at %@ : %@", v4, v5, v6, v7, v8);
 }
 
 void __101__IXAppInstallCoordinator_IXDiskImageMounter__unregisterContentsForDiskImageAtURL_options_withError___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_1DA47A000, v0, OS_LOG_TYPE_ERROR, "%s: Failed to contact daemon: %@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DA47A000, v0, OS_LOG_TYPE_ERROR, "%s: Failed to contact daemon: %@", v1, 0x16u);
 }
 
 void __101__IXAppInstallCoordinator_IXDiskImageMounter__unregisterContentsForDiskImageAtURL_options_withError___block_invoke_3_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) path];
+  v8 = 136315650;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_3(&dword_1DA47A000, v2, v3, "%s: Failed to unregister contents on disk image at %@ : %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_1DA47A000, v2, v3, "%s: Failed to unregister contents on disk image at %@ : %@", v4, v5, v6, v7, v8);
 }
 
 void __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_126_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_126_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_126_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_5();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_126_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_126_cold_5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_5();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_126_cold_6(void *a1, uint8_t *buf, os_log_t log)
@@ -16160,188 +16203,146 @@ void __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPe
 void __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_127_cold_1()
 {
   OUTLINED_FUNCTION_15();
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [*v0 path];
+  v8 = 136315650;
   OUTLINED_FUNCTION_1_5();
-  OUTLINED_FUNCTION_1_3(&dword_1DA47A000, v2, v3, "%s: Failed to remove installable at %@ : %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_1DA47A000, v2, v3, "%s: Failed to remove installable at %@ : %@", v4, v5, v6, v7, v8);
 }
 
 void __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_127_cold_2()
 {
   OUTLINED_FUNCTION_15();
-  v0 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_5_1(v1) path];
+  v1 = [OUTLINED_FUNCTION_5_1(v0) path];
+  v8 = 136315650;
   OUTLINED_FUNCTION_1_5();
-  OUTLINED_FUNCTION_1_3(&dword_1DA47A000, v3, v4, "%s: Failed to release sandbox extension for %@: %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_1DA47A000, v2, v3, "%s: Failed to release sandbox extension for %@: %@", v4, v5, v6, v7, v8);
 }
 
 void __148__IXAppInstallCoordinator_IXSimpleInstaller___beginInstallForURL_forPersonaUniqueString_consumeSource_options_progressBlock_completionWithIdentity___block_invoke_127_cold_3()
 {
   OUTLINED_FUNCTION_15();
-  v0 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_5_1(v1) path];
+  v1 = [OUTLINED_FUNCTION_5_1(v0) path];
+  v8 = 136315650;
   OUTLINED_FUNCTION_1_5();
-  OUTLINED_FUNCTION_1_3(&dword_1DA47A000, v3, v4, "%s: Failed to remove extracted content at %@ : %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_1DA47A000, v2, v3, "%s: Failed to remove extracted content at %@ : %@", v4, v5, v6, v7, v8);
 }
 
 void __125__IXAppInstallCoordinator_IXSimpleInstallerPrivate__installApplication_consumeSource_options_legacyProgressBlock_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *(*a1 + 40);
-  v4 = 136315394;
-  v5 = "_CreateLegacyCallbackErrorDict";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_debug_impl(&dword_1DA47A000, a2, OS_LOG_TYPE_DEBUG, "%s: Failed to get legacy error string from NSError %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 136315394;
+  v4 = "_CreateLegacyCallbackErrorDict";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_debug_impl(&dword_1DA47A000, a2, OS_LOG_TYPE_DEBUG, "%s: Failed to get legacy error string from NSError %@", &v3, 0x16u);
 }
 
 void __98__IXAppInstallCoordinator_IXOSModuleRegistration__registerContentsForOSModuleAtURL_options_error___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __98__IXAppInstallCoordinator_IXOSModuleRegistration__registerContentsForOSModuleAtURL_options_error___block_invoke_2_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) path];
+  v8 = 136315650;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_3(&dword_1DA47A000, v2, v3, "%s: Failed to register contents for OSModule at %@ : %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_1DA47A000, v2, v3, "%s: Failed to register contents for OSModule at %@ : %@", v4, v5, v6, v7, v8);
 }
 
 void __100__IXAppInstallCoordinator_IXOSModuleRegistration__unregisterContentsForOSModuleAtURL_options_error___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __100__IXAppInstallCoordinator_IXOSModuleRegistration__unregisterContentsForOSModuleAtURL_options_error___block_invoke_5_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 40) path];
+  v8 = 136315650;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_3(&dword_1DA47A000, v2, v3, "%s: Failed to unregister contents for OSModule at %@ : %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_1DA47A000, v2, v3, "%s: Failed to unregister contents for OSModule at %@ : %@", v4, v5, v6, v7, v8);
 }
 
 void __86__IXAppInstallCoordinator_IXOSModuleRegistration__setKnownOSModuleURLs_options_error___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __86__IXAppInstallCoordinator_IXOSModuleRegistration__setKnownOSModuleURLs_options_error___block_invoke_6_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 136315650;
-  v6 = "+[IXAppInstallCoordinator(IXOSModuleRegistration) setKnownOSModuleURLs:options:error:]_block_invoke";
-  v7 = 2112;
-  v8 = v3;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_1DA47A000, log, OS_LOG_TYPE_ERROR, "%s: Failed to set known OSModule URLs to %@ : %@", &v5, 0x20u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 136315650;
+  v5 = "+[IXAppInstallCoordinator(IXOSModuleRegistration) setKnownOSModuleURLs:options:error:]_block_invoke";
+  v6 = 2112;
+  v7 = v3;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_1DA47A000, log, OS_LOG_TYPE_ERROR, "%s: Failed to set known OSModule URLs to %@ : %@", &v4, 0x20u);
 }
 
-void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_cold_1(uint64_t a1)
+void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 40);
-  OUTLINED_FUNCTION_8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Au);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_2_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_2(uint64_t *a1, unint64_t a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = *a1;
   v5 = IXStringForAppRemovability(a2);
-  v7 = 136315906;
-  v8 = "+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke";
-  v9 = 2112;
-  v10 = v4;
-  v11 = 2112;
-  v12 = v5;
-  v13 = 2112;
-  v14 = 0;
-  _os_log_error_impl(&dword_1DA47A000, a3, OS_LOG_TYPE_ERROR, "%s: Cannot demote app with identity %@ because removability is %@ : %@", &v7, 0x2Au);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 136315906;
+  v7 = "+[IXAppInstallCoordinator(IXDemoteToPlaceholder) _demoteAppToPlaceholderWithApplicationIdentity:forReason:waitForDeletion:ignoreRemovability:returnEarlyForTesting:completion:]_block_invoke";
+  v8 = 2112;
+  v9 = v4;
+  v10 = 2112;
+  v11 = v5;
+  v12 = 2112;
+  v13 = 0;
+  _os_log_error_impl(&dword_1DA47A000, a3, OS_LOG_TYPE_ERROR, "%s: Cannot demote app with identity %@ because removability is %@ : %@", &v6, 0x2Au);
 }
 
-void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_3(uint64_t *a1)
+void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_3()
 {
-  OUTLINED_FUNCTION_2_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_4(uint64_t *a1)
+void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_4()
 {
-  OUTLINED_FUNCTION_2_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_5(uint64_t *a1)
+void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_5()
 {
-  OUTLINED_FUNCTION_2_2(a1, *MEMORY[0x1E69E9840]);
-  v4[0] = 136315650;
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x1E69E9840]);
+  v2[0] = 136315650;
   OUTLINED_FUNCTION_0_7();
-  v5 = v1;
-  _os_log_error_impl(&dword_1DA47A000, v2, OS_LOG_TYPE_ERROR, "%s: No LSApplicationRecord found for %@ during demotion : %@", v4, 0x20u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_error_impl(&dword_1DA47A000, v1, OS_LOG_TYPE_ERROR, "%s: No LSApplicationRecord found for %@ during demotion : %@", v2, 0x20u);
 }
 
-void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_6()
+void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_7()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_8();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __175__IXAppInstallCoordinator_IXDemoteToPlaceholder___demoteAppToPlaceholderWithApplicationIdentity_forReason_waitForDeletion_ignoreRemovability_returnEarlyForTesting_completion___block_invoke_2_101_cold_7(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_2_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 @end

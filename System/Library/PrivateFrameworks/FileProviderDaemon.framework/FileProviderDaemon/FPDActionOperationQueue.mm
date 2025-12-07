@@ -265,7 +265,7 @@ intptr_t __33__FPDActionOperationQueue_cancel__block_invoke(intptr_t result)
 
 uint64_t __39__FPDActionOperationQueue_dumpStateTo___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 48) == 1)
   {
@@ -281,59 +281,55 @@ uint64_t __39__FPDActionOperationQueue_dumpStateTo___block_invoke(uint64_t a1)
   }
 
   [*(a1 + 40) write:@"  FIFO:\n"];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = *(*(a1 + 32) + 24);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(a1 + 40) write:{@"   %@\n", *(*(&v10 + 1) + 8 * v7++)}];
+        [*(a1 + 40) write:{@"   %@\n", *(*(&v9 + 1) + 8 * v7++)}];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  result = [*(a1 + 40) write:@"\n"];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) write:@"\n"];
 }
 
 void __35__FPDActionOperationQueue_enqueue___block_invoke_2_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] queue: enqueued %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] queue: enqueued %@", &v3, 0xCu);
 }
 
 void __34__FPDActionOperationQueue_dequeue__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*(*a1 + 8) + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] queue: dequeued %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] queue: dequeued %@", &v3, 0xCu);
 }
 
 @end

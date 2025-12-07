@@ -11,6 +11,8 @@
 - (id)componentForRootObjectOfLazyReference:(id)reference;
 - (id)componentForRootObjectOfLazyReferenceImpl:(id)impl;
 - (id)objectForIdentifier:(int64_t)identifier;
+- (id)rootComponentForPackageIdentifier:(unsigned __int8)identifier;
+- (id)rootComponentWithIdentifierImpl:(int64_t)impl locator:(id)locator packageIdentifier:(unsigned __int8)identifier;
 - (unint64_t)componentCount;
 - (void)cacheComponent:(id)component isDiscardingContent:(BOOL)content;
 - (void)componentForRootObjectIdentifier:(int64_t)identifier queue:(id)queue completion:(id)completion;
@@ -98,31 +100,31 @@
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = self->_components;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v13, v17, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v12, v16, 16);
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        objc_msgSend_markAsDiscarded(*(*(&v13 + 1) + 8 * v9++), v5, v6);
+        objc_msgSend_markAsDiscarded(*(*(&v12 + 1) + 8 * v9++), v5, v6);
       }
 
       while (v7 != v9);
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v5, &v13, v17, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v5, &v12, v16, 16);
     }
 
     while (v7);
@@ -131,10 +133,9 @@
   componentCache = self->_componentCache;
   self->_componentCache = 0;
 
-  v12.receiver = self;
-  v12.super_class = TSPComponentManager;
-  [(TSPComponentManager *)&v12 dealloc];
-  v11 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = TSPComponentManager;
+  [(TSPComponentManager *)&v11 dealloc];
 }
 
 - (void)loadComponent:(const void *)component package:(id)package
@@ -195,9 +196,9 @@
 
   if (!ModificationDate)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to initialize component from package metadata.", "[TSPComponentManager loadComponent:package:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentManager.mm", 120);
     v58 = MEMORY[0x277D81150];
-    v60 = objc_msgSend_stringWithUTF8String_(*(v12 + 3240), v59, "[TSPComponentManager loadComponent:package:]", "[TSPComponentManager loadComponent:package:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentManager.mm", 120);
+    v60 = objc_msgSend_stringWithUTF8String_(*(v12 + 3240), v59, "[TSPComponentManager loadComponent:package:]");
     v62 = objc_msgSend_stringWithUTF8String_(*(v12 + 3240), v61, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentManager.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v58, v63, v60, v62, 120, 1, "Failed to initialize component from package metadata.");
 
@@ -237,6 +238,23 @@
   v21 = packageCopy;
   v26 = v21;
   objc_msgSend_performCacheOperationUsingBlock_(self, v22, v23);
+}
+
+- (id)rootComponentWithIdentifierImpl:(int64_t)impl locator:(id)locator packageIdentifier:(unsigned __int8)identifier
+{
+  identifierCopy = identifier;
+  locatorCopy = locator;
+  v10 = objc_msgSend_tsp_objectForIdentifier_(self->_componentDictionary, v9, impl);
+  if (!v10)
+  {
+    v11 = [TSPComponent alloc];
+    v10 = objc_msgSend_initWithDelegate_identifier_preferredLocator_packageIdentifier_(v11, v12, self, impl, locatorCopy, identifierCopy);
+    objc_msgSend_addObject_(self->_components, v13, v10);
+    objc_msgSend_tsp_setObject_forIdentifier_(self->_componentDictionary, v14, v10, impl);
+    objc_msgSend_tsp_cacheComponent_(self->_componentCache, v15, v10);
+  }
+
+  return v10;
 }
 
 - (TSPComponent)documentComponent
@@ -431,7 +449,7 @@
 
 - (id)componentForRootObjectOfLazyReferenceImpl:(id)impl
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   implCopy = impl;
   v7 = objc_msgSend_tsp_identifier(implCopy, v5, v6);
   v10 = objc_msgSend_component(implCopy, v8, v9);
@@ -447,26 +465,26 @@
 
   else
   {
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     obj = self->_components;
-    v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v41, v45, 16);
+    v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v40, v44, 16);
     selfCopy = self;
     if (v18)
     {
-      v19 = *v42;
+      v19 = *v41;
 LABEL_6:
       v20 = 0;
       while (1)
       {
-        if (*v42 != v19)
+        if (*v41 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v41 + 1) + 8 * v20);
+        v21 = *(*(&v40 + 1) + 8 * v20);
         v15 = objc_msgSend_externalReferenceInfoForObjectIdentifier_(v21, v17, v7, selfCopy);
         if (v15)
         {
@@ -486,7 +504,7 @@ LABEL_6:
 
         if (v18 == ++v20)
         {
-          v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v41, v45, 16);
+          v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v40, v44, 16);
           v15 = 0;
           if (v18)
           {
@@ -532,8 +550,6 @@ LABEL_20:
 
   v36 = 0;
 LABEL_23:
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v36;
 }
@@ -633,6 +649,34 @@ LABEL_23:
   block[3] = &unk_27A6E27F8;
   block[4] = self;
   dispatch_sync(readFlushedComponentQueue, block);
+}
+
+- (id)rootComponentForPackageIdentifier:(unsigned __int8)identifier
+{
+  if (identifier == 2)
+  {
+    objc_msgSend_tsp_objectForIdentifier_(self->_componentDictionary, a2, 3);
+    goto LABEL_5;
+  }
+
+  identifierCopy = identifier;
+  if (identifier == 1)
+  {
+    objc_msgSend_tsp_objectForIdentifier_(self->_componentDictionary, a2, 1);
+    v4 = LABEL_5:;
+    goto LABEL_7;
+  }
+
+  v5 = MEMORY[0x277D81150];
+  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSPComponentManager rootComponentForPackageIdentifier:]");
+  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentManager.mm");
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 436, 0, "Unsupported package identifier: %d", identifierCopy);
+
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+  v4 = 0;
+LABEL_7:
+
+  return v4;
 }
 
 - (void)discardOrphanedComponents

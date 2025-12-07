@@ -2,6 +2,9 @@
 + (id)sharedInstance;
 - (HAENotificationCenterManager)init;
 - (id)addHAENotificationEvent:(id)event;
+- (id)sendBannerNotificationWithEvent:(id)event volumeLoweringAction:(unsigned int)action;
+- (id)sendLiveExposureEvent:(id)event volumeLoweringAction:(unsigned int)action;
+- (id)sendWeeklyExposureEvent:(id)event volumeLoweringAction:(unsigned int)action;
 - (void)donateSignalToTipsKit:(id)kit;
 @end
 
@@ -55,51 +58,50 @@ uint64_t __46__HAENotificationCenterManager_sharedInstance__block_invoke()
 
 - (id)addHAENotificationEvent:(id)event
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  v5 = HAENotificationsLog();
+  v5 = HAENotificationsLog(eventCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uuid = [eventCopy uuid];
     *buf = 138412290;
-    v26 = uuid;
+    v28 = uuid;
     _os_log_impl(&dword_25081E000, v5, OS_LOG_TYPE_DEFAULT, "HAENotificationCenterManager starting event: [%@]", buf, 0xCu);
   }
 
-  v7 = HAENotificationsLog();
-  v8 = os_signpost_id_generate(v7);
+  v8 = HAENotificationsLog(v7);
+  v9 = os_signpost_id_generate(v8);
 
-  v9 = HAENotificationsLog();
-  v10 = v9;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v11 = HAENotificationsLog(v10);
+  v12 = v11;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     uuid2 = [eventCopy uuid];
     *buf = 138412290;
-    v26 = uuid2;
-    _os_signpost_emit_with_name_impl(&dword_25081E000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "AddHAENotificationEvent", "%@", buf, 0xCu);
+    v28 = uuid2;
+    _os_signpost_emit_with_name_impl(&dword_25081E000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "AddHAENotificationEvent", "%@", buf, 0xCu);
   }
 
   eventQueue = self->_eventQueue;
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __56__HAENotificationCenterManager_addHAENotificationEvent___block_invoke;
-  v22 = &unk_27969F240;
-  v13 = eventCopy;
-  v23 = v13;
+  v21 = MEMORY[0x277D85DD0];
+  v22 = 3221225472;
+  v23 = __56__HAENotificationCenterManager_addHAENotificationEvent___block_invoke;
+  v24 = &unk_27969F240;
+  v15 = eventCopy;
+  v25 = v15;
   selfCopy = self;
-  dispatch_sync(eventQueue, &v19);
-  v14 = HAENotificationsLog();
-  v15 = v14;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  dispatch_sync(eventQueue, &v21);
+  v17 = HAENotificationsLog(v16);
+  v18 = v17;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
-    uuid3 = [v13 uuid];
+    uuid3 = [v15 uuid];
     *buf = 138412290;
-    v26 = uuid3;
-    _os_signpost_emit_with_name_impl(&dword_25081E000, v15, OS_SIGNPOST_INTERVAL_END, v8, "AddHAENotificationEvent", "%@", buf, 0xCu);
+    v28 = uuid3;
+    _os_signpost_emit_with_name_impl(&dword_25081E000, v18, OS_SIGNPOST_INTERVAL_END, v9, "AddHAENotificationEvent", "%@", buf, 0xCu);
   }
 
-  [(HAENotificationCenterManager *)self donateSignalToTipsKit:v13];
-  v17 = *MEMORY[0x277D85DE8];
+  [(HAENotificationCenterManager *)self donateSignalToTipsKit:v15];
   return 0;
 }
 
@@ -125,7 +127,7 @@ void __56__HAENotificationCenterManager_addHAENotificationEvent___block_invoke(u
 void __56__HAENotificationCenterManager_addHAENotificationEvent___block_invoke_2(uint64_t a1)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = HAENotificationsLog();
+  v2 = HAENotificationsLog(a1);
   v3 = [*(a1 + 32) uuid];
   v4 = [v3 hash];
 
@@ -137,14 +139,124 @@ void __56__HAENotificationCenterManager_addHAENotificationEvent___block_invoke_2
     _os_signpost_emit_with_name_impl(&dword_25081E000, v2, OS_SIGNPOST_INTERVAL_END, v4, "HAENSSPlayed", "%@", &v8, 0xCu);
   }
 
-  v6 = HAENotificationsLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = HAENotificationsLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v8) = 0;
-    _os_log_impl(&dword_25081E000, v6, OS_LOG_TYPE_DEFAULT, "finished playing system sound...", &v8, 2u);
+    _os_log_impl(&dword_25081E000, v7, OS_LOG_TYPE_DEFAULT, "finished playing system sound...", &v8, 2u);
+  }
+}
+
+- (id)sendBannerNotificationWithEvent:(id)event volumeLoweringAction:(unsigned int)action
+{
+  v4 = *&action;
+  v16 = *MEMORY[0x277D85DE8];
+  eventCopy = event;
+  v7 = HAENotificationsLog(eventCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    uuid = [eventCopy uuid];
+    v14 = 138412290;
+    v15 = uuid;
+    _os_log_impl(&dword_25081E000, v7, OS_LOG_TYPE_DEFAULT, "HAENotificationCenterManager sendBannerNotificationWithEvent [%@]", &v14, 0xCu);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  if ([eventCopy eventType] == 1818850917)
+  {
+    v9 = [(HAENotificationCenterManager *)self sendLiveExposureEvent:eventCopy volumeLoweringAction:v4];
+  }
+
+  else
+  {
+    eventType = [eventCopy eventType];
+    if (eventType == 2003133803)
+    {
+      v9 = [(HAENotificationCenterManager *)self sendWeeklyExposureEvent:eventCopy volumeLoweringAction:v4];
+    }
+
+    else
+    {
+      v11 = HAENotificationsLog(eventType);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        [HAENotificationCenterManager sendBannerNotificationWithEvent:eventCopy volumeLoweringAction:v11];
+      }
+
+      v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAENotficiationsError" code:*"pyt!" userInfo:0];
+    }
+  }
+
+  v12 = v9;
+
+  return v12;
+}
+
+- (id)sendLiveExposureEvent:(id)event volumeLoweringAction:(unsigned int)action
+{
+  v4 = *&action;
+  v22 = *MEMORY[0x277D85DE8];
+  eventCopy = event;
+  v7 = HAENotificationsLog(eventCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    uuid = [eventCopy uuid];
+    v20 = 138412290;
+    v21 = *&uuid;
+    _os_log_impl(&dword_25081E000, v7, OS_LOG_TYPE_DEFAULT, "HAENotificationCenterManager sendLiveExposureEvent [%@]", &v20, 0xCu);
+  }
+
+  level = [eventCopy level];
+  if (v10 >= self->_liveThresholdInDBA + -2.22044605e-16)
+  {
+    notificationCenter = self->_notificationCenter;
+    [eventCopy level];
+    v16 = v15;
+    dateInterval = [eventCopy dateInterval];
+    [dateInterval duration];
+    [(NotificationCenter *)notificationCenter sendNotificationWithExposureLevel:1818850917 duration:v4 eventType:v16 volumeLoweringAction:v18];
+
+    v13 = 0;
+  }
+
+  else
+  {
+    v11 = HAENotificationsLog(level);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      liveThresholdInDBA = self->_liveThresholdInDBA;
+      v20 = 134217984;
+      v21 = liveThresholdInDBA;
+      _os_log_impl(&dword_25081E000, v11, OS_LOG_TYPE_INFO, "live exposure level did not reach threshold %.2f", &v20, 0xCu);
+    }
+
+    v13 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAENotficiationsError" code:*"lbel" userInfo:0];
+  }
+
+  return v13;
+}
+
+- (id)sendWeeklyExposureEvent:(id)event volumeLoweringAction:(unsigned int)action
+{
+  v4 = *&action;
+  v17 = *MEMORY[0x277D85DE8];
+  eventCopy = event;
+  v7 = HAENotificationsLog(eventCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    uuid = [eventCopy uuid];
+    v15 = 138412290;
+    v16 = uuid;
+    _os_log_impl(&dword_25081E000, v7, OS_LOG_TYPE_DEFAULT, "HAENotificationCenterManager sendWeeklyExposureEvent [%@]", &v15, 0xCu);
+  }
+
+  notificationCenter = self->_notificationCenter;
+  [eventCopy level];
+  v11 = v10;
+  dateInterval = [eventCopy dateInterval];
+  [dateInterval duration];
+  [(NotificationCenter *)notificationCenter sendNotificationWithExposureLevel:2003133803 duration:v4 eventType:v11 volumeLoweringAction:v13];
+
+  return 0;
 }
 
 - (void)donateSignalToTipsKit:(id)kit
@@ -171,7 +283,7 @@ LABEL_5:
     return;
   }
 
-  v9 = HAENotificationsLog();
+  v9 = HAENotificationsLog(eventType);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     [HAENotificationCenterManager donateSignalToTipsKit:v9];
@@ -180,11 +292,10 @@ LABEL_5:
 
 - (void)sendBannerNotificationWithEvent:(void *)a1 volumeLoweringAction:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109120;
-  v4[1] = [a1 eventType];
-  _os_log_error_impl(&dword_25081E000, a2, OS_LOG_TYPE_ERROR, "Unknown event type %u", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = [a1 eventType];
+  _os_log_error_impl(&dword_25081E000, a2, OS_LOG_TYPE_ERROR, "Unknown event type %u", v3, 8u);
 }
 
 @end

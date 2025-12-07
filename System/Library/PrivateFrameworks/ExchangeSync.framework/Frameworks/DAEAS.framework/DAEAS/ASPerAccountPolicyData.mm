@@ -10,11 +10,11 @@
 
 - (ASPerAccountPolicyData)initWithAccountPersistentUUID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v20.receiver = self;
-  v20.super_class = ASPerAccountPolicyData;
-  v6 = [(ASPerAccountPolicyData *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = ASPerAccountPolicyData;
+  v6 = [(ASPerAccountPolicyData *)&v19 init];
   v7 = v6;
   if (v6)
   {
@@ -34,9 +34,9 @@
         {
           v16 = asDeviceID();
           *buf = 138412546;
-          v22 = v11;
-          v23 = 2112;
-          v24 = v16;
+          v21 = v11;
+          v22 = 2112;
+          v23 = v16;
           _os_log_impl(&dword_24A0AC000, v14, v15, "Found an outdated deviceId %@ in policy data (compared to current device id of %@).  Blowing it away and starting fresh", buf, 0x16u);
         }
 
@@ -46,7 +46,6 @@
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

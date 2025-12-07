@@ -328,20 +328,20 @@ LABEL_21:
   return string;
 }
 
-uint64_t __33__PRPinyinString_annotatedString__block_invoke(uint64_t result, unint64_t a2, uint64_t a3)
+id *__33__PRPinyinString_annotatedString__block_invoke(id *result, unint64_t a2, uint64_t a3)
 {
   v5 = result;
-  if (a2 > *(*(*(result + 48) + 8) + 24))
+  if (a2 > *(*(result[6] + 1) + 24))
   {
-    result = [*(result + 32) appendString:{objc_msgSend(*(result + 40), "substringWithRange:")}];
+    result = [result[4] appendString:{objc_msgSend(result[5], "substringWithRange:")}];
   }
 
   if (a3)
   {
-    result = [*(v5 + 32) appendFormat:@"[%@]", objc_msgSend(*(v5 + 40), "substringWithRange:", a2, a3)];
+    result = [v5[4] appendFormat:@"[%@]", objc_msgSend(v5[5], "substringWithRange:", a2, a3)];
   }
 
-  *(*(*(v5 + 48) + 8) + 24) = a2 + a3;
+  *(*(v5[6] + 1) + 24) = a2 + a3;
   return result;
 }
 

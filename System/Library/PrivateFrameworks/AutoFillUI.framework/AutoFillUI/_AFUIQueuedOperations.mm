@@ -1,8 +1,20 @@
 @interface _AFUIQueuedOperations
++ (id)queuedOperationsWithSecureAppID:(id)d processID:(int)iD textOperations:(id)operations completionHandler:(id)handler;
 - (_AFUIQueuedOperations)initWithSecureAppID:(id)d processID:(int)iD textOperations:(id)operations completionHandler:(id)handler;
 @end
 
 @implementation _AFUIQueuedOperations
+
++ (id)queuedOperationsWithSecureAppID:(id)d processID:(int)iD textOperations:(id)operations completionHandler:(id)handler
+{
+  v7 = *&iD;
+  handlerCopy = handler;
+  operationsCopy = operations;
+  dCopy = d;
+  v12 = [objc_alloc(objc_opt_class()) initWithSecureAppID:dCopy processID:v7 textOperations:operationsCopy completionHandler:handlerCopy];
+
+  return v12;
+}
 
 - (_AFUIQueuedOperations)initWithSecureAppID:(id)d processID:(int)iD textOperations:(id)operations completionHandler:(id)handler
 {

@@ -23,21 +23,20 @@
 {
   v6 = sub_25C339C50();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_25C339BE0();
   selfCopy = self;
-  v12 = sub_25C339BC0();
-  v14 = _s13NewsURLBucket12StringHasherC4hash3for9maxLength10Foundation4DataVSS_SitF_0(v12, v13, length);
-  v16 = v15;
+  v11 = sub_25C339BC0();
+  v13 = _s13NewsURLBucket12StringHasherC4hash3for9maxLength10Foundation4DataVSS_SitF_0(v11, v12, length);
+  v15 = v14;
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  v17 = sub_25C339CB0();
-  sub_25C335C20(v14, v16);
+  v16 = sub_25C339CB0();
+  sub_25C335C20(v13, v15);
 
-  return v17;
+  return v16;
 }
 
 @end

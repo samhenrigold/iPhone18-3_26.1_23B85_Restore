@@ -12,7 +12,7 @@
 
 - (NSArray)supplementaryIdentifiers
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9D9040);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9D9040, &qword_18BC428D0);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_18BC3FC60;
   *(v2 + 32) = sub_18BC20BD8();
@@ -48,9 +48,9 @@
 - (_TtC12MobileSafari25SFCapsulePageLayoutBottom)initWithContainer:(id)container
 {
   swift_unknownObjectRetain();
-  v3 = sub_18BA5B74C();
+  v4 = sub_18BA5B74C(container);
   swift_unknownObjectRelease();
-  return v3;
+  return v4;
 }
 
 - (SFCapsulePageContainer)container

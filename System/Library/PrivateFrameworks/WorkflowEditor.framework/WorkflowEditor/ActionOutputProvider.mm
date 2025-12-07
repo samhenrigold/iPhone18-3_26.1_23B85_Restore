@@ -7,11 +7,12 @@
 
 - (void)showActionOutputPickerAllowingShortcutInput:(BOOL)input variableProvider:(id)provider completionHandler:(id)handler
 {
-  v6 = _Block_copy(handler);
-  *(swift_allocObject() + 16) = v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_2744874F4();
+  sub_2744874F4(input, provider, sub_27445B62C, v9);
   swift_unknownObjectRelease();
 }
 

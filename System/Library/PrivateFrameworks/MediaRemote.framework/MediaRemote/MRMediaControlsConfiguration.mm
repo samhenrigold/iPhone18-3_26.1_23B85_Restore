@@ -147,10 +147,10 @@
       initiatorStyle2 = [(MRMediaControlsConfiguration *)self initiatorStyle];
       routingContextUID = [(MRMediaControlsConfiguration *)v5 routingContextUID];
       routingContextUID2 = [(MRMediaControlsConfiguration *)self routingContextUID];
-      v12 = [routingContextUID isEqualToString:routingContextUID2];
+      isEqualToString = objc_msgSend_isEqualToString_(routingContextUID);
       if (style == style2 && initiatorStyle == initiatorStyle2)
       {
-        v14 = v12;
+        v14 = isEqualToString;
       }
 
       else
@@ -160,11 +160,11 @@
 
       presentingAppBundleID = [(MRMediaControlsConfiguration *)v5 presentingAppBundleID];
       presentingAppBundleID2 = [(MRMediaControlsConfiguration *)self presentingAppBundleID];
-      v17 = [presentingAppBundleID isEqualToString:presentingAppBundleID2];
+      v17 = objc_msgSend_isEqualToString_(presentingAppBundleID);
 
       nowPlayingAppBundleID = [(MRMediaControlsConfiguration *)v5 nowPlayingAppBundleID];
       nowPlayingAppBundleID2 = [(MRMediaControlsConfiguration *)self nowPlayingAppBundleID];
-      v20 = v17 & [nowPlayingAppBundleID isEqualToString:nowPlayingAppBundleID2];
+      v20 = v17 & objc_msgSend_isEqualToString_(nowPlayingAppBundleID);
 
       visibleMediaApps = [(MRMediaControlsConfiguration *)v5 visibleMediaApps];
       visibleMediaApps2 = [(MRMediaControlsConfiguration *)self visibleMediaApps];
@@ -204,7 +204,7 @@
 
       routeUID = [(MRMediaControlsConfiguration *)v5 routeUID];
       routeUID2 = [(MRMediaControlsConfiguration *)self routeUID];
-      v43 = [routeUID isEqualToString:routeUID2];
+      v43 = objc_msgSend_isEqualToString_(routeUID);
 
       customRows = [(MRMediaControlsConfiguration *)v5 customRows];
       customRows2 = [(MRMediaControlsConfiguration *)self customRows];

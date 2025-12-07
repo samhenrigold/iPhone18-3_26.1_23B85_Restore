@@ -34,8 +34,8 @@
 
 - (uint64_t)shouldUseObjectRepresentation
 {
-  v2 = objc_opt_class();
-  if (v2 == objc_opt_class())
+  v3 = objc_opt_class();
+  if (v3 == objc_opt_class())
   {
     return 0;
   }
@@ -43,7 +43,7 @@
   preferredObjectType = [self preferredObjectType];
   if ([preferredObjectType conformsToClass:objc_opt_class()] & 1) != 0 || (objc_msgSend(preferredObjectType, "conformsToClass:", objc_opt_class()))
   {
-    v4 = 1;
+    v5 = 1;
   }
 
   else
@@ -51,17 +51,17 @@
     internalRepresentationType = [self internalRepresentationType];
     if ([internalRepresentationType conformsToClass:objc_opt_class()])
     {
-      v4 = 1;
+      v5 = 1;
     }
 
     else
     {
       internalRepresentationType2 = [self internalRepresentationType];
-      v4 = [internalRepresentationType2 conformsToClass:objc_opt_class()];
+      v5 = [internalRepresentationType2 conformsToClass:objc_opt_class()];
     }
   }
 
-  return v4;
+  return v5;
 }
 
 @end

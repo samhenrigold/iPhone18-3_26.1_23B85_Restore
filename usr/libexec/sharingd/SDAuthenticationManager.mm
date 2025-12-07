@@ -48,123 +48,117 @@
 - (void)listEligibleDevicesFor:(unint64_t)for completionHandler:(id)handler
 {
   v7 = sub_10028088C(&qword_100976160, &qword_1007F8770);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v17 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  v12[2] = for;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = type metadata accessor for TaskPriority();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v16 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = for;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = type metadata accessor for TaskPriority();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_100810778;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_100810778;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_100810780;
-  v15[5] = v14;
+  v14[4] = &unk_100810780;
+  v14[5] = v13;
   selfCopy = self;
-  sub_1006E2B30(0, 0, v10, &unk_100810788, v15);
+  sub_1006E2B30(0, 0, v9, &unk_100810788, v14);
 }
 
 - (void)enableFor:(unint64_t)for deviceID:(id)d passcode:(id)passcode sessionID:(id)iD delegate:(id)delegate
 {
   forCopy = for;
-  v25 = type metadata accessor for UUID();
-  v11 = *(v25 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v25);
-  v14 = &forCopy - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v17 = v16;
+  v24 = type metadata accessor for UUID();
+  v11 = *(v24 - 8);
+  __chkstk_darwin(v24);
+  v13 = &forCopy - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v16 = v15;
   passcodeCopy = passcode;
   iDCopy = iD;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v21 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v23 = v22;
+  v20 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v22 = v21;
 
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_1006A2828(forCopy, v15, v17, v21, v23, v14, delegate);
+  sub_1006A2828(forCopy, v14, v16, v20, v22, v13, delegate);
   swift_unknownObjectRelease();
 
-  sub_100026AC0(v21, v23);
-  (*(v11 + 8))(v14, v25);
+  sub_100026AC0(v20, v22);
+  (*(v11 + 8))(v13, v24);
 }
 
 - (void)requestEnablementFor:(unint64_t)for deviceID:(id)d sessionID:(id)iD delegate:(id)delegate
 {
   v9 = type metadata accessor for UUID();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   __chkstk_darwin(v9);
-  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v16 = v15;
+  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v15 = v14;
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1006A6A1C(for, v14, v16, v13, delegate);
+  sub_1006A6A1C(for, v13, v15, v12, delegate);
   swift_unknownObjectRelease();
 
-  (*(v10 + 8))(v13, v9);
+  (*(v10 + 8))(v12, v9);
 }
 
 - (void)disableFor:(unint64_t)for idsDeviceID:(id)d sessionID:(id)iD delegate:(id)delegate
 {
   v9 = type metadata accessor for UUID();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   __chkstk_darwin(v9);
-  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v16 = v15;
+  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v15 = v14;
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1006A87C8(for, v14, v16, v13, delegate);
+  sub_1006A87C8(for, v13, v15, v12, delegate);
   swift_unknownObjectRelease();
 
-  (*(v10 + 8))(v13, v9);
+  (*(v10 + 8))(v12, v9);
 }
 
 - (void)canAuthenticateFor:(unint64_t)for options:(id)options sessionID:(id)d delegate:(id)delegate
 {
   v10 = type metadata accessor for UUID();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   __chkstk_darwin(v10);
-  v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   optionsCopy = options;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1006AC46C(for, optionsCopy, v14, delegate);
+  sub_1006AC46C(for, optionsCopy, v13, delegate);
 
   swift_unknownObjectRelease();
-  (*(v11 + 8))(v14, v10);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (void)authenticateFor:(unint64_t)for sessionID:(id)d options:(id)options delegate:(id)delegate
 {
   v10 = type metadata accessor for UUID();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   __chkstk_darwin(v10);
-  v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   optionsCopy = options;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1006B02C4(for, v14, options, delegate);
+  sub_1006B02C4(for, v13, options, delegate);
 
   swift_unknownObjectRelease();
-  (*(v11 + 8))(v14, v10);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (void)registerForApprovalRequestsFor:(unint64_t)for delegate:(id)delegate
@@ -179,9 +173,8 @@
 {
   v9 = type metadata accessor for UUID();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   __chkstk_darwin(v9);
-  v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   errorCopy = error;
   dCopy = d;
   selfCopy = self;
@@ -189,80 +182,77 @@
   {
     tokenCopy = token;
     token = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-    v19 = v18;
+    v18 = v17;
   }
 
   else
   {
-    v19 = 0xF000000000000000;
+    v18 = 0xF000000000000000;
   }
 
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-  sub_1006B5120(token, v19, error, v13);
-  sub_10028BCC0(token, v19);
+  sub_1006B5120(token, v18, error, v12);
+  sub_10028BCC0(token, v18);
 
-  (*(v10 + 8))(v13, v9);
+  (*(v10 + 8))(v12, v9);
 }
 
 - (void)addAuthenticationStateChangesObserver:(id)observer identifier:(id)identifier
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1006B6290(observer, v10);
+  sub_1006B6290(observer, v9);
   swift_unknownObjectRelease();
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)handleVisionOSFailureTappedWithUserInfo:(id)info
 {
   v4 = sub_10028088C(&qword_100976160, &qword_1007F8770);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v12 - v6;
-  v8 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  v9 = type metadata accessor for TaskPriority();
-  (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = self;
-  v10[5] = v8;
+  v6 = &v11 - v5;
+  v7 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = type metadata accessor for TaskPriority();
+  (*(*(v8 - 8) + 56))(v6, 1, 1, v8);
+  v9 = swift_allocObject();
+  v9[2] = 0;
+  v9[3] = 0;
+  v9[4] = self;
+  v9[5] = v7;
   selfCopy = self;
-  sub_1002B3098(0, 0, v7, &unk_100810698, v10);
+  sub_1002B3098(0, 0, v6, &unk_100810698, v9);
 }
 
 - (void)getEnabledAuthenticationTypesWithCompletionHandler:(id)handler
 {
   v5 = sub_10028088C(&qword_100976160, &qword_1007F8770);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = type metadata accessor for TaskPriority();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_100810630;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_100810630;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_10080F2C0;
-  v13[5] = v12;
+  v12[4] = &unk_10080F2C0;
+  v12[5] = v11;
   selfCopy = self;
-  sub_1006E2B30(0, 0, v8, &unk_1007FB9F0, v13);
+  sub_1006E2B30(0, 0, v7, &unk_1007FB9F0, v12);
 }
 
 - (void)handleStateChanged

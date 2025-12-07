@@ -17,7 +17,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10006CF04();
+  sub_10006CF04(selfCopy, v2);
 }
 
 - (_TtC18Feedback_Assistant31FBAFFUDisplayTextViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -36,36 +36,36 @@
   else
   {
     swift_unknownObjectWeakInit();
-    v9 = (self + OBJC_IVAR____TtC18Feedback_Assistant31FBAFFUDisplayTextViewController_displayText);
-    *v9 = 0;
-    v9[1] = 0xE000000000000000;
+    v11 = (self + OBJC_IVAR____TtC18Feedback_Assistant31FBAFFUDisplayTextViewController_displayText);
+    *v11 = 0;
+    v11[1] = 0xE000000000000000;
     bundleCopy2 = bundle;
     v8 = 0;
   }
 
-  v13.receiver = self;
-  v13.super_class = type metadata accessor for FBAFFUDisplayTextViewController();
-  v11 = [(FBAFFUDisplayTextViewController *)&v13 initWithNibName:v8 bundle:bundle];
+  v14.receiver = self;
+  v14.super_class = type metadata accessor for FBAFFUDisplayTextViewController(bundleCopy2, v10);
+  v12 = [(FBAFFUDisplayTextViewController *)&v14 initWithNibName:v8 bundle:bundle];
 
-  return v11;
+  return v12;
 }
 
 - (_TtC18Feedback_Assistant31FBAFFUDisplayTextViewController)initWithCoder:(id)coder
 {
-  swift_unknownObjectWeakInit();
-  v5 = (self + OBJC_IVAR____TtC18Feedback_Assistant31FBAFFUDisplayTextViewController_displayText);
-  *v5 = 0;
-  v5[1] = 0xE000000000000000;
-  v9.receiver = self;
-  v9.super_class = type metadata accessor for FBAFFUDisplayTextViewController();
+  v5 = swift_unknownObjectWeakInit();
+  v6 = (self + OBJC_IVAR____TtC18Feedback_Assistant31FBAFFUDisplayTextViewController_displayText);
+  *v6 = 0;
+  v6[1] = 0xE000000000000000;
+  v11.receiver = self;
+  v11.super_class = type metadata accessor for FBAFFUDisplayTextViewController(v5, v7);
   coderCopy = coder;
-  v7 = [(FBAFFUDisplayTextViewController *)&v9 initWithCoder:coderCopy];
+  v9 = [(FBAFFUDisplayTextViewController *)&v11 initWithCoder:coderCopy];
 
-  if (v7)
+  if (v9)
   {
   }
 
-  return v7;
+  return v9;
 }
 
 @end

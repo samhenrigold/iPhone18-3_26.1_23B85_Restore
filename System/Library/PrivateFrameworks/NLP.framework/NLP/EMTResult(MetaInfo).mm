@@ -8,81 +8,82 @@
 - (double)score
 {
   metaInfo = [self metaInfo];
-  v2 = metaInfo;
+  v3 = metaInfo;
   if (metaInfo)
   {
-    v3 = [metaInfo dataUsingEncoding:4];
-    v11 = 0;
-    v4 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v3 options:0 error:&v11];
-    v5 = v11;
-    if (v4)
+    v4 = [metaInfo dataUsingEncoding:4];
+    v17 = 0;
+    v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v4 options:0 error:&v17];
+    v6 = v17;
+    v8 = v6;
+    if (v5)
     {
-      v6 = [v4 objectForKey:@"norm_cost"];
-      if (v6)
+      v10 = [v5 objectForKey:@"norm_cost"];
+      if (v10)
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v7 = v6;
-          [v7 doubleValue];
-          v9 = v8 * -0.434294482;
+          v13 = v10;
+          [v13 doubleValue];
+          v15 = v14 * -0.434294482;
         }
 
         else
         {
-          v7 = _nlpDefaultLog();
-          v9 = -15.6535598;
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+          v13 = _nlpDefaultLog(isKindOfClass, v12);
+          v15 = -15.6535598;
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            [(EMTResult(MetaInfo) *)v6 score];
+            [(EMTResult(MetaInfo) *)v10 score];
           }
         }
       }
 
       else
       {
-        v7 = _nlpDefaultLog();
-        v9 = -15.6535598;
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v13 = _nlpDefaultLog(0, v9);
+        v15 = -15.6535598;
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          [(EMTResult(MetaInfo) *)v4 score];
+          [(EMTResult(MetaInfo) *)v5 score];
         }
       }
     }
 
     else
     {
-      v6 = _nlpDefaultLog();
-      v9 = -15.6535598;
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v10 = _nlpDefaultLog(v6, v7);
+      v15 = -15.6535598;
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [(EMTResult(MetaInfo) *)v3 score];
+        [(EMTResult(MetaInfo) *)v4 score];
       }
     }
   }
 
   else
   {
-    v3 = _nlpDefaultLog();
-    v9 = -15.6535598;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _nlpDefaultLog(0, v2);
+    v15 = -15.6535598;
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      [(EMTResult(MetaInfo) *)v3 score];
+      [(EMTResult(MetaInfo) *)v4 score];
     }
   }
 
-  return v9;
+  return v15;
 }
 
 - (void)score
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_22CD0B000, log, OS_LOG_TYPE_ERROR, "Failed to get seq2seq score, unable to decode json encoded meta info dictionary %@:%@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_22CD0B000, log, OS_LOG_TYPE_ERROR, "Failed to get seq2seq score, unable to decode json encoded meta info dictionary %@:%@", &v3, 0x16u);
 }
 
 @end

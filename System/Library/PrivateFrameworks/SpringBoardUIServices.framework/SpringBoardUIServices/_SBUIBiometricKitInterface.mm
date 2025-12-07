@@ -376,7 +376,7 @@ LABEL_35:
 
 - (id)createMatchOperationsWithMode:(unint64_t)mode andCredentialSet:(id)set error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   setCopy = set;
   if (!mode)
   {
@@ -384,12 +384,12 @@ LABEL_35:
   }
 
   v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSSet count](self->_biometricDevices, "count")}];
-  v27 = 0u;
-  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v9 = self->_biometricDevices;
-  v10 = [(NSSet *)v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v10 = [(NSSet *)v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v10)
   {
     v11 = v10;
@@ -399,19 +399,19 @@ LABEL_35:
       v12 = 2;
     }
 
-    v23 = v12;
-    v13 = *v28;
+    v25 = v12;
+    v13 = *v30;
     obj = v9;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v28 != v13)
+        if (*v30 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = [*(*(&v27 + 1) + 8 * i) createMatchOperationWithError:{error, v23}];
+        v15 = [*(*(&v29 + 1) + 8 * i) createMatchOperationWithError:{error, v25}];
         if (!v15)
         {
 
@@ -444,9 +444,9 @@ LABEL_35:
 
           else if (mode == 3)
           {
-            [v16 setPurpose:v23];
-            [v17 setShouldAutoRetry:1];
-            if (SBUISupportsIndicatorSecureRendering())
+            [v16 setPurpose:v25];
+            v18 = [v17 setShouldAutoRetry:1];
+            if (SBUISupportsIndicatorSecureRendering(v18, v19))
             {
               [v17 setTrigger:{-[_SBUIBiometricKitInterface _matchOperationTriggerForWakeSource:](self, "_matchOperationTriggerForWakeSource:", -[_SBUIBiometricKitInterfaceDelegate wakeSourceForBiometricKitInterface:](self->_delegate, "wakeSourceForBiometricKitInterface:", self))}];
             }
@@ -476,12 +476,12 @@ LABEL_35:
         }
 
         [(NSSet *)v8 addObject:v16];
-        v20 = [[_SBUIBiometricKitInterfaceOperationStateTracker alloc] initWithState:0];
-        [(_SBUIBiometricKitInterface *)self _setTracker:v20 forOperation:v16];
+        v22 = [[_SBUIBiometricKitInterfaceOperationStateTracker alloc] initWithState:0];
+        [(_SBUIBiometricKitInterface *)self _setTracker:v22 forOperation:v16];
       }
 
       v9 = obj;
-      v11 = [(NSSet *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v11 = [(NSSet *)obj countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v11)
       {
         continue;
@@ -493,9 +493,9 @@ LABEL_35:
 
 LABEL_30:
 
-  v21 = [(NSSet *)v8 copy];
+  v23 = [(NSSet *)v8 copy];
 
-  return v21;
+  return v23;
 }
 
 - (id)createFingerDetectOperationsWithError:(id *)error

@@ -437,64 +437,60 @@ LABEL_17:
 
 - (void)peerDidDisconnect:(id)disconnect
 {
-  disconnectCopy = disconnect;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = sub_100004E90;
-  v26 = sub_100004EA0;
-  v27 = 0;
-  peerToRequestUUIDIsolater = self->_peerToRequestUUIDIsolater;
-  v15 = _NSConcreteStackBlock;
-  v16 = 3221225472;
-  v17 = sub_100004EA8;
-  v18 = &unk_100082AD8;
-  v21 = &v22;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_100004E90;
+  v24 = sub_100004EA0;
+  v25 = 0;
+  v13 = _NSConcreteStackBlock;
+  v14 = 3221225472;
+  v15 = sub_100004EA8;
+  v16 = &unk_100082AD8;
+  v19 = &v20;
   selfCopy = self;
-  v6 = disconnectCopy;
-  v20 = v6;
+  disconnectCopy = disconnect;
+  v18 = disconnectCopy;
   geo_isolate_sync_data();
-  v13 = 0u;
-  v14 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v7 = v23[5];
-  v8 = [v7 countByEnumeratingWithState:&v11 objects:v28 count:16];
-  if (v8)
+  v9 = 0u;
+  v10 = 0u;
+  v5 = v21[5];
+  v6 = [v5 countByEnumeratingWithState:&v9 objects:v26 count:16];
+  if (v6)
   {
-    v9 = *v12;
+    v7 = *v10;
     do
     {
-      v10 = 0;
+      v8 = 0;
       do
       {
-        if (*v12 != v9)
+        if (*v10 != v7)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v5);
         }
 
-        [(GEOPlaceDataLocalProxy *)self->_placeDataProxy cancelRequest:*(*(&v11 + 1) + 8 * v10), v11];
-        v10 = v10 + 1;
+        [(GEOPlaceDataLocalProxy *)self->_placeDataProxy cancelRequest:*(*(&v9 + 1) + 8 * v8), v9];
+        v8 = v8 + 1;
       }
 
-      while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v11 objects:v28 count:16];
+      while (v6 != v8);
+      v6 = [v5 countByEnumeratingWithState:&v9 objects:v26 count:16];
     }
 
-    while (v8);
+    while (v6);
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
 - (void)_removeRequestUUID:(id)d forPeer:(id)peer
 {
   dCopy = d;
   peerCopy = peer;
-  peerToRequestUUIDIsolater = self->_peerToRequestUUIDIsolater;
-  v11 = peerCopy;
-  v9 = dCopy;
-  v10 = peerCopy;
+  v6 = dCopy;
+  v7 = peerCopy;
   geo_isolate_sync_data();
 }
 
@@ -502,10 +498,8 @@ LABEL_17:
 {
   dCopy = d;
   peerCopy = peer;
-  peerToRequestUUIDIsolater = self->_peerToRequestUUIDIsolater;
-  v11 = peerCopy;
-  v9 = dCopy;
-  v10 = peerCopy;
+  v6 = dCopy;
+  v7 = peerCopy;
   geo_isolate_sync_data();
 }
 

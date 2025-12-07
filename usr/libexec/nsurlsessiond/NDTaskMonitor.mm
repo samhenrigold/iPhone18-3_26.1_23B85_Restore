@@ -13,6 +13,7 @@
 - (void)startThroughputMonitoring;
 - (void)startThroughputMonitoringIfAppropriate;
 - (void)stopThroughputMonitoring;
+- (void)taskTransferredData:(int64_t)data countOfBytesReceived:(int64_t)received cellular:(BOOL)cellular;
 - (void)taskWillResume;
 @end
 
@@ -219,6 +220,54 @@
   v8 = switcherCopy;
   v6 = switcherCopy;
   dispatch_async(queue, v7);
+}
+
+- (void)taskTransferredData:(int64_t)data countOfBytesReceived:(int64_t)received cellular:(BOOL)cellular
+{
+  if (!self->_hasTransferredData)
+  {
+    [(NDTaskMonitor *)self startThroughputMonitoringIfAppropriate:data];
+  }
+
+  self->_hasTransferredData = 1;
+  Current = CFAbsoluteTimeGetCurrent();
+  if (![(NSMutableArray *)self->_progressTimestamps count])
+  {
+    self->_throughputMonitoringStartTime = Current;
+  }
+
+  if (-[NSMutableArray count](self->_progressTimestamps, "count") && (-[NSMutableArray lastObject](self->_progressTimestamps, "lastObject"), v9 = objc_claimAutoreleasedReturnValue(), [v9 doubleValue], v11 = Current - v10, v9, v11 <= 1.0))
+  {
+    lastObject = [(NSMutableArray *)self->_progressValues lastObject];
+    v16 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [lastObject unsignedIntegerValue] + received + data);
+
+    [(NSMutableArray *)self->_progressValues removeLastObject];
+    [(NSMutableArray *)self->_progressValues addObject:v16];
+  }
+
+  else
+  {
+    if ([(NSMutableArray *)self->_progressTimestamps count]>= 0xA)
+    {
+      [(NSMutableArray *)self->_progressTimestamps removeObjectAtIndex:0];
+      [(NSMutableArray *)self->_progressValues removeObjectAtIndex:0];
+    }
+
+    progressValues = self->_progressValues;
+    data = [NSNumber numberWithLongLong:received + data];
+    [(NSMutableArray *)progressValues addObject:data];
+
+    progressTimestamps = self->_progressTimestamps;
+    v15 = [NSNumber numberWithDouble:Current];
+    [(NSMutableArray *)progressTimestamps addObject:v15];
+    v16 = v15;
+  }
+
+  if ([(NSMutableArray *)self->_progressTimestamps count]>= 0xA && Current - self->_throughputMonitoringStartTime >= 15.0)
+  {
+
+    [(NDTaskMonitor *)self calculateThroughput];
+  }
 }
 
 - (void)calculateThroughput

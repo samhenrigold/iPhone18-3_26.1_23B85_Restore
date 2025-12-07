@@ -1,4 +1,5 @@
 @interface JXHTTPMultipartPart
++ (id)withMultipartType:(int)type key:(id)key data:(id)data contentType:(id)contentType fileName:(id)name boundary:(id)boundary;
 - (id)filePath;
 - (int64_t)contentLength;
 - (int64_t)dataLength;
@@ -9,38 +10,38 @@
 
 - (unint64_t)loadMutableData:(id)data withDataInRange:(_NSRange)range
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dataCopy = data;
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   preData = [(JXHTTPMultipartPart *)self preData];
-  v38[0] = preData;
+  v37[0] = preData;
   contentData = [(JXHTTPMultipartPart *)self contentData];
-  v38[1] = contentData;
+  v37[1] = contentData;
   postData = [(JXHTTPMultipartPart *)self postData];
-  v38[2] = postData;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:3];
+  v37[2] = postData;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:3];
 
   obj = v8;
-  v9 = [v8 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v31 = 0;
-    v32 = *v35;
+    v30 = 0;
+    v31 = *v34;
     while (1)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v35 != v32)
+        if (*v34 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v34 + 1) + 8 * i);
+        v13 = *(*(&v33 + 1) + 8 * i);
         contentData2 = [(JXHTTPMultipartPart *)self contentData];
         if (v13 == contentData2)
         {
@@ -54,9 +55,9 @@
 
         v16 = contentLength;
 
-        v41.location = v11;
-        v41.length = v16;
-        v17 = NSIntersectionRange(v41, range);
+        v40.location = v11;
+        v40.length = v16;
+        v17 = NSIntersectionRange(v40, range);
         if (v17.length)
         {
           v18 = v17.location - v11;
@@ -74,7 +75,7 @@ LABEL_19:
 
 LABEL_20:
             [dataCopy appendData:v26];
-            v31 += [v26 length];
+            v30 += [v26 length];
 
             goto LABEL_21;
           }
@@ -124,7 +125,7 @@ LABEL_21:
         v11 += v16;
       }
 
-      v10 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v10 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
       if (!v10)
       {
         goto LABEL_25;
@@ -132,11 +133,10 @@ LABEL_21:
     }
   }
 
-  v31 = 0;
+  v30 = 0;
 LABEL_25:
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v31;
+  return v30;
 }
 
 - (int64_t)contentLength
@@ -213,6 +213,46 @@ LABEL_25:
   }
 
   return v5;
+}
+
++ (id)withMultipartType:(int)type key:(id)key data:(id)data contentType:(id)contentType fileName:(id)name boundary:(id)boundary
+{
+  v12 = *&type;
+  contentTypeCopy = contentType;
+  nameCopy = name;
+  boundaryCopy = boundary;
+  dataCopy = data;
+  keyCopy = key;
+  v18 = objc_alloc_init(JXHTTPMultipartPart);
+  [(JXHTTPMultipartPart *)v18 setMultipartType:v12];
+  [(JXHTTPMultipartPart *)v18 setKey:keyCopy];
+  boundaryCopy = [objc_alloc(MEMORY[0x277CCAB68]) initWithFormat:@"%@\r\n", boundaryCopy];
+
+  [boundaryCopy appendFormat:@"Content-Disposition: form-data; name=%@", keyCopy];
+  if ([nameCopy length])
+  {
+    [boundaryCopy appendFormat:@"; filename=%@", nameCopy];
+  }
+
+  if ([contentTypeCopy length])
+  {
+    [boundaryCopy appendFormat:@"\r\nContent-Type: %@", contentTypeCopy];
+  }
+
+  else if ([(JXHTTPMultipartPart *)v18 multipartType]== 1)
+  {
+    [boundaryCopy appendString:@"\r\nContent-Type: application/octet-stream"];
+  }
+
+  [boundaryCopy appendString:@"\r\n\r\n"];
+  v20 = [boundaryCopy dataUsingEncoding:4];
+  [(JXHTTPMultipartPart *)v18 setPreData:v20];
+
+  [(JXHTTPMultipartPart *)v18 setContentData:dataCopy];
+  v21 = [@"\r\n" dataUsingEncoding:4];
+  [(JXHTTPMultipartPart *)v18 setPostData:v21];
+
+  return v18;
 }
 
 @end

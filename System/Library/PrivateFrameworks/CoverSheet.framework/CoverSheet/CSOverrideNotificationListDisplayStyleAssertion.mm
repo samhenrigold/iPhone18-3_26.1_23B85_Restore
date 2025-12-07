@@ -1,6 +1,7 @@
 @interface CSOverrideNotificationListDisplayStyleAssertion
 - (CSOverrideNotificationListDisplayStyleAssertion)initWithNotificationListDisplayStyle:(int64_t)style hideNotificationCount:(BOOL)count reason:(id)reason invalidationHandler:(id)handler;
 - (NSString)description;
+- (void)cancel;
 - (void)dealloc;
 - (void)invalidate;
 @end
@@ -85,6 +86,13 @@ LABEL_3:
     invalidationHandler = self->_invalidationHandler;
     self->_invalidationHandler = 0;
   }
+}
+
+- (void)cancel
+{
+  invalidationHandler = self->_invalidationHandler;
+  self->_invalidationHandler = 0;
+  MEMORY[0x2821F96F8](self, invalidationHandler);
 }
 
 - (NSString)description

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)frAsString:(int)string;
 - (int)StringAsFr:(id)fr;
 - (int)fr;
 - (unint64_t)hash;
@@ -72,6 +73,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)frAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A10960[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsFr:(id)fr
@@ -188,7 +204,6 @@ LABEL_13:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -208,7 +223,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  pagingDrxCycle = self->_pagingDrxCycle;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -223,12 +237,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_5:
-    fr = self->_fr;
     PBDataWriterWriteInt32Field();
   }
 

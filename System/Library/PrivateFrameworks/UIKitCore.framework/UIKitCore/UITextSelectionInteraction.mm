@@ -422,7 +422,8 @@ LABEL_11:
   activeSelectionController = [assistantDelegate activeSelectionController];
   selection = [activeSelectionController selection];
 
-  v40 = 0;
+  v40.x = 0.0;
+  v40.y = 0.0;
   v11 = [(UITextSelectionInteraction *)self _isRepeatedTap:tapCopy gestureLocationOut:&v40];
   if ([tapCopy state] == 1)
   {
@@ -459,7 +460,7 @@ LABEL_11:
     v38[3] = &unk_1E70F35B8;
     v38[4] = self;
     v39 = tapCopy;
-    [(UITextSelectionInteraction *)self tappedToSelectTextWithGesture:v39 atPoint:v18 granularity:v38 completionHandler:v40];
+    [(UITextSelectionInteraction *)self tappedToSelectTextWithGesture:v39 atPoint:v18 granularity:v38 completionHandler:v40.x, v40.y];
     v19 = v39;
 LABEL_17:
 
@@ -503,7 +504,7 @@ LABEL_17:
     v36[3] = &unk_1E70F35B8;
     v36[4] = self;
     v37 = tapCopy;
-    [(UITextSelectionInteraction *)self tappedToUpdateSelectionWithGesture:v37 atPoint:0 granularity:v36 completionHandler:v40];
+    [(UITextSelectionInteraction *)self tappedToUpdateSelectionWithGesture:v37 atPoint:0 granularity:v36 completionHandler:v40.x, v40.y];
     v19 = v37;
     goto LABEL_17;
   }
@@ -516,7 +517,7 @@ LABEL_17:
 
   containerChangesSelectionOnOneFingerTap = [(UITextInteraction *)self containerChangesSelectionOnOneFingerTap];
   v30 = self->_wasOriginallyFirstResponder && [(UITextInteraction *)self _textInputLivesInKeyWindow];
-  v31 = [(UITextInteraction *)self selection:selection containsPoint:v40];
+  v31 = [(UITextInteraction *)self selection:selection containsPoint:v40.x, v40.y];
   if (((([(UITextSelectionInteraction *)self _usesIndirectSelectionBehavior]|| v24) | isEmpty) & 1) != 0 || !v31)
   {
     if (containerChangesSelectionOnOneFingerTap)
@@ -527,7 +528,7 @@ LABEL_17:
       v34[3] = &unk_1E70F35B8;
       v34[4] = self;
       v35 = tapCopy;
-      [(UITextSelectionInteraction *)self tappedToPositionCursorWithGesture:v35 atPoint:v32 granularity:v34 completionHandler:v40];
+      [(UITextSelectionInteraction *)self tappedToPositionCursorWithGesture:v35 atPoint:v32 granularity:v34 completionHandler:v40.x, v40.y];
     }
 
     else
@@ -1144,7 +1145,7 @@ LABEL_30:
   -[UITextGestureTuning updateWithTouches:gestureState:](gestureTuning, "updateWithTouches:gestureState:", v21, [halfCopy state]);
 
   name = [halfCopy name];
-  LODWORD(v21) = [name isEqualToString:0x1EFBA7630];
+  LODWORD(v21) = objc_msgSend_isEqualToString_(name);
 
   if (v21)
   {

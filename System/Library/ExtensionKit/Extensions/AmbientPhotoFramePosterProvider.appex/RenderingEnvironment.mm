@@ -72,8 +72,8 @@
 
 - (NSURL)px_assetDirectory
 {
-  v3 = (*(*(sub_10000597C(&qword_100023958, qword_100012A78) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v3 = sub_10000597C(&qword_100023958, qword_100012A78);
+  __chkstk_darwin(v3 - 8);
   v5 = &v12 - v4;
   selfCopy = self;
   sub_10000485C(v5);

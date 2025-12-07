@@ -1,18 +1,18 @@
 @interface Character
-- (void):;
+- (void):(uint64_t)self;
 @end
 
 @implementation Character
 
-- (void):
+- (void):(uint64_t)self
 {
   if (!lazy cache variable for type metadata for [Character : [Int]])
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySiGMd, &_sSaySiGMR);
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [Character : [Int]]);
+      atomic_store(v1, &lazy cache variable for type metadata for [Character : [Int]]);
     }
   }
 }

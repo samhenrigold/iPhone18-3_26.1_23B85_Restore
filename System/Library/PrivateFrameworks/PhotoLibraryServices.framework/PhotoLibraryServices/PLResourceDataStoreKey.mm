@@ -153,7 +153,7 @@ void __82__PLResourceDataStoreKey_refreshSandboxExtensionForURL_libraryID_assetU
   v11 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  if (!*(a1 + 48) || [v5 isEqualToString:*(a1 + 32)])
+  if (!*(a1 + 48) || objc_msgSend_isEqualToString_(v5))
   {
     v7 = [objc_alloc(MEMORY[0x1E69BF2E8]) initFileURLWithPath:v5 sandboxExtensionToken:v6 consume:1];
     if (v7)

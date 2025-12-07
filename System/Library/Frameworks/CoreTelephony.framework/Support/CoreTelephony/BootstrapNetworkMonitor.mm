@@ -70,7 +70,7 @@
 
 - (void)dealloc
 {
-  [(BootstrapNetworkMonitor *)self getLogContext];
+  objc_msgSend_getLogContext(self, a2);
   v3 = v6;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -364,7 +364,7 @@ LABEL_56:
     *v37 = 0;
     v38 = 0;
     v39 = 0;
-    [(BootstrapNetworkMonitor *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v7 = *&v32[4];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -386,7 +386,7 @@ LABEL_56:
 
     if (self->withUserSIM && ([v6 interfaceCellularViaFallback] & 1) == 0)
     {
-      [(BootstrapNetworkMonitor *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v22 = *&v32[4];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
@@ -428,7 +428,7 @@ LABEL_56:
           processName2 = @"unknown.process";
         }
 
-        [(BootstrapNetworkMonitor *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v24 = *&v32[4];
         ctu::OsLogContext::~OsLogContext(buf);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
@@ -459,7 +459,7 @@ LABEL_56:
         goto LABEL_26;
       }
 
-      [(BootstrapNetworkMonitor *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v22 = *&v32[4];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
@@ -476,7 +476,7 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  [(BootstrapNetworkMonitor *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v19 = *&v32[4];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))

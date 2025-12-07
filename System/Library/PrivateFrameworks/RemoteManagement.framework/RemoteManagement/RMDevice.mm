@@ -337,11 +337,10 @@ uint64_t __25__RMDevice_currentDevice__block_invoke()
 
 - (void)locked
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_debug_impl(&dword_1E1168000, a2, OS_LOG_TYPE_DEBUG, "Lock state %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_debug_impl(&dword_1E1168000, a2, OS_LOG_TYPE_DEBUG, "Lock state %d", v2, 8u);
 }
 
 @end

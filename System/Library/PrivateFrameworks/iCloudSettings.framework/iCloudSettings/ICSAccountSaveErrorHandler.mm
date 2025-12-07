@@ -36,7 +36,7 @@
   if (v12)
   {
     code = [errorCopy code];
-    localizedRecoverySuggestion = LogSubsystem();
+    localizedRecoverySuggestion = LogSubsystem(code);
     v15 = os_log_type_enabled(localizedRecoverySuggestion, OS_LOG_TYPE_ERROR);
     if (code == 2)
     {
@@ -211,108 +211,102 @@ void __81__ICSAccountSaveErrorHandler__beginManateeUpgradeForAccount_failedDatac
 
   if (isKindOfClass)
   {
-    v8 = objc_loadWeakRetained((*(a1 + 32) + 8));
-    [v8 stopSpinnerInActiveSpecifier];
+    v9 = objc_loadWeakRetained((*(a1 + 32) + 8));
+    [v9 stopSpinnerInActiveSpecifier];
   }
 
   if ((a2 & 1) == 0)
   {
-    v14 = LogSubsystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = LogSubsystem(v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       __81__ICSAccountSaveErrorHandler__beginManateeUpgradeForAccount_failedDataclassName___block_invoke_cold_1();
     }
 
-    v15 = [v5 domain];
-    if ([v15 isEqualToString:*MEMORY[0x277CFD418]])
+    v16 = [v5 domain];
+    if ([v16 isEqualToString:*MEMORY[0x277CFD418]])
     {
-      v16 = [v5 code] == 5900;
+      v17 = [v5 code] == 5900;
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
 
     if ([MEMORY[0x277CE4560] isInternalBuild] && objc_msgSend(v5, "code") != -5307)
     {
-      if ([v5 code] == -5308 && !v16)
+      if ([v5 code] == -5308 && !v17)
       {
         goto LABEL_22;
       }
     }
 
-    else if (!v16)
+    else if (!v17)
     {
       goto LABEL_22;
     }
 
-    v17 = MEMORY[0x277CCACA8];
-    v18 = *(a1 + 32);
+    v18 = MEMORY[0x277CCACA8];
     v19 = *(a1 + 40);
     v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v21 = v20;
     if (v19)
     {
       v22 = [v20 localizedStringForKey:@"HSA2_UPGRADE_FAILURE_MESSAGE" value:&stru_288487370 table:@"Localizable-AppleID"];
-      v23 = *(a1 + 32);
-      v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v25 = [v24 localizedStringForKey:*(a1 + 40) value:&stru_288487370 table:@"Localizable-AppleID"];
-      v26 = [*(a1 + 48) aa_formattedUsername];
-      v9 = [v17 stringWithFormat:v22, v25, v26];
+      v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v24 = [v23 localizedStringForKey:*(a1 + 40) value:&stru_288487370 table:@"Localizable-AppleID"];
+      v25 = [*(a1 + 48) aa_formattedUsername];
+      v10 = [v18 stringWithFormat:v22, v24, v25];
 
-      v27 = MEMORY[0x277CCACA8];
-      v28 = *(a1 + 32);
+      v26 = MEMORY[0x277CCACA8];
+      v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v28 = [v27 localizedStringForKey:@"HSA2_UPGRADE_FAILURE_TITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
       v29 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v30 = [v29 localizedStringForKey:@"HSA2_UPGRADE_FAILURE_TITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
-      v31 = *(a1 + 32);
-      v32 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v33 = [v32 localizedStringForKey:*(a1 + 40) value:&stru_288487370 table:@"Localizable-AppleID"];
-      v34 = [v27 stringWithFormat:v30, v33];
+      v30 = [v29 localizedStringForKey:*(a1 + 40) value:&stru_288487370 table:@"Localizable-AppleID"];
+      v31 = [v26 stringWithFormat:v28, v30];
     }
 
     else
     {
-      v35 = [v20 localizedStringForKey:@"HSA2_UPGRADE_FAILURE_MESSAGE_NO_FEATURE" value:&stru_288487370 table:@"Localizable-AppleID"];
-      v36 = [*(a1 + 48) aa_formattedUsername];
-      v9 = [v17 stringWithFormat:v35, v36];
+      v32 = [v20 localizedStringForKey:@"HSA2_UPGRADE_FAILURE_MESSAGE_NO_FEATURE" value:&stru_288487370 table:@"Localizable-AppleID"];
+      v33 = [*(a1 + 48) aa_formattedUsername];
+      v10 = [v18 stringWithFormat:v32, v33];
 
-      v37 = MEMORY[0x277CCACA8];
-      v38 = *(a1 + 32);
-      v29 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v30 = [v29 localizedStringForKey:@"HSA2_UPGRADE_FAILURE_TITLE_NO_FEATURE" value:&stru_288487370 table:@"Localizable-AppleID"];
-      v34 = [v37 stringWithFormat:v30];
+      v34 = MEMORY[0x277CCACA8];
+      v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v28 = [v27 localizedStringForKey:@"HSA2_UPGRADE_FAILURE_TITLE_NO_FEATURE" value:&stru_288487370 table:@"Localizable-AppleID"];
+      v31 = [v34 stringWithFormat:v28];
     }
 
-    v39 = MEMORY[0x277D750F8];
-    v40 = *(a1 + 32);
-    v41 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v42 = [v41 localizedStringForKey:@"LEARN_MORE" value:&stru_288487370 table:@"Localizable-AppleID"];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __81__ICSAccountSaveErrorHandler__beginManateeUpgradeForAccount_failedDataclassName___block_invoke_83;
-    v44[3] = &unk_27A666750;
-    v44[4] = *(a1 + 32);
-    v43 = [v39 actionWithTitle:v42 style:0 handler:v44];
+    v35 = MEMORY[0x277D750F8];
+    v36 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v37 = [v36 localizedStringForKey:@"LEARN_MORE" value:&stru_288487370 table:@"Localizable-AppleID"];
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __81__ICSAccountSaveErrorHandler__beginManateeUpgradeForAccount_failedDataclassName___block_invoke_83;
+    v39[3] = &unk_27A666750;
+    v39[4] = *(a1 + 32);
+    v38 = [v35 actionWithTitle:v37 style:0 handler:v39];
 
-    [*(a1 + 32) _displayAccountSaveErrorAlertWithTitle:v34 message:v9 alternativeAction:v43];
+    [*(a1 + 32) _displayAccountSaveErrorAlertWithTitle:v31 message:v10 alternativeAction:v38];
     goto LABEL_21;
   }
 
   if (*(a1 + 40))
   {
-    v9 = [*(a1 + 48) copy];
-    [v9 reload];
-    [v9 setEnabled:1 forDataclass:*(a1 + 40)];
-    v10 = objc_loadWeakRetained((*(a1 + 32) + 8));
+    v10 = [*(a1 + 48) copy];
+    [v10 reload];
+    [v10 setEnabled:1 forDataclass:*(a1 + 40)];
+    v11 = objc_loadWeakRetained((*(a1 + 32) + 8));
     objc_opt_class();
-    v11 = objc_opt_isKindOfClass();
+    v12 = objc_opt_isKindOfClass();
 
-    if (v11)
+    if (v12)
     {
-      v12 = objc_loadWeakRetained((*(a1 + 32) + 8));
-      v13 = [v12 accountOperationsHelper];
-      [v13 saveAccount:v9 requireVerification:0];
+      v13 = objc_loadWeakRetained((*(a1 + 32) + 8));
+      v14 = [v13 accountOperationsHelper];
+      [v14 saveAccount:v10 requireVerification:0];
     }
 
 LABEL_21:
@@ -323,13 +317,12 @@ LABEL_22:
 
 void __81__ICSAccountSaveErrorHandler__beginManateeUpgradeForAccount_failedDataclassName___block_invoke_83(uint64_t a1)
 {
-  v7 = [MEMORY[0x277D75128] sharedApplication];
-  v2 = MEMORY[0x277CBEBC0];
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v5 = [v4 localizedStringForKey:@"HSA2_UPGRADE_FAILURE_ARTICLE_PATH" value:&stru_288487370 table:@"Localizable-AppleID"];
-  v6 = [v2 URLWithString:v5];
-  [v7 openURL:v6 withCompletionHandler:0];
+  v5 = [MEMORY[0x277D75128] sharedApplication];
+  v1 = MEMORY[0x277CBEBC0];
+  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v3 = [v2 localizedStringForKey:@"HSA2_UPGRADE_FAILURE_ARTICLE_PATH" value:&stru_288487370 table:@"Localizable-AppleID"];
+  v4 = [v1 URLWithString:v3];
+  [v5 openURL:v4 withCompletionHandler:0];
 }
 
 - (void)_handleMaxTierAndInsufficientStorageErrorWithFailedDataclasses:(id)dataclasses
@@ -385,67 +378,48 @@ void __95__ICSAccountSaveErrorHandler__displayAccountSaveErrorAlertWithTitle_mes
   v2 = *(a1 + 32);
   if ([MEMORY[0x277CE4560] isInternalBuild])
   {
-    v4 = *(a1 + 32);
-    v3 = *(a1 + 40);
-    v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v6 = [v5 localizedStringForKey:@"ACCOUNT_SAVE_ERROR_INTERNAL_MESSAGE" value:&stru_288487370 table:@"Localizable-AppleID"];
-    v7 = [v4 stringByAppendingFormat:@"\n%@", v6];
+    v3 = *(a1 + 32);
+    v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v5 = [v4 localizedStringForKey:@"ACCOUNT_SAVE_ERROR_INTERNAL_MESSAGE" value:&stru_288487370 table:@"Localizable-AppleID"];
+    v6 = [v3 stringByAppendingFormat:@"\n%@", v5];
 
-    v8 = MEMORY[0x277D750F8];
-    v9 = *(a1 + 40);
-    v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v11 = [v10 localizedStringForKey:@"TAP_TO_RADAR_TITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __95__ICSAccountSaveErrorHandler__displayAccountSaveErrorAlertWithTitle_message_alternativeAction___block_invoke_2;
-    v20[3] = &unk_27A666750;
-    v21 = *(a1 + 48);
-    v12 = [v8 actionWithTitle:v11 style:0 handler:v20];
+    v7 = MEMORY[0x277D750F8];
+    v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v9 = [v8 localizedStringForKey:@"TAP_TO_RADAR_TITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __95__ICSAccountSaveErrorHandler__displayAccountSaveErrorAlertWithTitle_message_alternativeAction___block_invoke_2;
+    v17[3] = &unk_27A666750;
+    v18 = *(a1 + 48);
+    v10 = [v7 actionWithTitle:v9 style:0 handler:v17];
 
-    v2 = v7;
+    v2 = v6;
   }
 
   else
   {
-    v12 = 0;
+    v10 = 0;
   }
 
-  v13 = [MEMORY[0x277D75110] alertWithTitle:*(a1 + 48) message:v2];
-  v14 = MEMORY[0x277D750F8];
-  v15 = *(a1 + 40);
-  v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v17 = [v16 localizedStringForKey:@"OK" value:&stru_288487370 table:@"Localizable-AppleID"];
-  v18 = [v14 actionWithTitle:v17 style:1 handler:0];
-  [v13 addAction:v18];
+  v11 = [MEMORY[0x277D75110] alertWithTitle:*(a1 + 48) message:v2];
+  v12 = MEMORY[0x277D750F8];
+  v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v14 = [v13 localizedStringForKey:@"OK" value:&stru_288487370 table:@"Localizable-AppleID"];
+  v15 = [v12 actionWithTitle:v14 style:1 handler:0];
+  [v11 addAction:v15];
 
-  if (v12)
+  if (v10)
   {
-    [v13 addAction:v12];
+    [v11 addAction:v10];
   }
 
   if (*(a1 + 56))
   {
-    [v13 addAction:?];
+    [v11 addAction:?];
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 8));
-  [WeakRetained presentViewController:v13 animated:1 completion:0];
-}
-
-- (void)handleAccountSaveError:forAccount:failedDataclasses:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __81__ICSAccountSaveErrorHandler__beginManateeUpgradeForAccount_failedDataclassName___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  [WeakRetained presentViewController:v11 animated:1 completion:0];
 }
 
 @end

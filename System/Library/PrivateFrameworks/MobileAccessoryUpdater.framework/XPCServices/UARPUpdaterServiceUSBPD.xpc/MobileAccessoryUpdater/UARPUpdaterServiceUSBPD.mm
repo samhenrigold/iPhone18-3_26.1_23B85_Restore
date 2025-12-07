@@ -9,6 +9,7 @@
 - (void)getDASActivityListWithReply:(id)reply;
 - (void)getMatchingServicesListWithReply:(id)reply;
 - (void)ioKitRuleMatched:(id)matched;
+- (void)matchingService:(unsigned int)service identifier:(id)identifier;
 @end
 
 @implementation UARPUpdaterServiceUSBPD
@@ -268,6 +269,36 @@
   {
     sub_100025E9C();
   }
+}
+
+- (void)matchingService:(unsigned int)service identifier:(id)identifier
+{
+  v4 = *&service;
+  identifierCopy = identifier;
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+  {
+    *cf = 136315394;
+    *&cf[4] = "[UARPUpdaterServiceUSBPD matchingService:identifier:]";
+    v10 = 2112;
+    v11 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@", cf, 0x16u);
+  }
+
+  *cf = 0;
+  IORegistryEntryCreateCFProperties(v4, cf, kCFAllocatorDefault, 0);
+  if (*cf)
+  {
+    v8 = self->_log;
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100025F18(identifierCopy, cf, v8);
+    }
+
+    CFRelease(*cf);
+  }
+
+  [(UARPUSBPDUpdater *)self->_usbpdUpdater matchingService:v4 identifier:identifierCopy];
 }
 
 - (id)getBSDNotificationsList

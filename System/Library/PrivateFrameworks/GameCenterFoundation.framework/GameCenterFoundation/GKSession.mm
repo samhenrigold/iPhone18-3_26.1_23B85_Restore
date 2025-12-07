@@ -3,8 +3,11 @@
 - (BOOL)isAvailable;
 - (BOOL)isBusy;
 - (BOOL)isPeerBusy:(id)busy;
+- (BOOL)sendData:(NSData *)data toPeers:(NSArray *)peers withDataMode:(GKSendDataMode)mode error:(NSError *)error;
+- (BOOL)sendDataToAllPeers:(NSData *)data withDataMode:(GKSendDataMode)mode error:(NSError *)error;
 - (GKSession)initWithViceroySession:(id)session;
 - (GKSessionMode)sessionMode;
+- (NSArray)peersWithConnectionState:(GKPeerConnectionState)state;
 - (NSString)displayName;
 - (NSString)displayNameForPeer:(NSString *)peerID;
 - (NSString)peerID;
@@ -12,6 +15,7 @@
 - (NSTimeInterval)disconnectTimeout;
 - (id)delegate;
 - (id)description;
+- (id)initWithSessionID:(NSString *)sessionID displayName:(NSString *)name sessionMode:(GKSessionMode)mode;
 - (id)privateDelegate;
 - (id)privateImpl;
 - (void)cancelConnectToPeer:(NSString *)peerID;
@@ -21,6 +25,8 @@
 - (void)disableWifi;
 - (void)disconnectFromAllPeers;
 - (void)disconnectPeerFromAllPeers:(NSString *)peerID;
+- (void)setAvailable:(BOOL)available;
+- (void)setBusy:(BOOL)busy;
 - (void)setDataReceiveHandler:(id)handler withContext:(void *)context;
 - (void)setDelegate:(id)delegate;
 - (void)setDisconnectTimeout:(NSTimeInterval)disconnectTimeout;
@@ -28,6 +34,24 @@
 @end
 
 @implementation GKSession
+
+- (id)initWithSessionID:(NSString *)sessionID displayName:(NSString *)name sessionMode:(GKSessionMode)mode
+{
+  v5 = *&mode;
+  v8 = sessionID;
+  v9 = name;
+  v14.receiver = self;
+  v14.super_class = GKSession;
+  v10 = [(GKSession *)&v14 init];
+  if (v10)
+  {
+    v11 = [[GKViceroySession alloc] initWithGKSession:v10 sessionID:v8 displayName:v9 sessionMode:v5];
+    session = v10->_session;
+    v10->_session = v11;
+  }
+
+  return v10;
+}
 
 - (GKSession)initWithViceroySession:(id)session
 {
@@ -115,6 +139,39 @@
   return v6;
 }
 
+- (BOOL)sendData:(NSData *)data toPeers:(NSArray *)peers withDataMode:(GKSendDataMode)mode error:(NSError *)error
+{
+  v7 = *&mode;
+  v10 = peers;
+  v11 = data;
+  session = [(GKSession *)self session];
+  LOBYTE(error) = [session sendData:v11 toPeers:v10 withDataMode:v7 error:error];
+
+  return error;
+}
+
+- (BOOL)sendDataToAllPeers:(NSData *)data withDataMode:(GKSendDataMode)mode error:(NSError *)error
+{
+  v6 = *&mode;
+  v8 = data;
+  if (!os_log_GKGeneral)
+  {
+    v9 = GKOSLoggers();
+  }
+
+  v10 = os_log_GKTrace;
+  if (os_log_type_enabled(os_log_GKTrace, OS_LOG_TYPE_INFO))
+  {
+    *v14 = 0;
+    _os_log_impl(&dword_227904000, v10, OS_LOG_TYPE_INFO, "GKSession: sendDataToAllPeers: withDataMode:", v14, 2u);
+  }
+
+  session = [(GKSession *)self session];
+  v12 = [session sendDataToAllPeers:v8 withDataMode:v6 error:error];
+
+  return v12;
+}
+
 - (void)setDataReceiveHandler:(id)handler withContext:(void *)context
 {
   v6 = handler;
@@ -165,6 +222,15 @@
   [session disconnectFromAllPeers];
 }
 
+- (NSArray)peersWithConnectionState:(GKPeerConnectionState)state
+{
+  v3 = *&state;
+  session = [(GKSession *)self session];
+  v5 = [session peersWithConnectionState:v3];
+
+  return v5;
+}
+
 - (GKSessionMode)sessionMode
 {
   session = [(GKSession *)self session];
@@ -181,6 +247,13 @@
   return isAvailable;
 }
 
+- (void)setAvailable:(BOOL)available
+{
+  v3 = available;
+  session = [(GKSession *)self session];
+  [session setAvailable:v3];
+}
+
 - (NSString)peerID
 {
   session = [(GKSession *)self session];
@@ -195,6 +268,13 @@
   isBusy = [session isBusy];
 
   return isBusy;
+}
+
+- (void)setBusy:(BOOL)busy
+{
+  busyCopy = busy;
+  session = [(GKSession *)self session];
+  [session setBusy:busyCopy];
 }
 
 - (BOOL)isPeerBusy:(id)busy

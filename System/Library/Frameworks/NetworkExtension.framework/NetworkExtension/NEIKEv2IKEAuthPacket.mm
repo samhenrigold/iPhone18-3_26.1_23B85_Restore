@@ -1,6 +1,6 @@
 @interface NEIKEv2IKEAuthPacket
 + (NSObject)createIKEAuthForInitiatorIKESA:(void *)a childSA:;
-+ (id)createIKEAuthResponse:(unint64_t)response refusalError:;
++ (NSObject)createIKEAuthResponse:(unint64_t)response refusalError:;
 - (uint64_t)validateAuthInitialAsInitiator:(int)initiator beforeEAP:;
 - (uint64_t)validateAuthPayloadAsInitiator:(char)initiator beforeEAP:;
 - (void)filloutPayloads;
@@ -11,7 +11,7 @@
 
 + (NSObject)createIKEAuthForInitiatorIKESA:(void *)a childSA:
 {
-  v296 = *MEMORY[0x1E69E9840];
+  v295 = *MEMORY[0x1E69E9840];
   v4 = a2;
   aCopy = a;
   objc_opt_self();
@@ -24,7 +24,7 @@
     }
 
     buf = 136315138;
-    v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+    v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
     v56 = "%s called with null ikeSA";
     goto LABEL_31;
   }
@@ -38,7 +38,7 @@
     }
 
     buf = 136315138;
-    v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+    v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
     v56 = "%s called with null childSA";
     goto LABEL_31;
   }
@@ -56,7 +56,7 @@ LABEL_153:
     }
 
     buf = 136315138;
-    v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+    v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
     v56 = "%s called with null ikeSA.chosenProposal";
 LABEL_31:
     _os_log_fault_impl(&dword_1BA83C000, selfCopy6, OS_LOG_TYPE_FAULT, v56, &buf, 0xCu);
@@ -108,7 +108,7 @@ LABEL_31:
     }
 
     buf = 136315138;
-    v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+    v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
     v59 = "%s called with null packet.idi.isValid";
     goto LABEL_150;
   }
@@ -143,13 +143,13 @@ LABEL_31:
       }
 
       buf = 136315138;
-      v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+      v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
       v59 = "%s called with null packet.idr.isValid";
       goto LABEL_150;
     }
   }
 
-  v268 = v4;
+  v267 = v4;
   self = selfCopy6;
   if ((*(v4 + 23) & 1) == 0)
   {
@@ -268,7 +268,7 @@ LABEL_31:
 
           if (sequencePerTrafficClass)
           {
-            v102 = +[NEIKEv2NotifyPayload createNotifyPayloadType:];
+            v102 = [NEIKEv2NotifyPayload createNotifyPayloadType:?];
             v103 = [(NEIKEv2Packet *)selfCopy6 addNotifyPayload:v102];
 
             if (!v103)
@@ -322,7 +322,7 @@ LABEL_31:
           }
 
           buf = 136315138;
-          v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+          v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
           v59 = "%s called with null packet.config.isValid";
         }
 
@@ -335,7 +335,7 @@ LABEL_31:
           }
 
           buf = 136315138;
-          v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+          v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
           v59 = "%s called with null packet.tsr.isValid";
         }
       }
@@ -349,7 +349,7 @@ LABEL_31:
         }
 
         buf = 136315138;
-        v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+        v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
         v59 = "%s called with null packet.tsi.isValid";
       }
     }
@@ -363,7 +363,7 @@ LABEL_31:
       }
 
       buf = 136315138;
-      v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+      v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
       v59 = "%s called with null packet.sa.isValid";
     }
 
@@ -404,7 +404,7 @@ LABEL_77:
 
       if (!negotiateMOBIKE || [(NEIKEv2Packet *)selfCopy6 addNotification:0 data:?])
       {
-        v267 = aCopy;
+        v266 = aCopy;
         remoteAuthentication = [(NEIKEv2IKESA *)v4 remoteAuthentication];
         if ([remoteAuthentication method])
         {
@@ -419,12 +419,12 @@ LABEL_77:
                 v143 = objc_alloc_init(NEIKEv2CertificateRequestPayload);
                 if (!v143)
                 {
-                  v266 = ne_log_obj();
-                  if (os_log_type_enabled(v266, OS_LOG_TYPE_FAULT))
+                  v265 = ne_log_obj();
+                  if (os_log_type_enabled(v265, OS_LOG_TYPE_FAULT))
                   {
                     buf = 136315138;
-                    v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
-                    _os_log_fault_impl(&dword_1BA83C000, v266, OS_LOG_TYPE_FAULT, "%s called with null certReq", &buf, 0xCu);
+                    v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+                    _os_log_fault_impl(&dword_1BA83C000, v265, OS_LOG_TYPE_FAULT, "%s called with null certReq", &buf, 0xCu);
                   }
 
                   goto LABEL_206;
@@ -433,8 +433,8 @@ LABEL_77:
                 v145 = v143;
                 objc_setProperty_atomic(v143, v144, copyRemoteCertificateAuthorityHashData, 40);
                 v145->_encoding = 4;
-                v293 = v145;
-                v146 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v293 count:1];
+                v292 = v145;
+                v146 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v292 count:1];
                 objc_setProperty_atomic(selfCopy6, v147, v146, 120);
               }
             }
@@ -457,29 +457,29 @@ LABEL_77:
 LABEL_92:
 
 LABEL_102:
-              v281 = 0u;
-              v282 = 0u;
-              v279 = 0u;
               v280 = 0u;
+              v281 = 0u;
+              v278 = 0u;
+              v279 = 0u;
               v165 = objc_getProperty(v4, v157, 88, 1);
               customIKEAuthPrivateNotifies = [v165 customIKEAuthPrivateNotifies];
 
-              v167 = [customIKEAuthPrivateNotifies countByEnumeratingWithState:&v279 objects:v291 count:16];
+              v167 = [customIKEAuthPrivateNotifies countByEnumeratingWithState:&v278 objects:v290 count:16];
               if (v167)
               {
                 v168 = v167;
-                v169 = *v280;
+                v169 = *v279;
                 while (2)
                 {
                   v170 = 0;
                   do
                   {
-                    if (*v280 != v169)
+                    if (*v279 != v169)
                     {
                       objc_enumerationMutation(customIKEAuthPrivateNotifies);
                     }
 
-                    v171 = *(*(&v279 + 1) + 8 * v170);
+                    v171 = *(*(&v278 + 1) + 8 * v170);
                     v172 = objc_alloc_init(NEIKEv2NotifyPayload);
                     notifyStatus = [v171 notifyStatus];
                     if (v172)
@@ -497,7 +497,7 @@ LABEL_102:
                     if (![(NEIKEv2Packet *)self addNotifyPayload:v172])
                     {
                       v222 = ne_log_obj();
-                      v4 = v268;
+                      v4 = v267;
                       if (os_log_type_enabled(v222, OS_LOG_TYPE_FAULT))
                       {
                         LOWORD(buf) = 0;
@@ -505,16 +505,16 @@ LABEL_102:
                       }
 
                       v129 = 0;
-                      aCopy = v267;
+                      aCopy = v266;
                       goto LABEL_147;
                     }
 
                     ++v170;
-                    v4 = v268;
+                    v4 = v267;
                   }
 
                   while (v168 != v170);
-                  v176 = [customIKEAuthPrivateNotifies countByEnumeratingWithState:&v279 objects:v291 count:16];
+                  v176 = [customIKEAuthPrivateNotifies countByEnumeratingWithState:&v278 objects:v290 count:16];
                   v168 = v176;
                   if (v176)
                   {
@@ -525,29 +525,29 @@ LABEL_102:
                 }
               }
 
-              v277 = 0u;
-              v278 = 0u;
-              v275 = 0u;
               v276 = 0u;
+              v277 = 0u;
+              v274 = 0u;
+              v275 = 0u;
               v178 = objc_getProperty(v4, v177, 88, 1);
               customIKEAuthVendorPayloads = [v178 customIKEAuthVendorPayloads];
 
-              v180 = [customIKEAuthVendorPayloads countByEnumeratingWithState:&v275 objects:v290 count:16];
+              v180 = [customIKEAuthVendorPayloads countByEnumeratingWithState:&v274 objects:v289 count:16];
               selfCopy6 = self;
               if (v180)
               {
                 v181 = v180;
-                v182 = *v276;
+                v182 = *v275;
                 do
                 {
                   for (i = 0; i != v181; ++i)
                   {
-                    if (*v276 != v182)
+                    if (*v275 != v182)
                     {
                       objc_enumerationMutation(customIKEAuthVendorPayloads);
                     }
 
-                    v184 = *(*(&v275 + 1) + 8 * i);
+                    v184 = *(*(&v274 + 1) + 8 * i);
                     v185 = objc_alloc_init(NEIKEv2VendorIDPayload);
                     vendorData = [v184 vendorData];
                     if (v185)
@@ -568,41 +568,41 @@ LABEL_102:
 
                     else
                     {
-                      v289 = v185;
-                      v191 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v289 count:1];
+                      v288 = v185;
+                      v191 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v288 count:1];
                       objc_setProperty_atomic(selfCopy6, v194, v191, 176);
                     }
                   }
 
-                  v181 = [customIKEAuthVendorPayloads countByEnumeratingWithState:&v275 objects:v290 count:16];
+                  v181 = [customIKEAuthVendorPayloads countByEnumeratingWithState:&v274 objects:v289 count:16];
                 }
 
                 while (v181);
               }
 
-              v273 = 0u;
-              v274 = 0u;
-              v271 = 0u;
               v272 = 0u;
-              v196 = objc_getProperty(v268, v195, 88, 1);
+              v273 = 0u;
+              v270 = 0u;
+              v271 = 0u;
+              v196 = objc_getProperty(v267, v195, 88, 1);
               customIKEAuthPayloads = [v196 customIKEAuthPayloads];
 
-              v198 = [customIKEAuthPayloads countByEnumeratingWithState:&v271 objects:v288 count:16];
+              v198 = [customIKEAuthPayloads countByEnumeratingWithState:&v270 objects:v287 count:16];
               if (v198)
               {
                 v199 = v198;
-                v200 = *v272;
+                v200 = *v271;
                 do
                 {
                   v201 = 0;
                   do
                   {
-                    if (*v272 != v200)
+                    if (*v271 != v200)
                     {
                       objc_enumerationMutation(customIKEAuthPayloads);
                     }
 
-                    v202 = *(*(&v271 + 1) + 8 * v201);
+                    v202 = *(*(&v270 + 1) + 8 * v201);
                     v203 = objc_alloc_init(NEIKEv2CustomPayload);
                     customType = [v202 customType];
                     if (v203)
@@ -630,8 +630,8 @@ LABEL_102:
 
                     else
                     {
-                      v287 = v203;
-                      v210 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v287 count:1];
+                      v286 = v203;
+                      v210 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v286 count:1];
                       objc_setProperty_atomic(selfCopy6, v213, v210, 56);
                     }
 
@@ -639,15 +639,15 @@ LABEL_102:
                   }
 
                   while (v199 != v201);
-                  v214 = [customIKEAuthPayloads countByEnumeratingWithState:&v271 objects:v288 count:16];
+                  v214 = [customIKEAuthPayloads countByEnumeratingWithState:&v270 objects:v287 count:16];
                   v199 = v214;
                 }
 
                 while (v214);
               }
 
-              v4 = v268;
-              v216 = objc_getProperty(v268, v215, 88, 1);
+              v4 = v267;
+              v216 = objc_getProperty(v267, v215, 88, 1);
               pduSessionID = [v216 pduSessionID];
 
               if (!pduSessionID)
@@ -655,39 +655,39 @@ LABEL_102:
                 goto LABEL_143;
               }
 
-              v219 = objc_getProperty(v268, v218, 88, 1);
+              v219 = objc_getProperty(v267, v218, 88, 1);
               pduSessionID2 = [v219 pduSessionID];
               unsignedCharValue = [pduSessionID2 unsignedCharValue];
 
-              LOBYTE(v283) = unsignedCharValue;
-              v270 = 1;
+              LOBYTE(v282) = unsignedCharValue;
+              v269 = 1;
               ppkID = objc_alloc_init(MEMORY[0x1E695DF88]);
-              [(NEIKEv2CertificatePayload *)ppkID appendBytes:&v270 length:1];
-              [(NEIKEv2CertificatePayload *)ppkID appendBytes:&v283 length:1];
+              [(NEIKEv2CertificatePayload *)ppkID appendBytes:&v269 length:1];
+              [(NEIKEv2CertificatePayload *)ppkID appendBytes:&v282 length:1];
               if ([(NEIKEv2Packet *)selfCopy6 addNotification:ppkID data:?])
               {
 
 LABEL_143:
                 v129 = selfCopy6;
 LABEL_199:
-                aCopy = v267;
+                aCopy = v266;
 LABEL_200:
 
                 goto LABEL_154;
               }
 
-              v237 = ne_log_obj();
-              if (!os_log_type_enabled(v237, OS_LOG_TYPE_FAULT))
+              v236 = ne_log_obj();
+              if (!os_log_type_enabled(v236, OS_LOG_TYPE_FAULT))
               {
                 goto LABEL_197;
               }
 
               LOWORD(buf) = 0;
-              v256 = "[packet addNotification:NEIKEv2NotifyTypeMOBIKESupported] failed";
-              v257 = v237;
-              v258 = 2;
+              v255 = "[packet addNotification:NEIKEv2NotifyTypeMOBIKESupported] failed";
+              v256 = v236;
+              v257 = 2;
 LABEL_177:
-              _os_log_fault_impl(&dword_1BA83C000, v257, OS_LOG_TYPE_FAULT, v256, &buf, v258);
+              _os_log_fault_impl(&dword_1BA83C000, v256, OS_LOG_TYPE_FAULT, v255, &buf, v257);
 LABEL_197:
 
               goto LABEL_198;
@@ -699,18 +699,18 @@ LABEL_197:
 LABEL_206:
 
               v129 = 0;
-              aCopy = v267;
+              aCopy = v266;
 LABEL_147:
               selfCopy6 = self;
               goto LABEL_200;
             }
 
             LOWORD(buf) = 0;
-            v263 = "[NEIKEv2GSPM initWithIKESA:] failed";
-            v264 = copyRemoteCertificateAuthorityHashData;
-            v265 = 2;
+            v262 = "[NEIKEv2GSPM initWithIKESA:] failed";
+            v263 = copyRemoteCertificateAuthorityHashData;
+            v264 = 2;
 LABEL_213:
-            _os_log_fault_impl(&dword_1BA83C000, v264, OS_LOG_TYPE_FAULT, v263, &buf, v265);
+            _os_log_fault_impl(&dword_1BA83C000, v263, OS_LOG_TYPE_FAULT, v262, &buf, v264);
             goto LABEL_206;
           }
 
@@ -722,11 +722,11 @@ LABEL_213:
             goto LABEL_102;
           }
 
-          v227 = [(NEIKEv2IKESA *)v4 copyAuthenticationPayloadUsingPrimeKey:?];
-          objc_setProperty_atomic(selfCopy6, v228, v227, 128);
+          v226 = [(NEIKEv2IKESA *)v4 copyAuthenticationPayloadUsingPrimeKey:?];
+          objc_setProperty_atomic(selfCopy6, v227, v226, 128);
 
-          v230 = objc_getProperty(selfCopy6, v229, 128, 1);
-          isValid7 = [(NEIKEv2Payload *)v230 isValid];
+          v229 = objc_getProperty(selfCopy6, v228, 128, 1);
+          isValid7 = [(NEIKEv2Payload *)v229 isValid];
 
           if (isValid7)
           {
@@ -735,49 +735,49 @@ LABEL_213:
               goto LABEL_166;
             }
 
-            v233 = objc_getProperty(v4, v232, 88, 1);
-            ppkIDType = [v233 ppkIDType];
+            v232 = objc_getProperty(v4, v231, 88, 1);
+            ppkIDType = [v232 ppkIDType];
 
-            LOBYTE(v283) = ppkIDType;
+            LOBYTE(v282) = ppkIDType;
             if (ppkIDType)
             {
-              v236 = objc_getProperty(v4, v235, 88, 1);
-              ppkID = [v236 ppkID];
+              v235 = objc_getProperty(v4, v234, 88, 1);
+              ppkID = [v235 ppkID];
 
-              if (v283 != 2 || ppkID)
+              if (v282 != 2 || ppkID)
               {
-                v237 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:{-[NEIKEv2CertificatePayload length](ppkID, "length") + 1}];
-                [v237 appendBytes:&v283 length:1];
-                [v237 appendData:ppkID];
-                if (![(NEIKEv2Packet *)selfCopy6 addNotification:v237 data:?])
+                v236 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:{-[NEIKEv2CertificatePayload length](ppkID, "length") + 1}];
+                [v236 appendBytes:&v282 length:1];
+                [v236 appendData:ppkID];
+                if (![(NEIKEv2Packet *)selfCopy6 addNotification:v236 data:?])
                 {
-                  v241 = ne_log_obj();
-                  if (os_log_type_enabled(v241, OS_LOG_TYPE_FAULT))
+                  v240 = ne_log_obj();
+                  if (os_log_type_enabled(v240, OS_LOG_TYPE_FAULT))
                   {
                     LOWORD(buf) = 0;
-                    _os_log_fault_impl(&dword_1BA83C000, v241, OS_LOG_TYPE_FAULT, "[packet addNotification:NEIKEv2NotifyTypePPKIdentity] failed", &buf, 2u);
+                    _os_log_fault_impl(&dword_1BA83C000, v240, OS_LOG_TYPE_FAULT, "[packet addNotification:NEIKEv2NotifyTypePPKIdentity] failed", &buf, 2u);
                   }
 
                   goto LABEL_196;
                 }
 
-                v239 = objc_getProperty(v4, v238, 88, 1);
-                ppkMandatory = [v239 ppkMandatory];
+                v238 = objc_getProperty(v4, v237, 88, 1);
+                ppkMandatory = [v238 ppkMandatory];
 
                 if (ppkMandatory)
                 {
 LABEL_165:
 
-                  v4 = v268;
+                  v4 = v267;
 LABEL_166:
                   ppkID = [(NEIKEv2IKESA *)v4 authenticationProtocol];
                   if ([(NEIKEv2CertificatePayload *)ppkID isSignature])
                   {
-                    v244 = objc_getProperty(v4, v243, 88, 1);
-                    if (v244)
+                    v243 = objc_getProperty(v4, v242, 88, 1);
+                    if (v243)
                     {
-                      v245 = v244;
-                      localPrivateKeyRef = [v244 localPrivateKeyRef];
+                      v244 = v243;
+                      localPrivateKeyRef = [v243 localPrivateKeyRef];
 
                       if (localPrivateKeyRef)
                       {
@@ -791,49 +791,49 @@ LABEL_166:
 
                     ppkID = objc_alloc_init(NEIKEv2CertificatePayload);
                     copyLocalCertificateData = [(NEIKEv2IKESA *)v4 copyLocalCertificateData];
-                    v250 = copyLocalCertificateData;
+                    v249 = copyLocalCertificateData;
                     if (ppkID)
                     {
-                      objc_setProperty_atomic(ppkID, v249, copyLocalCertificateData, 40);
+                      objc_setProperty_atomic(ppkID, v248, copyLocalCertificateData, 40);
 
                       ppkID->_encoding = 4;
-                      v252 = objc_getProperty(ppkID, v251, 40, 1);
+                      v251 = objc_getProperty(ppkID, v250, 40, 1);
                     }
 
                     else
                     {
 
-                      v252 = 0;
+                      v251 = 0;
                     }
 
-                    v253 = v252;
+                    v252 = v251;
 
-                    if (!v253)
+                    if (!v252)
                     {
-                      v237 = ne_log_obj();
-                      if (!os_log_type_enabled(v237, OS_LOG_TYPE_FAULT))
+                      v236 = ne_log_obj();
+                      if (!os_log_type_enabled(v236, OS_LOG_TYPE_FAULT))
                       {
                         goto LABEL_197;
                       }
 
                       buf = 136315138;
-                      v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
-                      v256 = "%s called with null cert.certificateData";
-                      v257 = v237;
-                      v258 = 12;
+                      v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+                      v255 = "%s called with null cert.certificateData";
+                      v256 = v236;
+                      v257 = 12;
                       goto LABEL_177;
                     }
 
-                    v292 = ppkID;
-                    v254 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v292 count:1];
-                    objc_setProperty_atomic(selfCopy6, v255, v254, 112);
+                    v291 = ppkID;
+                    v253 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v291 count:1];
+                    objc_setProperty_atomic(selfCopy6, v254, v253, 112);
                   }
 
                   goto LABEL_92;
                 }
 
-                v241 = [(NEIKEv2IKESA *)v268 copyAuthenticationPayloadUsingPrimeKey:?];
-                copyFullAuthenticationData = [(NEIKEv2AuthPayload *)v241 copyFullAuthenticationData];
+                v240 = [(NEIKEv2IKESA *)v267 copyAuthenticationPayloadUsingPrimeKey:?];
+                copyFullAuthenticationData = [(NEIKEv2AuthPayload *)v240 copyFullAuthenticationData];
                 if (copyFullAuthenticationData)
                 {
                   if ([(NEIKEv2Packet *)selfCopy6 addNotification:copyFullAuthenticationData data:?])
@@ -842,37 +842,37 @@ LABEL_166:
                     goto LABEL_165;
                   }
 
-                  v259 = ne_log_obj();
-                  if (!os_log_type_enabled(v259, OS_LOG_TYPE_FAULT))
+                  v258 = ne_log_obj();
+                  if (!os_log_type_enabled(v258, OS_LOG_TYPE_FAULT))
                   {
                     goto LABEL_195;
                   }
 
                   LOWORD(buf) = 0;
-                  v260 = "[packet addNotification:NEIKEv2NotifyTypeNoPPKAuth] failed";
-                  v261 = v259;
-                  v262 = 2;
+                  v259 = "[packet addNotification:NEIKEv2NotifyTypeNoPPKAuth] failed";
+                  v260 = v258;
+                  v261 = 2;
                 }
 
                 else
                 {
-                  v259 = ne_log_obj();
-                  if (!os_log_type_enabled(v259, OS_LOG_TYPE_FAULT))
+                  v258 = ne_log_obj();
+                  if (!os_log_type_enabled(v258, OS_LOG_TYPE_FAULT))
                   {
                     goto LABEL_195;
                   }
 
                   buf = 136315138;
-                  v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
-                  v260 = "%s called with null authenticationData";
-                  v261 = v259;
-                  v262 = 12;
+                  v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+                  v259 = "%s called with null authenticationData";
+                  v260 = v258;
+                  v261 = 12;
                 }
 
-                _os_log_fault_impl(&dword_1BA83C000, v261, OS_LOG_TYPE_FAULT, v260, &buf, v262);
+                _os_log_fault_impl(&dword_1BA83C000, v260, OS_LOG_TYPE_FAULT, v259, &buf, v261);
 LABEL_195:
 
-                v4 = v268;
+                v4 = v267;
                 selfCopy6 = self;
 LABEL_196:
 
@@ -886,8 +886,8 @@ LABEL_196:
               }
 
               buf = 136315138;
-              v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
-              v263 = "%s called with null ppkID";
+              v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+              v262 = "%s called with null ppkID";
             }
 
             else
@@ -899,12 +899,12 @@ LABEL_196:
               }
 
               buf = 136315138;
-              v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
-              v263 = "%s called with null ppkIDType";
+              v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+              v262 = "%s called with null ppkIDType";
             }
 
-            v264 = copyRemoteCertificateAuthorityHashData;
-            v265 = 12;
+            v263 = copyRemoteCertificateAuthorityHashData;
+            v264 = 12;
             goto LABEL_213;
           }
 
@@ -912,7 +912,7 @@ LABEL_196:
           if (os_log_type_enabled(&ppkID->super.super, OS_LOG_TYPE_FAULT))
           {
             buf = 136315138;
-            v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+            v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
             v160 = "%s called with null packet.auth.isValid";
             p_super = &ppkID->super.super;
             v162 = 12;
@@ -977,33 +977,33 @@ LABEL_152:
 
   v46 = configurationRequest4;
   v47 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v282 = 0u;
   v283 = 0u;
   v284 = 0u;
   v285 = 0u;
-  v286 = 0u;
   v49 = objc_getProperty(v46, v48, 16, 1);
-  v50 = [v49 countByEnumeratingWithState:&v283 objects:&buf count:16];
+  v50 = [v49 countByEnumeratingWithState:&v282 objects:&buf count:16];
   if (v50)
   {
     v51 = v50;
-    v52 = *v284;
+    v52 = *v283;
     do
     {
       for (j = 0; j != v51; ++j)
       {
-        if (*v284 != v52)
+        if (*v283 != v52)
         {
           objc_enumerationMutation(v49);
         }
 
-        v54 = *(*(&v283 + 1) + 8 * j);
+        v54 = *(*(&v282 + 1) + 8 * j);
         if ([v54 validForChildlessSA])
         {
           [v47 addObject:v54];
         }
       }
 
-      v51 = [v49 countByEnumeratingWithState:&v283 objects:&buf count:16];
+      v51 = [v49 countByEnumeratingWithState:&v282 objects:&buf count:16];
     }
 
     while (v51);
@@ -1019,7 +1019,7 @@ LABEL_152:
     v55 = 0;
   }
 
-  v4 = v268;
+  v4 = v267;
   selfCopy6 = self;
 
   if (!v55)
@@ -1049,7 +1049,7 @@ LABEL_152:
   if (os_log_type_enabled(v128, OS_LOG_TYPE_FAULT))
   {
     buf = 136315138;
-    v295 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
+    v294 = "+[NEIKEv2IKEAuthPacket(Exchange) createIKEAuthForInitiatorIKESA:childSA:]";
     _os_log_fault_impl(&dword_1BA83C000, v128, OS_LOG_TYPE_FAULT, "%s called with null packet.config.isValid", &buf, 0xCu);
   }
 
@@ -1057,13 +1057,12 @@ LABEL_152:
   aCopy = v43;
 LABEL_154:
 
-  v225 = *MEMORY[0x1E69E9840];
   return v129;
 }
 
 - (uint64_t)validateAuthPayloadAsInitiator:(char)initiator beforeEAP:
 {
-  v261 = *MEMORY[0x1E69E9840];
+  v260 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v7 = objc_getProperty(self, v6, 128, 1);
 
@@ -1074,7 +1073,7 @@ LABEL_154:
     {
       copyShortDescription = [(NEIKEv2Packet *)self copyShortDescription];
       *buf = 138412290;
-      v256 = copyShortDescription;
+      v255 = copyShortDescription;
       _os_log_error_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_ERROR, "%@ Authentication payload missing from IKE_AUTH", buf, 0xCu);
     }
 
@@ -1103,7 +1102,7 @@ LABEL_154:
     {
       copyShortDescription2 = [(NEIKEv2Packet *)self copyShortDescription];
       *buf = 138412290;
-      v256 = copyShortDescription2;
+      v255 = copyShortDescription2;
       _os_log_error_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_ERROR, "%@ Authentication protocol missing from AUTH payload", buf, 0xCu);
     }
 
@@ -1132,7 +1131,7 @@ LABEL_154:
     {
       copyShortDescription3 = [(NEIKEv2Packet *)self copyShortDescription];
       *buf = 138412290;
-      v256 = copyShortDescription3;
+      v255 = copyShortDescription3;
       _os_log_error_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_ERROR, "%@ Authentication data missing from AUTH payload", buf, 0xCu);
     }
 
@@ -1142,7 +1141,7 @@ LABEL_154:
 
   if (!v5)
   {
-    isa = 0;
+    v19 = 0;
     v20 = 1;
 LABEL_28:
     v37 = objc_getProperty(self, v18, 128, 1);
@@ -1185,11 +1184,11 @@ LABEL_141:
           {
             copyShortDescription4 = [(NEIKEv2Packet *)self copyShortDescription];
             *buf = 138412290;
-            v256 = copyShortDescription4;
+            v255 = copyShortDescription4;
             _os_log_error_impl(&dword_1BA83C000, v180, OS_LOG_TYPE_ERROR, "%@ EAP authentication data could not be verified", buf, 0xCu);
           }
 
-          ErrorAuthentication = NEIKEv2CreateErrorAuthentication(@"EAP authentication data could not be verified", v181, v182, v183, v184, v185, v186, v187, v242);
+          ErrorAuthentication = NEIKEv2CreateErrorAuthentication(@"EAP authentication data could not be verified", v181, v182, v183, v184, v185, v186, v187, v241);
           [(NEIKEv2IKESA *)v5 setState:ErrorAuthentication error:?];
 
           goto LABEL_144;
@@ -1257,7 +1256,7 @@ LABEL_44:
                 goto LABEL_138;
               }
 
-              if (isa)
+              if (v19)
               {
                 v54 = 256;
               }
@@ -1306,7 +1305,7 @@ LABEL_138:
           if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
           {
             *buf = 136315138;
-            v256 = "[NEIKEv2IKESA(Crypto) createResponderEAPAuthenticationDataUsingPrimeKey:]";
+            v255 = "[NEIKEv2IKESA(Crypto) createResponderEAPAuthenticationDataUsingPrimeKey:]";
             v115 = "%s called with null self.chosenProposal";
             goto LABEL_85;
           }
@@ -1318,7 +1317,7 @@ LABEL_138:
           if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
           {
             *buf = 136315138;
-            v256 = "[NEIKEv2IKESA(Crypto) createResponderEAPAuthenticationDataUsingPrimeKey:]";
+            v255 = "[NEIKEv2IKESA(Crypto) createResponderEAPAuthenticationDataUsingPrimeKey:]";
             v115 = "%s called with null self.eapClient";
 LABEL_85:
             _os_log_fault_impl(&dword_1BA83C000, v50, OS_LOG_TYPE_FAULT, v115, buf, 0xCu);
@@ -1335,11 +1334,11 @@ LABEL_139:
       {
         copyShortDescription5 = [(NEIKEv2Packet *)self copyShortDescription];
         *buf = 138412290;
-        v256 = copyShortDescription5;
+        v255 = copyShortDescription5;
         _os_log_error_impl(&dword_1BA83C000, v78, OS_LOG_TYPE_ERROR, "%@ Authentication method for EAP was not shared key", buf, 0xCu);
       }
 
-      remoteAuthentication3 = NEIKEv2CreateErrorAuthentication(@"Authentication method for EAP was not shared key", v79, v80, v81, v82, v83, v84, v85, v242);
+      remoteAuthentication3 = NEIKEv2CreateErrorAuthentication(@"Authentication method for EAP was not shared key", v79, v80, v81, v82, v83, v84, v85, v241);
       [(NEIKEv2IKESA *)v5 setState:remoteAuthentication3 error:?];
 LABEL_90:
 
@@ -1365,30 +1364,18 @@ LABEL_144:
       if ([v40 method] == 12)
       {
         remoteAuthentication5 = [(NEIKEv2IKESA *)v5 createResponderGSPMAuthenticationDataUsingPrimeKey:?];
-        if (!remoteAuthentication5)
+        if (!remoteAuthentication5 || ((objc_getProperty(self, v69, 128, 1), v71 = objc_claimAutoreleasedReturnValue(), (v72 = v71) == 0) ? (v73 = 0) : (v73 = *(v71 + 40)), v74 = v73, v75 = [NEIKEv2Crypto validateCalculatedSharedKeyAuthData:remoteAuthentication5 remoteAuthData:v74], v74, v72, !v75))
         {
-          goto LABEL_80;
-        }
-
-        v71 = objc_getProperty(self, v69, 128, 1);
-        v72 = v71;
-        v73 = v71 ? *(v71 + 40) : 0;
-        v74 = v73;
-        v75 = [NEIKEv2Crypto validateCalculatedSharedKeyAuthData:remoteAuthentication5 remoteAuthData:v74];
-
-        if (!v75)
-        {
-LABEL_80:
           v117 = ne_log_obj();
           if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
           {
             copyShortDescription6 = [(NEIKEv2Packet *)self copyShortDescription];
             *buf = 138412290;
-            v256 = copyShortDescription6;
+            v255 = copyShortDescription6;
             _os_log_error_impl(&dword_1BA83C000, v117, OS_LOG_TYPE_ERROR, "%@ GSPM authentication data could not be verified", buf, 0xCu);
           }
 
-          v125 = NEIKEv2CreateErrorAuthentication(@"GSPM authentication data could not be verified", v118, v119, v120, v121, v122, v123, v124, v242);
+          v125 = NEIKEv2CreateErrorAuthentication(@"GSPM authentication data could not be verified", v118, v119, v120, v121, v122, v123, v124, v241);
           [(NEIKEv2IKESA *)v5 setState:v125 error:?];
 
           goto LABEL_144;
@@ -1404,12 +1391,12 @@ LABEL_98:
 LABEL_100:
             if ((v20 & 1) == 0)
             {
-              if ((isa & 1) == 0)
+              if ((v19 & 1) == 0)
               {
                 disableRemoteCertificateValidation = 1;
                 if (v5)
                 {
-                  BYTE3(v5[2].isa) = 1;
+                  *(v5 + 19) = 1;
                 }
 
                 goto LABEL_145;
@@ -1425,7 +1412,7 @@ LABEL_145:
           }
 
 LABEL_99:
-          BYTE2(v5[2].isa) = 1;
+          *(v5 + 18) = 1;
           goto LABEL_100;
         }
 
@@ -1440,11 +1427,11 @@ LABEL_163:
       if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
       {
         copyShortDescription7 = [(NEIKEv2Packet *)self copyShortDescription];
-        v195 = objc_getProperty(self, v194, 128, 1);
+        v194 = objc_getProperty(self, v193, 128, 1);
         *buf = 138412546;
-        v256 = copyShortDescription7;
-        v257 = 2112;
-        v258 = v195;
+        v255 = copyShortDescription7;
+        v256 = 2112;
+        v257 = v194;
         _os_log_error_impl(&dword_1BA83C000, v105, OS_LOG_TYPE_ERROR, "%@ Wrong authentication method %@ for GSPM", buf, 0x16u);
       }
 
@@ -1468,11 +1455,11 @@ LABEL_89:
         copyShortDescription8 = [(NEIKEv2Packet *)self copyShortDescription];
         remoteAuthentication2 = [(NEIKEv2IKESA *)v5 remoteAuthentication];
         *buf = 138412802;
-        v256 = copyShortDescription8;
-        v257 = 2112;
-        v258 = v40;
-        v259 = 2112;
-        v260 = remoteAuthentication2;
+        v255 = copyShortDescription8;
+        v256 = 2112;
+        v257 = v40;
+        v258 = 2112;
+        v259 = remoteAuthentication2;
         _os_log_error_impl(&dword_1BA83C000, v126, OS_LOG_TYPE_ERROR, "%@ Initiator packet authentication method %@ is not compatible with configuration %@", buf, 0x20u);
       }
 
@@ -1506,7 +1493,7 @@ LABEL_89:
       }
 
       v142 = v141;
-      v143 = [(NEIKEv2IKESA *)v5 checkSharedKeyAuthData:v142 usingPrimeKey:(isa & 1)];
+      v143 = [(NEIKEv2IKESA *)v5 checkSharedKeyAuthData:v142 usingPrimeKey:(v19 & 1)];
 
       v144 = ne_log_obj();
       v76 = v144;
@@ -1526,9 +1513,9 @@ LABEL_89:
       {
         copyShortDescription9 = [(NEIKEv2Packet *)self copyShortDescription];
         *buf = 138412546;
-        v256 = copyShortDescription9;
-        v257 = 2112;
-        v258 = remoteAuthentication5;
+        v255 = copyShortDescription9;
+        v256 = 2112;
+        v257 = remoteAuthentication5;
         _os_log_error_impl(&dword_1BA83C000, v76, OS_LOG_TYPE_ERROR, "%@ Initiator failed to validate remote authentication data %@", buf, 0x16u);
       }
 
@@ -1540,7 +1527,7 @@ LABEL_161:
       goto LABEL_146;
     }
 
-    v245 = remoteAuthentication5;
+    v244 = remoteAuthentication5;
     if (v5)
     {
       v94 = objc_getProperty(v5, v93, 88, 1);
@@ -1554,7 +1541,7 @@ LABEL_161:
     v95 = v94;
     copyRemoteAuthKey = [(NEIKEv2SessionConfiguration *)v95 copyRemoteAuthKey];
 
-    v243 = v20;
+    v242 = v20;
     if (copyRemoteAuthKey)
     {
       goto LABEL_71;
@@ -1565,50 +1552,50 @@ LABEL_161:
 
     if (!v155)
     {
-      v196 = ne_log_obj();
-      if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
+      v195 = ne_log_obj();
+      if (os_log_type_enabled(v195, OS_LOG_TYPE_ERROR))
       {
         copyShortDescription10 = [(NEIKEv2Packet *)self copyShortDescription];
         *buf = 138412290;
-        v256 = copyShortDescription10;
-        _os_log_error_impl(&dword_1BA83C000, v196, OS_LOG_TYPE_ERROR, "%@ No certificate payload received", buf, 0xCu);
+        v255 = copyShortDescription10;
+        _os_log_error_impl(&dword_1BA83C000, v195, OS_LOG_TYPE_ERROR, "%@ No certificate payload received", buf, 0xCu);
       }
 
-      v76 = NEIKEv2CreateErrorAuthentication(@"No certificate payload received", v197, v198, v199, v200, v201, v202, v203, v242);
+      v76 = NEIKEv2CreateErrorAuthentication(@"No certificate payload received", v196, v197, v198, v199, v200, v201, v202, v241);
       [(NEIKEv2IKESA *)v5 setState:v76 error:?];
       disableRemoteCertificateValidation = 0;
-      remoteAuthentication5 = v245;
+      remoteAuthentication5 = v244;
       goto LABEL_161;
     }
 
-    v249 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    if (v249)
+    v248 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    if (v248)
     {
-      v252 = 0u;
-      v253 = 0u;
-      v250 = 0u;
       v251 = 0u;
+      v252 = 0u;
+      v249 = 0u;
+      v250 = 0u;
       obj = objc_getProperty(self, v156, 112, 1);
-      v247 = [obj countByEnumeratingWithState:&v250 objects:v254 count:16];
-      if (v247)
+      v246 = [obj countByEnumeratingWithState:&v249 objects:v253 count:16];
+      if (v246)
       {
-        v246 = *v251;
+        v245 = *v250;
         v158 = &OBJC_IVAR___NEFilterFlow__direction;
         while (2)
         {
           v159 = 0;
           do
           {
-            if (*v251 != v246)
+            if (*v250 != v245)
             {
               objc_enumerationMutation(obj);
             }
 
-            v160 = *(*(&v250 + 1) + 8 * v159);
+            v160 = *(*(&v249 + 1) + 8 * v159);
             v161 = v158;
             if (v160)
             {
-              v162 = objc_getProperty(*(*(&v250 + 1) + 8 * v159), v157, v158[549], 1);
+              v162 = objc_getProperty(*(*(&v249 + 1) + 8 * v159), v157, v158[549], 1);
             }
 
             else
@@ -1620,21 +1607,21 @@ LABEL_161:
 
             if (!v163)
             {
-              v208 = ne_log_obj();
-              if (os_log_type_enabled(v208, OS_LOG_TYPE_ERROR))
+              v207 = ne_log_obj();
+              if (os_log_type_enabled(v207, OS_LOG_TYPE_ERROR))
               {
                 copyShortDescription11 = [(NEIKEv2Packet *)self copyShortDescription];
                 *buf = 138412290;
-                v256 = copyShortDescription11;
-                _os_log_error_impl(&dword_1BA83C000, v208, OS_LOG_TYPE_ERROR, "%@ Certificate missing data", buf, 0xCu);
+                v255 = copyShortDescription11;
+                _os_log_error_impl(&dword_1BA83C000, v207, OS_LOG_TYPE_ERROR, "%@ Certificate missing data", buf, 0xCu);
               }
 
-              v216 = NEIKEv2CreateErrorAuthentication(@"Certificate missing data", v209, v210, v211, v212, v213, v214, v215, v242);
-              [(NEIKEv2IKESA *)v5 setState:v216 error:?];
+              v215 = NEIKEv2CreateErrorAuthentication(@"Certificate missing data", v208, v209, v210, v211, v212, v213, v214, v241);
+              [(NEIKEv2IKESA *)v5 setState:v215 error:?];
 
               disableRemoteCertificateValidation = 0;
               v178 = obj;
-              remoteAuthentication5 = v245;
+              remoteAuthentication5 = v244;
               goto LABEL_159;
             }
 
@@ -1651,14 +1638,14 @@ LABEL_161:
             }
 
             v166 = v165;
-            [v249 addObject:v166];
+            [v248 addObject:v166];
 
             ++v159;
           }
 
-          while (v247 != v159);
-          v167 = [obj countByEnumeratingWithState:&v250 objects:v254 count:16];
-          v247 = v167;
+          while (v246 != v159);
+          v167 = [obj countByEnumeratingWithState:&v249 objects:v253 count:16];
+          v246 = v167;
           if (v167)
           {
             continue;
@@ -1668,13 +1655,13 @@ LABEL_161:
         }
       }
 
-      v168 = [(NEIKEv2IKESA *)v5 checkValidityOfCertificates:v249];
+      v168 = [(NEIKEv2IKESA *)v5 checkValidityOfCertificates:v248];
       if (v168)
       {
         copyRemoteAuthKey = v168;
 
 LABEL_71:
-        v248 = [(NEIKEv2IKESA *)v5 createRemoteSignedOctetVectorUsingPrimeKey:?];
+        v247 = [(NEIKEv2IKESA *)v5 createRemoteSignedOctetVectorUsingPrimeKey:?];
         v99 = objc_getProperty(self, v98, 128, 1);
         v100 = v99;
         if (v99)
@@ -1688,14 +1675,14 @@ LABEL_71:
         }
 
         v102 = v101;
-        v76 = v248;
-        v103 = [NEIKEv2Crypto validateSignature:v102 signedDataVector:v248 authProtocol:v245 publicKey:copyRemoteAuthKey];
+        v76 = v247;
+        v103 = [NEIKEv2Crypto validateSignature:v102 signedDataVector:v247 authProtocol:v244 publicKey:copyRemoteAuthKey];
 
         CFRelease(copyRemoteAuthKey);
         if (v103)
         {
-          remoteAuthentication5 = v245;
-          v20 = v243;
+          remoteAuthentication5 = v244;
+          v20 = v242;
           goto LABEL_98;
         }
 
@@ -1719,42 +1706,42 @@ LABEL_71:
           {
             copyShortDescription12 = [(NEIKEv2Packet *)self copyShortDescription];
             *buf = 138412290;
-            v256 = copyShortDescription12;
+            v255 = copyShortDescription12;
             _os_log_impl(&dword_1BA83C000, v178, OS_LOG_TYPE_INFO, "%@ Passing authentication because configuration does not require remote signature validation", buf, 0xCu);
           }
 
-          remoteAuthentication5 = v245;
+          remoteAuthentication5 = v244;
         }
 
         else
         {
-          remoteAuthentication5 = v245;
-          v178 = NEIKEv2CreateErrorAuthentication(@"Authentication data could not be verified %@", v171, v172, v173, v174, v175, v176, v177, v245);
+          remoteAuthentication5 = v244;
+          v178 = NEIKEv2CreateErrorAuthentication(@"Authentication data could not be verified %@", v171, v172, v173, v174, v175, v176, v177, v244);
           [(NEIKEv2IKESA *)v5 setState:v178 error:?];
         }
 
         goto LABEL_160;
       }
 
-      v227 = ne_log_obj();
-      if (os_log_type_enabled(v227, OS_LOG_TYPE_ERROR))
+      v226 = ne_log_obj();
+      if (os_log_type_enabled(v226, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_1BA83C000, v227, OS_LOG_TYPE_ERROR, "Certificate chain could not be verified", buf, 2u);
+        _os_log_error_impl(&dword_1BA83C000, v226, OS_LOG_TYPE_ERROR, "Certificate chain could not be verified", buf, 2u);
       }
 
       if (v5)
       {
-        v229 = objc_getProperty(v5, v228, 88, 1);
+        v228 = objc_getProperty(v5, v227, 88, 1);
       }
 
       else
       {
-        v229 = 0;
+        v228 = 0;
       }
 
-      v230 = v229;
-      disableRemoteCertificateValidation2 = [v230 disableRemoteCertificateValidation];
+      v229 = v228;
+      disableRemoteCertificateValidation2 = [v229 disableRemoteCertificateValidation];
 
       if (disableRemoteCertificateValidation2)
       {
@@ -1764,32 +1751,32 @@ LABEL_71:
         {
           copyShortDescription13 = [(NEIKEv2Packet *)self copyShortDescription];
           *buf = 138412290;
-          v256 = copyShortDescription13;
+          v255 = copyShortDescription13;
           _os_log_impl(&dword_1BA83C000, v178, OS_LOG_TYPE_INFO, "%@ Passing authentication because configuration does not require certificate validation", buf, 0xCu);
         }
 
 LABEL_158:
-        remoteAuthentication5 = v245;
+        remoteAuthentication5 = v244;
 LABEL_159:
-        v76 = v249;
+        v76 = v248;
 LABEL_160:
 
         goto LABEL_161;
       }
 
-      ErrorInternal = NEIKEv2CreateErrorAuthentication(@"Certificate chain could not be verified", v232, v233, v234, v235, v236, v237, v238, v242);
+      ErrorInternal = NEIKEv2CreateErrorAuthentication(@"Certificate chain could not be verified", v231, v232, v233, v234, v235, v236, v237, v241);
     }
 
     else
     {
-      v217 = ne_log_obj();
-      if (os_log_type_enabled(v217, OS_LOG_TYPE_FAULT))
+      v216 = ne_log_obj();
+      if (os_log_type_enabled(v216, OS_LOG_TYPE_FAULT))
       {
         *buf = 0;
-        _os_log_fault_impl(&dword_1BA83C000, v217, OS_LOG_TYPE_FAULT, "[[NSMutableArray alloc] init] failed", buf, 2u);
+        _os_log_fault_impl(&dword_1BA83C000, v216, OS_LOG_TYPE_FAULT, "[[NSMutableArray alloc] init] failed", buf, 2u);
       }
 
-      ErrorInternal = NEIKEv2CreateErrorInternal(@"[[NSMutableArray alloc] init] failed", v218, v219, v220, v221, v222, v223, v224, v242);
+      ErrorInternal = NEIKEv2CreateErrorInternal(@"[[NSMutableArray alloc] init] failed", v217, v218, v219, v220, v221, v222, v223, v241);
     }
 
     v178 = ErrorInternal;
@@ -1798,9 +1785,9 @@ LABEL_160:
     goto LABEL_158;
   }
 
-  isa = v5[3].isa;
+  v19 = *(v5 + 24);
   v20 = 1;
-  if (isa & 1) == 0 || (initiator)
+  if (v19 & 1) == 0 || (initiator)
   {
     goto LABEL_28;
   }
@@ -1808,11 +1795,11 @@ LABEL_160:
   if (([(NEIKEv2Packet *)self hasNotification:?]& 1) != 0)
   {
     v20 = 0;
-    isa = 0;
+    v19 = 0;
     goto LABEL_28;
   }
 
-  isa = 1;
+  v19 = 1;
   v34 = objc_getProperty(v5, v18, 88, 1);
   ppkMandatory = [v34 ppkMandatory];
 
@@ -1827,24 +1814,23 @@ LABEL_160:
   {
     copyShortDescription14 = [(NEIKEv2Packet *)self copyShortDescription];
     *buf = 138412290;
-    v256 = copyShortDescription14;
+    v255 = copyShortDescription14;
     _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, "%@ No PPK ID notify received with mandatory PPK auth", buf, 0xCu);
   }
 
   v29 = @"No PPK ID received with mandatory PPK auth";
 LABEL_22:
-  v32 = NEIKEv2CreateErrorAuthentication(v29, v22, v23, v24, v25, v26, v27, v28, v242);
+  v32 = NEIKEv2CreateErrorAuthentication(v29, v22, v23, v24, v25, v26, v27, v28, v241);
   [(NEIKEv2IKESA *)v5 setState:v32 error:?];
   disableRemoteCertificateValidation = 0;
 LABEL_146:
 
-  v189 = *MEMORY[0x1E69E9840];
   return disableRemoteCertificateValidation;
 }
 
 - (uint64_t)validateAuthInitialAsInitiator:(int)initiator beforeEAP:
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v7 = v5;
   if (!v5 || (v5[9] & 1) == 0)
@@ -1856,7 +1842,7 @@ LABEL_146:
     }
 
     *buf = 136315138;
-    v68 = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthInitialAsInitiator:beforeEAP:]";
+    v67 = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthInitialAsInitiator:beforeEAP:]";
     v30 = "%s called with null ikeSA.isInitiator";
     goto LABEL_20;
   }
@@ -1872,7 +1858,7 @@ LABEL_146:
     }
 
     *buf = 136315138;
-    v68 = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthInitialAsInitiator:beforeEAP:]";
+    v67 = "[NEIKEv2IKEAuthPacket(Exchange) validateAuthInitialAsInitiator:beforeEAP:]";
     v30 = "%s called with null ikeSA.chosenProposal";
 LABEL_20:
     _os_log_fault_impl(&dword_1BA83C000, ErrorPeerInvalidSyntax, OS_LOG_TYPE_FAULT, v30, buf, 0xCu);
@@ -1898,11 +1884,11 @@ LABEL_20:
     {
       copyShortDescription = [(NEIKEv2Packet *)self copyShortDescription];
       *buf = 138412290;
-      v68 = copyShortDescription;
+      v67 = copyShortDescription;
       _os_log_error_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_ERROR, "%@ Responder ID missing", buf, 0xCu);
     }
 
-    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Responder ID missing", v32, v33, v34, v35, v36, v37, v38, v65);
+    ErrorPeerInvalidSyntax = NEIKEv2CreateErrorPeerInvalidSyntax(@"Responder ID missing", v32, v33, v34, v35, v36, v37, v38, v64);
     [(NEIKEv2IKESA *)v7 setState:ErrorPeerInvalidSyntax error:?];
     goto LABEL_24;
   }
@@ -1938,22 +1924,22 @@ LABEL_20:
   {
     if (ErrorPeerInvalidSyntax)
     {
-      v52 = ne_log_obj();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      v51 = ne_log_obj();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
         copyShortDescription2 = [(NEIKEv2Packet *)self copyShortDescription];
         remoteAuthentication3 = [(NEIKEv2IKESA *)v7 remoteAuthentication];
         *buf = 138412802;
-        v68 = copyShortDescription2;
-        v69 = 2112;
-        v70 = ErrorPeerInvalidSyntax;
-        v71 = 2112;
-        v72 = remoteAuthentication3;
-        _os_log_error_impl(&dword_1BA83C000, v52, OS_LOG_TYPE_ERROR, "%@ Initiator packet authentication method %@ is not compatible with GSPM configuration %@", buf, 0x20u);
+        v67 = copyShortDescription2;
+        v68 = 2112;
+        v69 = ErrorPeerInvalidSyntax;
+        v70 = 2112;
+        v71 = remoteAuthentication3;
+        _os_log_error_impl(&dword_1BA83C000, v51, OS_LOG_TYPE_ERROR, "%@ Initiator packet authentication method %@ is not compatible with GSPM configuration %@", buf, 0x20u);
       }
 
       remoteAuthentication4 = [(NEIKEv2IKESA *)v7 remoteAuthentication];
-      ErrorAuthentication = NEIKEv2CreateErrorAuthentication(@"Initiator packet authentication method %@ is not compatible with GSPM configuration %@", v54, v55, v56, v57, v58, v59, v60, ErrorPeerInvalidSyntax);
+      ErrorAuthentication = NEIKEv2CreateErrorAuthentication(@"Initiator packet authentication method %@ is not compatible with GSPM configuration %@", v53, v54, v55, v56, v57, v58, v59, ErrorPeerInvalidSyntax);
       [(NEIKEv2IKESA *)v7 setState:ErrorAuthentication error:?];
 
       goto LABEL_24;
@@ -1964,17 +1950,17 @@ LABEL_20:
 
     if (!v28)
     {
-      v41 = ne_log_obj();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v40 = ne_log_obj();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         copyShortDescription3 = [(NEIKEv2Packet *)self copyShortDescription];
         *buf = 138412290;
-        v68 = copyShortDescription3;
-        _os_log_error_impl(&dword_1BA83C000, v41, OS_LOG_TYPE_ERROR, "%@ Packet missing GSPM payload", buf, 0xCu);
+        v67 = copyShortDescription3;
+        _os_log_error_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_ERROR, "%@ Packet missing GSPM payload", buf, 0xCu);
       }
 
-      v49 = NEIKEv2CreateErrorAuthentication(@"Packet missing GSPM payload", v42, v43, v44, v45, v46, v47, v48, v65);
-      [(NEIKEv2IKESA *)v7 setState:v49 error:?];
+      v48 = NEIKEv2CreateErrorAuthentication(@"Packet missing GSPM payload", v41, v42, v43, v44, v45, v46, v47, v64);
+      [(NEIKEv2IKESA *)v7 setState:v48 error:?];
 
       ErrorPeerInvalidSyntax = 0;
       goto LABEL_24;
@@ -1992,11 +1978,10 @@ LABEL_24:
 LABEL_25:
 
 LABEL_26:
-  v39 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
-+ (id)createIKEAuthResponse:(unint64_t)response refusalError:
++ (NSObject)createIKEAuthResponse:(unint64_t)response refusalError:
 {
   v4 = a2;
   objc_opt_self();
@@ -2043,11 +2028,11 @@ LABEL_8:
 
 - (void)filloutPayloads
 {
-  v58 = *MEMORY[0x1E69E9840];
-  v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
+  v54 = *MEMORY[0x1E69E9840];
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   if (self)
   {
     rawPayloads = self->super._rawPayloads;
@@ -2059,44 +2044,42 @@ LABEL_8:
   }
 
   v4 = rawPayloads;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v44 objects:v57 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v40 objects:v53 count:16];
   if (v5)
   {
     v7 = v5;
     v8 = 0x1E7F04000uLL;
     v9 = 0x1E695D000uLL;
-    v10 = *v45;
-    v11 = 0x1E7F04000uLL;
+    v10 = *v41;
     *&v6 = 138412546;
-    v43 = v6;
+    v39 = v6;
     while (1)
     {
-      v12 = 0;
+      v11 = 0;
       while (2)
       {
-        if (*v45 != v10)
+        if (*v41 != v10)
         {
           objc_enumerationMutation(v4);
         }
 
-        v13 = *(*(&v44 + 1) + 8 * v12);
-        switch([v13 type])
+        v12 = *(*(&v40 + 1) + 8 * v11);
+        switch([v12 type])
         {
           case '!':
-            v15 = *(v11 + 2344);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v31 = ne_log_obj();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+              v28 = ne_log_obj();
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
                 copyShortDescription = [(NEIKEv2Packet *)self copyShortDescription];
-                typeDescription = [v13 typeDescription];
-                *buf = v43;
-                v54 = copyShortDescription;
-                v55 = 2112;
-                v56 = typeDescription;
-                _os_log_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_DEFAULT, "%@ ignoring unexpected %@ payload", buf, 0x16u);
+                typeDescription = [v12 typeDescription];
+                *buf = v39;
+                v50 = copyShortDescription;
+                v51 = 2112;
+                v52 = typeDescription;
+                _os_log_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_DEFAULT, "%@ ignoring unexpected %@ payload", buf, 0x16u);
 
                 v8 = 0x1E7F04000;
               }
@@ -2106,7 +2089,7 @@ LABEL_8:
 
             if (self)
             {
-              v16 = 88;
+              v14 = 88;
               goto LABEL_44;
             }
 
@@ -2114,7 +2097,7 @@ LABEL_8:
           case '#':
             if (self)
             {
-              v16 = 96;
+              v14 = 96;
               goto LABEL_44;
             }
 
@@ -2122,48 +2105,48 @@ LABEL_8:
           case '$':
             if (self)
             {
-              v16 = 104;
+              v14 = 104;
               goto LABEL_44;
             }
 
             goto LABEL_59;
           case '%':
-            v18 = v13;
-            if (self && objc_getProperty(self, v22, 112, 1))
+            v16 = v12;
+            if (self && objc_getProperty(self, v20, 112, 1))
             {
-              v21 = [objc_getProperty(self v23];
+              v19 = [objc_getProperty(self v21];
             }
 
             else
             {
-              v52 = v18;
-              v21 = [*(v9 + 3784) arrayWithObjects:&v52 count:1];
+              v48 = v16;
+              v19 = [*(v9 + 3784) arrayWithObjects:&v48 count:1];
               if (!self)
               {
                 goto LABEL_58;
               }
             }
 
-            v36 = 112;
+            v33 = 112;
             goto LABEL_56;
           case '&':
-            v18 = v13;
-            if (self && objc_getProperty(self, v17, 120, 1))
+            v16 = v12;
+            if (self && objc_getProperty(self, v15, 120, 1))
             {
-              v21 = [objc_getProperty(self v19];
+              v19 = [objc_getProperty(self v17];
             }
 
             else
             {
-              v51 = v18;
-              v21 = [*(v9 + 3784) arrayWithObjects:&v51 count:1];
+              v47 = v16;
+              v19 = [*(v9 + 3784) arrayWithObjects:&v47 count:1];
               if (!self)
               {
                 goto LABEL_58;
               }
             }
 
-            v36 = 120;
+            v33 = 120;
             goto LABEL_56;
           case '\'':
             if (!self)
@@ -2171,19 +2154,19 @@ LABEL_8:
               goto LABEL_59;
             }
 
-            v16 = 128;
+            v14 = 128;
             goto LABEL_44;
           case ')':
-            v18 = v13;
-            if (self && objc_getProperty(self, v27, 64, 1))
+            v16 = v12;
+            if (self && objc_getProperty(self, v24, 64, 1))
             {
-              v21 = [objc_getProperty(self v28];
+              v19 = [objc_getProperty(self v25];
             }
 
             else
             {
-              v50 = v18;
-              v21 = [*(v9 + 3784) arrayWithObjects:&v50 count:1];
+              v46 = v16;
+              v19 = [*(v9 + 3784) arrayWithObjects:&v46 count:1];
               if (!self)
               {
                 goto LABEL_58;
@@ -2191,30 +2174,30 @@ LABEL_8:
             }
 
             selfCopy3 = self;
-            v38 = v21;
-            v36 = 64;
+            v35 = v19;
+            v33 = 64;
             goto LABEL_57;
           case '+':
-            v18 = v13;
-            if (self && objc_getProperty(self, v29, 176, 1))
+            v16 = v12;
+            if (self && objc_getProperty(self, v26, 176, 1))
             {
-              v21 = [objc_getProperty(self v30];
+              v19 = [objc_getProperty(self v27];
             }
 
             else
             {
-              v49 = v18;
-              v21 = [*(v9 + 3784) arrayWithObjects:&v49 count:1];
+              v45 = v16;
+              v19 = [*(v9 + 3784) arrayWithObjects:&v45 count:1];
               if (!self)
               {
                 goto LABEL_58;
               }
             }
 
-            v36 = 176;
+            v33 = 176;
 LABEL_56:
             selfCopy3 = self;
-            v38 = v21;
+            v35 = v19;
             goto LABEL_57;
           case ',':
             if (!self)
@@ -2222,7 +2205,7 @@ LABEL_56:
               goto LABEL_59;
             }
 
-            v16 = 160;
+            v14 = 160;
             goto LABEL_44;
           case '-':
             if (!self)
@@ -2230,7 +2213,7 @@ LABEL_56:
               goto LABEL_59;
             }
 
-            v16 = 168;
+            v14 = 168;
             goto LABEL_44;
           case '/':
             if (!self)
@@ -2238,7 +2221,7 @@ LABEL_56:
               goto LABEL_59;
             }
 
-            v16 = 152;
+            v14 = 152;
             goto LABEL_44;
           case '0':
             if (!self)
@@ -2246,7 +2229,7 @@ LABEL_56:
               goto LABEL_59;
             }
 
-            v16 = 136;
+            v14 = 136;
             goto LABEL_44;
           case '1':
             if (!self)
@@ -2254,31 +2237,30 @@ LABEL_56:
               goto LABEL_59;
             }
 
-            v16 = 144;
+            v14 = 144;
 LABEL_44:
-            objc_setProperty_atomic(self, v14, v13, v16);
+            objc_setProperty_atomic(self, v13, v12, v14);
             goto LABEL_59;
           default:
-            v24 = *(v8 + 2416);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v18 = v13;
-              if (self && objc_getProperty(self, v25, 56, 1))
+              v16 = v12;
+              if (self && objc_getProperty(self, v22, 56, 1))
               {
-                v21 = [objc_getProperty(self v26];
+                v19 = [objc_getProperty(self v23];
 LABEL_62:
                 selfCopy3 = self;
-                v38 = v21;
-                v36 = 56;
+                v35 = v19;
+                v33 = 56;
 LABEL_57:
-                objc_setProperty_atomic(selfCopy3, v20, v38, v36);
+                objc_setProperty_atomic(selfCopy3, v18, v35, v33);
               }
 
               else
               {
-                v48 = v18;
-                v21 = [*(v9 + 3784) arrayWithObjects:&v48 count:1];
+                v44 = v16;
+                v19 = [*(v9 + 3784) arrayWithObjects:&v44 count:1];
                 if (self)
                 {
                   goto LABEL_62;
@@ -2290,35 +2272,34 @@ LABEL_58:
               goto LABEL_59;
             }
 
-            v31 = ne_log_obj();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            v28 = ne_log_obj();
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
-              v32 = v9;
-              v33 = v8;
+              v29 = v9;
+              v30 = v8;
               copyShortDescription2 = [(NEIKEv2Packet *)self copyShortDescription];
-              typeDescription2 = [v13 typeDescription];
-              *buf = v43;
-              v54 = copyShortDescription2;
-              v55 = 2112;
-              v56 = typeDescription2;
-              _os_log_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_DEFAULT, "%@ ignoring unexpected %@ payload", buf, 0x16u);
+              typeDescription2 = [v12 typeDescription];
+              *buf = v39;
+              v50 = copyShortDescription2;
+              v51 = 2112;
+              v52 = typeDescription2;
+              _os_log_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_DEFAULT, "%@ ignoring unexpected %@ payload", buf, 0x16u);
 
-              v8 = v33;
-              v9 = v32;
-              v11 = 0x1E7F04000;
+              v8 = v30;
+              v9 = v29;
             }
 
 LABEL_47:
 
 LABEL_59:
-            if (v7 != ++v12)
+            if (v7 != ++v11)
             {
               continue;
             }
 
-            v41 = [(NSArray *)v4 countByEnumeratingWithState:&v44 objects:v57 count:16];
-            v7 = v41;
-            if (!v41)
+            v38 = [(NSArray *)v4 countByEnumeratingWithState:&v40 objects:v53 count:16];
+            v7 = v38;
+            if (!v38)
             {
               goto LABEL_66;
             }
@@ -2332,8 +2313,6 @@ LABEL_59:
   }
 
 LABEL_66:
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)gatherPayloads

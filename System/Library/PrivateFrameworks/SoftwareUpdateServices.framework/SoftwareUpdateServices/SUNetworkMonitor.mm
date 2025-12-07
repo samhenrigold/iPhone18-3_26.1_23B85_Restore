@@ -14,6 +14,7 @@
 - (id)operatorName;
 - (id)servingPlmn;
 - (id)telephonyClient;
+- (int)_networkTypeFromIndicator:(int)indicator;
 - (int)currentCellularType;
 - (int)currentNetworkType;
 - (void)_addObserver:(id)observer;
@@ -36,20 +37,26 @@
 - (void)internetDataStatus:(id)status;
 - (void)operatorBundleChange:(id)change;
 - (void)removeObserver:(id)observer;
+- (void)setCellularDataPossible:(BOOL)possible;
+- (void)setCellularRoaming:(BOOL)roaming;
 - (void)setCurrentCellularType:(int)type;
 - (void)setCurrentNetworkType:(int)type;
+- (void)setDataRoamingEnabled:(BOOL)enabled;
+- (void)setExpensive:(BOOL)expensive;
+- (void)setPathConstrained:(BOOL)constrained;
+- (void)setPathSatisfied:(BOOL)satisfied;
 @end
 
 @implementation SUNetworkMonitor
 
 - (SUNetworkMonitor)init
 {
-  v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"initiating SUNetworkMonitor [%p]", self];
+  v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"initiating SUNetworkMonitor [%p]", self];
   SULogDebug(@"[SUNetworkMonitor] %s: %@", v3, v4, v5, v6, v7, v8, v9, "[SUNetworkMonitor init]");
 
-  v36.receiver = self;
-  v36.super_class = SUNetworkMonitor;
-  v10 = [(SUNetworkMonitor *)&v36 init];
+  v33.receiver = self;
+  v33.super_class = SUNetworkMonitor;
+  v10 = [(SUNetworkMonitor *)&v33 init];
   if (v10)
   {
     v11 = [MEMORY[0x277CCAA50] hashTableWithOptions:517];
@@ -77,25 +84,22 @@
     *(v10 + 8) = default_evaluator;
 
     objc_initWeak(&location, v10);
-    v22 = *(v10 + 8);
-    v23 = *(v10 + 5);
-    v30 = MEMORY[0x277D85DD0];
-    v31 = 3221225472;
-    v32 = __24__SUNetworkMonitor_init__block_invoke;
-    v33 = &unk_279CACB20;
-    objc_copyWeak(&v34, &location);
+    v27 = MEMORY[0x277D85DD0];
+    v28 = 3221225472;
+    v29 = __24__SUNetworkMonitor_init__block_invoke;
+    v30 = &unk_279CACB20;
+    objc_copyWeak(&v31, &location);
     nw_path_evaluator_set_update_handler();
-    v24 = *(v10 + 5);
+    v22 = *(v10 + 5);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __24__SUNetworkMonitor_init__block_invoke_2;
     block[3] = &unk_279CAA708;
-    v29 = v10;
-    dispatch_sync(v24, block);
-    v25 = *(v10 + 8);
+    v26 = v10;
+    dispatch_sync(v22, block);
     nw_path_evaluator_start();
 
-    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v31);
     objc_destroyWeak(&location);
   }
 
@@ -681,40 +685,37 @@ void __31__SUNetworkMonitor_servingPlmn__block_invoke(uint64_t a1)
 
 void __39__SUNetworkMonitor__runOnAllObservers___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
         (*(*(a1 + 40) + 16))(*(a1 + 40));
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (NSHashTable)_allObservers
@@ -887,9 +888,8 @@ void __39__SUNetworkMonitor__runOnAllObservers___block_invoke(uint64_t a1)
 void __43__SUNetworkMonitor__initNetworkObservation__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _init_internetDataStatus];
-  v2 = *(*(a1 + 32) + 64);
-  v3 = nw_path_evaluator_copy_path();
-  [*(a1 + 32) _handleNWPath:v3];
+  v2 = nw_path_evaluator_copy_path();
+  [*(a1 + 32) _handleNWPath:v2];
   [*(a1 + 32) _init_dataRoamingEnabled];
   [*(a1 + 32) _init_currentlyRoaming];
 }
@@ -1034,6 +1034,44 @@ LABEL_7:
   [(CoreTelephonyClient *)v6 setDelegate:self];
 }
 
+- (int)_networkTypeFromIndicator:(int)indicator
+{
+  v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Determining network type from cellular data indicator: %d", *&indicator];
+  SULogDebug(@"[SUNetworkMonitor] %s: %@", v4, v5, v6, v7, v8, v9, v10, "[SUNetworkMonitor _networkTypeFromIndicator:]");
+
+  if ((indicator - 1) > 0xB)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return dword_26ABF9088[indicator - 1];
+  }
+}
+
+- (void)setCellularRoaming:(BOOL)roaming
+{
+  roamingCopy = roaming;
+  dispatch_assert_queue_V2(self->_ctQueue);
+  if (self->_roaming != roamingCopy)
+  {
+    roamingCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"isRoaming changed from %d to %d", self->_roaming, roamingCopy];
+    SULogInfo(@"[SUNetworkMonitor] %s: %@", v5, v6, v7, v8, v9, v10, v11, "[SUNetworkMonitor setCellularRoaming:]");
+
+    self->_roaming = roamingCopy;
+    if (![(SUNetworkMonitor *)self _overriddenByPreferences])
+    {
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __39__SUNetworkMonitor_setCellularRoaming___block_invoke;
+      v13[3] = &unk_279CACB70;
+      v13[4] = self;
+      [(SUNetworkMonitor *)self _runOnAllObservers:v13];
+    }
+  }
+}
+
 uint64_t __39__SUNetworkMonitor_setCellularRoaming___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -1049,6 +1087,64 @@ uint64_t __39__SUNetworkMonitor_setCellularRoaming___block_invoke(uint64_t a1, v
   return MEMORY[0x2821F97C8]();
 }
 
+- (void)setDataRoamingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  dispatch_assert_queue_V2(self->_ctQueue);
+  if (self->_dataRoamingEnabled != enabledCopy)
+  {
+    enabledCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"The 'Data Roaming' setting changed from %d to %d", self->_dataRoamingEnabled, enabledCopy];
+    SULogInfo(@"[SUNetworkMonitor] %s: %@", v5, v6, v7, v8, v9, v10, v11, "[SUNetworkMonitor setDataRoamingEnabled:]");
+
+    self->_dataRoamingEnabled = enabledCopy;
+  }
+}
+
+- (void)setCellularDataPossible:(BOOL)possible
+{
+  possibleCopy = possible;
+  dispatch_assert_queue_V2(self->_ctQueue);
+  if (self->_cellularDataPossible != possibleCopy)
+  {
+    possibleCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"cellularDataPossible changed from %d to %d", self->_cellularDataPossible, possibleCopy];
+    SULogInfo(@"[SUNetworkMonitor] %s: %@", v5, v6, v7, v8, v9, v10, v11, "[SUNetworkMonitor setCellularDataPossible:]");
+
+    self->_cellularDataPossible = possibleCopy;
+  }
+}
+
+- (void)setExpensive:(BOOL)expensive
+{
+  expensiveCopy = expensive;
+  dispatch_assert_queue_V2(self->_ctQueue);
+  if (self->_isExpensive != expensiveCopy)
+  {
+    expensiveCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"isExpensive changed from %d to %d", self->_isExpensive, expensiveCopy];
+    SULogInfo(@"[SUNetworkMonitor] %s: %@", v5, v6, v7, v8, v9, v10, v11, "[SUNetworkMonitor setExpensive:]");
+
+    self->_isExpensive = expensiveCopy;
+  }
+}
+
+- (void)setPathSatisfied:(BOOL)satisfied
+{
+  satisfiedCopy = satisfied;
+  dispatch_assert_queue_V2(self->_ctQueue);
+  if (self->_pathSatisfied != satisfiedCopy)
+  {
+    satisfiedCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"pathSatisfied changed from %d to %d", self->_pathSatisfied, satisfiedCopy];
+    SULogInfo(@"[SUNetworkMonitor] %s: %@", v5, v6, v7, v8, v9, v10, v11, "[SUNetworkMonitor setPathSatisfied:]");
+
+    self->_pathSatisfied = satisfiedCopy;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __37__SUNetworkMonitor_setPathSatisfied___block_invoke;
+    v13[3] = &unk_279CACB70;
+    v13[4] = self;
+    [(SUNetworkMonitor *)self _runOnAllObservers:v13];
+  }
+}
+
 uint64_t __37__SUNetworkMonitor_setPathSatisfied___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -1062,6 +1158,19 @@ uint64_t __37__SUNetworkMonitor_setPathSatisfied___block_invoke(uint64_t a1, voi
   }
 
   return MEMORY[0x2821F97C8]();
+}
+
+- (void)setPathConstrained:(BOOL)constrained
+{
+  constrainedCopy = constrained;
+  dispatch_assert_queue_V2(self->_ctQueue);
+  if (self->_pathConstrained != constrainedCopy)
+  {
+    constrainedCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"pathConstrained changed from %d to %d", self->_pathConstrained, constrainedCopy];
+    SULogInfo(@"[SUNetworkMonitor] %s: %@", v5, v6, v7, v8, v9, v10, v11, "[SUNetworkMonitor setPathConstrained:]");
+
+    self->_pathConstrained = constrainedCopy;
+  }
 }
 
 - (void)setCurrentNetworkType:(int)type
@@ -1224,7 +1333,7 @@ uint64_t __42__SUNetworkMonitor__operatorBundleChanged__block_invoke(uint64_t a1
   v4 = __assertionCount + v5;
   __assertionCount += v5;
 LABEL_7:
-  v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"WiFi background assertion count changed: %lu", v4];
+  v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"WiFi background assertion count changed: %lu", v4];
   SULogDebug(@"[SUNetworkMonitor] %s: %@", v6, v7, v8, v9, v10, v11, v12, "+[SUNetworkMonitor setHoldsWiFiAssertion:]");
 
   v13 = __assertionCount != 0;
@@ -1240,7 +1349,6 @@ LABEL_7:
 
   else
   {
-    v15 = *MEMORY[0x277CBECE8];
     __wifiManager = WiFiManagerClientCreate();
   }
 }
@@ -1373,7 +1481,7 @@ uint64_t __39__SUNetworkMonitor_internetDataStatus___block_invoke(uint64_t a1)
   dispatch_sync(ctQueue, block);
 }
 
-uint64_t __43__SUNetworkMonitor_detectOverriddenNetwork__block_invoke(uint64_t a1)
+unsigned __int8 *__43__SUNetworkMonitor_detectOverriddenNetwork__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v4 = *(v2 + 72);
@@ -1383,7 +1491,7 @@ uint64_t __43__SUNetworkMonitor_detectOverriddenNetwork__block_invoke(uint64_t a
   if (result)
   {
     result = *(a1 + 32);
-    if (v4 != *(result + 72))
+    if (v4 != *(result + 18))
     {
       v10[0] = MEMORY[0x277D85DD0];
       v10[1] = 3221225472;
@@ -1395,7 +1503,7 @@ uint64_t __43__SUNetworkMonitor_detectOverriddenNetwork__block_invoke(uint64_t a
       result = *(a1 + 32);
     }
 
-    if (v3 != *(result + 76))
+    if (v3 != *(result + 19))
     {
       v8[0] = MEMORY[0x277D85DD0];
       v8[1] = 3221225472;
@@ -1407,7 +1515,7 @@ uint64_t __43__SUNetworkMonitor_detectOverriddenNetwork__block_invoke(uint64_t a
       result = *(a1 + 32);
     }
 
-    if (v5 != *(result + 80))
+    if (v5 != result[80])
     {
       v7[0] = MEMORY[0x277D85DD0];
       v7[1] = 3221225472;

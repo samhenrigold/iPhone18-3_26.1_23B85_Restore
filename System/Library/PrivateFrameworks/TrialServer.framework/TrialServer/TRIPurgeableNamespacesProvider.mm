@@ -24,45 +24,45 @@
 
 - (void)partitionPurgeableNamespacesForPurgeabilityLevel:(int)level namespaceNamesPurgeableAtNamespaceLevel:(id *)namespaceLevel eagerPurgeableFactorsByNamespaceName:(id *)name cacheDeleteableFactorsByNamespaceName:(id *)namespaceName
 {
-  v52 = *MEMORY[0x277D85DE8];
-  v37 = objc_opt_new();
-  v35 = objc_opt_new();
+  v51 = *MEMORY[0x277D85DE8];
   v36 = objc_opt_new();
+  v34 = objc_opt_new();
+  v35 = objc_opt_new();
   context = objc_autoreleasePoolPush();
   v8 = MEMORY[0x277D73750];
   namespaceDescriptorsDefaultDir = [(TRIPaths *)self->_paths namespaceDescriptorsDefaultDir];
   v10 = [v8 descriptorsForDirectory:namespaceDescriptorsDefaultDir filterBlock:0];
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   obj = v10;
-  v11 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
+  v11 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v46;
+    v13 = *v45;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v46 != v13)
+        if (*v45 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v45 + 1) + 8 * i);
+        v15 = *(*(&v44 + 1) + 8 * i);
         namespaceName = [v15 namespaceName];
         if ([v15 purgeabilityLevel] <= level)
         {
-          [v37 addObject:namespaceName];
+          [v36 addObject:namespaceName];
         }
 
         clientNamespaceMetadataStorage = self->_clientNamespaceMetadataStorage;
-        v44 = 0;
-        v18 = [(TRIClientNamespaceMetadataStoring *)clientNamespaceMetadataStorage loadNamespaceMetadataForNamespaceName:namespaceName error:&v44];
-        v19 = v44;
+        v43 = 0;
+        v18 = [(TRIClientNamespaceMetadataStoring *)clientNamespaceMetadataStorage loadNamespaceMetadataForNamespaceName:namespaceName error:&v43];
+        v19 = v43;
         v20 = v19;
         if (v19 || !v18)
         {
@@ -76,7 +76,7 @@
           {
             namespaceName2 = [v15 namespaceName];
             *buf = 138543362;
-            v50 = namespaceName2;
+            v49 = namespaceName2;
             _os_log_error_impl(&dword_26F567000, v23, OS_LOG_TYPE_ERROR, "Unable to load metadata for namespace %{public}@", buf, 0xCu);
           }
         }
@@ -90,23 +90,23 @@
           }
 
           factorNamePurgeabilityLevels = [v18 factorNamePurgeabilityLevels];
-          v39[0] = MEMORY[0x277D85DD0];
-          v39[1] = 3221225472;
-          v39[2] = __198__TRIPurgeableNamespacesProvider_partitionPurgeableNamespacesForPurgeabilityLevel_namespaceNamesPurgeableAtNamespaceLevel_eagerPurgeableFactorsByNamespaceName_cacheDeleteableFactorsByNamespaceName___block_invoke;
-          v39[3] = &unk_279DDFF90;
-          v40 = v36;
-          v41 = namespaceName;
+          v38[0] = MEMORY[0x277D85DD0];
+          v38[1] = 3221225472;
+          v38[2] = __198__TRIPurgeableNamespacesProvider_partitionPurgeableNamespacesForPurgeabilityLevel_namespaceNamesPurgeableAtNamespaceLevel_eagerPurgeableFactorsByNamespaceName_cacheDeleteableFactorsByNamespaceName___block_invoke;
+          v38[3] = &unk_279DDFF90;
+          v39 = v35;
+          v40 = namespaceName;
           levelCopy = level;
-          v42 = v35;
-          [factorNamePurgeabilityLevels enumerateKeysAndEnumsUsingBlock:v39];
+          v41 = v34;
+          [factorNamePurgeabilityLevels enumerateKeysAndEnumsUsingBlock:v38];
 
-          v23 = v40;
+          v23 = v39;
         }
 
 LABEL_16:
       }
 
-      v12 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
+      v12 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
     }
 
     while (v12);
@@ -114,17 +114,15 @@ LABEL_16:
 
   objc_autoreleasePoolPop(context);
   v25 = *namespaceLevel;
-  *namespaceLevel = v37;
-  v26 = v37;
+  *namespaceLevel = v36;
+  v26 = v36;
 
   v27 = *name;
-  *name = v35;
-  v28 = v35;
+  *name = v34;
+  v28 = v34;
 
   v29 = *namespaceName;
-  *namespaceName = v36;
-
-  v30 = *MEMORY[0x277D85DE8];
+  *namespaceName = v35;
 }
 
 void __198__TRIPurgeableNamespacesProvider_partitionPurgeableNamespacesForPurgeabilityLevel_namespaceNamesPurgeableAtNamespaceLevel_eagerPurgeableFactorsByNamespaceName_cacheDeleteableFactorsByNamespaceName___block_invoke(uint64_t a1, void *a2, int a3)

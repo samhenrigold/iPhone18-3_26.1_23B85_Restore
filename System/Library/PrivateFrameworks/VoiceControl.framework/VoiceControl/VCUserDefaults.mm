@@ -24,10 +24,10 @@
 
 - (id)objectForKey:(id)key
 {
-  v15.receiver = self;
-  v15.super_class = type metadata accessor for VCUserDefaults();
-  v4 = v15.receiver;
-  if ([(VCUserDefaults *)&v15 objectForKey:key])
+  v14.receiver = self;
+  v14.super_class = type metadata accessor for VCUserDefaults();
+  v4 = v14.receiver;
+  if ([(VCUserDefaults *)&v14 objectForKey:key])
   {
     sub_2723FE994();
     swift_unknownObjectRelease();
@@ -36,32 +36,31 @@
   else
   {
 
+    v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
   }
 
+  v15 = v12;
   v16 = v13;
-  v17 = v14;
-  v5 = *(&v14 + 1);
-  if (*(&v14 + 1))
+  v5 = *(&v13 + 1);
+  if (*(&v13 + 1))
   {
-    v6 = __swift_project_boxed_opaque_existential_1(&v16, *(&v17 + 1));
-    v7 = *(*(&v14 + 1) - 8);
-    v8 = *(v7 + 64);
+    v6 = __swift_project_boxed_opaque_existential_1(&v15, *(&v16 + 1));
+    v7 = *(*(&v13 + 1) - 8);
     MEMORY[0x28223BE20](v6);
-    v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v7 + 16))(v10);
-    v11 = sub_2723FEC34();
-    (*(v7 + 8))(v10, v5);
-    __swift_destroy_boxed_opaque_existential_1(&v16);
+    v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v7 + 16))(v9);
+    v10 = sub_2723FEC34();
+    (*(v7 + 8))(v9, v5);
+    __swift_destroy_boxed_opaque_existential_1(&v15);
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setObject:(id)object forKey:(id)key
@@ -77,16 +76,17 @@
 
   else
   {
-    memset(v10, 0, sizeof(v10));
+    memset(v13, 0, sizeof(v13));
     keyCopy2 = key;
     selfCopy2 = self;
   }
 
-  sub_2723FE5B4();
+  v10 = sub_2723FE5B4();
+  v12 = v11;
 
-  sub_2723E8A40(v10);
+  sub_2723E8A40(v13, v10, v12);
 
-  sub_2723EF760(v10);
+  sub_2723EF760(v13);
 }
 
 @end

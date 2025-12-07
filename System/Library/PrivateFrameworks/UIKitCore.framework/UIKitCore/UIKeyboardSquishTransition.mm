@@ -181,7 +181,7 @@
     memset(&v27, 0, sizeof(v27));
     if (layer)
     {
-      [layer transform];
+      objc_msgSend_transform(layer);
       v19 = 0uLL;
     }
 
@@ -269,7 +269,7 @@ LABEL_13:
     memset(&v27, 0, sizeof(v27));
     if (layer)
     {
-      [layer transform];
+      objc_msgSend_transform(layer);
       v19 = 0uLL;
     }
 

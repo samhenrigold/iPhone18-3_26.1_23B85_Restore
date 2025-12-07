@@ -49,12 +49,15 @@
 - (id)getAllPrefEntries;
 - (id)getNetworkSignature;
 - (id)getNumberOfPrefEntriesForTheCount:(int)count;
+- (id)getNumberOfRecordsForKeychainAccessGroup:(id)group count:(int)count;
 - (id)getOneRecordForNetwork:(id)network;
 - (id)getPrefEntriesForLabelAsSSID:(id)d;
 - (id)getPrefEntriesForSSID:(id)d;
 - (id)getPrefEntriesForSSIDAndSignature:(id)signature;
 - (id)getPrefEntriesForSignature:(id)signature;
+- (id)getPreferredNetwork:(BOOL)network skipScan:(BOOL)scan;
 - (id)getPreferredNetworkWithRecords;
+- (id)getRecordForPreferredNetwork:(BOOL)network anyDsFormat:(BOOL)format skipScan:(BOOL)scan;
 - (id)getTheKeyFromPreferredNetworkEntry:(id)entry;
 - (id)getTheMdnsMatchingEntryFromTheList:(id)list;
 - (id)matchPreferredNetworkWithMdns:(id)mdns;
@@ -466,145 +469,144 @@ void __80__THThreadNetworkCredentialsKeychainBackingStore_storeRecordAndSync_com
 
     v7 = dispatch_group_create();
     *buf = 0;
-    v43 = buf;
-    v44 = 0x2020000000;
-    v45 = 0;
-    v38[0] = _NSConcreteStackBlock;
-    v38[1] = 3221225472;
-    v38[2] = __80__THThreadNetworkCredentialsKeychainBackingStore_storeRecordAndSync_completion___block_invoke_35;
-    v38[3] = &unk_1004C5720;
+    v42 = buf;
+    v43 = 0x2020000000;
+    v44 = 0;
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = __80__THThreadNetworkCredentialsKeychainBackingStore_storeRecordAndSync_completion___block_invoke_35;
+    v37[3] = &unk_1004C5720;
     v8 = *(a1 + 72);
-    v40 = buf;
-    v41 = v8;
+    v39 = buf;
+    v40 = v8;
     v6 = v7;
-    v39 = v6;
-    v9 = objc_retainBlock(v38);
+    v38 = v6;
+    v9 = objc_retainBlock(v37);
     dispatch_group_enter(v6);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __80__THThreadNetworkCredentialsKeychainBackingStore_storeRecordAndSync_completion___block_invoke_37;
     block[3] = &unk_1004C5748;
-    v37 = *(a1 + 72);
+    v36 = *(a1 + 72);
     v10 = *(a1 + 32);
-    v35 = *(a1 + 40);
-    v36 = *(a1 + 64);
+    v34 = *(a1 + 40);
+    v35 = *(a1 + 64);
     dispatch_group_notify(v6, v10, block);
-    v11 = *(a1 + 48);
-    v29 = _NSConcreteStackBlock;
-    v30 = 3221225472;
-    v31 = __80__THThreadNetworkCredentialsKeychainBackingStore_storeRecordAndSync_completion___block_invoke_38;
-    v32 = &unk_1004C5770;
-    v12 = v9;
-    v33 = v12;
-    v13 = _SecItemAddAndNotifyOnSync();
-    v14 = THCredentialsServerLogHandleForCategory(1);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v28 = _NSConcreteStackBlock;
+    v29 = 3221225472;
+    v30 = __80__THThreadNetworkCredentialsKeychainBackingStore_storeRecordAndSync_completion___block_invoke_38;
+    v31 = &unk_1004C5770;
+    v11 = v9;
+    v32 = v11;
+    v12 = _SecItemAddAndNotifyOnSync();
+    v13 = THCredentialsServerLogHandleForCategory(1);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = "error";
-      v47 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
-      *v46 = 136315650;
-      if (!v13)
+      v14 = "error";
+      v46 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
+      *v45 = 136315650;
+      if (!v12)
       {
-        v15 = "success";
+        v14 = "success";
       }
 
-      v48 = 1024;
-      v49 = 303;
-      v50 = 2080;
-      v51 = v15;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync return value : %s...", v46, 0x1Cu);
+      v47 = 1024;
+      v48 = 303;
+      v49 = 2080;
+      v50 = v14;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync return value : %s...", v45, 0x1Cu);
     }
 
-    if (v13)
+    if (v12)
     {
-      v16 = THCredentialsServerLogHandleForCategory(1);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v15 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        *v46 = 136315394;
-        v47 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
-        v48 = 1024;
-        v49 = 309;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync returned error", v46, 0x12u);
+        *v45 = 136315394;
+        v46 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
+        v47 = 1024;
+        v48 = 309;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync returned error", v45, 0x12u);
       }
 
-      if (v13 != -25299)
+      if (v12 != -25299)
       {
         goto LABEL_21;
       }
 
-      v17 = THCredentialsServerLogHandleForCategory(1);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *v46 = 136315138;
-        v47 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s: Credential exists. Will update instead.", v46, 0xCu);
+        *v45 = 136315138;
+        v46 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s: Credential exists. Will update instead.", v45, 0xCu);
       }
 
-      v18 = [*(a1 + 40) keyChainQueryForUpdateOperation];
-      v19 = [*(a1 + 40) keyChainItemRepresentationForUpdateOperation];
-      v13 = SecItemUpdate(v18, v19);
-      if (v13)
+      v17 = [*(a1 + 40) keyChainQueryForUpdateOperation];
+      v18 = [*(a1 + 40) keyChainItemRepresentationForUpdateOperation];
+      v12 = SecItemUpdate(v17, v18);
+      if (v12)
       {
-        v20 = THCredentialsServerLogHandleForCategory(1);
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v19 = THCredentialsServerLogHandleForCategory(1);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          *v46 = 136315394;
-          v47 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
-          v48 = 1024;
-          v49 = 317;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%s:%d SecItemUpdate returned error", v46, 0x12u);
+          *v45 = 136315394;
+          v46 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
+          v47 = 1024;
+          v48 = 317;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%s:%d SecItemUpdate returned error", v45, 0x12u);
         }
 
 LABEL_21:
-        v21 = THCredentialsServerLogHandleForCategory(1);
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v20 = THCredentialsServerLogHandleForCategory(1);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          *v46 = 136315394;
-          v47 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
-          v48 = 1024;
-          v49 = 322;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%s:%d Returning error", v46, 0x12u);
+          *v45 = 136315394;
+          v46 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
+          v47 = 1024;
+          v48 = 322;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%s:%d Returning error", v45, 0x12u);
         }
 
-        [*(a1 + 56) errorout:v13 completion:*(a1 + 64)];
+        [*(a1 + 56) errorout:v12 completion:*(a1 + 64)];
         goto LABEL_31;
       }
 
-      v26 = THCredentialsServerLogHandleForCategory(1);
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v25 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        *v46 = 136315394;
-        v47 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
-        v48 = 1024;
-        v49 = 327;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%s:%d Credential exists, updated successfully..", v46, 0x12u);
+        *v45 = 136315394;
+        v46 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
+        v47 = 1024;
+        v48 = 327;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%s:%d Credential exists, updated successfully..", v45, 0x12u);
       }
 
-      v25 = [*(a1 + 40) computedUniqueIdentifier];
+      v24 = [*(a1 + 40) computedUniqueIdentifier];
       (*(*(a1 + 64) + 16))();
     }
 
     else
     {
-      v22 = dispatch_time(0, 1000000000 * *(a1 + 80));
-      v23 = *(a1 + 32);
-      v27[0] = _NSConcreteStackBlock;
-      v27[1] = 3221225472;
-      v27[2] = __80__THThreadNetworkCredentialsKeychainBackingStore_storeRecordAndSync_completion___block_invoke_42;
-      v27[3] = &unk_1004C5798;
-      v28 = v12;
-      dispatch_after(v22, v23, v27);
-      v24 = THCredentialsServerLogHandleForCategory(1);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v21 = dispatch_time(0, 1000000000 * *(a1 + 80));
+      v22 = *(a1 + 32);
+      v26[0] = _NSConcreteStackBlock;
+      v26[1] = 3221225472;
+      v26[2] = __80__THThreadNetworkCredentialsKeychainBackingStore_storeRecordAndSync_completion___block_invoke_42;
+      v26[3] = &unk_1004C5798;
+      v27 = v11;
+      dispatch_after(v21, v22, v26);
+      v23 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        *v46 = 136315394;
-        v47 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
-        v48 = 1024;
-        v49 = 347;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%s:%d Timer Scheduled !....... ", v46, 0x12u);
+        *v45 = 136315394;
+        v46 = "[THThreadNetworkCredentialsKeychainBackingStore storeRecordAndSync:completion:]_block_invoke";
+        v47 = 1024;
+        v48 = 347;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%s:%d Timer Scheduled !....... ", v45, 0x12u);
       }
 
-      v25 = v28;
+      v24 = v27;
     }
 
 LABEL_31:
@@ -1311,12 +1313,12 @@ void __73__THThreadNetworkCredentialsKeychainBackingStore_retrieveThirdPartyInfo
   objc_storeStrong((*(a1[7] + 8) + 40), a3);
   if (!*(*(a1[7] + 8) + 40))
   {
-    v11 = [*(*(*v8 + 8) + 40) count];
-    v12 = THCredentialsServerLogHandleForCategory(1);
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
-    if (!v11)
+    v10 = [*(*(*v8 + 8) + 40) count];
+    v11 = THCredentialsServerLogHandleForCategory(1);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
+    if (!v10)
     {
-      if (v13)
+      if (v12)
       {
         __73__THThreadNetworkCredentialsKeychainBackingStore_retrieveThirdPartyInfo___block_invoke_cold_5();
       }
@@ -1324,166 +1326,166 @@ void __73__THThreadNetworkCredentialsKeychainBackingStore_retrieveThirdPartyInfo
       goto LABEL_5;
     }
 
-    v45 = a1;
-    if (v13)
+    v44 = a1;
+    if (v12)
     {
       __73__THThreadNetworkCredentialsKeychainBackingStore_retrieveThirdPartyInfo___block_invoke_cold_2((a1 + 6));
     }
 
-    v46 = v7;
-    v47 = v6;
+    v45 = v7;
+    v46 = v6;
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
-    v14 = *(*(*v8 + 8) + 40);
-    v15 = [v14 countByEnumeratingWithState:&v54 objects:v65 count:16];
-    if (v15)
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v13 = *(*(*v8 + 8) + 40);
+    v14 = [v13 countByEnumeratingWithState:&v53 objects:v64 count:16];
+    if (v14)
     {
-      v16 = v15;
-      v17 = 0;
-      v18 = *v55;
+      v15 = v14;
+      v16 = 0;
+      v17 = *v54;
       do
       {
-        for (i = 0; i != v16; i = i + 1)
+        for (i = 0; i != v15; i = i + 1)
         {
-          if (*v55 != v18)
+          if (*v54 != v17)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v13);
           }
 
-          v20 = *(*(&v54 + 1) + 8 * i);
-          v21 = [v20 keychainAccessGroup];
-          if ([v21 isEqualToString:@"0000000000"])
+          v19 = *(*(&v53 + 1) + 8 * i);
+          v20 = [v19 keychainAccessGroup];
+          if ([v20 isEqualToString:@"0000000000"])
           {
           }
 
           else
           {
-            v22 = [v20 keychainAccessGroup];
-            v23 = ~[v22 isEqualToString:@"com.apple.thread.network"];
+            v21 = [v19 keychainAccessGroup];
+            v22 = ~[v21 isEqualToString:@"com.apple.thread.network"];
 
-            v17 += v23 & 1;
+            v16 += v22 & 1;
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v54 objects:v65 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v53 objects:v64 count:16];
       }
 
-      while (v16);
+      while (v15);
     }
 
-    v24 = +[THPreferredThreadNetwork keyChainQueryForFetchPreferredNetworkRecordsOperation];
-    v6 = v47;
-    if (v24)
+    v23 = +[THPreferredThreadNetwork keyChainQueryForFetchPreferredNetworkRecordsOperation];
+    v6 = v46;
+    if (v23)
     {
-      v25 = v45[4];
-      v53 = 0;
-      v26 = [v25 _doFetchPreferredNetworks:v24 error:&v53];
-      v27 = v53;
-      v28 = THCredentialsServerLogHandleForCategory(1);
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      v24 = v44[4];
+      v52 = 0;
+      v25 = [v24 _doFetchPreferredNetworks:v23 error:&v52];
+      v26 = v52;
+      v27 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
-        v29 = [v26 count];
+        v28 = [v25 count];
         *buf = 136315650;
-        v60 = "[THThreadNetworkCredentialsKeychainBackingStore retrieveThirdPartyInfo:]_block_invoke";
-        v61 = 1024;
-        v62 = 657;
-        v63 = 2048;
-        v64 = v29;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "%s : %d - Preferred Networks in Database = %lu", buf, 0x1Cu);
+        v59 = "[THThreadNetworkCredentialsKeychainBackingStore retrieveThirdPartyInfo:]_block_invoke";
+        v60 = 1024;
+        v61 = 657;
+        v62 = 2048;
+        v63 = v28;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "%s : %d - Preferred Networks in Database = %lu", buf, 0x1Cu);
       }
 
-      if ([v26 count])
+      if ([v25 count])
       {
-        v44 = v27;
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
-        v50 = 0u;
         v43 = v26;
-        v30 = v26;
-        v31 = [v30 countByEnumeratingWithState:&v49 objects:v58 count:16];
-        if (!v31)
+        v50 = 0u;
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
+        v42 = v25;
+        v29 = v25;
+        v30 = [v29 countByEnumeratingWithState:&v48 objects:v57 count:16];
+        if (!v30)
         {
           goto LABEL_47;
         }
 
-        v32 = v31;
-        v48 = 0;
-        v33 = 0;
-        v34 = *v50;
+        v31 = v30;
+        v47 = 0;
+        v32 = 0;
+        v33 = *v49;
         while (1)
         {
-          for (j = 0; j != v32; j = j + 1)
+          for (j = 0; j != v31; j = j + 1)
           {
-            if (*v50 != v34)
+            if (*v49 != v33)
             {
-              objc_enumerationMutation(v30);
+              objc_enumerationMutation(v29);
             }
 
-            v36 = *(*(&v49 + 1) + 8 * j);
-            if (v36)
+            v35 = *(*(&v48 + 1) + 8 * j);
+            if (v35)
             {
-              v37 = [*(*(&v49 + 1) + 8 * j) userInfo];
-              if ([v37 isEqualToString:@"0000000000"])
+              v36 = [*(*(&v48 + 1) + 8 * j) userInfo];
+              if ([v36 isEqualToString:@"0000000000"])
               {
 
 LABEL_36:
-                ++v33;
+                ++v32;
                 continue;
               }
 
-              v38 = [v36 userInfo];
-              v39 = [v38 isEqualToString:@"com.apple.thread.network"];
+              v37 = [v35 userInfo];
+              v38 = [v37 isEqualToString:@"com.apple.thread.network"];
 
-              if (v39)
+              if (v38)
               {
                 goto LABEL_36;
               }
 
-              ++v48;
+              ++v47;
             }
           }
 
-          v32 = [v30 countByEnumeratingWithState:&v49 objects:v58 count:16];
-          if (!v32)
+          v31 = [v29 countByEnumeratingWithState:&v48 objects:v57 count:16];
+          if (!v31)
           {
 LABEL_47:
 
-            v42 = [NSError storeError:0 description:@"Success: Found the thirdParty information"];
-            (*(v45[5] + 16))();
-            v7 = v46;
-            v6 = v47;
-            v27 = v44;
+            v41 = [NSError storeError:0 description:@"Success: Found the thirdParty information"];
+            (*(v44[5] + 16))();
+            v7 = v45;
+            v6 = v46;
             v26 = v43;
+            v25 = v42;
             goto LABEL_48;
           }
         }
       }
 
-      v41 = THCredentialsServerLogHandleForCategory(1);
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v40 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         __73__THThreadNetworkCredentialsKeychainBackingStore_retrieveThirdPartyInfo___block_invoke_cold_3();
       }
 
-      v42 = [NSError storeError:9 description:@"Failed to find any  preferred network"];
-      (*(v45[5] + 16))();
+      v41 = [NSError storeError:9 description:@"Failed to find any  preferred network"];
+      (*(v44[5] + 16))();
 LABEL_48:
     }
 
     else
     {
-      v40 = THCredentialsServerLogHandleForCategory(1);
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v39 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         __73__THThreadNetworkCredentialsKeychainBackingStore_retrieveThirdPartyInfo___block_invoke_cold_4();
       }
 
-      v27 = [NSError storeError:3 description:@"Failed to create query to retrieve preferred network"];
-      (*(v45[5] + 16))();
+      v26 = [NSError storeError:3 description:@"Failed to create query to retrieve preferred network"];
+      (*(v44[5] + 16))();
     }
 
     goto LABEL_50;
@@ -1496,7 +1498,6 @@ LABEL_48:
   }
 
 LABEL_5:
-  v10 = *(*(a1[7] + 8) + 40);
   (*(a1[5] + 16))();
 LABEL_50:
 }
@@ -2842,148 +2843,147 @@ void __93__THThreadNetworkCredentialsKeychainBackingStore_storeActiveDataSetReco
 
     v7 = dispatch_group_create();
     *buf = 0;
-    v45 = buf;
-    v46 = 0x2020000000;
-    v47 = 0;
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 3221225472;
-    v39[2] = __93__THThreadNetworkCredentialsKeychainBackingStore_storeActiveDataSetRecordAndSync_completion___block_invoke_92;
-    v39[3] = &unk_1004C5888;
+    v44 = buf;
+    v45 = 0x2020000000;
+    v46 = 0;
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = __93__THThreadNetworkCredentialsKeychainBackingStore_storeActiveDataSetRecordAndSync_completion___block_invoke_92;
+    v38[3] = &unk_1004C5888;
     v8 = *(a1 + 40);
     v9 = *(a1 + 72);
-    v42 = buf;
-    v43 = v9;
-    v39[4] = *(a1 + 32);
-    v40 = v8;
+    v41 = buf;
+    v42 = v9;
+    v38[4] = *(a1 + 32);
+    v39 = v8;
     v6 = v7;
-    v41 = v6;
-    v10 = objc_retainBlock(v39);
+    v40 = v6;
+    v10 = objc_retainBlock(v38);
     dispatch_group_enter(v6);
     v11 = *(a1 + 48);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __93__THThreadNetworkCredentialsKeychainBackingStore_storeActiveDataSetRecordAndSync_completion___block_invoke_95;
     block[3] = &unk_1004C5748;
-    v38 = *(a1 + 72);
-    v36 = *(a1 + 40);
-    v37 = *(a1 + 64);
+    v37 = *(a1 + 72);
+    v35 = *(a1 + 40);
+    v36 = *(a1 + 64);
     dispatch_group_notify(v6, v11, block);
-    v12 = *(a1 + 56);
-    v30 = _NSConcreteStackBlock;
-    v31 = 3221225472;
-    v32 = __93__THThreadNetworkCredentialsKeychainBackingStore_storeActiveDataSetRecordAndSync_completion___block_invoke_96;
-    v33 = &unk_1004C5770;
-    v13 = v10;
-    v34 = v13;
-    v14 = _SecItemAddAndNotifyOnSync();
-    v15 = THCredentialsServerLogHandleForCategory(1);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v29 = _NSConcreteStackBlock;
+    v30 = 3221225472;
+    v31 = __93__THThreadNetworkCredentialsKeychainBackingStore_storeActiveDataSetRecordAndSync_completion___block_invoke_96;
+    v32 = &unk_1004C5770;
+    v12 = v10;
+    v33 = v12;
+    v13 = _SecItemAddAndNotifyOnSync();
+    v14 = THCredentialsServerLogHandleForCategory(1);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = "error";
-      v49 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
-      *v48 = 136315650;
-      if (!v14)
+      v15 = "error";
+      v48 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
+      *v47 = 136315650;
+      if (!v13)
       {
-        v16 = "success";
+        v15 = "success";
       }
 
-      v50 = 1024;
-      v51 = 1236;
-      v52 = 2080;
-      v53 = v16;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync return value : %s...", v48, 0x1Cu);
+      v49 = 1024;
+      v50 = 1236;
+      v51 = 2080;
+      v52 = v15;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync return value : %s...", v47, 0x1Cu);
     }
 
-    if (v14)
+    if (v13)
     {
-      v17 = THCredentialsServerLogHandleForCategory(1);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *v48 = 136315394;
-        v49 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
-        v50 = 1024;
-        v51 = 1242;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync returned error", v48, 0x12u);
+        *v47 = 136315394;
+        v48 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
+        v49 = 1024;
+        v50 = 1242;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s:%d _SecItemAddAndNotifyOnSync returned error", v47, 0x12u);
       }
 
-      if (v14 != -25299)
+      if (v13 != -25299)
       {
         goto LABEL_21;
       }
 
-      v18 = THCredentialsServerLogHandleForCategory(1);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v17 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        *v48 = 136315138;
-        v49 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%s: Credential exists. Will update instead.", v48, 0xCu);
+        *v47 = 136315138;
+        v48 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s: Credential exists. Will update instead.", v47, 0xCu);
       }
 
-      v19 = [*(a1 + 40) keyChainQueryForActiveDataSetRecordUpdateOperation];
-      v20 = [*(a1 + 40) keyChainItemRepresentationForActiveDataSetRecordUpdateOperation];
-      v14 = SecItemUpdate(v19, v20);
-      if (v14)
+      v18 = [*(a1 + 40) keyChainQueryForActiveDataSetRecordUpdateOperation];
+      v19 = [*(a1 + 40) keyChainItemRepresentationForActiveDataSetRecordUpdateOperation];
+      v13 = SecItemUpdate(v18, v19);
+      if (v13)
       {
-        v21 = THCredentialsServerLogHandleForCategory(1);
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v20 = THCredentialsServerLogHandleForCategory(1);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          *v48 = 136315394;
-          v49 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
-          v50 = 1024;
-          v51 = 1250;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%s:%d SecItemUpdate returned error", v48, 0x12u);
+          *v47 = 136315394;
+          v48 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
+          v49 = 1024;
+          v50 = 1250;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%s:%d SecItemUpdate returned error", v47, 0x12u);
         }
 
 LABEL_21:
-        v22 = THCredentialsServerLogHandleForCategory(1);
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v21 = THCredentialsServerLogHandleForCategory(1);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          *v48 = 136315394;
-          v49 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
-          v50 = 1024;
-          v51 = 1255;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%s:%d Returning error", v48, 0x12u);
+          *v47 = 136315394;
+          v48 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
+          v49 = 1024;
+          v50 = 1255;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%s:%d Returning error", v47, 0x12u);
         }
 
-        [*(a1 + 32) errorout:v14 completion:*(a1 + 64)];
+        [*(a1 + 32) errorout:v13 completion:*(a1 + 64)];
         goto LABEL_31;
       }
 
-      v27 = THCredentialsServerLogHandleForCategory(1);
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v26 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        *v48 = 136315394;
-        v49 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
-        v50 = 1024;
-        v51 = 1260;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%s:%d Credential exists, updated successfully..", v48, 0x12u);
+        *v47 = 136315394;
+        v48 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
+        v49 = 1024;
+        v50 = 1260;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%s:%d Credential exists, updated successfully..", v47, 0x12u);
       }
 
-      v26 = [*(a1 + 40) computedUniqueIdentifier];
+      v25 = [*(a1 + 40) computedUniqueIdentifier];
       (*(*(a1 + 64) + 16))();
     }
 
     else
     {
-      v23 = dispatch_time(0, 1000000000 * *(a1 + 80));
-      v24 = *(a1 + 48);
-      v28[0] = _NSConcreteStackBlock;
-      v28[1] = 3221225472;
-      v28[2] = __93__THThreadNetworkCredentialsKeychainBackingStore_storeActiveDataSetRecordAndSync_completion___block_invoke_97;
-      v28[3] = &unk_1004C5798;
-      v29 = v13;
-      dispatch_after(v23, v24, v28);
-      v25 = THCredentialsServerLogHandleForCategory(1);
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v22 = dispatch_time(0, 1000000000 * *(a1 + 80));
+      v23 = *(a1 + 48);
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = __93__THThreadNetworkCredentialsKeychainBackingStore_storeActiveDataSetRecordAndSync_completion___block_invoke_97;
+      v27[3] = &unk_1004C5798;
+      v28 = v12;
+      dispatch_after(v22, v23, v27);
+      v24 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        *v48 = 136315394;
-        v49 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
-        v50 = 1024;
-        v51 = 1280;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%s:%d Timer Scheduled !....... ", v48, 0x12u);
+        *v47 = 136315394;
+        v48 = "[THThreadNetworkCredentialsKeychainBackingStore storeActiveDataSetRecordAndSync:completion:]_block_invoke";
+        v49 = 1024;
+        v50 = 1280;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%s:%d Timer Scheduled !....... ", v47, 0x12u);
       }
 
-      v26 = v29;
+      v25 = v28;
     }
 
 LABEL_31:
@@ -3276,17 +3276,17 @@ void __104__THThreadNetworkCredentialsKeychainBackingStore_updatePreferredNetwor
     v5 = [*(a1 + 32) network];
     v6 = [v5 extendedPANID];
     v7 = [*(a1 + 32) uniqueIdentifier];
-    v49 = 136316162;
-    v50 = "[THThreadNetworkCredentialsKeychainBackingStore updatePreferredNetworkWithNewDatasetRecord:completion:]_block_invoke";
-    v51 = 1024;
-    v52 = 1337;
-    v53 = 2112;
-    v54 = v4;
-    v55 = 2112;
-    v56 = v6;
-    v57 = 2112;
-    v58 = v7;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s:%d: :Request to update preferred credentials with (networkName=%@, xpanid=%@, uuid = %@", &v49, 0x30u);
+    v48 = 136316162;
+    v49 = "[THThreadNetworkCredentialsKeychainBackingStore updatePreferredNetworkWithNewDatasetRecord:completion:]_block_invoke";
+    v50 = 1024;
+    v51 = 1337;
+    v52 = 2112;
+    v53 = v4;
+    v54 = 2112;
+    v55 = v6;
+    v56 = 2112;
+    v57 = v7;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s:%d: :Request to update preferred credentials with (networkName=%@, xpanid=%@, uuid = %@", &v48, 0x30u);
   }
 
   v8 = *(a1 + 32);
@@ -3367,13 +3367,13 @@ LABEL_10:
         v35 = THCredentialsServerLogHandleForCategory(1);
         if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
-          v49 = 136315650;
-          v50 = "[THThreadNetworkCredentialsKeychainBackingStore updatePreferredNetworkWithNewDatasetRecord:completion:]_block_invoke";
-          v51 = 1024;
-          v52 = 1383;
-          v53 = 1024;
-          LODWORD(v54) = v31;
-          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%s:%d Error while adding/updating the record : (err=%d)", &v49, 0x18u);
+          v48 = 136315650;
+          v49 = "[THThreadNetworkCredentialsKeychainBackingStore updatePreferredNetworkWithNewDatasetRecord:completion:]_block_invoke";
+          v50 = 1024;
+          v51 = 1383;
+          v52 = 1024;
+          LODWORD(v53) = v31;
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%s:%d Error while adding/updating the record : (err=%d)", &v48, 0x18u);
         }
 
         v36 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v31 userInfo:0];
@@ -3386,34 +3386,33 @@ LABEL_10:
       {
         v41 = *(a1 + 48);
         v36 = [*(a1 + 32) computedUniqueIdentifier];
-        v42 = *(a1 + 32);
         v40 = *(v41 + 16);
         goto LABEL_29;
       }
 
-      v43 = THCredentialsServerLogHandleForCategory(1);
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v42 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         __104__THThreadNetworkCredentialsKeychainBackingStore_updatePreferredNetworkWithNewDatasetRecord_completion___block_invoke_cold_2();
       }
 
       if (v30 != -25299)
       {
-        v44 = [*(a1 + 32) network];
-        v45 = [*(a1 + 32) borderAgent];
-        v36 = [THThreadNetworkCredentialsActiveDataSetRecord keyChainQueryForDeleteActiveDataSetOperationForNetworkAndBorderAgent:v44 borderAgent:v45];
+        v43 = [*(a1 + 32) network];
+        v44 = [*(a1 + 32) borderAgent];
+        v36 = [THThreadNetworkCredentialsActiveDataSetRecord keyChainQueryForDeleteActiveDataSetOperationForNetworkAndBorderAgent:v43 borderAgent:v44];
 
-        v46 = SecItemDelete(v36);
-        v47 = THCredentialsServerLogHandleForCategory(1);
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v45 = SecItemDelete(v36);
+        v46 = THCredentialsServerLogHandleForCategory(1);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           __104__THThreadNetworkCredentialsKeychainBackingStore_updatePreferredNetworkWithNewDatasetRecord_completion___block_invoke_cold_3();
         }
 
-        if (v46)
+        if (v45)
         {
-          v37 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v46 userInfo:0];
-          v48 = [NSError storeError:2 underlyingError:v37 description:@"Error while adding/updating the record"];
+          v37 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v45 userInfo:0];
+          v47 = [NSError storeError:2 underlyingError:v37 description:@"Error while adding/updating the record"];
           (*(*(a1 + 48) + 16))();
 
 LABEL_24:
@@ -4611,6 +4610,257 @@ LABEL_11:
 
 LABEL_18:
   objc_autoreleasePoolPop(v2);
+}
+
+- (id)getRecordForPreferredNetwork:(BOOL)network anyDsFormat:(BOOL)format skipScan:(BOOL)scan
+{
+  v76 = 0;
+  v77 = &v76;
+  v78 = 0x3032000000;
+  v79 = __Block_byref_object_copy_;
+  v80 = __Block_byref_object_dispose_;
+  v81 = 0;
+  v70 = 0;
+  v71 = &v70;
+  v72 = 0x3032000000;
+  v73 = __Block_byref_object_copy_;
+  v74 = __Block_byref_object_dispose_;
+  v75 = 0;
+  v5 = [(THThreadNetworkCredentialsKeychainBackingStore *)self getPreferredNetwork:network skipScan:scan];
+  v6 = v77[5];
+  v77[5] = v5;
+
+  v7 = v77[5];
+  if (!v7)
+  {
+    v58 = THCredentialsServerLogHandleForCategory(1);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+    {
+      [THThreadNetworkCredentialsKeychainBackingStore getRecordForPreferredNetwork:anyDsFormat:skipScan:];
+    }
+
+    credentialsDataSetRecord7 = 0;
+LABEL_44:
+
+    goto LABEL_45;
+  }
+
+  credentialsDataSetRecord = [v7 credentialsDataSetRecord];
+  if (!credentialsDataSetRecord)
+  {
+    goto LABEL_12;
+  }
+
+  credentialsDataSetRecord2 = [v77[5] credentialsDataSetRecord];
+  credentialsDataSet = [credentialsDataSetRecord2 credentialsDataSet];
+  dataSetArray = [credentialsDataSet dataSetArray];
+  if (!dataSetArray)
+  {
+
+    goto LABEL_12;
+  }
+
+  credentialsDataSetRecord3 = [v77[5] credentialsDataSetRecord];
+  credentialsDataSet2 = [credentialsDataSetRecord3 credentialsDataSet];
+  dataSetArray2 = [credentialsDataSet2 dataSetArray];
+  v15 = [dataSetArray2 length] == 0;
+
+  if (v15)
+  {
+LABEL_12:
+    v24 = THCredentialsServerLogHandleForCategory(1);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    {
+      network = [v77[5] network];
+      networkName = [network networkName];
+      network2 = [v77[5] network];
+      extendedPANID = [network2 extendedPANID];
+      *buf = 136315906;
+      v84 = "[THThreadNetworkCredentialsKeychainBackingStore getRecordForPreferredNetwork:anyDsFormat:skipScan:]";
+      v85 = 1024;
+      v86 = 1873;
+      v87 = 2112;
+      v88 = networkName;
+      v89 = 2112;
+      v90 = extendedPANID;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "%s : %d - Request to fetch all active dataset records for preferred network (name=%@, xpanid=%@)", buf, 0x26u);
+    }
+
+    network3 = [v77[5] network];
+    v58 = [THThreadNetworkCredentialsActiveDataSetRecord keyChainQueryForFetchActiveDataSetRecordsOperationForNetwork:network3];
+
+    v69 = 0;
+    v56 = [(THThreadNetworkCredentialsKeychainBackingStore *)self _doFetchActiveDataSetRecords:v58 error:&v69];
+    v55 = v69;
+    v30 = THCredentialsServerLogHandleForCategory(1);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    {
+      v31 = [v56 count];
+      *buf = 136315650;
+      v84 = "[THThreadNetworkCredentialsKeychainBackingStore getRecordForPreferredNetwork:anyDsFormat:skipScan:]";
+      v85 = 1024;
+      v86 = 1879;
+      v87 = 2048;
+      v88 = v31;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "%s:%d: Active dataset records size is: %lu", buf, 0x1Cu);
+    }
+
+    allObjects = [v56 allObjects];
+    v57 = [NSMutableArray arrayWithArray:allObjects];
+
+    if (v57)
+    {
+      [v57 sortUsingComparator:&__block_literal_global_116];
+      v67 = 0u;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
+      obj = v57;
+      v33 = [obj countByEnumeratingWithState:&v65 objects:v82 count:16];
+      if (v33)
+      {
+        v62 = *v66;
+        do
+        {
+          for (i = 0; i != v33; i = i + 1)
+          {
+            if (*v66 != v62)
+            {
+              objc_enumerationMutation(obj);
+            }
+
+            v35 = *(*(&v65 + 1) + 8 * i);
+            borderAgent = [v35 borderAgent];
+            discriminatorId = [borderAgent discriminatorId];
+            if (discriminatorId)
+            {
+              credentialsDataSet3 = [v35 credentialsDataSet];
+              dataSetArray3 = [credentialsDataSet3 dataSetArray];
+              v40 = dataSetArray3 == 0;
+              if (dataSetArray3 && !format)
+              {
+                credentialsDataSet4 = [v35 credentialsDataSet];
+                dataSetArray4 = [credentialsDataSet4 dataSetArray];
+                v43 = [(THThreadNetworkCredentialsKeychainBackingStore *)self areValidDataSetTLVs:dataSetArray4];
+
+                v40 = v43 ^ 1;
+              }
+
+              if (!v40)
+              {
+                objc_storeStrong(v71 + 5, v35);
+                goto LABEL_37;
+              }
+            }
+
+            else
+            {
+            }
+
+            v44 = THCredentialsServerLogHandleForCategory(1);
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+            {
+              network4 = [v35 network];
+              networkName2 = [network4 networkName];
+              *buf = 136315650;
+              v84 = "[THThreadNetworkCredentialsKeychainBackingStore getRecordForPreferredNetwork:anyDsFormat:skipScan:]";
+              v85 = 1024;
+              v86 = 1909;
+              v87 = 2112;
+              v88 = networkName2;
+              _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "%s : %d : skipping older format credentials : name : %@", buf, 0x1Cu);
+            }
+          }
+
+          v33 = [obj countByEnumeratingWithState:&v65 objects:v82 count:16];
+        }
+
+        while (v33);
+      }
+
+LABEL_37:
+
+      if (v71[5])
+      {
+        v48 = THCredentialsServerLogHandleForCategory(1);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+        {
+          network5 = [v71[5] network];
+          networkName3 = [network5 networkName];
+          *buf = 136315650;
+          v84 = "[THThreadNetworkCredentialsKeychainBackingStore getRecordForPreferredNetwork:anyDsFormat:skipScan:]";
+          v85 = 1024;
+          v86 = 1918;
+          v87 = 2112;
+          v88 = networkName3;
+          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_INFO, "%s : %d : Check if require to update preferred network with record : name : %@", buf, 0x1Cu);
+        }
+
+        credentialsDataSetRecord4 = [v77[5] credentialsDataSetRecord];
+        v52 = credentialsDataSetRecord4 == 0;
+
+        if (v52)
+        {
+          objc_initWeak(buf, self);
+          v53 = dispatch_get_global_queue(0, 0);
+          block[0] = _NSConcreteStackBlock;
+          block[1] = 3221225472;
+          block[2] = __100__THThreadNetworkCredentialsKeychainBackingStore_getRecordForPreferredNetwork_anyDsFormat_skipScan___block_invoke_117;
+          block[3] = &unk_1004C59E0;
+          objc_copyWeak(&v64, buf);
+          block[4] = &v70;
+          block[5] = &v76;
+          dispatch_async(v53, block);
+
+          objc_destroyWeak(&v64);
+          objc_destroyWeak(buf);
+        }
+      }
+
+      credentialsDataSetRecord7 = v71[5];
+    }
+
+    else
+    {
+      v47 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      {
+        [THThreadNetworkCredentialsKeychainBackingStore getRecordForPreferredNetwork:anyDsFormat:skipScan:];
+      }
+
+      credentialsDataSetRecord7 = 0;
+    }
+
+    goto LABEL_44;
+  }
+
+  v16 = THCredentialsServerLogHandleForCategory(1);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  {
+    credentialsDataSetRecord5 = [v77[5] credentialsDataSetRecord];
+    network6 = [credentialsDataSetRecord5 network];
+    networkName4 = [network6 networkName];
+    credentialsDataSetRecord6 = [v77[5] credentialsDataSetRecord];
+    credentialsDataSet5 = [credentialsDataSetRecord6 credentialsDataSet];
+    dataSetArray5 = [credentialsDataSet5 dataSetArray];
+    *buf = 136315906;
+    v84 = "[THThreadNetworkCredentialsKeychainBackingStore getRecordForPreferredNetwork:anyDsFormat:skipScan:]";
+    v85 = 1024;
+    v86 = 1869;
+    v87 = 2112;
+    v88 = networkName4;
+    v89 = 2112;
+    v90 = dataSetArray5;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%s:%d: This preferred network entry has record associated with it, returning the same record : %@, dataset : %@", buf, 0x26u);
+  }
+
+  credentialsDataSetRecord7 = [v77[5] credentialsDataSetRecord];
+LABEL_45:
+  _Block_object_dispose(&v70, 8);
+
+  _Block_object_dispose(&v76, 8);
+
+  return credentialsDataSetRecord7;
 }
 
 int64_t __100__THThreadNetworkCredentialsKeychainBackingStore_getRecordForPreferredNetwork_anyDsFormat_skipScan___block_invoke(id a1, id a2, id a3)
@@ -6133,6 +6383,50 @@ void __97__THThreadNetworkCredentialsKeychainBackingStore_updatePreferredNetwork
   }
 
   return v7;
+}
+
+- (id)getNumberOfRecordsForKeychainAccessGroup:(id)group count:(int)count
+{
+  v4 = *&count;
+  groupCopy = group;
+  v7 = [THThreadNetworkCredentialsActiveDataSetRecord keyChainQueryFetchForNumberOfActiveDataSetOperationForKeychainAccessGroup:groupCopy count:v4];
+  if (!v7)
+  {
+    v8 = THCredentialsServerLogHandleForCategory(1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      [THThreadNetworkCredentialsKeychainBackingStore getNumberOfRecordsForKeychainAccessGroup:count:];
+    }
+  }
+
+  v14 = 0;
+  v9 = [(THThreadNetworkCredentialsKeychainBackingStore *)self _doFetchActiveDataSetRecords:v7 error:&v14];
+  v10 = THCredentialsServerLogHandleForCategory(1);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    v11 = [v9 count];
+    *buf = 136315906;
+    v16 = "[THThreadNetworkCredentialsKeychainBackingStore getNumberOfRecordsForKeychainAccessGroup:count:]";
+    v17 = 1024;
+    v18 = 2551;
+    v19 = 1024;
+    v20 = v4;
+    v21 = 2048;
+    v22 = v11;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s:%d: Fetched Active dataset records for the count : %d, size of the recods is: %lu", buf, 0x22u);
+  }
+
+  if (v9 && [v9 count])
+  {
+    v12 = v9;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
 }
 
 - (BOOL)deleteAllRecordsForKeychainAccessGroup:(id)group
@@ -11235,6 +11529,261 @@ LABEL_30:
   return v17;
 }
 
+- (id)getPreferredNetwork:(BOOL)network skipScan:(BOOL)scan
+{
+  scanCopy = scan;
+  networkCopy = network;
+  v7 = THCredentialsServerLogHandleForCategory(1);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315650;
+    v57 = "[THThreadNetworkCredentialsKeychainBackingStore getPreferredNetwork:skipScan:]";
+    v58 = 1024;
+    v59 = 4366;
+    v60 = 1024;
+    LODWORD(v61) = networkCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s:%d: Get preferred NW, onlyMdns : %d", buf, 0x18u);
+  }
+
+  getNetworkSignature = [(THThreadNetworkCredentialsKeychainBackingStore *)self getNetworkSignature];
+  if (!getNetworkSignature)
+  {
+    v10 = THCredentialsServerLogHandleForCategory(1);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      [THThreadNetworkCredentialsKeychainBackingStore getPreferredNetwork:skipScan:];
+    }
+
+    goto LABEL_25;
+  }
+
+  if ([(THThreadNetworkCredentialsKeychainBackingStore *)self wifiInfoAvailable:getNetworkSignature])
+  {
+    v9 = [(THThreadNetworkCredentialsKeychainBackingStore *)self getPrefEntriesForSSID:getNetworkSignature];
+    v10 = v9;
+    if (v9 && [v9 count])
+    {
+      v11 = [(THThreadNetworkCredentialsKeychainBackingStore *)self getPrefEntriesForSignature:getNetworkSignature];
+      goto LABEL_12;
+    }
+
+    v14 = [(THThreadNetworkCredentialsKeychainBackingStore *)self getPrefEntriesForLabelAsSSID:getNetworkSignature];
+
+    v11 = 0;
+    v12 = 0;
+    v13 = 0;
+    v10 = v14;
+    if (v14)
+    {
+LABEL_12:
+      v12 = v10;
+      v13 = v11;
+      if ([v10 count])
+      {
+        goto LABEL_14;
+      }
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+    v13 = 0;
+  }
+
+  v10 = [(THThreadNetworkCredentialsKeychainBackingStore *)self getPrefEntriesForSignature:getNetworkSignature];
+
+  if (!v10)
+  {
+    goto LABEL_21;
+  }
+
+LABEL_14:
+  if (![v10 count])
+  {
+LABEL_21:
+    v21 = THCredentialsServerLogHandleForCategory(1);
+    v22 = v21;
+    if (scanCopy)
+    {
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        [THThreadNetworkCredentialsKeychainBackingStore getPreferredNetwork:skipScan:];
+      }
+
+LABEL_25:
+      v23 = 0;
+      goto LABEL_54;
+    }
+
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    {
+      v24 = [v10 count];
+      ipv4NwSignature = [getNetworkSignature ipv4NwSignature];
+      ipv6NwSignature = [getNetworkSignature ipv6NwSignature];
+      *buf = 136316162;
+      v57 = "[THThreadNetworkCredentialsKeychainBackingStore getPreferredNetwork:skipScan:]";
+      v58 = 1024;
+      v59 = 4425;
+      v60 = 2048;
+      v61 = v24;
+      v62 = 2112;
+      v63 = ipv4NwSignature;
+      v64 = 2112;
+      v65 = ipv6NwSignature;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "%s : %d - Finding network on mdns and checking if it matches to any of the preferred network entry, because, at present, Preferred Networks in Database = %lu, for network signature(ipv4 : %@, ipv6 : %@)", buf, 0x30u);
+    }
+
+    getAllPrefEntries = [(THThreadNetworkCredentialsKeychainBackingStore *)self getAllPrefEntries];
+    v28 = getAllPrefEntries;
+    if (getAllPrefEntries && [getAllPrefEntries count])
+    {
+      v29 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      {
+        [THThreadNetworkCredentialsKeychainBackingStore getPreferredNetwork:v28 skipScan:?];
+      }
+
+      v23 = [(THThreadNetworkCredentialsKeychainBackingStore *)self sortAndReturnPreferredNetwork:v28 onlyMdns:1];
+      if (!v23)
+      {
+        goto LABEL_53;
+      }
+
+      v30 = [(THThreadNetworkCredentialsKeychainBackingStore *)self checkIfNetworkSignatureUpdateIsRequiredForPreferredNetwork:v23 nwSignature:getNetworkSignature];
+      v31 = v30;
+      if (v30)
+      {
+        v32 = v30;
+
+        v23 = v32;
+      }
+
+      v33 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+      {
+        network = [v23 network];
+        networkName = [network networkName];
+        network2 = [v23 network];
+        extendedPANID = [network2 extendedPANID];
+        networkSignature = [v23 networkSignature];
+        wifiSSID = [networkSignature wifiSSID];
+        if (wifiSSID)
+        {
+          networkSignature2 = [v23 networkSignature];
+          wifiSSID2 = [networkSignature2 wifiSSID];
+        }
+
+        else
+        {
+          wifiSSID2 = &stru_1004D2028;
+        }
+
+        credentialsDataSetRecord = [v23 credentialsDataSetRecord];
+        networkSignature3 = [v23 networkSignature];
+        wifiPassword = [networkSignature3 wifiPassword];
+        *buf = 136316674;
+        v57 = "[THThreadNetworkCredentialsKeychainBackingStore getPreferredNetwork:skipScan:]";
+        v58 = 1024;
+        v59 = 4452;
+        v60 = 2112;
+        v61 = networkName;
+        v62 = 2112;
+        v63 = extendedPANID;
+        v64 = 2112;
+        v65 = wifiSSID2;
+        v66 = 2048;
+        v67 = credentialsDataSetRecord;
+        v68 = 2112;
+        v69 = wifiPassword;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "%s:%d: Returning the preferred network : (name : %@ | xpanid : %@), ssid : %@, DS Record = %p, label = %@", buf, 0x44u);
+
+        if (wifiSSID)
+        {
+        }
+      }
+    }
+
+    else
+    {
+      v31 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      {
+        [THThreadNetworkCredentialsKeychainBackingStore getPreferredNetwork:skipScan:];
+      }
+
+      v23 = 0;
+    }
+
+LABEL_53:
+    goto LABEL_54;
+  }
+
+  v15 = [(THThreadNetworkCredentialsKeychainBackingStore *)self sortAndReturnPreferredNetwork:v10 onlyMdns:networkCopy];
+  if (v15)
+  {
+    v16 = [(THThreadNetworkCredentialsKeychainBackingStore *)self checkIfNetworkSignatureUpdateIsRequiredForPreferredNetwork:v15 nwSignature:getNetworkSignature signaturePrefEntries:v13];
+    v17 = v16;
+    if (v16)
+    {
+      v18 = v16;
+
+      v15 = v18;
+    }
+
+    v19 = THCredentialsServerLogHandleForCategory(1);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    {
+      network3 = [v15 network];
+      networkName2 = [network3 networkName];
+      network4 = [v15 network];
+      extendedPANID2 = [network4 extendedPANID];
+      networkSignature4 = [v15 networkSignature];
+      wifiSSID3 = [networkSignature4 wifiSSID];
+      if (wifiSSID3)
+      {
+        networkSignature5 = [v15 networkSignature];
+        wifiSSID4 = [networkSignature5 wifiSSID];
+      }
+
+      else
+      {
+        wifiSSID4 = &stru_1004D2028;
+      }
+
+      credentialsDataSetRecord2 = [v15 credentialsDataSetRecord];
+      networkSignature6 = [v15 networkSignature];
+      wifiPassword2 = [networkSignature6 wifiPassword];
+      *buf = 136316674;
+      v57 = "[THThreadNetworkCredentialsKeychainBackingStore getPreferredNetwork:skipScan:]";
+      v58 = 1024;
+      v59 = 4413;
+      v60 = 2112;
+      v61 = networkName2;
+      v62 = 2112;
+      v63 = extendedPANID2;
+      v64 = 2112;
+      v65 = wifiSSID4;
+      v66 = 2048;
+      v67 = credentialsDataSetRecord2;
+      v68 = 2112;
+      v69 = wifiPassword2;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "%s:%d: Returning the preferred network : (name : %@ | xpanid : %@), ssid : %@, DS Record = %p, label = %@", buf, 0x44u);
+
+      if (wifiSSID3)
+      {
+      }
+    }
+  }
+
+  v23 = v15;
+
+  v10 = v23;
+LABEL_54:
+
+  return v23;
+}
+
 - (BOOL)DBGstorePreferred:(id)preferred
 {
   preferredCopy = preferred;
@@ -13475,7 +14024,7 @@ LABEL_91:
             v24 = THCredentialsServerLogHandleForCategory(1);
             if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
-              [THThreadNetworkCredentialsKeychainBackingStore areValidDataSetTLVs:? creds:? updateATS:? isATSAppended:?];
+              [THThreadNetworkCredentialsKeychainBackingStore areValidDataSetTLVs:creds:updateATS:isATSAppended:];
             }
 
             goto LABEL_127;
@@ -15490,13 +16039,6 @@ void __78__THThreadNetworkCredentialsKeychainBackingStore_cleanThreadKeychainDat
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-}
-
-- (void)areValidDataSetTLVs:(unsigned __int8 *)a1 creds:updateATS:isATSAppended:.cold.12(unsigned __int8 *a1)
-{
-  v6 = *a1;
-  OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 - (void)areValidDataSetTLVs:creds:updateATS:isATSAppended:.cold.13()

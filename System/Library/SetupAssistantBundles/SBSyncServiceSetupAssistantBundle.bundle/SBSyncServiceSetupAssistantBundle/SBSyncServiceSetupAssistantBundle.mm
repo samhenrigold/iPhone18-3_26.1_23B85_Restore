@@ -27,53 +27,52 @@ void sub_F14(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v18 = v2;
-      v19 = 2048;
-      v20 = v4;
+      v17 = v2;
+      v18 = 2048;
+      v19 = v4;
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Missing either the appleID [%p] or profileID[%p]", buf, 0x16u);
     }
   }
 
   else
   {
-    v7 = *(a1 + 32);
-    v8 = IDSParseAuthDictionary();
-    v9 = objc_alloc_init(NSMutableDictionary);
-    v10 = [v8 objectForKey:IDSAuthenticationDictionaryKeyAppleID];
-    if (v10)
+    v7 = IDSParseAuthDictionary();
+    v8 = objc_alloc_init(NSMutableDictionary);
+    v9 = [v7 objectForKey:IDSAuthenticationDictionaryKeyAppleID];
+    if (v9)
     {
-      CFDictionarySetValue(v9, kIDSServiceDefaultsAppleIDKey, v10);
+      CFDictionarySetValue(v8, kIDSServiceDefaultsAppleIDKey, v9);
     }
 
-    CFDictionarySetValue(v9, kIDSServiceDefaultsAuthorizationIDKey, v4);
-    v11 = [objc_msgSend(v8 objectForKey:{IDSAuthenticationDictionaryKeySelfHandle), "objectForKey:", @"uri"}];
-    v12 = [v11 length];
-    if (v11 && v12)
+    CFDictionarySetValue(v8, kIDSServiceDefaultsAuthorizationIDKey, v4);
+    v10 = [objc_msgSend(v7 objectForKey:{IDSAuthenticationDictionaryKeySelfHandle), "objectForKey:", @"uri"}];
+    v11 = [v10 length];
+    if (v10 && v11)
     {
-      CFDictionarySetValue(v9, kIDSServiceDefaultsSelfHandleKey, v11);
+      CFDictionarySetValue(v8, kIDSServiceDefaultsSelfHandleKey, v10);
     }
 
-    v13 = objc_alloc_init(NSMutableArray);
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_122C;
-    v16[3] = &unk_4120;
-    v16[4] = v13;
-    v14 = [objc_msgSend(v8 objectForKey:{IDSAuthenticationDictionaryKeyHandles), "__imArrayByApplyingBlock:", v16}];
-    if ([v13 count])
+    v12 = objc_alloc_init(NSMutableArray);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_122C;
+    v15[3] = &unk_4120;
+    v15[4] = v12;
+    v13 = [objc_msgSend(v7 objectForKey:{IDSAuthenticationDictionaryKeyHandles), "__imArrayByApplyingBlock:", v15}];
+    if ([v12 count])
     {
-      v15 = [v13 copy];
-      if (v15)
+      v14 = [v12 copy];
+      if (v14)
       {
-        CFDictionarySetValue(v9, kIDSServiceDefaultsInvisibleAliasesKey, v15);
+        CFDictionarySetValue(v8, kIDSServiceDefaultsInvisibleAliasesKey, v14);
       }
     }
 
-    if ([v14 count])
+    if ([v13 count])
     {
-      if (v14)
+      if (v13)
       {
-        CFDictionarySetValue(v9, kIDSServiceDefaultsVettedAliasesKey, v14);
+        CFDictionarySetValue(v8, kIDSServiceDefaultsVettedAliasesKey, v13);
       }
     }
 

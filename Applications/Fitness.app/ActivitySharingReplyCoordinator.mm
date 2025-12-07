@@ -6,7 +6,7 @@
 
 - (void)refreshReplyOptions
 {
-  v3 = sub_100140278(&qword_1008E1760);
+  v3 = sub_100140278(&qword_1008E1760, &qword_1006D4490);
   __chkstk_darwin(v3 - 8);
   v5 = &v8 - v4;
   v6 = type metadata accessor for TaskPriority();

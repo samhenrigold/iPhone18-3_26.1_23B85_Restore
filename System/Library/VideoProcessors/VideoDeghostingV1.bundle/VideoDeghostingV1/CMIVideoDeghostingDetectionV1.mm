@@ -1,4 +1,5 @@
 @interface CMIVideoDeghostingDetectionV1
+- (BOOL)_extractLightAndGhostTilesFromMetadata:(id)metadata imageBufferDimensions:(id)dimensions clippingTuningParams:(ClippingDataTuning *)params adjustedPrincipalPoint:(CGPoint)point ghostSearchTile:(CGRect *)tile;
 - (CGPoint)bias;
 - (CGPoint)reflectPoint:(CGPoint *)point pivotPoint:(CGPoint *)pivotPoint;
 - (CGRect)_computeGhostBoundingBoxFromMaskUsingMax:(__CVBuffer *)max searchROI:(CGRect)i threshold:(float)threshold ghostSize:(float)size detectionScalingFactor:;
@@ -331,18 +332,18 @@ LABEL_10:
 
 - (int)_getShapeMask:(const CGRect *)mask outputMask:(id)outputMask ghostSize:(int)size maskScalingFactor:
 {
-  v6 = v5;
+  v7 = v6;
   outputMaskCopy = outputMask;
-  v126[0] = v6;
-  v124 = 0;
+  v133[0] = v7;
+  v131 = 0;
+  v132 = 0;
+  v129 = 0;
+  v130 = 0;
+  v127 = 0;
+  v128 = 0;
   v125 = 0;
-  v122 = 0;
-  v123 = 0;
-  v120 = 0;
-  v121 = 0;
-  v118 = 0;
-  v119 = 0;
-  v117 = 0;
+  v126 = 0;
+  v124 = 0;
   commandQueue = [(FigMetalContext *)self->_metalContext commandQueue];
   commandBuffer = [commandQueue commandBuffer];
 
@@ -350,12 +351,12 @@ LABEL_10:
   y = mask->origin.y;
   width = mask->size.width;
   height = mask->size.height;
-  v94 = [VDGMetalUtilsV1 getMetalFormatFor:CVPixelBufferGetPixelFormatType(self->_inputPixelBuffer)];
-  if (![v94 count])
+  v101 = [VDGMetalUtilsV1 getMetalFormatFor:CVPixelBufferGetPixelFormatType(self->_inputPixelBuffer)];
+  if (![v101 count])
   {
     sub_183A0(&width);
 LABEL_27:
-    v81 = width;
+    v82 = width;
     goto LABEL_21;
   }
 
@@ -374,25 +375,25 @@ LABEL_27:
   desc2 = [newTextureDescriptor desc];
   [desc2 setPixelFormat:25];
 
-  LODWORD(v21) = self->_scaleForGetShapeInputs;
-  v22 = (mask->size.width / v21);
+  LODWORD(v22) = self->_scaleForGetShapeInputs;
+  v23 = (mask->size.width / v22);
   desc3 = [newTextureDescriptor desc];
-  [desc3 setWidth:v22];
+  [desc3 setWidth:v23];
 
-  LODWORD(v24) = self->_scaleForGetShapeInputs;
-  v25 = (mask->size.height / v24);
+  LODWORD(v25) = self->_scaleForGetShapeInputs;
+  v26 = (mask->size.height / v25);
   desc4 = [newTextureDescriptor desc];
-  [desc4 setHeight:v25];
+  [desc4 setHeight:v26];
 
   desc5 = [newTextureDescriptor desc];
   [desc5 setUsage:7];
 
   [newTextureDescriptor setLabel:0];
   allocator2 = [(FigMetalContext *)self->_metalContext allocator];
-  v125 = [allocator2 newTextureWithDescriptor:newTextureDescriptor];
+  v132 = [allocator2 newTextureWithDescriptor:newTextureDescriptor];
 
-  v88 = v125;
-  if (!v125)
+  v95 = v132;
+  if (!v132)
   {
     sub_182D0();
     goto LABEL_27;
@@ -400,10 +401,10 @@ LABEL_27:
 
   [newTextureDescriptor setLabel:0];
   allocator3 = [(FigMetalContext *)self->_metalContext allocator];
-  v124 = [allocator3 newTextureWithDescriptor:newTextureDescriptor];
+  v131 = [allocator3 newTextureWithDescriptor:newTextureDescriptor];
 
-  v93 = v124;
-  if (!v124)
+  v100 = v131;
+  if (!v131)
   {
     sub_1825C();
     goto LABEL_27;
@@ -411,37 +412,37 @@ LABEL_27:
 
   [newTextureDescriptor setLabel:0];
   allocator4 = [(FigMetalContext *)self->_metalContext allocator];
-  v123 = [allocator4 newTextureWithDescriptor:newTextureDescriptor];
+  v130 = [allocator4 newTextureWithDescriptor:newTextureDescriptor];
 
-  v92 = v123;
-  if (!v123)
+  v99 = v130;
+  if (!v130)
   {
     sub_181E8();
     goto LABEL_27;
   }
 
-  v95 = commandBuffer;
+  v102 = commandBuffer;
   [newTextureDescriptor setLabel:0];
   allocator5 = [(FigMetalContext *)self->_metalContext allocator];
-  v122 = [allocator5 newTextureWithDescriptor:newTextureDescriptor];
+  v129 = [allocator5 newTextureWithDescriptor:newTextureDescriptor];
 
-  v91 = v122;
-  if (!v122)
+  v98 = v129;
+  if (!v129)
   {
     sub_18174();
-    goto LABEL_38;
+    goto LABEL_40;
   }
 
-  sizeCopy = size;
+  HIDWORD(v89) = size;
   metalContext = self->_metalContext;
   inputPixelBuffer = self->_inputPixelBuffer;
-  v34 = [v94 objectAtIndexedSubscript:0];
-  v35 = -[FigMetalContext bindPixelBufferToMTL2DTexture:pixelFormat:usage:plane:](metalContext, "bindPixelBufferToMTL2DTexture:pixelFormat:usage:plane:", inputPixelBuffer, [v34 intValue], 1, 0);
+  v35 = [v101 objectAtIndexedSubscript:0];
+  v36 = -[FigMetalContext bindPixelBufferToMTL2DTexture:pixelFormat:usage:plane:](metalContext, "bindPixelBufferToMTL2DTexture:pixelFormat:usage:plane:", inputPixelBuffer, [v35 intValue], 1, 0);
 
-  if (!v35)
+  if (!v36)
   {
     sub_18100();
-    goto LABEL_38;
+    goto LABEL_40;
   }
 
   maskCopy = mask;
@@ -449,62 +450,63 @@ LABEL_27:
   {
     [newTextureDescriptor setLabel:0];
     allocator6 = [(FigMetalContext *)self->_metalContext allocator];
-    v37 = [allocator6 newTextureWithDescriptor:newTextureDescriptor];
-    v117 = v37;
+    v38 = [allocator6 newTextureWithDescriptor:newTextureDescriptor];
+    v124 = v38;
 
-    if (v37)
+    if (v38)
     {
-      v38 = self->_pipelineStates[1];
-      *v39.i32 = self->_scaleForGetShapeInputs;
-      v116 = vdup_lane_s32(v39, 0);
-      v115 = vcvt_f32_f64(mask->origin);
+      v39 = self->_pipelineStates[1];
+      *v40.i32 = self->_scaleForGetShapeInputs;
+      v123 = vdup_lane_s32(v40, 0);
+      v122 = vcvt_f32_f64(mask->origin);
       computeCommandEncoder = [commandBuffer computeCommandEncoder];
-      [computeCommandEncoder setComputePipelineState:v38];
-      [computeCommandEncoder setTexture:v35 atIndex:0];
-      [computeCommandEncoder setTexture:v37 atIndex:1];
-      [computeCommandEncoder setBytes:&v116 length:8 atIndex:0];
-      [computeCommandEncoder setBytes:&v115 length:8 atIndex:1];
-      threadExecutionWidth = [(MTLComputePipelineState *)v38 threadExecutionWidth];
-      v86 = v38;
-      v89 = v35;
-      v42 = outputMaskCopy;
-      v43 = [(MTLComputePipelineState *)v38 maxTotalThreadsPerThreadgroup]/ threadExecutionWidth;
-      width = [v37 width];
-      height = [v37 height];
-      v114 = 1;
-      v109 = threadExecutionWidth;
-      v110 = v43;
-      outputMaskCopy = v42;
-      v111 = 1;
-      [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:&v109];
-      v87 = computeCommandEncoder;
+      [computeCommandEncoder setComputePipelineState:v39];
+      [computeCommandEncoder setTexture:v36 atIndex:0];
+      [computeCommandEncoder setTexture:v38 atIndex:1];
+      [computeCommandEncoder setBytes:&v123 length:8 atIndex:0];
+      [computeCommandEncoder setBytes:&v122 length:8 atIndex:1];
+      threadExecutionWidth = [(MTLComputePipelineState *)v39 threadExecutionWidth];
+      v93 = v39;
+      v96 = v36;
+      v43 = outputMaskCopy;
+      v44 = [(MTLComputePipelineState *)v39 maxTotalThreadsPerThreadgroup]/ threadExecutionWidth;
+      width = [v38 width];
+      height = [v38 height];
+      v121 = 1;
+      v116 = threadExecutionWidth;
+      v117 = v44;
+      outputMaskCopy = v43;
+      v118 = 1;
+      [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:&v116];
+      v94 = computeCommandEncoder;
       [computeCommandEncoder endEncoding];
-      LODWORD(v44) = self->_scaleForGetShapeInputs;
-      v45 = v44;
-      width = width / v45;
-      height = height / v45;
-      v35 = v37;
+      LODWORD(v45) = self->_scaleForGetShapeInputs;
+      v46 = v45;
+      width = width / v46;
+      height = height / v46;
+      v36 = v38;
 
       y = 0.0;
       x = 0.0;
       goto LABEL_12;
     }
 
-    sub_18074(v35, newTextureDescriptor, &width);
-LABEL_38:
-    v81 = width;
+    sub_18074(v36, newTextureDescriptor, &width);
+LABEL_40:
+    v82 = width;
     goto LABEL_21;
   }
 
-  v86 = 0;
-  v87 = 0;
+  v93 = 0;
+  v94 = 0;
 LABEL_12:
-  v46 = [(VDGMetalUtilsV1 *)self->_vdgMetalUtils computeGradientX:v88 GradientY:v93 absGradientX:v92 absGradientY:v91 inputLumaTex:v35 roi:[VDGMetalUtilsV1 isTenBitPixelBufferFormat:?], x, y, width, height, commandBuffer];
-  if (v46)
+  v47 = [(VDGMetalUtilsV1 *)self->_vdgMetalUtils computeGradientX:v95 GradientY:v100 absGradientX:v99 absGradientY:v98 inputLumaTex:v36 roi:[VDGMetalUtilsV1 isTenBitPixelBufferFormat:?], x, y, width, height, commandBuffer];
+  if (v47)
   {
-    v81 = v46;
+    v82 = v47;
     fig_log_get_emitter();
-    FigDebugAssert3();
+    LODWORD(v87) = v82;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v87, v5, v5, v89, v90, maskCopy, v93, v94);
 LABEL_32:
 
     goto LABEL_21;
@@ -516,137 +518,151 @@ LABEL_32:
   desc7 = [newTextureDescriptor desc];
   [desc7 setPixelFormat:55];
 
-  LODWORD(v49) = self->_scaleForGetShapeInputs;
-  v50 = (maskCopy->size.width / v49 + 1.0);
+  LODWORD(v50) = self->_scaleForGetShapeInputs;
+  v51 = (maskCopy->size.width / v50 + 1.0);
   desc8 = [newTextureDescriptor desc];
-  [desc8 setWidth:v50];
+  [desc8 setWidth:v51];
 
-  LODWORD(v52) = self->_scaleForGetShapeInputs;
-  v53 = (maskCopy->size.height / v52 + 1.0);
+  LODWORD(v53) = self->_scaleForGetShapeInputs;
+  v54 = (maskCopy->size.height / v53 + 1.0);
   desc9 = [newTextureDescriptor desc];
-  [desc9 setHeight:v53];
+  [desc9 setHeight:v54];
 
   desc10 = [newTextureDescriptor desc];
   [desc10 setUsage:7];
 
   [newTextureDescriptor setLabel:0];
   allocator7 = [(FigMetalContext *)self->_metalContext allocator];
-  v57 = [allocator7 newTextureWithDescriptor:newTextureDescriptor];
-  v121 = v57;
+  v58 = [allocator7 newTextureWithDescriptor:newTextureDescriptor];
+  v128 = v58;
 
-  if (!v57)
+  if (!v58)
   {
     fig_log_get_emitter();
-    v81 = FigSignalErrorAtGM();
+    v82 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v87, v88, v5);
     goto LABEL_32;
   }
 
-  v84 = outputMaskCopy;
+  v91 = outputMaskCopy;
   [newTextureDescriptor setLabel:0];
   allocator8 = [(FigMetalContext *)self->_metalContext allocator];
-  v59 = [allocator8 newTextureWithDescriptor:newTextureDescriptor];
-  v120 = v59;
+  v60 = [allocator8 newTextureWithDescriptor:newTextureDescriptor];
+  v127 = v60;
 
-  if (!v59 || ([newTextureDescriptor setLabel:0], -[FigMetalContext allocator](self->_metalContext, "allocator"), v60 = objc_claimAutoreleasedReturnValue(), v61 = objc_msgSend(v60, "newTextureWithDescriptor:", newTextureDescriptor), v119 = v61, v60, !v61))
+  if (!v60)
   {
-    fig_log_get_emitter();
-    v81 = FigSignalErrorAtGM();
-
+    emitter = fig_log_get_emitter();
+    v85 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954510, "<<<< CMIVideoDeghostingDetectionV1 >>>>", 620);
 LABEL_35:
-    outputMaskCopy = v84;
+    v82 = v85;
+
+LABEL_37:
+    outputMaskCopy = v91;
     goto LABEL_21;
   }
 
-  v90 = v35;
   [newTextureDescriptor setLabel:0];
   allocator9 = [(FigMetalContext *)self->_metalContext allocator];
-  v63 = [allocator9 newTextureWithDescriptor:newTextureDescriptor];
-  v118 = v63;
+  v62 = [allocator9 newTextureWithDescriptor:newTextureDescriptor];
+  v126 = v62;
 
-  if (!v63)
+  if (!v62)
   {
-    fig_log_get_emitter();
-    v81 = FigSignalErrorAtGM();
-
+    v86 = fig_log_get_emitter();
+    v85 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v86, 4294954510, "<<<< CMIVideoDeghostingDetectionV1 >>>>", 624);
     goto LABEL_35;
   }
 
-  v64 = [(VDGMetalUtilsV1 *)self->_vdgMetalUtils computeImageIntegralSourceTexture:v88 destinationTexture:v57 commandBuffer:commandBuffer];
-  v65 = [(VDGMetalUtilsV1 *)self->_vdgMetalUtils computeImageIntegralSourceTexture:v93 destinationTexture:v59 commandBuffer:commandBuffer]| v64;
-  v66 = [(VDGMetalUtilsV1 *)self->_vdgMetalUtils computeImageIntegralSourceTexture:v92 destinationTexture:v61 commandBuffer:commandBuffer];
-  if (v65 | v66 | [(VDGMetalUtilsV1 *)self->_vdgMetalUtils computeImageIntegralSourceTexture:v91 destinationTexture:v63 commandBuffer:commandBuffer])
+  v97 = v36;
+  [newTextureDescriptor setLabel:0];
+  allocator10 = [(FigMetalContext *)self->_metalContext allocator];
+  v64 = [allocator10 newTextureWithDescriptor:newTextureDescriptor];
+  v125 = v64;
+
+  if (!v64)
   {
     fig_log_get_emitter();
-    v81 = FigSignalErrorAtGM();
+    v82 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v87, v88, v5);
 
-    outputMaskCopy = v84;
+    goto LABEL_37;
+  }
+
+  v65 = [(VDGMetalUtilsV1 *)self->_vdgMetalUtils computeImageIntegralSourceTexture:v95 destinationTexture:v58 commandBuffer:commandBuffer];
+  v66 = [(VDGMetalUtilsV1 *)self->_vdgMetalUtils computeImageIntegralSourceTexture:v100 destinationTexture:v60 commandBuffer:commandBuffer]| v65;
+  v67 = [(VDGMetalUtilsV1 *)self->_vdgMetalUtils computeImageIntegralSourceTexture:v99 destinationTexture:v62 commandBuffer:commandBuffer];
+  if (v66 | v67 | [(VDGMetalUtilsV1 *)self->_vdgMetalUtils computeImageIntegralSourceTexture:v98 destinationTexture:v64 commandBuffer:commandBuffer])
+  {
+    fig_log_get_emitter();
+    v82 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v87, v88, v5);
+
+    outputMaskCopy = v91;
   }
 
   else
   {
-    v67 = self->_pipelineStates[0];
+    v68 = self->_pipelineStates[0];
 
     computeCommandEncoder2 = [commandBuffer computeCommandEncoder];
 
-    [computeCommandEncoder2 setComputePipelineState:v67];
-    [computeCommandEncoder2 setTexture:v57 atIndex:0];
-    [computeCommandEncoder2 setTexture:v59 atIndex:1];
-    [computeCommandEncoder2 setTexture:v61 atIndex:2];
-    [computeCommandEncoder2 setTexture:v63 atIndex:3];
-    outputMaskCopy = v84;
-    [computeCommandEncoder2 setTexture:v84 atIndex:4];
+    [computeCommandEncoder2 setComputePipelineState:v68];
+    [computeCommandEncoder2 setTexture:v58 atIndex:0];
+    [computeCommandEncoder2 setTexture:v60 atIndex:1];
+    [computeCommandEncoder2 setTexture:v62 atIndex:2];
+    [computeCommandEncoder2 setTexture:v64 atIndex:3];
+    outputMaskCopy = v91;
+    [computeCommandEncoder2 setTexture:v91 atIndex:4];
     scaleForGetShapeInputs = self->_scaleForGetShapeInputs;
-    v96[0] = sizeCopy / scaleForGetShapeInputs;
-    v96[1] = sizeCopy / scaleForGetShapeInputs;
-    v97 = llroundf((sizeCopy / scaleForGetShapeInputs) * 0.33);
-    v98 = sizeCopy / scaleForGetShapeInputs - v97;
-    v99 = v97;
-    v100 = v98;
-    v101 = (sizeCopy / scaleForGetShapeInputs) >> 1;
-    v102 = v101;
+    v103[0] = HIDWORD(v89) / scaleForGetShapeInputs;
+    v103[1] = HIDWORD(v89) / scaleForGetShapeInputs;
+    v104 = llroundf((HIDWORD(v89) / scaleForGetShapeInputs) * 0.33);
+    v105 = HIDWORD(v89) / scaleForGetShapeInputs - v104;
+    v106 = v104;
+    v107 = v105;
+    v108 = (HIDWORD(v89) / scaleForGetShapeInputs) >> 1;
+    v109 = v108;
     size = maskCopy->size;
-    v71 = size.f64[0];
-    v103 = (v96[0] * v96[0]);
-    v72 = size.f64[1];
-    v104 = vmovn_s64(vcvtq_u64_f64(vsubq_f64(vdivq_f64(size, vdupq_lane_s64(COERCE__INT64(scaleForGetShapeInputs), 0)), vdupq_lane_s64(COERCE__INT64(v101), 0))));
-    v73 = maskCopy->origin.y;
-    v105 = maskCopy->origin.x / 4;
-    v106 = v73 / 4;
-    v126[0] = vmul_n_f32(v6, scaleForGetShapeInputs);
-    v107 = vcvtad_u64_f64(1.0 / v126[0].f32[0]);
-    v108 = self->_shapeScoreLambda * scaleForGetShapeInputs;
-    [computeCommandEncoder2 setBytes:v96 length:60 atIndex:0];
-    [computeCommandEncoder2 setBytes:v126 length:8 atIndex:1];
-    threadExecutionWidth2 = [(MTLComputePipelineState *)v67 threadExecutionWidth];
-    maxTotalThreadsPerThreadgroup = [(MTLComputePipelineState *)v67 maxTotalThreadsPerThreadgroup];
-    v76 = self->_scaleForGetShapeInputs;
-    v77 = (v71 / v76 + 1);
-    v78 = v72 / v76;
-    commandBuffer = v95;
-    width = v77;
-    height = (v78 + 1);
-    v114 = 1;
-    v109 = threadExecutionWidth2;
-    v110 = maxTotalThreadsPerThreadgroup / threadExecutionWidth2;
-    v111 = 1;
-    [computeCommandEncoder2 dispatchThreads:&width threadsPerThreadgroup:&v109];
+    v72 = size.f64[0];
+    v110 = (v103[0] * v103[0]);
+    v73 = size.f64[1];
+    v111 = vmovn_s64(vcvtq_u64_f64(vsubq_f64(vdivq_f64(size, vdupq_lane_s64(COERCE__INT64(scaleForGetShapeInputs), 0)), vdupq_lane_s64(COERCE__INT64(v108), 0))));
+    v74 = maskCopy->origin.y;
+    v112 = maskCopy->origin.x / 4;
+    v113 = v74 / 4;
+    v133[0] = vmul_n_f32(v7, scaleForGetShapeInputs);
+    v114 = vcvtad_u64_f64(1.0 / v133[0].f32[0]);
+    v115 = self->_shapeScoreLambda * scaleForGetShapeInputs;
+    [computeCommandEncoder2 setBytes:v103 length:60 atIndex:0];
+    [computeCommandEncoder2 setBytes:v133 length:8 atIndex:1];
+    threadExecutionWidth2 = [(MTLComputePipelineState *)v68 threadExecutionWidth];
+    maxTotalThreadsPerThreadgroup = [(MTLComputePipelineState *)v68 maxTotalThreadsPerThreadgroup];
+    v77 = self->_scaleForGetShapeInputs;
+    v78 = (v72 / v77 + 1);
+    v79 = v73 / v77;
+    commandBuffer = v102;
+    width = v78;
+    height = (v79 + 1);
+    v121 = 1;
+    v116 = threadExecutionWidth2;
+    v117 = maxTotalThreadsPerThreadgroup / threadExecutionWidth2;
+    v118 = 1;
+    [computeCommandEncoder2 dispatchThreads:&width threadsPerThreadgroup:&v116];
     [computeCommandEncoder2 endEncoding];
     if (gGMFigKTraceEnabled)
     {
-      commandQueue2 = [v95 commandQueue];
+      commandQueue2 = [v102 commandQueue];
       commandBuffer2 = [commandQueue2 commandBuffer];
 
       [commandBuffer2 setLabel:@"KTRACE_MTLCMDBUF"];
       [commandBuffer2 addCompletedHandler:&stru_34638];
       [commandBuffer2 commit];
-      [v95 addCompletedHandler:&stru_34658];
+      [v102 addCompletedHandler:&stru_34658];
     }
 
-    [v95 setLabel:@"VideoDeghostingV1Detection_GetShapeMask"];
-    [v95 commit];
-    [v95 waitUntilScheduled];
+    [v102 setLabel:@"VideoDeghostingV1Detection_GetShapeMask"];
+    [v102 commit];
+    [v102 waitUntilScheduled];
 
-    v81 = 0;
+    v82 = 0;
   }
 
 LABEL_21:
@@ -660,14 +676,14 @@ LABEL_21:
   FigMetalDecRef();
   FigMetalDecRef();
 
-  return v81;
+  return v82;
 }
 
 - (int)_computeMotionRegisteredMask:(id)mask maskPrev:(id)prev
 {
   maskCopy = mask;
   prevCopy = prev;
-  v65 = 0;
+  v65[0] = 0;
   commandQueue = [(FigMetalContext *)self->_metalContext commandQueue];
   commandBuffer = [commandQueue commandBuffer];
 
@@ -728,8 +744,8 @@ LABEL_9:
   [newTextureDescriptor setLabel:0];
   allocator2 = [(FigMetalContext *)self->_metalContext allocator];
   v30 = [allocator2 newTextureWithDescriptor:newTextureDescriptor];
-  v31 = v65;
-  v65 = v30;
+  v31 = v65[0];
+  v65[0] = v30;
 
   if (!v30)
   {
@@ -1022,18 +1038,20 @@ LABEL_30:
   self->_detectedGhostBoundingBoxes = 0;
   self->_greenGhostsMaskPixelBuffer = 0;
 
-  if (self->_inputPixelBuffer && self->_metadataDictionary)
+  if (self->_inputPixelBuffer)
   {
-    v4 = [(CMIVideoDeghostingDetectionV1 *)self _extractCameraInfoFromMetadata:?];
-    if (v4 || (v4 = [(CMIVideoDeghostingDetectionV1 *)self _extractCalibrationDataFromMetadata:self->_metadataDictionary pixelBufferDimensions:*&self->_imageDimensions]) != 0)
+    if (self->_metadataDictionary)
     {
-      v15 = v4;
-      fig_log_get_emitter();
-      sub_4C30();
-    }
+      v4 = [(CMIVideoDeghostingDetectionV1 *)self _extractCameraInfoFromMetadata:?];
+      if (v4 || (v4 = [(CMIVideoDeghostingDetectionV1 *)self _extractCalibrationDataFromMetadata:self->_metadataDictionary pixelBufferDimensions:*&self->_imageDimensions]) != 0)
+      {
+        v15 = v4;
+        fig_log_get_emitter();
+        sub_4C30();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+        return v15;
+      }
 
-    else
-    {
       __dst[0] = 0.0;
       v5 = sub_9F08(self->_metadataDictionary, __dst, 0.5);
       if (!v5)
@@ -1046,16 +1064,16 @@ LABEL_30:
         sub_4C7C();
         if (v10)
         {
-          sub_4C5C();
+          sub_4C5C(822152653);
         }
 
         size = CGRectNull.size;
         origin = CGRectNull.origin;
-        v52 = size;
+        v56 = size;
         greenGhostBrightLightTuningParameters = self->_greenGhostBrightLightTuningParameters;
         if (greenGhostBrightLightTuningParameters)
         {
-          [(CMIVideoDeghostingBrightLightTuningParamsV1 *)greenGhostBrightLightTuningParameters tuningParams];
+          objc_msgSend_tuningParams(greenGhostBrightLightTuningParameters);
         }
 
         else
@@ -1063,9 +1081,9 @@ LABEL_30:
           memset(&__src[8], 0, 128);
         }
 
-        v50 = *(&__src[8] + 4);
-        v46 = vdivq_f64(self->_adjustedPrincipalPoint, vcvtq_f64_f32(vcvt_f32_s32(self->_imageDimensions)));
-        if (![(CMIVideoDeghostingDetectionV1 *)self _extractLightAndGhostTilesFromMetadata:self->_metadataDictionary imageBufferDimensions:*&self->_imageDimensions clippingTuningParams:&v50 adjustedPrincipalPoint:&origin ghostSearchTile:?])
+        v54 = *(&__src[8] + 4);
+        v49 = vdivq_f64(self->_adjustedPrincipalPoint, vcvtq_f64_f32(vcvt_f32_s32(self->_imageDimensions)));
+        if (![(CMIVideoDeghostingDetectionV1 *)self _extractLightAndGhostTilesFromMetadata:self->_metadataDictionary imageBufferDimensions:*&self->_imageDimensions clippingTuningParams:&v54 adjustedPrincipalPoint:&origin ghostSearchTile:?])
         {
           return 0;
         }
@@ -1073,14 +1091,14 @@ LABEL_30:
         sub_4C7C();
         if (v10)
         {
-          sub_4C5C();
+          sub_4C5C(822152654);
         }
 
         memset(__src, 0, 128);
         v13 = self->_greenGhostBrightLightTuningParameters;
         if (v13)
         {
-          [(CMIVideoDeghostingBrightLightTuningParamsV1 *)v13 tuningParams];
+          objc_msgSend_tuningParams(v13);
           v14 = self->_greenGhostBrightLightTuningParameters;
         }
 
@@ -1089,20 +1107,20 @@ LABEL_30:
           v14 = 0;
         }
 
-        *&__src[2] = vcvt_f32_f64(v46);
+        *&__src[2] = vcvt_f32_f64(v49);
         memcpy(__dst, __src, sizeof(__dst));
         [(CMIVideoDeghostingBrightLightTuningParamsV1 *)v14 setTuningParams:__dst];
         sub_4C7C();
         if (v10)
         {
-          sub_4C5C();
+          sub_4C5C(822152657);
         }
 
-        v15 = [(CMIVideoDeghostingBrightLightV1 *)self->_greenGhostBrightLightDetection greenGhostDetectionWithInputPixelBuffer:self->_inputPixelBuffer outputMask:self->_detectionMaskTexture roi:self->_greenGhostBrightLightTuningParameters tuning:*vuzp1q_s32(vcvtq_u64_f64(origin), vcvtq_u64_f64(v52)).i64];
+        v15 = [(CMIVideoDeghostingBrightLightV1 *)self->_greenGhostBrightLightDetection greenGhostDetectionWithInputPixelBuffer:self->_inputPixelBuffer outputMask:self->_detectionMaskTexture roi:self->_greenGhostBrightLightTuningParameters tuning:*vuzp1q_s32(vcvtq_u64_f64(origin), vcvtq_u64_f64(v56)).i64];
         sub_4C7C();
         if (v10)
         {
-          sub_4C5C();
+          sub_4C5C(822152658);
         }
 
         if (v15)
@@ -1116,89 +1134,61 @@ LABEL_30:
           return v16;
         }
 
-        x = self->_prevGhostLoc.x;
         detectionThreshold = self->_detectionThreshold;
-        v19 = [CMIMotionSampleRingBufferV1 isUnitQuaternion:&self->_centerQuaternion, self->_prevGhostLoc.y];
-        v20 = [CMIMotionSampleRingBufferV1 isUnitQuaternion:&self->_previousCameraInfo.quaternion];
-        if (!self->_maskRegistrationEnabled || (v19 & 1) != 0 || (v20 & 1) != 0)
+        v18 = [CMIMotionSampleRingBufferV1 isUnitQuaternion:&self->_centerQuaternion, self->_prevGhostLoc.y];
+        v19 = [CMIMotionSampleRingBufferV1 isUnitQuaternion:&self->_previousCameraInfo.quaternion];
+        if (!self->_maskRegistrationEnabled || (v18 & 1) != 0 || (v19 & 1) != 0)
         {
 LABEL_32:
-          v21 = COERCE_FLOAT(HIDWORD(*&self->_detectionScalingFactor[4]));
-          v22 = origin.f64[1] * v21;
-          v23 = v52.height * v21;
-          *&v21 = self->_adjustedGhostSize;
-          [(CMIVideoDeghostingDetectionV1 *)self _computeGhostBoundingBoxFromMaskUsingMax:self->_detectionMask searchROI:origin.f64[0] * COERCE_FLOAT(*&self->_detectionScalingFactor[4]) threshold:v22 ghostSize:v52.width * COERCE_FLOAT(*&self->_detectionScalingFactor[4]) detectionScalingFactor:v23, COERCE_DOUBLE(__PAIR64__(HIDWORD(v52.height), LODWORD(detectionThreshold))), v21];
-          v24 = v54.origin.x;
-          y = v54.origin.y;
-          width = v54.size.width;
-          height = v54.size.height;
-          v47 = v54;
-          v56.origin.x = CGRectNull.origin.x;
-          v56.origin.y = CGRectNull.origin.y;
-          v56.size.width = CGRectNull.size.width;
-          v56.size.height = CGRectNull.size.height;
-          if (CGRectEqualToRect(v54, v56))
+          v20 = COERCE_FLOAT(HIDWORD(*&self->_detectionScalingFactor[4]));
+          v21 = origin.f64[1] * v20;
+          v22 = v56.height * v20;
+          *&v20 = self->_adjustedGhostSize;
+          [(CMIVideoDeghostingDetectionV1 *)self _computeGhostBoundingBoxFromMaskUsingMax:self->_detectionMask searchROI:origin.f64[0] * COERCE_FLOAT(*&self->_detectionScalingFactor[4]) threshold:v21 ghostSize:v56.width * COERCE_FLOAT(*&self->_detectionScalingFactor[4]) detectionScalingFactor:v22, COERCE_DOUBLE(__PAIR64__(HIDWORD(v56.height), LODWORD(detectionThreshold))), v20];
+          x = v58.origin.x;
+          y = v58.origin.y;
+          width = v58.size.width;
+          height = v58.size.height;
+          v51 = v58;
+          v60.origin.x = CGRectNull.origin.x;
+          v60.origin.y = CGRectNull.origin.y;
+          v60.size.width = CGRectNull.size.width;
+          v60.size.height = CGRectNull.size.height;
+          if (CGRectEqualToRect(v58, v60) || (v61.origin.x = CGRectZero.origin.x, v61.origin.y = CGRectZero.origin.y, v61.size.width = CGRectZero.size.width, v61.size.height = CGRectZero.size.height, v59.origin.x = x, v59.origin.y = y, v59.size.width = width, v59.size.height = height, CGRectEqualToRect(v59, v61)) || (*&v27 = self->_shapeScoreLambda, *&v28 = self->_contextScoreLambda, LODWORD(v46) = self->_contextPaddingInPixel, [(VDGMetalUtilsV1 *)self->_vdgMetalUtils updateGhostPositionsUsingSourceImageFeatureMatching:&v51 shapeScore:&self->_shapeScore contextScore:&self->_contextScore confidenceOut:&self->_confidence pixelBuffer:self->_inputPixelBuffer searchRangeInPixel:self->_adjustedSearchRange shapeScoreLambda:v27 contextScoreLambda:v28 contextPaddingInPixel:v46], v51.origin.x = v29, v51.origin.y = v30, v51.size.width = v31, v51.size.height = v32, self->_shapeScore <= self->_minShapeScore))
           {
-            goto LABEL_36;
-          }
-
-          v57.origin.x = CGRectZero.origin.x;
-          v57.origin.y = CGRectZero.origin.y;
-          v57.size.width = CGRectZero.size.width;
-          v57.size.height = CGRectZero.size.height;
-          v55.origin.x = v24;
-          v55.origin.y = y;
-          v55.size.width = width;
-          v55.size.height = height;
-          if (CGRectEqualToRect(v55, v57))
-          {
-            goto LABEL_36;
-          }
-
-          *&v28 = self->_shapeScoreLambda;
-          *&v29 = self->_contextScoreLambda;
-          LODWORD(v45) = self->_contextPaddingInPixel;
-          [(VDGMetalUtilsV1 *)self->_vdgMetalUtils updateGhostPositionsUsingSourceImageFeatureMatching:&v47 shapeScore:&self->_shapeScore contextScore:&self->_contextScore confidenceOut:&self->_confidence pixelBuffer:self->_inputPixelBuffer searchRangeInPixel:self->_adjustedSearchRange shapeScoreLambda:v28 contextScoreLambda:v29 contextPaddingInPixel:v45];
-          v47.origin.x = v30;
-          v47.origin.y = v31;
-          v47.size.width = v32;
-          v47.size.height = v33;
-          if (self->_shapeScore <= self->_minShapeScore)
-          {
-LABEL_36:
             self->_prevGhostLoc = vdupq_n_s64(0x7FF8000000000000uLL);
           }
 
           else
           {
-            self->_prevGhostLoc.x = v30 + v32 * 0.5;
-            self->_prevGhostLoc.y = v31 + v33 * 0.5;
-            v34 = [NSArray alloc];
-            DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v47);
-            v36 = [v34 initWithObjects:{DictionaryRepresentation, 0}];
-            v37 = self->_detectedGhostBoundingBoxes;
-            self->_detectedGhostBoundingBoxes = v36;
+            self->_prevGhostLoc.x = v29 + v31 * 0.5;
+            self->_prevGhostLoc.y = v30 + v32 * 0.5;
+            v33 = [NSArray alloc];
+            DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v51);
+            v35 = [v33 initWithObjects:{DictionaryRepresentation, 0}];
+            v36 = self->_detectedGhostBoundingBoxes;
+            self->_detectedGhostBoundingBoxes = v35;
           }
 
           self->_greenGhostsMaskPixelBuffer = self->_detectionMask;
           if (self->_maskRegistrationEnabled)
           {
             detectionMaskPrev = self->_detectionMaskPrev;
-            v39 = self->_detectionMaskPrevTexture;
+            v38 = self->_detectionMaskPrevTexture;
             detectionMaskTexture = self->_detectionMaskTexture;
             self->_detectionMaskPrev = self->_detectionMask;
             objc_storeStrong(&self->_detectionMaskPrevTexture, detectionMaskTexture);
-            v41 = self->_detectionMaskTexture;
+            v40 = self->_detectionMaskTexture;
             self->_detectionMask = detectionMaskPrev;
-            self->_detectionMaskTexture = v39;
+            self->_detectionMaskTexture = v38;
           }
 
           self->_previousCameraInfo.lensPosition = self->_lensPosition;
-          v42 = *&self->_centerQuaternion.w;
-          v43 = *&self->_centerQuaternion.y;
+          v41 = *&self->_centerQuaternion.w;
+          v42 = *&self->_centerQuaternion.y;
           self->_previousCameraInfo.adjustedPrincipalPoint = self->_adjustedPrincipalPoint;
-          *&self->_previousCameraInfo.quaternion.w = v42;
-          *&self->_previousCameraInfo.quaternion.y = v43;
+          *&self->_previousCameraInfo.quaternion.w = v41;
+          *&self->_previousCameraInfo.quaternion.y = v42;
           objc_storeStrong(&self->_previousPortType, self->_currentPortType);
           return 0;
         }
@@ -1214,29 +1204,49 @@ LABEL_36:
       v15 = v5;
       fig_log_get_emitter();
       sub_4C30();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+      return v15;
     }
 
-    FigDebugAssert3();
-    return v15;
+    sub_4C9C();
+    sub_4C88();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v46, v47, v48, v50, LODWORD(v51.origin.x), *&v51.origin.y, *&v51.size.width, LODWORD(v51.size.height));
+    v44 = sub_4C9C();
+    v45 = 288;
   }
 
-  sub_4C9C();
-  sub_4C88();
-  FigDebugAssert3();
-  sub_4C9C();
+  else
+  {
+    sub_4C9C();
+    sub_4C88();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v46, v47, v48, v50, LODWORD(v51.origin.x), *&v51.origin.y, *&v51.size.width, LODWORD(v51.size.height));
+    v44 = sub_4C9C();
+    v45 = 287;
+  }
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v44, 4294954516, "<<<< CMIVideoDeghostingDetectionV1 >>>>", v45);
 }
 
 - (int)_extractCalibrationDataFromMetadata:(id)metadata pixelBufferDimensions:(id)dimensions
 {
   metadataCopy = metadata;
-  if (!metadataCopy || (dimensions.var0 >= 1 ? (v7 = dimensions.var1 <= 0) : (v7 = 1), v7))
+  if (!metadataCopy)
   {
     sub_2B2C();
     sub_4C48();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v48, v49, *&rect.origin.x, *&rect.origin.y, LODWORD(rect.size.width), *&rect.size.height, v51, LODWORD(time.value));
+    v43 = sub_2B2C();
+    v26 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v43, 4294954516, "<<<< CMIVideoDeghostingDetectionV1 >>>>", 1013);
+    goto LABEL_29;
+  }
+
+  if (dimensions.var0 < 1 || dimensions.var1 <= 0)
+  {
     sub_2B2C();
+    sub_4C48();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v48, v49, *&rect.origin.x, *&rect.origin.y, LODWORD(rect.size.width), *&rect.size.height, v51, LODWORD(time.value));
+    v44 = sub_2B2C();
+    v26 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v44, 4294954516, "<<<< CMIVideoDeghostingDetectionV1 >>>>", 1014);
     goto LABEL_29;
   }
 
@@ -1257,112 +1267,149 @@ LABEL_36:
     {
       sub_2B2C();
       sub_4C48();
-      FigDebugAssert3();
-      sub_2B2C();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v48, v49, *&rect.origin.x, *&rect.origin.y, LODWORD(rect.size.width), *&rect.size.height, v51, LODWORD(time.value));
+      v45 = sub_2B2C();
+      v26 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v45, 4294954516, "<<<< CMIVideoDeghostingDetectionV1 >>>>", 1032);
+      goto LABEL_29;
+    }
+
+    v18 = [metadataCopy objectForKeyedSubscript:kFigCaptureStreamMetadata_QuadraBinningFactor];
+    intValue = [v18 intValue];
+
+    if (intValue <= 1)
+    {
+      v20 = 1;
     }
 
     else
     {
-      v18 = [metadataCopy objectForKeyedSubscript:kFigCaptureStreamMetadata_QuadraBinningFactor];
-      intValue = [v18 intValue];
+      v20 = intValue;
+    }
 
-      if (intValue <= 1)
+    v21 = self->_sensorBinningFactorHorizontal * v20;
+    v22 = (self->_sensorBinningFactorVertical * v20);
+    v23 = [metadataCopy objectForKeyedSubscript:kFigMotionAttachmentsSampleBufferProcessorMetadata_ScalingFactor];
+    [v23 floatValue];
+    v25 = v24;
+
+    *(&v51 + 1) = v25;
+    if (v25 == 0.0)
+    {
+      v26 = sub_9658(metadataCopy, dimensions.var0, HIDWORD(*&dimensions), v21, v22, &v51 + 1);
+      if (v26)
       {
-        v20 = 1;
+        goto LABEL_29;
       }
 
-      else
-      {
-        v20 = intValue;
-      }
+      v25 = *(&v51 + 1);
+    }
 
-      v21 = self->_sensorBinningFactorHorizontal * v20;
-      v22 = (self->_sensorBinningFactorVertical * v20);
-      v23 = [metadataCopy objectForKeyedSubscript:kFigMotionAttachmentsSampleBufferProcessorMetadata_ScalingFactor];
-      [v23 floatValue];
-      v25 = v24;
-
-      v44 = v25;
-      if (v25 == 0.0)
-      {
-        v26 = sub_9658(metadataCopy, dimensions.var0, HIDWORD(*&dimensions), v21, v22, &v44);
-        if (v26)
-        {
-          goto LABEL_30;
-        }
-
-        v25 = v44;
-      }
-
-      if (v25 > 0.0)
-      {
-        pixelsPerMicron = self->_pixelsPerMicron;
-        self->_lensPosition = (v17 * v25) * pixelsPerMicron;
-        self->_adjustedPrincipalPoint = CGPointZero;
-        v26 = sub_1C5B8(metadataCopy, dimensions.var0, dimensions.var1, v21, v22, v9, &self->_adjustedPrincipalPoint, pixelsPerMicron, v25);
-        if (!v26)
-        {
-          size = CGRectNull.size;
-          rect.origin = CGRectNull.origin;
-          rect.size = size;
-          v29 = [(NSDictionary *)self->_metadataDictionary objectForKeyedSubscript:kFigCaptureStreamMetadata_ValidBufferRect];
-          v30 = CGRectMakeWithDictionaryRepresentation(v29, &rect);
-
-          if (v30 && !CGRectIsEmpty(rect) && !CGRectContainsPoint(rect, self->_adjustedPrincipalPoint))
-          {
-            fig_log_get_emitter();
-            sub_4C20();
-            FigDebugAssert3();
-          }
-
-          v31 = [(NSDictionary *)self->_metadataDictionary objectForKeyedSubscript:kFigCaptureStreamMetadata_Fnumber];
-          [v31 floatValue];
-          v33 = v32;
-
-          v34 = [(NSDictionary *)self->_metadataDictionary objectForKeyedSubscript:kFigCaptureStreamMetadata_EffectiveFocalLength];
-          [v34 floatValue];
-          v36 = v35;
-
-          v37 = [(NSDictionary *)self->_metadataDictionary objectForKeyedSubscript:kFigCaptureStreamMetadata_PracticalFocalLength];
-          [v37 floatValue];
-          v39 = v38;
-
-          if (v33 > 0.0)
-          {
-            v14 = 0;
-            v40 = fmaxf(vabds_f32(v36, v39) + -5.0, 0.0);
-            v41 = self->_lensPosition / 1630.0;
-            self->_adjustedGhostSize = llroundf(((((v40 * v44) * self->_pixelsPerMicron) + ((v40 * v44) * self->_pixelsPerMicron)) / v33) + (v41 * self->_ghostSize));
-            self->_adjustedSearchRange = llroundf(v41 * self->_searchRangeInPixel);
-            goto LABEL_23;
-          }
-
-          sub_2B2C();
-          sub_4C48();
-          FigDebugAssert3();
-          sub_2B2C();
-          goto LABEL_29;
-        }
-
-LABEL_30:
-        v14 = v26;
-        goto LABEL_23;
-      }
-
+    if (v25 <= 0.0)
+    {
       sub_2B2C();
       sub_4C48();
-      FigDebugAssert3();
-      sub_2B2C();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v48, v49, *&rect.origin.x, *&rect.origin.y, LODWORD(rect.size.width), *&rect.size.height, v51, LODWORD(time.value));
+      v46 = sub_2B2C();
+      v26 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v46, 4294954516, "<<<< CMIVideoDeghostingDetectionV1 >>>>", 1047);
+    }
+
+    else
+    {
+      pixelsPerMicron = self->_pixelsPerMicron;
+      self->_lensPosition = (v17 * v25) * pixelsPerMicron;
+      self->_adjustedPrincipalPoint = CGPointZero;
+      v26 = sub_1C5B8(metadataCopy, dimensions.var0, dimensions.var1, v21, v22, v9, &self->_adjustedPrincipalPoint, pixelsPerMicron, v25);
+      if (!v26)
+      {
+        size = CGRectNull.size;
+        rect.origin = CGRectNull.origin;
+        rect.size = size;
+        v29 = [(NSDictionary *)self->_metadataDictionary objectForKeyedSubscript:kFigCaptureStreamMetadata_ValidBufferRect];
+        v30 = CGRectMakeWithDictionaryRepresentation(v29, &rect);
+
+        if (v30 && !CGRectIsEmpty(rect) && !CGRectContainsPoint(rect, self->_adjustedPrincipalPoint))
+        {
+          fig_log_get_emitter();
+          sub_4C20();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v48, v49, *&rect.origin.x, *&rect.origin.y, LODWORD(rect.size.width), *&rect.size.height, v51, LODWORD(time.value));
+        }
+
+        v31 = [(NSDictionary *)self->_metadataDictionary objectForKeyedSubscript:kFigCaptureStreamMetadata_Fnumber];
+        [v31 floatValue];
+        v33 = v32;
+
+        v34 = [(NSDictionary *)self->_metadataDictionary objectForKeyedSubscript:kFigCaptureStreamMetadata_EffectiveFocalLength];
+        [v34 floatValue];
+        v36 = v35;
+
+        v37 = [(NSDictionary *)self->_metadataDictionary objectForKeyedSubscript:kFigCaptureStreamMetadata_PracticalFocalLength];
+        [v37 floatValue];
+        v39 = v38;
+
+        if (v33 > 0.0)
+        {
+          v14 = 0;
+          v40 = fmaxf(vabds_f32(v36, v39) + -5.0, 0.0);
+          v41 = self->_lensPosition / 1630.0;
+          self->_adjustedGhostSize = llroundf(((((v40 * *(&v51 + 1)) * self->_pixelsPerMicron) + ((v40 * *(&v51 + 1)) * self->_pixelsPerMicron)) / v33) + (v41 * self->_ghostSize));
+          self->_adjustedSearchRange = llroundf(v41 * self->_searchRangeInPixel);
+          goto LABEL_23;
+        }
+
+        sub_2B2C();
+        sub_4C48();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v48, v49, *&rect.origin.x, *&rect.origin.y, LODWORD(rect.size.width), *&rect.size.height, v51, LODWORD(time.value));
+        v47 = sub_2B2C();
+        v26 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v47, 4294954516, "<<<< CMIVideoDeghostingDetectionV1 >>>>", 1069);
+      }
     }
 
 LABEL_29:
-    v26 = FigSignalErrorAtGM();
-    goto LABEL_30;
+    v14 = v26;
   }
 
 LABEL_23:
 
   return v14;
+}
+
+- (BOOL)_extractLightAndGhostTilesFromMetadata:(id)metadata imageBufferDimensions:(id)dimensions clippingTuningParams:(ClippingDataTuning *)params adjustedPrincipalPoint:(CGPoint)point ghostSearchTile:(CGRect *)tile
+{
+  y = point.y;
+  x = point.x;
+  metadataCopy = metadata;
+  size = CGRectNull.size;
+  origin = CGRectNull.origin;
+  v26 = size;
+  v21 = size;
+  v22 = origin;
+  v23 = origin;
+  v24 = size;
+  if (!sub_1BEB4(metadataCopy, params, origin.f64, &v23, x, y))
+  {
+    goto LABEL_8;
+  }
+
+  FigCFDictionaryGetCGRectIfPresent();
+  v27.origin = v22;
+  v27.size = v21;
+  if (CGRectIsEmpty(v27) || (v14 = vcvtq_f64_f32(vcvt_f32_f64(vdivq_f64(vcvtq_f64_f32(vcvt_f32_s32(dimensions)), v21))), v15 = vmulq_f64(origin, v14), v16 = vmulq_f64(v26, v14), origin = v15, v26 = v16, v23 = vcvtq_f64_f32(vcvt_f32_s32((*&vmovn_s64(vcvtq_s64_f64(vmulq_f64(v23, v14))) & 0xFFFFFFFCFFFFFFFCLL))), v24 = vcvtq_f64_f32(vcvt_f32_s32((*&vmovn_s64(vcvtq_s64_f64(vmulq_f64(v24, v14))) & 0xFFFFFFFCFFFFFFFCLL))), v14.f64[0] = v15.f64[1], v17 = v16.f64[1], CGRectIsEmpty(*(&v14 - 8))) || (v28.origin = v23, v28.size = v24, CGRectIsEmpty(v28)))
+  {
+    fig_log_get_emitter();
+    sub_4C20();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+LABEL_8:
+    v19 = 0;
+    goto LABEL_6;
+  }
+
+  v18 = v24;
+  tile->origin = v23;
+  tile->size = v18;
+  v19 = 1;
+LABEL_6:
+
+  return v19;
 }
 
 @end

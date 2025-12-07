@@ -6,7 +6,7 @@
 
 - (void)af_enumerateDigestibleChunksWithOptions:()AFSecurityDigestibleChunksProvider usingBlock:
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v6 = a4;
   v7 = v6;
   if (!v6)
@@ -17,9 +17,9 @@
   if ((a3 & 1) == 0)
   {
     v8 = (v6 + 16);
-    (*(v6 + 2))(v6, &AFSecurityDigestibleChunksProviderType, 4);
-    strcpy(v13, "{NSNumber=#}");
-    (*v8)(v7, v13, 13);
+    (*(v6 + 2))(v6, AFSecurityDigestibleChunksProviderType, 4);
+    strcpy(v12, "{NSNumber=#}");
+    (*v8)(v7, v12, 13);
     (*v8)(v7, AFSecurityDigestibleChunksProviderData, 4);
   }
 
@@ -36,16 +36,16 @@
     {
       unsignedLongLongValue = [self longLongValue];
 LABEL_9:
-      v13[0] = unsignedLongLongValue;
+      v12[0] = unsignedLongLongValue;
 LABEL_10:
-      (*(v7 + 2))(v7, v13, 8);
+      (*(v7 + 2))(v7, v12, 8);
       goto LABEL_11;
     }
 
     if (((1 << v9) & 0x1400000000) != 0)
     {
       [self doubleValue];
-      v13[0] = v12;
+      v12[0] = v11;
       goto LABEL_10;
     }
   }
@@ -57,8 +57,6 @@ LABEL_11:
   }
 
 LABEL_13:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

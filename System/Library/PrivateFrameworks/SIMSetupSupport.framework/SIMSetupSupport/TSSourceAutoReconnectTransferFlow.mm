@@ -52,7 +52,7 @@ void __57__TSSourceAutoReconnectTransferFlow_firstViewController___block_invoke(
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (!WeakRetained)
   {
-    v6 = _TSLogDomain();
+    v6 = _TSLogDomain(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __57__TSSourceAutoReconnectTransferFlow_firstViewController___block_invoke_cold_1(v6);
@@ -98,16 +98,16 @@ LABEL_8:
 
 - (void)transferEventUpdate:(id)update
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   updateCopy = update;
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(updateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = updateCopy;
-    v13 = 2080;
-    v14 = "[TSSourceAutoReconnectTransferFlow transferEventUpdate:]";
-    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "transfer event : %@ @%s", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = updateCopy;
+    v12 = 2080;
+    v13 = "[TSSourceAutoReconnectTransferFlow transferEventUpdate:]";
+    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "transfer event : %@ @%s", &v10, 0x16u);
   }
 
   v6 = [updateCopy objectForKey:@"kTransferConfirmation"];
@@ -125,8 +125,6 @@ LABEL_8:
       [(TSSIMSetupFlow *)self viewControllerDidComplete:topViewController2];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)proxSetupAuthEventUpdate:(id)update
@@ -142,11 +140,10 @@ LABEL_8:
 
 void __57__TSSourceAutoReconnectTransferFlow_firstViewController___block_invoke_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSSourceAutoReconnectTransferFlow firstViewController:]_block_invoke";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]invalid self @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSSourceAutoReconnectTransferFlow firstViewController:]_block_invoke";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]invalid self @%s", &v1, 0xCu);
 }
 
 @end

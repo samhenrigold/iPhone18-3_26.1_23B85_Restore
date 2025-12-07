@@ -16,10 +16,16 @@
 {
   if (name)
   {
-    sub_23C90();
+    v4 = sub_23C90();
   }
 
-  return sub_E680();
+  else
+  {
+    v4 = 0;
+    v5 = 0;
+  }
+
+  return sub_E680(v4, v5);
 }
 
 - (_TtC17RemindersSettings30TTRITimeZoneOverrideController)initWithCoder:(id)coder
@@ -86,7 +92,7 @@
 - (id)timeZoneOverrideSelected
 {
   selfCopy = self;
-  sub_DF10();
+  sub_DF10(selfCopy);
 
   v3 = sub_23C80();
 

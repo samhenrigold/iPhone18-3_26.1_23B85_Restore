@@ -8,7 +8,7 @@
 
 - (DOCRegularNodeThumbnailRequest)initWithNode:(id)node descriptor:(id)descriptor thumbnailGenerator:(id)generator
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   descriptorCopy = descriptor;
   generatorCopy = generator;
@@ -44,9 +44,9 @@ LABEL_3:
 LABEL_29:
   [DOCRegularNodeThumbnailRequest initWithNode:descriptor:thumbnailGenerator:];
 LABEL_4:
-  v47.receiver = self;
-  v47.super_class = DOCRegularNodeThumbnailRequest;
-  v12 = [(DOCRegularNodeThumbnailRequest *)&v47 init];
+  v46.receiver = self;
+  v46.super_class = DOCRegularNodeThumbnailRequest;
+  v12 = [(DOCRegularNodeThumbnailRequest *)&v46 init];
   if (!v12)
   {
     goto LABEL_25;
@@ -81,9 +81,9 @@ LABEL_4:
       displayName = [nodeCopy displayName];
       fpfs_fpItem2 = [nodeCopy fpfs_fpItem];
       *buf = 138412546;
-      v49 = displayName;
-      v50 = 2112;
-      v51 = fpfs_fpItem2;
+      v48 = displayName;
+      v49 = 2112;
+      v50 = fpfs_fpItem2;
       _os_log_impl(&dword_249CE0000, v18, OS_LOG_TYPE_DEFAULT, "DOCRegularNodeThumbnailRequest: requesting thumbnail from FPItem for %@: %@", buf, 0x16u);
     }
 
@@ -121,9 +121,9 @@ LABEL_4:
       displayName2 = [nodeCopy displayName];
       nodeURL2 = [nodeCopy nodeURL];
       *buf = 138412546;
-      v49 = displayName2;
-      v50 = 2112;
-      v51 = nodeURL2;
+      v48 = displayName2;
+      v49 = 2112;
+      v50 = nodeURL2;
       _os_log_impl(&dword_249CE0000, v32, OS_LOG_TYPE_DEFAULT, "DOCRegularNodeThumbnailRequest: requesting thumbnail from URL for %@: %@", buf, 0x16u);
     }
 
@@ -162,7 +162,6 @@ LABEL_21:
   v12->_style = [descriptorCopy style];
 LABEL_25:
 
-  v45 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

@@ -8,12 +8,12 @@
 
 - (int64_t)collectionView:(id)view numberOfItemsInSection:(int64_t)section
 {
-  sub_29DEDB978();
+  sub_29DEDB978(0);
   MEMORY[0x2A1C7C4A8](v5 - 8);
   v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x2A1C7C4A8](v8);
   v10 = &v21 - v9;
-  sub_29DEFCC2C();
+  sub_29DEFCC2C(0);
   MEMORY[0x2A1C7C4A8](v11 - 8);
   v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   v14 = OBJC_IVAR____TtC24MenstrualCyclesAppPlugin25SingleCycleViewDataSource_today;
@@ -46,7 +46,7 @@
   v12 = [viewCopy dequeueReusableCellWithReuseIdentifier:v10 forIndexPath:v11];
 
   (*(v6 + 8))(v8, v5);
-  type metadata accessor for CycleHistoryCycleDayCell();
+  type metadata accessor for CycleHistoryCycleDayCell(0);
   v13 = swift_dynamicCastClassUnconditional();
 
   return v13;

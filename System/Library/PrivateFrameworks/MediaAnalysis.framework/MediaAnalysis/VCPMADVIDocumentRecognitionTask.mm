@@ -113,7 +113,7 @@ LABEL_6:
 
 - (int)run
 {
-  v70[1] = *MEMORY[0x1E69E9840];
+  v76[1] = *MEMORY[0x1E69E9840];
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -123,9 +123,9 @@ LABEL_6:
   documentObservations = [(VCPMADServiceImageAsset *)self->_imageAsset documentObservations];
   if (!documentObservations)
   {
-    v61 = 0;
-    v60 = 0;
-    if ([(VCPMADServiceImageAsset *)self->_imageAsset loadPixelBuffer:&v61 orientation:&v60])
+    v67 = 0;
+    v66 = 0;
+    if ([(VCPMADServiceImageAsset *)self->_imageAsset loadPixelBuffer:&v67 orientation:&v66])
     {
       if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
@@ -135,10 +135,10 @@ LABEL_6:
 
       request = self->_request;
       v9 = MEMORY[0x1E696ABC0];
-      v68 = *MEMORY[0x1E696A578];
+      v74 = *MEMORY[0x1E696A578];
       v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image loading failed"];
-      v69 = v10;
-      v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+      v75 = v10;
+      v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
       v11 = [v9 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:?];
       [(MADVIDocumentRecognitionRequest *)request setError:v11];
       v7 = 0;
@@ -147,7 +147,7 @@ LABEL_6:
 
     v10 = +[VCPMADVIDocumentRecognitionResource sharedResource];
     v12 = +[VCPMADResourceManager sharedManager];
-    v56 = [v12 activateResource:v10];
+    v62 = [v12 activateResource:v10];
 
     mad_defaultRequest = [MEMORY[0x1E6984628] mad_defaultRequest];
     languages = [(MADVIDocumentRecognitionRequest *)self->_request languages];
@@ -176,9 +176,9 @@ LABEL_6:
         processingDevice = [mad_defaultRequest processingDevice];
         preferredMetalDevice = self->_preferredMetalDevice;
         *buf = 138412546;
-        v65 = processingDevice;
-        v66 = 2112;
-        v67 = preferredMetalDevice;
+        v71 = processingDevice;
+        v72 = 2112;
+        v73 = preferredMetalDevice;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[DocumentRecognition] Set VNProcessingDevice: %@ (%@)", buf, 0x16u);
       }
     }
@@ -189,96 +189,96 @@ LABEL_6:
     block[2] = __38__VCPMADVIDocumentRecognitionTask_run__block_invoke;
     block[3] = &unk_1E834D238;
     block[4] = self;
-    v55 = mad_defaultRequest;
-    v59 = v55;
+    v61 = mad_defaultRequest;
+    v65 = v61;
     dispatch_sync(cancelQueue, block);
-    v21 = atomic_load(&self->_canceled);
-    if (v21)
+    v22 = atomic_load(&self->_canceled);
+    if (v22)
     {
       v11 = 0;
       v7 = -128;
 LABEL_49:
 
 LABEL_50:
-      CF<__CVBuffer *>::~CF(&v61);
+      CF<__CVBuffer *>::~CF(&v67);
       goto LABEL_51;
     }
 
-    v22 = VCPSignPostLog();
-    v23 = os_signpost_id_generate(v22);
+    v23 = VCPSignPostLog(v21);
+    v24 = os_signpost_id_generate(v23);
 
-    v24 = VCPSignPostLog();
-    v25 = v24;
-    if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+    v26 = VCPSignPostLog(v25);
+    v27 = v26;
+    if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
     {
       signpostPayload = self->_signpostPayload;
       *buf = 138412290;
-      v65 = signpostPayload;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v23, "VNImageRequestHandler_init", "%@", buf, 0xCu);
+      v71 = signpostPayload;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v24, "VNImageRequestHandler_init", "%@", buf, 0xCu);
     }
 
-    v27 = objc_alloc(MEMORY[0x1E69845B8]);
-    v28 = v61;
-    v29 = v60;
+    v29 = objc_alloc(MEMORY[0x1E69845B8]);
+    v30 = v67;
+    v31 = v66;
     session = [v10 session];
-    v54 = [v27 initWithCVPixelBuffer:v28 orientation:v29 options:MEMORY[0x1E695E0F8] session:session];
+    v60 = [v29 initWithCVPixelBuffer:v30 orientation:v31 options:MEMORY[0x1E695E0F8] session:session];
 
-    v31 = VCPSignPostLog();
-    v32 = v31;
-    if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
+    v34 = VCPSignPostLog(v33);
+    v35 = v34;
+    if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
     {
-      v33 = self->_signpostPayload;
+      v36 = self->_signpostPayload;
       *buf = 138412290;
-      v65 = v33;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_END, v23, "VNImageRequestHandler_init", "%@", buf, 0xCu);
+      v71 = v36;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v35, OS_SIGNPOST_INTERVAL_END, v24, "VNImageRequestHandler_init", "%@", buf, 0xCu);
     }
 
-    v34 = VCPSignPostLog();
-    v35 = os_signpost_id_generate(v34);
+    v38 = VCPSignPostLog(v37);
+    v39 = os_signpost_id_generate(v38);
 
-    v36 = VCPSignPostLog();
-    v37 = v36;
-    if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
-    {
-      v38 = self->_signpostPayload;
-      *buf = 138412290;
-      v65 = v38;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v37, OS_SIGNPOST_INTERVAL_BEGIN, v35, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
-    }
-
-    v63 = v55;
-    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v63 count:1];
-    v57 = 0;
-    v40 = [v54 performRequests:v39 error:&v57];
-    v11 = v57;
-
-    v41 = VCPSignPostLog();
+    v41 = VCPSignPostLog(v40);
     v42 = v41;
-    if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
+    if (v39 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
     {
       v43 = self->_signpostPayload;
       *buf = 138412290;
-      v65 = v43;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v42, OS_SIGNPOST_INTERVAL_END, v35, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
+      v71 = v43;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v42, OS_SIGNPOST_INTERVAL_BEGIN, v39, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
     }
 
-    if (v40)
+    v69 = v61;
+    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v69 count:1];
+    v63 = 0;
+    v45 = [v60 performRequests:v44 error:&v63];
+    v11 = v63;
+
+    v47 = VCPSignPostLog(v46);
+    v48 = v47;
+    if (v39 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
     {
-      v44 = self->_request;
-      v45 = objc_alloc(MEMORY[0x1E69AE410]);
-      results = [v55 results];
-      v47 = [v45 initWithObservations:results];
-      v62 = v47;
-      v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v62 count:1];
-      [(MADVIDocumentRecognitionRequest *)v44 setResults:v48];
+      v49 = self->_signpostPayload;
+      *buf = 138412290;
+      v71 = v49;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v48, OS_SIGNPOST_INTERVAL_END, v39, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
+    }
+
+    if (v45)
+    {
+      v50 = self->_request;
+      v51 = objc_alloc(MEMORY[0x1E69AE410]);
+      results = [v61 results];
+      v53 = [v51 initWithObservations:results];
+      v68 = v53;
+      v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v68 count:1];
+      [(MADVIDocumentRecognitionRequest *)v50 setResults:v54];
 
       results2 = [(MADVIDocumentRecognitionRequest *)self->_request results];
       firstObject = [results2 firstObject];
-      [firstObject setExecutionNanoseconds:{objc_msgSend(v55, "executionNanoseconds")}];
+      [firstObject setExecutionNanoseconds:{objc_msgSend(v61, "executionNanoseconds")}];
 
       if ([(VCPMADVIDocumentRecognitionTask *)self canReuseResultsForRequest])
       {
-        results3 = [v55 results];
+        results3 = [v61 results];
         [(VCPMADServiceImageAsset *)self->_imageAsset setDocumentObservations:results3];
       }
 
@@ -291,8 +291,8 @@ LABEL_50:
 
     else
     {
-      v52 = atomic_load(&self->_canceled);
-      if (v52)
+      v58 = atomic_load(&self->_canceled);
+      if (v58)
       {
         v7 = -128;
 LABEL_48:
@@ -303,7 +303,7 @@ LABEL_48:
       [(MADVIDocumentRecognitionRequest *)self->_request setError:v11];
     }
 
-    [v56 reset];
+    [v62 reset];
     if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -322,8 +322,8 @@ LABEL_48:
 
   v4 = self->_request;
   v5 = [objc_alloc(MEMORY[0x1E69AE410]) initWithObservations:documentObservations];
-  v70[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:1];
+  v76[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v76 count:1];
   [(MADVIDocumentRecognitionRequest *)v4 setResults:v6];
 
   v7 = 0;

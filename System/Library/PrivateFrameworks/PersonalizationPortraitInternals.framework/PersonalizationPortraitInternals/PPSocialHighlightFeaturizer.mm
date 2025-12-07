@@ -51,33 +51,33 @@
 
 id __51__PPSocialHighlightFeaturizer_featurizeHighlights___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 highlightIdentifier];
 
   if (v4)
   {
     v5 = objc_opt_new();
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     obj = *(*(a1 + 32) + 8);
-    v6 = [obj countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v6 = [obj countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v17 + 1) + 8 * i);
           v11 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:v10];
           v12 = [v11 valueForHighlight:v3];
 
@@ -88,7 +88,7 @@ id __51__PPSocialHighlightFeaturizer_featurizeHighlights___block_invoke(uint64_t
           [v5 addObject:v13];
         }
 
-        v7 = [obj countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v7 = [obj countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v7);
@@ -110,22 +110,20 @@ id __51__PPSocialHighlightFeaturizer_featurizeHighlights___block_invoke(uint64_t
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (PPSocialHighlightFeaturizer)initWithFeedbackPublisher:(id)publisher topicStore:(id)store interactionStore:(id)interactionStore significantContactHandles:(id)handles features:(id)features highlights:(id)highlights
 {
-  v377 = *MEMORY[0x277D85DE8];
+  v370 = *MEMORY[0x277D85DE8];
   publisherCopy = publisher;
   storeCopy = store;
   interactionStoreCopy = interactionStore;
   featuresCopy = features;
   highlightsCopy = highlights;
   handlesCopy = handles;
-  v284 = objc_opt_new();
-  v281 = publisherCopy;
+  v277 = objc_opt_new();
+  v274 = publisherCopy;
   if (publisherCopy)
   {
     v16 = publisherCopy;
@@ -144,59 +142,58 @@ id __51__PPSocialHighlightFeaturizer_featurizeHighlights___block_invoke(uint64_t
   }
 
   v18 = [PPSocialHighlightFeaturizer _feedbackFeaturesForPublisher:v16 highlights:highlightsCopy features:featuresCopy];
-  [v284 addEntriesFromDictionary:v18];
+  [v277 addEntriesFromDictionary:v18];
 
-  v290 = featuresCopy;
-  v291 = highlightsCopy;
+  v283 = featuresCopy;
+  v284 = highlightsCopy;
   if (interactionStoreCopy)
   {
-    v316 = interactionStoreCopy;
-    v311 = highlightsCopy;
+    v309 = interactionStoreCopy;
+    v304 = highlightsCopy;
     v19 = featuresCopy;
     v20 = 0x27896F000uLL;
     objc_opt_self();
     v21 = objc_opt_new();
-    *v362 = 0u;
-    v363 = 0u;
-    v364 = 0u;
-    v365 = 0u;
+    *v355 = 0u;
+    v356 = 0u;
+    v357 = 0u;
+    v358 = 0u;
     obj = v19;
-    v326 = [obj countByEnumeratingWithState:v362 objects:&v370 count:16];
-    if (!v326)
+    v319 = [obj countByEnumeratingWithState:v355 objects:&v363 count:16];
+    if (!v319)
     {
       goto LABEL_28;
     }
 
-    v321 = *v363;
-    v301 = *MEMORY[0x277D3A658];
-    v306 = v21;
+    v314 = *v356;
+    v294 = *MEMORY[0x277D3A658];
+    v299 = v21;
     while (1)
     {
-      for (i = 0; i != v326; ++i)
+      for (i = 0; i != v319; ++i)
       {
-        if (*v363 != v321)
+        if (*v356 != v314)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*&v362[8] + 8 * i);
+        v23 = *(*&v355[8] + 8 * i);
         v24 = objc_autoreleasePoolPush();
         if ([v23 isEqualToString:@"lastMessagesInteractionWithSenderSecondsBeforeNow"])
         {
           context = v24;
-          v25 = *(v20 + 3448);
-          v26 = v311;
-          v27 = v316;
+          v25 = v304;
+          v26 = v309;
           objc_opt_self();
-          v28 = objc_autoreleasePoolPush();
-          v29 = MEMORY[0x277CCAC30];
-          *buf = v301;
+          v27 = objc_autoreleasePoolPush();
+          v28 = MEMORY[0x277CCAC30];
+          *buf = v294;
           [MEMORY[0x277CBEA60] arrayWithObjects:buf count:1];
-          v31 = v30 = v20;
-          v32 = [v29 predicateWithFormat:@"bundleId == %@" argumentArray:v31];
+          v30 = v29 = v20;
+          v31 = [v28 predicateWithFormat:@"bundleId == %@" argumentArray:v30];
 
-          objc_autoreleasePoolPop(v28);
-          v33 = [(PPSocialHighlightFeaturizer *)*(v30 + 3448) _lastInteractionsByContactForHighlights:v26 bundlePredicate:v32 mechanismPredicate:0 interactionStore:v27];
+          objc_autoreleasePoolPop(v27);
+          v32 = [(PPSocialHighlightFeaturizer *)*(v29 + 3448) _lastInteractionsByContactForHighlights:v25 bundlePredicate:v31 mechanismPredicate:0 interactionStore:v26];
         }
 
         else
@@ -207,76 +204,74 @@ id __51__PPSocialHighlightFeaturizer_featurizeHighlights___block_invoke(uint64_t
           }
 
           context = v24;
-          v30 = v20;
-          v34 = *(v20 + 3448);
-          v292 = v311;
-          v35 = v316;
+          v33 = v20;
+          v285 = v304;
+          v34 = v309;
           objc_opt_self();
-          v36 = objc_autoreleasePoolPush();
-          v37 = MEMORY[0x277CCAC30];
+          v35 = objc_autoreleasePoolPush();
+          v36 = MEMORY[0x277CCAC30];
           *buf = &unk_2847855F8;
-          v38 = [MEMORY[0x277CBEA60] arrayWithObjects:buf count:1];
-          v39 = [v37 predicateWithFormat:@"mechanism in %@" argumentArray:v38];
+          v37 = [MEMORY[0x277CBEA60] arrayWithObjects:buf count:1];
+          v38 = [v36 predicateWithFormat:@"mechanism in %@" argumentArray:v37];
 
-          objc_autoreleasePoolPop(v36);
-          v40 = objc_autoreleasePoolPush();
-          v41 = MEMORY[0x277CCAC30];
-          *&aBlock = v301;
-          v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&aBlock count:1];
-          v43 = [v41 predicateWithFormat:@"bundleId != %@" argumentArray:v42];
+          objc_autoreleasePoolPop(v35);
+          v39 = objc_autoreleasePoolPush();
+          v40 = MEMORY[0x277CCAC30];
+          *&aBlock = v294;
+          v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&aBlock count:1];
+          v42 = [v40 predicateWithFormat:@"bundleId != %@" argumentArray:v41];
 
-          objc_autoreleasePoolPop(v40);
-          v33 = [(PPSocialHighlightFeaturizer *)*(v30 + 3448) _lastInteractionsByContactForHighlights:v292 bundlePredicate:v43 mechanismPredicate:v39 interactionStore:v35];
+          objc_autoreleasePoolPop(v39);
+          v32 = [(PPSocialHighlightFeaturizer *)*(v33 + 3448) _lastInteractionsByContactForHighlights:v285 bundlePredicate:v42 mechanismPredicate:v38 interactionStore:v34];
         }
 
-        v44 = MEMORY[0x277CBEC10];
-        if (v33)
+        v43 = MEMORY[0x277CBEC10];
+        if (v32)
         {
-          v44 = v33;
+          v43 = v32;
         }
+
+        v44 = v43;
 
         v45 = v44;
-
-        v46 = *(v30 + 3448);
-        v47 = v45;
         objc_opt_self();
-        v48 = objc_opt_new();
+        v46 = objc_opt_new();
         aBlock = 0u;
-        v367 = 0u;
-        v368 = 0u;
-        v369 = 0u;
-        v49 = v47;
-        v50 = [v49 countByEnumeratingWithState:&aBlock objects:buf count:16];
-        if (v50)
+        v360 = 0u;
+        v361 = 0u;
+        v362 = 0u;
+        v47 = v45;
+        v48 = [v47 countByEnumeratingWithState:&aBlock objects:buf count:16];
+        if (v48)
         {
-          v51 = v50;
-          v52 = *v367;
+          v49 = v48;
+          v50 = *v360;
           do
           {
-            for (j = 0; j != v51; ++j)
+            for (j = 0; j != v49; ++j)
             {
-              if (*v367 != v52)
+              if (*v360 != v50)
               {
-                objc_enumerationMutation(v49);
+                objc_enumerationMutation(v47);
               }
 
-              v54 = *(*(&aBlock + 1) + 8 * j);
-              v55 = MEMORY[0x277CCABB0];
-              v56 = [v49 objectForKeyedSubscript:v54];
-              [v56 timeIntervalSinceNow];
-              v58 = [v55 numberWithDouble:-v57];
-              [v48 setObject:v58 forKeyedSubscript:v54];
+              v52 = *(*(&aBlock + 1) + 8 * j);
+              v53 = MEMORY[0x277CCABB0];
+              v54 = [v47 objectForKeyedSubscript:v52];
+              [v54 timeIntervalSinceNow];
+              v56 = [v53 numberWithDouble:-v55];
+              [v46 setObject:v56 forKeyedSubscript:v52];
             }
 
-            v51 = [v49 countByEnumeratingWithState:&aBlock objects:buf count:16];
+            v49 = [v47 countByEnumeratingWithState:&aBlock objects:buf count:16];
           }
 
-          while (v51);
+          while (v49);
         }
 
-        v59 = [[PPSocialHighlightStaticFeatureProvider alloc] initWithComputedFeatures:v48 highlightKeyBlock:&__block_literal_global_18];
-        v21 = v306;
-        [v306 setObject:v59 forKeyedSubscript:v23];
+        v57 = [[PPSocialHighlightStaticFeatureProvider alloc] initWithComputedFeatures:v46 highlightKeyBlock:&__block_literal_global_18];
+        v21 = v299;
+        [v299 setObject:v57 forKeyedSubscript:v23];
 
         v20 = 0x27896F000;
         v24 = context;
@@ -284,20 +279,19 @@ LABEL_26:
         objc_autoreleasePoolPop(v24);
       }
 
-      v326 = [obj countByEnumeratingWithState:v362 objects:&v370 count:16];
-      if (!v326)
+      v319 = [obj countByEnumeratingWithState:v355 objects:&v363 count:16];
+      if (!v319)
       {
 LABEL_28:
 
-        [v284 addEntriesFromDictionary:v21];
-        featuresCopy = v290;
+        [v277 addEntriesFromDictionary:v21];
+        featuresCopy = v283;
         goto LABEL_31;
       }
     }
   }
 
   v21 = pp_social_highlights_log_handle();
-  v20 = 0x27896F000uLL;
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -308,168 +302,164 @@ LABEL_31:
 
   if (!storeCopy)
   {
-    v103 = pp_social_highlights_log_handle();
-    if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+    v98 = pp_social_highlights_log_handle();
+    if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23224A000, v103, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightFeaturizer: no topic store provided.", buf, 2u);
+      _os_log_impl(&dword_23224A000, v98, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightFeaturizer: no topic store provided.", buf, 2u);
     }
 
-    v104 = v291;
+    v99 = v284;
     goto LABEL_153;
   }
 
-  v60 = v20;
-  v61 = *(v20 + 3448);
-  v62 = storeCopy;
-  v63 = v291;
-  v64 = featuresCopy;
+  v58 = storeCopy;
+  v59 = v284;
+  v60 = featuresCopy;
   objc_opt_self();
-  v65 = objc_autoreleasePoolPush();
-  v66 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{@"meanTopicScore", @"medianTopicScore", @"topicCount", @"maxTopicScore", @"minTopicScore", 0}];
-  objc_autoreleasePoolPop(v65);
-  v277 = v66;
-  v278 = v64;
-  if (![v66 intersectsSet:v64])
+  v61 = objc_autoreleasePoolPush();
+  v62 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{@"meanTopicScore", @"medianTopicScore", @"topicCount", @"maxTopicScore", @"minTopicScore", 0}];
+  objc_autoreleasePoolPop(v61);
+  v270 = v62;
+  v271 = v60;
+  if (![v62 intersectsSet:v60])
   {
-    v103 = MEMORY[0x277CBEC10];
-    v20 = v60;
-    v104 = v291;
+    v98 = MEMORY[0x277CBEC10];
+    v99 = v284;
     goto LABEL_152;
   }
 
-  v67 = *(v60 + 3448);
-  v68 = v63;
-  v287 = v62;
-  v274 = objc_opt_self();
-  v69 = objc_opt_new();
-  v276 = objc_opt_new();
-  v349 = 0u;
-  v350 = 0u;
-  v351 = 0u;
-  v352 = 0u;
-  v70 = v68;
-  v71 = [v70 countByEnumeratingWithState:&v349 objects:&v370 count:16];
-  if (v71)
+  v63 = v59;
+  v280 = v58;
+  v267 = objc_opt_self();
+  v64 = objc_opt_new();
+  v269 = objc_opt_new();
+  v342 = 0u;
+  v343 = 0u;
+  v344 = 0u;
+  v345 = 0u;
+  v65 = v63;
+  v66 = [v65 countByEnumeratingWithState:&v342 objects:&v363 count:16];
+  if (v66)
   {
-    v72 = v71;
-    v73 = *v350;
+    v67 = v66;
+    v68 = *v343;
     do
     {
-      for (k = 0; k != v72; ++k)
+      for (k = 0; k != v67; ++k)
       {
-        if (*v350 != v73)
+        if (*v343 != v68)
         {
-          objc_enumerationMutation(v70);
+          objc_enumerationMutation(v65);
         }
 
-        v75 = *(*(&v349 + 1) + 8 * k);
-        v76 = objc_autoreleasePoolPush();
-        attributionIdentifier = [v75 attributionIdentifier];
+        v70 = *(*(&v342 + 1) + 8 * k);
+        v71 = objc_autoreleasePoolPush();
+        attributionIdentifier = [v70 attributionIdentifier];
 
         if (attributionIdentifier)
         {
-          highlightIdentifier = [v75 highlightIdentifier];
-          attributionIdentifier2 = [v75 attributionIdentifier];
-          [v69 setObject:highlightIdentifier forKeyedSubscript:attributionIdentifier2];
+          highlightIdentifier = [v70 highlightIdentifier];
+          attributionIdentifier2 = [v70 attributionIdentifier];
+          [v64 setObject:highlightIdentifier forKeyedSubscript:attributionIdentifier2];
         }
 
-        objc_autoreleasePoolPop(v76);
+        objc_autoreleasePoolPop(v71);
       }
 
-      v72 = [v70 countByEnumeratingWithState:&v349 objects:&v370 count:16];
+      v67 = [v65 countByEnumeratingWithState:&v342 objects:&v363 count:16];
     }
 
-    while (v72);
+    while (v67);
   }
 
-  v285 = v63;
-  v286 = v62;
-  if ([v69 count])
+  v278 = v59;
+  v279 = v58;
+  if ([v64 count])
   {
-    v80 = objc_opt_new();
-    v81 = objc_opt_new();
-    v82 = objc_alloc(MEMORY[0x277CBEB98]);
-    allKeys = [v69 allKeys];
-    v84 = [v82 initWithArray:allKeys];
-    [v81 setMatchingDocumentIds:v84];
+    v75 = objc_opt_new();
+    v76 = objc_opt_new();
+    v77 = objc_alloc(MEMORY[0x277CBEB98]);
+    allKeys = [v64 allKeys];
+    v79 = [v77 initWithArray:allKeys];
+    [v76 setMatchingDocumentIds:v79];
 
-    [v81 setLimit:50];
-    v375 = 0;
-    *&v353 = MEMORY[0x277D85DD0];
-    *(&v353 + 1) = 3221225472;
-    *&v354 = __79__PPSocialHighlightFeaturizer__topicScoresMatchingSocialHighlights_topicStore___block_invoke;
-    *(&v354 + 1) = &unk_278974FF8;
-    v85 = v80;
-    *&v355 = v85;
-    v307 = v276;
-    *(&v355 + 1) = v307;
-    v86 = v69;
-    *&v356 = v86;
-    *(&v356 + 1) = sel__topicScoresMatchingSocialHighlights_topicStore_;
-    v357 = v274;
-    v272 = v81;
-    LOBYTE(v84) = [v287 iterTopicRecordsWithQuery:v81 error:&v375 block:&v353];
-    v273 = v375;
-    featuresCopy = v290;
-    v275 = v85;
-    if (v84)
+    [v76 setLimit:50];
+    v368 = 0;
+    *&v346 = MEMORY[0x277D85DD0];
+    *(&v346 + 1) = 3221225472;
+    *&v347 = __79__PPSocialHighlightFeaturizer__topicScoresMatchingSocialHighlights_topicStore___block_invoke;
+    *(&v347 + 1) = &unk_278974FF8;
+    v80 = v75;
+    *&v348 = v80;
+    v300 = v269;
+    *(&v348 + 1) = v300;
+    v81 = v64;
+    *&v349 = v81;
+    *(&v349 + 1) = sel__topicScoresMatchingSocialHighlights_topicStore_;
+    v350 = v267;
+    v265 = v76;
+    LOBYTE(v79) = [v280 iterTopicRecordsWithQuery:v76 error:&v368 block:&v346];
+    v266 = v368;
+    featuresCopy = v283;
+    v268 = v80;
+    if (v79)
     {
-      if ([v85 count])
+      if ([v80 count])
       {
-        v312 = v70;
-        v302 = v69;
-        v87 = v85;
-        v88 = v287;
+        v305 = v65;
+        v295 = v64;
+        v82 = v80;
+        v83 = v280;
         objc_opt_self();
-        v89 = objc_autoreleasePoolPush();
-        v90 = v88;
-        cachedTopicScores = [v88 cachedTopicScores];
-        objc_autoreleasePoolPop(v89);
-        v92 = objc_opt_new();
+        v84 = objc_autoreleasePoolPush();
+        v85 = v83;
+        cachedTopicScores = [v83 cachedTopicScores];
+        objc_autoreleasePoolPop(v84);
+        v87 = objc_opt_new();
         aBlock = 0u;
-        v367 = 0u;
-        v368 = 0u;
-        v369 = 0u;
-        v93 = v87;
-        v94 = [v93 countByEnumeratingWithState:&aBlock objects:buf count:16];
-        if (v94)
+        v360 = 0u;
+        v361 = 0u;
+        v362 = 0u;
+        v88 = v82;
+        v89 = [v88 countByEnumeratingWithState:&aBlock objects:buf count:16];
+        if (v89)
         {
-          v95 = v94;
-          v96 = *v367;
+          v90 = v89;
+          v91 = *v360;
           while (2)
           {
-            for (m = 0; m != v95; ++m)
+            for (m = 0; m != v90; ++m)
             {
-              if (*v367 != v96)
+              if (*v360 != v91)
               {
-                objc_enumerationMutation(v93);
+                objc_enumerationMutation(v88);
               }
 
-              v98 = *(*(&aBlock + 1) + 8 * m);
-              v99 = [cachedTopicScores objectForKeyedSubscript:v98];
+              v93 = *(*(&aBlock + 1) + 8 * m);
+              v94 = [cachedTopicScores objectForKeyedSubscript:v93];
 
-              if (!v99)
+              if (!v94)
               {
-                v107 = pp_social_highlights_log_handle();
-                v102 = v90;
-                if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
+                v103 = pp_social_highlights_log_handle();
+                v97 = v85;
+                if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v362 = 0;
-                  _os_log_impl(&dword_23224A000, v107, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightFeaturizer: missing QID overlap with the cache, will rerank.", v362, 2u);
+                  *v355 = 0;
+                  _os_log_impl(&dword_23224A000, v103, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightFeaturizer: missing QID overlap with the cache, will rerank.", v355, 2u);
                 }
 
-                v101 = 0;
-                v69 = v302;
+                v96 = 0;
+                v64 = v295;
                 goto LABEL_67;
               }
 
-              v100 = [cachedTopicScores objectForKeyedSubscript:v98];
-              [v92 setObject:v100 forKeyedSubscript:v98];
+              v95 = [cachedTopicScores objectForKeyedSubscript:v93];
+              [v87 setObject:v95 forKeyedSubscript:v93];
             }
 
-            v95 = [v93 countByEnumeratingWithState:&aBlock objects:buf count:16];
-            if (v95)
+            v90 = [v88 countByEnumeratingWithState:&aBlock objects:buf count:16];
+            if (v90)
             {
               continue;
             }
@@ -478,116 +468,116 @@ LABEL_31:
           }
         }
 
-        v101 = v92;
-        v69 = v302;
-        v102 = v90;
+        v96 = v87;
+        v64 = v295;
+        v97 = v85;
 LABEL_67:
 
-        if (v101)
+        if (v96)
         {
-          v63 = v285;
+          v59 = v278;
         }
 
         else
         {
           contexta = objc_autoreleasePoolPush();
-          v108 = pp_social_highlights_log_handle();
-          if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
+          v104 = pp_social_highlights_log_handle();
+          if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_23224A000, v108, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightFeaturizer: topic cache is invalid, performing reranking", buf, 2u);
+            _os_log_impl(&dword_23224A000, v104, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightFeaturizer: topic cache is invalid, performing reranking", buf, 2u);
           }
 
-          v101 = objc_opt_new();
-          v109 = objc_opt_new();
-          [v272 setMatchingTopicIds:v93];
-          [v272 setLimit:50];
-          v374 = v273;
-          v327 = v109;
-          v110 = [v102 rankedTopicsWithQuery:v109 error:&v374];
-          v323 = v374;
+          v96 = objc_opt_new();
+          v105 = objc_opt_new();
+          [v265 setMatchingTopicIds:v88];
+          [v265 setLimit:50];
+          v367 = v266;
+          v320 = v105;
+          v106 = [v97 rankedTopicsWithQuery:v105 error:&v367];
+          v316 = v367;
 
-          v347 = 0u;
-          v348 = 0u;
-          v345 = 0u;
-          v346 = 0u;
-          v111 = v110;
-          v112 = [v111 countByEnumeratingWithState:&v345 objects:buf count:16];
-          v63 = v285;
-          if (v112)
+          v340 = 0u;
+          v341 = 0u;
+          v338 = 0u;
+          v339 = 0u;
+          v107 = v106;
+          v108 = [v107 countByEnumeratingWithState:&v338 objects:buf count:16];
+          v59 = v278;
+          if (v108)
           {
-            v113 = v112;
-            v114 = *v346;
+            v109 = v108;
+            v110 = *v339;
             do
             {
-              for (n = 0; n != v113; ++n)
+              for (n = 0; n != v109; ++n)
               {
-                if (*v346 != v114)
+                if (*v339 != v110)
                 {
-                  objc_enumerationMutation(v111);
+                  objc_enumerationMutation(v107);
                 }
 
-                v116 = *(*(&v345 + 1) + 8 * n);
-                v117 = MEMORY[0x277CCABB0];
-                [v116 score];
-                v118 = [v117 numberWithDouble:?];
-                item = [v116 item];
+                v112 = *(*(&v338 + 1) + 8 * n);
+                v113 = MEMORY[0x277CCABB0];
+                [v112 score];
+                v114 = [v113 numberWithDouble:?];
+                item = [v112 item];
                 topicIdentifier = [item topicIdentifier];
-                [v101 setObject:v118 forKeyedSubscript:topicIdentifier];
+                [v96 setObject:v114 forKeyedSubscript:topicIdentifier];
               }
 
-              v113 = [v111 countByEnumeratingWithState:&v345 objects:buf count:16];
+              v109 = [v107 countByEnumeratingWithState:&v338 objects:buf count:16];
             }
 
-            while (v113);
+            while (v109);
           }
 
           objc_autoreleasePoolPop(contexta);
-          v273 = v323;
-          v69 = v302;
+          v266 = v316;
+          v64 = v295;
         }
 
-        v121 = MEMORY[0x277CBEA60];
-        v122 = [v86 count];
-        v123 = [v121 _pas_proxyArrayWithObject:MEMORY[0x277CBEBF8] repetitions:v122];
-        v124 = objc_alloc(MEMORY[0x277CBEB38]);
-        allValues = [v86 allValues];
-        v271 = v123;
-        v322 = [v124 initWithObjects:v123 forKeys:allValues];
+        v117 = MEMORY[0x277CBEA60];
+        v118 = [v81 count];
+        v119 = [v117 _pas_proxyArrayWithObject:MEMORY[0x277CBEBF8] repetitions:v118];
+        v120 = objc_alloc(MEMORY[0x277CBEB38]);
+        allValues = [v81 allValues];
+        v264 = v119;
+        v315 = [v120 initWithObjects:v119 forKeys:allValues];
 
-        v343 = 0u;
-        v344 = 0u;
-        v341 = 0u;
-        v342 = 0u;
-        v106 = v101;
-        v104 = v291;
-        v62 = v286;
-        v126 = v307;
-        v70 = v312;
-        v317 = [v106 countByEnumeratingWithState:&v341 objects:&aBlock count:16];
-        if (v317)
+        v336 = 0u;
+        v337 = 0u;
+        v334 = 0u;
+        v335 = 0u;
+        v102 = v96;
+        v99 = v284;
+        v58 = v279;
+        v122 = v300;
+        v65 = v305;
+        v310 = [v102 countByEnumeratingWithState:&v334 objects:&aBlock count:16];
+        if (v310)
         {
-          v127 = *v342;
-          v293 = *v342;
-          obja = v106;
+          v123 = *v335;
+          v286 = *v335;
+          obja = v102;
           do
           {
-            v128 = 0;
+            v124 = 0;
             do
             {
-              if (*v342 != v127)
+              if (*v335 != v123)
               {
-                objc_enumerationMutation(v106);
+                objc_enumerationMutation(v102);
               }
 
-              v328 = v128;
-              v129 = *(*(&v341 + 1) + 8 * v128);
-              v130 = [v126 objectForKeyedSubscript:v129];
-              v131 = [v106 objectForKeyedSubscript:v129];
-              contextb = v130;
-              if (v131)
+              v321 = v124;
+              v125 = *(*(&v334 + 1) + 8 * v124);
+              v126 = [v122 objectForKeyedSubscript:v125];
+              v127 = [v102 objectForKeyedSubscript:v125];
+              contextb = v126;
+              if (v127)
               {
-                if (v130)
+                if (v126)
                 {
                   goto LABEL_89;
                 }
@@ -596,497 +586,491 @@ LABEL_67:
               else
               {
                 currentHandler = [MEMORY[0x277CCA890] currentHandler];
-                [currentHandler handleFailureInMethod:sel__topicScoresMatchingSocialHighlights_topicStore_ object:v274 file:@"PPSocialHighlightFeaturizer.m" lineNumber:525 description:@"Iterating through keys should always result in a value"];
+                [currentHandler handleFailureInMethod:sel__topicScoresMatchingSocialHighlights_topicStore_ object:v267 file:@"PPSocialHighlightFeaturizer.m" lineNumber:525 description:@"Iterating through keys should always result in a value"];
 
-                v130 = contextb;
+                v126 = contextb;
                 if (contextb)
                 {
 LABEL_89:
-                  v339 = 0u;
-                  v340 = 0u;
-                  v337 = 0u;
-                  v338 = 0u;
-                  v132 = v130;
-                  v133 = [v132 countByEnumeratingWithState:&v337 objects:v362 count:16];
-                  if (v133)
+                  v332 = 0u;
+                  v333 = 0u;
+                  v330 = 0u;
+                  v331 = 0u;
+                  v128 = v126;
+                  v129 = [v128 countByEnumeratingWithState:&v330 objects:v355 count:16];
+                  if (v129)
                   {
-                    v134 = v133;
-                    v135 = *v338;
+                    v130 = v129;
+                    v131 = *v331;
                     do
                     {
-                      for (ii = 0; ii != v134; ++ii)
+                      for (ii = 0; ii != v130; ++ii)
                       {
-                        if (*v338 != v135)
+                        if (*v331 != v131)
                         {
-                          objc_enumerationMutation(v132);
+                          objc_enumerationMutation(v128);
                         }
 
-                        v137 = *(*(&v337 + 1) + 8 * ii);
-                        v138 = objc_autoreleasePoolPush();
-                        v139 = [v322 objectForKeyedSubscript:v137];
-                        v140 = [v139 arrayByAddingObject:v131];
-                        [v322 setObject:v140 forKeyedSubscript:v137];
+                        v133 = *(*(&v330 + 1) + 8 * ii);
+                        v134 = objc_autoreleasePoolPush();
+                        v135 = [v315 objectForKeyedSubscript:v133];
+                        v136 = [v135 arrayByAddingObject:v127];
+                        [v315 setObject:v136 forKeyedSubscript:v133];
 
-                        objc_autoreleasePoolPop(v138);
+                        objc_autoreleasePoolPop(v134);
                       }
 
-                      v134 = [v132 countByEnumeratingWithState:&v337 objects:v362 count:16];
+                      v130 = [v128 countByEnumeratingWithState:&v330 objects:v355 count:16];
                     }
 
-                    while (v134);
-                    v104 = v291;
-                    v127 = v293;
-                    v63 = v285;
-                    v62 = v286;
-                    v69 = v302;
-                    v126 = v307;
-                    v106 = obja;
+                    while (v130);
+                    v99 = v284;
+                    v123 = v286;
+                    v59 = v278;
+                    v58 = v279;
+                    v64 = v295;
+                    v122 = v300;
+                    v102 = obja;
                   }
 
                   goto LABEL_100;
                 }
               }
 
-              v132 = pp_social_highlights_log_handle();
-              if (os_log_type_enabled(v132, OS_LOG_TYPE_DEBUG))
+              v128 = pp_social_highlights_log_handle();
+              if (os_log_type_enabled(v128, OS_LOG_TYPE_DEBUG))
               {
-                *v358 = 138739971;
-                *&v358[4] = v129;
-                _os_log_debug_impl(&dword_23224A000, v132, OS_LOG_TYPE_DEBUG, "PPSocialHighlightFeaturizer: no highlights found for QID: %{sensitive}@", v358, 0xCu);
+                *v351 = 138739971;
+                *&v351[4] = v125;
+                _os_log_debug_impl(&dword_23224A000, v128, OS_LOG_TYPE_DEBUG, "PPSocialHighlightFeaturizer: no highlights found for QID: %{sensitive}@", v351, 0xCu);
               }
 
 LABEL_100:
 
-              v128 = v328 + 1;
-              v70 = v312;
+              v124 = v321 + 1;
+              v65 = v305;
             }
 
-            while (v328 + 1 != v317);
-            v317 = [v106 countByEnumeratingWithState:&v341 objects:&aBlock count:16];
+            while (v321 + 1 != v310);
+            v310 = [v102 countByEnumeratingWithState:&v334 objects:&aBlock count:16];
           }
 
-          while (v317);
+          while (v310);
         }
 
-        v20 = 0x27896F000uLL;
-        featuresCopy = v290;
+        v101 = 0x27896F000uLL;
+        featuresCopy = v283;
       }
 
       else
       {
-        v106 = pp_social_highlights_log_handle();
-        if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
+        v102 = pp_social_highlights_log_handle();
+        if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_23224A000, v106, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightRanker: found no QIDs from any highlight.", buf, 2u);
+          _os_log_impl(&dword_23224A000, v102, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightRanker: found no QIDs from any highlight.", buf, 2u);
         }
 
-        v322 = MEMORY[0x277CBEC10];
-        v20 = 0x27896F000;
-        v104 = v291;
+        v315 = MEMORY[0x277CBEC10];
+        v101 = 0x27896F000;
+        v99 = v284;
       }
     }
 
     else
     {
-      v106 = pp_social_highlights_log_handle();
-      v20 = 0x27896F000;
-      v104 = v291;
-      if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+      v102 = pp_social_highlights_log_handle();
+      v101 = 0x27896F000;
+      v99 = v284;
+      if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *&buf[4] = v273;
-        _os_log_error_impl(&dword_23224A000, v106, OS_LOG_TYPE_ERROR, "PPSocialHighlightRanker: error querying topic store: %@", buf, 0xCu);
+        *&buf[4] = v266;
+        _os_log_error_impl(&dword_23224A000, v102, OS_LOG_TYPE_ERROR, "PPSocialHighlightRanker: error querying topic store: %@", buf, 0xCu);
       }
 
-      v322 = MEMORY[0x277CBEC10];
+      v315 = MEMORY[0x277CBEC10];
     }
   }
 
   else
   {
-    v105 = pp_social_highlights_log_handle();
-    featuresCopy = v290;
-    v275 = v105;
-    if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
+    v100 = pp_social_highlights_log_handle();
+    featuresCopy = v283;
+    v268 = v100;
+    if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23224A000, v105, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightFeaturizer: not performing topic scoring features due to no highlights", buf, 2u);
+      _os_log_impl(&dword_23224A000, v100, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightFeaturizer: not performing topic scoring features due to no highlights", buf, 2u);
     }
 
-    v322 = MEMORY[0x277CBEC10];
-    v20 = 0x27896F000;
-    v104 = v291;
+    v315 = MEMORY[0x277CBEC10];
+    v101 = 0x27896F000;
+    v99 = v284;
   }
 
-  v103 = objc_opt_new();
-  *v362 = 0u;
-  v363 = 0u;
-  v364 = 0u;
-  v365 = 0u;
-  v288 = v278;
-  objb = [v288 countByEnumeratingWithState:v362 objects:buf count:16];
+  v98 = objc_opt_new();
+  *v355 = 0u;
+  v356 = 0u;
+  v357 = 0u;
+  v358 = 0u;
+  v281 = v271;
+  objb = [v281 countByEnumeratingWithState:v355 objects:buf count:16];
   if (!objb)
   {
     goto LABEL_151;
   }
 
-  v294 = *v363;
-  v289 = v103;
+  v287 = *v356;
+  v282 = v98;
   do
   {
-    v142 = 0;
+    v138 = 0;
     do
     {
-      if (*v363 != v294)
+      if (*v356 != v287)
       {
-        objc_enumerationMutation(v288);
+        objc_enumerationMutation(v281);
       }
 
-      v143 = *(*&v362[8] + 8 * v142);
-      v144 = objc_autoreleasePoolPush();
-      v308 = v144;
-      v313 = v142;
-      v303 = v143;
-      if ([v143 isEqualToString:@"topicCount"])
+      v139 = *(*&v355[8] + 8 * v138);
+      v140 = objc_autoreleasePoolPush();
+      v301 = v140;
+      v306 = v138;
+      v296 = v139;
+      if ([v139 isEqualToString:@"topicCount"])
       {
-        v145 = objc_opt_new();
-        v353 = 0u;
-        v354 = 0u;
-        v355 = 0u;
-        v356 = 0u;
-        v146 = v322;
-        v147 = [v146 countByEnumeratingWithState:&v353 objects:&v370 count:16];
-        if (v147)
+        v141 = objc_opt_new();
+        v346 = 0u;
+        v347 = 0u;
+        v348 = 0u;
+        v349 = 0u;
+        v142 = v315;
+        v143 = [v142 countByEnumeratingWithState:&v346 objects:&v363 count:16];
+        if (v143)
         {
-          v148 = v147;
-          v149 = *v354;
+          v144 = v143;
+          v145 = *v347;
           do
           {
-            for (jj = 0; jj != v148; ++jj)
+            for (jj = 0; jj != v144; ++jj)
             {
-              if (*v354 != v149)
+              if (*v347 != v145)
               {
-                objc_enumerationMutation(v146);
+                objc_enumerationMutation(v142);
               }
 
-              v151 = *(*(&v353 + 1) + 8 * jj);
-              v152 = MEMORY[0x277CCABB0];
-              v153 = [v146 objectForKeyedSubscript:v151];
-              v154 = [v152 numberWithUnsignedInteger:{objc_msgSend(v153, "count")}];
-              [v145 setObject:v154 forKeyedSubscript:v151];
+              v147 = *(*(&v346 + 1) + 8 * jj);
+              v148 = MEMORY[0x277CCABB0];
+              v149 = [v142 objectForKeyedSubscript:v147];
+              v150 = [v148 numberWithUnsignedInteger:{objc_msgSend(v149, "count")}];
+              [v141 setObject:v150 forKeyedSubscript:v147];
             }
 
-            v148 = [v146 countByEnumeratingWithState:&v353 objects:&v370 count:16];
+            v144 = [v142 countByEnumeratingWithState:&v346 objects:&v363 count:16];
           }
 
-          while (v148);
+          while (v144);
         }
 
-        featuresCopy = v290;
-        v104 = v291;
-        v103 = v289;
+        featuresCopy = v283;
+        v99 = v284;
+        v98 = v282;
         goto LABEL_143;
       }
 
-      if ([v143 isEqualToString:@"meanTopicScore"])
+      if ([v139 isEqualToString:@"meanTopicScore"])
       {
-        v155 = *(v20 + 3448);
-        v156 = v322;
-        v157 = @"@avg.self";
+        v151 = *(v101 + 3448);
+        v152 = v315;
+        v153 = @"@avg.self";
         goto LABEL_120;
       }
 
-      if ([v143 isEqualToString:@"medianTopicScore"])
+      if ([v139 isEqualToString:@"medianTopicScore"])
       {
-        v145 = objc_opt_new();
-        v349 = 0u;
-        v350 = 0u;
-        v351 = 0u;
-        v352 = 0u;
-        v158 = v322;
-        contextc = [v158 countByEnumeratingWithState:&v349 objects:&aBlock count:16];
+        v141 = objc_opt_new();
+        v342 = 0u;
+        v343 = 0u;
+        v344 = 0u;
+        v345 = 0u;
+        v154 = v315;
+        contextc = [v154 countByEnumeratingWithState:&v342 objects:&aBlock count:16];
         if (contextc)
         {
-          v329 = *v350;
+          v322 = *v343;
           do
           {
             for (kk = 0; kk != contextc; kk = kk + 1)
             {
-              if (*v350 != v329)
+              if (*v343 != v322)
               {
-                objc_enumerationMutation(v158);
+                objc_enumerationMutation(v154);
               }
 
-              v160 = *(*(&v349 + 1) + 8 * kk);
-              v161 = *(v20 + 3448);
-              v162 = [v158 objectForKeyedSubscript:v160];
+              v156 = *(*(&v342 + 1) + 8 * kk);
+              v157 = [v154 objectForKeyedSubscript:v156];
               objc_opt_self();
-              v163 = objc_autoreleasePoolPush();
-              if ([v162 count])
+              v158 = objc_autoreleasePoolPush();
+              if ([v157 count])
               {
-                if ([v162 count] == 1)
+                if ([v157 count] == 1)
                 {
-                  v164 = [v162 objectAtIndexedSubscript:0];
+                  v159 = [v157 objectAtIndexedSubscript:0];
                 }
 
-                else if ([v162 count] == 2)
+                else if ([v157 count] == 2)
                 {
-                  v165 = MEMORY[0x277CCABB0];
-                  v166 = [v162 objectAtIndexedSubscript:0];
-                  [v166 doubleValue];
-                  v168 = v167;
-                  v169 = [v162 objectAtIndexedSubscript:1];
-                  [v169 doubleValue];
-                  v164 = [v165 numberWithDouble:(v168 + v170) * 0.5];
-
-                  v20 = 0x27896F000;
+                  v160 = MEMORY[0x277CCABB0];
+                  v161 = [v157 objectAtIndexedSubscript:0];
+                  [v161 doubleValue];
+                  v163 = v162;
+                  v164 = [v157 objectAtIndexedSubscript:1];
+                  [v164 doubleValue];
+                  v159 = [v160 numberWithDouble:(v163 + v165) * 0.5];
                 }
 
                 else
                 {
-                  v171 = [v162 sortedArrayUsingComparator:&__block_literal_global_33];
-                  v172 = [v171 count] >> 1;
-                  if ([v171 count])
+                  v166 = [v157 sortedArrayUsingComparator:&__block_literal_global_33];
+                  v167 = [v166 count] >> 1;
+                  if ([v166 count])
                   {
-                    v164 = [v171 objectAtIndexedSubscript:v172];
+                    v159 = [v166 objectAtIndexedSubscript:v167];
                   }
 
                   else
                   {
-                    v318 = MEMORY[0x277CCABB0];
-                    v173 = [v171 objectAtIndexedSubscript:v172];
-                    [v173 doubleValue];
-                    v175 = v174;
-                    v176 = [v171 objectAtIndexedSubscript:v172 - 1];
-                    [v176 doubleValue];
-                    v164 = [v318 numberWithDouble:(v175 + v177) * 0.5];
-
-                    v20 = 0x27896F000;
+                    v311 = MEMORY[0x277CCABB0];
+                    v168 = [v166 objectAtIndexedSubscript:v167];
+                    [v168 doubleValue];
+                    v170 = v169;
+                    v171 = [v166 objectAtIndexedSubscript:v167 - 1];
+                    [v171 doubleValue];
+                    v159 = [v311 numberWithDouble:(v170 + v172) * 0.5];
                   }
                 }
               }
 
               else
               {
-                v164 = 0;
+                v159 = 0;
               }
 
-              objc_autoreleasePoolPop(v163);
+              objc_autoreleasePoolPop(v158);
 
-              if (v164)
+              if (v159)
               {
-                v178 = v164;
+                v173 = v159;
               }
 
               else
               {
-                v178 = &unk_284784110;
+                v173 = &unk_284784110;
               }
 
-              [v145 setObject:v178 forKeyedSubscript:v160];
+              [v141 setObject:v173 forKeyedSubscript:v156];
             }
 
-            contextc = [v158 countByEnumeratingWithState:&v349 objects:&aBlock count:16];
+            contextc = [v154 countByEnumeratingWithState:&v342 objects:&aBlock count:16];
           }
 
           while (contextc);
         }
 
-        featuresCopy = v290;
-        v104 = v291;
-        v63 = v285;
-        v62 = v286;
-        v103 = v289;
+        featuresCopy = v283;
+        v99 = v284;
+        v59 = v278;
+        v58 = v279;
+        v98 = v282;
         goto LABEL_143;
       }
 
-      if ([v143 isEqualToString:@"maxTopicScore"])
+      if ([v139 isEqualToString:@"maxTopicScore"])
       {
-        v155 = *(v20 + 3448);
-        v156 = v322;
-        v157 = @"@max.self";
+        v151 = *(v101 + 3448);
+        v152 = v315;
+        v153 = @"@max.self";
         goto LABEL_120;
       }
 
-      if ([v143 isEqualToString:@"minTopicScore"])
+      if ([v139 isEqualToString:@"minTopicScore"])
       {
-        v155 = *(v20 + 3448);
-        v156 = v322;
-        v157 = @"@min.self";
+        v151 = *(v101 + 3448);
+        v152 = v315;
+        v153 = @"@min.self";
 LABEL_120:
-        v145 = [(PPSocialHighlightFeaturizer *)v155 _flattenArraysInDictionary:v156 keyPath:v157];
+        v141 = [(PPSocialHighlightFeaturizer *)v151 _flattenArraysInDictionary:v152 keyPath:v153];
 LABEL_143:
-        v179 = [[PPSocialHighlightStaticFeatureProvider alloc] initWithComputedFeatures:v145 highlightKeyBlock:&__block_literal_global_13183];
-        [v103 setObject:v179 forKeyedSubscript:v303];
+        v174 = [[PPSocialHighlightStaticFeatureProvider alloc] initWithComputedFeatures:v141 highlightKeyBlock:&__block_literal_global_13183];
+        [v98 setObject:v174 forKeyedSubscript:v296];
 
-        v20 = 0x27896F000uLL;
-        v144 = v308;
-        v142 = v313;
+        v101 = 0x27896F000uLL;
+        v140 = v301;
+        v138 = v306;
       }
 
-      objc_autoreleasePoolPop(v144);
-      v142 = v142 + 1;
+      objc_autoreleasePoolPop(v140);
+      v138 = v138 + 1;
     }
 
-    while (v142 != objb);
-    v180 = [v288 countByEnumeratingWithState:v362 objects:buf count:16];
-    objb = v180;
+    while (v138 != objb);
+    v175 = [v281 countByEnumeratingWithState:v355 objects:buf count:16];
+    objb = v175;
   }
 
-  while (v180);
+  while (v175);
 LABEL_151:
 
 LABEL_152:
-  [v284 addEntriesFromDictionary:v103];
+  [v277 addEntriesFromDictionary:v98];
 LABEL_153:
 
-  v181 = *(v20 + 3448);
-  objc = v104;
+  objc = v99;
   contextd = handlesCopy;
-  v182 = featuresCopy;
+  v176 = featuresCopy;
   objc_opt_self();
-  v319 = objc_opt_new();
-  v370 = 0u;
-  v371 = 0u;
-  v372 = 0u;
-  v373 = 0u;
-  v314 = v182;
-  v183 = [v314 countByEnumeratingWithState:&v370 objects:buf count:16];
-  if (!v183)
+  v312 = objc_opt_new();
+  v363 = 0u;
+  v364 = 0u;
+  v365 = 0u;
+  v366 = 0u;
+  v307 = v176;
+  v177 = [v307 countByEnumeratingWithState:&v363 objects:buf count:16];
+  if (!v177)
   {
     goto LABEL_189;
   }
 
-  v184 = v183;
-  v185 = *v371;
+  v178 = v177;
+  v179 = *v364;
   while (2)
   {
-    v186 = 0;
+    v180 = 0;
     while (2)
     {
-      if (*v371 != v185)
+      if (*v364 != v179)
       {
-        objc_enumerationMutation(v314);
+        objc_enumerationMutation(v307);
       }
 
-      v187 = *(*(&v370 + 1) + 8 * v186);
-      v188 = objc_autoreleasePoolPush();
-      v189 = v187;
-      v190 = contextd;
+      v181 = *(*(&v363 + 1) + 8 * v180);
+      v182 = objc_autoreleasePoolPush();
+      v183 = v181;
+      v184 = contextd;
       objc_opt_self();
       *&aBlock = MEMORY[0x277D85DD0];
       *(&aBlock + 1) = 3221225472;
-      *&v367 = __93__PPSocialHighlightFeaturizer__highlightFeatureProviderForFeature_significantContactHandles___block_invoke;
-      *(&v367 + 1) = &unk_278975138;
-      v191 = v189;
-      *&v368 = v191;
-      v192 = _Block_copy(&aBlock);
-      *v362 = MEMORY[0x277D85DD0];
-      *&v362[8] = 3221225472;
-      *&v363 = __93__PPSocialHighlightFeaturizer__highlightFeatureProviderForFeature_significantContactHandles___block_invoke_2;
-      *(&v363 + 1) = &unk_278975138;
-      v193 = v191;
-      *&v364 = v193;
-      v194 = _Block_copy(v362);
-      if ([v193 isEqualToString:@"creationDateSecondsBeforeNow"])
+      *&v360 = __93__PPSocialHighlightFeaturizer__highlightFeatureProviderForFeature_significantContactHandles___block_invoke;
+      *(&v360 + 1) = &unk_278975138;
+      v185 = v183;
+      *&v361 = v185;
+      v186 = _Block_copy(&aBlock);
+      *v355 = MEMORY[0x277D85DD0];
+      *&v355[8] = 3221225472;
+      *&v356 = __93__PPSocialHighlightFeaturizer__highlightFeatureProviderForFeature_significantContactHandles___block_invoke_2;
+      *(&v356 + 1) = &unk_278975138;
+      v187 = v185;
+      *&v357 = v187;
+      v188 = _Block_copy(v355);
+      if ([v187 isEqualToString:@"creationDateSecondsBeforeNow"])
       {
-        v195 = [PPSocialHighlightPropertyValueProvider alloc];
-        v196 = &__block_literal_global_159;
+        v189 = [PPSocialHighlightPropertyValueProvider alloc];
+        v190 = &__block_literal_global_159;
         goto LABEL_168;
       }
 
-      if ([v193 isEqualToString:@"highlightDateSecondsBeforeNow"])
+      if ([v187 isEqualToString:@"highlightDateSecondsBeforeNow"])
       {
-        v195 = [PPSocialHighlightPropertyValueProvider alloc];
-        v196 = &__block_literal_global_162;
+        v189 = [PPSocialHighlightPropertyValueProvider alloc];
+        v190 = &__block_literal_global_162;
         goto LABEL_168;
       }
 
-      if ([v193 isEqualToString:@"isManuallySyndicated"])
+      if ([v187 isEqualToString:@"isManuallySyndicated"])
       {
-        v195 = [PPSocialHighlightPropertyValueProvider alloc];
-        v196 = &__block_literal_global_164_13190;
+        v189 = [PPSocialHighlightPropertyValueProvider alloc];
+        v190 = &__block_literal_global_164_13190;
         goto LABEL_168;
       }
 
-      if ([v193 hasPrefix:@"creationDateInInterval"])
+      if ([v187 hasPrefix:@"creationDateInInterval"])
       {
-        v195 = [PPSocialHighlightPropertyValueProvider alloc];
-        v196 = v192;
+        v189 = [PPSocialHighlightPropertyValueProvider alloc];
+        v190 = v186;
         goto LABEL_168;
       }
 
-      if (![v193 hasPrefix:@"highlightDateInInterval"])
+      if (![v187 hasPrefix:@"highlightDateInInterval"])
       {
-        *&v353 = MEMORY[0x277D85DD0];
-        *(&v353 + 1) = 3221225472;
-        *&v354 = __93__PPSocialHighlightFeaturizer__highlightFeatureProviderForFeature_significantContactHandles___block_invoke_172;
-        *(&v354 + 1) = &unk_278975138;
-        *&v355 = v190;
-        v198 = _Block_copy(&v353);
-        v309 = v198;
-        if ([v193 isEqualToString:@"messagesThreadHasDisplayName"])
+        *&v346 = MEMORY[0x277D85DD0];
+        *(&v346 + 1) = 3221225472;
+        *&v347 = __93__PPSocialHighlightFeaturizer__highlightFeatureProviderForFeature_significantContactHandles___block_invoke_172;
+        *(&v347 + 1) = &unk_278975138;
+        *&v348 = v184;
+        v192 = _Block_copy(&v346);
+        v302 = v192;
+        if ([v187 isEqualToString:@"messagesThreadHasDisplayName"])
         {
-          v199 = [PPSocialHighlightPropertyValueProvider alloc];
-          v200 = &__block_literal_global_167_13191;
+          v193 = [PPSocialHighlightPropertyValueProvider alloc];
+          v194 = &__block_literal_global_167_13191;
         }
 
-        else if ([v193 isEqualToString:@"messagesThreadHasGroupPhoto"])
+        else if ([v187 isEqualToString:@"messagesThreadHasGroupPhoto"])
         {
-          v199 = [PPSocialHighlightPropertyValueProvider alloc];
-          v200 = &__block_literal_global_169_13192;
+          v193 = [PPSocialHighlightPropertyValueProvider alloc];
+          v194 = &__block_literal_global_169_13192;
         }
 
-        else if ([v193 isEqualToString:@"messagesConversationAutoDonating"])
+        else if ([v187 isEqualToString:@"messagesConversationAutoDonating"])
         {
-          v199 = [PPSocialHighlightPropertyValueProvider alloc];
-          v200 = &__block_literal_global_171;
+          v193 = [PPSocialHighlightPropertyValueProvider alloc];
+          v194 = &__block_literal_global_171;
         }
 
-        else if ([v193 isEqualToString:@"isContactSignificant"])
+        else if ([v187 isEqualToString:@"isContactSignificant"])
         {
-          v199 = [PPSocialHighlightPropertyValueProvider alloc];
-          v200 = v198;
+          v193 = [PPSocialHighlightPropertyValueProvider alloc];
+          v194 = v192;
         }
 
-        else if ([v193 isEqualToString:@"sentFromMe"])
+        else if ([v187 isEqualToString:@"sentFromMe"])
         {
-          v199 = [PPSocialHighlightPropertyValueProvider alloc];
-          v200 = &__block_literal_global_174;
+          v193 = [PPSocialHighlightPropertyValueProvider alloc];
+          v194 = &__block_literal_global_174;
         }
 
         else
         {
-          if (![v193 isEqualToString:@"isCollaboration"])
+          if (![v187 isEqualToString:@"isCollaboration"])
           {
-            v197 = 0;
+            v191 = 0;
             goto LABEL_186;
           }
 
-          v199 = [PPSocialHighlightPropertyValueProvider alloc];
-          v200 = &__block_literal_global_176;
+          v193 = [PPSocialHighlightPropertyValueProvider alloc];
+          v194 = &__block_literal_global_176;
         }
 
-        v197 = [(PPSocialHighlightPropertyValueProvider *)v199 initWithProvidingBlock:v200];
+        v191 = [(PPSocialHighlightPropertyValueProvider *)v193 initWithProvidingBlock:v194];
 LABEL_186:
 
         goto LABEL_169;
       }
 
-      v195 = [PPSocialHighlightPropertyValueProvider alloc];
-      v196 = v194;
+      v189 = [PPSocialHighlightPropertyValueProvider alloc];
+      v190 = v188;
 LABEL_168:
-      v197 = [(PPSocialHighlightPropertyValueProvider *)v195 initWithProvidingBlock:v196];
+      v191 = [(PPSocialHighlightPropertyValueProvider *)v189 initWithProvidingBlock:v190];
 LABEL_169:
 
-      if (v197)
+      if (v191)
       {
-        [v319 setObject:v197 forKeyedSubscript:v193];
+        [v312 setObject:v191 forKeyedSubscript:v187];
       }
 
-      objc_autoreleasePoolPop(v188);
-      if (v184 != ++v186)
+      objc_autoreleasePoolPop(v182);
+      if (v178 != ++v180)
       {
         continue;
       }
@@ -1094,9 +1078,9 @@ LABEL_169:
       break;
     }
 
-    v201 = [v314 countByEnumeratingWithState:&v370 objects:buf count:16];
-    v184 = v201;
-    if (v201)
+    v195 = [v307 countByEnumeratingWithState:&v363 objects:buf count:16];
+    v178 = v195;
+    if (v195)
     {
       continue;
     }
@@ -1106,310 +1090,309 @@ LABEL_169:
 
 LABEL_189:
 
-  [v284 addEntriesFromDictionary:v319];
-  v202 = objc;
-  v203 = v314;
+  [v277 addEntriesFromDictionary:v312];
+  v196 = objc;
+  v197 = v307;
   objc_opt_self();
-  v320 = objc_opt_new();
-  v349 = 0u;
-  v350 = 0u;
-  v351 = 0u;
-  v352 = 0u;
-  objd = v203;
-  v315 = [objd countByEnumeratingWithState:&v349 objects:buf count:16];
-  if (v315)
+  v313 = objc_opt_new();
+  v342 = 0u;
+  v343 = 0u;
+  v344 = 0u;
+  v345 = 0u;
+  objd = v197;
+  v308 = [objd countByEnumeratingWithState:&v342 objects:buf count:16];
+  if (v308)
   {
-    v310 = *v350;
-    v295 = v202;
+    v303 = *v343;
+    v288 = v196;
     do
     {
-      for (mm = 0; mm != v315; mm = mm + 1)
+      for (mm = 0; mm != v308; mm = mm + 1)
       {
-        if (*v350 != v310)
+        if (*v343 != v303)
         {
           objc_enumerationMutation(objd);
         }
 
-        v205 = *(*(&v349 + 1) + 8 * mm);
-        v206 = objc_autoreleasePoolPush();
-        if ([v205 isEqualToString:@"countDistinctHighlights"])
+        v199 = *(*(&v342 + 1) + 8 * mm);
+        v200 = objc_autoreleasePoolPush();
+        if ([v199 isEqualToString:@"countDistinctHighlights"])
         {
-          v207 = objc_alloc(MEMORY[0x277CBEB98]);
-          v208 = [v202 _pas_mappedArrayWithTransform:&__block_literal_global_68];
-          v209 = [v207 initWithArray:v208];
+          v201 = objc_alloc(MEMORY[0x277CBEB98]);
+          v202 = [v196 _pas_mappedArrayWithTransform:&__block_literal_global_68];
+          v203 = [v201 initWithArray:v202];
 
-          v210 = [PPSocialHighlightStaticFeatureProvider alloc];
-          v374 = &stru_284759D38;
-          v211 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v209, "count")}];
-          v375 = v211;
-          v212 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v375 forKeys:&v374 count:1];
-          v213 = [(PPSocialHighlightStaticFeatureProvider *)v210 initWithComputedFeatures:v212 highlightKeyBlock:&__block_literal_global_11_13181];
-          [v320 setObject:v213 forKeyedSubscript:v205];
+          v204 = [PPSocialHighlightStaticFeatureProvider alloc];
+          v367 = &stru_284759D38;
+          v205 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v203, "count")}];
+          v368 = v205;
+          v206 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v368 forKeys:&v367 count:1];
+          v207 = [(PPSocialHighlightStaticFeatureProvider *)v204 initWithComputedFeatures:v206 highlightKeyBlock:&__block_literal_global_11_13181];
+          [v313 setObject:v207 forKeyedSubscript:v199];
         }
 
-        if ([v205 isEqualToString:@"countThreadsWithHighlightIdentifier"])
+        if ([v199 isEqualToString:@"countThreadsWithHighlightIdentifier"])
         {
-          v324 = mm;
-          v330 = v206;
-          v214 = objc_opt_new();
-          v345 = 0u;
-          v346 = 0u;
-          v347 = 0u;
-          v348 = 0u;
-          v215 = v202;
-          v216 = v202;
-          v217 = [v216 countByEnumeratingWithState:&v345 objects:&v370 count:16];
-          if (v217)
-          {
-            v218 = v217;
-            v219 = *v346;
-            do
-            {
-              for (nn = 0; nn != v218; ++nn)
-              {
-                if (*v346 != v219)
-                {
-                  objc_enumerationMutation(v216);
-                }
-
-                v221 = *(*(&v345 + 1) + 8 * nn);
-                highlightIdentifier2 = [v221 highlightIdentifier];
-
-                if (highlightIdentifier2)
-                {
-                  highlightIdentifier3 = [v221 highlightIdentifier];
-                  v224 = [v214 objectForKeyedSubscript:highlightIdentifier3];
-
-                  if (!v224)
-                  {
-                    v225 = objc_opt_new();
-                    highlightIdentifier4 = [v221 highlightIdentifier];
-                    [v214 setObject:v225 forKeyedSubscript:highlightIdentifier4];
-                  }
-
-                  domainIdentifier = [v221 domainIdentifier];
-
-                  if (domainIdentifier)
-                  {
-                    highlightIdentifier5 = [v221 highlightIdentifier];
-                    v229 = [v214 objectForKeyedSubscript:highlightIdentifier5];
-                    domainIdentifier2 = [v221 domainIdentifier];
-                    [v229 addObject:domainIdentifier2];
-                  }
-                }
-              }
-
-              v218 = [v216 countByEnumeratingWithState:&v345 objects:&v370 count:16];
-            }
-
-            while (v218);
-          }
-
-          v231 = objc_opt_new();
-          v341 = 0u;
-          v342 = 0u;
-          v343 = 0u;
-          v344 = 0u;
-          v232 = v214;
-          v233 = [v232 countByEnumeratingWithState:&v341 objects:&aBlock count:16];
-          if (v233)
-          {
-            v234 = v233;
-            v235 = *v342;
-            do
-            {
-              for (i1 = 0; i1 != v234; ++i1)
-              {
-                if (*v342 != v235)
-                {
-                  objc_enumerationMutation(v232);
-                }
-
-                v237 = *(*(&v341 + 1) + 8 * i1);
-                v238 = MEMORY[0x277CCABB0];
-                v239 = [v232 objectForKeyedSubscript:v237];
-                v240 = [v238 numberWithUnsignedInteger:{objc_msgSend(v239, "count")}];
-                [v231 setObject:v240 forKeyedSubscript:v237];
-              }
-
-              v234 = [v232 countByEnumeratingWithState:&v341 objects:&aBlock count:16];
-            }
-
-            while (v234);
-          }
-
-          v241 = [[PPSocialHighlightStaticFeatureProvider alloc] initWithComputedFeatures:v231 highlightKeyBlock:&__block_literal_global_13183];
-          [v320 setObject:v241 forKeyedSubscript:v205];
-
-          mm = v324;
-          v202 = v215;
-        }
-
-        else if ([v205 isEqualToString:@"countManualHighlightsFromSender"])
-        {
-          v304 = v205;
-          v325 = mm;
-          v330 = v206;
-          v232 = objc_opt_new();
-          v337 = 0u;
+          v317 = mm;
+          v323 = v200;
+          v208 = objc_opt_new();
           v338 = 0u;
           v339 = 0u;
           v340 = 0u;
-          contexte = v202;
-          v242 = [contexte countByEnumeratingWithState:&v337 objects:v362 count:16];
-          if (v242)
+          v341 = 0u;
+          v209 = v196;
+          v210 = v196;
+          v211 = [v210 countByEnumeratingWithState:&v338 objects:&v363 count:16];
+          if (v211)
           {
-            v243 = v242;
-            v244 = *v338;
+            v212 = v211;
+            v213 = *v339;
             do
             {
-              for (i2 = 0; i2 != v243; ++i2)
+              for (nn = 0; nn != v212; ++nn)
               {
-                if (*v338 != v244)
+                if (*v339 != v213)
+                {
+                  objc_enumerationMutation(v210);
+                }
+
+                v215 = *(*(&v338 + 1) + 8 * nn);
+                highlightIdentifier2 = [v215 highlightIdentifier];
+
+                if (highlightIdentifier2)
+                {
+                  highlightIdentifier3 = [v215 highlightIdentifier];
+                  v218 = [v208 objectForKeyedSubscript:highlightIdentifier3];
+
+                  if (!v218)
+                  {
+                    v219 = objc_opt_new();
+                    highlightIdentifier4 = [v215 highlightIdentifier];
+                    [v208 setObject:v219 forKeyedSubscript:highlightIdentifier4];
+                  }
+
+                  domainIdentifier = [v215 domainIdentifier];
+
+                  if (domainIdentifier)
+                  {
+                    highlightIdentifier5 = [v215 highlightIdentifier];
+                    v223 = [v208 objectForKeyedSubscript:highlightIdentifier5];
+                    domainIdentifier2 = [v215 domainIdentifier];
+                    [v223 addObject:domainIdentifier2];
+                  }
+                }
+              }
+
+              v212 = [v210 countByEnumeratingWithState:&v338 objects:&v363 count:16];
+            }
+
+            while (v212);
+          }
+
+          v225 = objc_opt_new();
+          v334 = 0u;
+          v335 = 0u;
+          v336 = 0u;
+          v337 = 0u;
+          v226 = v208;
+          v227 = [v226 countByEnumeratingWithState:&v334 objects:&aBlock count:16];
+          if (v227)
+          {
+            v228 = v227;
+            v229 = *v335;
+            do
+            {
+              for (i1 = 0; i1 != v228; ++i1)
+              {
+                if (*v335 != v229)
+                {
+                  objc_enumerationMutation(v226);
+                }
+
+                v231 = *(*(&v334 + 1) + 8 * i1);
+                v232 = MEMORY[0x277CCABB0];
+                v233 = [v226 objectForKeyedSubscript:v231];
+                v234 = [v232 numberWithUnsignedInteger:{objc_msgSend(v233, "count")}];
+                [v225 setObject:v234 forKeyedSubscript:v231];
+              }
+
+              v228 = [v226 countByEnumeratingWithState:&v334 objects:&aBlock count:16];
+            }
+
+            while (v228);
+          }
+
+          v235 = [[PPSocialHighlightStaticFeatureProvider alloc] initWithComputedFeatures:v225 highlightKeyBlock:&__block_literal_global_13183];
+          [v313 setObject:v235 forKeyedSubscript:v199];
+
+          mm = v317;
+          v196 = v209;
+        }
+
+        else if ([v199 isEqualToString:@"countManualHighlightsFromSender"])
+        {
+          v297 = v199;
+          v318 = mm;
+          v323 = v200;
+          v226 = objc_opt_new();
+          v330 = 0u;
+          v331 = 0u;
+          v332 = 0u;
+          v333 = 0u;
+          contexte = v196;
+          v236 = [contexte countByEnumeratingWithState:&v330 objects:v355 count:16];
+          if (v236)
+          {
+            v237 = v236;
+            v238 = *v331;
+            do
+            {
+              for (i2 = 0; i2 != v237; ++i2)
+              {
+                if (*v331 != v238)
                 {
                   objc_enumerationMutation(contexte);
                 }
 
-                v246 = *(*(&v337 + 1) + 8 * i2);
-                if ([v246 highlightType] == 2)
+                v240 = *(*(&v330 + 1) + 8 * i2);
+                if ([v240 highlightType] == 2)
                 {
-                  sender = [v246 sender];
+                  sender = [v240 sender];
                   handle = [sender handle];
 
                   if (handle)
                   {
-                    v249 = MEMORY[0x277CCABB0];
-                    sender2 = [v246 sender];
+                    v243 = MEMORY[0x277CCABB0];
+                    sender2 = [v240 sender];
                     handle2 = [sender2 handle];
-                    v252 = [v232 objectForKeyedSubscript:handle2];
-                    v253 = [v249 numberWithInteger:{objc_msgSend(v252, "integerValue") + 1}];
-                    sender3 = [v246 sender];
+                    v246 = [v226 objectForKeyedSubscript:handle2];
+                    v247 = [v243 numberWithInteger:{objc_msgSend(v246, "integerValue") + 1}];
+                    sender3 = [v240 sender];
                     handle3 = [sender3 handle];
-                    [v232 setObject:v253 forKeyedSubscript:handle3];
+                    [v226 setObject:v247 forKeyedSubscript:handle3];
                   }
                 }
               }
 
-              v243 = [contexte countByEnumeratingWithState:&v337 objects:v362 count:16];
+              v237 = [contexte countByEnumeratingWithState:&v330 objects:v355 count:16];
             }
 
-            while (v243);
+            while (v237);
           }
 
-          v231 = [[PPSocialHighlightStaticFeatureProvider alloc] initWithComputedFeatures:v232 highlightKeyBlock:&__block_literal_global_18];
-          [v320 setObject:v231 forKeyedSubscript:v304];
-          v202 = v295;
-          mm = v325;
+          v225 = [[PPSocialHighlightStaticFeatureProvider alloc] initWithComputedFeatures:v226 highlightKeyBlock:&__block_literal_global_18];
+          [v313 setObject:v225 forKeyedSubscript:v297];
+          v196 = v288;
+          mm = v318;
         }
 
         else
         {
-          if (![v205 isEqualToString:@"countManualHighlightsFromThread"])
+          if (![v199 isEqualToString:@"countManualHighlightsFromThread"])
           {
             goto LABEL_242;
           }
 
-          v305 = v205;
-          v330 = v206;
-          v232 = objc_opt_new();
-          *v358 = 0u;
-          v359 = 0u;
-          v360 = 0u;
-          v361 = 0u;
-          v256 = v202;
-          v257 = [v256 countByEnumeratingWithState:v358 objects:&v353 count:16];
-          if (v257)
+          v298 = v199;
+          v323 = v200;
+          v226 = objc_opt_new();
+          *v351 = 0u;
+          v352 = 0u;
+          v353 = 0u;
+          v354 = 0u;
+          v250 = v196;
+          v251 = [v250 countByEnumeratingWithState:v351 objects:&v346 count:16];
+          if (v251)
           {
-            v258 = v257;
-            v259 = *v359;
+            v252 = v251;
+            v253 = *v352;
             do
             {
-              for (i3 = 0; i3 != v258; ++i3)
+              for (i3 = 0; i3 != v252; ++i3)
               {
-                if (*v359 != v259)
+                if (*v352 != v253)
                 {
-                  objc_enumerationMutation(v256);
+                  objc_enumerationMutation(v250);
                 }
 
-                v261 = *(*&v358[8] + 8 * i3);
-                if ([v261 highlightType] == 2)
+                v255 = *(*&v351[8] + 8 * i3);
+                if ([v255 highlightType] == 2)
                 {
-                  domainIdentifier3 = [v261 domainIdentifier];
+                  domainIdentifier3 = [v255 domainIdentifier];
 
                   if (domainIdentifier3)
                   {
-                    v263 = MEMORY[0x277CCABB0];
-                    domainIdentifier4 = [v261 domainIdentifier];
-                    v265 = [v232 objectForKeyedSubscript:domainIdentifier4];
-                    v266 = [v263 numberWithInteger:{objc_msgSend(v265, "integerValue") + 1}];
-                    domainIdentifier5 = [v261 domainIdentifier];
-                    [v232 setObject:v266 forKeyedSubscript:domainIdentifier5];
+                    v257 = MEMORY[0x277CCABB0];
+                    domainIdentifier4 = [v255 domainIdentifier];
+                    v259 = [v226 objectForKeyedSubscript:domainIdentifier4];
+                    v260 = [v257 numberWithInteger:{objc_msgSend(v259, "integerValue") + 1}];
+                    domainIdentifier5 = [v255 domainIdentifier];
+                    [v226 setObject:v260 forKeyedSubscript:domainIdentifier5];
                   }
                 }
               }
 
-              v258 = [v256 countByEnumeratingWithState:v358 objects:&v353 count:16];
+              v252 = [v250 countByEnumeratingWithState:v351 objects:&v346 count:16];
             }
 
-            while (v258);
+            while (v252);
           }
 
-          v231 = [[PPSocialHighlightStaticFeatureProvider alloc] initWithComputedFeatures:v232 highlightKeyBlock:&__block_literal_global_16];
-          [v320 setObject:v231 forKeyedSubscript:v305];
-          v202 = v295;
+          v225 = [[PPSocialHighlightStaticFeatureProvider alloc] initWithComputedFeatures:v226 highlightKeyBlock:&__block_literal_global_16];
+          [v313 setObject:v225 forKeyedSubscript:v298];
+          v196 = v288;
         }
 
-        v206 = v330;
+        v200 = v323;
 LABEL_242:
-        objc_autoreleasePoolPop(v206);
+        objc_autoreleasePoolPop(v200);
       }
 
-      v315 = [objd countByEnumeratingWithState:&v349 objects:buf count:16];
+      v308 = [objd countByEnumeratingWithState:&v342 objects:buf count:16];
     }
 
-    while (v315);
+    while (v308);
   }
 
-  [v284 addEntriesFromDictionary:v320];
-  v268 = [(PPSocialHighlightFeaturizer *)self initWithFeatureValues:v284];
+  [v277 addEntriesFromDictionary:v313];
+  v262 = [(PPSocialHighlightFeaturizer *)self initWithFeatureValues:v277];
 
-  v269 = *MEMORY[0x277D85DE8];
-  return v268;
+  return v262;
 }
 
 + (id)_feedbackFeaturesForPublisher:(void *)publisher highlights:(void *)highlights features:
 {
-  v59 = *MEMORY[0x277D85DE8];
-  v42 = a2;
+  v58 = *MEMORY[0x277D85DE8];
+  v41 = a2;
   publisherCopy = publisher;
   highlightsCopy = highlights;
-  v41 = objc_opt_self();
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x3032000000;
-  v55 = __Block_byref_object_copy__13267;
-  v56 = __Block_byref_object_dispose__13268;
-  v57 = objc_opt_new();
+  v40 = objc_opt_self();
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__13267;
+  v55 = __Block_byref_object_dispose__13268;
+  v56 = objc_opt_new();
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   obj = highlightsCopy;
-  v8 = [obj countByEnumeratingWithState:&v48 objects:v58 count:16];
+  v8 = [obj countByEnumeratingWithState:&v47 objects:v57 count:16];
   if (v8)
   {
-    v9 = *v49;
+    v9 = *v48;
     do
     {
       v10 = 0;
       do
       {
-        if (*v49 != v9)
+        if (*v48 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v48 + 1) + 8 * v10);
+        v11 = *(*(&v47 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         v13 = v11;
         v14 = publisherCopy;
@@ -1641,10 +1624,10 @@ LABEL_17:
           if ((objc_opt_respondsToSelector() & 1) == 0)
           {
             currentHandler = [MEMORY[0x277CCA890] currentHandler];
-            [currentHandler handleFailureInMethod:sel__feedbackFeaturesForPublisher_highlights_features_ object:v41 file:@"PPSocialHighlightFeaturizer.m" lineNumber:197 description:{@"Invalid parameter not satisfying: %@", @"[featureProvider respondsToSelector:@selector(applyFeedback:)]"}];
+            [currentHandler handleFailureInMethod:sel__feedbackFeaturesForPublisher_highlights_features_ object:v40 file:@"PPSocialHighlightFeaturizer.m" lineNumber:197 description:{@"Invalid parameter not satisfying: %@", @"[featureProvider respondsToSelector:@selector(applyFeedback:)]"}];
           }
 
-          [v53[5] setObject:v20 forKeyedSubscript:v13];
+          [v52[5] setObject:v20 forKeyedSubscript:v13];
         }
 
         objc_autoreleasePoolPop(v12);
@@ -1652,46 +1635,44 @@ LABEL_17:
       }
 
       while (v8 != v10);
-      v31 = [obj countByEnumeratingWithState:&v48 objects:v58 count:16];
+      v31 = [obj countByEnumeratingWithState:&v47 objects:v57 count:16];
       v8 = v31;
     }
 
     while (v31);
   }
 
-  v47[0] = 0;
-  v47[1] = v47;
-  v47[2] = 0x2020000000;
-  v47[3] = 0;
+  v46[0] = 0;
+  v46[1] = v46;
+  v46[2] = 0x2020000000;
+  v46[3] = 0;
   v32 = objc_alloc(MEMORY[0x277CF17B0]);
-  v33 = v53[5];
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __81__PPSocialHighlightFeaturizer__feedbackFeaturesForPublisher_highlights_features___block_invoke;
-  v46[3] = &unk_278974F40;
-  v46[4] = v47;
-  v34 = [v32 initWithAccumulator:v33 closure:v46];
-  v35 = objc_autoreleasePoolPush();
-  v36 = [v42 reduce:v34];
+  v33 = v52[5];
   v45[0] = MEMORY[0x277D85DD0];
   v45[1] = 3221225472;
-  v45[2] = __81__PPSocialHighlightFeaturizer__feedbackFeaturesForPublisher_highlights_features___block_invoke_2;
-  v45[3] = &unk_278978248;
-  v45[4] = v47;
+  v45[2] = __81__PPSocialHighlightFeaturizer__feedbackFeaturesForPublisher_highlights_features___block_invoke;
+  v45[3] = &unk_278974F40;
+  v45[4] = v46;
+  v34 = [v32 initWithAccumulator:v33 closure:v45];
+  v35 = objc_autoreleasePoolPush();
+  v36 = [v41 reduce:v34];
   v44[0] = MEMORY[0x277D85DD0];
   v44[1] = 3221225472;
-  v44[2] = __81__PPSocialHighlightFeaturizer__feedbackFeaturesForPublisher_highlights_features___block_invoke_65;
-  v44[3] = &unk_278974F68;
-  v44[4] = &v52;
-  v37 = [v36 sinkWithCompletion:v45 receiveInput:v44];
+  v44[2] = __81__PPSocialHighlightFeaturizer__feedbackFeaturesForPublisher_highlights_features___block_invoke_2;
+  v44[3] = &unk_278978248;
+  v44[4] = v46;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __81__PPSocialHighlightFeaturizer__feedbackFeaturesForPublisher_highlights_features___block_invoke_65;
+  v43[3] = &unk_278974F68;
+  v43[4] = &v51;
+  v37 = [v36 sinkWithCompletion:v44 receiveInput:v43];
 
   objc_autoreleasePoolPop(v35);
-  v38 = v53[5];
+  v38 = v52[5];
 
-  _Block_object_dispose(v47, 8);
-  _Block_object_dispose(&v52, 8);
-
-  v39 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v46, 8);
+  _Block_object_dispose(&v51, 8);
 
   return v38;
 }
@@ -1756,32 +1737,32 @@ double __93__PPSocialHighlightFeaturizer__highlightFeatureProviderForFeature_sig
 
 + (id)_flattenArraysInDictionary:(void *)dictionary keyPath:
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = a2;
   dictionaryCopy = dictionary;
   objc_opt_self();
   v6 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
-        v13 = [v7 objectForKeyedSubscript:{v12, v19}];
+        v12 = *(*(&v18 + 1) + 8 * i);
+        v13 = [v7 objectForKeyedSubscript:{v12, v18}];
         v14 = [v13 valueForKeyPath:dictionaryCopy];
         v15 = v14;
         if (v14)
@@ -1797,13 +1778,11 @@ double __93__PPSocialHighlightFeaturizer__highlightFeatureProviderForFeature_sig
         [v6 setObject:v16 forKeyedSubscript:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1853,7 +1832,7 @@ void __79__PPSocialHighlightFeaturizer__topicScoresMatchingSocialHighlights_topi
 
 + (id)_lastInteractionsByContactForHighlights:(void *)highlights bundlePredicate:(void *)predicate mechanismPredicate:(void *)mechanismPredicate interactionStore:
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   v8 = a2;
   highlightsCopy = highlights;
   predicateCopy = predicate;
@@ -1862,26 +1841,26 @@ void __79__PPSocialHighlightFeaturizer__topicScoresMatchingSocialHighlights_topi
   v9 = v8;
   objc_opt_self();
   v10 = objc_opt_new();
+  v87 = 0u;
   v88 = 0u;
   v89 = 0u;
   v90 = 0u;
-  v91 = 0u;
   obj = v9;
-  v11 = [obj countByEnumeratingWithState:&v88 objects:v92 count:16];
+  v11 = [obj countByEnumeratingWithState:&v87 objects:v91 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v89;
+    v13 = *v88;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v89 != v13)
+        if (*v88 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v88 + 1) + 8 * i);
+        v15 = *(*(&v87 + 1) + 8 * i);
         v16 = MEMORY[0x277CFE080];
         sender = [v15 sender];
         handle = [sender handle];
@@ -1905,7 +1884,7 @@ void __79__PPSocialHighlightFeaturizer__topicScoresMatchingSocialHighlights_topi
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v88 objects:v92 count:16];
+      v12 = [obj countByEnumeratingWithState:&v87 objects:v91 count:16];
     }
 
     while (v12);
@@ -1917,24 +1896,24 @@ void __79__PPSocialHighlightFeaturizer__topicScoresMatchingSocialHighlights_topi
   {
     v23 = objc_autoreleasePoolPush();
     v24 = MEMORY[0x277CCAC30];
-    v87 = allObjects;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
+    v86 = allObjects;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
     v26 = [v24 predicateWithFormat:@"sender.identifier in %@" argumentArray:v25];
 
     v27 = MEMORY[0x277CCAC30];
-    v86 = allObjects;
-    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
+    v85 = allObjects;
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v85 count:1];
     v29 = [v27 predicateWithFormat:@"ANY recipients.identifier in %@" argumentArray:v28];
 
     v30 = objc_alloc(MEMORY[0x277CCA920]);
-    v85[0] = v26;
-    v85[1] = v29;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v85 count:2];
+    v84[0] = v26;
+    v84[1] = v29;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:2];
     v32 = [v30 initWithType:2 subpredicates:v31];
 
-    v84[0] = highlightsCopy;
-    v84[1] = v32;
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:2];
+    v83[0] = highlightsCopy;
+    v83[1] = v32;
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:2];
     v34 = [v33 mutableCopy];
 
     if (predicateCopy)
@@ -1947,51 +1926,51 @@ void __79__PPSocialHighlightFeaturizer__topicScoresMatchingSocialHighlights_topi
     objc_autoreleasePoolPop(v23);
     v36 = objc_autoreleasePoolPush();
     v37 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startDate" ascending:0];
-    v83 = v37;
-    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v83 count:1];
+    v82 = v37;
+    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v82 count:1];
 
-    v78 = 0;
-    v70 = v35;
-    v39 = [mechanismPredicateCopy queryInteractionsUsingPredicate:v35 sortDescriptors:v38 limit:50 error:&v78];
-    v40 = v78;
+    v77 = 0;
+    v69 = v35;
+    v39 = [mechanismPredicateCopy queryInteractionsUsingPredicate:v35 sortDescriptors:v38 limit:50 error:&v77];
+    v40 = v77;
     v41 = pp_social_highlights_log_handle();
     if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       v42 = [v39 count];
-      *v92 = 134218243;
-      v93 = v42;
-      v94 = 2117;
-      v95 = v39;
-      _os_log_impl(&dword_23224A000, v41, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightFeaturizer: found %tu results: %{sensitive}@", v92, 0x16u);
+      *v91 = 134218243;
+      v92 = v42;
+      v93 = 2117;
+      v94 = v39;
+      _os_log_impl(&dword_23224A000, v41, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightFeaturizer: found %tu results: %{sensitive}@", v91, 0x16u);
     }
 
     if (v39)
     {
       if (![obj count] || -[NSObject count](v39, "count"))
       {
-        v69 = allObjects;
+        v68 = allObjects;
 
         objc_autoreleasePoolPop(v36);
-        v68 = v39;
+        v67 = v39;
         v43 = v39;
         objc_opt_self();
         v44 = objc_opt_new();
         buf = 0u;
+        v96 = 0u;
         v97 = 0u;
         v98 = 0u;
-        v99 = 0u;
-        v74 = v43;
-        v76 = [v74 countByEnumeratingWithState:&buf objects:v92 count:16];
-        if (v76)
+        v73 = v43;
+        v75 = [v73 countByEnumeratingWithState:&buf objects:v91 count:16];
+        if (v75)
         {
-          v75 = *v97;
+          v74 = *v96;
           do
           {
-            for (j = 0; j != v76; ++j)
+            for (j = 0; j != v75; ++j)
             {
-              if (*v97 != v75)
+              if (*v96 != v74)
               {
-                objc_enumerationMutation(v74);
+                objc_enumerationMutation(v73);
               }
 
               v46 = *(*(&buf + 1) + 8 * j);
@@ -2016,26 +1995,26 @@ void __79__PPSocialHighlightFeaturizer__topicScoresMatchingSocialHighlights_topi
                   }
                 }
 
-                v81 = 0u;
-                v82 = 0u;
-                v79 = 0u;
                 v80 = 0u;
+                v81 = 0u;
+                v78 = 0u;
+                v79 = 0u;
                 v54 = v51;
-                v55 = [v54 countByEnumeratingWithState:&v79 objects:&v88 count:16];
+                v55 = [v54 countByEnumeratingWithState:&v78 objects:&v87 count:16];
                 if (v55)
                 {
                   v56 = v55;
-                  v57 = *v80;
+                  v57 = *v79;
                   do
                   {
                     for (k = 0; k != v56; ++k)
                     {
-                      if (*v80 != v57)
+                      if (*v79 != v57)
                       {
                         objc_enumerationMutation(v54);
                       }
 
-                      v59 = *(*(&v79 + 1) + 8 * k);
+                      v59 = *(*(&v78 + 1) + 8 * k);
                       v60 = [v44 objectForKeyedSubscript:v59];
 
                       if (!v60)
@@ -2045,7 +2024,7 @@ void __79__PPSocialHighlightFeaturizer__topicScoresMatchingSocialHighlights_topi
                       }
                     }
 
-                    v56 = [v54 countByEnumeratingWithState:&v79 objects:&v88 count:16];
+                    v56 = [v54 countByEnumeratingWithState:&v78 objects:&v87 count:16];
                   }
 
                   while (v56);
@@ -2053,14 +2032,14 @@ void __79__PPSocialHighlightFeaturizer__topicScoresMatchingSocialHighlights_topi
               }
             }
 
-            v76 = [v74 countByEnumeratingWithState:&buf objects:v92 count:16];
+            v75 = [v73 countByEnumeratingWithState:&buf objects:v91 count:16];
           }
 
-          while (v76);
+          while (v75);
         }
 
-        v39 = v68;
-        allObjects = v69;
+        v39 = v67;
+        allObjects = v68;
         goto LABEL_50;
       }
 
@@ -2076,7 +2055,7 @@ LABEL_50:
         goto LABEL_51;
       }
 
-      *v92 = 0;
+      *v91 = 0;
       v63 = "PPSocialHighlightFeaturizer: interaction store returned no interactions, but highlights should be included in interactions.";
       v64 = v62;
       v65 = 2;
@@ -2090,58 +2069,56 @@ LABEL_50:
         goto LABEL_49;
       }
 
-      *v92 = 138412290;
-      v93 = v40;
+      *v91 = 138412290;
+      v92 = v40;
       v63 = "PPSocialHighlightFeaturizer: interaction store query failed %@";
       v64 = v62;
       v65 = 12;
     }
 
-    _os_log_error_impl(&dword_23224A000, v64, OS_LOG_TYPE_ERROR, v63, v92, v65);
+    _os_log_error_impl(&dword_23224A000, v64, OS_LOG_TYPE_ERROR, v63, v91, v65);
     goto LABEL_49;
   }
 
   v39 = pp_social_highlights_log_handle();
   if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
-    *v92 = 0;
-    _os_log_impl(&dword_23224A000, v39, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightFeaturizer: no handles found.", v92, 2u);
+    *v91 = 0;
+    _os_log_impl(&dword_23224A000, v39, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightFeaturizer: no handles found.", v91, 2u);
   }
 
   v44 = 0;
 LABEL_51:
-
-  v66 = *MEMORY[0x277D85DE8];
 
   return v44;
 }
 
 id __81__PPSocialHighlightFeaturizer__feedbackFeaturesForPublisher_highlights_features___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         v13 = objc_autoreleasePoolPush();
         v14 = [v7 objectForKeyedSubscript:v12];
         v15 = [v14 applyFeedback:v5];
@@ -2150,21 +2127,20 @@ id __81__PPSocialHighlightFeaturizer__feedbackFeaturesForPublisher_highlights_fe
         objc_autoreleasePoolPop(v13);
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
 
   ++*(*(*(a1 + 32) + 8) + 24);
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 void __81__PPSocialHighlightFeaturizer__feedbackFeaturesForPublisher_highlights_features___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 state];
   v5 = pp_social_highlights_log_handle();
@@ -2174,28 +2150,26 @@ void __81__PPSocialHighlightFeaturizer__feedbackFeaturesForPublisher_highlights_
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v7 = [v3 error];
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_error_impl(&dword_23224A000, v6, OS_LOG_TYPE_ERROR, "PPSocialHighlightFeaturizer: failed to process feedback: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v7;
+      _os_log_error_impl(&dword_23224A000, v6, OS_LOG_TYPE_ERROR, "PPSocialHighlightFeaturizer: failed to process feedback: %@", &v10, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v11) = 0;
-    _os_log_debug_impl(&dword_23224A000, v6, OS_LOG_TYPE_DEBUG, "PPSocialHighlightFeaturizer: successfully processed entire feedback stream.", &v11, 2u);
+    LOWORD(v10) = 0;
+    _os_log_debug_impl(&dword_23224A000, v6, OS_LOG_TYPE_DEBUG, "PPSocialHighlightFeaturizer: successfully processed entire feedback stream.", &v10, 2u);
   }
 
   v8 = pp_social_highlights_log_handle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(*(*(a1 + 32) + 8) + 24);
-    v11 = 134217984;
-    v12 = v9;
-    _os_log_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightFeaturizer: completed processing with %tu items passed to aggregator.", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = v9;
+    _os_log_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEFAULT, "PPSocialHighlightFeaturizer: completed processing with %tu items passed to aggregator.", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (PPSocialHighlightFeaturizer)initWithFeatureValues:(id)values

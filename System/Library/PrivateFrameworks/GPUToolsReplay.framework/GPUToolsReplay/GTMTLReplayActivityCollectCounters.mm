@@ -9,51 +9,47 @@
 
 - (void)outputToLog:(id)log
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     activityType = self->super._activityType;
     index = self->_index;
     locations = self->_locations;
     counterNames = self->_counterNames;
-    v10 = 138544130;
-    v11 = activityType;
-    v12 = 2048;
-    v13 = index;
-    v14 = 2048;
-    v15 = locations;
-    v16 = 2114;
-    v17 = counterNames;
-    _os_log_impl(&dword_24D764000, log, OS_LOG_TYPE_INFO, "%{public}@(%llu):\t0x%08llx %{public}@", &v10, 0x2Au);
+    v9 = 138544130;
+    v10 = activityType;
+    v11 = 2048;
+    v12 = index;
+    v13 = 2048;
+    v14 = locations;
+    v15 = 2114;
+    v16 = counterNames;
+    _os_log_impl(&dword_24D764000, log, OS_LOG_TYPE_INFO, "%{public}@(%llu):\t0x%08llx %{public}@", &v9, 0x2Au);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)jsonObject
 {
-  v13[6] = *MEMORY[0x277D85DE8];
+  v12[6] = *MEMORY[0x277D85DE8];
   activityType = self->super._activityType;
   counterNames = self->_counterNames;
-  v12[0] = @"activityType";
-  v12[1] = @"counterNames";
-  v13[0] = activityType;
-  v13[1] = counterNames;
-  v12[2] = @"locations";
+  v11[0] = @"activityType";
+  v11[1] = @"counterNames";
+  v12[0] = activityType;
+  v12[1] = counterNames;
+  v11[2] = @"locations";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_locations];
-  v13[2] = v5;
-  v12[3] = @"index";
+  v12[2] = v5;
+  v11[3] = @"index";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_index];
-  v13[3] = v6;
-  v12[4] = @"activityStartTime";
+  v12[3] = v6;
+  v11[4] = @"activityStartTime";
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:*&time_scale * self->super._activityStartTime];
-  v13[4] = v7;
-  v12[5] = @"activityEndTime";
+  v12[4] = v7;
+  v11[5] = @"activityEndTime";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:*&time_scale * self->super._activityEndTime];
-  v13[5] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[5] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
 
   return v9;
 }

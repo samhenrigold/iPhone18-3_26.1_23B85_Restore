@@ -11,45 +11,46 @@
 - (WBSPasswordImportCSVCredentialExtractor)initWithURLforCSVFile:(id)file
 {
   fileCopy = file;
-  v16 = 0;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithContentsOfDelimitedURL:fileCopy options:2 delimiter:44 error:&v16];
-  v6 = v16;
+  v20 = 0;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithContentsOfDelimitedURL:fileCopy options:2 delimiter:44 error:&v20];
+  v6 = v20;
+  v8 = v6;
   if (!v5)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXPasswords(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(WBSPasswordImportCSVCredentialExtractor *)v7 initWithURLforCSVFile:v6];
+      [(WBSPasswordImportCSVCredentialExtractor *)v9 initWithURLforCSVFile:v8];
     }
   }
 
-  v15 = v6;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithContentsOfDelimitedURL:fileCopy options:3 delimiter:44 error:&v15];
-  v9 = v15;
+  v19 = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithContentsOfDelimitedURL:fileCopy options:3 delimiter:44 error:&v19];
+  v11 = v19;
 
-  if (!v8)
+  if (!v10)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXPasswords(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(WBSPasswordImportCSVCredentialExtractor *)v10 initWithURLforCSVFile:v9];
+      [(WBSPasswordImportCSVCredentialExtractor *)v14 initWithURLforCSVFile:v11];
     }
   }
 
-  v11 = [v8 count];
-  if (v11 <= [v5 count])
+  v15 = [v10 count];
+  if (v15 <= [v5 count])
   {
-    v12 = v5;
+    v16 = v5;
   }
 
   else
   {
-    v12 = v8;
+    v16 = v10;
   }
 
-  v13 = [(WBSPasswordImportCSVCredentialExtractor *)self _initWithCSVContents:v12];
+  v17 = [(WBSPasswordImportCSVCredentialExtractor *)self _initWithCSVContents:v16];
 
-  return v13;
+  return v17;
 }
 
 + (id)credentialExtractionErrorForErrorCode:(int64_t)code
@@ -430,14 +431,18 @@ LABEL_57:
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Extraction from CSV with CHCSVParserOptionsSanitizesFields failed: %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Extraction from CSV with CHCSVParserOptionsSanitizesFields failed: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)initWithURLforCSVFile:(void *)a1 .cold.2(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Extraction from CSV with (CHCSVParserOptionsSanitizesFields | CHCSVParserOptionsRecognizesBackslashesAsEscapes) failed: %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Extraction from CSV with (CHCSVParserOptionsSanitizesFields | CHCSVParserOptionsRecognizesBackslashesAsEscapes) failed: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

@@ -71,7 +71,7 @@
 - (void)updateAudioSessionCategoryWithIsAudioOn:(BOOL)on
 {
   selfCopy = self;
-  sub_1CA18F8A8();
+  sub_1CA18F8A8(on);
 }
 
 - (void)handleMediaServicesReset

@@ -54,7 +54,7 @@ void __VCOverlayManager_registerOverlayForToken_block_invoke(uint64_t a1)
     v8 = *(*(v7 + 8) + 40);
     if (v8)
     {
-      [v8 currentDetails];
+      objc_msgSend_currentDetails(v8);
       v7 = *(a1 + 32);
     }
 

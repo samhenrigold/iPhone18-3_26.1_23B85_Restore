@@ -81,10 +81,7 @@
 
 - (void)setEncryptionKeySpecifier:(id)specifier
 {
-  v4 = [specifier copy];
-  symmetricEncryptionOperationInternal = self->_symmetricEncryptionOperationInternal;
-  v6 = symmetricEncryptionOperationInternal[2];
-  symmetricEncryptionOperationInternal[2] = v4;
+  *(self->_symmetricEncryptionOperationInternal + 2) = [specifier copy];
 
   MEMORY[0x2821F96F8]();
 }

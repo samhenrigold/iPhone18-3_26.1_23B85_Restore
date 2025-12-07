@@ -3,7 +3,6 @@
 + (id)taskWithStartingFetchDateOverride:(id)override namespaceNames:(id)names taskAttribution:(id)attribution;
 - (BOOL)isEqual:(id)equal;
 - (NSArray)tags;
-- (NSString)description;
 - (TRIFetchRolloutNotificationListTask)initWithCoder:(id)coder;
 - (TRIFetchRolloutNotificationListTask)initWithStartingFetchDateOverride:(id)override namespaceNames:(id)names taskAttribution:(id)attribution;
 - (id)_asPersistedTask;
@@ -63,7 +62,7 @@
 
 - (void)_processRolloutArtifact:(id)artifact context:(id)context taskQueue:(id)queue
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   artifactCopy = artifact;
   contextCopy = context;
   rollout = [artifactCopy rollout];
@@ -102,34 +101,32 @@
       deployment3 = [artifactCopy deployment];
       shortDesc = [deployment3 shortDesc];
       *buf = 138543362;
-      v26 = shortDesc;
+      v25 = shortDesc;
       _os_log_impl(&dword_26F567000, v21, OS_LOG_TYPE_DEFAULT, "Skipping RolloutNotification for rollout %{public}@ which is already present in the database.", buf, 0xCu);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)runUsingContext:(id)context withTaskQueue:(id)queue
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   queueCopy = queue;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v44 = os_transaction_create();
+  v43 = os_transaction_create();
   keyValueStore = [contextCopy keyValueStore];
   v9 = [TRIFetchDateManager managerWithKeyValueStore:keyValueStore];
 
   namespaceDatabase = [contextCopy namespaceDatabase];
   paths = [contextCopy paths];
   namespaceDescriptorsDefaultDir = [paths namespaceDescriptorsDefaultDir];
-  v48 = [TRINamespaceDescriptorProvider providerWithNamespaceDatabase:namespaceDatabase defaultDescriptorDirectoryPath:namespaceDescriptorsDefaultDir];
+  v47 = [TRINamespaceDescriptorProvider providerWithNamespaceDatabase:namespaceDatabase defaultDescriptorDirectoryPath:namespaceDescriptorsDefaultDir];
 
   triCloudKitContainer = [(TRITaskAttributing *)selfCopy->_taskAttribution triCloudKitContainer];
   teamIdentifier = [(TRITaskAttributing *)selfCopy->_taskAttribution teamIdentifier];
   applicationBundleIdentifier = [(TRITaskAttributing *)selfCopy->_taskAttribution applicationBundleIdentifier];
-  v46 = [TRICKNativeArtifactProvider providerForContainer:triCloudKitContainer teamId:teamIdentifier bundleId:applicationBundleIdentifier dateProvider:v9 namespaceDescriptorProvider:v48 serverContext:contextCopy];
+  v45 = [TRICKNativeArtifactProvider providerForContainer:triCloudKitContainer teamId:teamIdentifier bundleId:applicationBundleIdentifier dateProvider:v9 namespaceDescriptorProvider:v47 serverContext:contextCopy];
 
   networkOptions = [(TRITaskAttributing *)selfCopy->_taskAttribution networkOptions];
   if ([networkOptions allowsCellularAccess])
@@ -152,23 +149,23 @@
 
 LABEL_6:
     v20 = dispatch_semaphore_create(0);
-    v45 = [[TRIFetchOptions alloc] initWithDownloadOptions:networkOptions cacheDeleteAvailableSpaceClass:&unk_287FC4D38];
-    *v76 = 0;
-    v77 = v76;
-    v78 = 0x3032000000;
-    v79 = __Block_byref_object_copy__51;
-    v80 = __Block_byref_object_dispose__51;
-    v81 = 0;
-    v72 = 0;
-    v73 = &v72;
-    v74 = 0x2020000000;
-    v75 = 0;
-    v66 = 0;
-    v67 = &v66;
-    v68 = 0x3032000000;
-    v69 = __Block_byref_object_copy__51;
-    v70 = __Block_byref_object_dispose__51;
+    v44 = [[TRIFetchOptions alloc] initWithDownloadOptions:networkOptions cacheDeleteAvailableSpaceClass:&unk_287FC4D38];
+    *v75 = 0;
+    v76 = v75;
+    v77 = 0x3032000000;
+    v78 = __Block_byref_object_copy__51;
+    v79 = __Block_byref_object_dispose__51;
+    v80 = 0;
     v71 = 0;
+    v72 = &v71;
+    v73 = 0x2020000000;
+    v74 = 0;
+    v65 = 0;
+    v66 = &v65;
+    v67 = 0x3032000000;
+    v68 = __Block_byref_object_copy__51;
+    v69 = __Block_byref_object_dispose__51;
+    v70 = 0;
     v21 = TRILogCategory_Server();
     v22 = os_signpost_id_generate(v21);
 
@@ -180,91 +177,91 @@ LABEL_6:
       _os_signpost_emit_with_name_impl(&dword_26F567000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v22, "FetchRolloutNotificationsDateAscending", &unk_26F6F4845, buf, 2u);
     }
 
-    v43 = v9;
+    v42 = v9;
     *buf = 0;
-    v63 = buf;
-    v64 = 0x2020000000;
-    v65 = 0;
+    v62 = buf;
+    v63 = 0x2020000000;
+    v64 = 0;
     startingFetchDateOverride = selfCopy->_startingFetchDateOverride;
     namespaceNames = selfCopy->_namespaceNames;
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __69__TRIFetchRolloutNotificationListTask_runUsingContext_withTaskQueue___block_invoke;
-    v54[3] = &unk_279DE4928;
-    v59 = &v66;
-    v60 = v76;
-    v58 = &v72;
-    v54[4] = selfCopy;
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __69__TRIFetchRolloutNotificationListTask_runUsingContext_withTaskQueue___block_invoke;
+    v53[3] = &unk_279DE4928;
+    v58 = &v65;
+    v59 = v75;
+    v57 = &v71;
+    v53[4] = selfCopy;
     v27 = contextCopy;
-    v55 = v27;
-    v56 = queueCopy;
-    v61 = buf;
+    v54 = v27;
+    v55 = queueCopy;
+    v60 = buf;
     v28 = v20;
-    v57 = v28;
-    [v46 fetchRolloutNotificationsDateAscendingWithOptions:v45 lastFetchDateOverride:startingFetchDateOverride namespaceNames:namespaceNames completion:v54];
+    v56 = v28;
+    [v45 fetchRolloutNotificationsDateAscendingWithOptions:v44 lastFetchDateOverride:startingFetchDateOverride namespaceNames:namespaceNames completion:v53];
     dispatch_semaphore_wait(v28, 0xFFFFFFFFFFFFFFFFLL);
     v29 = TRILogCategory_Server();
     v30 = v29;
     if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
     {
-      *v53 = 0;
-      _os_signpost_emit_with_name_impl(&dword_26F567000, v30, OS_SIGNPOST_INTERVAL_END, v22, "FetchRolloutNotificationsDateAscending", &unk_26F6F4845, v53, 2u);
+      *v52 = 0;
+      _os_signpost_emit_with_name_impl(&dword_26F567000, v30, OS_SIGNPOST_INTERVAL_END, v22, "FetchRolloutNotificationsDateAscending", &unk_26F6F4845, v52, 2u);
     }
 
-    if (v67[5])
+    if (v66[5])
     {
       selfCopy->wasDeferred = [TRICKNativeArtifactProvider isActivityDeferralError:?];
-      v31 = TRIFetchErrorParseToMetrics(v67[5]);
+      v31 = TRIFetchErrorParseToMetrics(v66[5]);
       if ([v31 count])
       {
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
         v50 = 0u;
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
         v32 = v31;
-        v33 = [v32 countByEnumeratingWithState:&v49 objects:v82 count:16];
+        v33 = [v32 countByEnumeratingWithState:&v48 objects:v81 count:16];
         if (v33)
         {
-          v34 = *v50;
+          v34 = *v49;
           do
           {
             for (i = 0; i != v33; ++i)
             {
-              if (*v50 != v34)
+              if (*v49 != v34)
               {
                 objc_enumerationMutation(v32);
               }
 
-              [(TRIFetchRolloutNotificationListTask *)selfCopy _addMetric:*(*(&v49 + 1) + 8 * i), v43];
+              [(TRIFetchRolloutNotificationListTask *)selfCopy _addMetric:*(*(&v48 + 1) + 8 * i), v42];
             }
 
-            v33 = [v32 countByEnumeratingWithState:&v49 objects:v82 count:16];
+            v33 = [v32 countByEnumeratingWithState:&v48 objects:v81 count:16];
           }
 
           while (v33);
         }
 
-        v9 = v43;
+        v9 = v42;
       }
     }
 
-    v36 = *(v73 + 6);
+    v36 = *(v72 + 6);
     if (v36 == 2)
     {
       xpcActivityManager = [v27 xpcActivityManager];
       [xpcActivityManager postponeCellularActivity];
 
-      v36 = *(v73 + 6);
+      v36 = *(v72 + 6);
     }
 
     v38 = [(NSMutableArray *)selfCopy->_nextTasks copy];
-    v39 = [TRITaskRunResult resultWithRunStatus:v36 reportResultToServer:1 nextTasks:v38 earliestRetryDate:*(v77 + 5)];
+    v39 = [TRITaskRunResult resultWithRunStatus:v36 reportResultToServer:1 nextTasks:v38 earliestRetryDate:*(v76 + 5)];
 
     _Block_object_dispose(buf, 8);
-    _Block_object_dispose(&v66, 8);
+    _Block_object_dispose(&v65, 8);
 
-    _Block_object_dispose(&v72, 8);
-    _Block_object_dispose(v76, 8);
+    _Block_object_dispose(&v71, 8);
+    _Block_object_dispose(v75, 8);
 
     goto LABEL_29;
   }
@@ -272,8 +269,8 @@ LABEL_6:
   v40 = TRILogCategory_Server();
   if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
-    *v76 = 0;
-    _os_log_impl(&dword_26F567000, v40, OS_LOG_TYPE_DEFAULT, "no xpc activity designated for discretionary operation, failing with retry", v76, 2u);
+    *v75 = 0;
+    _os_log_impl(&dword_26F567000, v40, OS_LOG_TYPE_DEFAULT, "no xpc activity designated for discretionary operation, failing with retry", v75, 2u);
   }
 
   v28 = [(NSMutableArray *)selfCopy->_nextTasks copy];
@@ -281,14 +278,13 @@ LABEL_6:
 LABEL_29:
 
   objc_sync_exit(selfCopy);
-  v41 = *MEMORY[0x277D85DE8];
 
   return v39;
 }
 
 void __69__TRIFetchRolloutNotificationListTask_runUsingContext_withTaskQueue___block_invoke(uint64_t a1, unint64_t a2, void *a3, void *a4, void *a5)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -329,11 +325,11 @@ LABEL_8:
     {
       if (!*(*(*(a1 + 88) + 8) + 24))
       {
-        v14 = TRILogCategory_Server();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v13 = TRILogCategory_Server();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&dword_26F567000, v14, OS_LOG_TYPE_DEFAULT, "Fetch status success but 0 results fetched.", &v17, 2u);
+          LOWORD(v16) = 0;
+          _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "Fetch status success but 0 results fetched.", &v16, 2u);
         }
       }
 
@@ -343,17 +339,16 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v15 = TRILogCategory_Server();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v14 = TRILogCategory_Server();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = *(*(*(a1 + 88) + 8) + 24);
-    v17 = 134217984;
-    v18 = v16;
-    _os_log_impl(&dword_26F567000, v15, OS_LOG_TYPE_DEFAULT, "Fetched %ld results, with more results pending.", &v17, 0xCu);
+    v15 = *(*(*(a1 + 88) + 8) + 24);
+    v16 = 134217984;
+    v17 = v15;
+    _os_log_impl(&dword_26F567000, v14, OS_LOG_TYPE_DEFAULT, "Fetched %ld results, with more results pending.", &v16, 0xCu);
   }
 
 LABEL_9:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -473,14 +468,6 @@ LABEL_25:
   return [(TRITaskAttributing *)self->_taskAttribution hash]+ 37 * (namespaceNames + 1369 * v3 + 37 * v5);
 }
 
-- (NSString)description
-{
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  startingFetchDateOverride = self->_startingFetchDateOverride;
-  return [v3 stringWithFormat:@"<%@:%@, %@>", v4, startingFetchDateOverride, self->_namespaceNames];
-}
-
 - (void)_addMetric:(id)metric
 {
   metricCopy = metric;
@@ -581,17 +568,17 @@ LABEL_25:
 
 + (id)parseFromData:(id)data
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v19 = 0;
-  v4 = [(TRIPBMessage *)TRIFetchRolloutNotificationListPersistedTask parseFromData:data error:&v19];
-  v5 = v19;
+  v21 = *MEMORY[0x277D85DE8];
+  v18 = 0;
+  v4 = [(TRIPBMessage *)TRIFetchRolloutNotificationListPersistedTask parseFromData:data error:&v18];
+  v5 = v18;
   if (!v4)
   {
     v7 = TRILogCategory_Server();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v21 = v5;
+      v20 = v5;
       _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "Unable to parse buffer as TRIFetchRolloutNotificationListPersistedTask: %{public}@", buf, 0xCu);
     }
 
@@ -603,10 +590,10 @@ LABEL_25:
     v7 = TRILogCategory_Server();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
       *buf = 138412290;
-      v21 = v18;
+      v20 = v17;
       _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "Cannot decode message of type %@ with missing field: taskAttribution", buf, 0xCu);
     }
 
@@ -670,7 +657,6 @@ LABEL_10:
   }
 
 LABEL_23:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

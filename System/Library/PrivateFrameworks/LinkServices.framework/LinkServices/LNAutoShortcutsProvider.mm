@@ -331,36 +331,36 @@ uint64_t __71__LNAutoShortcutsProvider_autoShortcutsForLocaleIdentifier_completi
 
 void __78__LNAutoShortcutsProvider_autoShortcutsForApplicationRecord_localeIdentifier___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) bundleIdentifier];
   v3 = *(*(a1 + 40) + 16);
   if (v3)
   {
     v4 = *(a1 + 48);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __78__LNAutoShortcutsProvider_autoShortcutsForApplicationRecord_localeIdentifier___block_invoke_2;
-    v14[3] = &unk_1E74B11B0;
-    v15 = *(a1 + 56);
-    [v3 autoShortcutsForBundleIdentifier:v2 localeIdentifier:v4 completion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __78__LNAutoShortcutsProvider_autoShortcutsForApplicationRecord_localeIdentifier___block_invoke_2;
+    v13[3] = &unk_1E74B11B0;
+    v14 = *(a1 + 56);
+    [v3 autoShortcutsForBundleIdentifier:v2 localeIdentifier:v4 completion:v13];
   }
 
   if (!*(*(*(a1 + 64) + 8) + 40))
   {
     v5 = *(*(a1 + 40) + 8);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __78__LNAutoShortcutsProvider_autoShortcutsForApplicationRecord_localeIdentifier___block_invoke_3;
-    v13[3] = &unk_1E74B2658;
-    v13[4] = *(a1 + 56);
-    v6 = [v5 synchronousRemoteObjectProxyWithErrorHandler:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __78__LNAutoShortcutsProvider_autoShortcutsForApplicationRecord_localeIdentifier___block_invoke_3;
+    v12[3] = &unk_1E74B2658;
+    v12[4] = *(a1 + 56);
+    v6 = [v5 synchronousRemoteObjectProxyWithErrorHandler:v12];
     v7 = *(a1 + 48);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __78__LNAutoShortcutsProvider_autoShortcutsForApplicationRecord_localeIdentifier___block_invoke_4;
-    v11[3] = &unk_1E74B11B0;
-    v12 = vextq_s8(*(a1 + 56), *(a1 + 56), 8uLL);
-    [v6 autoShortcutsForBundleIdentifier:v2 localeIdentifier:v7 completionHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __78__LNAutoShortcutsProvider_autoShortcutsForApplicationRecord_localeIdentifier___block_invoke_4;
+    v10[3] = &unk_1E74B11B0;
+    v11 = vextq_s8(*(a1 + 56), *(a1 + 56), 8uLL);
+    [v6 autoShortcutsForBundleIdentifier:v2 localeIdentifier:v7 completionHandler:v10];
 
     if (!*(*(*(a1 + 64) + 8) + 40))
     {
@@ -369,13 +369,11 @@ void __78__LNAutoShortcutsProvider_autoShortcutsForApplicationRecord_localeIdent
       {
         v9 = *(*(*(a1 + 56) + 8) + 40);
         *buf = 138412290;
-        v17 = v9;
+        v16 = v9;
         _os_log_impl(&dword_19763D000, v8, OS_LOG_TYPE_ERROR, "Failed to retrieve app shortucts with error, returning empty array: %@", buf, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __78__LNAutoShortcutsProvider_autoShortcutsForApplicationRecord_localeIdentifier___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -404,7 +402,7 @@ void __78__LNAutoShortcutsProvider_autoShortcutsForApplicationRecord_localeIdent
 
 - (void)retrieveActionForBundleIdentifier:(id)identifier appShortcutIdentifier:(id)shortcutIdentifier parameterIdentifier:(id)parameterIdentifier completion:(id)completion
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   shortcutIdentifierCopy = shortcutIdentifier;
   parameterIdentifierCopy = parameterIdentifier;
@@ -413,57 +411,54 @@ void __78__LNAutoShortcutsProvider_autoShortcutsForApplicationRecord_localeIdent
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v35 = identifierCopy;
-    v36 = 2112;
-    v37 = shortcutIdentifierCopy;
-    v38 = 2112;
-    v39 = parameterIdentifierCopy;
+    v34 = identifierCopy;
+    v35 = 2112;
+    v36 = shortcutIdentifierCopy;
+    v37 = 2112;
+    v38 = parameterIdentifierCopy;
     _os_log_impl(&dword_19763D000, v14, OS_LOG_TYPE_DEBUG, "Fetching action for bundleIdentifier: %@ appShortcutIdentifier: %@ parameterIdentifier: %@", buf, 0x20u);
   }
 
   connection = self->_connection;
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __114__LNAutoShortcutsProvider_retrieveActionForBundleIdentifier_appShortcutIdentifier_parameterIdentifier_completion___block_invoke;
-  v32[3] = &unk_1E74B2848;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __114__LNAutoShortcutsProvider_retrieveActionForBundleIdentifier_appShortcutIdentifier_parameterIdentifier_completion___block_invoke;
+  v31[3] = &unk_1E74B2848;
   v16 = completionCopy;
-  v33 = v16;
-  v17 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v32];
+  v32 = v16;
+  v17 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v31];
   v18 = _os_activity_create(&dword_19763D000, "appintents:retrieve action for appshortcut identifier", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __114__LNAutoShortcutsProvider_retrieveActionForBundleIdentifier_appShortcutIdentifier_parameterIdentifier_completion___block_invoke_27;
   block[3] = &unk_1E74B1188;
-  v26 = v17;
-  v27 = identifierCopy;
-  v28 = shortcutIdentifierCopy;
-  v29 = parameterIdentifierCopy;
+  v25 = v17;
+  v26 = identifierCopy;
+  v27 = shortcutIdentifierCopy;
+  v28 = parameterIdentifierCopy;
   selfCopy = self;
-  v31 = v16;
+  v30 = v16;
   v19 = v16;
   v20 = parameterIdentifierCopy;
   v21 = shortcutIdentifierCopy;
   v22 = identifierCopy;
   v23 = v17;
   os_activity_apply(v18, block);
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __114__LNAutoShortcutsProvider_retrieveActionForBundleIdentifier_appShortcutIdentifier_parameterIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getLNLogCategoryGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "Got an error from XPCConnection to DaemonRegistryService: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "Got an error from XPCConnection to DaemonRegistryService: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __114__LNAutoShortcutsProvider_retrieveActionForBundleIdentifier_appShortcutIdentifier_parameterIdentifier_completion___block_invoke_27(void *a1)
@@ -484,7 +479,7 @@ void __114__LNAutoShortcutsProvider_retrieveActionForBundleIdentifier_appShortcu
 
 - (void)retrieveActionForBundleIdentifier:(id)identifier basePhraseTemplate:(id)template actionIdentifier:(id)actionIdentifier parameterIdentifier:(id)parameterIdentifier completion:(id)completion
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   templateCopy = template;
   actionIdentifierCopy = actionIdentifier;
@@ -494,60 +489,57 @@ void __114__LNAutoShortcutsProvider_retrieveActionForBundleIdentifier_appShortcu
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413058;
-    v40 = identifierCopy;
-    v41 = 2112;
-    v42 = templateCopy;
-    v43 = 2112;
-    v44 = actionIdentifierCopy;
-    v45 = 2112;
-    v46 = parameterIdentifierCopy;
+    v39 = identifierCopy;
+    v40 = 2112;
+    v41 = templateCopy;
+    v42 = 2112;
+    v43 = actionIdentifierCopy;
+    v44 = 2112;
+    v45 = parameterIdentifierCopy;
   }
 
   connection = self->_connection;
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __128__LNAutoShortcutsProvider_retrieveActionForBundleIdentifier_basePhraseTemplate_actionIdentifier_parameterIdentifier_completion___block_invoke;
-  v37[3] = &unk_1E74B2848;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __128__LNAutoShortcutsProvider_retrieveActionForBundleIdentifier_basePhraseTemplate_actionIdentifier_parameterIdentifier_completion___block_invoke;
+  v36[3] = &unk_1E74B2848;
   v19 = completionCopy;
-  v38 = v19;
-  v20 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v37];
+  v37 = v19;
+  v20 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v36];
   v21 = _os_activity_create(&dword_19763D000, "appintents:retrieve action for actionId, parameterId", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __128__LNAutoShortcutsProvider_retrieveActionForBundleIdentifier_basePhraseTemplate_actionIdentifier_parameterIdentifier_completion___block_invoke_26;
-  v29[3] = &unk_1E74B1138;
-  v30 = v20;
-  v31 = identifierCopy;
-  v32 = templateCopy;
-  v33 = actionIdentifierCopy;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __128__LNAutoShortcutsProvider_retrieveActionForBundleIdentifier_basePhraseTemplate_actionIdentifier_parameterIdentifier_completion___block_invoke_26;
+  v28[3] = &unk_1E74B1138;
+  v29 = v20;
+  v30 = identifierCopy;
+  v31 = templateCopy;
+  v32 = actionIdentifierCopy;
   selfCopy = self;
-  v36 = v19;
-  v34 = parameterIdentifierCopy;
+  v35 = v19;
+  v33 = parameterIdentifierCopy;
   v22 = v19;
   v23 = parameterIdentifierCopy;
   v24 = actionIdentifierCopy;
   v25 = templateCopy;
   v26 = identifierCopy;
   v27 = v20;
-  os_activity_apply(v21, v29);
-
-  v28 = *MEMORY[0x1E69E9840];
+  os_activity_apply(v21, v28);
 }
 
 void __128__LNAutoShortcutsProvider_retrieveActionForBundleIdentifier_basePhraseTemplate_actionIdentifier_parameterIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getLNLogCategoryGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "Got an error from XPCConnection to DaemonRegistryService: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "Got an error from XPCConnection to DaemonRegistryService: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __128__LNAutoShortcutsProvider_retrieveActionForBundleIdentifier_basePhraseTemplate_actionIdentifier_parameterIdentifier_completion___block_invoke_26(uint64_t a1)
@@ -569,7 +561,7 @@ void __128__LNAutoShortcutsProvider_retrieveActionForBundleIdentifier_basePhrase
 
 - (void)retrieveActionForLocalizedPhrase:(id)phrase completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   phraseCopy = phrase;
   completionCopy = completion;
   v8 = getLNLogCategoryGeneral();
@@ -577,49 +569,46 @@ void __128__LNAutoShortcutsProvider_retrieveActionForBundleIdentifier_basePhrase
   {
     bundleIdentifier = [phraseCopy bundleIdentifier];
     *buf = 138412290;
-    v26 = bundleIdentifier;
+    v25 = bundleIdentifier;
     _os_log_impl(&dword_19763D000, v8, OS_LOG_TYPE_DEBUG, "Fetching action for bundleIdentifier: %@", buf, 0xCu);
   }
 
   connection = self->_connection;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __71__LNAutoShortcutsProvider_retrieveActionForLocalizedPhrase_completion___block_invoke;
-  v23[3] = &unk_1E74B2848;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __71__LNAutoShortcutsProvider_retrieveActionForLocalizedPhrase_completion___block_invoke;
+  v22[3] = &unk_1E74B2848;
   v11 = completionCopy;
-  v24 = v11;
-  v12 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v23];
+  v23 = v11;
+  v12 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v22];
   v13 = _os_activity_create(&dword_19763D000, "appintents:retrieve action for phrase", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __71__LNAutoShortcutsProvider_retrieveActionForLocalizedPhrase_completion___block_invoke_24;
   block[3] = &unk_1E74B12A0;
-  v19 = phraseCopy;
-  v20 = v12;
+  v18 = phraseCopy;
+  v19 = v12;
   selfCopy = self;
-  v22 = v11;
+  v21 = v11;
   v14 = v11;
   v15 = v12;
   v16 = phraseCopy;
   os_activity_apply(v13, block);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __71__LNAutoShortcutsProvider_retrieveActionForLocalizedPhrase_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getLNLogCategoryGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "Got an error from XPCConnection to DaemonRegistryService: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "Got an error from XPCConnection to DaemonRegistryService: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __71__LNAutoShortcutsProvider_retrieveActionForLocalizedPhrase_completion___block_invoke_24(uint64_t a1)
@@ -719,34 +708,33 @@ void __88__LNAutoShortcutsProvider_autoShortcutsForBundleIdentifier_localeIdenti
 {
   if (a2)
   {
-    v3 = *(a1 + 56);
-    v4 = *(*(a1 + 56) + 16);
+    v3 = *(*(a1 + 56) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = *(a1 + 40);
-    v6 = *(*(a1 + 32) + 24);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __88__LNAutoShortcutsProvider_autoShortcutsForBundleIdentifier_localeIdentifier_completion___block_invoke_3;
-    v9[3] = &unk_1E74B14F8;
-    v7 = *(a1 + 48);
-    v8 = *(a1 + 56);
-    v9[4] = *(a1 + 32);
-    v10 = v8;
-    [v6 autoShortcutsForBundleIdentifier:v5 localeIdentifier:v7 completion:v9];
+    v4 = *(a1 + 40);
+    v5 = *(*(a1 + 32) + 24);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __88__LNAutoShortcutsProvider_autoShortcutsForBundleIdentifier_localeIdentifier_completion___block_invoke_3;
+    v8[3] = &unk_1E74B14F8;
+    v6 = *(a1 + 48);
+    v7 = *(a1 + 56);
+    v8[4] = *(a1 + 32);
+    v9 = v7;
+    [v5 autoShortcutsForBundleIdentifier:v4 localeIdentifier:v6 completion:v8];
   }
 }
 
 - (LNAutoShortcutsProvider)initWithOptions:(int64_t)options
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = LNAutoShortcutsProvider;
-  v4 = [(LNAutoShortcutsProvider *)&v21 init];
+  v23 = *MEMORY[0x1E69E9840];
+  v20.receiver = self;
+  v20.super_class = LNAutoShortcutsProvider;
+  v4 = [(LNAutoShortcutsProvider *)&v20 init];
   if (v4)
   {
     v5 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.linkd.registry" options:0];
@@ -768,9 +756,9 @@ void __88__LNAutoShortcutsProvider_autoShortcutsForBundleIdentifier_localeIdenti
 
       v9 = [_TtC12LinkServices25_LNMetadataProviderDirect alloc];
       v10 = v4->_connection;
-      v20 = 0;
-      v11 = [(_LNMetadataProviderDirect *)v9 initWithConnection:v10 options:options error:&v20];
-      v12 = v20;
+      v19 = 0;
+      v11 = [(_LNMetadataProviderDirect *)v9 initWithConnection:v10 options:options error:&v19];
+      v12 = v19;
       directAccess = v4->_directAccess;
       v4->_directAccess = v11;
 
@@ -780,7 +768,7 @@ void __88__LNAutoShortcutsProvider_autoShortcutsForBundleIdentifier_localeIdenti
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v23 = v12;
+          v22 = v12;
           _os_log_impl(&dword_19763D000, v14, OS_LOG_TYPE_ERROR, "Request for read access failed %@", buf, 0xCu);
         }
       }
@@ -793,7 +781,6 @@ void __88__LNAutoShortcutsProvider_autoShortcutsForBundleIdentifier_localeIdenti
     v17 = v4;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

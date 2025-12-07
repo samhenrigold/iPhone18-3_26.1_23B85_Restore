@@ -12,48 +12,44 @@
 - (NSData)dataRepresentation
 {
   v3 = type metadata accessor for JSONEncoder.OutputFormatting();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v5 = type metadata accessor for JSONEncoder();
-  v6 = *(v5 + 48);
-  v7 = *(v5 + 52);
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   selfCopy = self;
   JSONEncoder.init()();
   static JSONEncoder.OutputFormatting.sortedKeys.getter();
   dispatch thunk of JSONEncoder.outputFormatting.setter();
   type metadata accessor for _EXExtensionProcessIdentity.Inner(0);
-  lazy protocol witness table accessor for type _EXExtensionProcessIdentity.Inner and conformance _EXExtensionProcessIdentity.Inner(&lazy protocol witness table cache variable for type _EXExtensionProcessIdentity.Inner and conformance _EXExtensionProcessIdentity.Inner, type metadata accessor for _EXExtensionProcessIdentity.Inner);
-  v9 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  v11 = v10;
+  lazy protocol witness table accessor for type _EXExtensionProcessIdentity.Inner and conformance _EXExtensionProcessIdentity.Inner(&lazy protocol witness table cache variable for type _EXExtensionProcessIdentity.Inner and conformance _EXExtensionProcessIdentity.Inner, type metadata accessor for _EXExtensionProcessIdentity.Inner, &protocol conformance descriptor for _EXExtensionProcessIdentity.Inner);
+  v5 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v7 = v6;
 
-  v12.super.isa = Data._bridgeToObjectiveC()().super.isa;
-  outlined consume of Data._Representation(v9, v11);
+  v8.super.isa = Data._bridgeToObjectiveC()().super.isa;
+  outlined consume of Data._Representation(v5, v7);
 
-  return v12.super.isa;
+  return v8.super.isa;
 }
 
 - (NSUUID)instanceUUID
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = self + OBJC_IVAR____TtC19ExtensionFoundation27_EXExtensionProcessIdentity_inner;
-  v8 = type metadata accessor for _EXExtensionProcessIdentity.Inner(0);
-  outlined init with copy of UUID?(&v7[*(v8 + 32)], v6, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v9 = type metadata accessor for UUID();
-  v10 = *(v9 - 8);
-  v11 = (*(v10 + 48))(v6, 1, v9);
-  v12 = 0;
-  if (v11 != 1)
+  v5 = &v14 - v4;
+  v6 = self + OBJC_IVAR____TtC19ExtensionFoundation27_EXExtensionProcessIdentity_inner;
+  v7 = type metadata accessor for _EXExtensionProcessIdentity.Inner(0);
+  outlined init with copy of UUID?(&v6[*(v7 + 32)], v5, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  v8 = type metadata accessor for UUID();
+  v9 = *(v8 - 8);
+  v10 = (*(v9 + 48))(v5, 1, v8);
+  v11 = 0;
+  if (v10 != 1)
   {
     isa = UUID._bridgeToObjectiveC()().super.isa;
-    (*(v10 + 8))(v6, v9);
-    v12 = isa;
+    (*(v9 + 8))(v5, v8);
+    v11 = isa;
   }
 
-  return v12;
+  return v11;
 }
 
 - (BOOL)isEqual:(id)equal

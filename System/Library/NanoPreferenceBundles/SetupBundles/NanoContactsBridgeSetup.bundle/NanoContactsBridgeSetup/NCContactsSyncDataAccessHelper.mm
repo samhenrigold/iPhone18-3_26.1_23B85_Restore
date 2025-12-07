@@ -72,7 +72,7 @@
     *buf = 136446466;
     v6 = "[NCContactsSyncDataAccessHelper networkAccessEnabledForContacts]";
     v7 = 1024;
-    LODWORD(v8) = 1;
+    *v8 = 1;
     _os_log_impl(&dword_0, os_log2, OS_LOG_TYPE_DEFAULT, "%{public}s - return networkAccessEnabledForContacts: %d", buf, 0x12u);
   }
 

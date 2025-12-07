@@ -1,9 +1,20 @@
 @interface SGM2NLEventInBanner
 - (BOOL)isEqual:(id)equal;
 - (NSString)key;
+- (id)actionTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)dateAdjAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)duraAdjAsString:(int)string;
+- (id)extractionLevelAsString:(int)string;
+- (id)interfaceAsString:(int)string;
+- (id)locationAdjAsString:(int)string;
+- (id)mailAppUsageLevelAsString:(int)string;
+- (id)messagesAppUsageLevelAsString:(int)string;
+- (id)significantSenderAsString:(int)string;
+- (id)titleAdjAsString:(int)string;
+- (id)titleSourceAsString:(int)string;
 - (int)StringAsActionType:(id)type;
 - (int)StringAsDateAdj:(id)adj;
 - (int)StringAsDuraAdj:(id)adj;
@@ -1148,52 +1159,49 @@ LABEL_23:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v23 = toCopy;
+  v8 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    interface = self->_interface;
     PBDataWriterWriteInt32Field();
-    toCopy = v23;
+    toCopy = v8;
     has = self->_has;
   }
 
   if (has)
   {
-    actionType = self->_actionType;
     PBDataWriterWriteInt32Field();
-    toCopy = v23;
+    toCopy = v8;
   }
 
   if (self->_eventType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
   if (self->_languageID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
-  v8 = self->_has;
-  if ((v8 & 8) != 0)
+  v6 = self->_has;
+  if ((v6 & 8) != 0)
   {
-    daysFromStartDate = self->_daysFromStartDate;
     PBDataWriterWriteUint32Field();
-    toCopy = v23;
-    v8 = self->_has;
-    if ((v8 & 2) == 0)
+    toCopy = v8;
+    v6 = self->_has;
+    if ((v6 & 2) == 0)
     {
 LABEL_13:
-      if ((v8 & 0x800) == 0)
+      if ((v6 & 0x800) == 0)
       {
         goto LABEL_14;
       }
@@ -1202,19 +1210,18 @@ LABEL_13:
     }
   }
 
-  else if ((v8 & 2) == 0)
+  else if ((v6 & 2) == 0)
   {
     goto LABEL_13;
   }
 
-  confidenceScore = self->_confidenceScore;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
-  v8 = self->_has;
-  if ((v8 & 0x800) == 0)
+  toCopy = v8;
+  v6 = self->_has;
+  if ((v6 & 0x800) == 0)
   {
 LABEL_14:
-    if ((v8 & 0x400) == 0)
+    if ((v6 & 0x400) == 0)
     {
       goto LABEL_15;
     }
@@ -1223,14 +1230,13 @@ LABEL_14:
   }
 
 LABEL_36:
-  significantSender = self->_significantSender;
   PBDataWriterWriteInt32Field();
-  toCopy = v23;
-  v8 = self->_has;
-  if ((v8 & 0x400) == 0)
+  toCopy = v8;
+  v6 = self->_has;
+  if ((v6 & 0x400) == 0)
   {
 LABEL_15:
-    if ((v8 & 0x20) == 0)
+    if ((v6 & 0x20) == 0)
     {
       goto LABEL_16;
     }
@@ -1239,14 +1245,13 @@ LABEL_15:
   }
 
 LABEL_37:
-  participantCount = self->_participantCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
-  v8 = self->_has;
-  if ((v8 & 0x20) == 0)
+  toCopy = v8;
+  v6 = self->_has;
+  if ((v6 & 0x20) == 0)
   {
 LABEL_16:
-    if ((v8 & 0x4000) == 0)
+    if ((v6 & 0x4000) == 0)
     {
       goto LABEL_17;
     }
@@ -1255,14 +1260,13 @@ LABEL_16:
   }
 
 LABEL_38:
-  extractionLevel = self->_extractionLevel;
   PBDataWriterWriteInt32Field();
-  toCopy = v23;
-  v8 = self->_has;
-  if ((v8 & 0x4000) == 0)
+  toCopy = v8;
+  v6 = self->_has;
+  if ((v6 & 0x4000) == 0)
   {
 LABEL_17:
-    if ((v8 & 0x2000) == 0)
+    if ((v6 & 0x2000) == 0)
     {
       goto LABEL_18;
     }
@@ -1271,14 +1275,13 @@ LABEL_17:
   }
 
 LABEL_39:
-  usedBubblesCount = self->_usedBubblesCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v23;
-  v8 = self->_has;
-  if ((v8 & 0x2000) == 0)
+  toCopy = v8;
+  v6 = self->_has;
+  if ((v6 & 0x2000) == 0)
   {
 LABEL_18:
-    if ((v8 & 0x1000) == 0)
+    if ((v6 & 0x1000) == 0)
     {
       goto LABEL_19;
     }
@@ -1287,14 +1290,13 @@ LABEL_18:
   }
 
 LABEL_40:
-  titleSource = self->_titleSource;
   PBDataWriterWriteInt32Field();
-  toCopy = v23;
-  v8 = self->_has;
-  if ((v8 & 0x1000) == 0)
+  toCopy = v8;
+  v6 = self->_has;
+  if ((v6 & 0x1000) == 0)
   {
 LABEL_19:
-    if ((v8 & 4) == 0)
+    if ((v6 & 4) == 0)
     {
       goto LABEL_20;
     }
@@ -1303,14 +1305,13 @@ LABEL_19:
   }
 
 LABEL_41:
-  titleAdj = self->_titleAdj;
   PBDataWriterWriteInt32Field();
-  toCopy = v23;
-  v8 = self->_has;
-  if ((v8 & 4) == 0)
+  toCopy = v8;
+  v6 = self->_has;
+  if ((v6 & 4) == 0)
   {
 LABEL_20:
-    if ((v8 & 0x10) == 0)
+    if ((v6 & 0x10) == 0)
     {
       goto LABEL_21;
     }
@@ -1319,14 +1320,13 @@ LABEL_20:
   }
 
 LABEL_42:
-  dateAdj = self->_dateAdj;
   PBDataWriterWriteInt32Field();
-  toCopy = v23;
-  v8 = self->_has;
-  if ((v8 & 0x10) == 0)
+  toCopy = v8;
+  v6 = self->_has;
+  if ((v6 & 0x10) == 0)
   {
 LABEL_21:
-    if ((v8 & 0x80) == 0)
+    if ((v6 & 0x80) == 0)
     {
       goto LABEL_23;
     }
@@ -1335,44 +1335,40 @@ LABEL_21:
   }
 
 LABEL_43:
-  duraAdj = self->_duraAdj;
   PBDataWriterWriteInt32Field();
-  toCopy = v23;
+  toCopy = v8;
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_22:
-    locationAdj = self->_locationAdj;
     PBDataWriterWriteInt32Field();
-    toCopy = v23;
+    toCopy = v8;
   }
 
 LABEL_23:
   if (self->_addedAttendeesCount)
   {
     PBDataWriterWriteStringField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
   if (self->_calendarAppUsageLevel)
   {
     PBDataWriterWriteStringField();
-    toCopy = v23;
+    toCopy = v8;
   }
 
-  v10 = self->_has;
-  if ((v10 & 0x100) != 0)
+  v7 = self->_has;
+  if ((v7 & 0x100) != 0)
   {
-    mailAppUsageLevel = self->_mailAppUsageLevel;
     PBDataWriterWriteInt32Field();
-    toCopy = v23;
-    v10 = self->_has;
+    toCopy = v8;
+    v7 = self->_has;
   }
 
-  if ((v10 & 0x200) != 0)
+  if ((v7 & 0x200) != 0)
   {
-    messagesAppUsageLevel = self->_messagesAppUsageLevel;
     PBDataWriterWriteInt32Field();
-    toCopy = v23;
+    toCopy = v8;
   }
 }
 
@@ -1761,6 +1757,21 @@ LABEL_61:
   return v4;
 }
 
+- (id)messagesAppUsageLevelAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFB390[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasMessagesAppUsageLevel:(BOOL)level
 {
   if (level)
@@ -1815,6 +1826,21 @@ LABEL_61:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)mailAppUsageLevelAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFB390[string];
   }
 
   return v4;
@@ -1884,6 +1910,21 @@ LABEL_61:
   return v4;
 }
 
+- (id)locationAdjAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFB368[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasLocationAdj:(BOOL)adj
 {
   if (adj)
@@ -1948,6 +1989,21 @@ LABEL_61:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)duraAdjAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFB338[string];
   }
 
   return v4;
@@ -2042,6 +2098,21 @@ LABEL_61:
   return v4;
 }
 
+- (id)dateAdjAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFB2E8[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasDateAdj:(BOOL)adj
 {
   if (adj)
@@ -2106,6 +2177,21 @@ LABEL_61:
   return v4;
 }
 
+- (id)titleAdjAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFB2C0[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasTitleAdj:(BOOL)adj
 {
   if (adj)
@@ -2160,6 +2246,21 @@ LABEL_61:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)titleSourceAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFB2A0[string];
   }
 
   return v4;
@@ -2249,6 +2350,21 @@ LABEL_61:
   return v4;
 }
 
+- (id)extractionLevelAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFB270[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasExtractionLevel:(BOOL)level
 {
   if (level)
@@ -2313,6 +2429,21 @@ LABEL_61:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)significantSenderAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFB258[string];
   }
 
   return v4;
@@ -2427,6 +2558,21 @@ LABEL_61:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)actionTypeAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFB210[string];
   }
 
   return v4;
@@ -2551,6 +2697,21 @@ LABEL_61:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)interfaceAsString:(int)string
+{
+  if (string >= 0x14)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFB170[string];
   }
 
   return v4;

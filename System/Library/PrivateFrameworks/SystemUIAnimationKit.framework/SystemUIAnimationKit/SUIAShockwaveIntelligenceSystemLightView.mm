@@ -12,13 +12,13 @@
 {
   subviewCopy = subview;
   selfCopy = self;
-  sub_26C5D336C(subviewCopy);
+  sub_26C5D336C(subviewCopy, selfCopy);
 }
 
 - (void)layoutSubviews
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for ShockwaveIntelligenceSystemLightView();
+  v6.super_class = type metadata accessor for ShockwaveIntelligenceSystemLightView(self, a2);
   v2 = v6.receiver;
   [(SUIAShockwaveIntelligenceSystemLightView *)&v6 layoutSubviews];
   v3 = OBJC_IVAR___SUIAShockwaveIntelligenceSystemLightView_sideLightMaskView;
@@ -56,7 +56,7 @@
   *(&self->super.super.super.super.super.isa + OBJC_IVAR___SUIAShockwaveIntelligenceSystemLightView_circleMaskView) = 0;
   *(&self->super.super.super.super.super.isa + OBJC_IVAR___SUIAShockwaveIntelligenceSystemLightView_sideLightMaskView) = 0;
   v10.receiver = self;
-  v10.super_class = type metadata accessor for ShockwaveIntelligenceSystemLightView();
+  v10.super_class = type metadata accessor for ShockwaveIntelligenceSystemLightView(self, a2);
   return [(_UIIntelligenceSystemLightView *)&v10 initWithFrame:reactivityCopy preferringAudioReactivity:x, y, width, height];
 }
 

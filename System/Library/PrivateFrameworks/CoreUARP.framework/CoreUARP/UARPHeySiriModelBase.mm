@@ -107,7 +107,7 @@
 
 - (BOOL)processDynamicAsset:(id *)asset
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v5 = [UARPSuperBinaryAsset alloc];
   selfCopy = self;
   v6 = [(UARPHeySiriModelBase *)self url];
@@ -119,19 +119,19 @@
 
   if (v9)
   {
-    v36 = v9;
+    v35 = v9;
     superbinary2 = [(UARPHeySiriModelBase *)selfCopy superbinary];
     tlvs = [superbinary2 tlvs];
-    v39 = [UARPSuperBinaryAssetTLV findTLVWithType:1619725831 tlvs:tlvs];
+    v38 = [UARPSuperBinaryAssetTLV findTLVWithType:1619725831 tlvs:tlvs];
 
-    valueAsVersion = [v39 valueAsVersion];
+    valueAsVersion = [v38 valueAsVersion];
     -[UARPHeySiriModelBase setMajorVersion:](selfCopy, "setMajorVersion:", [valueAsVersion majorVersion]);
     -[UARPHeySiriModelBase setMinorVersion:](selfCopy, "setMinorVersion:", [valueAsVersion minorVersion]);
     superbinary3 = [(UARPHeySiriModelBase *)selfCopy superbinary];
     tlvs2 = [superbinary3 tlvs];
-    v37 = [UARPSuperBinaryAssetTLV findTLVWithType:1619725832 tlvs:tlvs2];
+    v36 = [UARPSuperBinaryAssetTLV findTLVWithType:1619725832 tlvs:tlvs2];
 
-    valueAsNumber = [v37 valueAsNumber];
+    valueAsNumber = [v36 valueAsNumber];
     -[UARPHeySiriModelBase setEngineType:](selfCopy, "setEngineType:", [valueAsNumber unsignedShortValue]);
     log = selfCopy->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
@@ -141,27 +141,27 @@
       _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "HSML: process rx asset; Engine Type %@", buf, 0xCu);
     }
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     superbinary4 = [(UARPHeySiriModelBase *)selfCopy superbinary];
     obj = [superbinary4 payloads];
 
-    v16 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+    v16 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
     if (v16)
     {
-      v42 = *v45;
+      v41 = *v44;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v45 != v42)
+          if (*v44 != v41)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v44 + 1) + 8 * i);
+          v18 = *(*(&v43 + 1) + 8 * i);
           tlvs3 = [v18 tlvs];
           v20 = [UARPSuperBinaryAssetTLV findTLVWithType:1619725826 tlvs:tlvs3];
 
@@ -175,24 +175,24 @@
 
           valueAsNumber2 = [v26 valueAsNumber];
           shortValue = [valueAsNumber2 shortValue];
-          v48 = 0;
-          v49 = &v48;
-          v50 = 0x2050000000;
+          v47 = 0;
+          v48 = &v47;
+          v49 = 0x2050000000;
           v29 = getCSVoiceTriggerRTModelClass_softClass_0;
-          v51 = getCSVoiceTriggerRTModelClass_softClass_0;
+          v50 = getCSVoiceTriggerRTModelClass_softClass_0;
           if (!getCSVoiceTriggerRTModelClass_softClass_0)
           {
             *buf = MEMORY[0x277D85DD0];
             *&buf[8] = 3221225472;
             *&buf[16] = __getCSVoiceTriggerRTModelClass_block_invoke_0;
-            v54 = &unk_278EC24A8;
-            v55 = &v48;
+            v53 = &unk_278EC24A8;
+            v54 = &v47;
             __getCSVoiceTriggerRTModelClass_block_invoke_0(buf);
-            v29 = v49[3];
+            v29 = v48[3];
           }
 
           v30 = v29;
-          _Block_object_dispose(&v48, 8);
+          _Block_object_dispose(&v47, 8);
           v31 = [[v29 alloc] initWithHash:valueAsString locale:valueAsString2];
           if (shortValue == 1)
           {
@@ -225,22 +225,21 @@
           }
         }
 
-        v16 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+        v16 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
       }
 
       while (v16);
     }
 
-    LOBYTE(v9) = v36;
+    LOBYTE(v9) = v35;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (id)uarpPayloadWithHSModel:(id)model tag:(id)tag
 {
-  v43.wbuf[7] = *MEMORY[0x277D85DE8];
+  v42.wbuf[7] = *MEMORY[0x277D85DE8];
   modelCopy = model;
   tagCopy = tag;
   v7 = [[UARPAssetVersion alloc] initWithMajorVersion:0 minorVersion:0 releaseVersion:0 buildVersion:0];
@@ -316,15 +315,15 @@
       {
         v34 = [[UARPSuperBinaryAssetTLV alloc] initWithType:3436347666 unsignedInt16:1];
         [(UARPSuperBinaryAssetPayload *)v8 addMetaDataTLV:v34];
-        memset(&v43, 0, 104);
-        uarpPlatformDarwinHashInit(1, &v43);
+        memset(&v42, 0, 104);
+        uarpPlatformDarwinHashInit(1, &v42);
         modelData3 = [modelCopy modelData];
         bytes = [modelData3 bytes];
         modelData4 = [modelCopy modelData];
-        uarpPlatformDarwinHashUpdate(1, &v43, bytes, [modelData4 length]);
+        uarpPlatformDarwinHashUpdate(1, &v42, bytes, [modelData4 length]);
 
-        uarpPlatformDarwinHashFinal(1, &v43, &v43.wbuf[3], 32);
-        v38 = [MEMORY[0x277CBEA90] dataWithBytes:&v43.wbuf[3] length:32];
+        uarpPlatformDarwinHashFinal(1, &v42, &v42.wbuf[3], 32);
+        v38 = [MEMORY[0x277CBEA90] dataWithBytes:&v42.wbuf[3] length:32];
         v39 = [[UARPSuperBinaryAssetTLV alloc] initWithType:3436347655 dataValue:v38];
         [(UARPSuperBinaryAssetPayload *)v8 addMetaDataTLV:v39];
       }
@@ -333,8 +332,6 @@
       [(UARPSuperBinaryAssetPayload *)v8 setPayloadToData:modelData5];
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -356,7 +353,7 @@
 
 void __48__UARPHeySiriModelBase_checkCurrentHeySiriModel__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -366,7 +363,7 @@ void __48__UARPHeySiriModelBase_checkCurrentHeySiriModel__block_invoke(uint64_t 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v23 = v7;
+      v22 = v7;
       _os_log_impl(&dword_247AA7000, v10, OS_LOG_TYPE_INFO, "HSML: Voice Trigger Download Model %@", buf, 0xCu);
     }
 
@@ -380,7 +377,7 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v23 = v8;
+      v22 = v8;
       _os_log_impl(&dword_247AA7000, v11, OS_LOG_TYPE_INFO, "HSML: Voice Trigger Fallback Model %@", buf, 0xCu);
     }
 
@@ -400,20 +397,18 @@ LABEL_7:
 LABEL_11:
   v12 = *(a1 + 32);
   v13 = *(v12 + 16);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __48__UARPHeySiriModelBase_checkCurrentHeySiriModel__block_invoke_8;
-  v18[3] = &unk_278EC2A58;
-  v18[4] = v12;
-  v19 = v7;
-  v20 = v8;
-  v21 = v9;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __48__UARPHeySiriModelBase_checkCurrentHeySiriModel__block_invoke_8;
+  v17[3] = &unk_278EC2A58;
+  v17[4] = v12;
+  v18 = v7;
+  v19 = v8;
+  v20 = v9;
   v14 = v9;
   v15 = v8;
   v16 = v7;
-  dispatch_async(v13, v18);
-
-  v17 = *MEMORY[0x277D85DE8];
+  dispatch_async(v13, v17);
 }
 
 void __48__UARPHeySiriModelBase_checkCurrentHeySiriModel__block_invoke_8(void *a1)
@@ -466,7 +461,7 @@ void __48__UARPHeySiriModelBase_checkCurrentHeySiriModel__block_invoke_8(void *a
 
 void __58__UARPHeySiriModelBase_checkCurrentJustSiriModelAvailable__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -476,7 +471,7 @@ void __58__UARPHeySiriModelBase_checkCurrentJustSiriModelAvailable__block_invoke
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v23 = v7;
+      v22 = v7;
       _os_log_impl(&dword_247AA7000, v10, OS_LOG_TYPE_INFO, "Download Model %@", buf, 0xCu);
     }
   }
@@ -487,27 +482,25 @@ void __58__UARPHeySiriModelBase_checkCurrentJustSiriModelAvailable__block_invoke
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v23 = v8;
+      v22 = v8;
       _os_log_impl(&dword_247AA7000, v11, OS_LOG_TYPE_INFO, "Fallback Model %@", buf, 0xCu);
     }
   }
 
   v12 = *(a1 + 32);
   v13 = *(v12 + 16);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __58__UARPHeySiriModelBase_checkCurrentJustSiriModelAvailable__block_invoke_14;
-  v18[3] = &unk_278EC2A58;
-  v18[4] = v12;
-  v19 = v7;
-  v20 = v8;
-  v21 = v9;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __58__UARPHeySiriModelBase_checkCurrentJustSiriModelAvailable__block_invoke_14;
+  v17[3] = &unk_278EC2A58;
+  v17[4] = v12;
+  v18 = v7;
+  v19 = v8;
+  v20 = v9;
   v14 = v9;
   v15 = v8;
   v16 = v7;
-  dispatch_async(v13, v18);
-
-  v17 = *MEMORY[0x277D85DE8];
+  dispatch_async(v13, v17);
 }
 
 void __58__UARPHeySiriModelBase_checkCurrentJustSiriModelAvailable__block_invoke_14(void *a1)
@@ -612,22 +605,6 @@ void __58__UARPHeySiriModelBase_checkCurrentJustSiriModelAvailable__block_invoke
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-- (void)offerDownloadModel:fallbackModel:tag:assetVersion:error:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)offerDownloadModel:fallbackModel:tag:assetVersion:error:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

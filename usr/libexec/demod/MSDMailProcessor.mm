@@ -1,5 +1,6 @@
 @interface MSDMailProcessor
 + (id)sharedInstance;
+- (BOOL)ack:(BOOL)ack;
 - (BOOL)isAllowedRequest:(id)request relayNeeded:(BOOL)needed;
 - (BOOL)processRequest:(id)request;
 - (BOOL)updateManifestInfo:(id)info error:(id *)error;
@@ -31,7 +32,7 @@
 
 - (MSDMailProcessor)init
 {
-  v3 = sub_100063B64();
+  v3 = sub_100063B64(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -56,7 +57,7 @@
 
 - (void)start
 {
-  v3 = sub_100063B64();
+  v3 = sub_100063B64(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -89,7 +90,7 @@
 
 - (void)sendImmediateDeviceInfoPing
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315138;
@@ -102,7 +103,7 @@
 
 - (void)startPeriodicPing
 {
-  v3 = sub_100063B64();
+  v3 = sub_100063B64(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     device = [(MSDMailProcessor *)self device];
@@ -133,7 +134,7 @@
 {
   pingInterval = self->_pingInterval;
   self->_pingInterval = interval;
-  v5 = sub_100063B64();
+  v5 = sub_100063B64(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = self->_pingInterval;
@@ -209,7 +210,7 @@
 
 - (id)pingWithType:(unint64_t)type
 {
-  v5 = sub_100063B64();
+  v5 = sub_100063B64(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1000D6898();
@@ -226,22 +227,22 @@
     {
       [(MSDMailProcessor *)self fullKeyList];
     }
-    v9 = ;
+    v10 = ;
     device = [(MSDMailProcessor *)self device];
-    getS3ServerFailureEventForPing = [device deviceInformationForPing:v9];
+    getS3ServerFailureEventForPing = [device deviceInformationForPing:v10];
 
     if (!getS3ServerFailureEventForPing)
     {
       sub_1000D6D4C(self);
-      v8 = 0;
-      v46 = 0;
-      v25 = 0;
-      v23 = 0;
+      v9 = 0;
+      v52 = 0;
+      v29 = 0;
+      v27 = 0;
       goto LABEL_50;
     }
 
-    v45 = [getS3ServerFailureEventForPing objectForKey:@"InternalStatus"];
-    if (v45 && [v45 intValue] != 199 && !-[MSDMailProcessor demodReady](self, "demodReady"))
+    v51 = [getS3ServerFailureEventForPing objectForKey:@"InternalStatus"];
+    if (v51 && [v51 intValue] != 199 && !-[MSDMailProcessor demodReady](self, "demodReady"))
     {
       [(MSDMailProcessor *)self setDemodReady:1];
       [(MSDMailProcessor *)self setPingInterval:[(MSDMailProcessor *)self pingIntervalToUse]];
@@ -249,11 +250,11 @@
 
     device2 = [(MSDMailProcessor *)self device];
     hubSuppliedSettings = [device2 hubSuppliedSettings];
-    v8 = [hubSuppliedSettings objectForKey:@"PingFrequency"];
+    v9 = [hubSuppliedSettings objectForKey:@"PingFrequency"];
 
-    if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v8 unsignedIntegerValue])
+    if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v9 unsignedIntegerValue])
     {
-      integerValue = [v8 integerValue];
+      integerValue = [v9 integerValue];
     }
 
     else
@@ -261,8 +262,8 @@
       integerValue = [(MSDMailProcessor *)self pingInterval];
     }
 
-    v15 = [NSNumber numberWithInteger:integerValue];
-    [getS3ServerFailureEventForPing setObject:v15 forKey:@"MSDPingFrequency"];
+    v16 = [NSNumber numberWithInteger:integerValue];
+    [getS3ServerFailureEventForPing setObject:v16 forKey:@"MSDPingFrequency"];
 
     typeCopy = type;
     goto LABEL_24;
@@ -275,20 +276,20 @@
 
     if (getS3ServerFailureEventForPing)
     {
-      v8 = 0;
-      v44 = 0;
       v9 = 0;
+      v50 = 0;
+      v10 = 0;
       typeCopy = 32;
       goto LABEL_24;
     }
 
-    sub_1000D6900();
+    sub_1000D6900(v18);
 LABEL_63:
-    v8 = 0;
-    v46 = 0;
-    v25 = 0;
-    v23 = 0;
     v9 = 0;
+    v52 = 0;
+    v29 = 0;
+    v27 = 0;
+    v10 = 0;
     goto LABEL_50;
   }
 
@@ -299,30 +300,31 @@ LABEL_63:
 
     if (getS3ServerFailureEventForPing)
     {
-      v8 = 0;
-      v44 = 0;
       v9 = 0;
+      v50 = 0;
+      v10 = 0;
       typeCopy = 16;
 LABEL_24:
-      v17 = [NSNumber numberWithUnsignedInteger:[(MSDMailProcessor *)self convertPingType:typeCopy, v44]];
-      [getS3ServerFailureEventForPing setObject:v17 forKey:@"MSDDemoPingType"];
+      v19 = [NSNumber numberWithUnsignedInteger:[(MSDMailProcessor *)self convertPingType:typeCopy, v50]];
+      [getS3ServerFailureEventForPing setObject:v19 forKey:@"MSDDemoPingType"];
 
       goto LABEL_25;
     }
 
-    sub_1000D699C();
+    sub_1000D699C(v8);
     goto LABEL_63;
   }
 
-  v8 = 0;
-  v46 = 0;
-  getS3ServerFailureEventForPing = 0;
   v9 = 0;
+  v52 = 0;
+  getS3ServerFailureEventForPing = 0;
+  v10 = 0;
 LABEL_25:
-  if (os_variant_has_internal_content())
+  has_internal_content = os_variant_has_internal_content();
+  if (has_internal_content)
   {
-    v18 = sub_100063A54();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v21 = sub_100063A54(has_internal_content);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       sub_1000D6A38();
     }
@@ -330,51 +332,51 @@ LABEL_25:
 
   else
   {
-    v19 = [getS3ServerFailureEventForPing objectForKey:@"MSDExistingAccounts"];
-    v18 = [v19 objectForKey:@"iCloudRecoveryKey"];
+    v22 = [getS3ServerFailureEventForPing objectForKey:@"MSDExistingAccounts"];
+    v21 = [v22 objectForKey:@"iCloudRecoveryKey"];
 
-    v20 = [getS3ServerFailureEventForPing objectForKeyedSubscript:@"MSDExistingAccounts"];
-    [v20 setObject:@"<redacted>" forKeyedSubscript:@"iCloudRecoveryKey"];
+    v23 = [getS3ServerFailureEventForPing objectForKeyedSubscript:@"MSDExistingAccounts"];
+    [v23 setObject:@"<redacted>" forKeyedSubscript:@"iCloudRecoveryKey"];
 
-    v21 = sub_100063A54();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v25 = sub_100063A54(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       sub_1000D6A38();
     }
 
-    v22 = [getS3ServerFailureEventForPing objectForKeyedSubscript:@"MSDExistingAccounts"];
-    [v22 setObject:v18 forKeyedSubscript:@"iCloudRecoveryKey"];
+    v26 = [getS3ServerFailureEventForPing objectForKeyedSubscript:@"MSDExistingAccounts"];
+    [v26 setObject:v21 forKeyedSubscript:@"iCloudRecoveryKey"];
   }
 
-  v23 = objc_alloc_init(MSDPingRequest);
-  [(MSDPingRequest *)v23 setRequestInfo:getS3ServerFailureEventForPing];
-  v24 = +[MSDServerRequestHandler sharedInstance];
-  v25 = [v24 handleRequestSync:v23];
+  v27 = objc_alloc_init(MSDPingRequest);
+  [(MSDPingRequest *)v27 setRequestInfo:getS3ServerFailureEventForPing];
+  v28 = +[MSDServerRequestHandler sharedInstance];
+  v29 = [v28 handleRequestSync:v27];
 
-  error = [v25 error];
+  error = [v29 error];
 
   if (error)
   {
-    sub_1000D6AA0(v25);
+    sub_1000D6AA0(v29);
 LABEL_50:
-    v40 = 0;
-    v38 = 0;
+    v46 = 0;
+    v44 = 0;
     data = 0;
 LABEL_51:
-    v41 = 0;
+    v47 = 0;
     goto LABEL_53;
   }
 
-  v27 = v9;
-  data = [v25 data];
-  statusCode = [v25 statusCode];
+  v31 = v10;
+  data = [v29 data];
+  statusCode = [v29 statusCode];
   intValue = [statusCode intValue];
 
   if (!data)
   {
-    v42 = sub_100063B64();
-    v9 = v27;
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v48 = sub_100063B64(v35);
+    v10 = v31;
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       sub_1000D6CCC();
     }
@@ -385,12 +387,12 @@ LABEL_51:
   if (type == 1 && (intValue & 0xFFFFFFFB) == 0xC8)
   {
     [(MSDMailProcessor *)self setFullKeysSent:1];
-    if ([v46 intValue] == 20 || objc_msgSend(v46, "intValue") == 100)
+    if ([v52 intValue] == 20 || objc_msgSend(v52, "intValue") == 100)
     {
-      v31 = [getS3ServerFailureEventForPing objectForKey:{@"MSDExistingAccounts", v46}];
-      v32 = [v31 objectForKey:@"iCloudCDPState"];
+      v36 = [getS3ServerFailureEventForPing objectForKey:{@"MSDExistingAccounts", v52}];
+      v37 = [v36 objectForKey:@"iCloudCDPState"];
 
-      integerValue2 = [v32 integerValue];
+      integerValue2 = [v37 integerValue];
       if (integerValue2 == [&off_10017B0F8 integerValue])
       {
         device5 = [(MSDMailProcessor *)self device];
@@ -398,11 +400,11 @@ LABEL_51:
 
         if (iCloudAccountRecoveryKey)
         {
-          v36 = sub_100063A54();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+          v42 = sub_100063A54(v41);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "iCloud account recovery key successfully uploaded. Removing local copy...", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "iCloud account recovery key successfully uploaded. Removing local copy...", buf, 2u);
           }
 
           device6 = [(MSDMailProcessor *)self device];
@@ -414,39 +416,53 @@ LABEL_51:
 
   if ([data length])
   {
-    v47 = 0;
-    v38 = [NSJSONSerialization JSONObjectWithData:data options:0 error:&v47];
-    v39 = v47;
-    v40 = v39;
-    v9 = v27;
-    if (v38)
+    v53 = 0;
+    v44 = [NSJSONSerialization JSONObjectWithData:data options:0 error:&v53];
+    v45 = v53;
+    v46 = v45;
+    v10 = v31;
+    if (v44)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v38 = v38;
-        v41 = v38;
+        v44 = v44;
+        v47 = v44;
         goto LABEL_53;
       }
 
-      sub_1000D6B48();
+      sub_1000D6B48(v44);
     }
 
     else
     {
-      sub_1000D6BEC(v39);
+      sub_1000D6BEC(v45);
     }
 
     goto LABEL_51;
   }
 
-  v40 = 0;
-  v38 = 0;
-  v41 = 0;
-  v9 = v27;
+  v46 = 0;
+  v44 = 0;
+  v47 = 0;
+  v10 = v31;
 LABEL_53:
 
-  return v41;
+  return v47;
+}
+
+- (BOOL)ack:(BOOL)ack
+{
+  ackCopy = ack;
+  v4 = objc_alloc_init(MSDAckRequest);
+  [(MSDAckRequest *)v4 setStatus:ackCopy];
+  v5 = +[MSDServerRequestHandler sharedInstance];
+  v6 = [v5 handleRequestSync:v4];
+
+  error = [v6 error];
+  LOBYTE(v5) = error == 0;
+
+  return v5;
 }
 
 - (BOOL)processRequest:(id)request
@@ -471,132 +487,134 @@ LABEL_53:
     }
 
     v15 = [(MSDMailProcessor *)self isAllowedRequest:requestCopy relayNeeded:v10];
-    [(MSDMailProcessor *)self ack:v15];
+    v16 = [(MSDMailProcessor *)self ack:v15];
     if (!v15)
     {
-      hubSuppliedSettings = sub_100063B64();
+      hubSuppliedSettings = sub_100063B64(v16);
       if (os_log_type_enabled(hubSuppliedSettings, OS_LOG_TYPE_ERROR))
       {
         sub_1000D6E04();
       }
 
-      v124 = 0;
-      v31 = 0;
+      v135 = 0;
+      v34 = 0;
       v11 = 0;
       v12 = 0;
       v13 = 0;
       goto LABEL_169;
     }
 
-    v16 = [requestCopy objectForKey:@"Duration"];
-    v13 = v16;
-    if (v16 && [v16 integerValue] >= 1)
+    v17 = [requestCopy objectForKey:@"Duration"];
+    v13 = v17;
+    if (v17 && [v17 integerValue] >= 1)
     {
-      v17 = +[NSDate dateWithTimeIntervalSinceNow:](NSDate, "dateWithTimeIntervalSinceNow:", [v13 integerValue]);
-      [v17 timeIntervalSinceReferenceDate];
-      v121 = v18;
+      v18 = +[NSDate dateWithTimeIntervalSinceNow:](NSDate, "dateWithTimeIntervalSinceNow:", [v13 integerValue]);
+      [v18 timeIntervalSinceReferenceDate];
+      v132 = v19;
     }
 
     else
     {
-      v121 = 0;
+      v132 = 0;
     }
 
-    v119 = v10;
+    v130 = v10;
     v12 = [requestCopy objectForKey:@"ContentType"];
-    v125 = v13;
+    v136 = v13;
     if ([v12 containsObject:@"Demo"])
     {
       [requestCopy objectForKey:@"ManifestInfo"];
-      v123 = v131 = 0;
-      v19 = [MSDMailProcessor updateManifestInfo:"updateManifestInfo:error:" error:?];
-      v11 = 0;
-      if ((v19 & 1) == 0)
+      v134 = v142 = 0;
+      v20 = [MSDMailProcessor updateManifestInfo:"updateManifestInfo:error:" error:?];
+      v21 = 0;
+      v11 = v21;
+      if ((v20 & 1) == 0)
       {
-        hubSuppliedSettings = sub_100063A54();
+        hubSuppliedSettings = sub_100063A54(v21);
         if (os_log_type_enabled(hubSuppliedSettings, OS_LOG_TYPE_ERROR))
         {
           sub_1000D6E74(v11);
         }
 
-        v124 = 0;
+        v135 = 0;
         goto LABEL_168;
       }
 
-      LODWORD(v20) = 1;
+      LODWORD(v22) = 1;
     }
 
     else
     {
-      v123 = 0;
+      v134 = 0;
       v11 = 0;
-      LODWORD(v20) = 0;
+      LODWORD(v22) = 0;
     }
 
     if ([v12 containsObject:@"Pricing"])
     {
-      LODWORD(v20) = v20 | 2;
+      LODWORD(v22) = v22 | 2;
     }
 
     if ([v12 containsObject:@"Account"])
     {
-      LODWORD(v20) = v20 | 4;
+      LODWORD(v22) = v22 | 4;
     }
 
     if ([v12 containsObject:@"Asset"])
     {
-      LODWORD(v20) = v20 | 0x10;
+      LODWORD(v22) = v22 | 0x10;
     }
 
     if ([v12 containsObject:@"ContinuityLinking"])
     {
-      LODWORD(v20) = v20 | 0x40;
+      LODWORD(v22) = v22 | 0x40;
     }
 
     if ([v6 isEqualToString:@"RevertSnapshot"])
     {
-      v20 = v20 | 8;
+      v22 = v22 | 8;
     }
 
     else
     {
-      v20 = v20;
+      v22 = v22;
     }
 
-    v21 = [requestCopy objectForKey:@"BackgroundDownloadOnly"];
-    bOOLValue2 = [v21 BOOLValue];
+    v23 = [requestCopy objectForKey:@"BackgroundDownloadOnly"];
+    bOOLValue2 = [v23 BOOLValue];
 
     if ([v6 isEqualToString:@"UpdateContent"] && !bOOLValue2 || objc_msgSend(v6, "isEqualToString:", @"UpdateOS"))
     {
-      v23 = v5;
+      v25 = v5;
       +[MSDDemoUpdateTimeKeeper sharedInstance];
-      v25 = v24 = v11;
-      v26 = [v25 setCompletionTime:v121 reserveTimeForCleanup:1];
+      v27 = v26 = v11;
+      v28 = [v27 setCompletionTime:v132 reserveTimeForCleanup:1];
 
       v11 = 0;
-      if (v26)
+      if (v28)
       {
-        v124 = 0;
-        v11 = v26;
-        v13 = v125;
-        v31 = v123;
-        v5 = v23;
+        v135 = 0;
+        v11 = v28;
+        v13 = v136;
+        v34 = v134;
+        v5 = v25;
         goto LABEL_170;
       }
 
-      v5 = v23;
+      v5 = v25;
     }
 
     if ([v6 isEqualToString:@"ChangePingFrequency"] & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", @"ChangeSettings") & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", @"HoldPowerAssertion") & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", @"LiftPowerAssertion"))
     {
-      v124 = 0;
+      v135 = 0;
 LABEL_36:
-      if ([v6 isEqualToString:@"UpdateContent"])
+      v29 = [v6 isEqualToString:@"UpdateContent"];
+      if (v29)
       {
-        if ((v20 & 4) != 0)
+        if ((v22 & 4) != 0)
         {
-          v39 = sub_100063A54();
-          if (!os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+          v42 = sub_100063A54(v29);
+          if (!os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
 LABEL_55:
 
@@ -608,47 +626,47 @@ LABEL_55:
           }
 
           *buf = 0;
-          v40 = "Account update.";
+          v43 = "Account update.";
         }
 
         else
         {
-          if ((v20 & 0x10) == 0)
+          if ((v22 & 0x10) == 0)
           {
-            if ((v20 & 0x40) == 0)
+            if ((v22 & 0x40) == 0)
             {
-              v117 = v5;
-              v118 = v11;
-              v27 = +[NSFileManager defaultManager];
+              v128 = v5;
+              v129 = v11;
+              v30 = +[NSFileManager defaultManager];
               device3 = [(MSDMailProcessor *)self device];
               manifestPath = [device3 manifestPath];
-              [v27 removeItemAtPath:manifestPath error:0];
+              [v30 removeItemAtPath:manifestPath error:0];
 
               if (bOOLValue2)
               {
-                v30 = +[MSDBackgroundDownload sharedInstance];
-                [v30 kickOffBackgroundDownload];
+                v33 = +[MSDBackgroundDownload sharedInstance];
+                [v33 kickOffBackgroundDownload];
 
 LABEL_42:
                 v14 = 1;
-                v5 = v117;
-                v13 = v125;
+                v5 = v128;
+                v13 = v136;
 LABEL_43:
-                v31 = v123;
+                v34 = v134;
 LABEL_114:
-                v11 = v118;
+                v11 = v129;
                 goto LABEL_76;
               }
 
-              v56 = +[MSDUIHelper sharedInstance];
-              [v56 startFullScreenUIWith:@"IN_PROGRESS" allowCancel:1];
+              v59 = +[MSDUIHelper sharedInstance];
+              [v59 startFullScreenUIWith:@"IN_PROGRESS" allowCancel:1];
 
               device4 = [(MSDMailProcessor *)self device];
               [device4 setWaitingForCommand:0];
 
               [(MSDMailProcessor *)self setWaitingForCommand:0];
-              v5 = v117;
-              if ((v20 & 2) != 0)
+              v5 = v128;
+              if ((v22 & 2) != 0)
               {
                 device5 = [(MSDMailProcessor *)self device];
                 mode = [device5 mode];
@@ -660,34 +678,34 @@ LABEL_114:
                 }
               }
 
-              v61 = +[MSDPlatform sharedInstance];
-              if ([v61 macOS])
+              v64 = +[MSDPlatform sharedInstance];
+              if ([v64 macOS])
               {
 
-                v31 = v123;
-                if (v20 != 2)
+                v34 = v134;
+                if (v22 != 2)
                 {
                   goto LABEL_111;
                 }
 
 LABEL_102:
-                v67 = +[MSDPricingUpdateController sharedInstance];
+                v71 = +[MSDPricingUpdateController sharedInstance];
                 v14 = 1;
-                [v67 setSwitchModeAfterCompletion:1];
+                [v71 setSwitchModeAfterCompletion:1];
 
-                v68 = +[MSDProgressUpdater sharedInstance];
-                [v68 updateStage:17];
+                v72 = +[MSDProgressUpdater sharedInstance];
+                [v72 updateStage:17];
 
-                v13 = v125;
+                v13 = v136;
                 goto LABEL_114;
               }
 
-              v66 = +[MSDPlatform sharedInstance];
-              v31 = v123;
-              if ([v66 iOS])
+              v70 = +[MSDPlatform sharedInstance];
+              v34 = v134;
+              if ([v70 iOS])
               {
 
-                if (v20 == 2)
+                if (v22 == 2)
                 {
                   goto LABEL_102;
                 }
@@ -698,18 +716,18 @@ LABEL_102:
               }
 
 LABEL_111:
-              v13 = v125;
-              if (v20)
+              v13 = v136;
+              if (v22)
               {
-                v76 = +[MSDWorkQueueSet sharedInstance];
-                demoUpdateQueue = [v76 demoUpdateQueue];
+                v81 = +[MSDWorkQueueSet sharedInstance];
+                demoUpdateQueue = [v81 demoUpdateQueue];
                 block[0] = _NSConcreteStackBlock;
                 block[1] = 3221225472;
                 block[2] = sub_100066DB8;
                 block[3] = &unk_10016B340;
-                v130 = v119;
-                v128 = v117;
-                v129 = v121;
+                v141 = v130;
+                v139 = v128;
+                v140 = v132;
                 dispatch_async(demoUpdateQueue, block);
               }
 
@@ -717,12 +735,12 @@ LABEL_111:
               goto LABEL_114;
             }
 
-            v54 = sub_100063A54();
-            v13 = v125;
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+            v57 = sub_100063A54(v29);
+            v13 = v136;
+            if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "Continuity linking.", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Continuity linking.", buf, 2u);
             }
 
             device7 = [(MSDMailProcessor *)self device];
@@ -730,26 +748,26 @@ LABEL_111:
             goto LABEL_74;
           }
 
-          v39 = sub_100063A54();
-          if (!os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+          v42 = sub_100063A54(v29);
+          if (!os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_55;
           }
 
           *buf = 0;
-          v40 = "Asset update.";
+          v43 = "Asset update.";
         }
 
-        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, v40, buf, 2u);
+        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, v43, buf, 2u);
         goto LABEL_55;
       }
 
       if ([v6 isEqualToString:@"UpdateOS"])
       {
         +[MSDUIHelper sharedInstance];
-        v33 = v32 = v11;
+        v36 = v35 = v11;
         v14 = 1;
-        [v33 startFullScreenUIWith:@"IN_PROGRESS" allowCancel:1];
+        [v36 startFullScreenUIWith:@"IN_PROGRESS" allowCancel:1];
 
         device8 = [(MSDMailProcessor *)self device];
         [device8 saveOSUpdateRequest:requestCopy];
@@ -761,24 +779,24 @@ LABEL_111:
         device10 = [(MSDMailProcessor *)self device];
         [device10 switchModeImmediately:7];
 
-        v37 = +[MSDWorkQueueSet sharedInstance];
-        demoUpdateQueue2 = [v37 demoUpdateQueue];
+        v40 = +[MSDWorkQueueSet sharedInstance];
+        demoUpdateQueue2 = [v40 demoUpdateQueue];
         dispatch_async(demoUpdateQueue2, &stru_10016B360);
 
-        v11 = v32;
+        v11 = v35;
 LABEL_56:
-        v13 = v125;
+        v13 = v136;
 LABEL_75:
-        v31 = v123;
+        v34 = v134;
 LABEL_76:
 
         goto LABEL_77;
       }
 
-      v13 = v125;
+      v13 = v136;
       if ([v6 isEqualToString:@"Restart"])
       {
-        if (!v119 || [v5 reboot])
+        if (!v130 || [v5 reboot])
         {
           device7 = [(MSDMailProcessor *)self device];
           [device7 reboot];
@@ -788,7 +806,7 @@ LABEL_74:
           goto LABEL_75;
         }
 
-        v31 = v123;
+        v34 = v134;
 LABEL_170:
         v14 = 0;
         goto LABEL_76;
@@ -796,12 +814,12 @@ LABEL_170:
 
       if ([v6 isEqualToString:@"TurnSnapshotON"])
       {
-        v43 = v11;
+        v46 = v11;
         device11 = [(MSDMailProcessor *)self device];
         [device11 setWaitingForCommand:0];
 
         [(MSDMailProcessor *)self setWaitingForCommand:0];
-        if (v119 && ![v5 lockSnapshot])
+        if (v130 && ![v5 lockSnapshot])
         {
           goto LABEL_173;
         }
@@ -809,27 +827,27 @@ LABEL_170:
         device12 = [(MSDMailProcessor *)self device];
         lockSnapshot = [device12 lockSnapshot];
 LABEL_92:
-        v62 = lockSnapshot;
+        v65 = lockSnapshot;
 
-        if (v62)
+        if (v65)
         {
 LABEL_93:
           v14 = 1;
-          v31 = v123;
-          v11 = v43;
+          v34 = v134;
+          v11 = v46;
           goto LABEL_76;
         }
 
 LABEL_173:
-        v31 = v123;
-        v11 = v43;
+        v34 = v134;
+        v11 = v46;
         goto LABEL_170;
       }
 
       if ([v6 isEqualToString:@"TurnSnapshotOFF"])
       {
-        v43 = v11;
-        if (v119 && ![v5 unlockSnapshot])
+        v46 = v11;
+        if (v130 && ![v5 unlockSnapshot])
         {
           goto LABEL_173;
         }
@@ -841,8 +859,8 @@ LABEL_173:
 
       if ([v6 isEqualToString:@"RevertSnapshot"])
       {
-        v43 = v11;
-        if (v119 && ![v5 revertSnapshot])
+        v46 = v11;
+        if (v130 && ![v5 revertSnapshot])
         {
           goto LABEL_173;
         }
@@ -854,102 +872,110 @@ LABEL_173:
 
       if ([v6 isEqualToString:@"Virgin"])
       {
-        v118 = v11;
-        v69 = [requestCopy objectForKey:@"ObliterateDevice"];
-        bOOLValue3 = [v69 BOOLValue];
+        v129 = v11;
+        v73 = [requestCopy objectForKey:@"ObliterateDevice"];
+        bOOLValue3 = [v73 BOOLValue];
 
-        v71 = [requestCopy objectForKey:@"PreserveESim"];
-        bOOLValue4 = [v71 BOOLValue];
+        v75 = [requestCopy objectForKey:@"PreserveESim"];
+        bOOLValue4 = [v75 BOOLValue];
 
-        v73 = sub_100063A54();
-        if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+        v78 = sub_100063A54(v77);
+        if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109376;
-          *v133 = bOOLValue3;
-          *&v133[4] = 1024;
-          *&v133[6] = bOOLValue4;
-          _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "Unenrolling device with obliteration: %{BOOL}d and preserve eSim: %{BOOL}d", buf, 0xEu);
+          *v144 = bOOLValue3;
+          *&v144[4] = 1024;
+          *&v144[6] = bOOLValue4;
+          _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "Unenrolling device with obliteration: %{BOOL}d and preserve eSim: %{BOOL}d", buf, 0xEu);
         }
 
-        if (v119)
+        if (v130)
         {
           [v5 unenrollWithObliteration:bOOLValue3 callUnregister:1];
         }
 
         device13 = [(MSDMailProcessor *)self device];
-        v75 = [device13 unenrollWithObliteration:bOOLValue3 preserveESim:bOOLValue4 callUnregister:0 preserveDDLFlag:0];
+        v80 = [device13 unenrollWithObliteration:bOOLValue3 preserveESim:bOOLValue4 callUnregister:0 preserveDDLFlag:0];
 
-        if (v75)
+        if (v80)
         {
           v14 = 1;
           goto LABEL_43;
         }
 
-        v31 = v123;
-        v11 = v118;
+        v34 = v134;
+        v11 = v129;
         goto LABEL_170;
       }
 
       if ([v6 isEqualToString:@"ChangeSettings"])
       {
-        v118 = v11;
+        v129 = v11;
         device14 = [(MSDMailProcessor *)self device];
         hubSuppliedSettings = [device14 hubSuppliedSettings];
 
-        v80 = [requestCopy objectForKey:@"Settings"];
+        v85 = [requestCopy objectForKey:@"Settings"];
         device15 = [(MSDMailProcessor *)self device];
-        [device15 saveHubSuppliedSettings:v80];
+        [device15 saveHubSuppliedSettings:v85];
 
-        v122 = [hubSuppliedSettings objectForKey:@"StoreHours"];
-        v82 = [v80 objectForKey:@"StoreHours"];
-        v120 = v82;
-        if (v82)
+        v133 = [hubSuppliedSettings objectForKey:@"StoreHours"];
+        v87 = [v85 objectForKey:@"StoreHours"];
+        v131 = v87;
+        if (v87)
         {
-          v83 = v82;
+          v88 = v87;
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) != 0 && [v83 count] && (objc_msgSend(v122, "isEqualToArray:", v83) & 1) == 0)
+          if (objc_opt_isKindOfClass())
           {
-            v84 = sub_100063A54();
-            if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+            if ([v88 count])
             {
-              *buf = 136315138;
-              *v133 = "[MSDMailProcessor processRequest:]";
-              _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "%s - ChangeSettings has new 'StoreHours' set.", buf, 0xCu);
-            }
+              v89 = [v133 isEqualToArray:v88];
+              if ((v89 & 1) == 0)
+              {
+                v90 = sub_100063A54(v89);
+                if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 136315138;
+                  *v144 = "[MSDMailProcessor processRequest:]";
+                  _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, "%s - ChangeSettings has new 'StoreHours' set.", buf, 0xCu);
+                }
 
-            device16 = [(MSDMailProcessor *)self device];
-            [device16 refreshStoreHoursManagerUsingSettingsAndTime:0];
+                device16 = [(MSDMailProcessor *)self device];
+                [device16 refreshStoreHoursManagerUsingSettingsAndTime:0];
 
-            device17 = [(MSDMailProcessor *)self device];
-            isContentFrozen = [device17 isContentFrozen];
+                device17 = [(MSDMailProcessor *)self device];
+                isContentFrozen = [device17 isContentFrozen];
 
-            if (isContentFrozen)
-            {
-              device18 = [(MSDMailProcessor *)self device];
-              [device18 setupSnapshotRevertTimer];
+                if (isContentFrozen)
+                {
+                  device18 = [(MSDMailProcessor *)self device];
+                  [device18 setupSnapshotRevertTimer];
+                }
+              }
             }
           }
         }
 
-        v89 = [v80 objectForKey:@"PingFrequency"];
-        v116 = v89;
-        if (v89)
+        v95 = [v85 objectForKey:@"PingFrequency"];
+        v127 = v95;
+        if (v95)
         {
-          v90 = v89;
+          v96 = v95;
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            if ([v90 unsignedIntegerValue])
+            if ([v96 unsignedIntegerValue])
             {
-              unsignedIntegerValue = [v90 unsignedIntegerValue];
-              if (unsignedIntegerValue != [(MSDMailProcessor *)self pingInterval])
+              unsignedIntegerValue = [v96 unsignedIntegerValue];
+              pingInterval = [(MSDMailProcessor *)self pingInterval];
+              if (unsignedIntegerValue != pingInterval)
               {
-                v92 = sub_100063A54();
-                if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
+                v99 = sub_100063A54(pingInterval);
+                if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315138;
-                  *v133 = "[MSDMailProcessor processRequest:]";
-                  _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_DEFAULT, "%s - ChangeSettings has new 'PingFrequency' set.", buf, 0xCu);
+                  *v144 = "[MSDMailProcessor processRequest:]";
+                  _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_DEFAULT, "%s - ChangeSettings has new 'PingFrequency' set.", buf, 0xCu);
                 }
 
                 [(MSDMailProcessor *)self setPingInterval:[(MSDMailProcessor *)self pingIntervalToUse]];
@@ -958,28 +984,32 @@ LABEL_173:
           }
         }
 
-        v117 = v5;
-        v93 = [v80 objectForKey:@"DeviceOptions"];
-        if (!v93 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (-[MSDMailProcessor device](self, "device"), v94 = objc_claimAutoreleasedReturnValue(), v95 = [v94 updateDeviceOptions:v93 skipImutableKeys:1], v94, v95))
+        v128 = v5;
+        v100 = [v85 objectForKey:@"DeviceOptions"];
+        if (!v100 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (-[MSDMailProcessor device](self, "device"), v101 = objc_claimAutoreleasedReturnValue(), v102 = [v101 updateDeviceOptions:v100 skipImutableKeys:1], v101, v102))
         {
-          v115 = hubSuppliedSettings;
-          v96 = [hubSuppliedSettings objectForKey:@"FeatureFlags"];
-          v97 = [v80 objectForKey:@"FeatureFlags"];
-          if (v97)
+          v126 = hubSuppliedSettings;
+          v103 = [hubSuppliedSettings objectForKey:@"FeatureFlags"];
+          v104 = [v85 objectForKey:@"FeatureFlags"];
+          if (v104)
           {
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && ([v96 isEqualToDictionary:v97] & 1) == 0)
+            if (objc_opt_isKindOfClass())
             {
-              v98 = sub_100063A54();
-              if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
+              v105 = [v103 isEqualToDictionary:v104];
+              if ((v105 & 1) == 0)
               {
-                *buf = 136315138;
-                *v133 = "[MSDMailProcessor processRequest:]";
-                _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_DEFAULT, "%s - ChangeSettings has new 'FeatureFlags' set.", buf, 0xCu);
-              }
+                v106 = sub_100063A54(v105);
+                if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 136315138;
+                  *v144 = "[MSDMailProcessor processRequest:]";
+                  _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_DEFAULT, "%s - ChangeSettings has new 'FeatureFlags' set.", buf, 0xCu);
+                }
 
-              device19 = [(MSDMailProcessor *)self device];
-              [device19 processNewFeatureFlags:v97 oldFeatureFlags:v96];
+                device19 = [(MSDMailProcessor *)self device];
+                [device19 processNewFeatureFlags:v104 oldFeatureFlags:v103];
+              }
             }
           }
 
@@ -1002,14 +1032,14 @@ LABEL_173:
         if ([device20 isDDLDevice])
         {
           [(MSDMailProcessor *)self device];
-          v102 = v101 = v11;
-          isContentFrozen2 = [v102 isContentFrozen];
+          v110 = v109 = v11;
+          isContentFrozen2 = [v110 isContentFrozen];
 
-          v11 = v101;
+          v11 = v109;
           if (isContentFrozen2)
           {
-            v104 = +[MSDPlatform sharedInstance];
-            watchOS = [v104 watchOS];
+            v113 = +[MSDPlatform sharedInstance];
+            watchOS = [v113 watchOS];
 
             device21 = [(MSDMailProcessor *)self device];
             v14 = 1;
@@ -1017,20 +1047,20 @@ LABEL_173:
 
             if (watchOS)
             {
-              v31 = v123;
-              v11 = v101;
+              v34 = v134;
+              v11 = v109;
               goto LABEL_76;
             }
 
-            v114 = sub_100063A54();
-            if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+            v125 = sub_100063A54(v116);
+            if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
             {
               sub_1000D7034();
             }
 
-            v31 = v123;
-            v11 = v101;
-            hubSuppliedSettings = v114;
+            v34 = v134;
+            v11 = v109;
+            hubSuppliedSettings = v125;
             goto LABEL_169;
           }
         }
@@ -1039,9 +1069,9 @@ LABEL_173:
         {
         }
 
-        v111 = sub_100063A54();
-        v31 = v123;
-        if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
+        v122 = sub_100063A54(v112);
+        v34 = v134;
+        if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
         {
           sub_1000D6FF8();
         }
@@ -1050,14 +1080,15 @@ LABEL_173:
         goto LABEL_76;
       }
 
-      if ([v6 isEqualToString:@"ChangeOSPreferences"])
+      v117 = [v6 isEqualToString:@"ChangeOSPreferences"];
+      if (v117)
       {
-        v43 = v11;
-        v107 = sub_100063A54();
-        if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
+        v46 = v11;
+        v118 = sub_100063A54(v117);
+        if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_DEFAULT, "OS Preferences Update.", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v118, OS_LOG_TYPE_DEFAULT, "OS Preferences Update.", buf, 2u);
         }
 
         device22 = [(MSDMailProcessor *)self device];
@@ -1073,19 +1104,19 @@ LABEL_173:
         {
           device23 = +[MSDWorkQueueSet sharedInstance];
           demoUpdateQueue3 = [device23 demoUpdateQueue];
-          v126[0] = _NSConcreteStackBlock;
-          v126[1] = 3221225472;
-          v126[2] = sub_100066EAC;
-          v126[3] = &unk_100169B70;
-          v126[4] = self;
-          dispatch_async(demoUpdateQueue3, v126);
+          v137[0] = _NSConcreteStackBlock;
+          v137[1] = 3221225472;
+          v137[2] = sub_100066EAC;
+          v137[3] = &unk_100169B70;
+          v137[4] = self;
+          dispatch_async(demoUpdateQueue3, v137);
         }
 
         goto LABEL_93;
       }
 
-      v112 = sub_100063B64();
-      if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
+      v123 = sub_100063B64(v117);
+      if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
       {
         sub_1000D6FBC();
       }
@@ -1093,21 +1124,21 @@ LABEL_173:
       hubSuppliedSettings = [(MSDMailProcessor *)self device];
       [hubSuppliedSettings deleteOperationRequest];
 LABEL_168:
-      v31 = v123;
+      v34 = v134;
 LABEL_169:
 
       goto LABEL_170;
     }
 
-    v118 = v11;
+    v129 = v11;
     if (!(bOOLValue2 & 1 | (([v6 isEqualToString:@"UpdateContent"] & 1) == 0)))
     {
-      v47 = [requestCopy objectForKey:@"OnlyInstallCriticalComponents"];
+      v50 = [requestCopy objectForKey:@"OnlyInstallCriticalComponents"];
 
-      if (v47)
+      if (v50)
       {
-        v48 = [requestCopy objectForKey:@"OnlyInstallCriticalComponents"];
-        bOOLValue5 = [v48 BOOLValue];
+        v51 = [requestCopy objectForKey:@"OnlyInstallCriticalComponents"];
+        bOOLValue5 = [v51 BOOLValue];
         device24 = [(MSDMailProcessor *)self device];
         [device24 setCriticalUpdatePrioritized:bOOLValue5];
       }
@@ -1115,55 +1146,55 @@ LABEL_169:
 
     if (([v6 isEqualToString:@"UpdateContent"] & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", @"ChangeOSPreferences") & 1) != 0 || objc_msgSend(v6, "isEqualToString:", @"UpdateOS"))
     {
-      v51 = [requestCopy objectForKey:@"OSPreferences"];
-      if (v51)
+      v54 = [requestCopy objectForKey:@"OSPreferences"];
+      if (v54)
       {
-        v52 = v51;
+        v55 = v54;
         device25 = [(MSDMailProcessor *)self device];
-        v124 = v52;
-        [device25 stageNewOSPreferences:v52];
+        v135 = v55;
+        [device25 stageNewOSPreferences:v55];
 
         if ([v6 isEqualToString:@"ChangeOSPreferences"])
         {
-          v20 = v20 | 0x20;
+          v22 = v22 | 0x20;
         }
 
         else
         {
-          v20 = v20;
+          v22 = v22;
         }
 
         goto LABEL_98;
       }
 
-      v63 = sub_100063A54();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      v66 = sub_100063A54(0);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
         sub_1000D6F10();
       }
     }
 
-    v124 = 0;
+    v135 = 0;
 LABEL_98:
     device26 = [(MSDMailProcessor *)self device];
-    v65 = [device26 saveOperationRequest:v6 requestFlag:v20 completeBy:v121];
+    v68 = [device26 saveOperationRequest:v6 requestFlag:v22 completeBy:v132];
 
-    if ((v65 & 1) == 0)
+    if ((v68 & 1) == 0)
     {
-      hubSuppliedSettings = sub_100063B64();
+      hubSuppliedSettings = sub_100063B64(v69);
       if (os_log_type_enabled(hubSuppliedSettings, OS_LOG_TYPE_ERROR))
       {
         sub_1000D6F80();
       }
 
 LABEL_176:
-      v13 = v125;
-      v31 = v123;
-      v11 = v118;
+      v13 = v136;
+      v34 = v134;
+      v11 = v129;
       goto LABEL_169;
     }
 
-    v11 = v118;
+    v11 = v129;
     goto LABEL_36;
   }
 
@@ -1266,8 +1297,8 @@ LABEL_77:
                 goto LABEL_11;
               }
 
-              v27 = sub_100063A54();
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+              v28 = sub_100063A54(v27);
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 sub_1000D70E8();
               }
@@ -1379,7 +1410,7 @@ LABEL_13:
 {
   infoCopy = info;
   v6 = +[MSDFileDownloadCredentials sharedInstance];
-  v7 = sub_100063A54();
+  v7 = sub_100063A54(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138543362;

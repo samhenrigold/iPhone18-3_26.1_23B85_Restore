@@ -2,13 +2,61 @@
 + (int)handleAttachment:(id)attachment state:(id)state;
 + (int)handleAutoNumber:(id)number state:(id)state;
 + (int)handleContainerHint:(id)hint state:(id)state;
++ (int)handleSpan:(id)span checkForTrailingBlanks:(BOOL)blanks state:(id)state;
 + (int)handleTextBackgroundForStyle:(id)style destStyle:(id)destStyle state:(id)state;
 + (int)handleTextList:(id)list checkForTrailingBlanks:(BOOL)blanks state:(id)state;
++ (int)handleTextListChild:(id)child outputBlanks:(BOOL)blanks state:(id)state;
 + (int)handleTextMarker:(id)marker outputBlanks:(BOOL)blanks state:(id)state;
 + (int)nonWhitespaceCount:(__CFArray *)count;
 @end
 
 @implementation GQHTextSpan
+
++ (int)handleSpan:(id)span checkForTrailingBlanks:(BOOL)blanks state:(id)state
+{
+  blanksCopy = blanks;
+  htmlDoc = [state htmlDoc];
+  [htmlDoc startElement:"span"];
+  characterStyle = [span characterStyle];
+  v11 = [state cachedClassStringForTextStyle:characterStyle implicitStyle:objc_msgSend(state isColoredBackground:"implicitStyle") outlineLevel:objc_msgSend(state outlineType:"coloredBackground") isSpan:{0, 0, 1}];
+  if (!v11)
+  {
+    v12 = objc_alloc_init(GQHStyle);
+    [GQHTextStyle mapStyle:characterStyle style:v12 state:state isSpan:1];
+    cf = 0;
+    [GQHStyle createBaseStyleClassString:characterStyle classString:&cf classType:objc_opt_class() state:state];
+    implicitStyle = [state implicitStyle];
+    coloredBackground = [state coloredBackground];
+    v15 = cf;
+    if (!cf)
+    {
+      v15 = &stru_85620;
+    }
+
+    v11 = [state addCachedClassStringForTextStyle:characterStyle implicitStyle:implicitStyle isColoredBackground:coloredBackground outlineLevel:0 outlineType:0 isSpan:1 baseClassString:v15 cssCachedStyle:v12];
+    if (cf)
+    {
+      CFRelease(cf);
+    }
+  }
+
+  [objc_msgSend(state "htmlDoc")];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [state setCurrentSpanStyle:0 baseStyle:0 cachedClass:v11];
+  }
+
+  v16 = [self handleTextList:span checkForTrailingBlanks:blanksCopy state:state];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [state setCurrentSpanStyle:0 baseStyle:0 cachedClass:0];
+  }
+
+  [htmlDoc endElementWithExpectedName:"span"];
+  return v16;
+}
 
 + (int)handleTextList:(id)list checkForTrailingBlanks:(BOOL)blanks state:(id)state
 {
@@ -36,6 +84,103 @@
 
   while (v11 < v10 && result == 1);
   return result;
+}
+
++ (int)handleTextListChild:(id)child outputBlanks:(BOOL)blanks state:(id)state
+{
+  blanksCopy = blanks;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      [state inContent];
+    }
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    content = [child content];
+    uTF8String = content;
+    if (content && xmlStrstr(content, "  "))
+    {
+      v11 = [[NSMutableString alloc] initWithCString:uTF8String encoding:4];
+      v12 = [[NSString alloc] initWithFormat:@" %C", 160];
+      [v11 replaceOccurrencesOfString:@"  " withString:v12 options:2 range:{0, objc_msgSend(v11, "length")}];
+
+      uTF8String = [v11 UTF8String];
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    [objc_msgSend(state "htmlDoc")];
+
+    return 1;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+
+    return [self handleTextMarker:child outputBlanks:blanksCopy state:?];
+  }
+
+  else
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+
+      return [self handleAutoNumber:child state:state];
+    }
+
+    else
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
+      {
+        [objc_msgSend(state "htmlDoc")];
+        return 1;
+      }
+
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+
+        return [self handlePageStart:child state:state];
+      }
+
+      else
+      {
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+
+          return [self handleAttachment:child state:state];
+        }
+
+        else
+        {
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+
+            return [self handleContainerHint:child state:state];
+          }
+
+          else
+          {
+            return 3;
+          }
+        }
+      }
+    }
+  }
 }
 
 + (int)handleTextBackgroundForStyle:(id)style destStyle:(id)destStyle state:(id)state

@@ -41,7 +41,7 @@
 
 void __84__HMMTRUIDialogPresenter_requestUserPermissionForBridgeAccessory_completionHandler___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) dialogDelegate];
 
   if (v2)
@@ -52,14 +52,14 @@ void __84__HMMTRUIDialogPresenter_requestUserPermissionForBridgeAccessory_comple
       v4 = *(a1 + 40);
       v5 = [*(a1 + 32) context];
       v6 = [*(a1 + 32) clientQueue];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __84__HMMTRUIDialogPresenter_requestUserPermissionForBridgeAccessory_completionHandler___block_invoke_2;
-      v18[3] = &unk_2786EE088;
-      v19 = *(a1 + 48);
-      [v3 requestUserPermissionForBridgeAccessory:v4 withContext:v5 queue:v6 completionHandler:v18];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __84__HMMTRUIDialogPresenter_requestUserPermissionForBridgeAccessory_completionHandler___block_invoke_2;
+      v17[3] = &unk_2786EE088;
+      v18 = *(a1 + 48);
+      [v3 requestUserPermissionForBridgeAccessory:v4 withContext:v5 queue:v6 completionHandler:v17];
 
-      v7 = v19;
+      v7 = v18;
     }
 
     else
@@ -71,7 +71,7 @@ void __84__HMMTRUIDialogPresenter_requestUserPermissionForBridgeAccessory_comple
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v21 = v15;
+        v20 = v15;
         _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not respond to selector", buf, 0xCu);
       }
 
@@ -91,15 +91,13 @@ void __84__HMMTRUIDialogPresenter_requestUserPermissionForBridgeAccessory_comple
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_ERROR, "%{public}@Dialog delegate is not set", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     (*(*(a1 + 48) + 16))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestUserPermissionForUnauthenticatedAccessory:(id)accessory completionHandler:(id)handler
@@ -121,7 +119,7 @@ void __84__HMMTRUIDialogPresenter_requestUserPermissionForBridgeAccessory_comple
 
 void __93__HMMTRUIDialogPresenter_requestUserPermissionForUnauthenticatedAccessory_completionHandler___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) dialogDelegate];
 
   if (v2)
@@ -132,14 +130,14 @@ void __93__HMMTRUIDialogPresenter_requestUserPermissionForUnauthenticatedAccesso
       v4 = *(a1 + 40);
       v5 = [*(a1 + 32) context];
       v6 = [*(a1 + 32) clientQueue];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __93__HMMTRUIDialogPresenter_requestUserPermissionForUnauthenticatedAccessory_completionHandler___block_invoke_2;
-      v18[3] = &unk_2786EE088;
-      v19 = *(a1 + 48);
-      [v3 requestUserPermissionForUnauthenticatedAccessory:v4 withContext:v5 queue:v6 completionHandler:v18];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __93__HMMTRUIDialogPresenter_requestUserPermissionForUnauthenticatedAccessory_completionHandler___block_invoke_2;
+      v17[3] = &unk_2786EE088;
+      v18 = *(a1 + 48);
+      [v3 requestUserPermissionForUnauthenticatedAccessory:v4 withContext:v5 queue:v6 completionHandler:v17];
 
-      v7 = v19;
+      v7 = v18;
     }
 
     else
@@ -151,7 +149,7 @@ void __93__HMMTRUIDialogPresenter_requestUserPermissionForUnauthenticatedAccesso
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v21 = v15;
+        v20 = v15;
         _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not respond to selector", buf, 0xCu);
       }
 
@@ -171,15 +169,13 @@ void __93__HMMTRUIDialogPresenter_requestUserPermissionForUnauthenticatedAccesso
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_ERROR, "%{public}@Dialog delegate is not set", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     (*(*(a1 + 48) + 16))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMTRUIDialogPresenter)initWithQueue:(id)queue context:(id)context

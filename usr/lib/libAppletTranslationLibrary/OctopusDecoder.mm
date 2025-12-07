@@ -20,25 +20,26 @@
 + (id)getPurseBalance:(id)balance
 {
   balanceCopy = balance;
-  if ([SlalomUtils isValidFelicaBlock:balanceCopy])
+  v4 = [SlalomUtils isValidFelicaBlock:balanceCopy];
+  if (v4)
   {
     bytes = [balanceCopy bytes];
-    v5 = [MEMORY[0x277CCA980] decimalNumberWithMantissa:bswap32(*bytes) exponent:0xFFFFFFFFLL isNegative:0];
+    v6 = [MEMORY[0x277CCA980] decimalNumberWithMantissa:bswap32(*bytes) exponent:0xFFFFFFFFLL isNegative:0];
   }
 
   else
   {
-    v6 = ATLLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = ATLLogObject(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_22EEF5000, v6, OS_LOG_TYPE_DEFAULT, "Octopus Purse Service to decode did not have 16 bytes; aborting", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_22EEF5000, v7, OS_LOG_TYPE_DEFAULT, "Octopus Purse Service to decode did not have 16 bytes; aborting", v9, 2u);
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 + (id)parseTLOGBlock:(id)block withBaseDate:(id)date
@@ -46,15 +47,16 @@
   v37[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   dateCopy = date;
-  if (![SlalomUtils isValidFelicaBlock:blockCopy])
+  v8 = [SlalomUtils isValidFelicaBlock:blockCopy];
+  if (!v8)
   {
-    v14 = ATLLogObject();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = ATLLogObject(v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v28 = "Octopus TLOG block to decode did not have 16 bytes; aborting.";
+      v29 = "Octopus TLOG block to decode did not have 16 bytes; aborting.";
 LABEL_16:
-      _os_log_impl(&dword_22EEF5000, v14, OS_LOG_TYPE_DEFAULT, v28, buf, 2u);
+      _os_log_impl(&dword_22EEF5000, v15, OS_LOG_TYPE_DEFAULT, v29, buf, 2u);
     }
 
 LABEL_17:
@@ -64,11 +66,11 @@ LABEL_17:
 
   if (!dateCopy)
   {
-    v14 = ATLLogObject();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = ATLLogObject(v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v28 = "Cannot parse TLOG block without a Base Date";
+      v29 = "Cannot parse TLOG block without a Base Date";
       goto LABEL_16;
     }
 
@@ -76,77 +78,76 @@ LABEL_17:
   }
 
   bytes = [blockCopy bytes];
-  v9 = *bytes;
-  v10 = bytes[1] >> 1;
+  v10 = *bytes;
+  v11 = bytes[1] >> 1;
   v34 = *(bytes + 1);
-  v11 = bswap32(*(bytes + 1)) >> 3;
-  v12 = [SlalomUtils readBitsValueFromBuffer:bytes bitPosition:61 length:3];
+  v12 = bswap32(*(bytes + 1)) >> 3;
+  v13 = [SlalomUtils readBitsValueFromBuffer:bytes bitPosition:61 length:3];
   [dateCopy timeIntervalSinceReferenceDate];
-  v14 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v13 + v11];
+  v15 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v14 + v12];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-  v17 = [MEMORY[0x277CBEBB0] timeZoneWithAbbreviation:@"UTC"];
-  [currentCalendar setTimeZone:v17];
+  v18 = [MEMORY[0x277CBEBB0] timeZoneWithAbbreviation:@"UTC"];
+  [currentCalendar setTimeZone:v18];
 
-  v18 = [currentCalendar components:252 fromDate:v14];
-  [dictionary setObject:v18 forKeyedSubscript:@"TransactionTime"];
+  v19 = [currentCalendar components:252 fromDate:v15];
+  [dictionary setObject:v19 forKeyedSubscript:@"TransactionTime"];
 
-  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v10];
-  [dictionary setObject:v19 forKeyedSubscript:@"TypeDetailRaw"];
+  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v11];
+  [dictionary setObject:v20 forKeyedSubscript:@"TypeDetailRaw"];
 
-  v35 = v9;
-  v20 = [self getTransactionTypeStringFromCode:v10 andServiceProviderID:v9];
-  [dictionary setObject:v20 forKeyedSubscript:@"TypeDetail"];
+  v35 = v10;
+  v21 = [self getTransactionTypeStringFromCode:v11 andServiceProviderID:v10];
+  [dictionary setObject:v21 forKeyedSubscript:@"TypeDetail"];
 
-  if ([self isTransitTransactionCode:v10])
+  if ([self isTransitTransactionCode:v11])
   {
-    v21 = [self getTransactionTypeModifierStringFromCode:v10];
-    v22 = v21;
-    if (v21)
+    v22 = [self getTransactionTypeModifierStringFromCode:v11];
+    v23 = v22;
+    if (v22)
     {
-      v37[0] = v21;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
-      [dictionary setObject:v23 forKeyedSubscript:@"TypeModifiers"];
+      v37[0] = v22;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+      [dictionary setObject:v24 forKeyedSubscript:@"TypeModifiers"];
     }
   }
 
-  v24 = __rev16(v34);
-  v25 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v12];
-  [dictionary setObject:v25 forKeyedSubscript:@"AddValueTypeRaw"];
+  v25 = __rev16(v34);
+  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v13];
+  [dictionary setObject:v26 forKeyedSubscript:@"AddValueTypeRaw"];
 
-  if (v12 == 4)
+  if (v13 == 4)
   {
-    v26 = MEMORY[0x277CBEC38];
+    v27 = MEMORY[0x277CBEC38];
   }
 
   else
   {
-    v26 = MEMORY[0x277CBEC28];
+    v27 = MEMORY[0x277CBEC28];
   }
 
-  [dictionary setObject:v26 forKeyedSubscript:@"AddValueType"];
+  [dictionary setObject:v27 forKeyedSubscript:@"AddValueType"];
   if (v34)
   {
-    v27 = [self isTopUpTransaction:v10];
+    v28 = [self isTopUpTransaction:v11];
   }
 
   else
   {
-    v27 = 0;
+    v28 = 0;
   }
 
-  v29 = [MEMORY[0x277CCA980] decimalNumberWithMantissa:v24 exponent:0xFFFFFFFFLL isNegative:v27];
-  [dictionary setObject:v29 forKeyedSubscript:@"Amount"];
+  v30 = [MEMORY[0x277CCA980] decimalNumberWithMantissa:v25 exponent:0xFFFFFFFFLL isNegative:v28];
+  [dictionary setObject:v30 forKeyedSubscript:@"Amount"];
 
-  v30 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v35];
-  [dictionary setObject:v30 forKeyedSubscript:@"MerchantCategoryCode"];
+  v31 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v35];
+  [dictionary setObject:v31 forKeyedSubscript:@"MerchantCategoryCode"];
 
   CC_SHA256([blockCopy bytes], 0x10u, buf);
-  v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:bswap32(*buf)];
-  [dictionary setObject:v31 forKeyedSubscript:@"SerialNumber"];
+  v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:bswap32(*buf)];
+  [dictionary setObject:v32 forKeyedSubscript:@"SerialNumber"];
 
 LABEL_20:
-  v32 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -175,24 +176,24 @@ LABEL_20:
     }
     v15 = ;
 
-    v16 = +[HashHelper hashHelper];
-    v17 = [(HashHelper *)v16 addDictionary:sCopy];
-    getHash = [(HashHelper *)v17 getHash];
-    v19 = [getHash u32BE:0];
+    v17 = +[HashHelper hashHelper];
+    v18 = [(HashHelper *)v17 addDictionary:sCopy];
+    getHash = [(HashHelper *)v18 getHash];
+    v20 = [getHash u32BE:0];
 
     bOOLValue2 = [amountCopy BOOLValue];
     v26[0] = @"TopUpAuto";
     v25[0] = @"TypeDetail";
     v25[1] = @"Amount";
-    v21 = [MEMORY[0x277CCA980] decimalNumberWithMantissa:objc_msgSend(amountCopy exponent:"unsignedLongLongValue") isNegative:{0, bOOLValue2}];
-    v26[1] = v21;
+    v22 = [MEMORY[0x277CCA980] decimalNumberWithMantissa:objc_msgSend(amountCopy exponent:"unsignedLongLongValue") isNegative:{0, bOOLValue2}];
+    v26[1] = v22;
     v26[2] = v13;
     v25[2] = @"TransactionTime";
     v25[3] = @"FinalBalance";
     v26[3] = v15;
     v25[4] = @"SerialNumber";
-    v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v19];
-    v26[4] = v22;
+    v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v20];
+    v26[4] = v23;
     v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:5];
 
     balanceCopy = v15;
@@ -203,67 +204,67 @@ LABEL_20:
     v14 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 + (id)getLoyaltyBalance:(id)balance
 {
   balanceCopy = balance;
-  if ([SlalomUtils isValidFelicaBlock:balanceCopy])
+  v4 = [SlalomUtils isValidFelicaBlock:balanceCopy];
+  if (v4)
   {
-    v4 = +[SlalomUtils readBitsValueFromBuffer:bitPosition:length:](SlalomUtils, "readBitsValueFromBuffer:bitPosition:length:", [balanceCopy bytes], 52, 18);
-    v5 = MEMORY[0x277CCABB0];
-    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v4];
-    [v6 doubleValue];
-    v8 = [v5 numberWithDouble:v7 / 100.0];
+    v5 = +[SlalomUtils readBitsValueFromBuffer:bitPosition:length:](SlalomUtils, "readBitsValueFromBuffer:bitPosition:length:", [balanceCopy bytes], 52, 18);
+    v6 = MEMORY[0x277CCABB0];
+    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v5];
+    [v7 doubleValue];
+    v9 = [v6 numberWithDouble:v8 / 100.0];
   }
 
   else
   {
-    v9 = ATLLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = ATLLogObject(v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_22EEF5000, v9, OS_LOG_TYPE_DEFAULT, "Octopus TLOG block to decode did not have 16 bytes; aborting.", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_22EEF5000, v10, OS_LOG_TYPE_DEFAULT, "Octopus TLOG block to decode did not have 16 bytes; aborting.", v12, 2u);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 + (id)getNegativeValueLimit:(id)limit
 {
   limitCopy = limit;
-  if ([SlalomUtils isValidFelicaBlock:limitCopy])
+  v4 = [SlalomUtils isValidFelicaBlock:limitCopy];
+  if (v4)
   {
-    v4 = +[SlalomUtils readBitsValueFromBuffer:bitPosition:length:](SlalomUtils, "readBitsValueFromBuffer:bitPosition:length:", [limitCopy bytes], 34, 10);
-    v5 = [MEMORY[0x277CCA980] decimalNumberWithMantissa:10 * v4 exponent:0xFFFFFFFFLL isNegative:0];
+    v5 = +[SlalomUtils readBitsValueFromBuffer:bitPosition:length:](SlalomUtils, "readBitsValueFromBuffer:bitPosition:length:", [limitCopy bytes], 34, 10);
+    v6 = [MEMORY[0x277CCA980] decimalNumberWithMantissa:10 * v5 exponent:0xFFFFFFFFLL isNegative:0];
   }
 
   else
   {
-    v6 = ATLLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = ATLLogObject(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_22EEF5000, v6, OS_LOG_TYPE_DEFAULT, "Octopus Negative Value Limit data cannot be retrieved; block to decode did not have 16 bytes; aborting.", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_22EEF5000, v7, OS_LOG_TYPE_DEFAULT, "Octopus Negative Value Limit data cannot be retrieved; block to decode did not have 16 bytes; aborting.", v9, 2u);
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 + (id)getBaseDate:(id)date
 {
   dateCopy = date;
   v4 = dateCopy;
-  if (dateCopy && [dateCopy length] == 16)
+  if (dateCopy && (dateCopy = [dateCopy length], dateCopy == 16))
   {
     v5 = +[SlalomUtils readBitsValueFromBuffer:bitPosition:length:](SlalomUtils, "readBitsValueFromBuffer:bitPosition:length:", [v4 bytes], 80, 16);
     v6 = objc_alloc_init(MEMORY[0x277CBEAB8]);
@@ -286,7 +287,7 @@ LABEL_20:
 
   else
   {
-    v13 = ATLLogObject();
+    v13 = ATLLogObject(dateCopy);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *v15 = 0;
@@ -302,48 +303,50 @@ LABEL_20:
 + (id)getPhysicalID:(id)d
 {
   dCopy = d;
-  if ([SlalomUtils isValidFelicaBlock:dCopy])
+  v4 = [SlalomUtils isValidFelicaBlock:dCopy];
+  if (v4)
   {
-    v4 = [dCopy subdataWithRange:{4, 4}];
+    v5 = [dCopy subdataWithRange:{4, 4}];
   }
 
   else
   {
-    v5 = ATLLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      *v7 = 0;
-      _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_DEFAULT, "Octopus Negative Value Limit data cannot be retrieved; block to decode did not have 16 bytes; aborting.", v7, 2u);
-    }
-
-    v4 = 0;
-  }
-
-  return v4;
-}
-
-+ (id)getAAVSAmount:(id)amount
-{
-  amountCopy = amount;
-  if ([SlalomUtils isValidFelicaBlock:amountCopy])
-  {
-    v4 = +[SlalomUtils readBitsValueFromBuffer:bitPosition:length:](SlalomUtils, "readBitsValueFromBuffer:bitPosition:length:", [amountCopy bytes], 48, 6);
-    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:50 * v4];
-  }
-
-  else
-  {
-    v6 = ATLLogObject();
+    v6 = ATLLogObject(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
-      _os_log_impl(&dword_22EEF5000, v6, OS_LOG_TYPE_DEFAULT, "Octopus AAVS data cannot be retrieved; block to decode did not have 16 bytes; aborting.", v8, 2u);
+      _os_log_impl(&dword_22EEF5000, v6, OS_LOG_TYPE_DEFAULT, "Octopus Negative Value Limit data cannot be retrieved; block to decode did not have 16 bytes; aborting.", v8, 2u);
     }
 
     v5 = 0;
   }
 
   return v5;
+}
+
++ (id)getAAVSAmount:(id)amount
+{
+  amountCopy = amount;
+  v4 = [SlalomUtils isValidFelicaBlock:amountCopy];
+  if (v4)
+  {
+    v5 = +[SlalomUtils readBitsValueFromBuffer:bitPosition:length:](SlalomUtils, "readBitsValueFromBuffer:bitPosition:length:", [amountCopy bytes], 48, 6);
+    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:50 * v5];
+  }
+
+  else
+  {
+    v7 = ATLLogObject(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *v9 = 0;
+      _os_log_impl(&dword_22EEF5000, v7, OS_LOG_TYPE_DEFAULT, "Octopus AAVS data cannot be retrieved; block to decode did not have 16 bytes; aborting.", v9, 2u);
+    }
+
+    v6 = 0;
+  }
+
+  return v6;
 }
 
 + (id)getTransactionTypeModifierStringFromCode:(unsigned __int8)code
@@ -543,24 +546,25 @@ LABEL_6:
 + (int)getEnRouteStatus:(id)status
 {
   statusCopy = status;
-  if ([SlalomUtils isValidFelicaBlock:statusCopy])
+  v4 = [SlalomUtils isValidFelicaBlock:statusCopy];
+  if (v4)
   {
-    v4 = +[SlalomUtils readBitsValueFromBuffer:bitPosition:length:](SlalomUtils, "readBitsValueFromBuffer:bitPosition:length:", [statusCopy bytes], 15, 1) == 1;
+    v5 = +[SlalomUtils readBitsValueFromBuffer:bitPosition:length:](SlalomUtils, "readBitsValueFromBuffer:bitPosition:length:", [statusCopy bytes], 15, 1) == 1;
   }
 
   else
   {
-    v5 = ATLLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = ATLLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_DEFAULT, "Octopus Transit Flag data cannot be retrieved; block to decode did not have 16 bytes; aborting.", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_22EEF5000, v6, OS_LOG_TYPE_DEFAULT, "Octopus Transit Flag data cannot be retrieved; block to decode did not have 16 bytes; aborting.", v8, 2u);
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 + (int)filterHistoryEntry:(id)entry

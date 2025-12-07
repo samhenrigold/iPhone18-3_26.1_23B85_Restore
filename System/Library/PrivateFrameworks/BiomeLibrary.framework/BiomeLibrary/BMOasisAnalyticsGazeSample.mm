@@ -106,7 +106,7 @@ LABEL_77:
 
 - (id)jsonDictionary
 {
-  v81[17] = *MEMORY[0x1E69E9840];
+  v80[17] = *MEMORY[0x1E69E9840];
   userProfileId = [(BMOasisAnalyticsGazeSample *)self userProfileId];
   v4 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMOasisAnalyticsGazeSample eyeSide](self, "eyeSide")}];
   v5 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMOasisAnalyticsGazeSample pupilSizeCategory](self, "pupilSizeCategory")}];
@@ -164,7 +164,7 @@ LABEL_77:
 
   if (![(BMOasisAnalyticsGazeSample *)self hasNearEyeRelief]|| ([(BMOasisAnalyticsGazeSample *)self nearEyeRelief], fabsf(v18) == INFINITY))
   {
-    v79 = 0;
+    v78 = 0;
   }
 
   else
@@ -172,12 +172,12 @@ LABEL_77:
     [(BMOasisAnalyticsGazeSample *)self nearEyeRelief];
     v19 = MEMORY[0x1E696AD98];
     [(BMOasisAnalyticsGazeSample *)self nearEyeRelief];
-    v79 = [v19 numberWithFloat:?];
+    v78 = [v19 numberWithFloat:?];
   }
 
   if (![(BMOasisAnalyticsGazeSample *)self hasPupil2dVisibleRatioNecam]|| ([(BMOasisAnalyticsGazeSample *)self pupil2dVisibleRatioNecam], fabsf(v20) == INFINITY))
   {
-    v78 = 0;
+    v77 = 0;
   }
 
   else
@@ -185,12 +185,12 @@ LABEL_77:
     [(BMOasisAnalyticsGazeSample *)self pupil2dVisibleRatioNecam];
     v21 = MEMORY[0x1E696AD98];
     [(BMOasisAnalyticsGazeSample *)self pupil2dVisibleRatioNecam];
-    v78 = [v21 numberWithFloat:?];
+    v77 = [v21 numberWithFloat:?];
   }
 
   if (![(BMOasisAnalyticsGazeSample *)self hasPupil2dVisibleRatioBecam]|| ([(BMOasisAnalyticsGazeSample *)self pupil2dVisibleRatioBecam], fabsf(v22) == INFINITY))
   {
-    v77 = 0;
+    v76 = 0;
   }
 
   else
@@ -198,12 +198,12 @@ LABEL_77:
     [(BMOasisAnalyticsGazeSample *)self pupil2dVisibleRatioBecam];
     v23 = MEMORY[0x1E696AD98];
     [(BMOasisAnalyticsGazeSample *)self pupil2dVisibleRatioBecam];
-    v77 = [v23 numberWithFloat:?];
+    v76 = [v23 numberWithFloat:?];
   }
 
   if (![(BMOasisAnalyticsGazeSample *)self hasPupilIrisContrastNecam]|| ([(BMOasisAnalyticsGazeSample *)self pupilIrisContrastNecam], fabsf(v24) == INFINITY))
   {
-    v76 = 0;
+    v75 = 0;
   }
 
   else
@@ -211,12 +211,12 @@ LABEL_77:
     [(BMOasisAnalyticsGazeSample *)self pupilIrisContrastNecam];
     v25 = MEMORY[0x1E696AD98];
     [(BMOasisAnalyticsGazeSample *)self pupilIrisContrastNecam];
-    v76 = [v25 numberWithFloat:?];
+    v75 = [v25 numberWithFloat:?];
   }
 
   if (![(BMOasisAnalyticsGazeSample *)self hasPupilIrisContrastBecam]|| ([(BMOasisAnalyticsGazeSample *)self pupilIrisContrastBecam], fabsf(v26) == INFINITY))
   {
-    v75 = 0;
+    v74 = 0;
   }
 
   else
@@ -224,22 +224,12 @@ LABEL_77:
     [(BMOasisAnalyticsGazeSample *)self pupilIrisContrastBecam];
     v27 = MEMORY[0x1E696AD98];
     [(BMOasisAnalyticsGazeSample *)self pupilIrisContrastBecam];
-    v75 = [v27 numberWithFloat:?];
+    v74 = [v27 numberWithFloat:?];
   }
 
   if ([(BMOasisAnalyticsGazeSample *)self hasCountOfVisibleGlintsNecam])
   {
-    v74 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BMOasisAnalyticsGazeSample countOfVisibleGlintsNecam](self, "countOfVisibleGlintsNecam")}];
-  }
-
-  else
-  {
-    v74 = 0;
-  }
-
-  if ([(BMOasisAnalyticsGazeSample *)self hasCountOfVisibleGlintsBecam])
-  {
-    v73 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BMOasisAnalyticsGazeSample countOfVisibleGlintsBecam](self, "countOfVisibleGlintsBecam")}];
+    v73 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BMOasisAnalyticsGazeSample countOfVisibleGlintsNecam](self, "countOfVisibleGlintsNecam")}];
   }
 
   else
@@ -247,9 +237,19 @@ LABEL_77:
     v73 = 0;
   }
 
-  if (![(BMOasisAnalyticsGazeSample *)self hasTemperatureCelsiusNecam]|| ([(BMOasisAnalyticsGazeSample *)self temperatureCelsiusNecam], fabsf(v28) == INFINITY))
+  if ([(BMOasisAnalyticsGazeSample *)self hasCountOfVisibleGlintsBecam])
+  {
+    v72 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BMOasisAnalyticsGazeSample countOfVisibleGlintsBecam](self, "countOfVisibleGlintsBecam")}];
+  }
+
+  else
   {
     v72 = 0;
+  }
+
+  if (![(BMOasisAnalyticsGazeSample *)self hasTemperatureCelsiusNecam]|| ([(BMOasisAnalyticsGazeSample *)self temperatureCelsiusNecam], fabsf(v28) == INFINITY))
+  {
+    v71 = 0;
   }
 
   else
@@ -257,12 +257,12 @@ LABEL_77:
     [(BMOasisAnalyticsGazeSample *)self temperatureCelsiusNecam];
     v29 = MEMORY[0x1E696AD98];
     [(BMOasisAnalyticsGazeSample *)self temperatureCelsiusNecam];
-    v72 = [v29 numberWithFloat:?];
+    v71 = [v29 numberWithFloat:?];
   }
 
   if (![(BMOasisAnalyticsGazeSample *)self hasTemperatureCelsiusBecam]|| ([(BMOasisAnalyticsGazeSample *)self temperatureCelsiusBecam], fabsf(v30) == INFINITY))
   {
-    v71 = 0;
+    v70 = 0;
   }
 
   else
@@ -270,165 +270,169 @@ LABEL_77:
     [(BMOasisAnalyticsGazeSample *)self temperatureCelsiusBecam];
     v31 = MEMORY[0x1E696AD98];
     [(BMOasisAnalyticsGazeSample *)self temperatureCelsiusBecam];
-    v71 = [v31 numberWithFloat:?];
+    v70 = [v31 numberWithFloat:?];
   }
 
   v32 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMOasisAnalyticsGazeSample enrollmentDeviceType](self, "enrollmentDeviceType")}];
-  v80[0] = @"userProfileId";
+  v79[0] = @"userProfileId";
   null = userProfileId;
   if (!userProfileId)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v64 = null;
-  v81[0] = null;
-  v80[1] = @"eyeSide";
+  v63 = null;
+  v80[0] = null;
+  v79[1] = @"eyeSide";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v63 = null2;
-  v81[1] = null2;
-  v80[2] = @"pupilSizeCategory";
+  v62 = null2;
+  v80[1] = null2;
+  v79[2] = @"pupilSizeCategory";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v62 = null3;
-  v81[2] = null3;
-  v80[3] = @"offsetWithinEyeboxX";
+  v61 = null3;
+  v80[2] = null3;
+  v79[3] = @"offsetWithinEyeboxX";
   null4 = v8;
   if (!v8)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v61 = null4;
-  v81[3] = null4;
-  v80[4] = @"offsetWithinEyeboxY";
+  v60 = null4;
+  v80[3] = null4;
+  v79[4] = @"offsetWithinEyeboxY";
   null5 = v11;
   if (!v11)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v60 = null5;
-  v81[4] = null5;
-  v80[5] = @"offsetWithinEyeboxZ";
+  v59 = null5;
+  v80[4] = null5;
+  v79[5] = @"offsetWithinEyeboxZ";
   null6 = v14;
   if (!v14)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v59 = null6;
-  v81[5] = null6;
-  v80[6] = @"totalEyeRelief";
+  v58 = null6;
+  v80[5] = null6;
+  v79[6] = @"totalEyeRelief";
   null7 = v17;
   if (!v17)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v58 = null7;
-  v81[6] = null7;
-  v80[7] = @"nearEyeRelief";
-  null8 = v79;
-  if (!v79)
+  v57 = null7;
+  v80[6] = null7;
+  v79[7] = @"nearEyeRelief";
+  null8 = v78;
+  if (!v78)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v81[7] = null8;
-  v80[8] = @"pupil2dVisibleRatioNecam";
-  null9 = v78;
-  if (!v78)
+  v80[7] = null8;
+  v79[8] = @"pupil2dVisibleRatioNecam";
+  null9 = v77;
+  if (!v77)
   {
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v70 = userProfileId;
-  v81[8] = null9;
-  v80[9] = @"pupil2dVisibleRatioBecam";
-  null10 = v77;
-  if (!v77)
+  v69 = userProfileId;
+  v80[8] = null9;
+  v79[9] = @"pupil2dVisibleRatioBecam";
+  null10 = v76;
+  if (!v76)
   {
     null10 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v69 = v4;
-  v81[9] = null10;
-  v80[10] = @"pupilIrisContrastNecam";
-  null11 = v76;
-  if (!v76)
+  v68 = v4;
+  v80[9] = null10;
+  v79[10] = @"pupilIrisContrastNecam";
+  null11 = v75;
+  if (!v75)
   {
     null11 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v57 = null8;
-  v54 = null11;
-  v81[10] = null11;
-  v80[11] = @"pupilIrisContrastBecam";
-  null12 = v75;
-  if (!v75)
+  v56 = null8;
+  v53 = null11;
+  v80[10] = null11;
+  v79[11] = @"pupilIrisContrastBecam";
+  null12 = v74;
+  if (!v74)
   {
     null12 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v67 = v17;
-  v68 = v14;
-  v66 = v5;
-  v81[11] = null12;
-  v80[12] = @"countOfVisibleGlintsNecam";
-  null13 = v74;
-  if (!v74)
+  v66 = v17;
+  v67 = v14;
+  v65 = v5;
+  v80[11] = null12;
+  v79[12] = @"countOfVisibleGlintsNecam";
+  null13 = v73;
+  if (!v73)
   {
     null13 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v56 = null9;
+  v55 = null9;
   v46 = v11;
-  v81[12] = null13;
-  v80[13] = @"countOfVisibleGlintsBecam";
-  null14 = v73;
-  if (!v73)
+  v80[12] = null13;
+  v79[13] = @"countOfVisibleGlintsBecam";
+  null14 = v72;
+  if (!v72)
   {
     null14 = [MEMORY[0x1E695DFB0] null];
   }
 
   v48 = v8;
-  v81[13] = null14;
-  v80[14] = @"temperatureCelsiusNecam";
-  null15 = v72;
-  if (!v72)
+  v80[13] = null14;
+  v79[14] = @"temperatureCelsiusNecam";
+  null15 = v71;
+  if (!v71)
   {
     null15 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v81[14] = null15;
-  v80[15] = @"temperatureCelsiusBecam";
-  null16 = v71;
-  if (!v71)
+  v80[14] = null15;
+  v79[15] = @"temperatureCelsiusBecam";
+  null16 = v70;
+  if (!v70)
   {
     null16 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v81[15] = null16;
-  v80[16] = @"enrollmentDeviceType";
+  v80[15] = null16;
+  v79[16] = @"enrollmentDeviceType";
   null17 = v32;
   if (!v32)
   {
     null17 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v81[16] = null17;
-  v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:v80 count:{17, v54}];
+  v80[16] = null17;
+  v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v80 forKeys:v79 count:{17, v53}];
   if (!v32)
+  {
+  }
+
+  if (!v70)
   {
   }
 
@@ -460,13 +464,9 @@ LABEL_77:
   {
   }
 
-  if (!v78)
+  if (v78)
   {
-  }
-
-  if (v79)
-  {
-    if (v67)
+    if (v66)
     {
       goto LABEL_105;
     }
@@ -475,10 +475,10 @@ LABEL_77:
   else
   {
 
-    if (v67)
+    if (v66)
     {
 LABEL_105:
-      if (v68)
+      if (v67)
       {
         goto LABEL_106;
       }
@@ -487,7 +487,7 @@ LABEL_105:
     }
   }
 
-  if (v68)
+  if (v67)
   {
 LABEL_106:
     if (v46)
@@ -516,7 +516,7 @@ LABEL_117:
   if (v48)
   {
 LABEL_108:
-    if (v66)
+    if (v65)
     {
       goto LABEL_109;
     }
@@ -526,17 +526,17 @@ LABEL_108:
 
 LABEL_118:
 
-  if (v66)
+  if (v65)
   {
 LABEL_109:
-    if (v69)
+    if (v68)
     {
       goto LABEL_110;
     }
 
 LABEL_120:
 
-    if (v70)
+    if (v69)
     {
       goto LABEL_111;
     }
@@ -546,13 +546,13 @@ LABEL_120:
 
 LABEL_119:
 
-  if (!v69)
+  if (!v68)
   {
     goto LABEL_120;
   }
 
 LABEL_110:
-  if (v70)
+  if (v69)
   {
     goto LABEL_111;
   }
@@ -560,14 +560,13 @@ LABEL_110:
 LABEL_121:
 
 LABEL_111:
-  v52 = *MEMORY[0x1E69E9840];
 
-  return v65;
+  return v64;
 }
 
 - (BMOasisAnalyticsGazeSample)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v177[1] = *MEMORY[0x1E69E9840];
+  v176[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"userProfileId"];
   if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -584,7 +583,7 @@ LABEL_4:
     v8 = [dictionaryCopy objectForKeyedSubscript:@"eyeSide"];
     if (!v8 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v142 = 0;
+      v141 = 0;
       goto LABEL_16;
     }
 
@@ -593,7 +592,7 @@ LABEL_4:
     {
       v9 = v8;
 LABEL_15:
-      v142 = v9;
+      v141 = v9;
 LABEL_16:
       v14 = [dictionaryCopy objectForKeyedSubscript:@"pupilSizeCategory"];
       if (!v14 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -612,145 +611,145 @@ LABEL_23:
         v16 = v17;
 LABEL_24:
         v18 = [dictionaryCopy objectForKeyedSubscript:@"offsetWithinEyeboxX"];
-        v140 = v7;
-        v141 = v18;
+        v139 = v7;
+        v140 = v18;
         if (!v18 || (v19 = v18, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v137 = 0;
+          v136 = 0;
           goto LABEL_27;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v137 = v19;
+          v136 = v19;
 LABEL_27:
           v20 = [dictionaryCopy objectForKeyedSubscript:@"offsetWithinEyeboxY"];
           if (!v20 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v132 = 0;
-            v133 = v20;
+            v131 = 0;
+            v132 = v20;
             goto LABEL_30;
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v133 = v20;
             v132 = v20;
+            v131 = v20;
 LABEL_30:
             v21 = [dictionaryCopy objectForKeyedSubscript:@"offsetWithinEyeboxZ"];
-            v136 = v21;
+            v135 = v21;
             if (!v21 || (v22 = v21, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v138 = 0;
+              v137 = 0;
               goto LABEL_33;
             }
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v138 = v22;
+              v137 = v22;
 LABEL_33:
               v23 = [dictionaryCopy objectForKeyedSubscript:@"totalEyeRelief"];
-              v131 = v23;
+              v130 = v23;
               if (!v23 || (v24 = v23, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
               {
-                v134 = 0;
+                v133 = 0;
                 goto LABEL_36;
               }
 
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v134 = v24;
+                v133 = v24;
 LABEL_36:
                 v25 = [dictionaryCopy objectForKeyedSubscript:@"nearEyeRelief"];
-                v126 = v25;
+                v125 = v25;
                 if (!v25 || (v26 = v25, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                 {
-                  v127 = 0;
+                  v126 = 0;
                   goto LABEL_39;
                 }
 
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v127 = v26;
+                  v126 = v26;
 LABEL_39:
                   v27 = [dictionaryCopy objectForKeyedSubscript:@"pupil2dVisibleRatioNecam"];
-                  v123 = v27;
+                  v122 = v27;
                   if (!v27 || (v28 = v27, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                   {
-                    v124 = 0;
+                    v123 = 0;
                     goto LABEL_42;
                   }
 
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v124 = v28;
+                    v123 = v28;
 LABEL_42:
                     v29 = [dictionaryCopy objectForKeyedSubscript:@"pupil2dVisibleRatioBecam"];
-                    v120 = v29;
+                    v119 = v29;
                     if (!v29 || (v30 = v29, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                     {
-                      v121 = 0;
+                      v120 = 0;
                       goto LABEL_45;
                     }
 
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v121 = v30;
+                      v120 = v30;
 LABEL_45:
                       v31 = [dictionaryCopy objectForKeyedSubscript:@"pupilIrisContrastNecam"];
-                      v117 = v31;
+                      v116 = v31;
                       if (!v31 || (v32 = v31, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                       {
-                        v118 = 0;
+                        v117 = 0;
                         goto LABEL_48;
                       }
 
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
-                        v118 = v32;
+                        v117 = v32;
 LABEL_48:
                         v33 = [dictionaryCopy objectForKeyedSubscript:@"pupilIrisContrastBecam"];
-                        v114 = v33;
+                        v113 = v33;
                         if (!v33 || (v34 = v33, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                         {
-                          v115 = 0;
+                          v114 = 0;
                           goto LABEL_51;
                         }
 
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
-                          v115 = v34;
+                          v114 = v34;
 LABEL_51:
                           v35 = [dictionaryCopy objectForKeyedSubscript:@"countOfVisibleGlintsNecam"];
-                          v109 = v35;
+                          v108 = v35;
                           if (!v35 || (v36 = v35, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                           {
-                            v112 = 0;
+                            v111 = 0;
                             goto LABEL_54;
                           }
 
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            v112 = v36;
+                            v111 = v36;
 LABEL_54:
                             v37 = [dictionaryCopy objectForKeyedSubscript:@"countOfVisibleGlintsBecam"];
-                            v108 = v37;
+                            v107 = v37;
                             if (!v37 || (v38 = v37, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                             {
-                              v110 = 0;
+                              v109 = 0;
 LABEL_57:
                               v39 = [dictionaryCopy objectForKeyedSubscript:@"temperatureCelsiusNecam"];
-                              v106 = v39;
+                              v105 = v39;
                               if (!v39)
                               {
                                 goto LABEL_106;
@@ -769,38 +768,38 @@ LABEL_57:
                                 v39 = v39;
 LABEL_106:
                                 v74 = [dictionaryCopy objectForKeyedSubscript:@"temperatureCelsiusBecam"];
-                                v103 = v39;
-                                v105 = v16;
-                                v102 = v74;
+                                v102 = v39;
+                                v104 = v16;
+                                v101 = v74;
                                 if (!v74 || (v75 = v74, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                 {
-                                  v107 = 0;
+                                  v106 = 0;
                                   goto LABEL_109;
                                 }
 
                                 objc_opt_class();
                                 if (objc_opt_isKindOfClass())
                                 {
-                                  v107 = v75;
+                                  v106 = v75;
 LABEL_109:
                                   v76 = [dictionaryCopy objectForKeyedSubscript:@"enrollmentDeviceType"];
                                   if (!v76 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                   {
                                     v77 = 0;
 LABEL_146:
-                                    intValue = [v142 intValue];
-                                    intValue2 = [v105 intValue];
-                                    LODWORD(v100) = [v77 intValue];
+                                    intValue = [v141 intValue];
+                                    intValue2 = [v104 intValue];
+                                    LODWORD(v99) = [v77 intValue];
                                     v94 = intValue;
-                                    v44 = v137;
-                                    errorCopy2 = v132;
-                                    v13 = [(BMOasisAnalyticsGazeSample *)self initWithUserProfileId:v140 eyeSide:v94 pupilSizeCategory:intValue2 offsetWithinEyeboxX:v137 offsetWithinEyeboxY:v132 offsetWithinEyeboxZ:v138 totalEyeRelief:v134 nearEyeRelief:v127 pupil2dVisibleRatioNecam:v124 pupil2dVisibleRatioBecam:v121 pupilIrisContrastNecam:v118 pupilIrisContrastBecam:v115 countOfVisibleGlintsNecam:v112 countOfVisibleGlintsBecam:v110 temperatureCelsiusNecam:v39 temperatureCelsiusBecam:v107 enrollmentDeviceType:v100];
+                                    v44 = v136;
+                                    errorCopy2 = v131;
+                                    v13 = [(BMOasisAnalyticsGazeSample *)self initWithUserProfileId:v139 eyeSide:v94 pupilSizeCategory:intValue2 offsetWithinEyeboxX:v136 offsetWithinEyeboxY:v131 offsetWithinEyeboxZ:v137 totalEyeRelief:v133 nearEyeRelief:v126 pupil2dVisibleRatioNecam:v123 pupil2dVisibleRatioBecam:v120 pupilIrisContrastNecam:v117 pupilIrisContrastBecam:v114 countOfVisibleGlintsNecam:v111 countOfVisibleGlintsBecam:v109 temperatureCelsiusNecam:v39 temperatureCelsiusBecam:v106 enrollmentDeviceType:v99];
                                     self = v13;
-                                    v20 = v133;
+                                    v20 = v132;
 LABEL_147:
 
                                     selfCopy29 = self;
-                                    v16 = v105;
+                                    v16 = v104;
 LABEL_148:
 
 LABEL_149:
@@ -830,21 +829,21 @@ LABEL_145:
 
                                   if (errorCopy2)
                                   {
-                                    v97 = objc_alloc(MEMORY[0x1E696ABC0]);
-                                    v101 = *MEMORY[0x1E698F240];
-                                    v144 = *MEMORY[0x1E696A578];
-                                    v98 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"enrollmentDeviceType"];
-                                    v145 = v98;
-                                    v99 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v145 forKeys:&v144 count:1];
-                                    *errorCopy2 = [v97 initWithDomain:v101 code:2 userInfo:v99];
+                                    v96 = objc_alloc(MEMORY[0x1E696ABC0]);
+                                    v100 = *MEMORY[0x1E698F240];
+                                    v143 = *MEMORY[0x1E696A578];
+                                    v97 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"enrollmentDeviceType"];
+                                    v144 = v97;
+                                    v98 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v144 forKeys:&v143 count:1];
+                                    *errorCopy2 = [v96 initWithDomain:v100 code:2 userInfo:v98];
                                   }
 
                                   v77 = 0;
                                   v13 = 0;
 LABEL_175:
-                                  v44 = v137;
-                                  errorCopy2 = v132;
-                                  v20 = v133;
+                                  v44 = v136;
+                                  errorCopy2 = v131;
+                                  v20 = v132;
                                   goto LABEL_147;
                                 }
 
@@ -852,161 +851,161 @@ LABEL_175:
                                 {
                                   v89 = objc_alloc(MEMORY[0x1E696ABC0]);
                                   v90 = *MEMORY[0x1E698F240];
-                                  v146 = *MEMORY[0x1E696A578];
+                                  v145 = *MEMORY[0x1E696A578];
                                   v77 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"temperatureCelsiusBecam"];
-                                  v147 = v77;
-                                  v76 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v147 forKeys:&v146 count:1];
+                                  v146 = v77;
+                                  v76 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v146 forKeys:&v145 count:1];
                                   v91 = [v89 initWithDomain:v90 code:2 userInfo:v76];
-                                  v107 = 0;
+                                  v106 = 0;
                                   v13 = 0;
                                   *errorCopy2 = v91;
                                   goto LABEL_175;
                                 }
 
-                                v107 = 0;
+                                v106 = 0;
                                 v13 = 0;
                                 selfCopy29 = self;
 LABEL_177:
-                                v44 = v137;
-                                errorCopy2 = v132;
-                                v20 = v133;
+                                v44 = v136;
+                                errorCopy2 = v131;
+                                v20 = v132;
                                 goto LABEL_148;
                               }
 
                               if (errorCopy2)
                               {
                                 v87 = objc_alloc(MEMORY[0x1E696ABC0]);
-                                v104 = *MEMORY[0x1E698F240];
-                                v148 = *MEMORY[0x1E696A578];
+                                v103 = *MEMORY[0x1E698F240];
+                                v147 = *MEMORY[0x1E696A578];
                                 selfCopy29 = self;
-                                v107 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"temperatureCelsiusNecam"];
-                                v149 = v107;
-                                v102 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v149 forKeys:&v148 count:1];
-                                v88 = [v87 initWithDomain:v104 code:2 userInfo:?];
-                                v103 = 0;
+                                v106 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"temperatureCelsiusNecam"];
+                                v148 = v106;
+                                v101 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v148 forKeys:&v147 count:1];
+                                v88 = [v87 initWithDomain:v103 code:2 userInfo:?];
+                                v102 = 0;
                                 v13 = 0;
                                 *errorCopy2 = v88;
                                 goto LABEL_177;
                               }
 
-                              v103 = 0;
+                              v102 = 0;
                               v13 = 0;
                               selfCopy29 = self;
 LABEL_171:
-                              v44 = v137;
-                              errorCopy2 = v132;
-                              v20 = v133;
+                              v44 = v136;
+                              errorCopy2 = v131;
+                              v20 = v132;
                               goto LABEL_149;
                             }
 
                             objc_opt_class();
                             if (objc_opt_isKindOfClass())
                             {
-                              v110 = v38;
+                              v109 = v38;
                               goto LABEL_57;
                             }
 
                             if (errorCopy2)
                             {
                               v85 = objc_alloc(MEMORY[0x1E696ABC0]);
-                              v111 = *MEMORY[0x1E698F240];
-                              v150 = *MEMORY[0x1E696A578];
+                              v110 = *MEMORY[0x1E698F240];
+                              v149 = *MEMORY[0x1E696A578];
                               selfCopy29 = self;
-                              v103 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"countOfVisibleGlintsBecam"];
-                              v151 = v103;
-                              v106 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v151 forKeys:&v150 count:1];
-                              v86 = [v85 initWithDomain:v111 code:2 userInfo:?];
-                              v110 = 0;
+                              v102 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"countOfVisibleGlintsBecam"];
+                              v150 = v102;
+                              v105 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v150 forKeys:&v149 count:1];
+                              v86 = [v85 initWithDomain:v110 code:2 userInfo:?];
+                              v109 = 0;
                               v13 = 0;
                               *errorCopy2 = v86;
                               goto LABEL_171;
                             }
 
-                            v110 = 0;
+                            v109 = 0;
                             v13 = 0;
                             selfCopy29 = self;
 LABEL_169:
-                            v44 = v137;
-                            errorCopy2 = v132;
-                            v20 = v133;
+                            v44 = v136;
+                            errorCopy2 = v131;
+                            v20 = v132;
                             goto LABEL_150;
                           }
 
                           if (errorCopy2)
                           {
                             v83 = objc_alloc(MEMORY[0x1E696ABC0]);
-                            v113 = *MEMORY[0x1E698F240];
-                            v152 = *MEMORY[0x1E696A578];
+                            v112 = *MEMORY[0x1E698F240];
+                            v151 = *MEMORY[0x1E696A578];
                             selfCopy29 = self;
-                            v110 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"countOfVisibleGlintsNecam"];
-                            v153 = v110;
-                            v108 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v153 forKeys:&v152 count:1];
-                            v84 = [v83 initWithDomain:v113 code:2 userInfo:?];
-                            v112 = 0;
+                            v109 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"countOfVisibleGlintsNecam"];
+                            v152 = v109;
+                            v107 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v152 forKeys:&v151 count:1];
+                            v84 = [v83 initWithDomain:v112 code:2 userInfo:?];
+                            v111 = 0;
                             v13 = 0;
                             *errorCopy2 = v84;
                             goto LABEL_169;
                           }
 
-                          v112 = 0;
+                          v111 = 0;
                           v13 = 0;
                           selfCopy29 = self;
 LABEL_167:
-                          v44 = v137;
-                          errorCopy2 = v132;
-                          v20 = v133;
+                          v44 = v136;
+                          errorCopy2 = v131;
+                          v20 = v132;
                           goto LABEL_151;
                         }
 
                         if (errorCopy2)
                         {
                           v80 = objc_alloc(MEMORY[0x1E696ABC0]);
-                          v116 = *MEMORY[0x1E698F240];
-                          v154 = *MEMORY[0x1E696A578];
+                          v115 = *MEMORY[0x1E698F240];
+                          v153 = *MEMORY[0x1E696A578];
                           selfCopy29 = self;
-                          v112 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"pupilIrisContrastBecam"];
-                          v155 = v112;
-                          v109 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v155 forKeys:&v154 count:1];
-                          v81 = [v80 initWithDomain:v116 code:2 userInfo:?];
-                          v115 = 0;
+                          v111 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"pupilIrisContrastBecam"];
+                          v154 = v111;
+                          v108 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v154 forKeys:&v153 count:1];
+                          v81 = [v80 initWithDomain:v115 code:2 userInfo:?];
+                          v114 = 0;
                           v13 = 0;
                           *errorCopy2 = v81;
                           goto LABEL_167;
                         }
 
-                        v115 = 0;
+                        v114 = 0;
                         v13 = 0;
                         selfCopy29 = self;
 LABEL_165:
-                        v44 = v137;
-                        errorCopy2 = v132;
-                        v20 = v133;
+                        v44 = v136;
+                        errorCopy2 = v131;
+                        v20 = v132;
                         goto LABEL_152;
                       }
 
                       if (errorCopy2)
                       {
                         v78 = objc_alloc(MEMORY[0x1E696ABC0]);
-                        v119 = *MEMORY[0x1E698F240];
-                        v156 = *MEMORY[0x1E696A578];
+                        v118 = *MEMORY[0x1E698F240];
+                        v155 = *MEMORY[0x1E696A578];
                         selfCopy29 = self;
-                        v115 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"pupilIrisContrastNecam"];
-                        v157 = v115;
-                        v114 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v157 forKeys:&v156 count:1];
-                        v79 = [v78 initWithDomain:v119 code:2 userInfo:?];
-                        v118 = 0;
+                        v114 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"pupilIrisContrastNecam"];
+                        v156 = v114;
+                        v113 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v156 forKeys:&v155 count:1];
+                        v79 = [v78 initWithDomain:v118 code:2 userInfo:?];
+                        v117 = 0;
                         v13 = 0;
                         *errorCopy2 = v79;
                         goto LABEL_165;
                       }
 
-                      v118 = 0;
+                      v117 = 0;
                       v13 = 0;
                       selfCopy29 = self;
 LABEL_142:
-                      v44 = v137;
-                      errorCopy2 = v132;
-                      v20 = v133;
+                      v44 = v136;
+                      errorCopy2 = v131;
+                      v20 = v132;
 LABEL_153:
 
                       goto LABEL_154;
@@ -1015,26 +1014,26 @@ LABEL_153:
                     if (errorCopy2)
                     {
                       v72 = objc_alloc(MEMORY[0x1E696ABC0]);
-                      v122 = *MEMORY[0x1E698F240];
-                      v158 = *MEMORY[0x1E696A578];
+                      v121 = *MEMORY[0x1E698F240];
+                      v157 = *MEMORY[0x1E696A578];
                       selfCopy29 = self;
-                      v118 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"pupil2dVisibleRatioBecam"];
-                      v159 = v118;
-                      v117 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v159 forKeys:&v158 count:1];
-                      v73 = [v72 initWithDomain:v122 code:2 userInfo:?];
-                      v121 = 0;
+                      v117 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"pupil2dVisibleRatioBecam"];
+                      v158 = v117;
+                      v116 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v158 forKeys:&v157 count:1];
+                      v73 = [v72 initWithDomain:v121 code:2 userInfo:?];
+                      v120 = 0;
                       v13 = 0;
                       *errorCopy2 = v73;
                       goto LABEL_142;
                     }
 
-                    v121 = 0;
+                    v120 = 0;
                     v13 = 0;
                     selfCopy29 = self;
 LABEL_138:
-                    v44 = v137;
-                    errorCopy2 = v132;
-                    v20 = v133;
+                    v44 = v136;
+                    errorCopy2 = v131;
+                    v20 = v132;
 LABEL_154:
 
                     goto LABEL_155;
@@ -1043,26 +1042,26 @@ LABEL_154:
                   if (errorCopy2)
                   {
                     v70 = objc_alloc(MEMORY[0x1E696ABC0]);
-                    v125 = *MEMORY[0x1E698F240];
-                    v160 = *MEMORY[0x1E696A578];
+                    v124 = *MEMORY[0x1E698F240];
+                    v159 = *MEMORY[0x1E696A578];
                     selfCopy29 = self;
-                    v121 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"pupil2dVisibleRatioNecam"];
-                    v161 = v121;
-                    v120 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v161 forKeys:&v160 count:1];
-                    v71 = [v70 initWithDomain:v125 code:2 userInfo:?];
-                    v124 = 0;
+                    v120 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"pupil2dVisibleRatioNecam"];
+                    v160 = v120;
+                    v119 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v160 forKeys:&v159 count:1];
+                    v71 = [v70 initWithDomain:v124 code:2 userInfo:?];
+                    v123 = 0;
                     v13 = 0;
                     *errorCopy2 = v71;
                     goto LABEL_138;
                   }
 
-                  v124 = 0;
+                  v123 = 0;
                   v13 = 0;
                   selfCopy29 = self;
 LABEL_134:
-                  v44 = v137;
-                  errorCopy2 = v132;
-                  v20 = v133;
+                  v44 = v136;
+                  errorCopy2 = v131;
+                  v20 = v132;
 LABEL_155:
 
                   goto LABEL_156;
@@ -1071,26 +1070,26 @@ LABEL_155:
                 if (errorCopy2)
                 {
                   v68 = objc_alloc(MEMORY[0x1E696ABC0]);
-                  v130 = *MEMORY[0x1E698F240];
-                  v162 = *MEMORY[0x1E696A578];
+                  v129 = *MEMORY[0x1E698F240];
+                  v161 = *MEMORY[0x1E696A578];
                   selfCopy29 = self;
-                  v124 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"nearEyeRelief"];
-                  v163 = v124;
-                  v123 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v163 forKeys:&v162 count:1];
-                  v69 = [v68 initWithDomain:v130 code:2 userInfo:?];
-                  v127 = 0;
+                  v123 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"nearEyeRelief"];
+                  v162 = v123;
+                  v122 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v162 forKeys:&v161 count:1];
+                  v69 = [v68 initWithDomain:v129 code:2 userInfo:?];
+                  v126 = 0;
                   v13 = 0;
                   *errorCopy2 = v69;
                   goto LABEL_134;
                 }
 
-                v127 = 0;
+                v126 = 0;
                 v13 = 0;
                 selfCopy29 = self;
 LABEL_130:
-                v44 = v137;
-                errorCopy2 = v132;
-                v20 = v133;
+                v44 = v136;
+                errorCopy2 = v131;
+                v20 = v132;
 LABEL_156:
 
                 goto LABEL_157;
@@ -1099,26 +1098,26 @@ LABEL_156:
               if (errorCopy2)
               {
                 v56 = objc_alloc(MEMORY[0x1E696ABC0]);
-                v135 = *MEMORY[0x1E698F240];
-                v164 = *MEMORY[0x1E696A578];
+                v134 = *MEMORY[0x1E698F240];
+                v163 = *MEMORY[0x1E696A578];
                 selfCopy29 = self;
-                v127 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"totalEyeRelief"];
-                v165 = v127;
-                v126 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v165 forKeys:&v164 count:1];
-                v57 = [v56 initWithDomain:v135 code:2 userInfo:?];
-                v134 = 0;
+                v126 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"totalEyeRelief"];
+                v164 = v126;
+                v125 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v164 forKeys:&v163 count:1];
+                v57 = [v56 initWithDomain:v134 code:2 userInfo:?];
+                v133 = 0;
                 v13 = 0;
                 *errorCopy2 = v57;
                 goto LABEL_130;
               }
 
-              v134 = 0;
+              v133 = 0;
               v13 = 0;
               selfCopy29 = self;
 LABEL_120:
-              v44 = v137;
-              errorCopy2 = v132;
-              v20 = v133;
+              v44 = v136;
+              errorCopy2 = v131;
+              v20 = v132;
 LABEL_157:
 
               goto LABEL_158;
@@ -1127,29 +1126,29 @@ LABEL_157:
             if (errorCopy2)
             {
               v51 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v129 = v6;
+              v128 = v6;
               v52 = *MEMORY[0x1E698F240];
-              v166 = *MEMORY[0x1E696A578];
-              v134 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"offsetWithinEyeboxZ"];
-              v167 = v134;
-              v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v167 forKeys:&v166 count:1];
+              v165 = *MEMORY[0x1E696A578];
+              v133 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"offsetWithinEyeboxZ"];
+              v166 = v133;
+              v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v166 forKeys:&v165 count:1];
               v54 = v52;
               selfCopy29 = self;
-              v6 = v129;
-              v131 = v53;
+              v6 = v128;
+              v130 = v53;
               v55 = [v51 initWithDomain:v54 code:2 userInfo:?];
-              v138 = 0;
+              v137 = 0;
               v13 = 0;
               *errorCopy2 = v55;
               goto LABEL_120;
             }
 
-            v138 = 0;
+            v137 = 0;
             v13 = 0;
             selfCopy29 = self;
-            v44 = v137;
-            errorCopy2 = v132;
-            v20 = v133;
+            v44 = v136;
+            errorCopy2 = v131;
+            v20 = v132;
 LABEL_158:
 
             goto LABEL_159;
@@ -1158,42 +1157,42 @@ LABEL_158:
           if (errorCopy2)
           {
             v46 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v128 = v6;
+            v127 = v6;
             v47 = *MEMORY[0x1E698F240];
-            v168 = *MEMORY[0x1E696A578];
-            v138 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"offsetWithinEyeboxY"];
-            v169 = v138;
-            v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v169 forKeys:&v168 count:1];
+            v167 = *MEMORY[0x1E696A578];
+            v137 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"offsetWithinEyeboxY"];
+            v168 = v137;
+            v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v168 forKeys:&v167 count:1];
             v49 = v47;
             selfCopy29 = self;
-            v6 = v128;
-            v136 = v48;
+            v6 = v127;
+            v135 = v48;
             v50 = [v46 initWithDomain:v49 code:2 userInfo:?];
             v13 = 0;
             *errorCopy2 = v50;
             errorCopy2 = 0;
-            v44 = v137;
+            v44 = v136;
             goto LABEL_158;
           }
 
           v13 = 0;
           selfCopy29 = self;
-          v44 = v137;
+          v44 = v136;
 LABEL_159:
 
-          v7 = v140;
+          v7 = v139;
           goto LABEL_160;
         }
 
         if (errorCopy2)
         {
-          v139 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v138 = objc_alloc(MEMORY[0x1E696ABC0]);
           v40 = *MEMORY[0x1E698F240];
-          v170 = *MEMORY[0x1E696A578];
+          v169 = *MEMORY[0x1E696A578];
           v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"offsetWithinEyeboxX"];
-          v171 = v41;
-          v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v171 forKeys:&v170 count:1];
-          v43 = [v139 initWithDomain:v40 code:2 userInfo:v42];
+          v170 = v41;
+          v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v170 forKeys:&v169 count:1];
+          v43 = [v138 initWithDomain:v40 code:2 userInfo:v42];
           v44 = 0;
           v13 = 0;
           *errorCopy2 = v43;
@@ -1223,13 +1222,13 @@ LABEL_160:
       {
         v62 = objc_alloc(MEMORY[0x1E696ABC0]);
         v63 = *MEMORY[0x1E698F240];
-        v172 = *MEMORY[0x1E696A578];
+        v171 = *MEMORY[0x1E696A578];
         v64 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"pupilSizeCategory"];
-        v173 = v64;
-        v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v173 forKeys:&v172 count:1];
+        v172 = v64;
+        v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v172 forKeys:&v171 count:1];
         v66 = v62;
         v44 = v64;
-        v141 = v65;
+        v140 = v65;
         v67 = [v66 initWithDomain:v63 code:2 userInfo:?];
         v13 = 0;
         *error = v67;
@@ -1257,19 +1256,19 @@ LABEL_161:
     {
       v58 = objc_alloc(MEMORY[0x1E696ABC0]);
       v59 = *MEMORY[0x1E698F240];
-      v174 = *MEMORY[0x1E696A578];
+      v173 = *MEMORY[0x1E696A578];
       errorCopy3 = error;
       v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"eyeSide"];
-      v175 = v16;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v175 forKeys:&v174 count:1];
+      v174 = v16;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v174 forKeys:&v173 count:1];
       v61 = [v58 initWithDomain:v59 code:2 userInfo:v14];
-      v142 = 0;
+      v141 = 0;
       v13 = 0;
       *errorCopy3 = v61;
       goto LABEL_128;
     }
 
-    v142 = 0;
+    v141 = 0;
     v13 = 0;
 LABEL_122:
     selfCopy29 = self;
@@ -1282,10 +1281,10 @@ LABEL_162:
   {
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
     v11 = *MEMORY[0x1E698F240];
-    v176 = *MEMORY[0x1E696A578];
-    v142 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"userProfileId"];
-    v177[0] = v142;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v177 forKeys:&v176 count:1];
+    v175 = *MEMORY[0x1E696A578];
+    v141 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"userProfileId"];
+    v176[0] = v141;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v176 forKeys:&v175 count:1];
     v12 = [v10 initWithDomain:v11 code:2 userInfo:v8];
     v7 = 0;
     v13 = 0;
@@ -1298,7 +1297,6 @@ LABEL_162:
   selfCopy29 = self;
 LABEL_163:
 
-  v95 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -1319,89 +1317,73 @@ LABEL_163:
     PBDataWriterWriteStringField();
   }
 
-  eyeSide = self->_eyeSide;
   PBDataWriterWriteUint32Field();
-  pupilSizeCategory = self->_pupilSizeCategory;
   PBDataWriterWriteUint32Field();
   if (self->_hasOffsetWithinEyeboxX)
   {
-    offsetWithinEyeboxX = self->_offsetWithinEyeboxX;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasOffsetWithinEyeboxY)
   {
-    offsetWithinEyeboxY = self->_offsetWithinEyeboxY;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasOffsetWithinEyeboxZ)
   {
-    offsetWithinEyeboxZ = self->_offsetWithinEyeboxZ;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasTotalEyeRelief)
   {
-    totalEyeRelief = self->_totalEyeRelief;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasNearEyeRelief)
   {
-    nearEyeRelief = self->_nearEyeRelief;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasPupil2dVisibleRatioNecam)
   {
-    pupil2dVisibleRatioNecam = self->_pupil2dVisibleRatioNecam;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasPupil2dVisibleRatioBecam)
   {
-    pupil2dVisibleRatioBecam = self->_pupil2dVisibleRatioBecam;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasPupilIrisContrastNecam)
   {
-    pupilIrisContrastNecam = self->_pupilIrisContrastNecam;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasPupilIrisContrastBecam)
   {
-    pupilIrisContrastBecam = self->_pupilIrisContrastBecam;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasCountOfVisibleGlintsNecam)
   {
-    countOfVisibleGlintsNecam = self->_countOfVisibleGlintsNecam;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_hasCountOfVisibleGlintsBecam)
   {
-    countOfVisibleGlintsBecam = self->_countOfVisibleGlintsBecam;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_hasTemperatureCelsiusNecam)
   {
-    temperatureCelsiusNecam = self->_temperatureCelsiusNecam;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasTemperatureCelsiusBecam)
   {
-    temperatureCelsiusBecam = self->_temperatureCelsiusBecam;
     PBDataWriterWriteFloatField();
   }
 
-  enrollmentDeviceType = self->_enrollmentDeviceType;
   PBDataWriterWriteUint32Field();
 }
 
@@ -2214,90 +2196,86 @@ LABEL_148:
 
 + (id)protoFields
 {
-  v22[17] = *MEMORY[0x1E69E9840];
-  v21 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"userProfileId" number:1 type:13 subMessageClass:0];
-  v22[0] = v21;
-  v20 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"eyeSide" number:2 type:4 subMessageClass:0];
-  v22[1] = v20;
-  v19 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"pupilSizeCategory" number:3 type:4 subMessageClass:0];
-  v22[2] = v19;
-  v18 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"offsetWithinEyeboxX" number:4 type:1 subMessageClass:0];
-  v22[3] = v18;
-  v17 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"offsetWithinEyeboxY" number:5 type:1 subMessageClass:0];
-  v22[4] = v17;
-  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"offsetWithinEyeboxZ" number:6 type:1 subMessageClass:0];
-  v22[5] = v16;
-  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"totalEyeRelief" number:7 type:1 subMessageClass:0];
-  v22[6] = v15;
-  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"nearEyeRelief" number:8 type:1 subMessageClass:0];
-  v22[7] = v14;
+  v21[17] = *MEMORY[0x1E69E9840];
+  v20 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"userProfileId" number:1 type:13 subMessageClass:0];
+  v21[0] = v20;
+  v19 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"eyeSide" number:2 type:4 subMessageClass:0];
+  v21[1] = v19;
+  v18 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"pupilSizeCategory" number:3 type:4 subMessageClass:0];
+  v21[2] = v18;
+  v17 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"offsetWithinEyeboxX" number:4 type:1 subMessageClass:0];
+  v21[3] = v17;
+  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"offsetWithinEyeboxY" number:5 type:1 subMessageClass:0];
+  v21[4] = v16;
+  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"offsetWithinEyeboxZ" number:6 type:1 subMessageClass:0];
+  v21[5] = v15;
+  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"totalEyeRelief" number:7 type:1 subMessageClass:0];
+  v21[6] = v14;
+  v13 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"nearEyeRelief" number:8 type:1 subMessageClass:0];
+  v21[7] = v13;
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"pupil2dVisibleRatioNecam" number:9 type:1 subMessageClass:0];
-  v22[8] = v2;
+  v21[8] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"pupil2dVisibleRatioBecam" number:10 type:1 subMessageClass:0];
-  v22[9] = v3;
+  v21[9] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"pupilIrisContrastNecam" number:11 type:1 subMessageClass:0];
-  v22[10] = v4;
+  v21[10] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"pupilIrisContrastBecam" number:12 type:1 subMessageClass:0];
-  v22[11] = v5;
+  v21[11] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"countOfVisibleGlintsNecam" number:13 type:4 subMessageClass:0];
-  v22[12] = v6;
+  v21[12] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"countOfVisibleGlintsBecam" number:14 type:4 subMessageClass:0];
-  v22[13] = v7;
+  v21[13] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"temperatureCelsiusNecam" number:15 type:1 subMessageClass:0];
-  v22[14] = v8;
+  v21[14] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"temperatureCelsiusBecam" number:16 type:1 subMessageClass:0];
-  v22[15] = v9;
+  v21[15] = v9;
   v10 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"enrollmentDeviceType" number:17 type:4 subMessageClass:0];
-  v22[16] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:17];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v21[16] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:17];
 
   return v11;
 }
 
 + (id)columns
 {
-  v22[17] = *MEMORY[0x1E69E9840];
-  v21 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"userProfileId" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
-  v20 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"eyeSide" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
-  v19 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"pupilSizeCategory" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
-  v18 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"offsetWithinEyeboxX" dataType:1 requestOnly:0 fieldNumber:4 protoDataType:1 convertedType:0];
-  v17 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"offsetWithinEyeboxY" dataType:1 requestOnly:0 fieldNumber:5 protoDataType:1 convertedType:0];
-  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"offsetWithinEyeboxZ" dataType:1 requestOnly:0 fieldNumber:6 protoDataType:1 convertedType:0];
-  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"totalEyeRelief" dataType:1 requestOnly:0 fieldNumber:7 protoDataType:1 convertedType:0];
+  v21[17] = *MEMORY[0x1E69E9840];
+  v20 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"userProfileId" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
+  v19 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"eyeSide" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
+  v18 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"pupilSizeCategory" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
+  v17 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"offsetWithinEyeboxX" dataType:1 requestOnly:0 fieldNumber:4 protoDataType:1 convertedType:0];
+  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"offsetWithinEyeboxY" dataType:1 requestOnly:0 fieldNumber:5 protoDataType:1 convertedType:0];
+  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"offsetWithinEyeboxZ" dataType:1 requestOnly:0 fieldNumber:6 protoDataType:1 convertedType:0];
+  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"totalEyeRelief" dataType:1 requestOnly:0 fieldNumber:7 protoDataType:1 convertedType:0];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"nearEyeRelief" dataType:1 requestOnly:0 fieldNumber:8 protoDataType:1 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"pupil2dVisibleRatioNecam" dataType:1 requestOnly:0 fieldNumber:9 protoDataType:1 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"pupil2dVisibleRatioBecam" dataType:1 requestOnly:0 fieldNumber:10 protoDataType:1 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"pupilIrisContrastNecam" dataType:1 requestOnly:0 fieldNumber:11 protoDataType:1 convertedType:0];
-  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"pupilIrisContrastBecam" dataType:1 requestOnly:0 fieldNumber:12 protoDataType:1 convertedType:0];
+  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"pupilIrisContrastBecam" dataType:1 requestOnly:0 fieldNumber:12 protoDataType:1 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"countOfVisibleGlintsNecam" dataType:0 requestOnly:0 fieldNumber:13 protoDataType:4 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"countOfVisibleGlintsBecam" dataType:0 requestOnly:0 fieldNumber:14 protoDataType:4 convertedType:0];
-  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"temperatureCelsiusNecam" dataType:1 requestOnly:0 fieldNumber:15 protoDataType:1 convertedType:0];
+  v12 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"temperatureCelsiusNecam" dataType:1 requestOnly:0 fieldNumber:15 protoDataType:1 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"temperatureCelsiusBecam" dataType:1 requestOnly:0 fieldNumber:16 protoDataType:1 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"enrollmentDeviceType" dataType:0 requestOnly:0 fieldNumber:17 protoDataType:4 convertedType:0];
-  v22[0] = v21;
-  v22[1] = v20;
-  v22[2] = v19;
-  v22[3] = v18;
-  v22[4] = v17;
-  v22[5] = v16;
-  v22[6] = v15;
-  v22[7] = v2;
-  v22[8] = v3;
-  v22[9] = v4;
-  v22[10] = v5;
-  v22[11] = v14;
-  v22[12] = v6;
-  v22[13] = v7;
-  v22[14] = v13;
-  v22[15] = v8;
-  v22[16] = v9;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:17];
+  v21[0] = v20;
+  v21[1] = v19;
+  v21[2] = v18;
+  v21[3] = v17;
+  v21[4] = v16;
+  v21[5] = v15;
+  v21[6] = v14;
+  v21[7] = v2;
+  v21[8] = v3;
+  v21[9] = v4;
+  v21[10] = v5;
+  v21[11] = v13;
+  v21[12] = v6;
+  v21[13] = v7;
+  v21[14] = v12;
+  v21[15] = v8;
+  v21[16] = v9;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:17];
 
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v11;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

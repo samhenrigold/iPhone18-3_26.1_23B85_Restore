@@ -6363,7 +6363,7 @@ void sub_1DDD47424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t cpms::Polynomial<float,1ul>::as_vector(void *a1, uint64_t a2)
+uint64_t *cpms::Polynomial<float,1ul>::as_vector(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -6389,7 +6389,7 @@ void *applesauce::CF::TypeRefPair::TypeRefPair<applesauce::CF::StringRef,applesa
   return a1;
 }
 
-uint64_t cpms::Polynomial<float,2ul>::as_vector(void *a1, uint64_t a2)
+uint64_t *cpms::Polynomial<float,2ul>::as_vector(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -7170,78 +7170,78 @@ void sub_1DDD48788(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-float cpms::efficiency::QuadraticModel<float>::ComputeNeededPowerGain()
+float cpms::efficiency::QuadraticModel<float>::ComputeNeededPowerGain(uint64_t a1)
 {
-  v23[1] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1EEE9AC00]();
-  v5 = (v23 - v4);
-  v6 = v2 - v3;
-  v7 = v2 - v3;
-  if (v2 == v3)
+  v24[1] = *MEMORY[0x1E69E9840];
+  MEMORY[0x1EEE9AC00](a1);
+  v6 = (v24 - v5);
+  v7 = v3 - v4;
+  v8 = v3 - v4;
+  if (v3 == v4)
   {
-    v13 = 0.0;
-    v17 = 0.0;
+    v14 = 0.0;
+    v18 = 0.0;
   }
 
   else
   {
-    v8 = v0[5];
-    v9 = v0[6];
-    v10 = v5;
+    v9 = v1[5];
+    v10 = v1[6];
+    v11 = v6;
     do
     {
-      v11 = *v3++;
-      v12 = v11;
-      if (v9 < v11)
+      v12 = *v4++;
+      v13 = v12;
+      if (v10 < v12)
       {
-        v12 = v9;
+        v13 = v10;
       }
 
-      if (v8 >= v12)
+      if (v9 >= v13)
       {
-        v12 = v8;
+        v13 = v9;
       }
 
-      *v10++ = v12;
+      *v11++ = v13;
     }
 
-    while (v3 != v2);
-    v13 = 0.0;
-    v14 = v6;
-    v15 = v5;
+    while (v4 != v3);
+    v14 = 0.0;
+    v15 = v7;
+    v16 = v6;
     do
     {
-      v16 = *v15++;
-      v13 = v13 + v16;
-      v14 -= 4;
+      v17 = *v16++;
+      v14 = v14 + v17;
+      v15 -= 4;
     }
 
-    while (v14);
-    v17 = 0.0;
+    while (v15);
+    v18 = 0.0;
     do
     {
-      v18 = *v5++;
-      v17 = v17 + (v18 * v18);
-      v6 -= 4;
+      v19 = *v6++;
+      v18 = v18 + (v19 * v19);
+      v7 -= 4;
     }
 
-    while (v6);
+    while (v7);
   }
 
-  v19 = v0[2] * v7;
-  v20 = v17 * v0[4];
-  if (v20 < 0.00000011921)
+  v20 = v1[2] * v8;
+  v21 = v18 * v1[4];
+  if (v21 < 0.00000011921)
   {
-    v20 = 0.00000011921;
+    v21 = 0.00000011921;
   }
 
-  v21 = *v1;
-  if (*v1 < v19)
+  v22 = *v2;
+  if (*v2 < v20)
   {
-    v21 = v0[2] * v7;
+    v22 = v1[2] * v8;
   }
 
-  return (sqrtf(((v20 * 4.0) * (v21 - v19)) + ((v13 * v0[3]) * (v13 * v0[3]))) - (v13 * v0[3])) / (v20 + v20);
+  return (sqrtf(((v21 * 4.0) * (v22 - v20)) + ((v14 * v1[3]) * (v14 * v1[3]))) - (v14 * v1[3])) / (v21 + v21);
 }
 
 double cpms::efficiency::QuadraticModel<float>::ComputePower(float *a1, float **a2)
@@ -9194,7 +9194,7 @@ uint64_t ausdk::APFactory<ausdk::AUBaseProcessMultipleLookup,AUWindKill>::Constr
   *(v4 + 118) = 0;
   *(v4 + 120) = 0;
   *(v4 + 119) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(v4 + 944, &v101, &v102 + 4, 3uLL);
+  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(v4 + 118, &v101, &v102 + 4, 3uLL);
   *(a1 + 1125) = 0;
   *(a1 + 1096) = 0u;
   *(a1 + 1112) = 0u;

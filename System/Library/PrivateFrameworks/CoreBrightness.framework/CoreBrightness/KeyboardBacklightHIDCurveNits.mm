@@ -37,7 +37,7 @@
   if ([(KeyboardBacklight *)self suppressed]|| [(KeyboardBacklight *)self saturated])
   {
     [(KeyboardBacklight *)self levelOff];
-    v14 = v2;
+    return v2;
   }
 
   else
@@ -96,7 +96,6 @@
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -238,8 +237,6 @@
       _os_log_impl(&dword_1DE8E5000, v5, v6, "Manual keyboard brightness adjustment not allowed", v15, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setBrightness:(float)brightness withFadeSpeed:(int)speed commit:(BOOL)commit
@@ -386,8 +383,6 @@
       _os_log_impl(&dword_1DE8E5000, v7, v8, "Manual keyboard brightness adjustment not allowed", v17, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (float)convertNitsToLevelPercentage:(float)percentage
@@ -451,7 +446,6 @@
     _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "nits = %f -> level percentage = %f, max = %f, min = %f", v17, 0x2Au);
   }
 
-  *MEMORY[0x1E69E9840];
   return v12;
 }
 

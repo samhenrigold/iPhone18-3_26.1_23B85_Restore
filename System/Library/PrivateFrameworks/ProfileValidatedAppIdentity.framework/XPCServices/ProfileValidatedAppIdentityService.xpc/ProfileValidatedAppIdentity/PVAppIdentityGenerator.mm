@@ -41,9 +41,9 @@
 {
   v5 = [LSApplicationRecord alloc];
   applicationURL = self->applicationURL;
-  v25 = 0;
-  v7 = [v5 initWithURL:applicationURL allowPlaceholder:0 error:&v25];
-  v8 = v25;
+  v33 = 0;
+  v7 = [v5 initWithURL:applicationURL allowPlaceholder:0 error:&v33];
+  v8 = v33;
   if (v7)
   {
     infoDictionary = [v7 infoDictionary];
@@ -72,49 +72,49 @@
     {
       objc_storeStrong(&self->executableName, v10);
       objc_storeStrong(&self->executableURL, executableURL);
-      v15 = _PVAppIdentityLogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = _PVAppIdentityLogSystem(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         sub_1000194F0(v7);
       }
 
-      v17 = _PVAppIdentityLogSystem();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v19 = _PVAppIdentityLogSystem(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         sub_10001957C();
       }
 
-      v18 = _PVAppIdentityLogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v21 = _PVAppIdentityLogSystem(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         sub_1000195F0(v7);
       }
 
-      v19 = _PVAppIdentityLogSystem();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v23 = _PVAppIdentityLogSystem(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         sub_10001968C(v7);
       }
 
-      v20 = _PVAppIdentityLogSystem();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v25 = _PVAppIdentityLogSystem(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         sub_100019728(v7);
       }
 
-      v21 = _PVAppIdentityLogSystem();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v27 = _PVAppIdentityLogSystem(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         sub_1000197C4(v7);
       }
 
-      v22 = _PVAppIdentityLogSystem();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v29 = _PVAppIdentityLogSystem(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
         sub_100019850(v7);
       }
 
-      v14 = _PVAppIdentityLogSystem();
+      v14 = _PVAppIdentityLogSystem(v30);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         sub_1000198DC();
@@ -130,7 +130,7 @@
 
   if (record && v8)
   {
-    v23 = v8;
+    v31 = v8;
     *record = v8;
   }
 
@@ -164,7 +164,7 @@
 - (id)generateDigest
 {
   v41 = 0;
-  v42 = 0;
+  v42[0] = 0;
   v40 = 0;
   v38 = 0;
   cf = 0;
@@ -201,7 +201,7 @@ LABEL_5:
   if (!v20)
   {
     v33 = v15;
-    v21 = v42;
+    v21 = v42[0];
     v22 = v41;
     v29 = v40;
     v23 = v38;
@@ -221,7 +221,7 @@ LABEL_5:
     v34 = 0;
     v32 = [NSJSONSerialization dataWithJSONObject:asDictionary options:3 error:&v34];
     v30 = v34;
-    v28 = _PVAppIdentityLogSystem();
+    v28 = _PVAppIdentityLogSystem(v30);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       sub_100019950(p_applicationURL, v32);
@@ -247,9 +247,9 @@ LABEL_5:
   v14 = 0;
   v8 = 0;
 LABEL_6:
-  if (v42)
+  if (v42[0])
   {
-    CFRelease(v42);
+    CFRelease(v42[0]);
   }
 
   if (v41)

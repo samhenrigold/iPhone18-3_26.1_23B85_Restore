@@ -10,40 +10,38 @@
 
 - (void)encodeWithACLCoder:(id)coder
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   [coderCopy setFallbackAuthenticationType:self->_authType];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_subrequirements;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) encodeWithACLCoder:{coderCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) encodeWithACLCoder:{coderCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -84,14 +82,13 @@
 
 + (id)customPasswordRequirement:(id)requirement
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   requirementCopy = requirement;
   v5 = objc_alloc(OUTLINED_FUNCTION_0());
-  v10[0] = v3;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = v3;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
 
   v7 = [(LABiometryFallbackRequirement *)v5 initWithAuthenticationType:v6 subrequirements:?];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

@@ -57,14 +57,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    upDuration = self->_upDuration;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if (has)
   {
-    downDuration = self->_downDuration;
 
     PBDataWriterWriteUint64Field();
   }

@@ -1,13 +1,13 @@
 @interface _CHSWidgetRelevanceBufBuilder
-- (id)initWithBufferBuilder:(id *)builder;
 - (void)dealloc;
+- (void)initWithBufferBuilder:(void *)builder;
 - (void)setAttributeKey:(id)key;
 - (void)setIntentReference:(id)reference;
 @end
 
 @implementation _CHSWidgetRelevanceBufBuilder
 
-- (id)initWithBufferBuilder:(id *)builder
+- (void)initWithBufferBuilder:(void *)builder
 {
   v4 = a2;
   if (builder)
@@ -46,7 +46,6 @@
 
 - (void)setAttributeKey:(id)key
 {
-  v10 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if (!keyCopy)
   {
@@ -61,13 +60,10 @@
     v7 = keyCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(self->_bldr->var0, 4, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIntentReference:(id)reference
 {
-  v10 = *MEMORY[0x1E69E9840];
   referenceCopy = reference;
   if (!referenceCopy)
   {
@@ -82,8 +78,6 @@
     v7 = referenceCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(self->_bldr->var0, 6, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)requestAsString:(int)string;
 - (int)StringAsRequest:(id)request;
 - (int)request;
 - (unint64_t)hash;
@@ -187,7 +188,6 @@ LABEL_35:
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 60);
   if (*&self->_has)
   {
     if ((*(equalCopy + 60) & 1) == 0 || self->_request != *(equalCopy + 14))
@@ -199,7 +199,7 @@ LABEL_35:
   else if (*(equalCopy + 60))
   {
 LABEL_19:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_20;
   }
 
@@ -248,17 +248,17 @@ LABEL_19:
   fetchEvents = self->_fetchEvents;
   if (fetchEvents | *(equalCopy + 4))
   {
-    v12 = [(HMDRemoteEventRouterProtoFetchEventsMessage *)fetchEvents isEqual:?];
+    v11 = [(HMDRemoteEventRouterProtoFetchEventsMessage *)fetchEvents isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_20:
 
-  return v12;
+  return v11;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -725,6 +725,21 @@ LABEL_52:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)requestAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2786881E0[string];
   }
 
   return v4;

@@ -1,4 +1,5 @@
 @interface RMHeadphoneStatusProvider
+- (RMHeadphoneStatusProvider)initWithReceiverQueue:(id)queue requireActivitySupport:(BOOL)support;
 - (id)startProducingDataWithCallback:(id)callback;
 - (void)notifyClientWithStatusConnected:(BOOL)connected;
 - (void)notifyConnectedToClient;
@@ -11,6 +12,23 @@
 @end
 
 @implementation RMHeadphoneStatusProvider
+
+- (RMHeadphoneStatusProvider)initWithReceiverQueue:(id)queue requireActivitySupport:(BOOL)support
+{
+  supportCopy = support;
+  queueCopy = queue;
+  v10.receiver = self;
+  v10.super_class = RMHeadphoneStatusProvider;
+  v7 = [(RMHeadphoneStatusProvider *)&v10 init];
+  v8 = v7;
+  if (v7)
+  {
+    [(RMHeadphoneStatusProvider *)v7 setReceiverQueue:queueCopy];
+    [(RMHeadphoneStatusProvider *)v8 setRequireActivity:supportCopy];
+  }
+
+  return v8;
+}
 
 - (id)startProducingDataWithCallback:(id)callback
 {

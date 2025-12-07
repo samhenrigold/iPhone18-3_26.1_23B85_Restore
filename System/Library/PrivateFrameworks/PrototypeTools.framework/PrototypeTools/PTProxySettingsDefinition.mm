@@ -194,25 +194,25 @@ LABEL_14:
     v10 = objc_opt_class();
     v11 = [v8 setWithObjects:{v9, v10, objc_opt_class(), 0}];
     v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"childDefinitions"];
-    objc_opt_class();
-    objc_opt_class();
-    if ((PTValidateDictionary(v12) & 1) == 0)
+    v13 = objc_opt_class();
+    v14 = objc_opt_class();
+    if ((PTValidateDictionary(v12, v13, v14) & 1) == 0)
     {
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CCA2A8] format:{@"%@ expected String->%@ dictionary for '%@', got %@", @"PTProxySettingsDescription", @"PTProxySettingsDescription", @"childDefinitions", v12}];
     }
 
     childDefinitions = v5->_childDefinitions;
     v5->_childDefinitions = v12;
-    v14 = v12;
+    v16 = v12;
 
-    v15 = PTPlistableClasses();
-    v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"defaultValueArchive"];
+    v18 = PTPlistableClasses(v17);
+    v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"defaultValueArchive"];
     defaultValueArchive = v5->_defaultValueArchive;
-    v5->_defaultValueArchive = v16;
+    v5->_defaultValueArchive = v19;
 
-    v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"module"];
+    v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"module"];
     module = v5->_module;
-    v5->_module = v18;
+    v5->_module = v21;
   }
 
   return v5;

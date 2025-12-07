@@ -51,68 +51,69 @@ void __55__WBSContentBlockerStatisticsSQLiteStore_standardStore__block_invoke()
 
 + (NSArray)allStores
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF70];
   standardStore = [self standardStore];
   v5 = [v3 arrayWithObject:standardStore];
 
-  v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v6 = allProfileDatabaseIdentifiers();
-  v7 = [v6 copy];
+  v16 = 0u;
+  v7 = allProfileDatabaseIdentifiers(v6);
+  v8 = [v7 copy];
 
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v8)
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v9)
   {
-    v9 = *v15;
+    v10 = *v16;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v9)
+        if (*v16 != v10)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v8);
         }
 
-        v11 = [self storeForProfileWithIdentifier:*(*(&v14 + 1) + 8 * i)];
-        [v5 addObject:v11];
+        v12 = [self storeForProfileWithIdentifier:*(*(&v15 + 1) + 8 * i)];
+        [v5 addObject:v12];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
-  v12 = [v5 copy];
+  v13 = [v5 copy];
 
-  return v12;
+  return v13;
 }
 
 + (id)storeForProfileWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([identifierCopy isEqualToString:*MEMORY[0x1E69C8B58]])
+  v5 = [identifierCopy isEqualToString:*MEMORY[0x1E69C8B58]];
+  if (v5)
   {
     standardStore = [self standardStore];
   }
 
   else
   {
-    v6 = storesByProfileIdentifier();
-    standardStore = [v6 objectForKey:identifierCopy];
+    v7 = storesByProfileIdentifier(v5);
+    standardStore = [v7 objectForKey:identifierCopy];
 
     if (!standardStore)
     {
-      v7 = [self _databaseURLForProfileWithIdentifier:identifierCopy];
-      standardStore = [[WBSContentBlockerStatisticsSQLiteStore alloc] initWithDatabaseURL:v7];
-      v8 = storesByProfileIdentifier();
-      [v8 setObject:standardStore forKey:identifierCopy];
+      v8 = [self _databaseURLForProfileWithIdentifier:identifierCopy];
+      standardStore = [[WBSContentBlockerStatisticsSQLiteStore alloc] initWithDatabaseURL:v8];
+      v9 = storesByProfileIdentifier(standardStore);
+      [v9 setObject:standardStore forKey:identifierCopy];
 
-      v9 = allProfileDatabaseIdentifiers();
-      [v9 addObject:identifierCopy];
+      v11 = allProfileDatabaseIdentifiers(v10);
+      [v11 addObject:identifierCopy];
     }
   }
 
@@ -122,18 +123,19 @@ void __55__WBSContentBlockerStatisticsSQLiteStore_standardStore__block_invoke()
 + (BOOL)storeExistsForProfileWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([identifierCopy isEqualToString:*MEMORY[0x1E69C8B58]])
+  v4 = [identifierCopy isEqualToString:*MEMORY[0x1E69C8B58]];
+  if (v4)
   {
-    v4 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v5 = allProfileDatabaseIdentifiers();
-    v4 = [v5 containsObject:identifierCopy];
+    v6 = allProfileDatabaseIdentifiers(v4);
+    v5 = [v6 containsObject:identifierCopy];
   }
 
-  return v4;
+  return v5;
 }
 
 - (WBSContentBlockerStatisticsSQLiteStore)initWithDatabaseURL:(id)l
@@ -202,36 +204,37 @@ void __55__WBSContentBlockerStatisticsSQLiteStore_standardStore__block_invoke()
 
 uint64_t __105__WBSContentBlockerStatisticsSQLiteStore_recordThirdPartyResourceBlocked_onFirstParty_completionHandler___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) _openDatabaseIfNeeded])
   {
-    v13 = [*(a1 + 32) _idForThirdPartyWithHighLevelDomain:*(a1 + 40)];
-    v12 = [*(a1 + 32) _idForFirstPartyWithHighLevelDomain:*(a1 + 48)];
+    v15 = [*(a1 + 32) _idForThirdPartyWithHighLevelDomain:*(a1 + 40)];
+    v14 = [*(a1 + 32) _idForFirstPartyWithHighLevelDomain:*(a1 + 48)];
     v2 = [MEMORY[0x1E695DF00] date];
     [v2 timeIntervalSince1970];
     v4 = v3;
 
-    v11 = v4;
-    v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<long &,long &,double &>(*(*(a1 + 32) + 24), 0, @"INSERT INTO BlockedResources (thirdPartyDomainID, firstPartyDomainID, lastSeen) VALUES (?,?,?) ON CONFLICT(thirdPartyDomainID, firstPartyDomainID) DO UPDATE SET lastSeen = excluded.lastSeen", &v13, &v12, &v11);
+    v13 = v4;
+    v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<long &,long &,double &>(*(*(a1 + 32) + 24), 0, @"INSERT INTO BlockedResources (thirdPartyDomainID, firstPartyDomainID, lastSeen) VALUES (?,?,?) ON CONFLICT(thirdPartyDomainID, firstPartyDomainID) DO UPDATE SET lastSeen = excluded.lastSeen", &v15, &v14, &v13);
+    v7 = v5;
     if (v5 != 101)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v5, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v9 = [*(*(a1 + 32) + 24) lastErrorWithMethodName:"-[WBSContentBlockerStatisticsSQLiteStore recordThirdPartyResourceBlocked:onFirstParty:completionHandler:]_block_invoke"];
-        v10 = [v9 safari_privacyPreservingDescription];
+        v11 = [*(*(a1 + 32) + 24) lastErrorWithMethodName:"-[WBSContentBlockerStatisticsSQLiteStore recordThirdPartyResourceBlocked:onFirstParty:completionHandler:]_block_invoke"];
+        v12 = [v11 safari_privacyPreservingDescription];
         *buf = 138543618;
-        v15 = v10;
-        v16 = 1024;
-        v17 = v5;
-        _os_log_error_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_ERROR, "Failed to insert into BlockedResources table: %{public}@ (%d)", buf, 0x12u);
+        v17 = v12;
+        v18 = 1024;
+        v19 = v7;
+        _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Failed to insert into BlockedResources table: %{public}@ (%d)", buf, 0x12u);
       }
     }
 
     result = *(a1 + 56);
     if (result)
     {
-      return (*(result + 16))(result, v5 == 101);
+      return (*(result + 16))(result, v7 == 101);
     }
   }
 
@@ -240,9 +243,9 @@ uint64_t __105__WBSContentBlockerStatisticsSQLiteStore_recordThirdPartyResourceB
     result = *(a1 + 56);
     if (result)
     {
-      v8 = *(result + 16);
+      v10 = *(result + 16);
 
-      return v8();
+      return v10();
     }
   }
 
@@ -365,21 +368,22 @@ void __105__WBSContentBlockerStatisticsSQLiteStore_blockedThirdPartiesAfter_befo
 
 uint64_t __82__WBSContentBlockerStatisticsSQLiteStore_clearAllStatisticsWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  if ([*(a1 + 32) _openDatabaseIfNeededFallingBackToInMemory:0])
+  v2 = [*(a1 + 32) _openDatabaseIfNeededFallingBackToInMemory:0];
+  if (v2)
   {
-    v2 = *(a1 + 32);
-    v3 = [MEMORY[0x1E695DF00] distantPast];
-    v4 = [MEMORY[0x1E695DF00] distantFuture];
-    [v2 _clearStatisticsAfter:v3 before:v4];
+    v4 = *(a1 + 32);
+    v5 = [MEMORY[0x1E695DF00] distantPast];
+    v6 = [MEMORY[0x1E695DF00] distantFuture];
+    [v4 _clearStatisticsAfter:v5 before:v6];
   }
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v2, v3);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Failed to open database to clear statistics. Deleting.", v7, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Failed to open database to clear statistics. Deleting.", v9, 2u);
     }
 
     [*(a1 + 32) _deleteDatabase];
@@ -437,29 +441,29 @@ uint64_t __70__WBSContentBlockerStatisticsSQLiteStore_clearStatisticsAfter_befor
 
 uint64_t __68__WBSContentBlockerStatisticsSQLiteStore_clearStatisticsForDomains___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _openDatabaseIfNeeded];
-  v13 = 0u;
-  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v2 = *(a1 + 40);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v3)
   {
-    v5 = *v14;
+    v5 = *v16;
     *&v4 = 138477827;
-    v12 = v4;
+    v14 = v4;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v14 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v15 + 1) + 8 * i);
         v8 = [v7 safari_highLevelDomainFromHost];
         v9 = [v7 isEqualToString:v8];
 
@@ -470,17 +474,17 @@ uint64_t __68__WBSContentBlockerStatisticsSQLiteStore_clearStatisticsForDomains_
 
         else
         {
-          v10 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v12 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v10, v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
-            *buf = v12;
-            v18 = v7;
-            _os_log_error_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_ERROR, "Could not remove content blocker statistics for non high-level domain %{private}@", buf, 0xCu);
+            *buf = v14;
+            v20 = v7;
+            _os_log_error_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_ERROR, "Could not remove content blocker statistics for non high-level domain %{private}@", buf, 0xCu);
           }
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v3);
@@ -528,13 +532,13 @@ uint64_t __68__WBSContentBlockerStatisticsSQLiteStore_clearStatisticsForDomains_
 
 - (BOOL)_openDatabaseIfNeededFallingBackToInMemory:(BOOL)memory
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!self->_database)
   {
     memoryCopy = memory;
-    v20 = 0;
-    v5 = [(WBSContentBlockerStatisticsSQLiteStore *)self _tryOpenDatabase:&v20];
-    v6 = v20;
+    v24 = 0;
+    v5 = [(WBSContentBlockerStatisticsSQLiteStore *)self _tryOpenDatabase:&v24];
+    v6 = v24;
     v7 = v6;
     if (v5)
     {
@@ -547,9 +551,9 @@ LABEL_21:
     if (([v6 safari_isSQLiteCorruptionError] & 1) != 0 || objc_msgSend(v7, "safari_isSQLiteError") && objc_msgSend(v7, "code") == 26)
     {
       [(WBSContentBlockerStatisticsSQLiteStore *)self _deleteDatabase];
-      v19 = v7;
-      v8 = [(WBSContentBlockerStatisticsSQLiteStore *)self _tryOpenDatabase:&v19];
-      v9 = v19;
+      v23 = v7;
+      v8 = [(WBSContentBlockerStatisticsSQLiteStore *)self _tryOpenDatabase:&v23];
+      v9 = v23;
 
       if (v8)
       {
@@ -574,34 +578,34 @@ LABEL_21:
     databaseURL = self->_databaseURL;
     self->_databaseURL = inMemoryDatabaseURL;
 
-    v12 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v14 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       safari_privacyPreservingDescription = [v7 safari_privacyPreservingDescription];
-      [(WBSContentBlockerStatisticsSQLiteStore *)safari_privacyPreservingDescription _openDatabaseIfNeededFallingBackToInMemory:buf, v12];
+      [(WBSContentBlockerStatisticsSQLiteStore *)safari_privacyPreservingDescription _openDatabaseIfNeededFallingBackToInMemory:buf, v14];
     }
 
-    v18 = v7;
-    v14 = [(WBSContentBlockerStatisticsSQLiteStore *)self _tryOpenDatabase:&v18];
-    v15 = v18;
+    v22 = v7;
+    v16 = [(WBSContentBlockerStatisticsSQLiteStore *)self _tryOpenDatabase:&v22];
+    v17 = v22;
 
-    if (v14)
+    if (v16)
     {
       LOBYTE(memoryCopy) = 1;
     }
 
     else
     {
-      v16 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v20 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [WBSContentBlockerStatisticsSQLiteStore _openDatabaseIfNeededFallingBackToInMemory:v16];
+        [WBSContentBlockerStatisticsSQLiteStore _openDatabaseIfNeededFallingBackToInMemory:v20];
       }
 
       LOBYTE(memoryCopy) = 0;
     }
 
-    v7 = v15;
+    v7 = v17;
     goto LABEL_21;
   }
 
@@ -639,83 +643,85 @@ LABEL_21:
 
 - (BOOL)_tryOpenDatabase:(id *)database
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   p_databaseURL = &self->_databaseURL;
   v6 = [objc_alloc(MEMORY[0x1E69C89E8]) initWithURL:self->_databaseURL queue:self->_databaseQueue];
   database = self->_database;
   self->_database = v6;
 
   v8 = self->_database;
-  v29 = 0;
-  v9 = [(WBSSQLiteDatabase *)v8 openWithAccessType:3 error:&v29];
-  v10 = v29;
+  v33 = 0;
+  v9 = [(WBSSQLiteDatabase *)v8 openWithAccessType:3 error:&v33];
+  v10 = v33;
+  v12 = v10;
   if ((v9 & 1) == 0)
   {
-    v17 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v10, v11);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v18 = *p_databaseURL;
-      safari_privacyPreservingDescription = [v10 safari_privacyPreservingDescription];
-      [(WBSContentBlockerStatisticsSQLiteStore *)v18 _tryOpenDatabase:safari_privacyPreservingDescription, v30];
+      v20 = *p_databaseURL;
+      safari_privacyPreservingDescription = [v12 safari_privacyPreservingDescription];
+      [(WBSContentBlockerStatisticsSQLiteStore *)v20 _tryOpenDatabase:safari_privacyPreservingDescription, v34];
     }
 
-    v20 = self->_database;
+    v22 = self->_database;
     self->_database = 0;
 
     if (database)
     {
-      v21 = v10;
-      v16 = 0;
-      *database = v10;
+      v23 = v12;
+      v18 = 0;
+      *database = v12;
       goto LABEL_21;
     }
 
 LABEL_20:
-    v16 = 0;
+    v18 = 0;
     goto LABEL_21;
   }
 
-  v11 = *p_databaseURL;
+  v13 = *p_databaseURL;
   inMemoryDatabaseURL = [MEMORY[0x1E69C89E8] inMemoryDatabaseURL];
-  LOBYTE(v11) = [(NSURL *)v11 isEqual:inMemoryDatabaseURL];
+  LOBYTE(v13) = [(NSURL *)v13 isEqual:inMemoryDatabaseURL];
 
-  if ((v11 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
     SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"PRAGMA locking_mode = EXCLUSIVE");
   }
 
-  v13 = self->_database;
-  v28 = v10;
-  v14 = [(WBSSQLiteDatabase *)v13 enableWAL:&v28];
-  v15 = v28;
+  v15 = self->_database;
+  v32 = v12;
+  v16 = [(WBSSQLiteDatabase *)v15 enableWAL:&v32];
+  v17 = v32;
 
-  v10 = v15;
-  if ((v14 & 1) == 0)
+  v12 = v17;
+  if ((v16 & 1) == 0)
   {
-    if ([v15 code] == 5)
+    code = [v17 code];
+    if (code == 5)
     {
-      v22 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v26 = WBS_LOG_CHANNEL_PREFIXContentBlockers(5, v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        [(WBSContentBlockerStatisticsSQLiteStore *)&self->_databaseURL _tryOpenDatabase:v22];
+        [(WBSContentBlockerStatisticsSQLiteStore *)&self->_databaseURL _tryOpenDatabase:v26];
       }
     }
 
     else
     {
-      v23 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v27 = WBS_LOG_CHANNEL_PREFIXContentBlockers(code, v25);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v24 = *p_databaseURL;
-        safari_privacyPreservingDescription2 = [v15 safari_privacyPreservingDescription];
-        [(WBSContentBlockerStatisticsSQLiteStore *)v24 _tryOpenDatabase:safari_privacyPreservingDescription2, v30];
+        v28 = *p_databaseURL;
+        safari_privacyPreservingDescription2 = [v17 safari_privacyPreservingDescription];
+        [(WBSContentBlockerStatisticsSQLiteStore *)v28 _tryOpenDatabase:safari_privacyPreservingDescription2, v34];
       }
     }
 
     if (database)
     {
-      v26 = v15;
-      *database = v15;
+      v30 = v17;
+      *database = v17;
     }
 
     goto LABEL_19;
@@ -729,15 +735,15 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v16 = 1;
+  v18 = 1;
 LABEL_21:
 
-  return v16;
+  return v18;
 }
 
 - (BOOL)_createDatabaseSchemaIfNeeded
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if ([(WBSContentBlockerStatisticsSQLiteStore *)self _schemaVersion])
   {
     return 1;
@@ -746,79 +752,79 @@ LABEL_21:
   v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE IF NOT EXISTS FirstPartyDomains (firstPartyDomainID INTEGER PRIMARY KEY AUTOINCREMENT,domain TEXT NOT NULL UNIQUE ON CONFLICT FAIL)");
   if (v4 == 101)
   {
-    v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE IF NOT EXISTS ThirdPartyDomains (thirdPartyDomainID INTEGER PRIMARY KEY AUTOINCREMENT,domain TEXT NOT NULL UNIQUE ON CONFLICT FAIL)");
-    if (v5 == 101)
+    v6 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE IF NOT EXISTS ThirdPartyDomains (thirdPartyDomainID INTEGER PRIMARY KEY AUTOINCREMENT,domain TEXT NOT NULL UNIQUE ON CONFLICT FAIL)");
+    if (v6 == 101)
     {
-      v6 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE IF NOT EXISTS BlockedResources (firstPartyDomainID INTEGER NOT NULL,thirdPartyDomainID INTEGER NOT NULL,lastSeen REAL NOT NULL,FOREIGN KEY (firstPartyDomainID) REFERENCES FirstPartyDomains(firstPartyDomainID) ON DELETE CASCADE,FOREIGN KEY (thirdPartyDomainID) REFERENCES ThirdPartyDomains(thirdPartyDomainID) ON DELETE CASCADE,PRIMARY KEY (firstPartyDomainID, thirdPartyDomainID))");
-      if (v6 == 101)
+      v8 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE IF NOT EXISTS BlockedResources (firstPartyDomainID INTEGER NOT NULL,thirdPartyDomainID INTEGER NOT NULL,lastSeen REAL NOT NULL,FOREIGN KEY (firstPartyDomainID) REFERENCES FirstPartyDomains(firstPartyDomainID) ON DELETE CASCADE,FOREIGN KEY (thirdPartyDomainID) REFERENCES ThirdPartyDomains(thirdPartyDomainID) ON DELETE CASCADE,PRIMARY KEY (firstPartyDomainID, thirdPartyDomainID))");
+      if (v8 == 101)
       {
-        v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"PRAGMA user_version = 1");
-        if (v7 == 101)
+        v10 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"PRAGMA user_version = 1");
+        if (v10 == 101)
         {
           return 1;
         }
 
-        v8 = v7;
-        v9 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v12 = v10;
+        v13 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v10, v11);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v10 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _createDatabaseSchemaIfNeeded]"];
-          safari_privacyPreservingDescription = [v10 safari_privacyPreservingDescription];
-          v21 = 138543618;
-          v22 = safari_privacyPreservingDescription;
-          v23 = 1024;
-          v24 = v8;
-          _os_log_error_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_ERROR, "Failed to set Content Blocker Statistics database schema version: %{public}@ (%d)", &v21, 0x12u);
+          v14 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _createDatabaseSchemaIfNeeded]"];
+          safari_privacyPreservingDescription = [v14 safari_privacyPreservingDescription];
+          v25 = 138543618;
+          v26 = safari_privacyPreservingDescription;
+          v27 = 1024;
+          v28 = v12;
+          _os_log_error_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_ERROR, "Failed to set Content Blocker Statistics database schema version: %{public}@ (%d)", &v25, 0x12u);
         }
       }
 
       else
       {
-        v18 = v6;
-        v9 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v22 = v8;
+        v13 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v8, v9);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v19 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _createDatabaseSchemaIfNeeded]"];
-          safari_privacyPreservingDescription2 = [v19 safari_privacyPreservingDescription];
-          v21 = 138543618;
-          v22 = safari_privacyPreservingDescription2;
-          v23 = 1024;
-          v24 = v18;
-          _os_log_error_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_ERROR, "Failed to create BlockedResources table: %{public}@, (%d)", &v21, 0x12u);
+          v23 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _createDatabaseSchemaIfNeeded]"];
+          safari_privacyPreservingDescription2 = [v23 safari_privacyPreservingDescription];
+          v25 = 138543618;
+          v26 = safari_privacyPreservingDescription2;
+          v27 = 1024;
+          v28 = v22;
+          _os_log_error_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_ERROR, "Failed to create BlockedResources table: %{public}@, (%d)", &v25, 0x12u);
         }
       }
     }
 
     else
     {
-      v15 = v5;
-      v9 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v19 = v6;
+      v13 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v6, v7);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v16 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _createDatabaseSchemaIfNeeded]"];
-        safari_privacyPreservingDescription3 = [v16 safari_privacyPreservingDescription];
-        v21 = 138543618;
-        v22 = safari_privacyPreservingDescription3;
-        v23 = 1024;
-        v24 = v15;
-        _os_log_error_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_ERROR, "Failed to create ThirdPartyDomains table: %{public}@ (%d)", &v21, 0x12u);
+        v20 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _createDatabaseSchemaIfNeeded]"];
+        safari_privacyPreservingDescription3 = [v20 safari_privacyPreservingDescription];
+        v25 = 138543618;
+        v26 = safari_privacyPreservingDescription3;
+        v27 = 1024;
+        v28 = v19;
+        _os_log_error_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_ERROR, "Failed to create ThirdPartyDomains table: %{public}@ (%d)", &v25, 0x12u);
       }
     }
   }
 
   else
   {
-    v12 = v4;
-    v9 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v16 = v4;
+    v13 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v4, v5);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v13 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _createDatabaseSchemaIfNeeded]"];
-      safari_privacyPreservingDescription4 = [v13 safari_privacyPreservingDescription];
-      v21 = 138543618;
-      v22 = safari_privacyPreservingDescription4;
-      v23 = 1024;
-      v24 = v12;
-      _os_log_error_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_ERROR, "Failed to create FirstPartyDomains table: %{public}@ (%d)", &v21, 0x12u);
+      v17 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _createDatabaseSchemaIfNeeded]"];
+      safari_privacyPreservingDescription4 = [v17 safari_privacyPreservingDescription];
+      v25 = 138543618;
+      v26 = safari_privacyPreservingDescription4;
+      v27 = 1024;
+      v28 = v16;
+      _os_log_error_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_ERROR, "Failed to create FirstPartyDomains table: %{public}@ (%d)", &v25, 0x12u);
     }
   }
 
@@ -839,7 +845,7 @@ LABEL_21:
 
 - (int64_t)_idForThirdPartyWithHighLevelDomain:(id)domain
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   v4 = SafariShared::WBSSQLiteDatabaseFetch<NSString * {__strong}&>(self->_database, @"SELECT thirdPartyDomainID FROM ThirdPartyDomains WHERE domain = ?", &domainCopy);
   nextObject = [v4 nextObject];
@@ -852,6 +858,7 @@ LABEL_21:
   else
   {
     v8 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong}&>(self->_database, 0, @"INSERT INTO ThirdPartyDomains (domain) VALUES (?)", &domainCopy);
+    v10 = v8;
     if (v8 == 101)
     {
       lastInsertRowID = [(WBSSQLiteDatabase *)self->_database lastInsertRowID];
@@ -859,20 +866,20 @@ LABEL_21:
 
     else
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v8, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v11 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _idForThirdPartyWithHighLevelDomain:]"];
-        safari_privacyPreservingDescription = [v11 safari_privacyPreservingDescription];
+        v13 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _idForThirdPartyWithHighLevelDomain:]"];
+        safari_privacyPreservingDescription = [v13 safari_privacyPreservingDescription];
         *buf = 138543618;
-        v15 = safari_privacyPreservingDescription;
-        v16 = 1024;
-        v17 = v8;
-        _os_log_error_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_ERROR, "Failed to insert row into ThirdPartyDomains: %{public}@ (%d)", buf, 0x12u);
+        v17 = safari_privacyPreservingDescription;
+        v18 = 1024;
+        v19 = v10;
+        _os_log_error_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_ERROR, "Failed to insert row into ThirdPartyDomains: %{public}@ (%d)", buf, 0x12u);
       }
 
       lastInsertRowID = 0x7FFFFFFFFFFFFFFFLL;
-      v6 = v9;
+      v6 = v11;
     }
   }
 
@@ -881,7 +888,7 @@ LABEL_21:
 
 - (int64_t)_idForFirstPartyWithHighLevelDomain:(id)domain
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   v4 = SafariShared::WBSSQLiteDatabaseFetch<NSString * {__strong}&>(self->_database, @"SELECT firstPartyDomainID FROM FirstPartyDomains WHERE domain = ?", &domainCopy);
   nextObject = [v4 nextObject];
@@ -894,6 +901,7 @@ LABEL_21:
   else
   {
     v8 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong}&>(self->_database, 0, @"INSERT INTO FirstPartyDomains (domain) VALUES (?)", &domainCopy);
+    v10 = v8;
     if (v8 == 101)
     {
       lastInsertRowID = [(WBSSQLiteDatabase *)self->_database lastInsertRowID];
@@ -901,20 +909,20 @@ LABEL_21:
 
     else
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v8, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v11 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _idForFirstPartyWithHighLevelDomain:]"];
-        safari_privacyPreservingDescription = [v11 safari_privacyPreservingDescription];
+        v13 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _idForFirstPartyWithHighLevelDomain:]"];
+        safari_privacyPreservingDescription = [v13 safari_privacyPreservingDescription];
         *buf = 138543618;
-        v15 = safari_privacyPreservingDescription;
-        v16 = 1024;
-        v17 = v8;
-        _os_log_error_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_ERROR, "Failed to insert row into FirstPartyDomains: %{public}@ (%d)", buf, 0x12u);
+        v17 = safari_privacyPreservingDescription;
+        v18 = 1024;
+        v19 = v10;
+        _os_log_error_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_ERROR, "Failed to insert row into FirstPartyDomains: %{public}@ (%d)", buf, 0x12u);
       }
 
       lastInsertRowID = 0x7FFFFFFFFFFFFFFFLL;
-      v6 = v9;
+      v6 = v11;
     }
   }
 
@@ -923,27 +931,28 @@ LABEL_21:
 
 - (void)_clearStatisticsAfter:(id)after before:(id)before
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   afterCopy = after;
   beforeCopy = before;
   database = self->_database;
   [afterCopy timeIntervalSince1970];
   *buf = v9;
   [beforeCopy timeIntervalSince1970];
-  v15 = v10;
-  v11 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<double,double>(database, 0, @"DELETE FROM BlockedResources WHERE lastSeen >= ? AND lastSeen <= ?", buf, &v15);
+  v17 = v10;
+  v11 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<double,double>(database, 0, @"DELETE FROM BlockedResources WHERE lastSeen >= ? AND lastSeen <= ?", buf, &v17);
+  v13 = v11;
   if (v11 != 101)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v13 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _clearStatisticsAfter:before:]"];
-      safari_privacyPreservingDescription = [v13 safari_privacyPreservingDescription];
+      v15 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _clearStatisticsAfter:before:]"];
+      safari_privacyPreservingDescription = [v15 safari_privacyPreservingDescription];
       *buf = 138543618;
       *&buf[4] = safari_privacyPreservingDescription;
-      v17 = 1024;
-      v18 = v11;
-      _os_log_error_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_ERROR, "Unable to clear rows from Blocked Resources: %{public}@ (%d)", buf, 0x12u);
+      v19 = 1024;
+      v20 = v13;
+      _os_log_error_impl(&dword_1BB6F3000, v14, OS_LOG_TYPE_ERROR, "Unable to clear rows from Blocked Resources: %{public}@ (%d)", buf, 0x12u);
     }
   }
 
@@ -952,58 +961,60 @@ LABEL_21:
 
 - (void)_clearStatisticsForDomain:(id)domain
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * {__strong}&>(self->_database, 0, @"DELETE FROM FirstPartyDomains WHERE domain = ?", &domainCopy);
+  v6 = v4;
   if (v4 != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v6 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _clearStatisticsForDomain:]"];
-      safari_privacyPreservingDescription = [v6 safari_privacyPreservingDescription];
+      v8 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _clearStatisticsForDomain:]"];
+      safari_privacyPreservingDescription = [v8 safari_privacyPreservingDescription];
       *buf = 138543618;
-      v10 = safari_privacyPreservingDescription;
-      v11 = 1024;
-      v12 = v4;
-      _os_log_error_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_ERROR, "Unable to clear row from First Party Domains: %{public}@ (%d)", buf, 0x12u);
+      v12 = safari_privacyPreservingDescription;
+      v13 = 1024;
+      v14 = v6;
+      _os_log_error_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_ERROR, "Unable to clear row from First Party Domains: %{public}@ (%d)", buf, 0x12u);
     }
   }
 }
 
 - (void)_deleteUnusedDomains
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DELETE FROM FirstPartyDomains WHERE (SELECT COUNT(rowid) FROM BlockedResources WHERE BlockedResources.firstPartyDomainID = FirstPartyDomains.firstPartyDomainID) = 0");
   if (v3 != 101)
   {
-    v4 = v3;
-    v5 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v5 = v3;
+    v6 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _deleteUnusedDomains]"];
-      safari_privacyPreservingDescription = [v8 safari_privacyPreservingDescription];
-      v12 = 138543618;
-      v13 = safari_privacyPreservingDescription;
-      v14 = 1024;
-      v15 = v4;
-      _os_log_error_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_ERROR, "Unable to clear rows from First Party Domains: %{public}@ (%d)", &v12, 0x12u);
+      v11 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _deleteUnusedDomains]"];
+      safari_privacyPreservingDescription = [v11 safari_privacyPreservingDescription];
+      v15 = 138543618;
+      v16 = safari_privacyPreservingDescription;
+      v17 = 1024;
+      v18 = v5;
+      _os_log_error_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_ERROR, "Unable to clear rows from First Party Domains: %{public}@ (%d)", &v15, 0x12u);
     }
   }
 
-  v6 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DELETE FROM ThirdPartyDomains WHERE (SELECT COUNT(rowid) FROM BlockedResources WHERE BlockedResources.thirdPartyDomainID = ThirdPartyDomains.thirdPartyDomainID) = 0");
-  if (v6 != 101)
+  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DELETE FROM ThirdPartyDomains WHERE (SELECT COUNT(rowid) FROM BlockedResources WHERE BlockedResources.thirdPartyDomainID = ThirdPartyDomains.thirdPartyDomainID) = 0");
+  v9 = v7;
+  if (v7 != 101)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXContentBlockers(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v10 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _deleteUnusedDomains]"];
-      safari_privacyPreservingDescription2 = [v10 safari_privacyPreservingDescription];
-      v12 = 138412546;
-      v13 = safari_privacyPreservingDescription2;
-      v14 = 1024;
-      v15 = v6;
-      _os_log_error_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_ERROR, "Unable to clear rows from Third Party Domains: %@ (%d)", &v12, 0x12u);
+      v13 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSContentBlockerStatisticsSQLiteStore _deleteUnusedDomains]"];
+      safari_privacyPreservingDescription2 = [v13 safari_privacyPreservingDescription];
+      v15 = 138412546;
+      v16 = safari_privacyPreservingDescription2;
+      v17 = 1024;
+      v18 = v9;
+      _os_log_error_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_ERROR, "Unable to clear rows from Third Party Domains: %@ (%d)", &v15, 0x12u);
     }
   }
 }

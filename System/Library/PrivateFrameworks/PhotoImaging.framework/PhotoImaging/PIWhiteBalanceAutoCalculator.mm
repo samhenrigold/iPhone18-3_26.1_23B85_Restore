@@ -483,7 +483,7 @@ void __39__PIWhiteBalanceAutoCalculator_submit___block_invoke_3(uint64_t a1, voi
     v19 = 0u;
     v16 = 0u;
     v17 = 0u;
-    [v3 pi_grayColorResultValue];
+    objc_msgSend_pi_grayColorResultValue(v3);
     v5 = *(a1 + 32);
     v14[2] = v18;
     v14[3] = v19;
@@ -521,7 +521,7 @@ void __39__PIWhiteBalanceAutoCalculator_submit___block_invoke_4(uint64_t a1, voi
     v18 = 0u;
     v15 = 0u;
     v16 = 0u;
-    [v3 pi_grayColorResultValue];
+    objc_msgSend_pi_grayColorResultValue(v3);
     v5 = *(a1 + 32);
     v6 = [*(a1 + 40) rawProperties];
     v13[2] = v17;

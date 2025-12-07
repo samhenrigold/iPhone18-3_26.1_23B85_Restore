@@ -220,9 +220,9 @@
 
 - (void)layoutSubviews
 {
-  v51.receiver = self;
-  v51.super_class = PKInstallmentPlanProgressCollectionViewCell;
-  [(PKDashboardCollectionViewCell *)&v51 layoutSubviews];
+  v72.receiver = self;
+  v72.super_class = PKInstallmentPlanProgressCollectionViewCell;
+  [(PKDashboardCollectionViewCell *)&v72 layoutSubviews];
   contentView = [(PKInstallmentPlanProgressCollectionViewCell *)self contentView];
   [contentView bounds];
   v5 = v4;
@@ -239,7 +239,7 @@
   v16 = v11 + -32.0;
   remainder.size.width = v15;
   remainder.size.height = v16;
-  memset(&v49, 0, sizeof(v49));
+  memset(&v70, 0, sizeof(v70));
   if (_shouldReverseLayoutDirection)
   {
     v17 = CGRectMaxXEdge;
@@ -261,83 +261,99 @@
   }
 
   memset(&slice, 0, sizeof(slice));
-  memset(&v47, 0, sizeof(v47));
-  v52.origin.x = v13;
-  v52.origin.y = v14;
-  v52.size.width = v15;
-  v52.size.height = v16;
-  CGRectGetWidth(v52);
-  PKFloatRoundToPixel();
-  v20 = v19;
-  v53.origin.x = v13;
-  v53.origin.y = v14;
-  v53.size.width = v15;
-  v53.size.height = v16;
-  CGRectDivide(v53, &slice, &remainder, v20, v17);
-  CGRectDivide(remainder, &v49, &remainder, v20, v18);
+  memset(&v68, 0, sizeof(v68));
+  v73.origin.x = v13;
+  v73.origin.y = v14;
+  v73.size.width = v15;
+  v73.size.height = v16;
+  Width = CGRectGetWidth(v73);
+  v20.n128_u64[0] = 0.5;
+  v21.n128_f64[0] = Width * 0.5;
+  PKFloatRoundToPixel(v21, v20);
+  v23 = v22;
+  v74.origin.x = v13;
+  v74.origin.y = v14;
+  v74.size.width = v15;
+  v74.size.height = v16;
+  CGRectDivide(v74, &slice, &remainder, v23, v17);
+  CGRectDivide(remainder, &v70, &remainder, v23, v18);
   [(UILabel *)self->_leadingTitleLabel sizeThatFits:slice.size.width, slice.size.height];
-  v22 = v21;
+  v25 = v24;
   [(UILabel *)self->_leadingAmountLabel sizeThatFits:slice.size.width, slice.size.height];
-  v24 = v23;
-  v25 = v22 + v23 + 5.0;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  slice.origin.x = v26;
-  slice.origin.y = v27;
-  slice.size.width = v28;
-  slice.size.height = v29;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v49.origin.x = v30;
-  v49.origin.y = v31;
+  v27 = v26;
+  v28 = v25 + v26 + 5.0;
+  v29 = slice.size.width;
+  v30 = PKContentAlignmentMake();
+  v31.n128_u64[0] = *&slice.origin.x;
+  v32.n128_u64[0] = *&slice.origin.y;
+  v33.n128_u64[0] = *&slice.size.width;
+  v34.n128_u64[0] = *&slice.size.height;
+  v35.n128_f64[0] = v29;
+  v36.n128_f64[0] = v28;
+  PKSizeAlignedInRect(v30, v35, v36, v31, v32, v33, v34, v37);
+  slice.origin.x = v38;
+  slice.origin.y = v39;
+  slice.size.width = v40;
+  slice.size.height = v41;
+  v42 = v70.size.width;
+  v43 = PKContentAlignmentMake();
+  v44.n128_u64[0] = *&v70.origin.x;
+  v45.n128_u64[0] = *&v70.origin.y;
+  v46.n128_u64[0] = *&v70.size.width;
+  v47.n128_u64[0] = *&v70.size.height;
+  v48.n128_f64[0] = v42;
+  v49.n128_f64[0] = v28;
+  PKSizeAlignedInRect(v43, v48, v49, v44, v45, v46, v47, v50);
+  v70.origin.x = v51;
+  v70.origin.y = v52;
   leadingTitleLabel = self->_leadingTitleLabel;
-  v49.size.width = v33;
-  v49.size.height = v34;
-  [(UILabel *)leadingTitleLabel setFrame:slice.origin.x, slice.origin.y, slice.size.width + -16.0, v22];
-  [(UILabel *)self->_leadingAmountLabel setFrame:slice.origin.x, v22 + slice.origin.y + 5.0, slice.size.width + -16.0, v24];
-  [(UILabel *)self->_trailingTitleLabel setFrame:v49.origin.x, v49.origin.y, v49.size.width, v22];
-  [(UILabel *)self->_trailingAmountLabel setFrame:v49.origin.x, v22 + v49.origin.y + 5.0, v49.size.width, v24];
-  v54.origin.x = v13;
-  v54.origin.y = v14;
-  v54.size.width = v15;
-  v54.size.height = v16;
-  CGRectDivide(v54, &v47, &remainder, v25 + 10.0, CGRectMinYEdge);
+  v70.size.width = v54;
+  v70.size.height = v55;
+  [(UILabel *)leadingTitleLabel setFrame:slice.origin.x, slice.origin.y, slice.size.width + -16.0, v25];
+  [(UILabel *)self->_leadingAmountLabel setFrame:slice.origin.x, v25 + slice.origin.y + 5.0, slice.size.width + -16.0, v27];
+  [(UILabel *)self->_trailingTitleLabel setFrame:v70.origin.x, v70.origin.y, v70.size.width, v25];
+  [(UILabel *)self->_trailingAmountLabel setFrame:v70.origin.x, v25 + v70.origin.y + 5.0, v70.size.width, v27];
+  v75.origin.x = v13;
+  v75.origin.y = v14;
+  v75.size.width = v15;
+  v75.size.height = v16;
+  CGRectDivide(v75, &v68, &remainder, v28 + 10.0, CGRectMinYEdge);
   if (self->_complete)
   {
     font = [(UILabel *)self->_completeLabel font];
     [font _bodyLeading];
-    v37 = v36;
+    v58 = v57;
 
-    CGRectDivide(remainder, &v47, &remainder, v37, CGRectMinYEdge);
-    memset(&v46, 0, sizeof(v46));
+    CGRectDivide(remainder, &v68, &remainder, v58, CGRectMinYEdge);
+    memset(&v67, 0, sizeof(v67));
     memset(&rect[1], 0, 32);
-    CGRectDivide(v47, &v46, &v47, v37, v17);
-    CGRectDivide(v47, &v47, &rect[1], 5.0, v17);
-    [(UIImageView *)self->_completeCheckmark setFrame:v46.origin.x, v46.origin.y, v46.size.width, v46.size.height];
+    CGRectDivide(v68, &v67, &v68, v58, v17);
+    CGRectDivide(v68, &v68, &rect[1], 5.0, v17);
+    [(UIImageView *)self->_completeCheckmark setFrame:v67.origin.x, v67.origin.y, v67.size.width, v67.size.height];
     completeLabel = self->_completeLabel;
     x = *&rect[1];
     y = *&rect[2];
-    width = *&rect[3];
+    v62 = *&rect[3];
     height = *&rect[4];
   }
 
   else
   {
-    CGRectDivide(remainder, &v47, &remainder, 20.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v68, &remainder, 20.0, CGRectMinYEdge);
     completeLabel = self->_progressBar;
-    x = v47.origin.x;
-    y = v47.origin.y;
-    width = v47.size.width;
-    height = v47.size.height;
+    x = v68.origin.x;
+    y = v68.origin.y;
+    v62 = v68.size.width;
+    height = v68.size.height;
   }
 
-  [completeLabel setFrame:{x, y, width, height}];
+  [completeLabel setFrame:{x, y, v62, height}];
   text = [(UILabel *)self->_detailLabel text];
 
   if (text)
   {
     p_remainder = &remainder;
-    CGRectDivide(remainder, &v47, &remainder, 10.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v68, &remainder, 10.0, CGRectMinYEdge);
   }
 
   else

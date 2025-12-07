@@ -358,7 +358,7 @@ uint64_t __111__PXGMetalTextureAtlas_getTextureInfos_forSpriteIndexes_geometries
   _Block_object_dispose(v19, 8);
 }
 
-uint64_t __56__PXGMetalTextureAtlas_getSpriteIndexes_maxSpriteCount___block_invoke(uint64_t result, unint64_t a2, uint64_t a3, _BYTE *a4)
+void *__56__PXGMetalTextureAtlas_getSpriteIndexes_maxSpriteCount___block_invoke(void *result, unint64_t a2, uint64_t a3, _BYTE *a4)
 {
   if (a2 < a2 + a3)
   {
@@ -374,12 +374,12 @@ uint64_t __56__PXGMetalTextureAtlas_getSpriteIndexes_maxSpriteCount___block_invo
     v14 = result;
     for (i = 4 * a2; ; i += 4)
     {
-      v16 = *(*(v14 + 48) + i);
-      result = [*(v14 + 32) containsIndex:{v16, v17, v18, v19, v20, v21, v22, v23, v24}];
+      v16 = *(*(v14 + 6) + i);
+      result = [*(v14 + 4) containsIndex:{v16, v17, v18, v19, v20, v21, v22, v23, v24}];
       if (result)
       {
-        *(*(v14 + 56) + 4 * (*(*(*(v14 + 40) + 8) + 24))++) = v16;
-        if (*(*(*(v14 + 40) + 8) + 24) == *(v14 + 64))
+        *(*(v14 + 7) + 4 * (*(*(*(v14 + 5) + 8) + 24))++) = v16;
+        if (*(*(*(v14 + 5) + 8) + 24) == *(v14 + 16))
         {
           break;
         }
@@ -407,7 +407,7 @@ uint64_t __56__PXGMetalTextureAtlas_getSpriteIndexes_maxSpriteCount___block_invo
   [indexes enumerateRangesUsingBlock:v3];
 }
 
-uint64_t __62__PXGMetalTextureAtlas__syncQueue_releaseThumbnailsAtIndexes___block_invoke(uint64_t result, unint64_t a2, uint64_t a3)
+id *__62__PXGMetalTextureAtlas__syncQueue_releaseThumbnailsAtIndexes___block_invoke(id *result, unint64_t a2, uint64_t a3)
 {
   if (a2 < a2 + a3)
   {
@@ -422,7 +422,7 @@ uint64_t __62__PXGMetalTextureAtlas__syncQueue_releaseThumbnailsAtIndexes___bloc
     v11 = result;
     do
     {
-      result = [*(v11 + 32) _syncQueue_releaseThumbnailAtIndex:{v10++, v12, v13, v14, v15, v16, v17}];
+      result = [v11[4] _syncQueue_releaseThumbnailAtIndex:{v10++, v12, v13, v14, v15, v16, v17}];
       --v9;
     }
 
@@ -511,8 +511,8 @@ uint64_t __61__PXGMetalTextureAtlas__syncQueue_retainThumbnailsAtIndexes___block
   dirtySpriteIndexes = self->_dirtySpriteIndexes;
   self->_dirtySpriteIndexes = v10;
 
-  indexSet = [MEMORY[0x277CCAA78] indexSet];
-  [(PXGMetalTextureAtlas *)self setSkipRenderSpriteIndexes:indexSet];
+  v12 = objc_msgSend_indexSet(MEMORY[0x277CCAA78]);
+  [(PXGMetalTextureAtlas *)self setSkipRenderSpriteIndexes:v12];
 
   [(PXGMetalTextureAtlas *)self _invalidateRenderedSpriteIndexes];
 }
@@ -533,9 +533,9 @@ uint64_t __61__PXGMetalTextureAtlas__syncQueue_retainThumbnailsAtIndexes___block
   dispatch_sync(syncQueue, block);
 }
 
-uint64_t __69__PXGMetalTextureAtlas_processPendingThumbnailRequestIDsWithHandler___block_invoke(uint64_t result)
+void *__69__PXGMetalTextureAtlas_processPendingThumbnailRequestIDsWithHandler___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   v2 = *(v1 + 224);
   if (v2 >= 1)
   {
@@ -543,10 +543,10 @@ uint64_t __69__PXGMetalTextureAtlas_processPendingThumbnailRequestIDsWithHandler
     v4 = 0;
     do
     {
-      v5 = *(*(v3 + 32) + 216) + v4;
+      v5 = *(v3[4] + 216) + v4;
       v6 = *(v5 + 4);
-      v7 = (*(*(v3 + 40) + 16))(*(v5 + 12));
-      v8 = *(v3 + 32);
+      v7 = (*(v3[5] + 16))(*(v5 + 12));
+      v8 = v3[4];
       if (v7 == -1)
       {
         [v8 _syncQueue_checkinThumbnailIndex:v6];
@@ -555,9 +555,9 @@ uint64_t __69__PXGMetalTextureAtlas_processPendingThumbnailRequestIDsWithHandler
       else
       {
         [v8[15] addIndex:v7];
-        [*(*(v3 + 32) + 128) addIndex:v7];
-        [*(*(v3 + 32) + 112) addIndex:v6];
-        *(*(*(v3 + 32) + 136) + 4 * v6) = v7;
+        [*(v3[4] + 128) addIndex:v7];
+        [*(v3[4] + 112) addIndex:v6];
+        *(*(v3[4] + 136) + 4 * v6) = v7;
       }
 
       v4 += 20;
@@ -565,8 +565,8 @@ uint64_t __69__PXGMetalTextureAtlas_processPendingThumbnailRequestIDsWithHandler
     }
 
     while (v2);
-    result = [*(v3 + 32) _invalidateRenderedSpriteIndexes];
-    v1 = *(v3 + 32);
+    result = [v3[4] _invalidateRenderedSpriteIndexes];
+    v1 = v3[4];
   }
 
   *(v1 + 224) = 0;
@@ -722,7 +722,7 @@ void __63__PXGMetalTextureAtlas__checkinPendingThumbnailIndexesIfNeeded__block_i
   _Block_object_dispose(&v50, 8);
 }
 
-uint64_t __98__PXGMetalTextureAtlas_addSpriteWithTextureRequestID_thumbnailData_size_bytesPerRow_contentsRect___block_invoke(uint64_t a1)
+void *__98__PXGMetalTextureAtlas_addSpriteWithTextureRequestID_thumbnailData_size_bytesPerRow_contentsRect___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _syncQueue_checkoutNextThumbnailIndex];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -901,33 +901,33 @@ double __98__PXGMetalTextureAtlas_addSpriteWithTextureRequestID_thumbnailData_si
     }
 
     v21->_cols = v30;
-    indexSet = [MEMORY[0x277CCAB58] indexSet];
+    v36 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
     thumbnailIndexesUsedBySprites = v21->_thumbnailIndexesUsedBySprites;
-    v21->_thumbnailIndexesUsedBySprites = indexSet;
+    v21->_thumbnailIndexesUsedBySprites = v36;
 
-    indexSet2 = [MEMORY[0x277CCAB58] indexSet];
+    v38 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
     spriteIndexesUsedBySprites = v21->_spriteIndexesUsedBySprites;
-    v21->_spriteIndexesUsedBySprites = indexSet2;
+    v21->_spriteIndexesUsedBySprites = v38;
 
-    indexSet3 = [MEMORY[0x277CCAB58] indexSet];
+    v40 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
     dirtySpriteIndexes = v21->_dirtySpriteIndexes;
-    v21->_dirtySpriteIndexes = indexSet3;
+    v21->_dirtySpriteIndexes = v40;
 
-    indexSet4 = [MEMORY[0x277CCAA78] indexSet];
+    v42 = objc_msgSend_indexSet(MEMORY[0x277CCAA78]);
     skipRenderSpriteIndexes = v21->_skipRenderSpriteIndexes;
-    v21->_skipRenderSpriteIndexes = indexSet4;
+    v21->_skipRenderSpriteIndexes = v42;
 
-    indexSet5 = [MEMORY[0x277CCAB58] indexSet];
+    v44 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
     thumbnailIndexesPendingCheckin = v21->_thumbnailIndexesPendingCheckin;
-    v21->_thumbnailIndexesPendingCheckin = indexSet5;
+    v21->_thumbnailIndexesPendingCheckin = v44;
 
-    indexSet6 = [MEMORY[0x277CCAB58] indexSet];
+    v46 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
     thumbnailIndexesBeingCheckedIn = v21->_thumbnailIndexesBeingCheckedIn;
-    v21->_thumbnailIndexesBeingCheckedIn = indexSet6;
+    v21->_thumbnailIndexesBeingCheckedIn = v46;
 
-    indexSet7 = [MEMORY[0x277CCAB58] indexSet];
+    v48 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
     syncQueue_availableThumbnailIndexes = v21->_syncQueue_availableThumbnailIndexes;
-    v21->_syncQueue_availableThumbnailIndexes = indexSet7;
+    v21->_syncQueue_availableThumbnailIndexes = v48;
 
     [(NSMutableIndexSet *)v21->_syncQueue_availableThumbnailIndexes addIndexesInRange:0, capacity];
     v21->_spriteIndexByThumbnailIndex = malloc_type_realloc(v21->_spriteIndexByThumbnailIndex, 4 * capacity, 0x42760281uLL);

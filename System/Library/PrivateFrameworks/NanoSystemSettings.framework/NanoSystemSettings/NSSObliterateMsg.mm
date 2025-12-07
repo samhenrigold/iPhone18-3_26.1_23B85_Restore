@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    capability = self->_capability;
     PBDataWriterWriteBOOLField();
   }
 }

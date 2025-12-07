@@ -86,69 +86,67 @@
 
 void __31__ACAccountType_allIdentifiers__block_invoke()
 {
-  v5[55] = *MEMORY[0x1E69E9840];
+  v4[55] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"com.apple.twitter";
-  v5[1] = @"com.apple.sinaweibo";
-  v5[2] = @"com.apple.facebook";
-  v5[3] = @"com.apple.account.SubscribedCalendar";
-  v5[4] = @"com.apple.account.CalDAV";
-  v5[5] = @"com.apple.account.CardDAV";
-  v5[6] = @"com.apple.account.BookmarkDAV";
-  v5[7] = @"com.apple.account.IMAP";
-  v5[8] = @"com.apple.account.POP";
-  v5[9] = @"com.apple.account.SMTP";
-  v5[10] = @"com.apple.account.Exchange";
-  v5[11] = @"com.apple.account.Hotmail";
-  v5[12] = @"com.apple.account.LDAP";
-  v5[13] = @"com.apple.account.Google";
-  v5[14] = @"com.apple.account.Yahoo";
-  v5[15] = @"com.apple.account.OnMyDevice";
-  v5[16] = @"com.apple.account.IMAPNotes";
-  v5[17] = @"com.apple.account.IMAPMail";
-  v5[18] = @"com.apple.account.AppleAccount";
-  v5[19] = @"com.apple.account.AppleID";
-  v5[20] = @"com.apple.account.FaceTime";
-  v5[21] = @"com.apple.account.Madrid";
-  v5[22] = @"com.apple.account.GameCenter";
-  v5[23] = @"com.apple.account.iTunesStore";
-  v5[24] = @"com.apple.account.iTunesStore.sandbox";
-  v5[25] = @"com.apple.flickr";
-  v5[26] = @"com.apple.vimeo";
-  v5[27] = @"com.apple.tudou";
-  v5[28] = @"com.apple.youku";
-  v5[29] = @"com.apple.account.yelp";
-  v5[30] = @"com.apple.account.tencentweibo";
-  v5[31] = @"com.apple.account.IdentityServices";
-  v5[32] = @"com.apple.account.kerberos.sso.";
-  v5[33] = @"com.apple.account.DeviceLocator";
-  v5[34] = @"com.apple.account.HolidayCalendar";
-  v5[35] = @"com.apple.account.FindMyFriends";
-  v5[36] = @"com.apple.account.AppleIDAuthentication";
-  v5[37] = @"com.apple.account.CloudKit";
-  v5[38] = @"com.apple.account.126";
-  v5[39] = @"com.apple.account.163";
-  v5[40] = @"com.apple.account.aol";
-  v5[41] = @"com.apple.account.qq";
-  v5[42] = @"com.apple.account.osxserver";
-  v5[43] = @"com.apple.account.jabber";
-  v5[44] = @"com.apple.account.yahooim";
-  v5[45] = @"com.apple.account.aim";
-  v5[46] = @"com.apple.account.idms";
-  v5[47] = @"com.apple.account.mso";
-  v5[48] = @"com.apple.account.SingleSignOn";
-  v5[49] = @"com.apple.account.facebookLegacy";
-  v5[50] = @"com.apple.account.CalDAVLegacy";
-  v5[51] = @"com.apple.account.CardDAVLegacy";
-  v5[52] = @"com.apple.account.RemoteManagement";
-  v5[53] = @"com.apple.account.PublishedCalendar";
-  v5[54] = @"com.apple.account.DCA";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:55];
+  v4[0] = @"com.apple.twitter";
+  v4[1] = @"com.apple.sinaweibo";
+  v4[2] = @"com.apple.facebook";
+  v4[3] = @"com.apple.account.SubscribedCalendar";
+  v4[4] = @"com.apple.account.CalDAV";
+  v4[5] = @"com.apple.account.CardDAV";
+  v4[6] = @"com.apple.account.BookmarkDAV";
+  v4[7] = @"com.apple.account.IMAP";
+  v4[8] = @"com.apple.account.POP";
+  v4[9] = @"com.apple.account.SMTP";
+  v4[10] = @"com.apple.account.Exchange";
+  v4[11] = @"com.apple.account.Hotmail";
+  v4[12] = @"com.apple.account.LDAP";
+  v4[13] = @"com.apple.account.Google";
+  v4[14] = @"com.apple.account.Yahoo";
+  v4[15] = @"com.apple.account.OnMyDevice";
+  v4[16] = @"com.apple.account.IMAPNotes";
+  v4[17] = @"com.apple.account.IMAPMail";
+  v4[18] = @"com.apple.account.AppleAccount";
+  v4[19] = @"com.apple.account.AppleID";
+  v4[20] = @"com.apple.account.FaceTime";
+  v4[21] = @"com.apple.account.Madrid";
+  v4[22] = @"com.apple.account.GameCenter";
+  v4[23] = @"com.apple.account.iTunesStore";
+  v4[24] = @"com.apple.account.iTunesStore.sandbox";
+  v4[25] = @"com.apple.flickr";
+  v4[26] = @"com.apple.vimeo";
+  v4[27] = @"com.apple.tudou";
+  v4[28] = @"com.apple.youku";
+  v4[29] = @"com.apple.account.yelp";
+  v4[30] = @"com.apple.account.tencentweibo";
+  v4[31] = @"com.apple.account.IdentityServices";
+  v4[32] = @"com.apple.account.kerberos.sso.";
+  v4[33] = @"com.apple.account.DeviceLocator";
+  v4[34] = @"com.apple.account.HolidayCalendar";
+  v4[35] = @"com.apple.account.FindMyFriends";
+  v4[36] = @"com.apple.account.AppleIDAuthentication";
+  v4[37] = @"com.apple.account.CloudKit";
+  v4[38] = @"com.apple.account.126";
+  v4[39] = @"com.apple.account.163";
+  v4[40] = @"com.apple.account.aol";
+  v4[41] = @"com.apple.account.qq";
+  v4[42] = @"com.apple.account.osxserver";
+  v4[43] = @"com.apple.account.jabber";
+  v4[44] = @"com.apple.account.yahooim";
+  v4[45] = @"com.apple.account.aim";
+  v4[46] = @"com.apple.account.idms";
+  v4[47] = @"com.apple.account.mso";
+  v4[48] = @"com.apple.account.SingleSignOn";
+  v4[49] = @"com.apple.account.facebookLegacy";
+  v4[50] = @"com.apple.account.CalDAVLegacy";
+  v4[51] = @"com.apple.account.CardDAVLegacy";
+  v4[52] = @"com.apple.account.RemoteManagement";
+  v4[53] = @"com.apple.account.PublishedCalendar";
+  v4[54] = @"com.apple.account.DCA";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:55];
   v2 = [v0 setWithArray:v1];
   v3 = allIdentifiers_allIdentifiers;
   allIdentifiers_allIdentifiers = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (ACAccountType)initWithIdentifier:(id)identifier description:(id)description
@@ -640,27 +638,21 @@ void __31__ACAccountType_allIdentifiers__block_invoke()
 
 - (void)setIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  identifier = self->_identifier;
-  self->_identifier = v4;
+  self->_identifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setAccountTypeDescription:(id)description
 {
-  v4 = [description copy];
-  accountTypeDescription = self->_accountTypeDescription;
-  self->_accountTypeDescription = v4;
+  self->_accountTypeDescription = [description copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCredentialType:(id)type
 {
-  v4 = [type copy];
-  credentialType = self->_credentialType;
-  self->_credentialType = v4;
+  self->_credentialType = [type copy];
 
   MEMORY[0x1EEE66BB8]();
 }

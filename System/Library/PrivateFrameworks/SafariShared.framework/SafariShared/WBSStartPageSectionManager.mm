@@ -558,37 +558,37 @@ WBSStartPageSectionDescriptor *__68__WBSStartPageSectionManager_setSectionsIdent
 
 - (id)_migrateUnknownSectionIdentifiersIntoCurrentSections:(id)sections didChangeSections:(BOOL *)changeSections
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   sectionsCopy = sections;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   allSections = [objc_opt_class() allSections];
-  v69[0] = MEMORY[0x1E69E9820];
-  v69[1] = 3221225472;
-  v69[2] = __101__WBSStartPageSectionManager__migrateUnknownSectionIdentifiersIntoCurrentSections_didChangeSections___block_invoke;
-  v69[3] = &unk_1E7FCABC0;
+  v71[0] = MEMORY[0x1E69E9820];
+  v71[1] = 3221225472;
+  v71[2] = __101__WBSStartPageSectionManager__migrateUnknownSectionIdentifiersIntoCurrentSections_didChangeSections___block_invoke;
+  v71[3] = &unk_1E7FCABC0;
   v7 = dictionary;
-  v70 = v7;
-  [allSections enumerateObjectsUsingBlock:v69];
+  v72 = v7;
+  [allSections enumerateObjectsUsingBlock:v71];
 
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x2020000000;
-  v68 = -1;
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x2020000000;
-  v64 = 0;
-  v57[0] = MEMORY[0x1E69E9820];
-  v57[1] = 3221225472;
-  v57[2] = __101__WBSStartPageSectionManager__migrateUnknownSectionIdentifiersIntoCurrentSections_didChangeSections___block_invoke_2;
-  v57[3] = &unk_1E7FCABE8;
-  v59 = &v65;
-  v60 = &v61;
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x2020000000;
+  v70 = -1;
+  v63 = 0;
+  v64 = &v63;
+  v65 = 0x2020000000;
+  v66 = 0;
+  v59[0] = MEMORY[0x1E69E9820];
+  v59[1] = 3221225472;
+  v59[2] = __101__WBSStartPageSectionManager__migrateUnknownSectionIdentifiersIntoCurrentSections_didChangeSections___block_invoke_2;
+  v59[3] = &unk_1E7FCABE8;
+  v61 = &v67;
+  v62 = &v63;
   v8 = v7;
-  v58 = v8;
-  [sectionsCopy enumerateObjectsUsingBlock:v57];
-  v39 = [v8 objectForKeyedSubscript:@"suggestionsItemIdentifier"];
-  if (v39 && v66[3] != -1)
+  v60 = v8;
+  [sectionsCopy enumerateObjectsUsingBlock:v59];
+  v41 = [v8 objectForKeyedSubscript:@"suggestionsItemIdentifier"];
+  if (v41 && v68[3] != -1)
   {
     v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
     [v8 setObject:v9 forKeyedSubscript:@"suggestionsItemIdentifier"];
@@ -597,39 +597,39 @@ WBSStartPageSectionDescriptor *__68__WBSStartPageSectionManager_setSectionsIdent
   os_unfair_lock_lock(&self->_lock);
   v10 = [(NSArray *)self->_cachedSections copy];
   os_unfair_lock_unlock(&self->_lock);
-  v55[0] = MEMORY[0x1E69E9820];
-  v55[1] = 3221225472;
-  v55[2] = __101__WBSStartPageSectionManager__migrateUnknownSectionIdentifiersIntoCurrentSections_didChangeSections___block_invoke_3;
-  v55[3] = &unk_1E7FCAC10;
+  v57[0] = MEMORY[0x1E69E9820];
+  v57[1] = 3221225472;
+  v57[2] = __101__WBSStartPageSectionManager__migrateUnknownSectionIdentifiersIntoCurrentSections_didChangeSections___block_invoke_3;
+  v57[3] = &unk_1E7FCAC10;
   v11 = v8;
-  v56 = v11;
-  v37 = v10;
-  [v10 enumerateObjectsUsingBlock:v55];
-  v42 = v11;
+  v58 = v11;
+  v39 = v10;
+  [v10 enumerateObjectsUsingBlock:v57];
+  v44 = v11;
   v12 = [v11 keysSortedByValueUsingSelector:sel_compare_];
   v13 = [sectionsCopy mutableCopy];
+  v55 = 0u;
+  v56 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
   obj = v12;
-  v14 = [obj countByEnumeratingWithState:&v51 objects:v79 count:16];
+  v14 = [obj countByEnumeratingWithState:&v53 objects:v81 count:16];
   if (v14)
   {
-    v15 = *v52;
+    v15 = *v54;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v52 != v15)
+        if (*v54 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v51 + 1) + 8 * i);
+        v17 = *(*(&v53 + 1) + 8 * i);
         if ([v17 isEqualToString:@"suggestionsItemIdentifier"])
         {
-          v18 = *(v62 + 24);
+          v18 = *(v64 + 24);
         }
 
         else
@@ -638,22 +638,23 @@ WBSStartPageSectionDescriptor *__68__WBSStartPageSectionManager_setSectionsIdent
         }
 
         v19 = [[WBSStartPageSectionDescriptor alloc] initWithIdentifier:v17 enabled:v18];
-        v20 = [v42 objectForKeyedSubscript:v17];
+        v20 = [v44 objectForKeyedSubscript:v17];
         unsignedIntValue = [v20 unsignedIntValue];
 
-        if ([v13 count] <= unsignedIntValue)
+        v22 = [v13 count];
+        if (v22 <= unsignedIntValue)
         {
-          v22 = WBS_LOG_CHANNEL_PREFIXStartPage();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v24 = WBS_LOG_CHANNEL_PREFIXStartPage(v22, v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
-            v23 = [v13 count];
+            v25 = [v13 count];
             *buf = 138412802;
-            v74 = v17;
-            v75 = 2048;
-            v76 = unsignedIntValue;
+            v76 = v17;
             v77 = 2048;
-            v78 = v23;
-            _os_log_error_impl(&dword_1BB6F3000, v22, OS_LOG_TYPE_ERROR, "Attempting to add section identifier: %@ to index %lu which is outside of bounds [0..%lu]", buf, 0x20u);
+            v78 = unsignedIntValue;
+            v79 = 2048;
+            v80 = v25;
+            _os_log_error_impl(&dword_1BB6F3000, v24, OS_LOG_TYPE_ERROR, "Attempting to add section identifier: %@ to index %lu which is outside of bounds [0..%lu]", buf, 0x20u);
           }
 
           [v13 addObject:v19];
@@ -665,75 +666,75 @@ WBSStartPageSectionDescriptor *__68__WBSStartPageSectionManager_setSectionsIdent
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v51 objects:v79 count:16];
+      v14 = [obj countByEnumeratingWithState:&v53 objects:v81 count:16];
     }
 
     while (v14);
   }
 
-  v24 = [MEMORY[0x1E695DFA8] set];
+  v26 = [MEMORY[0x1E695DFA8] set];
+  v51 = 0u;
+  v52 = 0u;
   v49 = 0u;
   v50 = 0u;
+  v27 = v13;
+  v28 = [v27 countByEnumeratingWithState:&v49 objects:v74 count:16];
+  if (v28)
+  {
+    v29 = *v50;
+    do
+    {
+      for (j = 0; j != v28; ++j)
+      {
+        if (*v50 != v29)
+        {
+          objc_enumerationMutation(v27);
+        }
+
+        identifier = [*(*(&v49 + 1) + 8 * j) identifier];
+        [v26 addObject:identifier];
+      }
+
+      v28 = [v27 countByEnumeratingWithState:&v49 objects:v74 count:16];
+    }
+
+    while (v28);
+  }
+
+  v32 = [MEMORY[0x1E695DFA8] set];
   v47 = 0u;
   v48 = 0u;
-  v25 = v13;
-  v26 = [v25 countByEnumeratingWithState:&v47 objects:v72 count:16];
-  if (v26)
-  {
-    v27 = *v48;
-    do
-    {
-      for (j = 0; j != v26; ++j)
-      {
-        if (*v48 != v27)
-        {
-          objc_enumerationMutation(v25);
-        }
-
-        identifier = [*(*(&v47 + 1) + 8 * j) identifier];
-        [v24 addObject:identifier];
-      }
-
-      v26 = [v25 countByEnumeratingWithState:&v47 objects:v72 count:16];
-    }
-
-    while (v26);
-  }
-
-  v30 = [MEMORY[0x1E695DFA8] set];
   v45 = 0u;
   v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v31 = sectionsCopy;
-  v32 = [v31 countByEnumeratingWithState:&v43 objects:v71 count:16];
-  if (v32)
+  v33 = sectionsCopy;
+  v34 = [v33 countByEnumeratingWithState:&v45 objects:v73 count:16];
+  if (v34)
   {
-    v33 = *v44;
+    v35 = *v46;
     do
     {
-      for (k = 0; k != v32; ++k)
+      for (k = 0; k != v34; ++k)
       {
-        if (*v44 != v33)
+        if (*v46 != v35)
         {
-          objc_enumerationMutation(v31);
+          objc_enumerationMutation(v33);
         }
 
-        identifier2 = [*(*(&v43 + 1) + 8 * k) identifier];
-        [v30 addObject:identifier2];
+        identifier2 = [*(*(&v45 + 1) + 8 * k) identifier];
+        [v32 addObject:identifier2];
       }
 
-      v32 = [v31 countByEnumeratingWithState:&v43 objects:v71 count:16];
+      v34 = [v33 countByEnumeratingWithState:&v45 objects:v73 count:16];
     }
 
-    while (v32);
+    while (v34);
   }
 
-  *changeSections = [v24 isEqualToSet:v30] ^ 1;
-  _Block_object_dispose(&v61, 8);
-  _Block_object_dispose(&v65, 8);
+  *changeSections = [v26 isEqualToSet:v32] ^ 1;
+  _Block_object_dispose(&v63, 8);
+  _Block_object_dispose(&v67, 8);
 
-  return v25;
+  return v27;
 }
 
 void __101__WBSStartPageSectionManager__migrateUnknownSectionIdentifiersIntoCurrentSections_didChangeSections___block_invoke(uint64_t a1, void *a2, uint64_t a3)

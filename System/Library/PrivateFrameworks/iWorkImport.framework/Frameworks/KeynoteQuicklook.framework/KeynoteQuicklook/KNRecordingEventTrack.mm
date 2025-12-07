@@ -15,98 +15,92 @@
 {
   typeCopy = type;
   eventsCopy = events;
-  v20.receiver = self;
-  v20.super_class = KNRecordingEventTrack;
-  v12 = [(KNRecordingEventTrack *)&v20 initWithContext:context];
-  if (v12)
+  v16.receiver = self;
+  v16.super_class = KNRecordingEventTrack;
+  v10 = [(KNRecordingEventTrack *)&v16 initWithContext:context];
+  if (v10)
   {
-    v13 = objc_msgSend_copy(typeCopy, v10, v11);
-    type = v12->_type;
-    v12->_type = v13;
+    v11 = [typeCopy copy];
+    type = v10->_type;
+    v10->_type = v11;
 
-    v17 = objc_msgSend_copy(eventsCopy, v15, v16);
-    events = v12->_events;
-    v12->_events = v17;
+    v13 = [eventsCopy copy];
+    events = v10->_events;
+    v10->_events = v13;
   }
 
-  return v12;
+  return v10;
 }
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277D811A8]);
-  v5 = objc_msgSend_initWithObject_(v3, v4, self);
-  v8 = objc_msgSend_type(self, v6, v7);
-  objc_msgSend_addField_value_(v5, v9, @"type", v8);
+  v3 = [objc_alloc(MEMORY[0x277D811A8]) initWithObject:self];
+  type = [(KNRecordingEventTrack *)self type];
+  [v3 addField:@"type" value:type];
 
-  v12 = objc_msgSend_events(self, v10, v11);
-  v13 = objc_alloc(MEMORY[0x277D811A8]);
-  v15 = objc_msgSend_initWithObject_(v13, v14, v12);
-  v18 = objc_msgSend_count(v12, v16, v17);
-  objc_msgSend_addFieldWithFormat_(v15, v19, @"%tu elements", v18);
-  v22 = objc_msgSend_descriptionString(v15, v20, v21);
-  objc_msgSend_addField_value_(v5, v23, @"events", v22);
+  events = [(KNRecordingEventTrack *)self events];
+  v6 = [objc_alloc(MEMORY[0x277D811A8]) initWithObject:events];
+  [v6 addFieldWithFormat:@"%tu elements", objc_msgSend(events, "count")];
+  descriptionString = [v6 descriptionString];
+  [v3 addField:@"events" value:descriptionString];
 
-  v26 = objc_msgSend_descriptionString(v5, v24, v25);
+  descriptionString2 = [v3 descriptionString];
 
-  return v26;
+  return descriptionString2;
 }
 
 - (id)eventTrackByReplacingSegmentAfterTime:(double)time withEventTrack:(id)track
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   trackCopy = track;
-  v9 = objc_msgSend_type(self, v7, v8);
-  v12 = objc_msgSend_type(trackCopy, v10, v11);
-  isEqualToString = objc_msgSend_isEqualToString_(v9, v13, v12);
+  type = [(KNRecordingEventTrack *)self type];
+  type2 = [trackCopy type];
+  v9 = [type isEqualToString:type2];
 
-  if ((isEqualToString & 1) == 0)
+  if ((v9 & 1) == 0)
   {
-    v17 = MEMORY[0x277D81150];
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[KNRecordingEventTrack eventTrackByReplacingSegmentAfterTime:withEventTrack:]");
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRecordingEventTrack.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v21, v18, v20, 51, 0, "Invalid parameter not satisfying: %{public}s", "[type isEqualToString:replacementEventTrack.type]");
+    v10 = MEMORY[0x277D81150];
+    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNRecordingEventTrack eventTrackByReplacingSegmentAfterTime:withEventTrack:]"];
+    v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRecordingEventTrack.m"];
+    [v10 handleFailureInFunction:v11 file:v12 lineNumber:51 isFatal:0 description:{"Invalid parameter not satisfying: %{public}s", "[type isEqualToString:replacementEventTrack.type]"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v24 = objc_msgSend_events(self, v15, v16);
-  v27 = objc_msgSend_events(trackCopy, v25, v26);
-  v28 = MEMORY[0x277CBEB18];
-  v31 = objc_msgSend_count(v24, v29, v30);
-  v34 = objc_msgSend_count(v27, v32, v33);
-  v36 = objc_msgSend_arrayWithCapacity_(v28, v35, v34 + v31);
-  v80 = 0u;
-  v81 = 0u;
-  v82 = 0u;
-  v83 = 0u;
-  v37 = v24;
-  v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v37, v38, &v80, v85, 16);
-  if (v39)
+  events = [(KNRecordingEventTrack *)self events];
+  events2 = [trackCopy events];
+  v15 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(events2, "count") + objc_msgSend(events, "count")}];
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v16 = events;
+  v17 = [v16 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (v17)
   {
-    v42 = v39;
-    v43 = *v81;
+    v18 = v17;
+    v19 = *v41;
 LABEL_5:
-    v44 = 0;
+    v20 = 0;
     while (1)
     {
-      if (*v81 != v43)
+      if (*v41 != v19)
       {
-        objc_enumerationMutation(v37);
+        objc_enumerationMutation(v16);
       }
 
-      v45 = *(*(&v80 + 1) + 8 * v44);
-      objc_msgSend_startTime(v45, v40, v41);
-      if (v47 >= time)
+      v21 = *(*(&v40 + 1) + 8 * v20);
+      [v21 startTime];
+      if (v22 >= time)
       {
         break;
       }
 
-      objc_msgSend_addObject_(v36, v46, v45);
-      if (v42 == ++v44)
+      [v15 addObject:v21];
+      if (v18 == ++v20)
       {
-        v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(v37, v40, &v80, v85, 16);
-        if (v42)
+        v18 = [v16 countByEnumeratingWithState:&v40 objects:v45 count:16];
+        if (v18)
         {
           goto LABEL_5;
         }
@@ -116,75 +110,75 @@ LABEL_5:
     }
   }
 
-  v50 = objc_msgSend_lastObject(v36, v48, v49);
-  if (v50)
+  lastObject = [v15 lastObject];
+  if (lastObject)
   {
-    v53 = v50;
+    v24 = lastObject;
     do
     {
-      if (objc_msgSend_canPrecedeDiscontinuity(v53, v51, v52))
+      if ([v24 canPrecedeDiscontinuity])
       {
         break;
       }
 
-      objc_msgSend_removeLastObject(v36, v54, v55);
-      v58 = objc_msgSend_lastObject(v36, v56, v57);
+      [v15 removeLastObject];
+      lastObject2 = [v15 lastObject];
 
-      v53 = v58;
+      v24 = lastObject2;
     }
 
-    while (v58);
+    while (lastObject2);
   }
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
-  v77 = 0u;
-  v59 = v27;
-  v61 = objc_msgSend_countByEnumeratingWithState_objects_count_(v59, v60, &v76, v84, 16);
-  if (v61)
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v26 = events2;
+  v27 = [v26 countByEnumeratingWithState:&v36 objects:v44 count:16];
+  if (v27)
   {
-    v64 = v61;
-    v65 = *v77;
+    v28 = v27;
+    v29 = *v37;
     do
     {
-      for (i = 0; i != v64; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v77 != v65)
+        if (*v37 != v29)
         {
-          objc_enumerationMutation(v59);
+          objc_enumerationMutation(v26);
         }
 
-        v67 = objc_msgSend_recordingEventByAddingTimeOffset_(*(*(&v76 + 1) + 8 * i), v62, v63, time);
-        objc_msgSend_addObject_(v36, v68, v67);
+        v31 = [*(*(&v36 + 1) + 8 * i) recordingEventByAddingTimeOffset:time];
+        [v15 addObject:v31];
       }
 
-      v64 = objc_msgSend_countByEnumeratingWithState_objects_count_(v59, v62, &v76, v84, 16);
+      v28 = [v26 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
-    while (v64);
+    while (v28);
   }
 
-  v69 = [KNRecordingEventTrack alloc];
-  v72 = objc_msgSend_context(self, v70, v71);
-  v74 = objc_msgSend_initWithContext_type_events_(v69, v73, v72, v9, v36);
+  v32 = [KNRecordingEventTrack alloc];
+  context = [(KNRecordingEventTrack *)self context];
+  v34 = [(KNRecordingEventTrack *)v32 initWithContext:context type:type events:v15];
 
-  return v74;
+  return v34;
 }
 
 - (void)p_slideNodeWasAddedToOrRemovedFromDocument
 {
-  v16 = objc_msgSend_context(self, a2, v2);
-  v6 = objc_msgSend_documentRoot(v16, v4, v5);
-  if (objc_msgSend_isCollaborativeClient(v6, v7, v8))
+  context = [(KNRecordingEventTrack *)self context];
+  documentRoot = [context documentRoot];
+  if ([documentRoot isCollaborativeClient])
   {
-    v11 = objc_msgSend_type(self, v9, v10);
-    isEqualToString = objc_msgSend_isEqualToString_(v11, v12, @"com.apple.Keynote.recordingEventTrack-navigation");
+    type = [(KNRecordingEventTrack *)self type];
+    v5 = [type isEqualToString:@"com.apple.Keynote.recordingEventTrack-navigation"];
 
-    if (isEqualToString)
+    if (v5)
     {
 
-      objc_msgSend_willModify(self, v14, v15);
+      [(KNRecordingEventTrack *)self willModify];
     }
   }
 
@@ -197,114 +191,111 @@ LABEL_5:
 {
   unarchiverCopy = unarchiver;
   v6 = *(archive + 8);
-  v7 = objc_alloc(MEMORY[0x277CBEB18]);
-  v9 = objc_msgSend_initWithCapacity_(v7, v8, v6);
+  v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v6];
   if (v6 >= 1)
   {
-    v10 = 8;
+    v8 = 8;
     do
     {
-      v11 = *(*(archive + 5) + v10);
-      v12 = *(v11 + 16);
-      if ((v12 & 1) != 0 || (v12 & 4) != 0 || (v12 & 2) != 0 || (v12 & 8) != 0)
+      v9 = *(*(archive + 5) + v8);
+      v10 = *(v9 + 16);
+      if ((v10 & 1) != 0 || (v10 & 4) != 0 || (v10 & 2) != 0 || (v10 & 8) != 0)
       {
-        v13 = objc_opt_class();
-        if (v13)
+        v11 = objc_opt_class();
+        if (v11)
         {
-          v14 = [v13 alloc];
-          v16 = objc_msgSend_initWithMessage_unarchiver_parentEventTrack_(v14, v15, v11, unarchiverCopy, self);
-          objc_msgSend_addObject_(v9, v17, v16);
+          v12 = [[v11 alloc] initWithMessage:v9 unarchiver:unarchiverCopy parentEventTrack:self];
+          [v7 addObject:v12];
         }
       }
 
-      v10 += 8;
+      v8 += 8;
       --v6;
     }
 
     while (v6);
   }
 
-  objc_storeStrong(&self->_events, v9);
+  objc_storeStrong(&self->_events, v7);
   if (*(archive + 16))
   {
-    v19 = objc_msgSend_tsp_stringWithProtobufString_(MEMORY[0x277CCACA8], v18, *(archive + 6) & 0xFFFFFFFFFFFFFFFELL);
-    v22 = objc_msgSend_copy(v19, v20, v21);
+    0xFFFFFFFFFFFFFFFELL = [MEMORY[0x277CCACA8] tsp_stringWithProtobufString:*(archive + 6) & 0xFFFFFFFFFFFFFFFELL];
+    v14 = [0xFFFFFFFFFFFFFFFELL copy];
     type = self->_type;
-    self->_type = v22;
+    self->_type = v14;
   }
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   archiverCopy = archiver;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v9 = objc_msgSend_events(self, v7, v8, 0);
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v30, v34, 16);
-  if (v12)
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  events = [(KNRecordingEventTrack *)self events];
+  v8 = [events countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v8)
   {
-    v13 = *v31;
+    v9 = *v21;
     do
     {
-      v14 = 0;
+      v10 = 0;
       do
       {
-        if (*v31 != v13)
+        if (*v21 != v9)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(events);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * v14);
-        v16 = *(archive + 5);
-        if (!v16)
+        v11 = *(*(&v20 + 1) + 8 * v10);
+        v12 = *(archive + 5);
+        if (!v12)
         {
           goto LABEL_11;
         }
 
-        v17 = *(archive + 8);
-        v18 = *v16;
-        if (v17 < *v16)
+        v13 = *(archive + 8);
+        v14 = *v12;
+        if (v13 < *v12)
         {
-          *(archive + 8) = v17 + 1;
-          objc_msgSend_saveToMessage_archiver_(v15, v11, *&v16[2 * v17 + 2], archiverCopy);
+          *(archive + 8) = v13 + 1;
+          v15 = *&v12[2 * v13 + 2];
           goto LABEL_13;
         }
 
-        if (v18 == *(archive + 9))
+        if (v14 == *(archive + 9))
         {
 LABEL_11:
           google::protobuf::internal::RepeatedPtrFieldBase::Reserve((archive + 24));
-          v16 = *(archive + 5);
-          v18 = *v16;
+          v12 = *(archive + 5);
+          v14 = *v12;
         }
 
-        *v16 = v18 + 1;
-        v19 = sub_275E20DD4(*(archive + 3));
-        v20 = *(archive + 8);
-        v21 = *(archive + 5) + 8 * v20;
-        *(archive + 8) = v20 + 1;
-        *(v21 + 8) = v19;
-        objc_msgSend_saveToMessage_archiver_(v15, v22, v19, archiverCopy);
+        *v12 = v14 + 1;
+        v15 = sub_275E20DD4(*(archive + 3));
+        v16 = *(archive + 8);
+        v17 = *(archive + 5) + 8 * v16;
+        *(archive + 8) = v16 + 1;
+        *(v17 + 8) = v15;
 LABEL_13:
-        ++v14;
+        [v11 saveToMessage:v15 archiver:archiverCopy];
+        ++v10;
       }
 
-      while (v12 != v14);
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v11, &v30, v34, 16);
+      while (v8 != v10);
+      v8 = [events countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
-    while (v12);
+    while (v8);
   }
 
-  v25 = objc_msgSend_type(self, v23, v24);
-  v28 = v25;
-  if (v25)
+  type = [(KNRecordingEventTrack *)self type];
+  v19 = type;
+  if (type)
   {
-    v29 = objc_msgSend_tsp_protobufString(v25, v26, v27);
-    sub_275DC45F0(archive, v29);
+    sub_275DC45F0(archive, [type tsp_protobufString]);
   }
 }
 
@@ -312,18 +303,18 @@ LABEL_13:
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812EA908[76]);
+  v4 = [unarchiverCopy messageWithDescriptor:off_2812EA908[76]];
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v6, v5, unarchiverCopy);
+  [(KNRecordingEventTrack *)self loadFromArchive:v4 unarchiver:unarchiverCopy];
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_275DC486C, off_2812EA908[76]);
+  v4 = [archiverCopy messageWithNewFunction:sub_275DC486C descriptor:off_2812EA908[76]];
 
-  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
+  [(KNRecordingEventTrack *)self saveToArchive:v4 archiver:archiverCopy];
 }
 
 @end

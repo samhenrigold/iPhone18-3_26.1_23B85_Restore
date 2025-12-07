@@ -213,40 +213,38 @@ void __75__URTAlertPresenter__addFromUserNotificationContents_toServiceDestinati
 
 void __28__URTAlertPresenter_present__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v1 = [*(a1 + 32) presentationsForDestinations];
   v2 = [v1 allValues];
 
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) present];
+        [*(*(&v7 + 1) + 8 * v6++) present];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dismiss
@@ -262,27 +260,25 @@ void __28__URTAlertPresenter_present__block_invoke(uint64_t a1)
 
 - (void)handleCancelActionForAlertPresentation:(id)presentation
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   presentationCopy = presentation;
-  v5 = URTLog();
+  v5 = URTLog(presentationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = presentationCopy;
+    v11 = presentationCopy;
     _os_log_impl(&dword_270835000, v5, OS_LOG_TYPE_DEFAULT, "cancel button pressed for presentation %@", buf, 0xCu);
   }
 
   presentationsQueue = [(URTAlertPresenter *)self presentationsQueue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __60__URTAlertPresenter_handleCancelActionForAlertPresentation___block_invoke;
-  v9[3] = &unk_279E0BE00;
-  v9[4] = self;
-  v10 = presentationCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __60__URTAlertPresenter_handleCancelActionForAlertPresentation___block_invoke;
+  v8[3] = &unk_279E0BE00;
+  v8[4] = self;
+  v9 = presentationCopy;
   v7 = presentationCopy;
-  dispatch_sync(presentationsQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_sync(presentationsQueue, v8);
 }
 
 void __60__URTAlertPresenter_handleCancelActionForAlertPresentation___block_invoke(uint64_t a1)
@@ -295,27 +291,25 @@ void __60__URTAlertPresenter_handleCancelActionForAlertPresentation___block_invo
 
 - (void)handleDefaultActionForAlertPresentation:(id)presentation
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   presentationCopy = presentation;
-  v5 = URTLog();
+  v5 = URTLog(presentationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = presentationCopy;
+    v11 = presentationCopy;
     _os_log_impl(&dword_270835000, v5, OS_LOG_TYPE_DEFAULT, "default button pressed for presentation %@", buf, 0xCu);
   }
 
   presentationsQueue = [(URTAlertPresenter *)self presentationsQueue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __61__URTAlertPresenter_handleDefaultActionForAlertPresentation___block_invoke;
-  v9[3] = &unk_279E0BE00;
-  v9[4] = self;
-  v10 = presentationCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __61__URTAlertPresenter_handleDefaultActionForAlertPresentation___block_invoke;
+  v8[3] = &unk_279E0BE00;
+  v8[4] = self;
+  v9 = presentationCopy;
   v7 = presentationCopy;
-  dispatch_sync(presentationsQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_sync(presentationsQueue, v8);
 }
 
 void __61__URTAlertPresenter_handleDefaultActionForAlertPresentation___block_invoke(uint64_t a1)
@@ -328,27 +322,25 @@ void __61__URTAlertPresenter_handleDefaultActionForAlertPresentation___block_inv
 
 - (void)handleOtherActionForAlertPresentation:(id)presentation
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   presentationCopy = presentation;
-  v5 = URTLog();
+  v5 = URTLog(presentationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = presentationCopy;
+    v11 = presentationCopy;
     _os_log_impl(&dword_270835000, v5, OS_LOG_TYPE_DEFAULT, "other button pressed for presentation %@", buf, 0xCu);
   }
 
   presentationsQueue = [(URTAlertPresenter *)self presentationsQueue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __59__URTAlertPresenter_handleOtherActionForAlertPresentation___block_invoke;
-  v9[3] = &unk_279E0BE00;
-  v9[4] = self;
-  v10 = presentationCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __59__URTAlertPresenter_handleOtherActionForAlertPresentation___block_invoke;
+  v8[3] = &unk_279E0BE00;
+  v8[4] = self;
+  v9 = presentationCopy;
   v7 = presentationCopy;
-  dispatch_sync(presentationsQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_sync(presentationsQueue, v8);
 }
 
 void __59__URTAlertPresenter_handleOtherActionForAlertPresentation___block_invoke(uint64_t a1)
@@ -360,47 +352,6 @@ void __59__URTAlertPresenter_handleOtherActionForAlertPresentation___block_invok
 }
 
 - (void)_presentationQueue_invalidate
-{
-  v16 = *MEMORY[0x277D85DE8];
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  presentationsForDestinations = [(URTAlertPresenter *)self presentationsForDestinations];
-  allValues = [presentationsForDestinations allValues];
-
-  v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v12;
-    do
-    {
-      v8 = 0;
-      do
-      {
-        if (*v12 != v7)
-        {
-          objc_enumerationMutation(allValues);
-        }
-
-        [*(*(&v11 + 1) + 8 * v8++) invalidate];
-      }
-
-      while (v6 != v8);
-      v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
-    }
-
-    while (v6);
-  }
-
-  presentationsForDestinations2 = [(URTAlertPresenter *)self presentationsForDestinations];
-  [presentationsForDestinations2 removeAllObjects];
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_presentationQueue_dismiss
 {
   v15 = *MEMORY[0x277D85DE8];
   v10 = 0u;
@@ -425,7 +376,7 @@ void __59__URTAlertPresenter_handleOtherActionForAlertPresentation___block_invok
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) dismiss];
+        [*(*(&v10 + 1) + 8 * v8++) invalidate];
       }
 
       while (v6 != v8);
@@ -435,8 +386,46 @@ void __59__URTAlertPresenter_handleOtherActionForAlertPresentation___block_invok
     while (v6);
   }
 
+  presentationsForDestinations2 = [(URTAlertPresenter *)self presentationsForDestinations];
+  [presentationsForDestinations2 removeAllObjects];
+}
+
+- (void)_presentationQueue_dismiss
+{
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  presentationsForDestinations = [(URTAlertPresenter *)self presentationsForDestinations];
+  allValues = [presentationsForDestinations allValues];
+
+  v5 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v10;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v10 != v7)
+        {
+          objc_enumerationMutation(allValues);
+        }
+
+        [*(*(&v9 + 1) + 8 * v8++) dismiss];
+      }
+
+      while (v6 != v8);
+      v6 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
+    }
+
+    while (v6);
+  }
+
   [(URTAlertPresenter *)self _presentationQueue_invalidate];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentationQueue_removePresentation:(id)presentation forDestination:(int64_t)destination

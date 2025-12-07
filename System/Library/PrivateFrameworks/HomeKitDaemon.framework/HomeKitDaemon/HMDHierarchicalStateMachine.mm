@@ -114,7 +114,7 @@ void __61__HMDHierarchicalStateMachine_currentHSMStateWithCompletion___block_inv
   v7[4] = self;
   statesCopy = states;
   [statesCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v7];
-  v5 = [statesCopy copy];
+  v5 = objc_msgSend_copy(statesCopy);
 
   cuStateMachine = [(HMDHierarchicalStateMachine *)self cuStateMachine];
   [cuStateMachine setStates:v5];
@@ -219,7 +219,7 @@ LABEL_5:
 
 void __45__HMDHierarchicalStateMachine_dispatchEvent___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) hasStarted];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -231,11 +231,11 @@ void __45__HMDHierarchicalStateMachine_dispatchEvent___block_invoke(uint64_t a1)
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v14 = 138543618;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v8;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@DispatchEvent: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v8;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@DispatchEvent: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -249,11 +249,11 @@ void __45__HMDHierarchicalStateMachine_dispatchEvent___block_invoke(uint64_t a1)
     {
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 40);
-      v14 = 138543618;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Cannot handle event %@ until the state machine has started", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v11;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Cannot handle event %@ until the state machine has started", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -261,8 +261,6 @@ void __45__HMDHierarchicalStateMachine_dispatchEvent___block_invoke(uint64_t a1)
     v9 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [v12 completedWithError:v9];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_start
@@ -330,10 +328,9 @@ void __45__HMDHierarchicalStateMachine_dispatchEvent___block_invoke(uint64_t a1)
 
 void __42__HMDHierarchicalStateMachine_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_285851;
-  logCategory__hmf_once_v7_285851 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_285851;
+  logCategory__hmf_once_v7_285851 = v0;
 }
 
 @end

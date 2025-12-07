@@ -6083,10 +6083,10 @@ LABEL_93:
   return result;
 }
 
-unint64_t mlir::mps::arithmeticBinaryTileBaseKernel<__emulated_bf16,__emulated_bf16,__emulated_bf16,(mlir::mps::arithmeticOp)16>(unint64_t result, uint64_t **a2, uint64_t a3, void **a4)
+uint64_t **mlir::mps::arithmeticBinaryTileBaseKernel<__emulated_bf16,__emulated_bf16,__emulated_bf16,(mlir::mps::arithmeticOp)16>(uint64_t **result, uint64_t **a2, uint64_t a3, void **a4)
 {
   v4 = **result;
-  v5 = *(*result + 8);
+  v5 = (*result)[1];
   v6 = **a2;
   v7 = *(v6 + 16);
   v8 = v7 - 1;
@@ -8915,7 +8915,7 @@ LABEL_62:
               v41.f32[0] = std::sqrt[abi:nn200100]<float>(&v53);
               v41.i32[1] = v42;
               a5 = vcvtq_f32_f16(vcvt_f16_f32(v41)).u64[0];
-              *(v39 + v40) = *&a5;
+              *(v39 + v40) = a5;
               if (v9 == ++v30)
               {
                 goto LABEL_37;

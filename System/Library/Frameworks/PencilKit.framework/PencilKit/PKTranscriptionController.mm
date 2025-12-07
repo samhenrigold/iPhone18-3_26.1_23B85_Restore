@@ -101,13 +101,13 @@ void __69__PKTranscriptionController_findTranscriptionForType_withCompletion___b
   }
 }
 
-uint64_t __69__PKTranscriptionController_findTranscriptionForType_withCompletion___block_invoke_2(uint64_t result)
+void *__69__PKTranscriptionController_findTranscriptionForType_withCompletion___block_invoke_2(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if ((*(v1 + 9) & 1) == 0)
   {
     *(v1 + 10) = 1;
-    return [*(result + 32) _showHUDWithProgress:*(result + 40)];
+    return [*(result + 4) _showHUDWithProgress:*(result + 5)];
   }
 
   return result;

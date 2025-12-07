@@ -164,21 +164,21 @@
 
 - (NICarKeyConfiguration)initWithCoder:(id)coder
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"vehicleIdentifier"];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v19[0] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+    v18[0] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
     v8 = [v6 setWithArray:v7];
 
     v9 = MEMORY[0x1E695DFD8];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v18[2] = objc_opt_class();
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:3];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v17[2] = objc_opt_class();
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:3];
     v11 = [v9 setWithArray:v10];
 
     v12 = [coderCopy decodeDictionaryWithKeysOfClasses:v8 objectsOfClasses:v11 forKey:@"debugOptions"];
@@ -219,7 +219,6 @@ LABEL_12:
   v15 = 0;
 LABEL_13:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

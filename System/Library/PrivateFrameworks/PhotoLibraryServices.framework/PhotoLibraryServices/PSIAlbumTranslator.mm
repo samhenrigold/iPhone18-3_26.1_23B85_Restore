@@ -28,7 +28,7 @@
     uuid2 = [albumCopy uuid];
     title = [albumCopy title];
     assets = [albumCopy assets];
-    v20 = [assets count];
+    v20 = objc_msgSend_count(assets);
     startDate2 = [albumCopy startDate];
     v22 = [(PSICollection *)v16 initWithUUID:uuid2 startDate:v12 endDate:v15 title:title subtitle:0 type:3 assetsCountPrivate:v20 assetsCountShared:0 sortDate:startDate2];
 

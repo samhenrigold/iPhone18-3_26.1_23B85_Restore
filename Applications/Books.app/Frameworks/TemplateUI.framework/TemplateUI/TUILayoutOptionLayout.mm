@@ -41,8 +41,8 @@
 
 - (void)computeLayout
 {
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v3 = objc_msgSend_children(self, a2);
+  firstObject = [v3 firstObject];
 
   [(TUILayout *)self containingWidth];
   [firstObject setContainingWidth:?];
@@ -52,16 +52,16 @@
   [firstObject setFlexedWidth:?];
   [(TUILayout *)self flexedHeight];
   [firstObject setFlexedHeight:?];
-  [firstObject validateLayout];
+  objc_msgSend_validateLayout(firstObject);
   [firstObject setComputedOrigin:{CGPointZero.x, CGPointZero.y}];
-  [firstObject computedTransformedSize];
+  objc_msgSend_computedTransformedSize(firstObject);
   [(TUILayout *)self setComputedNaturalSize:?];
 }
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicWidth
 {
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v3 = objc_msgSend_children(self, a3);
+  firstObject = [v3 firstObject];
 
   validatedIntrinsicWidthConsideringSpecified = [firstObject validatedIntrinsicWidthConsideringSpecified];
   return validatedIntrinsicWidthConsideringSpecified;
@@ -69,8 +69,8 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicHeight
 {
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v3 = objc_msgSend_children(self, a3);
+  firstObject = [v3 firstObject];
 
   validatedIntrinsicHeightConsideringSpecified = [firstObject validatedIntrinsicHeightConsideringSpecified];
   return validatedIntrinsicHeightConsideringSpecified;

@@ -7,10 +7,10 @@
 
 + (id)makeViewControllerWithGet:(id)get set:(id)set
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2B9E60);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2B9E60, &qword_1DD880);
   __chkstk_darwin(v6 - 8);
   v8 = &v21 - v7;
-  v9 = type metadata accessor for VoiceOverActivityVoiceSelectionView();
+  v9 = type metadata accessor for VoiceOverActivityVoiceSelectionView(0);
   __chkstk_darwin(v9 - 8);
   v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = _Block_copy(get);
@@ -33,7 +33,7 @@
 
   sub_19BD54();
   sub_193AC4(v8, v11);
-  v18 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_2B9E68));
+  v18 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_2B9E68, &qword_1DD888));
   v19 = sub_19B794();
 
   return v19;

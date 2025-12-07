@@ -25,14 +25,14 @@
 
 - (FindDeviceAndPlaySoundIntent)initWithDomain:(id)domain verb:(id)verb parametersByName:(id)name
 {
-  sub_266DAA70C();
+  v6 = sub_266DAA70C();
   sub_266DAA70C();
   if (name)
   {
     sub_266DAA6AC();
   }
 
-  return FindDeviceAndPlaySoundIntent.init(domain:verb:parametersByName:)();
+  return FindDeviceAndPlaySoundIntent.init(domain:verb:parametersByName:)(v6);
 }
 
 @end

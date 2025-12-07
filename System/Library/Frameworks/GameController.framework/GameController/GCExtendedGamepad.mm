@@ -18,6 +18,7 @@
 - (void)setGamepadEventSource:(id)source;
 - (void)setStateFromExtendedGamepad:(GCExtendedGamepad *)extendedGamepad;
 - (void)setThumbstickUserIntentHandler:(id)handler;
+- (void)setThumbstickUserIntentHandler:(id)handler slidingWindowTotalDuration:(double)duration slidingWindowSegmentDuration:(double)segmentDuration deadzone:(double)deadzone sensitivity:(int)sensitivity;
 @end
 
 @implementation GCExtendedGamepad
@@ -51,446 +52,63 @@
 
 - (void)_legacy_handleEvent:(__IOHIDEvent *)event
 {
-  v193 = *MEMORY[0x1E69E9840];
+  v192 = *MEMORY[0x1E69E9840];
   date = [MEMORY[0x1E695DF00] date];
   [date timeIntervalSince1970];
   [(GCPhysicalInputProfile *)self setLastEventTimestamp:?];
 
   Type = IOHIDEventGetType();
-  if (Type == 35)
+  if (Type != 35)
   {
-    IOHIDEventGetChildren();
-    v170 = 0u;
-    v171 = 0u;
-    v172 = 0u;
-    v13 = v173 = 0u;
-    v14 = [v13 countByEnumeratingWithState:&v170 objects:v185 count:16];
-    v169 = v13;
-    if (v14)
+    if (Type != 3)
     {
-      v15 = v14;
-      v16 = *v171;
-LABEL_10:
-      v17 = 0;
-      while (1)
-      {
-        if (*v171 != v16)
-        {
-          objc_enumerationMutation(v13);
-        }
-
-        v18 = *(*(&v170 + 1) + 8 * v17);
-        IntegerValue = IOHIDEventGetIntegerValue();
-        v20 = IOHIDEventGetIntegerValue();
-        if (IntegerValue == 65280 && v20 == 67)
-        {
-          break;
-        }
-
-        if (v15 == ++v17)
-        {
-          v15 = [v13 countByEnumeratingWithState:&v170 objects:v185 count:16];
-          if (v15)
-          {
-            goto LABEL_10;
-          }
-
-          goto LABEL_17;
-        }
-      }
-
-      if (!v18)
-      {
-        goto LABEL_42;
-      }
-
-      selfCopy2 = self;
-      DataValue = IOHIDEventGetDataValue();
-      v23 = [MEMORY[0x1E695DFA8] set];
-      controller = [(GCPhysicalInputProfile *)selfCopy2 controller];
-      handlerQueue = [controller handlerQueue];
-
-      for (i = 0; i != 47; ++i)
-      {
-        if ((*DataValue >> i))
-        {
-          v27 = [(GCPhysicalInputProfile *)selfCopy2 remappedElementForIndex:i];
-          v29 = v27;
-          if (v27)
-          {
-            LODWORD(v28) = *(DataValue + i + 2);
-            [v27 _setPendingValue:v28];
-            collection = [v29 collection];
-
-            if (collection)
-            {
-              collection2 = [v29 collection];
-              [v23 addObject:collection2];
-            }
-
-            else
-            {
-              [v23 addObject:v29];
-            }
-          }
-        }
-      }
-
-      v183 = 0u;
-      v184 = 0u;
-      v181 = 0u;
-      v182 = 0u;
-      v32 = v23;
-      v33 = [v32 countByEnumeratingWithState:&v181 objects:v190 count:16];
-      if (v33)
-      {
-        v34 = v33;
-        v35 = *v182;
-        do
-        {
-          for (j = 0; j != v34; ++j)
-          {
-            if (*v182 != v35)
-            {
-              objc_enumerationMutation(v32);
-            }
-
-            [*(*(&v181 + 1) + 8 * j) _commitPendingValueOnQueue:handlerQueue];
-          }
-
-          v34 = [v32 countByEnumeratingWithState:&v181 objects:v190 count:16];
-        }
-
-        while (v34);
-      }
-
-      v179 = 0u;
-      v180 = 0u;
-      v177 = 0u;
-      v178 = 0u;
-      v37 = v32;
-      v38 = [v37 countByEnumeratingWithState:&v177 objects:&block count:16];
-      if (v38)
-      {
-        v39 = v38;
-        v40 = *v178;
-        do
-        {
-          for (k = 0; k != v39; ++k)
-          {
-            if (*v178 != v40)
-            {
-              objc_enumerationMutation(v37);
-            }
-
-            v42 = *(*(&v177 + 1) + 8 * k);
-            v174[0] = MEMORY[0x1E69E9820];
-            v174[1] = 3221225472;
-            v174[2] = __handleGameControllerExtendedEvent_block_invoke;
-            v174[3] = &unk_1E8418C50;
-            v175 = selfCopy2;
-            v176 = v42;
-            dispatch_async(handlerQueue, v174);
-          }
-
-          v39 = [v37 countByEnumeratingWithState:&v177 objects:&block count:16];
-        }
-
-        while (v39);
-      }
+      return;
     }
 
-    else
-    {
-LABEL_17:
-
-LABEL_42:
-      selfCopy2 = self;
-      array = [MEMORY[0x1E695DF70] array];
-      controller2 = [(GCPhysicalInputProfile *)selfCopy2 controller];
-      handlerQueue2 = [controller2 handlerQueue];
-
-      IOHIDEventGetFloatValue();
-      v47 = v46;
-      IOHIDEventGetFloatValue();
-      v49 = v48;
-      IOHIDEventGetFloatValue();
-      v51 = v50;
-      IOHIDEventGetFloatValue();
-      v53 = v52;
-      IOHIDEventGetFloatValue();
-      v55 = v54;
-      IOHIDEventGetFloatValue();
-      v57 = v56;
-      IOHIDEventGetFloatValue();
-      v159 = v58;
-      IOHIDEventGetFloatValue();
-      v158 = v59;
-      IOHIDEventGetFloatValue();
-      v160 = v60;
-      IOHIDEventGetFloatValue();
-      v161 = v61;
-      IOHIDEventGetFloatValue();
-      v162 = v62;
-      IOHIDEventGetFloatValue();
-      v163 = v63;
-      IOHIDEventGetFloatValue();
-      v164 = v64;
-      IOHIDEventGetFloatValue();
-      v165 = v65;
-      IOHIDEventGetFloatValue();
-      v166 = v66;
-      IOHIDEventGetFloatValue();
-      v167 = v67;
-      v68 = 0.0;
-      v168 = 0.0;
-      if (selfCopy2->_leftThumbstickButton)
-      {
-        v68 = IOHIDEventGetIntegerValue();
-      }
-
-      v157 = v68;
-      v70 = v49;
-      v72 = v53;
-      if (selfCopy2->_rightThumbstickButton)
-      {
-        v168 = IOHIDEventGetIntegerValue();
-      }
-
-      v75 = selfCopy2->_dpad;
-      v76 = handlerQueue2;
-      v77 = array;
-      xAxis = [(GCControllerDirectionPad *)v75 xAxis];
-      v71 = v51;
-      *&v79 = v72 - v71;
-      v80 = [xAxis _setValue:v76 queue:v79];
-
-      yAxis = [(GCControllerDirectionPad *)v75 yAxis];
-      v69 = v47;
-      *&v82 = v69 - v70;
-      v83 = [yAxis _setValue:v76 queue:v82];
-
-      if ((v80 & 1) != 0 || v83)
-      {
-        [v77 addObject:v75];
-      }
-
-      v86 = selfCopy2->_leftThumbstick;
-      v87 = v76;
-      v88 = v77;
-      xAxis2 = [(GCControllerDirectionPad *)v86 xAxis];
-      v73 = v55;
-      *&v90 = v73;
-      v91 = [xAxis2 _setValue:v87 queue:v90];
-
-      yAxis2 = [(GCControllerDirectionPad *)v86 yAxis];
-      v74 = v57;
-      *&v93 = v74;
-      v94 = [yAxis2 _setValue:v87 queue:v93];
-
-      if ((v91 & 1) != 0 || v94)
-      {
-        [v88 addObject:v86];
-      }
-
-      v96 = selfCopy2->_rightThumbstick;
-      handlerQueue = v87;
-      v97 = v88;
-      xAxis3 = [(GCControllerDirectionPad *)v96 xAxis];
-      v84 = v159;
-      *&v99 = v84;
-      v100 = [xAxis3 _setValue:handlerQueue queue:v99];
-
-      yAxis3 = [(GCControllerDirectionPad *)v96 yAxis];
-      v85 = v158;
-      *&v102 = v85;
-      v103 = [yAxis3 _setValue:handlerQueue queue:v102];
-
-      if ((v100 & 1) != 0 || v103)
-      {
-        [v97 addObject:v96];
-      }
-
-      v105 = selfCopy2->_button0;
-      v106 = v97;
-      v95 = v160;
-      *&v107 = v95;
-      if ([(GCControllerButtonInput *)v105 _setValue:handlerQueue queue:v107])
-      {
-        [v106 addObject:v105];
-      }
-
-      v109 = selfCopy2->_button1;
-      v110 = v106;
-      v104 = v161;
-      *&v111 = v104;
-      if ([(GCControllerButtonInput *)v109 _setValue:handlerQueue queue:v111])
-      {
-        [v110 addObject:v109];
-      }
-
-      v113 = selfCopy2->_button2;
-      v114 = v110;
-      v108 = v162;
-      *&v115 = v108;
-      if ([(GCControllerButtonInput *)v113 _setValue:handlerQueue queue:v115])
-      {
-        [v114 addObject:v113];
-      }
-
-      v117 = selfCopy2->_button3;
-      v118 = v114;
-      v112 = v163;
-      *&v119 = v112;
-      if ([(GCControllerButtonInput *)v117 _setValue:handlerQueue queue:v119])
-      {
-        [v118 addObject:v117];
-      }
-
-      v121 = selfCopy2->_leftShoulder;
-      v122 = v118;
-      v116 = v164;
-      *&v123 = v116;
-      if ([(GCControllerButtonInput *)v121 _setValue:handlerQueue queue:v123])
-      {
-        [v122 addObject:v121];
-      }
-
-      v125 = selfCopy2->_rightShoulder;
-      v126 = v122;
-      v120 = v165;
-      *&v127 = v120;
-      if ([(GCControllerButtonInput *)v125 _setValue:handlerQueue queue:v127])
-      {
-        [v126 addObject:v125];
-      }
-
-      v129 = selfCopy2->_leftTrigger;
-      v130 = v126;
-      v124 = v166;
-      *&v131 = v124;
-      if ([(GCControllerButtonInput *)v129 _setValue:handlerQueue queue:v131])
-      {
-        [v130 addObject:v129];
-      }
-
-      v132 = selfCopy2->_rightTrigger;
-      v133 = v130;
-      v128 = v167;
-      *&v134 = v128;
-      if ([(GCControllerButtonInput *)v132 _setValue:handlerQueue queue:v134])
-      {
-        [v133 addObject:v132];
-      }
-
-      leftThumbstickButton = selfCopy2->_leftThumbstickButton;
-      if (leftThumbstickButton)
-      {
-        v136 = leftThumbstickButton;
-        v137 = v133;
-        *&v138 = v157;
-        if ([(GCControllerButtonInput *)v136 _setValue:handlerQueue queue:v138])
-        {
-          [v137 addObject:v136];
-        }
-      }
-
-      rightThumbstickButton = selfCopy2->_rightThumbstickButton;
-      if (rightThumbstickButton)
-      {
-        v140 = rightThumbstickButton;
-        v141 = v133;
-        *&v142 = v168;
-        if ([(GCControllerButtonInput *)v140 _setValue:handlerQueue queue:v142])
-        {
-          [v141 addObject:v140];
-        }
-      }
-
-      v188 = 0u;
-      v189 = 0u;
-      block = 0u;
-      v187 = 0u;
-      v37 = v133;
-      v143 = [v37 countByEnumeratingWithState:&block objects:v190 count:16];
-      if (v143)
-      {
-        v144 = v143;
-        v145 = *v187;
-        do
-        {
-          for (m = 0; m != v144; ++m)
-          {
-            if (*v187 != v145)
-            {
-              objc_enumerationMutation(v37);
-            }
-
-            v147 = *(*(&block + 1) + 8 * m);
-            *&v181 = MEMORY[0x1E69E9820];
-            *(&v181 + 1) = 3221225472;
-            *&v182 = __handleGameControllerEvent_block_invoke;
-            *(&v182 + 1) = &unk_1E8418C50;
-            *&v183 = selfCopy2;
-            *(&v183 + 1) = v147;
-            dispatch_async(handlerQueue, &v181);
-          }
-
-          v144 = [v37 countByEnumeratingWithState:&block objects:v190 count:16];
-        }
-
-        while (v144);
-      }
-    }
-  }
-
-  else if (Type == 3)
-  {
-    selfCopy3 = self;
+    selfCopy = self;
     if (IOHIDEventGetIntegerValue() != 12)
     {
-LABEL_97:
-
-      goto LABEL_98;
+      goto LABEL_97;
     }
 
-    v7 = IOHIDEventGetIntegerValue();
+    IntegerValue = IOHIDEventGetIntegerValue();
     v8 = IOHIDEventGetIntegerValue();
-    if (v7 == selfCopy3->_buttonMenuUsage)
+    if (IntegerValue == selfCopy->_buttonMenuUsage)
     {
-      buttonMenu = [(GCExtendedGamepad *)selfCopy3 buttonMenu];
+      buttonMenu = [(GCExtendedGamepad *)selfCopy buttonMenu];
       v10 = buttonMenu;
       if (v8 == 1 && ([buttonMenu isPressed] & 1) == 0)
       {
-        controller3 = [(GCPhysicalInputProfile *)selfCopy3 controller];
-        handlerQueue3 = [controller3 handlerQueue];
+        controller = [(GCPhysicalInputProfile *)selfCopy controller];
+        handlerQueue = [controller handlerQueue];
         *&block = MEMORY[0x1E69E9820];
         *(&block + 1) = 3221225472;
-        *&v187 = __handleAncillaryButtonEvent_block_invoke;
-        *(&v187 + 1) = &unk_1E8418C28;
-        *&v188 = selfCopy3;
-        dispatch_async(handlerQueue3, &block);
+        *&v186 = __handleAncillaryButtonEvent_block_invoke;
+        *(&v186 + 1) = &unk_1E8418C28;
+        *&v187 = selfCopy;
+        dispatch_async(handlerQueue, &block);
       }
     }
 
     else
     {
-      if (v7 == selfCopy3->_buttonHomeUsage)
+      if (IntegerValue == selfCopy->_buttonHomeUsage)
       {
-        buttonHome = [(GCExtendedGamepad *)selfCopy3 buttonHome];
+        buttonHome = [(GCExtendedGamepad *)selfCopy buttonHome];
       }
 
       else
       {
-        if (v7 != selfCopy3->_buttonOptionsUsage)
+        if (IntegerValue != selfCopy->_buttonOptionsUsage)
         {
           v10 = 0;
 LABEL_96:
 
-          goto LABEL_97;
+LABEL_97:
+          return;
         }
 
-        buttonHome = [(GCExtendedGamepad *)selfCopy3 buttonOptions];
+        buttonHome = [(GCExtendedGamepad *)selfCopy buttonOptions];
       }
 
       v10 = buttonHome;
@@ -499,31 +117,412 @@ LABEL_96:
     if (v10)
     {
       v149 = v8;
-      controller4 = [(GCPhysicalInputProfile *)selfCopy3 controller];
-      handlerQueue4 = [controller4 handlerQueue];
+      controller2 = [(GCPhysicalInputProfile *)selfCopy controller];
+      handlerQueue2 = [controller2 handlerQueue];
       *&v152 = v149;
-      v153 = [v10 _setValue:handlerQueue4 queue:v152];
+      v153 = [v10 _setValue:handlerQueue2 queue:v152];
 
       if (v153)
       {
-        controller5 = [(GCPhysicalInputProfile *)selfCopy3 controller];
-        handlerQueue5 = [controller5 handlerQueue];
-        v190[0] = MEMORY[0x1E69E9820];
-        v190[1] = 3221225472;
-        v190[2] = __handleAncillaryButtonEvent_block_invoke_104;
-        v190[3] = &unk_1E8418C50;
-        v191 = selfCopy3;
+        controller3 = [(GCPhysicalInputProfile *)selfCopy controller];
+        handlerQueue3 = [controller3 handlerQueue];
+        v189[0] = MEMORY[0x1E69E9820];
+        v189[1] = 3221225472;
+        v189[2] = __handleAncillaryButtonEvent_block_invoke_104;
+        v189[3] = &unk_1E8418C50;
+        v190 = selfCopy;
         v10 = v10;
-        v192 = v10;
-        dispatch_async(handlerQueue5, v190);
+        v191 = v10;
+        dispatch_async(handlerQueue3, v189);
       }
     }
 
     goto LABEL_96;
   }
 
-LABEL_98:
-  v156 = *MEMORY[0x1E69E9840];
+  IOHIDEventGetChildren();
+  v169 = 0u;
+  v170 = 0u;
+  v171 = 0u;
+  v13 = v172 = 0u;
+  v14 = [v13 countByEnumeratingWithState:&v169 objects:v184 count:16];
+  v168 = v13;
+  if (v14)
+  {
+    v15 = v14;
+    v16 = *v170;
+LABEL_10:
+    v17 = 0;
+    while (1)
+    {
+      if (*v170 != v16)
+      {
+        objc_enumerationMutation(v13);
+      }
+
+      v18 = *(*(&v169 + 1) + 8 * v17);
+      v19 = IOHIDEventGetIntegerValue();
+      v20 = IOHIDEventGetIntegerValue();
+      if (v19 == 65280 && v20 == 67)
+      {
+        break;
+      }
+
+      if (v15 == ++v17)
+      {
+        v15 = [v13 countByEnumeratingWithState:&v169 objects:v184 count:16];
+        if (v15)
+        {
+          goto LABEL_10;
+        }
+
+        goto LABEL_17;
+      }
+    }
+
+    if (!v18)
+    {
+      goto LABEL_42;
+    }
+
+    selfCopy3 = self;
+    DataValue = IOHIDEventGetDataValue();
+    v23 = [MEMORY[0x1E695DFA8] set];
+    controller4 = [(GCPhysicalInputProfile *)selfCopy3 controller];
+    handlerQueue4 = [controller4 handlerQueue];
+
+    for (i = 0; i != 47; ++i)
+    {
+      if ((*DataValue >> i))
+      {
+        v27 = [(GCPhysicalInputProfile *)selfCopy3 remappedElementForIndex:i];
+        v29 = v27;
+        if (v27)
+        {
+          LODWORD(v28) = *(DataValue + i + 2);
+          [v27 _setPendingValue:v28];
+          collection = [v29 collection];
+
+          if (collection)
+          {
+            collection2 = [v29 collection];
+            [v23 addObject:collection2];
+          }
+
+          else
+          {
+            [v23 addObject:v29];
+          }
+        }
+      }
+    }
+
+    v182 = 0u;
+    v183 = 0u;
+    v180 = 0u;
+    v181 = 0u;
+    v32 = v23;
+    v33 = [v32 countByEnumeratingWithState:&v180 objects:v189 count:16];
+    if (v33)
+    {
+      v34 = v33;
+      v35 = *v181;
+      do
+      {
+        for (j = 0; j != v34; ++j)
+        {
+          if (*v181 != v35)
+          {
+            objc_enumerationMutation(v32);
+          }
+
+          [*(*(&v180 + 1) + 8 * j) _commitPendingValueOnQueue:handlerQueue4];
+        }
+
+        v34 = [v32 countByEnumeratingWithState:&v180 objects:v189 count:16];
+      }
+
+      while (v34);
+    }
+
+    v178 = 0u;
+    v179 = 0u;
+    v176 = 0u;
+    v177 = 0u;
+    v37 = v32;
+    v38 = [v37 countByEnumeratingWithState:&v176 objects:&block count:16];
+    if (v38)
+    {
+      v39 = v38;
+      v40 = *v177;
+      do
+      {
+        for (k = 0; k != v39; ++k)
+        {
+          if (*v177 != v40)
+          {
+            objc_enumerationMutation(v37);
+          }
+
+          v42 = *(*(&v176 + 1) + 8 * k);
+          v173[0] = MEMORY[0x1E69E9820];
+          v173[1] = 3221225472;
+          v173[2] = __handleGameControllerExtendedEvent_block_invoke;
+          v173[3] = &unk_1E8418C50;
+          v174 = selfCopy3;
+          v175 = v42;
+          dispatch_async(handlerQueue4, v173);
+        }
+
+        v39 = [v37 countByEnumeratingWithState:&v176 objects:&block count:16];
+      }
+
+      while (v39);
+    }
+  }
+
+  else
+  {
+LABEL_17:
+
+LABEL_42:
+    selfCopy3 = self;
+    array = [MEMORY[0x1E695DF70] array];
+    controller5 = [(GCPhysicalInputProfile *)selfCopy3 controller];
+    handlerQueue5 = [controller5 handlerQueue];
+
+    IOHIDEventGetFloatValue();
+    v47 = v46;
+    IOHIDEventGetFloatValue();
+    v49 = v48;
+    IOHIDEventGetFloatValue();
+    v51 = v50;
+    IOHIDEventGetFloatValue();
+    v53 = v52;
+    IOHIDEventGetFloatValue();
+    v55 = v54;
+    IOHIDEventGetFloatValue();
+    v57 = v56;
+    IOHIDEventGetFloatValue();
+    v158 = v58;
+    IOHIDEventGetFloatValue();
+    v157 = v59;
+    IOHIDEventGetFloatValue();
+    v159 = v60;
+    IOHIDEventGetFloatValue();
+    v160 = v61;
+    IOHIDEventGetFloatValue();
+    v161 = v62;
+    IOHIDEventGetFloatValue();
+    v162 = v63;
+    IOHIDEventGetFloatValue();
+    v163 = v64;
+    IOHIDEventGetFloatValue();
+    v164 = v65;
+    IOHIDEventGetFloatValue();
+    v165 = v66;
+    IOHIDEventGetFloatValue();
+    v166 = v67;
+    v68 = 0.0;
+    v167 = 0.0;
+    if (selfCopy3->_leftThumbstickButton)
+    {
+      v68 = IOHIDEventGetIntegerValue();
+    }
+
+    v156 = v68;
+    v70 = v49;
+    v72 = v53;
+    if (selfCopy3->_rightThumbstickButton)
+    {
+      v167 = IOHIDEventGetIntegerValue();
+    }
+
+    v75 = selfCopy3->_dpad;
+    v76 = handlerQueue5;
+    v77 = array;
+    xAxis = [(GCControllerDirectionPad *)v75 xAxis];
+    v71 = v51;
+    *&v79 = v72 - v71;
+    v80 = [xAxis _setValue:v76 queue:v79];
+
+    yAxis = [(GCControllerDirectionPad *)v75 yAxis];
+    v69 = v47;
+    *&v82 = v69 - v70;
+    v83 = [yAxis _setValue:v76 queue:v82];
+
+    if ((v80 & 1) != 0 || v83)
+    {
+      [v77 addObject:v75];
+    }
+
+    v86 = selfCopy3->_leftThumbstick;
+    v87 = v76;
+    v88 = v77;
+    xAxis2 = [(GCControllerDirectionPad *)v86 xAxis];
+    v73 = v55;
+    *&v90 = v73;
+    v91 = [xAxis2 _setValue:v87 queue:v90];
+
+    yAxis2 = [(GCControllerDirectionPad *)v86 yAxis];
+    v74 = v57;
+    *&v93 = v74;
+    v94 = [yAxis2 _setValue:v87 queue:v93];
+
+    if ((v91 & 1) != 0 || v94)
+    {
+      [v88 addObject:v86];
+    }
+
+    v96 = selfCopy3->_rightThumbstick;
+    handlerQueue4 = v87;
+    v97 = v88;
+    xAxis3 = [(GCControllerDirectionPad *)v96 xAxis];
+    v84 = v158;
+    *&v99 = v84;
+    v100 = [xAxis3 _setValue:handlerQueue4 queue:v99];
+
+    yAxis3 = [(GCControllerDirectionPad *)v96 yAxis];
+    v85 = v157;
+    *&v102 = v85;
+    v103 = [yAxis3 _setValue:handlerQueue4 queue:v102];
+
+    if ((v100 & 1) != 0 || v103)
+    {
+      [v97 addObject:v96];
+    }
+
+    v105 = selfCopy3->_button0;
+    v106 = v97;
+    v95 = v159;
+    *&v107 = v95;
+    if ([(GCControllerButtonInput *)v105 _setValue:handlerQueue4 queue:v107])
+    {
+      [v106 addObject:v105];
+    }
+
+    v109 = selfCopy3->_button1;
+    v110 = v106;
+    v104 = v160;
+    *&v111 = v104;
+    if ([(GCControllerButtonInput *)v109 _setValue:handlerQueue4 queue:v111])
+    {
+      [v110 addObject:v109];
+    }
+
+    v113 = selfCopy3->_button2;
+    v114 = v110;
+    v108 = v161;
+    *&v115 = v108;
+    if ([(GCControllerButtonInput *)v113 _setValue:handlerQueue4 queue:v115])
+    {
+      [v114 addObject:v113];
+    }
+
+    v117 = selfCopy3->_button3;
+    v118 = v114;
+    v112 = v162;
+    *&v119 = v112;
+    if ([(GCControllerButtonInput *)v117 _setValue:handlerQueue4 queue:v119])
+    {
+      [v118 addObject:v117];
+    }
+
+    v121 = selfCopy3->_leftShoulder;
+    v122 = v118;
+    v116 = v163;
+    *&v123 = v116;
+    if ([(GCControllerButtonInput *)v121 _setValue:handlerQueue4 queue:v123])
+    {
+      [v122 addObject:v121];
+    }
+
+    v125 = selfCopy3->_rightShoulder;
+    v126 = v122;
+    v120 = v164;
+    *&v127 = v120;
+    if ([(GCControllerButtonInput *)v125 _setValue:handlerQueue4 queue:v127])
+    {
+      [v126 addObject:v125];
+    }
+
+    v129 = selfCopy3->_leftTrigger;
+    v130 = v126;
+    v124 = v165;
+    *&v131 = v124;
+    if ([(GCControllerButtonInput *)v129 _setValue:handlerQueue4 queue:v131])
+    {
+      [v130 addObject:v129];
+    }
+
+    v132 = selfCopy3->_rightTrigger;
+    v133 = v130;
+    v128 = v166;
+    *&v134 = v128;
+    if ([(GCControllerButtonInput *)v132 _setValue:handlerQueue4 queue:v134])
+    {
+      [v133 addObject:v132];
+    }
+
+    leftThumbstickButton = selfCopy3->_leftThumbstickButton;
+    if (leftThumbstickButton)
+    {
+      v136 = leftThumbstickButton;
+      v137 = v133;
+      *&v138 = v156;
+      if ([(GCControllerButtonInput *)v136 _setValue:handlerQueue4 queue:v138])
+      {
+        [v137 addObject:v136];
+      }
+    }
+
+    rightThumbstickButton = selfCopy3->_rightThumbstickButton;
+    if (rightThumbstickButton)
+    {
+      v140 = rightThumbstickButton;
+      v141 = v133;
+      *&v142 = v167;
+      if ([(GCControllerButtonInput *)v140 _setValue:handlerQueue4 queue:v142])
+      {
+        [v141 addObject:v140];
+      }
+    }
+
+    v187 = 0u;
+    v188 = 0u;
+    block = 0u;
+    v186 = 0u;
+    v37 = v133;
+    v143 = [v37 countByEnumeratingWithState:&block objects:v189 count:16];
+    if (v143)
+    {
+      v144 = v143;
+      v145 = *v186;
+      do
+      {
+        for (m = 0; m != v144; ++m)
+        {
+          if (*v186 != v145)
+          {
+            objc_enumerationMutation(v37);
+          }
+
+          v147 = *(*(&block + 1) + 8 * m);
+          *&v180 = MEMORY[0x1E69E9820];
+          *(&v180 + 1) = 3221225472;
+          *&v181 = __handleGameControllerEvent_block_invoke;
+          *(&v181 + 1) = &unk_1E8418C50;
+          *&v182 = selfCopy3;
+          *(&v182 + 1) = v147;
+          dispatch_async(handlerQueue4, &v180);
+        }
+
+        v144 = [v37 countByEnumeratingWithState:&block objects:v189 count:16];
+      }
+
+      while (v144);
+    }
+  }
 }
 
 - (GCExtendedGamepad)initWithIdentifier:(id)identifier
@@ -691,7 +690,7 @@ LABEL_98:
 - (GCExtendedGamepad)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v6 = GCIPCObjectIdentifier_Classes();
+  v6 = GCIPCObjectIdentifier_Classes(coderCopy);
   v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"identifier"];
 
   v17 = 0;
@@ -1627,32 +1626,32 @@ LABEL_76:
 
 - (void)setStateFromExtendedGamepad:(GCExtendedGamepad *)extendedGamepad
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = extendedGamepad;
   controller = [(GCPhysicalInputProfile *)self controller];
   if (!controller || (v6 = controller, -[GCPhysicalInputProfile controller](self, "controller"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 isSnapshot], v7, v6, v8))
   {
     [(GCExtendedGamepad *)self setElementValuesFromExtendedGamepad:v4];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    obj = v24 = 0u;
-    v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    obj = v23 = 0u;
+    v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         v12 = 0;
         do
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * v12);
+          v13 = *(*(&v20 + 1) + 8 * v12);
           controller2 = [(GCPhysicalInputProfile *)self controller];
           handlerQueue = [controller2 handlerQueue];
           block[0] = MEMORY[0x1E69E9820];
@@ -1660,43 +1659,40 @@ LABEL_76:
           block[2] = __49__GCExtendedGamepad_setStateFromExtendedGamepad___block_invoke;
           block[3] = &unk_1E8419BC0;
           block[4] = self;
-          v19 = v4;
-          v20 = v13;
+          v18 = v4;
+          v19 = v13;
           dispatch_async(handlerQueue, block);
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v10);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
-void __49__GCExtendedGamepad_setStateFromExtendedGamepad___block_invoke(uint64_t a1)
+void __49__GCExtendedGamepad_setStateFromExtendedGamepad___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __49__GCExtendedGamepad_setStateFromExtendedGamepad___block_invoke_cold_1(a1);
   }
 
-  v2 = [*(a1 + 32) valueDidChangeHandler];
-  v3 = v2;
-  if (v2)
+  v3 = [*(a1 + 32) valueDidChangeHandler];
+  v4 = v3;
+  if (v3)
   {
-    (*(v2 + 16))(v2, *(a1 + 32), *(a1 + 48));
+    (*(v3 + 16))(v3, *(a1 + 32), *(a1 + 48));
   }
 
-  v4 = *(*(a1 + 32) + 672);
-  if (v4)
+  v5 = *(*(a1 + 32) + 672);
+  if (v5)
   {
-    v5 = *(a1 + 48);
-    (*(v4 + 16))();
+    (*(v5 + 16))();
   }
 }
 
@@ -1704,38 +1700,37 @@ void __49__GCExtendedGamepad_setStateFromExtendedGamepad___block_invoke(uint64_t
 {
   elementCopy = element;
   queueCopy = queue;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(queueCopy, v8))
   {
     [GCExtendedGamepad _triggerValueChangedHandlerForElement:elementCopy queue:?];
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __65__GCExtendedGamepad__triggerValueChangedHandlerForElement_queue___block_invoke;
-  v9[3] = &unk_1E8418C50;
-  v9[4] = self;
-  v10 = elementCopy;
-  v8 = elementCopy;
-  dispatch_async(queueCopy, v9);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __65__GCExtendedGamepad__triggerValueChangedHandlerForElement_queue___block_invoke;
+  v10[3] = &unk_1E8418C50;
+  v10[4] = self;
+  v11 = elementCopy;
+  v9 = elementCopy;
+  dispatch_async(queueCopy, v10);
 }
 
 void __65__GCExtendedGamepad__triggerValueChangedHandlerForElement_queue___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) valueDidChangeHandler];
   v3 = v2;
-  v6 = v2;
+  v5 = v2;
   if (v2)
   {
     (*(v2 + 16))(v2, *(a1 + 32), *(a1 + 40));
-    v3 = v6;
+    v3 = v5;
   }
 
   v4 = *(*(a1 + 32) + 672);
   if (v4)
   {
-    v5 = *(a1 + 40);
     (*(v4 + 16))();
-    v3 = v6;
+    v3 = v5;
   }
 }
 
@@ -1747,59 +1742,55 @@ void __65__GCExtendedGamepad__triggerValueChangedHandlerForElement_queue___block
   return currentExtendedGamepad;
 }
 
-void __49__GCExtendedGamepad_PubSub___handleGamepadEvent___block_invoke(uint64_t a1)
+void __49__GCExtendedGamepad_PubSub___handleGamepadEvent___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __49__GCExtendedGamepad_PubSub___handleGamepadEvent___block_invoke_cold_1(a1);
   }
 
-  v2 = [*(a1 + 32) __deprecated_controllerPausedHandler];
+  v3 = [*(a1 + 32) __deprecated_controllerPausedHandler];
 
-  if (v2)
+  if (v3)
   {
-    v3 = [*(a1 + 32) __deprecated_controllerPausedHandler];
-    v3[2](v3, *(a1 + 32));
+    v4 = [*(a1 + 32) __deprecated_controllerPausedHandler];
+    v4[2](v4, *(a1 + 32));
   }
 }
 
 void __49__GCExtendedGamepad_PubSub___handleGamepadEvent___block_invoke_361(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
-        v8 = *(a1 + 40);
         (*(*(a1 + 48) + 16))(*(a1 + 48));
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void *__49__GCExtendedGamepad_PubSub___handleGamepadEvent___block_invoke_362(void *result)
@@ -1815,41 +1806,37 @@ void *__49__GCExtendedGamepad_PubSub___handleGamepadEvent___block_invoke_362(voi
 
 void __49__GCExtendedGamepad_PubSub___handleGamepadEvent___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
-        v8 = *(a1 + 48);
         (*(*(a1 + 40) + 16))(*(a1 + 40));
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setGamepadEventSource:(id)source
@@ -1883,6 +1870,21 @@ void __49__GCExtendedGamepad_PubSub___handleGamepadEvent___block_invoke_2(uint64
     v5 = [[_GCWebKitUserIntentRecognizer alloc] initWithPhysicalInputProfile:self thumbstickUserIntentHandler:handlerCopy];
     v6 = self->_webKitUserIntentRecognizer;
     self->_webKitUserIntentRecognizer = v5;
+  }
+}
+
+- (void)setThumbstickUserIntentHandler:(id)handler slidingWindowTotalDuration:(double)duration slidingWindowSegmentDuration:(double)segmentDuration deadzone:(double)deadzone sensitivity:(int)sensitivity
+{
+  v7 = *&sensitivity;
+  handlerCopy = handler;
+  webKitUserIntentRecognizer = self->_webKitUserIntentRecognizer;
+  self->_webKitUserIntentRecognizer = 0;
+
+  if (handlerCopy)
+  {
+    v13 = [[_GCWebKitUserIntentRecognizer alloc] initWithPhysicalInputProfile:self thumbstickUserIntentHandler:handlerCopy slidingWindowTotalDuration:v7 slidingWindowSegmentDuration:duration deadzone:segmentDuration sensitivity:deadzone];
+    v14 = self->_webKitUserIntentRecognizer;
+    self->_webKitUserIntentRecognizer = v13;
   }
 }
 
@@ -2041,29 +2043,30 @@ LABEL_26:
         v36 = [v35 countByEnumeratingWithState:&v67 objects:v81 count:16];
         if (v36)
         {
-          v37 = v36;
-          v38 = *v68;
+          v38 = v36;
+          v39 = *v68;
           do
           {
-            v39 = 0;
+            v40 = 0;
             do
             {
-              if (*v68 != v38)
+              if (*v68 != v39)
               {
                 objc_enumerationMutation(v35);
               }
 
-              v40 = *(*(&v67 + 1) + 8 * v39);
-              if (gc_isInternalBuild())
+              v41 = *(*(&v67 + 1) + 8 * v40);
+              isInternalBuild = gc_isInternalBuild(v36, v37);
+              if (isInternalBuild)
               {
-                log = getGCLogger();
+                log = getGCLogger(isInternalBuild);
                 if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
                 {
                   debugName = [v61 debugName];
                   *buf = 138412546;
                   v84 = debugName;
                   v85 = 2112;
-                  v86 = v40;
+                  v86 = v41;
                   _os_log_debug_impl(&dword_1D2CD5000, log, OS_LOG_TYPE_DEBUG, "%@ changed: %@", buf, 0x16u);
                 }
               }
@@ -2074,19 +2077,19 @@ LABEL_26:
               v66[3] = &unk_1E8419BC0;
               v66[4] = event;
               v66[5] = event;
-              v66[6] = v40;
+              v66[6] = v41;
               eventCopy2 = event;
               dispatch_async(handlerQueue, v66);
 
-              ++v39;
+              ++v40;
             }
 
-            while (v37 != v39);
-            v42 = [v35 countByEnumeratingWithState:&v67 objects:v81 count:16];
-            v37 = v42;
+            while (v38 != v40);
+            v36 = [v35 countByEnumeratingWithState:&v67 objects:v81 count:16];
+            v38 = v36;
           }
 
-          while (v42);
+          while (v36);
         }
 
         syntheticDeviceElementValueChangedHandler = [event syntheticDeviceElementValueChangedHandler];
@@ -2100,24 +2103,24 @@ LABEL_26:
           v63 = v35;
           v64 = syntheticDeviceElementValueChangedHandler;
           v65 = v60;
-          v44 = _Block_copy(aBlock);
+          v45 = _Block_copy(aBlock);
           syntheticDeviceHandlerQueue = [event syntheticDeviceHandlerQueue];
-          v46 = syntheticDeviceHandlerQueue;
+          v47 = syntheticDeviceHandlerQueue;
           if (syntheticDeviceHandlerQueue)
           {
-            dispatch_async(syntheticDeviceHandlerQueue, v44);
+            dispatch_async(syntheticDeviceHandlerQueue, v45);
           }
 
           else
           {
-            v44[2](v44);
+            v45[2](v45);
           }
         }
 
-        v47 = _gc_log_signpost();
-        v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG);
+        v48 = _gc_log_signpost();
+        v49 = os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG);
 
-        if (v48)
+        if (v49)
         {
           v53 = v58;
           v54 = v53;
@@ -2157,8 +2160,6 @@ LABEL_26:
   }
 
 LABEL_61:
-
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 void __51__GCExtendedGamepad_PubSub__setGamepadEventSource___block_invoke(uint64_t a1, void *a2)
@@ -2176,8 +2177,8 @@ void __51__GCExtendedGamepad_PubSub__setGamepadEventSource___block_invoke(uint64
 
 void __49__GCExtendedGamepad_setStateFromExtendedGamepad___block_invoke_cold_1(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = getGCLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) controller];
@@ -2185,49 +2186,43 @@ void __49__GCExtendedGamepad_setStateFromExtendedGamepad___block_invoke_cold_1(u
     v5 = [*(a1 + 40) controller];
     v6 = [v5 debugName];
     v7 = *(a1 + 48);
-    v9 = 138412802;
-    v10 = v4;
-    v11 = 2112;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v7;
-    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_DEFAULT, "set %@ StateFromExtendedGamepad %@: %@", &v9, 0x20u);
+    v8 = 138412802;
+    v9 = v4;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v7;
+    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_DEFAULT, "set %@ StateFromExtendedGamepad %@: %@", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_triggerValueChangedHandlerForElement:(void *)a1 queue:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v4 = getGCLogger();
+  v11 = *MEMORY[0x1E69E9840];
+  v4 = getGCLogger(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [a1 controller];
     v6 = [v5 debugName];
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = a2;
-    _os_log_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_INFO, "%@ changed: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = a2;
+    _os_log_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_INFO, "%@ changed: %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __49__GCExtendedGamepad_PubSub___handleGamepadEvent___block_invoke_cold_1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = getGCLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) debugName];
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_INFO, "%@ pause event", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_INFO, "%@ pause event", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -80,68 +80,68 @@
 - (void)start
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v3 = sub_100063A54();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = objc_sync_enter(selfCopy);
+  v4 = sub_100063A54(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerResponder: Starting responder...", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerResponder: Starting responder...", buf, 2u);
   }
 
   rpDeviceAdvertiser = [(MSDDemoPeerResponder *)selfCopy rpDeviceAdvertiser];
-  v5 = rpDeviceAdvertiser == 0;
+  v6 = rpDeviceAdvertiser == 0;
 
-  if (v5)
+  if (v6)
   {
-    v6 = [[MSDRapportDeviceAdvertiser alloc] initWithObserver:selfCopy];
-    [(MSDDemoPeerResponder *)selfCopy setRpDeviceAdvertiser:v6];
+    v7 = [[MSDRapportDeviceAdvertiser alloc] initWithObserver:selfCopy];
+    [(MSDDemoPeerResponder *)selfCopy setRpDeviceAdvertiser:v7];
 
     rpDeviceAdvertiser2 = [(MSDDemoPeerResponder *)selfCopy rpDeviceAdvertiser];
     [rpDeviceAdvertiser2 activate];
   }
 
   rpMessageHandler = [(MSDDemoPeerResponder *)selfCopy rpMessageHandler];
-  v9 = rpMessageHandler == 0;
+  v10 = rpMessageHandler == 0;
 
-  if (v9)
+  if (v10)
   {
     messageHandlerTable = [(MSDDemoPeerResponder *)selfCopy messageHandlerTable];
     allKeys = [messageHandlerTable allKeys];
 
-    v12 = [[MSDRapportMessageHandler alloc] initWithObserver:selfCopy];
-    [(MSDDemoPeerResponder *)selfCopy setRpMessageHandler:v12];
+    v13 = [[MSDRapportMessageHandler alloc] initWithObserver:selfCopy];
+    [(MSDDemoPeerResponder *)selfCopy setRpMessageHandler:v13];
 
-    v21 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    v23 = 0u;
     v20 = 0u;
-    v13 = allKeys;
-    v14 = [v13 countByEnumeratingWithState:&v19 objects:v24 count:16];
-    if (v14)
+    v21 = 0u;
+    v14 = allKeys;
+    v15 = [v14 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    if (v15)
     {
-      v15 = *v20;
+      v16 = *v21;
       do
       {
-        v16 = 0;
+        v17 = 0;
         do
         {
-          if (*v20 != v15)
+          if (*v21 != v16)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v14);
           }
 
-          v17 = *(*(&v19 + 1) + 8 * v16);
+          v18 = *(*(&v20 + 1) + 8 * v17);
           rpMessageHandler2 = [(MSDDemoPeerResponder *)selfCopy rpMessageHandler];
-          [rpMessageHandler2 listenForIncomingRequestMessageOfID:v17];
+          [rpMessageHandler2 listenForIncomingRequestMessageOfID:v18];
 
-          v16 = v16 + 1;
+          v17 = v17 + 1;
         }
 
-        while (v14 != v16);
-        v14 = [v13 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        while (v15 != v17);
+        v15 = [v14 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
   }
 
@@ -151,12 +151,12 @@
 - (void)stop
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v3 = sub_100063A54();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = objc_sync_enter(selfCopy);
+  v4 = sub_100063A54(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerResponder: Stopping responder...", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerResponder: Stopping responder...", v8, 2u);
   }
 
   rpDeviceAdvertiser = [(MSDDemoPeerResponder *)selfCopy rpDeviceAdvertiser];
@@ -300,56 +300,56 @@
   if (v2)
   {
     v3 = +[NSMutableArray array];
-    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
     v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v15;
       do
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v14 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [*(*(&v13 + 1) + 8 * i) objectForKeyedSubscript:{@"address", v13}];
+          v9 = [*(*(&v14 + 1) + 8 * i) objectForKeyedSubscript:{@"address", v14}];
           [v3 addObject:v9];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v6);
     }
 
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = sub_100063A54(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_1000E9F04();
     }
 
-    v11 = [NSArray arrayWithArray:v3];
+    v12 = [NSArray arrayWithArray:v3];
   }
 
   else
   {
-    v3 = sub_100063A54();
+    v3 = sub_100063A54(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1000E9F88();
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)_prepareDeviceInfoDictionaryForRequest:(id)request
@@ -360,11 +360,11 @@
   v6 = +[MSDAudioController sharedInstance];
   v7 = +[MSDWiFiHelper sharedInstance];
   v8 = +[MSDAccountManager sharedInstance];
-  v45 = +[MSDAirPlayAssistedSender sharedInstance];
+  v46 = +[MSDAirPlayAssistedSender sharedInstance];
   extractProtocolVersion = [requestCopy extractProtocolVersion];
 
   name = [v5 name];
-  v41 = name;
+  v42 = name;
   if (name)
   {
     [v4 setObject:name forKeyedSubscript:kMSDKPeerDemoDevicePropertyDeviceName];
@@ -377,7 +377,7 @@
   }
 
   productType = [v5 productType];
-  v40 = productType;
+  v41 = productType;
   if (productType)
   {
     [v4 setObject:productType forKeyedSubscript:kMSDKPeerDemoDevicePropertyProductType];
@@ -431,7 +431,7 @@
   v20 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v7 getCurrentWiFiSignalStrength]);
   [v4 setObject:v20 forKeyedSubscript:kMSDKPeerDemoDevicePropertyWiFiSignalStrength];
 
-  v42 = v8;
+  v43 = v8;
   existingAccounts = [v8 existingAccounts];
   v22 = [existingAccounts objectForKeyedSubscript:@"iCloud"];
 
@@ -446,7 +446,7 @@
     [v4 setObject:v23 forKeyedSubscript:kMSDKPeerDemoDevicePropertyiCloudAccountName];
   }
 
-  v43 = v7;
+  v44 = v7;
   [v6 getVolumeForCategory:0];
   v24 = [NSNumber numberWithFloat:?];
   [v4 setObject:v24 forKeyedSubscript:kMSDKPeerDemoDevicePropertyMainVolume];
@@ -466,7 +466,7 @@
   v28 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v5 isContentFrozen]);
   [v4 setObject:v28 forKeyedSubscript:kMSDKPeerDemoDevicePropertyContentFrozen];
 
-  v29 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v45 isSenderReady]);
+  v29 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v46 isSenderReady]);
   [v4 setObject:v29 forKeyedSubscript:kMSDKPeerDemoDevicePropertyAirPlayAssistedReady];
 
   v30 = [NSNumber numberWithBool:[(MSDDemoPeerResponder *)self _queryThermalMitigationStatus]];
@@ -482,32 +482,32 @@
 
     else
     {
-      v32 = +[NSNull null];
-      [v4 setObject:v32 forKeyedSubscript:kMSDKPeerDemoDevicePropertyIpAddresses];
+      v33 = +[NSNull null];
+      [v4 setObject:v33 forKeyedSubscript:kMSDKPeerDemoDevicePropertyIpAddresses];
     }
 
-    v33 = [NSNumber numberWithBool:BYSetupAssistantNeedsToRun()];
-    [v4 setObject:v33 forKeyedSubscript:kMSDKPeerDemoDevicePropertyBuddyInProgress];
+    v34 = [NSNumber numberWithBool:BYSetupAssistantNeedsToRun()];
+    [v4 setObject:v34 forKeyedSubscript:kMSDKPeerDemoDevicePropertyBuddyInProgress];
 
     if (extractProtocolVersion != 2)
     {
-      v34 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v5 batteryCharging]);
-      [v4 setObject:v34 forKeyedSubscript:kMSDKPeerDemoDevicePropertyBatteryCharging];
+      v35 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v5 batteryCharging]);
+      [v4 setObject:v35 forKeyedSubscript:kMSDKPeerDemoDevicePropertyBatteryCharging];
 
-      v35 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v5 externalPowerSourceConnected]);
-      [v4 setObject:v35 forKeyedSubscript:kMSDKPeerDemoDevicePropertyExternalPowerSourceConnected];
+      v36 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v5 externalPowerSourceConnected]);
+      [v4 setObject:v36 forKeyedSubscript:kMSDKPeerDemoDevicePropertyExternalPowerSourceConnected];
     }
   }
 
-  v36 = sub_100063A54();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+  v37 = sub_100063A54(v31);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
   {
     sub_1000EA008();
   }
 
-  v37 = [NSDictionary dictionaryWithDictionary:v4];
+  v38 = [NSDictionary dictionaryWithDictionary:v4];
 
-  return v37;
+  return v38;
 }
 
 - (id)_handleSubscribeDeviceInfoRequestMessage:(id)message
@@ -623,7 +623,7 @@
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA07C();
@@ -679,23 +679,23 @@
 - (id)_handleListAppsRequestMessage:(id)message
 {
   messageCopy = message;
-  v37 = +[MSDAppHelper sharedInstance];
-  v35 = messageCopy;
+  v38 = +[MSDAppHelper sharedInstance];
+  v36 = messageCopy;
   payload = [messageCopy payload];
   v5 = [payload objectForKeyedSubscript:@"AppListKind"];
 
   v6 = [NSMutableDictionary dictionaryWithCapacity:0];
   v7 = [NSMutableArray arrayWithCapacity:0];
   unsignedIntegerValue = [v5 unsignedIntegerValue];
-  v34 = v5;
+  v35 = v5;
   if (unsignedIntegerValue == 1)
   {
-    visibleApps = [v37 runningApps:1];
+    visibleApps = [v38 runningApps:1];
   }
 
   else if (unsignedIntegerValue)
   {
-    v10 = sub_100063A54();
+    v10 = sub_100063A54(unsignedIntegerValue);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1000EA0B0();
@@ -706,22 +706,22 @@
 
   else
   {
-    visibleApps = [v37 visibleApps];
+    visibleApps = [v38 visibleApps];
   }
 
   v11 = v7;
-  v33 = v6;
-  v41 = 0u;
+  v34 = v6;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
+  v41 = 0u;
   v12 = visibleApps;
-  v13 = [v12 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0;
-    v16 = *v40;
+    v16 = *v41;
     obj = v12;
     while (2)
     {
@@ -729,43 +729,43 @@
       v18 = v15;
       do
       {
-        if (*v40 != v16)
+        if (*v41 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v39 + 1) + 8 * v17);
-        v20 = [v37 bundleLocalizedNameForInstalledApp:{v19, v33, v34}];
+        v19 = *(*(&v40 + 1) + 8 * v17);
+        v20 = [v38 bundleLocalizedNameForInstalledApp:{v19, v34, v35}];
         v21 = [[MSDKPeerDemoApp alloc] initWithIdentifier:v19 andLocalizedName:v20];
-        v38 = v18;
-        v22 = [NSKeyedArchiver archivedDataWithRootObject:v21 requiringSecureCoding:1 error:&v38];
-        v15 = v38;
+        v39 = v18;
+        v22 = [NSKeyedArchiver archivedDataWithRootObject:v21 requiringSecureCoding:1 error:&v39];
+        v15 = v39;
 
         if (!v22)
         {
-          v23 = sub_100063A54();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v24 = sub_100063A54(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
-            sub_1000EA120(v19, v15, v23);
+            sub_1000EA120(v19, v15, v24);
           }
 
           v12 = obj;
-          v24 = v33;
-          [v33 setObject:&__kCFBooleanFalse forKeyedSubscript:@"Result"];
+          v25 = v34;
+          [v34 setObject:&__kCFBooleanFalse forKeyedSubscript:@"Result"];
           localizedDescription = [v15 localizedDescription];
-          v26 = localizedDescription;
+          v27 = localizedDescription;
           if (localizedDescription)
           {
-            v27 = localizedDescription;
+            v28 = localizedDescription;
           }
 
           else
           {
-            v27 = @"An error has occurred.";
+            v28 = @"An error has occurred.";
           }
 
-          [v33 setObject:v27 forKeyedSubscript:@"Reason"];
-          v28 = v11;
+          [v34 setObject:v28 forKeyedSubscript:@"Reason"];
+          v29 = v11;
           goto LABEL_25;
         }
 
@@ -777,7 +777,7 @@
 
       while (v14 != v17);
       v12 = obj;
-      v14 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v14 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
       if (v14)
       {
         continue;
@@ -792,18 +792,18 @@
     v15 = 0;
   }
 
-  v24 = v33;
-  [v33 setObject:&__kCFBooleanTrue forKeyedSubscript:@"Result"];
-  v28 = v11;
-  v26 = [NSArray arrayWithArray:v11];
-  [v33 setObject:v26 forKeyedSubscript:@"AppArchiveList"];
+  v25 = v34;
+  [v34 setObject:&__kCFBooleanTrue forKeyedSubscript:@"Result"];
+  v29 = v11;
+  v27 = [NSArray arrayWithArray:v11];
+  [v34 setObject:v27 forKeyedSubscript:@"AppArchiveList"];
 LABEL_25:
 
-  v29 = [MSDRapportMessage alloc];
-  identifier = [v35 identifier];
-  v31 = [(MSDRapportMessage *)v29 initWithIdentifier:identifier andPayload:v24 usingOptions:0];
+  v30 = [MSDRapportMessage alloc];
+  identifier = [v36 identifier];
+  v32 = [(MSDRapportMessage *)v30 initWithIdentifier:identifier andPayload:v25 usingOptions:0];
 
-  return v31;
+  return v32;
 }
 
 - (id)_handleLaunchAppRequestMessage:(id)message
@@ -902,60 +902,60 @@ LABEL_25:
 
   [v5 floatValue];
   v11 = v10;
-  [v7 floatValue];
-  v13 = v12;
-  v14 = sub_100063A54();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  floatValue = [v7 floatValue];
+  v14 = v13;
+  v15 = sub_100063A54(floatValue);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [v9 floatValue];
     *buf = 136315906;
-    v34 = "[MSDDemoPeerResponder _handleGetIconImagesOfVisibleAppsRequestMessage:]";
-    v35 = 2048;
-    v36 = v11;
+    v36 = "[MSDDemoPeerResponder _handleGetIconImagesOfVisibleAppsRequestMessage:]";
     v37 = 2048;
-    v38 = v13;
+    v38 = v11;
     v39 = 2048;
-    v40 = v31;
-    _os_log_debug_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "%s - CGSize:  width: %f - height: %f - scale: %f", buf, 0x2Au);
+    v40 = v14;
+    v41 = 2048;
+    v42 = v33;
+    _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "%s - CGSize:  width: %f - height: %f - scale: %f", buf, 0x2Au);
   }
 
   [v9 floatValue];
-  LODWORD(v16) = v15;
-  v17 = [MSDAppIcon getIconImagesOfVisibleAppsWithSize:v11 andScale:v13, v16];
-  v18 = sub_100063A54();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  LODWORD(v17) = v16;
+  v18 = [MSDAppIcon getIconImagesOfVisibleAppsWithSize:v11 andScale:v14, v17];
+  v19 = sub_100063A54(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = [v17 count];
+    v20 = [v18 count];
     *buf = 136315394;
-    v34 = "[MSDDemoPeerResponder _handleGetIconImagesOfVisibleAppsRequestMessage:]";
-    v35 = 2048;
-    v36 = *&v19;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%s - Found %lu icon images.", buf, 0x16u);
+    v36 = "[MSDDemoPeerResponder _handleGetIconImagesOfVisibleAppsRequestMessage:]";
+    v37 = 2048;
+    v38 = *&v20;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%s - Found %lu icon images.", buf, 0x16u);
   }
 
-  v20 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v32 = 0;
-  v21 = [NSKeyedArchiver archivedDataWithRootObject:v17 requiringSecureCoding:1 error:&v32];
-  v22 = v32;
-  if (v22 || !v21)
+  v21 = [NSMutableDictionary dictionaryWithCapacity:0];
+  v34 = 0;
+  v22 = [NSKeyedArchiver archivedDataWithRootObject:v18 requiringSecureCoding:1 error:&v34];
+  v23 = v34;
+  if (v23 || !v22)
   {
-    [v20 setObject:&__kCFBooleanFalse forKeyedSubscript:@"Result"];
-    localizedDescription = [v22 localizedDescription];
-    v25 = localizedDescription;
+    [v21 setObject:&__kCFBooleanFalse forKeyedSubscript:@"Result"];
+    localizedDescription = [v23 localizedDescription];
+    v26 = localizedDescription;
     if (localizedDescription)
     {
-      v26 = localizedDescription;
+      v27 = localizedDescription;
     }
 
     else
     {
-      v26 = @"An error has occurred.";
+      v27 = @"An error has occurred.";
     }
 
-    [v20 setObject:v26 forKeyedSubscript:@"Reason"];
+    [v21 setObject:v27 forKeyedSubscript:@"Reason"];
 
-    v23 = sub_100063A54();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = sub_100063A54(v28);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sub_1000EA1CC();
     }
@@ -963,29 +963,28 @@ LABEL_25:
 
   else
   {
-    [v20 setObject:&__kCFBooleanTrue forKeyedSubscript:@"Result"];
-    [v20 setObject:v21 forKeyedSubscript:@"AppIconArchiveDict"];
-    v23 = sub_100063A54();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    [v21 setObject:&__kCFBooleanTrue forKeyedSubscript:@"Result"];
+    v24 = sub_100063A54([v21 setObject:v22 forKeyedSubscript:@"AppIconArchiveDict"]);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v34 = "[MSDDemoPeerResponder _handleGetIconImagesOfVisibleAppsRequestMessage:]";
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%s - Successfully archive iconImageDict.", buf, 0xCu);
+      v36 = "[MSDDemoPeerResponder _handleGetIconImagesOfVisibleAppsRequestMessage:]";
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%s - Successfully archive iconImageDict.", buf, 0xCu);
     }
   }
 
-  v27 = [MSDRapportMessage alloc];
+  v29 = [MSDRapportMessage alloc];
   identifier = [messageCopy identifier];
-  v29 = [(MSDRapportMessage *)v27 initWithIdentifier:identifier andPayload:v20 usingOptions:0];
+  v31 = [(MSDRapportMessage *)v29 initWithIdentifier:identifier andPayload:v21 usingOptions:0];
 
-  return v29;
+  return v31;
 }
 
 - (id)_handleListAvailableEnvironmentsRequestMessage:(id)message
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA24C();
@@ -1005,7 +1004,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA24C();
@@ -1025,7 +1024,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA24C();
@@ -1045,7 +1044,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA24C();
@@ -1065,7 +1064,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA280();
@@ -1085,7 +1084,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA2B4();
@@ -1105,7 +1104,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA2E8();
@@ -1125,7 +1124,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA31C();
@@ -1145,7 +1144,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA350();
@@ -1165,7 +1164,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA384();
@@ -1185,7 +1184,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA3B8();
@@ -1205,7 +1204,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA3EC();
@@ -1225,7 +1224,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA420();
@@ -1245,7 +1244,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA454();
@@ -1265,7 +1264,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA488();
@@ -1285,7 +1284,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA4BC();
@@ -1305,7 +1304,7 @@ LABEL_25:
 {
   messageCopy = message;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA4F0();
@@ -1328,14 +1327,14 @@ LABEL_25:
   v5 = objc_opt_class();
   payload = [messageCopy payload];
   v7 = [payload objectForKeyedSubscript:@"WiFiSettingsArchive"];
-  v22 = 0;
-  v8 = [NSKeyedUnarchiver unarchivedObjectOfClass:v5 fromData:v7 error:&v22];
-  v9 = v22;
+  v23 = 0;
+  v8 = [NSKeyedUnarchiver unarchivedObjectOfClass:v5 fromData:v7 error:&v23];
+  v9 = v23;
 
   if (!v8)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100063A54(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1000EA524();
     }
@@ -1343,7 +1342,7 @@ LABEL_25:
     goto LABEL_10;
   }
 
-  v10 = +[MSDWiFiHelper sharedInstance];
+  v11 = +[MSDWiFiHelper sharedInstance];
   ssid = [v8 ssid];
   password = [v8 password];
   if ([password length])
@@ -1356,38 +1355,38 @@ LABEL_25:
     password2 = 0;
   }
 
-  if (([v10 configureWiFi:ssid password:password2]& 1) == 0)
+  if (([v11 configureWiFi:ssid password:password2]& 1) == 0)
   {
-    v14 = [NSError errorDomainMSDWithCode:3727741072 message:@"Failed to configure WiFi."];
+    v15 = [NSError errorDomainMSDWithCode:3727741072 message:@"Failed to configure WiFi."];
 
-    v9 = v14;
+    v9 = v15;
 LABEL_10:
 
     [v4 setObject:&__kCFBooleanFalse forKeyedSubscript:@"Result"];
     localizedDescription = [v9 localizedDescription];
-    v16 = localizedDescription;
+    v17 = localizedDescription;
     if (localizedDescription)
     {
-      v17 = localizedDescription;
+      v18 = localizedDescription;
     }
 
     else
     {
-      v17 = @"An error has occurred.";
+      v18 = @"An error has occurred.";
     }
 
-    [v4 setObject:v17 forKeyedSubscript:@"Reason"];
+    [v4 setObject:v18 forKeyedSubscript:@"Reason"];
 
     goto LABEL_14;
   }
 
   [v4 setObject:&__kCFBooleanTrue forKeyedSubscript:@"Result"];
 LABEL_14:
-  v18 = [MSDRapportMessage alloc];
+  v19 = [MSDRapportMessage alloc];
   identifier = [messageCopy identifier];
-  v20 = [(MSDRapportMessage *)v18 initWithIdentifier:identifier andPayload:v4 usingOptions:0];
+  v21 = [(MSDRapportMessage *)v19 initWithIdentifier:identifier andPayload:v4 usingOptions:0];
 
-  return v20;
+  return v21;
 }
 
 - (id)_handleSetLanguageAndRegion:(id)region
@@ -1399,45 +1398,45 @@ LABEL_14:
   payload2 = [regionCopy payload];
   v7 = [payload2 objectForKeyedSubscript:@"RegionCode"];
 
-  v8 = sub_100063A54();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100063A54(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    *v17 = 136315650;
-    *&v17[4] = "[MSDDemoPeerResponder _handleSetLanguageAndRegion:]";
-    v18 = 2114;
-    v19 = v5;
-    v20 = 2114;
-    v21 = v7;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s - languageCode:  %{public}@ - regionCode:  %{public}@", v17, 0x20u);
+    *v18 = 136315650;
+    *&v18[4] = "[MSDDemoPeerResponder _handleSetLanguageAndRegion:]";
+    v19 = 2114;
+    v20 = v5;
+    v21 = 2114;
+    v22 = v7;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s - languageCode:  %{public}@ - regionCode:  %{public}@", v18, 0x20u);
   }
 
-  v9 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v10 = +[MSDLanguageAndRegionHelper sharedInstance];
-  v11 = [v10 setDeviceLanguage:v5 andRegion:v7 matchToSystemLanguage:1];
+  v10 = [NSMutableDictionary dictionaryWithCapacity:0];
+  v11 = +[MSDLanguageAndRegionHelper sharedInstance];
+  v12 = [v11 setDeviceLanguage:v5 andRegion:v7 matchToSystemLanguage:1];
 
-  if (v11 != 1 || (sub_1000EA594(v9, v17) & 1) != 0)
+  if (v12 != 1 || (sub_1000EA594(v10, v18) & 1) != 0)
   {
-    [v9 setObject:&__kCFBooleanTrue forKeyedSubscript:@"Result"];
-    v12 = 0;
+    [v10 setObject:&__kCFBooleanTrue forKeyedSubscript:@"Result"];
+    v13 = 0;
   }
 
   else
   {
-    v12 = *v17;
+    v13 = *v18;
   }
 
-  v13 = [MSDRapportMessage alloc];
+  v14 = [MSDRapportMessage alloc];
   identifier = [regionCopy identifier];
-  v15 = [(MSDRapportMessage *)v13 initWithIdentifier:identifier andPayload:v9 usingOptions:0];
+  v16 = [(MSDRapportMessage *)v14 initWithIdentifier:identifier andPayload:v10 usingOptions:0];
 
-  return v15;
+  return v16;
 }
 
 - (id)_handleEnableMuseBuddyReset:(id)reset
 {
   resetCopy = reset;
   v4 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA6EC();
@@ -1456,7 +1455,7 @@ LABEL_14:
 - (id)_handleGetEnableMuseBuddyResetValue:(id)value
 {
   valueCopy = value;
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(valueCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 136315138;
@@ -1465,7 +1464,7 @@ LABEL_14:
   }
 
   v5 = [NSMutableDictionary dictionaryWithCapacity:0];
-  v6 = sub_100063A54();
+  v6 = sub_100063A54(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA720();
@@ -1533,8 +1532,8 @@ LABEL_14:
 
   if (!v11)
   {
-    v16 = sub_100063A54();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = sub_100063A54(v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_1000EA7C4();
     }
@@ -1542,41 +1541,41 @@ LABEL_14:
     goto LABEL_12;
   }
 
-  v12 = [(MSDDemoPeerResponder *)self methodForSelector:v11];
-  v13 = sub_100063A54();
-  v14 = v13;
-  if (!v12)
+  v13 = [(MSDDemoPeerResponder *)self methodForSelector:v11];
+  v14 = sub_100063A54(v13);
+  v15 = v14;
+  if (!v13)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_1000EA754();
     }
 
 LABEL_12:
-    v15 = 0;
+    v16 = 0;
     goto LABEL_13;
   }
 
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138543618;
-    v19 = messageCopy;
-    v20 = 2114;
-    v21 = deviceCopy;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerResponder: Received request message: %{public}@ from device: %{public}@", &v18, 0x16u);
+    v19 = 138543618;
+    v20 = messageCopy;
+    v21 = 2114;
+    v22 = deviceCopy;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerResponder: Received request message: %{public}@ from device: %{public}@", &v19, 0x16u);
   }
 
-  v15 = v12(self, v11, messageCopy);
+  v16 = v13(self, v11, messageCopy);
 LABEL_13:
 
-  return v15;
+  return v16;
 }
 
 - (void)didReceiveEventMessage:(id)message fromDevice:(id)device
 {
   messageCopy = message;
   deviceCopy = device;
-  v7 = sub_100063A54();
+  v7 = sub_100063A54(deviceCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     sub_1000EA834();

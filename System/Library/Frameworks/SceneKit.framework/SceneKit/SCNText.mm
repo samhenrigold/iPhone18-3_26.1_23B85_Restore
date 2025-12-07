@@ -48,18 +48,18 @@
 
 - (void)_syncObjCModel:(__C3DTextGeometry *)model
 {
-  v15.receiver = self;
-  v15.super_class = SCNText;
-  [(SCNGeometry *)&v15 _syncObjCModel];
-  self->_primitiveType = C3DShapeGeometryGetPrimitiveType(model);
+  v19.receiver = self;
+  v19.super_class = SCNText;
+  [(SCNGeometry *)&v19 _syncObjCModel];
+  self->_primitiveType = C3DShapeGeometryGetPrimitiveType(model, v5);
   Flatness = C3DShapeGeometryGetFlatness(model);
   self->_flatness = Flatness;
-  ChamferRadius = C3DShapeGeometryGetChamferRadius(model);
+  ChamferRadius = C3DShapeGeometryGetChamferRadius(model, v7);
   self->_chamferRadius = ChamferRadius;
-  ExtrusionDepth = C3DShapeGeometryGetExtrusionDepth(model);
+  ExtrusionDepth = C3DShapeGeometryGetExtrusionDepth(model, v9);
   self->_extrusionDepth = ExtrusionDepth;
   self->_chamferProfile = C3DShapeGeometryGetObjCChamferProfile(model);
-  DiscretizedStraightLineMaxLength = C3DShapeGeometryGetDiscretizedStraightLineMaxLength(model);
+  DiscretizedStraightLineMaxLength = C3DShapeGeometryGetDiscretizedStraightLineMaxLength(model, v11);
   self->_discretizedStraightLineMaxLength = DiscretizedStraightLineMaxLength;
   self->_alignmentMode = C3DTextGeometryGetAlignmentMode(model);
   self->_truncationMode = C3DTextGeometryGetTruncationMode(model);
@@ -67,19 +67,19 @@
   self->_font = [(SCNText *)self patchFont:C3DTextGeometryGetFont(model)];
   self->_useCustomContainerFrame = C3DTextGeometryGetUseCustomContainerFrame(model);
   self->_customContainerFrame.origin.x = C3DTextGeometryGetCustomContainerFrame(model);
-  self->_customContainerFrame.origin.y = v9;
-  self->_customContainerFrame.size.width = v10;
-  self->_customContainerFrame.size.height = v11;
+  self->_customContainerFrame.origin.y = v13;
+  self->_customContainerFrame.size.width = v14;
+  self->_customContainerFrame.size.height = v15;
   self->_wrapped = C3DTextGeometryGetWrapped(model);
   self->__wantsSeparateGeometryElements = C3DTextGeometryGetUseSeparateGeometryElements(model);
-  v12 = self->_font;
-  v13 = self->_string;
-  v14 = self->_chamferProfile;
+  v16 = self->_font;
+  v17 = self->_string;
+  v18 = self->_chamferProfile;
 }
 
 - (SCNText)init
 {
-  v3 = C3DTextGeometryCreate();
+  v3 = C3DTextGeometryCreate(self, a2);
   v7.receiver = self;
   v7.super_class = SCNText;
   v4 = [(SCNGeometry *)&v7 initWithGeometryRef:v3];
@@ -140,11 +140,12 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  Copy = C3DTextGeometryCreateCopy([(SCNGeometry *)self geometryRef]);
-  v5 = [objc_alloc(objc_opt_class()) initWithTextGeometryRef:Copy];
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  Copy = C3DTextGeometryCreateCopy(geometryRef, v5);
+  v7 = [objc_alloc(objc_opt_class()) initWithTextGeometryRef:Copy];
   CFRelease(Copy);
-  [v5 _setupObjCModelFrom:self];
-  return v5;
+  [v7 _setupObjCModelFrom:self];
+  return v7;
 }
 
 - (BOOL)_wantsSeparateGeometryElements
@@ -152,16 +153,16 @@
   if ([(SCNGeometry *)self isPresentationInstance])
   {
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v4 = sceneRef;
+    v5 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v4);
     }
 
     UseSeparateGeometryElements = C3DTextGeometryGetUseSeparateGeometryElements([(SCNGeometry *)self geometryRef]);
-    if (v4)
+    if (v5)
     {
-      C3DSceneUnlock(v4);
+      C3DSceneUnlock(v5, v6);
     }
   }
 
@@ -176,10 +177,11 @@
 - (void)set_wantsSeparateGeometryElements:(BOOL)elements
 {
   elementsCopy = elements;
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNText set_wantsSeparateGeometryElements:];
     }
@@ -189,13 +191,13 @@
   {
     self->__wantsSeparateGeometryElements = elementsCopy;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __45__SCNText_set_wantsSeparateGeometryElements___block_invoke;
-    v7[3] = &unk_2782FB7F8;
-    v7[4] = self;
-    v8 = elementsCopy;
-    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __45__SCNText_set_wantsSeparateGeometryElements___block_invoke;
+    v9[3] = &unk_2782FB7F8;
+    v9[4] = self;
+    v10 = elementsCopy;
+    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v9];
   }
 }
 
@@ -215,16 +217,17 @@ void __45__SCNText_set_wantsSeparateGeometryElements___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  ChamferRadius = C3DShapeGeometryGetChamferRadius([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  ChamferRadius = C3DShapeGeometryGetChamferRadius(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return ChamferRadius;
@@ -232,10 +235,11 @@ void __45__SCNText_set_wantsSeparateGeometryElements___block_invoke(uint64_t a1)
 
 - (void)setChamferRadius:(CGFloat)chamferRadius
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNText setChamferRadius:];
     }
@@ -243,19 +247,19 @@ void __45__SCNText_set_wantsSeparateGeometryElements___block_invoke(uint64_t a1)
 
   else
   {
-    v6 = fmax(chamferRadius, 0.0);
-    if (v6 != self->_chamferRadius)
+    v8 = fmax(chamferRadius, 0.0);
+    if (v8 != self->_chamferRadius)
     {
-      v7 = v6;
-      self->_chamferRadius = v7;
+      v9 = v8;
+      self->_chamferRadius = v9;
       sceneRef = [(SCNGeometry *)self sceneRef];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __28__SCNText_setChamferRadius___block_invoke;
-      v9[3] = &unk_2782FB7D0;
-      v9[4] = self;
-      *&v9[5] = v6;
-      [SCNTransaction postCommandWithContext:sceneRef object:self key:@"chamferRadius" applyBlock:v9];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __28__SCNText_setChamferRadius___block_invoke;
+      v11[3] = &unk_2782FB7D0;
+      v11[4] = self;
+      *&v11[5] = v8;
+      [SCNTransaction postCommandWithContext:sceneRef object:self key:@"chamferRadius" applyBlock:v11];
     }
   }
 }
@@ -263,10 +267,10 @@ void __45__SCNText_set_wantsSeparateGeometryElements___block_invoke(uint64_t a1)
 void __28__SCNText_setChamferRadius___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) geometryRef];
-  v3 = *(a1 + 40);
-  v4 = v3;
+  v4 = *(a1 + 40);
+  v5 = v4;
 
-  C3DShapeGeometrySetChamferRadius(v2, v4);
+  C3DShapeGeometrySetChamferRadius(v2, v3, v5);
 }
 
 - (double)discretizedStraightLineMaxLength
@@ -277,16 +281,17 @@ void __28__SCNText_setChamferRadius___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  DiscretizedStraightLineMaxLength = C3DShapeGeometryGetDiscretizedStraightLineMaxLength([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  DiscretizedStraightLineMaxLength = C3DShapeGeometryGetDiscretizedStraightLineMaxLength(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return DiscretizedStraightLineMaxLength;
@@ -294,10 +299,11 @@ void __28__SCNText_setChamferRadius___block_invoke(uint64_t a1)
 
 - (void)setDiscretizedStraightLineMaxLength:(double)length
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNText setDiscretizedStraightLineMaxLength:];
     }
@@ -305,19 +311,19 @@ void __28__SCNText_setChamferRadius___block_invoke(uint64_t a1)
 
   else
   {
-    v6 = fmax(length, 0.0);
-    if (v6 != self->_discretizedStraightLineMaxLength)
+    v8 = fmax(length, 0.0);
+    if (v8 != self->_discretizedStraightLineMaxLength)
     {
-      v7 = v6;
-      self->_discretizedStraightLineMaxLength = v7;
+      v9 = v8;
+      self->_discretizedStraightLineMaxLength = v9;
       sceneRef = [(SCNGeometry *)self sceneRef];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __47__SCNText_setDiscretizedStraightLineMaxLength___block_invoke;
-      v9[3] = &unk_2782FB7D0;
-      v9[4] = self;
-      *&v9[5] = v6;
-      [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v9];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __47__SCNText_setDiscretizedStraightLineMaxLength___block_invoke;
+      v11[3] = &unk_2782FB7D0;
+      v11[4] = self;
+      *&v11[5] = v8;
+      [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v11];
     }
   }
 }
@@ -325,10 +331,10 @@ void __28__SCNText_setChamferRadius___block_invoke(uint64_t a1)
 void __47__SCNText_setDiscretizedStraightLineMaxLength___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) geometryRef];
-  v3 = *(a1 + 40);
-  v4 = v3;
+  v4 = *(a1 + 40);
+  v5 = v4;
 
-  C3DShapeGeometrySetDiscretizedStraightLineMaxLength(v2, v4);
+  C3DShapeGeometrySetDiscretizedStraightLineMaxLength(v2, v3, v5);
 }
 
 - (CGFloat)extrusionDepth
@@ -339,16 +345,17 @@ void __47__SCNText_setDiscretizedStraightLineMaxLength___block_invoke(uint64_t a
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  ExtrusionDepth = C3DShapeGeometryGetExtrusionDepth([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  ExtrusionDepth = C3DShapeGeometryGetExtrusionDepth(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return ExtrusionDepth;
@@ -356,10 +363,11 @@ void __47__SCNText_setDiscretizedStraightLineMaxLength___block_invoke(uint64_t a
 
 - (void)setExtrusionDepth:(CGFloat)extrusionDepth
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNText setExtrusionDepth:];
     }
@@ -367,19 +375,19 @@ void __47__SCNText_setDiscretizedStraightLineMaxLength___block_invoke(uint64_t a
 
   else
   {
-    v6 = fmax(extrusionDepth, 0.0);
-    if (v6 != self->_extrusionDepth)
+    v8 = fmax(extrusionDepth, 0.0);
+    if (v8 != self->_extrusionDepth)
     {
-      v7 = v6;
-      self->_extrusionDepth = v7;
+      v9 = v8;
+      self->_extrusionDepth = v9;
       sceneRef = [(SCNGeometry *)self sceneRef];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __29__SCNText_setExtrusionDepth___block_invoke;
-      v9[3] = &unk_2782FB7D0;
-      v9[4] = self;
-      *&v9[5] = v6;
-      [SCNTransaction postCommandWithContext:sceneRef object:self key:@"extrusionDepth" applyBlock:v9];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __29__SCNText_setExtrusionDepth___block_invoke;
+      v11[3] = &unk_2782FB7D0;
+      v11[4] = self;
+      *&v11[5] = v8;
+      [SCNTransaction postCommandWithContext:sceneRef object:self key:@"extrusionDepth" applyBlock:v11];
     }
   }
 }
@@ -387,10 +395,10 @@ void __47__SCNText_setDiscretizedStraightLineMaxLength___block_invoke(uint64_t a
 void __29__SCNText_setExtrusionDepth___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) geometryRef];
-  v3 = *(a1 + 40);
-  v4 = v3;
+  v4 = *(a1 + 40);
+  v5 = v4;
 
-  C3DShapeGeometrySetExtrusionDepth(v2, v4);
+  C3DShapeGeometrySetExtrusionDepth(v2, v3, v5);
 }
 
 - (CGFloat)flatness
@@ -401,16 +409,16 @@ void __29__SCNText_setExtrusionDepth___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
   Flatness = C3DShapeGeometryGetFlatness([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v6);
   }
 
   return Flatness;
@@ -418,10 +426,11 @@ void __29__SCNText_setExtrusionDepth___block_invoke(uint64_t a1)
 
 - (void)setFlatness:(CGFloat)flatness
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNText setFlatness:];
     }
@@ -429,16 +438,16 @@ void __29__SCNText_setExtrusionDepth___block_invoke(uint64_t a1)
 
   else if (self->_flatness != flatness)
   {
-    v6 = flatness;
-    self->_flatness = v6;
+    v8 = flatness;
+    self->_flatness = v8;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __23__SCNText_setFlatness___block_invoke;
-    v8[3] = &unk_2782FB7D0;
-    v8[4] = self;
-    *&v8[5] = flatness;
-    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v8];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __23__SCNText_setFlatness___block_invoke;
+    v10[3] = &unk_2782FB7D0;
+    v10[4] = self;
+    *&v10[5] = flatness;
+    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v10];
   }
 }
 
@@ -459,16 +468,17 @@ float __23__SCNText_setFlatness___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
-  PrimitiveType = C3DShapeGeometryGetPrimitiveType([(SCNGeometry *)self geometryRef]);
-  if (v4)
+  geometryRef = [(SCNGeometry *)self geometryRef];
+  PrimitiveType = C3DShapeGeometryGetPrimitiveType(geometryRef, v7);
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v8);
   }
 
   return PrimitiveType;
@@ -476,10 +486,11 @@ float __23__SCNText_setFlatness___block_invoke(uint64_t a1)
 
 - (void)setPrimitiveType:(int64_t)type
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNText setPrimitiveType:];
     }
@@ -489,13 +500,13 @@ float __23__SCNText_setFlatness___block_invoke(uint64_t a1)
   {
     self->_primitiveType = type;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __28__SCNText_setPrimitiveType___block_invoke;
-    v7[3] = &unk_2782FB7D0;
-    v7[4] = self;
-    v7[5] = type;
-    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __28__SCNText_setPrimitiveType___block_invoke;
+    v9[3] = &unk_2782FB7D0;
+    v9[4] = self;
+    v9[5] = type;
+    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v9];
   }
 }
 
@@ -512,16 +523,16 @@ void __28__SCNText_setPrimitiveType___block_invoke(uint64_t a1)
   if ([(SCNGeometry *)self isPresentationInstance])
   {
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v4 = sceneRef;
+    v5 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v4);
     }
 
     String = C3DTextGeometryGetString([(SCNGeometry *)self geometryRef]);
-    if (v4)
+    if (v5)
     {
-      C3DSceneUnlock(v4);
+      C3DSceneUnlock(v5, v6);
     }
   }
 
@@ -530,17 +541,18 @@ void __28__SCNText_setPrimitiveType___block_invoke(uint64_t a1)
     String = self->_string;
   }
 
-  v6 = [String copy];
+  v8 = [String copy];
 
-  return v6;
+  return v8;
 }
 
 - (void)setString:(id)string
 {
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNText setString:];
     }
@@ -548,18 +560,18 @@ void __28__SCNText_setPrimitiveType___block_invoke(uint64_t a1)
 
   else
   {
-    v6 = self->_string;
-    if (v6 != string)
+    v8 = self->_string;
+    if (v8 != string)
     {
 
       self->_string = [string copy];
       sceneRef = [(SCNGeometry *)self sceneRef];
-      v8[0] = MEMORY[0x277D85DD0];
-      v8[1] = 3221225472;
-      v8[2] = __21__SCNText_setString___block_invoke;
-      v8[3] = &unk_2782FB820;
-      v8[4] = self;
-      [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v8];
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __21__SCNText_setString___block_invoke;
+      v10[3] = &unk_2782FB820;
+      v10[4] = self;
+      [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v10];
     }
   }
 }
@@ -577,16 +589,16 @@ void __21__SCNText_setString___block_invoke(uint64_t a1)
   if ([(SCNGeometry *)self isPresentationInstance])
   {
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v4 = sceneRef;
+    v5 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v4);
     }
 
     Wrapped = C3DTextGeometryGetWrapped([(SCNGeometry *)self geometryRef]);
-    if (v4)
+    if (v5)
     {
-      C3DSceneUnlock(v4);
+      C3DSceneUnlock(v5, v6);
     }
   }
 
@@ -601,10 +613,11 @@ void __21__SCNText_setString___block_invoke(uint64_t a1)
 - (void)setWrapped:(BOOL)wrapped
 {
   v3 = wrapped;
-  if ([(SCNGeometry *)self isPresentationInstance])
+  isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+  if (isPresentationInstance)
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(isPresentationInstance, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNText setWrapped:];
     }
@@ -614,13 +627,13 @@ void __21__SCNText_setString___block_invoke(uint64_t a1)
   {
     self->_wrapped = v3;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __22__SCNText_setWrapped___block_invoke;
-    v7[3] = &unk_2782FB7F8;
-    v7[4] = self;
-    v8 = v3;
-    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v7];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __22__SCNText_setWrapped___block_invoke;
+    v9[3] = &unk_2782FB7F8;
+    v9[4] = self;
+    v10 = v3;
+    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v9];
   }
 }
 
@@ -667,16 +680,16 @@ void __22__SCNText_setWrapped___block_invoke(uint64_t a1)
   if ([(SCNGeometry *)self isPresentationInstance])
   {
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v4 = sceneRef;
+    v5 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v4);
     }
 
     Font = C3DTextGeometryGetFont([(SCNGeometry *)self geometryRef]);
-    if (v4)
+    if (v5)
     {
-      C3DSceneUnlock(v4);
+      C3DSceneUnlock(v5, v6);
     }
 
     if (Font)
@@ -744,20 +757,20 @@ LABEL_10:
   }
 
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
   UseCustomContainerFrame = C3DTextGeometryGetUseCustomContainerFrame([(SCNGeometry *)self geometryRef]);
   x = C3DTextGeometryGetCustomContainerFrame([(SCNGeometry *)self geometryRef]);
-  y = v7;
-  width = v9;
-  height = v11;
-  if (v4)
+  y = v9;
+  width = v11;
+  height = v13;
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v7);
   }
 
   if ((UseCustomContainerFrame & 1) == 0)
@@ -766,14 +779,14 @@ LABEL_10:
   }
 
 LABEL_12:
-  v14 = x;
-  v15 = y;
-  v16 = width;
-  v17 = height;
-  result.size.height = v17;
-  result.size.width = v16;
-  result.origin.y = v15;
-  result.origin.x = v14;
+  v16 = x;
+  v17 = y;
+  v18 = width;
+  v19 = height;
+  result.size.height = v19;
+  result.size.width = v18;
+  result.origin.y = v17;
+  result.origin.x = v16;
   return result;
 }
 
@@ -785,10 +798,11 @@ LABEL_12:
   x = containerFrame.origin.x;
   if (!self->_useCustomContainerFrame || !CGRectEqualToRect(self->_customContainerFrame, containerFrame))
   {
-    if ([(SCNGeometry *)self isPresentationInstance])
+    isPresentationInstance = [(SCNGeometry *)self isPresentationInstance];
+    if (isPresentationInstance)
     {
-      v8 = scn_default_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = scn_default_log(isPresentationInstance, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [SCNText setContainerFrame:];
       }
@@ -802,12 +816,12 @@ LABEL_12:
       self->_customContainerFrame.size.width = width;
       self->_customContainerFrame.size.height = height;
       sceneRef = [(SCNGeometry *)self sceneRef];
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __29__SCNText_setContainerFrame___block_invoke;
-      v10[3] = &unk_2782FB820;
-      v10[4] = self;
-      [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v10];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __29__SCNText_setContainerFrame___block_invoke;
+      v12[3] = &unk_2782FB820;
+      v12[4] = self;
+      [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v12];
     }
   }
 }
@@ -829,16 +843,16 @@ void __29__SCNText_setContainerFrame___block_invoke(uint64_t a1)
   if ([(SCNGeometry *)self isPresentationInstance])
   {
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v4 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
     TruncationMode = C3DTextGeometryGetTruncationMode([(SCNGeometry *)self geometryRef]);
-    if (v4)
+    if (v6)
     {
-      C3DSceneUnlock(v4);
+      C3DSceneUnlock(v6, v3);
     }
   }
 
@@ -847,39 +861,40 @@ void __29__SCNText_setContainerFrame___block_invoke(uint64_t a1)
     TruncationMode = self->_truncationMode;
   }
 
-  return CATextTruncationModeFromC3DTextTruncationMode(TruncationMode);
+  return CATextTruncationModeFromC3DTextTruncationMode(TruncationMode, v3);
 }
 
 - (void)setTruncationMode:(NSString *)truncationMode
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if ([(NSString *)truncationMode isEqualToString:*MEMORY[0x277CDA978]])
+  v14 = *MEMORY[0x277D85DE8];
+  if (objc_msgSend_isEqualToString_(truncationMode, a2, *MEMORY[0x277CDA978]))
   {
 LABEL_2:
     v5 = 0;
     goto LABEL_9;
   }
 
-  if ([(NSString *)truncationMode isEqualToString:*MEMORY[0x277CDA980]])
+  if (objc_msgSend_isEqualToString_(truncationMode))
   {
     v5 = 1;
   }
 
-  else if ([(NSString *)truncationMode isEqualToString:*MEMORY[0x277CDA968]])
+  else if (objc_msgSend_isEqualToString_(truncationMode))
   {
     v5 = 2;
   }
 
   else
   {
-    if (![(NSString *)truncationMode isEqualToString:*MEMORY[0x277CDA970]])
+    isEqualToString = objc_msgSend_isEqualToString_(truncationMode);
+    if ((isEqualToString & 1) == 0)
     {
-      v7 = scn_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = scn_default_log(isEqualToString, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v11 = truncationMode;
-        _os_log_impl(&dword_21BEF7000, v7, OS_LOG_TYPE_DEFAULT, "Warning: Unknown truncation mode %@", buf, 0xCu);
+        v13 = truncationMode;
+        _os_log_impl(&dword_21BEF7000, v9, OS_LOG_TYPE_DEFAULT, "Warning: Unknown truncation mode %@", buf, 0xCu);
       }
 
       goto LABEL_2;
@@ -893,13 +908,13 @@ LABEL_9:
   {
     self->_truncationMode = v5;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __29__SCNText_setTruncationMode___block_invoke;
-    v8[3] = &unk_2782FF898;
-    v8[4] = self;
-    v9 = v5;
-    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v8];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __29__SCNText_setTruncationMode___block_invoke;
+    v10[3] = &unk_2782FF898;
+    v10[4] = self;
+    v11 = v5;
+    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v10];
   }
 }
 
@@ -916,16 +931,16 @@ void __29__SCNText_setTruncationMode___block_invoke(uint64_t a1)
   if ([(SCNGeometry *)self isPresentationInstance])
   {
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v4 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
     AlignmentMode = C3DTextGeometryGetAlignmentMode([(SCNGeometry *)self geometryRef]);
-    if (v4)
+    if (v6)
     {
-      C3DSceneUnlock(v4);
+      C3DSceneUnlock(v6, v3);
     }
   }
 
@@ -934,44 +949,45 @@ void __29__SCNText_setTruncationMode___block_invoke(uint64_t a1)
     AlignmentMode = self->_alignmentMode;
   }
 
-  return CATextAlignmentModeFromC3DTextAlignmentMode(AlignmentMode);
+  return CATextAlignmentModeFromC3DTextAlignmentMode(AlignmentMode, v3);
 }
 
 - (void)setAlignmentMode:(NSString *)alignmentMode
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if ([(NSString *)alignmentMode isEqualToString:*MEMORY[0x277CDA038]])
+  v14 = *MEMORY[0x277D85DE8];
+  if (objc_msgSend_isEqualToString_(alignmentMode, a2, *MEMORY[0x277CDA038]))
   {
 LABEL_2:
     v5 = 0;
     goto LABEL_11;
   }
 
-  if ([(NSString *)alignmentMode isEqualToString:*MEMORY[0x277CDA030]])
+  if (objc_msgSend_isEqualToString_(alignmentMode))
   {
     v5 = 1;
   }
 
-  else if ([(NSString *)alignmentMode isEqualToString:*MEMORY[0x277CDA040]])
+  else if (objc_msgSend_isEqualToString_(alignmentMode))
   {
     v5 = 2;
   }
 
-  else if ([(NSString *)alignmentMode isEqualToString:*MEMORY[0x277CDA020]])
+  else if (objc_msgSend_isEqualToString_(alignmentMode))
   {
     v5 = 3;
   }
 
   else
   {
-    if (![(NSString *)alignmentMode isEqualToString:*MEMORY[0x277CDA028]])
+    isEqualToString = objc_msgSend_isEqualToString_(alignmentMode);
+    if ((isEqualToString & 1) == 0)
     {
-      v7 = scn_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = scn_default_log(isEqualToString, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v11 = alignmentMode;
-        _os_log_impl(&dword_21BEF7000, v7, OS_LOG_TYPE_DEFAULT, "Warning: Unknown alignment mode %@", buf, 0xCu);
+        v13 = alignmentMode;
+        _os_log_impl(&dword_21BEF7000, v9, OS_LOG_TYPE_DEFAULT, "Warning: Unknown alignment mode %@", buf, 0xCu);
       }
 
       goto LABEL_2;
@@ -985,13 +1001,13 @@ LABEL_11:
   {
     self->_alignmentMode = v5;
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __28__SCNText_setAlignmentMode___block_invoke;
-    v8[3] = &unk_2782FF898;
-    v8[4] = self;
-    v9 = v5;
-    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v8];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __28__SCNText_setAlignmentMode___block_invoke;
+    v10[3] = &unk_2782FF898;
+    v10[4] = self;
+    v11 = v5;
+    [SCNTransaction postCommandWithContext:sceneRef object:self applyBlock:v10];
   }
 }
 
@@ -1008,16 +1024,16 @@ void __28__SCNText_setAlignmentMode___block_invoke(uint64_t a1)
   if ([(SCNGeometry *)self isPresentationInstance])
   {
     sceneRef = [(SCNGeometry *)self sceneRef];
-    v4 = sceneRef;
+    v5 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v4);
     }
 
     ObjCChamferProfile = C3DShapeGeometryGetObjCChamferProfile([(SCNGeometry *)self geometryRef]);
-    if (v4)
+    if (v5)
     {
-      C3DSceneUnlock(v4);
+      C3DSceneUnlock(v5, v6);
     }
   }
 
@@ -1026,9 +1042,9 @@ void __28__SCNText_setAlignmentMode___block_invoke(uint64_t a1)
     ObjCChamferProfile = self->_chamferProfile;
   }
 
-  v6 = [ObjCChamferProfile copy];
+  v8 = [ObjCChamferProfile copy];
 
-  return v6;
+  return v8;
 }
 
 - (void)setChamferProfile:(UIBezierPath *)chamferProfile
@@ -1067,7 +1083,7 @@ void __29__SCNText_setChamferProfile___block_invoke(uint64_t a1)
   {
     geometryRef = [(SCNGeometry *)self geometryRef];
 
-    C3DTextGeometryGetC3DKitParameters(geometryRef, retstr);
+    C3DTextGeometryGetC3DKitParameters(geometryRef, retstr, v7);
   }
 
   else
@@ -1103,48 +1119,48 @@ void __29__SCNText_setChamferProfile___block_invoke(uint64_t a1)
 - (BOOL)getBoundingBoxMin:(SCNVector3 *)min max:(SCNVector3 *)max
 {
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v8 = sceneRef;
+  v9 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v8);
   }
 
-  DWORD2(v16) = 0;
-  *&v16 = 0;
-  DWORD2(v15) = 0;
-  *&v15 = 0;
+  DWORD2(v18) = 0;
+  *&v18 = 0;
+  DWORD2(v17) = 0;
+  *&v17 = 0;
   geometryRef = [(SCNGeometry *)self geometryRef];
   if (self)
   {
-    [(SCNText *)self params];
+    objc_msgSend_params(self);
   }
 
   else
   {
-    memset(v14, 0, sizeof(v14));
+    memset(v16, 0, sizeof(v16));
   }
 
-  BoundingBox = C3DTextGeometryGetBoundingBox(geometryRef, &v16, &v15, v14);
+  BoundingBox = C3DTextGeometryGetBoundingBox(geometryRef, &v18, &v17, v16);
   if (BoundingBox)
   {
     if (min)
     {
-      v11 = *(&v16 + 2);
-      *&min->x = v16;
-      min->z = v11;
+      v13 = *(&v18 + 2);
+      *&min->x = v18;
+      min->z = v13;
     }
 
     if (max)
     {
-      v12 = *(&v15 + 2);
-      *&max->x = v15;
-      max->z = v12;
+      v14 = *(&v17 + 2);
+      *&max->x = v17;
+      max->z = v14;
     }
   }
 
-  if (v8)
+  if (v9)
   {
-    C3DSceneUnlock(v8);
+    C3DSceneUnlock(v9, v11);
   }
 
   return BoundingBox;
@@ -1153,43 +1169,43 @@ void __29__SCNText_setChamferProfile___block_invoke(uint64_t a1)
 - (BOOL)getBoundingSphereCenter:(SCNVector3 *)center radius:(double *)radius
 {
   sceneRef = [(SCNGeometry *)self sceneRef];
-  v8 = sceneRef;
+  v9 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v8);
   }
 
-  v14 = 0uLL;
+  v16 = 0uLL;
   geometryRef = [(SCNGeometry *)self geometryRef];
   if (self)
   {
-    [(SCNText *)self params];
+    objc_msgSend_params(self);
   }
 
   else
   {
-    memset(v13, 0, sizeof(v13));
+    memset(v15, 0, sizeof(v15));
   }
 
-  BoundingSphere = C3DTextGeometryGetBoundingSphere(geometryRef, &v14, v13);
+  BoundingSphere = C3DTextGeometryGetBoundingSphere(geometryRef, &v16, v15);
   if (BoundingSphere)
   {
     if (center)
     {
-      v11 = *(&v14 + 2);
-      *&center->x = v14;
-      center->z = v11;
+      v13 = *(&v16 + 2);
+      *&center->x = v16;
+      center->z = v13;
     }
 
     if (radius)
     {
-      *radius = *(&v14 + 3);
+      *radius = *(&v16 + 3);
     }
   }
 
-  if (v8)
+  if (v9)
   {
-    C3DSceneUnlock(v8);
+    C3DSceneUnlock(v9, v11);
   }
 
   return BoundingSphere;
@@ -1204,16 +1220,18 @@ void __29__SCNText_setChamferProfile___block_invoke(uint64_t a1)
 
 - (void)_customDecodingOfSCNText:(id)text
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   [(SCNText *)self setChamferProfile:SCNDecodeBezierPathForKey(text, @"chamferProfile")];
   v5 = MEMORY[0x277CBEB98];
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  -[SCNText setString:](self, "setString:", SCNDecodeUnsafeObjectForKey(text, @"string", [v5 setWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v7, 2)}]));
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  -[SCNText setString:](self, "setString:", SCNDecodeUnsafeObjectForKey(text, @"string", [v5 setWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v11, 2)}]));
   v6 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
   [(SCNText *)self setFont:[(SCNText *)self patchFont:SCNDecodeUnsafeObjectForKey(text, @"font", v6)]];
-  -[SCNText setAlignmentMode:](self, "setAlignmentMode:", CATextAlignmentModeFromC3DTextAlignmentMode([text decodeIntegerForKey:@"alignmentMode"]));
-  -[SCNText setTruncationMode:](self, "setTruncationMode:", CATextTruncationModeFromC3DTextTruncationMode([text decodeIntegerForKey:@"truncationMode"]));
+  v7 = [text decodeIntegerForKey:@"alignmentMode"];
+  [(SCNText *)self setAlignmentMode:CATextAlignmentModeFromC3DTextAlignmentMode(v7, v8)];
+  v9 = [text decodeIntegerForKey:@"truncationMode"];
+  [(SCNText *)self setTruncationMode:CATextTruncationModeFromC3DTextTruncationMode(v9, v10)];
 }
 
 - (void)_customEncodingOfSCNText:(id)text
@@ -1288,65 +1306,74 @@ void __29__SCNText_setChamferProfile___block_invoke(uint64_t a1)
 
 - (void)set_wantsSeparateGeometryElements:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setChamferRadius:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setDiscretizedStraightLineMaxLength:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setExtrusionDepth:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setFlatness:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setPrimitiveType:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setString:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setWrapped:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setContainerFrame:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 @end

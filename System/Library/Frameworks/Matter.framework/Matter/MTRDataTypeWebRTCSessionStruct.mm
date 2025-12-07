@@ -66,8 +66,8 @@
   metadataEnabled = [(MTRDataTypeWebRTCSessionStruct *)self metadataEnabled];
   [(MTRDataTypeWebRTCSessionStruct *)v4 setMetadataEnabled:metadataEnabled];
 
-  fabricIndex = [(MTRDataTypeWebRTCSessionStruct *)self fabricIndex];
-  [(MTRDataTypeWebRTCSessionStruct *)v4 setFabricIndex:fabricIndex];
+  v12 = objc_msgSend_fabricIndex(self);
+  [(MTRDataTypeWebRTCSessionStruct *)v4 setFabricIndex:v12];
 
   return v4;
 }

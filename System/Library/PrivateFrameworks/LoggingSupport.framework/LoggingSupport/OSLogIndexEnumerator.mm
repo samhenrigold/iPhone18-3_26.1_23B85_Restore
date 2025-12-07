@@ -23,8 +23,6 @@ uint64_t __81___OSLogIndexEnumerator_enumerateTracepointsInRange_timesync_option
     }
   }
 
-  v4 = a1[4];
-  v5 = a1[8];
   if (((*(a1[4] + 16))() & 1) == 0)
   {
     result = 0;

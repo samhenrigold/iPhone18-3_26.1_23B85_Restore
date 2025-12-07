@@ -23,7 +23,7 @@
     queue = v11->_queue;
     v11->_queue = v12;
 
-    v14 = [configurationCopy copy];
+    v14 = objc_msgSend_copy(configurationCopy);
     sessionConfiguration = v11->_sessionConfiguration;
     v11->_sessionConfiguration = v14;
   }
@@ -41,10 +41,9 @@
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -62,7 +61,7 @@
 
 - (void)_queue_deactivate
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (self)
   {
     _HKInitializeLogging();
@@ -70,10 +69,10 @@
     if (os_log_type_enabled(*MEMORY[0x277CCC2A8], OS_LOG_TYPE_DEFAULT))
     {
       v3 = v2;
-      v7 = 138412290;
-      v8 = objc_opt_class();
-      v4 = v8;
-      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "%@ deactivate", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = objc_opt_class();
+      v4 = v7;
+      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "%@ deactivate", &v6, 0xCu);
     }
 
     if (*(self + 64) == 1)
@@ -84,13 +83,11 @@
       *(self + 48) = 0;
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_startSessionWithStartDate:(id)date completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   completionCopy = completion;
   _HKInitializeLogging();
@@ -106,22 +103,22 @@
     *&buf[12] = 2114;
     *&buf[14] = dateCopy;
     *&buf[22] = 2112;
-    v22 = sessionConfiguration;
+    v21 = sessionConfiguration;
     _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "start session %{public}@ with start date: %{public}@, configuration: %@", buf, 0x20u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  LOBYTE(v22) = 0;
+  LOBYTE(v21) = 0;
   queue = self->_queue;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __76__HDDeepBreathingSessionServer_remote_startSessionWithStartDate_completion___block_invoke;
-  v18[3] = &unk_278617198;
-  v18[4] = self;
-  v18[5] = buf;
-  dispatch_sync(queue, v18);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __76__HDDeepBreathingSessionServer_remote_startSessionWithStartDate_completion___block_invoke;
+  v17[3] = &unk_278617198;
+  v17[4] = self;
+  v17[5] = buf;
+  dispatch_sync(queue, v17);
   if (*(*&buf[8] + 24) == 1)
   {
     _HKInitializeLogging();
@@ -129,16 +126,14 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = NSStringFromSelector(a2);
-      *v19 = 138412290;
-      v20 = v16;
-      _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "%@ called on server that has already been started. Returning early.", v19, 0xCu);
+      *v18 = 138412290;
+      v19 = v16;
+      _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "%@ called on server that has already been started. Returning early.", v18, 0xCu);
     }
   }
 
   completionCopy[2](completionCopy, 1, 0);
   _Block_object_dispose(buf, 8);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __76__HDDeepBreathingSessionServer_remote_startSessionWithStartDate_completion___block_invoke(uint64_t a1)
@@ -189,7 +184,7 @@ void __76__HDDeepBreathingSessionServer_remote_startSessionWithStartDate_complet
 
 void __63__HDDeepBreathingSessionServer_remote_endSessionWithEndReason___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (v1)
   {
@@ -202,9 +197,9 @@ void __63__HDDeepBreathingSessionServer_remote_endSessionWithEndReason___block_i
       v5 = MEMORY[0x277CCABB0];
       v6 = v4;
       v7 = [v5 numberWithInteger:v2];
-      LODWORD(v19) = 138412290;
-      *(&v19 + 4) = v7;
-      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "ending session with endReason=%@", &v19, 0xCu);
+      LODWORD(v18) = 138412290;
+      *(&v18 + 4) = v7;
+      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "ending session with endReason=%@", &v18, 0xCu);
     }
 
     AppBooleanValue = CFPreferencesGetAppBooleanValue(@"EnableDemoMode", @"com.apple.DeepBreathing", 0);
@@ -234,8 +229,8 @@ void __63__HDDeepBreathingSessionServer_remote_endSessionWithEndReason___block_i
     {
       if (v15)
       {
-        LOWORD(v19) = 0;
-        _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "returning fake heartrate for simulator", &v19, 2u);
+        LOWORD(v18) = 0;
+        _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "returning fake heartrate for simulator", &v18, 2u);
       }
 
       v16 = 72.0;
@@ -246,44 +241,40 @@ void __63__HDDeepBreathingSessionServer_remote_endSessionWithEndReason___block_i
       v16 = 0.0;
       if (v15)
       {
-        LOWORD(v19) = 0;
-        _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "not using healthlite, returning no heartrate", &v19, 2u);
+        LOWORD(v18) = 0;
+        _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "not using healthlite, returning no heartrate", &v18, 2u);
       }
     }
 
-    *&v19 = MEMORY[0x277D85DD0];
-    *(&v19 + 1) = 3221225472;
-    v20 = __77__HDDeepBreathingSessionServer__queue_alertClientSessionDidReceiveHeartRate___block_invoke;
-    v21 = &__block_descriptor_40_e17_v16__0__NSError_8l;
-    v22 = sel__queue_alertClientSessionDidReceiveHeartRate_;
-    v17 = [v1 remoteObjectProxyWithErrorHandler:&v19];
+    *&v18 = MEMORY[0x277D85DD0];
+    *(&v18 + 1) = 3221225472;
+    v19 = __77__HDDeepBreathingSessionServer__queue_alertClientSessionDidReceiveHeartRate___block_invoke;
+    v20 = &__block_descriptor_40_e17_v16__0__NSError_8l;
+    v21 = sel__queue_alertClientSessionDidReceiveHeartRate_;
+    v17 = [v1 remoteObjectProxyWithErrorHandler:&v18];
     [v17 clientRemote_sessionDidReceiveHeartRate:v16];
 
     [(HDDeepBreathingSessionServer *)v1 _queue_deactivate];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HDDeepBreathingSessionServer__queue_alertClientSessionDidReceiveHeartRate___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2A8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A8], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = v4;
-    v8 = NSStringFromSelector(v6);
-    v9 = 138412546;
-    v10 = v8;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "(%@) error fetching client proxy: %@", &v9, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = v4;
+    v7 = NSStringFromSelector(v5);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "(%@) error fetching client proxy: %@", &v8, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

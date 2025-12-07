@@ -43,45 +43,45 @@ LABEL_16:
 
       if (v11)
       {
-        v12 = _LSRegistrationLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v13 = _LSRegistrationLog(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          v13 = objc_opt_class();
-          v14 = [selfCopy objectForKey:*MEMORY[0x1E695E4F0]];
-          v15 = v14;
-          if (v13 && v14 && (objc_opt_isKindOfClass() & 1) == 0)
+          v14 = objc_opt_class();
+          v15 = [selfCopy objectForKey:*MEMORY[0x1E695E4F0]];
+          v16 = v15;
+          if (v14 && v15 && (objc_opt_isKindOfClass() & 1) == 0)
           {
 
-            v15 = 0;
+            v16 = 0;
           }
 
           v23 = 138412546;
           v24 = v8;
           v25 = 2112;
-          v26 = v15;
-          _os_log_impl(&dword_18162D000, v12, OS_LOG_TYPE_INFO, "Overriding NSExtension->NSExtensionPointIdentifier to %@ for bundleID %@", &v23, 0x16u);
+          v26 = v16;
+          _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_INFO, "Overriding NSExtension->NSExtensionPointIdentifier to %@ for bundleID %@", &v23, 0x16u);
         }
       }
 
       else
       {
-        v16 = _LSRegistrationLog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        v17 = _LSRegistrationLog(v12);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v17 = objc_opt_class();
-          v18 = [selfCopy objectForKey:*MEMORY[0x1E695E4F0]];
-          v19 = v18;
-          if (v17 && v18 && (objc_opt_isKindOfClass() & 1) == 0)
+          v18 = objc_opt_class();
+          v19 = [selfCopy objectForKey:*MEMORY[0x1E695E4F0]];
+          v20 = v19;
+          if (v18 && v19 && (objc_opt_isKindOfClass() & 1) == 0)
           {
 
-            v19 = 0;
+            v20 = 0;
           }
 
           v23 = 138412546;
           v24 = v8;
           v25 = 2112;
-          v26 = v19;
-          _os_log_impl(&dword_18162D000, v16, OS_LOG_TYPE_INFO, "Synthesizing NSExtension->NSExtensionPointIdentifier to %@ for bundleID %@", &v23, 0x16u);
+          v26 = v20;
+          _os_log_impl(&dword_18162D000, v17, OS_LOG_TYPE_INFO, "Synthesizing NSExtension->NSExtensionPointIdentifier to %@ for bundleID %@", &v23, 0x16u);
         }
 
         v11 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:2];
@@ -89,9 +89,9 @@ LABEL_16:
 
       [v11 setObject:v8 forKey:@"NSExtensionPointIdentifier"];
       [v9 setObject:v11 forKey:@"NSExtension"];
-      v20 = [v9 copy];
+      v21 = [v9 copy];
 
-      selfCopy = v20;
+      selfCopy = v21;
       goto LABEL_32;
     }
 
@@ -108,7 +108,7 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v8 = _LSRegistrationLog();
+  v8 = _LSRegistrationLog(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     v23 = 138412546;
@@ -120,7 +120,6 @@ LABEL_16:
 LABEL_32:
 
 LABEL_33:
-  v21 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }

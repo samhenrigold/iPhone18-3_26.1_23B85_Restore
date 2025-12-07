@@ -3,11 +3,11 @@
 
 @implementation VCCryptor
 
-void ___VCCryptor_EnsureCryptorIsReady_block_invoke(uint64_t a1, uint64_t a2)
+void ___VCCryptor_EnsureCryptorIsReady_block_invoke(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
-    atomic_store(1u, (*(a1 + 32) + 32));
+    atomic_store(1u, (*(result + 32) + 32));
   }
 
   else

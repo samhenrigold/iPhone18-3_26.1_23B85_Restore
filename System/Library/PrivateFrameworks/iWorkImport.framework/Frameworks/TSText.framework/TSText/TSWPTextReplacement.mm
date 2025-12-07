@@ -73,8 +73,8 @@
     v26 = v25;
     if (v25)
     {
-      TSWPAttributeArray::begin(v25, &v42, &v40);
-      TSWPAttributeArray::end(v26, &v42, v27, &v38);
+      TSWPAttributeArray::begin(&v40, v25, &v42);
+      TSWPAttributeArray::end(&v38, v26, &v42, v27);
       for (; v41 != v39; ++v41)
       {
         objc_opt_class();

@@ -4,6 +4,7 @@
 - (void)carPlayAppLinksStateForCertSerial:(id)serial withReply:(id)reply;
 - (void)carPlayIconStateForCertSerial:(id)serial andAppCategories:(unint64_t)categories withReply:(id)reply;
 - (void)carPlaySendConnectionTimeEvent:(int64_t)event connectionType:(int64_t)type eventTime:(id)time;
+- (void)carPlayStartSessionForConnectionID:(unsigned int)d properties:(id)properties;
 - (void)filterMatchingDigitalCarKeys:(id)keys forAccessory:(id)accessory withCompletionHandler:(id)handler;
 - (void)isCarPlayPairedWithCertSerial:(id)serial withReply:(id)reply;
 - (void)isWirelessCarPlayAllowedForCertSerial:(id)serial withReply:(id)reply;
@@ -465,6 +466,15 @@ void __71__ACCCarPlay_carPlayIconStateForCertSerial_andAppCategories_withReply__
       __71__ACCCarPlay_carPlayIconStateForCertSerial_andAppCategories_withReply___block_invoke_27_cold_2();
     }
   }
+}
+
+- (void)carPlayStartSessionForConnectionID:(unsigned int)d properties:(id)properties
+{
+  v4 = *&d;
+  propertiesCopy = properties;
+  xpcConnection = [(ACCCarPlay *)self xpcConnection];
+  v7 = [xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global];
+  [v7 carPlayStartSessionForConnectionID:v4 properties:propertiesCopy withReply:&__block_literal_global_32];
 }
 
 void __60__ACCCarPlay_carPlayStartSessionForConnectionID_properties___block_invoke(id a1, NSError *a2)

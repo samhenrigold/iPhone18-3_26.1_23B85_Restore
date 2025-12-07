@@ -47,7 +47,7 @@
       if (!v3->_livePhotoViewMaskLayer)
       {
         v8 = [_TtC7ChatKit18CKBalloonMaskLayer alloc];
-        [(CKBalloonView *)v3 balloonDescriptor];
+        objc_msgSend_balloonDescriptor(v3);
         v9 = [(CKBalloonMaskLayer *)v8 initWithDescriptor:&v15];
         livePhotoViewMaskLayer = v3->_livePhotoViewMaskLayer;
         v3->_livePhotoViewMaskLayer = v9;
@@ -81,7 +81,7 @@
   if (livePhotoView2)
   {
     livePhotoViewMaskLayer = self->_livePhotoViewMaskLayer;
-    [(CKBalloonView *)self balloonDescriptor];
+    objc_msgSend_balloonDescriptor(self);
     [(CKBalloonMaskLayer *)livePhotoViewMaskLayer updateDescriptor:&v16];
     livePhotoView3 = [(CKLivePhotoBalloonView *)self livePhotoView];
     layer = [livePhotoView3 layer];

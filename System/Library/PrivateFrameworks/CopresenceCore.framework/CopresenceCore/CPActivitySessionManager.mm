@@ -33,14 +33,13 @@
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, self + OBJC_IVAR___CPActivitySessionManager_id, v3);
-  v8.super.isa = UUID._bridgeToObjectiveC()().super.isa;
-  (*(v4 + 8))(v7, v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, self + OBJC_IVAR___CPActivitySessionManager_id, v3);
+  v7.super.isa = UUID._bridgeToObjectiveC()().super.isa;
+  (*(v4 + 8))(v6, v3);
 
-  return v8.super.isa;
+  return v7.super.isa;
 }
 
 - (NSSet)activitySessions
@@ -49,7 +48,7 @@
   ActivitySessionManager.activitySessions.getter();
 
   type metadata accessor for ActivitySession(0);
-  lazy protocol witness table accessor for type ActivitySession and conformance NSObject(&lazy protocol witness table cache variable for type ActivitySession and conformance NSObject, type metadata accessor for ActivitySession);
+  lazy protocol witness table accessor for type ActivitySession and conformance NSObject(&lazy protocol witness table cache variable for type ActivitySession and conformance NSObject, type metadata accessor for ActivitySession, MEMORY[0x1E69E81B8]);
   v3.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -95,25 +94,24 @@
 
 - (CPActivitySessionManager)initWithIdentifier:(id)identifier groupUUID:(id)d activities:(id)activities applicationController:(id)controller delegate:(id)delegate queue:(id)queue systemStateObserver:(id)observer sceneObservationManager:(id)self0
 {
-  v23[0] = queue;
-  v23[1] = self;
+  v22[0] = queue;
+  v22[1] = self;
   v12 = type metadata accessor for UUID();
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x1EEE9AC00](v12 - 8);
-  v16 = v23 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v18 = v23 - v17;
+  v13 = MEMORY[0x1EEE9AC00](v12 - 8);
+  v15 = v22 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v17 = v22 - v16;
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUConversationActivity, 0x1E69D8B28);
-  lazy protocol witness table accessor for type TUConversationActivitySession and conformance NSObject(&lazy protocol witness table cache variable for type TUConversationActivity and conformance NSObject, &lazy cache variable for type metadata for TUConversationActivity, 0x1E69D8B28);
-  v19 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+  lazy protocol witness table accessor for type TUConversationActivitySession and conformance NSObject(&lazy protocol witness table cache variable for type TUConversationActivity and conformance NSObject, &lazy cache variable for type metadata for TUConversationActivity, 0x1E69D8B28, MEMORY[0x1E69E81B8]);
+  v18 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   swift_unknownObjectRetain();
-  v21 = v23[0];
+  v20 = v22[0];
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  return ActivitySessionManager.init(id:groupUUID:activities:applicationController:delegate:queue:systemStateObserver:sceneObservationManager:)(v18, v16, v19, controllerCopy, delegate, v21, observer, manager);
+  return ActivitySessionManager.init(id:groupUUID:activities:applicationController:delegate:queue:systemStateObserver:sceneObservationManager:)(v17, v15, v18, controllerCopy, delegate, v20, observer, manager);
 }
 
 - (id)createActivitySessionWithTuActivitySession:(id)session
@@ -129,68 +127,64 @@
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  ActivitySessionManager.leaveActivitySession(activitySessionUUID:)(v8);
+  ActivitySessionManager.leaveActivitySession(activitySessionUUID:)(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)presentSessionDismissalAlertForActivitySessionUUID:(id)d allowingCancellation:(BOOL)cancellation completionHandler:(id)handler
 {
   v7 = type metadata accessor for UUID();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x1EEE9AC00](v7);
-  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = _Block_copy(handler);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = _Block_copy(handler);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  _Block_copy(v12);
+  _Block_copy(v11);
   selfCopy = self;
-  specialized ActivitySessionManager.presentSessionDismissalAlert(activitySessionUUID:allowingCancellation:completion:)(v11, selfCopy, v12);
-  _Block_release(v12);
-  _Block_release(v12);
+  specialized ActivitySessionManager.presentSessionDismissalAlert(activitySessionUUID:allowingCancellation:completion:)(v10, selfCopy, v11);
+  _Block_release(v11);
+  _Block_release(v11);
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (void)removeActivitySessionWithUUID:(id)d usingHandle:(id)handle
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   handleCopy = handle;
   selfCopy = self;
-  ActivitySessionManager.removeActivitySession(activitySessionUUID:using:)(v10, handle);
+  ActivitySessionManager.removeActivitySession(activitySessionUUID:using:)(v9, handle);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)updateActivitySessionWithUUID:(id)d activity:(id)activity
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   activityCopy = activity;
   selfCopy = self;
-  ActivitySessionManager.updateActivitySession(activitySessionUUID:activity:)(v10, activityCopy);
+  ActivitySessionManager.updateActivitySession(activitySessionUUID:activity:)(v9, activityCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)updateNearbyClustersWithLocalParticipantCluster:(id)cluster remoteParticipants:(id)participants
 {
   type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUConversationParticipant, 0x1E69D8B90);
-  lazy protocol witness table accessor for type TUConversationActivitySession and conformance NSObject(&lazy protocol witness table cache variable for type TUConversationParticipant and conformance NSObject, &lazy cache variable for type metadata for TUConversationParticipant, 0x1E69D8B90);
+  lazy protocol witness table accessor for type TUConversationActivitySession and conformance NSObject(&lazy protocol witness table cache variable for type TUConversationParticipant and conformance NSObject, &lazy cache variable for type metadata for TUConversationParticipant, 0x1E69D8B90, MEMORY[0x1E69E81B8]);
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   clusterCopy = cluster;
   selfCopy = self;
@@ -201,14 +195,13 @@
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  ActivitySessionManager.setUsingAirplay(_:_:)(airplay, v10);
+  ActivitySessionManager.setUsingAirplay(_:_:)(airplay, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)refreshDataCryptors
@@ -266,7 +259,7 @@
 - (void)updateExternalParticipants:(id)participants
 {
   type metadata accessor for TUExternalParticipant();
-  lazy protocol witness table accessor for type ActivitySession and conformance NSObject(&lazy protocol witness table cache variable for type TUExternalParticipant and conformance NSObject, MEMORY[0x1E69D8A28]);
+  lazy protocol witness table accessor for type ActivitySession and conformance NSObject(&lazy protocol witness table cache variable for type TUExternalParticipant and conformance NSObject, MEMORY[0x1E69D8A28], MEMORY[0x1E69E81B8]);
   v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   ActivitySessionManager.updateExternalParticipants(_:)(v4);

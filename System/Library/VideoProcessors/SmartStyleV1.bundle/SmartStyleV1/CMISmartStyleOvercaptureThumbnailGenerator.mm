@@ -272,17 +272,11 @@ LABEL_12:
   return v15;
 }
 
-- (void)initWithOptionalCommandQueue:(void *)a1 .cold.4(void *a1)
-{
-  OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
-}
-
 - (uint64_t)generateOvercaptureIntegrationThumbnailFromPreviewThumbnailPixelBuffer:(_DWORD *)a1 stitcherOutputPixelBuffer:outputOvercaptureIntegrationThumbnailPixelBuffer:primaryCaptureRect:inputCropRectWithinPrimaryCaptureRect:affineTransformForPreviewThumbnailPixelBuffer:optionalCommandBuffer:.cold.1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -290,8 +284,8 @@ LABEL_12:
 - (uint64_t)generateOvercaptureIntegrationThumbnailFromPreviewThumbnailPixelBuffer:(_DWORD *)a1 stitcherOutputPixelBuffer:outputOvercaptureIntegrationThumbnailPixelBuffer:primaryCaptureRect:inputCropRectWithinPrimaryCaptureRect:affineTransformForPreviewThumbnailPixelBuffer:optionalCommandBuffer:.cold.2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -299,8 +293,8 @@ LABEL_12:
 - (uint64_t)generateOvercaptureIntegrationThumbnailFromPreviewThumbnailPixelBuffer:(_DWORD *)a1 stitcherOutputPixelBuffer:outputOvercaptureIntegrationThumbnailPixelBuffer:primaryCaptureRect:inputCropRectWithinPrimaryCaptureRect:affineTransformForPreviewThumbnailPixelBuffer:optionalCommandBuffer:.cold.3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -308,8 +302,8 @@ LABEL_12:
 - (uint64_t)generateOvercaptureIntegrationThumbnailFromPreviewThumbnailPixelBuffer:(_DWORD *)a1 stitcherOutputPixelBuffer:outputOvercaptureIntegrationThumbnailPixelBuffer:primaryCaptureRect:inputCropRectWithinPrimaryCaptureRect:affineTransformForPreviewThumbnailPixelBuffer:optionalCommandBuffer:.cold.4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -317,8 +311,8 @@ LABEL_12:
 - (uint64_t)generateOvercaptureIntegrationThumbnailFromPreviewThumbnailPixelBuffer:(_DWORD *)a1 stitcherOutputPixelBuffer:outputOvercaptureIntegrationThumbnailPixelBuffer:primaryCaptureRect:inputCropRectWithinPrimaryCaptureRect:affineTransformForPreviewThumbnailPixelBuffer:optionalCommandBuffer:.cold.5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -326,8 +320,8 @@ LABEL_12:
 - (uint64_t)generateOvercaptureIntegrationThumbnailFromPreviewThumbnailPixelBuffer:(_DWORD *)a1 stitcherOutputPixelBuffer:outputOvercaptureIntegrationThumbnailPixelBuffer:primaryCaptureRect:inputCropRectWithinPrimaryCaptureRect:affineTransformForPreviewThumbnailPixelBuffer:optionalCommandBuffer:.cold.6(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -335,8 +329,8 @@ LABEL_12:
 - (uint64_t)generateOvercaptureIntegrationThumbnailFromPreviewThumbnailPixelBuffer:(_DWORD *)a1 stitcherOutputPixelBuffer:outputOvercaptureIntegrationThumbnailPixelBuffer:primaryCaptureRect:inputCropRectWithinPrimaryCaptureRect:affineTransformForPreviewThumbnailPixelBuffer:optionalCommandBuffer:.cold.7(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }

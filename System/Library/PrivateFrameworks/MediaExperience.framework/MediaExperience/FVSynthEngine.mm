@@ -6,13 +6,12 @@
 void __FVSynthEngine_SendVibeStoppedNotification_block_invoke(uint64_t a1)
 {
   CMNotificationCenterGetDefaultLocalCenter();
-  v2 = *(a1 + 40);
   CMNotificationCenterPostNotification();
-  v3 = *(a1 + 40);
-  if (v3)
+  v2 = *(a1 + 40);
+  if (v2)
   {
 
-    CFRelease(v3);
+    CFRelease(v2);
   }
 }
 
@@ -32,48 +31,46 @@ void __FVSynthEngine_StartVibrationWithPattern_block_invoke_2(uint64_t a1)
   if (gFVInfo)
   {
     v2 = *(a1 + 32);
-    v3 = *gFVInfo;
     if (!FigSimpleMutexLock())
     {
-      v4 = gFVInfo;
-      v5 = *(gFVInfo + 68);
-      if (v5)
+      v3 = gFVInfo;
+      v4 = *(gFVInfo + 68);
+      if (v4)
       {
-        *(gFVInfo + 68) = --v5;
+        *(gFVInfo + 68) = --v4;
       }
 
-      if (*(v4 + 20))
+      if (*(v3 + 20))
       {
-        notify_set_state(*(v4 + 16), 0);
+        notify_set_state(*(v3 + 16), 0);
         notify_post("com.apple.coremedia.vibration");
-        v5 = *(v4 + 68);
+        v4 = *(v3 + 68);
       }
 
-      if (!v5)
+      if (!v4)
       {
         FigVibratorPostNotification(@"VibeWillStop");
       }
 
       if (v2)
       {
-        FVSynthEngine_SendVibeStoppedNotification(v4, v2);
+        FVSynthEngine_SendVibeStoppedNotification(v3, v2);
       }
 
-      v6 = *gFVInfo;
       FigSimpleMutexUnlock();
     }
   }
 
   else
   {
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v6, v7, v8);
   }
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v5 = *(a1 + 32);
+  if (v5)
   {
 
-    CFRelease(v7);
+    CFRelease(v5);
   }
 }
 

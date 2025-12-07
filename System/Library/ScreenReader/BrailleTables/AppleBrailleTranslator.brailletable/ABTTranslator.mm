@@ -28,9 +28,9 @@
 
 - (ABTTranslator)init
 {
-  v55.receiver = self;
-  v55.super_class = ABTTranslator;
-  v2 = [(ABTTranslator *)&v55 init];
+  v64.receiver = self;
+  v64.super_class = ABTTranslator;
+  v2 = [(ABTTranslator *)&v64 init];
   v3 = v2;
   if (v2)
   {
@@ -38,15 +38,15 @@
     v4 = [NSBundle bundleForClass:objc_opt_class()];
     v5 = [v4 pathForResource:@"JapaneseNormalization" ofType:@"plist"];
 
-    v54 = v5;
+    v63 = v5;
     v6 = [NSDictionary dictionaryWithContentsOfFile:v5];
     normalizer = v3->_normalizer;
     v3->_normalizer = v6;
 
     if (!v3->_normalizer)
     {
-      v8 = sub_5CC0();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = sub_5CC0(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_21634();
       }
@@ -55,83 +55,83 @@
     rules = v3->_rules;
     v3->_rules = &off_34CF8;
 
-    v10 = [NSBundle bundleForClass:objc_opt_class()];
-    v11 = [v10 pathForResource:@"JapaneseNumeralReadings" ofType:@"plist"];
+    v11 = [NSBundle bundleForClass:objc_opt_class()];
+    v12 = [v11 pathForResource:@"JapaneseNumeralReadings" ofType:@"plist"];
 
-    v53 = v11;
-    v12 = [NSDictionary dictionaryWithContentsOfFile:v11];
+    v62 = v12;
+    v13 = [NSDictionary dictionaryWithContentsOfFile:v12];
     numeralInfo = v3->_numeralInfo;
-    v3->_numeralInfo = v12;
+    v3->_numeralInfo = v13;
 
     if (!v3->_numeralInfo)
     {
-      v14 = sub_5CC0();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = sub_5CC0(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_21668();
       }
     }
 
-    v15 = [NSBundle bundleForClass:objc_opt_class()];
-    v16 = [v15 pathForResource:@"kataToHira" ofType:@"plist"];
+    v17 = [NSBundle bundleForClass:objc_opt_class()];
+    v18 = [v17 pathForResource:@"kataToHira" ofType:@"plist"];
 
-    v52 = v16;
-    v17 = [NSDictionary dictionaryWithContentsOfFile:v16];
+    v61 = v18;
+    v19 = [NSDictionary dictionaryWithContentsOfFile:v18];
     kataToHira = v3->_kataToHira;
-    v3->_kataToHira = v17;
+    v3->_kataToHira = v19;
 
     if (!v3->_kataToHira)
     {
-      v19 = sub_5CC0();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v22 = sub_5CC0(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         sub_2169C();
       }
     }
 
-    v20 = [NSBundle bundleForClass:objc_opt_class()];
-    v21 = [v20 pathForResource:@"kanaToBraille" ofType:@"plist"];
+    v23 = [NSBundle bundleForClass:objc_opt_class()];
+    v24 = [v23 pathForResource:@"kanaToBraille" ofType:@"plist"];
 
-    v22 = [NSDictionary dictionaryWithContentsOfFile:v21];
+    v25 = [NSDictionary dictionaryWithContentsOfFile:v24];
     kanaToBraille = v3->_kanaToBraille;
-    v3->_kanaToBraille = v22;
+    v3->_kanaToBraille = v25;
 
     if (!v3->_kanaToBraille)
     {
-      v24 = sub_5CC0();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v28 = sub_5CC0(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         sub_216D0();
       }
     }
 
-    v25 = [NSBundle bundleForClass:objc_opt_class()];
-    v26 = [v25 pathForResource:@"numberToBraille" ofType:@"plist"];
+    v29 = [NSBundle bundleForClass:objc_opt_class()];
+    v30 = [v29 pathForResource:@"numberToBraille" ofType:@"plist"];
 
-    v27 = [NSDictionary dictionaryWithContentsOfFile:v26];
+    v31 = [NSDictionary dictionaryWithContentsOfFile:v30];
     numberToBraille = v3->_numberToBraille;
-    v3->_numberToBraille = v27;
+    v3->_numberToBraille = v31;
 
     if (!v3->_numberToBraille)
     {
-      v29 = sub_5CC0();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v34 = sub_5CC0(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         sub_21704();
       }
     }
 
-    v30 = [NSBundle bundleForClass:objc_opt_class()];
-    v31 = [v30 pathForResource:@"romajiToBraille" ofType:@"plist"];
+    v35 = [NSBundle bundleForClass:objc_opt_class()];
+    v36 = [v35 pathForResource:@"romajiToBraille" ofType:@"plist"];
 
-    v32 = [NSDictionary dictionaryWithContentsOfFile:v31];
+    v37 = [NSDictionary dictionaryWithContentsOfFile:v36];
     romajiToBraille = v3->_romajiToBraille;
-    v3->_romajiToBraille = v32;
+    v3->_romajiToBraille = v37;
 
     if (!v3->_romajiToBraille)
     {
-      v34 = sub_5CC0();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v40 = sub_5CC0(v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         sub_21738();
       }
@@ -140,49 +140,49 @@
     unknownPlaceholder = v3->_unknownPlaceholder;
     v3->_unknownPlaceholder = @"⠢";
 
-    v36 = [NSBundle bundleForClass:objc_opt_class()];
-    v37 = [v36 pathForResource:@"BrailleToKana" ofType:@"plist"];
+    v42 = [NSBundle bundleForClass:objc_opt_class()];
+    v43 = [v42 pathForResource:@"BrailleToKana" ofType:@"plist"];
 
-    v38 = [NSDictionary dictionaryWithContentsOfFile:v37];
+    v44 = [NSDictionary dictionaryWithContentsOfFile:v43];
     brailleToKana = v3->_brailleToKana;
-    v3->_brailleToKana = v38;
+    v3->_brailleToKana = v44;
 
     if (!v3->_brailleToKana)
     {
-      v40 = sub_5CC0();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v47 = sub_5CC0(v46);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         sub_2176C();
       }
     }
 
-    v41 = [NSBundle bundleForClass:objc_opt_class()];
-    v42 = [v41 pathForResource:@"BrailleToNumber" ofType:@"plist"];
+    v48 = [NSBundle bundleForClass:objc_opt_class()];
+    v49 = [v48 pathForResource:@"BrailleToNumber" ofType:@"plist"];
 
-    v43 = [NSDictionary dictionaryWithContentsOfFile:v42];
+    v50 = [NSDictionary dictionaryWithContentsOfFile:v49];
     brailleToNumber = v3->_brailleToNumber;
-    v3->_brailleToNumber = v43;
+    v3->_brailleToNumber = v50;
 
     if (!v3->_brailleToNumber)
     {
-      v45 = sub_5CC0();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v53 = sub_5CC0(v52);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
         sub_217A0();
       }
     }
 
-    v46 = [NSBundle bundleForClass:objc_opt_class()];
-    v47 = [v46 pathForResource:@"BrailleToRomaji" ofType:@"plist"];
+    v54 = [NSBundle bundleForClass:objc_opt_class()];
+    v55 = [v54 pathForResource:@"BrailleToRomaji" ofType:@"plist"];
 
-    v48 = [NSDictionary dictionaryWithContentsOfFile:v47];
+    v56 = [NSDictionary dictionaryWithContentsOfFile:v55];
     brailleToRomaji = v3->_brailleToRomaji;
-    v3->_brailleToRomaji = v48;
+    v3->_brailleToRomaji = v56;
 
     if (!v3->_brailleToRomaji)
     {
-      v50 = sub_5CC0();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+      v59 = sub_5CC0(v58);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
         sub_217D4();
       }

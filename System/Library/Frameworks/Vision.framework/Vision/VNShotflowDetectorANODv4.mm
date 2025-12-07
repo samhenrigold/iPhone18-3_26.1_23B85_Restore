@@ -125,7 +125,8 @@ void __46__VNShotflowDetectorANODv4_supportedLabelKeys__block_invoke(uint64_t a1
       {
         v9 = [(VNShotflowDetector *)selfCopy sortBoxes:boxesCopy filterThresholdIndex:0];
         v10 = [v9 count];
-        std::vector<BOOL>::vector(&__p, v10);
+        v23 = 0;
+        std::vector<BOOL>::vector(&__p, v10, &v23);
         if (v10)
         {
           v11 = 0;

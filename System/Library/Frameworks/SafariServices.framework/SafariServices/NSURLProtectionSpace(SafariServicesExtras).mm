@@ -30,7 +30,7 @@
 
 - (id)_sf_identities
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (self)
   {
     result = 0;
@@ -51,17 +51,17 @@
       if (objc_opt_isKindOfClass())
       {
         distinguishedNames = [self distinguishedNames];
-        v6 = WBS_LOG_CHANNEL_PREFIXClientAuthentication();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v7 = WBS_LOG_CHANNEL_PREFIXClientAuthentication(distinguishedNames, v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v7 = v6;
-          v8 = [v4 count];
-          v9 = [distinguishedNames count];
+          v8 = v7;
+          v9 = [v4 count];
+          v10 = [distinguishedNames count];
           *buf = 134218240;
-          *&buf[4] = v8;
+          *&buf[4] = v9;
           *&buf[12] = 2048;
-          *&buf[14] = v9;
-          _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEFAULT, "Unfiltered identities count: %lu, distinguished names count: %lu", buf, 0x16u);
+          *&buf[14] = v10;
+          _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_DEFAULT, "Unfiltered identities count: %lu, distinguished names count: %lu", buf, 0x16u);
         }
 
         if (distinguishedNames)
@@ -69,31 +69,31 @@
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x2020000000;
-          v29 = 0;
+          v31 = 0;
           Current = CFAbsoluteTimeGetCurrent();
-          v16 = MEMORY[0x1E69E9820];
-          v17 = 3221225472;
-          v18 = __60__NSURLProtectionSpace_SafariServicesExtras___sf_identities__block_invoke;
-          v19 = &unk_1E8496438;
-          v22 = Current;
-          v20 = distinguishedNames;
-          v21 = buf;
-          v11 = [v4 safari_filterObjectsUsingBlock:&v16];
-          v12 = WBS_LOG_CHANNEL_PREFIXClientAuthentication();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v18 = MEMORY[0x1E69E9820];
+          v19 = 3221225472;
+          v20 = __60__NSURLProtectionSpace_SafariServicesExtras___sf_identities__block_invoke;
+          v21 = &unk_1E8496438;
+          v24 = Current;
+          v22 = distinguishedNames;
+          v23 = buf;
+          v12 = [v4 safari_filterObjectsUsingBlock:&v18];
+          v14 = WBS_LOG_CHANNEL_PREFIXClientAuthentication(v12, v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            v13 = [v11 count];
-            v14 = *(*&buf[8] + 24);
-            *v24 = 134218240;
-            v25 = v13;
-            v26 = 2048;
-            v27 = v14;
-            _os_log_impl(&dword_1D4644000, v12, OS_LOG_TYPE_DEFAULT, "Filtered identities count: %lu, expired count: %lu", v24, 0x16u);
+            v15 = [v12 count];
+            v16 = *(*&buf[8] + 24);
+            *v26 = 134218240;
+            v27 = v15;
+            v28 = 2048;
+            v29 = v16;
+            _os_log_impl(&dword_1D4644000, v14, OS_LOG_TYPE_DEFAULT, "Filtered identities count: %lu, expired count: %lu", v26, 0x16u);
           }
 
-          if ([v11 count])
+          if ([v12 count])
           {
-            v3 = v11;
+            v3 = v12;
           }
 
           else
@@ -141,10 +141,11 @@
 
   else
   {
-    if (([authenticationMethod isEqualToString:*MEMORY[0x1E695AB78]] & 1) == 0)
+    v6 = [authenticationMethod isEqualToString:*MEMORY[0x1E695AB78]];
+    if ((v6 & 1) == 0)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXPageLoading(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [(NSURLProtectionSpace(SafariServicesExtras) *)authenticationMethod _sf_canAuthenticate];
       }

@@ -58,7 +58,7 @@
 {
   height = size.height;
   width = size.width;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAE144B0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAE144B0, &unk_192FC78B0);
   MEMORY[0x1EEE9AC00](v13 - 8, v14);
   v16 = &v31 - v15;
   if (template)

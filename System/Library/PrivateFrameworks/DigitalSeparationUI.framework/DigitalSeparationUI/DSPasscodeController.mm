@@ -10,6 +10,7 @@
 - (void)shouldShowWithCompletion:(id)completion;
 - (void)startRatchetEvalInPresentationContext:(id)context;
 - (void)userDidTapCancelButton:(id)button;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation DSPasscodeController
@@ -58,6 +59,14 @@
   }
 
   return v6;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = DSPasscodeController;
+  [(DSPasscodeController *)&v4 viewWillAppear:appear];
+  [(DSPasscodeController *)self configureViews];
 }
 
 - (void)configureViews
@@ -121,7 +130,7 @@
 - (void)shouldShowWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = sharedWorkQueue();
+  v4 = sharedWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __49__DSPasscodeController_shouldShowWithCompletion___block_invoke;
@@ -219,7 +228,7 @@ uint64_t __49__DSPasscodeController_shouldShowWithCompletion___block_invoke(uint
 
 - (void)startRatchetEvalInPresentationContext:(id)context
 {
-  v19[5] = *MEMORY[0x277D85DE8];
+  v18[5] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CD4860];
   contextCopy = context;
   v6 = objc_alloc_init(v4);
@@ -230,33 +239,31 @@ uint64_t __49__DSPasscodeController_shouldShowWithCompletion___block_invoke(uint
   deepLinkForCurrentFlowAndPane = [delegate deepLinkForCurrentFlowAndPane];
 
   v10 = MEMORY[0x277CD4858];
-  v18[0] = &unk_285BB92C8;
+  v17[0] = &unk_285BB92C8;
   v11 = DSUIDTOLocStringForKey(@"RATCHET_REASON_PASSCODE");
-  v19[0] = v11;
-  v18[1] = &unk_285BB92E0;
+  v18[0] = v11;
+  v17[1] = &unk_285BB92E0;
   v12 = DSUIDTOLocStringForKey(@"RATCHET_ENDED_DETAIL_PASSCODE");
-  v19[1] = v12;
-  v18[2] = &unk_285BB92F8;
+  v18[1] = v12;
+  v17[2] = &unk_285BB92F8;
   v13 = [MEMORY[0x277CBEBC0] URLWithString:deepLinkForCurrentFlowAndPane];
-  v19[2] = v13;
-  v19[3] = contextCopy;
-  v18[3] = &unk_285BB9310;
-  v18[4] = &unk_285BB9328;
-  v19[4] = MEMORY[0x277CBEC38];
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:5];
+  v18[2] = v13;
+  v18[3] = contextCopy;
+  v17[3] = &unk_285BB9310;
+  v17[4] = &unk_285BB9328;
+  v18[4] = MEMORY[0x277CBEC38];
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
   v15 = [v10 makeViewControllerWithOptions:v14 configuration:v6];
   ratchetVC = self->_ratchetVC;
   self->_ratchetVC = v15;
 
   [(LARatchetViewController *)self->_ratchetVC setDelegate:self];
   [(LARatchetViewController *)self->_ratchetVC evaluateAndShowViewController];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ratchetViewController:(id)controller didFinishWithResult:(id)result error:(id)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   errorCopy = error;
   resultCopy = result;
@@ -289,9 +296,9 @@ uint64_t __49__DSPasscodeController_shouldShowWithCompletion___block_invoke(uint
       v20 = DSLog_5;
       if (os_log_type_enabled(DSLog_5, OS_LOG_TYPE_INFO))
       {
-        v28 = 138412290;
-        v29 = errorCopy;
-        _os_log_impl(&dword_248C7E000, v20, OS_LOG_TYPE_INFO, "Passcode Change Ratchet not armed. Reason: %@", &v28, 0xCu);
+        v27 = 138412290;
+        v28 = errorCopy;
+        _os_log_impl(&dword_248C7E000, v20, OS_LOG_TYPE_INFO, "Passcode Change Ratchet not armed. Reason: %@", &v27, 0xCu);
       }
 
       navigationController3 = [(DSPasscodeController *)self navigationController];
@@ -313,15 +320,13 @@ uint64_t __49__DSPasscodeController_shouldShowWithCompletion___block_invoke(uint
       v19 = DSLog_5;
       if (os_log_type_enabled(DSLog_5, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v28) = 0;
-        _os_log_impl(&dword_248C7E000, v19, OS_LOG_TYPE_INFO, "Passcode Change Ratchet initiated, timer counting down. User exiting Safety Check.", &v28, 2u);
+        LOWORD(v27) = 0;
+        _os_log_impl(&dword_248C7E000, v19, OS_LOG_TYPE_INFO, "Passcode Change Ratchet initiated, timer counting down. User exiting Safety Check.", &v27, 2u);
       }
 
       [delegate exitFlowForRatchetWait];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (DSNavigationDelegate)delegate

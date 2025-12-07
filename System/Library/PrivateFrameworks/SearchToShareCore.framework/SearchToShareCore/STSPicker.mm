@@ -124,47 +124,47 @@
   v3 = STSLocalizedString(@"POPULAR_RESULTS_TITLE");
   [(STSPicker *)self setTitle:v3];
 
-  v17 = objc_alloc_init(STSPickerView);
-  collectionView = [(STSPickerView *)v17 collectionView];
+  v19 = objc_alloc_init(STSPickerView);
+  collectionView = [(STSPickerView *)v19 collectionView];
   clearColor = [MEMORY[0x277D75348] clearColor];
   [collectionView setBackgroundColor:clearColor];
 
-  collectionView2 = [(STSPickerView *)v17 collectionView];
+  collectionView2 = [(STSPickerView *)v19 collectionView];
   [collectionView2 setScrollsToTop:1];
 
-  collectionView3 = [(STSPickerView *)v17 collectionView];
+  collectionView3 = [(STSPickerView *)v19 collectionView];
   [collectionView3 setDataSource:self];
 
-  collectionView4 = [(STSPickerView *)v17 collectionView];
+  collectionView4 = [(STSPickerView *)v19 collectionView];
   [collectionView4 setDelegate:self];
 
-  collectionView5 = [(STSPickerView *)v17 collectionView];
+  collectionView5 = [(STSPickerView *)v19 collectionView];
   [collectionView5 registerClass:objc_opt_class() forSupplementaryViewOfKind:@"STSGridLayoutElementKindHeader" withReuseIdentifier:@"STSGridLayoutElementKindHeader"];
 
-  collectionView6 = [(STSPickerView *)v17 collectionView];
+  collectionView6 = [(STSPickerView *)v19 collectionView];
   [collectionView6 registerClass:objc_opt_class() forSupplementaryViewOfKind:@"STSGridLayoutElementKindFooter" withReuseIdentifier:@"STSGridLayoutElementKindFooter"];
 
-  collectionView7 = [(STSPickerView *)v17 collectionView];
+  collectionView7 = [(STSPickerView *)v19 collectionView];
   [collectionView7 registerClass:objc_opt_class() forCellWithReuseIdentifier:@"STSImageCell"];
 
-  collectionView8 = [(STSPickerView *)v17 collectionView];
+  collectionView8 = [(STSPickerView *)v19 collectionView];
   [collectionView8 registerClass:objc_opt_class() forCellWithReuseIdentifier:@"STSVideoCell"];
 
   v13 = [objc_alloc(MEMORY[0x277D75708]) initWithTarget:self action:sel__handleLongPress_];
   [v13 setMinimumPressDuration:0.75];
-  collectionView9 = [(STSPickerView *)v17 collectionView];
+  collectionView9 = [(STSPickerView *)v19 collectionView];
   [collectionView9 addGestureRecognizer:v13];
 
-  if (STSIsInternalInstall())
+  if (STSIsInternalInstall(v15, v16))
   {
-    v15 = [objc_alloc(MEMORY[0x277D75AE0]) initWithTarget:self action:sel__handleDebugGesture_];
-    [v15 setDirection:3];
-    [v15 setNumberOfTouchesRequired:2];
-    collectionView10 = [(STSPickerView *)v17 collectionView];
-    [collectionView10 addGestureRecognizer:v15];
+    v17 = [objc_alloc(MEMORY[0x277D75AE0]) initWithTarget:self action:sel__handleDebugGesture_];
+    [v17 setDirection:3];
+    [v17 setNumberOfTouchesRequired:2];
+    collectionView10 = [(STSPickerView *)v19 collectionView];
+    [collectionView10 addGestureRecognizer:v17];
   }
 
-  [(STSPicker *)self setView:v17];
+  [(STSPicker *)self setView:v19];
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
@@ -672,7 +672,7 @@ LABEL_8:
 
 - (void)_handleDebugGesture:(id)gesture
 {
-  if (STSIsInternalInstall())
+  if (STSIsInternalInstall(self, a2))
   {
     if (self->_debugMode)
     {
@@ -1061,7 +1061,7 @@ void __33__STSPicker__handleDebugGesture___block_invoke_4(uint64_t a1)
 
 - (id)collectionView:(id)view cellForItemAtIndexPath:(id)path
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   pathCopy = path;
   sections = [(STSSearchModel *)self->_searchModel sections];
@@ -1096,46 +1096,46 @@ void __33__STSPicker__handleDebugGesture___block_invoke_4(uint64_t a1)
     {
       v17 = [viewCopy dequeueReusableCellWithReuseIdentifier:@"STSImageCell" forIndexPath:pathCopy];
       v18 = +[STSImageCache sharedCache];
-      v53 = [v18 fetchCachedImageInfoForURL:urlValue];
+      v55 = [v18 fetchCachedImageInfoForURL:urlValue];
 
-      [v17 setCategory:0];
-      if (STSIsInternalInstall())
+      v19 = [v17 setCategory:0];
+      if (STSIsInternalInstall(v19, v20))
       {
         [v17 setDebugBadge:0];
         if ([(NSMutableArray *)self->_debugItems containsObject:pathCopy])
         {
-          v19 = [MEMORY[0x277D755B8] imageNamed:@"feedback-selected-icon"];
-          [v17 setDebugBadge:v19];
+          v21 = [MEMORY[0x277D755B8] imageNamed:@"feedback-selected-icon"];
+          [v17 setDebugBadge:v21];
         }
       }
 
-      if (v53)
+      if (v55)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v72 = v53;
+          v74 = v55;
           _os_log_impl(&dword_264E95000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Cache Hit: imageInfo %@", buf, 0xCu);
         }
 
-        v20 = [MEMORY[0x277D755B8] agif_animatedImageWithImageInfo:v53];
-        [v17 setImage:v20];
+        v22 = [MEMORY[0x277D755B8] agif_animatedImageWithImageInfo:v55];
+        [v17 setImage:v22];
         [(NSMutableSet *)self->_lastInsertedIndexesWaitingToLoad removeObject:pathCopy];
       }
 
       else
       {
-        v70 = 0;
-        v38 = +[STSImageCache sharedCache];
-        v39 = [v38 fetchCachedStaticImageForURL:urlValue hasMultipleFrames:&v70];
+        v72 = 0;
+        v40 = +[STSImageCache sharedCache];
+        v41 = [v40 fetchCachedStaticImageForURL:urlValue hasMultipleFrames:&v72];
 
-        [v17 setImage:v39];
-        if (!v39 || v70 == 1)
+        [v17 setImage:v41];
+        if (!v41 || v72 == 1)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v72 = urlValue;
+            v74 = urlValue;
             _os_log_impl(&dword_264E95000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Cache Miss: fetching %@", buf, 0xCu);
           }
 
@@ -1174,9 +1174,9 @@ void __33__STSPicker__handleDebugGesture___block_invoke_4(uint64_t a1)
     else
     {
       resultType2 = [v14 resultType];
-      v24 = [resultType2 isEqualToString:@"web_video"];
+      v26 = [resultType2 isEqualToString:@"web_video"];
 
-      if (!v24)
+      if (!v26)
       {
         v17 = 0;
         goto LABEL_32;
@@ -1187,19 +1187,19 @@ void __33__STSPicker__handleDebugGesture___block_invoke_4(uint64_t a1)
       text = [title text];
       [v17 setTitle:text];
 
-      v27 = objc_opt_new();
+      v29 = objc_opt_new();
       descriptions = [v14 descriptions];
-      v68[0] = MEMORY[0x277D85DD0];
-      v68[1] = 3221225472;
-      v68[2] = __51__STSPicker_collectionView_cellForItemAtIndexPath___block_invoke;
-      v68[3] = &unk_279B8AF40;
-      v53 = v27;
-      v69 = v53;
-      [descriptions enumerateObjectsUsingBlock:v68];
+      v70[0] = MEMORY[0x277D85DD0];
+      v70[1] = 3221225472;
+      v70[2] = __51__STSPicker_collectionView_cellForItemAtIndexPath___block_invoke;
+      v70[3] = &unk_279B8AF40;
+      v55 = v29;
+      v71 = v55;
+      [descriptions enumerateObjectsUsingBlock:v70];
 
       [v17 setCategory:0];
-      v52 = [v53 componentsJoinedByString:@"\n"];
-      [v17 setSubtitle:v52];
+      v54 = [v55 componentsJoinedByString:@"\n"];
+      [v17 setSubtitle:v54];
       sts_videoDuration = [v14 sts_videoDuration];
       [v17 setDuration:sts_videoDuration];
 
@@ -1209,71 +1209,71 @@ void __33__STSPicker__handleDebugGesture___block_invoke_4(uint64_t a1)
       [v17 setProviderIcon:0];
       mainScreen = [MEMORY[0x277D759A0] mainScreen];
       [mainScreen scale];
-      v33 = v32;
-      v65[0] = MEMORY[0x277D85DD0];
-      v65[1] = 3221225472;
-      v65[2] = __51__STSPicker_collectionView_cellForItemAtIndexPath___block_invoke_3;
-      v65[3] = &unk_279B8AF90;
-      v51 = viewCopy;
-      v66 = v51;
-      v34 = pathCopy;
-      v67 = v34;
-      [v14 sts_providerIconWithScale:v65 completion:v33];
+      v35 = v34;
+      v67[0] = MEMORY[0x277D85DD0];
+      v67[1] = 3221225472;
+      v67[2] = __51__STSPicker_collectionView_cellForItemAtIndexPath___block_invoke_3;
+      v67[3] = &unk_279B8AF90;
+      v53 = viewCopy;
+      v68 = v53;
+      v36 = pathCopy;
+      v69 = v36;
+      [v14 sts_providerIconWithScale:v67 completion:v35];
 
       objc_initWeak(buf, self);
-      v62[0] = MEMORY[0x277D85DD0];
-      v62[1] = 3221225472;
-      v62[2] = __51__STSPicker_collectionView_cellForItemAtIndexPath___block_invoke_5;
-      v62[3] = &unk_279B8AFB8;
-      objc_copyWeak(&v64, buf);
-      v35 = v34;
-      v63 = v35;
-      [v17 setPlayButtonAction:v62];
-      v36 = +[STSImageCache sharedCache];
-      v37 = [v36 fetchCachedStaticImageForURL:urlValue];
+      v64[0] = MEMORY[0x277D85DD0];
+      v64[1] = 3221225472;
+      v64[2] = __51__STSPicker_collectionView_cellForItemAtIndexPath___block_invoke_5;
+      v64[3] = &unk_279B8AFB8;
+      objc_copyWeak(&v66, buf);
+      v37 = v36;
+      v65 = v37;
+      [v17 setPlayButtonAction:v64];
+      v38 = +[STSImageCache sharedCache];
+      v39 = [v38 fetchCachedStaticImageForURL:urlValue];
 
-      [v17 setImage:v37];
-      if (!v37)
+      [v17 setImage:v39];
+      if (!v39)
       {
-        [(STSPicker *)self _fetchImageWithURL:urlValue priority:0 forCollectionView:v51 atIndexPath:v35];
+        [(STSPicker *)self _fetchImageWithURL:urlValue priority:0 forCollectionView:v53 atIndexPath:v37];
       }
 
-      objc_destroyWeak(&v64);
+      objc_destroyWeak(&v66);
       objc_destroyWeak(buf);
     }
 
 LABEL_32:
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || (v42 = MEMORY[0x277D75348], [thumbnail keyColor], v43 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v42, "sts_colorFromHexString:alpha:", v43, 1.0), sts_defaultCellPlaceholderColor2 = objc_claimAutoreleasedReturnValue(), v43, !sts_defaultCellPlaceholderColor2))
+    if ((objc_opt_isKindOfClass() & 1) == 0 || (v44 = MEMORY[0x277D75348], [thumbnail keyColor], v45 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v44, "sts_colorFromHexString:alpha:", v45, 1.0), sts_defaultCellPlaceholderColor2 = objc_claimAutoreleasedReturnValue(), v45, !sts_defaultCellPlaceholderColor2))
     {
       sts_defaultCellPlaceholderColor2 = [MEMORY[0x277D75348] sts_defaultCellPlaceholderColor];
     }
 
-    [v17 setPlaceholderColor:{sts_defaultCellPlaceholderColor2, v51}];
+    [v17 setPlaceholderColor:{sts_defaultCellPlaceholderColor2, v53}];
     imageData = [sts_badge imageData];
     if (imageData)
     {
-      v46 = MEMORY[0x277D755B8];
+      v48 = MEMORY[0x277D755B8];
       mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
       [mainScreen2 scale];
-      v48 = [v46 imageWithData:imageData scale:?];
+      v50 = [v48 imageWithData:imageData scale:?];
 
-      [v17 setBadge:v48];
+      [v17 setBadge:v50];
     }
 
     else
     {
       [v17 setBadge:0];
       sts_badge2 = [v14 sts_badge];
-      v59[0] = MEMORY[0x277D85DD0];
-      v59[1] = 3221225472;
-      v59[2] = __51__STSPicker_collectionView_cellForItemAtIndexPath___block_invoke_6;
-      v59[3] = &unk_279B8AFE0;
-      v60 = viewCopy;
-      v61 = pathCopy;
-      [sts_badge2 loadImageDataWithCompletionAndErrorHandler:v59];
+      v61[0] = MEMORY[0x277D85DD0];
+      v61[1] = 3221225472;
+      v61[2] = __51__STSPicker_collectionView_cellForItemAtIndexPath___block_invoke_6;
+      v61[3] = &unk_279B8AFE0;
+      v62 = viewCopy;
+      v63 = pathCopy;
+      [sts_badge2 loadImageDataWithCompletionAndErrorHandler:v61];
 
-      v48 = v60;
+      v50 = v62;
     }
 
     goto LABEL_39;
@@ -2946,7 +2946,7 @@ void __48__STSPicker__beginDownloadingResultAtIndexPath___block_invoke_4(uint64_
   dispatch_async(displayedResultsQueue, v4);
 }
 
-uint64_t __54__STSPicker__reportFeedbackDisplayedResultsDidScroll___block_invoke(uint64_t a1)
+void *__54__STSPicker__reportFeedbackDisplayedResultsDidScroll___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1008) count];
   if (result)

@@ -16,6 +16,8 @@
 - (void)searchResultSpecifierSelected:(id)selected;
 - (void)updateSearchResultsForSearchController:(id)controller;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CACCommandGroupsController
@@ -241,6 +243,25 @@ LABEL_25:
   [(CACCommandGroupsController *)self setTitle:v3];
 
   [(CACCommandGroupsController *)self _setupSearch];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = CACCommandGroupsController;
+  [(CACCommandGroupsController *)&v5 viewWillAppear:appear];
+  [(CACCommandGroupsController *)self setIsCurrentlyAppearing:1];
+  [(CACCommandGroupsController *)self _commandSettingsDidChange];
+  table = [(CACCommandGroupsController *)self table];
+  [table selectRowAtIndexPath:0 animated:1 scrollPosition:0];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = CACCommandGroupsController;
+  [(CACCommandGroupsController *)&v4 viewWillDisappear:disappear];
+  [(CACCommandGroupsController *)self setIsCurrentlyAppearing:0];
 }
 
 - (void)_commandSettingsDidChange

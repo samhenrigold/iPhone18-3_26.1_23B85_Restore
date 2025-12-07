@@ -3,6 +3,7 @@
 + (BOOL)shouldRedactBundleID:(id)d isInternalBuild:(BOOL)build;
 + (id)primaryServiceTypeForHAPAccessory:(id)accessory;
 + (id)redactedThirdPartyBundleID:(id)d;
++ (id)redactedThirdPartyBundleID:(id)d isInternalBuild:(BOOL)build;
 @end
 
 @implementation HMDMetricsUtilities
@@ -29,6 +30,31 @@
   return self;
 }
 
++ (id)redactedThirdPartyBundleID:(id)d isInternalBuild:(BOOL)build
+{
+  buildCopy = build;
+  dCopy = d;
+  if (dCopy)
+  {
+    if ([self shouldRedactBundleID:dCopy isInternalBuild:buildCopy])
+    {
+      v7 = @"External";
+    }
+
+    else
+    {
+      v7 = objc_msgSend_copy(dCopy);
+    }
+  }
+
+  else
+  {
+    v7 = @"Unknown";
+  }
+
+  return v7;
+}
+
 + (id)redactedThirdPartyBundleID:(id)d
 {
   dCopy = d;
@@ -39,7 +65,7 @@
 
 + (id)primaryServiceTypeForHAPAccessory:(id)accessory
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   primaryService = [accessoryCopy primaryService];
 
@@ -61,35 +87,35 @@ LABEL_15:
     else
     {
       identifiersForBridgedAccessories = [accessoryCopy identifiersForBridgedAccessories];
-      v17 = [identifiersForBridgedAccessories count];
+      v16 = [identifiersForBridgedAccessories count];
 
-      if (v17)
+      if (v16)
       {
         type = @"Bridge";
         goto LABEL_16;
       }
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     services = [accessoryCopy services];
-    v8 = [services countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [services countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(services);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * i);
+          v12 = *(*(&v17 + 1) + 8 * i);
           if ([v12 isPrimary])
           {
             primaryService2 = v12;
@@ -97,7 +123,7 @@ LABEL_15:
           }
         }
 
-        v9 = [services countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [services countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v9)
         {
           continue;
@@ -111,8 +137,6 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return type;
 }

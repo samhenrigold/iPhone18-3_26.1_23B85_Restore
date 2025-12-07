@@ -19,8 +19,6 @@ void __69___EFConcatenatingObservable_subscribeObserver_toObservables_unless___b
     v2 = *(a1 + 56);
     v3 = *(a1 + 40);
     v4 = [*(a1 + 48) ef_tail];
-    v5 = *(a1 + 32);
-    v6 = v4;
     [v2 subscribeObserver:v3 toObservables:? unless:?];
   }
 }

@@ -6,7 +6,7 @@
 
 - (uint64_t)rem_isEquivalentTo:()ReminderKitAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   selfCopy = self;
   v6 = v4;
@@ -33,8 +33,8 @@
         v11 = v10;
       }
 
-      [name getCharacters:v19 range:{0, v11}];
-      v19[v11] = 0;
+      [name getCharacters:v18 range:{0, v11}];
+      v18[v11] = 0;
 
       name2 = [v7 name];
       v13 = [name2 length];
@@ -48,8 +48,8 @@
         v14 = v13;
       }
 
-      [name2 getCharacters:v18 range:{0, v14}];
-      v18[v14] = 0;
+      [name2 getCharacters:v17 range:{0, v14}];
+      v17[v14] = 0;
 
       *s2 = 0;
       ucal_getCanonicalTimeZoneID();
@@ -58,7 +58,6 @@
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

@@ -11,7 +11,7 @@
 
 - (void)historicalSwimmingDataDidUpdate:(id)update reference:(id)reference
 {
-  type metadata accessor for HDCMSwimData();
+  type metadata accessor for HDCMSwimData(0);
   v6 = sub_22911C45C();
   referenceCopy = reference;
   selfCopy = self;
@@ -22,18 +22,17 @@
 {
   v8 = sub_22911B88C();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x28223BE20](v8);
-  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(completion);
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(completion);
   sub_22911B86C();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
   aggregatorCopy = aggregator;
   selfCopy = self;
-  sub_2289D8718(v12, sub_2289CADB0, v14);
+  sub_2289D8718(v11, sub_2289CADB0, v13);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (Class)sensorDatumClassForAggregator:(id)aggregator

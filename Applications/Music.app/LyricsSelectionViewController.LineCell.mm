@@ -36,7 +36,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1007F3124();
+  sub_1007F3124(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -91,7 +91,7 @@
 - (unint64_t)accessibilityTraits
 {
   selfCopy = self;
-  v3 = sub_1007F4640();
+  v3 = sub_1007F4640(selfCopy);
 
   return v3;
 }

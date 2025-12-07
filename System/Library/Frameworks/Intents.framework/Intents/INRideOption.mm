@@ -18,53 +18,53 @@
 
 - (id)_dictionaryRepresentation
 {
-  v37[11] = *MEMORY[0x1E69E9840];
+  v36[11] = *MEMORY[0x1E69E9840];
   name = self->_name;
   null = name;
-  v36[0] = @"name";
+  v35[0] = @"name";
   if (!name)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37[0] = null;
-  v36[1] = @"estimatedPickupDate";
+  v36[0] = null;
+  v35[1] = @"estimatedPickupDate";
   estimatedPickupDate = self->_estimatedPickupDate;
-  v33 = estimatedPickupDate;
+  v32 = estimatedPickupDate;
   if (!estimatedPickupDate)
   {
     estimatedPickupDate = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37[1] = estimatedPickupDate;
-  v36[2] = @"priceRange";
+  v36[1] = estimatedPickupDate;
+  v35[2] = @"priceRange";
   priceRange = self->_priceRange;
-  v32 = priceRange;
+  v31 = priceRange;
   if (!priceRange)
   {
     priceRange = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37[2] = priceRange;
-  v36[3] = @"usesMeteredFare";
+  v36[2] = priceRange;
+  v35[3] = @"usesMeteredFare";
   usesMeteredFare = self->_usesMeteredFare;
-  v31 = usesMeteredFare;
+  v30 = usesMeteredFare;
   if (!usesMeteredFare)
   {
     usesMeteredFare = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37[3] = usesMeteredFare;
-  v36[4] = @"disclaimerMessage";
+  v36[3] = usesMeteredFare;
+  v35[4] = @"disclaimerMessage";
   disclaimerMessage = self->_disclaimerMessage;
-  v30 = disclaimerMessage;
+  v29 = disclaimerMessage;
   if (!disclaimerMessage)
   {
     disclaimerMessage = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37[4] = disclaimerMessage;
-  v36[5] = @"availablePartySizeOptions";
+  v36[4] = disclaimerMessage;
+  v35[5] = @"availablePartySizeOptions";
   availablePartySizeOptions = self->_availablePartySizeOptions;
   null2 = availablePartySizeOptions;
   if (!availablePartySizeOptions)
@@ -72,9 +72,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25 = null2;
-  v37[5] = null2;
-  v36[6] = @"availablePartySizeOptionsSelectionPrompt";
+  v24 = null2;
+  v36[5] = null2;
+  v35[6] = @"availablePartySizeOptionsSelectionPrompt";
   availablePartySizeOptionsSelectionPrompt = self->_availablePartySizeOptionsSelectionPrompt;
   null3 = availablePartySizeOptionsSelectionPrompt;
   if (!availablePartySizeOptionsSelectionPrompt)
@@ -82,9 +82,9 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = null3;
-  v37[6] = null3;
-  v36[7] = @"specialPricing";
+  v23 = null3;
+  v36[6] = null3;
+  v35[7] = @"specialPricing";
   specialPricing = self->_specialPricing;
   null4 = specialPricing;
   if (!specialPricing)
@@ -92,13 +92,13 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26 = disclaimerMessage;
-  v27 = usesMeteredFare;
-  v28 = priceRange;
-  v34 = null;
-  v23 = null4;
-  v37[7] = null4;
-  v36[8] = @"specialPricingBadgeImage";
+  v25 = disclaimerMessage;
+  v26 = usesMeteredFare;
+  v27 = priceRange;
+  v33 = null;
+  v22 = null4;
+  v36[7] = null4;
+  v35[8] = @"specialPricingBadgeImage";
   specialPricingBadgeImage = self->_specialPricingBadgeImage;
   null5 = specialPricingBadgeImage;
   if (!specialPricingBadgeImage)
@@ -107,8 +107,8 @@
   }
 
   v16 = estimatedPickupDate;
-  v37[8] = null5;
-  v36[9] = @"fareLineItems";
+  v36[8] = null5;
+  v35[9] = @"fareLineItems";
   fareLineItems = self->_fareLineItems;
   null6 = fareLineItems;
   if (!fareLineItems)
@@ -116,8 +116,8 @@
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37[9] = null6;
-  v36[10] = @"userActivityForBookingInApplication";
+  v36[9] = null6;
+  v35[10] = @"userActivityForBookingInApplication";
   userActivityForBookingInApplication = self->_userActivityForBookingInApplication;
   null7 = userActivityForBookingInApplication;
   if (!userActivityForBookingInApplication)
@@ -125,8 +125,8 @@
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37[10] = null7;
-  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:11];
+  v36[10] = null7;
+  v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:11];
   if (userActivityForBookingInApplication)
   {
     if (fareLineItems)
@@ -189,6 +189,10 @@ LABEL_28:
 LABEL_47:
 
 LABEL_29:
+  if (!v29)
+  {
+  }
+
   if (!v30)
   {
   }
@@ -201,17 +205,11 @@ LABEL_29:
   {
   }
 
-  if (!v33)
-  {
-  }
-
   if (!name)
   {
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v29;
+  return v28;
 }
 
 - (id)descriptionAtIndent:(unint64_t)indent
@@ -248,11 +246,11 @@ LABEL_29:
 
 - (INRideOption)initWithCoder:(NSCoder *)decoder
 {
-  v41[2] = *MEMORY[0x1E69E9840];
+  v40[2] = *MEMORY[0x1E69E9840];
   v4 = decoder;
-  v39.receiver = self;
-  v39.super_class = INRideOption;
-  v5 = [(INRideOption *)&v39 init];
+  v38.receiver = self;
+  v38.super_class = INRideOption;
+  v5 = [(INRideOption *)&v38 init];
   if (v5)
   {
     v6 = [(NSCoder *)v4 decodeObjectOfClass:objc_opt_class() forKey:@"name"];
@@ -272,9 +270,9 @@ LABEL_29:
     v5->_disclaimerMessage = v12;
 
     v14 = MEMORY[0x1E695DFD8];
-    v41[0] = objc_opt_class();
-    v41[1] = objc_opt_class();
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
+    v40[0] = objc_opt_class();
+    v40[1] = objc_opt_class();
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
     v16 = [v14 setWithArray:v15];
     v17 = [(NSCoder *)v4 decodeObjectOfClasses:v16 forKey:@"availablePartySizeOptions"];
     availablePartySizeOptions = v5->_availablePartySizeOptions;
@@ -293,9 +291,9 @@ LABEL_29:
     v5->_specialPricingBadgeImage = v23;
 
     v25 = MEMORY[0x1E695DFD8];
-    v40[0] = objc_opt_class();
-    v40[1] = objc_opt_class();
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
+    v39[0] = objc_opt_class();
+    v39[1] = objc_opt_class();
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
     v27 = [v25 setWithArray:v26];
     v28 = [(NSCoder *)v4 decodeObjectOfClasses:v27 forKey:@"fareLineItems"];
     fareLineItems = v5->_fareLineItems;
@@ -315,7 +313,6 @@ LABEL_29:
     v5->_identifier = v35;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -343,44 +340,54 @@ LABEL_29:
   {
     v5 = equalCopy;
     name = self->_name;
-    if (name != v5[4] && ![(NSString *)name isEqual:?])
+    v18 = 0;
+    if (name == v5[4] || [(NSString *)name isEqual:?])
     {
-      goto LABEL_28;
-    }
-
-    estimatedPickupDate = self->_estimatedPickupDate;
-    if (estimatedPickupDate != v5[5] && ![(NSDate *)estimatedPickupDate isEqual:?])
-    {
-      goto LABEL_28;
-    }
-
-    priceRange = self->_priceRange;
-    if (priceRange != v5[6] && ![(INPriceRange *)priceRange isEqual:?])
-    {
-      goto LABEL_28;
-    }
-
-    disclaimerMessage = self->_disclaimerMessage;
-    if (disclaimerMessage != v5[8] && ![(NSString *)disclaimerMessage isEqual:?])
-    {
-      goto LABEL_28;
-    }
-
-    availablePartySizeOptionsSelectionPrompt = self->_availablePartySizeOptionsSelectionPrompt;
-    if (availablePartySizeOptionsSelectionPrompt != v5[9] && ![(NSString *)availablePartySizeOptionsSelectionPrompt isEqual:?])
-    {
-      goto LABEL_28;
-    }
-
-    if (((availablePartySizeOptions = self->_availablePartySizeOptions, availablePartySizeOptions == v5[2]) || [(NSArray *)availablePartySizeOptions isEqual:?]) && ((specialPricing = self->_specialPricing, specialPricing == v5[10]) || [(NSString *)specialPricing isEqual:?]) && ((specialPricingBadgeImage = self->_specialPricingBadgeImage, specialPricingBadgeImage == v5[11]) || [(INImage *)specialPricingBadgeImage isEqual:?]) && ((fareLineItems = self->_fareLineItems, fareLineItems == v5[3]) || [(NSArray *)fareLineItems isEqual:?]) && ((userActivityForBookingInApplication = self->_userActivityForBookingInApplication, userActivityForBookingInApplication == v5[12]) || [(NSUserActivity *)userActivityForBookingInApplication isEqual:?]) && ((usesMeteredFare = self->_usesMeteredFare, usesMeteredFare == v5[7]) || [(NSNumber *)usesMeteredFare isEqual:?]) && ((identifier = self->_identifier, identifier == v5[1]) || [(NSString *)identifier isEqual:?]))
-    {
-      v18 = 1;
-    }
-
-    else
-    {
-LABEL_28:
-      v18 = 0;
+      estimatedPickupDate = self->_estimatedPickupDate;
+      if (estimatedPickupDate == v5[5] || [(NSDate *)estimatedPickupDate isEqual:?])
+      {
+        priceRange = self->_priceRange;
+        if (priceRange == v5[6] || [(INPriceRange *)priceRange isEqual:?])
+        {
+          disclaimerMessage = self->_disclaimerMessage;
+          if (disclaimerMessage == v5[8] || [(NSString *)disclaimerMessage isEqual:?])
+          {
+            availablePartySizeOptionsSelectionPrompt = self->_availablePartySizeOptionsSelectionPrompt;
+            if (availablePartySizeOptionsSelectionPrompt == v5[9] || [(NSString *)availablePartySizeOptionsSelectionPrompt isEqual:?])
+            {
+              availablePartySizeOptions = self->_availablePartySizeOptions;
+              if (availablePartySizeOptions == v5[2] || [(NSArray *)availablePartySizeOptions isEqual:?])
+              {
+                specialPricing = self->_specialPricing;
+                if (specialPricing == v5[10] || [(NSString *)specialPricing isEqual:?])
+                {
+                  specialPricingBadgeImage = self->_specialPricingBadgeImage;
+                  if (specialPricingBadgeImage == v5[11] || [(INImage *)specialPricingBadgeImage isEqual:?])
+                  {
+                    fareLineItems = self->_fareLineItems;
+                    if (fareLineItems == v5[3] || [(NSArray *)fareLineItems isEqual:?])
+                    {
+                      userActivityForBookingInApplication = self->_userActivityForBookingInApplication;
+                      if (userActivityForBookingInApplication == v5[12] || [(NSUserActivity *)userActivityForBookingInApplication isEqual:?])
+                      {
+                        usesMeteredFare = self->_usesMeteredFare;
+                        if (usesMeteredFare == v5[7] || [(NSNumber *)usesMeteredFare isEqual:?])
+                        {
+                          identifier = self->_identifier;
+                          if (identifier == v5[1] || [(NSString *)identifier isEqual:?])
+                          {
+                            v18 = 1;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 

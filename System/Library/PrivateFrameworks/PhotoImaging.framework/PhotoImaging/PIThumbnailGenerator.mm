@@ -12,6 +12,7 @@
 - (void)cancelThumbnailGeneration;
 - (void)generateThumbnailsWithCompletion:(id)completion;
 - (void)generateThumbnailsWithPendingSnapshot:(id)snapshot;
+- (void)resetUnadjustedThumbnails;
 - (void)setReferenceTime:(id *)time;
 - (void)setThumbnailScalePolicy:(id)policy;
 - (void)setThumbnailTimes:(id)times;
@@ -230,7 +231,7 @@ LABEL_29:
     thumbnailTimes = [(_PIThumbnailGeneratorSnapshot *)v7 thumbnailTimes];
     if (v8)
     {
-      [v8 referenceTimeForTimes:thumbnailTimes];
+      objc_msgSend_referenceTimeForTimes_(v8);
     }
 
     else
@@ -365,6 +366,13 @@ LABEL_29:
     unadjustedThumbnails = self->_unadjustedThumbnails;
     self->_unadjustedThumbnails = 0;
   }
+}
+
+- (void)resetUnadjustedThumbnails
+{
+  unadjustedThumbnails = self->_unadjustedThumbnails;
+  self->_unadjustedThumbnails = 0;
+  MEMORY[0x1EEE66BB8](self, unadjustedThumbnails);
 }
 
 - (PIThumbnailGenerator)init
@@ -527,7 +535,7 @@ BOOL __80__PIThumbnailGenerator_referenceSourceForTime_thumbnailTimes_unadjusted
 {
   if (a2)
   {
-    [a2 CMTimeValue];
+    objc_msgSend_CMTimeValue(a2);
   }
 
   else
@@ -548,7 +556,7 @@ BOOL __80__PIThumbnailGenerator_referenceSourceForTime_thumbnailTimes_unadjusted
   if (firstObject)
   {
     v7 = firstObject;
-    [firstObject CMTimeValue];
+    objc_msgSend_CMTimeValue(firstObject);
     firstObject = v7;
   }
 
@@ -572,7 +580,7 @@ BOOL __80__PIThumbnailGenerator_referenceSourceForTime_thumbnailTimes_unadjusted
   v48 = 0;
   if (snapshotCopy)
   {
-    [snapshotCopy referenceTime];
+    objc_msgSend_referenceTime(snapshotCopy);
   }
 
   partialResultHandler = [snapshotCopy partialResultHandler];
@@ -670,7 +678,7 @@ void __64__PIThumbnailGenerator__generateAdjustedThumbnailsWithSnapshot___block_
   v8 = v7;
   if (v7)
   {
-    [v7 CMTimeValue];
+    objc_msgSend_CMTimeValue(v7);
   }
 
   else
@@ -812,7 +820,7 @@ uint64_t __64__PIThumbnailGenerator__generateAdjustedThumbnailsWithSnapshot___bl
     v11 = 100;
   }
 
-  [v7 extent];
+  objc_msgSend_extent(v7);
   v13 = NUPixelSizeFromCGSize();
   v15 = v14;
   v16 = [objc_alloc(MEMORY[0x1E69B39B0]) initWithCIImage:v7 orientation:1];
@@ -888,7 +896,7 @@ void __77__PIThumbnailGenerator__generateUnadjustedThumbnailsWithSnapshot_comple
   v14 = 0;
   if (v3)
   {
-    [v3 CMTimeValue];
+    objc_msgSend_CMTimeValue(v3);
   }
 
   v11 = v13;

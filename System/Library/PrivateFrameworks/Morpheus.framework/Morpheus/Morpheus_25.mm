@@ -1,796 +1,3 @@
-void std::__bind<void mlx::core::anonymous namespace::slow_conv_3D<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,BOOL,mlx::core::Stream)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
-{
-  v2 = (a1 + 264);
-  v3 = *(a1 + 264);
-  v4 = *v3;
-  v5 = *v3 == 1 && v3[1] == 1 && v3[2] == 1;
-  v165 = v5;
-  v6 = *(a1 + 240);
-  v7 = (a1 + 216);
-  v8 = (a1 + 60);
-  v9 = (a1 + 68);
-  v148 = (a1 + 240);
-  v10 = *v6;
-  v144 = a1;
-  v136 = (a1 + 64);
-  if (*(a1 + 288))
-  {
-    v11 = -v10;
-    v13 = v6[1];
-    v12 = v6[2];
-    v14 = -v13;
-    v15 = -v12;
-    v16 = (*v8 - 1) * v10;
-    v154 = (*(a1 + 64) - 1) * v13;
-    v17 = (*v9 - 1) * v12;
-  }
-
-  else
-  {
-    v154 = 0;
-    v16 = 0;
-    v17 = 0;
-    v14 = v6[1];
-    v15 = v6[2];
-    v11 = *v6;
-  }
-
-  v18 = std::lcm[abi:ne200100]<int,int>(v4, v10);
-  v19 = *(*v148 + 4);
-  v164 = v18 / **v148;
-  v20 = std::lcm[abi:ne200100]<int,int>((*v2)[1], v19);
-  v21 = *(*v148 + 8);
-  v163 = v20 / *(*v148 + 4);
-  v162 = std::lcm[abi:ne200100]<int,int>((*v2)[2], v21) / *(*v148 + 8);
-  v22 = std::lcm[abi:ne200100]<int,int>(**v2, **v7);
-  v23 = (*v7)[1];
-  v161 = v22 / **v7;
-  v24 = std::lcm[abi:ne200100]<int,int>((*v2)[1], v23);
-  v25 = (*v7)[2];
-  v160 = v24 / (*v7)[1];
-  v159 = std::lcm[abi:ne200100]<int,int>((*v2)[2], v25) / (*v7)[2];
-  std::vector<int>::vector[abi:ne200100](v158, v161);
-  std::vector<int>::vector[abi:ne200100](v157, v160);
-  std::vector<int>::vector[abi:ne200100](v156, v159);
-  v26 = (v148 - 48);
-  if (v161 >= 1)
-  {
-    v27 = 0;
-    v28 = *v7;
-    v29 = *v26;
-    v30 = v158[0];
-    v31 = *v2;
-    do
-    {
-      if (*v8 < 1)
-      {
-        v32 = 0;
-      }
-
-      else
-      {
-        v32 = 0;
-        v33 = v16 + *v28 * v27 - *v29;
-        while (v33 % *v31)
-        {
-          ++v32;
-          v33 += v11;
-          if (*v8 == v32)
-          {
-            v32 = *v8;
-            break;
-          }
-        }
-      }
-
-      v30[v27++] = v32;
-    }
-
-    while (v27 < v161);
-  }
-
-  v147 = v148 + 48;
-  v146 = (v148 - 184);
-  if (v160 >= 1)
-  {
-    v34 = 0;
-    v35 = *v7;
-    v36 = *v26;
-    v37 = v157[0];
-    v38 = *v2;
-    do
-    {
-      if (*v136 < 1)
-      {
-        v39 = 0;
-      }
-
-      else
-      {
-        v39 = 0;
-        v40 = v154 + v35[1] * v34 - v36[1];
-        while (v40 % v38[1])
-        {
-          ++v39;
-          v40 += v14;
-          if (*v136 == v39)
-          {
-            v39 = *v136;
-            break;
-          }
-        }
-      }
-
-      v37[v34++] = v39;
-    }
-
-    while (v34 < v160);
-  }
-
-  if (v159 >= 1)
-  {
-    v41 = 0;
-    v42 = *v7;
-    v43 = *v26;
-    v44 = v156[0];
-    v45 = *v2;
-    do
-    {
-      if (*v9 < 1)
-      {
-        v46 = 0;
-      }
-
-      else
-      {
-        v46 = 0;
-        v47 = v17 + v42[2] * v41 - v43[2];
-        while (v47 % v45[2])
-        {
-          ++v46;
-          v47 += v15;
-          if (*v9 == v46)
-          {
-            v46 = *v9;
-            break;
-          }
-        }
-      }
-
-      v44[v41++] = v46;
-    }
-
-    while (v41 < v159);
-  }
-
-  v155[0] = v148 - 80;
-  v155[1] = v148 - 72;
-  v155[2] = v148 - 64;
-  v155[3] = v7;
-  v155[4] = v148 - 48;
-  v155[5] = v158;
-  v155[6] = &v161;
-  v155[7] = v157;
-  v155[8] = &v160;
-  v155[9] = v156;
-  v155[10] = &v159;
-  v155[11] = v148 - 188;
-  v155[12] = v8;
-  v155[13] = &v164;
-  v155[14] = v136;
-  v155[15] = &v163;
-  v155[16] = v9;
-  v155[17] = &v162;
-  v155[18] = v148 + 48;
-  v155[19] = v148;
-  v48 = v144;
-  v155[20] = v144 + 28;
-  v155[21] = v144 + 32;
-  v155[22] = v144 + 36;
-  v155[23] = v148 - 120;
-  v155[24] = v148 - 112;
-  v155[25] = v148 - 104;
-  v155[26] = &v165;
-  v155[27] = v2;
-  v155[28] = v148 - 160;
-  v155[29] = v148 - 152;
-  v155[30] = v148 - 144;
-  v155[31] = v148 - 184;
-  v155[32] = v148 - 136;
-  v155[33] = v148 - 96;
-  v155[34] = v148 - 56;
-  v155[35] = v148 - 128;
-  v49 = *(v144 + 192);
-  v50 = *(v144 + 216);
-  v51 = *v50;
-  if (v165)
-  {
-    v52 = (*v49 + v51 - 1) / v51;
-    v127 = *(v144 + 40);
-  }
-
-  else
-  {
-    v127 = *(v144 + 40);
-    v52 = v127;
-  }
-
-  v53 = *v148;
-  v54 = (*(v144 + 28) + *v49 - **v148 * *v8) / v51;
-  v123 = v54;
-  if (v52 > v54)
-  {
-    v54 = v52;
-  }
-
-  v128 = v54;
-  v55 = v49[1];
-  v56 = v50[1];
-  v131 = *(v144 + 44);
-  if (v165)
-  {
-    v57 = (v55 + v56 - 1) / v56;
-  }
-
-  else
-  {
-    v57 = *(v144 + 44);
-  }
-
-  v58 = (*(v144 + 32) + v55 - *(v53 + 4) * *(v144 + 64)) / v56;
-  v129 = v57;
-  v126 = v58;
-  if (v57 > v58)
-  {
-    v58 = v57;
-  }
-
-  v132 = v58;
-  if (v165)
-  {
-    v59 = v49[2];
-    v60 = v50[2];
-    v61 = *(v144 + 48);
-    v62 = (v59 + v60 - 1) / v60;
-  }
-
-  else
-  {
-    v61 = *(v144 + 48);
-    v59 = v49[2];
-    v60 = v50[2];
-    v62 = v61;
-  }
-
-  v63 = (*(v144 + 36) + v59 - *(v53 + 8) * *(v144 + 68)) / v60;
-  v142 = v62;
-  v130 = v63;
-  if (v62 > v63)
-  {
-    v63 = v62;
-  }
-
-  v133 = v63;
-  if (*(v144 + 24) >= 1)
-  {
-    v64 = 0;
-    v125 = v52;
-    v122 = v52;
-    v141 = v61;
-    v145 = v9;
-    do
-    {
-      v124 = v64;
-      if (v52 >= 1)
-      {
-        v65 = 0;
-        v66 = *(v48 + 44);
-        do
-        {
-          if (v66 >= 1)
-          {
-            v67 = 0;
-            v68 = *(v48 + 48);
-            do
-            {
-              if (v68 >= 1)
-              {
-                for (i = 0; i < v68; ++i)
-                {
-                  v48 = v144;
-                  v68 = *(v144 + 48);
-                }
-
-                v66 = *(v144 + 44);
-              }
-
-              ++v67;
-            }
-
-            while (v67 < v66);
-          }
-
-          ++v65;
-        }
-
-        while (v65 != v52);
-      }
-
-      v70 = v122;
-      if (v123 > v52)
-      {
-        do
-        {
-          v135 = v70;
-          v71 = v129;
-          if (v129 >= 1)
-          {
-            v72 = 0;
-            v73 = *(v48 + 48);
-            do
-            {
-              if (v73 >= 1)
-              {
-                for (j = 0; j < v73; ++j)
-                {
-                  v48 = v144;
-                  v73 = *(v144 + 48);
-                }
-
-                v71 = v129;
-              }
-
-              ++v72;
-            }
-
-            while (v72 != v71);
-          }
-
-          if (v126 > v71)
-          {
-            v75 = v129;
-            do
-            {
-              v76 = v142;
-              if (v142 >= 1)
-              {
-                v77 = v48;
-                for (k = 0; k != v142; ++k)
-                {
-                  v76 = v142;
-                }
-              }
-
-              v134 = v75;
-              if (v130 > v76)
-              {
-                v79 = *(v144 + 216);
-                v80 = *(v144 + 192);
-                v151 = *(v144 + 52);
-                v81 = *(v144 + 8);
-                v139 = *v144;
-                v138 = *(v144 + 16) + 2 * *(v144 + 160) * v135 + 2 * *(v144 + 168) * v75;
-                v82 = *(v144 + 60);
-                v137 = *(v144 + 176);
-                v150 = *(v144 + 184);
-                v83 = v135 * *v79 - *v80;
-                v84 = v79[1] * v75 - v80[1];
-                v140 = v79[2];
-                v85 = v142 * v140 - v80[2];
-                v149 = 2 * *(v144 + 112);
-                v143 = v142;
-                do
-                {
-                  if (v151 >= 1)
-                  {
-                    v86 = 0;
-                    v87 = v139;
-                    v88 = (v138 + 2 * v143 * v137);
-                    v89 = *v136;
-                    do
-                    {
-                      if (v82 < 1)
-                      {
-                        _H0 = 0;
-                      }
-
-                      else
-                      {
-                        v153 = v88;
-                        v90 = 0;
-                        v91 = *v9;
-                        _S0 = 0.0;
-                        v152 = v87;
-                        do
-                        {
-                          if (v89 >= 1)
-                          {
-                            v93 = 0;
-                            if (*v147)
-                            {
-                              v94 = v82 + ~v90;
-                            }
-
-                            else
-                            {
-                              v94 = v90;
-                            }
-
-                            v95 = v87;
-                            do
-                            {
-                              if (v91 >= 1)
-                              {
-                                v96 = 0;
-                                v97 = v89 + ~v93;
-                                if ((*v147 & 1) == 0)
-                                {
-                                  v97 = v93;
-                                }
-
-                                v98 = v95;
-                                do
-                                {
-                                  if (*v146 >= 1)
-                                  {
-                                    v99 = v91 + ~v96;
-                                    if ((*v147 & 1) == 0)
-                                    {
-                                      v99 = v96;
-                                    }
-
-                                    v100 = (v81 + 2 * *(v148 - 19) * (v84 + *(*v148 + 4) * v97) + 2 * *(v148 - 20) * (v83 + **v148 * v94) + 2 * *(v148 - 18) * (v85 + v99 * *(*v148 + 8)));
-                                    v101 = v98;
-                                    v102 = *v146;
-                                    do
-                                    {
-                                      _H1 = *v100;
-                                      __asm { FCVT            S1, H1 }
-
-                                      _H2 = *v101;
-                                      __asm { FCVT            S2, H2 }
-
-                                      _S0 = _S0 + (_S1 * _S2);
-                                      v100 += *(v148 - 17);
-                                      v101 += *(v148 - 12);
-                                      --v102;
-                                    }
-
-                                    while (v102);
-                                  }
-
-                                  ++v96;
-                                  v98 += *(v148 - 13);
-                                }
-
-                                while (v96 != v91);
-                              }
-
-                              ++v93;
-                              v95 += *(v148 - 14);
-                            }
-
-                            while (v93 != v89);
-                          }
-
-                          ++v90;
-                          v87 += 2 * *(v148 - 15);
-                        }
-
-                        while (v90 != v82);
-                        __asm { FCVT            H0, S0 }
-
-                        v9 = v145;
-                        v87 = v152;
-                        v88 = v153;
-                      }
-
-                      *v88 = _H0;
-                      v88 += v150;
-                      ++v86;
-                      v87 += v149;
-                    }
-
-                    while (v86 != v151);
-                  }
-
-                  v85 += v140;
-                  ++v143;
-                }
-
-                while (v143 != v133);
-              }
-
-              if (v133 < v141)
-              {
-                v112 = v133;
-                do
-                {
-                }
-
-                while (v141 != v112);
-              }
-
-              ++v75;
-              v48 = v144;
-            }
-
-            while (v132 != v134 + 1);
-          }
-
-          v52 = v125;
-          if (v132 < v131)
-          {
-            v113 = *(v48 + 48);
-            v114 = v132;
-            do
-            {
-              if (v113 >= 1)
-              {
-                for (m = 0; m < v113; ++m)
-                {
-                  v48 = v144;
-                  v113 = *(v144 + 48);
-                }
-              }
-
-              ++v114;
-            }
-
-            while (v114 != v131);
-          }
-
-          v70 = v135 + 1;
-        }
-
-        while (v128 != v135 + 1);
-      }
-
-      if (v128 < v127)
-      {
-        v116 = *(v48 + 44);
-        v117 = v128;
-        do
-        {
-          if (v116 >= 1)
-          {
-            v118 = 0;
-            v119 = *(v48 + 48);
-            do
-            {
-              if (v119 >= 1)
-              {
-                for (n = 0; n < v119; ++n)
-                {
-                  v48 = v144;
-                  v119 = *(v144 + 48);
-                }
-
-                v116 = *(v144 + 44);
-              }
-
-              ++v118;
-            }
-
-            while (v118 < v116);
-          }
-
-          ++v117;
-        }
-
-        while (v117 != v127);
-      }
-
-      v121 = *(v48 + 16) + 2 * *(v48 + 152);
-      *(v48 + 8) += 2 * *(v48 + 72);
-      *(v48 + 16) = v121;
-      v64 = v124 + 1;
-    }
-
-    while (v124 + 1 < *(v48 + 24));
-  }
-
-  if (v156[0])
-  {
-    v156[1] = v156[0];
-    operator delete(v156[0]);
-  }
-
-  if (v157[0])
-  {
-    v157[1] = v157[0];
-    operator delete(v157[0]);
-  }
-
-  if (v158[0])
-  {
-    v158[1] = v158[0];
-    operator delete(v158[0]);
-  }
-}
-
-void sub_25A40D5AC(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 - 168);
-  if (v3)
-  {
-    *(v1 - 160) = v3;
-    operator delete(v3);
-  }
-
-  v4 = *(v1 - 144);
-  if (v4)
-  {
-    *(v1 - 136) = v4;
-    operator delete(v4);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t void mlx::core::anonymous namespace::slow_conv_3D<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,BOOL,mlx::core::Stream)::{lambda(void)#1}::operator()(void)::{lambda(half const*,half const*,half *,int,int,int)#2}::operator()(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7)
-{
-  v7 = **(result + 88);
-  if (v7 >= 1)
-  {
-    v8 = 0;
-    v9 = **(result + 24);
-    v10 = **(result + 32);
-    v64 = *v9 * a5 - *v10;
-    v63 = v9[1] * a6 - v10[1];
-    v11 = v9[2] * a7 - v10[2];
-    v12 = *(**(result + 56) + 4 * (a6 % **(result + 64)));
-    v13 = *(**(result + 72) + 4 * (a7 % **(result + 80)));
-    v14 = *(**(result + 40) + 4 * (a5 % **(result + 48)));
-    v15 = (a4 + 2 * **result * a5 + 2 * **(result + 8) * a6 + 2 * **(result + 16) * a7);
-    v62 = **(result + 96);
-    v16 = 2 * **(result + 280);
-    v53 = 2 * v14;
-    v54 = v16;
-    v17 = **(result + 272);
-    v59 = 2 * v12;
-    v60 = v12;
-    v56 = **(result + 88);
-    v55 = v14;
-    v52 = v17;
-    do
-    {
-      _H0 = 0;
-      if (v14 < v62)
-      {
-        v57 = v15;
-        v58 = v8;
-        v19 = **(result + 112);
-        v61 = **(result + 104);
-        _S0 = 0.0;
-        v21 = v53;
-        do
-        {
-          if (v12 < v19)
-          {
-            v22 = **(result + 128);
-            v23 = **(result + 120);
-            v24 = v59;
-            do
-            {
-              if (v13 < v22)
-              {
-                v25 = **(result + 152);
-                v26 = *v25;
-                v27 = v25[1];
-                v28 = v25[2];
-                v29 = **(result + 136);
-                if (**(result + 144))
-                {
-                  v30 = v19 + ~v12;
-                }
-
-                else
-                {
-                  v30 = v12;
-                }
-
-                v31 = v62 + ~v14;
-                if (!**(result + 144))
-                {
-                  v31 = v14;
-                }
-
-                v32 = v64 + v26 * v31;
-                v33 = v63 + v27 * v30;
-                v34 = 2 * v13;
-                v35 = v13;
-                do
-                {
-                  v36 = v22 + ~v35;
-                  if (!**(result + 144))
-                  {
-                    v36 = v35;
-                  }
-
-                  if ((v32 & 0x80000000) == 0 && v32 < **(result + 160) && (v33 & 0x80000000) == 0 && v33 < **(result + 168))
-                  {
-                    v37 = v11 + v28 * v36;
-                    if ((v37 & 0x80000000) == 0 && v37 < **(result + 176))
-                    {
-                      v38 = v33;
-                      v39 = v32;
-                      if ((**(result + 208) & 1) == 0)
-                      {
-                        v40 = **(result + 216);
-                        v39 = v32 / *v40;
-                        v38 = v33 / v40[1];
-                        v37 /= v40[2];
-                      }
-
-                      v41 = **(result + 248);
-                      if (v41 >= 1)
-                      {
-                        v42 = (a2 + 2 * **(result + 224) * v39 + 2 * **(result + 232) * v38 + 2 * **(result + 240) * v37);
-                        v43 = v24 * **(result + 192) + v21 * **(result + 184) + **(result + 200) * v34;
-                        do
-                        {
-                          _H1 = *v42;
-                          _H2 = *(a3 + v43);
-                          __asm
-                          {
-                            FCVT            S1, H1
-                            FCVT            S2, H2
-                          }
-
-                          _S0 = _S0 + (_S1 * _S2);
-                          v42 += **(result + 256);
-                          v43 += 2 * **(result + 264);
-                          --v41;
-                        }
-
-                        while (v41);
-                      }
-                    }
-                  }
-
-                  v35 += v29;
-                  v34 += 2 * v29;
-                }
-
-                while (v35 < v22);
-              }
-
-              v12 += v23;
-              v24 += 2 * v23;
-            }
-
-            while (v12 < v19);
-          }
-
-          v14 += v61;
-          v21 += 2 * v61;
-          v12 = v60;
-        }
-
-        while (v14 < v62);
-        __asm { FCVT            H0, S0 }
-
-        v7 = v56;
-        v8 = v58;
-        v16 = v54;
-        v14 = v55;
-        v15 = v57;
-        v17 = v52;
-      }
-
-      *v15 = _H0;
-      v15 += v17;
-      ++v8;
-      a3 += v16;
-    }
-
-    while (v8 != v7);
-  }
-
-  return result;
-}
-
 void *std::__function::__func<std::__bind<void mlx::core::anonymous namespace::slow_conv_3D<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,BOOL,mlx::core::Stream)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::anonymous namespace::slow_conv_3D<half>(mlx::core::array const&,mlx::core::array const&,mlx::core::array,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,std::vector<int> const&,BOOL,mlx::core::Stream)::{lambda(void)#1}>>,void ()(void)>::~__func(void *a1)
 {
   *a1 = &unk_286BF5170;
@@ -970,19 +177,19 @@ uint64_t mlx::core::anonymous namespace::slow_conv_3D<mlx::core::_MLX_BFloat16>(
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;
   *(a1 + 208) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 192, *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 192), *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
   *(a1 + 216) = 0;
   *(a1 + 224) = 0;
   *(a1 + 232) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 216, *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 216), *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
   *(a1 + 240) = 0;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 240, *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 240), *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
   *(a1 + 264) = 0;
   *(a1 + 272) = 0;
   *(a1 + 280) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 264, *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 264), *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 2);
   *(a1 + 288) = *(a2 + 288);
   return a1;
 }
@@ -1199,19 +406,19 @@ uint64_t std::__bind<void mlx::core::anonymous namespace::slow_conv_3D<mlx::core
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;
   *(a1 + 208) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 192, *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 192), *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
   *(a1 + 216) = 0;
   *(a1 + 224) = 0;
   *(a1 + 232) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 216, *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 216), *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
   *(a1 + 240) = 0;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 240, *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 240), *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
   *(a1 + 264) = 0;
   *(a1 + 272) = 0;
   *(a1 + 280) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 264, *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 264), *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 2);
   *(a1 + 288) = *(a2 + 288);
   return a1;
 }
@@ -2264,19 +1471,19 @@ uint64_t mlx::core::anonymous namespace::slow_conv_2D<float>(mlx::core::array co
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
   *(a1 + 184) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 168, *(a2 + 21), *(a2 + 22), (*(a2 + 22) - *(a2 + 21)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 168), *(a2 + 21), *(a2 + 22), (*(a2 + 22) - *(a2 + 21)) >> 2);
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;
   *(a1 + 208) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 192, *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 192), *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
   *(a1 + 216) = 0;
   *(a1 + 224) = 0;
   *(a1 + 232) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 216, *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 216), *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
   *(a1 + 240) = 0;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 240, *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 240), *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
   *(a1 + 264) = *(a2 + 264);
   return a1;
 }
@@ -2491,19 +1698,19 @@ uint64_t std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<float>(ml
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
   *(a1 + 184) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 168, *(a2 + 21), *(a2 + 22), (*(a2 + 22) - *(a2 + 21)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 168), *(a2 + 21), *(a2 + 22), (*(a2 + 22) - *(a2 + 21)) >> 2);
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;
   *(a1 + 208) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 192, *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 192), *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
   *(a1 + 216) = 0;
   *(a1 + 224) = 0;
   *(a1 + 232) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 216, *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 216), *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
   *(a1 + 240) = 0;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 240, *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 240), *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
   *(a1 + 264) = *(a2 + 264);
   return a1;
 }
@@ -2541,15 +1748,15 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<float>(mlx::c
   v2 = *(a1 + 240);
   v4 = *v2;
   v5 = *v2 == 1 && v2[1] == 1;
-  v126 = v5;
-  v125 = *(v1 + 48) / *(v1 + 60);
+  v124 = v5;
+  v123 = *(v1 + 48) / *(v1 + 60);
   v6 = (v1 + 192);
   v7 = (v1 + 52);
-  v110 = (v1 + 264);
+  v108 = (v1 + 264);
   v8 = *(v1 + 216);
-  v111 = v1 + 216;
+  v109 = v1 + 216;
   v9 = *v8;
-  v100 = (v1 + 56);
+  v98 = (v1 + 56);
   if (*(v1 + 264))
   {
     v10 = -v9;
@@ -2568,31 +1775,31 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<float>(mlx::c
   }
 
   v15 = std::lcm[abi:ne200100]<int,int>(v4, v9);
-  v16 = *(*v111 + 4);
-  v124 = v15 / **v111;
-  v123 = std::lcm[abi:ne200100]<int,int>((*v3)[1], v16) / *(*v111 + 4);
+  v16 = *(*v109 + 4);
+  v122 = v15 / **v109;
+  v121 = std::lcm[abi:ne200100]<int,int>((*v3)[1], v16) / *(*v109 + 4);
   v17 = std::lcm[abi:ne200100]<int,int>(**v3, **v6);
   v18 = (*v6)[1];
-  v122 = v17 / **v6;
-  v121 = std::lcm[abi:ne200100]<int,int>((*v3)[1], v18) / (*v6)[1];
-  std::vector<int>::vector[abi:ne200100](v120, v122);
-  std::vector<int>::vector[abi:ne200100](v119, v121);
+  v120 = v17 / **v6;
+  v119 = std::lcm[abi:ne200100]<int,int>((*v3)[1], v18) / (*v6)[1];
+  std::vector<int>::vector[abi:ne200100](v118, v120);
+  std::vector<int>::vector[abi:ne200100](v117, v119);
   v19 = (v1 + 168);
-  v109 = (v1 + 112);
-  v108 = (v1 + 120);
-  v107 = (v1 + 80);
-  v106 = (v1 + 88);
-  v105 = (v1 + 64);
-  v104 = (v1 + 96);
-  v103 = (v1 + 128);
-  v94 = (v1 + 160);
-  v93 = (v1 + 104);
-  if (v122 >= 1)
+  v107 = (v1 + 112);
+  v106 = (v1 + 120);
+  v105 = (v1 + 80);
+  v104 = (v1 + 88);
+  v103 = (v1 + 64);
+  v102 = (v1 + 96);
+  v101 = (v1 + 128);
+  v92 = (v1 + 160);
+  v91 = (v1 + 104);
+  if (v120 >= 1)
   {
     v20 = 0;
     v21 = *v6;
     v22 = *v19;
-    v23 = v120[0];
+    v23 = v118[0];
     v24 = *v3;
     do
     {
@@ -2620,19 +1827,19 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<float>(mlx::c
       v23[v20++] = v25;
     }
 
-    while (v20 < v122);
+    while (v20 < v120);
   }
 
-  if (v121 >= 1)
+  if (v119 >= 1)
   {
     v27 = 0;
     v28 = *v6;
     v29 = *v19;
-    v30 = v119[0];
+    v30 = v117[0];
     v31 = *v3;
     do
     {
-      if (*v100 < 1)
+      if (*v98 < 1)
       {
         v32 = 0;
       }
@@ -2645,9 +1852,9 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<float>(mlx::c
         {
           ++v32;
           v33 += v12;
-          if (*v100 == v32)
+          if (*v98 == v32)
           {
-            v32 = *v100;
+            v32 = *v98;
             break;
           }
         }
@@ -2656,63 +1863,63 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<float>(mlx::c
       v30[v27++] = v32;
     }
 
-    while (v27 < v121);
+    while (v27 < v119);
   }
 
-  v118[0] = v1 + 144;
-  v118[1] = v1 + 152;
-  v118[2] = v1 + 192;
-  v118[3] = v1 + 168;
-  v118[4] = v120;
-  v118[5] = &v122;
-  v118[6] = v119;
-  v118[7] = &v121;
-  v118[8] = v1 + 60;
-  v118[9] = &v125;
-  v118[10] = v1 + 52;
-  v118[11] = &v124;
-  v118[12] = v1 + 56;
-  v118[13] = &v123;
-  v118[14] = v1 + 264;
-  v118[15] = v1 + 216;
-  v118[16] = v1 + 28;
-  v118[17] = v1 + 32;
-  v118[18] = v1 + 112;
-  v118[19] = v1 + 120;
-  v118[20] = &v126;
-  v118[21] = v3;
-  v118[22] = v1 + 80;
-  v118[23] = v1 + 88;
-  v118[24] = v1 + 64;
-  v118[25] = v1 + 96;
-  v118[26] = v1 + 128;
-  v118[27] = v1 + 160;
-  v118[28] = v1 + 104;
+  v116[0] = v1 + 144;
+  v116[1] = v1 + 152;
+  v116[2] = v1 + 192;
+  v116[3] = v1 + 168;
+  v116[4] = v118;
+  v116[5] = &v120;
+  v116[6] = v117;
+  v116[7] = &v119;
+  v116[8] = v1 + 60;
+  v116[9] = &v123;
+  v116[10] = v1 + 52;
+  v116[11] = &v122;
+  v116[12] = v1 + 56;
+  v116[13] = &v121;
+  v116[14] = v1 + 264;
+  v116[15] = v1 + 216;
+  v116[16] = v1 + 28;
+  v116[17] = v1 + 32;
+  v116[18] = v1 + 112;
+  v116[19] = v1 + 120;
+  v116[20] = &v124;
+  v116[21] = v3;
+  v116[22] = v1 + 80;
+  v116[23] = v1 + 88;
+  v116[24] = v1 + 64;
+  v116[25] = v1 + 96;
+  v116[26] = v1 + 128;
+  v116[27] = v1 + 160;
+  v116[28] = v1 + 104;
   v34 = *(v1 + 168);
   v35 = *(v1 + 192);
   v36 = *v35;
-  if (v126)
+  if (v124)
   {
     v37 = (*v34 + v36 - 1) / v36;
-    v86 = *(v1 + 40);
+    v84 = *(v1 + 40);
   }
 
   else
   {
-    v86 = *(v1 + 40);
-    v37 = v86;
+    v84 = *(v1 + 40);
+    v37 = v84;
   }
 
-  v38 = (*(v1 + 28) + *v34 - **v111 * *v7) / v36;
-  v84 = v37;
-  v81 = v38;
+  v38 = (*(v1 + 28) + *v34 - **v109 * *v7) / v36;
+  v82 = v37;
+  v79 = v38;
   if (v37 > v38)
   {
     v38 = v37;
   }
 
-  v87 = v38;
-  if (v126)
+  v85 = v38;
+  if (v124)
   {
     v39 = v34[1];
     v40 = v35[1];
@@ -2728,22 +1935,22 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<float>(mlx::c
     v42 = v41;
   }
 
-  v43 = (*(v1 + 32) + v39 - *(*v111 + 4) * *(v1 + 56)) / v40;
-  v85 = v43;
+  v43 = (*(v1 + 32) + v39 - *(*v109 + 4) * *(v1 + 56)) / v40;
+  v83 = v43;
   if (v42 > v43)
   {
     v43 = v42;
   }
 
-  v90 = v43;
+  v88 = v43;
   v44 = v37;
   if (*(v1 + 24) >= 1)
   {
-    v82 = 0;
-    v83 = v42;
-    v88 = v42;
-    v89 = v1;
-    v92 = (v1 + 52);
+    v80 = 0;
+    v81 = v42;
+    v86 = v42;
+    v87 = v1;
+    v90 = (v1 + 52);
     do
     {
       if (v44 >= 1)
@@ -2759,7 +1966,7 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<float>(mlx::c
               v46 = *(v1 + 44);
             }
 
-            v44 = v84;
+            v44 = v82;
           }
 
           ++v45;
@@ -2768,8 +1975,8 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<float>(mlx::c
         while (v45 != v44);
       }
 
-      v48 = v84;
-      if (v81 > v44)
+      v48 = v82;
+      if (v79 > v44)
       {
         do
         {
@@ -2780,102 +1987,100 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<float>(mlx::c
             }
           }
 
-          v91 = v48;
-          if (v85 > v42)
+          v89 = v48;
+          if (v83 > v42)
           {
-            v50 = *(v89 + 192);
-            v51 = *(v89 + 168);
-            v102 = *(v89 + 60);
-            v52 = v125;
-            v96 = *(v89 + 16) + 4 * *(v89 + 144) * v48;
-            v97 = *(v89 + 152);
-            v112 = *(v89 + 8);
-            v95 = *v89;
+            v50 = *(v87 + 192);
+            v51 = *(v87 + 168);
+            v100 = *(v87 + 60);
+            v52 = v123;
+            v94 = *(v87 + 16) + 4 * *(v87 + 144) * v48;
+            v95 = *(v87 + 152);
+            v110 = *(v87 + 8);
+            v93 = *v87;
             v53 = *v50 * v48 - *v51;
-            v98 = v50[1];
-            v54 = v88 * v98 - v51[1];
-            v99 = v83;
-            v101 = v125;
+            v96 = v50[1];
+            v54 = v86 * v96 - v51[1];
+            v97 = v81;
+            v99 = v123;
             do
             {
-              if (v102 >= 1)
+              if (v100 >= 1)
               {
                 v55 = 0;
-                v56 = v95;
-                v57 = (v96 + 4 * v99 * v97);
-                v58 = *v92;
-                v115 = *v93;
-                v116 = *v94;
-                v114 = 1;
-                v117 = v52;
+                v56 = v93;
+                v57 = (v94 + 4 * v97 * v95);
+                v58 = *v90;
+                v113 = *v91;
+                v114 = *v92;
+                v112 = 1;
+                v115 = v52;
                 do
                 {
                   v59 = v55 * v52;
-                  v113 = v55 + 1;
+                  v111 = v55 + 1;
                   if (v55 * v52 < (v55 + 1) * v52)
                   {
-                    v60 = *v100;
+                    v60 = *v98;
                     do
                     {
                       if (v58 < 1)
                       {
-                        v68 = 0.0;
+                        v66 = 0.0;
                       }
 
                       else
                       {
                         v61 = 0;
-                        v62 = *v111;
-                        v63 = *v107;
-                        v64 = *v106;
-                        v65 = *v105;
-                        v66 = *v105 * v55;
-                        v67 = 4 * *v104;
-                        v68 = 0.0;
+                        v62 = *v109;
+                        v63 = *v103;
+                        v64 = *v103 * v55;
+                        v65 = 4 * *v102;
+                        v66 = 0.0;
                         do
                         {
                           if (v60 >= 1)
                           {
-                            v69 = 0;
-                            if (*v110)
+                            v67 = 0;
+                            if (*v108)
                             {
-                              v70 = v58 + ~v61;
+                              v68 = v58 + ~v61;
                             }
 
                             else
                             {
-                              v70 = v61;
+                              v68 = v61;
                             }
 
-                            v71 = v112 + v67 * v66 + 4 * *v107 * (v53 + *v62 * v70);
+                            v69 = v110 + v65 * v64 + 4 * *v105 * (v53 + *v62 * v68);
                             do
                             {
-                              v72 = v60 + ~v69;
-                              if ((*v110 & 1) == 0)
+                              v70 = v60 + ~v67;
+                              if ((*v108 & 1) == 0)
                               {
-                                v72 = v69;
+                                v70 = v67;
                               }
 
-                              if (v66 < *v105 * v113)
+                              if (v64 < *v103 * v111)
                               {
-                                v73 = (v71 + 4 * *v106 * (v54 + v72 * v62[1]));
-                                v74 = v65 * v55;
-                                v75 = v114 * *v105 - v66;
+                                v71 = (v69 + 4 * *v104 * (v54 + v70 * v62[1]));
+                                v72 = v63 * v55;
+                                v73 = v112 * *v103 - v64;
                                 do
                                 {
-                                  v68 = v68 + (*v73 * *(v56 + 4 * v61 * *v109 + 4 * v69 * *v108 + 4 * *v103 * (v74 % v65)));
-                                  ++v74;
-                                  v73 = (v73 + v67);
-                                  --v75;
+                                  v66 = v66 + (*v71 * *(v56 + 4 * v61 * *v107 + 4 * v67 * *v106 + 4 * *v101 * (v72 % v63)));
+                                  ++v72;
+                                  v71 = (v71 + v65);
+                                  --v73;
                                 }
 
-                                while (v75);
+                                while (v73);
                               }
 
-                              ++v69;
+                              ++v67;
                             }
 
-                            while (v69 != v60);
+                            while (v67 != v60);
                           }
 
                           ++v61;
@@ -2884,89 +2089,89 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<float>(mlx::c
                         while (v61 != v58);
                       }
 
-                      *v57 = v68;
-                      v57 += v116;
-                      v56 += 4 * v115;
+                      *v57 = v66;
+                      v57 += v114;
+                      v56 += 4 * v113;
                       ++v59;
                     }
 
-                    while (v59 != v117);
+                    while (v59 != v115);
                   }
 
-                  ++v114;
-                  v52 = v101;
-                  v117 += v101;
+                  ++v112;
+                  v52 = v99;
+                  v115 += v99;
                   ++v55;
                 }
 
-                while (v113 != v102);
+                while (v111 != v100);
               }
 
-              v54 += v98;
-              ++v99;
+              v54 += v96;
+              ++v97;
             }
 
-            while (v99 != v90);
+            while (v97 != v88);
           }
 
-          v1 = v89;
-          if (v90 < v41)
+          v1 = v87;
+          if (v88 < v41)
           {
-            v76 = v90;
+            v74 = v88;
             do
             {
             }
 
-            while (v41 != v76);
+            while (v41 != v74);
           }
 
           ++v48;
-          v42 = v88;
+          v42 = v86;
         }
 
-        while (v87 != v91 + 1);
+        while (v85 != v89 + 1);
       }
 
-      if (v87 < v86)
+      if (v85 < v84)
       {
-        v77 = *(v1 + 44);
-        v78 = v87;
+        v75 = *(v1 + 44);
+        v76 = v85;
         do
         {
-          if (v77 >= 1)
+          if (v75 >= 1)
           {
-            for (k = 0; k < v77; ++k)
+            for (k = 0; k < v75; ++k)
             {
-              v77 = *(v1 + 44);
+              v75 = *(v1 + 44);
             }
           }
 
-          ++v78;
+          ++v76;
         }
 
-        while (v78 != v86);
+        while (v76 != v84);
       }
 
-      v80 = *(v1 + 16) + 4 * *(v1 + 136);
+      v78 = *(v1 + 16) + 4 * *(v1 + 136);
       *(v1 + 8) += 4 * *(v1 + 72);
-      *(v1 + 16) = v80;
-      ++v82;
-      v44 = v84;
+      *(v1 + 16) = v78;
+      ++v80;
+      v44 = v82;
     }
 
-    while (v82 < *(v1 + 24));
+    while (v80 < *(v1 + 24));
   }
 
-  if (v119[0])
+  if (v117[0])
   {
-    v119[1] = v119[0];
-    operator delete(v119[0]);
+    v117[1] = v117[0];
+    operator delete(v117[0]);
   }
 
-  if (v120[0])
+  if (v118[0])
   {
-    v120[1] = v120[0];
-    operator delete(v120[0]);
+    v118[1] = v118[0];
+    operator delete(v118[0]);
   }
 }
 
@@ -3284,19 +2489,19 @@ uint64_t mlx::core::anonymous namespace::slow_conv_2D<half>(mlx::core::array con
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
   *(a1 + 184) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 168, *(a2 + 21), *(a2 + 22), (*(a2 + 22) - *(a2 + 21)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 168), *(a2 + 21), *(a2 + 22), (*(a2 + 22) - *(a2 + 21)) >> 2);
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;
   *(a1 + 208) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 192, *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 192), *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
   *(a1 + 216) = 0;
   *(a1 + 224) = 0;
   *(a1 + 232) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 216, *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 216), *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
   *(a1 + 240) = 0;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 240, *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 240), *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
   *(a1 + 264) = *(a2 + 264);
   return a1;
 }
@@ -3511,19 +2716,19 @@ uint64_t std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<half>(mlx
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
   *(a1 + 184) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 168, *(a2 + 21), *(a2 + 22), (*(a2 + 22) - *(a2 + 21)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 168), *(a2 + 21), *(a2 + 22), (*(a2 + 22) - *(a2 + 21)) >> 2);
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;
   *(a1 + 208) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 192, *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 192), *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
   *(a1 + 216) = 0;
   *(a1 + 224) = 0;
   *(a1 + 232) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 216, *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 216), *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
   *(a1 + 240) = 0;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 240, *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 240), *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
   *(a1 + 264) = *(a2 + 264);
   return a1;
 }
@@ -3560,17 +2765,17 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<half>(mlx::co
   v2 = *(a1 + 240);
   v4 = *v2;
   v5 = *v2 == 1 && v2[1] == 1;
-  v133 = v5;
+  v129 = v5;
   v6 = a1 + 60;
-  v132 = *(a1 + 48) / *(a1 + 60);
+  v128 = *(a1 + 48) / *(a1 + 60);
   v7 = (a1 + 192);
-  v116 = (a1 + 264);
+  v112 = (a1 + 264);
   v8 = *(a1 + 216);
-  v117 = a1 + 216;
+  v113 = a1 + 216;
   v9 = *v8;
-  v109 = a1;
-  v110 = (a1 + 56);
-  v101 = (a1 + 52);
+  v107 = a1;
+  v108 = (a1 + 56);
+  v99 = (a1 + 52);
   if (*(a1 + 264))
   {
     v10 = -v9;
@@ -3589,29 +2794,27 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<half>(mlx::co
   }
 
   v15 = std::lcm[abi:ne200100]<int,int>(v4, v9);
-  v16 = *(*v117 + 4);
-  v131 = v15 / **v117;
-  v130 = std::lcm[abi:ne200100]<int,int>((*v3)[1], v16) / *(*v117 + 4);
+  v16 = *(*v113 + 4);
+  v127 = v15 / **v113;
+  v126 = std::lcm[abi:ne200100]<int,int>((*v3)[1], v16) / *(*v113 + 4);
   v17 = std::lcm[abi:ne200100]<int,int>(**v3, **v7);
   v18 = (*v7)[1];
-  v129 = v17 / **v7;
-  v128 = std::lcm[abi:ne200100]<int,int>((*v3)[1], v18) / (*v7)[1];
-  std::vector<int>::vector[abi:ne200100](v127, v129);
-  std::vector<int>::vector[abi:ne200100](v126, v128);
+  v125 = v17 / **v7;
+  v124 = std::lcm[abi:ne200100]<int,int>((*v3)[1], v18) / (*v7)[1];
+  std::vector<int>::vector[abi:ne200100](v123, v125);
+  std::vector<int>::vector[abi:ne200100](v122, v124);
   v19 = (v6 + 108);
-  v115 = (v6 + 20);
-  v114 = (v6 + 28);
-  v113 = (v6 + 4);
-  if (v129 >= 1)
+  v111 = (v6 + 4);
+  if (v125 >= 1)
   {
     v20 = 0;
     v21 = *v7;
     v22 = *v19;
-    v23 = v127[0];
+    v23 = v123[0];
     v24 = *v3;
     do
     {
-      if (*v101 < 1)
+      if (*v99 < 1)
       {
         v25 = 0;
       }
@@ -3624,9 +2827,9 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<half>(mlx::co
         {
           ++v25;
           v26 += v10;
-          if (*v101 == v25)
+          if (*v99 == v25)
           {
-            v25 = *v101;
+            v25 = *v99;
             break;
           }
         }
@@ -3635,19 +2838,19 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<half>(mlx::co
       v23[v20++] = v25;
     }
 
-    while (v20 < v129);
+    while (v20 < v125);
   }
 
-  if (v128 >= 1)
+  if (v124 >= 1)
   {
     v27 = 0;
     v28 = *v7;
     v29 = *v19;
-    v30 = v126[0];
+    v30 = v122[0];
     v31 = *v3;
     do
     {
-      if (*v110 < 1)
+      if (*v108 < 1)
       {
         v32 = 0;
       }
@@ -3660,9 +2863,9 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<half>(mlx::co
         {
           ++v32;
           v33 += v12;
-          if (*v110 == v32)
+          if (*v108 == v32)
           {
-            v32 = *v110;
+            v32 = *v108;
             break;
           }
         }
@@ -3671,102 +2874,102 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<half>(mlx::co
       v30[v27++] = v32;
     }
 
-    while (v27 < v128);
+    while (v27 < v124);
   }
 
-  v125[0] = v6 + 84;
-  v125[1] = v6 + 92;
-  v125[2] = v7;
-  v125[3] = v6 + 108;
-  v125[4] = v127;
-  v125[5] = &v129;
-  v125[6] = v126;
-  v125[7] = &v128;
-  v125[8] = v6;
-  v125[9] = &v132;
-  v125[10] = v101;
-  v125[11] = &v131;
-  v34 = v109;
-  v125[12] = v110;
-  v125[13] = &v130;
-  v125[14] = v116;
-  v125[15] = v117;
-  v125[16] = v109 + 28;
-  v125[17] = v109 + 32;
-  v125[18] = v6 + 52;
-  v125[19] = v6 + 60;
-  v125[20] = &v133;
-  v125[21] = v3;
-  v125[22] = v6 + 20;
-  v125[23] = v6 + 28;
-  v125[24] = v6 + 4;
-  v125[25] = v6 + 36;
-  v125[26] = v6 + 68;
-  v125[27] = v6 + 100;
-  v125[28] = v6 + 44;
-  if (v133)
+  v121[0] = v6 + 84;
+  v121[1] = v6 + 92;
+  v121[2] = v7;
+  v121[3] = v6 + 108;
+  v121[4] = v123;
+  v121[5] = &v125;
+  v121[6] = v122;
+  v121[7] = &v124;
+  v121[8] = v6;
+  v121[9] = &v128;
+  v121[10] = v99;
+  v121[11] = &v127;
+  v34 = v107;
+  v121[12] = v108;
+  v121[13] = &v126;
+  v121[14] = v112;
+  v121[15] = v113;
+  v121[16] = v107 + 28;
+  v121[17] = v107 + 32;
+  v121[18] = v6 + 52;
+  v121[19] = v6 + 60;
+  v121[20] = &v129;
+  v121[21] = v3;
+  v121[22] = v6 + 20;
+  v121[23] = v6 + 28;
+  v121[24] = v6 + 4;
+  v121[25] = v6 + 36;
+  v121[26] = v6 + 68;
+  v121[27] = v6 + 100;
+  v121[28] = v6 + 44;
+  if (v129)
   {
-    v35 = *(v109 + 168);
+    v35 = *(v107 + 168);
     v36 = *v35;
-    v37 = *(v109 + 192);
+    v37 = *(v107 + 192);
     v38 = *v37;
     v39 = (*v35 + v38 - 1) / v38;
-    v40 = *(v109 + 40);
+    v40 = *(v107 + 40);
   }
 
   else
   {
-    v40 = *(v109 + 40);
-    v35 = *(v109 + 168);
+    v40 = *(v107 + 40);
+    v35 = *(v107 + 168);
     v36 = *v35;
-    v37 = *(v109 + 192);
+    v37 = *(v107 + 192);
     v38 = *v37;
     v39 = v40;
   }
 
-  v41 = (*(v109 + 28) + v36 - **v117 * *v101) / v38;
-  v94 = v39;
-  v93 = v41;
+  v41 = (*(v107 + 28) + v36 - **v113 * *v99) / v38;
+  v92 = v39;
+  v91 = v41;
   if (v39 > v41)
   {
     v41 = v39;
   }
 
-  v98 = v41;
-  if (v133)
+  v96 = v41;
+  if (v129)
   {
     v42 = v35[1];
     v43 = v37[1];
-    v44 = *(v109 + 44);
+    v44 = *(v107 + 44);
     v45 = (v42 + v43 - 1) / v43;
   }
 
   else
   {
-    v44 = *(v109 + 44);
+    v44 = *(v107 + 44);
     v42 = v35[1];
     v43 = v37[1];
     v45 = v44;
   }
 
-  v46 = (*(v109 + 32) + v42 - *(*v117 + 4) * *(v109 + 56)) / v43;
-  v97 = v46;
+  v46 = (*(v107 + 32) + v42 - *(*v113 + 4) * *(v107 + 56)) / v43;
+  v95 = v46;
   if (v45 > v46)
   {
     v46 = v45;
   }
 
-  v99 = v46;
-  if (*(v109 + 24) >= 1)
+  v97 = v46;
+  if (*(v107 + 24) >= 1)
   {
-    v95 = 0;
-    v96 = v45;
-    v106 = v44;
-    v107 = v45;
-    v92 = v40;
+    v93 = 0;
+    v94 = v45;
+    v104 = v44;
+    v105 = v45;
+    v90 = v40;
     do
     {
-      if (v94 >= 1)
+      if (v92 >= 1)
       {
         v47 = 0;
         v48 = *(v34 + 44);
@@ -3776,21 +2979,21 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<half>(mlx::co
           {
             for (i = 0; i < v48; ++i)
             {
-              v34 = v109;
-              v48 = *(v109 + 44);
+              v34 = v107;
+              v48 = *(v107 + 44);
             }
 
-            v45 = v107;
+            v45 = v105;
           }
 
           ++v47;
         }
 
-        while (v47 != v94);
+        while (v47 != v92);
       }
 
-      v50 = v94;
-      if (v93 > v94)
+      v50 = v92;
+      if (v91 > v92)
       {
         do
         {
@@ -3800,49 +3003,49 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<half>(mlx::co
             v52 = 0;
             do
             {
-              v45 = v107;
+              v45 = v105;
               ++v52;
             }
 
-            while (v107 != v52);
+            while (v105 != v52);
           }
 
-          v100 = v50;
-          if (v97 > v45)
+          v98 = v50;
+          if (v95 > v45)
           {
-            v53 = *(v109 + 192);
-            v54 = *(v109 + 168);
-            v112 = *(v109 + 60);
-            v104 = *(v109 + 152);
-            v103 = *(v109 + 16) + 2 * *(v109 + 144) * v50;
-            v55 = v132;
-            v118 = *(v109 + 8);
-            v102 = *v109;
+            v53 = *(v107 + 192);
+            v54 = *(v107 + 168);
+            v110 = *(v107 + 60);
+            v102 = *(v107 + 152);
+            v101 = *(v107 + 16) + 2 * *(v107 + 144) * v50;
+            v55 = v128;
+            v114 = *(v107 + 8);
+            v100 = *v107;
             v56 = *v53 * v50 - *v54;
-            v105 = v53[1];
-            v57 = v107 * v105 - v54[1];
-            v108 = v96;
-            v111 = v132;
+            v103 = v53[1];
+            v57 = v105 * v103 - v54[1];
+            v106 = v94;
+            v109 = v128;
             do
             {
-              if (v112 >= 1)
+              if (v110 >= 1)
               {
                 v58 = 0;
-                v59 = v102;
-                v60 = (v103 + 2 * v108 * v104);
-                v61 = *v101;
-                v122 = *(v6 + 44);
-                v123 = *(v6 + 100);
-                v121 = 1;
-                v124 = v55;
+                v59 = v100;
+                v60 = (v101 + 2 * v106 * v102);
+                v61 = *v99;
+                v118 = *(v6 + 44);
+                v119 = *(v6 + 100);
+                v117 = 1;
+                v120 = v55;
                 do
                 {
                   v62 = v58 * v55;
-                  v120 = v58 + 1;
+                  v116 = v58 + 1;
                   if (v58 * v55 < (v58 + 1) * v55)
                   {
-                    v63 = *v110;
-                    v119 = v58;
+                    v63 = *v108;
+                    v115 = v58;
                     do
                     {
                       if (v61 < 1)
@@ -3853,45 +3056,43 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<half>(mlx::co
                       else
                       {
                         v64 = 0;
-                        v65 = *v117;
-                        v66 = *v115;
-                        v67 = *v114;
-                        v68 = *v113 * v58;
-                        v69 = 2 * *(v6 + 36);
+                        v65 = *v113;
+                        v66 = *v111 * v58;
+                        v67 = 2 * *(v6 + 36);
                         _S0 = 0.0;
                         do
                         {
                           if (v63 >= 1)
                           {
-                            v71 = 0;
-                            if (*v116)
+                            v69 = 0;
+                            if (*v112)
                             {
-                              v72 = v61 + ~v64;
+                              v70 = v61 + ~v64;
                             }
 
                             else
                             {
-                              v72 = v64;
+                              v70 = v64;
                             }
 
-                            v73 = v118 + v69 * v68 + 2 * *v115 * (v56 + *v65 * v72);
+                            v71 = v114 + v67 * v66 + 2 * *(v6 + 20) * (v56 + *v65 * v70);
                             do
                             {
-                              v74 = v63 + ~v71;
-                              if ((*v116 & 1) == 0)
+                              v72 = v63 + ~v69;
+                              if ((*v112 & 1) == 0)
                               {
-                                v74 = v71;
+                                v72 = v69;
                               }
 
-                              if (v68 < *v113 * v120)
+                              if (v66 < *v111 * v116)
                               {
-                                v75 = (v73 + 2 * *v114 * (v57 + v74 * v65[1]));
-                                v76 = *v113 * v58;
-                                v77 = v121 * *v113 - v68;
+                                v73 = (v71 + 2 * *(v6 + 28) * (v57 + v72 * v65[1]));
+                                v74 = *v111 * v58;
+                                v75 = v117 * *v111 - v66;
                                 do
                                 {
-                                  _H1 = *v75;
-                                  _H2 = *(v59 + 2 * v64 * *(v6 + 52) + 2 * v71 * *(v6 + 60) + 2 * *(v6 + 68) * (v76 % *v113));
+                                  _H1 = *v73;
+                                  _H2 = *(v59 + 2 * v64 * *(v6 + 52) + 2 * v69 * *(v6 + 60) + 2 * *(v6 + 68) * (v74 % *v111));
                                   __asm
                                   {
                                     FCVT            S1, H1
@@ -3899,18 +3100,18 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<half>(mlx::co
                                   }
 
                                   _S0 = _S0 + (_S1 * _S2);
-                                  ++v76;
-                                  v75 = (v75 + v69);
-                                  --v77;
+                                  ++v74;
+                                  v73 = (v73 + v67);
+                                  --v75;
                                 }
 
-                                while (v77);
+                                while (v75);
                               }
 
-                              ++v71;
+                              ++v69;
                             }
 
-                            while (v71 != v63);
+                            while (v69 != v63);
                           }
 
                           ++v64;
@@ -3919,94 +3120,94 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<half>(mlx::co
                         while (v64 != v61);
                         __asm { FCVT            H0, S0 }
 
-                        v58 = v119;
+                        v58 = v115;
                       }
 
                       *v60 = _H0;
-                      v60 += v123;
-                      v59 += 2 * v122;
+                      v60 += v119;
+                      v59 += 2 * v118;
                       ++v62;
                     }
 
-                    while (v62 != v124);
+                    while (v62 != v120);
                   }
 
-                  ++v121;
-                  v55 = v111;
-                  v124 += v111;
-                  v58 = v120;
+                  ++v117;
+                  v55 = v109;
+                  v120 += v109;
+                  v58 = v116;
                 }
 
-                while (v120 != v112);
+                while (v116 != v110);
               }
 
-              v57 += v105;
-              ++v108;
+              v57 += v103;
+              ++v106;
             }
 
-            while (v108 != v99);
+            while (v106 != v97);
           }
 
-          if (v99 < v106)
+          if (v97 < v104)
           {
-            v87 = v99;
+            v85 = v97;
             do
             {
             }
 
-            while (v106 != v87);
+            while (v104 != v85);
           }
 
-          v50 = v100 + 1;
-          v34 = v109;
-          v45 = v107;
+          v50 = v98 + 1;
+          v34 = v107;
+          v45 = v105;
         }
 
-        while (v98 != v100 + 1);
+        while (v96 != v98 + 1);
       }
 
-      if (v98 < v92)
+      if (v96 < v90)
       {
-        v88 = *(v34 + 44);
-        v89 = v98;
+        v86 = *(v34 + 44);
+        v87 = v96;
         do
         {
-          if (v88 >= 1)
+          if (v86 >= 1)
           {
-            for (j = 0; j < v88; ++j)
+            for (j = 0; j < v86; ++j)
             {
-              v34 = v109;
-              v88 = *(v109 + 44);
+              v34 = v107;
+              v86 = *(v107 + 44);
             }
 
-            v45 = v107;
+            v45 = v105;
           }
 
-          ++v89;
+          ++v87;
         }
 
-        while (v89 != v92);
+        while (v87 != v90);
       }
 
-      v91 = *(v34 + 16) + 2 * *(v34 + 136);
+      v89 = *(v34 + 16) + 2 * *(v34 + 136);
       *(v34 + 8) += 2 * *(v34 + 72);
-      *(v34 + 16) = v91;
-      ++v95;
+      *(v34 + 16) = v89;
+      ++v93;
     }
 
-    while (v95 < *(v34 + 24));
+    while (v93 < *(v34 + 24));
   }
 
-  if (v126[0])
+  if (v122[0])
   {
-    v126[1] = v126[0];
-    operator delete(v126[0]);
+    v122[1] = v122[0];
+    operator delete(v122[0]);
   }
 
-  if (v127[0])
+  if (v123[0])
   {
-    v127[1] = v127[0];
-    operator delete(v127[0]);
+    v123[1] = v123[0];
+    operator delete(v123[0]);
   }
 }
 
@@ -4342,19 +3543,19 @@ uint64_t mlx::core::anonymous namespace::slow_conv_2D<mlx::core::_MLX_BFloat16>(
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
   *(a1 + 184) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 168, *(a2 + 21), *(a2 + 22), (*(a2 + 22) - *(a2 + 21)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 168), *(a2 + 21), *(a2 + 22), (*(a2 + 22) - *(a2 + 21)) >> 2);
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;
   *(a1 + 208) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 192, *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 192), *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
   *(a1 + 216) = 0;
   *(a1 + 224) = 0;
   *(a1 + 232) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 216, *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 216), *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
   *(a1 + 240) = 0;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 240, *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 240), *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
   *(a1 + 264) = *(a2 + 264);
   return a1;
 }
@@ -4569,19 +3770,19 @@ uint64_t std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<mlx::core
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
   *(a1 + 184) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 168, *(a2 + 21), *(a2 + 22), (*(a2 + 22) - *(a2 + 21)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 168), *(a2 + 21), *(a2 + 22), (*(a2 + 22) - *(a2 + 21)) >> 2);
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;
   *(a1 + 208) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 192, *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 192), *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
   *(a1 + 216) = 0;
   *(a1 + 224) = 0;
   *(a1 + 232) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 216, *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 216), *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 2);
   *(a1 + 240) = 0;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 240, *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 240), *(a2 + 30), *(a2 + 31), (*(a2 + 31) - *(a2 + 30)) >> 2);
   *(a1 + 264) = *(a2 + 264);
   return a1;
 }
@@ -4618,17 +3819,17 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<mlx::core::_M
   v2 = *(a1 + 240);
   v4 = *v2;
   v5 = *v2 == 1 && v2[1] == 1;
-  v130 = v5;
+  v128 = v5;
   v6 = a1 + 60;
-  v129 = *(a1 + 48) / *(a1 + 60);
+  v127 = *(a1 + 48) / *(a1 + 60);
   v7 = (a1 + 192);
-  v113 = (a1 + 264);
+  v111 = (a1 + 264);
   v8 = *(a1 + 216);
-  v114 = a1 + 216;
+  v112 = a1 + 216;
   v9 = *v8;
-  v102 = a1;
-  v103 = (a1 + 56);
-  v94 = (a1 + 52);
+  v100 = a1;
+  v101 = (a1 + 56);
+  v92 = (a1 + 52);
   if (*(a1 + 264))
   {
     v10 = -v9;
@@ -4647,35 +3848,35 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<mlx::core::_M
   }
 
   v15 = std::lcm[abi:ne200100]<int,int>(v4, v9);
-  v16 = *(*v114 + 4);
-  v128 = v15 / **v114;
-  v127 = std::lcm[abi:ne200100]<int,int>((*v3)[1], v16) / *(*v114 + 4);
+  v16 = *(*v112 + 4);
+  v126 = v15 / **v112;
+  v125 = std::lcm[abi:ne200100]<int,int>((*v3)[1], v16) / *(*v112 + 4);
   v17 = std::lcm[abi:ne200100]<int,int>(**v3, **v7);
   v18 = (*v7)[1];
-  v126 = v17 / **v7;
-  v125 = std::lcm[abi:ne200100]<int,int>((*v3)[1], v18) / (*v7)[1];
-  std::vector<int>::vector[abi:ne200100](v124, v126);
-  std::vector<int>::vector[abi:ne200100](v123, v125);
+  v124 = v17 / **v7;
+  v123 = std::lcm[abi:ne200100]<int,int>((*v3)[1], v18) / (*v7)[1];
+  std::vector<int>::vector[abi:ne200100](v122, v124);
+  std::vector<int>::vector[abi:ne200100](v121, v123);
   v19 = (v6 + 108);
-  v112 = (v6 + 52);
-  v111 = (v6 + 60);
-  v110 = (v6 + 20);
-  v109 = (v6 + 28);
-  v108 = (v6 + 4);
-  v107 = (v6 + 36);
-  v106 = (v6 + 68);
-  v93 = (v6 + 100);
-  v92 = (v6 + 44);
-  if (v126 >= 1)
+  v110 = (v6 + 52);
+  v109 = (v6 + 60);
+  v108 = (v6 + 20);
+  v107 = (v6 + 28);
+  v106 = (v6 + 4);
+  v105 = (v6 + 36);
+  v104 = (v6 + 68);
+  v91 = (v6 + 100);
+  v90 = (v6 + 44);
+  if (v124 >= 1)
   {
     v20 = 0;
     v21 = *v7;
     v22 = *v19;
-    v23 = v124[0];
+    v23 = v122[0];
     v24 = *v3;
     do
     {
-      if (*v94 < 1)
+      if (*v92 < 1)
       {
         v25 = 0;
       }
@@ -4688,9 +3889,9 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<mlx::core::_M
         {
           ++v25;
           v26 += v10;
-          if (*v94 == v25)
+          if (*v92 == v25)
           {
-            v25 = *v94;
+            v25 = *v92;
             break;
           }
         }
@@ -4699,19 +3900,19 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<mlx::core::_M
       v23[v20++] = v25;
     }
 
-    while (v20 < v126);
+    while (v20 < v124);
   }
 
-  if (v125 >= 1)
+  if (v123 >= 1)
   {
     v27 = 0;
     v28 = *v7;
     v29 = *v19;
-    v30 = v123[0];
+    v30 = v121[0];
     v31 = *v3;
     do
     {
-      if (*v103 < 1)
+      if (*v101 < 1)
       {
         v32 = 0;
       }
@@ -4724,9 +3925,9 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<mlx::core::_M
         {
           ++v32;
           v33 += v12;
-          if (*v103 == v32)
+          if (*v101 == v32)
           {
-            v32 = *v103;
+            v32 = *v101;
             break;
           }
         }
@@ -4735,101 +3936,101 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<mlx::core::_M
       v30[v27++] = v32;
     }
 
-    while (v27 < v125);
+    while (v27 < v123);
   }
 
-  v122[0] = v6 + 84;
-  v122[1] = v6 + 92;
-  v122[2] = v7;
-  v122[3] = v6 + 108;
-  v122[4] = v124;
-  v122[5] = &v126;
-  v122[6] = v123;
-  v122[7] = &v125;
-  v122[8] = v6;
-  v122[9] = &v129;
-  v122[10] = v94;
-  v122[11] = &v128;
-  v34 = v102;
-  v122[12] = v103;
-  v122[13] = &v127;
-  v122[14] = v113;
-  v122[15] = v114;
-  v122[16] = v102 + 28;
-  v122[17] = v102 + 32;
-  v122[18] = v6 + 52;
-  v122[19] = v6 + 60;
-  v122[20] = &v130;
-  v122[21] = v3;
-  v122[22] = v6 + 20;
-  v122[23] = v6 + 28;
-  v122[24] = v6 + 4;
-  v122[25] = v6 + 36;
-  v122[26] = v6 + 68;
-  v122[27] = v6 + 100;
-  v122[28] = v6 + 44;
-  if (v130)
+  v120[0] = v6 + 84;
+  v120[1] = v6 + 92;
+  v120[2] = v7;
+  v120[3] = v6 + 108;
+  v120[4] = v122;
+  v120[5] = &v124;
+  v120[6] = v121;
+  v120[7] = &v123;
+  v120[8] = v6;
+  v120[9] = &v127;
+  v120[10] = v92;
+  v120[11] = &v126;
+  v34 = v100;
+  v120[12] = v101;
+  v120[13] = &v125;
+  v120[14] = v111;
+  v120[15] = v112;
+  v120[16] = v100 + 28;
+  v120[17] = v100 + 32;
+  v120[18] = v6 + 52;
+  v120[19] = v6 + 60;
+  v120[20] = &v128;
+  v120[21] = v3;
+  v120[22] = v6 + 20;
+  v120[23] = v6 + 28;
+  v120[24] = v6 + 4;
+  v120[25] = v6 + 36;
+  v120[26] = v6 + 68;
+  v120[27] = v6 + 100;
+  v120[28] = v6 + 44;
+  if (v128)
   {
-    v35 = *(v102 + 168);
+    v35 = *(v100 + 168);
     v36 = *v35;
-    v37 = *(v102 + 192);
+    v37 = *(v100 + 192);
     v38 = *v37;
     v39 = (*v35 + v38 - 1) / v38;
-    v40 = *(v102 + 40);
+    v40 = *(v100 + 40);
   }
 
   else
   {
-    v40 = *(v102 + 40);
-    v35 = *(v102 + 168);
+    v40 = *(v100 + 40);
+    v35 = *(v100 + 168);
     v36 = *v35;
-    v37 = *(v102 + 192);
+    v37 = *(v100 + 192);
     v38 = *v37;
     v39 = v40;
   }
 
-  v41 = (*(v102 + 28) + v36 - **v114 * *v94) / v38;
-  v86 = v39;
-  v85 = v41;
+  v41 = (*(v100 + 28) + v36 - **v112 * *v92) / v38;
+  v84 = v39;
+  v83 = v41;
   if (v39 > v41)
   {
     v41 = v39;
   }
 
-  v89 = v41;
-  if (v130)
+  v87 = v41;
+  if (v128)
   {
     v42 = v35[1];
     v43 = v37[1];
-    v44 = *(v102 + 44);
+    v44 = *(v100 + 44);
     v45 = (v42 + v43 - 1) / v43;
   }
 
   else
   {
-    v44 = *(v102 + 44);
+    v44 = *(v100 + 44);
     v42 = v35[1];
     v43 = v37[1];
     v45 = v44;
   }
 
-  v46 = (*(v102 + 32) + v42 - *(*v114 + 4) * *(v102 + 56)) / v43;
-  v100 = v45;
-  v88 = v46;
+  v46 = (*(v100 + 32) + v42 - *(*v112 + 4) * *(v100 + 56)) / v43;
+  v98 = v45;
+  v86 = v46;
   if (v45 > v46)
   {
     v46 = v45;
   }
 
-  v90 = v46;
-  if (*(v102 + 24) >= 1)
+  v88 = v46;
+  if (*(v100 + 24) >= 1)
   {
-    v87 = 0;
-    v99 = v44;
-    v84 = v40;
+    v85 = 0;
+    v97 = v44;
+    v82 = v40;
     do
     {
-      if (v86 >= 1)
+      if (v84 >= 1)
       {
         v47 = 0;
         v48 = *(v34 + 44);
@@ -4839,219 +4040,217 @@ void std::__bind<void mlx::core::anonymous namespace::slow_conv_2D<mlx::core::_M
           {
             for (i = 0; i < v48; ++i)
             {
-              v34 = v102;
-              v48 = *(v102 + 44);
+              v34 = v100;
+              v48 = *(v100 + 44);
             }
           }
 
           ++v47;
         }
 
-        while (v47 != v86);
+        while (v47 != v84);
       }
 
-      v50 = v86;
-      if (v85 > v86)
+      v50 = v84;
+      if (v83 > v84)
       {
         do
         {
-          v51 = v100;
-          if (v100 >= 1)
+          v51 = v98;
+          if (v98 >= 1)
           {
             v52 = v34;
-            for (j = 0; j != v100; ++j)
+            for (j = 0; j != v98; ++j)
             {
-              v51 = v100;
+              v51 = v98;
             }
           }
 
-          v91 = v50;
-          if (v88 > v51)
+          v89 = v50;
+          if (v86 > v51)
           {
-            v54 = *(v102 + 192);
-            v55 = *(v102 + 168);
-            v105 = *(v102 + 60);
-            v97 = *(v102 + 152);
-            v96 = *(v102 + 16) + 2 * *(v102 + 144) * v50;
-            v56 = v129;
-            v115 = *(v102 + 8);
-            v95 = *v102;
+            v54 = *(v100 + 192);
+            v55 = *(v100 + 168);
+            v103 = *(v100 + 60);
+            v95 = *(v100 + 152);
+            v94 = *(v100 + 16) + 2 * *(v100 + 144) * v50;
+            v56 = v127;
+            v113 = *(v100 + 8);
+            v93 = *v100;
             v57 = *v54 * v50 - *v55;
-            v98 = v54[1];
-            v58 = v100 * v98 - v55[1];
-            v101 = v100;
-            v104 = v129;
+            v96 = v54[1];
+            v58 = v98 * v96 - v55[1];
+            v99 = v98;
+            v102 = v127;
             do
             {
-              if (v105 >= 1)
+              if (v103 >= 1)
               {
                 v59 = 0;
-                v60 = v95;
-                v61 = (v96 + 2 * v101 * v97);
-                v62 = *v94;
-                v119 = *v92;
-                v120 = *v93;
-                v118 = 1;
-                v121 = v56;
+                v60 = v93;
+                v61 = (v94 + 2 * v99 * v95);
+                v62 = *v92;
+                v117 = *v90;
+                v118 = *v91;
+                v116 = 1;
+                v119 = v56;
                 do
                 {
                   v63 = v59 * v56;
-                  v117 = v59 + 1;
+                  v115 = v59 + 1;
                   if (v59 * v56 < (v59 + 1) * v56)
                   {
-                    v64 = *v103;
-                    v116 = v59;
+                    v64 = *v101;
+                    v114 = v59;
                     do
                     {
                       if (v62 < 1)
                       {
-                        v71 = 0.0;
+                        v69 = 0.0;
                       }
 
                       else
                       {
                         v65 = 0;
-                        v66 = *v114;
-                        v67 = *v110;
-                        v68 = *v109;
-                        v69 = *v108 * v59;
-                        v70 = 2 * *v107;
-                        v71 = 0.0;
+                        v66 = *v112;
+                        v67 = *v106 * v59;
+                        v68 = 2 * *v105;
+                        v69 = 0.0;
                         do
                         {
                           if (v64 >= 1)
                           {
-                            v72 = 0;
-                            if (*v113)
+                            v70 = 0;
+                            if (*v111)
                             {
-                              v73 = v62 + ~v65;
+                              v71 = v62 + ~v65;
                             }
 
                             else
                             {
-                              v73 = v65;
+                              v71 = v65;
                             }
 
-                            v74 = v115 + v70 * v69 + 2 * *v110 * (v57 + *v66 * v73);
+                            v72 = v113 + v68 * v67 + 2 * *v108 * (v57 + *v66 * v71);
                             do
                             {
-                              v75 = v64 + ~v72;
-                              if ((*v113 & 1) == 0)
+                              v73 = v64 + ~v70;
+                              if ((*v111 & 1) == 0)
                               {
-                                v75 = v72;
+                                v73 = v70;
                               }
 
-                              if (v69 < *v108 * v117)
+                              if (v67 < *v106 * v115)
                               {
-                                v76 = (v74 + 2 * *v109 * (v58 + v75 * v66[1]));
-                                v77 = *v108 * v59;
-                                v78 = v118 * *v108 - v69;
+                                v74 = (v72 + 2 * *v107 * (v58 + v73 * v66[1]));
+                                v75 = *v106 * v59;
+                                v76 = v116 * *v106 - v67;
                                 do
                                 {
-                                  v71 = v71 + (COERCE_FLOAT(*v76 << 16) * COERCE_FLOAT(*(v60 + 2 * v65 * *v112 + 2 * v72 * *v111 + 2 * *v106 * (v77 % *v108)) << 16));
-                                  ++v77;
-                                  v76 = (v76 + v70);
-                                  --v78;
+                                  v69 = v69 + (COERCE_FLOAT(*v74 << 16) * COERCE_FLOAT(*(v60 + 2 * v65 * *v110 + 2 * v70 * *v109 + 2 * *v104 * (v75 % *v106)) << 16));
+                                  ++v75;
+                                  v74 = (v74 + v68);
+                                  --v76;
                                 }
 
-                                while (v78);
+                                while (v76);
                               }
 
-                              ++v72;
+                              ++v70;
                             }
 
-                            while (v72 != v64);
+                            while (v70 != v64);
                           }
 
                           ++v65;
                         }
 
                         while (v65 != v62);
-                        v59 = v116;
+                        v59 = v114;
                       }
 
-                      *v61 = (LODWORD(v71) + (HIWORD(LODWORD(v71)) & 1u) + 0x7FFF) >> 16;
-                      v61 += v120;
-                      v60 += 2 * v119;
+                      *v61 = (LODWORD(v69) + (HIWORD(LODWORD(v69)) & 1u) + 0x7FFF) >> 16;
+                      v61 += v118;
+                      v60 += 2 * v117;
                       ++v63;
                     }
 
-                    while (v63 != v121);
+                    while (v63 != v119);
                   }
 
-                  ++v118;
-                  v56 = v104;
-                  v121 += v104;
-                  v59 = v117;
+                  ++v116;
+                  v56 = v102;
+                  v119 += v102;
+                  v59 = v115;
                 }
 
-                while (v117 != v105);
+                while (v115 != v103);
               }
 
-              v58 += v98;
-              ++v101;
+              v58 += v96;
+              ++v99;
             }
 
-            while (v101 != v90);
+            while (v99 != v88);
           }
 
-          if (v90 < v99)
+          if (v88 < v97)
           {
-            v79 = v90;
+            v77 = v88;
             do
             {
             }
 
-            while (v99 != v79);
+            while (v97 != v77);
           }
 
           ++v50;
-          v34 = v102;
+          v34 = v100;
         }
 
-        while (v89 != v91 + 1);
+        while (v87 != v89 + 1);
       }
 
-      if (v89 < v84)
+      if (v87 < v82)
       {
-        v80 = *(v34 + 44);
-        v81 = v89;
+        v78 = *(v34 + 44);
+        v79 = v87;
         do
         {
-          if (v80 >= 1)
+          if (v78 >= 1)
           {
-            for (k = 0; k < v80; ++k)
+            for (k = 0; k < v78; ++k)
             {
-              v34 = v102;
-              v80 = *(v102 + 44);
+              v34 = v100;
+              v78 = *(v100 + 44);
             }
           }
 
-          ++v81;
+          ++v79;
         }
 
-        while (v81 != v84);
+        while (v79 != v82);
       }
 
-      v83 = *(v34 + 16) + 2 * *(v34 + 136);
+      v81 = *(v34 + 16) + 2 * *(v34 + 136);
       *(v34 + 8) += 2 * *(v34 + 72);
-      *(v34 + 16) = v83;
-      ++v87;
+      *(v34 + 16) = v81;
+      ++v85;
     }
 
-    while (v87 < *(v34 + 24));
+    while (v85 < *(v34 + 24));
   }
 
-  if (v123[0])
+  if (v121[0])
   {
-    v123[1] = v123[0];
-    operator delete(v123[0]);
+    v121[1] = v121[0];
+    operator delete(v121[0]);
   }
 
-  if (v124[0])
+  if (v122[0])
   {
-    v124[1] = v124[0];
-    operator delete(v124[0]);
+    v122[1] = v122[0];
+    operator delete(v122[0]);
   }
 }
 
@@ -5393,14 +4592,6 @@ uint64_t std::__bind<mlx::core::anonymous namespace::explicit_gemm_conv_1D_cpu(m
     v2 = 0;
     do
     {
-      v3 = *(v1 + 44);
-      v4 = *(v1 + 40);
-      v5 = *v1;
-      v6 = (*(v1 + 36) * v4);
-      v7 = *(v1 + 28);
-      v10 = *(v1 + 32);
-      v9 = *(v1 + 16) + 4 * v3 * v2;
-      v8 = *(v1 + 8) + 4 * v4 * *(v1 + 48) * v3 * v2;
       result = cblas_sgemm_NEWLAPACK();
       ++v2;
     }
@@ -6087,30 +5278,31 @@ uint64_t std::__function::__func<std::__bind<void mlx::core::anonymous namespace
   }
 }
 
-void mlx::core::ArgReduce::eval_cpu(uint64_t a1, void *a2, uint64_t a3)
+void mlx::core::ArgReduce::eval_cpu(uint64_t a1, void *a2, int ***a3)
 {
   v5[27] = *MEMORY[0x277D85DE8];
   if (a2[1] - *a2 == 16)
   {
-    v4 = mlx::core::allocator::malloc((*(*a3 + 60) * *(*a3 + 48)));
+    v4 = mlx::core::allocator::malloc((*(*a3 + 60) * (*a3)[6]));
     v5[0] = &unk_286BE3468;
     v5[1] = mlx::core::allocator::free;
     v5[3] = v5;
-    mlx::core::array::set_data(a3, v4);
+    mlx::core::array::set_data(a3, v4, v5);
   }
 
   mlx::core::ArgReduce::eval_cpu();
 }
 
-void sub_25A4150D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, _Unwind_Exception *exception_object, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_25A4150D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, _Unwind_Exception *exception_object, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  __cxa_free_exception(v32);
-  std::mutex::unlock(v31);
-  mlx::core::array::~array((v34 + 32));
-  mlx::core::array::~array((v34 + 16));
+  va_start(va, a30);
+  __cxa_free_exception(v31);
+  std::mutex::unlock(v30);
+  mlx::core::array::~array((v33 + 32));
   mlx::core::array::~array((v33 + 16));
-  mlx::core::array::~array(&a31);
-  mlx::core::array::~array((v35 + 16));
+  mlx::core::array::~array((v32 + 16));
+  mlx::core::array::~array(va);
+  mlx::core::array::~array((v34 + 16));
   mlx::core::array::~array(&a13);
   _Unwind_Resume(a1);
 }
@@ -6175,7 +5367,7 @@ void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_
 
 void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_9ArgReduce8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__0JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEEclEv(uint64_t a1)
 {
-  mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(a1 + 24);
+  mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()((a1 + 24));
   v2 = mlx::core::scheduler::scheduler(v1);
 
   mlx::core::scheduler::Scheduler::notify_task_completion(v2);
@@ -6193,20 +5385,20 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(uint64_t a1)
+void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::operator()(const void ***a1)
 {
   v1 = *a1;
-  switch(*(*a1 + 56))
+  switch(*(*a1 + 14))
   {
     case 0:
-      v3 = *(a1 + 32);
-      v4 = *(a1 + 36);
+      v3 = *(a1 + 8);
+      v4 = *(a1 + 9);
       if (v3 == 1)
       {
         v546 = *(*v1 + 4 * v4);
         v547 = v1[3];
         v548 = v1[4];
-        v549 = *(v547 + 8 * v4);
+        v549 = v547[v4];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -6215,7 +5407,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v550, v550[1], (v550[1] - *v550) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v550, *(v550 + 8), (*(v550 + 8) - *v550) >> 2);
         v551 = __p + 8 * v4;
         v552 = v755 - (v551 + 8);
         if (v755 != v551 + 8)
@@ -6233,13 +5425,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v555 = *(a1 + 16);
-        v556 = *(v555 + 48);
+        v555 = a1[2];
+        v556 = v555[6];
         if (v556)
         {
           v557 = 0;
-          v744 = *(*a1 + 152);
-          v558 = *(v555 + 152);
+          v744 = (*a1)[19];
+          v558 = v555[19];
           v559 = ((&v554[v553] - v12) >> 2) - 1;
           v560 = __p;
           do
@@ -6263,8 +5455,8 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v565 = 0;
               v566 = 0;
-              v567 = (v744 + v561);
-              v568 = *(v744 + v561);
+              v567 = &v744[v561];
+              v568 = v744[v561];
               do
               {
                 if (((v568 == 0) & *v567) != 0)
@@ -6285,7 +5477,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v566 = 0;
             }
 
-            *(v558 + 4 * v557) = v566;
+            v558[v557] = v566;
             v557 = (v557 + 1);
           }
 
@@ -6300,7 +5492,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v5 = *(*v1 + 4 * v4);
         v6 = v1[3];
         v7 = v1[4];
-        v8 = *(v6 + 8 * v4);
+        v8 = v6[v4];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -6309,7 +5501,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v9, v9[1], (v9[1] - *v9) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v9, *(v9 + 8), (*(v9 + 8) - *v9) >> 2);
         v10 = __p + 8 * v4;
         v11 = v755 - (v10 + 8);
         if (v755 != v10 + 8)
@@ -6327,13 +5519,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v15 = *(a1 + 16);
-        v16 = *(v15 + 48);
+        v15 = a1[2];
+        v16 = v15[6];
         if (v16)
         {
           v17 = 0;
-          v723 = *(*a1 + 152);
-          v18 = *(v15 + 152);
+          v723 = (*a1)[19];
+          v18 = v15[19];
           v19 = ((&v14[v13] - v12) >> 2) - 1;
           v20 = __p;
           do
@@ -6357,8 +5549,8 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v25 = 0;
               v26 = 0;
-              v27 = (v723 + v21);
-              v28 = *(v723 + v21);
+              v27 = &v723[v21];
+              v28 = v723[v21];
               do
               {
                 v29 = *v27;
@@ -6384,7 +5576,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v26 = 0;
             }
 
-            *(v18 + 4 * v17) = v26;
+            v18[v17] = v26;
             v17 = (v17 + 1);
           }
 
@@ -6396,14 +5588,14 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
       break;
     case 1:
-      v213 = *(a1 + 32);
-      v214 = *(a1 + 36);
+      v213 = *(a1 + 8);
+      v214 = *(a1 + 9);
       if (v213 == 1)
       {
         v569 = *(*v1 + 4 * v214);
         v570 = v1[3];
         v571 = v1[4];
-        v572 = *(v570 + 8 * v214);
+        v572 = v570[v214];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -6412,7 +5604,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v573, v573[1], (v573[1] - *v573) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v573, *(v573 + 8), (*(v573 + 8) - *v573) >> 2);
         v574 = __p + 8 * v214;
         v575 = v755 - (v574 + 8);
         if (v755 != v574 + 8)
@@ -6432,13 +5624,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
         v578 = &v577[v576];
         v752 = &v577[v576];
-        v579 = *(a1 + 16);
-        v580 = *(v579 + 48);
+        v579 = a1[2];
+        v580 = v579[6];
         if (v580)
         {
           v581 = 0;
-          v745 = *(*a1 + 152);
-          v582 = *(v579 + 152);
+          v745 = (*a1)[19];
+          v582 = v579[19];
           v583 = ((v578 - v12) >> 2) - 1;
           v584 = __p;
           do
@@ -6462,8 +5654,8 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v589 = 0;
               v590 = 0;
-              v591 = (v745 + v585);
-              v592 = *(v745 + v585);
+              v591 = &v745[v585];
+              v592 = v745[v585];
               do
               {
                 v593 = *v591;
@@ -6489,7 +5681,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v590 = 0;
             }
 
-            *(v582 + 4 * v581) = v590;
+            v582[v581] = v590;
             v581 = (v581 + 1);
           }
 
@@ -6504,7 +5696,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v215 = *(*v1 + 4 * v214);
         v216 = v1[3];
         v217 = v1[4];
-        v218 = *(v216 + 8 * v214);
+        v218 = v216[v214];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -6513,7 +5705,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v219, v219[1], (v219[1] - *v219) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v219, *(v219 + 8), (*(v219 + 8) - *v219) >> 2);
         v220 = __p + 8 * v214;
         v221 = v755 - (v220 + 8);
         if (v755 != v220 + 8)
@@ -6533,13 +5725,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
         v224 = &v223[v222];
         v752 = &v223[v222];
-        v225 = *(a1 + 16);
-        v226 = *(v225 + 48);
+        v225 = a1[2];
+        v226 = v225[6];
         if (v226)
         {
           v227 = 0;
-          v731 = *(*a1 + 152);
-          v228 = *(v225 + 152);
+          v731 = (*a1)[19];
+          v228 = v225[19];
           v229 = ((v224 - v12) >> 2) - 1;
           v230 = __p;
           do
@@ -6563,8 +5755,8 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v235 = 0;
               v236 = 0;
-              v237 = (v731 + v231);
-              v238 = *(v731 + v231);
+              v237 = &v731[v231];
+              v238 = v731[v231];
               do
               {
                 v239 = *v237;
@@ -6590,7 +5782,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v236 = 0;
             }
 
-            *(v228 + 4 * v227) = v236;
+            v228[v227] = v236;
             v227 = (v227 + 1);
           }
 
@@ -6602,14 +5794,14 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
       break;
     case 2:
-      v134 = *(a1 + 32);
-      v135 = *(a1 + 36);
+      v134 = *(a1 + 8);
+      v135 = *(a1 + 9);
       if (v134 == 1)
       {
         v473 = *(*v1 + 4 * v135);
         v474 = v1[3];
         v475 = v1[4];
-        v476 = *(v474 + 8 * v135);
+        v476 = v474[v135];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -6618,7 +5810,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v477, v477[1], (v477[1] - *v477) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v477, *(v477 + 8), (*(v477 + 8) - *v477) >> 2);
         v478 = __p + 8 * v135;
         v479 = v755 - (v478 + 8);
         if (v755 != v478 + 8)
@@ -6636,13 +5828,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v482 = *(a1 + 16);
-        v483 = *(v482 + 48);
+        v482 = a1[2];
+        v483 = v482[6];
         if (v483)
         {
           v484 = 0;
-          v741 = *(*a1 + 152);
-          v485 = *(v482 + 152);
+          v741 = (*a1)[19];
+          v485 = v482[19];
           v486 = ((&v481[v480] - v12) >> 2) - 1;
           v487 = __p;
           v488 = 2 * v476;
@@ -6667,7 +5859,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v493 = 0;
               v494 = 0;
-              v495 = (v741 + 2 * v489);
+              v495 = &v741[2 * v489];
               v496 = *v495;
               do
               {
@@ -6683,7 +5875,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
                 }
 
                 ++v493;
-                v495 = (v495 + v488);
+                v495 += v488;
               }
 
               while (v473 != v493);
@@ -6694,7 +5886,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v494 = 0;
             }
 
-            *(v485 + 4 * v484) = v494;
+            v485[v484] = v494;
             v484 = (v484 + 1);
           }
 
@@ -6709,7 +5901,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v136 = *(*v1 + 4 * v135);
         v137 = v1[3];
         v138 = v1[4];
-        v139 = *(v137 + 8 * v135);
+        v139 = v137[v135];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -6718,7 +5910,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v140, v140[1], (v140[1] - *v140) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v140, *(v140 + 8), (*(v140 + 8) - *v140) >> 2);
         v141 = __p + 8 * v135;
         v142 = v755 - (v141 + 8);
         if (v755 != v141 + 8)
@@ -6736,13 +5928,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v145 = *(a1 + 16);
-        v146 = *(v145 + 48);
+        v145 = a1[2];
+        v146 = v145[6];
         if (v146)
         {
           v147 = 0;
-          v728 = *(*a1 + 152);
-          v148 = *(v145 + 152);
+          v728 = (*a1)[19];
+          v148 = v145[19];
           v149 = ((&v144[v143] - v12) >> 2) - 1;
           v150 = __p;
           v151 = 2 * v139;
@@ -6767,7 +5959,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v156 = 0;
               v157 = 0;
-              v158 = (v728 + 2 * v152);
+              v158 = &v728[2 * v152];
               v159 = *v158;
               do
               {
@@ -6783,7 +5975,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
                 }
 
                 ++v156;
-                v158 = (v158 + v151);
+                v158 += v151;
               }
 
               while (v136 != v156);
@@ -6794,7 +5986,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v157 = 0;
             }
 
-            *(v148 + 4 * v147) = v157;
+            v148[v147] = v157;
             v147 = (v147 + 1);
           }
 
@@ -6806,14 +5998,14 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
       break;
     case 3:
-      v161 = *(a1 + 32);
-      v162 = *(a1 + 36);
+      v161 = *(a1 + 8);
+      v162 = *(a1 + 9);
       if (v161 == 1)
       {
         v498 = *(*v1 + 4 * v162);
         v499 = v1[3];
         v500 = v1[4];
-        v501 = *(v499 + 8 * v162);
+        v501 = v499[v162];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -6822,7 +6014,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v502, v502[1], (v502[1] - *v502) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v502, *(v502 + 8), (*(v502 + 8) - *v502) >> 2);
         v503 = __p + 8 * v162;
         v504 = v755 - (v503 + 8);
         if (v755 != v503 + 8)
@@ -6840,13 +6032,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v507 = *(a1 + 16);
-        v508 = *(v507 + 48);
+        v507 = a1[2];
+        v508 = v507[6];
         if (v508)
         {
           v509 = 0;
-          v742 = *(*a1 + 152);
-          v510 = *(v507 + 152);
+          v742 = (*a1)[19];
+          v510 = v507[19];
           v511 = ((&v506[v505] - v12) >> 2) - 1;
           v512 = __p;
           v513 = 4 * v501;
@@ -6871,7 +6063,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v518 = 0;
               v519 = 0;
-              v520 = (v742 + 4 * v514);
+              v520 = &v742[4 * v514];
               v521 = *v520;
               do
               {
@@ -6886,7 +6078,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
                 }
 
                 ++v518;
-                v520 = (v520 + v513);
+                v520 += v513;
               }
 
               while (v498 != v518);
@@ -6897,7 +6089,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v519 = 0;
             }
 
-            *(v510 + 4 * v509) = v519;
+            v510[v509] = v519;
             v509 = (v509 + 1);
           }
 
@@ -6912,7 +6104,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v163 = *(*v1 + 4 * v162);
         v164 = v1[3];
         v165 = v1[4];
-        v166 = *(v164 + 8 * v162);
+        v166 = v164[v162];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -6921,7 +6113,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v167, v167[1], (v167[1] - *v167) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v167, *(v167 + 8), (*(v167 + 8) - *v167) >> 2);
         v168 = __p + 8 * v162;
         v169 = v755 - (v168 + 8);
         if (v755 != v168 + 8)
@@ -6939,13 +6131,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v172 = *(a1 + 16);
-        v173 = *(v172 + 48);
+        v172 = a1[2];
+        v173 = v172[6];
         if (v173)
         {
           v174 = 0;
-          v729 = *(*a1 + 152);
-          v175 = *(v172 + 152);
+          v729 = (*a1)[19];
+          v175 = v172[19];
           v176 = ((&v171[v170] - v12) >> 2) - 1;
           v177 = __p;
           v178 = 4 * v166;
@@ -6970,7 +6162,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v183 = 0;
               v184 = 0;
-              v185 = (v729 + 4 * v179);
+              v185 = &v729[4 * v179];
               v186 = *v185;
               do
               {
@@ -6985,7 +6177,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
                 }
 
                 ++v183;
-                v185 = (v185 + v178);
+                v185 += v178;
               }
 
               while (v163 != v183);
@@ -6996,7 +6188,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v184 = 0;
             }
 
-            *(v175 + 4 * v174) = v184;
+            v175[v174] = v184;
             v174 = (v174 + 1);
           }
 
@@ -7008,14 +6200,14 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
       break;
     case 4:
-      v56 = *(a1 + 32);
-      v57 = *(a1 + 36);
+      v56 = *(a1 + 8);
+      v57 = *(a1 + 9);
       if (v56 == 1)
       {
         v401 = *(*v1 + 4 * v57);
         v402 = v1[3];
         v403 = v1[4];
-        v404 = *(v402 + 8 * v57);
+        v404 = v402[v57];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -7024,7 +6216,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v405, v405[1], (v405[1] - *v405) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v405, *(v405 + 8), (*(v405 + 8) - *v405) >> 2);
         v406 = __p + 8 * v57;
         v407 = v755 - (v406 + 8);
         if (v755 != v406 + 8)
@@ -7042,13 +6234,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v410 = *(a1 + 16);
-        v411 = *(v410 + 48);
+        v410 = a1[2];
+        v411 = v410[6];
         if (v411)
         {
           v412 = 0;
-          v738 = *(*a1 + 152);
-          v413 = *(v410 + 152);
+          v738 = (*a1)[19];
+          v413 = v410[19];
           v414 = ((&v409[v408] - v12) >> 2) - 1;
           v415 = __p;
           v416 = 8 * v404;
@@ -7073,7 +6265,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v421 = 0;
               v422 = 0;
-              v423 = (v738 + 8 * v417);
+              v423 = &v738[8 * v417];
               v424 = *v423;
               do
               {
@@ -7088,7 +6280,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
                 }
 
                 ++v421;
-                v423 = (v423 + v416);
+                v423 += v416;
               }
 
               while (v401 != v421);
@@ -7099,7 +6291,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v422 = 0;
             }
 
-            *(v413 + 4 * v412) = v422;
+            v413[v412] = v422;
             v412 = (v412 + 1);
           }
 
@@ -7114,7 +6306,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v58 = *(*v1 + 4 * v57);
         v59 = v1[3];
         v60 = v1[4];
-        v61 = *(v59 + 8 * v57);
+        v61 = v59[v57];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -7123,7 +6315,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v62, v62[1], (v62[1] - *v62) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v62, *(v62 + 8), (*(v62 + 8) - *v62) >> 2);
         v63 = __p + 8 * v57;
         v64 = v755 - (v63 + 8);
         if (v755 != v63 + 8)
@@ -7141,13 +6333,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v67 = *(a1 + 16);
-        v68 = *(v67 + 48);
+        v67 = a1[2];
+        v68 = v67[6];
         if (v68)
         {
           v69 = 0;
-          v725 = *(*a1 + 152);
-          v70 = *(v67 + 152);
+          v725 = (*a1)[19];
+          v70 = v67[19];
           v71 = ((&v66[v65] - v12) >> 2) - 1;
           v72 = __p;
           v73 = 8 * v61;
@@ -7172,7 +6364,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v78 = 0;
               v79 = 0;
-              v80 = (v725 + 8 * v74);
+              v80 = &v725[8 * v74];
               v81 = *v80;
               do
               {
@@ -7187,7 +6379,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
                 }
 
                 ++v78;
-                v80 = (v80 + v73);
+                v80 += v73;
               }
 
               while (v58 != v78);
@@ -7198,7 +6390,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v79 = 0;
             }
 
-            *(v70 + 4 * v69) = v79;
+            v70[v69] = v79;
             v69 = (v69 + 1);
           }
 
@@ -7210,14 +6402,14 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
       break;
     case 5:
-      v240 = *(a1 + 32);
-      v241 = *(a1 + 36);
+      v240 = *(a1 + 8);
+      v241 = *(a1 + 9);
       if (v240 == 1)
       {
         v594 = *(*v1 + 4 * v241);
         v595 = v1[3];
         v596 = v1[4];
-        v597 = *(v595 + 8 * v241);
+        v597 = v595[v241];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -7226,7 +6418,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v598, v598[1], (v598[1] - *v598) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v598, *(v598 + 8), (*(v598 + 8) - *v598) >> 2);
         v599 = __p + 8 * v241;
         v600 = v755 - (v599 + 8);
         if (v755 != v599 + 8)
@@ -7246,13 +6438,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
         v603 = &v602[v601];
         v752 = &v602[v601];
-        v604 = *(a1 + 16);
-        v605 = *(v604 + 48);
+        v604 = a1[2];
+        v605 = v604[6];
         if (v605)
         {
           v606 = 0;
-          v746 = *(*a1 + 152);
-          v607 = *(v604 + 152);
+          v746 = (*a1)[19];
+          v607 = v604[19];
           v608 = ((v603 - v12) >> 2) - 1;
           v609 = __p;
           do
@@ -7276,8 +6468,8 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v614 = 0;
               v615 = 0;
-              v616 = (v746 + v610);
-              LOBYTE(v617) = *(v746 + v610);
+              v616 = &v746[v610];
+              LOBYTE(v617) = v746[v610];
               do
               {
                 v618 = *v616;
@@ -7304,7 +6496,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v615 = 0;
             }
 
-            *(v607 + 4 * v606) = v615;
+            v607[v606] = v615;
             v606 = (v606 + 1);
           }
 
@@ -7319,7 +6511,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v242 = *(*v1 + 4 * v241);
         v243 = v1[3];
         v244 = v1[4];
-        v245 = *(v243 + 8 * v241);
+        v245 = v243[v241];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -7328,7 +6520,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v246, v246[1], (v246[1] - *v246) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v246, *(v246 + 8), (*(v246 + 8) - *v246) >> 2);
         v247 = __p + 8 * v241;
         v248 = v755 - (v247 + 8);
         if (v755 != v247 + 8)
@@ -7348,13 +6540,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
         v251 = &v250[v249];
         v752 = &v250[v249];
-        v252 = *(a1 + 16);
-        v253 = *(v252 + 48);
+        v252 = a1[2];
+        v253 = v252[6];
         if (v253)
         {
           v254 = 0;
-          v732 = *(*a1 + 152);
-          v255 = *(v252 + 152);
+          v732 = (*a1)[19];
+          v255 = v252[19];
           v256 = ((v251 - v12) >> 2) - 1;
           v257 = __p;
           do
@@ -7378,8 +6570,8 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v262 = 0;
               v263 = 0;
-              v264 = (v732 + v258);
-              LOBYTE(v265) = *(v732 + v258);
+              v264 = &v732[v258];
+              LOBYTE(v265) = v732[v258];
               do
               {
                 v266 = *v264;
@@ -7406,7 +6598,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v263 = 0;
             }
 
-            *(v255 + 4 * v254) = v263;
+            v255[v254] = v263;
             v254 = (v254 + 1);
           }
 
@@ -7418,14 +6610,14 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
       break;
     case 6:
-      v298 = *(a1 + 32);
-      v299 = *(a1 + 36);
+      v298 = *(a1 + 8);
+      v299 = *(a1 + 9);
       if (v298 == 1)
       {
         v648 = *(*v1 + 4 * v299);
         v649 = v1[3];
         v650 = v1[4];
-        v651 = *(v649 + 8 * v299);
+        v651 = v649[v299];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -7434,7 +6626,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v652, v652[1], (v652[1] - *v652) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v652, *(v652 + 8), (*(v652 + 8) - *v652) >> 2);
         v653 = __p + 8 * v299;
         v654 = v755 - (v653 + 8);
         if (v755 != v653 + 8)
@@ -7452,13 +6644,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v657 = *(a1 + 16);
-        v658 = *(v657 + 48);
+        v657 = a1[2];
+        v658 = v657[6];
         if (v658)
         {
           v659 = 0;
-          v748 = *(*a1 + 152);
-          v660 = *(v657 + 152);
+          v748 = (*a1)[19];
+          v660 = v657[19];
           v661 = ((&v656[v655] - v12) >> 2) - 1;
           v662 = __p;
           v663 = 2 * v651;
@@ -7483,7 +6675,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v668 = 0;
               v669 = 0;
-              v670 = (v748 + 2 * v664);
+              v670 = &v748[2 * v664];
               v671 = *v670;
               do
               {
@@ -7499,7 +6691,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
                 }
 
                 ++v668;
-                v670 = (v670 + v663);
+                v670 += v663;
               }
 
               while (v648 != v668);
@@ -7510,7 +6702,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v669 = 0;
             }
 
-            *(v660 + 4 * v659) = v669;
+            v660[v659] = v669;
             v659 = (v659 + 1);
           }
 
@@ -7525,7 +6717,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v300 = *(*v1 + 4 * v299);
         v301 = v1[3];
         v302 = v1[4];
-        v303 = *(v301 + 8 * v299);
+        v303 = v301[v299];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -7534,7 +6726,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v304, v304[1], (v304[1] - *v304) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v304, *(v304 + 8), (*(v304 + 8) - *v304) >> 2);
         v305 = __p + 8 * v299;
         v306 = v755 - (v305 + 8);
         if (v755 != v305 + 8)
@@ -7552,13 +6744,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v309 = *(a1 + 16);
-        v310 = *(v309 + 48);
+        v309 = a1[2];
+        v310 = v309[6];
         if (v310)
         {
           v311 = 0;
-          v734 = *(*a1 + 152);
-          v312 = *(v309 + 152);
+          v734 = (*a1)[19];
+          v312 = v309[19];
           v313 = ((&v308[v307] - v12) >> 2) - 1;
           v314 = __p;
           v315 = 2 * v303;
@@ -7583,7 +6775,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v320 = 0;
               v321 = 0;
-              v322 = (v734 + 2 * v316);
+              v322 = &v734[2 * v316];
               v323 = *v322;
               do
               {
@@ -7599,7 +6791,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
                 }
 
                 ++v320;
-                v322 = (v322 + v315);
+                v322 += v315;
               }
 
               while (v300 != v320);
@@ -7610,7 +6802,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v321 = 0;
             }
 
-            *(v312 + 4 * v311) = v321;
+            v312[v311] = v321;
             v311 = (v311 + 1);
           }
 
@@ -7622,14 +6814,14 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
       break;
     case 7:
-      v187 = *(a1 + 32);
-      v188 = *(a1 + 36);
+      v187 = *(a1 + 8);
+      v188 = *(a1 + 9);
       if (v187 == 1)
       {
         v522 = *(*v1 + 4 * v188);
         v523 = v1[3];
         v524 = v1[4];
-        v525 = *(v523 + 8 * v188);
+        v525 = v523[v188];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -7638,7 +6830,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v526, v526[1], (v526[1] - *v526) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v526, *(v526 + 8), (*(v526 + 8) - *v526) >> 2);
         v527 = __p + 8 * v188;
         v528 = v755 - (v527 + 8);
         if (v755 != v527 + 8)
@@ -7656,13 +6848,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v531 = *(a1 + 16);
-        v532 = *(v531 + 48);
+        v531 = a1[2];
+        v532 = v531[6];
         if (v532)
         {
           v533 = 0;
-          v743 = *(*a1 + 152);
-          v534 = *(v531 + 152);
+          v743 = (*a1)[19];
+          v534 = v531[19];
           v535 = ((&v530[v529] - v12) >> 2) - 1;
           v536 = __p;
           v537 = 4 * v525;
@@ -7687,7 +6879,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v542 = 0;
               v543 = 0;
-              v544 = (v743 + 4 * v538);
+              v544 = &v743[4 * v538];
               v545 = *v544;
               do
               {
@@ -7702,7 +6894,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
                 }
 
                 ++v542;
-                v544 = (v544 + v537);
+                v544 += v537;
               }
 
               while (v522 != v542);
@@ -7713,7 +6905,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v543 = 0;
             }
 
-            *(v534 + 4 * v533) = v543;
+            v534[v533] = v543;
             v533 = (v533 + 1);
           }
 
@@ -7728,7 +6920,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v189 = *(*v1 + 4 * v188);
         v190 = v1[3];
         v191 = v1[4];
-        v192 = *(v190 + 8 * v188);
+        v192 = v190[v188];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -7737,7 +6929,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v193, v193[1], (v193[1] - *v193) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v193, *(v193 + 8), (*(v193 + 8) - *v193) >> 2);
         v194 = __p + 8 * v188;
         v195 = v755 - (v194 + 8);
         if (v755 != v194 + 8)
@@ -7755,13 +6947,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v198 = *(a1 + 16);
-        v199 = *(v198 + 48);
+        v198 = a1[2];
+        v199 = v198[6];
         if (v199)
         {
           v200 = 0;
-          v730 = *(*a1 + 152);
-          v201 = *(v198 + 152);
+          v730 = (*a1)[19];
+          v201 = v198[19];
           v202 = ((&v197[v196] - v12) >> 2) - 1;
           v203 = __p;
           v204 = 4 * v192;
@@ -7786,7 +6978,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v209 = 0;
               v210 = 0;
-              v211 = (v730 + 4 * v205);
+              v211 = &v730[4 * v205];
               v212 = *v211;
               do
               {
@@ -7801,7 +6993,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
                 }
 
                 ++v209;
-                v211 = (v211 + v204);
+                v211 += v204;
               }
 
               while (v189 != v209);
@@ -7812,7 +7004,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v210 = 0;
             }
 
-            *(v201 + 4 * v200) = v210;
+            v201[v200] = v210;
             v200 = (v200 + 1);
           }
 
@@ -7824,14 +7016,14 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
       break;
     case 8:
-      v351 = *(a1 + 32);
-      v352 = *(a1 + 36);
+      v351 = *(a1 + 8);
+      v352 = *(a1 + 9);
       if (v351 == 1)
       {
         v697 = *(*v1 + 4 * v352);
         v698 = v1[3];
         v699 = v1[4];
-        v700 = *(v698 + 8 * v352);
+        v700 = v698[v352];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -7840,7 +7032,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v701, v701[1], (v701[1] - *v701) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v701, *(v701 + 8), (*(v701 + 8) - *v701) >> 2);
         v702 = __p + 8 * v352;
         v703 = v755 - (v702 + 8);
         if (v755 != v702 + 8)
@@ -7858,13 +7050,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v706 = *(a1 + 16);
-        v707 = *(v706 + 48);
+        v706 = a1[2];
+        v707 = v706[6];
         if (v707)
         {
           v708 = 0;
-          v750 = *(*a1 + 152);
-          v709 = *(v706 + 152);
+          v750 = (*a1)[19];
+          v709 = v706[19];
           v710 = ((&v705[v704] - v12) >> 2) - 1;
           v711 = __p;
           v712 = 8 * v700;
@@ -7889,7 +7081,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v717 = 0;
               v718 = 0;
-              v719 = (v750 + 8 * v713);
+              v719 = &v750[8 * v713];
               v720 = *v719;
               do
               {
@@ -7904,7 +7096,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
                 }
 
                 ++v717;
-                v719 = (v719 + v712);
+                v719 += v712;
               }
 
               while (v697 != v717);
@@ -7915,7 +7107,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v718 = 0;
             }
 
-            *(v709 + 4 * v708) = v718;
+            v709[v708] = v718;
             v708 = (v708 + 1);
           }
 
@@ -7930,7 +7122,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v353 = *(*v1 + 4 * v352);
         v354 = v1[3];
         v355 = v1[4];
-        v356 = *(v354 + 8 * v352);
+        v356 = v354[v352];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -7939,7 +7131,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v357, v357[1], (v357[1] - *v357) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v357, *(v357 + 8), (*(v357 + 8) - *v357) >> 2);
         v358 = __p + 8 * v352;
         v359 = v755 - (v358 + 8);
         if (v755 != v358 + 8)
@@ -7957,13 +7149,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v362 = *(a1 + 16);
-        v363 = *(v362 + 48);
+        v362 = a1[2];
+        v363 = v362[6];
         if (v363)
         {
           v364 = 0;
-          v736 = *(*a1 + 152);
-          v365 = *(v362 + 152);
+          v736 = (*a1)[19];
+          v365 = v362[19];
           v366 = ((&v361[v360] - v12) >> 2) - 1;
           v367 = __p;
           v368 = 8 * v356;
@@ -7988,7 +7180,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v373 = 0;
               v374 = 0;
-              v375 = (v736 + 8 * v369);
+              v375 = &v736[8 * v369];
               v376 = *v375;
               do
               {
@@ -8003,7 +7195,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
                 }
 
                 ++v373;
-                v375 = (v375 + v368);
+                v375 += v368;
               }
 
               while (v353 != v373);
@@ -8014,7 +7206,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v374 = 0;
             }
 
-            *(v365 + 4 * v364) = v374;
+            v365[v364] = v374;
             v364 = (v364 + 1);
           }
 
@@ -8026,14 +7218,14 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
       break;
     case 9:
-      v108 = *(a1 + 32);
-      v109 = *(a1 + 36);
+      v108 = *(a1 + 8);
+      v109 = *(a1 + 9);
       if (v108 == 1)
       {
         v449 = *(*v1 + 4 * v109);
         v450 = v1[3];
         v451 = v1[4];
-        v452 = *(v450 + 8 * v109);
+        v452 = v450[v109];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -8042,7 +7234,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v453, v453[1], (v453[1] - *v453) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v453, *(v453 + 8), (*(v453 + 8) - *v453) >> 2);
         v454 = __p + 8 * v109;
         v455 = v755 - (v454 + 8);
         if (v755 != v454 + 8)
@@ -8060,13 +7252,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v458 = *(a1 + 16);
-        v459 = *(v458 + 48);
+        v458 = a1[2];
+        v459 = v458[6];
         if (v459)
         {
           v460 = 0;
-          v740 = *(*a1 + 152);
-          v461 = *(v458 + 152);
+          v740 = (*a1)[19];
+          v461 = v458[19];
           v462 = ((&v457[v456] - v12) >> 2) - 1;
           v463 = __p;
           v464 = 2 * v452;
@@ -8091,7 +7283,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v469 = 0;
               v470 = 0;
-              v471 = (v740 + 2 * v465);
+              v471 = &v740[2 * v465];
               v472 = *v471;
               do
               {
@@ -8113,7 +7305,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v470 = 0;
             }
 
-            *(v461 + 4 * v460) = v470;
+            v461[v460] = v470;
             v460 = (v460 + 1);
           }
 
@@ -8128,7 +7320,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v110 = *(*v1 + 4 * v109);
         v111 = v1[3];
         v112 = v1[4];
-        v113 = *(v111 + 8 * v109);
+        v113 = v111[v109];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -8137,7 +7329,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v114, v114[1], (v114[1] - *v114) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v114, *(v114 + 8), (*(v114 + 8) - *v114) >> 2);
         v115 = __p + 8 * v109;
         v116 = v755 - (v115 + 8);
         if (v755 != v115 + 8)
@@ -8155,13 +7347,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v119 = *(a1 + 16);
-        v120 = *(v119 + 48);
+        v119 = a1[2];
+        v120 = v119[6];
         if (v120)
         {
           v121 = 0;
-          v727 = *(*a1 + 152);
-          v122 = *(v119 + 152);
+          v727 = (*a1)[19];
+          v122 = v119[19];
           v123 = ((&v118[v117] - v12) >> 2) - 1;
           v124 = __p;
           v125 = 2 * v113;
@@ -8186,7 +7378,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v130 = 0;
               v131 = 0;
-              v132 = (v727 + 2 * v126);
+              v132 = &v727[2 * v126];
               v133 = *v132;
               do
               {
@@ -8208,7 +7400,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v131 = 0;
             }
 
-            *(v122 + 4 * v121) = v131;
+            v122[v121] = v131;
             v121 = (v121 + 1);
           }
 
@@ -8220,14 +7412,14 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
       break;
     case 0xA:
-      v325 = *(a1 + 32);
-      v326 = *(a1 + 36);
+      v325 = *(a1 + 8);
+      v326 = *(a1 + 9);
       if (v325 == 1)
       {
         v673 = *(*v1 + 4 * v326);
         v674 = v1[3];
         v675 = v1[4];
-        v676 = *(v674 + 8 * v326);
+        v676 = v674[v326];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -8236,7 +7428,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v677, v677[1], (v677[1] - *v677) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v677, *(v677 + 8), (*(v677 + 8) - *v677) >> 2);
         v678 = __p + 8 * v326;
         v679 = v755 - (v678 + 8);
         if (v755 != v678 + 8)
@@ -8254,13 +7446,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v682 = *(a1 + 16);
-        v683 = *(v682 + 48);
+        v682 = a1[2];
+        v683 = v682[6];
         if (v683)
         {
           v684 = 0;
-          v749 = *(*a1 + 152);
-          v685 = *(v682 + 152);
+          v749 = (*a1)[19];
+          v685 = v682[19];
           v686 = ((&v681[v680] - v12) >> 2) - 1;
           v687 = __p;
           v688 = 4 * v676;
@@ -8285,7 +7477,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v693 = 0;
               v694 = 0;
-              v695 = (v749 + 4 * v689);
+              v695 = &v749[4 * v689];
               v696 = *v695;
               do
               {
@@ -8307,7 +7499,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v694 = 0;
             }
 
-            *(v685 + 4 * v684) = v694;
+            v685[v684] = v694;
             v684 = (v684 + 1);
           }
 
@@ -8322,7 +7514,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v327 = *(*v1 + 4 * v326);
         v328 = v1[3];
         v329 = v1[4];
-        v330 = *(v328 + 8 * v326);
+        v330 = v328[v326];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -8331,7 +7523,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v331, v331[1], (v331[1] - *v331) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v331, *(v331 + 8), (*(v331 + 8) - *v331) >> 2);
         v332 = __p + 8 * v326;
         v333 = v755 - (v332 + 8);
         if (v755 != v332 + 8)
@@ -8349,13 +7541,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v336 = *(a1 + 16);
-        v337 = *(v336 + 48);
+        v336 = a1[2];
+        v337 = v336[6];
         if (v337)
         {
           v338 = 0;
-          v735 = *(*a1 + 152);
-          v339 = *(v336 + 152);
+          v735 = (*a1)[19];
+          v339 = v336[19];
           v340 = ((&v335[v334] - v12) >> 2) - 1;
           v341 = __p;
           v342 = 4 * v330;
@@ -8380,7 +7572,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v347 = 0;
               v348 = 0;
-              v349 = (v735 + 4 * v343);
+              v349 = &v735[4 * v343];
               v350 = *v349;
               do
               {
@@ -8402,7 +7594,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v348 = 0;
             }
 
-            *(v339 + 4 * v338) = v348;
+            v339[v338] = v348;
             v338 = (v338 + 1);
           }
 
@@ -8414,14 +7606,14 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
       break;
     case 0xB:
-      v30 = *(a1 + 32);
-      v31 = *(a1 + 36);
+      v30 = *(a1 + 8);
+      v31 = *(a1 + 9);
       if (v30 == 1)
       {
         v377 = *(*v1 + 4 * v31);
         v378 = v1[3];
         v379 = v1[4];
-        v380 = *(v378 + 8 * v31);
+        v380 = v378[v31];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -8430,7 +7622,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v381, v381[1], (v381[1] - *v381) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v381, *(v381 + 8), (*(v381 + 8) - *v381) >> 2);
         v382 = __p + 8 * v31;
         v383 = v755 - (v382 + 8);
         if (v755 != v382 + 8)
@@ -8448,13 +7640,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v386 = *(a1 + 16);
-        v387 = *(v386 + 48);
+        v386 = a1[2];
+        v387 = v386[6];
         if (v387)
         {
           v388 = 0;
-          v737 = *(*a1 + 152);
-          v389 = *(v386 + 152);
+          v737 = (*a1)[19];
+          v389 = v386[19];
           v390 = ((&v385[v384] - v12) >> 2) - 1;
           v391 = __p;
           v392 = 8 * v380;
@@ -8479,7 +7671,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v397 = 0;
               v398 = 0;
-              v399 = (v737 + 8 * v393);
+              v399 = &v737[8 * v393];
               v400 = *v399;
               do
               {
@@ -8501,7 +7693,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v398 = 0;
             }
 
-            *(v389 + 4 * v388) = v398;
+            v389[v388] = v398;
             v388 = (v388 + 1);
           }
 
@@ -8516,7 +7708,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v32 = *(*v1 + 4 * v31);
         v33 = v1[3];
         v34 = v1[4];
-        v35 = *(v33 + 8 * v31);
+        v35 = v33[v31];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -8525,7 +7717,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v36, v36[1], (v36[1] - *v36) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v36, *(v36 + 8), (*(v36 + 8) - *v36) >> 2);
         v37 = __p + 8 * v31;
         v38 = v755 - (v37 + 8);
         if (v755 != v37 + 8)
@@ -8543,13 +7735,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v41 = *(a1 + 16);
-        v42 = *(v41 + 48);
+        v41 = a1[2];
+        v42 = v41[6];
         if (v42)
         {
           v43 = 0;
-          v724 = *(*a1 + 152);
-          v44 = *(v41 + 152);
+          v724 = (*a1)[19];
+          v44 = v41[19];
           v45 = ((&v40[v39] - v12) >> 2) - 1;
           v46 = __p;
           v47 = 8 * v35;
@@ -8574,7 +7766,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v52 = 0;
               v53 = 0;
-              v54 = (v724 + 8 * v48);
+              v54 = &v724[8 * v48];
               v55 = *v54;
               do
               {
@@ -8596,7 +7788,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v53 = 0;
             }
 
-            *(v44 + 4 * v43) = v53;
+            v44[v43] = v53;
             v43 = (v43 + 1);
           }
 
@@ -8608,14 +7800,14 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
       break;
     case 0xC:
-      v82 = *(a1 + 32);
-      v83 = *(a1 + 36);
+      v82 = *(a1 + 8);
+      v83 = *(a1 + 9);
       if (v82 == 1)
       {
         v425 = *(*v1 + 4 * v83);
         v426 = v1[3];
         v427 = v1[4];
-        v428 = *(v426 + 8 * v83);
+        v428 = v426[v83];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -8624,7 +7816,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v429, v429[1], (v429[1] - *v429) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v429, *(v429 + 8), (*(v429 + 8) - *v429) >> 2);
         v430 = __p + 8 * v83;
         v431 = v755 - (v430 + 8);
         if (v755 != v430 + 8)
@@ -8642,13 +7834,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v434 = *(a1 + 16);
-        v435 = *(v434 + 48);
+        v434 = a1[2];
+        v435 = v434[6];
         if (v435)
         {
           v436 = 0;
-          v739 = *(*a1 + 152);
-          v437 = *(v434 + 152);
+          v739 = (*a1)[19];
+          v437 = v434[19];
           v438 = ((&v433[v432] - v12) >> 2) - 1;
           v439 = __p;
           v440 = 2 * v428;
@@ -8673,7 +7865,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v445 = 0;
               v446 = 0;
-              v447 = (v739 + 2 * v441);
+              v447 = &v739[2 * v441];
               v448 = *v447;
               do
               {
@@ -8684,7 +7876,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
                 }
 
                 ++v445;
-                v447 = (v447 + v440);
+                v447 += v440;
               }
 
               while (v425 != v445);
@@ -8695,7 +7887,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v446 = 0;
             }
 
-            *(v437 + 4 * v436) = v446;
+            v437[v436] = v446;
             v436 = (v436 + 1);
           }
 
@@ -8710,7 +7902,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v84 = *(*v1 + 4 * v83);
         v85 = v1[3];
         v86 = v1[4];
-        v87 = *(v85 + 8 * v83);
+        v87 = v85[v83];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -8719,7 +7911,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v88, v88[1], (v88[1] - *v88) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v88, *(v88 + 8), (*(v88 + 8) - *v88) >> 2);
         v89 = __p + 8 * v83;
         v90 = v755 - (v89 + 8);
         if (v755 != v89 + 8)
@@ -8737,13 +7929,13 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
           v12 = v751;
         }
 
-        v93 = *(a1 + 16);
-        v94 = *(v93 + 48);
+        v93 = a1[2];
+        v94 = v93[6];
         if (v94)
         {
           v95 = 0;
-          v726 = *(*a1 + 152);
-          v96 = *(v93 + 152);
+          v726 = (*a1)[19];
+          v96 = v93[19];
           v97 = ((&v92[v91] - v12) >> 2) - 1;
           v98 = __p;
           v99 = 2 * v87;
@@ -8768,7 +7960,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v104 = 0;
               v105 = 0;
-              v106 = (v726 + 2 * v100);
+              v106 = &v726[2 * v100];
               v107 = *v106;
               do
               {
@@ -8779,7 +7971,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
                 }
 
                 ++v104;
-                v106 = (v106 + v99);
+                v106 += v99;
               }
 
               while (v84 != v104);
@@ -8790,7 +7982,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v105 = 0;
             }
 
-            *(v96 + 4 * v95) = v105;
+            v96[v95] = v105;
             v95 = (v95 + 1);
           }
 
@@ -8802,14 +7994,14 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
       break;
     case 0xD:
-      v267 = *(a1 + 32);
-      v268 = *(a1 + 36);
+      v267 = *(a1 + 8);
+      v268 = *(a1 + 9);
       if (v267 == 1)
       {
         v619 = *(*v1 + 4 * v268);
         v620 = v1[3];
         v621 = v1[4];
-        v622 = *(v620 + 8 * v268);
+        v622 = v620[v268];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -8818,7 +8010,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v623, v623[1], (v623[1] - *v623) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v623, *(v623 + 8), (*(v623 + 8) - *v623) >> 2);
         v624 = __p + 8 * v268;
         v625 = v755 - (v624 + 8);
         if (v755 != v624 + 8)
@@ -8838,16 +8030,16 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
         v628 = &v627[v626];
         v752 = &v627[v626];
-        v629 = *(a1 + 16);
-        v630 = *(v629 + 48);
+        v629 = a1[2];
+        v630 = v629[6];
         if (v630)
         {
           v631 = 0;
-          v632 = *(v629 + 152);
+          v632 = v629[19];
           v633 = ((v628 - v12) >> 2) - 1;
           v634 = __p;
-          v722 = *(*a1 + 152) + 4;
-          v747 = *(*a1 + 152);
+          v722 = (*a1)[19] + 4;
+          v747 = (*a1)[19];
           v635 = 8 * v622;
           do
           {
@@ -8870,10 +8062,10 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v640 = 0;
               v641 = 0;
-              v642 = (v747 + 8 * v636);
+              v642 = &v747[8 * v636];
               v644 = *v642;
               v643 = v642[1];
-              v645 = (v722 + 8 * v636);
+              v645 = &v722[8 * v636];
               do
               {
                 v646 = *(v645 - 1);
@@ -8896,7 +8088,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v641 = 0;
             }
 
-            *(v632 + 4 * v631) = v641;
+            v632[v631] = v641;
             v631 = (v631 + 1);
           }
 
@@ -8914,7 +8106,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v269 = *(*v1 + 4 * v268);
         v270 = v1[3];
         v271 = v1[4];
-        v272 = *(v270 + 8 * v268);
+        v272 = v270[v268];
         __p = 0;
         v755 = 0;
         v756 = 0;
@@ -8923,7 +8115,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
         v752 = 0;
         v753 = 0;
         v751 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v273, v273[1], (v273[1] - *v273) >> 2);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v751, *v273, *(v273 + 8), (*(v273 + 8) - *v273) >> 2);
         v274 = __p + 8 * v268;
         v275 = v755 - (v274 + 8);
         if (v755 != v274 + 8)
@@ -8943,16 +8135,16 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
 
         v278 = &v277[v276];
         v752 = &v277[v276];
-        v279 = *(a1 + 16);
-        v280 = *(v279 + 48);
+        v279 = a1[2];
+        v280 = v279[6];
         if (v280)
         {
           v281 = 0;
-          v282 = *(v279 + 152);
+          v282 = v279[19];
           v283 = ((v278 - v12) >> 2) - 1;
           v284 = __p;
-          v721 = *(*a1 + 152) + 4;
-          v733 = *(*a1 + 152);
+          v721 = (*a1)[19] + 4;
+          v733 = (*a1)[19];
           v285 = 8 * v272;
           do
           {
@@ -8975,10 +8167,10 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
             {
               v290 = 0;
               v291 = 0;
-              v292 = (v733 + 8 * v286);
+              v292 = &v733[8 * v286];
               v294 = *v292;
               v293 = v292[1];
-              v295 = (v721 + 8 * v286);
+              v295 = &v721[8 * v286];
               do
               {
                 v296 = *(v295 - 1);
@@ -9001,7 +8193,7 @@ void mlx::core::ArgReduce::eval_cpu(std::vector<mlx::core::array> const&,mlx::co
               v291 = 0;
             }
 
-            *(v282 + 4 * v281) = v291;
+            v282[v281] = v291;
             v281 = (v281 + 1);
           }
 
@@ -9108,22 +8300,23 @@ uint64_t std::__function::__func<std::__bind<mlx::core::ArgReduce::eval_cpu(std:
   }
 }
 
-void mlx::core::Gather::eval_cpu(uint64_t a1, uint64_t a2, uint64_t a3)
+void mlx::core::Gather::eval_cpu(uint64_t a1, uint64_t a2, int ***a3)
 {
   v5[51] = *MEMORY[0x277D85DE8];
-  v4 = mlx::core::allocator::malloc((*(*a3 + 60) * *(*a3 + 48)));
+  v4 = mlx::core::allocator::malloc((*(*a3 + 60) * (*a3)[6]));
   v5[0] = &unk_286BE3468;
   v5[1] = mlx::core::allocator::free;
   v5[3] = v5;
-  mlx::core::array::set_data(a3, v4);
+  mlx::core::array::set_data(a3, v4, v5);
 }
 
-void sub_25A4186B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
+void sub_25A4186B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, ...)
 {
-  __cxa_free_exception(v62);
-  std::mutex::unlock(v61);
+  va_start(va, a60);
+  __cxa_free_exception(v61);
+  std::mutex::unlock(v60);
   mlx::core::cpu::CommandEncoder::dispatch<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>(mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0 &&)::{lambda(void)#1}::~dispatch(&a45);
-  mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::~$_0(&a61);
+  mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::~$_0(va);
   mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::~$_0(&a23);
   a45 = &a37;
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a45);
@@ -9153,22 +8346,23 @@ uint64_t mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::c
   return a1;
 }
 
-void mlx::core::GatherAxis::eval_cpu(uint64_t a1, uint64_t a2, uint64_t a3)
+void mlx::core::GatherAxis::eval_cpu(uint64_t a1, uint64_t *a2, int ***a3)
 {
   v5[32] = *MEMORY[0x277D85DE8];
-  v4 = mlx::core::allocator::malloc((*(*a3 + 60) * *(*a3 + 48)));
+  v4 = mlx::core::allocator::malloc((*(*a3 + 60) * (*a3)[6]));
   v5[0] = &unk_286BE3468;
   v5[1] = mlx::core::allocator::free;
   v5[3] = v5;
-  mlx::core::array::set_data(a3, v4);
+  mlx::core::array::set_data(a3, v4, v5);
 }
 
-void sub_25A418D88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_25A418D88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  __cxa_free_exception(v36);
-  std::mutex::unlock(v35);
+  va_start(va, a34);
+  __cxa_free_exception(v35);
+  std::mutex::unlock(v34);
   mlx::core::cpu::CommandEncoder::dispatch<mlx::core::GatherAxis::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>(mlx::core::GatherAxis::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0 &&)::{lambda(void)#1}::~dispatch(&a25);
-  mlx::core::GatherAxis::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::~$_0(&a35);
+  mlx::core::GatherAxis::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::~$_0(va);
   mlx::core::GatherAxis::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::~$_0(&a14);
   _Unwind_Resume(a1);
 }
@@ -9219,12 +8413,13 @@ void mlx::core::Scatter::eval_cpu(uint64_t a1, uint64_t a2, mlx::core::array *a3
   mlx::core::Scatter::eval_cpu();
 }
 
-void sub_25A419584(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, _Unwind_Exception *exception_object, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_25A419584(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, _Unwind_Exception *exception_object, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
-  __cxa_free_exception(v50);
-  std::mutex::unlock(v49);
+  va_start(va, a48);
+  __cxa_free_exception(v49);
+  std::mutex::unlock(v48);
   mlx::core::cpu::CommandEncoder::dispatch<mlx::core::Scatter::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>(mlx::core::Scatter::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0 &&)::{lambda(void)#1}::~dispatch(&a35);
-  mlx::core::Scatter::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::~$_0(&a49);
+  mlx::core::Scatter::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::~$_0(va);
   mlx::core::Scatter::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::~$_0(&__p);
   a35 = &a31;
   std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a35);
@@ -9249,7 +8444,7 @@ uint64_t mlx::core::Scatter::eval_cpu(std::vector<mlx::core::array> const&,mlx::
 
 void mlx::core::ScatterAxis::eval_cpu(uint64_t a1, uint64_t a2, mlx::core::array *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   if (*(a2 + 8) - *a2 > 0x10uLL)
   {
@@ -9265,19 +8460,19 @@ void mlx::core::ScatterAxis::eval_cpu(uint64_t a1, uint64_t a2, mlx::core::array
 
     mlx::core::copy(*a2, a3, v6, *(a1 + 8), *(a1 + 16));
     mlx::core::cpu::get_command_encoder(*(a1 + 8), *(a1 + 16));
-    v7 = vrev64_s32(*(a1 + 20));
-    mlx::core::array::unsafe_weak_copy(v3 + 2, &v8);
+    mlx::core::array::unsafe_weak_copy((v3 + 16), &v7);
   }
 
   mlx::core::ScatterAxis::eval_cpu();
 }
 
-void sub_25A419BF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, _Unwind_Exception *exception_object, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_25A419BF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, _Unwind_Exception *exception_object, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  __cxa_free_exception(v32);
-  std::mutex::unlock(v31);
+  va_start(va, a30);
+  __cxa_free_exception(v31);
+  std::mutex::unlock(v30);
   mlx::core::cpu::CommandEncoder::dispatch<mlx::core::GatherAxis::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>(mlx::core::GatherAxis::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0 &&)::{lambda(void)#1}::~dispatch(&a21);
-  mlx::core::GatherAxis::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::~$_0(&a31);
+  mlx::core::GatherAxis::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::~$_0(va);
   mlx::core::GatherAxis::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0::~$_0(&a14);
   _Unwind_Resume(a1);
 }
@@ -9469,13 +8664,13 @@ uint64_t _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZ
   return MEMORY[0x25F851760](a1, 0x10B1C40AAABBEEFLL);
 }
 
-void *_ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_6Gather8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__0JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE7__cloneEPNS0_6__baseISO_EE(uint64_t a1, uint64_t a2)
+uint64_t *_ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_6Gather8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__0JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE7__cloneEPNS0_6__baseISO_EE(uint64_t a1, uint64_t a2)
 {
   *a2 = &unk_286BF6248;
   v2 = *(a1 + 8);
   *(a2 + 16) = *(a1 + 16);
   *(a2 + 8) = v2;
-  return std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>::__bind((a2 + 24), (a1 + 24));
+  return std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>::__bind((a2 + 24), a1 + 24);
 }
 
 void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_6Gather8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__0JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE7destroyEv(uint64_t a1)
@@ -9524,7 +8719,7 @@ void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_
 
 void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_6Gather8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__0JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEEclEv(uint64_t a1)
 {
-  std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>::operator()[abi:ne200100]<>((a1 + 24));
+  std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>::operator()[abi:ne200100]<>(a1 + 24);
   v2 = mlx::core::scheduler::scheduler(v1);
 
   mlx::core::scheduler::Scheduler::notify_task_completion(v2);
@@ -9542,18 +8737,18 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void *std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>::__bind(void *a1, uint64_t *a2)
+uint64_t *std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>::__bind(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 3), a2[3], a2[4], (a2[4] - a2[3]) >> 2);
-  v4 = a2[7];
-  a1[6] = a2[6];
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 3, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 2);
+  v4 = *(a2 + 56);
+  a1[6] = *(a2 + 48);
   a1[7] = v4;
   if (v4)
   {
@@ -9563,9 +8758,9 @@ void *std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> cons
   a1[8] = 0;
   a1[9] = 0;
   a1[10] = 0;
-  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>((a1 + 8), a2[8], a2[9], (a2[9] - a2[8]) >> 4);
-  v5 = a2[12];
-  a1[11] = a2[11];
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(a1 + 8, *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 4);
+  v5 = *(a2 + 96);
+  a1[11] = *(a2 + 88);
   a1[12] = v5;
   if (v5)
   {
@@ -9595,16 +8790,16 @@ void sub_25A41A430(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>::operator()[abi:ne200100]<>(void *a1)
+void std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>::operator()[abi:ne200100]<>(uint64_t a1)
 {
-  v3 = a1[8];
-  v2 = a1 + 8;
-  if (v3 == a1[9])
+  v3 = *(a1 + 64);
+  v2 = (a1 + 64);
+  if (v3 == *(a1 + 72))
   {
 LABEL_9:
-    v6 = (a1 + 6);
+    v6 = (a1 + 48);
 
-    mlx::core::dispatch_gather<unsigned char>(v6, v2, a1 + 11, a1, a1 + 3);
+    mlx::core::dispatch_gather<unsigned char>(v6, v2, (a1 + 88), a1, (a1 + 24));
     return;
   }
 
@@ -9615,9 +8810,9 @@ LABEL_9:
     {
       if (v4 == 7)
       {
-        v12 = (a1 + 6);
+        v12 = (a1 + 48);
 
-        mlx::core::dispatch_gather<int>(v12, v2, a1 + 11, a1, a1 + 3);
+        mlx::core::dispatch_gather<int>(v12, v2, (a1 + 88), a1, (a1 + 24));
       }
 
       else
@@ -9627,24 +8822,24 @@ LABEL_9:
           goto LABEL_35;
         }
 
-        v9 = (a1 + 6);
+        v9 = (a1 + 48);
 
-        mlx::core::dispatch_gather<long long>(v9, v2, a1 + 11, a1, a1 + 3);
+        mlx::core::dispatch_gather<long long>(v9, v2, (a1 + 88), a1, (a1 + 24));
       }
     }
 
     else if (v4 == 5)
     {
-      v10 = (a1 + 6);
+      v10 = (a1 + 48);
 
-      mlx::core::dispatch_gather<signed char>(v10, v2, a1 + 11, a1, a1 + 3);
+      mlx::core::dispatch_gather<signed char>(v10, v2, (a1 + 88), a1, (a1 + 24));
     }
 
     else
     {
-      v7 = (a1 + 6);
+      v7 = (a1 + 48);
 
-      mlx::core::dispatch_gather<short>(v7, v2, a1 + 11, a1, a1 + 3);
+      mlx::core::dispatch_gather<short>(v7, v2, (a1 + 88), a1, (a1 + 24));
     }
   }
 
@@ -9656,9 +8851,9 @@ LABEL_9:
       {
         if (v4 == 2)
         {
-          v5 = (a1 + 6);
+          v5 = (a1 + 48);
 
-          mlx::core::dispatch_gather<unsigned short>(v5, v2, a1 + 11, a1, a1 + 3);
+          mlx::core::dispatch_gather<unsigned short>(v5, v2, (a1 + 88), a1, (a1 + 24));
           return;
         }
 
@@ -9673,262 +8868,1158 @@ LABEL_35:
 
     if (v4 == 3)
     {
-      v11 = (a1 + 6);
+      v11 = (a1 + 48);
 
-      mlx::core::dispatch_gather<unsigned int>(v11, v2, a1 + 11, a1, a1 + 3);
+      mlx::core::dispatch_gather<unsigned int>(v11, v2, (a1 + 88), a1, (a1 + 24));
     }
 
     else
     {
-      v8 = (a1 + 6);
+      v8 = (a1 + 48);
 
-      mlx::core::dispatch_gather<unsigned long long>(v8, v2, a1 + 11, a1, a1 + 3);
+      mlx::core::dispatch_gather<unsigned long long>(v8, v2, (a1 + 88), a1, (a1 + 24));
     }
   }
 }
 
-void mlx::core::dispatch_gather<unsigned char>(uint64_t **this, uint64_t *a2, uint64_t *a3, void *a4, uint64_t *a5)
+void mlx::core::dispatch_gather<unsigned char>(uint64_t **result, mlx::core::array **a2, uint64_t *a3, void *a4, int **a5)
 {
   switch(*(*a3 + 56))
   {
     case 0:
-      mlx::core::gather<BOOL,unsigned char>(this, a2, a3, a4, a5);
+      mlx::core::gather<BOOL,unsigned char>(result, a2, a3, a4, a5);
       break;
     case 1:
     case 5:
-      mlx::core::gather<unsigned char,unsigned char>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned char,unsigned char>(result, a2, a3, a4, a5);
       break;
     case 2:
     case 6:
     case 0xC:
-      mlx::core::gather<unsigned short,unsigned char>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned short,unsigned char>(result, a2, a3, a4, a5);
       break;
     case 3:
     case 7:
-      mlx::core::gather<unsigned int,unsigned char>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned int,unsigned char>(result, a2, a3, a4, a5);
       break;
     case 4:
     case 8:
-      mlx::core::gather<unsigned long long,unsigned char>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned long long,unsigned char>(result, a2, a3, a4, a5);
       break;
     case 9:
-      mlx::core::gather<half,unsigned char>(this, a2, a3, a4, a5);
+      mlx::core::gather<half,unsigned char>(result, a2, a3, a4, a5);
       break;
     case 0xA:
-      mlx::core::gather<float,unsigned char>(this, a2, a3, a4, a5);
+      mlx::core::gather<float,unsigned char>(result, a2, a3, a4, a5);
       break;
     case 0xB:
-      mlx::core::gather<double,unsigned char>(this, a2, a3, a4, a5);
+      mlx::core::gather<double,unsigned char>(result, a2, a3, a4, a5);
       break;
     case 0xD:
-      mlx::core::gather<mlx::core::complex64_t,unsigned char>(this, a2, a3, a4, a5);
+      mlx::core::gather<mlx::core::complex64_t,unsigned char>(result, a2, a3, a4, a5);
       break;
     default:
       return;
   }
 }
 
-void mlx::core::dispatch_gather<unsigned short>(uint64_t **this, uint64_t *a2, uint64_t *a3, void *a4, uint64_t *a5)
+void mlx::core::dispatch_gather<unsigned short>(uint64_t **result, uint64_t a2, uint64_t *a3, void *a4, int **a5)
 {
   switch(*(*a3 + 56))
   {
     case 0:
-      mlx::core::gather<BOOL,unsigned short>(this, a2, a3, a4, a5);
+      mlx::core::gather<BOOL,unsigned short>(result, a2, a3, a4, a5);
       break;
     case 1:
     case 5:
-      mlx::core::gather<unsigned char,unsigned short>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned char,unsigned short>(result, a2, a3, a4, a5);
       break;
     case 2:
     case 6:
     case 0xC:
-      mlx::core::gather<unsigned short,unsigned short>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned short,unsigned short>(result, a2, a3, a4, a5);
       break;
     case 3:
     case 7:
-      mlx::core::gather<unsigned int,unsigned short>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned int,unsigned short>(result, a2, a3, a4, a5);
       break;
     case 4:
     case 8:
-      mlx::core::gather<unsigned long long,unsigned short>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned long long,unsigned short>(result, a2, a3, a4, a5);
       break;
     case 9:
-      mlx::core::gather<half,unsigned short>(this, a2, a3, a4, a5);
+      mlx::core::gather<half,unsigned short>(result, a2, a3, a4, a5);
       break;
     case 0xA:
-      mlx::core::gather<float,unsigned short>(this, a2, a3, a4, a5);
+      mlx::core::gather<float,unsigned short>(result, a2, a3, a4, a5);
       break;
     case 0xB:
-      mlx::core::gather<double,unsigned short>(this, a2, a3, a4, a5);
+      mlx::core::gather<double,unsigned short>(result, a2, a3, a4, a5);
       break;
     case 0xD:
-      mlx::core::gather<mlx::core::complex64_t,unsigned short>(this, a2, a3, a4, a5);
+      mlx::core::gather<mlx::core::complex64_t,unsigned short>(result, a2, a3, a4, a5);
       break;
     default:
       return;
   }
 }
 
-void mlx::core::dispatch_gather<unsigned int>(uint64_t **this, uint64_t *a2, uint64_t *a3, void *a4, uint64_t *a5)
+void mlx::core::dispatch_gather<unsigned int>(uint64_t **result, uint64_t a2, uint64_t *a3, void *a4, int **a5)
 {
   switch(*(*a3 + 56))
   {
     case 0:
-      mlx::core::gather<BOOL,unsigned int>(this, a2, a3, a4, a5);
+      mlx::core::gather<BOOL,unsigned int>(result, a2, a3, a4, a5);
       break;
     case 1:
     case 5:
-      mlx::core::gather<unsigned char,unsigned int>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned char,unsigned int>(result, a2, a3, a4, a5);
       break;
     case 2:
     case 6:
     case 0xC:
-      mlx::core::gather<unsigned short,unsigned int>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned short,unsigned int>(result, a2, a3, a4, a5);
       break;
     case 3:
     case 7:
-      mlx::core::gather<unsigned int,unsigned int>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned int,unsigned int>(result, a2, a3, a4, a5);
       break;
     case 4:
     case 8:
-      mlx::core::gather<unsigned long long,unsigned int>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned long long,unsigned int>(result, a2, a3, a4, a5);
       break;
     case 9:
-      mlx::core::gather<half,unsigned int>(this, a2, a3, a4, a5);
+      mlx::core::gather<half,unsigned int>(result, a2, a3, a4, a5);
       break;
     case 0xA:
-      mlx::core::gather<float,unsigned int>(this, a2, a3, a4, a5);
+      mlx::core::gather<float,unsigned int>(result, a2, a3, a4, a5);
       break;
     case 0xB:
-      mlx::core::gather<double,unsigned int>(this, a2, a3, a4, a5);
+      mlx::core::gather<double,unsigned int>(result, a2, a3, a4, a5);
       break;
     case 0xD:
-      mlx::core::gather<mlx::core::complex64_t,unsigned int>(this, a2, a3, a4, a5);
+      mlx::core::gather<mlx::core::complex64_t,unsigned int>(result, a2, a3, a4, a5);
       break;
     default:
       return;
   }
 }
 
-void mlx::core::dispatch_gather<unsigned long long>(uint64_t **this, uint64_t *a2, uint64_t *a3, void *a4, uint64_t *a5)
+void mlx::core::dispatch_gather<unsigned long long>(uint64_t **result, uint64_t a2, uint64_t *a3, void *a4, int **a5)
 {
   switch(*(*a3 + 56))
   {
     case 0:
-      mlx::core::gather<BOOL,unsigned long long>(this, a2, a3, a4, a5);
+      mlx::core::gather<BOOL,unsigned long long>(result, a2, a3, a4, a5);
       break;
     case 1:
     case 5:
-      mlx::core::gather<unsigned char,unsigned long long>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned char,unsigned long long>(result, a2, a3, a4, a5);
       break;
     case 2:
     case 6:
     case 0xC:
-      mlx::core::gather<unsigned short,unsigned long long>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned short,unsigned long long>(result, a2, a3, a4, a5);
       break;
     case 3:
     case 7:
-      mlx::core::gather<unsigned int,unsigned long long>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned int,unsigned long long>(result, a2, a3, a4, a5);
       break;
     case 4:
     case 8:
-      mlx::core::gather<unsigned long long,unsigned long long>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned long long,unsigned long long>(result, a2, a3, a4, a5);
       break;
     case 9:
-      mlx::core::gather<half,unsigned long long>(this, a2, a3, a4, a5);
+      mlx::core::gather<half,unsigned long long>(result, a2, a3, a4, a5);
       break;
     case 0xA:
-      mlx::core::gather<float,unsigned long long>(this, a2, a3, a4, a5);
+      mlx::core::gather<float,unsigned long long>(result, a2, a3, a4, a5);
       break;
     case 0xB:
-      mlx::core::gather<double,unsigned long long>(this, a2, a3, a4, a5);
+      mlx::core::gather<double,unsigned long long>(result, a2, a3, a4, a5);
       break;
     case 0xD:
-      mlx::core::gather<mlx::core::complex64_t,unsigned long long>(this, a2, a3, a4, a5);
+      mlx::core::gather<mlx::core::complex64_t,unsigned long long>(result, a2, a3, a4, a5);
       break;
     default:
       return;
   }
 }
 
-void mlx::core::dispatch_gather<signed char>(uint64_t **this, uint64_t *a2, uint64_t *a3, void *a4, uint64_t *a5)
+void mlx::core::dispatch_gather<signed char>(uint64_t **result, uint64_t a2, uint64_t *a3, void *a4, int **a5)
 {
   switch(*(*a3 + 56))
   {
     case 0:
-      mlx::core::gather<BOOL,signed char>(this, a2, a3, a4, a5);
+      mlx::core::gather<BOOL,signed char>(result, a2, a3, a4, a5);
       break;
     case 1:
     case 5:
-      mlx::core::gather<unsigned char,signed char>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned char,signed char>(result, a2, a3, a4, a5);
       break;
     case 2:
     case 6:
     case 0xC:
-      mlx::core::gather<unsigned short,signed char>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned short,signed char>(result, a2, a3, a4, a5);
       break;
     case 3:
     case 7:
-      mlx::core::gather<unsigned int,signed char>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned int,signed char>(result, a2, a3, a4, a5);
       break;
     case 4:
     case 8:
-      mlx::core::gather<unsigned long long,signed char>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned long long,signed char>(result, a2, a3, a4, a5);
       break;
     case 9:
-      mlx::core::gather<half,signed char>(this, a2, a3, a4, a5);
+      mlx::core::gather<half,signed char>(result, a2, a3, a4, a5);
       break;
     case 0xA:
-      mlx::core::gather<float,signed char>(this, a2, a3, a4, a5);
+      mlx::core::gather<float,signed char>(result, a2, a3, a4, a5);
       break;
     case 0xB:
-      mlx::core::gather<double,signed char>(this, a2, a3, a4, a5);
+      mlx::core::gather<double,signed char>(result, a2, a3, a4, a5);
       break;
     case 0xD:
-      mlx::core::gather<mlx::core::complex64_t,signed char>(this, a2, a3, a4, a5);
+      mlx::core::gather<mlx::core::complex64_t,signed char>(result, a2, a3, a4, a5);
       break;
     default:
       return;
   }
 }
 
-void mlx::core::dispatch_gather<short>(uint64_t **this, uint64_t *a2, uint64_t *a3, void *a4, uint64_t *a5)
+void mlx::core::dispatch_gather<short>(uint64_t **result, uint64_t a2, uint64_t *a3, void *a4, int **a5)
 {
   switch(*(*a3 + 56))
   {
     case 0:
-      mlx::core::gather<BOOL,short>(this, a2, a3, a4, a5);
+      mlx::core::gather<BOOL,short>(result, a2, a3, a4, a5);
       break;
     case 1:
     case 5:
-      mlx::core::gather<unsigned char,short>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned char,short>(result, a2, a3, a4, a5);
       break;
     case 2:
     case 6:
     case 0xC:
-      mlx::core::gather<unsigned short,short>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned short,short>(result, a2, a3, a4, a5);
       break;
     case 3:
     case 7:
-      mlx::core::gather<unsigned int,short>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned int,short>(result, a2, a3, a4, a5);
       break;
     case 4:
     case 8:
-      mlx::core::gather<unsigned long long,short>(this, a2, a3, a4, a5);
+      mlx::core::gather<unsigned long long,short>(result, a2, a3, a4, a5);
       break;
     case 9:
-      mlx::core::gather<half,short>(this, a2, a3, a4, a5);
+      mlx::core::gather<half,short>(result, a2, a3, a4, a5);
       break;
     case 0xA:
-      mlx::core::gather<float,short>(this, a2, a3, a4, a5);
+      mlx::core::gather<float,short>(result, a2, a3, a4, a5);
       break;
     case 0xB:
-      mlx::core::gather<double,short>(this, a2, a3, a4, a5);
+      mlx::core::gather<double,short>(result, a2, a3, a4, a5);
       break;
     case 0xD:
-      mlx::core::gather<mlx::core::complex64_t,short>(this, a2, a3, a4, a5);
+      mlx::core::gather<mlx::core::complex64_t,short>(result, a2, a3, a4, a5);
       break;
     default:
       return;
   }
+}
+
+void mlx::core::dispatch_gather<int>(uint64_t **result, uint64_t a2, uint64_t *a3, void *a4, int **a5)
+{
+  switch(*(*a3 + 56))
+  {
+    case 0:
+      mlx::core::gather<BOOL,int>(result, a2, a3, a4, a5);
+      break;
+    case 1:
+    case 5:
+      mlx::core::gather<unsigned char,int>(result, a2, a3, a4, a5);
+      break;
+    case 2:
+    case 6:
+    case 0xC:
+      mlx::core::gather<unsigned short,int>(result, a2, a3, a4, a5);
+      break;
+    case 3:
+    case 7:
+      mlx::core::gather<unsigned int,int>(result, a2, a3, a4, a5);
+      break;
+    case 4:
+    case 8:
+      mlx::core::gather<unsigned long long,int>(result, a2, a3, a4, a5);
+      break;
+    case 9:
+      mlx::core::gather<half,int>(result, a2, a3, a4, a5);
+      break;
+    case 0xA:
+      mlx::core::gather<float,int>(result, a2, a3, a4, a5);
+      break;
+    case 0xB:
+      mlx::core::gather<double,int>(result, a2, a3, a4, a5);
+      break;
+    case 0xD:
+      mlx::core::gather<mlx::core::complex64_t,int>(result, a2, a3, a4, a5);
+      break;
+    default:
+      return;
+  }
+}
+
+void mlx::core::dispatch_gather<long long>(uint64_t **result, uint64_t a2, uint64_t *a3, void *a4, int **a5)
+{
+  switch(*(*a3 + 56))
+  {
+    case 0:
+      mlx::core::gather<BOOL,long long>(result, a2, a3, a4, a5);
+      break;
+    case 1:
+    case 5:
+      mlx::core::gather<unsigned char,long long>(result, a2, a3, a4, a5);
+      break;
+    case 2:
+    case 6:
+    case 0xC:
+      mlx::core::gather<unsigned short,long long>(result, a2, a3, a4, a5);
+      break;
+    case 3:
+    case 7:
+      mlx::core::gather<unsigned int,long long>(result, a2, a3, a4, a5);
+      break;
+    case 4:
+    case 8:
+      mlx::core::gather<unsigned long long,long long>(result, a2, a3, a4, a5);
+      break;
+    case 9:
+      mlx::core::gather<half,long long>(result, a2, a3, a4, a5);
+      break;
+    case 0xA:
+      mlx::core::gather<float,long long>(result, a2, a3, a4, a5);
+      break;
+    case 0xB:
+      mlx::core::gather<double,long long>(result, a2, a3, a4, a5);
+      break;
+    case 0xD:
+      mlx::core::gather<mlx::core::complex64_t,long long>(result, a2, a3, a4, a5);
+      break;
+    default:
+      return;
+  }
+}
+
+void mlx::core::gather<BOOL,unsigned char>(uint64_t **this, mlx::core::array **a2, uint64_t *a3, void *a4, int **a5)
+{
+  v9 = *a5;
+  if (((*this)[21] & 2) == 0)
+  {
+    if (((*this)[21] & 4) == 0)
+    {
+      v10 = 0;
+      goto LABEL_31;
+    }
+
+    v16 = (a5[1] - v9) >> 2;
+    v17 = v16 - 1;
+    if (v16 - 1 >= -1)
+    {
+      v17 = -1;
+    }
+
+    v18 = v17 + 1;
+    v19 = v16 + 1;
+    v20 = v16 - 1;
+    while ((v20 & 0x80000000) == 0)
+    {
+      v21 = v9[v20 & 0x7FFFFFFF];
+      --v19;
+      --v20;
+      if (v21 != 1)
+      {
+        goto LABEL_25;
+      }
+    }
+
+    v19 = v18;
+LABEL_25:
+    v25 = (v19 - 2);
+    if (v19 - 2 >= 0)
+    {
+      do
+      {
+        v26 = mlx::core::array::shape(this, v25);
+        v9 = *a5;
+        v27 = (*a5)[v25];
+        v10 = v26 == v27;
+        v28 = v25-- != 0;
+      }
+
+      while (v28 && v26 == v27);
+      goto LABEL_31;
+    }
+
+LABEL_30:
+    v10 = 1;
+    goto LABEL_31;
+  }
+
+  v11 = a5[1];
+  v12 = v11 - v9;
+  if (v11 == v9)
+  {
+    v15 = 1;
+  }
+
+  else
+  {
+    v13 = 0;
+    v14 = v12 >> 2;
+    if (v14 <= 1)
+    {
+      v14 = 1;
+    }
+
+    while (v9[v13] == 1)
+    {
+      if (v14 == ++v13)
+      {
+        LODWORD(v13) = v14;
+        break;
+      }
+    }
+
+    v15 = (v13 + 1);
+  }
+
+  if (v15 >= ((*this)[1] - **this) >> 2)
+  {
+    goto LABEL_30;
+  }
+
+  do
+  {
+    v22 = mlx::core::array::shape(this, v15);
+    v9 = *a5;
+    v23 = (*a5)[v15];
+    v10 = v22 == v23;
+  }
+
+  while (++v15 < ((*this)[1] - **this) >> 2 && v22 == v23);
+LABEL_31:
+  v29 = a5[1];
+  if (v9 == v29)
+  {
+    v32 = *a3;
+    v30 = 1;
+  }
+
+  else
+  {
+    v30 = 1;
+    do
+    {
+      v31 = *v9++;
+      v30 *= v31;
+    }
+
+    while (v9 != v29);
+    v32 = *a3;
+    if (!v30)
+    {
+      v97 = 0;
+      v92 = 1;
+      goto LABEL_38;
+    }
+  }
+
+  v92 = 0;
+  v97 = *(v32 + 48) / v30;
+LABEL_38:
+  v93 = (*this)[19];
+  v96 = *(v32 + 152);
+  v33 = *a2;
+  v34 = a2[1];
+  v35 = (v34 - *a2) >> 4;
+  memset(v113, 0, 24);
+  std::vector<mlx::core::ContiguousIterator>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlx::core::array const*>,std::__wrap_iter<mlx::core::array const*>>(v113, v33, v34, v35);
+  v111 = 0u;
+  v112 = 0u;
+  v109 = 0u;
+  v110 = 0u;
+  v108 = 0u;
+  if (v10)
+  {
+    v36 = 0;
+    v37 = 0;
+  }
+
+  else
+  {
+    v37 = (*this)[1] - **this;
+    if (v37)
+    {
+      mlx::core::ContiguousIterator::ContiguousIterator(&v102, a5, *this + 3, v37 >> 2);
+      v38 = *(&v102 + 1);
+      v39 = v102;
+      v108 = v102;
+      v40 = v103;
+      *(&v102 + 1) = 0;
+      v103 = 0uLL;
+      v109 = v40;
+      v110 = v104;
+      v41 = v105;
+      v42 = v106;
+      v105 = 0;
+      v104 = 0uLL;
+      v112 = v107;
+      v43 = v40;
+      v36 = v110;
+      v37 = v107;
+      *&v111 = v41;
+      *(&v111 + 1) = v106;
+      goto LABEL_44;
+    }
+
+    v36 = 0;
+  }
+
+  v42 = 0;
+  v38 = 0;
+  v43 = 0;
+  v39 = 0;
+LABEL_44:
+  if (v97)
+  {
+    v91 = v10;
+    v44 = 0;
+    v45 = 0;
+    v46 = v43 - v38;
+    v47 = ((v46 << 30) - 0x100000000) >> 32;
+    v48 = v46 >> 2;
+    v49 = (v46 >> 2) & 0x7FFFFFFF;
+    v86 = v47;
+    v87 = v37 - v42;
+    v50 = 4 * v49;
+    v98 = v38 - 8;
+    v99 = v49 - 1;
+    v94 = v42;
+    __len = v30;
+    v88 = &v42[4 * v47];
+    v89 = (v38 + 4 * v47);
+    v90 = v48;
+    do
+    {
+      v100 = v44;
+      v51 = *a2;
+      if (a2[1] == *a2)
+      {
+        v53 = 0;
+      }
+
+      else
+      {
+        v52 = 0;
+        v53 = 0;
+        do
+        {
+          v54 = *(*a4 + 4 * v52);
+          v55 = (v113[0] + 80 * v52);
+          v56 = v55[1];
+          v57 = *v55;
+          v58 = v55[2] - v56;
+          if ((v58 >> 2))
+          {
+            v59 = v55[7];
+            v60 = ((v58 << 30) - 0x100000000) >> 32;
+            v61 = (v59 + 4 * v60);
+            v62 = *v61;
+            v63 = (v56 + 4 * v60);
+            v64 = v55[4];
+            if ((v58 >> 2) >= 2 && v62 == *v63 - 1)
+            {
+              v68 = (v58 >> 2) & 0x7FFFFFFF;
+              v67 = v68 - 1;
+              v69 = 4 * v68;
+              v70 = v56 - 8;
+              v66 = *v55;
+              do
+              {
+                v71 = v67;
+                *v61 = 0;
+                v66 -= *(v64 + 8 * v60) * (*v63 - 1);
+                *v55 = v66;
+                --v67;
+                v61 = (v59 + v69 - 8);
+                v62 = *v61;
+                v59 -= 4;
+                if (v71 < 2)
+                {
+                  break;
+                }
+
+                v63 = (v70 + v69);
+                v72 = *(v70 + 4 * v68) - 1;
+                v70 -= 4;
+                v60 = v67;
+              }
+
+              while (v62 == v72);
+              v61 = (v59 + 4 * v68 - 4);
+            }
+
+            else
+            {
+              v66 = *v55;
+              v67 = ((v58 << 30) - 0x100000000) >> 32;
+            }
+
+            *v61 = v62 + 1;
+            *v55 = *(v64 + 8 * v67) + v66;
+          }
+
+          v73 = *(*(*(v51 + 2 * v52) + 152) + v57);
+          mlx::core::array::shape(this, v54);
+          v53 += *((*this)[3] + 8 * v54) * v73;
+          ++v52;
+          v51 = *a2;
+        }
+
+        while (v52 < (a2[1] - *a2) >> 4);
+      }
+
+      if (__len == 1)
+      {
+        *(v96 + v45++) = *(v93 + v53);
+      }
+
+      else
+      {
+        if (!v91)
+        {
+          if (v92)
+          {
+            v42 = v94;
+          }
+
+          else
+          {
+            v74 = 0;
+            v75 = v93 + v53;
+            v36 = v110;
+            v42 = v94;
+            do
+            {
+              *(v96 + v45) = *(v75 + v39);
+              if (v90)
+              {
+                v76 = *v88;
+                if (v90 >= 2 && v76 == *v89 - 1)
+                {
+                  v77 = v94;
+                  v79 = v98;
+                  v78 = v99;
+                  v80 = v89;
+                  v81 = v88;
+                  v82 = v86;
+                  do
+                  {
+                    v83 = v78;
+                    *v81 = 0;
+                    v39 -= v36[v82] * (*v80 - 1);
+                    --v78;
+                    v81 = &v77[v50 - 8];
+                    v76 = *v81;
+                    v77 -= 4;
+                    if (v83 < 2)
+                    {
+                      break;
+                    }
+
+                    v80 = (v79 + v50);
+                    v84 = *(v79 + v50) - 1;
+                    v79 -= 4;
+                    v82 = v78;
+                  }
+
+                  while (v76 == v84);
+                  v85 = &v77[v50 - 4];
+                }
+
+                else
+                {
+                  v78 = v86;
+                  v85 = v88;
+                }
+
+                *v85 = v76 + 1;
+                v39 += v36[v78];
+                *&v108 = v39;
+              }
+
+              ++v45;
+              ++v74;
+            }
+
+            while (v74 != __len);
+          }
+
+          *&v108 = 0;
+          if (v87 >= 1)
+          {
+            bzero(v42, v87);
+          }
+
+          v39 = 0;
+          goto LABEL_85;
+        }
+
+        if ((v92 & 1) == 0)
+        {
+          memmove((v96 + v45), (v93 + v53), __len);
+        }
+
+        v45 += __len;
+      }
+
+      v42 = v94;
+LABEL_85:
+      v44 = v100 + 1;
+    }
+
+    while (v100 + 1 != v97);
+  }
+
+  if (v42)
+  {
+    *&v112 = v42;
+    operator delete(v42);
+    v36 = v110;
+  }
+
+  if (v36)
+  {
+    *(&v110 + 1) = v36;
+    operator delete(v36);
+  }
+
+  if (*(&v108 + 1))
+  {
+    operator delete(*(&v108 + 1));
+  }
+
+  *&v108 = v113;
+  std::vector<mlx::core::ContiguousIterator>::__destroy_vector::operator()[abi:ne200100](&v108);
+}
+
+void sub_25A41B198(_Unwind_Exception *a1)
+{
+  mlx::core::ContiguousIterator::~ContiguousIterator((v1 - 192));
+  *(v1 - 192) = v1 - 112;
+  std::vector<mlx::core::ContiguousIterator>::__destroy_vector::operator()[abi:ne200100](v3);
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::gather<unsigned char,unsigned char>(uint64_t **this, mlx::core::array **a2, uint64_t *a3, void *a4, int **a5)
+{
+  v9 = *a5;
+  if (((*this)[21] & 2) == 0)
+  {
+    if (((*this)[21] & 4) == 0)
+    {
+      v10 = 0;
+      goto LABEL_31;
+    }
+
+    v16 = (a5[1] - v9) >> 2;
+    v17 = v16 - 1;
+    if (v16 - 1 >= -1)
+    {
+      v17 = -1;
+    }
+
+    v18 = v17 + 1;
+    v19 = v16 + 1;
+    v20 = v16 - 1;
+    while ((v20 & 0x80000000) == 0)
+    {
+      v21 = v9[v20 & 0x7FFFFFFF];
+      --v19;
+      --v20;
+      if (v21 != 1)
+      {
+        goto LABEL_25;
+      }
+    }
+
+    v19 = v18;
+LABEL_25:
+    v25 = (v19 - 2);
+    if (v19 - 2 >= 0)
+    {
+      do
+      {
+        v26 = mlx::core::array::shape(this, v25);
+        v9 = *a5;
+        v27 = (*a5)[v25];
+        v10 = v26 == v27;
+        v28 = v25-- != 0;
+      }
+
+      while (v28 && v26 == v27);
+      goto LABEL_31;
+    }
+
+LABEL_30:
+    v10 = 1;
+    goto LABEL_31;
+  }
+
+  v11 = a5[1];
+  v12 = v11 - v9;
+  if (v11 == v9)
+  {
+    v15 = 1;
+  }
+
+  else
+  {
+    v13 = 0;
+    v14 = v12 >> 2;
+    if (v14 <= 1)
+    {
+      v14 = 1;
+    }
+
+    while (v9[v13] == 1)
+    {
+      if (v14 == ++v13)
+      {
+        LODWORD(v13) = v14;
+        break;
+      }
+    }
+
+    v15 = (v13 + 1);
+  }
+
+  if (v15 >= ((*this)[1] - **this) >> 2)
+  {
+    goto LABEL_30;
+  }
+
+  do
+  {
+    v22 = mlx::core::array::shape(this, v15);
+    v9 = *a5;
+    v23 = (*a5)[v15];
+    v10 = v22 == v23;
+  }
+
+  while (++v15 < ((*this)[1] - **this) >> 2 && v22 == v23);
+LABEL_31:
+  v29 = a5[1];
+  if (v9 == v29)
+  {
+    v32 = *a3;
+    v30 = 1;
+  }
+
+  else
+  {
+    v30 = 1;
+    do
+    {
+      v31 = *v9++;
+      v30 *= v31;
+    }
+
+    while (v9 != v29);
+    v32 = *a3;
+    if (!v30)
+    {
+      v98 = 0;
+      v92 = 1;
+      goto LABEL_38;
+    }
+  }
+
+  v92 = 0;
+  v98 = *(v32 + 48) / v30;
+LABEL_38:
+  v94 = (*this)[19];
+  v97 = *(v32 + 152);
+  v33 = *a2;
+  v34 = a2[1];
+  v35 = (v34 - *a2) >> 4;
+  memset(v114, 0, 24);
+  std::vector<mlx::core::ContiguousIterator>::__init_with_size[abi:ne200100]<std::__wrap_iter<mlx::core::array const*>,std::__wrap_iter<mlx::core::array const*>>(v114, v33, v34, v35);
+  v112 = 0u;
+  v113 = 0u;
+  v110 = 0u;
+  v111 = 0u;
+  v109 = 0u;
+  v93 = v10;
+  if (v10)
+  {
+    v36 = 0;
+  }
+
+  else
+  {
+    v36 = (*this)[1] - **this;
+    if (v36)
+    {
+      mlx::core::ContiguousIterator::ContiguousIterator(&v103, a5, *this + 3, v36 >> 2);
+      v37 = *(&v103 + 1);
+      v38 = v103;
+      v109 = v103;
+      v39 = v104;
+      *(&v103 + 1) = 0;
+      v104 = 0uLL;
+      v110 = v39;
+      v111 = v105;
+      v40 = v106;
+      v41 = v107;
+      v106 = 0;
+      v105 = 0uLL;
+      v113 = v108;
+      v42 = v39;
+      v43 = v111;
+      v36 = v108;
+      *&v112 = v40;
+      *(&v112 + 1) = v107;
+      goto LABEL_43;
+    }
+  }
+
+  v43 = 0;
+  v41 = 0;
+  v37 = 0;
+  v42 = 0;
+  v38 = 0;
+LABEL_43:
+  if (v98)
+  {
+    v44 = 0;
+    v45 = 0;
+    v46 = v42 - v37;
+    v47 = ((v46 << 30) - 0x100000000) >> 32;
+    v48 = v46 >> 2;
+    v49 = (v46 >> 2) & 0x7FFFFFFF;
+    v87 = v47;
+    v88 = v36 - v41;
+    v50 = 4 * v49;
+    v99 = v37 - 8;
+    v100 = v49 - 1;
+    v95 = v41;
+    __len = v30;
+    v90 = v48;
+    v91 = &v41[4 * v47];
+    v89 = (v37 + 4 * v47);
+    do
+    {
+      v101 = v44;
+      v51 = *a2;
+      if (a2[1] == *a2)
+      {
+        v53 = 0;
+      }
+
+      else
+      {
+        v52 = 0;
+        v53 = 0;
+        do
+        {
+          v54 = *(*a4 + 4 * v52);
+          v55 = (v114[0] + 80 * v52);
+          v56 = v55[1];
+          v57 = *v55;
+          v58 = v55[2] - v56;
+          if ((v58 >> 2))
+          {
+            v59 = v55[7];
+            v60 = ((v58 << 30) - 0x100000000) >> 32;
+            v61 = (v59 + 4 * v60);
+            v62 = *v61;
+            v63 = (v56 + 4 * v60);
+            v64 = v55[4];
+            if ((v58 >> 2) >= 2 && v62 == *v63 - 1)
+            {
+              v68 = (v58 >> 2) & 0x7FFFFFFF;
+              v67 = v68 - 1;
+              v69 = 4 * v68;
+              v70 = v56 - 8;
+              v66 = *v55;
+              do
+              {
+                v71 = v67;
+                *v61 = 0;
+                v66 -= *(v64 + 8 * v60) * (*v63 - 1);
+                *v55 = v66;
+                --v67;
+                v61 = (v59 + v69 - 8);
+                v62 = *v61;
+                v59 -= 4;
+                if (v71 < 2)
+                {
+                  break;
+                }
+
+                v63 = (v70 + v69);
+                v72 = *(v70 + 4 * v68) - 1;
+                v70 -= 4;
+                v60 = v67;
+              }
+
+              while (v62 == v72);
+              v61 = (v59 + 4 * v68 - 4);
+            }
+
+            else
+            {
+              v66 = *v55;
+              v67 = ((v58 << 30) - 0x100000000) >> 32;
+            }
+
+            *v61 = v62 + 1;
+            *v55 = *(v64 + 8 * v67) + v66;
+          }
+
+          v73 = *(*(*(v51 + 2 * v52) + 152) + v57);
+          mlx::core::array::shape(this, v54);
+          v53 += *((*this)[3] + 8 * v54) * v73;
+          ++v52;
+          v51 = *a2;
+        }
+
+        while (v52 < (a2[1] - *a2) >> 4);
+      }
+
+      if (__len == 1)
+      {
+        *(v97 + v45++) = *(v94 + v53);
+      }
+
+      else
+      {
+        if (!v93)
+        {
+          if (v92)
+          {
+            v41 = v95;
+            v74 = v101;
+          }
+
+          else
+          {
+            v75 = 0;
+            v41 = v95;
+            v76 = v94 + v53;
+            v74 = v101;
+            do
+            {
+              *(v97 + v45) = *(v76 + v38);
+              if (v90)
+              {
+                v77 = *v91;
+                if (v90 >= 2 && v77 == *v89 - 1)
+                {
+                  v78 = v95;
+                  v80 = v99;
+                  v79 = v100;
+                  v81 = v89;
+                  v82 = v91;
+                  v83 = v87;
+                  do
+                  {
+                    v84 = v79;
+                    *v82 = 0;
+                    v38 -= v43[v83] * (*v81 - 1);
+                    --v79;
+                    v82 = &v78[v50 - 8];
+                    v77 = *v82;
+                    v78 -= 4;
+                    if (v84 < 2)
+                    {
+                      break;
+                    }
+
+                    v81 = (v80 + v50);
+                    v85 = *(v80 + v50) - 1;
+                    v80 -= 4;
+                    v83 = v79;
+                  }
+
+                  while (v77 == v85);
+                  v86 = &v78[v50 - 4];
+                }
+
+                else
+                {
+                  v79 = v87;
+                  v86 = v91;
+                }
+
+                *v86 = v77 + 1;
+                v38 += v43[v79];
+                *&v109 = v38;
+              }
+
+              ++v45;
+              ++v75;
+            }
+
+            while (v75 != __len);
+          }
+
+          *&v109 = 0;
+          if (v88 >= 1)
+          {
+            bzero(v41, v88);
+          }
+
+          v38 = 0;
+          goto LABEL_84;
+        }
+
+        if ((v92 & 1) == 0)
+        {
+          memmove((v97 + v45), (v94 + v53), __len);
+        }
+
+        v45 += __len;
+      }
+
+      v41 = v95;
+      v74 = v101;
+LABEL_84:
+      v44 = v74 + 1;
+    }
+
+    while (v44 != v98);
+  }
+
+  if (v41)
+  {
+    *&v113 = v41;
+    operator delete(v41);
+    v43 = v111;
+  }
+
+  if (v43)
+  {
+    *(&v111 + 1) = v43;
+    operator delete(v43);
+  }
+
+  if (*(&v109 + 1))
+  {
+    operator delete(*(&v109 + 1));
+  }
+
+  *&v109 = v114;
+  std::vector<mlx::core::ContiguousIterator>::__destroy_vector::operator()[abi:ne200100](&v109);
 }

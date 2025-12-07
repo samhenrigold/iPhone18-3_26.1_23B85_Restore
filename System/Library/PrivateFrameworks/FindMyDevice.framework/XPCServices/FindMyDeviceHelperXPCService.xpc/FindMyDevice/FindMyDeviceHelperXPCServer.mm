@@ -26,7 +26,7 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = sub_1000070C0();
+  v6 = sub_1000070C0(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -62,18 +62,18 @@
   v16 = +[NSXPCConnection currentConnection];
   v17 = [v16 valueForEntitlement:@"com.apple.icloud.FindMyDevice.FindMyDeviceHelperXPCService.access"];
 
-  if (v17 && ([&__kCFBooleanTrue isEqual:v17] & 1) != 0)
+  if (v17 && (v18 = [&__kCFBooleanTrue isEqual:v17], (v18 & 1) != 0))
   {
-    v18 = sub_1000070C0();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_1000070C0(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v38 = accessoryCopy;
-      v39 = 2048;
-      durationCopy = duration;
+      v40 = accessoryCopy;
       v41 = 2048;
+      durationCopy = duration;
+      v43 = 2048;
       upDurationCopy = upDuration;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Start playing sound for accessory: %@ duration: %f rampUpDuration: %f", buf, 0x20u);
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Start playing sound for accessory: %@ duration: %f rampUpDuration: %f", buf, 0x20u);
     }
 
     if (accessoryCopy)
@@ -84,54 +84,54 @@
       block[3] = &unk_1000152C0;
       upDurationCopy2 = upDuration;
       block[4] = self;
-      v30 = accessoryCopy;
-      v31 = channelsCopy;
+      v32 = accessoryCopy;
+      v33 = channelsCopy;
       durationCopy2 = duration;
-      v32 = completionCopy;
+      v34 = completionCopy;
       dispatch_async(&_dispatch_main_q, block);
     }
 
     else if (completionCopy)
     {
-      v26 = [NSError alloc];
-      v35 = NSLocalizedFailureReasonErrorKey;
-      v36 = @"Accessory cannot be nil";
-      v27 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-      v28 = [v26 initWithDomain:@"com.apple.icloud.FindMyDevice" code:1 userInfo:v27];
-      (*(completionCopy + 2))(completionCopy, v28);
+      v28 = [NSError alloc];
+      v37 = NSLocalizedFailureReasonErrorKey;
+      v38 = @"Accessory cannot be nil";
+      v29 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+      v30 = [v28 initWithDomain:@"com.apple.icloud.FindMyDevice" code:1 userInfo:v29];
+      (*(completionCopy + 2))(completionCopy, v30);
     }
   }
 
   else
   {
-    v19 = NSStringFromSelector(a2);
-    v20 = [NSString stringWithFormat:@"Entitlement not found for %@", v19];
+    v20 = NSStringFromSelector(a2);
+    v21 = [NSString stringWithFormat:@"Entitlement not found for %@", v20];
 
-    v21 = [NSError alloc];
-    if (v20)
+    v22 = [NSError alloc];
+    if (v21)
     {
-      v22 = v20;
+      v23 = v21;
     }
 
     else
     {
-      v22 = &stru_100017B40;
+      v23 = &stru_100017B40;
     }
 
-    v43 = NSLocalizedFailureReasonErrorKey;
-    v44 = v22;
-    v23 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-    v24 = [v21 initWithDomain:@"com.apple.icloud.FindMyDevice" code:6 userInfo:v23];
+    v45 = NSLocalizedFailureReasonErrorKey;
+    v46 = v23;
+    v24 = [NSDictionary dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+    v25 = [v22 initWithDomain:@"com.apple.icloud.FindMyDevice" code:6 userInfo:v24];
 
-    v25 = sub_1000070C0();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = sub_1000070C0(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_10000B120();
     }
 
     if (completionCopy)
     {
-      (*(completionCopy + 2))(completionCopy, v24);
+      (*(completionCopy + 2))(completionCopy, v25);
     }
   }
 }
@@ -164,13 +164,13 @@
       v16 = &stru_100017B40;
     }
 
-    v20 = NSLocalizedFailureReasonErrorKey;
-    v21 = v16;
-    v17 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v21 = NSLocalizedFailureReasonErrorKey;
+    v22 = v16;
+    v17 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
     v18 = [v15 initWithDomain:@"com.apple.icloud.FindMyDevice" code:6 userInfo:v17];
 
-    v19 = sub_1000070C0();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = sub_1000070C0(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_10000B120();
     }
@@ -186,7 +186,7 @@
 {
   accessoryCopy = accessory;
   completionCopy = completion;
-  v10 = sub_1000070C0();
+  v10 = sub_1000070C0(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -224,12 +224,12 @@
 {
   accessoryCopy = accessory;
   completionCopy = completion;
-  v11 = sub_1000070C0();
+  v11 = sub_1000070C0(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v30 = accessoryCopy;
-    v31 = 2048;
+    v31 = accessoryCopy;
+    v32 = 2048;
     timeoutCopy = timeout;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Wait for routable accessories: %@ timeout: %f", buf, 0x16u);
   }
@@ -245,12 +245,12 @@
     block[2] = sub_100008998;
     block[3] = &unk_100015310;
     timeoutCopy2 = timeout;
-    v23 = accessoryCopy;
+    v24 = accessoryCopy;
     selfCopy = self;
-    v25 = completionCopy;
+    v26 = completionCopy;
     dispatch_after(v14, &_dispatch_main_q, block);
 
-    v15 = v23;
+    v15 = v24;
   }
 
   else
@@ -269,13 +269,13 @@
       v18 = &stru_100017B40;
     }
 
-    v27 = NSLocalizedFailureReasonErrorKey;
-    v28 = v18;
-    v19 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v28 = NSLocalizedFailureReasonErrorKey;
+    v29 = v18;
+    v19 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     v20 = [v17 initWithDomain:@"com.apple.icloud.FindMyDevice" code:6 userInfo:v19];
 
-    v21 = sub_1000070C0();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = sub_1000070C0(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_10000B120();
     }
@@ -289,7 +289,7 @@
 
 - (void)setTimeoutForDuration:(double)duration
 {
-  v5 = sub_1000070C0();
+  v5 = sub_1000070C0(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = +[NSThread currentThread];
@@ -313,7 +313,7 @@
 
 - (void)_stopSoundTimerFired:(id)fired
 {
-  v4 = sub_1000070C0();
+  v4 = sub_1000070C0(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -326,7 +326,7 @@
 
 - (void)invalidateStopSoundTimer
 {
-  v3 = sub_1000070C0();
+  v3 = sub_1000070C0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -373,11 +373,11 @@
 - (void)disableBiometricIDWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v6 = sub_1000070C0();
+  v6 = sub_1000070C0(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v19 = "[FindMyDeviceHelperXPCServer disableBiometricIDWithCompletion:]";
+    v20 = "[FindMyDeviceHelperXPCServer disableBiometricIDWithCompletion:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -409,13 +409,13 @@
       v12 = &stru_100017B40;
     }
 
-    v16 = NSLocalizedFailureReasonErrorKey;
-    v17 = v12;
-    v13 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v17 = NSLocalizedFailureReasonErrorKey;
+    v18 = v12;
+    v13 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     v14 = [v11 initWithDomain:@"com.apple.icloud.FindMyDevice" code:6 userInfo:v13];
 
-    v15 = sub_1000070C0();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_1000070C0(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10000B120();
     }
@@ -431,11 +431,11 @@
 {
   infoCopy = info;
   completionCopy = completion;
-  v9 = sub_1000070C0();
+  v9 = sub_1000070C0(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v33 = "[FindMyDeviceHelperXPCServer updateNeedsLocateAckLostModeInfo:completion:]";
+    v36 = "[FindMyDeviceHelperXPCServer updateNeedsLocateAckLostModeInfo:completion:]";
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -451,27 +451,27 @@
       }
 
       lostModeType = [infoCopy lostModeType];
-      v22 = NSStringFromSelector(a2);
-      getNeedsLocateAckLostModeFileURL = [NSString stringWithFormat:@"LostMode type (%ld) passed to %@ is not valid", lostModeType, v22];
+      v24 = NSStringFromSelector(a2);
+      getNeedsLocateAckLostModeFileURL = [NSString stringWithFormat:@"LostMode type (%ld) passed to %@ is not valid", lostModeType, v24];
 
-      v23 = [NSError alloc];
+      v25 = [NSError alloc];
       if (getNeedsLocateAckLostModeFileURL)
       {
-        v24 = getNeedsLocateAckLostModeFileURL;
+        v26 = getNeedsLocateAckLostModeFileURL;
       }
 
       else
       {
-        v24 = &stru_100017B40;
+        v26 = &stru_100017B40;
       }
 
-      v26 = NSLocalizedFailureReasonErrorKey;
-      v27 = v24;
-      v25 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-      v15 = [v23 initWithDomain:@"com.apple.icloud.FindMyDevice" code:1 userInfo:v25];
+      v29 = NSLocalizedFailureReasonErrorKey;
+      v30 = v26;
+      v27 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v15 = [v25 initWithDomain:@"com.apple.icloud.FindMyDevice" code:1 userInfo:v27];
 
-      v16 = sub_1000070C0();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = sub_1000070C0(v28);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_10000B120();
       }
@@ -479,27 +479,27 @@
 
     else
     {
-      v17 = NSStringFromSelector(a2);
-      getNeedsLocateAckLostModeFileURL = [NSString stringWithFormat:@"LostMode info not passed to %@", v17];
+      v18 = NSStringFromSelector(a2);
+      getNeedsLocateAckLostModeFileURL = [NSString stringWithFormat:@"LostMode info not passed to %@", v18];
 
-      v18 = [NSError alloc];
+      v19 = [NSError alloc];
       if (getNeedsLocateAckLostModeFileURL)
       {
-        v19 = getNeedsLocateAckLostModeFileURL;
+        v20 = getNeedsLocateAckLostModeFileURL;
       }
 
       else
       {
-        v19 = &stru_100017B40;
+        v20 = &stru_100017B40;
       }
 
-      v28 = NSLocalizedFailureReasonErrorKey;
-      v29 = v19;
-      v20 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-      v15 = [v18 initWithDomain:@"com.apple.icloud.FindMyDevice" code:1 userInfo:v20];
+      v31 = NSLocalizedFailureReasonErrorKey;
+      v32 = v20;
+      v21 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      v15 = [v19 initWithDomain:@"com.apple.icloud.FindMyDevice" code:1 userInfo:v21];
 
-      v16 = sub_1000070C0();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = sub_1000070C0(v22);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_10000B120();
       }
@@ -522,13 +522,13 @@
       v13 = &stru_100017B40;
     }
 
-    v30 = NSLocalizedFailureReasonErrorKey;
-    v31 = v13;
-    v14 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    v33 = NSLocalizedFailureReasonErrorKey;
+    v34 = v13;
+    v14 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
     v15 = [v12 initWithDomain:@"com.apple.icloud.FindMyDevice" code:6 userInfo:v14];
 
-    v16 = sub_1000070C0();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = sub_1000070C0(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10000B120();
     }
@@ -546,11 +546,11 @@ LABEL_25:
 {
   infoCopy = info;
   completionCopy = completion;
-  v9 = sub_1000070C0();
+  v9 = sub_1000070C0(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v33 = "[FindMyDeviceHelperXPCServer updateManagedLostModeInfo:completion:]";
+    v36 = "[FindMyDeviceHelperXPCServer updateManagedLostModeInfo:completion:]";
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -566,27 +566,27 @@ LABEL_25:
       }
 
       lostModeType = [infoCopy lostModeType];
-      v22 = NSStringFromSelector(a2);
-      getManagedLostModeFileURL = [NSString stringWithFormat:@"LostMode type (%ld) passed to %@ is not valid", lostModeType, v22];
+      v24 = NSStringFromSelector(a2);
+      getManagedLostModeFileURL = [NSString stringWithFormat:@"LostMode type (%ld) passed to %@ is not valid", lostModeType, v24];
 
-      v23 = [NSError alloc];
+      v25 = [NSError alloc];
       if (getManagedLostModeFileURL)
       {
-        v24 = getManagedLostModeFileURL;
+        v26 = getManagedLostModeFileURL;
       }
 
       else
       {
-        v24 = &stru_100017B40;
+        v26 = &stru_100017B40;
       }
 
-      v26 = NSLocalizedFailureReasonErrorKey;
-      v27 = v24;
-      v25 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-      v15 = [v23 initWithDomain:@"com.apple.icloud.FindMyDevice" code:1 userInfo:v25];
+      v29 = NSLocalizedFailureReasonErrorKey;
+      v30 = v26;
+      v27 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v15 = [v25 initWithDomain:@"com.apple.icloud.FindMyDevice" code:1 userInfo:v27];
 
-      v16 = sub_1000070C0();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = sub_1000070C0(v28);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_10000B120();
       }
@@ -594,27 +594,27 @@ LABEL_25:
 
     else
     {
-      v17 = NSStringFromSelector(a2);
-      getManagedLostModeFileURL = [NSString stringWithFormat:@"LostMode info not passed to %@", v17];
+      v18 = NSStringFromSelector(a2);
+      getManagedLostModeFileURL = [NSString stringWithFormat:@"LostMode info not passed to %@", v18];
 
-      v18 = [NSError alloc];
+      v19 = [NSError alloc];
       if (getManagedLostModeFileURL)
       {
-        v19 = getManagedLostModeFileURL;
+        v20 = getManagedLostModeFileURL;
       }
 
       else
       {
-        v19 = &stru_100017B40;
+        v20 = &stru_100017B40;
       }
 
-      v28 = NSLocalizedFailureReasonErrorKey;
-      v29 = v19;
-      v20 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-      v15 = [v18 initWithDomain:@"com.apple.icloud.FindMyDevice" code:1 userInfo:v20];
+      v31 = NSLocalizedFailureReasonErrorKey;
+      v32 = v20;
+      v21 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      v15 = [v19 initWithDomain:@"com.apple.icloud.FindMyDevice" code:1 userInfo:v21];
 
-      v16 = sub_1000070C0();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = sub_1000070C0(v22);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_10000B120();
       }
@@ -637,13 +637,13 @@ LABEL_25:
       v13 = &stru_100017B40;
     }
 
-    v30 = NSLocalizedFailureReasonErrorKey;
-    v31 = v13;
-    v14 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    v33 = NSLocalizedFailureReasonErrorKey;
+    v34 = v13;
+    v14 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
     v15 = [v12 initWithDomain:@"com.apple.icloud.FindMyDevice" code:6 userInfo:v14];
 
-    v16 = sub_1000070C0();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = sub_1000070C0(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10000B120();
     }
@@ -661,11 +661,11 @@ LABEL_25:
 {
   messageCopy = message;
   completionCopy = completion;
-  v9 = sub_1000070C0();
+  v9 = sub_1000070C0(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v24 = "[FindMyDeviceHelperXPCServer startPlayingSoundForMessage:completion:]";
+    v25 = "[FindMyDeviceHelperXPCServer startPlayingSoundForMessage:completion:]";
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -673,16 +673,16 @@ LABEL_25:
   {
     messageAudioController = [(FindMyDeviceHelperXPCServer *)self messageAudioController];
     v11 = +[NSXPCConnection currentConnection];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_100009D24;
-    v19[3] = &unk_100014478;
-    v20 = messageAudioController;
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100009D24;
+    v20[3] = &unk_100014478;
+    v21 = messageAudioController;
     v12 = messageAudioController;
-    [v11 setInvalidationHandler:v19];
+    [v11 setInvalidationHandler:v20];
 
     [(__CFString *)v12 playSoundWithMessage:messageCopy completion:completionCopy];
-    v13 = v20;
+    v13 = v21;
   }
 
   else
@@ -701,13 +701,13 @@ LABEL_25:
       v16 = &stru_100017B40;
     }
 
-    v21 = NSLocalizedFailureReasonErrorKey;
-    v22 = v16;
-    v17 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v22 = NSLocalizedFailureReasonErrorKey;
+    v23 = v16;
+    v17 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     v13 = [v15 initWithDomain:@"com.apple.icloud.FindMyDevice" code:6 userInfo:v17];
 
-    v18 = sub_1000070C0();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = sub_1000070C0(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_10000B120();
     }
@@ -722,11 +722,11 @@ LABEL_25:
 - (void)stopSoundMessageWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v6 = sub_1000070C0();
+  v6 = sub_1000070C0(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[FindMyDeviceHelperXPCServer stopSoundMessageWithCompletion:]";
+    v18 = "[FindMyDeviceHelperXPCServer stopSoundMessageWithCompletion:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -752,13 +752,13 @@ LABEL_25:
       v10 = &stru_100017B40;
     }
 
-    v14 = NSLocalizedFailureReasonErrorKey;
-    v15 = v10;
-    v11 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v15 = NSLocalizedFailureReasonErrorKey;
+    v16 = v10;
+    v11 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
     v12 = [v9 initWithDomain:@"com.apple.icloud.FindMyDevice" code:6 userInfo:v11];
 
-    v13 = sub_1000070C0();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_1000070C0(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10000B120();
     }
@@ -776,154 +776,155 @@ LABEL_25:
   fileCopy = file;
   completionCopy = completion;
   lostModeEnabled = [infoCopy lostModeEnabled];
-  v12 = sub_1000070C0();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
-  if (lostModeEnabled)
+  v12 = lostModeEnabled;
+  v13 = sub_1000070C0(lostModeEnabled);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
+  if (v12)
   {
     selfCopy = self;
-    if (v13)
+    if (v14)
     {
       sub_10000B2A8();
     }
 
-    v53[0] = @"lostModeEnabled";
-    v14 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [infoCopy lostModeEnabled]);
-    v54[0] = v14;
-    v53[1] = @"lostModeType";
-    v15 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [infoCopy lostModeType]);
-    v54[1] = v15;
-    v53[2] = @"disableSlideToUnlock";
-    v16 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [infoCopy disableSlideToUnlock]);
-    v54[2] = v16;
-    v53[3] = @"lostModeMessage";
+    v57[0] = @"lostModeEnabled";
+    v15 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [infoCopy lostModeEnabled]);
+    v58[0] = v15;
+    v57[1] = @"lostModeType";
+    v16 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [infoCopy lostModeType]);
+    v58[1] = v16;
+    v57[2] = @"disableSlideToUnlock";
+    v17 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [infoCopy disableSlideToUnlock]);
+    v58[2] = v17;
+    v57[3] = @"lostModeMessage";
     message = [infoCopy message];
-    v46 = fileCopy;
-    v18 = message;
+    v50 = fileCopy;
+    v19 = message;
     if (message)
     {
-      v19 = message;
+      v20 = message;
     }
 
     else
     {
-      v19 = &stru_100017B40;
+      v20 = &stru_100017B40;
     }
 
-    v54[3] = v19;
-    v53[4] = @"lostModeOwnerNumber";
+    v58[3] = v20;
+    v57[4] = @"lostModeOwnerNumber";
     phoneNumber = [infoCopy phoneNumber];
-    v21 = phoneNumber;
+    v22 = phoneNumber;
     if (phoneNumber)
     {
-      v22 = phoneNumber;
+      v23 = phoneNumber;
     }
 
     else
     {
-      v22 = &stru_100017B40;
+      v23 = &stru_100017B40;
     }
 
-    v54[4] = v22;
-    v53[5] = @"lostModeFacetimeCapable";
-    v23 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [infoCopy facetimeCapable]);
-    v54[5] = v23;
-    v53[6] = @"lostModeFootnoteTextPrefKey";
+    v58[4] = v23;
+    v57[5] = @"lostModeFacetimeCapable";
+    v24 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [infoCopy facetimeCapable]);
+    v58[5] = v24;
+    v57[6] = @"lostModeFootnoteTextPrefKey";
     footnoteText = [infoCopy footnoteText];
-    v25 = footnoteText;
+    v26 = footnoteText;
     if (footnoteText)
     {
-      v26 = footnoteText;
+      v27 = footnoteText;
     }
 
     else
     {
-      v26 = &stru_100017B40;
+      v27 = &stru_100017B40;
     }
 
-    v54[6] = v26;
-    v27 = [NSDictionary dictionaryWithObjects:v54 forKeys:v53 count:7];
+    v58[6] = v27;
+    v28 = [NSDictionary dictionaryWithObjects:v58 forKeys:v57 count:7];
 
-    fileCopy = v46;
-    uRLByDeletingLastPathComponent = [v46 URLByDeletingLastPathComponent];
+    fileCopy = v50;
+    uRLByDeletingLastPathComponent = [v50 URLByDeletingLastPathComponent];
     path = [uRLByDeletingLastPathComponent path];
-    v30 = +[NSFileManager defaultManager];
-    v31 = [v30 fileExistsAtPath:path];
+    v31 = +[NSFileManager defaultManager];
+    v32 = [v31 fileExistsAtPath:path];
 
-    if ((v31 & 1) == 0)
+    if ((v32 & 1) == 0)
     {
-      v32 = +[NSFileManager defaultManager];
-      v50 = 0;
-      [v32 createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v50];
-      v33 = v50;
+      v33 = +[NSFileManager defaultManager];
+      v54 = 0;
+      [v33 createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v54];
+      v34 = v54;
 
-      if (v33)
+      if (v34)
       {
-        v34 = sub_1000070C0();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v36 = sub_1000070C0(v35);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           sub_10000B31C();
         }
 
-        fileCopy = v46;
+        fileCopy = v50;
       }
     }
 
-    v35 = [NSPropertyListSerialization dataWithPropertyList:v27 format:200 options:0 error:0];
-    v49 = 0;
-    [v35 writeToURL:fileCopy options:268435457 error:&v49];
-    _disableBiometricID = v49;
+    v37 = [NSPropertyListSerialization dataWithPropertyList:v28 format:200 options:0 error:0];
+    v53 = 0;
+    [v37 writeToURL:fileCopy options:268435457 error:&v53];
+    _disableBiometricID = v53;
     if (!_disableBiometricID)
     {
-      v37 = [NSNumber numberWithBool:1];
-      v48 = 0;
-      [fileCopy setResourceValue:v37 forKey:NSURLIsExcludedFromBackupKey error:&v48];
-      v38 = v48;
+      v39 = [NSNumber numberWithBool:1];
+      v52 = 0;
+      [fileCopy setResourceValue:v39 forKey:NSURLIsExcludedFromBackupKey error:&v52];
+      v40 = v52;
 
-      if (v38)
+      if (v40)
       {
-        v39 = sub_1000070C0();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        v42 = sub_1000070C0(v41);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
-          sub_10000B3A0(v46, v38, v39);
+          sub_10000B3A0(v50, v40, v42);
         }
       }
 
-      v40 = sub_1000070C0();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v43 = sub_1000070C0(v41);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v52 = infoCopy;
-        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Lost mode info written on disk - %@", buf, 0xCu);
+        v56 = infoCopy;
+        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Lost mode info written on disk - %@", buf, 0xCu);
       }
 
       _disableBiometricID = [(FindMyDeviceHelperXPCServer *)selfCopy _disableBiometricID];
 
-      fileCopy = v46;
+      fileCopy = v50;
     }
   }
 
   else
   {
-    if (v13)
+    if (v14)
     {
       sub_10000B1F0();
     }
 
-    v27 = +[NSFileManager defaultManager];
+    v28 = +[NSFileManager defaultManager];
     path2 = [fileCopy path];
-    v42 = [v27 fileExistsAtPath:path2];
+    v45 = [v28 fileExistsAtPath:path2];
 
-    if (v42)
+    if (v45)
     {
-      v43 = sub_1000070C0();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+      v47 = sub_1000070C0(v46);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
       {
-        sub_10000B264(v43);
+        sub_10000B264(v47);
       }
 
-      v47 = 0;
-      [v27 removeItemAtURL:fileCopy error:&v47];
-      _disableBiometricID = v47;
+      v51 = 0;
+      [v28 removeItemAtURL:fileCopy error:&v51];
+      _disableBiometricID = v51;
     }
 
     else
@@ -932,8 +933,8 @@ LABEL_25:
     }
   }
 
-  v44 = +[FMDFMIPSharedStateManager sharedInstance];
-  [v44 recalculateLostMode];
+  v48 = +[FMDFMIPSharedStateManager sharedInstance];
+  [v48 recalculateLostMode];
 
   if (completionCopy)
   {
@@ -943,7 +944,7 @@ LABEL_25:
 
 - (id)_disableBiometricID
 {
-  v2 = sub_1000070C0();
+  v2 = sub_1000070C0(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -953,20 +954,20 @@ LABEL_25:
   v3 = objc_alloc_init(EmbeddedOSSupport);
   disableBiometricID = [(EmbeddedOSSupport *)v3 disableBiometricID];
 
-  v5 = sub_1000070C0();
-  v6 = v5;
+  v6 = sub_1000070C0(v5);
+  v7 = v6;
   if (disableBiometricID)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10000B44C();
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Disabled Biometry ID success.", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Disabled Biometry ID success.", v9, 2u);
   }
 
   return disableBiometricID;

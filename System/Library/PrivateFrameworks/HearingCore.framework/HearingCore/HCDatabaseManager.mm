@@ -19,11 +19,10 @@ void __34__HCDatabaseManager_setupDatabase__block_invoke(uint64_t a1, uint64_t a
 
 - (void)setupDatabase
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1D952C000, a2, OS_LOG_TYPE_ERROR, "Database Manager: Protected state, will not create database: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1D952C000, a2, OS_LOG_TYPE_ERROR, "Database Manager: Protected state, will not create database: %@", &v2, 0xCu);
 }
 
 void __25__HCDatabaseManager_init__block_invoke(uint64_t a1)
@@ -92,7 +91,6 @@ void __35__HCDatabaseManager_saveIfPossible__block_invoke(uint64_t a1)
 
         *(*(*(a1 + 48) + 8) + 24) = *(*(*(a1 + 40) + 8) + 40) == 0;
         v11 = *(a1 + 32);
-        v12 = *(*(*(a1 + 40) + 8) + 40);
         if (*(*(*(a1 + 48) + 8) + 24))
         {
           [MEMORY[0x1E696AEC0] stringWithFormat:@"Updated DB %@", *(*(*(a1 + 40) + 8) + 40)];
@@ -102,8 +100,8 @@ void __35__HCDatabaseManager_saveIfPossible__block_invoke(uint64_t a1)
         {
           [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed DB save with err %@", *(*(*(a1 + 40) + 8) + 40)];
         }
-        v19 = ;
-        [v11 logMessage:v19];
+        v18 = ;
+        [v11 logMessage:v18];
 
         return;
       }
@@ -113,20 +111,20 @@ void __35__HCDatabaseManager_saveIfPossible__block_invoke(uint64_t a1)
     {
     }
 
-    v13 = *(a1 + 32);
-    v14 = MEMORY[0x1E696AEC0];
-    v20 = [v13 managedObjectContext];
-    v15 = [v20 persistentStoreCoordinator];
-    v16 = [v15 persistentStores];
-    v17 = [*(a1 + 32) managedObjectContext];
-    v18 = [v14 stringWithFormat:@"No persistent stores[%@], or changes:[%d]", v16, objc_msgSend(v17, "hasChanges")];
-    [v13 logMessage:v18];
+    v12 = *(a1 + 32);
+    v13 = MEMORY[0x1E696AEC0];
+    v19 = [v12 managedObjectContext];
+    v14 = [v19 persistentStoreCoordinator];
+    v15 = [v14 persistentStores];
+    v16 = [*(a1 + 32) managedObjectContext];
+    v17 = [v13 stringWithFormat:@"No persistent stores[%@], or changes:[%d]", v15, objc_msgSend(v16, "hasChanges")];
+    [v12 logMessage:v17];
   }
 
   else
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Protected data state, not saving"];
-    [v3 logMessage:v20];
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Protected data state, not saving"];
+    [v3 logMessage:v19];
   }
 }
 

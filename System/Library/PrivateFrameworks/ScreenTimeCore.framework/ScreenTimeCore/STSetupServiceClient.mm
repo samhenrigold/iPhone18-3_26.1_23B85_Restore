@@ -57,7 +57,7 @@ void __28__STSetupServiceClient_init__block_invoke_13()
 
 - (id)currentConfigurationForUser:(id)user error:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   userCopy = user;
   v7 = +[STLog setupClient];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -69,41 +69,41 @@ void __28__STSetupServiceClient_init__block_invoke_13()
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__12;
-  v31 = __Block_byref_object_dispose__12;
-  v32 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__12;
-  v22 = __Block_byref_object_dispose__12;
-  v23 = 0;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__12;
+  v30 = __Block_byref_object_dispose__12;
+  v31 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__12;
+  v21 = __Block_byref_object_dispose__12;
+  v22 = 0;
   connection = [(STSetupServiceClient *)self connection];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __58__STSetupServiceClient_currentConfigurationForUser_error___block_invoke;
-  v17[3] = &unk_1E7CE6BA8;
-  v17[4] = &buf;
-  v9 = [connection synchronousRemoteObjectProxyWithErrorHandler:v17];
-
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
-  v16[2] = __58__STSetupServiceClient_currentConfigurationForUser_error___block_invoke_2;
-  v16[3] = &unk_1E7CE7C58;
-  v16[4] = &v18;
-  v16[5] = &buf;
-  [v9 currentConfigurationForUser:userCopy completionHandler:v16];
+  v16[2] = __58__STSetupServiceClient_currentConfigurationForUser_error___block_invoke;
+  v16[3] = &unk_1E7CE6BA8;
+  v16[4] = &buf;
+  v9 = [connection synchronousRemoteObjectProxyWithErrorHandler:v16];
+
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __58__STSetupServiceClient_currentConfigurationForUser_error___block_invoke_2;
+  v15[3] = &unk_1E7CE7C58;
+  v15[4] = &v17;
+  v15[5] = &buf;
+  [v9 currentConfigurationForUser:userCopy completionHandler:v15];
   v10 = +[STLog setupClient];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = v19[5];
+    v11 = v18[5];
     v12 = *(*(&buf + 1) + 40);
-    *v24 = 138543618;
-    v25 = v11;
-    v26 = 2114;
-    v27 = v12;
-    _os_log_impl(&dword_1B831F000, v10, OS_LOG_TYPE_DEFAULT, "Got current configuration: %{public}@ - Error: %{public}@", v24, 0x16u);
+    *v23 = 138543618;
+    v24 = v11;
+    v25 = 2114;
+    v26 = v12;
+    _os_log_impl(&dword_1B831F000, v10, OS_LOG_TYPE_DEFAULT, "Got current configuration: %{public}@ - Error: %{public}@", v23, 0x16u);
   }
 
   if (error)
@@ -111,12 +111,10 @@ void __28__STSetupServiceClient_init__block_invoke_13()
     *error = *(*(&buf + 1) + 40);
   }
 
-  v13 = v19[5];
+  v13 = v18[5];
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v17, 8);
   _Block_object_dispose(&buf, 8);
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -137,7 +135,7 @@ void __58__STSetupServiceClient_currentConfigurationForUser_error___block_invoke
 
 - (BOOL)applyUpdatedConfiguration:(id)configuration error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   v7 = +[STLog setupClient];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -149,33 +147,33 @@ void __58__STSetupServiceClient_currentConfigurationForUser_error___block_invoke
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__12;
-  v24 = __Block_byref_object_dispose__12;
-  v25 = 0;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__12;
+  v23 = __Block_byref_object_dispose__12;
+  v24 = 0;
   connection = [(STSetupServiceClient *)self connection];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __56__STSetupServiceClient_applyUpdatedConfiguration_error___block_invoke;
-  v16[3] = &unk_1E7CE6BA8;
-  v16[4] = &buf;
-  v9 = [connection synchronousRemoteObjectProxyWithErrorHandler:v16];
-
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
-  v15[2] = __56__STSetupServiceClient_applyUpdatedConfiguration_error___block_invoke_2;
+  v15[2] = __56__STSetupServiceClient_applyUpdatedConfiguration_error___block_invoke;
   v15[3] = &unk_1E7CE6BA8;
   v15[4] = &buf;
-  [v9 applyUpdatedConfiguration:configurationCopy completionHandler:v15];
+  v9 = [connection synchronousRemoteObjectProxyWithErrorHandler:v15];
+
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __56__STSetupServiceClient_applyUpdatedConfiguration_error___block_invoke_2;
+  v14[3] = &unk_1E7CE6BA8;
+  v14[4] = &buf;
+  [v9 applyUpdatedConfiguration:configurationCopy completionHandler:v14];
   v10 = +[STLog setupClient];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = *(*(&buf + 1) + 40);
-    *v17 = 138543618;
-    v18 = configurationCopy;
-    v19 = 2114;
-    v20 = v11;
-    _os_log_impl(&dword_1B831F000, v10, OS_LOG_TYPE_DEFAULT, "Applied configuration: %{public}@ - Error: %{public}@", v17, 0x16u);
+    *v16 = 138543618;
+    v17 = configurationCopy;
+    v18 = 2114;
+    v19 = v11;
+    _os_log_impl(&dword_1B831F000, v10, OS_LOG_TYPE_DEFAULT, "Applied configuration: %{public}@ - Error: %{public}@", v16, 0x16u);
   }
 
   if (error)
@@ -186,7 +184,6 @@ void __58__STSetupServiceClient_currentConfigurationForUser_error___block_invoke
   v12 = *(*(&buf + 1) + 40) == 0;
 
   _Block_object_dispose(&buf, 8);
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -267,7 +264,7 @@ void __69__STSetupServiceClient_collectPasscodeFromUserWithCompletionHandler___b
     {
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 0;
+        v14[0] = 0;
         _os_log_impl(&dword_1B831F000, v10, OS_LOG_TYPE_DEFAULT, "Resolving pending completion with passcode", v14, 2u);
       }
 
@@ -366,12 +363,11 @@ void __59__STSetupServiceClient_listener_shouldAcceptNewConnection___block_invok
 
 - (void)collectPasscodeFromUserWithCompletionHandler:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*a1 + 40);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to collect passcode: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to collect passcode: %{public}@", &v3, 0xCu);
 }
 
 @end

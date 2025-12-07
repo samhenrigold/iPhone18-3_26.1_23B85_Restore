@@ -12,7 +12,7 @@
 - (_TtC20ProductPageExtension16AppPromotionView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC20ProductPageExtension16AppPromotionView_clickAction;
-  v5 = sub_10000A5D4(&qword_100955BD0);
+  v5 = sub_10000A5D4(&qword_100955BD0, &unk_10079B700);
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v6 = self + OBJC_IVAR____TtC20ProductPageExtension16AppPromotionView_initialLongPressLocation;
   *v6 = 0;
@@ -46,7 +46,7 @@
   width = fits.width;
   v6 = type metadata accessor for AppPromotionCardLayout(0);
   __chkstk_darwin(v6 - 8);
-  v8 = (&v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = (&v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   v9 = qword_100940640;
   selfCopy = self;
   if (v9 != -1)
@@ -58,14 +58,15 @@
   v12 = v11;
   v13 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension16AppPromotionView_appPromotionCardView);
   sub_1000BC5FC(v8);
-  v14 = sub_1001D984C(v13, v8);
-  v16 = v15;
-  sub_1000BE98C(v8);
+  v14.n128_f64[0] = sub_1001D984C(v13, v8, width, height);
+  v15 = v14.n128_u64[0];
+  v17 = v16;
+  sub_1000BE98C(v8, v14);
 
-  v17 = v12 + v16;
-  v18 = v14;
-  result.height = v17;
-  result.width = v18;
+  v18 = v12 + v17;
+  v19 = *&v15;
+  result.height = v18;
+  result.width = v19;
   return result;
 }
 
@@ -83,7 +84,7 @@
   selfCopy = self;
   v9 = sub_1001D8F54(recognizerCopy, touchCopy);
 
-  return v9 & 1;
+  return v9;
 }
 
 @end

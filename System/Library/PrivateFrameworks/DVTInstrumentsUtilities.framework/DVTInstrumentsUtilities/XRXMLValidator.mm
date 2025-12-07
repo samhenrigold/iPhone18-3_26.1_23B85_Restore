@@ -39,27 +39,27 @@
 
 - (id)findErrorMessageForErrorPtr:(_xmlError *)ptr
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   v4 = self->_errorReplacements;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v49, v53, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v48, v52, 16);
   if (v6)
   {
     v11 = v6;
-    v12 = *v50;
+    v12 = *v49;
 LABEL_3:
     v13 = 0;
     while (1)
     {
-      if (*v50 != v12)
+      if (*v49 != v12)
       {
         objc_enumerationMutation(v4);
       }
 
-      v14 = *(*(&v49 + 1) + 8 * v13);
+      v14 = *(*(&v48 + 1) + 8 * v13);
       code = ptr->code;
       if (code == 1839)
       {
@@ -68,7 +68,7 @@ LABEL_3:
 
       if (code == 1877)
       {
-        v16 = objc_msgSend_name(*(*(&v49 + 1) + 8 * v13), v7, v8, v9, v10);
+        v16 = objc_msgSend_name(*(*(&v48 + 1) + 8 * v13), v7, v8, v9, v10);
         isEqualToString = objc_msgSend_isEqualToString_(v16, v17, @"xs:unique", v18, v19);
 
         p_str2 = &ptr->str2;
@@ -95,7 +95,7 @@ LABEL_13:
 
       if (v11 == ++v13)
       {
-        v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v49, v53, 16);
+        v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v48, v52, 16);
         if (v11)
         {
           goto LABEL_3;
@@ -114,8 +114,6 @@ LABEL_13:
 LABEL_17:
   v46 = 0;
 LABEL_19:
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v46;
 }

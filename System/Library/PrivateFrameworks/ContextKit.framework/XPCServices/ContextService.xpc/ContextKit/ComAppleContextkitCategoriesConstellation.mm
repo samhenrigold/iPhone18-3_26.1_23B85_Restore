@@ -65,7 +65,7 @@
 - (id)newRequestWithMaxQids:(int)qids maxCategoriesFirstRun:(int)run maxCategories:(int)categories minQidCount:(int)count minWeight:(int)weight
 {
   v13 = [ComAppleContextkitCategoriesConstellation_Request alloc];
-  sub_1000BF870(v13, self, qids, run, categories, count, weight);
+  sub_1000BF870(&v13->super.isa, self, qids, run, categories, count, weight);
 
   return v13;
 }

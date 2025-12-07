@@ -135,13 +135,13 @@ LABEL_28:
 
 - (id)jsonDictionary
 {
-  v32[7] = *MEMORY[0x1E69E9840];
+  v31[7] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMomentsEventDataEventBundlePlace placeInferencePlaceType](self, "placeInferencePlaceType")}];
   v4 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMomentsEventDataEventBundlePlace placeInferenceUserSpecificPlaceType](self, "placeInferenceUserSpecificPlaceType")}];
   v5 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMomentsEventDataEventBundlePlace geoPOICategoryType](self, "geoPOICategoryType")}];
   if (![(BMMomentsEventDataEventBundlePlace *)self hasPlaceNameConfidence]|| ([(BMMomentsEventDataEventBundlePlace *)self placeNameConfidence], fabs(v6) == INFINITY))
   {
-    v30 = 0;
+    v29 = 0;
   }
 
   else
@@ -149,12 +149,12 @@ LABEL_28:
     [(BMMomentsEventDataEventBundlePlace *)self placeNameConfidence];
     v7 = MEMORY[0x1E696AD98];
     [(BMMomentsEventDataEventBundlePlace *)self placeNameConfidence];
-    v30 = [v7 numberWithDouble:?];
+    v29 = [v7 numberWithDouble:?];
   }
 
   if (![(BMMomentsEventDataEventBundlePlace *)self hasFamiliarityIndexLOI]|| ([(BMMomentsEventDataEventBundlePlace *)self familiarityIndexLOI], fabs(v8) == INFINITY))
   {
-    v29 = 0;
+    v28 = 0;
   }
 
   else
@@ -162,7 +162,7 @@ LABEL_28:
     [(BMMomentsEventDataEventBundlePlace *)self familiarityIndexLOI];
     v9 = MEMORY[0x1E696AD98];
     [(BMMomentsEventDataEventBundlePlace *)self familiarityIndexLOI];
-    v29 = [v9 numberWithDouble:?];
+    v28 = [v9 numberWithDouble:?];
   }
 
   if (![(BMMomentsEventDataEventBundlePlace *)self hasDistanceToHomeInMiles]|| ([(BMMomentsEventDataEventBundlePlace *)self distanceToHomeInMiles], fabs(v10) == INFINITY))
@@ -191,66 +191,66 @@ LABEL_28:
     v15 = [v14 numberWithDouble:?];
   }
 
-  v31[0] = @"placeInferencePlaceType";
+  v30[0] = @"placeInferencePlaceType";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26 = null;
-  v32[0] = null;
-  v31[1] = @"placeInferenceUserSpecificPlaceType";
+  v25 = null;
+  v31[0] = null;
+  v30[1] = @"placeInferenceUserSpecificPlaceType";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28 = v3;
-  v32[1] = null2;
-  v31[2] = @"geoPOICategoryType";
+  v27 = v3;
+  v31[1] = null2;
+  v30[2] = @"geoPOICategoryType";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27 = v4;
-  v32[2] = null3;
-  v31[3] = @"placeNameConfidence";
-  null4 = v30;
-  if (!v30)
+  v26 = v4;
+  v31[2] = null3;
+  v30[3] = @"placeNameConfidence";
+  null4 = v29;
+  if (!v29)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32[3] = null4;
-  v31[4] = @"familiarityIndexLOI";
-  null5 = v29;
-  if (!v29)
+  v31[3] = null4;
+  v30[4] = @"familiarityIndexLOI";
+  null5 = v28;
+  if (!v28)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32[4] = null5;
-  v31[5] = @"distanceToHomeInMiles";
+  v31[4] = null5;
+  v30[5] = @"distanceToHomeInMiles";
   null6 = v12;
   if (!v12)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32[5] = null6;
-  v31[6] = @"poiCategoryConfidence";
+  v31[5] = null6;
+  v30[6] = @"poiCategoryConfidence";
   null7 = v15;
   if (!v15)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32[6] = null7;
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:7];
+  v31[6] = null7;
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:7];
   if (v15)
   {
     if (v12)
@@ -269,11 +269,11 @@ LABEL_28:
   }
 
 LABEL_33:
-  if (!v29)
+  if (!v28)
   {
   }
 
-  if (!v30)
+  if (!v29)
   {
   }
 
@@ -281,9 +281,9 @@ LABEL_33:
   {
   }
 
-  if (v27)
+  if (v26)
   {
-    if (v28)
+    if (v27)
     {
       goto LABEL_41;
     }
@@ -292,21 +292,20 @@ LABEL_33:
   else
   {
 
-    if (v28)
+    if (v27)
     {
       goto LABEL_41;
     }
   }
 
 LABEL_41:
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
 
 - (BMMomentsEventDataEventBundlePlace)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v86[1] = *MEMORY[0x1E69E9840];
+  v85[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"placeInferencePlaceType"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -314,7 +313,7 @@ LABEL_41:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v72 = v7;
+      v71 = v7;
     }
 
     else
@@ -325,7 +324,7 @@ LABEL_41:
       {
         if (!error)
         {
-          v72 = 0;
+          v71 = 0;
           selfCopy5 = 0;
           goto LABEL_62;
         }
@@ -333,24 +332,24 @@ LABEL_41:
         v40 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
         v42 = *MEMORY[0x1E698F240];
-        v85 = *MEMORY[0x1E696A578];
-        v71 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"placeInferencePlaceType"];
-        v86[0] = v71;
-        v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:&v85 count:1];
+        v84 = *MEMORY[0x1E696A578];
+        v70 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"placeInferencePlaceType"];
+        v85[0] = v70;
+        v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v85 forKeys:&v84 count:1];
         v43 = [v40 initWithDomain:v42 code:2 userInfo:v8];
-        v72 = 0;
+        v71 = 0;
         selfCopy5 = 0;
         *errorCopy = v43;
         goto LABEL_73;
       }
 
-      v72 = [MEMORY[0x1E696AD98] numberWithInt:BMMomentsEventDataPlaceInferencePlaceTypeFromString(v7)];
+      v71 = [MEMORY[0x1E696AD98] numberWithInt:BMMomentsEventDataPlaceInferencePlaceTypeFromString(v7)];
     }
   }
 
   else
   {
-    v72 = 0;
+    v71 = 0;
   }
 
   v8 = [dictionaryCopy objectForKeyedSubscript:@"placeInferenceUserSpecificPlaceType"];
@@ -362,7 +361,7 @@ LABEL_41:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v71 = v8;
+        v70 = v8;
         goto LABEL_7;
       }
 
@@ -370,30 +369,30 @@ LABEL_41:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v71 = [MEMORY[0x1E696AD98] numberWithInt:BMMomentsEventDataPlaceInferenceUserSpecificPlaceTypeFromString(v8)];
+        v70 = [MEMORY[0x1E696AD98] numberWithInt:BMMomentsEventDataPlaceInferenceUserSpecificPlaceTypeFromString(v8)];
         goto LABEL_7;
       }
 
       if (error)
       {
-        v48 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v47 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy2 = error;
-        v50 = *MEMORY[0x1E698F240];
-        v83 = *MEMORY[0x1E696A578];
-        v51 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"placeInferenceUserSpecificPlaceType"];
-        v84 = v51;
-        v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
-        v53 = v50;
-        error = v51;
-        v54 = [v48 initWithDomain:v53 code:2 userInfo:v52];
-        v71 = 0;
+        v49 = *MEMORY[0x1E698F240];
+        v82 = *MEMORY[0x1E696A578];
+        v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"placeInferenceUserSpecificPlaceType"];
+        v83 = v50;
+        v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+        v52 = v49;
+        error = v50;
+        v53 = [v47 initWithDomain:v52 code:2 userInfo:v51];
+        v70 = 0;
         selfCopy5 = 0;
-        *errorCopy2 = v54;
-        v9 = v52;
+        *errorCopy2 = v53;
+        v9 = v51;
         goto LABEL_60;
       }
 
-      v71 = 0;
+      v70 = 0;
       selfCopy5 = 0;
 LABEL_73:
       self = selfCopy2;
@@ -401,7 +400,7 @@ LABEL_73:
     }
   }
 
-  v71 = 0;
+  v70 = 0;
 LABEL_7:
   v9 = [dictionaryCopy objectForKeyedSubscript:@"geoPOICategoryType"];
   if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -409,7 +408,7 @@ LABEL_7:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v67 = v9;
+      v66 = v9;
     }
 
     else
@@ -423,44 +422,44 @@ LABEL_7:
           goto LABEL_60;
         }
 
-        v55 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v56 = *MEMORY[0x1E698F240];
-        v81 = *MEMORY[0x1E696A578];
-        v69 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"geoPOICategoryType"];
-        v82 = v69;
-        v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
-        v57 = [v55 initWithDomain:v56 code:2 userInfo:?];
+        v54 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v55 = *MEMORY[0x1E698F240];
+        v80 = *MEMORY[0x1E696A578];
+        v68 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"geoPOICategoryType"];
+        v81 = v68;
+        v67 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+        v56 = [v54 initWithDomain:v55 code:2 userInfo:?];
         selfCopy5 = 0;
-        *error = v57;
+        *error = v56;
         error = 0;
         goto LABEL_59;
       }
 
-      v67 = [MEMORY[0x1E696AD98] numberWithInt:BMMomentsEventDataGeoPOICategoryTypeFromString(v9)];
+      v66 = [MEMORY[0x1E696AD98] numberWithInt:BMMomentsEventDataGeoPOICategoryTypeFromString(v9)];
     }
   }
 
   else
   {
-    v67 = 0;
+    v66 = 0;
   }
 
   v10 = [dictionaryCopy objectForKeyedSubscript:@"placeNameConfidence"];
-  v68 = v10;
+  v67 = v10;
   if (!v10 || (v11 = v10, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v69 = 0;
+    v68 = 0;
     goto LABEL_13;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v69 = v11;
+    v68 = v11;
 LABEL_13:
     v12 = [dictionaryCopy objectForKeyedSubscript:@"familiarityIndexLOI"];
-    v65 = v8;
-    v66 = v12;
+    v64 = v8;
+    v65 = v12;
     if (v12)
     {
       objc_opt_class();
@@ -478,23 +477,23 @@ LABEL_13:
           {
             v12 = 0;
             selfCopy5 = 0;
-            error = v67;
+            error = v66;
             goto LABEL_57;
           }
 
           v31 = objc_alloc(MEMORY[0x1E696ABC0]);
           v32 = *MEMORY[0x1E698F240];
-          v77 = *MEMORY[0x1E696A578];
+          v76 = *MEMORY[0x1E696A578];
           v33 = v9;
           selfCopy3 = self;
           v35 = objc_alloc(MEMORY[0x1E696AEC0]);
-          v58 = objc_opt_class();
+          v57 = objc_opt_class();
           v36 = v35;
           self = selfCopy3;
           v9 = v33;
-          v14 = [v36 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v58, @"familiarityIndexLOI"];
-          v78 = v14;
-          v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+          v14 = [v36 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v57, @"familiarityIndexLOI"];
+          v77 = v14;
+          v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
           v37 = [v31 initWithDomain:v32 code:2 userInfo:v13];
           v12 = 0;
           selfCopy5 = 0;
@@ -507,7 +506,7 @@ LABEL_13:
     }
 
     v13 = [dictionaryCopy objectForKeyedSubscript:@"distanceToHomeInMiles"];
-    v64 = v9;
+    v63 = v9;
     if (!v13 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       v14 = 0;
@@ -522,82 +521,82 @@ LABEL_29:
       v15 = [dictionaryCopy objectForKeyedSubscript:@"poiCategoryConfidence"];
       if (!v15 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v59 = v15;
-        v61 = v13;
+        v58 = v15;
+        v60 = v13;
         v16 = dictionaryCopy;
         v17 = v12;
-        v18 = v71;
-        v19 = v72;
+        v18 = v70;
+        v19 = v71;
         v20 = v7;
         selfCopy6 = self;
         v22 = 0;
 LABEL_32:
-        v72 = v19;
+        v71 = v19;
         intValue = [v19 intValue];
-        v71 = v18;
+        v70 = v18;
         intValue2 = [v18 intValue];
-        error = v67;
+        error = v66;
         v12 = v17;
-        self = -[BMMomentsEventDataEventBundlePlace initWithPlaceInferencePlaceType:placeInferenceUserSpecificPlaceType:geoPOICategoryType:placeNameConfidence:familiarityIndexLOI:distanceToHomeInMiles:poiCategoryConfidence:](selfCopy6, "initWithPlaceInferencePlaceType:placeInferenceUserSpecificPlaceType:geoPOICategoryType:placeNameConfidence:familiarityIndexLOI:distanceToHomeInMiles:poiCategoryConfidence:", intValue, intValue2, [v67 intValue], v69, v17, v14, v22);
+        self = -[BMMomentsEventDataEventBundlePlace initWithPlaceInferencePlaceType:placeInferenceUserSpecificPlaceType:geoPOICategoryType:placeNameConfidence:familiarityIndexLOI:distanceToHomeInMiles:poiCategoryConfidence:](selfCopy6, "initWithPlaceInferencePlaceType:placeInferenceUserSpecificPlaceType:geoPOICategoryType:placeNameConfidence:familiarityIndexLOI:distanceToHomeInMiles:poiCategoryConfidence:", intValue, intValue2, [v66 intValue], v68, v17, v14, v22);
         selfCopy5 = self;
         v7 = v20;
         dictionaryCopy = v16;
-        v15 = v59;
-        v13 = v61;
+        v15 = v58;
+        v13 = v60;
 LABEL_55:
 
-        v9 = v64;
+        v9 = v63;
 LABEL_56:
 
-        v8 = v65;
+        v8 = v64;
 LABEL_57:
-        v29 = v66;
+        v29 = v65;
         goto LABEL_58;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v61 = v13;
+        v60 = v13;
         v16 = dictionaryCopy;
         v17 = v12;
-        v18 = v71;
-        v19 = v72;
+        v18 = v70;
+        v19 = v71;
         v27 = v15;
         v20 = v7;
         selfCopy6 = self;
-        v59 = v27;
+        v58 = v27;
         v22 = v27;
         goto LABEL_32;
       }
 
       if (error)
       {
-        v63 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v60 = *MEMORY[0x1E698F240];
-        v73 = *MEMORY[0x1E696A578];
+        v62 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v59 = *MEMORY[0x1E698F240];
+        v72 = *MEMORY[0x1E696A578];
         v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"poiCategoryConfidence"];
-        v74 = v44;
-        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-        *error = [v63 initWithDomain:v60 code:2 userInfo:v45];
+        v73 = v44;
+        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+        *error = [v62 initWithDomain:v59 code:2 userInfo:v45];
       }
 
       v22 = 0;
       selfCopy5 = 0;
 LABEL_54:
-      error = v67;
+      error = v66;
       goto LABEL_55;
     }
 
     if (error)
     {
-      v62 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v61 = objc_alloc(MEMORY[0x1E696ABC0]);
       v38 = *MEMORY[0x1E698F240];
-      v75 = *MEMORY[0x1E696A578];
+      v74 = *MEMORY[0x1E696A578];
       v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"distanceToHomeInMiles"];
-      v76 = v22;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-      v39 = [v62 initWithDomain:v38 code:2 userInfo:v15];
+      v75 = v22;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+      v39 = [v61 initWithDomain:v38 code:2 userInfo:v15];
       v14 = 0;
       selfCopy5 = 0;
       *error = v39;
@@ -607,29 +606,29 @@ LABEL_54:
     v14 = 0;
     selfCopy5 = 0;
 LABEL_70:
-    error = v67;
+    error = v66;
     goto LABEL_56;
   }
 
   if (!error)
   {
-    v69 = 0;
+    v68 = 0;
     selfCopy5 = 0;
-    error = v67;
+    error = v66;
     goto LABEL_59;
   }
 
-  v70 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v69 = objc_alloc(MEMORY[0x1E696ABC0]);
   v28 = *MEMORY[0x1E698F240];
-  v79 = *MEMORY[0x1E696A578];
+  v78 = *MEMORY[0x1E696A578];
   v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"placeNameConfidence"];
-  v80 = v12;
-  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
-  v30 = [v70 initWithDomain:v28 code:2 userInfo:v29];
-  v69 = 0;
+  v79 = v12;
+  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+  v30 = [v69 initWithDomain:v28 code:2 userInfo:v29];
+  v68 = 0;
   selfCopy5 = 0;
   *error = v30;
-  error = v67;
+  error = v66;
 LABEL_58:
 
 LABEL_59:
@@ -638,7 +637,6 @@ LABEL_60:
 LABEL_61:
 LABEL_62:
 
-  v46 = *MEMORY[0x1E69E9840];
   return selfCopy5;
 }
 
@@ -654,33 +652,26 @@ LABEL_62:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  placeInferencePlaceType = self->_placeInferencePlaceType;
   PBDataWriterWriteUint32Field();
-  placeInferenceUserSpecificPlaceType = self->_placeInferenceUserSpecificPlaceType;
   PBDataWriterWriteUint32Field();
-  geoPOICategoryType = self->_geoPOICategoryType;
   PBDataWriterWriteUint32Field();
   if (self->_hasPlaceNameConfidence)
   {
-    placeNameConfidence = self->_placeNameConfidence;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasFamiliarityIndexLOI)
   {
-    familiarityIndexLOI = self->_familiarityIndexLOI;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasDistanceToHomeInMiles)
   {
-    distanceToHomeInMiles = self->_distanceToHomeInMiles;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasPoiCategoryConfidence)
   {
-    poiCategoryConfidence = self->_poiCategoryConfidence;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -1137,30 +1128,28 @@ LABEL_93:
 
 + (id)protoFields
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"placeInferencePlaceType" number:1 type:4 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"placeInferenceUserSpecificPlaceType" number:2 type:4 subMessageClass:{0, v2}];
-  v12[1] = v3;
+  v11[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"geoPOICategoryType" number:3 type:4 subMessageClass:0];
-  v12[2] = v4;
+  v11[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"placeNameConfidence" number:4 type:0 subMessageClass:0];
-  v12[3] = v5;
+  v11[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"familiarityIndexLOI" number:5 type:0 subMessageClass:0];
-  v12[4] = v6;
+  v11[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"distanceToHomeInMiles" number:6 type:0 subMessageClass:0];
-  v12[5] = v7;
+  v11[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"poiCategoryConfidence" number:7 type:0 subMessageClass:0];
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
 
 + (id)columns
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"placeInferencePlaceType" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"placeInferenceUserSpecificPlaceType" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"geoPOICategoryType" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
@@ -1168,16 +1157,14 @@ LABEL_93:
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"familiarityIndexLOI" dataType:1 requestOnly:0 fieldNumber:5 protoDataType:0 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"distanceToHomeInMiles" dataType:1 requestOnly:0 fieldNumber:6 protoDataType:0 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"poiCategoryConfidence" dataType:1 requestOnly:0 fieldNumber:7 protoDataType:0 convertedType:0];
-  v12[0] = v2;
-  v12[1] = v3;
-  v12[2] = v4;
-  v12[3] = v5;
-  v12[4] = v6;
-  v12[5] = v7;
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[0] = v2;
+  v11[1] = v3;
+  v11[2] = v4;
+  v11[3] = v5;
+  v11[4] = v6;
+  v11[5] = v7;
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }

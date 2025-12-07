@@ -297,11 +297,11 @@ intptr_t __47__RTGeoRoadDataStore_storeGeoRoadData_handler___block_invoke_2(uint
   return dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void __47__RTGeoRoadDataStore_storeGeoRoadData_handler___block_invoke_3(uint64_t a1)
+void __47__RTGeoRoadDataStore_storeGeoRoadData_handler___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() predicateForCLRoadID:{objc_msgSend(*(a1 + 40), "clRoadID")}];
-  [v2 _updateRoadDataWithPredicate:v3 handler:*(a1 + 48)];
+  v3 = *(a1 + 32);
+  v4 = [objc_opt_class() predicateForCLRoadID:{objc_msgSend(*(a1 + 40), "clRoadID")}];
+  [v3 _updateRoadDataWithPredicate:v4 handler:*(a1 + 48)];
 }
 
 void __47__RTGeoRoadDataStore_storeGeoRoadData_handler___block_invoke_4(void *a1)
@@ -816,13 +816,13 @@ LABEL_13:
   }
 }
 
-void __57__RTGeoRoadDataStore_updateRoadDataWithCLRoadID_handler___block_invoke(void *a1)
+void __57__RTGeoRoadDataStore_updateRoadDataWithCLRoadID_handler___block_invoke(void *a1, uint64_t a2)
 {
   if (a1[6])
   {
-    v2 = a1[4];
-    v3 = [objc_opt_class() predicateForCLRoadID:a1[6]];
-    [v2 _updateRoadDataWithPredicate:v3 handler:a1[5]];
+    v3 = a1[4];
+    v4 = [objc_opt_class() predicateForCLRoadID:a1[6]];
+    [v3 _updateRoadDataWithPredicate:v4 handler:a1[5]];
   }
 }
 

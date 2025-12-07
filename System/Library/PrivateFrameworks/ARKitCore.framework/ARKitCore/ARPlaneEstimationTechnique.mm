@@ -19,11 +19,11 @@
 
 - (ARPlaneEstimationTechnique)initWithTrackingTechnique:(id)technique
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   techniqueCopy = technique;
-  v14.receiver = self;
-  v14.super_class = ARPlaneEstimationTechnique;
-  v6 = [(ARTechnique *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = ARPlaneEstimationTechnique;
+  v6 = [(ARTechnique *)&v15 init];
   v7 = v6;
   if (v6)
   {
@@ -33,18 +33,18 @@
     semaphoreResult = v7->_semaphoreResult;
     v7->_semaphoreResult = v8;
 
-    v10 = _ARLogTechnique();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = _ARLogTechnique(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138543874;
-      v16 = v12;
-      v17 = 2048;
-      v18 = v7;
-      v19 = 2048;
-      v20 = techniqueCopy;
-      _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_INFO, "%{public}@ <%p>: initialized with world tracking technique (%p)", buf, 0x20u);
+      v17 = v13;
+      v18 = 2048;
+      v19 = v7;
+      v20 = 2048;
+      v21 = techniqueCopy;
+      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_INFO, "%{public}@ <%p>: initialized with world tracking technique (%p)", buf, 0x20u);
     }
   }
 
@@ -54,7 +54,7 @@
 - (void)dealloc
 {
   v11 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogTechnique();
+  v3 = _ARLogTechnique(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
@@ -258,9 +258,10 @@
   v81.columns[3] = types;
   v81.columns[0] = self;
   v81.columns[1] = a2;
+  v11 = a8;
   v12 = a9;
   v13 = a10;
-  [v12 transform];
+  objc_msgSend_transform(v12);
   v76 = v15;
   v77 = v14;
   v78 = v17;
@@ -343,7 +344,7 @@
   {
     v39 = [v13 count];
     _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE7reserveEm(&__src, v39);
-    v79 = a8;
+    v79 = v11;
     vergenceAngleCosines = [v13 vergenceAngleCosines];
     if (v39)
     {
@@ -415,7 +416,7 @@
     }
 
     v101.columns[0].i64[1] = __src;
-    a8 = v79;
+    v11 = v79;
   }
 
   [v13 count];
@@ -438,7 +439,7 @@
   v101.columns[3].i32[2] = v64;
   v101.columns[3].i32[3] = v65;
   ARMatrix4x4ColumnMajorRotationAndTranslation((v102 + 8), &v103, v85, v84, v83, v82);
-  LODWORD(v102[0]) = ARSurfaceOrientationForPlaneDetectionType(a8);
+  LODWORD(v102[0]) = ARSurfaceOrientationForPlaneDetectionType(v11);
   v95 = v102[4];
   v96 = v103;
   v97 = v104;

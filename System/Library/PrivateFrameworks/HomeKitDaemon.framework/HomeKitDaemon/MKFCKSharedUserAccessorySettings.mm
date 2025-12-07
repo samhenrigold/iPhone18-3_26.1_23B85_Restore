@@ -14,13 +14,13 @@
 
 - (BOOL)_importIntoLocalUserModel:(id)model context:(id)context
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   contextCopy = context;
   accessoryModelID = [(MKFCKSharedUserAccessorySettings *)self accessoryModelID];
-  v18 = 0;
-  v9 = [(_MKFModel *)_MKFAccessory modelWithModelID:accessoryModelID context:contextCopy error:&v18];
-  v10 = v18;
+  v17 = 0;
+  v9 = [(_MKFModel *)_MKFAccessory modelWithModelID:accessoryModelID context:contextCopy error:&v17];
+  v10 = v17;
 
   if (v9)
   {
@@ -65,24 +65,23 @@
       v14 = HMFGetLogIdentifier();
       accessoryModelID2 = [(MKFCKSharedUserAccessorySettings *)selfCopy accessoryModelID];
       *buf = 138543874;
-      v20 = v14;
-      v21 = 2160;
-      v22 = 1752392040;
-      v23 = 2112;
-      v24 = accessoryModelID2;
+      v19 = v14;
+      v20 = 2160;
+      v21 = 1752392040;
+      v22 = 2112;
+      v23 = accessoryModelID2;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not find accessory with modelID %{mask.hash}@, this could be settings for a stale accessory", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)_importWithContext:(id)context
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   workingStoreHomeMember = [(MKFCKSharedUserData *)self workingStoreHomeMember];
   v6 = workingStoreHomeMember;
@@ -94,9 +93,9 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v13;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Could not find associated local user model to import shared user accessory settings", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v13;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Could not find associated local user model to import shared user accessory settings", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -116,7 +115,6 @@ LABEL_7:
   v9 = [(MKFCKSharedUserAccessorySettings *)self _importIntoLocalUserModel:castIfMemberIsUser context:contextCopy];
 
 LABEL_8:
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

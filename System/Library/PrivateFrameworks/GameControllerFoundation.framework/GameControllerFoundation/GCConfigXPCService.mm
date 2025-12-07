@@ -66,7 +66,7 @@ LABEL_11:
 
 - (void)connectToAssetManagementServiceWithClient:(id)client reply:(id)reply
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   clientCopy = client;
   replyCopy = reply;
   v8 = _os_activity_create(&dword_1D2C3B000, "[Config Service/XPC] Connect to AssetManagementService", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -84,17 +84,16 @@ LABEL_11:
   {
     v11 = MEMORY[0x1E696ABC0];
     v12 = *MEMORY[0x1E696A588];
-    v16[0] = *MEMORY[0x1E696A578];
-    v16[1] = v12;
-    v17[0] = @"Connect to AssetManagementService failed";
-    v17[1] = @"Service not found";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v15[0] = *MEMORY[0x1E696A578];
+    v15[1] = v12;
+    v16[0] = @"Connect to AssetManagementService failed";
+    v16[1] = @"Service not found";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
     v13 = [v11 errorWithDomain:@"GCServiceError" code:1 userInfo:v10];
     (replyCopy)[2](replyCopy, 0, v13);
   }
 
   os_activity_scope_leave(&state);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectToGenericDeviceDBServiceWithClient:(id)client reply:(id)reply

@@ -61,48 +61,49 @@ PRComplicationSuggestionSet *__133__PRWidgetSuggestionsViewController_initWithSu
 PRComplicationDescriptor *__133__PRWidgetSuggestionsViewController_initWithSuggestionSets_listLayoutProvider_iconViewProvider_widgetDragHandler_usingSidebarLayout___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = PRSharedWidgetExtensionProvider();
+  v3 = PRSharedWidgetExtensionProvider(v2);
   v4 = [v3 widgetDescriptorForIdentifiable:v2];
 
   if (v4)
   {
-    v5 = [v4 supportedFamilies];
+    v6 = [v4 supportedFamilies];
     [v2 widgetFamily];
-    if ((CHSWidgetFamilyMaskFromWidgetFamily() & v5) != 0)
+    v7 = CHSWidgetFamilyMaskFromWidgetFamily();
+    if ((v7 & v6) != 0)
     {
-      v6 = [v2 widgetFamily];
-      v7 = [v2 intent];
-      v8 = [v4 widgetForFamily:v6 intent:v7];
+      v8 = [v2 widgetFamily];
+      v9 = [v2 intent];
+      v10 = [v4 widgetForFamily:v8 intent:v9];
 
-      v9 = [PRComplicationDescriptor alloc];
-      v10 = [MEMORY[0x1E696AFB0] UUID];
-      v11 = [v10 UUIDString];
-      v12 = [(PRComplicationDescriptor *)v9 initWithUniqueIdentifier:v11 widget:v8];
+      v11 = [PRComplicationDescriptor alloc];
+      v12 = [MEMORY[0x1E696AFB0] UUID];
+      v13 = [v12 UUIDString];
+      v14 = [(PRComplicationDescriptor *)v11 initWithUniqueIdentifier:v13 widget:v10];
 
-      [(PRComplicationDescriptor *)v12 setSuggestedComplication:v2];
+      [(PRComplicationDescriptor *)v14 setSuggestedComplication:v2];
       goto LABEL_9;
     }
 
-    v13 = PRLogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = PRLogCommon(v7);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __133__PRWidgetSuggestionsViewController_initWithSuggestionSets_listLayoutProvider_iconViewProvider_widgetDragHandler_usingSidebarLayout___block_invoke_2_cold_1(v4, v2, v13);
+      __133__PRWidgetSuggestionsViewController_initWithSuggestionSets_listLayoutProvider_iconViewProvider_widgetDragHandler_usingSidebarLayout___block_invoke_2_cold_1(v4, v2, v15);
     }
   }
 
   else
   {
-    v13 = PRLogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = PRLogCommon(v5);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __133__PRWidgetSuggestionsViewController_initWithSuggestionSets_listLayoutProvider_iconViewProvider_widgetDragHandler_usingSidebarLayout___block_invoke_2_cold_2(v13);
+      __133__PRWidgetSuggestionsViewController_initWithSuggestionSets_listLayoutProvider_iconViewProvider_widgetDragHandler_usingSidebarLayout___block_invoke_2_cold_2(v15);
     }
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_9:
 
-  return v12;
+  return v14;
 }
 
 - (void)loadView
@@ -218,7 +219,7 @@ id __48__PRWidgetSuggestionsViewController_viewDidLoad__block_invoke_2(uint64_t 
 
   [(PRComplicationDescriptor *)v10 setSuggestedComplication:suggestedComplication];
   v12 = [PRComplicationGalleryWidgetItem alloc];
-  v13 = PRSharedWidgetExtensionProvider();
+  v13 = PRSharedWidgetExtensionProvider(v12);
   v14 = [v13 widgetDescriptorForWidget:widget];
   displayName = [v14 displayName];
   v16 = [(PRComplicationGalleryWidgetItem *)v12 initWithDisplayName:displayName selected:0 iconImageHidden:hiddenCopy descriptor:v10];
@@ -233,51 +234,51 @@ id __48__PRWidgetSuggestionsViewController_viewDidLoad__block_invoke_2(uint64_t 
   descriptor = [item descriptor];
   widget = [descriptor widget];
 
-  v12 = PRSharedWidgetExtensionProvider();
-  v32 = [v12 widgetDescriptorForWidget:widget];
+  v13 = PRSharedWidgetExtensionProvider(v12);
+  v33 = [v13 widgetDescriptorForWidget:widget];
 
-  v13 = objc_alloc(MEMORY[0x1E69D40F0]);
+  v14 = objc_alloc(MEMORY[0x1E69D40F0]);
   listLayoutProvider = [(PRWidgetSuggestionsViewController *)self listLayoutProvider];
   iconViewProvider = [(PRWidgetSuggestionsViewController *)self iconViewProvider];
-  v16 = [v13 initWithGalleryItem:v32 titleAndSubtitleVisible:0 listLayoutProvider:listLayoutProvider iconViewProvider:iconViewProvider];
+  v17 = [v14 initWithGalleryItem:v33 titleAndSubtitleVisible:0 listLayoutProvider:listLayoutProvider iconViewProvider:iconViewProvider];
 
-  [v16 setSelectedSizeClass:{objc_msgSend(widget, "family")}];
-  [v16 setDelegate:self];
-  [v16 setUsesAmbientScaleFactorForRemovableBackgroundItems:0];
-  wrapperView = [v16 wrapperView];
+  [v17 setSelectedSizeClass:{objc_msgSend(widget, "family")}];
+  [v17 setDelegate:self];
+  [v17 setUsesAmbientScaleFactorForRemovableBackgroundItems:0];
+  wrapperView = [v17 wrapperView];
   [wrapperView setBackgroundType:0];
 
-  wrapperView2 = [v16 wrapperView];
+  wrapperView2 = [v17 wrapperView];
   [wrapperView2 setCornerRadius:PRWidgetPlatterCornerRadius()];
 
-  [cellCopy setWidgetWrapperViewController:v16];
-  v19 = +[PRWidgetMetricsProvider sharedInstance];
-  v20 = [v19 systemMetricsForWidget:widget];
+  [cellCopy setWidgetWrapperViewController:v17];
+  v20 = +[PRWidgetMetricsProvider sharedInstance];
+  v21 = [v20 systemMetricsForWidget:widget];
 
   traitCollection = [(PRWidgetSuggestionsViewController *)self traitCollection];
   [traitCollection displayScale];
-  v23 = v22;
+  v24 = v23;
 
-  [v20 _effectiveSizePixelAlignedForDisplayScale:v23];
+  [v21 _effectiveSizePixelAlignedForDisplayScale:v24];
   [cellCopy setContentSize:?];
   collectionView = [(PRWidgetSuggestionsView *)self->_widgetSuggestionsView collectionView];
   extensionIdentity = [widget extensionIdentity];
   extensionBundleIdentifier = [extensionIdentity extensionBundleIdentifier];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __78__PRWidgetSuggestionsViewController__configureWidgetCell_forItem_atIndexPath___block_invoke;
-  v33[3] = &unk_1E7843348;
-  v34 = collectionView;
-  v35 = cellCopy;
-  v36 = pathCopy;
-  v27 = pathCopy;
-  v28 = cellCopy;
-  v29 = collectionView;
-  [PRComplicationGalleryIconProvider loadIconImageForExtensionBundleIdentifier:extensionBundleIdentifier atWidth:v33 completion:20.0];
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __78__PRWidgetSuggestionsViewController__configureWidgetCell_forItem_atIndexPath___block_invoke;
+  v34[3] = &unk_1E7843348;
+  v35 = collectionView;
+  v36 = cellCopy;
+  v37 = pathCopy;
+  v28 = pathCopy;
+  v29 = cellCopy;
+  v30 = collectionView;
+  [PRComplicationGalleryIconProvider loadIconImageForExtensionBundleIdentifier:extensionBundleIdentifier atWidth:v34 completion:20.0];
 
-  view = [v16 view];
+  view = [v17 view];
   superview = [view superview];
-  [(PRWidgetSuggestionsViewController *)self bs_addChildViewController:v16 withSuperview:superview];
+  [(PRWidgetSuggestionsViewController *)self bs_addChildViewController:v17 withSuperview:superview];
 }
 
 void __78__PRWidgetSuggestionsViewController__configureWidgetCell_forItem_atIndexPath___block_invoke(uint64_t a1, void *a2)

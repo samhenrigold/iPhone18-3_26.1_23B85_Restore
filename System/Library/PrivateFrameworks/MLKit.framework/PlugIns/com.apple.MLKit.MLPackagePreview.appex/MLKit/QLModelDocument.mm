@@ -2,6 +2,7 @@
 - (BOOL)loadFromContents:(id)contents ofType:(id)type error:(id *)error;
 - (_TtC32com_apple_MLKit_MLPackagePreview15QLModelDocument)initWithFileURL:(id)l;
 - (id)contentsForType:(id)type error:(id *)error;
+- (void)handleError:(id)error userInteractionPermitted:(BOOL)permitted;
 @end
 
 @implementation QLModelDocument
@@ -22,25 +23,37 @@
   return 1;
 }
 
+- (void)handleError:(id)error userInteractionPermitted:(BOOL)permitted
+{
+  permittedCopy = permitted;
+  *(&self->super.super.isa + OBJC_IVAR____TtC32com_apple_MLKit_MLPackagePreview15QLModelDocument_error) = error;
+  errorCopy = error;
+  selfCopy = self;
+
+  v8 = sub_1000198C8();
+  v9.receiver = selfCopy;
+  v9.super_class = type metadata accessor for QLModelDocument();
+  [(QLModelDocument *)&v9 handleError:v8 userInteractionPermitted:permittedCopy];
+}
+
 - (_TtC32com_apple_MLKit_MLPackagePreview15QLModelDocument)initWithFileURL:(id)l
 {
   v4 = sub_100019958();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100019938();
-  v9 = OBJC_IVAR____TtC32com_apple_MLKit_MLPackagePreview15QLModelDocument_error;
+  v8 = OBJC_IVAR____TtC32com_apple_MLKit_MLPackagePreview15QLModelDocument_error;
   *(&self->super.super.isa + OBJC_IVAR____TtC32com_apple_MLKit_MLPackagePreview15QLModelDocument_error) = 0;
-  sub_100019928(v9);
-  v11 = v10;
-  v12 = type metadata accessor for QLModelDocument();
-  v15.receiver = self;
-  v15.super_class = v12;
-  v13 = [(QLModelDocument *)&v15 initWithFileURL:v11];
+  sub_100019928(v8);
+  v10 = v9;
+  v11 = type metadata accessor for QLModelDocument();
+  v14.receiver = self;
+  v14.super_class = v11;
+  v12 = [(QLModelDocument *)&v14 initWithFileURL:v10];
 
-  (*(v5 + 8))(v8, v4);
-  return v13;
+  (*(v5 + 8))(v7, v4);
+  return v12;
 }
 
 @end

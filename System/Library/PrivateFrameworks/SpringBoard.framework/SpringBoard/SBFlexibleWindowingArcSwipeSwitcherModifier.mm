@@ -86,7 +86,7 @@
   [layoutSettings settlingDuration];
   v8 = [(SBTimerEventSwitcherEventResponse *)v4 initWithDelay:0 validator:self->_uniqueTimerReason reason:v7 * 0.3];
 
-  v9 = SBAppendSwitcherModifierResponse(v8, transitionWillUpdate);
+  v9 = SBAppendSwitcherModifierResponse();
 
   return v9;
 }
@@ -123,7 +123,7 @@
   {
     self->_hideSplitViewHandles = 0;
     v7 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:16 updateMode:3];
-    v8 = SBAppendSwitcherModifierResponse(v7, v5);
+    v8 = SBAppendSwitcherModifierResponse();
 
     v5 = v8;
   }

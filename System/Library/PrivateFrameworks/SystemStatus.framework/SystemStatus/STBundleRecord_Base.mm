@@ -7,7 +7,7 @@
 
 + (id)bundleRecordForBundleAtURL:(id)l
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v5 = CFBundleCopyInfoDictionaryInDirectory(lCopy);
   v6 = v5;
@@ -16,9 +16,9 @@
     v9 = STSystemStatusLogBundleLoading();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543362;
-      v16 = lCopy;
-      _os_log_error_impl(&dword_1DA9C2000, v9, OS_LOG_TYPE_ERROR, "Error loading data for bundle at %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = lCopy;
+      _os_log_error_impl(&dword_1DA9C2000, v9, OS_LOG_TYPE_ERROR, "Error loading data for bundle at %{public}@", &v14, 0xCu);
     }
   }
 
@@ -33,8 +33,6 @@
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

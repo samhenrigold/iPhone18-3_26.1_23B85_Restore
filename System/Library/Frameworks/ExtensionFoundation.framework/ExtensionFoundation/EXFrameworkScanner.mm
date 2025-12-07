@@ -175,14 +175,14 @@ uint64_t __29__EXFrameworkScanner_rootURL__block_invoke()
 
 - (void)enumerateBundlesWithPathExtension:(id)extension atURL:(id)l block:(id)block
 {
-  v44[2] = *MEMORY[0x1E69E9840];
+  v43[2] = *MEMORY[0x1E69E9840];
   extensionCopy = extension;
   lCopy = l;
   blockCopy = block;
-  v42 = 0;
+  v41 = 0;
   v9 = *MEMORY[0x1E695DBC8];
-  v10 = [lCopy getResourceValue:&v42 forKey:*MEMORY[0x1E695DBC8] error:0];
-  v11 = v42;
+  v10 = [lCopy getResourceValue:&v41 forKey:*MEMORY[0x1E695DBC8] error:0];
+  v11 = v41;
   if (v10)
   {
     v12 = v11 == 0;
@@ -193,7 +193,7 @@ uint64_t __29__EXFrameworkScanner_rootURL__block_invoke()
     v12 = 1;
   }
 
-  v32 = v11;
+  v31 = v11;
   if (!v12 && [v11 BOOLValue])
   {
     uRLByResolvingSymlinksInPath = [lCopy URLByResolvingSymlinksInPath];
@@ -201,44 +201,44 @@ uint64_t __29__EXFrameworkScanner_rootURL__block_invoke()
     lCopy = uRLByResolvingSymlinksInPath;
   }
 
-  v35 = *MEMORY[0x1E695DB78];
-  v44[0] = *MEMORY[0x1E695DB78];
-  v44[1] = v9;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
+  v34 = *MEMORY[0x1E695DB78];
+  v43[0] = *MEMORY[0x1E695DB78];
+  v43[1] = v9;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v33 = lCopy;
-  v31 = v14;
+  v32 = lCopy;
+  v30 = v14;
   v16 = [defaultManager enumeratorAtURL:lCopy includingPropertiesForKeys:v14 options:1 errorHandler:0];
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v17 = v16;
-  v18 = [v17 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v39;
+    v20 = *v38;
     while (2)
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v39 != v20)
+        if (*v38 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v38 + 1) + 8 * i);
+        v22 = *(*(&v37 + 1) + 8 * i);
         v23 = objc_autoreleasePoolPush();
         lastPathComponent = [v22 lastPathComponent];
         pathExtension = [lastPathComponent pathExtension];
 
         if (pathExtension && ![pathExtension caseInsensitiveCompare:extensionCopy])
         {
-          v37 = 0;
-          v26 = [v22 getResourceValue:&v37 forKey:v35 error:0];
-          v27 = v37;
+          v36 = 0;
+          v26 = [v22 getResourceValue:&v36 forKey:v34 error:0];
+          v27 = v36;
           v28 = v27;
           if (v26)
           {
@@ -254,9 +254,9 @@ uint64_t __29__EXFrameworkScanner_rootURL__block_invoke()
           {
             if ([v27 BOOLValue])
             {
-              v36 = 0;
-              blockCopy[2](blockCopy, v22, &v36);
-              if (v36)
+              v35 = 0;
+              blockCopy[2](blockCopy, v22, &v35);
+              if (v35)
               {
 
                 objc_autoreleasePoolPop(v23);
@@ -269,7 +269,7 @@ uint64_t __29__EXFrameworkScanner_rootURL__block_invoke()
         objc_autoreleasePoolPop(v23);
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v37 objects:v42 count:16];
       if (v19)
       {
         continue;
@@ -280,19 +280,17 @@ uint64_t __29__EXFrameworkScanner_rootURL__block_invoke()
   }
 
 LABEL_25:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateAppexptAtURL:(id)l block:(id)block
 {
-  v41[2] = *MEMORY[0x1E69E9840];
+  v40[2] = *MEMORY[0x1E69E9840];
   lCopy = l;
   blockCopy = block;
-  v39 = 0;
+  v38 = 0;
   v6 = *MEMORY[0x1E695DBC8];
-  v7 = [lCopy getResourceValue:&v39 forKey:*MEMORY[0x1E695DBC8] error:0];
-  v8 = v39;
+  v7 = [lCopy getResourceValue:&v38 forKey:*MEMORY[0x1E695DBC8] error:0];
+  v8 = v38;
   if (v7)
   {
     v9 = v8 == 0;
@@ -303,7 +301,7 @@ LABEL_25:
     v9 = 1;
   }
 
-  v29 = v8;
+  v28 = v8;
   if (!v9 && [v8 BOOLValue])
   {
     uRLByResolvingSymlinksInPath = [lCopy URLByResolvingSymlinksInPath];
@@ -311,44 +309,44 @@ LABEL_25:
     lCopy = uRLByResolvingSymlinksInPath;
   }
 
-  v32 = *MEMORY[0x1E695DBB8];
-  v41[0] = *MEMORY[0x1E695DBB8];
-  v41[1] = v6;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
+  v31 = *MEMORY[0x1E695DBB8];
+  v40[0] = *MEMORY[0x1E695DBB8];
+  v40[1] = v6;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v30 = lCopy;
-  v28 = v11;
+  v29 = lCopy;
+  v27 = v11;
   v13 = [defaultManager enumeratorAtURL:lCopy includingPropertiesForKeys:v11 options:1 errorHandler:0];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v36;
+    v17 = *v35;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v36 != v17)
+        if (*v35 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v35 + 1) + 8 * i);
+        v19 = *(*(&v34 + 1) + 8 * i);
         v20 = objc_autoreleasePoolPush();
         lastPathComponent = [v19 lastPathComponent];
         pathExtension = [lastPathComponent pathExtension];
 
         if (pathExtension && ![pathExtension caseInsensitiveCompare:@"appexpt"])
         {
-          v34 = 0;
-          v23 = [v19 getResourceValue:&v34 forKey:v32 error:0];
-          v24 = v34;
+          v33 = 0;
+          v23 = [v19 getResourceValue:&v33 forKey:v31 error:0];
+          v24 = v33;
           v25 = v24;
           if (v23)
           {
@@ -364,9 +362,9 @@ LABEL_25:
           {
             if ([v24 BOOLValue])
             {
-              v33 = 0;
-              blockCopy[2](blockCopy, v19, &v33);
-              if (v33)
+              v32 = 0;
+              blockCopy[2](blockCopy, v19, &v32);
+              if (v32)
               {
 
                 objc_autoreleasePoolPop(v20);
@@ -379,7 +377,7 @@ LABEL_25:
         objc_autoreleasePoolPop(v20);
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v34 objects:v39 count:16];
       if (v16)
       {
         continue;
@@ -390,21 +388,19 @@ LABEL_25:
   }
 
 LABEL_25:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateFrameworksBundlesWithFrameworkURL:(id)l block:(id)block
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   Unique = _CFBundleCreateUnique();
-  v21 = 0;
+  v19 = 0;
   if (Unique)
   {
     v6 = Unique;
-    blockCopy[2](blockCopy, Unique, &v21);
-    if (v21)
+    blockCopy[2](blockCopy, Unique, &v19);
+    if (v19)
     {
       v7 = MEMORY[0x1E695E0F0];
     }
@@ -422,42 +418,41 @@ LABEL_25:
     v7 = MEMORY[0x1E695E0F0];
   }
 
-  v19 = 0u;
-  v20 = 0u;
   v17 = 0u;
   v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v8 = v7;
-  v9 = [(__CFArray *)v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v9 = [(__CFArray *)v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v16;
 LABEL_9:
     v12 = 0;
     while (1)
     {
-      if (*v18 != v11)
+      if (*v16 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v17 + 1) + 8 * v12);
-      v14 = _CFBundleCreateUnique();
-      if (v14)
+      v13 = _CFBundleCreateUnique();
+      if (v13)
       {
-        v15 = v14;
-        blockCopy[2](blockCopy, v14, &v21);
-        CFRelease(v15);
+        v14 = v13;
+        blockCopy[2](blockCopy, v13, &v19);
+        CFRelease(v14);
       }
 
-      if (v21)
+      if (v19)
       {
         break;
       }
 
       if (v10 == ++v12)
       {
-        v10 = [(__CFArray *)v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v10 = [(__CFArray *)v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
         if (v10)
         {
           goto LABEL_9;
@@ -467,36 +462,36 @@ LABEL_9:
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processExtensionSDKFromBundle:(__CFBundle *)bundle
 {
   v5 = [(__CFDictionary *)CFBundleGetInfoDictionary(bundle) objectForKey:@"NSExtensionSDK"];
   v6 = CFBundleCopyBundleURL(bundle);
+  v7 = v6;
   if (v5)
   {
-    v7 = _EXRegistrationLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _EXRegistrationLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [EXFrameworkScanner processExtensionSDKFromBundle:];
     }
 
-    [(EXFrameworkScanner *)self processExtensionSDK:v5 declaringURL:v6];
+    [(EXFrameworkScanner *)self processExtensionSDK:v5 declaringURL:v7];
   }
 }
 
 - (void)processExtensionSDKFromFile:(id)file
 {
   fileCopy = file;
-  v10 = 0;
-  v5 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:fileCopy options:1 error:&v10];
-  _EX_parameterError = v10;
+  v12 = 0;
+  v5 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:fileCopy options:1 error:&v12];
+  v6 = v12;
+  _EX_parameterError = v6;
   if (!v5)
   {
-    v7 = _EXRegistrationLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _EXRegistrationLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [EXFrameworkScanner processExtensionSDKFromFile:];
     }
@@ -504,16 +499,17 @@ LABEL_9:
     goto LABEL_11;
   }
 
-  v9 = 0;
-  v7 = [MEMORY[0x1E696AE40] propertyListWithData:v5 options:0 format:0 error:&v9];
-  v8 = v9;
+  v11 = 0;
+  v8 = [MEMORY[0x1E696AE40] propertyListWithData:v5 options:0 format:0 error:&v11];
+  v9 = v11;
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    if (v8 || !v7)
+    if (v9 || !v8)
     {
-      _EX_parameterError = v8;
+      _EX_parameterError = v9;
     }
 
     else
@@ -523,19 +519,19 @@ LABEL_9:
 
 LABEL_11:
 
-    v8 = _EX_parameterError;
+    v9 = _EX_parameterError;
     goto LABEL_12;
   }
 
-  if (v7)
+  if (v8)
   {
-    [(EXFrameworkScanner *)self processExtensionSDK:v7 declaringURL:fileCopy];
+    [(EXFrameworkScanner *)self processExtensionSDK:v8 declaringURL:fileCopy];
     goto LABEL_14;
   }
 
 LABEL_12:
-  v7 = _EXRegistrationLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _EXRegistrationLog(isKindOfClass);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [EXFrameworkScanner processExtensionSDKFromFile:];
   }
@@ -588,7 +584,7 @@ void __55__EXFrameworkScanner_processExtensionSDK_declaringURL___block_invoke(ui
   v7 = v6;
   if (v5 && v6)
   {
-    v8 = _EXRegistrationLog();
+    v8 = _EXRegistrationLog(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __55__EXFrameworkScanner_processExtensionSDK_declaringURL___block_invoke_cold_1();
@@ -619,12 +615,12 @@ void __55__EXFrameworkScanner_processExtensionSDK_declaringURL___block_invoke(ui
 
       if (v17)
       {
-        v18 = _EXRegistrationLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = _EXRegistrationLog(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = *(a1 + 32);
+          v20 = *(a1 + 32);
           v25 = 138543362;
-          v26 = v19;
+          v26 = v20;
         }
       }
 
@@ -633,41 +629,41 @@ void __55__EXFrameworkScanner_processExtensionSDK_declaringURL___block_invoke(ui
       goto LABEL_24;
     }
 
-    v20 = [v14 count];
+    v21 = [v14 count];
     if (v17)
     {
-      if (v20 <= 1)
+      if (v21 <= 1)
       {
-        v21 = [v10 mutableCopy];
+        v22 = [v10 mutableCopy];
 
 LABEL_22:
-        [v21 setObject:v17 forKeyedSubscript:@"EXCatalystSDKVariant"];
+        [v22 setObject:v17 forKeyedSubscript:@"EXCatalystSDKVariant"];
 LABEL_23:
-        [*(a1 + 40) setObject:v21 forKeyedSubscript:v5];
+        [*(a1 + 40) setObject:v22 forKeyedSubscript:v5];
 
-        v14 = v21;
+        v14 = v22;
 LABEL_24:
 
         goto LABEL_25;
       }
     }
 
-    else if (!v20)
+    else if (!v21)
     {
-      v21 = [v10 mutableCopy];
+      v22 = [v10 mutableCopy];
 
       goto LABEL_23;
     }
 
-    v22 = _EXRegistrationLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = _EXRegistrationLog(v21);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = *(a1 + 32);
+      v24 = *(a1 + 32);
       v25 = 138543362;
-      v26 = v23;
+      v26 = v24;
     }
 
-    v21 = [v10 mutableCopy];
+    v22 = [v10 mutableCopy];
     if (!v17)
     {
       goto LABEL_23;
@@ -678,14 +674,12 @@ LABEL_24:
 
   v10 = v6;
 LABEL_25:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processExtensionsFromBundle:(__CFBundle *)bundle
 {
   v4 = CFBundleCopyBuiltInPlugInsURL(bundle);
-  v5 = _EXRegistrationLog();
+  v5 = _EXRegistrationLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [EXFrameworkScanner processExtensionsFromBundle:v4];
@@ -716,22 +710,21 @@ void __51__EXFrameworkScanner_processExtensionsInDirectory___block_invoke(uint64
   v8 = [v7 stringByReplacingOccurrencesOfString:v6 withString:&stru_1EF289F70 options:1 range:{0, objc_msgSend(v6, "length")}];
 
   v9 = MEMORY[0x1E695DFF8];
-  v10 = *(a1 + 32);
-  v11 = [objc_opt_class() rootURL];
-  v12 = [v9 fileURLWithPath:v8 relativeToURL:v11];
+  v10 = [objc_opt_class() rootURL];
+  v11 = [v9 fileURLWithPath:v8 relativeToURL:v10];
 
-  v13 = [*(a1 + 32) isAppleInternalURL:v12];
-  v14 = &OBJC_IVAR___EXFrameworkScanner___extensions;
-  if (v13)
+  v12 = [*(a1 + 32) isAppleInternalURL:v11];
+  v13 = &OBJC_IVAR___EXFrameworkScanner___extensions;
+  if (v12)
   {
-    v14 = &OBJC_IVAR___EXFrameworkScanner___appleInternalExtensions;
+    v13 = &OBJC_IVAR___EXFrameworkScanner___appleInternalExtensions;
   }
 
-  v15 = *(*(a1 + 32) + *v14);
-  v16 = [v12 path];
-  [v15 addObject:v16];
+  v14 = *(*(a1 + 32) + *v13);
+  v15 = [v11 path];
+  [v14 addObject:v15];
 
-  v17 = _EXRegistrationLog();
+  v17 = _EXRegistrationLog(v16);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     __51__EXFrameworkScanner_processExtensionsInDirectory___block_invoke_cold_1();
@@ -762,7 +755,7 @@ void __26__EXFrameworkScanner_main__block_invoke(uint64_t a1, void *a2)
 
 uint64_t __26__EXFrameworkScanner_main__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v4 = _EXRegistrationLog();
+  v4 = _EXRegistrationLog(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __26__EXFrameworkScanner_main__block_invoke_2_cold_1(a1);
@@ -772,61 +765,31 @@ uint64_t __26__EXFrameworkScanner_main__block_invoke_2(uint64_t a1, uint64_t a2)
   return [*(a1 + 40) processExtensionsFromBundle:a2];
 }
 
-- (void)processExtensionSDKFromBundle:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3(&dword_1847D1000, v0, v1, "NSExtensionSDK found in '%{public}@'", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)processExtensionSDKFromFile:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
-  v4 = 2114;
-  v5 = v0;
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2114;
+  v4 = v0;
 }
 
 - (void)processExtensionSDKFromFile:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-void __55__EXFrameworkScanner_processExtensionSDK_declaringURL___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processExtensionsFromBundle:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 path];
   OUTLINED_FUNCTION_6();
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __51__EXFrameworkScanner_processExtensionsInDirectory___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __26__EXFrameworkScanner_main__block_invoke_2_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) path];
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_2_2(&dword_1847D1000, v2, v3, "Processing: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_1847D1000, v2, v3, "Processing: %{public}@", v4, v5, v6, v7);
 }
 
 @end

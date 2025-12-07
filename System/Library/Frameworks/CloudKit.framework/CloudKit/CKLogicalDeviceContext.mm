@@ -48,7 +48,7 @@
 + (id)deviceContextForTestDeviceReferenceProtocol:(id)protocol
 {
   protocolCopy = protocol;
-  if (protocolCopy && (__sTestOverridesAvailable[0] & 1) != 0)
+  if (protocolCopy && (__sTestOverridesAvailable & 1) != 0)
   {
     v8 = sub_188518C10();
     v11 = objc_msgSend_sharedManager(v8, v9, v10);
@@ -153,8 +153,8 @@
 
 - (CKTestDeviceProtocol)testDeviceProtocol
 {
-  v44 = *MEMORY[0x1E69E9840];
-  if (__sTestOverridesAvailable[0] == 1)
+  v43 = *MEMORY[0x1E69E9840];
+  if (__sTestOverridesAvailable == 1)
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
@@ -178,13 +178,13 @@
             dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
           }
 
-          v34 = ck_log_facility_ck;
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          v33 = ck_log_facility_ck;
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
-            v37 = objc_msgSend_testDeviceReferenceProtocol(selfCopy, v35, v36);
+            v36 = objc_msgSend_testDeviceReferenceProtocol(selfCopy, v34, v35);
             *buf = 138412290;
-            v41 = v37;
-            _os_log_error_impl(&dword_1883EA000, v34, OS_LOG_TYPE_ERROR, "Unexpectedly nil test server from reference %@", buf, 0xCu);
+            v40 = v36;
+            _os_log_error_impl(&dword_1883EA000, v33, OS_LOG_TYPE_ERROR, "Unexpectedly nil test server from reference %@", buf, 0xCu);
           }
 
           v5 = 0;
@@ -193,9 +193,9 @@
 
         v21 = objc_msgSend_testDeviceReferenceProtocol(selfCopy, v19, v20);
         v24 = objc_msgSend_deviceID(v21, v22, v23);
-        v39 = 0;
-        v26 = objc_msgSend_deviceProtocolWithDeviceID_error_(v18, v25, v24, &v39);
-        v27 = v39;
+        v38 = 0;
+        v26 = objc_msgSend_deviceProtocolWithDeviceID_error_(v18, v25, v24, &v38);
+        v27 = v38;
         v28 = selfCopy->_testDeviceProtocol;
         selfCopy->_testDeviceProtocol = v26;
 
@@ -209,11 +209,11 @@
           v29 = ck_log_facility_ck;
           if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
-            v38 = objc_msgSend_testDeviceReferenceProtocol(selfCopy, v30, v31);
+            v37 = objc_msgSend_testDeviceReferenceProtocol(selfCopy, v30, v31);
             *buf = 138412546;
-            v41 = v38;
-            v42 = 2112;
-            v43 = v27;
+            v40 = v37;
+            v41 = 2112;
+            v42 = v27;
             _os_log_error_impl(&dword_1883EA000, v29, OS_LOG_TYPE_ERROR, "Unexpectedly nil test device from reference %@: %@", buf, 0x16u);
           }
         }
@@ -232,7 +232,6 @@ LABEL_13:
 
   v5 = 0;
 LABEL_15:
-  v32 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

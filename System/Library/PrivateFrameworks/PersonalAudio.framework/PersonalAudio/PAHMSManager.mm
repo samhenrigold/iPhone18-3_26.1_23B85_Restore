@@ -17,6 +17,7 @@
 - (void)setAccommodationType:(unint64_t)type forAddress:(id)address;
 - (void)setAmplification:(double)amplification forAddress:(id)address;
 - (void)setBalance:(double)balance forAddress:(id)address;
+- (void)setBeamforming:(BOOL)beamforming forAddress:(id)address;
 - (void)setNoiseSupressor:(double)supressor forAddress:(id)address;
 - (void)setOwnVoice:(double)voice forAddress:(id)address;
 - (void)setTone:(double)tone forAddress:(id)address;
@@ -72,7 +73,7 @@ uint64_t __30__PAHMSManager_sharedInstance__block_invoke()
 
 - (void)setupHearingModeService
 {
-  v3 = objc_alloc_init(getHMServiceClientClass());
+  v3 = objc_alloc_init(getHMServiceClientClass(self, a2));
   hmsClient = self->_hmsClient;
   self->_hmsClient = v3;
 
@@ -120,7 +121,7 @@ void __39__PAHMSManager_setupHearingModeService__block_invoke_2(uint64_t a1)
 
 void __39__PAHMSManager_setupHearingModeService__block_invoke_3(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 bluetoothAddress];
   v5 = [v3 hearingAssistEnabled];
@@ -138,13 +139,13 @@ void __39__PAHMSManager_setupHearingModeService__block_invoke_3(uint64_t a1, voi
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = [MEMORY[0x277CCABB0] numberWithBool:v5 == 1];
-    v39 = 138412802;
-    *v40 = v4;
-    *&v40[8] = 2112;
-    v41 = v13;
-    v42 = 2112;
-    v43 = v3;
-    _os_log_impl(&dword_25E445000, v12, OS_LOG_TYPE_DEFAULT, "Device Updated %@ = %@, %@", &v39, 0x20u);
+    v38 = 138412802;
+    *v39 = v4;
+    *&v39[8] = 2112;
+    v40 = v13;
+    v41 = 2112;
+    v42 = v3;
+    _os_log_impl(&dword_25E445000, v12, OS_LOG_TYPE_DEFAULT, "Device Updated %@ = %@, %@", &v38, 0x20u);
   }
 
   if (v5 != 1)
@@ -152,9 +153,9 @@ void __39__PAHMSManager_setupHearingModeService__block_invoke_3(uint64_t a1, voi
     v14 = HCLogAudioAccommodations();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v39 = 138412290;
-      *v40 = v4;
-      _os_log_impl(&dword_25E445000, v14, OS_LOG_TYPE_DEFAULT, "Not a Yodel device. Clearing state %@", &v39, 0xCu);
+      v38 = 138412290;
+      *v39 = v4;
+      _os_log_impl(&dword_25E445000, v14, OS_LOG_TYPE_DEFAULT, "Not a Yodel device. Clearing state %@", &v38, 0xCu);
     }
 
     v15 = +[PASettings sharedInstance];
@@ -196,11 +197,11 @@ void __39__PAHMSManager_setupHearingModeService__block_invoke_3(uint64_t a1, voi
       {
         v30 = +[PASettings sharedInstance];
         v31 = [v30 personalMediaConfiguration];
-        v39 = 67109376;
-        *v40 = v31 == 0;
-        *&v40[4] = 1024;
-        *&v40[6] = v26 != 0;
-        _os_log_impl(&dword_25E445000, v29, OS_LOG_TYPE_DEFAULT, "Ignoring config update %d, %d", &v39, 0xEu);
+        v38 = 67109376;
+        *v39 = v31 == 0;
+        *&v39[4] = 1024;
+        *&v39[6] = v26 != 0;
+        _os_log_impl(&dword_25E445000, v29, OS_LOG_TYPE_DEFAULT, "Ignoring config update %d, %d", &v38, 0xEu);
       }
     }
 
@@ -227,23 +228,19 @@ void __39__PAHMSManager_setupHearingModeService__block_invoke_3(uint64_t a1, voi
 
   v37 = [MEMORY[0x277CCAB98] defaultCenter];
   [v37 postNotificationName:@"com.apple.personalaudio.yodel.updated" object:0];
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PAHMSManager_setupHearingModeService__block_invoke_7(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = HCLogAudioAccommodations();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_25E445000, v3, OS_LOG_TYPE_DEFAULT, "Activating client %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_25E445000, v3, OS_LOG_TYPE_DEFAULT, "Activating client %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)yodelEnabledForAddress:(id)address
@@ -436,6 +433,18 @@ void __38__PAHMSManager_beamformingForAddress___block_invoke(uint64_t a1)
   *(*(*(a1 + 48) + 8) + 24) = [v3 BOOLValue];
 }
 
+- (void)setBeamforming:(BOOL)beamforming forAddress:(id)address
+{
+  beamformingCopy = beamforming;
+  v6 = getHMDeviceConfigurationsClass_0;
+  addressCopy = address;
+  v9 = objc_alloc_init(v6());
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:beamformingCopy];
+  [v9 setBeamFormer:v8];
+
+  [(PAHMSManager *)self sendConfigUpdate:v9 forAddress:addressCopy];
+}
+
 - (double)noiseSupressorForAddress:(id)address
 {
   addressCopy = address;
@@ -504,7 +513,7 @@ void __41__PAHMSManager_noiseSupressorForAddress___block_invoke(uint64_t a1)
 
 void __44__PAHMSManager_ownVoiceSupportedForAddress___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) yodelDeviceRecordByAddress];
   v3 = [v2 objectForKey:*(a1 + 40)];
 
@@ -516,18 +525,16 @@ void __44__PAHMSManager_ownVoiceSupportedForAddress___block_invoke(uint64_t a1)
     v6 = [MEMORY[0x277CCABB0] numberWithChar:{objc_msgSend(v3, "hearingAidV2Capability")}];
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{objc_msgSend(v3, "hearingAidV2RegionStatus")}];
     v8 = *(a1 + 40);
-    v10 = 138413058;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_25E445000, v5, OS_LOG_TYPE_DEFAULT, "Found record for address [%@, %@] - %@ = %@", &v10, 0x2Au);
+    v9 = 138413058;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_25E445000, v5, OS_LOG_TYPE_DEFAULT, "Found record for address [%@, %@] - %@ = %@", &v9, 0x2Au);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (double)ownVoiceForAddress:(id)address
@@ -630,7 +637,7 @@ void __35__PAHMSManager_ownVoiceForAddress___block_invoke(uint64_t a1)
 
 void __44__PAHMSManager_hearingAidEnabledForAddress___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) yodelDeviceRecordByAddress];
   v3 = [v2 objectForKey:*(a1 + 40)];
   v4 = [v3 hearingAidEnabled];
@@ -645,17 +652,16 @@ void __44__PAHMSManager_hearingAidEnabledForAddress___block_invoke(uint64_t a1)
     v9 = [MEMORY[0x277CCABB0] numberWithBool:v7];
     v10 = [MEMORY[0x277CCABB0] numberWithBool:v4 == 1];
     v11 = *(a1 + 40);
-    v13 = 138412802;
-    v14 = v9;
-    v15 = 2112;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v11;
-    _os_log_impl(&dword_25E445000, v8, OS_LOG_TYPE_DEFAULT, "Found hearing aid enabled [%@, %@] for %@", &v13, 0x20u);
+    v12 = 138412802;
+    v13 = v9;
+    v14 = 2112;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v11;
+    _os_log_impl(&dword_25E445000, v8, OS_LOG_TYPE_DEFAULT, "Found hearing aid enabled [%@, %@] for %@", &v12, 0x20u);
   }
 
   *(*(*(a1 + 48) + 8) + 24) = v7;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)toggleHearingAidForAddress:(id)address
@@ -674,7 +680,7 @@ void __44__PAHMSManager_hearingAidEnabledForAddress___block_invoke(uint64_t a1)
 
 void __43__PAHMSManager_toggleHearingAidForAddress___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) yodelDeviceRecordByAddress];
   v3 = [v2 objectForKey:*(a1 + 40)];
   if ([v3 hearingAidEnabled] == 1)
@@ -693,11 +699,11 @@ void __43__PAHMSManager_toggleHearingAidForAddress___block_invoke(uint64_t a1)
   {
     v7 = [MEMORY[0x277CCABB0] numberWithChar:v4];
     v8 = *(a1 + 40);
-    v13 = 138412546;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_25E445000, v5, OS_LOG_TYPE_DEFAULT, "Setting hearing aid enabled [%@] for %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_25E445000, v5, OS_LOG_TYPE_DEFAULT, "Setting hearing aid enabled [%@] for %@", &v12, 0x16u);
   }
 
   v9 = objc_alloc_init(getHMDeviceConfigurationsClass_0());
@@ -707,7 +713,6 @@ void __43__PAHMSManager_toggleHearingAidForAddress___block_invoke(uint64_t a1)
   [v10 setObject:v11 forKey:*(a1 + 40)];
 
   [*(a1 + 32) sendConfigUpdate:v9 forAddress:*(a1 + 40)];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)regionSupportedForHearingProtection:(id)protection
@@ -735,7 +740,7 @@ void __43__PAHMSManager_toggleHearingAidForAddress___block_invoke(uint64_t a1)
 
 void __52__PAHMSManager_regionSupportedForHearingProtection___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) yodelDeviceRecordByAddress];
   v3 = [v2 objectForKey:*(a1 + 40)];
   v4 = [v3 hearingProtectionRegionStatus];
@@ -745,14 +750,12 @@ void __52__PAHMSManager_regionSupportedForHearingProtection___block_invoke(uint6
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(*(*(a1 + 48) + 8) + 24);
-    v8[0] = 67109376;
-    v8[1] = v4;
-    v9 = 1024;
-    v10 = v6;
-    _os_log_impl(&dword_25E445000, v5, OS_LOG_TYPE_DEFAULT, "Region status for hearing protection and supported: %d %d", v8, 0xEu);
+    v7[0] = 67109376;
+    v7[1] = v4;
+    v8 = 1024;
+    v9 = v6;
+    _os_log_impl(&dword_25E445000, v5, OS_LOG_TYPE_DEFAULT, "Region status for hearing protection and supported: %d %d", v7, 0xEu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)ppeEnrolledForAddress:(id)address
@@ -780,7 +783,7 @@ void __52__PAHMSManager_regionSupportedForHearingProtection___block_invoke(uint6
 
 void __38__PAHMSManager_ppeEnrolledForAddress___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) yodelDeviceRecordByAddress];
   v3 = [v2 objectForKey:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = [v3 hearingProtectionPPEEnabled] == 1;
@@ -790,34 +793,32 @@ void __38__PAHMSManager_ppeEnrolledForAddress___block_invoke(uint64_t a1)
   {
     v5 = [MEMORY[0x277CCABB0] numberWithBool:*(*(*(a1 + 48) + 8) + 24)];
     v6 = *(a1 + 40);
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_25E445000, v4, OS_LOG_TYPE_DEFAULT, "PPE enabled: %@ %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_25E445000, v4, OS_LOG_TYPE_DEFAULT, "PPE enabled: %@ %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendConfigUpdate:(id)update forAddress:(id)address
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   updateCopy = update;
   addressCopy = address;
   if ([addressCopy length])
   {
     sharedInstance = [getHUAccessoryManagerClass_0() sharedInstance];
-    v15[0] = addressCopy;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __44__PAHMSManager_sendConfigUpdate_forAddress___block_invoke;
-    v12[3] = &unk_279A1D880;
-    v12[4] = self;
-    v13 = updateCopy;
-    v14 = addressCopy;
-    [sharedInstance getIdentifiersFromAddresses:v9 withCompletion:v12];
+    v14[0] = addressCopy;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __44__PAHMSManager_sendConfigUpdate_forAddress___block_invoke;
+    v11[3] = &unk_279A1D880;
+    v11[4] = self;
+    v12 = updateCopy;
+    v13 = addressCopy;
+    [sharedInstance getIdentifiersFromAddresses:v9 withCompletion:v11];
   }
 
   else
@@ -825,29 +826,27 @@ void __38__PAHMSManager_ppeEnrolledForAddress___block_invoke(uint64_t a1)
     sharedInstance = HCLogAudioAccommodations();
     if (os_log_type_enabled(sharedInstance, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_25E445000, sharedInstance, OS_LOG_TYPE_DEFAULT, "Skipping update. No address", v11, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_25E445000, sharedInstance, OS_LOG_TYPE_DEFAULT, "Skipping update. No address", v10, 2u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __44__PAHMSManager_sendConfigUpdate_forAddress___block_invoke(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [a2 firstObject];
   if ([v3 length])
   {
     v4 = a1[4];
     v5 = a1[5];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __44__PAHMSManager_sendConfigUpdate_forAddress___block_invoke_2;
-    v9[3] = &unk_279A1D858;
-    v10 = v3;
-    [v4 sendConfigUpdate:v5 forIdentifier:v10 withCompletion:v9];
-    v6 = v10;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __44__PAHMSManager_sendConfigUpdate_forAddress___block_invoke_2;
+    v8[3] = &unk_279A1D858;
+    v9 = v3;
+    [v4 sendConfigUpdate:v5 forIdentifier:v9 withCompletion:v8];
+    v6 = v9;
   }
 
   else
@@ -857,30 +856,26 @@ void __44__PAHMSManager_sendConfigUpdate_forAddress___block_invoke(void *a1, voi
     {
       v7 = a1[6];
       *buf = 138412290;
-      v12 = v7;
+      v11 = v7;
       _os_log_impl(&dword_25E445000, v6, OS_LOG_TYPE_DEFAULT, "Couldn't find identifier %@", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __44__PAHMSManager_sendConfigUpdate_forAddress___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HCLogAudioAccommodations();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_25E445000, v4, OS_LOG_TYPE_DEFAULT, "Updated %@ with error: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_25E445000, v4, OS_LOG_TYPE_DEFAULT, "Updated %@ with error: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendConfigUpdate:(id)update forIdentifier:(id)identifier withCompletion:(id)completion

@@ -62,8 +62,8 @@ LABEL_9:
 
 - (id)_dictionaryRepresentation
 {
-  v14[3] = *MEMORY[0x1E69E9840];
-  v13[0] = @"amount";
+  v13[3] = *MEMORY[0x1E69E9840];
+  v12[0] = @"amount";
   amount = self->_amount;
   null = amount;
   if (!amount)
@@ -71,8 +71,8 @@ LABEL_9:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[0] = null;
-  v13[1] = @"balanceType";
+  v13[0] = null;
+  v12[1] = @"balanceType";
   v5 = self->_balanceType - 1;
   if (v5 > 2)
   {
@@ -85,8 +85,8 @@ LABEL_9:
   }
 
   v7 = v6;
-  v14[1] = v7;
-  v13[2] = @"currencyCode";
+  v13[1] = v7;
+  v12[2] = @"currencyCode";
   currencyCode = self->_currencyCode;
   null2 = currencyCode;
   if (!currencyCode)
@@ -94,8 +94,8 @@ LABEL_9:
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[2] = null2;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v13[2] = null2;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
   if (!currencyCode)
   {
   }
@@ -103,8 +103,6 @@ LABEL_9:
   if (!amount)
   {
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

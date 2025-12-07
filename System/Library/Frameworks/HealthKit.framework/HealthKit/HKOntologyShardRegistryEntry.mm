@@ -1,6 +1,7 @@
 @interface HKOntologyShardRegistryEntry
 - (BOOL)isEqual:(id)equal;
 - (BOOL)unitTesting_isIdentical:(id)identical;
+- (HKOntologyShardRegistryEntry)_copy;
 - (HKOntologyShardRegistryEntry)init;
 - (HKOntologyShardRegistryEntry)initWithCoder:(id)coder;
 - (HKOntologyShardRegistryEntry)initWithIdentifier:(id)identifier schemaType:(id)type schemaVersion:(int64_t)version availableURL:(id)l;
@@ -17,7 +18,6 @@
 - (id)debugDescription;
 - (id)description;
 - (id)updatedCopyWithAvailableVersion:(int64_t)version availableRegion:(id)region availableLocale:(id)locale availableURL:(id)l availableChecksum:(id)checksum availableSize:(int64_t)size date:(id)date;
-- (uint64_t)_copy;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -292,10 +292,10 @@
 - (id)copyWithAvailableState:(int64_t)state
 {
   _copy = [(HKOntologyShardRegistryEntry *)self _copy];
-  _copy[26] = state;
+  _copy->_availableState = state;
   date = [MEMORY[0x1E695DF00] date];
-  v6 = _copy[27];
-  _copy[27] = date;
+  availableStateDate = _copy->_availableStateDate;
+  _copy->_availableStateDate = date;
 
   return _copy;
 }
@@ -766,17 +766,11 @@ LABEL_52:
   return v37;
 }
 
-- (uint64_t)_copy
+- (HKOntologyShardRegistryEntry)_copy
 {
   if (result)
   {
-    v1 = result;
-    v2 = [HKOntologyShardRegistryEntry alloc];
-    v3 = *(v1 + 56);
-    v4 = *(v1 + 88);
-    v5 = *(v1 + 120);
-    v6 = *(v1 + 152);
-    return [(HKOntologyShardRegistryEntry *)v2 initWithIdentifier:*(v1 + 8) schemaType:*(v1 + 16) schemaVersion:*(v1 + 24) settings:*(v1 + 32) slot:*(v1 + 40) desiredState:*(v1 + 48) desiredStateDate:*(v1 + 56) currentVersion:*(v1 + 64) currentVersionDate:*(v1 + 72) currentRegion:*(v1 + 80) currentRegionDate:*(v1 + 88) currentLocale:*(v1 + 96) currentLocaleDate:*(v1 + 104) availableVersion:*(v1 + 112) availableVersionDate:*(v1 + 120) availableRegion:*(v1 + 128) availableRegionDate:*(v1 + 136) availableLocale:*(v1 + 144) availableLocaleDate:*(v1 + 152) availableURL:*(v1 + 160) availableURLDate:*(v1 + 168) availableChecksum:*(v1 + 176) availableChecksumDate:*(v1 + 184) availableSize:*(v1 + 192) availableSizeDate:*(v1 + 200) availableState:*(v1 + 208) availableStateDate:*(v1 + 216)];
+    return [[HKOntologyShardRegistryEntry alloc] initWithIdentifier:result->_identifier schemaType:result->_schemaType schemaVersion:result->_schemaVersion settings:result->_settings slot:result->_slot desiredState:result->_desiredState desiredStateDate:result->_desiredStateDate currentVersion:result->_currentVersion currentVersionDate:result->_currentVersionDate currentRegion:result->_currentRegion currentRegionDate:result->_currentRegionDate currentLocale:result->_currentLocale currentLocaleDate:result->_currentLocaleDate availableVersion:result->_availableVersion availableVersionDate:result->_availableVersionDate availableRegion:result->_availableRegion availableRegionDate:result->_availableRegionDate availableLocale:result->_availableLocale availableLocaleDate:result->_availableLocaleDate availableURL:result->_availableURL availableURLDate:result->_availableURLDate availableChecksum:result->_availableChecksum availableChecksumDate:result->_availableChecksumDate availableSize:result->_availableSize availableSizeDate:result->_availableSizeDate availableState:result->_availableState availableStateDate:result->_availableStateDate];
   }
 
   return result;
@@ -785,10 +779,10 @@ LABEL_52:
 - (id)copyWithAvailableVersion:(int64_t)version
 {
   _copy = [(HKOntologyShardRegistryEntry *)self _copy];
-  _copy[14] = version;
+  _copy->_availableVersion = version;
   date = [MEMORY[0x1E695DF00] date];
-  v6 = _copy[15];
-  _copy[15] = date;
+  availableVersionDate = _copy->_availableVersionDate;
+  _copy->_availableVersionDate = date;
 
   return _copy;
 }
@@ -797,11 +791,11 @@ LABEL_52:
 {
   date = [MEMORY[0x1E695DF00] date];
   _copy = [(HKOntologyShardRegistryEntry *)self _copy];
-  *(_copy + 112) = version;
-  objc_storeStrong((_copy + 120), date);
-  v9 = *(_copy + 216);
-  *(_copy + 208) = state;
-  *(_copy + 216) = date;
+  _copy->_availableVersion = version;
+  objc_storeStrong(&_copy->_availableVersionDate, date);
+  availableStateDate = _copy->_availableStateDate;
+  _copy->_availableState = state;
+  _copy->_availableStateDate = date;
 
   return _copy;
 }
@@ -810,15 +804,15 @@ LABEL_52:
 {
   date = [MEMORY[0x1E695DF00] date];
   _copy = [(HKOntologyShardRegistryEntry *)self _copy];
-  *(_copy + 64) = *(_copy + 112);
-  objc_storeStrong((_copy + 72), date);
-  objc_storeStrong((_copy + 80), *(_copy + 128));
-  objc_storeStrong((_copy + 88), date);
-  objc_storeStrong((_copy + 96), *(_copy + 144));
-  objc_storeStrong((_copy + 104), date);
-  v5 = *(_copy + 216);
-  *(_copy + 208) = 3;
-  *(_copy + 216) = date;
+  _copy->_currentVersion = _copy->_availableVersion;
+  objc_storeStrong(&_copy->_currentVersionDate, date);
+  objc_storeStrong(&_copy->_currentRegion, _copy->_availableRegion);
+  objc_storeStrong(&_copy->_currentRegionDate, date);
+  objc_storeStrong(&_copy->_currentLocale, _copy->_availableLocale);
+  objc_storeStrong(&_copy->_currentLocaleDate, date);
+  availableStateDate = _copy->_availableStateDate;
+  _copy->_availableState = 3;
+  _copy->_availableStateDate = date;
 
   return _copy;
 }
@@ -827,19 +821,19 @@ LABEL_52:
 {
   dateCopy = date;
   _copy = [(HKOntologyShardRegistryEntry *)self _copy];
-  *(_copy + 40) = -1;
-  *(_copy + 64) = 0;
-  objc_storeStrong((_copy + 72), date);
-  objc_storeStrong((_copy + 80), @"XX");
-  objc_storeStrong((_copy + 88), date);
-  v7 = *(_copy + 96);
-  *(_copy + 96) = 0;
+  _copy->_slot = -1;
+  _copy->_currentVersion = 0;
+  objc_storeStrong(&_copy->_currentVersionDate, date);
+  objc_storeStrong(&_copy->_currentRegion, @"XX");
+  objc_storeStrong(&_copy->_currentRegionDate, date);
+  currentLocale = _copy->_currentLocale;
+  _copy->_currentLocale = 0;
 
-  objc_storeStrong((_copy + 104), date);
+  objc_storeStrong(&_copy->_currentLocaleDate, date);
   if (self->_availableState == 3)
   {
-    *(_copy + 208) = 1;
-    objc_storeStrong((_copy + 216), date);
+    _copy->_availableState = 1;
+    objc_storeStrong(&_copy->_availableStateDate, date);
   }
 
   return _copy;
@@ -849,15 +843,15 @@ LABEL_52:
 {
   dateCopy = date;
   _copy = [(HKOntologyShardRegistryEntry *)self _copy];
-  *(_copy + 64) = -1;
-  objc_storeStrong((_copy + 72), date);
-  objc_storeStrong((_copy + 80), @"XX");
-  objc_storeStrong((_copy + 88), date);
-  v7 = *(_copy + 96);
-  *(_copy + 96) = 0;
+  _copy->_currentVersion = -1;
+  objc_storeStrong(&_copy->_currentVersionDate, date);
+  objc_storeStrong(&_copy->_currentRegion, @"XX");
+  objc_storeStrong(&_copy->_currentRegionDate, date);
+  currentLocale = _copy->_currentLocale;
+  _copy->_currentLocale = 0;
 
-  v8 = *(_copy + 104);
-  *(_copy + 104) = dateCopy;
+  currentLocaleDate = _copy->_currentLocaleDate;
+  _copy->_currentLocaleDate = dateCopy;
 
   return _copy;
 }
@@ -866,9 +860,9 @@ LABEL_52:
 {
   date = [MEMORY[0x1E695DF00] date];
   _copy = [(HKOntologyShardRegistryEntry *)self _copy];
-  v7 = _copy[7];
-  _copy[6] = state;
-  _copy[7] = date;
+  desiredStateDate = _copy->_desiredStateDate;
+  _copy->_desiredState = state;
+  _copy->_desiredStateDate = date;
 
   return _copy;
 }

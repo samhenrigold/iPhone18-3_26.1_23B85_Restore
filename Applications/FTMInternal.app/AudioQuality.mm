@@ -356,19 +356,18 @@ LABEL_14:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v19 = toCopy;
+  v8 = toCopy;
   if (self->_recordType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v8;
   }
 
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    numRecvdSpeechPkt = self->_numRecvdSpeechPkt;
     PBDataWriterWriteUint32Field();
-    toCopy = v19;
+    toCopy = v8;
     has = self->_has;
     if ((has & 0x20) == 0)
     {
@@ -387,9 +386,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  numRecvdSilencePkt = self->_numRecvdSilencePkt;
   PBDataWriterWriteUint32Field();
-  toCopy = v19;
+  toCopy = v8;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -403,9 +401,8 @@ LABEL_6:
   }
 
 LABEL_22:
-  numLostPkt = self->_numLostPkt;
   PBDataWriterWriteUint32Field();
-  toCopy = v19;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x200) == 0)
   {
@@ -419,9 +416,8 @@ LABEL_7:
   }
 
 LABEL_23:
-  numUflwSpeechPkt = self->_numUflwSpeechPkt;
   PBDataWriterWriteUint32Field();
-  toCopy = v19;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x100) == 0)
   {
@@ -435,9 +431,8 @@ LABEL_8:
   }
 
 LABEL_24:
-  numUflwSilencePkt = self->_numUflwSilencePkt;
   PBDataWriterWriteUint32Field();
-  toCopy = v19;
+  toCopy = v8;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -451,9 +446,8 @@ LABEL_9:
   }
 
 LABEL_25:
-  numEnqdSpeechPkt = self->_numEnqdSpeechPkt;
   PBDataWriterWriteUint32Field();
-  toCopy = v19;
+  toCopy = v8;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -467,9 +461,8 @@ LABEL_10:
   }
 
 LABEL_26:
-  numEnqdSilencePkt = self->_numEnqdSilencePkt;
   PBDataWriterWriteUint32Field();
-  toCopy = v19;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -483,9 +476,8 @@ LABEL_11:
   }
 
 LABEL_27:
-  numPlayedSpeechPkt = self->_numPlayedSpeechPkt;
   PBDataWriterWriteUint32Field();
-  toCopy = v19;
+  toCopy = v8;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -499,31 +491,28 @@ LABEL_12:
   }
 
 LABEL_28:
-  numMissedSpeechPkt = self->_numMissedSpeechPkt;
   PBDataWriterWriteUint32Field();
-  toCopy = v19;
+  toCopy = v8;
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_13:
-    numSpeechQempty = self->_numSpeechQempty;
     PBDataWriterWriteUint32Field();
-    toCopy = v19;
+    toCopy = v8;
   }
 
 LABEL_14:
   p_delayCnts = &self->_delayCnts;
   if (p_delayCnts->count)
   {
-    v8 = 0;
+    v7 = 0;
     do
     {
-      v9 = p_delayCnts->list[v8];
       PBDataWriterWriteUint32Field();
-      toCopy = v19;
-      ++v8;
+      toCopy = v8;
+      ++v7;
     }
 
-    while (v8 < p_delayCnts->count);
+    while (v7 < p_delayCnts->count);
   }
 }
 

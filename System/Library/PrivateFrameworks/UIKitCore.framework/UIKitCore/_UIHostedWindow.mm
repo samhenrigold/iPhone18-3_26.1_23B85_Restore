@@ -160,9 +160,9 @@
   else
   {
     _hostTintColor2 = [(_UIHostedWindow *)self _hostTintColor];
-    v7 = [_hostTintColor2 isEqual:colorCopy];
+    isEqual = objc_msgSend_isEqual_(_hostTintColor2);
 
-    if ((v7 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       objc_storeStrong(&self->__hostTintColor, color);
       [(UIView *)self _dispatchTintColorVisitorWithReasons:0 installTrackingVisitor:?];
@@ -358,19 +358,19 @@
   }
 
   v4 = +[UITraitCollection _emptyTraitCollection];
-  if ([(UITraitCollection *)hostTraitCollection isEqual:v4])
+  if (objc_msgSend_isEqual_(hostTraitCollection))
   {
-    v5 = 1;
+    isEqual = 1;
   }
 
   else
   {
     v6 = self->_hostTraitCollection;
     v7 = +[UITraitCollection _defaultTraitCollection];
-    v5 = [(UITraitCollection *)v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6);
   }
 
-  return v5;
+  return isEqual;
 }
 
 - (void)_setHostTraitCollection:(id)collection
@@ -380,9 +380,9 @@
   if (v4 != self->_hostTraitCollection)
   {
     obj = v4;
-    v6 = [(UITraitCollection *)v4 isEqual:?];
+    isEqual = objc_msgSend_isEqual_(v4);
     v5 = obj;
-    if (!v6)
+    if ((isEqual & 1) == 0)
     {
       objc_storeStrong(&self->_hostTraitCollection, obj);
       [(_UIHostedWindow *)self _setWantsTraitPropagation:1];
@@ -423,16 +423,16 @@
   if (v12 == v13)
   {
     v14 = 0;
-    v5 = v13;
+    isEqual = v13;
   }
 
   else
   {
     if (v13)
     {
-      v5 = [(UITraitCollection *)v12 isEqual:v13];
+      isEqual = objc_msgSend_isEqual_(v12);
 
-      if (v5)
+      if (isEqual)
       {
         v14 = 0;
         goto LABEL_16;
@@ -447,12 +447,12 @@
     v16 = +[UITraitCollection _defaultTraitCollection];
     v12 = v15;
     v17 = v16;
-    v5 = v17;
+    isEqual = v17;
     if (v12 != v17)
     {
       if (v12 && v17)
       {
-        v18 = [(UITraitCollection *)v12 isEqual:v17];
+        v18 = objc_msgSend_isEqual_(v12);
 
         if (v18)
         {

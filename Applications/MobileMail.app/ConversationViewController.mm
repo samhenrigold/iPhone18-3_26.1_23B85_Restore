@@ -8981,22 +8981,22 @@ LABEL_4:
       {
         displayMetrics = [(ConversationViewControllerBase *)self displayMetrics];
         collectionView = [(ConversationViewControllerBase *)self collectionView];
-        v86 = [(ConversationViewControllerBase *)self _layoutAttributesForItemAtIndexPath:pathCopy];
+        v85 = [(ConversationViewControllerBase *)self _layoutAttributesForItemAtIndexPath:pathCopy];
         messageViewController2 = [cellCopy messageViewController];
         messageContentView2 = [messageViewController2 messageContentView];
 
         footerView = [messageContentView2 footerView];
         [footerView frame];
-        v83 = v17;
-        v84 = v18;
+        v82 = v17;
+        v83 = v18;
         rect1 = v19;
         [displayMetrics estimatedFooterViewHeight];
-        v82 = v20;
+        v81 = v20;
         [collectionView frame];
-        MaxY = CGRectGetMaxY(v94);
+        MaxY = CGRectGetMaxY(v93);
         [displayMetrics cellHeightToStartScroll];
         v23 = v22;
-        [v86 frame];
+        [v85 frame];
         v25 = v24;
         v27 = v26;
         v29 = v28;
@@ -9008,23 +9008,23 @@ LABEL_4:
         v38 = v37;
         v40 = v39;
 
+        v94.origin.x = v34;
+        v94.origin.y = v36;
+        v94.size.width = v38;
+        v94.size.height = v40;
+        MinY = CGRectGetMinY(v94);
         v95.origin.x = v34;
         v95.origin.y = v36;
         v95.size.width = v38;
         v95.size.height = v40;
-        MinY = CGRectGetMinY(v95);
-        v96.origin.x = v34;
-        v96.origin.y = v36;
-        v96.size.width = v38;
-        v96.size.height = v40;
-        Height = CGRectGetHeight(v96);
+        Height = CGRectGetHeight(v95);
         [cellCopy frame];
-        v42 = MaxY - v82;
-        v43 = fmax(Height, CGRectGetHeight(v97)) - v82;
+        v42 = MaxY - v81;
+        v43 = fmax(Height, CGRectGetHeight(v96)) - v81;
         if (v43 >= v23)
         {
           [collectionView bounds];
-          v44 = CGRectGetHeight(v98);
+          v44 = CGRectGetHeight(v97);
           superview = [collectionView superview];
           [cellCopy convertPoint:superview fromView:{0.0, v42}];
           v42 = v46;
@@ -9040,160 +9040,159 @@ LABEL_4:
           }
         }
 
-        UIRoundToViewScale();
-        v48 = v47;
+        v47 = UIRoundToViewScale(v43);
         [footerView frame];
-        v104.origin.x = v49;
-        v104.origin.y = v50;
-        v104.size.width = v51;
-        v104.size.height = v52;
-        v99.origin.x = v83;
-        v99.size.height = v84;
-        v99.origin.y = v48;
-        v99.size.width = rect1;
-        if (!CGRectEqualToRect(v99, v104))
+        v103.origin.x = v48;
+        v103.origin.y = v49;
+        v103.size.width = v50;
+        v103.size.height = v51;
+        v98.origin.x = v82;
+        v98.size.height = v83;
+        v98.origin.y = v47;
+        v98.size.width = rect1;
+        if (!CGRectEqualToRect(v98, v103))
         {
-          [footerView setFrame:{v83, v48, rect1, v84}];
+          [footerView setFrame:{v82, v47, rect1, v83}];
         }
 
         [displayMetrics footerViewButtonsAnimationOffset];
-        v54 = v53;
+        v53 = v52;
         [collectionView frame];
-        v55 = CGRectGetMaxY(v100);
-        v101.origin.x = v34;
-        v101.origin.y = v36;
-        v101.size.width = v38;
-        v101.size.height = v40;
-        v56 = v55 - CGRectGetMaxY(v101);
-        if (v56 <= v54)
+        v54 = CGRectGetMaxY(v99);
+        v100.origin.x = v34;
+        v100.origin.y = v36;
+        v100.size.width = v38;
+        v100.size.height = v40;
+        v55 = v54 - CGRectGetMaxY(v100);
+        if (v55 <= v53)
         {
-          v57 = 0.0;
+          v56 = 0.0;
         }
 
         else
         {
-          v57 = v54;
+          v56 = v53;
         }
 
-        if (v56 > v54 || v56 < 0.0)
+        if (v55 > v53 || v55 < 0.0)
         {
-          v56 = v57;
+          v55 = v56;
         }
 
-        [footerView moveOriginYByOffset:v56];
+        [footerView moveOriginYByOffset:v55];
         scrollView = [messageContentView2 scrollView];
         [scrollView contentSize];
-        v61 = v60;
+        v60 = v59;
         scrollView2 = [messageContentView2 scrollView];
         [scrollView2 contentInset];
-        v64 = v63;
-        v102.origin.x = v34;
-        v102.origin.y = v36;
-        v102.size.width = v38;
-        v102.size.height = v40;
-        v65 = CGRectGetMinY(v102);
+        v63 = v62;
+        v101.origin.x = v34;
+        v101.origin.y = v36;
+        v101.size.width = v38;
+        v101.size.height = v40;
+        v64 = CGRectGetMinY(v101);
 
         if (v43 >= v42)
         {
           collectionView2 = [(ConversationViewControllerBase *)self collectionView];
           [collectionView2 frame];
-          v69 = CGRectGetMaxY(v103);
-          v70 = v82 + v61 + v64 + v65;
+          v68 = CGRectGetMaxY(v102);
+          v69 = v81 + v60 + v63 + v64;
 
-          v66 = v70 >= v69;
-          if (v70 < v69)
+          v65 = v69 >= v68;
+          if (v69 < v68)
           {
-            v67 = 0.0;
+            v66 = 0.0;
           }
 
           else
           {
-            v67 = 1.0;
+            v66 = 1.0;
           }
         }
 
         else
         {
-          v66 = 0;
-          v67 = 0.0;
+          v65 = 0;
+          v66 = 0.0;
         }
 
         backgroundView = [footerView backgroundView];
         [backgroundView alpha];
-        v73 = v72;
+        v72 = v71;
 
-        if (v73 != v67)
+        if (v72 != v66)
         {
-          v91[0] = _NSConcreteStackBlock;
-          v91[1] = 3221225472;
-          v91[2] = sub_10007E47C;
-          v91[3] = &unk_10064DE08;
-          v92 = footerView;
-          v93 = v67;
-          [UIView animateWithDuration:v91 animations:0.2];
+          v90[0] = _NSConcreteStackBlock;
+          v90[1] = 3221225472;
+          v90[2] = sub_10007E47C;
+          v90[3] = &unk_10064DE08;
+          v91 = footerView;
+          v92 = v66;
+          [UIView animateWithDuration:v90 animations:0.2];
         }
 
         if (_os_feature_enabled_impl())
         {
-          v74 = [footerView isUndoSendButtonHidden] ^ 1;
+          v73 = [footerView isUndoSendButtonHidden] ^ 1;
         }
 
         else
         {
-          LOBYTE(v74) = 0;
+          LOBYTE(v73) = 0;
         }
 
         cellConfigurator = [(ConversationViewControllerBase *)self cellConfigurator];
-        v76 = [cellConfigurator expansionStatusForMessageAtIndexPath:pathCopy];
+        v75 = [cellConfigurator expansionStatusForMessageAtIndexPath:pathCopy];
 
-        if (v76 == 2)
+        if (v75 == 2)
         {
-          v77 = 0;
+          v76 = 0;
         }
 
         else if ([(ConversationViewController *)self _isDisplayingSingleMessage])
         {
-          v77 = 1;
+          v76 = 1;
         }
 
         else
         {
-          v77 = [messageContentView2 automaticallyCollapseQuotedContent] ^ 1 | v74;
+          v76 = [messageContentView2 automaticallyCollapseQuotedContent] ^ 1 | v73;
         }
 
-        [footerView setIsSemiExpanded:v76 == 2];
-        [footerView setSeeMoreButtonHidden:v77 & 1];
-        v78 = 0.0;
-        if (!v66)
+        [footerView setIsSemiExpanded:v75 == 2];
+        [footerView setSeeMoreButtonHidden:v76 & 1];
+        v77 = 0.0;
+        if (!v65)
         {
           [footerView seeMoreButtonHeight];
-          if (v43 <= v42 + v79)
+          if (v43 <= v42 + v78)
           {
-            v78 = 1.0;
+            v77 = 1.0;
           }
 
           else
           {
-            v78 = 0.0;
+            v77 = 0.0;
           }
         }
 
         if (([footerView isSeeMoreButtonHidden] & 1) == 0)
         {
           [footerView seeMoreButtonAlpha];
-          if (v80 != v78)
+          if (v79 != v77)
           {
-            v88[0] = _NSConcreteStackBlock;
-            v88[1] = 3221225472;
-            v88[2] = sub_10007E4EC;
-            v88[3] = &unk_10064DE08;
-            v89 = footerView;
-            v90 = v78;
-            [UIView animateWithDuration:v88 animations:0.2];
+            v87[0] = _NSConcreteStackBlock;
+            v87[1] = 3221225472;
+            v87[2] = sub_10007E4EC;
+            v87[3] = &unk_10064DE08;
+            v88 = footerView;
+            v89 = v77;
+            [UIView animateWithDuration:v87 animations:0.2];
           }
         }
 
-        [footerView setAllowsPointerSnapping:v66];
+        [footerView setAllowsPointerSnapping:v65];
       }
     }
   }

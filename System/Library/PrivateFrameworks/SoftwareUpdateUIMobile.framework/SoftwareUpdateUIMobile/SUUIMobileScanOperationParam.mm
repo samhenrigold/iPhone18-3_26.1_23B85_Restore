@@ -130,44 +130,44 @@
 
 - (id)description
 {
-  v145[22] = *MEMORY[0x277D85DE8];
+  v144[22] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   obj[1] = a2;
   obj[0] = 0;
   currentDownload = [(SUUIMobileScanOperationParam *)self currentDownload];
-  v103 = 0;
-  v101 = 0;
-  v96 = 0;
+  v102 = 0;
+  v100 = 0;
+  v95 = 0;
   if (currentDownload)
   {
     currentDownload2 = [(SUUIMobileScanOperationParam *)selfCopy currentDownload];
-    v103 = 1;
+    v102 = 1;
     descriptor = [(SUDownload *)currentDownload2 descriptor];
-    v101 = 1;
-    v96 = descriptor != 0;
+    v100 = 1;
+    v95 = descriptor != 0;
   }
 
-  if (v101)
+  if (v100)
   {
     MEMORY[0x277D82BD8](descriptor);
   }
 
-  if (v103)
+  if (v102)
   {
     MEMORY[0x277D82BD8](currentDownload2);
   }
 
   MEMORY[0x277D82BD8](currentDownload);
-  if (v96)
+  if (v95)
   {
-    v88 = MEMORY[0x277CCACA8];
+    v87 = MEMORY[0x277CCACA8];
     currentDownload3 = [(SUUIMobileScanOperationParam *)selfCopy currentDownload];
     descriptor2 = [(SUDownload *)currentDownload3 descriptor];
     humanReadableUpdateName = [(SUDescriptor *)descriptor2 humanReadableUpdateName];
     currentDownload4 = [(SUUIMobileScanOperationParam *)selfCopy currentDownload];
     currentDownload5 = [(SUUIMobileScanOperationParam *)selfCopy currentDownload];
     progress = [(SUDownload *)currentDownload5 progress];
-    v2 = [v88 stringWithFormat:@"%@ (%p) (progess: %@)", humanReadableUpdateName, currentDownload4, progress];
+    v2 = [v87 stringWithFormat:@"%@ (%p) (progess: %@)", humanReadableUpdateName, currentDownload4, progress];
     v3 = obj[0];
     obj[0] = v2;
     MEMORY[0x277D82BD8](v3);
@@ -179,12 +179,12 @@
     MEMORY[0x277D82BD8](currentDownload3);
   }
 
-  v87 = MEMORY[0x277D64B68];
-  v144[0] = @"operationError";
+  v86 = MEMORY[0x277D64B68];
+  v143[0] = @"operationError";
   operationError = selfCopy->_operationError;
   location = 0;
   objc_storeStrong(&location, operationError);
-  v132 = 0;
+  v131 = 0;
   if (location)
   {
     v5 = MEMORY[0x277D82BE0](location);
@@ -193,84 +193,84 @@
   else
   {
     null = [MEMORY[0x277CBEB68] null];
-    v132 = 1;
+    v131 = 1;
     v5 = MEMORY[0x277D82BE0](null);
   }
 
-  v135 = v5;
-  if (v132)
+  v134 = v5;
+  if (v131)
   {
     MEMORY[0x277D82BD8](null);
   }
 
   objc_storeStrong(&location, 0);
-  v84 = v135;
-  v6 = v135;
-  v85 = v84;
-  v145[0] = v85;
-  v144[1] = @"preferredDescriptor";
-  v86 = MEMORY[0x277CCACA8];
-  v99 = 0;
+  v83 = v134;
+  v6 = v134;
+  v84 = v83;
+  v144[0] = v84;
+  v143[1] = @"preferredDescriptor";
+  v85 = MEMORY[0x277CCACA8];
+  v98 = 0;
   if (selfCopy->_preferredDescriptor)
   {
     humanReadableUpdateName2 = [(SUDescriptor *)selfCopy->_preferredDescriptor humanReadableUpdateName];
-    v99 = 1;
-    v83 = humanReadableUpdateName2;
+    v98 = 1;
+    v82 = humanReadableUpdateName2;
   }
 
   else
   {
-    v83 = @"(null)";
+    v82 = @"(null)";
   }
 
-  v81 = [v86 stringWithFormat:@"%@ (%p)", v83, selfCopy->_preferredDescriptor];
-  v145[1] = v81;
-  v144[2] = @"alternateDescriptor";
-  v82 = MEMORY[0x277CCACA8];
-  v97 = 0;
+  v80 = [v85 stringWithFormat:@"%@ (%p)", v82, selfCopy->_preferredDescriptor];
+  v144[1] = v80;
+  v143[2] = @"alternateDescriptor";
+  v81 = MEMORY[0x277CCACA8];
+  v96 = 0;
   if (selfCopy->_alternateDescriptor)
   {
     humanReadableUpdateName3 = [(SUDescriptor *)selfCopy->_alternateDescriptor humanReadableUpdateName];
-    v97 = 1;
-    v80 = humanReadableUpdateName3;
+    v96 = 1;
+    v79 = humanReadableUpdateName3;
   }
 
   else
   {
-    v80 = @"(null)";
+    v79 = @"(null)";
   }
 
-  v79 = [v82 stringWithFormat:@"%@ (%p)", v80, selfCopy->_alternateDescriptor];
-  v145[2] = v79;
-  v144[3] = @"scanError";
+  v78 = [v81 stringWithFormat:@"%@ (%p)", v79, selfCopy->_alternateDescriptor];
+  v144[2] = v78;
+  v143[3] = @"scanError";
   scanError = selfCopy->_scanError;
-  v130 = 0;
-  objc_storeStrong(&v130, scanError);
-  v128 = 0;
-  if (v130)
+  v129 = 0;
+  objc_storeStrong(&v129, scanError);
+  v127 = 0;
+  if (v129)
   {
-    v8 = MEMORY[0x277D82BE0](v130);
+    v8 = MEMORY[0x277D82BE0](v129);
   }
 
   else
   {
     null2 = [MEMORY[0x277CBEB68] null];
-    v128 = 1;
+    v127 = 1;
     v8 = MEMORY[0x277D82BE0](null2);
   }
 
-  v131 = v8;
-  if (v128)
+  v130 = v8;
+  if (v127)
   {
     MEMORY[0x277D82BD8](null2);
   }
 
-  objc_storeStrong(&v130, 0);
-  v71 = v131;
-  v9 = v131;
-  v72 = v71;
-  v145[3] = v72;
-  v144[4] = @"emptyScanResults";
+  objc_storeStrong(&v129, 0);
+  v70 = v130;
+  v9 = v130;
+  v71 = v70;
+  v144[3] = v71;
+  v143[4] = @"emptyScanResults";
   if (selfCopy->_emptyScanResults)
   {
     v10 = @"YES";
@@ -281,11 +281,11 @@
     v10 = @"NO";
   }
 
-  v73 = v10;
+  v72 = v10;
   v11 = v10;
-  v74 = v73;
-  v145[4] = v74;
-  v144[5] = @"preferredUpdateDownloadable";
+  v73 = v72;
+  v144[4] = v73;
+  v143[5] = @"preferredUpdateDownloadable";
   if (selfCopy->_preferredUpdateDownloadable)
   {
     v12 = @"YES";
@@ -296,11 +296,11 @@
     v12 = @"NO";
   }
 
-  v75 = v12;
+  v74 = v12;
   v13 = v12;
-  v76 = v75;
-  v145[5] = v76;
-  v144[6] = @"alternateUpdateDownloadable";
+  v75 = v74;
+  v144[5] = v75;
+  v143[6] = @"alternateUpdateDownloadable";
   if (selfCopy->_alternateUpdateDownloadable)
   {
     v14 = @"YES";
@@ -311,95 +311,95 @@
     v14 = @"NO";
   }
 
-  v77 = v14;
+  v76 = v14;
   v15 = v14;
-  v78 = v77;
-  v145[6] = v78;
-  v144[7] = @"preferredUpdateDownloadError";
+  v77 = v76;
+  v144[6] = v77;
+  v143[7] = @"preferredUpdateDownloadError";
   preferredUpdateDownloadError = selfCopy->_preferredUpdateDownloadError;
-  v126 = 0;
-  objc_storeStrong(&v126, preferredUpdateDownloadError);
-  v124 = 0;
-  if (v126)
+  v125 = 0;
+  objc_storeStrong(&v125, preferredUpdateDownloadError);
+  v123 = 0;
+  if (v125)
   {
-    v17 = MEMORY[0x277D82BE0](v126);
+    v17 = MEMORY[0x277D82BE0](v125);
   }
 
   else
   {
     null3 = [MEMORY[0x277CBEB68] null];
-    v124 = 1;
+    v123 = 1;
     v17 = MEMORY[0x277D82BE0](null3);
   }
 
-  v127 = v17;
-  if (v124)
+  v126 = v17;
+  if (v123)
   {
     MEMORY[0x277D82BD8](null3);
   }
 
-  objc_storeStrong(&v126, 0);
-  v69 = v127;
-  v18 = v127;
-  v70 = v69;
-  v145[7] = v70;
-  v144[8] = @"alternateUpdateDownloadError";
+  objc_storeStrong(&v125, 0);
+  v68 = v126;
+  v18 = v126;
+  v69 = v68;
+  v144[7] = v69;
+  v143[8] = @"alternateUpdateDownloadError";
   alternateUpdateDownloadError = selfCopy->_alternateUpdateDownloadError;
-  v122 = 0;
-  objc_storeStrong(&v122, alternateUpdateDownloadError);
-  v120 = 0;
-  if (v122)
+  v121 = 0;
+  objc_storeStrong(&v121, alternateUpdateDownloadError);
+  v119 = 0;
+  if (v121)
   {
-    v20 = MEMORY[0x277D82BE0](v122);
+    v20 = MEMORY[0x277D82BE0](v121);
   }
 
   else
   {
     null4 = [MEMORY[0x277CBEB68] null];
-    v120 = 1;
+    v119 = 1;
     v20 = MEMORY[0x277D82BE0](null4);
   }
 
-  v123 = v20;
-  if (v120)
+  v122 = v20;
+  if (v119)
   {
     MEMORY[0x277D82BD8](null4);
   }
 
-  objc_storeStrong(&v122, 0);
-  v67 = v123;
-  v21 = v123;
-  v68 = v67;
-  v145[8] = v68;
-  v144[9] = @"agreementStatusRegistry";
+  objc_storeStrong(&v121, 0);
+  v66 = v122;
+  v21 = v122;
+  v67 = v66;
+  v144[8] = v67;
+  v143[9] = @"agreementStatusRegistry";
   agreementStatusRegistry = selfCopy->_agreementStatusRegistry;
-  v118 = 0;
-  objc_storeStrong(&v118, agreementStatusRegistry);
-  v116 = 0;
-  if (v118)
+  v117 = 0;
+  objc_storeStrong(&v117, agreementStatusRegistry);
+  v115 = 0;
+  if (v117)
   {
-    v23 = MEMORY[0x277D82BE0](v118);
+    v23 = MEMORY[0x277D82BE0](v117);
   }
 
   else
   {
     null5 = [MEMORY[0x277CBEB68] null];
-    v116 = 1;
+    v115 = 1;
     v23 = MEMORY[0x277D82BE0](null5);
   }
 
-  v119 = v23;
-  if (v116)
+  v118 = v23;
+  if (v115)
   {
     MEMORY[0x277D82BD8](null5);
   }
 
-  objc_storeStrong(&v118, 0);
-  v63 = v119;
-  v24 = v119;
-  v64 = v63;
-  v145[9] = v64;
-  v144[10] = @"clearingSpaceForDownload";
+  objc_storeStrong(&v117, 0);
+  v62 = v118;
+  v24 = v118;
+  v63 = v62;
+  v144[9] = v63;
+  v143[10] = @"clearingSpaceForDownload";
   if (selfCopy->_clearingSpaceForDownload)
   {
     v25 = @"YES";
@@ -410,184 +410,182 @@
     v25 = @"NO";
   }
 
-  v65 = v25;
+  v64 = v25;
   v26 = v25;
-  v66 = v65;
-  v145[10] = v66;
-  v144[11] = @"currentDownload";
-  v114 = 0;
-  objc_storeStrong(&v114, obj[0]);
-  v112 = 0;
-  if (v114)
+  v65 = v64;
+  v144[10] = v65;
+  v143[11] = @"currentDownload";
+  v113 = 0;
+  objc_storeStrong(&v113, obj[0]);
+  v111 = 0;
+  if (v113)
   {
-    v27 = MEMORY[0x277D82BE0](v114);
+    v27 = MEMORY[0x277D82BE0](v113);
   }
 
   else
   {
     null6 = [MEMORY[0x277CBEB68] null];
-    v112 = 1;
+    v111 = 1;
     v27 = MEMORY[0x277D82BE0](null6);
   }
 
-  v115 = v27;
-  if (v112)
+  v114 = v27;
+  if (v111)
   {
     MEMORY[0x277D82BD8](null6);
   }
 
-  objc_storeStrong(&v114, 0);
-  v46 = v115;
-  v28 = v115;
-  v47 = v46;
-  v145[11] = v47;
-  v144[12] = @"mdmPathRestrictions";
-  v48 = MEMORY[0x277CCACA8];
-  mdmPathRestrictions = selfCopy->_mdmPathRestrictions;
-  v49 = SUStringFromMDMSUPath();
-  v50 = [v48 stringWithFormat:@"%@ (%ld)", v49, selfCopy->_mdmPathRestrictions];
-  v145[12] = v50;
-  v144[13] = @"isDelayingUpdate";
+  objc_storeStrong(&v113, 0);
+  v45 = v114;
+  v28 = v114;
+  v46 = v45;
+  v144[11] = v46;
+  v143[12] = @"mdmPathRestrictions";
+  v47 = MEMORY[0x277CCACA8];
+  v48 = SUStringFromMDMSUPath();
+  v49 = [v47 stringWithFormat:@"%@ (%ld)", v48, selfCopy->_mdmPathRestrictions];
+  v144[12] = v49;
+  v143[13] = @"isDelayingUpdate";
   if (selfCopy->_isDelayingUpdate)
   {
-    v30 = @"YES";
+    v29 = @"YES";
   }
 
   else
   {
-    v30 = @"NO";
+    v29 = @"NO";
   }
 
-  v51 = v30;
-  v31 = v30;
-  v52 = v51;
-  v145[13] = v52;
-  v144[14] = @"rollingBackSplatUpdate";
+  v50 = v29;
+  v30 = v29;
+  v51 = v50;
+  v144[13] = v51;
+  v143[14] = @"rollingBackSplatUpdate";
   if (selfCopy->_rollingBackSplatUpdate)
   {
-    v32 = @"YES";
+    v31 = @"YES";
   }
 
   else
   {
-    v32 = @"NO";
+    v31 = @"NO";
   }
 
-  v53 = v32;
-  v33 = v32;
-  v54 = v53;
-  v145[14] = v54;
-  v144[15] = @"rollbackDescriptor";
-  v55 = [MEMORY[0x277CCACA8] stringWithFormat:selfCopy->_rollbackDescriptor];
-  v145[15] = v55;
-  v144[16] = @"currentSeedingDevice";
-  v56 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p", selfCopy->_currentSeedingDevice];
-  v145[16] = v56;
-  v144[17] = @"betaPrograms";
-  v57 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p (count: %ld)", selfCopy->_betaPrograms, -[NSArray count](selfCopy->_betaPrograms, "count")];
-  v145[17] = v57;
-  v144[18] = @"enrolledBetaProgram";
-  v58 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p", selfCopy->_enrolledBetaProgram];
-  v145[18] = v58;
-  v144[19] = @"isAutoUpdateScheduled";
+  v52 = v31;
+  v32 = v31;
+  v53 = v52;
+  v144[14] = v53;
+  v143[15] = @"rollbackDescriptor";
+  v54 = [MEMORY[0x277CCACA8] stringWithFormat:selfCopy->_rollbackDescriptor];
+  v144[15] = v54;
+  v143[16] = @"currentSeedingDevice";
+  v55 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p", selfCopy->_currentSeedingDevice];
+  v144[16] = v55;
+  v143[17] = @"betaPrograms";
+  v56 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p (count: %ld)", selfCopy->_betaPrograms, -[NSArray count](selfCopy->_betaPrograms, "count")];
+  v144[17] = v56;
+  v143[18] = @"enrolledBetaProgram";
+  v57 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p", selfCopy->_enrolledBetaProgram];
+  v144[18] = v57;
+  v143[19] = @"isAutoUpdateScheduled";
   if (selfCopy->_isAutoUpdateScheduled)
   {
-    v34 = @"YES";
+    v33 = @"YES";
   }
 
   else
   {
-    v34 = @"NO";
+    v33 = @"NO";
   }
 
-  v59 = v34;
-  v35 = v34;
-  v60 = v59;
-  v145[19] = v60;
-  v144[20] = @"isUpdateReadyForInstallation";
+  v58 = v33;
+  v34 = v33;
+  v59 = v58;
+  v144[19] = v59;
+  v143[20] = @"isUpdateReadyForInstallation";
   if (selfCopy->_isUpdateReadyForInstallation)
   {
-    v36 = @"YES";
+    v35 = @"YES";
   }
 
   else
   {
-    v36 = @"NO";
+    v35 = @"NO";
   }
 
-  v61 = v36;
-  v37 = v36;
-  v62 = v61;
-  v145[20] = v62;
-  v144[21] = @"updateInstallationError";
+  v60 = v35;
+  v36 = v35;
+  v61 = v60;
+  v144[20] = v61;
+  v143[21] = @"updateInstallationError";
   updateInstallationError = selfCopy->_updateInstallationError;
-  v110 = 0;
-  objc_storeStrong(&v110, updateInstallationError);
-  v108 = 0;
-  if (v110)
+  v109 = 0;
+  objc_storeStrong(&v109, updateInstallationError);
+  v107 = 0;
+  if (v109)
   {
-    v39 = MEMORY[0x277D82BE0](v110);
+    v38 = MEMORY[0x277D82BE0](v109);
   }
 
   else
   {
     null7 = [MEMORY[0x277CBEB68] null];
-    v108 = 1;
-    v39 = MEMORY[0x277D82BE0](null7);
+    v107 = 1;
+    v38 = MEMORY[0x277D82BE0](null7);
   }
 
-  v111 = v39;
-  if (v108)
+  v110 = v38;
+  if (v107)
   {
     MEMORY[0x277D82BD8](null7);
   }
 
-  objc_storeStrong(&v110, 0);
-  v43 = v111;
-  v40 = v111;
-  v45 = v43;
-  v145[21] = v45;
-  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v145 forKeys:v144 count:22];
-  v107 = [v87 descriptionForObject:selfCopy properties:? options:?];
+  objc_storeStrong(&v109, 0);
+  v42 = v110;
+  v39 = v110;
+  v44 = v42;
+  v144[21] = v44;
+  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v144 forKeys:v143 count:22];
+  v106 = [v86 descriptionForObject:selfCopy properties:? options:?];
+  MEMORY[0x277D82BD8](v43);
   MEMORY[0x277D82BD8](v44);
-  MEMORY[0x277D82BD8](v45);
-  MEMORY[0x277D82BD8](v62);
-  MEMORY[0x277D82BD8](v60);
-  MEMORY[0x277D82BD8](v58);
+  MEMORY[0x277D82BD8](v61);
+  MEMORY[0x277D82BD8](v59);
   MEMORY[0x277D82BD8](v57);
   MEMORY[0x277D82BD8](v56);
   MEMORY[0x277D82BD8](v55);
   MEMORY[0x277D82BD8](v54);
-  MEMORY[0x277D82BD8](v52);
-  MEMORY[0x277D82BD8](v50);
+  MEMORY[0x277D82BD8](v53);
+  MEMORY[0x277D82BD8](v51);
   MEMORY[0x277D82BD8](v49);
-  MEMORY[0x277D82BD8](v47);
-  MEMORY[0x277D82BD8](v66);
-  MEMORY[0x277D82BD8](v64);
-  MEMORY[0x277D82BD8](v68);
-  MEMORY[0x277D82BD8](v70);
+  MEMORY[0x277D82BD8](v48);
+  MEMORY[0x277D82BD8](v46);
+  MEMORY[0x277D82BD8](v65);
+  MEMORY[0x277D82BD8](v63);
+  MEMORY[0x277D82BD8](v67);
+  MEMORY[0x277D82BD8](v69);
+  MEMORY[0x277D82BD8](v77);
+  MEMORY[0x277D82BD8](v75);
+  MEMORY[0x277D82BD8](v73);
+  MEMORY[0x277D82BD8](v71);
   MEMORY[0x277D82BD8](v78);
-  MEMORY[0x277D82BD8](v76);
-  MEMORY[0x277D82BD8](v74);
-  MEMORY[0x277D82BD8](v72);
-  MEMORY[0x277D82BD8](v79);
-  if (v97)
+  if (v96)
   {
     MEMORY[0x277D82BD8](humanReadableUpdateName3);
   }
 
-  MEMORY[0x277D82BD8](v81);
-  if (v99)
+  MEMORY[0x277D82BD8](v80);
+  if (v98)
   {
     MEMORY[0x277D82BD8](humanReadableUpdateName2);
   }
 
-  MEMORY[0x277D82BD8](v85);
+  MEMORY[0x277D82BD8](v84);
   objc_storeStrong(obj, 0);
-  *MEMORY[0x277D85DE8];
-  v41 = v107;
+  v40 = v106;
 
-  return v41;
+  return v40;
 }
 
 @end

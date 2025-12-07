@@ -3,6 +3,7 @@
 - (FATVolume)initWithResource:(id)resource volumeID:(id)d volumeName:(id)name;
 - (FSStatFSResult)volumeStatistics;
 - (FSVolumeSupportedCapabilities)supportedVolumeCapabilities;
+- (id)clearNewDirClustersFrom:(unsigned int)from amount:(unsigned int)amount;
 - (id)createFATItemWithParent:(id)parent name:(id)name dirEntryData:(id)data;
 - (id)getAttrRequestForNewDirEntry;
 - (id)writeSymlinkClusters:(unsigned int)clusters withContent:(id)content;
@@ -225,7 +226,7 @@ LABEL_5:
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10002E6FC(buf, &v52);
+        sub_10002E6FC(buf, &buf[4]);
       }
     }
 
@@ -257,7 +258,7 @@ LABEL_5:
 
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10002E750(v49, &v50);
+        sub_10002E750(v49, &v49[4]);
       }
     }
 
@@ -366,34 +367,17 @@ LABEL_23:
       {
         v34 = v52[5];
         *buf = 136315394;
-        v64 = "[FATVolume isSymLink:replyHandler:]";
-        v65 = 2112;
-        v66 = v34;
+        v63 = "[FATVolume isSymLink:replyHandler:]";
+        v64 = 2112;
+        v65 = v34;
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: Failed to get the item's cluster chain. Error = %@.", buf, 0x16u);
       }
     }
 
     else
     {
-      if (v19 < 1)
+      if (v19 < 1 || (v41[3] >= v19 ? (v27 = v19) : (v27 = v41[3]), -[FATVolume resource](self, "resource"), v28 = objc_claimAutoreleasedReturnValue(), v29 = v37, v30 = [v37 mutableBytes], -[FATVolume systemInfo](self, "systemInfo"), v31 = objc_claimAutoreleasedReturnValue(), +[Utilities syncMetaReadFromDevice:into:startingAt:length:](Utilities, "syncMetaReadFromDevice:into:startingAt:length:", v28, &v30[v38], objc_msgSend(v31, "offsetForCluster:", v10), v27), v32 = objc_claimAutoreleasedReturnValue(), v33 = v52[5], v52[5] = v32, v33, v31, v28, v38 += v27, LODWORD(v19) = v19 - v27, !v52[5]))
       {
-        goto LABEL_24;
-      }
-
-      v27 = v41[3] >= v19 ? v19 : v41[3];
-      resource = [(FATVolume *)self resource];
-      v29 = v37;
-      mutableBytes = [v37 mutableBytes];
-      systemInfo8 = [(FATVolume *)self systemInfo];
-      v32 = +[Utilities syncMetaReadFromDevice:into:startingAt:length:](Utilities, "syncMetaReadFromDevice:into:startingAt:length:", resource, &mutableBytes[v38], [systemInfo8 offsetForCluster:v10], v27);
-      v33 = v52[5];
-      v52[5] = v32;
-
-      v38 += v27;
-      LODWORD(v19) = v19 - v27;
-      if (!v52[5])
-      {
-LABEL_24:
         v10 = *(v48 + 6);
         v26 = 1;
         goto LABEL_25;
@@ -401,7 +385,7 @@ LABEL_24:
 
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10002E7A4(v61, &v62);
+        sub_10002E7A4(v61, &v61[4]);
       }
     }
 
@@ -508,6 +492,128 @@ LABEL_11:
   return v13;
 }
 
+- (id)clearNewDirClustersFrom:(unsigned int)from amount:(unsigned int)amount
+{
+  v5 = *&from;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = sub_10000B740;
+  v42 = sub_10000B750;
+  v43 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
+  systemInfo = [(FATVolume *)self systemInfo];
+  dirBlockSize = [systemInfo dirBlockSize];
+
+  systemInfo2 = [(FATVolume *)self systemInfo];
+  bytesPerCluster = [systemInfo2 bytesPerCluster];
+
+  v11 = +[NSMutableArray array];
+  v12 = 0;
+  v13 = dirBlockSize;
+  v14 = bytesPerCluster / dirBlockSize;
+  while (2)
+  {
+    systemInfo3 = [(FATVolume *)self systemInfo];
+    v16 = [systemInfo3 isClusterValid:v5];
+
+    if (v16)
+    {
+      while (1)
+      {
+        systemInfo4 = [(FATVolume *)self systemInfo];
+        if (![systemInfo4 isClusterValid:v5])
+        {
+          break;
+        }
+
+        v18 = [v11 count];
+
+        if (v18 > 7)
+        {
+          goto LABEL_9;
+        }
+
+        fatManager = [(FATVolume *)self fatManager];
+        v29[0] = _NSConcreteStackBlock;
+        v29[1] = 3221225472;
+        v29[2] = sub_10000C640;
+        v29[3] = &unk_1000505E8;
+        v29[4] = &v38;
+        v29[5] = &v30;
+        v29[6] = &v34;
+        [fatManager getContigClusterChainLengthStartingAt:v5 replyHandler:v29];
+
+        if (v39[5])
+        {
+          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          {
+            sub_10002E900();
+          }
+
+          goto LABEL_13;
+        }
+
+        v12 += *(v31 + 6);
+        if (v12 > amount)
+        {
+          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          {
+            sub_10002E984();
+          }
+
+          v26 = fs_errorForPOSIXError();
+          goto LABEL_17;
+        }
+
+        systemInfo5 = [(FATVolume *)self systemInfo];
+        v21 = [systemInfo5 offsetForCluster:v5];
+        v22 = [FSMetadataRange rangeWithOffset:v21 segmentLength:v13 segmentCount:(*(v31 + 6) * v14)];
+        [v11 addObject:v22];
+
+        v5 = *(v35 + 6);
+      }
+
+LABEL_9:
+      resource = [(FATVolume *)self resource];
+      v24 = [Utilities syncMetaClearToDevice:resource rangesToClear:v11];
+      v25 = v39[5];
+      v39[5] = v24;
+
+      if (!v39[5])
+      {
+        [v11 removeAllObjects];
+        continue;
+      }
+
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_10002E87C();
+      }
+    }
+
+    break;
+  }
+
+LABEL_13:
+  v26 = v39[5];
+LABEL_17:
+  v27 = v26;
+
+  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v38, 8);
+
+  return v27;
+}
+
 - (id)getAttrRequestForNewDirEntry
 {
   v2 = objc_alloc_init(FSItemGetAttributesRequest);
@@ -564,11 +670,11 @@ LABEL_7:
   contentCopy = content;
   handlerCopy = handler;
   v118 = 0;
-  v119[0] = &v118;
-  v119[1] = 0x3032000000;
-  v119[2] = sub_10000B740;
-  v119[3] = sub_10000B750;
-  v120 = 0;
+  v119 = &v118;
+  v120 = 0x3032000000;
+  v121 = sub_10000B740;
+  v122 = sub_10000B750;
+  v123 = 0;
   v112 = 0;
   v113 = &v112;
   v114 = 0x3032000000;
@@ -590,27 +696,8 @@ LABEL_7:
   systemInfo = [(FATVolume *)self systemInfo];
   bytesPerCluster = [systemInfo bytesPerCluster];
 
-  if (!namedCopy)
+  if (!namedCopy || ([namedCopy data], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "length"), v18, !v19) || (objc_msgSend(namedCopy, "data"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "bytes"), objc_msgSend(namedCopy, "data"), v22 = objc_claimAutoreleasedReturnValue(), LODWORD(v21) = +[Utilities isDotOrDotDot:length:](Utilities, "isDotOrDotDot:length:", v21, objc_msgSend(v22, "length")), v22, v20, v21))
   {
-    goto LABEL_4;
-  }
-
-  data = [namedCopy data];
-  v19 = [data length];
-
-  if (!v19)
-  {
-    goto LABEL_4;
-  }
-
-  data2 = [namedCopy data];
-  bytes = [data2 bytes];
-  data3 = [namedCopy data];
-  LODWORD(bytes) = +[Utilities isDotOrDotDot:length:](Utilities, "isDotOrDotDot:length:", bytes, [data3 length]);
-
-  if (bytes)
-  {
-LABEL_4:
     v23 = fs_errorForPOSIXError();
     (*(handlerCopy + 2))(handlerCopy, 0, 0, v23);
     goto LABEL_19;
@@ -661,17 +748,17 @@ LABEL_18:
   if (type == 1)
   {
     v27 = [(FATVolume *)self verifyFileSize:v25];
-    v28 = *(v119[0] + 40);
-    *(v119[0] + 40) = v27;
+    v28 = v119[5];
+    v119[5] = v27;
 
-    if (*(v119[0] + 40))
+    if (v119[5])
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10002EB10(v119);
+        sub_10002EB10();
       }
 
-      (*(handlerCopy + 2))(handlerCopy, 0, 0, *(v119[0] + 40));
+      (*(handlerCopy + 2))(handlerCopy, 0, 0, v119[5]);
       goto LABEL_19;
     }
   }
@@ -703,18 +790,18 @@ LABEL_18:
     if (*(v91 + 24) == 1)
     {
       v31 = [v23 fillNameCache:?];
-      v32 = *(v119[0] + 40);
-      *(v119[0] + 40) = v31;
+      v32 = v119[5];
+      v119[5] = v31;
 
-      if (*(v119[0] + 40))
+      if (v119[5])
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          sub_10002EB94(v119);
+          sub_10002EB94();
         }
 
-        v33 = *(v119[0] + 40);
-        *(v119[0] + 40) = 0;
+        v33 = v119[5];
+        v119[5] = 0;
       }
     }
   }
@@ -733,11 +820,11 @@ LABEL_18:
   [v23 lookupDirEntryNamed:namedCopy dirNameCache:v34 lookupOffset:0 replyHandler:v84];
   if (*(v86 + 24) != 1)
   {
-    if (*(v119[0] + 40))
+    if (v119[5])
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10002EC18(v119);
+        sub_10002EC18();
       }
 
       goto LABEL_63;
@@ -772,7 +859,7 @@ LABEL_18:
         if (type != 3)
         {
 LABEL_61:
-          if (*(v119[0] + 40))
+          if (v119[5])
           {
             goto LABEL_62;
           }
@@ -785,14 +872,14 @@ LABEL_61:
           v81[4] = &v118;
           v81[5] = &v100;
           [v23 createNewDirEntryNamed:namedCopy type:type attributes:attributesCopy firstDataCluster:v51 replyHandler:v81];
-          if (*(v119[0] + 40))
+          if (v119[5])
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
-              sub_10002EE28(v119);
+              sub_10002EE28();
             }
 
-            if (*(v119[0] + 40))
+            if (v119[5])
             {
               goto LABEL_62;
             }
@@ -811,25 +898,25 @@ LABEL_61:
           v54 = namedCopy;
           v78 = v54;
           [v53 lookupDirEntryNamed:v54 dirNameCache:0 lookupOffset:v52 + 3 replyHandler:v76];
-          if (*(v119[0] + 40) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          if (v119[5] && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            sub_10002EEAC(v119);
+            sub_10002EEAC();
           }
 
-          v55 = *(v119[0] + 40);
+          v55 = v119[5];
           if (type == 2 && !v55)
           {
             v56 = [(FATItem *)DirItem dynamicCast:v113[5]];
             v57 = [v56 createDotEntriesWithAttrs:attributesCopy];
-            v58 = *(v119[0] + 40);
-            *(v119[0] + 40) = v57;
+            v58 = v119[5];
+            v119[5] = v57;
 
-            if (*(v119[0] + 40) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+            if (v119[5] && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
-              sub_10002EF30(v119);
+              sub_10002EF30();
             }
 
-            v55 = *(v119[0] + 40);
+            v55 = v119[5];
           }
 
           if (v55)
@@ -842,35 +929,35 @@ LABEL_62:
           else
           {
             updateModificationTimeOnCreateRemove = [v53 updateModificationTimeOnCreateRemove];
-            v60 = *(v119[0] + 40);
-            *(v119[0] + 40) = updateModificationTimeOnCreateRemove;
+            v60 = v119[5];
+            v119[5] = updateModificationTimeOnCreateRemove;
 
-            if (*(v119[0] + 40) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+            if (v119[5] && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
-              sub_10002EFB4(v119);
+              sub_10002EFB4();
             }
 
             v61 = v95[5];
             if (v61)
             {
-              data4 = [v54 data];
-              bytes2 = [data4 bytes];
-              data5 = [v54 data];
-              v65 = [data5 length];
-              v66 = [v61 insertDirEntryNamed:bytes2 ofLength:v65 offsetInDir:v101[3]];
-              v67 = *(v119[0] + 40);
-              *(v119[0] + 40) = v66;
+              data = [v54 data];
+              bytes = [data bytes];
+              data2 = [v54 data];
+              v65 = [data2 length];
+              v66 = [v61 insertDirEntryNamed:bytes ofLength:v65 offsetInDir:v101[3]];
+              v67 = v119[5];
+              v119[5] = v66;
 
-              if (*(v119[0] + 40))
+              if (v119[5])
               {
                 if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
                 {
-                  sub_10002F038(v119);
+                  sub_10002F038();
                 }
 
                 [v95[5] setIsIncomplete:1];
-                v68 = *(v119[0] + 40);
-                *(v119[0] + 40) = 0;
+                v68 = v119[5];
+                v119[5] = 0;
               }
             }
 
@@ -906,16 +993,16 @@ LABEL_57:
         if (type == 3)
         {
           v45 = *(v109 + 6);
-          data6 = [contentCopy data];
-          v47 = [(FATVolume *)self writeSymlinkClusters:v45 withContent:data6];
-          v48 = *(v119[0] + 40);
-          *(v119[0] + 40) = v47;
+          data3 = [contentCopy data];
+          v47 = [(FATVolume *)self writeSymlinkClusters:v45 withContent:data3];
+          v48 = v119[5];
+          v119[5] = v47;
 
-          if (*(v119[0] + 40))
+          if (v119[5])
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
-              sub_10002ED20(v119);
+              sub_10002ED20();
             }
           }
         }
@@ -935,11 +1022,11 @@ LABEL_57:
     v82[6] = &v104;
     [fatManager3 allocateClusters:v37 allowPartial:0 zeroFill:v71 mustBeContig:0 replyHandler:v82];
 
-    if (*(v119[0] + 40))
+    if (v119[5])
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10002EC9C(v119);
+        sub_10002EC9C();
       }
 
       goto LABEL_63;
@@ -948,12 +1035,12 @@ LABEL_57:
     if (type == 2)
     {
       v43 = [(FATVolume *)self clearNewDirClustersFrom:*(v109 + 6) amount:*(v105 + 6)];
-      v44 = *(v119[0] + 40);
-      *(v119[0] + 40) = v43;
+      v44 = v119[5];
+      v119[5] = v43;
 
-      if (*(v119[0] + 40) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      if (v119[5] && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10002EDA4(v119);
+        sub_10002EDA4();
       }
 
       goto LABEL_61;
@@ -968,8 +1055,8 @@ LABEL_57:
   }
 
   v35 = fs_errorForPOSIXError();
-  v36 = *(v119[0] + 40);
-  *(v119[0] + 40) = v35;
+  v36 = v119[5];
+  v119[5] = v35;
 
 LABEL_63:
   if (v95[5])
@@ -978,7 +1065,7 @@ LABEL_63:
     [nameCachePool2 doneWithNameCacheForDir:v23];
   }
 
-  (*(handlerCopy + 2))(handlerCopy, v113[5], namedCopy, *(v119[0] + 40));
+  (*(handlerCopy + 2))(handlerCopy, v113[5], namedCopy, v119[5]);
   _Block_object_dispose(&v85, 8);
   _Block_object_dispose(&v90, 8);
   _Block_object_dispose(&v94, 8);
@@ -1496,30 +1583,7 @@ LABEL_9:
       {
         v32 = [(FATItem *)DirItem dynamicCast:inDirectoryCopy];
         v31 = v32;
-        if (!v32)
-        {
-          goto LABEL_27;
-        }
-
-        if ([v32 isDeleted])
-        {
-          goto LABEL_27;
-        }
-
-        name = [v88[5] name];
-        string = [name string];
-        lowercaseString = [string lowercaseString];
-        string2 = [namedCopy string];
-        lowercaseString2 = [string2 lowercaseString];
-        v37 = [lowercaseString isEqualToString:lowercaseString2];
-
-        if ((v37 & 1) == 0)
-        {
-          goto LABEL_27;
-        }
-
-        v38 = overItemCopy;
-        if (!overItemCopy || overItemCopy == itemCopy || (+[FATItem dynamicCast:](FATItem, "dynamicCast:", overItemCopy), v39 = objc_claimAutoreleasedReturnValue(), v40 = v82[5], v82[5] = v39, v40, (v41 = v82[5]) != 0) && (v38 = overItemCopy, ![v41 isDeleted]))
+        if (v32 && ![v32 isDeleted] && (objc_msgSend(v88[5], "name"), v53 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v53, "string"), v52 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v52, "lowercaseString"), v34 = objc_claimAutoreleasedReturnValue(), objc_msgSend(namedCopy, "string"), v35 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v35, "lowercaseString"), v36 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend(v34, "isEqualToString:", v36), v36, v35, v34, v52, v53, (v37 & 1) != 0) && ((v38 = overItemCopy) == 0 || overItemCopy == itemCopy || (+[FATItem dynamicCast:](FATItem, "dynamicCast:", overItemCopy), v39 = objc_claimAutoreleasedReturnValue(), v40 = v82[5], v82[5] = v39, v40, (v41 = v82[5]) != 0) && (v38 = overItemCopy, !objc_msgSend(v41, "isDeleted"))))
         {
           v68[0] = _NSConcreteStackBlock;
           v68[1] = 3221225472;
@@ -1599,7 +1663,6 @@ LABEL_9:
 
         else
         {
-LABEL_27:
           v33 = fs_errorForPOSIXError();
           (*(handlerCopy + 2))(handlerCopy, 0, v33);
         }
@@ -1709,25 +1772,25 @@ LABEL_13:
   }
 
   v7 = 0;
-  v8[0] = &v7;
-  v8[1] = 0x3032000000;
-  v8[2] = sub_10000B740;
-  v8[3] = sub_10000B750;
-  v9 = 0;
+  v8 = &v7;
+  v9 = 0x3032000000;
+  v10 = sub_10000B740;
+  v11 = sub_10000B750;
+  v12 = 0;
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 3221225472;
   v6[2] = sub_1000134D8;
   v6[3] = &unk_100050C58;
   v6[4] = &v7;
   [(FATVolume *)self synchronizeWithFlags:1 replyHandler:v6];
-  if (!*(v8[0] + 40))
+  if (!v8[5])
   {
     [(FATVolume *)self unmountWithReplyHandler:&stru_100050E68];
   }
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_100030A58(v8);
+    sub_100030A58();
   }
 
   handlerCopy[2](handlerCopy, 0);

@@ -7,6 +7,7 @@
 - (void)_activate;
 - (void)_btDeletePairingAndRetry;
 - (void)_btEnsureStopped;
+- (void)_completed:(int)_completed;
 - (void)_invalidate;
 - (void)activate;
 - (void)dealloc;
@@ -72,17 +73,17 @@ LABEL_7:
 - (void)_activate
 {
   p_ucat = &self->_ucat;
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_13;
       }
 
-      v19 = *p_ucat;
+      ucat = *p_ucat;
     }
 
     v5 = "no";
@@ -111,38 +112,33 @@ LABEL_7:
       v5 = "yes";
     }
 
-    v24 = v7;
-    v25 = v5;
-    guestAddress = self->_guestAddress;
-    v23 = v6;
-    deviceAddress = self->_deviceAddress;
-    LogPrintF();
+    LogPrintF(ucat, "[BTBluetoothPairingSession _activate]", 30, "Activate: DA %@, GA %@, GM %s, DO %s, UNIC %s\n", self->_deviceAddress, self->_guestAddress, v6, v7, v5);
   }
 
 LABEL_13:
   self->_startTime = CFAbsoluteTimeGetCurrent();
   if (!self->_transaction)
   {
-    var4 = self->_ucat->var4;
-    v9 = os_transaction_create();
+    v8 = os_transaction_create();
     transaction = self->_transaction;
-    self->_transaction = v9;
+    self->_transaction = v8;
 
     if (!self->_transaction)
     {
+      v10 = *p_ucat;
       v11 = **p_ucat;
       if (v11 <= 60)
       {
         if (v11 != -1)
         {
 LABEL_17:
-          LogPrintF();
+          LogPrintF(v10, "[BTBluetoothPairingSession _activate]", 60, "### Create transaction failed\n");
           goto LABEL_19;
         }
 
         if (_LogCategory_Initialize())
         {
-          v20 = *p_ucat;
+          v10 = *p_ucat;
           goto LABEL_17;
         }
       }
@@ -168,13 +164,12 @@ LABEL_19:
     handler[3] = &unk_278D11830;
     handler[4] = self;
     dispatch_source_set_event_handler(v14, handler);
-    v15 = self->_timeoutTimer;
     CUDispatchTimerSet();
     dispatch_resume(self->_timeoutTimer);
 LABEL_22:
-    v16 = [objc_alloc(getWPClientClass()) initWithQueue:self->_dispatchQueue machName:0];
+    v15 = [objc_alloc(getWPClientClass()) initWithQueue:self->_dispatchQueue machName:0];
     wpClient = self->_wpClient;
-    self->_wpClient = v16;
+    self->_wpClient = v15;
 
     [(WPClient *)self->_wpClient disableScanning];
     _btEnsureStarted = [(BTBluetoothPairingSession *)self _btEnsureStarted];
@@ -187,21 +182,21 @@ LABEL_22:
   }
 
   [(BTBluetoothPairingSession *)p_ucat _activate];
-  _btEnsureStarted = v27;
+  _btEnsureStarted = v19;
 LABEL_23:
-  [(BTBluetoothPairingSession *)self _completed:_btEnsureStarted, deviceAddress, guestAddress, v23, v24, v25];
+  [(BTBluetoothPairingSession *)self _completed:_btEnsureStarted];
 }
 
 uint64_t __38__BTBluetoothPairingSession__activate__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = *v2[17];
-  if (v3 <= 60)
+  v3 = v2[17];
+  if (*v3 <= 60)
   {
-    if (v3 != -1)
+    if (*v3 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(v3, "[BTBluetoothPairingSession _activate]_block_invoke", 60, "### Timeout\n");
       v2 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -210,7 +205,7 @@ LABEL_3:
     v2 = *(a1 + 32);
     if (v4)
     {
-      v6 = v2[17];
+      v3 = v2[17];
       goto LABEL_3;
     }
   }
@@ -233,13 +228,13 @@ LABEL_5:
 
 - (void)_invalidate
 {
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucat, "[BTBluetoothPairingSession _invalidate]", 30, "Invalidate\n");
       goto LABEL_5;
     }
 
@@ -256,20 +251,100 @@ LABEL_5:
   [(BTBluetoothPairingSession *)self _completed:4294960573];
 }
 
+- (void)_completed:(int)_completed
+{
+  v26[1] = *MEMORY[0x277D85DE8];
+  [(BTBluetoothPairingSession *)self _btEnsureStopped];
+  retryTimer = self->_retryTimer;
+  if (retryTimer)
+  {
+    v6 = retryTimer;
+    dispatch_source_cancel(v6);
+    v7 = self->_retryTimer;
+    self->_retryTimer = 0;
+  }
+
+  timeoutTimer = self->_timeoutTimer;
+  if (timeoutTimer)
+  {
+    v9 = timeoutTimer;
+    dispatch_source_cancel(v9);
+    v10 = self->_timeoutTimer;
+    self->_timeoutTimer = 0;
+  }
+
+  [(WPClient *)self->_wpClient invalidate];
+  wpClient = self->_wpClient;
+  self->_wpClient = 0;
+
+  if (self->_completionHandler)
+  {
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
+    {
+      if (ucat->var0 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_10;
+        }
+
+        ucat = self->_ucat;
+      }
+
+      Current = CFAbsoluteTimeGetCurrent();
+      LogPrintF(ucat, "[BTBluetoothPairingSession _completed:]", 30, "Pairing completed (%.2f seconds): %#m\n", Current - self->_startTime);
+    }
+
+LABEL_10:
+    completionHandler = self->_completionHandler;
+    if (_completed)
+    {
+      v15 = MEMORY[0x277CCA9B8];
+      v16 = *MEMORY[0x277CCA590];
+      _completedCopy = _completed;
+      v25 = *MEMORY[0x277CCA450];
+      v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
+      v19 = v18;
+      v20 = @"?";
+      if (v18)
+      {
+        v20 = v18;
+      }
+
+      v26[0] = v20;
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v22 = [v15 errorWithDomain:v16 code:_completedCopy userInfo:v21];
+      completionHandler[2](completionHandler, v22);
+    }
+
+    else
+    {
+      completionHandler[2](self->_completionHandler, 0);
+    }
+
+    v23 = self->_completionHandler;
+    self->_completionHandler = 0;
+  }
+
+  transaction = self->_transaction;
+  self->_transaction = 0;
+}
+
 - (int)_btEnsureStarted
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   self->_btStarted = 1;
   if (self->_btSessionAttaching || self->_btSession)
   {
     goto LABEL_3;
   }
 
-  *&v94[0] = 0;
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  *&v66[0] = 0;
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -279,36 +354,36 @@ LABEL_5:
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[BTBluetoothPairingSession _btEnsureStarted]", 30, "BTSession attach\n");
   }
 
 LABEL_41:
-  *&v94[0] = _btSessionEventHandler;
+  *&v66[0] = _btSessionEventHandler;
   selfCopy = self;
-  v21 = softLinkBTSessionAttachWithQueue(self->_ucat->var4, v94, selfCopy, selfCopy->_dispatchQueue);
-  if (v21)
+  v22 = softLinkBTSessionAttachWithQueue(self->_ucat->var4, v66, selfCopy, selfCopy->_dispatchQueue);
+  if (v22)
   {
-    v22 = v21;
+    v23 = v22;
     CFRelease(selfCopy);
-    v23 = (v22 + 310000);
-    v24 = self->_ucat->var0;
-    if (v24 > 60)
+    v24 = (v23 + 310000);
+    v25 = self->_ucat;
+    if (v25->var0 > 60)
     {
       goto LABEL_49;
     }
 
-    if (v24 == -1)
+    if (v25->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_49;
       }
 
-      v75 = self->_ucat;
+      v25 = self->_ucat;
     }
 
-    v90 = (v22 + 310000);
-    goto LABEL_163;
+    LogPrintF(v25, "[BTBluetoothPairingSession _btEnsureStarted]", 60, "### BTSesson attach failed: %#m\n", (v23 + 310000));
+    goto LABEL_49;
   }
 
   self->_btSessionAttaching = 1;
@@ -318,45 +393,44 @@ LABEL_3:
     goto LABEL_14;
   }
 
-  v3 = self->_ucat->var0;
-  if (v3 <= 30)
+  v3 = self->_ucat;
+  if (v3->var0 <= 30)
   {
-    if (v3 == -1)
+    if (v3->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_12;
       }
 
-      v66 = self->_ucat;
+      v3 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v3, "[BTBluetoothPairingSession _btEnsureStarted]", 30, "BTSession add callbacks\n");
   }
 
 LABEL_12:
   v5 = softLinkBTServiceAddCallbacks(self->_btSession, _btServiceEventHandler, self);
   if (v5)
   {
-    v23 = (v5 + 310000);
-    v60 = self->_ucat->var0;
-    if (v60 > 60)
+    v24 = (v5 + 310000);
+    v52 = self->_ucat;
+    if (v52->var0 > 60)
     {
       goto LABEL_49;
     }
 
-    if (v60 == -1)
+    if (v52->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_49;
       }
 
-      v67 = self->_ucat;
+      v52 = self->_ucat;
     }
 
-    v90 = v23;
-    LogPrintF();
+    LogPrintF(v52, "[BTBluetoothPairingSession _btEnsureStarted]", 60, "### BTSesson add service callbacks failed: %#m\n", v24);
     goto LABEL_49;
   }
 
@@ -369,19 +443,19 @@ LABEL_14:
   }
 
   p_ucat = &self->_ucat;
-  v10 = self->_ucat->var0;
-  if (v10 <= 30)
+  v9 = self->_ucat;
+  if (v9->var0 <= 30)
   {
-    if (v10 != -1)
+    if (v9->var0 != -1)
     {
 LABEL_26:
-      LogPrintF();
+      LogPrintF(v9, "[BTBluetoothPairingSession _btEnsureStarted]", 30, "BTSession device lookup\n");
       goto LABEL_28;
     }
 
     if (_LogCategory_Initialize())
     {
-      v68 = *p_ucat;
+      v9 = *p_ucat;
       goto LABEL_26;
     }
   }
@@ -391,349 +465,338 @@ LABEL_28:
   if (!deviceAddress)
   {
     [(BTBluetoothPairingSession *)&self->_ucat _btEnsureStarted];
-    v23 = LODWORD(v94[0]);
+    v24 = LODWORD(v66[0]);
 LABEL_50:
-    v26 = self->_ucat->var0;
-    if (v26 <= 60)
+    v26 = self->_ucat;
+    if (v26->var0 <= 60)
     {
-      if (v26 == -1)
+      if (v26->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_54;
         }
 
-        v81 = self->_ucat;
+        v26 = self->_ucat;
       }
 
-      v90 = v23;
-      LogPrintF();
+      LogPrintF(v26, "[BTBluetoothPairingSession _btEnsureStarted]", 60, "### BT setup failed: %#m\n", v24);
     }
 
 LABEL_54:
-    [(BTBluetoothPairingSession *)self _completed:v23, v90, v91];
-    goto LABEL_149;
+    [(BTBluetoothPairingSession *)self _completed:v24];
+    return v24;
   }
 
-  WORD2(v94[0]) = 0;
-  LODWORD(v94[0]) = 0;
+  WORD2(v66[0]) = 0;
+  LODWORD(v66[0]) = 0;
   uTF8String = [(NSString *)deviceAddress UTF8String];
-  v13 = softLinkBTDeviceAddressFromString(uTF8String, v94);
+  v13 = softLinkBTDeviceAddressFromString(uTF8String, v66);
   if (v13)
   {
-    v23 = (v13 + 310000);
-    v61 = (*p_ucat)->var0;
-    if (v61 > 60)
+    v24 = (v13 + 310000);
+    v53 = *p_ucat;
+    var0 = (*p_ucat)->var0;
+    if (var0 > 60)
     {
       goto LABEL_49;
     }
 
-    if (v61 == -1)
+    if (var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_49;
       }
 
-      v69 = *p_ucat;
+      v53 = *p_ucat;
     }
 
-    v90 = self->_deviceAddress;
-    goto LABEL_163;
+    LogPrintF(v53, "[BTBluetoothPairingSession _btEnsureStarted]", 60, "### Bad BTDevice address: '%@'\n", self->_deviceAddress);
+    goto LABEL_49;
   }
 
-  v14 = softLinkBTDeviceFromAddress(self->_btSession, v94, &self->_btDevice);
+  v14 = softLinkBTDeviceFromAddress(self->_btSession, v66, &self->_btDevice);
   if (v14)
   {
-    v23 = (v14 + 310000);
-    v62 = (*p_ucat)->var0;
-    if (v62 > 60)
+    v24 = (v14 + 310000);
+    v55 = *p_ucat;
+    v56 = (*p_ucat)->var0;
+    if (v56 > 60)
     {
       goto LABEL_49;
     }
 
-    if (v62 == -1)
+    if (v56 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_49;
       }
 
-      v70 = *p_ucat;
+      v55 = *p_ucat;
     }
 
-    v90 = self->_deviceAddress;
-    v91 = v23;
-    goto LABEL_163;
+    LogPrintF(v55, "[BTBluetoothPairingSession _btEnsureStarted]", 60, "### BTDevice lookup %@ failed: %#m\n", self->_deviceAddress, v24);
+    goto LABEL_49;
   }
 
   AddressString = softLinkBTDeviceGetAddressString(self->_btDevice, self->_btAddrStr, 32);
   if (AddressString)
   {
-    v23 = (AddressString + 310000);
-    v63 = (*p_ucat)->var0;
-    if (v63 > 60)
+    v24 = (AddressString + 310000);
+    v57 = *p_ucat;
+    v58 = (*p_ucat)->var0;
+    if (v58 > 60)
     {
       goto LABEL_49;
     }
 
-    if (v63 == -1)
+    if (v58 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_49;
       }
 
-      v71 = *p_ucat;
+      v57 = *p_ucat;
     }
 
-    v90 = self->_deviceAddress;
-    v91 = v23;
-LABEL_163:
-    LogPrintF();
+    LogPrintF(v57, "[BTBluetoothPairingSession _btEnsureStarted]", 60, "### BTDeviceGetAddressString start %@ failed: %#m\n", self->_deviceAddress, v24);
     goto LABEL_49;
   }
 
   guestAddress = self->_guestAddress;
   if (guestAddress)
   {
-    v17 = (*p_ucat)->var0;
-    if (v17 <= 30)
+    v17 = *p_ucat;
+    v18 = (*p_ucat)->var0;
+    if (v18 <= 30)
     {
-      if (v17 != -1)
-      {
-LABEL_35:
-        v90 = self->_deviceAddress;
-        v91 = guestAddress;
-LABEL_62:
-        LogPrintF();
-        goto LABEL_15;
-      }
-
-      if (_LogCategory_Initialize())
-      {
-        v25 = self->_ucat;
-        guestAddress = self->_guestAddress;
-        goto LABEL_35;
-      }
-    }
-  }
-
-  else
-  {
-    v92 = 0;
-    PairingStatus = softLinkBTDeviceGetPairingStatus(*p_btDevice, &v92);
-    v19 = *p_ucat;
-    if (PairingStatus)
-    {
-      if (*v19 > 60)
-      {
-        goto LABEL_15;
-      }
-
-      if (*v19 != -1 || (v27 = _LogCategory_Initialize(), v19 = *p_ucat, v27))
-      {
-        v90 = (PairingStatus + 310000);
-        LogPrintF();
-        v19 = *p_ucat;
-      }
-    }
-
-    if (*v19 <= 30)
-    {
-      if (*v19 == -1)
+      if (v18 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_15;
         }
 
-        v30 = *p_ucat;
+        v17 = self->_ucat;
+        guestAddress = self->_guestAddress;
       }
 
-      v28 = self->_deviceAddress;
-      if (v92)
+      LogPrintF(v17, "[BTBluetoothPairingSession _btEnsureStarted]", 30, "BTSession configure device %@, guest %@\n", self->_deviceAddress, guestAddress);
+    }
+  }
+
+  else
+  {
+    v64 = 0;
+    PairingStatus = softLinkBTDeviceGetPairingStatus(*p_btDevice, &v64);
+    v20 = *p_ucat;
+    if (PairingStatus)
+    {
+      if (*v20 > 60)
       {
-        v29 = "already paired";
+        goto LABEL_15;
+      }
+
+      if (*v20 != -1 || (v27 = _LogCategory_Initialize(), v20 = *p_ucat, v27))
+      {
+        LogPrintF(v20, "[BTBluetoothPairingSession _btEnsureStarted]", 60, "### Device get pairing status failed: %#m\n", (PairingStatus + 310000));
+        v20 = *p_ucat;
+      }
+    }
+
+    if (*v20 <= 30)
+    {
+      if (*v20 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_15;
+        }
+
+        v20 = *p_ucat;
+      }
+
+      if (v64)
+      {
+        v28 = "already paired";
       }
 
       else
       {
-        v29 = "not paired";
+        v28 = "not paired";
       }
 
-      v90 = self->_deviceAddress;
-      v91 = v29;
-      goto LABEL_62;
+      LogPrintF(v20, "[BTBluetoothPairingSession _btEnsureStarted]", 30, "BTSession device %@ pairing status: %s\n", self->_deviceAddress, v28);
     }
   }
 
 LABEL_15:
   if (self->_connectOnly || self->_disconnectOnly || self->_guestAddress || self->_btPairingAgent || !self->_btSession)
   {
-    goto LABEL_72;
+    goto LABEL_71;
   }
 
   v7 = 0uLL;
-  v95 = 0u;
-  memset(v94, 0, sizeof(v94));
-  v8 = self->_ucat->var0;
-  if (v8 <= 30)
+  v67 = 0u;
+  memset(v66, 0, sizeof(v66));
+  v8 = self->_ucat;
+  if (v8->var0 <= 30)
   {
-    if (v8 != -1)
+    if (v8->var0 != -1)
     {
 LABEL_22:
-      LogPrintF();
+      LogPrintF(v8, "[BTBluetoothPairingSession _btEnsureStarted]", 30, "BTPairingAgentCreate\n");
       v7 = 0uLL;
-      goto LABEL_66;
+      goto LABEL_65;
     }
 
-    v31 = _LogCategory_Initialize();
+    v29 = _LogCategory_Initialize();
     v7 = 0uLL;
-    if (v31)
+    if (v29)
     {
-      v86 = self->_ucat;
+      v8 = self->_ucat;
       goto LABEL_22;
     }
   }
 
-LABEL_66:
-  v95 = 0uLL;
-  *(v94 + 8) = v7;
-  *&v94[0] = _btPairingAgentStatusHandler;
-  *(&v94[1] + 1) = _btPairingAgentUserConfirmationHandler;
-  v32 = softLinkBTPairingAgentCreate(self->_btSession, v94, self, &self->_btPairingAgent);
-  if (v32)
+LABEL_65:
+  v67 = 0uLL;
+  *(v66 + 8) = v7;
+  *&v66[0] = _btPairingAgentStatusHandler;
+  *(&v66[1] + 1) = _btPairingAgentUserConfirmationHandler;
+  v30 = softLinkBTPairingAgentCreate(self->_btSession, v66, self, &self->_btPairingAgent);
+  if (v30)
   {
-    v23 = (v32 + 310000);
-    v76 = self->_ucat->var0;
-    if (v76 > 60)
+    v24 = (v30 + 310000);
+    v61 = self->_ucat;
+    if (v61->var0 > 60)
     {
       goto LABEL_49;
     }
 
-    if (v76 == -1)
+    if (v61->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_49;
       }
 
-      v87 = self->_ucat;
+      v61 = self->_ucat;
     }
 
-    v90 = v23;
-    goto LABEL_163;
+    LogPrintF(v61, "[BTBluetoothPairingSession _btEnsureStarted]", 60, "### BTPairingAgentCreate failed: %#m\n", v24, v63);
+    goto LABEL_49;
   }
 
-  v33 = self->_ucat->var0;
-  if (v33 <= 30)
+  v31 = self->_ucat;
+  if (v31->var0 <= 30)
   {
-    if (v33 != -1)
+    if (v31->var0 != -1)
     {
-LABEL_69:
-      LogPrintF();
-      goto LABEL_71;
+LABEL_68:
+      LogPrintF(v31, "[BTBluetoothPairingSession _btEnsureStarted]", 30, "BTPairingAgentStart\n");
+      goto LABEL_70;
     }
 
     if (_LogCategory_Initialize())
     {
-      v88 = self->_ucat;
-      goto LABEL_69;
+      v31 = self->_ucat;
+      goto LABEL_68;
     }
   }
 
-LABEL_71:
-  v34 = softLinkBTPairingAgentStart(self->_btPairingAgent);
-  if (v34)
+LABEL_70:
+  v32 = softLinkBTPairingAgentStart(self->_btPairingAgent);
+  if (v32)
   {
-    v23 = (v34 + 310000);
-    v77 = self->_ucat->var0;
-    if (v77 > 60)
+    v24 = (v32 + 310000);
+    v62 = self->_ucat;
+    if (v62->var0 > 60)
     {
       goto LABEL_49;
     }
 
-    if (v77 == -1)
+    if (v62->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_49;
       }
 
-      v89 = self->_ucat;
+      v62 = self->_ucat;
     }
 
-    v90 = v23;
-    goto LABEL_163;
+    LogPrintF(v62, "[BTBluetoothPairingSession _btEnsureStarted]", 60, "### BTPairingAgentStart failed: %#m\n", v24, v63);
+    goto LABEL_49;
   }
 
-LABEL_72:
+LABEL_71:
   if (!*p_btDevice)
   {
-LABEL_148:
-    LODWORD(v23) = 0;
-    goto LABEL_149;
+LABEL_147:
+    LODWORD(v24) = 0;
+    return v24;
   }
 
   if ((self->_btConfigured || !self->_guestAddress) && (self->_btConnecting || !self->_btPairingAgentStarted && !self->_connectOnly))
   {
     if (self->_btDisconnected || !self->_disconnectOnly)
     {
-      goto LABEL_148;
+      goto LABEL_147;
     }
 
-    v35 = self->_ucat->var0;
-    if (v35 <= 30)
+    v33 = self->_ucat;
+    if (v33->var0 <= 30)
     {
-      if (v35 == -1)
+      if (v33->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
-          goto LABEL_126;
+          goto LABEL_125;
         }
 
-        v82 = self->_ucat;
+        v33 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v33, "[BTBluetoothPairingSession _btEnsureStarted]", 30, "BTDeviceDisconnect\n");
     }
 
-LABEL_126:
-    v51 = softLinkBTDeviceDisconnect(*p_btDevice);
-    if (!v51)
+LABEL_125:
+    v45 = softLinkBTDeviceDisconnect(*p_btDevice);
+    if (!v45)
     {
-      goto LABEL_146;
+      goto LABEL_145;
     }
 
-    v52 = v51;
-    v53 = self->_ucat->var0;
-    if (v53 > 60)
+    v46 = v45;
+    v47 = self->_ucat;
+    if (v47->var0 > 60)
     {
-      goto LABEL_146;
+      goto LABEL_145;
     }
 
-    if (v53 == -1)
+    if (v47->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_146;
+        goto LABEL_145;
       }
 
-      v85 = self->_ucat;
+      v47 = self->_ucat;
     }
 
-    v90 = v52;
-    v91 = (v52 + 310000);
-    LogPrintF();
-LABEL_146:
+    LogPrintF(v47, "[BTBluetoothPairingSession _btEnsureStarted]", 60, "### BTDeviceDisconnect failed: %d, %#m\n", v46);
+LABEL_145:
     self->_btDisconnected = 1;
-    goto LABEL_147;
+    goto LABEL_146;
   }
 
   if (!self->_guestAddress)
   {
-    goto LABEL_212;
+    goto LABEL_210;
   }
 
   if (MobileBluetoothLibrary_sOnce != -1)
@@ -743,7 +806,7 @@ LABEL_146:
 
   if (!MobileBluetoothLibrary_sLib || !dlsym(MobileBluetoothLibrary_sLib, "BTDeviceConfigureLinkKey"))
   {
-LABEL_212:
+LABEL_210:
     if (self->_guestMode)
     {
       if (MobileBluetoothLibrary_sOnce != -1)
@@ -753,78 +816,74 @@ LABEL_212:
 
       if (MobileBluetoothLibrary_sLib && dlsym(MobileBluetoothLibrary_sLib, "BTDeviceConnectServicesWithParameters"))
       {
-        v39 = self->_ucat->var0;
-        if (v39 > 30)
+        v35 = self->_ucat;
+        if (v35->var0 > 30)
         {
-          goto LABEL_131;
+          goto LABEL_130;
         }
 
-        if (v39 == -1)
+        if (v35->var0 == -1)
         {
-          v54 = self->_ucat;
           if (!_LogCategory_Initialize())
           {
-            goto LABEL_131;
+            goto LABEL_130;
           }
 
-          v83 = self->_ucat;
+          v35 = self->_ucat;
         }
 
         if (self->_guestPermanent)
         {
-          v40 = "yes";
+          v36 = "yes";
         }
 
         else
         {
-          v40 = "no";
+          v36 = "no";
         }
 
-        v41 = [(NSData *)self->_guestKey length:v90];
-        v90 = v40;
-        v91 = v41;
-        LogPrintF();
-LABEL_131:
-        v94[0] = 0uLL;
-        if ([(NSData *)self->_guestKey length:v90]== 16)
+        LogPrintF(v35, "[BTBluetoothPairingSession _btEnsureStarted]", 30, "BTDeviceConnectServicesWithParameters: guest, permanent %s, key %d bytes\n", v36, [(NSData *)self->_guestKey length]);
+LABEL_130:
+        v66[0] = 0uLL;
+        if ([(NSData *)self->_guestKey length]== 16)
         {
-          v94[0] = *[(NSData *)self->_guestKey bytes];
+          v66[0] = *[(NSData *)self->_guestKey bytes];
           if (self->_guestPermanent)
           {
-            v55 = 16;
+            v48 = 16;
           }
 
           else if (self->_userNotInContacts)
           {
-            v55 = 4;
+            v48 = 4;
           }
 
           else
           {
-            v55 = 2;
+            v48 = 2;
           }
         }
 
         else if (self->_guestPermanent)
         {
-          v55 = 16;
+          v48 = 16;
         }
 
         else
         {
-          v55 = 1;
+          v48 = 1;
         }
 
-        v56 = softLinkBTDeviceConnectServicesWithParameters(*p_btDevice, 4294959103, v55, v94);
-        if (v56)
+        v49 = softLinkBTDeviceConnectServicesWithParameters(*p_btDevice, 4294959103, v48, v66);
+        if (v49)
         {
-          [(BTBluetoothPairingSession *)v56 _btEnsureStarted:v94];
-LABEL_181:
-          v23 = v92;
+          [(BTBluetoothPairingSession *)v49 _btEnsureStarted:v66];
+LABEL_179:
+          v24 = v64;
           goto LABEL_49;
         }
 
-        goto LABEL_144;
+        goto LABEL_143;
       }
     }
 
@@ -837,193 +896,184 @@ LABEL_181:
 
       if (MobileBluetoothLibrary_sLib && dlsym(MobileBluetoothLibrary_sLib, "BTDeviceConnectServicesWithParameters"))
       {
-        v42 = self->_ucat->var0;
-        if (v42 > 30)
+        v37 = self->_ucat;
+        if (v37->var0 > 30)
         {
-          goto LABEL_143;
+          goto LABEL_142;
         }
 
-        if (v42 == -1)
+        if (v37->var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
-LABEL_143:
-            v94[0] = 0uLL;
-            v57 = softLinkBTDeviceConnectServicesWithParameters(*p_btDevice, 4294959103, 0, v94);
-            if (v57)
+LABEL_142:
+            v66[0] = 0uLL;
+            v50 = softLinkBTDeviceConnectServicesWithParameters(*p_btDevice, 4294959103, 0, v66);
+            if (v50)
             {
-              [(BTBluetoothPairingSession *)v57 _btEnsureStarted:v94];
-              goto LABEL_181;
+              [(BTBluetoothPairingSession *)v50 _btEnsureStarted:v66];
+              goto LABEL_179;
             }
 
-LABEL_144:
-            LODWORD(v23) = 0;
+LABEL_143:
+            LODWORD(v24) = 0;
             self->_btConnecting = 1;
-            goto LABEL_149;
+            return v24;
           }
 
-          v84 = self->_ucat;
+          v37 = self->_ucat;
         }
 
-        LogPrintF();
-        goto LABEL_143;
+        LogPrintF(v37, "[BTBluetoothPairingSession _btEnsureStarted]", 30, "BTDeviceConnectServices: aggregate\n");
+        goto LABEL_142;
       }
     }
 
-    v43 = self->_ucat->var0;
-    if (v43 <= 30)
+    v38 = self->_ucat;
+    if (v38->var0 <= 30)
     {
-      if (v43 != -1)
+      if (v38->var0 != -1)
       {
-LABEL_112:
-        LogPrintF();
-        goto LABEL_114;
+LABEL_111:
+        LogPrintF(v38, "[BTBluetoothPairingSession _btEnsureStarted]", 30, "BTDeviceConnectServices\n");
+        goto LABEL_113;
       }
 
       if (_LogCategory_Initialize())
       {
-        v73 = self->_ucat;
-        goto LABEL_112;
+        v38 = self->_ucat;
+        goto LABEL_111;
       }
     }
 
-LABEL_114:
-    v44 = softLinkBTDeviceConnectServices(*p_btDevice, 4294959103);
-    if (v44)
+LABEL_113:
+    v39 = softLinkBTDeviceConnectServices(*p_btDevice, 4294959103);
+    if (v39)
     {
-      v23 = (v44 + 310000);
-      v45 = self->_ucat->var0;
-      if (v45 > 60)
+      v24 = (v39 + 310000);
+      v40 = self->_ucat;
+      if (v40->var0 > 60)
       {
         goto LABEL_49;
       }
 
-      if (v45 == -1)
+      if (v40->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_49;
         }
 
-        v74 = self->_ucat;
+        v40 = self->_ucat;
       }
 
-      v90 = v23;
-      goto LABEL_163;
+      LogPrintF(v40, "[BTBluetoothPairingSession _btEnsureStarted]", 60, "### BTDeviceConnectServices failed: %#m\n", v24, v63);
+      goto LABEL_49;
     }
 
-    goto LABEL_144;
+    goto LABEL_143;
   }
 
-  v36 = self->_ucat->var0;
-  if (v36 > 30)
+  v34 = self->_ucat;
+  if (v34->var0 <= 30)
   {
-    goto LABEL_119;
+    if (v34->var0 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_118;
+      }
+
+      v34 = self->_ucat;
+    }
+
+    LogPrintF(v34, "[BTBluetoothPairingSession _btEnsureStarted]", 30, "BTDeviceConfigureLinkKey: %@, key %d bytes\n", self->_guestAddress, [(NSData *)self->_guestKey length]);
   }
 
-  if (v36 != -1)
+LABEL_118:
+  v66[0] = 0uLL;
+  if ([(NSData *)self->_guestKey length]== 16)
   {
-    goto LABEL_90;
-  }
-
-  v46 = self->_ucat;
-  if (_LogCategory_Initialize())
-  {
-    v78 = self->_ucat;
-LABEL_90:
-    v37 = self->_guestAddress;
-    v38 = [(NSData *)self->_guestKey length:v90];
-    v90 = v37;
-    v91 = v38;
-    LogPrintF();
-  }
-
-LABEL_119:
-  v94[0] = 0uLL;
-  if ([(NSData *)self->_guestKey length:v90]== 16)
-  {
-    v94[0] = *[(NSData *)self->_guestKey bytes];
-    v47 = 0xFFFFFFFFLL;
+    v66[0] = *[(NSData *)self->_guestKey bytes];
+    v41 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    v47 = 0;
+    v41 = 0;
   }
 
-  v93 = 0;
-  v92 = 0;
+  v65 = 0;
+  v64 = 0;
   uTF8String2 = [(NSString *)self->_guestAddress UTF8String];
-  v49 = softLinkBTDeviceAddressFromString(uTF8String2, &v92);
-  if (v49)
+  v43 = softLinkBTDeviceAddressFromString(uTF8String2, &v64);
+  if (v43)
   {
-    v23 = (v49 + 310000);
-    v64 = self->_ucat->var0;
-    if (v64 > 60)
+    v24 = (v43 + 310000);
+    v59 = self->_ucat;
+    if (v59->var0 > 60)
     {
       goto LABEL_49;
     }
 
-    if (v64 == -1)
+    if (v59->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_49;
       }
 
-      v79 = self->_ucat;
+      v59 = self->_ucat;
     }
 
-    v90 = self->_guestAddress;
-    goto LABEL_163;
+    LogPrintF(v59, "[BTBluetoothPairingSession _btEnsureStarted]", 60, "### Bad guest address: '%@'\n", self->_guestAddress, v63);
+    goto LABEL_49;
   }
 
-  v50 = softLinkBTDeviceConfigureLinkKey(*p_btDevice, &v92, v94, v47);
-  if (!v50)
+  v44 = softLinkBTDeviceConfigureLinkKey(*p_btDevice, &v64, v66, v41);
+  if (!v44)
   {
     self->_btConfigured = 1;
-LABEL_147:
-    [(BTBluetoothPairingSession *)self _completed:0, v90, v91];
-    goto LABEL_148;
+LABEL_146:
+    [(BTBluetoothPairingSession *)self _completed:0];
+    goto LABEL_147;
   }
 
-  v23 = (v50 + 310000);
-  v65 = self->_ucat->var0;
-  if (v65 <= 60)
+  v24 = (v44 + 310000);
+  v60 = self->_ucat;
+  if (v60->var0 <= 60)
   {
-    if (v65 != -1)
+    if (v60->var0 != -1)
     {
-LABEL_169:
-      v90 = v23;
-      goto LABEL_163;
+LABEL_167:
+      LogPrintF(v60, "[BTBluetoothPairingSession _btEnsureStarted]", 60, "### BTDeviceConfigureLinkKey failed: %#m\n", v24, v63);
+      goto LABEL_49;
     }
 
     if (_LogCategory_Initialize())
     {
-      v80 = self->_ucat;
-      goto LABEL_169;
+      v60 = self->_ucat;
+      goto LABEL_167;
     }
   }
 
 LABEL_49:
-  if (v23)
+  if (v24)
   {
     goto LABEL_50;
   }
 
-LABEL_149:
-  v58 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v24;
 }
 
 - (void)_btEnsureStopped
 {
   if (self->_btConnecting)
   {
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -1033,7 +1083,7 @@ LABEL_149:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[BTBluetoothPairingSession _btEnsureStopped]", 30, "BTPairingAgentCancelPairing\n");
     }
 
 LABEL_6:
@@ -1046,20 +1096,20 @@ LABEL_6:
     goto LABEL_13;
   }
 
-  v4 = self->_ucat->var0;
-  if (v4 <= 30)
+  v4 = self->_ucat;
+  if (v4->var0 <= 30)
   {
-    if (v4 == -1)
+    if (v4->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_12;
       }
 
-      v11 = self->_ucat;
+      v4 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v4, "[BTBluetoothPairingSession _btEnsureStopped]", 30, "BTPairingAgentStop\n");
   }
 
 LABEL_12:
@@ -1071,20 +1121,20 @@ LABEL_13:
     goto LABEL_19;
   }
 
-  v5 = self->_ucat->var0;
-  if (v5 <= 30)
+  v5 = self->_ucat;
+  if (v5->var0 <= 30)
   {
-    if (v5 == -1)
+    if (v5->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_18;
       }
 
-      v8 = self->_ucat;
+      v5 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v5, "[BTBluetoothPairingSession _btEnsureStopped]", 30, "BTPairingAgentDestroy\n");
   }
 
 LABEL_18:
@@ -1098,20 +1148,20 @@ LABEL_19:
 
   if (self->_btSession)
   {
-    v6 = self->_ucat->var0;
-    if (v6 <= 30)
+    v6 = self->_ucat;
+    if (v6->var0 <= 30)
     {
-      if (v6 == -1)
+      if (v6->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_25;
         }
 
-        v12 = self->_ucat;
+        v6 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v6, "[BTBluetoothPairingSession _btEnsureStopped]", 30, "BTServiceRemoveCallbacks\n");
     }
 
 LABEL_25:
@@ -1122,20 +1172,20 @@ LABEL_25:
 LABEL_27:
   if (self->_btSession)
   {
-    v7 = self->_ucat->var0;
-    if (v7 <= 30)
+    v7 = self->_ucat;
+    if (v7->var0 <= 30)
     {
-      if (v7 == -1)
+      if (v7->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_32;
         }
 
-        v9 = self->_ucat;
+        v7 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v7, "[BTBluetoothPairingSession _btEnsureStopped]", 30, "BTSessionDetachWithQueue\n");
     }
 
 LABEL_32:
@@ -1165,33 +1215,32 @@ LABEL_32:
           goto LABEL_11;
         }
 
-        v25 = self->_ucat;
+        ucat = self->_ucat;
         v5 = self->_retryCount;
       }
 
-      v30 = v5;
-      LogPrintF();
+      LogPrintF(ucat, "[BTBluetoothPairingSession _btDeletePairingAndRetry]", 50, "Deleting stale BTDevice pairing and retrying (%u)\n", v5);
     }
 
 LABEL_11:
-    v10 = softLinkBTPairingAgentDeletePairedDevice(self->_btPairingAgent, self->_btDevice);
-    if (v10)
+    v8 = softLinkBTPairingAgentDeletePairedDevice(self->_btPairingAgent, self->_btDevice);
+    if (v8)
     {
-      v11 = v10;
+      v9 = v8;
+      v10 = *p_ucat;
       var0 = (*p_ucat)->var0;
       if (var0 <= 60)
       {
         if (var0 != -1)
         {
 LABEL_14:
-          v30 = (v11 + 310000);
-          LogPrintF();
+          LogPrintF(v10, "[BTBluetoothPairingSession _btDeletePairingAndRetry]", 60, "### BTPairingAgentDeletePairedDevice failed: %#m\n", (v9 + 310000));
           goto LABEL_16;
         }
 
         if (_LogCategory_Initialize())
         {
-          v27 = *p_ucat;
+          v10 = *p_ucat;
           goto LABEL_14;
         }
       }
@@ -1203,6 +1252,7 @@ LABEL_16:
       goto LABEL_22;
     }
 
+    v12 = *p_ucat;
     v13 = (*p_ucat)->var0;
     if (v13 <= 50)
     {
@@ -1213,18 +1263,17 @@ LABEL_16:
           goto LABEL_21;
         }
 
-        v28 = *p_ucat;
+        v12 = *p_ucat;
       }
 
-      v30 = 15;
-      LogPrintF();
+      LogPrintF(v12, "[BTBluetoothPairingSession _btDeletePairingAndRetry]", 50, "Pushing out timer another %d seconds\n", 15);
     }
 
 LABEL_21:
-    timeoutTimer = self->_timeoutTimer;
     CUDispatchTimerSet();
 LABEL_22:
-    v15 = self->_ucat->var0;
+    v14 = self->_ucat;
+    v15 = v14->var0;
     if (!self->_btSession)
     {
       if (v15 > 90)
@@ -1237,46 +1286,46 @@ LABEL_22:
         if (!_LogCategory_Initialize())
         {
 LABEL_31:
-          v16 = (*p_ucat)->var0;
-          if (v16 <= 30)
+          v16 = *p_ucat;
+          v17 = (*p_ucat)->var0;
+          if (v17 <= 30)
           {
-            if (v16 == -1)
+            if (v17 == -1)
             {
               if (!_LogCategory_Initialize())
               {
                 goto LABEL_35;
               }
 
-              v26 = *p_ucat;
+              v16 = *p_ucat;
             }
 
-            LogPrintF();
+            LogPrintF(v16, "[BTBluetoothPairingSession _btDeletePairingAndRetry]", 30, "Starting timer to retry pairing later %d seconds\n", 2);
           }
 
 LABEL_35:
           retryTimer = self->_retryTimer;
           if (retryTimer)
           {
-            v18 = retryTimer;
-            dispatch_source_cancel(v18);
-            v19 = self->_retryTimer;
+            v19 = retryTimer;
+            dispatch_source_cancel(v19);
+            v20 = self->_retryTimer;
             self->_retryTimer = 0;
           }
 
-          v20 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_dispatchQueue);
-          v21 = self->_retryTimer;
-          self->_retryTimer = v20;
-
+          v21 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_dispatchQueue);
           v22 = self->_retryTimer;
-          if (v22)
+          self->_retryTimer = v21;
+
+          v23 = self->_retryTimer;
+          if (v23)
           {
             handler[0] = MEMORY[0x277D85DD0];
             handler[1] = 3221225472;
             handler[2] = __53__BTBluetoothPairingSession__btDeletePairingAndRetry__block_invoke;
             handler[3] = &unk_278D11830;
             handler[4] = self;
-            dispatch_source_set_event_handler(v22, handler);
-            v23 = self->_retryTimer;
+            dispatch_source_set_event_handler(v23, handler);
             CUDispatchTimerSet();
             dispatch_resume(self->_retryTimer);
           }
@@ -1289,10 +1338,10 @@ LABEL_35:
           return;
         }
 
-        v24 = *p_ucat;
+        v14 = *p_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v14, "[BTBluetoothPairingSession _btDeletePairingAndRetry]", 90, "No BTSession for retry?\n");
       goto LABEL_31;
     }
 
@@ -1305,10 +1354,10 @@ LABEL_35:
           goto LABEL_30;
         }
 
-        v29 = *p_ucat;
+        v14 = *p_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v14, "[BTBluetoothPairingSession _btDeletePairingAndRetry]", 50, "Tearing down BTSession to retry later\n");
     }
 
 LABEL_30:
@@ -1316,20 +1365,20 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  v4 = self->_ucat->var0;
-  if (v4 <= 60)
+  v4 = self->_ucat;
+  if (v4->var0 <= 60)
   {
-    if (v4 != -1)
+    if (v4->var0 != -1)
     {
 LABEL_4:
-      LogPrintF();
+      LogPrintF(v4, "[BTBluetoothPairingSession _btDeletePairingAndRetry]", 60, "### Too many retries (%u)\n", retryCount);
       return;
     }
 
     if (_LogCategory_Initialize())
     {
-      v8 = self->_ucat;
-      v9 = self->_retryCount;
+      v4 = self->_ucat;
+      retryCount = self->_retryCount;
       goto LABEL_4;
     }
   }
@@ -1348,57 +1397,58 @@ uint64_t __53__BTBluetoothPairingSession__btDeletePairingAndRetry__block_invoke(
   }
 
   v6 = *(a1 + 32);
-  v7 = **(v6 + 136);
+  v7 = *(v6 + 136);
+  v8 = *v7;
   if (*(v6 + 80))
   {
-    if (v7 <= 30)
+    if (v8 <= 30)
     {
-      if (v7 == -1)
+      if (v8 == -1)
       {
-        v8 = _LogCategory_Initialize();
+        v9 = _LogCategory_Initialize();
         v6 = *(a1 + 32);
-        if (!v8)
+        if (!v9)
         {
           goto LABEL_11;
         }
 
-        v13 = *(v6 + 136);
+        v7 = *(v6 + 136);
       }
 
-      LogPrintF();
+      LogPrintF(v7, "[BTBluetoothPairingSession _btDeletePairingAndRetry]_block_invoke", 30, "Retry after BTSession finishes tearing down\n");
       v6 = *(a1 + 32);
     }
 
 LABEL_11:
     *(v6 + 96) = 1;
-    v9 = *(a1 + 32);
+    v10 = *(a1 + 32);
 
-    return [v9 _btEnsureStopped];
+    return [v10 _btEnsureStopped];
   }
 
-  if (v7 <= 30)
+  if (v8 <= 30)
   {
-    if (v7 == -1)
+    if (v8 == -1)
     {
-      v11 = _LogCategory_Initialize();
+      v12 = _LogCategory_Initialize();
       v6 = *(a1 + 32);
-      if (!v11)
+      if (!v12)
       {
         goto LABEL_15;
       }
 
-      v14 = *(v6 + 136);
+      v7 = *(v6 + 136);
     }
 
-    LogPrintF();
+    LogPrintF(v7, "[BTBluetoothPairingSession _btDeletePairingAndRetry]_block_invoke", 30, "Retry pairing\n");
     v6 = *(a1 + 32);
   }
 
 LABEL_15:
   *(v6 + 96) = 0;
-  v12 = *(a1 + 32);
+  v13 = *(a1 + 32);
 
-  return [v12 _btEnsureStarted];
+  return [v13 _btEnsureStarted];
 }
 
 - (uint64_t)_activate
@@ -1414,10 +1464,10 @@ LABEL_15:
         goto LABEL_6;
       }
 
-      v9 = *self;
+      result = *self;
     }
 
-    result = LogPrintF();
+    result = LogPrintF(result, "[BTBluetoothPairingSession _activate]", 60, "### Create timeout timer failed\n");
   }
 
 LABEL_6:
@@ -1428,21 +1478,21 @@ LABEL_6:
 - (uint64_t)_btEnsureStarted
 {
   result = OUTLINED_FUNCTION_0_0(self, a2, a3, a4);
-  if (v8 ^ v9 | v7)
+  if (v9 ^ v10 | v8)
   {
-    if (v6 == -1)
+    if (v7 == -1)
     {
-      v10 = v5;
+      v11 = v6;
       result = _LogCategory_Initialize();
       if (!result)
       {
         return result;
       }
 
-      v11 = *v10;
+      result = *v11;
     }
 
-    return LogPrintF();
+    return LogPrintF(result, "[BTBluetoothPairingSession _btEnsureStarted]", 60, "### BTDeviceConnectServicesWithParameters aggregate failed: %#m\n", v4);
   }
 
   return result;
@@ -1461,10 +1511,10 @@ LABEL_6:
         return result;
       }
 
-      v7 = *self;
+      result = *self;
     }
 
-    return LogPrintF();
+    return LogPrintF(result, "[BTBluetoothPairingSession _btDeletePairingAndRetry]", 60, "### Create retry timer failed\n");
   }
 
   return result;

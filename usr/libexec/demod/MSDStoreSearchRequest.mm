@@ -57,17 +57,17 @@
     {
       maxStoreResults2 = [(MSDStoreSearchRequest *)self maxStoreResults];
       stringValue3 = [maxStoreResults2 stringValue];
-      v26 = [NSURLQueryItem queryItemWithName:@"max_store_results" value:stringValue3];
+      v27 = [NSURLQueryItem queryItemWithName:@"max_store_results" value:stringValue3];
 
-      v22 = v26;
+      v22 = v27;
     }
 
-    v27 = sub_100063A54();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = sub_100063A54(v24);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = 138543362;
-      v30 = v5;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Store search queries: %{public}@", &v29, 0xCu);
+      v30 = 138543362;
+      v31 = v5;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Store search queries: %{public}@", &v30, 0xCu);
     }
   }
 
@@ -83,9 +83,9 @@
 {
   errorCopy = error;
   payloadCopy = payload;
-  v24.receiver = self;
-  v24.super_class = MSDStoreSearchRequest;
-  v8 = [(MSDServerRequest *)&v24 parseResponseForError:errorCopy andPayload:payloadCopy];
+  v26.receiver = self;
+  v26.super_class = MSDStoreSearchRequest;
+  v8 = [(MSDServerRequest *)&v26 parseResponseForError:errorCopy andPayload:payloadCopy];
   error = [v8 error];
 
   if (error)
@@ -96,9 +96,9 @@
 
   else
   {
-    v23 = errorCopy;
-    v10 = [(MSDCommandServerRequest *)self getDataDictFromPayload:payloadCopy error:&v23];
-    v11 = v23;
+    v25 = errorCopy;
+    v10 = [(MSDCommandServerRequest *)self getDataDictFromPayload:payloadCopy error:&v25];
+    v11 = v25;
 
     if (v10)
     {
@@ -107,46 +107,47 @@
       {
         v13 = v12;
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v22 = v11;
-          v14 = [NSJSONSerialization dataWithJSONObject:v13 options:0 error:&v22];
-          v15 = v22;
+          v24 = v11;
+          v15 = [NSJSONSerialization dataWithJSONObject:v13 options:0 error:&v24];
+          v16 = v24;
 
-          [v8 setData:v14];
+          [v8 setData:v15];
           data = [v8 data];
 
-          if (data && !v15)
+          if (data && !v16)
           {
             errorCopy = 0;
             goto LABEL_8;
           }
 
-          v18 = sub_100063A54();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v20 = sub_100063A54(v18);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            sub_1000D50FC(v15, v18);
+            sub_1000D50FC(v16, v20);
           }
 
-          v11 = v15;
+          v11 = v16;
         }
 
         else
         {
-          v18 = sub_100063A54();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v20 = sub_100063A54(isKindOfClass);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            sub_1000D5064(v13, v18);
+            sub_1000D5064(v13, v20);
           }
         }
       }
 
       else
       {
-        v18 = sub_100063A54();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v20 = sub_100063A54(0);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          sub_1000D5174(v10, v18);
+          sub_1000D5174(v10, v20);
         }
 
         v13 = 0;
@@ -165,12 +166,12 @@
 
   if (!error2)
   {
-    v21 = errorCopy;
-    sub_1000C1424(&v21, 3727744512, @"Unexpected server response.");
-    v20 = v21;
+    v23 = errorCopy;
+    sub_1000C1424(&v23, 3727744512, @"Unexpected server response.");
+    v22 = v23;
 
-    [v8 setError:v20];
-    errorCopy = v20;
+    [v8 setError:v22];
+    errorCopy = v22;
   }
 
 LABEL_8:

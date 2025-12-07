@@ -191,46 +191,34 @@
       shouldLog = [v16 shouldLog];
       if ([v16 shouldLogToDisk])
       {
-        v21 = shouldLog | 2;
+        LODWORD(v23) = shouldLog | 2;
       }
 
       else
       {
-        v21 = shouldLog;
+        LODWORD(v23) = shouldLog;
       }
 
       oSLogObject = [v16 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v21 &= 2u;
+        v23 = v23;
       }
 
-      if (!v21)
+      else
       {
-        goto LABEL_34;
+        v23 &= 2u;
       }
-
-LABEL_32:
-      v59 = 138543362;
-      v60 = objc_opt_class();
-      v22 = v60;
-      LODWORD(v53) = 12;
-      v52 = &v59;
-      v23 = _os_log_send_and_compose_impl();
 
       if (!v23)
       {
-LABEL_35:
-
-        goto LABEL_36;
+        goto LABEL_37;
       }
 
-      oSLogObject = [NSString stringWithCString:v23 encoding:4, &v59, v53];
-      free(v23);
-      v52 = oSLogObject;
-      SSFileLog();
-LABEL_34:
-
+      v59 = 138543362;
+      v60 = objc_opt_class();
+      v20 = v60;
+      v21 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Aborted fetching subscription status because privacy link needs to be displayed first.", &v59, 12);
       goto LABEL_35;
     }
   }
@@ -248,26 +236,51 @@ LABEL_34:
     shouldLog2 = [v16 shouldLog];
     if ([v16 shouldLogToDisk])
     {
-      v18 = shouldLog2 | 2;
+      LODWORD(v18) = shouldLog2 | 2;
     }
 
     else
     {
-      v18 = shouldLog2;
+      LODWORD(v18) = shouldLog2;
     }
 
     oSLogObject = [v16 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = v18;
+    }
+
+    else
     {
       v18 &= 2u;
     }
 
     if (!v18)
     {
-      goto LABEL_34;
+      goto LABEL_37;
     }
 
-    goto LABEL_32;
+    v59 = 138543362;
+    v60 = objc_opt_class();
+    v20 = v60;
+    v21 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Aborted fetching subscription status because device has not been unlocked since boot.", &v59, 12);
+LABEL_35:
+    v24 = v21;
+
+    if (!v24)
+    {
+LABEL_38:
+
+      goto LABEL_39;
+    }
+
+    oSLogObject = [NSString stringWithCString:v24 encoding:4];
+    free(v24);
+    v53 = oSLogObject;
+    SSFileLog();
+LABEL_37:
+
+    goto LABEL_38;
   }
 
   v58 = 0;
@@ -283,9 +296,9 @@ LABEL_34:
     if (!MGGetBoolAnswer())
     {
       [v7 setCarrierBundlingStatus:2];
-      v25 = 0;
-      v26 = 1;
-      goto LABEL_38;
+      v26 = 0;
+      v27 = 1;
+      goto LABEL_41;
     }
 
     v9 = +[SSVTelephonyController sharedController];
@@ -293,7 +306,7 @@ LABEL_34:
 
     if (isPhoneNumberAccessRestricted)
     {
-      goto LABEL_85;
+      goto LABEL_88;
     }
 
     carrierBundlingStatus = [v7 carrierBundlingStatus];
@@ -309,7 +322,7 @@ LABEL_34:
       if ([v7 carrierBundlingStatus] == 4)
       {
         v13 = [v7 accountStatus] == 0;
-        goto LABEL_65;
+        goto LABEL_68;
       }
     }
 
@@ -319,117 +332,117 @@ LABEL_34:
       {
         v13 = 0;
         v14 = 1;
-        goto LABEL_65;
+        goto LABEL_68;
       }
 
       v14 = 0;
     }
 
     v13 = 0;
-LABEL_65:
-    v42 = +[SSVSubscriptionStatusCoordinator copyStatusFromUserDefaults];
-    if (v42 && [(SubscriptionStatusOperation *)self _carrierBundleStatusIsValidForCachedStatus:v42])
+LABEL_68:
+    v43 = +[SSVSubscriptionStatusCoordinator copyStatusFromUserDefaults];
+    if (v43 && [(SubscriptionStatusOperation *)self _carrierBundleStatusIsValidForCachedStatus:v43])
     {
       if (carrierBundlingStatus != 1 && carrierBundlingStatus != 4)
       {
-        [v7 setCarrierBundlingStatus:{objc_msgSend(v42, "carrierBundlingStatus")}];
+        [v7 setCarrierBundlingStatus:{objc_msgSend(v43, "carrierBundlingStatus")}];
       }
 
-      cellularOperatorName = [v42 cellularOperatorName];
+      cellularOperatorName = [v43 cellularOperatorName];
       [v7 setCellularOperatorName:cellularOperatorName];
 
-      phoneNumber = [v42 phoneNumber];
+      phoneNumber = [v43 phoneNumber];
       [v7 setPhoneNumber:phoneNumber];
 
-      sessionIdentifier = [v42 sessionIdentifier];
+      sessionIdentifier = [v43 sessionIdentifier];
       [v7 setSessionIdentifier:sessionIdentifier];
     }
 
     if (v13)
     {
-      v27 = 0;
-      v25 = v14;
-LABEL_39:
-      v28 = objc_alloc_init(CarrierBundlingEligibilityOperation);
+      v28 = 0;
+      v26 = v14;
+LABEL_42:
+      v29 = objc_alloc_init(CarrierBundlingEligibilityOperation);
       reason = [(SubscriptionStatusOperation *)self reason];
-      v30 = [reason isEqualToString:SSVSubscriptionStatusRequestReasonDeepLink];
+      v31 = [reason isEqualToString:SSVSubscriptionStatusRequestReasonDeepLink];
 
-      if (v30)
+      if (v31)
       {
-        [(CarrierBundlingEligibilityOperation *)v28 setDeepLink:1];
+        [(CarrierBundlingEligibilityOperation *)v29 setDeepLink:1];
       }
 
       v57 = 0;
-      v31 = [(SubscriptionStatusOperation *)self runSubOperation:v28 returningError:&v57];
-      v32 = v57;
-      v33 = v32;
-      if (!v31)
+      v32 = [(SubscriptionStatusOperation *)self runSubOperation:v29 returningError:&v57];
+      v33 = v57;
+      v34 = v33;
+      if (!v32)
       {
-        domain = [v32 domain];
+        domain = [v33 domain];
         if ([domain isEqualToString:@"CarrierBundlingEligibilityErrorDomain"])
         {
-          [v7 setCarrierBundlingErrorCode:{objc_msgSend(v33, "code")}];
+          [v7 setCarrierBundlingErrorCode:{objc_msgSend(v34, "code")}];
         }
 
         [v7 setCarrierBundlingStatus:0];
-        if ((v27 & 1) == 0)
+        if ((v28 & 1) == 0)
         {
-          v4[2](v4, v7, 1, v33);
+          v4[2](v4, v7, 1, v34);
         }
 
-LABEL_84:
+LABEL_87:
 
-        if ((v25 & v27) != 1)
+        if ((v26 & v28) != 1)
         {
-LABEL_86:
+LABEL_89:
           accountIdentifier = [v7 accountIdentifier];
-          v48 = +[SSAccountStore defaultStore];
-          activeAccount = [v48 activeAccount];
+          v49 = +[SSAccountStore defaultStore];
+          activeAccount = [v49 activeAccount];
           uniqueIdentifier = [activeAccount uniqueIdentifier];
 
           if (!uniqueIdentifier || accountIdentifier == uniqueIdentifier)
           {
             if (v6)
             {
-LABEL_95:
+LABEL_98:
 
-              v24 = 1;
-              goto LABEL_96;
+              v25 = 1;
+              goto LABEL_99;
             }
           }
 
           else if (!accountIdentifier || ((v6 | [accountIdentifier isEqualToNumber:uniqueIdentifier] ^ 1) & 1) != 0)
           {
-            goto LABEL_95;
+            goto LABEL_98;
           }
 
-          v51 = +[SSVSubscriptionStatusCoordinator copyStatusFromUserDefaults];
+          v52 = +[SSVSubscriptionStatusCoordinator copyStatusFromUserDefaults];
           [SSVSubscriptionStatusCoordinator updateUserDefaultsWithStatus:v7];
-          if (([v7 isEqualToStatus:v51] & 1) == 0)
+          if (([v7 isEqualToStatus:v52] & 1) == 0)
           {
             +[SSVSubscriptionStatusCoordinator sendChangeNotification];
           }
 
-          goto LABEL_95;
+          goto LABEL_98;
         }
 
-LABEL_85:
+LABEL_88:
         v4[2](v4, v7, 1, 0);
-        goto LABEL_86;
+        goto LABEL_89;
       }
 
-      eligibilityResponse = [(CarrierBundlingEligibilityOperation *)v28 eligibilityResponse];
+      eligibilityResponse = [(CarrierBundlingEligibilityOperation *)v29 eligibilityResponse];
       domain = eligibilityResponse;
-      v56 = v27;
-      if ((v27 & 1) == 0 && [eligibilityResponse bundlingStatus] == 1)
+      v56 = v28;
+      if ((v28 & 1) == 0 && [eligibilityResponse bundlingStatus] == 1)
       {
         v4[2](v4, v7, 1, 0);
       }
 
-      cellularProviderName = [(CarrierBundlingEligibilityOperation *)v28 cellularProviderName];
+      cellularProviderName = [(CarrierBundlingEligibilityOperation *)v29 cellularProviderName];
       [v7 setCellularOperatorName:cellularProviderName];
 
-      phoneNumber2 = [(CarrierBundlingEligibilityOperation *)v28 phoneNumber];
+      phoneNumber2 = [(CarrierBundlingEligibilityOperation *)v29 phoneNumber];
       [v7 setPhoneNumber:phoneNumber2];
 
       bundlingStatus = [domain bundlingStatus];
@@ -438,14 +451,14 @@ LABEL_85:
         if (![v7 accountStatus])
         {
           bundlingStatus = 4;
-LABEL_75:
+LABEL_78:
           [v7 setCarrierBundlingStatus:bundlingStatus];
-          goto LABEL_76;
+          goto LABEL_79;
         }
 
         if ([v7 carrierBundlingStatus] == 4)
         {
-LABEL_76:
+LABEL_79:
           if ([domain isFamilySubscription])
           {
             [v7 setFamilySubscription:1];
@@ -463,21 +476,21 @@ LABEL_76:
             v4[2](v4, v7, 1, 0);
           }
 
-          v27 = v56;
-          goto LABEL_84;
+          v28 = v56;
+          goto LABEL_87;
         }
       }
 
       v55 = v6;
-      domain2 = [v33 domain];
+      domain2 = [v34 domain];
       if ([domain2 isEqualToString:SSErrorDomain])
       {
-        v54 = v25;
-        code = [v33 code];
+        v54 = v26;
+        code = [v34 code];
 
-        v41 = code == 124;
-        v25 = v54;
-        if (v41)
+        v42 = code == 124;
+        v26 = v54;
+        if (v42)
         {
           bundlingStatus = 2;
         }
@@ -488,24 +501,24 @@ LABEL_76:
       }
 
       v6 = v55;
-      goto LABEL_75;
+      goto LABEL_78;
     }
 
-    v25 = v14;
-    v26 = !v14;
-LABEL_38:
-    v4[2](v4, v7, v26, 0);
-    v27 = 1;
-    goto LABEL_39;
+    v26 = v14;
+    v27 = !v14;
+LABEL_41:
+    v4[2](v4, v7, v27, 0);
+    v28 = 1;
+    goto LABEL_42;
   }
 
-LABEL_36:
+LABEL_39:
   v4[2](v4, 0, 1, v8);
-  v24 = 0;
-LABEL_96:
-  [(SubscriptionStatusOperation *)self setError:v8, v52];
+  v25 = 0;
+LABEL_99:
+  [(SubscriptionStatusOperation *)self setError:v8, v53];
   [(SubscriptionStatusOperation *)self setStatusBlock:0];
-  [(SubscriptionStatusOperation *)self setSuccess:v24];
+  [(SubscriptionStatusOperation *)self setSuccess:v25];
 }
 
 - (void)_cacheAccountEligibilityWithStatus:(id)status
@@ -518,9 +531,9 @@ LABEL_96:
     v6 = [v5 accountWithUniqueIdentifier:accountIdentifier];
     if (!v6)
     {
-LABEL_18:
+LABEL_19:
 
-      goto LABEL_19;
+      goto LABEL_20;
     }
 
     if ([statusCopy accountStatus] == 3)
@@ -543,16 +556,21 @@ LABEL_18:
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
     oSLogObject = [v8 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -562,30 +580,30 @@ LABEL_18:
       v12 = objc_opt_class();
       v16 = v12;
       accountName = [v6 accountName];
-      SSHashIfNeeded();
+      v14 = SSHashIfNeeded();
       v17 = 138543618;
       v18 = v12;
-      v20 = v19 = 2114;
-      LODWORD(v15) = 22;
-      v14 = _os_log_send_and_compose_impl();
+      v19 = 2114;
+      v20 = v14;
+      v15 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Setting subscription status on an account. Saving %{public}@.", &v17, 22);
 
-      if (!v14)
+      if (!v15)
       {
-LABEL_17:
+LABEL_18:
 
         [v5 saveAccount:v6 verifyCredentials:0 completion:0];
-        goto LABEL_18;
+        goto LABEL_19;
       }
 
-      oSLogObject = [NSString stringWithCString:v14 encoding:4, &v17, v15];
-      free(v14);
+      oSLogObject = [NSString stringWithCString:v15 encoding:4];
+      free(v15);
       SSFileLog();
     }
 
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
-LABEL_19:
+LABEL_20:
 }
 
 - (BOOL)_carrierBundleStatusIsValidForCachedStatus:(id)status

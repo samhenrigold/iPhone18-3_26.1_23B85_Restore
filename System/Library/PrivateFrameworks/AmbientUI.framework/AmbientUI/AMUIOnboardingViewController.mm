@@ -2,6 +2,7 @@
 - (AMAmbientDefaults)ambientDefaults;
 - (AMUIOnboardingViewControllerDelegate)delegate;
 - (void)loadView;
+- (void)onboardingContainerView:(id)view requestsDismissalWithUserIntent:(BOOL)intent;
 @end
 
 @implementation AMUIOnboardingViewController
@@ -20,6 +21,13 @@
   v7 = self->_onboardingContainerView;
 
   [(AMUIOnboardingViewController *)self setView:v7];
+}
+
+- (void)onboardingContainerView:(id)view requestsDismissalWithUserIntent:(BOOL)intent
+{
+  intentCopy = intent;
+  delegate = [(AMUIOnboardingViewController *)self delegate];
+  [delegate onboardingViewController:self requestsDismissalWithUserIntent:intentCopy];
 }
 
 - (AMUIOnboardingViewControllerDelegate)delegate

@@ -43,10 +43,10 @@
     v11 = [facesCopy copy];
     [v10 storeSecureCodedObject:v11 error:0];
 
-    v12 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = __atxlog_handle_lock_screen(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      [ATXModeFaceSuggestionsCache cacheSuggestedFaces:dCopy forModeUUID:v12];
+      [ATXModeFaceSuggestionsCache cacheSuggestedFaces:dCopy forModeUUID:v13];
     }
   }
 }
@@ -61,7 +61,7 @@
 
   v8 = objc_alloc(MEMORY[0x1E698AFF0]);
   path = [v7 path];
-  v10 = __atxlog_handle_lock_screen();
+  v10 = __atxlog_handle_lock_screen(path);
   v11 = [v8 initWithCacheFilePath:path loggingHandle:v10 debugName:@"suggested mode faces"];
 
   return v11;

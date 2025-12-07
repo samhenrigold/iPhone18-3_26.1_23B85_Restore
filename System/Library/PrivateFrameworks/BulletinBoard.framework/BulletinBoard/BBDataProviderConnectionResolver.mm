@@ -120,7 +120,7 @@ void __55__BBDataProviderConnectionResolver_initWithConnection___block_invoke(ui
 
 uint64_t __71__BBDataProviderConnectionResolver__registerForPublicationNotification__block_invoke(uint64_t result, int token)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*(*(result + 32) + 32) == token)
   {
     v2 = result;
@@ -136,15 +136,14 @@ uint64_t __71__BBDataProviderConnectionResolver__registerForPublicationNotificat
         v6 = [v4 dataProviderConnection];
         v7 = [v6 serviceName];
         *buf = 138543362;
-        v11 = v7;
+        v10 = v7;
         _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ notified that BBServer is ready for publication.", buf, 0xCu);
       }
 
-      result = [*(v2 + 32) _queue_registerWithServer:0];
+      return [*(v2 + 32) _queue_registerWithServer:0];
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -167,8 +166,8 @@ uint64_t __71__BBDataProviderConnectionResolver__registerForPublicationNotificat
   self->_connectionToServer = v8;
 
   v10 = self->_connectionToServer;
-  v11 = BBDataProviderConnectionCheckinServerInterface();
-  [(NSXPCConnection *)v10 setRemoteObjectInterface:v11];
+  v12 = BBDataProviderConnectionCheckinServerInterface(v11);
+  [(NSXPCConnection *)v10 setRemoteObjectInterface:v12];
 
   objc_initWeak(&location, self);
   v30[0] = MEMORY[0x277D85DD0];
@@ -176,20 +175,20 @@ uint64_t __71__BBDataProviderConnectionResolver__registerForPublicationNotificat
   v30[2] = __62__BBDataProviderConnectionResolver__queue_registerWithServer___block_invoke;
   v30[3] = &unk_278D2B250;
   objc_copyWeak(&v31, &location);
-  v12 = MEMORY[0x245D05D40](v30);
-  [(NSXPCConnection *)self->_connectionToServer setInterruptionHandler:v12];
-  [(NSXPCConnection *)self->_connectionToServer setInvalidationHandler:v12];
+  v13 = MEMORY[0x245D05D40](v30);
+  [(NSXPCConnection *)self->_connectionToServer setInterruptionHandler:v13];
+  [(NSXPCConnection *)self->_connectionToServer setInvalidationHandler:v13];
   [(NSXPCConnection *)self->_connectionToServer resume];
-  v13 = self->_connectionToServer;
+  v14 = self->_connectionToServer;
   v28[0] = MEMORY[0x277D85DD0];
   v28[1] = 3221225472;
   v28[2] = __62__BBDataProviderConnectionResolver__queue_registerWithServer___block_invoke_18;
   v28[3] = &unk_278D2B6D8;
   v28[4] = self;
-  v14 = serverCopy;
-  v29 = v14;
-  v15 = [(NSXPCConnection *)v13 remoteObjectProxyWithErrorHandler:v28];
-  if (v15)
+  v15 = serverCopy;
+  v29 = v15;
+  v16 = [(NSXPCConnection *)v14 remoteObjectProxyWithErrorHandler:v28];
+  if (v16)
   {
     dataProviderConnection2 = [(BBDataProviderConnectionResolver *)self dataProviderConnection];
     serviceName = [dataProviderConnection2 serviceName];
@@ -205,12 +204,12 @@ uint64_t __71__BBDataProviderConnectionResolver__registerForPublicationNotificat
       [currentHandler2 handleFailureInMethod:a2 object:self file:@"BBDataProviderConnectionResolver.m" lineNumber:132 description:@"Must register a non-nil service name with BBDataProviderConnectionCheckinServer"];
     }
 
-    v18 = BBLogConnection;
+    v19 = BBLogConnection;
     if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138543362;
       *(&buf + 4) = serviceName;
-      _os_log_impl(&dword_241EFF000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ is registering with BulletinBoard", &buf, 0xCu);
+      _os_log_impl(&dword_241EFF000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ is registering with BulletinBoard", &buf, 0xCu);
     }
 
     *&buf = 0;
@@ -226,18 +225,16 @@ uint64_t __71__BBDataProviderConnectionResolver__registerForPublicationNotificat
     v24[3] = &unk_278D2B700;
     p_buf = &buf;
     v24[4] = self;
-    v20 = dataProviderConnection2;
-    v25 = v20;
-    v26 = v14;
-    [v15 registerServiceName:serviceName appBundleID:bundleID completion:v24];
+    v21 = dataProviderConnection2;
+    v25 = v21;
+    v26 = v15;
+    [v16 registerServiceName:serviceName appBundleID:bundleID completion:v24];
 
     _Block_object_dispose(&buf, 8);
   }
 
   objc_destroyWeak(&v31);
   objc_destroyWeak(&location);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __62__BBDataProviderConnectionResolver__queue_registerWithServer___block_invoke(uint64_t a1)
@@ -317,7 +314,7 @@ uint64_t __48__BBDataProviderConnectionResolver_xpcInterface__block_invoke()
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   listenerCopy = listener;
   dataProviderConnection = [(BBDataProviderConnectionResolver *)self dataProviderConnection];
@@ -326,11 +323,11 @@ uint64_t __48__BBDataProviderConnectionResolver_xpcInterface__block_invoke()
   v10 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138543618;
-    v20 = serviceName;
-    v21 = 2112;
-    v22 = connectionCopy;
-    _os_log_impl(&dword_241EFF000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received a connection request: %@", &v19, 0x16u);
+    v18 = 138543618;
+    v19 = serviceName;
+    v20 = 2112;
+    v21 = connectionCopy;
+    _os_log_impl(&dword_241EFF000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received a connection request: %@", &v18, 0x16u);
   }
 
   wakeupListener = self->_wakeupListener;
@@ -364,7 +361,6 @@ LABEL_8:
   v15 = 1;
 LABEL_9:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -390,36 +386,31 @@ LABEL_9:
 
 void __62__BBDataProviderConnectionResolver__queue_registerWithServer___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_241EFF000, a2, OS_LOG_TYPE_ERROR, "Your data provider for service '%{public}@' has been interrupted or invalidated. Either BulletinBoard has crashed or you are using the same service name from two different processes.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_241EFF000, a2, OS_LOG_TYPE_ERROR, "Your data provider for service '%{public}@' has been interrupted or invalidated. Either BulletinBoard has crashed or you are using the same service name from two different processes.", &v2, 0xCu);
 }
 
 void __62__BBDataProviderConnectionResolver__queue_registerWithServer___block_invoke_18_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 32);
-  v5 = a2;
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v9 = 138543618;
-  v10 = v7;
-  v11 = 2114;
-  v12 = a3;
-  _os_log_error_impl(&dword_241EFF000, v5, OS_LOG_TYPE_ERROR, "%{public}@ unable to retrieve checkin server proxy: %{public}@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = 138543618;
+  v8 = v6;
+  v9 = 2114;
+  v10 = a3;
+  _os_log_error_impl(&dword_241EFF000, v4, OS_LOG_TYPE_ERROR, "%{public}@ unable to retrieve checkin server proxy: %{public}@", &v7, 0x16u);
 }
 
 - (void)listener:(uint64_t)a1 shouldAcceptNewConnection:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_241EFF000, a2, OS_LOG_TYPE_ERROR, "%{public}@ cancelling incoming connection because it lacks proper entitlement.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_241EFF000, a2, OS_LOG_TYPE_ERROR, "%{public}@ cancelling incoming connection because it lacks proper entitlement.", &v2, 0xCu);
 }
 
 @end

@@ -9,11 +9,11 @@
 
 - (_BlastDoorLPPasswordsInviteMetadata)initWithCoder:(id)coder
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = _BlastDoorLPPasswordsInviteMetadata;
-  v5 = [(_BlastDoorLPPasswordsInviteMetadata *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = _BlastDoorLPPasswordsInviteMetadata;
+  v5 = [(_BlastDoorLPPasswordsInviteMetadata *)&v12 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"groupName");
@@ -27,7 +27,6 @@
     v10 = v5;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -58,11 +57,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v15.receiver = self;
-  v15.super_class = _BlastDoorLPPasswordsInviteMetadata;
-  if ([(_BlastDoorLPPasswordsInviteMetadata *)&v15 isEqual:equalCopy])
+  v14.receiver = self;
+  v14.super_class = _BlastDoorLPPasswordsInviteMetadata;
+  if ([(_BlastDoorLPPasswordsInviteMetadata *)&v14 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -102,7 +101,6 @@
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

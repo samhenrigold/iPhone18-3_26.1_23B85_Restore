@@ -28,12 +28,12 @@
   dispatch_async(isolationQueue, block);
 }
 
-uint64_t __73__PLBackgroundJobStatusCenter_backgroundJobServiceDidChangeStateFrom_to___block_invoke(uint64_t result)
+void *__73__PLBackgroundJobStatusCenter_backgroundJobServiceDidChangeStateFrom_to___block_invoke(void *result)
 {
   v1 = result;
-  if (*(result + 40) == 2)
+  if (result[5] == 2)
   {
-    [*(*(result + 32) + 24) removeAllObjects];
+    [*(result[4] + 24) removeAllObjects];
     result = [*(v1[4] + 32) removeAllObjects];
   }
 
@@ -355,7 +355,7 @@ void __58__PLBackgroundJobStatusCenter_recordWorkerHasPendingJobs___block_invoke
   dispatch_assert_queue_V2(isolationQueue);
   [(NSMutableArray *)self->_runningEventsQueue addObject:queueCopy];
 
-  if ([(NSMutableArray *)self->_runningEventsQueue count]>= 0x15)
+  if (objc_msgSend_count(self->_runningEventsQueue) >= 0x15)
   {
     runningEventsQueue = self->_runningEventsQueue;
 
@@ -370,7 +370,7 @@ void __58__PLBackgroundJobStatusCenter_recordWorkerHasPendingJobs___block_invoke
   dispatch_assert_queue_V2(isolationQueue);
   [(NSMutableArray *)self->_registrationEventsQueue addObject:queueCopy];
 
-  if ([(NSMutableArray *)self->_registrationEventsQueue count]>= 0x15)
+  if (objc_msgSend_count(self->_registrationEventsQueue) >= 0x15)
   {
     registrationEventsQueue = self->_registrationEventsQueue;
 

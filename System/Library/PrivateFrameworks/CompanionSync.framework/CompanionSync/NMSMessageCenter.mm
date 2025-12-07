@@ -8,6 +8,7 @@
 - (id)_buildDataForRequest:(id)request options:(id *)options;
 - (id)_buildDataForResponse:(id)response options:(id *)options;
 - (id)_decodeIncomingRequestData:(id)data context:(id)context;
+- (id)_pbMappingForMessageID:(unsigned __int16)d;
 - (id)deviceIDFromDevice:(id)device;
 - (void)_checkForSwitch;
 - (void)_expireMessages;
@@ -17,8 +18,12 @@
 - (void)_setNextWindowTimeoutFireDate;
 - (void)_timeoutWindowedMessages;
 - (void)_updateExpireTimerWithDate:(id)date;
+- (void)addErrorHandlerForMessageID:(unsigned __int16)d usingBlock:(id)block;
+- (void)addRequestHandlerForMessageID:(unsigned __int16)d usingBlock:(id)block;
+- (void)addResponseHandler:(unsigned __int16)handler usingBlock:(id)block;
 - (void)dealloc;
 - (void)dropExtantMessages;
+- (void)mapPBRequest:(Class)request toResponse:(Class)response messageID:(unsigned __int16)d;
 - (void)resume;
 - (void)sendFile:(id)file;
 - (void)sendRequest:(id)request;
@@ -37,7 +42,7 @@
 
 - (void)_timeoutWindowedMessages
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   currentBytesInFlight = self->_currentBytesInFlight;
   v4 = currentBytesInFlight >= [(NMSMessageCenter *)self maxBytesInFlight]|| [(_NMSDispatchQueue *)self->_windowQueue isSuspended];
   expiredMessageIDs = [(NMSWindowData *)self->_windowData expiredMessageIDs];
@@ -55,24 +60,22 @@
     {
       v7 = self->_currentBytesInFlight;
       v8 = v6;
-      v10 = 134218240;
-      v11 = v7;
-      v12 = 2048;
+      v9 = 134218240;
+      v10 = v7;
+      v11 = 2048;
       maxBytesInFlight = [(NMSMessageCenter *)self maxBytesInFlight];
-      _os_log_impl(&dword_1DF835000, v8, OS_LOG_TYPE_DEFAULT, "Opening window on message timeout: %lu bytes in flight, %lu max", &v10, 0x16u);
+      _os_log_impl(&dword_1DF835000, v8, OS_LOG_TYPE_DEFAULT, "Opening window on message timeout: %lu bytes in flight, %lu max", &v9, 0x16u);
     }
 
     [(_NMSDispatchQueue *)self->_windowQueue resume];
   }
 
   [(NMSMessageCenter *)self _setNextWindowTimeoutFireDate];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setNextWindowTimeoutFireDate
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dateOfNextMessageExpiry = [(NMSWindowData *)self->_windowData dateOfNextMessageExpiry];
   v4 = dateOfNextMessageExpiry;
   if (dateOfNextMessageExpiry)
@@ -90,11 +93,11 @@
       {
         v7 = v6;
         [v4 timeIntervalSinceNow];
-        v12 = 138543618;
-        v13 = v4;
-        v14 = 2048;
-        v15 = v8;
-        _os_log_impl(&dword_1DF835000, v7, OS_LOG_TYPE_INFO, "Setting next expiry timer fire date to '%{public}@' (%.02f seconds from now)", &v12, 0x16u);
+        v11 = 138543618;
+        v12 = v4;
+        v13 = 2048;
+        v14 = v8;
+        _os_log_impl(&dword_1DF835000, v7, OS_LOG_TYPE_INFO, "Setting next expiry timer fire date to '%{public}@' (%.02f seconds from now)", &v11, 0x16u);
       }
 
       [v4 timeIntervalSinceNow];
@@ -102,8 +105,6 @@
       dispatch_source_set_timer(self->_windowTimeout, v10, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (NMSMessageCenter)init
@@ -517,9 +518,75 @@
   }
 }
 
+- (void)addRequestHandlerForMessageID:(unsigned __int16)d usingBlock:(id)block
+{
+  dCopy = d;
+  v7 = !self->_resumed;
+  blockCopy = block;
+  v9 = NSStringFromSelector(a2);
+  _AssertState(v7, a2, @"Cannot use %@ after using -resume", v10, v11, v12, v13, v14, v9);
+
+  v17 = [blockCopy copy];
+  requestHandlers = self->_requestHandlers;
+  v16 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:dCopy];
+  [(NSMutableDictionary *)requestHandlers setObject:v17 forKeyedSubscript:v16];
+}
+
+- (void)addErrorHandlerForMessageID:(unsigned __int16)d usingBlock:(id)block
+{
+  dCopy = d;
+  v7 = !self->_resumed;
+  blockCopy = block;
+  v9 = NSStringFromSelector(a2);
+  _AssertState(v7, a2, @"Cannot use %@ after using -resume", v10, v11, v12, v13, v14, v9);
+
+  v17 = [blockCopy copy];
+  errorHandlers = self->_errorHandlers;
+  v16 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:dCopy];
+  [(NSMutableDictionary *)errorHandlers setObject:v17 forKeyedSubscript:v16];
+}
+
+- (void)addResponseHandler:(unsigned __int16)handler usingBlock:(id)block
+{
+  handlerCopy = handler;
+  v7 = !self->_resumed;
+  blockCopy = block;
+  v9 = NSStringFromSelector(a2);
+  _AssertState(v7, a2, @"Cannot use %@ after using -resume", v10, v11, v12, v13, v14, v9);
+
+  v17 = [blockCopy copy];
+  responseHandlers = self->_responseHandlers;
+  v16 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:handlerCopy];
+  [(NSMutableDictionary *)responseHandlers setObject:v17 forKeyedSubscript:v16];
+}
+
+- (void)mapPBRequest:(Class)request toResponse:(Class)response messageID:(unsigned __int16)d
+{
+  dCopy = d;
+  v10 = !self->_resumed;
+  v11 = NSStringFromSelector(a2);
+  _AssertState(v10, a2, @"Cannot use %@ after using -resume", v12, v13, v14, v15, v16, v11);
+
+  v19 = objc_opt_new();
+  [v19 setRequestClass:request];
+  [v19 setResponseClass:response];
+  pbMapping = self->_pbMapping;
+  v18 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:dCopy];
+  [(NSMutableDictionary *)pbMapping setObject:v19 forKeyedSubscript:v18];
+}
+
+- (id)_pbMappingForMessageID:(unsigned __int16)d
+{
+  pbMapping = self->_pbMapping;
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:d];
+  v5 = [(NSMutableDictionary *)pbMapping objectForKeyedSubscript:v4];
+
+  return v5;
+}
+
 - (void)_checkForSwitch
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   self->_checkedForQWS = 1;
   v3 = +[SYDevice targetableDevice];
   lastActiveDate = [v3 lastActiveDate];
@@ -529,41 +596,41 @@
     v5 = objc_opt_new();
     [(NMSPersistentDictionary *)self->_persistentContextStore lock];
     persistentContextStore = self->_persistentContextStore;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __35__NMSMessageCenter__checkForSwitch__block_invoke;
-    v25[3] = &unk_1E86CB438;
-    v26 = lastActiveDate;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __35__NMSMessageCenter__checkForSwitch__block_invoke;
+    v24[3] = &unk_1E86CB438;
+    v25 = lastActiveDate;
     v7 = v5;
-    v27 = v7;
-    [(NMSPersistentDictionary *)persistentContextStore enumerateObjectsSortedByEnqueueDate:v25];
+    v26 = v7;
+    [(NMSPersistentDictionary *)persistentContextStore enumerateObjectsSortedByEnqueueDate:v24];
     [(NMSPersistentDictionary *)self->_persistentContextStore unlock];
     if ([v7 count])
     {
-      v19 = lastActiveDate;
+      v18 = lastActiveDate;
       v8 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"NMSErrorDomain" code:7 userInfo:0];
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
-      v18 = v7;
+      v17 = v7;
       obj = v7;
-      v9 = [obj countByEnumeratingWithState:&v21 objects:v30 count:16];
+      v9 = [obj countByEnumeratingWithState:&v20 objects:v29 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v22;
+        v11 = *v21;
         do
         {
           v12 = 0;
           do
           {
-            if (*v22 != v11)
+            if (*v21 != v11)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v21 + 1) + 8 * v12);
+            v13 = *(*(&v20 + 1) + 8 * v12);
             if (_sync_log_facilities_pred != -1)
             {
               [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -575,27 +642,25 @@
               v15 = v14;
               v16 = [v13 description];
               *buf = 138412290;
-              v29 = v16;
+              v28 = v16;
               _os_log_impl(&dword_1DF835000, v15, OS_LOG_TYPE_DEFAULT, "Message dropped by QWS: %@", buf, 0xCu);
             }
 
-            [(NMSMessageCenter *)self _handleError:v8 context:v13, v18];
+            [(NMSMessageCenter *)self _handleError:v8 context:v13, v17];
             ++v12;
           }
 
           while (v10 != v12);
-          v10 = [obj countByEnumeratingWithState:&v21 objects:v30 count:16];
+          v10 = [obj countByEnumeratingWithState:&v20 objects:v29 count:16];
         }
 
         while (v10);
       }
 
-      v7 = v18;
-      lastActiveDate = v19;
+      v7 = v17;
+      lastActiveDate = v18;
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __35__NMSMessageCenter__checkForSwitch__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, _BYTE *a6)
@@ -617,7 +682,7 @@ void __35__NMSMessageCenter__checkForSwitch__block_invoke(uint64_t a1, uint64_t 
 
 - (void)_expireMessages
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (!self->_checkedForQWS)
   {
@@ -629,16 +694,16 @@ void __35__NMSMessageCenter__checkForSwitch__block_invoke(uint64_t a1, uint64_t 
   [(NMSPersistentDictionary *)self->_persistentContextStore lock];
   v5 = objc_autoreleasePoolPush();
   persistentContextStore = self->_persistentContextStore;
-  v17 = 0;
-  v7 = [(NMSPersistentDictionary *)persistentContextStore objectWithOldestExpirationDate:&v17];
-  v8 = v17;
+  v16 = 0;
+  v7 = [(NMSPersistentDictionary *)persistentContextStore objectWithOldestExpirationDate:&v16];
+  v8 = v16;
   if (v7)
   {
     *&v9 = 138412290;
-    v16 = v9;
+    v15 = v9;
     while (1)
     {
-      v10 = [v8 laterDate:{v4, v16}];
+      v10 = [v8 laterDate:{v4, v15}];
 
       if (v10 != v4)
       {
@@ -655,8 +720,8 @@ void __35__NMSMessageCenter__checkForSwitch__block_invoke(uint64_t a1, uint64_t 
       {
         v12 = v11;
         v13 = [v7 description];
-        *buf = v16;
-        v19 = v13;
+        *buf = v15;
+        v18 = v13;
         _os_log_impl(&dword_1DF835000, v12, OS_LOG_TYPE_DEFAULT, "Expired message: %@", buf, 0xCu);
       }
 
@@ -665,9 +730,9 @@ void __35__NMSMessageCenter__checkForSwitch__block_invoke(uint64_t a1, uint64_t 
       objc_autoreleasePoolPop(v5);
       v5 = objc_autoreleasePoolPush();
       v14 = self->_persistentContextStore;
-      v17 = 0;
-      v7 = [(NMSPersistentDictionary *)v14 objectWithOldestExpirationDate:&v17];
-      v8 = v17;
+      v16 = 0;
+      v7 = [(NMSPersistentDictionary *)v14 objectWithOldestExpirationDate:&v16];
+      v8 = v16;
       if (!v7)
       {
         goto LABEL_13;
@@ -681,8 +746,6 @@ LABEL_13:
 
   objc_autoreleasePoolPop(v5);
   [(NMSPersistentDictionary *)self->_persistentContextStore unlock];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateExpireTimerWithDate:(id)date
@@ -710,12 +773,11 @@ LABEL_13:
 
 - (void)resume
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *self;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_fault_impl(&dword_1DF835000, a2, OS_LOG_TYPE_FAULT, "[IDSService initWithService:%{public}@] returned nil!", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_fault_impl(&dword_1DF835000, a2, OS_LOG_TYPE_FAULT, "[IDSService initWithService:%{public}@] returned nil!", &v3, 0xCu);
 }
 
 - (void)dropExtantMessages
@@ -882,7 +944,7 @@ LABEL_13:
 
 - (void)sendRequest:(id)request
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   resumed = self->_resumed;
   v7 = NSStringFromSelector(a2);
@@ -911,24 +973,24 @@ LABEL_13:
       }
 
       *buf = 138543618;
-      v28 = v18;
-      v29 = 2080;
-      v30 = v20;
+      v27 = v18;
+      v28 = 2080;
+      v29 = v20;
       _os_log_impl(&dword_1DF835000, v15, OS_LOG_TYPE_INFO, "Sending %{public}@, NMS window queue is %ssuspended", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
     windowQueue = self->_windowQueue;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __32__NMSMessageCenter_sendRequest___block_invoke;
-    v23[3] = &unk_1E86CA868;
-    objc_copyWeak(&v26, buf);
-    v24 = requestCopy;
-    v25 = v13;
-    [(_NMSDispatchQueue *)windowQueue async:v23];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __32__NMSMessageCenter_sendRequest___block_invoke;
+    v22[3] = &unk_1E86CA868;
+    objc_copyWeak(&v25, buf);
+    v23 = requestCopy;
+    v24 = v13;
+    [(_NMSDispatchQueue *)windowQueue async:v22];
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(buf);
   }
 
@@ -944,13 +1006,11 @@ LABEL_13:
       [NMSMessageCenter sendRequest:];
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __32__NMSMessageCenter_sendRequest___block_invoke(uint64_t a1)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -969,7 +1029,7 @@ void __32__NMSMessageCenter_sendRequest___block_invoke(uint64_t a1)
         v6 = [v4 CPObfuscatedDescriptionObject];
         v7 = _SYObfuscate(v6);
         *buf = 138543362;
-        *v54 = v7;
+        *v53 = v7;
         _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "Sending request: %{public}@", buf, 0xCu);
       }
     }
@@ -992,16 +1052,16 @@ void __32__NMSMessageCenter_sendRequest___block_invoke(uint64_t a1)
     }
 
     v10 = *(a1 + 32);
-    v52 = 0;
-    v11 = [WeakRetained _buildDataForRequest:v10 options:&v52];
-    v12 = v52;
+    v51 = 0;
+    v11 = [WeakRetained _buildDataForRequest:v10 options:&v51];
+    v12 = v51;
     v13 = *(WeakRetained + 8);
     v14 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{objc_msgSend(*(a1 + 32), "messageID")}];
-    *(&v45 + 1) = [v13 objectForKeyedSubscript:v14];
+    *(&v44 + 1) = [v13 objectForKeyedSubscript:v14];
 
     v15 = *(WeakRetained + 7);
     v16 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{objc_msgSend(*(a1 + 32), "messageID")}];
-    *&v45 = [v15 objectForKeyedSubscript:v16];
+    *&v44 = [v15 objectForKeyedSubscript:v16];
 
     v17 = [*(a1 + 32) priority];
     v18 = 200;
@@ -1031,11 +1091,11 @@ void __32__NMSMessageCenter_sendRequest___block_invoke(uint64_t a1)
     }
 
     v20 = *(a1 + 40);
+    v49 = 0;
     v50 = 0;
-    v51 = 0;
-    v21 = [v20 sendData:v11 toDestinations:v9 priority:v19 options:v12 identifier:&v51 error:&v50];
-    v22 = v51;
-    v23 = v50;
+    v21 = [v20 sendData:v11 toDestinations:v9 priority:v19 options:v12 identifier:&v50 error:&v49];
+    v22 = v50;
+    v23 = v49;
     if (v21 && [WeakRetained enableTransmissionWindow])
     {
       v24 = *(WeakRetained + 14);
@@ -1058,9 +1118,9 @@ void __32__NMSMessageCenter_sendRequest___block_invoke(uint64_t a1)
           v29 = v27;
           v30 = [WeakRetained maxBytesInFlight];
           *buf = 134218240;
-          *v54 = v28;
-          *&v54[8] = 2048;
-          *&v54[10] = v30;
+          *v53 = v28;
+          *&v53[8] = 2048;
+          *&v53[10] = v30;
           _os_log_impl(&dword_1DF835000, v29, OS_LOG_TYPE_DEFAULT, "Closing window: %lu bytes in flight, %lu max", buf, 0x16u);
         }
 
@@ -1083,13 +1143,13 @@ void __32__NMSMessageCenter_sendRequest___block_invoke(uint64_t a1)
       LODWORD(v32) = [v32 messageID];
       v34 = [v11 length];
       *buf = 67109890;
-      *v54 = v32;
-      *&v54[4] = 2048;
-      *&v54[6] = v34;
-      *&v54[14] = 2114;
-      *&v54[16] = v22;
-      v55 = 2112;
-      v56 = v23;
+      *v53 = v32;
+      *&v53[4] = 2048;
+      *&v53[6] = v34;
+      *&v53[14] = 2114;
+      *&v53[16] = v22;
+      v54 = 2112;
+      v55 = v23;
       _os_log_impl(&dword_1DF835000, v33, OS_LOG_TYPE_DEFAULT, "For message: %{companionsync:SYMessageID}hu sending data of length: %tu. Got identifier %{public}@, error %@", buf, 0x26u);
     }
 
@@ -1110,7 +1170,7 @@ void __32__NMSMessageCenter_sendRequest___block_invoke(uint64_t a1)
       [WeakRetained _handleError:v23 context:v35];
     }
 
-    else if (v22 && (v45 != 0 || [WeakRetained delegateRequiresACKs]))
+    else if (v22 && (v44 != 0 || [WeakRetained delegateRequiresACKs]))
     {
       [*(a1 + 32) responseTimeout];
       v38 = MEMORY[0x1E695DF00];
@@ -1130,7 +1190,7 @@ void __32__NMSMessageCenter_sendRequest___block_invoke(uint64_t a1)
       [*(WeakRetained + 10) lock];
       [*(WeakRetained + 10) setObject:v35 forKey:v22 expires:v41];
       [*(WeakRetained + 10) unlock];
-      v46 = v41;
+      v45 = v41;
       [WeakRetained _updateExpireTimerWithDate:v41];
       v42 = [WeakRetained delegate];
       LOBYTE(v41) = objc_opt_respondsToSelector();
@@ -1142,14 +1202,12 @@ void __32__NMSMessageCenter_sendRequest___block_invoke(uint64_t a1)
         block[1] = 3221225472;
         block[2] = __32__NMSMessageCenter_sendRequest___block_invoke_81;
         block[3] = &unk_1E86C9E90;
-        v48 = WeakRetained;
-        v49 = *(a1 + 32);
+        v47 = WeakRetained;
+        v48 = *(a1 + 32);
         dispatch_sync(v43, block);
       }
     }
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 void __32__NMSMessageCenter_sendRequest___block_invoke_81(uint64_t a1)
@@ -1211,7 +1269,7 @@ void __32__NMSMessageCenter_sendRequest___block_invoke_81(uint64_t a1)
 
 void __29__NMSMessageCenter_sendFile___block_invoke(uint64_t a1)
 {
-  v78[2] = *MEMORY[0x1E69E9840];
+  v77[2] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
@@ -1230,7 +1288,7 @@ void __29__NMSMessageCenter_sendFile___block_invoke(uint64_t a1)
         v6 = [v4 CPObfuscatedDescriptionObject];
         v7 = _SYObfuscate(v6);
         *buf = 138543362;
-        v72 = v7;
+        v71 = v7;
         _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "Sending file: %{public}@", buf, 0xCu);
       }
     }
@@ -1306,31 +1364,31 @@ void __29__NMSMessageCenter_sendFile___block_invoke(uint64_t a1)
     v20 = [*(a1 + 32) pbHeaderInfo];
     v21 = [v20 data];
 
-    v60 = v21;
-    v77[0] = @"HeaderData";
-    v77[1] = @"UserMetadata";
-    v78[0] = v21;
+    v59 = v21;
+    v76[0] = @"HeaderData";
+    v76[1] = @"UserMetadata";
+    v77[0] = v21;
     v22 = [*(a1 + 32) metadata];
-    v78[1] = v22;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v78 forKeys:v77 count:2];
+    v77[1] = v22;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v77 forKeys:v76 count:2];
 
     v24 = *(a1 + 48);
     v25 = [*(a1 + 32) fileURL];
+    v68 = 0;
     v69 = 0;
-    v70 = 0;
-    v59 = v23;
-    LODWORD(v24) = [v24 sendResourceAtURL:v25 metadata:v23 toDestinations:v10 priority:v19 options:v11 identifier:&v70 error:&v69];
-    v26 = v70;
-    v27 = v69;
+    v58 = v23;
+    LODWORD(v24) = [v24 sendResourceAtURL:v25 metadata:v23 toDestinations:v10 priority:v19 options:v11 identifier:&v69 error:&v68];
+    v26 = v69;
+    v27 = v68;
 
-    v61 = v10;
-    v62 = v11;
+    v60 = v10;
+    v61 = v11;
     if (v24 && [WeakRetained enableTransmissionWindow])
     {
       v28 = [*v9 fileURL];
-      v68 = 0;
-      [v28 getResourceValue:&v68 forKey:*MEMORY[0x1E695DB50] error:0];
-      v29 = v68;
+      v67 = 0;
+      [v28 getResourceValue:&v67 forKey:*MEMORY[0x1E695DB50] error:0];
+      v29 = v67;
 
       v30 = [v29 unsignedIntegerValue];
       if (v30)
@@ -1355,9 +1413,9 @@ void __29__NMSMessageCenter_sendFile___block_invoke(uint64_t a1)
             v36 = v34;
             v37 = [WeakRetained maxBytesInFlight];
             *buf = 134218240;
-            v72 = v35;
-            v73 = 2048;
-            v74 = v37;
+            v71 = v35;
+            v72 = 2048;
+            v73 = v37;
             _os_log_impl(&dword_1DF835000, v36, OS_LOG_TYPE_DEFAULT, "Closing window: %lu bytes in flight, %lu max", buf, 0x16u);
           }
 
@@ -1367,7 +1425,7 @@ void __29__NMSMessageCenter_sendFile___block_invoke(uint64_t a1)
         [WeakRetained _setNextWindowTimeoutFireDate];
       }
 
-      v10 = v61;
+      v10 = v60;
     }
 
     if (_sync_log_facilities_pred != -1)
@@ -1382,11 +1440,11 @@ void __29__NMSMessageCenter_sendFile___block_invoke(uint64_t a1)
       v40 = v38;
       v41 = [v39 fileURL];
       *buf = 138412802;
-      v72 = v41;
-      v73 = 2114;
-      v74 = v26;
-      v75 = 2112;
-      v76 = v27;
+      v71 = v41;
+      v72 = 2114;
+      v73 = v26;
+      v74 = 2112;
+      v75 = v27;
       _os_log_impl(&dword_1DF835000, v40, OS_LOG_TYPE_DEFAULT, "Sending resource data from file: %@. Got identifier %{public}@, error %@", buf, 0x20u);
     }
 
@@ -1400,7 +1458,7 @@ void __29__NMSMessageCenter_sendFile___block_invoke(uint64_t a1)
     [v42 setDate:v44];
 
     [v42 setFromRequest:1];
-    [v42 setIdsOptions:v62];
+    [v42 setIdsOptions:v61];
     [v42 setTargetDeviceIDs:v10];
     [*v9 setMessageCenter:WeakRetained];
     [*v9 setIdsIdentifier:v26];
@@ -1414,9 +1472,9 @@ void __29__NMSMessageCenter_sendFile___block_invoke(uint64_t a1)
       block[1] = 3221225472;
       block[2] = __29__NMSMessageCenter_sendFile___block_invoke_86;
       block[3] = &unk_1E86CA0F8;
-      v65 = WeakRetained;
-      v66 = v26;
-      v67 = *v9;
+      v64 = WeakRetained;
+      v65 = v26;
+      v66 = *v9;
       dispatch_sync(v47, block);
     }
 
@@ -1428,30 +1486,30 @@ void __29__NMSMessageCenter_sendFile___block_invoke(uint64_t a1)
     else if (v26 && [WeakRetained delegateRequiresACKs])
     {
       [*v9 sendTimeout];
-      v54 = MEMORY[0x1E695DF00];
-      if (v55 > 0.0)
+      v53 = MEMORY[0x1E695DF00];
+      if (v54 > 0.0)
       {
         [*v9 sendTimeout];
-        v56 = v57 + 5.0;
+        v55 = v56 + 5.0;
       }
 
       else
       {
-        v56 = 86405.0;
+        v55 = 86405.0;
       }
 
-      v58 = [v54 dateWithTimeIntervalSinceNow:v56];
+      v57 = [v53 dateWithTimeIntervalSinceNow:v55];
       [*(WeakRetained + 10) lock];
-      [*(WeakRetained + 10) setObject:v42 forKey:v26 expires:v58];
+      [*(WeakRetained + 10) setObject:v42 forKey:v26 expires:v57];
       [*(WeakRetained + 10) unlock];
-      [WeakRetained _updateExpireTimerWithDate:v58];
+      [WeakRetained _updateExpireTimerWithDate:v57];
     }
 
     v48 = [MEMORY[0x1E696AC08] defaultManager];
     v49 = [*v9 fileURL];
-    v63 = 0;
-    v50 = [v48 removeItemAtURL:v49 error:&v63];
-    v51 = v63;
+    v62 = 0;
+    v50 = [v48 removeItemAtURL:v49 error:&v62];
+    v51 = v62;
 
     if ((v50 & 1) == 0)
     {
@@ -1467,8 +1525,6 @@ void __29__NMSMessageCenter_sendFile___block_invoke(uint64_t a1)
       }
     }
   }
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 void __29__NMSMessageCenter_sendFile___block_invoke_86(uint64_t a1)
@@ -1479,7 +1535,7 @@ void __29__NMSMessageCenter_sendFile___block_invoke_86(uint64_t a1)
 
 - (void)_sendResponse:(id)response
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   resumed = self->_resumed;
   v7 = NSStringFromSelector(a2);
@@ -1510,25 +1566,25 @@ void __29__NMSMessageCenter_sendFile___block_invoke_86(uint64_t a1)
       }
 
       *buf = 138543618;
-      v30 = v19;
-      v31 = 2080;
-      v32 = v21;
+      v29 = v19;
+      v30 = 2080;
+      v31 = v21;
       _os_log_impl(&dword_1DF835000, v16, OS_LOG_TYPE_INFO, "Sending %{public}@, NMS window queue is %ssuspended", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
     windowQueue = self->_windowQueue;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __34__NMSMessageCenter__sendResponse___block_invoke;
-    v24[3] = &unk_1E86CB480;
-    objc_copyWeak(&v28, buf);
-    v25 = responseCopy;
-    v26 = request;
-    v27 = v13;
-    [(_NMSDispatchQueue *)windowQueue async:v24];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __34__NMSMessageCenter__sendResponse___block_invoke;
+    v23[3] = &unk_1E86CB480;
+    objc_copyWeak(&v27, buf);
+    v24 = responseCopy;
+    v25 = request;
+    v26 = v13;
+    [(_NMSDispatchQueue *)windowQueue async:v23];
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(buf);
   }
 
@@ -1544,13 +1600,11 @@ void __29__NMSMessageCenter_sendFile___block_invoke_86(uint64_t a1)
       [NMSMessageCenter _sendResponse:];
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __34__NMSMessageCenter__sendResponse___block_invoke(uint64_t a1)
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (!WeakRetained)
   {
@@ -1572,7 +1626,7 @@ void __34__NMSMessageCenter__sendResponse___block_invoke(uint64_t a1)
       v6 = [v4 CPObfuscatedDescriptionObject];
       v7 = _SYObfuscate(v6);
       *buf = 138543362;
-      *v58 = v7;
+      *v57 = v7;
       _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "Sending response: %{public}@", buf, 0xCu);
     }
   }
@@ -1614,9 +1668,9 @@ void __34__NMSMessageCenter__sendResponse___block_invoke(uint64_t a1)
   v10 = v14;
 LABEL_15:
   v15 = *v9;
-  v56 = 0;
-  v16 = [WeakRetained _buildDataForResponse:v15 options:&v56];
-  v17 = v56;
+  v55 = 0;
+  v16 = [WeakRetained _buildDataForResponse:v15 options:&v55];
+  v17 = v55;
   if (_sync_log_facilities_pred != -1)
   {
     [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -1625,7 +1679,7 @@ LABEL_15:
   v18 = qword_1EDE73428;
   if (os_log_type_enabled(qword_1EDE73428, OS_LOG_TYPE_DEBUG))
   {
-    __34__NMSMessageCenter__sendResponse___block_invoke_cold_5((a1 + 32), v18);
+    __34__NMSMessageCenter__sendResponse___block_invoke_cold_5(a1 + 32, v18);
   }
 
   v19 = [*(a1 + 32) priority];
@@ -1647,14 +1701,14 @@ LABEL_15:
 
   v22 = *(WeakRetained + 7);
   v23 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{objc_msgSend(*(a1 + 40), "messageID")}];
-  v49 = [v22 objectForKeyedSubscript:v23];
+  v48 = [v22 objectForKeyedSubscript:v23];
 
   v24 = *(a1 + 48);
+  v53 = 0;
   v54 = 0;
-  v55 = 0;
-  LODWORD(v23) = [v24 sendData:v16 toDestinations:v10 priority:v21 options:v17 identifier:&v55 error:&v54];
-  v25 = v55;
-  v26 = v54;
+  LODWORD(v23) = [v24 sendData:v16 toDestinations:v10 priority:v21 options:v17 identifier:&v54 error:&v53];
+  v25 = v54;
+  v26 = v53;
   if (v23 && [WeakRetained enableTransmissionWindow])
   {
     v27 = *(WeakRetained + 14);
@@ -1673,13 +1727,13 @@ LABEL_15:
       v30 = qword_1EDE73428;
       if (os_log_type_enabled(qword_1EDE73428, OS_LOG_TYPE_DEFAULT))
       {
-        v48 = *(WeakRetained + 13);
+        v47 = *(WeakRetained + 13);
         v31 = v30;
         v32 = [WeakRetained maxBytesInFlight];
         *buf = 134218240;
-        *v58 = v48;
-        *&v58[8] = 2048;
-        *&v58[10] = v32;
+        *v57 = v47;
+        *&v57[8] = 2048;
+        *&v57[10] = v32;
         _os_log_impl(&dword_1DF835000, v31, OS_LOG_TYPE_DEFAULT, "Closing window: %lu bytes in flight, %lu max", buf, 0x16u);
       }
 
@@ -1702,13 +1756,13 @@ LABEL_15:
     LODWORD(v34) = [v34 messageID];
     v36 = [v16 length];
     *buf = 67109890;
-    *v58 = v34;
-    *&v58[4] = 2048;
-    *&v58[6] = v36;
-    *&v58[14] = 2114;
-    *&v58[16] = v25;
-    v59 = 2112;
-    v60 = v26;
+    *v57 = v34;
+    *&v57[4] = 2048;
+    *&v57[6] = v36;
+    *&v57[14] = 2114;
+    *&v57[16] = v25;
+    v58 = 2112;
+    v59 = v26;
     _os_log_impl(&dword_1DF835000, v35, OS_LOG_TYPE_DEFAULT, "For response to: %{companionsync:SYMessageID}hu sending data of length: %tu. Got identifier %{public}@, error %@", buf, 0x26u);
   }
 
@@ -1723,9 +1777,9 @@ LABEL_15:
     block[1] = 3221225472;
     block[2] = __34__NMSMessageCenter__sendResponse___block_invoke_90;
     block[3] = &unk_1E86CA0F8;
-    v51 = WeakRetained;
-    v52 = v25;
-    v53 = *v9;
+    v50 = WeakRetained;
+    v51 = v25;
+    v52 = *v9;
     dispatch_sync(v39, block);
   }
 
@@ -1745,7 +1799,7 @@ LABEL_15:
     [WeakRetained _handleError:v26 context:v40];
   }
 
-  else if (v25 && v49)
+  else if (v25 && v48)
   {
     [*v9 sendTimeout];
     v43 = MEMORY[0x1E695DF00];
@@ -1767,7 +1821,6 @@ LABEL_15:
   }
 
 LABEL_49:
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void __34__NMSMessageCenter__sendResponse___block_invoke_90(uint64_t a1)
@@ -1900,7 +1953,7 @@ void __48__NMSMessageCenter__handleError_context_locked___block_invoke(uint64_t 
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   accountCopy = account;
   identifierCopy = identifier;
@@ -1951,9 +2004,9 @@ LABEL_16:
           v29 = self->_currentBytesInFlight;
           maxBytesInFlight = [(NMSMessageCenter *)self maxBytesInFlight];
           *buf = 134218240;
-          v37 = v29;
-          v38 = 2048;
-          v39 = maxBytesInFlight;
+          v36 = v29;
+          v37 = 2048;
+          v38 = maxBytesInFlight;
           _os_log_impl(&dword_1DF835000, v28, OS_LOG_TYPE_DEFAULT, "Opening window: %lu bytes in flight, %lu max", buf, 0x16u);
         }
 
@@ -1979,25 +2032,14 @@ LABEL_16:
       block[2] = __72__NMSMessageCenter_service_account_identifier_didSendWithSuccess_error___block_invoke;
       block[3] = &unk_1E86CA0F8;
       block[4] = self;
-      v33 = identifierCopy;
-      v34 = v16;
+      v32 = identifierCopy;
+      v33 = v16;
       dispatch_sync(delegateQueue, block);
     }
   }
 
-  if (![v16 isFromRequest])
+  if (![v16 isFromRequest] || (responseHandlers = self->_responseHandlers, objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", objc_msgSend(v16, "messageID")), v21 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary objectForKeyedSubscript:](responseHandlers, "objectForKeyedSubscript:", v21), v22 = objc_claimAutoreleasedReturnValue(), LODWORD(responseHandlers) = v22 == 0, v22, v21, responseHandlers))
   {
-    goto LABEL_8;
-  }
-
-  responseHandlers = self->_responseHandlers;
-  v21 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{objc_msgSend(v16, "messageID")}];
-  v22 = [(NSMutableDictionary *)responseHandlers objectForKeyedSubscript:v21];
-  LODWORD(responseHandlers) = v22 == 0;
-
-  if (responseHandlers)
-  {
-LABEL_8:
     [(NMSPersistentDictionary *)self->_persistentContextStore lock];
     idsOptions = [v16 idsOptions];
     v24 = [idsOptions objectForKeyedSubscript:*MEMORY[0x1E69A47E0]];
@@ -2025,7 +2067,6 @@ LABEL_30:
 LABEL_31:
 
   os_activity_scope_leave(&state);
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __72__NMSMessageCenter_service_account_identifier_didSendWithSuccess_error___block_invoke(uint64_t a1)
@@ -2039,7 +2080,7 @@ void __72__NMSMessageCenter_service_account_identifier_didSendWithSuccess_error_
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier hasBeenDeliveredWithContext:(id)context
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   accountCopy = account;
   identifierCopy = identifier;
@@ -2063,26 +2104,15 @@ void __72__NMSMessageCenter_service_account_identifier_didSendWithSuccess_error_
     block[2] = __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithContext___block_invoke;
     block[3] = &unk_1E86CA0F8;
     block[4] = self;
-    v30 = identifierCopy;
-    v31 = v14;
+    v29 = identifierCopy;
+    v30 = v14;
     dispatch_sync(delegateQueue, block);
   }
 
   if (v14)
   {
-    if (![v14 isFromRequest])
+    if (![v14 isFromRequest] || (responseHandlers = self->_responseHandlers, objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", objc_msgSend(v14, "messageID")), v19 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary objectForKeyedSubscript:](responseHandlers, "objectForKeyedSubscript:", v19), v20 = objc_claimAutoreleasedReturnValue(), LODWORD(responseHandlers) = v20 == 0, v20, v19, responseHandlers))
     {
-      goto LABEL_6;
-    }
-
-    responseHandlers = self->_responseHandlers;
-    v19 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{objc_msgSend(v14, "messageID")}];
-    v20 = [(NSMutableDictionary *)responseHandlers objectForKeyedSubscript:v19];
-    LODWORD(responseHandlers) = v20 == 0;
-
-    if (responseHandlers)
-    {
-LABEL_6:
       [(NMSPersistentDictionary *)self->_persistentContextStore lock];
       sendAcked = [v14 sendAcked];
       persistentContextStore = self->_persistentContextStore;
@@ -2119,9 +2149,9 @@ LABEL_6:
         v26 = self->_currentBytesInFlight;
         maxBytesInFlight = [(NMSMessageCenter *)self maxBytesInFlight];
         *buf = 134218240;
-        v34 = v26;
-        v35 = 2048;
-        v36 = maxBytesInFlight;
+        v33 = v26;
+        v34 = 2048;
+        v35 = maxBytesInFlight;
         _os_log_impl(&dword_1DF835000, v25, OS_LOG_TYPE_DEFAULT, "Opening window: %lu bytes in flight, %lu max", buf, 0x16u);
       }
 
@@ -2132,7 +2162,6 @@ LABEL_6:
   }
 
   os_activity_scope_leave(&state);
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithContext___block_invoke(uint64_t a1)
@@ -2146,7 +2175,7 @@ void __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithConte
 
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   accountCopy = account;
   dataCopy = data;
@@ -2168,13 +2197,13 @@ void __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithConte
     outgoingResponseIdentifier = [contextCopy outgoingResponseIdentifier];
     incomingResponseIdentifier = [contextCopy incomingResponseIdentifier];
     *buf = 134218754;
-    v72 = v16;
-    v73 = 2114;
-    v74 = v17;
-    v75 = 2114;
-    v76 = outgoingResponseIdentifier;
-    v77 = 2114;
-    v78 = incomingResponseIdentifier;
+    v71 = v16;
+    v72 = 2114;
+    v73 = v17;
+    v74 = 2114;
+    v75 = outgoingResponseIdentifier;
+    v76 = 2114;
+    v77 = incomingResponseIdentifier;
     _os_log_impl(&dword_1DF835000, v15, OS_LOG_TYPE_DEFAULT, "Receiving %zu bytes of incoming data from service %{public}@. Identifier (in/out) = %{public}@ / %{public}@", buf, 0x2Au);
   }
 
@@ -2192,7 +2221,7 @@ void __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithConte
       [NMSMessageCenter service:v20 account:? incomingData:? fromID:? context:?];
     }
 
-    v63 = os_transaction_create();
+    v62 = os_transaction_create();
     incomingResponseIdentifier2 = [contextCopy incomingResponseIdentifier];
     v22 = incomingResponseIdentifier2 == 0;
 
@@ -2200,11 +2229,11 @@ void __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithConte
     {
       if ([dataCopy length] >= 3)
       {
-        v64 = [(NMSMessageCenter *)self _decodeIncomingRequestData:dataCopy context:contextCopy];
-        [v64 setSourceDeviceID:dCopy];
-        if ([v64 messageID] == 0x7FFF)
+        v63 = [(NMSMessageCenter *)self _decodeIncomingRequestData:dataCopy context:contextCopy];
+        [v63 setSourceDeviceID:dCopy];
+        if ([v63 messageID] == 0x7FFF)
         {
-          pbRequest = [v64 pbRequest];
+          pbRequest = [v63 pbRequest];
           inReplyTo = [pbRequest inReplyTo];
           [(NMSPersistentDictionary *)self->_persistentContextStore lock];
           [(NMSPersistentDictionary *)self->_persistentContextStore removeObjectForKey:inReplyTo];
@@ -2218,7 +2247,7 @@ void __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithConte
           if (os_log_type_enabled(qword_1EDE73428, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v72 = inReplyTo;
+            v71 = inReplyTo;
             _os_log_impl(&dword_1DF835000, v45, OS_LOG_TYPE_DEFAULT, "Releasing timer for outgoing request %{public}@ due to incoming Version Rejection message triggered by that message ID.", buf, 0xCu);
           }
         }
@@ -2233,26 +2262,26 @@ void __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithConte
           v46 = qword_1EDE73428;
           if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
           {
-            cPObfuscatedDescriptionObject = [v64 CPObfuscatedDescriptionObject];
+            cPObfuscatedDescriptionObject = [v63 CPObfuscatedDescriptionObject];
             v48 = _SYObfuscate(cPObfuscatedDescriptionObject);
             *buf = 138543362;
-            v72 = v48;
+            v71 = v48;
             _os_log_impl(&dword_1DF835000, v46, OS_LOG_TYPE_DEFAULT, "Received request: %{public}@", buf, 0xCu);
           }
         }
 
-        if ([v64 expectsResponse])
+        if ([v63 expectsResponse])
         {
-          [v64 configureResponse];
+          [v63 configureResponse];
         }
 
         requestHandlers = self->_requestHandlers;
-        v50 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{objc_msgSend(v64, "messageID")}];
+        v50 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{objc_msgSend(v63, "messageID")}];
         v27 = [(NSMutableDictionary *)requestHandlers objectForKeyedSubscript:v50];
 
         if (v27)
         {
-          (v27)[2](v27, v64);
+          (v27)[2](v27, v63);
         }
 
         else
@@ -2262,10 +2291,10 @@ void __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithConte
             [SYIncomingSyncAllObjectsSession _continueProcessing];
           }
 
-          v53 = qword_1EDE73428;
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+          v52 = qword_1EDE73428;
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
           {
-            -[NMSMessageCenter service:account:incomingData:fromID:context:].cold.14([v64 messageID], v70, v53);
+            -[NMSMessageCenter service:account:incomingData:fromID:context:].cold.14([v63 messageID], v69, v52);
           }
 
           if (_sync_log_facilities_pred != -1)
@@ -2277,14 +2306,14 @@ void __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithConte
           {
             if ([dataCopy length] > 0x64)
             {
-              v55 = objc_autoreleasePoolPush();
-              v54 = [dataCopy subdataWithRange:{0, 100}];
-              objc_autoreleasePoolPop(v55);
+              v54 = objc_autoreleasePoolPush();
+              v53 = [dataCopy subdataWithRange:{0, 100}];
+              objc_autoreleasePoolPop(v54);
             }
 
             else
             {
-              v54 = dataCopy;
+              v53 = dataCopy;
             }
 
             if (_sync_log_facilities_pred != -1)
@@ -2292,11 +2321,11 @@ void __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithConte
               [SYIncomingSyncAllObjectsSession _continueProcessing];
             }
 
-            v56 = qword_1EDE73428;
-            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+            v55 = qword_1EDE73428;
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
             {
-              v57 = [dataCopy subdataWithRange:{0, 3}];
-              [NMSMessageCenter service:v57 account:buf incomingData:v56 fromID:? context:?];
+              v56 = [dataCopy subdataWithRange:{0, 3}];
+              [NMSMessageCenter service:v56 account:buf incomingData:v55 fromID:? context:?];
             }
 
             if (_sync_log_facilities_pred != -1)
@@ -2311,9 +2340,9 @@ void __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithConte
           }
 
           WeakRetained = objc_loadWeakRetained(&self->_delegate);
-          v59 = objc_opt_respondsToSelector();
+          v58 = objc_opt_respondsToSelector();
 
-          if (v59)
+          if (v58)
           {
             delegateQueue = self->_delegateQueue;
             block[0] = MEMORY[0x1E69E9820];
@@ -2321,14 +2350,14 @@ void __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithConte
             block[2] = __64__NMSMessageCenter_service_account_incomingData_fromID_context___block_invoke;
             block[3] = &unk_1E86C9E90;
             block[4] = self;
-            v64 = v64;
-            v68 = v64;
+            v63 = v63;
+            v67 = v63;
             dispatch_sync(delegateQueue, block);
           }
 
           else
           {
-            [v64 setExpectsResponse:0];
+            [v63 setExpectsResponse:0];
             if (_sync_log_facilities_pred != -1)
             {
               [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -2349,7 +2378,7 @@ void __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithConte
     {
       v23 = dataCopy;
       v24 = *[dataCopy bytes];
-      v64 = [dataCopy subdataWithRange:{2, objc_msgSend(dataCopy, "length") - 2}];
+      v63 = [dataCopy subdataWithRange:{2, objc_msgSend(dataCopy, "length") - 2}];
       [(NMSPersistentDictionary *)self->_persistentContextStore lock];
       persistentContextStore = self->_persistentContextStore;
       incomingResponseIdentifier3 = [contextCopy incomingResponseIdentifier];
@@ -2376,7 +2405,7 @@ void __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithConte
             {
               v33 = objc_opt_new();
               [v33 setMessageID:{objc_msgSend(v27, "messageID")}];
-              [v33 setData:v64];
+              [v33 setData:v63];
               outgoingResponseIdentifier2 = [contextCopy outgoingResponseIdentifier];
               [v33 setIdsIdentifier:outgoingResponseIdentifier2];
 
@@ -2404,7 +2433,7 @@ void __75__NMSMessageCenter_service_account_identifier_hasBeenDeliveredWithConte
                   cPObfuscatedDescriptionObject2 = [v33 CPObfuscatedDescriptionObject];
                   v40 = _SYObfuscate(cPObfuscatedDescriptionObject2);
                   *buf = 138543362;
-                  v72 = v40;
+                  v71 = v40;
                   _os_log_impl(&dword_1DF835000, v38, OS_LOG_TYPE_DEFAULT, "Received response: %{public}@", buf, 0xCu);
                 }
               }
@@ -2438,17 +2467,17 @@ LABEL_55:
             goto LABEL_56;
           }
 
-          v61 = "context.fromRequest == YES";
-          v62 = 1269;
+          v60 = "context.fromRequest == YES";
+          v61 = 1269;
         }
 
         else
         {
-          v61 = "context.messageID == header.messageID";
-          v62 = 1268;
+          v60 = "context.messageID == header.messageID";
+          v61 = 1268;
         }
 
-        __assert_rtn("[NMSMessageCenter service:account:incomingData:fromID:context:]", "NanoMessagingService.m", v62, v61);
+        __assert_rtn("[NMSMessageCenter service:account:incomingData:fromID:context:]", "NanoMessagingService.m", v61, v60);
       }
 
       if (_sync_log_facilities_pred != -1)
@@ -2478,13 +2507,11 @@ LABEL_56:
 
   if (os_log_type_enabled(qword_1EDE73428, OS_LOG_TYPE_ERROR))
   {
-    [NMSMessageCenter service:serviceCopy account:&self->_service incomingData:? fromID:? context:?];
+    [NMSMessageCenter service:account:incomingData:fromID:context:];
   }
 
 LABEL_57:
   os_activity_scope_leave(&state);
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 void __64__NMSMessageCenter_service_account_incomingData_fromID_context___block_invoke(uint64_t a1)
@@ -2572,7 +2599,7 @@ void __82__NMSMessageCenter_service_account_incomingResourceAtURL_metadata_fromI
 
 - (void)service:(id)service didSwitchActivePairedDevice:(id)device acknowledgementBlock:(id)block
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   deviceCopy = device;
   blockCopy = block;
@@ -2588,7 +2615,7 @@ void __82__NMSMessageCenter_service_account_incomingResourceAtURL_metadata_fromI
   if (os_log_type_enabled(qword_1EDE73428, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = deviceCopy;
+    v20 = deviceCopy;
     _os_log_impl(&dword_1DF835000, v11, OS_LOG_TYPE_DEFAULT, "IDS active device changed: %@", buf, 0xCu);
   }
 
@@ -2603,8 +2630,8 @@ void __82__NMSMessageCenter_service_account_incomingResourceAtURL_metadata_fromI
     block[2] = __77__NMSMessageCenter_service_didSwitchActivePairedDevice_acknowledgementBlock___block_invoke;
     block[3] = &unk_1E86CB1D0;
     block[4] = self;
-    v17 = deviceCopy;
-    v18 = blockCopy;
+    v16 = deviceCopy;
+    v17 = blockCopy;
     dispatch_async(delegateQueue, block);
   }
 
@@ -2614,8 +2641,6 @@ void __82__NMSMessageCenter_service_account_incomingResourceAtURL_metadata_fromI
   }
 
   os_activity_scope_leave(&state);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __77__NMSMessageCenter_service_didSwitchActivePairedDevice_acknowledgementBlock___block_invoke(void *a1)
@@ -2696,36 +2721,29 @@ void __77__NMSMessageCenter_service_didSwitchActivePairedDevice_acknowledgementB
 
 - (void)sendRequest:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __32__NMSMessageCenter_sendRequest___block_invoke_cold_3(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_7() extraIDSOptions];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_7() extraIDSOptions];
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_2_6(&dword_1DF835000, v6, v7, "Request extra IDS options: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_6(&dword_1DF835000, v5, v6, "Request extra IDS options: %@", v7, v8, v9, v10);
 }
 
 void __32__NMSMessageCenter_sendRequest___block_invoke_cold_5()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_5_3(&dword_1DF835000, v0, v1, "Request resolved IDS options: %@", v3);
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_3(&dword_1DF835000, v0, v1, "Request resolved IDS options: %@", v2);
 }
 
 - (void)sendFile:(uint64_t)a3 .cold.2(void *a1, void *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = [a2 fileURL];
   v7 = [*(a3 + 128) isSuspended];
@@ -2735,112 +2753,81 @@ void __32__NMSMessageCenter_sendRequest___block_invoke_cold_5()
     v8 = "";
   }
 
-  v10 = 138543618;
-  v11 = v6;
-  v12 = 2080;
-  v13 = v8;
-  _os_log_debug_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEBUG, "Sending %{public}@, NMS window queue is %ssuspended", &v10, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = 138543618;
+  v10 = v6;
+  v11 = 2080;
+  v12 = v8;
+  _os_log_debug_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEBUG, "Sending %{public}@, NMS window queue is %ssuspended", &v9, 0x16u);
 }
 
 - (void)sendFile:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __29__NMSMessageCenter_sendFile___block_invoke_cold_3(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_7() extraIDSOptions];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_7() extraIDSOptions];
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_2_6(&dword_1DF835000, v6, v7, "File extra IDS options: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_6(&dword_1DF835000, v5, v6, "File extra IDS options: %@", v7, v8, v9, v10);
 }
 
 void __29__NMSMessageCenter_sendFile___block_invoke_cold_5()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_5_3(&dword_1DF835000, v0, v1, "File resolved IDS options: %@", v3);
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_3(&dword_1DF835000, v0, v1, "File resolved IDS options: %@", v2);
 }
 
 void __29__NMSMessageCenter_sendFile___block_invoke_cold_9(void **a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   v3 = a2;
   [v2 fileURL];
   objc_claimAutoreleasedReturnValue();
   v4 = OUTLINED_FUNCTION_7();
   v5 = _SYObfuscate(v4);
-  v7 = 138412546;
-  v8 = v2;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_1DF835000, v3, OS_LOG_TYPE_ERROR, "Failed to delete file-transfer file '%@' : %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v2;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_1DF835000, v3, OS_LOG_TYPE_ERROR, "Failed to delete file-transfer file '%@' : %{public}@", &v6, 0x16u);
 }
 
 - (void)_sendResponse:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __34__NMSMessageCenter__sendResponse___block_invoke_cold_3(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_7() extraIDSOptions];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_7() extraIDSOptions];
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_2_6(&dword_1DF835000, v6, v7, "Response extra IDS options: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_6(&dword_1DF835000, v5, v6, "Response extra IDS options: %@", v7, v8, v9, v10);
 }
 
-void __34__NMSMessageCenter__sendResponse___block_invoke_cold_5(uint64_t *a1, void *a2)
+void __34__NMSMessageCenter__sendResponse___block_invoke_cold_5(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = *a1;
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_7() extraIDSOptions];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_7() extraIDSOptions];
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_2_6(&dword_1DF835000, v6, v7, "Response resolved IDS options: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_6(&dword_1DF835000, v5, v6, "Response resolved IDS options: %@", v7, v8, v9, v10);
 }
 
-- (void)service:(uint64_t)a1 account:(uint64_t *)a2 incomingData:fromID:context:.cold.3(uint64_t a1, uint64_t *a2)
+- (void)service:account:incomingData:fromID:context:.cold.3()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_5_0();
-  v7 = 2114;
-  v8 = v3;
-  _os_log_error_impl(&dword_1DF835000, v4, OS_LOG_TYPE_ERROR, "Err, *whose* message? Got data for service %{public}@, but I'm listening for service %{public}@", v6, 0x16u);
   v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)service:account:incomingData:fromID:context:.cold.8()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_0();
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_1DF835000, v1, OS_LOG_TYPE_ERROR, "Err, *whose* message? Got data for service %{public}@, but I'm listening for service %{public}@", v2, 0x16u);
 }
 
 - (void)service:(uint8_t *)buf account:(os_log_t)log incomingData:fromID:context:.cold.10(void *a1, unsigned __int16 a2, uint8_t *buf, os_log_t log)
@@ -2868,19 +2855,16 @@ void __34__NMSMessageCenter__sendResponse___block_invoke_cold_5(uint64_t *a1, vo
 
 - (void)service:account:incomingData:fromID:context:.cold.19()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_5_3(&dword_1DF835000, v0, v1, "First 100 bytes of incoming unrecognized message data: %{private}@", v3);
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_3(&dword_1DF835000, v0, v1, "First 100 bytes of incoming unrecognized message data: %{private}@", v2);
 }
 
 - (void)service:account:incomingResourceAtURL:metadata:fromID:context:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

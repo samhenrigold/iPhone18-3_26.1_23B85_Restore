@@ -126,7 +126,7 @@ void __47__DCDevice_generateTokenWithCompletionHandler___block_invoke_2(uint64_t
 
 void __39__DCDevice__isSupportedReturningError___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (DCLogSystem_onceToken_2 != -1)
   {
@@ -138,13 +138,13 @@ void __39__DCDevice__isSupportedReturningError___block_invoke(uint64_t a1, void 
   {
     v5 = v4;
     v6 = [v3 localizedDescription];
-    v13 = 136315650;
-    v14 = "DCDevice.m";
-    v15 = 1024;
-    v16 = 65;
-    v17 = 2112;
-    v18 = v6;
-    _os_log_impl(&dword_238044000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to connect to daemon. { error=%@ }", &v13, 0x1Cu);
+    v12 = 136315650;
+    v13 = "DCDevice.m";
+    v14 = 1024;
+    v15 = 65;
+    v16 = 2112;
+    v17 = v6;
+    _os_log_impl(&dword_238044000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to connect to daemon. { error=%@ }", &v12, 0x1Cu);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 0;
@@ -157,7 +157,6 @@ void __39__DCDevice__isSupportedReturningError___block_invoke(uint64_t a1, void 
   v11 = +[DCAnalytics shared];
 
   [v11 sendPayload:0 forEvent:@"com.apple.devicecheck.isSupported" withError:v10];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __39__DCDevice__isSupportedReturningError___block_invoke_23(uint64_t a1, char a2, void *a3)
@@ -177,10 +176,10 @@ void __39__DCDevice__isSupportedReturningError___block_invoke_23(uint64_t a1, ch
 
 - (BOOL)isSupported
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  v2 = [(DCDevice *)self _isSupportedReturningError:&v9];
-  v3 = v9;
+  v15 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v2 = [(DCDevice *)self _isSupportedReturningError:&v8];
+  v3 = v8;
   if (v3)
   {
     if (DCLogSystem_onceToken_2 != -1)
@@ -194,16 +193,15 @@ void __39__DCDevice__isSupportedReturningError___block_invoke_23(uint64_t a1, ch
       v5 = v4;
       localizedDescription = [v3 localizedDescription];
       *buf = 136315650;
-      v11 = "DCDevice.m";
-      v12 = 1024;
-      v13 = 97;
-      v14 = 2112;
-      v15 = localizedDescription;
+      v10 = "DCDevice.m";
+      v11 = 1024;
+      v12 = 97;
+      v13 = 2112;
+      v14 = localizedDescription;
       _os_log_impl(&dword_238044000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to check if client is supported. { error=%@ }", buf, 0x1Cu);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

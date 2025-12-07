@@ -105,7 +105,7 @@ intptr_t __29__MTTimerScheduler_nextTimer__block_invoke(uint64_t a1)
 
 - (MTTimerScheduler)initWithStorage:(id)storage notificationCenter:(id)center scheduler:(id)scheduler defaults:(id)defaults schedulingDelegate:(id)delegate taskScheduler:(id)taskScheduler currentDateProvider:(id)provider
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   centerCopy = center;
   schedulerCopy = scheduler;
@@ -113,16 +113,16 @@ intptr_t __29__MTTimerScheduler_nextTimer__block_invoke(uint64_t a1)
   delegateCopy = delegate;
   taskSchedulerCopy = taskScheduler;
   providerCopy = provider;
-  v31.receiver = self;
-  v31.super_class = MTTimerScheduler;
-  v18 = [(MTTimerScheduler *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = MTTimerScheduler;
+  v18 = [(MTTimerScheduler *)&v30 init];
   if (v18)
   {
     v19 = MTLogForCategory(4);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v33 = v18;
+      v32 = v18;
       _os_log_impl(&dword_1B1F9F000, v19, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@", buf, 0xCu);
     }
 
@@ -143,7 +143,6 @@ intptr_t __29__MTTimerScheduler_nextTimer__block_invoke(uint64_t a1)
     objc_storeStrong(&v18->_serializer, scheduler);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -172,7 +171,7 @@ intptr_t __29__MTTimerScheduler_nextTimer__block_invoke(uint64_t a1)
 
 - (void)_queue_rescheduleTimersWithCompletion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   kdebug_trace();
   storage = [(MTTimerScheduler *)self storage];
@@ -183,21 +182,19 @@ intptr_t __29__MTTimerScheduler_nextTimer__block_invoke(uint64_t a1)
   {
     *buf = 138543618;
     selfCopy = self;
-    v14 = 2050;
-    v15 = [timers count];
+    v13 = 2050;
+    v14 = [timers count];
     _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ rescheduling %{public}ld timers", buf, 0x16u);
   }
 
   [(MTScheduledList *)self->_scheduledTimers reset];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __58__MTTimerScheduler__queue_rescheduleTimersWithCompletion___block_invoke;
-  v10[3] = &unk_1E7B0D6F0;
-  v11 = completionCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __58__MTTimerScheduler__queue_rescheduleTimersWithCompletion___block_invoke;
+  v9[3] = &unk_1E7B0D6F0;
+  v10 = completionCopy;
   v8 = completionCopy;
-  [(MTTimerScheduler *)self _queue_scheduleTimers:timers withCompletion:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(MTTimerScheduler *)self _queue_scheduleTimers:timers withCompletion:v9];
 }
 
 uint64_t __58__MTTimerScheduler__queue_rescheduleTimersWithCompletion___block_invoke(uint64_t a1)
@@ -244,17 +241,17 @@ uint64_t __58__MTTimerScheduler__queue_rescheduleTimersWithCompletion___block_in
 
 - (void)_queue_scheduleTimers:(id)timers withCompletion:(id)completion
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   timersCopy = timers;
   completionCopy = completion;
   v8 = (*(self->_currentDateProvider + 2))();
   selfCopy = self;
   _queue_lastTimerTriggerDate = [(MTTimerScheduler *)self _queue_lastTimerTriggerDate];
   v10 = [v8 dateByAddingTimeInterval:-900.0];
-  v44 = _queue_lastTimerTriggerDate;
-  v45 = v8;
-  v42 = completionCopy;
-  v43 = v10;
+  v42 = _queue_lastTimerTriggerDate;
+  v43 = v8;
+  v40 = completionCopy;
+  v41 = v10;
   if ([_queue_lastTimerTriggerDate mtIsBeforeOrSameAsDate:v10])
   {
     v11 = MTLogForCategory(4);
@@ -262,10 +259,10 @@ uint64_t __58__MTTimerScheduler__queue_rescheduleTimersWithCompletion___block_in
     {
       *buf = 138543874;
       selfCopy2 = self;
-      v59 = 1024;
-      *v60 = 15;
-      *&v60[4] = 2114;
-      *&v60[6] = v10;
+      v57 = 1024;
+      *v58 = 15;
+      *&v58[4] = 2114;
+      *&v58[6] = v10;
       _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ fired last timer more than %d minutes ago.  Seeing if we have to fire any timers we missed since %{public}@", buf, 0x1Cu);
     }
 
@@ -284,10 +281,10 @@ LABEL_12:
     {
       *buf = 138543874;
       selfCopy2 = selfCopy;
-      v59 = 1024;
-      *v60 = 15;
-      *&v60[4] = 2114;
-      *&v60[6] = _queue_lastTimerTriggerDate;
+      v57 = 1024;
+      *v58 = 15;
+      *&v58[4] = 2114;
+      *&v58[6] = _queue_lastTimerTriggerDate;
       _os_log_impl(&dword_1B1F9F000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ fired last timer less than %d minutes ago.  Seeing if we have to fire any timers we missed since %{public}@", buf, 0x1Cu);
     }
 
@@ -305,92 +302,91 @@ LABEL_12:
   v16 = v8;
   [(MTTimerScheduler *)selfCopy _queue_setLastTimerTriggerDate:v16];
 LABEL_13:
-  v54 = 0u;
-  v55 = 0u;
   v52 = 0u;
   v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v17 = timersCopy;
-  v18 = [v17 countByEnumeratingWithState:&v52 objects:v56 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v50 objects:v54 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v53;
+    v20 = *v51;
     v21 = 0x1E7B0B000uLL;
     do
     {
       v22 = 0;
-      v46 = v19;
+      v44 = v19;
       do
       {
-        if (*v53 != v20)
+        if (*v51 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v23 = *(*(&v52 + 1) + 8 * v22);
+        v23 = *(*(&v50 + 1) + 8 * v22);
         if ([v23 state] == 3)
         {
-          v24 = *(v21 + 2912);
-          v25 = objc_opt_class();
+          v24 = objc_opt_class();
           fireTime = [v23 fireTime];
           if (fireTime)
           {
             if (objc_opt_isKindOfClass())
             {
-              v27 = fireTime;
+              v26 = fireTime;
             }
 
             else
             {
-              v27 = 0;
+              v26 = 0;
             }
 
-            v28 = v27;
-            if (!v28)
+            v27 = v26;
+            if (!v27)
             {
-              [MTTimerScheduler _queue_scheduleTimers:fireTime withCompletion:v25];
+              [MTTimerScheduler _queue_scheduleTimers:fireTime withCompletion:v24];
             }
           }
 
           else
           {
-            v28 = 0;
+            v27 = 0;
           }
 
-          date = [v28 date];
+          date = [v27 date];
           if (([date mtIsBeforeDate:v16] & 1) == 0)
           {
 
             goto LABEL_32;
           }
 
-          v30 = [v23 mutableCopy];
-          v31 = MTLogForCategory(4);
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          v29 = [v23 mutableCopy];
+          v30 = MTLogForCategory(4);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
-            [v30 timerID];
-            v32 = v20;
-            v33 = v17;
-            v34 = v16;
-            v36 = v35 = v21;
+            [v29 timerID];
+            v31 = v20;
+            v32 = v17;
+            v33 = v16;
+            v35 = v34 = v21;
             *buf = 138543618;
             selfCopy2 = selfCopy;
-            v59 = 2114;
-            *v60 = v36;
-            _os_log_impl(&dword_1B1F9F000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting really old running timer %{public}@ to stopped", buf, 0x16u);
+            v57 = 2114;
+            *v58 = v35;
+            _os_log_impl(&dword_1B1F9F000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting really old running timer %{public}@ to stopped", buf, 0x16u);
 
-            v21 = v35;
-            v16 = v34;
-            v17 = v33;
-            v20 = v32;
-            v19 = v46;
+            v21 = v34;
+            v16 = v33;
+            v17 = v32;
+            v20 = v31;
+            v19 = v44;
           }
 
-          [v30 setState:1];
-          if (v30)
+          [v29 setState:1];
+          if (v29)
           {
-            [(MTTimerStorage *)selfCopy->_storage updateTimer:v30 withCompletion:0 source:?];
-            v28 = v30;
+            [(MTTimerStorage *)selfCopy->_storage updateTimer:v29 withCompletion:0 source:?];
+            v27 = v29;
 LABEL_32:
           }
         }
@@ -399,42 +395,40 @@ LABEL_32:
       }
 
       while (v19 != v22);
-      v19 = [v17 countByEnumeratingWithState:&v52 objects:v56 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v50 objects:v54 count:16];
     }
 
     while (v19);
   }
 
-  v37 = MTNewChildActivityForName(0x11uLL);
+  v36 = MTNewChildActivityForName(0x11uLL);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __57__MTTimerScheduler__queue_scheduleTimers_withCompletion___block_invoke;
   block[3] = &unk_1E7B0CC70;
   block[4] = selfCopy;
-  v49 = v17;
-  v50 = v16;
-  v51 = v42;
-  v38 = v17;
-  v39 = v16;
-  v40 = v42;
-  os_activity_apply(v37, block);
-
-  v41 = *MEMORY[0x1E69E9840];
+  v47 = v17;
+  v48 = v16;
+  v49 = v40;
+  v37 = v17;
+  v38 = v16;
+  v39 = v40;
+  os_activity_apply(v36, block);
 }
 
 void __57__MTTimerScheduler__queue_scheduleTimers_withCompletion___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) count];
-    v10 = 138543618;
-    v11 = v3;
-    v12 = 2050;
-    v13 = v4;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ scheduling %{public}lu timers", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v3;
+    v11 = 2050;
+    v12 = v4;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ scheduling %{public}lu timers", &v9, 0x16u);
   }
 
   v5 = [*(a1 + 32) scheduledTimers];
@@ -445,14 +439,12 @@ void __57__MTTimerScheduler__queue_scheduleTimers_withCompletion___block_invoke(
   {
     v7 = *(a1 + 32);
     v8 = *(v7 + 32);
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ scheduled timers: %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2114;
+    v12 = v8;
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ scheduled timers: %{public}@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_unscheduleTimers:(id)timers
@@ -471,17 +463,17 @@ void __57__MTTimerScheduler__queue_scheduleTimers_withCompletion___block_invoke(
 
 void __44__MTTimerScheduler__queue_unscheduleTimers___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) count];
-    v10 = 138543618;
-    v11 = v3;
-    v12 = 2050;
-    v13 = v4;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ unscheduling %{public}lu timers", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v3;
+    v11 = 2050;
+    v12 = v4;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ unscheduling %{public}lu timers", &v9, 0x16u);
   }
 
   v5 = [*(a1 + 32) scheduledTimers];
@@ -492,27 +484,25 @@ void __44__MTTimerScheduler__queue_unscheduleTimers___block_invoke(uint64_t a1)
   {
     v7 = *(a1 + 32);
     v8 = *(v7 + 32);
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ scheduled timers: %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2114;
+    v12 = v8;
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ scheduled timers: %{public}@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scheduledListDidChange:(id)change withCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __58__MTTimerScheduler_scheduledListDidChange_withCompletion___block_invoke;
-  v16[3] = &unk_1E7B0D6F0;
-  v17 = completionCopy;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __58__MTTimerScheduler_scheduledListDidChange_withCompletion___block_invoke;
+  v15[3] = &unk_1E7B0D6F0;
+  v16 = completionCopy;
   v6 = completionCopy;
-  [(MTTimerScheduler *)self _queue_updatePersistentTimerForNextTimerWithCompletion:v16];
+  [(MTTimerScheduler *)self _queue_updatePersistentTimerForNextTimerWithCompletion:v15];
   scheduledTimers = [(MTTimerScheduler *)self scheduledTimers];
   nextScheduledAlertOrNotification = [scheduledTimers nextScheduledAlertOrNotification];
 
@@ -523,8 +513,8 @@ void __44__MTTimerScheduler__queue_unscheduleTimers___block_invoke(uint64_t a1)
     identifier = [scheduleable identifier];
     *buf = 138543618;
     selfCopy = self;
-    v20 = 2114;
-    v21 = identifier;
+    v19 = 2114;
+    v20 = identifier;
     _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ next timer changed: %{public}@", buf, 0x16u);
   }
 
@@ -538,8 +528,6 @@ void __44__MTTimerScheduler__queue_unscheduleTimers___block_invoke(uint64_t a1)
   delegate = [(MTTimerScheduler *)self delegate];
   scheduleable2 = [nextScheduledAlertOrNotification scheduleable];
   [delegate scheduler:self didChangeNextTimer:scheduleable2];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __58__MTTimerScheduler_scheduledListDidChange_withCompletion___block_invoke(uint64_t a1)
@@ -555,7 +543,7 @@ uint64_t __58__MTTimerScheduler_scheduledListDidChange_withCompletion___block_in
 
 - (void)_queue_updatePersistentTimerForNextTimerWithCompletion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = MTLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -563,8 +551,8 @@ uint64_t __58__MTTimerScheduler_scheduledListDidChange_withCompletion___block_in
     scheduledTimers = [(MTTimerScheduler *)self scheduledTimers];
     *buf = 138543618;
     selfCopy5 = self;
-    v22 = 2050;
-    v23 = COERCE_DOUBLE([scheduledTimers numberOfScheduledAlertsAndNotifications]);
+    v21 = 2050;
+    v22 = COERCE_DOUBLE([scheduledTimers numberOfScheduledAlertsAndNotifications]);
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Updating persistent timer for %{public}ld scheduled timers", buf, 0x16u);
   }
 
@@ -588,8 +576,8 @@ uint64_t __58__MTTimerScheduler_scheduledListDidChange_withCompletion___block_in
   {
     *buf = 138543618;
     selfCopy5 = self;
-    v22 = 2114;
-    v23 = v8;
+    v21 = 2114;
+    v22 = v8;
     _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ Scheduling persistent timer for next timer at %{public}@", buf, 0x16u);
   }
 
@@ -607,12 +595,12 @@ uint64_t __58__MTTimerScheduler_scheduledListDidChange_withCompletion___block_in
       _os_log_impl(&dword_1B1F9F000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ Timer should have fired. Triggering it now", buf, 0xCu);
     }
 
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __75__MTTimerScheduler__queue_updatePersistentTimerForNextTimerWithCompletion___block_invoke;
-    v18[3] = &unk_1E7B0D6F0;
-    v19 = completionCopy;
-    [(MTTimerScheduler *)self _queue_fireTriggeredTimersWithCompletionBlock:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __75__MTTimerScheduler__queue_updatePersistentTimerForNextTimerWithCompletion___block_invoke;
+    v17[3] = &unk_1E7B0D6F0;
+    v18 = completionCopy;
+    [(MTTimerScheduler *)self _queue_fireTriggeredTimersWithCompletionBlock:v17];
 
     goto LABEL_20;
   }
@@ -628,8 +616,8 @@ uint64_t __58__MTTimerScheduler_scheduledListDidChange_withCompletion___block_in
 
     *buf = 138543618;
     selfCopy5 = self;
-    v22 = 2048;
-    v23 = v12;
+    v21 = 2048;
+    v22 = v12;
     v15 = "%{public}@ Timer will fire %f seconds from now";
   }
 
@@ -642,8 +630,8 @@ uint64_t __58__MTTimerScheduler_scheduledListDidChange_withCompletion___block_in
 
     *buf = 138543618;
     selfCopy5 = self;
-    v22 = 2048;
-    v23 = v12 / 60.0;
+    v21 = 2048;
+    v22 = v12 / 60.0;
     v15 = "%{public}@ Timer will fire %f minutes from now";
   }
 
@@ -660,8 +648,6 @@ LABEL_19:
   }
 
 LABEL_20:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __75__MTTimerScheduler__queue_updatePersistentTimerForNextTimerWithCompletion___block_invoke(uint64_t a1)
@@ -677,17 +663,16 @@ uint64_t __75__MTTimerScheduler__queue_updatePersistentTimerForNextTimerWithComp
 
 - (void)_queue_unregisterTimer
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Unscheduling persistent timer.", &v5, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Unscheduling persistent timer.", &v4, 0xCu);
   }
 
   [(MTSchedulingDelegate *)self->_schedulingDelegate unscheduleTimer];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_intervalToCheckForTimersToFireBeforeDate:(id)date
@@ -703,25 +688,23 @@ uint64_t __75__MTTimerScheduler__queue_updatePersistentTimerForNextTimerWithComp
 
 - (void)_queue_triggerDidFireForTimerWithCompletionBlock:(id)block
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = MTLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Timer timer fired", &v7, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Timer timer fired", &v6, 0xCu);
   }
 
   [(MTTimerScheduler *)self _queue_unregisterTimer];
   [(MTTimerScheduler *)self _queue_fireTriggeredTimersWithCompletionBlock:blockCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fireScheduledTimer:(id)timer firedDate:(id)date completionBlock:(id)block
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   dateCopy = date;
   scheduledTimers = self->_scheduledTimers;
@@ -745,15 +728,15 @@ uint64_t __75__MTTimerScheduler__queue_updatePersistentTimerForNextTimerWithComp
 
     [v15 setFiredDate:dateCopy];
     storage = [(MTTimerScheduler *)self storage];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __66__MTTimerScheduler__fireScheduledTimer_firedDate_completionBlock___block_invoke;
-    v21[3] = &unk_1E7B0DD70;
-    v22 = v15;
-    v23 = timerCopy;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __66__MTTimerScheduler__fireScheduledTimer_firedDate_completionBlock___block_invoke;
+    v20[3] = &unk_1E7B0DD70;
+    v21 = v15;
+    v22 = timerCopy;
     selfCopy = self;
     blockCopy = v15;
-    [storage updateTimer:blockCopy withCompletion:v21 source:self];
+    [storage updateTimer:blockCopy withCompletion:v20 source:self];
   }
 
   else
@@ -765,15 +748,13 @@ uint64_t __75__MTTimerScheduler__queue_updatePersistentTimerForNextTimerWithComp
       identifier = [scheduleable2 identifier];
       *buf = 138543618;
       selfCopy2 = self;
-      v27 = 2114;
-      v28 = identifier;
+      v26 = 2114;
+      v27 = identifier;
       _os_log_impl(&dword_1B1F9F000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ Timer %{public}@ was supposed to fire but is no longer scheduled", buf, 0x16u);
     }
 
     blockCopy[2](blockCopy);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __66__MTTimerScheduler__fireScheduledTimer_firedDate_completionBlock___block_invoke(uint64_t a1)
@@ -796,7 +777,7 @@ void __66__MTTimerScheduler__fireScheduledTimer_firedDate_completionBlock___bloc
 
 void __66__MTTimerScheduler__fireScheduledTimer_firedDate_completionBlock___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) scheduledTimers];
   v3 = [v2 nextScheduledAlertOrNotification];
 
@@ -806,16 +787,14 @@ void __66__MTTimerScheduler__fireScheduledTimer_firedDate_completionBlock___bloc
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
-      v8 = 138543362;
-      v9 = v5;
-      _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ no next timer", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v5;
+      _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ no next timer", &v7, 0xCu);
     }
 
     v6 = [*(a1 + 32) delegate];
     [v6 scheduler:*(a1 + 32) didChangeNextTimer:0];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_fireTriggeredTimersWithCompletionBlock:(id)block
@@ -847,130 +826,127 @@ void __66__MTTimerScheduler__queue_fireTriggeredTimersWithCompletionBlock___bloc
 
 void __66__MTTimerScheduler__queue_fireTriggeredTimersWithCompletionBlock___block_invoke_2(uint64_t a1)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(v3 + 32);
     *buf = 138543618;
-    v49 = v3;
-    v50 = 2114;
-    v51 = v4;
+    v47 = v3;
+    v48 = 2114;
+    v49 = v4;
     _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ Scheduled timers: %{public}@", buf, 0x16u);
   }
 
   v5 = (*(*(*(a1 + 32) + 48) + 16))();
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() _intervalToCheckForTimersToFireBeforeDate:v5];
-  v8 = MTLogForCategory(4);
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v6 = [objc_opt_class() _intervalToCheckForTimersToFireBeforeDate:v5];
+  v7 = MTLogForCategory(4);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(a1 + 32);
+    v8 = *(a1 + 32);
     *buf = 138543618;
-    v49 = v9;
-    v50 = 2114;
-    v51 = v7;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Find notifications with current trigger date in range %{public}@", buf, 0x16u);
+    v47 = v8;
+    v48 = 2114;
+    v49 = v6;
+    _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Find notifications with current trigger date in range %{public}@", buf, 0x16u);
   }
 
-  v38 = [MEMORY[0x1E695DF70] array];
-  [*(*(a1 + 32) + 32) scheduledObjectsToFireInInterval:v7];
+  v36 = [MEMORY[0x1E695DF70] array];
+  [*(*(a1 + 32) + 32) scheduledObjectsToFireInInterval:v6];
+  v42 = 0u;
+  v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  obj = v47 = 0u;
-  v10 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
-  v34 = v7;
-  if (v10)
+  obj = v45 = 0u;
+  v9 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
+  v32 = v6;
+  if (v9)
   {
-    v11 = v10;
-    v12 = *v45;
-    v13 = v42;
-    v35 = a1;
+    v10 = v9;
+    v11 = *v43;
+    v12 = v40;
+    v33 = a1;
     do
     {
-      v14 = 0;
-      v15 = v5;
-      v36 = v11;
+      v13 = 0;
+      v14 = v5;
+      v34 = v10;
       do
       {
-        if (*v45 != v12)
+        if (*v43 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v44 + 1) + 8 * v14);
-        v17 = [v16 trigger];
-        v18 = [v17 triggerDate];
+        v15 = *(*(&v42 + 1) + 8 * v13);
+        v16 = [v15 trigger];
+        v17 = [v16 triggerDate];
 
         v5 = (*(*(*(a1 + 32) + 48) + 16))();
 
-        v19 = 0.0;
-        if ([v5 mtIsBeforeDate:v18])
+        v18 = 0.0;
+        if ([v5 mtIsBeforeDate:v17])
         {
-          v20 = v13;
-          [v18 timeIntervalSinceDate:v5];
-          v19 = v21;
-          v22 = MTLogForCategory(4);
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v19 = v12;
+          [v17 timeIntervalSinceDate:v5];
+          v18 = v20;
+          v21 = MTLogForCategory(4);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
-            v23 = v12;
-            v24 = *(a1 + 32);
-            v25 = [v16 scheduleable];
-            v26 = [v25 identifier];
+            v22 = v11;
+            v23 = *(a1 + 32);
+            v24 = [v15 scheduleable];
+            v25 = [v24 identifier];
             *buf = 138543874;
-            v49 = v24;
-            v12 = v23;
-            v50 = 2114;
-            v51 = v26;
-            v52 = 2048;
-            v53 = v19;
-            _os_log_impl(&dword_1B1F9F000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ Timer %{public}@ should actually fire in %f seconds", buf, 0x20u);
+            v47 = v23;
+            v11 = v22;
+            v48 = 2114;
+            v49 = v25;
+            v50 = 2048;
+            v51 = v18;
+            _os_log_impl(&dword_1B1F9F000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ Timer %{public}@ should actually fire in %f seconds", buf, 0x20u);
 
-            a1 = v35;
+            a1 = v33;
           }
 
-          v13 = v20;
-          v11 = v36;
+          v12 = v19;
+          v10 = v34;
         }
 
-        v41[0] = MEMORY[0x1E69E9820];
-        v41[1] = 3221225472;
-        v42[0] = __66__MTTimerScheduler__queue_fireTriggeredTimersWithCompletionBlock___block_invoke_24;
-        v42[1] = &unk_1E7B0DD98;
-        v42[2] = *(a1 + 32);
-        v42[3] = v16;
-        v43 = v18;
-        v27 = v18;
-        v28 = [MTTask taskWithIdentifier:@"com.apple.MTTimerTask.fire" delay:v41 completableBlock:v19];
-        [v38 addObject:v28];
+        v39[0] = MEMORY[0x1E69E9820];
+        v39[1] = 3221225472;
+        v40[0] = __66__MTTimerScheduler__queue_fireTriggeredTimersWithCompletionBlock___block_invoke_24;
+        v40[1] = &unk_1E7B0DD98;
+        v40[2] = *(a1 + 32);
+        v40[3] = v15;
+        v41 = v17;
+        v26 = v17;
+        v27 = [MTTask taskWithIdentifier:@"com.apple.MTTimerTask.fire" delay:v39 completableBlock:v18];
+        [v36 addObject:v27];
 
-        ++v14;
-        v15 = v5;
+        ++v13;
+        v14 = v5;
       }
 
-      while (v11 != v14);
-      v11 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
+      while (v10 != v13);
+      v10 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
     }
 
-    while (v11);
+    while (v10);
   }
 
   kdebug_trace();
-  v30 = *(a1 + 32);
-  v29 = *(a1 + 40);
-  v31 = *(v30 + 64);
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __66__MTTimerScheduler__queue_fireTriggeredTimersWithCompletionBlock___block_invoke_3;
-  v39[3] = &unk_1E7B0CA00;
-  v39[4] = v30;
-  v40 = v29;
-  v32 = [MTTaskGroup taskGroupWithTasks:v38 completionBlock:v39];
-  [v31 scheduleTaskGroup:v32];
-
-  v33 = *MEMORY[0x1E69E9840];
+  v29 = *(a1 + 32);
+  v28 = *(a1 + 40);
+  v30 = *(v29 + 64);
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __66__MTTimerScheduler__queue_fireTriggeredTimersWithCompletionBlock___block_invoke_3;
+  v37[3] = &unk_1E7B0CA00;
+  v37[4] = v29;
+  v38 = v28;
+  v31 = [MTTaskGroup taskGroupWithTasks:v36 completionBlock:v37];
+  [v30 scheduleTaskGroup:v31];
 }
 
 void __66__MTTimerScheduler__queue_fireTriggeredTimersWithCompletionBlock___block_invoke_24(uint64_t a1, void *a2)
@@ -1004,28 +980,26 @@ void __66__MTTimerScheduler__queue_fireTriggeredTimersWithCompletionBlock___bloc
 
 void __66__MTTimerScheduler__queue_fireTriggeredTimersWithCompletionBlock___block_invoke_4(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MTLogForCategory(4);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138543362;
-    v13 = v5;
+    v12 = v5;
     _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ fired all timers.  Rescheduling.", buf, 0xCu);
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __66__MTTimerScheduler__queue_fireTriggeredTimersWithCompletionBlock___block_invoke_28;
-  v9[3] = &unk_1E7B0DDC0;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __66__MTTimerScheduler__queue_fireTriggeredTimersWithCompletionBlock___block_invoke_28;
+  v8[3] = &unk_1E7B0DDC0;
   v6 = *(a1 + 32);
-  v10 = *(a1 + 40);
-  v11 = v3;
+  v9 = *(a1 + 40);
+  v10 = v3;
   v7 = v3;
-  [v6 rescheduleTimersWithCompletion:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [v6 rescheduleTimersWithCompletion:v8];
 }
 
 uint64_t __66__MTTimerScheduler__queue_fireTriggeredTimersWithCompletionBlock___block_invoke_28(uint64_t a1)
@@ -1047,55 +1021,50 @@ uint64_t __66__MTTimerScheduler__queue_fireTriggeredTimersWithCompletionBlock___
 
 - (void)_queue_setLastTimerTriggerDate:(id)date
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v5 = MTLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
+    v6 = 138543618;
     selfCopy = self;
-    v9 = 2114;
-    v10 = dateCopy;
-    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting last timer trigger date to %{public}@", &v7, 0x16u);
+    v8 = 2114;
+    v9 = dateCopy;
+    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting last timer trigger date to %{public}@", &v6, 0x16u);
   }
 
   [(MTPersistence *)self->_defaults setObject:dateCopy forKey:@"MTTimerLastTriggerDate"];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)printDiagnostics
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----MTTimerScheduler-----", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----MTTimerScheduler-----", &v6, 2u);
   }
 
   v4 = MTLogForCategory(1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     scheduledTimers = [(MTTimerScheduler *)self scheduledTimers];
-    v7 = 138543362;
-    v8 = scheduledTimers;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "Scheduled Timers: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = scheduledTimers;
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "Scheduled Timers: %{public}@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)gatherDiagnostics
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"Scheduled timers";
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"Scheduled timers";
   v2 = MEMORY[0x1E696AD98];
   scheduledTimers = [(MTTimerScheduler *)self scheduledTimers];
   v4 = [v2 numberWithUnsignedInteger:{objc_msgSend(scheduledTimers, "numberOfScheduledAlerts")}];
-  v9[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v5;
 }
@@ -1166,31 +1135,29 @@ uint64_t __57__MTTimerScheduler_handleNotification_ofType_completion___block_inv
 
 uint64_t __43__MTTimerScheduler_source_didDismissTimer___block_invoke(uint64_t result)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (*(result + 32))
   {
     v1 = result;
-    v2 = *(*(result + 40) + 24);
     result = objc_opt_respondsToSelector();
     if (result)
     {
-      v3 = MTLogForCategory(4);
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v2 = MTLogForCategory(4);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
-        v5 = *(v1 + 32);
-        v4 = *(v1 + 40);
-        v7 = 138543618;
+        v4 = *(v1 + 32);
+        v3 = *(v1 + 40);
+        v5 = 138543618;
+        v6 = v3;
+        v7 = 2114;
         v8 = v4;
-        v9 = 2114;
-        v10 = v5;
-        _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Dismissing notifications for timer: %{public}@", &v7, 0x16u);
+        _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ Dismissing notifications for timer: %{public}@", &v5, 0x16u);
       }
 
-      result = [*(*(v1 + 40) + 24) dismissNotificationsForTimer:*(v1 + 32)];
+      return [*(*(v1 + 40) + 24) dismissNotificationsForTimer:*(v1 + 32)];
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 

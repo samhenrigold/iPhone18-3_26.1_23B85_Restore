@@ -89,7 +89,7 @@
   return self;
 }
 
-uint64_t __70__PGMeaningPOICriteria__parkIsLargerThanMaximumDiameterWithAreaNodes___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__70__PGMeaningPOICriteria__parkIsLargerThanMaximumDiameterWithAreaNodes___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 diameterIsLargerThanDiameter:*(a1 + 40)];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -126,44 +126,44 @@ uint64_t __70__PGMeaningPOICriteria__parkIsLargerThanMaximumDiameterWithAreaNode
 
 - (BOOL)isValid
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   positivePOIs = [(PGMeaningPOICriteria *)self positivePOIs];
   negativePOIs = [(PGMeaningPOICriteria *)self negativePOIs];
   v5 = [positivePOIs arrayByAddingObjectsFromArray:negativePOIs];
 
   v6 = +[PGGraphPOINode validPOILabels];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v21;
+    v11 = *v20;
     v12 = 1;
     *&v9 = 138412290;
-    v19 = v9;
+    v18 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
-        if (([v6 containsObject:{v14, v19, v20}] & 1) == 0)
+        v14 = *(*(&v19 + 1) + 8 * i);
+        if (([v6 containsObject:{v14, v18, v19}] & 1) == 0)
         {
           v15 = +[PGLogging sharedLogging];
           loggingConnection = [v15 loggingConnection];
 
           if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
           {
-            *buf = v19;
-            v25 = v14;
+            *buf = v18;
+            v24 = v14;
             _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[MEANING CRITERIA] Invalid poi %@", buf, 0xCu);
           }
 
@@ -171,7 +171,7 @@ uint64_t __70__PGMeaningPOICriteria__parkIsLargerThanMaximumDiameterWithAreaNode
         }
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v10);
@@ -182,7 +182,6 @@ uint64_t __70__PGMeaningPOICriteria__parkIsLargerThanMaximumDiameterWithAreaNode
     v12 = 1;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12 & 1;
 }
 

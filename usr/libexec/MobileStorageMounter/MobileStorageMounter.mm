@@ -6,100 +6,101 @@ uint64_t start()
   v44 = 0;
   v45 = 0;
   v43 = "";
-  if ((_set_user_dir_suffix() & 1) == 0)
+  v1 = _set_user_dir_suffix();
+  if ((v1 & 1) == 0)
   {
-    v20 = &_os_log_default;
+    v21 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = *__error();
-      v22 = __error();
-      v23 = strerror(*v22);
+      v22 = *__error();
+      v23 = __error();
+      v24 = strerror(*v23);
       *buf = 67109378;
-      *v49 = v21;
+      *v49 = v22;
       *&v49[4] = 2080;
-      *&v49[6] = v23;
+      *&v49[6] = v24;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to set temporary directory subpath: %d (%s)", buf, 0x12u);
     }
 
-    v24 = *__error();
-    v25 = __error();
-    strerror(*v25);
-    sub_100011E6C("main", 1394, -2, 0, @"Failed to set temporary directory subpath: %d (%s)", v26, v27, v28, v24);
-    v29 = [objc_claimAutoreleasedReturnValue() description];
-    v30 = v29;
-    [v29 UTF8String];
+    v25 = *__error();
+    v26 = __error();
+    strerror(*v26);
+    sub_100011E6C("main", 1394, -2, 0, @"Failed to set temporary directory subpath: %d (%s)", v27, v28, v29, v25);
+    v30 = [objc_claimAutoreleasedReturnValue() description];
+    v31 = v30;
+    [v30 UTF8String];
     _os_crash();
 
     __break(1u);
     goto LABEL_14;
   }
 
-  v4 = sub_100015DA0();
-  if (!v4)
+  v5 = sub_100015DA0(v1);
+  if (!v5)
   {
 LABEL_14:
-    sub_100011E6C("main", 1402, -2, 0, @"Failed to query working directory.", v1, v2, v3, v36);
-    v4 = [objc_claimAutoreleasedReturnValue() description];
-    v31 = v4;
-    [v4 UTF8String];
+    sub_100011E6C("main", 1402, -2, 0, @"Failed to query working directory.", v2, v3, v4, v36);
+    v5 = [objc_claimAutoreleasedReturnValue() description];
+    v32 = v5;
+    [v5 UTF8String];
     _os_crash();
 
     __break(1u);
     goto LABEL_15;
   }
 
-  v5 = +[NSFileManager defaultManager];
+  v6 = +[NSFileManager defaultManager];
   v46 = NSFilePosixPermissions;
   v47 = &off_100034A20;
-  v6 = [NSDictionary dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+  v7 = [NSDictionary dictionaryWithObjects:&v47 forKeys:&v46 count:1];
   v39 = 0;
-  v7 = [v5 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:v6 error:&v39];
+  v8 = [v6 createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:v7 error:&v39];
   v0 = v39;
 
-  if ((v7 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
 LABEL_15:
-    v32 = sub_100011E6C("main", 1407, -2, v0, @"Failed to create %@.", v8, v9, v10, v4);
+    v33 = sub_100011E6C("main", 1407, -2, v0, @"Failed to create %@.", v9, v10, v11, v5);
 
-    v33 = [v32 description];
-    v34 = v33;
-    [v33 UTF8String];
+    v34 = [v33 description];
+    v35 = v34;
+    [v34 UTF8String];
     _os_crash();
 
     __break(1u);
     goto LABEL_16;
   }
 
-  v11 = v41;
-  v13 = (v41 + 4);
-  v12 = v41[4];
-  if (v12)
+  v12 = v41;
+  v14 = (v41 + 4);
+  v13 = v41[4];
+  if (v13)
   {
-    IONotificationPortDestroy(v12);
-    *v13 = 0;
+    IONotificationPortDestroy(v13);
+    *v14 = 0;
   }
 
-  v14 = *(v11 + 10);
-  if (v14)
+  v15 = *(v12 + 10);
+  if (v15)
   {
-    IOObjectRelease(v14);
+    IOObjectRelease(v15);
   }
 
-  *v13 = 0;
-  v13[1] = 0;
-  *v13 = IONotificationPortCreate(kIOMasterPortDefault);
+  *v14 = 0;
+  v14[1] = 0;
+  *v14 = IONotificationPortCreate(kIOMasterPortDefault);
   Main = CFRunLoopGetMain();
-  RunLoopSource = IONotificationPortGetRunLoopSource(*v13);
+  RunLoopSource = IONotificationPortGetRunLoopSource(*v14);
   CFRunLoopAddSource(Main, RunLoopSource, kCFRunLoopDefaultMode);
-  if (!*v13)
+  if (!*v14)
   {
 LABEL_16:
     sub_10001B568();
-    v35 = _os_crash();
-    sub_10001B5C4(v35);
+    _os_crash();
+    sub_10001B5C4();
   }
 
-  v17 = &_dispatch_main_q;
+  v18 = &_dispatch_main_q;
   mach_service = xpc_connection_create_mach_service("com.apple.mobile.storage_mounter.xpc", &_dispatch_main_q, 1uLL);
 
   if (!mach_service)
@@ -133,9 +134,9 @@ LABEL_16:
   return 0;
 }
 
-void sub_100001500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100001500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -148,7 +149,7 @@ void sub_100001524(uint64_t a1, void *a2)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
     {
-      sub_10001B5E4();
+      sub_10001B5E4(v3);
     }
 
     xpc_connection_set_target_queue(v3, &_dispatch_main_q);
@@ -301,7 +302,7 @@ LABEL_39:
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001B708();
+    sub_10001B708(v7);
   }
 
   if (CFEqual(v20, @"CopyDevices"))
@@ -317,7 +318,7 @@ LABEL_39:
       goto LABEL_73;
     }
 
-    v29 = sub_100007B7C();
+    v29 = sub_100007B7C(v7);
     *buf = 138412546;
     v39 = v29;
     v40 = 2112;
@@ -335,7 +336,7 @@ LABEL_39:
 
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = sub_100007B7C();
+      v29 = sub_100007B7C(v7);
       *buf = 138412546;
       v39 = v29;
       v40 = 2112;
@@ -355,7 +356,7 @@ LABEL_72:
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = sub_100007B7C();
+        v29 = sub_100007B7C(v7);
         *buf = 138412546;
         v39 = v29;
         v40 = 2112;
@@ -405,7 +406,7 @@ LABEL_102:
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = sub_100007B7C();
+        v29 = sub_100007B7C(v7);
         *buf = 138412546;
         v39 = v29;
         v40 = 2112;
@@ -541,7 +542,7 @@ LABEL_45:
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
 LABEL_112:
-    v33 = sub_100007B7C();
+    v33 = sub_100007B7C(v7);
     *buf = 138412546;
     v39 = v33;
     v40 = 2112;
@@ -669,9 +670,9 @@ LABEL_18:
   }
 }
 
-void sub_100002620(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100002620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -680,7 +681,7 @@ void sub_100002640(uint64_t a1, uint64_t a2, __CFDictionary *a3)
 {
   if (a1 && a2)
   {
-    v4 = sub_100014B34();
+    v4 = sub_100014B34(1);
     if (v4)
     {
       v5 = v4;
@@ -693,8 +694,8 @@ void sub_100002640(uint64_t a1, uint64_t a2, __CFDictionary *a3)
 
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to retrieve attached device list.", &v13, 2u);
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to retrieve attached device list.", v13, 2u);
     }
 
     v10 = @"Failed to retrieve attached device list.";
@@ -715,7 +716,7 @@ void sub_100002640(uint64_t a1, uint64_t a2, __CFDictionary *a3)
     v12 = -3;
   }
 
-  v5 = sub_100011E6C("handle_copy_devices", v11, v12, 0, v10, v7, v8, v9, v13);
+  v5 = sub_100011E6C("handle_copy_devices", v11, v12, 0, v10, v7, v8, v9, *v13);
   if (!v5)
   {
     return;
@@ -1195,7 +1196,7 @@ LABEL_83:
   {
     v138 = a3;
     v139 = v5;
-    v66 = sub_100015030(v5);
+    v66 = sub_100015030(v5, 1);
     memset(v159, 0, sizeof(v159));
     v160 = 0u;
     v161 = 0u;
@@ -1538,7 +1539,7 @@ void sub_100004144(uint64_t a1, CFDictionaryRef theDict, __CFDictionary *a3)
 
     if (v5)
     {
-      v6 = sub_100015054(v4);
+      v6 = sub_100015054(v4, 1);
       if (v6)
       {
         v7 = v6;
@@ -1556,7 +1557,7 @@ void sub_100004144(uint64_t a1, CFDictionaryRef theDict, __CFDictionary *a3)
               _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to query disk image type.", buf, 2u);
             }
 
-            v20 = sub_100011E6C("handle_unmount", 539, -2, 0, @"Failed to query disk image type.", v44, v45, v46, v73);
+            v20 = sub_100011E6C("handle_unmount", 539, -2, 0, @"Failed to query disk image type.", v44, v45, v46, v72);
             goto LABEL_42;
           }
         }
@@ -1579,11 +1580,11 @@ void sub_100004144(uint64_t a1, CFDictionaryRef theDict, __CFDictionary *a3)
               {
                 v15 = [v7 objectForKeyedSubscript:@"CryptexName"];
                 *buf = 138412802;
-                v76 = v15;
-                v77 = 1024;
-                LODWORD(v78[0]) = v14;
-                WORD2(v78[0]) = 2080;
-                *(v78 + 6) = strerror(v14);
+                v75 = v15;
+                v76 = 1024;
+                LODWORD(v77[0]) = v14;
+                WORD2(v77[0]) = 2080;
+                *(v77 + 6) = strerror(v14);
                 _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to uninstall cryptex (%@): %d (%s)", buf, 0x1Cu);
               }
 
@@ -1627,15 +1628,15 @@ LABEL_42:
               {
                 if (sub_100010CE4())
                 {
-                  v74 = 0;
-                  v37 = sub_100010FF8(v4, &v74);
-                  v20 = v74;
+                  v73 = 0;
+                  v37 = sub_100010FF8(v4, &v73);
+                  v20 = v73;
                   if ((v37 & 1) == 0)
                   {
                     v38 = [[NSString alloc] initWithFormat:@"Failed to unregister apps."];
                     if (v20)
                     {
-                      v73 = v38;
+                      v72 = v38;
                       v39 = [NSString stringWithFormat:@" %@ (%@)"];
 
                       v38 = v39;
@@ -1644,11 +1645,11 @@ LABEL_42:
                     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138412290;
-                      v76 = v38;
+                      v75 = v38;
                       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
                     }
 
-                    v43 = sub_100011E6C("handle_unmount", 584, -2, v20, @"Failed to unregister apps.", v40, v41, v42, v73);
+                    v43 = sub_100011E6C("handle_unmount", 584, -2, v20, @"Failed to unregister apps.", v40, v41, v42, v72);
 
 LABEL_67:
                     v24 = 0;
@@ -1670,18 +1671,18 @@ LABEL_67:
                     v60 = __error();
                     v61 = strerror(*v60);
                     *buf = 138412802;
-                    v76 = v4;
-                    v77 = 1024;
-                    LODWORD(v78[0]) = v59;
-                    WORD2(v78[0]) = 2080;
-                    *(v78 + 6) = v61;
+                    v75 = v4;
+                    v76 = 1024;
+                    LODWORD(v77[0]) = v59;
+                    WORD2(v77[0]) = 2080;
+                    *(v77 + 6) = v61;
                     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to force unmount %@: %d (%s)", buf, 0x1Cu);
                   }
 
-                  v62 = *__error();
-                  v63 = __error();
-                  strerror(*v63);
-                  v43 = sub_100011E6C("handle_unmount", 591, -2, 0, @"Failed to force unmount %@: %d (%s)", v64, v65, v66, v4);
+                  __error();
+                  v62 = __error();
+                  strerror(*v62);
+                  v43 = sub_100011E6C("handle_unmount", 591, -2, 0, @"Failed to force unmount %@: %d (%s)", v63, v64, v65, v4);
                   goto LABEL_67;
                 }
 
@@ -1692,17 +1693,17 @@ LABEL_67:
                     goto LABEL_61;
                   }
 
-                  v70 = *__error();
-                  v71 = __error();
-                  v72 = strerror(*v71);
+                  v69 = *__error();
+                  v70 = __error();
+                  v71 = strerror(*v70);
                   *buf = 138412802;
-                  v76 = v4;
-                  v77 = 1024;
-                  LODWORD(v78[0]) = v70;
-                  WORD2(v78[0]) = 2080;
-                  *(v78 + 6) = v72;
-                  v68 = "Failed to remove %@: %d (%s)";
-                  v69 = 28;
+                  v75 = v4;
+                  v76 = 1024;
+                  LODWORD(v77[0]) = v69;
+                  WORD2(v77[0]) = 2080;
+                  *(v77 + 6) = v71;
+                  v67 = "Failed to remove %@: %d (%s)";
+                  v68 = 28;
                   goto LABEL_81;
                 }
 
@@ -1712,10 +1713,10 @@ LABEL_67:
                   goto LABEL_78;
                 }
 
-                v67 = sub_100011244(v27);
-                if (v67)
+                v66 = sub_100011244(v27);
+                if (v66)
                 {
-                  v24 = v67;
+                  v24 = v66;
 
                   v27 = v24;
 LABEL_78:
@@ -1735,11 +1736,11 @@ LABEL_44:
                 if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v76 = v27;
-                  v68 = "Failed to copy APFS volume partition for %@.";
-                  v69 = 12;
+                  v75 = v27;
+                  v67 = "Failed to copy APFS volume partition for %@.";
+                  v68 = 12;
 LABEL_81:
-                  _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v68, buf, v69);
+                  _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v67, buf, v68);
                 }
 
 LABEL_61:
@@ -1753,7 +1754,7 @@ LABEL_61:
                 _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to unload launchd jobs.", buf, 2u);
               }
 
-              sub_100011E6C("handle_unmount", 578, -2, 0, @"Failed to unload launchd jobs.", v56, v57, v58, v73);
+              sub_100011E6C("handle_unmount", 578, -2, 0, @"Failed to unload launchd jobs.", v56, v57, v58, v72);
             }
 
             else
@@ -1761,7 +1762,7 @@ LABEL_61:
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v76 = @"FilesystemType";
+                v75 = @"FilesystemType";
                 _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Could not extract %@ from map entry", buf, 0xCu);
               }
 
@@ -1777,7 +1778,7 @@ LABEL_61:
             _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to query backing image path.", buf, 2u);
           }
 
-          v20 = sub_100011E6C("handle_unmount", 566, -2, 0, @"Failed to query backing image path.", v50, v51, v52, v73);
+          v20 = sub_100011E6C("handle_unmount", 566, -2, 0, @"Failed to query backing image path.", v50, v51, v52, v72);
           v24 = 0;
         }
 
@@ -1786,7 +1787,7 @@ LABEL_61:
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v76 = @"DeviceNode";
+            v75 = @"DeviceNode";
             _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Could not extract %@ from map entry", buf, 0xCu);
           }
 
@@ -1802,7 +1803,7 @@ LABEL_61:
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v76 = v4;
+        v75 = v4;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "There is no matching entry in the device map for %@.", buf, 0xCu);
       }
 
@@ -1814,9 +1815,9 @@ LABEL_61:
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v76 = @"MountPath";
-        v77 = 2112;
-        v78[0] = v4;
+        v75 = @"MountPath";
+        v76 = 2112;
+        v77[0] = v4;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Invalid value for %@: %@", buf, 0x16u);
       }
 
@@ -1838,7 +1839,7 @@ LABEL_61:
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Invalid input(s)", buf, 2u);
   }
 
-  v20 = sub_100011E6C("handle_unmount", 518, -3, 0, @"Invalid input(s)", v21, v22, v23, v73);
+  v20 = sub_100011E6C("handle_unmount", 518, -3, 0, @"Invalid input(s)", v21, v22, v23, v72);
   v24 = 0;
   v9 = 0;
   v25 = 0;
@@ -1860,7 +1861,7 @@ LABEL_23:
 
 void sub_100004C74(uint64_t a1, CFDictionaryRef theDict, __CFDictionary *a3)
 {
-  v27 = 2;
+  v26 = 2;
   if (!a1 || !theDict)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -1869,10 +1870,10 @@ void sub_100004C74(uint64_t a1, CFDictionaryRef theDict, __CFDictionary *a3)
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Invalid input(s)", buf, 2u);
     }
 
-    v16 = sub_100011E6C("handle_sync", 665, -3, 0, @"Invalid input(s)", v17, v18, v19, v26);
+    v15 = sub_100011E6C("handle_sync", 665, -3, 0, @"Invalid input(s)", v16, v17, v18, v25);
     v7 = 0;
     v4 = 0;
-    if (!v16)
+    if (!v15)
     {
       goto LABEL_26;
     }
@@ -1883,7 +1884,7 @@ LABEL_23:
       CFDictionarySetValue(a3, @"Error", @"InternalError");
     }
 
-    CFDictionarySetValue(a3, @"DetailedError", [v16 description]);
+    CFDictionarySetValue(a3, @"DetailedError", [v15 description]);
 
     goto LABEL_26;
   }
@@ -1896,14 +1897,14 @@ LABEL_23:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = @"MountPath";
+      v28 = @"MountPath";
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to extract %@ from request", buf, 0xCu);
     }
 
-    sub_100011E6C("handle_sync", 672, -3, 0, @"Failed to extract %@ from request", v20, v21, v22, @"MountPath");
-    v16 = LABEL_22:;
+    sub_100011E6C("handle_sync", 672, -3, 0, @"Failed to extract %@ from request", v19, v20, v21, @"MountPath");
+    v15 = LABEL_22:;
     v7 = 0;
-    if (!v16)
+    if (!v15)
     {
       goto LABEL_26;
     }
@@ -1911,17 +1912,17 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v6 = sub_100015054(v4);
+  v6 = sub_100015054(v4, 1);
   if (!v6)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = v4;
+      v28 = v4;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "There is no matching entry for %@.", buf, 0xCu);
     }
 
-    sub_100011E6C("handle_sync", 679, -2, 0, @"There is no matching entry for %@.", v23, v24, v25, v4);
+    sub_100011E6C("handle_sync", 679, -2, 0, @"There is no matching entry for %@.", v22, v23, v24, v4);
     goto LABEL_22;
   }
 
@@ -1931,7 +1932,7 @@ LABEL_23:
     sub_10001B8DC();
   }
 
-  if (!fsctl([(__CFString *)v4 UTF8String], 0x80004101uLL, &v27, 4u))
+  if (!fsctl([(__CFString *)v4 UTF8String], 0x80004101uLL, &v26, 4u))
   {
     CFDictionarySetValue(a3, @"Status", @"Success");
     goto LABEL_26;
@@ -1943,19 +1944,19 @@ LABEL_23:
     v9 = __error();
     v10 = strerror(*v9);
     *buf = 138412802;
-    v29 = v4;
-    v30 = 1024;
-    v31 = v8;
-    v32 = 2080;
-    v33 = v10;
+    v28 = v4;
+    v29 = 1024;
+    v30 = v8;
+    v31 = 2080;
+    v32 = v10;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to force the sync %@: %d (%s)", buf, 0x1Cu);
   }
 
-  v11 = *__error();
-  v12 = __error();
-  strerror(*v12);
-  v16 = sub_100011E6C("handle_sync", 687, -2, 0, @"Failed to force the sync %@: %d (%s)", v13, v14, v15, v4);
-  if (v16)
+  __error();
+  v11 = __error();
+  strerror(*v11);
+  v15 = sub_100011E6C("handle_sync", 687, -2, 0, @"Failed to force the sync %@: %d (%s)", v12, v13, v14, v4);
+  if (v15)
   {
     goto LABEL_23;
   }
@@ -2641,11 +2642,11 @@ LABEL_10:
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Invalid input(s)", &v12, 2u);
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Invalid input(s)", v12, 2u);
   }
 
-  v11 = sub_100011E6C("handle_copy_developer_mode_status", 1026, -3, 0, @"Invalid input(s)", v8, v9, v10, v12);
+  v11 = sub_100011E6C("handle_copy_developer_mode_status", 1026, -3, 0, @"Invalid input(s)", v8, v9, v10, *v12);
   if (v11)
   {
     v4 = v11;
@@ -2860,31 +2861,31 @@ LABEL_11:
   return v7;
 }
 
-id sub_100007B7C()
+id sub_100007B7C(uint64_t a1)
 {
-  v0 = __chkstk_darwin();
+  v1 = __chkstk_darwin(a1);
   bzero(buffer, 0x1000uLL);
-  memset(v7, 0, sizeof(v7));
-  if (v0)
+  memset(v8, 0, sizeof(v8));
+  if (v1)
   {
-    pid = xpc_connection_get_pid(v0);
+    pid = xpc_connection_get_pid(v1);
     proc_pidpath(pid, buffer, 0x1000u);
-    v2 = strlen(buffer);
-    if ((v2 & 0x80000000) == 0)
+    v3 = strlen(buffer);
+    if ((v3 & 0x80000000) == 0)
     {
       do
       {
-        if (buffer[v2] == 47)
+        if (buffer[v3] == 47)
         {
           break;
         }
       }
 
-      while (v2-- > 0);
+      while (v3-- > 0);
     }
 
     __strcpy_chk();
-    v4 = [NSString stringWithFormat:@"%s<%d>", v7, pid];
+    v5 = [NSString stringWithFormat:@"%s<%d>", v8, pid];
   }
 
   else
@@ -2895,10 +2896,10 @@ id sub_100007B7C()
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Invalid input.", buf, 2u);
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 uint64_t sub_100007D0C(void *a1, void *a2)
@@ -2960,9 +2961,9 @@ LABEL_7:
   return v8 & 1;
 }
 
-void sub_100007F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100007F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3093,6 +3094,13 @@ LABEL_3:
   _Block_object_dispose(&v26, 8);
 
   return v14 & 1;
+}
+
+void sub_10000836C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_10000839C(uint64_t a1, void *a2, void *a3)
@@ -3289,6 +3297,13 @@ LABEL_4:
 
   _Block_object_dispose(&v24, 8);
   return v12 & 1;
+}
+
+void sub_100008A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_100008A2C(void *a1, void *a2, void *a3)
@@ -4189,28 +4204,28 @@ uint64_t sub_10000A5FC(void *a1, void *a2, uint64_t a3, uint64_t a4, void *a5, v
   v11 = a2;
   v12 = a5;
   v16 = v12;
-  v44 = -1;
+  v43 = -1;
   if (!v10 || !v11 || !a4 || !v12)
   {
     v30 = @"Invalid input(s).";
     v31 = 921;
     v32 = -3;
 LABEL_15:
-    v35 = sub_100011E6C("verify_disk_image_img4_ticket", v31, v32, 0, v30, v13, v14, v15, v43);
+    v34 = sub_100011E6C("verify_disk_image_img4_ticket", v31, v32, 0, v30, v13, v14, v15, v42);
     v20 = 0;
 LABEL_16:
-    v36 = 1;
+    v35 = 1;
     goto LABEL_17;
   }
 
-  v44 = open([v10 UTF8String], 0);
-  if (v44 == -1)
+  v43 = open([v10 UTF8String], 0);
+  if (v43 == -1)
   {
-    v33 = *__error();
-    v34 = __error();
-    strerror(*v34);
+    __error();
+    v33 = __error();
+    strerror(*v33);
     v30 = @"Failed to open %@: %d (%s)";
-    v43 = v10;
+    v42 = v10;
     v31 = 929;
     v32 = -2;
     goto LABEL_15;
@@ -4219,7 +4234,7 @@ LABEL_16:
   v20 = img4_firmware_new_from_fd_4MSM();
   if (!v20)
   {
-    v35 = sub_100011E6C("verify_disk_image_img4_ticket", 935, -2, 0, @"Failed to create img4 firmware object.", v17, v18, v19, v43);
+    v34 = sub_100011E6C("verify_disk_image_img4_ticket", 935, -2, 0, @"Failed to create img4 firmware object.", v17, v18, v19, v42);
     goto LABEL_16;
   }
 
@@ -4232,8 +4247,8 @@ LABEL_16:
 LABEL_31:
     img4_chip_select_personalized_ap();
     img4_firmware_execute();
-    v36 = 0;
     v35 = 0;
+    v34 = 0;
     v20 = 1;
     goto LABEL_17;
   }
@@ -4242,13 +4257,13 @@ LABEL_31:
   if (v21 != 45)
   {
     strerror(v21);
-    sub_100011E6C("verify_disk_image_img4_ticket", 964, -2, 0, @"Failed to query img4 nonce: %d (%s)", v40, v41, v42, v25);
+    sub_100011E6C("verify_disk_image_img4_ticket", 964, -2, 0, @"Failed to query img4 nonce: %d (%s)", v39, v40, v41, v25);
     goto LABEL_32;
   }
 
   if (!qword_1000388C0 || ![qword_1000388C0 length])
   {
-    sub_100011E6C("verify_disk_image_img4_ticket", 951, -2, 0, @"Invalid personalization nonce.", v22, v23, v24, v43);
+    sub_100011E6C("verify_disk_image_img4_ticket", 951, -2, 0, @"Invalid personalization nonce.", v22, v23, v24, v42);
     goto LABEL_32;
   }
 
@@ -4263,34 +4278,34 @@ LABEL_31:
 
   v26 = [qword_1000388C0 length];
   sub_100011E6C("verify_disk_image_img4_ticket", 956, -2, 0, @"Invalid nonce size (%ld > %ld)", v27, v28, v29, v26);
-  v35 = LABEL_32:;
-  v36 = 0;
+  v34 = LABEL_32:;
+  v35 = 0;
   v20 = 0;
 LABEL_17:
-  if (v44 != -1)
+  if (v43 != -1)
   {
-    close(v44);
+    close(v43);
   }
 
-  if ((v36 & 1) == 0)
+  if ((v35 & 1) == 0)
   {
     img4_firmware_destroy();
   }
 
   if (a6)
   {
-    v37 = v20;
+    v36 = v20;
   }
 
   else
   {
-    v37 = 1;
+    v36 = 1;
   }
 
-  if ((v37 & 1) == 0)
+  if ((v36 & 1) == 0)
   {
-    v38 = v35;
-    *a6 = v35;
+    v37 = v34;
+    *a6 = v34;
   }
 
   return v20;
@@ -4822,7 +4837,7 @@ LABEL_14:
   }
 
   v7 = v6;
-  v8 = sub_100011794();
+  v8 = sub_100011794(v3);
   v9 = 0;
   if ([v5 isEqualToString:@"/"])
   {
@@ -5109,39 +5124,39 @@ uint64_t sub_10000BD4C(const char *a1)
 
 id sub_10000BEB8(void *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, void *a7)
 {
-  v120 = a1;
+  v116 = a1;
   v12 = a3;
   v13 = a4;
   v14 = a5;
-  v124 = 0;
-  v133 = -1;
-  v134 = -1;
-  v132 = 0;
-  memset(v131, 0, sizeof(v131));
-  v122 = 0;
-  v123 = 0;
-  inited = Img4DecodeInitManifest([v12 bytes], objc_msgSend(v12, "length"), v131);
-  v118 = v13;
-  v119 = v14;
+  v120 = 0;
+  v129 = -1;
+  v130 = -1;
+  v128 = 0;
+  memset(v127, 0, sizeof(v127));
+  v118 = 0;
+  v119 = 0;
+  inited = Img4DecodeInitManifest([v12 bytes], objc_msgSend(v12, "length"), v127);
+  v114 = v13;
+  v115 = v14;
   if (inited)
   {
     v16 = inited;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v126) = v16;
+      LODWORD(v122) = v16;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to decode img4 manifest: %d", buf, 8u);
     }
 
     v20 = @"Failed to decode img4 manifest: %d";
-    v112 = v16;
+    v108 = v16;
     v21 = 1471;
 LABEL_5:
-    sub_100011E6C("perform_disk_image_mount_cryptex", v21, -2, 0, v20, v17, v18, v19, v112);
+    sub_100011E6C("perform_disk_image_mount_cryptex", v21, -2, 0, v20, v17, v18, v19, v108);
     v22 = LABEL_6:;
     v23 = 0;
     v24 = 0;
-    v121 = 0;
+    v117 = 0;
 LABEL_7:
     v25 = -1;
     v26 = -1;
@@ -5151,17 +5166,17 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  Img4DecodeGetObjectPropertyData(v131, 1668315236, 1668834414, &v123, &v122);
+  Img4DecodeGetObjectPropertyData(v127, 1668315236, 1668834414, &v119, &v118);
   if (v33)
   {
-    Img4DecodeGetObjectPropertyData(v131, 1885629799, 1885630061, &v123, &v122);
+    Img4DecodeGetObjectPropertyData(v127, 1885629799, 1885630061, &v119, &v118);
     if (v34)
     {
       v35 = v34;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v126) = v35;
+        LODWORD(v122) = v35;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to retrieve data from manifest: %d", buf, 8u);
       }
 
@@ -5172,10 +5187,10 @@ LABEL_8:
 
   v39 = NSTemporaryDirectory();
   v40 = +[NSUUID UUID];
-  v112 = [v40 UUIDString];
+  v108 = [v40 UUIDString];
   v41 = [v39 stringByAppendingFormat:@"%@"];
 
-  v121 = v41;
+  v117 = v41;
   if (!v41)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -5191,7 +5206,7 @@ LABEL_8:
 
   v42 = NSTemporaryDirectory();
   v43 = +[NSUUID UUID];
-  v113 = [v43 UUIDString];
+  v109 = [v43 UUIDString];
   v24 = [v42 stringByAppendingFormat:@"%@"];
 
   if (!v24)
@@ -5202,7 +5217,7 @@ LABEL_8:
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to create string.", buf, 2u);
     }
 
-    v22 = sub_100011E6C("perform_disk_image_mount_cryptex", 1502, -2, 0, @"Failed to create string.", v56, v57, v58, v113);
+    v22 = sub_100011E6C("perform_disk_image_mount_cryptex", 1502, -2, 0, @"Failed to create string.", v55, v56, v57, v109);
     v23 = 0;
     v24 = 0;
     goto LABEL_7;
@@ -5210,7 +5225,7 @@ LABEL_8:
 
   v44 = NSTemporaryDirectory();
   v45 = +[NSUUID UUID];
-  v114 = [v45 UUIDString];
+  v110 = [v45 UUIDString];
   v23 = [v44 stringByAppendingFormat:@"%@"];
 
   if (!v23)
@@ -5221,21 +5236,21 @@ LABEL_8:
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to create string.", buf, 2u);
     }
 
-    v22 = sub_100011E6C("perform_disk_image_mount_cryptex", 1508, -2, 0, @"Failed to create string.", v59, v60, v61, v114);
+    v22 = sub_100011E6C("perform_disk_image_mount_cryptex", 1508, -2, 0, @"Failed to create string.", v58, v59, v60, v110);
     v23 = 0;
     goto LABEL_7;
   }
 
-  if (([v13 writeToFile:v121 atomically:0] & 1) == 0)
+  if (([v13 writeToFile:v117 atomically:0] & 1) == 0)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v126 = v121;
+      v122 = v117;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to write to %@.", buf, 0xCu);
     }
 
-    sub_100011E6C("perform_disk_image_mount_cryptex", 1515, -2, 0, @"Failed to write to %@.", v62, v63, v64, v121);
+    sub_100011E6C("perform_disk_image_mount_cryptex", 1515, -2, 0, @"Failed to write to %@.", v61, v62, v63, v117);
     goto LABEL_64;
   }
 
@@ -5244,11 +5259,11 @@ LABEL_8:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v126 = v24;
+      v122 = v24;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to write to %@.", buf, 0xCu);
     }
 
-    sub_100011E6C("perform_disk_image_mount_cryptex", 1520, -2, 0, @"Failed to write to %@.", v65, v66, v67, v24);
+    sub_100011E6C("perform_disk_image_mount_cryptex", 1520, -2, 0, @"Failed to write to %@.", v64, v65, v66, v24);
     goto LABEL_64;
   }
 
@@ -5257,35 +5272,35 @@ LABEL_8:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v126 = v23;
+      v122 = v23;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to write to %@.", buf, 0xCu);
     }
 
-    sub_100011E6C("perform_disk_image_mount_cryptex", 1526, -2, 0, @"Failed to write to %@.", v68, v69, v70, v23);
+    sub_100011E6C("perform_disk_image_mount_cryptex", 1526, -2, 0, @"Failed to write to %@.", v67, v68, v69, v23);
     goto LABEL_64;
   }
 
-  v46 = open([v121 UTF8String], 0, 420);
+  v46 = open([v117 UTF8String], 0, 420);
   if (v46 == -1)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v71 = *__error();
-      v72 = __error();
-      v73 = strerror(*v72);
+      v70 = *__error();
+      v71 = __error();
+      v72 = strerror(*v71);
       *buf = 138412802;
-      v126 = v121;
-      v127 = 1024;
-      v128 = v71;
-      v129 = 2080;
-      v130 = v73;
+      v122 = v117;
+      v123 = 1024;
+      v124 = v70;
+      v125 = 2080;
+      v126 = v72;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to create %@: %d (%s)", buf, 0x1Cu);
     }
 
-    v74 = *__error();
-    v75 = __error();
-    strerror(*v75);
-    sub_100011E6C("perform_disk_image_mount_cryptex", 1535, -2, 0, @"Failed to create %@: %d (%s)", v76, v77, v78, v121);
+    __error();
+    v73 = __error();
+    strerror(*v73);
+    sub_100011E6C("perform_disk_image_mount_cryptex", 1535, -2, 0, @"Failed to create %@: %d (%s)", v74, v75, v76, v117);
     v22 = LABEL_64:;
     goto LABEL_7;
   }
@@ -5296,29 +5311,29 @@ LABEL_8:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v79 = *__error();
-      v80 = __error();
-      v81 = strerror(*v80);
+      v77 = *__error();
+      v78 = __error();
+      v79 = strerror(*v78);
       *buf = 138412802;
-      v126 = v24;
-      v127 = 1024;
-      v128 = v79;
-      v129 = 2080;
-      v130 = v81;
+      v122 = v24;
+      v123 = 1024;
+      v124 = v77;
+      v125 = 2080;
+      v126 = v79;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to create %@: %d (%s)", buf, 0x1Cu);
     }
 
-    v82 = *__error();
-    v83 = __error();
-    strerror(*v83);
-    v22 = sub_100011E6C("perform_disk_image_mount_cryptex", 1541, -2, 0, @"Failed to create %@: %d (%s)", v84, v85, v86, v24);
+    __error();
+    v80 = __error();
+    strerror(*v80);
+    v22 = sub_100011E6C("perform_disk_image_mount_cryptex", 1541, -2, 0, @"Failed to create %@: %d (%s)", v81, v82, v83, v24);
     v25 = -1;
     v26 = -1;
     goto LABEL_8;
   }
 
   v26 = v47;
-  if (v119)
+  if (v115)
   {
     v25 = open([v23 UTF8String], 0, 420);
     if (v25 == -1)
@@ -5329,18 +5344,18 @@ LABEL_8:
         v49 = __error();
         v50 = strerror(*v49);
         *buf = 138412802;
-        v126 = v23;
-        v127 = 1024;
-        v128 = v48;
-        v129 = 2080;
-        v130 = v50;
+        v122 = v23;
+        v123 = 1024;
+        v124 = v48;
+        v125 = 2080;
+        v126 = v50;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to create %@: %d (%s)", buf, 0x1Cu);
       }
 
-      v51 = *__error();
-      v52 = __error();
-      strerror(*v52);
-      v22 = sub_100011E6C("perform_disk_image_mount_cryptex", 1548, -2, 0, @"Failed to create %@: %d (%s)", v53, v54, v55, v23);
+      __error();
+      v51 = __error();
+      strerror(*v51);
+      v22 = sub_100011E6C("perform_disk_image_mount_cryptex", 1548, -2, 0, @"Failed to create %@: %d (%s)", v52, v53, v54, v23);
       v25 = -1;
       goto LABEL_8;
     }
@@ -5351,37 +5366,37 @@ LABEL_8:
     v25 = -1;
   }
 
-  v115 = 420;
-  v87 = open([v120 UTF8String], 0);
-  if (v87 == -1)
+  v111 = 420;
+  v84 = open([v116 UTF8String], 0);
+  if (v84 == -1)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v96 = *__error();
-      v97 = __error();
-      v98 = strerror(*v97);
+      v93 = *__error();
+      v94 = __error();
+      v95 = strerror(*v94);
       *buf = 138412802;
-      v126 = v120;
-      v127 = 1024;
-      v128 = v96;
-      v129 = 2080;
-      v130 = v98;
+      v122 = v116;
+      v123 = 1024;
+      v124 = v93;
+      v125 = 2080;
+      v126 = v95;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to create %@: %d (%s)", buf, 0x1Cu);
     }
 
-    v99 = *__error();
-    v100 = __error();
-    strerror(*v100);
-    v22 = sub_100011E6C("perform_disk_image_mount_cryptex", 1555, -2, 0, @"Failed to create %@: %d (%s)", v101, v102, v103, v120);
+    __error();
+    v96 = __error();
+    strerror(*v96);
+    v22 = sub_100011E6C("perform_disk_image_mount_cryptex", 1555, -2, 0, @"Failed to create %@: %d (%s)", v97, v98, v99, v116);
     goto LABEL_8;
   }
 
-  v28 = v87;
-  v133 = __PAIR64__(v27, v87);
-  HIDWORD(v134) = v26;
+  v28 = v84;
+  v129 = __PAIR64__(v27, v84);
+  HIDWORD(v130) = v26;
   if (v25 != -1)
   {
-    LODWORD(v134) = v25;
+    LODWORD(v130) = v25;
   }
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
@@ -5404,28 +5419,28 @@ LABEL_8:
     sub_10001BF48();
   }
 
-  v88 = cryptex_install_4MSM();
-  if (v88)
+  v85 = cryptex_install_4MSM();
+  if (v85)
   {
-    v89 = v88;
+    v86 = v85;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v90 = strerror(v89);
+      v87 = strerror(v86);
       *buf = 138412802;
-      v126 = v120;
-      v127 = 1024;
-      v128 = v89;
-      v129 = 2080;
-      v130 = v90;
+      v122 = v116;
+      v123 = 1024;
+      v124 = v86;
+      v125 = 2080;
+      v126 = v87;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to install cryptex (%@): %d (%s)", buf, 0x1Cu);
     }
 
-    strerror(v89);
-    v94 = @"Failed to install cryptex (%@): %d (%s)";
-    v115 = v120;
-    v95 = 1575;
+    strerror(v86);
+    v91 = @"Failed to install cryptex (%@): %d (%s)";
+    v111 = v116;
+    v92 = 1575;
 LABEL_84:
-    v22 = sub_100011E6C("perform_disk_image_mount_cryptex", v95, -2, 0, v94, v91, v92, v93, v115);
+    v22 = sub_100011E6C("perform_disk_image_mount_cryptex", v92, -2, 0, v91, v88, v89, v90, v111);
     goto LABEL_9;
   }
 
@@ -5438,36 +5453,36 @@ LABEL_84:
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to retrieve cryptex name.", buf, 2u);
     }
 
-    v94 = @"Failed to retrieve cryptex name.";
-    v95 = 1581;
+    v91 = @"Failed to retrieve cryptex name.";
+    v92 = 1581;
     goto LABEL_84;
   }
 
-  v104 = cryptex_msm_get_string();
-  if (v104)
+  v100 = cryptex_msm_get_string();
+  if (v100)
   {
-    v116 = v104;
-    v105 = cryptex_msm_get_string();
+    v112 = v100;
+    v101 = cryptex_msm_get_string();
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v126 = v105;
+      v122 = v101;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "cryptex mount point = %s", buf, 0xCu);
     }
 
     if (a6)
     {
-      *a6 = [NSString stringWithUTF8String:v105];
+      *a6 = [NSString stringWithUTF8String:v101];
     }
 
-    v106 = [NSString stringWithUTF8String:v116];
+    v102 = [NSString stringWithUTF8String:v112];
     v22 = 0;
-    if (v106)
+    if (v102)
     {
-      v30 = v106;
+      v30 = v102;
 LABEL_12:
       close(v27);
-      unlink([v121 UTF8String]);
+      unlink([v117 UTF8String]);
       v31 = v30;
       goto LABEL_13;
     }
@@ -5481,16 +5496,16 @@ LABEL_12:
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to retrieve cryptex devpath.", buf, 2u);
     }
 
-    v22 = sub_100011E6C("perform_disk_image_mount_cryptex", 1587, -2, 0, @"Failed to retrieve cryptex devpath.", v107, v108, v109, 420);
+    v22 = sub_100011E6C("perform_disk_image_mount_cryptex", 1587, -2, 0, @"Failed to retrieve cryptex devpath.", v103, v104, v105, 420);
   }
 
-  v110 = cryptex_uninstall_4MSM();
-  if (v110)
+  v106 = cryptex_uninstall_4MSM();
+  if (v106)
   {
-    v111 = v110;
+    v107 = v106;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
     {
-      sub_10001BFC4(string, v111);
+      sub_10001BFC4(string, v107);
     }
   }
 
@@ -5526,7 +5541,7 @@ LABEL_13:
     close(v28);
   }
 
-  if (v124)
+  if (v120)
   {
     cryptex_msm_destroy();
   }
@@ -5542,14 +5557,14 @@ id sub_10000CCC8(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, voi
   v16 = a4;
   v17 = a5;
   v18 = v17;
-  memset(&v132, 0, sizeof(v132));
-  v137 = 0;
-  memset(v136, 0, sizeof(v136));
-  v130 = 0;
-  v131 = 0;
-  v128 = 0;
+  memset(&v131, 0, sizeof(v131));
+  v136 = 0;
+  memset(v135, 0, sizeof(v135));
   v129 = 0;
+  v130 = 0;
   v127 = 0;
+  v128 = 0;
+  v126 = 0;
   if (!v14 || !v15 || !a6 || !v17 || !v13)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -5558,9 +5573,9 @@ id sub_10000CCC8(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, voi
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Invalid input(s).", buf, 2u);
     }
 
-    sub_100011E6C("perform_disk_image_mount", 1677, -3, 0, @"Invalid input(s).", v25, v26, v27, v107);
-    v119 = v117 = 0;
-    v120 = 0;
+    sub_100011E6C("perform_disk_image_mount", 1677, -3, 0, @"Invalid input(s).", v25, v26, v27, v106);
+    v118 = v116 = 0;
+    v119 = 0;
     v28 = 0;
     v29 = 0;
     v30 = 0;
@@ -5591,25 +5606,25 @@ LABEL_14:
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v135 = v18;
+    *v134 = v18;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Preparing to mount disk image at %@.", buf, 0xCu);
   }
 
-  if (!lstat([v13 UTF8String], &v132))
+  if (!lstat([v13 UTF8String], &v131))
   {
-    if ((v132.st_mode & 0xF000) != 0x8000)
+    if ((v131.st_mode & 0xF000) != 0x8000)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        *v135 = v13;
-        *&v135[8] = 1024;
-        *&v135[10] = v132.st_mode & 0xF000;
+        *v134 = v13;
+        *&v134[8] = 1024;
+        *&v134[10] = v131.st_mode & 0xF000;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ is not a regular file (mode: 0x%04x).", buf, 0x12u);
       }
 
       v22 = @"%@ is not a regular file (mode: 0x%04x).";
-      v107 = v13;
+      v106 = v13;
       v23 = 1695;
       goto LABEL_32;
     }
@@ -5619,95 +5634,95 @@ LABEL_14:
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v135 = v14;
+        *v134 = v14;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Unsupported disk image type: %@", buf, 0xCu);
       }
 
       v22 = @"Unsupported disk image type: %@";
-      v107 = v14;
+      v106 = v14;
       v23 = 1701;
       goto LABEL_32;
     }
 
-    inited = Img4DecodeInitManifest([v15 bytes], objc_msgSend(v15, "length"), v136);
+    inited = Img4DecodeInitManifest([v15 bytes], objc_msgSend(v15, "length"), v135);
     if (inited)
     {
-      v38 = inited;
+      v37 = inited;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        *v135 = v38;
+        *v134 = v37;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to decode img4 manifest: %d", buf, 8u);
       }
 
       v22 = @"Failed to decode img4 manifest: %d";
-      v107 = v38;
+      v106 = v37;
       v23 = 1713;
       goto LABEL_32;
     }
 
-    Img4DecodeGetObjectPropertyData(v136, 1885629799, 1145525076, &v130, &v129);
-    if (v49)
+    Img4DecodeGetObjectPropertyData(v135, 1885629799, 1145525076, &v129, &v128);
+    if (v48)
     {
-      v50 = v49;
+      v49 = v48;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        *v135 = v50;
+        *v134 = v49;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to retrieve data from manifest: %d", buf, 8u);
       }
 
       v22 = @"Failed to retrieve data from manifest: %d";
-      v107 = v50;
+      v106 = v49;
       v23 = 1719;
       goto LABEL_32;
     }
 
-    Img4DecodeGetObjectPropertyData(v136, 1885629799, 1885630061, &v128, &v127);
-    if (v51)
+    Img4DecodeGetObjectPropertyData(v135, 1885629799, 1885630061, &v127, &v126);
+    if (v50)
     {
-      v52 = v51;
+      v51 = v50;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        *v135 = v52;
+        *v134 = v51;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to retrieve data from manifest: %d", buf, 8u);
       }
 
       v22 = @"Failed to retrieve data from manifest: %d";
-      v107 = v52;
+      v106 = v51;
       v23 = 1725;
       goto LABEL_32;
     }
 
-    v53 = malloc_type_calloc(1uLL, v127 + 1, 0x429DF27DuLL);
-    if (!v53)
+    v52 = malloc_type_calloc(1uLL, v126 + 1, 0x429DF27DuLL);
+    if (!v52)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        v64 = *__error();
-        v65 = __error();
-        v66 = strerror(*v65);
+        v63 = *__error();
+        v64 = __error();
+        v65 = strerror(*v64);
         *buf = 67109378;
-        *v135 = v64;
-        *&v135[4] = 2080;
-        *&v135[6] = v66;
+        *v134 = v63;
+        *&v134[4] = 2080;
+        *&v134[6] = v65;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to allocate memory: %d (%s)", buf, 0x12u);
       }
 
-      v67 = *__error();
-      v68 = __error();
-      strerror(*v68);
+      v66 = *__error();
+      v67 = __error();
+      strerror(*v67);
       v22 = @"Failed to allocate memory: %d (%s)";
-      v107 = v67;
+      v106 = v66;
       v23 = 1731;
       goto LABEL_32;
     }
 
-    v31 = v53;
-    strncpy(v53, v128, v127);
-    v54 = [[NSString alloc] initWithUTF8String:v31];
-    if (!v54)
+    v31 = v52;
+    strncpy(v52, v127, v126);
+    v53 = [[NSString alloc] initWithUTF8String:v31];
+    if (!v53)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
@@ -5715,114 +5730,114 @@ LABEL_14:
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to create string.", buf, 2u);
       }
 
-      v119 = sub_100011E6C("perform_disk_image_mount", 1739, -2, 0, @"Failed to create string.", v69, v70, v71, v107);
+      v118 = sub_100011E6C("perform_disk_image_mount", 1739, -2, 0, @"Failed to create string.", v68, v69, v70, v106);
       goto LABEL_34;
     }
 
-    v30 = v54;
-    v115 = v31;
-    if ([v54 isEqual:@"DeveloperDiskImage"])
+    v30 = v53;
+    v114 = v31;
+    if ([v53 isEqual:@"DeveloperDiskImage"])
     {
-      v55 = &_img4_nonce_domain_ddi;
+      v54 = &_img4_nonce_domain_ddi;
     }
 
     else
     {
-      v55 = &_img4_nonce_domain_pdi;
+      v54 = &_img4_nonce_domain_pdi;
     }
 
-    if (sub_10000A3DC(v13, &v131, v129))
+    if (sub_10000A3DC(v13, &v130, v128))
     {
-      v56 = [NSData alloc];
-      v109 = [v56 initWithBytes:v131 length:v129];
-      if (v109)
+      v55 = [NSData alloc];
+      v108 = [v55 initWithBytes:v130 length:v128];
+      if (v108)
       {
-        v126 = 0;
-        v108 = v30;
-        v57 = sub_10000A5FC(v13, v30, 1885629799, v55, v15, &v126);
-        v58 = v126;
-        v119 = v58;
-        if ((v57 & 1) == 0)
+        v125 = 0;
+        v107 = v30;
+        v56 = sub_10000A5FC(v13, v30, 1885629799, v54, v15, &v125);
+        v57 = v125;
+        v118 = v57;
+        if ((v56 & 1) == 0)
         {
-          v78 = v58;
-          v79 = [[NSString alloc] initWithFormat:@"Failed to validate server ticket with this device/image."];
-          if (v78)
+          v77 = v57;
+          v78 = [[NSString alloc] initWithFormat:@"Failed to validate server ticket with this device/image."];
+          if (v77)
           {
-            v107 = v79;
-            v80 = [NSString stringWithFormat:@" %@ (%@)"];
+            v106 = v78;
+            v79 = [NSString stringWithFormat:@" %@ (%@)"];
 
-            v79 = v80;
+            v78 = v79;
           }
 
-          v31 = v115;
-          v29 = v109;
+          v31 = v114;
+          v29 = v108;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *v135 = v79;
+            *v134 = v78;
             _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
           }
 
-          v116 = sub_100011E6C("perform_disk_image_mount", 1760, -2, v119, @"Failed to validate server ticket with this device/image.", v81, v82, v83, v107);
+          v115 = sub_100011E6C("perform_disk_image_mount", 1760, -2, v118, @"Failed to validate server ticket with this device/image.", v80, v81, v82, v106);
 
           v28 = 0;
-          v117 = 0;
-          v119 = v116;
-          v120 = 0;
-          v30 = v108;
+          v116 = 0;
+          v118 = v115;
+          v119 = 0;
+          v30 = v107;
           goto LABEL_35;
         }
 
-        sub_100015030(v14);
+        sub_100015030(v14, 1);
+        v121 = 0u;
         v122 = 0u;
         v123 = 0u;
-        v124 = 0u;
-        obj = v125 = 0u;
-        v29 = v109;
-        v112 = [obj countByEnumeratingWithState:&v122 objects:v133 count:16];
-        if (v112)
+        obj = v124 = 0u;
+        v29 = v108;
+        v111 = [obj countByEnumeratingWithState:&v121 objects:v132 count:16];
+        if (v111)
         {
-          v111 = *v123;
+          v110 = *v122;
           while (2)
           {
-            for (i = 0; i != v112; i = i + 1)
+            for (i = 0; i != v111; i = i + 1)
             {
-              if (*v123 != v111)
+              if (*v122 != v110)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v60 = *(*(&v122 + 1) + 8 * i);
-              v121 = [v60 objectForKeyedSubscript:@"ImageSignature"];
-              v118 = [v121 isEqual:v109];
+              v59 = *(*(&v121 + 1) + 8 * i);
+              v120 = [v59 objectForKeyedSubscript:@"ImageSignature"];
+              v117 = [v120 isEqual:v108];
 
-              if (v118)
+              if (v117)
               {
-                *a6 = [v60 objectForKeyedSubscript:@"MountPath"];
+                *a6 = [v59 objectForKeyedSubscript:@"MountPath"];
                 v28 = obj;
 
-                v31 = v115;
+                v31 = v114;
                 if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412546;
-                  *v135 = v14;
-                  *&v135[8] = 2080;
-                  *&v135[10] = v115;
+                  *v134 = v14;
+                  *&v134[8] = 2080;
+                  *&v134[10] = v114;
                   _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Matching image of type %@/%s found.", buf, 0x16u);
                 }
 
-                v113 = sub_100011E6C("perform_disk_image_mount", 1776, -2, 0, @"Matching image of type %@/%s found.", v84, v85, v86, v14);
+                v112 = sub_100011E6C("perform_disk_image_mount", 1776, -2, 0, @"Matching image of type %@/%s found.", v83, v84, v85, v14);
 
-                v120 = 0;
-                v117 = 0;
-                v119 = v113;
-                v30 = v108;
+                v119 = 0;
+                v116 = 0;
+                v118 = v112;
+                v30 = v107;
                 goto LABEL_14;
               }
             }
 
-            v112 = [obj countByEnumeratingWithState:&v122 objects:v133 count:16];
-            if (v112)
+            v111 = [obj countByEnumeratingWithState:&v121 objects:v132 count:16];
+            if (v111)
             {
               continue;
             }
@@ -5838,11 +5853,11 @@ LABEL_14:
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *v135 = v13;
+              *v134 = v13;
               _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Disk image path is bad: %@", buf, 0xCu);
             }
 
-            sub_100011E6C("perform_disk_image_mount", 1787, -2, 0, @"Disk image path is bad: %@", v61, v62, v63, v13);
+            sub_100011E6C("perform_disk_image_mount", 1787, -2, 0, @"Disk image path is bad: %@", v60, v61, v62, v13);
           }
 
           else if (v16 && (sub_10000DEE4(v16, v15, v18) & 1) == 0)
@@ -5853,25 +5868,25 @@ LABEL_14:
               _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to load trust cache.", buf, 2u);
             }
 
-            sub_100011E6C("perform_disk_image_mount", 1796, -2, 0, @"Failed to load trust cache.", v90, v91, v92, v107);
+            sub_100011E6C("perform_disk_image_mount", 1796, -2, 0, @"Failed to load trust cache.", v89, v90, v91, v106);
           }
 
           else
           {
-            v120 = sub_10000B110(v13, v18);
-            if (v120)
+            v119 = sub_10000B110(v13, v18);
+            if (v119)
             {
               if (v16 || (sub_10000DEE4(0, 0, v18) & 1) != 0)
               {
-                v117 = v120;
+                v116 = v119;
                 if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  *v135 = v18;
+                  *v134 = v18;
                   _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Successfully mounted disk image at %@.", buf, 0xCu);
                 }
 
-                v120 = v117;
+                v119 = v116;
               }
 
               else
@@ -5879,43 +5894,43 @@ LABEL_14:
                 if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  *v135 = v18;
+                  *v134 = v18;
                   _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to load trust caches at %@.", buf, 0xCu);
                 }
 
-                v100 = sub_100011E6C("perform_disk_image_mount", 1815, -2, 0, @"Failed to load trust caches at %@.", v97, v98, v99, v18);
+                v99 = sub_100011E6C("perform_disk_image_mount", 1815, -2, 0, @"Failed to load trust caches at %@.", v96, v97, v98, v18);
 
                 if (unmount([v18 fileSystemRepresentation], 0x80000) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                 {
-                  v101 = *__error();
-                  v102 = __error();
-                  v103 = strerror(*v102);
+                  v100 = *__error();
+                  v101 = __error();
+                  v102 = strerror(*v101);
                   *buf = 138412802;
-                  *v135 = v18;
-                  *&v135[8] = 1024;
-                  *&v135[10] = v101;
-                  *&v135[14] = 2080;
-                  *&v135[16] = v103;
+                  *v134 = v18;
+                  *&v134[8] = 1024;
+                  *&v134[10] = v100;
+                  *&v134[14] = 2080;
+                  *&v134[16] = v102;
                   _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to force unmount %@: %d (%s)", buf, 0x1Cu);
                 }
 
                 if (([v18 hasPrefix:@"/System/Volumes/FieldService"] & 1) == 0 && (objc_msgSend(v18, "hasPrefix:", @"/System/Volumes/FieldServiceDiagnostic") & 1) == 0 && (objc_msgSend(v18, "hasPrefix:", @"/System/Volumes/FieldServiceRepair") & 1) == 0 && (objc_msgSend(v18, "hasPrefix:", @"/Developer") & 1) == 0 && (objc_msgSend(v18, "hasPrefix:", @"/System/Developer") & 1) == 0 && rmdir(objc_msgSend(v18, "fileSystemRepresentation")) == -1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                 {
-                  v104 = *__error();
-                  v105 = __error();
-                  v106 = strerror(*v105);
+                  v103 = *__error();
+                  v104 = __error();
+                  v105 = strerror(*v104);
                   *buf = 138412802;
-                  *v135 = v18;
-                  *&v135[8] = 1024;
-                  *&v135[10] = v104;
-                  *&v135[14] = 2080;
-                  *&v135[16] = v106;
+                  *v134 = v18;
+                  *&v134[8] = 1024;
+                  *&v134[10] = v103;
+                  *&v134[14] = 2080;
+                  *&v134[16] = v105;
                   _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to remove %@: %d (%s)", buf, 0x1Cu);
                 }
 
-                sub_10000B970([v120 fileSystemRepresentation]);
-                v117 = 0;
-                v119 = v100;
+                sub_10000B970([v119 fileSystemRepresentation]);
+                v116 = 0;
+                v118 = v99;
               }
 
               goto LABEL_114;
@@ -5924,13 +5939,13 @@ LABEL_14:
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              *v135 = v13;
-              *&v135[8] = 2112;
-              *&v135[10] = v18;
+              *v134 = v13;
+              *&v134[8] = 2112;
+              *&v134[10] = v18;
               _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to mount %@ at %@.", buf, 0x16u);
             }
 
-            sub_100011E6C("perform_disk_image_mount", 1806, -2, 0, @"Failed to mount %@ at %@.", v94, v95, v96, v13);
+            sub_100011E6C("perform_disk_image_mount", 1806, -2, 0, @"Failed to mount %@ at %@.", v93, v94, v95, v13);
           }
         }
 
@@ -5939,21 +5954,21 @@ LABEL_14:
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *v135 = v18;
+            *v134 = v18;
             _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to verify the disk image mount path %@.", buf, 0xCu);
           }
 
-          sub_100011E6C("perform_disk_image_mount", 1782, -2, 0, @"Failed to verify the disk image mount path %@.", v87, v88, v89, v18);
+          sub_100011E6C("perform_disk_image_mount", 1782, -2, 0, @"Failed to verify the disk image mount path %@.", v86, v87, v88, v18);
         }
-        v93 = ;
+        v92 = ;
 
-        v117 = 0;
-        v119 = v93;
-        v120 = 0;
+        v116 = 0;
+        v118 = v92;
+        v119 = 0;
 LABEL_114:
-        v31 = v115;
-        v30 = v108;
-        v29 = v109;
+        v31 = v114;
+        v30 = v107;
+        v29 = v108;
         v28 = obj;
         goto LABEL_14;
       }
@@ -5964,7 +5979,7 @@ LABEL_114:
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to create data.", buf, 2u);
       }
 
-      sub_100011E6C("perform_disk_image_mount", 1754, -2, 0, @"Failed to create data.", v75, v76, v77, v107);
+      sub_100011E6C("perform_disk_image_mount", 1754, -2, 0, @"Failed to create data.", v74, v75, v76, v106);
     }
 
     else
@@ -5972,18 +5987,18 @@ LABEL_114:
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v135 = v13;
+        *v134 = v13;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to digest %@.", buf, 0xCu);
       }
 
-      sub_100011E6C("perform_disk_image_mount", 1748, -2, 0, @"Failed to digest %@.", v72, v73, v74, v13);
+      sub_100011E6C("perform_disk_image_mount", 1748, -2, 0, @"Failed to digest %@.", v71, v72, v73, v13);
     }
-    v119 = ;
-    v120 = 0;
+    v118 = ;
+    v119 = 0;
     v29 = 0;
     v28 = 0;
-    v117 = 0;
-    v31 = v115;
+    v116 = 0;
+    v31 = v114;
     goto LABEL_35;
   }
 
@@ -5993,62 +6008,62 @@ LABEL_114:
     v33 = __error();
     v34 = strerror(*v33);
     *buf = 138412802;
-    *v135 = v13;
-    *&v135[8] = 1024;
-    *&v135[10] = v32;
-    *&v135[14] = 2080;
-    *&v135[16] = v34;
+    *v134 = v13;
+    *&v134[8] = 1024;
+    *&v134[10] = v32;
+    *&v134[14] = 2080;
+    *&v134[16] = v34;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to lstat %@: %d (%s)", buf, 0x1Cu);
   }
 
-  v35 = *__error();
-  v36 = __error();
-  strerror(*v36);
+  __error();
+  v35 = __error();
+  strerror(*v35);
   v22 = @"Failed to lstat %@: %d (%s)";
-  v107 = v13;
+  v106 = v13;
   v23 = 1690;
 LABEL_32:
   v24 = -2;
 LABEL_33:
-  v119 = sub_100011E6C("perform_disk_image_mount", v23, v24, 0, v22, v19, v20, v21, v107);
+  v118 = sub_100011E6C("perform_disk_image_mount", v23, v24, 0, v22, v19, v20, v21, v106);
   v31 = 0;
 LABEL_34:
   v30 = 0;
   v29 = 0;
   v28 = 0;
-  v120 = 0;
-  v117 = 0;
+  v119 = 0;
+  v116 = 0;
 LABEL_35:
   if (unlink([v13 UTF8String]) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v114 = v31;
-    v39 = a7;
-    v40 = v18;
-    v41 = v14;
-    v42 = v16;
-    v43 = v15;
-    v44 = *__error();
-    v45 = __error();
-    v46 = strerror(*v45);
+    v113 = v31;
+    v38 = a7;
+    v39 = v18;
+    v40 = v14;
+    v41 = v16;
+    v42 = v15;
+    v43 = *__error();
+    v44 = __error();
+    v45 = strerror(*v44);
     *buf = 138412802;
-    *v135 = v13;
-    *&v135[8] = 1024;
-    *&v135[10] = v44;
-    v15 = v43;
-    v16 = v42;
-    v14 = v41;
-    v18 = v40;
-    a7 = v39;
-    *&v135[14] = 2080;
-    *&v135[16] = v46;
-    v31 = v114;
+    *v134 = v13;
+    *&v134[8] = 1024;
+    *&v134[10] = v43;
+    v15 = v42;
+    v16 = v41;
+    v14 = v40;
+    v18 = v39;
+    a7 = v38;
+    *&v134[14] = 2080;
+    *&v134[16] = v45;
+    v31 = v113;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to unlink %@: %d (%s)", buf, 0x1Cu);
   }
 
 LABEL_38:
-  if (a7 && !v120)
+  if (a7 && !v119)
   {
-    *a7 = v119;
+    *a7 = v118;
   }
 
   if (v31)
@@ -6056,14 +6071,14 @@ LABEL_38:
     free(v31);
   }
 
-  if (v131)
+  if (v130)
   {
-    free(v131);
+    free(v130);
   }
 
-  v47 = v117;
+  v46 = v116;
 
-  return v117;
+  return v116;
 }
 
 uint64_t sub_10000DEE4(void *a1, void *a2, void *a3)
@@ -6430,16 +6445,15 @@ passwd *sub_10000E89C()
   result = getpwuid(0);
   if (result)
   {
-    pw_dir = result->pw_dir;
     __strcpy_chk();
     __strcat_chk();
-    v2 = open(__str, 0, 0);
-    v3 = v2;
-    if (v2 < 0)
+    v1 = open(__str, 0, 0);
+    v2 = v1;
+    if (v1 < 0)
     {
-      v5 = 0;
+      v4 = 0;
       result = 0;
-      if (v3 == -1)
+      if (v2 == -1)
       {
         return result;
       }
@@ -6447,13 +6461,13 @@ passwd *sub_10000E89C()
 
     else
     {
-      v4 = read(v2, __str, 0x400uLL);
-      __str[v4 & ~(v4 >> 63)] = 0;
-      v5 = strtol(__str, 0, 0);
+      v3 = read(v1, __str, 0x400uLL);
+      __str[v3 & ~(v3 >> 63)] = 0;
+      v4 = strtol(__str, 0, 0);
     }
 
-    close(v3);
-    return v5;
+    close(v2);
+    return v4;
   }
 
   return result;
@@ -6474,7 +6488,7 @@ id sub_10000E998(void *a1, void *a2)
   v16 = sub_10000EB30;
   v17 = sub_10000EB40;
   v18 = 0;
-  v4 = sub_10000EB48();
+  v4 = sub_10000EB48(v3);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10000EB8C;
@@ -6507,16 +6521,16 @@ uint64_t sub_10000EB30(uint64_t result, uint64_t a2)
   return result;
 }
 
-id sub_10000EB48()
+id sub_10000EB48(uint64_t a1)
 {
   if (qword_100038890 != -1)
   {
     sub_10001C074();
   }
 
-  v1 = qword_100038898;
+  v2 = qword_100038898;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000EB8C(uint64_t a1)
@@ -6623,7 +6637,7 @@ uint64_t sub_10000EE70(void *a1, void *a2)
   v15 = sub_10000EB30;
   v16 = sub_10000EB40;
   v17 = 0;
-  v4 = sub_10000EB48();
+  v4 = sub_10000EB48(v3);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10000EFCC;
@@ -6729,7 +6743,7 @@ id sub_10000F210(void *a1)
   v10 = sub_10000EB30;
   v11 = sub_10000EB40;
   v12 = 0;
-  v2 = sub_10000EB48();
+  v2 = sub_10000EB48(a1);
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 3221225472;
   v6[2] = sub_10000F37C;
@@ -6841,7 +6855,7 @@ uint64_t sub_10000F5F4(void *a1)
   v9 = sub_10000EB30;
   v10 = sub_10000EB40;
   v11 = 0;
-  v2 = sub_10000EB48();
+  v2 = sub_10000EB48(a1);
   v5[0] = _NSConcreteStackBlock;
   v5[1] = 3221225472;
   v5[2] = sub_10000F724;
@@ -6931,7 +6945,7 @@ id sub_10000F8FC(void *a1, void *a2)
   v16 = sub_10000EB30;
   v17 = sub_10000EB40;
   v18 = 0;
-  v4 = sub_10000FA94();
+  v4 = sub_10000FA94(v3);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10000FAD8;
@@ -6957,27 +6971,27 @@ id sub_10000F8FC(void *a1, void *a2)
   return v7;
 }
 
-id sub_10000FA94()
+id sub_10000FA94(uint64_t a1)
 {
   if (qword_1000388A0 != -1)
   {
     sub_10001C088();
   }
 
-  v1 = qword_1000388A8;
+  v2 = qword_1000388A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000FAD8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v90 = 0;
-  memset(v89, 0, sizeof(v89));
   v87 = 0;
-  v88 = 0;
+  memset(v86, 0, sizeof(v86));
+  v84 = 0;
+  v85 = 0;
   if (a1[4])
   {
-    v9 = sub_100015DA0();
+    v9 = sub_100015DA0(a1);
     if (v9)
     {
       v10 = v9;
@@ -6992,7 +7006,7 @@ void sub_10000FAD8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
         if (v17)
         {
           v21 = v17;
-          v84 = a1[4];
+          v81 = a1[4];
           v22 = [v10 stringByAppendingFormat:@"/%@/%@.im4m"];
           if (v22)
           {
@@ -7004,12 +7018,12 @@ void sub_10000FAD8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
             {
               v32 = [NSData alloc];
               v33 = *(a1[5] + 8);
-              v85 = *(v33 + 40);
-              v34 = [v32 initWithContentsOfFile:v26 options:0 error:&v85];
-              objc_storeStrong((v33 + 40), v85);
+              v82 = *(v33 + 40);
+              v34 = [v32 initWithContentsOfFile:v26 options:0 error:&v82];
+              objc_storeStrong((v33 + 40), v82);
               if (v34)
               {
-                inited = Img4DecodeInitManifest([v34 bytes], objc_msgSend(v34, "length"), v89);
+                inited = Img4DecodeInitManifest([v34 bytes], objc_msgSend(v34, "length"), v86);
                 if (inited)
                 {
                   sub_100011E6C("copy_personalized_image_manifest_block_invoke", 2414, -2, 0, @"Failed to decode img4 manifest: %d", v39, v40, v41, inited);
@@ -7017,47 +7031,47 @@ void sub_10000FAD8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
 
                 else
                 {
-                  Img4DecodeGetObjectPropertyData(v89, 1885629799, 1885630061, &v88, &v87);
-                  if (v59)
+                  Img4DecodeGetObjectPropertyData(v86, 1885629799, 1885630061, &v85, &v84);
+                  if (v56)
                   {
-                    sub_100011E6C("copy_personalized_image_manifest_block_invoke", 2420, -2, 0, @"Failed to retrieve data from manifest: %d", v60, v61, v62, v59);
+                    sub_100011E6C("copy_personalized_image_manifest_block_invoke", 2420, -2, 0, @"Failed to retrieve data from manifest: %d", v57, v58, v59, v56);
                   }
 
                   else
                   {
-                    v66 = [NSString alloc];
-                    v67 = [v66 initWithBytes:v88 length:v87 encoding:4];
-                    if (v67)
+                    v63 = [NSString alloc];
+                    v64 = [v63 initWithBytes:v85 length:v84 encoding:4];
+                    if (v64)
                     {
-                      v68 = v67;
-                      if ([v67 isEqualToString:a1[4]])
+                      v65 = v64;
+                      if ([v64 isEqualToString:a1[4]])
                       {
-                        v72 = *(a1[6] + 8);
-                        v73 = *(v72 + 40);
-                        *(v72 + 40) = v34;
-                        v74 = v34;
+                        v69 = *(a1[6] + 8);
+                        v70 = *(v69 + 40);
+                        *(v69 + 40) = v34;
+                        v71 = v34;
                       }
 
                       else
                       {
-                        v80 = sub_100011E6C("copy_personalized_image_manifest_block_invoke", 2431, -2, 0, @"Manifest type does not match.", v69, v70, v71, v84);
-                        v81 = *(a1[5] + 8);
-                        v82 = *(v81 + 40);
-                        *(v81 + 40) = v80;
+                        v77 = sub_100011E6C("copy_personalized_image_manifest_block_invoke", 2431, -2, 0, @"Manifest type does not match.", v66, v67, v68, v81);
+                        v78 = *(a1[5] + 8);
+                        v79 = *(v78 + 40);
+                        *(v78 + 40) = v77;
                       }
 
                       goto LABEL_26;
                     }
 
-                    v75 = __error();
-                    v76 = strerror(*v75);
-                    sub_100011E6C("copy_personalized_image_manifest_block_invoke", 2426, -2, 0, @"Failed to create string: %s", v77, v78, v79, v76);
+                    v72 = __error();
+                    v73 = strerror(*v72);
+                    sub_100011E6C("copy_personalized_image_manifest_block_invoke", 2426, -2, 0, @"Failed to create string: %s", v74, v75, v76, v73);
                   }
                 }
-                v63 = ;
-                v64 = *(a1[5] + 8);
-                v65 = *(v64 + 40);
-                *(v64 + 40) = v63;
+                v60 = ;
+                v61 = *(a1[5] + 8);
+                v62 = *(v61 + 40);
+                *(v61 + 40) = v60;
 
 LABEL_25:
 LABEL_26:
@@ -7072,35 +7086,35 @@ LABEL_26:
             {
               sub_100011E6C("copy_personalized_image_manifest_block_invoke", 2402, -2, 0, @"%@ does not exist.", v29, v30, v31, v26);
             }
-            v56 = ;
-            v57 = *(a1[5] + 8);
-            v58 = *(v57 + 40);
-            *(v57 + 40) = v56;
+            v53 = ;
+            v54 = *(a1[5] + 8);
+            v55 = *(v54 + 40);
+            *(v54 + 40) = v53;
 
             goto LABEL_25;
           }
 
-          v53 = sub_100011E6C("copy_personalized_image_manifest_block_invoke", 2397, -2, 0, @"Failed to create manifest path.", v23, v24, v25, v84);
-          v54 = *(a1[5] + 8);
-          v55 = *(v54 + 40);
-          *(v54 + 40) = v53;
+          v50 = sub_100011E6C("copy_personalized_image_manifest_block_invoke", 2397, -2, 0, @"Failed to create manifest path.", v23, v24, v25, v81);
+          v51 = *(a1[5] + 8);
+          v52 = *(v51 + 40);
+          *(v51 + 40) = v50;
         }
 
         else
         {
-          v50 = sub_100011E6C("copy_personalized_image_manifest_block_invoke", 2391, -2, 0, @"Failed to create hex string.", v18, v19, v20, v83);
-          v51 = *(a1[5] + 8);
-          v52 = *(v51 + 40);
-          *(v51 + 40) = v50;
+          v47 = sub_100011E6C("copy_personalized_image_manifest_block_invoke", 2391, -2, 0, @"Failed to create hex string.", v18, v19, v20, v80);
+          v48 = *(a1[5] + 8);
+          v49 = *(v48 + 40);
+          *(v48 + 40) = v47;
         }
       }
 
       else
       {
-        v47 = sub_100011E6C("copy_personalized_image_manifest_block_invoke", 2385, -2, *(*(a1[5] + 8) + 40), @"Failed to copy personalization nonce.", v14, v15, v16, v83);
-        v48 = *(a1[5] + 8);
-        v49 = *(v48 + 40);
-        *(v48 + 40) = v47;
+        v44 = sub_100011E6C("copy_personalized_image_manifest_block_invoke", 2385, -2, *(*(a1[5] + 8) + 40), @"Failed to copy personalization nonce.", v14, v15, v16, v80);
+        v45 = *(a1[5] + 8);
+        v46 = *(v45 + 40);
+        *(v45 + 40) = v44;
       }
 
 LABEL_27:
@@ -7118,10 +7132,7 @@ LABEL_27:
     v43 = 2373;
   }
 
-  v44 = sub_100011E6C("copy_personalized_image_manifest_block_invoke", v43, -2, 0, v42, a6, a7, a8, v83);
-  v45 = *(a1[5] + 8);
-  v46 = *(v45 + 40);
-  *(v45 + 40) = v44;
+  *(*(a1[5] + 8) + 40) = sub_100011E6C("copy_personalized_image_manifest_block_invoke", v43, -2, 0, v42, a6, a7, a8, v80);
 
   _objc_release_x1();
 }
@@ -7140,7 +7151,7 @@ uint64_t sub_10000FFD0(void *a1, void *a2, void *a3)
   v18 = &v17;
   v19 = 0x2020000000;
   v20 = 0;
-  v7 = sub_10000FA94();
+  v7 = sub_10000FA94(v6);
   v12[0] = _NSConcreteStackBlock;
   v12[1] = 3221225472;
   v12[2] = sub_100010150;
@@ -7168,123 +7179,124 @@ uint64_t sub_10000FFD0(void *a1, void *a2, void *a3)
 
 void sub_100010150(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v111 = 0;
-  memset(v110, 0, sizeof(v110));
-  v102 = 0;
-  v103 = 0;
+  v109 = 0;
+  memset(v108, 0, sizeof(v108));
+  v100 = 0;
+  v101 = 0;
   if (*(a1 + 32))
   {
     v9 = *(a1 + 40);
     if (v9)
     {
-      inited = Img4DecodeInitManifest([v9 bytes], objc_msgSend(*(a1 + 40), "length"), v110);
+      inited = Img4DecodeInitManifest([v9 bytes], objc_msgSend(*(a1 + 40), "length"), v108);
       if (inited)
       {
         sub_100011E6C("store_personalized_image_manifest_block_invoke", 2475, -2, 0, @"Failed to decode img4 manifest: %d", v11, v12, v13, inited);
-        v21 = LABEL_10:;
-        v22 = *(*(a1 + 48) + 8);
-        v23 = *(v22 + 40);
-        *(v22 + 40) = v21;
+        v18 = LABEL_10:;
+        v19 = *(*(a1 + 48) + 8);
+        v20 = *(v19 + 40);
+        *(v19 + 40) = v18;
 
         return;
       }
 
-      Img4DecodeGetObjectPropertyData(v110, 1885629799, 1885630061, &v103, &v102);
-      if (v17)
+      Img4DecodeGetObjectPropertyData(v108, 1885629799, 1885630061, &v101, &v100);
+      if (v14)
       {
-        sub_100011E6C("store_personalized_image_manifest_block_invoke", 2481, -2, 0, @"Failed to retrieve data from manifest: %d", v18, v19, v20, v17);
+        sub_100011E6C("store_personalized_image_manifest_block_invoke", 2481, -2, 0, @"Failed to retrieve data from manifest: %d", v15, v16, v17, v14);
         goto LABEL_10;
       }
 
-      v24 = [NSString alloc];
-      v25 = [v24 initWithBytes:v103 length:v102 encoding:4];
-      if (!v25)
+      v21 = [NSString alloc];
+      v22 = [v21 initWithBytes:v101 length:v100 encoding:4];
+      if (!v22)
       {
-        v71 = __error();
-        v72 = strerror(*v71);
-        sub_100011E6C("store_personalized_image_manifest_block_invoke", 2487, -2, 0, @"Failed to create string: %s", v73, v74, v75, v72);
+        v69 = __error();
+        v70 = strerror(*v69);
+        sub_100011E6C("store_personalized_image_manifest_block_invoke", 2487, -2, 0, @"Failed to create string: %s", v71, v72, v73, v70);
         goto LABEL_10;
       }
 
-      v26 = v25;
-      if ([v25 isEqualToString:*(a1 + 32)])
+      v23 = v22;
+      v24 = [v22 isEqualToString:*(a1 + 32)];
+      if (v24)
       {
-        v30 = sub_100015DA0();
-        if (v30)
+        v28 = sub_100015DA0(v24);
+        if (v28)
         {
-          v31 = v30;
-          v32 = *(a1 + 32);
-          v33 = *(*(a1 + 48) + 8);
-          obj = *(v33 + 40);
-          v34 = sub_10000E998(v32, &obj);
-          objc_storeStrong((v33 + 40), obj);
-          if (!v34)
+          v29 = v28;
+          v30 = *(a1 + 32);
+          v31 = *(*(a1 + 48) + 8);
+          obj = *(v31 + 40);
+          v32 = sub_10000E998(v30, &obj);
+          objc_storeStrong((v31 + 40), obj);
+          if (!v32)
           {
-            v81 = sub_100011E6C("store_personalized_image_manifest_block_invoke", 2504, -2, *(*(*(a1 + 48) + 8) + 40), @"Failed to copy personalization nonce.", v35, v36, v37, v97);
-            v82 = *(*(a1 + 48) + 8);
-            v83 = *(v82 + 40);
-            *(v82 + 40) = v81;
+            v79 = sub_100011E6C("store_personalized_image_manifest_block_invoke", 2504, -2, *(*(*(a1 + 48) + 8) + 40), @"Failed to copy personalization nonce.", v33, v34, v35, v95);
+            v80 = *(*(a1 + 48) + 8);
+            v81 = *(v80 + 40);
+            *(v80 + 40) = v79;
 
             return;
           }
 
-          v38 = [[NSString alloc] initHexStringWithData:v34];
-          if (!v38)
+          v36 = [[NSString alloc] initHexStringWithData:v32];
+          if (!v36)
           {
-            v84 = sub_100011E6C("store_personalized_image_manifest_block_invoke", 2510, -2, 0, @"Failed to create hex string.", v39, v40, v41, v97);
-            v85 = *(*(a1 + 48) + 8);
-            v86 = *(v85 + 40);
-            *(v85 + 40) = v84;
+            v82 = sub_100011E6C("store_personalized_image_manifest_block_invoke", 2510, -2, 0, @"Failed to create hex string.", v37, v38, v39, v95);
+            v83 = *(*(a1 + 48) + 8);
+            v84 = *(v83 + 40);
+            *(v83 + 40) = v82;
 
 LABEL_41:
             return;
           }
 
-          v42 = v38;
-          v43 = [v31 stringByAppendingPathComponent:*(a1 + 32)];
-          if (v43)
+          v40 = v36;
+          v41 = [v29 stringByAppendingPathComponent:*(a1 + 32)];
+          if (v41)
           {
-            v47 = v43;
-            v48 = +[NSFileManager defaultManager];
-            v49 = [v48 fileExistsAtPath:v47];
+            v45 = v41;
+            v46 = +[NSFileManager defaultManager];
+            v47 = [v46 fileExistsAtPath:v45];
 
-            if (v49 && (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v50 = objc_claimAutoreleasedReturnValue(), v51 = *(*(a1 + 48) + 8), v100 = *(v51 + 40), v52 = [v50 removeItemAtPath:v47 error:&v100], objc_storeStrong((v51 + 40), v100), v50, (v52 & 1) == 0))
+            if (v47 && (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v48 = objc_claimAutoreleasedReturnValue(), v49 = *(*(a1 + 48) + 8), v98 = *(v49 + 40), v50 = [v48 removeItemAtPath:v45 error:&v98], objc_storeStrong((v49 + 40), v98), v48, (v50 & 1) == 0))
             {
-              sub_100011E6C("store_personalized_image_manifest_block_invoke", 2522, -2, *(*(*(a1 + 48) + 8) + 40), @"Failed to delete manifest folder at %@.", v53, v54, v55, v47);
+              sub_100011E6C("store_personalized_image_manifest_block_invoke", 2522, -2, *(*(*(a1 + 48) + 8) + 40), @"Failed to delete manifest folder at %@.", v51, v52, v53, v45);
             }
 
             else
             {
-              v56 = +[NSFileManager defaultManager];
-              v108 = NSFilePosixPermissions;
-              v109 = &off_100034A68;
-              v57 = [NSDictionary dictionaryWithObjects:&v109 forKeys:&v108 count:1];
-              v58 = *(*(a1 + 48) + 8);
-              v99 = *(v58 + 40);
-              v59 = [v56 createDirectoryAtPath:v47 withIntermediateDirectories:1 attributes:v57 error:&v99];
-              objc_storeStrong((v58 + 40), v99);
+              v54 = +[NSFileManager defaultManager];
+              v106 = NSFilePosixPermissions;
+              v107 = &off_100034A68;
+              v55 = [NSDictionary dictionaryWithObjects:&v107 forKeys:&v106 count:1];
+              v56 = *(*(a1 + 48) + 8);
+              v97 = *(v56 + 40);
+              v57 = [v54 createDirectoryAtPath:v45 withIntermediateDirectories:1 attributes:v55 error:&v97];
+              objc_storeStrong((v56 + 40), v97);
 
-              if (v59)
+              if (v57)
               {
-                v97 = v42;
-                v63 = [v47 stringByAppendingFormat:@"/%@.im4m"];
+                v95 = v40;
+                v61 = [v45 stringByAppendingFormat:@"/%@.im4m"];
 
-                if (v63)
+                if (v61)
                 {
-                  v64 = *(a1 + 40);
-                  v65 = *(*(a1 + 48) + 8);
-                  v98 = *(v65 + 40);
-                  v66 = [v64 writeToFile:v63 options:0 error:&v98];
-                  objc_storeStrong((v65 + 40), v98);
-                  if (v66)
+                  v62 = *(a1 + 40);
+                  v63 = *(*(a1 + 48) + 8);
+                  v96 = *(v63 + 40);
+                  v64 = [v62 writeToFile:v61 options:0 error:&v96];
+                  objc_storeStrong((v63 + 40), v96);
+                  if (v64)
                   {
                     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                     {
-                      v70 = *(a1 + 32);
+                      v68 = *(a1 + 32);
                       *buf = 138412546;
-                      v105 = v70;
-                      v106 = 2112;
-                      v107 = v63;
+                      v103 = v68;
+                      v104 = 2112;
+                      v105 = v61;
                       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Successfully stored %@ manifest at %@.", buf, 0x16u);
                     }
 
@@ -7293,63 +7305,60 @@ LABEL_41:
 
                   else
                   {
-                    v94 = sub_100011E6C("store_personalized_image_manifest_block_invoke", 2539, -2, *(*(*(a1 + 48) + 8) + 40), @"Failed to write manifest to %@.", v67, v68, v69, v63);
-                    v95 = *(*(a1 + 48) + 8);
-                    v96 = *(v95 + 40);
-                    *(v95 + 40) = v94;
+                    v92 = sub_100011E6C("store_personalized_image_manifest_block_invoke", 2539, -2, *(*(*(a1 + 48) + 8) + 40), @"Failed to write manifest to %@.", v65, v66, v67, v61);
+                    v93 = *(*(a1 + 48) + 8);
+                    v94 = *(v93 + 40);
+                    *(v93 + 40) = v92;
                   }
 
                   goto LABEL_40;
                 }
 
-                v87 = 2534;
+                v85 = 2534;
                 goto LABEL_33;
               }
 
-              sub_100011E6C("store_personalized_image_manifest_block_invoke", 2528, -2, *(*(*(a1 + 48) + 8) + 40), @"Failed to create %@.", v60, v61, v62, v47);
+              sub_100011E6C("store_personalized_image_manifest_block_invoke", 2528, -2, *(*(*(a1 + 48) + 8) + 40), @"Failed to create %@.", v58, v59, v60, v45);
             }
-            v91 = ;
-            v92 = *(*(a1 + 48) + 8);
-            v93 = *(v92 + 40);
-            *(v92 + 40) = v91;
+            v89 = ;
+            v90 = *(*(a1 + 48) + 8);
+            v91 = *(v90 + 40);
+            *(v90 + 40) = v89;
 
             goto LABEL_40;
           }
 
-          v87 = 2516;
+          v85 = 2516;
 LABEL_33:
-          v88 = sub_100011E6C("store_personalized_image_manifest_block_invoke", v87, -2, 0, @"Failed to create manifest path.", v44, v45, v46, v97);
-          v89 = *(*(a1 + 48) + 8);
-          v90 = *(v89 + 40);
-          *(v89 + 40) = v88;
+          v86 = sub_100011E6C("store_personalized_image_manifest_block_invoke", v85, -2, 0, @"Failed to create manifest path.", v42, v43, v44, v95);
+          v87 = *(*(a1 + 48) + 8);
+          v88 = *(v87 + 40);
+          *(v87 + 40) = v86;
 
 LABEL_40:
           goto LABEL_41;
         }
 
-        v76 = @"Failed to query working directory.";
-        v77 = 2498;
+        v74 = @"Failed to query working directory.";
+        v75 = 2498;
       }
 
       else
       {
-        v76 = @"Manifest type does not match.";
-        v77 = 2492;
+        v74 = @"Manifest type does not match.";
+        v75 = 2492;
       }
 
-      v78 = sub_100011E6C("store_personalized_image_manifest_block_invoke", v77, -2, 0, v76, v27, v28, v29, v97);
-      v79 = *(*(a1 + 48) + 8);
-      v80 = *(v79 + 40);
-      *(v79 + 40) = v78;
+      v76 = sub_100011E6C("store_personalized_image_manifest_block_invoke", v75, -2, 0, v74, v25, v26, v27, v95);
+      v77 = *(*(a1 + 48) + 8);
+      v78 = *(v77 + 40);
+      *(v77 + 40) = v76;
 
       return;
     }
   }
 
-  v14 = sub_100011E6C("store_personalized_image_manifest_block_invoke", 2469, -2, 0, @"Invalid input(s).", a6, a7, a8, v97);
-  v15 = *(*(a1 + 48) + 8);
-  v16 = *(v15 + 40);
-  *(v15 + 40) = v14;
+  *(*(*(a1 + 48) + 8) + 40) = sub_100011E6C("store_personalized_image_manifest_block_invoke", 2469, -2, 0, @"Invalid input(s).", a6, a7, a8, v95);
 
   _objc_release_x1();
 }
@@ -7367,7 +7376,7 @@ uint64_t sub_1000107E4(void *a1, void *a2)
   v13 = &v12;
   v14 = 0x2020000000;
   v15 = 0;
-  v4 = sub_10000FA94();
+  v4 = sub_10000FA94(v3);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100010940;
@@ -7398,16 +7407,13 @@ void sub_100010940(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
     v24 = @"Invalid input(s).";
     v25 = 2570;
 LABEL_11:
-    v26 = sub_100011E6C("delete_personalized_image_manifest_block_invoke", v25, -2, 0, v24, a6, a7, a8, v35);
-    v27 = *(a1[5] + 8);
-    v28 = *(v27 + 40);
-    *(v27 + 40) = v26;
+    *(*(a1[5] + 8) + 40) = sub_100011E6C("delete_personalized_image_manifest_block_invoke", v25, -2, 0, v24, a6, a7, a8, v32);
 
     _objc_release_x1();
     return;
   }
 
-  v9 = sub_100015DA0();
+  v9 = sub_100015DA0(a1);
   if (!v9)
   {
     v24 = @"Failed to query working directory.";
@@ -7415,7 +7421,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v36 = v9;
+  v33 = v9;
   v10 = [v9 stringByAppendingPathComponent:a1[4]];
   if (v10)
   {
@@ -7433,10 +7439,10 @@ LABEL_11:
 
       if ((v19 & 1) == 0)
       {
-        v32 = sub_100011E6C("delete_personalized_image_manifest_block_invoke", 2588, -2, *(*(a1[5] + 8) + 40), @"Failed to remove manifest at %@.", v20, v21, v22, v14);
-        v33 = *(a1[5] + 8);
-        v34 = *(v33 + 40);
-        *(v33 + 40) = v32;
+        v29 = sub_100011E6C("delete_personalized_image_manifest_block_invoke", 2588, -2, *(*(a1[5] + 8) + 40), @"Failed to remove manifest at %@.", v20, v21, v22, v14);
+        v30 = *(a1[5] + 8);
+        v31 = *(v30 + 40);
+        *(v30 + 40) = v29;
 
         goto LABEL_18;
       }
@@ -7445,9 +7451,9 @@ LABEL_11:
       {
         v23 = a1[4];
         *buf = 138412546;
-        v39 = v23;
-        v40 = 2112;
-        v41 = v14;
+        v36 = v23;
+        v37 = 2112;
+        v38 = v14;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Successfully deleted %@ manifest at %@.", buf, 0x16u);
       }
     }
@@ -7458,10 +7464,10 @@ LABEL_18:
     return;
   }
 
-  v29 = sub_100011E6C("delete_personalized_image_manifest_block_invoke", 2582, -2, 0, @"Failed to create manifest path.", v11, v12, v13, v35);
-  v30 = *(a1[5] + 8);
-  v31 = *(v30 + 40);
-  *(v30 + 40) = v29;
+  v26 = sub_100011E6C("delete_personalized_image_manifest_block_invoke", 2582, -2, 0, @"Failed to create manifest path.", v11, v12, v13, v32);
+  v27 = *(a1[5] + 8);
+  v28 = *(v27 + 40);
+  *(v27 + 40) = v26;
 }
 
 void sub_100010C04(id a1)
@@ -7478,16 +7484,18 @@ void sub_100010C44(id a1)
   _objc_release_x1();
 }
 
-void sub_100010C94(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100010C94(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x12u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x12u);
 }
 
-void sub_100010CC8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100010CC8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0x16u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
 uint64_t sub_100010D0C(void *a1, void *a2)
@@ -7873,13 +7881,13 @@ id sub_100011728(void *a1)
   return v2;
 }
 
-uint64_t sub_100011794()
+uint64_t sub_100011794(uint64_t a1)
 {
-  v0 = __chkstk_darwin();
-  v2 = v1;
-  v3 = v0;
-  bzero(v26, 0x1000uLL);
-  if (!v3)
+  v1 = __chkstk_darwin(a1);
+  v3 = v2;
+  v4 = v1;
+  bzero(v27, 0x1000uLL);
+  if (!v4)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
@@ -7887,29 +7895,29 @@ uint64_t sub_100011794()
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Invalid input(s).", entry, 2u);
     }
 
-    v3 = 0;
+    v4 = 0;
     goto LABEL_34;
   }
 
-  v4 = sub_1000113C8(v3);
-  v5 = v4;
-  if (!v4)
+  v5 = sub_1000113C8(v4);
+  v6 = v5;
+  if (!v5)
   {
     goto LABEL_20;
   }
 
-  v6 = IOBSDNameMatching(kIOMasterPortDefault, 0, [v4 UTF8String]);
-  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v6);
+  v7 = IOBSDNameMatching(kIOMasterPortDefault, 0, [v5 UTF8String]);
+  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v7);
   *entry = MatchingService;
   if (!MatchingService)
   {
     goto LABEL_20;
   }
 
-  v8 = MatchingService;
+  v9 = MatchingService;
   if (!IOObjectConformsTo(MatchingService, "IOMedia"))
   {
-    IOObjectRelease(v8);
+    IOObjectRelease(v9);
 LABEL_20:
 
     goto LABEL_21;
@@ -7917,147 +7925,147 @@ LABEL_20:
 
   if (!sub_1000160B8(entry, "AppleAPFSContainerScheme") || !sub_1000160B8(entry, "AppleAPFSMedia"))
   {
-    v14 = 0;
-    v9 = 0;
+    v15 = 0;
+    v10 = 0;
 LABEL_45:
     CFProperty = 0;
     goto LABEL_46;
   }
 
-  v9 = IORegistryEntrySearchCFProperty(*entry, "IOService", @"Content Hint", kCFAllocatorDefault, 0);
-  if (!v9 || ![@"EF57347C-0000-11AA-AA11-00306543ECAC" isEqualToString:v9])
+  v10 = IORegistryEntrySearchCFProperty(*entry, "IOService", @"Content Hint", kCFAllocatorDefault, 0);
+  if (!v10 || ![@"EF57347C-0000-11AA-AA11-00306543ECAC" isEqualToString:v10])
   {
     goto LABEL_44;
   }
 
-  if (!v2)
+  if (!v3)
   {
     CFProperty = 0;
-    v14 = 1;
+    v15 = 1;
     goto LABEL_46;
   }
 
   if (!sub_1000160B8(entry, "AppleAPFSContainer") || !sub_1000160B8(entry, "AppleAPFSVolume"))
   {
 LABEL_44:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_45;
   }
 
   CFProperty = IORegistryEntryCreateCFProperty(*entry, @"BSD Name", kCFAllocatorDefault, 0);
-  v11 = sub_100011650(CFProperty);
+  v12 = sub_100011650(CFProperty);
 
-  if (v11)
+  if (v12)
   {
-    v12 = [@"/dev/" stringByAppendingString:CFProperty];
+    v13 = [@"/dev/" stringByAppendingString:CFProperty];
 
-    if (v12)
+    if (v13)
     {
-      v13 = v12;
-      *v2 = v12;
-      v14 = 1;
-      CFProperty = v12;
+      v14 = v13;
+      *v3 = v13;
+      v15 = 1;
+      CFProperty = v13;
       goto LABEL_46;
     }
 
     goto LABEL_44;
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_46:
   if (*entry)
   {
     IOObjectRelease(*entry);
   }
 
-  if (v14)
+  if (v15)
   {
-    v18 = 6;
+    v19 = 6;
     goto LABEL_53;
   }
 
 LABEL_21:
-  if (([v3 hasPrefix:{@"/dev/", *entry}] & 1) == 0)
+  if (([v4 hasPrefix:{@"/dev/", *entry}] & 1) == 0)
   {
-    v15 = [@"/dev/" stringByAppendingString:v3];
+    v16 = [@"/dev/" stringByAppendingString:v4];
 
-    v3 = v15;
+    v4 = v16;
   }
 
-  v16 = open([v3 UTF8String], 0);
-  if (v16 == -1)
+  v17 = open([v4 UTF8String], 0);
+  if (v17 == -1)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *__error();
+      v20 = *__error();
       *entry = 138412546;
-      *&entry[4] = v3;
-      v24 = 1024;
-      v25 = v19;
+      *&entry[4] = v4;
+      v25 = 1024;
+      v26 = v20;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to open %@: %{errno}d", entry, 0x12u);
     }
 
 LABEL_34:
-    v18 = 0;
+    v19 = 0;
     goto LABEL_53;
   }
 
-  v17 = v16;
-  if (read(v16, v26, 0x1000uLL) == 4096)
+  v18 = v17;
+  if (read(v17, v27, 0x1000uLL) == 4096)
   {
-    if (v26[0] == 233 || v26[0] == 235 && v26[2] == 144)
+    if (v27[0] == 233 || v27[0] == 235 && v27[2] == 144)
     {
-      if (v27 == 0x202020205346544ELL)
+      if (v28 == 0x202020205346544ELL)
       {
-        v18 = 5;
+        v19 = 5;
       }
 
-      else if (v27 == 0x2020205441465845)
+      else if (v28 == 0x2020205441465845)
       {
-        v18 = 4;
+        v19 = 4;
       }
 
       else
       {
-        v18 = 1;
+        v19 = 1;
       }
     }
 
-    else if (v28 == 11080)
+    else if (v29 == 11080)
     {
-      v18 = 2 * (v29 == 4);
+      v19 = 2 * (v30 == 4);
     }
 
-    else if (v29 == 5 && v28 == 22600)
+    else if (v30 == 5 && v29 == 22600)
     {
-      v18 = 3;
+      v19 = 3;
     }
 
     else
     {
-      v18 = 0;
+      v19 = 0;
     }
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = *__error();
+      v21 = *__error();
       *entry = 138412546;
-      *&entry[4] = v3;
-      v24 = 1024;
-      v25 = v20;
+      *&entry[4] = v4;
+      v25 = 1024;
+      v26 = v21;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to read %@ volume header: %{errno}d", entry, 0x12u);
-      v18 = 0;
+      v19 = 0;
     }
   }
 
-  close(v17);
+  close(v18);
 LABEL_53:
 
-  return v18;
+  return v19;
 }
 
 BOOL sub_100011C30()
@@ -8220,219 +8228,219 @@ const __CFString *sub_10001213C(io_registry_entry_t a1)
   return v4;
 }
 
-id sub_1000121F0()
+id sub_1000121F0(int a1)
 {
-  v44 = 0;
   v45 = 0;
-  v37 = objc_alloc_init(NSMutableDictionary);
-  if (v37)
+  v46 = 0;
+  v38 = objc_alloc_init(NSMutableDictionary);
+  if (v38)
   {
-    v0 = getfsstat(0, 0, 2);
-    if (v0 < 0)
+    v1 = getfsstat(0, 0, 2);
+    if (v1 < 0)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *__error();
+        v10 = *__error();
         *buf = 67109120;
-        *&buf[4] = v9;
+        *&buf[4] = v10;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to get mount information: %{errno}d", buf, 8u);
       }
 
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v1 = v0;
-      v2 = 0;
+      v2 = v1;
       v3 = 0;
+      v4 = 0;
       while (1)
       {
-        v4 = 2168 * v1;
-        if (v2 > v4)
+        v5 = 2168 * v2;
+        if (v3 > v5)
         {
           goto LABEL_11;
         }
 
-        if (v3)
+        if (v4)
         {
-          free(v3);
+          free(v4);
         }
 
-        v2 = v4 + 2168;
-        v5 = malloc_type_malloc(v4 + 2168, 0x100004087E0324AuLL);
-        if (!v5)
+        v3 = v5 + 2168;
+        v6 = malloc_type_malloc(v5 + 2168, 0x100004087E0324AuLL);
+        if (!v6)
         {
           break;
         }
 
-        v3 = v5;
-        v1 = getfsstat(v5, v4 + 2168, 2);
-        if (v1 < 0)
+        v4 = v6;
+        v2 = getfsstat(v6, v5 + 2168, 2);
+        if (v2 < 0)
         {
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
-            v6 = *__error();
+            v7 = *__error();
             *buf = 67109120;
-            *&buf[4] = v6;
+            *&buf[4] = v7;
             _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to get mount information: %{errno}d", buf, 8u);
           }
 
 LABEL_11:
-          v7 = v3;
+          v8 = v4;
           goto LABEL_21;
         }
       }
 
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = *__error();
+        v11 = *__error();
         *buf = 67109120;
-        *&buf[4] = v10;
+        *&buf[4] = v11;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to allocate memory: %{errno}d", buf, 8u);
       }
 
-      v7 = 0;
+      v8 = 0;
 LABEL_21:
-      if (v1 > 0)
+      if (v2 > 0)
       {
-        v36 = v7;
-        v11 = MGCopyAnswer();
-        v12 = [v11 BOOLValue];
+        v37 = v8;
+        v12 = MGCopyAnswer();
+        v13 = [v12 BOOLValue];
 
-        if (((v12 | os_variant_is_recovery()) & 1) == 0)
+        if (((v13 | os_variant_is_recovery()) & 1) == 0)
         {
-          v14 = cryptex_copy_list_4MSM();
-          if ((v14 & 0xFFFFFFFD) != 0)
+          v15 = cryptex_copy_list_4MSM();
+          if ((v15 & 0xFFFFFFFD) != 0)
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
             {
-              v15 = strerror(v14);
+              v16 = strerror(v15);
               *buf = 67109378;
-              *&buf[4] = v14;
+              *&buf[4] = v15;
               LOWORD(v51) = 2080;
-              *(&v51 + 2) = v15;
+              *(&v51 + 2) = v16;
               _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to copy cryptex list (%d (%s)), non-fatal.", buf, 0x12u);
             }
 
-            v44 = 0;
+            v45 = 0;
           }
         }
 
-        v16 = 0;
-        v17 = v1;
-        v18 = v36;
-        f_mntonname = v36->f_mntonname;
-        *&v13 = 136315138;
-        v35 = v13;
+        v17 = 0;
+        v18 = v2;
+        v19 = v37;
+        f_mntonname = v37->f_mntonname;
+        *&v14 = 136315138;
+        v36 = v14;
         while (1)
         {
           *buf = 0;
           *&v51 = buf;
           *(&v51 + 1) = 0x2020000000;
           v52 = 0;
-          v20 = sub_100012BB4(v18, v45, v44);
-          v21 = v20;
-          if (!v20)
+          v21 = sub_100012BB4(v19, v46, v45);
+          v22 = v21;
+          if (!v21)
           {
             break;
           }
 
-          v22 = [v20 objectForKeyedSubscript:@"MountPath"];
-          if (!v22)
+          v23 = [v21 objectForKeyedSubscript:@"MountPath"];
+          if (!v23)
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
             {
               *v48 = 138412290;
               v49 = @"MountPath";
-              v25 = "Map entry missing value for key %@.";
-              v26 = 12;
+              v26 = "Map entry missing value for key %@.";
+              v27 = 12;
 LABEL_36:
-              _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v25, v48, v26);
+              _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v26, v48, v27);
             }
 
             goto LABEL_37;
           }
 
-          v39 = v22;
-          v23 = [v21 objectForKeyedSubscript:@"DiskImageType"];
-          v24 = [v23 isEqualToString:@"Cryptex"];
+          v40 = v23;
+          v24 = [v22 objectForKeyedSubscript:@"DiskImageType"];
+          v25 = [v24 isEqualToString:@"Cryptex"];
 
-          if (v24)
+          if (v25)
           {
             *(v51 + 24) = 1;
           }
 
           else
           {
-            v40[0] = _NSConcreteStackBlock;
-            v40[1] = 3221225472;
-            v40[2] = sub_100013940;
-            v40[3] = &unk_100030FC8;
-            v29 = v39;
-            v41 = v29;
-            v42 = v21;
-            v43 = buf;
-            [&off_100034AF8 enumerateObjectsUsingBlock:v40];
+            v41[0] = _NSConcreteStackBlock;
+            v41[1] = 3221225472;
+            v41[2] = sub_100013940;
+            v41[3] = &unk_100030FC8;
+            v30 = v40;
+            v42 = v30;
+            v43 = v22;
+            v44 = buf;
+            [&off_100034AF8 enumerateObjectsUsingBlock:v41];
 
             if ((*(v51 + 24) & 1) == 0)
             {
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
               {
-                sub_10001C09C(v46, v29, &v47);
+                sub_10001C09C(v47, v30, &v47[4]);
               }
 
-              v27 = 0;
               v28 = 0;
-              v32 = 0;
-              v30 = 0;
-              v38 = v16;
-              v39 = v29;
+              v29 = 0;
+              v33 = 0;
+              v31 = 0;
+              v39 = v17;
+              v40 = v30;
               goto LABEL_55;
             }
           }
 
-          v38 = [v21 objectForKeyedSubscript:{@"DeviceNode", v35}];
+          v39 = [v22 objectForKeyedSubscript:{@"DeviceNode", v36}];
 
-          if (v38)
+          if (v39)
           {
-            v30 = [v21 objectForKeyedSubscript:@"DeviceType"];
-            if (v30)
+            v31 = [v22 objectForKeyedSubscript:@"DeviceType"];
+            if (v31)
             {
-              if ([@"DiskImage" isEqualToString:v30])
+              if ([@"DiskImage" isEqualToString:v31])
               {
-                v31 = sub_1000139C8(v18 + 1112);
-                if (v31)
+                v32 = sub_1000139C8(v19 + 1112);
+                if (v32)
                 {
-                  [v21 setObject:v31 forKeyedSubscript:@"BackingImage"];
-                  v27 = [v21 objectForKeyedSubscript:@"ImageSignature"];
-                  if (v27)
+                  [v22 setObject:v32 forKeyedSubscript:@"BackingImage"];
+                  v28 = [v22 objectForKeyedSubscript:@"ImageSignature"];
+                  if (v28)
                   {
-                    v32 = 0;
-                    v28 = v31;
+                    v33 = 0;
+                    v29 = v32;
 LABEL_61:
-                    [v37 setObject:v21 forKeyedSubscript:v38];
+                    [v38 setObject:v22 forKeyedSubscript:v39];
                     goto LABEL_55;
                   }
 
-                  v28 = sub_1000139C8(v18 + 1112);
+                  v29 = sub_1000139C8(v19 + 1112);
 
-                  if (v28)
+                  if (v29)
                   {
-                    v32 = sub_100013B80(v28);
-                    if (v32)
+                    v33 = sub_100013B80(v29);
+                    if (v33)
                     {
-                      v27 = [[NSMutableData alloc] initDataWithHexString:v32];
-                      if (v27)
+                      v28 = [[NSMutableData alloc] initDataWithHexString:v33];
+                      if (v28)
                       {
-                        [v21 setObject:v27 forKeyedSubscript:@"ImageSignature"];
+                        [v22 setObject:v28 forKeyedSubscript:@"ImageSignature"];
                         goto LABEL_61;
                       }
 
                       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                       {
                         *v48 = 138412290;
-                        v49 = v28;
+                        v49 = v29;
                         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to convert signature from %@", v48, 0xCu);
                       }
                     }
@@ -8442,11 +8450,11 @@ LABEL_61:
                       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                       {
                         *v48 = 138412290;
-                        v49 = v28;
+                        v49 = v29;
                         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to recover signature from %@", v48, 0xCu);
                       }
 
-                      v32 = 0;
+                      v33 = 0;
                     }
 
                     goto LABEL_60;
@@ -8455,7 +8463,7 @@ LABEL_61:
                   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                   {
 LABEL_58:
-                    *v48 = v35;
+                    *v48 = v36;
                     v49 = f_mntonname;
                     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to get backing image path for %s", v48, 0xCu);
                   }
@@ -8467,10 +8475,10 @@ LABEL_58:
                 }
               }
 
-              v32 = 0;
-              v28 = 0;
+              v33 = 0;
+              v29 = 0;
 LABEL_60:
-              v27 = 0;
+              v28 = 0;
               goto LABEL_61;
             }
 
@@ -8491,31 +8499,31 @@ LABEL_60:
               _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Map entry missing %@.", v48, 0xCu);
             }
 
-            v38 = 0;
+            v39 = 0;
           }
 
-          v27 = 0;
           v28 = 0;
+          v29 = 0;
 LABEL_54:
-          v32 = 0;
-          v30 = 0;
+          v33 = 0;
+          v31 = 0;
 LABEL_55:
           _Block_object_dispose(buf, 8);
 
-          v18 += 2168;
+          v19 += 2168;
           f_mntonname = (f_mntonname + 2168);
-          v8 = v38;
-          v16 = v38;
-          if (!--v17)
+          v9 = v39;
+          v17 = v39;
+          if (!--v18)
           {
-            v7 = v36;
-            if (!v36)
+            v8 = v37;
+            if (!v37)
             {
               goto LABEL_77;
             }
 
 LABEL_76:
-            free(v7);
+            free(v8);
             goto LABEL_77;
           }
         }
@@ -8523,30 +8531,30 @@ LABEL_76:
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
         {
           *v48 = 0;
-          v25 = "Failed to create map entry.";
-          v26 = 2;
+          v26 = "Failed to create map entry.";
+          v27 = 2;
           goto LABEL_36;
         }
 
 LABEL_37:
-        v27 = 0;
         v28 = 0;
-        v38 = v16;
-        v39 = 0;
+        v29 = 0;
+        v39 = v17;
+        v40 = 0;
         goto LABEL_54;
       }
     }
 
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = *__error();
+      v34 = *__error();
       *buf = 67109120;
-      *&buf[4] = v33;
+      *&buf[4] = v34;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to get mount information: %{errno}d", buf, 8u);
     }
 
-    v8 = 0;
-    if (v7)
+    v9 = 0;
+    if (v8)
     {
       goto LABEL_76;
     }
@@ -8560,19 +8568,19 @@ LABEL_37:
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to create dictionary.", buf, 2u);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
 LABEL_77:
-  if (v45)
+  if (v46)
   {
     cryptex_msm_array_destroy();
   }
 
-  return v37;
+  return v38;
 }
 
-id sub_100012BB4(uint64_t a1, uint64_t *a2, uint64_t a3)
+id sub_100012BB4(uint64_t a1, void *a2, uint64_t a3)
 {
   if (!a1 || (v3 = a3, (v4 = a2) == 0) && a3)
   {
@@ -8641,9 +8649,9 @@ LABEL_6:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v37 = "Failed to get C string.";
+      v36 = "Failed to get C string.";
 LABEL_53:
-      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v37, buf, 2u);
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v36, buf, 2u);
     }
 
 LABEL_54:
@@ -8664,7 +8672,7 @@ LABEL_54:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v37 = "Failed to create string.";
+      v36 = "Failed to create string.";
       goto LABEL_53;
     }
 
@@ -8702,9 +8710,9 @@ LABEL_54:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v59 = v14;
-      v60 = 2080;
-      v61 = (a1 + 88);
+      v58 = v14;
+      v59 = 2080;
+      v60 = (a1 + 88);
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to create URL (%@ / %s).", buf, 0x16u);
     }
 
@@ -8724,9 +8732,9 @@ LABEL_54:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v38 = [v9 lastPathComponent];
+      v37 = [v9 lastPathComponent];
       *buf = 138412290;
-      v59 = v38;
+      v58 = v37;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to create a BSD matching dictionary for %@.", buf, 0xCu);
     }
 
@@ -8746,7 +8754,7 @@ LABEL_64:
     if (([(__CFString *)v14 isEqualToString:@"devfs"]& 1) == 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v59 = v14;
+      v58 = v14;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to retrieve the IO service matching the device node for %@.", buf, 0xCu);
     }
 
@@ -8768,34 +8776,34 @@ LABEL_105:
   [v15 setObject:@"DiskImage" forKeyedSubscript:@"DeviceType"];
   if (!strcmp("/Developer", __s2))
   {
-    v39 = @"Developer";
-    v40 = &off_100030CA0;
+    v38 = @"Developer";
+    v39 = &off_100030CA0;
 LABEL_103:
-    [v15 setObject:v39 forKeyedSubscript:*v40];
+    [v15 setObject:v38 forKeyedSubscript:*v39];
     goto LABEL_104;
   }
 
   if (__s2 == strnstr(__s2, "/private/var/personalized_automation", 0x24uLL))
   {
     [v15 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-    v41 = &off_100030CE8;
+    v40 = &off_100030CE8;
 LABEL_102:
-    v39 = *v41;
-    v40 = &off_100030CC0;
+    v38 = *v40;
+    v39 = &off_100030CC0;
     goto LABEL_103;
   }
 
   if (__s2 == strnstr(__s2, "/private/var/personalized_demo", 0x1EuLL))
   {
     [v15 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-    v41 = &off_100030CD8;
+    v40 = &off_100030CD8;
     goto LABEL_102;
   }
 
   if (__s2 == strnstr(__s2, "/private/var/personalized_debug", 0x1FuLL))
   {
     [v15 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-    v41 = &off_100030CC8;
+    v40 = &off_100030CC8;
     goto LABEL_102;
   }
 
@@ -8804,31 +8812,31 @@ LABEL_102:
     if (__s2 == strnstr(__s2, "/private/var/personalized_factory", 0x21uLL))
     {
       [v15 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-      v41 = &off_100030CE0;
+      v40 = &off_100030CE0;
     }
 
     else if (__s2 == strnstr(__s2, "/System/Volumes/FieldService", 0x1CuLL))
     {
       [v15 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-      v41 = &off_100030CF8;
+      v40 = &off_100030CF8;
     }
 
     else if (__s2 == strnstr(__s2, "/System/Volumes/FieldServiceDiagnostic", 0x26uLL))
     {
       [v15 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-      v41 = &off_100030D00;
+      v40 = &off_100030D00;
     }
 
     else if (__s2 == strnstr(__s2, "/System/Volumes/FieldServiceRepair", 0x22uLL))
     {
       [v15 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-      v41 = &off_100030D08;
+      v40 = &off_100030D08;
     }
 
     else if (__s2 == strnstr(__s2, "/private/var/personalized_quality", 0x21uLL))
     {
       [v15 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-      v41 = &off_100030D10;
+      v40 = &off_100030D10;
     }
 
     else
@@ -8847,20 +8855,19 @@ LABEL_102:
         {
           while (1)
           {
-            v27 = *v4;
             string = cryptex_msm_get_string();
             if (string)
             {
-              v29 = string;
-              v30 = strlen((a1 + 1112));
-              if (strnstr(v29, (a1 + 1112), v30))
+              v28 = string;
+              v29 = strlen((a1 + 1112));
+              if (strnstr(v28, (a1 + 1112), v29))
               {
-                v31 = cryptex_msm_get_string();
-                if (v31)
+                v30 = cryptex_msm_get_string();
+                if (v30)
                 {
-                  v32 = v31;
-                  v33 = cryptex_msm_get_string();
-                  if (v33)
+                  v31 = v30;
+                  v32 = cryptex_msm_get_string();
+                  if (v32)
                   {
                     break;
                   }
@@ -8875,23 +8882,23 @@ LABEL_102:
             }
           }
 
-          v52 = [NSString stringWithUTF8String:v33];
-          [v15 setObject:v52 forKeyedSubscript:@"CryptexName"];
+          v51 = [NSString stringWithUTF8String:v32];
+          [v15 setObject:v51 forKeyedSubscript:@"CryptexName"];
 
-          v53 = [NSString stringWithUTF8String:v32];
-          [v15 setObject:v53 forKeyedSubscript:@"CryptexVersion"];
+          v52 = [NSString stringWithUTF8String:v31];
+          [v15 setObject:v52 forKeyedSubscript:@"CryptexVersion"];
         }
 
 LABEL_39:
-        v34 = [v15 objectForKeyedSubscript:@"CryptexName"];
-        if (!v34 || (v35 = v34, [v15 objectForKeyedSubscript:@"CryptexVersion"], v36 = objc_claimAutoreleasedReturnValue(), v36, v35, !v36))
+        v33 = [v15 objectForKeyedSubscript:@"CryptexName"];
+        if (!v33 || (v34 = v33, [v15 objectForKeyedSubscript:@"CryptexVersion"], v35 = objc_claimAutoreleasedReturnValue(), v35, v34, !v35))
         {
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v59 = v14;
-            v60 = 2112;
-            v61 = v13;
+            v58 = v14;
+            v59 = 2112;
+            v60 = v13;
             _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Mount (%@ / %@) is not a cryptex or personalized image (not fatal).", buf, 0x16u);
           }
 
@@ -8902,7 +8909,7 @@ LABEL_39:
           v10 = 0;
           v11 = 0;
 LABEL_113:
-          v49 = mainPort;
+          v48 = mainPort;
           if (!mainPort)
           {
             goto LABEL_115;
@@ -8915,32 +8922,32 @@ LABEL_113:
       }
 
       [v15 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-      v41 = &off_100030D18;
+      v40 = &off_100030D18;
     }
 
     goto LABEL_102;
   }
 
-  v42 = [v13 stringByAppendingPathComponent:@"Library/Frameworks/DTRemoteServices.framework"];
-  if (v42)
+  v41 = [v13 stringByAppendingPathComponent:@"Library/Frameworks/DTRemoteServices.framework"];
+  if (v41)
   {
-    v10 = v42;
-    [NSURL fileURLWithPath:v42 isDirectory:0];
+    v10 = v41;
+    [NSURL fileURLWithPath:v41 isDirectory:0];
     Unique = _CFBundleCreateUnique();
     if (Unique)
     {
       cf = Unique;
       v11 = CFBundleGetValueForInfoDictionaryKey(Unique, kCFBundleVersionKey);
-      v44 = sub_100011650(v11);
+      v43 = sub_100011650(v11);
 
-      if (v44)
+      if (v43)
       {
-        v45 = [v13 stringByAppendingPathComponent:@"version.plist"];
-        if (v45)
+        v44 = [v13 stringByAppendingPathComponent:@"version.plist"];
+        if (v44)
         {
-          v8 = v45;
-          v46 = +[NSFileManager defaultManager];
-          __s2a = [v46 fileExistsAtPath:v8];
+          v8 = v44;
+          v45 = +[NSFileManager defaultManager];
+          __s2a = [v45 fileExistsAtPath:v8];
 
           if (__s2a)
           {
@@ -8955,6 +8962,17 @@ LABEL_81:
 LABEL_106:
               if (*(a1 + 64))
               {
+                v49 = &__kCFBooleanTrue;
+              }
+
+              else
+              {
+                v49 = &__kCFBooleanFalse;
+              }
+
+              [v15 setObject:v49 forKeyedSubscript:@"IsReadOnly"];
+              if ((*(a1 + 64) & 0x80) != 0)
+              {
                 v50 = &__kCFBooleanTrue;
               }
 
@@ -8963,18 +8981,7 @@ LABEL_106:
                 v50 = &__kCFBooleanFalse;
               }
 
-              [v15 setObject:v50 forKeyedSubscript:@"IsReadOnly"];
-              if ((*(a1 + 64) & 0x80) != 0)
-              {
-                v51 = &__kCFBooleanTrue;
-              }
-
-              else
-              {
-                v51 = &__kCFBooleanFalse;
-              }
-
-              [v15 setObject:v51 forKeyedSubscript:@"SupportsContentProtection"];
+              [v15 setObject:v50 forKeyedSubscript:@"SupportsContentProtection"];
               v7 = v15;
               goto LABEL_113;
             }
@@ -8995,8 +9002,8 @@ LABEL_106:
         }
 
         *buf = 0;
-        v47 = "Failed to create path.";
-        v48 = 2;
+        v46 = "Failed to create path.";
+        v47 = 2;
       }
 
       else
@@ -9010,12 +9017,12 @@ LABEL_99:
         }
 
         *buf = 138412290;
-        v59 = kCFBundleVersionKey;
-        v47 = "Failed to query bundle key %@.";
-        v48 = 12;
+        v58 = kCFBundleVersionKey;
+        v46 = "Failed to query bundle key %@.";
+        v47 = 12;
       }
 
-      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v47, buf, v48);
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v46, buf, v47);
       goto LABEL_99;
     }
 
@@ -9045,9 +9052,9 @@ LABEL_99:
   cf = 0;
 LABEL_100:
   v7 = 0;
-  v49 = mainPort;
+  v48 = mainPort;
 LABEL_114:
-  IOObjectRelease(v49);
+  IOObjectRelease(v48);
 LABEL_115:
   if (cf)
   {
@@ -9249,7 +9256,7 @@ id sub_100013F98()
 {
   properties = 0;
   existing = 0;
-  bzero(v55, 0x878uLL);
+  bzero(v53, 0x878uLL);
   v0 = IOServiceMatching("IOMedia");
   if (IOServiceGetMatchingServices(kIOMasterPortDefault, v0, &existing))
   {
@@ -9311,7 +9318,7 @@ LABEL_3:
       }
 
       *buf = 67109120;
-      LODWORD(v52) = v14 & 0x3FFF;
+      LODWORD(v50) = v14 & 0x3FFF;
       v15 = "IORegistryEntryCreateCFProperties failed: 0x%04x";
       v16 = 8;
       goto LABEL_16;
@@ -9328,7 +9335,7 @@ LABEL_3:
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v52 = "BSD Name";
+          v50 = "BSD Name";
           _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to retrieve %s.", buf, 0xCu);
         }
 
@@ -9386,7 +9393,7 @@ LABEL_3:
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
             {
-              sub_10001C174(v49, v17, &v50);
+              sub_10001C174(v48, v17, &v48[4]);
             }
 
             goto LABEL_38;
@@ -9403,7 +9410,7 @@ LABEL_3:
             {
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
               {
-                sub_10001C1C0(v47, v17, &v48);
+                sub_10001C1C0(v47, v17, &v47[4]);
               }
 
               goto LABEL_38;
@@ -9421,7 +9428,7 @@ LABEL_3:
               v39 &= v33 ^ 1;
             }
 
-            v34 = sub_100011794();
+            v34 = sub_100011794(v19);
             if (v34 != 4 && (v34 & 3) != 1)
             {
               v35 = objc_alloc_init(NSMutableDictionary);
@@ -9461,7 +9468,7 @@ LABEL_72:
               {
                 if (__strlcpy_chk() < 0x10)
                 {
-                  v35 = sub_100012BB4(v55, 0, 0);
+                  v35 = sub_100012BB4(v53, 0, 0);
 
                   if (v35)
                   {
@@ -9471,7 +9478,7 @@ LABEL_72:
                   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v52 = v19;
+                    v50 = v19;
                     v37 = "Failed to create map entry for %@.";
                     v38 = 12;
                     goto LABEL_72;
@@ -9511,9 +9518,9 @@ LABEL_73:
           }
 
           *buf = 138412546;
-          v52 = v17;
-          v53 = 2080;
-          v54 = "Leaf";
+          v50 = v17;
+          v51 = 2080;
+          v52 = "Leaf";
           v23 = "The attached media object %@ does not have a '%s' flag.";
         }
 
@@ -9525,9 +9532,9 @@ LABEL_73:
           }
 
           *buf = 138412546;
-          v52 = v17;
-          v53 = 2080;
-          v54 = "Removable";
+          v50 = v17;
+          v51 = 2080;
+          v52 = "Removable";
           v23 = "The attached media object %@ does not have a '%s' flag.";
         }
       }
@@ -9545,9 +9552,9 @@ LABEL_39:
         }
 
         *buf = 138412546;
-        v52 = v17;
-        v53 = 2080;
-        v54 = "Content";
+        v50 = v17;
+        v51 = 2080;
+        v52 = "Content";
         v23 = "The attached media object %@ does not have a '%s' flag.";
       }
 

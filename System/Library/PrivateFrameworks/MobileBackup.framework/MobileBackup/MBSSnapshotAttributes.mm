@@ -179,7 +179,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    keybagID = self->_keybagID;
     PBDataWriterWriteUint32Field();
   }
 
@@ -191,14 +190,12 @@
   has = self->_has;
   if (has)
   {
-    backupReason = self->_backupReason;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    backupType = self->_backupType;
 
     PBDataWriterWriteInt32Field();
   }

@@ -18,17 +18,17 @@
 
 + (void)analyticsOSLogNSDictionary:(id)dictionary forEvent:(id)event toLogPath:(id)path withPrefix:(id)prefix
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   eventCopy = event;
   pathCopy = path;
   prefixCopy = prefix;
-  v32 = os_transaction_create();
+  v31 = os_transaction_create();
   v12 = [dictionaryCopy description];
   v13 = [v12 length];
-  v44 = 0;
-  v45 = 0;
   v43 = 0;
+  v44 = 0;
+  v42 = 0;
   array = [MEMORY[0x1E695DF70] array];
   queue = dispatch_queue_create("com.apple.biometrickit.analyticsFileLog", 0);
   if (queue)
@@ -77,23 +77,23 @@ LABEL_3:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v47 = __Block_byref_object_copy__1;
-      *v48 = __Block_byref_object_dispose__1;
+      v46 = __Block_byref_object_copy__1;
+      *v47 = __Block_byref_object_dispose__1;
       v17 = MEMORY[0x1E696AEC0];
       date = [MEMORY[0x1E695DF00] date];
       [date timeIntervalSince1970];
-      *&v48[8] = [v17 stringWithFormat:@"%@/%d_%@.plist", pathCopy, v19, eventCopy];
+      *&v47[8] = [v17 stringWithFormat:@"%@/%d_%@.plist", pathCopy, v19, eventCopy];
 
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __82__BiometricSupportTools_analyticsOSLogNSDictionary_forEvent_toLogPath_withPrefix___block_invoke;
       block[3] = &unk_1E8304380;
-      v37 = v32;
-      v38 = pathCopy;
-      v42 = buf;
-      v39 = eventCopy;
-      v40 = prefixCopy;
-      v41 = dictionaryCopy;
+      v36 = v31;
+      v37 = pathCopy;
+      v41 = buf;
+      v38 = eventCopy;
+      v39 = prefixCopy;
+      v40 = dictionaryCopy;
       dispatch_async(queue, block);
 
       _Block_object_dispose(buf, 8);
@@ -106,19 +106,19 @@ LABEL_8:
     v20 = 0;
     do
     {
-      [v12 getParagraphStart:&v45 end:&v44 contentsEnd:&v43 forRange:{v20, 0}];
-      v21 = [v12 substringWithRange:{v45, v43 - v45}];
+      [v12 getParagraphStart:&v44 end:&v43 contentsEnd:&v42 forRange:{v20, 0}];
+      v21 = [v12 substringWithRange:{v44, v42 - v44}];
       [array addObject:v21];
 
-      v20 = v44;
+      v20 = v43;
     }
 
-    while (v44 < v13);
+    while (v43 < v13);
   }
 
-  v34 = prefixCopy;
-  v30 = pathCopy;
-  v33 = [array count] / 0x19uLL + 1;
+  v33 = prefixCopy;
+  v29 = pathCopy;
+  v32 = [array count] / 0x19uLL + 1;
   string = [MEMORY[0x1E696AD60] string];
   if ([array count])
   {
@@ -145,15 +145,15 @@ LABEL_8:
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138413314;
-          *&buf[4] = v34;
+          *&buf[4] = v33;
           *&buf[12] = 2112;
           *&buf[14] = eventCopy;
           *&buf[22] = 2048;
-          v47 = v24;
-          *v48 = 2048;
-          *&v48[2] = v33;
-          *&v48[10] = 2112;
-          *&v48[12] = string;
+          v46 = v24;
+          *v47 = 2048;
+          *&v47[2] = v32;
+          *&v47[10] = 2112;
+          *&v47[12] = string;
           _os_log_impl(&dword_1C82AD000, v26, OS_LOG_TYPE_DEBUG, "%@: sendEvent: %@ (print %ld of %ld): \n%@\n", buf, 0x34u);
         }
 
@@ -187,24 +187,22 @@ LABEL_8:
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413314;
-    *&buf[4] = v34;
+    *&buf[4] = v33;
     *&buf[12] = 2112;
     *&buf[14] = eventCopy;
     *&buf[22] = 2048;
-    v47 = v24;
-    *v48 = 2048;
-    *&v48[2] = v33;
-    *&v48[10] = 2112;
-    *&v48[12] = string;
+    v46 = v24;
+    *v47 = 2048;
+    *&v47[2] = v32;
+    *&v47[10] = 2112;
+    *&v47[12] = string;
     _os_log_impl(&dword_1C82AD000, v28, OS_LOG_TYPE_DEBUG, "%@: sendEvent: %@ (print %ld of %ld): \n%@\n", buf, 0x34u);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __82__BiometricSupportTools_analyticsOSLogNSDictionary_forEvent_toLogPath_withPrefix___block_invoke(uint64_t a1)
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   v3 = [v2 fileExistsAtPath:*(a1 + 40)];
 
@@ -212,13 +210,13 @@ void __82__BiometricSupportTools_analyticsOSLogNSDictionary_forEvent_toLogPath_w
   {
     v4 = [MEMORY[0x1E696AC08] defaultManager];
     v5 = *MEMORY[0x1E696A3A0];
-    v29[0] = *MEMORY[0x1E696A360];
-    v29[1] = v5;
+    v28[0] = *MEMORY[0x1E696A360];
+    v28[1] = v5;
     v6 = *(a1 + 40);
     v7 = *MEMORY[0x1E696A3A8];
-    v30[0] = @"mobile";
-    v30[1] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
+    v29[0] = @"mobile";
+    v29[1] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
     LOBYTE(v6) = [v4 createDirectoryAtPath:v6 withIntermediateDirectories:0 attributes:v8 error:0];
 
     if ((v6 & 1) == 0)
@@ -258,11 +256,11 @@ void __82__BiometricSupportTools_analyticsOSLogNSDictionary_forEvent_toLogPath_w
     v19 = *(a1 + 56);
     v21 = *(*(*(a1 + 72) + 8) + 40);
     *buf = 138412802;
-    v24 = v19;
-    v25 = 2112;
-    v26 = v20;
-    v27 = 2112;
-    v28 = v21;
+    v23 = v19;
+    v24 = 2112;
+    v25 = v20;
+    v26 = 2112;
+    v27 = v21;
     _os_log_impl(&dword_1C82AD000, v18, OS_LOG_TYPE_DEBUG, "%@: write event: %@ to file: %@\n", buf, 0x20u);
   }
 
@@ -270,60 +268,46 @@ void __82__BiometricSupportTools_analyticsOSLogNSDictionary_forEvent_toLogPath_w
   {
     __82__BiometricSupportTools_analyticsOSLogNSDictionary_forEvent_toLogPath_withPrefix___block_invoke_cold_2();
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 + (void)analyticsOSLogNSDictionary:forEvent:toLogPath:withPrefix:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)analyticsOSLogNSDictionary:forEvent:toLogPath:withPrefix:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __82__BiometricSupportTools_analyticsOSLogNSDictionary_forEvent_toLogPath_withPrefix___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __82__BiometricSupportTools_analyticsOSLogNSDictionary_forEvent_toLogPath_withPrefix___block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

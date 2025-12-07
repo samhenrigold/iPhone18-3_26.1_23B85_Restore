@@ -1,5 +1,6 @@
 @interface MURouteSnapshotKey
 - (BOOL)isEqual:(id)equal;
+- (MURouteSnapshotKey)initWithIdentifier:(id)identifier width:(double)width height:(double)height scale:(double)scale padding:(UIEdgeInsets)padding darkMode:(BOOL)mode;
 - (UIEdgeInsets)padding;
 - (unint64_t)hash;
 @end
@@ -95,6 +96,51 @@
   }
 
   return v11;
+}
+
+- (MURouteSnapshotKey)initWithIdentifier:(id)identifier width:(double)width height:(double)height scale:(double)scale padding:(UIEdgeInsets)padding darkMode:(BOOL)mode
+{
+  modeCopy = mode;
+  right = padding.right;
+  bottom = padding.bottom;
+  left = padding.left;
+  top = padding.top;
+  identifierCopy = identifier;
+  v29.receiver = self;
+  v29.super_class = MURouteSnapshotKey;
+  v18 = [(MURouteSnapshotKey *)&v29 init];
+  if (v18)
+  {
+    v19 = [identifierCopy copy];
+    identifier = v18->_identifier;
+    v18->_identifier = v19;
+
+    v21 = vcvtmd_u64_f64(width);
+    v22 = vcvtmd_u64_f64(height);
+    v18->_width = floor(width);
+    v18->_height = floor(height);
+    v23 = vcvtmd_u64_f64(scale);
+    if (!v23)
+    {
+      v23 = 2;
+    }
+
+    v18->_scale = v23;
+    v18->_padding.top = floor(top);
+    v18->_padding.left = floor(left);
+    v18->_padding.bottom = floor(bottom);
+    v18->_padding.right = floor(right);
+    v18->_darkMode = modeCopy;
+    modeCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"RouteSnapshot-%@-%lux%lu@%lu~%lu-%lu-%lu-%lu~%d", v18->_identifier, v21, v22, v23, vcvtmd_u64_f64(left), vcvtmd_u64_f64(right), vcvtmd_u64_f64(top), vcvtmd_u64_f64(bottom), modeCopy];
+    fileName = v18->_fileName;
+    v18->_fileName = modeCopy;
+
+    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@: %p %@>", objc_opt_class(), v18, v18->_fileName];
+    internalDescription = v18->_internalDescription;
+    v18->_internalDescription = v26;
+  }
+
+  return v18;
 }
 
 @end

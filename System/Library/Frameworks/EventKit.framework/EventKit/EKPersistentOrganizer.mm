@@ -1,6 +1,8 @@
 @interface EKPersistentOrganizer
 + (id)defaultPropertiesToLoad;
++ (id)organizerWithName:(id)name emailAddress:(id)address address:(id)a5 isCurrentUser:(BOOL)user;
 + (id)relations;
+- (EKPersistentOrganizer)initWithName:(id)name emailAddress:(id)address address:(id)a5 isCurrentUser:(BOOL)user;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 @end
@@ -26,19 +28,17 @@
 
 void __48__EKPersistentOrganizer_defaultPropertiesToLoad__block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7.receiver = *(a1 + 32);
-  v7.super_class = &OBJC_METACLASS___EKPersistentOrganizer;
-  v1 = objc_msgSendSuper2(&v7, sel_defaultPropertiesToLoad);
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6.receiver = *(a1 + 32);
+  v6.super_class = &OBJC_METACLASS___EKPersistentOrganizer;
+  v1 = objc_msgSendSuper2(&v6, sel_defaultPropertiesToLoad);
   v2 = *MEMORY[0x1E6992B30];
-  v8[0] = *MEMORY[0x1E6992B28];
-  v8[1] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
+  v7[0] = *MEMORY[0x1E6992B28];
+  v7[1] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
   v4 = [v1 arrayByAddingObjectsFromArray:v3];
   v5 = defaultPropertiesToLoad_defaultPropertiesToLoad_6;
   defaultPropertiesToLoad_defaultPropertiesToLoad_6 = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (id)relations
@@ -109,6 +109,36 @@ void __34__EKPersistentOrganizer_relations__block_invoke()
   v11 = [v3 stringWithFormat:@"%@ <%p> {UUID = %@ displayName = %@; email = %@; phoneNumber = %@; firstName = %@; lastName = %@; isSelf = %d}", v4, self, uUID, displayNameRaw, emailAddress, phoneNumber, firstName, lastName, -[EKPersistentOrganizer isCurrentUser](self, "isCurrentUser")];;
 
   return v11;
+}
+
++ (id)organizerWithName:(id)name emailAddress:(id)address address:(id)a5 isCurrentUser:(BOOL)user
+{
+  userCopy = user;
+  v10 = a5;
+  addressCopy = address;
+  nameCopy = name;
+  v13 = [[self alloc] initWithName:nameCopy emailAddress:addressCopy address:v10 isCurrentUser:userCopy];
+
+  return v13;
+}
+
+- (EKPersistentOrganizer)initWithName:(id)name emailAddress:(id)address address:(id)a5 isCurrentUser:(BOOL)user
+{
+  userCopy = user;
+  nameCopy = name;
+  addressCopy = address;
+  v12 = a5;
+  v13 = [(EKPersistentObject *)self init];
+  v14 = v13;
+  if (v13)
+  {
+    [(EKPersistentParticipant *)v13 setDisplayNameRaw:nameCopy];
+    [(EKPersistentParticipant *)v14 setEmailAddress:addressCopy];
+    [(EKPersistentParticipant *)v14 setURLString:v12];
+    [(EKPersistentOrganizer *)v14 setIsCurrentUser:userCopy];
+  }
+
+  return v14;
 }
 
 @end

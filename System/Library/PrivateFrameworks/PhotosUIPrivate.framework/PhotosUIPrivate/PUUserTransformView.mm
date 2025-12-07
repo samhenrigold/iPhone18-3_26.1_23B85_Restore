@@ -668,7 +668,7 @@ LABEL_12:
       v94 = 0u;
       v95 = 0u;
       v93 = 0u;
-      [(PUUserTransformView *)self userAffineTransform];
+      objc_msgSend_userAffineTransform(self);
       v92 = *v29;
       v91 = v44;
       v90[0] = v93;
@@ -1095,12 +1095,12 @@ void __51__PUUserTransformView__updateZoomAndScrollIfNeeded__block_invoke(uint64
 
   if (layer)
   {
-    [layer transform];
+    objc_msgSend_transform(layer);
     v8 = *&v25;
     if (presentationLayer)
     {
 LABEL_3:
-      [presentationLayer transform];
+      objc_msgSend_transform(presentationLayer);
       v9 = *&v17;
       goto LABEL_6;
     }
@@ -1222,7 +1222,7 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  [layer2 transform];
+  objc_msgSend_transform(layer2);
   v21 = v39;
   if (!v10)
   {
@@ -1230,7 +1230,7 @@ LABEL_10:
   }
 
 LABEL_8:
-  [v10 transform];
+  objc_msgSend_transform(v10);
   v22 = v38;
 LABEL_11:
   animationKeys = [layer2 animationKeys];
@@ -2207,13 +2207,17 @@ uint64_t __80__PUUserTransformView__updateScrollViewMinimumZoomScaleAndGoToMinim
 - (void)setUserAffineTransform:(CGAffineTransform *)transform
 {
   p_userAffineTransform = &self->_userAffineTransform;
-  if ((PUAffineTransformIsApproximatelyEqualToTransform() & 1) == 0)
+  v6 = *&transform->c;
+  v9[0] = *&transform->a;
+  v9[1] = v6;
+  v9[2] = *&transform->tx;
+  if ((PUAffineTransformIsApproximatelyEqualToTransform(v9) & 1) == 0)
   {
-    v6 = *&transform->a;
-    v7 = *&transform->tx;
+    v7 = *&transform->a;
+    v8 = *&transform->tx;
     *&p_userAffineTransform->c = *&transform->c;
-    *&p_userAffineTransform->tx = v7;
-    *&p_userAffineTransform->a = v6;
+    *&p_userAffineTransform->tx = v8;
+    *&p_userAffineTransform->a = v7;
 
     [(PUUserTransformView *)self _invalidateScrollView];
   }

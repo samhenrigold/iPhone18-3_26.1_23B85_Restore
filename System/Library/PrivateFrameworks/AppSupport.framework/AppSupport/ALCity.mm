@@ -8,6 +8,7 @@
 - (NSString)countryOverride;
 - (NSString)name;
 - (id)description;
+- (id)displayNameIncludingCountry:(BOOL)country;
 - (id)displayNameIncludingCountry:(BOOL)country withFormat:(id)format;
 - (void)dealloc;
 - (void)ensureLocalized;
@@ -212,6 +213,14 @@ LABEL_11:
   }
 
   return [v9 stringWithString:countryOverride];
+}
+
+- (id)displayNameIncludingCountry:(BOOL)country
+{
+  countryCopy = country;
+  v5 = [objc_msgSend(MEMORY[0x1E696AAE8] bundleWithIdentifier:{@"com.apple.AppSupport", "localizedStringForKey:value:table:", @"CITY %@, COUNTRY %@", &stru_1F0A49170, @"Localizable"}];
+
+  return [(ALCity *)self displayNameIncludingCountry:countryCopy withFormat:v5];
 }
 
 - (NSString)classicIdentifier

@@ -81,24 +81,24 @@
 void __43__CXChannelProvider_initWithConfiguration___block_invoke()
 {
   v0 = [MEMORY[0x1E6958460] sharedInstance];
-  v6 = 0;
-  v1 = [v0 setInterruptionPriority:0 error:&v6];
-  v2 = v6;
+  v7 = 0;
+  v1 = [v0 setInterruptionPriority:0 error:&v7];
+  v2 = v7;
 
-  v3 = CXDefaultLog();
-  v4 = v3;
+  v4 = CXDefaultLog(v3);
+  v5 = v4;
   if (v1)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Successfully reset audio session interruption priority to Normal", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Successfully reset audio session interruption priority to Normal", v6, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __36__CXProvider_initWithConfiguration___block_invoke_cold_1(v2, v4);
+    __36__CXProvider_initWithConfiguration___block_invoke_cold_1(v2, v5);
   }
 }
 
@@ -128,10 +128,7 @@ void __43__CXChannelProvider_initWithConfiguration___block_invoke()
 
 uint64_t __34__CXChannelProvider_configuration__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -153,17 +150,17 @@ uint64_t __34__CXChannelProvider_configuration__block_invoke(uint64_t a1)
 
 uint64_t __38__CXChannelProvider_setConfiguration___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v10 = 138412546;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v4;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that configuration was set to %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v4;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that configuration was set to %@", &v9, 0x16u);
   }
 
   v5 = [*(a1 + 40) copy];
@@ -171,9 +168,7 @@ uint64_t __38__CXChannelProvider_setConfiguration___block_invoke(uint64_t a1)
   v7 = *(v6 + 8);
   *(v6 + 8) = v5;
 
-  result = [*(a1 + 32) registerCurrentConfiguration];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) registerCurrentConfiguration];
 }
 
 - (id)channelProviderHostDelegate
@@ -239,44 +234,41 @@ uint64_t __38__CXChannelProvider_setConfiguration___block_invoke(uint64_t a1)
 
 void __59__CXChannelProvider_reportChannelWithUUID_connectedAtDate___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) UUIDString];
     v5 = *(a1 + 48);
-    v8 = 138412802;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that channel with UUID %@ connected at date %@", &v8, 0x20u);
+    v7 = 138412802;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that channel with UUID %@ connected at date %@", &v7, 0x20u);
   }
 
   v6 = [*(a1 + 32) channelProviderHostDelegate];
   [v6 reportChannelWithUUID:*(a1 + 40) connectedAtDate:*(a1 + 48) completionHandler:&__block_literal_global_120];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CXChannelProvider_reportChannelWithUUID_connectedAtDate___block_invoke_117(uint64_t a1, void *a2)
 {
   v7 = *MEMORY[0x1E69E9840];
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = CXDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = CXDefaultLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Remote host responded with error %@", &v5, 0xCu);
+      v6 = v3;
+      _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Remote host responded with error %@", &v5, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportChannelWithUUID:(id)d disconnectedAtDate:(id)date disconnectedReason:(int64_t)reason
@@ -305,23 +297,23 @@ void __59__CXChannelProvider_reportChannelWithUUID_connectedAtDate___block_invok
 
 void __81__CXChannelProvider_reportChannelWithUUID_disconnectedAtDate_disconnectedReason___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v19 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) UUIDString];
     v5 = *(a1 + 48);
     v6 = *(a1 + 56);
-    v12 = 138413058;
-    v13 = v3;
-    v14 = 2112;
-    v15 = v4;
-    v16 = 2112;
-    v17 = v5;
-    v18 = 2048;
-    v19 = v6;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that channel with UUID %@ disconnected at date %@ disconnectedReason: %ld", &v12, 0x2Au);
+    v11 = 138413058;
+    v12 = v3;
+    v13 = 2112;
+    v14 = v4;
+    v15 = 2112;
+    v16 = v5;
+    v17 = 2048;
+    v18 = v6;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that channel with UUID %@ disconnected at date %@ disconnectedReason: %ld", &v11, 0x2Au);
   }
 
   v7 = [*(a1 + 32) channelProviderHostDelegate];
@@ -329,26 +321,23 @@ void __81__CXChannelProvider_reportChannelWithUUID_disconnectedAtDate_disconnect
   v9 = *(a1 + 48);
   v10 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 56)];
   [v7 reportChannelWithUUID:v8 disconnectedAtDate:v9 disconnectedReason:v10 completionHandler:&__block_literal_global_124];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __81__CXChannelProvider_reportChannelWithUUID_disconnectedAtDate_disconnectedReason___block_invoke_122(uint64_t a1, void *a2)
 {
   v7 = *MEMORY[0x1E69E9840];
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = CXDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = CXDefaultLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Remote host responded with error %@", &v5, 0xCu);
+      v6 = v3;
+      _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Remote host responded with error %@", &v5, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportChannelWithUUID:(id)d updated:(id)updated completionHandler:(id)handler
@@ -393,65 +382,62 @@ LABEL_3:
 
 void __69__CXChannelProvider_reportChannelWithUUID_updated_completionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v18 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) UUIDString];
     v5 = *(a1 + 48);
     *buf = 138412802;
-    v14 = v3;
-    v15 = 2112;
-    v16 = v4;
-    v17 = 2112;
-    v18 = v5;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v4;
+    v16 = 2112;
+    v17 = v5;
     _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ was notified that channel with UUID %@ updated with: %@", buf, 0x20u);
   }
 
   v6 = [*(a1 + 32) channelProviderHostDelegate];
   v7 = *(a1 + 40);
   v8 = *(a1 + 48);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __69__CXChannelProvider_reportChannelWithUUID_updated_completionHandler___block_invoke_128;
-  v11[3] = &unk_1E7C077F8;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __69__CXChannelProvider_reportChannelWithUUID_updated_completionHandler___block_invoke_128;
+  v10[3] = &unk_1E7C077F8;
   v9 = *(a1 + 56);
-  v11[4] = *(a1 + 32);
-  v12 = v9;
-  [v6 reportChannelWithUUID:v7 updated:v8 completionHandler:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10[4] = *(a1 + 32);
+  v11 = v9;
+  [v6 reportChannelWithUUID:v7 updated:v8 completionHandler:v10];
 }
 
 void __69__CXChannelProvider_reportChannelWithUUID_updated_completionHandler___block_invoke_128(uint64_t a1, void *a2)
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = CXDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CXDefaultLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = v3;
-      _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Remote host responded with error %@", buf, 0xCu);
+      v11 = v4;
+      _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Remote host responded with error %@", buf, 0xCu);
     }
   }
 
   if (*(a1 + 40))
   {
-    v5 = [*(a1 + 32) abstractProvider];
+    v6 = [*(a1 + 32) abstractProvider];
     v7[0] = MEMORY[0x1E69E9820];
     v7[1] = 3221225472;
     v7[2] = __69__CXChannelProvider_reportChannelWithUUID_updated_completionHandler___block_invoke_129;
     v7[3] = &unk_1E7C073B0;
     v9 = *(a1 + 40);
-    v8 = v3;
-    [v5 performDelegateCallback:v7];
+    v8 = v4;
+    [v6 performDelegateCallback:v7];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportIncomingTransmissionEndedForChannelWithUUID:(id)d reason:(int64_t)reason completionHandler:(id)handler
@@ -480,65 +466,62 @@ void __69__CXChannelProvider_reportChannelWithUUID_updated_completionHandler___b
 
 void __96__CXChannelProvider_reportIncomingTransmissionEndedForChannelWithUUID_reason_completionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v18 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) UUIDString];
     v5 = *(a1 + 56);
     *buf = 138412802;
-    v14 = v3;
-    v15 = 2112;
-    v16 = v4;
-    v17 = 2048;
-    v18 = v5;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v4;
+    v16 = 2048;
+    v17 = v5;
     _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ reports channel with UUID %@ ended an incoming transmission with reason %ld", buf, 0x20u);
   }
 
   v6 = [*(a1 + 32) channelProviderHostDelegate];
   v7 = *(a1 + 40);
   v8 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 56)];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __96__CXChannelProvider_reportIncomingTransmissionEndedForChannelWithUUID_reason_completionHandler___block_invoke_130;
-  v11[3] = &unk_1E7C077F8;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __96__CXChannelProvider_reportIncomingTransmissionEndedForChannelWithUUID_reason_completionHandler___block_invoke_130;
+  v10[3] = &unk_1E7C077F8;
   v9 = *(a1 + 48);
-  v11[4] = *(a1 + 32);
-  v12 = v9;
-  [v6 reportIncomingTransmissionEndedForChannelWithUUID:v7 reason:v8 completionHandler:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10[4] = *(a1 + 32);
+  v11 = v9;
+  [v6 reportIncomingTransmissionEndedForChannelWithUUID:v7 reason:v8 completionHandler:v10];
 }
 
 void __96__CXChannelProvider_reportIncomingTransmissionEndedForChannelWithUUID_reason_completionHandler___block_invoke_130(uint64_t a1, void *a2)
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = CXDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CXDefaultLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = v3;
-      _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Remote host responded with error %@", buf, 0xCu);
+      v11 = v4;
+      _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Remote host responded with error %@", buf, 0xCu);
     }
   }
 
   if (*(a1 + 40))
   {
-    v5 = [*(a1 + 32) abstractProvider];
+    v6 = [*(a1 + 32) abstractProvider];
     v7[0] = MEMORY[0x1E69E9820];
     v7[1] = 3221225472;
     v7[2] = __96__CXChannelProvider_reportIncomingTransmissionEndedForChannelWithUUID_reason_completionHandler___block_invoke_131;
     v7[3] = &unk_1E7C073B0;
     v9 = *(a1 + 40);
-    v8 = v3;
-    [v5 performDelegateCallback:v7];
+    v8 = v4;
+    [v6 performDelegateCallback:v7];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportIncomingTransmissionStartedForChannelWithUUID:(id)d update:(id)update shouldReplaceOutgoingTransmission:(BOOL)transmission completionHandler:(id)handler
@@ -597,19 +580,19 @@ LABEL_4:
 
 void __132__CXChannelProvider_reportIncomingTransmissionStartedForChannelWithUUID_update_shouldReplaceOutgoingTransmission_completionHandler___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v19 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) UUIDString];
     v5 = *(a1 + 48);
     *buf = 138412802;
-    v15 = v3;
-    v16 = 2112;
-    v17 = v4;
-    v18 = 2112;
-    v19 = v5;
+    v14 = v3;
+    v15 = 2112;
+    v16 = v4;
+    v17 = 2112;
+    v18 = v5;
     _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Provider %@ reports channel with UUID %@ started an incoming transmission with update %@", buf, 0x20u);
   }
 
@@ -617,67 +600,63 @@ void __132__CXChannelProvider_reportIncomingTransmissionStartedForChannelWithUUI
   v7 = *(a1 + 40);
   v8 = *(a1 + 48);
   v9 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 64)];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __132__CXChannelProvider_reportIncomingTransmissionStartedForChannelWithUUID_update_shouldReplaceOutgoingTransmission_completionHandler___block_invoke_135;
-  v12[3] = &unk_1E7C077F8;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __132__CXChannelProvider_reportIncomingTransmissionStartedForChannelWithUUID_update_shouldReplaceOutgoingTransmission_completionHandler___block_invoke_135;
+  v11[3] = &unk_1E7C077F8;
   v10 = *(a1 + 56);
-  v12[4] = *(a1 + 32);
-  v13 = v10;
-  [v6 reportIncomingTransmissionStartedForChannelWithUUID:v7 update:v8 shouldReplaceOutgoingTransmission:v9 completionHandler:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v11[4] = *(a1 + 32);
+  v12 = v10;
+  [v6 reportIncomingTransmissionStartedForChannelWithUUID:v7 update:v8 shouldReplaceOutgoingTransmission:v9 completionHandler:v11];
 }
 
 void __132__CXChannelProvider_reportIncomingTransmissionStartedForChannelWithUUID_update_shouldReplaceOutgoingTransmission_completionHandler___block_invoke_135(uint64_t a1, void *a2)
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = CXDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CXDefaultLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = v3;
-      _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Remote host responded with error %@", buf, 0xCu);
+      v11 = v4;
+      _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Remote host responded with error %@", buf, 0xCu);
     }
   }
 
   if (*(a1 + 40))
   {
-    v5 = [*(a1 + 32) abstractProvider];
+    v6 = [*(a1 + 32) abstractProvider];
     v7[0] = MEMORY[0x1E69E9820];
     v7[1] = 3221225472;
     v7[2] = __132__CXChannelProvider_reportIncomingTransmissionStartedForChannelWithUUID_update_shouldReplaceOutgoingTransmission_completionHandler___block_invoke_136;
     v7[3] = &unk_1E7C073B0;
     v9 = *(a1 + 40);
-    v8 = v3;
-    [v5 performDelegateCallback:v7];
+    v8 = v4;
+    [v6 performDelegateCallback:v7];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleMediaServicesWereResetNotification:(id)notification
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
-  v5 = CXDefaultLog();
+  v5 = CXDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = notificationCopy;
-    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = notificationCopy;
+    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "%@", &v6, 0xCu);
   }
 
   [(CXChannelProvider *)self registerCurrentConfiguration];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performAction:(id)action
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   abstractProvider = [(CXChannelProvider *)self abstractProvider];
   delegateQueue = [abstractProvider delegateQueue];
@@ -688,20 +667,21 @@ void __132__CXChannelProvider_reportIncomingTransmissionStartedForChannelWithUUI
   if (objc_opt_isKindOfClass())
   {
     v8 = actionCopy;
-    if (objc_opt_respondsToSelector())
+    v9 = objc_opt_respondsToSelector();
+    if (v9)
     {
       [delegate provider:self performChannelJoinAction:v8];
       goto LABEL_25;
     }
 
-    v9 = CXDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = CXDefaultLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = NSStringFromSelector(sel_provider_performChannelJoinAction_);
-      v12 = 138412290;
-      v13 = v10;
+      v12 = NSStringFromSelector(sel_provider_performChannelJoinAction_);
+      v16 = 138412290;
+      v17 = v12;
 LABEL_23:
-      _os_log_impl(&dword_1B47F3000, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Delegate does not respond to %@. Action will not be performed", &v12, 0xCu);
+      _os_log_impl(&dword_1B47F3000, v11, OS_LOG_TYPE_DEFAULT, "[WARN] Delegate does not respond to %@. Action will not be performed", &v16, 0xCu);
 
       goto LABEL_24;
     }
@@ -713,18 +693,19 @@ LABEL_23:
   if (objc_opt_isKindOfClass())
   {
     v8 = actionCopy;
-    if (objc_opt_respondsToSelector())
+    v10 = objc_opt_respondsToSelector();
+    if (v10)
     {
       [delegate provider:self performChannelLeaveAction:v8];
       goto LABEL_25;
     }
 
-    v9 = CXDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = CXDefaultLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = NSStringFromSelector(sel_provider_performChannelLeaveAction_);
-      v12 = 138412290;
-      v13 = v10;
+      v12 = NSStringFromSelector(sel_provider_performChannelLeaveAction_);
+      v16 = 138412290;
+      v17 = v12;
       goto LABEL_23;
     }
 
@@ -737,18 +718,19 @@ LABEL_24:
   if (objc_opt_isKindOfClass())
   {
     v8 = actionCopy;
-    if (objc_opt_respondsToSelector())
+    v13 = objc_opt_respondsToSelector();
+    if (v13)
     {
       [delegate provider:self performChannelTransmitStartAction:v8];
       goto LABEL_25;
     }
 
-    v9 = CXDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = CXDefaultLog(v13);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = NSStringFromSelector(sel_provider_performChannelTransmitStartAction_);
-      v12 = 138412290;
-      v13 = v10;
+      v12 = NSStringFromSelector(sel_provider_performChannelTransmitStartAction_);
+      v16 = 138412290;
+      v17 = v12;
       goto LABEL_23;
     }
 
@@ -756,36 +738,36 @@ LABEL_24:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     v8 = actionCopy;
-    if (objc_opt_respondsToSelector())
+    v15 = objc_opt_respondsToSelector();
+    if (v15)
     {
       [delegate provider:self performChannelTransmitStopAction:v8];
       goto LABEL_25;
     }
 
-    v9 = CXDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = CXDefaultLog(v15);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = NSStringFromSelector(sel_provider_performChannelTransmitStopAction_);
-      v12 = 138412290;
-      v13 = v10;
+      v12 = NSStringFromSelector(sel_provider_performChannelTransmitStopAction_);
+      v16 = 138412290;
+      v17 = v12;
       goto LABEL_23;
     }
 
     goto LABEL_24;
   }
 
-  v8 = CXDefaultLog();
+  v8 = CXDefaultLog(isKindOfClass);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [(CXProvider *)actionCopy performAction:v8];
   }
 
 LABEL_25:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDelegate:(id)delegate queue:(id)queue
@@ -909,59 +891,58 @@ void __39__CXChannelProvider_setDelegate_queue___block_invoke_4(uint64_t a1)
 
 void __64__CXChannelProvider_handleAudioSessionActivationStateChangedTo___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) BOOLValue];
-  v3 = CXDefaultLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = v2;
+  v4 = CXDefaultLog(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 67109120;
-    v13 = v2;
-    _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Notified that audio session activation state changed to: %d", &v12, 8u);
+    v14 = 67109120;
+    v15 = v3;
+    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Notified that audio session activation state changed to: %d", &v14, 8u);
   }
 
-  v4 = [MEMORY[0x1E6958460] sharedInstance];
-  v5 = [*(a1 + 40) delegate];
-  if (v2)
+  v5 = [MEMORY[0x1E6958460] sharedInstance];
+  v6 = [*(a1 + 40) delegate];
+  if (v3)
   {
-    v6 = objc_opt_respondsToSelector();
+    v7 = objc_opt_respondsToSelector();
 
-    if (v6)
+    if (v7)
     {
-      v7 = CXDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = CXDefaultLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 67109120;
-        v13 = 1;
-        _os_log_impl(&dword_1B47F3000, v7, OS_LOG_TYPE_DEFAULT, "Notifying delegate that audio session activation state changed to: %d", &v12, 8u);
+        v14 = 67109120;
+        v15 = 1;
+        _os_log_impl(&dword_1B47F3000, v9, OS_LOG_TYPE_DEFAULT, "Notifying delegate that audio session activation state changed to: %d", &v14, 8u);
       }
 
-      v8 = [*(a1 + 40) delegate];
-      [v8 provider:*(a1 + 40) didActivateAudioSession:v4];
+      v10 = [*(a1 + 40) delegate];
+      [v10 provider:*(a1 + 40) didActivateAudioSession:v5];
 LABEL_12:
     }
   }
 
   else
   {
-    v9 = objc_opt_respondsToSelector();
+    v11 = objc_opt_respondsToSelector();
 
-    if (v9)
+    if (v11)
     {
-      v10 = CXDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v13 = CXDefaultLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 67109120;
-        v13 = 0;
-        _os_log_impl(&dword_1B47F3000, v10, OS_LOG_TYPE_DEFAULT, "Notifying delegate that audio session activation state changed to: %d", &v12, 8u);
+        v14 = 67109120;
+        v15 = 0;
+        _os_log_impl(&dword_1B47F3000, v13, OS_LOG_TYPE_DEFAULT, "Notifying delegate that audio session activation state changed to: %d", &v14, 8u);
       }
 
-      v8 = [*(a1 + 40) delegate];
-      [v8 provider:*(a1 + 40) didDeactivateAudioSession:v4];
+      v10 = [*(a1 + 40) delegate];
+      [v10 provider:*(a1 + 40) didDeactivateAudioSession:v5];
       goto LABEL_12;
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerCurrentConfiguration
@@ -980,46 +961,44 @@ void __49__CXChannelProvider_registerCurrentConfiguration__block_invoke(uint64_t
 {
   v10 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 8);
-  if ([*(a1 + 32) requiresProxyingAVAudioSessionState])
+  v3 = [*(a1 + 32) requiresProxyingAVAudioSessionState];
+  if (v3)
   {
-    v3 = [MEMORY[0x1E6958460] sharedInstance];
-    [v2 setAudioSessionID:{objc_msgSend(v3, "opaqueSessionID")}];
+    v4 = [MEMORY[0x1E6958460] sharedInstance];
+    [v2 setAudioSessionID:{objc_msgSend(v4, "opaqueSessionID")}];
   }
 
-  v4 = CXDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = CXDefaultLog(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
     v9 = v2;
-    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Registering configuration %@", &v8, 0xCu);
+    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Registering configuration %@", &v8, 0xCu);
   }
 
-  v5 = [*(a1 + 32) channelProviderHostDelegate];
-  v6 = [v2 copy];
-  [v5 registerWithConfiguration:v6 completionHandler:&__block_literal_global_151];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = [*(a1 + 32) channelProviderHostDelegate];
+  v7 = [v2 copy];
+  [v6 registerWithConfiguration:v7 completionHandler:&__block_literal_global_151];
 }
 
 void __49__CXChannelProvider_registerCurrentConfiguration__block_invoke_149(uint64_t a1, void *a2)
 {
   v10 = *MEMORY[0x1E69E9840];
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = CXDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = CXDefaultLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = [v2 userInfo];
+      v5 = [v3 userInfo];
       v6 = 138412546;
-      v7 = v2;
+      v7 = v3;
       v8 = 2112;
-      v9 = v4;
-      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Remote host responded with error %@, %@", &v6, 0x16u);
+      v9 = v5;
+      _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Remote host responded with error %@, %@", &v6, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_ensureApplicationControllerConnection

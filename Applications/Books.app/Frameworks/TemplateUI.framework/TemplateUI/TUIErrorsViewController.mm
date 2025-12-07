@@ -28,7 +28,7 @@
 {
   errorCopy = error;
   domain = [errorCopy domain];
-  v5 = [domain isEqualToString:@"TUIErrorDomain"];
+  v5 = objc_msgSend_isEqualToString_(domain);
 
   if (v5)
   {
@@ -47,7 +47,7 @@
 {
   errorCopy = error;
   domain = [errorCopy domain];
-  v5 = [domain isEqualToString:@"TUIErrorDomain"];
+  v5 = objc_msgSend_isEqualToString_(domain);
 
   if (v5)
   {
@@ -106,7 +106,7 @@
   pathCopy = path;
   v8 = -[NSArray objectAtIndexedSubscript:](self->_errors, "objectAtIndexedSubscript:", [pathCopy row]);
   domain = [v8 domain];
-  v10 = [domain isEqualToString:@"TUIErrorDomain"];
+  v10 = objc_msgSend_isEqualToString_(domain);
 
   if (v10)
   {

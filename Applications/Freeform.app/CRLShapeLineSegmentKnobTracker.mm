@@ -184,7 +184,7 @@
   v11 = originalPureGeometry;
   if (originalPureGeometry)
   {
-    [originalPureGeometry transform];
+    objc_msgSend_transform(originalPureGeometry);
   }
 
   else
@@ -226,7 +226,7 @@
   v6 = layout;
   if (layout)
   {
-    [layout originalTransformInRoot];
+    objc_msgSend_originalTransformInRoot(layout);
   }
 
   else
@@ -320,7 +320,7 @@
     v24 = originalPureGeometry;
     if (originalPureGeometry)
     {
-      [originalPureGeometry transform];
+      objc_msgSend_transform(originalPureGeometry);
     }
 
     else
@@ -384,7 +384,7 @@ LABEL_30:
   v46 = originalPureGeometry2;
   if (originalPureGeometry2)
   {
-    [originalPureGeometry2 transform];
+    objc_msgSend_transform(originalPureGeometry2);
     v47 = *&v93.a;
     v48 = *&v93.c;
     v49 = *&v93.tx;
@@ -468,7 +468,7 @@ LABEL_30:
       v71 = originalPureGeometry3;
       if (originalPureGeometry3)
       {
-        [originalPureGeometry3 transform];
+        objc_msgSend_transform(originalPureGeometry3);
       }
 
       else
@@ -581,7 +581,7 @@ LABEL_73:
     v80 = originalPureGeometry4;
     if (originalPureGeometry4)
     {
-      [originalPureGeometry4 transform];
+      objc_msgSend_transform(originalPureGeometry4);
     }
 
     else

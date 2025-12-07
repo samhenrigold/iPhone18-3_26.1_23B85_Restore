@@ -6,6 +6,8 @@
 - (void)addCustomAction:(id)action;
 - (void)setMessage:(id)message;
 - (void)setTitle:(id)title;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -17,6 +19,29 @@
   v3.super_class = LACUIBiometryAlertController;
   [(LACUIBiometryAlertController *)&v3 viewDidLoad];
   [(LACUIBiometryAlertController *)self _updateAX];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = LACUIBiometryAlertController;
+  [(LACUIBiometryAlertController *)&v4 viewDidAppear:appear];
+  [(LACUIBiometryAlertController *)self _holdPresentingViewController];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = LACUIBiometryAlertController;
+  [(LACUIBiometryAlertController *)&v6 viewDidDisappear:disappear];
+  [(LACUIBiometryAlertController *)self _releasePresentingViewController];
+  onDismiss = [(LACUIBiometryAlertController *)self onDismiss];
+
+  if (onDismiss)
+  {
+    onDismiss2 = [(LACUIBiometryAlertController *)self onDismiss];
+    onDismiss2[2]();
+  }
 }
 
 - (void)setTitle:(id)title
@@ -73,7 +98,7 @@
 
 - (void)_holdPresentingViewController
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   presentingViewController = [(LACUIBiometryAlertController *)self presentingViewController];
   presentingViewController = self->_presentingViewController;
   self->_presentingViewController = presentingViewController;
@@ -82,30 +107,26 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = self->_presentingViewController;
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_256063000, v5, OS_LOG_TYPE_DEFAULT, "Holding %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_256063000, v5, OS_LOG_TYPE_DEFAULT, "Holding %{public}@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_releasePresentingViewController
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = LACLogAlertUI();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     presentingViewController = self->_presentingViewController;
-    v7 = 138543362;
-    v8 = presentingViewController;
-    _os_log_impl(&dword_256063000, v3, OS_LOG_TYPE_DEFAULT, "Released %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = presentingViewController;
+    _os_log_impl(&dword_256063000, v3, OS_LOG_TYPE_DEFAULT, "Released %{public}@", &v6, 0xCu);
   }
 
   v5 = self->_presentingViewController;
   self->_presentingViewController = 0;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAX

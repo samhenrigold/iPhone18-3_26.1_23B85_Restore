@@ -92,47 +92,45 @@ LABEL_8:
 
 - (NSString)sceneSessionIdentifier
 {
-  v2 = (self + OBJC_IVAR____TtC13NewsAnalytics15SessionObserver_sceneSessionIdentifier);
+  v2 = self + OBJC_IVAR____TtC13NewsAnalytics15SessionObserver_sceneSessionIdentifier;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = sub_217D8951C();
+    v3 = sub_217D8951C();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)sessionDidStartWithSessionID:(id)d sourceApplication:(id)application url:(id)url
 {
   sub_217A4BFDC(0, &qword_2811C8CA0, MEMORY[0x277CC9260], MEMORY[0x277D83D88]);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v20 - v10;
-  v12 = sub_217D8954C();
-  v14 = v13;
+  v10 = &v19 - v9;
+  v11 = sub_217D8954C();
+  v13 = v12;
   if (!application)
   {
-    v15 = 0;
+    v14 = 0;
     if (url)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v18 = sub_217D87BAC();
-    (*(*(v18 - 8) + 56))(v11, 1, 1, v18);
+    v17 = sub_217D87BAC();
+    (*(*(v17 - 8) + 56))(v10, 1, 1, v17);
     goto LABEL_6;
   }
 
-  v15 = sub_217D8954C();
-  application = v16;
+  v14 = sub_217D8954C();
+  application = v15;
   if (!url)
   {
     goto LABEL_5;
@@ -140,13 +138,13 @@ LABEL_5:
 
 LABEL_3:
   sub_217D87B8C();
-  v17 = sub_217D87BAC();
-  (*(*(v17 - 8) + 56))(v11, 0, 1, v17);
+  v16 = sub_217D87BAC();
+  (*(*(v16 - 8) + 56))(v10, 0, 1, v16);
 LABEL_6:
   selfCopy = self;
-  SessionObserver.sessionDidStart(withSessionID:sourceApplication:url:)(v12, v14, v15, application, v11);
+  SessionObserver.sessionDidStart(withSessionID:sourceApplication:url:)(v11, v13, v14, application, v10);
 
-  sub_217A61CE8(v11, &qword_2811C8CA0, MEMORY[0x277CC9260]);
+  sub_217A61CE8(v10, &qword_2811C8CA0, MEMORY[0x277CC9260]);
 }
 
 - (void)bundleSubscriptionDidSubscribe:(void *)subscribe
@@ -177,11 +175,10 @@ LABEL_6:
   if (configuration)
   {
     v7 = configuration;
-    v8 = *(selfCopy + OBJC_IVAR____TtC13NewsAnalytics15SessionObserver_sessionManager);
-    v9 = swift_allocObject();
-    *(v9 + 16) = selfCopy;
-    *(v9 + 24) = v7;
-    v10 = selfCopy;
+    v8 = swift_allocObject();
+    *(v8 + 16) = selfCopy;
+    *(v8 + 24) = v7;
+    v9 = selfCopy;
     swift_unknownObjectRetain();
     sub_217D8833C();
     swift_unknownObjectRelease();
@@ -205,14 +202,13 @@ LABEL_6:
 {
   v4 = sub_217D87A0C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_217D879EC();
   selfCopy = self;
   sub_217B74874();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)setSceneSessionIdentifier:(id)identifier
@@ -231,7 +227,6 @@ LABEL_6:
 
   v7 = (self + OBJC_IVAR____TtC13NewsAnalytics15SessionObserver_sceneSessionIdentifier);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -252,7 +247,6 @@ LABEL_6:
 
 - (void)networkReachabilityConnectivityDidChange:(id)change
 {
-  v4 = *(self + OBJC_IVAR____TtC13NewsAnalytics15SessionObserver_tracker);
   *(swift_allocObject() + 16) = change;
   swift_unknownObjectRetain_n();
   selfCopy = self;
@@ -277,14 +271,13 @@ LABEL_6:
 {
   v4 = sub_217D87A0C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_217D879EC();
   selfCopy = self;
   sub_217D0E6CC();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)subscriptionController:(id)controller didAddTags:(id)tags changeTags:(id)changeTags moveTags:(id)moveTags removeTags:(id)removeTags subscriptionType:(unint64_t)type

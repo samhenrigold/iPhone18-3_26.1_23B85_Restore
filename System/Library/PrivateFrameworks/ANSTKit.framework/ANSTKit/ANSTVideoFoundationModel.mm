@@ -10,11 +10,11 @@
 
 - (ANSTVideoFoundationModel)initWithConfiguration:(id)configuration
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v21.receiver = self;
-  v21.super_class = ANSTVideoFoundationModel;
-  v6 = [(ANSTAlgorithm *)&v21 initWithConfiguration:configurationCopy];
+  v20.receiver = self;
+  v20.super_class = ANSTVideoFoundationModel;
+  v6 = [(ANSTAlgorithm *)&v20 initWithConfiguration:configurationCopy];
   v7 = v6;
   if (v6)
   {
@@ -34,202 +34,55 @@
     inputImageDescriptor = v7->_inputImageDescriptor;
     v7->_inputImageDescriptor = v13;
 
-    v22 = xmmword_22E661A80;
+    v21 = xmmword_22E661A80;
     v15 = [ANSTTensorDescriptor alloc];
-    v17 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v15, v16, @"image_feature", 102, 2, &v22, 64, 0);
+    v17 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v15, v16, @"image_feature", 102, 2, &v21, 64, 0);
     outputFeatureDescriptor = v7->_outputFeatureDescriptor;
     v7->_outputFeatureDescriptor = v17;
 
     v7->_prepared = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)prepareWithError:(id *)error
 {
-  v107[1] = *MEMORY[0x277D85DE8];
-  if (!self->_prepared)
+  v100[1] = *MEMORY[0x277D85DE8];
+  if (self->_prepared)
   {
-    if (!self->_stream)
+    return 1;
+  }
+
+  if (!self->_stream)
+  {
+    v11 = e5rt_execution_stream_create();
+    if (v11)
     {
-      v11 = e5rt_execution_stream_create();
-      if (v11)
+      v12 = v11;
+      last_error_message = e5rt_get_last_error_message();
+      v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v14, @"%s returned error code %u (%s)", "e5rt_execution_stream_create(&_stream)", v12, last_error_message);
+      v16 = _ANSTLoggingGetOSLogForCategoryANSTKit(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v12 = v11;
-        last_error_message = e5rt_get_last_error_message();
-        v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v14, @"%s returned error code %u (%s)", "e5rt_execution_stream_create(&_stream)", v12, last_error_message);
-        v16 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-        {
-          sub_22E657EDC();
-        }
-
-        if (!error)
-        {
-          goto LABEL_59;
-        }
-
-        v18 = MEMORY[0x277CCA9B8];
-        v106 = *MEMORY[0x277CCA068];
-        v107[0] = v15;
-        objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, v107, &v106, 1);
-        v75 = LABEL_58:;
-        *error = objc_msgSend_errorWithDomain_code_userInfo_(v18, v76, @"ANSTErrorDomain", 5, v75);
-
-LABEL_59:
-        goto LABEL_60;
-      }
-    }
-
-    if (self->_operation)
-    {
-LABEL_30:
-      if (!self->_outputPort_imageFeature)
-      {
-        operation = self->_operation;
-        v48 = e5rt_execution_stream_operation_retain_output_port();
-        if (v48)
-        {
-          v49 = v48;
-          v50 = e5rt_get_last_error_message();
-          v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v51, @"%s returned error code %u (%s)", "e5rt_execution_stream_operation_retain_output_port(_operation, image_feature, &_outputPort_imageFeature)", v49, v50);
-          v52 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
-          {
-            sub_22E657EDC();
-          }
-
-          if (!error)
-          {
-            goto LABEL_59;
-          }
-
-          v18 = MEMORY[0x277CCA9B8];
-          v100 = *MEMORY[0x277CCA068];
-          v101 = v15;
-          objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v53, &v101, &v100, 1);
-          goto LABEL_58;
-        }
+        sub_22E657EDC();
       }
 
-      if (!self->_outputTensorDesc_imageFeature)
+      if (!error)
       {
-        outputPort_imageFeature = self->_outputPort_imageFeature;
-        v55 = e5rt_io_port_retain_tensor_desc();
-        if (v55)
-        {
-          v56 = v55;
-          v57 = e5rt_get_last_error_message();
-          v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v58, @"%s returned error code %u (%s)", "e5rt_io_port_retain_tensor_desc(_outputPort_imageFeature, &_outputTensorDesc_imageFeature)", v56, v57);
-          v59 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
-          {
-            sub_22E657EDC();
-          }
-
-          if (!error)
-          {
-            goto LABEL_59;
-          }
-
-          v18 = MEMORY[0x277CCA9B8];
-          v98 = *MEMORY[0x277CCA068];
-          v99 = v15;
-          objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v60, &v99, &v98, 1);
-          goto LABEL_58;
-        }
+        goto LABEL_59;
       }
 
-      if (!self->_outputBufferObject_imageFeature)
-      {
-        outputTensorDesc_imageFeature = self->_outputTensorDesc_imageFeature;
-        v62 = e5rt_tensor_desc_alloc_buffer_object();
-        if (v62)
-        {
-          v63 = v62;
-          v64 = e5rt_get_last_error_message();
-          v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v65, @"%s returned error code %u (%s)", "e5rt_tensor_desc_alloc_buffer_object(_outputTensorDesc_imageFeature, E5RT_BUFFER_OBJECT_TYPE_IOSURFACE, 64, &_outputBufferObject_imageFeature)", v63, v64);
-          v66 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-          if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
-          {
-            sub_22E657EDC();
-          }
-
-          if (!error)
-          {
-            goto LABEL_59;
-          }
-
-          v18 = MEMORY[0x277CCA9B8];
-          v96 = *MEMORY[0x277CCA068];
-          v97 = v15;
-          objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v67, &v97, &v96, 1);
-          goto LABEL_58;
-        }
-
-        outputBufferObject_imageFeature = self->_outputBufferObject_imageFeature;
-      }
-
-      v40 = self->_outputPort_imageFeature;
-      v41 = e5rt_io_port_bind_buffer_object();
-      if (v41)
-      {
-        v42 = v41;
-        v43 = e5rt_get_last_error_message();
-        v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v44, @"%s returned error code %u (%s)", "e5rt_io_port_bind_buffer_object(_outputPort_imageFeature, _outputBufferObject_imageFeature)", v42, v43);
-        v45 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
-        {
-          sub_22E657EDC();
-        }
-
-        if (!error)
-        {
-          goto LABEL_59;
-        }
-
-        v18 = MEMORY[0x277CCA9B8];
-        v94 = *MEMORY[0x277CCA068];
-        v95 = v15;
-        objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v46, &v95, &v94, 1);
-      }
-
-      else
-      {
-        v68 = self->_outputBufferObject_imageFeature;
-        iosurface = e5rt_buffer_object_get_iosurface();
-        if (!iosurface)
-        {
-          result = 1;
-          self->_prepared = 1;
-          goto LABEL_61;
-        }
-
-        v70 = iosurface;
-        v71 = e5rt_get_last_error_message();
-        v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v72, @"%s returned error code %u (%s)", "e5rt_buffer_object_get_iosurface(_outputBufferObject_imageFeature, &_outputFeatureSurface)", v70, v71);
-        v73 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-        if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
-        {
-          sub_22E657EDC();
-        }
-
-        if (!error)
-        {
-          goto LABEL_59;
-        }
-
-        v18 = MEMORY[0x277CCA9B8];
-        v92 = *MEMORY[0x277CCA068];
-        v93 = v15;
-        objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v74, &v93, &v92, 1);
-      }
-
+      v18 = MEMORY[0x277CCA9B8];
+      v99 = *MEMORY[0x277CCA068];
+      v100[0] = v15;
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, v100, &v99, 1);
       goto LABEL_58;
     }
+  }
 
+  if (!self->_operation)
+  {
     v6 = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], a2, @"/AppleInternal/Library/Application Support/com.apple.ANSTKit/vfm.mlmodelc");
     v9 = objc_msgSend_version(self->_config, v7, v8);
     switch(v9)
@@ -244,25 +97,25 @@ LABEL_30:
         objc_msgSend_URLByAppendingPathComponent_(v6, v10, @"fitness.mil");
         break;
       default:
-        v78 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-        if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+        v72 = _ANSTLoggingGetOSLogForCategoryANSTKit(v9);
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
         {
-          sub_22E657FD0(&self->_config, v78, v79);
+          sub_22E657FD0(&self->_config, v72, v73);
         }
 
         if (error)
         {
-          v82 = MEMORY[0x277CCACA8];
-          v83 = objc_msgSend_version(self->_config, v80, v81);
-          v85 = objc_msgSend_stringWithFormat_(v82, v84, @"Unexpected model version %lu", v83);
-          v86 = MEMORY[0x277CCA9B8];
-          v104 = *MEMORY[0x277CCA068];
-          v105 = v85;
-          v88 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v87, &v105, &v104, 1);
-          *error = objc_msgSend_errorWithDomain_code_userInfo_(v86, v89, @"ANSTErrorDomain", 5, v88);
+          v76 = MEMORY[0x277CCACA8];
+          v77 = objc_msgSend_version(self->_config, v74, v75);
+          v79 = objc_msgSend_stringWithFormat_(v76, v78, @"Unexpected model version %lu", v77);
+          v80 = MEMORY[0x277CCA9B8];
+          v97 = *MEMORY[0x277CCA068];
+          v98 = v79;
+          v82 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v81, &v98, &v97, 1);
+          *error = objc_msgSend_errorWithDomain_code_userInfo_(v80, v83, @"ANSTErrorDomain", 5, v82);
         }
 
-        goto LABEL_60;
+        return 0;
     }
     v19 = ;
 
@@ -285,9 +138,7 @@ LABEL_26:
           if (error && *error)
           {
 
-LABEL_60:
-            result = 0;
-            goto LABEL_61;
+            return 0;
           }
 
           goto LABEL_30;
@@ -296,7 +147,7 @@ LABEL_60:
     }
 
     v26 = e5rt_get_last_error_message();
-    v27 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v27 = _ANSTLoggingGetOSLogForCategoryANSTKit(v26);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_22E657F50(v26, v27, v28, v29, v30, v31, v32, v33);
@@ -306,24 +157,157 @@ LABEL_60:
     {
       v35 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v34, @"MIL compilation failed due to E5 error (%s)", v26);
       v36 = MEMORY[0x277CCA9B8];
-      v102 = *MEMORY[0x277CCA068];
-      v103 = v35;
-      v38 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v37, &v103, &v102, 1);
+      v95 = *MEMORY[0x277CCA068];
+      v96 = v35;
+      v38 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v37, &v96, &v95, 1);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v36, v39, @"ANSTErrorDomain", 5, v38);
     }
 
     goto LABEL_26;
   }
 
+LABEL_30:
+  if (!self->_outputPort_imageFeature)
+  {
+    v46 = e5rt_execution_stream_operation_retain_output_port();
+    if (v46)
+    {
+      v47 = v46;
+      v48 = e5rt_get_last_error_message();
+      v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v49, @"%s returned error code %u (%s)", "e5rt_execution_stream_operation_retain_output_port(_operation, image_feature, &_outputPort_imageFeature)", v47, v48);
+      v50 = _ANSTLoggingGetOSLogForCategoryANSTKit(v15);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+      {
+        sub_22E657EDC();
+      }
+
+      if (!error)
+      {
+        goto LABEL_59;
+      }
+
+      v18 = MEMORY[0x277CCA9B8];
+      v93 = *MEMORY[0x277CCA068];
+      v94 = v15;
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v51, &v94, &v93, 1);
+      goto LABEL_58;
+    }
+  }
+
+  if (!self->_outputTensorDesc_imageFeature)
+  {
+    v52 = e5rt_io_port_retain_tensor_desc();
+    if (v52)
+    {
+      v53 = v52;
+      v54 = e5rt_get_last_error_message();
+      v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v55, @"%s returned error code %u (%s)", "e5rt_io_port_retain_tensor_desc(_outputPort_imageFeature, &_outputTensorDesc_imageFeature)", v53, v54);
+      v56 = _ANSTLoggingGetOSLogForCategoryANSTKit(v15);
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+      {
+        sub_22E657EDC();
+      }
+
+      if (!error)
+      {
+        goto LABEL_59;
+      }
+
+      v18 = MEMORY[0x277CCA9B8];
+      v91 = *MEMORY[0x277CCA068];
+      v92 = v15;
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v57, &v92, &v91, 1);
+      goto LABEL_58;
+    }
+  }
+
+  if (!self->_outputBufferObject_imageFeature)
+  {
+    v58 = e5rt_tensor_desc_alloc_buffer_object();
+    if (v58)
+    {
+      v59 = v58;
+      v60 = e5rt_get_last_error_message();
+      v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v61, @"%s returned error code %u (%s)", "e5rt_tensor_desc_alloc_buffer_object(_outputTensorDesc_imageFeature, E5RT_BUFFER_OBJECT_TYPE_IOSURFACE, 64, &_outputBufferObject_imageFeature)", v59, v60);
+      v62 = _ANSTLoggingGetOSLogForCategoryANSTKit(v15);
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      {
+        sub_22E657EDC();
+      }
+
+      if (!error)
+      {
+        goto LABEL_59;
+      }
+
+      v18 = MEMORY[0x277CCA9B8];
+      v89 = *MEMORY[0x277CCA068];
+      v90 = v15;
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v63, &v90, &v89, 1);
+      goto LABEL_58;
+    }
+  }
+
+  v40 = e5rt_io_port_bind_buffer_object();
+  if (v40)
+  {
+    v41 = v40;
+    v42 = e5rt_get_last_error_message();
+    v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v43, @"%s returned error code %u (%s)", "e5rt_io_port_bind_buffer_object(_outputPort_imageFeature, _outputBufferObject_imageFeature)", v41, v42);
+    v44 = _ANSTLoggingGetOSLogForCategoryANSTKit(v15);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    {
+      sub_22E657EDC();
+    }
+
+    if (!error)
+    {
+      goto LABEL_59;
+    }
+
+    v18 = MEMORY[0x277CCA9B8];
+    v87 = *MEMORY[0x277CCA068];
+    v88 = v15;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v45, &v88, &v87, 1);
+    v70 = LABEL_58:;
+    *error = objc_msgSend_errorWithDomain_code_userInfo_(v18, v71, @"ANSTErrorDomain", 5, v70);
+
+LABEL_59:
+    return 0;
+  }
+
+  iosurface = e5rt_buffer_object_get_iosurface();
+  if (iosurface)
+  {
+    v65 = iosurface;
+    v66 = e5rt_get_last_error_message();
+    v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v67, @"%s returned error code %u (%s)", "e5rt_buffer_object_get_iosurface(_outputBufferObject_imageFeature, &_outputFeatureSurface)", v65, v66);
+    v68 = _ANSTLoggingGetOSLogForCategoryANSTKit(v15);
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+    {
+      sub_22E657EDC();
+    }
+
+    if (!error)
+    {
+      goto LABEL_59;
+    }
+
+    v18 = MEMORY[0x277CCA9B8];
+    v85 = *MEMORY[0x277CCA068];
+    v86 = v15;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v69, &v86, &v85, 1);
+    goto LABEL_58;
+  }
+
   result = 1;
-LABEL_61:
-  v77 = *MEMORY[0x277D85DE8];
+  self->_prepared = 1;
   return result;
 }
 
 - (void)dealloc
 {
-  v3 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v3 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_22E658074(self, v3);
@@ -411,16 +395,15 @@ LABEL_61:
 
 - (BOOL)bindInputFrameBuffer:(__CVBuffer *)buffer error:(id *)error
 {
-  v71[1] = *MEMORY[0x277D85DE8];
-  stream = self->_stream;
-  v8 = e5rt_execution_stream_reset();
-  if (v8)
+  v65[1] = *MEMORY[0x277D85DE8];
+  v6 = e5rt_execution_stream_reset();
+  if (v6)
   {
-    v9 = v8;
+    v7 = v6;
     last_error_message = e5rt_get_last_error_message();
-    v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v11, @"%s returned error code %u (%s)", "e5rt_execution_stream_reset(_stream)", v9, last_error_message);
-    v13 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v10 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v9, @"%s returned error code %u (%s)", "e5rt_execution_stream_reset(_stream)", v7, last_error_message);
+    v11 = _ANSTLoggingGetOSLogForCategoryANSTKit(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_22E658160();
     }
@@ -430,22 +413,22 @@ LABEL_61:
       goto LABEL_12;
     }
 
-    v15 = MEMORY[0x277CCA9B8];
-    v70 = *MEMORY[0x277CCA068];
-    v71[0] = v12;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v71, &v70, 1);
+    v13 = MEMORY[0x277CCA9B8];
+    v64 = *MEMORY[0x277CCA068];
+    v65[0] = v10;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v12, v65, &v64, 1);
     goto LABEL_11;
   }
 
   CVPixelBufferGetIOSurface(buffer);
-  v16 = e5rt_surface_object_create_from_iosurface();
-  if (v16)
+  v14 = e5rt_surface_object_create_from_iosurface();
+  if (v14)
   {
-    v17 = v16;
-    v18 = e5rt_get_last_error_message();
-    v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v19, @"%s returned error code %u (%s)", "e5rt_surface_object_create_from_iosurface(&input_image_surface_object, input_surface)", v17, v18);
-    v20 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v15 = v14;
+    v16 = e5rt_get_last_error_message();
+    v10 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v17, @"%s returned error code %u (%s)", "e5rt_surface_object_create_from_iosurface(&input_image_surface_object, input_surface)", v15, v16);
+    v18 = _ANSTLoggingGetOSLogForCategoryANSTKit(v10);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_22E658160();
     }
@@ -455,175 +438,166 @@ LABEL_61:
       goto LABEL_12;
     }
 
-    v15 = MEMORY[0x277CCA9B8];
-    v68 = *MEMORY[0x277CCA068];
-    v69 = v12;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v21, &v69, &v68, 1);
-    v22 = LABEL_11:;
-    *error = objc_msgSend_errorWithDomain_code_userInfo_(v15, v23, @"ANSTErrorDomain", 5, v22);
+    v13 = MEMORY[0x277CCA9B8];
+    v62 = *MEMORY[0x277CCA068];
+    v63 = v10;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, &v63, &v62, 1);
+    v20 = LABEL_11:;
+    *error = objc_msgSend_errorWithDomain_code_userInfo_(v13, v21, @"ANSTErrorDomain", 5, v20);
+
+LABEL_12:
+    return 0;
+  }
+
+  v23 = e5rt_execution_stream_operation_retain_input_port();
+  if (v23)
+  {
+    v24 = v23;
+    v25 = e5rt_get_last_error_message();
+    v10 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v26, @"%s returned error code %u (%s)", "e5rt_execution_stream_operation_retain_input_port(_operation, input_image, &input_port)", v24, v25, 0, 0);
+    v27 = _ANSTLoggingGetOSLogForCategoryANSTKit(v10);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      sub_22E658160();
+    }
+
+    if (!error)
+    {
+      goto LABEL_12;
+    }
+
+    v29 = MEMORY[0x277CCA9B8];
+    v60 = *MEMORY[0x277CCA068];
+    v61 = v10;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v28, &v61, &v60, 1);
+    goto LABEL_36;
+  }
+
+  v30 = e5rt_io_port_bind_surface_object();
+  if (v30)
+  {
+    v31 = v30;
+    v32 = e5rt_get_last_error_message();
+    v10 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v33, @"%s returned error code %u (%s)", "e5rt_io_port_bind_surface_object(input_port, input_image_surface_object)", v31, v32, 0, 0);
+    v34 = _ANSTLoggingGetOSLogForCategoryANSTKit(v10);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    {
+      sub_22E658160();
+    }
+
+    if (!error)
+    {
+      goto LABEL_12;
+    }
+
+    v29 = MEMORY[0x277CCA9B8];
+    v58 = *MEMORY[0x277CCA068];
+    v59 = v10;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v35, &v59, &v58, 1);
+    goto LABEL_36;
+  }
+
+  v36 = e5rt_io_port_release();
+  if (v36)
+  {
+    v37 = v36;
+    v38 = e5rt_get_last_error_message();
+    v40 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v39, @"%s returned error code %u (%s)", "e5rt_io_port_release(&input_port)", v37, v38, 0, 0);
+    v41 = _ANSTLoggingGetOSLogForCategoryANSTKit(v40);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    {
+      sub_22E658160();
+    }
+  }
+
+  v42 = e5rt_surface_object_release();
+  if (v42)
+  {
+    v43 = v42;
+    v44 = e5rt_get_last_error_message();
+    v46 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v45, @"%s returned error code %u (%s)", "e5rt_surface_object_release(&input_image_surface_object)", v43, v44);
+    v47 = _ANSTLoggingGetOSLogForCategoryANSTKit(v46);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    {
+      sub_22E658160();
+    }
+  }
+
+  v48 = e5rt_execution_stream_encode_operation();
+  if (v48)
+  {
+    v49 = v48;
+    v50 = e5rt_get_last_error_message();
+    v10 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v51, @"%s returned error code %u (%s)", "e5rt_execution_stream_encode_operation(_stream, _operation)", v49, v50);
+    v52 = _ANSTLoggingGetOSLogForCategoryANSTKit(v10);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    {
+      sub_22E658160();
+    }
+
+    if (!error)
+    {
+      goto LABEL_12;
+    }
+
+    v29 = MEMORY[0x277CCA9B8];
+    v56 = *MEMORY[0x277CCA068];
+    v57 = v10;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v53, &v57, &v56, 1);
+    v54 = LABEL_36:;
+    *error = objc_msgSend_errorWithDomain_code_userInfo_(v29, v55, @"ANSTErrorDomain", 5, v54);
 
     goto LABEL_12;
   }
 
-  operation = self->_operation;
-  v27 = e5rt_execution_stream_operation_retain_input_port();
-  if (v27)
-  {
-    v28 = v27;
-    v29 = e5rt_get_last_error_message();
-    v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v30, @"%s returned error code %u (%s)", "e5rt_execution_stream_operation_retain_input_port(_operation, input_image, &input_port)", v28, v29, 0, 0);
-    v31 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-    {
-      sub_22E658160();
-    }
-
-    if (!error)
-    {
-      goto LABEL_12;
-    }
-
-    v33 = MEMORY[0x277CCA9B8];
-    v66 = *MEMORY[0x277CCA068];
-    v67 = v12;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v32, &v67, &v66, 1);
-    goto LABEL_37;
-  }
-
-  v34 = e5rt_io_port_bind_surface_object();
-  if (v34)
-  {
-    v35 = v34;
-    v36 = e5rt_get_last_error_message();
-    v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v37, @"%s returned error code %u (%s)", "e5rt_io_port_bind_surface_object(input_port, input_image_surface_object)", v35, v36, 0, 0);
-    v38 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
-    {
-      sub_22E658160();
-    }
-
-    if (!error)
-    {
-      goto LABEL_12;
-    }
-
-    v33 = MEMORY[0x277CCA9B8];
-    v64 = *MEMORY[0x277CCA068];
-    v65 = v12;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v39, &v65, &v64, 1);
-    goto LABEL_37;
-  }
-
-  v40 = e5rt_io_port_release();
-  if (v40)
-  {
-    v41 = v40;
-    v42 = e5rt_get_last_error_message();
-    v44 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v43, @"%s returned error code %u (%s)", "e5rt_io_port_release(&input_port)", v41, v42, 0, 0);
-    v45 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
-    {
-      sub_22E658160();
-    }
-  }
-
-  v46 = e5rt_surface_object_release();
-  if (v46)
-  {
-    v47 = v46;
-    v48 = e5rt_get_last_error_message();
-    v50 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v49, @"%s returned error code %u (%s)", "e5rt_surface_object_release(&input_image_surface_object)", v47, v48);
-    v51 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
-    {
-      sub_22E658160();
-    }
-  }
-
-  v52 = self->_stream;
-  v53 = self->_operation;
-  v54 = e5rt_execution_stream_encode_operation();
-  if (!v54)
-  {
-    result = 1;
-    goto LABEL_13;
-  }
-
-  v55 = v54;
-  v56 = e5rt_get_last_error_message();
-  v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v57, @"%s returned error code %u (%s)", "e5rt_execution_stream_encode_operation(_stream, _operation)", v55, v56);
-  v58 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
-  {
-    sub_22E658160();
-  }
-
-  if (error)
-  {
-    v33 = MEMORY[0x277CCA9B8];
-    v62 = *MEMORY[0x277CCA068];
-    v63 = v12;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v59, &v63, &v62, 1);
-    v60 = LABEL_37:;
-    *error = objc_msgSend_errorWithDomain_code_userInfo_(v33, v61, @"ANSTErrorDomain", 5, v60);
-  }
-
-LABEL_12:
-
-  result = 0;
-LABEL_13:
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (BOOL)executeInferenceWithError:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
-  if (self->_prepared)
+  v20[1] = *MEMORY[0x277D85DE8];
+  if (!self->_prepared)
   {
-    stream = self->_stream;
-    v5 = e5rt_execution_stream_execute_sync();
-    if (!v5)
+    if (!error)
     {
-      result = 1;
-      goto LABEL_11;
+      return 0;
     }
 
-    v6 = v5;
+    v14 = MEMORY[0x277CCA9B8];
+    v19 = *MEMORY[0x277CCA068];
+    v20[0] = @"Model was not prepared.";
+    v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v20, &v19, 1);
+    *error = objc_msgSend_errorWithDomain_code_userInfo_(v14, v15, @"ANSTErrorDomain", 3, v8);
+LABEL_9:
+
+    return 0;
+  }
+
+  v4 = e5rt_execution_stream_execute_sync();
+  if (v4)
+  {
+    v5 = v4;
     last_error_message = e5rt_get_last_error_message();
-    v9 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v8, @"%s returned error code %u (%s)", "e5rt_execution_stream_execute_sync(_stream)", v6, last_error_message);
-    v10 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v8 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v7, @"%s returned error code %u (%s)", "e5rt_execution_stream_execute_sync(_stream)", v5, last_error_message);
+    v9 = _ANSTLoggingGetOSLogForCategoryANSTKit(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_22E6581D4();
     }
 
     if (error)
     {
-      v12 = MEMORY[0x277CCA9B8];
-      v19 = *MEMORY[0x277CCA068];
-      v20 = v9;
-      v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, &v20, &v19, 1);
-      *error = objc_msgSend_errorWithDomain_code_userInfo_(v12, v14, @"ANSTErrorDomain", 5, v13);
+      v11 = MEMORY[0x277CCA9B8];
+      v17 = *MEMORY[0x277CCA068];
+      v18 = v8;
+      v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v10, &v18, &v17, 1);
+      *error = objc_msgSend_errorWithDomain_code_userInfo_(v11, v13, @"ANSTErrorDomain", 5, v12);
     }
 
     goto LABEL_9;
   }
 
-  if (error)
-  {
-    v15 = MEMORY[0x277CCA9B8];
-    v21 = *MEMORY[0x277CCA068];
-    v22[0] = @"Model was not prepared.";
-    v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v22, &v21, 1);
-    *error = objc_msgSend_errorWithDomain_code_userInfo_(v15, v16, @"ANSTErrorDomain", 3, v9);
-LABEL_9:
-  }
-
-  result = 0;
-LABEL_11:
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 @end

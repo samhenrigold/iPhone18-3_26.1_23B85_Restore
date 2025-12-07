@@ -10,6 +10,7 @@
 - (void)setGroupAliasLabelText;
 - (void)setGroupFooterText;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation ICBSettingsController
@@ -20,6 +21,22 @@
   v4 = [self localizedDescriptionForStyle:{objc_msgSend(v3, "hasBannersEnabled")}];
 
   return v4;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = ICBSettingsController;
+  [(ICBSettingsController *)&v7 viewDidAppear:appear];
+  specifier = [(ICBSettingsController *)self specifier];
+  target = [specifier target];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    [(ICBSettingsController *)self emitNavigationEvent];
+  }
 }
 
 - (void)emitNavigationEvent
@@ -233,16 +250,16 @@ LABEL_6:
   groupSpecifier = [(ICBSettingsController *)self groupSpecifier];
   [(ICBSettingsController *)self reloadSpecifier:groupSpecifier];
 
-  v7 = PHDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = PHDefaultLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109120;
-    v9[1] = bannerSpecifier == specifierCopy;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "setting hasBannersEnabled to %d", v9, 8u);
+    v10[0] = 67109120;
+    v10[1] = bannerSpecifier == specifierCopy;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "setting hasBannersEnabled to %d", v10, 8u);
   }
 
-  v8 = +[ICSPreferences sharedPreferences];
-  [v8 setHasBannersEnabled:bannerSpecifier == specifierCopy];
+  v9 = +[ICSPreferences sharedPreferences];
+  [v9 setHasBannersEnabled:bannerSpecifier == specifierCopy];
 }
 
 - (int64_t)controllerParent

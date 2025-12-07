@@ -6,6 +6,7 @@
 - (NSDictionary)profilingResults;
 - (NSError)error;
 - (NSMutableDictionary)userDictionary;
+- (_MTLCommandBuffer)initWithQueue:(id)queue retainedReferences:(BOOL)references synchronousDebugMode:(BOOL)mode;
 - (id)accelerationStructureCommandEncoder;
 - (id)accelerationStructureCommandEncoderWithDescriptor:(id)descriptor;
 - (id)computeCommandEncoderWithDescriptor:(id)descriptor;
@@ -240,6 +241,97 @@
   pthread_mutex_unlock(&self->_mutex);
 }
 
+- (_MTLCommandBuffer)initWithQueue:(id)queue retainedReferences:(BOOL)references synchronousDebugMode:(BOOL)mode
+{
+  if (queue)
+  {
+    objc_opt_class();
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
+    {
+      [(_MTLCommandBuffer *)isKindOfClass initWithQueue:v13 retainedReferences:v14 synchronousDebugMode:v15, v16, v17, v18, v19, v26.receiver];
+    }
+
+    v26.receiver = self;
+    v26.super_class = _MTLCommandBuffer;
+    v20 = [(_MTLObjectWithLabel *)&v26 init];
+    v21 = v20;
+    if (v20)
+    {
+      v20->_error = 0;
+      v20->_queue = queue;
+      v21->_needsCommandBufferSemaphoreSignal = 1;
+      dispatch_semaphore_wait(*(v21->_queue + 26), 0xFFFFFFFFFFFFFFFFLL);
+      *&v21->_mutex.__sig = _mutex_init;
+      *&v21->_mutex.__opaque[8] = *algn_185DE4350;
+      *&v21->_mutex.__opaque[24] = xmmword_185DE4360;
+      *&v21->_mutex.__opaque[40] = unk_185DE4370;
+      *&v21->_completedCond.__sig = _cond_init;
+      *&v21->_completedCond.__opaque[8] = *algn_185DE4390;
+      *&v21->_completedCond.__opaque[24] = xmmword_185DE43A0;
+      *&v21->_scheduledCond.__sig = _cond_init;
+      *&v21->_scheduledCond.__opaque[8] = *algn_185DE4390;
+      *&v21->_scheduledCond.__opaque[24] = xmmword_185DE43A0;
+      v21->_retainedReferences = references;
+      v21->_synchronousDebugMode = mode;
+      v21->_logs = 0;
+      v21->_privateData = 0;
+      v21->_privateDataOffset = 0;
+      v21->_privateLoggingBuffer = 0;
+      v22 = *(v21->_queue + 31);
+      v21->_logState = v22;
+      if (v22)
+      {
+        [(MTLCommandQueue *)v21->_queue getPrivateDataAndOffset:&v21->_privateData privateDataOffset:&v21->_privateDataOffset];
+        v21->_requiresBindingLogState = 1;
+      }
+
+      if (*(v21->_queue + 240) == 1)
+      {
+        v21->_profilingEnabled = 1;
+      }
+
+      v23 = mach_absolute_time();
+      if (v21->_profilingEnabled)
+      {
+        v21->_creationTime = v23;
+      }
+
+      v21->_skipRender = *(v21->_queue + 346);
+      v21->_wakeOnCommit = 1;
+      v21->_hasPresent = 0;
+      v21->_numThisCommandBuffer = [(MTLCommandQueue *)v21->_queue getAndIncrementNumCommandBuffers];
+      v24 = *(v21->_queue + 256);
+      v21->_StatEnabled = v24;
+      if (v24 == 1)
+      {
+        v21->_perfSampleHandlerBlock = _Block_copy(*(v21->_queue + 36));
+        v21->_numEncoders = 0;
+        v21->_listIndex = [(MTLCommandQueue *)v21->_queue getListIndex];
+      }
+
+      v21->_errorOptions = [-[MTLCommandQueue device](v21->_queue "device")];
+      v21->_progressBuffer = 0;
+      v21->_progressOffset = 0;
+      v21->_creatingProgressEncoder = 0;
+      v21->_needsFrameworkAssistedErrorTracking = [-[MTLCommandQueue device](v21->_queue "device")] == 0;
+      v21->_deadlineProfile = 0;
+      if (MEMORY[0x1EEE88938])
+      {
+        FPCommandBufferCreated();
+      }
+    }
+  }
+
+  else
+  {
+    [(_MTLCommandBuffer *)self initWithQueue:a2 retainedReferences:0 synchronousDebugMode:references, mode, v5, v6, v7];
+    return 0;
+  }
+
+  return v21;
+}
+
 - (void)initProgressTracking
 {
   if (!self->_encoderInfos)
@@ -335,24 +427,24 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v16[12] = *MEMORY[0x1E69E9840];
+  v15[12] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   retainedLabel = [(_MTLObjectWithLabel *)self retainedLabel];
   v7 = MEMORY[0x1E696AEC0];
-  v15.receiver = self;
-  v15.super_class = _MTLCommandBuffer;
-  v8 = [(_MTLCommandBuffer *)&v15 description];
-  v16[0] = v5;
-  v16[1] = @"label =";
+  v14.receiver = self;
+  v14.super_class = _MTLCommandBuffer;
+  v8 = [(_MTLCommandBuffer *)&v14 description];
+  v15[0] = v5;
+  v15[1] = @"label =";
   v9 = @"<none>";
   if (retainedLabel)
   {
     v9 = retainedLabel;
   }
 
-  v16[2] = v9;
-  v16[3] = v5;
-  v16[4] = @"device =";
+  v15[2] = v9;
+  v15[3] = v5;
+  v15[4] = @"device =";
   v10 = [-[_MTLCommandBuffer device](self "device")];
   v11 = @"<null>";
   if (!v10)
@@ -360,21 +452,20 @@
     v10 = @"<null>";
   }
 
-  v16[5] = v10;
-  v16[6] = v5;
-  v16[7] = @"commandQueue =";
+  v15[5] = v10;
+  v15[6] = v5;
+  v15[7] = @"commandQueue =";
   if (self->_queue)
   {
     v11 = [(MTLCommandQueue *)self->_queue formattedDescription:description + 4];
   }
 
-  v16[8] = v11;
-  v16[9] = v5;
-  v16[10] = @"retainedReferences =";
-  v16[11] = [MEMORY[0x1E696AD98] numberWithBool:self->_retainedReferences];
-  v12 = [v7 stringWithFormat:@"%@%@", v8, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v16, 12), "componentsJoinedByString:", @" "];
+  v15[8] = v11;
+  v15[9] = v5;
+  v15[10] = @"retainedReferences =";
+  v15[11] = [MEMORY[0x1E696AD98] numberWithBool:self->_retainedReferences];
+  v12 = [v7 stringWithFormat:@"%@%@", v8, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 12), "componentsJoinedByString:", @" "];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -383,19 +474,18 @@
   currentCommandEncoder = self->_currentCommandEncoder;
   self->_currentCommandEncoder = 0;
   scheduledDispatchList = self->_scheduledDispatchList;
-  v21 = currentCommandEncoder;
+  v20 = currentCommandEncoder;
   self->_scheduledDispatchList = 0;
   self->_scheduledDispatchListTail = 0;
   completedDispatchList = self->_completedDispatchList;
   self->_completedDispatchList = 0;
-  v19 = completedDispatchList;
+  v18 = completedDispatchList;
   self->_completedDispatchListTail = 0;
   swiftConcurrencyScheduledWaitersTail = self->_swiftConcurrencyScheduledWaitersTail;
   swiftConcurrencyScheduledWaiters = self->_swiftConcurrencyScheduledWaiters;
   self->_swiftConcurrencyScheduledWaiters = 0;
   self->_swiftConcurrencyScheduledWaitersTail = 0;
   swiftConcurrencyCompletedWaitersTail = self->_swiftConcurrencyCompletedWaitersTail;
-  v15 = swiftConcurrencyCompletedWaitersTail;
   swiftConcurrencyCompletedWaiters = self->_swiftConcurrencyCompletedWaiters;
   self->_swiftConcurrencyCompletedWaiters = 0;
   self->_swiftConcurrencyCompletedWaitersTail = 0;
@@ -406,35 +496,35 @@
   self->_error = 0;
   self->_scheduledCallbacksDone = 0;
   self->_completedCallbacksDone = 0;
-  v6 = mach_absolute_time();
+  v5 = mach_absolute_time();
   if (self->_profilingEnabled)
   {
-    self->_creationTime = v6;
+    self->_creationTime = v5;
   }
 
   if (MEMORY[0x1EEE88930] && !self->_didComplete)
   {
-    v6 = FPCommandBufferCompleted();
+    v5 = FPCommandBufferCompleted();
   }
 
   self->_didComplete = 0;
   if (MEMORY[0x1EEE88938])
   {
-    v6 = FPCommandBufferCreated();
+    v5 = FPCommandBufferCreated();
   }
 
-  self->_currentCommandEncoder = v21;
+  self->_currentCommandEncoder = v20;
   self->_scheduledDispatchList = scheduledDispatchList;
   self->_scheduledDispatchListTail = scheduledDispatchList;
-  self->_completedDispatchList = v19;
-  self->_completedDispatchListTail = v19;
+  self->_completedDispatchList = v18;
+  self->_completedDispatchListTail = v18;
   self->_swiftConcurrencyScheduledWaiters = swiftConcurrencyScheduledWaiters;
   self->_swiftConcurrencyScheduledWaitersTail = swiftConcurrencyScheduledWaitersTail;
   self->_swiftConcurrencyCompletedWaiters = swiftConcurrencyCompletedWaiters;
-  self->_swiftConcurrencyCompletedWaitersTail = v15;
+  self->_swiftConcurrencyCompletedWaitersTail = swiftConcurrencyCompletedWaitersTail;
   if (status != 4)
   {
-    [(_MTLCommandBuffer *)v6 commitAndReset:v7];
+    [(_MTLCommandBuffer *)v5 commitAndReset:v6];
   }
 }
 
@@ -510,17 +600,17 @@
 
 - (void)presentDrawable:(id)drawable
 {
-  v24[3] = *MEMORY[0x1E69E9840];
-  v5 = _MTLShouldRemapPresent();
+  v23[3] = *MEMORY[0x1E69E9840];
+  v5 = _MTLShouldRemapPresent(drawable);
   if (v5)
   {
-    v23[0] = @"enableFIFO";
-    v23[1] = @"presentationMode";
-    v24[0] = MEMORY[0x1E695E118];
-    v24[1] = &unk_1EF4CFD80;
-    v23[2] = @"presentTimeInterval";
-    v24[2] = &unk_1EF4CFDF8;
-    -[_MTLCommandBuffer presentDrawable:options:](self, "presentDrawable:options:", drawable, [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3]);
+    v22[0] = @"enableFIFO";
+    v22[1] = @"presentationMode";
+    v23[0] = MEMORY[0x1E695E118];
+    v23[1] = &unk_1EF4CFD80;
+    v22[2] = @"presentTimeInterval";
+    v23[2] = &unk_1EF4CFDF8;
+    -[_MTLCommandBuffer presentDrawable:options:](self, "presentDrawable:options:", drawable, [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3]);
   }
 
   else
@@ -529,48 +619,46 @@
     {
       if (MTLFailureTypeGetEnabled(1uLL))
       {
-        [(_MTLCommandBuffer *)drawable presentDrawable:v13, v14, v15, v16, v17, v18, v19, v21[0]];
+        [(_MTLCommandBuffer *)drawable presentDrawable:v13, v14, v15, v16, v17, v18, v19, v20[0]];
       }
     }
 
     else
     {
-      [(_MTLCommandBuffer *)v5 presentDrawable:v6, v7, v8, v9, v10, v11, v12, v21[0]];
+      [(_MTLCommandBuffer *)v5 presentDrawable:v6, v7, v8, v9, v10, v11, v12, v20[0]];
     }
 
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __37___MTLCommandBuffer_presentDrawable___block_invoke;
-    v22[3] = &unk_1E6EEB9C0;
-    v22[4] = drawable;
-    v22[5] = self;
-    [(_MTLCommandBuffer *)self addScheduledHandler:v22];
-    self->_hasPresent = 1;
-    ++self->_numPresentWaits;
     v21[0] = MEMORY[0x1E69E9820];
     v21[1] = 3221225472;
-    v21[2] = __37___MTLCommandBuffer_presentDrawable___block_invoke_2;
-    v21[3] = &unk_1E6EED408;
-    v21[4] = self;
-    [drawable addPresentScheduledHandler:v21];
+    v21[2] = __37___MTLCommandBuffer_presentDrawable___block_invoke;
+    v21[3] = &unk_1E6EEB9C0;
+    v21[4] = drawable;
+    v21[5] = self;
+    [(_MTLCommandBuffer *)self addScheduledHandler:v21];
+    self->_hasPresent = 1;
+    ++self->_numPresentWaits;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __37___MTLCommandBuffer_presentDrawable___block_invoke_2;
+    v20[3] = &unk_1E6EED408;
+    v20[4] = self;
+    [drawable addPresentScheduledHandler:v20];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)presentDrawable:(id)drawable atTime:(double)time
 {
-  v27[3] = *MEMORY[0x1E69E9840];
-  v7 = _MTLShouldRemapPresent();
+  v26[3] = *MEMORY[0x1E69E9840];
+  v7 = _MTLShouldRemapPresent(drawable);
   if (v7)
   {
-    v26[0] = @"enableFIFO";
-    v26[1] = @"presentationMode";
-    v27[0] = MEMORY[0x1E695E118];
-    v27[1] = &unk_1EF4CFD98;
-    v26[2] = @"presentTimeInterval";
-    v27[2] = [MEMORY[0x1E696AD98] numberWithDouble:time];
-    -[_MTLCommandBuffer presentDrawable:options:](self, "presentDrawable:options:", drawable, [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3]);
+    v25[0] = @"enableFIFO";
+    v25[1] = @"presentationMode";
+    v26[0] = MEMORY[0x1E695E118];
+    v26[1] = &unk_1EF4CFD98;
+    v25[2] = @"presentTimeInterval";
+    v26[2] = [MEMORY[0x1E696AD98] numberWithDouble:time];
+    -[_MTLCommandBuffer presentDrawable:options:](self, "presentDrawable:options:", drawable, [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3]);
   }
 
   else
@@ -579,49 +667,47 @@
     {
       if (MTLFailureTypeGetEnabled(1uLL))
       {
-        [(_MTLCommandBuffer *)drawable presentDrawable:v15 atTime:v16, v17, v18, v19, v20, v21, v23];
+        [(_MTLCommandBuffer *)drawable presentDrawable:v15 atTime:v16, v17, v18, v19, v20, v21, v22];
       }
     }
 
     else
     {
-      [(_MTLCommandBuffer *)v7 presentDrawable:v8 atTime:v9, v10, v11, v12, v13, v14, v23];
+      [(_MTLCommandBuffer *)v7 presentDrawable:v8 atTime:v9, v10, v11, v12, v13, v14, v22];
     }
 
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __44___MTLCommandBuffer_presentDrawable_atTime___block_invoke;
-    v25[3] = &unk_1E6EED430;
-    *&v25[6] = time;
-    v25[4] = drawable;
-    v25[5] = self;
-    [(_MTLCommandBuffer *)self addScheduledHandler:v25];
-    self->_hasPresent = 1;
-    ++self->_numPresentWaits;
     v24[0] = MEMORY[0x1E69E9820];
     v24[1] = 3221225472;
-    v24[2] = __44___MTLCommandBuffer_presentDrawable_atTime___block_invoke_2;
-    v24[3] = &unk_1E6EED408;
-    v24[4] = self;
-    [drawable addPresentScheduledHandler:v24];
+    v24[2] = __44___MTLCommandBuffer_presentDrawable_atTime___block_invoke;
+    v24[3] = &unk_1E6EED430;
+    *&v24[6] = time;
+    v24[4] = drawable;
+    v24[5] = self;
+    [(_MTLCommandBuffer *)self addScheduledHandler:v24];
+    self->_hasPresent = 1;
+    ++self->_numPresentWaits;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __44___MTLCommandBuffer_presentDrawable_atTime___block_invoke_2;
+    v23[3] = &unk_1E6EED408;
+    v23[4] = self;
+    [drawable addPresentScheduledHandler:v23];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)presentDrawable:(id)drawable afterMinimumDuration:(double)duration
 {
-  v27[3] = *MEMORY[0x1E69E9840];
-  v7 = _MTLShouldRemapPresent();
+  v26[3] = *MEMORY[0x1E69E9840];
+  v7 = _MTLShouldRemapPresent(drawable);
   if (v7)
   {
-    v26[0] = @"enableFIFO";
-    v26[1] = @"presentationMode";
-    v27[0] = MEMORY[0x1E695E118];
-    v27[1] = &unk_1EF4CFDB0;
-    v26[2] = @"presentTimeInterval";
-    v27[2] = [MEMORY[0x1E696AD98] numberWithDouble:duration];
-    -[_MTLCommandBuffer presentDrawable:options:](self, "presentDrawable:options:", drawable, [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3]);
+    v25[0] = @"enableFIFO";
+    v25[1] = @"presentationMode";
+    v26[0] = MEMORY[0x1E695E118];
+    v26[1] = &unk_1EF4CFDB0;
+    v25[2] = @"presentTimeInterval";
+    v26[2] = [MEMORY[0x1E696AD98] numberWithDouble:duration];
+    -[_MTLCommandBuffer presentDrawable:options:](self, "presentDrawable:options:", drawable, [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3]);
   }
 
   else
@@ -630,34 +716,32 @@
     {
       if (MTLFailureTypeGetEnabled(1uLL))
       {
-        [(_MTLCommandBuffer *)drawable presentDrawable:v15 afterMinimumDuration:v16, v17, v18, v19, v20, v21, v23];
+        [(_MTLCommandBuffer *)drawable presentDrawable:v15 afterMinimumDuration:v16, v17, v18, v19, v20, v21, v22];
       }
     }
 
     else
     {
-      [(_MTLCommandBuffer *)v7 presentDrawable:v8 afterMinimumDuration:v9, v10, v11, v12, v13, v14, v23];
+      [(_MTLCommandBuffer *)v7 presentDrawable:v8 afterMinimumDuration:v9, v10, v11, v12, v13, v14, v22];
     }
 
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __58___MTLCommandBuffer_presentDrawable_afterMinimumDuration___block_invoke;
-    v25[3] = &unk_1E6EED430;
-    *&v25[6] = duration;
-    v25[4] = drawable;
-    v25[5] = self;
-    [(_MTLCommandBuffer *)self addScheduledHandler:v25];
-    self->_hasPresent = 1;
-    ++self->_numPresentWaits;
     v24[0] = MEMORY[0x1E69E9820];
     v24[1] = 3221225472;
-    v24[2] = __58___MTLCommandBuffer_presentDrawable_afterMinimumDuration___block_invoke_2;
-    v24[3] = &unk_1E6EED408;
-    v24[4] = self;
-    [drawable addPresentScheduledHandler:v24];
+    v24[2] = __58___MTLCommandBuffer_presentDrawable_afterMinimumDuration___block_invoke;
+    v24[3] = &unk_1E6EED430;
+    *&v24[6] = duration;
+    v24[4] = drawable;
+    v24[5] = self;
+    [(_MTLCommandBuffer *)self addScheduledHandler:v24];
+    self->_hasPresent = 1;
+    ++self->_numPresentWaits;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __58___MTLCommandBuffer_presentDrawable_afterMinimumDuration___block_invoke_2;
+    v23[3] = &unk_1E6EED408;
+    v23[4] = self;
+    [drawable addPresentScheduledHandler:v23];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__waitUntilScheduledAsync:(id)async
@@ -719,7 +803,7 @@
     __dmb(0xBu);
     self->_status = 5;
     localizedDescription = [(NSError *)self->_error localizedDescription];
-    MTLReportFailure(4, "[_MTLCommandBuffer didScheduleWithStartTime:endTime:error:]", 1070, @"Execution of the command buffer was aborted due to an error during execution. %@", v10, v11, v12, v13, localizedDescription);
+    MTLReportFailure(4uLL, "[_MTLCommandBuffer didScheduleWithStartTime:endTime:error:]", 1070, @"Execution of the command buffer was aborted due to an error during execution. %@", v10, v11, v12, v13, localizedDescription);
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       [_MTLCommandBuffer didScheduleWithStartTime:? endTime:? error:?];
@@ -740,14 +824,12 @@
   {
     if (MTLTraceEnabled())
     {
-      globalTraceObjectID = self->_globalTraceObjectID;
       kdebug_trace();
     }
 
     MTLDispatchListApply(self->_scheduledDispatchList);
     if (MTLTraceEnabled())
     {
-      v15 = self->_globalTraceObjectID;
       kdebug_trace();
     }
 
@@ -794,7 +876,7 @@
       __dmb(0xBu);
       self->_status = 5;
       localizedDescription = [(NSError *)self->_error localizedDescription];
-      MTLReportFailure(4, "[_MTLCommandBuffer didCompleteWithStartTime:endTime:error:]", 1210, @"Execution of the command buffer was aborted due to an error during execution. %@", v12, v13, v14, v15, localizedDescription);
+      MTLReportFailure(4uLL, "[_MTLCommandBuffer didCompleteWithStartTime:endTime:error:]", 1210, @"Execution of the command buffer was aborted due to an error during execution. %@", v12, v13, v14, v15, localizedDescription);
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         [_MTLCommandBuffer didScheduleWithStartTime:? endTime:? error:?];
@@ -833,14 +915,12 @@
   {
     if (MTLTraceEnabled())
     {
-      globalTraceObjectID = self->_globalTraceObjectID;
       kdebug_trace();
     }
 
     MTLDispatchListApply(self->_completedDispatchList);
     if (MTLTraceEnabled())
     {
-      v18 = self->_globalTraceObjectID;
       kdebug_trace();
     }
 
@@ -879,41 +959,35 @@
 
 - (NSDictionary)profilingResults
 {
-  v7[10] = *MEMORY[0x1E69E9840];
-  if (self->_profilingEnabled)
+  v6[10] = *MEMORY[0x1E69E9840];
+  if (!self->_profilingEnabled)
   {
-    v6[0] = @"MTLCommandBufferCreationTime";
-    v7[0] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_creationTime];
-    v6[1] = @"MTLCommandBufferEnqueueTime";
-    v7[1] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_enqueueTime];
-    v6[2] = @"MTLCommandBufferCommitTime";
-    v7[2] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_commitTime];
-    v6[3] = @"MTLCommandBufferSubmitToKernelTime";
-    v7[3] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_submitToKernelTime];
-    v6[4] = @"MTLCommandBufferKernelScheduledTime";
-    v7[4] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_kernelEndTime];
-    v6[5] = @"MTLCommandBufferSubmitToHWTime";
-    v7[5] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_submitToHardwareTime];
-    v6[6] = @"MTLCommandBufferCompletionInterruptTime";
-    v7[6] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_completionInterruptTime];
-    v6[7] = @"MTLCommandBufferKernelCompleteTime";
-    v7[7] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_gpuEndTime];
-    v6[8] = @"MTLCommandBufferCompletionHandlerEnqueueTime";
-    v7[8] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_completionHandlerEnqueueTime];
-    v6[9] = @"MTLCommandBufferCompletionHandlerExecutionTime";
-    v7[9] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_completionHandlerExecutionTime];
-    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:10];
-    self->_profilingResults = v3;
-    result = v3;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v5[0] = @"MTLCommandBufferCreationTime";
+  v6[0] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_creationTime];
+  v5[1] = @"MTLCommandBufferEnqueueTime";
+  v6[1] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_enqueueTime];
+  v5[2] = @"MTLCommandBufferCommitTime";
+  v6[2] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_commitTime];
+  v5[3] = @"MTLCommandBufferSubmitToKernelTime";
+  v6[3] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_submitToKernelTime];
+  v5[4] = @"MTLCommandBufferKernelScheduledTime";
+  v6[4] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_kernelEndTime];
+  v5[5] = @"MTLCommandBufferSubmitToHWTime";
+  v6[5] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_submitToHardwareTime];
+  v5[6] = @"MTLCommandBufferCompletionInterruptTime";
+  v6[6] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_completionInterruptTime];
+  v5[7] = @"MTLCommandBufferKernelCompleteTime";
+  v6[7] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_gpuEndTime];
+  v5[8] = @"MTLCommandBufferCompletionHandlerEnqueueTime";
+  v6[8] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_completionHandlerEnqueueTime];
+  v5[9] = @"MTLCommandBufferCompletionHandlerExecutionTime";
+  v6[9] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_completionHandlerExecutionTime];
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:10];
+  self->_profilingResults = v3;
+  return v3;
 }
 
 - (unint64_t)getAndIncrementNumEncoders
@@ -1087,48 +1161,47 @@
 
 - (void)presentDrawable:(uint64_t)a3 options:(uint64_t)a4 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF5055B8] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF5055B8, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[_MTLCommandBuffer presentDrawable:options:]", 849, @"drawable is not a MTLDrawableSPI.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[_MTLCommandBuffer presentDrawable:options:]", 849, @"drawable is not a MTLDrawableSPI.", v9, v10, v11, v12, a9);
   }
 }
 
 - (void)presentDrawable:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF5037F0] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF5037F0, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[_MTLCommandBuffer presentDrawable:]", 899, @"drawable is not a MTLDrawable.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[_MTLCommandBuffer presentDrawable:]", 899, @"drawable is not a MTLDrawable.", v9, v10, v11, v12, a9);
   }
 }
 
 - (void)presentDrawable:(uint64_t)a3 atTime:(uint64_t)a4 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF5037F0] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF5037F0, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[_MTLCommandBuffer presentDrawable:atTime:]", 932, @"drawable is not a MTLDrawable.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[_MTLCommandBuffer presentDrawable:atTime:]", 932, @"drawable is not a MTLDrawable.", v9, v10, v11, v12, a9);
   }
 }
 
 - (void)presentDrawable:(uint64_t)a3 afterMinimumDuration:(uint64_t)a4 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF5037F0] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF5037F0, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[_MTLCommandBuffer presentDrawable:afterMinimumDuration:]", 968, @"drawable is not a MTLDrawable.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[_MTLCommandBuffer presentDrawable:afterMinimumDuration:]", 968, @"drawable is not a MTLDrawable.", v9, v10, v11, v12, a9);
   }
 }
 
 - (void)didScheduleWithStartTime:(id *)a1 endTime:error:.cold.1(id *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = [objc_msgSend(*a1 "localizedDescription")];
-  v3 = 136446210;
-  v4 = v1;
-  _os_log_error_impl(&dword_185B8E000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Execution of the command buffer was aborted due to an error during execution. %{public}s", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v2 = 136446210;
+  v3 = v1;
+  _os_log_error_impl(&dword_185B8E000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Execution of the command buffer was aborted due to an error during execution. %{public}s", &v2, 0xCu);
 }
 
 @end

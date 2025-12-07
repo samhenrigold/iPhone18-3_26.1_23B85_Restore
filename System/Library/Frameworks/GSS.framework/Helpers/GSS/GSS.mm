@@ -359,13 +359,13 @@ void sub_100002314(id a1, id a2, id a3, BOOL *a4)
   objc_storeStrong(location, 0);
 }
 
-uint64_t sub_1000024C4(uint64_t a1, const __CFDictionary *a2)
+uint64_t sub_1000024C4(uint64_t a1, uint64_t a2)
 {
   v9 = a1;
   v8 = a2;
   if (*(a1 + 32))
   {
-    heim_abort();
+    heim_abort("HeimCredAssignMech already have a mech:cred->mech == NULL");
   }
 
   v7 = 0;
@@ -410,7 +410,7 @@ const void *sub_1000026D4(int a1)
   v2 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
   if (!v2)
   {
-    heim_abort();
+    heim_abort("out of memory:sid != NULL");
   }
 
   Value = CFDictionaryGetValue(qword_100028DD8, v2);
@@ -429,13 +429,13 @@ const void *sub_1000026D4(int a1)
   {
     if (!sub_10000A4D0())
     {
-      heim_abort();
+      heim_abort("could not register cftype:sessionTID != _kCFRuntimeNotATypeID");
     }
 
     Instance = _CFRuntimeCreateInstance();
     if (!Instance)
     {
-      heim_abort();
+      heim_abort("out of memory while registering HeimMech instance:session != NULL");
     }
 
     *(Instance + 16) = valuePtr;
@@ -454,7 +454,7 @@ const void *sub_1000026D4(int a1)
   }
 }
 
-void sub_1000028C8(uint64_t *a1, void *a2, void *a3, uint64_t a4)
+void sub_1000028C8(void *a1, void *a2, void *a3, uint64_t a4)
 {
   location[1] = a1;
   location[0] = 0;
@@ -471,7 +471,7 @@ void sub_1000028C8(uint64_t *a1, void *a2, void *a3, uint64_t a4)
     if (byte_100028D68)
     {
       v8 = CFDictionaryGetValue(v10, @"kHEIMAttrASID");
-      if ((!v8 || ((off_100028D58)([v8 intValue]) & 1) == 0) && cf)
+      if ((!v8 || (off_100028D58([v8 intValue]) & 1) == 0) && cf)
       {
         CFRelease(cf);
         cf = 0;
@@ -530,7 +530,7 @@ void sub_100002BC0(uint64_t a1, uint64_t a2, const __CFDictionary *a3)
 {
   if (!*(a2 + 32))
   {
-    heim_abort();
+    heim_abort("mech is NULL, schame validation doesn't work ?:cred->mech != NULL");
   }
 
   if (!CFDictionaryGetValue(a3, @"kHEIMAttrParentCredential"))
@@ -661,55 +661,55 @@ uint64_t sub_100003164(uint64_t result, uint64_t a2, uint64_t a3)
 
 void sub_1000031B4(void *a1, void *a2, void *a3)
 {
-  v48 = a1;
+  v49 = a1;
   location = 0;
   objc_storeStrong(&location, a2);
-  v46 = 0;
-  objc_storeStrong(&v46, a3);
+  v47 = 0;
+  objc_storeStrong(&v47, a3);
   MutableCopy = 0;
+  v45 = 0;
   v44 = 0;
   v43 = 0;
   v42 = 0;
   v41 = 0;
   v40 = 0;
-  v39 = 0;
-  v38 = sub_10000E120();
-  v37 = OS_LOG_TYPE_DEBUG;
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+  v39 = sub_10000E120();
+  v38 = OS_LOG_TYPE_DEBUG;
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
   {
-    sub_100003F54(v55, location);
-    _os_log_debug_impl(&_mh_execute_header, v38, v37, "Begin Create Cred: %@", v55, 0xCu);
+    sub_100003F54(v56, location);
+    _os_log_debug_impl(&_mh_execute_header, v39, v38, "Begin Create Cred: %@", v56, 0xCu);
   }
 
-  objc_storeStrong(&v38, 0);
-  v13 = location;
+  objc_storeStrong(&v39, 0);
+  v14 = location;
   TypeID = CFDictionaryGetTypeID();
-  v36 = sub_10000F630(v13, "attributes", TypeID);
-  if (v36)
+  v37 = sub_10000F630(v14, "attributes", TypeID);
+  if (v37)
   {
-    if ((sub_100003F94(v36, &v41) & 1) == 0)
+    if ((sub_100003F94(v37, &v42) & 1) == 0)
     {
 LABEL_33:
-      sub_1000041C4(v46, v41);
+      sub_1000041C4(v47, v42);
       goto LABEL_75;
     }
 
-    v12 = 1;
-    if (!sub_100002B48(v36))
+    v13 = 1;
+    if (!sub_100002B48(v37))
     {
-      v12 = sub_100004294(v48[7], v36);
+      v13 = sub_100004294(v49[7], v37);
     }
 
-    v39 = v12;
-    v35 = CFDictionaryGetValue(v36, @"kHEIMAttrParentCredential");
-    if (!v35 || (sub_100004360(v48, v35, &v42) & 1) != 0)
+    v40 = v13;
+    v36 = CFDictionaryGetValue(v37, @"kHEIMAttrParentCredential");
+    if (!v36 || (sub_100004360(v49, v36, &v43) & 1) != 0)
     {
-      v43 = CFDictionaryGetValue(v36, @"kHEIMAttrUUID");
-      if (v43)
+      v44 = CFDictionaryGetValue(v37, @"kHEIMAttrUUID");
+      if (v44)
       {
-        CFRetain(v43);
-        v11 = CFGetTypeID(v43);
-        if (v11 != CFUUIDGetTypeID() || CFDictionaryGetValue(*(v48[7] + 24), v43))
+        CFRetain(v44);
+        v12 = CFGetTypeID(v44);
+        if (v12 != CFUUIDGetTypeID() || CFDictionaryGetValue(*(v49[7] + 24), v44))
         {
           goto LABEL_75;
         }
@@ -717,53 +717,53 @@ LABEL_33:
 
       else
       {
-        v43 = CFUUIDCreate(0);
-        if (!v43)
+        v44 = CFUUIDCreate(0);
+        if (!v44)
         {
           goto LABEL_75;
         }
       }
 
-      if ((sub_100004B4C(v48, v36, &v41) & 1) == 0)
+      if ((sub_100004B4C(v49, v37, &v42) & 1) == 0)
       {
         goto LABEL_33;
       }
 
-      v44 = sub_10000FE64(v43);
-      if (v44)
+      v45 = sub_10000FE64(v44);
+      if (v45)
       {
-        MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v36);
+        MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v37);
         if (MutableCopy)
         {
-          v34 = sub_10000534C(v48, MutableCopy);
-          if ((v34 & 1) != 0 && (sub_1000054D0(v48) & 1) == 0)
+          v35 = sub_10000534C(v49, MutableCopy);
+          if ((v35 & 1) != 0 && (sub_1000054D0(v49) & 1) == 0)
           {
-            v33 = CFDictionaryGetValue(MutableCopy, @"kHEIMAttrBundleIdentifierACL");
-            if (!v33 || (v10 = CFGetTypeID(v33), v10 != CFArrayGetTypeID()) || CFArrayGetCount(v33) != 1)
+            v34 = CFDictionaryGetValue(MutableCopy, @"kHEIMAttrBundleIdentifierACL");
+            if (!v34 || (v11 = CFGetTypeID(v34), v11 != CFArrayGetTypeID()) || CFArrayGetCount(v34) != 1)
             {
-              v32 = sub_10000E120();
-              v31 = OS_LOG_TYPE_ERROR;
-              if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+              v33 = sub_10000E120();
+              v32 = OS_LOG_TYPE_ERROR;
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
               {
-                v8 = v32;
-                v9 = v31;
-                sub_100001A10(v30);
-                _os_log_error_impl(&_mh_execute_header, v8, v9, "peer sent more then one bundle id and is not accountsd", v30, 2u);
+                v9 = v33;
+                v10 = v32;
+                sub_100001A10(v31);
+                _os_log_error_impl(&_mh_execute_header, v9, v10, "peer sent more then one bundle id and is not accountsd", v31, 2u);
               }
 
-              objc_storeStrong(&v32, 0);
+              objc_storeStrong(&v33, 0);
               goto LABEL_75;
             }
           }
 
-          if ((v42 & 1) == 0 && (v34 & 1) == 0)
+          if ((v43 & 1) == 0 && (v35 & 1) == 0)
           {
             values = 0;
-            values = v48[1];
+            values = v49[1];
             value = CFArrayCreate(0, &values, 1, &kCFTypeArrayCallBacks);
             if (!value)
             {
-              heim_abort();
+              heim_abort("out of memory:array != NULL");
             }
 
             CFDictionarySetValue(MutableCopy, @"kHEIMAttrBundleIdentifierACL", value);
@@ -774,18 +774,18 @@ LABEL_33:
             }
           }
 
-          CFDictionarySetValue(MutableCopy, @"kHEIMAttrUUID", v43);
-          if ((sub_100003F94(MutableCopy, &v41) & 1) == 0)
+          CFDictionarySetValue(MutableCopy, @"kHEIMAttrUUID", v44);
+          if ((sub_100003F94(MutableCopy, &v42) & 1) == 0)
           {
             goto LABEL_33;
           }
 
-          if (sub_1000024C4(v44, MutableCopy))
+          if (sub_1000024C4(v45, MutableCopy))
           {
-            sub_100005544(v44, MutableCopy);
-            if (!v39)
+            sub_100005544(v45, MutableCopy);
+            if (!v40)
             {
-              sub_100002BC0(v48[7], v44, MutableCopy);
+              sub_100002BC0(v49[7], v45, MutableCopy);
             }
 
             if ((byte_100028D18 & 1) == 0)
@@ -793,14 +793,14 @@ LABEL_33:
               goto LABEL_43;
             }
 
-            v6 = off_100028D20();
-            v49 = 0;
-            objc_storeStrong(&v49, v6);
-            v7 = v49;
-            objc_storeStrong(&v49, 0);
+            v7 = off_100028D20(v4);
+            v50 = 0;
+            objc_storeStrong(&v50, v7);
+            v8 = v50;
+            objc_storeStrong(&v50, 0);
 
-            cf = v7;
-            if (v7)
+            cf = v8;
+            if (v8)
             {
               CFDictionarySetValue(MutableCopy, @"kHEIMAttrAltDSID", cf);
               CFRelease(cf);
@@ -808,103 +808,103 @@ LABEL_33:
 LABEL_43:
               if (byte_100028D68)
               {
-                valuePtr = off_100028D30(*v48);
-                v23 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+                valuePtr = off_100028D30(*v49);
+                v24 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
                 if (valuePtr)
                 {
-                  CFDictionarySetValue(MutableCopy, @"kHEIMAttrUserID", v23);
+                  CFDictionarySetValue(MutableCopy, @"kHEIMAttrUserID", v24);
                 }
 
-                if (v23)
+                if (v24)
                 {
-                  CFRelease(v23);
-                  v23 = 0;
+                  CFRelease(v24);
+                  v24 = 0;
                 }
 
-                v22 = off_100028D38(*v48);
-                v21 = CFNumberCreate(0, kCFNumberIntType, &v22);
-                CFDictionarySetValue(MutableCopy, @"kHEIMAttrASID", v21);
-                if (v21)
+                v23 = off_100028D38(*v49);
+                v22 = CFNumberCreate(0, kCFNumberIntType, &v23);
+                CFDictionarySetValue(MutableCopy, @"kHEIMAttrASID", v22);
+                if (v22)
                 {
-                  CFRelease(v21);
-                  v21 = 0;
+                  CFRelease(v22);
+                  v22 = 0;
                 }
               }
 
-              if (!v35)
+              if (!v36)
               {
                 CFDictionarySetValue(MutableCopy, @"kHEIMAttrRetainStatus", &off_100026360);
               }
 
-              *(v44 + 24) = CFRetain(MutableCopy);
-              CFDictionarySetValue(*(v48[7] + 24), *(v44 + 16), v44);
-              if (CFDictionaryGetValue(*(v44 + 24), @"kHEIMAttrLeadCredential") == kCFBooleanTrue && *(*(v44 + 32) + 40))
+              *(v45 + 24) = CFRetain(MutableCopy);
+              CFDictionarySetValue(*(v49[7] + 24), *(v45 + 16), v45);
+              if (CFDictionaryGetValue(*(v45 + 24), @"kHEIMAttrLeadCredential") == kCFBooleanTrue && *(*(v45 + 32) + 40))
               {
-                (*(*(v44 + 32) + 40))();
+                (*(*(v45 + 32) + 40))();
               }
 
               byte_100028E04 = 1;
-              if (!*(v44 + 32))
+              if (!*(v45 + 32))
               {
-                heim_abort();
+                heim_abort("mech is NULL, schame validation doesn't work ?:cred->mech != NULL");
               }
 
-              key = CFDictionaryGetValue(*(v48[7] + 40), *(*(v44 + 32) + 16));
-              if (!v39 && (!key || !CFDictionaryGetValue(*(v48[7] + 24), key)))
+              key = CFDictionaryGetValue(*(v49[7] + 40), *(*(v45 + 32) + 16));
+              if (!v40 && (!key || !CFDictionaryGetValue(*(v49[7] + 24), key)))
               {
-                v40 = CFDictionaryGetValue(*(v44 + 24), @"kHEIMAttrLeadCredential");
-                if (v40)
+                v41 = CFDictionaryGetValue(*(v45 + 24), @"kHEIMAttrLeadCredential");
+                if (v41)
                 {
-                  if (CFBooleanGetValue(v40))
+                  if (CFBooleanGetValue(v41))
                   {
-                    *(v48[7] + 48) = 1;
-                    sub_100005634(v48);
+                    *(v49[7] + 48) = 1;
+                    sub_100005634(v49);
                   }
                 }
               }
 
-              sub_100002CF4(v44, v48[7]);
-              v19 = sub_1000056A8(*(v44 + 24), &v41);
-              if (v41)
+              sub_100002CF4(v45, v49[7]);
+              v20 = sub_1000056A8(*(v45 + 24), &v42);
+              if (v42)
               {
-                v18 = sub_10000E120();
-                v17 = OS_LOG_TYPE_ERROR;
-                if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+                v19 = sub_10000E120();
+                v18 = OS_LOG_TYPE_ERROR;
+                if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
                 {
-                  sub_100003F54(v51, v41);
-                  _os_log_error_impl(&_mh_execute_header, v18, v17, "error filtering attributes: %@", v51, 0xCu);
+                  sub_100003F54(v52, v42);
+                  _os_log_error_impl(&_mh_execute_header, v19, v18, "error filtering attributes: %@", v52, 0xCu);
                 }
 
-                objc_storeStrong(&v18, 0);
-                if (v41)
+                objc_storeStrong(&v19, 0);
+                if (v42)
                 {
-                  CFRelease(v41);
-                  v41 = 0;
+                  CFRelease(v42);
+                  v42 = 0;
                 }
               }
 
-              sub_10000F6E8(v46, "attributes");
-              if (v19)
+              sub_10000F6E8(v47, "attributes", v20);
+              if (v20)
               {
-                CFRelease(v19);
-                v19 = 0;
+                CFRelease(v20);
+                v20 = 0;
               }
 
-              if (*(*(v44 + 32) + 24))
+              if (*(*(v45 + 32) + 24))
               {
-                v16 = (*(*(v44 + 32) + 24))(v44);
-                v15 = sub_10000E120();
-                if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+                v17 = (*(*(v45 + 32) + 24))(v45);
+                v16 = sub_10000E120();
+                if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
                 {
-                  sub_10000586C(v50, v16);
-                  _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "End Create Cred: %{private}@", v50, 0xCu);
+                  sub_10000586C(v51, v17);
+                  _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "End Create Cred: %{private}@", v51, 0xCu);
                 }
 
-                objc_storeStrong(&v15, 0);
-                if (v16)
+                objc_storeStrong(&v16, 0);
+                if (v17)
                 {
-                  CFRelease(v16);
-                  v16 = 0;
+                  CFRelease(v17);
+                  v17 = 0;
                 }
               }
 
@@ -912,20 +912,20 @@ LABEL_43:
             }
 
             oslog = sub_10000E120();
-            v26 = OS_LOG_TYPE_ERROR;
+            v27 = OS_LOG_TYPE_ERROR;
             if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
             {
-              v4 = oslog;
-              v5 = v26;
-              sub_100001A10(v25);
-              _os_log_error_impl(&_mh_execute_header, v4, v5, "the device is multiuser and is missing the altDSID", v25, 2u);
+              v5 = oslog;
+              v6 = v27;
+              sub_100001A10(v26);
+              _os_log_error_impl(&_mh_execute_header, v5, v6, "the device is multiuser and is missing the altDSID", v26, 2u);
             }
 
             objc_storeStrong(&oslog, 0);
-            v53 = @"CommonErrorCode";
-            v52 = kCFBooleanTrue;
-            sub_1000055C4(&v41, 564486, &v53, &v52, 1);
-            sub_1000041C4(v46, v41);
+            v54 = @"CommonErrorCode";
+            v53 = kCFBooleanTrue;
+            sub_1000055C4(&v42, 564486, &v54, &v53, 1);
+            sub_1000041C4(v47, v42);
           }
         }
       }
@@ -939,10 +939,16 @@ LABEL_75:
     MutableCopy = 0;
   }
 
-  if (v36)
+  if (v37)
   {
-    CFRelease(v36);
-    v36 = 0;
+    CFRelease(v37);
+    v37 = 0;
+  }
+
+  if (v45)
+  {
+    CFRelease(v45);
+    v45 = 0;
   }
 
   if (v44)
@@ -951,19 +957,13 @@ LABEL_75:
     v44 = 0;
   }
 
-  if (v43)
+  if (v42)
   {
-    CFRelease(v43);
-    v43 = 0;
+    CFRelease(v42);
+    v42 = 0;
   }
 
-  if (v41)
-  {
-    CFRelease(v41);
-    v41 = 0;
-  }
-
-  objc_storeStrong(&v46, 0);
+  objc_storeStrong(&v47, 0);
   objc_storeStrong(&location, 0);
 }
 
@@ -977,13 +977,13 @@ uint64_t sub_100003F54(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100003F94(const __CFDictionary *a1, __CFError *a2)
+uint64_t sub_100003F94(const __CFDictionary *a1, const __CFDictionary *a2)
 {
   v10 = a1;
   v9 = a2;
   if (!a2)
   {
-    heim_abort();
+    heim_abort("why you bother validating if you wont report the error to the user:error != NULL");
   }
 
   memset(__b, 0, sizeof(__b));
@@ -1072,161 +1072,163 @@ BOOL sub_100004294(uint64_t a1, const __CFDictionary *a2)
 
 uint64_t sub_100004360(void *a1, const void *a2, _BYTE *a3)
 {
-  v47 = a1;
-  v46 = a2;
-  v45 = a3;
-  v44 = 10;
-  v43 = 0;
+  v48 = a1;
+  v47 = a2;
+  v46 = a3;
+  v45 = 10;
+  v44 = 0;
   if (a3)
   {
-    *v45 = 0;
+    *v46 = 0;
   }
 
-  v17 = CFGetTypeID(v46);
-  if (v17 == CFUUIDGetTypeID())
+  v18 = CFGetTypeID(v47);
+  if (v18 == CFUUIDGetTypeID())
   {
     while (1)
     {
-      Value = CFDictionaryGetValue(*(v47[7] + 24), v46);
-      v41 = 0;
+      Value = CFDictionaryGetValue(*(v48[7] + 24), v47);
+      v42 = 0;
       if (!Value)
       {
 LABEL_58:
-        v43 = 1;
-        return v43 & 1;
+        v44 = 1;
+        return v44 & 1;
       }
 
-      v16 = CFGetTypeID(Value);
-      if (v16 != sub_10000FE40())
+      v17 = CFGetTypeID(Value);
+      if (v17 != sub_10000FE40())
       {
-        heim_abort();
+        heim_abort("cred wrong type:CFGetTypeID(cred) == HeimCredGetTypeID()");
       }
 
-      v3 = v44--;
+      v3 = v45--;
       if (v3 < 0)
       {
-        return v43 & 1;
+        return v44 & 1;
       }
 
       if (byte_100028D18)
       {
-        if (!off_100028D30(*v47))
+        v4 = off_100028D30(*v48);
+        v41 = v4;
+        if (!v4)
         {
           goto LABEL_58;
         }
 
-        v39 = 0;
-        if (!v47[9])
+        v40 = 0;
+        if (!v48[9])
         {
-          v38 = off_100028D20();
+          v39 = off_100028D20(v4);
           location = 0;
-          objc_storeStrong(&location, v38);
-          v15 = location;
+          objc_storeStrong(&location, v39);
+          v16 = location;
           objc_storeStrong(&location, 0);
-          v47[9] = v15;
-          objc_storeStrong(&v38, 0);
+          v48[9] = v16;
+          objc_storeStrong(&v39, 0);
         }
 
-        v37 = CFDictionaryGetValue(Value[3], @"kHEIMAttrAltDSID");
-        if (v37 && v47[9])
+        v38 = CFDictionaryGetValue(Value[3], @"kHEIMAttrAltDSID");
+        if (v38 && v48[9])
         {
-          v39 = CFStringCompare(v37, v47[9], 0) == kCFCompareEqualTo;
+          v40 = CFStringCompare(v38, v48[9], 0) == kCFCompareEqualTo;
         }
 
-        if (!v39)
+        if (!v40)
         {
-          return v43 & 1;
+          return v44 & 1;
         }
       }
 
       if (byte_100028D68)
       {
-        valuePtr = off_100028D38(*v47);
-        v35 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-        v34 = CFDictionaryGetValue(Value[3], @"kHEIMAttrASID");
-        v33 = 0;
-        if (v35 && v34)
+        valuePtr = off_100028D38(*v48);
+        v36 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+        v35 = CFDictionaryGetValue(Value[3], @"kHEIMAttrASID");
+        v34 = 0;
+        if (v36 && v35)
         {
-          v33 = CFEqual(v35, v34) != 0;
+          v34 = CFEqual(v36, v35) != 0;
         }
 
-        v32 = off_100028D30(*v47);
-        v31 = CFDictionaryGetValue(Value[3], @"kHEIMAttrUserID");
-        v30 = CFNumberCreate(0, kCFNumberIntType, &v32);
-        v29 = 0;
-        if (v31 && v30)
+        v33 = off_100028D30(*v48);
+        v32 = CFDictionaryGetValue(Value[3], @"kHEIMAttrUserID");
+        v31 = CFNumberCreate(0, kCFNumberIntType, &v33);
+        v30 = 0;
+        if (v32 && v31)
         {
-          v29 = CFEqual(v31, v30) != 0;
+          v30 = CFEqual(v32, v31) != 0;
         }
 
-        if (v30)
+        if (v31)
         {
-          CFRelease(v30);
-          v30 = 0;
+          CFRelease(v31);
+          v31 = 0;
         }
 
-        if (v35)
+        if (v36)
         {
-          CFRelease(v35);
-          v35 = 0;
+          CFRelease(v36);
+          v36 = 0;
         }
 
-        if (!v29 && !v33)
+        if (!v30 && !v34)
         {
-          return v43 & 1;
+          return v44 & 1;
         }
       }
 
-      v28 = CFDictionaryGetValue(Value[3], @"kHEIMAttrBundleIdentifierACL");
-      if (v28)
+      v29 = CFDictionaryGetValue(Value[3], @"kHEIMAttrBundleIdentifierACL");
+      if (v29)
       {
         break;
       }
 
-      v41 = CFDictionaryGetValue(Value[3], @"kHEIMAttrParentCredential");
-      if (!v41)
+      v42 = CFDictionaryGetValue(Value[3], @"kHEIMAttrParentCredential");
+      if (!v42)
       {
-        return v43 & 1;
+        return v44 & 1;
       }
 
-      if (CFEqual(v41, v46))
+      if (CFEqual(v42, v47))
       {
         goto LABEL_58;
       }
 
-      v46 = v41;
+      v47 = v42;
     }
 
     i = 0;
     Count = 0;
-    if (v45)
+    if (v46)
     {
-      *v45 = 1;
+      *v46 = 1;
     }
 
-    v14 = CFGetTypeID(v28);
-    if (v14 == CFArrayGetTypeID())
+    v15 = CFGetTypeID(v29);
+    if (v15 == CFArrayGetTypeID())
     {
-      Count = CFArrayGetCount(v28);
+      Count = CFArrayGetCount(v29);
       for (i = 0; i < Count; ++i)
       {
-        cf = CFArrayGetValueAtIndex(v28, i);
-        v13 = CFGetTypeID(cf);
-        if (v13 != CFStringGetTypeID())
+        cf = CFArrayGetValueAtIndex(v29, i);
+        v14 = CFGetTypeID(cf);
+        if (v14 != CFStringGetTypeID())
         {
           break;
         }
 
-        if (CFEqual(v47[1], cf))
+        if (CFEqual(v48[1], cf))
         {
           goto LABEL_58;
         }
 
-        v24 = [NSPredicate predicateWithFormat:@"self like %@", cf];
-        v23 = [v24 evaluateWithObject:v47[1]];
-        if (v23)
+        v25 = [NSPredicate predicateWithFormat:@"self like %@", cf];
+        v24 = [v25 evaluateWithObject:v48[1]];
+        if (v24)
         {
-          v18 = 5;
+          v19 = 5;
         }
 
         else
@@ -1236,62 +1238,62 @@ LABEL_58:
             goto LABEL_51;
           }
 
-          if (v47[8])
+          if (v48[8])
           {
             oslog = sub_10000E120();
             type = OS_LOG_TYPE_DEBUG;
             if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
             {
               log = oslog;
-              v12 = type;
-              CStringPtr = CFStringGetCStringPtr(v47[1], 0x8000100u);
-              sub_10000C8BC(v50, CStringPtr);
-              _os_log_debug_impl(&_mh_execute_header, log, v12, "checking managed app status for: %{private}s", v50, 0xCu);
+              v13 = type;
+              CStringPtr = CFStringGetCStringPtr(v48[1], 0x8000100u);
+              sub_10000C8BC(v51, CStringPtr);
+              _os_log_debug_impl(&_mh_execute_header, log, v13, "checking managed app status for: %{private}s", v51, 0xCu);
             }
 
             objc_storeStrong(&oslog, 0);
-            v5 = v47[1];
-            v20[0] = *(v47 + 3);
-            v20[1] = *(v47 + 5);
-            v6 = [qword_100028D60 isManagedApp:v5 auditToken:v20];
-            *(v47 + 65) = v6;
-            *(v47 + 64) = 0;
-            v19 = sub_10000E120();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+            v6 = v48[1];
+            v21[0] = *(v48 + 3);
+            v21[1] = *(v48 + 5);
+            v7 = [qword_100028D60 isManagedApp:v6 auditToken:v21];
+            *(v48 + 65) = v7;
+            *(v48 + 64) = 0;
+            v20 = sub_10000E120();
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
             {
-              v10 = v19;
-              v7 = CFStringGetCStringPtr(v47[1], 0x8000100u);
-              if (*(v47 + 65))
+              v11 = v20;
+              v8 = CFStringGetCStringPtr(v48[1], 0x8000100u);
+              if (*(v48 + 65))
               {
-                v8 = "is managed";
+                v9 = "is managed";
               }
 
               else
               {
-                v8 = "is not managed";
+                v9 = "is not managed";
               }
 
-              sub_10000C8FC(v49, v7, v8);
-              _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "app %{private}s %s", v49, 0x16u);
+              sub_10000C8FC(v50, v8, v9);
+              _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "app %{private}s %s", v50, 0x16u);
             }
 
-            objc_storeStrong(&v19, 0);
+            objc_storeStrong(&v20, 0);
           }
 
-          if (*(v47 + 65))
+          if (*(v48 + 65))
           {
-            v18 = 5;
+            v19 = 5;
           }
 
           else
           {
 LABEL_51:
-            v18 = 0;
+            v19 = 0;
           }
         }
 
-        objc_storeStrong(&v24, 0);
-        if (v18)
+        objc_storeStrong(&v25, 0);
+        if (v19)
         {
           goto LABEL_58;
         }
@@ -1299,84 +1301,84 @@ LABEL_51:
     }
   }
 
-  return v43 & 1;
+  return v44 & 1;
 }
 
 uint64_t sub_100004B4C(void *a1, const __CFDictionary *a2, __CFError *a3)
 {
-  v41 = a1;
-  v40 = a2;
-  v39 = a3;
-  v38 = 0;
-  v37 = CFDictionaryGetValue(a2, @"kHEIMObjectType");
-  if (CFEqual(v37, @"kHEIMObjectKerberos") || CFEqual(v37, @"kHEIMObjectConfiguration") || CFEqual(v37, @"kHEIMObjectKerberosAcquireCred"))
+  v42 = a1;
+  v41 = a2;
+  v40 = a3;
+  v39 = 0;
+  v38 = CFDictionaryGetValue(a2, @"kHEIMObjectType");
+  if (CFEqual(v38, @"kHEIMObjectKerberos") || CFEqual(v38, @"kHEIMObjectConfiguration") || CFEqual(v38, @"kHEIMObjectKerberosAcquireCred"))
   {
-    v36 = CFDictionaryGetValue(v40, @"kHEIMAttrParentCredential");
-    v35 = CFDictionaryGetValue(v40, @"kHEIMAttrClientName");
-    v34 = CFDictionaryGetValue(v40, @"kHEIMAttrServerName");
-    if (!v36 || !v35 || !v34)
+    v37 = CFDictionaryGetValue(v41, @"kHEIMAttrParentCredential");
+    v36 = CFDictionaryGetValue(v41, @"kHEIMAttrClientName");
+    v35 = CFDictionaryGetValue(v41, @"kHEIMAttrServerName");
+    if (!v37 || !v36 || !v35)
     {
-      v42 = 1;
-      v33 = 1;
+      v43 = 1;
+      v34 = 1;
       goto LABEL_38;
     }
 
-    v49[0] = @"kHEIMObjectType";
-    v50[0] = v37;
-    v49[1] = @"kHEIMAttrParentCredential";
-    v50[1] = v36;
-    v49[2] = @"kHEIMAttrClientName";
-    v50[2] = v35;
-    v49[3] = @"kHEIMAttrServerName";
-    v50[3] = v34;
-    v14 = [NSDictionary dictionaryWithObjects:v50 forKeys:v49 count:4];
-    v3 = [(NSDictionary *)v14 mutableCopy];
-    v4 = v38;
-    v38 = v3;
+    v50[0] = @"kHEIMObjectType";
+    v51[0] = v38;
+    v50[1] = @"kHEIMAttrParentCredential";
+    v51[1] = v37;
+    v50[2] = @"kHEIMAttrClientName";
+    v51[2] = v36;
+    v50[3] = @"kHEIMAttrServerName";
+    v51[3] = v35;
+    v15 = [NSDictionary dictionaryWithObjects:v51 forKeys:v50 count:4];
+    v3 = [(NSDictionary *)v15 mutableCopy];
+    v4 = v39;
+    v39 = v3;
   }
 
-  else if (CFEqual(v37, @"kHEIMObjectNTLM"))
+  else if (CFEqual(v38, @"kHEIMObjectNTLM"))
   {
-    v32 = CFDictionaryGetValue(v40, @"kHEIMAttrNTLMUsername");
-    v31 = CFDictionaryGetValue(v40, @"kHEIMAttrNTLMDomain");
-    v30 = CFDictionaryGetValue(v40, @"kHEIMAttrParentCredential");
-    v47[0] = @"kHEIMObjectType";
-    v48[0] = v37;
-    v47[1] = @"kHEIMAttrNTLMUsername";
-    v48[1] = v32;
-    v47[2] = @"kHEIMAttrNTLMDomain";
-    v48[2] = v31;
-    v47[3] = @"kHEIMAttrData";
-    v48[3] = @"kHEIMObjectAny";
-    v13 = [NSDictionary dictionaryWithObjects:v48 forKeys:v47 count:4];
-    v5 = [(NSDictionary *)v13 mutableCopy];
-    v6 = v38;
-    v38 = v5;
+    v33 = CFDictionaryGetValue(v41, @"kHEIMAttrNTLMUsername");
+    v32 = CFDictionaryGetValue(v41, @"kHEIMAttrNTLMDomain");
+    v31 = CFDictionaryGetValue(v41, @"kHEIMAttrParentCredential");
+    v48[0] = @"kHEIMObjectType";
+    v49[0] = v38;
+    v48[1] = @"kHEIMAttrNTLMUsername";
+    v49[1] = v33;
+    v48[2] = @"kHEIMAttrNTLMDomain";
+    v49[2] = v32;
+    v48[3] = @"kHEIMAttrData";
+    v49[3] = @"kHEIMObjectAny";
+    v14 = [NSDictionary dictionaryWithObjects:v49 forKeys:v48 count:4];
+    v6 = [(NSDictionary *)v14 mutableCopy];
+    v7 = v39;
+    v39 = v6;
 
-    if (v30)
+    if (v31)
     {
-      [v38 setObject:v30 forKeyedSubscript:@"kHEIMAttrParentCredential"];
+      v5 = [v39 setObject:v31 forKeyedSubscript:@"kHEIMAttrParentCredential"];
     }
   }
 
   else
   {
-    if (!CFEqual(v37, @"kHEIMObjectSCRAM"))
+    if (!CFEqual(v38, @"kHEIMObjectSCRAM"))
     {
-      v42 = 1;
-      v33 = 1;
+      v43 = 1;
+      v34 = 1;
       goto LABEL_38;
     }
 
-    v29 = CFDictionaryGetValue(v40, @"kHEIMAttrSCRAMUsername");
-    v45[0] = @"kHEIMObjectType";
-    v46[0] = v37;
-    v45[1] = @"kHEIMAttrSCRAMUsername";
-    v46[1] = v29;
-    v12 = [NSDictionary dictionaryWithObjects:v46 forKeys:v45 count:2];
-    v7 = [(NSDictionary *)v12 mutableCopy];
-    v8 = v38;
-    v38 = v7;
+    v30 = CFDictionaryGetValue(v41, @"kHEIMAttrSCRAMUsername");
+    v46[0] = @"kHEIMObjectType";
+    v47[0] = v38;
+    v46[1] = @"kHEIMAttrSCRAMUsername";
+    v47[1] = v30;
+    v13 = [NSDictionary dictionaryWithObjects:v47 forKeys:v46 count:2];
+    v8 = [(NSDictionary *)v13 mutableCopy];
+    v9 = v39;
+    v39 = v8;
   }
 
   if ((byte_100028D18 & 1) == 0)
@@ -1384,11 +1386,11 @@ uint64_t sub_100004B4C(void *a1, const __CFDictionary *a2, __CFError *a3)
     goto LABEL_23;
   }
 
-  location = off_100028D20();
+  location = off_100028D20(v5);
   if (location)
   {
-    [v38 setObject:location forKeyedSubscript:@"kHEIMAttrAltDSID"];
-    v33 = 0;
+    [v39 setObject:location forKeyedSubscript:@"kHEIMAttrAltDSID"];
+    v34 = 0;
   }
 
   else
@@ -1398,30 +1400,30 @@ uint64_t sub_100004B4C(void *a1, const __CFDictionary *a2, __CFError *a3)
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
       log = oslog;
-      v11 = type;
-      sub_100001A10(v25);
-      _os_log_error_impl(&_mh_execute_header, log, v11, "the device is multiuser and is missing the altDSID", v25, 2u);
+      v12 = type;
+      sub_100001A10(v26);
+      _os_log_error_impl(&_mh_execute_header, log, v12, "the device is multiuser and is missing the altDSID", v26, 2u);
     }
 
     objc_storeStrong(&oslog, 0);
-    v44 = @"CommonErrorCode";
-    v43 = kCFBooleanTrue;
-    sub_1000055C4(v39, 564486, &v44, &v43, 1);
-    v42 = 0;
-    v33 = 1;
+    v45 = @"CommonErrorCode";
+    v44 = kCFBooleanTrue;
+    sub_1000055C4(v40, 564486, &v45, &v44, 1);
+    v43 = 0;
+    v34 = 1;
   }
 
   objc_storeStrong(&location, 0);
-  if (!v33)
+  if (!v34)
   {
 LABEL_23:
     if (byte_100028D68)
     {
-      valuePtr = off_100028D30(*v41);
+      valuePtr = off_100028D30(*v42);
       cf = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
       if (valuePtr)
       {
-        [v38 setObject:cf forKeyedSubscript:@"kHEIMAttrUserID"];
+        [v39 setObject:cf forKeyedSubscript:@"kHEIMAttrUserID"];
       }
 
       if (cf)
@@ -1430,13 +1432,13 @@ LABEL_23:
         cf = 0;
       }
 
-      v22 = off_100028D38(*v41);
-      v21 = CFNumberCreate(0, kCFNumberIntType, &v22);
-      [v38 setObject:v21 forKeyedSubscript:@"kHEIMAttrASID"];
-      if (v21)
+      v23 = off_100028D38(*v42);
+      v22 = CFNumberCreate(0, kCFNumberIntType, &v23);
+      [v39 setObject:v22 forKeyedSubscript:@"kHEIMAttrASID"];
+      if (v22)
       {
-        CFRelease(v21);
-        v21 = 0;
+        CFRelease(v22);
+        v22 = 0;
       }
     }
 
@@ -1444,12 +1446,12 @@ LABEL_23:
     xdict = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_string(xdict, "command", "removeduplicates");
     xpc_dictionary_set_value(xdict, "query", value);
-    theArray = sub_100005A8C(v41, xdict, "query");
+    theArray = sub_100005A8C(v42, xdict, "query");
     Count = CFArrayGetCount(theArray);
     for (idx = 0; idx < Count; ++idx)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(theArray, idx);
-      sub_100005EA0(ValueAtIndex, v41);
+      sub_100005EA0(ValueAtIndex, v42);
     }
 
     if (Count > 0)
@@ -1462,15 +1464,15 @@ LABEL_23:
       CFRelease(theArray);
     }
 
-    v42 = 1;
-    v33 = 1;
+    v43 = 1;
+    v34 = 1;
     objc_storeStrong(&xdict, 0);
     objc_storeStrong(&value, 0);
   }
 
 LABEL_38:
-  objc_storeStrong(&v38, 0);
-  return v42 & 1;
+  objc_storeStrong(&v39, 0);
+  return v43 & 1;
 }
 
 uint64_t sub_10000534C(uint64_t a1, const __CFDictionary *a2)
@@ -1646,7 +1648,7 @@ void sub_1000058AC(void *a1, void *a2, void *a3)
   objc_storeStrong(&location, 0);
 }
 
-uint64_t sub_100005A8C(void *a1, void *a2, const char *a3)
+uint64_t sub_100005A8C(void *a1, void *a2, uint64_t a3)
 {
   v28 = a1;
   location = 0;
@@ -1675,7 +1677,7 @@ uint64_t sub_100005A8C(void *a1, void *a2, const char *a3)
             v10 = CFGetTypeID(Value);
             if (v10 != sub_10000FE40())
             {
-              heim_abort();
+              heim_abort("cred wrong type:CFGetTypeID(cred) == HeimCredGetTypeID()");
             }
 
             if (sub_100007BD8(Value[4], __b[6]))
@@ -1746,7 +1748,7 @@ void sub_100005EA0(uint64_t a1, uint64_t a2)
   v2 = CFGetTypeID(a1);
   if (v2 != sub_10000FE40())
   {
-    heim_abort();
+    heim_abort("cred wrong type:CFGetTypeID(cred) == HeimCredGetTypeID()");
   }
 
   if (!CFEqual(*(*(a1 + 32) + 16), @"kHEIMTypeNTLMRelfection"))
@@ -1785,7 +1787,7 @@ void sub_100005F88(void *a1, void *a2, void *a3)
         v19 = CFGetTypeID(Value);
         if (v19 != sub_10000FE40())
         {
-          heim_abort();
+          heim_abort("cred wrong type:CFGetTypeID(cred) == HeimCredGetTypeID()");
         }
 
         if (*(Value + 3))
@@ -2087,7 +2089,7 @@ void sub_100006A58(void *a1, void *a2, void *a3)
             v15 = (*(Value[4] + 32))(v18, Value, cf);
             if (v15)
             {
-              sub_10000F6E8(v16, "attributes");
+              sub_10000F6E8(v16, "attributes", v15);
             }
           }
 
@@ -2172,7 +2174,7 @@ void sub_100006CE0(void *a1, void *a2, void *a3)
             v15 = (*(Value[4] + 32))(v18, Value, cf);
             if (v15)
             {
-              sub_10000F6E8(v16, "attributes");
+              sub_10000F6E8(v16, "attributes", v15);
             }
           }
 
@@ -2273,7 +2275,7 @@ void sub_100006F58(uint64_t a1, void *a2, void *a3)
             {
               if (!*(value + 4))
               {
-                heim_abort();
+                heim_abort("mech is NULL, schame validation doesn't work ?:cred->mech != NULL");
               }
 
               sub_100005544(value, v15);
@@ -2467,7 +2469,7 @@ void sub_100007708(void *a1, void *a2, void *a3)
 
       else
       {
-        sub_10000F6E8(v12, "challenge-result");
+        sub_10000F6E8(v12, "challenge-result", kCFBooleanFalse);
       }
     }
 
@@ -2537,7 +2539,7 @@ void sub_100007940(void *a1, void *a2, void *a3)
             }
           }
 
-          sub_10000F6E8(v10, "attributes");
+          sub_10000F6E8(v10, "attributes", v5);
           if (v5)
           {
             CFRelease(v5);
@@ -2582,12 +2584,12 @@ BOOL sub_100007BD8(uint64_t a1, uint64_t a2)
   v4 = a2;
   if (!a1)
   {
-    heim_abort();
+    heim_abort("mech is required:mech != NULL");
   }
 
   if (!v4)
   {
-    heim_abort();
+    heim_abort("command is required:cmd != NULL");
   }
 
   location = [NSString stringWithCString:v4 encoding:4];
@@ -2632,7 +2634,7 @@ void sub_100007CEC(void *a1, void *a2, void *a3)
 
       CFRelease(theArray);
       theArray = 0;
-      sub_10000F6E8(v10, "items");
+      sub_10000F6E8(v10, "items", Mutable);
     }
   }
 
@@ -2730,33 +2732,33 @@ CFComparisonResult sub_100007FB8(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_100008224(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a1;
+  v11 = a1;
   location = 0;
   objc_storeStrong(&location, a2);
+  v9 = 0;
+  objc_storeStrong(&v9, a3);
   v8 = 0;
-  objc_storeStrong(&v8, a3);
-  v7 = 0;
-  sub_100005634(v10);
+  sub_100005634(v11);
   v5 = location;
   TypeID = CFStringGetTypeID();
   key = sub_10000F630(v5, "mech", TypeID);
-  if (key && (CFDictionaryGetValue(*(*(v10 + 56) + 40), key) || (*(*(v10 + 56) + 48) = 1, sub_100005634(v10), CFDictionaryGetValue(*(*(v10 + 56) + 40), key))))
+  if (key && ((Value = CFDictionaryGetValue(*(*(v11 + 56) + 40), key)) != 0 || (*(*(v11 + 56) + 48) = 1, sub_100005634(v11), (Value = CFDictionaryGetValue(*(*(v11 + 56) + 40), key)) != 0)))
   {
-    sub_10000F6E8(v8, "default");
+    sub_10000F6E8(v9, "default", Value);
   }
 
   else
   {
-    sub_1000055C4(&v7, 564483, 0, 0, 0);
+    sub_1000055C4(&v8, 564483, 0, 0, 0);
   }
 
-  if (v7)
+  if (v8)
   {
-    sub_1000041C4(v8, v7);
-    if (v7)
+    sub_1000041C4(v9, v8);
+    if (v8)
     {
-      CFRelease(v7);
-      v7 = 0;
+      CFRelease(v8);
+      v8 = 0;
     }
   }
 
@@ -2765,7 +2767,7 @@ void sub_100008224(uint64_t a1, void *a2, void *a3)
     CFRelease(key);
   }
 
-  objc_storeStrong(&v8, 0);
+  objc_storeStrong(&v9, 0);
   objc_storeStrong(&location, 0);
 }
 
@@ -2794,7 +2796,7 @@ void sub_1000083F4(void *a1, void *a2, void *a3)
       {
         if (v35 == v34)
         {
-          heim_abort();
+          heim_abort("must not be same:credfrom != credto");
         }
 
         if (!v34 || CFEqual(*(*(v35 + 4) + 16), *(*(v34 + 4) + 16)))
@@ -2879,7 +2881,7 @@ void sub_1000083F4(void *a1, void *a2, void *a3)
             v34 = sub_10000FE64(v43);
             if (!v34)
             {
-              heim_abort();
+              heim_abort("out of memory:credto != NULL");
             }
 
             sub_1000024C4(v34, theDict);
@@ -3095,7 +3097,7 @@ void sub_10000909C(uint64_t a1, CFDictionaryRef *a2, CFTypeRef *a3)
   v3 = CFGetTypeID(a2);
   if (v3 != sub_10000FE40())
   {
-    heim_abort();
+    heim_abort("cred wrong type:CFGetTypeID(cred) == HeimCredGetTypeID()");
   }
 
   cf1 = CFDictionaryGetValue(a2[3], @"kHEIMAttrParentCredential");
@@ -3282,7 +3284,7 @@ void sub_1000097D4(void *a1, void *a2, void *a3)
         v6 = CFGetTypeID(Value);
         if (v6 != sub_10000FE40())
         {
-          heim_abort();
+          heim_abort("cred wrong type:CFGetTypeID(cred) == HeimCredGetTypeID()");
         }
 
         if (CFEqual(*(*(Value + 4) + 16), @"kHEIMTypeNTLMRelfection"))
@@ -3451,7 +3453,7 @@ void sub_100009DF4(void *a1, void *a2, void *a3)
         v6 = CFGetTypeID(Value);
         if (v6 != sub_10000FE40())
         {
-          heim_abort();
+          heim_abort("cred wrong type:CFGetTypeID(cred) == HeimCredGetTypeID()");
         }
 
         if (CFEqual(*(*(Value + 4) + 16), @"kHEIMTypeNTLMRelfection"))
@@ -3613,7 +3615,7 @@ CFTypeRef sub_10000A548(const __CFDictionary *a1, const void *a2, uint64_t a3, u
 {
   if (!a4)
   {
-    heim_abort();
+    heim_abort("error ptr required:error != NULL");
   }
 
   cf = CFDictionaryGetValue(a1, a2);
@@ -3634,18 +3636,18 @@ void sub_10000A5EC(const void *a1, const __CFSet *a2, uint64_t a3, uint64_t a4, 
 {
   if (CFDictionaryGetValue(qword_100028DE8, a1))
   {
-    heim_abort();
+    heim_abort("mech already registered:mech == NULL");
   }
 
   if (!sub_10000A788())
   {
-    heim_abort();
+    heim_abort("could not register cftype:mechID != _kCFRuntimeNotATypeID");
   }
 
   value = _CFRuntimeCreateInstance();
   if (!value)
   {
-    heim_abort();
+    heim_abort("out of memory while registering HeimMech instance:mech != NULL");
   }
 
   value[2] = CFRetain(a1);
@@ -3678,21 +3680,23 @@ uint64_t sub_10000A788()
   return qword_100028E30;
 }
 
-void sub_10000A800(const __CFDictionary *a1)
+void sub_10000A800(const __CFDictionary *a1, uint64_t a2)
 {
+  applier = sub_10000DCDC;
+  theDict = a1;
   key = CFDictionaryGetValue(a1, @"kHEIMObjectType");
   if (!key)
   {
-    heim_abort();
+    heim_abort("schema w/o kHEIMObjectType ?:typeName != NULL", sub_10000DCDC, 0, 0, theDict, a2, a1);
   }
 
   if (CFDictionaryGetValue(qword_100028DF0, key))
   {
-    heim_abort();
+    heim_abort("schema already registered:other == NULL");
   }
 
-  CFDictionaryApplyFunction(a1, sub_10000DCDC, 0);
-  CFDictionarySetValue(qword_100028DF0, key, a1);
+  CFDictionaryApplyFunction(theDict, applier, 0);
+  CFDictionarySetValue(qword_100028DF0, key, theDict);
 }
 
 __CFDictionary *sub_10000A8E0(const void *a1)
@@ -4014,7 +4018,7 @@ void sub_10000BA94(unsigned int a1)
     key = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
     if (!key)
     {
-      heim_abort();
+      heim_abort("out of memory:sid != NULL");
     }
 
     CFDictionaryRemoveValue(qword_100028DD8, key);
@@ -4266,7 +4270,7 @@ void sub_10000C954(uint64_t a1, const void *a2, uint64_t a3)
   v3 = CFGetTypeID(a2);
   if (v3 != CFDictionaryGetTypeID())
   {
-    heim_abort();
+    heim_abort("schema wrong type:CFGetTypeID(schema) == CFDictionaryGetTypeID()");
   }
 
   *(a3 + 32) = a2;
@@ -4274,7 +4278,7 @@ void sub_10000C954(uint64_t a1, const void *a2, uint64_t a3)
   CFDictionaryApplyFunction(*(a3 + 16), sub_10000CBC8, a3);
   if (*(a3 + 24) < *(a3 + 40))
   {
-    heim_abort();
+    heim_abort("cant have matched more then number of queries:mc->numQueryItems >= mc->count");
   }
 
   if (*(a3 + 24) == *(a3 + 40))
@@ -4290,7 +4294,7 @@ void sub_10000CA5C(const void *a1, void *a2, void **a3)
     v3 = CFGetTypeID(a2);
     if (v3 != sub_10000FE40())
     {
-      heim_abort();
+      heim_abort("cred wrong type:CFGetTypeID(cred) == HeimCredGetTypeID()");
     }
 
     if (a2[3])
@@ -4300,7 +4304,7 @@ void sub_10000CA5C(const void *a1, void *a2, void **a3)
       CFDictionaryApplyFunction(a3[2], sub_10000CBC8, a3);
       if (a3[3] < a3[5])
       {
-        heim_abort();
+        heim_abort("cant have matched more then number of queries:mc->numQueryItems >= mc->count");
       }
 
       if (a3[3] == a3[5] && sub_100007BD8(a2[4], a3[6]))
@@ -4315,7 +4319,7 @@ uint64_t sub_10000CBC8(const void *a1, const void *a2, uint64_t a3)
 {
   if (!*(a3 + 32))
   {
-    heim_abort();
+    heim_abort("attributes NULL in MatchQueryItem:mc->attributes != NULL");
   }
 
   if (CFEqual(a1, @"kHEIMObjectType"))
@@ -4388,7 +4392,7 @@ void sub_10000CE08(const void *a1, const void *a2, CFTypeRef *a3)
     v3 = CFGetTypeID(v11);
     if (v3 != sub_10000FE40())
     {
-      heim_abort();
+      heim_abort("cred wrong type:CFGetTypeID(cred) == HeimCredGetTypeID()");
     }
 
     cf2 = CFDictionaryGetValue(*(v8 + 3), @"kHEIMAttrParentCredential");
@@ -4413,7 +4417,7 @@ void sub_10000CF40(const void *a1, uint64_t a2)
   v2 = CFGetTypeID(a1);
   if (v2 != CFUUIDGetTypeID())
   {
-    heim_abort();
+    heim_abort("Value not an CFUUIDRef:CFGetTypeID(value) == CFUUIDGetTypeID()");
   }
 
   CFDictionaryRemoveValue(*(a2 + 24), a1);
@@ -4645,7 +4649,7 @@ void sub_10000D664(const __CFString *a1, const __CFString *a2, void *a3)
   }
 }
 
-CFTypeID sub_10000D9F0(const __CFString *a1, const __CFString *a2, char a3)
+uint64_t sub_10000D9F0(const __CFString *a1, const __CFString *a2, char a3)
 {
   if ((a3 & 1) != 0 && sub_10000D468(a2, @"a"))
   {
@@ -4682,10 +4686,10 @@ CFTypeID sub_10000D9F0(const __CFString *a1, const __CFString *a2, char a3)
     return CFNumberGetTypeID();
   }
 
-  rk_cfstring2cstring(a2);
-  rk_cfstring2cstring(a1);
-  heim_abort();
-  return v6;
+  v5 = rk_cfstring2cstring(a2);
+  v3 = rk_cfstring2cstring(a1);
+  heim_abort("key %s have a broken rule %s", v5, v3);
+  return v8;
 }
 
 CFTypeID sub_10000DB6C(const void *a1, uint64_t a2)
@@ -4715,14 +4719,15 @@ void sub_10000DCDC(const __CFString *a1, const __CFString *a2)
 {
   if (!CFEqual(@"kHEIMObjectType", a1))
   {
-    v3 = sub_10000D9F0(a1, a2, 1);
+    v5 = sub_10000D9F0(a1, a2, 1);
     Value = CFDictionaryGetValue(qword_100028DF8, a1);
     if (Value)
     {
-      if (sub_10000D9F0(a1, Value, 1) != v3)
+      v3 = sub_10000D9F0(a1, Value, 1);
+      if (v3 != v5)
       {
-        rk_cfstring2cstring(a1);
-        heim_abort();
+        v2 = rk_cfstring2cstring(a1);
+        heim_abort("two schemas have different type for the same key %d != %d (%s)", v3, v5, v2);
       }
     }
 
@@ -4848,7 +4853,7 @@ void sub_10000E200()
   }
 }
 
-CFDictionaryRef sub_10000E3B4(void *a1, uint64_t a2, const __CFDictionary *a3)
+CFDictionaryRef sub_10000E3B4(void *a1, uint64_t a2, uint64_t a3)
 {
   v73 = a1;
   v72 = a2;
@@ -5160,7 +5165,7 @@ LABEL_30:
                                                           v70 = CFDictionaryCreate(0, v75, v74, 8, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
                                                           if (!v70)
                                                           {
-                                                            heim_abort();
+                                                            heim_abort("Failed to create dictionary:result_cfdict != NULL");
                                                           }
                                                         }
                                                       }
@@ -5333,7 +5338,7 @@ CFTypeRef sub_10000F630(void *a1, const char *a2, uint64_t a3)
   return cf;
 }
 
-void sub_10000F6E8(void *a1, const char *a2)
+void sub_10000F6E8(void *a1, const char *a2, uint64_t a3)
 {
   value = _CFXPCCreateXPCObjectFromCFObject();
   if (value)
@@ -5540,24 +5545,24 @@ uint64_t sub_10000FE64(const void *a1)
 
 uint64_t start(int a1, void *a2)
 {
-  v38 = 0;
-  v37 = a1;
-  v36[1] = a2;
-  v36[0] = 0;
-  v35 = 0;
+  v40 = 0;
+  v39 = a1;
+  v38[1] = a2;
+  v38[0] = 0;
+  v37 = 0;
   os_log_set_client_type();
   umask(0x3Fu);
   _set_user_dir_suffix();
-  v34 = 0;
-  v18 = objc_autoreleasePoolPush();
+  v36 = 0;
+  v20 = objc_autoreleasePoolPush();
   location = sub_10000E120();
-  v32 = 1;
+  v34 = 1;
   if (os_log_type_enabled(location, OS_LOG_TYPE_INFO))
   {
     log = location;
-    type = v32;
-    sub_100001A10(v31);
-    _os_log_impl(&_mh_execute_header, log, type, "Starting GSSCred", v31, 2u);
+    type = v34;
+    sub_100001A10(v33);
+    _os_log_impl(&_mh_execute_header, log, type, "Starting GSSCred", v33, 2u);
   }
 
   objc_storeStrong(&location, 0);
@@ -5588,19 +5593,19 @@ uint64_t start(int a1, void *a2)
   qword_100028DE8 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!qword_100028DE8)
   {
-    heim_abort();
+    heim_abort("out of memory:HeimCredCTX.mechanisms != NULL");
   }
 
   qword_100028DF0 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!qword_100028DF0)
   {
-    heim_abort();
+    heim_abort("out of memory:HeimCredCTX.schemas != NULL");
   }
 
   qword_100028DF8 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!qword_100028DF8)
   {
-    heim_abort();
+    heim_abort("out of memory:HeimCredCTX.globalSchema != NULL");
   }
 
   sub_10000AB40();
@@ -5623,71 +5628,71 @@ uint64_t start(int a1, void *a2)
 
   if (!qword_100028E68)
   {
-    heim_abort();
+    v6 = heim_abort("dispatch_queue_create failed:runQueue != NULL");
   }
 
-  heim_ipc_init_globals();
+  heim_ipc_init_globals(v6, v7);
   sub_10000F76C();
   sub_100001A74();
   sub_100010BFC();
   mach_service = xpc_connection_create_mach_service("com.apple.GSSCred", qword_100028E68, 1uLL);
-  v7 = v36[0];
-  v36[0] = mach_service;
+  v9 = v38[0];
+  v38[0] = mach_service;
 
-  xpc_connection_set_event_handler(v36[0], &stru_100025008);
+  xpc_connection_set_event_handler(v38[0], &stru_100025008);
   heim_ipc_resume_events();
-  xpc_connection_resume(v36[0]);
-  objc_autoreleasePoolPop(v18);
-  if (v35)
+  xpc_connection_resume(v38[0]);
+  objc_autoreleasePoolPop(v20);
+  if (v37)
   {
-    v30 = sub_100018AD4();
-    v29 = 1;
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    v32 = sub_100018AD4();
+    v31 = 1;
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {
-      v14 = v30;
-      v15 = v29;
-      sub_100001A10(v28);
-      _os_log_impl(&_mh_execute_header, v14, v15, "Starting run loop", v28, 2u);
+      v16 = v32;
+      v17 = v31;
+      sub_100001A10(v30);
+      _os_log_impl(&_mh_execute_header, v16, v17, "Starting run loop", v30, 2u);
     }
 
-    objc_storeStrong(&v30, 0);
+    objc_storeStrong(&v32, 0);
   }
 
   else
   {
-    v27 = sub_10000E120();
-    v26 = 1;
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+    v29 = sub_10000E120();
+    v28 = 1;
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
-      v12 = v27;
-      v13 = v26;
-      sub_100001A10(v25);
-      _os_log_impl(&_mh_execute_header, v12, v13, "Starting run loop", v25, 2u);
+      v14 = v29;
+      v15 = v28;
+      sub_100001A10(v27);
+      _os_log_impl(&_mh_execute_header, v14, v15, "Starting run loop", v27, 2u);
     }
 
-    objc_storeStrong(&v27, 0);
+    objc_storeStrong(&v29, 0);
   }
 
-  v8 = dispatch_source_create(&_dispatch_source_type_signal, 0xFuLL, 0, qword_100028E68);
-  v9 = v34;
-  v34 = v8;
+  v10 = dispatch_source_create(&_dispatch_source_type_signal, 0xFuLL, 0, qword_100028E68);
+  v11 = v36;
+  v36 = v10;
 
   handler = _NSConcreteStackBlock;
-  v20 = -1073741824;
-  v21 = 0;
-  v22 = sub_100011138;
-  v23 = &unk_100025028;
-  v24 = v35 & 1;
-  dispatch_source_set_event_handler(v34, &handler);
-  dispatch_activate(v34);
+  v22 = -1073741824;
+  v23 = 0;
+  v24 = sub_100011138;
+  v25 = &unk_100025028;
+  v26 = v37 & 1;
+  dispatch_source_set_event_handler(v36, &handler);
+  dispatch_activate(v36);
   signal(15, 1);
-  v11 = +[NSRunLoop currentRunLoop];
-  [(NSRunLoop *)v11 run];
+  v13 = +[NSRunLoop currentRunLoop];
+  [(NSRunLoop *)v13 run];
 
-  v38 = 0;
-  objc_storeStrong(&v34, 0);
-  objc_storeStrong(v36, 0);
-  return v38;
+  v40 = 0;
+  objc_storeStrong(&v36, 0);
+  objc_storeStrong(v38, 0);
+  return v40;
 }
 
 void *sub_100010608(const __CFString *a1)
@@ -5725,19 +5730,18 @@ id sub_1000106B8()
 
 BOOL sub_100010834(void *a1, uint64_t a2)
 {
-  v8 = a1;
-  v7 = a2;
+  v7 = a1;
+  v6 = a2;
   value = 0;
-  v2 = *a1;
   object = xpc_connection_copy_entitlement_value();
   if (object && xpc_get_type(object) == &_xpc_type_BOOL)
   {
     value = xpc_BOOL_get_value(object);
   }
 
-  v4 = value;
+  v3 = value;
   objc_storeStrong(&object, 0);
-  return v4;
+  return v3;
 }
 
 uint64_t sub_1000108D4(void *a1, void *a2)
@@ -5872,7 +5876,7 @@ void sub_100010D38(id obj)
     v20 = malloc_type_calloc(1uLL, 0x58uLL, 0x10E0040DE1BA62FuLL);
     if (!v20)
     {
-      heim_abort();
+      heim_abort("out of memory:peer != NULL");
     }
 
     objc_storeStrong(v20, location);
@@ -5894,7 +5898,7 @@ void sub_100010D38(id obj)
 
       if (!v20[7])
       {
-        heim_abort();
+        heim_abort("out of memory:peer->session != NULL");
       }
 
       v14 = sub_10000E120();
@@ -6316,7 +6320,7 @@ uint64_t sub_100011EFC(uint64_t result, uint64_t a2, int a3)
   return result;
 }
 
-void sub_100011F84(void **a1, void *a2)
+void sub_100011F84(void *a1, void *a2)
 {
   location[1] = a1;
   location[0] = 0;
@@ -6725,16 +6729,16 @@ id sub_1000136C0()
 
 id sub_1000138C4()
 {
-  v2 = sub_100013C20();
-  if (!v2)
+  v3 = sub_100013C20();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_1000139B4(uint64_t a1)
@@ -6745,7 +6749,7 @@ uint64_t sub_1000139B4(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "MCProfileConnection");
   }
 
   qword_100028EA0 = *(*(*(a1 + 32) + 8) + 24);
@@ -6758,7 +6762,7 @@ uint64_t sub_100013A5C()
   v1 = sub_100013AD8(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -6790,7 +6794,6 @@ uint64_t sub_100013AD8(uint64_t a1)
 
 uint64_t sub_100013B8C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100028EA8 = result;
   return result;
@@ -6837,7 +6840,7 @@ void sub_100013D94(uint64_t a1, char *a2)
   v2 = CFGetTypeID(a2);
   if (v2 != sub_10000F748())
   {
-    heim_abort();
+    heim_abort("context wrong type:CFGetTypeID(ptr) == HeimCredEventContextGetTypeID()");
   }
 
   sub_100015254();
@@ -7037,7 +7040,7 @@ void sub_10001469C(uint64_t a1, char *a2)
   v2 = CFGetTypeID(a2);
   if (v2 != sub_10000F748())
   {
-    heim_abort();
+    heim_abort("context wrong type:CFGetTypeID(ptr) == HeimCredEventContextGetTypeID()");
   }
 
   sub_100015254();
@@ -7353,7 +7356,7 @@ id sub_100016180(id obj)
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    heim_abort();
+    heim_abort("input is not NSData:[plainText isKindOfClass:[NSData class]]");
   }
 
   v64 = [location length];
@@ -8017,7 +8020,7 @@ uint64_t sub_10001B730(mach_port_t a1, uint32_t a2, const uint64_t *a3, uint32_t
   return IOConnectCallMethod(a1, a2, a3, a4, a5, a6, 0, 0, a9, a10);
 }
 
-void heim_ipc_init_globals()
+void heim_ipc_init_globals(uint64_t result, uint64_t a2)
 {
   if (qword_100028F30 != -1)
   {
@@ -8025,15 +8028,15 @@ void heim_ipc_init_globals()
   }
 }
 
-void _heim_ipc_suspend_timer()
+void _heim_ipc_suspend_timer(uint64_t a1, uint64_t a2)
 {
-  v1 = qword_100028F10;
+  v3 = qword_100028F10;
   if (!qword_100028F10)
   {
     sub_10001C870();
   }
 
-  dispatch_suspend(v1);
+  dispatch_suspend(v3);
 }
 
 void sub_10001B800(id a1)
@@ -8516,10 +8519,10 @@ void sub_10001C328(id a1)
         break;
       }
 
-      heap_remove_head(qword_100028F48);
+      v4 = heap_remove_head(qword_100028F48);
       *v3 = -1;
-      v4 = v3[4];
-      if (v4)
+      v6 = v3[4];
+      if (v6)
       {
         *(v3 + 6) = v1 + 10;
         heap_insert(qword_100028F48, v3, v3);
@@ -8527,8 +8530,8 @@ void sub_10001C328(id a1)
 
       else
       {
-        v3[4] = v4 | 1;
-        _heim_ipc_suspend_timer();
+        v3[4] = v6 | 1;
+        _heim_ipc_suspend_timer(v4, v5);
         block[0] = _NSConcreteStackBlock;
         block[1] = 0x40000000;
         block[2] = sub_10001C44C;

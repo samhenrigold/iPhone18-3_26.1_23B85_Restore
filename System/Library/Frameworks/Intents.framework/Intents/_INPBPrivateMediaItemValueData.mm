@@ -1,6 +1,7 @@
 @interface _INPBPrivateMediaItemValueData
 - (BOOL)isEqual:(id)equal;
 - (_INPBPrivateMediaItemValueData)initWithCoder:(id)coder;
+- (id)ampConfidenceLevelAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsAmpConfidenceLevel:(id)level;
@@ -31,7 +32,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(_INPBPrivateMediaItemValueData *)self hasAmpConfidenceLevel])
   {
@@ -118,30 +119,30 @@ LABEL_13:
   if ([(NSArray *)self->_mediaSubItems count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v17 = self->_mediaSubItems;
-    v18 = [(NSArray *)v17 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v18 = [(NSArray *)v17 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v41;
+      v20 = *v40;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v41 != v20)
+          if (*v40 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          dictionaryRepresentation = [*(*(&v40 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v39 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v19 = [(NSArray *)v17 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v19 = [(NSArray *)v17 countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v19);
@@ -204,8 +205,6 @@ LABEL_13:
     v37 = [universalResourceLink copy];
     [dictionary setObject:v37 forKeyedSubscript:@"universalResourceLink"];
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -780,17 +779,15 @@ LABEL_78:
 
 - (void)writeTo:(id)to
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBPrivateMediaItemValueData *)self hasAmpConfidenceLevel])
   {
-    ampConfidenceLevel = self->_ampConfidenceLevel;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPrivateMediaItemValueData *)self hasAmpConfidenceScore])
   {
-    ampConfidenceScore = self->_ampConfidenceScore;
     PBDataWriterWriteFloatField();
   }
 
@@ -798,7 +795,6 @@ LABEL_78:
 
   if (assetInfo)
   {
-    assetInfo = self->_assetInfo;
     PBDataWriterWriteStringField();
   }
 
@@ -806,91 +802,85 @@ LABEL_78:
 
   if (bundleId)
   {
-    bundleId = self->_bundleId;
     PBDataWriterWriteStringField();
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v11 = self->_internalSignals;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v45 objects:v50 count:16];
-  if (v12)
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v7 = self->_internalSignals;
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  if (v8)
   {
-    v13 = v12;
-    v14 = *v46;
+    v9 = v8;
+    v10 = *v29;
     do
     {
-      v15 = 0;
+      v11 = 0;
       do
       {
-        if (*v46 != v14)
+        if (*v29 != v10)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v7);
         }
 
-        v16 = *(*(&v45 + 1) + 8 * v15);
         PBDataWriterWriteStringField();
-        ++v15;
+        ++v11;
       }
 
-      while (v13 != v15);
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v45 objects:v50 count:16];
+      while (v9 != v11);
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
-    while (v13);
+    while (v9);
   }
 
   if ([(_INPBPrivateMediaItemValueData *)self hasIsAvailable])
   {
-    isAvailable = self->_isAvailable;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBPrivateMediaItemValueData *)self hasIsHardBan])
   {
-    isHardBan = self->_isHardBan;
     PBDataWriterWriteBOOLField();
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v19 = self->_mediaSubItems;
-  v20 = [(NSArray *)v19 countByEnumeratingWithState:&v41 objects:v49 count:16];
-  if (v20)
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v12 = self->_mediaSubItems;
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  if (v13)
   {
-    v21 = v20;
-    v22 = *v42;
+    v14 = v13;
+    v15 = *v25;
     do
     {
-      v23 = 0;
+      v16 = 0;
       do
       {
-        if (*v42 != v22)
+        if (*v25 != v15)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v12);
         }
 
-        v24 = *(*(&v41 + 1) + 8 * v23);
         PBDataWriterWriteSubmessage();
-        ++v23;
+        ++v16;
       }
 
-      while (v21 != v23);
-      v21 = [(NSArray *)v19 countByEnumeratingWithState:&v41 objects:v49 count:16];
+      while (v14 != v16);
+      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
-    while (v21);
+    while (v14);
   }
 
   pegasusMetaData = [(_INPBPrivateMediaItemValueData *)self pegasusMetaData];
 
   if (pegasusMetaData)
   {
-    pegasusMetaData = self->_pegasusMetaData;
     PBDataWriterWriteDataField();
   }
 
@@ -898,7 +888,6 @@ LABEL_78:
 
   if (provider)
   {
-    provider = self->_provider;
     PBDataWriterWriteStringField();
   }
 
@@ -906,7 +895,6 @@ LABEL_78:
 
   if (providerAppName)
   {
-    providerAppName = self->_providerAppName;
     PBDataWriterWriteStringField();
   }
 
@@ -914,7 +902,6 @@ LABEL_78:
 
   if (punchoutURI)
   {
-    punchoutURI = self->_punchoutURI;
     PBDataWriterWriteStringField();
   }
 
@@ -922,13 +909,11 @@ LABEL_78:
 
   if (recommendationId)
   {
-    recommendationId = self->_recommendationId;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBPrivateMediaItemValueData *)self hasRequiresSubscription])
   {
-    requiresSubscription = self->_requiresSubscription;
     PBDataWriterWriteBOOLField();
   }
 
@@ -936,7 +921,6 @@ LABEL_78:
 
   if (sharedUserIdFromPlayableMusicAccount)
   {
-    sharedUserIdFromPlayableMusicAccount = self->_sharedUserIdFromPlayableMusicAccount;
     PBDataWriterWriteStringField();
   }
 
@@ -944,11 +928,8 @@ LABEL_78:
 
   if (universalResourceLink)
   {
-    universalResourceLink = self->_universalResourceLink;
     PBDataWriterWriteStringField();
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUniversalResourceLink:(id)link
@@ -1172,6 +1153,49 @@ LABEL_78:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)ampConfidenceLevelAsString:(int)string
+{
+  if (string > 19)
+  {
+    if (string == 20)
+    {
+      v4 = @"MEDIUM";
+    }
+
+    else
+    {
+      if (string != 30)
+      {
+LABEL_12:
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"HIGH";
+    }
+  }
+
+  else
+  {
+    if (string)
+    {
+      if (string == 10)
+      {
+        v4 = @"LOW";
+
+        return v4;
+      }
+
+      goto LABEL_12;
+    }
+
+    v4 = @"UNKNOWN_CONFIDENCE_LEVEL";
   }
 
   return v4;

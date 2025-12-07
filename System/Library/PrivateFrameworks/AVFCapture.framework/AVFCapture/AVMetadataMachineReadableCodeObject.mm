@@ -28,22 +28,22 @@
 
 - (AVMetadataMachineReadableCodeObject)initWithFigEmbeddedCaptureDeviceMachineReadableCodeDictionary:(id)dictionary input:(id)input
 {
-  v38 = *MEMORY[0x1E6960C70];
-  *&v43.value = *MEMORY[0x1E6960C70];
+  v35 = *MEMORY[0x1E6960C70];
+  *&v40.value = *MEMORY[0x1E6960C70];
   v7 = *(MEMORY[0x1E6960C70] + 16);
-  v43.epoch = v7;
+  v40.epoch = v7;
   v8 = MEMORY[0x1E695F058];
-  v9 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6990C48]];
+  v9 = objc_msgSend_objectForKeyedSubscript_(dictionary, a2, *MEMORY[0x1E6990C48]);
   if (v9)
   {
-    CMTimeMakeFromDictionary(&v43, v9);
+    CMTimeMakeFromDictionary(&v40, v9);
   }
 
   x = *v8;
   y = v8[1];
   width = v8[2];
   height = v8[3];
-  v14 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6990BF0]];
+  v14 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   if (v14)
   {
     memset(&rect, 0, sizeof(rect));
@@ -56,11 +56,11 @@
     }
   }
 
-  v15 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6990BE0]];
+  v15 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   v16 = v15;
   if (v15)
   {
-    v17 = [v15 objectForKeyedSubscript:*MEMORY[0x1E6990BF8]];
+    v17 = objc_msgSend_objectForKeyedSubscript_(v15);
     if (v17)
     {
       if (figBarcodeTypeToAVFMachineReadableCodeType_sFigBarcodeToAVFMRCTypesToken != -1)
@@ -68,7 +68,7 @@
         [AVMetadataMachineReadableCodeObject initWithFigEmbeddedCaptureDeviceMachineReadableCodeDictionary:input:];
       }
 
-      v17 = [figBarcodeTypeToAVFMachineReadableCodeType_sFigBarcodeToAVFMRCTypes objectForKeyedSubscript:v17];
+      v17 = objc_msgSend_objectForKeyedSubscript_(figBarcodeTypeToAVFMachineReadableCodeType_sFigBarcodeToAVFMRCTypes);
     }
   }
 
@@ -77,20 +77,20 @@
     v17 = 0;
   }
 
-  v41.receiver = self;
-  v41.super_class = AVMetadataMachineReadableCodeObject;
-  rect.origin = *&v43.value;
-  *&rect.size.width = v43.epoch;
-  v39 = v38;
-  v40 = v7;
-  height = [(AVMetadataObject *)&v41 initWithType:v17 time:&rect duration:&v39 bounds:0 optionalInfoDict:0 originalMetadataObject:input sourceCaptureInput:x, y, width, height];
+  v38.receiver = self;
+  v38.super_class = AVMetadataMachineReadableCodeObject;
+  rect.origin = *&v40.value;
+  *&rect.size.width = v40.epoch;
+  v36 = v35;
+  v37 = v7;
+  height = [(AVMetadataObject *)&v38 initWithType:v17 time:&rect duration:&v36 bounds:0 optionalInfoDict:0 originalMetadataObject:input sourceCaptureInput:x, y, width, height];
   if (height)
   {
     v19 = objc_alloc_init(AVMetadataMachineReadableCodeObjectInternal);
     height->_internal = v19;
     if (v19)
     {
-      v20 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6990BD8]];
+      v20 = objc_msgSend_objectForKeyedSubscript_(dictionary);
       if (v20)
       {
         [(AVMetadataMachineReadableCodeObjectInternal *)height->_internal setCorners:v20];
@@ -101,7 +101,7 @@
         [(AVMetadataMachineReadableCodeObjectInternal *)height->_internal setBasicDescriptor:v16];
       }
 
-      v21 = [v16 objectForKeyedSubscript:*MEMORY[0x1E6990BE8]];
+      v21 = objc_msgSend_objectForKeyedSubscript_(v16);
       if (v21)
       {
         v22 = v21;
@@ -109,18 +109,16 @@
         {
           if ([v17 isEqualToString:@"org.iso.Aztec"])
           {
-            v28 = [v16 objectForKeyedSubscript:*MEMORY[0x1E6990BD0]];
-            v29 = [v16 objectForKeyedSubscript:*MEMORY[0x1E6990BC8]];
-            v30 = [v16 objectForKeyedSubscript:*MEMORY[0x1E6990BC0]];
-            v27 = [MEMORY[0x1E695F5F8] descriptorWithPayload:v22 isCompact:objc_msgSend(v28 layerCount:"BOOLValue") dataCodewordCount:{objc_msgSend(v29, "integerValue"), objc_msgSend(v30, "integerValue")}];
+            v28 = objc_msgSend_objectForKeyedSubscript_(v16);
+            v29 = objc_msgSend_objectForKeyedSubscript_(v16);
+            v27 = [MEMORY[0x1E695F5F8] descriptorWithPayload:v22 isCompact:objc_msgSend(v28 layerCount:"BOOLValue") dataCodewordCount:{objc_msgSend(v29, "integerValue"), objc_msgSend(objc_msgSend_objectForKeyedSubscript_(v16), "integerValue")}];
           }
 
           else if (([v17 isEqualToString:@"org.iso.PDF417"] & 1) != 0 || objc_msgSend(v17, "isEqualToString:", @"org.iso.MicroPDF417"))
           {
-            v31 = [v16 objectForKeyedSubscript:*MEMORY[0x1E6990C28]];
-            v32 = [v16 objectForKeyedSubscript:*MEMORY[0x1E6990C20]];
-            v33 = [v16 objectForKeyedSubscript:*MEMORY[0x1E6990C18]];
-            v27 = [MEMORY[0x1E695F668] descriptorWithPayload:v22 isCompact:objc_msgSend(v31 rowCount:"BOOLValue") columnCount:{objc_msgSend(v33, "integerValue"), objc_msgSend(v32, "integerValue")}];
+            v30 = objc_msgSend_objectForKeyedSubscript_(v16);
+            v31 = objc_msgSend_objectForKeyedSubscript_(v16);
+            v27 = [MEMORY[0x1E695F668] descriptorWithPayload:v22 isCompact:objc_msgSend(v30 rowCount:"BOOLValue") columnCount:{objc_msgSend(objc_msgSend_objectForKeyedSubscript_(v16), "integerValue"), objc_msgSend(v31, "integerValue")}];
           }
 
           else
@@ -130,18 +128,17 @@
               return height;
             }
 
-            v35 = [v16 objectForKeyedSubscript:*MEMORY[0x1E6990C00]];
-            v36 = [v16 objectForKeyedSubscript:*MEMORY[0x1E6990C10]];
-            v37 = [v16 objectForKeyedSubscript:*MEMORY[0x1E6990C08]];
-            v27 = [MEMORY[0x1E695F630] descriptorWithPayload:v22 rowCount:objc_msgSend(v37 columnCount:"integerValue") eccVersion:{objc_msgSend(v36, "integerValue"), objc_msgSend(v35, "integerValue")}];
+            v33 = objc_msgSend_objectForKeyedSubscript_(v16);
+            v34 = objc_msgSend_objectForKeyedSubscript_(v16);
+            v27 = [MEMORY[0x1E695F630] descriptorWithPayload:v22 rowCount:objc_msgSend(objc_msgSend_objectForKeyedSubscript_(v16) columnCount:"integerValue") eccVersion:{objc_msgSend(v34, "integerValue"), objc_msgSend(v33, "integerValue")}];
           }
 
           goto LABEL_29;
         }
 
-        v23 = [v16 objectForKeyedSubscript:*MEMORY[0x1E6990C30]];
-        v24 = [v16 objectForKeyedSubscript:*MEMORY[0x1E6990C38]];
-        v25 = [v16 objectForKeyedSubscript:*MEMORY[0x1E6990C40]];
+        v23 = objc_msgSend_objectForKeyedSubscript_(v16);
+        v24 = objc_msgSend_objectForKeyedSubscript_(v16);
+        v25 = objc_msgSend_objectForKeyedSubscript_(v16);
         integerValue = [v23 integerValue];
         if (integerValue <= 3)
         {
@@ -169,7 +166,7 @@ LABEL_29:
   v7 = *(MEMORY[0x1E6960C70] + 16);
   v29.epoch = v7;
   v8 = MEMORY[0x1E695F058];
-  v9 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E698F8E0]];
+  v9 = objc_msgSend_objectForKeyedSubscript_(dictionary, a2, *MEMORY[0x1E698F8E0]);
   if (v9)
   {
     CMTimeMakeFromDictionary(&v29, v9);
@@ -179,7 +176,7 @@ LABEL_29:
   y = v8[1];
   width = v8[2];
   height = v8[3];
-  v14 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E698F8C8]];
+  v14 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   if (v14)
   {
     memset(&rect, 0, sizeof(rect));
@@ -205,7 +202,7 @@ LABEL_29:
     height->_internal = v16;
     if (v16)
     {
-      v17 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E698F8D0]];
+      v17 = objc_msgSend_objectForKeyedSubscript_(dictionary);
       if (v17)
       {
         [(AVMetadataMachineReadableCodeObjectInternal *)height->_internal setCorners:v17];
@@ -213,14 +210,14 @@ LABEL_29:
 
       dictionary = [MEMORY[0x1E695DF90] dictionary];
       v19 = *MEMORY[0x1E698F8D8];
-      v20 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E698F8D8]];
+      v20 = objc_msgSend_objectForKeyedSubscript_(dictionary);
       if (v20)
       {
         [dictionary setObject:v20 forKeyedSubscript:v19];
       }
 
       v21 = *MEMORY[0x1E698F8E8];
-      v22 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E698F8E8]];
+      v22 = objc_msgSend_objectForKeyedSubscript_(dictionary);
       if (v22)
       {
         [dictionary setObject:v22 forKeyedSubscript:v21];
@@ -247,10 +244,10 @@ LABEL_29:
   v45 = 0;
   if (object)
   {
-    [object time];
+    objc_msgSend_time(object);
     v42 = 0uLL;
     v43 = 0;
-    [object duration];
+    objc_msgSend_duration(object);
   }
 
   else
@@ -399,7 +396,7 @@ LABEL_29:
 
   if (self)
   {
-    [(AVMetadataObject *)self time];
+    objc_msgSend_time(self);
     v19 = v21;
   }
 

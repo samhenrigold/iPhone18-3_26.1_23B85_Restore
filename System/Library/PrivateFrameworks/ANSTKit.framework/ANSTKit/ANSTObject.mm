@@ -85,59 +85,13 @@
     v15 = NSStringFromSelector(sel_groupID);
     v17 = objc_msgSend_decodeObjectOfClass_forKey_(v13, v16, v14, v15);
 
-    if (!v17)
-    {
-      goto LABEL_8;
-    }
-
-    v5->_groupID = objc_msgSend_unsignedIntegerValue(v17, v18, v19);
-
-    v20 = v13;
-    v21 = objc_opt_class();
-    v22 = NSStringFromSelector(sel_confidence);
-    v24 = objc_msgSend_decodeObjectOfClass_forKey_(v20, v23, v21, v22);
-
-    if (!v24)
-    {
-      goto LABEL_8;
-    }
-
-    v5->_confidence = objc_msgSend_unsignedIntegerValue(v24, v25, v26);
-
-    v27 = v20;
-    v28 = objc_opt_class();
-    v29 = NSStringFromSelector(sel_distance);
-    v31 = objc_msgSend_decodeObjectOfClass_forKey_(v27, v30, v28, v29);
-
-    if (!v31)
-    {
-      goto LABEL_8;
-    }
-
-    objc_msgSend_floatValue(v31, v32, v33);
-    v5->_distance = v34;
-
-    if (!sub_22E5FDB44(v27, &v5->_boundingBox.origin.x, sel_boundingBox))
-    {
-      goto LABEL_8;
-    }
-
-    v35 = v27;
-    v36 = objc_opt_class();
-    v37 = NSStringFromSelector(sel_category);
-    v39 = objc_msgSend_decodeObjectOfClass_forKey_(v35, v38, v36, v37);
-
-    category = v5->_category;
-    v5->_category = v39;
-
-    if (v5->_category)
+    if (v17 && (v5->_groupID = objc_msgSend_unsignedIntegerValue(v17, v18, v19), v17, v20 = v13, v21 = objc_opt_class(), NSStringFromSelector(sel_confidence), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v20, v23, v21, v22), v24 = objc_claimAutoreleasedReturnValue(), v20, v22, v24) && (v5->_confidence = objc_msgSend_unsignedIntegerValue(v24, v25, v26), v24, v27 = v20, v28 = objc_opt_class(), NSStringFromSelector(sel_distance), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v27, v30, v28, v29), v31 = objc_claimAutoreleasedReturnValue(), v27, v29, v31) && (objc_msgSend_floatValue(v31, v32, v33), v5->_distance = v34, v31, sub_22E5FDB44(v27, &v5->_boundingBox.origin.x, sel_boundingBox)) && (v35 = v27, v36 = objc_opt_class(), NSStringFromSelector(sel_category), v37 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v35, v38, v36, v37), v39 = objc_claimAutoreleasedReturnValue(), v35, v37, category = v5->_category, v5->_category = v39, category, v5->_category))
     {
       v10 = v5;
     }
 
     else
     {
-LABEL_8:
       v10 = 0;
     }
   }

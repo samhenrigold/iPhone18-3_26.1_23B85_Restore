@@ -449,7 +449,7 @@
   v9 = MEMORY[0x1E6993AB0];
   if (*&v7[*MEMORY[0x1E6993AB8]] >= *&v7[*MEMORY[0x1E6993AB0]])
   {
-    v47 = 0;
+    v44 = 0;
 LABEL_57:
     v10 = 0;
   }
@@ -457,7 +457,7 @@ LABEL_57:
   else
   {
     v10 = 0;
-    v47 = 0;
+    v44 = 0;
     v11 = MEMORY[0x1E6993AA8];
     v12 = MEMORY[0x1E6993AA0];
     do
@@ -548,14 +548,14 @@ LABEL_21:
           goto LABEL_47;
         case 4u:
           v30 = CCPBReaderReadStringNoCopy();
-          if (!v47)
+          if (!v44)
           {
-            v47 = objc_opt_new();
+            v44 = objc_opt_new();
           }
 
           if (v30)
           {
-            [v47 addObject:v30];
+            [v44 addObject:v30];
           }
 
           goto LABEL_51;
@@ -652,7 +652,6 @@ LABEL_51:
             NSStringFromClass(v32);
             errorCopy = error;
             v34 = v33 = dataCopy;
-            v35 = *&v7[*v11];
             v10 = CCSkipFieldErrorForMessage();
 
             dataCopy = v33;
@@ -666,9 +665,9 @@ LABEL_51:
     while (*&v7[*v8] < *&v7[*v9]);
   }
 
-  v36 = [v47 copy];
+  v35 = [v44 copy];
   customerNames = self->_customerNames;
-  self->_customerNames = v36;
+  self->_customerNames = v35;
 
   if (v10)
   {
@@ -677,32 +676,30 @@ LABEL_51:
 
   else
   {
-    v38 = MEMORY[0x1E6993AA8];
     if (!*&v7[*MEMORY[0x1E6993AA8]])
     {
-      v44 = 1;
+      v41 = 1;
       goto LABEL_63;
     }
 
-    v39 = objc_opt_class();
-    v40 = NSStringFromClass(v39);
-    v41 = *&v7[*v38];
+    v37 = objc_opt_class();
+    v38 = NSStringFromClass(v37);
     CCInvalidBufferErrorForMessage();
-    v43 = v42 = dataCopy;
+    v40 = v39 = dataCopy;
     CCSetError();
 
-    dataCopy = v42;
+    dataCopy = v39;
   }
 
-  v44 = 0;
+  v41 = 0;
 LABEL_63:
 
-  return v44;
+  return v41;
 }
 
 - (CCAppIntentsExtractedEntityRentalCarReservation)initWithReservationID:(id)d eventName:(id)name provider:(id)provider customerNames:(id)names startLocationName:(id)locationName startLocationAddress:(id)address startLocationTelephone:(id)telephone startDate:(id)self0 startDateTimeZone:(id)self1 endLocationName:(id)self2 endLocationAddress:(id)self3 endLocationTelephone:(id)self4 endDate:(id)self5 endDateTimeZone:(id)self6 reservationForName:(id)self7 duration:(id)self8 cost:(id)self9 costCode:(id)code eventStatus:(id)status error:(id *)error
 {
-  v105 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   dCopy = d;
   nameCopy = name;
   providerCopy = provider;
@@ -723,18 +720,17 @@ LABEL_63:
   codeCopy = code;
   statusCopy = status;
   v32 = objc_opt_new();
-  v33 = 0x1E696A000uLL;
   if (!dCopy)
   {
-    v35 = 0;
+    v34 = 0;
 LABEL_5:
-    v80 = dCopy;
+    v63 = dCopy;
     if (nameCopy)
     {
       objc_opt_class();
-      v102 = v35;
+      v85 = v34;
       IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
-      v37 = v35;
+      v36 = v34;
 
       if (!IsInstanceOfExpectedClass)
       {
@@ -745,7 +741,7 @@ LABEL_5:
       if (!providerCopy)
       {
 LABEL_8:
-        v35 = v37;
+        v34 = v36;
         if (namesCopy)
         {
           goto LABEL_9;
@@ -757,7 +753,7 @@ LABEL_8:
 
     else
     {
-      v37 = v35;
+      v36 = v34;
       if (!providerCopy)
       {
         goto LABEL_8;
@@ -765,11 +761,11 @@ LABEL_8:
     }
 
     objc_opt_class();
-    v101 = v37;
-    v47 = CCValidateIsInstanceOfExpectedClass();
-    v35 = v37;
+    v84 = v36;
+    v45 = CCValidateIsInstanceOfExpectedClass();
+    v34 = v36;
 
-    if (!v47)
+    if (!v45)
     {
       goto LABEL_82;
     }
@@ -779,45 +775,43 @@ LABEL_8:
     {
 LABEL_9:
       objc_opt_class();
-      v100 = v35;
-      v38 = CCValidateArrayValues();
-      v37 = v35;
+      v83 = v34;
+      v37 = CCValidateArrayValues();
+      v36 = v34;
 
-      if (!v38)
+      if (!v37)
       {
         goto LABEL_77;
       }
 
-      v98 = 0u;
-      v99 = 0u;
-      v97 = 0u;
-      v96 = 0u;
-      v39 = namesCopy;
-      v40 = [v39 countByEnumeratingWithState:&v96 objects:v104 count:16];
-      if (v40)
+      v81 = 0u;
+      v82 = 0u;
+      v80 = 0u;
+      v79 = 0u;
+      v38 = namesCopy;
+      v39 = [v38 countByEnumeratingWithState:&v79 objects:v87 count:16];
+      if (v39)
       {
-        v41 = v40;
-        v42 = *v97;
+        v40 = v39;
+        v41 = *v80;
         do
         {
-          for (i = 0; i != v41; ++i)
+          for (i = 0; i != v40; ++i)
           {
-            if (*v97 != v42)
+            if (*v80 != v41)
             {
-              objc_enumerationMutation(v39);
+              objc_enumerationMutation(v38);
             }
 
-            v44 = *(*(&v96 + 1) + 8 * i);
             CCPBDataWriterWriteStringField();
           }
 
-          v41 = [v39 countByEnumeratingWithState:&v96 objects:v104 count:16];
+          v40 = [v38 countByEnumeratingWithState:&v79 objects:v87 count:16];
         }
 
-        while (v41);
+        while (v40);
       }
 
-      v33 = 0x1E696A000;
       if (!locationNameCopy)
       {
         goto LABEL_18;
@@ -827,18 +821,93 @@ LABEL_9:
     }
 
 LABEL_23:
-    v37 = v35;
+    v36 = v34;
     if (!locationNameCopy)
     {
 LABEL_18:
-      v35 = v37;
+      v34 = v36;
 LABEL_26:
       if (addressCopy)
       {
-        v50 = *(v33 + 3776);
+        objc_opt_class();
+        v47 = CCValidateIsInstanceOfExpectedClass();
+        v36 = v34;
+
+        if (!v47)
+        {
+          goto LABEL_77;
+        }
+
+        CCPBDataWriterWriteStringField();
+      }
+
+      else
+      {
+        v36 = v34;
+      }
+
+      if (telephoneCopy)
+      {
+        objc_opt_class();
+        v48 = CCValidateIsInstanceOfExpectedClass();
+        v34 = v36;
+
+        if (!v48)
+        {
+          goto LABEL_82;
+        }
+
+        CCPBDataWriterWriteStringField();
+      }
+
+      else
+      {
+        v34 = v36;
+      }
+
+      if (dateCopy)
+      {
+        objc_opt_class();
+        v49 = CCValidateIsInstanceOfExpectedClass();
+        v36 = v34;
+
+        if (!v49)
+        {
+          goto LABEL_77;
+        }
+
+        CCPBDataWriterWriteStringField();
+      }
+
+      else
+      {
+        v36 = v34;
+      }
+
+      if (zoneCopy)
+      {
+        objc_opt_class();
+        v50 = CCValidateIsInstanceOfExpectedClass();
+        v34 = v36;
+
+        if (!v50)
+        {
+          goto LABEL_82;
+        }
+
+        CCPBDataWriterWriteStringField();
+      }
+
+      else
+      {
+        v34 = v36;
+      }
+
+      if (endLocationNameCopy)
+      {
         objc_opt_class();
         v51 = CCValidateIsInstanceOfExpectedClass();
-        v37 = v35;
+        v36 = v34;
 
         if (!v51)
         {
@@ -850,17 +919,16 @@ LABEL_26:
 
       else
       {
-        v37 = v35;
+        v36 = v34;
       }
 
-      if (telephoneCopy)
+      if (locationAddressCopy)
       {
-        v52 = *(v33 + 3776);
         objc_opt_class();
-        v53 = CCValidateIsInstanceOfExpectedClass();
-        v35 = v37;
+        v52 = CCValidateIsInstanceOfExpectedClass();
+        v34 = v36;
 
-        if (!v53)
+        if (!v52)
         {
           goto LABEL_82;
         }
@@ -870,15 +938,52 @@ LABEL_26:
 
       else
       {
-        v35 = v37;
+        v34 = v36;
       }
 
-      if (dateCopy)
+      if (locationTelephoneCopy)
       {
-        v54 = *(v33 + 3776);
+        objc_opt_class();
+        v53 = CCValidateIsInstanceOfExpectedClass();
+        v36 = v34;
+
+        if (!v53)
+        {
+          goto LABEL_77;
+        }
+
+        CCPBDataWriterWriteStringField();
+      }
+
+      else
+      {
+        v36 = v34;
+      }
+
+      if (endDateCopy)
+      {
+        objc_opt_class();
+        v54 = CCValidateIsInstanceOfExpectedClass();
+        v34 = v36;
+
+        if (!v54)
+        {
+          goto LABEL_82;
+        }
+
+        CCPBDataWriterWriteStringField();
+      }
+
+      else
+      {
+        v34 = v36;
+      }
+
+      if (timeZoneCopy)
+      {
         objc_opt_class();
         v55 = CCValidateIsInstanceOfExpectedClass();
-        v37 = v35;
+        v36 = v34;
 
         if (!v55)
         {
@@ -890,137 +995,16 @@ LABEL_26:
 
       else
       {
-        v37 = v35;
-      }
-
-      if (zoneCopy)
-      {
-        v56 = *(v33 + 3776);
-        objc_opt_class();
-        v57 = CCValidateIsInstanceOfExpectedClass();
-        v35 = v37;
-
-        if (!v57)
-        {
-          goto LABEL_82;
-        }
-
-        CCPBDataWriterWriteStringField();
-      }
-
-      else
-      {
-        v35 = v37;
-      }
-
-      if (endLocationNameCopy)
-      {
-        v58 = *(v33 + 3776);
-        objc_opt_class();
-        v59 = CCValidateIsInstanceOfExpectedClass();
-        v37 = v35;
-
-        if (!v59)
-        {
-          goto LABEL_77;
-        }
-
-        CCPBDataWriterWriteStringField();
-      }
-
-      else
-      {
-        v37 = v35;
-      }
-
-      if (locationAddressCopy)
-      {
-        v60 = *(v33 + 3776);
-        objc_opt_class();
-        v61 = CCValidateIsInstanceOfExpectedClass();
-        v35 = v37;
-
-        if (!v61)
-        {
-          goto LABEL_82;
-        }
-
-        CCPBDataWriterWriteStringField();
-      }
-
-      else
-      {
-        v35 = v37;
-      }
-
-      if (locationTelephoneCopy)
-      {
-        v62 = *(v33 + 3776);
-        objc_opt_class();
-        v63 = CCValidateIsInstanceOfExpectedClass();
-        v37 = v35;
-
-        if (!v63)
-        {
-          goto LABEL_77;
-        }
-
-        CCPBDataWriterWriteStringField();
-      }
-
-      else
-      {
-        v37 = v35;
-      }
-
-      if (endDateCopy)
-      {
-        v64 = *(v33 + 3776);
-        objc_opt_class();
-        v65 = CCValidateIsInstanceOfExpectedClass();
-        v35 = v37;
-
-        if (!v65)
-        {
-          goto LABEL_82;
-        }
-
-        CCPBDataWriterWriteStringField();
-      }
-
-      else
-      {
-        v35 = v37;
-      }
-
-      if (timeZoneCopy)
-      {
-        v66 = *(v33 + 3776);
-        objc_opt_class();
-        v67 = CCValidateIsInstanceOfExpectedClass();
-        v37 = v35;
-
-        if (!v67)
-        {
-          goto LABEL_77;
-        }
-
-        CCPBDataWriterWriteStringField();
-      }
-
-      else
-      {
-        v37 = v35;
+        v36 = v34;
       }
 
       if (forNameCopy)
       {
-        v68 = *(v33 + 3776);
         objc_opt_class();
-        v69 = CCValidateIsInstanceOfExpectedClass();
-        v35 = v37;
+        v56 = CCValidateIsInstanceOfExpectedClass();
+        v34 = v36;
 
-        if (!v69)
+        if (!v56)
         {
           goto LABEL_82;
         }
@@ -1030,16 +1014,16 @@ LABEL_26:
 
       else
       {
-        v35 = v37;
+        v34 = v36;
       }
 
       if (durationCopy)
       {
         objc_opt_class();
-        v70 = CCValidateIsInstanceOfExpectedClass();
-        v37 = v35;
+        v57 = CCValidateIsInstanceOfExpectedClass();
+        v36 = v34;
 
-        if (!v70)
+        if (!v57)
         {
           goto LABEL_77;
         }
@@ -1050,59 +1034,56 @@ LABEL_26:
 
       else
       {
-        v37 = v35;
+        v36 = v34;
       }
 
       if (!costCopy)
       {
-        v35 = v37;
+        v34 = v36;
         goto LABEL_74;
       }
 
-      v71 = *(v33 + 3776);
       objc_opt_class();
-      v72 = CCValidateIsInstanceOfExpectedClass();
-      v35 = v37;
+      v58 = CCValidateIsInstanceOfExpectedClass();
+      v34 = v36;
 
-      if (v72)
+      if (v58)
       {
         CCPBDataWriterWriteStringField();
 LABEL_74:
         if (!codeCopy)
         {
-          v37 = v35;
+          v36 = v34;
           goto LABEL_79;
         }
 
-        v73 = *(v33 + 3776);
         objc_opt_class();
-        v74 = CCValidateIsInstanceOfExpectedClass();
-        v37 = v35;
+        v59 = CCValidateIsInstanceOfExpectedClass();
+        v36 = v34;
 
-        if (v74)
+        if (v59)
         {
           CCPBDataWriterWriteStringField();
 LABEL_79:
           if (!statusCopy)
           {
-            v35 = v37;
+            v34 = v36;
             goto LABEL_86;
           }
 
-          v75 = *(v33 + 3776);
           objc_opt_class();
-          v76 = CCValidateIsInstanceOfExpectedClass();
-          v35 = v37;
+          v60 = CCValidateIsInstanceOfExpectedClass();
+          v34 = v36;
 
-          if (v76)
+          if (v60)
           {
             CCPBDataWriterWriteStringField();
 LABEL_86:
-            dCopy = v80;
+            dCopy = v63;
             immutableData = [v32 immutableData];
             selfCopy2 = [(CCItemMessage *)self initWithData:immutableData error:error];
 
-            v45 = selfCopy2;
+            v43 = selfCopy2;
             goto LABEL_84;
           }
 
@@ -1111,27 +1092,26 @@ LABEL_86:
 
 LABEL_77:
         CCSetError();
-        v45 = 0;
-        v35 = v37;
+        v43 = 0;
+        v34 = v36;
 LABEL_83:
         selfCopy2 = self;
-        dCopy = v80;
+        dCopy = v63;
         goto LABEL_84;
       }
 
 LABEL_82:
       CCSetError();
-      v45 = 0;
+      v43 = 0;
       goto LABEL_83;
     }
 
 LABEL_24:
-    v48 = *(v33 + 3776);
     objc_opt_class();
-    v49 = CCValidateIsInstanceOfExpectedClass();
-    v35 = v37;
+    v46 = CCValidateIsInstanceOfExpectedClass();
+    v34 = v36;
 
-    if (!v49)
+    if (!v46)
     {
       goto LABEL_82;
     }
@@ -1141,22 +1121,21 @@ LABEL_24:
   }
 
   objc_opt_class();
-  v103 = 0;
-  v34 = CCValidateIsInstanceOfExpectedClass();
-  v35 = 0;
-  if (v34)
+  v86 = 0;
+  v33 = CCValidateIsInstanceOfExpectedClass();
+  v34 = 0;
+  if (v33)
   {
     CCPBDataWriterWriteStringField();
     goto LABEL_5;
   }
 
   CCSetError();
-  v45 = 0;
+  v43 = 0;
   selfCopy2 = self;
 LABEL_84:
 
-  v77 = *MEMORY[0x1E69E9840];
-  return v45;
+  return v43;
 }
 
 @end

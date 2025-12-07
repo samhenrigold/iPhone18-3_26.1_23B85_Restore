@@ -344,7 +344,7 @@ void __64__VKCVisualSearchResultItemView_initWithVisualSearchResultItem___block_
     v23 = v22;
     [(VKCVisualSearchResultItemView *)self _rectForViewSpace:0.0, 0.0, v23, v23];
     v25 = v24 / v23;
-    [(VKCVisualSearchResultItemView *)self _transformForButtonScale];
+    objc_msgSend__transformForButtonScale(self);
     layer = [(VKCLookupButton *)self->_lookupButton layer];
     v32 = v31;
     [layer setTransform:&v32];
@@ -545,7 +545,7 @@ void __64__VKCVisualSearchResultItemView_initWithVisualSearchResultItem___block_
   v40 = 0u;
   v37 = 0u;
   v38 = 0u;
-  [(VKCVisualSearchResultItemView *)self _transformForButtonScale];
+  objc_msgSend__transformForButtonScale(self);
   if (paneCopy)
   {
     v33 = v41;
@@ -652,7 +652,7 @@ void __64__VKCVisualSearchResultItemView_initWithVisualSearchResultItem___block_
   v7 = MEMORY[0x1E69792E8];
   if (pinCopy)
   {
-    [(VKCVisualSearchResultItemView *)self _pinEndTransform];
+    objc_msgSend__pinEndTransform(self);
     v8 = [v6 valueWithBytes:v44 objCType:"{CATransform3D=dddddddddddddddd}"];
     [v5 setFromValue:v8];
 
@@ -691,7 +691,7 @@ void __64__VKCVisualSearchResultItemView_initWithVisualSearchResultItem___block_
     [v5 setFromValue:v20];
 
     v21 = MEMORY[0x1E696B098];
-    [(VKCVisualSearchResultItemView *)self _pinEndTransform];
+    objc_msgSend__pinEndTransform(self);
     v13 = [v21 valueWithBytes:v41 objCType:"{CATransform3D=dddddddddddddddd}"];
     v14 = &unk_1F2C38F68;
     v15 = &unk_1F2C38F50;
@@ -731,7 +731,7 @@ void __64__VKCVisualSearchResultItemView_initWithVisualSearchResultItem___block_
 
   else
   {
-    [(VKCVisualSearchResultItemView *)self _pinEndTransform];
+    objc_msgSend__pinEndTransform(self);
     v29 = 0.0;
   }
 
@@ -997,18 +997,16 @@ LABEL_10:
 {
   _pinArrowDirection = [(VKCVisualSearchResultItemView *)self _pinArrowDirection];
   [(VKCVisualSearchResultItemView *)self _pinSizeForViewScale];
+  [(VKCVisualSearchResultItemView *)self _offsetForPinBubbleFrameWithDirection:_pinArrowDirection pinBubbleBounds:VKMRectWithSize()];
   v5 = v4;
   v7 = v6;
-  [(VKCVisualSearchResultItemView *)self _offsetForPinBubbleFrameWithDirection:_pinArrowDirection pinBubbleBounds:VKMRectWithSize()];
-  v9 = v8;
-  v11 = v10;
   [(VKCLookupButton *)self->_lookupButton frame];
-  v16 = VKMCenterOfRect(v12, v13, v14, v15);
-  v17 = VKMAddPoints(v9, v11, v16);
-  v20 = VKMRectWithOriginAndSize(v18, v17, v19, v5, v7);
+  v12 = VKMCenterOfRect(v8, v9, v10, v11);
+  VKMAddPoints(v5, v7, v12);
+  VKMRectWithOriginAndSize();
   pinLayer = self->_pinLayer;
 
-  [(CALayer *)pinLayer setFrame:v20];
+  [(CALayer *)pinLayer setFrame:?];
 }
 
 - (CGPoint)_offsetForPinBubbleFrameWithDirection:(int64_t)direction pinBubbleBounds:(CGRect)bounds
@@ -1260,7 +1258,7 @@ LABEL_12:
   v27 = 0u;
   v24 = 0u;
   v25 = 0u;
-  [(VKCVisualSearchResultItemView *)self _initialDotAnimationTransform];
+  objc_msgSend__initialDotAnimationTransform(self);
   v20 = v28;
   v21 = v29;
   v22 = v30;

@@ -4,6 +4,7 @@
 - (id)archiveItemsWithURLs:(id)ls compressionFormat:(unint64_t)format destinationFolderURL:(id)l completionHandler:(id)handler;
 - (id)archiveItemsWithURLs:(id)ls passphrase:(id)passphrase addToKeychain:(BOOL)keychain compressionFormat:(unint64_t)format destinationFolderURL:(id)l completionHandler:(id)handler;
 - (id)unarchiveItemAtURL:(id)l passphrase:(id)passphrase destinationFolderURL:(id)rL completionHandler:(id)handler;
+- (id)unarchiveItemAtURL:(id)l passphrases:(id)passphrases addToKeychain:(BOOL)keychain destinationFolderURL:(id)rL acceptedFormats:(unint64_t)formats completionHandler:(id)handler;
 - (id)unarchiveItemAtURL:(id)l passphrases:(id)passphrases destinationFolderURL:(id)rL acceptedFormats:(unint64_t)formats completionHandler:(id)handler;
 - (id)unarchiveItemAtURL:(id)l passphrases:(id)passphrases destinationFolderURL:(id)rL completionHandler:(id)handler;
 - (id)unarchiveItemAtURL:(id)l toURL:(id)rL options:(unint64_t)options acceptedFormats:(unint64_t)formats passphrases:(id)passphrases completionHandler:(id)handler;
@@ -606,6 +607,139 @@ LABEL_24:
   v7 = [(DSArchiveService *)self unarchiveItemAtURL:l passphrases:passphrases addToKeychain:0 destinationFolderURL:rL acceptedFormats:formats completionHandler:handler];
 
   return v7;
+}
+
+- (id)unarchiveItemAtURL:(id)l passphrases:(id)passphrases addToKeychain:(BOOL)keychain destinationFolderURL:(id)rL acceptedFormats:(unint64_t)formats completionHandler:(id)handler
+{
+  keychainCopy = keychain;
+  lCopy = l;
+  passphrasesCopy = passphrases;
+  rLCopy = rL;
+  handlerCopy = handler;
+  unarchivingDelegate = [(DSArchiveService *)self unarchivingDelegate];
+
+  if (unarchivingDelegate)
+  {
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  v35 = sub_100001800(selfCopy);
+  [v35 resume];
+  v45[0] = _NSConcreteStackBlock;
+  v45[1] = 3221225472;
+  v45[2] = sub_100003ECC;
+  v45[3] = &unk_10002CD10;
+  v19 = handlerCopy;
+  v47 = v19;
+  v20 = v35;
+  v46 = v20;
+  v38 = [v20 remoteObjectProxyWithErrorHandler:v45];
+  if (!lCopy || !rLCopy)
+  {
+    v24 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
+    if (!lCopy)
+    {
+      v25 = LogObj(0);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "unarchiveItemAtURL: url is nil", buf, 2u);
+      }
+    }
+
+    if (!rLCopy)
+    {
+      v26 = LogObj(0);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "unarchiveItemAtURL: destination is nil", buf, 2u);
+      }
+    }
+
+    (*(v19 + 2))(v19, 0, v24);
+    [v20 invalidate];
+    goto LABEL_17;
+  }
+
+  v44 = 0;
+  v21 = [(objc_class *)off_1000314B8() wrapperWithURL:lCopy readonly:0 error:&v44];
+  v22 = v44;
+  v23 = v22;
+  if (!v21)
+  {
+    v43 = v22;
+    v21 = [(objc_class *)off_1000314B8() wrapperWithURL:lCopy readonly:1 error:&v43];
+    v36 = v43;
+
+    if (v21)
+    {
+      goto LABEL_19;
+    }
+
+    v33 = LogObj(0);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v51 = v36;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "unarchiveItemAtURL: Couldn't get url wrapper for item: %@", buf, 0xCu);
+    }
+
+    v24 = v36;
+    (*(v19 + 2))(v19, 0, v36);
+    [v20 invalidate];
+LABEL_17:
+    v27 = 0;
+    goto LABEL_25;
+  }
+
+  v36 = v22;
+LABEL_19:
+  v28 = [[NSSecurityScopedURLWrapper alloc] initWithURL:rLCopy readonly:0];
+  if (v28)
+  {
+    v39[0] = _NSConcreteStackBlock;
+    v39[1] = 3221225472;
+    v39[2] = sub_100003F44;
+    v39[3] = &unk_10002CE10;
+    v40 = lCopy;
+    v42 = v19;
+    v41 = v20;
+    LOBYTE(v34) = 0;
+    v27 = [v38 unarchiveItemWithURLWrapper:v21 passphrases:passphrasesCopy addToKeychain:keychainCopy destinationFolderURLWrapper:v28 acceptedFormats:formats exportsStreamingReceiver:unarchivingDelegate != 0 usePlaceholder:v34 completionHandler:v39];
+
+    v29 = v40;
+  }
+
+  else
+  {
+    v48 = NSURLErrorKey;
+    v49 = rLCopy;
+    v30 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+    v29 = [NSError errorWithDomain:NSCocoaErrorDomain code:257 userInfo:v30];
+
+    v31 = LogObj(0);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v51 = v29;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "unarchiveItemAtURL: Couldn't get url wrapper for destination: %@", buf, 0xCu);
+    }
+
+    (*(v19 + 2))(v19, 0, v29);
+    [v20 invalidate];
+    v27 = 0;
+  }
+
+  v24 = v36;
+LABEL_25:
+
+  return v27;
 }
 
 - (void)receiveArchivedItemsDescriptors:(id)descriptors placeholderName:(id)name placeholderTypeIdentifier:(id)identifier

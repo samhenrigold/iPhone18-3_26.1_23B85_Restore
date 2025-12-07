@@ -1,24 +1,47 @@
 @interface SOAsynchronousLDAPOperation
+- (SOAsynchronousLDAPOperation)initWithRealm:(id)realm andHost:(id)host andPort:(unsigned __int16)port andBundleIdentifier:(id)identifier andRequireTLSForLDAP:(BOOL)p andCompletion:(id)completion;
 - (void)main;
 @end
 
 @implementation SOAsynchronousLDAPOperation
 
+- (SOAsynchronousLDAPOperation)initWithRealm:(id)realm andHost:(id)host andPort:(unsigned __int16)port andBundleIdentifier:(id)identifier andRequireTLSForLDAP:(BOOL)p andCompletion:(id)completion
+{
+  pCopy = p;
+  portCopy = port;
+  realmCopy = realm;
+  hostCopy = host;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  v21.receiver = self;
+  v21.super_class = SOAsynchronousLDAPOperation;
+  v18 = [(SOAsynchronousOperation *)&v21 init];
+  v19 = v18;
+  if (v18)
+  {
+    [(SOAsynchronousLDAPOperation *)v18 setRealm:realmCopy];
+    [(SOAsynchronousLDAPOperation *)v19 setHost:hostCopy];
+    [(SOAsynchronousLDAPOperation *)v19 setPort:portCopy];
+    [(SOAsynchronousLDAPOperation *)v19 setCompletion:completionCopy];
+    [(SOAsynchronousLDAPOperation *)v19 setBundleIdentifier:identifierCopy];
+    [(SOAsynchronousLDAPOperation *)v19 setRequireTLSForLDAP:pCopy];
+  }
+
+  return v19;
+}
+
 - (void)main
 {
-  v8 = *MEMORY[0x277D85DE8];
   host = [self host];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __35__SOAsynchronousLDAPOperation_main__block_invoke(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = SO_LOG_SOAsynchronousLDAPOperation();
+  v6 = SO_LOG_SOAsynchronousLDAPOperation(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
   if (a2)
   {
@@ -59,42 +82,42 @@ void __35__SOAsynchronousLDAPOperation_main__block_invoke_8(uint64_t a1, int a2,
 {
   v7 = a3;
   v8 = a4;
-  [*(a1 + 32) disconnect];
+  v9 = [*(a1 + 32) disconnect];
   if (a2)
   {
-    v9 = [v8 objectForKeyedSubscript:@"netlogon"];
-    v10 = [v9 firstObject];
-    v11 = [v10 base64EncodedStringWithOptions:32];
-    v12 = SO_LOG_SOAsynchronousLDAPOperation();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v10 = [v8 objectForKeyedSubscript:@"netlogon"];
+    v11 = [v10 firstObject];
+    v12 = [v11 base64EncodedStringWithOptions:32];
+    v13 = SO_LOG_SOAsynchronousLDAPOperation(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       __35__SOAsynchronousLDAPOperation_main__block_invoke_8_cold_2();
     }
 
-    v13 = [SONetLogonParser parseNetLoginUsingData:v10];
-    v14 = [MEMORY[0x277CCABB0] numberWithShort:8];
-    v15 = [v13 objectForKeyedSubscript:v14];
+    v14 = [SONetLogonParser parseNetLoginUsingData:v11];
+    v15 = [MEMORY[0x277CCABB0] numberWithShort:8];
+    v16 = [v14 objectForKeyedSubscript:v15];
 
-    v16 = SO_LOG_SOAsynchronousLDAPOperation();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = SO_LOG_SOAsynchronousLDAPOperation(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       __35__SOAsynchronousLDAPOperation_main__block_invoke_8_cold_3();
     }
 
-    v17 = [*(a1 + 40) completion];
-    (v17)[2](v17, 1, v15);
+    v19 = [*(a1 + 40) completion];
+    (v19)[2](v19, 1, v16);
   }
 
   else
   {
-    v18 = SO_LOG_SOAsynchronousLDAPOperation();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v20 = SO_LOG_SOAsynchronousLDAPOperation(v9);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       __35__SOAsynchronousLDAPOperation_main__block_invoke_8_cold_1(a1);
     }
 
-    v9 = [*(a1 + 40) completion];
-    v9[2](v9, 0, 0);
+    v10 = [*(a1 + 40) completion];
+    v10[2](v10, 0, 0);
   }
 
   [*(a1 + 40) finish];
@@ -102,51 +125,40 @@ void __35__SOAsynchronousLDAPOperation_main__block_invoke_8(uint64_t a1, int a2,
 
 void __35__SOAsynchronousLDAPOperation_main__block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) host];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __35__SOAsynchronousLDAPOperation_main__block_invoke_cold_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) host];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __35__SOAsynchronousLDAPOperation_main__block_invoke_8_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 40) host];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __35__SOAsynchronousLDAPOperation_main__block_invoke_8_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_24006C000, v0, OS_LOG_TYPE_DEBUG, "response from ldap: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24006C000, v0, OS_LOG_TYPE_DEBUG, "response from ldap: %{public}@", v1, 0xCu);
 }
 
 void __35__SOAsynchronousLDAPOperation_main__block_invoke_8_cold_3()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_24006C000, v0, OS_LOG_TYPE_DEBUG, "netlogon response: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24006C000, v0, OS_LOG_TYPE_DEBUG, "netlogon response: %{public}@", v1, 0xCu);
 }
 
 @end

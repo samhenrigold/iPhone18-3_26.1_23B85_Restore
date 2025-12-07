@@ -8,17 +8,17 @@
 
 - (FCTranslationProvider)possiblyUnfetchedTranslationProvider
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   translationMap = [(FCTranslationManager *)self translationMap];
 
   if (translationMap)
   {
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __60__FCTranslationManager_possiblyUnfetchedTranslationProvider__block_invoke;
-    v28[3] = &unk_1E7C44170;
-    v28[4] = self;
-    v4 = __60__FCTranslationManager_possiblyUnfetchedTranslationProvider__block_invoke(v28);
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __60__FCTranslationManager_possiblyUnfetchedTranslationProvider__block_invoke;
+    v27[3] = &unk_1E7C44170;
+    v27[4] = self;
+    v4 = __60__FCTranslationManager_possiblyUnfetchedTranslationProvider__block_invoke(v27);
   }
 
   else
@@ -31,29 +31,29 @@
       v7 = v6;
       v8 = [FCResourcesFetchOperation alloc];
       contentContext = [(FCTranslationManager *)self contentContext];
-      v29[0] = v7;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+      v28[0] = v7;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
       v11 = [(FCResourcesFetchOperation *)v8 initWithContext:contentContext resourceIDs:v10 downloadAssets:0];
 
       [(FCFetchOperation *)v11 setCachePolicy:3];
       [(FCFetchOperation *)v11 setCanSendFetchCompletionSynchronously:1];
       *buf = 0;
-      v23 = buf;
-      v24 = 0x3032000000;
-      v25 = __Block_byref_object_copy__60;
-      v26 = __Block_byref_object_dispose__60;
-      v27 = 0;
-      v16 = MEMORY[0x1E69E9820];
-      v17 = 3221225472;
-      v18 = __60__FCTranslationManager_possiblyUnfetchedTranslationProvider__block_invoke_6;
-      v19 = &unk_1E7C44198;
-      v21 = buf;
+      v22 = buf;
+      v23 = 0x3032000000;
+      v24 = __Block_byref_object_copy__60;
+      v25 = __Block_byref_object_dispose__60;
+      v26 = 0;
+      v15 = MEMORY[0x1E69E9820];
+      v16 = 3221225472;
+      v17 = __60__FCTranslationManager_possiblyUnfetchedTranslationProvider__block_invoke_6;
+      v18 = &unk_1E7C44198;
+      v20 = buf;
       v12 = v7;
-      v20 = v12;
-      [(FCFetchOperation *)v11 setFetchCompletionBlock:&v16];
-      [(FCOperation *)v11 start:v16];
+      v19 = v12;
+      [(FCFetchOperation *)v11 setFetchCompletionBlock:&v15];
+      [(FCOperation *)v11 start:v15];
       [(FCResourcesFetchOperation *)v11 waitUntilFinished];
-      v4 = *(v23 + 5);
+      v4 = *(v22 + 5);
 
       _Block_object_dispose(buf, 8);
     }
@@ -70,8 +70,6 @@
       v4 = 0;
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -109,7 +107,7 @@ id __60__FCTranslationManager_possiblyUnfetchedTranslationProvider__block_invoke
 
 void __60__FCTranslationManager_possiblyUnfetchedTranslationProvider__block_invoke_6(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
@@ -172,7 +170,7 @@ void __60__FCTranslationManager_possiblyUnfetchedTranslationProvider__block_invo
       if (os_log_type_enabled(FCTranslationLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v36 = v12;
+        v35 = v12;
         _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEFAULT, "Got resource %@", buf, 0xCu);
       }
 
@@ -185,7 +183,7 @@ void __60__FCTranslationManager_possiblyUnfetchedTranslationProvider__block_invo
         if (os_log_type_enabled(FCTranslationLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v36 = v16;
+          v35 = v16;
           _os_log_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_DEFAULT, "Got fileURL %@", buf, 0xCu);
         }
 
@@ -202,7 +200,7 @@ void __60__FCTranslationManager_possiblyUnfetchedTranslationProvider__block_invo
             v24 = v21;
             v25 = [v23 numberWithUnsignedInteger:{objc_msgSend(v22, "length")}];
             *buf = 138412290;
-            v36 = v25;
+            v35 = v25;
             _os_log_impl(&dword_1B63EF000, v24, OS_LOG_TYPE_DEFAULT, "Got back data of length %@", buf, 0xCu);
           }
 
@@ -210,13 +208,13 @@ void __60__FCTranslationManager_possiblyUnfetchedTranslationProvider__block_invo
           v27 = v26;
           if (v26)
           {
-            v34 = v16;
+            v33 = v16;
             v28 = v22;
             v29 = v26;
             v30 = [[FCTranslationMap alloc] initWithPBTranslationMap:v29 resourceID:*(a1 + 32)];
 
             v22 = v28;
-            v16 = v34;
+            v16 = v33;
             v31 = *(*(a1 + 40) + 8);
             v32 = *(v31 + 40);
             *(v31 + 40) = v30;
@@ -225,8 +223,6 @@ void __60__FCTranslationManager_possiblyUnfetchedTranslationProvider__block_invo
       }
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchTranslationProvider:(id)provider
@@ -332,7 +328,7 @@ uint64_t __49__FCTranslationManager_fetchTranslationProvider___block_invoke_3(ui
 
 void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_29(uint64_t a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -348,12 +344,12 @@ void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_29(uint6
     v10 = [v5 translationMapResourceID];
     if (!v10)
     {
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_31;
-      v35[3] = &unk_1E7C379C8;
-      v36 = *(a1 + 48);
-      __49__FCTranslationManager_fetchTranslationProvider___block_invoke_31(v35);
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_31;
+      v34[3] = &unk_1E7C379C8;
+      v35 = *(a1 + 48);
+      __49__FCTranslationManager_fetchTranslationProvider___block_invoke_31(v34);
 
       v8 = 0;
       goto LABEL_16;
@@ -361,17 +357,7 @@ void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_29(uint6
 
     v8 = v10;
     v11 = [*(a1 + 32) translationMap];
-    if (!v11)
-    {
-      goto LABEL_10;
-    }
-
-    v12 = v11;
-    v13 = [*(a1 + 32) translationMap];
-    v14 = [v13 resourceID];
-    v15 = [v14 isEqualToString:v8];
-
-    if (v15)
+    if (v11 && (v12 = v11, [*(a1 + 32) translationMap], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "resourceID"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqualToString:", v8), v14, v13, v12, v15))
     {
       v16 = *(a1 + 48);
       if (!v16)
@@ -387,121 +373,115 @@ LABEL_14:
 
     else
     {
-LABEL_10:
       v18 = FCTranslationLog;
       if (os_log_type_enabled(FCTranslationLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v42 = v8;
+        v41 = v8;
         _os_log_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_DEFAULT, "Found translationMapResourceID %@, building fetch operation", buf, 0xCu);
       }
 
       v19 = [FCResourcesFetchOperation alloc];
       v20 = [*(a1 + 32) contentContext];
-      v40 = v8;
-      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
+      v39 = v8;
+      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
       v17 = [(FCResourcesFetchOperation *)v19 initWithContext:v20 resourceIDs:v21 downloadAssets:1];
 
       [(FCFetchOperation *)v17 setCachePolicy:1];
       [(FCOperation *)v17 setQualityOfService:25];
       [(FCOperation *)v17 setRelativePriority:1];
       v22 = [(FCOperation *)v17 shortOperationDescription];
-      v27 = MEMORY[0x1E69E9820];
-      v28 = 3221225472;
-      v29 = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_37;
-      v30 = &unk_1E7C441E8;
-      v31 = v22;
-      v34 = *(a1 + 48);
+      v26 = MEMORY[0x1E69E9820];
+      v27 = 3221225472;
+      v28 = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_37;
+      v29 = &unk_1E7C441E8;
+      v30 = v22;
+      v33 = *(a1 + 48);
       v23 = v8;
       v24 = *(a1 + 40);
-      v32 = v23;
-      v33 = v24;
+      v31 = v23;
+      v32 = v24;
       v25 = v22;
-      [(FCFetchOperation *)v17 setFetchCompletionBlock:&v27];
-      [(FCOperation *)v17 start:v27];
+      [(FCFetchOperation *)v17 setFetchCompletionBlock:&v26];
+      [(FCOperation *)v17 start:v26];
     }
 
     goto LABEL_14;
   }
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_2_30;
-  v37[3] = &unk_1E7C37BC0;
-  v38 = v6;
-  v39 = *(a1 + 48);
-  __49__FCTranslationManager_fetchTranslationProvider___block_invoke_2_30(v37);
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_2_30;
+  v36[3] = &unk_1E7C37BC0;
+  v37 = v6;
+  v38 = *(a1 + 48);
+  __49__FCTranslationManager_fetchTranslationProvider___block_invoke_2_30(v36);
 
-  v8 = v38;
+  v8 = v37;
 LABEL_16:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__FCTranslationManager_fetchTranslationProvider___block_invoke_2_30(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCTranslationLog;
   if (os_log_type_enabled(FCTranslationLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "App Config Returned Error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "App Config Returned Error: %@", &v5, 0xCu);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, 0, *(a1 + 32));
+    return (*(result + 16))(result, 0, *(a1 + 32));
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_31(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = FCTranslationLog;
   if (os_log_type_enabled(FCTranslationLog, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "App Config contained no translationMapResourceID", v8, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "App Config contained no translationMapResourceID", v7, 2u);
   }
 
   v3 = *(a1 + 32);
   if (v3)
   {
     v4 = MEMORY[0x1E696ABC0];
-    v9 = *MEMORY[0x1E696A578];
-    v10[0] = @"Didn't find a translation map resource ID in the News app configuration";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = *MEMORY[0x1E696A578];
+    v9[0] = @"Didn't find a translation map resource ID in the News app configuration";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     v6 = [v4 errorWithDomain:@"FCErrorDomain" code:19 userInfo:v5];
     (*(v3 + 16))(v3, 0, v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_37(id *a1, void *a2)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
   if (v4)
   {
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_2_38;
-    v46[3] = &unk_1E7C38FF0;
-    v47 = a1[4];
-    v48 = v3;
-    v49 = a1[7];
-    __49__FCTranslationManager_fetchTranslationProvider___block_invoke_2_38(v46);
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_2_38;
+    v45[3] = &unk_1E7C38FF0;
+    v46 = a1[4];
+    v47 = v3;
+    v48 = a1[7];
+    __49__FCTranslationManager_fetchTranslationProvider___block_invoke_2_38(v45);
 
-    v5 = v47;
+    v5 = v46;
   }
 
   else
@@ -563,7 +543,7 @@ void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_37(id *a
       if (os_log_type_enabled(FCTranslationLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v51 = v5;
+        v50 = v5;
         _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEFAULT, "Got resource %@", buf, 0xCu);
       }
 
@@ -576,7 +556,7 @@ void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_37(id *a
         if (os_log_type_enabled(FCTranslationLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v51 = v16;
+          v50 = v16;
           _os_log_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_DEFAULT, "Got fileURL %@", buf, 0xCu);
         }
 
@@ -592,7 +572,7 @@ void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_37(id *a
             v23 = v21;
             v24 = [v22 numberWithUnsignedInteger:{objc_msgSend(v20, "length")}];
             *buf = 138412290;
-            v51 = v24;
+            v50 = v24;
             _os_log_impl(&dword_1B63EF000, v23, OS_LOG_TYPE_DEFAULT, "Got back data of length %@", buf, 0xCu);
           }
 
@@ -617,79 +597,77 @@ void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_37(id *a
 
           else
           {
-            v33[0] = MEMORY[0x1E69E9820];
-            v33[1] = 3221225472;
-            v33[2] = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_52;
-            v33[3] = &unk_1E7C37778;
-            v35 = a1[7];
-            v34 = v20;
-            __49__FCTranslationManager_fetchTranslationProvider___block_invoke_52(v33);
+            v32[0] = MEMORY[0x1E69E9820];
+            v32[1] = 3221225472;
+            v32[2] = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_52;
+            v32[3] = &unk_1E7C37778;
+            v34 = a1[7];
+            v33 = v20;
+            __49__FCTranslationManager_fetchTranslationProvider___block_invoke_52(v32);
 
-            v27 = v35;
+            v27 = v34;
           }
         }
 
         else
         {
-          v36[0] = MEMORY[0x1E69E9820];
-          v36[1] = 3221225472;
-          v36[2] = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_48;
-          v36[3] = &unk_1E7C37BC0;
-          v37 = v16;
-          v38 = a1[7];
-          __49__FCTranslationManager_fetchTranslationProvider___block_invoke_48(v36);
+          v35[0] = MEMORY[0x1E69E9820];
+          v35[1] = 3221225472;
+          v35[2] = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_48;
+          v35[3] = &unk_1E7C37BC0;
+          v36 = v16;
+          v37 = a1[7];
+          __49__FCTranslationManager_fetchTranslationProvider___block_invoke_48(v35);
 
-          v20 = v37;
+          v20 = v36;
         }
       }
 
       else
       {
-        v39[0] = MEMORY[0x1E69E9820];
-        v39[1] = 3221225472;
-        v39[2] = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_44;
-        v39[3] = &unk_1E7C37778;
-        v41 = a1[7];
-        v40 = v5;
-        __49__FCTranslationManager_fetchTranslationProvider___block_invoke_44(v39);
+        v38[0] = MEMORY[0x1E69E9820];
+        v38[1] = 3221225472;
+        v38[2] = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_44;
+        v38[3] = &unk_1E7C37778;
+        v40 = a1[7];
+        v39 = v5;
+        __49__FCTranslationManager_fetchTranslationProvider___block_invoke_44(v38);
 
-        v16 = v41;
+        v16 = v40;
       }
     }
 
     else
     {
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_39;
-      v42[3] = &unk_1E7C3A060;
-      v45 = a1[7];
-      v43 = a1[5];
-      v44 = v3;
-      __49__FCTranslationManager_fetchTranslationProvider___block_invoke_39(v42);
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = __49__FCTranslationManager_fetchTranslationProvider___block_invoke_39;
+      v41[3] = &unk_1E7C3A060;
+      v44 = a1[7];
+      v42 = a1[5];
+      v43 = v3;
+      __49__FCTranslationManager_fetchTranslationProvider___block_invoke_39(v41);
 
       v5 = 0;
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_2_38(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = FCTranslationLog;
   if (os_log_type_enabled(FCTranslationLog, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v8 = v2;
-    v9 = [v6 error];
-    v10 = 138412546;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v9;
-    _os_log_error_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_ERROR, "Fetch operation %@ error %@", &v10, 0x16u);
+    v6 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v7 = v2;
+    v8 = [v5 error];
+    v9 = 138412546;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "Fetch operation %@ error %@", &v9, 0x16u);
   }
 
   v3 = *(a1 + 48);
@@ -698,8 +676,6 @@ void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_2_38(uin
     v4 = [*(a1 + 40) error];
     (*(v3 + 16))(v3, 0, v4);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_39(uint64_t a1)
@@ -726,7 +702,7 @@ void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_39(uint6
 
 void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_44(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = FCTranslationLog;
   if (os_log_type_enabled(FCTranslationLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -738,26 +714,24 @@ void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_44(uint6
   if (v3)
   {
     v4 = MEMORY[0x1E696ABC0];
-    v10 = *MEMORY[0x1E696A578];
+    v9 = *MEMORY[0x1E696A578];
     v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Got a nil fileURL for resource %@", *(a1 + 32)];
-    v11[0] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v7 = [v4 errorWithDomain:@"FCErrorDomain" code:19 userInfo:v6];
     (*(v3 + 16))(v3, 0, v7);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_48(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = FCTranslationLog;
   if (os_log_type_enabled(FCTranslationLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Failed to get data from fileURL %@", buf, 0xCu);
   }
 
@@ -765,20 +739,18 @@ void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_48(uint6
   if (v4)
   {
     v5 = MEMORY[0x1E696ABC0];
-    v10 = *MEMORY[0x1E696A578];
+    v9 = *MEMORY[0x1E696A578];
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to get data from fileURL %@", *(a1 + 32)];
-    v11 = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+    v10 = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
     v8 = [v5 errorWithDomain:@"FCErrorDomain" code:19 userInfo:v7];
     (*(v4 + 16))(v4, 0, v8);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_52(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = FCTranslationLog;
   if (os_log_type_enabled(FCTranslationLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -790,15 +762,13 @@ void __49__FCTranslationManager_fetchTranslationProvider___block_invoke_52(uint6
   if (v3)
   {
     v4 = MEMORY[0x1E696ABC0];
-    v10 = *MEMORY[0x1E696A578];
+    v9 = *MEMORY[0x1E696A578];
     v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to initialize NTPBTranslationMap with data %@", *(a1 + 32)];
-    v11[0] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v7 = [v4 errorWithDomain:@"FCErrorDomain" code:19 userInfo:v6];
     (*(v3 + 16))(v3, 0, v7);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

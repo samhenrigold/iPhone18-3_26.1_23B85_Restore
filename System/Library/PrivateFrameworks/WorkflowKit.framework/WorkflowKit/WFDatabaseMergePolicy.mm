@@ -14,42 +14,40 @@
 
 - (BOOL)resolveOptimisticLockingVersionConflicts:(id)conflicts error:(id *)error
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   conflictsCopy = conflicts;
-  v59.receiver = self;
-  v59.super_class = WFDatabaseMergePolicy;
-  v50 = [(NSMergePolicy *)&v59 resolveOptimisticLockingVersionConflicts:conflictsCopy error:error];
+  v55.receiver = self;
+  v55.super_class = WFDatabaseMergePolicy;
+  v46 = [(NSMergePolicy *)&v55 resolveOptimisticLockingVersionConflicts:conflictsCopy error:error];
   database = [(WFDatabaseMergePolicy *)self database];
   persistenceMode = [database persistenceMode];
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
-  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = conflictsCopy;
-  v8 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
+  v8 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = &off_1E836E000;
-    v11 = *v56;
+    v10 = *v52;
     do
     {
-      v12 = 0;
+      v11 = 0;
       do
       {
-        if (*v56 != v11)
+        if (*v52 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v55 + 1) + 8 * v12);
-        newVersionNumber = [v13 newVersionNumber];
-        sourceObject = [v13 sourceObject];
-        v16 = sourceObject;
+        v12 = *(*(&v51 + 1) + 8 * v11);
+        newVersionNumber = [v12 newVersionNumber];
+        sourceObject = [v12 sourceObject];
+        v15 = sourceObject;
         if (newVersionNumber)
         {
-          v17 = v10[31];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
 
@@ -58,176 +56,173 @@
             goto LABEL_35;
           }
 
-          v19 = getWFDatabaseLogObject();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+          v17 = getWFDatabaseLogObject();
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v62 = "[WFDatabaseMergePolicy resolveOptimisticLockingVersionConflicts:error:]";
-            v63 = 2112;
-            v64 = v13;
-            _os_log_impl(&dword_1CA256000, v19, OS_LOG_TYPE_DEBUG, "%s Found coherence library conflict: %@", buf, 0x16u);
+            v58 = "[WFDatabaseMergePolicy resolveOptimisticLockingVersionConflicts:error:]";
+            v59 = 2112;
+            v60 = v12;
+            _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_DEBUG, "%s Found coherence library conflict: %@", buf, 0x16u);
           }
 
-          sourceObject2 = [v13 sourceObject];
-          v21 = v10[31];
-          v22 = objc_opt_class();
-          v23 = sourceObject2;
-          if (v23 && (objc_opt_isKindOfClass() & 1) == 0)
+          sourceObject2 = [v12 sourceObject];
+          v19 = objc_opt_class();
+          v20 = sourceObject2;
+          if (v20 && (objc_opt_isKindOfClass() & 1) == 0)
           {
-            v26 = getWFGeneralLogObject();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+            v23 = getWFGeneralLogObject();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
             {
-              v27 = objc_opt_class();
+              v24 = objc_opt_class();
               *buf = 136315906;
-              v62 = "WFEnforceClass";
+              v58 = "WFEnforceClass";
+              v59 = 2114;
+              v60 = v20;
+              v61 = 2114;
+              v62 = v24;
               v63 = 2114;
-              v64 = v23;
-              v65 = 2114;
-              v66 = v27;
-              v67 = 2114;
-              v68 = v22;
+              v64 = v19;
+              v25 = v24;
+              _os_log_impl(&dword_1CA256000, v23, OS_LOG_TYPE_FAULT, "%s Found coherence library conflict: %@", buf, 0x2Au);
+            }
+
+            v15 = 0;
+          }
+
+          else
+          {
+            v15 = v20;
+          }
+
+          persistedSnapshot = [v12 persistedSnapshot];
+          v27 = [persistedSnapshot objectForKey:@"data"];
+
+          if (v27)
+          {
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
               v28 = v27;
-              _os_log_impl(&dword_1CA256000, v26, OS_LOG_TYPE_FAULT, "%s Found coherence library conflict: %@", buf, 0x2Au);
-            }
-
-            v16 = 0;
-          }
-
-          else
-          {
-            v16 = v23;
-          }
-
-          persistedSnapshot = [v13 persistedSnapshot];
-          v30 = [persistedSnapshot objectForKey:@"data"];
-
-          if (v30)
-          {
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              v31 = v30;
             }
 
             else
             {
-              v31 = 0;
+              v28 = 0;
             }
           }
 
           else
           {
-            v31 = 0;
+            v28 = 0;
           }
 
-          v32 = v31;
+          v29 = v28;
 
-          cachedSnapshot = [v13 cachedSnapshot];
-          v34 = [cachedSnapshot objectForKey:@"data"];
+          cachedSnapshot = [v12 cachedSnapshot];
+          v31 = [cachedSnapshot objectForKey:@"data"];
 
-          if (v34)
+          if (v31)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v35 = v34;
+              v32 = v31;
             }
 
             else
             {
-              v35 = 0;
+              v32 = 0;
             }
           }
 
           else
           {
-            v35 = 0;
+            v32 = 0;
           }
 
-          v36 = v35;
+          v33 = v32;
 
-          v37 = [WFLibrary alloc];
-          identifier = [v16 identifier];
-          managedObjectContext = [(WFLibrary *)v37 initWithIdentifier:identifier data:v32];
+          v34 = [WFLibrary alloc];
+          identifier = [v15 identifier];
+          managedObjectContext = [(WFLibrary *)v34 initWithIdentifier:identifier data:v29];
 
-          v39 = [WFLibrary alloc];
-          identifier2 = [v16 identifier];
-          sourceObject3 = [(WFLibrary *)v39 initWithIdentifier:identifier2 data:v36];
+          v36 = [WFLibrary alloc];
+          identifier2 = [v15 identifier];
+          sourceObject3 = [(WFLibrary *)v36 initWithIdentifier:identifier2 data:v33];
 
-          v54 = 0;
-          v41 = [(WFLibrary *)managedObjectContext mergeWithOther:sourceObject3 error:&v54];
-          v42 = v54;
+          v50 = 0;
+          v38 = [(WFLibrary *)managedObjectContext mergeWithOther:sourceObject3 error:&v50];
+          v39 = v50;
 
-          if (!v41)
+          if (!v38)
           {
-            v43 = getWFCoherenceLogObject();
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+            v40 = getWFCoherenceLogObject();
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v62 = "[WFDatabaseMergePolicy resolveOptimisticLockingVersionConflicts:error:]";
-              v63 = 2112;
-              v64 = v42;
-              _os_log_impl(&dword_1CA256000, v43, OS_LOG_TYPE_ERROR, "%s Could not merge libraries: %@", buf, 0x16u);
+              v58 = "[WFDatabaseMergePolicy resolveOptimisticLockingVersionConflicts:error:]";
+              v59 = 2112;
+              v60 = v39;
+              _os_log_impl(&dword_1CA256000, v40, OS_LOG_TYPE_ERROR, "%s Could not merge libraries: %@", buf, 0x16u);
             }
           }
 
-          v53 = v42;
-          v44 = [(WFLibrary *)managedObjectContext capsuleDataWithPersistenceMode:persistenceMode error:&v53];
-          v45 = v53;
+          v49 = v39;
+          v41 = [(WFLibrary *)managedObjectContext capsuleDataWithPersistenceMode:persistenceMode error:&v49];
+          v42 = v49;
 
-          if (v44)
+          if (v41)
           {
-            if (v45)
+            if (v42)
             {
 LABEL_33:
 
-              v10 = &off_1E836E000;
               goto LABEL_34;
             }
           }
 
           else
           {
-            v46 = getWFCoherenceLogObject();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+            v43 = getWFCoherenceLogObject();
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v62 = "[WFDatabaseMergePolicy resolveOptimisticLockingVersionConflicts:error:]";
-              v63 = 2112;
-              v64 = v45;
-              _os_log_impl(&dword_1CA256000, v46, OS_LOG_TYPE_ERROR, "%s Could not fetch library capsule data: %@", buf, 0x16u);
+              v58 = "[WFDatabaseMergePolicy resolveOptimisticLockingVersionConflicts:error:]";
+              v59 = 2112;
+              v60 = v42;
+              _os_log_impl(&dword_1CA256000, v43, OS_LOG_TYPE_ERROR, "%s Could not fetch library capsule data: %@", buf, 0x16u);
             }
 
-            if (v45)
+            if (v42)
             {
               goto LABEL_33;
             }
           }
 
-          [v16 setData:v44];
-          [v16 setSyncHash:{+[WFLibraryRecord syncHashFromData:](WFLibraryRecord, "syncHashFromData:", v44)}];
+          [v15 setData:v41];
+          [v15 setSyncHash:{+[WFLibraryRecord syncHashFromData:](WFLibraryRecord, "syncHashFromData:", v41)}];
           goto LABEL_33;
         }
 
         managedObjectContext = [sourceObject managedObjectContext];
-        sourceObject3 = [v13 sourceObject];
+        sourceObject3 = [v12 sourceObject];
         [(WFLibrary *)managedObjectContext deleteObject:sourceObject3];
 LABEL_34:
 
 LABEL_35:
-        ++v12;
+        ++v11;
       }
 
-      while (v9 != v12);
-      v47 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
-      v9 = v47;
+      while (v9 != v11);
+      v44 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+      v9 = v44;
     }
 
-    while (v47);
+    while (v44);
   }
 
-  v48 = *MEMORY[0x1E69E9840];
-  return v50;
+  return v46;
 }
 
 @end

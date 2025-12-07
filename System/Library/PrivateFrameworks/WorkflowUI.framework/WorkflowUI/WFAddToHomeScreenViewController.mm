@@ -48,7 +48,7 @@
 - (void)imagePickerController:(id)controller didFinishPickingMediaWithInfo:(id)info
 {
   type metadata accessor for InfoKey(0);
-  sub_2747CA5EC(&qword_280967330, 255, type metadata accessor for InfoKey);
+  sub_2747CA5EC(&qword_280967330, 255, type metadata accessor for InfoKey, &unk_274A0E980);
   v6 = sub_2749FCCA4();
   controllerCopy = controller;
   selfCopy = self;

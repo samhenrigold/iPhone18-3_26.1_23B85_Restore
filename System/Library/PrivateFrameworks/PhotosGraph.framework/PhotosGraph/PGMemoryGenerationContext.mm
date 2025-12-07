@@ -32,7 +32,7 @@
 
 - (id)yearsForYearNodes:(id)nodes
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   v5 = nodesCopy;
   if (!self->_yearByYearNodeIdentifier)
@@ -41,51 +41,49 @@
     v7 = [(PGMemoryGenerationContext *)self _yearNodesInGraph:graph];
 
     v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __47__PGMemoryGenerationContext_yearsForYearNodes___block_invoke;
-    v26[3] = &unk_278887280;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __47__PGMemoryGenerationContext_yearsForYearNodes___block_invoke;
+    v25[3] = &unk_278887280;
     v9 = v8;
-    v27 = v9;
-    [v7 enumerateYearsUsingBlock:v26];
+    v26 = v9;
+    [v7 enumerateYearsUsingBlock:v25];
     yearByYearNodeIdentifier = self->_yearByYearNodeIdentifier;
     self->_yearByYearNodeIdentifier = v9;
     v11 = v9;
   }
 
   v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   elementIdentifiers = [v5 elementIdentifiers];
   indexArray = [elementIdentifiers indexArray];
 
-  v15 = [indexArray countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v15 = [indexArray countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(indexArray);
         }
 
-        v19 = [(NSDictionary *)self->_yearByYearNodeIdentifier objectForKeyedSubscript:*(*(&v22 + 1) + 8 * i)];
+        v19 = [(NSDictionary *)self->_yearByYearNodeIdentifier objectForKeyedSubscript:*(*(&v21 + 1) + 8 * i)];
         [v12 addObject:v19];
       }
 
-      v16 = [indexArray countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v16 = [indexArray countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -110,17 +108,17 @@ void __47__PGMemoryGenerationContext_yearsForYearNodes___block_invoke(uint64_t a
 
 - (id)yearNodesByMomentNodeInGraph:(id)graph
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   yearNodesByMomentNode = self->_yearNodesByMomentNode;
   if (!yearNodesByMomentNode)
   {
     v5 = [(PGMemoryGenerationContext *)self _yearNodesInGraph:graph];
     v6 = MEMORY[0x277D22C90];
     v7 = +[PGGraphYearNodeCollection dateOfYear];
-    v16[0] = v7;
+    v15[0] = v7;
     v8 = +[PGGraphDateNode momentOfDate];
-    v16[1] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    v15[1] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
     v10 = [v6 chain:v9];
 
     v11 = [MEMORY[0x277D22BF8] adjacencyWithSources:v5 relation:v10 targetsClass:objc_opt_class()];
@@ -130,8 +128,6 @@ void __47__PGMemoryGenerationContext_yearsForYearNodes___block_invoke(uint64_t a
 
     yearNodesByMomentNode = self->_yearNodesByMomentNode;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return yearNodesByMomentNode;
 }

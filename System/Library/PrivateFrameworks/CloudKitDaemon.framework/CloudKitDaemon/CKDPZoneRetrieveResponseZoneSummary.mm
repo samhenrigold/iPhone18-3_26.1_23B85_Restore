@@ -214,31 +214,30 @@ LABEL_11:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v13 = toCopy;
+  v7 = toCopy;
   if (self->_targetZone)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v13;
+    toCopy = v7;
   }
 
   if (self->_currentServerContinuationToken)
   {
     PBDataWriterWriteDataField();
-    toCopy = v13;
+    toCopy = v7;
   }
 
   if (self->_clientChangeToken)
   {
     PBDataWriterWriteDataField();
-    toCopy = v13;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    deviceCount = self->_deviceCount;
     PBDataWriterWriteInt32Field();
-    toCopy = v13;
+    toCopy = v7;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -257,63 +256,58 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  assetQuotaUsage = self->_assetQuotaUsage;
   PBDataWriterWriteInt64Field();
-  toCopy = v13;
+  toCopy = v7;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_10:
-    metadataQuotaUsage = self->_metadataQuotaUsage;
     PBDataWriterWriteInt64Field();
-    toCopy = v13;
+    toCopy = v7;
   }
 
 LABEL_11:
   if (self->_capabilities)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v13;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x20) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x20) != 0)
   {
-    zoneishPcsNeedsRolled = self->_zoneishPcsNeedsRolled;
     PBDataWriterWriteBOOLField();
-    toCopy = v13;
-    v7 = self->_has;
+    toCopy = v7;
+    v6 = self->_has;
   }
 
-  if ((v7 & 0x10) != 0)
+  if ((v6 & 0x10) != 0)
   {
-    zoneKeyRollAllowed = self->_zoneKeyRollAllowed;
     PBDataWriterWriteBOOLField();
-    toCopy = v13;
+    toCopy = v7;
   }
 
   if (self->_zonePcsModificationTime)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v13;
+    toCopy = v7;
   }
 
   if (self->_zonePcsModificationDevice)
   {
     PBDataWriterWriteStringField();
-    toCopy = v13;
+    toCopy = v7;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    expired = self->_expired;
     PBDataWriterWriteBOOLField();
-    toCopy = v13;
+    toCopy = v7;
   }
 
   if (self->_expirationTime)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v13;
+    toCopy = v7;
   }
 }
 
@@ -613,7 +607,6 @@ LABEL_5:
       goto LABEL_51;
     }
 
-    v26 = *(equalCopy + 90);
     if (self->_zoneishPcsNeedsRolled)
     {
       if ((*(equalCopy + 90) & 1) == 0)
@@ -640,7 +633,6 @@ LABEL_5:
       goto LABEL_51;
     }
 
-    v27 = *(equalCopy + 89);
     if (self->_zoneKeyRollAllowed)
     {
       if ((*(equalCopy + 89) & 1) == 0)
@@ -677,7 +669,6 @@ LABEL_5:
     }
   }
 
-  v22 = *(equalCopy + 92);
   if ((*&self->_has & 8) == 0)
   {
     if ((*(equalCopy + 92) & 8) == 0)
@@ -695,7 +686,6 @@ LABEL_51:
     goto LABEL_51;
   }
 
-  v29 = *(equalCopy + 88);
   if (self->_expired)
   {
     if ((equalCopy[11] & 1) == 0)
@@ -711,10 +701,10 @@ LABEL_51:
 
 LABEL_36:
   expirationTime = self->_expirationTime;
-  v24 = equalCopy[7];
-  if (expirationTime | v24)
+  v23 = equalCopy[7];
+  if (expirationTime | v23)
   {
-    isEqual = objc_msgSend_isEqual_(expirationTime, v7, v24);
+    isEqual = objc_msgSend_isEqual_(expirationTime, v7, v23);
   }
 
   else

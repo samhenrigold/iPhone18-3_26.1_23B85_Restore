@@ -102,7 +102,7 @@
   v2 = [(RPMicAudioCaptureManager *)&v13 init];
   if (v2)
   {
-    [RPMicAudioCaptureManager audioStreamBasicDescriptionWithStereo:0];
+    objc_msgSend_audioStreamBasicDescriptionWithStereo_(RPMicAudioCaptureManager);
     v3 = v12;
     v4 = v11;
     *(v2 + 24) = v10;

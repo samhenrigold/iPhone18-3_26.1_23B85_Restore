@@ -1,6 +1,7 @@
 @interface TSPArchiverManager
 - (TSPArchiverManager)init;
 - (TSPArchiverManager)initWithDelegate:(id)delegate archiverClass:(Class)class archiverFlags:(char)flags;
+- (id)archiverForObject:(id)object archiveQueue:(id)queue waitForArchiving:(BOOL)archiving;
 - (id)archiverForObject:(id)object hasArchiverAccessLock:(BOOL)lock;
 - (id)explicitComponentRootObjectForObject:(id)object hasArchiverAccessLock:(BOOL)lock;
 - (id)impl_archiverForObject:(id)object;
@@ -298,6 +299,115 @@
   block[3] = &unk_27A6E27F8;
   block[4] = self;
   dispatch_sync(archiversHighQueue, block);
+}
+
+- (id)archiverForObject:(id)object archiveQueue:(id)queue waitForArchiving:(BOOL)archiving
+{
+  archivingCopy = archiving;
+  objectCopy = object;
+  queueCopy = queue;
+  v12 = objc_msgSend_tsp_identifier(objectCopy, v10, v11);
+  v14 = v12;
+  if (v12 == 2)
+  {
+    objc_msgSend_objectForKey_(self->_metadataArchivers, v13, objectCopy);
+  }
+
+  else
+  {
+    objc_msgSend_objectForKey_(self->_archivers, v13, v12);
+  }
+  v15 = ;
+  v18 = v15;
+  v19 = atomic_load(&self->_flags);
+  if ((v19 & 1) == 0)
+  {
+    if (v15)
+    {
+      if (archivingCopy)
+      {
+        if (!queueCopy)
+        {
+          TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Archive queue should be defined when waiting is needed.", "[TSPArchiverManager archiverForObject:archiveQueue:waitForArchiving:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPArchiverManager.mm", 291);
+          v20 = MEMORY[0x277D81150];
+          v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[TSPArchiverManager archiverForObject:archiveQueue:waitForArchiving:]");
+          v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPArchiverManager.mm");
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v25, v22, v24, 291, 1, "Archive queue should be defined when waiting is needed.");
+
+          TSUCrashBreakpoint();
+          goto LABEL_25;
+        }
+
+        goto LABEL_20;
+      }
+
+      if (queueCopy && objc_msgSend_needsToScheduleArchive(v15, v16, v17))
+      {
+LABEL_20:
+        objc_msgSend_archiveWithArchiver_queue_waitForArchiving_(self, v16, v18, queueCopy, archivingCopy);
+      }
+    }
+
+    else
+    {
+      v26 = objc_alloc(self->_archiverClass);
+      v29 = objc_msgSend_initWithObject_flags_(v26, v27, objectCopy, self->_archiverFlags);
+      if (!v29)
+      {
+        v48 = MEMORY[0x277D81150];
+        v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "[TSPArchiverManager archiverForObject:archiveQueue:waitForArchiving:]");
+        v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPArchiverManager.mm");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v48, v33, v30, v32, 262, 0, "invalid nil value for '%{public}s'", "archiver");
+
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35);
+      }
+
+      if (v14 == 2)
+      {
+        objc_msgSend_setObject_forKey_(self->_metadataArchivers, v28, v29, objectCopy);
+      }
+
+      else
+      {
+        objc_msgSend_setObject_forKey_(self->_archivers, v28, v29, v14);
+      }
+
+      v37 = atomic_load(&self->_flags);
+      if ((v37 & 2) != 0)
+      {
+        WeakRetained = objc_loadWeakRetained(&self->_delegate);
+        objc_msgSend_archiverManager_didCreateArchiver_(WeakRetained, v39, self, v29);
+      }
+
+      if (queueCopy)
+      {
+        v18 = v29;
+        objc_msgSend_archiveWithArchiver_queue_waitForArchiving_(self, v36, v29, queueCopy, archivingCopy);
+      }
+
+      else
+      {
+        if (archivingCopy)
+        {
+          TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Archive queue should be defined when waiting is needed.", "[TSPArchiverManager archiverForObject:archiveQueue:waitForArchiving:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPArchiverManager.mm", 287);
+          v42 = MEMORY[0x277D81150];
+          v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "[TSPArchiverManager archiverForObject:archiveQueue:waitForArchiving:]");
+          v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPArchiverManager.mm");
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v42, v47, v44, v46, 287, 1, "Archive queue should be defined when waiting is needed.");
+
+          TSUCrashBreakpoint();
+LABEL_25:
+          abort();
+        }
+
+        v18 = v29;
+      }
+    }
+  }
+
+  v40 = v18;
+
+  return v18;
 }
 
 - (void)archiveWithArchiver:(id)archiver queue:(id)queue waitForArchiving:(BOOL)archiving

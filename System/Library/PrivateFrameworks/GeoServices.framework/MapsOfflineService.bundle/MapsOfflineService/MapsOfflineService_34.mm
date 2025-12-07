@@ -423,7 +423,7 @@ void sub_29668C(uint64_t a1@<X8>)
   *&v15.__r_.__value_.__l.__data_ = *"v";
   v15.__r_.__value_.__r.__words[2] = 0x100000000000000;
   sub_23E08("((", &v15, &__p);
-  sub_30F54("o", &__p, &v17);
+  sub_30F54(&v17, "o", &__p);
   v14 = 0x100000000000000;
   *__s = *"c";
   v3 = std::string::append(&v17, __s, 1uLL);
@@ -433,7 +433,7 @@ void sub_29668C(uint64_t a1@<X8>)
   v3->__r_.__value_.__l.__size_ = 0;
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")o(", &v18, &v19);
+  sub_30F54(&v19, ")o(", &v18);
   v12 = 0x100000000000000;
   *v11 = *"v";
   v5 = std::string::append(&v19, v11, 1uLL);
@@ -443,7 +443,7 @@ void sub_29668C(uint64_t a1@<X8>)
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;
   v5->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("))o(", &v20, &v21);
+  sub_30F54(&v21, "))o(", &v20);
   v10 = 0x100000000000000;
   *v9 = *"v";
   v7 = std::string::append(&v21, v9, 1uLL);
@@ -453,7 +453,7 @@ void sub_29668C(uint64_t a1@<X8>)
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")", &v22, &xmmword_2732C50);
+  sub_30F54(&xmmword_2732C50, ")", &v22);
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);
@@ -1167,7 +1167,7 @@ void sub_297428(uint64_t a1@<X8>)
   *&v15.__r_.__value_.__l.__data_ = *"c";
   v15.__r_.__value_.__r.__words[2] = 0x100000000000000;
   sub_23E08("((", &v15, &__p);
-  sub_30F54("o", &__p, &v17);
+  sub_30F54(&v17, "o", &__p);
   v14 = 0x100000000000000;
   *__s = *"v";
   v3 = std::string::append(&v17, __s, 1uLL);
@@ -1177,7 +1177,7 @@ void sub_297428(uint64_t a1@<X8>)
   v3->__r_.__value_.__l.__size_ = 0;
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")o(", &v18, &v19);
+  sub_30F54(&v19, ")o(", &v18);
   v12 = 0x100000000000000;
   *v11 = *"v";
   v5 = std::string::append(&v19, v11, 1uLL);
@@ -1187,7 +1187,7 @@ void sub_297428(uint64_t a1@<X8>)
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;
   v5->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("))o(", &v20, &v21);
+  sub_30F54(&v21, "))o(", &v20);
   v10 = 0x100000000000000;
   *v9 = *"v";
   v7 = std::string::append(&v21, v9, 1uLL);
@@ -1197,7 +1197,7 @@ void sub_297428(uint64_t a1@<X8>)
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")", &v22, &xmmword_2732C70);
+  sub_30F54(&xmmword_2732C70, ")", &v22);
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);
@@ -1910,7 +1910,7 @@ void sub_2981C8(uint64_t a1@<X8>)
   *&v15.__r_.__value_.__l.__data_ = *"c";
   v15.__r_.__value_.__r.__words[2] = 0x100000000000000;
   sub_23E08("((", &v15, &__p);
-  sub_30F54("o", &__p, &v17);
+  sub_30F54(&v17, "o", &__p);
   v14 = 0x100000000000000;
   *__s = *"v";
   v3 = std::string::append(&v17, __s, 1uLL);
@@ -1920,7 +1920,7 @@ void sub_2981C8(uint64_t a1@<X8>)
   v3->__r_.__value_.__l.__size_ = 0;
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")o(", &v18, &v19);
+  sub_30F54(&v19, ")o(", &v18);
   v12 = 0x100000000000000;
   *v11 = *"c";
   v5 = std::string::append(&v19, v11, 1uLL);
@@ -1930,7 +1930,7 @@ void sub_2981C8(uint64_t a1@<X8>)
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;
   v5->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("))o(", &v20, &v21);
+  sub_30F54(&v21, "))o(", &v20);
   v10 = 0x100000000000000;
   *v9 = *"v";
   v7 = std::string::append(&v21, v9, 1uLL);
@@ -1940,7 +1940,7 @@ void sub_2981C8(uint64_t a1@<X8>)
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")", &v22, &xmmword_2732C90);
+  sub_30F54(&xmmword_2732C90, ")", &v22);
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);
@@ -2653,7 +2653,7 @@ void sub_298F70(uint64_t a1@<X8>)
   *&v15.__r_.__value_.__l.__data_ = *"v";
   v15.__r_.__value_.__r.__words[2] = 0x100000000000000;
   sub_23E08("((", &v15, &__p);
-  sub_30F54("o", &__p, &v17);
+  sub_30F54(&v17, "o", &__p);
   v14 = 0x100000000000000;
   *__s = *"c";
   v3 = std::string::append(&v17, __s, 1uLL);
@@ -2663,7 +2663,7 @@ void sub_298F70(uint64_t a1@<X8>)
   v3->__r_.__value_.__l.__size_ = 0;
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")o(", &v18, &v19);
+  sub_30F54(&v19, ")o(", &v18);
   v12 = 0x100000000000000;
   *v11 = *"v";
   v5 = std::string::append(&v19, v11, 1uLL);
@@ -2673,7 +2673,7 @@ void sub_298F70(uint64_t a1@<X8>)
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;
   v5->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("))o(", &v20, &v21);
+  sub_30F54(&v21, "))o(", &v20);
   v10 = 0x100000000000000;
   *v9 = *"c";
   v7 = std::string::append(&v21, v9, 1uLL);
@@ -2683,7 +2683,7 @@ void sub_298F70(uint64_t a1@<X8>)
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")", &v22, &xmmword_2732CB0);
+  sub_30F54(&xmmword_2732CB0, ")", &v22);
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);
@@ -3396,7 +3396,7 @@ void sub_299D14(uint64_t a1@<X8>)
   *&v15.__r_.__value_.__l.__data_ = *"c";
   v15.__r_.__value_.__r.__words[2] = 0x100000000000000;
   sub_23E08("((", &v15, &__p);
-  sub_30F54("o", &__p, &v17);
+  sub_30F54(&v17, "o", &__p);
   v14 = 0x100000000000000;
   *__s = *"v";
   v3 = std::string::append(&v17, __s, 1uLL);
@@ -3406,7 +3406,7 @@ void sub_299D14(uint64_t a1@<X8>)
   v3->__r_.__value_.__l.__size_ = 0;
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")o(", &v18, &v19);
+  sub_30F54(&v19, ")o(", &v18);
   v12 = 0x100000000000000;
   *v11 = *"v";
   v5 = std::string::append(&v19, v11, 1uLL);
@@ -3416,7 +3416,7 @@ void sub_299D14(uint64_t a1@<X8>)
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;
   v5->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("))o(", &v20, &v21);
+  sub_30F54(&v21, "))o(", &v20);
   v10 = 0x100000000000000;
   *v9 = *"c";
   v7 = std::string::append(&v21, v9, 1uLL);
@@ -3426,7 +3426,7 @@ void sub_299D14(uint64_t a1@<X8>)
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")", &v22, &xmmword_2732CD0);
+  sub_30F54(&xmmword_2732CD0, ")", &v22);
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);
@@ -4139,7 +4139,7 @@ void sub_29AAB8(uint64_t a1@<X8>)
   *&v15.__r_.__value_.__l.__data_ = *"v";
   v15.__r_.__value_.__r.__words[2] = 0x100000000000000;
   sub_23E08("((", &v15, &__p);
-  sub_30F54("o", &__p, &v17);
+  sub_30F54(&v17, "o", &__p);
   v14 = 0x100000000000000;
   *__s = *"c";
   v3 = std::string::append(&v17, __s, 1uLL);
@@ -4149,7 +4149,7 @@ void sub_29AAB8(uint64_t a1@<X8>)
   v3->__r_.__value_.__l.__size_ = 0;
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")o(", &v18, &v19);
+  sub_30F54(&v19, ")o(", &v18);
   v12 = 0x100000000000000;
   *v11 = *"c";
   v5 = std::string::append(&v19, v11, 1uLL);
@@ -4159,7 +4159,7 @@ void sub_29AAB8(uint64_t a1@<X8>)
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;
   v5->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("))o(", &v20, &v21);
+  sub_30F54(&v21, "))o(", &v20);
   v10 = 0x100000000000000;
   *v9 = *"v";
   v7 = std::string::append(&v21, v9, 1uLL);
@@ -4169,7 +4169,7 @@ void sub_29AAB8(uint64_t a1@<X8>)
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")", &v22, &xmmword_2732CF0);
+  sub_30F54(&xmmword_2732CF0, ")", &v22);
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);
@@ -4883,7 +4883,7 @@ void sub_29B85C(uint64_t a1@<X8>)
   *&v15.__r_.__value_.__l.__data_ = *"v";
   v15.__r_.__value_.__r.__words[2] = 0x100000000000000;
   sub_23E08("((", &v15, &__p);
-  sub_30F54(")o(", &__p, &v17);
+  sub_30F54(&v17, ")o(", &__p);
   v14 = 0x100000000000000;
   *__s = *"v";
   v3 = std::string::append(&v17, __s, 1uLL);
@@ -4893,7 +4893,7 @@ void sub_29B85C(uint64_t a1@<X8>)
   v3->__r_.__value_.__l.__size_ = 0;
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("o", &v18, &v19);
+  sub_30F54(&v19, "o", &v18);
   v12 = 0x100000000000000;
   *v11 = *"v";
   v5 = std::string::append(&v19, v11, 1uLL);
@@ -4903,7 +4903,7 @@ void sub_29B85C(uint64_t a1@<X8>)
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;
   v5->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("))o(", &v20, &v21);
+  sub_30F54(&v21, "))o(", &v20);
   v10 = 0x100000000000000;
   *v9 = *"v";
   v7 = std::string::append(&v21, v9, 1uLL);
@@ -4913,7 +4913,7 @@ void sub_29B85C(uint64_t a1@<X8>)
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")", &v22, &xmmword_2732D10);
+  sub_30F54(&xmmword_2732D10, ")", &v22);
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);
@@ -5626,7 +5626,7 @@ void sub_29C5F4(uint64_t a1@<X8>)
   *&v15.__r_.__value_.__l.__data_ = *"v";
   v15.__r_.__value_.__r.__words[2] = 0x100000000000000;
   sub_23E08("((", &v15, &__p);
-  sub_30F54(")o(", &__p, &v17);
+  sub_30F54(&v17, ")o(", &__p);
   v14 = 0x100000000000000;
   *__s = *"v";
   v3 = std::string::append(&v17, __s, 1uLL);
@@ -5636,7 +5636,7 @@ void sub_29C5F4(uint64_t a1@<X8>)
   v3->__r_.__value_.__l.__size_ = 0;
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("o", &v18, &v19);
+  sub_30F54(&v19, "o", &v18);
   v12 = 0x100000000000000;
   *v11 = *"v";
   v5 = std::string::append(&v19, v11, 1uLL);
@@ -5646,7 +5646,7 @@ void sub_29C5F4(uint64_t a1@<X8>)
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;
   v5->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("))o(", &v20, &v21);
+  sub_30F54(&v21, "))o(", &v20);
   v10 = 0x100000000000000;
   *v9 = *"c";
   v7 = std::string::append(&v21, v9, 1uLL);
@@ -5656,7 +5656,7 @@ void sub_29C5F4(uint64_t a1@<X8>)
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")", &v22, &xmmword_2732D30);
+  sub_30F54(&xmmword_2732D30, ")", &v22);
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);
@@ -6370,7 +6370,7 @@ void sub_29D394(uint64_t a1@<X8>)
   *&v15.__r_.__value_.__l.__data_ = *"v";
   v15.__r_.__value_.__r.__words[2] = 0x100000000000000;
   sub_23E08("((", &v15, &__p);
-  sub_30F54(")o(", &__p, &v17);
+  sub_30F54(&v17, ")o(", &__p);
   v14 = 0x100000000000000;
   *__s = *"v";
   v3 = std::string::append(&v17, __s, 1uLL);
@@ -6380,7 +6380,7 @@ void sub_29D394(uint64_t a1@<X8>)
   v3->__r_.__value_.__l.__size_ = 0;
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("o", &v18, &v19);
+  sub_30F54(&v19, "o", &v18);
   v12 = 0x100000000000000;
   *v11 = *"c";
   v5 = std::string::append(&v19, v11, 1uLL);
@@ -6390,7 +6390,7 @@ void sub_29D394(uint64_t a1@<X8>)
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;
   v5->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("))o(", &v20, &v21);
+  sub_30F54(&v21, "))o(", &v20);
   v10 = 0x100000000000000;
   *v9 = *"v";
   v7 = std::string::append(&v21, v9, 1uLL);
@@ -6400,7 +6400,7 @@ void sub_29D394(uint64_t a1@<X8>)
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")", &v22, &xmmword_2732D50);
+  sub_30F54(&xmmword_2732D50, ")", &v22);
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);
@@ -7114,7 +7114,7 @@ void sub_29E134(uint64_t a1@<X8>)
   *&v15.__r_.__value_.__l.__data_ = *"v";
   v15.__r_.__value_.__r.__words[2] = 0x100000000000000;
   sub_23E08("((", &v15, &__p);
-  sub_30F54(")o(", &__p, &v17);
+  sub_30F54(&v17, ")o(", &__p);
   v14 = 0x100000000000000;
   *__s = *"c";
   v3 = std::string::append(&v17, __s, 1uLL);
@@ -7124,7 +7124,7 @@ void sub_29E134(uint64_t a1@<X8>)
   v3->__r_.__value_.__l.__size_ = 0;
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("o", &v18, &v19);
+  sub_30F54(&v19, "o", &v18);
   v12 = 0x100000000000000;
   *v11 = *"v";
   v5 = std::string::append(&v19, v11, 1uLL);
@@ -7134,7 +7134,7 @@ void sub_29E134(uint64_t a1@<X8>)
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;
   v5->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("))o(", &v20, &v21);
+  sub_30F54(&v21, "))o(", &v20);
   v10 = 0x100000000000000;
   *v9 = *"v";
   v7 = std::string::append(&v21, v9, 1uLL);
@@ -7144,7 +7144,7 @@ void sub_29E134(uint64_t a1@<X8>)
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")", &v22, &xmmword_2732D70);
+  sub_30F54(&xmmword_2732D70, ")", &v22);
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);
@@ -7857,7 +7857,7 @@ void sub_29EED4(uint64_t a1@<X8>)
   *&v15.__r_.__value_.__l.__data_ = *"c";
   v15.__r_.__value_.__r.__words[2] = 0x100000000000000;
   sub_23E08("((", &v15, &__p);
-  sub_30F54(")o(", &__p, &v17);
+  sub_30F54(&v17, ")o(", &__p);
   v14 = 0x100000000000000;
   *__s = *"v";
   v3 = std::string::append(&v17, __s, 1uLL);
@@ -7867,7 +7867,7 @@ void sub_29EED4(uint64_t a1@<X8>)
   v3->__r_.__value_.__l.__size_ = 0;
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("o", &v18, &v19);
+  sub_30F54(&v19, "o", &v18);
   v12 = 0x100000000000000;
   *v11 = *"v";
   v5 = std::string::append(&v19, v11, 1uLL);
@@ -7877,7 +7877,7 @@ void sub_29EED4(uint64_t a1@<X8>)
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;
   v5->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("))o(", &v20, &v21);
+  sub_30F54(&v21, "))o(", &v20);
   v10 = 0x100000000000000;
   *v9 = *"v";
   v7 = std::string::append(&v21, v9, 1uLL);
@@ -7887,7 +7887,7 @@ void sub_29EED4(uint64_t a1@<X8>)
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")", &v22, &xmmword_2732D90);
+  sub_30F54(&xmmword_2732D90, ")", &v22);
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);
@@ -8600,7 +8600,7 @@ void sub_29FC74(uint64_t a1@<X8>)
   *&v15.__r_.__value_.__l.__data_ = *"c";
   v15.__r_.__value_.__r.__words[2] = 0x100000000000000;
   sub_23E08("((", &v15, &__p);
-  sub_30F54(")o(", &__p, &v17);
+  sub_30F54(&v17, ")o(", &__p);
   v14 = 0x100000000000000;
   *__s = *"v";
   v3 = std::string::append(&v17, __s, 1uLL);
@@ -8610,7 +8610,7 @@ void sub_29FC74(uint64_t a1@<X8>)
   v3->__r_.__value_.__l.__size_ = 0;
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("o", &v18, &v19);
+  sub_30F54(&v19, "o", &v18);
   v12 = 0x100000000000000;
   *v11 = *"c";
   v5 = std::string::append(&v19, v11, 1uLL);
@@ -8620,7 +8620,7 @@ void sub_29FC74(uint64_t a1@<X8>)
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;
   v5->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("))o(", &v20, &v21);
+  sub_30F54(&v21, "))o(", &v20);
   v10 = 0x100000000000000;
   *v9 = *"v";
   v7 = std::string::append(&v21, v9, 1uLL);
@@ -8630,7 +8630,7 @@ void sub_29FC74(uint64_t a1@<X8>)
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")", &v22, &xmmword_2732DB0);
+  sub_30F54(&xmmword_2732DB0, ")", &v22);
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);
@@ -9343,7 +9343,7 @@ void sub_2A0A1C(uint64_t a1@<X8>)
   *&v15.__r_.__value_.__l.__data_ = *"v";
   v15.__r_.__value_.__r.__words[2] = 0x100000000000000;
   sub_23E08("((", &v15, &__p);
-  sub_30F54(")o(", &__p, &v17);
+  sub_30F54(&v17, ")o(", &__p);
   v14 = 0x100000000000000;
   *__s = *"c";
   v3 = std::string::append(&v17, __s, 1uLL);
@@ -9353,7 +9353,7 @@ void sub_2A0A1C(uint64_t a1@<X8>)
   v3->__r_.__value_.__l.__size_ = 0;
   v3->__r_.__value_.__r.__words[2] = 0;
   v3->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("o", &v18, &v19);
+  sub_30F54(&v19, "o", &v18);
   v12 = 0x100000000000000;
   *v11 = *"v";
   v5 = std::string::append(&v19, v11, 1uLL);
@@ -9363,7 +9363,7 @@ void sub_2A0A1C(uint64_t a1@<X8>)
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;
   v5->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54("))o(", &v20, &v21);
+  sub_30F54(&v21, "))o(", &v20);
   v10 = 0x100000000000000;
   *v9 = *"c";
   v7 = std::string::append(&v21, v9, 1uLL);
@@ -9373,7 +9373,7 @@ void sub_2A0A1C(uint64_t a1@<X8>)
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
-  sub_30F54(")", &v22, &xmmword_2732DD0);
+  sub_30F54(&xmmword_2732DD0, ")", &v22);
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);

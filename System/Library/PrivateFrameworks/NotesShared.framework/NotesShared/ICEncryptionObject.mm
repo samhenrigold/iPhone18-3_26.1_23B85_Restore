@@ -225,12 +225,12 @@ LABEL_19:
   return v8;
 }
 
-uint64_t __45__ICEncryptionObject_initWithSerializedData___block_invoke()
+uint64_t __45__ICEncryptionObject_initWithSerializedData___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277CCAAC8];
-  v1 = objc_opt_class();
+  v2 = MEMORY[0x277CCAAC8];
+  v3 = objc_opt_class();
 
-  return [v0 setClass:v1 forClassName:@"ICCryptoEncryptionObject"];
+  return [v2 setClass:v3 forClassName:@"ICCryptoEncryptionObject"];
 }
 
 - (id)serialized
@@ -267,12 +267,12 @@ uint64_t __45__ICEncryptionObject_initWithSerializedData___block_invoke()
   return v6;
 }
 
-uint64_t __32__ICEncryptionObject_serialized__block_invoke()
+uint64_t __32__ICEncryptionObject_serialized__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277CCAAB0];
-  v1 = objc_opt_class();
+  v2 = MEMORY[0x277CCAAB0];
+  v3 = objc_opt_class();
 
-  return [v0 setClassName:@"ICCryptoEncryptionObject" forClass:v1];
+  return [v2 setClassName:@"ICCryptoEncryptionObject" forClass:v3];
 }
 
 - (BOOL)validate

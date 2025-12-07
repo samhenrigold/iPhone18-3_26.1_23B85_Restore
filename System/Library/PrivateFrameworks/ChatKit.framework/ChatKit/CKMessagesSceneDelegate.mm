@@ -145,14 +145,14 @@ void __31__CKMessagesSceneDelegate_init__block_invoke()
       v7 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_INFO, "Not showing registration view as we aren't connected to the daemon", v8, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_INFO, "Not showing registration view as we aren't connected to the daemon", v14, 2u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      _CKLogExternal();
+      _CKLogExternal(0x21u, @"Not showing registration view as we aren't connected to the daemon", v8, v9, v10, v11, v12, v13, *v14);
     }
 
     [(CKMessagesSceneDelegate *)self presentOnboardingViewControllerIfNeeded];
@@ -391,8 +391,9 @@ void __31__CKMessagesSceneDelegate_init__block_invoke()
   }
 }
 
-void __62__CKMessagesSceneDelegate_scene_willConnectToSession_options___block_invoke(uint64_t a1, int a2)
+void __62__CKMessagesSceneDelegate_scene_willConnectToSession_options___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v7 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
@@ -400,7 +401,7 @@ void __62__CKMessagesSceneDelegate_scene_willConnectToSession_options___block_in
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = @"NO";
-      if (a2)
+      if (v2)
       {
         v4 = @"YES";
       }
@@ -596,7 +597,7 @@ void __62__CKMessagesSceneDelegate_scene_willConnectToSession_options___block_in
 - (void)_prepareForResume:(BOOL)resume
 {
   resumeCopy = resume;
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
@@ -608,18 +609,19 @@ void __62__CKMessagesSceneDelegate_scene_willConnectToSession_options___block_in
         v6 = @"YES";
       }
 
-      v20 = 138412290;
-      v21 = v6;
-      _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_INFO, "prepareForResume, animating %@", &v20, 0xCu);
+      v22 = 138412290;
+      v23 = v6;
+      _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_INFO, "prepareForResume, animating %@", &v22, 0xCu);
     }
   }
 
   v7 = +[CKPluginExtensionStateObserver _sharedInstanceIfInitialized];
   [v7 prepareForResume];
 
-  if ([(CKMessagesSceneDelegate *)self isSuspended])
+  isSuspended = [(CKMessagesSceneDelegate *)self isSuspended];
+  if (isSuspended)
   {
-    CKResetCachedUserSettings();
+    CKResetCachedUserSettings(isSuspended, v9);
     IMResetCachedUserSettings();
     IMResetCachedCarrierSettings();
     mEMORY[0x1E69A7F68] = [MEMORY[0x1E69A7F68] sharedInstance];
@@ -1255,7 +1257,7 @@ void __67__CKMessagesSceneDelegate__createMadridRegistrationViewIfNecessary__blo
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
       {
-        _CKLogExternal();
+        _CKLogExternal(0x21u, @"Showing registration view", v8, v9, v10, v11, v12, v13, v28[0]);
       }
 
       messagesController = [(CKMessagesSceneDelegate *)self messagesController];
@@ -1272,14 +1274,14 @@ void __67__CKMessagesSceneDelegate__createMadridRegistrationViewIfNecessary__blo
           {
             [(CKMessagesSceneDelegate *)self setWillPresentRegistrationViewController:1];
             messagesController3 = [(CKMessagesSceneDelegate *)self messagesController];
-            v23[0] = MEMORY[0x1E69E9820];
-            v23[1] = 3221225472;
-            v23[2] = __76__CKMessagesSceneDelegate__mainThread_updateMadridRegistrationViewAnimated___block_invoke;
-            v23[3] = &unk_1E72EBBC0;
-            v23[4] = self;
-            v24 = v6;
-            v25 = animatedCopy;
-            [messagesController3 dismissViewControllerAnimated:animatedCopy completion:v23];
+            v29[0] = MEMORY[0x1E69E9820];
+            v29[1] = 3221225472;
+            v29[2] = __76__CKMessagesSceneDelegate__mainThread_updateMadridRegistrationViewAnimated___block_invoke;
+            v29[3] = &unk_1E72EBBC0;
+            v29[4] = self;
+            v30 = v6;
+            v31 = animatedCopy;
+            [messagesController3 dismissViewControllerAnimated:animatedCopy completion:v29];
           }
         }
 
@@ -1295,7 +1297,7 @@ void __67__CKMessagesSceneDelegate__createMadridRegistrationViewIfNecessary__blo
 
     messagesController5 = [(CKMessagesSceneDelegate *)self messagesController];
     presentedViewController3 = [messagesController5 presentedViewController];
-    v15 = presentedViewController3;
+    v21 = presentedViewController3;
     if (presentedViewController3 == v6)
     {
       view = [(CKRegistrationViewController *)v6 view];
@@ -1304,12 +1306,12 @@ void __67__CKMessagesSceneDelegate__createMadridRegistrationViewIfNecessary__blo
       if (window)
       {
         messagesController6 = [(CKMessagesSceneDelegate *)self messagesController];
-        v22[0] = MEMORY[0x1E69E9820];
-        v22[1] = 3221225472;
-        v22[2] = __76__CKMessagesSceneDelegate__mainThread_updateMadridRegistrationViewAnimated___block_invoke_3;
-        v22[3] = &unk_1E72EBA18;
-        v22[4] = self;
-        [messagesController6 dismissViewControllerAnimated:animatedCopy completion:v22];
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = __76__CKMessagesSceneDelegate__mainThread_updateMadridRegistrationViewAnimated___block_invoke_3;
+        v28[3] = &unk_1E72EBA18;
+        v28[4] = self;
+        [messagesController6 dismissViewControllerAnimated:animatedCopy completion:v28];
 
         goto LABEL_20;
       }
@@ -1377,7 +1379,7 @@ uint64_t __76__CKMessagesSceneDelegate__mainThread_updateMadridRegistrationViewA
 
 - (BOOL)_shouldShowMadridRegistrationView
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = CKiMessageSupported();
   if ([MEMORY[0x1E69A5CA0] smsEnabled])
   {
@@ -1409,20 +1411,20 @@ uint64_t __76__CKMessagesSceneDelegate__mainThread_updateMadridRegistrationViewA
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 138413058;
-        v14 = @"YES";
-        v15 = 2112;
-        v16 = @"NO";
-        v17 = 2112;
-        v18 = @"NO";
-        v19 = 2112;
-        v20 = @"NO";
+        v20 = @"YES";
+        v21 = 2112;
+        v22 = @"NO";
+        v23 = 2112;
+        v24 = @"NO";
+        v25 = 2112;
+        v26 = @"NO";
         _os_log_impl(&dword_19020E000, v10, OS_LOG_TYPE_INFO, "_shouldShowMadridRegistrationView: %@, smsEnabled: %@, registrationBypassEnabled: %@, isDemoMode: %@", buf, 0x2Au);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      _CKLogExternal();
+      _CKLogExternal(0x21u, @"_shouldShowMadridRegistrationView: %@, smsEnabled: %@, registrationBypassEnabled: %@, isDemoMode: %@", v11, v12, v13, v14, v15, v16, @"YES");
     }
 
     return 1;
@@ -1471,22 +1473,22 @@ LABEL_6:
   }
 }
 
-void __46__CKMessagesSceneDelegate___updateAppSnapshot__block_invoke(uint64_t a1)
+void __46__CKMessagesSceneDelegate___updateAppSnapshot__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Telling UIKit to update scene snapshot", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Telling UIKit to update scene snapshot", v7, 2u);
     }
   }
 
-  v3 = [MEMORY[0x1E69DC668] sharedApplication];
-  v4 = [*(a1 + 32) scene];
-  v5 = [v4 session];
-  [v3 requestSceneSessionRefresh:v5];
+  v4 = [MEMORY[0x1E69DC668] sharedApplication];
+  v5 = [*(a1 + 32) scene];
+  v6 = [v5 session];
+  [v4 requestSceneSessionRefresh:v6];
 }
 
 - (void)_updateAppSnapshot

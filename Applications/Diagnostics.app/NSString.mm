@@ -64,6 +64,8 @@
   selfCopy = self;
   v9 = sub_1000499F0(name, v6);
 
+  v6, v10, v11, v12, v13, v14, v15, v16;
+
   return v9;
 }
 

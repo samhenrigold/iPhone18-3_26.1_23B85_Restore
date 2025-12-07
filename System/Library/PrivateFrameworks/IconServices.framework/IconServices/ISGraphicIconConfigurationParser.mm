@@ -8,19 +8,19 @@
 
 - (id)symbolName
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = ISGraphicIconConfigurationParser;
-  symbolName = [(ISIconConfigurationMarkupParser *)&v13 symbolName];
+  v15 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = ISGraphicIconConfigurationParser;
+  symbolName = [(ISIconConfigurationMarkupParser *)&v12 symbolName];
   v4 = symbolName;
-  if (!symbolName || ![(__CFString *)symbolName length])
+  if (!symbolName || (symbolName = [(__CFString *)symbolName length]) == 0)
   {
-    v5 = _ISDefaultLog();
+    v5 = _ISDefaultLog(symbolName);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       configDict = [(ISIconConfigurationMarkupParser *)self configDict];
       *buf = 138412290;
-      v15 = configDict;
+      v14 = configDict;
       _os_log_impl(&dword_1A77B8000, v5, OS_LOG_TYPE_INFO, "Failed to find name for graphic variant. Dict: %@", buf, 0xCu);
     }
 
@@ -46,8 +46,6 @@
     v4 = name;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
@@ -61,47 +59,47 @@
   {
     if (![v3 caseInsensitiveCompare:@"automatic"])
     {
-      v5 = 1;
+      v6 = 1;
       goto LABEL_16;
     }
 
     if (![v3 caseInsensitiveCompare:@"hierarchical"])
     {
-      v5 = 2;
+      v6 = 2;
       goto LABEL_16;
     }
 
     if (![v3 caseInsensitiveCompare:@"monochrome"])
     {
-      v5 = 3;
+      v6 = 3;
       goto LABEL_16;
     }
 
     if (![v3 caseInsensitiveCompare:@"multicolor"])
     {
-      v5 = 4;
+      v6 = 4;
       goto LABEL_16;
     }
 
-    if (![v3 caseInsensitiveCompare:@"palette"])
+    v4 = [v3 caseInsensitiveCompare:@"palette"];
+    if (!v4)
     {
-      v5 = 5;
+      v6 = 5;
       goto LABEL_16;
     }
 
-    v4 = _ISDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = _ISDefaultLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v8 = 138412290;
       v9 = v3;
     }
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_16:
 
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
 - (NSDictionary)aliasedConfigurationDictionary

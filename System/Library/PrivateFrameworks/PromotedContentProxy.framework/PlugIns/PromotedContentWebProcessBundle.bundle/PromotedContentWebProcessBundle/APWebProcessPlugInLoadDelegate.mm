@@ -3,6 +3,7 @@
 - (void)actionDidFailWithErrorDescription:(id)description;
 - (void)contentSizeDidChange:(id)change;
 - (void)creativeStateDidChange:(int64_t)change;
+- (void)creativeVisibilityDidChange:(BOOL)change;
 - (void)resetSession;
 - (void)resetVideoTagPlaytime;
 - (void)setExpandedWidth:(double)width andHeight:(double)height;
@@ -28,6 +29,7 @@
 - (void)webProcessVideoAdJSOPlayStarted:(float)started volume:(float)volume;
 - (void)webProcessVideoAdJSOSkipAdTapped:(float)tapped volume:(float)volume;
 - (void)webProcessVideoAdJSOVideoTapped:(float)tapped volume:(float)volume;
+- (void)webProcessVideoAdJSOViewabilityChanged:(BOOL)changed playTime:(float)time volume:(float)volume;
 - (void)webProcessVideoAdJSOVolumeChanged:(float)changed playTime:(float)time;
 @end
 
@@ -252,6 +254,15 @@ LABEL_29:
   [webProcessDelegate webProcessVideoAdJSODidCallPlayCompletedWithVolume:v4];
 }
 
+- (void)webProcessVideoAdJSOViewabilityChanged:(BOOL)changed playTime:(float)time volume:(float)volume
+{
+  changedCopy = changed;
+  webProcessDelegate = [(APWebProcessPlugInLoadDelegate *)self webProcessDelegate];
+  *&v8 = time;
+  *&v9 = volume;
+  [webProcessDelegate webProcessVideoAdJSODidCallViewabilityChanged:changedCopy playTime:v8 volume:v9];
+}
+
 - (void)webProcessVideoAdJSOVolumeChanged:(float)changed playTime:(float)time
 {
   webProcessDelegate = [(APWebProcessPlugInLoadDelegate *)self webProcessDelegate];
@@ -350,6 +361,18 @@ LABEL_29:
   {
     webProcessMRAIDJSO2 = [(APWebProcessPlugInLoadDelegate *)self webProcessMRAIDJSO];
     [webProcessMRAIDJSO2 setState:change];
+  }
+}
+
+- (void)creativeVisibilityDidChange:(BOOL)change
+{
+  changeCopy = change;
+  webProcessMRAIDJSO = [(APWebProcessPlugInLoadDelegate *)self webProcessMRAIDJSO];
+
+  if (webProcessMRAIDJSO)
+  {
+    webProcessMRAIDJSO2 = [(APWebProcessPlugInLoadDelegate *)self webProcessMRAIDJSO];
+    [webProcessMRAIDJSO2 setViewable:changeCopy];
   }
 }
 

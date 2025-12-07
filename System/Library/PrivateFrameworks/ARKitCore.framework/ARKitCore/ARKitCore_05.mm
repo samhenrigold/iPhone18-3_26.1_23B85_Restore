@@ -20,35 +20,36 @@ CVPixelBufferRef ARPixelBufferWithCIImage(void *a1)
 
 uint64_t ARCreatePixelBufferWithPaddingToFillMinimumDimension(__CVBuffer *a1, size_t a2, Pixel_8 a3, __CVBuffer **a4)
 {
-  if (CVPixelBufferGetPixelFormatType(a1) != 1278226488)
+  PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
+  if (PixelFormatType != 1278226488)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_1();
     }
 
-    v11 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v12 = _ARLogGeneral();
-    v13 = v12;
-    if (v11 == 1)
+    v12 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v13 = _ARLogGeneral(PixelFormatType);
+    v14 = v13;
+    if (v12 == 1)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf.data) = 0;
-        v14 = "Pixelbuffer must have format kCVPixelFormatType_OneComponent8";
-        v15 = v13;
-        v16 = OS_LOG_TYPE_ERROR;
+        v15 = "Pixelbuffer must have format kCVPixelFormatType_OneComponent8";
+        v16 = v14;
+        v17 = OS_LOG_TYPE_ERROR;
 LABEL_22:
-        _os_log_impl(&dword_1C241C000, v15, v16, v14, &buf, 2u);
+        _os_log_impl(&dword_1C241C000, v16, v17, v15, &buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf.data) = 0;
-      v14 = "Error: Pixelbuffer must have format kCVPixelFormatType_OneComponent8";
-      v15 = v13;
-      v16 = OS_LOG_TYPE_INFO;
+      v15 = "Error: Pixelbuffer must have format kCVPixelFormatType_OneComponent8";
+      v16 = v14;
+      v17 = OS_LOG_TYPE_INFO;
       goto LABEL_22;
     }
 
@@ -76,7 +77,8 @@ LABEL_22:
 
   pixelBufferOut = 0;
   Attributes = _getAttributes();
-  if (!CVPixelBufferCreate(*MEMORY[0x1E695E480], Width, a2, 0x4C303038u, Attributes, &pixelBufferOut))
+  v19 = CVPixelBufferCreate(*MEMORY[0x1E695E480], Width, a2, 0x4C303038u, Attributes, &pixelBufferOut);
+  if (!v19)
   {
     CVPixelBufferLockBaseAddress(pixelBufferOut, 0);
     CVPixelBufferLockBaseAddress(a1, 0);
@@ -92,42 +94,44 @@ LABEL_22:
     dest.height = src.height;
     dest.width = src.width;
     dest.rowBytes = buf.rowBytes;
-    if (vImageOverwriteChannelsWithScalar_Planar8(a3, &buf, 0))
+    v25 = vImageOverwriteChannelsWithScalar_Planar8(a3, &buf, 0);
+    if (v25)
     {
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
       {
         ARCorrectCVPixelBufferOrientation_cold_2();
       }
 
-      v23 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v24 = _ARLogGeneral();
-      v20 = v24;
-      if (v23 == 1)
+      v26 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v27 = _ARLogGeneral(v25);
+      v22 = v27;
+      if (v26 == 1)
       {
-        if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_48;
         }
 
-        v29[0] = 0;
-        v21 = "Error: Could not fill buffer";
+        v33[0] = 0;
+        v23 = "Error: Could not fill buffer";
 LABEL_38:
-        p_buf = v29;
+        p_buf = v33;
         goto LABEL_39;
       }
 
-      if (!os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         goto LABEL_48;
       }
 
-      v29[0] = 0;
-      v21 = "Error: Error: Could not fill buffer";
+      v33[0] = 0;
+      v23 = "Error: Error: Could not fill buffer";
     }
 
     else
     {
-      if (!vImageCopyBuffer(&src, &dest, 1uLL, 0))
+      v28 = vImageCopyBuffer(&src, &dest, 1uLL, 0);
+      if (!v28)
       {
         CVPixelBufferUnlockBaseAddress(pixelBufferOut, 0);
         CVPixelBufferUnlockBaseAddress(a1, 0);
@@ -141,31 +145,31 @@ LABEL_38:
         ARCorrectCVPixelBufferOrientation_cold_2();
       }
 
-      v25 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v26 = _ARLogGeneral();
-      v20 = v26;
-      if (v25 == 1)
+      v29 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v30 = _ARLogGeneral(v28);
+      v22 = v30;
+      if (v29 == 1)
       {
-        if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_48;
         }
 
-        v29[0] = 0;
-        v21 = "Error: Could not copy buffer";
+        v33[0] = 0;
+        v23 = "Error: Could not copy buffer";
         goto LABEL_38;
       }
 
-      if (!os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
         goto LABEL_48;
       }
 
-      v29[0] = 0;
-      v21 = "Error: Error: Could not copy buffer";
+      v33[0] = 0;
+      v23 = "Error: Error: Could not copy buffer";
     }
 
-    p_buf = v29;
+    p_buf = v33;
     goto LABEL_46;
   }
 
@@ -174,35 +178,35 @@ LABEL_38:
     ARCorrectCVPixelBufferOrientation_cold_2();
   }
 
-  v18 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v19 = _ARLogGeneral();
-  v20 = v19;
-  if (v18 != 1)
+  v20 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v21 = _ARLogGeneral(v19);
+  v22 = v21;
+  if (v20 != 1)
   {
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       goto LABEL_48;
     }
 
     LOWORD(buf.data) = 0;
-    v21 = "Error: Error: Could not create mask";
+    v23 = "Error: Error: Could not create mask";
     p_buf = &buf;
 LABEL_46:
-    v27 = v20;
-    v28 = OS_LOG_TYPE_INFO;
+    v31 = v22;
+    v32 = OS_LOG_TYPE_INFO;
     goto LABEL_47;
   }
 
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     LOWORD(buf.data) = 0;
-    v21 = "Error: Could not create mask";
+    v23 = "Error: Could not create mask";
     p_buf = &buf;
 LABEL_39:
-    v27 = v20;
-    v28 = OS_LOG_TYPE_ERROR;
+    v31 = v22;
+    v32 = OS_LOG_TYPE_ERROR;
 LABEL_47:
-    _os_log_impl(&dword_1C241C000, v27, v28, v21, p_buf, 2u);
+    _os_log_impl(&dword_1C241C000, v31, v32, v23, p_buf, 2u);
   }
 
 LABEL_48:
@@ -314,71 +318,74 @@ size_t ARWrapCVPixelBufferPlaneVImage@<X0>(__CVBuffer *a1@<X0>, size_t a2@<X1>, 
   return result;
 }
 
-CVPixelBufferRef ARCreateCVPixelBufferFromPoolWithZeroCopyOption(CVPixelBufferPoolRef *a1, int a2, void *a3, void *a4, int a5, uint64_t a6, uint64_t a7, double a8, double a9)
+CVPixelBufferRef ARCreateCVPixelBufferFromPoolWithZeroCopyOption(CVPixelBufferPoolRef *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, double a8, double a9)
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v11 = a5;
+  v13 = a2;
+  v74 = *MEMORY[0x1E69E9840];
   v17 = a3;
   v18 = a4;
   pixelBufferOut = 0;
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x2020000000;
-  v61 = ARRecreatePixelBufferPoolOnConfigurationChangesWithZeroCopyOption(a1, a2, a5, a8, a9);
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3221225472;
-  v54 = __ARCreateCVPixelBufferFromPoolWithZeroCopyOption_block_invoke;
-  v55 = &unk_1E817EAF8;
-  v56 = &v58;
-  v57 = a7;
-  if (!*(v59 + 6))
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x2020000000;
+  v19 = ARRecreatePixelBufferPoolOnConfigurationChangesWithZeroCopyOption(a1, v13, v11, a8, a9);
+  v62 = v19;
+  v54[0] = MEMORY[0x1E69E9820];
+  v54[1] = 3221225472;
+  v55 = __ARCreateCVPixelBufferFromPoolWithZeroCopyOption_block_invoke;
+  v56 = &unk_1E817EAF8;
+  v57 = &v59;
+  v58 = a7;
+  if (!*(v60 + 6))
   {
     if (a6 < 1)
     {
-      v38 = CVPixelBufferPoolCreatePixelBuffer(*MEMORY[0x1E695E480], *a1, &pixelBufferOut);
-      *(v59 + 6) = v38;
-      if (v38)
+      v39 = CVPixelBufferPoolCreatePixelBuffer(*MEMORY[0x1E695E480], *a1, &pixelBufferOut);
+      *(v60 + 6) = v39;
+      if (v39)
       {
         if (ARShouldUseLogTypeError(void)::onceToken != -1)
         {
           ARCorrectCVPixelBufferOrientation_cold_2();
         }
 
-        v39 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v40 = _ARLogTechnique();
-        v30 = v40;
-        if (v39 == 1)
+        v40 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v41 = _ARLogTechnique(v39);
+        v31 = v41;
+        if (v40 == 1)
         {
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
-            v41 = objc_opt_class();
-            v42 = NSStringFromClass(v41);
-            v43 = *(v59 + 6);
+            v42 = objc_opt_class();
+            v43 = NSStringFromClass(v42);
+            v44 = *(v60 + 6);
             *buf = 138413058;
-            v66 = v42;
-            v67 = 2048;
-            v68 = v17;
-            v69 = 2112;
-            v70 = v18;
-            v71 = 1024;
-            v72 = v43;
-            _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_ERROR, "%@(%p): Unable to create pixel buffer for %@: %i", buf, 0x26u);
+            v67 = v43;
+            v68 = 2048;
+            v69 = v17;
+            v70 = 2112;
+            v71 = v18;
+            v72 = 1024;
+            v73 = v44;
+            _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_ERROR, "%@(%p): Unable to create pixel buffer for %@: %i", buf, 0x26u);
           }
         }
 
-        else if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
         {
-          v47 = objc_opt_class();
-          v48 = NSStringFromClass(v47);
-          v49 = *(v59 + 6);
+          v48 = objc_opt_class();
+          v49 = NSStringFromClass(v48);
+          v50 = *(v60 + 6);
           *buf = 138413058;
-          v66 = v48;
-          v67 = 2048;
-          v68 = v17;
-          v69 = 2112;
-          v70 = v18;
-          v71 = 1024;
-          v72 = v49;
-          _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_INFO, "Error: %@(%p): Unable to create pixel buffer for %@: %i", buf, 0x26u);
+          v67 = v49;
+          v68 = 2048;
+          v69 = v17;
+          v70 = 2112;
+          v71 = v18;
+          v72 = 1024;
+          v73 = v50;
+          _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_INFO, "Error: %@(%p): Unable to create pixel buffer for %@: %i", buf, 0x26u);
         }
 
         goto LABEL_27;
@@ -387,66 +394,66 @@ CVPixelBufferRef ARCreateCVPixelBufferFromPoolWithZeroCopyOption(CVPixelBufferPo
 
     else
     {
-      v63 = *MEMORY[0x1E6966150];
-      v25 = [MEMORY[0x1E696AD98] numberWithInt:a6];
-      v64 = v25;
-      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+      v64 = *MEMORY[0x1E6966150];
+      v26 = [MEMORY[0x1E696AD98] numberWithInt:a6];
+      v65 = v26;
+      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
 
-      v27 = CVPixelBufferPoolCreatePixelBufferWithAuxAttributes(*MEMORY[0x1E695E480], *a1, v26, &pixelBufferOut);
-      *(v59 + 6) = v27;
-      if (v27)
+      v28 = CVPixelBufferPoolCreatePixelBufferWithAuxAttributes(*MEMORY[0x1E695E480], *a1, v27, &pixelBufferOut);
+      *(v60 + 6) = v28;
+      if (v28)
       {
         if (ARShouldUseLogTypeError(void)::onceToken != -1)
         {
           ARCorrectCVPixelBufferOrientation_cold_2();
         }
 
-        v28 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v29 = _ARLogTechnique();
-        v30 = v29;
-        if (v28 == 1)
+        v29 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v30 = _ARLogTechnique(v28);
+        v31 = v30;
+        if (v29 == 1)
         {
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
-            v31 = objc_opt_class();
-            v32 = NSStringFromClass(v31);
-            v33 = *(v59 + 6);
+            v32 = objc_opt_class();
+            v33 = NSStringFromClass(v32);
+            v34 = *(v60 + 6);
             *buf = 138413058;
-            v66 = v32;
-            v67 = 2048;
-            v68 = v17;
-            v69 = 2112;
-            v70 = v18;
-            v71 = 1024;
-            v72 = v33;
-            _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_ERROR, "%@(%p): Unable to create pixel buffer with aux attributes for %@: %i", buf, 0x26u);
+            v67 = v33;
+            v68 = 2048;
+            v69 = v17;
+            v70 = 2112;
+            v71 = v18;
+            v72 = 1024;
+            v73 = v34;
+            _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_ERROR, "%@(%p): Unable to create pixel buffer with aux attributes for %@: %i", buf, 0x26u);
           }
         }
 
-        else if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
         {
-          v44 = objc_opt_class();
-          v45 = NSStringFromClass(v44);
-          v46 = *(v59 + 6);
+          v45 = objc_opt_class();
+          v46 = NSStringFromClass(v45);
+          v47 = *(v60 + 6);
           *buf = 138413058;
-          v66 = v45;
-          v67 = 2048;
-          v68 = v17;
-          v69 = 2112;
-          v70 = v18;
-          v71 = 1024;
-          v72 = v46;
-          _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_INFO, "Error: %@(%p): Unable to create pixel buffer with aux attributes for %@: %i", buf, 0x26u);
+          v67 = v46;
+          v68 = 2048;
+          v69 = v17;
+          v70 = 2112;
+          v71 = v18;
+          v72 = 1024;
+          v73 = v47;
+          _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_INFO, "Error: %@(%p): Unable to create pixel buffer with aux attributes for %@: %i", buf, 0x26u);
         }
 
 LABEL_27:
       }
     }
 
-    v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"arkit/%s %@; X/X", "ARCreateCVPixelBufferFromPoolWithZeroCopyOption", v18];;
+    v51 = [MEMORY[0x1E696AEC0] stringWithFormat:@"arkit/%s %@; X/X", "ARCreateCVPixelBufferFromPoolWithZeroCopyOption", v18];;
     IOSurface = CVPixelBufferGetIOSurface(pixelBufferOut);
-    IOSurfaceSetValue(IOSurface, *MEMORY[0x1E696CF98], v50);
-    v37 = pixelBufferOut;
+    IOSurfaceSetValue(IOSurface, *MEMORY[0x1E696CF98], v51);
+    v38 = pixelBufferOut;
 
     goto LABEL_29;
   }
@@ -456,64 +463,64 @@ LABEL_27:
     ARCorrectCVPixelBufferOrientation_cold_2();
   }
 
-  v19 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v20 = _ARLogTechnique();
-  v21 = v20;
-  if (v19 == 1)
+  v20 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v21 = _ARLogTechnique(v19);
+  v22 = v21;
+  if (v20 == 1)
   {
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
-      v24 = *(v59 + 6);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
+      v25 = *(v60 + 6);
       *buf = 138413058;
-      v66 = v23;
-      v67 = 2048;
-      v68 = v17;
-      v69 = 2112;
-      v70 = v18;
-      v71 = 1024;
-      v72 = v24;
-      _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_ERROR, "%@(%p): Unable to configure pixelbuffer pool for %@: %i", buf, 0x26u);
+      v67 = v24;
+      v68 = 2048;
+      v69 = v17;
+      v70 = 2112;
+      v71 = v18;
+      v72 = 1024;
+      v73 = v25;
+      _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_ERROR, "%@(%p): Unable to configure pixelbuffer pool for %@: %i", buf, 0x26u);
     }
   }
 
-  else if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
-    v34 = objc_opt_class();
-    v35 = NSStringFromClass(v34);
-    v36 = *(v59 + 6);
+    v35 = objc_opt_class();
+    v36 = NSStringFromClass(v35);
+    v37 = *(v60 + 6);
     *buf = 138413058;
-    v66 = v35;
-    v67 = 2048;
-    v68 = v17;
-    v69 = 2112;
-    v70 = v18;
-    v71 = 1024;
-    v72 = v36;
-    _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_INFO, "Error: %@(%p): Unable to configure pixelbuffer pool for %@: %i", buf, 0x26u);
+    v67 = v36;
+    v68 = 2048;
+    v69 = v17;
+    v70 = 2112;
+    v71 = v18;
+    v72 = 1024;
+    v73 = v37;
+    _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_INFO, "Error: %@(%p): Unable to configure pixelbuffer pool for %@: %i", buf, 0x26u);
   }
 
-  v37 = pixelBufferOut;
+  v38 = pixelBufferOut;
 LABEL_29:
-  v54(v53);
-  _Block_object_dispose(&v58, 8);
+  v55(v54);
+  _Block_object_dispose(&v59, 8);
 
-  return v37;
+  return v38;
 }
 
-void sub_1C2596D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C2596D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void (*)(uint64_t *));
-  v12 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v11 = va_arg(va1, void);
   v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  v14 = va_arg(va1, void (*)(uint64_t *));
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
 
-  v11(va);
+  v14(va);
   _Block_object_dispose(va1, 8);
 
   _Unwind_Resume(a1);
@@ -521,7 +528,7 @@ void sub_1C2596D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t ARRecreatePixelBufferPoolOnConfigurationChangesWithZeroCopyOption(CVPixelBufferPoolRef *a1, int a2, int a3, double a4, double a5)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v10 = *a1;
   if (v10)
   {
@@ -556,25 +563,25 @@ uint64_t ARRecreatePixelBufferPoolOnConfigurationChangesWithZeroCopyOption(CVPix
     v17 = 0;
   }
 
-  v19 = _ARLogGeneral();
+  v19 = _ARLogGeneral(v10);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     v20 = *a1;
-    v28 = 134219520;
-    v29 = v20;
-    v30 = 2048;
-    v31 = v13;
-    v32 = 2048;
-    v33 = v15;
-    v34 = 2048;
-    v35 = v17;
-    v36 = 1024;
-    v37 = a4;
-    v38 = 1024;
-    v39 = a5;
-    v40 = 1024;
-    v41 = a2;
-    _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "ARSystemTools: Recreating pixel buffer pool (%p) due to configuration changes: %li,%li/%li => %i,%i/%i", &v28, 0x3Cu);
+    v29 = 134219520;
+    v30 = v20;
+    v31 = 2048;
+    v32 = v13;
+    v33 = 2048;
+    v34 = v15;
+    v35 = 2048;
+    v36 = v17;
+    v37 = 1024;
+    v38 = a4;
+    v39 = 1024;
+    v40 = a5;
+    v41 = 1024;
+    v42 = a2;
+    _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "ARSystemTools: Recreating pixel buffer pool (%p) due to configuration changes: %li,%li/%li => %i,%i/%i", &v29, 0x3Cu);
   }
 
   if (*a1)
@@ -585,7 +592,7 @@ uint64_t ARRecreatePixelBufferPoolOnConfigurationChangesWithZeroCopyOption(CVPix
 
   kdebug_trace();
   NewWithZeroCopyOption = ar_pixelBufferPoolCreateNewWithZeroCopyOption(a4, a5, a2, a1, a3);
-  kdebug_trace();
+  v21 = kdebug_trace();
   if (NewWithZeroCopyOption)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -593,28 +600,28 @@ uint64_t ARRecreatePixelBufferPoolOnConfigurationChangesWithZeroCopyOption(CVPix
       ARCorrectCVPixelBufferOrientation_cold_2();
     }
 
-    v21 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v22 = _ARLogGeneral();
-    v23 = v22;
-    if (v21 == 1)
+    v22 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v23 = _ARLogGeneral(v21);
+    v24 = v23;
+    if (v22 == 1)
     {
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v28) = 0;
-        v24 = "ARSystemTools: Could not create pixel buffer pool.";
-        v25 = v23;
-        v26 = OS_LOG_TYPE_ERROR;
+        LOWORD(v29) = 0;
+        v25 = "ARSystemTools: Could not create pixel buffer pool.";
+        v26 = v24;
+        v27 = OS_LOG_TYPE_ERROR;
 LABEL_20:
-        _os_log_impl(&dword_1C241C000, v25, v26, v24, &v28, 2u);
+        _os_log_impl(&dword_1C241C000, v26, v27, v25, &v29, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v28) = 0;
-      v24 = "Error: ARSystemTools: Could not create pixel buffer pool.";
-      v25 = v23;
-      v26 = OS_LOG_TYPE_INFO;
+      LOWORD(v29) = 0;
+      v25 = "Error: ARSystemTools: Could not create pixel buffer pool.";
+      v26 = v24;
+      v27 = OS_LOG_TYPE_INFO;
       goto LABEL_20;
     }
   }
@@ -655,7 +662,7 @@ id ARPixelBufferGetMetadata(__CVBuffer *a1)
 
 uint64_t ARPixelBufferConvertYCbCrToARGB(__CVBuffer *a1, CVPixelBufferRef *a2)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
@@ -679,22 +686,22 @@ uint64_t ARPixelBufferConvertYCbCrToARGB(__CVBuffer *a1, CVPixelBufferRef *a2)
             ARCorrectCVPixelBufferOrientation_cold_1();
           }
 
-          v30 = ARShouldUseLogTypeError(void)::internalOSVersion;
-          v31 = _ARLogGeneral();
-          v32 = v31;
-          if (v30 == 1)
+          v31 = ARShouldUseLogTypeError(void)::internalOSVersion;
+          v32 = _ARLogGeneral(v12);
+          v33 = v32;
+          if (v31 == 1)
           {
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
             {
               *outInfo.opaque = 0;
-              _os_log_impl(&dword_1C241C000, v32, OS_LOG_TYPE_ERROR, "Pixel format not supported", outInfo.opaque, 2u);
+              _os_log_impl(&dword_1C241C000, v33, OS_LOG_TYPE_ERROR, "Pixel format not supported", outInfo.opaque, 2u);
             }
           }
 
-          else if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
           {
             *outInfo.opaque = 0;
-            _os_log_impl(&dword_1C241C000, v32, OS_LOG_TYPE_INFO, "Error: Pixel format not supported", outInfo.opaque, 2u);
+            _os_log_impl(&dword_1C241C000, v33, OS_LOG_TYPE_INFO, "Error: Pixel format not supported", outInfo.opaque, 2u);
           }
 
           goto LABEL_67;
@@ -720,22 +727,24 @@ uint64_t ARPixelBufferConvertYCbCrToARGB(__CVBuffer *a1, CVPixelBufferRef *a2)
         *&pixelRange.YpMax = v13;
         pixelRange.CbCrMax = v14;
         pixelRange.CbCrMin = 16 * (PixelFormatType != 875704422);
-        if (!vImageConvert_YpCbCrToARGB_GenerateConversion(v12, &pixelRange, &outInfo, kvImage420Yp8_CbCr8, kvImageARGB8888, 0))
+        v15 = vImageConvert_YpCbCrToARGB_GenerateConversion(v12, &pixelRange, &outInfo, kvImage420Yp8_CbCr8, kvImageARGB8888, 0);
+        if (!v15)
         {
 LABEL_53:
           memset(&buf, 0, sizeof(buf));
-          __ARPixelBufferConvertYCbCrToARGB_block_invoke(a1, 0, &buf.data);
+          __ARPixelBufferConvertYCbCrToARGB_block_invoke(&buf.data, a1, 0);
           memset(&srcCbCr, 0, sizeof(srcCbCr));
-          __ARPixelBufferConvertYCbCrToARGB_block_invoke(a1, 1uLL, &srcCbCr.data);
+          __ARPixelBufferConvertYCbCrToARGB_block_invoke(&srcCbCr.data, a1, 1uLL);
           memset(&dest, 0, sizeof(dest));
-          __ARPixelBufferConvertYCbCrToARGB_block_invoke(*a2, 0, &dest.data);
-          if (!vImageConvert_420Yp8_CbCr8ToARGB8888(&buf, &srcCbCr, &dest, &outInfo, permuteMap, 0xFFu, 0))
+          __ARPixelBufferConvertYCbCrToARGB_block_invoke(&dest.data, *a2, 0);
+          v34 = vImageConvert_420Yp8_CbCr8ToARGB8888(&buf, &srcCbCr, &dest, &outInfo, permuteMap, 0xFFu, 0);
+          if (!v34)
           {
-            v28 = 0;
+            v29 = 0;
 LABEL_68:
             CVPixelBufferUnlockBaseAddress(*a2, 0);
             CVPixelBufferUnlockBaseAddress(a1, 0);
-            return v28;
+            return v29;
           }
 
           if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -743,33 +752,33 @@ LABEL_68:
             ARCorrectCVPixelBufferOrientation_cold_2();
           }
 
-          v33 = ARShouldUseLogTypeError(void)::internalOSVersion;
-          v34 = _ARLogGeneral();
-          v35 = v34;
-          if (v33 == 1)
+          v35 = ARShouldUseLogTypeError(void)::internalOSVersion;
+          v36 = _ARLogGeneral(v34);
+          v37 = v36;
+          if (v35 == 1)
           {
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
-              *v39 = 0;
-              v36 = "Could not convert color formats";
-              v37 = v35;
-              v38 = OS_LOG_TYPE_ERROR;
+              *v41 = 0;
+              v38 = "Could not convert color formats";
+              v39 = v37;
+              v40 = OS_LOG_TYPE_ERROR;
 LABEL_62:
-              _os_log_impl(&dword_1C241C000, v37, v38, v36, v39, 2u);
+              _os_log_impl(&dword_1C241C000, v39, v40, v38, v41, 2u);
             }
           }
 
-          else if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
           {
-            *v39 = 0;
-            v36 = "Error: Could not convert color formats";
-            v37 = v35;
-            v38 = OS_LOG_TYPE_INFO;
+            *v41 = 0;
+            v38 = "Error: Could not convert color formats";
+            v39 = v37;
+            v40 = OS_LOG_TYPE_INFO;
             goto LABEL_62;
           }
 
 LABEL_67:
-          v28 = 4294960636;
+          v29 = 4294960636;
           goto LABEL_68;
         }
 
@@ -778,28 +787,28 @@ LABEL_67:
           ARCorrectCVPixelBufferOrientation_cold_2();
         }
 
-        v15 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v16 = _ARLogGeneral();
-        v17 = v16;
-        if (v15 == 1)
+        v16 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v17 = _ARLogGeneral(v15);
+        v18 = v17;
+        if (v16 == 1)
         {
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             LOWORD(buf.data) = 0;
-            v18 = "Could not generate the conversion format";
-            v19 = v17;
-            v20 = OS_LOG_TYPE_ERROR;
+            v19 = "Could not generate the conversion format";
+            v20 = v18;
+            v21 = OS_LOG_TYPE_ERROR;
 LABEL_51:
-            _os_log_impl(&dword_1C241C000, v19, v20, v18, &buf, 2u);
+            _os_log_impl(&dword_1C241C000, v20, v21, v19, &buf, 2u);
           }
         }
 
-        else if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           LOWORD(buf.data) = 0;
-          v18 = "Error: Could not generate the conversion format";
-          v19 = v17;
-          v20 = OS_LOG_TYPE_INFO;
+          v19 = "Error: Could not generate the conversion format";
+          v20 = v18;
+          v21 = OS_LOG_TYPE_INFO;
           goto LABEL_51;
         }
 
@@ -811,22 +820,22 @@ LABEL_51:
         ARCorrectCVPixelBufferOrientation_cold_1();
       }
 
-      v26 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v27 = _ARLogGeneral();
-      v23 = v27;
-      if (v26 == 1)
+      v27 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v28 = _ARLogGeneral(v9);
+      v24 = v28;
+      if (v27 == 1)
       {
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           *outInfo.opaque = 0;
-          _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_ERROR, "Output pixel buffer must have same dimensions as input pixel buffer", outInfo.opaque, 2u);
+          _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_ERROR, "Output pixel buffer must have same dimensions as input pixel buffer", outInfo.opaque, 2u);
         }
       }
 
-      else if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         *outInfo.opaque = 0;
-        _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_INFO, "Error: Output pixel buffer must have same dimensions as input pixel buffer", outInfo.opaque, 2u);
+        _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_INFO, "Error: Output pixel buffer must have same dimensions as input pixel buffer", outInfo.opaque, 2u);
       }
     }
 
@@ -837,22 +846,22 @@ LABEL_51:
         ARCorrectCVPixelBufferOrientation_cold_1();
       }
 
-      v24 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v25 = _ARLogGeneral();
-      v23 = v25;
-      if (v24 == 1)
+      v25 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v26 = _ARLogGeneral(v9);
+      v24 = v26;
+      if (v25 == 1)
       {
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           *outInfo.opaque = 0;
-          _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_ERROR, "Output pixel buffer must have format kCVPixelFormatType_32ARGB", outInfo.opaque, 2u);
+          _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_ERROR, "Output pixel buffer must have format kCVPixelFormatType_32ARGB", outInfo.opaque, 2u);
         }
       }
 
-      else if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *outInfo.opaque = 0;
-        _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_INFO, "Error: Output pixel buffer must have format kCVPixelFormatType_32ARGB", outInfo.opaque, 2u);
+        _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_INFO, "Error: Output pixel buffer must have format kCVPixelFormatType_32ARGB", outInfo.opaque, 2u);
       }
     }
   }
@@ -864,51 +873,52 @@ LABEL_51:
       ARCorrectCVPixelBufferOrientation_cold_1();
     }
 
-    v21 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v22 = _ARLogGeneral();
-    v23 = v22;
-    if (v21 == 1)
+    v22 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v23 = _ARLogGeneral(a1);
+    v24 = v23;
+    if (v22 == 1)
     {
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *outInfo.opaque = 0;
-        _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_ERROR, "Input buffer cannot be null", outInfo.opaque, 2u);
+        _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_ERROR, "Input buffer cannot be null", outInfo.opaque, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       *outInfo.opaque = 0;
-      _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_INFO, "Error: Input buffer cannot be null", outInfo.opaque, 2u);
+      _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_INFO, "Error: Input buffer cannot be null", outInfo.opaque, 2u);
     }
   }
 
   return 4294960635;
 }
 
-size_t __ARPixelBufferConvertYCbCrToARGB_block_invoke@<X0>(CVPixelBufferRef pixelBuffer@<X1>, size_t planeIndex@<X2>, void **a3@<X8>)
+uint64_t *__ARPixelBufferConvertYCbCrToARGB_block_invoke@<X0>(void **__return_ptr a1@<X8>, CVPixelBufferRef pixelBuffer@<X1>, size_t planeIndex@<X2>)
 {
-  *a3 = CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, planeIndex);
-  a3[1] = CVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex);
-  a3[2] = CVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex);
+  *a1 = CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, planeIndex);
+  a1[1] = CVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex);
+  a1[2] = CVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex);
   result = CVPixelBufferGetBytesPerRowOfPlane(pixelBuffer, planeIndex);
-  a3[3] = result;
+  a1[3] = result;
   return result;
 }
 
 CVPixelBufferRef ARCreatePixelBufferWithConversion(__CVBuffer *a1, OSType a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
+  v36 = *MEMORY[0x1E69E9840];
   v29 = 0;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v23 = __ARCreatePixelBufferWithConversion_block_invoke;
-  v24 = &unk_1E817EB20;
-  v25 = &v26;
-  v4 = VTPixelTransferSessionCreate(0, &v29);
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v26 = __ARCreatePixelBufferWithConversion_block_invoke;
+  v27 = &unk_1E817EB20;
+  v28 = &v29;
+  v4 = VTPixelTransferSessionCreate(0, &v32);
+  v5 = v4;
   if (v4)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -916,99 +926,101 @@ CVPixelBufferRef ARCreatePixelBufferWithConversion(__CVBuffer *a1, OSType a2)
       ARCorrectCVPixelBufferOrientation_cold_2();
     }
 
-    v5 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v6 = _ARLogGeneral();
-    v7 = v6;
-    if (v5 == 1)
+    v6 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v7 = _ARLogGeneral(v4);
+    v8 = v7;
+    if (v6 == 1)
     {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        *&buf[4] = v4;
-        _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_ERROR, "Could not create pixel transfer session. Error code: %d", buf, 8u);
+        *&buf[4] = v5;
+        _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "Could not create pixel transfer session. Error code: %d", buf, 8u);
       }
     }
 
-    else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      *&buf[4] = v4;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "Error: Could not create pixel transfer session. Error code: %d", buf, 8u);
+      *&buf[4] = v5;
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "Error: Could not create pixel transfer session. Error code: %d", buf, 8u);
     }
 
 LABEL_26:
 
 LABEL_32:
-    v20 = 0;
+    v23 = 0;
     goto LABEL_33;
   }
 
   *buf = 0;
   Width = CVPixelBufferGetWidth(a1);
   Height = CVPixelBufferGetHeight(a1);
-  v10 = CVPixelBufferCreate(*MEMORY[0x1E695E480], Width, Height, a2, 0, buf);
-  if (v10)
+  v11 = CVPixelBufferCreate(*MEMORY[0x1E695E480], Width, Height, a2, 0, buf);
+  v12 = v11;
+  if (v11)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_2();
     }
 
-    v11 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v12 = _ARLogGeneral();
-    v7 = v12;
-    if (v11 == 1)
+    v13 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v14 = _ARLogGeneral(v11);
+    v8 = v14;
+    if (v13 == 1)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        *v30 = 67109120;
-        v31 = v10;
-        _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_ERROR, "Could not create RGB24 pixel buffer. Error code: %d", v30, 8u);
+        *v33 = 67109120;
+        v34 = v12;
+        _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "Could not create RGB24 pixel buffer. Error code: %d", v33, 8u);
       }
     }
 
-    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      *v30 = 67109120;
-      v31 = v10;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "Error: Could not create RGB24 pixel buffer. Error code: %d", v30, 8u);
+      *v33 = 67109120;
+      v34 = v12;
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "Error: Could not create RGB24 pixel buffer. Error code: %d", v33, 8u);
     }
 
     goto LABEL_26;
   }
 
-  v13 = VTPixelTransferSessionTransferImage(v27[3], a1, *buf);
-  if (v13)
+  v15 = VTPixelTransferSessionTransferImage(v30[3], a1, *buf);
+  v16 = v15;
+  if (v15)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_2();
     }
 
-    v14 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v15 = _ARLogGeneral();
-    v16 = v15;
-    if (v14 == 1)
+    v17 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v18 = _ARLogGeneral(v15);
+    v19 = v18;
+    if (v17 == 1)
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        *v30 = 67109120;
-        v31 = v13;
-        v17 = "Could not transfer pixel buffer. Error code: %d";
-        v18 = v16;
-        v19 = OS_LOG_TYPE_ERROR;
+        *v33 = 67109120;
+        v34 = v16;
+        v20 = "Could not transfer pixel buffer. Error code: %d";
+        v21 = v19;
+        v22 = OS_LOG_TYPE_ERROR;
 LABEL_30:
-        _os_log_impl(&dword_1C241C000, v18, v19, v17, v30, 8u);
+        _os_log_impl(&dword_1C241C000, v21, v22, v20, v33, 8u);
       }
     }
 
-    else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      *v30 = 67109120;
-      v31 = v13;
-      v17 = "Error: Could not transfer pixel buffer. Error code: %d";
-      v18 = v16;
-      v19 = OS_LOG_TYPE_INFO;
+      *v33 = 67109120;
+      v34 = v16;
+      v20 = "Error: Could not transfer pixel buffer. Error code: %d";
+      v21 = v19;
+      v22 = OS_LOG_TYPE_INFO;
       goto LABEL_30;
     }
 
@@ -1016,23 +1028,23 @@ LABEL_30:
     goto LABEL_32;
   }
 
-  v20 = *buf;
+  v23 = *buf;
 LABEL_33:
-  v23(v22);
-  _Block_object_dispose(&v26, 8);
-  return v20;
+  v26(v25);
+  _Block_object_dispose(&v29, 8);
+  return v23;
 }
 
-void sub_1C2597CA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C2597CA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
-  v6 = va_arg(va1, void (*)(uint64_t *));
-  v7 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void (*)(uint64_t *, uint64_t));
   v8 = va_arg(va1, void);
-  v6(va);
+  v9 = va_arg(va1, void);
+  v7(va, a2);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
@@ -1048,7 +1060,7 @@ void __ARCreatePixelBufferWithConversion_block_invoke(uint64_t a1)
 
 uint64_t ARPixelBufferConvertRGBAHalfTo128RGBAFloat(__CVBuffer *a1, CVPixelBufferRef *a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
@@ -1065,25 +1077,26 @@ uint64_t ARPixelBufferConvertRGBAHalfTo128RGBAFloat(__CVBuffer *a1, CVPixelBuffe
         {
           CVPixelBufferLockBaseAddress(*a2, 0);
           CVPixelBufferLockBaseAddress(a1, 0);
-          v30[0] = MEMORY[0x1E69E9820];
-          v30[1] = 3221225472;
-          v31 = __ARPixelBufferConvertRGBAHalfTo128RGBAFloat_block_invoke;
-          v32 = &__block_descriptor_48_e5_v8__0l;
-          v33 = a2;
-          v34 = a1;
+          v31[0] = MEMORY[0x1E69E9820];
+          v31[1] = 3221225472;
+          v32 = __ARPixelBufferConvertRGBAHalfTo128RGBAFloat_block_invoke;
+          v33 = &__block_descriptor_48_e5_v8__0l;
+          v34 = a2;
+          v35 = a1;
           memset(&src, 0, sizeof(src));
           ARWrapCVPixelBufferVImage(a1, &src.data);
-          memset(&v28, 0, sizeof(v28));
-          ARWrapCVPixelBufferVImage(*a2, &v28.data);
+          memset(&v29, 0, sizeof(v29));
+          ARWrapCVPixelBufferVImage(*a2, &v29.data);
           src.width *= 4;
-          v28.width *= 4;
-          v10 = vImageConvert_Planar16FtoPlanarF(&src, &v28, 0);
+          v29.width *= 4;
+          v10 = vImageConvert_Planar16FtoPlanarF(&src, &v29, 0);
+          v11 = v10;
           if (!v10)
           {
-            v26 = 0;
+            v27 = 0;
 LABEL_54:
-            v31(v30);
-            return v26;
+            v32(v31);
+            return v27;
           }
 
           if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -1091,34 +1104,34 @@ LABEL_54:
             ARCorrectCVPixelBufferOrientation_cold_2();
           }
 
-          v11 = ARShouldUseLogTypeError(void)::internalOSVersion;
-          v12 = _ARLogGeneral();
-          v13 = v12;
-          if (v11 == 1)
+          v12 = ARShouldUseLogTypeError(void)::internalOSVersion;
+          v13 = _ARLogGeneral(v10);
+          v14 = v13;
+          if (v12 == 1)
           {
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
               *buf = 134217984;
-              v36 = v10;
-              v14 = "vImageConvert_Planar16FtoPlanarF error: %zd";
-              v15 = v13;
-              v16 = OS_LOG_TYPE_ERROR;
+              v37 = v11;
+              v15 = "vImageConvert_Planar16FtoPlanarF error: %zd";
+              v16 = v14;
+              v17 = OS_LOG_TYPE_ERROR;
 LABEL_52:
-              _os_log_impl(&dword_1C241C000, v15, v16, v14, buf, 0xCu);
+              _os_log_impl(&dword_1C241C000, v16, v17, v15, buf, 0xCu);
             }
           }
 
-          else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             *buf = 134217984;
-            v36 = v10;
-            v14 = "Error: vImageConvert_Planar16FtoPlanarF error: %zd";
-            v15 = v13;
-            v16 = OS_LOG_TYPE_INFO;
+            v37 = v11;
+            v15 = "Error: vImageConvert_Planar16FtoPlanarF error: %zd";
+            v16 = v14;
+            v17 = OS_LOG_TYPE_INFO;
             goto LABEL_52;
           }
 
-          v26 = 4294960636;
+          v27 = 4294960636;
           goto LABEL_54;
         }
 
@@ -1127,22 +1140,22 @@ LABEL_52:
           ARCorrectCVPixelBufferOrientation_cold_1();
         }
 
-        v24 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v25 = _ARLogGeneral();
-        v19 = v25;
-        if (v24 == 1)
+        v25 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v26 = _ARLogGeneral(v9);
+        v20 = v26;
+        if (v25 == 1)
         {
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             LOWORD(src.data) = 0;
-            _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_ERROR, "Output pixel buffer must have same dimensions as input pixel buffer", &src, 2u);
+            _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_ERROR, "Output pixel buffer must have same dimensions as input pixel buffer", &src, 2u);
           }
         }
 
-        else if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
           LOWORD(src.data) = 0;
-          _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "Error: Output pixel buffer must have same dimensions as input pixel buffer", &src, 2u);
+          _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_INFO, "Error: Output pixel buffer must have same dimensions as input pixel buffer", &src, 2u);
         }
       }
 
@@ -1153,22 +1166,22 @@ LABEL_52:
           ARCorrectCVPixelBufferOrientation_cold_1();
         }
 
-        v22 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v23 = _ARLogGeneral();
-        v19 = v23;
-        if (v22 == 1)
+        v23 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v24 = _ARLogGeneral(v9);
+        v20 = v24;
+        if (v23 == 1)
         {
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
             LOWORD(src.data) = 0;
-            _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_ERROR, "Output pixel buffer must have format kCVPixelFormatType_128RGBAFloat", &src, 2u);
+            _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_ERROR, "Output pixel buffer must have format kCVPixelFormatType_128RGBAFloat", &src, 2u);
           }
         }
 
-        else if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           LOWORD(src.data) = 0;
-          _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "Error: Output pixel buffer must have format kCVPixelFormatType_128RGBAFloat", &src, 2u);
+          _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_INFO, "Error: Output pixel buffer must have format kCVPixelFormatType_128RGBAFloat", &src, 2u);
         }
       }
     }
@@ -1180,22 +1193,22 @@ LABEL_52:
         ARCorrectCVPixelBufferOrientation_cold_1();
       }
 
-      v20 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v21 = _ARLogGeneral();
-      v19 = v21;
-      if (v20 == 1)
+      v21 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v22 = _ARLogGeneral(v9);
+      v20 = v22;
+      if (v21 == 1)
       {
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           LOWORD(src.data) = 0;
-          _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_ERROR, "Input pixel buffer must have format kCVPixelFormatType_64RGBAHalf", &src, 2u);
+          _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_ERROR, "Input pixel buffer must have format kCVPixelFormatType_64RGBAHalf", &src, 2u);
         }
       }
 
-      else if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         LOWORD(src.data) = 0;
-        _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "Error: Input pixel buffer must have format kCVPixelFormatType_64RGBAHalf", &src, 2u);
+        _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_INFO, "Error: Input pixel buffer must have format kCVPixelFormatType_64RGBAHalf", &src, 2u);
       }
     }
   }
@@ -1207,22 +1220,22 @@ LABEL_52:
       ARCorrectCVPixelBufferOrientation_cold_1();
     }
 
-    v17 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v18 = _ARLogGeneral();
-    v19 = v18;
-    if (v17 == 1)
+    v18 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v19 = _ARLogGeneral(a1);
+    v20 = v19;
+    if (v18 == 1)
     {
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         LOWORD(src.data) = 0;
-        _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_ERROR, "Input buffer cannot be null", &src, 2u);
+        _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_ERROR, "Input buffer cannot be null", &src, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       LOWORD(src.data) = 0;
-      _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "Error: Input buffer cannot be null", &src, 2u);
+      _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_INFO, "Error: Input buffer cannot be null", &src, 2u);
     }
   }
 
@@ -1247,7 +1260,7 @@ uint64_t ARPixelBufferConvertTwoComponent16HalfToRGBAHalf(__CVBuffer *a1, CVPixe
     }
 
     v21 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v22 = _ARLogGeneral();
+    v22 = _ARLogGeneral(a1);
     v23 = v22;
     if (v21 != 1)
     {
@@ -1290,7 +1303,7 @@ LABEL_42:
     }
 
     v25 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v26 = _ARLogGeneral();
+    v26 = _ARLogGeneral(v9);
     v23 = v26;
     if (v25 != 1)
     {
@@ -1322,7 +1335,7 @@ LABEL_42:
     }
 
     v27 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v28 = _ARLogGeneral();
+    v28 = _ARLogGeneral(v9);
     v23 = v28;
     if (v27 != 1)
     {
@@ -1354,7 +1367,7 @@ LABEL_42:
     }
 
     v29 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v30 = _ARLogGeneral();
+    v30 = _ARLogGeneral(v9);
     v23 = v30;
     if (v29 == 1)
     {
@@ -1444,7 +1457,7 @@ uint64_t ARPixelBufferConvertBGRAToARGB(__CVBuffer *a1, CVPixelBufferRef *a2)
     }
 
     v22 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v23 = _ARLogGeneral();
+    v23 = _ARLogGeneral(a1);
     v24 = v23;
     if (v22 != 1)
     {
@@ -1487,7 +1500,7 @@ LABEL_42:
     }
 
     v26 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v27 = _ARLogGeneral();
+    v27 = _ARLogGeneral(v9);
     v24 = v27;
     if (v26 != 1)
     {
@@ -1519,7 +1532,7 @@ LABEL_42:
     }
 
     v28 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v29 = _ARLogGeneral();
+    v29 = _ARLogGeneral(v9);
     v24 = v29;
     if (v28 != 1)
     {
@@ -1551,7 +1564,7 @@ LABEL_42:
     }
 
     v30 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v31 = _ARLogGeneral();
+    v31 = _ARLogGeneral(v9);
     v24 = v31;
     if (v30 == 1)
     {
@@ -1643,7 +1656,7 @@ uint64_t AROSTypeFromMTLPixelFormat(uint64_t a1)
     }
 
     v7 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v8 = _ARLogGeneral();
+    v8 = _ARLogGeneral(a1);
     v9 = v8;
     if (v7 == 1)
     {
@@ -1675,7 +1688,7 @@ LABEL_14:
   return 1278226488;
 }
 
-uint64_t ARMTLPixelFormatFromOSType(unsigned int a1)
+uint64_t ARMTLPixelFormatFromOSType(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   if (a1 == 1278226488)
@@ -1686,6 +1699,7 @@ uint64_t ARMTLPixelFormatFromOSType(unsigned int a1)
 
   else
   {
+    v2 = a1;
     v3 = "800L";
     v4 = 10;
     while (--v4)
@@ -1705,13 +1719,13 @@ uint64_t ARMTLPixelFormatFromOSType(unsigned int a1)
     }
 
     v7 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v8 = _ARLogGeneral();
+    v8 = _ARLogGeneral(a1);
     v9 = v8;
     if (v7 == 1)
     {
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v10 = AROSTypeToString(a1);
+        v10 = AROSTypeToString(v2);
         v12 = 138543362;
         v13 = v10;
         _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_ERROR, "OSType not supported %{public}@", &v12, 0xCu);
@@ -1720,7 +1734,7 @@ uint64_t ARMTLPixelFormatFromOSType(unsigned int a1)
 
     else if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v11 = AROSTypeToString(a1);
+      v11 = AROSTypeToString(v2);
       v12 = 138543362;
       v13 = v11;
       _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "Error: OSType not supported %{public}@", &v12, 0xCu);
@@ -1792,7 +1806,7 @@ id AROSTypeToString(unsigned int a1)
   return v9;
 }
 
-uint64_t ARBytesPerElement(unsigned int a1)
+uint64_t ARBytesPerElement(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   if (a1 == 1278226488)
@@ -1803,6 +1817,7 @@ uint64_t ARBytesPerElement(unsigned int a1)
 
   else
   {
+    v2 = a1;
     v3 = "800L";
     v4 = 10;
     while (--v4)
@@ -1822,13 +1837,13 @@ uint64_t ARBytesPerElement(unsigned int a1)
     }
 
     v7 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v8 = _ARLogGeneral();
+    v8 = _ARLogGeneral(a1);
     v9 = v8;
     if (v7 == 1)
     {
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v10 = AROSTypeToString(a1);
+        v10 = AROSTypeToString(v2);
         v12 = 138543362;
         v13 = v10;
         _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_ERROR, "OSType not supported %{public}@", &v12, 0xCu);
@@ -1837,7 +1852,7 @@ uint64_t ARBytesPerElement(unsigned int a1)
 
     else if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v11 = AROSTypeToString(a1);
+      v11 = AROSTypeToString(v2);
       v12 = 138543362;
       v13 = v11;
       _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "Error: OSType not supported %{public}@", &v12, 0xCu);
@@ -1980,7 +1995,7 @@ uint64_t ARUnWrapOneComponent16BufferDepth32BitsBuffer(__CVBuffer *a1, __CVBuffe
     }
 
     v16 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v17 = _ARLogGeneral();
+    v17 = _ARLogGeneral(v5);
     v18 = v17;
     if (v16 != 1)
     {
@@ -2025,7 +2040,7 @@ LABEL_40:
     }
 
     v21 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v22 = _ARLogGeneral();
+    v22 = _ARLogGeneral(v11);
     v18 = v22;
     if (v21 != 1)
     {
@@ -2060,7 +2075,7 @@ LABEL_40:
     }
 
     v23 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v24 = _ARLogGeneral();
+    v24 = _ARLogGeneral(v11);
     v18 = v24;
     if (v23 == 1)
     {
@@ -2150,7 +2165,7 @@ uint64_t ARWrapDepth32BitsBufferOneComponent16Buffer(__CVBuffer *a1, __CVBuffer 
     }
 
     v16 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v17 = _ARLogGeneral();
+    v17 = _ARLogGeneral(v5);
     v18 = v17;
     if (v16 != 1)
     {
@@ -2195,7 +2210,7 @@ LABEL_40:
     }
 
     v21 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v22 = _ARLogGeneral();
+    v22 = _ARLogGeneral(v11);
     v18 = v22;
     if (v21 != 1)
     {
@@ -2229,7 +2244,7 @@ LABEL_40:
     }
 
     v23 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v24 = _ARLogGeneral();
+    v24 = _ARLogGeneral(v11);
     v18 = v24;
     if (v23 == 1)
     {
@@ -2320,7 +2335,7 @@ uint64_t ARWrapDepth32BitsBufferOneComponent8BufferWithScale(__CVBuffer *a1, __C
     }
 
     v22 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v23 = _ARLogGeneral();
+    v23 = _ARLogGeneral(v7);
     v24 = v23;
     if (v22 != 1)
     {
@@ -2365,7 +2380,7 @@ LABEL_34:
     }
 
     v27 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v28 = _ARLogGeneral();
+    v28 = _ARLogGeneral(v13);
     v24 = v28;
     if (v27 != 1)
     {
@@ -2399,7 +2414,7 @@ LABEL_34:
     }
 
     v29 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v30 = _ARLogGeneral();
+    v30 = _ARLogGeneral(v13);
     v24 = v30;
     if (v29 == 1)
     {
@@ -2468,7 +2483,7 @@ uint64_t ARWrapDepth32BitsBufferOneComponent16BufferWithScale(__CVBuffer *a1, __
     }
 
     v22 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v23 = _ARLogGeneral();
+    v23 = _ARLogGeneral(v7);
     v24 = v23;
     if (v22 == 1)
     {
@@ -2512,7 +2527,7 @@ LABEL_22:
     }
 
     v29 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v30 = _ARLogGeneral();
+    v30 = _ARLogGeneral(v13);
     v24 = v30;
     if (v29 == 1)
     {
@@ -2546,7 +2561,7 @@ LABEL_22:
     }
 
     v31 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v32 = _ARLogGeneral();
+    v32 = _ARLogGeneral(v13);
     v24 = v32;
     if (v31 == 1)
     {
@@ -2613,7 +2628,7 @@ uint64_t ARConvertDepthFloatingPointBufferToFixedPointUnsigned13_3Buffer(__CVBuf
     }
 
     v19 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v20 = _ARLogGeneral();
+    v20 = _ARLogGeneral(v5);
     v21 = v20;
     if (v19 == 1)
     {
@@ -2689,7 +2704,7 @@ LABEL_50:
       ARCorrectCVPixelBufferOrientation_cold_1();
 LABEL_43:
       v41 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v42 = _ARLogGeneral();
+      v42 = _ARLogGeneral(v11);
       v21 = v42;
       if (v41 == 1)
       {
@@ -2720,7 +2735,7 @@ LABEL_21:
     {
 LABEL_35:
       v39 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v40 = _ARLogGeneral();
+      v40 = _ARLogGeneral(v11);
       v21 = v40;
       if (v39 == 1)
       {
@@ -2808,7 +2823,7 @@ uint64_t ARUnWrapFixedPointUnsigned13_3_OneComponent16Buffer_Depth32BitsBuffer(_
     }
 
     v21 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v22 = _ARLogGeneral();
+    v22 = _ARLogGeneral(v5);
     v23 = v22;
     if (v21 != 1)
     {
@@ -2853,7 +2868,7 @@ LABEL_36:
     }
 
     v26 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v27 = _ARLogGeneral();
+    v27 = _ARLogGeneral(v11);
     v23 = v27;
     if (v26 != 1)
     {
@@ -2887,7 +2902,7 @@ LABEL_36:
     }
 
     v28 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v29 = _ARLogGeneral();
+    v29 = _ARLogGeneral(v11);
     v23 = v29;
     if (v28 == 1)
     {
@@ -2957,7 +2972,7 @@ uint64_t ARConvertFixedPointUnsigned13_3ToDepthFloat32Buffer(__CVBuffer *a1, __C
     }
 
     v21 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v22 = _ARLogGeneral();
+    v22 = _ARLogGeneral(v5);
     v23 = v22;
     if (v21 != 1)
     {
@@ -3002,7 +3017,7 @@ LABEL_34:
     }
 
     v26 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v27 = _ARLogGeneral();
+    v27 = _ARLogGeneral(v11);
     v23 = v27;
     if (v26 != 1)
     {
@@ -3036,7 +3051,7 @@ LABEL_34:
     }
 
     v28 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v29 = _ARLogGeneral();
+    v29 = _ARLogGeneral(v11);
     v23 = v29;
     if (v28 == 1)
     {
@@ -3106,7 +3121,7 @@ uint64_t ARDepth32BitsBufferToBGRAWithScaling(__CVBuffer *a1, __CVBuffer *a2, fl
     }
 
     v29 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v30 = _ARLogGeneral();
+    v30 = _ARLogGeneral(v7);
     v31 = v30;
     if (v29 != 1)
     {
@@ -3151,7 +3166,7 @@ LABEL_47:
     }
 
     v34 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v35 = _ARLogGeneral();
+    v35 = _ARLogGeneral(v13);
     v31 = v35;
     if (v34 != 1)
     {
@@ -3185,7 +3200,7 @@ LABEL_47:
     }
 
     v36 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v37 = _ARLogGeneral();
+    v37 = _ARLogGeneral(v13);
     v31 = v37;
     if (v36 == 1)
     {
@@ -3297,37 +3312,38 @@ LABEL_46:
 
 void ARDepth32ImageAverageDepth(__CVBuffer *a1)
 {
-  if (CVPixelBufferGetPixelFormatType(a1) != 1717855600)
+  PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
+  if (PixelFormatType != 1717855600)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_1();
     }
 
-    v12 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v13 = _ARLogGeneral();
-    v14 = v13;
-    if (v12 == 1)
+    v13 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v14 = _ARLogGeneral(PixelFormatType);
+    v15 = v14;
+    if (v13 == 1)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v20 = 0;
-        v15 = "Source buffer must have pixel format kCVPixelFormatType_DepthFloat32.";
-        v16 = &v20;
-        v17 = v14;
-        v18 = OS_LOG_TYPE_ERROR;
+        v21 = 0;
+        v16 = "Source buffer must have pixel format kCVPixelFormatType_DepthFloat32.";
+        v17 = &v21;
+        v18 = v15;
+        v19 = OS_LOG_TYPE_ERROR;
 LABEL_17:
-        _os_log_impl(&dword_1C241C000, v17, v18, v15, v16, 2u);
+        _os_log_impl(&dword_1C241C000, v18, v19, v16, v17, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v19 = 0;
-      v15 = "Error: Source buffer must have pixel format kCVPixelFormatType_DepthFloat32.";
-      v16 = &v19;
-      v17 = v14;
-      v18 = OS_LOG_TYPE_INFO;
+      v20 = 0;
+      v16 = "Error: Source buffer must have pixel format kCVPixelFormatType_DepthFloat32.";
+      v17 = &v20;
+      v18 = v15;
+      v19 = OS_LOG_TYPE_INFO;
       goto LABEL_17;
     }
 
@@ -3341,31 +3357,31 @@ LABEL_17:
   BaseAddress = CVPixelBufferGetBaseAddress(a1);
   if (Height)
   {
-    v6 = 0;
     v7 = 0;
-    v8 = 0.0;
+    v8 = 0;
+    v9 = 0.0;
     do
     {
       if (Width)
       {
-        v9 = Width;
-        v10 = BaseAddress;
+        v10 = Width;
+        v11 = BaseAddress;
         do
         {
-          v11 = *v10++;
-          v8 = v8 + v11;
-          --v9;
+          v12 = *v11++;
+          v9 = v9 + v12;
+          --v10;
         }
 
-        while (v9);
-        v7 += Width;
+        while (v10);
+        v8 += Width;
       }
 
-      ++v6;
+      ++v7;
       BaseAddress = (BaseAddress + BytesPerRow);
     }
 
-    while (v6 != Height);
+    while (v7 != Height);
   }
 
   CVPixelBufferUnlockBaseAddress(a1, 1uLL);
@@ -3382,7 +3398,7 @@ void ARDepth16ImageAverageDepth(__CVBuffer *a1)
     }
 
     v18 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v19 = _ARLogGeneral();
+    v19 = _ARLogGeneral(PixelFormatType);
     v20 = v19;
     if (v18 == 1)
     {
@@ -3459,16 +3475,16 @@ LABEL_22:
   CVPixelBufferUnlockBaseAddress(a1, 1uLL);
 }
 
-id ARDepthRepresentationDictionaryClassList()
+id ARDepthRepresentationDictionaryClassList(uint64_t a1)
 {
   if (ARDepthRepresentationDictionaryClassList::onceToken != -1)
   {
     ARDepthRepresentationDictionaryClassList_cold_1();
   }
 
-  v1 = ARDepthRepresentationDictionaryClassList::depthMetadataClasses;
+  v2 = ARDepthRepresentationDictionaryClassList::depthMetadataClasses;
 
-  return v1;
+  return v2;
 }
 
 void __ARDepthRepresentationDictionaryClassList_block_invoke()
@@ -3529,52 +3545,54 @@ id ARDepthRepresentationDictionary(void *a1)
 
 CVPixelBufferRef ARCreatePixelBufferFromCGImage(CGImage *a1)
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E6966028];
-  v23[0] = *MEMORY[0x1E6966030];
-  v23[1] = v2;
-  v24[0] = MEMORY[0x1E695E118];
-  v24[1] = MEMORY[0x1E695E118];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v25[0] = *MEMORY[0x1E6966030];
+  v25[1] = v2;
+  v26[0] = MEMORY[0x1E695E118];
+  v26[1] = MEMORY[0x1E695E118];
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
   pixelBufferOut = 0;
   Width = CGImageGetWidth(a1);
   Height = CGImageGetHeight(a1);
-  if (CVPixelBufferCreate(*MEMORY[0x1E695E480], Width, Height, 0x20u, v3, &pixelBufferOut))
+  v6 = CVPixelBufferCreate(*MEMORY[0x1E695E480], Width, Height, 0x20u, v3, &pixelBufferOut);
+  v7 = pixelBufferOut;
+  if (v6)
   {
-    v6 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v6 = pixelBufferOut == 0;
+    v8 = pixelBufferOut == 0;
   }
 
-  if (v6)
+  if (v8)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_2();
     }
 
-    v7 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v8 = _ARLogGeneral();
-    v9 = v8;
-    if (v7 == 1)
+    v9 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v10 = _ARLogGeneral(v7);
+    v11 = v10;
+    if (v9 == 1)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v21.a) = 0;
-        _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_ERROR, "Operation failed: Could not create a pixel buffer", &v21, 2u);
+        LOWORD(v23.a) = 0;
+        _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_ERROR, "Operation failed: Could not create a pixel buffer", &v23, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v21.a) = 0;
-      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "Error: Operation failed: Could not create a pixel buffer", &v21, 2u);
+      LOWORD(v23.a) = 0;
+      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_INFO, "Error: Operation failed: Could not create a pixel buffer", &v23, 2u);
     }
 
-    v19 = 0;
+    v21 = 0;
   }
 
   else
@@ -3584,25 +3602,25 @@ CVPixelBufferRef ARCreatePixelBufferFromCGImage(CGImage *a1)
     BitsPerComponent = CGImageGetBitsPerComponent(a1);
     BytesPerRow = CVPixelBufferGetBytesPerRow(pixelBufferOut);
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
-    v14 = CGImageGetWidth(a1);
-    v15 = CGImageGetHeight(a1);
-    v16 = CGBitmapContextCreate(BaseAddress, v14, v15, BitsPerComponent, BytesPerRow, DeviceRGB, 6u);
-    CGAffineTransformMakeRotation(&v21, 0.0);
-    CGContextConcatCTM(v16, &v21);
-    v17 = CGImageGetWidth(a1);
-    v18 = CGImageGetHeight(a1);
-    v25.size.width = v17;
-    v25.size.height = v18;
-    v25.origin.x = 0.0;
-    v25.origin.y = 0.0;
-    CGContextDrawImage(v16, v25, a1);
+    v16 = CGImageGetWidth(a1);
+    v17 = CGImageGetHeight(a1);
+    v18 = CGBitmapContextCreate(BaseAddress, v16, v17, BitsPerComponent, BytesPerRow, DeviceRGB, 6u);
+    CGAffineTransformMakeRotation(&v23, 0.0);
+    CGContextConcatCTM(v18, &v23);
+    v19 = CGImageGetWidth(a1);
+    v20 = CGImageGetHeight(a1);
+    v27.size.width = v19;
+    v27.size.height = v20;
+    v27.origin.x = 0.0;
+    v27.origin.y = 0.0;
+    CGContextDrawImage(v18, v27, a1);
     CGColorSpaceRelease(DeviceRGB);
-    CGContextRelease(v16);
+    CGContextRelease(v18);
     CVPixelBufferUnlockBaseAddress(pixelBufferOut, 0);
-    v19 = pixelBufferOut;
+    v21 = pixelBufferOut;
   }
 
-  return v19;
+  return v21;
 }
 
 uint64_t ARReadDepthBufferFromFile(void *a1, CVPixelBufferRef *a2, float a3)
@@ -3622,33 +3640,33 @@ uint64_t ARReadDepthBufferFromFile(void *a1, CVPixelBufferRef *a2, float a3)
       ARCorrectCVPixelBufferOrientation_cold_1();
     }
 
-    v20 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v21 = _ARLogGeneral();
-    v22 = v21;
-    if (v20 != 1)
+    v23 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v24 = _ARLogGeneral(v11);
+    v25 = v24;
+    if (v23 != 1)
     {
-      if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
         goto LABEL_61;
       }
 
-      *v50 = 0;
-      v23 = "Error: CGImageSourceCreateWithURL() failed!";
+      *v56 = 0;
+      v26 = "Error: CGImageSourceCreateWithURL() failed!";
       goto LABEL_59;
     }
 
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_61;
     }
 
-    *v50 = 0;
-    v23 = "CGImageSourceCreateWithURL() failed!";
+    *v56 = 0;
+    v26 = "CGImageSourceCreateWithURL() failed!";
 LABEL_47:
-    v41 = v22;
-    v42 = OS_LOG_TYPE_ERROR;
+    v47 = v25;
+    v48 = OS_LOG_TYPE_ERROR;
 LABEL_60:
-    _os_log_impl(&dword_1C241C000, v41, v42, v23, v50, 2u);
+    _os_log_impl(&dword_1C241C000, v47, v48, v26, v56, 2u);
     goto LABEL_61;
   }
 
@@ -3661,68 +3679,69 @@ LABEL_60:
       ARCorrectCVPixelBufferOrientation_cold_1();
     }
 
-    v24 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v25 = _ARLogGeneral();
-    v22 = v25;
-    if (v24 != 1)
+    v27 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v28 = _ARLogGeneral(v13);
+    v25 = v28;
+    if (v27 != 1)
     {
-      if (!os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         goto LABEL_61;
       }
 
-      *v50 = 0;
-      v23 = "Error: CGImageSourceCreateImageAtIndex() failed!";
+      *v56 = 0;
+      v26 = "Error: CGImageSourceCreateImageAtIndex() failed!";
       goto LABEL_59;
     }
 
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_61;
     }
 
-    *v50 = 0;
-    v23 = "CGImageSourceCreateImageAtIndex() failed!";
+    *v56 = 0;
+    v26 = "CGImageSourceCreateImageAtIndex() failed!";
     goto LABEL_47;
   }
 
   ColorSpace = CGImageGetColorSpace(ImageAtIndex);
   Model = CGColorSpaceGetModel(ColorSpace);
-  if (Model | CGImageGetAlphaInfo(ImageAtIndex))
+  AlphaInfo = CGImageGetAlphaInfo(ImageAtIndex);
+  if (Model | AlphaInfo)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_1();
     }
 
-    v14 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v15 = _ARLogGeneral();
-    v16 = v15;
-    if (v14 == 1)
+    v17 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v18 = _ARLogGeneral(AlphaInfo);
+    v19 = v18;
+    if (v17 == 1)
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        *v50 = 0;
-        v17 = "unexpected image format!";
-        v18 = v16;
-        v19 = OS_LOG_TYPE_ERROR;
+        *v56 = 0;
+        v20 = "unexpected image format!";
+        v21 = v19;
+        v22 = OS_LOG_TYPE_ERROR;
 LABEL_33:
-        _os_log_impl(&dword_1C241C000, v18, v19, v17, v50, 2u);
+        _os_log_impl(&dword_1C241C000, v21, v22, v20, v56, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      *v50 = 0;
-      v17 = "Error: unexpected image format!";
-      v18 = v16;
-      v19 = OS_LOG_TYPE_INFO;
+      *v56 = 0;
+      v20 = "Error: unexpected image format!";
+      v21 = v19;
+      v22 = OS_LOG_TYPE_INFO;
       goto LABEL_33;
     }
 
     CGImageRelease(ImageAtIndex);
 LABEL_62:
-    v48 = 0;
+    v54 = 0;
     goto LABEL_63;
   }
 
@@ -3738,40 +3757,75 @@ LABEL_62:
       ARCorrectCVPixelBufferOrientation_cold_1();
     }
 
-    v37 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v38 = _ARLogGeneral();
-    v22 = v38;
-    if (v37 == 1)
+    v42 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v43 = _ARLogGeneral(v41);
+    v25 = v43;
+    if (v42 == 1)
     {
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        *v50 = 0;
-        v23 = "expected 16bit format!";
+        *v56 = 0;
+        v26 = "expected 16bit format!";
         goto LABEL_47;
       }
 
       goto LABEL_61;
     }
 
-    if (!os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
     {
       goto LABEL_61;
     }
 
-    *v50 = 0;
-    v23 = "Error: expected 16bit format!";
+    *v56 = 0;
+    v26 = "Error: expected 16bit format!";
 LABEL_59:
-    v41 = v22;
-    v42 = OS_LOG_TYPE_INFO;
+    v47 = v25;
+    v48 = OS_LOG_TYPE_INFO;
     goto LABEL_60;
   }
 
-  v30 = BytesPerRow;
+  v33 = BytesPerRow;
   DataProvider = CGImageGetDataProvider(ImageAtIndex);
-  v32 = CGDataProviderCopyData(DataProvider);
-  v33 = v32;
-  if (!v32)
+  v35 = CGDataProviderCopyData(DataProvider);
+  v36 = v35;
+  if (!v35)
   {
+    CGImageRelease(ImageAtIndex);
+    if (ARShouldUseLogTypeError(void)::onceToken != -1)
+    {
+      ARCorrectCVPixelBufferOrientation_cold_1();
+    }
+
+    v45 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v46 = _ARLogGeneral(v44);
+    v25 = v46;
+    if (v45 == 1)
+    {
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      {
+        *v56 = 0;
+        v26 = "CGDataProviderCopyData() failed!";
+        goto LABEL_47;
+      }
+
+      goto LABEL_61;
+    }
+
+    if (!os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+    {
+      goto LABEL_61;
+    }
+
+    *v56 = 0;
+    v26 = "Error: CGDataProviderCopyData() failed!";
+    goto LABEL_59;
+  }
+
+  BytePtr = CFDataGetBytePtr(v35);
+  if (CVPixelBufferCreate(v7, Width, Height, 0x66646570u, 0, a2))
+  {
+    CFRelease(v36);
     CGImageRelease(ImageAtIndex);
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
@@ -3779,49 +3833,14 @@ LABEL_59:
     }
 
     v39 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v40 = _ARLogGeneral();
-    v22 = v40;
+    v40 = _ARLogGeneral(v38);
+    v25 = v40;
     if (v39 == 1)
     {
       if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        *v50 = 0;
-        v23 = "CGDataProviderCopyData() failed!";
-        goto LABEL_47;
-      }
-
-      goto LABEL_61;
-    }
-
-    if (!os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
-    {
-      goto LABEL_61;
-    }
-
-    *v50 = 0;
-    v23 = "Error: CGDataProviderCopyData() failed!";
-    goto LABEL_59;
-  }
-
-  BytePtr = CFDataGetBytePtr(v32);
-  if (CVPixelBufferCreate(v7, Width, Height, 0x66646570u, 0, a2))
-  {
-    CFRelease(v33);
-    CGImageRelease(ImageAtIndex);
-    if (ARShouldUseLogTypeError(void)::onceToken != -1)
-    {
-      ARCorrectCVPixelBufferOrientation_cold_1();
-    }
-
-    v35 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v36 = _ARLogGeneral();
-    v22 = v36;
-    if (v35 == 1)
-    {
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
-      {
-        *v50 = 0;
-        v23 = "CVPixelBufferCreate() failed!";
+        *v56 = 0;
+        v26 = "CVPixelBufferCreate() failed!";
         goto LABEL_47;
       }
 
@@ -3830,57 +3849,57 @@ LABEL_61:
       goto LABEL_62;
     }
 
-    if (!os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
     {
       goto LABEL_61;
     }
 
-    *v50 = 0;
-    v23 = "Error: CVPixelBufferCreate() failed!";
+    *v56 = 0;
+    v26 = "Error: CVPixelBufferCreate() failed!";
     goto LABEL_59;
   }
 
   CVPixelBufferLockBaseAddress(*a2, 0);
   BaseAddress = CVPixelBufferGetBaseAddress(*a2);
-  v44 = CVPixelBufferGetBytesPerRow(*a2);
+  v50 = CVPixelBufferGetBytesPerRow(*a2);
   if (Height)
   {
-    LODWORD(v46) = 0;
+    LODWORD(v52) = 0;
     do
     {
       if (Width)
       {
-        v47 = 0;
+        v53 = 0;
         do
         {
-          LOWORD(v45) = *&BytePtr[2 * v47];
-          v45 = LODWORD(v45) * a3;
-          BaseAddress[v47++] = v45;
+          LOWORD(v51) = *&BytePtr[2 * v53];
+          v51 = LODWORD(v51) * a3;
+          BaseAddress[v53++] = v51;
         }
 
-        while (Width > v47);
+        while (Width > v53);
       }
 
-      BytePtr += v30;
-      BaseAddress = (BaseAddress + v44);
-      v46 = (v46 + 1);
+      BytePtr += v33;
+      BaseAddress = (BaseAddress + v50);
+      v52 = (v52 + 1);
     }
 
-    while (Height > v46);
+    while (Height > v52);
   }
 
   CVPixelBufferUnlockBaseAddress(*a2, 0);
-  CFRelease(v33);
+  CFRelease(v36);
   CGImageRelease(ImageAtIndex);
-  v48 = 1;
+  v54 = 1;
 LABEL_63:
 
-  return v48;
+  return v54;
 }
 
 uint64_t ARPixelBufferCopy(__CVBuffer *a1, __CVBuffer *a2)
 {
-  v101 = *MEMORY[0x1E69E9840];
+  v109 = *MEMORY[0x1E69E9840];
   Width = CVPixelBufferGetWidth(a1);
   v5 = CVPixelBufferGetWidth(a2);
   Height = CVPixelBufferGetHeight(a1);
@@ -3893,7 +3912,7 @@ uint64_t ARPixelBufferCopy(__CVBuffer *a1, __CVBuffer *a2)
     }
 
     v13 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v14 = _ARLogGeneral();
+    v14 = _ARLogGeneral(v7);
     v12 = v14;
     if (v13 == 1)
     {
@@ -3916,12 +3935,13 @@ uint64_t ARPixelBufferCopy(__CVBuffer *a1, __CVBuffer *a2)
   v8 = CVPixelBufferLockBaseAddress(a1, 0);
   if (!v8)
   {
-    v81[0] = MEMORY[0x1E69E9820];
-    v81[1] = 3221225472;
-    v82 = __ARPixelBufferCopy_block_invoke;
-    v83 = &__block_descriptor_40_e5_v8__0l;
-    v84 = a1;
+    v89[0] = MEMORY[0x1E69E9820];
+    v89[1] = 3221225472;
+    v90 = __ARPixelBufferCopy_block_invoke;
+    v91 = &__block_descriptor_40_e5_v8__0l;
+    v92 = a1;
     v15 = CVPixelBufferLockBaseAddress(a2, 0);
+    v16 = v15;
     if (v15)
     {
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -3929,91 +3949,94 @@ uint64_t ARPixelBufferCopy(__CVBuffer *a1, __CVBuffer *a2)
         ARCorrectCVPixelBufferOrientation_cold_2();
       }
 
-      v16 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v17 = _ARLogGeneral();
-      v18 = v17;
-      if (v16 == 1)
+      v17 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v18 = _ARLogGeneral(v15);
+      v19 = v18;
+      if (v17 == 1)
       {
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(v86) = v15;
-          v19 = "ARPixelBufferCopy: Error locking destination buffer: %d";
-          v20 = v18;
-          v21 = OS_LOG_TYPE_ERROR;
+          LODWORD(v94) = v16;
+          v20 = "ARPixelBufferCopy: Error locking destination buffer: %d";
+          v21 = v19;
+          v22 = OS_LOG_TYPE_ERROR;
 LABEL_44:
-          _os_log_impl(&dword_1C241C000, v20, v21, v19, buf, 8u);
+          _os_log_impl(&dword_1C241C000, v21, v22, v20, buf, 8u);
         }
       }
 
-      else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        LODWORD(v86) = v15;
-        v19 = "Error: ARPixelBufferCopy: Error locking destination buffer: %d";
-        v20 = v18;
-        v21 = OS_LOG_TYPE_INFO;
+        LODWORD(v94) = v16;
+        v20 = "Error: ARPixelBufferCopy: Error locking destination buffer: %d";
+        v21 = v19;
+        v22 = OS_LOG_TYPE_INFO;
         goto LABEL_44;
       }
 
-      v22 = 0;
+      v23 = 0;
 LABEL_122:
-      v82(v81);
-      return v22;
+      v90(v89);
+      return v23;
     }
 
-    v77[0] = MEMORY[0x1E69E9820];
-    v77[1] = 3221225472;
-    v78 = __ARPixelBufferCopy_block_invoke_64;
-    v79 = &__block_descriptor_40_e5_v8__0l;
-    v80 = a2;
+    v85[0] = MEMORY[0x1E69E9820];
+    v85[1] = 3221225472;
+    v86 = __ARPixelBufferCopy_block_invoke_64;
+    v87 = &__block_descriptor_40_e5_v8__0l;
+    v88 = a2;
     if (CVPixelBufferIsPlanar(a1))
     {
-      if (CVPixelBufferIsPlanar(a2))
+      IsPlanar = CVPixelBufferIsPlanar(a2);
+      if (IsPlanar)
       {
         PlaneCount = CVPixelBufferGetPlaneCount(a1);
-        if (PlaneCount == CVPixelBufferGetPlaneCount(a2))
+        v27 = CVPixelBufferGetPlaneCount(a2);
+        if (PlaneCount == v27)
         {
           if (PlaneCount)
           {
-            v25 = 0;
+            v28 = 0;
             while (1)
             {
-              WidthOfPlane = CVPixelBufferGetWidthOfPlane(a1, v25);
-              HeightOfPlane = CVPixelBufferGetHeightOfPlane(a1, v25);
-              v28 = CVPixelBufferGetWidthOfPlane(a2, v25);
-              v29 = CVPixelBufferGetHeightOfPlane(a2, v25);
-              if (WidthOfPlane != v28 || HeightOfPlane != v29)
+              WidthOfPlane = CVPixelBufferGetWidthOfPlane(a1, v28);
+              HeightOfPlane = CVPixelBufferGetHeightOfPlane(a1, v28);
+              v31 = CVPixelBufferGetWidthOfPlane(a2, v28);
+              v32 = CVPixelBufferGetHeightOfPlane(a2, v28);
+              if (WidthOfPlane != v31 || HeightOfPlane != v32)
               {
                 break;
               }
 
-              BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(a1, v25);
-              if (BytesPerRowOfPlane * HeightOfPlane != CVPixelBufferGetBytesPerRowOfPlane(a2, v25) * HeightOfPlane)
+              BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(a1, v28);
+              v34 = CVPixelBufferGetBytesPerRowOfPlane(a2, v28);
+              if (BytesPerRowOfPlane * HeightOfPlane != v34 * HeightOfPlane)
               {
                 if (ARShouldUseLogTypeError(void)::onceToken != -1)
                 {
                   ARCorrectCVPixelBufferOrientation_cold_2();
                 }
 
-                v58 = ARShouldUseLogTypeError(void)::internalOSVersion;
-                v59 = _ARLogGeneral();
-                v57 = v59;
-                if (v58 == 1)
+                v66 = ARShouldUseLogTypeError(void)::internalOSVersion;
+                v67 = _ARLogGeneral(v34);
+                v65 = v67;
+                if (v66 == 1)
                 {
-                  if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+                  if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 134217984;
-                    v86 = v25;
-                    _os_log_impl(&dword_1C241C000, v57, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: Source and destination buffers match resolution and number of planes but plane %lu within each pixel buffer has a different number of bytes per row", buf, 0xCu);
+                    v94 = v28;
+                    _os_log_impl(&dword_1C241C000, v65, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: Source and destination buffers match resolution and number of planes but plane %lu within each pixel buffer has a different number of bytes per row", buf, 0xCu);
                   }
                 }
 
-                else if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+                else if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
                 {
                   *buf = 134217984;
-                  v86 = v25;
-                  _os_log_impl(&dword_1C241C000, v57, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: Source and destination buffers match resolution and number of planes but plane %lu within each pixel buffer has a different number of bytes per row", buf, 0xCu);
+                  v94 = v28;
+                  _os_log_impl(&dword_1C241C000, v65, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: Source and destination buffers match resolution and number of planes but plane %lu within each pixel buffer has a different number of bytes per row", buf, 0xCu);
                 }
 
 LABEL_111:
@@ -4023,86 +4046,87 @@ LABEL_111:
 
               if (BytesPerRowOfPlane % WidthOfPlane)
               {
-                BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(a2, v25);
-                v32 = CVPixelBufferGetBaseAddressOfPlane(a1, v25);
-                memcpy(BaseAddressOfPlane, v32, BytesPerRowOfPlane * HeightOfPlane);
+                BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(a2, v28);
+                v36 = CVPixelBufferGetBaseAddressOfPlane(a1, v28);
+                memcpy(BaseAddressOfPlane, v36, BytesPerRowOfPlane * HeightOfPlane);
               }
 
               else
               {
                 memset(&src, 0, sizeof(src));
-                ARWrapCVPixelBufferPlaneVImage(a1, v25, &src.data);
+                ARWrapCVPixelBufferPlaneVImage(a1, v28, &src.data);
                 memset(&dest, 0, sizeof(dest));
-                ARWrapCVPixelBufferPlaneVImage(a2, v25, &dest.data);
-                v33 = vImageCopyBuffer(&src, &dest, BytesPerRowOfPlane / WidthOfPlane, 0x10u);
-                if (v33)
+                ARWrapCVPixelBufferPlaneVImage(a2, v28, &dest.data);
+                v37 = vImageCopyBuffer(&src, &dest, BytesPerRowOfPlane / WidthOfPlane, 0x10u);
+                v38 = v37;
+                if (v37)
                 {
                   if (ARShouldUseLogTypeError(void)::onceToken != -1)
                   {
                     ARCorrectCVPixelBufferOrientation_cold_2();
                   }
 
-                  v64 = ARShouldUseLogTypeError(void)::internalOSVersion;
-                  v65 = _ARLogGeneral();
-                  v66 = v65;
-                  if (v64 == 1)
+                  v72 = ARShouldUseLogTypeError(void)::internalOSVersion;
+                  v73 = _ARLogGeneral(v37);
+                  v74 = v73;
+                  if (v72 == 1)
                   {
-                    if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+                    if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
                     {
                       PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
-                      v68 = AROSTypeToString(PixelFormatType);
-                      v69 = CVPixelBufferGetPixelFormatType(a2);
-                      v70 = AROSTypeToString(v69);
+                      v76 = AROSTypeToString(PixelFormatType);
+                      v77 = CVPixelBufferGetPixelFormatType(a2);
+                      v78 = AROSTypeToString(v77);
                       *buf = 134219778;
-                      v86 = v33;
-                      v87 = 2048;
-                      v88 = v25;
-                      v89 = 2114;
-                      v90 = v68;
-                      v91 = 2048;
-                      v92 = WidthOfPlane;
-                      v93 = 2048;
-                      v94 = HeightOfPlane;
-                      v95 = 2114;
-                      v96 = v70;
-                      v97 = 2048;
-                      v98 = WidthOfPlane;
+                      v94 = v38;
+                      v95 = 2048;
+                      v96 = v28;
+                      v97 = 2114;
+                      v98 = v76;
                       v99 = 2048;
-                      v100 = HeightOfPlane;
-                      _os_log_impl(&dword_1C241C000, v66, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: vImageCopyBuffer error (%zu) for plane %zu copying pixel buffer (format:%{public}@, plane size:%zux%zu) to pixel buffer (format:%{public}@, plane size:%zux%zu)", buf, 0x52u);
+                      v100 = WidthOfPlane;
+                      v101 = 2048;
+                      v102 = HeightOfPlane;
+                      v103 = 2114;
+                      v104 = v78;
+                      v105 = 2048;
+                      v106 = WidthOfPlane;
+                      v107 = 2048;
+                      v108 = HeightOfPlane;
+                      _os_log_impl(&dword_1C241C000, v74, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: vImageCopyBuffer error (%zu) for plane %zu copying pixel buffer (format:%{public}@, plane size:%zux%zu) to pixel buffer (format:%{public}@, plane size:%zux%zu)", buf, 0x52u);
                     }
                   }
 
-                  else if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
+                  else if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
                   {
-                    v71 = CVPixelBufferGetPixelFormatType(a1);
-                    v72 = AROSTypeToString(v71);
-                    v73 = CVPixelBufferGetPixelFormatType(a2);
-                    v74 = AROSTypeToString(v73);
+                    v79 = CVPixelBufferGetPixelFormatType(a1);
+                    v80 = AROSTypeToString(v79);
+                    v81 = CVPixelBufferGetPixelFormatType(a2);
+                    v82 = AROSTypeToString(v81);
                     *buf = 134219778;
-                    v86 = v33;
-                    v87 = 2048;
-                    v88 = v25;
-                    v89 = 2114;
-                    v90 = v72;
-                    v91 = 2048;
-                    v92 = WidthOfPlane;
-                    v93 = 2048;
-                    v94 = HeightOfPlane;
-                    v95 = 2114;
-                    v96 = v74;
-                    v97 = 2048;
-                    v98 = WidthOfPlane;
+                    v94 = v38;
+                    v95 = 2048;
+                    v96 = v28;
+                    v97 = 2114;
+                    v98 = v80;
                     v99 = 2048;
-                    v100 = HeightOfPlane;
-                    _os_log_impl(&dword_1C241C000, v66, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: vImageCopyBuffer error (%zu) for plane %zu copying pixel buffer (format:%{public}@, plane size:%zux%zu) to pixel buffer (format:%{public}@, plane size:%zux%zu)", buf, 0x52u);
+                    v100 = WidthOfPlane;
+                    v101 = 2048;
+                    v102 = HeightOfPlane;
+                    v103 = 2114;
+                    v104 = v82;
+                    v105 = 2048;
+                    v106 = WidthOfPlane;
+                    v107 = 2048;
+                    v108 = HeightOfPlane;
+                    _os_log_impl(&dword_1C241C000, v74, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: vImageCopyBuffer error (%zu) for plane %zu copying pixel buffer (format:%{public}@, plane size:%zux%zu) to pixel buffer (format:%{public}@, plane size:%zux%zu)", buf, 0x52u);
                   }
 
                   goto LABEL_120;
                 }
               }
 
-              if (PlaneCount == ++v25)
+              if (PlaneCount == ++v28)
               {
                 goto LABEL_72;
               }
@@ -4113,24 +4137,24 @@ LABEL_111:
               ARCorrectCVPixelBufferOrientation_cold_2();
             }
 
-            v55 = ARShouldUseLogTypeError(void)::internalOSVersion;
-            v56 = _ARLogGeneral();
-            v57 = v56;
-            if (v55 == 1)
+            v63 = ARShouldUseLogTypeError(void)::internalOSVersion;
+            v64 = _ARLogGeneral(v32);
+            v65 = v64;
+            if (v63 == 1)
             {
-              if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
               {
                 *buf = 134217984;
-                v86 = v25;
-                _os_log_impl(&dword_1C241C000, v57, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: Source and destination buffers match resolution and number of planes but plane %lu within each pixel buffer are different resolutions", buf, 0xCu);
+                v94 = v28;
+                _os_log_impl(&dword_1C241C000, v65, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: Source and destination buffers match resolution and number of planes but plane %lu within each pixel buffer are different resolutions", buf, 0xCu);
               }
             }
 
-            else if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+            else if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
             {
               *buf = 134217984;
-              v86 = v25;
-              _os_log_impl(&dword_1C241C000, v57, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: Source and destination buffers match resolution and number of planes but plane %lu within each pixel buffer are different resolutions", buf, 0xCu);
+              v94 = v28;
+              _os_log_impl(&dword_1C241C000, v65, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: Source and destination buffers match resolution and number of planes but plane %lu within each pixel buffer are different resolutions", buf, 0xCu);
             }
 
             goto LABEL_111;
@@ -4144,22 +4168,22 @@ LABEL_111:
           ARCorrectCVPixelBufferOrientation_cold_2();
         }
 
-        v39 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v40 = _ARLogGeneral();
-        v36 = v40;
-        if (v39 == 1)
+        v45 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v46 = _ARLogGeneral(v27);
+        v42 = v46;
+        if (v45 == 1)
         {
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_1C241C000, v36, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: Source and destination buffers must have the same number of planes", buf, 2u);
+            _os_log_impl(&dword_1C241C000, v42, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: Source and destination buffers must have the same number of planes", buf, 2u);
           }
         }
 
-        else if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1C241C000, v36, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: Source and destination buffers must have the same number of planes", buf, 2u);
+          _os_log_impl(&dword_1C241C000, v42, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: Source and destination buffers must have the same number of planes", buf, 2u);
         }
       }
 
@@ -4170,164 +4194,170 @@ LABEL_111:
           ARCorrectCVPixelBufferOrientation_cold_2();
         }
 
-        v37 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v38 = _ARLogGeneral();
-        v36 = v38;
-        if (v37 == 1)
+        v43 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v44 = _ARLogGeneral(IsPlanar);
+        v42 = v44;
+        if (v43 == 1)
         {
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_1C241C000, v36, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: Cannot have planar mismatch between source (planar) and destination (non-planar)", buf, 2u);
+            _os_log_impl(&dword_1C241C000, v42, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: Cannot have planar mismatch between source (planar) and destination (non-planar)", buf, 2u);
           }
         }
 
-        else if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1C241C000, v36, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: Cannot have planar mismatch between source (planar) and destination (non-planar)", buf, 2u);
+          _os_log_impl(&dword_1C241C000, v42, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: Cannot have planar mismatch between source (planar) and destination (non-planar)", buf, 2u);
         }
-      }
-    }
-
-    else if (CVPixelBufferIsPlanar(a2))
-    {
-      if (ARShouldUseLogTypeError(void)::onceToken != -1)
-      {
-        ARCorrectCVPixelBufferOrientation_cold_2();
-      }
-
-      v34 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v35 = _ARLogGeneral();
-      v36 = v35;
-      if (v34 == 1)
-      {
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_1C241C000, v36, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: Cannot have planar mismatch between source (non-planar) and destination (planar)", buf, 2u);
-        }
-      }
-
-      else if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_1C241C000, v36, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: Cannot have planar mismatch between source (non-planar) and destination (planar)", buf, 2u);
       }
     }
 
     else
     {
-      IOSurface = CVPixelBufferGetIOSurface(a1);
-      BytesPerElement = IOSurfaceGetBytesPerElement(IOSurface);
-      v43 = CVPixelBufferGetIOSurface(a2);
-      v44 = IOSurfaceGetBytesPerElement(v43);
-      if (BytesPerElement == v44)
+      v39 = CVPixelBufferIsPlanar(a2);
+      if (v39)
       {
-        memset(&src, 0, sizeof(src));
-        ARWrapCVPixelBufferVImage(a1, &src.data);
-        memset(&dest, 0, sizeof(dest));
-        ARWrapCVPixelBufferVImage(a2, &dest.data);
-        v45 = vImageCopyBuffer(&src, &dest, BytesPerElement, 0x10u);
-        if (v45)
+        if (ARShouldUseLogTypeError(void)::onceToken != -1)
         {
-          if (ARShouldUseLogTypeError(void)::onceToken != -1)
-          {
-            ARCorrectCVPixelBufferOrientation_cold_2();
-          }
+          ARCorrectCVPixelBufferOrientation_cold_2();
+        }
 
-          v46 = ARShouldUseLogTypeError(void)::internalOSVersion;
-          v47 = _ARLogGeneral();
-          v48 = v47;
-          if (v46 == 1)
+        v40 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v41 = _ARLogGeneral(v39);
+        v42 = v41;
+        if (v40 == 1)
+        {
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
-            if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+            *buf = 0;
+            _os_log_impl(&dword_1C241C000, v42, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: Cannot have planar mismatch between source (non-planar) and destination (planar)", buf, 2u);
+          }
+        }
+
+        else if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_1C241C000, v42, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: Cannot have planar mismatch between source (non-planar) and destination (planar)", buf, 2u);
+        }
+      }
+
+      else
+      {
+        IOSurface = CVPixelBufferGetIOSurface(a1);
+        BytesPerElement = IOSurfaceGetBytesPerElement(IOSurface);
+        v49 = CVPixelBufferGetIOSurface(a2);
+        v50 = IOSurfaceGetBytesPerElement(v49);
+        v51 = v50;
+        if (BytesPerElement == v50)
+        {
+          memset(&src, 0, sizeof(src));
+          ARWrapCVPixelBufferVImage(a1, &src.data);
+          memset(&dest, 0, sizeof(dest));
+          ARWrapCVPixelBufferVImage(a2, &dest.data);
+          v52 = vImageCopyBuffer(&src, &dest, BytesPerElement, 0x10u);
+          v53 = v52;
+          if (v52)
+          {
+            if (ARShouldUseLogTypeError(void)::onceToken != -1)
             {
-              v49 = CVPixelBufferGetPixelFormatType(a1);
-              v50 = AROSTypeToString(v49);
-              v51 = CVPixelBufferGetPixelFormatType(a2);
-              v52 = AROSTypeToString(v51);
-              *buf = 134219522;
-              v86 = v45;
-              v87 = 2114;
-              v88 = v50;
-              v89 = 2048;
-              v90 = Width;
-              v91 = 2048;
-              v92 = Height;
-              v93 = 2114;
-              v94 = v52;
-              v95 = 2048;
-              v96 = Width;
-              v97 = 2048;
-              v98 = Height;
-              _os_log_impl(&dword_1C241C000, v48, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: vImageCopyBuffer error (%zu) copying pixel buffer (format:%{public}@, size:%zux%zu) to pixel buffer (format:%{public}@, size:%zux%zu)", buf, 0x48u);
+              ARCorrectCVPixelBufferOrientation_cold_2();
             }
-          }
 
-          else if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
-          {
-            v60 = CVPixelBufferGetPixelFormatType(a1);
-            v61 = AROSTypeToString(v60);
-            v62 = CVPixelBufferGetPixelFormatType(a2);
-            v63 = AROSTypeToString(v62);
-            *buf = 134219522;
-            v86 = v45;
-            v87 = 2114;
-            v88 = v61;
-            v89 = 2048;
-            v90 = Width;
-            v91 = 2048;
-            v92 = Height;
-            v93 = 2114;
-            v94 = v63;
-            v95 = 2048;
-            v96 = Width;
-            v97 = 2048;
-            v98 = Height;
-            _os_log_impl(&dword_1C241C000, v48, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: vImageCopyBuffer error (%zu) copying pixel buffer (format:%{public}@, size:%zux%zu) to pixel buffer (format:%{public}@, size:%zux%zu)", buf, 0x48u);
-          }
+            v54 = ARShouldUseLogTypeError(void)::internalOSVersion;
+            v55 = _ARLogGeneral(v52);
+            v56 = v55;
+            if (v54 == 1)
+            {
+              if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+              {
+                v57 = CVPixelBufferGetPixelFormatType(a1);
+                v58 = AROSTypeToString(v57);
+                v59 = CVPixelBufferGetPixelFormatType(a2);
+                v60 = AROSTypeToString(v59);
+                *buf = 134219522;
+                v94 = v53;
+                v95 = 2114;
+                v96 = v58;
+                v97 = 2048;
+                v98 = Width;
+                v99 = 2048;
+                v100 = Height;
+                v101 = 2114;
+                v102 = v60;
+                v103 = 2048;
+                v104 = Width;
+                v105 = 2048;
+                v106 = Height;
+                _os_log_impl(&dword_1C241C000, v56, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: vImageCopyBuffer error (%zu) copying pixel buffer (format:%{public}@, size:%zux%zu) to pixel buffer (format:%{public}@, size:%zux%zu)", buf, 0x48u);
+              }
+            }
+
+            else if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+            {
+              v68 = CVPixelBufferGetPixelFormatType(a1);
+              v69 = AROSTypeToString(v68);
+              v70 = CVPixelBufferGetPixelFormatType(a2);
+              v71 = AROSTypeToString(v70);
+              *buf = 134219522;
+              v94 = v53;
+              v95 = 2114;
+              v96 = v69;
+              v97 = 2048;
+              v98 = Width;
+              v99 = 2048;
+              v100 = Height;
+              v101 = 2114;
+              v102 = v71;
+              v103 = 2048;
+              v104 = Width;
+              v105 = 2048;
+              v106 = Height;
+              _os_log_impl(&dword_1C241C000, v56, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: vImageCopyBuffer error (%zu) copying pixel buffer (format:%{public}@, size:%zux%zu) to pixel buffer (format:%{public}@, size:%zux%zu)", buf, 0x48u);
+            }
 
 LABEL_120:
-          v22 = 0;
-          goto LABEL_121;
-        }
+            v23 = 0;
+            goto LABEL_121;
+          }
 
 LABEL_72:
-        CVBufferPropagateAttachments(a1, a2);
-        v22 = 1;
+          CVBufferPropagateAttachments(a1, a2);
+          v23 = 1;
 LABEL_121:
-        v78(v77);
-        goto LABEL_122;
-      }
+          v86(v85);
+          goto LABEL_122;
+        }
 
-      if (ARShouldUseLogTypeError(void)::onceToken != -1)
-      {
-        ARCorrectCVPixelBufferOrientation_cold_2();
-      }
+        if (ARShouldUseLogTypeError(void)::onceToken != -1)
+        {
+          ARCorrectCVPixelBufferOrientation_cold_2();
+        }
 
-      v53 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v54 = _ARLogGeneral();
-      v36 = v54;
-      if (v53 == 1)
-      {
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+        v61 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v62 = _ARLogGeneral(v50);
+        v42 = v62;
+        if (v61 == 1)
+        {
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 134218240;
+            v94 = BytesPerElement;
+            v95 = 2048;
+            v96 = v51;
+            _os_log_impl(&dword_1C241C000, v42, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: Cannot have byte-per-element mismatch between source and destination. src: %zu - dst: %zu", buf, 0x16u);
+          }
+        }
+
+        else if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
         {
           *buf = 134218240;
-          v86 = BytesPerElement;
-          v87 = 2048;
-          v88 = v44;
-          _os_log_impl(&dword_1C241C000, v36, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: Cannot have byte-per-element mismatch between source and destination. src: %zu - dst: %zu", buf, 0x16u);
+          v94 = BytesPerElement;
+          v95 = 2048;
+          v96 = v51;
+          _os_log_impl(&dword_1C241C000, v42, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: Cannot have byte-per-element mismatch between source and destination. src: %zu - dst: %zu", buf, 0x16u);
         }
-      }
-
-      else if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
-      {
-        *buf = 134218240;
-        v86 = BytesPerElement;
-        v87 = 2048;
-        v88 = v44;
-        _os_log_impl(&dword_1C241C000, v36, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: Cannot have byte-per-element mismatch between source and destination. src: %zu - dst: %zu", buf, 0x16u);
       }
     }
 
@@ -4341,14 +4371,14 @@ LABEL_121:
   }
 
   v10 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v11 = _ARLogGeneral();
+  v11 = _ARLogGeneral(v8);
   v12 = v11;
   if (v10 == 1)
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v86) = v9;
+      LODWORD(v94) = v9;
       _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_ERROR, "ARPixelBufferCopy: Error locking source buffer: %d", buf, 8u);
     }
   }
@@ -4356,7 +4386,7 @@ LABEL_121:
   else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    LODWORD(v86) = v9;
+    LODWORD(v94) = v9;
     _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_INFO, "Error: ARPixelBufferCopy: Error locking source buffer: %d", buf, 8u);
   }
 
@@ -4365,7 +4395,7 @@ LABEL_27:
   return 0;
 }
 
-void sub_1C259CD6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, void (*a21)(char *), uint64_t a22, uint64_t a23, char a24, uint64_t a25, void (*a26)(char *))
+void sub_1C259CD6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void (*a21)(char *), uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void (*a26)(char *))
 {
   a21(&a19);
   a26(&a24);
@@ -4385,7 +4415,7 @@ void __ARPixelBufferCopy_block_invoke(uint64_t a1)
     }
 
     v3 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v4 = _ARLogGeneral();
+    v4 = _ARLogGeneral(v1);
     v5 = v4;
     if (v3 == 1)
     {
@@ -4426,7 +4456,7 @@ void __ARPixelBufferCopy_block_invoke_64(uint64_t a1)
     }
 
     v3 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v4 = _ARLogGeneral();
+    v4 = _ARLogGeneral(v1);
     v5 = v4;
     if (v3 == 1)
     {
@@ -4589,11 +4619,11 @@ LABEL_14:
 
 CVPixelBufferRef ARCreateColorizedOneComponentTo24RGBPixelBuffer(__CVBuffer *a1, void *a2)
 {
-  v58[1] = *MEMORY[0x1E69E9840];
-  v48 = a2;
+  v60[1] = *MEMORY[0x1E69E9840];
+  v50 = a2;
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
   v4 = PixelFormatType;
-  if (!v48 && PixelFormatType == 1278226488)
+  if (!v50 && PixelFormatType == 1278226488)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
@@ -4601,7 +4631,7 @@ CVPixelBufferRef ARCreateColorizedOneComponentTo24RGBPixelBuffer(__CVBuffer *a1,
     }
 
     v5 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v6 = _ARLogGeneral();
+    v6 = _ARLogGeneral(PixelFormatType);
     v7 = v6;
     if (v5 == 1)
     {
@@ -4620,30 +4650,30 @@ CVPixelBufferRef ARCreateColorizedOneComponentTo24RGBPixelBuffer(__CVBuffer *a1,
 
 LABEL_19:
 
-    v16 = 0;
+    v17 = 0;
     goto LABEL_61;
   }
 
-  if (PixelFormatType - 1278226488 > 0x30 || ((1 << (PixelFormatType - 56)) & 0x1400000000001) == 0)
+  if ((PixelFormatType - 1278226488) > 0x30 || ((1 << (PixelFormatType - 56)) & 0x1400000000001) == 0)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_1();
     }
 
-    v36 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v37 = _ARLogGeneral();
-    v7 = v37;
-    if (v36 == 1)
+    v38 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v39 = _ARLogGeneral(PixelFormatType);
+    v7 = v39;
+    if (v38 == 1)
     {
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
         _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_ERROR, "Failed to create the colorized buffer: Unexpected format.", buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
       _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "Error: Failed to create the colorized buffer: Unexpected format.", buf, 2u);
@@ -4655,85 +4685,86 @@ LABEL_19:
   Width = CVPixelBufferGetWidth(a1);
   Height = CVPixelBufferGetHeight(a1);
   *buf = 0;
-  v57 = *MEMORY[0x1E69660D8];
-  v58[0] = MEMORY[0x1E695E0F8];
-  v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:&v57 count:1];
-  if (CVPixelBufferCreate(0, Width, Height, 0x18u, v46, buf))
+  v59 = *MEMORY[0x1E69660D8];
+  v60[0] = MEMORY[0x1E695E0F8];
+  v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:&v59 count:1];
+  v10 = CVPixelBufferCreate(0, Width, Height, 0x18u, v48, buf);
+  if (v10)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_2();
     }
 
-    v10 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v11 = _ARLogGeneral();
-    v12 = v11;
-    if (v10 == 1)
+    v11 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v12 = _ARLogGeneral(v10);
+    v13 = v12;
+    if (v11 == 1)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        *v55 = 0;
-        v13 = "Could not create pixelbuffer";
-        v14 = v12;
-        v15 = OS_LOG_TYPE_ERROR;
+        *v57 = 0;
+        v14 = "Could not create pixelbuffer";
+        v15 = v13;
+        v16 = OS_LOG_TYPE_ERROR;
 LABEL_43:
-        _os_log_impl(&dword_1C241C000, v14, v15, v13, v55, 2u);
+        _os_log_impl(&dword_1C241C000, v15, v16, v14, v57, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      *v55 = 0;
-      v13 = "Error: Could not create pixelbuffer";
-      v14 = v12;
-      v15 = OS_LOG_TYPE_INFO;
+      *v57 = 0;
+      v14 = "Error: Could not create pixelbuffer";
+      v15 = v13;
+      v16 = OS_LOG_TYPE_INFO;
       goto LABEL_43;
     }
 
-    v16 = 0;
+    v17 = 0;
     goto LABEL_60;
   }
 
   CVPixelBufferLockBaseAddress(a1, 0);
   CVPixelBufferLockBaseAddress(*buf, 0);
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v50 = __ARCreateColorizedOneComponentTo24RGBPixelBuffer_block_invoke;
-  v51 = &__block_descriptor_48_e5_v8__0l;
-  v52 = a1;
-  v53 = *buf;
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v52 = __ARCreateColorizedOneComponentTo24RGBPixelBuffer_block_invoke;
+  v53 = &__block_descriptor_48_e5_v8__0l;
+  v54 = a1;
+  v55 = *buf;
   BaseAddress = CVPixelBufferGetBaseAddress(a1);
-  v18 = CVPixelBufferGetBaseAddress(*buf);
+  v19 = CVPixelBufferGetBaseAddress(*buf);
   BytesPerRow = CVPixelBufferGetBytesPerRow(a1);
-  v43 = CVPixelBufferGetBytesPerRow(*buf);
+  v45 = CVPixelBufferGetBytesPerRow(*buf);
   if (!Height)
   {
     goto LABEL_58;
   }
 
-  v19 = 0;
-  v47 = v18 + 2;
-  v45 = 1;
-  v42 = Height;
+  v20 = 0;
+  v49 = v19 + 2;
+  v47 = 1;
+  v44 = Height;
   while (!Width)
   {
 LABEL_33:
-    v45 = v42 > ++v19;
+    v47 = v44 > ++v20;
     BaseAddress += BytesPerRow;
-    v47 += v43;
-    if (v19 == v42)
+    v49 += v45;
+    if (v20 == v44)
     {
       goto LABEL_58;
     }
   }
 
-  v20 = 0;
-  v21 = v47;
+  v21 = 0;
+  v22 = v49;
   while (1)
   {
     if (v4 == 1278226536)
     {
-      _H0 = *&BaseAddress[2 * v20];
+      _H0 = *&BaseAddress[2 * v21];
       __asm { FCVT            S0, H0 }
 
       goto LABEL_31;
@@ -4741,12 +4772,12 @@ LABEL_33:
 
     if (v4 == 1278226534)
     {
-      _S0 = *&BaseAddress[4 * v20];
+      _S0 = *&BaseAddress[4 * v21];
 LABEL_31:
-      v35 = fminf(_S0 * 255.0, 255.0);
-      *(v21 - 2) = v35;
-      *(v21 - 1) = v35;
-      *v21 = v35;
+      v37 = fminf(_S0 * 255.0, 255.0);
+      *(v22 - 2) = v37;
+      *(v22 - 1) = v37;
+      *v22 = v37;
       goto LABEL_32;
     }
 
@@ -4756,28 +4787,29 @@ LABEL_31:
     }
 
 LABEL_32:
-    ++v20;
-    v21 += 3;
-    if (Width == v20)
+    ++v21;
+    v22 += 3;
+    if (Width == v21)
     {
       goto LABEL_33;
     }
   }
 
-  v22 = BaseAddress[v20];
-  if ([v48 count] > v22)
+  v23 = BaseAddress[v21];
+  v24 = [v50 count];
+  if (v24 > v23)
   {
-    v23 = [v48 objectAtIndexedSubscript:v22];
-    [v23 red];
-    *(v21 - 2) = (v24 * 255.0);
+    v25 = [v50 objectAtIndexedSubscript:v23];
+    [v25 red];
+    *(v22 - 2) = (v26 * 255.0);
 
-    v25 = [v48 objectAtIndexedSubscript:v22];
-    [v25 green];
-    *(v21 - 1) = (v26 * 255.0);
+    v27 = [v50 objectAtIndexedSubscript:v23];
+    [v27 green];
+    *(v22 - 1) = (v28 * 255.0);
 
-    v27 = [v48 objectAtIndexedSubscript:v22];
-    [v27 blue];
-    *v21 = (v28 * 255.0);
+    v29 = [v50 objectAtIndexedSubscript:v23];
+    [v29 blue];
+    *v22 = (v30 * 255.0);
 
     goto LABEL_32;
   }
@@ -4787,40 +4819,40 @@ LABEL_32:
     ARCorrectCVPixelBufferOrientation_cold_2();
   }
 
-  v38 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v39 = _ARLogGeneral();
-  v40 = v39;
-  if (v38 == 1)
+  v40 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v41 = _ARLogGeneral(v24);
+  v42 = v41;
+  if (v40 == 1)
   {
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
-      *v55 = 67109120;
-      v56 = v22;
-      _os_log_impl(&dword_1C241C000, v40, OS_LOG_TYPE_ERROR, "Failed to create the colorized buffer: Color is not defined for label=%d", v55, 8u);
+      *v57 = 67109120;
+      v58 = v23;
+      _os_log_impl(&dword_1C241C000, v42, OS_LOG_TYPE_ERROR, "Failed to create the colorized buffer: Color is not defined for label=%d", v57, 8u);
     }
   }
 
-  else if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
   {
-    *v55 = 67109120;
-    v56 = v22;
-    _os_log_impl(&dword_1C241C000, v40, OS_LOG_TYPE_INFO, "Error: Failed to create the colorized buffer: Color is not defined for label=%d", v55, 8u);
+    *v57 = 67109120;
+    v58 = v23;
+    _os_log_impl(&dword_1C241C000, v42, OS_LOG_TYPE_INFO, "Error: Failed to create the colorized buffer: Color is not defined for label=%d", v57, 8u);
   }
 
-  if (v45)
+  if (v47)
   {
-    v16 = 0;
+    v17 = 0;
     goto LABEL_59;
   }
 
 LABEL_58:
-  v16 = *buf;
+  v17 = *buf;
 LABEL_59:
-  v50(v49);
+  v52(v51);
 LABEL_60:
 
 LABEL_61:
-  return v16;
+  return v17;
 }
 
 uint64_t __ARCreateColorizedOneComponentTo24RGBPixelBuffer_block_invoke(uint64_t a1)
@@ -4833,7 +4865,7 @@ uint64_t __ARCreateColorizedOneComponentTo24RGBPixelBuffer_block_invoke(uint64_t
 
 uint64_t ARCreateConcatenatedCVPixelBuffer(__CVBuffer *a1, __CVBuffer *a2, uint64_t a3)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   __n = CVPixelBufferGetWidth(a1);
   Width = CVPixelBufferGetWidth(a2);
   Height = CVPixelBufferGetHeight(a1);
@@ -4847,44 +4879,44 @@ uint64_t ARCreateConcatenatedCVPixelBuffer(__CVBuffer *a1, __CVBuffer *a2, uint6
       ARCorrectCVPixelBufferOrientation_cold_1();
     }
 
-    v15 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v16 = _ARLogGeneral();
-    v11 = v16;
-    if (v15 == 1)
+    v17 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v18 = _ARLogGeneral(v10);
+    v12 = v18;
+    if (v17 == 1)
     {
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_38;
       }
 
       *pixelBufferOut = 134218240;
       *&pixelBufferOut[4] = Height;
-      v53 = 2048;
-      v54 = v8;
-      v17 = "Failed to concatenate buffers: Height does not match (%zu <-> %zu)";
-      v18 = v11;
-      v19 = OS_LOG_TYPE_ERROR;
+      v55 = 2048;
+      v56 = v8;
+      v19 = "Failed to concatenate buffers: Height does not match (%zu <-> %zu)";
+      v20 = v12;
+      v21 = OS_LOG_TYPE_ERROR;
     }
 
     else
     {
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         goto LABEL_38;
       }
 
       *pixelBufferOut = 134218240;
       *&pixelBufferOut[4] = Height;
-      v53 = 2048;
-      v54 = v8;
-      v17 = "Error: Failed to concatenate buffers: Height does not match (%zu <-> %zu)";
-      v18 = v11;
-      v19 = OS_LOG_TYPE_INFO;
+      v55 = 2048;
+      v56 = v8;
+      v19 = "Error: Failed to concatenate buffers: Height does not match (%zu <-> %zu)";
+      v20 = v12;
+      v21 = OS_LOG_TYPE_INFO;
     }
 
-    v22 = 22;
+    v24 = 22;
 LABEL_37:
-    _os_log_impl(&dword_1C241C000, v18, v19, v17, pixelBufferOut, v22);
+    _os_log_impl(&dword_1C241C000, v20, v21, v19, pixelBufferOut, v24);
     goto LABEL_38;
   }
 
@@ -4895,101 +4927,103 @@ LABEL_37:
       ARCorrectCVPixelBufferOrientation_cold_1();
     }
 
-    v20 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v21 = _ARLogGeneral();
-    v11 = v21;
-    if (v20 == 1)
+    v22 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v23 = _ARLogGeneral(v10);
+    v12 = v23;
+    if (v22 == 1)
     {
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *pixelBufferOut = 0;
-        v17 = "Failed to concatenate buffers: format does not match";
+        v19 = "Failed to concatenate buffers: format does not match";
 LABEL_30:
-        v18 = v11;
-        v19 = OS_LOG_TYPE_ERROR;
+        v20 = v12;
+        v21 = OS_LOG_TYPE_ERROR;
 LABEL_36:
-        v22 = 2;
+        v24 = 2;
         goto LABEL_37;
       }
 
 LABEL_38:
-      v25 = 0;
+      v27 = 0;
       goto LABEL_39;
     }
 
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       goto LABEL_38;
     }
 
     *pixelBufferOut = 0;
-    v17 = "Error: Failed to concatenate buffers: format does not match";
+    v19 = "Error: Failed to concatenate buffers: format does not match";
 LABEL_35:
-    v18 = v11;
-    v19 = OS_LOG_TYPE_INFO;
+    v20 = v12;
+    v21 = OS_LOG_TYPE_INFO;
     goto LABEL_36;
   }
 
-  if (!CVPixelBufferGetIOSurface(a1) || !CVPixelBufferGetIOSurface(a2))
+  IOSurface = CVPixelBufferGetIOSurface(a1);
+  if (!IOSurface || (IOSurface = CVPixelBufferGetIOSurface(a2)) == 0)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_1();
     }
 
-    v23 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v24 = _ARLogGeneral();
-    v11 = v24;
-    if (v23 == 1)
+    v25 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v26 = _ARLogGeneral(IOSurface);
+    v12 = v26;
+    if (v25 == 1)
     {
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *pixelBufferOut = 0;
-        v17 = "Failed to concatenate buffers: Buffers need to be IOSurface back";
+        v19 = "Failed to concatenate buffers: Buffers need to be IOSurface back";
         goto LABEL_30;
       }
 
       goto LABEL_38;
     }
 
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       goto LABEL_38;
     }
 
     *pixelBufferOut = 0;
-    v17 = "Error: Failed to concatenate buffers: Buffers need to be IOSurface back";
+    v19 = "Error: Failed to concatenate buffers: Buffers need to be IOSurface back";
     goto LABEL_35;
   }
 
-  v45 = Width;
-  v50 = *MEMORY[0x1E69660D8];
-  v51 = MEMORY[0x1E695E0F8];
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+  v47 = Width;
+  v52 = *MEMORY[0x1E69660D8];
+  v53 = MEMORY[0x1E695E0F8];
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
   *pixelBufferOut = 0;
-  if (CVPixelBufferCreate(0, __n + a3 + Width, Height, PixelFormatType, v11, pixelBufferOut))
+  v13 = CVPixelBufferCreate(0, __n + a3 + Width, Height, PixelFormatType, v12, pixelBufferOut);
+  if (v13)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_2();
     }
 
-    v12 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v13 = _ARLogGeneral();
-    v14 = v13;
-    if (v12 == 1)
+    v14 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v15 = _ARLogGeneral(v13);
+    v16 = v15;
+    if (v14 == 1)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_ERROR, "Could not create pixelbuffer", buf, 2u);
+        _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_ERROR, "Could not create pixelbuffer", buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_INFO, "Error: Could not create pixelbuffer", buf, 2u);
+      _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_INFO, "Error: Could not create pixelbuffer", buf, 2u);
     }
 
     goto LABEL_38;
@@ -4998,37 +5032,37 @@ LABEL_35:
   CVPixelBufferLockBaseAddress(*pixelBufferOut, 0);
   CVPixelBufferLockBaseAddress(a1, 0);
   CVPixelBufferLockBaseAddress(a2, 0);
-  v44 = v11;
+  v46 = v12;
   BytesPerRow = CVPixelBufferGetBytesPerRow(*pixelBufferOut);
-  v28 = CVPixelBufferGetBytesPerRow(a1);
-  v43 = BytesPerRow;
-  v42 = CVPixelBufferGetBytesPerRow(a2);
+  v30 = CVPixelBufferGetBytesPerRow(a1);
+  v45 = BytesPerRow;
+  v44 = CVPixelBufferGetBytesPerRow(a2);
   BaseAddress = CVPixelBufferGetBaseAddress(*pixelBufferOut);
-  v30 = CVPixelBufferGetBaseAddress(a1);
-  v31 = CVPixelBufferGetBaseAddress(a2);
-  IOSurface = CVPixelBufferGetIOSurface(a1);
-  BytesPerElement = IOSurfaceGetBytesPerElement(IOSurface);
-  v34 = CVPixelBufferGetIOSurface(a2);
-  v35 = IOSurfaceGetBytesPerElement(v34);
-  v37 = v42;
-  v36 = v43;
+  v32 = CVPixelBufferGetBaseAddress(a1);
+  v33 = CVPixelBufferGetBaseAddress(a2);
+  v34 = CVPixelBufferGetIOSurface(a1);
+  BytesPerElement = IOSurfaceGetBytesPerElement(v34);
+  v36 = CVPixelBufferGetIOSurface(a2);
+  v37 = IOSurfaceGetBytesPerElement(v36);
+  v39 = v44;
+  v38 = v45;
   if (Height)
   {
-    v38 = v28;
-    v46 = v35 * v45;
+    v40 = v30;
+    v48 = v37 * v47;
     __na = BytesPerElement * __n;
-    v39 = a3 + __na;
+    v41 = a3 + __na;
     do
     {
-      v40 = v36;
-      v41 = v37;
-      memcpy(BaseAddress, v30, __na);
-      memcpy(&BaseAddress[v39], v31, v46);
-      v37 = v41;
-      v36 = v40;
-      BaseAddress += v40;
-      v30 += v38;
-      v31 += v41;
+      v42 = v38;
+      v43 = v39;
+      memcpy(BaseAddress, v32, __na);
+      memcpy(&BaseAddress[v41], v33, v48);
+      v39 = v43;
+      v38 = v42;
+      BaseAddress += v42;
+      v32 += v40;
+      v33 += v43;
       --Height;
     }
 
@@ -5038,19 +5072,20 @@ LABEL_35:
   CVPixelBufferUnlockBaseAddress(*pixelBufferOut, 0);
   CVPixelBufferUnlockBaseAddress(a1, 0);
   CVPixelBufferUnlockBaseAddress(a2, 0);
-  v25 = *pixelBufferOut;
-  v11 = v44;
+  v27 = *pixelBufferOut;
+  v12 = v46;
 LABEL_39:
 
-  return v25;
+  return v27;
 }
 
 id ARIOSurfaceToPNGData(IOSurfaceRef surface)
 {
   pixelBufferOut = 0;
-  if (!CVPixelBufferCreateWithIOSurface(0, surface, 0, &pixelBufferOut))
+  v1 = CVPixelBufferCreateWithIOSurface(0, surface, 0, &pixelBufferOut);
+  if (!v1)
   {
-    v8 = ARPixelBufferToPNGData(pixelBufferOut);
+    v9 = ARPixelBufferToPNGData(pixelBufferOut);
     CVPixelBufferRelease(pixelBufferOut);
     goto LABEL_12;
   }
@@ -5060,30 +5095,86 @@ id ARIOSurfaceToPNGData(IOSurfaceRef surface)
     ARCorrectCVPixelBufferOrientation_cold_2();
   }
 
-  v1 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v2 = _ARLogGeneral();
-  v3 = v2;
-  if (v1 == 1)
+  v2 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v3 = _ARLogGeneral(v1);
+  v4 = v3;
+  if (v2 == 1)
   {
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v11 = 0;
-      v4 = "Could not create pixelbuffer";
-      v5 = &v11;
-      v6 = v3;
-      v7 = OS_LOG_TYPE_ERROR;
+      v12 = 0;
+      v5 = "Could not create pixelbuffer";
+      v6 = &v12;
+      v7 = v4;
+      v8 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-      _os_log_impl(&dword_1C241C000, v6, v7, v4, v5, 2u);
+      _os_log_impl(&dword_1C241C000, v7, v8, v5, v6, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v10 = 0;
-    v4 = "Error: Could not create pixelbuffer";
-    v5 = &v10;
-    v6 = v3;
-    v7 = OS_LOG_TYPE_INFO;
+    v11 = 0;
+    v5 = "Error: Could not create pixelbuffer";
+    v6 = &v11;
+    v7 = v4;
+    v8 = OS_LOG_TYPE_INFO;
+    goto LABEL_10;
+  }
+
+  v9 = 0;
+LABEL_12:
+
+  return v9;
+}
+
+id ARPixelBufferToPNGData(uint64_t a1)
+{
+  v17[1] = *MEMORY[0x1E69E9840];
+  v1 = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:a1];
+  v2 = v1;
+  if (v1)
+  {
+    v3 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1C0]);
+    v4 = MEMORY[0x1E695F620];
+    v16 = *MEMORY[0x1E695F868];
+    v17[0] = v3;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v6 = [v4 contextWithOptions:v5];
+
+    v7 = [v6 workingColorSpace];
+    v8 = [v6 PNGRepresentationOfImage:v2 format:*MEMORY[0x1E695F8A8] colorSpace:v7 options:MEMORY[0x1E695E0F8]];
+    CGColorSpaceRelease(v3);
+    goto LABEL_12;
+  }
+
+  if (ARShouldUseLogTypeError(void)::onceToken != -1)
+  {
+    ARCorrectCVPixelBufferOrientation_cold_1();
+  }
+
+  v9 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v10 = _ARLogGeneral(v1);
+  v6 = v10;
+  if (v9 == 1)
+  {
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      *v15 = 0;
+      v11 = "Failed to create CIImage";
+      v12 = v6;
+      v13 = OS_LOG_TYPE_ERROR;
+LABEL_10:
+      _os_log_impl(&dword_1C241C000, v12, v13, v11, v15, 2u);
+    }
+  }
+
+  else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    *v15 = 0;
+    v11 = "Error: Failed to create CIImage";
+    v12 = v6;
+    v13 = OS_LOG_TYPE_INFO;
     goto LABEL_10;
   }
 
@@ -5093,72 +5184,17 @@ LABEL_12:
   return v8;
 }
 
-id ARPixelBufferToPNGData(uint64_t a1)
-{
-  v16[1] = *MEMORY[0x1E69E9840];
-  v1 = [MEMORY[0x1E695F658] imageWithCVPixelBuffer:a1];
-  if (v1)
-  {
-    v2 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1C0]);
-    v3 = MEMORY[0x1E695F620];
-    v15 = *MEMORY[0x1E695F868];
-    v16[0] = v2;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-    v5 = [v3 contextWithOptions:v4];
-
-    v6 = [v5 workingColorSpace];
-    v7 = [v5 PNGRepresentationOfImage:v1 format:*MEMORY[0x1E695F8A8] colorSpace:v6 options:MEMORY[0x1E695E0F8]];
-    CGColorSpaceRelease(v2);
-    goto LABEL_12;
-  }
-
-  if (ARShouldUseLogTypeError(void)::onceToken != -1)
-  {
-    ARCorrectCVPixelBufferOrientation_cold_1();
-  }
-
-  v8 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v9 = _ARLogGeneral();
-  v5 = v9;
-  if (v8 == 1)
-  {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      *v14 = 0;
-      v10 = "Failed to create CIImage";
-      v11 = v5;
-      v12 = OS_LOG_TYPE_ERROR;
-LABEL_10:
-      _os_log_impl(&dword_1C241C000, v11, v12, v10, v14, 2u);
-    }
-  }
-
-  else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-  {
-    *v14 = 0;
-    v10 = "Error: Failed to create CIImage";
-    v11 = v5;
-    v12 = OS_LOG_TYPE_INFO;
-    goto LABEL_10;
-  }
-
-  v7 = 0;
-LABEL_12:
-
-  return v7;
-}
-
 CVPixelBufferRef ARCreateEmptyBufferWithSameFormatFromSource(__CVBuffer *a1)
 {
   v1 = a1;
-  v14[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   pixelBufferOut = 0;
   Width = CVPixelBufferGetWidth(a1);
   Height = CVPixelBufferGetHeight(v1);
   LODWORD(v1) = CVPixelBufferGetPixelFormatType(v1);
-  v13 = *MEMORY[0x1E69660D8];
-  v14[0] = MEMORY[0x1E695E0F8];
-  CVPixelBufferCreate(0, Width, Height, v1, [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1], &pixelBufferOut);
+  v14 = *MEMORY[0x1E69660D8];
+  v15[0] = MEMORY[0x1E695E0F8];
+  v4 = CVPixelBufferCreate(0, Width, Height, v1, [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1], &pixelBufferOut);
   if (!pixelBufferOut)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -5166,28 +5202,28 @@ CVPixelBufferRef ARCreateEmptyBufferWithSameFormatFromSource(__CVBuffer *a1)
       ARCorrectCVPixelBufferOrientation_cold_2();
     }
 
-    v4 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v5 = _ARLogGeneral();
-    v6 = v5;
-    if (v4 == 1)
+    v5 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v6 = _ARLogGeneral(v4);
+    v7 = v6;
+    if (v5 == 1)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        *v11 = 0;
-        v7 = "Failed to create an empty pixelbuffer";
-        v8 = v6;
-        v9 = OS_LOG_TYPE_ERROR;
+        *v12 = 0;
+        v8 = "Failed to create an empty pixelbuffer";
+        v9 = v7;
+        v10 = OS_LOG_TYPE_ERROR;
 LABEL_9:
-        _os_log_impl(&dword_1C241C000, v8, v9, v7, v11, 2u);
+        _os_log_impl(&dword_1C241C000, v9, v10, v8, v12, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      *v11 = 0;
-      v7 = "Error: Failed to create an empty pixelbuffer";
-      v8 = v6;
-      v9 = OS_LOG_TYPE_INFO;
+      *v12 = 0;
+      v8 = "Error: Failed to create an empty pixelbuffer";
+      v9 = v7;
+      v10 = OS_LOG_TYPE_INFO;
       goto LABEL_9;
     }
   }
@@ -5216,18 +5252,18 @@ void ___ZL15_ARLogTechniquev_block_invoke_15()
   _ARLogTechnique(void)::logObj = v0;
 }
 
-id ARKitCoreBuildVersionString()
+id ARKitCoreBuildVersionString(uint64_t a1, uint64_t a2)
 {
-  v0 = ARKitCoreBundle();
-  v1 = [v0 infoDictionary];
-  v2 = [v1 objectForKeyedSubscript:@"CFBundleVersion"];
+  v2 = ARKitCoreBundle(a1);
+  v3 = [v2 infoDictionary];
+  v4 = [v3 objectForKeyedSubscript:@"CFBundleVersion"];
 
-  return v2;
+  return v4;
 }
 
 void ARLogErrorNoClassLongMessage(void *a1, void *a2)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if (ARLogErrorNoClassLongMessage_onceToken != -1)
@@ -5235,9 +5271,9 @@ void ARLogErrorNoClassLongMessage(void *a1, void *a2)
     ARLogErrorNoClassLongMessage_cold_1();
   }
 
-  v40 = v3;
+  v43 = v3;
   v5 = [v3 componentsSeparatedByCharactersInSet:ARLogErrorNoClassLongMessage_newLineCharacterSet];
-  v39 = v4;
+  v42 = v4;
   if (v4)
   {
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ ", v4, v4];
@@ -5249,7 +5285,8 @@ void ARLogErrorNoClassLongMessage(void *a1, void *a2)
   }
 
   v7 = [(__CFString *)v6 length];
-  if ([v5 count] < 2)
+  v8 = [v5 count];
+  if (v8 < 2)
   {
     goto LABEL_16;
   }
@@ -5259,62 +5296,63 @@ void ARLogErrorNoClassLongMessage(void *a1, void *a2)
     ARLogErrorNoClassLongMessage_cold_2();
   }
 
-  v8 = ARShouldUseLogTypeError_internalOSVersion_54;
-  v9 = _ARLogGeneral_49();
-  v10 = v9;
-  if (v8 == 1)
+  v9 = ARShouldUseLogTypeError_internalOSVersion_54;
+  v10 = _ARLogGeneral_49(v8);
+  v11 = v10;
+  if (v9 == 1)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v49 = v6;
-      v11 = "%{public}@START";
-      v12 = v10;
-      v13 = OS_LOG_TYPE_ERROR;
+      v52 = v6;
+      v12 = "%{public}@START";
+      v13 = v11;
+      v14 = OS_LOG_TYPE_ERROR;
 LABEL_14:
-      _os_log_impl(&dword_1C241C000, v12, v13, v11, buf, 0xCu);
+      _os_log_impl(&dword_1C241C000, v13, v14, v12, buf, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v49 = v6;
-    v11 = "Error: %{public}@START";
-    v12 = v10;
-    v13 = OS_LOG_TYPE_INFO;
+    v52 = v6;
+    v12 = "Error: %{public}@START";
+    v13 = v11;
+    v14 = OS_LOG_TYPE_INFO;
     goto LABEL_14;
   }
 
 LABEL_16:
-  v46 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
+  v48 = 0u;
   obj = v5;
-  v43 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
-  if (!v43)
+  v46 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+  if (!v46)
   {
     goto LABEL_44;
   }
 
-  v14 = 1000 - v7;
-  v42 = *v45;
+  v15 = 1000 - v7;
+  v45 = *v48;
   do
   {
-    v15 = 0;
+    v16 = 0;
     do
     {
-      if (*v45 != v42)
+      if (*v48 != v45)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v44 + 1) + 8 * v15);
-      if (v14 < [v16 length])
+      v17 = *(*(&v47 + 1) + 8 * v16);
+      v18 = [v17 length];
+      if (v15 < v18)
       {
-        v17 = 0;
-        LODWORD(v18) = v14;
+        v19 = 0;
+        LODWORD(v20) = v15;
         while (1)
         {
           if (ARShouldUseLogTypeError_onceToken_54 != -1)
@@ -5322,137 +5360,139 @@ LABEL_16:
             ARLogErrorNoClassLongMessage_cold_3();
           }
 
-          v19 = ARShouldUseLogTypeError_internalOSVersion_54;
-          v20 = _ARLogGeneral_49();
-          v21 = v20;
-          if (v19 == 1)
+          v21 = ARShouldUseLogTypeError_internalOSVersion_54;
+          v22 = _ARLogGeneral_49(v18);
+          v23 = v22;
+          if (v21 == 1)
           {
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
-              v22 = [v16 substringWithRange:{v17, v14}];
+              v24 = [v17 substringWithRange:{v19, v15}];
               *buf = 138543618;
-              v49 = v6;
-              v50 = 2114;
-              v51 = v22;
-              v23 = v21;
-              v24 = OS_LOG_TYPE_ERROR;
-              v25 = "%{public}@%{public}@";
+              v52 = v6;
+              v53 = 2114;
+              v54 = v24;
+              v25 = v23;
+              v26 = OS_LOG_TYPE_ERROR;
+              v27 = "%{public}@%{public}@";
 LABEL_30:
-              _os_log_impl(&dword_1C241C000, v23, v24, v25, buf, 0x16u);
+              _os_log_impl(&dword_1C241C000, v25, v26, v27, buf, 0x16u);
             }
           }
 
-          else if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
-            v22 = [v16 substringWithRange:{v17, v14}];
+            v24 = [v17 substringWithRange:{v19, v15}];
             *buf = 138543618;
-            v49 = v6;
-            v50 = 2114;
-            v51 = v22;
-            v23 = v21;
-            v24 = OS_LOG_TYPE_INFO;
-            v25 = "Error: %{public}@%{public}@";
+            v52 = v6;
+            v53 = 2114;
+            v54 = v24;
+            v25 = v23;
+            v26 = OS_LOG_TYPE_INFO;
+            v27 = "Error: %{public}@%{public}@";
             goto LABEL_30;
           }
 
-          v17 = v18;
-          v18 = v14 + v18;
-          if (v18 >= [v16 length])
+          v19 = v20;
+          v20 = v15 + v20;
+          v18 = [v17 length];
+          if (v20 >= v18)
           {
             goto LABEL_34;
           }
         }
       }
 
-      v17 = 0;
+      v19 = 0;
 LABEL_34:
       if (ARShouldUseLogTypeError_onceToken_54 != -1)
       {
         ARLogErrorNoClassLongMessage_cold_3();
       }
 
-      v26 = ARShouldUseLogTypeError_internalOSVersion_54;
-      v27 = _ARLogGeneral_49();
-      v28 = v27;
-      if (v26 == 1)
+      v28 = ARShouldUseLogTypeError_internalOSVersion_54;
+      v29 = _ARLogGeneral_49(v18);
+      v30 = v29;
+      if (v28 == 1)
       {
-        if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_42;
         }
 
-        v29 = [v16 substringFromIndex:v17];
+        v31 = [v17 substringFromIndex:v19];
         *buf = 138543618;
-        v49 = v6;
-        v50 = 2114;
-        v51 = v29;
-        v30 = v28;
-        v31 = OS_LOG_TYPE_ERROR;
-        v32 = "%{public}@%{public}@";
+        v52 = v6;
+        v53 = 2114;
+        v54 = v31;
+        v32 = v30;
+        v33 = OS_LOG_TYPE_ERROR;
+        v34 = "%{public}@%{public}@";
       }
 
       else
       {
-        if (!os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        if (!os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           goto LABEL_42;
         }
 
-        v29 = [v16 substringFromIndex:v17];
+        v31 = [v17 substringFromIndex:v19];
         *buf = 138543618;
-        v49 = v6;
-        v50 = 2114;
-        v51 = v29;
-        v30 = v28;
-        v31 = OS_LOG_TYPE_INFO;
-        v32 = "Error: %{public}@%{public}@";
+        v52 = v6;
+        v53 = 2114;
+        v54 = v31;
+        v32 = v30;
+        v33 = OS_LOG_TYPE_INFO;
+        v34 = "Error: %{public}@%{public}@";
       }
 
-      _os_log_impl(&dword_1C241C000, v30, v31, v32, buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v32, v33, v34, buf, 0x16u);
 
 LABEL_42:
-      ++v15;
+      ++v16;
     }
 
-    while (v15 != v43);
-    v43 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+    while (v16 != v46);
+    v46 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
   }
 
-  while (v43);
+  while (v46);
 LABEL_44:
 
-  if ([obj count] >= 2)
+  v35 = [obj count];
+  if (v35 >= 2)
   {
     if (ARShouldUseLogTypeError_onceToken_54 != -1)
     {
       ARLogErrorNoClassLongMessage_cold_3();
     }
 
-    v33 = ARShouldUseLogTypeError_internalOSVersion_54;
-    v34 = _ARLogGeneral_49();
-    v35 = v34;
-    if (v33 == 1)
+    v36 = ARShouldUseLogTypeError_internalOSVersion_54;
+    v37 = _ARLogGeneral_49(v35);
+    v38 = v37;
+    if (v36 == 1)
     {
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v49 = v6;
-        v36 = "%{public}@END";
-        v37 = v35;
-        v38 = OS_LOG_TYPE_ERROR;
+        v52 = v6;
+        v39 = "%{public}@END";
+        v40 = v38;
+        v41 = OS_LOG_TYPE_ERROR;
         goto LABEL_52;
       }
     }
 
-    else if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v49 = v6;
-      v36 = "Error: %{public}@END";
-      v37 = v35;
-      v38 = OS_LOG_TYPE_INFO;
+      v52 = v6;
+      v39 = "Error: %{public}@END";
+      v40 = v38;
+      v41 = OS_LOG_TYPE_INFO;
 LABEL_52:
-      _os_log_impl(&dword_1C241C000, v37, v38, v36, buf, 0xCu);
+      _os_log_impl(&dword_1C241C000, v40, v41, v39, buf, 0xCu);
     }
   }
 }
@@ -5464,21 +5504,21 @@ void __ARLogErrorNoClassLongMessage_block_invoke()
   ARLogErrorNoClassLongMessage_newLineCharacterSet = v0;
 }
 
-id _ARLogGeneral_49()
+id _ARLogGeneral_49(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_52 != -1)
   {
     _ARLogGeneral_cold_1_49();
   }
 
-  v1 = _ARLogGeneral_logObj_52;
+  v2 = _ARLogGeneral_logObj_52;
 
-  return v1;
+  return v2;
 }
 
 void ARLogDebugNoClassLongMessage(void *a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if (ARLogDebugNoClassLongMessage_onceToken != -1)
@@ -5486,9 +5526,9 @@ void ARLogDebugNoClassLongMessage(void *a1, void *a2)
     ARLogDebugNoClassLongMessage_cold_1();
   }
 
-  v20 = v3;
+  v23 = v3;
   v5 = [v3 componentsSeparatedByCharactersInSet:ARLogDebugNoClassLongMessage_newLineCharacterSet];
-  v19 = v4;
+  v22 = v4;
   if (v4)
   {
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ ", v4, v4];
@@ -5500,92 +5540,96 @@ void ARLogDebugNoClassLongMessage(void *a1, void *a2)
   }
 
   v7 = [(__CFString *)v6 length];
-  if ([v5 count] >= 2)
+  v8 = [v5 count];
+  if (v8 >= 2)
   {
-    v8 = _ARLogGeneral_49();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = _ARLogGeneral_49(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v29 = v6;
-      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_DEBUG, "%{public}@START", buf, 0xCu);
+      v32 = v6;
+      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_DEBUG, "%{public}@START", buf, 0xCu);
     }
   }
 
-  v26 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
+  v28 = 0u;
   obj = v5;
-  v23 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
-  if (v23)
+  v26 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+  if (v26)
   {
-    v9 = 1000 - v7;
-    v22 = *v25;
+    v10 = 1000 - v7;
+    v25 = *v28;
     do
     {
-      for (i = 0; i != v23; ++i)
+      for (i = 0; i != v26; ++i)
       {
-        if (*v25 != v22)
+        if (*v28 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
-        if (v9 >= [v11 length])
+        v12 = *(*(&v27 + 1) + 8 * i);
+        v13 = [v12 length];
+        if (v10 >= v13)
         {
-          v12 = 0;
+          v14 = 0;
         }
 
         else
         {
-          v12 = 0;
-          LODWORD(v13) = v9;
+          v14 = 0;
+          LODWORD(v15) = v10;
           do
           {
-            v14 = _ARLogGeneral_49();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+            v16 = _ARLogGeneral_49(v13);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
             {
-              v15 = [v11 substringWithRange:{v12, v9}];
+              v17 = [v12 substringWithRange:{v14, v10}];
               *buf = 138543618;
-              v29 = v6;
-              v30 = 2114;
-              v31 = v15;
-              _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_DEBUG, "%{public}@%{public}@", buf, 0x16u);
+              v32 = v6;
+              v33 = 2114;
+              v34 = v17;
+              _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_DEBUG, "%{public}@%{public}@", buf, 0x16u);
             }
 
-            v12 = v13;
-            v13 = v9 + v13;
+            v14 = v15;
+            v15 = v10 + v15;
+            v13 = [v12 length];
           }
 
-          while (v13 < [v11 length]);
+          while (v15 < v13);
         }
 
-        v16 = _ARLogGeneral_49();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v18 = _ARLogGeneral_49(v13);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
-          v17 = [v11 substringFromIndex:v12];
+          v19 = [v12 substringFromIndex:v14];
           *buf = 138543618;
-          v29 = v6;
-          v30 = 2114;
-          v31 = v17;
-          _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_DEBUG, "%{public}@%{public}@", buf, 0x16u);
+          v32 = v6;
+          v33 = 2114;
+          v34 = v19;
+          _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_DEBUG, "%{public}@%{public}@", buf, 0x16u);
         }
       }
 
-      v23 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v26 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
-    while (v23);
+    while (v26);
   }
 
-  if ([obj count] >= 2)
+  v20 = [obj count];
+  if (v20 >= 2)
   {
-    v18 = _ARLogGeneral_49();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v21 = _ARLogGeneral_49(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v29 = v6;
-      _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_DEBUG, "%{public}@END", buf, 0xCu);
+      v32 = v6;
+      _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_DEBUG, "%{public}@END", buf, 0xCu);
     }
   }
 }
@@ -5600,8 +5644,8 @@ void __ARLogDebugNoClassLongMessage_block_invoke()
 uint64_t ARAbortWithError(void *a1)
 {
   strdup([a1 UTF8String]);
-  v1 = abort_with_reason();
-  return __ARShouldUseLogTypeError_block_invoke_55(v1);
+  abort_with_reason();
+  return __ARShouldUseLogTypeError_block_invoke_55();
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_55()
@@ -5873,15 +5917,15 @@ float ARAdjustIntrinsicsForViewportSize(float result, double a2, double a3, doub
   return result;
 }
 
-float ARMatrixMakeFrustum(float a1, double a2, double a3, float64_t a4, float64_t a5)
+float ARMatrixMakeFrustum(uint64_t a1, uint64_t a2, float a3, double a4, double a5, float64_t a6, float64_t a7)
 {
-  ARLinkedOnOrAfterPeace();
-  _Q2.f64[0] = a4;
-  _Q2.f64[1] = a5;
-  v6 = vcvt_f32_f64(_Q2).f32[0];
+  ARLinkedOnOrAfterPeace(a1, a2);
+  _Q2.f64[0] = a6;
+  _Q2.f64[1] = a7;
+  v8 = vcvt_f32_f64(_Q2).f32[0];
   __asm { FMOV            V2.2S, #1.0 }
 
-  return (a1 + a1) / v6;
+  return (a3 + a3) / v8;
 }
 
 double ARMatrixPerspectiveFlipZ(double a1, double a2, __n128 a3, __n128 a4)
@@ -6671,14 +6715,14 @@ id ARVector4dToArray(__int128 *a1)
 {
   v9[4] = *MEMORY[0x1E69E9840];
   v7 = *a1;
-  *v8 = a1[1];
+  v8 = a1[1];
   v1 = [MEMORY[0x1E696AD98] numberWithDouble:*a1];
   v9[0] = v1;
   v2 = [MEMORY[0x1E696AD98] numberWithDouble:*(&v7 + 1)];
   v9[1] = v2;
-  v3 = [MEMORY[0x1E696AD98] numberWithDouble:v8[0]];
+  v3 = [MEMORY[0x1E696AD98] numberWithDouble:*&v8];
   v9[2] = v3;
-  v4 = [MEMORY[0x1E696AD98] numberWithDouble:v8[1]];
+  v4 = [MEMORY[0x1E696AD98] numberWithDouble:*(&v8 + 1)];
   v9[3] = v4;
   v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
 
@@ -6808,35 +6852,36 @@ void sub_1C25A37C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   v14 = objc_begin_catch(a1);
+  v15 = v14;
   if (ARShouldUseLogTypeError_onceToken_55 != -1)
   {
     ARMatrix4x4FromDictionary_cold_1();
   }
 
-  v15 = ARShouldUseLogTypeError_internalOSVersion_55;
-  v16 = _ARLogGeneral_50();
-  v17 = v16;
-  if (v15 == 1)
+  v16 = ARShouldUseLogTypeError_internalOSVersion_55;
+  v17 = _ARLogGeneral_50(v14);
+  v18 = v17;
+  if (v16 == 1)
   {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *(v13 - 64) = 0;
-      v18 = "Error reading matrix from dictionary";
+      v19 = "Error reading matrix from dictionary";
       p_buf = (v13 - 64);
-      v20 = v17;
-      v21 = OS_LOG_TYPE_ERROR;
+      v21 = v18;
+      v22 = OS_LOG_TYPE_ERROR;
 LABEL_9:
-      _os_log_impl(&dword_1C241C000, v20, v21, v18, p_buf, 2u);
+      _os_log_impl(&dword_1C241C000, v21, v22, v19, p_buf, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     buf = 0;
-    v18 = "Error: Error reading matrix from dictionary";
+    v19 = "Error: Error reading matrix from dictionary";
     p_buf = &buf;
-    v20 = v17;
-    v21 = OS_LOG_TYPE_INFO;
+    v21 = v18;
+    v22 = OS_LOG_TYPE_INFO;
     goto LABEL_9;
   }
 
@@ -6844,16 +6889,16 @@ LABEL_9:
   JUMPOUT(0x1C25A37A4);
 }
 
-id _ARLogGeneral_50()
+id _ARLogGeneral_50(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_53 != -1)
   {
     _ARLogGeneral_cold_1_50();
   }
 
-  v1 = _ARLogGeneral_logObj_53;
+  v2 = _ARLogGeneral_logObj_53;
 
-  return v1;
+  return v2;
 }
 
 id ARMatrix4x4Dictionary(int a1, int a2, float32x4_t a3, float32x4_t a4, float32x4_t a5, __n128 a6)
@@ -7443,9 +7488,9 @@ float ARCameraDirectionFromCMAttitude(void *a1)
   v2 = v1;
   if (v1)
   {
-    [v1 rotationMatrix];
+    objc_msgSend_rotationMatrix(v1);
     v3 = v9;
-    [v2 rotationMatrix];
+    objc_msgSend_rotationMatrix(v2);
     v4 = v8;
   }
 
@@ -7558,82 +7603,82 @@ BOOL ARMatrix4x4ContainsScale(int32x4_t a1, int32x4_t a2, int32x4_t a3, __n128 a
 
 void ARInterpolateBetweenTransforms(simd_float3x3 a1, double a2, simd_float3 a3, simd_float3 a4, simd_float3 a5, double a6, float a7)
 {
-  v45.columns[1] = a4;
-  v45.columns[2] = a5;
-  v45.columns[0] = a3;
-  *v14.i64 = simd_quaternion(a1);
-  v50 = v14;
-  *v15.i64 = simd_quaternion(v45);
-  v16 = vmulq_f32(v50, v15);
-  v17 = vextq_s8(v16, v16, 8uLL);
-  *v16.f32 = vadd_f32(*v16.f32, *v17.f32);
-  v16.f32[0] = vaddv_f32(*v16.f32);
-  v17.i64[0] = 0;
-  v18 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vcgeq_f32(v16, v17)), 0), vnegq_f32(v15), v15);
-  v19 = 1.0;
-  v20 = 1.0 - a7;
-  v21 = vsubq_f32(v50, v18);
-  v22 = vmulq_f32(v21, v21);
-  v49 = v18;
-  v23 = vaddq_f32(v50, v18);
-  v24 = vmulq_f32(v23, v23);
-  v25 = atan2f(sqrtf(vaddv_f32(vadd_f32(*v22.i8, *&vextq_s8(v22, v22, 8uLL)))), sqrtf(vaddv_f32(vadd_f32(*v24.i8, *&vextq_s8(v24, v24, 8uLL)))));
-  v26 = v25 + v25;
-  v27 = (v25 + v25) == 0.0;
-  v28 = 1.0;
-  if (!v27)
+  v38.columns[1] = a4;
+  v38.columns[2] = a5;
+  v38.columns[0] = a3;
+  *v7.i64 = simd_quaternion(a1);
+  v43 = v7;
+  *v8.i64 = simd_quaternion(v38);
+  v9 = vmulq_f32(v43, v8);
+  v10 = vextq_s8(v9, v9, 8uLL);
+  *v9.f32 = vadd_f32(*v9.f32, *v10.f32);
+  v9.f32[0] = vaddv_f32(*v9.f32);
+  v10.i64[0] = 0;
+  v11 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vcgeq_f32(v9, v10)), 0), vnegq_f32(v8), v8);
+  v12 = 1.0;
+  v13 = 1.0 - a7;
+  v14 = vsubq_f32(v43, v11);
+  v15 = vmulq_f32(v14, v14);
+  v42 = v11;
+  v16 = vaddq_f32(v43, v11);
+  v17 = vmulq_f32(v16, v16);
+  v18 = atan2f(sqrtf(vaddv_f32(vadd_f32(*v15.i8, *&vextq_s8(v15, v15, 8uLL)))), sqrtf(vaddv_f32(vadd_f32(*v17.i8, *&vextq_s8(v17, v17, 8uLL)))));
+  v19 = v18 + v18;
+  v20 = (v18 + v18) == 0.0;
+  v21 = 1.0;
+  if (!v20)
   {
-    v28 = sinf(v26) / v26;
+    v21 = sinf(v19) / v19;
   }
 
-  v29 = v28;
-  v30 = vrecpe_f32(LODWORD(v28));
-  v31 = vmul_f32(v30, vrecps_f32(LODWORD(v29), v30));
-  LODWORD(v32) = vmul_f32(v31, vrecps_f32(LODWORD(v29), v31)).u32[0];
-  if ((v20 * v26) != 0.0)
+  v22 = v21;
+  v23 = vrecpe_f32(LODWORD(v21));
+  v24 = vmul_f32(v23, vrecps_f32(LODWORD(v22), v23));
+  LODWORD(v25) = vmul_f32(v24, vrecps_f32(LODWORD(v22), v24)).u32[0];
+  if ((v13 * v19) != 0.0)
   {
-    v47 = v32;
-    v31.f32[0] = sinf(v20 * v26);
-    v32 = v47;
-    v19 = v31.f32[0] / (v20 * v26);
+    v40 = v25;
+    v24.f32[0] = sinf(v13 * v19);
+    v25 = v40;
+    v12 = v24.f32[0] / (v13 * v19);
   }
 
-  v31.f32[0] = v20 * (v32 * v19);
-  v33 = vdupq_lane_s32(v31, 0);
-  v34 = a7;
-  v35 = v26 * a7;
-  v36 = 1.0;
-  if (v35 != 0.0)
+  v24.f32[0] = v13 * (v25 * v12);
+  v26 = vdupq_lane_s32(v24, 0);
+  v27 = a7;
+  v28 = v19 * a7;
+  v29 = 1.0;
+  if (v28 != 0.0)
   {
-    v46 = v33;
-    v48 = v32;
-    v37 = sinf(v35);
-    v33 = v46;
-    v32 = v48;
-    v34 = a7;
-    v36 = v37 / v35;
+    v39 = v26;
+    v41 = v25;
+    v30 = sinf(v28);
+    v26 = v39;
+    v25 = v41;
+    v27 = a7;
+    v29 = v30 / v28;
   }
 
-  v38 = vmlaq_f32(vmulq_n_f32(v49, (v32 * v36) * v34), v50, v33);
-  v39 = vmulq_f32(v38, v38);
-  v40 = vadd_f32(*v39.i8, *&vextq_s8(v39, v39, 8uLL));
-  if (vaddv_f32(v40) == 0.0)
+  v31 = vmlaq_f32(vmulq_n_f32(v42, (v25 * v29) * v27), v43, v26);
+  v32 = vmulq_f32(v31, v31);
+  v33 = vadd_f32(*v32.i8, *&vextq_s8(v32, v32, 8uLL));
+  if (vaddv_f32(v33) == 0.0)
   {
-    v41 = xmmword_1C25C8560;
+    v34 = xmmword_1C25C8560;
   }
 
   else
   {
-    v42 = vadd_f32(v40, vdup_lane_s32(v40, 1)).u32[0];
-    v43 = vrsqrte_f32(v42);
-    v44 = vmul_f32(v43, vrsqrts_f32(v42, vmul_f32(v43, v43)));
-    v41 = vmulq_n_f32(v38, vmul_f32(v44, vrsqrts_f32(v42, vmul_f32(v44, v44))).f32[0]);
+    v35 = vadd_f32(v33, vdup_lane_s32(v33, 1)).u32[0];
+    v36 = vrsqrte_f32(v35);
+    v37 = vmul_f32(v36, vrsqrts_f32(v35, vmul_f32(v36, v36)));
+    v34 = vmulq_n_f32(v31, vmul_f32(v37, vrsqrts_f32(v35, vmul_f32(v37, v37))).f32[0]);
   }
 
-  simd_matrix4x4(v41);
+  simd_matrix4x4(v34);
 }
 
-uint64_t ARMinMax(const float *a1, unsigned int a2, float32x2_t *a3)
+BOOL ARMinMax(const float *a1, int a2, float32x2_t *a3)
 {
   if (a1)
   {
@@ -7646,7 +7691,7 @@ uint64_t ARMinMax(const float *a1, unsigned int a2, float32x2_t *a3)
   }
 
   result = !v4;
-  if (result == 1)
+  if (result)
   {
     v6 = vld1_dup_f32(a1);
     *a3 = v6;
@@ -7689,14 +7734,14 @@ LABEL_14:
   return result;
 }
 
-uint64_t ARInterpolateSorted(float *a1, uint64_t a2, int a3, float *a4, float a5)
+uint64_t ARInterpolateSorted(float *a1, uint64_t a2, unsigned int a3, float *a4, float a5)
 {
   v5 = 0;
   if (a1)
   {
     if (a2)
     {
-      v6 = (a3 - 1);
+      v6 = a3 - 1;
       if (a3 >= 1)
       {
         v7 = *a1;
@@ -7802,30 +7847,30 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_56()
   return result;
 }
 
-void sub_1C25A5BE8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C25A5BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
-  v6 = va_arg(va1, void (*)(uint64_t *));
-  v7 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void (*)(uint64_t *, uint64_t));
   v8 = va_arg(va1, void);
-  v6(va);
+  v9 = va_arg(va1, void);
+  v7(va, a2);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-id _ARLogGeneral_51()
+id _ARLogGeneral_51(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_54 != -1)
   {
     _ARLogGeneral_cold_1_51();
   }
 
-  v1 = _ARLogGeneral_logObj_54;
+  v2 = _ARLogGeneral_logObj_54;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_57()
@@ -7835,31 +7880,31 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_57()
   return result;
 }
 
-uint64_t ARKitDaemonLibraryCore()
+uint64_t ARKitDaemonLibraryCore(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = ARKitDaemonLibraryCore_frameworkLibrary;
-  v5 = ARKitDaemonLibraryCore_frameworkLibrary;
+  v10 = *MEMORY[0x1E69E9840];
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = ARKitDaemonLibraryCore_frameworkLibrary;
+  v6 = ARKitDaemonLibraryCore_frameworkLibrary;
   if (!ARKitDaemonLibraryCore_frameworkLibrary)
   {
-    v6 = xmmword_1E817F120;
-    v7 = *off_1E817F130;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    ARKitDaemonLibraryCore_frameworkLibrary = v3[3];
-    v0 = v3[3];
+    v7 = xmmword_1E817F120;
+    v8 = *off_1E817F130;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    ARKitDaemonLibraryCore_frameworkLibrary = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_1C25A6088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C25A6088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7874,11 +7919,19 @@ uint64_t __ARKitDaemonLibraryCore_block_invoke(uint64_t a1)
 
 uint64_t ARKitDaemonLibrary()
 {
-  v0 = ARKitDaemonLibraryCore();
+  v3 = 0;
+  v0 = ARKitDaemonLibraryCore(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -7908,9 +7961,9 @@ id getARDaemonClass()
   return v1;
 }
 
-void sub_1C25A625C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C25A625C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7927,8 +7980,8 @@ Class __getARDaemonClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getARDaemonClass_block_invoke_cold_1();
-    return getARDaemonReplayBlockDelegateClass(v3);
+    __getARDaemonClass_block_invoke_cold_1();
+    return getARDaemonReplayBlockDelegateClass();
   }
 
   return result;
@@ -7958,9 +8011,9 @@ id getARDaemonReplayBlockDelegateClass()
   return v1;
 }
 
-void sub_1C25A6394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C25A6394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7991,16 +8044,16 @@ id ARDaemonLocalAnonymousListenerDaemon()
   return WeakRetained;
 }
 
-id AROSVersionString()
+id AROSVersionString(uint64_t a1)
 {
   if (AROSVersionString_onceToken != -1)
   {
     AROSVersionString_cold_1();
   }
 
-  v1 = AROSVersionString_buildVersion;
+  v2 = AROSVersionString_buildVersion;
 
-  return v1;
+  return v2;
 }
 
 void __AROSVersionString_block_invoke()
@@ -8010,7 +8063,7 @@ void __AROSVersionString_block_invoke()
   AROSVersionString_buildVersion = v0;
 }
 
-uint64_t ARInternalOSBuild()
+uint64_t ARInternalOSBuild(uint64_t a1, uint64_t a2)
 {
   if (ARInternalOSBuild_onceToken != -1)
   {
@@ -8027,16 +8080,16 @@ uint64_t __ARInternalOSBuild_block_invoke()
   return result;
 }
 
-id ARDeviceString()
+id ARDeviceString(uint64_t a1)
 {
   if (ARDeviceString_onceToken != -1)
   {
     ARDeviceString_cold_1();
   }
 
-  v1 = ARDeviceString_deviceString;
+  v2 = ARDeviceString_deviceString;
 
-  return v1;
+  return v2;
 }
 
 void __ARDeviceString_block_invoke()
@@ -8079,7 +8132,7 @@ id ARVersionStringForIdentifier(void *a1)
     }
 
     v6 = ARShouldUseLogTypeError_internalOSVersion_57;
-    v7 = _ARLogGeneral_52();
+    v7 = _ARLogGeneral_52(v3);
     v8 = v7;
     if (v6 == 1)
     {
@@ -8119,19 +8172,19 @@ void __ARVersionStringForIdentifier_block_invoke()
   ARVersionStringForIdentifier_versionDictionary = v0;
 }
 
-id _ARLogGeneral_52()
+id _ARLogGeneral_52(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_55 != -1)
   {
     _ARLogGeneral_cold_1_52();
   }
 
-  v1 = _ARLogGeneral_logObj_55;
+  v2 = _ARLogGeneral_logObj_55;
 
-  return v1;
+  return v2;
 }
 
-uint64_t ARDeviceIsiPad()
+uint64_t ARDeviceIsiPad(uint64_t a1, uint64_t a2)
 {
   if (ARDeviceIsiPad_onceToken != -1)
   {
@@ -8147,7 +8200,7 @@ void __ARDeviceIsiPad_block_invoke()
   s_deviceIsiPad = [v0 integerValue] == 3;
 }
 
-uint64_t ARDeviceHasBackCamera()
+uint64_t ARDeviceHasBackCamera(uint64_t a1, uint64_t a2)
 {
   if (ARDeviceHasBackCamera_onceToken != -1)
   {
@@ -8164,7 +8217,7 @@ uint64_t __ARDeviceHasBackCamera_block_invoke()
   return result;
 }
 
-uint64_t ARDeviceHasFrontCamera()
+uint64_t ARDeviceHasFrontCamera(uint64_t a1, uint64_t a2)
 {
   if (ARDeviceHasFrontCamera_onceToken != -1)
   {
@@ -8181,7 +8234,7 @@ uint64_t __ARDeviceHasFrontCamera_block_invoke()
   return result;
 }
 
-uint64_t ARDeviceHasHomeButton()
+uint64_t ARDeviceHasHomeButton(uint64_t a1, uint64_t a2)
 {
   if (ARDeviceHasHomeButton_onceToken != -1)
   {
@@ -8198,7 +8251,7 @@ uint64_t __ARDeviceHasHomeButton_block_invoke()
   return result;
 }
 
-uint64_t ARDeviceHasIsland()
+uint64_t ARDeviceHasIsland(uint64_t a1, uint64_t a2)
 {
   if (ARDeviceHasIsland_onceToken != -1)
   {
@@ -8215,16 +8268,16 @@ uint64_t __ARDeviceHasIsland_block_invoke()
   return result;
 }
 
-id ARDeviceName()
+id ARDeviceName(uint64_t a1)
 {
   if (ARDeviceName_onceToken != -1)
   {
     ARDeviceName_cold_1();
   }
 
-  v1 = ARDeviceName_deviceName;
+  v2 = ARDeviceName_deviceName;
 
-  return v1;
+  return v2;
 }
 
 void __ARDeviceName_block_invoke()
@@ -8234,16 +8287,16 @@ void __ARDeviceName_block_invoke()
   ARDeviceName_deviceName = v0;
 }
 
-id ARMarketingDeviceName()
+id ARMarketingDeviceName(uint64_t a1)
 {
   if (ARMarketingDeviceName_onceToken != -1)
   {
     ARMarketingDeviceName_cold_1();
   }
 
-  v1 = ARMarketingDeviceName_localizedDeviceName;
+  v2 = ARMarketingDeviceName_localizedDeviceName;
 
-  return v1;
+  return v2;
 }
 
 void __ARMarketingDeviceName_block_invoke()
@@ -8253,16 +8306,16 @@ void __ARMarketingDeviceName_block_invoke()
   ARMarketingDeviceName_localizedDeviceName = v0;
 }
 
-id ARDeviceClass()
+id ARDeviceClass(uint64_t a1)
 {
   if (ARDeviceClass_onceToken != -1)
   {
     ARDeviceClass_cold_1();
   }
 
-  v1 = ARDeviceClass_deviceClass;
+  v2 = ARDeviceClass_deviceClass;
 
-  return v1;
+  return v2;
 }
 
 void __ARDeviceClass_block_invoke()
@@ -8272,7 +8325,7 @@ void __ARDeviceClass_block_invoke()
   ARDeviceClass_deviceClass = v0;
 }
 
-uint64_t ARPearlCameraSupported()
+uint64_t ARPearlCameraSupported(uint64_t a1, uint64_t a2)
 {
   if (ARPearlCameraSupported_onceToken != -1)
   {
@@ -8311,64 +8364,68 @@ __n128 ARDisplayCenterTransformForCaptureDevicePosition(uint64_t a1)
 
 void __ARDisplayCenterTransformForCaptureDevicePosition_block_invoke()
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   v0 = MGCopyAnswer();
-  if ([v0 count] < 3)
+  v1 = [v0 count];
+  if (v1 < 3)
   {
-    v7 = _ARLogGeneral_52();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v9 = _ARLogGeneral_52(v1);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
+    if (v10)
     {
-      v8 = ARDeviceString();
+      v11 = ARDeviceString(v10);
       *buf = 138412290;
-      v60 = *&v8;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_DEBUG, "No front camera offset value found for device: %@", buf, 0xCu);
+      v70 = *&v11;
+      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_DEBUG, "No front camera offset value found for device: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v1 = [v0 objectAtIndexedSubscript:0];
-    [v1 floatValue];
-    v58 = v2 / 1000.0;
-    v3 = [v0 objectAtIndexedSubscript:1];
-    [v3 floatValue];
-    v57 = v4 / -1000.0;
-    v5 = [v0 objectAtIndexedSubscript:2];
-    [v5 floatValue];
-    v56 = v6 / -1000.0;
+    v2 = [v0 objectAtIndexedSubscript:0];
+    [v2 floatValue];
+    v68 = v3 / 1000.0;
+    v4 = [v0 objectAtIndexedSubscript:1];
+    [v4 floatValue];
+    v67 = v5 / -1000.0;
+    v6 = [v0 objectAtIndexedSubscript:2];
+    [v6 floatValue];
+    v66 = v7 / -1000.0;
 
-    v7 = _ARLogGeneral_52();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v9 = _ARLogGeneral_52(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218496;
-      v60 = v58;
-      v61 = 2048;
-      v62 = v57;
-      v63 = 2048;
-      v64 = v56;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_DEBUG, "Using front camera offset values (%f, %f, %f).", buf, 0x20u);
+      v70 = v68;
+      v71 = 2048;
+      v72 = v67;
+      v73 = 2048;
+      v74 = v66;
+      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_DEBUG, "Using front camera offset values (%f, %f, %f).", buf, 0x20u);
     }
   }
 
-  v9 = MGCopyAnswer();
-  if ([v9 count] < 2)
+  v12 = MGCopyAnswer();
+  v13 = [v12 count];
+  if (v13 < 2)
   {
-    v10 = _ARLogGeneral_52();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v14 = _ARLogGeneral_52(v13);
+    v30 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
+    if (v30)
     {
-      v26 = ARDeviceString();
+      v31 = ARDeviceString(v30);
       *buf = 138412290;
-      v60 = *&v26;
-      _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_DEBUG, "No front camera rotation value found in MobileGetStalt for device: %@", buf, 0xCu);
+      v70 = *&v31;
+      _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_DEBUG, "No front camera rotation value found in MobileGetStalt for device: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v10 = [v9 objectAtIndexedSubscript:0];
-    [v10 floatValue];
-    v12 = v11 * 3.14159265 / 180.0;
-    _Q0 = vmulq_n_f32(xmmword_1C25C8BC0, __sincosf_stret(v12 * -0.5).__sinval);
+    v14 = [v12 objectAtIndexedSubscript:0];
+    [v14 floatValue];
+    v16 = v15 * 3.14159265 / 180.0;
+    _Q0 = vmulq_n_f32(xmmword_1C25C8BC0, __sincosf_stret(v16 * -0.5).__sinval);
     _S2 = _Q0.i32[1];
     _S4 = _Q0.i32[2];
     __asm
@@ -8383,95 +8440,101 @@ void __ARDisplayCenterTransformForCaptureDevicePosition_block_invoke()
   }
 
   ARMatrix4x4FromRotationAndTranslation();
-  ARDisplayCenterTransformForCaptureDevicePosition_frontCameraFromDisplayCenter_0 = v27;
-  ARDisplayCenterTransformForCaptureDevicePosition_frontCameraFromDisplayCenter_1 = v28;
-  ARDisplayCenterTransformForCaptureDevicePosition_frontCameraFromDisplayCenter_2 = v29;
-  ARDisplayCenterTransformForCaptureDevicePosition_frontCameraFromDisplayCenter_3 = v30;
-  v31 = *(MEMORY[0x1E69E9B18] + 16);
+  ARDisplayCenterTransformForCaptureDevicePosition_frontCameraFromDisplayCenter_0 = v32;
+  ARDisplayCenterTransformForCaptureDevicePosition_frontCameraFromDisplayCenter_1 = v33;
+  ARDisplayCenterTransformForCaptureDevicePosition_frontCameraFromDisplayCenter_2 = v34;
+  ARDisplayCenterTransformForCaptureDevicePosition_frontCameraFromDisplayCenter_3 = v35;
+  v36 = *(MEMORY[0x1E69E9B18] + 16);
   ARDisplayCenterTransformForCaptureDevicePosition_rearCameraFromDisplayCenter = *MEMORY[0x1E69E9B18];
-  *algn_1EBF436F0 = v31;
-  v32 = *(MEMORY[0x1E69E9B18] + 48);
+  *algn_1EBF436F0 = v36;
+  v37 = *(MEMORY[0x1E69E9B18] + 48);
   xmmword_1EBF43700 = *(MEMORY[0x1E69E9B18] + 32);
-  unk_1EBF43710 = v32;
-  v33 = MGCopyAnswer();
-  if ([v33 count] < 3)
+  unk_1EBF43710 = v37;
+  v38 = MGCopyAnswer();
+  v39 = [v38 count];
+  if (v39 < 3)
   {
     if (ARShouldUseLogTypeError_onceToken_57 != -1)
     {
       __ARDisplayCenterTransformForCaptureDevicePosition_block_invoke_cold_1();
     }
 
-    v46 = ARShouldUseLogTypeError_internalOSVersion_57;
-    v47 = _ARLogGeneral_52();
-    v48 = v47;
-    if (v46 == 1)
+    v54 = ARShouldUseLogTypeError_internalOSVersion_57;
+    v55 = _ARLogGeneral_52(v39);
+    v56 = v55;
+    if (v54 == 1)
     {
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      v57 = os_log_type_enabled(v55, OS_LOG_TYPE_ERROR);
+      if (v57)
       {
-        v49 = ARDeviceString();
+        v58 = ARDeviceString(v57);
         *buf = 138412290;
-        v60 = *&v49;
-        v50 = "No rear camera offset value found for device: %@";
-        v51 = v48;
-        v52 = OS_LOG_TYPE_ERROR;
+        v70 = *&v58;
+        v59 = "No rear camera offset value found for device: %@";
+        v60 = v56;
+        v61 = OS_LOG_TYPE_ERROR;
 LABEL_24:
-        _os_log_impl(&dword_1C241C000, v51, v52, v50, buf, 0xCu);
+        _os_log_impl(&dword_1C241C000, v60, v61, v59, buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+    else
     {
-      v49 = ARDeviceString();
-      *buf = 138412290;
-      v60 = *&v49;
-      v50 = "Error: No rear camera offset value found for device: %@";
-      v51 = v48;
-      v52 = OS_LOG_TYPE_INFO;
-      goto LABEL_24;
+      v62 = os_log_type_enabled(v55, OS_LOG_TYPE_INFO);
+      if (v62)
+      {
+        v58 = ARDeviceString(v62);
+        *buf = 138412290;
+        v70 = *&v58;
+        v59 = "Error: No rear camera offset value found for device: %@";
+        v60 = v56;
+        v61 = OS_LOG_TYPE_INFO;
+        goto LABEL_24;
+      }
     }
 
     goto LABEL_26;
   }
 
-  v34 = [v33 objectAtIndexedSubscript:0];
-  [v34 floatValue];
-  v55 = v35 / 1000.0;
-  v36 = [v33 objectAtIndexedSubscript:1];
-  [v36 floatValue];
-  v53 = v37 / -1000.0;
-  v38 = [v33 objectAtIndexedSubscript:2];
-  [v38 floatValue];
-  v54 = v39 / 1000.0;
+  v40 = [v38 objectAtIndexedSubscript:0];
+  [v40 floatValue];
+  v65 = v41 / 1000.0;
+  v42 = [v38 objectAtIndexedSubscript:1];
+  [v42 floatValue];
+  v63 = v43 / -1000.0;
+  v44 = [v38 objectAtIndexedSubscript:2];
+  [v44 floatValue];
+  v64 = v45 / 1000.0;
 
-  v40 = _ARLogGeneral_52();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+  v47 = _ARLogGeneral_52(v46);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218496;
-    v60 = v55;
-    v61 = 2048;
-    v62 = v53;
-    v63 = 2048;
-    v64 = v54;
-    _os_log_impl(&dword_1C241C000, v40, OS_LOG_TYPE_DEBUG, "Using rear camera offset values (%f, %f, %f).", buf, 0x20u);
+    v70 = v65;
+    v71 = 2048;
+    v72 = v63;
+    v73 = 2048;
+    v74 = v64;
+    _os_log_impl(&dword_1C241C000, v47, OS_LOG_TYPE_DEBUG, "Using rear camera offset values (%f, %f, %f).", buf, 0x20u);
   }
 
-  v41 = _ARLogGeneral_52();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+  v49 = _ARLogGeneral_52(v48);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218496;
-    v60 = v55;
-    v61 = 2048;
-    v62 = v53;
-    v63 = 2048;
-    v64 = v54;
-    _os_log_impl(&dword_1C241C000, v41, OS_LOG_TYPE_DEBUG, "Using rear camera offset values (%f, %f, %f).", buf, 0x20u);
+    v70 = v65;
+    v71 = 2048;
+    v72 = v63;
+    v73 = 2048;
+    v74 = v64;
+    _os_log_impl(&dword_1C241C000, v49, OS_LOG_TYPE_DEBUG, "Using rear camera offset values (%f, %f, %f).", buf, 0x20u);
   }
 
   ARMatrix4x4FromRotationAndTranslation();
-  ARDisplayCenterTransformForCaptureDevicePosition_rearCameraFromDisplayCenter = v42;
-  *algn_1EBF436F0 = v43;
-  xmmword_1EBF43700 = v44;
-  unk_1EBF43710 = v45;
+  ARDisplayCenterTransformForCaptureDevicePosition_rearCameraFromDisplayCenter = v50;
+  *algn_1EBF436F0 = v51;
+  xmmword_1EBF43700 = v52;
+  unk_1EBF43710 = v53;
 LABEL_26:
 }
 
@@ -8633,7 +8696,7 @@ id ARDeviceANEVersion()
   return v0;
 }
 
-uint64_t ARIsANEVersionEqualOrPriorToH12()
+uint64_t ARIsANEVersionEqualOrPriorToH12(uint64_t a1, uint64_t a2)
 {
   if (ARIsANEVersionEqualOrPriorToH12_onceToken[0] != -1)
   {
@@ -8679,7 +8742,7 @@ void __ARIsANEVersionEqualOrPriorToH12_block_invoke()
   ARIsANEVersionEqualOrPriorToH12_s_isANEVersionEqualOrPriorToH12 = v1;
 }
 
-uint64_t ARDeviceSupportsJasper()
+uint64_t ARDeviceSupportsJasper(uint64_t a1, uint64_t a2)
 {
   if (ARDeviceSupportsJasper_onceToken != -1)
   {
@@ -8696,7 +8759,7 @@ BOOL __ARDeviceSupportsJasper_block_invoke()
   return result;
 }
 
-uint64_t ARShouldSupport1440pAndAutofocus()
+uint64_t ARShouldSupport1440pAndAutofocus(uint64_t a1, uint64_t a2)
 {
   if (ARShouldSupport1440pAndAutofocus_onceToken != -1)
   {
@@ -8726,7 +8789,7 @@ void __ARShouldSupport1440pAndAutofocus_block_invoke()
   ARShouldSupport1440pAndAutofocus_cachedReturn = v0 & 1;
 }
 
-uint64_t ARLinkedOnOrAfterPeace()
+uint64_t ARLinkedOnOrAfterPeace(uint64_t a1, uint64_t a2)
 {
   if (ARLinkedOnOrAfterPeace_onceToken != -1)
   {
@@ -8743,7 +8806,7 @@ uint64_t __ARLinkedOnOrAfterPeace_block_invoke()
   return result;
 }
 
-uint64_t ARLinkedOnOrAfterYukon()
+uint64_t ARLinkedOnOrAfterYukon(uint64_t a1, uint64_t a2)
 {
   if (ARLinkedOnOrAfterYukon_onceToken != -1)
   {
@@ -8760,20 +8823,20 @@ uint64_t __ARLinkedOnOrAfterYukon_block_invoke()
   return result;
 }
 
-uint64_t ARLinkedOnOrAfterAzul()
+unint64_t ARLinkedOnOrAfterAzul(uint64_t a1)
 {
   if (ARLinkedOnOrAfterAzul_onceToken != -1)
   {
     ARLinkedOnOrAfterAzul_cold_1();
   }
 
-  v1 = ARLinkedOnOrAfterAzul_forceAssumeLinkedOnOrAfterAzul;
+  v2 = ARLinkedOnOrAfterAzul_forceAssumeLinkedOnOrAfterAzul;
   if (!ARLinkedOnOrAfterAzul_forceAssumeLinkedOnOrAfterAzul)
   {
     return ARLinkedOnOrAfterAzul_cachedReturn;
   }
 
-  return [v1 BOOLValue];
+  return [v2 BOOLValue];
 }
 
 void __ARLinkedOnOrAfterAzul_block_invoke()
@@ -8784,7 +8847,7 @@ void __ARLinkedOnOrAfterAzul_block_invoke()
   ARLinkedOnOrAfterAzul_forceAssumeLinkedOnOrAfterAzul = v0;
 }
 
-uint64_t ARLinkedOnOrAfterAzulC()
+uint64_t ARLinkedOnOrAfterAzulC(uint64_t a1, uint64_t a2)
 {
   if (ARLinkedOnOrAfterAzulC_onceToken != -1)
   {
@@ -8801,7 +8864,7 @@ uint64_t __ARLinkedOnOrAfterAzulC_block_invoke()
   return result;
 }
 
-uint64_t ARLinkedOnOrAfterAzulE()
+uint64_t ARLinkedOnOrAfterAzulE(uint64_t a1, uint64_t a2)
 {
   if (ARLinkedOnOrAfterAzulE_onceToken != -1)
   {
@@ -8818,7 +8881,7 @@ uint64_t __ARLinkedOnOrAfterAzulE_block_invoke()
   return result;
 }
 
-uint64_t ARLinkedOnOrAfterSydney()
+uint64_t ARLinkedOnOrAfterSydney(uint64_t a1, uint64_t a2)
 {
   if (ARLinkedOnOrAfterSydney_onceToken != -1)
   {
@@ -8835,7 +8898,7 @@ uint64_t __ARLinkedOnOrAfterSydney_block_invoke()
   return result;
 }
 
-uint64_t ARLinkedOnOrAfterDawn()
+uint64_t ARLinkedOnOrAfterDawn(uint64_t a1, uint64_t a2)
 {
   if (ARLinkedOnOrAfterDawn_onceToken != -1)
   {
@@ -8852,7 +8915,7 @@ uint64_t __ARLinkedOnOrAfterDawn_block_invoke()
   return result;
 }
 
-uint64_t ARLinkedOnOrAfterLuck()
+uint64_t ARLinkedOnOrAfterLuck(uint64_t a1, uint64_t a2)
 {
   if (ARLinkedOnOrAfterLuck_onceToken != -1)
   {
@@ -8869,7 +8932,7 @@ uint64_t __ARLinkedOnOrAfterLuck_block_invoke()
   return result;
 }
 
-uint64_t ARLinkedOnOrAfterConstellation()
+uint64_t ARLinkedOnOrAfterConstellation(uint64_t a1, uint64_t a2)
 {
   if (ARLinkedOnOrAfterConstellation_onceToken != -1)
   {
@@ -8886,7 +8949,7 @@ uint64_t __ARLinkedOnOrAfterConstellation_block_invoke()
   return result;
 }
 
-uint64_t ARLinkedOnOrAfterConstellationE()
+uint64_t ARLinkedOnOrAfterConstellationE(uint64_t a1, uint64_t a2)
 {
   if (ARLinkedOnOrAfterConstellationE_onceToken != -1)
   {
@@ -8903,7 +8966,7 @@ uint64_t __ARLinkedOnOrAfterConstellationE_block_invoke()
   return result;
 }
 
-uint64_t ARLinkedOnOrAfterVisionOS_3_0()
+uint64_t ARLinkedOnOrAfterVisionOS_3_0(uint64_t a1, uint64_t a2)
 {
   if (ARLinkedOnOrAfterVisionOS_3_0_onceToken != -1)
   {
@@ -8913,7 +8976,7 @@ uint64_t ARLinkedOnOrAfterVisionOS_3_0()
   return ARLinkedOnOrAfterVisionOS_3_0_cachedReturn;
 }
 
-uint64_t ARIsIntelMac()
+uint64_t ARIsIntelMac(uint64_t a1, uint64_t a2)
 {
   if (ARIsIntelMac_onceToken != -1)
   {
@@ -8996,143 +9059,147 @@ double __ARConvertSecondsToTicks_block_invoke()
 
 uint64_t ARConvertMCTToMAT(uint64_t a1)
 {
-  v10 = 0;
   v11 = 0;
-  if (mach_get_times())
+  v12 = 0;
+  times = mach_get_times();
+  if (times)
   {
     if (ARShouldUseLogTypeError_onceToken_57 != -1)
     {
       __ARDisplayCenterTransformForCaptureDevicePosition_block_invoke_cold_1();
     }
 
-    v2 = ARShouldUseLogTypeError_internalOSVersion_57;
-    v3 = _ARLogGeneral_52();
-    v4 = v3;
-    if (v2 == 1)
+    v3 = ARShouldUseLogTypeError_internalOSVersion_57;
+    v4 = _ARLogGeneral_52(times);
+    v5 = v4;
+    if (v3 == 1)
     {
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        *v9 = 0;
-        v5 = "mach_get_times is failing for ARConvertMCTToMAT";
-        v6 = v4;
-        v7 = OS_LOG_TYPE_ERROR;
+        *v10 = 0;
+        v6 = "mach_get_times is failing for ARConvertMCTToMAT";
+        v7 = v5;
+        v8 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-        _os_log_impl(&dword_1C241C000, v6, v7, v5, v9, 2u);
+        _os_log_impl(&dword_1C241C000, v7, v8, v6, v10, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v9 = 0;
-      v5 = "Error: mach_get_times is failing for ARConvertMCTToMAT";
-      v6 = v4;
-      v7 = OS_LOG_TYPE_INFO;
+      *v10 = 0;
+      v6 = "Error: mach_get_times is failing for ARConvertMCTToMAT";
+      v7 = v5;
+      v8 = OS_LOG_TYPE_INFO;
       goto LABEL_10;
     }
 
     return a1;
   }
 
-  return a1 - v10 + v11;
+  return a1 - v11 + v12;
 }
 
 uint64_t ARConvertMATToMCT(uint64_t a1)
 {
-  v10 = 0;
   v11 = 0;
-  if (mach_get_times())
+  v12 = 0;
+  times = mach_get_times();
+  if (times)
   {
     if (ARShouldUseLogTypeError_onceToken_57 != -1)
     {
       __ARDisplayCenterTransformForCaptureDevicePosition_block_invoke_cold_1();
     }
 
-    v2 = ARShouldUseLogTypeError_internalOSVersion_57;
-    v3 = _ARLogGeneral_52();
-    v4 = v3;
-    if (v2 == 1)
+    v3 = ARShouldUseLogTypeError_internalOSVersion_57;
+    v4 = _ARLogGeneral_52(times);
+    v5 = v4;
+    if (v3 == 1)
     {
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        *v9 = 0;
-        v5 = "mach_get_times is failing for ARConvertMATToMCT";
-        v6 = v4;
-        v7 = OS_LOG_TYPE_ERROR;
+        *v10 = 0;
+        v6 = "mach_get_times is failing for ARConvertMATToMCT";
+        v7 = v5;
+        v8 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-        _os_log_impl(&dword_1C241C000, v6, v7, v5, v9, 2u);
+        _os_log_impl(&dword_1C241C000, v7, v8, v6, v10, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v9 = 0;
-      v5 = "Error: mach_get_times is failing for ARConvertMATToMCT";
-      v6 = v4;
-      v7 = OS_LOG_TYPE_INFO;
+      *v10 = 0;
+      v6 = "Error: mach_get_times is failing for ARConvertMATToMCT";
+      v7 = v5;
+      v8 = OS_LOG_TYPE_INFO;
       goto LABEL_10;
     }
 
     return a1;
   }
 
-  return v10 + a1 - v11;
+  return v11 + a1 - v12;
 }
 
-dispatch_queue_t ARCreateFixedPriorityDispatchQueueWithQOS(const char *a1)
+dispatch_queue_t ARCreateFixedPriorityDispatchQueueWithQOS(const char *a1, uint64_t a2, uint64_t a3)
 {
   inactive = dispatch_workloop_create_inactive(a1);
   dispatch_workloop_set_qos_class_floor();
   dispatch_activate(inactive);
-  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v4 = dispatch_queue_create_with_target_V2(a1, v3, inactive);
+  v5 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v6 = dispatch_queue_create_with_target_V2(a1, v5, inactive);
 
-  return v4;
+  return v6;
 }
 
-dispatch_queue_t ARCreateFixedPriorityDispatchQueueWithPropagatedQOS(const char *a1, dispatch_qos_class_t a2, int a3)
+dispatch_queue_t ARCreateFixedPriorityDispatchQueueWithPropagatedQOS(const char *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   inactive = dispatch_workloop_create_inactive(a1);
   dispatch_workloop_set_qos_class_floor();
   dispatch_activate(inactive);
   v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v8 = dispatch_queue_attr_make_with_qos_class(v7, a2, a3);
+  v8 = dispatch_queue_attr_make_with_qos_class(v7, v4, v3);
 
   v9 = dispatch_queue_create_with_target_V2(a1, v8, inactive);
 
   return v9;
 }
 
-dispatch_queue_t ARCreateFixedPriorityDispatchQueueWithPriority(const char *a1)
+dispatch_queue_t ARCreateFixedPriorityDispatchQueueWithPriority(const char *a1, uint64_t a2)
 {
   inactive = dispatch_workloop_create_inactive(a1);
   dispatch_workloop_set_scheduler_priority();
   dispatch_activate(inactive);
-  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v4 = dispatch_queue_create_with_target_V2(a1, v3, inactive);
+  v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v5 = dispatch_queue_create_with_target_V2(a1, v4, inactive);
 
-  return v4;
+  return v5;
 }
 
-dispatch_queue_t ARCreateNonFixedPriorityDispatchQueue(const char *a1)
+dispatch_queue_t ARCreateNonFixedPriorityDispatchQueue(const char *a1, uint64_t a2, uint64_t a3)
 {
   inactive = dispatch_workloop_create_inactive(a1);
   dispatch_workloop_set_qos_class_floor();
   dispatch_activate(inactive);
-  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v4 = dispatch_queue_create_with_target_V2(a1, v3, inactive);
+  v5 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v6 = dispatch_queue_create_with_target_V2(a1, v5, inactive);
 
-  return v4;
+  return v6;
 }
 
-dispatch_queue_t ARCreateNonFixedPriorityConcurrentDispatchQueue(const char *a1)
+dispatch_queue_t ARCreateNonFixedPriorityConcurrentDispatchQueue(const char *a1, uint64_t a2, uint64_t a3)
 {
   inactive = dispatch_workloop_create_inactive(a1);
   dispatch_workloop_set_qos_class_floor();
   dispatch_activate(inactive);
-  v3 = dispatch_queue_attr_make_with_autorelease_frequency(MEMORY[0x1E69E96A8], DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v4 = dispatch_queue_create_with_target_V2(a1, v3, inactive);
+  v5 = dispatch_queue_attr_make_with_autorelease_frequency(MEMORY[0x1E69E96A8], DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v6 = dispatch_queue_create_with_target_V2(a1, v5, inactive);
 
-  return v4;
+  return v6;
 }
 
 BOOL ARDispatchQueueIsCurrentDispatchQueue(NSObject *a1)
@@ -9188,7 +9255,7 @@ uint64_t ARGetMemoryFootprint(void *a1, void *a2)
   return result;
 }
 
-uint64_t ARRGBFaceTrackingEnabled()
+uint64_t ARRGBFaceTrackingEnabled(uint64_t a1, uint64_t a2)
 {
   if (ARRGBFaceTrackingEnabled_onceToken != -1)
   {
@@ -9218,19 +9285,19 @@ void __ARRGBFaceTrackingEnabled_block_invoke()
   ARRGBFaceTrackingEnabled_faceTrackingEnabled = v0 & 1;
 }
 
-id ARFaceTrackingDevice()
+id ARFaceTrackingDevice(uint64_t a1)
 {
   if (ARFaceTrackingDevice_onceToken != -1)
   {
     ARFaceTrackingDevice_cold_1();
   }
 
-  v1 = ARFaceTrackingDevice_deviceType;
+  v2 = ARFaceTrackingDevice_deviceType;
 
-  return v1;
+  return v2;
 }
 
-void __ARFaceTrackingDevice_block_invoke()
+void __ARFaceTrackingDevice_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (ARRGBFaceTrackingEnabled_onceToken != -1)
   {
@@ -9249,18 +9316,18 @@ void __ARFaceTrackingDevice_block_invoke()
 
   if (ARPearlCameraSupported_supported != 1)
   {
-    v0 = MEMORY[0x1E6986950];
+    v2 = MEMORY[0x1E6986950];
   }
 
   else
   {
 LABEL_7:
-    v0 = MEMORY[0x1E6986940];
+    v2 = MEMORY[0x1E6986940];
   }
 
-  v1 = *v0;
+  v3 = *v2;
 
-  objc_storeStrong(&ARFaceTrackingDevice_deviceType, v1);
+  objc_storeStrong(&ARFaceTrackingDevice_deviceType, v3);
 }
 
 BOOL ARHasH10()
@@ -9373,7 +9440,7 @@ uint64_t ARDeviceSupportsMulticamSessionWithVideoFormats(void *a1)
                         }
 
                         v19 = *(*(&v41 + 1) + 8 * j);
-                        v20 = [v13 position];
+                        v20 = objc_msgSend_position(v13);
                         if (v20 == [v19 captureDevicePosition])
                         {
                           v21 = [v13 deviceType];
@@ -9447,43 +9514,4 @@ LABEL_32:
   }
 
   return v27;
-}
-
-uint64_t ARDeviceSupportsMulticamWithTripleRGBStreaming()
-{
-  if (ARDeviceSupportsMulticamWithTripleRGBStreaming_onceToken != -1)
-  {
-    ARDeviceSupportsMulticamWithTripleRGBStreaming_cold_1();
-  }
-
-  return ARDeviceSupportsMulticamWithTripleRGBStreaming_supportsMulticamWithTripleRGBStreaming;
-}
-
-void __ARDeviceSupportsMulticamWithTripleRGBStreaming_block_invoke()
-{
-  v9[3] = *MEMORY[0x1E69E9840];
-  v0 = [ARVideoFormat alloc];
-  v1 = *MEMORY[0x1E6986950];
-  v2 = *MEMORY[0x1E695F060];
-  v3 = *(MEMORY[0x1E695F060] + 8);
-  v4 = [(ARVideoFormat *)v0 initWithImageResolution:1 captureDevicePosition:*MEMORY[0x1E6986950] captureDeviceType:*MEMORY[0x1E695F060], v3];
-  v9[0] = v4;
-  v5 = [ARVideoFormat alloc];
-  v6 = [(ARVideoFormat *)v5 initWithImageResolution:1 captureDevicePosition:*MEMORY[0x1E6986948] captureDeviceType:v2, v3, v4];
-  v9[1] = v6;
-  v7 = [[ARVideoFormat alloc] initWithImageResolution:2 captureDevicePosition:v1 captureDeviceType:v2, v3];
-  v9[2] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:3];
-
-  ARDeviceSupportsMulticamWithTripleRGBStreaming_supportsMulticamWithTripleRGBStreaming = ARDeviceSupportsMulticamSessionWithVideoFormats(v8);
-}
-
-uint64_t ARDeviceSupportsUltraWideCamera()
-{
-  if (ARDeviceSupportsUltraWideCamera_onceToken != -1)
-  {
-    ARDeviceSupportsUltraWideCamera_cold_1();
-  }
-
-  return ARDeviceSupportsUltraWideCamera_ultraWideAvailable;
 }

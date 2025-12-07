@@ -2217,7 +2217,8 @@ LABEL_13:
   OUTLINED_FUNCTION_8();
   if (os_signpost_enabled(v2))
   {
-    OUTLINED_FUNCTION_0_5(&dword_1C5126000, v3, v4, v5, "_updateChildSourcesForceAll", "", v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_5(&dword_1C5126000, v3, v4, v5, "_updateChildSourcesForceAll", "", v6, v7, v8);
   }
 
   *v0 = v1;
@@ -2245,7 +2246,8 @@ LABEL_13:
   OUTLINED_FUNCTION_8();
   if (os_signpost_enabled(v2))
   {
-    OUTLINED_FUNCTION_0_5(&dword_1C5126000, v3, v4, v5, "_updateChildSourcesForType", "", v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_5(&dword_1C5126000, v3, v4, v5, "_updateChildSourcesForType", "", v6, v7, v8);
   }
 
   *v0 = v1;

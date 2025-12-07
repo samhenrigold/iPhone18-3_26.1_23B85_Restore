@@ -17,11 +17,11 @@
 
 - (FCTimeOfDayConfiguration)initWithDictionary:(id)dictionary
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v12.receiver = self;
-  v12.super_class = FCTimeOfDayConfiguration;
-  v5 = [(FCTimeOfDayConfiguration *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = FCTimeOfDayConfiguration;
+  v5 = [(FCTimeOfDayConfiguration *)&v11 init];
   if (v5)
   {
     v6 = FCAppConfigurationNumberValue(dictionaryCopy, @"start", 0);
@@ -39,7 +39,7 @@
       if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v14 = dictionaryCopy;
+        v13 = dictionaryCopy;
         _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "Invalid time of day configuration %{public}@", buf, 0xCu);
       }
 
@@ -47,7 +47,6 @@
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

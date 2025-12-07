@@ -93,7 +93,7 @@ LABEL_10:
 
   if (a5[1].n128_u64[0] < a4[1].n128_u64[0])
   {
-    v23 = a4[1].n128_i64[0];
+    v23 = a4[1].n128_u64[0];
     result = *a4;
     v24 = a5[1].n128_u64[0];
     *a4 = *a5;
@@ -135,7 +135,7 @@ LABEL_10:
   return result;
 }
 
-BOOL sub_10003A0A4(uint64_t a1, uint64_t a2, __n128 a3)
+BOOL sub_10003A0A4(uint64_t a1, __int128 *a2, __n128 a3)
 {
   v3 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
   if (v3 > 2)
@@ -144,7 +144,7 @@ BOOL sub_10003A0A4(uint64_t a1, uint64_t a2, __n128 a3)
     {
       v7 = (a2 - 24);
       v8 = *(a1 + 40);
-      v9 = *(a2 - 8);
+      v9 = *(a2 - 1);
       if (v8 < *(a1 + 16))
       {
         if (v9 >= v8)
@@ -155,14 +155,14 @@ BOOL sub_10003A0A4(uint64_t a1, uint64_t a2, __n128 a3)
           *(a1 + 16) = *(a1 + 40);
           *(a1 + 24) = v36;
           *(a1 + 40) = v35;
-          if (*(a2 - 8) >= *(a1 + 40))
+          if (*(a2 - 1) >= *(a1 + 40))
           {
             return 1;
           }
 
           v10 = *(a1 + 40);
           v11 = *(a1 + 24);
-          v37 = *(a2 - 8);
+          v37 = *(a2 - 1);
           *(a1 + 24) = *v7;
           *(a1 + 40) = v37;
         }
@@ -171,13 +171,13 @@ BOOL sub_10003A0A4(uint64_t a1, uint64_t a2, __n128 a3)
         {
           v10 = *(a1 + 16);
           v11 = *a1;
-          v12 = *(a2 - 8);
+          v12 = *(a2 - 1);
           *a1 = *v7;
           *(a1 + 16) = v12;
         }
 
         *v7 = v11;
-        *(a2 - 8) = v10;
+        *(a2 - 1) = v10;
         return 1;
       }
 
@@ -188,11 +188,11 @@ BOOL sub_10003A0A4(uint64_t a1, uint64_t a2, __n128 a3)
 
       v24 = *(a1 + 40);
       v25 = *(a1 + 24);
-      v26 = *(a2 - 8);
+      v26 = *(a2 - 1);
       *(a1 + 24) = *v7;
       *(a1 + 40) = v26;
       *v7 = v25;
-      *(a2 - 8) = v24;
+      *(a2 - 1) = v24;
 LABEL_50:
       if (*(a1 + 40) < *(a1 + 16))
       {
@@ -275,7 +275,7 @@ LABEL_50:
     *(a1 + 48) = v23;
     *(a1 + 64) = v22;
 LABEL_47:
-    if (*(a2 - 8) >= *(a1 + 64))
+    if (*(a2 - 1) >= *(a1 + 64))
     {
       return 1;
     }
@@ -283,7 +283,7 @@ LABEL_47:
     v49 = a2 - 24;
     v50 = *(a1 + 64);
     v51 = *(a1 + 48);
-    v52 = *(a2 - 8);
+    v52 = *(a2 - 1);
     *(a1 + 48) = *(a2 - 24);
     *(a1 + 64) = v52;
     *v49 = v51;
@@ -309,22 +309,22 @@ LABEL_47:
 
   if (v3 == 2)
   {
-    if (*(a2 - 8) < *(a1 + 16))
+    if (*(a2 - 1) < *(a1 + 16))
     {
       v4 = *(a1 + 16);
       v5 = *a1;
-      v6 = *(a2 - 8);
+      v6 = *(a2 - 1);
       *a1 = *(a2 - 24);
       *(a1 + 16) = v6;
       *(a2 - 24) = v5;
-      *(a2 - 8) = v4;
+      *(a2 - 1) = v4;
     }
 
     return 1;
   }
 
 LABEL_13:
-  v13 = a1 + 48;
+  v13 = (a1 + 48);
   v14 = *(a1 + 40);
   v15 = *(a1 + 16);
   v16 = *(a1 + 64);
@@ -384,8 +384,8 @@ LABEL_13:
   }
 
 LABEL_33:
-  v40 = a1 + 72;
-  if (a1 + 72 == a2)
+  v40 = (a1 + 72);
+  if ((a1 + 72) == a2)
   {
     return 1;
   }
@@ -394,8 +394,8 @@ LABEL_33:
   v42 = 0;
   while (1)
   {
-    v43 = *(v40 + 16);
-    if (v43 < *(v13 + 16))
+    v43 = *(v40 + 2);
+    if (v43 < *(v13 + 2))
     {
       v58 = *v40;
       v44 = v41;
@@ -423,13 +423,13 @@ LABEL_41:
       *(v46 + 16) = v43;
       if (++v42 == 8)
       {
-        return v40 + 24 == a2;
+        return (v40 + 24) == a2;
       }
     }
 
     v13 = v40;
     v41 += 24;
-    v40 += 24;
+    v40 = (v40 + 24);
     if (v40 == a2)
     {
       return 1;
@@ -437,7 +437,7 @@ LABEL_41:
   }
 }
 
-uint64_t sub_10003A540(uint64_t a1, uint64_t *a2, double *a3, uint64_t *a4, _DWORD *a5)
+uint64_t sub_10003A540(uint64_t a1, uint64_t *a2, double *a3, uint64_t a4, _DWORD *a5)
 {
   v5 = 0x6DB6DB6DB6DB6DB7 * ((*(a1 + 8) - *a1) >> 3);
   v6 = v5 + 1;
@@ -487,21 +487,21 @@ uint64_t sub_10003A540(uint64_t a1, uint64_t *a2, double *a3, uint64_t *a4, _DWO
   return v15;
 }
 
-void sub_10003A698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_10003A698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_100038DD0(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10003A6AC(uint64_t a1, uint64_t a2, uint64_t *a3, double *a4, uint64_t *a5, _DWORD *a6)
+void sub_10003A6AC(uint64_t a1, uint64_t a2, uint64_t *a3, double *a4, uint64_t a5, _DWORD *a6)
 {
   v8 = *a3;
   v9 = *a4;
   v11 = 0;
   v12 = 0;
   __p = 0;
-  sub_1000368C4(&__p, *a5, a5[1], 0xAAAAAAAAAAAAAAABLL * ((a5[1] - *a5) >> 3));
+  sub_1000368C4(&__p, *a5, *(a5 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a5 + 8) - *a5) >> 3));
   LODWORD(a6) = *a6;
   *a2 = v8;
   *(a2 + 8) = 0;
@@ -509,7 +509,7 @@ void sub_10003A6AC(uint64_t a1, uint64_t a2, uint64_t *a3, double *a4, uint64_t 
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
-  sub_1000368C4(a2 + 24, __p, v11, 0xAAAAAAAAAAAAAAABLL * ((v11 - __p) >> 3));
+  sub_1000368C4((a2 + 24), __p, v11, 0xAAAAAAAAAAAAAAABLL * ((v11 - __p) >> 3));
   *(a2 + 48) = a6;
   if (__p)
   {
@@ -528,7 +528,7 @@ void sub_10003A75C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_10003A778(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_10003A778(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -545,7 +545,7 @@ void sub_10003A7E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_10003A800(uint64_t a1, unint64_t a2)
+void sub_10003A800(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x492492492492493)
   {
@@ -575,7 +575,7 @@ uint64_t sub_10003A850(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
       *(v4 + 24) = 0;
       *(v4 + 32) = 0;
       *(v4 + 40) = 0;
-      sub_1000368C4(v4 + 24, *(v6 + 3), *(v6 + 4), 0xAAAAAAAAAAAAAAABLL * ((*(v6 + 4) - *(v6 + 3)) >> 3));
+      sub_1000368C4((v4 + 24), *(v6 + 3), *(v6 + 4), 0xAAAAAAAAAAAAAAABLL * ((*(v6 + 4) - *(v6 + 3)) >> 3));
       *(v4 + 48) = *(v6 + 12);
       v6 = (v6 + 56);
       v4 = v12 + 56;
@@ -630,8 +630,8 @@ void sub_10003B66C()
 {
   if ((atomic_load_explicit(&qword_1009E9448, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9448))
   {
-    sub_100004A08(byte_1009E9430, "PRRoseProviderNetworkListener");
-    __cxa_atexit(&std::string::~string, byte_1009E9430, &_mh_execute_header);
+    sub_100004A08(qword_1009E9430, "PRRoseProviderNetworkListener");
+    __cxa_atexit(&std::string::~string, qword_1009E9430, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9448);
   }
@@ -663,8 +663,8 @@ void sub_10003B87C()
 {
   if ((atomic_load_explicit(&qword_1009E94A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94A8))
   {
-    sub_100004A08(byte_1009E9490, "MA_");
-    __cxa_atexit(&std::string::~string, byte_1009E9490, &_mh_execute_header);
+    sub_100004A08(qword_1009E9490, "MA_");
+    __cxa_atexit(&std::string::~string, qword_1009E9490, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94A8);
   }
@@ -674,8 +674,8 @@ void sub_10003B92C()
 {
   if ((atomic_load_explicit(&qword_1009E94C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94C8))
   {
-    sub_100004A08(byte_1009E94B0, "MB_");
-    __cxa_atexit(&std::string::~string, byte_1009E94B0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94B0, "MB_");
+    __cxa_atexit(&std::string::~string, qword_1009E94B0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94C8);
   }
@@ -685,8 +685,8 @@ void sub_10003B9DC()
 {
   if ((atomic_load_explicit(&qword_1009E94E8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94E8))
   {
-    sub_100004A08(byte_1009E94D0, "D");
-    __cxa_atexit(&std::string::~string, byte_1009E94D0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94D0, "D");
+    __cxa_atexit(&std::string::~string, qword_1009E94D0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94E8);
   }
@@ -707,8 +707,8 @@ void sub_10003BB3C()
 {
   if ((atomic_load_explicit(&qword_1009E9528, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9528))
   {
-    sub_100004A08(byte_1009E9510, "FAS.bin");
-    __cxa_atexit(&std::string::~string, byte_1009E9510, &_mh_execute_header);
+    sub_100004A08(qword_1009E9510, "FAS.bin");
+    __cxa_atexit(&std::string::~string, qword_1009E9510, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9528);
   }
@@ -735,7 +735,7 @@ void sub_10003BBEC()
 void sub_10003BCE0()
 {
   v0 = objc_autoreleasePoolPush();
-  sub_10041C9CC();
+  sub_10041C9CC(0);
   v1 = std::string::insert(&v37, 0, "reverseLUT_A");
   v2 = *&v1->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v1->__r_.__value_.__r.__words[2];
@@ -761,7 +761,7 @@ void sub_10003BCE0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009EC988, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(1);
   v5 = std::string::insert(&v37, 0, "reverseLUT_A");
   v6 = *&v5->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
@@ -787,7 +787,7 @@ void sub_10003BCE0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009EC9A0, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(2);
   v9 = std::string::insert(&v37, 0, "reverseLUT_A");
   v10 = *&v9->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
@@ -813,7 +813,7 @@ void sub_10003BCE0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009EC9B8, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(3);
   v13 = std::string::insert(&v37, 0, "reverseLUT_A");
   v14 = *&v13->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
@@ -839,7 +839,7 @@ void sub_10003BCE0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009EC9D0, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(4);
   v17 = std::string::insert(&v37, 0, "reverseLUT_A");
   v18 = *&v17->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
@@ -865,7 +865,7 @@ void sub_10003BCE0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009EC9E8, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(5);
   v21 = std::string::insert(&v37, 0, "reverseLUT_A");
   v22 = *&v21->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
@@ -891,7 +891,7 @@ void sub_10003BCE0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECA00, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(6);
   v25 = std::string::insert(&v37, 0, "reverseLUT_A");
   v26 = *&v25->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
@@ -917,7 +917,7 @@ void sub_10003BCE0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECA18, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(7);
   v29 = std::string::insert(&v37, 0, "reverseLUT_A");
   v30 = *&v29->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
@@ -943,7 +943,7 @@ void sub_10003BCE0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECA30, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(8);
   v33 = std::string::insert(&v37, 0, "reverseLUT_A");
   v34 = *&v33->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
@@ -1027,7 +1027,7 @@ const __CFString *sub_10003C870(unsigned int a1)
   }
 }
 
-uint64_t *sub_10003CAB0(void *a1, int *a2)
+uint64_t sub_10003CAB0(void *a1, int *a2)
 {
   result = sub_10003CAE8(a1, a2);
   if (result)
@@ -1106,33 +1106,33 @@ uint64_t *sub_10003CAE8(void *a1, int *a2)
   return result;
 }
 
-uint64_t *sub_10003CB9C(void *a1, int *a2)
+uint64_t *sub_10003CB9C(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1140,44 +1140,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void sub_10003D20C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21)
@@ -1232,8 +1232,8 @@ void sub_10003D704()
 {
   if ((atomic_load_explicit(&qword_1009E9448, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9448))
   {
-    sub_100004A08(byte_1009E9430, "PRRoseProviderNetworkListener");
-    __cxa_atexit(&std::string::~string, byte_1009E9430, &_mh_execute_header);
+    sub_100004A08(qword_1009E9430, "PRRoseProviderNetworkListener");
+    __cxa_atexit(&std::string::~string, qword_1009E9430, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9448);
   }
@@ -1265,8 +1265,8 @@ void sub_10003D914()
 {
   if ((atomic_load_explicit(&qword_1009E94A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94A8))
   {
-    sub_100004A08(byte_1009E9490, "MA_");
-    __cxa_atexit(&std::string::~string, byte_1009E9490, &_mh_execute_header);
+    sub_100004A08(qword_1009E9490, "MA_");
+    __cxa_atexit(&std::string::~string, qword_1009E9490, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94A8);
   }
@@ -1276,8 +1276,8 @@ void sub_10003D9C4()
 {
   if ((atomic_load_explicit(&qword_1009E94C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94C8))
   {
-    sub_100004A08(byte_1009E94B0, "MB_");
-    __cxa_atexit(&std::string::~string, byte_1009E94B0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94B0, "MB_");
+    __cxa_atexit(&std::string::~string, qword_1009E94B0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94C8);
   }
@@ -1287,8 +1287,8 @@ void sub_10003DA74()
 {
   if ((atomic_load_explicit(&qword_1009E94E8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94E8))
   {
-    sub_100004A08(byte_1009E94D0, "D");
-    __cxa_atexit(&std::string::~string, byte_1009E94D0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94D0, "D");
+    __cxa_atexit(&std::string::~string, qword_1009E94D0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94E8);
   }
@@ -1309,8 +1309,8 @@ void sub_10003DBD4()
 {
   if ((atomic_load_explicit(&qword_1009E9528, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9528))
   {
-    sub_100004A08(byte_1009E9510, "FAS.bin");
-    __cxa_atexit(&std::string::~string, byte_1009E9510, &_mh_execute_header);
+    sub_100004A08(qword_1009E9510, "FAS.bin");
+    __cxa_atexit(&std::string::~string, qword_1009E9510, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9528);
   }
@@ -1337,7 +1337,7 @@ void sub_10003DC84()
 void sub_10003DD78()
 {
   v0 = objc_autoreleasePoolPush();
-  sub_10041C9CC();
+  sub_10041C9CC(0);
   v1 = std::string::insert(&v37, 0, "reverseLUT_A");
   v2 = *&v1->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v1->__r_.__value_.__r.__words[2];
@@ -1363,7 +1363,7 @@ void sub_10003DD78()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECA60, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(1);
   v5 = std::string::insert(&v37, 0, "reverseLUT_A");
   v6 = *&v5->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
@@ -1389,7 +1389,7 @@ void sub_10003DD78()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECA78, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(2);
   v9 = std::string::insert(&v37, 0, "reverseLUT_A");
   v10 = *&v9->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
@@ -1415,7 +1415,7 @@ void sub_10003DD78()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECA90, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(3);
   v13 = std::string::insert(&v37, 0, "reverseLUT_A");
   v14 = *&v13->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
@@ -1441,7 +1441,7 @@ void sub_10003DD78()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECAA8, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(4);
   v17 = std::string::insert(&v37, 0, "reverseLUT_A");
   v18 = *&v17->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
@@ -1467,7 +1467,7 @@ void sub_10003DD78()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECAC0, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(5);
   v21 = std::string::insert(&v37, 0, "reverseLUT_A");
   v22 = *&v21->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
@@ -1493,7 +1493,7 @@ void sub_10003DD78()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECAD8, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(6);
   v25 = std::string::insert(&v37, 0, "reverseLUT_A");
   v26 = *&v25->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
@@ -1519,7 +1519,7 @@ void sub_10003DD78()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECAF0, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(7);
   v29 = std::string::insert(&v37, 0, "reverseLUT_A");
   v30 = *&v29->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
@@ -1545,7 +1545,7 @@ void sub_10003DD78()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECB08, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(8);
   v33 = std::string::insert(&v37, 0, "reverseLUT_A");
   v34 = *&v33->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
@@ -1664,8 +1664,8 @@ void sub_10003E8A0()
 {
   if ((atomic_load_explicit(&qword_1009E9448, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9448))
   {
-    sub_100004A08(byte_1009E9430, "PRRoseProviderNetworkListener");
-    __cxa_atexit(&std::string::~string, byte_1009E9430, &_mh_execute_header);
+    sub_100004A08(qword_1009E9430, "PRRoseProviderNetworkListener");
+    __cxa_atexit(&std::string::~string, qword_1009E9430, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9448);
   }
@@ -1697,8 +1697,8 @@ void sub_10003EAB0()
 {
   if ((atomic_load_explicit(&qword_1009E94A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94A8))
   {
-    sub_100004A08(byte_1009E9490, "MA_");
-    __cxa_atexit(&std::string::~string, byte_1009E9490, &_mh_execute_header);
+    sub_100004A08(qword_1009E9490, "MA_");
+    __cxa_atexit(&std::string::~string, qword_1009E9490, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94A8);
   }
@@ -1708,8 +1708,8 @@ void sub_10003EB60()
 {
   if ((atomic_load_explicit(&qword_1009E94C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94C8))
   {
-    sub_100004A08(byte_1009E94B0, "MB_");
-    __cxa_atexit(&std::string::~string, byte_1009E94B0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94B0, "MB_");
+    __cxa_atexit(&std::string::~string, qword_1009E94B0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94C8);
   }
@@ -1719,8 +1719,8 @@ void sub_10003EC10()
 {
   if ((atomic_load_explicit(&qword_1009E94E8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94E8))
   {
-    sub_100004A08(byte_1009E94D0, "D");
-    __cxa_atexit(&std::string::~string, byte_1009E94D0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94D0, "D");
+    __cxa_atexit(&std::string::~string, qword_1009E94D0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94E8);
   }
@@ -1741,8 +1741,8 @@ void sub_10003ED70()
 {
   if ((atomic_load_explicit(&qword_1009E9528, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9528))
   {
-    sub_100004A08(byte_1009E9510, "FAS.bin");
-    __cxa_atexit(&std::string::~string, byte_1009E9510, &_mh_execute_header);
+    sub_100004A08(qword_1009E9510, "FAS.bin");
+    __cxa_atexit(&std::string::~string, qword_1009E9510, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9528);
   }
@@ -1769,7 +1769,7 @@ void sub_10003EE20()
 void sub_10003EF14()
 {
   v0 = objc_autoreleasePoolPush();
-  sub_10041C9CC();
+  sub_10041C9CC(0);
   v1 = std::string::insert(&v37, 0, "reverseLUT_A");
   v2 = *&v1->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v1->__r_.__value_.__r.__words[2];
@@ -1795,7 +1795,7 @@ void sub_10003EF14()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECB38, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(1);
   v5 = std::string::insert(&v37, 0, "reverseLUT_A");
   v6 = *&v5->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
@@ -1821,7 +1821,7 @@ void sub_10003EF14()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECB50, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(2);
   v9 = std::string::insert(&v37, 0, "reverseLUT_A");
   v10 = *&v9->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
@@ -1847,7 +1847,7 @@ void sub_10003EF14()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECB68, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(3);
   v13 = std::string::insert(&v37, 0, "reverseLUT_A");
   v14 = *&v13->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
@@ -1873,7 +1873,7 @@ void sub_10003EF14()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECB80, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(4);
   v17 = std::string::insert(&v37, 0, "reverseLUT_A");
   v18 = *&v17->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
@@ -1899,7 +1899,7 @@ void sub_10003EF14()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECB98, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(5);
   v21 = std::string::insert(&v37, 0, "reverseLUT_A");
   v22 = *&v21->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
@@ -1925,7 +1925,7 @@ void sub_10003EF14()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECBB0, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(6);
   v25 = std::string::insert(&v37, 0, "reverseLUT_A");
   v26 = *&v25->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
@@ -1951,7 +1951,7 @@ void sub_10003EF14()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECBC8, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(7);
   v29 = std::string::insert(&v37, 0, "reverseLUT_A");
   v30 = *&v29->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
@@ -1977,7 +1977,7 @@ void sub_10003EF14()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECBE0, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(8);
   v33 = std::string::insert(&v37, 0, "reverseLUT_A");
   v34 = *&v33->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
@@ -2166,17 +2166,17 @@ char *sub_10003FA2C(void *a1, void *a2)
   return v6;
 }
 
-void *sub_10003FB04(void *result, uint64_t a2)
+uint64_t *sub_10003FB04(uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_100009AC4(result, a2);
+    sub_100009AC4(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_10003FB5C(_Unwind_Exception *exception_object)
@@ -2430,17 +2430,17 @@ void sub_1000400F0(uint64_t a1)
   }
 }
 
-void sub_100040310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100040310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, void **);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8 = va_arg(va1, void ***);
   sub_100037E2C(va);
   sub_10002E540(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_100040350(uint64_t a1, uint64_t a2)
+void sub_100040350(uint64_t a1, uint64_t *a2)
 {
   v4 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
@@ -2453,10 +2453,10 @@ void sub_100040350(uint64_t a1, uint64_t a2)
   sub_100040868(a1 + 120, a2);
   v5 = [NSNumber alloc];
   v6 = [v5 initWithInt:dword_1009E9AE8];
-  v16[0] = *a2;
-  v16[1] = v6;
-  v15 = [[NSData alloc] initWithBytes:v16 length:6];
-  v7 = *(a2 + 16);
+  v16 = *a2;
+  v17 = v6;
+  v15 = [[NSData alloc] initWithBytes:&v16 length:6];
+  v7 = a2[2];
   location = 0;
   v14 = v7;
   if (*(a2 + 32) == 1)
@@ -2468,7 +2468,7 @@ void sub_100040350(uint64_t a1, uint64_t a2)
 
   else
   {
-    objc_storeStrong(&location, *(a2 + 24));
+    objc_storeStrong(&location, a2[3]);
     v10 = qword_1009F9820;
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
     {
@@ -2486,15 +2486,15 @@ void sub_100040350(uint64_t a1, uint64_t a2)
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#wifi,secure key: %@", &buf, 0xCu);
   }
 
-  v12 = *(a2 + 8);
-  sub_1000408F8();
+  LODWORD(v12) = *(a2 + 2);
+  sub_1000408F8(&v14, &v15, &location, &v17, a1 + 24, a1 + 56, a1 + 88, &v12, (a1 + 184), (a1 + 224));
 }
 
-void sub_1000407E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, uint64_t a15, void *a16, ...)
+void sub_1000407E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, void *a20, void *a21, uint64_t a22, void *a23, ...)
 {
-  va_start(va1, a16);
-  va_start(va, a16);
-  v17 = va_arg(va1, void **);
+  va_start(va1, a23);
+  va_start(va, a23);
+  v24 = va_arg(va1, void ***);
   sub_100037E2C(va);
   sub_10002E540(va1);
 
@@ -2525,20 +2525,20 @@ uint64_t sub_100040868(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void sub_100040A34(uint64_t a1, uint64_t a2, uint64_t a3, ...)
+void sub_100040A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va2, a7);
+  va_start(va1, a7);
+  va_start(va, a7);
   v7 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
   va_copy(va2, va1);
-  v8 = va_arg(va2, void);
-  v10 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
   v12 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
   sub_100036D2C(va);
   sub_100036CAC(va1);
   sub_100036C2C(va2);
@@ -2560,19 +2560,19 @@ void sub_100040A88(uint64_t a1)
   sub_100040098(v1);
 }
 
-_BYTE *sub_100040B10@<X0>(int a1@<W0>, _BYTE *a2@<X8>)
+void *sub_100040B10@<X0>(uint64_t a1@<X0>, void *a3@<X8>)
 {
   if ((a1 + 1) >= 8)
   {
     sub_10049CE60();
   }
 
-  v3 = off_10098B348[a1 + 1];
+  v4 = off_10098B348[(a1 + 1)];
 
-  return sub_100004A08(a2, v3);
+  return sub_100004A08(a3, v4);
 }
 
-_BYTE *sub_100040B4C@<X0>(int a1@<W0>, _BYTE *a2@<X8>)
+void *sub_100040B4C@<X0>(uint64_t a1@<X0>, void *a3@<X8>)
 {
   if (a1)
   {
@@ -2581,15 +2581,15 @@ _BYTE *sub_100040B4C@<X0>(int a1@<W0>, _BYTE *a2@<X8>)
       sub_10049CE8C();
     }
 
-    v3 = "NOT_READY";
+    v4 = "NOT_READY";
   }
 
   else
   {
-    v3 = "READY";
+    v4 = "READY";
   }
 
-  return sub_100004A08(a2, v3);
+  return sub_100004A08(a3, v4);
 }
 
 uint64_t sub_100040B90(uint64_t a1)
@@ -2670,8 +2670,8 @@ void sub_100041590()
 {
   if ((atomic_load_explicit(&qword_1009E9448, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9448))
   {
-    sub_100004A08(byte_1009E9430, "PRRoseProviderNetworkListener");
-    __cxa_atexit(&std::string::~string, byte_1009E9430, &_mh_execute_header);
+    sub_100004A08(qword_1009E9430, "PRRoseProviderNetworkListener");
+    __cxa_atexit(&std::string::~string, qword_1009E9430, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9448);
   }
@@ -2703,8 +2703,8 @@ void sub_1000417A0()
 {
   if ((atomic_load_explicit(&qword_1009E94A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94A8))
   {
-    sub_100004A08(byte_1009E9490, "MA_");
-    __cxa_atexit(&std::string::~string, byte_1009E9490, &_mh_execute_header);
+    sub_100004A08(qword_1009E9490, "MA_");
+    __cxa_atexit(&std::string::~string, qword_1009E9490, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94A8);
   }
@@ -2714,8 +2714,8 @@ void sub_100041850()
 {
   if ((atomic_load_explicit(&qword_1009E94C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94C8))
   {
-    sub_100004A08(byte_1009E94B0, "MB_");
-    __cxa_atexit(&std::string::~string, byte_1009E94B0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94B0, "MB_");
+    __cxa_atexit(&std::string::~string, qword_1009E94B0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94C8);
   }
@@ -2725,8 +2725,8 @@ void sub_100041900()
 {
   if ((atomic_load_explicit(&qword_1009E94E8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94E8))
   {
-    sub_100004A08(byte_1009E94D0, "D");
-    __cxa_atexit(&std::string::~string, byte_1009E94D0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94D0, "D");
+    __cxa_atexit(&std::string::~string, qword_1009E94D0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94E8);
   }
@@ -2747,8 +2747,8 @@ void sub_100041A60()
 {
   if ((atomic_load_explicit(&qword_1009E9528, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9528))
   {
-    sub_100004A08(byte_1009E9510, "FAS.bin");
-    __cxa_atexit(&std::string::~string, byte_1009E9510, &_mh_execute_header);
+    sub_100004A08(qword_1009E9510, "FAS.bin");
+    __cxa_atexit(&std::string::~string, qword_1009E9510, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9528);
   }
@@ -2775,7 +2775,7 @@ void sub_100041B10()
 void sub_100041C04()
 {
   v0 = objc_autoreleasePoolPush();
-  sub_10041C9CC();
+  sub_10041C9CC(0);
   v1 = std::string::insert(&v37, 0, "reverseLUT_A");
   v2 = *&v1->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v1->__r_.__value_.__r.__words[2];
@@ -2801,7 +2801,7 @@ void sub_100041C04()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECC18, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(1);
   v5 = std::string::insert(&v37, 0, "reverseLUT_A");
   v6 = *&v5->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
@@ -2827,7 +2827,7 @@ void sub_100041C04()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECC30, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(2);
   v9 = std::string::insert(&v37, 0, "reverseLUT_A");
   v10 = *&v9->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
@@ -2853,7 +2853,7 @@ void sub_100041C04()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECC48, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(3);
   v13 = std::string::insert(&v37, 0, "reverseLUT_A");
   v14 = *&v13->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
@@ -2879,7 +2879,7 @@ void sub_100041C04()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECC60, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(4);
   v17 = std::string::insert(&v37, 0, "reverseLUT_A");
   v18 = *&v17->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
@@ -2905,7 +2905,7 @@ void sub_100041C04()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECC78, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(5);
   v21 = std::string::insert(&v37, 0, "reverseLUT_A");
   v22 = *&v21->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
@@ -2931,7 +2931,7 @@ void sub_100041C04()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECC90, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(6);
   v25 = std::string::insert(&v37, 0, "reverseLUT_A");
   v26 = *&v25->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
@@ -2957,7 +2957,7 @@ void sub_100041C04()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECCA8, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(7);
   v29 = std::string::insert(&v37, 0, "reverseLUT_A");
   v30 = *&v29->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
@@ -2983,7 +2983,7 @@ void sub_100041C04()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECCC0, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(8);
   v33 = std::string::insert(&v37, 0, "reverseLUT_A");
   v34 = *&v33->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
@@ -3052,12 +3052,12 @@ void sub_100042420(double *a1, long double *a2, double a3, double a4)
   *a1 = v9;
 }
 
-void sub_1000426A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1000426A0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = NIServerClient;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -3644,14 +3644,14 @@ uint64_t sub_100045220(uint64_t a1)
   return a1;
 }
 
-void sub_1000456AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1000456AC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = NIServerAnalyticsManager;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_100046F58(const void **a1, _DWORD *a2)
+void sub_100046F58(const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -3770,7 +3770,7 @@ uint64_t sub_10004EE68(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_10004EEB8(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_10004EEB8(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3792,7 +3792,7 @@ void sub_10004EF10(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004EF2C(uint64_t a1, unint64_t a2)
+void sub_10004EF2C(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -3812,33 +3812,33 @@ void sub_10004EF68(uint64_t a1, unint64_t a2)
   sub_100013B04();
 }
 
-uint64_t *sub_10004EFB0(void *a1, int *a2)
+uint64_t *sub_10004EFB0(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -3846,75 +3846,75 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-const void **sub_10004F1E4(void *a1, const void **a2)
+const void **sub_10004F1E4(void *a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = sub_100014630(a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = sub_100014630(a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     sub_10004F45C();
@@ -3922,44 +3922,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!sub_1000143B0(a1, v11 + 2, a2))
+  if (!sub_1000143B0(a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_10004F438(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -3989,7 +3989,7 @@ void sub_10004F51C(uint64_t a1, unint64_t a2)
   sub_100013B04();
 }
 
-uint64_t sub_10004F564(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_10004F564(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4011,7 +4011,7 @@ void sub_10004F5C4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_10004F5E0(uint64_t a1, unint64_t a2)
+void sub_10004F5E0(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -4052,10 +4052,10 @@ void sub_10004F61C()
   objc_autoreleasePoolPop(v0);
 }
 
-void sub_10004FC04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_10004FC04(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PRBeaconRangingClientProxy;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -4102,10 +4102,12 @@ void sub_10004FE60(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100050154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_100050154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  std::mutex::unlock((v27 + 80));
-  sub_1000523AC(&a27);
+  va_start(va, a26);
+
+  std::mutex::unlock((v26 + 80));
+  sub_1000523AC(va);
 
   _Unwind_Resume(a1);
 }
@@ -4246,41 +4248,41 @@ void sub_1000524EC(std::__shared_weak_count *a1)
   operator delete();
 }
 
-void *sub_100052568(uint64_t a1, unint64_t *a2)
+void *sub_100052568(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -4371,8 +4373,8 @@ void sub_100052A04()
 {
   if ((atomic_load_explicit(&qword_1009E9448, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9448))
   {
-    sub_100004A08(byte_1009E9430, "PRRoseProviderNetworkListener");
-    __cxa_atexit(&std::string::~string, byte_1009E9430, &_mh_execute_header);
+    sub_100004A08(qword_1009E9430, "PRRoseProviderNetworkListener");
+    __cxa_atexit(&std::string::~string, qword_1009E9430, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9448);
   }
@@ -4404,8 +4406,8 @@ void sub_100052C14()
 {
   if ((atomic_load_explicit(&qword_1009E94A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94A8))
   {
-    sub_100004A08(byte_1009E9490, "MA_");
-    __cxa_atexit(&std::string::~string, byte_1009E9490, &_mh_execute_header);
+    sub_100004A08(qword_1009E9490, "MA_");
+    __cxa_atexit(&std::string::~string, qword_1009E9490, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94A8);
   }
@@ -4415,8 +4417,8 @@ void sub_100052CC4()
 {
   if ((atomic_load_explicit(&qword_1009E94C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94C8))
   {
-    sub_100004A08(byte_1009E94B0, "MB_");
-    __cxa_atexit(&std::string::~string, byte_1009E94B0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94B0, "MB_");
+    __cxa_atexit(&std::string::~string, qword_1009E94B0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94C8);
   }
@@ -4426,8 +4428,8 @@ void sub_100052D74()
 {
   if ((atomic_load_explicit(&qword_1009E94E8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94E8))
   {
-    sub_100004A08(byte_1009E94D0, "D");
-    __cxa_atexit(&std::string::~string, byte_1009E94D0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94D0, "D");
+    __cxa_atexit(&std::string::~string, qword_1009E94D0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94E8);
   }
@@ -4448,8 +4450,8 @@ void sub_100052ED4()
 {
   if ((atomic_load_explicit(&qword_1009E9528, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9528))
   {
-    sub_100004A08(byte_1009E9510, "FAS.bin");
-    __cxa_atexit(&std::string::~string, byte_1009E9510, &_mh_execute_header);
+    sub_100004A08(qword_1009E9510, "FAS.bin");
+    __cxa_atexit(&std::string::~string, qword_1009E9510, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9528);
   }
@@ -4476,7 +4478,7 @@ void sub_100052F84()
 void sub_100053078()
 {
   v0 = objc_autoreleasePoolPush();
-  sub_10041C9CC();
+  sub_10041C9CC(0);
   v1 = std::string::insert(&v37, 0, "reverseLUT_A");
   v2 = *&v1->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v1->__r_.__value_.__r.__words[2];
@@ -4502,7 +4504,7 @@ void sub_100053078()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECD80, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(1);
   v5 = std::string::insert(&v37, 0, "reverseLUT_A");
   v6 = *&v5->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
@@ -4528,7 +4530,7 @@ void sub_100053078()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECD98, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(2);
   v9 = std::string::insert(&v37, 0, "reverseLUT_A");
   v10 = *&v9->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
@@ -4554,7 +4556,7 @@ void sub_100053078()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECDB0, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(3);
   v13 = std::string::insert(&v37, 0, "reverseLUT_A");
   v14 = *&v13->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
@@ -4580,7 +4582,7 @@ void sub_100053078()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECDC8, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(4);
   v17 = std::string::insert(&v37, 0, "reverseLUT_A");
   v18 = *&v17->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
@@ -4606,7 +4608,7 @@ void sub_100053078()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECDE0, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(5);
   v21 = std::string::insert(&v37, 0, "reverseLUT_A");
   v22 = *&v21->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
@@ -4632,7 +4634,7 @@ void sub_100053078()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECDF8, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(6);
   v25 = std::string::insert(&v37, 0, "reverseLUT_A");
   v26 = *&v25->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
@@ -4658,7 +4660,7 @@ void sub_100053078()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECE10, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(7);
   v29 = std::string::insert(&v37, 0, "reverseLUT_A");
   v30 = *&v29->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
@@ -4684,7 +4686,7 @@ void sub_100053078()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECE28, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(8);
   v33 = std::string::insert(&v37, 0, "reverseLUT_A");
   v34 = *&v33->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
@@ -5679,8 +5681,8 @@ void sub_100057ED0()
 {
   if ((atomic_load_explicit(&qword_1009E9448, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9448))
   {
-    sub_100004A08(byte_1009E9430, "PRRoseProviderNetworkListener");
-    __cxa_atexit(&std::string::~string, byte_1009E9430, &_mh_execute_header);
+    sub_100004A08(qword_1009E9430, "PRRoseProviderNetworkListener");
+    __cxa_atexit(&std::string::~string, qword_1009E9430, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9448);
   }
@@ -5712,8 +5714,8 @@ void sub_1000580E0()
 {
   if ((atomic_load_explicit(&qword_1009E94A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94A8))
   {
-    sub_100004A08(byte_1009E9490, "MA_");
-    __cxa_atexit(&std::string::~string, byte_1009E9490, &_mh_execute_header);
+    sub_100004A08(qword_1009E9490, "MA_");
+    __cxa_atexit(&std::string::~string, qword_1009E9490, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94A8);
   }
@@ -5723,8 +5725,8 @@ void sub_100058190()
 {
   if ((atomic_load_explicit(&qword_1009E94C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94C8))
   {
-    sub_100004A08(byte_1009E94B0, "MB_");
-    __cxa_atexit(&std::string::~string, byte_1009E94B0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94B0, "MB_");
+    __cxa_atexit(&std::string::~string, qword_1009E94B0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94C8);
   }
@@ -5734,8 +5736,8 @@ void sub_100058240()
 {
   if ((atomic_load_explicit(&qword_1009E94E8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94E8))
   {
-    sub_100004A08(byte_1009E94D0, "D");
-    __cxa_atexit(&std::string::~string, byte_1009E94D0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94D0, "D");
+    __cxa_atexit(&std::string::~string, qword_1009E94D0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94E8);
   }
@@ -5756,8 +5758,8 @@ void sub_1000583A0()
 {
   if ((atomic_load_explicit(&qword_1009E9528, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9528))
   {
-    sub_100004A08(byte_1009E9510, "FAS.bin");
-    __cxa_atexit(&std::string::~string, byte_1009E9510, &_mh_execute_header);
+    sub_100004A08(qword_1009E9510, "FAS.bin");
+    __cxa_atexit(&std::string::~string, qword_1009E9510, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9528);
   }
@@ -5784,7 +5786,7 @@ void sub_100058450()
 void sub_100058544()
 {
   v0 = objc_autoreleasePoolPush();
-  sub_10041C9CC();
+  sub_10041C9CC(0);
   v1 = std::string::insert(&v37, 0, "reverseLUT_A");
   v2 = *&v1->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v1->__r_.__value_.__r.__words[2];
@@ -5810,7 +5812,7 @@ void sub_100058544()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECE58, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(1);
   v5 = std::string::insert(&v37, 0, "reverseLUT_A");
   v6 = *&v5->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
@@ -5836,7 +5838,7 @@ void sub_100058544()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECE70, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(2);
   v9 = std::string::insert(&v37, 0, "reverseLUT_A");
   v10 = *&v9->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
@@ -5862,7 +5864,7 @@ void sub_100058544()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECE88, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(3);
   v13 = std::string::insert(&v37, 0, "reverseLUT_A");
   v14 = *&v13->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
@@ -5888,7 +5890,7 @@ void sub_100058544()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECEA0, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(4);
   v17 = std::string::insert(&v37, 0, "reverseLUT_A");
   v18 = *&v17->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
@@ -5914,7 +5916,7 @@ void sub_100058544()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECEB8, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(5);
   v21 = std::string::insert(&v37, 0, "reverseLUT_A");
   v22 = *&v21->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
@@ -5940,7 +5942,7 @@ void sub_100058544()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECED0, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(6);
   v25 = std::string::insert(&v37, 0, "reverseLUT_A");
   v26 = *&v25->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
@@ -5966,7 +5968,7 @@ void sub_100058544()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECEE8, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(7);
   v29 = std::string::insert(&v37, 0, "reverseLUT_A");
   v30 = *&v29->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
@@ -5992,7 +5994,7 @@ void sub_100058544()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECF00, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(8);
   v33 = std::string::insert(&v37, 0, "reverseLUT_A");
   v34 = *&v33->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
@@ -6043,10 +6045,10 @@ void sub_100058E20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100059070(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100059070(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PRRangingServiceProxy;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6184,8 +6186,8 @@ void sub_10005AD6C()
 {
   if ((atomic_load_explicit(&qword_1009E9448, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9448))
   {
-    sub_100004A08(byte_1009E9430, "PRRoseProviderNetworkListener");
-    __cxa_atexit(&std::string::~string, byte_1009E9430, &_mh_execute_header);
+    sub_100004A08(qword_1009E9430, "PRRoseProviderNetworkListener");
+    __cxa_atexit(&std::string::~string, qword_1009E9430, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9448);
   }
@@ -6217,8 +6219,8 @@ void sub_10005AF7C()
 {
   if ((atomic_load_explicit(&qword_1009E94A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94A8))
   {
-    sub_100004A08(byte_1009E9490, "MA_");
-    __cxa_atexit(&std::string::~string, byte_1009E9490, &_mh_execute_header);
+    sub_100004A08(qword_1009E9490, "MA_");
+    __cxa_atexit(&std::string::~string, qword_1009E9490, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94A8);
   }
@@ -6228,8 +6230,8 @@ void sub_10005B02C()
 {
   if ((atomic_load_explicit(&qword_1009E94C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94C8))
   {
-    sub_100004A08(byte_1009E94B0, "MB_");
-    __cxa_atexit(&std::string::~string, byte_1009E94B0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94B0, "MB_");
+    __cxa_atexit(&std::string::~string, qword_1009E94B0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94C8);
   }
@@ -6239,8 +6241,8 @@ void sub_10005B0DC()
 {
   if ((atomic_load_explicit(&qword_1009E94E8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94E8))
   {
-    sub_100004A08(byte_1009E94D0, "D");
-    __cxa_atexit(&std::string::~string, byte_1009E94D0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94D0, "D");
+    __cxa_atexit(&std::string::~string, qword_1009E94D0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94E8);
   }
@@ -6261,8 +6263,8 @@ void sub_10005B23C()
 {
   if ((atomic_load_explicit(&qword_1009E9528, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9528))
   {
-    sub_100004A08(byte_1009E9510, "FAS.bin");
-    __cxa_atexit(&std::string::~string, byte_1009E9510, &_mh_execute_header);
+    sub_100004A08(qword_1009E9510, "FAS.bin");
+    __cxa_atexit(&std::string::~string, qword_1009E9510, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9528);
   }
@@ -6289,7 +6291,7 @@ void sub_10005B2EC()
 void sub_10005B3E0()
 {
   v0 = objc_autoreleasePoolPush();
-  sub_10041C9CC();
+  sub_10041C9CC(0);
   v1 = std::string::insert(&v37, 0, "reverseLUT_A");
   v2 = *&v1->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v1->__r_.__value_.__r.__words[2];
@@ -6315,7 +6317,7 @@ void sub_10005B3E0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECF30, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(1);
   v5 = std::string::insert(&v37, 0, "reverseLUT_A");
   v6 = *&v5->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
@@ -6341,7 +6343,7 @@ void sub_10005B3E0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECF48, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(2);
   v9 = std::string::insert(&v37, 0, "reverseLUT_A");
   v10 = *&v9->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
@@ -6367,7 +6369,7 @@ void sub_10005B3E0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECF60, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(3);
   v13 = std::string::insert(&v37, 0, "reverseLUT_A");
   v14 = *&v13->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
@@ -6393,7 +6395,7 @@ void sub_10005B3E0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECF78, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(4);
   v17 = std::string::insert(&v37, 0, "reverseLUT_A");
   v18 = *&v17->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
@@ -6419,7 +6421,7 @@ void sub_10005B3E0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECF90, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(5);
   v21 = std::string::insert(&v37, 0, "reverseLUT_A");
   v22 = *&v21->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
@@ -6445,7 +6447,7 @@ void sub_10005B3E0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECFA8, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(6);
   v25 = std::string::insert(&v37, 0, "reverseLUT_A");
   v26 = *&v25->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
@@ -6471,7 +6473,7 @@ void sub_10005B3E0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECFC0, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(7);
   v29 = std::string::insert(&v37, 0, "reverseLUT_A");
   v30 = *&v29->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
@@ -6497,7 +6499,7 @@ void sub_10005B3E0()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ECFD8, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(8);
   v33 = std::string::insert(&v37, 0, "reverseLUT_A");
   v34 = *&v33->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
@@ -6541,9 +6543,9 @@ void sub_10005BA20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_10005BBB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_10005BBB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_10005280C(va);
 
   _Unwind_Resume(a1);
@@ -6678,8 +6680,8 @@ void sub_10005C608()
 {
   if ((atomic_load_explicit(&qword_1009E9448, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9448))
   {
-    sub_100004A08(byte_1009E9430, "PRRoseProviderNetworkListener");
-    __cxa_atexit(&std::string::~string, byte_1009E9430, &_mh_execute_header);
+    sub_100004A08(qword_1009E9430, "PRRoseProviderNetworkListener");
+    __cxa_atexit(&std::string::~string, qword_1009E9430, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9448);
   }
@@ -6711,8 +6713,8 @@ void sub_10005C818()
 {
   if ((atomic_load_explicit(&qword_1009E94A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94A8))
   {
-    sub_100004A08(byte_1009E9490, "MA_");
-    __cxa_atexit(&std::string::~string, byte_1009E9490, &_mh_execute_header);
+    sub_100004A08(qword_1009E9490, "MA_");
+    __cxa_atexit(&std::string::~string, qword_1009E9490, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94A8);
   }
@@ -6722,8 +6724,8 @@ void sub_10005C8C8()
 {
   if ((atomic_load_explicit(&qword_1009E94C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94C8))
   {
-    sub_100004A08(byte_1009E94B0, "MB_");
-    __cxa_atexit(&std::string::~string, byte_1009E94B0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94B0, "MB_");
+    __cxa_atexit(&std::string::~string, qword_1009E94B0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94C8);
   }
@@ -6733,8 +6735,8 @@ void sub_10005C978()
 {
   if ((atomic_load_explicit(&qword_1009E94E8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94E8))
   {
-    sub_100004A08(byte_1009E94D0, "D");
-    __cxa_atexit(&std::string::~string, byte_1009E94D0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94D0, "D");
+    __cxa_atexit(&std::string::~string, qword_1009E94D0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94E8);
   }
@@ -6755,8 +6757,8 @@ void sub_10005CAD8()
 {
   if ((atomic_load_explicit(&qword_1009E9528, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9528))
   {
-    sub_100004A08(byte_1009E9510, "FAS.bin");
-    __cxa_atexit(&std::string::~string, byte_1009E9510, &_mh_execute_header);
+    sub_100004A08(qword_1009E9510, "FAS.bin");
+    __cxa_atexit(&std::string::~string, qword_1009E9510, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9528);
   }
@@ -6783,7 +6785,7 @@ void sub_10005CB88()
 void sub_10005CC7C()
 {
   v0 = objc_autoreleasePoolPush();
-  sub_10041C9CC();
+  sub_10041C9CC(0);
   v1 = std::string::insert(&v37, 0, "reverseLUT_A");
   v2 = *&v1->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v1->__r_.__value_.__r.__words[2];
@@ -6809,7 +6811,7 @@ void sub_10005CC7C()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED008, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(1);
   v5 = std::string::insert(&v37, 0, "reverseLUT_A");
   v6 = *&v5->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
@@ -6835,7 +6837,7 @@ void sub_10005CC7C()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED020, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(2);
   v9 = std::string::insert(&v37, 0, "reverseLUT_A");
   v10 = *&v9->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
@@ -6861,7 +6863,7 @@ void sub_10005CC7C()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED038, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(3);
   v13 = std::string::insert(&v37, 0, "reverseLUT_A");
   v14 = *&v13->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
@@ -6887,7 +6889,7 @@ void sub_10005CC7C()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED050, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(4);
   v17 = std::string::insert(&v37, 0, "reverseLUT_A");
   v18 = *&v17->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
@@ -6913,7 +6915,7 @@ void sub_10005CC7C()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED068, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(5);
   v21 = std::string::insert(&v37, 0, "reverseLUT_A");
   v22 = *&v21->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
@@ -6939,7 +6941,7 @@ void sub_10005CC7C()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED080, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(6);
   v25 = std::string::insert(&v37, 0, "reverseLUT_A");
   v26 = *&v25->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
@@ -6965,7 +6967,7 @@ void sub_10005CC7C()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED098, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(7);
   v29 = std::string::insert(&v37, 0, "reverseLUT_A");
   v30 = *&v29->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
@@ -6991,7 +6993,7 @@ void sub_10005CC7C()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED0B0, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(8);
   v33 = std::string::insert(&v37, 0, "reverseLUT_A");
   v34 = *&v33->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
@@ -7265,8 +7267,8 @@ void sub_10005E458()
 {
   if ((atomic_load_explicit(&qword_1009E9448, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9448))
   {
-    sub_100004A08(byte_1009E9430, "PRRoseProviderNetworkListener");
-    __cxa_atexit(&std::string::~string, byte_1009E9430, &_mh_execute_header);
+    sub_100004A08(qword_1009E9430, "PRRoseProviderNetworkListener");
+    __cxa_atexit(&std::string::~string, qword_1009E9430, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9448);
   }
@@ -7298,8 +7300,8 @@ void sub_10005E668()
 {
   if ((atomic_load_explicit(&qword_1009E94A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94A8))
   {
-    sub_100004A08(byte_1009E9490, "MA_");
-    __cxa_atexit(&std::string::~string, byte_1009E9490, &_mh_execute_header);
+    sub_100004A08(qword_1009E9490, "MA_");
+    __cxa_atexit(&std::string::~string, qword_1009E9490, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94A8);
   }
@@ -7309,8 +7311,8 @@ void sub_10005E718()
 {
   if ((atomic_load_explicit(&qword_1009E94C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94C8))
   {
-    sub_100004A08(byte_1009E94B0, "MB_");
-    __cxa_atexit(&std::string::~string, byte_1009E94B0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94B0, "MB_");
+    __cxa_atexit(&std::string::~string, qword_1009E94B0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94C8);
   }
@@ -7320,8 +7322,8 @@ void sub_10005E7C8()
 {
   if ((atomic_load_explicit(&qword_1009E94E8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94E8))
   {
-    sub_100004A08(byte_1009E94D0, "D");
-    __cxa_atexit(&std::string::~string, byte_1009E94D0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94D0, "D");
+    __cxa_atexit(&std::string::~string, qword_1009E94D0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94E8);
   }
@@ -7342,8 +7344,8 @@ void sub_10005E928()
 {
   if ((atomic_load_explicit(&qword_1009E9528, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9528))
   {
-    sub_100004A08(byte_1009E9510, "FAS.bin");
-    __cxa_atexit(&std::string::~string, byte_1009E9510, &_mh_execute_header);
+    sub_100004A08(qword_1009E9510, "FAS.bin");
+    __cxa_atexit(&std::string::~string, qword_1009E9510, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9528);
   }
@@ -7370,7 +7372,7 @@ void sub_10005E9D8()
 void sub_10005EACC()
 {
   v0 = objc_autoreleasePoolPush();
-  sub_10041C9CC();
+  sub_10041C9CC(0);
   v1 = std::string::insert(&v37, 0, "reverseLUT_A");
   v2 = *&v1->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v1->__r_.__value_.__r.__words[2];
@@ -7396,7 +7398,7 @@ void sub_10005EACC()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED0E8, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(1);
   v5 = std::string::insert(&v37, 0, "reverseLUT_A");
   v6 = *&v5->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
@@ -7422,7 +7424,7 @@ void sub_10005EACC()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED100, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(2);
   v9 = std::string::insert(&v37, 0, "reverseLUT_A");
   v10 = *&v9->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
@@ -7448,7 +7450,7 @@ void sub_10005EACC()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED118, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(3);
   v13 = std::string::insert(&v37, 0, "reverseLUT_A");
   v14 = *&v13->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
@@ -7474,7 +7476,7 @@ void sub_10005EACC()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED130, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(4);
   v17 = std::string::insert(&v37, 0, "reverseLUT_A");
   v18 = *&v17->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
@@ -7500,7 +7502,7 @@ void sub_10005EACC()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED148, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(5);
   v21 = std::string::insert(&v37, 0, "reverseLUT_A");
   v22 = *&v21->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
@@ -7526,7 +7528,7 @@ void sub_10005EACC()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED160, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(6);
   v25 = std::string::insert(&v37, 0, "reverseLUT_A");
   v26 = *&v25->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
@@ -7552,7 +7554,7 @@ void sub_10005EACC()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED178, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(7);
   v29 = std::string::insert(&v37, 0, "reverseLUT_A");
   v30 = *&v29->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
@@ -7578,7 +7580,7 @@ void sub_10005EACC()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED190, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(8);
   v33 = std::string::insert(&v37, 0, "reverseLUT_A");
   v34 = *&v33->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
@@ -7690,8 +7692,8 @@ void sub_10005FAF4()
 {
   if ((atomic_load_explicit(&qword_1009E9448, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9448))
   {
-    sub_100004A08(byte_1009E9430, "PRRoseProviderNetworkListener");
-    __cxa_atexit(&std::string::~string, byte_1009E9430, &_mh_execute_header);
+    sub_100004A08(qword_1009E9430, "PRRoseProviderNetworkListener");
+    __cxa_atexit(&std::string::~string, qword_1009E9430, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9448);
   }
@@ -7723,8 +7725,8 @@ void sub_10005FD04()
 {
   if ((atomic_load_explicit(&qword_1009E94A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94A8))
   {
-    sub_100004A08(byte_1009E9490, "MA_");
-    __cxa_atexit(&std::string::~string, byte_1009E9490, &_mh_execute_header);
+    sub_100004A08(qword_1009E9490, "MA_");
+    __cxa_atexit(&std::string::~string, qword_1009E9490, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94A8);
   }
@@ -7734,8 +7736,8 @@ void sub_10005FDB4()
 {
   if ((atomic_load_explicit(&qword_1009E94C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94C8))
   {
-    sub_100004A08(byte_1009E94B0, "MB_");
-    __cxa_atexit(&std::string::~string, byte_1009E94B0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94B0, "MB_");
+    __cxa_atexit(&std::string::~string, qword_1009E94B0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94C8);
   }
@@ -7745,8 +7747,8 @@ void sub_10005FE64()
 {
   if ((atomic_load_explicit(&qword_1009E94E8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E94E8))
   {
-    sub_100004A08(byte_1009E94D0, "D");
-    __cxa_atexit(&std::string::~string, byte_1009E94D0, &_mh_execute_header);
+    sub_100004A08(qword_1009E94D0, "D");
+    __cxa_atexit(&std::string::~string, qword_1009E94D0, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E94E8);
   }
@@ -7767,8 +7769,8 @@ void sub_10005FFC4()
 {
   if ((atomic_load_explicit(&qword_1009E9528, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1009E9528))
   {
-    sub_100004A08(byte_1009E9510, "FAS.bin");
-    __cxa_atexit(&std::string::~string, byte_1009E9510, &_mh_execute_header);
+    sub_100004A08(qword_1009E9510, "FAS.bin");
+    __cxa_atexit(&std::string::~string, qword_1009E9510, &_mh_execute_header);
 
     __cxa_guard_release(&qword_1009E9528);
   }
@@ -7795,7 +7797,7 @@ void sub_100060074()
 void sub_100060168()
 {
   v0 = objc_autoreleasePoolPush();
-  sub_10041C9CC();
+  sub_10041C9CC(0);
   v1 = std::string::insert(&v37, 0, "reverseLUT_A");
   v2 = *&v1->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v1->__r_.__value_.__r.__words[2];
@@ -7821,7 +7823,7 @@ void sub_100060168()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED1C0, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(1);
   v5 = std::string::insert(&v37, 0, "reverseLUT_A");
   v6 = *&v5->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
@@ -7847,7 +7849,7 @@ void sub_100060168()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED1D8, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(2);
   v9 = std::string::insert(&v37, 0, "reverseLUT_A");
   v10 = *&v9->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
@@ -7873,7 +7875,7 @@ void sub_100060168()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED1F0, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(3);
   v13 = std::string::insert(&v37, 0, "reverseLUT_A");
   v14 = *&v13->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
@@ -7899,7 +7901,7 @@ void sub_100060168()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED208, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(4);
   v17 = std::string::insert(&v37, 0, "reverseLUT_A");
   v18 = *&v17->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
@@ -7925,7 +7927,7 @@ void sub_100060168()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED220, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(5);
   v21 = std::string::insert(&v37, 0, "reverseLUT_A");
   v22 = *&v21->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
@@ -7951,7 +7953,7 @@ void sub_100060168()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED238, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(6);
   v25 = std::string::insert(&v37, 0, "reverseLUT_A");
   v26 = *&v25->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
@@ -7977,7 +7979,7 @@ void sub_100060168()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED250, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(7);
   v29 = std::string::insert(&v37, 0, "reverseLUT_A");
   v30 = *&v29->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
@@ -8003,7 +8005,7 @@ void sub_100060168()
   }
 
   __cxa_atexit(&std::string::~string, &xmmword_1009ED268, &_mh_execute_header);
-  sub_10041C9CC();
+  sub_10041C9CC(8);
   v33 = std::string::insert(&v37, 0, "reverseLUT_A");
   v34 = *&v33->__r_.__value_.__l.__data_;
   v38.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
@@ -8306,406 +8308,398 @@ uint64_t sub_100061930()
   return result;
 }
 
-uint64_t sub_100062198()
+uint64_t sub_100062198(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
-  v0 = qword_1009ED438;
+  v4 = qword_1009ED438;
   __dmb(0xBu);
-  if (v0 != 2)
+  if (v4 != 2)
   {
-    v23[1] = sub_10006081C;
-    v24 = 0;
+    v69[1] = sub_10006081C;
+    v70 = 0;
     wireless_diagnostics::google::protobuf::GoogleOnceInitImpl();
-    wireless_diagnostics::google::protobuf::internal::FunctionClosure0::~FunctionClosure0(v23);
+    wireless_diagnostics::google::protobuf::internal::FunctionClosure0::~FunctionClosure0(v69);
   }
 
   if (!qword_1009F9828)
   {
-    (sub_1000613D4)();
-  }
-
-  v1 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9830)
-  {
-    sub_1000613D4(v1);
-  }
-
-  v2 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9838)
-  {
-    sub_1000613D4(v2);
-  }
-
-  v3 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9840)
-  {
-    sub_1000613D4(v3);
-  }
-
-  v4 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9848)
-  {
-    sub_1000613D4(v4);
+    sub_1000613D4(a1, 0, a3, a4);
   }
 
   v5 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9850)
+  if (!qword_1009F9830)
   {
-    sub_1000613D4(v5);
-  }
-
-  v6 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9858)
-  {
-    sub_1000613D4(v6);
-  }
-
-  v7 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9860)
-  {
-    sub_1000613D4(v7);
+    sub_1000613D4(v5, 0, v6, v7);
   }
 
   v8 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9868)
+  if (!qword_1009F9838)
   {
-    sub_1000613D4(v8);
-  }
-
-  v9 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9870)
-  {
-    sub_1000613D4(v9);
-  }
-
-  v10 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9878)
-  {
-    sub_1000613D4(v10);
+    sub_1000613D4(v8, 0, v9, v10);
   }
 
   v11 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9880)
+  if (!qword_1009F9840)
   {
-    sub_1000613D4(v11);
-  }
-
-  v12 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9888)
-  {
-    sub_1000613D4(v12);
-  }
-
-  v13 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9890)
-  {
-    sub_1000613D4(v13);
+    sub_1000613D4(v11, 0, v12, v13);
   }
 
   v14 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F9898)
+  if (!qword_1009F9848)
   {
-    sub_1000613D4(v14);
-  }
-
-  v15 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F98A0)
-  {
-    sub_1000613D4(v15);
-  }
-
-  v16 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F98A8)
-  {
-    sub_1000613D4(v16);
+    sub_1000613D4(v14, 0, v15, v16);
   }
 
   v17 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F98B0)
+  if (!qword_1009F9850)
   {
-    sub_1000613D4(v17);
-  }
-
-  v18 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F98B8)
-  {
-    sub_1000613D4(v18);
-  }
-
-  v19 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F98C0)
-  {
-    sub_1000613D4(v19);
+    sub_1000613D4(v17, 0, v18, v19);
   }
 
   v20 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
-  if (!qword_1009F98C8)
+  if (!qword_1009F9858)
   {
-    sub_1000613D4(v20);
+    sub_1000613D4(v20, 0, v21, v22);
   }
 
-  v21 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  v23 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9860)
+  {
+    sub_1000613D4(v23, 0, v24, v25);
+  }
+
+  v26 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9868)
+  {
+    sub_1000613D4(v26, 0, v27, v28);
+  }
+
+  v29 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9870)
+  {
+    sub_1000613D4(v29, 0, v30, v31);
+  }
+
+  v32 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9878)
+  {
+    sub_1000613D4(v32, 0, v33, v34);
+  }
+
+  v35 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9880)
+  {
+    sub_1000613D4(v35, 0, v36, v37);
+  }
+
+  v38 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9888)
+  {
+    sub_1000613D4(v38, 0, v39, v40);
+  }
+
+  v41 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9890)
+  {
+    sub_1000613D4(v41, 0, v42, v43);
+  }
+
+  v44 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F9898)
+  {
+    sub_1000613D4(v44, 0, v45, v46);
+  }
+
+  v47 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F98A0)
+  {
+    sub_1000613D4(v47, 0, v48, v49);
+  }
+
+  v50 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F98A8)
+  {
+    sub_1000613D4(v50, 0, v51, v52);
+  }
+
+  v53 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F98B0)
+  {
+    sub_1000613D4(v53, 0, v54, v55);
+  }
+
+  v56 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F98B8)
+  {
+    sub_1000613D4(v56, 0, v57, v58);
+  }
+
+  v59 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F98C0)
+  {
+    sub_1000613D4(v59, 0, v60, v61);
+  }
+
+  v62 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
+  if (!qword_1009F98C8)
+  {
+    sub_1000613D4(v62, 0, v63, v64);
+  }
+
+  v65 = wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
   if (!qword_1009F98D0)
   {
-    sub_1000613D4(v21);
+    sub_1000613D4(v65, 0, v66, v67);
   }
 
   return wireless_diagnostics::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage();
 }
 
-void sub_100062534(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100062534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   wireless_diagnostics::google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100062550(uint64_t result)
+void sub_100062550(void *a1, uint64_t a2, uint64_t a3, const char *a4)
 {
-  v1 = result;
-  v2 = qword_1009F9828;
+  v5 = qword_1009F9828;
   if (qword_1009F9828)
   {
-    *(result + 16) = qword_1009F9828;
+    a1[2] = qword_1009F9828;
   }
 
   else
   {
-    result = sub_1000613D4(result);
-    v2 = qword_1009F9828;
-    v1[2] = qword_1009F9828;
-    if (!v2)
-    {
-      result = sub_1000613D4(result);
-      v2 = qword_1009F9828;
-    }
-  }
-
-  v1[3] = v2;
-  v3 = qword_1009F9858;
-  if (!qword_1009F9858)
-  {
-    result = sub_1000613D4(result);
-    v3 = qword_1009F9858;
-  }
-
-  v1[4] = v3;
-  v4 = qword_1009F9860;
-  if (!qword_1009F9860)
-  {
-    result = sub_1000613D4(result);
-    v4 = qword_1009F9860;
-  }
-
-  v1[6] = v4;
-  v5 = qword_1009F9840;
-  if (qword_1009F9840)
-  {
-    v1[8] = qword_1009F9840;
-  }
-
-  else
-  {
-    result = sub_1000613D4(result);
-    v5 = qword_1009F9840;
-    v1[8] = qword_1009F9840;
+    sub_1000613D4(a1, a2, a3, a4);
+    v5 = qword_1009F9828;
+    a1[2] = qword_1009F9828;
     if (!v5)
     {
-      result = sub_1000613D4(result);
-      v5 = qword_1009F9840;
+      sub_1000613D4(a1, a2, a3, a4);
+      v5 = qword_1009F9828;
     }
   }
 
-  v1[9] = v5;
-  v6 = qword_1009F9850;
-  if (!qword_1009F9850)
+  a1[3] = v5;
+  v6 = qword_1009F9858;
+  if (!qword_1009F9858)
   {
-    result = sub_1000613D4(result);
-    v6 = qword_1009F9850;
+    sub_1000613D4(a1, a2, a3, a4);
+    v6 = qword_1009F9858;
   }
 
-  v1[10] = v6;
-  return result;
-}
-
-uint64_t sub_100062618(uint64_t result)
-{
-  v1 = result;
-  v2 = qword_1009F9828;
-  if (!qword_1009F9828)
+  a1[4] = v6;
+  v7 = qword_1009F9860;
+  if (!qword_1009F9860)
   {
-    result = sub_1000613D4(result);
-    v2 = qword_1009F9828;
+    sub_1000613D4(a1, a2, a3, a4);
+    v7 = qword_1009F9860;
   }
 
-  v1[2] = v2;
-  v3 = qword_1009F9848;
-  if (qword_1009F9848)
+  a1[6] = v7;
+  v8 = qword_1009F9840;
+  if (qword_1009F9840)
   {
-    v1[3] = qword_1009F9848;
+    a1[8] = qword_1009F9840;
   }
 
   else
   {
-    result = sub_1000613D4(result);
-    v3 = qword_1009F9848;
-    v1[3] = qword_1009F9848;
-    if (!v3)
+    sub_1000613D4(a1, a2, a3, a4);
+    v8 = qword_1009F9840;
+    a1[8] = qword_1009F9840;
+    if (!v8)
     {
-      result = sub_1000613D4(result);
-      v3 = qword_1009F9848;
+      sub_1000613D4(a1, a2, a3, a4);
+      v8 = qword_1009F9840;
     }
   }
 
-  v1[4] = v3;
-  v4 = qword_1009F9838;
-  if (!qword_1009F9838)
+  a1[9] = v8;
+  v9 = qword_1009F9850;
+  if (!qword_1009F9850)
   {
-    result = sub_1000613D4(result);
-    v4 = qword_1009F9838;
+    sub_1000613D4(a1, a2, a3, a4);
+    v9 = qword_1009F9850;
   }
 
-  v1[5] = v4;
-  v5 = qword_1009F9878;
-  if (!qword_1009F9878)
-  {
-    result = sub_1000613D4(result);
-    v5 = qword_1009F9878;
-  }
-
-  v1[7] = v5;
-  v6 = qword_1009F9890;
-  if (!qword_1009F9890)
-  {
-    result = sub_1000613D4(result);
-    v6 = qword_1009F9890;
-  }
-
-  v1[8] = v6;
-  return result;
+  a1[10] = v9;
 }
 
-uint64_t sub_1000626C8(uint64_t result)
+void sub_100062618(void *a1, uint64_t a2, uint64_t a3, const char *a4)
 {
-  v1 = result;
-  v2 = qword_1009F9838;
+  v5 = qword_1009F9828;
+  if (!qword_1009F9828)
+  {
+    sub_1000613D4(a1, a2, a3, a4);
+    v5 = qword_1009F9828;
+  }
+
+  a1[2] = v5;
+  v6 = qword_1009F9848;
+  if (qword_1009F9848)
+  {
+    a1[3] = qword_1009F9848;
+  }
+
+  else
+  {
+    sub_1000613D4(a1, a2, a3, a4);
+    v6 = qword_1009F9848;
+    a1[3] = qword_1009F9848;
+    if (!v6)
+    {
+      sub_1000613D4(a1, a2, a3, a4);
+      v6 = qword_1009F9848;
+    }
+  }
+
+  a1[4] = v6;
+  v7 = qword_1009F9838;
+  if (!qword_1009F9838)
+  {
+    sub_1000613D4(a1, a2, a3, a4);
+    v7 = qword_1009F9838;
+  }
+
+  a1[5] = v7;
+  v8 = qword_1009F9878;
+  if (!qword_1009F9878)
+  {
+    sub_1000613D4(a1, a2, a3, a4);
+    v8 = qword_1009F9878;
+  }
+
+  a1[7] = v8;
+  v9 = qword_1009F9890;
+  if (!qword_1009F9890)
+  {
+    sub_1000613D4(a1, a2, a3, a4);
+    v9 = qword_1009F9890;
+  }
+
+  a1[8] = v9;
+}
+
+void sub_1000626C8(void *a1, uint64_t a2, uint64_t a3, const char *a4)
+{
+  v5 = qword_1009F9838;
   if (qword_1009F9838)
   {
-    *(result + 16) = qword_1009F9838;
+    a1[2] = qword_1009F9838;
 LABEL_4:
-    v1[3] = v2;
+    a1[3] = v5;
     goto LABEL_5;
   }
 
-  result = sub_1000613D4(result);
-  v2 = qword_1009F9838;
-  v1[2] = qword_1009F9838;
-  if (v2)
+  sub_1000613D4(a1, a2, a3, a4);
+  v5 = qword_1009F9838;
+  a1[2] = qword_1009F9838;
+  if (v5)
   {
     goto LABEL_4;
   }
 
-  result = sub_1000613D4(result);
-  v2 = qword_1009F9838;
-  v1[3] = qword_1009F9838;
-  if (!v2)
+  sub_1000613D4(a1, a2, a3, a4);
+  v5 = qword_1009F9838;
+  a1[3] = qword_1009F9838;
+  if (!v5)
   {
-    result = sub_1000613D4(result);
-    v2 = qword_1009F9838;
+    sub_1000613D4(a1, a2, a3, a4);
+    v5 = qword_1009F9838;
   }
 
 LABEL_5:
-  v1[4] = v2;
-  v3 = qword_1009F9848;
+  a1[4] = v5;
+  v6 = qword_1009F9848;
   if (!qword_1009F9848)
   {
-    result = sub_1000613D4(result);
-    v2 = qword_1009F9838;
-    v3 = qword_1009F9848;
+    sub_1000613D4(a1, a2, a3, a4);
+    v5 = qword_1009F9838;
+    v6 = qword_1009F9848;
   }
 
-  v1[6] = v3;
-  if (v2)
+  a1[6] = v6;
+  if (v5)
   {
-    v1[7] = v2;
+    a1[7] = v5;
 LABEL_10:
-    v1[8] = v2;
+    a1[8] = v5;
     goto LABEL_11;
   }
 
-  result = sub_1000613D4(result);
-  v2 = qword_1009F9838;
-  v1[7] = qword_1009F9838;
-  if (v2)
+  sub_1000613D4(a1, a2, a3, a4);
+  v5 = qword_1009F9838;
+  a1[7] = qword_1009F9838;
+  if (v5)
   {
     goto LABEL_10;
   }
 
-  result = sub_1000613D4(result);
-  v2 = qword_1009F9838;
-  v1[8] = qword_1009F9838;
-  if (!v2)
+  sub_1000613D4(v7, v8, v9, v10);
+  v5 = qword_1009F9838;
+  a1[8] = qword_1009F9838;
+  if (!v5)
   {
-    result = sub_1000613D4(result);
-    v2 = qword_1009F9838;
+    sub_1000613D4(v11, v12, v13, v14);
+    v5 = qword_1009F9838;
   }
 
 LABEL_11:
-  v1[9] = v2;
-  return result;
+  a1[9] = v5;
 }
 
-uint64_t sub_100062794(uint64_t result)
+void sub_100062794(void *a1, uint64_t a2, uint64_t a3, const char *a4)
 {
-  v1 = result;
-  v2 = qword_1009F9828;
+  v5 = qword_1009F9828;
   if (!qword_1009F9828)
   {
-    result = sub_1000613D4(result);
-    v2 = qword_1009F9828;
+    sub_1000613D4(a1, a2, a3, a4);
+    v5 = qword_1009F9828;
   }
 
-  v1[2] = v2;
-  v3 = qword_1009F98A0;
+  a1[2] = v5;
+  v6 = qword_1009F98A0;
   if (!qword_1009F98A0)
   {
-    result = sub_1000613D4(result);
-    v3 = qword_1009F98A0;
+    sub_1000613D4(a1, a2, a3, a4);
+    v6 = qword_1009F98A0;
   }
 
-  v1[3] = v3;
-  v4 = qword_1009F9848;
+  a1[3] = v6;
+  v7 = qword_1009F9848;
   if (!qword_1009F9848)
   {
-    result = sub_1000613D4(result);
-    v4 = qword_1009F9848;
+    sub_1000613D4(a1, a2, a3, a4);
+    v7 = qword_1009F9848;
   }
 
-  v1[4] = v4;
-  v5 = qword_1009F98B0;
+  a1[4] = v7;
+  v8 = qword_1009F98B0;
   if (!qword_1009F98B0)
   {
-    result = sub_1000613D4(result);
-    v5 = qword_1009F98B0;
+    sub_1000613D4(a1, a2, a3, a4);
+    v8 = qword_1009F98B0;
   }
 
-  v1[5] = v5;
-  v6 = qword_1009F98C0;
+  a1[5] = v8;
+  v9 = qword_1009F98C0;
   if (!qword_1009F98C0)
   {
-    result = sub_1000613D4(result);
-    v6 = qword_1009F98C0;
+    sub_1000613D4(a1, a2, a3, a4);
+    v9 = qword_1009F98C0;
   }
 
-  v1[6] = v6;
-  v7 = qword_1009F98C8;
+  a1[6] = v9;
+  v10 = qword_1009F98C8;
   if (!qword_1009F98C8)
   {
-    result = sub_1000613D4(result);
-    v7 = qword_1009F98C8;
+    sub_1000613D4(a1, a2, a3, a4);
+    v10 = qword_1009F98C8;
   }
 
-  v1[7] = v7;
-  return result;
+  a1[7] = v10;
 }
 
 uint64_t sub_100062844(uint64_t a1)
@@ -8773,9 +8767,9 @@ LABEL_7:
   return wireless_diagnostics::google::protobuf::UnknownFieldSet::MergeFrom((a1 + 8), (a2 + 8));
 }
 
-void sub_100062984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100062984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9081,24 +9075,23 @@ uint64_t sub_100062EF0(const wireless_diagnostics::google::protobuf::Message *a1
     wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
     wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
     wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
-    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v8);
+    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v7);
   }
 
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
-    return sub_1000628A4(a1, v5);
+    return sub_1000628A4(a1, v4);
   }
 
   else
   {
-    return wireless_diagnostics::google::protobuf::internal::ReflectionOps::Merge(lpsrc, a1, v6);
+    return wireless_diagnostics::google::protobuf::internal::ReflectionOps::Merge(lpsrc, a1, v5);
   }
 }
 
-void sub_100062FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100062FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9132,9 +9125,9 @@ uint64_t sub_100063070()
   return qword_1009ED298;
 }
 
-void sub_100063104(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100063104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   wireless_diagnostics::google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -9149,7 +9142,7 @@ void *sub_100063118(void *a1)
   return a1;
 }
 
-uint64_t sub_100063178(uint64_t a1, uint64_t a2)
+uint64_t sub_100063178(_DWORD *a1, uint64_t a2)
 {
   if (a2 == a1)
   {
@@ -9162,17 +9155,17 @@ uint64_t sub_100063178(uint64_t a1, uint64_t a2)
   v4 = *(a2 + 24);
   if (v4)
   {
-    sub_100077844((a1 + 16), *(a1 + 24) + v4);
-    memcpy((*(a1 + 16) + 4 * *(a1 + 24)), *(a2 + 16), 4 * *(a2 + 24));
-    *(a1 + 24) += *(a2 + 24);
+    sub_100077844(a1 + 4, a1[6] + v4);
+    memcpy((*(a1 + 2) + 4 * a1[6]), *(a2 + 16), 4 * *(a2 + 24));
+    a1[6] += *(a2 + 24);
   }
 
-  return wireless_diagnostics::google::protobuf::UnknownFieldSet::MergeFrom((a1 + 8), (a2 + 8));
+  return wireless_diagnostics::google::protobuf::UnknownFieldSet::MergeFrom((a1 + 2), (a2 + 8));
 }
 
-void sub_100063238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100063238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9278,7 +9271,7 @@ LABEL_9:
       goto LABEL_16;
     }
 
-    result = sub_100063628(this, a1 + 16);
+    result = sub_100063628(this, (a1 + 16));
     if (!result)
     {
       return result;
@@ -9366,14 +9359,14 @@ LABEL_35:
   return result;
 }
 
-void sub_100063610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100063610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100063628(wireless_diagnostics::google::protobuf::io::CodedInputStream *this, uint64_t a2)
+uint64_t sub_100063628(wireless_diagnostics::google::protobuf::io::CodedInputStream *this, uint64_t *a2)
 {
   v11 = 0;
   v4 = *(this + 1);
@@ -9414,15 +9407,15 @@ LABEL_11:
       }
 
       v8 = v12;
-      v9 = *(a2 + 8);
-      if (v9 == *(a2 + 12))
+      v9 = *(a2 + 2);
+      if (v9 == *(a2 + 3))
       {
         sub_100077844(a2, v9 + 1);
-        v9 = *(a2 + 8);
+        v9 = *(a2 + 2);
       }
 
       v10 = *a2;
-      *(a2 + 8) = v9 + 1;
+      *(a2 + 2) = v9 + 1;
       *(v10 + 4 * v9) = v8;
       if (wireless_diagnostics::google::protobuf::io::CodedInputStream::BytesUntilLimit(this) <= 0)
       {
@@ -9513,24 +9506,23 @@ uint64_t sub_100063878(const wireless_diagnostics::google::protobuf::Message *a1
     wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
     wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
     wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
-    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v8);
+    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v7);
   }
 
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
-    return sub_100063178(a1, v5);
+    return sub_100063178(a1, v4);
   }
 
   else
   {
-    return wireless_diagnostics::google::protobuf::internal::ReflectionOps::Merge(lpsrc, a1, v6);
+    return wireless_diagnostics::google::protobuf::internal::ReflectionOps::Merge(lpsrc, a1, v5);
   }
 }
 
-void sub_10006394C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10006394C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9564,9 +9556,9 @@ uint64_t sub_1000639F8()
   return qword_1009ED2A8;
 }
 
-void sub_100063A8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100063A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   wireless_diagnostics::google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -9581,7 +9573,7 @@ void *sub_100063AA0(void *a1)
   return a1;
 }
 
-uint64_t sub_100063B00(uint64_t a1, uint64_t a2)
+uint64_t sub_100063B00(_DWORD *a1, uint64_t a2)
 {
   if (a2 == a1)
   {
@@ -9594,17 +9586,17 @@ uint64_t sub_100063B00(uint64_t a1, uint64_t a2)
   v4 = *(a2 + 24);
   if (v4)
   {
-    sub_1000778F4((a1 + 16), *(a1 + 24) + v4);
-    memcpy((*(a1 + 16) + 8 * *(a1 + 24)), *(a2 + 16), 8 * *(a2 + 24));
-    *(a1 + 24) += *(a2 + 24);
+    sub_1000778F4(a1 + 4, a1[6] + v4);
+    memcpy((*(a1 + 2) + 8 * a1[6]), *(a2 + 16), 8 * *(a2 + 24));
+    a1[6] += *(a2 + 24);
   }
 
-  return wireless_diagnostics::google::protobuf::UnknownFieldSet::MergeFrom((a1 + 8), (a2 + 8));
+  return wireless_diagnostics::google::protobuf::UnknownFieldSet::MergeFrom((a1 + 2), (a2 + 8));
 }
 
-void sub_100063BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100063BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }

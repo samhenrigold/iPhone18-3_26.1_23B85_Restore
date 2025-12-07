@@ -128,7 +128,7 @@
 
 + (id)loadCurrentIBLMState
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [_OSIBLMState loadNumberForPreferenceKey:@"lastIBLMFeatureState"];
   v3 = v2;
   if (v2)
@@ -141,8 +141,8 @@
       goto LABEL_7;
     }
 
-    v11 = 134217984;
-    v12 = integerValue != 0;
+    v10 = 134217984;
+    v11 = integerValue != 0;
     v7 = "IBLM state from defaults is %lu";
   }
 
@@ -155,17 +155,15 @@
       goto LABEL_7;
     }
 
-    v11 = 134217984;
-    v12 = v5;
+    v10 = 134217984;
+    v11 = v5;
     v7 = "IBLM falling back to default state %lu";
   }
 
-  _os_log_impl(&dword_25D171000, v6, OS_LOG_TYPE_DEFAULT, v7, &v11, 0xCu);
+  _os_log_impl(&dword_25D171000, v6, OS_LOG_TYPE_DEFAULT, v7, &v10, 0xCu);
 LABEL_7:
 
   v8 = [MEMORY[0x277CCABB0] numberWithBool:v5];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -178,7 +176,7 @@ LABEL_7:
 
 + (id)loadCurrentIBLMNotificationsState
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [_OSIBLMState loadNumberForPreferenceKey:@"lastIBLMNotificationsState"];
   v3 = v2;
   if (v2)
@@ -191,8 +189,8 @@ LABEL_7:
       goto LABEL_7;
     }
 
-    v11 = 134217984;
-    v12 = integerValue != 0;
+    v10 = 134217984;
+    v11 = integerValue != 0;
     v7 = "IBLM notifications state from defaults is %lu";
   }
 
@@ -205,17 +203,15 @@ LABEL_7:
       goto LABEL_7;
     }
 
-    v11 = 134217984;
-    v12 = v5;
+    v10 = 134217984;
+    v11 = v5;
     v7 = "IBLM falling back to default notifications state %lu";
   }
 
-  _os_log_impl(&dword_25D171000, v6, OS_LOG_TYPE_DEFAULT, v7, &v11, 0xCu);
+  _os_log_impl(&dword_25D171000, v6, OS_LOG_TYPE_DEFAULT, v7, &v10, 0xCu);
 LABEL_7:
 
   v8 = [MEMORY[0x277CCABB0] numberWithBool:v5];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -244,42 +240,38 @@ LABEL_7:
 
 - (void)client:(id)client setIBLMState:(int64_t)state
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   v6 = +[_OSIBLMState sharedLog];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134218242;
+    v8 = 134218242;
     stateCopy = state;
-    v11 = 2112;
-    v12 = clientCopy;
-    _os_log_impl(&dword_25D171000, v6, OS_LOG_TYPE_DEFAULT, "Set IBLM state to %lu from %@", &v9, 0x16u);
+    v10 = 2112;
+    v11 = clientCopy;
+    _os_log_impl(&dword_25D171000, v6, OS_LOG_TYPE_DEFAULT, "Set IBLM state to %lu from %@", &v8, 0x16u);
   }
 
   v7 = +[_OSBatteryPredictor predictor];
   [v7 client:clientCopy setIBLMState:state];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)client:(id)client setIBLMNotificationsState:(int64_t)state
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   v6 = +[_OSIBLMState sharedLog];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134218242;
+    v8 = 134218242;
     stateCopy = state;
-    v11 = 2112;
-    v12 = clientCopy;
-    _os_log_impl(&dword_25D171000, v6, OS_LOG_TYPE_DEFAULT, "Set IBLM Notifications State to %lu from %@", &v9, 0x16u);
+    v10 = 2112;
+    v11 = clientCopy;
+    _os_log_impl(&dword_25D171000, v6, OS_LOG_TYPE_DEFAULT, "Set IBLM Notifications State to %lu from %@", &v8, 0x16u);
   }
 
   v7 = +[_OSBatteryPredictor predictor];
   [v7 client:clientCopy setIBLMNotificationsState:state];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance

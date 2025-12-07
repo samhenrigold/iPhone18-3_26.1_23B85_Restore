@@ -1,43 +1,3 @@
-NightingaleTraining::NightingalePFLTaskType_optional __swiftcall NightingalePFLTaskType.init(rawValue:)(Swift::Int rawValue)
-{
-  switch(rawValue)
-  {
-    case 0:
-      return 0;
-    case 1:
-      return 1;
-    case 2:
-      return 2;
-    case 3:
-      return 3;
-    case 4:
-      return 4;
-    case 5:
-      return 5;
-  }
-
-  return 6;
-}
-
-uint64_t NightingalePFLTaskType.rawValue.getter(char a1)
-{
-  switch(a1)
-  {
-    case 0:
-      return 0;
-    case 1:
-      return 1;
-    case 2:
-      return 2;
-    case 3:
-      return 3;
-    case 4:
-      return 4;
-  }
-
-  return 5;
-}
-
 NightingaleTraining::NightingalePFLModelType_optional protocol witness for RawRepresentable.init(rawValue:) in conformance NightingalePFLModelType@<W0>(Swift::Int *a1@<X0>, NightingaleTraining::NightingalePFLModelType_optional *a2@<X8>)
 {
   result.value = NightingalePFLModelType.init(rawValue:)(*a1).value;
@@ -3369,13 +3329,6 @@ uint64_t static HyperParams.defaultInputShuffleMethod.getter@<X0>(uint64_t a1@<X
   return (*(*(v1 - 8) + 16))(a1, v3);
 }
 
-uint64_t one-time initialization function for defaultMaxCycleLenStd()
-{
-  result = static Float.greatestFiniteMagnitude.getter();
-  static HyperParams.defaultMaxCycleLenStd = v1;
-  return result;
-}
-
 int *HyperParams.defaultMaxCycleLenStd.unsafeMutableAddressor()
 {
   if (one-time initialization token for defaultMaxCycleLenStd != -1)
@@ -3570,15 +3523,14 @@ uint64_t static HyperParams.nightingaleDInputSpO2.getter()
   return v1;
 }
 
-uint64_t one-time initialization function for defaultPregnancySourceList()
+void one-time initialization function for defaultPregnancySourceList()
 {
-  result = _allocateUninitializedArray<A>(_:)();
-  *v1 = 0;
-  v1[1] = 1;
-  v1[2] = 2;
+  _allocateUninitializedArray<A>(_:)();
+  *v0 = 0;
+  v0[1] = 1;
+  v0[2] = 2;
   _finalizeUninitializedArray<A>(_:)();
-  static HyperParams.defaultPregnancySourceList = result;
-  return result;
+  static HyperParams.defaultPregnancySourceList = v1;
 }
 
 uint64_t *HyperParams.defaultPregnancySourceList.unsafeMutableAddressor()
@@ -3598,18 +3550,17 @@ uint64_t static HyperParams.defaultPregnancySourceList.getter()
   return v1;
 }
 
-uint64_t one-time initialization function for defaultHKPregnancyStartSourceIncludeList()
+void one-time initialization function for defaultHKPregnancyStartSourceIncludeList()
 {
-  type metadata accessor for _HKPrivatePregnancyStartDateSource();
-  result = _allocateUninitializedArray<A>(_:)();
-  *v1 = 0;
-  v1[1] = 1;
-  v1[2] = 2;
-  v1[3] = 3;
-  v1[4] = 4;
+  type metadata accessor for _HKPrivatePregnancyStartDateSource(0);
+  _allocateUninitializedArray<A>(_:)();
+  *v0 = 0;
+  v0[1] = 1;
+  v0[2] = 2;
+  v0[3] = 3;
+  v0[4] = 4;
   _finalizeUninitializedArray<A>(_:)();
-  static HyperParams.defaultHKPregnancyStartSourceIncludeList = result;
-  return result;
+  static HyperParams.defaultHKPregnancyStartSourceIncludeList = v1;
 }
 
 uint64_t *HyperParams.defaultHKPregnancyStartSourceIncludeList.unsafeMutableAddressor()
@@ -3629,9 +3580,9 @@ uint64_t static HyperParams.defaultHKPregnancyStartSourceIncludeList.getter()
   return v1;
 }
 
-uint64_t one-time initialization function for defaultNightingaleDInputFeatureList()
+void one-time initialization function for defaultNightingaleDInputFeatureList()
 {
-  v12 = _allocateUninitializedArray<A>(_:)();
+  _allocateUninitializedArray<A>(_:)();
   v11 = v0;
   v1 = HyperParams.nightingaleDInputDaySHR10.unsafeMutableAddressor();
   outlined init with copy of String(v1, v11);
@@ -3651,10 +3602,8 @@ uint64_t one-time initialization function for defaultNightingaleDInputFeatureLis
   outlined init with copy of String(v8, v11 + 14);
   v9 = HyperParams.nightingaleDInputSpO2.unsafeMutableAddressor();
   outlined init with copy of String(v9, v11 + 16);
-  result = v12;
   _finalizeUninitializedArray<A>(_:)();
-  static HyperParams.defaultNightingaleDInputFeatureList = v12;
-  return result;
+  static HyperParams.defaultNightingaleDInputFeatureList = v10;
 }
 
 uint64_t *HyperParams.defaultNightingaleDInputFeatureList.unsafeMutableAddressor()
@@ -3676,7 +3625,7 @@ uint64_t static HyperParams.defaultNightingaleDInputFeatureList.getter()
 
 uint64_t one-time initialization function for defaultNightingaleDInputFeatureStatsOption()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_19NightingaleTraining18FeatureStatsOptionOtMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_19NightingaleTraining18FeatureStatsOptionOtMd, &_sSS_19NightingaleTraining18FeatureStatsOptionOtMR);
   _allocateUninitializedArray<A>(_:)();
   v11 = v0;
   v1 = HyperParams.nightingaleDInputDaySHR10.unsafeMutableAddressor();
@@ -3729,14 +3678,13 @@ uint64_t static HyperParams.defaultNightingaleDInputFeatureStatsOption.getter()
   return v1;
 }
 
-uint64_t one-time initialization function for defaultMaxFPRs()
+void one-time initialization function for defaultMaxFPRs()
 {
-  result = _allocateUninitializedArray<A>(_:)();
-  *v1 = 0x3FA999999999999ALL;
-  v1[1] = 0x3FB999999999999ALL;
+  _allocateUninitializedArray<A>(_:)();
+  *v0 = 0x3FA999999999999ALL;
+  v0[1] = 0x3FB999999999999ALL;
   _finalizeUninitializedArray<A>(_:)();
-  static HyperParams.defaultMaxFPRs = result;
-  return result;
+  static HyperParams.defaultMaxFPRs = v1;
 }
 
 uint64_t *HyperParams.defaultMaxFPRs.unsafeMutableAddressor()
@@ -3756,14 +3704,13 @@ uint64_t static HyperParams.defaultMaxFPRs.getter()
   return v1;
 }
 
-uint64_t one-time initialization function for defaultOutputPostProcThresholds()
+void one-time initialization function for defaultOutputPostProcThresholds()
 {
-  result = _allocateUninitializedArray<A>(_:)();
-  *v1 = 0.5;
-  *(v1 + 8) = 0x3FE999999999999ALL;
+  _allocateUninitializedArray<A>(_:)();
+  *v0 = 0.5;
+  *(v0 + 8) = 0x3FE999999999999ALL;
   _finalizeUninitializedArray<A>(_:)();
-  static HyperParams.defaultOutputPostProcThresholds = result;
-  return result;
+  static HyperParams.defaultOutputPostProcThresholds = v1;
 }
 
 uint64_t *HyperParams.defaultOutputPostProcThresholds.unsafeMutableAddressor()
@@ -3783,26 +3730,25 @@ uint64_t static HyperParams.defaultOutputPostProcThresholds.getter()
   return v1;
 }
 
-uint64_t one-time initialization function for defaultLatencyBuckets()
+void one-time initialization function for defaultLatencyBuckets()
 {
-  result = _allocateUninitializedArray<A>(_:)();
-  *v1 = -1027080192;
-  *(v1 + 4) = -14.0;
-  *(v1 + 8) = -10.0;
-  *(v1 + 12) = -7.0;
-  *(v1 + 16) = -3.0;
-  *(v1 + 20) = 0;
-  *(v1 + 24) = 3.0;
-  *(v1 + 28) = 7.0;
-  *(v1 + 32) = 10.0;
-  *(v1 + 36) = 14.0;
-  *(v1 + 40) = 18.0;
-  *(v1 + 44) = 21.0;
-  *(v1 + 48) = 24.0;
-  *(v1 + 52) = 28.0;
+  _allocateUninitializedArray<A>(_:)();
+  *v0 = -1027080192;
+  *(v0 + 4) = -14.0;
+  *(v0 + 8) = -10.0;
+  *(v0 + 12) = -7.0;
+  *(v0 + 16) = -3.0;
+  *(v0 + 20) = 0;
+  *(v0 + 24) = 3.0;
+  *(v0 + 28) = 7.0;
+  *(v0 + 32) = 10.0;
+  *(v0 + 36) = 14.0;
+  *(v0 + 40) = 18.0;
+  *(v0 + 44) = 21.0;
+  *(v0 + 48) = 24.0;
+  *(v0 + 52) = 28.0;
   _finalizeUninitializedArray<A>(_:)();
-  static HyperParams.defaultLatencyBuckets = result;
-  return result;
+  static HyperParams.defaultLatencyBuckets = v1;
 }
 
 uint64_t *HyperParams.defaultLatencyBuckets.unsafeMutableAddressor()
@@ -3847,14 +3793,13 @@ uint64_t static HyperParams.defaultMorpheusMetricsProgramFileName.getter()
   return v1;
 }
 
-uint64_t one-time initialization function for defaultTargetFPRs()
+void one-time initialization function for defaultTargetFPRs()
 {
-  result = _allocateUninitializedArray<A>(_:)();
-  *v1 = 0x3FA999999999999ALL;
-  v1[1] = 0x3FB999999999999ALL;
+  _allocateUninitializedArray<A>(_:)();
+  *v0 = 0x3FA999999999999ALL;
+  v0[1] = 0x3FB999999999999ALL;
   _finalizeUninitializedArray<A>(_:)();
-  static HyperParams.defaultTargetFPRs = result;
-  return result;
+  static HyperParams.defaultTargetFPRs = v1;
 }
 
 uint64_t *HyperParams.defaultTargetFPRs.unsafeMutableAddressor()
@@ -4177,7 +4122,7 @@ uint64_t HyperParams.init(recipe:)(uint64_t a1)
   MEMORY[0x25F8891D0](v24, v22, a1, MEMORY[0x277D84030], MEMORY[0x277D84F70] + 8, MEMORY[0x277D84038]);
   if (v24[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
     if (swift_dynamicCast())
     {
       v11 = v15;
@@ -4220,7 +4165,7 @@ uint64_t HyperParams.init(recipe:)(uint64_t a1)
   MEMORY[0x25F8891D0](v19, v17, a1, MEMORY[0x277D84030], MEMORY[0x277D84F70] + 8, MEMORY[0x277D84038]);
   if (v19[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDyS2SGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDyS2SGMd, &_sSDyS2SGMR);
     v5 = swift_dynamicCast();
     if (v5)
     {
@@ -4274,47 +4219,47 @@ uint64_t closure #1 in implicit closure #2 in HyperParams.init(recipe:)@<X0>(cha
   return result;
 }
 
-NightingaleTraining::FeatureStatsOption_optional closure #2 in HyperParams.init(recipe:)@<W0>(Swift::String *a1@<X0>, NightingaleTraining::FeatureStatsOption *a2@<X8>)
+NightingaleTraining::FeatureStatsOption_optional closure #2 in HyperParams.init(recipe:)@<W0>(uint64_t *a1@<X0>, NightingaleTraining::FeatureStatsOption_optional *a2@<X8>)
 {
   rawValue = *a1;
 
   result.value = FeatureStatsOption.init(rawValue:)(rawValue).value;
   if (result.value == NightingaleTraining_FeatureStatsOption_unknownDefault)
   {
-    *a2 = NightingaleTraining_FeatureStatsOption_none;
+    a2->value = NightingaleTraining_FeatureStatsOption_none;
   }
 
   else
   {
-    *a2 = result;
+    a2->value = result.value;
   }
 
   return result;
 }
 
-void *HyperParams.parameter<A>(for:default:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+void HyperParams.parameter<A>(for:default:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   v15 = a5;
   v19 = a1;
   v20 = a2;
   v16 = a3;
   v25 = a4;
-  v33 = 0;
-  v34 = 0;
   v32 = 0;
+  v33 = 0;
   v31 = 0;
-  v35 = a4;
+  v30 = 0;
+  v34 = a4;
   v17 = type metadata accessor for Optional();
   v18 = (*(*(v17 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v6 = MEMORY[0x28223BE20](v20);
+  v7 = MEMORY[0x28223BE20](v20, v6);
   v26 = &v10 - v18;
-  v33 = v7;
-  v34 = v6;
   v32 = v8;
-  v31 = v5;
+  v33 = v7;
+  v31 = v9;
+  v30 = v5;
 
-  v30[0] = v19;
-  v30[1] = v20;
+  v29[5] = v19;
+  v29[6] = v20;
   v22 = v29;
   _convertToAnyHashable<A>(_:)();
   v21 = &v28;
@@ -4324,7 +4269,7 @@ void *HyperParams.parameter<A>(for:default:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
   swift_endAccess();
   v24 = &v27;
   MEMORY[0x25F8891D0](v22, v23, MEMORY[0x277D84030], MEMORY[0x277D84F70] + 8, MEMORY[0x277D84038]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
   if (swift_dynamicCast())
   {
     (*(*(v25 - 8) + 56))(v26, 0, 1);
@@ -4354,9 +4299,7 @@ void *HyperParams.parameter<A>(for:default:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
   }
 
   outlined destroy of AnyHashable(v29);
-  result = v30;
   outlined destroy of DefaultStringInterpolation();
-  return result;
 }
 
 uint64_t HyperParams.maximumDays.getter()
@@ -4719,7 +4662,7 @@ uint64_t HyperParams.weightNames.getter()
   v5 = v1[1];
 
   v6 = _allocateUninitializedArray<A>(_:)();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   HyperParams.parameter<A>(for:default:)(v4, v5, &v6, v2, &v7);
   outlined destroy of [(start: UInt32, end: UInt32)]();
 
@@ -4860,49 +4803,49 @@ uint64_t HyperParams.evalBeforeTrain.getter()
 
 uint64_t HyperParams.inputShuffleMethod.getter@<X0>(char *a1@<X8>)
 {
-  v8 = a1;
-  v26 = 0;
-  v23 = 0;
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24PrivateFederatedLearning13ShuffleMethodOSgMd);
-  v9 = (*(*(v1 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v1);
-  v19 = &v8 - v9;
-  v20 = type metadata accessor for ShuffleMethod();
-  v17 = *(v20 - 8);
-  v18 = v20 - 8;
-  v10 = (*(v17 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v20);
-  v2 = &v8 - v10;
-  v13 = &v8 - v10;
-  v26 = v3;
-  v4 = HyperParams.keyInputShuffleMethod.unsafeMutableAddressor();
-  v15 = *v4;
-  v16 = v4[1];
-
-  v5 = HyperParams.defaultInputShuffleMethod.unsafeMutableAddressor();
-  v11 = *(v17 + 16);
-  v12 = v17 + 16;
-  v11(v2, v5, v20);
-  v14 = ShuffleMethod.rawValue.getter();
-  (*(v17 + 8))(v13, v20);
-  v24 = v14;
-  HyperParams.parameter<A>(for:default:)(v15, v16, &v24, MEMORY[0x277D83B88], &v25);
-
-  v23 = v25;
-  ShuffleMethod.init(rawValue:)();
-  v21 = *(v17 + 48);
-  v22 = v17 + 48;
-  if (v21(v19, 1, v20) != 1)
-  {
-    return (*(v17 + 32))(v8, v19, v20);
-  }
+  v10 = a1;
+  v28 = 0;
+  v25 = 0;
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24PrivateFederatedLearning13ShuffleMethodOSgMd, &_s24PrivateFederatedLearning13ShuffleMethodOSgMR);
+  v11 = (*(*(v1 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v1, v2);
+  v21 = &v10 - v11;
+  v22 = type metadata accessor for ShuffleMethod();
+  v19 = *(v22 - 8);
+  v20 = v22 - 8;
+  v12 = (*(v19 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v22, v3);
+  v4 = &v10 - v12;
+  v15 = &v10 - v12;
+  v28 = v5;
+  v6 = HyperParams.keyInputShuffleMethod.unsafeMutableAddressor();
+  v17 = *v6;
+  v18 = v6[1];
 
   v7 = HyperParams.defaultInputShuffleMethod.unsafeMutableAddressor();
-  v11(v8, v7, v20);
-  result = (v21)(v19, 1, v20);
+  v13 = *(v19 + 16);
+  v14 = v19 + 16;
+  v13(v4, v7, v22);
+  v16 = ShuffleMethod.rawValue.getter();
+  (*(v19 + 8))(v15, v22);
+  v26 = v16;
+  HyperParams.parameter<A>(for:default:)(v17, v18, &v26, MEMORY[0x277D83B88], &v27);
+
+  v25 = v27;
+  ShuffleMethod.init(rawValue:)();
+  v23 = *(v19 + 48);
+  v24 = v19 + 48;
+  if (v23(v21, 1, v22) != 1)
+  {
+    return (*(v19 + 32))(v10, v21, v22);
+  }
+
+  v9 = HyperParams.defaultInputShuffleMethod.unsafeMutableAddressor();
+  v13(v10, v9, v22);
+  result = (v23)(v21, 1, v22);
   if (result != 1)
   {
-    return outlined destroy of ShuffleMethod?(v19);
+    return outlined destroy of ShuffleMethod?(v21);
   }
 
   return result;
@@ -4995,7 +4938,7 @@ uint64_t HyperParams.evalModels.getter()
   v4 = *HyperParams.defaultEvalModels.unsafeMutableAddressor();
 
   v7 = v4;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   HyperParams.parameter<A>(for:default:)(v5, v6, &v7, v2, &v8);
   outlined destroy of [(start: UInt32, end: UInt32)]();
 
@@ -5058,7 +5001,7 @@ uint64_t HyperParams.recipeForModel(model:)(uint64_t a1, uint64_t a2)
   v11 = a2;
   v9 = v2;
   v7 = Dictionary.init()();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd, _sSDySSypGMR);
   HyperParams.parameter<A>(for:default:)(a1, a2, &v7, v3, &v8);
   outlined destroy of [(start: UInt32, end: UInt32)]();
   return v8;
@@ -5138,19 +5081,19 @@ uint64_t HyperParams.pregnancySourceList.getter()
   v10 = *HyperParams.defaultPregnancySourceList.unsafeMutableAddressor();
 
   v13[1] = v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining15PregnancySourceOGMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining15PregnancySourceOGMd, &_sSay19NightingaleTraining15PregnancySourceOGMR);
   v1 = lazy protocol witness table accessor for type [PregnancySource] and conformance [A]();
   v5 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in HyperParams.pregnancySourceList.getter, 0, v11, MEMORY[0x277D837D0], MEMORY[0x277D84A98], v1, MEMORY[0x277D84AC0], v12);
   outlined destroy of [(start: UInt32, end: UInt32)]();
   v13[0] = v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   HyperParams.parameter<A>(for:default:)(v8, v9, v13, v6, v14);
   outlined destroy of [(start: UInt32, end: UInt32)]();
 
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining15PregnancySourceOSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19NightingaleTraining15PregnancySourceOSgMd, &_s19NightingaleTraining15PregnancySourceOSgMR);
   v2 = lazy protocol witness table accessor for type [String] and conformance [A]();
   _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #2 in HyperParams.pregnancySourceList.getter, 0, v6, v7, MEMORY[0x277D84A98], v2, MEMORY[0x277D84AC0], v12);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining15PregnancySourceOSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19NightingaleTraining15PregnancySourceOSgGMd, &_sSay19NightingaleTraining15PregnancySourceOSgGMR);
   lazy protocol witness table accessor for type [PregnancySource?] and conformance [A]();
   v4 = Sequence.compactMap<A>(_:)();
   outlined destroy of [(start: UInt32, end: UInt32)]();
@@ -5166,7 +5109,7 @@ uint64_t closure #1 in HyperParams.pregnancySourceList.getter@<X0>(char *a1@<X0>
   return result;
 }
 
-NightingaleTraining::PregnancySource_optional closure #2 in HyperParams.pregnancySourceList.getter@<W0>(Swift::String *a1@<X0>, NightingaleTraining::PregnancySource_optional *a2@<X8>)
+NightingaleTraining::PregnancySource_optional closure #2 in HyperParams.pregnancySourceList.getter@<W0>(uint64_t *a1@<X0>, NightingaleTraining::PregnancySource_optional *a2@<X8>)
 {
   rawValue = *a1;
 
@@ -5180,7 +5123,7 @@ unint64_t lazy protocol witness table accessor for type [PregnancySource?] and c
   v2 = lazy protocol witness table cache variable for type [PregnancySource?] and conformance [A];
   if (!lazy protocol witness table cache variable for type [PregnancySource?] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19NightingaleTraining15PregnancySourceOSgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19NightingaleTraining15PregnancySourceOSgGMd, &_sSay19NightingaleTraining15PregnancySourceOSgGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [PregnancySource?] and conformance [A]);
     return WitnessTable;
@@ -5200,35 +5143,35 @@ uint64_t HyperParams.hkPregnancyStartSourceIncludeList.getter()
 
   v14[1] = v10;
 
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo34_HKPrivatePregnancyStartDateSourceVGMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo34_HKPrivatePregnancyStartDateSourceVGMd, &_sSaySo34_HKPrivatePregnancyStartDateSourceVGMR);
   v1 = lazy protocol witness table accessor for type [_HKPrivatePregnancyStartDateSource] and conformance [A]();
   v4 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in HyperParams.hkPregnancyStartSourceIncludeList.getter, v11, v12, MEMORY[0x277D837D0], MEMORY[0x277D84A98], v1, MEMORY[0x277D84AC0], v13);
 
   outlined destroy of [(start: UInt32, end: UInt32)]();
   v14[0] = v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   HyperParams.parameter<A>(for:default:)(v8, v9, v14, v5, v15);
   outlined destroy of [(start: UInt32, end: UInt32)]();
 
-  v6 = type metadata accessor for _HKPrivatePregnancyStartDateSource();
+  v6 = type metadata accessor for _HKPrivatePregnancyStartDateSource(0);
   v2 = lazy protocol witness table accessor for type [String] and conformance [A]();
   v7 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #2 in HyperParams.hkPregnancyStartSourceIncludeList.getter, v11, v5, v6, MEMORY[0x277D84A98], v2, MEMORY[0x277D84AC0], v13);
 
   return v7;
 }
 
-uint64_t closure #1 in HyperParams.hkPregnancyStartSourceIncludeList.getter@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t closure #1 in HyperParams.hkPregnancyStartSourceIncludeList.getter@<X0>(uint64_t *a1@<X8>, uint64_t *a2@<X0>)
 {
-  result = HyperParams.pregnancyStartSourceToString(_:)(*a1);
-  *a2 = result;
-  a2[1] = v3;
+  result = HyperParams.pregnancyStartSourceToString(_:)(*a2);
+  *a1 = result;
+  a1[1] = v3;
   return result;
 }
 
-uint64_t closure #2 in HyperParams.hkPregnancyStartSourceIncludeList.getter@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t closure #2 in HyperParams.hkPregnancyStartSourceIncludeList.getter@<X0>(uint64_t *a1@<X8>, uint64_t *a2@<X0>)
 {
-  result = HyperParams.stringToTregnancyStartSource(_:)(*a1, a1[1]);
-  *a2 = result;
+  result = HyperParams.stringToTregnancyStartSource(_:)(*a2, a2[1]);
+  *a1 = result;
   return result;
 }
 
@@ -5638,7 +5581,7 @@ Swift::Bool __swiftcall HyperParams.isHRVRequired()()
   swift_endAccess();
   HyperParams.nightingaleDInputHRV.unsafeMutableAddressor();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   lazy protocol witness table accessor for type [String] and conformance [A]();
   v1 = Sequence<>.contains(_:)();
   outlined destroy of DefaultStringInterpolation();
@@ -5653,7 +5596,7 @@ Swift::Bool __swiftcall HyperParams.isSpO2Required()()
   swift_endAccess();
   HyperParams.nightingaleDInputSpO2.unsafeMutableAddressor();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   lazy protocol witness table accessor for type [String] and conformance [A]();
   v1 = Sequence<>.contains(_:)();
   outlined destroy of DefaultStringInterpolation();
@@ -5668,7 +5611,7 @@ Swift::Bool __swiftcall HyperParams.isRespiratoryRateRequired()()
   swift_endAccess();
   HyperParams.nightingaleDInputRespiratoryRate.unsafeMutableAddressor();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   lazy protocol witness table accessor for type [String] and conformance [A]();
   v1 = Sequence<>.contains(_:)();
   outlined destroy of DefaultStringInterpolation();
@@ -5683,7 +5626,7 @@ Swift::Bool __swiftcall HyperParams.isSWTRequired()()
   swift_endAccess();
   HyperParams.nightingaleDInputAppleSleepingWristTemperature.unsafeMutableAddressor();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   lazy protocol witness table accessor for type [String] and conformance [A]();
   v1 = Sequence<>.contains(_:)();
   outlined destroy of DefaultStringInterpolation();
@@ -5698,7 +5641,7 @@ Swift::Bool __swiftcall HyperParams.isDaySHRRequired()()
   swift_endAccess();
   HyperParams.nightingaleDInputDaySHR10.unsafeMutableAddressor();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   lazy protocol witness table accessor for type [String] and conformance [A]();
   v1 = Sequence<>.contains(_:)();
   outlined destroy of DefaultStringInterpolation();
@@ -5713,7 +5656,7 @@ Swift::Bool __swiftcall HyperParams.isNightSHRRequired()()
   swift_endAccess();
   HyperParams.nightingaleDInputNightSHR10.unsafeMutableAddressor();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   lazy protocol witness table accessor for type [String] and conformance [A]();
   v1 = Sequence<>.contains(_:)();
   outlined destroy of DefaultStringInterpolation();
@@ -5737,7 +5680,7 @@ Swift::Bool __swiftcall HyperParams.isPSMRequired()()
   swift_endAccess();
   HyperParams.nightingaleDInputPeriodStartMean.unsafeMutableAddressor();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   lazy protocol witness table accessor for type [String] and conformance [A]();
   v1 = Sequence<>.contains(_:)();
   outlined destroy of DefaultStringInterpolation();
@@ -5752,7 +5695,7 @@ Swift::Bool __swiftcall HyperParams.isPSSRequired()()
   swift_endAccess();
   HyperParams.nightingaleDInputPeriodStartStd.unsafeMutableAddressor();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   lazy protocol witness table accessor for type [String] and conformance [A]();
   v1 = Sequence<>.contains(_:)();
   outlined destroy of DefaultStringInterpolation();
@@ -5767,7 +5710,7 @@ Swift::Bool __swiftcall HyperParams.isDaysSinceLastPeriodStartRequired()()
   swift_endAccess();
   HyperParams.nightingaleDInputDaysSinceLMS.unsafeMutableAddressor();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   lazy protocol witness table accessor for type [String] and conformance [A]();
   v1 = Sequence<>.contains(_:)();
   outlined destroy of DefaultStringInterpolation();
@@ -6038,13 +5981,13 @@ uint64_t HyperParams.maxFPRs.getter()
   v9 = *HyperParams.defaultMaxFPRs.unsafeMutableAddressor();
 
   v13[1] = v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySdGMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySdGMd, &_sSaySdGMR);
   v11 = type metadata accessor for NSNumber();
   v1 = lazy protocol witness table accessor for type [Double] and conformance [A]();
   v4 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in HyperParams.maxFPRs.getter, 0, v10, v11, MEMORY[0x277D84A98], v1, MEMORY[0x277D84AC0], v12);
   outlined destroy of [(start: UInt32, end: UInt32)]();
   v13[0] = v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
   HyperParams.parameter<A>(for:default:)(v7, v8, v13, v5, v14);
   outlined destroy of [(start: UInt32, end: UInt32)]();
 
@@ -6068,7 +6011,7 @@ unint64_t lazy protocol witness table accessor for type [Double] and conformance
   v2 = lazy protocol witness table cache variable for type [Double] and conformance [A];
   if (!lazy protocol witness table cache variable for type [Double] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySdGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySdGMd, &_sSaySdGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [Double] and conformance [A]);
     return WitnessTable;
@@ -6087,13 +6030,13 @@ uint64_t HyperParams.targetFPRs.getter()
   v9 = *HyperParams.defaultTargetFPRs.unsafeMutableAddressor();
 
   v13[1] = v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySdGMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySdGMd, &_sSaySdGMR);
   v11 = type metadata accessor for NSNumber();
   v1 = lazy protocol witness table accessor for type [Double] and conformance [A]();
   v4 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in HyperParams.maxFPRs.getter, 0, v10, v11, MEMORY[0x277D84A98], v1, MEMORY[0x277D84AC0], v12);
   outlined destroy of [(start: UInt32, end: UInt32)]();
   v13[0] = v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
   HyperParams.parameter<A>(for:default:)(v7, v8, v13, v5, v14);
   outlined destroy of [(start: UInt32, end: UInt32)]();
 
@@ -6113,13 +6056,13 @@ uint64_t HyperParams.outputPostProcThresholds.getter()
   v9 = *HyperParams.defaultOutputPostProcThresholds.unsafeMutableAddressor();
 
   v13[1] = v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySdGMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySdGMd, &_sSaySdGMR);
   v11 = type metadata accessor for NSNumber();
   v1 = lazy protocol witness table accessor for type [Double] and conformance [A]();
   v4 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in HyperParams.maxFPRs.getter, 0, v10, v11, MEMORY[0x277D84A98], v1, MEMORY[0x277D84AC0], v12);
   outlined destroy of [(start: UInt32, end: UInt32)]();
   v13[0] = v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
   HyperParams.parameter<A>(for:default:)(v7, v8, v13, v5, v14);
   outlined destroy of [(start: UInt32, end: UInt32)]();
 
@@ -6152,13 +6095,13 @@ uint64_t HyperParams.latencyBuckets.getter()
   v9 = *HyperParams.defaultLatencyBuckets.unsafeMutableAddressor();
 
   v13[1] = v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
   v11 = type metadata accessor for NSNumber();
   v1 = lazy protocol witness table accessor for type [Float] and conformance [A]();
   v4 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in HyperParams.latencyBuckets.getter, 0, v10, v11, MEMORY[0x277D84A98], v1, MEMORY[0x277D84AC0], v12);
   outlined destroy of [(start: UInt32, end: UInt32)]();
   v13[0] = v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, _sSaySo8NSNumberCGMR);
   HyperParams.parameter<A>(for:default:)(v7, v8, v13, v5, v14);
   outlined destroy of [(start: UInt32, end: UInt32)]();
 
@@ -6353,7 +6296,7 @@ uint64_t HyperParams.heartRatePeriodTFModelNames.getter()
   v4 = *HyperParams.defaultHeartRatePeriodTFModelNames.unsafeMutableAddressor();
 
   v7 = v4;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   HyperParams.parameter<A>(for:default:)(v5, v6, &v7, v2, &v8);
   outlined destroy of [(start: UInt32, end: UInt32)]();
 
@@ -6370,7 +6313,7 @@ uint64_t HyperParams.heartRatePeriodEnsembleModelNames.getter()
   v4 = *HyperParams.defaultHeartRatePeriodEnsembleModelNames.unsafeMutableAddressor();
 
   v7 = v4;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   HyperParams.parameter<A>(for:default:)(v5, v6, &v7, v2, &v8);
   outlined destroy of [(start: UInt32, end: UInt32)]();
 
@@ -6966,7 +6909,7 @@ uint64_t static NightingaleTelemetry.logger.setter(uint64_t (*a1)(), uint64_t (*
 
 uint64_t closure #1 in static NightingaleTelemetry.sendNightingaleReachTelemetryLazy(taskId:location:useCase:errorCode:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_So8NSObjectCtMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_So8NSObjectCtMd, &_sSS_So8NSObjectCtMR);
   _allocateUninitializedArray<A>(_:)();
   v8 = v4;
   *v4 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("taskId", 6uLL, 1);
@@ -6988,7 +6931,7 @@ uint64_t closure #1 in static NightingaleTelemetry.sendNightingaleReachTelemetry
 
 uint64_t closure #1 in static NightingaleTelemetry.sendNightingaleShadowEvaluationTelemetryLazy(flycatcherResults:)(uint64_t *a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_So8NSObjectCtMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_So8NSObjectCtMd, &_sSS_So8NSObjectCtMR);
   _allocateUninitializedArray<A>(_:)();
   v5 = v1;
   *v1 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("recipeId", 8uLL, 1);
@@ -7243,16 +7186,16 @@ uint64_t block_copy_helper_1(uint64_t a1, uint64_t a2)
   return result;
 }
 
-id ha_get_log()
+id ha_get_log(uint64_t a1)
 {
   if (ha_get_log_onceToken != -1)
   {
     ha_get_log_cold_1();
   }
 
-  v1 = ha_get_log_log;
+  v2 = ha_get_log_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ha_get_log_block_invoke()
@@ -7262,11 +7205,11 @@ uint64_t __ha_get_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void Nightingale::preprocess_temperature_inputs_for_hist_cycle(uint64_t *a1@<X0>, int a2@<W1>, int a3@<W2>, uint64_t a4@<X8>)
+void Nightingale::preprocess_temperature_inputs_for_hist_cycle(uint64_t *a1@<X0>, int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v5 = (a2 - 43);
   Nightingale::extract_and_validate_temperature_data(a1, a3, __p);
-  Nightingale::truncate_temperature_data(__p, v5, v6);
+  Nightingale::truncate_temperature_data(v6, __p, v5);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -7298,9 +7241,9 @@ void Nightingale::preprocess_temperature_inputs_for_hist_cycle(uint64_t *a1@<X0>
   }
 }
 
-void sub_25C6350F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_25C6350F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   Nightingale::lunaExtractedData::~lunaExtractedData(va);
   _Unwind_Resume(a1);
 }
@@ -7422,14 +7365,14 @@ void Nightingale::extract_and_validate_temperature_data(uint64_t *a1@<X0>, int a
               if (*(v20 + 16) == v21)
               {
                 v53[0] = v20 + 2;
-                v24 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, v23);
+                v24 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, v23, &std::piecewise_construct, v53);
                 *v53 = v22;
               }
 
               else
               {
                 v53[0] = v20 + 2;
-                v24 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, v23);
+                v24 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, v23, &std::piecewise_construct, v53);
                 LODWORD(v53[0]) = 2143289344;
               }
 
@@ -7449,7 +7392,7 @@ void Nightingale::extract_and_validate_temperature_data(uint64_t *a1@<X0>, int a
           for (i = v45; i; i = *i)
           {
             v53[0] = i + 16;
-            v26 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, i + 16);
+            v26 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, i + 16, &std::piecewise_construct, v53);
             LODWORD(v53[0]) = 2143289344;
             std::vector<float>::push_back[abi:ne200100](v26 + 3, v53);
           }
@@ -7468,7 +7411,7 @@ void Nightingale::extract_and_validate_temperature_data(uint64_t *a1@<X0>, int a
       do
       {
         v53[0] = v27 + 16;
-        v29 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, v27 + 16);
+        v29 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, v27 + 16, &std::piecewise_construct, v53);
         v30 = v29[3];
         v31 = v29[4] - v30;
         if ((v31 >> 2) < 1)
@@ -7509,7 +7452,7 @@ void Nightingale::extract_and_validate_temperature_data(uint64_t *a1@<X0>, int a
           for (k = v45; k; k = *k)
           {
             v53[0] = k + 16;
-            v36 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, k + 16);
+            v36 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(&v44, k + 16, &std::piecewise_construct, v53);
             v36[4] = (v36[4] - 4);
           }
         }
@@ -7550,7 +7493,7 @@ void Nightingale::extract_and_validate_temperature_data(uint64_t *a1@<X0>, int a
   }
 }
 
-void sub_25C635664(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27)
+void sub_25C635664(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27)
 {
   if (__p)
   {
@@ -7579,22 +7522,22 @@ void sub_25C635664(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void Nightingale::truncate_temperature_data(Nightingale *this@<X0>, Nightingale::lunaExtractedData *a2@<X1>, uint64_t a3@<X8>)
+void Nightingale::truncate_temperature_data(uint64_t *__return_ptr a1@<X8>, Nightingale *this@<X0>, Nightingale::lunaExtractedData *a3@<X1>)
 {
-  v3 = a2;
+  v3 = a3;
   v6 = *this;
   v7 = *(this + 1);
   v8 = v7 - *this;
   v9 = v8 >> 2;
-  if (v7 == *this || *(v6 + v8 - 4) >= v3)
+  if (v7 == *this || *&v6[v8 - 4] >= v3)
   {
 LABEL_8:
-    *a3 = 0;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a3, v6, v7, v9);
-    std::unordered_map<unsigned char,std::vector<float>>::unordered_map(a3 + 24, this + 24);
-    std::unordered_map<unsigned char,std::vector<int>>::unordered_map(a3 + 64, this + 64);
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, v6, v7, v9);
+    std::unordered_map<unsigned char,std::vector<float>>::unordered_map((a1 + 3), this + 24);
+    std::unordered_map<unsigned char,std::vector<int>>::unordered_map((a1 + 8), this + 64);
   }
 
   else
@@ -7610,7 +7553,7 @@ LABEL_8:
       v11 = v8 >> 2;
     }
 
-    while (*(v6 + 4 * v10) != v3)
+    while (*&v6[4 * v10] != v3)
     {
       if (v11 == ++v10)
       {
@@ -7619,33 +7562,33 @@ LABEL_8:
     }
 
     v12 = v8 >> 2;
-    *(a3 + 48) = 0;
-    *(a3 + 16) = 0u;
-    *(a3 + 32) = 0u;
+    a1[6] = 0;
+    *(a1 + 1) = 0u;
+    *(a1 + 2) = 0u;
     if (v10 + 1 < v12)
     {
       LODWORD(v12) = v10 + 1;
     }
 
-    *a3 = 0uLL;
-    *(a3 + 56) = 1065353216;
-    *(a3 + 64) = 0uLL;
-    *(a3 + 80) = 0uLL;
-    *(a3 + 96) = 1065353216;
+    *a1 = 0uLL;
+    *(a1 + 14) = 1065353216;
+    *(a1 + 4) = 0uLL;
+    *(a1 + 5) = 0uLL;
+    *(a1 + 24) = 1065353216;
     v13 = 4 * v12;
     __p[0] = 0;
     __p[1] = 0;
     v24 = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(__p, v6, v13 + 4 + v6, (v13 + 4) >> 2);
-    v14 = *a3;
-    if (*a3)
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(__p, v6, &v6[v13 + 4], (v13 + 4) >> 2);
+    v14 = *a1;
+    if (*a1)
     {
-      *(a3 + 8) = v14;
+      a1[1] = v14;
       operator delete(v14);
     }
 
-    *a3 = *__p;
-    *(a3 + 16) = v24;
+    *a1 = *__p;
+    a1[2] = v24;
     v15 = *(this + 5);
     if (v15)
     {
@@ -7654,16 +7597,16 @@ LABEL_8:
       do
       {
         *&v21 = v15 + 16;
-        v18 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(this + 3, v15 + 16);
+        v18 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(this + 3, v15 + 16, &std::piecewise_construct, &v21);
         __p[1] = 0;
         v24 = 0;
         __p[0] = 0;
         std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(__p, v18[3], v18[4], (v18[4] - v18[3]) >> 2);
         v22 = 0;
         v21 = 0uLL;
-        std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&v21, __p[0], __p[0] + v16, v17);
-        v25 = (v15 + 16);
-        v19 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a3 + 24), v15 + 16);
+        std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&v21, __p[0], (__p[0] + v16), v17);
+        v25 = v15 + 16;
+        v19 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(a1 + 3, v15 + 16, &std::piecewise_construct, &v25);
         v20 = v19[3];
         if (v20)
         {
@@ -7717,147 +7660,147 @@ void Nightingale::lunaExtractedData::~lunaExtractedData(Nightingale::lunaExtract
 
 void Nightingale::preprocess_all_temperature_data(Nightingale *this@<X0>, uint64_t a2@<X8>)
 {
-  v3 = a2;
+  v2 = a2;
   *(a2 + 48) = 0;
   *(a2 + 16) = 0u;
   *(a2 + 32) = 0u;
   *a2 = 0u;
   *(a2 + 56) = 1065353216;
   *(a2 + 64) = 0u;
-  v27 = (a2 + 64);
+  v26 = (a2 + 64);
   *(a2 + 80) = 0u;
   *(a2 + 96) = 1065353216;
   for (i = *(this + 5); i; i = *i)
   {
-    v36 = *(i + 16);
+    v35 = *(i + 16);
     __src = 0;
+    v33 = 0;
     v34 = 0;
-    v35 = 0;
+    v29 = 0;
     v30 = 0;
     v31 = 0;
-    v32 = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v30, i[3], i[4], (i[4] - i[3]) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v29, i[3], i[4], (i[4] - i[3]) >> 2);
+    v4 = v29;
     v5 = v30;
-    v6 = v31;
-    while (v5 != v6)
+    while (v4 != v5)
     {
-      v7 = *v5;
-      if (*v5 > 38.5)
+      v6 = *v4;
+      if (*v4 > 38.5)
       {
-        v7 = NAN;
+        v6 = NAN;
       }
 
-      *v5++ = v7;
+      *v4++ = v6;
     }
 
-    Nightingale::remove_outlier_via_sliding_window_r(&v30, 7, &__p, 1.0);
-    v9 = __p;
-    v8 = v29;
-    if (__p != v29)
+    Nightingale::remove_outlier_via_sliding_window_r(&v29, 7, &__p, 1.0);
+    v8 = __p;
+    v7 = v28;
+    if (__p != v28)
     {
-      v10 = v34;
+      v9 = v33;
       do
       {
-        v11 = (*v9 & 0x7FFFFFFFu) < 0x7F800000;
-        if (v10 >= v35)
+        v10 = (*v8 & 0x7FFFFFFFu) < 0x7F800000;
+        if (v9 >= v34)
         {
-          v12 = __src;
-          v13 = v10 - __src;
-          v14 = (v10 - __src) >> 2;
-          v15 = v14 + 1;
-          if ((v14 + 1) >> 62)
+          v11 = __src;
+          v12 = v9 - __src;
+          v13 = (v9 - __src) >> 2;
+          v14 = v13 + 1;
+          if ((v13 + 1) >> 62)
           {
             std::vector<float>::__throw_length_error[abi:ne200100]();
           }
 
-          v16 = v35 - __src;
-          if ((v35 - __src) >> 1 > v15)
+          v15 = v34 - __src;
+          if ((v34 - __src) >> 1 > v14)
           {
-            v15 = v16 >> 1;
+            v14 = v15 >> 1;
           }
 
-          v17 = v16 >= 0x7FFFFFFFFFFFFFFCLL;
-          v18 = 0x3FFFFFFFFFFFFFFFLL;
-          if (!v17)
+          v16 = v15 >= 0x7FFFFFFFFFFFFFFCLL;
+          v17 = 0x3FFFFFFFFFFFFFFFLL;
+          if (!v16)
           {
-            v18 = v15;
+            v17 = v14;
           }
 
-          if (v18)
+          if (v17)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(&__src, v18);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(&__src, v17);
           }
 
-          v19 = (v10 - __src) >> 2;
-          v20 = (4 * v14);
-          v21 = (4 * v14 - 4 * v19);
-          *v20 = v11;
-          v10 = (v20 + 1);
-          memcpy(v21, v12, v13);
-          v22 = __src;
-          __src = v21;
-          v34 = v10;
-          v35 = 0;
-          if (v22)
+          v18 = (v9 - __src) >> 2;
+          v19 = (4 * v13);
+          v20 = (4 * v13 - 4 * v18);
+          *v19 = v10;
+          v9 = (v19 + 1);
+          memcpy(v20, v11, v12);
+          v21 = __src;
+          __src = v20;
+          v33 = v9;
+          v34 = 0;
+          if (v21)
           {
-            operator delete(v22);
+            operator delete(v21);
           }
         }
 
         else
         {
-          *v10 = v11;
-          v10 += 4;
+          *v9 = v10;
+          v9 += 4;
         }
 
-        v34 = v10;
-        v9 += 4;
+        v33 = v9;
+        v8 += 4;
       }
 
-      while (v9 != v8);
+      while (v8 != v7);
     }
 
-    v37 = &v36;
-    v3 = a2;
-    v23 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a2 + 24), &v36) + 3;
-    if (v23 != &__p)
+    v36 = &v35;
+    v2 = a2;
+    v22 = (std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a2 + 24), &v35, &std::piecewise_construct, &v36) + 3);
+    if (v22 != &__p)
     {
-      std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(v23, __p, v29, (v29 - __p) >> 2);
+      std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(v22, __p, v28, (v28 - __p) >> 2);
     }
 
-    v37 = &v36;
-    v24 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(v27, &v36) + 3;
-    if (v24 != &__src)
+    v36 = &v35;
+    v23 = (std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(v26, &v35, &std::piecewise_construct, &v36) + 3);
+    if (v23 != &__src)
     {
-      std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(v24, __src, v34, (v34 - __src) >> 2);
+      std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(v23, __src, v33, (v33 - __src) >> 2);
     }
 
     if (__p)
     {
-      v29 = __p;
+      v28 = __p;
       operator delete(__p);
     }
 
-    if (v30)
+    if (v29)
     {
-      v31 = v30;
-      operator delete(v30);
+      v30 = v29;
+      operator delete(v29);
     }
 
     if (__src)
     {
-      v34 = __src;
+      v33 = __src;
       operator delete(__src);
     }
   }
 
-  if (v3 != this)
+  if (v2 != this)
   {
-    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(v3, *this, *(this + 1), (*(this + 1) - *this) >> 2);
+    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(v2, *this, *(this + 1), (*(this + 1) - *this) >> 2);
   }
 }
 
-void Nightingale::prepare_temperature_input_slice_for_kdays(void *a1@<X0>, int a2@<W1>, void *a3@<X2>, uint64_t a4@<X8>)
+void Nightingale::prepare_temperature_input_slice_for_kdays(void **a1@<X0>, int a2@<W1>, void *a3@<X2>, uint64_t a4@<X8>)
 {
   *(a4 + 16) = 0u;
   *(a4 + 32) = 0u;
@@ -7918,7 +7861,7 @@ void Nightingale::prepare_temperature_input_slice_for_kdays(void *a1@<X0>, int a
         std::vector<int>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v13 = *(*a1 + 4 * v12);
+      v13 = *(*a1 + v12);
       v14 = (a3[1] - *a3) >> 2;
       v15 = v10;
       if (v14 > v10)
@@ -7963,7 +7906,7 @@ void Nightingale::prepare_temperature_input_slice_for_kdays(void *a1@<X0>, int a
 
           v39 = 0;
           v40 = 0uLL;
-          std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(&v39, v20 + v19, v20 + 4 * v21, (4 * v21 - v19) >> 2);
+          std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(&v39, (v20 + v19), v20 + v21, (4 * v21 - v19) >> 2);
           v22 = 0.0;
           if (v39 != v40)
           {
@@ -7997,7 +7940,7 @@ void Nightingale::prepare_temperature_input_slice_for_kdays(void *a1@<X0>, int a
         if ((v41 & 0x100) != 0)
         {
           v39 = &v41;
-          v26 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(a3 + 3, &v41);
+          v26 = std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(a3 + 3, &v41, &std::piecewise_construct, &v39);
           v27 = v26[3];
           v28 = (v26[4] - v27) >> 2;
           if (v18 < v28)
@@ -8007,7 +7950,7 @@ void Nightingale::prepare_temperature_input_slice_for_kdays(void *a1@<X0>, int a
 
           v39 = 0;
           v40 = 0uLL;
-          std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&v39, v27 + v19, v27 + 4 * v28, (4 * v28 - v19) >> 2);
+          std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&v39, (v27 + v19), v27 + v28, (4 * v28 - v19) >> 2);
           if (__p)
           {
             *&v43 = __p;
@@ -8044,8 +7987,7 @@ LABEL_38:
           {
             v34 = *(v33 - 1);
             *(v33 - 1) = *v31;
-            *v31 = v34;
-            v31 -= 4;
+            *v31-- = v34;
             v35 = v33 >= v31;
             v33 += 4;
           }
@@ -8100,7 +8042,7 @@ void sub_25C636114(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -8155,11 +8097,11 @@ void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   a1[1] = v6;
 }
 
-uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<float>>::push_back[abi:ne200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -8201,8 +8143,8 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t resul
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -8219,21 +8161,21 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t resul
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
   return result;
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -8335,12 +8277,12 @@ void Nightingale::remove_outlier_via_sliding_window_r(void *a1@<X0>, int a2@<W1>
         v29 = 0;
         v30 = 0;
         v31 = 0;
-        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v29, v14 - 4 * v15, v14, v15);
-        v16 = v13 + *a1;
+        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v29, (v14 - 4 * v15), v14, v15);
+        v16 = (v13 + *a1);
         v27 = 0;
         v28 = 0;
         __p = 0;
-        std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&__p, v16, v16 + 4, 1uLL);
+        std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(&__p, v16, v16 + 1, 1uLL);
         Nightingale::get_sw_difference(&v29, &__p);
         if (v17 >= a4 || v17 <= -a4)
         {
@@ -8376,7 +8318,7 @@ void Nightingale::remove_outlier_via_sliding_window_r(void *a1@<X0>, int a2@<W1>
 LABEL_21:
   v18 = *a3;
   v19 = a3[1];
-  v20 = v19 - 4;
+  v20 = (v19 - 4);
   v21 = *a3 != v19 && v20 > v18;
   if (v21)
   {
@@ -8417,11 +8359,11 @@ void sub_25C63665C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-int *Nightingale::get_sw_difference(char **a1, int **a2)
+void Nightingale::get_sw_difference(char **a1, char **a2)
 {
   v3 = *a1;
   v2 = a1[1];
-  result = *a2;
+  v4 = *a2;
   v5 = a2[1];
   v6 = (v5 - *a2) >> 2;
   for (i = (v2 - v3) >> 2; v3 != v2; LODWORD(i) = i - ((v8 & 0x7FFFFFFFu) > 0x7F7FFFFF))
@@ -8431,10 +8373,10 @@ int *Nightingale::get_sw_difference(char **a1, int **a2)
   }
 
   v9 = v6;
-  if (result != v5)
+  if (v4 != v5)
   {
     v9 = v6;
-    v10 = result;
+    v10 = v4;
     do
     {
       v11 = *v10++;
@@ -8451,22 +8393,20 @@ int *Nightingale::get_sw_difference(char **a1, int **a2)
       Nightingale::vMean<float>();
     }
   }
-
-  return result;
 }
 
-char *Nightingale::calculate_snr_noise_power(char **a1, int **a2)
+void Nightingale::calculate_snr_noise_power(char **a1, int **a2)
 {
-  result = *a1;
+  v2 = *a1;
   v3 = a1[1];
   v6 = *a2;
   v5 = a2[1];
   v7 = (v5 - *a2) >> 2;
-  v8 = (v3 - result) >> 2;
-  if (v3 != result)
+  v8 = (v3 - v2) >> 2;
+  if (v3 != v2)
   {
-    v8 = (v3 - result) >> 2;
-    v9 = result;
+    v8 = (v3 - v2) >> 2;
+    v9 = v2;
     do
     {
       v10 = *v9;
@@ -8486,8 +8426,6 @@ char *Nightingale::calculate_snr_noise_power(char **a1, int **a2)
   {
     Nightingale::vVar<float>();
   }
-
-  return result;
 }
 
 void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__move_assign(uint64_t a1, uint64_t *a2)
@@ -8535,22 +8473,22 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
   }
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -8677,7 +8615,7 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8699,7 +8637,7 @@ void sub_25C636D54(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -8709,7 +8647,7 @@ void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<float>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8738,7 +8676,7 @@ void std::__throw_bad_optional_access[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x277D82770], MEMORY[0x277D82618]);
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8760,7 +8698,7 @@ void sub_25C636EC8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -8887,7 +8825,7 @@ void std::vector<std::vector<float>>::clear[abi:ne200100](uint64_t *a1)
   a1[1] = v3;
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -8959,8 +8897,7 @@ void *std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float co
       {
         v16 = *v13;
         v13 += 4;
-        *v15 = v16;
-        v15 += 4;
+        *v15++ = v16;
         v14 += 4;
       }
 
@@ -8988,7 +8925,7 @@ uint64_t std::unordered_map<unsigned char,std::vector<float>>::unordered_map(uin
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -9004,7 +8941,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -9012,7 +8949,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -9036,7 +8973,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -9063,7 +9000,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
   *(a1 + 8) = 0;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,std::vector<float>> const&>(void *a1, unsigned __int8 *a2)
+uint64_t ***std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,std::vector<float>> const&>(void *a1, unsigned __int8 *a2)
 {
   v2 = *a2;
   v3 = a1[1];
@@ -9188,7 +9125,7 @@ uint64_t std::unordered_map<unsigned char,std::vector<int>>::unordered_map(uint6
   return a1;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,std::vector<int>> const&>(void *a1, unsigned __int8 *a2)
+uint64_t ***std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,std::vector<int>> const&>(void *a1, unsigned __int8 *a2)
 {
   v2 = *a2;
   v3 = a1[1];
@@ -9279,33 +9216,33 @@ void sub_25C637B8C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(void *a1, unsigned __int8 *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(void *a1, unsigned __int8 *a2, uint64_t a3, _BYTE **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -9313,47 +9250,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 16) != v2)
+  if (*(v9 + 16) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::find<unsigned char>(void *a1, unsigned __int8 *a2)
+uint64_t ***std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::find<unsigned char>(void *a1, unsigned __int8 *a2)
 {
   v2 = a1[1];
   if (!*&v2)
@@ -9478,7 +9415,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
 
   if (v4 != a3)
   {
-    std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_multi<std::pair<unsigned char const,std::vector<float>> const&>();
+    std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__emplace_multi<std::pair<unsigned char const,std::vector<float>> const&>(a1);
   }
 }
 
@@ -9665,7 +9602,7 @@ LABEL_19:
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__rehash<false>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__rehash<false>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -9681,7 +9618,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -9689,7 +9626,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -9713,7 +9650,7 @@ void std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__do_rehash<false>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned char,std::vector<float>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<float>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<float>>>>::__do_rehash<false>(result, prime);
     }
   }
 }
@@ -9757,33 +9694,33 @@ void sub_25C638604(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(void *a1, unsigned __int8 *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,std::vector<int>>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,std::vector<int>>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,std::vector<int>>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(void *a1, unsigned __int8 *a2, uint64_t a3, _BYTE **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -9791,44 +9728,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 16) != v2)
+  if (*(v9 + 16) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 Nightingale::periodEstimatorLuna *Nightingale::periodEstimatorLuna::periodEstimatorLuna(Nightingale::periodEstimatorLuna *this, const Nightingale::ngt_Config *a2)
@@ -9846,21 +9783,22 @@ Nightingale::periodEstimatorLuna *Nightingale::periodEstimatorLuna::periodEstima
   return this;
 }
 
-void Nightingale::periodEstimatorLuna::~periodEstimatorLuna(Nightingale::periodEstimatorLuna *this)
+void Nightingale::periodEstimatorLuna::~periodEstimatorLuna(id **this)
 {
-  Nightingale::ngt_luna_period_dl_tmp_process::~ngt_luna_period_dl_tmp_process((this + 8));
+  Nightingale::ngt_luna_period_dl_tmp_process::~ngt_luna_period_dl_tmp_process(this + 1);
 
   Nightingale::periodEstimatorBase::~periodEstimatorBase(this);
 }
 
 {
-  Nightingale::ngt_luna_period_dl_tmp_process::~ngt_luna_period_dl_tmp_process((this + 8));
+  Nightingale::ngt_luna_period_dl_tmp_process::~ngt_luna_period_dl_tmp_process(this + 1);
 
   Nightingale::periodEstimatorBase::~periodEstimatorBase(this);
 }
 
-void Nightingale::periodEstimatorLuna::estimatePeriodLuna(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, const Nightingale::ngt_Config *a4@<X3>, int a5@<W4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+void Nightingale::periodEstimatorLuna::estimatePeriodLuna(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, const Nightingale::ngt_Config *a4@<X3>, uint64_t a5@<X4>, unsigned int *a6@<X5>, uint64_t a7@<X8>)
 {
+  v8 = a5;
   v45 = *MEMORY[0x277D85DE8];
   Nightingale::CGradient::CGradient(a7);
   *(a7 + 56) = 0;
@@ -9883,17 +9821,17 @@ void Nightingale::periodEstimatorLuna::estimatePeriodLuna(uint64_t a1@<X0>, uint
   v41 = 0;
   v39 = 0;
   v18 = std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase*,Nightingale::Phase*>(&v39, *(v14 - 24), *(v14 - 16), *(v14 - 16) - *(v14 - 24));
-  if (*a3 == a3[1] || BYTE4(v37) != 1 || BYTE12(v37) != 1 || *(a4 + 36) != 1 || *(a6 + 16) != 1 || *(a6 + 8) < *(a6 + 4))
+  if (*a3 == a3[1] || BYTE4(v37) != 1 || BYTE12(v37) != 1 || *(a4 + 36) != 1 || *(a6 + 16) != 1 || a6[2] < a6[1])
   {
     goto LABEL_48;
   }
 
-  AlgsUsedToRunLunaPeriod = Nightingale::periodEstimatorLuna::getAlgsUsedToRunLunaPeriod(v18, *a6, a3, a4, a5, *(a6 + 4));
+  AlgsUsedToRunLunaPeriod = Nightingale::periodEstimatorLuna::getAlgsUsedToRunLunaPeriod(v18, *a6, a3, a4, v8, *(a6 + 1));
   Nightingale::periodEstimatorCalendar::periodEstimatorCalendar(v35, a4);
   if (AlgsUsedToRunLunaPeriod == 1)
   {
-    Nightingale::lstmLunaPeriod::lstmLunaPeriod(&v42, a2, a3, a4, *(a6 + 4));
-    Nightingale::lstmLunaPeriod::estimatePeriodStartLuna(&v42, &__p);
+    Nightingale::lstmLunaPeriod::lstmLunaPeriod(&v42, a2, a3, a4, *(a6 + 1));
+    Nightingale::lstmLunaPeriod::estimatePeriodStartLuna(&__p, &v42);
     if (v32 == 1)
     {
       if (Nightingale::CGradient::get_vGrad_empty(&__p))
@@ -10010,7 +9948,7 @@ void Nightingale::periodEstimatorLuna::estimatePeriodLuna(uint64_t a1@<X0>, uint
 LABEL_43:
     if (AlgsUsedToRunLunaPeriod == 2)
     {
-      Nightingale::periodEstimatorLuna::getPeriodRegularLuna(a1, *(a6 + 12), a3[12], v36, v35, &v42);
+      Nightingale::periodEstimatorLuna::getPeriodRegularLuna(a1, *(a6 + 3), a3[12], v36, v35, &v42);
       v24 = *a7;
       if (*a7)
       {

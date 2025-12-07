@@ -401,7 +401,7 @@ LABEL_16:
           v17 = [propertiesCopy objectForKeyedSubscript:*MEMORY[0x1E696DE30]];
           if (v17 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v18 = [v17 mutableCopy];
+            v18 = objc_msgSend_mutableCopy(v17);
           }
 
           else
@@ -606,8 +606,8 @@ CFDictionaryRef __60__PFImageMetadata_readMetadataType_fromFileURL_value_error__
         v9 = v8;
         if (v11)
         {
-          v9 = [v8 mutableCopy];
-          v12 = [v10 mutableCopy];
+          v9 = objc_msgSend_mutableCopy(v8);
+          v12 = objc_msgSend_mutableCopy(v10);
           [v12 removeObjectForKey:key];
           [v9 setObject:v12 forKey:dictionaryKey];
         }

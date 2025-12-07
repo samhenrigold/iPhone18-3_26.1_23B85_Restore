@@ -44,12 +44,11 @@
 
 - (id)title
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   isExtensionInputMode = [(UIKeyboardInputMode *)[(KSInputModeTableCell *)self inputMode] isExtensionInputMode];
   inputMode = [(KSInputModeTableCell *)self inputMode];
   if (isExtensionInputMode)
   {
-    v5 = *MEMORY[0x277D85DE8];
 
     return [(UIKeyboardInputMode *)inputMode safe__extendedDisplayName];
   }
@@ -59,34 +58,31 @@
     [(UIKeyboardInputMode *)inputMode identifier];
     if ([TIInputModeGetSWLayout() isEqualToString:@"Korean-With-QWERTY"])
     {
-      v11[0] = [KSKeyboardListController keyboardDisplayNameForIdentifier:TIInputModeGetLanguageWithRegion()];
-      v11[1] = [KSKeyboardListController keyboardDisplayNameForIdentifier:TIInputModeGetLanguageWithRegion()];
-      v7 = [objc_msgSend(MEMORY[0x277CBEA60] arrayWithObjects:v11 count:{2), "componentsJoinedByString:", objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "localizedStringForKey:value:table:", @"LIST_SEPARATOR_2", &stru_28679E3A8, @"Keyboard"}];
+      v8[0] = [KSKeyboardListController keyboardDisplayNameForIdentifier:TIInputModeGetLanguageWithRegion()];
+      v8[1] = [KSKeyboardListController keyboardDisplayNameForIdentifier:TIInputModeGetLanguageWithRegion()];
+      return [objc_msgSend(MEMORY[0x277CBEA60] arrayWithObjects:v8 count:{2), "componentsJoinedByString:", objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "localizedStringForKey:value:table:", @"LIST_SEPARATOR_2", &stru_28679E3A8, @"Keyboard"}];
     }
 
     else
     {
-      v7 = [KSKeyboardListController keyboardDisplayNameForIdentifier:[(UIKeyboardInputMode *)[(KSInputModeTableCell *)self inputMode] languageWithRegion]];
+      v6 = [KSKeyboardListController keyboardDisplayNameForIdentifier:[(UIKeyboardInputMode *)[(KSInputModeTableCell *)self inputMode] languageWithRegion]];
       if ([objc_msgSend(TIInputModeGetComponentsFromIdentifier() objectForKey:{@"kCFLocaleVariantCodeKey", "length"}])
       {
-        v8 = TUIKeyboardTitle();
+        v7 = TUIKeyboardTitle();
       }
 
       else
       {
-        v8 = 0;
+        v7 = 0;
       }
 
-      if ([v8 length])
+      if ([v7 length])
       {
-        result = [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "localizedStringForKey:value:table:", @"KEYBOARD_LANGUAGE_%@_WITH_VARIANT_%@", &stru_28679E3A8, @"Keyboard", v7, v8];
-        v9 = *MEMORY[0x277D85DE8];
-        return result;
+        return [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "localizedStringForKey:value:table:", @"KEYBOARD_LANGUAGE_%@_WITH_VARIANT_%@", &stru_28679E3A8, @"Keyboard", v6, v7];
       }
     }
 
-    v10 = *MEMORY[0x277D85DE8];
-    return v7;
+    return v6;
   }
 }
 
@@ -138,12 +134,12 @@
       v14 = 0;
     }
 
-    if (KSInputModeIsChineseShuangpin())
+    if (KSInputModeIsChineseShuangpin(identifier))
     {
       v14 = KSGetCurrentShuangpinName();
     }
 
-    if (!KSInputModeIsChineseWubi())
+    if (!KSInputModeIsChineseWubi(identifier))
     {
       goto LABEL_21;
     }
@@ -161,12 +157,12 @@ LABEL_21:
   return v14;
 }
 
-uint64_t __32__KSInputModeTableCell_subtitle__block_invoke(uint64_t a1)
+void *__32__KSInputModeTableCell_subtitle__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [TIInputModeGetNormalizedIdentifier() isEqualToString:*(a1 + 32)];
   if (result)
   {
-    return [objc_msgSend(TIInputModeGetComponentsFromIdentifier() objectForKey:{@"sw", "length"}] != 0;
+    return ([objc_msgSend(TIInputModeGetComponentsFromIdentifier() objectForKey:{@"sw", "length"}] != 0);
   }
 
   return result;

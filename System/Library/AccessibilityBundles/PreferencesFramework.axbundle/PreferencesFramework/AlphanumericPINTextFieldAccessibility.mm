@@ -24,10 +24,9 @@
 void __66__AlphanumericPINTextFieldAccessibility__accessibilityInsertText___block_invoke(uint64_t a1)
 {
   objc_opt_class();
-  v2 = *(a1 + 32);
-  v3 = __UIAccessibilityCastAsClass();
-  v4 = [v3 delegate];
-  [v4 notifyDelegatePINChanged];
+  v1 = __UIAccessibilityCastAsClass();
+  v2 = [v1 delegate];
+  [v2 notifyDelegatePINChanged];
 }
 
 - (void)_accessibilityReplaceCharactersAtCursor:(unint64_t)cursor withString:(id)string
@@ -41,10 +40,9 @@ void __66__AlphanumericPINTextFieldAccessibility__accessibilityInsertText___bloc
 void __92__AlphanumericPINTextFieldAccessibility__accessibilityReplaceCharactersAtCursor_withString___block_invoke(uint64_t a1)
 {
   objc_opt_class();
-  v2 = *(a1 + 32);
-  v3 = __UIAccessibilityCastAsClass();
-  v4 = [v3 delegate];
-  [v4 notifyDelegatePINChanged];
+  v1 = __UIAccessibilityCastAsClass();
+  v2 = [v1 delegate];
+  [v2 notifyDelegatePINChanged];
 }
 
 @end

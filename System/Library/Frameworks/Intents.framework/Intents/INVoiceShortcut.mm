@@ -115,7 +115,7 @@
 
 - (id)_initWithVCVoiceShortcut:(id)shortcut
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   shortcutCopy = shortcut;
   phrase = [shortcutCopy phrase];
   v6 = objc_alloc(MEMORY[0x1E696AFB0]);
@@ -134,17 +134,16 @@
     v11 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315394;
-      v15 = "[INVoiceShortcut _initWithVCVoiceShortcut:]";
-      v16 = 2112;
-      v17 = shortcutCopy;
-      _os_log_error_impl(&dword_18E991000, v11, OS_LOG_TYPE_ERROR, "%s Unexpectedly got nil INShortcut for voice shortcut %@", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[INVoiceShortcut _initWithVCVoiceShortcut:]";
+      v15 = 2112;
+      v16 = shortcutCopy;
+      _os_log_error_impl(&dword_18E991000, v11, OS_LOG_TYPE_ERROR, "%s Unexpectedly got nil INShortcut for voice shortcut %@", &v13, 0x16u);
     }
 
     selfCopy = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

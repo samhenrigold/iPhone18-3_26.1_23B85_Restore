@@ -27,33 +27,31 @@
 
 + (id)defaultJudge
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (gDefaultJudge)
   {
     v2 = gDefaultJudge;
-LABEL_3:
-    result = gDefaultJudge;
-    goto LABEL_9;
+    return gDefaultJudge;
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v11 = 0;
+  v10 = 0;
   defaultLSMMapPath = [self defaultLSMMapPath];
-  if ([defaultManager fileExistsAtPath:defaultLSMMapPath isDirectory:&v11] && (v11 & 1) == 0)
+  if ([defaultManager fileExistsAtPath:defaultLSMMapPath isDirectory:&v10] && (v10 & 1) == 0)
   {
     gDefaultJudge = [objc_alloc(objc_opt_class()) initWithMap:{+[WFLSMMap mapFromFilePath:](WFLSMScoreNormalizedMap, "mapFromFilePath:", defaultLSMMapPath)}];
-    v9 = __WFDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v8 = __WFDefaultLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       defaultLSMMapPath2 = [self defaultLSMMapPath];
       *buf = 136446466;
-      v13 = "+[WFJudge defaultJudge]";
-      v14 = 2112;
-      v15 = defaultLSMMapPath2;
-      _os_log_impl(&dword_272D73000, v9, OS_LOG_TYPE_INFO, "%{public}s map:%@", buf, 0x16u);
+      v12 = "+[WFJudge defaultJudge]";
+      v13 = 2112;
+      v14 = defaultLSMMapPath2;
+      _os_log_impl(&dword_272D73000, v8, OS_LOG_TYPE_INFO, "%{public}s map:%@", buf, 0x16u);
     }
 
-    goto LABEL_3;
+    return gDefaultJudge;
   }
 
   v7 = __WFDefaultLog();
@@ -62,10 +60,7 @@ LABEL_3:
     +[(WFJudge *)self];
   }
 
-  result = 0;
-LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (WFJudge)initWithMap:(id)map
@@ -198,8 +193,8 @@ LABEL_8:
 - (id)pronounceOnPageContent:(id)content pageURL:(id)l whitelistUserPreferences:(id)preferences debugPage:(id *)page pageTitle:(id *)title
 {
   contentCopy = content;
-  v25 = *MEMORY[0x277D85DE8];
-  v22 = 1;
+  v24 = *MEMORY[0x277D85DE8];
+  v21 = 1;
   if (preferences)
   {
     filterEnabled = [preferences filterEnabled];
@@ -208,8 +203,8 @@ LABEL_8:
       LOBYTE(filterEnabled) = [preferences whitelistEnabled];
     }
 
-    v22 = filterEnabled;
-    v13 = [preferences pronounceOnPageURLString:l shouldFilter:&v22];
+    v21 = filterEnabled;
+    v13 = [preferences pronounceOnPageURLString:l shouldFilter:&v21];
   }
 
   else
@@ -221,7 +216,7 @@ LABEL_8:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v24 = v13;
+    v23 = v13;
     _os_log_impl(&dword_272D73000, v14, OS_LOG_TYPE_INFO, "whitelistVerdict: %@", buf, 0xCu);
   }
 
@@ -243,20 +238,18 @@ LABEL_8:
 LABEL_15:
       lCopy2 = l;
       v17 = 10;
-LABEL_30:
-      v13 = [WFVerdict verdictWithRestriction:0 URL:lCopy2 evidence:v17 LSMEvaluationResult:0 message:v15];
-      goto LABEL_31;
+      return [WFVerdict verdictWithRestriction:0 URL:lCopy2 evidence:v17 LSMEvaluationResult:0 message:v15];
     }
 
-    if (v13 && ([preferences whitelistEnabled] & 1) == 0 && (!objc_msgSend(preferences, "filterEnabled") || -[WFVerdict evidence](v13, "evidence") != 8))
+    if (v13 && ([preferences whitelistEnabled] & 1) == 0 && (!objc_msgSend(preferences, "filterEnabled") || objc_msgSend(v13, "evidence") != 8))
     {
-      [(WFVerdict *)v13 setMessage:@"https url but user has no whitelist restrictions"];
+      [v13 setMessage:@"https url but user has no whitelist restrictions"];
       v15 = @"user has no whitelist restrictions";
       goto LABEL_15;
     }
   }
 
-  else if (v13 && (v22 & 1) == 0)
+  else if (v13 && (v21 & 1) == 0)
   {
     v19 = __WFDefaultLog();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
@@ -280,28 +273,25 @@ LABEL_30:
       v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Allowed, NULL pageContentString"];
       lCopy2 = l;
       v17 = 2;
-      goto LABEL_30;
+      return [WFVerdict verdictWithRestriction:0 URL:lCopy2 evidence:v17 LSMEvaluationResult:0 message:v15];
     }
 
     v13 = [(WFJudge *)self _pronounceOnWebpage:contentCopy];
-    [(WFVerdict *)v13 setURL:l];
+    [v13 setURL:l];
   }
 
-LABEL_31:
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 + (void)defaultJudge
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
-  v7 = 138412546;
-  v8 = NSStringFromClass(v5);
-  v9 = 2112;
-  v10 = a2;
-  _os_log_fault_impl(&dword_272D73000, a3, OS_LOG_TYPE_FAULT, "**** %@ -defaultJudge: LSM map was not found in %@", &v7, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = NSStringFromClass(v5);
+  v8 = 2112;
+  v9 = a2;
+  _os_log_fault_impl(&dword_272D73000, a3, OS_LOG_TYPE_FAULT, "**** %@ -defaultJudge: LSM map was not found in %@", &v6, 0x16u);
 }
 
 @end

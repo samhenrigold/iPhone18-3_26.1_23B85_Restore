@@ -35,16 +35,16 @@
 
 - (void)start
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   queue = [(LNConnectionOperation *)self queue];
   dispatch_assert_queue_V2(queue);
 
   v4 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v9 = 138543362;
+    v8 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "Starting operation %{public}@", &v9, 0xCu);
+    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "Starting operation %{public}@", &v8, 0xCu);
   }
 
   [(LNConnectionOperation *)self setRequestTimer];
@@ -56,8 +56,6 @@
     connection2 = [(LNConnectionOperation *)self connection];
     [connection2 connectionOperationWillStart:self];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -107,7 +105,7 @@
 
 - (void)finishWithError:(id)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   queue = [(LNConnectionOperation *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -121,10 +119,10 @@
       goto LABEL_7;
     }
 
-    v17 = 138543618;
+    v16 = 138543618;
     selfCopy2 = self;
-    v19 = 2114;
-    v20 = errorCopy;
+    v18 = 2114;
+    v19 = errorCopy;
     v9 = v7;
     v10 = OS_LOG_TYPE_ERROR;
     v11 = 22;
@@ -137,14 +135,14 @@
       goto LABEL_7;
     }
 
-    v17 = 138543362;
+    v16 = 138543362;
     selfCopy2 = self;
     v9 = v7;
     v10 = OS_LOG_TYPE_INFO;
     v11 = 12;
   }
 
-  _os_log_impl(&dword_19763D000, v9, v10, v8, &v17, v11);
+  _os_log_impl(&dword_19763D000, v9, v10, v8, &v16, v11);
 LABEL_7:
 
   requestTimer = [(LNConnectionOperation *)self requestTimer];
@@ -158,13 +156,11 @@ LABEL_7:
     connection2 = [(LNConnectionOperation *)self connection];
     [connection2 connectionOperation:self didFinishWithError:errorCopy];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __40__LNConnectionOperation_setRequestTimer__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = [WeakRetained connection];
   v3 = [v2 targetIsBeingDebugged];
@@ -174,17 +170,15 @@ void __40__LNConnectionOperation_setRequestTimer__block_invoke(uint64_t a1)
     v4 = getLNLogCategoryConnection();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543618;
-      v8 = WeakRetained;
-      v9 = 2050;
-      v10 = LNConnectionOperationRequestTimeout;
+      v6 = 138543618;
+      v7 = WeakRetained;
+      v8 = 2050;
+      v9 = LNConnectionOperationRequestTimeout;
     }
 
     v5 = LNConnectionErrorWithCode(1002);
     [WeakRetained finishWithError:v5];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)validatingResult:(id)result error:(id)error
@@ -217,7 +211,7 @@ void __40__LNConnectionOperation_setRequestTimer__block_invoke(uint64_t a1)
 
 - (void)extendTimeout
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [(LNConnectionOperation *)self timeout];
   if (v3 != *&LNConnectionOperationRequestTimeoutDisabled)
   {
@@ -225,9 +219,9 @@ void __40__LNConnectionOperation_setRequestTimer__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       identifier = [(LNConnectionOperation *)self identifier];
-      v8 = 138543362;
-      v9 = identifier;
-      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "Extending timeout for operation with identifier %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = identifier;
+      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "Extending timeout for operation with identifier %{public}@", &v7, 0xCu);
     }
 
     requestTimer = [(LNConnectionOperation *)self requestTimer];
@@ -235,13 +229,11 @@ void __40__LNConnectionOperation_setRequestTimer__block_invoke(uint64_t a1)
 
     [(LNConnectionOperation *)self setRequestTimer];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelTimeout
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [(LNConnectionOperation *)self timeout];
   if (v3 != *&LNConnectionOperationRequestTimeoutDisabled)
   {
@@ -249,16 +241,14 @@ void __40__LNConnectionOperation_setRequestTimer__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       identifier = [(LNConnectionOperation *)self identifier];
-      v8 = 138543362;
-      v9 = identifier;
-      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "Canceling timeout for operation with identifier %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = identifier;
+      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "Canceling timeout for operation with identifier %{public}@", &v7, 0xCu);
     }
 
     requestTimer = [(LNConnectionOperation *)self requestTimer];
     [requestTimer cancel];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (LNConnectionOperation)initWithIdentifier:(id)identifier priority:(int64_t)priority queue:(id)queue activity:(id)activity

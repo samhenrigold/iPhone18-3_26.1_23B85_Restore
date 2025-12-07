@@ -95,57 +95,51 @@
 
 uint64_t __50__DESDeviceIdentifierStore_identifierForBundleId___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 24) objectForKey:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 24) objectForKey:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
 
 uint64_t __50__DESDeviceIdentifierStore_identifierForBundleId___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = +[DESLogging coreChannel];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_248FF7000, v2, OS_LOG_TYPE_INFO, "Saving new DES identifier for: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_248FF7000, v2, OS_LOG_TYPE_INFO, "Saving new DES identifier for: %@", &v5, 0xCu);
   }
 
   [*(*(a1 + 40) + 24) setObject:*(*(*(a1 + 56) + 8) + 40) forKey:*(a1 + 48)];
-  result = [*(a1 + 40) _writeIdentifierStore];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _writeIdentifierStore];
 }
 
 - (void)_readIdentifierStore
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_248FF7000, a2, OS_LOG_TYPE_ERROR, "Failed to read DES identifier data because %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_248FF7000, a2, OS_LOG_TYPE_ERROR, "Failed to read DES identifier data because %@", &v2, 0xCu);
 }
 
 - (void)_writeIdentifierStore
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:self->_deviceIdentifiers];
-  v11 = 0;
-  v4 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v3 options:0 error:&v11];
-  v5 = v11;
+  v10 = 0;
+  v4 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v3 options:0 error:&v10];
+  v5 = v10;
   v6 = v5;
   if (v4)
   {
     storeURL = self->_storeURL;
-    v10 = v5;
-    [v4 writeToURL:storeURL options:0x40000000 error:&v10];
+    v9 = v5;
+    [v4 writeToURL:storeURL options:0x40000000 error:&v9];
     v8 = v6;
-    v6 = v10;
+    v6 = v9;
   }
 
   else
@@ -154,12 +148,10 @@ uint64_t __50__DESDeviceIdentifierStore_identifierForBundleId___block_invoke_2(u
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v6;
+      v12 = v6;
       _os_log_impl(&dword_248FF7000, v8, OS_LOG_TYPE_DEFAULT, "Could not write new DES identifier file because %@", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

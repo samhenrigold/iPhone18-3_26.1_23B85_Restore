@@ -40,16 +40,16 @@
 
 - (id)_loadRealRecord
 {
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__9;
-  v34 = __Block_byref_object_dispose__9;
-  v35 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__9;
+  v33 = __Block_byref_object_dispose__9;
+  v34 = 0;
   WeakRetained = objc_loadWeakRetained(&LaunchServices::Record::weakCoreTypesRecord);
   if (WeakRetained)
   {
-    objc_storeStrong(v31 + 5, WeakRetained);
+    objc_storeStrong(v30 + 5, WeakRetained);
   }
 
   else
@@ -58,77 +58,77 @@
     if (MayMapDatabase)
     {
       CurrentContext = _LSDatabaseContextGetCurrentContext(MayMapDatabase);
+      v26 = 0;
       v27 = 0;
       v28 = 0;
-      v29 = 0;
       v4 = +[_LSDServiceDomain defaultServiceDomain];
       v5 = LaunchServices::Database::Context::_get(&CurrentContext, v4, 0);
 
       if (v5)
       {
-        v22 = 0;
-        v23 = &v22;
-        v24 = 0x2020000000;
-        v25 = 0;
-        v18 = 0;
-        v19 = &v18;
-        v20 = 0x2020000000;
         v21 = 0;
+        v22 = &v21;
+        v23 = 0x2020000000;
+        v24 = 0;
+        v17 = 0;
+        v18 = &v17;
+        v19 = 0x2020000000;
+        v20 = 0;
         [(_LSDatabase *)*v5 store];
-        v6 = *([(_LSDatabase *)*v5 schema]+ 4);
-        v17[5] = MEMORY[0x1E69E9820];
-        v17[6] = 3221225472;
-        v17[7] = __42___LSCoreTypesRecordProxy__loadRealRecord__block_invoke;
-        v17[8] = &unk_1E6A1AFB8;
-        v17[9] = &v18;
-        v17[10] = &v22;
+        [(_LSDatabase *)*v5 schema];
+        v16[5] = MEMORY[0x1E69E9820];
+        v16[6] = 3221225472;
+        v16[7] = __42___LSCoreTypesRecordProxy__loadRealRecord__block_invoke;
+        v16[8] = &unk_1E6A1AFB8;
+        v16[9] = &v17;
+        v16[10] = &v21;
         _CSStoreEnumerateUnits();
-        if (*(v23 + 6))
+        if (*(v22 + 6))
         {
-          v7 = [[FSNode alloc] initWithPath:@"/System/Library/CoreServices/MobileCoreTypes.bundle" flags:8 error:0];
-          v8 = [LSBundleRecord alloc];
+          v6 = [[FSNode alloc] initWithPath:@"/System/Library/CoreServices/MobileCoreTypes.bundle" flags:8 error:0];
+          v7 = [LSBundleRecord alloc];
           schema = [(_LSDatabase *)*v5 schema];
-          v10 = [(LSBundleRecord *)v8 _initWithNode:v7 bundleIdentifier:@"com.apple.mobilecoretypes" context:v5 tableID:*(schema + 4) unitID:*(v23 + 6) bundleBaseData:v19[3] error:0];
-          v11 = v31[5];
-          v31[5] = v10;
+          v9 = [(LSBundleRecord *)v7 _initWithNode:v6 bundleIdentifier:@"com.apple.mobilecoretypes" context:v5 tableID:*(schema + 4) unitID:*(v22 + 6) bundleBaseData:v18[3] error:0];
+          v10 = v30[5];
+          v30[5] = v9;
         }
 
-        _Block_object_dispose(&v18, 8);
-        _Block_object_dispose(&v22, 8);
+        _Block_object_dispose(&v17, 8);
+        _Block_object_dispose(&v21, 8);
       }
 
-      if (CurrentContext && v28 == 1)
+      if (CurrentContext && v27 == 1)
       {
         _LSContextDestroy(CurrentContext);
       }
 
-      v12 = v27;
+      v11 = v26;
       CurrentContext = 0;
-      v27 = 0;
+      v26 = 0;
 
+      v27 = 0;
+      v12 = v28;
       v28 = 0;
-      v13 = v29;
-      v29 = 0;
     }
 
     else
     {
-      v14 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:?];
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __42___LSCoreTypesRecordProxy__loadRealRecord__block_invoke_3;
-      v17[3] = &unk_1E6A1AFE0;
-      v17[4] = &v30;
-      [v14 getBundleRecordForCoreTypesWithCompletionHandler:v17];
+      v13 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:?];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __42___LSCoreTypesRecordProxy__loadRealRecord__block_invoke_3;
+      v16[3] = &unk_1E6A1AFE0;
+      v16[4] = &v29;
+      [v13 getBundleRecordForCoreTypesWithCompletionHandler:v16];
     }
 
-    LaunchServices::Record::storeWeakSharedRecord(v31[5], &LaunchServices::Record::weakCoreTypesRecord);
+    LaunchServices::Record::storeWeakSharedRecord(v30[5], &LaunchServices::Record::weakCoreTypesRecord);
   }
 
-  v15 = v31[5];
-  _Block_object_dispose(&v30, 8);
+  v14 = v30[5];
+  _Block_object_dispose(&v29, 8);
 
-  return v15;
+  return v14;
 }
 
 - (LSBundleRecord)_realRecord

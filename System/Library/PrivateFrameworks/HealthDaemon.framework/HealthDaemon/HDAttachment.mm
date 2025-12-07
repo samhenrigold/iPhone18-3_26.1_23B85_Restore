@@ -29,11 +29,11 @@
     objc_storeStrong(&v21->_fileHash, hash);
     v21->_size = size;
     objc_storeStrong(&v21->_creationDate, date);
-    v22 = [metadataCopy copy];
+    v22 = objc_msgSend_copy(metadataCopy);
     metadata = v21->_metadata;
     v21->_metadata = v22;
 
-    v24 = [keyCopy copy];
+    v24 = objc_msgSend_copy(keyCopy);
     encryptionKey = v21->_encryptionKey;
     v21->_encryptionKey = v24;
   }

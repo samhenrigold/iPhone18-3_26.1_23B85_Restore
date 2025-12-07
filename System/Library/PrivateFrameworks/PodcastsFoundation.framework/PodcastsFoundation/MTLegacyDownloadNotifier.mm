@@ -105,28 +105,28 @@ void __50__MTLegacyDownloadNotifier__listenerWithDelegate___block_invoke(uint64_
 
 void __68__MTLegacyDownloadNotifier__sendDelegateSelector_withDownloadCount___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v3 = [*(a1 + 32) downloadListeners];
-  v4 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v24;
+    v6 = *v22;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v21 + 1) + 8 * i);
         v9 = [v8 delegate];
 
         if (v9)
@@ -136,46 +136,43 @@ void __68__MTLegacyDownloadNotifier__sendDelegateSelector_withDownloadCount___bl
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v5);
   }
 
-  v21 = 0u;
-  v22 = 0u;
   v19 = 0u;
   v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v11 = v2;
-  v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v18;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v20 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v19 + 1) + 8 * j);
-        v17 = *(a1 + 48);
+        v16 = *(*(&v17 + 1) + 8 * j);
         if (objc_opt_respondsToSelector())
         {
-          [v16 performSelector:*(a1 + 48) withObject:{*(a1 + 40), v19}];
+          [v16 performSelector:*(a1 + 48) withObject:{*(a1 + 40), v17}];
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v13);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendDelegateSelector:(SEL)selector withDownload:(id)download
@@ -197,6 +194,89 @@ void __68__MTLegacyDownloadNotifier__sendDelegateSelector_withDownloadCount___bl
 }
 
 void __63__MTLegacyDownloadNotifier__sendDelegateSelector_withDownload___block_invoke(uint64_t a1)
+{
+  v26 = *MEMORY[0x1E69E9840];
+  v2 = objc_opt_new();
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v3 = [*(a1 + 32) downloadListeners];
+  v4 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v21;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v21 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = *(*(&v20 + 1) + 8 * i);
+        v9 = [v8 delegate];
+
+        if (v9)
+        {
+          v10 = [v8 delegate];
+          [v2 addObject:v10];
+        }
+      }
+
+      v5 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    }
+
+    while (v5);
+  }
+
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v11 = v2;
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v17;
+    do
+    {
+      for (j = 0; j != v13; ++j)
+      {
+        if (*v17 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        [*(*(&v16 + 1) + 8 * j) performSelector:*(a1 + 48) withObject:{*(a1 + 40), v16}];
+      }
+
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+    }
+
+    while (v13);
+  }
+}
+
+- (void)_sendDelegateSelector:(SEL)selector withDownloads:(id)downloads
+{
+  downloadsCopy = downloads;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __64__MTLegacyDownloadNotifier__sendDelegateSelector_withDownloads___block_invoke;
+  aBlock[3] = &unk_1E8568FB0;
+  v10 = downloadsCopy;
+  selectorCopy = selector;
+  aBlock[4] = self;
+  v7 = downloadsCopy;
+  v8 = _Block_copy(aBlock);
+  [MEMORY[0x1E696AF00] mainThread:v8];
+}
+
+void __64__MTLegacyDownloadNotifier__sendDelegateSelector_withDownloads___block_invoke(uint64_t a1)
 {
   v27 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
@@ -254,7 +334,11 @@ void __63__MTLegacyDownloadNotifier__sendDelegateSelector_withDownload___block_i
           objc_enumerationMutation(v11);
         }
 
-        [*(*(&v17 + 1) + 8 * j) performSelector:*(a1 + 48) withObject:{*(a1 + 40), v17}];
+        v16 = *(*(&v17 + 1) + 8 * j);
+        if (objc_opt_respondsToSelector())
+        {
+          [v16 performSelector:*(a1 + 48) withObject:{*(a1 + 40), v17}];
+        }
       }
 
       v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
@@ -262,98 +346,6 @@ void __63__MTLegacyDownloadNotifier__sendDelegateSelector_withDownload___block_i
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_sendDelegateSelector:(SEL)selector withDownloads:(id)downloads
-{
-  downloadsCopy = downloads;
-  aBlock[0] = MEMORY[0x1E69E9820];
-  aBlock[1] = 3221225472;
-  aBlock[2] = __64__MTLegacyDownloadNotifier__sendDelegateSelector_withDownloads___block_invoke;
-  aBlock[3] = &unk_1E8568FB0;
-  v10 = downloadsCopy;
-  selectorCopy = selector;
-  aBlock[4] = self;
-  v7 = downloadsCopy;
-  v8 = _Block_copy(aBlock);
-  [MEMORY[0x1E696AF00] mainThread:v8];
-}
-
-void __64__MTLegacyDownloadNotifier__sendDelegateSelector_withDownloads___block_invoke(uint64_t a1)
-{
-  v29 = *MEMORY[0x1E69E9840];
-  v2 = objc_opt_new();
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v3 = [*(a1 + 32) downloadListeners];
-  v4 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v24;
-    do
-    {
-      for (i = 0; i != v5; ++i)
-      {
-        if (*v24 != v6)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        v8 = *(*(&v23 + 1) + 8 * i);
-        v9 = [v8 delegate];
-
-        if (v9)
-        {
-          v10 = [v8 delegate];
-          [v2 addObject:v10];
-        }
-      }
-
-      v5 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
-    }
-
-    while (v5);
-  }
-
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v11 = v2;
-  v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
-  if (v12)
-  {
-    v13 = v12;
-    v14 = *v20;
-    do
-    {
-      for (j = 0; j != v13; ++j)
-      {
-        if (*v20 != v14)
-        {
-          objc_enumerationMutation(v11);
-        }
-
-        v16 = *(*(&v19 + 1) + 8 * j);
-        v17 = *(a1 + 48);
-        if (objc_opt_respondsToSelector())
-        {
-          [v16 performSelector:*(a1 + 48) withObject:{*(a1 + 40), v19}];
-        }
-      }
-
-      v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
-    }
-
-    while (v13);
-  }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 @end

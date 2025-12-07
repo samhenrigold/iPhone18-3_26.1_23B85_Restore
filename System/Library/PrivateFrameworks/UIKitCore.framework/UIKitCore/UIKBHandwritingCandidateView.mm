@@ -52,34 +52,38 @@
   factory = [(UIKBKeyView *)self factory];
   v4 = [(UIKBKeyView *)self key];
   keyplane = [(UIKBKeyView *)self keyplane];
-  v35 = [factory traitsForKey:v4 onKeyplane:keyplane];
+  v39 = [factory traitsForKey:v4 onKeyplane:keyplane];
 
-  geometry = [v35 geometry];
-  [geometry frame];
-  geometry2 = [v35 geometry];
-  [geometry2 paddedFrame];
-  CGRectGetMinY(v38);
+  v6 = objc_msgSend_geometry(v39);
+  [v6 frame];
+  MinY = CGRectGetMinY(v41);
+  v8 = objc_msgSend_geometry(v39, MinY);
+  [v8 paddedFrame];
+  CGRectGetMinY(v42);
 
-  geometry3 = [v35 geometry];
-  [geometry3 frame];
-  geometry4 = [v35 geometry];
-  [geometry4 paddedFrame];
-  CGRectGetMaxX(v40);
+  v9 = objc_msgSend_geometry(v39);
+  [v9 frame];
+  MaxX = CGRectGetMaxX(v43);
+  v11 = objc_msgSend_geometry(v39, MaxX);
+  [v11 paddedFrame];
+  CGRectGetMaxX(v44);
 
-  geometry5 = [v35 geometry];
-  [geometry5 frame];
-  geometry6 = [v35 geometry];
-  [geometry6 paddedFrame];
-  CGRectGetMaxY(v42);
+  v12 = objc_msgSend_geometry(v39);
+  [v12 frame];
+  MaxY = CGRectGetMaxY(v45);
+  v14 = objc_msgSend_geometry(v39, MaxY);
+  [v14 paddedFrame];
+  CGRectGetMaxY(v46);
 
-  geometry7 = [v35 geometry];
-  [geometry7 frame];
-  geometry8 = [v35 geometry];
-  [geometry8 paddedFrame];
-  CGRectGetMinX(v44);
+  v15 = objc_msgSend_geometry(v39);
+  [v15 frame];
+  MinX = CGRectGetMinX(v47);
+  v17 = objc_msgSend_geometry(v39, MinX);
+  [v17 paddedFrame];
+  CGRectGetMinX(v48);
 
-  v14 = +[UIKeyboardImpl activeInstance];
-  candidateController = [v14 candidateController];
+  v18 = +[UIKeyboardImpl activeInstance];
+  candidateController = [v18 candidateController];
 
   candidateKey = [(UIKBCandidateView *)self candidateKey];
 
@@ -87,22 +91,22 @@
   {
     if (([(UIKBCandidateView *)self visualStyling]& 0x3F) == 1 || ([(UIKBCandidateView *)self visualStyling]& 0x3F) == 0x18 || ([(UIKBCandidateView *)self visualStyling]& 0x3F) == 0x19)
     {
-      v17 = off_1E70E9F20;
+      v21 = off_1E70E9F20;
     }
 
     else
     {
-      v17 = off_1E70E9F20;
+      v21 = off_1E70E9F20;
       if (([(UIKBCandidateView *)self visualStyling]& 0x3F) != 0x1A && ([(UIKBCandidateView *)self visualStyling]& 0x3F) != 0x17)
       {
-        v17 = off_1E70E9F18;
+        v21 = off_1E70E9F18;
       }
     }
 
-    configuration = [(__objc2_class *)*v17 configuration];
+    configuration = [(__objc2_class *)*v21 configuration];
     [(UIView *)self bounds];
-    v19 = [candidateController newCandidateKeyWithFrame:configuration configuration:?];
-    [(UIKBCandidateView *)self setCandidateKey:v19];
+    v23 = [candidateController newCandidateKeyWithFrame:configuration configuration:?];
+    [(UIKBCandidateView *)self setCandidateKey:v23];
   }
 
   candidateKey2 = [(UIKBCandidateView *)self candidateKey];
@@ -121,12 +125,12 @@
   }
 
   [(UIView *)self bounds];
-  v26 = v25;
-  v28 = v27;
   v30 = v29;
   v32 = v31;
+  v34 = v33;
+  v36 = v35;
   candidateKey6 = [(UIKBCandidateView *)self candidateKey];
-  [candidateKey6 setFrame:{v26, v28, v30, v32}];
+  [candidateKey6 setFrame:{v30, v32, v34, v36}];
 
   candidateKey7 = [(UIKBCandidateView *)self candidateKey];
   [candidateKey7 setAutoresizingMask:18];

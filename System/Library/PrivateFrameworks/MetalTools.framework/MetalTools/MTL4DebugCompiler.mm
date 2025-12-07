@@ -38,12 +38,11 @@
 
 - (id)newLibraryWithDescriptor:(id)descriptor error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v30 = 0;
-  v28 = 0u;
-  v29 = 0u;
-  v27 = 0u;
-  device = self->super.super._device;
+  v29 = *MEMORY[0x277D85DE8];
+  v27 = 0;
+  v25 = 0u;
+  v26 = 0u;
+  v24 = 0u;
   _MTLMessageContextBegin_();
   if (!descriptor)
   {
@@ -77,46 +76,45 @@
       _MTLMessageContextPush_();
     }
 
-    if (!v27)
+    if (!v24)
     {
-      v25 = 0u;
-      v26 = 0u;
+      v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
-      v8 = [objc_msgSend(descriptor "options")];
-      v9 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
-      if (v9)
+      v20 = 0u;
+      v21 = 0u;
+      v7 = [objc_msgSend(descriptor "options")];
+      v8 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      if (v8)
       {
-        v10 = v9;
-        v11 = 0;
-        v12 = *v24;
+        v9 = v8;
+        v10 = 0;
+        v11 = *v21;
         do
         {
-          v13 = 0;
+          v12 = 0;
           do
           {
-            if (*v24 != v12)
+            if (*v21 != v11)
             {
-              objc_enumerationMutation(v8);
+              objc_enumerationMutation(v7);
             }
 
-            v14 = *(*(&v23 + 1) + 8 * v13);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v22 = v11;
+              v19 = v10;
               _MTLMessageContextPush_();
             }
 
-            ++v11;
-            ++v13;
+            ++v10;
+            ++v12;
           }
 
-          while (v10 != v13);
-          v10 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
+          while (v9 != v12);
+          v9 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
         }
 
-        while (v10);
+        while (v9);
       }
     }
   }
@@ -133,39 +131,37 @@ LABEL_27:
   }
 
   _MTLMessageContextEnd();
-  v15 = objc_autoreleasePoolPush();
-  v16 = -[MTLToolsDevice unwrapMTLCompileOptions:](self->super.super._device, "unwrapMTLCompileOptions:", [descriptor options]);
-  v17 = [descriptor copy];
-  [v17 setOptions:v16];
-  v18 = [-[MTLToolsObject baseObject](self "baseObject")];
+  v13 = objc_autoreleasePoolPush();
+  v14 = -[MTLToolsDevice unwrapMTLCompileOptions:](self->super.super._device, "unwrapMTLCompileOptions:", [descriptor options]);
+  v15 = [descriptor copy];
+  [v15 setOptions:v14];
+  v16 = [-[MTLToolsObject baseObject](self "baseObject")];
 
-  if (v18)
+  if (v16)
   {
-    v19 = [(MTLToolsObject *)[MTLDebugLibrary alloc] initWithBaseObject:v18 parent:self];
+    v17 = [(MTLToolsObject *)[MTLDebugLibrary alloc] initWithBaseObject:v16 parent:self];
   }
 
   else
   {
-    v19 = 0;
+    v17 = 0;
   }
 
-  objc_autoreleasePoolPop(v15);
-  v20 = *MEMORY[0x277D85DE8];
-  return v19;
+  objc_autoreleasePoolPop(v13);
+  return v17;
 }
 
 - (id)newDynamicLibrary:(id)library error:(id *)error
 {
-  v13 = 0;
-  memset(v12, 0, sizeof(v12));
-  device = self->super.super._device;
+  v12 = 0;
+  memset(v11, 0, sizeof(v11));
   _MTLMessageContextBegin_();
   if (!library)
   {
     _MTLMessageContextPush_();
   }
 
-  if (!*&v12[0])
+  if (!*&v11[0])
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -174,26 +170,25 @@ LABEL_27:
     }
   }
 
-  [(MTL4DebugCompiler *)self validateDynamicLibrary:library context:v12];
+  [(MTL4DebugCompiler *)self validateDynamicLibrary:library context:v11];
   _MTLMessageContextEnd();
-  v8 = [-[MTLToolsObject baseObject](self "baseObject")];
-  if (!v8)
+  v7 = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (!v7)
   {
     return 0;
   }
 
-  v9 = v8;
-  v10 = [(MTLToolsObject *)[MTLDebugDynamicLibrary alloc] initWithBaseObject:v8 parent:self];
+  v8 = v7;
+  v9 = [(MTLToolsObject *)[MTLDebugDynamicLibrary alloc] initWithBaseObject:v7 parent:self];
 
-  return v10;
+  return v9;
 }
 
 - (id)newDynamicLibraryWithURL:(id)l error:(id *)error
 {
-  memset(&v12, 0, sizeof(v12));
-  device = self->super.super._device;
+  memset(&v11, 0, sizeof(v11));
   _MTLMessageContextBegin_();
-  validateNewDynamicLibraryWithURL(l, &v12);
+  validateNewDynamicLibraryWithURL(l, &v11);
   _MTLMessageContextEnd();
   baseObject = [-[MTLToolsObject baseObject](self baseObject];
   if (!baseObject)
@@ -201,15 +196,14 @@ LABEL_27:
     return 0;
   }
 
-  v9 = baseObject;
-  v10 = [(MTLToolsObject *)[MTLDebugDynamicLibrary alloc] initWithBaseObject:baseObject parent:self];
+  v8 = baseObject;
+  v9 = [(MTLToolsObject *)[MTLDebugDynamicLibrary alloc] initWithBaseObject:baseObject parent:self];
 
-  return v10;
+  return v9;
 }
 
 - (id)newComputePipelineStateWithDescriptor:(id)descriptor compilerTaskOptions:(id)options error:(id *)error
 {
-  device = self->super.super._device;
   _MTLMessageContextBegin_();
   if (!descriptor)
   {
@@ -248,31 +242,30 @@ LABEL_12:
 
 LABEL_8:
   _MTLMessageContextEnd();
-  v10 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
-  addReflectionOption(v10);
-  v11 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
-  v12 = [-[MTLToolsObject baseObject](self "baseObject")];
-  if (v12)
+  v9 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
+  addReflectionOption(v9);
+  v10 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
+  v11 = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (v11)
   {
-    v13 = v12;
-    v14 = [[MTLDebugComputePipelineState alloc] initWithComputePipelineState:v12 parent:self mtl4Descriptor:descriptor];
+    v12 = v11;
+    v13 = [[MTLDebugComputePipelineState alloc] initWithComputePipelineState:v11 parent:self mtl4Descriptor:descriptor];
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 - (id)newComputePipelineStateWithDescriptor:(id)descriptor dynamicLinkingDescriptor:(id)linkingDescriptor compilerTaskOptions:(id)options error:(id *)error
 {
-  v21 = 0;
-  v19 = 0u;
-  v20 = 0u;
+  v20 = 0;
   v18 = 0u;
-  device = self->super.super._device;
+  v19 = 0u;
+  v17 = 0u;
   _MTLMessageContextBegin_();
   if (!descriptor)
   {
@@ -311,28 +304,28 @@ LABEL_14:
 
 LABEL_8:
   _MTLMessageContextEnd();
-  v12 = objc_autoreleasePoolPush();
-  v13 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
-  addReflectionOption(v13);
+  v11 = objc_autoreleasePoolPush();
+  v12 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
+  addReflectionOption(v12);
   if (linkingDescriptor)
   {
     linkingDescriptor = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineStageDynamicLinkingDescriptor:linkingDescriptor];
   }
 
-  v14 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options, v18, v19, v20, v21];
-  v15 = [-[MTLToolsObject baseObject](self "baseObject")];
-  if (v15)
+  v13 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options, v17, v18, v19, v20];
+  v14 = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (v14)
   {
-    v16 = [[MTLDebugComputePipelineState alloc] initWithComputePipelineState:v15 parent:self mtl4Descriptor:descriptor];
+    v15 = [[MTLDebugComputePipelineState alloc] initWithComputePipelineState:v14 parent:self mtl4Descriptor:descriptor];
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  objc_autoreleasePoolPop(v12);
-  return v16;
+  objc_autoreleasePoolPop(v11);
+  return v15;
 }
 
 - (void)validateDynamicLibrary:(id)library context:(_MTLMessageContext *)context
@@ -357,10 +350,10 @@ LABEL_8:
   newRenderPipelineDescriptorForSpecialization = [properties newRenderPipelineDescriptorForSpecialization];
   if (newRenderPipelineDescriptorForSpecialization)
   {
-    v4 = newRenderPipelineDescriptorForSpecialization;
-    v5 = hasUnspecializedProperties(newRenderPipelineDescriptorForSpecialization);
+    v5 = newRenderPipelineDescriptorForSpecialization;
+    v6 = hasUnspecializedProperties(newRenderPipelineDescriptorForSpecialization, v4);
 
-    LOBYTE(newRenderPipelineDescriptorForSpecialization) = v5;
+    LOBYTE(newRenderPipelineDescriptorForSpecialization) = v6;
   }
 
   return newRenderPipelineDescriptorForSpecialization;
@@ -380,11 +373,14 @@ LABEL_8:
 
 - (id)newRenderPipelineStateWithDescriptor:(id)descriptor compilerTaskOptions:(id)options error:(id *)error
 {
-  device = self->super.super._device;
+  v18 = 0;
+  v16 = 0u;
+  v17 = 0u;
+  v15 = 0u;
   _MTLMessageContextBegin_();
   if (descriptor)
   {
-    validateMTL4RenderPipelineDescriptor(self->super.super._device, descriptor);
+    validateMTL4RenderPipelineDescriptor(self->super.super._device, descriptor, &v15);
     if (!options)
     {
       goto LABEL_5;
@@ -408,27 +404,30 @@ LABEL_8:
 
 LABEL_5:
   _MTLMessageContextEnd();
-  v10 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor, 0, 0, 0, 0, 0, 0, 0];
-  addReflectionOption(v10);
-  v11 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
-  v12 = [-[MTLToolsObject baseObject](self "baseObject")];
-  if (v12)
+  v9 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor, v15, v16, v17, v18];
+  addReflectionOption(v9);
+  v10 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
+  v11 = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (v11)
   {
-    v13 = v12;
-    v14 = [[MTLDebugRenderPipelineState alloc] initWithRenderPipelineState:v12 parent:self mtl4Descriptor:descriptor];
+    v12 = v11;
+    v13 = [[MTLDebugRenderPipelineState alloc] initWithRenderPipelineState:v11 parent:self mtl4Descriptor:descriptor];
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 - (id)newRenderPipelineStateBySpecializationWithDescriptor:(id)descriptor pipeline:(id)pipeline error:(id *)error
 {
-  device = self->super.super._device;
+  v19 = 0;
+  v17 = 0u;
+  v18 = 0u;
+  v16 = 0u;
   _MTLMessageContextBegin_();
   if (!descriptor)
   {
@@ -441,7 +440,7 @@ LABEL_5:
     goto LABEL_14;
   }
 
-  if (([pipeline conformsToProtocol:{&unk_284238D78, 0, 0, 0, 0, 0, 0, 0}] & 1) == 0)
+  if (([pipeline conformsToProtocol:{&unk_284238D78, v16, v17, v18, v19}] & 1) == 0)
   {
     _MTLMessageContextPush_();
   }
@@ -451,11 +450,11 @@ LABEL_5:
     _MTLMessageContextPush_();
   }
 
-  v10 = [(MTL4DebugCompiler *)self newSpecializedMTL4PipelineDescriptor:pipeline descriptor:descriptor];
-  if (v10)
+  v9 = [(MTL4DebugCompiler *)self newSpecializedMTL4PipelineDescriptor:pipeline descriptor:descriptor];
+  if (v9)
   {
-    v11 = v10;
-    validateUnspecializedProperties(self->super.super._device, v10);
+    v10 = v9;
+    validateUnspecializedProperties(self->super.super._device, v9, &v16);
   }
 
   if (!pipeline)
@@ -466,13 +465,13 @@ LABEL_14:
 
 LABEL_9:
   _MTLMessageContextEnd();
-  v12 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
-  addReflectionOption(v12);
-  v13 = [-[MTLToolsObject baseObject](self "baseObject")];
-  if (v13)
+  v11 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
+  addReflectionOption(v11);
+  v12 = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (v12)
   {
-    v14 = v13;
-    v15 = [[MTLDebugRenderPipelineState alloc] initWithRenderPipelineState:v13 parent:self mtl4Descriptor:descriptor];
+    v13 = v12;
+    v14 = [[MTLDebugRenderPipelineState alloc] initWithRenderPipelineState:v12 parent:self mtl4Descriptor:descriptor];
   }
 
   else
@@ -481,12 +480,11 @@ LABEL_9:
     return 0;
   }
 
-  return v15;
+  return v14;
 }
 
 - (id)newBinaryFunctionWithDescriptor:(id)descriptor compilerTaskOptions:(id)options error:(id *)error
 {
-  device = self->super.super._device;
   _MTLMessageContextBegin_();
   if (!descriptor)
   {
@@ -525,13 +523,13 @@ LABEL_12:
 
 LABEL_8:
   _MTLMessageContextEnd();
-  v10 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4BinaryFunctionDescriptor:descriptor];
-  v11 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
-  v12 = [-[MTLToolsObject baseObject](self "baseObject")];
-  if (v12)
+  v9 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4BinaryFunctionDescriptor:descriptor];
+  v10 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
+  v11 = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (v11)
   {
-    v13 = v12;
-    v14 = [(MTL4ToolsBinaryFunction *)[MTL4DebugBinaryFunction alloc] initWithBaseObject:v12 parent:self];
+    v12 = v11;
+    v13 = [(MTL4ToolsBinaryFunction *)[MTL4DebugBinaryFunction alloc] initWithBaseObject:v11 parent:self];
   }
 
   else
@@ -540,12 +538,11 @@ LABEL_8:
     return 0;
   }
 
-  return v14;
+  return v13;
 }
 
 - (id)newMachineLearningPipelineStateWithDescriptor:(id)descriptor error:(id *)error
 {
-  device = self->super.super._device;
   _MTLMessageContextBegin_();
   if (!descriptor)
   {
@@ -565,13 +562,13 @@ LABEL_9:
   }
 
   _MTLMessageContextEnd();
-  v8 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
-  addReflectionOption(v8);
-  v9 = [-[MTLToolsObject baseObject](self "baseObject")];
-  if (v9)
+  v7 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
+  addReflectionOption(v7);
+  v8 = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (v8)
   {
-    v10 = v9;
-    v11 = [[MTL4DebugMachineLearningPipelineState alloc] initWithMLPipelineState:v9 parent:self descriptor:descriptor];
+    v9 = v8;
+    v10 = [[MTL4DebugMachineLearningPipelineState alloc] initWithMLPipelineState:v8 parent:self descriptor:descriptor];
   }
 
   else
@@ -580,17 +577,13 @@ LABEL_9:
     return 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (id)newLibraryWithDescriptor:(id)descriptor completionHandler:(id)handler
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v30 = 0;
-  v28 = 0u;
-  v29 = 0u;
-  v27 = 0u;
-  device = self->super.super._device;
+  v26 = *MEMORY[0x277D85DE8];
+  memset(v24, 0, sizeof(v24));
   _MTLMessageContextBegin_();
   if (!descriptor)
   {
@@ -624,46 +617,42 @@ LABEL_9:
       _MTLMessageContextPush_();
     }
 
-    if (!v27)
+    if (!v24[0])
     {
-      v25 = 0u;
-      v26 = 0u;
+      v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
-      v8 = [objc_msgSend(descriptor "options")];
-      v9 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
-      if (v9)
+      v20 = 0u;
+      v21 = 0u;
+      v7 = [objc_msgSend(descriptor "options")];
+      v8 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      if (v8)
       {
-        v10 = v9;
-        v11 = 0;
-        v12 = *v24;
+        v9 = v8;
+        v10 = 0;
+        v11 = *v21;
         do
         {
-          v13 = 0;
-          do
+          for (i = 0; i != v9; ++i)
           {
-            if (*v24 != v12)
+            if (*v21 != v11)
             {
-              objc_enumerationMutation(v8);
+              objc_enumerationMutation(v7);
             }
 
-            v14 = *(*(&v23 + 1) + 8 * v13);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v21 = v11;
+              v18 = v10;
               _MTLMessageContextPush_();
             }
 
-            ++v11;
-            ++v13;
+            ++v10;
           }
 
-          while (v10 != v13);
-          v10 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
         }
 
-        while (v10);
+        while (v9);
       }
     }
   }
@@ -680,21 +669,20 @@ LABEL_24:
   }
 
   _MTLMessageContextEnd();
-  v15 = objc_autoreleasePoolPush();
-  v16 = -[MTLToolsDevice unwrapMTLCompileOptions:](self->super.super._device, "unwrapMTLCompileOptions:", [descriptor options]);
-  v17 = [descriptor copy];
-  [v17 setOptions:v16];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __64__MTL4DebugCompiler_newLibraryWithDescriptor_completionHandler___block_invoke;
-  v22[3] = &unk_2787B4BE0;
-  v22[5] = self;
-  v22[6] = handler;
-  v22[4] = v17;
-  v18 = [-[MTLToolsObject baseObject](self "baseObject")];
-  objc_autoreleasePoolPop(v15);
-  v19 = *MEMORY[0x277D85DE8];
-  return v18;
+  v13 = objc_autoreleasePoolPush();
+  v14 = -[MTLToolsDevice unwrapMTLCompileOptions:](self->super.super._device, "unwrapMTLCompileOptions:", [descriptor options]);
+  v15 = [descriptor copy];
+  [v15 setOptions:v14];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __64__MTL4DebugCompiler_newLibraryWithDescriptor_completionHandler___block_invoke;
+  v19[3] = &unk_2787B4BE0;
+  v19[5] = self;
+  v19[6] = handler;
+  v19[4] = v15;
+  v16 = [-[MTLToolsObject baseObject](self "baseObject")];
+  objc_autoreleasePoolPop(v13);
+  return v16;
 }
 
 void __64__MTL4DebugCompiler_newLibraryWithDescriptor_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -717,16 +705,15 @@ void __64__MTL4DebugCompiler_newLibraryWithDescriptor_completionHandler___block_
 
 - (id)newDynamicLibrary:(id)library completionHandler:(id)handler
 {
-  v11 = 0;
-  memset(v10, 0, sizeof(v10));
-  device = self->super.super._device;
+  v10 = 0;
+  memset(v9, 0, sizeof(v9));
   _MTLMessageContextBegin_();
   if (!library)
   {
     _MTLMessageContextPush_();
   }
 
-  if (!*&v10[0])
+  if (!*&v9[0])
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -735,7 +722,7 @@ void __64__MTL4DebugCompiler_newLibraryWithDescriptor_completionHandler___block_
     }
   }
 
-  [(MTL4DebugCompiler *)self validateDynamicLibrary:library context:v10];
+  [(MTL4DebugCompiler *)self validateDynamicLibrary:library context:v9];
   _MTLMessageContextEnd();
   return [-[MTLToolsObject baseObject](self baseObject];
 }
@@ -744,25 +731,23 @@ void __57__MTL4DebugCompiler_newDynamicLibrary_completionHandler___block_invoke(
 {
   if (a2)
   {
-    v5 = [(MTLToolsObject *)[MTLDebugDynamicLibrary alloc] initWithBaseObject:a2 parent:*(a1 + 32)];
+    v4 = [(MTLToolsObject *)[MTLDebugDynamicLibrary alloc] initWithBaseObject:a2 parent:*(a1 + 32)];
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 }
 
 - (id)newDynamicLibraryWithURL:(id)l completionHandler:(id)handler
 {
-  memset(&v10, 0, sizeof(v10));
-  device = self->super.super._device;
+  memset(&v9, 0, sizeof(v9));
   _MTLMessageContextBegin_();
-  validateNewDynamicLibraryWithURL(l, &v10);
+  validateNewDynamicLibraryWithURL(l, &v9);
   _MTLMessageContextEnd();
   return [-[MTLToolsObject baseObject](self baseObject];
 }
@@ -771,26 +756,24 @@ void __64__MTL4DebugCompiler_newDynamicLibraryWithURL_completionHandler___block_
 {
   if (a2)
   {
-    v5 = [(MTLToolsObject *)[MTLDebugDynamicLibrary alloc] initWithBaseObject:a2 parent:*(a1 + 32)];
+    v4 = [(MTLToolsObject *)[MTLDebugDynamicLibrary alloc] initWithBaseObject:a2 parent:*(a1 + 32)];
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 }
 
 - (id)newComputePipelineStateWithDescriptor:(id)descriptor compilerTaskOptions:(id)options completionHandler:(id)handler
 {
-  v17 = 0;
-  v15 = 0u;
-  v16 = 0u;
+  v16 = 0;
   v14 = 0u;
-  device = self->super.super._device;
+  v15 = 0u;
+  v13 = 0u;
   _MTLMessageContextBegin_();
   if (!descriptor)
   {
@@ -829,18 +812,18 @@ LABEL_9:
 
 LABEL_8:
   _MTLMessageContextEnd();
-  v10 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
-  addReflectionOption(v10);
-  v11 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __97__MTL4DebugCompiler_newComputePipelineStateWithDescriptor_compilerTaskOptions_completionHandler___block_invoke;
-  v13[3] = &unk_2787B4C08;
-  v13[4] = v11;
-  v13[5] = v10;
-  v13[7] = descriptor;
-  v13[8] = handler;
-  v13[6] = self;
+  v9 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
+  addReflectionOption(v9);
+  v10 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __97__MTL4DebugCompiler_newComputePipelineStateWithDescriptor_compilerTaskOptions_completionHandler___block_invoke;
+  v12[3] = &unk_2787B4C08;
+  v12[4] = v10;
+  v12[5] = v9;
+  v12[7] = descriptor;
+  v12[8] = handler;
+  v12[6] = self;
   return [-[MTLToolsObject baseObject](self "baseObject")];
 }
 
@@ -864,15 +847,12 @@ void __97__MTL4DebugCompiler_newComputePipelineStateWithDescriptor_compilerTaskO
 
 - (id)newRenderPipelineStateWithDescriptor:(id)descriptor compilerTaskOptions:(id)options completionHandler:(id)handler
 {
-  v17 = 0;
-  v15 = 0u;
-  v16 = 0u;
-  v14 = 0u;
-  device = self->super.super._device;
+  v14 = 0;
+  memset(v13, 0, sizeof(v13));
   _MTLMessageContextBegin_();
   if (descriptor)
   {
-    validateMTL4RenderPipelineDescriptor(self->super.super._device, descriptor);
+    validateMTL4RenderPipelineDescriptor(self->super.super._device, descriptor, v13);
     if (!options)
     {
       goto LABEL_5;
@@ -896,18 +876,18 @@ void __97__MTL4DebugCompiler_newComputePipelineStateWithDescriptor_compilerTaskO
 
 LABEL_5:
   _MTLMessageContextEnd();
-  v10 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
-  addReflectionOption(v10);
-  v11 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __96__MTL4DebugCompiler_newRenderPipelineStateWithDescriptor_compilerTaskOptions_completionHandler___block_invoke;
-  v13[3] = &unk_2787B4C30;
-  v13[7] = descriptor;
-  v13[8] = handler;
-  v13[4] = v11;
-  v13[5] = v10;
-  v13[6] = self;
+  v9 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
+  addReflectionOption(v9);
+  v10 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __96__MTL4DebugCompiler_newRenderPipelineStateWithDescriptor_compilerTaskOptions_completionHandler___block_invoke;
+  v12[3] = &unk_2787B4C30;
+  v12[7] = descriptor;
+  v12[8] = handler;
+  v12[4] = v10;
+  v12[5] = v9;
+  v12[6] = self;
   return [-[MTLToolsObject baseObject](self "baseObject")];
 }
 
@@ -915,15 +895,14 @@ void __96__MTL4DebugCompiler_newRenderPipelineStateWithDescriptor_compilerTaskOp
 {
   if (a2)
   {
-    v5 = [[MTLDebugRenderPipelineState alloc] initWithRenderPipelineState:a2 parent:*(a1 + 48) mtl4Descriptor:*(a1 + 56)];
+    v4 = [[MTLDebugRenderPipelineState alloc] initWithRenderPipelineState:a2 parent:*(a1 + 48) mtl4Descriptor:*(a1 + 56)];
 
     (*(*(a1 + 64) + 16))();
-    v3 = v5;
+    v3 = v4;
   }
 
   else
   {
-    v4 = *(a1 + 64);
     (*(*(a1 + 64) + 16))();
 
     v3 = *(a1 + 40);
@@ -932,11 +911,10 @@ void __96__MTL4DebugCompiler_newRenderPipelineStateWithDescriptor_compilerTaskOp
 
 - (id)newRenderPipelineStateBySpecializationWithDescriptor:(id)descriptor pipeline:(id)pipeline completionHandler:(id)handler
 {
-  v18 = 0;
-  v16 = 0u;
-  v17 = 0u;
+  v17 = 0;
   v15 = 0u;
-  device = self->super.super._device;
+  v16 = 0u;
+  v14 = 0u;
   _MTLMessageContextBegin_();
   if (!descriptor)
   {
@@ -961,11 +939,11 @@ LABEL_11:
     _MTLMessageContextPush_();
   }
 
-  v10 = [(MTL4DebugCompiler *)self newSpecializedMTL4PipelineDescriptor:pipeline descriptor:descriptor];
-  if (v10)
+  v9 = [(MTL4DebugCompiler *)self newSpecializedMTL4PipelineDescriptor:pipeline descriptor:descriptor];
+  if (v9)
   {
-    v11 = v10;
-    validateUnspecializedProperties(self->super.super._device, v10);
+    v10 = v9;
+    validateUnspecializedProperties(self->super.super._device, v9, &v14);
   }
 
   if (!pipeline)
@@ -975,8 +953,8 @@ LABEL_11:
 
 LABEL_9:
   _MTLMessageContextEnd();
-  v12 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
-  addReflectionOption(v12);
+  v11 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
+  addReflectionOption(v11);
   return [-[MTLToolsObject baseObject](self baseObject];
 }
 
@@ -1000,11 +978,10 @@ void __101__MTL4DebugCompiler_newRenderPipelineStateBySpecializationWithDescript
 
 - (id)newBinaryFunctionWithDescriptor:(id)descriptor compilerTaskOptions:(id)options completionHandler:(id)handler
 {
-  v17 = 0;
-  v15 = 0u;
-  v16 = 0u;
+  v16 = 0;
   v14 = 0u;
-  device = self->super.super._device;
+  v15 = 0u;
+  v13 = 0u;
   _MTLMessageContextBegin_();
   if (!descriptor)
   {
@@ -1043,8 +1020,8 @@ LABEL_9:
 
 LABEL_8:
   _MTLMessageContextEnd();
-  v10 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4BinaryFunctionDescriptor:descriptor];
-  v11 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
+  v9 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4BinaryFunctionDescriptor:descriptor];
+  v10 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
   return [-[MTLToolsObject baseObject](self baseObject];
 }
 
@@ -1068,11 +1045,10 @@ void __91__MTL4DebugCompiler_newBinaryFunctionWithDescriptor_compilerTaskOptions
 
 - (id)newMachineLearningPipelineStateWithDescriptor:(id)descriptor completionHandler:(id)handler
 {
-  v14 = 0;
-  v12 = 0u;
-  v13 = 0u;
+  v13 = 0;
   v11 = 0u;
-  device = self->super.super._device;
+  v12 = 0u;
+  v10 = 0u;
   _MTLMessageContextBegin_();
   if (!descriptor)
   {
@@ -1092,8 +1068,8 @@ LABEL_6:
   }
 
   _MTLMessageContextEnd();
-  v8 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
-  addReflectionOption(v8);
+  v7 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
+  addReflectionOption(v7);
   return [-[MTLToolsObject baseObject](self baseObject];
 }
 
@@ -1117,11 +1093,10 @@ void __85__MTL4DebugCompiler_newMachineLearningPipelineStateWithDescriptor_compl
 
 - (id)newComputePipelineStateWithDescriptor:(id)descriptor dynamicLinkingDescriptor:(id)linkingDescriptor compilerTaskOptions:(id)options completionHandler:(id)handler
 {
-  v21 = 0;
-  v19 = 0u;
-  v20 = 0u;
+  v20 = 0;
   v18 = 0u;
-  device = self->super.super._device;
+  v19 = 0u;
+  v17 = 0u;
   _MTLMessageContextBegin_();
   if (!descriptor)
   {
@@ -1160,22 +1135,22 @@ LABEL_9:
 
 LABEL_8:
   _MTLMessageContextEnd();
-  v12 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
-  addReflectionOption(v12);
-  v13 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineStageDynamicLinkingDescriptor:linkingDescriptor];
-  v14 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
+  v11 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
+  addReflectionOption(v11);
+  v12 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineStageDynamicLinkingDescriptor:linkingDescriptor];
+  v13 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
   baseObject = [(MTLToolsObject *)self baseObject];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __122__MTL4DebugCompiler_newComputePipelineStateWithDescriptor_dynamicLinkingDescriptor_compilerTaskOptions_completionHandler___block_invoke;
-  v17[3] = &unk_2787B4CD0;
-  v17[4] = v12;
-  v17[5] = v13;
-  v17[6] = v14;
-  v17[7] = self;
-  v17[8] = descriptor;
-  v17[9] = handler;
-  return [baseObject newComputePipelineStateWithDescriptor:v12 dynamicLinkingDescriptor:v13 compilerTaskOptions:v14 completionHandler:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __122__MTL4DebugCompiler_newComputePipelineStateWithDescriptor_dynamicLinkingDescriptor_compilerTaskOptions_completionHandler___block_invoke;
+  v16[3] = &unk_2787B4CD0;
+  v16[4] = v11;
+  v16[5] = v12;
+  v16[6] = v13;
+  v16[7] = self;
+  v16[8] = descriptor;
+  v16[9] = handler;
+  return [baseObject newComputePipelineStateWithDescriptor:v11 dynamicLinkingDescriptor:v12 compilerTaskOptions:v13 completionHandler:v16];
 }
 
 void __122__MTL4DebugCompiler_newComputePipelineStateWithDescriptor_dynamicLinkingDescriptor_compilerTaskOptions_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -1196,15 +1171,12 @@ void __122__MTL4DebugCompiler_newComputePipelineStateWithDescriptor_dynamicLinki
 
 - (id)newRenderPipelineStateWithDescriptor:(id)descriptor dynamicLinkingDescriptor:(id)linkingDescriptor compilerTaskOptions:(id)options completionHandler:(id)handler
 {
-  v21 = 0;
-  v19 = 0u;
-  v20 = 0u;
-  v18 = 0u;
-  device = self->super.super._device;
+  v18 = 0;
+  memset(v17, 0, sizeof(v17));
   _MTLMessageContextBegin_();
   if (descriptor)
   {
-    validateMTL4RenderPipelineDescriptor(self->super.super._device, descriptor);
+    validateMTL4RenderPipelineDescriptor(self->super.super._device, descriptor, v17);
     if (!options)
     {
       goto LABEL_5;
@@ -1228,22 +1200,22 @@ void __122__MTL4DebugCompiler_newComputePipelineStateWithDescriptor_dynamicLinki
 
 LABEL_5:
   _MTLMessageContextEnd();
-  v12 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
-  addReflectionOption(v12);
-  v13 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4RenderPipelineDynamicLinkingDescriptor:linkingDescriptor];
-  v14 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
+  v11 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor];
+  addReflectionOption(v11);
+  v12 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4RenderPipelineDynamicLinkingDescriptor:linkingDescriptor];
+  v13 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
   baseObject = [(MTLToolsObject *)self baseObject];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __121__MTL4DebugCompiler_newRenderPipelineStateWithDescriptor_dynamicLinkingDescriptor_compilerTaskOptions_completionHandler___block_invoke;
-  v17[3] = &unk_2787B4CF8;
-  v17[4] = v12;
-  v17[5] = v13;
-  v17[6] = v14;
-  v17[7] = self;
-  v17[8] = descriptor;
-  v17[9] = handler;
-  return [baseObject newRenderPipelineStateWithDescriptor:v12 dynamicLinkingDescriptor:v13 compilerTaskOptions:v14 completionHandler:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __121__MTL4DebugCompiler_newRenderPipelineStateWithDescriptor_dynamicLinkingDescriptor_compilerTaskOptions_completionHandler___block_invoke;
+  v16[3] = &unk_2787B4CF8;
+  v16[4] = v11;
+  v16[5] = v12;
+  v16[6] = v13;
+  v16[7] = self;
+  v16[8] = descriptor;
+  v16[9] = handler;
+  return [baseObject newRenderPipelineStateWithDescriptor:v11 dynamicLinkingDescriptor:v12 compilerTaskOptions:v13 completionHandler:v16];
 }
 
 void __121__MTL4DebugCompiler_newRenderPipelineStateWithDescriptor_dynamicLinkingDescriptor_compilerTaskOptions_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -1264,11 +1236,14 @@ void __121__MTL4DebugCompiler_newRenderPipelineStateWithDescriptor_dynamicLinkin
 
 - (id)newRenderPipelineStateWithDescriptor:(id)descriptor dynamicLinkingDescriptor:(id)linkingDescriptor compilerTaskOptions:(id)options error:(id *)error
 {
-  device = self->super.super._device;
+  v22 = 0;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = 0u;
   _MTLMessageContextBegin_();
   if (descriptor)
   {
-    validateMTL4RenderPipelineDescriptor(self->super.super._device, descriptor);
+    validateMTL4RenderPipelineDescriptor(self->super.super._device, descriptor, &v19);
     if (!options)
     {
       goto LABEL_5;
@@ -1292,83 +1267,80 @@ void __121__MTL4DebugCompiler_newRenderPipelineStateWithDescriptor_dynamicLinkin
 
 LABEL_5:
   _MTLMessageContextEnd();
-  v12 = objc_autoreleasePoolPush();
-  v13 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor, 0, 0, 0, 0, 0, 0, 0];
-  addReflectionOption(v13);
-  v14 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4RenderPipelineDynamicLinkingDescriptor:linkingDescriptor];
-  v15 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
-  v16 = [-[MTLToolsObject baseObject](self "baseObject")];
-  if (v16)
+  v11 = objc_autoreleasePoolPush();
+  v12 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4PipelineDescriptor:descriptor, v19, v20, v21, v22];
+  addReflectionOption(v12);
+  v13 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4RenderPipelineDynamicLinkingDescriptor:linkingDescriptor];
+  v14 = [(MTLToolsDevice *)self->super.super._device newUnwrappedMTL4CompilerTaskOptions:options];
+  v15 = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (v15)
   {
-    v17 = v16;
-    v18 = [[MTLDebugRenderPipelineState alloc] initWithRenderPipelineState:v16 parent:self mtl4Descriptor:descriptor];
+    v16 = v15;
+    v17 = [[MTLDebugRenderPipelineState alloc] initWithRenderPipelineState:v15 parent:self mtl4Descriptor:descriptor];
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  objc_autoreleasePoolPop(v12);
-  return v18;
+  objc_autoreleasePoolPop(v11);
+  return v17;
 }
 
 - (id)newDynamicLibraryWithURL:(id)l options:(unint64_t)options completionHandler:(id)handler
 {
-  memset(&v13, 0, sizeof(v13));
-  device = self->super.super._device;
+  memset(&v12, 0, sizeof(v12));
   _MTLMessageContextBegin_();
-  validateNewDynamicLibraryWithURL(l, &v13);
+  validateNewDynamicLibraryWithURL(l, &v12);
   _MTLMessageContextEnd();
   baseObject = [(MTLToolsObject *)self baseObject];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __72__MTL4DebugCompiler_newDynamicLibraryWithURL_options_completionHandler___block_invoke;
-  v12[3] = &unk_2787B3790;
-  v12[4] = self;
-  v12[5] = handler;
-  return [baseObject newDynamicLibraryWithURL:l options:options completionHandler:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __72__MTL4DebugCompiler_newDynamicLibraryWithURL_options_completionHandler___block_invoke;
+  v11[3] = &unk_2787B3790;
+  v11[4] = self;
+  v11[5] = handler;
+  return [baseObject newDynamicLibraryWithURL:l options:options completionHandler:v11];
 }
 
 void __72__MTL4DebugCompiler_newDynamicLibraryWithURL_options_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v5 = [(MTLToolsObject *)[MTLDebugDynamicLibrary alloc] initWithBaseObject:a2 parent:*(a1 + 32)];
+    v4 = [(MTLToolsObject *)[MTLDebugDynamicLibrary alloc] initWithBaseObject:a2 parent:*(a1 + 32)];
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 }
 
 - (id)newDynamicLibraryWithURL:(id)l options:(unint64_t)options error:(id *)error
 {
-  memset(&v15, 0, sizeof(v15));
-  device = self->super.super._device;
+  memset(&v14, 0, sizeof(v14));
   _MTLMessageContextBegin_();
-  validateNewDynamicLibraryWithURL(l, &v15);
+  validateNewDynamicLibraryWithURL(l, &v14);
   _MTLMessageContextEnd();
-  v10 = objc_autoreleasePoolPush();
+  v9 = objc_autoreleasePoolPush();
   baseObject = [-[MTLToolsObject baseObject](self baseObject];
   if (baseObject)
   {
-    v12 = baseObject;
-    v13 = [(MTLToolsObject *)[MTLDebugDynamicLibrary alloc] initWithBaseObject:baseObject parent:self];
+    v11 = baseObject;
+    v12 = [(MTLToolsObject *)[MTLDebugDynamicLibrary alloc] initWithBaseObject:baseObject parent:self];
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  objc_autoreleasePoolPop(v10);
-  return v13;
+  objc_autoreleasePoolPop(v9);
+  return v12;
 }
 
 @end

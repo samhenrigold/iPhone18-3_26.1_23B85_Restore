@@ -51,7 +51,7 @@
 - (void)setShape:(id)shape
 {
   shapeCopy = shape;
-  if (([shapeCopy isEqual:self->_shape] & 1) == 0)
+  if ((objc_msgSend_isEqual_(shapeCopy) & 1) == 0)
   {
     v4 = [shapeCopy copy];
     shape = self->_shape;
@@ -188,7 +188,7 @@
       v45 = [(UIView *)[_UIShapeView alloc] initWithFrame:v4, v6, v8, v10];
       [(_UIFocusHaloView *)self setMaskViewWhenInside:v45];
 
-      v46 = +[UIColor blackColor];
+      v46 = objc_msgSend_blackColor(UIColor);
       cGColor3 = [v46 CGColor];
       maskViewWhenInside2 = [(_UIFocusHaloView *)self maskViewWhenInside];
       shapeLayer16 = [maskViewWhenInside2 shapeLayer];
@@ -209,7 +209,7 @@
 
   else
   {
-    v55 = +[UIColor blackColor];
+    v55 = objc_msgSend_blackColor(UIColor);
     cGColor4 = [v55 CGColor];
 
     shapeLayer19 = [(_UIShapeView *)gapView shapeLayer];

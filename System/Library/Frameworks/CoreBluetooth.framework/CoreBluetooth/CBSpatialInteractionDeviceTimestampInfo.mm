@@ -15,8 +15,9 @@
     }
 
 LABEL_8:
-    NSAppendPrintF_safe();
-    v7 = 0;
+    v15 = 0;
+    NSAppendPrintF_safe(&v15, "siTT %@", v6);
+    v7 = v15;
     if (!self->_reason)
     {
       goto LABEL_10;
@@ -44,21 +45,23 @@ LABEL_5:
   if (self->_reason)
   {
 LABEL_9:
-    v11 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v8 = v7;
+    v14 = v7;
+    v8 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v14, " siTR %@", v8);
+    v9 = v14;
 
-    v7 = v8;
+    v7 = v9;
   }
 
 LABEL_10:
   if (self->_duplicateCount)
   {
     duplicateCount = self->_duplicateCount;
-    NSAppendPrintF_safe();
-    v9 = v7;
+    v13 = v7;
+    NSAppendPrintF_safe(&v13, " siTD %d", duplicateCount);
+    v10 = v13;
 
-    v7 = v9;
+    v7 = v10;
   }
 
   return v7;

@@ -19,46 +19,44 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v20 = *MEMORY[0x29EDCA608];
-  v18.receiver = self;
-  v18.super_class = AVTUIAvatarPickerMemojiPickerViewControllerAccessibility;
-  [(AVTUIAvatarPickerMemojiPickerViewControllerAccessibility *)&v18 _accessibilityLoadAccessibilityInformation];
-  v17 = 0;
+  v19 = *MEMORY[0x29EDCA608];
+  v17.receiver = self;
+  v17.super_class = AVTUIAvatarPickerMemojiPickerViewControllerAccessibility;
+  [(AVTUIAvatarPickerMemojiPickerViewControllerAccessibility *)&v17 _accessibilityLoadAccessibilityInformation];
+  v16 = 0;
   objc_opt_class();
   v3 = [(AVTUIAvatarPickerMemojiPickerViewControllerAccessibility *)self safeValueForKey:@"collectionView"];
   v4 = __UIAccessibilityCastAsClass();
 
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   visibleCells = [v4 visibleCells];
-  v6 = [visibleCells countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v6 = [visibleCells countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         v11 = [v4 indexPathForCell:v10];
         [(AVTUIAvatarPickerMemojiPickerViewControllerAccessibility *)self _axMarkupCell:v10 atIndexPath:v11];
       }
 
-      v7 = [visibleCells countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v7 = [visibleCells countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_axMarkupCell:(id)cell atIndexPath:(id)path
@@ -136,10 +134,7 @@ id __86__AVTUIAvatarPickerMemojiPickerViewControllerAccessibility__axMarkupCell_
 
 uint64_t __81__AVTUIAvatarPickerMemojiPickerViewControllerAccessibility__axLabelForIndexPath___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) recordAtIndex:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) recordAtIndex:*(a1 + 48)];
 
   return MEMORY[0x2A1C71028]();
 }

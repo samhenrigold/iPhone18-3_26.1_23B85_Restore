@@ -76,49 +76,36 @@
 
 uint64_t __45__ALAssetsGroupPrivate__performBlockAndWait___block_invoke_2(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = [MEMORY[0x277D3AC70] unfilteredAlbum:*(*(a1 + 32) + 32)];
-    v4 = [MEMORY[0x277D3AC70] filteredAlbum:objc_msgSend(*(*(a1 + 32) + 64) filter:{"objectWithObjectID:", objc_msgSend(v3, "objectID")), objc_msgSend(*(a1 + 32), "albumFilter")}];
+    v2 = [MEMORY[0x277D3AC70] unfilteredAlbum:*(*(a1 + 32) + 32)];
+    v3 = [MEMORY[0x277D3AC70] filteredAlbum:objc_msgSend(*(*(a1 + 32) + 64) filter:{"objectWithObjectID:", objc_msgSend(v2, "objectID")), objc_msgSend(*(a1 + 32), "albumFilter")}];
 LABEL_5:
-    v6 = v4;
+    v4 = v3;
     goto LABEL_7;
   }
 
-  v5 = *(*(a1 + 32) + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = [*(*(a1 + 32) + 64) objectWithObjectID:{objc_msgSend(*(*(a1 + 32) + 32), "objectID")}];
+    v3 = [*(*(a1 + 32) + 64) objectWithObjectID:{objc_msgSend(*(*(a1 + 32) + 32), "objectID")}];
     goto LABEL_5;
   }
 
   NSLog(&cfstr_DonTKnowHowToS.isa, *(a1 + 32));
-  v6 = 0;
+  v4 = 0;
 LABEL_7:
-  v7 = *(a1 + 32);
-  v8 = *(v7 + 32);
-  if (v8 != v6)
+  v5 = *(*(a1 + 32) + 32);
+  if (v5 != v4)
   {
 
-    *(*(a1 + 32) + 32) = v6;
-    v7 = *(a1 + 32);
-    v9 = *(v7 + 32);
+    *(*(a1 + 32) + 32) = v4;
   }
 
-  v10 = *(v7 + 64);
-  v11 = *(*(a1 + 40) + 16);
+  v6 = *(*(a1 + 40) + 16);
 
-  return v11();
-}
-
-void __45__ALAssetsGroupPrivate__performBlockAndWait___block_invoke_4(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  NSLog(&cfstr_InvalidAttempt.isa, v3, *(a1 + 32));
+  return v6();
 }
 
 - (void)setValue:(id)value forProperty:(id)property
@@ -274,7 +261,7 @@ uint64_t __44__ALAssetsGroupPrivate_updateAlbumFiltering__block_invoke(uint64_t 
   return v6;
 }
 
-uint64_t __46__ALAssetsGroupPrivate_initWithAlbum_library___block_invoke(uint64_t a1, void *a2, void *a3)
+void *__46__ALAssetsGroupPrivate_initWithAlbum_library___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   *(*(a1 + 32) + 64) = a2;
   result = [a3 isCloudSharedAlbum];

@@ -15,7 +15,7 @@
   dCopy = d;
   if (!dCopy)
   {
-    v7 = sub_100002660();
+    v7 = sub_100002660(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1001C26AC();
@@ -70,7 +70,7 @@ LABEL_7:
 
     else
     {
-      cloudAssetType = sub_100002660();
+      cloudAssetType = sub_100002660(0);
       if (os_log_type_enabled(cloudAssetType, OS_LOG_TYPE_ERROR))
       {
         sub_1001C22A4();
@@ -89,7 +89,7 @@ LABEL_7:
   recordCopy = record;
   if (!recordCopy)
   {
-    v10 = sub_100002660();
+    v10 = sub_100002660(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001C26E0();
@@ -148,24 +148,24 @@ LABEL_7:
 
 - (id)configuredRecordFromAttributes
 {
-  v10.receiver = self;
-  v10.super_class = BCMutableReadingNowDetail;
-  configuredRecordFromAttributes = [(BCMutableCloudData *)&v10 configuredRecordFromAttributes];
+  v11.receiver = self;
+  v11.super_class = BCMutableReadingNowDetail;
+  configuredRecordFromAttributes = [(BCMutableCloudData *)&v11 configuredRecordFromAttributes];
   v4 = [NSNumber numberWithBool:[(BCMutableReadingNowDetail *)self isTrackedAsRecent]];
   [configuredRecordFromAttributes setObject:v4 forKey:@"isTrackedAsRecent"];
 
   lastEngagedDate = [(BCMutableReadingNowDetail *)self lastEngagedDate];
   [configuredRecordFromAttributes setObject:lastEngagedDate forKey:@"lastEngagedDate"];
 
-  v6 = sub_100002660();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100002660(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     cloudAssetType = [(BCMutableReadingNowDetail *)self cloudAssetType];
     *buf = 138412546;
-    v12 = cloudAssetType;
-    v13 = 2112;
-    v14 = @"cloudAssetType";
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "BCReadingNowDetail configuredRecordFromAttributes setting cloudAssetType:%@ for %@", buf, 0x16u);
+    v13 = cloudAssetType;
+    v14 = 2112;
+    v15 = @"cloudAssetType";
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "BCReadingNowDetail configuredRecordFromAttributes setting cloudAssetType:%@ for %@", buf, 0x16u);
   }
 
   cloudAssetType2 = [(BCMutableReadingNowDetail *)self cloudAssetType];

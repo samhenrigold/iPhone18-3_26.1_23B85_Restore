@@ -13,27 +13,27 @@
 - (BSUIWelcomeGDPRViewController)initWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = BSUIBundle();
+  v5 = BSUIBundle(completionCopy);
   v6 = [v5 localizedStringForKey:@"Welcome to Apple Books" value:&stru_3960F8 table:@"BookStoreUILocalizable"];
 
-  v7 = BSUIBundle();
-  v8 = [v7 localizedStringForKey:@"Find great books and audiobooks you can read or listen to anywhere value:on all your Apple devices." table:{&stru_3960F8, @"BookStoreUILocalizable"}];
+  v8 = BSUIBundle(v7);
+  v9 = [v8 localizedStringForKey:@"Find great books and audiobooks you can read or listen to anywhere value:on all your Apple devices." table:{&stru_3960F8, @"BookStoreUILocalizable"}];
 
-  v9 = +[NSBundle mainBundle];
-  bundleIdentifier = [v9 bundleIdentifier];
-  v11 = [UIImage _applicationIconImageForBundleIdentifier:bundleIdentifier format:2];
+  v10 = +[NSBundle mainBundle];
+  bundleIdentifier = [v10 bundleIdentifier];
+  v12 = [UIImage _applicationIconImageForBundleIdentifier:bundleIdentifier format:2];
 
-  v16.receiver = self;
-  v16.super_class = BSUIWelcomeGDPRViewController;
-  v12 = [(BSUIWelcomeGDPRViewController *)&v16 initWithTitle:v6 detailText:v8 icon:v11 contentLayout:2];
-  if (v12)
+  v17.receiver = self;
+  v17.super_class = BSUIWelcomeGDPRViewController;
+  v13 = [(BSUIWelcomeGDPRViewController *)&v17 initWithTitle:v6 detailText:v9 icon:v12 contentLayout:2];
+  if (v13)
   {
-    v13 = [completionCopy copy];
-    completion = v12->_completion;
-    v12->_completion = v13;
+    v14 = [completionCopy copy];
+    completion = v13->_completion;
+    v13->_completion = v14;
   }
 
-  return v12;
+  return v13;
 }
 
 - (void)viewDidLoad
@@ -50,8 +50,7 @@
   [v3 setFont:v5];
 
   [v3 setTextAlignment:4];
-  [v3 setNumberOfLines:0];
-  v6 = BSUIBundle();
+  v6 = BSUIBundle([v3 setNumberOfLines:0]);
   v7 = [v6 localizedStringForKey:@"Features vary by region." value:&stru_3960F8 table:@"BookStoreUILocalizable"];
   [v3 setText:v7];
 
@@ -99,7 +98,7 @@
 
   [v24 addTarget:selfCopy action:"_privacyLinkPressed:" forControlEvents:0x2000];
   v25 = +[OBBoldTrayButton boldButton];
-  v26 = BSUIBundle();
+  v26 = BSUIBundle(v25);
   v27 = [v26 localizedStringForKey:@"Get Started" value:&stru_3960F8 table:@"BookStoreUILocalizable"];
 
   [v25 setTitle:v27 forState:0];

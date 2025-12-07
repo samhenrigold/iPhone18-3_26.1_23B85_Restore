@@ -1947,12 +1947,12 @@ void __45__PKPassFooterView__setContentView_animated___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __55__PKPassFooterView__advanceVisibilityToState_animated___block_invoke(uint64_t result, uint64_t a2)
+unsigned __int8 *__55__PKPassFooterView__advanceVisibilityToState_animated___block_invoke(unsigned __int8 *result, uint64_t a2)
 {
-  *(*(result + 32) + 488) = a2;
-  if (!*(*(result + 32) + 416))
+  *(*(result + 4) + 488) = a2;
+  if (!*(*(result + 4) + 416))
   {
-    return [*(result + 32) _advanceContentViewVisibilityToState:a2 animated:*(result + 40)];
+    return [*(result + 4) _advanceContentViewVisibilityToState:a2 animated:result[40]];
   }
 
   return result;
@@ -2204,20 +2204,20 @@ void __41__PKPassFooterView__lostModeButtonTapped__block_invoke(uint64_t a1, voi
   return v2;
 }
 
-void __53__PKPassFooterView__messageForPeerPaymentZeroBalance__block_invoke()
+void __53__PKPassFooterView__messageForPeerPaymentZeroBalance__block_invoke(uint64_t a1)
 {
   if (PKRunningInViewService() && ([MEMORY[0x1E69B9358] isWalletRestricted] & 1) == 0)
   {
-    v2 = PKPeerPaymentGetTopUpSensitiveURL();
-    v0 = [MEMORY[0x1E699FCA0] sharedService];
-    v1 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    [v1 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E699F970]];
-    if (v2)
+    v3 = PKPeerPaymentGetTopUpSensitiveURL();
+    v1 = [MEMORY[0x1E699FCA0] sharedService];
+    v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    [v2 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E699F970]];
+    if (v3)
     {
-      [v1 setObject:v2 forKeyedSubscript:*MEMORY[0x1E699F960]];
+      [v2 setObject:v3 forKeyedSubscript:*MEMORY[0x1E699F960]];
     }
 
-    [v0 openApplication:*MEMORY[0x1E69BC3D8] options:v1 withResult:0];
+    [v1 openApplication:*MEMORY[0x1E69BC3D8] options:v2 withResult:0];
   }
 }
 

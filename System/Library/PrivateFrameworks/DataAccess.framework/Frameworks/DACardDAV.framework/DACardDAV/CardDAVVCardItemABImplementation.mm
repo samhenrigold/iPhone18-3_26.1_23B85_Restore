@@ -3,6 +3,7 @@
 - (BOOL)deleteFromContainer:(void *)container account:(id)account;
 - (BOOL)loadLocalItemWithAccount:(id)account;
 - (BOOL)saveIfGroupWithLocalObject:(id)object toContainer:(id)container shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account;
+- (BOOL)saveWithLocalObject:(void *)object toContainer:(void *)container shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account;
 - (CardDAVVCardItemABImplementation)initWithABRecord:(void *)record addressBook:(void *)book outNeedsDBSave:(BOOL *)save maxImageSize:(int64_t)size maxResourceSize:(int64_t)resourceSize inContainerWithURL:(id)l afterImageSyncFailed:(BOOL)failed;
 - (CardDAVVCardItemABImplementation)initWithURL:(id)l eTag:(id)tag dataPayload:(id)payload inContainerWithURL:(id)rL withAccountInfoProvider:(id)provider;
 - (id)cardDAVRecordItem;
@@ -94,7 +95,7 @@
 
 - (CardDAVVCardItemABImplementation)initWithABRecord:(void *)record addressBook:(void *)book outNeedsDBSave:(BOOL *)save maxImageSize:(int64_t)size maxResourceSize:(int64_t)resourceSize inContainerWithURL:(id)l afterImageSyncFailed:(BOOL)failed
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (save)
   {
@@ -102,20 +103,20 @@
   }
 
   saveCopy = save;
-  v70.receiver = self;
-  v70.super_class = CardDAVVCardItemABImplementation;
-  v13 = [(CardDAVVCardItemABImplementation *)&v70 init];
+  v66.receiver = self;
+  v66.super_class = CardDAVVCardItemABImplementation;
+  v13 = [(CardDAVVCardItemABImplementation *)&v66 init];
   if (v13)
   {
     [(CardDAVVCardItemABImplementation *)v13 setAbRecordType:ABRecordGetRecordType(record)];
     [(CardDAVVCardItemABImplementation *)v13 setLocalItem:record];
     v14 = 0;
     property = *MEMORY[0x277CE97E0];
-    v63 = *MEMORY[0x277CE97D8];
-    v62 = *MEMORY[0x277CE9898];
-    v61 = *MEMORY[0x277CE9890];
-    v60 = *MEMORY[0x277CE98D8];
-    v58 = *MEMORY[0x277CE98E0];
+    v59 = *MEMORY[0x277CE97D8];
+    v58 = *MEMORY[0x277CE9898];
+    v57 = *MEMORY[0x277CE9890];
+    v56 = *MEMORY[0x277CE98D8];
+    v54 = *MEMORY[0x277CE98E0];
     type = *(MEMORY[0x277D03988] + 3);
     allocator = *MEMORY[0x277CBECE8];
     while (1)
@@ -130,7 +131,7 @@
       v17 = ABRecordCopyValue(abRecord, property);
       [(CardDAVVCardItemABImplementation *)v13 setSyncKey:v17];
 
-      v18 = ABRecordCopyValue(v13->_abRecord, v63);
+      v18 = ABRecordCopyValue(v13->_abRecord, v59);
       v19 = v18;
       if (v18)
       {
@@ -143,11 +144,11 @@
       v27 = 0;
 LABEL_35:
 
-      v40 = [MEMORY[0x277CCABB0] numberWithInt:ABRecordGetRecordID(v13->_abRecord)];
-      [(CardDAVVCardItemABImplementation *)v13 setClientID:v40];
+      v37 = [MEMORY[0x277CCABB0] numberWithInt:ABRecordGetRecordID(v13->_abRecord)];
+      [(CardDAVVCardItemABImplementation *)v13 setClientID:v37];
 
-      v41 = [MEMORY[0x277CE9778] copyVCardRepresentationOfRecord:v13->_abRecord withPhoto:v27 extraPhotoParameters:v26];
-      [(CardDAVVCardItemABImplementation *)v13 setDataPayload:v41];
+      v38 = [MEMORY[0x277CE9778] copyVCardRepresentationOfRecord:v13->_abRecord withPhoto:v27 extraPhotoParameters:v26];
+      [(CardDAVVCardItemABImplementation *)v13 setDataPayload:v38];
 
       dataPayload = [(CardDAVVCardItemABImplementation *)v13 dataPayload];
 
@@ -157,17 +158,17 @@ LABEL_35:
       }
 
       dataPayload2 = [(CardDAVVCardItemABImplementation *)v13 dataPayload];
-      v44 = [dataPayload2 length];
+      v41 = [dataPayload2 length];
 
-      if (!(v14 & 1 | (v44 <= resourceSize)))
+      if (!(v14 & 1 | (v41 <= resourceSize)))
       {
-        v45 = [v27 length];
+        v42 = [v27 length];
         v14 = 0;
         if (v27)
         {
-          if (v45 > v44 - resourceSize)
+          if (v42 > v41 - resourceSize)
           {
-            [(CardDAVVCardItemABImplementation *)v13 setDataPayload:0, v49];
+            [(CardDAVVCardItemABImplementation *)v13 setDataPayload:0, v45];
             [(CardDAVVCardItemABImplementation *)v13 setClientID:0];
             [(CardDAVVCardItemABImplementation *)v13 setServerID:0];
             [(CardDAVVCardItemABImplementation *)v13 setSyncKey:0];
@@ -186,10 +187,10 @@ LABEL_44:
       }
     }
 
-    v21 = ABRecordCopyValue(abRecord, v62);
+    v21 = ABRecordCopyValue(abRecord, v58);
     [(CardDAVVCardItemABImplementation *)v13 setSyncKey:v21];
 
-    v22 = ABRecordCopyValue(v13->_abRecord, v61);
+    v22 = ABRecordCopyValue(v13->_abRecord, v57);
     v19 = v22;
     if (v22)
     {
@@ -197,12 +198,12 @@ LABEL_44:
       [(CardDAVVCardItemABImplementation *)v13 setServerID:v23];
     }
 
-    v24 = ABRecordCopyValue(v13->_abRecord, v60);
+    v24 = ABRecordCopyValue(v13->_abRecord, v56);
     v20 = v24;
     if (failed)
     {
       date = [MEMORY[0x277CBEAA8] date];
-      ABRecordSetValue(v13->_abRecord, v60, date, 0);
+      ABRecordSetValue(v13->_abRecord, v56, date, 0);
       if (saveCopy)
       {
         *saveCopy = 1;
@@ -211,20 +212,18 @@ LABEL_44:
 
     else if (!v24 || ([v24 timeIntervalSinceNow], v28 > 86400.0))
     {
-      v69 = 0;
-      v68 = 0;
-      v67 = 0;
-      v29 = ABRecordCopyValue(v13->_abRecord, v58);
-      v30 = v13->_abRecord;
-      v49 = &v67;
+      v65 = 0;
+      v64 = 0;
+      v63 = 0;
+      v29 = ABRecordCopyValue(v13->_abRecord, v54);
+      v45 = &v63;
       v27 = DAGetSyncImageForPerson();
-      if (v27 && v69 == 1)
+      if (v27 && v65 == 1)
       {
-        v31 = v13->_abRecord;
         ABPersonSetImageDataDerivedFromFormatAndReturnError();
         if (v29)
         {
-          ABRecordSetValue(v13->_abRecord, v58, v29, 0);
+          ABRecordSetValue(v13->_abRecord, v54, v29, 0);
         }
 
         if (saveCopy)
@@ -235,16 +234,15 @@ LABEL_44:
 
       if (v29)
       {
-        v32 = v13->_abRecord;
         DerivedFromFormatFromImageWithFormat = ABPersonGetDerivedFromFormatFromImageWithFormat();
         if (DerivedFromFormatFromImageWithFormat != 2)
         {
-          v33 = DALoggingwithCategory();
-          if (os_log_type_enabled(v33, type))
+          v30 = DALoggingwithCategory();
+          if (os_log_type_enabled(v30, type))
           {
             *buf = 67109120;
-            v72 = DerivedFromFormatFromImageWithFormat;
-            _os_log_impl(&dword_24850D000, v33, type, "[Likeness Update] SyncImage derived from unexpected format. (%u)", buf, 8u);
+            v68 = DerivedFromFormatFromImageWithFormat;
+            _os_log_impl(&dword_24850D000, v30, type, "[Likeness Update] SyncImage derived from unexpected format. (%u)", buf, 8u);
           }
         }
       }
@@ -252,25 +250,25 @@ LABEL_44:
       if (v27)
       {
         CC_MD5([v27 bytes], objc_msgSend(v27, "length"), buf);
-        v34 = CFDataCreate(allocator, buf, 16);
-        v35 = v34;
+        v31 = CFDataCreate(allocator, buf, 16);
+        v32 = v31;
         v26 = 0;
-        if (v67 && v34)
+        if (v63 && v31)
         {
-          v36 = objc_alloc(MEMORY[0x277CCACA8]);
-          v53 = HIDWORD(v68);
-          v54 = v36;
-          v52 = v68;
-          v51 = HIDWORD(v67);
-          v37 = lCopy;
-          v38 = v67;
-          [(__CFData *)v35 base64EncodedStringWithOptions:0];
-          v39 = v55 = v29;
-          v50 = v38;
-          lCopy = v37;
-          v26 = [v54 initWithFormat:@"X-ABCROP-RECTANGLE=ABClipRect_1&%d&%d&%d&%d&%@", v53, v52, v51, v50, v39];
+          v33 = objc_alloc(MEMORY[0x277CCACA8]);
+          v49 = HIDWORD(v64);
+          v50 = v33;
+          v48 = v64;
+          v47 = HIDWORD(v63);
+          v34 = lCopy;
+          v35 = v63;
+          [(__CFData *)v32 base64EncodedStringWithOptions:0];
+          v36 = v51 = v29;
+          v46 = v35;
+          lCopy = v34;
+          v26 = [v50 initWithFormat:@"X-ABCROP-RECTANGLE=ABClipRect_1&%d&%d&%d&%d&%@", v49, v48, v47, v46, v36];
 
-          v29 = v55;
+          v29 = v51;
         }
       }
 
@@ -292,7 +290,6 @@ LABEL_34:
 
 LABEL_45:
 
-  v47 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -340,7 +337,7 @@ LABEL_45:
 - (unint64_t)saveWithLocalObject:(id)object toContainer:(id)container containerURL:(id)l shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account shouldSaveGroups:(BOOL)groups
 {
   propertiesCopy = properties;
-  v121 = *MEMORY[0x277D85DE8];
+  v120 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   containerCopy = container;
   lCopy = l;
@@ -364,7 +361,7 @@ LABEL_45:
 
   selfCopy = self;
   v21 = accountCopy;
-  v113 = a2;
+  v112 = a2;
   v22 = lCopy;
   if ([objectCopy isContact])
   {
@@ -396,7 +393,7 @@ LABEL_11:
     v29 = 0;
   }
 
-  v115 = v29;
+  v114 = v29;
   v30 = !propertiesCopy;
   if ([v21 supportsWallpaperSync])
   {
@@ -431,7 +428,7 @@ LABEL_11:
       else
       {
         currentHandler = [MEMORY[0x277CCA890] currentHandler];
-        [currentHandler handleFailureInMethod:v113 object:self file:@"CardDAVVCardItemABImplementation.m" lineNumber:330 description:@"Error: unrecognized record type"];
+        [currentHandler handleFailureInMethod:v112 object:self file:@"CardDAVVCardItemABImplementation.m" lineNumber:330 description:@"Error: unrecognized record type"];
       }
     }
 
@@ -447,14 +444,14 @@ LABEL_11:
 
     if ([(CardDAVVCardItemABImplementation *)self abRecordType])
     {
-      v114 = 0;
-      v116 = 0;
+      v113 = 0;
+      v115 = 0;
     }
 
     else
     {
-      v116 = ABRecordCopyValue(v28, *MEMORY[0x277CE98E0]);
-      v114 = ABRecordCopyValue(v28, *MEMORY[0x277CE9A68]);
+      v115 = ABRecordCopyValue(v28, *MEMORY[0x277CE98E0]);
+      v113 = ABRecordCopyValue(v28, *MEMORY[0x277CE9A68]);
     }
 
     v25 = v34;
@@ -475,7 +472,7 @@ LABEL_42:
     if ([(CardDAVVCardItemABImplementation *)self abRecordType])
     {
 LABEL_101:
-      if ((v115 & localRecordHasAdditionalProperties) == 1)
+      if ((v114 & localRecordHasAdditionalProperties) == 1)
       {
         if ([(CardDAVVCardItemABImplementation *)self abRecordType])
         {
@@ -535,21 +532,21 @@ LABEL_101:
       goto LABEL_116;
     }
 
-    v108 = v45;
-    v107 = containerCopy;
+    v107 = v45;
+    v106 = containerCopy;
     v47 = accountCopy;
-    v48 = v116;
-    v111 = v25;
+    v48 = v115;
+    v110 = v25;
     property = *MEMORY[0x277CE98E0];
     v49 = ABRecordCopyValue(v43, *MEMORY[0x277CE98E0]);
     persona = v43;
-    v106 = localRecordHasAdditionalProperties;
+    v105 = localRecordHasAdditionalProperties;
     if (v48 != 0) == (v49 != 0) && (!v48 || ([v48 isEqualToString:v49]))
     {
 LABEL_79:
 
       v70 = v47;
-      v71 = v114;
+      v71 = v113;
       v72 = *MEMORY[0x277CE9A68];
       v73 = ABRecordCopyValue(v43, *MEMORY[0x277CE9A68]);
       if (v71 != 0) == (v73 != 0) && (!v71 || ([v71 isEqualToString:v73]))
@@ -557,15 +554,15 @@ LABEL_79:
         goto LABEL_100;
       }
 
-      v112 = objectCopy;
+      v111 = objectCopy;
       v74 = MEMORY[0x277CE9A60];
       propertya = v70;
       if (v73 && ([MEMORY[0x277CBEBC0] URLWithString:v73], (v75 = objc_claimAutoreleasedReturnValue()) != 0))
       {
         v76 = v75;
-        v118 = 0;
-        v77 = [propertya copyImageContentsAtURL:v75 outError:&v118];
-        v78 = v118;
+        v117 = 0;
+        v77 = [propertya copyImageContentsAtURL:v75 outError:&v117];
+        v78 = v117;
 
         if (v77)
         {
@@ -595,7 +592,7 @@ LABEL_79:
             if (os_log_type_enabled(v84, v85))
             {
               *buf = 138412290;
-              v120 = v78;
+              v119 = v78;
               _os_log_impl(&dword_24850D000, v84, v85, "Not saving wallpaper for contact, as wallpaper download failed with error %@", buf, 0xCu);
             }
 
@@ -615,37 +612,37 @@ LABEL_79:
 
       v86 = *v74;
       ABRecordRemoveValue(persona, *v74, 0);
-      v108 &= ABRecordSetValue(persona, v86, v77, 0);
+      v107 &= ABRecordSetValue(persona, v86, v77, 0);
       ABRecordSetValue(persona, v72, v73, 0);
 LABEL_99:
-      objectCopy = v112;
+      objectCopy = v111;
       v70 = propertya;
 
       self = selfCopy;
       v43 = persona;
 LABEL_100:
-      localRecordHasAdditionalProperties = v106;
+      localRecordHasAdditionalProperties = v105;
 
-      containerCopy = v107;
-      v45 = v108;
+      containerCopy = v106;
+      v45 = v107;
       goto LABEL_101;
     }
 
-    v101 = v47;
-    v102 = v48;
+    v100 = v47;
+    v101 = v48;
     if (v49)
     {
       v50 = [MEMORY[0x277CBEBC0] URLWithString:v49];
       if (v50)
       {
         v51 = v50;
-        v118 = 0;
-        v52 = [v47 copyImageContentsAtURL:v50 outError:&v118];
-        v53 = v118;
+        v117 = 0;
+        v52 = [v47 copyImageContentsAtURL:v50 outError:&v117];
+        v53 = v117;
 
         if (v52)
         {
-          v103 = v53;
+          v102 = v53;
           v54 = ABPersonCopyImageDataWithFormat(persona, 5u);
           v55 = v54;
           if (v54 && [(__CFData *)v54 isEqualToData:v52])
@@ -665,35 +662,35 @@ LABEL_67:
           ABPersonRemoveImageData(persona, 0);
           if ([v52 length])
           {
-            lastCropRectChecksum = [v111 lastCropRectChecksum];
+            lastCropRectChecksum = [v110 lastCropRectChecksum];
             if ([lastCropRectChecksum length])
             {
               CC_MD5([v52 bytes], objc_msgSend(v52, "length"), buf);
               v64 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:buf length:16];
               if ([v64 isEqualToData:lastCropRectChecksum])
               {
-                HIDWORD(v99) = [v111 lastCropRectX];
-                LODWORD(v99) = [v111 lastCropRectY];
-                lastCropRectWidth = [v111 lastCropRectWidth];
-                lastCropRectHeight = [v111 lastCropRectHeight];
+                HIDWORD(v98) = [v110 lastCropRectX];
+                LODWORD(v98) = [v110 lastCropRectY];
+                lastCropRectWidth = [v110 lastCropRectWidth];
+                lastCropRectHeight = [v110 lastCropRectHeight];
                 if (lastCropRectWidth)
                 {
                   if (lastCropRectHeight)
                   {
                     v67 = v64;
                     v68 = persona;
-                    v100 = ABPersonSetImageDataWithInvertedCropRect();
-                    v108 &= ABPersonSetImageDataDerivedFromFormatAndReturnError() & v100;
+                    v99 = ABPersonSetImageDataWithInvertedCropRect();
+                    v107 &= ABPersonSetImageDataDerivedFromFormatAndReturnError() & v99;
 
 LABEL_76:
                     ABRecordSetValue(v68, property, v49, 0);
                     ABRecordRemoveValue(v68, *MEMORY[0x277CE98D8], 0);
 LABEL_77:
-                    v47 = v101;
+                    v47 = v100;
 LABEL_78:
 
                     v43 = persona;
-                    v48 = v102;
+                    v48 = v101;
                     goto LABEL_79;
                   }
                 }
@@ -703,19 +700,19 @@ LABEL_78:
 
           v68 = persona;
           v69 = ABPersonSetImageData(persona, v52, 0);
-          v108 &= ABPersonSetImageDataAndCropRect() & v69;
+          v107 &= ABPersonSetImageDataAndCropRect() & v69;
           goto LABEL_76;
         }
 
         if (v53)
         {
-          v103 = v53;
+          v102 = v53;
           v61 = DALoggingwithCategory();
           v62 = *(MEMORY[0x277D03988] + 3);
           if (os_log_type_enabled(v61, v62))
           {
             *buf = 138412290;
-            v120 = v53;
+            v119 = v53;
             _os_log_impl(&dword_24850D000, v61, v62, "Not saving image for contact, as image download failed with error %@", buf, 0xCu);
           }
 
@@ -726,7 +723,7 @@ LABEL_78:
     }
 
     v52 = 0;
-    v103 = 0;
+    v102 = 0;
     goto LABEL_67;
   }
 
@@ -783,8 +780,8 @@ LABEL_55:
         v60 = [[DAABLegacyGroup alloc] initWithGroup:self->_abRecord];
         [(CardDAVVCardItemABImplementation *)self setCardDAVRecordItem:v60];
 
-        v114 = 0;
-        v116 = 0;
+        v113 = 0;
+        v115 = 0;
         localRecordHasAdditionalProperties = 0;
         lCopy = person;
         objectCopy = 0;
@@ -799,8 +796,8 @@ LABEL_55:
           [(CardDAVVCardItemABImplementation *)self setCardDAVRecordItem:v59];
         }
 
-        v114 = 0;
-        v116 = 0;
+        v113 = 0;
+        v115 = 0;
         localRecordHasAdditionalProperties = 0;
         objectCopy = 0;
       }
@@ -816,7 +813,7 @@ LABEL_55:
   {
     dataPayload2 = [(CardDAVVCardItemABImplementation *)self dataPayload];
     *buf = 138412290;
-    v120 = dataPayload2;
+    v119 = dataPayload2;
     _os_log_impl(&dword_24850D000, v39, v40, "Unable to parse the contact with this data %@", buf, 0xCu);
   }
 
@@ -825,14 +822,21 @@ LABEL_55:
   objectCopy = 0;
 LABEL_116:
 
-  v97 = *MEMORY[0x277D85DE8];
   return v27;
+}
+
+- (BOOL)saveWithLocalObject:(void *)object toContainer:(void *)container shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"CardDAVVCardItemABImplementation.m" lineNumber:496 description:{@"Please read CardDAVVCardItem.h, and try again"}];
+
+  return 0;
 }
 
 - (BOOL)saveIfGroupWithLocalObject:(id)object toContainer:(id)container shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account
 {
   propertiesCopy = properties;
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   containerCopy = container;
   accountCopy = account;
@@ -890,7 +894,7 @@ LABEL_15:
   }
 
 LABEL_16:
-  v66 = v14;
+  v65 = v14;
   if (propertiesCopy)
   {
     v20 = objc_opt_new();
@@ -926,7 +930,7 @@ LABEL_16:
     while (v22 < [(__CFArray *)v21 count]);
   }
 
-  v14 = v66;
+  v14 = v65;
 LABEL_26:
   v25 = ABRecordCopyValue(abRecord, *MEMORY[0x277CE97E8]);
   if (!v25)
@@ -940,49 +944,49 @@ LABEL_26:
     goto LABEL_71;
   }
 
-  v65 = v25;
-  v67 = v14;
+  v64 = v25;
+  v66 = v14;
   v26 = MEMORY[0x277CCAAC8];
   v27 = MEMORY[0x277CBEB98];
   v28 = objc_opt_class();
   v29 = objc_opt_class();
   v30 = [v27 setWithObjects:{v28, v29, objc_opt_class(), 0}];
-  v86 = 0;
+  v85 = 0;
   v31 = v26;
-  v25 = v65;
-  v32 = [v31 unarchivedObjectOfClasses:v30 fromData:v65 error:&v86];
-  v63 = v86;
+  v25 = v64;
+  v32 = [v31 unarchivedObjectOfClasses:v30 fromData:v64 error:&v85];
+  v62 = v85;
 
   record = abRecord;
-  v64 = v32;
+  v63 = v32;
   if (v32)
   {
     v33 = [v32 objectForKeyedSubscript:@"X-ADDRESSBOOKSERVER-MEMBER"];
+    v81 = 0u;
     v82 = 0u;
     v83 = 0u;
     v84 = 0u;
-    v85 = 0u;
-    v77 = [v33 countByEnumeratingWithState:&v82 objects:v90 count:16];
-    if (!v77)
+    v76 = [v33 countByEnumeratingWithState:&v81 objects:v89 count:16];
+    if (!v76)
     {
-      v14 = v67;
+      v14 = v66;
       goto LABEL_62;
     }
 
-    v76 = *v83;
-    v73 = v33;
-    v69 = propertiesCopy;
-    v68 = v20;
+    v75 = *v82;
+    v72 = v33;
+    v68 = propertiesCopy;
+    v67 = v20;
     do
     {
-      for (i = 0; i != v77; ++i)
+      for (i = 0; i != v76; ++i)
       {
-        if (*v83 != v76)
+        if (*v82 != v75)
         {
           objc_enumerationMutation(v33);
         }
 
-        v35 = *(*(&v82 + 1) + 8 * i);
+        v35 = *(*(&v81 + 1) + 8 * i);
         v36 = [v35 length];
         if (v36 > [@"urn:uuid:" length] && !objc_msgSend(v35, "compare:options:range:", @"urn:uuid:", 1, 0, objc_msgSend(@"urn:uuid:", "length")))
         {
@@ -996,29 +1000,29 @@ LABEL_26:
 
             if ([v40 count])
             {
-              v72 = v37;
+              v71 = v37;
               v41 = objc_opt_new();
+              v77 = 0u;
               v78 = 0u;
               v79 = 0u;
               v80 = 0u;
-              v81 = 0u;
-              v71 = v40;
+              v70 = v40;
               v42 = v40;
-              v43 = [v42 countByEnumeratingWithState:&v78 objects:v89 count:16];
+              v43 = [v42 countByEnumeratingWithState:&v77 objects:v88 count:16];
               if (v43)
               {
                 v44 = v43;
-                v45 = *v79;
+                v45 = *v78;
                 do
                 {
                   for (j = 0; j != v44; ++j)
                   {
-                    if (*v79 != v45)
+                    if (*v78 != v45)
                     {
                       objc_enumerationMutation(v42);
                     }
 
-                    v47 = *(*(&v78 + 1) + 8 * j);
+                    v47 = *(*(&v77 + 1) + 8 * j);
                     databaseHelper = [v15 databaseHelper];
                     PersonWithRecordID = ABAddressBookGetPersonWithRecordID([databaseHelper abDB], objc_msgSend(v47, "intValue"));
 
@@ -1028,17 +1032,17 @@ LABEL_26:
                     }
                   }
 
-                  v44 = [v42 countByEnumeratingWithState:&v78 objects:v89 count:16];
+                  v44 = [v42 countByEnumeratingWithState:&v77 objects:v88 count:16];
                 }
 
                 while (v44);
               }
 
-              propertiesCopy = v69;
+              propertiesCopy = v68;
               abRecord = record;
-              v40 = v71;
-              v20 = v68;
-              v37 = v72;
+              v40 = v70;
+              v20 = v67;
+              v37 = v71;
             }
           }
 
@@ -1068,15 +1072,15 @@ LABEL_26:
             while (v53 < [v52 count]);
           }
 
-          v33 = v73;
+          v33 = v72;
           self = selfCopy;
         }
       }
 
-      v77 = [v33 countByEnumeratingWithState:&v82 objects:v90 count:16];
+      v76 = [v33 countByEnumeratingWithState:&v81 objects:v89 count:16];
     }
 
-    while (v77);
+    while (v76);
   }
 
   else
@@ -1086,19 +1090,19 @@ LABEL_26:
     if (os_log_type_enabled(v33, v56))
     {
       *buf = 138412290;
-      v57 = v63;
-      v88 = v63;
+      v57 = v62;
+      v87 = v62;
       _os_log_impl(&dword_24850D000, v33, v56, "Unable to decode properties: %@", buf, 0xCu);
-      v25 = v65;
-      v14 = v67;
+      v25 = v64;
+      v14 = v66;
       goto LABEL_63;
     }
   }
 
-  v25 = v65;
-  v14 = v67;
+  v25 = v64;
+  v14 = v66;
 LABEL_62:
-  v57 = v63;
+  v57 = v62;
 LABEL_63:
 
   if (propertiesCopy && [v20 count])
@@ -1109,7 +1113,7 @@ LABEL_63:
     if (os_log_type_enabled(v59, v60))
     {
       *buf = 138412290;
-      v88 = v58;
+      v87 = v58;
       _os_log_impl(&dword_24850D000, v59, v60, "Found local members in the group %@ that didn't exist on the server. This group will get pushed to the server", buf, 0xCu);
     }
 
@@ -1119,12 +1123,11 @@ LABEL_63:
     }
 
     ABRecordRemoveValue(record, *MEMORY[0x277CE97E0], 0);
-    v25 = v65;
-    v14 = v67;
+    v25 = v64;
+    v14 = v66;
   }
 
 LABEL_71:
-  v61 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1235,7 +1238,7 @@ LABEL_11:
 
 - (id)convertToDAContactSearchResultElement
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CE9780]);
   dataPayload = [(CardDAVVCardItemABImplementation *)self dataPayload];
   v5 = [v3 initWithData:dataPayload];
@@ -1252,11 +1255,11 @@ LABEL_11:
     else
     {
       v8 = objc_opt_new();
-      v54 = ABRecordCopyValue(v7, *MEMORY[0x277CE9880]);
+      v53 = ABRecordCopyValue(v7, *MEMORY[0x277CE9880]);
       [v8 setDisplayName:?];
-      v53 = ABRecordCopyValue(v7, *MEMORY[0x277CE98C0]);
+      v52 = ABRecordCopyValue(v7, *MEMORY[0x277CE98C0]);
       [v8 setFirstName:?];
-      v52 = ABRecordCopyValue(v7, *MEMORY[0x277CE9980]);
+      v51 = ABRecordCopyValue(v7, *MEMORY[0x277CE9980]);
       [v8 setLastName:?];
       v9 = ABRecordCopyValue(v7, *MEMORY[0x277CE9888]);
       if (v9)
@@ -1282,12 +1285,12 @@ LABEL_11:
           v16 = 0;
           v17 = *MEMORY[0x277CE9AE8];
           v18 = *MEMORY[0x277CE9A08];
-          v55 = *MEMORY[0x277CE9800];
-          v51 = *MEMORY[0x277CE99F8];
-          v50 = *MEMORY[0x277CE9A00];
-          v49 = *MEMORY[0x277CE99F0];
-          v48 = *MEMORY[0x277CE9A28];
-          v47 = *MEMORY[0x277CE9A10];
+          v54 = *MEMORY[0x277CE9800];
+          v50 = *MEMORY[0x277CE99F8];
+          v49 = *MEMORY[0x277CE9A00];
+          v48 = *MEMORY[0x277CE99F0];
+          v47 = *MEMORY[0x277CE9A28];
+          v46 = *MEMORY[0x277CE9A10];
           type = *(MEMORY[0x277D03988] + 3);
           do
           {
@@ -1303,32 +1306,32 @@ LABEL_11:
               [v8 setMobilePhone:v20];
             }
 
-            else if ([(__CFString *)v19 isEqualToString:v55])
+            else if ([(__CFString *)v19 isEqualToString:v54])
             {
               [v8 setHomePhone:v20];
             }
 
-            else if ([(__CFString *)v19 isEqualToString:v51])
+            else if ([(__CFString *)v19 isEqualToString:v50])
             {
               [v8 setIPhone:v20];
             }
 
-            else if ([(__CFString *)v19 isEqualToString:v50])
+            else if ([(__CFString *)v19 isEqualToString:v49])
             {
               [v8 setMainPhone:v20];
             }
 
-            else if ([(__CFString *)v19 isEqualToString:v49])
+            else if ([(__CFString *)v19 isEqualToString:v48])
             {
               [v8 setFaxPhone:v20];
             }
 
-            else if ([(__CFString *)v19 isEqualToString:v48])
+            else if ([(__CFString *)v19 isEqualToString:v47])
             {
               [v8 setWorkFaxPhone:v20];
             }
 
-            else if ([(__CFString *)v19 isEqualToString:v47])
+            else if ([(__CFString *)v19 isEqualToString:v46])
             {
               [v8 setPagerNumber:v20];
             }
@@ -1339,7 +1342,7 @@ LABEL_11:
               if (os_log_type_enabled(log, type))
               {
                 *buf = 138412290;
-                v58 = v19;
+                v57 = v19;
                 _os_log_impl(&dword_24850D000, log, type, "Unknown phone number label %@", buf, 0xCu);
               }
             }
@@ -1406,7 +1409,7 @@ LABEL_11:
         {
           v37 = ABMultiValueCopyValueAtIndex(v36, 0);
           [v37 objectForKeyedSubscript:*MEMORY[0x277CE9920]];
-          v56 = v23;
+          v55 = v23;
           v38 = v22;
           v40 = v39 = v21;
           [v8 setImService:v40];
@@ -1416,7 +1419,7 @@ LABEL_11:
 
           v21 = v39;
           v22 = v38;
-          v23 = v56;
+          v23 = v55;
         }
 
         CFRelease(v36);
@@ -1433,8 +1436,6 @@ LABEL_11:
 
   emailAddress = [v8 emailAddress];
   [v8 setIdentifierOnServer:emailAddress];
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

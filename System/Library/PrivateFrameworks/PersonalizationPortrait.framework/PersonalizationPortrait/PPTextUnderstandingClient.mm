@@ -98,41 +98,36 @@ void __98__PPTextUnderstandingClient_spotlightAttributesForBundleId_spotlightIde
 
 void __33__PPTextUnderstandingClient_init__block_invoke_67()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v0 = pp_xpc_client_log_handle();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
   {
-    v2 = 138412290;
-    v3 = @"com.apple.proactive.PersonalizationPortrait.TextUnderstanding";
-    _os_log_impl(&dword_1A7FD3000, v0, OS_LOG_TYPE_INFO, "Connection to %@ invalidated.", &v2, 0xCu);
+    v1 = 138412290;
+    v2 = @"com.apple.proactive.PersonalizationPortrait.TextUnderstanding";
+    _os_log_impl(&dword_1A7FD3000, v0, OS_LOG_TYPE_INFO, "Connection to %@ invalidated.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 void __33__PPTextUnderstandingClient_init__block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v0 = pp_xpc_client_log_handle();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    v2 = 138412290;
-    v3 = @"com.apple.proactive.PersonalizationPortrait.TextUnderstanding";
-    _os_log_error_impl(&dword_1A7FD3000, v0, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v2, 0xCu);
+    v1 = 138412290;
+    v2 = @"com.apple.proactive.PersonalizationPortrait.TextUnderstanding";
+    _os_log_error_impl(&dword_1A7FD3000, v0, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 void __43__PPTextUnderstandingClient_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult;
-  sharedInstance__pasExprOnceResult = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult;
+  sharedInstance__pasExprOnceResult = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

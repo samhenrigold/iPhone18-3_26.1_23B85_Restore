@@ -53,43 +53,33 @@
     }
   }
 
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __198__PXStoryConcreteTimelineStyle_sortedCropContentsRectsForMultipartPanoramaWithDisplayAsset_startTime_proposedCropContentsRects_axis_normalizedKenBurnsEffectParameters_durationInfos_transitionInfos___block_invoke;
-  v38[3] = &__block_descriptor_48_e29_q24__0__NSValue_8__NSValue_16l;
-  v38[4] = axis;
-  v38[5] = v15;
-  v16 = [rects sortedArrayUsingComparator:v38];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __198__PXStoryConcreteTimelineStyle_sortedCropContentsRectsForMultipartPanoramaWithDisplayAsset_startTime_proposedCropContentsRects_axis_normalizedKenBurnsEffectParameters_durationInfos_transitionInfos___block_invoke;
+  v27[3] = &__block_descriptor_48_e29_q24__0__NSValue_8__NSValue_16l;
+  v27[4] = axis;
+  v27[5] = v15;
+  v16 = [rects sortedArrayUsingComparator:v27];
   v17 = [v16 count];
   v18 = [(PXStoryConcreteTimelineStyle *)self _clipForDisplayAsset:assetCopy];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v31 = 0u;
   resourcesDataSource = [assetCopy resourcesDataSource];
   croppingContext = [resourcesDataSource croppingContext];
-  v28 = *&time->var0;
-  *&v29 = time->var3;
-  [(PXStoryConcreteTimelineStyle *)self _durationInfoForClip:v18 startTime:&v28 croppingContext:croppingContext];
+  v24 = *&time->var0;
+  *&v25 = time->var3;
+  objc_msgSend__durationInfoForClip_startTime_croppingContext_(self);
 
   if (v17 >= 1)
   {
     v21 = v17;
     do
     {
-      v22 = v36;
-      *&infos->var2.var3 = v35;
-      *&infos->var3.var0.var1 = v22;
-      *&infos->var3.var1 = v37;
-      v23 = v32;
-      *&infos->var0.var0 = v31;
-      *&infos->var0.var3 = v23;
-      v24 = v34;
-      *&infos->var1.var1 = v33;
-      *&infos->var2.var0 = v24;
+      *&infos->var2.var3 = 0u;
+      *&infos->var3.var0.var1 = 0u;
+      *&infos->var3.var1 = 0u;
+      *&infos->var0.var0 = 0u;
+      *&infos->var0.var3 = 0u;
+      *&infos->var1.var1 = 0u;
+      *&infos->var2.var0 = 0u;
       ++infos;
       --v21;
     }
@@ -97,12 +87,12 @@
     while (v21);
   }
 
-  v25 = &transitionInfos->var0 + 40 * v17;
-  -[PXStoryConcreteTimelineStyle _transitionInfoForClip:isKeyAsset:](self, "_transitionInfoForClip:isKeyAsset:", v18, [assetCopy resourceIndex] == -1);
-  v26 = v29;
-  *(v25 - 40) = v28;
-  *(v25 - 24) = v26;
-  *(v25 - 1) = v30;
+  v22 = &transitionInfos->var0 + 40 * v17;
+  [assetCopy resourceIndex];
+  objc_msgSend__transitionInfoForClip_isKeyAsset_(self);
+  *(v22 - 40) = v24;
+  *(v22 - 24) = v25;
+  *(v22 - 1) = v26;
 
   return v16;
 }
@@ -297,7 +287,7 @@ void __73__PXStoryConcreteTimelineStyle__ensureDefaultMultipartPanoramaParameter
     v7 = v6;
     if (v6)
     {
-      [v6 audioInfo];
+      objc_msgSend_audioInfo(v6);
     }
 
     else
@@ -362,7 +352,7 @@ void __73__PXStoryConcreteTimelineStyle__ensureDefaultMultipartPanoramaParameter
       goto LABEL_44;
     }
 
-    [assetCopy transitionInfo];
+    objc_msgSend_transitionInfo(assetCopy);
     if (v5)
     {
       v16 = 2;
@@ -480,10 +470,13 @@ LABEL_44:
 {
   v6 = a5;
   v7 = [(PXStoryConcreteTimelineStyle *)self _clipForDisplayAssets:v6];
-  v10 = v6;
-  v8 = [v10 count] == 1 && *objc_msgSend(v10, "resourceIndexes") == -1;
+  v9 = v6;
+  if ([v9 count] == 1)
+  {
+    [v9 resourceIndexes];
+  }
 
-  [(PXStoryConcreteTimelineStyle *)self _transitionInfoForClip:v7 isKeyAsset:v8];
+  objc_msgSend__transitionInfoForClip_isKeyAsset_(self);
 
   return result;
 }
@@ -715,28 +708,28 @@ LABEL_15:
 
 void __244__PXStoryConcreteTimelineStyle_enumerateAllowedKenBurnsEffectParametersForSegmentWithClipComposition_displayAssets_assetContentInfos_finalPlaybackStyles_startTime_durationInfo_separatorEffectParameters_separatorEffectContext_buffer_usingBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *(a1 + 144);
-  v61 = *(a1 + 128);
-  v62 = v5;
-  v63 = *(a1 + 160);
+  v60 = *(a1 + 128);
+  v61 = v5;
+  v62 = *(a1 + 160);
   v6 = *(a1 + 80);
-  v57 = *(a1 + 64);
-  v58 = v6;
+  v56 = *(a1 + 64);
+  v57 = v6;
   v7 = *(a1 + 112);
-  v59 = *(a1 + 96);
-  v60 = v7;
-  [v4 effectiveMovementDurationForDurationInfo:&v57];
+  v58 = *(a1 + 96);
+  v59 = v7;
+  [v4 effectiveMovementDurationForDurationInfo:&v56];
   [*(a1 + 32) _kenBurnsMotionParametersForDuration:?];
   v9 = v8;
   v11 = v10;
   v13 = v12;
-  *&v57 = v8;
-  *(&v57 + 1) = v14;
-  *&v58 = v10;
-  *(&v58 + 1) = v12;
+  *&v56 = v8;
+  *(&v56 + 1) = v14;
+  *&v57 = v10;
+  *(&v57 + 1) = v12;
   v15 = [*(*(a1 + 32) + 200) nextUnsignedIntegerLessThan:2];
   v16 = *(a1 + 40);
   v17 = [v16 numberOfClips];
@@ -760,100 +753,100 @@ void __244__PXStoryConcreteTimelineStyle_enumerateAllowedKenBurnsEffectParameter
     v22 = [MEMORY[0x1E696AC90] indexSetWithIndexesInRange:{0, objc_msgSend(*(a1 + 48), "count")}];
     v27 = [*(a1 + 48) objectsAtIndexes:v22];
     v28 = *(*(a1 + 32) + 272);
-    v29 = [*(a1 + 40) numberOfClips];
+    [*(a1 + 40) numberOfClips];
     if (v28)
     {
-      [v28 nextMotionInfoForDisplayAssetCount:v29 displayAssets:v27];
+      objc_msgSend_nextMotionInfoForDisplayAssetCount_displayAssets_(v28);
     }
 
     else
     {
       memset(buf, 0, sizeof(buf));
-      v65 = 0;
+      v64 = 0;
     }
 
-    v55 = *buf;
-    v56 = v65;
-    v34 = PLStoryGetLog();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v54 = *buf;
+    v55 = v64;
+    v33 = PLStoryGetLog();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
     {
-      *buf = v55;
-      v65 = v56;
-      v35 = PXStoryAutoEditClipMotionInfoDescription(buf);
+      *buf = v54;
+      v64 = v55;
+      v34 = PXStoryAutoEditClipMotionInfoDescription(buf);
       *buf = 138412290;
-      *&buf[4] = v35;
-      _os_log_impl(&dword_1A3C1C000, v34, OS_LOG_TYPE_DEBUG, "Does not allow default ken burns. Falling back to %@", buf, 0xCu);
+      *&buf[4] = v34;
+      _os_log_impl(&dword_1A3C1C000, v33, OS_LOG_TYPE_DEBUG, "Does not allow default ken burns. Falling back to %@", buf, 0xCu);
     }
 
 LABEL_28:
-    v36 = [*(a1 + 40) numberOfClips];
-    switch(v36)
+    v35 = [*(a1 + 40) numberOfClips];
+    switch(v35)
     {
       case 3:
-        if (v55 != 3)
+        if (v54 != 3)
         {
-          if (v55 == 1)
+          if (v54 == 1)
           {
-            v52 = [*(a1 + 40) dividerAxes];
-            if (*v52 != v52[1])
+            v51 = [*(a1 + 40) dividerAxes];
+            if (*v51 != v51[1])
             {
               goto LABEL_78;
             }
 
-            v53 = 1;
+            v52 = 1;
             if (*(*(a1 + 32) + 16))
             {
-              v53 = 2;
+              v52 = 2;
             }
 
-            v54 = *(&v55 + 1) == v53 || *(&v55 + 1) == 4;
-            v42 = 1.0;
-            if (v54)
+            v53 = *(&v54 + 1) == v52 || *(&v54 + 1) == 4;
+            v41 = 1.0;
+            if (v53)
             {
-              v42 = -1.0;
+              v41 = -1.0;
             }
 
-            if (v56 != 1)
+            if (v55 != 1)
             {
-              if (v56 != 2)
+              if (v55 != 2)
               {
-                if (v56)
+                if (v55)
                 {
                   goto LABEL_5;
                 }
 
-                v43 = [MEMORY[0x1E696AAA8] currentHandler];
-                v44 = v43;
-                v45 = *(a1 + 184);
-                v46 = *(a1 + 32);
-                v47 = 993;
+                v42 = [MEMORY[0x1E696AAA8] currentHandler];
+                v43 = v42;
+                v44 = *(a1 + 184);
+                v45 = *(a1 + 32);
+                v46 = 993;
                 goto LABEL_73;
               }
 
 LABEL_82:
-              [v3 getParameters:*(a1 + 176) forOppositePansWithDistance:v42 * v9];
+              [v3 getParameters:*(a1 + 176) forOppositePansWithDistance:v41 * v9];
               goto LABEL_5;
             }
 
 LABEL_83:
-            [v3 getParameters:*(a1 + 176) forParallelPansWithDistance:v42 * v9];
+            [v3 getParameters:*(a1 + 176) forParallelPansWithDistance:v41 * v9];
             goto LABEL_5;
           }
 
-          if (!v55)
+          if (!v54)
           {
             goto LABEL_78;
           }
 
-          v48 = PLStoryGetLog();
-          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+          v47 = PLStoryGetLog();
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
           {
-            v49 = PFStoryRecipeClipMotionStyleDescription();
+            v48 = PFStoryRecipeClipMotionStyleDescription();
             *buf = 138412290;
-            *&buf[4] = v49;
-            v50 = "Unsupported 3-up motion style: %@";
+            *&buf[4] = v48;
+            v49 = "Unsupported 3-up motion style: %@";
 LABEL_76:
-            _os_log_impl(&dword_1A3C1C000, v48, OS_LOG_TYPE_DEBUG, v50, buf, 0xCu);
+            _os_log_impl(&dword_1A3C1C000, v47, OS_LOG_TYPE_DEBUG, v49, buf, 0xCu);
           }
 
 LABEL_77:
@@ -863,44 +856,44 @@ LABEL_77:
 
         break;
       case 2:
-        if (v55 <= 1)
+        if (v54 <= 1)
         {
-          if (!v55)
+          if (!v54)
           {
             goto LABEL_78;
           }
 
-          if (v55 == 1)
+          if (v54 == 1)
           {
-            v40 = 1;
+            v39 = 1;
             if (*(*(a1 + 32) + 16))
             {
-              v40 = 2;
+              v39 = 2;
             }
 
-            v41 = *(&v55 + 1) == v40 || *(&v55 + 1) == 4;
-            v42 = 1.0;
-            if (v41)
+            v40 = *(&v54 + 1) == v39 || *(&v54 + 1) == 4;
+            v41 = 1.0;
+            if (v40)
             {
-              v42 = -1.0;
+              v41 = -1.0;
             }
 
-            if (v56 != 1)
+            if (v55 != 1)
             {
-              if (v56 != 2)
+              if (v55 != 2)
               {
-                if (v56)
+                if (v55)
                 {
                   goto LABEL_5;
                 }
 
-                v43 = [MEMORY[0x1E696AAA8] currentHandler];
-                v44 = v43;
-                v45 = *(a1 + 184);
-                v46 = *(a1 + 32);
-                v47 = 947;
+                v42 = [MEMORY[0x1E696AAA8] currentHandler];
+                v43 = v42;
+                v44 = *(a1 + 184);
+                v45 = *(a1 + 32);
+                v46 = 947;
 LABEL_73:
-                [v43 handleFailureInMethod:v45 object:v46 file:@"PXStoryConcreteStyle.m" lineNumber:v47 description:@"Relative pan direction is undefined"];
+                [v42 handleFailureInMethod:v44 object:v45 file:@"PXStoryConcreteStyle.m" lineNumber:v46 description:@"Relative pan direction is undefined"];
 
                 abort();
               }
@@ -912,35 +905,35 @@ LABEL_73:
           }
 
 LABEL_74:
-          v48 = PLStoryGetLog();
-          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+          v47 = PLStoryGetLog();
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
           {
-            v49 = PFStoryRecipeClipMotionStyleDescription();
+            v48 = PFStoryRecipeClipMotionStyleDescription();
             *buf = 138412290;
-            *&buf[4] = v49;
-            v50 = "Unsupported 2-up motion style: %@";
+            *&buf[4] = v48;
+            v49 = "Unsupported 2-up motion style: %@";
             goto LABEL_76;
           }
 
           goto LABEL_77;
         }
 
-        if (v55 == 2)
+        if (v54 == 2)
         {
           PXRectGetCenter();
         }
 
-        if (v55 != 3)
+        if (v54 != 3)
         {
           goto LABEL_74;
         }
 
         break;
       case 1:
-        v37 = *(a1 + 32);
-        v38 = *(a1 + 176);
-        v39 = [*(a1 + 48) firstObject];
-        [v37 _getOneUpKenBurnsParameters:v38 forDisplayAsset:v39 motionInfo:&v55 motionParameters:&v57 factory:v3];
+        v36 = *(a1 + 32);
+        v37 = *(a1 + 176);
+        v38 = [*(a1 + 48) firstObject];
+        [v36 _getOneUpKenBurnsParameters:v37 forDisplayAsset:v38 motionInfo:&v54 motionParameters:&v56 factory:v3];
 
 LABEL_5:
         v20 = *(*(a1 + 56) + 16);
@@ -953,13 +946,13 @@ LABEL_78:
         goto LABEL_79;
     }
 
-    v51 = -v11;
-    if (*(&v55 + 1) != 1)
+    v50 = -v11;
+    if (*(&v54 + 1) != 1)
     {
-      v51 = v11;
+      v50 = v11;
     }
 
-    [v3 getParameters:*(a1 + 176) forRotationWithAngle:v51 scale:v13];
+    [v3 getParameters:*(a1 + 176) forRotationWithAngle:v50 scale:v13];
     goto LABEL_5;
   }
 
@@ -988,9 +981,9 @@ LABEL_78:
         v26 = v25;
       }
 
-      *(&v55 + 1) = v26;
-      v56 = 0;
-      *&v55 = 2;
+      *(&v54 + 1) = v26;
+      v55 = 0;
+      *&v54 = 2;
       goto LABEL_58;
     }
   }
@@ -999,26 +992,26 @@ LABEL_78:
   {
   }
 
-  v30 = [*(a1 + 32) _clipForDisplayAssets:*(a1 + 48)];
-  v31 = [v30 displayAssets];
-  v32 = [v31 count];
-  v33 = [*(a1 + 40) numberOfClips];
+  v29 = [*(a1 + 32) _clipForDisplayAssets:*(a1 + 48)];
+  v30 = [v29 displayAssets];
+  v31 = [v30 count];
+  v32 = [*(a1 + 40) numberOfClips];
 
-  if (v32 == v33)
+  if (v31 == v32)
   {
-    if (v30)
+    if (v29)
     {
-      [v30 motionInfo];
+      objc_msgSend_motionInfo(v29);
     }
 
     else
     {
       memset(buf, 0, sizeof(buf));
-      v65 = 0;
+      v64 = 0;
     }
 
-    v55 = *buf;
-    v56 = v65;
+    v54 = *buf;
+    v55 = v64;
 
 LABEL_58:
     if ([*(a1 + 48) count] == 1 && objc_msgSend(v22, "forcePanUpOrDownInOneUpKenBurnsWithPortraitAspectAsset"))
@@ -1152,7 +1145,7 @@ LABEL_6:
   result = self->_autoEditDecisionList;
   if (result)
   {
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result defaultDisplayAssetPresentationDuration];
+    return objc_msgSend_defaultDisplayAssetPresentationDuration(result, a3);
   }
 
   retstr->var0 = 0;
@@ -1226,10 +1219,10 @@ BOOL __125__PXStoryConcreteTimelineStyle_durationForVerticallyPanningPortraitAss
   memset(v58, 0, sizeof(v58));
   if (timeCopy)
   {
-    [timeCopy durationInfo];
+    objc_msgSend_durationInfo(timeCopy);
     v55 = 0u;
     v56 = 0u;
-    [timeCopy transitionInfo];
+    objc_msgSend_transitionInfo(timeCopy);
   }
 
   else
@@ -1300,13 +1293,13 @@ BOOL __125__PXStoryConcreteTimelineStyle_durationForVerticallyPanningPortraitAss
   spec = self->_spec;
   if (spec)
   {
-    [(PXStoryTimelineSpec *)spec fixedSegmentDuration];
+    objc_msgSend_fixedSegmentDuration(spec);
     if (lhs.start.flags)
     {
       v23 = self->_spec;
       if (v23)
       {
-        [(PXStoryTimelineSpec *)v23 fixedSegmentDuration];
+        objc_msgSend_fixedSegmentDuration(v23);
       }
 
       else
@@ -1324,7 +1317,7 @@ BOOL __125__PXStoryConcreteTimelineStyle_durationForVerticallyPanningPortraitAss
         v24 = self->_spec;
         if (v24)
         {
-          [(PXStoryTimelineSpec *)v24 fixedSegmentDuration];
+          objc_msgSend_fixedSegmentDuration(v24);
         }
 
         displayAssets = [timeCopy displayAssets];
@@ -1352,7 +1345,7 @@ BOOL __125__PXStoryConcreteTimelineStyle_durationForVerticallyPanningPortraitAss
           fallbackMotionStyleProvider = self->_fallbackMotionStyleProvider;
           if (timeCopy)
           {
-            [timeCopy motionInfo];
+            objc_msgSend_motionInfo(timeCopy);
           }
 
           else
@@ -1365,7 +1358,7 @@ BOOL __125__PXStoryConcreteTimelineStyle_durationForVerticallyPanningPortraitAss
             goto LABEL_33;
           }
 
-          [(PXStoryRecipeClipMotionStyleProvider *)fallbackMotionStyleProvider updatedMotionForPortraitAspectAsset:firstObject motionInfo:duration];
+          objc_msgSend_updatedMotionForPortraitAspectAsset_motionInfo_(fallbackMotionStyleProvider);
           if (lhs.start.value != 1 || (*&lhs.start.timescale - 3) > 1)
           {
             goto LABEL_33;
@@ -1375,7 +1368,7 @@ BOOL __125__PXStoryConcreteTimelineStyle_durationForVerticallyPanningPortraitAss
           [storyConfiguration kenBurnsPanSpeed];
           time2 = lhs.start;
           start = rhs.start;
-          [(PXStoryConcreteTimelineStyle *)self durationForVerticallyPanningPortraitAsset:firstObject atSpeed:&time2 motionInfo:&start minimumDuration:v40 croppingContext:?];
+          objc_msgSend_durationForVerticallyPanningPortraitAsset_atSpeed_motionInfo_minimumDuration_croppingContext_(self);
           *&rhs.start.value = *duration;
           rhs.start.epoch = *&duration[16];
         }
@@ -1406,7 +1399,7 @@ LABEL_34:
   {
     v32 = PXAudioAssetDefaultEntryPoint(self->_audioAsset);
     memset(&start, 0, sizeof(start));
-    [v32 time];
+    objc_msgSend_time(v32);
     CMTimeMakeWithSeconds(&start, v33, 600);
     memset(&v49, 0, sizeof(v49));
     *&lhs.start.value = *&context->var0;
@@ -1431,7 +1424,7 @@ LABEL_34:
     memset(duration, 0, sizeof(duration));
     rhs = lhs;
     time2 = v46;
-    [(PXAudioCueSource *)v17 bestCueInRange:&rhs preferredTime:&time2];
+    objc_msgSend_bestCueInRange_preferredTime_(v17);
     *&rhs.start.value = *duration;
     v34 = *&duration[24];
     rhs.start.epoch = *&duration[16];
@@ -1472,8 +1465,7 @@ LABEL_6:
   resourcesDataSource = [timeCopy resourcesDataSource];
 
   croppingContext = [resourcesDataSource croppingContext];
-  v12 = *a5;
-  [(PXStoryConcreteTimelineStyle *)self _durationInfoForClip:v8 startTime:&v12 croppingContext:croppingContext];
+  objc_msgSend__durationInfoForClip_startTime_croppingContext_(self, a5->var0, *&a5->var1, a5->var3);
 
   return result;
 }
@@ -1568,7 +1560,7 @@ LABEL_46:
     autoEditConfiguration = self->_autoEditConfiguration;
     if (autoEditConfiguration)
     {
-      [(PFStoryAutoEditConfiguration *)autoEditConfiguration durationInfoForPlaybackStyle:playbackStyle songPace:songPace];
+      objc_msgSend_durationInfoForPlaybackStyle_songPace_(autoEditConfiguration);
     }
 
     if (self->_allowsRandomKenBurnsFallback)
@@ -1609,7 +1601,7 @@ LABEL_46:
       v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
       if (fallbackMotionStyleProvider)
       {
-        [(PXStoryRecipeClipMotionStyleProvider *)fallbackMotionStyleProvider nextMotionInfoForDisplayAssetCount:1 displayAssets:v19];
+        objc_msgSend_nextMotionInfoForDisplayAssetCount_displayAssets_(fallbackMotionStyleProvider);
         v17 = *(&v46 + 1);
         v43 = v47;
         v45 = v46;
@@ -1628,7 +1620,7 @@ LABEL_46:
       fallbackTransitionProvider = self->_fallbackTransitionProvider;
       if (fallbackTransitionProvider)
       {
-        [(PXStoryRecipeClipTransitionProvider *)fallbackTransitionProvider nextIntraMomentTransition];
+        objc_msgSend_nextIntraMomentTransition(fallbackTransitionProvider);
         v29 = *(&v46 + 1);
         v22 = v46;
         v27 = *(&v47 + 1);

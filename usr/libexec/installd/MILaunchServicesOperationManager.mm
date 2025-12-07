@@ -2,6 +2,7 @@
 + (BOOL)_shouldContinueAfterCheckingAttemptCountInDir:(id)dir;
 + (BOOL)_writeLaunchServicesOperation:(id)operation toURL:(id)l error:(id *)error;
 + (id)_discoverOrderedJournalEntriesInInstanceDir:(id)dir;
++ (id)_instanceForUID:(unsigned int)d;
 + (id)_mostRecentInstanceDirURLWithinURL:(id)l;
 + (id)_operationFromURL:(id)l error:(id *)error;
 + (id)_registerInstalledInfo:(id)info forAppBundleID:(id)d personas:(id)personas inDomain:(unint64_t)domain error:(id *)error;
@@ -20,6 +21,7 @@
 - (BOOL)_onQueue_unregisterApplicationsAtMountPoint:(id)point error:(id *)error;
 - (BOOL)registerUsingDiscoveredInformationForAppBundleID:(id)d inDomain:(unint64_t)domain resultingRecordPromise:(id *)promise error:(id *)error;
 - (BOOL)setPersonaUniqueStrings:(id)strings forAppBundleID:(id)d inDomain:(unint64_t)domain error:(id *)error;
+- (BOOL)unregisterAppForBundleID:(id)d inDomain:(unint64_t)domain operationType:(unsigned int)type precondition:(id)precondition error:(id *)error;
 - (BOOL)unregisterAppsAtMountPoint:(id)point error:(id *)error;
 - (MILaunchServicesOperationManager)initWithUID:(unsigned int)d;
 - (NSURL)instanceStorageBaseURL;
@@ -51,36 +53,21 @@
   personasCopy = personas;
   if (![self appReferencesEnabled] || (+[MIGlobalConfiguration sharedInstance](MIGlobalConfiguration, "sharedInstance"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "isSharediPad"), v15, (v16 & 1) != 0))
   {
-    v17 = 0;
+    v19 = 0;
     goto LABEL_4;
   }
 
-  v23 = sub_100009864();
-  v17 = 0;
-  if (domain - 1 > 1)
-  {
-    goto LABEL_4;
-  }
-
-  if (!v23)
-  {
-    goto LABEL_4;
-  }
-
-  v24 = +[MILaunchServicesOperationManager instanceForSystemSharedContent];
-  v27 = 0;
-  v25 = [v24 registerInstalledInfo:infoCopy forAppBundleID:dCopy personas:personasCopy inDomain:domain error:&v27];
-  v17 = v27;
-
-  if (v25)
+  v25 = sub_100009864(v17, v18);
+  v19 = 0;
+  if (domain - 1 > 1 || !v25 || (+[MILaunchServicesOperationManager instanceForSystemSharedContent](MILaunchServicesOperationManager, "instanceForSystemSharedContent"), v26 = objc_claimAutoreleasedReturnValue(), v29 = 0, [v26 registerInstalledInfo:infoCopy forAppBundleID:dCopy personas:personasCopy inDomain:domain error:&v29], v27 = objc_claimAutoreleasedReturnValue(), v19 = v29, v27, v26, v27))
   {
 LABEL_4:
-    v18 = +[MILaunchServicesOperationManager instanceForCurrentUser];
-    v26 = v17;
-    v19 = [v18 registerInstalledInfo:infoCopy forAppBundleID:dCopy personas:personasCopy inDomain:domain error:&v26];
-    v20 = v26;
+    v20 = +[MILaunchServicesOperationManager instanceForCurrentUser];
+    v28 = v19;
+    v21 = [v20 registerInstalledInfo:infoCopy forAppBundleID:dCopy personas:personasCopy inDomain:domain error:&v28];
+    v22 = v28;
 
-    v17 = v20;
+    v19 = v22;
     if (!error)
     {
       goto LABEL_7;
@@ -99,20 +86,20 @@ LABEL_4:
     MOLogWrite();
   }
 
-  v19 = 0;
+  v21 = 0;
   if (error)
   {
 LABEL_5:
-    if (!v19)
+    if (!v21)
     {
-      v21 = v17;
-      *error = v17;
+      v23 = v19;
+      *error = v19;
     }
   }
 
 LABEL_7:
 
-  return v19;
+  return v21;
 }
 
 + (id)registerInstalledInfo:(id)info forAppBundleID:(id)d personas:(id)personas inDomain:(unint64_t)domain error:(id *)error
@@ -130,60 +117,61 @@ LABEL_7:
   infoCopy = info;
   identityCopy = identity;
   bundleID = [identityCopy bundleID];
-  if (![self appReferencesEnabled])
+  appReferencesEnabled = [self appReferencesEnabled];
+  if (!appReferencesEnabled)
   {
-    v16 = 0;
+    v18 = 0;
     goto LABEL_6;
   }
 
-  v12 = sub_100009864();
+  v14 = sub_100009864(appReferencesEnabled, v13);
   _appReferenceManagerInstance = [self _appReferenceManagerInstance];
-  v27 = 0;
-  v28 = 0;
-  v14 = [_appReferenceManagerInstance addReferenceForIdentity:identityCopy inDomain:domain forUserWithID:v12 resultingPersonaUniqueStrings:&v28 error:&v27];
-  v15 = v28;
-  v16 = v27;
+  v29 = 0;
+  v30 = 0;
+  v16 = [_appReferenceManagerInstance addReferenceForIdentity:identityCopy inDomain:domain forUserWithID:v14 resultingPersonaUniqueStrings:&v30 error:&v29];
+  v17 = v30;
+  v18 = v29;
 
-  if (v14)
+  if (v16)
   {
-    if (v15)
+    if (v17)
     {
 LABEL_7:
-      v26 = v16;
-      v19 = [self _registerInstalledInfo:infoCopy forAppBundleID:bundleID personas:v15 inDomain:domain error:&v26];
-      v20 = v16;
-      v16 = v26;
+      v28 = v18;
+      v21 = [self _registerInstalledInfo:infoCopy forAppBundleID:bundleID personas:v17 inDomain:domain error:&v28];
+      v22 = v18;
+      v18 = v28;
       goto LABEL_8;
     }
 
 LABEL_6:
     personaUniqueString = [identityCopy personaUniqueString];
-    v29 = personaUniqueString;
-    v18 = [NSArray arrayWithObjects:&v29 count:1];
-    v15 = [NSSet setWithArray:v18];
+    v31 = personaUniqueString;
+    v20 = [NSArray arrayWithObjects:&v31 count:1];
+    v17 = [NSSet setWithArray:v20];
 
     goto LABEL_7;
   }
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
   {
-    v24 = MIStringForInstallationDomain();
+    v26 = MIStringForInstallationDomain();
     *buf = 136316162;
-    v31 = "+[MILaunchServicesOperationManager registerInstalledInfo:forIdentity:inDomain:error:]";
-    v32 = 2112;
-    v33 = identityCopy;
+    v33 = "+[MILaunchServicesOperationManager registerInstalledInfo:forIdentity:inDomain:error:]";
     v34 = 2112;
-    v35 = v24;
-    v36 = 1024;
-    v37 = v12;
-    v38 = 2112;
-    v39 = v16;
+    v35 = identityCopy;
+    v36 = 2112;
+    v37 = v26;
+    v38 = 1024;
+    v39 = v14;
+    v40 = 2112;
+    v41 = v18;
     _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "%s: Failed to add reference for %@ in %@ for client with uid %u : %@", buf, 0x30u);
   }
 
   if (qword_1000A9720 && *(qword_1000A9720 + 44) < 3)
   {
-    v19 = 0;
+    v21 = 0;
     errorCopy2 = error;
     if (!error)
     {
@@ -193,9 +181,9 @@ LABEL_6:
     goto LABEL_9;
   }
 
-  v20 = MIStringForInstallationDomain();
+  v22 = MIStringForInstallationDomain();
   MOLogWrite();
-  v19 = 0;
+  v21 = 0;
 LABEL_8:
   errorCopy2 = error;
 
@@ -205,15 +193,15 @@ LABEL_8:
   }
 
 LABEL_9:
-  if (!v19)
+  if (!v21)
   {
-    v22 = v16;
-    *errorCopy2 = v16;
+    v24 = v18;
+    *errorCopy2 = v18;
   }
 
 LABEL_11:
 
-  return v19;
+  return v21;
 }
 
 + (id)registerUsingDiscoveredInfoForAppIdentity:(id)identity inDomain:(unint64_t)domain error:(id *)error
@@ -290,9 +278,36 @@ LABEL_13:
   return v17;
 }
 
++ (id)_instanceForUID:(unsigned int)d
+{
+  v3 = *&d;
+  v4 = [NSNumber numberWithUnsignedInt:?];
+  os_unfair_lock_lock(&unk_1000A96E0);
+  v5 = qword_1000A96D8;
+  if (!qword_1000A96D8)
+  {
+    v6 = objc_opt_new();
+    v7 = qword_1000A96D8;
+    qword_1000A96D8 = v6;
+
+    v5 = qword_1000A96D8;
+  }
+
+  v8 = [v5 objectForKeyedSubscript:v4];
+  if (!v8)
+  {
+    v8 = [objc_alloc(objc_opt_class()) initWithUID:v3];
+    [qword_1000A96D8 setObject:v8 forKeyedSubscript:v4];
+  }
+
+  os_unfair_lock_unlock(&unk_1000A96E0);
+
+  return v8;
+}
+
 + (id)instanceForCurrentUser
 {
-  v3 = sub_100009864();
+  v3 = sub_100009864(self, a2);
 
   return [self _instanceForUID:v3];
 }
@@ -1179,32 +1194,31 @@ LABEL_8:
   v7 = objc_opt_new();
   v8 = objc_opt_new();
   v9 = objc_opt_new();
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v10 = operationsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v41 objects:v51 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v40 objects:v50 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v42;
-    v39 = v10;
-    v40 = v7;
+    v13 = *v41;
+    v38 = v10;
+    v39 = v7;
     do
     {
       v14 = 0;
       do
       {
-        if (*v42 != v13)
+        if (*v41 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v41 + 1) + 8 * v14);
+        v15 = *(*(&v40 + 1) + 8 * v14);
         if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
         {
-          v34 = *(*(&v41 + 1) + 8 * v14);
           MOLogWrite();
         }
 
@@ -1267,7 +1281,7 @@ LABEL_21:
               v23 = v22 = v9;
               [v20 updatePersonaUniqueStrings:v23];
 
-              v10 = v39;
+              v10 = v38;
               v9 = v22;
               bundleID2 = v21;
               goto LABEL_33;
@@ -1278,7 +1292,7 @@ LABEL_21:
             {
               [v9 setObject:mountPoint forKeyedSubscript:bundleID2];
 LABEL_33:
-              v7 = v40;
+              v7 = v39;
             }
 
             else
@@ -1288,14 +1302,14 @@ LABEL_33:
               v27 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT);
               if (isKindOfClass)
               {
-                v10 = v39;
-                v7 = v40;
+                v10 = v38;
+                v7 = v39;
                 if (v27)
                 {
                   *buf = 136315394;
-                  v46 = "+[MILaunchServicesOperationManager _reconcileOperations:unregisterMountPoints:registerMountPoints:restartUniqueOperations:]";
-                  v47 = 2112;
-                  v48 = bundleID2;
+                  v45 = "+[MILaunchServicesOperationManager _reconcileOperations:unregisterMountPoints:registerMountPoints:restartUniqueOperations:]";
+                  v46 = 2112;
+                  v47 = bundleID2;
                   _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "%s: Encountered set personas operation for %@ after unregister operation", buf, 0x16u);
                 }
 
@@ -1307,28 +1321,28 @@ LABEL_33:
 
               else
               {
-                v7 = v40;
+                v7 = v39;
                 if (v27)
                 {
                   v31 = objc_opt_class();
                   v32 = NSStringFromClass(v31);
                   *buf = 136315650;
-                  v46 = "+[MILaunchServicesOperationManager _reconcileOperations:unregisterMountPoints:registerMountPoints:restartUniqueOperations:]";
-                  v47 = 2112;
-                  v48 = v32;
-                  v49 = 2112;
-                  v50 = bundleID2;
+                  v45 = "+[MILaunchServicesOperationManager _reconcileOperations:unregisterMountPoints:registerMountPoints:restartUniqueOperations:]";
+                  v46 = 2112;
+                  v47 = v32;
+                  v48 = 2112;
+                  v49 = bundleID2;
                   _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "%s: Encountered unexpected LS operation of class %@ for bundle ID %@ before set personas operation", buf, 0x20u);
                 }
 
-                v10 = v39;
+                v10 = v38;
                 if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
                 {
                   v28 = objc_opt_class();
-                  v35 = NSStringFromClass(v28);
+                  v34 = NSStringFromClass(v28);
                   MOLogWrite();
 
-                  v10 = v39;
+                  v10 = v38;
                 }
               }
             }
@@ -1347,9 +1361,9 @@ LABEL_33:
           v29 = objc_opt_class();
           v30 = NSStringFromClass(v29);
           *buf = 136315394;
-          v46 = "+[MILaunchServicesOperationManager _reconcileOperations:unregisterMountPoints:registerMountPoints:restartUniqueOperations:]";
-          v47 = 2112;
-          v48 = v30;
+          v45 = "+[MILaunchServicesOperationManager _reconcileOperations:unregisterMountPoints:registerMountPoints:restartUniqueOperations:]";
+          v46 = 2112;
+          v47 = v30;
           _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "%s: Encountered unknown class while enumerating saved operations: %@", buf, 0x16u);
         }
 
@@ -1366,7 +1380,7 @@ LABEL_23:
       }
 
       while (v12 != v14);
-      v33 = [v10 countByEnumeratingWithState:&v41 objects:v51 count:16];
+      v33 = [v10 countByEnumeratingWithState:&v40 objects:v50 count:16];
       v12 = v33;
     }
 
@@ -1946,9 +1960,9 @@ LABEL_10:
 - (BOOL)registerUsingDiscoveredInformationForAppBundleID:(id)d inDomain:(unint64_t)domain resultingRecordPromise:(id *)promise error:(id *)error
 {
   dCopy = d;
-  v40 = 0;
-  v11 = [MIBundleContainer appBundleContainerForIdentifier:dCopy inDomain:domain withError:&v40];
-  v12 = v40;
+  v41 = 0;
+  v11 = [MIBundleContainer appBundleContainerForIdentifier:dCopy inDomain:domain withError:&v41];
+  v12 = v41;
   v13 = v12;
   if (v11)
   {
@@ -1956,38 +1970,38 @@ LABEL_10:
     if (bundle)
     {
       promiseCopy2 = promise;
-      v38 = v13;
-      v16 = [MILaunchServicesDatabaseGatherer fetchInfoForBundle:bundle forPersona:0 inContainer:v11 withError:&v38];
-      v17 = v38;
+      v39 = v13;
+      v16 = [MILaunchServicesDatabaseGatherer fetchInfoForBundle:bundle forPersona:0 inContainer:v11 withError:&v39];
+      v17 = v39;
 
       if (!v16)
       {
-        v19 = 0;
-        v21 = 0;
-        LOBYTE(v22) = 0;
+        v20 = 0;
+        v22 = 0;
+        LOBYTE(v23) = 0;
         v13 = v17;
         goto LABEL_20;
       }
 
       errorCopy2 = error;
       _appReferenceManagerInstance = [objc_opt_class() _appReferenceManagerInstance];
-      v37 = v17;
-      v19 = [_appReferenceManagerInstance personaUniqueStringsForAppWithBundleID:dCopy domain:domain forUserWithID:sub_100009864() error:&v37];
-      v20 = v37;
+      v38 = v17;
+      v20 = [_appReferenceManagerInstance personaUniqueStringsForAppWithBundleID:dCopy domain:domain forUserWithID:sub_100009864(_appReferenceManagerInstance error:{v19), &v38}];
+      v21 = v38;
 
-      if (v19)
+      if (v20)
       {
-        v36 = v20;
-        v21 = [(MILaunchServicesOperationManager *)self registerInstalledInfo:v16 forAppBundleID:dCopy personas:v19 inDomain:domain error:&v36];
-        v13 = v36;
+        v37 = v21;
+        v22 = [(MILaunchServicesOperationManager *)self registerInstalledInfo:v16 forAppBundleID:dCopy personas:v20 inDomain:domain error:&v37];
+        v13 = v37;
 
-        v22 = v21 != 0;
+        v23 = v22 != 0;
         goto LABEL_24;
       }
 
-      v28 = MIInstallerErrorDomain;
+      v29 = MIInstallerErrorDomain;
       domain = MIStringForInstallationDomain();
-      v13 = sub_100010734("[MILaunchServicesOperationManager registerUsingDiscoveredInformationForAppBundleID:inDomain:resultingRecordPromise:error:]", 1147, v28, 4, v20, 0, @"Failed to fetch persona unique strings for %@ in domain %@", v29, dCopy);
+      v13 = sub_100010734("[MILaunchServicesOperationManager registerUsingDiscoveredInformationForAppBundleID:inDomain:resultingRecordPromise:error:]", 1147, v29, 4, v21, 0, @"Failed to fetch persona unique strings for %@ in domain %@", v30, dCopy);
 
       error = errorCopy2;
     }
@@ -2009,7 +2023,7 @@ LABEL_10:
     bundle = 0;
 LABEL_18:
 
-    v19 = 0;
+    v20 = 0;
     goto LABEL_19;
   }
 
@@ -2018,22 +2032,22 @@ LABEL_18:
 
   if (code != 21)
   {
-    v19 = 0;
+    v20 = 0;
     v16 = 0;
     bundle = 0;
 LABEL_19:
-    v21 = 0;
-    LOBYTE(v22) = 0;
+    v22 = 0;
+    LOBYTE(v23) = 0;
     goto LABEL_20;
   }
 
   errorCopy2 = error;
 
-  v25 = +[MIDaemonConfiguration sharedInstance];
-  builtInApplicationBundleIDs = [v25 builtInApplicationBundleIDs];
-  v27 = [builtInApplicationBundleIDs containsObject:dCopy];
+  v26 = +[MIDaemonConfiguration sharedInstance];
+  builtInApplicationBundleIDs = [v26 builtInApplicationBundleIDs];
+  v28 = [builtInApplicationBundleIDs containsObject:dCopy];
 
-  if (v27)
+  if (v28)
   {
     if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
     {
@@ -2041,46 +2055,46 @@ LABEL_19:
     }
 
     v13 = 0;
-    v21 = 0;
+    v22 = 0;
     bundle = 0;
     v16 = 0;
-    v19 = 0;
-    v22 = 1;
+    v20 = 0;
+    v23 = 1;
   }
 
   else
   {
-    v31 = +[LSPrecondition emptyPrecondition];
-    v39 = 0;
-    v22 = [(MILaunchServicesOperationManager *)self unregisterAppForBundleID:dCopy inDomain:domain operationType:3 precondition:v31 error:&v39];
-    v13 = v39;
+    v32 = +[LSPrecondition emptyPrecondition];
+    v40 = 0;
+    v23 = [(MILaunchServicesOperationManager *)self unregisterAppForBundleID:dCopy inDomain:domain operationType:3 precondition:v32 error:&v40];
+    v13 = v40;
 
-    v21 = 0;
+    v22 = 0;
     bundle = 0;
     v16 = 0;
-    v19 = 0;
+    v20 = 0;
   }
 
 LABEL_24:
   error = errorCopy2;
-  if (promiseCopy2 && v22)
+  if (promiseCopy2 && v23)
   {
-    v32 = v21;
-    *promiseCopy2 = v21;
-    LOBYTE(v22) = 1;
+    v33 = v22;
+    *promiseCopy2 = v22;
+    LOBYTE(v23) = 1;
     goto LABEL_27;
   }
 
 LABEL_20:
-  if (error && (v22 & 1) == 0)
+  if (error && (v23 & 1) == 0)
   {
-    v30 = v13;
+    v31 = v13;
     *error = v13;
   }
 
 LABEL_27:
 
-  return v22;
+  return v23;
 }
 
 - (BOOL)_onQueue_setPersonaUniqueStrings:(id)strings forAppBundleID:(id)d inDomain:(unint64_t)domain error:(id *)error
@@ -2260,6 +2274,140 @@ LABEL_27:
   return v26 & 1;
 }
 
+- (BOOL)unregisterAppForBundleID:(id)d inDomain:(unint64_t)domain operationType:(unsigned int)type precondition:(id)precondition error:(id *)error
+{
+  v9 = *&type;
+  dCopy = d;
+  preconditionCopy = precondition;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
+  v47 = 0;
+  if (domain == 1)
+  {
+    domain = 2;
+  }
+
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = sub_10004E510;
+  v42 = sub_10004E520;
+  v43 = 0;
+  internalQueue = [(MILaunchServicesOperationManager *)self internalQueue];
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1000524B0;
+  block[3] = &unk_100091AD0;
+  v34 = &v44;
+  block[4] = self;
+  v15 = dCopy;
+  v32 = v15;
+  domainCopy = domain;
+  v37 = v9;
+  v16 = preconditionCopy;
+  v33 = v16;
+  v35 = &v38;
+  dispatch_sync(internalQueue, block);
+
+  if (v45[3])
+  {
+    v17 = 0;
+    goto LABEL_24;
+  }
+
+  domain = [v39[5] domain];
+  if ([domain isEqualToString:LSApplicationWorkspaceErrorDomain])
+  {
+    v19 = [v39[5] code] == 117;
+
+    if (v19)
+    {
+      if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
+      {
+        v28 = v9;
+        v29 = v16;
+        MOLogWrite();
+      }
+
+      v30 = 0;
+      v20 = [(MILaunchServicesOperationManager *)self registerUsingDiscoveredInformationForAppBundleID:v15 inDomain:domain resultingRecordPromise:0 error:&v30, v28, v29];
+      v21 = v30;
+      v22 = v21;
+      *(v45 + 24) = v20;
+      if (v20)
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
+        {
+          sub_100059B0C();
+        }
+
+        if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
+        {
+          MOLogWrite();
+        }
+
+        v17 = 0;
+      }
+
+      else
+      {
+        v22 = v21;
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
+        {
+          sub_100059A84();
+        }
+
+        if (qword_1000A9720 && *(qword_1000A9720 + 44) < 3)
+        {
+          v17 = v22;
+        }
+
+        else
+        {
+          MOLogWrite();
+          v17 = v22;
+        }
+      }
+
+      goto LABEL_23;
+    }
+  }
+
+  else
+  {
+  }
+
+  v17 = v39[5];
+  v23 = &_os_log_default;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
+  {
+    v24 = MIStringForInstallationDomain();
+    sub_100059A04(v15, v24, v17, buf);
+  }
+
+  if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
+  {
+    v22 = MIStringForInstallationDomain();
+    MOLogWrite();
+LABEL_23:
+  }
+
+LABEL_24:
+  v25 = *(v45 + 24);
+  if (error && (v45[3] & 1) == 0)
+  {
+    v26 = v17;
+    *error = v17;
+    v25 = *(v45 + 24);
+  }
+
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v44, 8);
+
+  return v25 & 1;
+}
+
 - (BOOL)_onQueue_unregisterApplicationsAtMountPoint:(id)point error:(id *)error
 {
   pointCopy = point;
@@ -2267,10 +2415,10 @@ LABEL_27:
   dispatch_assert_queue_V2(internalQueue);
 
   v8 = objc_opt_new();
-  v9 = sub_100009864();
-  v10 = objc_opt_new();
-  v11 = [NSNumber numberWithUnsignedInt:v9];
-  [v10 setTargetUserID:v11];
+  v10 = sub_100009864(v8, v9);
+  v11 = objc_opt_new();
+  v12 = [NSNumber numberWithUnsignedInt:v10];
+  [v11 setTargetUserID:v12];
 
   if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
   {
@@ -2278,11 +2426,11 @@ LABEL_27:
     MOLogWrite();
   }
 
-  v12 = [[MILaunchServicesUnregisterMountPointOperation alloc] initWithMountPoint:pointCopy operationUUID:v8 serialNumber:[(MILaunchServicesOperationManager *)self _onQueue_nextSerialNumber]];
-  v25 = 0;
-  v13 = [(MILaunchServicesOperationManager *)self _onQueue_addPendingLaunchServicesOperation:v12 error:&v25];
-  v14 = v25;
-  if ((v13 & 1) == 0)
+  v13 = [[MILaunchServicesUnregisterMountPointOperation alloc] initWithMountPoint:pointCopy operationUUID:v8 serialNumber:[(MILaunchServicesOperationManager *)self _onQueue_nextSerialNumber]];
+  v26 = 0;
+  v14 = [(MILaunchServicesOperationManager *)self _onQueue_addPendingLaunchServicesOperation:v13 error:&v26];
+  v15 = v26;
+  if ((v14 & 1) == 0)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
     {
@@ -2291,32 +2439,32 @@ LABEL_27:
 
     if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
     {
-      path = v12;
-      v24 = v14;
+      path = v13;
+      v25 = v15;
       MOLogWrite();
     }
   }
 
-  v15 = [(MILaunchServicesOperationManager *)self _lsApplicationWorkspaceInstance:path];
-  v16 = [v15 unregisterApplicationsAtMountPoint:pointCopy operationUUID:v8 saveObserver:self requestContext:v10];
+  v16 = [(MILaunchServicesOperationManager *)self _lsApplicationWorkspaceInstance:path];
+  v17 = [v16 unregisterApplicationsAtMountPoint:pointCopy operationUUID:v8 saveObserver:self requestContext:v11];
 
-  if ((v16 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
     [(MILaunchServicesOperationManager *)self _onQueue_removePendingLaunchServicesOperationForUUID:v8];
-    v17 = MIInstallerErrorDomain;
+    v18 = MIInstallerErrorDomain;
     path2 = [pointCopy path];
-    v20 = sub_100010734("[MILaunchServicesOperationManager _onQueue_unregisterApplicationsAtMountPoint:error:]", 1362, v17, 4, 0, 0, @"Failed to unregister applications at mount point %@", v19, path2);
+    v21 = sub_100010734("[MILaunchServicesOperationManager _onQueue_unregisterApplicationsAtMountPoint:error:]", 1362, v18, 4, 0, 0, @"Failed to unregister applications at mount point %@", v20, path2);
 
     if (error)
     {
-      v21 = v20;
-      *error = v20;
+      v22 = v21;
+      *error = v21;
     }
 
-    v14 = v20;
+    v15 = v21;
   }
 
-  return v16;
+  return v17;
 }
 
 - (BOOL)unregisterAppsAtMountPoint:(id)point error:(id *)error

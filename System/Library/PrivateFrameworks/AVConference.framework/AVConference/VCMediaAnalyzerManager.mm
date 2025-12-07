@@ -716,7 +716,7 @@ LABEL_16:
     v19 = MEMORY[0x1E696ABC0];
     v20 = -1;
 LABEL_18:
-    *error = [v19 errorWithDomain:@"VCMediaAnalyzerManager" code:v20 userInfo:{0, *v22, *&v22[16], v23, selfCopy, v25}];
+    *error = [v19 errorWithDomain:@"VCMediaAnalyzerManager" code:v20 userInfo:{0, *v22, *&v22[8], v23, selfCopy, v25}];
     return 0;
   }
 
@@ -923,7 +923,7 @@ void __73__VCMediaAnalyzerManager_notifyClientsWithStreamToken_service_arguments
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d init failed", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d init failed", v2, v3, v4, v5);
 }
 
 void __66__VCMediaAnalyzerManager_registerMediaAnalyzerSource_streamToken___block_invoke_cold_1()
@@ -981,7 +981,7 @@ void __73__VCMediaAnalyzerManager_notifyClientsWithStreamToken_service_arguments
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d No registered streams found", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d No registered streams found", v2, v3, v4, v5);
 }
 
 @end

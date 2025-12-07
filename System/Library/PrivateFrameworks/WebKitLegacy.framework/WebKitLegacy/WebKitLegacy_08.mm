@@ -1,3 +1,525 @@
+void sub_1C7A64898(_Unwind_Exception *exception_object, WTF::StringImpl *a2)
+{
+  if (atomic_fetch_add_explicit(v2, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v2, a2);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+id WebFrameLoaderClient::dispatchDidCancelClientRedirect(id this)
+{
+  v1 = *(this + 3);
+  if (v1 && (v2 = *(*(v1 + 8) + 8)) != 0 && (v3 = *(v2 + 24)) != 0 && (v4 = *(v3 + 8)) != 0)
+  {
+    v5 = this;
+    if ((*(**(*(v4 + 56) + 16) + 1440))(*(*(v4 + 56) + 16)))
+    {
+      Weak = 0;
+      this = v5;
+      didCancelClientRedirectForFrameFunc = qword_1EC261230;
+      if (!qword_1EC261230)
+      {
+        return this;
+      }
+    }
+
+    else
+    {
+      Weak = objc_loadWeak((*(*(v4 + 56) + 16) + 16));
+      if (Weak)
+      {
+        this = v5;
+        didCancelClientRedirectForFrameFunc = Weak->_private->frameLoadDelegateImplementations.didCancelClientRedirectForFrameFunc;
+        if (!didCancelClientRedirectForFrameFunc)
+        {
+          return this;
+        }
+      }
+
+      else
+      {
+        this = v5;
+        didCancelClientRedirectForFrameFunc = qword_1EC261230;
+        if (!qword_1EC261230)
+        {
+          return this;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    Weak = 0;
+    didCancelClientRedirectForFrameFunc = qword_1EC261230;
+    if (!qword_1EC261230)
+    {
+      return this;
+    }
+  }
+
+  v8 = *(this + 3);
+
+  return CallFrameLoadDelegate(didCancelClientRedirectForFrameFunc, Weak, sel_webView_didCancelClientRedirectForFrame_, v8);
+}
+
+void WebFrameLoaderClient::dispatchWillPerformClientRedirect(uint64_t a1, WTF::URL *this, double a3, double a4)
+{
+  v7 = *(a1 + 24);
+  if (!v7 || (v8 = *(*(v7 + 8) + 8)) == 0 || (v9 = *(v8 + 24)) == 0)
+  {
+    v10 = 0;
+LABEL_8:
+    p_frameLoadDelegateImplementations = &WebViewGetFrameLoadDelegateImplementations(WebView *)::empty;
+    if (!qword_1EC261238)
+    {
+      return;
+    }
+
+    goto LABEL_9;
+  }
+
+  v10 = *(v9 + 8);
+  if (!v10)
+  {
+    goto LABEL_8;
+  }
+
+  v11 = this;
+  if ((*(v10->super.viewRef->var1->notificationCallback + 180))(v10->super.viewRef->var1))
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    Weak = objc_loadWeak(&v10->super.viewRef->var1->responderCallback);
+    v10 = Weak;
+    if (Weak)
+    {
+      p_frameLoadDelegateImplementations = &Weak->_private->frameLoadDelegateImplementations;
+      this = v11;
+      if (!Weak->_private->frameLoadDelegateImplementations.willPerformClientRedirectToURLDelayFireDateForFrameFunc)
+      {
+        return;
+      }
+
+      goto LABEL_9;
+    }
+  }
+
+  p_frameLoadDelegateImplementations = &WebViewGetFrameLoadDelegateImplementations(WebView *)::empty;
+  this = v11;
+  if (!qword_1EC261238)
+  {
+    return;
+  }
+
+LABEL_9:
+  WTF::URL::createCFURL(&v15, this);
+  CallFrameLoadDelegate(p_frameLoadDelegateImplementations[8], v10, sel_webView_willPerformClientRedirectToURL_delay_fireDate_forFrame_, v15, a3, [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:a4], *(a1 + 24));
+  v13 = v15;
+  v15 = 0;
+  if (v13)
+  {
+  }
+}
+
+void sub_1C7A64B44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10)
+{
+  if (a10)
+  {
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t WebFrameLoaderClient::dispatchDidChangeLocationWithinPage(WebFrameLoaderClient *this)
+{
+  v2 = *(*(*(*(*(this + 3) + 8) + 8) + 224) + 800);
+  if (v2)
+  {
+    atomic_fetch_add_explicit(v2, 2u, memory_order_relaxed);
+    MEMORY[0x1CCA63450](&v16, v2);
+    if (atomic_fetch_add_explicit(v2, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v2, v3);
+    }
+  }
+
+  else
+  {
+    v16 = &stru_1F472E7E8;
+    v15 = &stru_1F472E7E8;
+  }
+
+  v4 = *(*(this + 3) + 8);
+  v5 = v16;
+  v16 = 0;
+  v6 = *(v4 + 56);
+  *(v4 + 56) = v5;
+  if (v6)
+  {
+
+    v7 = v16;
+    v16 = 0;
+    if (v7)
+    {
+    }
+  }
+
+  v8 = *(this + 3);
+  if (!v8)
+  {
+    goto LABEL_12;
+  }
+
+  v9 = *(*(v8 + 8) + 8);
+  if (!v9)
+  {
+    goto LABEL_12;
+  }
+
+  v10 = *(v9 + 24);
+  if (!v10)
+  {
+    goto LABEL_12;
+  }
+
+  v11 = *(v10 + 8);
+  if (!v11)
+  {
+    goto LABEL_13;
+  }
+
+  if (((*(v11->super.viewRef->var1->notificationCallback + 180))(v11->super.viewRef->var1) & 1) == 0)
+  {
+    Weak = objc_loadWeak(&v11->super.viewRef->var1->responderCallback);
+    v11 = Weak;
+    if (Weak)
+    {
+      didChangeLocationWithinPageForFrameFunc = Weak->_private->frameLoadDelegateImplementations.didChangeLocationWithinPageForFrameFunc;
+      if (!didChangeLocationWithinPageForFrameFunc)
+      {
+        return [-[WebView _UIKitDelegateForwarder](v11 "_UIKitDelegateForwarder")];
+      }
+
+      goto LABEL_14;
+    }
+  }
+
+  else
+  {
+LABEL_12:
+    v11 = 0;
+  }
+
+LABEL_13:
+  didChangeLocationWithinPageForFrameFunc = qword_1EC261240;
+  if (qword_1EC261240)
+  {
+LABEL_14:
+    CallFrameLoadDelegate(didChangeLocationWithinPageForFrameFunc, v11, sel_webView_didChangeLocationWithinPageForFrame_, *(this + 3));
+  }
+
+  return [-[WebView _UIKitDelegateForwarder](v11 "_UIKitDelegateForwarder")];
+}
+
+void sub_1C7A64CDC(_Unwind_Exception *exception_object, WTF::StringImpl *a2)
+{
+  if (atomic_fetch_add_explicit(v2, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v2, a2);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void (*WebFrameLoaderClient::dispatchDidPushStateWithinPage(WebFrameLoaderClient *this))(void)
+{
+  v2 = *(*(*(*(*(this + 3) + 8) + 8) + 224) + 800);
+  if (v2)
+  {
+    atomic_fetch_add_explicit(v2, 2u, memory_order_relaxed);
+    MEMORY[0x1CCA63450](&v16, v2);
+    if (atomic_fetch_add_explicit(v2, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v2, v3);
+    }
+  }
+
+  else
+  {
+    v16 = &stru_1F472E7E8;
+    v15 = &stru_1F472E7E8;
+  }
+
+  v4 = *(*(this + 3) + 8);
+  v5 = v16;
+  v16 = 0;
+  v6 = *(v4 + 56);
+  *(v4 + 56) = v5;
+  if (v6)
+  {
+
+    v7 = v16;
+    v16 = 0;
+    if (v7)
+    {
+    }
+  }
+
+  v8 = *(this + 3);
+  if (!v8 || (v9 = *(*(v8 + 8) + 8)) == 0 || (v10 = *(v9 + 24)) == 0 || (v11 = *(v10 + 8)) == 0 || ((*(**(*(v11 + 56) + 16) + 1440))(*(*(v11 + 56) + 16)) & 1) != 0)
+  {
+    v12 = 0;
+    goto LABEL_13;
+  }
+
+  Weak = objc_loadWeak((*(*(v11 + 56) + 16) + 16));
+  v12 = Weak;
+  if (!Weak)
+  {
+LABEL_13:
+    result = qword_1EC261248;
+    if (!qword_1EC261248)
+    {
+      return result;
+    }
+
+    return CallFrameLoadDelegate(result, v12, sel_webView_didPushStateWithinPageForFrame_, *(this + 3));
+  }
+
+  result = Weak->_private->frameLoadDelegateImplementations.didPushStateWithinPageForFrameFunc;
+  if (result)
+  {
+    return CallFrameLoadDelegate(result, v12, sel_webView_didPushStateWithinPageForFrame_, *(this + 3));
+  }
+
+  return result;
+}
+
+void sub_1C7A64E64(_Unwind_Exception *exception_object, WTF::StringImpl *a2)
+{
+  if (atomic_fetch_add_explicit(v2, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v2, a2);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void (*WebFrameLoaderClient::dispatchDidReplaceStateWithinPage(WebFrameLoaderClient *this))(void)
+{
+  v2 = *(*(*(*(*(this + 3) + 8) + 8) + 224) + 800);
+  if (v2)
+  {
+    atomic_fetch_add_explicit(v2, 2u, memory_order_relaxed);
+    MEMORY[0x1CCA63450](&v16, v2);
+    if (atomic_fetch_add_explicit(v2, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v2, v3);
+    }
+  }
+
+  else
+  {
+    v16 = &stru_1F472E7E8;
+    v15 = &stru_1F472E7E8;
+  }
+
+  v4 = *(*(this + 3) + 8);
+  v5 = v16;
+  v16 = 0;
+  v6 = *(v4 + 56);
+  *(v4 + 56) = v5;
+  if (v6)
+  {
+
+    v7 = v16;
+    v16 = 0;
+    if (v7)
+    {
+    }
+  }
+
+  v8 = *(this + 3);
+  if (!v8 || (v9 = *(*(v8 + 8) + 8)) == 0 || (v10 = *(v9 + 24)) == 0 || (v11 = *(v10 + 8)) == 0 || ((*(**(*(v11 + 56) + 16) + 1440))(*(*(v11 + 56) + 16)) & 1) != 0)
+  {
+    v12 = 0;
+    goto LABEL_13;
+  }
+
+  Weak = objc_loadWeak((*(*(v11 + 56) + 16) + 16));
+  v12 = Weak;
+  if (!Weak)
+  {
+LABEL_13:
+    result = qword_1EC261250;
+    if (!qword_1EC261250)
+    {
+      return result;
+    }
+
+    return CallFrameLoadDelegate(result, v12, sel_webView_didReplaceStateWithinPageForFrame_, *(this + 3));
+  }
+
+  result = Weak->_private->frameLoadDelegateImplementations.didReplaceStateWithinPageForFrameFunc;
+  if (result)
+  {
+    return CallFrameLoadDelegate(result, v12, sel_webView_didReplaceStateWithinPageForFrame_, *(this + 3));
+  }
+
+  return result;
+}
+
+void sub_1C7A64FEC(_Unwind_Exception *exception_object, WTF::StringImpl *a2)
+{
+  if (atomic_fetch_add_explicit(v2, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v2, a2);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void (*WebFrameLoaderClient::dispatchDidPopStateWithinPage(WebFrameLoaderClient *this))(void)
+{
+  v2 = *(*(*(*(*(this + 3) + 8) + 8) + 224) + 800);
+  if (v2)
+  {
+    atomic_fetch_add_explicit(v2, 2u, memory_order_relaxed);
+    MEMORY[0x1CCA63450](&v16, v2);
+    if (atomic_fetch_add_explicit(v2, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v2, v3);
+    }
+  }
+
+  else
+  {
+    v16 = &stru_1F472E7E8;
+    v15 = &stru_1F472E7E8;
+  }
+
+  v4 = *(*(this + 3) + 8);
+  v5 = v16;
+  v16 = 0;
+  v6 = *(v4 + 56);
+  *(v4 + 56) = v5;
+  if (v6)
+  {
+
+    v7 = v16;
+    v16 = 0;
+    if (v7)
+    {
+    }
+  }
+
+  v8 = *(this + 3);
+  if (!v8 || (v9 = *(*(v8 + 8) + 8)) == 0 || (v10 = *(v9 + 24)) == 0 || (v11 = *(v10 + 8)) == 0 || ((*(**(*(v11 + 56) + 16) + 1440))(*(*(v11 + 56) + 16)) & 1) != 0)
+  {
+    v12 = 0;
+    goto LABEL_13;
+  }
+
+  Weak = objc_loadWeak((*(*(v11 + 56) + 16) + 16));
+  v12 = Weak;
+  if (!Weak)
+  {
+LABEL_13:
+    result = qword_1EC261258;
+    if (!qword_1EC261258)
+    {
+      return result;
+    }
+
+    return CallFrameLoadDelegate(result, v12, sel_webView_didPopStateWithinPageForFrame_, *(this + 3));
+  }
+
+  result = Weak->_private->frameLoadDelegateImplementations.didPopStateWithinPageForFrameFunc;
+  if (result)
+  {
+    return CallFrameLoadDelegate(result, v12, sel_webView_didPopStateWithinPageForFrame_, *(this + 3));
+  }
+
+  return result;
+}
+
+void sub_1C7A65174(_Unwind_Exception *exception_object, WTF::StringImpl *a2)
+{
+  if (atomic_fetch_add_explicit(v2, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v2, a2);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t WebFrameLoaderClient::dispatchWillClose(WebFrameLoaderClient *this)
+{
+  v2 = *(this + 3);
+  if (!v2)
+  {
+    goto LABEL_6;
+  }
+
+  v3 = *(*(v2 + 8) + 8);
+  if (!v3)
+  {
+    goto LABEL_6;
+  }
+
+  v4 = *(v3 + 24);
+  if (!v4)
+  {
+    goto LABEL_6;
+  }
+
+  v5 = *(v4 + 8);
+  if (!v5)
+  {
+    goto LABEL_7;
+  }
+
+  if ((*(v5->super.viewRef->var1->notificationCallback + 180))(v5->super.viewRef->var1))
+  {
+LABEL_6:
+    v5 = 0;
+    goto LABEL_7;
+  }
+
+  Weak = objc_loadWeak(&v5->super.viewRef->var1->responderCallback);
+  v5 = Weak;
+  if (!Weak)
+  {
+LABEL_7:
+    willCloseFrameFunc = qword_1EC261260;
+    if (!qword_1EC261260)
+    {
+      goto LABEL_9;
+    }
+
+    goto LABEL_8;
+  }
+
+  willCloseFrameFunc = Weak->_private->frameLoadDelegateImplementations.willCloseFrameFunc;
+  if (willCloseFrameFunc)
+  {
+LABEL_8:
+    CallFrameLoadDelegate(willCloseFrameFunc, v5, sel_webView_willCloseFrame_, *(this + 3));
+  }
+
+LABEL_9:
+  v7 = [(WebView *)v5 _UIKitDelegateForwarder];
+  v8 = *(this + 3);
+
+  return [v7 webView:v5 willCloseFrame:v8];
+}
+
 void (*WebFrameLoaderClient::dispatchDidStartProvisionalLoad(WebFrameLoaderClient *this))(void)
 {
   v2 = *WebCore::ResourceRequestBase::url((*(*(*(*(*(this + 3) + 8) + 8) + 208) + 104) + 880));
@@ -100,7 +622,7 @@ void sub_1C7A6544C(_Unwind_Exception *exception_object, WTF::StringImpl *a2)
   _Unwind_Resume(exception_object);
 }
 
-void WebFrameLoaderClient::dispatchDidReceiveTitle(uint64_t a1, WTF::StringImpl *a2)
+void WebFrameLoaderClient::dispatchDidReceiveTitle(uint64_t a1, atomic_uint **a2)
 {
   v3 = *a2;
   if (*a2)
@@ -121,7 +643,7 @@ LABEL_12:
 
     else
     {
-      WTF::StringImpl::substring(v3);
+      WTF::StringImpl::substring(&v19, v3);
       v20 = *(a2 + 8);
       v5 = *(a1 + 24);
       if (!v5)
@@ -714,7 +1236,7 @@ LABEL_20:
 uint64_t WebFrameLoaderClient::dispatchCreatePage(uint64_t a1, uint64_t a2, int a3)
 {
   v5 = *(a1 + 24);
-  if (v5 && (v6 = *(*(v5 + 8) + 8)) != 0 && (v7 = *(v6 + 24)) != 0 && (v8 = *(v7 + 8)) != 0 && ((*(**(*(v8 + 56) + 16) + 1440))(*(*(v8 + 56) + 16)) & 1) == 0)
+  if (v5 && (v6 = *(*(v5 + 8) + 8)) != 0 && (v7 = *(v6 + 24)) != 0 && (v8 = *(v7 + 8)) != 0 && ((*(**(*(v8 + 56) + 16) + 1440))(*(*(v8 + 56) + 16), a2) & 1) == 0)
   {
     Weak = objc_loadWeak((*(*(v8 + 56) + 16) + 16));
   }
@@ -743,7 +1265,7 @@ uint64_t WebFrameLoaderClient::dispatchCreatePage(uint64_t a1, uint64_t a2, int 
       {
         ++*(v14 + 4);
         v15 = WebCore::LocalFrame::effectiveSandboxFlags(v14);
-        [v12 page];
+        objc_msgSend_page(v12);
         (*(**(v19 + 176) + 128))(*(v19 + 176), (v15 & ((v15 << 6) >> 15)), 0);
         if (*(v14 + 4) == 1)
         {
@@ -867,7 +1389,7 @@ void WebFrameLoaderClient::dispatchDecidePolicyForResponse(uint64_t a1, WebCore:
     goto LABEL_7;
   }
 
-  if (((*(**(Weak[7] + 16) + 1440))(*(Weak[7] + 16)) & 1) == 0)
+  if (((*(**(Weak[7] + 16) + 1440))(*(Weak[7] + 16), a2, a3, a4) & 1) == 0)
   {
     Weak = objc_loadWeak((*(Weak[7] + 16) + 16));
   }
@@ -991,7 +1513,7 @@ void WebFrameLoaderClient::dispatchDecidePolicyForNewWindowAction(uint64_t a1, u
         v16 = *(v15 + 8);
         if (v16)
         {
-          if (((*(**(*(v16 + 56) + 16) + 1440))(*(*(v16 + 56) + 16)) & 1) == 0)
+          if (((*(**(*(v16 + 56) + 16) + 1440))(*(*(v16 + 56) + 16), a2, this, a4, a5, a6) & 1) == 0)
           {
             Weak = objc_loadWeak((*(*(v16 + 56) + 16) + 16));
             v18 = *(a2 + 480);
@@ -1122,7 +1644,7 @@ void sub_1C7A66868(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WebFrameLoaderClient::actionDictionary(uint64_t a1, uint64_t a2, uint64_t a3)
+void *WebFrameLoaderClient::actionDictionary(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = WebCore::ResourceRequestBase::url((a2 + 240));
   v6 = *v5;
@@ -1210,7 +1732,7 @@ void sub_1C7A66B38(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void WebFrameLoaderClient::dispatchDecidePolicyForNavigationAction(uint64_t a1, uint64_t a2, WebCore::ResourceRequestBase *this, int a4, uint64_t a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+void WebFrameLoaderClient::dispatchDecidePolicyForNavigationAction(uint64_t a1, uint64_t a2, WebCore::ResourceRequestBase *this, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   v17 = *(a1 + 24);
   if (!v17)
@@ -1235,7 +1757,7 @@ void WebFrameLoaderClient::dispatchDecidePolicyForNavigationAction(uint64_t a1, 
       Weak = *(v19 + 8);
       if (Weak)
       {
-        if ((*(**(Weak[7] + 16) + 1440))(*(Weak[7] + 16)))
+        if ((*(**(Weak[7] + 16) + 1440))(*(Weak[7] + 16), a2, this, a4, a5, a6, a7, a8))
         {
           goto LABEL_6;
         }
@@ -2155,7 +2677,7 @@ LABEL_12:
   return v28(v27);
 }
 
-void sub_1C7A67C88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_1C7A67C88(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (v9)
   {
@@ -2166,7 +2688,7 @@ void sub_1C7A67C88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     _Unwind_Resume(exception_object);
   }
 
-  (*(*a9 + 8))(a9);
+  (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(exception_object);
 }
 
@@ -3206,7 +3728,7 @@ BOOL WebFrameLoaderClient::canHandleRequest(WebFrameLoaderClient *this, const We
   return [WebView _canHandleRequest:v3 forMainFrame:v5 == v4];
 }
 
-uint64_t WebFrameLoaderClient::canShowMIMEType(WebFrameLoaderClient *this, atomic_uint **a2)
+void *WebFrameLoaderClient::canShowMIMEType(WebFrameLoaderClient *this, atomic_uint **a2)
 {
   v2 = *(this + 3);
   if (v2 && (v3 = *(*(v2 + 8) + 8)) != 0 && (v4 = *(v3 + 24)) != 0)
@@ -3373,7 +3895,7 @@ void sub_1C7A695E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WebFrameLoaderClient::frameLoadCompleted(WebFrameLoaderClient *this)
+void *WebFrameLoaderClient::frameLoadCompleted(WebFrameLoaderClient *this)
 {
   v2 = *(this + 3);
   if (v2 && (v3 = *(*(v2 + 8) + 8)) != 0 && (v4 = *(v3 + 24)) != 0 && (v5 = *(v4 + 8)) != 0 && ((*(**(*(v5 + 56) + 16) + 1440))(*(*(v5 + 56) + 16)) & 1) == 0)
@@ -3399,7 +3921,7 @@ uint64_t WebFrameLoaderClient::frameLoadCompleted(WebFrameLoaderClient *this)
   return [v7 setDrawsBackground:1];
 }
 
-uint64_t WebFrameLoaderClient::saveViewStateToItem(WebFrameLoaderClient *this, WebCore::HistoryItem *a2)
+void *WebFrameLoaderClient::saveViewStateToItem(WebFrameLoaderClient *this, WebCore::HistoryItem *a2)
 {
   v4 = *(this + 3);
   if (v4)
@@ -3470,10 +3992,10 @@ LABEL_12:
   return result;
 }
 
-uint64_t WebFrameLoaderClient::restoreViewState(uint64_t this)
+void *WebFrameLoaderClient::restoreViewState(void *this)
 {
   v1 = this;
-  v2 = *(this + 24);
+  v2 = this[3];
   if (!v2)
   {
     v4 = *(*(MEMORY[0xD0] + 32) + 16);
@@ -3534,7 +4056,7 @@ LABEL_14:
   }
 
 LABEL_15:
-  v9 = [*(*(*(v1 + 24) + 8) + 16) documentView];
+  v9 = [*(*(v1[3] + 8) + 16) documentView];
   this = [v9 conformsToProtocol:&unk_1F4773938];
   if (this)
   {
@@ -3556,21 +4078,21 @@ uint64_t WebFrameLoaderClient::provisionalLoadStarted(WebFrameLoaderClient *this
   return [v1 setDrawsBackground:0];
 }
 
-void WebFrameLoaderClient::createDocumentLoader(uint64_t a1@<X0>, WebDocumentLoaderMac **a2@<X8>)
+void WebFrameLoaderClient::createDocumentLoader(uint64_t a1@<X0>, WebDocumentLoaderMac **a4@<X8>)
 {
-  v4 = WTF::fastMalloc(0xE40);
+  v6 = WTF::fastMalloc(0xE40);
   WebDocumentLoaderMac::WebDocumentLoaderMac();
-  v5 = [WebDataSource alloc];
-  ++*(v4 + 6);
-  v13 = v4;
-  v6 = [(WebDataSource *)v5 _initWithDocumentLoader:&v13];
-  v7 = v13;
-  v13 = 0;
-  if (!v7)
+  v7 = [WebDataSource alloc];
+  ++*(v6 + 6);
+  v15 = v6;
+  v8 = [(WebDataSource *)v7 _initWithDocumentLoader:&v15];
+  v9 = v15;
+  v15 = 0;
+  if (!v9)
   {
 LABEL_4:
-    v8 = *(a1 + 24);
-    if (!v8)
+    v10 = *(a1 + 24);
+    if (!v10)
     {
       goto LABEL_11;
     }
@@ -3578,32 +4100,32 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if (*(v7 + 6) != 1)
+  if (*(v9 + 6) != 1)
   {
-    --*(v7 + 6);
+    --*(v9 + 6);
     goto LABEL_4;
   }
 
-  (*(*v7 + 24))(v7);
-  v8 = *(a1 + 24);
-  if (!v8)
+  (*(*v9 + 24))(v9);
+  v10 = *(a1 + 24);
+  if (!v10)
   {
     goto LABEL_11;
   }
 
 LABEL_5:
-  v9 = *(*(v8 + 8) + 8);
-  if (v9)
+  v11 = *(*(v10 + 8) + 8);
+  if (v11)
   {
-    v10 = *(v9 + 24);
-    if (v10)
+    v12 = *(v11 + 24);
+    if (v12)
     {
-      v11 = *(v10 + 8);
-      if (v11)
+      v13 = *(v12 + 8);
+      if (v13)
       {
-        if (((*(**(*(v11 + 56) + 16) + 1440))(*(*(v11 + 56) + 16)) & 1) == 0)
+        if (((*(**(*(v13 + 56) + 16) + 1440))(*(*(v13 + 56) + 16)) & 1) == 0)
         {
-          Weak = objc_loadWeak((*(*(v11 + 56) + 16) + 16));
+          Weak = objc_loadWeak((*(*(v13 + 56) + 16) + 16));
           goto LABEL_12;
         }
       }
@@ -3613,20 +4135,20 @@ LABEL_5:
 LABEL_11:
   Weak = 0;
 LABEL_12:
-  WebDocumentLoaderMac::setDataSource(v4, v6, Weak);
-  *a2 = v4;
-  if (v6)
+  WebDocumentLoaderMac::setDataSource(v6, v8, Weak);
+  *a4 = v6;
+  if (v8)
   {
   }
 }
 
-void sub_1C7A69B88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _DWORD *a10)
+void sub_1C7A69B88(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _DWORD *a10)
 {
   if (a10)
   {
     if (a10[6] == 1)
     {
-      (*(*a10 + 24))(a10);
+      (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -3637,7 +4159,7 @@ void sub_1C7A69B88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (v10[6] == 1)
   {
-    (*(*v10 + 24))(v10);
+    (*(*v10 + 24))(v10, a2, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -3645,7 +4167,7 @@ void sub_1C7A69B88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void WebFrameLoaderClient::setTitle(uint64_t a1, atomic_uint **a2, WTF::URL *a3)
+void WebFrameLoaderClient::setTitle(uint64_t a1, atomic_uint **a2, atomic_uint **a3)
 {
   v6 = *(a1 + 24);
   if (v6)
@@ -3915,14 +4437,14 @@ LABEL_6:
   }
 }
 
-void sub_1C7A6A24C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_1C7A6A24C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (!a10)
   {
     _Unwind_Resume(exception_object);
   }
 
-  (*(*a10 + 8))(a10);
+  (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(exception_object);
 }
 
@@ -3975,7 +4497,7 @@ uint64_t WebFrameLoaderClient::didRestoreFrameHierarchyForCachedFrame(WebFrameLo
 void WebFrameLoaderClient::transitionToCommittedForNewPage(uint64_t a1)
 {
   v2 = [*(a1 + 24) _dataSource];
-  [v2 _documentLoader];
+  objc_msgSend__documentLoader(v2);
   v3 = WebCore::ResourceResponseBase::mimeType((v27 + 1280));
   if (MEMORY[0x1CCA639B0](*v3, "text/html", 9))
   {
@@ -4122,7 +4644,7 @@ LABEL_24:
   }
 
   [(WebHTMLView *)v8 setDataSource:v2, v27];
-  [v2 _documentLoader];
+  objc_msgSend__documentLoader(v2);
   if (v29)
   {
     MEMORY[0x1CCA63A40](&v27, [v2 pageTitle]);
@@ -4173,7 +4695,7 @@ LABEL_24:
   }
 }
 
-uint64_t WebFrameLoaderClient::didRestoreFromBackForwardCache(WebFrameLoaderClient *this)
+void *WebFrameLoaderClient::didRestoreFromBackForwardCache(WebFrameLoaderClient *this)
 {
   v2 = *(this + 3);
   if (v2)
@@ -4238,7 +4760,7 @@ uint64_t WebFrameLoaderClient::userAgent@<X0>(uint64_t this@<X0>, const WTF::URL
   if (v3 && (v4 = *(*(v3 + 8) + 8)) != 0 && (v5 = *(v4 + 24)) != 0 && (v6 = *(v5 + 8)) != 0 && (v7 = a3, this = (*(**(*(v6 + 56) + 16) + 1440))(*(*(v6 + 56) + 16), a2), a3 = v7, (this & 1) == 0) && (this = objc_loadWeak((*(*(v6 + 56) + 16) + 16)), a3 = v7, this))
   {
 
-    return [this _userAgentString];
+    return objc_msgSend__userAgentString(this);
   }
 
   else
@@ -4270,57 +4792,57 @@ BOOL WebFrameLoaderClient::canCachePage(id *this)
   }
 }
 
-void WebFrameLoaderClient::createFrame(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void WebFrameLoaderClient::createFrame(uint64_t a1@<X0>, uint64_t a3@<X2>, void *a4@<X8>)
 {
   v5 = *(*(*(a3 + 48) + 8) + 552);
-  if (v5 && (v6 = *(v5 + 8)) != 0 && (v7 = *(v6 + 24)) != 0 && (v8 = *(v7 + 8)) != 0)
+  if (v5 && (v6 = *(v5 + 8)) != 0 && (v7 = *(v6 + 24)) != 0 && *(v7 + 8))
   {
-    v12 = objc_alloc_init(WebFrameView);
-    [WebFrame _createSubframeWithOwnerElement:a3 page:v8 frameName:a2 frameView:v12];
-    if (v23 && (v13 = *(*(v23 + 208) + 16), ((*(*v13 + 1032))(v13) & 1) == 0))
+    v9 = objc_alloc_init(WebFrameView);
+    objc_msgSend__createSubframeWithOwnerElement_page_frameName_frameView_(WebFrame);
+    if (v20 && (v10 = *(*(v20 + 208) + 16), ((*(*v10 + 1032))(v10) & 1) == 0))
     {
-      v14 = v13[3];
+      v11 = v10[3];
     }
 
     else
     {
-      v14 = 0;
+      v11 = 0;
     }
 
-    if ([v14 _dataSource])
+    if ([v11 _dataSource])
     {
-      v15 = [v14 _dataSource];
-      if (v15)
+      v12 = [v11 _dataSource];
+      if (v12)
       {
-        [v15 _documentLoader];
-        v16 = v22;
+        objc_msgSend__documentLoader(v12);
+        v13 = v19;
       }
 
       else
       {
-        v16 = 0;
+        v13 = 0;
       }
 
-      [objc_msgSend(*(a1 + 24) "_dataSource")];
-      v18 = *(v21 + 1640);
-      if (v18)
+      objc_msgSend__documentLoader([*(a1 + 24) _dataSource]);
+      v15 = *(v18 + 1640);
+      if (v15)
       {
-        atomic_fetch_add_explicit(v18, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v15, 2u, memory_order_relaxed);
       }
 
-      v19 = *(v16 + 1640);
-      *(v16 + 1640) = v18;
-      if (v19 && atomic_fetch_add_explicit(v19, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      v16 = *(v13 + 1640);
+      *(v13 + 1640) = v15;
+      if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v19, v17);
+        WTF::StringImpl::destroy(v16, v14);
       }
     }
 
-    v20 = *(v23 + 24);
-    if (v20 && *(v20 + 8))
+    v17 = *(v20 + 24);
+    if (v17 && *(v17 + 8))
     {
-      *a4 = v23;
-      if (v12)
+      *a4 = v20;
+      if (v9)
       {
 LABEL_21:
       }
@@ -4329,10 +4851,10 @@ LABEL_21:
     else
     {
       *a4 = 0;
-      if (*(v23 + 16) == 1)
+      if (*(v20 + 16) == 1)
       {
-        (*(*v23 + 8))();
-        if (v12)
+        (*(*v20 + 8))();
+        if (v9)
         {
           goto LABEL_21;
         }
@@ -4340,8 +4862,8 @@ LABEL_21:
 
       else
       {
-        --*(v23 + 16);
-        if (v12)
+        --*(v20 + 16);
+        if (v9)
         {
           goto LABEL_21;
         }
@@ -5047,7 +5569,7 @@ void sub_1C7A6BD3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   objc_end_catch();
 }
 
-uint64_t WebFrameLoaderClient::sendH2Ping(uint64_t a1, uint64_t a2, uint64_t *a3)
+WTF::StringImpl *WebFrameLoaderClient::sendH2Ping(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v40 = *MEMORY[0x1E69E9840];
   WebCore::internalError();
@@ -5103,12 +5625,13 @@ uint64_t WebFrameLoaderClient::sendH2Ping(uint64_t a1, uint64_t a2, uint64_t *a3
   return 0;
 }
 
-void sub_1C7A6BFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
+void sub_1C7A6BFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  (*(*v19 + 8))(v19);
-  mpark::detail::destructor<mpark::detail::traits<WTF::Seconds,WebCore::ResourceError>,(mpark::detail::Trait)1>::~destructor(v20 - 128, v22);
-  WebCore::ResourceError::~ResourceError(&a19, v23);
-  WebCore::ResourceError::~ResourceError(&a9, v24);
+  va_start(va, a18);
+  (*(*v18 + 8))(v18, a2, a3, a4, a5, a6, a7, a8);
+  mpark::detail::destructor<mpark::detail::traits<WTF::Seconds,WebCore::ResourceError>,(mpark::detail::Trait)1>::~destructor(v19 - 128, v21);
+  WebCore::ResourceError::~ResourceError(va, v22);
+  WebCore::ResourceError::~ResourceError(&a9, v23);
   _Unwind_Resume(a1);
 }
 
@@ -5256,29 +5779,29 @@ LABEL_20:
   return result;
 }
 
-uint64_t WebFrameLoaderClient::createNetworkingContext@<X0>(WebFrameLoaderClient *this@<X0>, uint64_t *a2@<X8>)
+uint64_t WebFrameLoaderClient::createNetworkingContext@<X0>(WebFrameLoaderClient *this@<X0>, uint64_t *a3@<X8>)
 {
-  v3 = *(this + 3);
-  if (v3)
+  v4 = *(this + 3);
+  if (v4)
   {
-    v4 = *(*(v3 + 8) + 8);
+    v5 = *(*(v4 + 8) + 8);
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  v5 = WTF::fastMalloc(0x18);
-  *(v5 + 8) = 1;
-  *v5 = &unk_1F472BBE8;
-  if (!v4)
+  v6 = WTF::fastMalloc(0x18);
+  *(v6 + 8) = 1;
+  *v6 = &unk_1F472BBE8;
+  if (!v5)
   {
     result = 0;
     goto LABEL_11;
   }
 
-  result = *(v4 + 8);
+  result = *(v5 + 8);
   if (result)
   {
     goto LABEL_9;
@@ -5286,19 +5809,19 @@ uint64_t WebFrameLoaderClient::createNetworkingContext@<X0>(WebFrameLoaderClient
 
   result = WTF::fastCompactMalloc(0x10);
   *result = 1;
-  *(result + 8) = v4;
-  v8 = *(v4 + 8);
-  *(v4 + 8) = result;
-  if (!v8)
+  *(result + 8) = v5;
+  v9 = *(v5 + 8);
+  *(v5 + 8) = result;
+  if (!v9)
   {
     goto LABEL_9;
   }
 
-  if (atomic_fetch_add(v8, 0xFFFFFFFF) == 1)
+  if (atomic_fetch_add(v9, 0xFFFFFFFF) == 1)
   {
-    atomic_store(1u, v8);
-    WTF::fastFree(v8, v7);
-    result = *(v4 + 8);
+    atomic_store(1u, v9);
+    WTF::fastFree(v9, v8);
+    result = *(v5 + 8);
     if (!result)
     {
       goto LABEL_11;
@@ -5307,7 +5830,7 @@ uint64_t WebFrameLoaderClient::createNetworkingContext@<X0>(WebFrameLoaderClient
     goto LABEL_9;
   }
 
-  result = *(v4 + 8);
+  result = *(v5 + 8);
   if (result)
   {
 LABEL_9:
@@ -5315,29 +5838,29 @@ LABEL_9:
   }
 
 LABEL_11:
-  *(v5 + 16) = result;
-  *v5 = &unk_1F472DD00;
-  *a2 = v5;
+  *(v6 + 16) = result;
+  *v6 = &unk_1F472DD00;
+  *a3 = v6;
   return result;
 }
 
-uint64_t WebFrameLoaderClient::createHistoryItemTree(uint64_t a1)
+uint64_t WebFrameLoaderClient::createHistoryItemTree(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *(*(*(*(a1 + 24) + 8) + 8) + 320);
-  if (v1 && (v2 = *(v1 + 8)) != 0)
+  v4 = *(*(*(*(a1 + 24) + 8) + 8) + 320);
+  if (v4 && (v5 = *(v4 + 8)) != 0)
   {
-    ++v2[4];
+    ++v5[4];
     result = WebCore::HistoryController::createItemTree();
-    if (v2[4] == 1)
+    if (v5[4] == 1)
     {
-      v4 = *(*v2 + 8);
+      v7 = *(*v5 + 8);
 
-      return v4(v2);
+      return v7(v5);
     }
 
     else
     {
-      --v2[4];
+      --v5[4];
     }
   }
 
@@ -5551,8 +6074,7 @@ void WebFrameLoaderClient::contentFilterDidBlockLoad(uint64_t a1, __int128 *a2)
   v2 = *(*(*(*(*(a1 + 24) + 8) + 8) + 208) + 24);
   v3 = *a2;
   v4 = a2[1];
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v29 = v3;
   v30 = v4;
   v31 = a2[2];
@@ -5608,8 +6130,7 @@ LABEL_7:
   v40 = *(a2 + 18);
   v7 = *(a2 + 16);
   v8 = *(a2 + 17);
-  *(a2 + 16) = 0;
-  *(a2 + 17) = 0;
+  a2[8] = 0uLL;
   v39 = v8;
   *(a2 + 18) = 0;
   v41 = *(a2 + 152);
@@ -5774,7 +6295,7 @@ LABEL_38:
   WebCore::ContentFilterUnblockHandler::~ContentFilterUnblockHandler(&v29, a2);
 }
 
-uint64_t WebFrameLoaderClient::getLoadDecisionForIcons(uint64_t result, uint64_t a2)
+uint64_t WebFrameLoaderClient::getLoadDecisionForIcons(uint64_t result, unint64_t a2)
 {
   v2 = *(result + 24);
   if (v2)
@@ -5851,17 +6372,17 @@ LABEL_11:
   return result;
 }
 
-void sub_1C7A6CFB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_1C7A6CFB4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A6D204(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, WTF::StringImpl *a15)
+void sub_1C7A6D204(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF *a14, WTF::StringImpl *a15)
 {
   if (a15 && atomic_fetch_add_explicit(a15, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
@@ -5983,7 +6504,7 @@ void sub_1C7A6EBCC(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint
   {
     if (v11[6] == 1)
     {
-      (*(*v11 + 24))(v11);
+      (*(*v11 + 24))(v11, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -5997,7 +6518,7 @@ void sub_1C7A6EBCC(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A6EF10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, unsigned int *a10, void *a11, unsigned int *a12)
+void sub_1C7A6EF10(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unsigned int *a10, void *a11, unsigned int *a12)
 {
   if (a11)
   {
@@ -6006,7 +6527,7 @@ void sub_1C7A6EF10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   if (a10 && atomic_fetch_add(a10 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, a10 + 2);
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
@@ -6014,7 +6535,7 @@ void sub_1C7A6EF10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     if (atomic_fetch_add(a12 + 2, 0xFFFFFFFF) == 1)
     {
       atomic_store(1u, a12 + 2);
-      (*(*a12 + 8))(a12);
+      (*(*a12 + 8))(a12, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -6042,7 +6563,7 @@ void sub_1C7A6F2C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A6F3D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _DWORD *a10)
+void sub_1C7A6F3D8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _DWORD *a10)
 {
   if (a10)
   {
@@ -6052,19 +6573,19 @@ void sub_1C7A6F3D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
       _Unwind_Resume(exception_object);
     }
 
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A6F558(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, _DWORD *a9, _DWORD *a10)
+void sub_1C7A6F558(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, _DWORD *a9, _DWORD *a10)
 {
   if (a9)
   {
     if (a9[2] == 1)
     {
-      (*(*a9 + 8))(a9);
+      (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -6081,7 +6602,7 @@ void sub_1C7A6F558(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
       _Unwind_Resume(exception_object);
     }
 
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6097,13 +6618,13 @@ void sub_1C7A6F74C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A6F8D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
+void sub_1C7A6F8D4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9)
 {
   if (a9)
   {
     if (*(a9 + 2) == 1)
     {
-      (*(*a9 + 8))(a9);
+      (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -6118,7 +6639,7 @@ void sub_1C7A6F8D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   {
     if (v11[2] == 1)
     {
-      (*(*v11 + 8))(v11);
+      (*(*v11 + 8))(v11, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
 
@@ -6129,7 +6650,7 @@ void sub_1C7A6F8D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A6FA44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _DWORD *a10)
+void sub_1C7A6FA44(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _DWORD *a10)
 {
   if (a10)
   {
@@ -6139,13 +6660,13 @@ void sub_1C7A6FA44(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
       _Unwind_Resume(exception_object);
     }
 
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vectorForDictationPhrasesArray@<X0>(NSArray *a1@<X0>, unsigned int *a2@<X8>)
+void *vectorForDictationPhrasesArray@<X0>(NSArray *a1@<X0>, WTF::StringImpl *a2@<X8>)
 {
   v2 = a2;
   v52 = *MEMORY[0x1E69E9840];
@@ -6182,10 +6703,10 @@ uint64_t vectorForDictationPhrasesArray@<X0>(NSArray *a1@<X0>, unsigned int *a2@
           v44 = 0;
           v45 = 0;
           v38 = v7;
-          if (v5 == v2[2])
+          if (v5 == *(v2 + 2))
           {
             v10 = WTF::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(v2, v5 + 1, &v44);
-            v11 = v2[3];
+            v11 = *(v2 + 3);
             v37 = *v2;
             v12 = *v2 + 16 * v11;
             *v12 = 0;
@@ -6210,7 +6731,7 @@ uint64_t vectorForDictationPhrasesArray@<X0>(NSArray *a1@<X0>, unsigned int *a2@
             LODWORD(v11) = v45;
             LODWORD(v45) = 0;
             *(v12 + 8) = v11;
-            LODWORD(v11) = v2[3];
+            LODWORD(v11) = *(v2 + 3);
             v14 = &v45 + 1;
           }
 
@@ -6218,7 +6739,7 @@ uint64_t vectorForDictationPhrasesArray@<X0>(NSArray *a1@<X0>, unsigned int *a2@
           *v14 = 0;
           *(v12 + 12) = v15;
           v16 = v11 + 1;
-          v2[3] = v11 + 1;
+          *(v2 + 3) = v11 + 1;
           v17 = v44;
           if (HIDWORD(v45))
           {
@@ -6373,7 +6894,7 @@ LABEL_55:
           v7 = v38;
         }
 
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v7 != v4);
@@ -6565,62 +7086,63 @@ void sub_1C7A7161C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A71888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7A71888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   WebCore::GraphicsContextCG::~GraphicsContextCG(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A7189C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7A7189C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   WebCore::GraphicsContextCG::~GraphicsContextCG(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A718B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7A718B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   WebCore::GraphicsContextCG::~GraphicsContextCG(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A718C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7A718C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   WebCore::GraphicsContextCG::~GraphicsContextCG(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A718DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7A718DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   WebCore::GraphicsContextCG::~GraphicsContextCG(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A718F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C7A718F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   WebCore::GraphicsContextCG::~GraphicsContextCG(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A71BAC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, WTF::StringImpl *a12, uint64_t a13, char a14)
+void sub_1C7A71BAC(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, WTF::StringImpl *a12, uint64_t a13, ...)
 {
+  va_start(va, a13);
   if (a11)
   {
     if (atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(a11, a2);
-      MEMORY[0x1CCA63200](&a14);
+      MEMORY[0x1CCA63200](va);
 
       _Unwind_Resume(a1);
     }
   }
 
-  MEMORY[0x1CCA63200](&a14);
+  MEMORY[0x1CCA63200](va, a2, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
@@ -6699,9 +7221,9 @@ void sub_1C7A72694(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A72A70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7A72A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::optional<WebCore::SimpleRange>::~optional(va);
   _Unwind_Resume(a1);
 }
@@ -6817,9 +7339,9 @@ void sub_1C7A730A8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A731FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7A731FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::optional<WebCore::SimpleRange>::~optional(va);
   _Unwind_Resume(a1);
 }
@@ -6834,11 +7356,11 @@ void sub_1C7A732B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A73460(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7A73460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WTF::Ref<WebCore::MutableStyleProperties,WTF::RawPtrTraits<WebCore::MutableStyleProperties>,WTF::DefaultRefDerefTraits<WebCore::MutableStyleProperties>>::~Ref(va);
-  (*(*v2 + 8))(v2);
+  (*(*v3 + 8))(v3);
   _Unwind_Resume(a1);
 }
 
@@ -6855,14 +7377,14 @@ void sub_1C7A735B4(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A736A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, unsigned int *a9)
+void sub_1C7A736A4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int *a9)
 {
   if (a9)
   {
     if (atomic_fetch_add(a9 + 2, 0xFFFFFFFF) == 1)
     {
       atomic_store(1u, a9 + 2);
-      (*(*a9 + 8))(a9);
+      (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -6945,10 +7467,11 @@ void sub_1C7A73C40(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A73DC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WebCore::Node *a10, uint64_t a11, uint64_t a12, char a13)
+void sub_1C7A73DC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WebCore::Node *a10, uint64_t a11, uint64_t a12, ...)
 {
-  std::optional<WebCore::SimpleRange>::~optional((v13 - 56));
-  WebCore::VisibleSelection::~VisibleSelection(&a13);
+  va_start(va, a12);
+  std::optional<WebCore::SimpleRange>::~optional((v12 - 56));
+  WebCore::VisibleSelection::~VisibleSelection(va);
   if (a10)
   {
     if (*(a10 + 7) == 2)
@@ -6963,9 +7486,9 @@ void sub_1C7A73DC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A73F18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7A73F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::optional<WebCore::SimpleRange>::~optional(va);
   _Unwind_Resume(a1);
 }
@@ -7037,9 +7560,9 @@ void sub_1C7A74D04(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A74F54(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7A74F54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::optional<WebCore::SimpleRange>::~optional(va);
   _Unwind_Resume(a1);
 }
@@ -7060,16 +7583,16 @@ void sub_1C7A75104(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A75134(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7A75134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::optional<WebCore::SimpleRange>::~optional(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A7523C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7A7523C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::optional<WebCore::SimpleRange>::~optional(va);
   _Unwind_Resume(a1);
 }
@@ -7119,16 +7642,16 @@ void sub_1C7A754DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A755D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7A755D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::optional<WebCore::SimpleRange>::~optional(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A757B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7A757B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WebCore::VisibleSelection::~VisibleSelection(va);
   _Unwind_Resume(a1);
 }
@@ -7169,23 +7692,24 @@ void sub_1C7A75AC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A75CC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7A75CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::optional<WebCore::SimpleRange>::~optional(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A75DA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7A75DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::optional<WebCore::SimpleRange>::~optional(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A75F30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WebCore::Node *a10, uint64_t a11, WebCore::Node *a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
+void sub_1C7A75F30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WebCore::Node *a10, uint64_t a11, WebCore::Node *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  WebCore::VisibleSelection::~VisibleSelection(&a18);
+  va_start(va, a17);
+  WebCore::VisibleSelection::~VisibleSelection(va);
   WebCore::SimpleRange::~SimpleRange(&a14);
   if (a10)
   {
@@ -7214,9 +7738,9 @@ void sub_1C7A75F30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A760C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7A760C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::optional<WebCore::SimpleRange>::~optional(va);
   _Unwind_Resume(a1);
 }
@@ -7237,23 +7761,24 @@ void sub_1C7A760DC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A763FC(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, WTF::StringImpl *a12, char a13)
+void sub_1C7A763FC(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, WTF::StringImpl *a12, ...)
 {
+  va_start(va, a12);
   WTF::HashMap<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::~HashMap(&a9, a2);
-  WTF::Vector<WebCore::CompositionHighlight,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a10, v14);
-  v16 = a12;
+  WTF::Vector<WebCore::CompositionHighlight,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a10, v13);
+  v15 = a12;
   a12 = 0;
-  if (v16)
+  if (v15)
   {
-    if (atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v16, v15);
-      WTF::Vector<WebCore::CompositionUnderline,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a13, v17);
+      WTF::StringImpl::destroy(v15, v14);
+      WTF::Vector<WebCore::CompositionUnderline,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, v16);
       _Unwind_Resume(a1);
     }
   }
 
-  WTF::Vector<WebCore::CompositionUnderline,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a13, v15);
+  WTF::Vector<WebCore::CompositionUnderline,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, v14);
   _Unwind_Resume(a1);
 }
 
@@ -7412,30 +7937,31 @@ uint64_t WTF::Vector<WebCore::CompositionUnderline,0ul,WTF::CrashOnOverflow,16ul
   return result;
 }
 
-void sub_1C7A76958(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C7A76958(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a6);
+  va_start(va, a10);
   WTF::Vector<WebCore::CompositionUnderline,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A7696C(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, WTF::StringImpl *a12, char a13)
+void sub_1C7A7696C(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, WTF::StringImpl *a12, ...)
 {
-  if (v13)
+  va_start(va, a12);
+  if (v12)
   {
-    if (*(v13 + 7) == 2)
+    if (*(v12 + 7) == 2)
     {
-      WebCore::Node::removedLastRef(v13);
-      WTF::Vector<WebCore::CompositionUnderline,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a13, v15);
+      WebCore::Node::removedLastRef(v12);
+      WTF::Vector<WebCore::CompositionUnderline,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, v14);
       _Unwind_Resume(a1);
     }
 
-    *(v13 + 7) -= 2;
-    WTF::Vector<WebCore::CompositionUnderline,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a13, a2);
+    *(v12 + 7) -= 2;
+    WTF::Vector<WebCore::CompositionUnderline,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
     _Unwind_Resume(a1);
   }
 
-  WTF::Vector<WebCore::CompositionUnderline,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a13, a2);
+  WTF::Vector<WebCore::CompositionUnderline,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -7716,14 +8242,14 @@ void sub_1C7A78B04(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A78E58(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, uint64_t a12, WTF::StringImpl *a13)
+void sub_1C7A78E58(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, uint64_t a12, WTF::StringImpl *a13)
 {
   if (a11 && atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
     WTF::StringImpl::destroy(a11, a2);
   }
 
-  MEMORY[0x1CCA63200](&a13);
+  MEMORY[0x1CCA63200](&a13, a2, a3, a4, a5, a6, a7, a8);
   if ((v14 & 1) == 0)
   {
   }
@@ -8038,7 +8564,7 @@ void sub_1C7A7A8AC(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A7B5C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _DWORD *a10)
+void sub_1C7A7B5C4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _DWORD *a10)
 {
   if (a10)
   {
@@ -8048,7 +8574,7 @@ void sub_1C7A7B5C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
       _Unwind_Resume(exception_object);
     }
 
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8097,7 +8623,7 @@ void sub_1C7A7BB08(_Unwind_Exception *exception_object, WTF::StringImpl *a2)
     if (atomic_fetch_add(v7 + 2, 0xFFFFFFFF) == 1)
     {
       atomic_store(1u, v7 + 2);
-      (*(*v7 + 8))(v7);
+      (*(*v7 + 8))(v7, a2);
       _Unwind_Resume(exception_object);
     }
   }
@@ -8138,12 +8664,12 @@ void PluginWidget::~PluginWidget(PluginWidget *this)
   WTF::fastFree(v1, v2);
 }
 
-uint64_t PluginWidget::invalidateRect(WebCore::Widget *a1)
+uint64_t PluginWidget::invalidateRect(WebCore::Widget *a1, uint64_t a2)
 {
-  v1 = WebCore::Widget::platformWidget(a1);
+  v2 = WebCore::Widget::platformWidget(a1);
   WebCore::IntRect::operator CGRect();
 
-  return [v1 setNeedsDisplayInRect:?];
+  return [v2 setNeedsDisplayInRect:?];
 }
 
 uint64_t mpark::detail::destructor<mpark::detail::traits<WTF::Seconds,WebCore::ResourceError>,(mpark::detail::Trait)1>::~destructor(uint64_t result, WTF::StringImpl *a2)
@@ -8190,13 +8716,13 @@ uint64_t mpark::detail::destructor<mpark::detail::traits<WTF::Seconds,WebCore::R
 
 void WebCore::NetworkingContext::sourceApplicationIdentifier(atomic_uint **a1@<X8>)
 {
-  v2 = *MEMORY[0x1E696EBA8];
+  v1 = *MEMORY[0x1E696EBA8];
   if (*MEMORY[0x1E696EBA8])
   {
-    atomic_fetch_add_explicit(v2, 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v1, 2u, memory_order_relaxed);
   }
 
-  *a1 = v2;
+  *a1 = v1;
 }
 
 uint64_t WebFrameLoaderClient::createPreviewLoaderClient(WTF::String const&,WTF::String const&)::QuickLookDocumentWriter::~QuickLookDocumentWriter(uint64_t a1)
@@ -8354,12 +8880,12 @@ void WebCore::ContentFilterUnblockHandler::~ContentFilterUnblockHandler(WebCore:
   v6 = *(this + 9);
   if (v6 == (this + 48))
   {
-    (*(*v6 + 32))(v6);
+    (*(*v6 + 32))(v6, a2);
   }
 
   else if (v6)
   {
-    (*(*v6 + 40))(v6);
+    (*(*v6 + 40))(v6, a2);
   }
 
   v7 = *(this + 1);
@@ -8545,7 +9071,7 @@ uint64_t WTF::Detail::CallableWrapper<WebFrameLoaderClient::dispatchWillSubmitFo
   if (v3)
   {
     v4 = a1;
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
     a1 = v4;
     v2 = vars8;
   }
@@ -8605,10 +9131,10 @@ uint64_t WTF::Vector<WTF::Ref<WebCore::ArchiveResource,WTF::RawPtrTraits<WebCore
   return a1;
 }
 
-unint64_t WTF::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unsigned int *a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(WTF::StringImpl *a1, unint64_t a2, unint64_t a3)
 {
   v4 = *a1;
-  if (*a1 > a3 || v4 + 16 * a1[3] <= a3)
+  if (*a1 > a3 || v4 + 16 * *(a1 + 3) <= a3)
   {
     WTF::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a1, a2);
     return a3;
@@ -8622,9 +9148,9 @@ unint64_t WTF::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF:
   }
 }
 
-unsigned int *WTF::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unsigned int *result, unint64_t a2)
+WTF::StringImpl *WTF::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(WTF::StringImpl *result, unint64_t a2)
 {
-  v2 = result[2];
+  v2 = *(result + 2);
   if (v2 + (v2 >> 1) <= v2 + 1)
   {
     v3 = v2 + 1;
@@ -8659,9 +9185,9 @@ unsigned int *WTF::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,
       v6 = v3;
     }
 
-    v7 = result[3];
+    v7 = *(result + 3);
     result = WTF::fastMalloc((16 * v6));
-    v4[2] = v6;
+    *(v4 + 2) = v6;
     *v4 = result;
     if (v7)
     {
@@ -8677,10 +9203,10 @@ unsigned int *WTF::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,
         *v9 = v12;
         LODWORD(v12) = *(v11 + 2);
         *(v11 + 2) = 0;
-        v9[2] = v12;
+        *(v9 + 2) = v12;
         LODWORD(v12) = *(v11 + 3);
         *(v11 + 3) = 0;
-        v9[3] = v12;
+        *(v9 + 3) = v12;
         v13 = *(v11 + 3);
         v14 = *v11;
         if (v13)
@@ -8710,7 +9236,7 @@ unsigned int *WTF::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,
           result = WTF::fastFree(v14, v8);
         }
 
-        v9 += 4;
+        v9 = (v9 + 16);
         v11 = (v11 + 16);
       }
 
@@ -8722,7 +9248,7 @@ unsigned int *WTF::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,
       if (*v4 == v5)
       {
         *v4 = 0;
-        v4[2] = 0;
+        *(v4 + 2) = 0;
       }
 
       return WTF::fastFree(v5, v8);
@@ -8802,7 +9328,7 @@ void sub_1C7A7D1AC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7A7D3BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _DWORD *a10)
+void sub_1C7A7D3BC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _DWORD *a10)
 {
   if (a10)
   {
@@ -8812,7 +9338,7 @@ void sub_1C7A7D3BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
       _Unwind_Resume(exception_object);
     }
 
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8839,9 +9365,9 @@ void sub_1C7A7DA50(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7A7F36C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7A7F36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::optional<WebCore::SimpleRange>::~optional(va);
   _Unwind_Resume(a1);
 }
@@ -9032,11 +9558,11 @@ void hardwareKeyboardAvailabilityChangedCallback(__CFNotificationCenter *a1, voi
   objc_destroyWeak(&location);
 }
 
-void sub_1C7A80D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C7A80D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   objc_destroyWeak(va);
-  objc_destroyWeak((v5 - 24));
+  objc_destroyWeak((v9 - 24));
   _Unwind_Resume(a1);
 }
 
@@ -9117,671 +9643,4 @@ void sub_1C7A8148C(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   }
 
   _Unwind_Resume(exception_object);
-}
-
-void sub_1C7A82260(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
-{
-  if (a10)
-  {
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7A8263C(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  WebCore::PlatformKeyboardEvent::~PlatformKeyboardEvent(va, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A82650(_Unwind_Exception *a1, WTF::StringImpl *a2, WebCore::WindowProxy *a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  if (a3)
-  {
-    WTF::RefCounted<WebCore::WindowProxy>::deref(a3);
-  }
-
-  WebCore::PlatformKeyboardEvent::~PlatformKeyboardEvent(va, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A82680(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    if (v1[6] == 1)
-    {
-      (*(*v1 + 8))(v1);
-      _Unwind_Resume(exception_object);
-    }
-
-    --v1[6];
-    _Unwind_Resume(exception_object);
-  }
-
-  JUMPOUT(0x1C7A82678);
-}
-
-void sub_1C7A826D0(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    if (*(v1 + 7) == 2)
-    {
-      WebCore::Node::removedLastRef(v1);
-      _Unwind_Resume(exception_object);
-    }
-
-    *(v1 + 7) -= 2;
-    _Unwind_Resume(exception_object);
-  }
-
-  JUMPOUT(0x1C7A82678);
-}
-
-void sub_1C7A82C90(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  WebCore::ResourceCacheValidationSuppressor::~ResourceCacheValidationSuppressor(va, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A82CA4(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11)
-{
-  if (a11)
-  {
-    if (atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a11, a2);
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7A83130(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  WTF::Ref<WebCore::EditingStyle,WTF::RawPtrTraits<WebCore::EditingStyle>,WTF::DefaultRefDerefTraits<WebCore::EditingStyle>>::~Ref(va);
-  (*(*v2 + 8))(v2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A83234(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    if (*(v1 + 7) == 2)
-    {
-      WebCore::Node::removedLastRef(v1);
-      _Unwind_Resume(exception_object);
-    }
-
-    *(v1 + 7) -= 2;
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7A83798(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
-{
-  if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v10, a2);
-    _Unwind_Resume(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7A83EEC(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::optional<WebCore::SimpleRange>::~optional(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A83F00(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    if (*(v1 + 7) == 2)
-    {
-      WebCore::Node::removedLastRef(v1);
-      _Unwind_Resume(exception_object);
-    }
-
-    *(v1 + 7) -= 2;
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7A8403C(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    if (*(v1 + 7) == 2)
-    {
-      WebCore::Node::removedLastRef(v1);
-      _Unwind_Resume(exception_object);
-    }
-
-    *(v1 + 7) -= 2;
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-__ZN7WebCore6Editor18confirmCompositionEv:
-      MEMORY[0x1EEE5AC48](v7);
-    }
-  }
-}
-
-void sub_1C7A84144(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    if (*(v1 + 7) == 2)
-    {
-      WebCore::Node::removedLastRef(v1);
-      _Unwind_Resume(exception_object);
-    }
-
-    *(v1 + 7) -= 2;
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7A8441C(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, WTF::StringImpl *a12, char a13)
-{
-  WTF::HashMap<WTF::String,WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Vector<WebCore::CharacterRange,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::~HashMap(&a9, a2);
-  WTF::Vector<WebCore::CompositionHighlight,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a10, v14);
-  v16 = a12;
-  a12 = 0;
-  if (v16)
-  {
-    if (atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v16, v15);
-      WTF::Vector<WebCore::CompositionUnderline,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a13, v17);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  WTF::Vector<WebCore::CompositionUnderline,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a13, v15);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A847FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, char a11, uint64_t a12, WebCore::Node *a13)
-{
-  if ((v14 & 1) == 0)
-  {
-    if (v13[4] != 1)
-    {
-      --v13[4];
-      _Unwind_Resume(exception_object);
-    }
-
-    (*(*v13 + 8))(v13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7A84D74(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
-{
-  if (v11)
-  {
-    if (*(v11 + 7) == 2)
-    {
-      WebCore::Node::removedLastRef(v11);
-    }
-
-    else
-    {
-      *(v11 + 7) -= 2;
-    }
-  }
-
-  v14 = *(v12 - 56);
-  *(v12 - 56) = 0;
-  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v14, a2);
-  }
-
-  if (v10[4] == 1)
-  {
-    (*(*v10 + 8))(v10);
-    _Unwind_Resume(exception_object);
-  }
-
-  --v10[4];
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7A85060(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF *a9, int a10)
-{
-  if (!a9)
-  {
-    _Unwind_Resume(exception_object);
-  }
-
-  WTF::fastFree(a9, a2);
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7A85444(_Unwind_Exception *a1)
-{
-  objc_end_catch();
-  if (v1[4] == 1)
-  {
-    (*(*v1 + 8))(v1);
-    _Unwind_Resume(a1);
-  }
-
-  --v1[4];
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A85934(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, WTF::StringImpl *a14)
-{
-  std::optional<WebCore::SimpleRange>::~optional(&a9);
-  v16 = a14;
-  a14 = 0;
-  if (v16)
-  {
-    if (atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v16, v15);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  _Unwind_Resume(a1);
-}
-
-__ZN7WebCore6Editor34setMarkedTextMatchesAreHighlightedEb:
-      MEMORY[0x1EEE5AD40](v7, v8);
-    }
-  }
-}
-
-void sub_1C7A85A64(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    if (*(v1 + 7) == 2)
-    {
-      WebCore::Node::removedLastRef(v1);
-      _Unwind_Resume(exception_object);
-    }
-
-    *(v1 + 7) -= 2;
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7A85B34(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    if (*(v1 + 7) == 2)
-    {
-      WebCore::Node::removedLastRef(v1);
-      _Unwind_Resume(exception_object);
-    }
-
-    *(v1 + 7) -= 2;
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7A85CD8(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF *a9, int a10)
-{
-  if (!a9)
-  {
-    _Unwind_Resume(exception_object);
-  }
-
-  WTF::fastFree(a9, a2);
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7A85E20(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10)
-{
-  if (a10)
-  {
-    if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a10, a2);
-      _Unwind_Resume(exception_object);
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7A85F3C(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9)
-{
-  v11 = *(v9 - 24);
-  *(v9 - 24) = 0;
-  if (v11)
-  {
-  }
-
-  if (a9)
-  {
-    if (atomic_fetch_add_explicit(a9, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a9, a2);
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7A86240(_Unwind_Exception *exception_object, WTF::StringImpl *a2)
-{
-  if (atomic_fetch_add_explicit(v2, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v2, a2);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-JSC::Debugger *WebScriptDebugger::WebScriptDebugger(JSC::Debugger *a1, uint64_t a2)
-{
-  v4 = JSC::Debugger::Debugger();
-  *v4 = &unk_1F472BD30;
-  *(v4 + 248) = 0;
-  v5 = *(a2 + 56);
-  v6 = *(v5 + 752);
-  if (!v6)
-  {
-    JSC::HandleSet::grow((v5 + 712));
-    v6 = *(v5 + 752);
-  }
-
-  *(v5 + 752) = *v6;
-  *(v6 + 16) = 0;
-  *v6 = 0;
-  *(v6 + 8) = 0;
-  *(a1 + 32) = &unk_1F472BDD0;
-  *(a1 + 33) = v6 + 16;
-  if (!*(v6 + 16))
-  {
-    v7 = *((v6 & 0xFFFFFFFFFFFFF000) + 0x10);
-    v8 = v7[3];
-    v7 += 3;
-    *v6 = v8;
-    *(v6 + 8) = v7;
-    *v7 = v6;
-    *(v8 + 8) = v6;
-  }
-
-  *(v6 + 16) = a2;
-  JSC::Breakpoint::create();
-  v10 = *(a1 + 21);
-  *(a1 + 21) = v12;
-  if (v10)
-  {
-    WTF::RefCounted<JSC::Breakpoint>::deref(v10, v9);
-  }
-
-  JSC::Debugger::setBreakpointsActivated(a1);
-  JSC::Debugger::attach();
-  return a1;
-}
-
-void sub_1C7A86430(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  WTF::Vector<JSC::Breakpoint::Action,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
-  JSC::Strong<JSC::JSGlobalObject,(JSC::ShouldStrongDestructorGrabLock)0>::~Strong(v4);
-  JSC::Debugger::~Debugger(v3);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7A86454(_Unwind_Exception *a1)
-{
-  JSC::Strong<JSC::JSGlobalObject,(JSC::ShouldStrongDestructorGrabLock)0>::~Strong(v2);
-  JSC::Debugger::~Debugger(v1);
-  _Unwind_Resume(a1);
-}
-
-uint64_t JSC::Strong<JSC::JSGlobalObject,(JSC::ShouldStrongDestructorGrabLock)0>::~Strong(uint64_t result)
-{
-  v1 = *(result + 8);
-  if (v1)
-  {
-    v2 = (v1 - 16);
-    v3 = *(((v1 - 16) & 0xFFFFFFFFFFFFF000) + 0x10);
-    v4 = *(v1 - 8);
-    if (v4)
-    {
-      v5 = *v2;
-      *v4 = *v2;
-      *(v5 + 8) = v4;
-      *v2 = 0;
-      v2[1] = 0;
-    }
-
-    *v2 = *(v3 + 40);
-    *(v3 + 40) = v2;
-    *(result + 8) = 0;
-  }
-
-  return result;
-}
-
-{
-  v1 = *(result + 8);
-  if (v1)
-  {
-    v2 = (v1 - 16);
-    v3 = *(((v1 - 16) & 0xFFFFFFFFFFFFF000) + 0x10);
-    v4 = *(v1 - 8);
-    if (v4)
-    {
-      v5 = *v2;
-      *v4 = *v2;
-      *(v5 + 8) = v4;
-      *v2 = 0;
-      v2[1] = 0;
-    }
-
-    *v2 = *(v3 + 40);
-    *(v3 + 40) = v2;
-    *(result + 8) = 0;
-  }
-
-  return result;
-}
-
-void WebScriptDebugger::sourceParsed(uint64_t a1, uint64_t a2, JSC::SourceProvider *a3, uint64_t a4, atomic_uint **a5)
-{
-  v46[1] = *MEMORY[0x1E69E9840];
-  if (*(a1 + 248))
-  {
-    return;
-  }
-
-  *(a1 + 248) = 1;
-  (*(*a3 + 24))(a3);
-  if ((v9 & 0x100000000) != 0)
-  {
-    WTF::String::String();
-  }
-
-  else
-  {
-    WTF::String::String();
-  }
-
-  v11 = v42;
-  if (v42 && *(v42 + 1))
-  {
-    atomic_fetch_add_explicit(v42, 2u, memory_order_relaxed);
-    MEMORY[0x1CCA63450](&v41, v11);
-    if (atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v11, v10);
-    }
-  }
-
-  else
-  {
-    v41 = 0;
-  }
-
-  v12 = v42;
-  v42 = 0;
-  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v12, v10);
-  }
-
-  WTF::URL::createCFURL(&v42, (a3 + 24));
-  v13 = *(a3 + 28);
-  v14 = JSC::VM::deprecatedVMEntryGlobalObject();
-  v15 = WebCore::JSDOMWindowBase::wrapped(v14);
-  v16 = (*(*v15 + 104))(v15);
-  if (!v16 || (*(v16 + 136) & 1) != 0 || (v17 = *(*(v16 + 208) + 16), ((*(*v17 + 1032))(v17) & 1) != 0))
-  {
-    v18 = 0;
-  }
-
-  else
-  {
-    v18 = v17[3];
-  }
-
-  v19 = [v18 webView];
-  v20 = v19;
-  if (v19)
-  {
-    v21 = (*(v19 + 80) + 656);
-    v22 = v13 + 1;
-    if (a4 != -1)
-    {
-      goto LABEL_19;
-    }
-
-LABEL_32:
-    v30 = *(v21 + 1);
-    if (v30)
-    {
-      v31 = v41;
-      v32 = v42;
-      if (*v21 == 1)
-      {
-        v33 = *(a3 + 30);
-        if (!v33)
-        {
-          JSC::SourceProvider::getID(a3);
-          v33 = *(a3 + 30);
-        }
-
-        v34 = *(*(v20 + 80) + 112);
-        if (v34)
-        {
-          (v30)(v34, sel_webView_didParseSource_baseLineNumber_fromURL_sourceId_forWebFrame_, v20, v31, v22, v32, v33, v18);
-        }
-      }
-
-      else
-      {
-        v35 = [(WTF::StringImpl *)v42 absoluteString];
-        v36 = *(a3 + 30);
-        if (!v36)
-        {
-          JSC::SourceProvider::getID(a3);
-          v36 = *(a3 + 30);
-        }
-
-        v37 = *(*(v20 + 80) + 112);
-        if (v37)
-        {
-          v30(v37, sel_webView_didParseSource_fromURL_sourceId_forWebFrame_, v20, v31, v35, v36, v18);
-        }
-      }
-    }
-
-    goto LABEL_43;
-  }
-
-  v21 = &WebViewGetScriptDebugDelegateImplementations(WebView *)::empty;
-  v22 = v13 + 1;
-  if (a4 == -1)
-  {
-    goto LABEL_32;
-  }
-
-LABEL_19:
-  v23 = *a5;
-  if (*a5 && v23[1])
-  {
-    v43[0] = @"WebScriptErrorDescription";
-    atomic_fetch_add_explicit(v23, 2u, memory_order_relaxed);
-    MEMORY[0x1CCA63450](&v40, v23);
-    if (atomic_fetch_add_explicit(v23, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v23, v24);
-    }
-
-    v43[1] = @"WebScriptErrorLineNumber";
-    v44[0] = v40;
-    v44[1] = [MEMORY[0x1E696AD98] numberWithInt:a4];
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:2];
-    v26 = v40;
-    v40 = 0;
-    if (v26)
-    {
-    }
-  }
-
-  else
-  {
-    v45 = @"WebScriptErrorLineNumber";
-    v46[0] = [MEMORY[0x1E696AD98] numberWithInt:a4];
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
-  }
-
-  v27 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"WebScriptErrorDomain" code:-100 userInfo:v25];
-  v28 = *(v21 + 2);
-  if (v28)
-  {
-    v29 = *(*(v20 + 80) + 112);
-    if (v29)
-    {
-      v28(v29, sel_webView_failedToParseSource_baseLineNumber_fromURL_withError_forWebFrame_, v20, v41, v22, v42, v27, v18, v40);
-    }
-  }
-
-  if (v27)
-  {
-  }
-
-LABEL_43:
-  *(a1 + 248) = 0;
-  v38 = v42;
-  v42 = 0;
-  if (v38)
-  {
-  }
-
-  v39 = v41;
-  v41 = 0;
-  if (v39)
-  {
-  }
 }

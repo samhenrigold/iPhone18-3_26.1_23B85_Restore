@@ -6,16 +6,16 @@
 
 + (id)encodeMetadata:(id)metadata recipe:(id)recipe error:(id *)error
 {
-  v90[2] = *MEMORY[0x277D85DE8];
+  v88[2] = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   recipeCopy = recipe;
-  v89[0] = @"encodedCategoricalMetadata";
-  v89[1] = @"encodedNumericMetadata";
-  v73 = objc_alloc_init(MEMORY[0x277CBEB28]);
-  v74 = objc_alloc_init(MEMORY[0x277CBEB28]);
-  v90[0] = v73;
-  v90[1] = v74;
-  v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:v89 count:2];
+  v87[0] = @"encodedCategoricalMetadata";
+  v87[1] = @"encodedNumericMetadata";
+  v71 = objc_alloc_init(MEMORY[0x277CBEB28]);
+  v72 = objc_alloc_init(MEMORY[0x277CBEB28]);
+  v88[0] = v71;
+  v88[1] = v72;
+  v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:2];
   if (![metadataCopy count])
   {
     v61 = +[DESLogging coreChannel];
@@ -23,7 +23,7 @@
     {
       recipeID = [recipeCopy recipeID];
       *buf = 138412290;
-      v83 = recipeID;
+      v81 = recipeID;
       _os_log_impl(&dword_248FF7000, v61, OS_LOG_TYPE_INFO, "No metadata for recipe %@", buf, 0xCu);
     }
 
@@ -37,49 +37,48 @@
     {
       recipeID2 = [recipeCopy recipeID];
       *buf = 138412290;
-      v83 = recipeID2;
+      v81 = recipeID2;
       _os_log_impl(&dword_248FF7000, v61, OS_LOG_TYPE_INFO, "Recipe %@ is not configured to use aggregatable metadata.", buf, 0xCu);
     }
 
 LABEL_56:
 
-    v64 = v70;
-    v60 = v70;
+    v64 = v68;
+    v60 = v68;
     goto LABEL_61;
   }
 
   recipeUserInfo = [recipeCopy recipeUserInfo];
-  v76 = [recipeUserInfo objectForKeyedSubscript:@"MetadataEncoding"];
+  v74 = [recipeUserInfo objectForKeyedSubscript:@"MetadataEncoding"];
 
-  allKeys = [v76 allKeys];
+  allKeys = [v74 allKeys];
   v10 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v80 = 0u;
-  v81 = 0u;
   v78 = 0u;
   v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
   obj = v10;
-  v11 = [obj countByEnumeratingWithState:&v78 objects:v88 count:16];
+  v11 = [obj countByEnumeratingWithState:&v76 objects:v86 count:16];
   if (v11)
   {
-    v75 = *v79;
-    v68 = *MEMORY[0x277CCA7D8];
+    v73 = *v77;
     while (2)
     {
       v12 = 0;
       do
       {
-        if (*v79 != v75)
+        if (*v77 != v73)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v78 + 1) + 8 * v12);
+        v13 = *(*(&v76 + 1) + 8 * v12);
         v14 = [DESMetadataSchema alloc];
         attachments = [recipeCopy attachments];
-        v77 = 0;
-        v16 = [(DESMetadataSchema *)v14 initWith:v76 key:v13 attachments:attachments error:&v77];
-        v17 = v77;
+        v75 = 0;
+        v16 = [(DESMetadataSchema *)v14 initWith:v74 key:v13 attachments:attachments error:&v75];
+        v17 = v75;
 
         if (v16)
         {
@@ -95,11 +94,11 @@ LABEL_56:
             {
               recipeID3 = [recipeCopy recipeID];
               *buf = 138412802;
-              v83 = v20;
+              v81 = v20;
+              v82 = 2112;
+              v83 = v13;
               v84 = 2112;
-              v85 = v13;
-              v86 = 2112;
-              v87 = recipeID3;
+              v85 = recipeID3;
               _os_log_debug_impl(&dword_248FF7000, v21, OS_LOG_TYPE_DEBUG, "Encoding string value %@ for metadata entry %@, recipe %@", buf, 0x20u);
             }
 
@@ -121,11 +120,11 @@ LABEL_56:
               {
                 recipeID4 = [recipeCopy recipeID];
                 *buf = 138412802;
-                v83 = v26;
+                v81 = v26;
+                v82 = 2112;
+                v83 = v13;
                 v84 = 2112;
-                v85 = v13;
-                v86 = 2112;
-                v87 = recipeID4;
+                v85 = recipeID4;
                 _os_log_debug_impl(&dword_248FF7000, v27, OS_LOG_TYPE_DEBUG, "Encoding numeric value %@ for metadata entry %@, recipe %@", buf, 0x20u);
               }
 
@@ -141,10 +140,10 @@ LABEL_56:
 
               if (v30)
               {
-                v71 = [metadataCopy valueForKeyPath:v13];
-                if ([v71 count])
+                v69 = [metadataCopy valueForKeyPath:v13];
+                if ([v69 count])
                 {
-                  firstObject = [v71 firstObject];
+                  firstObject = [v69 firstObject];
                   objc_opt_class();
                   v32 = objc_opt_isKindOfClass();
 
@@ -156,11 +155,11 @@ LABEL_56:
                     {
                       recipeID5 = [recipeCopy recipeID];
                       *buf = 138412802;
-                      v83 = encoder4;
+                      v81 = encoder4;
+                      v82 = 2112;
+                      v83 = v13;
                       v84 = 2112;
-                      v85 = v13;
-                      v86 = 2112;
-                      v87 = recipeID5;
+                      v85 = recipeID5;
                       _os_log_debug_impl(&dword_248FF7000, v34, OS_LOG_TYPE_DEBUG, "Encoding string vector %@ for metadata entry %@, recipe %@", buf, 0x20u);
                     }
 
@@ -170,7 +169,7 @@ LABEL_56:
 
                   else
                   {
-                    firstObject2 = [v71 firstObject];
+                    firstObject2 = [v69 firstObject];
                     objc_opt_class();
                     v48 = objc_opt_isKindOfClass();
 
@@ -182,11 +181,11 @@ LABEL_56:
                       {
                         recipeID6 = [recipeCopy recipeID];
                         *buf = 138412802;
-                        v83 = encoder4;
+                        v81 = encoder4;
+                        v82 = 2112;
+                        v83 = v13;
                         v84 = 2112;
-                        v85 = v13;
-                        v86 = 2112;
-                        v87 = recipeID6;
+                        v85 = recipeID6;
                         _os_log_debug_impl(&dword_248FF7000, v49, OS_LOG_TYPE_DEBUG, "Encoding numeric vector %@ for metadata entry %@, recipe %@", buf, 0x20u);
                       }
 
@@ -204,7 +203,7 @@ LABEL_56:
                       if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
                       {
                         *buf = 138412290;
-                        v83 = encoder4;
+                        v81 = encoder4;
                         _os_log_error_impl(&dword_248FF7000, v53, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
                       }
 
@@ -223,9 +222,9 @@ LABEL_56:
                   {
                     recipeID8 = [recipeCopy recipeID];
                     *buf = 138412546;
-                    v83 = v13;
-                    v84 = 2112;
-                    v85 = recipeID8;
+                    v81 = v13;
+                    v82 = 2112;
+                    v83 = recipeID8;
                     _os_log_debug_impl(&dword_248FF7000, v44, OS_LOG_TYPE_DEBUG, "Zero encode empty vector for metadata entry %@, recipe %@", buf, 0x16u);
                   }
 
@@ -246,9 +245,9 @@ LABEL_56:
                   {
                     recipeID9 = [recipeCopy recipeID];
                     *buf = 138412546;
-                    v83 = v13;
-                    v84 = 2112;
-                    v85 = recipeID9;
+                    v81 = v13;
+                    v82 = 2112;
+                    v83 = recipeID9;
                     _os_log_debug_impl(&dword_248FF7000, v45, OS_LOG_TYPE_DEBUG, "Metadata %@ is specified in schema but missing from user data for recipe %@", buf, 0x16u);
                   }
 
@@ -266,7 +265,7 @@ LABEL_56:
                   if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v83 = v41;
+                    v81 = v41;
                     _os_log_error_impl(&dword_248FF7000, v42, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
                   }
 
@@ -279,12 +278,12 @@ LABEL_56:
 
           if ([(DESMetadataSchema *)v16 outputType]== 1)
           {
-            v54 = v73;
+            v54 = v71;
           }
 
           else
           {
-            v54 = v74;
+            v54 = v72;
           }
 
           [v54 appendData:v23];
@@ -306,7 +305,7 @@ LABEL_56:
       }
 
       while (v11 != v12);
-      v11 = [obj countByEnumeratingWithState:&v78 objects:v88 count:16];
+      v11 = [obj countByEnumeratingWithState:&v76 objects:v86 count:16];
       if (v11)
       {
         continue;
@@ -316,13 +315,11 @@ LABEL_56:
     }
   }
 
-  v60 = v70;
+  v60 = v68;
 LABEL_60:
 
-  v64 = v70;
+  v64 = v68;
 LABEL_61:
-
-  v66 = *MEMORY[0x277D85DE8];
 
   return v60;
 }

@@ -151,7 +151,7 @@ LABEL_10:
 
 - (id)buildDescriptions
 {
-  v18[3] = *MEMORY[0x1E69E9840];
+  v17[3] = *MEMORY[0x1E69E9840];
   displayName = [(SSPersonalAnswerResultBuilder *)self displayName];
 
   if (displayName)
@@ -182,14 +182,12 @@ LABEL_10:
   }
 
   v12 = [MEMORY[0x1E69CA3A0] textWithString:displayName];
-  v18[0] = v12;
+  v17[0] = v12;
   v13 = [MEMORY[0x1E69CA3A0] textWithString:v6];
-  v18[1] = v13;
+  v17[1] = v13;
   v14 = [MEMORY[0x1E69CA3A0] textWithString:v11];
-  v18[2] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:3];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v17[2] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:3];
 
   return v15;
 }

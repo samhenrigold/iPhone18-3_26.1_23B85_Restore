@@ -3,7 +3,7 @@
 
 @implementation NSString
 
-uint64_t __32__NSString_IMAdditions__hasHTML__block_invoke()
+void *__32__NSString_IMAdditions__hasHTML__block_invoke()
 {
   v0 = objc_alloc_init(MTSearchTrie);
   v1 = hasHTML_trie;
@@ -44,7 +44,7 @@ void *__87__NSString_IMAdditions__tokenCountWithEnumerationOptions_maxTokenCount
   return result;
 }
 
-uint64_t __77__NSString_IMAdditions__stringByTruncatingToLength_options_truncationString___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__77__NSString_IMAdditions__stringByTruncatingToLength_options_truncationString___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
   v9 = a3 + a4;
   v10 = *(a1 + 48);
@@ -106,9 +106,11 @@ LABEL_7:
 
 uint64_t __82__NSString_MTAdditions__stringWithDuration_unitsStyle_includeTimeRemainingPhrase___block_invoke()
 {
-  stringWithDuration_unitsStyle_includeTimeRemainingPhrase__formatters = [MEMORY[0x1E695DF90] dictionary];
+  v0 = [MEMORY[0x1E695DF90] dictionary];
+  v1 = stringWithDuration_unitsStyle_includeTimeRemainingPhrase__formatters;
+  stringWithDuration_unitsStyle_includeTimeRemainingPhrase__formatters = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __37__NSString_MTAdditions__mt_isEnglish__block_invoke()

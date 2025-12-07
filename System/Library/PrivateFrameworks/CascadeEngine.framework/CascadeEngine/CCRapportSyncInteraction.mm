@@ -142,24 +142,22 @@ uint64_t __56__CCRapportSyncInteraction_setTimeoutForRapportRequest___block_invo
 
 - (void)complete
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (self->_completion)
   {
     v3 = __biome_log_for_category();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
+      v5 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1DA444000, v3, OS_LOG_TYPE_DEFAULT, "Completing interaction: %@", &v6, 0xCu);
+      _os_log_impl(&dword_1DA444000, v3, OS_LOG_TYPE_DEFAULT, "Completing interaction: %@", &v5, 0xCu);
     }
 
     (*(self->_completion + 2))();
     completion = self->_completion;
     self->_completion = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

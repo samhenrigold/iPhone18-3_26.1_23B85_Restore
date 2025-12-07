@@ -7,17 +7,17 @@
 
 - (void)migrateFromOldStorage
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v3 = MTIsHorseman();
+  v16 = *MEMORY[0x1E69E9840];
+  v3 = MTIsHorseman(self, a2);
   defaultSound = MTLogForCategory(4);
   v5 = os_log_type_enabled(defaultSound, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
     if (v5)
     {
-      v15 = 138543362;
+      v14 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_1B1F9F000, defaultSound, OS_LOG_TYPE_DEFAULT, "%{public}@ skipping migration from old storage, as this device doesn't support the old storage", &v15, 0xCu);
+      _os_log_impl(&dword_1B1F9F000, defaultSound, OS_LOG_TYPE_DEFAULT, "%{public}@ skipping migration from old storage, as this device doesn't support the old storage", &v14, 0xCu);
     }
   }
 
@@ -25,9 +25,9 @@
   {
     if (v5)
     {
-      v15 = 138543362;
+      v14 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_1B1F9F000, defaultSound, OS_LOG_TYPE_DEFAULT, "%{public}@ migrating old timers to storage", &v15, 0xCu);
+      _os_log_impl(&dword_1B1F9F000, defaultSound, OS_LOG_TYPE_DEFAULT, "%{public}@ migrating old timers to storage", &v14, 0xCu);
     }
 
     v6 = +[MTLegacyManager sharedManager];
@@ -49,25 +49,21 @@
     timer = self->_timer;
     self->_timer = &v10->super;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeFromOldStorage
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ removing old timers and notifications from storage", &v6, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ removing old timers and notifications from storage", &v5, 0xCu);
   }
 
   v4 = +[MTLegacyManager sharedManager];
   [v4 purgeLegacyData];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

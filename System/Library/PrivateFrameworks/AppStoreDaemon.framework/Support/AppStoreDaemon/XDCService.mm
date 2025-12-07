@@ -155,7 +155,7 @@ LABEL_10:
             _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Received reply for: %{public}@ type: %u from: %{public}@", buf, 0x1Cu);
           }
 
-          v21 = sub_1002B0154();
+          v21 = sub_1002B0154(XDCDeviceManager);
           v20 = sub_1002B05FC(v21, v16, self->_service);
 
           v22 = sub_100342148([XDCMessage alloc], v15, v20, 0);
@@ -216,7 +216,7 @@ LABEL_10:
     if (self)
     {
       dispatch_assert_queue_V2(self->_dispatchQueue);
-      v31 = sub_1002B0154();
+      v31 = sub_1002B0154(XDCDeviceManager);
       v46 = sub_1002B05FC(v31, v30, self->_service);
 
       v32 = sub_100342148([XDCMessage alloc], v29, v46, incomingResponseIdentifier);
@@ -288,7 +288,7 @@ LABEL_10:
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Updating after devices changed: %{public}@", buf, 0xCu);
   }
 
-  v7 = sub_1002B0154();
+  v7 = sub_1002B0154(XDCDeviceManager);
   sub_1002B0C08(v7, changedCopy);
 
   v8 = dispatch_get_global_queue(21, 0);

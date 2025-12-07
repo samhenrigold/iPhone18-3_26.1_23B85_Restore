@@ -2,7 +2,7 @@
 - (BOOL)finishIndexing;
 - (BOOL)isIndexing;
 - (_CDSpotlightEventIndexer)initWithDataSource:(id)source;
-- (uint64_t)_beginIndexingFromLatestSpotlightClientState;
+- (void)_beginIndexingFromLatestSpotlightClientState;
 - (void)beginIndexingWithBatchSize:(unint64_t)size completion:(id)completion;
 - (void)finishIndexing;
 - (void)indexAdditionsAsBatch;
@@ -20,11 +20,11 @@
   return v3;
 }
 
-- (uint64_t)_beginIndexingFromLatestSpotlightClientState
+- (void)_beginIndexingFromLatestSpotlightClientState
 {
   if (result)
   {
-    v1 = *(result + 16);
+    v1 = result[2];
     v2[0] = MEMORY[0x1E69E9820];
     v2[1] = 3221225472;
     v2[2] = __72___CDSpotlightEventIndexer__beginIndexingFromLatestSpotlightClientState__block_invoke;
@@ -38,10 +38,10 @@
 
 - (void)indexDeletionsAsBatch
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_31;
+    return;
   }
 
   v3 = +[_CDLogging knowledgeChannel];
@@ -66,10 +66,10 @@
   v7 = v6;
 
   v8 = *(self + 24);
-  v56 = 0;
+  v55 = 0;
   v9 = v8;
-  v10 = [v9 earliestEventCreationDateWithError:&v56];
-  v11 = v56;
+  v10 = [v9 earliestEventCreationDateWithError:&v55];
+  v11 = v55;
 
   v12 = v11 == 0;
   if (v11)
@@ -78,7 +78,7 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v58 = v11;
+      v57 = v11;
       OUTLINED_FUNCTION_10(&dword_191750000, v13, v14, "[Spotlight Indexer] Spotlight event indexer data source failed to fetch earliest event creation date: %@", buf);
     }
 
@@ -111,12 +111,12 @@ LABEL_13:
 
   if (v20 == 1)
   {
-    v46 = +[_CDLogging knowledgeChannel];
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+    v45 = +[_CDLogging knowledgeChannel];
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v58 = v10;
-      OUTLINED_FUNCTION_3(&dword_191750000, v46, v47, "[Spotlight Indexer] Deleting all searchable items before date: %@", buf);
+      v57 = v10;
+      OUTLINED_FUNCTION_3(&dword_191750000, v45, v46, "[Spotlight Indexer] Deleting all searchable items before date: %@", buf);
     }
 
     [*(self + 16) beginIndexBatch];
@@ -166,12 +166,12 @@ LABEL_18:
   v31 = [v21 initWithStartDate:v27 endDate:{v30, v10}];
 
   v32 = *(self + 24);
-  v54 = v11;
-  v55 = 0;
+  v53 = v11;
+  v54 = 0;
   v33 = v32;
-  v34 = [v33 searchableItemIdentifiersForTombstonedEventsInInterval:v31 latestTombstoneDate:&v55 error:&v54];
-  v35 = v55;
-  v36 = v54;
+  v34 = [v33 searchableItemIdentifiersForTombstonedEventsInInterval:v31 latestTombstoneDate:&v54 error:&v53];
+  v35 = v54;
+  v36 = v53;
 
   if (v36)
   {
@@ -179,7 +179,7 @@ LABEL_18:
     if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v58 = v36;
+      v57 = v36;
       OUTLINED_FUNCTION_10(&dword_191750000, v37, v38, "[Spotlight Indexer] Spotlight event indexer data source failed to fetch events tombstones: %@", buf);
     }
   }
@@ -191,13 +191,13 @@ LABEL_18:
       goto LABEL_25;
     }
 
-    v48 = +[_CDLogging knowledgeChannel];
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+    v47 = +[_CDLogging knowledgeChannel];
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
     {
-      v49 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v34, "count")}];
+      v48 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v34, "count")}];
       *buf = 138412290;
-      v58 = v49;
-      OUTLINED_FUNCTION_3(&dword_191750000, v48, v50, "[Spotlight Indexer] Deleting %@ searchable items from spotlight index (from user initiated deletes).", buf);
+      v57 = v48;
+      OUTLINED_FUNCTION_3(&dword_191750000, v47, v49, "[Spotlight Indexer] Deleting %@ searchable items from spotlight index (from user initiated deletes).", buf);
     }
 
     if (!v12)
@@ -212,14 +212,14 @@ LABEL_18:
   }
 
 LABEL_25:
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = __49___CDSpotlightEventIndexer_indexDeletionsAsBatch__block_invoke;
-  v52[3] = &unk_1E7367670;
-  v52[4] = self;
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = __49___CDSpotlightEventIndexer_indexDeletionsAsBatch__block_invoke;
+  v51[3] = &unk_1E7367670;
+  v51[4] = self;
   v39 = v7;
-  v53 = v39;
-  v40 = MEMORY[0x193B00C50](v52);
+  v52 = v39;
+  v40 = MEMORY[0x193B00C50](v51);
   v41 = v40;
   if (v12)
   {
@@ -227,7 +227,7 @@ LABEL_25:
     if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v58 = v39;
+      v57 = v39;
       OUTLINED_FUNCTION_3(&dword_191750000, v42, v43, "[Spotlight Indexer] Updating spotlight index bookmark at end of batch deletions: %@", buf);
     }
 
@@ -239,9 +239,6 @@ LABEL_25:
   {
     (*(v40 + 16))(v40, 0);
   }
-
-LABEL_31:
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 - (_CDSpotlightEventIndexer)initWithDataSource:(id)source
@@ -288,7 +285,7 @@ LABEL_31:
 
 - (void)beginIndexingWithBatchSize:(unint64_t)size completion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -297,8 +294,8 @@ LABEL_31:
     v8 = +[_CDLogging knowledgeChannel];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_191750000, v8, OS_LOG_TYPE_INFO, "[Spotlight Indexer] Spotlight event indexer is already in the process of indexing", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_191750000, v8, OS_LOG_TYPE_INFO, "[Spotlight Indexer] Spotlight event indexer is already in the process of indexing", &v15, 2u);
     }
 
     objc_sync_exit(selfCopy);
@@ -322,22 +319,20 @@ LABEL_31:
       v11 = dataSource;
       stream = [(_CDSpotlightEventIndexerDataSource *)v11 stream];
       name = [stream name];
-      v16 = 138412290;
-      v17 = name;
-      _os_log_impl(&dword_191750000, v9, OS_LOG_TYPE_INFO, "[Spotlight Indexer] Begin indexing %@ events with spotlight", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = name;
+      _os_log_impl(&dword_191750000, v9, OS_LOG_TYPE_INFO, "[Spotlight Indexer] Begin indexing %@ events with spotlight", &v15, 0xCu);
     }
 
     v14 = objc_alloc_init(_CDEventIndexerContext);
     [(_CDSpotlightEventIndexer *)selfCopy setContext:v14];
     [(_CDSpotlightEventIndexer *)v14 beginIndexingWithBatchSize:selfCopy completion:size, completionCopy];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishIndexing
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
@@ -365,11 +360,11 @@ LABEL_31:
         v8 = @"<never fetched>";
       }
 
-      v15 = 138412546;
-      v16 = name;
-      v17 = 2112;
-      v18 = v8;
-      _os_log_impl(&dword_191750000, v2, OS_LOG_TYPE_INFO, "[Spotlight Indexer] Finished indexing %@ events with spotlight, final bookmark: %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = name;
+      v16 = 2112;
+      v17 = v8;
+      _os_log_impl(&dword_191750000, v2, OS_LOG_TYPE_INFO, "[Spotlight Indexer] Finished indexing %@ events with spotlight, final bookmark: %@", &v14, 0x16u);
     }
 
     context2 = [selfCopy context];
@@ -394,8 +389,6 @@ LABEL_31:
     [selfCopy setContext:0];
     objc_sync_exit(selfCopy);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetIndex
@@ -408,25 +401,24 @@ LABEL_31:
     v4 = v3;
 
     [*(self + 16) _deleteActionsBeforeTime:0 completionHandler:v4];
-    v5 = *(self + 24);
     currentVersion = [objc_opt_class() currentVersion];
-    v7 = [_CDEventIndexerBookmark baseBookmarkWithVersion:currentVersion];
-    v8 = _CDClientStateFromEventIndexerBookmark(v7);
-    v9 = *(self + 16);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __38___CDSpotlightEventIndexer_resetIndex__block_invoke;
-    v11[3] = &unk_1E7367670;
-    v11[4] = self;
-    v12 = v7;
-    v10 = v7;
-    [v9 endIndexBatchWithClientState:v8 completionHandler:v11];
+    v6 = [_CDEventIndexerBookmark baseBookmarkWithVersion:currentVersion];
+    v7 = _CDClientStateFromEventIndexerBookmark(v6);
+    v8 = *(self + 16);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __38___CDSpotlightEventIndexer_resetIndex__block_invoke;
+    v10[3] = &unk_1E7367670;
+    v10[4] = self;
+    v11 = v6;
+    v9 = v6;
+    [v8 endIndexBatchWithClientState:v7 completionHandler:v10];
   }
 }
 
 - (void)indexAdditionsAsBatch
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v3 = +[_CDLogging knowledgeChannel];
@@ -447,7 +439,7 @@ LABEL_31:
 
       v8 = [v4 numberWithUnsignedInteger:v7];
       *buf = 138412290;
-      v69 = v8;
+      v68 = v8;
       OUTLINED_FUNCTION_3(&dword_191750000, v1, v9, "[Spotlight Indexer] Performing batch additions (%@ batch size) in spotlight indexer", buf);
     }
 
@@ -488,7 +480,7 @@ LABEL_9:
 
     v20 = [v1 initWithStartDate:v16 endDate:v19];
 
-    v67 = 0;
+    v66 = 0;
     selfCopy2 = self;
     v22 = self[3];
     context4 = [self context];
@@ -503,11 +495,11 @@ LABEL_9:
       v25 = 0;
     }
 
+    v64 = 0;
     v65 = 0;
-    v66 = 0;
-    v26 = [v22 bundleIDToSearchableItemsDictionaryWithCreationDateInInterval:v20 limit:v25 nextBatch:&v67 latestCreationDate:&v66 error:&v65];
-    v27 = v66;
-    v28 = v65;
+    v26 = [v22 bundleIDToSearchableItemsDictionaryWithCreationDateInInterval:v20 limit:v25 nextBatch:&v66 latestCreationDate:&v65 error:&v64];
+    v27 = v65;
+    v28 = v64;
 
     if (v28)
     {
@@ -518,9 +510,9 @@ LABEL_9:
         stream = [v30 stream];
         name = [stream name];
         *buf = 138412546;
-        v69 = name;
-        v70 = 2112;
-        v71 = v28;
+        v68 = name;
+        v69 = 2112;
+        v70 = v28;
         _os_log_error_impl(&dword_191750000, v29, OS_LOG_TYPE_ERROR, "[Spotlight Indexer] Spotlight event indexer data source failed to fetch %@ events: %@", buf, 0x16u);
       }
     }
@@ -529,93 +521,93 @@ LABEL_9:
     {
       if (v27)
       {
-        v55 = v27;
-        v56 = v20;
+        v54 = v27;
+        v55 = v20;
         [selfCopy[2] beginIndexBatch];
-        v63 = 0u;
-        v64 = 0u;
-        v61 = 0u;
         v62 = 0u;
-        v54 = v26;
-        v34 = v26;
-        v35 = [v34 countByEnumeratingWithState:&v61 objects:v72 count:16];
-        if (v35)
+        v63 = 0u;
+        v60 = 0u;
+        v61 = 0u;
+        v53 = v26;
+        v33 = v26;
+        v34 = [v33 countByEnumeratingWithState:&v60 objects:v71 count:16];
+        if (v34)
         {
-          v36 = v35;
-          v37 = *v62;
-          v38 = *MEMORY[0x1E696A388];
+          v35 = v34;
+          v36 = *v61;
+          v37 = *MEMORY[0x1E696A388];
           do
           {
-            for (i = 0; i != v36; ++i)
+            for (i = 0; i != v35; ++i)
             {
-              if (*v62 != v37)
+              if (*v61 != v36)
               {
-                objc_enumerationMutation(v34);
+                objc_enumerationMutation(v33);
               }
 
-              v40 = *(*(&v61 + 1) + 8 * i);
-              v41 = [v34 objectForKeyedSubscript:v40];
-              v42 = +[_CDLogging knowledgeChannel];
-              if (OUTLINED_FUNCTION_8_11(v42))
+              v39 = *(*(&v60 + 1) + 8 * i);
+              v40 = [v33 objectForKeyedSubscript:v39];
+              v41 = +[_CDLogging knowledgeChannel];
+              if (OUTLINED_FUNCTION_8_11(v41))
               {
-                v43 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v41, "count")}];
+                v42 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v40, "count")}];
                 *buf = 138412546;
-                v69 = v43;
-                v70 = 2112;
-                v71 = v40;
+                v68 = v42;
+                v69 = 2112;
+                v70 = v39;
                 _os_log_impl(&dword_191750000, v1, OS_LOG_TYPE_INFO, "[Spotlight Indexer] Adding %@ searchable items with bundleID %@ to spotlight index", buf, 0x16u);
 
                 selfCopy2 = selfCopy;
               }
 
-              [selfCopy2[2] indexSearchableItems:v41 deleteSearchableItemsWithIdentifiers:0 clientState:0 protectionClass:v38 forBundleID:v40 options:4 completionHandler:0];
+              [selfCopy2[2] indexSearchableItems:v40 deleteSearchableItemsWithIdentifiers:0 clientState:0 protectionClass:v37 forBundleID:v39 options:4 completionHandler:0];
             }
 
-            v36 = [v34 countByEnumeratingWithState:&v61 objects:v72 count:16];
+            v35 = [v33 countByEnumeratingWithState:&v60 objects:v71 count:16];
           }
 
-          while (v36);
+          while (v35);
         }
 
         context5 = [selfCopy2 context];
-        v45 = context5;
+        v44 = context5;
         if (context5)
         {
-          v46 = *(context5 + 8);
+          v45 = *(context5 + 8);
         }
 
         else
         {
-          v46 = 0;
+          v45 = 0;
         }
 
-        v27 = v55;
-        v20 = v56;
+        v27 = v54;
+        v20 = v55;
         v28 = 0;
-        v47 = v46;
-        v48 = [(_CDEventIndexerBookmark *)v47 updatedBookmarkWithLatestCreationDate:v55];
+        v46 = v45;
+        v47 = [(_CDEventIndexerBookmark *)v46 updatedBookmarkWithLatestCreationDate:v54];
 
-        v49 = +[_CDLogging knowledgeChannel];
-        if (OUTLINED_FUNCTION_8_11(v49))
+        v48 = +[_CDLogging knowledgeChannel];
+        if (OUTLINED_FUNCTION_8_11(v48))
         {
           *buf = 138412290;
-          v69 = v48;
-          OUTLINED_FUNCTION_3(&dword_191750000, v45, v50, "[Spotlight Indexer] Updating spotlight index bookmark at end of batch additions: %@", buf);
+          v68 = v47;
+          OUTLINED_FUNCTION_3(&dword_191750000, v44, v49, "[Spotlight Indexer] Updating spotlight index bookmark at end of batch additions: %@", buf);
         }
 
-        v51 = _CDClientStateFromEventIndexerBookmark(v48);
-        v52 = selfCopy2[2];
-        v58[0] = MEMORY[0x1E69E9820];
-        v58[1] = 3221225472;
-        v58[2] = __49___CDSpotlightEventIndexer_indexAdditionsAsBatch__block_invoke;
-        v58[3] = &unk_1E736A488;
-        v58[4] = selfCopy2;
-        v59 = v48;
-        v60 = v67;
-        v53 = v48;
-        [v52 endIndexBatchWithClientState:v51 completionHandler:v58];
+        v50 = _CDClientStateFromEventIndexerBookmark(v47);
+        v51 = selfCopy2[2];
+        v57[0] = MEMORY[0x1E69E9820];
+        v57[1] = 3221225472;
+        v57[2] = __49___CDSpotlightEventIndexer_indexAdditionsAsBatch__block_invoke;
+        v57[3] = &unk_1E736A488;
+        v57[4] = selfCopy2;
+        v58 = v47;
+        v59 = v66;
+        v52 = v47;
+        [v51 endIndexBatchWithClientState:v50 completionHandler:v57];
 
-        v26 = v54;
+        v26 = v53;
         goto LABEL_20;
       }
 
@@ -630,11 +622,9 @@ LABEL_9:
     [(_CDSpotlightEventIndexer *)selfCopy finishIndexing];
 LABEL_20:
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)beginIndexingWithBatchSize:(uint64_t)a3 completion:(void *)a4 .cold.1(void *a1, void *a2, uint64_t a3, void *a4)
+- (void)beginIndexingWithBatchSize:(uint64_t)a3 completion:(void *)a4 .cold.1(void *a1, void *a2, uint64_t a3, void *a4)
 {
   objc_sync_exit(a2);
 

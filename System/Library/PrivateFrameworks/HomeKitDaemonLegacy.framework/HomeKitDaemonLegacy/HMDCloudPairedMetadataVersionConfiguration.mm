@@ -10,39 +10,35 @@
 
 - (NSDictionary)prettyJSONDictionary
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"versionConfiguration";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"versionConfiguration";
   diagnostics = [(HMDCloudPairedMetadataVersionConfiguration *)self diagnostics];
   v3 = [diagnostics description];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   accessoryIdentifier = [(HMDCloudPairedMetadataVersionConfiguration *)self accessoryIdentifier];
   v5 = [v3 initWithName:@"accessoryIdentifier" value:accessoryIdentifier];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   diagnostics = [(HMDCloudPairedMetadataVersionConfiguration *)self diagnostics];
   v8 = [v6 initWithName:@"diagnosticsConfiguration" value:diagnostics];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
 
 - (HMDCloudPairedMetadataVersionConfiguration)initWithAccessoryIdentifier:(id)identifier jsonDictionary:(id)dictionary
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dictionaryCopy = dictionary;
   firmwareVersion = [(__CFString *)identifierCopy firmwareVersion];
@@ -85,13 +81,13 @@
           if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
             v29 = HMFGetLogIdentifier();
-            v32 = 138543874;
-            v33 = v29;
-            v34 = 2112;
-            v35 = @"d";
-            v36 = 2112;
-            v37 = dictionaryCopy;
-            _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@JSON contains an invalid '%@' value: %@", &v32, 0x20u);
+            v31 = 138543874;
+            v32 = v29;
+            v33 = 2112;
+            v34 = @"d";
+            v35 = 2112;
+            v36 = dictionaryCopy;
+            _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@JSON contains an invalid '%@' value: %@", &v31, 0x20u);
           }
 
           objc_autoreleasePoolPop(v27);
@@ -107,13 +103,13 @@
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           v26 = HMFGetLogIdentifier();
-          v32 = 138543874;
-          v33 = v26;
-          v34 = 2112;
-          v35 = @"d";
-          v36 = 2112;
-          v37 = dictionaryCopy;
-          _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@JSON contains an invalid '%@' value: %@", &v32, 0x20u);
+          v31 = 138543874;
+          v32 = v26;
+          v33 = 2112;
+          v34 = @"d";
+          v35 = 2112;
+          v36 = dictionaryCopy;
+          _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@JSON contains an invalid '%@' value: %@", &v31, 0x20u);
         }
 
         objc_autoreleasePoolPop(v24);
@@ -129,13 +125,13 @@
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         v23 = HMFGetLogIdentifier();
-        v32 = 138543874;
-        v33 = v23;
-        v34 = 2112;
-        v35 = @"d";
-        v36 = 2112;
-        v37 = dictionaryCopy;
-        _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@JSON contains no '%@' value: %@", &v32, 0x20u);
+        v31 = 138543874;
+        v32 = v23;
+        v33 = 2112;
+        v34 = @"d";
+        v35 = 2112;
+        v36 = dictionaryCopy;
+        _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@JSON contains no '%@' value: %@", &v31, 0x20u);
       }
 
       objc_autoreleasePoolPop(v21);
@@ -151,18 +147,17 @@
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = HMFGetLogIdentifier();
-      v32 = 138543618;
-      v33 = v20;
-      v34 = 2112;
-      v35 = identifierCopy;
-      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Version configuration must contain firmware version: %@", &v32, 0x16u);
+      v31 = 138543618;
+      v32 = v20;
+      v33 = 2112;
+      v34 = identifierCopy;
+      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Version configuration must contain firmware version: %@", &v31, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
     v17 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -198,12 +193,11 @@
 
 uint64_t __57__HMDCloudPairedMetadataVersionConfiguration_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_136707;
-  logCategory__hmf_once_v1_136707 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_136707;
+  logCategory__hmf_once_v1_136707 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

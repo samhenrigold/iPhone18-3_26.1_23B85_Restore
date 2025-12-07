@@ -109,7 +109,7 @@ void __45__ASAchievementManager_requestTemplateUpdate__block_invoke(uint64_t a1,
 
 void __45__ASAchievementManager_requestTemplateUpdate__block_invoke_297(void *a1, char a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   ASLoggingInitialize();
   v6 = *MEMORY[0x277CE8FC0];
@@ -121,7 +121,7 @@ void __45__ASAchievementManager_requestTemplateUpdate__block_invoke_297(void *a1
       v8 = a1[4];
       v9 = v6;
       *buf = 134217984;
-      v16 = [v8 count];
+      v15 = [v8 count];
       _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Successfully removed %lu templates during update", buf, 0xCu);
     }
   }
@@ -133,19 +133,17 @@ void __45__ASAchievementManager_requestTemplateUpdate__block_invoke_297(void *a1
 
   v11 = a1[5];
   v10 = a1[6];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __45__ASAchievementManager_requestTemplateUpdate__block_invoke_298;
-  v13[3] = &unk_278C4C218;
-  v14 = v10;
-  [v11 addTemplates:v14 completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __45__ASAchievementManager_requestTemplateUpdate__block_invoke_298;
+  v12[3] = &unk_278C4C218;
+  v13 = v10;
+  [v11 addTemplates:v13 completion:v12];
 }
 
 void __45__ASAchievementManager_requestTemplateUpdate__block_invoke_298(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   ASLoggingInitialize();
   v6 = *MEMORY[0x277CE8FC0];
@@ -156,9 +154,9 @@ void __45__ASAchievementManager_requestTemplateUpdate__block_invoke_298(uint64_t
     {
       v8 = *(a1 + 32);
       v9 = v6;
-      v11 = 134217984;
-      v12 = [v8 count];
-      _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Successfully added %lu templates during update", &v11, 0xCu);
+      v10 = 134217984;
+      v11 = [v8 count];
+      _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Successfully added %lu templates during update", &v10, 0xCu);
     }
   }
 
@@ -166,8 +164,6 @@ void __45__ASAchievementManager_requestTemplateUpdate__block_invoke_298(uint64_t
   {
     __45__ASAchievementManager_requestTemplateUpdate__block_invoke_298_cold_1();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestEarnedInstanceUpdate
@@ -214,7 +210,7 @@ void __45__ASAchievementManager_requestTemplateUpdate__block_invoke_298(uint64_t
 
 void __51__ASAchievementManager_requestEarnedInstanceUpdate__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   ASLoggingInitialize();
   v6 = *MEMORY[0x277CE8FC0];
@@ -225,9 +221,9 @@ void __51__ASAchievementManager_requestEarnedInstanceUpdate__block_invoke(uint64
     {
       v8 = *(a1 + 32);
       v9 = v6;
-      v13 = 134217984;
-      v14 = [v8 count];
-      _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Successfully added %lu earned instances", &v13, 0xCu);
+      v12 = 134217984;
+      v13 = [v8 count];
+      _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Successfully added %lu earned instances", &v12, 0xCu);
     }
   }
 
@@ -239,13 +235,11 @@ void __51__ASAchievementManager_requestEarnedInstanceUpdate__block_invoke(uint64
   v10 = *(*(a1 + 40) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = 0;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllUnusedTemplates
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v3 = MEMORY[0x277CE8FC0];
   v4 = *MEMORY[0x277CE8FC0];
@@ -257,27 +251,27 @@ void __51__ASAchievementManager_requestEarnedInstanceUpdate__block_invoke(uint64
 
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   friends = [(ASAchievementManager *)self friends];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v7 = [friends countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v7 = [friends countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v27;
+    v10 = *v26;
     *&v8 = 138412290;
-    v23 = v8;
+    v22 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(friends);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
+        v12 = *(*(&v25 + 1) + 8 * i);
         if (([v12 isCompetitionActive] & 1) == 0 && objc_msgSend(v12, "hasCompetitionHistory") && !objc_msgSend(v12, "numberOfCompetitionWinsByMe"))
         {
           ASLoggingInitialize();
@@ -286,8 +280,8 @@ void __51__ASAchievementManager_requestEarnedInstanceUpdate__block_invoke(uint64
           {
             v14 = v13;
             displayName = [v12 displayName];
-            *buf = v23;
-            v31 = displayName;
+            *buf = v22;
+            v30 = displayName;
             _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "Achievement manager found friend with competition history but no wins: %@", buf, 0xCu);
           }
 
@@ -300,27 +294,25 @@ void __51__ASAchievementManager_requestEarnedInstanceUpdate__block_invoke(uint64
         }
       }
 
-      v9 = [friends countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v9 = [friends countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
     while (v9);
   }
 
   v20 = objc_alloc_init(MEMORY[0x277CE8DE0]);
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __48__ASAchievementManager_removeAllUnusedTemplates__block_invoke;
-  v24[3] = &unk_278C4C218;
-  v25 = v5;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __48__ASAchievementManager_removeAllUnusedTemplates__block_invoke;
+  v23[3] = &unk_278C4C218;
+  v24 = v5;
   v21 = v5;
-  [v20 removeTemplatesWithUniqueNames:v21 completion:v24];
-
-  v22 = *MEMORY[0x277D85DE8];
+  [v20 removeTemplatesWithUniqueNames:v21 completion:v23];
 }
 
 void __48__ASAchievementManager_removeAllUnusedTemplates__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   ASLoggingInitialize();
   v6 = *MEMORY[0x277CE8FC0];
@@ -331,9 +323,9 @@ void __48__ASAchievementManager_removeAllUnusedTemplates__block_invoke(uint64_t 
     {
       v8 = *(a1 + 32);
       v9 = v6;
-      v11 = 134217984;
-      v12 = [v8 count];
-      _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Successfully removed %lu unused template names", &v11, 0xCu);
+      v10 = 134217984;
+      v11 = [v8 count];
+      _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Successfully removed %lu unused template names", &v10, 0xCu);
     }
   }
 
@@ -341,40 +333,36 @@ void __48__ASAchievementManager_removeAllUnusedTemplates__block_invoke(uint64_t 
   {
     __48__ASAchievementManager_removeAllUnusedTemplates__block_invoke_cold_1();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeUnusedTemplatesForFriendWithUUID:(id)d
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dCopy = d;
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE8FC0];
   if (os_log_type_enabled(*MEMORY[0x277CE8FC0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v14 = dCopy;
+    v13 = dCopy;
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "AchievementManager removing unused templates for friend: %{public}@", buf, 0xCu);
   }
 
   v6 = [(ASCompetitionTemplateSource *)self->_competitionTemplateSource unusedTemplateNamesForFriendWithUUID:dCopy];
   v7 = objc_alloc_init(MEMORY[0x277CE8DE0]);
   allObjects = [v6 allObjects];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __63__ASAchievementManager_removeUnusedTemplatesForFriendWithUUID___block_invoke;
-  v11[3] = &unk_278C4C218;
-  v12 = v6;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __63__ASAchievementManager_removeUnusedTemplatesForFriendWithUUID___block_invoke;
+  v10[3] = &unk_278C4C218;
+  v11 = v6;
   v9 = v6;
-  [v7 removeTemplatesWithUniqueNames:allObjects completion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [v7 removeTemplatesWithUniqueNames:allObjects completion:v10];
 }
 
 void __63__ASAchievementManager_removeUnusedTemplatesForFriendWithUUID___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   ASLoggingInitialize();
   v6 = *MEMORY[0x277CE8FC0];
@@ -385,9 +373,9 @@ void __63__ASAchievementManager_removeUnusedTemplatesForFriendWithUUID___block_i
     {
       v8 = *(a1 + 32);
       v9 = v6;
-      v11 = 134217984;
-      v12 = [v8 count];
-      _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Successfully removed %lu unused template for friend", &v11, 0xCu);
+      v10 = 134217984;
+      v11 = [v8 count];
+      _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Successfully removed %lu unused template for friend", &v10, 0xCu);
     }
   }
 
@@ -395,8 +383,6 @@ void __63__ASAchievementManager_removeUnusedTemplatesForFriendWithUUID___block_i
   {
     __63__ASAchievementManager_removeUnusedTemplatesForFriendWithUUID___block_invoke_cold_1();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllTemplates
@@ -415,20 +401,18 @@ void __63__ASAchievementManager_removeUnusedTemplatesForFriendWithUUID___block_i
 
 void __42__ASAchievementManager_removeAllTemplates__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE8FC0];
   if (os_log_type_enabled(*MEMORY[0x277CE8FC0], OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109378;
-    v7[1] = a2;
-    v8 = 2114;
-    v9 = v4;
-    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "AchievementManager removed templates with result: %{BOOL}d, %{public}@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = a2;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "AchievementManager removed templates with result: %{BOOL}d, %{public}@", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)friends
@@ -486,54 +470,6 @@ void __42__ASAchievementManager_removeAllTemplates__block_invoke(uint64_t a1, in
     *v11 = 0;
     _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Competition award refresh interval not reached yet, not requesting awarding update", v11, 2u);
   }
-}
-
-void __45__ASAchievementManager_requestTemplateUpdate__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Error getting templates from source: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __45__ASAchievementManager_requestTemplateUpdate__block_invoke_297_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Error removing templates during update: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __45__ASAchievementManager_requestTemplateUpdate__block_invoke_298_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Error adding templates during update: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __51__ASAchievementManager_requestEarnedInstanceUpdate__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Error adding earned instances: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __48__ASAchievementManager_removeAllUnusedTemplates__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Error removing unused template names: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __63__ASAchievementManager_removeUnusedTemplatesForFriendWithUUID___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Error removing unused templates for friend: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

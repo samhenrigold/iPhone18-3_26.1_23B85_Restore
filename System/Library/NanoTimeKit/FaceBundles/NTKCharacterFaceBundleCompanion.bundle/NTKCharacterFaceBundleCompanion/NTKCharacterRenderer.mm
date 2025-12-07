@@ -4,6 +4,7 @@
 - (float)_getElbowScaleForPosition:(float)position;
 - (void)_applyClothingColorWithEncoder:(id)encoder;
 - (void)_doneWaitingForFootRaise;
+- (void)_drawArmFromShoulder:(NTKCharacterRenderer *)self toWrist:(SEL)wrist withBend:(float)bend withEncoder:(id)encoder;
 - (void)_drawBackgroundWithEncoder:(id)encoder;
 - (void)_drawBodyWithEncoder:(id)encoder;
 - (void)_drawCharacterWithEncoder:(id)encoder;
@@ -1661,6 +1662,69 @@ LABEL_29:
   v68 = 0;
   [encoderCopy setVertexBytes:v62 length:112 atIndex:1];
   [encoderCopy drawPrimitives:4 vertexStart:0 vertexCount:4];
+}
+
+- (void)_drawArmFromShoulder:(NTKCharacterRenderer *)self toWrist:(SEL)wrist withBend:(float)bend withEncoder:(id)encoder
+{
+  v6 = v5;
+  v7 = v4;
+  v29 = *&bend;
+  encoderCopy = encoder;
+  [(_Body *)self->_body offset];
+  v11 = vadd_f32(v10, v29);
+  v31 = v11.i32[0];
+  v11.i32[0] = vsub_f32(v7, v11).u32[0];
+  LODWORD(v12) = vsub_f32(v7, v29).i32[1];
+  v27 = v11.f32[0];
+  v13 = atan2f(v11.f32[0], v12);
+  v14 = __sincosf_stret(v13);
+  v15 = 0;
+  *&v16 = v14.__cosval;
+  *(&v16 + 1) = -v14.__sinval;
+  v43[0] = v16;
+  v43[1] = v14;
+  v43[2] = xmmword_15600;
+  v43[3] = xmmword_15610;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  do
+  {
+    *(&v33 + v15 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_15620, COERCE_FLOAT(v43[v15])), xmmword_15630, *&v43[v15], 1), xmmword_15600, v43[v15], 2), xmmword_15610, v43[v15], 3);
+    ++v15;
+  }
+
+  while (v15 != 4);
+  v17 = sqrtf((v12 * v12) + (v27 * v27));
+  v18 = __PAIR64__(v29.u32[1], v31);
+  v30 = v33;
+  v32 = v18;
+  v26 = v36;
+  v28 = v35;
+  v19 = v17 / 0.00735294118;
+  v25 = vmulq_n_f32(v34, v19);
+  [(NTKCharacterRenderer *)self bindPipelineState:3 withEncoder:encoderCopy];
+  [encoderCopy setVertexBufferOffset:-[_Arms mtlBufArmOffset](self->_arms atIndex:{"mtlBufArmOffset"), 0}];
+  loader = self->_loader;
+  texArm = [(_Arms *)self->_arms texArm];
+  v22 = [(NTKCharacterResourceLoader *)loader getMTLTexture:texArm];
+
+  [encoderCopy setFragmentTexture:v22 atIndex:0];
+  v23.i32[0] = LODWORD(self->_characterScale);
+  v33 = v30;
+  v34 = v25;
+  v35 = v28;
+  v36 = v26;
+  v37 = COERCE_UNSIGNED_INT(*v23.i32 * v6);
+  v38 = 0;
+  v24 = *self->_globalOffset;
+  v39 = *self->_globalScale;
+  v40 = vdup_lane_s32(v23, 0);
+  v41 = vmla_f32(v24, v32, vmul_n_f32(v39, *v23.i32));
+  v42 = 0;
+  [encoderCopy setVertexBytes:&v33 length:112 atIndex:1];
+  [encoderCopy drawPrimitives:4 vertexStart:0 vertexCount:26];
 }
 
 - (float)_getElbowScaleForPosition:(float)position

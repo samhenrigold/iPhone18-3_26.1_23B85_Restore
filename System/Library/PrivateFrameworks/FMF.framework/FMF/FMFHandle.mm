@@ -31,7 +31,7 @@
 
 - (void)addressBookDidChange
 {
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -43,7 +43,7 @@
 
 - (void)abPreferencesDidChange
 {
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -293,46 +293,47 @@
 
   else
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x3032000000;
-    v21 = __Block_byref_object_copy__1;
-    v22 = __Block_byref_object_dispose__1;
-    v23 = 0;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy__1;
+    v23 = __Block_byref_object_dispose__1;
+    v24 = 0;
     v5 = dispatch_semaphore_create(0);
     v6 = +[FMFSession sharedInstance];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __23__FMFHandle_prettyName__block_invoke;
-    v15[3] = &unk_278FDE270;
-    v17 = &v18;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __23__FMFHandle_prettyName__block_invoke;
+    v16[3] = &unk_278FDE270;
+    v18 = &v19;
     v7 = v5;
-    v16 = v7;
-    [v6 getPrettyNameForHandle:self completion:v15];
+    v17 = v7;
+    [v6 getPrettyNameForHandle:self completion:v16];
 
     v8 = dispatch_time(0, 2000000000);
-    if (dispatch_semaphore_wait(v7, v8))
+    v9 = dispatch_semaphore_wait(v7, v8);
+    if (v9)
     {
-      v9 = LogCategory_Daemon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = LogCategory_Daemon(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_24A33F000, v9, OS_LOG_TYPE_DEFAULT, "timeOut prettyName", v14, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_24A33F000, v10, OS_LOG_TYPE_DEFAULT, "timeOut prettyName", v15, 2u);
       }
     }
 
-    v10 = v19[5];
-    if (!v10 || ![v10 length])
+    v11 = v20[5];
+    if (!v11 || ![v11 length])
     {
       identifier = [(FMFHandle *)self identifier];
-      v12 = v19[5];
-      v19[5] = identifier;
+      v13 = v20[5];
+      v20[5] = identifier;
     }
 
-    [(FMFHandle *)self set_prettyNameInternal:v19[5]];
-    _prettyNameInternal2 = v19[5];
+    [(FMFHandle *)self set_prettyNameInternal:v20[5]];
+    _prettyNameInternal2 = v20[5];
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v19, 8);
   }
 
   return _prettyNameInternal2;
@@ -423,10 +424,9 @@ void __38__FMFHandle_prettyNameWithCompletion___block_invoke(uint64_t a1, void *
 uint64_t __38__FMFHandle_prettyNameWithCompletion___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) set_prettyNameInternal:*(a1 + 40)];
-  v2 = *(a1 + 40);
-  v3 = *(*(a1 + 48) + 16);
+  v2 = *(*(a1 + 48) + 16);
 
-  return v3();
+  return v2();
 }
 
 - (void)idsCorrelationIdentifierWithCompletion:(id)completion
@@ -462,39 +462,40 @@ void __52__FMFHandle_idsCorrelationIdentifierWithCompletion___block_invoke(uint6
 
 - (id)recordId
 {
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__1;
-  v18 = __Block_byref_object_dispose__1;
-  v19 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__1;
+  v19 = __Block_byref_object_dispose__1;
+  v20 = 0;
   v3 = dispatch_semaphore_create(0);
   v4 = +[FMFSession sharedInstance];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __21__FMFHandle_recordId__block_invoke;
-  v11[3] = &unk_278FDE270;
-  v13 = &v14;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __21__FMFHandle_recordId__block_invoke;
+  v12[3] = &unk_278FDE270;
+  v14 = &v15;
   v5 = v3;
-  v12 = v5;
-  [v4 getRecordIdForHandle:self completion:v11];
+  v13 = v5;
+  [v4 getRecordIdForHandle:self completion:v12];
 
   v6 = dispatch_time(0, 2000000000);
-  if (dispatch_semaphore_wait(v5, v6))
+  v7 = dispatch_semaphore_wait(v5, v6);
+  if (v7)
   {
-    v7 = LogCategory_Daemon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = LogCategory_Daemon(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_24A33F000, v7, OS_LOG_TYPE_DEFAULT, "timeOut recordId", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_24A33F000, v8, OS_LOG_TYPE_DEFAULT, "timeOut recordId", v11, 2u);
     }
   }
 
-  v8 = v15[5];
+  v9 = v16[5];
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v15, 8);
 
-  return v8;
+  return v9;
 }
 
 void __21__FMFHandle_recordId__block_invoke(uint64_t a1, void *a2)
@@ -572,28 +573,28 @@ void __21__FMFHandle_recordId__block_invoke(uint64_t a1, void *a2)
 
 void __59__FMFHandle_correlationIdentifierForHandle_withCompletion___block_invoke(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKeyedSubscript:a1[4]];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v13 + 1) + 8 * v7) senderCorrelationIdentifier];
+        v8 = [*(*(&v11 + 1) + 8 * v7) senderCorrelationIdentifier];
         v9 = *(a1[6] + 8);
         v10 = *(v9 + 40);
         *(v9 + 40) = v8;
@@ -602,16 +603,13 @@ void __59__FMFHandle_correlationIdentifierForHandle_withCompletion___block_invok
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
-  v11 = *(*(a1[6] + 8) + 40);
   (*(a1[5] + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)IDSRecipientFromHandle:(id)handle

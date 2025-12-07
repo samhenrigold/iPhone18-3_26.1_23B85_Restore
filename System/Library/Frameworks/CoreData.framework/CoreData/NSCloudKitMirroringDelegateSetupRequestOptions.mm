@@ -7,9 +7,9 @@
 
 - (id)createDefaultOperationConfiguration
 {
-  v2 = getCloudKitCKOperationConfigurationClass[0]();
+  CloudKitCKOperationConfigurationClass = getCloudKitCKOperationConfigurationClass(self, a2);
 
-  return objc_alloc_init(v2);
+  return objc_alloc_init(CloudKitCKOperationConfigurationClass);
 }
 
 - (id)copy

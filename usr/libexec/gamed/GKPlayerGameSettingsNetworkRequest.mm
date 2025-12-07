@@ -97,15 +97,11 @@
 
 - (id)postBody
 {
-  v7[0] = @"allow-friend-list-access";
   settingValue = [(GKPlayerGameSettingsNetworkRequest *)self settingValue];
-  v7[1] = @"for-bundle-id";
-  v8[0] = settingValue;
   bundleID = [(GKPlayerGameSettingsNetworkRequest *)self bundleID];
-  v8[1] = bundleID;
-  v5 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v3 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
-  return v5;
+  return v3;
 }
 
 - (void)removeFromStore:(id)store

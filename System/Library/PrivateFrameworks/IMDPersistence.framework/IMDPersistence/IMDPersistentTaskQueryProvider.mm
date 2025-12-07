@@ -50,18 +50,18 @@
 
 - (void)_performHandoffBlock:(id)block delay:(double)delay
 {
-  v8 = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block);
+  v9 = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block);
   if (delay == 0.0)
   {
-    isBlocking = objc_msgSend_isBlocking(self, v6, v7);
-    IMDPersistencePerformBlockWithHandoffIfNeeded(v8, isBlocking, v14);
+    isBlocking = objc_msgSend_isBlocking(self, v6, v7, v8);
+    IMDPersistencePerformBlockWithHandoffIfNeeded(v9, isBlocking, v15, v16);
   }
 
   else
   {
-    v9 = objc_msgSend_currentConnection(MEMORY[0x1E696B0B8], v6, v7);
+    v10 = objc_msgSend_currentConnection(MEMORY[0x1E696B0B8], v6, v7, v8);
 
-    if (v9)
+    if (v10)
     {
       if (qword_1EBA53F08 != -1)
       {
@@ -74,22 +74,22 @@
       block[3] = &unk_1E7CB6A70;
       *&block[4] = delay;
       dispatch_async(qword_1EBA53F00, block);
-      v10 = MEMORY[0x1E696B0B8];
-      v11 = qword_1EBA53F00;
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = sub_1B7B317C0;
-      v17[3] = &unk_1E7CB7F60;
-      v17[4] = self;
-      v18 = v8;
-      objc_msgSend__handoffCurrentReplyToQueue_block_(v10, v12, v11, v17);
+      v11 = MEMORY[0x1E696B0B8];
+      v12 = qword_1EBA53F00;
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = sub_1B7B317C0;
+      v19[3] = &unk_1E7CB7F60;
+      v19[4] = self;
+      v20 = v9;
+      objc_msgSend__handoffCurrentReplyToQueue_block_(v11, v13, v12, v19);
     }
 
     else
     {
-      v15 = dispatch_time(0, (delay * 1000000000.0));
-      v16 = _IMDPersistenceGetThreadedStoreQueue();
-      dispatch_after(v15, v16, v8);
+      v17 = dispatch_time(0, (delay * 1000000000.0));
+      v18 = _IMDPersistenceGetThreadedStoreQueue();
+      dispatch_after(v17, v18, v9);
     }
   }
 }
@@ -107,18 +107,18 @@
 
 + (BOOL)_shouldExplainQueryPlans
 {
-  v3 = objc_msgSend_sharedInstance(MEMORY[0x1E69A60F0], a2, v2);
-  if (objc_msgSend_isInternalInstall(v3, v4, v5))
+  v4 = objc_msgSend_sharedInstance(MEMORY[0x1E69A60F0], a2, v2, v3);
+  if (objc_msgSend_isInternalInstall(v4, v5, v6, v7))
   {
-    v6 = IMGetDomainBoolForKey();
+    v8 = IMGetDomainBoolForKey();
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  return v6;
+  return v8;
 }
 
 - (void)storeTasks:(id)tasks
@@ -129,17 +129,17 @@
   v6 = swift_allocObject();
   *(v6 + 16) = v5;
   *(v6 + 24) = ObjectType;
-  v11[4] = sub_1B7C3D8AC;
-  v11[5] = v6;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 1107296256;
-  v11[2] = sub_1B7AE14D0;
-  v11[3] = &unk_1F2FA40D0;
-  v7 = _Block_copy(v11);
+  v12[4] = sub_1B7C3D8AC;
+  v12[5] = v6;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 1107296256;
+  v12[2] = sub_1B7AE14D0;
+  v12[3] = &unk_1F2FA40D0;
+  v7 = _Block_copy(v12);
   selfCopy = self;
 
   isBlocking = [(IMDPersistentTaskQueryProvider *)selfCopy isBlocking];
-  IMDPersistencePerformBlock(v7, isBlocking, v10);
+  IMDPersistencePerformBlock(v7, isBlocking, v10, v11);
 
   _Block_release(v7);
 }
@@ -265,9 +265,9 @@
   v9 = sub_1B7CFE120();
   v10 = *(v9 - 8);
   v11 = *(v10 + 64);
-  v12 = MEMORY[0x1EEE9AC00](v9);
-  v13 = &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
+  MEMORY[0x1EEE9AC00](v9);
+  v12 = &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
   v15 = &v26 - v14;
   v16 = _Block_copy(block);
   sub_1B7AEE088(0, &unk_1EDBE59B0, 0x1E696AD98);
@@ -275,7 +275,7 @@
   sub_1B7CFE0F0();
   v17 = swift_allocObject();
   *(v17 + 16) = v16;
-  (*(v10 + 16))(v13, v15, v9);
+  (*(v10 + 16))(v12, v15, v9);
   v18 = (*(v10 + 80) + 40) & ~*(v10 + 80);
   v19 = (v11 + v18 + 7) & 0xFFFFFFFFFFFFFFF8;
   v20 = (v19 + 15) & 0xFFFFFFFFFFFFFFF8;
@@ -284,11 +284,11 @@
   *(v21 + 2) = flagCopy;
   *(v21 + 3) = v22;
   *(v21 + 4) = reasonCopy;
-  (*(v10 + 32))(&v21[v18], v13, v9);
+  (*(v10 + 32))(&v21[v18], v12, v9);
   *&v21[v19] = v26;
   v23 = &v21[v20];
   *v23 = sub_1B7C3D8F4;
-  v23[1] = v17;
+  *(v23 + 1) = v17;
   *&v21[(v20 + 23) & 0xFFFFFFFFFFFFFFF8] = ObjectType;
   aBlock[4] = sub_1B7C3D6F8;
   aBlock[5] = v21;

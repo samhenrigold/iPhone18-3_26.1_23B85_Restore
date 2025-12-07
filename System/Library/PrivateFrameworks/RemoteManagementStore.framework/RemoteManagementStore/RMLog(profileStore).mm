@@ -11,9 +11,9 @@
     +[RMLog(profileStore) profileStore];
   }
 
-  v1 = profileStore_result;
+  v2 = profileStore_result;
 
-  return v1;
+  return v2;
 }
 
 @end

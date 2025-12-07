@@ -16,12 +16,12 @@
 - (id)iterator
 {
   fields = self->fields_;
-  if (!fields || (v3 = JavaUtilCollections_unmodifiableSetWithJavaUtilSet_([(JavaUtilMap *)fields keySet])) == 0)
+  if (!fields || (v3 = [(JavaUtilMap *)fields keySet], (v5 = JavaUtilCollections_unmodifiableSetWithJavaUtilSet_(v3, v4)) == 0))
   {
     JreThrowNullPointerException();
   }
 
-  return [(JavaUtilCollections_UnmodifiableCollection *)v3 iterator];
+  return [(JavaUtilCollections_UnmodifiableCollection *)v5 iterator];
 }
 
 - (id)termsWithNSString:(id)string
@@ -208,9 +208,8 @@ LABEL_12:
     JreThrowNullPointerException();
   }
 
-  segment = self->segment_;
   [(JavaUtilMap *)self->formats_ size];
-  return JreStrcat("$$$IC", v3, v4, v5, v6, v7, v8, v9, @"PerFieldPostings(segment=");
+  return JreStrcat("$$$IC", v2, v3, v4, v5, v6, v7, v8, @"PerFieldPostings(segment=");
 }
 
 - (void)dealloc

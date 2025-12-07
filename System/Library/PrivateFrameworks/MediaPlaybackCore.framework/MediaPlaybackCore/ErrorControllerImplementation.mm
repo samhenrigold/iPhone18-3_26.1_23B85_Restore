@@ -31,7 +31,7 @@
 {
   reasonCopy = reason;
 
-  sub_1C5DBBDF8();
+  sub_1C5DBBDF8(reasonCopy);
 }
 
 @end

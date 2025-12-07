@@ -557,9 +557,9 @@ LABEL_34:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyRegularSymbols(void)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **>(uint64_t *a1, uint64_t *a2)
+BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyRegularSymbols(void)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **>(uint64_t *a1, __int128 **a2)
 {
-  v4 = a2 - a1;
+  v4 = (a2 - a1) >> 3;
   if (v4 > 2)
   {
     switch(v4)
@@ -633,7 +633,7 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm:
     }
   }
 
-  v10 = (a1 + 2);
+  v10 = a1 + 2;
   std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyRegularSymbols(void)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>(a1, a1 + 1, a1 + 2);
   v11 = (a1 + 3);
   if (a1 + 3 == a2)
@@ -735,7 +735,7 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm:
 
       v21 = *(v20 + 1);
 LABEL_26:
-      v10 -= 8;
+      --v10;
       *(v20 + 2) = v21;
       v19 -= 8;
       if (v19 == -16)
@@ -745,7 +745,7 @@ LABEL_26:
       }
     }
 
-    v10 = a1 + v19 + 16;
+    v10 = (a1 + v19 + 16);
 LABEL_36:
     *v10 = v14;
     if (++v13 != 8)
@@ -1247,9 +1247,9 @@ LABEL_289:
     else
     {
       std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>(v7, &v7[v10 >> 1], v8);
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>((v7 + 1), v13 - 1, v307);
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>((v7 + 2), &v7[v12 + 1], v306);
-      result = std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>((v13 - 1), &v7[v10 >> 1], &v7[v12 + 1]);
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>(v7 + 1, v13 - 1, v307);
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>(v7 + 2, &v7[v12 + 1], v306);
+      result = std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>(v13 - 1, &v7[v10 >> 1], &v7[v12 + 1]);
       v14 = *v7;
       *v7 = *v13;
       *v13 = v14;
@@ -2104,7 +2104,7 @@ LABEL_202:
   }
 }
 
-uint64_t std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>(uint64_t result, uint64_t *a2, uint64_t *a3)
+uint64_t *std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>(uint64_t *result, uint64_t *a2, uint64_t *a3)
 {
   v5 = result;
   v6 = *a2;
@@ -2157,7 +2157,7 @@ LABEL_15:
           if (*(v26 + 16) == 1)
           {
             v33 = *v6;
-            v34 = *(v6 + 1);
+            v34 = *(v6 + 8);
             v58 = *v26;
             result = llvm::StringRef::compare(&v58, v33, v34);
             if (result < 1)
@@ -2192,7 +2192,7 @@ LABEL_15:
           if (*(v35 + 16) == 1)
           {
             v44 = *v36;
-            v45 = *(v36 + 1);
+            v45 = *(v36 + 8);
             v58 = *v35;
             result = llvm::StringRef::compare(&v58, v44, v45);
             if (result < 1)
@@ -2240,7 +2240,7 @@ LABEL_33:
       }
 
       v24 = *v6;
-      v25 = *(v6 + 1);
+      v25 = *(v6 + 8);
       v58 = *v17;
       result = llvm::StringRef::compare(&v58, v24, v25);
       if (result >= 1)
@@ -2263,7 +2263,7 @@ LABEL_33:
   *a2 = v47;
   v48 = *a3;
   v49 = *(*a3 + 24);
-  v50 = *(v47 + 3);
+  v50 = *(v47 + 24);
   v51 = v49 > v50;
   if (v49 == v50)
   {
@@ -2285,7 +2285,7 @@ LABEL_33:
         if (*(v48 + 16) == 1)
         {
           v56 = *v47;
-          v57 = *(v47 + 1);
+          v57 = *(v47 + 8);
           v58 = *v48;
           result = llvm::StringRef::compare(&v58, v56, v57);
           if (result < 1)
@@ -2312,7 +2312,7 @@ LABEL_47:
   return result;
 }
 
-uint64_t std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
+uint64_t std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   result = std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>(a1, a2, a3);
   v9 = *a4;
@@ -2437,7 +2437,7 @@ LABEL_28:
   return result;
 }
 
-uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
+uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
 {
   result = std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>(a1, a2, a3, a4);
   v11 = *a5;
@@ -2663,7 +2663,7 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm:
     }
   }
 
-  v16 = (a1 + 2);
+  v16 = a1 + 2;
   std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,llvm::jitlink::MachOLinkGraphBuilder::graphifyCStringSection(llvm::jitlink::MachOLinkGraphBuilder::NormalizedSection &,std::vector<llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>)::$_0 &,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol **,0>(a1, a1 + 1, a1 + 2);
   v17 = a1 + 3;
   if (a1 + 3 == a2)
@@ -2745,7 +2745,7 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,llvm:
       }
 
 LABEL_37:
-      v16 -= 8;
+      --v16;
       *(v32 + 2) = v33;
       v31 -= 8;
       if (v31 == -16)
@@ -2755,7 +2755,7 @@ LABEL_37:
       }
     }
 
-    v16 = a1 + v31 + 16;
+    v16 = (a1 + v31 + 16);
 LABEL_39:
     *v16 = v20;
     if (++v19 != 8)
@@ -2843,10 +2843,10 @@ uint64_t llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)
   return result;
 }
 
-void llvm::jitlink::createLinkGraphFromELFObject(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void llvm::jitlink::createLinkGraphFromELFObject(__int128 *a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 8);
+  v30 = *MEMORY[0x277D85DE8];
+  v5 = *(a1 + 1);
   if (v5 <= 3)
   {
     llvm::make_error<llvm::jitlink::JITLinkError,char const(&)[53]>();
@@ -2863,163 +2863,161 @@ void llvm::jitlink::createLinkGraphFromELFObject(uint64_t a1@<X0>, uint64_t a2@<
     goto LABEL_11;
   }
 
-  v9 = *(v7 + 4);
-  if (v9 != 1)
+  v8 = *(v7 + 4);
+  if (v8 == 1)
   {
-    if (v9 == 2)
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::create(v7, v5, &v26);
+    v9 = v26;
+    if (v29)
     {
-      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::create(v7, v5, &v27);
-      v10 = v27;
-      if (v30)
-      {
-        goto LABEL_24;
-      }
-
-      goto LABEL_34;
+LABEL_24:
+      *&v26 = 0;
+      llvm::Expected<llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>>::~Expected(&v26);
+      *(a3 + 8) |= 1u;
+      *a3 = v9;
+      return;
     }
 
+    goto LABEL_34;
+  }
+
+  if (v8 != 2)
+  {
 LABEL_11:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_12;
   }
 
-  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::create(v7, v5, &v27);
-  v10 = v27;
-  if ((v30 & 1) == 0)
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::create(v7, v5, &v26);
+  v9 = v26;
+  if (v29)
   {
-LABEL_34:
-    v11 = *(v27 + 18);
-    llvm::Expected<llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>>::~Expected(&v27);
-LABEL_12:
-    if (v11 > 182)
-    {
-      switch(v11)
-      {
-        case 258:
-          v16 = *(a1 + 16);
-          v27 = *a1;
-          v28 = v16;
-          v24 = *a2;
-          *a2 = 0;
-          *(a2 + 8) = 0;
-          llvm::jitlink::createLinkGraphFromELFObject_loongarch(&v27, &v24, a3);
-          v13 = *(&v24 + 1);
-          if (!*(&v24 + 1))
-          {
-            goto LABEL_5;
-          }
-
-          break;
-        case 243:
-          v20 = *(a1 + 16);
-          v27 = *a1;
-          v28 = v20;
-          v23 = *a2;
-          *a2 = 0;
-          *(a2 + 8) = 0;
-          llvm::jitlink::createLinkGraphFromELFObject_riscv(&v27, &v23, a3);
-          v13 = *(&v23 + 1);
-          if (!*(&v23 + 1))
-          {
-            goto LABEL_5;
-          }
-
-          break;
-        case 183:
-          v14 = *(a1 + 16);
-          v27 = *a1;
-          v28 = v14;
-          v26 = *a2;
-          *a2 = 0;
-          *(a2 + 8) = 0;
-          llvm::jitlink::createLinkGraphFromELFObject_aarch64(&v27, &v26, a3);
-          v13 = *(&v26 + 1);
-          if (!*(&v26 + 1))
-          {
-            goto LABEL_5;
-          }
-
-          break;
-        default:
-          goto LABEL_29;
-      }
-    }
-
-    else
-    {
-      switch(v11)
-      {
-        case 3:
-          v15 = *(a1 + 16);
-          v27 = *a1;
-          v28 = v15;
-          v21 = *a2;
-          *a2 = 0;
-          *(a2 + 8) = 0;
-          llvm::jitlink::createLinkGraphFromELFObject_i386(&v27, &v21, a3);
-          v13 = *(&v21 + 1);
-          if (!*(&v21 + 1))
-          {
-            goto LABEL_5;
-          }
-
-          break;
-        case 40:
-          v19 = *(a1 + 16);
-          v27 = *a1;
-          v28 = v19;
-          v25 = *a2;
-          *a2 = 0;
-          *(a2 + 8) = 0;
-          llvm::jitlink::createLinkGraphFromELFObject_aarch32(&v27, &v25, a3);
-          v13 = *(&v25 + 1);
-          if (!*(&v25 + 1))
-          {
-            goto LABEL_5;
-          }
-
-          break;
-        case 62:
-          v12 = *(a1 + 16);
-          v27 = *a1;
-          v28 = v12;
-          v22 = *a2;
-          *a2 = 0;
-          *(a2 + 8) = 0;
-          llvm::jitlink::createLinkGraphFromELFObject_x86_64(&v27, &v22, a3);
-          v13 = *(&v22 + 1);
-          if (!*(&v22 + 1))
-          {
-            goto LABEL_5;
-          }
-
-          break;
-        default:
-LABEL_29:
-          v17 = *(a1 + 16);
-          v18 = *(a1 + 24);
-          v29 = 1283;
-          *&v27 = "Unsupported target machine architecture in ELF object ";
-          *&v28 = v17;
-          *(&v28 + 1) = v18;
-          llvm::make_error<llvm::jitlink::JITLinkError,llvm::Twine>();
-      }
-    }
-
-    std::__shared_weak_count::__release_shared[abi:nn200100](v13);
-    goto LABEL_5;
+    goto LABEL_24;
   }
 
-LABEL_24:
-  *&v27 = 0;
-  llvm::Expected<llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>>::~Expected(&v27);
-  *(a3 + 8) |= 1u;
-  *a3 = v10;
-LABEL_5:
-  v8 = *MEMORY[0x277D85DE8];
+LABEL_34:
+  v10 = *(v26 + 18);
+  llvm::Expected<llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>>::~Expected(&v26);
+LABEL_12:
+  if (v10 > 182)
+  {
+    switch(v10)
+    {
+      case 258:
+        v15 = a1[1];
+        v26 = *a1;
+        v27 = v15;
+        v23 = *a2;
+        *a2 = 0;
+        *(a2 + 1) = 0;
+        llvm::jitlink::createLinkGraphFromELFObject_loongarch(&v26, &v23, a3);
+        v12 = *(&v23 + 1);
+        if (*(&v23 + 1))
+        {
+          goto LABEL_33;
+        }
+
+        break;
+      case 243:
+        v19 = a1[1];
+        v26 = *a1;
+        v27 = v19;
+        v22 = *a2;
+        *a2 = 0;
+        *(a2 + 1) = 0;
+        llvm::jitlink::createLinkGraphFromELFObject_riscv(&v26, &v22, a3);
+        v12 = *(&v22 + 1);
+        if (!*(&v22 + 1))
+        {
+          return;
+        }
+
+        goto LABEL_33;
+      case 183:
+        v13 = a1[1];
+        v26 = *a1;
+        v27 = v13;
+        v25 = *a2;
+        *a2 = 0;
+        *(a2 + 1) = 0;
+        llvm::jitlink::createLinkGraphFromELFObject_aarch64(&v26, &v25, a3);
+        v12 = *(&v25 + 1);
+        if (*(&v25 + 1))
+        {
+          goto LABEL_33;
+        }
+
+        break;
+      default:
+LABEL_29:
+        v16 = *(a1 + 2);
+        v17 = *(a1 + 3);
+        v28 = 1283;
+        *&v26 = "Unsupported target machine architecture in ELF object ";
+        *&v27 = v16;
+        *(&v27 + 1) = v17;
+        llvm::make_error<llvm::jitlink::JITLinkError,llvm::Twine>();
+    }
+  }
+
+  else
+  {
+    switch(v10)
+    {
+      case 3:
+        v14 = a1[1];
+        v26 = *a1;
+        v27 = v14;
+        v20 = *a2;
+        *a2 = 0;
+        *(a2 + 1) = 0;
+        llvm::jitlink::createLinkGraphFromELFObject_i386(&v26, &v20, a3);
+        v12 = *(&v20 + 1);
+        if (*(&v20 + 1))
+        {
+          goto LABEL_33;
+        }
+
+        break;
+      case 40:
+        v18 = a1[1];
+        v26 = *a1;
+        v27 = v18;
+        v24 = *a2;
+        *a2 = 0;
+        *(a2 + 1) = 0;
+        llvm::jitlink::createLinkGraphFromELFObject_aarch32(&v26, &v24, a3);
+        v12 = *(&v24 + 1);
+        if (*(&v24 + 1))
+        {
+          goto LABEL_33;
+        }
+
+        break;
+      case 62:
+        v11 = a1[1];
+        v26 = *a1;
+        v27 = v11;
+        v21 = *a2;
+        *a2 = 0;
+        *(a2 + 1) = 0;
+        llvm::jitlink::createLinkGraphFromELFObject_x86_64(&v26, &v21, a3);
+        v12 = *(&v21 + 1);
+        if (!*(&v21 + 1))
+        {
+          return;
+        }
+
+LABEL_33:
+        std::__shared_weak_count::__release_shared[abi:nn200100](v12);
+        return;
+      default:
+        goto LABEL_29;
+    }
+  }
 }
 
-llvm::jitlink::LinkGraph **llvm::jitlink::link_ELF(uint64_t *a1, uint64_t *a2)
+void llvm::jitlink::link_ELF(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a1;
   v3 = *(*a1 + 160);
@@ -3031,18 +3029,18 @@ LABEL_11:
       *a1 = 0;
       v7 = *a2;
       *a2 = 0;
-      v27 = v7;
-      v28 = v2;
-      llvm::jitlink::link_ELF_aarch32(&v28, &v27);
-      v8 = v27;
-      v27 = 0;
+      v25 = v7;
+      v26 = v2;
+      llvm::jitlink::link_ELF_aarch32(&v26, &v25);
+      v8 = v25;
+      v25 = 0;
       if (v8)
       {
         (*(*v8 + 8))(v8);
       }
 
-      v6 = &v28;
-      return std::unique_ptr<llvm::jitlink::LinkGraph>::~unique_ptr[abi:nn200100](v6);
+      v6 = &v26;
+      goto LABEL_29;
     }
 
     if ((v3 - 13) >= 2)
@@ -3055,17 +3053,17 @@ LABEL_11:
       *a1 = 0;
       v13 = *a2;
       *a2 = 0;
-      v29 = v13;
-      v30 = v2;
-      llvm::jitlink::link_ELF_aarch64(&v30, &v29);
-      v14 = v29;
-      v29 = 0;
+      v27 = v13;
+      v28 = v2;
+      llvm::jitlink::link_ELF_aarch64(&v28, &v27);
+      v14 = v27;
+      v27 = 0;
       if (v14)
       {
         (*(*v14 + 8))(v14);
       }
 
-      v6 = &v30;
+      v6 = &v28;
     }
 
     else
@@ -3073,17 +3071,17 @@ LABEL_11:
       *a1 = 0;
       v4 = *a2;
       *a2 = 0;
-      v25 = v4;
-      v26 = v2;
-      llvm::jitlink::link_ELF_loongarch(&v26, &v25);
-      v5 = v25;
-      v25 = 0;
+      v23 = v4;
+      v24 = v2;
+      llvm::jitlink::link_ELF_loongarch(&v24, &v23);
+      v5 = v23;
+      v23 = 0;
       if (v5)
       {
         (*(*v5 + 8))(v5);
       }
 
-      v6 = &v26;
+      v6 = &v24;
     }
   }
 
@@ -3094,17 +3092,17 @@ LABEL_11:
       *a1 = 0;
       v15 = *a2;
       *a2 = 0;
-      v19 = v15;
-      v20 = v2;
-      llvm::jitlink::link_ELF_i386(&v20, &v19);
-      v16 = v19;
-      v19 = 0;
+      v17 = v15;
+      v18 = v2;
+      llvm::jitlink::link_ELF_i386(&v18, &v17);
+      v16 = v17;
+      v17 = 0;
       if (v16)
       {
         (*(*v16 + 8))(v16);
       }
 
-      v6 = &v20;
+      v6 = &v18;
     }
 
     else
@@ -3117,17 +3115,17 @@ LABEL_11:
       *a1 = 0;
       v9 = *a2;
       *a2 = 0;
-      v21 = v9;
-      v22 = v2;
-      llvm::jitlink::link_ELF_x86_64(&v22, &v21);
-      v10 = v21;
-      v21 = 0;
+      v19 = v9;
+      v20 = v2;
+      llvm::jitlink::link_ELF_x86_64(&v20, &v19);
+      v10 = v19;
+      v19 = 0;
       if (v10)
       {
         (*(*v10 + 8))(v10);
       }
 
-      v6 = &v22;
+      v6 = &v20;
     }
   }
 
@@ -3138,7 +3136,6 @@ LABEL_11:
       if ((v3 - 35) >= 2)
       {
 LABEL_30:
-        v18 = *a2;
         std::operator+<char>();
         llvm::make_error<llvm::jitlink::JITLinkError,std::string>();
       }
@@ -3149,20 +3146,21 @@ LABEL_30:
     *a1 = 0;
     v11 = *a2;
     *a2 = 0;
-    v23 = v11;
-    v24 = v2;
-    llvm::jitlink::link_ELF_riscv(&v24, &v23);
-    v12 = v23;
-    v23 = 0;
+    v21 = v11;
+    v22 = v2;
+    llvm::jitlink::link_ELF_riscv(&v22, &v21);
+    v12 = v21;
+    v21 = 0;
     if (v12)
     {
       (*(*v12 + 8))(v12);
     }
 
-    v6 = &v24;
+    v6 = &v22;
   }
 
-  return std::unique_ptr<llvm::jitlink::LinkGraph>::~unique_ptr[abi:nn200100](v6);
+LABEL_29:
+  std::unique_ptr<llvm::jitlink::LinkGraph>::~unique_ptr[abi:nn200100](v6);
 }
 
 uint64_t *llvm::Expected<llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>>::~Expected(uint64_t *a1)
@@ -3215,38 +3213,38 @@ void llvm::jitlink::ELFLinkGraphBuilderBase::~ELFLinkGraphBuilderBase(llvm::jitl
   JUMPOUT(0x277C69E40);
 }
 
-char *llvm::jitlink::getJITLinkEdgeKind(char *this, signed int a2)
+void llvm::jitlink::getJITLinkEdgeKind(llvm::jitlink *this, signed int a2, unsigned int a3)
 {
-  v7 = a2;
+  v8 = a2;
   if (a2 <= 27)
   {
     switch(a2)
     {
       case 2:
-        this[8] &= ~1u;
-        v2 = 3;
+        *(this + 8) &= ~1u;
+        v3 = 3;
         goto LABEL_18;
       case 3:
-        this[8] &= ~1u;
-        v2 = 2;
+        *(this + 8) &= ~1u;
+        v3 = 2;
         goto LABEL_18;
       case 10:
-        this[8] &= ~1u;
-        v2 = 5;
+        *(this + 8) &= ~1u;
+        v3 = 5;
         goto LABEL_18;
     }
 
 LABEL_14:
-    v3[0] = "{0:d}: ";
-    v3[1] = 7;
-    v3[2] = v5;
-    v3[3] = 1;
-    v4[0] = &unk_2883ECF20;
-    v4[1] = &v7;
-    v5[0] = v4;
-    v5[1] = "Unsupported aarch32 relocation ";
-    v5[3] = v3;
-    v6 = 1539;
+    v4[0] = "{0:d}: ";
+    v4[1] = 7;
+    v4[2] = v6;
+    v4[3] = 1;
+    v5[0] = &unk_2883ECF20;
+    v5[1] = &v8;
+    v6[0] = v5;
+    v6[1] = "Unsupported aarch32 relocation ";
+    v6[3] = v4;
+    v7 = 1539;
     llvm::object::getELFRelocationTypeName(0x28, a2);
     operator new();
   }
@@ -3255,15 +3253,15 @@ LABEL_14:
   {
     if (a2 == 47)
     {
-      this[8] &= ~1u;
-      v2 = 7;
+      *(this + 8) &= ~1u;
+      v3 = 7;
       goto LABEL_18;
     }
 
     if (a2 == 48)
     {
-      this[8] &= ~1u;
-      v2 = 8;
+      *(this + 8) &= ~1u;
+      v3 = 8;
       goto LABEL_18;
     }
 
@@ -3272,8 +3270,8 @@ LABEL_14:
 
   if (a2 == 28)
   {
-    this[8] &= ~1u;
-    v2 = 4;
+    *(this + 8) &= ~1u;
+    v3 = 4;
     goto LABEL_18;
   }
 
@@ -3282,24 +3280,23 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  this[8] &= ~1u;
-  v2 = 6;
+  *(this + 8) &= ~1u;
+  v3 = 6;
 LABEL_18:
-  *this = v2;
-  return this;
+  *this = v3;
 }
 
 uint64_t *llvm::jitlink::createLinkGraphFromELFObject_aarch32@<X0>(_OWORD *a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v5 = a1[1];
   *__p = *a1;
-  v32 = v5;
-  llvm::object::ObjectFile::createELFObjectFile(__p, 1, &v39);
-  if ((v40 & 1) == 0)
+  v30 = v5;
+  llvm::object::ObjectFile::createELFObjectFile(__p, 1, &v37);
+  if ((v38 & 1) == 0)
   {
-    llvm::object::ObjectFile::makeTriple(v39, &v33);
-    ArchName = llvm::Triple::getArchName(&v33);
+    llvm::object::ObjectFile::makeTriple(&v31, v37);
+    ArchName = llvm::Triple::getArchName(&v31);
     v9 = llvm::ARM::parseArch(ArchName, v8);
     if (!v9)
     {
@@ -3314,11 +3311,11 @@ uint64_t *llvm::jitlink::createLinkGraphFromELFObject_aarch32@<X0>(_OWORD *a1@<X
       operator new();
     }
 
-    if (v34 > 34)
+    if (v32 > 34)
     {
-      if (v34 != 35)
+      if (v32 != 35)
       {
-        if (v34 != 36)
+        if (v32 != 36)
         {
 LABEL_8:
           std::operator+<char>();
@@ -3326,46 +3323,45 @@ LABEL_8:
         }
 
 LABEL_13:
-        v12 = *(v39 + 2);
-        v23 = *a2;
+        v12 = *(v37 + 2);
         *a2 = 0;
         *(a2 + 1) = 0;
-        if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
         {
-          v22 = v12;
-          std::string::__init_copy_ctor_external(&v25, v33.__r_.__value_.__l.__data_, v33.__r_.__value_.__l.__size_);
-          v12 = v22;
+          v21 = v12;
+          std::string::__init_copy_ctor_external(&v23, v31.__r_.__value_.__l.__data_, v31.__r_.__value_.__l.__size_);
+          v12 = v21;
         }
 
         else
         {
-          v25 = v33;
+          v23 = v31;
         }
 
-        v26 = v34;
-        v27 = v35;
-        v44[0] = v25.__r_.__value_.__l.__size_;
-        v17 = v25.__r_.__value_.__r.__words[0];
-        *(v44 + 7) = *(&v25.__r_.__value_.__r.__words[1] + 7);
-        v18 = HIBYTE(v25.__r_.__value_.__r.__words[2]);
-        memset(&v25, 0, sizeof(v25));
-        v37 = v34;
-        v38 = v35;
-        v36 = v12;
-        llvm::StringRef::str(&v36, &v45);
-        *v41 = v17;
-        *&v41[8] = v44[0];
-        *&v41[15] = *(v44 + 7);
-        v41[23] = v18;
-        v42 = v37;
-        v43 = v38;
+        v24 = v32;
+        v25 = v33;
+        v42[0] = v23.__r_.__value_.__l.__size_;
+        v17 = v23.__r_.__value_.__r.__words[0];
+        *(v42 + 7) = *(&v23.__r_.__value_.__r.__words[1] + 7);
+        v18 = HIBYTE(v23.__r_.__value_.__r.__words[2]);
+        memset(&v23, 0, sizeof(v23));
+        v35 = v32;
+        v36 = v33;
+        v34 = v12;
+        llvm::StringRef::str(&v34, &v43);
+        *v39 = v17;
+        *&v39[8] = v42[0];
+        *&v39[15] = *(v42 + 7);
+        v39[23] = v18;
+        v40 = v35;
+        v41 = v36;
         operator new();
       }
     }
 
-    else if (v34 != 1)
+    else if (v32 != 1)
     {
-      if (v34 != 2)
+      if (v32 != 2)
       {
         goto LABEL_8;
       }
@@ -3373,43 +3369,41 @@ LABEL_13:
       goto LABEL_13;
     }
 
-    v13 = v39;
-    v14 = *(v39 + 4);
-    v15 = *(v39 + 5);
+    v13 = v37;
+    v14 = *(v37 + 4);
+    v15 = *(v37 + 5);
     v16 = *a2;
     *a2 = 0;
     *(a2 + 1) = 0;
-    if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
     {
-      v24 = v16;
-      std::string::__init_copy_ctor_external(&v28, v33.__r_.__value_.__l.__data_, v33.__r_.__value_.__l.__size_);
-      v16 = v24;
+      v22 = v16;
+      std::string::__init_copy_ctor_external(&v26, v31.__r_.__value_.__l.__data_, v31.__r_.__value_.__l.__size_);
+      v16 = v22;
     }
 
     else
     {
-      v28 = v33;
+      v26 = v31;
     }
 
-    v29 = v34;
-    v30 = v35;
-    v45 = v16;
-    *v41 = *&v28.__r_.__value_.__l.__data_;
-    v19 = v28.__r_.__value_.__r.__words[2];
-    memset(&v28, 0, sizeof(v28));
-    v42 = v34;
-    *&v41[16] = v19;
-    v43 = v35;
-    llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::ELFLinkGraphBuilder(__p, v13 + 56, &v45, v41, v14, v15);
+    v27 = v32;
+    v28 = v33;
+    v43 = v16;
+    *v39 = *&v26.__r_.__value_.__l.__data_;
+    v19 = v26.__r_.__value_.__r.__words[2];
+    memset(&v26, 0, sizeof(v26));
+    v40 = v32;
+    *&v39[16] = v19;
+    v41 = v33;
+    llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::ELFLinkGraphBuilder(__p, v13 + 56, &v43, v39, v14, v15, llvm::jitlink::getELFAArch32EdgeKindName);
   }
 
-  v6 = v39;
-  v39 = 0;
+  v6 = v37;
+  v37 = 0;
   *(a3 + 8) |= 1u;
   *a3 = v6;
-  result = llvm::Expected<std::unique_ptr<llvm::object::Binary>>::~Expected(&v39);
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::Expected<std::unique_ptr<llvm::object::Binary>>::~Expected(&v37);
 }
 
 void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::buildGraph(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -3478,72 +3472,70 @@ void llvm::jitlink::ELFLinkGraphBuilder_aarch32<(llvm::support::endianness)0>::~
 
 void llvm::jitlink::link_ELF_aarch32(uint64_t *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
   ArchName = llvm::Triple::getArchName((*a1 + 136));
-  v7 = (*(&llvm::ARM::ARMArchNames + 18 * llvm::ARM::parseArch(ArchName, v6) + 17) - 10) & 0xFFFFFFFB;
-  v15 = 0;
-  v14 = 0u;
-  memset(v13, 0, sizeof(v13));
-  memset(v12, 0, sizeof(v12));
-  if ((*(**a2 + 56))(*a2, v4 + 136))
+  v6 = (*(&llvm::ARM::ARMArchNames + 18 * llvm::ARM::parseArch(ArchName, v5) + 17) - 10) & 0xFFFFFFFB;
+  v12 = 0;
+  v11 = 0u;
+  memset(v10, 0, sizeof(v10));
+  memset(v9, 0, sizeof(v9));
+  if ((*(**a2 + 56))(*a2, v3 + 136))
   {
-    (*(**a2 + 64))(&v18);
-    if (v19 < 8)
+    (*(**a2 + 64))(&v15);
+    if (v16 < 8)
     {
-      *&v16 = llvm::jitlink::markAllSymbolsLive;
-      v17 = llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<llvm::Error (*)(llvm::jitlink::LinkGraph &),llvm::Error (*)(llvm::jitlink::LinkGraph &),void>::Callbacks + 2;
-      std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](v12, &v16);
-      llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v16);
+      *&v13 = llvm::jitlink::markAllSymbolsLive;
+      v14 = llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<llvm::Error (*)(llvm::jitlink::LinkGraph &),llvm::Error (*)(llvm::jitlink::LinkGraph &),void>::Callbacks + 2;
+      std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](v9, &v13);
+      llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v13);
     }
 
     else
     {
-      std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](v12, &v18);
+      std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](v9, &v15);
     }
 
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v18);
-    if (!v7)
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v15);
+    if (!v6)
     {
-      *&v18 = llvm::jitlink::buildTables_ELF_aarch32<(llvm::jitlink::aarch32::StubsFlavor)1>;
-      v19 = llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<llvm::Error (*)(llvm::jitlink::LinkGraph &),llvm::Error (*)(llvm::jitlink::LinkGraph &),void>::Callbacks + 2;
-      std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](&v12[1] + 8, &v18);
-      llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v18);
+      *&v15 = llvm::jitlink::buildTables_ELF_aarch32<(llvm::jitlink::aarch32::StubsFlavor)1>;
+      v16 = llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<llvm::Error (*)(llvm::jitlink::LinkGraph &),llvm::Error (*)(llvm::jitlink::LinkGraph &),void>::Callbacks + 2;
+      std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](&v9[1] + 1, &v15);
+      llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v15);
     }
   }
 
-  v8 = *a1;
-  (*(**a2 + 72))(&v18);
-  if (!v18)
+  (*(**a2 + 72))(&v15);
+  if (!v15)
   {
     operator new();
   }
 
-  v9 = *a2;
-  v11 = v18;
-  *&v18 = 0;
-  (*(*v9 + 24))(v9, &v11);
-  if (v11)
+  v7 = *a2;
+  v8 = v15;
+  *&v15 = 0;
+  (*(*v7 + 24))(v7, &v8);
+  if (v8)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v8 + 8))(v8);
   }
 
-  if (v18)
+  if (v15)
   {
-    (*(*v18 + 8))(v18);
+    (*(*v15 + 8))(v15);
   }
 
-  *&v18 = &v14;
-  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v18);
-  *&v18 = &v13[1] + 8;
-  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v18);
-  *&v18 = v13;
-  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v18);
-  *&v18 = &v12[1] + 8;
-  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v18);
-  *&v18 = v12;
-  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v18);
-  v10 = *MEMORY[0x277D85DE8];
+  *&v15 = &v11;
+  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v15);
+  *&v15 = &v10[1] + 8;
+  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v15);
+  *&v15 = v10;
+  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v15);
+  *&v15 = &v9[1] + 8;
+  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v15);
+  *&v15 = v9;
+  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v15);
 }
 
 uint64_t *llvm::jitlink::buildTables_ELF_aarch32<(llvm::jitlink::aarch32::StubsFlavor)1>@<X0>(llvm::jitlink::LinkGraph *a1@<X0>, void *a2@<X8>)
@@ -3624,24 +3616,24 @@ uint64_t *llvm::jitlink::buildTables_ELF_aarch32<(llvm::jitlink::aarch32::StubsF
   return llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(&v14);
 }
 
-void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::ELFLinkGraphBuilder(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void *a5, const void *a6)
+void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::ELFLinkGraphBuilder(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, const void *a5, const void *a6, uint64_t a7)
 {
-  v12[0] = a5;
-  v12[1] = a6;
-  llvm::StringRef::str(v12, v11);
+  v13[0] = a5;
+  v13[1] = a6;
+  llvm::StringRef::str(v13, v12);
   *__p = *a4;
-  v8 = *(a4 + 16);
+  v9 = *(a4 + 16);
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
   *a4 = 0;
-  v9 = *(a4 + 24);
-  v10 = *(a4 + 40);
+  v10 = *(a4 + 24);
+  v11 = *(a4 + 40);
   operator new();
 }
 
 void llvm::jitlink::ELFLinkGraphBuilder_aarch32<(llvm::support::endianness)1>::addRelocations(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 40);
   if (v3)
   {
@@ -3659,43 +3651,43 @@ LABEL_35:
       }
     }
 
-    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSection(*(a1 + 24), v5[7], &v25);
-    if (v26)
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSection(v5[7], &v24, *(a1 + 24));
+    if (v25)
     {
-      v8 = v25;
-      *a2 = v25;
+      v8 = v24;
+      *a2 = v24;
       goto LABEL_34;
     }
 
     v9 = *(a1 + 24);
-    *&v20 = llvm::object::defaultWarningHandler;
-    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionName(v9, v25, llvm::function_ref<llvm::Error ()(llvm::Twine const&)>::callback_fn<llvm::Error (*)(llvm::Twine const&)>, &v20, &v23);
-    if (v24)
+    *&v19 = llvm::object::defaultWarningHandler;
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionName(v9, v24, llvm::function_ref<llvm::Error ()(llvm::Twine const&)>::callback_fn<llvm::Error (*)(llvm::Twine const&)>, &v19, &v22);
+    if (v23)
     {
-      v10 = v23;
-      *&v23 = 0;
+      v10 = v22;
+      *&v22 = 0;
       *a2 = v10;
       goto LABEL_27;
     }
 
-    if ((*(a1 + 72) & 1) == 0 && (v20 = v23, std::__find[abi:nn200100]<char const* const*,char const* const*,llvm::StringRef,std::__identity>(llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames, &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0], &v20) != &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0]) || (*(*a1 + 40))(a1, v25))
+    if ((*(a1 + 72) & 1) == 0 && (v19 = v22, std::__find[abi:nn200100]<char const* const*,char const* const*,llvm::StringRef,std::__identity>(llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames, &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0], &v19) != &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0]) || (*(*a1 + 40))(a1, v24))
     {
       *a2 = 0;
 LABEL_27:
-      if (v24)
+      if (v23)
       {
-        v17 = v23;
-        *&v23 = 0;
+        v17 = v22;
+        *&v22 = 0;
         if (v17)
         {
           (*(*v17 + 8))(v17);
         }
       }
 
-      if (v26)
+      if (v25)
       {
-        v18 = v25;
-        v25 = 0;
+        v18 = v24;
+        v24 = 0;
         if (v18)
         {
           (*(*v18 + 8))(v18);
@@ -3706,7 +3698,7 @@ LABEL_27:
 LABEL_34:
       if (v8)
       {
-        goto LABEL_37;
+        return;
       }
 
       goto LABEL_35;
@@ -3715,30 +3707,30 @@ LABEL_34:
     GraphBlock = llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getGraphBlock(a1, v5[7]);
     if (!GraphBlock)
     {
-      v22 = 1283;
-      *&v20 = v7;
-      v21 = v23;
+      v21 = 1283;
+      *&v19 = v7;
+      v20 = v22;
       getErrorErrorCat();
       operator new();
     }
 
     v12 = GraphBlock;
     v13 = v7;
-    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<llvm::object::Elf_Rel_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>,false>>(*(a1 + 24), v5, &v20);
-    v14 = v20;
-    if (v21)
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<llvm::object::Elf_Rel_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>,false>>(*(a1 + 24), v5, &v19);
+    v14 = v19;
+    if (v20)
     {
-      *&v20 = 0;
+      *&v19 = 0;
     }
 
     else
     {
-      if (*(&v20 + 1))
+      if (*(&v19 + 1))
       {
-        v15 = 8 * *(&v20 + 1);
+        v15 = 8 * *(&v19 + 1);
         do
         {
-          llvm::jitlink::ELFLinkGraphBuilder_aarch32<(llvm::support::endianness)1>::addSingleRelRelocation(a1, v14, v25, v12, a2);
+          llvm::jitlink::ELFLinkGraphBuilder_aarch32<(llvm::support::endianness)1>::addSingleRelRelocation(a1, v14, v24, v12, a2);
           if (*a2)
           {
             goto LABEL_23;
@@ -3756,10 +3748,10 @@ LABEL_34:
 
     *a2 = v14;
 LABEL_23:
-    if (v21)
+    if (v20)
     {
-      v16 = v20;
-      *&v20 = 0;
+      v16 = v19;
+      *&v19 = 0;
       if (v16)
       {
         (*(*v16 + 8))(v16);
@@ -3772,11 +3764,9 @@ LABEL_23:
 
 LABEL_36:
   *a2 = 0;
-LABEL_37:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-void llvm::jitlink::ELFLinkGraphBuilder_aarch32<(llvm::support::endianness)1>::addSingleRelRelocation(uint64_t a1@<X0>, _DWORD *a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, uint64_t *a5@<X8>)
+void llvm::jitlink::ELFLinkGraphBuilder_aarch32<(llvm::support::endianness)1>::addSingleRelRelocation(uint64_t a1@<X0>, _DWORD *a2@<X1>, uint64_t a3@<X2>, _DWORD *a4@<X3>, uint64_t *a5@<X8>)
 {
   v37 = *MEMORY[0x277D85DE8];
   v10 = a2[1];
@@ -3784,7 +3774,7 @@ void llvm::jitlink::ELFLinkGraphBuilder_aarch32<(llvm::support::endianness)1>::a
   v30 = v10 >> 8;
   if (v10 > 0xFF)
   {
-    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getEntry<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>>>(*(a1 + 24), *(a1 + 48), v11, &v35);
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getEntry<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>>>(*(a1 + 48), v11, &v35, *(a1 + 24));
     if (v36)
     {
       v12 = v35;
@@ -3804,7 +3794,7 @@ LABEL_16:
   GraphSymbol = llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getGraphSymbol(a1, v11);
   if (!GraphSymbol)
   {
-    v15 = *(a1 + 112);
+    v16 = *(a1 + 112);
     *&v22 = "Could not find symbol at given index, did you add it to JITSymbolTable? index: {0}, shndx: {1} Size of table: {2}";
     *(&v22 + 1) = 113;
     v23 = v29;
@@ -3814,7 +3804,7 @@ LABEL_16:
     v26[0] = &unk_2883ED130;
     v26[1] = v35 + 14;
     v27 = &unk_2883ECC68;
-    v28 = v15;
+    v28 = v16;
     v29[0] = v25;
     v29[1] = v26;
     v29[2] = &v27;
@@ -3824,33 +3814,33 @@ LABEL_16:
     llvm::make_error<llvm::StringError,llvm::formatv_object<std::tuple<llvm::detail::provider_format_adapter<unsigned int &>,llvm::detail::stream_operator_format_adapter<llvm::support::detail::packed_endian_specific_integral<unsigned short,(llvm::support::endianness)1,1ul,1ul> const&>,llvm::detail::provider_format_adapter<unsigned int>>>,std::error_code>();
   }
 
-  v14 = GraphSymbol;
-  llvm::jitlink::getJITLinkEdgeKind(&v33, *(a2 + 4));
+  v15 = GraphSymbol;
+  llvm::jitlink::getJITLinkEdgeKind(&v33, *(a2 + 4), v14);
   if (v34)
   {
     v12 = v33;
     goto LABEL_16;
   }
 
-  v16 = *a2 + *(a3 + 12) - *a4;
-  *&v22 = v14;
-  DWORD2(v22) = v16;
+  v17 = *a2 + *(a3 + 12) - *a4;
+  *&v22 = v15;
+  DWORD2(v22) = v17;
   v23 = 0;
   LOBYTE(v24) = v33;
-  v17 = *(a1 + 8);
+  v18 = *(a1 + 8);
   if (v33 > 3u)
   {
     if (v33 == 4)
     {
-      llvm::jitlink::aarch32::readAddendArm(v17, a4, &v22);
+      llvm::jitlink::aarch32::readAddendArm(v18, a4, &v22);
     }
 
-    llvm::jitlink::aarch32::readAddendThumb(v17, a4, &v22, (a1 + 152), &v31);
+    llvm::jitlink::aarch32::readAddendThumb(v18, a4, &v22, (a1 + 152), &v31);
   }
 
   else
   {
-    llvm::jitlink::aarch32::readAddendData(v17, a4, &v22, &v31);
+    llvm::jitlink::aarch32::readAddendData(v18, a4, &v22, &v31);
   }
 
   if (v32)
@@ -3876,72 +3866,68 @@ LABEL_16:
 LABEL_17:
   if (v36)
   {
-    v18 = v35;
+    v19 = v35;
     v35 = 0;
-    if (v18)
+    if (v19)
     {
-      (*(*v18 + 8))(v18);
+      (*(*v19 + 8))(v19);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSection@<X0>(void *a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSection(unsigned int a1@<W1>, uint64_t a2@<X8>, void *a3@<X0>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::sections(a1, v9);
-  if (v10)
+  v9 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::sections(a3, v7);
+  if (v8)
   {
-    v6 = v9[0];
-    v7 = *(a3 + 8) | 1;
+    v5 = v7[0];
+    v6 = *(a2 + 8) | 1;
   }
 
   else
   {
-    if (v9[1] <= a2)
+    if (v7[1] <= a1)
     {
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v6 = v9[0] + 40 * a2;
-    v7 = *(a3 + 8) & 0xFE;
+    v5 = v7[0] + 40 * a1;
+    v6 = *(a2 + 8) & 0xFE;
   }
 
-  *(a3 + 8) = v7;
-  *a3 = v6;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  *(a2 + 8) = v6;
+  *a2 = v5;
 }
 
 void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionName(void *a1@<X0>, unsigned int *a2@<X1>, void (*a3)(std::string *__return_ptr, uint64_t, void *)@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::sections(a1, v17);
-  if (v18)
+  v18 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::sections(a1, v16);
+  if (v17)
   {
-    v10 = v17[0];
+    v10 = v16[0];
     *(a5 + 16) |= 1u;
     *a5 = v10;
   }
 
   else
   {
-    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionStringTable(a1, v17[0], v17[1], a3, a4, v15);
-    if (v16)
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionStringTable(a1, v16[0], v16[1], v14, a3, a4);
+    if (v15)
     {
-      v11 = v15[0];
+      v11 = v14[0];
       *(a5 + 16) |= 1u;
       *a5 = v11;
     }
 
     else
     {
-      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionName(a1, a2, v15[0], v15[1], a5);
-      if (v16)
+      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionName(a2, v14[0], v14[1], a5, a1);
+      if (v15)
       {
-        v12 = v15[0];
-        v15[0] = 0;
+        v12 = v14[0];
+        v14[0] = 0;
         if (v12)
         {
           (*(*v12 + 8))(v12);
@@ -3949,21 +3935,19 @@ void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,fa
       }
     }
 
-    if (v18)
+    if (v17)
     {
-      v13 = v17[0];
-      v17[0] = 0;
+      v13 = v16[0];
+      v16[0] = 0;
       if (v13)
       {
         (*(*v13 + 8))(v13);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-void llvm::object::defaultWarningHandler(llvm::object *this, const llvm::Twine *a2)
+void llvm::object::defaultWarningHandler()
 {
   llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
 }
@@ -4009,10 +3993,10 @@ uint64_t llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support
   return result;
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::sections@<X0>(void *result@<X0>, uint64_t a2@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::sections(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *result;
-  v4 = *(*result + 32);
+  v3 = *a1;
+  v4 = *(*a1 + 32);
   if (v4)
   {
     v5 = *(v3 + 46);
@@ -4025,10 +4009,10 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v6 = result[1];
+    v6 = a1[1];
     if (v4 > 0xFFFFFFD7 || v4 + 40 > v6)
     {
-      v12 = *(*result + 32);
+      v12 = *(*a1 + 32);
       v13 = "section header table goes past the end of the file: e_shoff = 0x";
       v14 = &v12;
       v15 = 3587;
@@ -4058,8 +4042,8 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
 
   else
   {
-    v8 = result[2];
-    v9 = result[3];
+    v8 = a1[2];
+    v9 = a1[3];
     if (v8 == v9)
     {
       *a2 = 0;
@@ -4074,11 +4058,9 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
       *(a2 + 8) = 0xCCCCCCCCCCCCCCCDLL * ((v9 - v8) >> 3);
     }
   }
-
-  return result;
 }
 
-void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionStringTable(void *a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, void (*a4)(std::string *__return_ptr, uint64_t, void *)@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionStringTable(void *a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>, void (*a5)(std::string *__return_ptr, uint64_t, void *)@<X3>, uint64_t a6@<X4>)
 {
   v7 = *(*a1 + 50);
   if (v7 == 0xFFFF)
@@ -4098,10 +4080,10 @@ void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,fa
     }
 
 LABEL_9:
-    *(a6 + 16) &= ~1u;
+    *(a4 + 16) &= ~1u;
     v9 = a1[6];
-    *a6 = a1[5];
-    *(a6 + 8) = v9;
+    *a4 = a1[5];
+    *(a4 + 8) = v9;
     return;
   }
 
@@ -4125,96 +4107,89 @@ LABEL_3:
 
   v8 = a2 + 40 * v7;
 
-  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getStringTable(a1, v8, a4, a5, a6);
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getStringTable(a1, v8, a5, a6, a4);
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionName@<X0>(void *result@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionName(unsigned int *a1@<X1>, uint64_t a2@<X2>, unint64_t a3@<X3>, uint64_t a4@<X8>, void *a5@<X0>)
 {
-  v6 = *a2;
+  v6 = *a1;
   if (v6)
   {
-    if (a4 <= v6)
+    if (a3 <= v6)
     {
-      llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(result, a2, &v13);
-      v8 = std::string::insert(&v13, 0, "a section ");
-      v9 = v8->__r_.__value_.__r.__words[2];
-      *&v14.__r_.__value_.__l.__data_ = *&v8->__r_.__value_.__l.__data_;
-      v14.__r_.__value_.__r.__words[2] = v9;
-      v8->__r_.__value_.__l.__size_ = 0;
-      v8->__r_.__value_.__r.__words[2] = 0;
-      v8->__r_.__value_.__r.__words[0] = 0;
-      v10 = std::string::append(&v14, " has an invalid sh_name (0x");
-      v11 = v10->__r_.__value_.__r.__words[2];
-      *__p = *&v10->__r_.__value_.__l.__data_;
-      v16 = v11;
-      v10->__r_.__value_.__l.__size_ = 0;
-      v10->__r_.__value_.__r.__words[2] = 0;
-      v10->__r_.__value_.__r.__words[0] = 0;
-      v12 = v6;
-      v17[0] = __p;
-      v17[2] = &v12;
-      v18 = 3588;
-      v19 = v17;
-      v20 = ") offset which goes past the end of the section name string table";
-      v21 = 770;
-      v22 = 3;
+      llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a5, a1, &v14);
+      v9 = std::string::insert(&v14, 0, "a section ");
+      v10 = v9->__r_.__value_.__r.__words[2];
+      *&v15.__r_.__value_.__l.__data_ = *&v9->__r_.__value_.__l.__data_;
+      v15.__r_.__value_.__r.__words[2] = v10;
+      v9->__r_.__value_.__l.__size_ = 0;
+      v9->__r_.__value_.__r.__words[2] = 0;
+      v9->__r_.__value_.__r.__words[0] = 0;
+      v11 = std::string::append(&v15, " has an invalid sh_name (0x");
+      v12 = v11->__r_.__value_.__r.__words[2];
+      *__p = *&v11->__r_.__value_.__l.__data_;
+      v17 = v12;
+      v11->__r_.__value_.__l.__size_ = 0;
+      v11->__r_.__value_.__r.__words[2] = 0;
+      v11->__r_.__value_.__r.__words[0] = 0;
+      v13 = v6;
+      v18[0] = __p;
+      v18[2] = &v13;
+      v19 = 3588;
+      v20 = v18;
+      v21 = ") offset which goes past the end of the section name string table";
+      v22 = 770;
+      v23 = 3;
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v7 = (a3 + v6);
-    result = strlen(v7);
-    *(a5 + 16) &= ~1u;
-    *a5 = v7;
-    *(a5 + 8) = result;
+    v7 = (a2 + v6);
+    v8 = strlen(v7);
+    *(a4 + 16) &= ~1u;
+    *a4 = v7;
+    *(a4 + 8) = v8;
   }
 
   else
   {
-    *a5 = 0;
-    *(a5 + 8) = 0;
-    *(a5 + 16) &= ~1u;
+    *a4 = 0;
+    *(a4 + 8) = 0;
+    *(a4 + 16) &= ~1u;
   }
-
-  return result;
 }
 
 void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getStringTable(void *a1@<X0>, uint64_t a2@<X1>, void (*a3)(std::string *__return_ptr, uint64_t, void *)@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (*(a2 + 4) == 3)
   {
     goto LABEL_10;
   }
 
-  llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v30);
-  v10 = std::string::insert(&v30, 0, "invalid sh_type for string table section ");
+  llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v29);
+  v10 = std::string::insert(&v29, 0, "invalid sh_type for string table section ");
   v11 = v10->__r_.__value_.__r.__words[2];
-  *&v31.__r_.__value_.__l.__data_ = *&v10->__r_.__value_.__l.__data_;
-  v31.__r_.__value_.__r.__words[2] = v11;
+  *&v30.__r_.__value_.__l.__data_ = *&v10->__r_.__value_.__l.__data_;
+  v30.__r_.__value_.__r.__words[2] = v11;
   v10->__r_.__value_.__l.__size_ = 0;
   v10->__r_.__value_.__r.__words[2] = 0;
   v10->__r_.__value_.__r.__words[0] = 0;
-  v12 = std::string::append(&v31, ": expected SHT_STRTAB, but got ");
+  v12 = std::string::append(&v30, ": expected SHT_STRTAB, but got ");
   v13 = v12->__r_.__value_.__r.__words[2];
-  v35 = *&v12->__r_.__value_.__l.__data_;
-  v36 = v13;
+  v34 = *&v12->__r_.__value_.__l.__data_;
+  v35 = v13;
   v12->__r_.__value_.__l.__size_ = 0;
   v12->__r_.__value_.__r.__words[2] = 0;
   v12->__r_.__value_.__r.__words[0] = 0;
   ELFSectionTypeName = llvm::object::getELFSectionTypeName(*(*a1 + 18), *(a2 + 4));
-  v32[0] = &v35;
-  v32[2] = ELFSectionTypeName;
-  v32[3] = v15;
-  v33 = 1284;
-  a3(&v29, a4, v32);
-  if (SHIBYTE(v36) < 0)
+  v31[0] = &v34;
+  v31[2] = ELFSectionTypeName;
+  v31[3] = v15;
+  v32 = 1284;
+  a3(&v28, a4, v31);
+  if (SHIBYTE(v35) < 0)
   {
-    operator delete(v35);
-  }
-
-  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v31.__r_.__value_.__l.__data_);
+    operator delete(v34);
   }
 
   if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
@@ -4222,65 +4197,70 @@ void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,fa
     operator delete(v30.__r_.__value_.__l.__data_);
   }
 
-  v16 = v29.__r_.__value_.__r.__words[0];
-  if (!v29.__r_.__value_.__r.__words[0])
+  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v29.__r_.__value_.__l.__data_);
+  }
+
+  v16 = v28.__r_.__value_.__r.__words[0];
+  if (!v28.__r_.__value_.__r.__words[0])
   {
 LABEL_10:
-    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<char>(a1, a2, &v35);
-    v17 = v35;
-    if (v36)
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<char>(a1, a2, &v34);
+    v17 = v34;
+    if (v35)
     {
-      *&v35 = 0;
+      *&v34 = 0;
       *(a5 + 16) |= 1u;
       *a5 = v17;
     }
 
     else
     {
-      v18 = *(&v35 + 1);
-      if (!*(&v35 + 1))
+      v18 = *(&v34 + 1);
+      if (!*(&v34 + 1))
       {
-        llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v29);
-        v23 = std::string::insert(&v29, 0, "SHT_STRTAB string table section ");
+        llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v28);
+        v23 = std::string::insert(&v28, 0, "SHT_STRTAB string table section ");
         v24 = v23->__r_.__value_.__r.__words[2];
-        *&v30.__r_.__value_.__l.__data_ = *&v23->__r_.__value_.__l.__data_;
-        v30.__r_.__value_.__r.__words[2] = v24;
+        *&v29.__r_.__value_.__l.__data_ = *&v23->__r_.__value_.__l.__data_;
+        v29.__r_.__value_.__r.__words[2] = v24;
         v23->__r_.__value_.__l.__size_ = 0;
         v23->__r_.__value_.__r.__words[2] = 0;
         v23->__r_.__value_.__r.__words[0] = 0;
-        v25 = std::string::append(&v30, " is empty");
+        v25 = std::string::append(&v29, " is empty");
         v26 = v25->__r_.__value_.__r.__words[2];
-        *&v31.__r_.__value_.__l.__data_ = *&v25->__r_.__value_.__l.__data_;
-        v31.__r_.__value_.__r.__words[2] = v26;
+        *&v30.__r_.__value_.__l.__data_ = *&v25->__r_.__value_.__l.__data_;
+        v30.__r_.__value_.__r.__words[2] = v26;
         v25->__r_.__value_.__l.__size_ = 0;
         v25->__r_.__value_.__r.__words[2] = 0;
         v25->__r_.__value_.__r.__words[0] = 0;
-        v33 = 260;
-        v32[0] = &v31;
-        v34 = 3;
+        v32 = 260;
+        v31[0] = &v30;
+        v33 = 3;
         llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
       }
 
-      if (*(v35 + *(&v35 + 1) - 1))
+      if (*(v34 + *(&v34 + 1) - 1))
       {
-        llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v29);
-        v19 = std::string::insert(&v29, 0, "SHT_STRTAB string table section ");
+        llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v28);
+        v19 = std::string::insert(&v28, 0, "SHT_STRTAB string table section ");
         v20 = v19->__r_.__value_.__r.__words[2];
-        *&v30.__r_.__value_.__l.__data_ = *&v19->__r_.__value_.__l.__data_;
-        v30.__r_.__value_.__r.__words[2] = v20;
+        *&v29.__r_.__value_.__l.__data_ = *&v19->__r_.__value_.__l.__data_;
+        v29.__r_.__value_.__r.__words[2] = v20;
         v19->__r_.__value_.__l.__size_ = 0;
         v19->__r_.__value_.__r.__words[2] = 0;
         v19->__r_.__value_.__r.__words[0] = 0;
-        v21 = std::string::append(&v30, " is non-null terminated");
+        v21 = std::string::append(&v29, " is non-null terminated");
         v22 = v21->__r_.__value_.__r.__words[2];
-        *&v31.__r_.__value_.__l.__data_ = *&v21->__r_.__value_.__l.__data_;
-        v31.__r_.__value_.__r.__words[2] = v22;
+        *&v30.__r_.__value_.__l.__data_ = *&v21->__r_.__value_.__l.__data_;
+        v30.__r_.__value_.__r.__words[2] = v22;
         v21->__r_.__value_.__l.__size_ = 0;
         v21->__r_.__value_.__r.__words[2] = 0;
         v21->__r_.__value_.__r.__words[0] = 0;
-        v33 = 260;
-        v32[0] = &v31;
-        v34 = 3;
+        v32 = 260;
+        v31[0] = &v30;
+        v33 = 3;
         llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
       }
 
@@ -4289,10 +4269,10 @@ LABEL_10:
       *(a5 + 8) = v18;
     }
 
-    if (v36)
+    if (v35)
     {
-      v27 = v35;
-      *&v35 = 0;
+      v27 = v34;
+      *&v34 = 0;
       if (v27)
       {
         (*(*v27 + 8))(v27);
@@ -4305,23 +4285,21 @@ LABEL_10:
     *(a5 + 16) |= 1u;
     *a5 = v16;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
-void llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::sections(a1, v14);
-  if (v15)
+  v15 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::sections(a1, v13);
+  if (v14)
   {
-    v5 = v14[0];
-    v14[0] = 0;
-    v13.__r_.__value_.__r.__words[0] = v5;
-    llvm::handleAllErrors<llvm::consumeError(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v13);
-    if (v13.__r_.__value_.__r.__words[0])
+    v5 = v13[0];
+    v13[0] = 0;
+    v12.__r_.__value_.__r.__words[0] = v5;
+    llvm::handleAllErrors<llvm::consumeError(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v12);
+    if (v12.__r_.__value_.__r.__words[0])
     {
-      (*(*v13.__r_.__value_.__l.__data_ + 8))(v13.__r_.__value_.__r.__words[0]);
+      (*(*v12.__r_.__value_.__l.__data_ + 8))(v12.__r_.__value_.__r.__words[0]);
     }
 
     std::string::basic_string[abi:nn200100]<0>(a3, "[unknown index]");
@@ -4329,53 +4307,50 @@ void llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::end
 
   else
   {
-    std::to_string(&v12, 0xCCCCCCCCCCCCCCCDLL * ((a2 - v14[0]) >> 3));
-    v6 = std::string::insert(&v12, 0, "[index ");
+    std::to_string(&v11, 0xCCCCCCCCCCCCCCCDLL * ((a2 - v13[0]) >> 3));
+    v6 = std::string::insert(&v11, 0, "[index ");
     v7 = v6->__r_.__value_.__r.__words[2];
-    *&v13.__r_.__value_.__l.__data_ = *&v6->__r_.__value_.__l.__data_;
-    v13.__r_.__value_.__r.__words[2] = v7;
+    *&v12.__r_.__value_.__l.__data_ = *&v6->__r_.__value_.__l.__data_;
+    v12.__r_.__value_.__r.__words[2] = v7;
     v6->__r_.__value_.__l.__size_ = 0;
     v6->__r_.__value_.__r.__words[2] = 0;
     v6->__r_.__value_.__r.__words[0] = 0;
-    v8 = std::string::append(&v13, "]");
+    v8 = std::string::append(&v12, "]");
     v9 = v8->__r_.__value_.__r.__words[2];
     *a3 = *&v8->__r_.__value_.__l.__data_;
-    *(a3 + 16) = v9;
+    a3[2] = v9;
     v8->__r_.__value_.__l.__size_ = 0;
     v8->__r_.__value_.__r.__words[2] = 0;
     v8->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v13.__r_.__value_.__l.__data_);
-    }
-
     if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v12.__r_.__value_.__l.__data_);
     }
+
+    if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v11.__r_.__value_.__l.__data_);
+    }
   }
 
-  if (v15)
+  if (v14)
   {
-    v10 = v14[0];
-    v14[0] = 0;
+    v10 = v13[0];
+    v13[0] = 0;
     if (v10)
     {
       (*(*v10 + 8))(v10);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<char>@<X0>(void *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<char>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = result;
   v6 = *(a2 + 16);
   v5 = *(a2 + 20);
   if (__CFADD__(v6, v5))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(result, a2, &v26);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v26);
     v7 = std::string::insert(&v26, 0, "section ");
     v8 = v7->__r_.__value_.__r.__words[2];
     *&v21.__r_.__value_.__l.__data_ = *&v7->__r_.__value_.__l.__data_;
@@ -4408,9 +4383,9 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  if (result[1] < (v5 + v6))
+  if (a1[1] < (v5 + v6))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(result, a2, &v19);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v19);
     v11 = std::string::insert(&v19, 0, "section ");
     v12 = v11->__r_.__value_.__r.__words[2];
     *&v20.__r_.__value_.__l.__data_ = *&v11->__r_.__value_.__l.__data_;
@@ -4439,7 +4414,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
     v30[0] = v27;
     v31 = ") that is greater than the file size (0x";
     v32 = 770;
-    v16 = v3[1];
+    v16 = a1[1];
     v33[0] = v30;
     v34 = &v16;
     v35 = 3586;
@@ -4450,11 +4425,10 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  v15 = *result + v6;
+  v15 = *a1 + v6;
   *(a3 + 16) &= ~1u;
   *a3 = v15;
   *(a3 + 8) = v5;
-  return result;
 }
 
 const char **std::__find[abi:nn200100]<char const* const*,char const* const*,llvm::StringRef,std::__identity>(const char **a1, const char **a2, uint64_t a3)
@@ -4488,12 +4462,11 @@ const char **std::__find[abi:nn200100]<char const* const*,char const* const*,llv
   return v3;
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<llvm::object::Elf_Rel_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>,false>>@<X0>(void *result@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<llvm::object::Elf_Rel_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>,false>>(void *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
 {
-  v4 = result;
   if (a2[9] != 8)
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(result, a2, &v32);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v32);
     v12 = std::string::insert(&v32, 0, "section ");
     v13 = v12->__r_.__value_.__r.__words[2];
     *&v34.__r_.__value_.__l.__data_ = *&v12->__r_.__value_.__l.__data_;
@@ -4526,7 +4499,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
   v6 = a2[5];
   if ((v6 & 7) != 0)
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(result, a2, &v36);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v36);
     v7 = std::string::insert(&v36, 0, "section ");
     v8 = v7->__r_.__value_.__r.__words[2];
     *&v32.__r_.__value_.__l.__data_ = *&v7->__r_.__value_.__l.__data_;
@@ -4561,7 +4534,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
   v17 = a2[4];
   if (__CFADD__(v17, v6))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(result, a2, &v36);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v36);
     v18 = std::string::insert(&v36, 0, "section ");
     v19 = v18->__r_.__value_.__r.__words[2];
     *&v32.__r_.__value_.__l.__data_ = *&v18->__r_.__value_.__l.__data_;
@@ -4594,9 +4567,9 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  if (result[1] < (v6 + v17))
+  if (a1[1] < (v6 + v17))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(result, a2, &v30);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v30);
     v22 = std::string::insert(&v30, 0, "section ");
     v23 = v22->__r_.__value_.__r.__words[2];
     *&v31.__r_.__value_.__l.__data_ = *&v22->__r_.__value_.__l.__data_;
@@ -4625,7 +4598,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
     v40[0] = __p;
     v41 = ") that is greater than the file size (0x";
     v42 = 770;
-    v27 = v4[1];
+    v27 = a1[1];
     v43[0] = v40;
     v44 = &v27;
     v45 = 3586;
@@ -4636,11 +4609,10 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  v26 = *result + v17;
+  v26 = *a1 + v17;
   *(a3 + 16) &= ~1u;
   *a3 = v26;
   *(a3 + 8) = v6 >> 3;
-  return result;
 }
 
 uint64_t llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getGraphSymbol(uint64_t a1, int a2)
@@ -4725,54 +4697,51 @@ void llvm::jitlink::Block::addEdge(void *a1, _OWORD *a2)
   a1[6] = v7;
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getEntry<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>>>@<X0>(void *a1@<X0>, unsigned int *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getEntry<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>>>(unsigned int *a1@<X1>, unsigned int a2@<W2>, uint64_t a3@<X8>, void *a4@<X0>)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>>>(a1, a2, v23);
-  if (v24)
+  v23 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>>>(a4, a1, v21);
+  if (v22)
   {
-    v8 = v23[0];
-    v9 = *(a4 + 8) | 1;
+    v7 = v21[0];
+    v8 = *(a3 + 8) | 1;
   }
 
   else
   {
-    if (v23[1] <= a3)
+    if (v21[1] <= a2)
     {
-      v12 = 16 * a3;
-      v13[0] = "can't read an entry at 0x";
-      v13[2] = &v12;
-      v14 = 3587;
+      v10 = 16 * a2;
+      v11[0] = "can't read an entry at 0x";
+      v11[2] = &v10;
+      v12 = 3587;
+      v13[0] = v11;
+      v13[2] = ": it goes past the end of the section (0x";
+      v14 = 770;
+      v9 = a1[5];
       v15[0] = v13;
-      v15[2] = ": it goes past the end of the section (0x";
-      v16 = 770;
-      v11 = a2[5];
-      v17[0] = v15;
-      v17[2] = &v11;
-      v18 = 3586;
-      v19 = v17;
-      v20 = ")";
-      v21 = 770;
-      v22 = 3;
+      v15[2] = &v9;
+      v16 = 3586;
+      v17 = v15;
+      v18 = ")";
+      v19 = 770;
+      v20 = 3;
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v8 = v23[0] + 16 * a3;
-    v9 = *(a4 + 8) & 0xFE;
+    v7 = v21[0] + 16 * a2;
+    v8 = *(a3 + 8) & 0xFE;
   }
 
-  *(a4 + 8) = v9;
-  *a4 = v8;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  *(a3 + 8) = v8;
+  *a3 = v7;
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>>>@<X0>(void *result@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>>>(void *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
 {
-  v4 = result;
   if (a2[9] != 16)
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(result, a2, &v32);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v32);
     v12 = std::string::insert(&v32, 0, "section ");
     v13 = v12->__r_.__value_.__r.__words[2];
     *&v34.__r_.__value_.__l.__data_ = *&v12->__r_.__value_.__l.__data_;
@@ -4805,7 +4774,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
   v6 = a2[5];
   if ((v6 & 0xF) != 0)
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(result, a2, &v36);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v36);
     v7 = std::string::insert(&v36, 0, "section ");
     v8 = v7->__r_.__value_.__r.__words[2];
     *&v32.__r_.__value_.__l.__data_ = *&v7->__r_.__value_.__l.__data_;
@@ -4840,7 +4809,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
   v17 = a2[4];
   if (__CFADD__(v17, v6))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(result, a2, &v36);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v36);
     v18 = std::string::insert(&v36, 0, "section ");
     v19 = v18->__r_.__value_.__r.__words[2];
     *&v32.__r_.__value_.__l.__data_ = *&v18->__r_.__value_.__l.__data_;
@@ -4873,9 +4842,9 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  if (result[1] < (v6 + v17))
+  if (a1[1] < (v6 + v17))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(result, a2, &v30);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v30);
     v22 = std::string::insert(&v30, 0, "section ");
     v23 = v22->__r_.__value_.__r.__words[2];
     *&v31.__r_.__value_.__l.__data_ = *&v22->__r_.__value_.__l.__data_;
@@ -4904,7 +4873,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
     v40[0] = __p;
     v41 = ") that is greater than the file size (0x";
     v42 = 770;
-    v27 = v4[1];
+    v27 = a1[1];
     v43[0] = v40;
     v44 = &v27;
     v45 = 3586;
@@ -4915,18 +4884,17 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  v26 = *result + v17;
+  v26 = *a1 + v17;
   *(a3 + 16) &= ~1u;
   *a3 = v26;
   *(a3 + 8) = v6 >> 4;
-  return result;
 }
 
-void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::prepare(uint64_t a1@<X0>, void **a2@<X8>)
+void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::prepare(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::sections(*(a1 + 24), __p);
-  if (v20 & 1) != 0 || (*(a1 + 32) = *__p, v4 = *(a1 + 24), v5 = *(a1 + 32), v6 = *(a1 + 40), v17 = llvm::object::defaultWarningHandler, llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionStringTable(v4, v5, v6, llvm::function_ref<llvm::Error ()(llvm::Twine const&)>::callback_fn<llvm::Error (*)(llvm::Twine const&)>, &v17, __p), (v20))
+  if (v18 & 1) != 0 || (*(a1 + 32) = *__p, v4 = *(a1 + 24), v5 = *(a1 + 32), v6 = *(a1 + 40), v15 = llvm::object::defaultWarningHandler, llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionStringTable(v4, v5, v6, __p, llvm::function_ref<llvm::Error ()(llvm::Twine const&)>::callback_fn<llvm::Error (*)(llvm::Twine const&)>, &v15), (v18))
   {
 LABEL_3:
     *a2 = __p[0];
@@ -4935,82 +4903,78 @@ LABEL_3:
   else
   {
     *(a1 + 56) = *__p;
-    v8 = *(a1 + 40);
-    if (v8)
+    v7 = *(a1 + 40);
+    if (v7)
     {
-      v9 = 40 * v8;
-      v10 = (*(a1 + 32) + 24);
+      v8 = 40 * v7;
+      v9 = (*(a1 + 32) + 24);
       do
       {
-        v11 = v10 - 6;
-        v12 = *(v10 - 5);
-        if (v12 == 2)
+        v10 = v9 - 6;
+        v11 = *(v9 - 5);
+        if (v11 == 2)
         {
           if (*(a1 + 48))
           {
-            v15 = *(a1 + 8) + 96;
             std::operator+<char>();
             llvm::make_error<llvm::jitlink::JITLinkError,std::string>();
           }
 
-          *(a1 + 48) = v11;
-          v12 = *(v10 - 5);
+          *(a1 + 48) = v10;
+          v11 = *(v9 - 5);
         }
 
-        if (v12 == 18)
+        if (v11 == 18)
         {
-          v13 = *v10;
-          if (*(a1 + 40) <= v13)
+          v12 = *v9;
+          if (*(a1 + 40) <= v12)
           {
             llvm::make_error<llvm::jitlink::JITLinkError,char const(&)[53]>();
           }
 
-          llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSHNDXTable(*(a1 + 24), v11, __p);
-          if (v20)
+          llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSHNDXTable(*(a1 + 24), v10, __p);
+          if (v18)
           {
             goto LABEL_3;
           }
 
-          v17 = (*(a1 + 32) + 40 * v13);
-          v18 = *__p;
-          llvm::DenseMapBase<llvm::DenseMap<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>,llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>::try_emplace<llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>(a1 + 128, &v17, &v18, &v16);
-          if (v20)
+          v15 = (*(a1 + 32) + 40 * v12);
+          v16 = *__p;
+          llvm::DenseMapBase<llvm::DenseMap<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>,llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>::try_emplace<llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>(a1 + 128, &v15, &v16, v14);
+          if (v18)
           {
-            v14 = __p[0];
+            v13 = __p[0];
             __p[0] = 0;
-            if (v14)
+            if (v13)
             {
-              (*(*v14 + 8))(v14);
+              (*(*v13 + 8))(v13);
             }
           }
         }
 
-        v10 += 10;
-        v9 -= 40;
+        v9 += 10;
+        v8 -= 40;
       }
 
-      while (v9);
+      while (v8);
     }
 
     *a2 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::graphifySections@<X0>(uint64_t result@<X0>, uint64_t *a2@<X8>)
+void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::graphifySections(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v31 = *MEMORY[0x277D85DE8];
-  if (*(result + 40))
+  if (*(a1 + 40))
   {
-    v3 = result;
     v4 = 0;
     v5 = *a2;
     v6 = 1;
     do
     {
-      v7 = (*(v3 + 32) + 40 * v4);
-      result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionName(*(v3 + 24), v7, *(v3 + 56), *(v3 + 64), &v29);
+      v7 = (*(a1 + 32) + 40 * v4);
+      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionName(v7, *(a1 + 56), *(a1 + 64), &v29, *(a1 + 24));
       if (v30)
       {
         v5 = v29;
@@ -5019,61 +4983,68 @@ uint64_t llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support
 
       else
       {
-        result = (*(*v3 + 40))(v3, v7);
-        if ((result & 1) != 0 || !v7[1] || (*(v3 + 72) & 1) == 0 && (v27 = v29, result = std::__find[abi:nn200100]<char const* const*,char const* const*,llvm::StringRef,std::__identity>(llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames, &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0], &v27), result != &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0]))
+        if (((*(*a1 + 40))(a1, v7) & 1) != 0 || !v7[1] || (*(a1 + 72) & 1) == 0 && (v27 = v29, std::__find[abi:nn200100]<char const* const*,char const* const*,llvm::StringRef,std::__identity>(llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames, &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0], &v27) != &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0]))
         {
           v8 = 6;
           goto LABEL_11;
         }
 
-        v11 = v7[2];
-        SectionByName = llvm::jitlink::LinkGraph::findSectionByName(*(v3 + 8), v29, *(&v29 + 1), v9);
+        v12 = v7[2];
+        SectionByName = llvm::jitlink::LinkGraph::findSectionByName(*(a1 + 8), v29, *(&v29 + 1), v9);
         if (!SectionByName)
         {
-          v13 = *(v3 + 8);
-          llvm::jitlink::LinkGraph::createSection();
+          if (v12)
+          {
+            v14 = 3;
+          }
+
+          else
+          {
+            v14 = 1;
+          }
+
+          llvm::jitlink::LinkGraph::createSection(*(a1 + 8), v29, *(&v29 + 1), v14 | v12 & 4);
         }
 
         if (v7[1] == 8)
         {
-          v14 = *(v3 + 8);
-          v15 = v7[5];
-          v16 = v7[3];
+          v15 = *(a1 + 8);
+          v16 = v7[5];
+          v17 = v7[3];
           v26 = v7[8];
-          *&v27 = v16;
-          *&v24 = v15;
+          *&v27 = v17;
+          *&v24 = v16;
           v25 = 0;
-          v17 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,unsigned long long &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(v14, SectionByName, &v24, &v27, &v26, &v25);
-LABEL_23:
+          v18 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,unsigned long long &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(v15, SectionByName, &v24, &v27, &v26, &v25);
+LABEL_26:
           LODWORD(v27) = v6 - 1;
-          result = llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>,unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>::FindAndConstruct((v3 + 80), &v27);
           v8 = 0;
-          *(result + 8) = v17;
+          *(llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>,unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>::FindAndConstruct((a1 + 80), &v27) + 1) = v18;
           goto LABEL_11;
         }
 
-        result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<char>(*(v3 + 24), v7, &v27);
+        llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<char>(*(a1 + 24), v7, &v27);
         if ((v28 & 1) == 0)
         {
-          v18 = *(v3 + 8);
-          v19 = v7[3];
-          v20 = v7[8];
+          v19 = *(a1 + 8);
+          v20 = v7[3];
+          v21 = v7[8];
           v24 = v27;
-          v25 = v20;
-          v26 = v19;
+          v25 = v21;
+          v26 = v20;
           v23 = 0;
-          v17 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,llvm::ArrayRef<char> &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(v18, SectionByName, &v24, &v26, &v25, &v23);
+          v18 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,llvm::ArrayRef<char> &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(v19, SectionByName, &v24, &v26, &v25, &v23);
           if (v28)
           {
-            v21 = v27;
+            v22 = v27;
             *&v27 = 0;
-            if (v21)
+            if (v22)
             {
-              (*(*v21 + 8))(v21);
+              (*(*v22 + 8))(v22);
             }
           }
 
-          goto LABEL_23;
+          goto LABEL_26;
         }
 
         v5 = v27;
@@ -5083,65 +5054,63 @@ LABEL_23:
 LABEL_11:
       if (v30)
       {
-        result = v29;
+        v10 = v29;
         *&v29 = 0;
-        if (result)
+        if (v10)
         {
-          result = (*(*result + 8))(result);
+          (*(*v10 + 8))(v10);
         }
       }
 
       if (v8 != 6 && v8)
       {
-        goto LABEL_30;
+        goto LABEL_33;
       }
 
       v4 = v6;
     }
 
-    while (*(v3 + 40) != v6++);
+    while (*(a1 + 40) != v6++);
   }
 
   v5 = 0;
-LABEL_30:
+LABEL_33:
   *a2 = v5;
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::graphifySymbols(uint64_t a1@<X0>, void *a2@<X8>)
+void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::graphifySymbols(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 48);
   if (!v3)
   {
     *a2 = 0;
-    goto LABEL_55;
+    return;
   }
 
-  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>>>(*(a1 + 24), v3, &v57);
-  if (v59)
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>>>(*(a1 + 24), v3, &v56);
+  if (v58)
   {
-    *a2 = v57;
-    goto LABEL_55;
+    *a2 = v56;
+    return;
   }
 
-  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getStringTableForSymtab(*(a1 + 24), *(a1 + 48), *(a1 + 32), *(a1 + 40), v55);
-  if (v56)
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getStringTableForSymtab(*(a1 + 24), *(a1 + 48), *(a1 + 32), *(a1 + 40), v54);
+  if (v55)
   {
-    v5 = v55[0];
-    v55[0] = 0;
+    v5 = v54[0];
+    v54[0] = 0;
     goto LABEL_48;
   }
 
-  v5 = v58;
-  if (v58)
+  v5 = v57;
+  if (v57)
   {
     v6 = 0;
     v7 = 1;
     while (1)
     {
-      v8 = v57 + 16 * v6;
+      v8 = v56 + 16 * v6;
       if ((*(v8 + 12) & 0xF) != 4)
       {
         break;
@@ -5149,7 +5118,7 @@ void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::en
 
 LABEL_20:
       v6 = v7;
-      v20 = v58 == v7++;
+      v20 = v57 == v7++;
       if (v20)
       {
         v5 = 0;
@@ -5157,11 +5126,11 @@ LABEL_20:
       }
     }
 
-    llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getName(v8, v55[0], v55[1], &v52);
-    if (v54)
+    llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getName(v8, v54[0], v54[1], &v51);
+    if (v53)
     {
-      v9 = v52;
-      v52 = 0;
+      v9 = v51;
+      v51 = 0;
 LABEL_12:
       *a2 = v9;
       v10 = 1;
@@ -5176,14 +5145,14 @@ LABEL_12:
       CommonSection = llvm::jitlink::ELFLinkGraphBuilderBase::getCommonSection(a1);
       v16 = *(v8 + 4);
       v15 = *(v8 + 8);
-      v48 = 0;
-      v46 = v15;
-      v45[0] = v16;
-      v43[0] = 0;
-      v17 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,unsigned long long &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(v13, CommonSection, &v46, &v48, v45, v43);
-      v18 = llvm::jitlink::LinkGraph::addDefinedSymbol(v13, v17, 0, v52, v53, *(v8 + 8), 1, 0, 0, 0);
-      LODWORD(v48) = v7 - 1;
-      *(llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>,unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>::FindAndConstruct((a1 + 104), &v48) + 1) = v18;
+      v47 = 0;
+      v45 = v15;
+      v44[0] = v16;
+      v42[0] = 0;
+      v17 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,unsigned long long &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(v13, CommonSection, &v45, &v47, v44, v42);
+      v18 = llvm::jitlink::LinkGraph::addDefinedSymbol(v13, v17, 0, v51, v52, *(v8 + 8), 1, 0, 0, 0);
+      LODWORD(v47) = v7 - 1;
+      *(llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>,unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>::FindAndConstruct((a1 + 104), &v47) + 1) = v18;
       v10 = 8;
       goto LABEL_16;
     }
@@ -5196,39 +5165,39 @@ LABEL_12:
         goto LABEL_34;
       }
 
-      llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSymbolLinkageAndScope(v8, v52, v53, &v48);
-      if (v49)
+      llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSymbolLinkageAndScope(v8, v51, v52, &v47);
+      if (v48)
       {
-        v9 = v48;
+        v9 = v47;
         goto LABEL_12;
       }
 
-      v23 = v48;
-      v24 = BYTE1(v48);
+      v23 = v47;
+      v24 = BYTE1(v47);
       v25 = *(v8 + 14);
       if (v25 == 0xFFFF)
       {
-        v46 = *(a1 + 48);
-        v48 = 0;
+        v45 = *(a1 + 48);
+        v47 = 0;
         v10 = 8;
-        if (!llvm::DenseMapBase<llvm::DenseMap<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>,llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>::LookupBucketFor<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*>((a1 + 128), &v46, &v48) || v48 == (*(a1 + 128) + 24 * *(a1 + 144)))
+        if (!llvm::DenseMapBase<llvm::DenseMap<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>,llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>::LookupBucketFor<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*>((a1 + 128), &v45, &v47) || v47 == (*(a1 + 128) + 24 * *(a1 + 144)))
         {
           goto LABEL_16;
         }
 
-        v32 = v48[2];
-        v48 = v48[1];
-        v49 = v32;
-        v50 = 1;
-        v51 = 0;
-        llvm::object::getExtendedSymbolTableIndex<llvm::object::ELFType<(llvm::support::endianness)1,false>>(v7 - 1, &v48, &v46);
-        if (v47)
+        v32 = v47[2];
+        v47 = v47[1];
+        v48 = v32;
+        v49 = 1;
+        v50 = 0;
+        llvm::object::getExtendedSymbolTableIndex<llvm::object::ELFType<(llvm::support::endianness)1,false>>(v7 - 1, &v47, &v45);
+        if (v46)
         {
-          v9 = v46;
+          v9 = v45;
           goto LABEL_12;
         }
 
-        v25 = v46;
+        v25 = v45;
       }
 
       GraphBlock = llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getGraphBlock(a1, v25);
@@ -5238,9 +5207,9 @@ LABEL_12:
         v28 = (*(*a1 + 24))(a1, v8);
         v29 = (*(*a1 + 32))(a1, v8, v28);
         v30 = *(a1 + 8);
-        if (v53)
+        if (v52)
         {
-          v31 = llvm::jitlink::LinkGraph::addDefinedSymbol(v30, v27, v29, v52, v53, *(v8 + 8), v23, v24, (*(v8 + 12) & 0xF) == 2, 0);
+          v31 = llvm::jitlink::LinkGraph::addDefinedSymbol(v30, v27, v29, v51, v52, *(v8 + 8), v23, v24, (*(v8 + 12) & 0xF) == 2, 0);
         }
 
         else
@@ -5249,9 +5218,9 @@ LABEL_12:
         }
 
         v31[2] = v31[2] & 0x7FFFFFFFFFFFFFFFLL | (v28 << 63);
-        LODWORD(v48) = v7 - 1;
+        LODWORD(v47) = v7 - 1;
         v10 = 0;
-        *(llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>,unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>::FindAndConstruct((a1 + 104), &v48) + 1) = v31;
+        *(llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>,unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>::FindAndConstruct((a1 + 104), &v47) + 1) = v31;
       }
 
       else
@@ -5272,34 +5241,34 @@ LABEL_34:
       v21 = v11 >> 4;
       if (v21 - 1 >= 2)
       {
-        v43[0] = "Invalid symbol binding ";
-        v44 = 259;
+        v42[0] = "Invalid symbol binding ";
+        v43 = 259;
         v33 = *(v8 + 12) >> 4;
-        v42 = 265;
-        LODWORD(v41[0]) = v33;
-        llvm::operator+(v43, v41, v45);
-        v39 = " for external symbol ";
-        v40 = 259;
-        llvm::operator+(v45, &v39, &v46);
-        v38 = 261;
-        v37[0] = v52;
-        v37[1] = v53;
-        llvm::operator+(&v46, v37, &v48);
+        v41 = 265;
+        LODWORD(v40[0]) = v33;
+        llvm::operator+(v42, v40, v44);
+        v38 = " for external symbol ";
+        v39 = 259;
+        llvm::operator+(v44, &v38, &v45);
+        v37 = 261;
+        v36[0] = v51;
+        v36[1] = v52;
+        llvm::operator+(&v45, v36, &v47);
         getErrorErrorCat();
         llvm::make_error<llvm::StringError,llvm::Twine,std::error_code>();
       }
 
-      v22 = llvm::jitlink::LinkGraph::addExternalSymbol(*(a1 + 8), v52, v53, *(v8 + 8), v21 == 2);
-      LODWORD(v48) = v7 - 1;
+      v22 = llvm::jitlink::LinkGraph::addExternalSymbol(*(a1 + 8), v51, v52, *(v8 + 8), v21 == 2);
+      LODWORD(v47) = v7 - 1;
       v10 = 0;
-      *(llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>,unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>::FindAndConstruct((a1 + 104), &v48) + 1) = v22;
+      *(llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>,unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>::FindAndConstruct((a1 + 104), &v47) + 1) = v22;
     }
 
 LABEL_16:
-    if (v54)
+    if (v53)
     {
-      v19 = v52;
-      v52 = 0;
+      v19 = v51;
+      v51 = 0;
       if (v19)
       {
         (*(*v19 + 8))(v19);
@@ -5317,141 +5286,131 @@ LABEL_16:
 LABEL_48:
   *a2 = v5;
 LABEL_49:
-  if (v56)
+  if (v55)
   {
-    v34 = v55[0];
-    v55[0] = 0;
+    v34 = v54[0];
+    v54[0] = 0;
     if (v34)
     {
       (*(*v34 + 8))(v34);
     }
   }
 
-  if (v59)
+  if (v58)
   {
-    v35 = v57;
-    v57 = 0;
+    v35 = v56;
+    v56 = 0;
     if (v35)
     {
       (*(*v35 + 8))(v35);
     }
   }
-
-LABEL_55:
-  v36 = *MEMORY[0x277D85DE8];
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSHNDXTable@<X0>(void *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSHNDXTable(void *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::sections(a1, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::sections(a1, v8);
+  if (v9)
   {
-    v7 = v9[0];
+    v6 = v8[0];
     *(a3 + 16) |= 1u;
-    *a3 = v7;
+    *a3 = v6;
   }
 
   else
   {
-    result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSHNDXTable(a1, a2, v9[0], v9[1], a3);
-    if (v10)
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSHNDXTable(a1, a2, v8[0], v8[1], a3);
+    if (v9)
     {
-      result = v9[0];
-      v9[0] = 0;
-      if (result)
+      v7 = v8[0];
+      v8[0] = 0;
+      if (v7)
       {
-        result = (*(*result + 8))(result);
+        (*(*v7 + 8))(v7);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSHNDXTable@<X0>(void *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSHNDXTable(void *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>(a1, a2, &v32);
-  v11 = v32;
-  if (v34)
+  v34 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>(a1, a2, &v31);
+  v10 = v31;
+  if (v33)
   {
-    v32 = 0;
+    v31 = 0;
     *(a5 + 16) |= 1u;
   }
 
   else
   {
-    v12 = a2[6];
-    if (a4 <= v12)
+    v11 = a2[6];
+    if (a4 <= v11)
     {
-      v28 = "invalid section index: ";
-      v29 = v12;
-      v30 = 2051;
-      LODWORD(v24[0]) = 3;
+      v27 = "invalid section index: ";
+      v28 = v11;
+      v29 = 2051;
+      v23[0] = 3;
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v13 = a3 + 40 * v12;
-    v14 = *(v13 + 4);
-    if (v14 != 2 && v14 != 11)
+    v12 = a3 + 40 * v11;
+    v13 = *(v12 + 4);
+    if (v13 != 2 && v13 != 11)
     {
-      ELFSectionTypeName = llvm::object::getELFSectionTypeName(*(*a1 + 18), v14);
-      v27 = 1283;
-      v24[0] = "SHT_SYMTAB_SHNDX section is linked with ";
-      v25 = ELFSectionTypeName;
-      v26 = v19;
-      v28 = v24;
-      v29 = " section (expected SHT_SYMTAB/SHT_DYNSYM)";
-      v30 = 770;
-      LODWORD(v21[0]) = 3;
+      ELFSectionTypeName = llvm::object::getELFSectionTypeName(*(*a1 + 18), v13);
+      v26 = 1283;
+      *v23 = "SHT_SYMTAB_SHNDX section is linked with ";
+      v24 = ELFSectionTypeName;
+      v25 = v18;
+      v27 = v23;
+      v28 = " section (expected SHT_SYMTAB/SHT_DYNSYM)";
+      v29 = 770;
+      LODWORD(v20[0]) = 3;
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v16 = v33;
-    v23 = *(v13 + 20) >> 4;
-    if (v33 != v23)
+    v15 = v32;
+    v22 = *(v12 + 20) >> 4;
+    if (v32 != v22)
     {
-      v20 = v33;
-      v21[0] = "SHT_SYMTAB_SHNDX has ";
-      v21[2] = &v20;
-      v22 = 2563;
-      v24[0] = v21;
-      v25 = " entries, but the symbol table associated has ";
-      v27 = 770;
-      v28 = v24;
-      v29 = &v23;
-      v30 = 3074;
-      v31 = 3;
+      v19 = v32;
+      v20[0] = "SHT_SYMTAB_SHNDX has ";
+      v20[2] = &v19;
+      v21 = 2563;
+      *v23 = v20;
+      v24 = " entries, but the symbol table associated has ";
+      v26 = 770;
+      v27 = v23;
+      v28 = &v22;
+      v29 = 3074;
+      v30 = 3;
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
     *(a5 + 16) &= ~1u;
-    *(a5 + 8) = v16;
+    *(a5 + 8) = v15;
   }
 
-  *a5 = v11;
-  if (v34)
+  *a5 = v10;
+  if (v33)
   {
-    result = v32;
-    v32 = 0;
-    if (result)
+    v16 = v31;
+    v31 = 0;
+    if (v16)
     {
-      result = (*(*result + 8))(result);
+      (*(*v16 + 8))(v16);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>@<X0>(void *result@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getSectionContentsAsArray<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>(void *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
 {
-  v4 = result;
   if (a2[9] != 4)
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(result, a2, &v32);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v32);
     v12 = std::string::insert(&v32, 0, "section ");
     v13 = v12->__r_.__value_.__r.__words[2];
     *&v34.__r_.__value_.__l.__data_ = *&v12->__r_.__value_.__l.__data_;
@@ -5484,7 +5443,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
   v6 = a2[5];
   if ((v6 & 3) != 0)
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(result, a2, &v36);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v36);
     v7 = std::string::insert(&v36, 0, "section ");
     v8 = v7->__r_.__value_.__r.__words[2];
     *&v32.__r_.__value_.__l.__data_ = *&v7->__r_.__value_.__l.__data_;
@@ -5519,7 +5478,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
   v17 = a2[4];
   if (__CFADD__(v17, v6))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(result, a2, &v36);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v36);
     v18 = std::string::insert(&v36, 0, "section ");
     v19 = v18->__r_.__value_.__r.__words[2];
     *&v32.__r_.__value_.__l.__data_ = *&v18->__r_.__value_.__l.__data_;
@@ -5552,9 +5511,9 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  if (result[1] < (v6 + v17))
+  if (a1[1] < (v6 + v17))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(result, a2, &v30);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,false>>(a1, a2, &v30);
     v22 = std::string::insert(&v30, 0, "section ");
     v23 = v22->__r_.__value_.__r.__words[2];
     *&v31.__r_.__value_.__l.__data_ = *&v22->__r_.__value_.__l.__data_;
@@ -5583,7 +5542,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
     v40[0] = __p;
     v41 = ") that is greater than the file size (0x";
     v42 = 770;
-    v27 = v4[1];
+    v27 = a1[1];
     v43[0] = v40;
     v44 = &v27;
     v45 = 3586;
@@ -5594,11 +5553,10 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  v26 = *result + v17;
+  v26 = *a1 + v17;
   *(a3 + 16) &= ~1u;
   *a3 = v26;
   *(a3 + 8) = v6 >> 2;
-  return result;
 }
 
 uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>,llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>::try_emplace<llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>@<X0>(uint64_t a1@<X0>, void *a2@<X1>, _OWORD *a3@<X2>, uint64_t a4@<X8>)
@@ -5721,9 +5679,9 @@ LABEL_3:
   return a4;
 }
 
-void *llvm::DenseMap<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>::grow(uint64_t a1, int a2)
+void *llvm::DenseMap<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>::grow(uint64_t *a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -5738,7 +5696,7 @@ void *llvm::DenseMap<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::su
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(24 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -5748,8 +5706,8 @@ void *llvm::DenseMap<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::su
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -5870,9 +5828,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>::grow(uint64_t *a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -5887,7 +5845,7 @@ char *llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsi
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(16 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -5897,8 +5855,8 @@ char *llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsi
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -5924,11 +5882,11 @@ char *llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsi
       if (vuzp1_s16(*&v15, vmovn_s64(vcgeq_u64(v15, vorrq_s8(v17, xmmword_2750C1830)))).i32[1])
       {
         *v16 = -1;
-        v16[4] = -1;
+        *(v16 + 4) = -1;
       }
 
       v11 += 4;
-      v16 += 16;
+      v16 += 64;
     }
 
     while (v14 != v11);
@@ -6020,7 +5978,7 @@ void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,fa
   llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getStringTable(a1, a3 + 40 * v8, llvm::function_ref<llvm::Error ()(llvm::Twine const&)>::callback_fn<llvm::Error (*)(llvm::Twine const&)>, v9, a5);
 }
 
-size_t llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getName@<X0>(llvm::object *a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
+void llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getName(llvm::object *a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v5 = *a1;
   if (a3 <= v5)
@@ -6048,18 +6006,17 @@ size_t llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianne
   v6 = a2 + v5;
   if (a2)
   {
-    result = strlen((a2 + v5));
+    v7 = strlen((a2 + v5));
   }
 
   else
   {
-    result = 0;
+    v7 = 0;
   }
 
   *(a4 + 16) &= ~1u;
   *a4 = v6;
-  *(a4 + 8) = result;
-  return result;
+  *(a4 + 8) = v7;
 }
 
 uint64_t llvm::jitlink::ELFLinkGraphBuilderBase::getCommonSection(llvm::jitlink::ELFLinkGraphBuilderBase *this)
@@ -6067,8 +6024,7 @@ uint64_t llvm::jitlink::ELFLinkGraphBuilderBase::getCommonSection(llvm::jitlink:
   result = *(this + 2);
   if (!result)
   {
-    v3 = *(this + 1);
-    llvm::jitlink::LinkGraph::createSection();
+    llvm::jitlink::LinkGraph::createSection(*(this + 1), llvm::jitlink::ELFLinkGraphBuilderBase::CommonSectionName, unk_2809A2C08, 3);
   }
 
   return result;
@@ -6147,56 +6103,54 @@ LABEL_13:
   *a4 = v7 | (v5 << 8);
 }
 
-uint64_t *llvm::object::getExtendedSymbolTableIndex<llvm::object::ELFType<(llvm::support::endianness)1,false>>@<X0>(unsigned int a1@<W1>, uint64_t *a2@<X2>, uint64_t a3@<X8>)
+void llvm::object::getExtendedSymbolTableIndex<llvm::object::ELFType<(llvm::support::endianness)1,false>>(unsigned int a1@<W1>, uint64_t *a2@<X2>, uint64_t a3@<X8>)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (!*a2)
   {
-    v12[0] = "found an extended symbol index (";
-    v13 = a1;
-    v14 = 2051;
-    v15 = v12;
+    v10[0] = "found an extended symbol index (";
+    v11 = a1;
+    v12 = 2051;
+    v13 = v10;
     p_p = "), but unable to locate the extended symbol index table";
-    v17 = 770;
-    LODWORD(v10[0]) = 3;
+    v15 = 770;
+    LODWORD(v8[0]) = 3;
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
   v4 = a1;
-  result = llvm::object::DataRegion<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>::operator[](a2, a1, &v19);
-  if (v20)
+  llvm::object::DataRegion<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>::operator[](a2, a1, &v17);
+  if (v18)
   {
-    v10[0] = "unable to read an extended symbol table at index ";
-    v10[2] = v4;
-    v11 = 2051;
-    v12[0] = v10;
-    v13 = ": ";
-    v14 = 770;
-    v6 = v19;
-    v19 = 0;
-    v8 = v6;
-    llvm::toString(&v8, &__p);
-    v15 = v12;
+    v8[0] = "unable to read an extended symbol table at index ";
+    v8[2] = v4;
+    v9 = 2051;
+    v10[0] = v8;
+    v11 = ": ";
+    v12 = 770;
+    v5 = v17;
+    v17 = 0;
+    v6 = v5;
+    llvm::toString(&v6, &__p);
+    v13 = v10;
     p_p = &__p;
-    v17 = 1026;
-    v18 = 3;
+    v15 = 1026;
+    v16 = 3;
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
   *(a3 + 8) &= ~1u;
-  *a3 = v19;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  *a3 = v17;
 }
 
-uint64_t *llvm::object::DataRegion<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>::operator[]@<X0>(uint64_t *result@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+void llvm::object::DataRegion<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>::operator[](uint64_t *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  if (*(result + 16) == 1)
+  if (*(a1 + 16) == 1)
   {
-    if (result[1] <= a2)
+    if (a1[1] <= a2)
     {
       v5[0] = "the index is greater than or equal to the number of entries (";
-      v5[2] = result + 1;
+      v5[2] = a1 + 1;
       v6 = 3075;
       v7 = v5;
       v8 = ")";
@@ -6205,13 +6159,13 @@ uint64_t *llvm::object::DataRegion<llvm::support::detail::packed_endian_specific
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v4 = *result;
+    v4 = *a1;
   }
 
   else
   {
-    v4 = *result;
-    if (*result + 4 * a2 + 4 > result[3])
+    v4 = *a1;
+    if (*a1 + 4 * a2 + 4 > a1[3])
     {
       v7 = "can't read past the end of the file";
       v9 = 259;
@@ -6222,12 +6176,11 @@ uint64_t *llvm::object::DataRegion<llvm::support::detail::packed_endian_specific
 
   *(a3 + 8) &= ~1u;
   *a3 = *(v4 + 4 * a2);
-  return result;
 }
 
-void llvm::jitlink::ELFLinkGraphBuilder_aarch32<(llvm::support::endianness)0>::addRelocations(uint64_t a1@<X0>, unsigned int **a2@<X8>)
+void llvm::jitlink::ELFLinkGraphBuilder_aarch32<(llvm::support::endianness)0>::addRelocations(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 40);
   if (v3)
   {
@@ -6244,44 +6197,44 @@ LABEL_20:
       }
     }
 
-    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSection(*(a1 + 24), bswap32(v5[7]), &v21);
-    if (v22)
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSection(*(a1 + 24), bswap32(v5[7]), &v20);
+    if (v21)
     {
-      v7 = v21;
-      *a2 = v21;
+      v7 = v20;
+      *a2 = v20;
       goto LABEL_19;
     }
 
     v8 = *(a1 + 24);
-    *&v16 = llvm::object::defaultWarningHandler;
-    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionName(v8, v21, llvm::function_ref<llvm::Error ()(llvm::Twine const&)>::callback_fn<llvm::Error (*)(llvm::Twine const&)>, &v16, &v19);
-    if (v20)
+    *&v15 = llvm::object::defaultWarningHandler;
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionName(v8, v20, llvm::function_ref<llvm::Error ()(llvm::Twine const&)>::callback_fn<llvm::Error (*)(llvm::Twine const&)>, &v15, &v18);
+    if (v19)
     {
-      v7 = v19;
-      *&v19 = 0;
+      v7 = v18;
+      *&v18 = 0;
       *a2 = v7;
       goto LABEL_13;
     }
 
-    if ((*(a1 + 72) & 1) == 0 && (v16 = v19, std::__find[abi:nn200100]<char const* const*,char const* const*,llvm::StringRef,std::__identity>(llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames, &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0], &v16) != &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0]) || (*(*a1 + 40))(a1, v21))
+    if ((*(a1 + 72) & 1) == 0 && (v15 = v18, std::__find[abi:nn200100]<char const* const*,char const* const*,llvm::StringRef,std::__identity>(llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames, &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0], &v15) != &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0]) || (*(*a1 + 40))(a1, v20))
     {
       v7 = 0;
       *a2 = 0;
 LABEL_13:
-      if (v20)
+      if (v19)
       {
-        v9 = v19;
-        *&v19 = 0;
+        v9 = v18;
+        *&v18 = 0;
         if (v9)
         {
           (*(*v9 + 8))(v9);
         }
       }
 
-      if (v22)
+      if (v21)
       {
-        v10 = v21;
-        v21 = 0;
+        v10 = v20;
+        v20 = 0;
         if (v10)
         {
           (*(*v10 + 8))(v10);
@@ -6291,7 +6244,7 @@ LABEL_13:
 LABEL_19:
       if (v7)
       {
-        goto LABEL_38;
+        return;
       }
 
       goto LABEL_20;
@@ -6300,29 +6253,29 @@ LABEL_19:
     GraphBlock = llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getGraphBlock(a1, bswap32(v5[7]));
     if (!GraphBlock)
     {
-      v18 = 1283;
-      *&v16 = "Refencing a section that wasn't added to the graph: ";
-      v17 = v19;
+      v17 = 1283;
+      *&v15 = "Refencing a section that wasn't added to the graph: ";
+      v16 = v18;
       getErrorErrorCat();
       operator new();
     }
 
     v12 = GraphBlock;
-    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<llvm::object::Elf_Rel_Impl<llvm::object::ELFType<(llvm::support::endianness)0,false>,false>>(*(a1 + 24), v5, &v16);
-    v7 = v16;
-    if (v17)
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<llvm::object::Elf_Rel_Impl<llvm::object::ELFType<(llvm::support::endianness)0,false>,false>>(*(a1 + 24), v5, &v15);
+    v7 = v15;
+    if (v16)
     {
-      *&v16 = 0;
+      *&v15 = 0;
     }
 
     else
     {
-      if (*(&v16 + 1))
+      if (*(&v15 + 1))
       {
-        v13 = 8 * *(&v16 + 1);
+        v13 = 8 * *(&v15 + 1);
         while (1)
         {
-          llvm::jitlink::ELFLinkGraphBuilder_aarch32<(llvm::support::endianness)0>::addSingleRelRelocation(a1, v7, v21, v12, a2);
+          llvm::jitlink::ELFLinkGraphBuilder_aarch32<(llvm::support::endianness)0>::addSingleRelRelocation(a1, v7, v20, v12, a2);
           if (*a2)
           {
             break;
@@ -6347,10 +6300,10 @@ LABEL_19:
 LABEL_32:
     *a2 = v7;
 LABEL_33:
-    if (v17)
+    if (v16)
     {
-      v14 = v16;
-      *&v16 = 0;
+      v14 = v15;
+      *&v15 = 0;
       if (v14)
       {
         (*(*v14 + 8))(v14);
@@ -6362,11 +6315,9 @@ LABEL_33:
 
 LABEL_37:
   *a2 = 0;
-LABEL_38:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-void llvm::jitlink::ELFLinkGraphBuilder_aarch32<(llvm::support::endianness)0>::addSingleRelRelocation(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, void *a5@<X8>)
+void llvm::jitlink::ELFLinkGraphBuilder_aarch32<(llvm::support::endianness)0>::addSingleRelRelocation(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, uint64_t *a5@<X8>)
 {
   v36 = *MEMORY[0x277D85DE8];
   v10 = bswap32(*(a2 + 4));
@@ -6393,9 +6344,9 @@ LABEL_18:
 
   LODWORD(v34) = v11;
   *&v21 = 0;
-  if (!llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>>,unsigned int,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>>::LookupBucketFor<unsigned int>((a1 + 104), &v34, &v21) || v21 == *(a1 + 104) + 16 * *(a1 + 120) || (v13 = *(v21 + 8)) == 0)
+  if (!llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>>,unsigned int,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::MachOLinkGraphBuilder::NormalizedSymbol *>>::LookupBucketFor<unsigned int>((a1 + 104), &v34, &v21) || v21 == *(a1 + 104) + 16 * *(a1 + 120) || (v14 = *(v21 + 8)) == 0)
   {
-    v14 = *(a1 + 112);
+    v15 = *(a1 + 112);
     *&v21 = "Could not find symbol at given index, did you add it to JITSymbolTable? index: {0}, shndx: {1} Size of table: {2}";
     *(&v21 + 1) = 113;
     v22 = v28;
@@ -6405,7 +6356,7 @@ LABEL_18:
     v25[0] = &unk_2883ED1C0;
     v25[1] = v32 + 14;
     v26 = &unk_2883ECC68;
-    v27 = v14;
+    v27 = v15;
     v28[0] = v24;
     v28[1] = v25;
     v28[2] = &v26;
@@ -6413,32 +6364,32 @@ LABEL_18:
     operator new();
   }
 
-  llvm::jitlink::getJITLinkEdgeKind(&v34, *(a2 + 7));
+  llvm::jitlink::getJITLinkEdgeKind(&v34, *(a2 + 7), v13);
   if (v35)
   {
     v12 = v34;
     goto LABEL_18;
   }
 
-  v15 = bswap32(*a2) + bswap32(*(a3 + 12)) - *a4;
-  *&v21 = v13;
-  DWORD2(v21) = v15;
+  v16 = bswap32(*a2) + bswap32(*(a3 + 12)) - *a4;
+  *&v21 = v14;
+  DWORD2(v21) = v16;
   v22 = 0;
   LOBYTE(v23) = v34;
-  v16 = *(a1 + 8);
+  v17 = *(a1 + 8);
   if (v34 > 3u)
   {
     if (v34 == 4)
     {
-      llvm::jitlink::aarch32::readAddendArm(v16, a4, &v21);
+      llvm::jitlink::aarch32::readAddendArm(v17, a4, &v21);
     }
 
-    llvm::jitlink::aarch32::readAddendThumb(v16, a4, &v21, (a1 + 152), &v30);
+    llvm::jitlink::aarch32::readAddendThumb(v17, a4, &v21, (a1 + 152), &v30);
   }
 
   else
   {
-    llvm::jitlink::aarch32::readAddendData(v16, a4, &v21, &v30);
+    llvm::jitlink::aarch32::readAddendData(v17, a4, &v21, &v30);
   }
 
   if (v31)
@@ -6464,72 +6415,68 @@ LABEL_18:
 LABEL_19:
   if (v33)
   {
-    v17 = v32;
+    v18 = v32;
     v32 = 0;
-    if (v17)
+    if (v18)
     {
-      (*(*v17 + 8))(v17);
+      (*(*v18 + 8))(v18);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSection@<X0>(void *a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSection(void *a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::sections(a1, v9);
-  if (v10)
+  v9 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::sections(a1, v7);
+  if (v8)
   {
-    v6 = v9[0];
-    v7 = *(a3 + 8) | 1;
+    v5 = v7[0];
+    v6 = *(a3 + 8) | 1;
   }
 
   else
   {
-    if (v9[1] <= a2)
+    if (v7[1] <= a2)
     {
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v6 = v9[0] + 40 * a2;
-    v7 = *(a3 + 8) & 0xFE;
+    v5 = v7[0] + 40 * a2;
+    v6 = *(a3 + 8) & 0xFE;
   }
 
-  *(a3 + 8) = v7;
-  *a3 = v6;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  *(a3 + 8) = v6;
+  *a3 = v5;
 }
 
 void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionName(void *a1@<X0>, unsigned int *a2@<X1>, void (*a3)(std::string *__return_ptr, uint64_t, void *)@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::sections(a1, v17);
-  if (v18)
+  v18 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::sections(a1, v16);
+  if (v17)
   {
-    v10 = v17[0];
+    v10 = v16[0];
     *(a5 + 16) |= 1u;
     *a5 = v10;
   }
 
   else
   {
-    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionStringTable(a1, v17[0], v17[1], a3, a4, v15);
-    if (v16)
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionStringTable(a1, v16[0], v16[1], v14, a3, a4);
+    if (v15)
     {
-      v11 = v15[0];
+      v11 = v14[0];
       *(a5 + 16) |= 1u;
       *a5 = v11;
     }
 
     else
     {
-      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionName(a1, a2, v15[0], v15[1], a5);
-      if (v16)
+      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionName(a2, v14[0], v14[1], a5, a1);
+      if (v15)
       {
-        v12 = v15[0];
-        v15[0] = 0;
+        v12 = v14[0];
+        v14[0] = 0;
         if (v12)
         {
           (*(*v12 + 8))(v12);
@@ -6537,24 +6484,22 @@ void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,fa
       }
     }
 
-    if (v18)
+    if (v17)
     {
-      v13 = v17[0];
-      v17[0] = 0;
+      v13 = v16[0];
+      v16[0] = 0;
       if (v13)
       {
         (*(*v13 + 8))(v13);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::sections@<X0>(void *result@<X0>, uint64_t a2@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::sections(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *result;
-  v4 = *(*result + 32);
+  v3 = *a1;
+  v4 = *(*a1 + 32);
   if (v4)
   {
     v5 = *(v3 + 46);
@@ -6568,7 +6513,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
     }
 
     v6 = bswap32(v4);
-    v7 = result[1];
+    v7 = a1[1];
     if (v6 > 0xFFFFFFD7 || v6 + 40 > v7)
     {
       v14 = v6;
@@ -6605,14 +6550,14 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
 
   else
   {
-    v9 = result[2];
-    v10 = result[3];
+    v9 = a1[2];
+    v10 = a1[3];
     if (v9 == v10)
     {
       *a2 = 0;
       *(a2 + 8) = 0;
       *(a2 + 16) &= ~1u;
-      return result;
+      return;
     }
 
     *(a2 + 16) &= ~1u;
@@ -6621,10 +6566,9 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
 
   *a2 = v9;
   *(a2 + 8) = v11;
-  return result;
 }
 
-void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionStringTable(void *a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, void (*a4)(std::string *__return_ptr, uint64_t, void *)@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionStringTable(void *a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>, void (*a5)(std::string *__return_ptr, uint64_t, void *)@<X3>, uint64_t a6@<X4>)
 {
   v7 = *(*a1 + 50);
   if (v7 == 0xFFFF)
@@ -6644,10 +6588,10 @@ void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,fa
     }
 
 LABEL_9:
-    *(a6 + 16) &= ~1u;
+    *(a4 + 16) &= ~1u;
     v10 = a1[6];
-    *a6 = a1[5];
-    *(a6 + 8) = v10;
+    *a4 = a1[5];
+    *(a4 + 8) = v10;
     return;
   }
 
@@ -6672,96 +6616,89 @@ LABEL_3:
 
   v9 = a2 + 40 * v8;
 
-  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getStringTable(a1, v9, a4, a5, a6);
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getStringTable(a1, v9, a5, a6, a4);
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionName@<X0>(void *result@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionName(unsigned int *a1@<X1>, uint64_t a2@<X2>, unint64_t a3@<X3>, uint64_t a4@<X8>, void *a5@<X0>)
 {
-  if (*a2)
+  if (*a1)
   {
-    v6 = bswap32(*a2);
-    if (a4 <= v6)
+    v6 = bswap32(*a1);
+    if (a3 <= v6)
     {
-      llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(result, a2, &v13);
-      v8 = std::string::insert(&v13, 0, "a section ");
-      v9 = v8->__r_.__value_.__r.__words[2];
-      *&v14.__r_.__value_.__l.__data_ = *&v8->__r_.__value_.__l.__data_;
-      v14.__r_.__value_.__r.__words[2] = v9;
-      v8->__r_.__value_.__l.__size_ = 0;
-      v8->__r_.__value_.__r.__words[2] = 0;
-      v8->__r_.__value_.__r.__words[0] = 0;
-      v10 = std::string::append(&v14, " has an invalid sh_name (0x");
-      v11 = v10->__r_.__value_.__r.__words[2];
-      *__p = *&v10->__r_.__value_.__l.__data_;
-      v16 = v11;
-      v10->__r_.__value_.__l.__size_ = 0;
-      v10->__r_.__value_.__r.__words[2] = 0;
-      v10->__r_.__value_.__r.__words[0] = 0;
-      v12 = v6;
-      v17[0] = __p;
-      v17[2] = &v12;
-      v18 = 3588;
-      v19 = v17;
-      v20 = ") offset which goes past the end of the section name string table";
-      v21 = 770;
-      v22 = 3;
+      llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a5, a1, &v14);
+      v9 = std::string::insert(&v14, 0, "a section ");
+      v10 = v9->__r_.__value_.__r.__words[2];
+      *&v15.__r_.__value_.__l.__data_ = *&v9->__r_.__value_.__l.__data_;
+      v15.__r_.__value_.__r.__words[2] = v10;
+      v9->__r_.__value_.__l.__size_ = 0;
+      v9->__r_.__value_.__r.__words[2] = 0;
+      v9->__r_.__value_.__r.__words[0] = 0;
+      v11 = std::string::append(&v15, " has an invalid sh_name (0x");
+      v12 = v11->__r_.__value_.__r.__words[2];
+      *__p = *&v11->__r_.__value_.__l.__data_;
+      v17 = v12;
+      v11->__r_.__value_.__l.__size_ = 0;
+      v11->__r_.__value_.__r.__words[2] = 0;
+      v11->__r_.__value_.__r.__words[0] = 0;
+      v13 = v6;
+      v18[0] = __p;
+      v18[2] = &v13;
+      v19 = 3588;
+      v20 = v18;
+      v21 = ") offset which goes past the end of the section name string table";
+      v22 = 770;
+      v23 = 3;
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v7 = (a3 + v6);
-    result = strlen(v7);
-    *(a5 + 16) &= ~1u;
-    *a5 = v7;
-    *(a5 + 8) = result;
+    v7 = (a2 + v6);
+    v8 = strlen(v7);
+    *(a4 + 16) &= ~1u;
+    *a4 = v7;
+    *(a4 + 8) = v8;
   }
 
   else
   {
-    *a5 = 0;
-    *(a5 + 8) = 0;
-    *(a5 + 16) &= ~1u;
+    *a4 = 0;
+    *(a4 + 8) = 0;
+    *(a4 + 16) &= ~1u;
   }
-
-  return result;
 }
 
 void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getStringTable(void *a1@<X0>, uint64_t a2@<X1>, void (*a3)(std::string *__return_ptr, uint64_t, void *)@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (*(a2 + 4) == 50331648)
   {
     goto LABEL_10;
   }
 
-  llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v30);
-  v10 = std::string::insert(&v30, 0, "invalid sh_type for string table section ");
+  llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v29);
+  v10 = std::string::insert(&v29, 0, "invalid sh_type for string table section ");
   v11 = v10->__r_.__value_.__r.__words[2];
-  *&v31.__r_.__value_.__l.__data_ = *&v10->__r_.__value_.__l.__data_;
-  v31.__r_.__value_.__r.__words[2] = v11;
+  *&v30.__r_.__value_.__l.__data_ = *&v10->__r_.__value_.__l.__data_;
+  v30.__r_.__value_.__r.__words[2] = v11;
   v10->__r_.__value_.__l.__size_ = 0;
   v10->__r_.__value_.__r.__words[2] = 0;
   v10->__r_.__value_.__r.__words[0] = 0;
-  v12 = std::string::append(&v31, ": expected SHT_STRTAB, but got ");
+  v12 = std::string::append(&v30, ": expected SHT_STRTAB, but got ");
   v13 = v12->__r_.__value_.__r.__words[2];
-  v35 = *&v12->__r_.__value_.__l.__data_;
-  v36 = v13;
+  v34 = *&v12->__r_.__value_.__l.__data_;
+  v35 = v13;
   v12->__r_.__value_.__l.__size_ = 0;
   v12->__r_.__value_.__r.__words[2] = 0;
   v12->__r_.__value_.__r.__words[0] = 0;
   ELFSectionTypeName = llvm::object::getELFSectionTypeName((bswap32(*(*a1 + 18)) >> 16), bswap32(*(a2 + 4)));
-  v32[0] = &v35;
-  v32[2] = ELFSectionTypeName;
-  v32[3] = v15;
-  v33 = 1284;
-  a3(&v29, a4, v32);
-  if (SHIBYTE(v36) < 0)
+  v31[0] = &v34;
+  v31[2] = ELFSectionTypeName;
+  v31[3] = v15;
+  v32 = 1284;
+  a3(&v28, a4, v31);
+  if (SHIBYTE(v35) < 0)
   {
-    operator delete(v35);
-  }
-
-  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v31.__r_.__value_.__l.__data_);
+    operator delete(v34);
   }
 
   if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
@@ -6769,65 +6706,70 @@ void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,fa
     operator delete(v30.__r_.__value_.__l.__data_);
   }
 
-  v16 = v29.__r_.__value_.__r.__words[0];
-  if (!v29.__r_.__value_.__r.__words[0])
+  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v29.__r_.__value_.__l.__data_);
+  }
+
+  v16 = v28.__r_.__value_.__r.__words[0];
+  if (!v28.__r_.__value_.__r.__words[0])
   {
 LABEL_10:
-    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<char>(a1, a2, &v35);
-    v17 = v35;
-    if (v36)
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<char>(a1, a2, &v34);
+    v17 = v34;
+    if (v35)
     {
-      *&v35 = 0;
+      *&v34 = 0;
       *(a5 + 16) |= 1u;
       *a5 = v17;
     }
 
     else
     {
-      v18 = *(&v35 + 1);
-      if (!*(&v35 + 1))
+      v18 = *(&v34 + 1);
+      if (!*(&v34 + 1))
       {
-        llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v29);
-        v23 = std::string::insert(&v29, 0, "SHT_STRTAB string table section ");
+        llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v28);
+        v23 = std::string::insert(&v28, 0, "SHT_STRTAB string table section ");
         v24 = v23->__r_.__value_.__r.__words[2];
-        *&v30.__r_.__value_.__l.__data_ = *&v23->__r_.__value_.__l.__data_;
-        v30.__r_.__value_.__r.__words[2] = v24;
+        *&v29.__r_.__value_.__l.__data_ = *&v23->__r_.__value_.__l.__data_;
+        v29.__r_.__value_.__r.__words[2] = v24;
         v23->__r_.__value_.__l.__size_ = 0;
         v23->__r_.__value_.__r.__words[2] = 0;
         v23->__r_.__value_.__r.__words[0] = 0;
-        v25 = std::string::append(&v30, " is empty");
+        v25 = std::string::append(&v29, " is empty");
         v26 = v25->__r_.__value_.__r.__words[2];
-        *&v31.__r_.__value_.__l.__data_ = *&v25->__r_.__value_.__l.__data_;
-        v31.__r_.__value_.__r.__words[2] = v26;
+        *&v30.__r_.__value_.__l.__data_ = *&v25->__r_.__value_.__l.__data_;
+        v30.__r_.__value_.__r.__words[2] = v26;
         v25->__r_.__value_.__l.__size_ = 0;
         v25->__r_.__value_.__r.__words[2] = 0;
         v25->__r_.__value_.__r.__words[0] = 0;
-        v33 = 260;
-        v32[0] = &v31;
-        v34 = 3;
+        v32 = 260;
+        v31[0] = &v30;
+        v33 = 3;
         llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
       }
 
-      if (*(v35 + *(&v35 + 1) - 1))
+      if (*(v34 + *(&v34 + 1) - 1))
       {
-        llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v29);
-        v19 = std::string::insert(&v29, 0, "SHT_STRTAB string table section ");
+        llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v28);
+        v19 = std::string::insert(&v28, 0, "SHT_STRTAB string table section ");
         v20 = v19->__r_.__value_.__r.__words[2];
-        *&v30.__r_.__value_.__l.__data_ = *&v19->__r_.__value_.__l.__data_;
-        v30.__r_.__value_.__r.__words[2] = v20;
+        *&v29.__r_.__value_.__l.__data_ = *&v19->__r_.__value_.__l.__data_;
+        v29.__r_.__value_.__r.__words[2] = v20;
         v19->__r_.__value_.__l.__size_ = 0;
         v19->__r_.__value_.__r.__words[2] = 0;
         v19->__r_.__value_.__r.__words[0] = 0;
-        v21 = std::string::append(&v30, " is non-null terminated");
+        v21 = std::string::append(&v29, " is non-null terminated");
         v22 = v21->__r_.__value_.__r.__words[2];
-        *&v31.__r_.__value_.__l.__data_ = *&v21->__r_.__value_.__l.__data_;
-        v31.__r_.__value_.__r.__words[2] = v22;
+        *&v30.__r_.__value_.__l.__data_ = *&v21->__r_.__value_.__l.__data_;
+        v30.__r_.__value_.__r.__words[2] = v22;
         v21->__r_.__value_.__l.__size_ = 0;
         v21->__r_.__value_.__r.__words[2] = 0;
         v21->__r_.__value_.__r.__words[0] = 0;
-        v33 = 260;
-        v32[0] = &v31;
-        v34 = 3;
+        v32 = 260;
+        v31[0] = &v30;
+        v33 = 3;
         llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
       }
 
@@ -6836,10 +6778,10 @@ LABEL_10:
       *(a5 + 8) = v18;
     }
 
-    if (v36)
+    if (v35)
     {
-      v27 = v35;
-      *&v35 = 0;
+      v27 = v34;
+      *&v34 = 0;
       if (v27)
       {
         (*(*v27 + 8))(v27);
@@ -6852,23 +6794,21 @@ LABEL_10:
     *(a5 + 16) |= 1u;
     *a5 = v16;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
-void llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::sections(a1, v14);
-  if (v15)
+  v15 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::sections(a1, v13);
+  if (v14)
   {
-    v5 = v14[0];
-    v14[0] = 0;
-    v13.__r_.__value_.__r.__words[0] = v5;
-    llvm::handleAllErrors<llvm::consumeError(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v13);
-    if (v13.__r_.__value_.__r.__words[0])
+    v5 = v13[0];
+    v13[0] = 0;
+    v12.__r_.__value_.__r.__words[0] = v5;
+    llvm::handleAllErrors<llvm::consumeError(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v12);
+    if (v12.__r_.__value_.__r.__words[0])
     {
-      (*(*v13.__r_.__value_.__l.__data_ + 8))(v13.__r_.__value_.__r.__words[0]);
+      (*(*v12.__r_.__value_.__l.__data_ + 8))(v12.__r_.__value_.__r.__words[0]);
     }
 
     std::string::basic_string[abi:nn200100]<0>(a3, "[unknown index]");
@@ -6876,53 +6816,50 @@ void llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::end
 
   else
   {
-    std::to_string(&v12, 0xCCCCCCCCCCCCCCCDLL * ((a2 - v14[0]) >> 3));
-    v6 = std::string::insert(&v12, 0, "[index ");
+    std::to_string(&v11, 0xCCCCCCCCCCCCCCCDLL * ((a2 - v13[0]) >> 3));
+    v6 = std::string::insert(&v11, 0, "[index ");
     v7 = v6->__r_.__value_.__r.__words[2];
-    *&v13.__r_.__value_.__l.__data_ = *&v6->__r_.__value_.__l.__data_;
-    v13.__r_.__value_.__r.__words[2] = v7;
+    *&v12.__r_.__value_.__l.__data_ = *&v6->__r_.__value_.__l.__data_;
+    v12.__r_.__value_.__r.__words[2] = v7;
     v6->__r_.__value_.__l.__size_ = 0;
     v6->__r_.__value_.__r.__words[2] = 0;
     v6->__r_.__value_.__r.__words[0] = 0;
-    v8 = std::string::append(&v13, "]");
+    v8 = std::string::append(&v12, "]");
     v9 = v8->__r_.__value_.__r.__words[2];
     *a3 = *&v8->__r_.__value_.__l.__data_;
-    *(a3 + 16) = v9;
+    a3[2] = v9;
     v8->__r_.__value_.__l.__size_ = 0;
     v8->__r_.__value_.__r.__words[2] = 0;
     v8->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v13.__r_.__value_.__l.__data_);
-    }
-
     if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v12.__r_.__value_.__l.__data_);
     }
+
+    if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v11.__r_.__value_.__l.__data_);
+    }
   }
 
-  if (v15)
+  if (v14)
   {
-    v10 = v14[0];
-    v14[0] = 0;
+    v10 = v13[0];
+    v13[0] = 0;
     if (v10)
     {
       (*(*v10 + 8))(v10);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<char>@<X0>(void *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<char>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = result;
   v5 = bswap32(*(a2 + 16));
   v6 = bswap32(*(a2 + 20));
   if (__CFADD__(v5, v6))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(result, a2, &v26);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v26);
     v7 = std::string::insert(&v26, 0, "section ");
     v8 = v7->__r_.__value_.__r.__words[2];
     *&v21.__r_.__value_.__l.__data_ = *&v7->__r_.__value_.__l.__data_;
@@ -6955,9 +6892,9 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  if (result[1] < (v6 + v5))
+  if (a1[1] < (v6 + v5))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(result, a2, &v19);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v19);
     v11 = std::string::insert(&v19, 0, "section ");
     v12 = v11->__r_.__value_.__r.__words[2];
     *&v20.__r_.__value_.__l.__data_ = *&v11->__r_.__value_.__l.__data_;
@@ -6986,7 +6923,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
     v30[0] = v27;
     v31 = ") that is greater than the file size (0x";
     v32 = 770;
-    v16 = v3[1];
+    v16 = a1[1];
     v33[0] = v30;
     v34 = &v16;
     v35 = 3586;
@@ -6997,19 +6934,17 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  v15 = *result + v5;
+  v15 = *a1 + v5;
   *(a3 + 16) &= ~1u;
   *a3 = v15;
   *(a3 + 8) = v6;
-  return result;
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<llvm::object::Elf_Rel_Impl<llvm::object::ELFType<(llvm::support::endianness)0,false>,false>>@<X0>(void *result@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<llvm::object::Elf_Rel_Impl<llvm::object::ELFType<(llvm::support::endianness)0,false>,false>>(void *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
 {
-  v4 = result;
   if (a2[9] != 0x8000000)
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(result, a2, &v32);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v32);
     v12 = std::string::insert(&v32, 0, "section ");
     v13 = v12->__r_.__value_.__r.__words[2];
     *&v34.__r_.__value_.__l.__data_ = *&v12->__r_.__value_.__l.__data_;
@@ -7042,7 +6977,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
   v6 = bswap32(a2[5]);
   if ((v6 & 7) != 0)
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(result, a2, &v36);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v36);
     v7 = std::string::insert(&v36, 0, "section ");
     v8 = v7->__r_.__value_.__r.__words[2];
     *&v32.__r_.__value_.__l.__data_ = *&v7->__r_.__value_.__l.__data_;
@@ -7077,7 +7012,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
   v17 = bswap32(a2[4]);
   if (__CFADD__(v17, v6))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(result, a2, &v36);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v36);
     v18 = std::string::insert(&v36, 0, "section ");
     v19 = v18->__r_.__value_.__r.__words[2];
     *&v32.__r_.__value_.__l.__data_ = *&v18->__r_.__value_.__l.__data_;
@@ -7110,9 +7045,9 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  if (result[1] < (v6 + v17))
+  if (a1[1] < (v6 + v17))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(result, a2, &v30);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v30);
     v22 = std::string::insert(&v30, 0, "section ");
     v23 = v22->__r_.__value_.__r.__words[2];
     *&v31.__r_.__value_.__l.__data_ = *&v22->__r_.__value_.__l.__data_;
@@ -7141,7 +7076,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
     v40[0] = __p;
     v41 = ") that is greater than the file size (0x";
     v42 = 770;
-    v27 = v4[1];
+    v27 = a1[1];
     v43[0] = v40;
     v44 = &v27;
     v45 = 3586;
@@ -7152,61 +7087,57 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  v26 = *result + v17;
+  v26 = *a1 + v17;
   *(a3 + 16) &= ~1u;
   *a3 = v26;
   *(a3 + 8) = v6 >> 3;
-  return result;
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getEntry<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)0,false>>>@<X0>(void *a1@<X0>, unsigned int *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getEntry<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)0,false>>>(void *a1@<X0>, unsigned int *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)0,false>>>(a1, a2, v23);
-  if (v24)
+  v23 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)0,false>>>(a1, a2, v21);
+  if (v22)
   {
-    v8 = v23[0];
-    v9 = *(a4 + 8) | 1;
+    v7 = v21[0];
+    v8 = *(a4 + 8) | 1;
   }
 
   else
   {
-    if (v23[1] <= a3)
+    if (v21[1] <= a3)
     {
-      v12 = 16 * a3;
-      v13[0] = "can't read an entry at 0x";
-      v13[2] = &v12;
-      v14 = 3587;
+      v10 = 16 * a3;
+      v11[0] = "can't read an entry at 0x";
+      v11[2] = &v10;
+      v12 = 3587;
+      v13[0] = v11;
+      v13[2] = ": it goes past the end of the section (0x";
+      v14 = 770;
+      v9 = bswap32(a2[5]);
       v15[0] = v13;
-      v15[2] = ": it goes past the end of the section (0x";
-      v16 = 770;
-      v11 = bswap32(a2[5]);
-      v17[0] = v15;
-      v17[2] = &v11;
-      v18 = 3586;
-      v19 = v17;
-      v20 = ")";
-      v21 = 770;
-      v22 = 3;
+      v15[2] = &v9;
+      v16 = 3586;
+      v17 = v15;
+      v18 = ")";
+      v19 = 770;
+      v20 = 3;
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v8 = v23[0] + 16 * a3;
-    v9 = *(a4 + 8) & 0xFE;
+    v7 = v21[0] + 16 * a3;
+    v8 = *(a4 + 8) & 0xFE;
   }
 
-  *(a4 + 8) = v9;
-  *a4 = v8;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  *(a4 + 8) = v8;
+  *a4 = v7;
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)0,false>>>@<X0>(void *result@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)0,false>>>(void *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
 {
-  v4 = result;
   if (a2[9] != 0x10000000)
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(result, a2, &v32);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v32);
     v12 = std::string::insert(&v32, 0, "section ");
     v13 = v12->__r_.__value_.__r.__words[2];
     *&v34.__r_.__value_.__l.__data_ = *&v12->__r_.__value_.__l.__data_;
@@ -7239,7 +7170,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
   v6 = bswap32(a2[5]);
   if ((v6 & 0xF) != 0)
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(result, a2, &v36);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v36);
     v7 = std::string::insert(&v36, 0, "section ");
     v8 = v7->__r_.__value_.__r.__words[2];
     *&v32.__r_.__value_.__l.__data_ = *&v7->__r_.__value_.__l.__data_;
@@ -7274,7 +7205,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
   v17 = bswap32(a2[4]);
   if (__CFADD__(v17, v6))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(result, a2, &v36);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v36);
     v18 = std::string::insert(&v36, 0, "section ");
     v19 = v18->__r_.__value_.__r.__words[2];
     *&v32.__r_.__value_.__l.__data_ = *&v18->__r_.__value_.__l.__data_;
@@ -7307,9 +7238,9 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  if (result[1] < (v6 + v17))
+  if (a1[1] < (v6 + v17))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(result, a2, &v30);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v30);
     v22 = std::string::insert(&v30, 0, "section ");
     v23 = v22->__r_.__value_.__r.__words[2];
     *&v31.__r_.__value_.__l.__data_ = *&v22->__r_.__value_.__l.__data_;
@@ -7338,7 +7269,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
     v40[0] = __p;
     v41 = ") that is greater than the file size (0x";
     v42 = 770;
-    v27 = v4[1];
+    v27 = a1[1];
     v43[0] = v40;
     v44 = &v27;
     v45 = 3586;
@@ -7349,124 +7280,116 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  v26 = *result + v17;
+  v26 = *a1 + v17;
   *(a3 + 16) &= ~1u;
   *a3 = v26;
   *(a3 + 8) = v6 >> 4;
-  return result;
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSHNDXTable@<X0>(void *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSHNDXTable(void *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::sections(a1, v9);
-  if (v10)
+  v10 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::sections(a1, v8);
+  if (v9)
   {
-    v7 = v9[0];
+    v6 = v8[0];
     *(a3 + 16) |= 1u;
-    *a3 = v7;
+    *a3 = v6;
   }
 
   else
   {
-    result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSHNDXTable(a1, a2, v9[0], v9[1], a3);
-    if (v10)
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSHNDXTable(a1, a2, v8[0], v8[1], a3);
+    if (v9)
     {
-      result = v9[0];
-      v9[0] = 0;
-      if (result)
+      v7 = v8[0];
+      v8[0] = 0;
+      if (v7)
       {
-        result = (*(*result + 8))(result);
+        (*(*v7 + 8))(v7);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSHNDXTable@<X0>(void *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSHNDXTable(void *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)0,1ul,1ul>>(a1, a2, &v32);
-  v11 = v32;
-  if (v34)
+  v34 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)0,1ul,1ul>>(a1, a2, &v31);
+  v10 = v31;
+  if (v33)
   {
-    v32 = 0;
+    v31 = 0;
     *(a5 + 16) |= 1u;
   }
 
   else
   {
-    v12 = bswap32(a2[6]);
-    if (a4 <= v12)
+    v11 = bswap32(a2[6]);
+    if (a4 <= v11)
     {
-      v28 = "invalid section index: ";
-      v29 = v12;
-      v30 = 2051;
-      LODWORD(v24[0]) = 3;
+      v27 = "invalid section index: ";
+      v28 = v11;
+      v29 = 2051;
+      v23[0] = 3;
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v13 = a3 + 40 * v12;
-    v14 = *(v13 + 4);
-    if (v14 != 0x2000000 && v14 != 184549376)
+    v12 = a3 + 40 * v11;
+    v13 = *(v12 + 4);
+    if (v13 != 0x2000000 && v13 != 184549376)
     {
-      ELFSectionTypeName = llvm::object::getELFSectionTypeName((bswap32(*(*a1 + 18)) >> 16), bswap32(v14));
-      v27 = 1283;
-      v24[0] = "SHT_SYMTAB_SHNDX section is linked with ";
-      v25 = ELFSectionTypeName;
-      v26 = v19;
-      v28 = v24;
-      v29 = " section (expected SHT_SYMTAB/SHT_DYNSYM)";
-      v30 = 770;
-      LODWORD(v21[0]) = 3;
+      ELFSectionTypeName = llvm::object::getELFSectionTypeName((bswap32(*(*a1 + 18)) >> 16), bswap32(v13));
+      v26 = 1283;
+      *v23 = "SHT_SYMTAB_SHNDX section is linked with ";
+      v24 = ELFSectionTypeName;
+      v25 = v18;
+      v27 = v23;
+      v28 = " section (expected SHT_SYMTAB/SHT_DYNSYM)";
+      v29 = 770;
+      LODWORD(v20[0]) = 3;
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v16 = v33;
-    v23 = bswap32(*(v13 + 20)) >> 4;
-    if (v33 != v23)
+    v15 = v32;
+    v22 = bswap32(*(v12 + 20)) >> 4;
+    if (v32 != v22)
     {
-      v20 = v33;
-      v21[0] = "SHT_SYMTAB_SHNDX has ";
-      v21[2] = &v20;
-      v22 = 2563;
-      v24[0] = v21;
-      v25 = " entries, but the symbol table associated has ";
-      v27 = 770;
-      v28 = v24;
-      v29 = &v23;
-      v30 = 3074;
-      v31 = 3;
+      v19 = v32;
+      v20[0] = "SHT_SYMTAB_SHNDX has ";
+      v20[2] = &v19;
+      v21 = 2563;
+      *v23 = v20;
+      v24 = " entries, but the symbol table associated has ";
+      v26 = 770;
+      v27 = v23;
+      v28 = &v22;
+      v29 = 3074;
+      v30 = 3;
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
     *(a5 + 16) &= ~1u;
-    *(a5 + 8) = v16;
+    *(a5 + 8) = v15;
   }
 
-  *a5 = v11;
-  if (v34)
+  *a5 = v10;
+  if (v33)
   {
-    result = v32;
-    v32 = 0;
-    if (result)
+    v16 = v31;
+    v31 = 0;
+    if (v16)
     {
-      result = (*(*result + 8))(result);
+      (*(*v16 + 8))(v16);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)0,1ul,1ul>>@<X0>(void *result@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getSectionContentsAsArray<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)0,1ul,1ul>>(void *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
 {
-  v4 = result;
   if (a2[9] != 0x4000000)
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(result, a2, &v32);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v32);
     v12 = std::string::insert(&v32, 0, "section ");
     v13 = v12->__r_.__value_.__r.__words[2];
     *&v34.__r_.__value_.__l.__data_ = *&v12->__r_.__value_.__l.__data_;
@@ -7499,7 +7422,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
   v6 = bswap32(a2[5]);
   if ((v6 & 3) != 0)
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(result, a2, &v36);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v36);
     v7 = std::string::insert(&v36, 0, "section ");
     v8 = v7->__r_.__value_.__r.__words[2];
     *&v32.__r_.__value_.__l.__data_ = *&v7->__r_.__value_.__l.__data_;
@@ -7534,7 +7457,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
   v17 = bswap32(a2[4]);
   if (__CFADD__(v17, v6))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(result, a2, &v36);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v36);
     v18 = std::string::insert(&v36, 0, "section ");
     v19 = v18->__r_.__value_.__r.__words[2];
     *&v32.__r_.__value_.__l.__data_ = *&v18->__r_.__value_.__l.__data_;
@@ -7567,9 +7490,9 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  if (result[1] < (v6 + v17))
+  if (a1[1] < (v6 + v17))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(result, a2, &v30);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)0,false>>(a1, a2, &v30);
     v22 = std::string::insert(&v30, 0, "section ");
     v23 = v22->__r_.__value_.__r.__words[2];
     *&v31.__r_.__value_.__l.__data_ = *&v22->__r_.__value_.__l.__data_;
@@ -7598,7 +7521,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
     v40[0] = __p;
     v41 = ") that is greater than the file size (0x";
     v42 = 770;
-    v27 = v4[1];
+    v27 = a1[1];
     v43[0] = v40;
     v44 = &v27;
     v45 = 3586;
@@ -7609,11 +7532,10 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,f
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  v26 = *result + v17;
+  v26 = *a1 + v17;
   *(a3 + 16) &= ~1u;
   *a3 = v26;
   *(a3 + 8) = v6 >> 2;
-  return result;
 }
 
 void *llvm::DenseMap<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)0,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)0,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)0,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)0,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)0,1ul,1ul>>>>::grow(uint64_t a1, int a2)
@@ -7747,7 +7669,7 @@ void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,fa
   llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getStringTable(a1, a3 + 40 * v8, llvm::function_ref<llvm::Error ()(llvm::Twine const&)>::callback_fn<llvm::Error (*)(llvm::Twine const&)>, v9, a5);
 }
 
-size_t llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getName@<X0>(unsigned int *a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
+void llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)0,false>>::getName(unsigned int *a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v5 = bswap32(*a1);
   if (a3 <= v5)
@@ -7775,60 +7697,57 @@ size_t llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianne
   v6 = a2 + v5;
   if (a2)
   {
-    result = strlen((a2 + v5));
+    v7 = strlen((a2 + v5));
   }
 
   else
   {
-    result = 0;
+    v7 = 0;
   }
 
   *(a4 + 16) &= ~1u;
   *a4 = v6;
-  *(a4 + 8) = result;
-  return result;
+  *(a4 + 8) = v7;
 }
 
-uint64_t *llvm::object::getExtendedSymbolTableIndex<llvm::object::ELFType<(llvm::support::endianness)0,false>>@<X0>(unsigned int a1@<W1>, uint64_t *a2@<X2>, uint64_t a3@<X8>)
+void llvm::object::getExtendedSymbolTableIndex<llvm::object::ELFType<(llvm::support::endianness)0,false>>(unsigned int a1@<W1>, uint64_t *a2@<X2>, uint64_t a3@<X8>)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (!*a2)
   {
-    v12[0] = "found an extended symbol index (";
-    v13 = a1;
-    v14 = 2051;
-    v15 = v12;
+    v10[0] = "found an extended symbol index (";
+    v11 = a1;
+    v12 = 2051;
+    v13 = v10;
     p_p = "), but unable to locate the extended symbol index table";
-    v17 = 770;
-    LODWORD(v10[0]) = 3;
+    v15 = 770;
+    LODWORD(v8[0]) = 3;
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
   v4 = a1;
-  result = llvm::object::DataRegion<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>::operator[](a2, a1, &v19);
-  if (v20)
+  llvm::object::DataRegion<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>::operator[](a2, a1, &v17);
+  if (v18)
   {
-    v10[0] = "unable to read an extended symbol table at index ";
-    v10[2] = v4;
-    v11 = 2051;
-    v12[0] = v10;
-    v13 = ": ";
-    v14 = 770;
-    v6 = v19;
-    v19 = 0;
-    v8 = v6;
-    llvm::toString(&v8, &__p);
-    v15 = v12;
+    v8[0] = "unable to read an extended symbol table at index ";
+    v8[2] = v4;
+    v9 = 2051;
+    v10[0] = v8;
+    v11 = ": ";
+    v12 = 770;
+    v5 = v17;
+    v17 = 0;
+    v6 = v5;
+    llvm::toString(&v6, &__p);
+    v13 = v10;
     p_p = &__p;
-    v17 = 1026;
-    v18 = 3;
+    v15 = 1026;
+    v16 = 3;
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
   *(a3 + 8) &= ~1u;
-  *a3 = bswap32(v19);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  *a3 = bswap32(v17);
 }
 
 void llvm::jitlink::ELFJITLinker_aarch32::~ELFJITLinker_aarch32(llvm::jitlink::ELFJITLinker_aarch32 *this)
@@ -7838,11 +7757,10 @@ void llvm::jitlink::ELFJITLinker_aarch32::~ELFJITLinker_aarch32(llvm::jitlink::E
   JUMPOUT(0x277C69E40);
 }
 
-uint64_t **llvm::jitlink::JITLinker<llvm::jitlink::ELFJITLinker_aarch32>::fixUpBlocks@<X0>(uint64_t **result@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+void llvm::jitlink::JITLinker<llvm::jitlink::ELFJITLinker_aarch32>::fixUpBlocks(void *result@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   if (*(a2 + 208))
   {
-    v5 = result;
     v6 = *(a2 + 216);
     if (v6)
     {
@@ -7869,75 +7787,75 @@ LABEL_10:
     if (v8 != v9)
     {
       v10 = v8[2];
-      v22 = *(v10 + 20);
-      result = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v10 + 32);
-      v21 = *(v10 + 32) + 8 * *(v10 + 48);
-      if (v21 == result)
+      v24 = *(v10 + 20);
+      v11 = llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::begin(v10 + 32);
+      v23 = *(v10 + 32) + 8 * *(v10 + 48);
+      if (v23 == v11)
       {
         goto LABEL_31;
       }
 
-      v12 = result;
       v13 = v11;
+      v14 = v12;
       do
       {
-        v14 = *v12;
-        if (v22 == 2 && (v14[1] & 4) == 0)
+        v15 = *v13;
+        if (v24 == 2 && (v15[1] & 4) == 0)
         {
-          v15 = v14[4];
-          __src = v14[3];
-          result = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(a2, v15, 0);
-          v16 = result;
-          if (v15)
+          v16 = v15[4];
+          __src = v15[3];
+          v17 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(a2, v16, 0);
+          v18 = v17;
+          if (v16)
           {
-            result = memmove(result, __src, v15);
+            memmove(v17, __src, v16);
           }
 
-          v14[3] = v16;
-          v14[4] = v15;
-          v14[1] |= 4uLL;
+          v15[3] = v18;
+          v15[4] = v16;
+          v15[1] |= 4uLL;
         }
 
-        v17 = v14[5];
-        v18 = v14[6];
-        while (v17 != v18)
+        v19 = v15[5];
+        v20 = v15[6];
+        while (v19 != v20)
         {
-          v19 = v17[24];
-          if (v19 >= 2)
+          v21 = v19[24];
+          if (v21 >= 2)
           {
-            if (v19 > 3)
+            if (v21 > 3)
             {
-              if (v19 == 4)
+              if (v21 == 4)
               {
-                llvm::jitlink::aarch32::applyFixupArm(a2, v14, v17);
+                llvm::jitlink::aarch32::applyFixupArm(a2, v15, v19);
               }
 
-              result = llvm::jitlink::aarch32::applyFixupThumb(a2, v14, v17, v5 + 152, a3);
+              llvm::jitlink::aarch32::applyFixupThumb(a2, v15, v19, result + 152, a3);
             }
 
             else
             {
-              result = llvm::jitlink::aarch32::applyFixupData(a2, v14, v17, a3);
+              llvm::jitlink::aarch32::applyFixupData(a2, v15, v19, a3);
             }
 
             if (*a3)
             {
-              return result;
+              return;
             }
           }
 
-          v17 += 32;
+          v19 += 32;
         }
 
         do
         {
-          ++v12;
+          ++v13;
         }
 
-        while (v12 != v13 && (*v12 | 0x1000) == 0xFFFFFFFFFFFFF000);
+        while (v13 != v14 && (*v13 | 0x1000) == 0xFFFFFFFFFFFFF000);
       }
 
-      while (v12 != v21);
+      while (v13 != v23);
 LABEL_31:
       while (1)
       {
@@ -7957,7 +7875,6 @@ LABEL_31:
 
 LABEL_6:
   *a3 = 0;
-  return result;
 }
 
 void llvm::jitlink::JITLinker<llvm::jitlink::ELFJITLinker_aarch32>::~JITLinker(llvm::jitlink::JITLinkerBase *a1)
@@ -7969,37 +7886,35 @@ void llvm::jitlink::JITLinker<llvm::jitlink::ELFJITLinker_aarch32>::~JITLinker(l
 
 uint64_t *llvm::jitlink::createLinkGraphFromELFObject_aarch64@<X0>(__int128 *a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a1[1];
-  v16[0] = *a1;
-  v16[1] = v5;
-  llvm::object::ObjectFile::createELFObjectFile(v16, 1, &v22);
-  v6 = v22;
-  if ((v23 & 1) == 0)
+  v15[0] = *a1;
+  v15[1] = v5;
+  llvm::object::ObjectFile::createELFObjectFile(v15, 1, &v21);
+  v6 = v21;
+  if ((v22 & 1) == 0)
   {
-    v7 = *(v22 + 4);
-    v8 = *(v22 + 5);
-    v11 = *a2;
+    v7 = *(v21 + 4);
+    v8 = *(v21 + 5);
+    v10 = *a2;
     *a2 = 0;
     *(a2 + 1) = 0;
-    llvm::object::ObjectFile::makeTriple(v6, __p);
-    v21 = v11;
-    v17 = *__p;
-    v18 = v13;
+    llvm::object::ObjectFile::makeTriple(__p, v6);
+    v20 = v10;
+    v16 = *__p;
+    v17 = v12;
     __p[0] = 0;
     __p[1] = 0;
-    v13 = 0;
+    v12 = 0;
+    v18 = v13;
     v19 = v14;
-    v20 = v15;
-    llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,true>>::ELFLinkGraphBuilder(v16, v6 + 56, &v21, &v17, v7, v8);
+    llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,true>>::ELFLinkGraphBuilder(v15, v6 + 56, &v20, &v16, v7, v8, llvm::jitlink::aarch64::getEdgeKindName);
   }
 
-  v22 = 0;
+  v21 = 0;
   *(a3 + 8) |= 1u;
   *a3 = v6;
-  result = llvm::Expected<std::unique_ptr<llvm::object::Binary>>::~Expected(&v22);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::Expected<std::unique_ptr<llvm::object::Binary>>::~Expected(&v21);
 }
 
 void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,true>>::buildGraph(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -8048,277 +7963,275 @@ void anonymous namespace::ELFLinkGraphBuilder_aarch64<llvm::object::ELFType<(llv
 
 void llvm::jitlink::link_ELF_aarch64(uint64_t *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v11 = 0u;
-  memset(v10, 0, sizeof(v10));
-  memset(v9, 0, sizeof(v9));
+  v15 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v8 = 0u;
+  memset(v7, 0, sizeof(v7));
+  memset(v6, 0, sizeof(v6));
   if ((*(**a2 + 56))(*a2, *a1 + 136))
   {
-    v15 = ".eh_frame";
-    *&v16 = 9;
-    v17 = (llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<llvm::jitlink::DWARFRecordSectionSplitter,llvm::jitlink::DWARFRecordSectionSplitter,void>::Callbacks + 2);
-    std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](v9, &v15);
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v15);
-    v4 = operator new(0x20uLL, 8uLL);
-    v16 = xmmword_2750C12D0;
-    *v4 = ".eh_frame";
-    v4[1] = 9;
-    *(v4 + 4) = 8;
-    *(v4 + 5) = 84279812;
-    *(v4 + 24) = 8;
-    v15 = v4;
-    v17 = llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<llvm::jitlink::EHFrameEdgeFixer,llvm::jitlink::EHFrameEdgeFixer,void>::Callbacks;
-    std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](v9, &v15);
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v15);
-    v15 = ".eh_frame";
-    *&v16 = 9;
-    v17 = (llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<llvm::jitlink::EHFrameNullTerminator,llvm::jitlink::EHFrameNullTerminator,void>::Callbacks + 2);
-    std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](v9, &v15);
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v15);
-    (*(**a2 + 64))(&v15);
-    if (v17 < 8)
+    v12 = ".eh_frame";
+    *&v13 = 9;
+    v14 = (llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<llvm::jitlink::DWARFRecordSectionSplitter,llvm::jitlink::DWARFRecordSectionSplitter,void>::Callbacks + 2);
+    std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](v6, &v12);
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v12);
+    v3 = operator new(0x20uLL, 8uLL);
+    v13 = xmmword_2750C12D0;
+    *v3 = ".eh_frame";
+    v3[1] = 9;
+    *(v3 + 4) = 8;
+    *(v3 + 5) = 84279812;
+    *(v3 + 24) = 8;
+    v12 = v3;
+    v14 = llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<llvm::jitlink::EHFrameEdgeFixer,llvm::jitlink::EHFrameEdgeFixer,void>::Callbacks;
+    std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](v6, &v12);
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v12);
+    v12 = ".eh_frame";
+    *&v13 = 9;
+    v14 = (llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<llvm::jitlink::EHFrameNullTerminator,llvm::jitlink::EHFrameNullTerminator,void>::Callbacks + 2);
+    std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](v6, &v12);
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v12);
+    (*(**a2 + 64))(&v12);
+    if (v14 < 8)
     {
-      *&v13 = llvm::jitlink::markAllSymbolsLive;
-      v14 = llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<llvm::Error (*)(llvm::jitlink::LinkGraph &),llvm::Error (*)(llvm::jitlink::LinkGraph &),void>::Callbacks + 2;
-      std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](v9, &v13);
-      llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v13);
+      *&v10 = llvm::jitlink::markAllSymbolsLive;
+      v11 = llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<llvm::Error (*)(llvm::jitlink::LinkGraph &),llvm::Error (*)(llvm::jitlink::LinkGraph &),void>::Callbacks + 2;
+      std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](v6, &v10);
+      llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v10);
     }
 
     else
     {
-      std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](v9, &v15);
+      std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](v6, &v12);
     }
 
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v15);
-    v17 = (llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<llvm::Error (*)(llvm::jitlink::LinkGraph &),llvm::Error (*)(llvm::jitlink::LinkGraph &),void>::Callbacks + 2);
-    std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](&v9[1] + 8, &v15);
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v15);
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v12);
+    v14 = (llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<llvm::Error (*)(llvm::jitlink::LinkGraph &),llvm::Error (*)(llvm::jitlink::LinkGraph &),void>::Callbacks + 2);
+    std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](&v6[1] + 1, &v12);
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v12);
   }
 
-  v5 = *a1;
-  (*(**a2 + 72))(&v15);
-  if (!v15)
+  (*(**a2 + 72))(&v12);
+  if (!v12)
   {
     operator new();
   }
 
-  v6 = *a2;
-  v8 = v15;
-  v15 = 0;
-  (*(*v6 + 24))(v6, &v8);
-  if (v8)
+  v4 = *a2;
+  v5 = v12;
+  v12 = 0;
+  (*(*v4 + 24))(v4, &v5);
+  if (v5)
   {
-    (*(*v8 + 1))(v8);
+    (*(*v5 + 1))(v5);
   }
 
-  if (v15)
+  if (v12)
   {
-    (*(*v15 + 1))(v15);
+    (*(*v12 + 1))(v12);
   }
 
-  v15 = &v11;
-  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v15);
-  v15 = &v10[1] + 1;
-  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v15);
-  v15 = v10;
-  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v15);
-  v15 = &v9[1] + 1;
-  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v15);
-  v15 = v9;
-  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v15);
-  v7 = *MEMORY[0x277D85DE8];
+  v12 = &v8;
+  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v12);
+  v12 = &v7[1] + 1;
+  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v12);
+  v12 = v7;
+  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v12);
+  v12 = &v6[1] + 1;
+  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v12);
+  v12 = v6;
+  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::__destroy_vector::operator()[abi:nn200100](&v12);
 }
 
 uint64_t *anonymous namespace::buildTables_ELF_aarch64@<X0>(_anonymous_namespace_ *this@<X0>, void *a2@<X8>)
 {
-  v41[0] = 0;
-  v41[1] = 0;
+  v40[0] = 0;
+  v40[1] = 0;
+  v41 = 0;
   v42 = 0;
-  v43 = 0;
-  v37[0] = 0;
-  v37[1] = 0;
-  v38 = 0;
-  v39 = v41;
-  v40 = 0;
-  v34[0] = 0;
-  v34[1] = 0;
+  v36[0] = 0;
+  v36[1] = 0;
+  v37 = 0;
+  v38 = v40;
+  v39 = 0;
+  v33[0] = 0;
+  v33[1] = 0;
+  v34 = 0;
   v35 = 0;
-  v36 = 0;
-  v29[0] = 0;
-  v29[1] = 0;
+  v28[0] = 0;
+  v28[1] = 0;
+  v29 = 0;
   v30 = 0;
   v31 = 0;
-  v32 = 0;
-  v33 = v34;
-  llvm::jitlink::LinkGraph::blocks(this, v46);
-  v47[0] = v46[0];
-  v47[1] = v46[1];
-  v47[2] = v46[2];
-  v47[3] = v46[3];
-  llvm::jitlink::LinkGraph::blocks(this, v44);
-  v45[0] = v44[4];
-  v45[1] = v44[5];
-  v45[2] = v44[6];
-  v45[3] = v44[7];
-  std::vector<llvm::jitlink::Block *>::vector[abi:nn200100]<llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::Iterator,llvm::jitlink::Block *,&llvm::jitlink::LinkGraph::getSectionBlocks>,0>(&v48, v47, v45);
-  v5 = v48;
-  v28 = v49;
-  if (v48 != v49)
+  v32 = v33;
+  llvm::jitlink::LinkGraph::blocks(this, v45);
+  v46[0] = v45[0];
+  v46[1] = v45[1];
+  v46[2] = v45[2];
+  v46[3] = v45[3];
+  llvm::jitlink::LinkGraph::blocks(this, v43);
+  v44[0] = v43[4];
+  v44[1] = v43[5];
+  v44[2] = v43[6];
+  v44[3] = v43[7];
+  std::vector<llvm::jitlink::Block *>::vector[abi:nn200100]<llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Block *,llvm::DenseMap<llvm::jitlink::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Block *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Block *>>,llvm::DenseMapInfo<llvm::jitlink::Block *,void>>::Iterator,llvm::jitlink::Block *,&llvm::jitlink::LinkGraph::getSectionBlocks>,0>(&v47, v46, v44);
+  v4 = v47;
+  v27 = v48;
+  if (v47 != v48)
   {
     while (1)
     {
-      v6 = *v5;
-      v8 = *(*v5 + 40);
-      v7 = *(*v5 + 48);
-      while (v8 != v7)
+      v5 = *v4;
+      v7 = *(*v4 + 40);
+      v6 = *(*v4 + 48);
+      while (v7 != v6)
       {
-        if (llvm::jitlink::aarch64::GOTTableManager::visitEdge(v41, this, v6, v8))
+        if (llvm::jitlink::aarch64::GOTTableManager::visitEdge(v40, this, v5, v7))
         {
           goto LABEL_34;
         }
 
-        v9 = *(v8 + 24);
-        if (v9 == 20)
+        v8 = *(v7 + 24);
+        if (v8 == 20)
         {
-          v11 = 13;
+          v10 = 13;
 LABEL_12:
-          *(v8 + 24) = v11;
-          v12 = *v8;
-          *&v46[0] = 0;
-          v13 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(v29, v12, v46);
-          v14 = *&v46[0];
-          if (!v13)
+          *(v7 + 24) = v10;
+          v11 = *v7;
+          *&v45[0] = 0;
+          v12 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(v28, v11, v45);
+          v13 = *&v45[0];
+          if (!v12)
           {
-            v14 = v29[0] + 16 * v30;
+            v13 = v28[0] + 16 * v29;
           }
 
-          if (v14 == v29[0] + 16 * v30)
+          if (v13 == v28[0] + 16 * v29)
           {
+            if (!v30)
+            {
+              llvm::jitlink::LinkGraph::createSection(this, "$__TLSDESC", 10, 1);
+            }
+
+            *(&v45[0] + 1) = 16;
+            *&v43[0] = 0;
+            *&v46[0] = 8;
+            *&v44[0] = 0;
+            v14 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,llvm::ArrayRef<char> &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(this, v30, v45, v43, v46, v44);
+            v15 = v31;
             if (!v31)
             {
-              llvm::jitlink::LinkGraph::createSection();
+              v15 = llvm::jitlink::LinkGraph::addExternalSymbol(this, "__tlsdesc_resolver", 0x12uLL, 8, 0);
+              v31 = v15;
             }
 
-            *(&v46[0] + 1) = 16;
-            *&v44[0] = 0;
-            *&v47[0] = 8;
-            *&v45[0] = 0;
-            v15 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,llvm::ArrayRef<char> &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(this, v31, v46, v44, v47, v45);
+            llvm::jitlink::Block::addEdge(v14, 2, 0, v15, 0);
             v16 = v32;
-            if (!v32)
+            *&v45[0] = 0;
+            v17 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(v32, v11, v45);
+            v18 = *&v45[0];
+            if (!v17)
             {
-              v16 = llvm::jitlink::LinkGraph::addExternalSymbol(this, "__tlsdesc_resolver", 0x12uLL, 8, 0);
-              v32 = v16;
+              v18 = *v16 + 16 * *(v16 + 4);
             }
 
-            llvm::jitlink::Block::addEdge(v15, 2, 0, v16, 0);
-            v17 = v33;
-            *&v46[0] = 0;
-            v18 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(v33, v12, v46);
-            v19 = *&v46[0];
-            if (!v18)
+            if (v18 == *v16 + 16 * *(v16 + 4))
             {
-              v19 = *v17 + 16 * *(v17 + 4);
-            }
-
-            if (v19 == *v17 + 16 * *(v17 + 4))
-            {
-              v20 = v17[3];
-              if (!v20)
+              v19 = v16[3];
+              if (!v19)
               {
-                llvm::jitlink::LinkGraph::createSection();
+                llvm::jitlink::LinkGraph::createSection(this, "$__TLSINFO", 10, 1);
               }
 
-              v21 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(this, 16, 0);
-              *v21 = 0;
-              v21[1] = 0;
-              *&v46[0] = v21;
-              *(&v46[0] + 1) = 16;
+              v20 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(this, 16, 0);
+              *v20 = 0;
+              v20[1] = 0;
+              *&v45[0] = v20;
+              *(&v45[0] + 1) = 16;
+              *&v43[0] = 0;
+              *&v46[0] = 8;
               *&v44[0] = 0;
-              *&v47[0] = 8;
-              *&v45[0] = 0;
-              v22 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,llvm::MutableArrayRef<char> &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(this, v20, v46, v44, v47, v45);
-              llvm::jitlink::Block::addEdge(v22, 2, 8, v12, 0);
-              v23 = llvm::jitlink::LinkGraph::addAnonymousSymbol(this, v22, 0, 16, 0, 0);
-              v24 = *v12;
-              *&v44[0] = v24;
-              if ((v24 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+              v21 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,llvm::MutableArrayRef<char> &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(this, v19, v45, v43, v46, v44);
+              llvm::jitlink::Block::addEdge(v21, 2, 8, v11, 0);
+              v22 = llvm::jitlink::LinkGraph::addAnonymousSymbol(this, v21, 0, 16, 0, 0);
+              v23 = *v11;
+              *&v43[0] = v23;
+              if ((v23 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
               {
-                atomic_fetch_add((v24 + 8), 1uLL);
+                atomic_fetch_add((v23 + 8), 1uLL);
               }
 
-              *(&v44[0] + 1) = v23;
-              llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *>>,llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *>>::try_emplace<llvm::jitlink::Symbol *>(v17, v44, v44 + 1, v46);
-              v19 = *&v46[0];
-              if ((*&v44[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+              *(&v43[0] + 1) = v22;
+              llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *>>,llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *>>::try_emplace<llvm::jitlink::Symbol *>(v16, v43, v43 + 1, v45);
+              v18 = *&v45[0];
+              if ((*&v43[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
               {
-                atomic_fetch_add((*&v44[0] + 8), 0xFFFFFFFFFFFFFFFFLL);
+                atomic_fetch_add((*&v43[0] + 8), 0xFFFFFFFFFFFFFFFFLL);
               }
             }
 
-            llvm::jitlink::Block::addEdge(v15, 2, 8, *(v19 + 8), 0);
-            v25 = llvm::jitlink::LinkGraph::addAnonymousSymbol(this, v15, 0, 8, 0, 0);
-            v26 = *v12;
-            *&v44[0] = v26;
-            if ((v26 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+            llvm::jitlink::Block::addEdge(v14, 2, 8, *(v18 + 8), 0);
+            v24 = llvm::jitlink::LinkGraph::addAnonymousSymbol(this, v14, 0, 8, 0, 0);
+            v25 = *v11;
+            *&v43[0] = v25;
+            if ((v25 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
             {
-              atomic_fetch_add((v26 + 8), 1uLL);
+              atomic_fetch_add((v25 + 8), 1uLL);
             }
 
-            *(&v44[0] + 1) = v25;
-            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *>>,llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *>>::try_emplace<llvm::jitlink::Symbol *>(v29, v44, v44 + 1, v46);
-            v14 = *&v46[0];
-            if ((*&v44[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+            *(&v43[0] + 1) = v24;
+            llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *>>,llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::jitlink::Symbol *>>::try_emplace<llvm::jitlink::Symbol *>(v28, v43, v43 + 1, v45);
+            v13 = *&v45[0];
+            if ((*&v43[0] - 1) <= 0xFFFFFFFFFFFFFFDFLL)
             {
-              atomic_fetch_add((*&v44[0] + 8), 0xFFFFFFFFFFFFFFFFLL);
+              atomic_fetch_add((*&v43[0] + 8), 0xFFFFFFFFFFFFFFFFLL);
             }
           }
 
-          EntryForTarget = *(v14 + 8);
+          EntryForTarget = *(v13 + 8);
 LABEL_33:
-          *v8 = EntryForTarget;
+          *v7 = EntryForTarget;
           goto LABEL_34;
         }
 
-        if (v9 == 19)
+        if (v8 == 19)
         {
-          v11 = 12;
+          v10 = 12;
           goto LABEL_12;
         }
 
-        if (v9 == 9 && (*(*(*v8 + 8) + 8) & 1) == 0)
+        if (v8 == 9 && (*(*(*v7 + 8) + 8) & 1) == 0)
         {
-          EntryForTarget = llvm::jitlink::TableManager<llvm::jitlink::aarch64::PLTTableManager>::getEntryForTarget(v37, this, *v8);
+          EntryForTarget = llvm::jitlink::TableManager<llvm::jitlink::aarch64::PLTTableManager>::getEntryForTarget(v36, this, *v7);
           goto LABEL_33;
         }
 
 LABEL_34:
-        v8 += 32;
+        v7 += 32;
       }
 
-      if (++v5 == v28)
+      if (++v4 == v27)
       {
-        v5 = v48;
+        v4 = v47;
         break;
       }
     }
   }
 
-  if (v5)
+  if (v4)
   {
-    v49 = v5;
-    operator delete(v5);
+    v48 = v4;
+    operator delete(v4);
   }
 
   *a2 = 0;
-  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(v29);
-  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(v34);
-  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(v37);
-  return llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(v41);
+  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(v28);
+  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(v33);
+  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(v36);
+  return llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::~DenseMap(v40);
 }
 
-void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,true>>::ELFLinkGraphBuilder(int a1, int a2, int a3, uint64_t a4, void *__src, size_t __len)
+void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,true>>::ELFLinkGraphBuilder(uint64_t a1, uint64_t a2, __int128 *a3, void *a4, void *__src, size_t __len, uint64_t a7)
 {
   if (__src)
   {
@@ -8332,7 +8245,7 @@ void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::en
       operator new();
     }
 
-    HIBYTE(v13) = __len;
+    HIBYTE(v10) = __len;
     if (__len)
     {
       memmove(&__dst, __src, __len);
@@ -8344,22 +8257,18 @@ void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::en
   else
   {
     __dst = 0uLL;
-    v13 = 0;
+    v10 = 0;
   }
 
-  *v8 = *a4;
-  v9 = *(a4 + 16);
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
+  a4[1] = 0;
+  a4[2] = 0;
   *a4 = 0;
-  v10 = *(a4 + 24);
-  v11 = *(a4 + 40);
   operator new();
 }
 
 void anonymous namespace::ELFLinkGraphBuilder_aarch64<llvm::object::ELFType<(llvm::support::endianness)1,true>>::addRelocations(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 40);
   if (v3)
   {
@@ -8371,150 +8280,150 @@ void anonymous namespace::ELFLinkGraphBuilder_aarch64<llvm::object::ELFType<(llv
       if (*(v5 + 4) != 4)
       {
         *a2 = 0;
-        goto LABEL_106;
+        goto LABEL_107;
       }
 
-      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSection(*(a1 + 24), *(v5 + 44), &v67);
-      if (v68)
+      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSection(*(v5 + 44), &v68, *(a1 + 24));
+      if (v69)
       {
-        v8 = v67;
-        *a2 = v67;
+        v8 = v68;
+        *a2 = v68;
         if (v8)
         {
-          goto LABEL_108;
+          return;
         }
 
-        goto LABEL_106;
+        goto LABEL_107;
       }
 
       v9 = *(a1 + 24);
-      *&v47 = llvm::object::defaultWarningHandler;
-      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionName(v9, v67, v7, &v47, &v65);
-      if (v66)
+      *&v48 = llvm::object::defaultWarningHandler;
+      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionName(v9, v68, v7, &v48, &v66);
+      if (v67)
       {
-        v10 = v65;
-        *&v65 = 0;
+        v10 = v66;
+        *&v66 = 0;
         *a2 = v10;
-        goto LABEL_99;
+        goto LABEL_100;
       }
 
-      if ((*(a1 + 72) & 1) == 0 && (v47 = v65, std::__find[abi:nn200100]<char const* const*,char const* const*,llvm::StringRef,std::__identity>(llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames, &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0], &v47) != &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0]) || (*(*a1 + 40))(a1, v67))
+      if ((*(a1 + 72) & 1) == 0 && (v48 = v66, std::__find[abi:nn200100]<char const* const*,char const* const*,llvm::StringRef,std::__identity>(llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames, &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0], &v48) != &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0]) || (*(*a1 + 40))(a1, v68))
       {
         *a2 = 0;
-        goto LABEL_99;
+        goto LABEL_100;
       }
 
       GraphBlock = llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getGraphBlock(a1, *(v5 + 44));
       if (!GraphBlock)
       {
-        LOWORD(v49) = 1283;
-        *&v47 = "Refencing a section that wasn't added to the graph: ";
-        v48 = v65;
+        LOWORD(v50) = 1283;
+        *&v48 = "Refencing a section that wasn't added to the graph: ";
+        v49 = v66;
         getErrorErrorCat();
         operator new();
       }
 
       v12 = GraphBlock;
-      v46 = v7;
-      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionContentsAsArray<llvm::object::Elf_Rel_Impl<llvm::object::ELFType<(llvm::support::endianness)1,true>,true>>(*(a1 + 24), v5, &v62);
-      v13 = v62;
-      if (v64)
+      v47 = v7;
+      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionContentsAsArray<llvm::object::Elf_Rel_Impl<llvm::object::ELFType<(llvm::support::endianness)1,true>,true>>(*(a1 + 24), v5, &v63);
+      v13 = v63;
+      if (v65)
       {
-        v62 = 0;
-        goto LABEL_94;
+        v63 = 0;
+        goto LABEL_95;
       }
 
-      if (v63)
+      if (v64)
       {
         break;
       }
 
-LABEL_93:
-      v13 = 0;
 LABEL_94:
-      *a2 = v13;
+      v13 = 0;
 LABEL_95:
-      if (v64)
+      *a2 = v13;
+LABEL_96:
+      if (v65)
       {
-        v42 = v62;
-        v62 = 0;
-        if (v42)
-        {
-          (*(*v42 + 8))(v42);
-        }
-      }
-
-      v7 = v46;
-LABEL_99:
-      if (v66)
-      {
-        v43 = v65;
-        *&v65 = 0;
-        if (v43)
-        {
-          (*(*v43 + 8))(v43);
-        }
-      }
-
-      if (v68)
-      {
-        v44 = v67;
-        v67 = 0;
+        v44 = v63;
+        v63 = 0;
         if (v44)
         {
           (*(*v44 + 8))(v44);
         }
       }
 
-      if (*a2)
+      v7 = v47;
+LABEL_100:
+      if (v67)
       {
-        goto LABEL_108;
-      }
-
-LABEL_106:
-      v5 += 64;
-      if (v5 == v6)
-      {
-        goto LABEL_107;
-      }
-    }
-
-    v14 = 24 * v63;
-    while (1)
-    {
-      v15 = v67;
-      v16 = *(v13 + 12);
-      v55 = v16;
-      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getRelocationSymbol(*(a1 + 24), v13, *(a1 + 48), &v69);
-      if ((v70 & 1) == 0)
-      {
-        break;
-      }
-
-      v17 = v69;
-      v69 = 0;
-      *a2 = v17;
-LABEL_80:
-      if (v70)
-      {
-        v39 = v69;
-        v69 = 0;
-        if (v39)
+        v45 = v66;
+        *&v66 = 0;
+        if (v45)
         {
-          (*(*v39 + 8))(v39);
+          (*(*v45 + 8))(v45);
+        }
+      }
+
+      if (v69)
+      {
+        v46 = v68;
+        v68 = 0;
+        if (v46)
+        {
+          (*(*v46 + 8))(v46);
         }
       }
 
       if (*a2)
       {
-        goto LABEL_95;
+        return;
+      }
+
+LABEL_107:
+      v5 += 64;
+      if (v5 == v6)
+      {
+        goto LABEL_108;
+      }
+    }
+
+    v14 = 24 * v64;
+    while (1)
+    {
+      v15 = v68;
+      v16 = *(v13 + 12);
+      v56 = v16;
+      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getRelocationSymbol(*(a1 + 24), v13, &v70, *(a1 + 48));
+      if ((v71 & 1) == 0)
+      {
+        break;
+      }
+
+      v17 = v70;
+      v70 = 0;
+      *a2 = v17;
+LABEL_80:
+      if (v71)
+      {
+        v41 = v70;
+        v70 = 0;
+        if (v41)
+        {
+          (*(*v41 + 8))(v41);
+        }
+      }
+
+      if (*a2)
+      {
+        goto LABEL_96;
       }
 
       v13 += 24;
       v14 -= 24;
       if (!v14)
       {
-        goto LABEL_93;
+        goto LABEL_94;
       }
     }
 
@@ -8522,27 +8431,27 @@ LABEL_80:
     if (!GraphSymbol)
     {
       v21 = *(a1 + 112);
-      *&v47 = "Could not find symbol at given index, did you add it to JITSymbolTable? index: {0}, shndx: {1} Size of table: {2}";
-      *(&v47 + 1) = 113;
-      *&v48 = v54;
-      *(&v48 + 1) = 3;
-      v49 = &unk_2883ECF20;
-      v50 = &v55;
-      v51[0] = &unk_2883ED130;
-      v51[1] = v69 + 6;
-      v52 = &unk_2883ECC68;
-      v53 = v21;
-      v54[0] = &v49;
-      v54[1] = v51;
-      v54[2] = &v52;
+      *&v48 = "Could not find symbol at given index, did you add it to JITSymbolTable? index: {0}, shndx: {1} Size of table: {2}";
+      *(&v48 + 1) = 113;
+      *&v49 = v55;
+      *(&v49 + 1) = 3;
+      v50 = &unk_2883ECF20;
+      v51 = &v56;
+      v52[0] = &unk_2883ED130;
+      v52[1] = v70 + 6;
+      v53 = &unk_2883ECC68;
+      v54 = v21;
+      v55[0] = &v50;
+      v55[1] = v52;
+      v55[2] = &v53;
       getErrorErrorCat();
-      v60 = 3;
-      v61 = &getErrorErrorCat(void)::ErrorErrorCat;
+      v61 = 3;
+      v62 = &getErrorErrorCat(void)::ErrorErrorCat;
       llvm::make_error<llvm::StringError,llvm::formatv_object<std::tuple<llvm::detail::provider_format_adapter<unsigned int &>,llvm::detail::stream_operator_format_adapter<llvm::support::detail::packed_endian_specific_integral<unsigned short,(llvm::support::endianness)1,1ul,1ul> const&>,llvm::detail::provider_format_adapter<unsigned int>>>,std::error_code>();
     }
 
     v19 = *(v13 + 8);
-    v59 = v19;
+    v60 = v19;
     if (v19 > 310)
     {
       if (v19 > 562)
@@ -8552,16 +8461,16 @@ LABEL_80:
           if (v19 != 569)
           {
 LABEL_41:
-            *&v47 = "{0:d}: ";
-            *(&v47 + 1) = 7;
-            *&v48 = v51;
-            *(&v48 + 1) = 1;
-            v49 = &unk_2883EB018;
-            v50 = &v59;
-            v51[0] = &v49;
-            v56 = "Unsupported aarch64 relocation:";
-            v57 = &v47;
-            v58 = 1539;
+            *&v48 = "{0:d}: ";
+            *(&v48 + 1) = 7;
+            *&v49 = v52;
+            *(&v49 + 1) = 1;
+            v50 = &unk_2883EB018;
+            v51 = &v60;
+            v52[0] = &v50;
+            v57 = "Unsupported aarch64 relocation:";
+            v58 = &v48;
+            v59 = 1539;
             llvm::object::getELFRelocationTypeName(0xB7, v19);
             operator new();
           }
@@ -8629,7 +8538,7 @@ LABEL_65:
           v22 = *v13 + *(v15 + 2) - *v12;
           if ((*(v12[3] + v22) & 0x5FFFFFE0) != 0x52800000)
           {
-            llvm::make_error<llvm::jitlink::JITLinkError,char const(&)[80]>();
+            llvm::make_error<llvm::jitlink::JITLinkError,char const(&)[80]>(a2);
           }
 
           goto LABEL_57;
@@ -8640,20 +8549,24 @@ LABEL_65:
             goto LABEL_57;
           }
 
-          goto LABEL_92;
+          v23 = a2;
+          v24 = "R_AARCH64_MOVW_UABS_G1_NC target is not a MOVK/MOVZ (imm16, LSL #16) instruction";
+          goto LABEL_93;
         case 268:
           v22 = *v13 + *(v15 + 2) - *v12;
-          if ((*(v12[3] + v22) & 0x5FFFFFE0) != 0x52C00000)
+          if ((*(v12[3] + v22) & 0x5FFFFFE0) == 0x52C00000)
           {
-            goto LABEL_92;
+            goto LABEL_57;
           }
 
-          goto LABEL_57;
+          v23 = a2;
+          v24 = "R_AARCH64_MOVW_UABS_G2_NC target is not a MOVK/MOVZ (imm16, LSL #32) instruction";
+          goto LABEL_93;
         case 269:
           v22 = *v13 + *(v15 + 2) - *v12;
           if ((*(v12[3] + v22) & 0x5FFFFFE0) != 0x52E00000)
           {
-            llvm::make_error<llvm::jitlink::JITLinkError,char const(&)[78]>();
+            llvm::make_error<llvm::jitlink::JITLinkError,char const(&)[78]>(a2);
           }
 
 LABEL_57:
@@ -8667,10 +8580,10 @@ LABEL_57:
           goto LABEL_65;
         case 278:
           v22 = *v13 + *(v15 + 2) - *v12;
-          v23 = *(v12[3] + v22);
-          if ((~v23 & 0x4800000) == 0 || (v23 & 0xFB000000) != 956301312)
+          v25 = *(v12[3] + v22);
+          if ((~v25 & 0x4800000) == 0 || (v25 & 0xFB000000) != 956301312)
           {
-            llvm::make_error<llvm::jitlink::JITLinkError,char const(&)[74]>();
+            llvm::make_error<llvm::jitlink::JITLinkError,char const(&)[74]>(a2);
           }
 
           goto LABEL_91;
@@ -8688,22 +8601,26 @@ LABEL_57:
           goto LABEL_91;
         case 285:
           v22 = *v13 + *(v15 + 2) - *v12;
-          if ((*(v12[3] + v22) & 0xFB000000) != 0xB9000000)
+          if ((*(v12[3] + v22) & 0xFB000000) == 0xB9000000)
           {
-            goto LABEL_92;
+            goto LABEL_91;
           }
 
-          goto LABEL_91;
+          v23 = a2;
+          v24 = "R_AARCH64_LDST32_ABS_LO12_NC target is not a LDR/STR (imm12, 32 bit) instruction";
+          goto LABEL_93;
         case 286:
           v22 = *v13 + *(v15 + 2) - *v12;
-          v40 = *(v12[3] + v22);
-          if (v40 >> 30 != 3 || (v40 & 0x3B000000) != 956301312)
+          v42 = *(v12[3] + v22);
+          if (v42 >> 30 == 3 && (v42 & 0x3B000000) == 956301312)
           {
-LABEL_92:
-            llvm::make_error<llvm::jitlink::JITLinkError,char const(&)[81]>();
+            goto LABEL_91;
           }
 
-          goto LABEL_91;
+          v23 = a2;
+          v24 = "R_AARCH64_LDST64_ABS_LO12_NC target is not a LDR/STR (imm12, 64 bit) instruction";
+LABEL_93:
+          llvm::make_error<llvm::jitlink::JITLinkError,char const(&)[81]>(v23, v24);
         default:
           if (v19 != 299)
           {
@@ -8713,7 +8630,7 @@ LABEL_92:
           v22 = *v13 + *(v15 + 2) - *v12;
           if (*(v12[3] + v22) >> 23 != 123)
           {
-            llvm::make_error<llvm::jitlink::JITLinkError,char const(&)[83]>();
+            llvm::make_error<llvm::jitlink::JITLinkError,char const(&)[83]>(a2);
           }
 
 LABEL_91:
@@ -8722,136 +8639,132 @@ LABEL_91:
       }
     }
 
-    v25 = *(v13 + 16);
-    v26 = v12[6];
-    v27 = v12[7];
-    if (v26 >= v27)
+    v27 = *(v13 + 16);
+    v28 = v12[6];
+    v29 = v12[7];
+    if (v28 >= v29)
     {
-      v29 = v12[5];
-      v30 = (v26 - v29) >> 5;
-      v31 = v30 + 1;
-      if ((v30 + 1) >> 59)
+      v31 = v12[5];
+      v32 = (v28 - v31) >> 5;
+      v33 = v32 + 1;
+      if ((v32 + 1) >> 59)
       {
         std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
       }
 
-      v32 = v27 - v29;
-      if (v32 >> 4 > v31)
+      v34 = v29 - v31;
+      if (v34 >> 4 > v33)
       {
-        v31 = v32 >> 4;
+        v33 = v34 >> 4;
       }
 
-      if (v32 >= 0x7FFFFFFFFFFFFFE0)
+      if (v34 >= 0x7FFFFFFFFFFFFFE0)
       {
-        v33 = 0x7FFFFFFFFFFFFFFLL;
+        v35 = 0x7FFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v33 = v31;
+        v35 = v33;
       }
 
-      if (v33)
+      if (v35)
       {
-        std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::jitlink::Edge>>((v12 + 5), v33);
+        std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::jitlink::Edge>>((v12 + 5), v35);
       }
 
-      v34 = 32 * v30;
-      *v34 = GraphSymbol;
-      *(v34 + 8) = v22;
-      *(v34 + 16) = v25;
-      *(v34 + 24) = v20;
-      v28 = 32 * v30 + 32;
-      v35 = v12[5];
-      v36 = v12[6] - v35;
-      v37 = (32 * v30 - v36);
-      memcpy(v37, v35, v36);
-      v38 = v12[5];
-      v12[5] = v37;
-      v12[6] = v28;
+      v36 = 32 * v32;
+      *v36 = GraphSymbol;
+      *(v36 + 8) = v22;
+      *(v36 + 16) = v27;
+      *(v36 + 24) = v20;
+      v30 = 32 * v32 + 32;
+      v37 = v12[5];
+      v38 = v12[6] - v37;
+      v39 = (32 * v32 - v38);
+      memcpy(v39, v37, v38);
+      v40 = v12[5];
+      v12[5] = v39;
+      v12[6] = v30;
       v12[7] = 0;
-      if (v38)
+      if (v40)
       {
-        operator delete(v38);
+        operator delete(v40);
       }
     }
 
     else
     {
-      *v26 = GraphSymbol;
-      *(v26 + 8) = v22;
-      *(v26 + 16) = v25;
-      v28 = v26 + 32;
-      *(v26 + 24) = v20;
+      *v28 = GraphSymbol;
+      *(v28 + 8) = v22;
+      *(v28 + 16) = v27;
+      v30 = v28 + 32;
+      *(v28 + 24) = v20;
     }
 
-    v12[6] = v28;
+    v12[6] = v30;
 LABEL_79:
     *a2 = 0;
     goto LABEL_80;
   }
 
-LABEL_107:
-  *a2 = 0;
 LABEL_108:
-  v45 = *MEMORY[0x277D85DE8];
+  *a2 = 0;
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSection@<X0>(void *a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSection(unsigned int a1@<W1>, uint64_t a2@<X8>, void *a3@<X0>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::sections(a1, v9);
-  if (v10)
+  v9 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::sections(a3, v7);
+  if (v8)
   {
-    v6 = v9[0];
-    v7 = *(a3 + 8) | 1;
+    v5 = v7[0];
+    v6 = *(a2 + 8) | 1;
   }
 
   else
   {
-    if (v9[1] <= a2)
+    if (v7[1] <= a1)
     {
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v6 = v9[0] + (a2 << 6);
-    v7 = *(a3 + 8) & 0xFE;
+    v5 = v7[0] + (a1 << 6);
+    v6 = *(a2 + 8) & 0xFE;
   }
 
-  *(a3 + 8) = v7;
-  *a3 = v6;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  *(a2 + 8) = v6;
+  *a2 = v5;
 }
 
 void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionName(void *a1@<X0>, unsigned int *a2@<X1>, void (*a3)(std::string *__return_ptr, uint64_t, void *)@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::sections(a1, v17);
-  if (v18)
+  v18 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::sections(a1, v16);
+  if (v17)
   {
-    v10 = v17[0];
+    v10 = v16[0];
     *(a5 + 16) |= 1u;
     *a5 = v10;
   }
 
   else
   {
-    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionStringTable(a1, v17[0], v17[1], a3, a4, v15);
-    if (v16)
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionStringTable(a1, v16[0], v16[1], v14, a3, a4);
+    if (v15)
     {
-      v11 = v15[0];
+      v11 = v14[0];
       *(a5 + 16) |= 1u;
       *a5 = v11;
     }
 
     else
     {
-      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionName(a1, a2, v15[0], v15[1], a5);
-      if (v16)
+      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionName(a2, v14[0], v14[1], a5, a1);
+      if (v15)
       {
-        v12 = v15[0];
-        v15[0] = 0;
+        v12 = v14[0];
+        v14[0] = 0;
         if (v12)
         {
           (*(*v12 + 8))(v12);
@@ -8859,24 +8772,22 @@ void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,tr
       }
     }
 
-    if (v18)
+    if (v17)
     {
-      v13 = v17[0];
-      v17[0] = 0;
+      v13 = v16[0];
+      v16[0] = 0;
       if (v13)
       {
         (*(*v13 + 8))(v13);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::sections@<X0>(void *result@<X0>, uint64_t a2@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::sections(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *result;
-  v4 = *(*result + 40);
+  v3 = *a1;
+  v4 = *(*a1 + 40);
   v25 = v4;
   if (v4)
   {
@@ -8886,17 +8797,17 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,t
       v22 = "invalid e_shentsize in ELF header: ";
       v23 = v5;
       v24 = 2307;
-      LODWORD(v18[0]) = 3;
+      v18[0] = 3;
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v6 = result[1];
+    v6 = a1[1];
     if (v4 > 0xFFFFFFFFFFFFFFBFLL || v4 + 64 > v6)
     {
       v22 = "section header table goes past the end of the file: e_shoff = 0x";
       v23 = &v25;
       v24 = 3587;
-      LODWORD(v18[0]) = 3;
+      v18[0] = 3;
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
@@ -8909,7 +8820,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,t
       v21 = v11;
       if (v11 >> 58)
       {
-        v18[0] = "invalid number of sections specified in the NULL section's sh_size field (";
+        *v18 = "invalid number of sections specified in the NULL section's sh_size field (";
         v19 = &v21;
         v20 = 3075;
         v22 = v18;
@@ -8930,7 +8841,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,t
       v16[0] = v14;
       v16[2] = ") or invalid number of sections specified in the first section header's sh_size field (0x";
       v17 = 770;
-      v18[0] = v16;
+      *v18 = v16;
       v19 = &v21;
       v20 = 3586;
       v22 = v18;
@@ -8944,7 +8855,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,t
     {
       v22 = "section table goes past the end of file";
       v24 = 259;
-      LODWORD(v18[0]) = 3;
+      v18[0] = 3;
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
@@ -8955,8 +8866,8 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,t
 
   else
   {
-    v8 = result[2];
-    v9 = result[3];
+    v8 = a1[2];
+    v9 = a1[3];
     if (v8 == v9)
     {
       *a2 = 0;
@@ -8971,11 +8882,9 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,t
       *(a2 + 8) = (v9 - v8) >> 6;
     }
   }
-
-  return result;
 }
 
-void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionStringTable(void *a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, void (*a4)(std::string *__return_ptr, uint64_t, void *)@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionStringTable(void *a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>, void (*a5)(std::string *__return_ptr, uint64_t, void *)@<X3>, uint64_t a6@<X4>)
 {
   v7 = *(*a1 + 62);
   if (v7 == 0xFFFF)
@@ -8995,10 +8904,10 @@ void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,tr
     }
 
 LABEL_9:
-    *(a6 + 16) &= ~1u;
+    *(a4 + 16) &= ~1u;
     v9 = a1[6];
-    *a6 = a1[5];
-    *(a6 + 8) = v9;
+    *a4 = a1[5];
+    *(a4 + 8) = v9;
     return;
   }
 
@@ -9022,96 +8931,89 @@ LABEL_3:
 
   v8 = a2 + (v7 << 6);
 
-  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getStringTable(a1, v8, a4, a5, a6);
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getStringTable(a1, v8, a5, a6, a4);
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionName@<X0>(void *result@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionName(unsigned int *a1@<X1>, uint64_t a2@<X2>, unint64_t a3@<X3>, uint64_t a4@<X8>, void *a5@<X0>)
 {
-  v6 = *a2;
+  v6 = *a1;
   if (v6)
   {
-    if (a4 <= v6)
+    if (a3 <= v6)
     {
-      llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(result, a2, &v13);
-      v8 = std::string::insert(&v13, 0, "a section ");
-      v9 = v8->__r_.__value_.__r.__words[2];
-      *&v14.__r_.__value_.__l.__data_ = *&v8->__r_.__value_.__l.__data_;
-      v14.__r_.__value_.__r.__words[2] = v9;
-      v8->__r_.__value_.__l.__size_ = 0;
-      v8->__r_.__value_.__r.__words[2] = 0;
-      v8->__r_.__value_.__r.__words[0] = 0;
-      v10 = std::string::append(&v14, " has an invalid sh_name (0x");
-      v11 = v10->__r_.__value_.__r.__words[2];
-      *__p = *&v10->__r_.__value_.__l.__data_;
-      v16 = v11;
-      v10->__r_.__value_.__l.__size_ = 0;
-      v10->__r_.__value_.__r.__words[2] = 0;
-      v10->__r_.__value_.__r.__words[0] = 0;
-      v12 = v6;
-      v17[0] = __p;
-      v17[2] = &v12;
-      v18 = 3588;
-      v19 = v17;
-      v20 = ") offset which goes past the end of the section name string table";
-      v21 = 770;
-      v22 = 3;
+      llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(a5, a1, &v14);
+      v9 = std::string::insert(&v14, 0, "a section ");
+      v10 = v9->__r_.__value_.__r.__words[2];
+      *&v15.__r_.__value_.__l.__data_ = *&v9->__r_.__value_.__l.__data_;
+      v15.__r_.__value_.__r.__words[2] = v10;
+      v9->__r_.__value_.__l.__size_ = 0;
+      v9->__r_.__value_.__r.__words[2] = 0;
+      v9->__r_.__value_.__r.__words[0] = 0;
+      v11 = std::string::append(&v15, " has an invalid sh_name (0x");
+      v12 = v11->__r_.__value_.__r.__words[2];
+      *__p = *&v11->__r_.__value_.__l.__data_;
+      v17 = v12;
+      v11->__r_.__value_.__l.__size_ = 0;
+      v11->__r_.__value_.__r.__words[2] = 0;
+      v11->__r_.__value_.__r.__words[0] = 0;
+      v13 = v6;
+      v18[0] = __p;
+      v18[2] = &v13;
+      v19 = 3588;
+      v20 = v18;
+      v21 = ") offset which goes past the end of the section name string table";
+      v22 = 770;
+      v23 = 3;
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v7 = (a3 + v6);
-    result = strlen(v7);
-    *(a5 + 16) &= ~1u;
-    *a5 = v7;
-    *(a5 + 8) = result;
+    v7 = (a2 + v6);
+    v8 = strlen(v7);
+    *(a4 + 16) &= ~1u;
+    *a4 = v7;
+    *(a4 + 8) = v8;
   }
 
   else
   {
-    *a5 = 0;
-    *(a5 + 8) = 0;
-    *(a5 + 16) &= ~1u;
+    *a4 = 0;
+    *(a4 + 8) = 0;
+    *(a4 + 16) &= ~1u;
   }
-
-  return result;
 }
 
 void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getStringTable(void *a1@<X0>, uint64_t a2@<X1>, void (*a3)(std::string *__return_ptr, uint64_t, void *)@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (*(a2 + 4) == 3)
   {
     goto LABEL_10;
   }
 
-  llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(a1, a2, &v30);
-  v10 = std::string::insert(&v30, 0, "invalid sh_type for string table section ");
+  llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(a1, a2, &v29);
+  v10 = std::string::insert(&v29, 0, "invalid sh_type for string table section ");
   v11 = v10->__r_.__value_.__r.__words[2];
-  *&v31.__r_.__value_.__l.__data_ = *&v10->__r_.__value_.__l.__data_;
-  v31.__r_.__value_.__r.__words[2] = v11;
+  *&v30.__r_.__value_.__l.__data_ = *&v10->__r_.__value_.__l.__data_;
+  v30.__r_.__value_.__r.__words[2] = v11;
   v10->__r_.__value_.__l.__size_ = 0;
   v10->__r_.__value_.__r.__words[2] = 0;
   v10->__r_.__value_.__r.__words[0] = 0;
-  v12 = std::string::append(&v31, ": expected SHT_STRTAB, but got ");
+  v12 = std::string::append(&v30, ": expected SHT_STRTAB, but got ");
   v13 = v12->__r_.__value_.__r.__words[2];
-  v35 = *&v12->__r_.__value_.__l.__data_;
-  v36 = v13;
+  v34 = *&v12->__r_.__value_.__l.__data_;
+  v35 = v13;
   v12->__r_.__value_.__l.__size_ = 0;
   v12->__r_.__value_.__r.__words[2] = 0;
   v12->__r_.__value_.__r.__words[0] = 0;
   ELFSectionTypeName = llvm::object::getELFSectionTypeName(*(*a1 + 18), *(a2 + 4));
-  v32[0] = &v35;
-  v32[2] = ELFSectionTypeName;
-  v32[3] = v15;
-  v33 = 1284;
-  a3(&v29, a4, v32);
-  if (SHIBYTE(v36) < 0)
+  v31[0] = &v34;
+  v31[2] = ELFSectionTypeName;
+  v31[3] = v15;
+  v32 = 1284;
+  a3(&v28, a4, v31);
+  if (SHIBYTE(v35) < 0)
   {
-    operator delete(v35);
-  }
-
-  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v31.__r_.__value_.__l.__data_);
+    operator delete(v34);
   }
 
   if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
@@ -9119,65 +9021,70 @@ void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,tr
     operator delete(v30.__r_.__value_.__l.__data_);
   }
 
-  v16 = v29.__r_.__value_.__r.__words[0];
-  if (!v29.__r_.__value_.__r.__words[0])
+  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v29.__r_.__value_.__l.__data_);
+  }
+
+  v16 = v28.__r_.__value_.__r.__words[0];
+  if (!v28.__r_.__value_.__r.__words[0])
   {
 LABEL_10:
-    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionContentsAsArray<char>(a1, a2, &v35);
-    v17 = v35;
-    if (v36)
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionContentsAsArray<char>(a1, a2, &v34);
+    v17 = v34;
+    if (v35)
     {
-      *&v35 = 0;
+      *&v34 = 0;
       *(a5 + 16) |= 1u;
       *a5 = v17;
     }
 
     else
     {
-      v18 = *(&v35 + 1);
-      if (!*(&v35 + 1))
+      v18 = *(&v34 + 1);
+      if (!*(&v34 + 1))
       {
-        llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(a1, a2, &v29);
-        v23 = std::string::insert(&v29, 0, "SHT_STRTAB string table section ");
+        llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(a1, a2, &v28);
+        v23 = std::string::insert(&v28, 0, "SHT_STRTAB string table section ");
         v24 = v23->__r_.__value_.__r.__words[2];
-        *&v30.__r_.__value_.__l.__data_ = *&v23->__r_.__value_.__l.__data_;
-        v30.__r_.__value_.__r.__words[2] = v24;
+        *&v29.__r_.__value_.__l.__data_ = *&v23->__r_.__value_.__l.__data_;
+        v29.__r_.__value_.__r.__words[2] = v24;
         v23->__r_.__value_.__l.__size_ = 0;
         v23->__r_.__value_.__r.__words[2] = 0;
         v23->__r_.__value_.__r.__words[0] = 0;
-        v25 = std::string::append(&v30, " is empty");
+        v25 = std::string::append(&v29, " is empty");
         v26 = v25->__r_.__value_.__r.__words[2];
-        *&v31.__r_.__value_.__l.__data_ = *&v25->__r_.__value_.__l.__data_;
-        v31.__r_.__value_.__r.__words[2] = v26;
+        *&v30.__r_.__value_.__l.__data_ = *&v25->__r_.__value_.__l.__data_;
+        v30.__r_.__value_.__r.__words[2] = v26;
         v25->__r_.__value_.__l.__size_ = 0;
         v25->__r_.__value_.__r.__words[2] = 0;
         v25->__r_.__value_.__r.__words[0] = 0;
-        v33 = 260;
-        v32[0] = &v31;
-        v34 = 3;
+        v32 = 260;
+        v31[0] = &v30;
+        v33 = 3;
         llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
       }
 
-      if (*(v35 + *(&v35 + 1) - 1))
+      if (*(v34 + *(&v34 + 1) - 1))
       {
-        llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(a1, a2, &v29);
-        v19 = std::string::insert(&v29, 0, "SHT_STRTAB string table section ");
+        llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(a1, a2, &v28);
+        v19 = std::string::insert(&v28, 0, "SHT_STRTAB string table section ");
         v20 = v19->__r_.__value_.__r.__words[2];
-        *&v30.__r_.__value_.__l.__data_ = *&v19->__r_.__value_.__l.__data_;
-        v30.__r_.__value_.__r.__words[2] = v20;
+        *&v29.__r_.__value_.__l.__data_ = *&v19->__r_.__value_.__l.__data_;
+        v29.__r_.__value_.__r.__words[2] = v20;
         v19->__r_.__value_.__l.__size_ = 0;
         v19->__r_.__value_.__r.__words[2] = 0;
         v19->__r_.__value_.__r.__words[0] = 0;
-        v21 = std::string::append(&v30, " is non-null terminated");
+        v21 = std::string::append(&v29, " is non-null terminated");
         v22 = v21->__r_.__value_.__r.__words[2];
-        *&v31.__r_.__value_.__l.__data_ = *&v21->__r_.__value_.__l.__data_;
-        v31.__r_.__value_.__r.__words[2] = v22;
+        *&v30.__r_.__value_.__l.__data_ = *&v21->__r_.__value_.__l.__data_;
+        v30.__r_.__value_.__r.__words[2] = v22;
         v21->__r_.__value_.__l.__size_ = 0;
         v21->__r_.__value_.__r.__words[2] = 0;
         v21->__r_.__value_.__r.__words[0] = 0;
-        v33 = 260;
-        v32[0] = &v31;
-        v34 = 3;
+        v32 = 260;
+        v31[0] = &v30;
+        v33 = 3;
         llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
       }
 
@@ -9186,10 +9093,10 @@ LABEL_10:
       *(a5 + 8) = v18;
     }
 
-    if (v36)
+    if (v35)
     {
-      v27 = v35;
-      *&v35 = 0;
+      v27 = v34;
+      *&v34 = 0;
       if (v27)
       {
         (*(*v27 + 8))(v27);
@@ -9202,23 +9109,21 @@ LABEL_10:
     *(a5 + 16) |= 1u;
     *a5 = v16;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(void *a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::sections(a1, v13);
-  if (v14)
+  v14 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::sections(a1, v12);
+  if (v13)
   {
-    v5 = v13[0];
-    v13[0] = 0;
-    v12.__r_.__value_.__r.__words[0] = v5;
-    llvm::handleAllErrors<llvm::consumeError(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v12);
-    if (v12.__r_.__value_.__r.__words[0])
+    v5 = v12[0];
+    v12[0] = 0;
+    v11.__r_.__value_.__r.__words[0] = v5;
+    llvm::handleAllErrors<llvm::consumeError(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v11);
+    if (v11.__r_.__value_.__r.__words[0])
     {
-      (*(*v12.__r_.__value_.__l.__data_ + 8))(v12.__r_.__value_.__r.__words[0]);
+      (*(*v11.__r_.__value_.__l.__data_ + 8))(v11.__r_.__value_.__r.__words[0]);
     }
 
     a3[23] = 15;
@@ -9227,53 +9132,50 @@ void llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::end
 
   else
   {
-    std::to_string(&v11, (a2 - v13[0]) >> 6);
-    v6 = std::string::insert(&v11, 0, "[index ");
+    std::to_string(&v10, (a2 - v12[0]) >> 6);
+    v6 = std::string::insert(&v10, 0, "[index ");
     v7 = v6->__r_.__value_.__r.__words[2];
-    *&v12.__r_.__value_.__l.__data_ = *&v6->__r_.__value_.__l.__data_;
-    v12.__r_.__value_.__r.__words[2] = v7;
+    *&v11.__r_.__value_.__l.__data_ = *&v6->__r_.__value_.__l.__data_;
+    v11.__r_.__value_.__r.__words[2] = v7;
     v6->__r_.__value_.__l.__size_ = 0;
     v6->__r_.__value_.__r.__words[2] = 0;
     v6->__r_.__value_.__r.__words[0] = 0;
-    v8 = std::string::append(&v12, "]");
+    v8 = std::string::append(&v11, "]");
     *a3 = *v8;
     v8->__r_.__value_.__r.__words[0] = 0;
     v8->__r_.__value_.__l.__size_ = 0;
     v8->__r_.__value_.__r.__words[2] = 0;
-    if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v12.__r_.__value_.__l.__data_);
-    }
-
     if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v11.__r_.__value_.__l.__data_);
     }
+
+    if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v10.__r_.__value_.__l.__data_);
+    }
   }
 
-  if (v14)
+  if (v13)
   {
-    v9 = v13[0];
-    v13[0] = 0;
+    v9 = v12[0];
+    v12[0] = 0;
     if (v9)
     {
       (*(*v9 + 8))(v9);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionContentsAsArray<char>@<X0>(void *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionContentsAsArray<char>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = result;
   v6 = *(a2 + 24);
   v5 = *(a2 + 32);
   v37 = v5;
   v38 = v6;
   if (__CFADD__(v6, v5))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(result, a2, &v24);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(a1, a2, &v24);
     v7 = std::string::insert(&v24, 0, "section ");
     v8 = v7->__r_.__value_.__r.__words[2];
     *&v19.__r_.__value_.__l.__data_ = *&v7->__r_.__value_.__l.__data_;
@@ -9304,9 +9206,9 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,t
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  if ((v5 + v6) > result[1])
+  if ((v5 + v6) > a1[1])
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(result, a2, &v17);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(a1, a2, &v17);
     v11 = std::string::insert(&v17, 0, "section ");
     v12 = v11->__r_.__value_.__r.__words[2];
     *&v18.__r_.__value_.__l.__data_ = *&v11->__r_.__value_.__l.__data_;
@@ -9333,7 +9235,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,t
     v28[0] = v25;
     v29 = ") that is greater than the file size (0x";
     v30 = 770;
-    v16 = v3[1];
+    v16 = a1[1];
     v31[0] = v28;
     v32 = &v16;
     v33 = 3586;
@@ -9344,19 +9246,17 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,t
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  v15 = *result + v6;
+  v15 = *a1 + v6;
   *(a3 + 16) &= ~1u;
   *a3 = v15;
   *(a3 + 8) = v5;
-  return result;
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionContentsAsArray<llvm::object::Elf_Rel_Impl<llvm::object::ELFType<(llvm::support::endianness)1,true>,true>>@<X0>(void *result@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionContentsAsArray<llvm::object::Elf_Rel_Impl<llvm::object::ELFType<(llvm::support::endianness)1,true>,true>>(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
-  v4 = result;
   if (a2[7] != 24)
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(result, a2, &v28);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(a1, a2, &v28);
     v12 = std::string::insert(&v28, 0, "section ");
     v13 = v12->__r_.__value_.__r.__words[2];
     *&v30.__r_.__value_.__l.__data_ = *&v12->__r_.__value_.__l.__data_;
@@ -9392,7 +9292,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,t
   v37 = v6;
   if (v7 % 0x18)
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(result, a2, &v32);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(a1, a2, &v32);
     v8 = std::string::insert(&v32, 0, "section ");
     v9 = v8->__r_.__value_.__r.__words[2];
     *&v28.__r_.__value_.__l.__data_ = *&v8->__r_.__value_.__l.__data_;
@@ -9426,7 +9326,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,t
 
   if (__CFADD__(v6, v7))
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(result, a2, &v32);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(a1, a2, &v32);
     v16 = std::string::insert(&v32, 0, "section ");
     v17 = v16->__r_.__value_.__r.__words[2];
     *&v28.__r_.__value_.__l.__data_ = *&v16->__r_.__value_.__l.__data_;
@@ -9457,9 +9357,9 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,t
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  if (v7 + v6 > result[1])
+  if (v7 + v6 > a1[1])
   {
-    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(result, a2, &v26);
+    llvm::object::getSecIndexForError<llvm::object::ELFType<(llvm::support::endianness)1,true>>(a1, a2, &v26);
     v20 = std::string::insert(&v26, 0, "section ");
     v21 = v20->__r_.__value_.__r.__words[2];
     *&v27.__r_.__value_.__l.__data_ = *&v20->__r_.__value_.__l.__data_;
@@ -9486,7 +9386,7 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,t
     v38[0] = __p;
     v39 = ") that is greater than the file size (0x";
     v40 = 770;
-    v25 = v4[1];
+    v25 = a1[1];
     v41[0] = v38;
     v42 = &v25;
     v43 = 3586;
@@ -9497,14 +9397,13 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,t
     llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
   }
 
-  v24 = *result + v6;
+  v24 = *a1 + v6;
   *(a3 + 16) &= ~1u;
   *a3 = v24;
   *(a3 + 8) = v7 / 0x18;
-  return result;
 }
 
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getRelocationSymbol@<X0>(void *result@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getRelocationSymbol(void *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, void *a4@<X2>)
 {
   v4 = *result;
   if (*(*result + 18) == 8 && *(v4 + 4) == 2)
@@ -9528,61 +9427,61 @@ void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,t
   v6 = HIDWORD(v5);
   if (v6)
   {
-    return llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getEntry<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,true>>>(result, a3, v6, a4);
-  }
-
-  *(a4 + 8) &= ~1u;
-  *a4 = 0;
-  return result;
-}
-
-void *llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getEntry<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,true>>>@<X0>(void *a1@<X0>, void *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
-{
-  v25 = *MEMORY[0x277D85DE8];
-  result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionContentsAsArray<llvm::object::Elf_Rel_Impl<llvm::object::ELFType<(llvm::support::endianness)1,true>,true>>(a1, a2, v23);
-  if (v24)
-  {
-    v8 = v23[0];
-    v9 = *(a4 + 8) | 1;
+    llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getEntry<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,true>>>(result, a4, v6, a3);
   }
 
   else
   {
-    if (v23[1] <= a3)
+    *(a3 + 8) &= ~1u;
+    *a3 = 0;
+  }
+}
+
+void llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getEntry<llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,true>>>(void *a1@<X0>, void *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
+{
+  v23 = *MEMORY[0x277D85DE8];
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionContentsAsArray<llvm::object::Elf_Rel_Impl<llvm::object::ELFType<(llvm::support::endianness)1,true>,true>>(a1, a2, v21);
+  if (v22)
+  {
+    v7 = v21[0];
+    v8 = *(a4 + 8) | 1;
+  }
+
+  else
+  {
+    if (v21[1] <= a3)
     {
-      v12 = 24 * a3;
-      v13[0] = "can't read an entry at 0x";
-      v13[2] = &v12;
-      v14 = 3587;
+      v10 = 24 * a3;
+      v11[0] = "can't read an entry at 0x";
+      v11[2] = &v10;
+      v12 = 3587;
+      v13[0] = v11;
+      v13[2] = ": it goes past the end of the section (0x";
+      v14 = 770;
+      v9 = a2[4];
       v15[0] = v13;
-      v15[2] = ": it goes past the end of the section (0x";
-      v16 = 770;
-      v11 = a2[4];
-      v17[0] = v15;
-      v17[2] = &v11;
-      v18 = 3586;
-      v19 = v17;
-      v20 = ")";
-      v21 = 770;
-      v22 = 3;
+      v15[2] = &v9;
+      v16 = 3586;
+      v17 = v15;
+      v18 = ")";
+      v19 = 770;
+      v20 = 3;
       llvm::make_error<llvm::StringError,llvm::Twine const&,llvm::object::object_error>();
     }
 
-    v8 = v23[0] + 24 * a3;
-    v9 = *(a4 + 8) & 0xFE;
+    v7 = v21[0] + 24 * a3;
+    v8 = *(a4 + 8) & 0xFE;
   }
 
-  *(a4 + 8) = v9;
-  *a4 = v8;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  *(a4 + 8) = v8;
+  *a4 = v7;
 }
 
-void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,true>>::prepare(uint64_t a1@<X0>, void **a2@<X8>)
+void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,true>>::prepare(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::sections(*(a1 + 24), __p);
-  if (v20 & 1) != 0 || (*(a1 + 32) = *__p, v4 = *(a1 + 24), v5 = *(a1 + 32), v6 = *(a1 + 40), v17 = llvm::object::defaultWarningHandler, llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionStringTable(v4, v5, v6, llvm::function_ref<llvm::Error ()(llvm::Twine const&)>::callback_fn<llvm::Error (*)(llvm::Twine const&)>, &v17, __p), (v20))
+  if (v18 & 1) != 0 || (*(a1 + 32) = *__p, v4 = *(a1 + 24), v5 = *(a1 + 32), v6 = *(a1 + 40), v15 = llvm::object::defaultWarningHandler, llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionStringTable(v4, v5, v6, __p, llvm::function_ref<llvm::Error ()(llvm::Twine const&)>::callback_fn<llvm::Error (*)(llvm::Twine const&)>, &v15), (v18))
   {
 LABEL_3:
     *a2 = __p[0];
@@ -9591,82 +9490,78 @@ LABEL_3:
   else
   {
     *(a1 + 56) = *__p;
-    v8 = *(a1 + 40);
-    if (v8)
+    v7 = *(a1 + 40);
+    if (v7)
     {
-      v9 = v8 << 6;
-      v10 = (*(a1 + 32) + 40);
+      v8 = v7 << 6;
+      v9 = (*(a1 + 32) + 40);
       do
       {
-        v11 = (v10 - 10);
-        v12 = *(v10 - 9);
-        if (v12 == 2)
+        v10 = (v9 - 10);
+        v11 = *(v9 - 9);
+        if (v11 == 2)
         {
           if (*(a1 + 48))
           {
-            v15 = *(a1 + 8) + 96;
             std::operator+<char>();
             llvm::make_error<llvm::jitlink::JITLinkError,std::string>();
           }
 
-          *(a1 + 48) = v11;
-          v12 = *(v10 - 9);
+          *(a1 + 48) = v10;
+          v11 = *(v9 - 9);
         }
 
-        if (v12 == 18)
+        if (v11 == 18)
         {
-          v13 = *v10;
-          if (*(a1 + 40) <= v13)
+          v12 = *v9;
+          if (*(a1 + 40) <= v12)
           {
             llvm::make_error<llvm::jitlink::JITLinkError,char const(&)[53]>();
           }
 
-          llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSHNDXTable(*(a1 + 24), v11, __p);
-          if (v20)
+          llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSHNDXTable(*(a1 + 24), v10, __p);
+          if (v18)
           {
             goto LABEL_3;
           }
 
-          v17 = (*(a1 + 32) + (v13 << 6));
-          v18 = *__p;
-          llvm::DenseMapBase<llvm::DenseMap<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>,llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>::try_emplace<llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>(a1 + 128, &v17, &v18, &v16);
-          if (v20)
+          v15 = (*(a1 + 32) + (v12 << 6));
+          v16 = *__p;
+          llvm::DenseMapBase<llvm::DenseMap<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>,llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>::try_emplace<llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>(a1 + 128, &v15, &v16, &v14);
+          if (v18)
           {
-            v14 = __p[0];
+            v13 = __p[0];
             __p[0] = 0;
-            if (v14)
+            if (v13)
             {
-              (*(*v14 + 8))(v14);
+              (*(*v13 + 8))(v13);
             }
           }
         }
 
-        v10 += 16;
-        v9 -= 64;
+        v9 += 16;
+        v8 -= 64;
       }
 
-      while (v9);
+      while (v8);
     }
 
     *a2 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,true>>::graphifySections@<X0>(uint64_t result@<X0>, uint64_t *a2@<X8>)
+void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,true>>::graphifySections(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v31 = *MEMORY[0x277D85DE8];
-  if (*(result + 40))
+  if (*(a1 + 40))
   {
-    v3 = result;
     v4 = 0;
     v5 = *a2;
     v6 = 1;
     do
     {
-      v7 = *(v3 + 32) + (v4 << 6);
-      result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionName(*(v3 + 24), v7, *(v3 + 56), *(v3 + 64), &v29);
+      v7 = *(a1 + 32) + (v4 << 6);
+      llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionName(v7, *(a1 + 56), *(a1 + 64), &v29, *(a1 + 24));
       if (v30)
       {
         v5 = v29;
@@ -9675,61 +9570,68 @@ uint64_t llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support
 
       else
       {
-        result = (*(*v3 + 40))(v3, v7);
-        if ((result & 1) != 0 || !*(v7 + 4) || (*(v3 + 72) & 1) == 0 && (v27 = v29, result = std::__find[abi:nn200100]<char const* const*,char const* const*,llvm::StringRef,std::__identity>(llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames, &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0], &v27), result != &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0]))
+        if (((*(*a1 + 40))(a1, v7) & 1) != 0 || !*(v7 + 4) || (*(a1 + 72) & 1) == 0 && (v27 = v29, std::__find[abi:nn200100]<char const* const*,char const* const*,llvm::StringRef,std::__identity>(llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames, &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0], &v27) != &llvm::jitlink::ELFLinkGraphBuilderBase::DwarfSectionNames[unk_2809A2CF0]))
         {
           v8 = 6;
           goto LABEL_11;
         }
 
-        v11 = *(v7 + 8);
-        SectionByName = llvm::jitlink::LinkGraph::findSectionByName(*(v3 + 8), v29, *(&v29 + 1), v9);
+        v12 = *(v7 + 8);
+        SectionByName = llvm::jitlink::LinkGraph::findSectionByName(*(a1 + 8), v29, *(&v29 + 1), v9);
         if (!SectionByName)
         {
-          v13 = *(v3 + 8);
-          llvm::jitlink::LinkGraph::createSection();
+          if ((v12 & 4) != 0)
+          {
+            v14 = 5;
+          }
+
+          else
+          {
+            v14 = 1;
+          }
+
+          llvm::jitlink::LinkGraph::createSection(*(a1 + 8), v29, *(&v29 + 1), v14 & 0xFFFFFFFD | (2 * (v12 & 1)));
         }
 
         if (*(v7 + 4) == 8)
         {
-          v14 = *(v3 + 8);
-          v15 = *(v7 + 32);
-          v16 = *(v7 + 16);
+          v15 = *(a1 + 8);
+          v16 = *(v7 + 32);
+          v17 = *(v7 + 16);
           v26 = *(v7 + 48);
-          *&v27 = v16;
-          *&v24 = v15;
+          *&v27 = v17;
+          *&v24 = v16;
           v25 = 0;
-          v17 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,unsigned long long &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(v14, SectionByName, &v24, &v27, &v26, &v25);
-LABEL_23:
+          v18 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,unsigned long long &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(v15, SectionByName, &v24, &v27, &v26, &v25);
+LABEL_26:
           LODWORD(v27) = v6 - 1;
-          result = llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>,unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>::FindAndConstruct((v3 + 80), &v27);
           v8 = 0;
-          *(result + 8) = v17;
+          *(llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>,unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>::FindAndConstruct((a1 + 80), &v27) + 1) = v18;
           goto LABEL_11;
         }
 
-        result = llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionContentsAsArray<char>(*(v3 + 24), v7, &v27);
+        llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionContentsAsArray<char>(*(a1 + 24), v7, &v27);
         if ((v28 & 1) == 0)
         {
-          v18 = *(v3 + 8);
-          v19 = *(v7 + 16);
-          v20 = *(v7 + 48);
+          v19 = *(a1 + 8);
+          v20 = *(v7 + 16);
+          v21 = *(v7 + 48);
           v24 = v27;
-          v25 = v20;
-          v26 = v19;
+          v25 = v21;
+          v26 = v20;
           v23 = 0;
-          v17 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,llvm::ArrayRef<char> &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(v18, SectionByName, &v24, &v26, &v25, &v23);
+          v18 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,llvm::ArrayRef<char> &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(v19, SectionByName, &v24, &v26, &v25, &v23);
           if (v28)
           {
-            v21 = v27;
+            v22 = v27;
             *&v27 = 0;
-            if (v21)
+            if (v22)
             {
-              (*(*v21 + 8))(v21);
+              (*(*v22 + 8))(v22);
             }
           }
 
-          goto LABEL_23;
+          goto LABEL_26;
         }
 
         v5 = v27;
@@ -9739,28 +9641,258 @@ LABEL_23:
 LABEL_11:
       if (v30)
       {
-        result = v29;
+        v10 = v29;
         *&v29 = 0;
-        if (result)
+        if (v10)
         {
-          result = (*(*result + 8))(result);
+          (*(*v10 + 8))(v10);
         }
       }
 
       if (v8 != 6 && v8)
       {
-        goto LABEL_30;
+        goto LABEL_33;
       }
 
       v4 = v6;
     }
 
-    while (*(v3 + 40) != v6++);
+    while (*(a1 + 40) != v6++);
   }
 
   v5 = 0;
-LABEL_30:
+LABEL_33:
   *a2 = v5;
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+}
+
+void llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,true>>::graphifySymbols(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  v61 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 48);
+  if (!v3)
+  {
+    *a2 = 0;
+    return;
+  }
+
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSectionContentsAsArray<llvm::object::Elf_Rel_Impl<llvm::object::ELFType<(llvm::support::endianness)1,true>,true>>(*(a1 + 24), v3, &v58);
+  if (v60)
+  {
+    *a2 = v58;
+    return;
+  }
+
+  llvm::object::ELFFile<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getStringTableForSymtab(*(a1 + 24), *(a1 + 48), *(a1 + 32), *(a1 + 40), v56);
+  if (v57)
+  {
+    v5 = v56[0];
+    v56[0] = 0;
+    goto LABEL_48;
+  }
+
+  v5 = v59;
+  if (v59)
+  {
+    v6 = 0;
+    v7 = 1;
+    while (1)
+    {
+      v8 = v58 + 24 * v6;
+      if ((*(v8 + 4) & 0xF) != 4)
+      {
+        break;
+      }
+
+LABEL_20:
+      v6 = v7;
+      v20 = v59 == v7++;
+      if (v20)
+      {
+        v5 = 0;
+        goto LABEL_48;
+      }
+    }
+
+    llvm::object::Elf_Sym_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getName(v8, v56[0], v56[1], &v53);
+    if (v55)
+    {
+      v9 = v53;
+      v53 = 0;
+LABEL_12:
+      *a2 = v9;
+      v10 = 1;
+      goto LABEL_16;
+    }
+
+    v11 = *(v8 + 4);
+    v12 = v11 & 0xF;
+    if (v12 == 5 || *(v8 + 6) == 65522)
+    {
+      v13 = *(a1 + 8);
+      CommonSection = llvm::jitlink::ELFLinkGraphBuilderBase::getCommonSection(a1);
+      v16 = *(v8 + 8);
+      v15 = *(v8 + 16);
+      v49 = 0;
+      v47 = v15;
+      v46[0] = v16;
+      v44[0] = 0;
+      v17 = llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,unsigned long long &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(v13, CommonSection, &v47, &v49, v46, v44);
+      v18 = llvm::jitlink::LinkGraph::addDefinedSymbol(v13, v17, 0, v53, v54, *(v8 + 16), 1, 0, 0, 0);
+      LODWORD(v49) = v7 - 1;
+      *(llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>,unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>::FindAndConstruct((a1 + 104), &v49) + 1) = v18;
+      v10 = 8;
+      goto LABEL_16;
+    }
+
+    if (*(v8 + 6))
+    {
+      v20 = v12 < 4 || v12 == 6;
+      if (!v20)
+      {
+        goto LABEL_34;
+      }
+
+      llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,true>>::getSymbolLinkageAndScope(v8, v53, v54, &v49);
+      if (v50)
+      {
+        v9 = v49;
+        goto LABEL_12;
+      }
+
+      v23 = v49;
+      v24 = BYTE1(v49);
+      v25 = *(v8 + 6);
+      if (v25 == 0xFFFF)
+      {
+        v37 = v49;
+        v47 = *(a1 + 48);
+        v49 = 0;
+        v10 = 8;
+        if (!llvm::DenseMapBase<llvm::DenseMap<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>,llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>,llvm::DenseMapInfo<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,void>,llvm::detail::DenseMapPair<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*,llvm::ArrayRef<llvm::support::detail::packed_endian_specific_integral<unsigned int,(llvm::support::endianness)1,1ul,1ul>>>>::LookupBucketFor<llvm::object::Elf_Shdr_Impl<llvm::object::ELFType<(llvm::support::endianness)1,false>> const*>((a1 + 128), &v47, &v49) || v49 == (*(a1 + 128) + 24 * *(a1 + 144)))
+        {
+          goto LABEL_16;
+        }
+
+        v32 = v49[2];
+        v49 = v49[1];
+        v50 = v32;
+        v51 = 1;
+        v52 = 0;
+        llvm::object::getExtendedSymbolTableIndex<llvm::object::ELFType<(llvm::support::endianness)1,true>>(v7 - 1, &v49, &v47);
+        if (v48)
+        {
+          v9 = v47;
+          goto LABEL_12;
+        }
+
+        v25 = v47;
+        v23 = v37;
+      }
+
+      GraphBlock = llvm::jitlink::ELFLinkGraphBuilder<llvm::object::ELFType<(llvm::support::endianness)1,false>>::getGraphBlock(a1, v25);
+      if (GraphBlock)
+      {
+        v27 = GraphBlock;
+        v36 = v23;
+        v28 = (*(*a1 + 24))(a1, v8);
+        v29 = (*(*a1 + 32))(a1, v8, v28);
+        v30 = *(a1 + 8);
+        if (v54)
+        {
+          v31 = llvm::jitlink::LinkGraph::addDefinedSymbol(v30, v27, v29, v53, v54, *(v8 + 16), v36, v24, (*(v8 + 4) & 0xF) == 2, 0);
+        }
+
+        else
+        {
+          v31 = llvm::jitlink::LinkGraph::addAnonymousSymbol(v30, v27, v29, *(v8 + 16), 0, 0);
+        }
+
+        v31[2] = v31[2] & 0x7FFFFFFFFFFFFFFFLL | (v28 << 63);
+        LODWORD(v49) = v7 - 1;
+        v10 = 0;
+        *(llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>,unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>::FindAndConstruct((a1 + 104), &v49) + 1) = v31;
+      }
+
+      else
+      {
+        v10 = 0;
+      }
+    }
+
+    else
+    {
+      if (v11 < 0x10)
+      {
+LABEL_34:
+        v10 = 0;
+        goto LABEL_16;
+      }
+
+      v21 = v11 >> 4;
+      if (v21 - 1 >= 2)
+      {
+        v44[0] = "Invalid symbol binding ";
+        v45 = 259;
+        v33 = *(v8 + 4) >> 4;
+        v43 = 265;
+        LODWORD(v42[0]) = v33;
+        llvm::operator+(v44, v42, v46);
+        v40 = " for external symbol ";
+        v41 = 259;
+        llvm::operator+(v46, &v40, &v47);
+        v39 = 261;
+        v38[0] = v53;
+        v38[1] = v54;
+        llvm::operator+(&v47, v38, &v49);
+        getErrorErrorCat();
+        llvm::make_error<llvm::StringError,llvm::Twine,std::error_code>();
+      }
+
+      v22 = llvm::jitlink::LinkGraph::addExternalSymbol(*(a1 + 8), v53, v54, *(v8 + 16), v21 == 2);
+      LODWORD(v49) = v7 - 1;
+      v10 = 0;
+      *(llvm::DenseMapBase<llvm::DenseMap<unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>,unsigned int,llvm::jitlink::Block *,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,llvm::jitlink::Block *>>::FindAndConstruct((a1 + 104), &v49) + 1) = v22;
+    }
+
+LABEL_16:
+    if (v55)
+    {
+      v19 = v53;
+      v53 = 0;
+      if (v19)
+      {
+        (*(*v19 + 8))(v19);
+      }
+    }
+
+    if ((v10 | 8) != 8)
+    {
+      goto LABEL_49;
+    }
+
+    goto LABEL_20;
+  }
+
+LABEL_48:
+  *a2 = v5;
+LABEL_49:
+  if (v57)
+  {
+    v34 = v56[0];
+    v56[0] = 0;
+    if (v34)
+    {
+      (*(*v34 + 8))(v34);
+    }
+  }
+
+  if (v60)
+  {
+    v35 = v58;
+    v58 = 0;
+    if (v35)
+    {
+      (*(*v35 + 8))(v35);
+    }
+  }
 }

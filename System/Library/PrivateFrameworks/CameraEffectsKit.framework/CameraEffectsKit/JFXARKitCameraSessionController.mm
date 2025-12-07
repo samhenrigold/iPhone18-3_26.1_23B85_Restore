@@ -87,7 +87,7 @@
 - (void)processExternalSensorData:(id)data
 {
   dataCopy = data;
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   CMTimeMakeWithSeconds(&v7, v5, 1000000000);
   time = v7;
   CMTimeGetSeconds(&time);

@@ -30,7 +30,7 @@
 - (void)viewDidLoad
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for LIDConfirmationController();
+  v3.super_class = type metadata accessor for LIDConfirmationController(0);
   v2 = v3.receiver;
   [(LIDConfirmationController *)&v3 viewDidLoad];
   sub_100149E04();
@@ -41,7 +41,7 @@
 {
   senderCopy = sender;
   selfCopy = self;
-  sub_10014AAE4();
+  sub_10014AAE4(senderCopy);
 }
 
 - (void)backgroundTappedWithRecognizer:(id)recognizer

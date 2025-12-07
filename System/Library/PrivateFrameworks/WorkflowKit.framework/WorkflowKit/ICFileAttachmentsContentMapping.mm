@@ -46,39 +46,39 @@
 
 void __80__ICFileAttachmentsContentMapping_getStringRepresentation_withInput_parameters___block_invoke(void *a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v5 count])
   {
-    v20 = v6;
+    v19 = v6;
     v7 = objc_opt_new();
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v21 = v5;
+    v20 = v5;
     obj = v5;
-    v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         v11 = 0;
         do
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v23 + 1) + 8 * v11);
+          v12 = *(*(&v22 + 1) + 8 * v11);
           v13 = a1[4];
           if (v13)
           {
-            v14 = [*(*(&v23 + 1) + 8 * v11) filename];
+            v14 = [*(*(&v22 + 1) + 8 * v11) filename];
             v15 = [v14 stringByAddingPercentEncodingWithAllowedCharacters:a1[5]];
             [v7 appendFormat:@"&%@=%@", v13, v15];
           }
@@ -92,23 +92,21 @@ void __80__ICFileAttachmentsContentMapping_getStringRepresentation_withInput_par
         }
 
         while (v9 != v11);
-        v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v9);
     }
 
     (*(a1[7] + 16))();
-    v6 = v20;
-    v5 = v21;
+    v6 = v19;
+    v5 = v20;
   }
 
   else
   {
     (*(a1[7] + 16))();
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)supportsMultipleItems

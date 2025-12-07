@@ -537,17 +537,17 @@ void __84__UITableCellAccessoryLayout__framesForAccessories_withContainerSize_ou
   v46 = v45;
   if (v45 == @"editing")
   {
-    v47 = 1;
+    isEqual = 1;
   }
 
   else if (v45)
   {
-    v47 = [(__CFString *)v45 isEqual:@"editing"];
+    isEqual = objc_msgSend_isEqual_(v45);
   }
 
   else
   {
-    v47 = 0;
+    isEqual = 0;
   }
 
   v90[0] = MEMORY[0x1E69E9820];
@@ -556,7 +556,7 @@ void __84__UITableCellAccessoryLayout__framesForAccessories_withContainerSize_ou
   v90[3] = &unk_1E71231F8;
   v99 = v28;
   v100 = v30;
-  v102 = v47;
+  v102 = isEqual;
   v68 = v74;
   v91 = v68;
   v101 = v103;
@@ -582,7 +582,7 @@ void __84__UITableCellAccessoryLayout__framesForAccessories_withContainerSize_ou
 
   else if (v52)
   {
-    v54 = [(__CFString *)v52 isEqual:@"normal"];
+    v54 = objc_msgSend_isEqual_(v52);
   }
 
   else

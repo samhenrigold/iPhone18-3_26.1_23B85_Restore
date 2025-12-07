@@ -9,13 +9,14 @@
 {
   width = fits.width;
   selfCopy = self;
-  v5 = sub_10050F9FC(width);
-  v7 = v6;
+  v5.n128_f64[0] = width;
+  v6 = sub_10050F9FC(v5);
+  v8 = v7;
 
-  v8 = v5;
-  v9 = v7;
-  result.height = v9;
-  result.width = v8;
+  v9 = v6;
+  v10 = v8;
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 
@@ -25,7 +26,7 @@
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for SeparatorSupplementaryView();
+  v7 = type metadata accessor for SeparatorSupplementaryView(0);
   v20.receiver = self;
   v20.super_class = v7;
   selfCopy = self;

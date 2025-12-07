@@ -99,7 +99,7 @@
 {
   swift_beginAccess();
 
-  sub_1000CE6B8(&unk_10190B260);
+  sub_1000CE6B8(&unk_10190B260, &unk_1011EB2D0);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;
@@ -234,7 +234,7 @@
   controllerCopy = controller;
   selfCopy = self;
   sub_1004C2CD0(controllerCopy, v10, index, v9, v11);
-  sub_1000588AC(v9);
+  sub_1000588AC(v9, v11);
 }
 
 - (id)traitsForAddFromACViewController:(id)controller

@@ -150,15 +150,17 @@ void __50__WGWidgetPinningTeachingAnimationView__setState___block_invoke(uint64_
   timerToNextState = self->_timerToNextState;
   if (timerToNextState != stateCopy)
   {
+    v7 = stateCopy;
     if (timerToNextState)
     {
       [(NSTimer *)timerToNextState invalidate];
     }
 
     objc_storeStrong(&self->_timerToNextState, state);
+    stateCopy = v7;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](timerToNextState, stateCopy);
 }
 
 - (void)_updateMaterials

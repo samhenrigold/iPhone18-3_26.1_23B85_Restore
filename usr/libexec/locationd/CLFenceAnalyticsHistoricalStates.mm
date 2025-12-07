@@ -132,56 +132,88 @@
       sub_101960D24();
     }
 
-    v23 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLFenceAnalyticsHistoricalStates updateCurrentState:previousState:location:locationReceivedTime:]", "%s\n", v23);
-    if (v23 != buf)
+    if ((v9 + 1) > 4)
     {
-      free(v23);
+      v23 = "---";
+    }
+
+    else
+    {
+      v23 = off_10247C450[(v9 + 1)];
+    }
+
+    if ((previousState + 1) > 4)
+    {
+      v24 = "---";
+    }
+
+    else
+    {
+      v24 = off_10247C450[previousState + 1];
+    }
+
+    v25 = LODWORD(location->lifespan);
+    v26 = *(&location->coordinate.longitude + 4);
+    v49 = 136315906;
+    v50 = v23;
+    v51 = 2080;
+    v52 = v24;
+    v53 = 1024;
+    v54 = v25;
+    v55 = 2048;
+    v56 = v26;
+    LODWORD(v29) = 38;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D4648, 0, "#FenceMetrics updating to currentState %s, previousState %s, provider %d, accuracy %f", &v49, v29, v30, *&v31);
+    v28 = v27;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLFenceAnalyticsHistoricalStates updateCurrentState:previousState:location:locationReceivedTime:]", "%s\n", v27);
+    if (v28 != buf)
+    {
+      free(v28);
     }
   }
 
   [(CLFenceAnalyticsHistoricalStates *)self setNMinusThreeState:self->_nMinusTwoState];
   [(CLFenceAnalyticsHistoricalStates *)self setNMinusTwoState:self->_nMinusOneState];
   [(CLFenceAnalyticsHistoricalStates *)self setTimeOfNMinusTwoStateChange:[(CLFenceAnalyticsHistoricalStates *)self timeOfNMinusOneStateChange]];
-  [(CLFenceAnalyticsHistoricalStates *)self nMinusOneStateChangeLocation];
-  v46 = v39;
-  v47 = v40;
-  v48[0] = *v41;
-  *(v48 + 12) = *&v41[12];
-  *&buf[32] = v35;
-  v43 = v36;
-  v44 = v37;
-  v45 = v38;
-  *buf = v33;
-  *&buf[16] = v34;
+  objc_msgSend_nMinusOneStateChangeLocation(self);
+  v61 = v46;
+  v62 = v47;
+  v63[0] = *v48;
+  *(v63 + 12) = *&v48[12];
+  *&buf[32] = v42;
+  v58 = v43;
+  v59 = v44;
+  v60 = v45;
+  *buf = v40;
+  *&buf[16] = v41;
   [(CLFenceAnalyticsHistoricalStates *)self setNMinusTwoStateChangeLocation:buf];
   [(CLFenceAnalyticsHistoricalStates *)self setNMinusOneState:[(CLFenceAnalyticsHistoricalStates *)self currentState]];
   [(CLFenceAnalyticsHistoricalStates *)self setTimeOfNMinusOneStateChange:[(CLFenceAnalyticsHistoricalStates *)self timeOfCurrentStateChange]];
-  [(CLFenceAnalyticsHistoricalStates *)self currentLocation];
-  v46 = v30;
-  v47 = v31;
-  v48[0] = *v32;
-  *(v48 + 12) = *&v32[12];
-  *&buf[32] = v26;
-  v43 = v27;
-  v44 = v28;
-  v45 = v29;
-  *buf = v24;
-  *&buf[16] = v25;
+  objc_msgSend_currentLocation(self);
+  v61 = v37;
+  v62 = v38;
+  v63[0] = *v39;
+  *(v63 + 12) = *&v39[12];
+  *&buf[32] = v33;
+  v58 = v34;
+  v59 = v35;
+  v60 = v36;
+  *buf = v31;
+  *&buf[16] = v32;
   [(CLFenceAnalyticsHistoricalStates *)self setNMinusOneStateChangeLocation:buf];
   [(CLFenceAnalyticsHistoricalStates *)self setCurrentState:v9];
   [(CLFenceAnalyticsHistoricalStates *)self setTimeOfCurrentStateChange:[NSDate dateWithTimeIntervalSinceReferenceDate:time]];
   rawCoordinate = location->rawCoordinate;
-  v46 = *&location->lifespan;
-  v47 = rawCoordinate;
-  v48[0] = *&location->rawCourse;
-  *(v48 + 12) = *&location->integrity;
+  v61 = *&location->lifespan;
+  v62 = rawCoordinate;
+  v63[0] = *&location->rawCourse;
+  *(v63 + 12) = *&location->integrity;
   v20 = *&location->speed;
   *&buf[32] = *&location->altitude;
-  v43 = v20;
+  v58 = v20;
   v21 = *&location->timestamp;
-  v44 = *&location->course;
-  v45 = v21;
+  v59 = *&location->course;
+  v60 = v21;
   v22 = *&location->coordinate.longitude;
   *buf = *&location->suitability;
   *&buf[16] = v22;

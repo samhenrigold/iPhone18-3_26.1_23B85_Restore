@@ -279,7 +279,7 @@
           v7 = *(*(&v25 + 1) + 8 * i);
           if (v7)
           {
-            [v7 time];
+            objc_msgSend_time(v7);
           }
 
           else

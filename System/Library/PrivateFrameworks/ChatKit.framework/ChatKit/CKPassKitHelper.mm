@@ -43,7 +43,7 @@
   return mailAttachmentIcon;
 }
 
-uint64_t __45__CKPassKitHelper_mailAttachmentIconForPass___block_invoke()
+uint64_t __45__CKPassKitHelper_mailAttachmentIconForPass___block_invoke(uint64_t a1)
 {
   result = objc_opt_respondsToSelector();
   mailAttachmentIconForPass__respondsToSelector = result & 1;
@@ -85,7 +85,7 @@ uint64_t __45__CKPassKitHelper_mailAttachmentIconForPass___block_invoke()
   return localizedName;
 }
 
-uint64_t __40__CKPassKitHelper_localizedNameForPass___block_invoke()
+uint64_t __40__CKPassKitHelper_localizedNameForPass___block_invoke(uint64_t a1)
 {
   result = objc_opt_respondsToSelector();
   localizedNameForPass__respondsToSelector = result & 1;
@@ -127,7 +127,7 @@ uint64_t __40__CKPassKitHelper_localizedNameForPass___block_invoke()
   return organizationName;
 }
 
-uint64_t __43__CKPassKitHelper_organizationNameForPass___block_invoke()
+uint64_t __43__CKPassKitHelper_organizationNameForPass___block_invoke(uint64_t a1)
 {
   result = objc_opt_respondsToSelector();
   organizationNameForPass__respondsToSelector = result & 1;

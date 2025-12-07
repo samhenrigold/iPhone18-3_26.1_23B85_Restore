@@ -24,7 +24,7 @@
 + (void)setInteractiveMode:(BOOL)mode
 {
   modeCopy = mode;
-  PVRenderManager::INSTANCE(self, &v4);
+  PVRenderManager::INSTANCE(&v4);
   PVRenderManager::SetInteractiveMode(v4, modeCopy);
   if (v4)
   {
@@ -34,7 +34,7 @@
 
 + (BOOL)isInteractiveMode
 {
-  PVRenderManager::INSTANCE(self, &v4);
+  PVRenderManager::INSTANCE(&v4);
   InteractiveMode = PVRenderManager::GetInteractiveMode(v4);
   if (v4)
   {
@@ -46,7 +46,7 @@
 
 + (void)updateMemoryEnvironment:(int)environment
 {
-  PVRenderManager::INSTANCE(self, &v4);
+  PVRenderManager::INSTANCE(&v4);
   PVRenderManager::updateMemoryEnvironment(v4, environment);
   if (v4)
   {
@@ -56,7 +56,7 @@
 
 + (int)memoryEnvironment
 {
-  PVRenderManager::INSTANCE(self, &v4);
+  PVRenderManager::INSTANCE(&v4);
   MemoryEnvironment = PVRenderManager::GetMemoryEnvironment(v4);
   if (v4)
   {
@@ -68,7 +68,7 @@
 
 + (void)setCVTextureCacheMaximumTextureAge:(float)age
 {
-  PVRenderManager::INSTANCE(self, &v4);
+  PVRenderManager::INSTANCE(&v4);
   PVRenderManager::SetCVTextureCacheMaximumTextureAge(v4, age);
   if (v4)
   {
@@ -78,7 +78,7 @@
 
 + (float)getCVTextureCacheMaxiumumTextureAge
 {
-  PVRenderManager::INSTANCE(self, &v4);
+  PVRenderManager::INSTANCE(&v4);
   CVTextureCacheMaximumTextureAge = PVRenderManager::GetCVTextureCacheMaximumTextureAge(v4);
   if (v4)
   {
@@ -100,7 +100,8 @@
   +[PVEffect handleApplicationDidReceiveMemoryWarning];
   +[PVMotionEffect handleApplicationDidReceiveMemoryWarning];
   +[PVCinematicEffect handleApplicationDidReceiveMemoryWarning];
-  PVRenderManager::INSTANCE([self cleanupEffectsCache], &v3);
+  [self cleanupEffectsCache];
+  PVRenderManager::INSTANCE(&v3);
   PVRenderManager::FreeTexturePools(v3);
   if (v3)
   {
@@ -110,7 +111,7 @@
 
 + (void)flushEngine
 {
-  PVRenderManager::INSTANCE(self, &v13);
+  PVRenderManager::INSTANCE(&v13);
   if (HGLogger::getLevel("PVSignPost", v3) >= 1)
   {
     kdebug_trace();
@@ -176,14 +177,14 @@
 + (void)shutdownEngine
 {
   NSLog(&cfstr_ShuttingDownPv.isa, a2);
-  PVRenderManager::INSTANCE(v2, &v3);
-  PVRenderManager::Pause(v3);
-  PVRenderManager::CancelAllRenderJobs(v3, 1);
-  PVRenderManager::WaitForCommandBuffersToComplete(v3);
-  PVRenderManager::Shutdown(v3);
-  if (v3)
+  PVRenderManager::INSTANCE(&v2);
+  PVRenderManager::Pause(v2);
+  PVRenderManager::CancelAllRenderJobs(v2, 1);
+  PVRenderManager::WaitForCommandBuffersToComplete(v2);
+  PVRenderManager::Shutdown(v2);
+  if (v2)
   {
-    (*(*v3 + 24))(v3);
+    (*(*v2 + 24))(v2);
   }
 }
 

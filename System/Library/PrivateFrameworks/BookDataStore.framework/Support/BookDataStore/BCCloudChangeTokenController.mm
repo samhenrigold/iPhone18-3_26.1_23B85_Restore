@@ -53,18 +53,18 @@
 
   if (verboseLoggingEnabled)
   {
-    v7 = sub_10000DB80();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_10000DB80(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = @"NO";
+      v9 = @"NO";
       if (syncCopy)
       {
-        v8 = @"YES";
+        v9 = @"YES";
       }
 
-      v14 = 138412290;
-      v15 = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "\\BCCloudChangeTokenController #enableCloudSync setEnableCloudSync %@\\"", &v14, 0xCu);
+      v15 = 138412290;
+      v16 = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "\\BCCloudChangeTokenController #enableCloudSync setEnableCloudSync %@\", &v15, 0xCu);
     }
   }
 
@@ -73,9 +73,9 @@
     self->_enableCloudSync = syncCopy;
     if (syncCopy)
     {
-      v9 = [CKRecordZoneID alloc];
+      v10 = [CKRecordZoneID alloc];
       zoneName = [(BCCloudChangeTokenController *)self zoneName];
-      cloudKitController2 = [v9 initWithZoneName:zoneName ownerName:CKCurrentUserDefaultName];
+      cloudKitController2 = [v10 initWithZoneName:zoneName ownerName:CKCurrentUserDefaultName];
 
       cloudKitController = [(BCCloudChangeTokenController *)self cloudKitController];
       privateCloudDatabaseController = [cloudKitController privateCloudDatabaseController];
@@ -153,18 +153,18 @@
     [v8 finishEncoding];
     encodedData = [v8 encodedData];
     v10 = [(BCCloudChangeTokenController *)self moc];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_100059B6C;
-    v18[3] = &unk_100241648;
-    v18[4] = self;
-    v19 = tokenCopy;
-    v20 = v10;
-    v21 = encodedData;
-    v22 = completionCopy;
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_100059B6C;
+    v19[3] = &unk_100241648;
+    v19[4] = self;
+    v20 = tokenCopy;
+    v21 = v10;
+    v22 = encodedData;
+    v23 = completionCopy;
     v11 = encodedData;
     v12 = v10;
-    [v12 performBlock:v18];
+    [v12 performBlock:v19];
   }
 
   else
@@ -174,23 +174,23 @@
 
     if (verboseLoggingEnabled)
     {
-      v15 = sub_10000DB80();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_10000DB80(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         zoneName = [(BCCloudChangeTokenController *)self zoneName];
         *buf = 138412546;
-        v24 = zoneName;
-        v25 = 2112;
-        v26 = tokenCopy;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "\\BCCloudChangeTokenController - #recordChange zone: %@ NOT storing server change token: %@\\"", buf, 0x16u);
+        v25 = zoneName;
+        v26 = 2112;
+        v27 = tokenCopy;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "\\BCCloudChangeTokenController - #recordChange zone: %@ NOT storing server change token: %@\", buf, 0x16u);
       }
     }
 
-    v17 = objc_retainBlock(completionCopy);
-    v8 = v17;
-    if (v17)
+    v18 = objc_retainBlock(completionCopy);
+    v8 = v18;
+    if (v18)
     {
-      (*(v17 + 2))(v17);
+      (*(v18 + 2))(v18);
     }
   }
 }
@@ -199,7 +199,7 @@
 {
   completionCopy = completion;
   v5 = [(BCCloudChangeTokenController *)self moc];
-  v6 = sub_100002660();
+  v6 = sub_100002660(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     zoneName = [(BCCloudChangeTokenController *)self zoneName];

@@ -36,9 +36,9 @@ VCCTServiceMonitor *__36__VCCTServiceMonitor_sharedInstance__block_invoke()
 
 - (VCCTServiceMonitor)init
 {
-  v7.receiver = self;
-  v7.super_class = VCCTServiceMonitor;
-  v2 = [(VCCTServiceMonitor *)&v7 init];
+  v6.receiver = self;
+  v6.super_class = VCCTServiceMonitor;
+  v2 = [(VCCTServiceMonitor *)&v6 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277CC37B0]);
@@ -46,16 +46,16 @@ VCCTServiceMonitor *__36__VCCTServiceMonitor_sharedInstance__block_invoke()
     [(CoreTelephonyClient *)v3 setDelegate:v2];
     v2->_subscriptionContext = [(VCCTServiceMonitor *)v2 getCurrentDataSubscriptionContext];
     v2->_supportsCellular = MGGetBoolAnswer();
-    v6 = 0;
-    v2->_dataStatus = [(CoreTelephonyClient *)v2->_ctClient getDataStatus:v2->_subscriptionContext error:&v6];
-    if (v6)
+    v5 = 0;
+    v2->_dataStatus = [(CoreTelephonyClient *)v2->_ctClient getDataStatus:v2->_subscriptionContext error:&v5];
+    if (v5)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v4 = VRTraceErrorLogLevelToCSTR();
+        VRTraceErrorLogLevelToCSTR();
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
         {
-          [(VCCTServiceMonitor *)v4 init];
+          [VCCTServiceMonitor init];
         }
       }
 
@@ -80,17 +80,17 @@ VCCTServiceMonitor *__36__VCCTServiceMonitor_sharedInstance__block_invoke()
 
 - (id)getCurrentDataSubscriptionContext
 {
-  v5 = 0;
-  v2 = [(CoreTelephonyClient *)self->_ctClient getCurrentDataServiceDescriptorSync:&v5];
+  v4 = 0;
+  v2 = [(CoreTelephonyClient *)self->_ctClient getCurrentDataServiceDescriptorSync:&v4];
   result = [MEMORY[0x277CC3798] contextWithServiceDescriptor:v2];
-  if (v5)
+  if (v4)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v4 = VRTraceErrorLogLevelToCSTR();
+      VRTraceErrorLogLevelToCSTR();
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        [(VCCTServiceMonitor *)v4 getCurrentDataSubscriptionContext];
+        [VCCTServiceMonitor getCurrentDataSubscriptionContext];
       }
     }
 
@@ -102,21 +102,21 @@ VCCTServiceMonitor *__36__VCCTServiceMonitor_sharedInstance__block_invoke()
 
 - (CTDataConnectionStatus)connectionStatus
 {
-  v9 = 0;
+  v8 = 0;
   os_unfair_lock_lock(&self->_statusLock);
   connectionStatus = self->_connectionStatus;
   if (!connectionStatus)
   {
-    v4 = [(CoreTelephonyClient *)self->_ctClient getConnectionState:self->_subscriptionContext connectionType:0 error:&v9];
+    v4 = [(CoreTelephonyClient *)self->_ctClient getConnectionState:self->_subscriptionContext connectionType:0 error:&v8];
     self->_connectionStatus = v4;
-    if (v9)
+    if (v8)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v5 = VRTraceErrorLogLevelToCSTR();
+        VRTraceErrorLogLevelToCSTR();
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
         {
-          [(VCCTServiceMonitor *)v5 connectionStatus];
+          [VCCTServiceMonitor connectionStatus];
         }
       }
 
@@ -126,33 +126,33 @@ VCCTServiceMonitor *__36__VCCTServiceMonitor_sharedInstance__block_invoke()
 
     else
     {
-      v6 = v4;
+      v5 = v4;
       connectionStatus = self->_connectionStatus;
     }
   }
 
-  v7 = connectionStatus;
+  v6 = connectionStatus;
   os_unfair_lock_unlock(&self->_statusLock);
-  return v7;
+  return v6;
 }
 
 - (CTSignalStrengthInfo)signalStrength
 {
-  v9 = 0;
+  v8 = 0;
   os_unfair_lock_lock(&self->_statusLock);
   signalStrength = self->_signalStrength;
   if (!signalStrength)
   {
-    v4 = [(CoreTelephonyClient *)self->_ctClient getSignalStrengthInfo:self->_subscriptionContext error:&v9];
+    v4 = [(CoreTelephonyClient *)self->_ctClient getSignalStrengthInfo:self->_subscriptionContext error:&v8];
     self->_signalStrength = v4;
-    if (v9)
+    if (v8)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v5 = VRTraceErrorLogLevelToCSTR();
+        VRTraceErrorLogLevelToCSTR();
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
         {
-          [(VCCTServiceMonitor *)v5 signalStrength];
+          [VCCTServiceMonitor signalStrength];
         }
       }
 
@@ -162,14 +162,14 @@ VCCTServiceMonitor *__36__VCCTServiceMonitor_sharedInstance__block_invoke()
 
     else
     {
-      v6 = v4;
+      v5 = v4;
       signalStrength = self->_signalStrength;
     }
   }
 
-  v7 = signalStrength;
+  v6 = signalStrength;
   os_unfair_lock_unlock(&self->_statusLock);
-  return v7;
+  return v6;
 }
 
 - (BOOL)supportsCellular
@@ -182,7 +182,7 @@ VCCTServiceMonitor *__36__VCCTServiceMonitor_sharedInstance__block_invoke()
 
 - (void)signalStrengthChanged:(id)changed info:(id)info
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_statusLock);
   signalStrength = self->_signalStrength;
   self->_signalStrength = info;
@@ -194,26 +194,24 @@ VCCTServiceMonitor *__36__VCCTServiceMonitor_sharedInstance__block_invoke()
     v9 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136316162;
-      v12 = v8;
-      v13 = 2080;
-      v14 = "[VCCTServiceMonitor signalStrengthChanged:info:]";
-      v15 = 1024;
-      v16 = 162;
-      v17 = 2112;
+      v10 = 136316162;
+      v11 = v8;
+      v12 = 2080;
+      v13 = "[VCCTServiceMonitor signalStrengthChanged:info:]";
+      v14 = 1024;
+      v15 = 162;
+      v16 = 2112;
       changedCopy = changed;
-      v19 = 2112;
+      v18 = 2112;
       infoCopy = info;
-      _os_log_impl(&dword_23D497000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Signal strength changed for context: %@, signal strength info: %@", &v11, 0x30u);
+      _os_log_impl(&dword_23D497000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Signal strength changed for context: %@, signal strength info: %@", &v10, 0x30u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)internetConnectionStateChanged:(id)changed
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_statusLock);
   connectionStatus = self->_connectionStatus;
   self->_connectionStatus = changed;
@@ -225,24 +223,22 @@ VCCTServiceMonitor *__36__VCCTServiceMonitor_sharedInstance__block_invoke()
     v7 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315906;
-      v10 = v6;
-      v11 = 2080;
-      v12 = "[VCCTServiceMonitor internetConnectionStateChanged:]";
-      v13 = 1024;
-      v14 = 173;
-      v15 = 2112;
+      v8 = 136315906;
+      v9 = v6;
+      v10 = 2080;
+      v11 = "[VCCTServiceMonitor internetConnectionStateChanged:]";
+      v12 = 1024;
+      v13 = 173;
+      v14 = 2112;
       changedCopy = changed;
-      _os_log_impl(&dword_23D497000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Internet connection state changed: %@", &v9, 0x26u);
+      _os_log_impl(&dword_23D497000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Internet connection state changed: %@", &v8, 0x26u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStatus:(id)status dataStatusInfo:(id)info
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_statusLock);
   dataStatus = self->_dataStatus;
   self->_dataStatus = info;
@@ -254,61 +250,55 @@ VCCTServiceMonitor *__36__VCCTServiceMonitor_sharedInstance__block_invoke()
     v9 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136316162;
-      v12 = v8;
-      v13 = 2080;
-      v14 = "[VCCTServiceMonitor dataStatus:dataStatusInfo:]";
-      v15 = 1024;
-      v16 = 182;
-      v17 = 2112;
+      v10 = 136316162;
+      v11 = v8;
+      v12 = 2080;
+      v13 = "[VCCTServiceMonitor dataStatus:dataStatusInfo:]";
+      v14 = 1024;
+      v15 = 182;
+      v16 = 2112;
       statusCopy = status;
-      v19 = 2112;
+      v18 = 2112;
       infoCopy = info;
-      _os_log_impl(&dword_23D497000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Data status changed for context: %@, dataStatus: %@", &v11, 0x30u);
+      _os_log_impl(&dword_23D497000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Data status changed for context: %@, dataStatus: %@", &v10, 0x30u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)init
 {
-  OUTLINED_FUNCTION_9_2(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_9_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_4_4();
-  OUTLINED_FUNCTION_6_4(&dword_23D497000, v2, v3, " [%s] %s:%d Error occurred when calling getDataStatus: %@");
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6_4(&dword_23D497000, v0, v1, " [%s] %s:%d Error occurred when calling getDataStatus: %@");
 }
 
 - (void)getCurrentDataSubscriptionContext
 {
-  OUTLINED_FUNCTION_9_2(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_9_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_4_4();
-  OUTLINED_FUNCTION_6_4(&dword_23D497000, v2, v3, " [%s] %s:%d Error occurs when getting current data subscription context: %@");
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6_4(&dword_23D497000, v0, v1, " [%s] %s:%d Error occurs when getting current data subscription context: %@");
 }
 
 - (void)connectionStatus
 {
-  OUTLINED_FUNCTION_9_2(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_9_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_4_4();
-  OUTLINED_FUNCTION_6_4(&dword_23D497000, v2, v3, " [%s] %s:%d Error occurred when calling getConnectionState: %@");
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6_4(&dword_23D497000, v0, v1, " [%s] %s:%d Error occurred when calling getConnectionState: %@");
 }
 
 - (void)signalStrength
 {
-  OUTLINED_FUNCTION_9_2(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_9_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_4_4();
-  OUTLINED_FUNCTION_6_4(&dword_23D497000, v2, v3, " [%s] %s:%d Error occurred when calling getSignalStrengthInfo: %@");
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6_4(&dword_23D497000, v0, v1, " [%s] %s:%d Error occurred when calling getSignalStrengthInfo: %@");
 }
 
 @end

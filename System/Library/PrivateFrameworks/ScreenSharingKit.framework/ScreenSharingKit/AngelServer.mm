@@ -22,8 +22,7 @@
 - (void)pingWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FF898C0, &unk_264B44190);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v15 - v7;
   v9 = _Block_copy(handler);
   v10 = swift_allocObject();
@@ -48,8 +47,7 @@
 - (void)stopCommandLineSessionWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FF898C0, &unk_264B44190);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v15 - v7;
   v9 = _Block_copy(handler);
   v10 = swift_allocObject();
@@ -74,8 +72,7 @@
 - (void)currentCommandLineSessionStateWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FF898C0, &unk_264B44190);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v15 - v7;
   v9 = _Block_copy(handler);
   v10 = swift_allocObject();

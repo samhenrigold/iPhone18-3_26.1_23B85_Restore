@@ -3,7 +3,7 @@
 
 @implementation UITabSidebarCellAccessibility
 
-uint64_t __60___UITabSidebarCellAccessibility_accessibilityCustomActions__block_invoke(uint64_t a1)
+void *__60___UITabSidebarCellAccessibility_accessibilityCustomActions__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) canInsertFavoriteTab:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -30,7 +30,7 @@ uint64_t __60___UITabSidebarCellAccessibility_accessibilityCustomActions__block_
   return 1;
 }
 
-uint64_t __68___UITabSidebarCellAccessibility_accessibilityDragSourceDescriptors__block_invoke(uint64_t a1)
+void *__68___UITabSidebarCellAccessibility_accessibilityDragSourceDescriptors__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) canInsertFavoriteTab:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

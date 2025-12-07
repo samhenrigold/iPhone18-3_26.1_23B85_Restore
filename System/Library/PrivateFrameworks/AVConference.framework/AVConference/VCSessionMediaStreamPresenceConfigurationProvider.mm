@@ -2362,7 +2362,7 @@ LABEL_52:
       goto LABEL_55;
     }
 
-    [VCSessionMediaStreamPresenceConfigurationProvider newVideoStreamGroupStreamConfigWithPList:v42 streamIDGenerator:v40 ssrc:&v100 groupID:buf shouldSkip:?];
+    [VCSessionMediaStreamPresenceConfigurationProvider newVideoStreamGroupStreamConfigWithPList:streamIDGenerator:ssrc:groupID:shouldSkip:];
 LABEL_129:
     v42 = v100;
     v40 = *buf;
@@ -2390,7 +2390,7 @@ LABEL_55:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [VCSessionMediaStreamPresenceConfigurationProvider newVideoStreamGroupStreamConfigWithPList:v42 streamIDGenerator:v40 ssrc:&v100 groupID:buf shouldSkip:?];
+    [VCSessionMediaStreamPresenceConfigurationProvider newVideoStreamGroupStreamConfigWithPList:streamIDGenerator:ssrc:groupID:shouldSkip:];
     goto LABEL_129;
   }
 
@@ -5490,6 +5490,46 @@ LABEL_9:
   OUTLINED_FUNCTION_29();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
+}
+
+- (void)newVideoStreamGroupStreamConfigWithPList:streamIDGenerator:ssrc:groupID:shouldSkip:.cold.14()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_21_0();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+    {
+      OUTLINED_FUNCTION_13_1();
+      OUTLINED_FUNCTION_6();
+      OUTLINED_FUNCTION_29();
+      OUTLINED_FUNCTION_39_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d '%@' is missing in config", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_31_2();
+  OUTLINED_FUNCTION_36();
+}
+
+- (void)newVideoStreamGroupStreamConfigWithPList:streamIDGenerator:ssrc:groupID:shouldSkip:.cold.15()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_21_0();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+    {
+      OUTLINED_FUNCTION_13_1();
+      OUTLINED_FUNCTION_6();
+      OUTLINED_FUNCTION_29();
+      OUTLINED_FUNCTION_39_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d '%@' is missing in config", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_31_2();
+  OUTLINED_FUNCTION_36();
 }
 
 - (void)newVideoStreamGroupStreamConfigWithPList:(uint64_t)a1 streamIDGenerator:(void *)a2 ssrc:groupID:shouldSkip:.cold.16(uint64_t a1, void *a2)

@@ -2930,7 +2930,7 @@ LABEL_16:
   return v3 & 1;
 }
 
-uint64_t __38__OKWidgetViewProxy_canPerformAction___block_invoke(uint64_t a1, void *a2)
+void *__38__OKWidgetViewProxy_canPerformAction___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 intValue];
   *(*(*(a1 + 32) + 8) + 24) = result != 0;
@@ -3110,7 +3110,7 @@ uint64_t __38__OKWidgetViewProxy_canPerformAction___block_invoke(uint64_t a1, vo
   if (result)
   {
 
-    return [(CATransform3D *)result transform];
+    return objc_msgSend_transform(result);
   }
 
   else
@@ -3335,7 +3335,7 @@ uint64_t __38__OKWidgetViewProxy_canPerformAction___block_invoke(uint64_t a1, vo
   [(OKWidgetViewProxy *)self notifyWhenBecomesReady:v2];
 }
 
-uint64_t __39__OKWidgetViewProxy_stopContentEffects__block_invoke(uint64_t a1)
+void *__39__OKWidgetViewProxy_stopContentEffects__block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x277D85DE8];
   v6 = 0u;
@@ -3358,7 +3358,8 @@ uint64_t __39__OKWidgetViewProxy_stopContentEffects__block_invoke(uint64_t a1)
           objc_enumerationMutation(v1);
         }
 
-        [*(*(&v6 + 1) + 8 * v5++) stopAnimation];
+        [*(*(&v6 + 1) + 8 * v5) stopAnimation];
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
@@ -3417,7 +3418,7 @@ uint64_t __41__OKWidgetViewProxy_updateContentEffects__block_invoke(uint64_t a1,
   [(OKWidgetViewProxy *)self notifyWhenBecomesReady:v2];
 }
 
-uint64_t __40__OKWidgetViewProxy_pauseContentEffects__block_invoke(uint64_t a1)
+void *__40__OKWidgetViewProxy_pauseContentEffects__block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x277D85DE8];
   v6 = 0u;
@@ -3440,7 +3441,8 @@ uint64_t __40__OKWidgetViewProxy_pauseContentEffects__block_invoke(uint64_t a1)
           objc_enumerationMutation(v1);
         }
 
-        [*(*(&v6 + 1) + 8 * v5++) pauseAnimation];
+        [*(*(&v6 + 1) + 8 * v5) pauseAnimation];
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
@@ -3465,7 +3467,7 @@ uint64_t __40__OKWidgetViewProxy_pauseContentEffects__block_invoke(uint64_t a1)
   [(OKWidgetViewProxy *)self notifyWhenBecomesReady:v3];
 }
 
-uint64_t __42__OKWidgetViewProxy_resumeContentEffects___block_invoke(uint64_t a1)
+void *__42__OKWidgetViewProxy_resumeContentEffects___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
   v8 = 0u;
@@ -3496,7 +3498,7 @@ uint64_t __42__OKWidgetViewProxy_resumeContentEffects___block_invoke(uint64_t a1
           [v7 resumeAnimation];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -3986,13 +3988,13 @@ uint64_t __42__OKWidgetViewProxy_resumeContentEffects___block_invoke(uint64_t a1
   }
 }
 
-uint64_t __55__OKWidgetViewProxy__reloadBorderContentInHighQuality___block_invoke_2(uint64_t result, void *a2, void *a3, uint64_t a4, uint64_t a5, char a6)
+void *__55__OKWidgetViewProxy__reloadBorderContentInHighQuality___block_invoke_2(void *result, void *a2, void *a3, uint64_t a4, uint64_t a5, char a6)
 {
   if ((a6 & 1) == 0)
   {
     v6 = a3;
     v7 = result;
-    v8 = *(result + 32);
+    v8 = result[4];
     if ((vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*(v8 + 616), *MEMORY[0x277D768C8]), vceqq_f64(*(v8 + 632), *(MEMORY[0x277D768C8] + 16))))) & 1) == 0)
     {
       [a3 size];
@@ -4005,29 +4007,29 @@ uint64_t __55__OKWidgetViewProxy__reloadBorderContentInHighQuality___block_invok
         v6 = [v6 imageWithSize:objc_msgSend(objc_msgSend(a2 opaque:"metadata") scale:{"opaque"), v17, v18, 1.0}];
       }
 
-      v6 = [v6 resizableImageWithCapInsets:{*(*(v7 + 32) + 616), *(*(v7 + 32) + 624), *(*(v7 + 32) + 632), *(*(v7 + 32) + 640)}];
-      v8 = *(v7 + 32);
+      v6 = [v6 resizableImageWithCapInsets:{*(v7[4] + 616), *(v7[4] + 624), *(v7[4] + 632), *(v7[4] + 640)}];
+      v8 = v7[4];
     }
 
     v19[0] = MEMORY[0x277D85DD0];
     v19[1] = 3221225472;
     v19[2] = __55__OKWidgetViewProxy__reloadBorderContentInHighQuality___block_invoke_3;
     v19[3] = &unk_279C90078;
-    v19[4] = *(v7 + 40);
+    v19[4] = v7[5];
     v19[5] = v6;
-    return [v8 performBlockOnMainThread:v19];
+    return [v8 performBlockOnMainThread:{v19, a4, a5}];
   }
 
   return result;
 }
 
-uint64_t __55__OKWidgetViewProxy__reloadBorderContentInHighQuality___block_invoke_3(uint64_t a1)
+void *__55__OKWidgetViewProxy__reloadBorderContentInHighQuality___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) object];
   if (result)
   {
     v3 = *(a1 + 40);
-    v4 = *(result + 504);
+    v4 = result[63];
 
     return [v4 setImage:v3];
   }
@@ -5110,7 +5112,7 @@ LABEL_5:
   superview = [(OKWidgetViewProxy *)self superview];
   v27 = self->_focusGestureHelper;
   v27->var0 = superview;
-  [(OKWidgetViewProxy *)self transform];
+  objc_msgSend_transform(self);
   *&v27->var6.a = v33;
   *&v27->var6.c = v34;
   *&v27->var6.tx = v35;
@@ -5688,7 +5690,7 @@ uint64_t __44__OKWidgetViewProxy_setupJavascriptContext___block_invoke()
   return [v0 name];
 }
 
-id __44__OKWidgetViewProxy_setupJavascriptContext___block_invoke_2()
+OKCollectionProxy *__44__OKWidgetViewProxy_setupJavascriptContext___block_invoke_2()
 {
   v0 = objc_opt_new();
   [v0 setTag:1];
@@ -5697,7 +5699,7 @@ id __44__OKWidgetViewProxy_setupJavascriptContext___block_invoke_2()
   return v0;
 }
 
-id __44__OKWidgetViewProxy_setupJavascriptContext___block_invoke_3()
+OKCollectionProxy *__44__OKWidgetViewProxy_setupJavascriptContext___block_invoke_3()
 {
   v0 = objc_opt_new();
   [v0 setTag:2];
@@ -5706,7 +5708,7 @@ id __44__OKWidgetViewProxy_setupJavascriptContext___block_invoke_3()
   return v0;
 }
 
-id __44__OKWidgetViewProxy_setupJavascriptContext___block_invoke_4()
+OKCollectionProxy *__44__OKWidgetViewProxy_setupJavascriptContext___block_invoke_4()
 {
   v0 = objc_opt_new();
   [v0 setTag:3];

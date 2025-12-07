@@ -89,7 +89,7 @@
 - (void)viewWillLayoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for InAppPurchaseInstallPageViewController();
+  v5.super_class = type metadata accessor for InAppPurchaseInstallPageViewController(0);
   v2 = v5.receiver;
   [(InAppPurchaseInstallPageViewController *)&v5 viewWillLayoutSubviews];
   if (*&v2[OBJC_IVAR____TtC22SubscribePageExtension38InAppPurchaseInstallPageViewController_activeView])

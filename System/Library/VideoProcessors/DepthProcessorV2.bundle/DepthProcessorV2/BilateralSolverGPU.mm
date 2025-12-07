@@ -4,6 +4,7 @@
 - (int)_doPCGWithCommandBuffer:(id)buffer nIterations:(int)iterations;
 - (int)_doSliceTrilinearWithCommandBuffer:(id)buffer ref_tex:(id)ref_tex o_tex:(id)o_tex;
 - (int)_doSliceWithCommandBuffer:(id)buffer o_tex:(id)o_tex;
+- (int)doSolveWithBilateralGridhash:(id)gridhash reference:(id)reference input:(id)input confidence:(id)confidence output:(id)output lambda:(float)lambda maxIterations:(int)iterations;
 - (void)_prepareResources:(id)resources;
 - (void)_setupBuffer;
 - (void)_setupPipelines;
@@ -54,6 +55,99 @@ LABEL_11:
 LABEL_7:
 
   return selfCopy;
+}
+
+- (int)doSolveWithBilateralGridhash:(id)gridhash reference:(id)reference input:(id)input confidence:(id)confidence output:(id)output lambda:(float)lambda maxIterations:(int)iterations
+{
+  v9 = *&iterations;
+  gridhashCopy = gridhash;
+  referenceCopy = reference;
+  inputCopy = input;
+  confidenceCopy = confidence;
+  outputCopy = output;
+  v26 = outputCopy;
+  if (!gridhashCopy)
+  {
+    sub_29573DFA4(&v101);
+LABEL_22:
+    v99 = v101;
+    goto LABEL_14;
+  }
+
+  if (!referenceCopy)
+  {
+    sub_29573DEF8(&v101);
+    goto LABEL_22;
+  }
+
+  if (!inputCopy)
+  {
+    sub_29573DE4C(&v101);
+    goto LABEL_22;
+  }
+
+  if (!confidenceCopy)
+  {
+    sub_29573DDA0(&v101);
+    goto LABEL_22;
+  }
+
+  if (!outputCopy)
+  {
+    sub_29573DCF4(&v101);
+    goto LABEL_22;
+  }
+
+  if (!objc_msgSend_hashTableSize(gridhashCopy, v21, v22, v23, v24, v25))
+  {
+    sub_29573DC48(&v101);
+    goto LABEL_22;
+  }
+
+  self->_params.lambda = lambda;
+  self->_params.N = objc_msgSend_hashTableSize(gridhashCopy, v27, v28, v29, v30, v31);
+  self->_params.dims = objc_msgSend_countDims(gridhashCopy, v32, v33, v34, v35, v36);
+  self->_params.sigma_s = objc_msgSend_sigma_s(gridhashCopy, v37, v38, v39, v40, v41);
+  self->_params.sigma_r_luma = objc_msgSend_sigma_r_luma(gridhashCopy, v42, v43, v44, v45, v46);
+  v52 = objc_msgSend_commandQueue(self->_metalContext, v47, v48, v49, v50, v51);
+  v58 = objc_msgSend_commandBuffer(v52, v53, v54, v55, v56, v57);
+
+  if (!v58)
+  {
+    sub_29573DB9C(&v101);
+    goto LABEL_22;
+  }
+
+  objc_msgSend__prepareResources_(self, v59, gridhashCopy, v60, v61, v62);
+  objc_msgSend__doBistochastizeWithCommandBuffer_t_tex_c_tex_nIterations_(self, v63, v58, inputCopy, confidenceCopy, 10);
+  objc_msgSend__doPCGWithCommandBuffer_nIterations_(self, v64, v58, v9, v65, v66);
+  if (self->_useTrilinearInterpolation)
+  {
+    objc_msgSend__doSliceTrilinearWithCommandBuffer_ref_tex_o_tex_(self, v67, v58, referenceCopy, v26, v69);
+  }
+
+  else
+  {
+    objc_msgSend__doSliceWithCommandBuffer_o_tex_(self, v67, v58, v26, v68, v69);
+  }
+
+  if (*MEMORY[0x29EDB9270])
+  {
+    v75 = objc_msgSend_commandQueue(v58, v70, v71, v72, v73, v74);
+    v81 = objc_msgSend_commandBuffer(v75, v76, v77, v78, v79, v80);
+
+    objc_msgSend_setLabel_(v81, v82, @"KTRACE_MTLCMDBUF", v83, v84, v85);
+    objc_msgSend_addCompletedHandler_(v81, v86, &unk_2A1C985C0, v87, v88, v89);
+    objc_msgSend_commit(v81, v90, v91, v92, v93, v94);
+    objc_msgSend_addCompletedHandler_(v58, v95, &unk_2A1C985E0, v96, v97, v98);
+  }
+
+  objc_msgSend_commit(v58, v70, v71, v72, v73, v74);
+
+  v99 = 0;
+LABEL_14:
+
+  return v99;
 }
 
 - (void)_setupPipelines

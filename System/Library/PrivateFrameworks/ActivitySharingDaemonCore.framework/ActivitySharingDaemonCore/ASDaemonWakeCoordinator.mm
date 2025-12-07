@@ -13,11 +13,11 @@
 
 - (ASDaemonWakeCoordinator)initWithProfile:(id)profile
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
-  v33.receiver = self;
-  v33.super_class = ASDaemonWakeCoordinator;
-  v5 = [(ASDaemonWakeCoordinator *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = ASDaemonWakeCoordinator;
+  v5 = [(ASDaemonWakeCoordinator *)&v32 init];
   if (!v5)
   {
     goto LABEL_14;
@@ -46,13 +46,13 @@
     {
       v17 = v5->_apsConnection;
       *buf = 134217984;
-      v36 = v17;
+      v35 = v17;
       _os_log_impl(&dword_23E5E3000, v15, OS_LOG_TYPE_DEFAULT, "ASDaemonWakeCoordinator created APS connection %p", buf, 0xCu);
     }
 
     v18 = [@"com.apple.icloud-container." stringByAppendingString:@"com.apple.Fitness"];
-    v34 = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+    v33 = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
     [(APSConnection *)v5->_apsConnection _setEnabledTopics:v19];
   }
 
@@ -97,7 +97,6 @@ LABEL_12:
 
 LABEL_14:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -141,26 +140,24 @@ LABEL_5:
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   tokenCopy = token;
   ASLoggingInitialize();
   v7 = *MEMORY[0x277CE8FE8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FE8], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = tokenCopy;
-    v11 = 2048;
-    v12 = connectionCopy;
-    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "ASDaemonWakeCoordinator received public token %@ on connection %p", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = tokenCopy;
+    v10 = 2048;
+    v11 = connectionCopy;
+    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "ASDaemonWakeCoordinator received public token %@ on connection %p", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceiveToken:(id)token forTopic:(id)topic identifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   tokenCopy = token;
   topicCopy = topic;
@@ -169,23 +166,21 @@ LABEL_5:
   v13 = *MEMORY[0x277CE8FE8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FE8], OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138413058;
-    v16 = tokenCopy;
-    v17 = 2114;
-    v18 = topicCopy;
-    v19 = 2112;
-    v20 = identifierCopy;
-    v21 = 2048;
-    v22 = connectionCopy;
-    _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "ASDaemonWakeCoordinator received per-topic push token %@ for topic %{public}@ identifier %@ on connection %p", &v15, 0x2Au);
+    v14 = 138413058;
+    v15 = tokenCopy;
+    v16 = 2114;
+    v17 = topicCopy;
+    v18 = 2112;
+    v19 = identifierCopy;
+    v20 = 2048;
+    v21 = connectionCopy;
+    _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "ASDaemonWakeCoordinator received per-topic push token %@ for topic %{public}@ identifier %@ on connection %p", &v14, 0x2Au);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   userInfo = [messageCopy userInfo];
   v7 = [MEMORY[0x277CBC4C0] notificationFromRemoteNotificationDictionary:userInfo];
@@ -195,16 +190,14 @@ LABEL_5:
   {
     v9 = v8;
     topic = [messageCopy topic];
-    v12 = 138412546;
-    v13 = topic;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "ASDaemonWakeCoordinator APS push received: %@ %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = topic;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "ASDaemonWakeCoordinator APS push received: %@ %@", &v11, 0x16u);
   }
 
   [(ASXPCClient *)self->_xpcClient launch];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)currentActivitySummaryHelper:(id)helper didUpdateTodayActivitySummary:(id)summary changedFields:(unint64_t)fields

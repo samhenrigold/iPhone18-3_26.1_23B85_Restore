@@ -67,7 +67,7 @@
 
 - (id)volumeIndexForVolumeUUID:(id)d
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (!dCopy)
   {
@@ -95,9 +95,9 @@
       v17 = *v15;
       if (os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
       {
-        v25 = 138412290;
-        v26 = v16;
-        _os_log_error_impl(&dword_22506F000, v17, OS_LOG_TYPE_ERROR, "volumeIndexForVolumeUUID failed: %@", &v25, 0xCu);
+        v24 = 138412290;
+        v25 = v16;
+        _os_log_error_impl(&dword_22506F000, v17, OS_LOG_TYPE_ERROR, "volumeIndexForVolumeUUID failed: %@", &v24, 0xCu);
       }
     }
 
@@ -121,9 +121,9 @@
     v18 = *v15;
     if (os_log_type_enabled(*v15, OS_LOG_TYPE_INFO))
     {
-      v25 = 138543362;
-      v26 = dCopy;
-      _os_log_impl(&dword_22506F000, v18, OS_LOG_TYPE_INFO, "volumeIndexForVolumeUUID is returning nil for volumeUUID=%{public}@", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = dCopy;
+      _os_log_impl(&dword_22506F000, v18, OS_LOG_TYPE_INFO, "volumeIndexForVolumeUUID is returning nil for volumeUUID=%{public}@", &v24, 0xCu);
     }
 
     v7 = 0;
@@ -135,14 +135,12 @@ LABEL_17:
   os_unfair_lock_unlock(&self->_lock);
 LABEL_18:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)volumeUUIDWithVolumeIndex:(id)index
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   indexCopy = index;
   os_unfair_lock_lock(&self->_lock);
   v6 = objc_msgSend_objectForKeyedSubscript_(self->_volumeUUIDByVolumeIndex, v5, indexCopy);
@@ -156,15 +154,13 @@ LABEL_18:
     v7 = *MEMORY[0x277CBC828];
     if (os_log_type_enabled(*MEMORY[0x277CBC828], OS_LOG_TYPE_INFO))
     {
-      v10 = 138543362;
-      v11 = indexCopy;
-      _os_log_impl(&dword_22506F000, v7, OS_LOG_TYPE_INFO, "volumeUUIDWithVolumeIndex is returning nil for volumeIndex=%{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = indexCopy;
+      _os_log_impl(&dword_22506F000, v7, OS_LOG_TYPE_INFO, "volumeUUIDWithVolumeIndex is returning nil for volumeIndex=%{public}@", &v9, 0xCu);
     }
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

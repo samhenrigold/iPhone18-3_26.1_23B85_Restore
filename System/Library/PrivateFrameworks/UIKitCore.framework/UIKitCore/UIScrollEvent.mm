@@ -143,7 +143,7 @@
     pointerAttributes = self->_pointerAttributes;
     self->_pointerAttributes = v7;
 
-    v9 = _UIEventHIDUIWindowForHIDEvent();
+    v9 = _UIEventHIDUIWindowForHIDEvent(event);
     if (v9)
     {
       [v9 _convertPointToSceneReferenceSpace:{_UIEventHIDConvertPointerLocation3DToWindow(v6, v9)}];
@@ -1021,7 +1021,7 @@ LABEL_21:
   return v14;
 }
 
-uint64_t __69__UIScrollEvent__consumeBeforeDeliveryToGestureRecognizers_inWindow___block_invoke(uint64_t a1, int a2)
+void *__69__UIScrollEvent__consumeBeforeDeliveryToGestureRecognizers_inWindow___block_invoke(uint64_t a1, int a2)
 {
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   result = [*(*(a1 + 32) + 200) containsObject:*(a1 + 40)];
@@ -1184,9 +1184,9 @@ uint64_t __69__UIScrollEvent__consumeBeforeDeliveryToGestureRecognizers_inWindow
 
 - (id)_windowServerHitTestWindow
 {
-  [(UIEvent *)self _hidEvent];
+  _hidEvent = [(UIEvent *)self _hidEvent];
 
-  return _UIEventHIDUIWindowForHIDEvent();
+  return _UIEventHIDUIWindowForHIDEvent(_hidEvent);
 }
 
 - (CGVector)_stifledDelta

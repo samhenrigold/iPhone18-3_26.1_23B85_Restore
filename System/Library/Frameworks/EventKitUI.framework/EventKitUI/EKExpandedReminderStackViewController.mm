@@ -322,7 +322,7 @@
   buttonImageName = [identifierCopy buttonImageName];
   [v25 setupCellWithTitle:title completed:completed editable:editable date:date buttonColor:color buttonImageName:buttonImageName backgroundColor:v37 recurringString:v22 delegate:selfCopy];
 
-  if (CalendarLinkLibraryCore())
+  if (CalendarLinkLibraryCore(0))
   {
     event2 = [identifierCopy event];
     [v25 Cal_annotateWithEvent:event2];
@@ -554,32 +554,32 @@ uint64_t __79__EKExpandedReminderStackViewController_clearSnapshotWithAnimating_
     [view2 safeAreaInsets];
     v25 = v24;
 
-    if ((CalInterfaceIsLeftToRight() & 1) == 0)
+    if ((CalInterfaceIsLeftToRight(v26, v27) & 1) == 0)
     {
       view3 = [(EKExpandedReminderStackViewController *)self view];
       [view3 frame];
-      v16 = v27 - v16 - v20;
+      v16 = v29 - v16 - v20;
     }
 
-    v28 = v18 - v25;
+    v30 = v18 - v25;
   }
 
   else
   {
     v16 = *MEMORY[0x1E695F058];
-    v28 = *(MEMORY[0x1E695F058] + 8);
+    v30 = *(MEMORY[0x1E695F058] + 8);
     v20 = *(MEMORY[0x1E695F058] + 16);
     v22 = *(MEMORY[0x1E695F058] + 24);
   }
 
-  v29 = v16;
-  v30 = v28;
-  v31 = v20;
-  v32 = v22;
-  result.size.height = v32;
-  result.size.width = v31;
-  result.origin.y = v30;
-  result.origin.x = v29;
+  v31 = v16;
+  v32 = v30;
+  v33 = v20;
+  v34 = v22;
+  result.size.height = v34;
+  result.size.width = v33;
+  result.origin.y = v32;
+  result.origin.x = v31;
   return result;
 }
 

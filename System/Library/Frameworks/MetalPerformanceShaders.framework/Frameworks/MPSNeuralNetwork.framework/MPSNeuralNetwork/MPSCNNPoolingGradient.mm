@@ -17,7 +17,7 @@
   {
     v4 = objc_opt_class();
     NSStringFromClass(v4);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNPoolingGradient.mm", 0x10F, @"[%@ initWithDevice:] is not allowed. Please use initializers that are not marked NS_UNAVAILABLE.", v5, v6, v7, v8);
   }
 
   return 0;
@@ -72,9 +72,9 @@
 
 - (MPSCNNPoolingGradient)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v30.receiver = self;
-  v30.super_class = MPSCNNPoolingGradient;
-  v5 = [(MPSCNNGradientKernel *)&v30 initWithCoder:aDecoder device:device];
+  v34.receiver = self;
+  v34.super_class = MPSCNNPoolingGradient;
+  v5 = [(MPSCNNGradientKernel *)&v34 initWithCoder:aDecoder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -100,7 +100,7 @@
   {
     v29 = objc_opt_class();
     NSStringFromClass(v29);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNPoolingGradient.mm", 0x16F, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v30, v31, v32, v33);
   }
 
   return 0;

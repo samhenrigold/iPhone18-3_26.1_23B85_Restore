@@ -9,71 +9,67 @@
 
 - (void)_connectWithRetryCount:(unint64_t)count completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v19 = "[SVXClientKeepAliveService _connectWithRetryCount:completion:]";
-    v20 = 2048;
+    v18 = "[SVXClientKeepAliveService _connectWithRetryCount:completion:]";
+    v19 = 2048;
     countCopy = count;
     _os_log_debug_impl(&dword_2695B9000, v7, OS_LOG_TYPE_DEBUG, "%s retryCount = %tu", buf, 0x16u);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __63__SVXClientKeepAliveService__connectWithRetryCount_completion___block_invoke;
-  v15[3] = &unk_279C67628;
-  v16 = completionCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __63__SVXClientKeepAliveService__connectWithRetryCount_completion___block_invoke;
+  v14[3] = &unk_279C67628;
+  v15 = completionCopy;
   countCopy2 = count;
-  v15[4] = self;
+  v14[4] = self;
   v8 = completionCopy;
-  v9 = MEMORY[0x26D642680](v15);
+  v9 = MEMORY[0x26D642680](v14);
   clientServiceProvider = self->_clientServiceProvider;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __63__SVXClientKeepAliveService__connectWithRetryCount_completion___block_invoke_2;
-  v13[3] = &unk_279C67DC8;
-  v14 = v9;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __63__SVXClientKeepAliveService__connectWithRetryCount_completion___block_invoke_2;
+  v12[3] = &unk_279C67DC8;
+  v13 = v9;
   v11 = v9;
-  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v13 errorHandler:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(SVXClientServiceProviding *)clientServiceProvider getClientServiceUsingBlock:v12 errorHandler:v11];
 }
 
 void __63__SVXClientKeepAliveService__connectWithRetryCount_completion___block_invoke(void *a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v16 = "[SVXClientKeepAliveService _connectWithRetryCount:completion:]_block_invoke";
-    v17 = 2112;
-    v18 = v3;
+    v15 = "[SVXClientKeepAliveService _connectWithRetryCount:completion:]_block_invoke";
+    v16 = 2112;
+    v17 = v3;
     _os_log_debug_impl(&dword_2695B9000, v4, OS_LOG_TYPE_DEBUG, "%s error = %@", buf, 0x16u);
   }
 
   v5 = a1[4];
   v6 = *(v5 + 8);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __63__SVXClientKeepAliveService__connectWithRetryCount_completion___block_invoke_3;
-  v10[3] = &unk_279C68180;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __63__SVXClientKeepAliveService__connectWithRetryCount_completion___block_invoke_3;
+  v9[3] = &unk_279C68180;
   v7 = a1[5];
-  v14 = a1[6];
-  v11 = v3;
-  v12 = v5;
-  v13 = v7;
+  v13 = a1[6];
+  v10 = v3;
+  v11 = v5;
+  v12 = v7;
   v8 = v3;
-  [v6 performBlock:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [v6 performBlock:v9];
 }
 
-uint64_t __63__SVXClientKeepAliveService__connectWithRetryCount_completion___block_invoke_3(uint64_t a1)
+uint64_t (**__63__SVXClientKeepAliveService__connectWithRetryCount_completion___block_invoke_3(uint64_t a1))(void)
 {
   if (*(a1 + 32))
   {
@@ -87,7 +83,7 @@ uint64_t __63__SVXClientKeepAliveService__connectWithRetryCount_completion___blo
   result = *(a1 + 48);
   if (result)
   {
-    return (*(result + 16))();
+    return result[2]();
   }
 
   return result;
@@ -105,11 +101,11 @@ uint64_t __63__SVXClientKeepAliveService__connectWithRetryCount_completion___blo
   [(SVXPerforming *)performer performBlock:v4];
 }
 
-uint64_t __52__SVXClientKeepAliveService_clientServiceDidChange___block_invoke(uint64_t result)
+id *__52__SVXClientKeepAliveService_clientServiceDidChange___block_invoke(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) connectWithCompletion:0];
+    return [result[4] connectWithCompletion:0];
   }
 
   return result;
@@ -134,27 +130,25 @@ uint64_t __52__SVXClientKeepAliveService_clientServiceDidChange___block_invoke(u
 
 - (void)connectWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v12 = "[SVXClientKeepAliveService connectWithCompletion:]";
+    v11 = "[SVXClientKeepAliveService connectWithCompletion:]";
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s Connecting...", buf, 0xCu);
   }
 
   performer = self->_performer;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __51__SVXClientKeepAliveService_connectWithCompletion___block_invoke;
-  v9[3] = &unk_279C68EF8;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __51__SVXClientKeepAliveService_connectWithCompletion___block_invoke;
+  v8[3] = &unk_279C68EF8;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  [(SVXPerforming *)performer performBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SVXPerforming *)performer performBlock:v8];
 }
 
 void __51__SVXClientKeepAliveService_connectWithCompletion___block_invoke(uint64_t a1)
@@ -170,26 +164,26 @@ void __51__SVXClientKeepAliveService_connectWithCompletion___block_invoke(uint64
 
 void __51__SVXClientKeepAliveService_connectWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (v3)
   {
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[SVXClientKeepAliveService connectWithCompletion:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s Failed to connect due to error %@.", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[SVXClientKeepAliveService connectWithCompletion:]_block_invoke_2";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s Failed to connect due to error %@.", &v6, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[SVXClientKeepAliveService connectWithCompletion:]_block_invoke";
-    _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s Connected.", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SVXClientKeepAliveService connectWithCompletion:]_block_invoke";
+    _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s Connected.", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -197,8 +191,6 @@ void __51__SVXClientKeepAliveService_connectWithCompletion___block_invoke_2(uint
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

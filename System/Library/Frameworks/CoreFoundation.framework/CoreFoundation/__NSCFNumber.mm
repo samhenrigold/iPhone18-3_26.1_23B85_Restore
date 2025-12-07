@@ -31,12 +31,10 @@
 
 - (int64_t)longValue
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  CFNumberGetValue(self, kCFNumberSInt64Type, v4);
-  result = v4[0];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[1] = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  CFNumberGetValue(self, kCFNumberSInt64Type, v3);
+  return v3[0];
 }
 
 - (__NSCFNumber)retain
@@ -53,7 +51,7 @@
 {
   if ((self & 0x8000000000000000) == 0)
   {
-    _CFNonObjCRelease();
+    _CFNonObjCRelease(self);
   }
 }
 
@@ -72,178 +70,146 @@
 
 - (int64_t)longLongValue
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  CFNumberGetValue(self, kCFNumberSInt64Type, v4);
-  result = v4[0];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[1] = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  CFNumberGetValue(self, kCFNumberSInt64Type, v3);
+  return v3[0];
 }
 
 - (double)doubleValue
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  CFNumberGetValue(self, kCFNumberDoubleType, v4);
-  result = *v4;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[1] = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  CFNumberGetValue(self, kCFNumberDoubleType, v3);
+  return *v3;
 }
 
 - (id)description
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (objc_lookUpClass("NSNumber"))
   {
-    v6.receiver = self;
-    v6.super_class = __NSCFNumber;
-    result = [&v6 description];
-    v4 = *MEMORY[0x1E69E9840];
+    v4.receiver = self;
+    v4.super_class = __NSCFNumber;
+    return [&v4 description];
   }
 
   else
   {
-    v5 = *MEMORY[0x1E69E9840];
 
     return [(__NSCFNumber *)self descriptionWithLocale:0];
   }
-
-  return result;
 }
 
 - (unint64_t)unsignedLongLongValue
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   valuePtr = 0;
-  v5 = 0;
+  v4 = 0;
   CFNumberGetValue(self, kCFNumberMaxType|kCFNumberSInt8Type, &valuePtr);
-  result = v5;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return v4;
 }
 
 - (unint64_t)unsignedLongValue
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   valuePtr = 0;
-  v5 = 0;
+  v4 = 0;
   CFNumberGetValue(self, kCFNumberMaxType|kCFNumberSInt8Type, &valuePtr);
-  result = v5;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return v4;
 }
 
 - (unsigned)unsignedIntValue
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  CFNumberGetValue(self, kCFNumberSInt64Type, v4);
-  result = v4[0];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[1] = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  CFNumberGetValue(self, kCFNumberSInt64Type, v3);
+  return v3[0];
 }
 
 - (unsigned)unsignedCharValue
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  CFNumberGetValue(self, kCFNumberSInt64Type, v4);
-  result = v4[0];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[1] = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  CFNumberGetValue(self, kCFNumberSInt64Type, v3);
+  return v3[0];
 }
 
 - (float)floatValue
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   valuePtr = 0.0;
   CFNumberGetValue(self, kCFNumberFloatType, &valuePtr);
-  result = valuePtr;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return valuePtr;
 }
 
 - (signed)shortValue
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  CFNumberGetValue(self, kCFNumberSInt64Type, v4);
-  result = v4[0];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[1] = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  CFNumberGetValue(self, kCFNumberSInt64Type, v3);
+  return v3[0];
 }
 
 - (BOOL)BOOLValue
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v6[0] = 0.0;
+  v5[1] = *MEMORY[0x1E69E9840];
+  v5[0] = 0.0;
   if (CFNumberIsFloatType(self))
   {
-    CFNumberGetValue(self, kCFNumberDoubleType, v6);
-    v3 = v6[0] == 0.0;
+    CFNumberGetValue(self, kCFNumberDoubleType, v5);
+    v3 = v5[0] == 0.0;
   }
 
   else
   {
-    CFNumberGetValue(self, kCFNumberSInt64Type, v6);
-    v3 = *&v6[0] == 0;
+    CFNumberGetValue(self, kCFNumberSInt64Type, v5);
+    v3 = *&v5[0] == 0;
   }
 
-  result = !v3;
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return !v3;
 }
 
 - (int)intValue
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  CFNumberGetValue(self, kCFNumberSInt64Type, v4);
-  result = v4[0];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[1] = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  CFNumberGetValue(self, kCFNumberSInt64Type, v3);
+  return v3[0];
 }
 
 - (char)charValue
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  CFNumberGetValue(self, kCFNumberSInt64Type, v4);
-  result = v4[0];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[1] = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  CFNumberGetValue(self, kCFNumberSInt64Type, v3);
+  return v3[0];
 }
 
 - (unsigned)unsignedShortValue
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  CFNumberGetValue(self, kCFNumberSInt64Type, v4);
-  result = v4[0];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[1] = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  CFNumberGetValue(self, kCFNumberSInt64Type, v3);
+  return v3[0];
 }
 
 - (id)stringValue
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (objc_lookUpClass("NSNumber"))
   {
-    v7.receiver = self;
-    v7.super_class = __NSCFNumber;
-    result = [(__NSCFNumber *)&v7 stringValue];
-    v4 = *MEMORY[0x1E69E9840];
+    v5.receiver = self;
+    v5.super_class = __NSCFNumber;
+    return [(__NSCFNumber *)&v5 stringValue];
   }
 
   else
   {
     FormattingDescription = __CFNumberCreateFormattingDescription(&__kCFAllocatorSystemDefault, self);
-    v6 = *MEMORY[0x1E69E9840];
 
     return FormattingDescription;
   }
-
-  return result;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -276,24 +242,20 @@
 
 - (id)descriptionWithLocale:(id)locale
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (objc_lookUpClass("NSNumber"))
   {
-    v9.receiver = self;
-    v9.super_class = __NSCFNumber;
-    result = [(__NSCFNumber *)&v9 descriptionWithLocale:locale];
-    v6 = *MEMORY[0x1E69E9840];
+    v7.receiver = self;
+    v7.super_class = __NSCFNumber;
+    return [(__NSCFNumber *)&v7 descriptionWithLocale:locale];
   }
 
   else
   {
-    v7 = __CFNumberCopyFormattingDescription(self);
-    v8 = *MEMORY[0x1E69E9840];
+    v6 = __CFNumberCopyFormattingDescription(self);
 
-    return v7;
+    return v6;
   }
-
-  return result;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -308,40 +270,36 @@
 
 - (void)getValue:(void *)value
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ((self & 0x8000000000000000) != 0)
   {
     Type = CFNumberGetType(self);
-    v6 = *MEMORY[0x1E69E9840];
-    Type2 = Type;
-LABEL_9:
+LABEL_8:
 
-    CFNumberGetValue(self, Type2, value);
+    CFNumberGetValue(self, Type, value);
     return;
   }
 
-  Type2 = _CFNumberGetType2(self);
-  if (Type2 != (kCFNumberMaxType|kCFNumberSInt8Type))
+  Type = _CFNumberGetType2(self);
+  if (Type != (kCFNumberMaxType|kCFNumberSInt8Type))
   {
-    v10 = *MEMORY[0x1E69E9840];
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   valuePtr = 0;
-  v12 = 0;
+  v8 = 0;
   CFNumberGetValue(self, kCFNumberMaxType|kCFNumberSInt8Type, &valuePtr);
   if (valuePtr)
   {
-    v8 = -1;
+    v6 = -1;
   }
 
   else
   {
-    v8 = v12;
+    v6 = v8;
   }
 
-  *value = v8;
-  v9 = *MEMORY[0x1E69E9840];
+  *value = v6;
 }
 
 - (int64_t)_cfNumberType

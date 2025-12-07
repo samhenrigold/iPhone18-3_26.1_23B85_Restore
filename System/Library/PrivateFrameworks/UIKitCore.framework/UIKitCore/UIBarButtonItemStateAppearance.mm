@@ -78,9 +78,9 @@
   {
     if (v6 && v7)
     {
-      v9 = [(NSDictionary *)v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
 
-      if (v9)
+      if (isEqual)
       {
         goto LABEL_11;
       }
@@ -143,9 +143,9 @@ LABEL_11:
   {
     if (v6 && v7)
     {
-      v9 = [(UIImage *)v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
 
-      if (v9)
+      if (isEqual)
       {
         goto LABEL_9;
       }

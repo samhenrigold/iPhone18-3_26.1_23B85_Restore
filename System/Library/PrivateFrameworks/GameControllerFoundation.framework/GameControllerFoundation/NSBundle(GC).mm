@@ -14,9 +14,9 @@
     +[NSBundle(GC) GameControllerFoundationBundle];
   }
 
-  v1 = GameControllerFoundationBundle_Bundle;
+  v2 = GameControllerFoundationBundle_Bundle;
 
-  return v1;
+  return v2;
 }
 
 + (id)GameControllerFrameworkBundle
@@ -26,25 +26,25 @@
     +[NSBundle(GC) GameControllerFrameworkBundle];
   }
 
-  v1 = GameControllerFrameworkBundle_Bundle;
+  v2 = GameControllerFrameworkBundle_Bundle;
 
-  return v1;
+  return v2;
 }
 
 + (id)gc_bundleForExecutableAtURL:()GC
 {
-  v0 = _CFBundleCopyBundleURLForExecutableURL();
-  if (v0)
+  v3 = _CFBundleCopyBundleURLForExecutableURL();
+  if (v3)
   {
-    v1 = [MEMORY[0x1E696AAE8] bundleWithURL:v0];
+    v4 = [MEMORY[0x1E696AAE8] bundleWithURL:v3];
   }
 
   else
   {
-    v1 = 0;
+    v4 = 0;
   }
 
-  return v1;
+  return v4;
 }
 
 + (id)gc_bundleForExecutableAtPath:()GC

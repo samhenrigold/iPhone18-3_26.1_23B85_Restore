@@ -35,74 +35,74 @@
 
 - (id)refreshQueryResultForApplication:(id)application category:(unint64_t)category
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   applicationCopy = application;
   v7 = [(LSDefaultApplicationQueryDatastore *)self->_datastore entryForApplication:applicationCopy category:category];
-  v8 = _LSDefaultLog();
+  v8 = _LSDefaultLog(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     bundleIdentifier = [applicationCopy bundleIdentifier];
     v10 = bundleIdentifier;
     v11 = "";
-    *v35 = 136315650;
+    *v36 = 136315650;
     if (!v7)
     {
       v11 = "no ";
     }
 
-    *&v35[4] = v11;
-    v36 = 2112;
-    v37 = bundleIdentifier;
-    v38 = 2048;
+    *&v36[4] = v11;
+    v37 = 2112;
+    v38 = bundleIdentifier;
+    v39 = 2048;
     categoryCopy = category;
-    _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "%sentry for app %@ in category %lu", v35, 0x20u);
+    _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "%sentry for app %@ in category %lu", v36, 0x20u);
   }
 
   if (v7)
   {
-    v12 = _LSDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _LSDefaultLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       windowOpenDates = [v7 windowOpenDates];
-      *v35 = 138412290;
-      *&v35[4] = windowOpenDates;
-      _os_log_impl(&dword_18162D000, v12, OS_LOG_TYPE_DEFAULT, "window open dates %@", v35, 0xCu);
+      *v36 = 138412290;
+      *&v36[4] = windowOpenDates;
+      _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_DEFAULT, "window open dates %@", v36, 0xCu);
     }
   }
 
-  v14 = [MEMORY[0x1E695DF00] now];
+  v15 = [MEMORY[0x1E695DF00] now];
   if (!v7)
   {
     goto LABEL_18;
   }
 
   newestWindowOpenDate = [v7 newestWindowOpenDate];
-  [v14 timeIntervalSinceDate:newestWindowOpenDate];
-  v17 = v16 < 3600.0;
+  [v15 timeIntervalSinceDate:newestWindowOpenDate];
+  v18 = v17 < 3600.0;
 
-  if (v17)
+  if (v18)
   {
-    v18 = [(LSDefaultApplicationQueryBackend *)self _isApp:applicationCopy defaultForCategory:category];
-    v19 = [v7 updatedEntryWithRefreshDate:v14 defaultForCategory:v18];
-    [(LSDefaultApplicationQueryDatastore *)self->_datastore setEntry:v19 forApplication:applicationCopy category:category];
-    v20 = [[LSDefaultApplicationQueryResult alloc] initWithReferenceDate:v14 didRefresh:1 refreshAfter:0 defaultForCategory:v18];
-    v21 = _LSDefaultLog();
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v19 = [(LSDefaultApplicationQueryBackend *)self _isApp:applicationCopy defaultForCategory:category];
+    v20 = [v7 updatedEntryWithRefreshDate:v15 defaultForCategory:v19];
+    [(LSDefaultApplicationQueryDatastore *)self->_datastore setEntry:v20 forApplication:applicationCopy category:category];
+    v21 = [[LSDefaultApplicationQueryResult alloc] initWithReferenceDate:v15 didRefresh:1 refreshAfter:0 defaultForCategory:v19];
+    v22 = _LSDefaultLog(v21);
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_25;
     }
 
-    *v35 = 138412546;
-    *&v35[4] = v14;
-    v36 = 2112;
-    v37 = v20;
-    v22 = "refreshed open window at %@, returning %@";
+    *v36 = 138412546;
+    *&v36[4] = v15;
+    v37 = 2112;
+    v38 = v21;
+    v23 = "refreshed open window at %@, returning %@";
     goto LABEL_23;
   }
 
   oldestWindowOpenDate = [v7 oldestWindowOpenDate];
-  [v14 timeIntervalSinceDate:oldestWindowOpenDate];
-  if (v24 >= 31536000.0)
+  [v15 timeIntervalSinceDate:oldestWindowOpenDate];
+  if (v25 >= 31536000.0)
   {
 
     goto LABEL_18;
@@ -113,62 +113,60 @@
   if ((isOpenWindowGroupFull & 1) == 0)
   {
 LABEL_18:
-    v31 = [(LSDefaultApplicationQueryBackend *)self _isApp:applicationCopy defaultForCategory:category];
+    v33 = [(LSDefaultApplicationQueryBackend *)self _isApp:applicationCopy defaultForCategory:category];
     if (v7)
     {
-      v32 = [v7 updatedEntryRotatingInWindowOpenDate:v14 refreshDate:v14 defaultForCategory:v31];
+      v34 = [v7 updatedEntryRotatingInWindowOpenDate:v15 refreshDate:v15 defaultForCategory:v33];
     }
 
     else
     {
-      v32 = [[LSDefaultApplicationQueryEntry alloc] initWithWindowOpenDate:v14 refreshDate:v14 defaultForCategory:v31];
+      v34 = [[LSDefaultApplicationQueryEntry alloc] initWithWindowOpenDate:v15 refreshDate:v15 defaultForCategory:v33];
     }
 
-    v19 = v32;
-    [(LSDefaultApplicationQueryDatastore *)self->_datastore setEntry:v32 forApplication:applicationCopy category:category];
-    v20 = [[LSDefaultApplicationQueryResult alloc] initWithReferenceDate:v14 didRefresh:1 refreshAfter:0 defaultForCategory:v31];
-    v21 = _LSDefaultLog();
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v20 = v34;
+    [(LSDefaultApplicationQueryDatastore *)self->_datastore setEntry:v34 forApplication:applicationCopy category:category];
+    v21 = [[LSDefaultApplicationQueryResult alloc] initWithReferenceDate:v15 didRefresh:1 refreshAfter:0 defaultForCategory:v33];
+    v22 = _LSDefaultLog(v21);
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_25;
     }
 
-    *v35 = 138412546;
-    *&v35[4] = v14;
-    v36 = 2112;
-    v37 = v20;
-    v22 = "opened new window at %@, returning %@";
+    *v36 = 138412546;
+    *&v36[4] = v15;
+    v37 = 2112;
+    v38 = v21;
+    v23 = "opened new window at %@, returning %@";
 LABEL_23:
-    v29 = v21;
-    v30 = 22;
+    v31 = v22;
+    v32 = 22;
     goto LABEL_24;
   }
 
   oldestWindowOpenDate2 = [v7 oldestWindowOpenDate];
-  v19 = [oldestWindowOpenDate2 dateByAddingTimeInterval:31536000.0];
+  v20 = [oldestWindowOpenDate2 dateByAddingTimeInterval:31536000.0];
 
-  v27 = [LSDefaultApplicationQueryResult alloc];
+  v28 = [LSDefaultApplicationQueryResult alloc];
   refreshDate = [v7 refreshDate];
-  v20 = -[LSDefaultApplicationQueryResult initWithReferenceDate:didRefresh:refreshAfter:defaultForCategory:](v27, "initWithReferenceDate:didRefresh:refreshAfter:defaultForCategory:", refreshDate, 0, v19, [v7 isDefaultForCategory]);
+  v21 = -[LSDefaultApplicationQueryResult initWithReferenceDate:didRefresh:refreshAfter:defaultForCategory:](v28, "initWithReferenceDate:didRefresh:refreshAfter:defaultForCategory:", refreshDate, 0, v20, [v7 isDefaultForCategory]);
 
-  v21 = _LSDefaultLog();
-  if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = _LSDefaultLog(v30);
+  if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     goto LABEL_25;
   }
 
-  *v35 = 138412290;
-  *&v35[4] = v20;
-  v22 = "stale windows, returning %@";
-  v29 = v21;
-  v30 = 12;
+  *v36 = 138412290;
+  *&v36[4] = v21;
+  v23 = "stale windows, returning %@";
+  v31 = v22;
+  v32 = 12;
 LABEL_24:
-  _os_log_impl(&dword_18162D000, v29, OS_LOG_TYPE_DEFAULT, v22, v35, v30);
+  _os_log_impl(&dword_18162D000, v31, OS_LOG_TYPE_DEFAULT, v23, v36, v32);
 LABEL_25:
 
-  v33 = *MEMORY[0x1E69E9840];
-
-  return v20;
+  return v21;
 }
 
 @end

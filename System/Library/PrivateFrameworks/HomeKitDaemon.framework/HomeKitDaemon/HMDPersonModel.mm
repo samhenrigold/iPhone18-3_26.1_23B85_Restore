@@ -42,22 +42,20 @@ void __36__HMDPersonModel_sentinelParentUUID__block_invoke()
 
 void __31__HMDPersonModel_hmbProperties__block_invoke()
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D17100] fieldWithClass:objc_opt_class()];
   v1 = [v0 mutableCopy];
 
   [v1 setLoggingVisibility:1];
-  v7[0] = @"name";
-  v2 = [v1 copy];
-  v7[1] = @"personLinksData";
-  v8[0] = v2;
+  v6[0] = @"name";
+  v2 = objc_msgSend_copy(v1);
+  v6[1] = @"personLinksData";
+  v7[0] = v2;
   v3 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
   v5 = hmbProperties_properties_156415;
   hmbProperties_properties_156415 = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createPerson
@@ -72,7 +70,7 @@ void __31__HMDPersonModel_hmbProperties__block_invoke()
   personLinks = [(HMDPersonModel *)self personLinks];
   [v5 setPersonLinks:personLinks];
 
-  v8 = [v5 copy];
+  v8 = objc_msgSend_copy(v5);
 
   return v8;
 }
@@ -95,11 +93,11 @@ void __31__HMDPersonModel_hmbProperties__block_invoke()
 
 - (void)setPersonLinks:(id)links
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   linksCopy = links;
-  v12 = 0;
-  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:linksCopy requiringSecureCoding:1 error:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:linksCopy requiringSecureCoding:1 error:&v11];
+  v6 = v11;
   if (v5)
   {
     [(HMDPersonModel *)self setPersonLinksData:v5];
@@ -114,33 +112,31 @@ void __31__HMDPersonModel_hmbProperties__block_invoke()
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v6;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v6;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Failed to encode person links: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)personLinks
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   personLinksData = [(HMDPersonModel *)self personLinksData];
   if (personLinksData)
   {
     v4 = MEMORY[0x277CCAAC8];
     v5 = MEMORY[0x277CBEB98];
-    v23[0] = objc_opt_class();
-    v23[1] = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v22[0] = objc_opt_class();
+    v22[1] = objc_opt_class();
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
     v7 = [v5 setWithArray:v6];
-    v18 = 0;
-    v8 = [v4 unarchivedObjectOfClasses:v7 fromData:personLinksData error:&v18];
-    v9 = v18;
+    v17 = 0;
+    v8 = [v4 unarchivedObjectOfClasses:v7 fromData:personLinksData error:&v17];
+    v9 = v17;
 
     if (v8)
     {
@@ -156,9 +152,9 @@ void __31__HMDPersonModel_hmbProperties__block_invoke()
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v20 = v15;
-        v21 = 2112;
-        v22 = v9;
+        v19 = v15;
+        v20 = 2112;
+        v21 = v9;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode person links: %@", buf, 0x16u);
       }
 
@@ -173,8 +169,6 @@ void __31__HMDPersonModel_hmbProperties__block_invoke()
   {
     v11 = [MEMORY[0x277CBEB98] set];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

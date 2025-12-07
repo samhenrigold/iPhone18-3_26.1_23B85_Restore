@@ -449,11 +449,9 @@ uint64_t dynaBufAddString(uint64_t *a1, char *__s, int a3)
 
 uint64_t dynaBufAddInt(uint64_t *a1, int a2, int a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   __sprintf_chk(__s, 0, 0x14uLL, "%d", a2);
-  result = dynaBufAddString(a1, __s, a3);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return dynaBufAddString(a1, __s, a3);
 }
 
 uint64_t dynaBufAddDynaBuf(uint64_t *a1, void *a2, int a3)
@@ -1176,7 +1174,7 @@ const char *filenameModTime(const char *result)
   return result;
 }
 
-__darwin_time_t fileModTime(__darwin_time_t result)
+FILE *fileModTime(FILE *result)
 {
   if (result)
   {
@@ -1214,14 +1212,14 @@ uint64_t fileFindProgDir(uint64_t __s, char *a2)
 
     else
     {
-      __s = fileFindInPath();
+      __s = fileFindInPath(v2, a2, v4, v5, v6, v7, v8, v9);
       if (!__s)
       {
         return __s;
       }
 
-      v4 = strlen(a2);
-      a2[v4 - strlen(v2)] = 0;
+      v10 = strlen(a2);
+      a2[v10 - strlen(v2)] = 0;
     }
 
     return 1;
@@ -1230,53 +1228,50 @@ uint64_t fileFindProgDir(uint64_t __s, char *a2)
   return __s;
 }
 
-uint64_t fileFindInPath()
+uint64_t fileFindInPath(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = MEMORY[0x28223BE20]();
-  v14 = *MEMORY[0x277D85DE8];
-  if (!v0)
+  v8 = MEMORY[0x28223BE20](a1, a2, a3, a4, a5, a6, a7, a8);
+  v21 = *MEMORY[0x277D85DE8];
+  if (!v8)
   {
-    goto LABEL_12;
+    return 0;
   }
 
-  v2 = v0;
-  if (!*v0)
+  v10 = v8;
+  if (!*v8)
   {
-    goto LABEL_12;
+    return 0;
   }
 
-  v3 = v1;
-  if (fileExists(v0))
+  v11 = v9;
+  if (fileExists(v8))
   {
-    if (v3)
+    if (v11)
     {
-      strcpy(v3, v2);
+      strcpy(v11, v10);
     }
 
-    v4 = 1;
-    goto LABEL_13;
+    return 1;
   }
 
-  v5 = getenv("PATH");
-  if (!v5)
+  v13 = getenv("PATH");
+  if (!v13)
   {
-LABEL_12:
-    v4 = 0;
-    goto LABEL_13;
+    return 0;
   }
 
-  v6 = v5;
-  v7 = strlen(v5);
-  v8 = malloc_type_malloc(v7 + 1, 0x100004077774924uLL);
-  v9 = strcpy(v8, v6);
-  if (strtok(v9, ":"))
+  v14 = v13;
+  v15 = strlen(v13);
+  v16 = malloc_type_malloc(v15 + 1, 0x100004077774924uLL);
+  v17 = strcpy(v16, v14);
+  if (strtok(v17, ":"))
   {
     while (1)
     {
       __strcpy_chk();
-      v10 = &__s[strlen(__s)];
-      *v10 = 47;
-      strcpy(v10 + 1, v2);
+      v18 = &__s[strlen(__s)];
+      *v18 = 47;
+      strcpy(v18 + 1, v10);
       if (fileExists(__s))
       {
         break;
@@ -1288,27 +1283,25 @@ LABEL_12:
       }
     }
 
-    if (v3)
+    if (v11)
     {
-      strcpy(v3, __s);
+      strcpy(v11, __s);
     }
 
-    v4 = 1;
+    v12 = 1;
   }
 
   else
   {
 LABEL_11:
-    v4 = 0;
+    v12 = 0;
   }
 
-  free(v8);
-LABEL_13:
-  v11 = *MEMORY[0x277D85DE8];
-  return v4;
+  free(v16);
+  return v12;
 }
 
-void *hashNew(int a1, char a2, int a3)
+void *hashNew(unsigned int a1, char a2, int a3)
 {
   v6 = malloc_type_malloc(0x18uLL, 0x10A0040E78F1B74uLL);
   v7 = v6;
@@ -1402,18 +1395,18 @@ uint64_t hashDelete(void *a1, int a2, int a3)
   return 0;
 }
 
-uint64_t hashInsertInt(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t hashInsertInt(uint64_t a1, int a2, uint64_t a3)
 {
-  v6 = OUTLINED_FUNCTION_0_86(a1, a2);
-  v10 = v7 - v9 * v8;
-  v11 = *(*(v6 + 1) + 8 * v10);
+  OUTLINED_FUNCTION_0_86();
+  v9 = v6 - v8 * v7;
+  v11 = *(*(v10 + 8) + 8 * v9);
   result = OUTLINED_FUNCTION_1_79();
   if (result)
   {
     *result = a2;
     *(result + 8) = v11;
     *(result + 16) = a3;
-    *(*(a1 + 8) + 8 * v10) = result;
+    *(*(a1 + 8) + 8 * v9) = result;
     return 1;
   }
 
@@ -1439,19 +1432,19 @@ uint64_t hashLookupInt(uint64_t a1, unsigned int a2)
   return OUTLINED_FUNCTION_2_75(v3);
 }
 
-uint64_t hashDeleteInt(_DWORD *a1, unsigned int a2)
+uint64_t hashDeleteInt()
 {
-  v2 = OUTLINED_FUNCTION_0_86(a1, a2);
-  v8 = v5 - v7 * v6;
-  v9 = *(v2 + 1);
-  v10 = *(v9 + 8 * v8);
-  if (*v10 == v3)
+  OUTLINED_FUNCTION_0_86();
+  v5 = v2 - v4 * v3;
+  v7 = *(v6 + 8);
+  v8 = *(v7 + 8 * v5);
+  if (*v8 == v0)
   {
-    *(v9 + 8 * v8) = *(v10 + 1);
-    if (v4)
+    *(v7 + 8 * v5) = *(v8 + 1);
+    if (v1)
     {
 LABEL_3:
-      free(*(v10 + 2));
+      free(*(v8 + 2));
     }
   }
 
@@ -1459,23 +1452,23 @@ LABEL_3:
   {
     do
     {
-      v12 = v10;
-      v10 = *(v10 + 1);
-      if (!v10)
+      v10 = v8;
+      v8 = *(v8 + 1);
+      if (!v8)
       {
         return 0;
       }
     }
 
-    while (*v10 != v3);
-    v12[1] = *(v10 + 1);
-    if (v4)
+    while (*v8 != v0);
+    v10[1] = *(v8 + 1);
+    if (v1)
     {
       goto LABEL_3;
     }
   }
 
-  free(v10);
+  free(v8);
   return 1;
 }
 
@@ -1752,17 +1745,16 @@ void ESList::ESList(ESList *this, const ESList *a2)
   *(this + 2) = 0;
   *this = &unk_287EDB668;
   OUTLINED_FUNCTION_4_66();
-  v4 = (v3 + 8);
   while (1)
   {
-    OUTLINED_FUNCTION_12_56(v4);
-    if (!v5)
+    OUTLINED_FUNCTION_12_56();
+    if (!v3)
     {
       break;
     }
 
-    OUTLINED_FUNCTION_6_65(v5);
-    (*(v6 + 48))(this);
+    OUTLINED_FUNCTION_6_65();
+    (*(v4 + 48))(this);
     OUTLINED_FUNCTION_11_57();
   }
 }
@@ -1780,21 +1772,20 @@ uint64_t ESListIter::operator++(uint64_t a1)
   return v1;
 }
 
-EList *ESList::operator=(EList *a1, uint64_t a2)
+EList *ESList::operator=(EList *a1)
 {
   EList::reset(a1);
   OUTLINED_FUNCTION_4_66();
-  v4 = (a2 + 8);
   while (1)
   {
-    OUTLINED_FUNCTION_12_56(v4);
-    if (!v5)
+    OUTLINED_FUNCTION_12_56();
+    if (!v2)
     {
       break;
     }
 
-    OUTLINED_FUNCTION_6_65(v5);
-    (*(v6 + 48))(a1);
+    OUTLINED_FUNCTION_6_65();
+    (*(v3 + 48))(a1);
     OUTLINED_FUNCTION_11_57();
   }
 
@@ -1825,17 +1816,17 @@ uint64_t ESList::addToTail(ESList *this, ESList *a2)
   return 1;
 }
 
-uint64_t ESList::addAfter(uint64_t a1, uint64_t a2)
+uint64_t ESList::addAfter()
 {
-  OUTLINED_FUNCTION_9_61(a1, a2);
-  if (v3 != v2[2])
+  OUTLINED_FUNCTION_9_61();
+  if (v1 != v0[2])
   {
     OUTLINED_FUNCTION_5_66();
   }
 
-  v4 = *(*v2 + 48);
+  v2 = *(*v0 + 48);
 
-  return v4();
+  return v2();
 }
 
 void ESList::removeHead(ESList *this)
@@ -1875,17 +1866,16 @@ void EDList::EDList(EDList *this, const EDList *a2)
   *(this + 2) = 0;
   *this = &unk_287EDB6D8;
   OUTLINED_FUNCTION_3_70();
-  v4 = (v3 + 8);
   while (1)
   {
-    OUTLINED_FUNCTION_12_56(v4);
-    if (!v5)
+    OUTLINED_FUNCTION_12_56();
+    if (!v3)
     {
       break;
     }
 
-    OUTLINED_FUNCTION_6_65(v5);
-    (*(v6 + 48))(this);
+    OUTLINED_FUNCTION_6_65();
+    (*(v4 + 48))(this);
     OUTLINED_FUNCTION_11_57();
   }
 }
@@ -1903,51 +1893,50 @@ uint64_t EDListIter::operator++(uint64_t a1)
   return v1;
 }
 
-EList *EDList::operator=(EList *a1, uint64_t a2)
+EList *EDList::operator=(EList *a1)
 {
   EList::reset(a1);
   OUTLINED_FUNCTION_3_70();
-  v4 = (a2 + 8);
   while (1)
   {
-    OUTLINED_FUNCTION_12_56(v4);
-    if (!v5)
+    OUTLINED_FUNCTION_12_56();
+    if (!v2)
     {
       break;
     }
 
-    OUTLINED_FUNCTION_6_65(v5);
-    (*(v6 + 48))(a1);
+    OUTLINED_FUNCTION_6_65();
+    (*(v3 + 48))(a1);
     OUTLINED_FUNCTION_11_57();
   }
 
   return a1;
 }
 
-uint64_t EDList::addAfter(uint64_t a1, uint64_t a2)
+uint64_t EDList::addAfter()
 {
-  OUTLINED_FUNCTION_9_61(a1, a2);
-  if (v3 != v2[2])
+  OUTLINED_FUNCTION_9_61();
+  if (v1 != v0[2])
   {
     OUTLINED_FUNCTION_2_76();
   }
 
-  v4 = *(*v2 + 48);
+  v2 = *(*v0 + 48);
 
-  return v4();
+  return v2();
 }
 
-uint64_t EDList::addBefore(uint64_t a1, uint64_t a2)
+uint64_t EDList::addBefore()
 {
-  OUTLINED_FUNCTION_9_61(a1, a2);
-  if (v3 != v2[1])
+  OUTLINED_FUNCTION_9_61();
+  if (v1 != v0[1])
   {
     OUTLINED_FUNCTION_2_76();
   }
 
-  v4 = *(*v2 + 40);
+  v2 = *(*v0 + 40);
 
-  return v4();
+  return v2();
 }
 
 void EDList::removeHead(EDList *this)
@@ -2068,13 +2057,6 @@ void OUTLINED_FUNCTION_5_66()
   operator new();
 }
 
-void OUTLINED_FUNCTION_6_65(uint64_t *a1@<X8>)
-{
-  v2 = *a1;
-  v3 = a1[1];
-  v4 = *v1;
-}
-
 void OUTLINED_FUNCTION_10_59()
 {
 
@@ -2110,7 +2092,7 @@ uint64_t IndexQueue::reduceLeadTime(IndexQueue *this, unint64_t a2)
 
 uint64_t IndexQueue::reduceLeadTime(IndexQueue *this)
 {
-  v2 = *((*(*this + 24))(this) + 8);
+  (*(*this + 24))(this);
   *((*(*this + 24))(this) + 8) = 0;
   return OUTLINED_FUNCTION_0_88();
 }
@@ -2130,7 +2112,7 @@ uint64_t IndexQueue::increaseLeadTime(IndexQueue *this, uint64_t a2)
 
 void IndexQueue::remove(IndexQueue *this)
 {
-  v2 = *(*(*this + 24))(this);
+  (*(*this + 24))(this);
   *(this + 3) -= *((*(*this + 24))(this) + 8);
   ESList::removeHead(this);
 }
@@ -2169,7 +2151,6 @@ void IniFileWriter::readFileIntoMemory(IniFileWriter *this, const char *a2)
   {
     MEMORY[0x2743799F0](v5, v2);
     *(this + 514) = 0;
-    v6 = *(this + 516);
   }
 
   operator new[]();
@@ -2581,24 +2562,20 @@ uint64_t vcmdinit(uint64_t a1)
     result = logicalFileAddPhysical(a1, **(a1 + 216), "null", (*(a1 + 216) + 240), 0, 0);
     if (result)
     {
-      v7 = *(*(a1 + 216) + 5);
-      v8 = OUTLINED_FUNCTION_0_91();
-      result = logicalFileAddPhysical(v8, v9, v10, v11, v12, 1);
+      v7 = OUTLINED_FUNCTION_0_91();
+      result = logicalFileAddPhysical(v7, v8, v9, v10, v11, 1);
       if (result)
       {
-        v13 = *(*(a1 + 216) + 1);
-        v14 = OUTLINED_FUNCTION_0_91();
-        result = logicalFileAddPhysical(v14, v15, v16, v17, v18, 0);
+        v12 = OUTLINED_FUNCTION_0_91();
+        result = logicalFileAddPhysical(v12, v13, v14, v15, v16, 0);
         if (result)
         {
-          v19 = *(*(a1 + 216) + 4);
-          v20 = OUTLINED_FUNCTION_0_91();
-          result = logicalFileAddPhysical(v20, v21, v22, v23, v24, 1);
+          v17 = OUTLINED_FUNCTION_0_91();
+          result = logicalFileAddPhysical(v17, v18, v19, v20, v21, 1);
           if (result)
           {
-            v25 = *(*(a1 + 216) + 2);
-            v26 = OUTLINED_FUNCTION_0_91();
-            result = logicalFileAddPhysical(v26, v27, v28, v29, v30, 1);
+            v22 = OUTLINED_FUNCTION_0_91();
+            result = logicalFileAddPhysical(v22, v23, v24, v25, v26, 1);
             if (result)
             {
               result = logicalFileOpen(a1, "pgmin", 0);
@@ -2906,7 +2883,7 @@ void logicalIOCleanup(uint64_t a1)
 
 void vfundef_lf(uint64_t a1, int a2)
 {
-  OUTLINED_FUNCTION_3_72(a1);
+  OUTLINED_FUNCTION_3_72();
   v4 = a2;
   v6 = *(v5 + (a2 << 6) + 40);
   if (v6)
@@ -2998,9 +2975,9 @@ BOOL vf_eof(uint64_t a1, int a2)
   return !v3 || (*(v3 + 56))(v3 + 8) != 0;
 }
 
-uint64_t vfstat(uint64_t a1, int a2)
+uint64_t vfstat(uint64_t a1, uint64_t a2)
 {
-  if (a2 < 0)
+  if ((a2 & 0x80000000) != 0)
   {
     return 0;
   }
@@ -3017,116 +2994,144 @@ uint64_t vfstat(uint64_t a1, int a2)
     return 0;
   }
 
-  *(v3 + 20);
-  v5 = OUTLINED_FUNCTION_4_68();
-  result = vf_printf(v5, v6, 1, v7, v8, v9, v10, v11, v3);
-  if (result)
+  v4 = *(v3 + 20);
+  if (v4 == 2)
   {
-    v12 = (v3 + 24);
-    if (*(v3 + 24))
+    *(v38 + 3) = 7632240;
+    v5 = 1886680431;
+  }
+
+  else if (v4 == 1)
+  {
+    LOWORD(v38[1]) = 116;
+    v5 = 1970302569;
+  }
+
+  else
+  {
+    if (v4)
     {
-      v13 = OUTLINED_FUNCTION_4_68();
-      result = vf_puts(v13, v14, v15, 1);
-      if (!result)
-      {
-        return result;
-      }
-
-      v16 = (v3 + 24);
-      while (1)
-      {
-        v17 = *v16;
-        if (!v17)
-        {
-          break;
-        }
-
-        v18 = *v17;
-        v16 = (v17 + 9);
-        v19 = OUTLINED_FUNCTION_4_68();
-        v25 = vf_printf(v19, v20, 1, "      %.70s\n", v21, v22, v23, v24, v18);
-        result = 0;
-        if (!v25)
-        {
-          return result;
-        }
-      }
+      goto LABEL_14;
     }
 
-    v27 = *(v3 + 40);
-    v26 = (v3 + 40);
-    if (v27)
+    *(v38 + 3) = 6579571;
+    v5 = 1936682083;
+  }
+
+  v38[0] = v5;
+LABEL_14:
+  v7 = OUTLINED_FUNCTION_4_68();
+  result = vf_printf(v7, v8, 1, v9, v3, v38);
+  if (!result)
+  {
+    return result;
+  }
+
+  v10 = (v3 + 24);
+  if (*(v3 + 24))
+  {
+    v11 = OUTLINED_FUNCTION_4_68();
+    result = vf_puts(v11, v12, v13, 1);
+    if (!result)
     {
-      v28 = OUTLINED_FUNCTION_4_68();
-      result = vf_puts(v28, v29, v30, 0);
-      if (!result)
+      return result;
+    }
+
+    v14 = (v3 + 24);
+    while (1)
+    {
+      v15 = *v14;
+      if (!v15)
+      {
+        break;
+      }
+
+      v16 = *v15;
+      v14 = (v15 + 9);
+      v17 = OUTLINED_FUNCTION_4_68();
+      v19 = vf_printf(v17, v18, 1, "      %.70s\n", v16);
+      result = 0;
+      if (!v19)
       {
         return result;
       }
+    }
+  }
 
-      v31 = v26;
-      while (1)
+  v21 = *(v3 + 40);
+  v20 = (v3 + 40);
+  if (v21)
+  {
+    v22 = OUTLINED_FUNCTION_4_68();
+    result = vf_puts(v22, v23, v24, 0);
+    if (!result)
+    {
+      return result;
+    }
+
+    v25 = v20;
+    while (1)
+    {
+      v26 = *v25;
+      if (!*v25)
       {
-        v32 = *v31;
-        if (!*v31)
-        {
-          break;
-        }
+        break;
+      }
 
-        v47 = **(v32 + 8);
-        v33 = OUTLINED_FUNCTION_4_68();
-        result = vf_printf(v33, v34, 0, "      %.70s", v35, v36, v37, v38, v47);
-        if (result)
+      v37 = **(v26 + 8);
+      v27 = OUTLINED_FUNCTION_4_68();
+      result = vf_printf(v27, v28, 0, "      %.70s", v37);
+      if (result)
+      {
+        if (*v26 != 1 || (v29 = OUTLINED_FUNCTION_4_68(), result = vf_puts(v29, v30, " (+)", 1), result))
         {
-          if (*v32 != 1 || (v39 = OUTLINED_FUNCTION_4_68(), result = vf_puts(v39, v40, " (+)", 1), result))
+          v31 = OUTLINED_FUNCTION_4_68();
+          v33 = vf_puts(v31, v32, "\n", 1);
+          result = 0;
+          v25 = (v26 + 16);
+          if (v33)
           {
-            v41 = OUTLINED_FUNCTION_4_68();
-            v43 = vf_puts(v41, v42, "\n", 1);
-            result = 0;
-            v31 = (v32 + 16);
-            if (v43)
-            {
-              continue;
-            }
+            continue;
           }
         }
-
-        return result;
       }
-    }
 
-    if (*v12)
-    {
-      return 1;
+      return result;
     }
+  }
 
-    if (*v26)
-    {
-      return 1;
-    }
+  if (*v10)
+  {
+    return 1;
+  }
 
-    v44 = OUTLINED_FUNCTION_4_68();
-    result = vf_puts(v44, v45, v46, 1);
-    if (result)
-    {
-      return 1;
-    }
+  if (*v20)
+  {
+    return 1;
+  }
+
+  v34 = OUTLINED_FUNCTION_4_68();
+  result = vf_puts(v34, v35, v36, 1);
+  if (result)
+  {
+    return 1;
   }
 
   return result;
 }
 
-uint64_t vf_printf(uint64_t a1, int a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t vf_printf(uint64_t a1, int a2, uint64_t a3, const char *a4, ...)
 {
-  v12 = *(a1 + 216);
-  v13 = a2;
-  v14 = *(v12 + 8) + (a2 << 6);
-  if (!*(v14 + 20) && !*(v14 + 56))
+  va_start(va, a4);
+  v7 = *(a1 + 216);
+  v8 = a2;
+  v9 = *(v7 + 8) + (a2 << 6);
+  if (!*(v9 + 20) && !*(v9 + 56))
   {
-    (*(v12 + 32))(a1, "LFILE", "Logical file %s is not open for output", v14);
-    v21 = 0;
-    *(*(*(a1 + 216) + 8) + (v13 << 6) + 56) = 1;
-    return v21;
+    (*(v7 + 32))(a1, "LFILE", "Logical file %s is not open for output", v9);
+    v16 = 0;
+    *(*(*(a1 + 216) + 8) + (v8 << 6) + 56) = 1;
+    return v16;
   }
 
   if (!a4)
@@ -3135,37 +3140,37 @@ uint64_t vf_printf(uint64_t a1, int a2, uint64_t a3, const char *a4, uint64_t a5
   }
 
   OUTLINED_FUNCTION_2_78();
-  v16 = malloc_type_malloc(0x200uLL, v15);
-  if (v16)
+  v11 = malloc_type_malloc(0x200uLL, v10);
+  if (v11)
   {
-    v17 = v16;
-    __vsprintf_chk(v16, 0, 0x200uLL, a4, &a9);
-    for (i = (*(*(a1 + 216) + 8) + (v13 << 6) + 40); ; i = (v19 + 16))
+    v12 = v11;
+    __vsprintf_chk(v11, 0, 0x200uLL, a4, va);
+    for (i = (*(*(a1 + 216) + 8) + (v8 << 6) + 40); ; i = (v14 + 16))
     {
-      v19 = *i;
+      v14 = *i;
       if (!*i)
       {
         break;
       }
 
-      v20 = *(v19 + 8);
-      if (v20)
+      v15 = *(v14 + 8);
+      if (v15)
       {
-        if (!(*(v20 + 56))(v20 + 16, v17, a3))
+        if (!(*(v15 + 56))(v15 + 16, v12, a3))
         {
           break;
         }
       }
     }
 
-    v21 = v19 == 0;
-    free(v17);
-    return v21;
+    v16 = v14 == 0;
+    free(v12);
+    return v16;
   }
 
-  v22 = *(*(a1 + 216) + 32);
+  v17 = *(*(a1 + 216) + 32);
 
-  return v22(a1, "Logical I/O", "Out of memory (LOGIO:1)");
+  return v17(a1, "Logical I/O", "Out of memory (LOGIO:1)");
 }
 
 uint64_t vf_puts(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
@@ -3199,7 +3204,6 @@ uint64_t vf_puts(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 
   else
   {
-    v14 = *(v6 + 8) + (a2 << 6);
     (*(v6 + 32))(a1);
     result = 0;
     *(*(*(a1 + 216) + 8) + (v7 << 6) + 56) = 1;
@@ -3258,11 +3262,6 @@ uint64_t logicalFileOpen(uint64_t a1, char *a2, int a3)
     if (!a3 && v10 == 2)
     {
       v11 = *(v8 + 32);
-      if ((v6 & 0x80000000) == 0)
-      {
-        *(v8 + 16);
-      }
-
       v22 = "The file %s is currently opened for OUTPUT";
       return v11(a1, "LFILE OPEN", v22);
     }
@@ -3270,11 +3269,6 @@ uint64_t logicalFileOpen(uint64_t a1, char *a2, int a3)
     if (a3 == 1 && v10 == 1)
     {
       v11 = *(v8 + 32);
-      if ((v6 & 0x80000000) == 0)
-      {
-        *(v8 + 16);
-      }
-
       v22 = "The file %s is currently opened for INPUT";
       return v11(a1, "LFILE OPEN", v22);
     }
@@ -3286,9 +3280,9 @@ uint64_t logicalFileOpen(uint64_t a1, char *a2, int a3)
   {
     if (a3)
     {
-LABEL_23:
+LABEL_21:
       v16 = 0;
-LABEL_24:
+LABEL_22:
       v17 = (v9 + 40);
       while (1)
       {
@@ -3351,7 +3345,7 @@ LABEL_24:
     if (openInputFile(a1, v15, v7))
     {
       v16 = 1;
-      goto LABEL_24;
+      goto LABEL_22;
     }
 
     return 0;
@@ -3359,7 +3353,7 @@ LABEL_24:
 
   if (*(v9 + 40) || assignOutputFile(a1, v9, v6, (v8 + 48), 0, a3 != 1))
   {
-    goto LABEL_23;
+    goto LABEL_21;
   }
 
   OUTLINED_FUNCTION_5_68();
@@ -3367,13 +3361,15 @@ LABEL_24:
   return v12(a1, "LFILE OPEN", v13);
 }
 
-uint64_t assignOutputFile(uint64_t a1, char *a2, int a3, _OWORD *a4, uint64_t a5, int a6)
+uint64_t assignOutputFile(uint64_t a1, char *a2, uint64_t a3, _OWORD *a4, char *a5, uint64_t a6)
 {
+  v6 = a6;
+  v9 = a3;
   result = findOutputFile(a1, a2);
   if (result)
   {
     v13 = result;
-    if (findOutputElement(a1, a3, result))
+    if (findOutputElement(a1, v9, result))
     {
       return 1;
     }
@@ -3430,19 +3426,19 @@ uint64_t assignOutputFile(uint64_t a1, char *a2, int a3, _OWORD *a4, uint64_t a5
   result = malloc_type_malloc(0x18uLL, 0x1020040F89CB87BuLL);
   if (result)
   {
-    *result = a6;
-    v22 = v21 + (a3 << 6);
+    *result = v6;
+    v22 = v21 + (v9 << 6);
     v23 = *(v22 + 40);
     *(v22 + 40) = result;
     *(result + 8) = v13;
     *(result + 16) = v23;
     ++*(v13 + 3);
-    if (!*(*(*(a1 + 216) + 8) + (a3 << 6) + 20))
+    if (!*(*(*(a1 + 216) + 8) + (v9 << 6) + 20))
     {
       return 1;
     }
 
-    return openOutputFile(a1, v13, a6);
+    return openOutputFile(a1, v13, v6);
   }
 
   return result;
@@ -3554,41 +3550,41 @@ uint64_t openOutputFile(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-void vfclose_lf(uint64_t a1)
+void vfclose_lf()
 {
-  OUTLINED_FUNCTION_3_72(a1);
-  v2 = v1;
-  v4 = *(v3 + (v1 << 6) + 40);
-  while (v4)
+  OUTLINED_FUNCTION_3_72();
+  v1 = v0;
+  v3 = *(v2 + (v0 << 6) + 40);
+  while (v3)
   {
-    v5 = *(v4 + 8);
-    v6 = *(v4 + 16);
-    v4 = v6;
-    v7 = *(v5 + 8) - 1;
-    *(v5 + 8) = v7;
-    if (!v7)
+    v4 = *(v3 + 8);
+    v5 = *(v3 + 16);
+    v3 = v5;
+    v6 = *(v4 + 8) - 1;
+    *(v4 + 8) = v6;
+    if (!v6)
     {
-      (*(v5 + 72))(v5 + 16);
-      v4 = v6;
+      (*(v4 + 72))(v4 + 16);
+      v3 = v5;
     }
   }
 
   OUTLINED_FUNCTION_1_83();
-  for (i = (v8 + (v2 << 6) + 24); ; i = (v10 + 72))
+  for (i = (v7 + (v1 << 6) + 24); ; i = (v9 + 72))
   {
-    v10 = *i;
+    v9 = *i;
     if (!*i)
     {
       break;
     }
 
-    (*(v10 + 64))(v10 + 8);
+    (*(v9 + 64))(v9 + 8);
   }
 
   OUTLINED_FUNCTION_1_83();
-  v12 = v11 + (v2 << 6);
-  *(v12 + 20) = 0;
-  *(v12 + 32) = 0;
+  v11 = v10 + (v1 << 6);
+  *(v11 + 20) = 0;
+  *(v11 + 32) = 0;
 }
 
 uint64_t vf_gets(uint64_t a1, int a2, uint64_t a3)
@@ -3661,7 +3657,7 @@ uint64_t vf_gets(uint64_t a1, int a2, uint64_t a3)
 
 uint64_t vf_getc(uint64_t a1, int a2)
 {
-  OUTLINED_FUNCTION_3_72(a1);
+  OUTLINED_FUNCTION_3_72();
   if (!dynaBufAtEnd(*(v4 + (a2 << 6) + 48)))
   {
     goto LABEL_4;
@@ -3679,22 +3675,22 @@ LABEL_4:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t vf_ungetc(uint64_t a1)
+uint64_t vf_ungetc()
 {
-  OUTLINED_FUNCTION_3_72(a1);
-  v2 = v1;
-  result = dynaBufMoveRel(*(v3 + (v1 << 6) + 48), 0);
+  OUTLINED_FUNCTION_3_72();
+  v1 = v0;
+  result = dynaBufMoveRel(*(v2 + (v0 << 6) + 48), 0);
   if (result)
   {
     OUTLINED_FUNCTION_1_83();
-    dynaBufMoveRel(*(v5 + (v2 << 6) + 48), 0xFFFFFFFF);
+    dynaBufMoveRel(*(v4 + (v1 << 6) + 48), 0xFFFFFFFF);
     return 1;
   }
 
   return result;
 }
 
-uint64_t logicalFileAddPhysical(uint64_t a1, int a2, char *a3, _OWORD *a4, uint64_t a5, int a6)
+uint64_t logicalFileAddPhysical(uint64_t a1, uint64_t a2, char *a3, _OWORD *a4, char *a5, int a6)
 {
   if (a6)
   {
@@ -3707,19 +3703,20 @@ uint64_t logicalFileAddPhysical(uint64_t a1, int a2, char *a3, _OWORD *a4, uint6
   }
 }
 
-uint64_t logicalFileRemovePhysical(uint64_t a1, int a2, char *__s2, int a4)
+uint64_t logicalFileRemovePhysical(uint64_t a1, uint64_t a2, char *__s2, int a4)
 {
   if (!__s2)
   {
     return 0;
   }
 
+  v5 = a2;
   if (a4)
   {
     if (findInputFile(a1, __s2, a2))
     {
       v7 = OUTLINED_FUNCTION_7_64();
-      removeInputFile(v7, v8, a2);
+      removeInputFile(v7, v8, v5);
       return 1;
     }
 
@@ -3736,10 +3733,10 @@ uint64_t logicalFileRemovePhysical(uint64_t a1, int a2, char *__s2, int a4)
       return v15(a1, "LFILE REMOVE", "The output physical file %s is not defined", __s2);
     }
 
-    if (findOutputElement(a1, a2, OutputFile))
+    if (findOutputElement(a1, v5, OutputFile))
     {
       v11 = OUTLINED_FUNCTION_7_64();
-      removeOutputElement(v11, v12, a2);
+      removeOutputElement(v11, v12, v5);
       return 1;
     }
 
@@ -3999,13 +3996,6 @@ const char **logicalFileFindPhysical(uint64_t a1, int a2, char *__s2, int a4, in
   return (InputFile != 0);
 }
 
-void OUTLINED_FUNCTION_6_66()
-{
-  v2 = *(v0 + 216);
-  v3 = *(v2 + 32);
-  v4 = *(v2 + 8) + (v1 << 6);
-}
-
 BOOL diskFileOpen(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   *a2 = a1;
@@ -4031,64 +4021,56 @@ BOOL diskFileOpen(uint64_t a1, uint64_t a2, unsigned int a3)
 
 uint64_t diskFileRead(uint64_t a1, uint64_t *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 16);
-  if (v3 && !feof(v3))
+  if (!v3 || feof(v3))
   {
-    while (!feof(*(a1 + 16)))
+    return 0;
+  }
+
+  while (!feof(*(a1 + 16)))
+  {
+    if (!fgets(__s, 64, *(a1 + 16)) && !feof(*(a1 + 16)) || !dynaBufAddString(a2, __s, 0))
     {
-      if (!fgets(__s, 64, *(a1 + 16)) && !feof(*(a1 + 16)) || !dynaBufAddString(a2, __s, 0))
-      {
-        goto LABEL_3;
-      }
-
-      v8 = dynaBufMoveRel(a2, 0xFFFFFFFF);
-      if (dynaBufCurrentChar(a2, 0) == 10)
-      {
-        v11 = dynaBufMoveRel(a2, 0xFFFFFFFF);
-        if (dynaBufCurrentChar(a2, 0) == 32)
-        {
-          if (v8 != v11)
-          {
-            v5 = 1;
-            v12 = OUTLINED_FUNCTION_2_79();
-            dynaBufMoveRel(v12, v13);
-            goto LABEL_4;
-          }
-        }
-
-        else
-        {
-          if (v8 != v11)
-          {
-            v14 = OUTLINED_FUNCTION_2_79();
-            dynaBufMoveRel(v14, v15);
-          }
-
-          dynaBufAddChar(a2, 32, 0);
-          v16 = OUTLINED_FUNCTION_1_84();
-          dynaBufAddChar(v16, v17, v18);
-        }
-
-        break;
-      }
-
-      v9 = OUTLINED_FUNCTION_2_79();
-      dynaBufMoveRel(v9, v10);
+      return 0;
     }
 
-    v5 = 1;
+    v7 = dynaBufMoveRel(a2, 0xFFFFFFFF);
+    if (dynaBufCurrentChar(a2, 0) == 10)
+    {
+      v10 = dynaBufMoveRel(a2, 0xFFFFFFFF);
+      if (dynaBufCurrentChar(a2, 0) == 32)
+      {
+        if (v7 != v10)
+        {
+          v5 = 1;
+          v11 = OUTLINED_FUNCTION_2_79();
+          dynaBufMoveRel(v11, v12);
+          return v5;
+        }
+      }
+
+      else
+      {
+        if (v7 != v10)
+        {
+          v13 = OUTLINED_FUNCTION_2_79();
+          dynaBufMoveRel(v13, v14);
+        }
+
+        dynaBufAddChar(a2, 32, 0);
+        v15 = OUTLINED_FUNCTION_1_84();
+        dynaBufAddChar(v15, v16, v17);
+      }
+
+      return 1;
+    }
+
+    v8 = OUTLINED_FUNCTION_2_79();
+    dynaBufMoveRel(v8, v9);
   }
 
-  else
-  {
-LABEL_3:
-    v5 = 0;
-  }
-
-LABEL_4:
-  v6 = *MEMORY[0x277D85DE8];
-  return v5;
+  return 1;
 }
 
 BOOL diskFileWrite(uint64_t a1, char *a2, int a3)

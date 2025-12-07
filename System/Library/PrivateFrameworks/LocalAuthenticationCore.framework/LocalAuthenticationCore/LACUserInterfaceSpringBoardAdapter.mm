@@ -1,6 +1,7 @@
 @interface LACUserInterfaceSpringBoardAdapter
 + (id)_targetPredicateWithAuditTokenData:(id)data;
 + (id)_targetPredicateWithLSApplicationInfoData:(id)data;
++ (id)activationContextWithAuditToken:(id)token isAuditTokenApplicationIdentity:(BOOL)identity isForSiri:(BOOL)siri;
 - (LACUserInterfaceSpringBoardAdapter)initWithBundleId:(id)id configurationId:(id)configurationId;
 - (id)_activationContextForRequest:(id)request;
 - (void)_finishWithError:(id)error;
@@ -50,7 +51,7 @@
 - (void)terminateWithReason:(id)reason
 {
   reasonCopy = reason;
-  v5 = LACLogUI();
+  v5 = LACLogUI(reasonCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [LACUserInterfaceSpringBoardAdapter terminateWithReason:];
@@ -63,7 +64,7 @@
 {
   v10 = *MEMORY[0x1E69E9840];
   activateCopy = activate;
-  v5 = LACLogUI();
+  v5 = LACLogUI(activateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
@@ -73,21 +74,19 @@
 
   if (self->_alertHandle != activateCopy)
   {
-    v6 = LACLogUI();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LACLogUI(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [LACUserInterfaceSpringBoardAdapter remoteAlertHandleDidActivate:];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
   v10 = *MEMORY[0x1E69E9840];
   deactivateCopy = deactivate;
-  v5 = LACLogUI();
+  v5 = LACLogUI(deactivateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
@@ -102,21 +101,19 @@
 
   else
   {
-    v6 = LACLogUI();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LACLogUI(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [LACUserInterfaceSpringBoardAdapter remoteAlertHandleDidActivate:];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteAlertHandle:(id)handle didInvalidateWithError:(id)error
 {
   v11 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
-  v6 = LACLogUI();
+  v6 = LACLogUI(handleCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315138;
@@ -131,14 +128,54 @@
 
   else
   {
-    v7 = LACLogUI();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = LACLogUI(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [LACUserInterfaceSpringBoardAdapter remoteAlertHandleDidActivate:];
     }
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
++ (id)activationContextWithAuditToken:(id)token isAuditTokenApplicationIdentity:(BOOL)identity isForSiri:(BOOL)siri
+{
+  siriCopy = siri;
+  tokenCopy = token;
+  v9 = objc_opt_new();
+  [v9 setActivatingForSiri:siriCopy];
+  if (tokenCopy)
+  {
+    if (identity)
+    {
+      [self _targetPredicateWithLSApplicationInfoData:tokenCopy];
+    }
+
+    else
+    {
+      [self _targetPredicateWithAuditTokenData:tokenCopy];
+    }
+    v10 = ;
+    v11 = [objc_alloc(MEMORY[0x1E69D42C8]) initWithTargetPredicate:v10];
+    [v11 setShouldDismissOnUILock:1];
+    if (objc_opt_class())
+    {
+      v12 = +[LACMobileGestalt isIdiomPad];
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    [v11 setRequiresFullscreenPresentation:v12];
+    [v9 setPresentationTarget:v11];
+  }
+
+  if (LACUserInterfaceSupportedOrientations() == 2)
+  {
+    [v9 setInitialSupportedInterfaceOrientations:2];
+  }
+
+  return v9;
 }
 
 + (id)_targetPredicateWithAuditTokenData:(id)data
@@ -169,27 +206,28 @@
 {
   v3 = MEMORY[0x1E696ACD0];
   dataCopy = data;
-  v10 = 0;
-  v5 = [v3 unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v10];
+  v11 = 0;
+  v5 = [v3 unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v11];
 
-  v6 = v10;
+  v6 = v11;
+  v7 = v6;
   if (v5)
   {
-    v7 = [MEMORY[0x1E69D42D0] predicateForLaunchingApplicationIdentity:v5];
+    v8 = [MEMORY[0x1E69D42D0] predicateForLaunchingApplicationIdentity:v5];
   }
 
   else
   {
-    v8 = LACLogUI();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = LACLogUI(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       +[LACUserInterfaceSpringBoardAdapter _targetPredicateWithLSApplicationInfoData:];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)_activationContextForRequest:(id)request
@@ -273,7 +311,7 @@ id __65__LACUserInterfaceSpringBoardAdapter__processRequest_completion___block_i
 
   else
   {
-    v8 = LACLogDTOSensor();
+    v8 = LACLogDTOSensor(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [LACUserInterfaceSpringBoardAdapter _finishWithError:];
@@ -281,36 +319,11 @@ id __65__LACUserInterfaceSpringBoardAdapter__processRequest_completion___block_i
   }
 }
 
-- (void)terminateWithReason:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "Terminating user interface with reason: '%{public}@'", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)remoteAlertHandleDidActivate:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "Ignoring activation callback from unknown handle: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_targetPredicateWithLSApplicationInfoData:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "Failed to decode LSApplicationIdentity: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_finishWithError:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(&dword_1B0233000, v0, OS_LOG_TYPE_DEBUG, "Ignoring redundant finish request (%{public}@)", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B0233000, v0, OS_LOG_TYPE_DEBUG, "Ignoring redundant finish request (%{public}@)", v1, 0xCu);
 }
 
 @end

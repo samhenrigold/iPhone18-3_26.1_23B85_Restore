@@ -413,7 +413,6 @@ LABEL_14:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -433,7 +432,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  fzError = self->_fzError;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -448,7 +446,6 @@ LABEL_6:
   }
 
 LABEL_32:
-  messageError = self->_messageError;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -463,7 +460,6 @@ LABEL_7:
   }
 
 LABEL_33:
-  tokenError = self->_tokenError;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -478,7 +474,6 @@ LABEL_8:
   }
 
 LABEL_34:
-  genericError = self->_genericError;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -493,7 +488,6 @@ LABEL_9:
   }
 
 LABEL_35:
-  downloadDuration = self->_downloadDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -508,7 +502,6 @@ LABEL_10:
   }
 
 LABEL_36:
-  linkQuality = self->_linkQuality;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -523,7 +516,6 @@ LABEL_11:
   }
 
 LABEL_37:
-  connectionType = self->_connectionType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -538,12 +530,10 @@ LABEL_12:
   }
 
 LABEL_38:
-  attachmentSize = self->_attachmentSize;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_13:
-    firstLevelMMCSError = self->_firstLevelMMCSError;
     PBDataWriterWriteInt32Field();
   }
 
@@ -555,7 +545,6 @@ LABEL_14:
 
   if ((*&self->_has & 0x400) != 0)
   {
-    secondLevelMMCSError = self->_secondLevelMMCSError;
     PBDataWriterWriteInt32Field();
   }
 
@@ -566,7 +555,6 @@ LABEL_14:
 
   if ((*&self->_has & 0x800) != 0)
   {
-    thirdLevelMMCSError = self->_thirdLevelMMCSError;
     PBDataWriterWriteInt32Field();
   }
 
@@ -577,7 +565,6 @@ LABEL_14:
 
   if ((*&self->_has & 0x20) != 0)
   {
-    fourthLevelMMCSError = self->_fourthLevelMMCSError;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1096,7 +1083,6 @@ LABEL_80:
         has = self->_has;
       }
 
-      v10 = *(equal + 58);
       if ((has & 0x400) != 0)
       {
         if ((*(equal + 58) & 0x400) == 0 || self->_secondLevelMMCSError != *(equal + 20))
@@ -1122,7 +1108,6 @@ LABEL_80:
         has = self->_has;
       }
 
-      v12 = *(equal + 58);
       if ((has & 0x800) != 0)
       {
         if ((*(equal + 58) & 0x800) == 0 || self->_thirdLevelMMCSError != *(equal + 24))
@@ -1148,16 +1133,16 @@ LABEL_80:
         has = self->_has;
       }
 
-      v14 = *(equal + 58);
+      v12 = *(equal + 58);
       if ((has & 0x20) != 0)
       {
-        if ((v14 & 0x20) == 0 || self->_fourthLevelMMCSError != *(equal + 10))
+        if ((v12 & 0x20) == 0 || self->_fourthLevelMMCSError != *(equal + 10))
         {
           goto LABEL_80;
         }
       }
 
-      else if ((v14 & 0x20) != 0)
+      else if ((v12 & 0x20) != 0)
       {
         goto LABEL_80;
       }

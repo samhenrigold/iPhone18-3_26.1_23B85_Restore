@@ -103,7 +103,7 @@
               v10 = v38;
             }
 
-            if (v21 > 150.0 && [v15 isEqualToString:@"Undo"] && (UIKeyboardGetSafeDeviceIdiom() & 0xFFFFFFFFFFFFFFFBLL) != 1)
+            if (v21 > 150.0 && objc_msgSend_isEqualToString_(v15) && (UIKeyboardGetSafeDeviceIdiom() & 0xFFFFFFFFFFFFFFFBLL) != 1)
             {
               [v13 setString:&stru_1EFB14550];
               if ([(UIView *)self effectiveUserInterfaceLayoutDirection]== UIUserInterfaceLayoutDirectionRightToLeft)
@@ -169,7 +169,7 @@
   packageLayer = self->_packageLayer;
   if (packageLayer)
   {
-    [(CALayer *)packageLayer contentsTransform];
+    objc_msgSend_contentsTransform(packageLayer);
   }
 
   else

@@ -55,7 +55,7 @@
 {
   Hasher.init()();
   type metadata accessor for UUID();
-  sub_10006840C(&qword_1019FB870, &type metadata accessor for UUID);
+  sub_10006840C(&qword_1019FB870, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   selfCopy = self;
   dispatch thunk of Hashable.hash(into:)();
   v4 = Hasher.finalize()();
@@ -65,9 +65,9 @@
 
 - (BOOL)isSupported
 {
-  v5 = &type metadata for CRLFeatureFlags;
-  v6 = sub_100004D60();
-  v4[0] = 20;
+  v4[3] = &type metadata for CRLFeatureFlags;
+  v4[4] = sub_100004D60();
+  LOBYTE(v4[0]) = 20;
   v2 = isFeatureEnabled(_:)();
   sub_100005070(v4);
   return v2 & 1;
@@ -97,7 +97,7 @@
 - (CRLCanvasElementInfo)parentInfo
 {
   swift_getKeyPath();
-  sub_10006840C(&qword_101A02178, type metadata accessor for CRLSceneInfo);
+  sub_10006840C(&qword_101A02178, type metadata accessor for CRLSceneInfo, "1f;");
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
@@ -110,7 +110,7 @@
 - (void)setParentInfo:(id)info
 {
   swift_getKeyPath();
-  sub_10006840C(&qword_101A02178, type metadata accessor for CRLSceneInfo);
+  sub_10006840C(&qword_101A02178, type metadata accessor for CRLSceneInfo, "1f;");
   swift_unknownObjectRetain();
   selfCopy = self;
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
@@ -121,7 +121,7 @@
 - (Class)editorClass
 {
   swift_getKeyPath();
-  sub_10006840C(&qword_101A02178, type metadata accessor for CRLSceneInfo);
+  sub_10006840C(&qword_101A02178, type metadata accessor for CRLSceneInfo, "1f;");
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
@@ -147,7 +147,7 @@
 
   KeyPath = swift_getKeyPath();
   __chkstk_darwin(KeyPath);
-  sub_10006840C(&qword_101A02178, type metadata accessor for CRLSceneInfo);
+  sub_10006840C(&qword_101A02178, type metadata accessor for CRLSceneInfo, "1f;");
   selfCopy = self;
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 }

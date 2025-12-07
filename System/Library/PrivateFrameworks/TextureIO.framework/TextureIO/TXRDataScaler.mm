@@ -29,18 +29,17 @@
 
 + (id)newImageFromSourceImage:(id)image scaledDimensions:(id)dimensions bufferAllocattor:(unint64_t)allocattor filter:(id *)filter error:
 {
-  v23 = v6;
+  v22 = v6;
   imageCopy = image;
   dimensionsCopy = dimensions;
   [imageCopy dimensions];
   v13 = v12;
-  v14 = v23;
-  if (v13 >= v23.n128_u32[0] && ([imageCopy dimensions], v16 = v15, v14 = v23, v16 >= v23.n128_u32[1]))
+  v14 = *&v22;
+  if (v13 >= v22 && ([imageCopy dimensions], v16 = v15, v14 = *&v22, v16 >= DWORD1(v22)))
   {
     [imageCopy dimensions];
-    v19 = v18;
-    v14 = v23;
-    v17 = v19 < v23.n128_u32[2];
+    v14 = *&v22;
+    v17 = v18 < DWORD2(v22);
   }
 
   else
@@ -68,21 +67,21 @@
     if (filter)
     {
       _newTXRErrorWithCodeAndErrorString(0, @"Unsupported filter");
-      *filter = v21 = 0;
+      *filter = v20 = 0;
     }
 
     else
     {
-      v21 = 0;
+      v20 = 0;
     }
   }
 
   else
   {
-    v21 = newScaledImageWithLancosFilter(imageCopy, dimensionsCopy, allocattorCopy, filter, v14);
+    v20 = newScaledImageWithLancosFilter(imageCopy, dimensionsCopy, allocattorCopy, filter, v14);
   }
 
-  return v21;
+  return v20;
 }
 
 + (void)newImageFromSourceImage:(void *)a1 scaledDimensions:(void *)a2 bufferAllocattor:filter:error:.cold.1(void *a1, void *a2)

@@ -444,9 +444,9 @@ void __50__PKAssertionCoordinator_remoteServiceDidSuspend___block_invoke(uint64_
 
         v13 = *(*(&v16 + 1) + 8 * i);
         identifier = [v13 identifier];
-        v15 = [identifier isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-        if (v15)
+        if (isEqualToString)
         {
           [(NSHashTable *)self->_acquiredAssertions removeObject:v13];
         }

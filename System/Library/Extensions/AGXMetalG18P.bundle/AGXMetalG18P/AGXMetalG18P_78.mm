@@ -5515,7 +5515,7 @@ uint64_t AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classe
             v15 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getOrCreatePipeline(v6, v12, 0);
             v37 = 32 * (((v13 - 1) >> v14) & 0x7FFFFFF);
             v38 = vdupq_n_s64(1uLL);
-            AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::executeKernelWithThreadsInternal(*(v6 + 16), *(v6 + 32), v15, &v37, &xmmword_29D2F5318);
+            AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::executeKernelWithThreadsInternal(*(v6 + 16), *(v6 + 32), v15, &v37, qword_29D2F5318);
             *(v10 - 8) = *(v10 - 16);
             *(v10 - 16) = v8 + *(a5 + 40);
             HIDWORD(v16) = v18;
@@ -5607,7 +5607,7 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
       *(&v17[1] + 1) = v11;
       v15 = 0u;
       v16 = 0u;
-      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodePrefixSum(a1, a3, v17, &v15);
+      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodePrefixSum(a1, a3, v17, &v15, v10);
       v12 = (*(*(a1 + 32) + 24) + *(*(a1 + 32) + 4));
       v12[9] = *a2;
       v12[10] = *a3;
@@ -6828,7 +6828,7 @@ LABEL_156:
               }
             }
 
-            AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourceCommon(v92, v90, v84, 1, 1);
+            AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourceCommon(v92, v90, 1, 1, v84);
           }
 
           {
@@ -7082,10 +7082,10 @@ LABEL_200:
   *(a7 + 168) = getForcedMatchLeafHeaders(AGX::BVHDescriptor const&)::forceMatchLeafHeaders | ((*(this + 15) & 0x1000) >> 12);
   v100 = *(a7 + 152);
   {
-    v44[2824] = 0;
+    *(v44 + 2824) = 0;
   }
 
-  v101 = v44[2824];
+  v101 = *(v44 + 2824);
   v102 = *(this + 7);
   {
     AGX::BVHDescriptor::isRefittable(void)const::forceBuildOnRefit = 0;
@@ -7177,11 +7177,11 @@ LABEL_200:
   else
   {
     {
-      v44[2824] = 0;
+      *(v44 + 2824) = 0;
     }
 
     v111 = &AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setBottomUpBVHBuildParams(MTLAccelerationStructureDescriptor *,AGX::BVHDescriptor const&,AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::BuilderBuffer const&,AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::BuilderBuffer const&,BVHSmallBuildParams &,AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::PLOCScratchInfo const&,AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::BuilderBuffer const&)::plocFastBuildSearchRadius;
-    if ((v44[2824] & 1) == 0 && (*(this + 28) & 2) == 0)
+    if ((v44[353] & 1) == 0 && (*(this + 28) & 2) == 0)
     {
       v111 = &AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::setBottomUpBVHBuildParams(MTLAccelerationStructureDescriptor *,AGX::BVHDescriptor const&,AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::BuilderBuffer const&,AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::BuilderBuffer const&,BVHSmallBuildParams &,AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::PLOCScratchInfo const&,AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::BuilderBuffer const&)::plocDefaultSearchRadius;
     }
@@ -7190,7 +7190,7 @@ LABEL_200:
   *(a7 + 52) = *v111;
 }
 
-unint64_t AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getBatchForCommand(void ***a1, int a2, void *a3, void *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, char a10)
+void **AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getBatchForCommand(id ***a1, int a2, void *a3, void *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, char a10)
 {
   v122 = *MEMORY[0x29EDCA608];
   v13 = a1[34];
@@ -7250,7 +7250,7 @@ unint64_t AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Class
       else
       {
         AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::DeferredBatch(v15, &v100);
-        v16 = v15 + 328;
+        v16 = v15 + 41;
       }
 
       a1[35] = v16;
@@ -7318,7 +7318,7 @@ LABEL_37:
 
     else
     {
-      v37 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::DeferredBatch(v36, &v100) + 328;
+      v37 = (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::DeferredBatch(v36, &v100) + 328);
     }
 
     a1[35] = v37;
@@ -7347,12 +7347,12 @@ LABEL_37:
       {
         v21 = 328 * v18 - 336;
         v22 = -1;
-        while ((AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v20, [objc_msgSend(a3 buffer], objc_msgSend(a3, "bufferOffset"), objc_msgSend(a3, "size")) & 1) == 0)
+        while (!AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v20, [objc_msgSend(a3 buffer], objc_msgSend(a3, "bufferOffset"), objc_msgSend(a3, "size")))
         {
           v23 = [objc_msgSend(a4 "buffer")];
           v24 = [a4 bufferOffset];
           v25 = [a4 size];
-          if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(v20, v23, v24, v25) & 1) != 0 || (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v20, v23, v24, v25))
+          if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(v20, v23, v24, v25) || AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v20, v23, v24, v25))
           {
             break;
           }
@@ -7403,7 +7403,7 @@ LABEL_37:
     v34 = a5;
     while (1)
     {
-      if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v32, [objc_msgSend(a3 buffer], objc_msgSend(a3, "bufferOffset"), objc_msgSend(a3, "size")) & 1) != 0 || (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(v32, v34, v91, v92) & 1) != 0 || (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v32, v34, v91, v92))
+      if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v32, [objc_msgSend(a3 buffer], objc_msgSend(a3, "bufferOffset"), objc_msgSend(a3, "size")) || AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(v32, v34, v91, v92) || AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v32, v34, v91, v92))
       {
         goto LABEL_35;
       }
@@ -7449,7 +7449,7 @@ LABEL_114:
       goto LABEL_35;
     }
 
-    if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v57, [objc_msgSend(a3 "buffer")], objc_msgSend(a3, "bufferOffset"), objc_msgSend(a3, "size")))
+    if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v57, [objc_msgSend(a3 buffer], objc_msgSend(a3, "bufferOffset"), objc_msgSend(a3, "size")))
     {
       goto LABEL_35;
     }
@@ -7457,7 +7457,7 @@ LABEL_114:
     v58 = [objc_msgSend(a4 "buffer")];
     v59 = [a4 bufferOffset];
     v60 = [a4 size];
-    if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(v57, v58, v59, v60) & 1) != 0 || (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v57, v58, v59, v60))
+    if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(v57, v58, v59, v60) || AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v57, v58, v59, v60))
     {
       goto LABEL_35;
     }
@@ -7773,7 +7773,7 @@ void sub_29CEA63E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v217[2] = *MEMORY[0x29EDCA608];
+  v218[2] = *MEMORY[0x29EDCA608];
   {
     AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::smallRefitSingleThreadgroupSize = 64;
   }
@@ -7794,8 +7794,8 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
     AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::skipSmallCoalescing = 1;
   }
 
-  v195 = a2;
-  v196 = a1;
+  v196 = a2;
+  v197 = a1;
   *__val = a3;
   {
     {
@@ -7812,16 +7812,16 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
     AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::verify = 0;
   }
 
+  v214 = 0;
   v213 = 0;
-  v212 = 0;
-  v209 = 0;
   v210 = 0;
   v211 = 0;
-  v208[0] = a1;
-  v208[1] = &v209;
-  v208[2] = &v213;
-  v208[3] = &v212;
-  AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(char const*)#1}::operator()(v208);
+  v212 = 0;
+  v209[0] = a1;
+  v209[1] = &v210;
+  v209[2] = &v214;
+  v209[3] = &v213;
+  AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(char const*)#1}::operator()(v209);
   if (a3 == 1)
   {
     AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit const&,BOOL)#1}::operator()(a1, a2, 0);
@@ -7829,25 +7829,25 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
   }
 
   v6 = *(a1 + 80);
-  v184 = (a1 + 80);
+  v185 = (a1 + 80);
   *(a1 + 64) = *(a1 + 56);
   *(a1 + 88) = v6;
-  v187 = a1 + 104;
+  v188 = a1 + 104;
   *(a1 + 112) = *(a1 + 104);
-  v179 = a1 + 128;
+  v180 = a1 + 128;
   v7 = *(a1 + 152);
-  v178 = a1 + 152;
+  v179 = a1 + 152;
   *(a1 + 136) = *(a1 + 128);
   *(a1 + 160) = v7;
-  v182 = a1 + 176;
-  v183 = (a1 + 56);
+  v183 = a1 + 176;
+  v184 = (a1 + 56);
   *(a1 + 184) = *(a1 + 176);
-  v190 = a1 + 200;
+  v191 = a1 + 200;
   v8 = *(a1 + 224);
   *(a1 + 208) = *(a1 + 200);
   *(a1 + 232) = v8;
-  v180 = a1 + 248;
-  v181 = a1 + 224;
+  v181 = a1 + 248;
+  v182 = a1 + 224;
   *(a1 + 256) = *(a1 + 248);
   if (!a3)
   {
@@ -7856,7 +7856,7 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
   }
 
   v9 = 0;
-  v186 = 0;
+  v187 = 0;
   v10 = 0;
   v11 = xmmword_29D2F1C70;
   do
@@ -7877,8 +7877,8 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
     if (*(a1 + 51) == 1)
     {
       v15 = *(v12 + 200);
-      *&v214[0] = v15;
-      *(&v214[0] + 1) = v14;
+      *&v215[0] = v15;
+      *(&v215[0] + 1) = v14;
       v16 = *(a1 + 16);
       if (v15 && *(v15 + *MEMORY[0x29EDC5638] + 16) >> 61 == 3)
       {
@@ -7916,8 +7916,8 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
         }
       }
 
-      AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(v16, v214, 2u, v11, 1, 1);
-      a1 = v196;
+      AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(v16, v215, 2u, 1, 1, v11);
+      a1 = v197;
     }
 
     v23 = *(v12 + 224);
@@ -7937,13 +7937,13 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
 LABEL_44:
       v28 = (v12 + 280);
 LABEL_47:
-      LODWORD(v214[0]) = AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::nextVirtualSubstream(*(a1 + 16));
-      std::vector<unsigned int>::push_back[abi:nn200100](v190, v214);
+      LODWORD(v215[0]) = AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::nextVirtualSubstream(*(a1 + 16));
+      std::vector<unsigned int>::push_back[abi:nn200100](v191, v215);
       if ((*v28 & 0x20) != 0)
       {
-        *&v214[0] = *(v12 + 200);
-        *v198 = *(v12 + 208);
-        AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeCopies(a1, v214, v198, 1uLL, v30);
+        *&v215[0] = *(v12 + 200);
+        *v199 = *(v12 + 208);
+        AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeCopies(a1, v215, v199, 1uLL, v30);
         v31 = *(a1 + 16);
         if (*(v31 + 2292) == 1)
         {
@@ -7988,11 +7988,11 @@ LABEL_47:
 LABEL_53:
     if ((v27 & 0x20) != 0)
     {
-      *&v214[0] = *(v12 + 200);
-      *v198 = *(v12 + 208);
-      std::vector<AGXG18PFamilyTexture *>::push_back[abi:nn200100](v181, v214);
-      std::vector<AGXG18PFamilyTexture *>::push_back[abi:nn200100](v180, v198);
-      ++v186;
+      *&v215[0] = *(v12 + 200);
+      *v199 = *(v12 + 208);
+      std::vector<AGXG18PFamilyTexture *>::push_back[abi:nn200100](v182, v215);
+      std::vector<AGXG18PFamilyTexture *>::push_back[abi:nn200100](v181, v199);
+      ++v187;
     }
 
 LABEL_55:
@@ -8001,14 +8001,14 @@ LABEL_55:
     v34 = [v32 gpuAddress];
     v35 = [v32 length];
     v36 = v34 + v33;
-    *&v214[0] = v34 + v33;
-    *(&v214[0] + 1) = v33;
-    v214[1] = v35;
+    *&v215[0] = v34 + v33;
+    *(&v215[0] + 1) = v33;
+    v215[1] = v35;
     v37 = *(v12 + 4);
     v38 = *(v12 + 18);
     if (*(v12 + 52) && (v38 & 0xFE) == 6 && (*(v12 + 15) & 1) != 0)
     {
-      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeCopyMotionTransforms(a1, v12, v214);
+      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeCopyMotionTransforms(a1, v12, v215);
       v38 = *(v12 + 18);
     }
 
@@ -8021,25 +8021,25 @@ LABEL_55:
         v41 = *(v23 + 56);
         if (v41)
         {
-          v185 = *(v12 + 36);
+          v186 = *(v12 + 36);
           v42 = *(*(a1 + 32) + 24) + *(*(a1 + 32) + 4);
           *(v42 + 40) = v36;
           *(v42 + 88) = v36 + 152;
-          memset(v198, 0, 24);
-          AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::allocateInline(v198, a1, 24, 0);
-          v44 = *&v198[8];
-          v43 = *v198;
-          **v198 = *(v12 + 248);
-          v43[1] = vrev64_s32(v185);
+          memset(v199, 0, 24);
+          AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::allocateInline(v199, a1, 24, 0);
+          v43 = *v199;
+          v44 = *&v199[8];
+          **v199 = *(v12 + 248);
+          v43[1] = vrev64_s32(v186);
           v43[2].i32[0] = v41;
           *(*(*(a1 + 32) + 24) + *(*(a1 + 32) + 4) + 96) = v44;
           Pipeline = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getOrCreatePipeline(a1, 128, 0);
-          *v198 = v40;
-          *&v198[8] = v41;
-          *&v198[16] = 1;
-          v206 = xmmword_29D2F1C70;
-          *&v207 = 1;
-          AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::executeKernelWithThreadsInternal(*(a1 + 16), *(a1 + 32), Pipeline, v198, &v206);
+          *v199 = v40;
+          *&v199[8] = v41;
+          *&v199[16] = 1;
+          v207 = xmmword_29D2F1C70;
+          *&v208 = 1;
+          AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::executeKernelWithThreadsInternal(*(a1 + 16), *(a1 + 32), Pipeline, v199, &v207);
           v38 = *(v12 + 18);
         }
       }
@@ -8047,45 +8047,45 @@ LABEL_55:
 
     if ((v38 - 8) <= 0xFFFFFFFD && (*v28 & 0x10) == 0)
     {
-      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeCopyPPD(a1, v12, v12 + 248, v214);
+      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeCopyPPD(a1, v12, v12 + 248, v215);
     }
 
     if ((v37 - 1) > 1)
     {
-      *v198 = v10;
-      std::vector<unsigned short>::push_back[abi:nn200100](v187, v198);
+      *v199 = v10;
+      std::vector<unsigned short>::push_back[abi:nn200100](v188, v199);
       v46 = *__val;
-      a2 = v195;
+      a2 = v196;
       if (*v28)
       {
-        *v198 = v10;
-        std::vector<unsigned short>::push_back[abi:nn200100](v182, v198);
+        *v199 = v10;
+        std::vector<unsigned short>::push_back[abi:nn200100](v183, v199);
       }
     }
 
     else if (*(v12 + 4) == 2)
     {
-      *v198 = v10;
-      std::vector<unsigned short>::push_back[abi:nn200100](v184, v198);
-      a2 = v195;
+      *v199 = v10;
+      std::vector<unsigned short>::push_back[abi:nn200100](v185, v199);
+      a2 = v196;
       v46 = *__val;
       if (*v28)
       {
-        *v198 = v10;
-        std::vector<unsigned short>::push_back[abi:nn200100](v178, v198);
+        *v199 = v10;
+        std::vector<unsigned short>::push_back[abi:nn200100](v179, v199);
       }
     }
 
     else
     {
-      *v198 = v10;
-      std::vector<unsigned short>::push_back[abi:nn200100](v183, v198);
-      a2 = v195;
+      *v199 = v10;
+      std::vector<unsigned short>::push_back[abi:nn200100](v184, v199);
+      a2 = v196;
       v46 = *__val;
       if (*v28)
       {
-        *v198 = v10;
-        std::vector<unsigned short>::push_back[abi:nn200100](v179, v198);
+        *v199 = v10;
+        std::vector<unsigned short>::push_back[abi:nn200100](v180, v199);
       }
     }
 
@@ -8094,14 +8094,14 @@ LABEL_55:
 
   while (v10 != v46);
   __vala = v9 - 1;
-  v47 = v186;
-  if (v186)
+  v47 = v187;
+  if (v187)
   {
     if (*(a1 + 200) == *(a1 + 208))
     {
-      LODWORD(v214[0]) = AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::nextVirtualSubstream(*(a1 + 16));
-      std::vector<unsigned int>::push_back[abi:nn200100](v190, v214);
-      v47 = v186;
+      LODWORD(v215[0]) = AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::nextVirtualSubstream(*(a1 + 16));
+      std::vector<unsigned int>::push_back[abi:nn200100](v191, v215);
+      v47 = v187;
     }
 
     AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeCopies(a1, *(a1 + 224), *(a1 + 248), v47, v11);
@@ -8111,12 +8111,12 @@ LABEL_81:
   if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::skipSmallCoalescing == 1)
   {
     v48 = *(a1 + 56);
-    v188 = *(a1 + 64);
-    if (v48 != v188)
+    v189 = *(a1 + 64);
+    if (v48 != v189)
     {
       do
       {
-        v191 = *v48;
+        v192 = *v48;
         AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::nextVirtualSubstream(*(a1 + 16));
         v49 = *(a1 + 200);
         v50 = *(a1 + 208);
@@ -8141,15 +8141,15 @@ LABEL_81:
             {
               v56 = *(v52 + 4976) != 0;
               v57 = *(v52 + 4980);
-              LODWORD(v214[0]) = 1;
-              agxaReserveCDMTokenSpace<AGX::HAL300::Encoders,AGX::HAL300::DataBufferAllocator>(34, v52 + 24, 24, 0, v56, v57, v214);
+              LODWORD(v215[0]) = 1;
+              agxaReserveCDMTokenSpace<AGX::HAL300::Encoders,AGX::HAL300::DataBufferAllocator>(34, v52 + 24, 24, 0, v56, v57, v215);
               ++*(v52 + 5660);
             }
 
             v58 = *(v52 + 4976) != 0;
             v59 = *(v52 + 4980);
-            LODWORD(v214[0]) = 1;
-            agxaReserveCDMTokenSpace<AGX::HAL300::Encoders,AGX::HAL300::DataBufferAllocator>(34, v52 + 24, 4, 0, v58, v59, v214);
+            LODWORD(v215[0]) = 1;
+            agxaReserveCDMTokenSpace<AGX::HAL300::Encoders,AGX::HAL300::DataBufferAllocator>(34, v52 + 24, 4, 0, v58, v59, v215);
             if (*(*(v52 + 1912) + 520))
             {
               v60 = *(v52 + 5640);
@@ -8214,7 +8214,7 @@ LABEL_218:
                   operator delete(v63);
                 }
 
-                a1 = v196;
+                a1 = v197;
               }
 
               *(v60 - 16) = v51;
@@ -8229,13 +8229,13 @@ LABEL_218:
           ++v49;
         }
 
-        a2 = v195;
-        AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit const&,BOOL)#1}::operator()(a1, v195 + 288 * v191, 1);
+        a2 = v196;
+        AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit const&,BOOL)#1}::operator()(a1, v196 + 288 * v192, 1);
         ++v48;
       }
 
-      while (v48 != v188);
-      v48 = *v183;
+      while (v48 != v189);
+      v48 = *v184;
     }
 
     *(a1 + 64) = v48;
@@ -8243,12 +8243,12 @@ LABEL_218:
   }
 
   v72 = *(a1 + 80);
-  v189 = *(a1 + 88);
-  if (v72 != v189)
+  v190 = *(a1 + 88);
+  if (v72 != v190)
   {
     do
     {
-      v192 = *v72;
+      v193 = *v72;
       AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::nextVirtualSubstream(*(a1 + 16));
       v74 = *(a1 + 200);
       v73 = *(a1 + 208);
@@ -8273,15 +8273,15 @@ LABEL_218:
           {
             v80 = *(v76 + 4976) != 0;
             v81 = *(v76 + 4980);
-            LODWORD(v214[0]) = 1;
-            agxaReserveCDMTokenSpace<AGX::HAL300::Encoders,AGX::HAL300::DataBufferAllocator>(34, v76 + 24, 24, 0, v80, v81, v214);
+            LODWORD(v215[0]) = 1;
+            agxaReserveCDMTokenSpace<AGX::HAL300::Encoders,AGX::HAL300::DataBufferAllocator>(34, v76 + 24, 24, 0, v80, v81, v215);
             ++*(v76 + 5660);
           }
 
           v82 = *(v76 + 4976) != 0;
           v83 = *(v76 + 4980);
-          LODWORD(v214[0]) = 1;
-          agxaReserveCDMTokenSpace<AGX::HAL300::Encoders,AGX::HAL300::DataBufferAllocator>(34, v76 + 24, 4, 0, v82, v83, v214);
+          LODWORD(v215[0]) = 1;
+          agxaReserveCDMTokenSpace<AGX::HAL300::Encoders,AGX::HAL300::DataBufferAllocator>(34, v76 + 24, 4, 0, v82, v83, v215);
           if (*(*(v76 + 1912) + 520))
           {
             v84 = *(v76 + 5640);
@@ -8348,7 +8348,7 @@ LABEL_219:
             }
 
             *(v84 - 16) = v75;
-            a1 = v196;
+            a1 = v197;
           }
 
           else
@@ -8360,13 +8360,13 @@ LABEL_219:
         ++v74;
       }
 
-      a2 = v195;
-      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit const&,BOOL)#1}::operator()(a1, v195 + 288 * v192, 1);
+      a2 = v196;
+      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit const&,BOOL)#1}::operator()(a1, v196 + 288 * v193, 1);
       ++v72;
     }
 
-    while (v72 != v189);
-    v72 = *v184;
+    while (v72 != v190);
+    v72 = *v185;
   }
 
   *(a1 + 88) = v72;
@@ -8378,18 +8378,18 @@ LABEL_219:
 
   else
   {
-    memset(v214, 0, sizeof(v214));
+    memset(v215, 0, sizeof(v215));
     v97 = *(a1 + 56);
     v98 = *(a1 + 64);
     if (v97 != v98)
     {
-      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::BuilderBufferForPrivateAllocation(v214, a1, 4 * (v98 - v97), 0);
+      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::BuilderBufferForPrivateAllocation(v215, a1, 4 * (v98 - v97), 0);
       v99 = *(a1 + 56);
       v100 = *(a1 + 64);
       v101 = v100 - v99;
       if (v100 != v99)
       {
-        v102 = *(&v214[0] + 1);
+        v102 = *(&v215[0] + 1);
         v103 = v101 >> 1;
         if (v103 <= 1)
         {
@@ -8407,22 +8407,22 @@ LABEL_219:
       }
     }
 
-    v96 = *&v214[0];
+    v96 = *&v215[0];
   }
 
-  v206 = 0u;
   v207 = 0u;
+  v208 = 0u;
   v105 = *(a1 + 104);
   v106 = *(a1 + 112);
   if (v105 != v106)
   {
-    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::BuilderBufferForPrivateAllocation(&v206, a1, 4 * (v106 - v105), 0);
+    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::BuilderBufferForPrivateAllocation(&v207, a1, 4 * (v106 - v105), 0);
     v107 = *(a1 + 104);
     v108 = *(a1 + 112);
     v109 = v108 - v107;
     if (v108 != v107)
     {
-      v110 = *(&v206 + 1);
+      v110 = *(&v207 + 1);
       v111 = v109 >> 1;
       if (v111 <= 1)
       {
@@ -8447,18 +8447,18 @@ LABEL_219:
 
   else
   {
-    memset(v214, 0, sizeof(v214));
+    memset(v215, 0, sizeof(v215));
     v114 = *(a1 + 128);
     v115 = *(a1 + 136);
     if (v114 != v115)
     {
-      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::BuilderBufferForPrivateAllocation(v214, a1, 4 * (v115 - v114), 0);
+      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::BuilderBufferForPrivateAllocation(v215, a1, 4 * (v115 - v114), 0);
       v116 = *(a1 + 128);
       v117 = *(a1 + 136);
       v118 = v117 - v116;
       if (v117 != v116)
       {
-        v119 = *(&v214[0] + 1);
+        v119 = *(&v215[0] + 1);
         v120 = v118 >> 1;
         if (v120 <= 1)
         {
@@ -8476,22 +8476,22 @@ LABEL_219:
       }
     }
 
-    v113 = *&v214[0];
+    v113 = *&v215[0];
   }
 
-  v204 = 0u;
   v205 = 0u;
+  v206 = 0u;
   v122 = *(a1 + 176);
   v123 = *(a1 + 184);
   if (v122 != v123)
   {
-    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::BuilderBufferForPrivateAllocation(&v204, a1, 4 * (v123 - v122), 0);
+    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::BuilderBufferForPrivateAllocation(&v205, a1, 4 * (v123 - v122), 0);
     v124 = *(a1 + 176);
     v125 = *(a1 + 184);
     v126 = v125 - v124;
     if (v125 != v124)
     {
-      v127 = *(&v204 + 1);
+      v127 = *(&v205 + 1);
       v128 = v126 >> 1;
       if (v128 <= 1)
       {
@@ -8523,73 +8523,73 @@ LABEL_219:
       {
         *(v130 + 4980) = 0;
         v131 = *(v130 + 4976) != 0;
-        LODWORD(v214[0]) = 0;
-        agxaReserveCDMTokenSpace<AGX::HAL300::Encoders,AGX::HAL300::DataBufferAllocator>(22, v130 + 24, 4, 0, v131, 0, v214);
+        LODWORD(v215[0]) = 0;
+        agxaReserveCDMTokenSpace<AGX::HAL300::Encoders,AGX::HAL300::DataBufferAllocator>(22, v130 + 24, 4, 0, v131, 0, v215);
         v132 = *(v130 + 776);
         *v132 = -1610612735;
         *(v130 + 776) = v132 + 1;
       }
     }
 
-    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(char const*)#1}::operator()(v208);
+    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(char const*)#1}::operator()(v209);
     AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::nextVirtualSubstream(*(a1 + 16));
     v133 = a1;
     v134 = *(a1 + 200);
     for (i = *(v133 + 208); v134 != i; ++v134)
     {
-      AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::waitForVirtualSubstream(*(v196 + 16), *v134);
+      AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::waitForVirtualSubstream(*(v197 + 16), *v134);
     }
 
-    v136 = v196;
-    v137 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getOrCreatePipeline(v196, 98, 256);
-    memset(v214, 0, 24);
-    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::allocateInline(v214, v196, 40, 0);
-    v138 = v214[0];
-    **&v214[0] = 0;
+    v136 = v197;
+    v137 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getOrCreatePipeline(v197, 98, 256);
+    memset(v215, 0, 24);
+    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::allocateInline(v215, v197, 40, 0);
+    v138 = v215[0];
+    **&v215[0] = 0;
     *(v138 + 8) = 0;
     v139 = (*(v136 + 64) - *(v136 + 56)) >> 1;
     *(v138 + 16) = v96;
     *(v138 + 24) = v139;
     *(v138 + 32) = v139;
-    *(*(*(v196 + 32) + 24) + *(*(v196 + 32) + 4) + 56) = *(&v138 + 1);
-    memset(v214, 0, 24);
-    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::allocateInline(v214, v196, 4, 0);
-    v140 = *(&v214[0] + 1);
-    **&v214[0] = 0;
-    v141 = *(v196 + 32);
+    *(*(*(v197 + 32) + 24) + *(*(v197 + 32) + 4) + 56) = *(&v138 + 1);
+    memset(v215, 0, 24);
+    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::allocateInline(v215, v197, 4, 0);
+    v140 = *(&v215[0] + 1);
+    **&v215[0] = 0;
+    v141 = *(v197 + 32);
     *(*(v141 + 24) + *(v141 + 4) + 88) = v140;
-    *&v214[0] = (*(v136 + 64) - *(v136 + 56)) >> 1;
-    *(v214 + 8) = vdupq_n_s64(1uLL);
-    *v198 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::smallRefitSingleThreadgroupSize;
-    *&v198[8] = *(v214 + 8);
-    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::executeKernelInternal(*(v196 + 16), v141, v137, v214, v198);
-    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::nextVirtualSubstream(*(v196 + 16));
-    v142 = *(v196 + 200);
-    for (j = *(v196 + 208); v142 != j; ++v142)
+    *&v215[0] = (*(v136 + 64) - *(v136 + 56)) >> 1;
+    *(v215 + 8) = vdupq_n_s64(1uLL);
+    *v199 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::smallRefitSingleThreadgroupSize;
+    *&v199[8] = *(v215 + 8);
+    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::executeKernelInternal(*(v197 + 16), v141, v137, v215, v199);
+    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::nextVirtualSubstream(*(v197 + 16));
+    v142 = *(v197 + 200);
+    for (j = *(v197 + 208); v142 != j; ++v142)
     {
-      AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::waitForVirtualSubstream(*(v196 + 16), *v142);
+      AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::waitForVirtualSubstream(*(v197 + 16), *v142);
     }
 
-    a1 = v196;
-    if (*(v196 + 128) != *(v196 + 136))
+    a1 = v197;
+    if (*(v197 + 128) != *(v197 + 136))
     {
-      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(char const*)#1}::operator()(v208);
-      memset(v214, 0, 24);
-      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::allocateInline(v214, v196, 40, 0);
-      v144 = v214[0];
-      **&v214[0] = 0;
+      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(char const*)#1}::operator()(v209);
+      memset(v215, 0, 24);
+      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::allocateInline(v215, v197, 40, 0);
+      v144 = v215[0];
+      **&v215[0] = 0;
       *(v144 + 8) = 0;
-      v145 = (*(v196 + 136) - *(v196 + 128)) >> 1;
+      v145 = (*(v197 + 136) - *(v197 + 128)) >> 1;
       *(v144 + 16) = v113;
       *(v144 + 24) = v145;
       *(v144 + 32) = v145;
-      *(*(*(v196 + 32) + 24) + *(*(v196 + 32) + 4) + 56) = *(&v144 + 1);
-      v146 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getOrCreatePipeline(v196, 100, 256);
-      *&v214[0] = (*(v196 + 136) - *(v196 + 128)) >> 1;
-      *(v214 + 8) = vdupq_n_s64(1uLL);
-      *v198 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::smallRefitQtbSingleThreadgroupSize;
-      *&v198[8] = *(v214 + 8);
-      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::executeKernelInternal(*(v196 + 16), *(v196 + 32), v146, v214, v198);
+      *(*(*(v197 + 32) + 24) + *(*(v197 + 32) + 4) + 56) = *(&v144 + 1);
+      v146 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getOrCreatePipeline(v197, 100, 256);
+      *&v215[0] = (*(v197 + 136) - *(v197 + 128)) >> 1;
+      *(v215 + 8) = vdupq_n_s64(1uLL);
+      *v199 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::smallRefitQtbSingleThreadgroupSize;
+      *&v199[8] = *(v215 + 8);
+      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::executeKernelInternal(*(v197 + 16), *(v197 + 32), v146, v215, v199);
     }
   }
 
@@ -8607,8 +8607,8 @@ LABEL_219:
       {
         *(v147 + 4980) = 1;
         v148 = *(v147 + 4976) != 0;
-        LODWORD(v214[0]) = 0;
-        agxaReserveCDMTokenSpace<AGX::HAL300::Encoders,AGX::HAL300::DataBufferAllocator>(22, v147 + 24, 4, 0, v148, 1, v214);
+        LODWORD(v215[0]) = 0;
+        agxaReserveCDMTokenSpace<AGX::HAL300::Encoders,AGX::HAL300::DataBufferAllocator>(22, v147 + 24, 4, 0, v148, 1, v215);
         v149 = *(v147 + 776);
         *v149 = -1610612734;
         *(v147 + 776) = v149 + 1;
@@ -8632,35 +8632,35 @@ LABEL_219:
     v153 = *(a1 + 200);
     for (k = *(v152 + 208); v153 != k; ++v153)
     {
-      AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::waitForVirtualSubstream(*(v196 + 16), *v153);
+      AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::waitForVirtualSubstream(*(v197 + 16), *v153);
     }
 
-    v155 = v196;
-    v217[0] = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getOrCreatePipeline(v196, 118, 256);
-    v156 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getOrCreatePipeline(v196, 116, 256);
-    v217[1] = v156;
-    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::BuilderBufferForPrivateAllocation(v203, v155, 2 * (*(v155 + 112) - *(v155 + 104)), 1);
-    *(&v214[0] + 1) = 0;
-    *&v215[8] = 0u;
-    LODWORD(v214[0]) = 1;
-    v214[1] = v206;
-    *v215 = v207;
-    *&v215[16] = (*(v155 + 112) - *(v155 + 104)) >> 1;
-    v216 = 0x2000000020;
+    v155 = v197;
+    v218[0] = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getOrCreatePipeline(v197, 118, 256);
+    v156 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getOrCreatePipeline(v197, 116, 256);
+    v218[1] = v156;
+    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::BuilderBufferForPrivateAllocation(v204, v155, 2 * (*(v155 + 112) - *(v155 + 104)), 1);
+    *(&v215[0] + 1) = 0;
+    *&v216[8] = 0u;
+    LODWORD(v215[0]) = 1;
+    v215[1] = v207;
+    *v216 = v208;
+    *&v216[16] = (*(v155 + 112) - *(v155 + 104)) >> 1;
+    v217 = 0x2000000020;
     if (__vala)
     {
       while (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::verify != 1)
       {
 LABEL_202:
-        *(&v214[0] + 1) = v217[__vala < *(v196 + 40)];
-        *&v215[20] = __vala;
-        *v198 = v203[0];
-        *&v198[16] = v203[1];
-        AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeCoalescedRefits(v196, v214, 1, v198);
-        v162 = *(v196 + 16);
+        *(&v215[0] + 1) = v218[__vala < *(v197 + 40)];
+        *&v216[20] = __vala;
+        *v199 = v204[0];
+        *&v199[16] = v204[1];
+        AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeCoalescedRefits(v197, v215, 1, v199);
+        v162 = *(v197 + 16);
         if (*(v162 + 2292) == 1)
         {
-          AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::encodeBarrier(*(v196 + 16), 22, 0, 0, 0);
+          AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::encodeBarrier(*(v197 + 16), 22, 0, 0, 0);
           *(v162 + 2306) = 0;
           if (*(v162 + 2292) == 1 && !*(v162 + 4976))
           {
@@ -8674,39 +8674,39 @@ LABEL_202:
         }
       }
 
-      v198[23] = 6;
-      strcpy(v198, "large ");
-      std::to_string(v197, __vala);
-      if (v197[23] >= 0)
+      v199[23] = 6;
+      strcpy(v199, "large ");
+      std::to_string(v198, __vala);
+      if (v198[23] >= 0)
       {
-        v157 = v197;
+        v157 = v198;
       }
 
       else
       {
-        v157 = *v197;
+        v157 = *v198;
       }
 
-      if (v197[23] >= 0)
+      if (v198[23] >= 0)
       {
-        v158 = v197[23];
+        v158 = v198[23];
       }
 
       else
       {
-        v158 = *&v197[8];
+        v158 = *&v198[8];
       }
 
-      v159 = std::string::append(v198, v157, v158);
+      v159 = std::string::append(v199, v157, v158);
       v160 = v159->__r_.__value_.__r.__words[0];
       v161 = SHIBYTE(v159->__r_.__value_.__r.__words[2]);
       v159->__r_.__value_.__r.__words[0] = 0;
       v159->__r_.__value_.__l.__size_ = 0;
       v159->__r_.__value_.__r.__words[2] = 0;
-      if ((v197[23] & 0x80000000) != 0)
+      if ((v198[23] & 0x80000000) != 0)
       {
-        operator delete(*v197);
-        if ((v198[23] & 0x80000000) != 0)
+        operator delete(*v198);
+        if ((v199[23] & 0x80000000) != 0)
         {
           goto LABEL_207;
         }
@@ -8714,17 +8714,17 @@ LABEL_202:
 
       else
       {
-        if ((v198[23] & 0x80000000) == 0)
+        if ((v199[23] & 0x80000000) == 0)
         {
           goto LABEL_200;
         }
 
 LABEL_207:
-        operator delete(*v198);
+        operator delete(*v199);
       }
 
 LABEL_200:
-      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(char const*)#1}::operator()(v208);
+      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(char const*)#1}::operator()(v209);
       if (v161 < 0)
       {
         operator delete(v160);
@@ -8734,76 +8734,77 @@ LABEL_200:
     }
 
 LABEL_208:
-    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(char const*)#1}::operator()(v208);
-    v163 = v206;
-    v164 = v196;
-    v166 = *(v196 + 104);
-    v165 = *(v196 + 112);
-    memset(v198, 0, 24);
-    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::allocateInline(v198, v196, 40, 0);
+    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(char const*)#1}::operator()(v209);
+    v163 = v207;
+    v164 = v197;
+    v166 = *(v197 + 104);
+    v165 = *(v197 + 112);
+    memset(v199, 0, 24);
+    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::allocateInline(v199, v197, 40, 0);
     v167 = (v165 - v166) >> 1;
-    v168 = *v198;
-    **v198 = 0;
+    v168 = *v199;
+    v169 = *&v199[8];
+    **v199 = 0;
     *(v168 + 8) = 0;
     *(v168 + 16) = v163;
     *(v168 + 24) = v167;
     *(v168 + 32) = v167;
-    v169 = *(v196 + 32);
-    *(*(v169 + 24) + *(v169 + 4) + 56) = *(&v168 + 1);
-    *v198 = (4 * (*(v164 + 112) - *(v164 + 104))) & 0xFFFFFFF8;
-    *&v198[8] = vdupq_n_s64(1uLL);
-    *v197 = xmmword_29D2F23B0;
-    *&v197[16] = 1;
-    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::executeKernelWithThreadsInternal(*(v196 + 16), v169, v156, v198, v197);
+    v170 = *(v197 + 32);
+    *(*(v170 + 24) + *(v170 + 4) + 56) = v169;
+    *v199 = (4 * (*(v164 + 112) - *(v164 + 104))) & 0xFFFFFFF8;
+    *&v199[8] = vdupq_n_s64(1uLL);
+    *v198 = xmmword_29D2F23B0;
+    *&v198[16] = 1;
+    AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::executeKernelWithThreadsInternal(*(v197 + 16), v170, v156, v199, v198);
     if (*(v164 + 176) != *(v164 + 184))
     {
-      AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::nextVirtualSubstream(*(v196 + 16));
-      v170 = *(v196 + 200);
-      for (m = *(v196 + 208); v170 != m; ++v170)
+      AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::nextVirtualSubstream(*(v197 + 16));
+      v171 = *(v197 + 200);
+      for (m = *(v197 + 208); v171 != m; ++v171)
       {
-        AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::waitForVirtualSubstream(*(v196 + 16), *v170);
+        AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::waitForVirtualSubstream(*(v197 + 16), *v171);
       }
 
-      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(char const*)#1}::operator()(v208);
-      v172 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getOrCreatePipeline(v196, 120, 256);
-      *v198 = 2;
-      *&v198[8] = v172;
-      *&v198[16] = v204;
-      v199 = v205;
-      v200 = (*(v196 + 184) - *(v196 + 176)) >> 1;
-      v201 = 0x20FFFFFFFFLL;
-      v202 = 32;
-      memset(v197, 0, sizeof(v197));
-      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeCoalescedRefits(v196, v198, 1, v197);
+      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeRefits(AGX::Span<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::Refit>)::{lambda(char const*)#1}::operator()(v209);
+      v173 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getOrCreatePipeline(v197, 120, 256);
+      *v199 = 2;
+      *&v199[8] = v173;
+      *&v199[16] = v205;
+      v200 = v206;
+      v201 = (*(v197 + 184) - *(v197 + 176)) >> 1;
+      v202 = 0x20FFFFFFFFLL;
+      v203 = 32;
+      memset(v198, 0, sizeof(v198));
+      AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeCoalescedRefits(v197, v199, 1, v198);
     }
   }
 
-  v173 = v209;
   v174 = v210;
-  if (v209 != v210)
+  v175 = v211;
+  if (v210 != v211)
   {
-    v175 = MEMORY[0x29EDCA5F8];
+    v176 = MEMORY[0x29EDCA5F8];
     do
     {
-      v176 = **(v196 + 16);
-      v177 = v173[1];
-      *&v214[0] = v175;
-      *(&v214[0] + 1) = 3221225472;
-      *&v214[1] = ___ZZN3AGX24RayTracingGPUBuilderGen1INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE12encodeRefitsENS_4SpanINS6_5RefitEEEENKUlvE_clEv_block_invoke;
-      *(&v214[1] + 1) = &__block_descriptor_40_e28_v16__0___MTLCommandBuffer__8l;
-      *v215 = v177;
-      [v176 addCompletedHandler:{v214, v178}];
-      v173 += 4;
+      v177 = **(v197 + 16);
+      v178 = v174[1];
+      *&v215[0] = v176;
+      *(&v215[0] + 1) = 3221225472;
+      *&v215[1] = ___ZZN3AGX24RayTracingGPUBuilderGen1INS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS1_19CommandEncodingNextEE12encodeRefitsENS_4SpanINS6_5RefitEEEENKUlvE_clEv_block_invoke;
+      *(&v215[1] + 1) = &__block_descriptor_40_e28_v16__0___MTLCommandBuffer__8l;
+      *v216 = v178;
+      [v177 addCompletedHandler:{v215, v179}];
+      v174 += 4;
     }
 
-    while (v173 != v174);
+    while (v174 != v175);
   }
 
 LABEL_215:
-  if (v209)
+  if (v210)
   {
-    v210 = v209;
-    operator delete(v209);
+    v211 = v210;
+    operator delete(v210);
   }
 }
 
@@ -9199,7 +9200,7 @@ LABEL_101:
         }
       }
 
-      v108 = v107[466];
+      v108 = *(v107 + 466);
       if (!v108)
       {
         v108 = v104;
@@ -9661,7 +9662,7 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
       }
 
       while (v6 != v8);
-      AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(v7, a2, v75, a5, 1, 1);
+      AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(v7, a2, v75, 1, 1, a5);
       v33 = 0;
       v34 = *(a1 + 16);
       do
@@ -9690,7 +9691,7 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
 
       while (v33 != v8);
       a4 = v75;
-      AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(v34, a3, v75, v32, 3, 3);
+      AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(v34, a3, v75, 3, 3, v32);
     }
 
     v39 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeCopies(AGXG18PFamilyRayTracingAccelerationStructure **,AGXG18PFamilyRayTracingAccelerationStructure **,unsigned long)::numBytesPerThread;

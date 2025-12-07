@@ -75,17 +75,17 @@
 
 - (BOOL)migrate
 {
-  v47[3] = *MEMORY[0x277D85DE8];
+  v46[3] = *MEMORY[0x277D85DE8];
   currentSchemaVersion = [(ATXAbstractVersionedDatabase *)self currentSchemaVersion];
   if (currentSchemaVersion != [(ATXNotificationAndSuggestionDatabase *)self latestVersion])
   {
     switch(currentSchemaVersion)
     {
       case 0:
-        v47[0] = @"CREATE TABLE IF NOT EXISTS notifications( uuid TEXT PRIMARY KEY,   receiveTimestamp REAL NOT NULL,   deliveryMethod INTEGER NOT NULL,   urgency INTEGER NOT NULL,   bundleId TEXT,   threadId TEXT,   contactId TEXT,   isGroupMessage INTEGER NOT NULL,   isMessage INTEGER NOT NULL,   latestOutcome INTEGER,   latestOutcomeTimestamp REAL,   isProminent INTEGER NOT NULL,   isActive INTEGER NOT NULL) WITHOUT ROWID";
-        v47[1] = @"CREATE TABLE IF NOT EXISTS suggestions( uuid TEXT PRIMARY KEY,   createdTimestamp REAL NOT NULL,   triggerNotificationUUID TEXT,   deliverySuggestion BLOB NOT NULL,   suggestionType INTEGER NOT NULL,   scope INTEGER NOT NULL,   entityIdentifier TEXT,   shownTimestamp REAL,   latestOutcome INTEGER NOT NULL,   latestOutcomeTimestamp REAL NOT NULL,   isActive INTEGER NOT NULL) WITHOUT ROWID";
-        v47[2] = @"CREATE TABLE IF NOT EXISTS biome_bookmark( bookmarkName TEXT PRIMARY KEY,   updatedTimestamp REAL NOT NULL,   bookmarkData BLOB) WITHOUT ROWID";
-        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:3];
+        v46[0] = @"CREATE TABLE IF NOT EXISTS notifications( uuid TEXT PRIMARY KEY,   receiveTimestamp REAL NOT NULL,   deliveryMethod INTEGER NOT NULL,   urgency INTEGER NOT NULL,   bundleId TEXT,   threadId TEXT,   contactId TEXT,   isGroupMessage INTEGER NOT NULL,   isMessage INTEGER NOT NULL,   latestOutcome INTEGER,   latestOutcomeTimestamp REAL,   isProminent INTEGER NOT NULL,   isActive INTEGER NOT NULL) WITHOUT ROWID";
+        v46[1] = @"CREATE TABLE IF NOT EXISTS suggestions( uuid TEXT PRIMARY KEY,   createdTimestamp REAL NOT NULL,   triggerNotificationUUID TEXT,   deliverySuggestion BLOB NOT NULL,   suggestionType INTEGER NOT NULL,   scope INTEGER NOT NULL,   entityIdentifier TEXT,   shownTimestamp REAL,   latestOutcome INTEGER NOT NULL,   latestOutcomeTimestamp REAL NOT NULL,   isActive INTEGER NOT NULL) WITHOUT ROWID";
+        v46[2] = @"CREATE TABLE IF NOT EXISTS biome_bookmark( bookmarkName TEXT PRIMARY KEY,   updatedTimestamp REAL NOT NULL,   bookmarkData BLOB) WITHOUT ROWID";
+        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:3];
         v15 = [(ATXNotificationAndSuggestionDatabase *)self _runMigrationSteps:v14];
 
         if (v15)
@@ -93,11 +93,11 @@
           goto LABEL_22;
         }
 
-        goto LABEL_30;
+        return 0;
       case 1:
 LABEL_22:
-        v46 = @"ALTER TABLE notifications ADD COLUMN numExpansions INTEGER NOT NULL DEFAULT 0";
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
+        v45 = @"ALTER TABLE notifications ADD COLUMN numExpansions INTEGER NOT NULL DEFAULT 0";
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
         v17 = [(ATXNotificationAndSuggestionDatabase *)self _runMigrationSteps:v16];
 
         if (v17)
@@ -105,11 +105,11 @@ LABEL_22:
           goto LABEL_23;
         }
 
-        goto LABEL_30;
+        return 0;
       case 2:
 LABEL_23:
-        v45 = @"ALTER TABLE notifications ADD COLUMN rawIdentifier TEXT";
-        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+        v44 = @"ALTER TABLE notifications ADD COLUMN rawIdentifier TEXT";
+        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
         v19 = [(ATXNotificationAndSuggestionDatabase *)self _runMigrationSteps:v18];
 
         if (v19)
@@ -117,13 +117,13 @@ LABEL_23:
           goto LABEL_24;
         }
 
-        goto LABEL_30;
+        return 0;
       case 3:
 LABEL_24:
-        v44[0] = @"CREATE INDEX smartPauseIndex ON notifications (bundleId, threadId, receiveTimestamp)";
-        v44[1] = @"CREATE INDEX urgencyTuningIndex ON notifications (urgency, deliveryMethod, bundleId, receiveTimestamp)";
-        v44[2] = @"CREATE INDEX candidateSelectionIndex ON notifications (bundleId, threadId, receiveTimestamp) WHERE isActive=1 AND isProminent=1";
-        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
+        v43[0] = @"CREATE INDEX smartPauseIndex ON notifications (bundleId, threadId, receiveTimestamp)";
+        v43[1] = @"CREATE INDEX urgencyTuningIndex ON notifications (urgency, deliveryMethod, bundleId, receiveTimestamp)";
+        v43[2] = @"CREATE INDEX candidateSelectionIndex ON notifications (bundleId, threadId, receiveTimestamp) WHERE isActive=1 AND isProminent=1";
+        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
         v21 = [(ATXNotificationAndSuggestionDatabase *)self _runMigrationSteps:v20];
 
         if (v21)
@@ -131,12 +131,12 @@ LABEL_24:
           goto LABEL_25;
         }
 
-        goto LABEL_30;
+        return 0;
       case 4:
 LABEL_25:
-        v43[0] = @"ALTER TABLE suggestions ADD COLUMN feedbackKey TEXT";
-        v43[1] = @"CREATE INDEX feedbackIndex ON suggestions (feedbackKey, shownTimestamp)";
-        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+        v42[0] = @"ALTER TABLE suggestions ADD COLUMN feedbackKey TEXT";
+        v42[1] = @"CREATE INDEX feedbackIndex ON suggestions (feedbackKey, shownTimestamp)";
+        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
         v23 = [(ATXNotificationAndSuggestionDatabase *)self _runMigrationSteps:v22];
 
         if (v23)
@@ -144,11 +144,11 @@ LABEL_25:
           goto LABEL_26;
         }
 
-        goto LABEL_30;
+        return 0;
       case 5:
 LABEL_26:
-        v42 = @"CREATE INDEX nonprominentCandidateSelectionIndex ON notifications (bundleId, threadId, receiveTimestamp) WHERE isActive=1 AND isProminent=0";
-        v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
+        v41 = @"CREATE INDEX nonprominentCandidateSelectionIndex ON notifications (bundleId, threadId, receiveTimestamp) WHERE isActive=1 AND isProminent=0";
+        v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
         v25 = [(ATXNotificationAndSuggestionDatabase *)self _runMigrationSteps:v24];
 
         if (v25)
@@ -156,14 +156,14 @@ LABEL_26:
           goto LABEL_27;
         }
 
-        goto LABEL_30;
+        return 0;
       case 6:
 LABEL_27:
-        v41[0] = @"ALTER TABLE notifications ADD COLUMN receivedMode TEXT";
-        v41[1] = @"ALTER TABLE notifications ADD COLUMN firstUI INTEGER";
-        v41[2] = @"ALTER TABLE notifications ADD COLUMN mostRecentUI INTEGER";
-        v41[3] = @"ALTER TABLE notifications ADD COLUMN deliveryReason INTEGER";
-        v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:4];
+        v40[0] = @"ALTER TABLE notifications ADD COLUMN receivedMode TEXT";
+        v40[1] = @"ALTER TABLE notifications ADD COLUMN firstUI INTEGER";
+        v40[2] = @"ALTER TABLE notifications ADD COLUMN mostRecentUI INTEGER";
+        v40[3] = @"ALTER TABLE notifications ADD COLUMN deliveryReason INTEGER";
+        v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:4];
         v27 = [(ATXNotificationAndSuggestionDatabase *)self _runMigrationSteps:v26];
 
         if (v27)
@@ -171,12 +171,12 @@ LABEL_27:
           goto LABEL_28;
         }
 
-        goto LABEL_30;
+        return 0;
       case 7:
 LABEL_28:
-        v40[0] = @"CREATE INDEX sendMessagesToDigestIndex ON notifications(bundleId, receiveTimestamp)";
-        v40[1] = @"CREATE INDEX receiveTimestampIndex ON notifications(receiveTimestamp)";
-        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
+        v39[0] = @"CREATE INDEX sendMessagesToDigestIndex ON notifications(bundleId, receiveTimestamp)";
+        v39[1] = @"CREATE INDEX receiveTimestampIndex ON notifications(receiveTimestamp)";
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
         v29 = [(ATXNotificationAndSuggestionDatabase *)self _runMigrationSteps:v28];
 
         if (v29)
@@ -184,16 +184,16 @@ LABEL_28:
           goto LABEL_29;
         }
 
-        goto LABEL_30;
+        return 0;
       case 8:
 LABEL_29:
-        v39 = @"CREATE INDEX feedbackAndCreatedTimestamp ON suggestions (feedbackKey, createdTimestamp)";
-        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
+        v38 = @"CREATE INDEX feedbackAndCreatedTimestamp ON suggestions (feedbackKey, createdTimestamp)";
+        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
         v31 = [(ATXNotificationAndSuggestionDatabase *)self _runMigrationSteps:v30];
 
         if (!v31)
         {
-          goto LABEL_30;
+          return 0;
         }
 
         goto LABEL_4;
@@ -213,8 +213,8 @@ LABEL_4:
           goto LABEL_6;
         }
 
-        v38 = @"CREATE INDEX IF NOT EXISTS latestOutcomeIndex ON notifications (latestOutcome);";
-        v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+        v37 = @"CREATE INDEX IF NOT EXISTS latestOutcomeIndex ON notifications (latestOutcome);";
+        v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
         v6 = [(ATXNotificationAndSuggestionDatabase *)self _runMigrationSteps:v5];
 
         if (v6)
@@ -222,7 +222,7 @@ LABEL_4:
           goto LABEL_6;
         }
 
-        goto LABEL_30;
+        return 0;
       case 19:
 LABEL_6:
         if ([(ATXNotificationAndSuggestionDatabase *)self _hasColumnOnTable:@"notifications" named:@"recordTimestamp"])
@@ -235,9 +235,9 @@ LABEL_6:
           goto LABEL_9;
         }
 
-        v37[0] = @"ALTER TABLE notifications ADD COLUMN recordTimestamp REAL";
-        v37[1] = @"ALTER TABLE notifications ADD COLUMN notificationID TEXT";
-        v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+        v36[0] = @"ALTER TABLE notifications ADD COLUMN recordTimestamp REAL";
+        v36[1] = @"ALTER TABLE notifications ADD COLUMN notificationID TEXT";
+        v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
         v8 = [(ATXNotificationAndSuggestionDatabase *)self _runMigrationSteps:v7];
 
         if (v8)
@@ -245,7 +245,7 @@ LABEL_6:
           goto LABEL_9;
         }
 
-        goto LABEL_30;
+        return 0;
       case 20:
 LABEL_9:
         if ([(ATXNotificationAndSuggestionDatabase *)self _hasColumnOnTable:@"notifications" named:@"notificationBodyLength"])
@@ -253,8 +253,8 @@ LABEL_9:
           goto LABEL_11;
         }
 
-        v36 = @"ALTER TABLE notifications ADD COLUMN notificationBodyLength INTEGER";
-        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+        v35 = @"ALTER TABLE notifications ADD COLUMN notificationBodyLength INTEGER";
+        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
         v10 = [(ATXNotificationAndSuggestionDatabase *)self _runMigrationSteps:v9];
 
         if (v10)
@@ -262,46 +262,46 @@ LABEL_9:
           goto LABEL_11;
         }
 
-        goto LABEL_30;
+        return 0;
       case 21:
 LABEL_11:
-        v35[0] = @"ALTER TABLE notifications ADD COLUMN notificationTitleLength INTEGER";
-        v35[1] = @"ALTER TABLE notifications ADD COLUMN notificationSubtitleLength INTEGER";
-        v35[2] = @"ALTER TABLE notifications ADD COLUMN summaryLength INTEGER";
-        v35[3] = @"ALTER TABLE notifications ADD COLUMN isDeliveredInPrioritySection INTEGER NOT NULL DEFAULT 0";
-        v35[4] = @"ALTER TABLE notifications ADD COLUMN isSummarized INTEGER NOT NULL DEFAULT 0";
-        v35[5] = @"ALTER TABLE notifications ADD COLUMN isPartOfStack INTEGER NOT NULL DEFAULT 0";
-        v35[6] = @"ALTER TABLE notifications ADD COLUMN isStackSummary INTEGER NOT NULL DEFAULT 0";
-        v35[7] = @"ALTER TABLE notifications ADD COLUMN isDeterminedUrgentByModel INTEGER NOT NULL DEFAULT 0";
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:8];
+        v34[0] = @"ALTER TABLE notifications ADD COLUMN notificationTitleLength INTEGER";
+        v34[1] = @"ALTER TABLE notifications ADD COLUMN notificationSubtitleLength INTEGER";
+        v34[2] = @"ALTER TABLE notifications ADD COLUMN summaryLength INTEGER";
+        v34[3] = @"ALTER TABLE notifications ADD COLUMN isDeliveredInPrioritySection INTEGER NOT NULL DEFAULT 0";
+        v34[4] = @"ALTER TABLE notifications ADD COLUMN isSummarized INTEGER NOT NULL DEFAULT 0";
+        v34[5] = @"ALTER TABLE notifications ADD COLUMN isPartOfStack INTEGER NOT NULL DEFAULT 0";
+        v34[6] = @"ALTER TABLE notifications ADD COLUMN isStackSummary INTEGER NOT NULL DEFAULT 0";
+        v34[7] = @"ALTER TABLE notifications ADD COLUMN isDeterminedUrgentByModel INTEGER NOT NULL DEFAULT 0";
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:8];
         if (![(ATXNotificationAndSuggestionDatabase *)self _anyColumnWithNameFromColumnNames:&unk_283A57DA0 existsOnTable:@"notifications"]&& ![(ATXNotificationAndSuggestionDatabase *)self _runMigrationSteps:v11])
         {
           goto LABEL_20;
         }
 
 LABEL_14:
-        v34[0] = @"ALTER TABLE notifications ADD COLUMN numberOfNotificationsInStack INTEGER NOT NULL DEFAULT 0";
-        v34[1] = @"ALTER TABLE notifications ADD COLUMN notificationPriorityStatus INTEGER NOT NULL DEFAULT 0";
-        v34[2] = @"ALTER TABLE notifications ADD COLUMN notificationSummaryStatus INTEGER NOT NULL DEFAULT 0";
-        v34[3] = @"ALTER TABLE notifications ADD COLUMN isPriorityNotificationEnabled INTEGER NOT NULL DEFAULT 0";
-        v34[4] = @"ALTER TABLE notifications ADD COLUMN isNotificationSummaryEnabled INTEGER NOT NULL DEFAULT 0";
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:5];
+        v33[0] = @"ALTER TABLE notifications ADD COLUMN numberOfNotificationsInStack INTEGER NOT NULL DEFAULT 0";
+        v33[1] = @"ALTER TABLE notifications ADD COLUMN notificationPriorityStatus INTEGER NOT NULL DEFAULT 0";
+        v33[2] = @"ALTER TABLE notifications ADD COLUMN notificationSummaryStatus INTEGER NOT NULL DEFAULT 0";
+        v33[3] = @"ALTER TABLE notifications ADD COLUMN isPriorityNotificationEnabled INTEGER NOT NULL DEFAULT 0";
+        v33[4] = @"ALTER TABLE notifications ADD COLUMN isNotificationSummaryEnabled INTEGER NOT NULL DEFAULT 0";
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:5];
         if ([(ATXNotificationAndSuggestionDatabase *)self _anyColumnWithNameFromColumnNames:&unk_283A57DB8 existsOnTable:@"notifications"]|| [(ATXNotificationAndSuggestionDatabase *)self _runMigrationSteps:v11])
         {
 
 LABEL_17:
           if ([(ATXNotificationAndSuggestionDatabase *)self _hasColumnOnTable:@"notifications" named:@"nextAppLaunchTimestamp"])
           {
-            break;
+            return 1;
           }
 
-          v33 = @"ALTER TABLE notifications ADD COLUMN nextAppLaunchTimestamp REAL";
-          v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+          v32 = @"ALTER TABLE notifications ADD COLUMN nextAppLaunchTimestamp REAL";
+          v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
           v13 = [(ATXNotificationAndSuggestionDatabase *)self _runMigrationSteps:v12];
 
           if (v13)
           {
-            break;
+            return 1;
           }
         }
 
@@ -310,81 +310,75 @@ LABEL_17:
 LABEL_20:
         }
 
-LABEL_30:
-        result = 0;
-        goto LABEL_31;
+        return 0;
       case 22:
         goto LABEL_14;
       case 23:
         goto LABEL_17;
       default:
-        break;
+        return 1;
     }
   }
 
-  result = 1;
-LABEL_31:
-  v32 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (BOOL)_runMigrationSteps:(id)steps
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 1;
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 1;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   obj = steps;
-  v4 = [obj countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v4 = [obj countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v4)
   {
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v13 + 1) + 8 * v6);
         v8 = [(ATXAbstractVersionedDatabase *)self db];
-        v13[0] = MEMORY[0x277D85DD0];
-        v13[1] = 3221225472;
-        v13[2] = __59__ATXNotificationAndSuggestionDatabase__runMigrationSteps___block_invoke;
-        v13[3] = &unk_2785986F0;
-        v13[4] = v7;
-        v13[5] = &v18;
-        [v8 prepAndRunQuery:v7 onPrep:0 onRow:0 onError:v13];
+        v12[0] = MEMORY[0x277D85DD0];
+        v12[1] = 3221225472;
+        v12[2] = __59__ATXNotificationAndSuggestionDatabase__runMigrationSteps___block_invoke;
+        v12[3] = &unk_2785986F0;
+        v12[4] = v7;
+        v12[5] = &v17;
+        [v8 prepAndRunQuery:v7 onPrep:0 onRow:0 onError:v12];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [obj countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v4 = [obj countByEnumeratingWithState:&v13 objects:v21 count:16];
     }
 
     while (v4);
   }
 
-  v9 = *(v19 + 24);
-  _Block_object_dispose(&v18, 8);
+  v9 = *(v18 + 24);
+  _Block_object_dispose(&v17, 8);
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
 uint64_t __59__ATXNotificationAndSuggestionDatabase__runMigrationSteps___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __59__ATXNotificationAndSuggestionDatabase__runMigrationSteps___block_invoke_cold_1(a1, v3, v4);
@@ -408,29 +402,29 @@ uint64_t __59__ATXNotificationAndSuggestionDatabase__runMigrationSteps___block_i
 
 - (BOOL)_anyColumnWithNameFromColumnNames:(id)names existsOnTable:(id)table
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   tableCopy = table;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = namesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         v14 = [(ATXAbstractVersionedDatabase *)self db];
         LOBYTE(v13) = [v14 hasColumnOnTable:tableCopy named:v13];
 
@@ -441,7 +435,7 @@ uint64_t __59__ATXNotificationAndSuggestionDatabase__runMigrationSteps___block_i
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v10)
       {
         continue;
@@ -454,7 +448,6 @@ uint64_t __59__ATXNotificationAndSuggestionDatabase__runMigrationSteps___block_i
   v15 = 0;
 LABEL_11:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -527,7 +520,7 @@ uint64_t __64__ATXNotificationAndSuggestionDatabase_getBookmarkDataFromName___bl
 uint64_t __64__ATXNotificationAndSuggestionDatabase_getBookmarkDataFromName___block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __64__ATXNotificationAndSuggestionDatabase_getBookmarkDataFromName___block_invoke_4_cold_1(a1, v3);
@@ -584,7 +577,7 @@ void __64__ATXNotificationAndSuggestionDatabase_setBookmarkData_forName___block_
 uint64_t __64__ATXNotificationAndSuggestionDatabase_setBookmarkData_forName___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __64__ATXNotificationAndSuggestionDatabase_setBookmarkData_forName___block_invoke_3_cold_1(a1, v3);
@@ -757,7 +750,7 @@ void __113__ATXNotificationAndSuggestionDatabase_insertNotificationFromEvent_del
 uint64_t __113__ATXNotificationAndSuggestionDatabase_insertNotificationFromEvent_deliveryMethod_modeIdentifier_deliveryReason___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __113__ATXNotificationAndSuggestionDatabase_insertNotificationFromEvent_deliveryMethod_modeIdentifier_deliveryReason___block_invoke_3_cold_1(a1, v3);
@@ -852,7 +845,7 @@ void __68__ATXNotificationAndSuggestionDatabase_updateNotificationFromEvent___bl
 uint64_t __68__ATXNotificationAndSuggestionDatabase_updateNotificationFromEvent___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__ATXNotificationAndSuggestionDatabase_updateNotificationFromEvent___block_invoke_3_cold_1(a1, v3);
@@ -908,7 +901,7 @@ void __68__ATXNotificationAndSuggestionDatabase_updateNotificationFromEvent___bl
 uint64_t __68__ATXNotificationAndSuggestionDatabase_updateNotificationFromEvent___block_invoke_3_129(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__ATXNotificationAndSuggestionDatabase_updateNotificationFromEvent___block_invoke_3_cold_1(a1, v3);
@@ -965,7 +958,7 @@ void __111__ATXNotificationAndSuggestionDatabase_updateNotificationsWithNextAppL
 uint64_t __111__ATXNotificationAndSuggestionDatabase_updateNotificationsWithNextAppLaunchDate_receivedDateAfter_forBundleId___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __111__ATXNotificationAndSuggestionDatabase_updateNotificationsWithNextAppLaunchDate_receivedDateAfter_forBundleId___block_invoke_3_cold_1();
@@ -1024,7 +1017,7 @@ void __84__ATXNotificationAndSuggestionDatabase_updateNotificationUIForNotificat
 uint64_t __84__ATXNotificationAndSuggestionDatabase_updateNotificationUIForNotifications_nextUI___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __84__ATXNotificationAndSuggestionDatabase_updateNotificationUIForNotifications_nextUI___block_invoke_4_cold_1();
@@ -1102,7 +1095,7 @@ void __57__ATXNotificationAndSuggestionDatabase_insertSuggestion___block_invoke_
 uint64_t __57__ATXNotificationAndSuggestionDatabase_insertSuggestion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __57__ATXNotificationAndSuggestionDatabase_insertSuggestion___block_invoke_3_cold_1(a1, v3);
@@ -1171,7 +1164,7 @@ void __66__ATXNotificationAndSuggestionDatabase_updateSuggestionFromEvent___bloc
 uint64_t __66__ATXNotificationAndSuggestionDatabase_updateSuggestionFromEvent___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __66__ATXNotificationAndSuggestionDatabase_updateSuggestionFromEvent___block_invoke_3_cold_1(a1, v3);
@@ -1247,7 +1240,7 @@ void __110__ATXNotificationAndSuggestionDatabase_hasSuggestionBeenShownForEntity
 uint64_t __110__ATXNotificationAndSuggestionDatabase_hasSuggestionBeenShownForEntityId_suggestionType_scope_sinceTimestamp___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __110__ATXNotificationAndSuggestionDatabase_hasSuggestionBeenShownForEntityId_suggestionType_scope_sinceTimestamp___block_invoke_4_cold_1();
@@ -1341,7 +1334,7 @@ uint64_t __112__ATXNotificationAndSuggestionDatabase_suggestionEventTypeShownFor
 uint64_t __112__ATXNotificationAndSuggestionDatabase_suggestionEventTypeShownForEntityId_suggestionType_scope_sinceTimestamp___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __112__ATXNotificationAndSuggestionDatabase_suggestionEventTypeShownForEntityId_suggestionType_scope_sinceTimestamp___block_invoke_4_cold_1();
@@ -1487,7 +1480,7 @@ uint64_t __116__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAnd
 uint64_t __116__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAndProminentNotificationsWithUrgency_sinceTimestamp___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __116__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAndProminentNotificationsWithUrgency_sinceTimestamp___block_invoke_4_cold_1();
@@ -1648,7 +1641,7 @@ uint64_t __114__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAnd
 uint64_t __114__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAndProminentAndMessageNotificationsSinceTimestamp___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __116__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAndProminentNotificationsWithUrgency_sinceTimestamp___block_invoke_4_cold_1();
@@ -1809,7 +1802,7 @@ uint64_t __104__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAnd
 uint64_t __104__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAndProminentNotificationsSinceTimestamp___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __116__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAndProminentNotificationsWithUrgency_sinceTimestamp___block_invoke_4_cold_1();
@@ -1856,7 +1849,7 @@ void __69__ATXNotificationAndSuggestionDatabase_mostRecentActiveNotifications__b
 
 uint64_t __69__ATXNotificationAndSuggestionDatabase_mostRecentActiveNotifications__block_invoke_2(uint64_t a1, void *a2)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCAD78];
   v3 = a2;
   v4 = [v2 alloc];
@@ -1875,8 +1868,8 @@ uint64_t __69__ATXNotificationAndSuggestionDatabase_mostRecentActiveNotification
   v15 = objc_alloc(MEMORY[0x277CEB958]);
   if (v12)
   {
-    v28[0] = v12;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+    v27[0] = v12;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
   }
 
   else
@@ -1886,8 +1879,8 @@ uint64_t __69__ATXNotificationAndSuggestionDatabase_mostRecentActiveNotification
 
   if (!v13)
   {
-    LOBYTE(v25) = v14 == 1;
-    v22 = [v15 initFromNotificationData:v6 timestamp:0 title:0 subtitle:0 body:0 badge:0 userInfo:v8 bundleID:v10 threadID:v11 categoryID:0 sectionID:0 contactIDs:v16 rawIdentifiers:0 isGroupMessage:v25 derivedData:0 urgency:v9];
+    LOBYTE(v24) = v14 == 1;
+    v22 = [v15 initFromNotificationData:v6 timestamp:0 title:0 subtitle:0 body:0 badge:0 userInfo:v8 bundleID:v10 threadID:v11 categoryID:0 sectionID:0 contactIDs:v16 rawIdentifiers:0 isGroupMessage:v24 derivedData:0 urgency:v9];
     if (!v12)
     {
       goto LABEL_7;
@@ -1900,13 +1893,13 @@ uint64_t __69__ATXNotificationAndSuggestionDatabase_mostRecentActiveNotification
   v18 = v10;
   v19 = v6;
   v20 = v14 == 1;
-  v27 = v13;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
-  LOBYTE(v25) = v20;
+  v26 = v13;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+  LOBYTE(v24) = v20;
   v6 = v19;
   v10 = v18;
   v11 = v17;
-  v22 = [v15 initFromNotificationData:v6 timestamp:0 title:0 subtitle:0 body:0 badge:0 userInfo:v8 bundleID:v10 threadID:v17 categoryID:0 sectionID:0 contactIDs:v16 rawIdentifiers:v21 isGroupMessage:v25 derivedData:0 urgency:v9];
+  v22 = [v15 initFromNotificationData:v6 timestamp:0 title:0 subtitle:0 body:0 badge:0 userInfo:v8 bundleID:v10 threadID:v17 categoryID:0 sectionID:0 contactIDs:v16 rawIdentifiers:v21 isGroupMessage:v24 derivedData:0 urgency:v9];
 
   if (v12)
   {
@@ -1916,14 +1909,13 @@ LABEL_6:
 LABEL_7:
   [*(a1 + 32) addObject:v22];
 
-  v23 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
 uint64_t __69__ATXNotificationAndSuggestionDatabase_mostRecentActiveNotifications__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __116__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAndProminentNotificationsWithUrgency_sinceTimestamp___block_invoke_4_cold_1();
@@ -1996,7 +1988,7 @@ uint64_t __88__ATXNotificationAndSuggestionDatabase_numProminentActiveNotificati
 uint64_t __88__ATXNotificationAndSuggestionDatabase_numProminentActiveNotificationsByGroupingColumn___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __116__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAndProminentNotificationsWithUrgency_sinceTimestamp___block_invoke_4_cold_1();
@@ -2021,46 +2013,41 @@ uint64_t __88__ATXNotificationAndSuggestionDatabase_numProminentActiveNotificati
   dispatch_async(queue, block);
 }
 
-void __89__ATXNotificationAndSuggestionDatabase_numberOfActiveNotificationsWithCompletionHandler___block_invoke(uint64_t a1)
+void __89__ATXNotificationAndSuggestionDatabase_numberOfActiveNotificationsWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_new();
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__31;
-  v16 = __Block_byref_object_dispose__31;
-  v17 = 0;
-  v3 = [*(a1 + 32) db];
+  v3 = objc_opt_new();
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x3032000000;
+  v12[3] = __Block_byref_object_copy__31;
+  v12[4] = __Block_byref_object_dispose__31;
+  v13 = 0;
+  v4 = [*(a1 + 32) db];
   v10[0] = MEMORY[0x277D85DD0];
   v10[1] = 3221225472;
   v10[2] = __89__ATXNotificationAndSuggestionDatabase_numberOfActiveNotificationsWithCompletionHandler___block_invoke_2;
   v10[3] = &unk_278599FC8;
-  v4 = v2;
-  v11 = v4;
+  v5 = v3;
+  v11 = v5;
   v9[0] = MEMORY[0x277D85DD0];
   v9[1] = 3221225472;
   v9[2] = __89__ATXNotificationAndSuggestionDatabase_numberOfActiveNotificationsWithCompletionHandler___block_invoke_3;
   v9[3] = &unk_278598808;
-  v5 = *(a1 + 48);
-  v9[4] = &v12;
-  v9[5] = v5;
-  v6 = [v3 prepAndRunQuery:@"SELECT bundleId FROM notifications WHERE isActive = 1" onPrep:0 onRow:v10 onError:v9];
+  v6 = *(a1 + 48);
+  v9[4] = v12;
+  v9[5] = v6;
+  v7 = [v4 prepAndRunQuery:@"SELECT bundleId FROM notifications WHERE isActive = 1" onPrep:0 onRow:v10 onError:v9];
 
-  if (v6)
+  if (v7)
   {
-    [v4 count];
-    v7 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v4];
-    [v7 count];
-  }
-
-  else
-  {
-    v8 = v13[5];
+    [v5 count];
+    v8 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v5];
+    [v8 count];
   }
 
   (*(*(a1 + 40) + 16))();
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(v12, 8);
 }
 
 uint64_t __89__ATXNotificationAndSuggestionDatabase_numberOfActiveNotificationsWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -2080,14 +2067,14 @@ uint64_t __89__ATXNotificationAndSuggestionDatabase_numberOfActiveNotificationsW
 {
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
-  v5 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = __atxlog_handle_notification_management(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     __89__ATXNotificationAndSuggestionDatabase_numberOfActiveNotificationsWithCompletionHandler___block_invoke_3_cold_1();
   }
 
-  v6 = MEMORY[0x277D42698];
-  return *v6;
+  v7 = MEMORY[0x277D42698];
+  return *v7;
 }
 
 - (void)setAllNotificationsToClearedExceptProminent
@@ -2118,7 +2105,7 @@ void __83__ATXNotificationAndSuggestionDatabase_setAllNotificationsToClearedExce
 uint64_t __83__ATXNotificationAndSuggestionDatabase_setAllNotificationsToClearedExceptProminent__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __83__ATXNotificationAndSuggestionDatabase_setAllNotificationsToClearedExceptProminent__block_invoke_3_cold_1();
@@ -2155,7 +2142,7 @@ void __69__ATXNotificationAndSuggestionDatabase_setAllNotificationsToModified__b
 uint64_t __69__ATXNotificationAndSuggestionDatabase_setAllNotificationsToModified__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __69__ATXNotificationAndSuggestionDatabase_setAllNotificationsToModified__block_invoke_3_cold_1();
@@ -2206,7 +2193,7 @@ void __64__ATXNotificationAndSuggestionDatabase_currentActiveSuggestions__block_
 
 uint64_t __64__ATXNotificationAndSuggestionDatabase_currentActiveSuggestions__block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 getNSStringForColumnName:"entityIdentifier" table:0];
   if (v4)
@@ -2220,7 +2207,7 @@ uint64_t __64__ATXNotificationAndSuggestionDatabase_currentActiveSuggestions__bl
 
     else
     {
-      v10 = __atxlog_handle_notification_management();
+      v10 = __atxlog_handle_notification_management(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         __64__ATXNotificationAndSuggestionDatabase_currentActiveSuggestions__block_invoke_2_cold_1(v10, v11, v12, v13, v14, v15, v16, v17);
@@ -2232,26 +2219,25 @@ uint64_t __64__ATXNotificationAndSuggestionDatabase_currentActiveSuggestions__bl
 
   else
   {
-    v7 = __atxlog_handle_notification_management();
+    v7 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = NSStringFromSelector(*(a1 + 40));
-      v20 = 138412290;
-      v21 = v8;
-      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "Encountered nil entityIdentifier in %@. Skipping result.", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = v8;
+      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "Encountered nil entityIdentifier in %@. Skipping result.", &v19, 0xCu);
     }
 
     v9 = *MEMORY[0x277D42690];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t __64__ATXNotificationAndSuggestionDatabase_currentActiveSuggestions__block_invoke_200(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __116__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAndProminentNotificationsWithUrgency_sinceTimestamp___block_invoke_4_cold_1();
@@ -2304,7 +2290,7 @@ void __85__ATXNotificationAndSuggestionDatabase_getTopOfProminentStackNotificati
 
 uint64_t __85__ATXNotificationAndSuggestionDatabase_getTopOfProminentStackNotificationsWithLimit___block_invoke_3(uint64_t a1, void *a2)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 getNSStringForColumnAlias:"bundleId"];
   v5 = [v3 getNSStringForColumnAlias:"threadId"];
@@ -2324,8 +2310,8 @@ uint64_t __85__ATXNotificationAndSuggestionDatabase_getTopOfProminentStackNotifi
   [v15 setThreadID:v5];
   if (v9)
   {
-    v19[0] = v9;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v9;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     [v15 setContactIDs:v16];
   }
 
@@ -2334,14 +2320,13 @@ uint64_t __85__ATXNotificationAndSuggestionDatabase_getTopOfProminentStackNotifi
   [v15 setIsGroupMessage:v12 != 0];
   [*(a1 + 32) addObject:v15];
 
-  v17 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
 uint64_t __85__ATXNotificationAndSuggestionDatabase_getTopOfProminentStackNotificationsWithLimit___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __85__ATXNotificationAndSuggestionDatabase_getTopOfProminentStackNotificationsWithLimit___block_invoke_4_cold_1();
@@ -2394,7 +2379,7 @@ void __88__ATXNotificationAndSuggestionDatabase_getTopOfNonProminentStackNotific
 
 uint64_t __88__ATXNotificationAndSuggestionDatabase_getTopOfNonProminentStackNotificationsWithLimit___block_invoke_3(uint64_t a1, void *a2)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 getNSStringForColumnAlias:"bundleId"];
   v5 = [v3 getNSStringForColumnAlias:"threadId"];
@@ -2414,8 +2399,8 @@ uint64_t __88__ATXNotificationAndSuggestionDatabase_getTopOfNonProminentStackNot
   [v15 setThreadID:v5];
   if (v9)
   {
-    v19[0] = v9;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v9;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     [v15 setContactIDs:v16];
   }
 
@@ -2424,14 +2409,13 @@ uint64_t __88__ATXNotificationAndSuggestionDatabase_getTopOfNonProminentStackNot
   [v15 setIsGroupMessage:v12 != 0];
   [*(a1 + 32) addObject:v15];
 
-  v17 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
 uint64_t __88__ATXNotificationAndSuggestionDatabase_getTopOfNonProminentStackNotificationsWithLimit___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __85__ATXNotificationAndSuggestionDatabase_getTopOfProminentStackNotificationsWithLimit___block_invoke_4_cold_1();
@@ -2569,7 +2553,7 @@ uint64_t __113__ATXNotificationAndSuggestionDatabase_getSmartPauseFeaturesForBun
 uint64_t __113__ATXNotificationAndSuggestionDatabase_getSmartPauseFeaturesForBundleIds_sinceTimestamp_positiveEngagementEnums___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __85__ATXNotificationAndSuggestionDatabase_getTopOfProminentStackNotificationsWithLimit___block_invoke_4_cold_1();
@@ -2643,7 +2627,7 @@ void __97__ATXNotificationAndSuggestionDatabase_allNotificationsBetweenStartTime
 
 uint64_t __97__ATXNotificationAndSuggestionDatabase_allNotificationsBetweenStartTimestamp_endTimestamp_limit___block_invoke_3(uint64_t a1, void *a2)
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAD78];
   v4 = a2;
   v5 = [v3 alloc];
@@ -2664,29 +2648,28 @@ uint64_t __97__ATXNotificationAndSuggestionDatabase_allNotificationsBetweenStart
   if (v13)
   {
     v18 = v14 == 1;
-    v24[0] = v13;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
-    LOBYTE(v23) = v18;
-    v20 = [v17 initFromNotificationData:v7 timestamp:0 title:0 subtitle:0 body:0 badge:0 userInfo:v9 bundleID:v11 threadID:v12 sectionID:0 contactIDs:v19 isGroupMessage:v23 derivedData:0 urgency:v10];
+    v23[0] = v13;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    LOBYTE(v22) = v18;
+    v20 = [v17 initFromNotificationData:v7 timestamp:0 title:0 subtitle:0 body:0 badge:0 userInfo:v9 bundleID:v11 threadID:v12 sectionID:0 contactIDs:v19 isGroupMessage:v22 derivedData:0 urgency:v10];
   }
 
   else
   {
-    LOBYTE(v23) = v14 == 1;
-    v20 = [v16 initFromNotificationData:v7 timestamp:0 title:0 subtitle:0 body:0 badge:0 userInfo:v9 bundleID:v11 threadID:v12 sectionID:0 contactIDs:MEMORY[0x277CBEBF8] isGroupMessage:v23 derivedData:0 urgency:v10];
+    LOBYTE(v22) = v14 == 1;
+    v20 = [v16 initFromNotificationData:v7 timestamp:0 title:0 subtitle:0 body:0 badge:0 userInfo:v9 bundleID:v11 threadID:v12 sectionID:0 contactIDs:MEMORY[0x277CBEBF8] isGroupMessage:v22 derivedData:0 urgency:v10];
   }
 
   [v20 setIsMessage:v15 == 1];
   [*(a1 + 32) addObject:v20];
 
-  v21 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
 uint64_t __97__ATXNotificationAndSuggestionDatabase_allNotificationsBetweenStartTimestamp_endTimestamp_limit___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __116__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAndProminentNotificationsWithUrgency_sinceTimestamp___block_invoke_4_cold_1();
@@ -2764,7 +2747,7 @@ uint64_t __82__ATXNotificationAndSuggestionDatabase_notificationsReceivedPerBund
 uint64_t __82__ATXNotificationAndSuggestionDatabase_notificationsReceivedPerBundleIdSinceDate___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __116__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAndProminentNotificationsWithUrgency_sinceTimestamp___block_invoke_4_cold_1();
@@ -2858,7 +2841,7 @@ uint64_t __68__ATXNotificationAndSuggestionDatabase_resolutionsForNotifications_
 uint64_t __68__ATXNotificationAndSuggestionDatabase_resolutionsForNotifications___block_invoke_5(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __68__ATXNotificationAndSuggestionDatabase_resolutionsForNotifications___block_invoke_5_cold_1();
@@ -2940,7 +2923,7 @@ uint64_t __88__ATXNotificationAndSuggestionDatabase__countNotificationsPerAppWit
 uint64_t __88__ATXNotificationAndSuggestionDatabase__countNotificationsPerAppWithFilters_stmtBinder___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __88__ATXNotificationAndSuggestionDatabase__countNotificationsPerAppWithFilters_stmtBinder___block_invoke_4_cold_1();
@@ -3084,7 +3067,7 @@ uint64_t __84__ATXNotificationAndSuggestionDatabase_appSortedByNumOfNotification
 uint64_t __84__ATXNotificationAndSuggestionDatabase_appSortedByNumOfNotificationsSinceTimestamp___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __68__ATXNotificationAndSuggestionDatabase_resolutionsForNotifications___block_invoke_5_cold_1();
@@ -3140,7 +3123,7 @@ uint64_t __75__ATXNotificationAndSuggestionDatabase_receiveTimeStampOfFirstNotif
 uint64_t __75__ATXNotificationAndSuggestionDatabase_receiveTimeStampOfFirstNotification__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __75__ATXNotificationAndSuggestionDatabase_receiveTimeStampOfFirstNotification__block_invoke_3_cold_1();
@@ -3209,7 +3192,7 @@ uint64_t __84__ATXNotificationAndSuggestionDatabase_allNotificationsFromBundleId
   v5 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v4];
   if (!v5)
   {
-    v6 = __atxlog_handle_notification_management();
+    v6 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __84__ATXNotificationAndSuggestionDatabase_allNotificationsFromBundleId_sinceTimestamp___block_invoke_3_cold_1();
@@ -3227,15 +3210,15 @@ uint64_t __84__ATXNotificationAndSuggestionDatabase_allNotificationsFromBundleId
 
 uint64_t __84__ATXNotificationAndSuggestionDatabase_allNotificationsFromBundleId_sinceTimestamp___block_invoke_272(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_notification_management(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __84__ATXNotificationAndSuggestionDatabase_allNotificationsFromBundleId_sinceTimestamp___block_invoke_272_cold_1(a1);
+    __84__ATXNotificationAndSuggestionDatabase_allNotificationsFromBundleId_sinceTimestamp___block_invoke_272_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (id)allBundleIdsOfNotificationsOnLockscreen
@@ -3286,7 +3269,7 @@ uint64_t __79__ATXNotificationAndSuggestionDatabase_allBundleIdsOfNotificationsO
 
   else
   {
-    v4 = __atxlog_handle_notification_management();
+    v4 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __79__ATXNotificationAndSuggestionDatabase_allBundleIdsOfNotificationsOnLockscreen__block_invoke_3_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -3301,7 +3284,7 @@ uint64_t __79__ATXNotificationAndSuggestionDatabase_allBundleIdsOfNotificationsO
 uint64_t __79__ATXNotificationAndSuggestionDatabase_allBundleIdsOfNotificationsOnLockscreen__block_invoke_282(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __79__ATXNotificationAndSuggestionDatabase_allBundleIdsOfNotificationsOnLockscreen__block_invoke_282_cold_1();
@@ -3375,14 +3358,14 @@ uint64_t __53__ATXNotificationAndSuggestionDatabase_deleteAllData__block_invoke_
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  v7 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = __atxlog_handle_notification_management(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     __53__ATXNotificationAndSuggestionDatabase_deleteAllData__block_invoke_2_cold_1();
   }
 
-  v8 = MEMORY[0x277D42698];
-  return *v8;
+  v9 = MEMORY[0x277D42698];
+  return *v9;
 }
 
 uint64_t __53__ATXNotificationAndSuggestionDatabase_deleteAllData__block_invoke_285(uint64_t a1, void *a2)
@@ -3393,14 +3376,14 @@ uint64_t __53__ATXNotificationAndSuggestionDatabase_deleteAllData__block_invoke_
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  v7 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = __atxlog_handle_notification_management(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     __53__ATXNotificationAndSuggestionDatabase_deleteAllData__block_invoke_285_cold_1();
   }
 
-  v8 = MEMORY[0x277D42698];
-  return *v8;
+  v9 = MEMORY[0x277D42698];
+  return *v9;
 }
 
 uint64_t __53__ATXNotificationAndSuggestionDatabase_deleteAllData__block_invoke_286(uint64_t a1, void *a2)
@@ -3411,14 +3394,14 @@ uint64_t __53__ATXNotificationAndSuggestionDatabase_deleteAllData__block_invoke_
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  v7 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = __atxlog_handle_notification_management(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     __53__ATXNotificationAndSuggestionDatabase_deleteAllData__block_invoke_286_cold_1();
   }
 
-  v8 = MEMORY[0x277D42698];
-  return *v8;
+  v9 = MEMORY[0x277D42698];
+  return *v9;
 }
 
 - (id)pruneNotificationsBeforeTimestamp:(double)timestamp
@@ -3483,14 +3466,14 @@ uint64_t __74__ATXNotificationAndSuggestionDatabase_pruneNotificationsBeforeTime
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  v7 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  v8 = __atxlog_handle_notification_management(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
     __74__ATXNotificationAndSuggestionDatabase_pruneNotificationsBeforeTimestamp___block_invoke_3_cold_1();
   }
 
-  v8 = MEMORY[0x277D42698];
-  return *v8;
+  v9 = MEMORY[0x277D42698];
+  return *v9;
 }
 
 - (id)pruneSuggestionsBeforeTimestamp:(double)timestamp
@@ -3543,14 +3526,14 @@ uint64_t __72__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBeforeTimest
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  v7 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  v8 = __atxlog_handle_notification_management(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
     __72__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBeforeTimestamp___block_invoke_3_cold_1();
   }
 
-  v8 = MEMORY[0x277D42698];
-  return *v8;
+  v9 = MEMORY[0x277D42698];
+  return *v9;
 }
 
 - (void)pruneNotificationsBasedOnHardLimitsWithXPCActivity:(id)activity
@@ -3566,14 +3549,15 @@ uint64_t __72__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBeforeTimest
   v6 = activityCopy;
   v14 = v6;
   dispatch_sync_notxn_0(queue, &v9);
-  if ([v6 didDefer])
+  didDefer = [v6 didDefer];
+  if (didDefer)
   {
-    v7 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_notification_management(didDefer);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v16 = "[ATXNotificationAndSuggestionDatabase pruneNotificationsBasedOnHardLimitsWithXPCActivity:]";
-      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%s: XPC Activity deferred, skipping remaining work.", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "%s: XPC Activity deferred, skipping remaining work.", buf, 0xCu);
     }
   }
 
@@ -3581,111 +3565,109 @@ uint64_t __72__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBeforeTimest
   {
     [(ATXNotificationAndSuggestionDatabase *)self analyze];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x277D85DE8];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__31;
-  v43 = __Block_byref_object_dispose__31;
-  v44 = 0;
-  v2 = __atxlog_handle_notification_management();
+  v51 = *MEMORY[0x277D85DE8];
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__31;
+  v44 = __Block_byref_object_dispose__31;
+  v45 = 0;
+  v2 = __atxlog_handle_notification_management(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v46 = "[ATXNotificationAndSuggestionDatabase pruneNotificationsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
+    v47 = "[ATXNotificationAndSuggestionDatabase pruneNotificationsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
     _os_log_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEFAULT, "%s: Pruning notifications", buf, 0xCu);
   }
 
   v3 = objc_opt_new();
   v4 = [*(a1 + 32) db];
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_296;
+  v38[3] = &unk_278599FC8;
+  v5 = v3;
+  v39 = v5;
   v37[0] = MEMORY[0x277D85DD0];
   v37[1] = 3221225472;
-  v37[2] = __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_296;
-  v37[3] = &unk_278599FC8;
-  v5 = v3;
-  v38 = v5;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_2;
-  v36[3] = &unk_27859A1A0;
-  v36[4] = &v39;
-  [v4 prepAndRunQuery:@"SELECT DISTINCT bundleId FROM notifications GROUP BY bundleId ORDER BY count(*) DESC " onPrep:0 onRow:v37 onError:v36];
+  v37[2] = __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_2;
+  v37[3] = &unk_27859A1A0;
+  v37[4] = &v40;
+  [v4 prepAndRunQuery:@"SELECT DISTINCT bundleId FROM notifications GROUP BY bundleId ORDER BY count(*) DESC " onPrep:0 onRow:v38 onError:v37];
 
-  if (v40[5] && ![v5 count])
+  if (v41[5] && (v6 = [v5 count]) == 0)
   {
-    v9 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_cold_1(v9, v23, v24, v25, v26, v27, v28, v29);
+      __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_cold_1(v10, v25, v26, v27, v28, v29, v30, v31);
     }
   }
 
   else
   {
-    v6 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = __atxlog_handle_notification_management(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_cold_2();
     }
 
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-    v8 = v7;
-    v34 = 0u;
+    v9 = v8;
     v35 = 0u;
-    v32 = 0u;
+    v36 = 0u;
     v33 = 0u;
-    v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v32 objects:v49 count:16];
-    if (v10)
+    v34 = 0u;
+    v10 = v5;
+    v11 = [v10 countByEnumeratingWithState:&v33 objects:v50 count:16];
+    if (v11)
     {
-      v11 = *v33;
+      v12 = *v34;
 LABEL_9:
-      v12 = 0;
+      v13 = 0;
       while (1)
       {
-        if (*v33 != v11)
+        if (*v34 != v12)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        v13 = *(*(&v32 + 1) + 8 * v12);
-        v14 = objc_autoreleasePoolPush();
-        [*(a1 + 32) _pruneNotificationsBasedOnHardLimitsForBundleId:v13 XPCActivity:*(a1 + 40)];
+        v14 = *(*(&v33 + 1) + 8 * v13);
+        v15 = objc_autoreleasePoolPush();
+        [*(a1 + 32) _pruneNotificationsBasedOnHardLimitsForBundleId:v14 XPCActivity:*(a1 + 40)];
         [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-        if (v15 - v8 > 5.0 && [*(a1 + 40) didDefer])
+        if (v16 - v9 > 5.0 && (v17 = [*(a1 + 40) didDefer], v17))
         {
-          v16 = __atxlog_handle_notification_management();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v18 = __atxlog_handle_notification_management(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v46 = "[ATXNotificationAndSuggestionDatabase pruneNotificationsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
-            _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "%s: XPC Activity deferred, skipping remaining work.", buf, 0xCu);
+            v47 = "[ATXNotificationAndSuggestionDatabase pruneNotificationsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
+            _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "%s: XPC Activity deferred, skipping remaining work.", buf, 0xCu);
           }
 
-          v17 = 0;
+          v19 = 0;
         }
 
         else
         {
-          v17 = 1;
+          v19 = 1;
         }
 
-        objc_autoreleasePoolPop(v14);
-        if (!v17)
+        objc_autoreleasePoolPop(v15);
+        if (!v19)
         {
           break;
         }
 
-        if (v10 == ++v12)
+        if (v11 == ++v13)
         {
-          v10 = [v9 countByEnumeratingWithState:&v32 objects:v49 count:16];
-          if (v10)
+          v11 = [v10 countByEnumeratingWithState:&v33 objects:v50 count:16];
+          if (v11)
           {
             goto LABEL_9;
           }
@@ -3699,38 +3681,36 @@ LABEL_9:
     {
 LABEL_21:
 
-      v18 = [*(*(a1 + 32) + 40) ATXNotificationAndSuggestionDatabase_maxNumberOfNotifications];
-      v19 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = [*(*(a1 + 32) + 40) ATXNotificationAndSuggestionDatabase_maxNumberOfNotifications];
+      v21 = __atxlog_handle_notification_management(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v46 = "[ATXNotificationAndSuggestionDatabase pruneNotificationsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
-        v47 = 2048;
-        v48 = v18;
-        _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEFAULT, "%s: Pruning notifications table to max %ld rows", buf, 0x16u);
+        v47 = "[ATXNotificationAndSuggestionDatabase pruneNotificationsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
+        v48 = 2048;
+        v49 = v20;
+        _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_DEFAULT, "%s: Pruning notifications table to max %ld rows", buf, 0x16u);
       }
 
-      v20 = *(a1 + 32);
-      v21 = [v20[5] ATXNotificationAndSuggestionDatabase_pruningBatchSize];
-      v22 = *(a1 + 40);
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_300;
-      v31[3] = &__block_descriptor_40_e29_v16__0___PASSqliteStatement_8l;
-      v31[4] = v18;
-      [v20 prepAndRunQuery:@"DELETE FROM notifications RETURNING 1 ORDER BY receiveTimestamp DESC LIMIT :batchSize OFFSET :maxNumberOfNotifications " batchSize:v21 XPCActivity:v22 onPrep:v31 onRow:0 onError:&__block_literal_global_304];
-      v9 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v22 = *(a1 + 32);
+      v23 = [v22[5] ATXNotificationAndSuggestionDatabase_pruningBatchSize];
+      v24 = *(a1 + 40);
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_300;
+      v32[3] = &__block_descriptor_40_e29_v16__0___PASSqliteStatement_8l;
+      v32[4] = v20;
+      v10 = __atxlog_handle_notification_management([v22 prepAndRunQuery:@"DELETE FROM notifications RETURNING 1 ORDER BY receiveTimestamp DESC LIMIT :batchSize OFFSET :maxNumberOfNotifications " batchSize:v23 XPCActivity:v24 onPrep:v32 onRow:0 onError:&__block_literal_global_304]);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v46 = "[ATXNotificationAndSuggestionDatabase pruneNotificationsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
-        _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "%s: Finished pruning notifications", buf, 0xCu);
+        v47 = "[ATXNotificationAndSuggestionDatabase pruneNotificationsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
+        _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "%s: Finished pruning notifications", buf, 0xCu);
       }
     }
   }
 
-  _Block_object_dispose(&v39, 8);
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v40, 8);
 }
 
 uint64_t __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_296(uint64_t a1, void *a2)
@@ -3754,20 +3734,20 @@ uint64_t __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHar
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  v7 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  v8 = __atxlog_handle_notification_management(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
     __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_2_cold_1();
   }
 
-  v8 = MEMORY[0x277D42698];
-  return *v8;
+  v9 = MEMORY[0x277D42698];
+  return *v9;
 }
 
 uint64_t __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_2_302(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_2_302_cold_1();
@@ -3779,13 +3759,13 @@ uint64_t __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHar
 
 - (void)prepAndRunQuery:(id)query batchSize:(int64_t)size XPCActivity:(id)activity onPrep:(id)prep onRow:(id)row onError:(id)error
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   activityCopy = activity;
   prepCopy = prep;
   rowCopy = row;
   errorCopy = error;
-  v14 = __atxlog_handle_notification_management();
+  v14 = __atxlog_handle_notification_management(errorCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [(ATXNotificationAndSuggestionDatabase *)size prepAndRunQuery:v14 batchSize:v15 XPCActivity:v16 onPrep:v17 onRow:v18 onError:v19, v20];
@@ -3797,85 +3777,88 @@ uint64_t __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHar
   do
   {
     v24 = objc_autoreleasePoolPush();
-    *v50 = 0;
-    *&v50[8] = v50;
-    *&v50[16] = 0x2020000000;
-    v51 = 0;
+    *v52 = 0;
+    *&v52[8] = v52;
+    *&v52[16] = 0x2020000000;
+    v53 = 0;
     v25 = [(ATXAbstractVersionedDatabase *)self db];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __99__ATXNotificationAndSuggestionDatabase_prepAndRunQuery_batchSize_XPCActivity_onPrep_onRow_onError___block_invoke;
-    v43[3] = &unk_27859A1C8;
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __99__ATXNotificationAndSuggestionDatabase_prepAndRunQuery_batchSize_XPCActivity_onPrep_onRow_onError___block_invoke;
+    v45[3] = &unk_27859A1C8;
     v26 = prepCopy;
-    v44 = v26;
+    v46 = v26;
     sizeCopy = size;
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __99__ATXNotificationAndSuggestionDatabase_prepAndRunQuery_batchSize_XPCActivity_onPrep_onRow_onError___block_invoke_2;
-    v40[3] = &unk_27859A1F0;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __99__ATXNotificationAndSuggestionDatabase_prepAndRunQuery_batchSize_XPCActivity_onPrep_onRow_onError___block_invoke_2;
+    v42[3] = &unk_27859A1F0;
     v27 = rowCopy;
-    v41 = v27;
-    v42 = v50;
-    [v25 prepAndRunQuery:queryCopy onPrep:v43 onRow:v40 onError:errorCopy];
+    v43 = v27;
+    v44 = v52;
+    [v25 prepAndRunQuery:queryCopy onPrep:v45 onRow:v42 onError:errorCopy];
 
-    if (!*(*&v50[8] + 24))
+    if (!*(*&v52[8] + 24))
     {
-      v31 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      v34 = __atxlog_handle_notification_management(v28);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
       {
-        [ATXNotificationAndSuggestionDatabase prepAndRunQuery:v31 batchSize:? XPCActivity:? onPrep:? onRow:? onError:?];
+        [ATXNotificationAndSuggestionDatabase prepAndRunQuery:v34 batchSize:? XPCActivity:? onPrep:? onRow:? onError:?];
       }
 
       goto LABEL_18;
     }
 
-    v28 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v29 = __atxlog_handle_notification_management(v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
-      v30 = *(*&v50[8] + 24);
+      v33 = *(*&v52[8] + 24);
       *buf = 136315394;
-      v47 = "[ATXNotificationAndSuggestionDatabase prepAndRunQuery:batchSize:XPCActivity:onPrep:onRow:onError:]";
-      v48 = 1024;
-      v49 = v30;
-      _os_log_debug_impl(&dword_2263AA000, v28, OS_LOG_TYPE_DEBUG, "%s: Deleted %d rows", buf, 0x12u);
+      v49 = "[ATXNotificationAndSuggestionDatabase prepAndRunQuery:batchSize:XPCActivity:onPrep:onRow:onError:]";
+      v50 = 1024;
+      v51 = v33;
+      _os_log_debug_impl(&dword_2263AA000, v29, OS_LOG_TYPE_DEBUG, "%s: Deleted %d rows", buf, 0x12u);
     }
 
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-    if (v29 - v22 > 5.0 && [activityCopy didDefer])
+    if (v30 - v22 > 5.0)
     {
-      v31 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      didDefer = [activityCopy didDefer];
+      if (didDefer)
       {
-        *buf = 136315138;
-        v47 = "[ATXNotificationAndSuggestionDatabase prepAndRunQuery:batchSize:XPCActivity:onPrep:onRow:onError:]";
-        _os_log_impl(&dword_2263AA000, v31, OS_LOG_TYPE_DEFAULT, "%s: XPC deferral, unable to finish batched deletion", buf, 0xCu);
-      }
+        v34 = __atxlog_handle_notification_management(didDefer);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315138;
+          v49 = "[ATXNotificationAndSuggestionDatabase prepAndRunQuery:batchSize:XPCActivity:onPrep:onRow:onError:]";
+          _os_log_impl(&dword_2263AA000, v34, OS_LOG_TYPE_DEFAULT, "%s: XPC deferral, unable to finish batched deletion", buf, 0xCu);
+        }
 
 LABEL_18:
 
-      _Block_object_dispose(v50, 8);
-      objc_autoreleasePoolPop(v24);
-      goto LABEL_19;
+        _Block_object_dispose(v52, 8);
+        objc_autoreleasePoolPop(v24);
+        goto LABEL_19;
+      }
     }
 
-    _Block_object_dispose(v50, 8);
+    _Block_object_dispose(v52, 8);
     objc_autoreleasePoolPop(v24);
     --v23;
   }
 
   while (v23);
-  v32 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v35 = __atxlog_handle_notification_management(v32);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
-    *v50 = 136315394;
-    *&v50[4] = "[ATXNotificationAndSuggestionDatabase prepAndRunQuery:batchSize:XPCActivity:onPrep:onRow:onError:]";
-    *&v50[12] = 2048;
-    *&v50[14] = 1000 * size;
-    _os_log_impl(&dword_2263AA000, v32, OS_LOG_TYPE_DEFAULT, "%s: Reached maximum number of rows to delete: %ld", v50, 0x16u);
+    *v52 = 136315394;
+    *&v52[4] = "[ATXNotificationAndSuggestionDatabase prepAndRunQuery:batchSize:XPCActivity:onPrep:onRow:onError:]";
+    *&v52[12] = 2048;
+    *&v52[14] = 1000 * size;
+    _os_log_impl(&dword_2263AA000, v35, OS_LOG_TYPE_DEFAULT, "%s: Reached maximum number of rows to delete: %ld", v52, 0x16u);
   }
 
 LABEL_19:
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __99__ATXNotificationAndSuggestionDatabase_prepAndRunQuery_batchSize_XPCActivity_onPrep_onRow_onError___block_invoke(uint64_t a1, void *a2)
@@ -3908,29 +3891,29 @@ uint64_t __99__ATXNotificationAndSuggestionDatabase_prepAndRunQuery_batchSize_XP
 {
   idCopy = id;
   activityCopy = activity;
-  v8 = __atxlog_handle_notification_management();
+  v8 = __atxlog_handle_notification_management(activityCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [ATXNotificationAndSuggestionDatabase _pruneNotificationsBasedOnHardLimitsForBundleId:XPCActivity:];
   }
 
   aTXNotificationAndSuggestionDatabase_pruningBatchSize = [(ATXNotificationManagementMAConstants *)self->_mobileAssetConstants ATXNotificationAndSuggestionDatabase_pruningBatchSize];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __100__ATXNotificationAndSuggestionDatabase__pruneNotificationsBasedOnHardLimitsForBundleId_XPCActivity___block_invoke;
-  v14[3] = &unk_278598718;
-  v15 = idCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __100__ATXNotificationAndSuggestionDatabase__pruneNotificationsBasedOnHardLimitsForBundleId_XPCActivity___block_invoke;
+  v15[3] = &unk_278598718;
+  v16 = idCopy;
   selfCopy = self;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __100__ATXNotificationAndSuggestionDatabase__pruneNotificationsBasedOnHardLimitsForBundleId_XPCActivity___block_invoke_2;
-  v12[3] = &unk_2785987B8;
-  v10 = v15;
-  v13 = v10;
-  [(ATXNotificationAndSuggestionDatabase *)self prepAndRunQuery:@"DELETE FROM notifications WHERE bundleId = :bundleId RETURNING 1 ORDER BY receiveTimestamp DESC LIMIT :batchSize OFFSET :maxNumberOfNotificationsPerApp " batchSize:aTXNotificationAndSuggestionDatabase_pruningBatchSize XPCActivity:activityCopy onPrep:v14 onRow:0 onError:v12];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __100__ATXNotificationAndSuggestionDatabase__pruneNotificationsBasedOnHardLimitsForBundleId_XPCActivity___block_invoke_2;
+  v13[3] = &unk_2785987B8;
+  v10 = v16;
+  v14 = v10;
+  [(ATXNotificationAndSuggestionDatabase *)self prepAndRunQuery:@"DELETE FROM notifications WHERE bundleId = :bundleId RETURNING 1 ORDER BY receiveTimestamp DESC LIMIT :batchSize OFFSET :maxNumberOfNotificationsPerApp " batchSize:aTXNotificationAndSuggestionDatabase_pruningBatchSize XPCActivity:activityCopy onPrep:v15 onRow:0 onError:v13];
 
-  v11 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = __atxlog_handle_notification_management(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [ATXNotificationAndSuggestionDatabase _pruneNotificationsBasedOnHardLimitsForBundleId:XPCActivity:];
   }
@@ -3946,15 +3929,15 @@ void __100__ATXNotificationAndSuggestionDatabase__pruneNotificationsBasedOnHardL
 
 uint64_t __100__ATXNotificationAndSuggestionDatabase__pruneNotificationsBasedOnHardLimitsForBundleId_XPCActivity___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_notification_management(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __100__ATXNotificationAndSuggestionDatabase__pruneNotificationsBasedOnHardLimitsForBundleId_XPCActivity___block_invoke_2_cold_1(a1);
+    __100__ATXNotificationAndSuggestionDatabase__pruneNotificationsBasedOnHardLimitsForBundleId_XPCActivity___block_invoke_2_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (void)pruneSuggestionsBasedOnHardLimitsWithXPCActivity:(id)activity
@@ -3970,14 +3953,15 @@ uint64_t __100__ATXNotificationAndSuggestionDatabase__pruneNotificationsBasedOnH
   v6 = activityCopy;
   v14 = v6;
   dispatch_sync_notxn_0(queue, &v9);
-  if ([v6 didDefer])
+  didDefer = [v6 didDefer];
+  if (didDefer)
   {
-    v7 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_notification_management(didDefer);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v16 = "[ATXNotificationAndSuggestionDatabase pruneSuggestionsBasedOnHardLimitsWithXPCActivity:]";
-      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%s: XPC Activity deferred, skipping remaining work.", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "%s: XPC Activity deferred, skipping remaining work.", buf, 0xCu);
     }
   }
 
@@ -3985,88 +3969,86 @@ uint64_t __100__ATXNotificationAndSuggestionDatabase__pruneNotificationsBasedOnH
   {
     [(ATXNotificationAndSuggestionDatabase *)self analyze];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = __atxlog_handle_notification_management();
+  v18 = *MEMORY[0x277D85DE8];
+  v2 = __atxlog_handle_notification_management(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "[ATXNotificationAndSuggestionDatabase pruneSuggestionsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
+    v17 = "[ATXNotificationAndSuggestionDatabase pruneSuggestionsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
     _os_log_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEFAULT, "%s: Pruning suggestions", buf, 0xCu);
   }
 
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v4 = v3 + -2419200.0;
   v5 = [*(a1 + 32) db];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_313;
-  v13[3] = &__block_descriptor_40_e29_v16__0___PASSqliteStatement_8l;
-  *&v13[4] = v4;
-  [v5 prepAndRunQuery:@"DELETE FROM suggestions WHERE latestOutcome = :latestOutcomeCreated     AND triggerNotificationUUID IN(        SELECT triggerNotificationUUID         FROM suggestions         WHERE latestOutcome = :latestOutcomeCouldNotShow             AND latestOutcomeTimestamp < :timestamp28DaysAgo    ) " onPrep:v13 onRow:0 onError:&__block_literal_global_318];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_313;
+  v15[3] = &__block_descriptor_40_e29_v16__0___PASSqliteStatement_8l;
+  *&v15[4] = v4;
+  [v5 prepAndRunQuery:@"DELETE FROM suggestions WHERE latestOutcome = :latestOutcomeCreated     AND triggerNotificationUUID IN(        SELECT triggerNotificationUUID         FROM suggestions         WHERE latestOutcome = :latestOutcomeCouldNotShow             AND latestOutcomeTimestamp < :timestamp28DaysAgo    ) " onPrep:v15 onRow:0 onError:&__block_literal_global_318];
 
-  if ([*(a1 + 40) didDefer])
+  v6 = [*(a1 + 40) didDefer];
+  if (v6)
   {
-    v6 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = __atxlog_handle_notification_management(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v15 = "[ATXNotificationAndSuggestionDatabase pruneSuggestionsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
-      v7 = "%s: XPC Activity deferred, skipping remaining work.";
+      v17 = "[ATXNotificationAndSuggestionDatabase pruneSuggestionsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
+      v8 = "%s: XPC Activity deferred, skipping remaining work.";
 LABEL_11:
-      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, v7, buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, v8, buf, 0xCu);
     }
   }
 
   else
   {
-    v8 = [*(a1 + 32) db];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_322;
-    v12[3] = &__block_descriptor_40_e29_v16__0___PASSqliteStatement_8l;
-    *&v12[4] = v4;
-    [v8 prepAndRunQuery:@"DELETE FROM suggestions WHERE latestOutcome = :latestOutcomeCouldNotShow     AND latestOutcomeTimestamp < :timestamp28DaysAgo " onPrep:v12 onRow:0 onError:&__block_literal_global_325];
+    v9 = [*(a1 + 32) db];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_322;
+    v14[3] = &__block_descriptor_40_e29_v16__0___PASSqliteStatement_8l;
+    *&v14[4] = v4;
+    [v9 prepAndRunQuery:@"DELETE FROM suggestions WHERE latestOutcome = :latestOutcomeCouldNotShow     AND latestOutcomeTimestamp < :timestamp28DaysAgo " onPrep:v14 onRow:0 onError:&__block_literal_global_325];
 
-    if ([*(a1 + 40) didDefer])
+    v10 = [*(a1 + 40) didDefer];
+    if (v10)
     {
-      v6 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = __atxlog_handle_notification_management(v10);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v15 = "[ATXNotificationAndSuggestionDatabase pruneSuggestionsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
-        v7 = "%s: XPC Activity deferred, skipping remaining work.";
+        v17 = "[ATXNotificationAndSuggestionDatabase pruneSuggestionsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
+        v8 = "%s: XPC Activity deferred, skipping remaining work.";
         goto LABEL_11;
       }
     }
 
     else
     {
-      v9 = [*(a1 + 32) db];
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_329;
-      v11[3] = &unk_278598768;
-      v11[4] = *(a1 + 32);
-      [v9 prepAndRunQuery:@"DELETE FROM suggestions ORDER BY latestOutcomeTimestamp DESC LIMIT -1 OFFSET :maxNumberOfSuggestions" onPrep:v11 onRow:0 onError:&__block_literal_global_333];
+      v11 = [*(a1 + 32) db];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_329;
+      v13[3] = &unk_278598768;
+      v13[4] = *(a1 + 32);
+      [v11 prepAndRunQuery:@"DELETE FROM suggestions ORDER BY latestOutcomeTimestamp DESC LIMIT -1 OFFSET :maxNumberOfSuggestions" onPrep:v13 onRow:0 onError:&__block_literal_global_333];
 
-      v6 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = __atxlog_handle_notification_management(v12);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v15 = "[ATXNotificationAndSuggestionDatabase pruneSuggestionsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
-        v7 = "%s: Finished pruning suggestions";
+        v17 = "[ATXNotificationAndSuggestionDatabase pruneSuggestionsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
+        v8 = "%s: Finished pruning suggestions";
         goto LABEL_11;
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_313(uint64_t a1, void *a2)
@@ -4080,7 +4062,7 @@ void __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimit
 uint64_t __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_2_cold_1();
@@ -4100,7 +4082,7 @@ void __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimit
 uint64_t __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_2_323(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_2_323_cold_1();
@@ -4120,7 +4102,7 @@ void __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimit
 uint64_t __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_2_331(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_2_331_cold_1();
@@ -4144,7 +4126,7 @@ uint64_t __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardL
 void __47__ATXNotificationAndSuggestionDatabase_analyze__block_invoke(uint64_t a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  v2 = __atxlog_handle_notification_management();
+  v2 = __atxlog_handle_notification_management(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -4155,21 +4137,19 @@ void __47__ATXNotificationAndSuggestionDatabase_analyze__block_invoke(uint64_t a
   v3 = [*(a1 + 32) db];
   [v3 prepAndRunQuery:@"ANALYZE" onPrep:0 onRow:0 onError:&__block_literal_global_339];
 
-  v4 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = __atxlog_handle_notification_management(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
     v7 = "[ATXNotificationAndSuggestionDatabase analyze]_block_invoke";
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%s: Finished analyzing the db", &v6, 0xCu);
+    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%s: Finished analyzing the db", &v6, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__ATXNotificationAndSuggestionDatabase_analyze__block_invoke_337(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __47__ATXNotificationAndSuggestionDatabase_analyze__block_invoke_337_cold_1();
@@ -4221,14 +4201,14 @@ uint64_t __54__ATXNotificationAndSuggestionDatabase_vacuumDatabase__block_invoke
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  v7 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  v8 = __atxlog_handle_notification_management(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
     __54__ATXNotificationAndSuggestionDatabase_vacuumDatabase__block_invoke_2_cold_1();
   }
 
-  v8 = MEMORY[0x277D42698];
-  return *v8;
+  v9 = MEMORY[0x277D42698];
+  return *v9;
 }
 
 - (id)metricsForSuggestionsSinceCompletionTimestamp:(double)timestamp
@@ -4320,7 +4300,7 @@ uint64_t __86__ATXNotificationAndSuggestionDatabase_metricsForSuggestionsSinceCo
 uint64_t __86__ATXNotificationAndSuggestionDatabase_metricsForSuggestionsSinceCompletionTimestamp___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __116__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAndProminentNotificationsWithUrgency_sinceTimestamp___block_invoke_4_cold_1();
@@ -4447,7 +4427,7 @@ uint64_t __65__ATXNotificationAndSuggestionDatabase_feedbackHistoriesForKeys___b
 uint64_t __65__ATXNotificationAndSuggestionDatabase_feedbackHistoriesForKeys___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __65__ATXNotificationAndSuggestionDatabase_feedbackHistoriesForKeys___block_invoke_4_cold_1();
@@ -4626,7 +4606,7 @@ uint64_t __96__ATXNotificationAndSuggestionDatabase_telemetryDataForNotification
 uint64_t __96__ATXNotificationAndSuggestionDatabase_telemetryDataForNotificationsFromTimestamp_endTimestamp___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __96__ATXNotificationAndSuggestionDatabase_telemetryDataForNotificationsFromTimestamp_endTimestamp___block_invoke_4_cold_1();
@@ -4714,7 +4694,7 @@ uint64_t __112__ATXNotificationAndSuggestionDatabase_telemetryDataForNotificatio
 uint64_t __112__ATXNotificationAndSuggestionDatabase_telemetryDataForNotificationWithBundleId_notificationId_recordTimestamp___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __96__ATXNotificationAndSuggestionDatabase_telemetryDataForNotificationsFromTimestamp_endTimestamp___block_invoke_4_cold_1();
@@ -4726,466 +4706,349 @@ uint64_t __112__ATXNotificationAndSuggestionDatabase_telemetryDataForNotificatio
 
 void __59__ATXNotificationAndSuggestionDatabase__runMigrationSteps___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  OUTLINED_FUNCTION_13(&dword_2263AA000, a3, a3, "Error running migration query: %@ %@", &v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  OUTLINED_FUNCTION_13(&dword_2263AA000, a3, a3, "Error running migration query: %@ %@", &v4);
 }
 
 void __64__ATXNotificationAndSuggestionDatabase_getBookmarkDataFromName___block_invoke_4_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_4_4(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_4_4(a1 a2)];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __64__ATXNotificationAndSuggestionDatabase_setBookmarkData_forName___block_invoke_3_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_4_4(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_4_4(a1 a2)];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __113__ATXNotificationAndSuggestionDatabase_insertNotificationFromEvent_deliveryMethod_modeIdentifier_deliveryReason___block_invoke_3_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_4_4(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_4_4(a1 a2)];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __68__ATXNotificationAndSuggestionDatabase_updateNotificationFromEvent___block_invoke_3_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_4_4(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_4_4(a1 a2)];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void __111__ATXNotificationAndSuggestionDatabase_updateNotificationsWithNextAppLaunchDate_receivedDateAfter_forBundleId___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error updating notification with app launch timestamp: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __84__ATXNotificationAndSuggestionDatabase_updateNotificationUIForNotifications_nextUI___block_invoke_4_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error updating notification UIs: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __57__ATXNotificationAndSuggestionDatabase_insertSuggestion___block_invoke_3_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_4_4(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_4_4(a1 a2)];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __66__ATXNotificationAndSuggestionDatabase_updateSuggestionFromEvent___block_invoke_3_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_4_4(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_4_4(a1 a2)];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __110__ATXNotificationAndSuggestionDatabase_hasSuggestionBeenShownForEntityId_suggestionType_scope_sinceTimestamp___block_invoke_4_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(v0 + 32);
-  v2 = NSStringFromSelector(*(v0 + 40));
+  v1 = NSStringFromSelector(*(v0 + 40));
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void __112__ATXNotificationAndSuggestionDatabase_suggestionEventTypeShownForEntityId_suggestionType_scope_sinceTimestamp___block_invoke_4_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(v0 + 32);
-  v2 = NSStringFromSelector(*(v0 + 40));
+  v1 = NSStringFromSelector(*(v0 + 40));
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void __116__ATXNotificationAndSuggestionDatabase_engagementStatusOfActiveAndProminentNotificationsWithUrgency_sinceTimestamp___block_invoke_4_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_8_0(v1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_8_0(v0);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __89__ATXNotificationAndSuggestionDatabase_numberOfActiveNotificationsWithCompletionHandler___block_invoke_3_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_12_0(v1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_12_0(v0);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void __83__ATXNotificationAndSuggestionDatabase_setAllNotificationsToClearedExceptProminent__block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error updating notification while clearing all except prominent. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __69__ATXNotificationAndSuggestionDatabase_setAllNotificationsToModified__block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error updating notification while clearing all. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __64__ATXNotificationAndSuggestionDatabase_currentActiveSuggestions__block_invoke_2_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "Unable to load delieverySuggestion from the DB in %s. Skipping the suggestion.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXNotificationAndSuggestionDatabase currentActiveSuggestions]_block_invoke";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "Unable to load delieverySuggestion from the DB in %s. Skipping the suggestion.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __85__ATXNotificationAndSuggestionDatabase_getTopOfProminentStackNotificationsWithLimit___block_invoke_4_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_8_0(v1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_8_0(v0);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_13(v4, v5, v6, v7, v8);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_13(v3, v4, v5, v6, v7);
 }
 
 void __68__ATXNotificationAndSuggestionDatabase_resolutionsForNotifications___block_invoke_5_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_8_0(v1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_8_0(v0);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __88__ATXNotificationAndSuggestionDatabase__countNotificationsPerAppWithFilters_stmtBinder___block_invoke_4_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_8_0(v1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_8_0(v0);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __75__ATXNotificationAndSuggestionDatabase_receiveTimeStampOfFirstNotification__block_invoke_3_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_8_0(v1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_8_0(v0);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __84__ATXNotificationAndSuggestionDatabase_allNotificationsFromBundleId_sinceTimestamp___block_invoke_3_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_13();
-  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "%s: Unable to build NSUUID from string uuid %@ fetched from database. Continuing anyway", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "%s: Unable to build NSUUID from string uuid %@ fetched from database. Continuing anyway", v1, 0x16u);
 }
 
-void __84__ATXNotificationAndSuggestionDatabase_allNotificationsFromBundleId_sinceTimestamp___block_invoke_272_cold_1(uint64_t a1)
+void __84__ATXNotificationAndSuggestionDatabase_allNotificationsFromBundleId_sinceTimestamp___block_invoke_272_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v5 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_14();
-  OUTLINED_FUNCTION_16(&dword_2263AA000, v2, v3, "%s: Error fetching notifications for bundleId: %@. Error: %@", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_16(&dword_2263AA000, v0, v1, "%s: Error fetching notifications for bundleId: %@. Error: %@", v2);
 }
 
 void __79__ATXNotificationAndSuggestionDatabase_allBundleIdsOfNotificationsOnLockscreen__block_invoke_3_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%s: Failed to fetch one of the bundleIds from the db. Continuing anyway", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXNotificationAndSuggestionDatabase allBundleIdsOfNotificationsOnLockscreen]_block_invoke_3";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%s: Failed to fetch one of the bundleIds from the db. Continuing anyway", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __79__ATXNotificationAndSuggestionDatabase_allBundleIdsOfNotificationsOnLockscreen__block_invoke_282_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_10_0(&dword_2263AA000, v0, v1, "%s: Error fetching bundleIds. Error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10_0(&dword_2263AA000, v0, v1, "%s: Error fetching bundleIds. Error: %@", v2, v3, v4, v5, v6);
 }
 
 void __53__ATXNotificationAndSuggestionDatabase_deleteAllData__block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_12_0(v1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_12_0(v0);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __53__ATXNotificationAndSuggestionDatabase_deleteAllData__block_invoke_285_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_12_0(v1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_12_0(v0);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __53__ATXNotificationAndSuggestionDatabase_deleteAllData__block_invoke_286_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_12_0(v1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_12_0(v0);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __74__ATXNotificationAndSuggestionDatabase_pruneNotificationsBeforeTimestamp___block_invoke_3_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_12_0(v1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_12_0(v0);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_13(v4, v5, v6, v7, v8);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_13(v3, v4, v5, v6, v7);
 }
 
 void __72__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBeforeTimestamp___block_invoke_3_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_12_0(v1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_12_0(v0);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_13(v4, v5, v6, v7, v8);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_13(v3, v4, v5, v6, v7);
 }
 
 void __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%s: Failed to fetch bundleIds. See logs above. Exiting early.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXNotificationAndSuggestionDatabase pruneNotificationsBasedOnHardLimitsWithXPCActivity:]_block_invoke";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "%s: Failed to fetch bundleIds. See logs above. Exiting early.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_15(&dword_2263AA000, v0, v1, "%s: Processing bundleIds in order: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_15(&dword_2263AA000, v0, v1, "%s: Processing bundleIds in order: %@", v2, v3, v4, v5, v6);
 }
 
 void __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_2_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_10_0(&dword_2263AA000, v0, v1, "%s: Error fetching bundleIds from db. Error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10_0(&dword_2263AA000, v0, v1, "%s: Error fetching bundleIds from db. Error: %@", v2, v3, v4, v5, v6);
 }
 
 void __91__ATXNotificationAndSuggestionDatabase_pruneNotificationsBasedOnHardLimitsWithXPCActivity___block_invoke_2_302_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_10_0(&dword_2263AA000, v0, v1, "%s: Error running deletion across all apps. Error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10_0(&dword_2263AA000, v0, v1, "%s: Error running deletion across all apps. Error: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)prepAndRunQuery:(uint64_t)a3 batchSize:(uint64_t)a4 XPCActivity:(uint64_t)a5 onPrep:(uint64_t)a6 onRow:(uint64_t)a7 onError:(uint64_t)a8 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_15(&dword_2263AA000, a2, a3, "%s: Starting batched deletion, batchSize: %ld", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  *v8 = 136315394;
+  *&v8[4] = "[ATXNotificationAndSuggestionDatabase prepAndRunQuery:batchSize:XPCActivity:onPrep:onRow:onError:]";
+  *&v8[12] = 2048;
+  *&v8[14] = a1;
+  OUTLINED_FUNCTION_15(&dword_2263AA000, a2, a3, "%s: Starting batched deletion, batchSize: %ld", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)prepAndRunQuery:(os_log_t)log batchSize:XPCActivity:onPrep:onRow:onError:.cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[ATXNotificationAndSuggestionDatabase prepAndRunQuery:batchSize:XPCActivity:onPrep:onRow:onError:]";
-  _os_log_debug_impl(&dword_2263AA000, log, OS_LOG_TYPE_DEBUG, "%s: Finished batched deletion", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[ATXNotificationAndSuggestionDatabase prepAndRunQuery:batchSize:XPCActivity:onPrep:onRow:onError:]";
+  _os_log_debug_impl(&dword_2263AA000, log, OS_LOG_TYPE_DEBUG, "%s: Finished batched deletion", &v1, 0xCu);
 }
 
 - (void)_pruneNotificationsBasedOnHardLimitsForBundleId:XPCActivity:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_15(&dword_2263AA000, v0, v1, "%s: Deleting rows from notifications table for bundleId %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_15(&dword_2263AA000, v0, v1, "%s: Deleting rows from notifications table for bundleId %@", v2, v3, v4, v5, v6);
 }
 
 - (void)_pruneNotificationsBasedOnHardLimitsForBundleId:XPCActivity:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_15(&dword_2263AA000, v0, v1, "%s: Finished deletion for bundleId %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_15(&dword_2263AA000, v0, v1, "%s: Finished deletion for bundleId %@", v2, v3, v4, v5, v6);
 }
 
-void __100__ATXNotificationAndSuggestionDatabase__pruneNotificationsBasedOnHardLimitsForBundleId_XPCActivity___block_invoke_2_cold_1(uint64_t a1)
+void __100__ATXNotificationAndSuggestionDatabase__pruneNotificationsBasedOnHardLimitsForBundleId_XPCActivity___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v5 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_14();
-  OUTLINED_FUNCTION_16(&dword_2263AA000, v2, v3, "%s: Error deleting entries from notifications table for bundleId: %@. Error: %@", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_16(&dword_2263AA000, v0, v1, "%s: Error deleting entries from notifications table for bundleId: %@. Error: %@", v2);
 }
 
 void __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_2_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_10_0(&dword_2263AA000, v0, v1, "%s: Error deleting suggestions with Created latestOutcome from the suggestions table. Error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10_0(&dword_2263AA000, v0, v1, "%s: Error deleting suggestions with Created latestOutcome from the suggestions table. Error: %@", v2, v3, v4, v5, v6);
 }
 
 void __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_2_323_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_10_0(&dword_2263AA000, v0, v1, "%s: Error deleting suggestions with CouldNotShow latestOutcome from the suggestions table. Error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10_0(&dword_2263AA000, v0, v1, "%s: Error deleting suggestions with CouldNotShow latestOutcome from the suggestions table. Error: %@", v2, v3, v4, v5, v6);
 }
 
 void __89__ATXNotificationAndSuggestionDatabase_pruneSuggestionsBasedOnHardLimitsWithXPCActivity___block_invoke_2_331_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_10_0(&dword_2263AA000, v0, v1, "%s: Error deleting entries from suggestions table. Error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10_0(&dword_2263AA000, v0, v1, "%s: Error deleting entries from suggestions table. Error: %@", v2, v3, v4, v5, v6);
 }
 
 void __47__ATXNotificationAndSuggestionDatabase_analyze__block_invoke_337_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_10_0(&dword_2263AA000, v0, v1, "%s: Error analyzing database. Error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10_0(&dword_2263AA000, v0, v1, "%s: Error analyzing database. Error: %@", v2, v3, v4, v5, v6);
 }
 
 void __54__ATXNotificationAndSuggestionDatabase_vacuumDatabase__block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_12_0(v1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_12_0(v0);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_13(v4, v5, v6, v7, v8);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_13(v3, v4, v5, v6, v7);
 }
 
 void __65__ATXNotificationAndSuggestionDatabase_feedbackHistoriesForKeys___block_invoke_4_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_8_0(v1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_8_0(v0);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __96__ATXNotificationAndSuggestionDatabase_telemetryDataForNotificationsFromTimestamp_endTimestamp___block_invoke_4_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_8_0(v1);
-  v3 = NSStringFromSelector(v2);
+  v1 = OUTLINED_FUNCTION_8_0(v0);
+  v2 = NSStringFromSelector(v1);
   OUTLINED_FUNCTION_0_14();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 @end

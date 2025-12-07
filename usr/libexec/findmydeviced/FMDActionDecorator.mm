@@ -37,7 +37,7 @@
 - (void)runWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_10017DA30();
+  v5 = sub_10017DA30(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     innerAction = [(FMDActionDecorator *)self innerAction];
@@ -90,15 +90,15 @@
 
   if (v4)
   {
-    v5 = sub_10017DA30();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_10017DA30(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       innerAction2 = [(FMDActionDecorator *)self innerAction];
-      v8 = 138412546;
+      v9 = 138412546;
       selfCopy = self;
-      v10 = 2112;
-      v11 = innerAction2;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ will cancel inner action - %@", &v8, 0x16u);
+      v11 = 2112;
+      v12 = innerAction2;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ will cancel inner action - %@", &v9, 0x16u);
     }
 
     innerAction3 = [(FMDActionDecorator *)self innerAction];

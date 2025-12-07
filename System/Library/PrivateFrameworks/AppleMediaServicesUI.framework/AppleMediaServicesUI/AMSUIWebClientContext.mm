@@ -42,7 +42,7 @@
 
 - (AMSSnapshotBag)bag
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   bag = self->_bag;
   if (!bag)
   {
@@ -57,18 +57,17 @@
     {
       v6 = objc_opt_class();
       v7 = AMSLogKey();
-      v11 = 138543618;
-      v12 = v6;
-      v13 = 2114;
-      v14 = v7;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] INVALID: Use of bag before bootstrap.", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v6;
+      v12 = 2114;
+      v13 = v7;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] INVALID: Use of bag before bootstrap.", &v10, 0x16u);
     }
 
     bag = self->_backingBag;
   }
 
   v8 = bag;
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -275,14 +274,14 @@ LABEL_38:
 
 - (id)iTunesAccountFromJSDSID:(id)d
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (objc_opt_respondsToSelector())
   {
-    v10 = @"DSID";
+    v9 = @"DSID";
     v5 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(dCopy, "longLongValue")}];
-    v11[0] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   }
 
   else
@@ -292,14 +291,12 @@ LABEL_38:
 
   v7 = [(AMSUIWebClientContext *)self iTunesAccountFromJSAccount:v6];
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)JSAccountFromAccount:(id)account store:(id)store
 {
-  v54[11] = *MEMORY[0x1E69E9840];
+  v53[11] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   storeCopy = store;
   v8 = MEMORY[0x1E695E0F8];
@@ -341,7 +338,7 @@ LABEL_4:
   }
 
 LABEL_11:
-  v49 = v10;
+  v48 = v10;
   v12 = v8;
   ams_DSID = [accountCopy ams_DSID];
   v14 = ams_DSID;
@@ -351,7 +348,7 @@ LABEL_11:
     v15 = ams_DSID;
   }
 
-  v48 = v15;
+  v47 = v15;
 
   ams_altDSID = [accountCopy ams_altDSID];
   v17 = ams_altDSID;
@@ -361,7 +358,7 @@ LABEL_11:
     v18 = ams_altDSID;
   }
 
-  v52 = v18;
+  v51 = v18;
 
   if (!storeCopy)
   {
@@ -371,7 +368,7 @@ LABEL_11:
     storeCopy = [v19 ams_sharedAccountStoreForMediaType:accountMediaType];
   }
 
-  v50 = storeCopy;
+  v49 = storeCopy;
   v22 = [storeCopy ams_iTunesAccountForAccount:accountCopy];
   v23 = v22;
   if (v22)
@@ -391,7 +388,7 @@ LABEL_11:
   ams_lastName = [v25 ams_lastName];
   ams_storefront = [v25 ams_storefront];
   username = [v25 username];
-  v53[0] = @"accountFlags";
+  v52[0] = @"accountFlags";
   ams_accountFlags = [accountCopy ams_accountFlags];
   v31 = ams_accountFlags;
   if (ams_accountFlags)
@@ -404,24 +401,24 @@ LABEL_11:
     v32 = v12;
   }
 
-  v54[0] = v32;
-  v53[1] = @"active";
+  v53[0] = v32;
+  v52[1] = @"active";
   v33 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(accountCopy, "isActive")}];
-  v54[1] = v33;
-  v54[2] = v52;
-  v53[2] = @"altDSID";
-  v53[3] = @"credits";
+  v53[1] = v33;
+  v53[2] = v51;
+  v52[2] = @"altDSID";
+  v52[3] = @"credits";
   v34 = ams_creditsString;
   if (!ams_creditsString)
   {
     v34 = &stru_1F3921360;
   }
 
-  v54[3] = v34;
-  v53[4] = @"DSID";
-  stringValue = [v48 stringValue];
+  v53[3] = v34;
+  v52[4] = @"DSID";
+  stringValue = [v47 stringValue];
 
-  v47 = ams_firstName;
+  v46 = ams_firstName;
   if (ams_firstName)
   {
     v36 = ams_firstName;
@@ -432,23 +429,23 @@ LABEL_11:
     v36 = &stru_1F3921360;
   }
 
-  v54[4] = stringValue;
-  v54[5] = v36;
-  v53[5] = @"firstName";
-  v53[6] = @"lastName";
+  v53[4] = stringValue;
+  v53[5] = v36;
+  v52[5] = @"firstName";
+  v52[6] = @"lastName";
   v37 = ams_lastName;
   if (!ams_lastName)
   {
     v37 = &stru_1F3921360;
   }
 
-  v54[6] = v37;
-  v53[7] = @"isManagedAppleID";
+  v53[6] = v37;
+  v52[7] = @"isManagedAppleID";
   v38 = MEMORY[0x1E696AD98];
   ams_isManagedAppleID = [accountCopy ams_isManagedAppleID];
 
   v40 = v38;
-  storeCopy = v50;
+  storeCopy = v49;
   v41 = [v40 numberWithBool:ams_isManagedAppleID];
   v42 = v41;
   if (ams_storefront)
@@ -461,11 +458,11 @@ LABEL_11:
     v43 = &stru_1F3921360;
   }
 
-  v54[7] = v41;
-  v54[8] = v43;
-  v53[8] = @"storefront";
-  v53[9] = @"type";
-  v53[10] = @"username";
+  v53[7] = v41;
+  v53[8] = v43;
+  v52[8] = @"storefront";
+  v52[9] = @"type";
+  v52[10] = @"username";
   if (username)
   {
     v44 = username;
@@ -476,19 +473,18 @@ LABEL_11:
     v44 = &stru_1F3921360;
   }
 
-  v54[9] = v49;
-  v54[10] = v44;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:v53 count:11];
+  v53[9] = v48;
+  v53[10] = v44;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:11];
 
 LABEL_37:
-  v45 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (id)loadSnapshot
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E698C7F0]);
   if (self->_bag)
   {
@@ -504,9 +500,9 @@ LABEL_37:
       v6 = objc_opt_class();
       v7 = AMSLogKey();
       *buf = 138543618;
-      v15 = v6;
-      v16 = 2114;
-      v17 = v7;
+      v14 = v6;
+      v15 = 2114;
+      v16 = v7;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Snapshot already loaded.", buf, 0x16u);
     }
 
@@ -517,26 +513,24 @@ LABEL_37:
   {
     objc_initWeak(buf, self);
     backingBag = [(AMSUIWebClientContext *)self backingBag];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __37__AMSUIWebClientContext_loadSnapshot__block_invoke;
-    v11[3] = &unk_1E7F25E80;
-    objc_copyWeak(&v13, buf);
-    v12 = v3;
-    [backingBag createSnapshotWithCompletion:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __37__AMSUIWebClientContext_loadSnapshot__block_invoke;
+    v10[3] = &unk_1E7F25E80;
+    objc_copyWeak(&v12, buf);
+    v11 = v3;
+    [backingBag createSnapshotWithCompletion:v10];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 void __37__AMSUIWebClientContext_loadSnapshot__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -570,9 +564,9 @@ void __37__AMSUIWebClientContext_loadSnapshot__block_invoke(uint64_t a1, void *a
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         v18 = AMSLogKey();
-        v20 = 138543362;
-        v21 = v18;
-        _os_log_impl(&dword_1BB036000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] DisableSettingsNavigationProxy present, Settings nav proxy will be disabled.", &v20, 0xCu);
+        v19 = 138543362;
+        v20 = v18;
+        _os_log_impl(&dword_1BB036000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] DisableSettingsNavigationProxy present, Settings nav proxy will be disabled.", &v19, 0xCu);
       }
     }
 
@@ -585,13 +579,11 @@ void __37__AMSUIWebClientContext_loadSnapshot__block_invoke(uint64_t a1, void *a
     v15 = AMSError();
     [v14 finishWithError:v15];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)replaceCurrentAccount:(id)account clientInfo:(id)info
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   infoCopy = info;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
@@ -601,7 +593,7 @@ void __37__AMSUIWebClientContext_loadSnapshot__block_invoke(uint64_t a1, void *a
   }
 
   oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
-  v56 = infoCopy;
+  v55 = infoCopy;
   if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
   {
     v11 = AMSLogKey();
@@ -622,11 +614,11 @@ void __37__AMSUIWebClientContext_loadSnapshot__block_invoke(uint64_t a1, void *a
     v16 = AMSHashIfNeeded();
     v17 = AMSHashIfNeeded();
     *buf = 138543874;
-    v58 = v15;
-    v59 = 2114;
-    v60 = v16;
-    v61 = 2114;
-    v62 = v17;
+    v57 = v15;
+    v58 = 2114;
+    v59 = v16;
+    v60 = 2114;
+    v61 = v17;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_INFO, "%{public}@Replacing current account with account: %{public}@ | clientInfo: %{public}@", buf, 0x20u);
     if (v11)
     {
@@ -634,12 +626,12 @@ void __37__AMSUIWebClientContext_loadSnapshot__block_invoke(uint64_t a1, void *a
       v15 = v4;
     }
 
-    infoCopy = v56;
+    infoCopy = v55;
   }
 
   clientInfo = [(AMSUIWebClientContext *)self clientInfo];
-  v55 = [objc_opt_class() _createClientInfoFromAccount:accountCopy clientInfo:infoCopy];
-  objc_storeStrong(&self->_clientInfo, v55);
+  v54 = [objc_opt_class() _createClientInfoFromAccount:accountCopy clientInfo:infoCopy];
+  objc_storeStrong(&self->_clientInfo, v54);
   if (accountCopy)
   {
     v19 = accountCopy;
@@ -660,17 +652,7 @@ void __37__AMSUIWebClientContext_loadSnapshot__block_invoke(uint64_t a1, void *a
   backingBag = [(AMSUIWebClientContext *)self backingBag];
   v26 = objc_opt_respondsToSelector();
 
-  if ((v26 & 1) == 0)
-  {
-    goto LABEL_17;
-  }
-
-  backingBag2 = [(AMSUIWebClientContext *)self backingBag];
-  processInfo = [backingBag2 processInfo];
-
-  accountMediaType = [processInfo accountMediaType];
-
-  if (accountMediaType)
+  if ((v26 & 1) != 0 && (-[AMSUIWebClientContext backingBag](self, "backingBag"), v27 = objc_claimAutoreleasedReturnValue(), [v27 processInfo], v28 = objc_claimAutoreleasedReturnValue(), v27, objc_msgSend(v28, "accountMediaType"), v29 = objc_claimAutoreleasedReturnValue(), v28, v29))
   {
     v30 = 0;
     if (!clientInfo)
@@ -681,7 +663,6 @@ void __37__AMSUIWebClientContext_loadSnapshot__block_invoke(uint64_t a1, void *a
 
   else
   {
-LABEL_17:
     mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedWebUIConfig];
     if (!mEMORY[0x1E698C968]2)
     {
@@ -694,13 +675,13 @@ LABEL_17:
       v33 = objc_opt_class();
       v34 = AMSLogKey();
       *buf = 138543618;
-      v58 = v33;
-      v59 = 2114;
-      v60 = v34;
+      v57 = v33;
+      v58 = 2114;
+      v59 = v34;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Unable to locate bag media type", buf, 0x16u);
     }
 
-    accountMediaType = 0;
+    v29 = 0;
     v30 = 1;
     if (!clientInfo)
     {
@@ -709,12 +690,12 @@ LABEL_17:
   }
 
   clientInfo2 = [(AMSUIWebClientContext *)self clientInfo];
-  accountMediaType2 = [clientInfo2 accountMediaType];
-  v37 = accountMediaType2;
+  accountMediaType = [clientInfo2 accountMediaType];
+  v37 = accountMediaType;
   if (v30)
   {
-    accountMediaType3 = [clientInfo accountMediaType];
-    v39 = [v37 isEqualToString:accountMediaType3];
+    accountMediaType2 = [clientInfo accountMediaType];
+    v39 = [v37 isEqualToString:accountMediaType2];
 
     if (v39)
     {
@@ -724,7 +705,7 @@ LABEL_17:
 
   else
   {
-    v40 = [accountMediaType2 isEqualToString:accountMediaType];
+    v40 = [accountMediaType isEqualToString:v29];
 
     if (v40)
     {
@@ -744,17 +725,17 @@ LABEL_17:
     v43 = objc_opt_class();
     v44 = AMSLogKey();
     *buf = 138543618;
-    v58 = v43;
-    v59 = 2114;
-    v60 = v44;
+    v57 = v43;
+    v58 = 2114;
+    v59 = v44;
     _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Updating bag to match new account type", buf, 0x16u);
   }
 
   v45 = MEMORY[0x1E698C7D8];
+  backingBag2 = [(AMSUIWebClientContext *)self backingBag];
+  profile = [backingBag2 profile];
   backingBag3 = [(AMSUIWebClientContext *)self backingBag];
-  profile = [backingBag3 profile];
-  backingBag4 = [(AMSUIWebClientContext *)self backingBag];
-  profileVersion = [backingBag4 profileVersion];
+  profileVersion = [backingBag3 profileVersion];
   clientInfo3 = [(AMSUIWebClientContext *)self clientInfo];
   v51 = [v45 bagForProfile:profile profileVersion:profileVersion processInfo:clientInfo3];
   [(AMSUIWebClientContext *)self updateBackingBag:v51];
@@ -762,8 +743,6 @@ LABEL_17:
 LABEL_31:
   dataProvider = [(AMSUIWebClientContext *)self dataProvider];
   syncProperties = [dataProvider syncProperties];
-
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_sharedSnapshotCache
@@ -780,9 +759,11 @@ LABEL_31:
 
 uint64_t __45__AMSUIWebClientContext__sharedSnapshotCache__block_invoke()
 {
-  _sharedSnapshotCache_ams_once_object___COUNTER__ = [objc_alloc(MEMORY[0x1E698C950]) initWithMaxSize:5];
+  v0 = [objc_alloc(MEMORY[0x1E698C950]) initWithMaxSize:5];
+  v1 = _sharedSnapshotCache_ams_once_object___COUNTER__;
+  _sharedSnapshotCache_ams_once_object___COUNTER__ = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (BOOL)_BOOLForKey:(id)key defaultValue:(BOOL)value domain:(__CFString *)domain
@@ -805,7 +786,7 @@ uint64_t __45__AMSUIWebClientContext__sharedSnapshotCache__block_invoke()
 
 + (id)_createClientInfoFromAccount:(id)account clientInfo:(id)info
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   infoCopy = info;
   v7 = [infoCopy copy];
@@ -836,11 +817,11 @@ uint64_t __45__AMSUIWebClientContext__sharedSnapshotCache__block_invoke()
     {
       v13 = objc_opt_class();
       v14 = AMSLogKey();
-      v30 = 138543618;
-      v31 = v13;
-      v32 = 2114;
-      v33 = v14;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Switching to sandbox media type", &v30, 0x16u);
+      v29 = 138543618;
+      v30 = v13;
+      v31 = 2114;
+      v32 = v14;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Switching to sandbox media type", &v29, 0x16u);
     }
   }
 
@@ -876,13 +857,13 @@ LABEL_14:
       v25 = objc_opt_class();
       v26 = AMSLogKey();
       accountMediaType3 = [v10 accountMediaType];
-      v30 = 138543874;
-      v31 = v25;
-      v32 = 2114;
-      v33 = v26;
-      v34 = 2114;
-      v35 = accountMediaType3;
-      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Switching to media type: %{public}@", &v30, 0x20u);
+      v29 = 138543874;
+      v30 = v25;
+      v31 = 2114;
+      v32 = v26;
+      v33 = 2114;
+      v34 = accountMediaType3;
+      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Switching to media type: %{public}@", &v29, 0x20u);
     }
 
     goto LABEL_22;
@@ -905,7 +886,6 @@ LABEL_14:
 LABEL_22:
 
 LABEL_23:
-  v28 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

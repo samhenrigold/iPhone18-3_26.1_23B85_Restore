@@ -1,4158 +1,1736 @@
-uint64_t re::AssetManager::assetNonSharedDataByteSize_entryStateLocked(re::AssetManager *this, re::internal::AssetEntry *a2)
+uint64_t re::serializeI16<re::EncoderBinary<re::FixedArrayInputStream>>(uint64_t a1, const char *a2, const re::TypeInfo *a3, char *a4, re *a5, const re::TypeInfo *a6, char a7)
 {
-  v4 = atomic_load(a2 + 224);
-  if (v4 != 2)
+  if (a5 != a6)
   {
+    if (*a5 == *a6)
+    {
+      v15 = **(a5 + 2);
+      v16 = **(a6 + 2);
+      if (v15 == v16)
+      {
+        v18 = WORD1(v15) == WORD1(v16);
+        v17 = (v16 ^ v15) & 0xFFFFFF00000000;
+        v18 = v18 && v17 == 0;
+        if (v18)
+        {
+          goto LABEL_4;
+        }
+      }
+    }
+
+    else if (re::areSameTranslatedVersion(a5, a6, a3))
+    {
+      goto LABEL_4;
+    }
+
+    re::internal::setTypeMismatchError<re::EncoderOPACK<re::FixedArrayInputStream>>(a1, a2, a5, a6);
     return 0;
   }
 
-  v14[3] = v2;
-  v14[4] = v3;
-  v6 = *(this + 226);
-  v14[0] = *(a2 + 35);
-  v7 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v6, v14);
-  (*(**v7 + 128))(*v7);
-  v8 = *v7;
-  if ((*(a2 + 384) & 1) == 0)
-  {
-    v9 = re::internal::AssetEntry::assetPointer(a2);
-    v10 = (*(*v8 + 56))(v8, v9);
-    if ((*(a2 + 384) & 1) == 0)
-    {
-      *(a2 + 384) = 1;
-    }
+LABEL_4:
 
-    *(a2 + 49) = v10;
-  }
-
-  if (*(a2 + 368) == 1)
-  {
-    v11 = *(a2 + 47);
-  }
-
-  else
-  {
-    v13 = re::internal::AssetEntry::assetPointer(a2);
-    v11 = (*(*v8 + 64))(v8, v13);
-    if ((*(a2 + 368) & 1) == 0)
-    {
-      *(a2 + 368) = 1;
-    }
-
-    *(a2 + 47) = v11;
-  }
-
-  return *(a2 + 49) + v11;
+  return re::EncoderBinary<re::FixedArrayInputStream>::serializeValue<short>(a1 + 24, a2, a3, a4, "int16", a7);
 }
 
-uint64_t re::AssetManager::performPreloadOnLocalPeerSyncAction(re::AssetManager *this, const re::AssetHandle *a2)
+uint64_t re::serializeI32<re::EncoderBinary<re::FixedArrayInputStream>>(uint64_t a1, const char *a2, const re::TypeInfo *a3, char *a4, re *a5, const re::TypeInfo *a6, char a7)
 {
-  if (!*(a2 + 1))
+  if (a5 != a6)
   {
-LABEL_24:
-    LOBYTE(v2) = 1;
-    return v2 & 1;
-  }
-
-  v2 = a2;
-  os_unfair_lock_lock(this + 608);
-  re::DynamicOverflowArray<unsigned long long,1ul>::DynamicOverflowArray(&v18, this + 305);
-  os_unfair_lock_unlock(this + 608);
-  if (!v19)
-  {
-    goto LABEL_18;
-  }
-
-  if (*(this + 2220) != 1)
-  {
-    v13 = *(this + 240);
-    if (v20)
+    if (*a5 == *a6)
     {
-      v14 = v21;
-    }
-
-    else
-    {
-      v14 = v21[1];
-    }
-
-    v16 = v14;
-    v17 = v19;
-    if (!(*(*v13 + 16))(v13, v2, &v16))
-    {
-LABEL_19:
-      LOBYTE(v2) = 0;
-      v12 = 0;
-      goto LABEL_20;
-    }
-
-LABEL_18:
-    v12 = 1;
-    goto LABEL_20;
-  }
-
-  v5 = *(this + 230);
-  if (!v5)
-  {
-    goto LABEL_18;
-  }
-
-  if ((*(this + 2584) & 1) == 0)
-  {
-    *(this + 2584) = 1;
-    v6 = re::MaterialAsset::assetType(v4);
-    v7 = *(this + 226);
-    v16 = v6;
-    v8 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v7, &v16);
-    (*(**v8 + 128))(*v8);
-    re::AssetHandle::AssetHandle(&v16, (*v8 + 80));
-    if (v17)
-    {
-      (*(*v5 + 24))(v5, &v16, 1);
-    }
-
-    re::AssetHandle::~AssetHandle(&v16);
-  }
-
-  v9 = *(v2 + 1);
-  if (!v9)
-  {
-    goto LABEL_19;
-  }
-
-  v10 = atomic_load((v9 + 896));
-  if (v10 != 2)
-  {
-    goto LABEL_19;
-  }
-
-  v11 = *(v2 + 1);
-  if (v11)
-  {
-    LOBYTE(v11) = *(v11 + 272);
-  }
-
-  (*(*v5 + 24))(v5, v2, v11 & 1);
-  v12 = 0;
-  LOBYTE(v2) = 1;
-LABEL_20:
-  if (v18 && (v20 & 1) == 0)
-  {
-    (*(*v18 + 40))();
-  }
-
-  if (v12)
-  {
-    goto LABEL_24;
-  }
-
-  return v2 & 1;
-}
-
-void re::AssetManager::internalUnloadSharedAssetPointer(re::AssetManager *this, void *a2, const re::ExistingAssetInformation *a3, const re::AssetType *a4)
-{
-  v8 = *(this + 226);
-  v12 = a4;
-  v9 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v8, &v12);
-  (*(**v9 + 128))(*v9);
-  (*(**v9 + 104))(*v9, a2, a3);
-  if (*(a3 + 17))
-  {
-    v10 = *(a3 + 18);
-  }
-
-  else
-  {
-    v10 = a3 + 137;
-  }
-
-  if (*(a3 + 10) == -1)
-  {
-    v11 = 0;
-  }
-
-  else
-  {
-    v11 = *(a3 + 10);
-  }
-
-  re::AssetManager::unloadAssetPointer(this, a4, a2, v10, v11);
-}
-
-void re::AssetManager::internalAssetEntryUnloadAssetPointer_entryStateLocked(re::AssetManager *this, const re::AssetType **a2)
-{
-  if (!re::internal::AssetEntry::hasAssetPointer(a2))
-  {
-LABEL_38:
-
-    re::internal::AssetEntry::LoadState::resetAssetPointer_locked((a2 + 112));
-    return;
-  }
-
-  atomic_load(this + 2177);
-  if (objc_isUniquelyReferenced())
-  {
-    v4 = *(this + 226);
-    v17 = a2[35];
-    v5 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v4, &v17);
-    (*(**v5 + 128))(*v5);
-    v6 = *v5;
-    v7 = atomic_load(this + 2177);
-    if ((v7 & 1) != 0 || (v8 = re::internal::AssetEntry::assetPointer(a2), !(*(*v6 + 88))(v6, v8)))
-    {
-      v16 = re::internal::AssetEntry::assetPointer(a2);
-      re::AssetManager::internalUnloadSharedAssetPointer(this, v16, (a2 + 4), a2[35]);
-    }
-
-    else
-    {
-      v9 = re::internal::AssetEntry::assetPointer(a2);
-      v10 = a2[35];
-      v11 = re::globalAllocators(v9);
-      v12 = (*(*v11[2] + 32))(v11[2], 248, 8);
-      LODWORD(v17) = *(a2 + 8);
-      re::DynamicString::DynamicString(v18, (a2 + 5));
-      re::DynamicString::DynamicString(v19, (a2 + 9));
-      v13 = a2[14];
-      v20 = a2[13];
-      v21 = v13;
-      v22 = *(a2 + 30);
-      re::DynamicString::DynamicString(v23, (a2 + 16));
-      re::DynamicString::DynamicString(v24, (a2 + 20));
-      re::DynamicString::DynamicString(v25, (a2 + 24));
-      re::DynamicString::DynamicString(v26, (a2 + 28));
-      *(v12 + 8) = v17;
-      re::DynamicString::DynamicString((v12 + 16), v18);
-      re::DynamicString::DynamicString((v12 + 48), v19);
-      *(v12 + 80) = v20;
-      v14 = v22;
-      *(v12 + 88) = v21;
-      *(v12 + 96) = v14;
-      re::DynamicString::DynamicString((v12 + 104), v23);
-      re::DynamicString::DynamicString((v12 + 136), v24);
-      re::DynamicString::DynamicString((v12 + 168), v25);
-      re::DynamicString::DynamicString((v12 + 200), v26);
-      if (v26[0])
+      v15 = **(a5 + 2);
+      v16 = **(a6 + 2);
+      if (v15 == v16)
       {
-        if (v26[1])
+        v18 = WORD1(v15) == WORD1(v16);
+        v17 = (v16 ^ v15) & 0xFFFFFF00000000;
+        v18 = v18 && v17 == 0;
+        if (v18)
         {
-          (*(*v26[0] + 40))();
-        }
-
-        memset(v26, 0, sizeof(v26));
-      }
-
-      if (v25[0])
-      {
-        if (v25[1])
-        {
-          (*(*v25[0] + 40))();
-        }
-
-        memset(v25, 0, sizeof(v25));
-      }
-
-      if (v24[0])
-      {
-        if (v24[1])
-        {
-          (*(*v24[0] + 40))();
-        }
-
-        memset(v24, 0, sizeof(v24));
-      }
-
-      if (v23[0])
-      {
-        if (v23[1])
-        {
-          (*(*v23[0] + 40))();
-        }
-
-        memset(v23, 0, sizeof(v23));
-      }
-
-      if (v19[0])
-      {
-        if (v19[1])
-        {
-          (*(*v19[0] + 40))();
-        }
-
-        memset(v19, 0, sizeof(v19));
-      }
-
-      if (v18[0])
-      {
-        if (v18[1])
-        {
-          (*(*v18[0] + 40))();
-        }
-
-        memset(v18, 0, sizeof(v18));
-      }
-
-      v27 = v12;
-      *v12 = v9;
-      *(v12 + 232) = v10;
-      *(v12 + 240) = 0;
-      os_unfair_lock_lock(this + 160);
-      re::DynamicArray<re::RigDataValue *>::add((this + 648), &v27);
-      os_unfair_lock_unlock(this + 160);
-    }
-
-    re::internal::AssetEntry::LoadState::clearAndResetAssetPointer_locked((a2 + 112));
-    goto LABEL_38;
-  }
-
-  re::internal::AssetEntry::LoadState::resetAssetPointer_locked((a2 + 112));
-  if (a2[14] == -1)
-  {
-    v15 = 0;
-  }
-
-  else
-  {
-    v15 = a2[14];
-  }
-
-  re::AssetManager::onUnloadComplete(this, v15);
-}
-
-void re::AssetManager::internalAssetEntryUnloadLoadingAssetPointer_entryStateLocked(re::AssetManager *this, re::internal::AssetEntry *a2)
-{
-  if (re::internal::AssetEntry::hasLoadingAssetPointer(a2))
-  {
-    atomic_load(this + 2177);
-    if (objc_isUniquelyReferenced())
-    {
-      re::AssetManager::internalUnloadSharedAssetPointer(this, *(*(a2 + 114) + 24), (a2 + 32), *(a2 + 35));
-      re::internal::AssetEntry::LoadState::clearAndResetLoadingAssetPointer_locked((a2 + 896));
-    }
-  }
-
-  re::internal::AssetEntry::LoadState::resetLoadingAssetPointer_locked((a2 + 896));
-}
-
-uint64_t re::AssetManager::processAssetRegistration_entryStateLocked(re::AssetManager *this, re::internal::AssetEntry *a2)
-{
-  v41 = *MEMORY[0x1E69E9840];
-  v4 = *(this + 226);
-  buf.__r_.__value_.__r.__words[0] = *(a2 + 35);
-  v5 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v4, &buf);
-  (*(**v5 + 128))(*v5);
-  v6 = *v5;
-  v7 = *(this + 2234);
-  if (v7 == 1 && (*(a2 + 544) & 1) == 0 && re::internal::enableSignposts(0, 0))
-  {
-    kdebug_trace();
-  }
-
-  if (re::internal::enableSignposts(0, 0) && re::internal::enableHighFrequencyTracing(0, 0))
-  {
-    kdebug_trace();
-  }
-
-  v8 = (*(*v6 + 96))(v6, *(*(a2 + 114) + 24), a2 + 32);
-  result = re::internal::enableSignposts(0, 0);
-  if (result)
-  {
-    result = re::internal::enableHighFrequencyTracing(0, 0);
-    if (result)
-    {
-      result = kdebug_trace();
-    }
-  }
-
-  if (!v8)
-  {
-    re::AssetManager::internalAssetEntryUnloadAssetPointer_entryStateLocked(this, a2);
-    *(a2 + 904) = vextq_s8(*(a2 + 904), *(a2 + 904), 8uLL);
-    refreshed = re::internal::AssetEntry::LoadState::refreshLoadState_locked(a2 + 896);
-    if (*(a2 + 544) == 1)
-    {
-      v16.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-      v17 = (v16.__d_.__rep_ - *(a2 + 67)) / 1000;
-      if (v17 > *(this + 280))
-      {
-        v18 = *re::assetsLogObjects(v16.__d_.__rep_);
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-        {
-          if (*(a2 + 21))
-          {
-            v19 = *(a2 + 22);
-          }
-
-          else
-          {
-            v19 = a2 + 169;
-          }
-
-          LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
-          *(buf.__r_.__value_.__r.__words + 4) = v19;
-          WORD2(buf.__r_.__value_.__r.__words[1]) = 2048;
-          *(&buf.__r_.__value_.__r.__words[1] + 6) = v17;
-          _os_log_impl(&dword_1E1C61000, v18, OS_LOG_TYPE_DEFAULT, "Registration completed for asset '%s' in %llu milliseconds.", &buf, 0x16u);
-        }
-
-        goto LABEL_55;
-      }
-
-      if (re::assetsHighFrequencyLoggingEnabled(void)::onceToken != -1)
-      {
-        dispatch_once(&re::assetsHighFrequencyLoggingEnabled(void)::onceToken, &__block_literal_global_0);
-      }
-
-      if (re::assetsHighFrequencyLoggingEnabled(void)::shouldLog != 1)
-      {
-        goto LABEL_55;
-      }
-
-      v25 = *re::assetsLogObjects(v16.__d_.__rep_);
-      if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_55;
-      }
-
-      if (*(a2 + 21))
-      {
-        v36 = *(a2 + 22);
-      }
-
-      else
-      {
-        v36 = a2 + 169;
-      }
-
-      LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
-      *(buf.__r_.__value_.__r.__words + 4) = v36;
-      WORD2(buf.__r_.__value_.__r.__words[1]) = 2048;
-      *(&buf.__r_.__value_.__r.__words[1] + 6) = v17;
-      v22 = "Registration completed for asset '%s' in %llu milliseconds.";
-      v23 = v25;
-      v24 = 22;
-    }
-
-    else
-    {
-      if (re::assetsHighFrequencyLoggingEnabled(void)::onceToken != -1)
-      {
-        dispatch_once(&re::assetsHighFrequencyLoggingEnabled(void)::onceToken, &__block_literal_global_0);
-      }
-
-      if (re::assetsHighFrequencyLoggingEnabled(void)::shouldLog != 1)
-      {
-        goto LABEL_55;
-      }
-
-      v20 = *re::assetsLogObjects(refreshed);
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_55;
-      }
-
-      if (*(a2 + 21))
-      {
-        v21 = *(a2 + 22);
-      }
-
-      else
-      {
-        v21 = a2 + 169;
-      }
-
-      LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
-      *(buf.__r_.__value_.__r.__words + 4) = v21;
-      v22 = "Registration completed for asset '%s'";
-      v23 = v20;
-      v24 = 12;
-    }
-
-    _os_log_debug_impl(&dword_1E1C61000, v23, OS_LOG_TYPE_DEBUG, v22, &buf, v24);
-LABEL_55:
-    *(a2 + 544) = 0;
-    re::internal::AssetEntry::setIsLoading_locked(a2, 0);
-    if (*(this + 2200) == 1)
-    {
-      v26 = re::AssetManager::assetByteSize_entryLocked(this, a2);
-      v27 = std::to_string(&buf, v26);
-      v37 = 0;
-      v38 = &str_67;
-      if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        p_buf = &buf;
-      }
-
-      else
-      {
-        p_buf = buf.__r_.__value_.__r.__words[0];
-      }
-
-      re::internal::AssetEntry::setOrClearMetadata_stateLocked(a2, &v37, p_buf);
-      if (v37)
-      {
-        if (v37)
-        {
+          goto LABEL_4;
         }
       }
-
-      re::internal::AssetEntry::updateMetadata(a2, 1);
-      if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(buf.__r_.__value_.__l.__data_);
-      }
     }
 
-    if (v7)
+    else if (re::areSameTranslatedVersion(a5, a6, a3))
     {
-      if ((*(this + 2200) & 1) == 0)
-      {
-        re::AssetManager::assetByteSize_entryLocked(this, a2);
-      }
-
-      if (re::internal::enableSignposts(0, 0))
-      {
-        kdebug_trace();
-      }
+      goto LABEL_4;
     }
 
-    if (*(this + 2217) == 1)
-    {
-      v30 = re::AssetManager::assetNonSharedDataByteSize_entryStateLocked(this, a2);
-      v31 = *re::assetsLogObjects(v30);
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
-      {
-        if (*(a2 + 21))
-        {
-          v35 = *(a2 + 22);
-        }
-
-        else
-        {
-          v35 = a2 + 169;
-        }
-
-        LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
-        *(buf.__r_.__value_.__r.__words + 4) = v35;
-        WORD2(buf.__r_.__value_.__r.__words[1]) = 2048;
-        *(&buf.__r_.__value_.__r.__words[1] + 6) = v30;
-        _os_log_debug_impl(&dword_1E1C61000, v31, OS_LOG_TYPE_DEBUG, "Asset: %s has Non shared data size of %zu bytes", &buf, 0x16u);
-      }
-    }
-
-LABEL_71:
-    if (*(a2 + 14) == -1)
-    {
-      LODWORD(v32) = 0;
-    }
-
-    else
-    {
-      v32 = *(a2 + 14);
-    }
-
-    v33 = *(a2 + 35);
-    if (v33)
-    {
-      v34 = *v33;
-    }
-
-    else
-    {
-      v34 = 0;
-    }
-
-    return re::AssetSignpost::fireImpulse(0x811, v32, v34, v10);
-  }
-
-  if (v8 != 1)
-  {
-    if (v8 == 2)
-    {
-      if (*(a2 + 21))
-      {
-        v11 = *(a2 + 22);
-      }
-
-      else
-      {
-        v11 = a2 + 169;
-      }
-
-      if (*(a2 + 14) == -1)
-      {
-        v12 = 0;
-      }
-
-      else
-      {
-        v12 = *(a2 + 14);
-      }
-
-      re::AssetManager::unloadAssetPointer(this, *(a2 + 35), *(*(a2 + 114) + 24), v11, v12);
-      re::internal::AssetEntry::LoadState::clearAndResetLoadingAssetPointer_locked((a2 + 896));
-      re::AssetManager::internalAssetEntryUnloadAssetPointer_entryStateLocked(this, a2);
-      *(a2 + 544) = 0;
-      re::internal::AssetEntry::setIsLoading_locked(a2, 0);
-      re::AssetManager::putEntryInFailedState_entryStateLocked(v14, a2, 304, v39);
-      if (*&v39[0])
-      {
-        if (BYTE8(v39[0]))
-        {
-          (*(**&v39[0] + 40))();
-        }
-
-        memset(v39, 0, sizeof(v39));
-      }
-
-      if (v7 && re::internal::enableSignposts(0, 0))
-      {
-        kdebug_trace();
-      }
-    }
-
-    else if ((v8 & 0xFFFFFFFD) != 0)
-    {
-      return result;
-    }
-
-    goto LABEL_71;
-  }
-
-  if (v7)
-  {
-    if ((*(a2 + 544) & 1) == 0)
-    {
-      result = re::internal::enableSignposts(0, 0);
-      if (result)
-      {
-        result = kdebug_trace();
-      }
-    }
-  }
-
-  if ((*(a2 + 544) & 1) == 0)
-  {
-    result = std::chrono::system_clock::now().__d_.__rep_;
-    *(a2 + 67) = result;
-  }
-
-  *(a2 + 544) = 1;
-  return result;
-}
-
-uint64_t re::AssetManager::assetByteSize_entryLocked(re::AssetManager *this, re::internal::AssetEntry *a2)
-{
-  if (*(a2 + 352) == 1)
-  {
-    return *(a2 + 45);
-  }
-
-  v4 = atomic_load(a2 + 224);
-  if (v4 != 2)
-  {
+    re::internal::setTypeMismatchError<re::EncoderOPACK<re::FixedArrayInputStream>>(a1, a2, a5, a6);
     return 0;
   }
 
-  v5 = *(this + 226);
-  v9 = *(a2 + 35);
-  v6 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v5, &v9);
-  (*(**v6 + 128))(*v6);
-  v7 = *v6;
-  v8 = re::internal::AssetEntry::assetPointer(a2);
-  result = (*(*v7 + 48))(v7, v8);
-  if ((*(a2 + 352) & 1) == 0)
-  {
-    *(a2 + 352) = 1;
-  }
+LABEL_4:
 
-  *(a2 + 45) = result;
-  return result;
+  return re::EncoderBinary<re::FixedArrayInputStream>::serializeValue<int>(a1 + 24, a2, a3, a4, "int32", a7);
 }
 
-uint64_t re::AssetManager::isDeviceAsset(os_unfair_lock_s *a1, uint64_t a2, uint64_t a3)
+uint64_t re::serializeI64<re::EncoderBinary<re::FixedArrayInputStream>>(uint64_t a1, const char *a2, const re::TypeInfo *a3, char *a4, re *a5, const re::TypeInfo *a6, char a7)
 {
-  re::AssetManager::deviceAssetPath(a1, a2, 0, a3, v5);
-  v3 = v5[0];
-  if (v5[0] == 1 && v6 && (v7 & 1) != 0)
+  if (a5 != a6)
   {
-    (*(*v6 + 40))();
+    if (*a5 == *a6)
+    {
+      v15 = **(a5 + 2);
+      v16 = **(a6 + 2);
+      if (v15 == v16)
+      {
+        v18 = WORD1(v15) == WORD1(v16);
+        v17 = (v16 ^ v15) & 0xFFFFFF00000000;
+        v18 = v18 && v17 == 0;
+        if (v18)
+        {
+          goto LABEL_4;
+        }
+      }
+    }
+
+    else if (re::areSameTranslatedVersion(a5, a6, a3))
+    {
+      goto LABEL_4;
+    }
+
+    re::internal::setTypeMismatchError<re::EncoderOPACK<re::FixedArrayInputStream>>(a1, a2, a5, a6);
+    return 0;
   }
 
-  return v3;
+LABEL_4:
+
+  return re::EncoderBinary<re::FixedArrayInputStream>::serializeValue<long long>(a1 + 24, a2, a3, a4, "int64", a7);
 }
 
-uint64_t re::AssetManager::putEntryInLoadingState_entryStateLocked(re::AssetManager *this, const re::AssetType **a2, char a3)
+uint64_t re::serializeU8<re::EncoderBinary<re::FixedArrayInputStream>>(uint64_t a1, const char *a2, const re::TypeInfo *a3, char *a4, re *a5, const re::TypeInfo *a6, char a7)
 {
-  v67 = *MEMORY[0x1E69E9840];
-  re::internal::AssetEntry::setIsLoading_locked(a2, 1);
-  v61 = *(a2 + 30);
-  re::DynamicString::DynamicString(&v62, (a2 + 5));
-  v6 = re::HashTable<re::internal::AssetLoadingRoot,re::DynamicString,re::internal::AssetLoadingRoot,re::internal::AssetLoadingRoot,true,false>::computeHash<re::internal::AssetLoadingRoot>(&v61);
-  v7 = re::HashTable<re::internal::AssetLoadingRoot,re::DynamicString,re::internal::AssetLoadingRoot,re::internal::AssetLoadingRoot,true,false>::findEntry<re::internal::AssetLoadingRoot>(this + 1848, &v61, v6, &v47);
-  if (HIDWORD(v48) == 0x7FFFFFFF)
+  if (a5 != a6)
   {
-    v8 = *(a2 + 30);
-    if (v8 != 8)
+    if (*a5 == *a6)
     {
-      if (v8 == 4)
+      v15 = **(a5 + 2);
+      v16 = **(a6 + 2);
+      if (v15 == v16)
       {
-        isAssetEntryShareableAndFetchable_entryStateLocked = re::AssetManager::isAssetEntryShareableAndFetchable_entryStateLocked(this, a2);
-        if (isAssetEntryShareableAndFetchable_entryStateLocked)
+        v18 = WORD1(v15) == WORD1(v16);
+        v17 = (v16 ^ v15) & 0xFFFFFF00000000;
+        v18 = v18 && v17 == 0;
+        if (v18)
         {
-          *(a2 + 545) = 1;
-          re::AssetManager::fromPeerID(v57, this, a2, 0);
-          re::DynamicString::format("%llu", &v47, v57[1]);
-          v10 = *(this + 229);
-          if (v48)
-          {
-            v11 = v49;
-          }
-
-          else
-          {
-            v11 = &v48 + 1;
-          }
-
-          inited = objc_initWeak(&location, a2 + 1);
-          v55 = this;
-          v65[2] = re::globalAllocators(inited)[2];
-          v66 = 0;
-          v64 = &unk_1F5CB8A68;
-          v65[0] = 0;
-          objc_moveWeak(v65, &location);
-          v65[1] = v55;
-          v66 = &v64;
-          (*(*v10 + 72))(&v56, v10, v11, a2 + 32, &v64);
-          v13 = a2[65];
-          a2[65] = v56;
-          v56 = v13;
-          if (v13)
-          {
-            re::details::release<re::ResourceRequest>(v13);
-            v56 = 0;
-          }
-
-          re::FunctionBase<24ul,void ()(re::Result<re::SharedResourcePayload,re::WrappedError>)>::destroyCallable(&v64);
-          objc_destroyWeak(&location);
-          if (v47 && (v48 & 1) != 0)
-          {
-            (*(*v47 + 40))();
-          }
+          goto LABEL_4;
         }
-
-        else if (*(this + 228))
-        {
-          dispatch_assert_queue_V2(*(this + 97));
-          v47 = 0;
-          if (a2[6])
-          {
-            v26 = a2[7];
-          }
-
-          else
-          {
-            v26 = a2 + 49;
-          }
-
-          v27 = sscanf(v26, "%llu", &v47);
-          v28 = *(this + 228);
-          v29 = v47;
-          if (a2[17])
-          {
-            v30 = a2[18];
-          }
-
-          else
-          {
-            v30 = a2 + 137;
-          }
-
-          re::internal::AssetNetworkLoader::sendRequestToNetworkPeer_entryStateLocked(v28, a2, v29, v53);
-          if (*&v53[0])
-          {
-            if (BYTE8(v53[0]))
-            {
-              (*(**&v53[0] + 40))();
-            }
-
-            memset(v53, 0, sizeof(v53));
-          }
-        }
-
-        else
-        {
-          re::AssetManager::putEntryInFailedState_entryStateLocked(v32, a2, 302, v52);
-          if (*&v52[0])
-          {
-            if (BYTE8(v52[0]))
-            {
-              (*(**&v52[0] + 40))();
-            }
-
-            memset(v52, 0, sizeof(v52));
-          }
-        }
-      }
-
-      else
-      {
-        v19 = re::globalAllocators(v7);
-        v20 = (*(*v19[2] + 32))(v19[2], 56, 8);
-        *v20 = 0u;
-        *(v20 + 1) = 0u;
-        *(v20 + 2) = 0u;
-        v20[6] = 0;
-        re::CancellationTokenSource::CancellationTokenSource((v20 + 3));
-        v47 = v20;
-        *v20 = 0;
-        *(v20 + 4) = 0;
-        re::internal::AssetBackgroundLoader::loadAssetAsync(*(this + 225), v20, a2[35], (a2 + 4), v57);
-        v21 = v20[1];
-        v20[1] = v57[0];
-        v57[0] = v21;
-        if (v21)
-        {
-        }
-
-        os_unfair_lock_lock(this + 512);
-        a2[66] = v20;
-        re::DynamicArray<re::RigDataValue *>::add((this + 2056), &v47);
-        os_unfair_lock_unlock(this + 512);
-      }
-
-      goto LABEL_70;
-    }
-
-    v17 = a2[14];
-    if ((v17 + 1) < 2)
-    {
-      re::AssetManager::putEntryInFailedState_entryStateLocked(v18, a2, 200, v42);
-      if (*&v42[0])
-      {
-        if (BYTE8(v42[0]))
-        {
-          (*(**&v42[0] + 40))();
-        }
-
-        memset(v42, 0, sizeof(v42));
-      }
-
-      goto LABEL_70;
-    }
-
-    os_unfair_lock_lock(this + 32);
-    v47 = v17;
-    v31 = re::HashTable<unsigned long long,re::DynamicArray<re::AssetLoadDescriptor>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(this + 184, &v47);
-    if (v31)
-    {
-      re::DynamicArray<re::AssetLoadDescriptor>::DynamicArray(&v47, v31);
-    }
-
-    else
-    {
-      v51 = 0;
-      v48 = 0;
-      v49 = 0;
-      v47 = 0;
-      v50 = 0;
-    }
-
-    os_unfair_lock_unlock(this + 32);
-    if (v49)
-    {
-      v34 = v51;
-      if (*(v51 + 8))
-      {
-        v35 = *(v51 + 16);
-      }
-
-      else
-      {
-        v35 = (v51 + 9);
-      }
-
-      v36 = strcmp(v35, "NetworkAsset");
-      if (v36)
-      {
-        v37 = strcmp(v35, "PeerAsset");
-        if (v37)
-        {
-          re::AssetManager::reuseExistingOrLoadNewAsset_locked(this, a2, &v47);
-        }
-
-        else if (*(this + 228) && *(this + 240))
-        {
-          re::AssetLoadDescriptor::AssetLoadDescriptor(v44, v34);
-          re::NetworkActionQueue::queueSyncActionPeerLoad(this + 1152, v17, v44);
-          re::AssetLoadDescriptor::~AssetLoadDescriptor(v44);
-        }
-
-        else
-        {
-          re::AssetManager::putEntryInFailedState_entryStateLocked(v40, a2, 302, v43);
-          if (*&v43[0])
-          {
-            if (BYTE8(v43[0]))
-            {
-              (*(**&v43[0] + 40))();
-            }
-
-            memset(v43, 0, sizeof(v43));
-          }
-        }
-
-        goto LABEL_69;
-      }
-
-      if (!*(this + 240))
-      {
-        re::AssetManager::putEntryInFailedState_entryStateLocked(v41, a2, 302, v45);
-        if (*&v45[0])
-        {
-          if (BYTE8(v45[0]))
-          {
-            (*(**&v45[0] + 40))();
-          }
-
-          memset(v45, 0, sizeof(v45));
-        }
-
-        goto LABEL_69;
       }
     }
 
-    else if (!*(this + 240) || (a3 & 1) != 0)
+    else if (re::areSameTranslatedVersion(a5, a6, a3))
     {
-      re::AssetManager::putEntryInFailedState_entryStateLocked(v38, a2, 302, v46);
-      if (*&v46[0])
-      {
-        if (BYTE8(v46[0]))
-        {
-          (*(**&v46[0] + 40))();
-        }
-
-        memset(v46, 0, sizeof(v46));
-      }
-
-      goto LABEL_69;
+      goto LABEL_4;
     }
 
-    re::AssetManager::queueSyncActionNetworkLoad(this, v17, a2);
-LABEL_69:
-    re::DynamicArray<re::AssetLoadDescriptor>::deinit(&v47);
-    goto LABEL_70;
+    re::internal::setTypeMismatchError<re::EncoderOPACK<re::FixedArrayInputStream>>(a1, a2, a5, a6);
+    return 0;
   }
 
-  if (*(this + 228))
-  {
-    v14 = *(this + 233) + 88 * HIDWORD(v48) + 48;
-    dispatch_assert_queue_V2(*(this + 97));
-    v47 = 0;
-    if (*(v14 + 8))
-    {
-      v15 = *(v14 + 16);
-    }
+LABEL_4:
 
-    else
-    {
-      v15 = (v14 + 9);
-    }
-
-    v22 = sscanf(v15, "%llu", &v47);
-    v23 = *(this + 228);
-    v24 = v47;
-    if (a2[17])
-    {
-      v25 = a2[18];
-    }
-
-    else
-    {
-      v25 = a2 + 137;
-    }
-
-    re::internal::AssetNetworkLoader::sendRequestToNetworkPeer_entryStateLocked(v23, a2, v24, v60);
-    if (*&v60[0])
-    {
-      if (BYTE8(v60[0]))
-      {
-        (*(**&v60[0] + 40))();
-      }
-
-      memset(v60, 0, sizeof(v60));
-    }
-  }
-
-  else
-  {
-    re::AssetManager::putEntryInFailedState_entryStateLocked(v16, a2, 302, &v58);
-    if (v58)
-    {
-      if (BYTE8(v58))
-      {
-        (*(*v58 + 40))(v58, v59);
-      }
-
-      v58 = 0u;
-      v59 = 0u;
-    }
-  }
-
-LABEL_70:
-  result = v62;
-  if (v62)
-  {
-    if (v63)
-    {
-      return (*(*v62 + 40))();
-    }
-  }
-
-  return result;
+  return re::EncoderBinary<re::FixedArrayInputStream>::serializeValue<unsigned char>(a1 + 24, a2, a3, a4, "uint8", a7);
 }
 
-uint64_t *re::AssetManager::queueSyncActionNetworkLoad(re::AssetManager *this, uint64_t a2, const re::internal::AssetEntry *a3)
+uint64_t re::serializeU16<re::EncoderBinary<re::FixedArrayInputStream>>(uint64_t a1, const char *a2, const re::TypeInfo *a3, char *a4, re *a5, const re::TypeInfo *a6, char a7)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  *v12 = 0;
-  v15 = 0;
-  v16 = 0;
-  v14 = 0;
-  v6 = re::DynamicString::setCapacity(&v13, 0);
-  *(&v17 + 1) = 0;
-  v18 = 0uLL;
-  re::DynamicString::setCapacity(&v17, 0);
-  v19 = 0;
-  if (*(a3 + 14) == -1)
+  if (a5 != a6)
   {
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = *(a3 + 14);
-  }
-
-  inited = re::AssetPath::initAssetIdAssetPath(v12, v7, *(a3 + 35));
-  if (*(this + 240))
-  {
-    v21 = 0;
-    v22 = 0;
-    buf = v13;
-    re::DynamicString::setCapacity(&buf, 0);
-    re::AssetPath::fullAssetPath(v12, &buf);
-    re::NetworkActionQueue::queueSyncActionNetworkLoad((this + 1152), a2, &buf);
-    if (buf && (BYTE8(buf) & 1) != 0)
+    if (*a5 == *a6)
     {
-      (*(*buf + 40))(buf);
-    }
-  }
-
-  else
-  {
-    v9 = *re::assetsLogObjects(inited);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-    {
-      if (*(a3 + 21))
+      v15 = **(a5 + 2);
+      v16 = **(a6 + 2);
+      if (v15 == v16)
       {
-        v10 = *(a3 + 22);
+        v18 = WORD1(v15) == WORD1(v16);
+        v17 = (v16 ^ v15) & 0xFFFFFF00000000;
+        v18 = v18 && v17 == 0;
+        if (v18)
+        {
+          goto LABEL_4;
+        }
       }
-
-      else
-      {
-        v10 = a3 + 169;
-      }
-
-      LODWORD(buf) = 136315138;
-      *(&buf + 4) = v10;
-      _os_log_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_DEFAULT, "Trying to queue network load for %s when NetworkAssetService not available!", &buf, 0xCu);
     }
-  }
 
-  if (v17)
-  {
-    if (BYTE8(v17))
+    else if (re::areSameTranslatedVersion(a5, a6, a3))
     {
-      (*(*v17 + 40))(v17);
+      goto LABEL_4;
     }
 
-    v18 = 0u;
-    v17 = 0u;
+    re::internal::setTypeMismatchError<re::EncoderOPACK<re::FixedArrayInputStream>>(a1, a2, a5, a6);
+    return 0;
   }
 
-  result = v13;
-  if (v13)
-  {
-    if (v14)
-    {
-      return (*(*v13 + 40))(v13);
-    }
-  }
+LABEL_4:
 
-  return result;
+  return re::EncoderBinary<re::FixedArrayInputStream>::serializeValue<short>(a1 + 24, a2, a3, a4, "uint16", a7);
 }
 
-void re::AssetManager::findDependencies(re::AssetManager *this@<X0>, const re::AssetHandle *a2@<X1>, uint64_t a3@<X8>)
+uint64_t re::serializeU32<re::EncoderBinary<re::FixedArrayInputStream>>(uint64_t a1, const char *a2, const re::TypeInfo *a3, char *a4, re *a5, const re::TypeInfo *a6, char a7)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v5 = *(a2 + 1);
-  if (v5 && (v6 = atomic_load((v5 + 896)), v6 == 2))
+  if (a5 != a6)
   {
-    v7 = *(a2 + 1);
-
-    re::AssetManager::findDependencies(this, v7, a3);
-  }
-
-  else
-  {
-    v8 = *re::assetsLogObjects(this);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (*a5 == *a6)
     {
-      v9 = re::AssetHandle::assetInfo(a2);
-      if (v9[17])
+      v15 = **(a5 + 2);
+      v16 = **(a6 + 2);
+      if (v15 == v16)
       {
-        v10 = v9[18];
+        v18 = WORD1(v15) == WORD1(v16);
+        v17 = (v16 ^ v15) & 0xFFFFFF00000000;
+        v18 = v18 && v17 == 0;
+        if (v18)
+        {
+          goto LABEL_4;
+        }
       }
-
-      else
-      {
-        v10 = v9 + 137;
-      }
-
-      v11 = 136315138;
-      v12 = v10;
-      _os_log_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_DEFAULT, "Tried to get dependencies for unloaded asset '%s'", &v11, 0xCu);
     }
 
-    *(a3 + 32) = 0;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    *a3 = 0;
-    *(a3 + 24) = 0;
+    else if (re::areSameTranslatedVersion(a5, a6, a3))
+    {
+      goto LABEL_4;
+    }
+
+    re::internal::setTypeMismatchError<re::EncoderOPACK<re::FixedArrayInputStream>>(a1, a2, a5, a6);
+    return 0;
   }
+
+LABEL_4:
+
+  return re::EncoderBinary<re::FixedArrayInputStream>::serializeValue<int>(a1 + 24, a2, a3, a4, "uint32", a7);
 }
 
-void re::AssetManager::loadAssetFromDescriptorsOnBackgroundTask_entryStateLocked(uint64_t a1, void *a2, uint64_t *a3)
+uint64_t re::serializeU64<re::EncoderBinary<re::FixedArrayInputStream>>(uint64_t a1, const char *a2, const re::TypeInfo *a3, char *a4, re *a5, const re::TypeInfo *a6, char a7)
 {
-  v6 = re::globalAllocators(a1);
-  v7 = (*(*v6[2] + 32))(v6[2], 56, 8);
-  *v7 = 0u;
-  *(v7 + 16) = 0u;
-  *(v7 + 32) = 0u;
-  *(v7 + 48) = 0;
-  re::CancellationTokenSource::CancellationTokenSource((v7 + 24));
-  v16 = v7;
-  if (a2[14] == -1)
+  if (a5 != a6)
   {
-    v8 = 0;
+    if (*a5 == *a6)
+    {
+      v15 = **(a5 + 2);
+      v16 = **(a6 + 2);
+      if (v15 == v16)
+      {
+        v18 = WORD1(v15) == WORD1(v16);
+        v17 = (v16 ^ v15) & 0xFFFFFF00000000;
+        v18 = v18 && v17 == 0;
+        if (v18)
+        {
+          goto LABEL_4;
+        }
+      }
+    }
+
+    else if (re::areSameTranslatedVersion(a5, a6, a3))
+    {
+      goto LABEL_4;
+    }
+
+    re::internal::setTypeMismatchError<re::EncoderOPACK<re::FixedArrayInputStream>>(a1, a2, a5, a6);
+    return 0;
   }
 
-  else
+LABEL_4:
+
+  return re::EncoderBinary<re::FixedArrayInputStream>::serializeValue<long long>(a1 + 24, a2, a3, a4, "uint64", a7);
+}
+
+uint64_t re::serializeFloat<re::EncoderBinary<re::FixedArrayInputStream>>(uint64_t a1, const char *a2, const re::TypeInfo *a3, char *a4, re *a5, const re::TypeInfo *a6, char a7)
+{
+  if (a5 != a6)
   {
-    v8 = a2[14];
+    if (*a5 == *a6)
+    {
+      v15 = **(a5 + 2);
+      v16 = **(a6 + 2);
+      if (v15 == v16)
+      {
+        v18 = WORD1(v15) == WORD1(v16);
+        v17 = (v16 ^ v15) & 0xFFFFFF00000000;
+        v18 = v18 && v17 == 0;
+        if (v18)
+        {
+          goto LABEL_4;
+        }
+      }
+    }
+
+    else if (re::areSameTranslatedVersion(a5, a6, a3))
+    {
+      goto LABEL_4;
+    }
+
+    re::internal::setTypeMismatchError<re::EncoderOPACK<re::FixedArrayInputStream>>(a1, a2, a5, a6);
+    return 0;
   }
 
-  *v7 = v8;
-  *(v7 + 16) = 0;
-  v9 = *(a1 + 1800);
-  v10 = a2[35];
-  v11 = *(v7 + 48);
-  v14 = v11;
-  if (v11)
+LABEL_4:
+
+  return re::EncoderBinary<re::FixedArrayInputStream>::serializeValue<int>(a1 + 24, a2, a3, a4, "float", a7);
+}
+
+uint64_t re::serializeDouble<re::EncoderBinary<re::FixedArrayInputStream>>(uint64_t a1, const char *a2, const re::TypeInfo *a3, char *a4, re *a5, const re::TypeInfo *a6, char a7)
+{
+  if (a5 != a6)
   {
-    v12 = (v11 + 8);
+    if (*a5 == *a6)
+    {
+      v15 = **(a5 + 2);
+      v16 = **(a6 + 2);
+      if (v15 == v16)
+      {
+        v18 = WORD1(v15) == WORD1(v16);
+        v17 = (v16 ^ v15) & 0xFFFFFF00000000;
+        v18 = v18 && v17 == 0;
+        if (v18)
+        {
+          goto LABEL_4;
+        }
+      }
+    }
+
+    else if (re::areSameTranslatedVersion(a5, a6, a3))
+    {
+      goto LABEL_4;
+    }
+
+    re::internal::setTypeMismatchError<re::EncoderOPACK<re::FixedArrayInputStream>>(a1, a2, a5, a6);
+    return 0;
   }
 
-  re::internal::AssetBackgroundLoader::loadAssetAsync(v9, v7, v10, v8, a3, &v14, &v15);
-  v13 = *(v7 + 8);
-  *(v7 + 8) = v15;
-  v15 = v13;
-  if (v13)
-  {
+LABEL_4:
 
+  return re::EncoderBinary<re::FixedArrayInputStream>::serializeValue<long long>(a1 + 24, a2, a3, a4, "double", a7);
+}
+
+uint64_t re::serializeCString<re::EncoderBinary<re::FixedArrayInputStream>>(uint64_t a1, const char *a2, const re::TypeInfo *a3, char **a4, re *a5, const re::TypeInfo *a6, int a7)
+{
+  if (a5 != a6)
+  {
+    if (*a5 != *a6)
+    {
+      if (re::areSameTranslatedVersion(a5, a6, a3))
+      {
+        goto LABEL_4;
+      }
+
+LABEL_22:
+      re::internal::setTypeMismatchError<re::EncoderOPACK<re::FixedArrayInputStream>>(a1, a2, a5, a6);
+      goto LABEL_23;
+    }
+
+    v18 = **(a5 + 2);
+    v19 = **(a6 + 2);
+    if (v18 != v19)
+    {
+      goto LABEL_22;
+    }
+
+    v21 = WORD1(v18) == WORD1(v19);
+    v20 = (v19 ^ v18) & 0xFFFFFF00000000;
+    v21 = v21 && v20 == 0;
+    if (!v21)
+    {
+      goto LABEL_22;
+    }
+  }
+
+LABEL_4:
+  if (!a7)
+  {
+    v28 = 2 * (*a4 != 0);
+    v16 = re::EncoderBinary<re::FixedArrayInputStream>::beginPointer((a1 + 24), a2, a3, &v28, 0);
     v15 = 0;
-  }
-
-  if (v14)
-  {
-
-    v14 = 0;
-  }
-
-  os_unfair_lock_lock((a1 + 2048));
-  a2[66] = v7;
-  re::DynamicArray<re::RigDataValue *>::add((a1 + 2056), &v16);
-  os_unfair_lock_unlock((a1 + 2048));
-}
-
-unsigned __int8 *re::AssetManager::loadAssetAsync_entryStateLocked(unsigned __int8 *this, re::internal::AssetEntry *a2, char a3)
-{
-  if (atomic_load(a2 + 224))
-  {
-    return this;
-  }
-
-  v5 = atomic_load(this + 2177);
-  if (v5)
-  {
-    re::AssetManager::putEntryInFailedState_entryStateLocked(v6, a2, 100, &v16);
-    this = v16;
-    if (!v16 || (v17 & 1) == 0)
+    if (!v16)
     {
-      return this;
+      return v15 & 1;
     }
 
-    v7 = v18;
-    return (*(*this + 40))(this, v7);
-  }
-
-  if (!*(a2 + 35))
-  {
-    re::AssetManager::putEntryInFailedState_entryStateLocked(v9, a2, 200, &v13);
-    this = v13;
-    if (!v13 || (v14 & 1) == 0)
-    {
-      return this;
-    }
-
-    v7 = v15;
-    return (*(*this + 40))(this, v7);
-  }
-
-  if (*(a2 + 328) == 1)
-  {
-    re::AssetManager::putEntryInFailedState_entryStateLocked(v8, a2, 200, &v10);
-    this = v10;
-    if (!v10 || (v11 & 1) == 0)
-    {
-      return this;
-    }
-
-    v7 = v12;
-    return (*(*this + 40))(this, v7);
-  }
-
-  return re::AssetManager::putEntryInLoadingState_entryStateLocked(this, a2, a3);
-}
-
-void re::AssetManager::loadAssetAsync(re::AssetManager *this, os_unfair_lock_s *a2, char a3)
-{
-  os_unfair_lock_lock(a2 + 128);
-  re::AssetManager::loadAssetAsync_entryStateLocked(this, a2, a3);
-
-  os_unfair_lock_unlock(a2 + 128);
-}
-
-void re::AssetManager::loadAssetFromPayload_entryStateLocked(uint64_t a1, atomic_uint **this, uint64_t a3, unsigned int **a4)
-{
-  v5 = atomic_load((a1 + 2177));
-  if (v5)
-  {
-    re::AssetManager::putEntryInFailedState_entryStateLocked(v6, this, 100, &v44);
-    v7 = v44;
-    if (v44 && (v45 & 1) != 0)
-    {
-      v8 = v46;
-LABEL_31:
-      (*(*v7 + 40))(v7, v8);
-    }
-  }
-
-  else if (this[35])
-  {
-    re::internal::AssetEntry::setIsLoading_locked(this, 1);
-    if (!*(a1 + 1832) || *(this + 137) == 2)
-    {
-      re::AssetManager::putEntryInFailedState_entryStateLocked(v21, this, 100, &v38);
-      v7 = v38;
-      if (v38 && (v39 & 1) != 0)
-      {
-        v8 = v40;
-        goto LABEL_31;
-      }
-    }
-
-    else
-    {
-      v13 = *(a1 + 1808);
-      v29 = this[35];
-      v14 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v13, &v29);
-      (*(**v14 + 128))(*v14);
-      v15 = (*(**v14 + 208))();
-      if (v15)
-      {
-        v16 = re::internal::AssetEntry::fromPeerID(this, v33);
-        if (v33[0] == 1 && v34)
-        {
-          re::DynamicString::format("%llu", &v29, v34);
-          if (v30)
-          {
-            v17 = v32;
-          }
-
-          else
-          {
-            v17 = v31;
-          }
-
-          v18 = (*(**(a1 + 1832) + 32))(*(a1 + 1832), v17);
-          if (v18)
-          {
-            if (v29 && (v30 & 1) != 0)
-            {
-              (*(*v29 + 40))();
-            }
-
-            *(this + 545) = 1;
-            re::SharedPtr<re::ResourceRequest>::reset(this + 65, *a4);
-            re::AssetManager::processUpdatedResourcePayload_entryStateLocked(a1, this, a3, v19);
-          }
-
-          else
-          {
-            re::AssetManager::putEntryInFailedState_entryStateLocked(v24, this, 100, v28);
-            if (*&v28[0])
-            {
-              if (BYTE8(v28[0]))
-              {
-                (*(**&v28[0] + 40))();
-              }
-
-              memset(v28, 0, sizeof(v28));
-            }
-
-            v7 = v29;
-            if (v29 && (v30 & 1) != 0)
-            {
-              v8 = v32;
-              goto LABEL_31;
-            }
-          }
-        }
-
-        else
-        {
-          re::AssetManager::putEntryInFailedState_entryStateLocked(v23, this, 100, &v25);
-          v7 = v25;
-          if (v25 && (v26 & 1) != 0)
-          {
-            v8 = v27;
-            goto LABEL_31;
-          }
-        }
-      }
-
-      else
-      {
-        re::AssetManager::putEntryInFailedState_entryStateLocked(v22, this, 100, &v35);
-        v7 = v35;
-        if (v35 && (v36 & 1) != 0)
-        {
-          v8 = v37;
-          goto LABEL_31;
-        }
-      }
-    }
-  }
-
-  else
-  {
-    re::AssetManager::putEntryInFailedState_entryStateLocked(v20, this, 200, &v41);
-    v7 = v41;
-    if (v41 && (v42 & 1) != 0)
-    {
-      v8 = v43;
-      goto LABEL_31;
-    }
-  }
-}
-
-void re::AssetManager::processUpdatedResourcePayload_entryStateLocked(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
-{
-  v80 = *MEMORY[0x1E69E9840];
-  if (*(a2 + 112) == -1)
-  {
-    LODWORD(v7) = 0;
-  }
-
-  else
-  {
-    v7 = *(a2 + 112);
-  }
-
-  v8 = *(a2 + 280);
-  if (v8)
-  {
-    v9 = *v8;
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  v10 = re::AssetSignpost::fireImpulse(0x80F, v7, v9, a4);
-  if ((*a3 & 1) == 0)
-  {
-    v16 = *(a3 + 8);
-    v15 = (a3 + 8);
-    v17 = CFErrorCopyDescription(v16);
-    v18 = *(a1 + 1808);
-    *buf = *(a2 + 280);
-    v19 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v18, buf);
-    (*(**v19 + 128))(*v19);
-    re::internal::AssetEntry::LoadState::unloadAssetPointer_locked(a2 + 896, *v19);
-    v20 = re::WrappedError::domain(v15);
-    if (CFStringCompare(v20, @"REResourceSharingErrorDomain", 0) || [*v15 code] != 600)
-    {
-      CStringPtr = CFStringGetCStringPtr(v17, 0x8000100u);
-      v22 = v75;
-      v23 = re::DynamicString::format("Failed to fetch asset: %s", v75, CStringPtr);
-      v24 = v75;
-      v25 = a2;
-      v26 = 302;
-    }
-
-    else
-    {
-      v21 = CFStringGetCStringPtr(v17, 0x8000100u);
-      v22 = v76;
-      v23 = re::DynamicString::format("Resource Memory limit hit for asset: %s", v76, v21);
-      v24 = v76;
-      v25 = a2;
-      v26 = 400;
-    }
-
-    re::AssetManager::putEntryInFailedState_entryStateLocked(v23, v25, v26, v24);
-    re::DynamicString::deinit(v22);
-    CFRelease(v17);
-    return;
-  }
-
-  v11 = atomic_load((a2 + 896));
-  if (*(a2 + 336) == 1)
-  {
-    v12 = *re::assetsLogObjects(v10);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_DEFAULT, "Asset memory attribution is currently not supported through resource sharing, only through network loading.", buf, 2u);
-    }
-  }
-
-  v13 = (*(**(a1 + 1920) + 104))(*(a1 + 1920));
-  re::DynamicString::format("%llu", &v73, v13);
-  re::AssetHandle::AssetHandle(v71, a2);
-  if (v72)
-  {
-    v14 = *(v72 + 272);
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  re::DefaultAssetSerialize::DefaultAssetSerialize(buf, v71);
-  *buf = &unk_1F5CB9868;
-  v69 = 1;
-  v28 = re::DynamicString::DynamicString(v70, &v73);
-  v70[4] = a1;
-  if (re::assetsHighFrequencyLoggingEnabled(void)::onceToken != -1)
-  {
-    dispatch_once(&re::assetsHighFrequencyLoggingEnabled(void)::onceToken, &__block_literal_global_0);
-  }
-
-  if (re::assetsHighFrequencyLoggingEnabled(void)::shouldLog == 1)
-  {
-    v29 = *re::assetsLogObjects(v28);
-    v28 = os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG);
+    v17 = v28;
     if (v28)
     {
-      v57 = *(a2 + 112);
-      if (v57 == -1)
+      if (v28 == 1)
       {
-        v57 = 0;
-      }
-
-      *v79 = 134218240;
-      *&v79[4] = v57;
-      *&v79[12] = 1024;
-      *&v79[14] = v11;
-      _os_log_debug_impl(&dword_1E1C61000, v29, OS_LOG_TYPE_DEBUG, "processUpdatedResourcePayload for '%llu', loadState is '%d'", v79, 0x12u);
-    }
-  }
-
-  if (v11 == 2)
-  {
-    v39 = *(a1 + 1808);
-    *v79 = *(a2 + 280);
-    v40 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v39, v79);
-    (*(**v40 + 128))(*v40);
-    v41 = *v40;
-    *(a2 + 256) = 1;
-    ++*(a2 + 276);
-    v42 = re::internal::AssetEntry::assetPointer(a2);
-    v43 = *(a3 + 8);
-    *(a3 + 8) = 0;
-    v58 = v43;
-    (*(*v41 + 248))(v41, v42, &v58, buf);
-
-    if (*(a1 + 2217) == 1)
-    {
-      re::AssetManager::assetNonSharedDataByteSize_entryStateLocked(a1, a2);
-    }
-
-    goto LABEL_59;
-  }
-
-  if (v11 != 1)
-  {
-    v44 = *re::assetsLogObjects(v28);
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
-    {
-      if (*(a2 + 168))
-      {
-        v45 = *(a2 + 176);
-      }
-
-      else
-      {
-        v45 = a2 + 169;
-      }
-
-      *v79 = 136315138;
-      *&v79[4] = v45;
-      _os_log_debug_impl(&dword_1E1C61000, v44, OS_LOG_TYPE_DEBUG, "Updated payload for asset '%s' was ignored (asset is not currently loaded)", v79, 0xCu);
-    }
-
-    goto LABEL_59;
-  }
-
-  v30 = *(a1 + 1808);
-  *v79 = *(a2 + 280);
-  v31 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v30, v79);
-  v32 = (*(**v31 + 128))(*v31);
-  if ((*(a1 + 2233) & 1) == 0)
-  {
-    v46 = *(a3 + 8);
-    *(a3 + 8) = 0;
-    v62 = v46;
-    v47 = re::globalAllocators(v32);
-    v48 = (*(*v47[2] + 32))(v47[2], 56, 8);
-    *v48 = 0u;
-    *(v48 + 16) = 0u;
-    *(v48 + 32) = 0u;
-    *(v48 + 48) = 0;
-    re::CancellationTokenSource::CancellationTokenSource((v48 + 24));
-    *v79 = v48;
-    if (*(a2 + 112) == -1)
-    {
-      v49 = 0;
-    }
-
-    else
-    {
-      v49 = *(a2 + 112);
-    }
-
-    *v48 = v49;
-    *(v48 + 16) = 0;
-    v50 = *(a1 + 1800);
-    v51 = *(a2 + 280);
-    v52 = *(v48 + 48);
-    v77 = v52;
-    if (v52)
-    {
-      v53 = (v52 + 8);
-    }
-
-    re::internal::AssetBackgroundLoader::loadAssetAsync(v50, v48, v51, v49, &v62, &v77, v14 & 1, &v78);
-    v54 = *(v48 + 8);
-    *(v48 + 8) = v78;
-    v78 = v54;
-    if (v54)
-    {
-
-      v78 = 0;
-    }
-
-    if (v52)
-    {
-    }
-
-    os_unfair_lock_lock((a1 + 2048));
-    *(a2 + 528) = v48;
-    re::DynamicArray<re::RigDataValue *>::add((a1 + 2056), v79);
-    os_unfair_lock_unlock((a1 + 2048));
-
-    goto LABEL_59;
-  }
-
-  v33 = *v31;
-  v34 = (*(*v33 + 136))(v33);
-  v79[0] = 0;
-  v61 = *(a3 + 8);
-  v35 = (*(*v33 + 224))(v33, &v61, v34, buf, v79, 0);
-
-  if (!v35)
-  {
-    goto LABEL_55;
-  }
-
-  v36 = *(a3 + 8);
-  *(a3 + 8) = 0;
-  v60 = v36;
-  if (*(a2 + 168))
-  {
-    v37 = *(a2 + 176);
-  }
-
-  else
-  {
-    v37 = a2 + 169;
-  }
-
-  v38 = (*(*v33 + 240))(v33, &v60, v34, v37);
-
-  if (*(a2 + 384))
-  {
-    if ((v79[0] & 1) == 0)
-    {
-      *(a2 + 384) = 0;
-      goto LABEL_53;
-    }
-  }
-
-  else
-  {
-    if ((v79[0] & 1) == 0)
-    {
-      goto LABEL_53;
-    }
-
-    *(a2 + 384) = 1;
-  }
-
-  *(a2 + 392) = *&v79[8];
-LABEL_53:
-  if ((v38 & 1) == 0)
-  {
-LABEL_55:
-    v55 = (*(*v33 + 16))(v33, v34);
-    re::AssetManager::putEntryInFailedState_entryStateLocked(v56, a2, 302, v59);
-    if (*&v59[0])
-    {
-      if (BYTE8(v59[0]))
-      {
-        (*(**&v59[0] + 40))();
-      }
-
-      memset(v59, 0, sizeof(v59));
-    }
-
-    goto LABEL_59;
-  }
-
-  *(a2 + 545) = 0;
-  re::AssetManager::processLoadedAsset_entryStateLocked(a1, a2, v34, 0);
-LABEL_59:
-  *buf = &unk_1F5CB9868;
-  if (v70[0])
-  {
-    if (v70[1])
-    {
-      (*(*v70[0] + 40))();
-    }
-
-    memset(v70, 0, 32);
-  }
-
-  *buf = &unk_1F5CB98A0;
-  if (v64 == 1)
-  {
-    if (v67)
-    {
-      if (BYTE8(v67))
-      {
-        (*(*v67 + 40))();
-      }
-
-      v68 = 0u;
-      v67 = 0u;
-    }
-
-    if (v65 && (v66 & 1) != 0)
-    {
-      (*(*v65 + 40))();
-    }
-  }
-
-  re::AssetHandle::~AssetHandle(v71);
-  if (v73)
-  {
-    if (v74)
-    {
-      (*(*v73 + 40))();
-    }
-  }
-}
-
-void re::AssetManager::unloadAssetEntry_entryStateLocked(os_unfair_lock_s *this, re::internal::AssetEntry *a2, int a3)
-{
-  if (*(a2 + 544) == 1)
-  {
-    *(a2 + 544) = 0;
-    if (a3)
-    {
-      v5 = this + 32;
-      os_unfair_lock_lock(this + 32);
-    }
-
-    else
-    {
-      v5 = 0;
-    }
-
-    v6 = *&this[86]._os_unfair_lock_opaque;
-    if (v6)
-    {
-      v7 = 0;
-      while (*(*(*&this[90]._os_unfair_lock_opaque + 8 * v7) + 24) != a2)
-      {
-        if (v6 == ++v7)
-        {
-          goto LABEL_9;
-        }
-      }
-    }
-
-    else
-    {
-LABEL_9:
-      v7 = -1;
-    }
-
-    re::DynamicArray<re::SharedPtr<re::internal::AssetReference>>::removeAt(&this[82], v7);
-    if (v5)
-    {
-      os_unfair_lock_unlock(v5);
-    }
-  }
-
-  re::AssetManager::internalAssetEntryUnloadLoadingAssetPointer_entryStateLocked(this, a2);
-  re::AssetManager::internalAssetEntryUnloadAssetPointer_entryStateLocked(this, a2);
-  re::internal::AssetEntry::setIsLoading_locked(a2, 0);
-
-  re::internal::AssetEntry::cancelResourceRequest_stateLocked(a2);
-}
-
-void re::DynamicArray<re::SharedPtr<re::internal::AssetReference>>::removeAt(uint64_t a1, unint64_t a2)
-{
-  v2 = *(a1 + 16);
-  if (v2 <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v4 = v2 - 1;
-  if (v2 - 1 > a2)
-  {
-    v5 = *(a1 + 32);
-    v6 = v5 + 8 * v2;
-    v7 = *(v5 + 8 * a2);
-    *(v5 + 8 * a2) = *(v6 - 8);
-    *(v6 - 8) = v7;
-  }
-
-  v8 = *(a1 + 32) + 8 * v2;
-  v9 = *(v8 - 8);
-  if (v9)
-  {
-
-    *(v8 - 8) = 0;
-    v4 = *(a1 + 16) - 1;
-  }
-
-  *(a1 + 16) = v4;
-  ++*(a1 + 24);
-}
-
-void re::AssetManager::cancelLoadingAsset_entryStateLocked(os_unfair_lock_s *a1, re::internal::AssetEntry *this, int a3)
-{
-  v6 = *(this + 66);
-  if (v6)
-  {
-    *(v6 + 16) = 1;
-    *(this + 66) = 0;
-  }
-
-  if (*(this + 30) == 8)
-  {
-    if (*(this + 14) == -1)
-    {
-      v7 = 0;
-    }
-
-    else
-    {
-      v7 = *(this + 14);
-    }
-
-    re::NetworkActionQueue::removeLoadActions(a1 + 288, v7);
-  }
-
-  if (re::internal::AssetEntry::hasAssetPointer(this) || re::internal::AssetEntry::hasLoadingAssetPointer(this))
-  {
-    re::AssetManager::unloadAssetEntry_entryStateLocked(a1, this, a3);
-  }
-
-  re::internal::AssetEntry::setIsLoading_locked(this, 0);
-}
-
-void re::AssetManager::setAssetPayloadRequestOptions(uint64_t a1, uint64_t a2, id *a3)
-{
-  os_unfair_lock_lock((a2 + 512));
-  v6 = *(a1 + 1808);
-  v12 = *(a2 + 280);
-  v7 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v6, &v12);
-  (*(**v7 + 128))(*v7);
-  v8 = *v7;
-  v9 = re::internal::AssetEntry::assetPointer(a2);
-  v11 = *a3;
-  (*(*v8 + 256))(v8, v9, &v11);
-
-  v10 = *(a2 + 520);
-  if (v10)
-  {
-    (*(**(a1 + 1832) + 88))(*(a1 + 1832), v10, a3);
-  }
-
-  os_unfair_lock_unlock((a2 + 512));
-}
-
-void re::AssetManager::assetPayloadDidChange(re::AssetManager *this, re::internal::AssetEntry *a2)
-{
-  if (*(a2 + 352) == 1)
-  {
-    *(a2 + 352) = 0;
-  }
-
-  if (*(a2 + 368) == 1)
-  {
-    *(a2 + 368) = 0;
-  }
-
-  if (*(a2 + 384) == 1)
-  {
-    *(a2 + 384) = 0;
-  }
-
-  v4 = *(this + 230);
-  if (v4)
-  {
-    if (*(this + 176) && dispatch_get_specific(this + 1408) == this + 1408)
-    {
-      re::AssetHandle::AssetHandle(location, a2);
-      (*(*v4 + 16))(v4, location);
-      re::AssetHandle::~AssetHandle(location);
-    }
-
-    else
-    {
-      v5 = *(this + 321);
-      if (v5)
-      {
-        v6 = (v5 + 8);
-      }
-
-      else
-      {
-        v6 = 0;
-      }
-
-      objc_initWeak(location, v6);
-      objc_initWeak(&from, a2 + 8);
-      block[0] = MEMORY[0x1E69E9820];
-      block[1] = 1174405120;
-      block[2] = ___ZN2re12AssetManager21assetPayloadDidChangeERNS_8internal10AssetEntryE_block_invoke;
-      block[3] = &__block_descriptor_tmp_59_0;
-      v8 = 0;
-      objc_copyWeak(&v8, location);
-      v9[0] = 0;
-      objc_copyWeak(v9, &from);
-      v9[1] = v4;
-      dispatch_async(*(this + 97), block);
-      objc_destroyWeak(v9);
-      v9[0] = 0;
-      objc_destroyWeak(&v8);
-      v8 = 0;
-      objc_destroyWeak(&from);
-      objc_destroyWeak(location);
-    }
-  }
-}
-
-void ___ZN2re12AssetManager21assetPayloadDidChangeERNS_8internal10AssetEntryE_block_invoke(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    v3 = WeakRetained;
-    v4 = *(WeakRetained + 2);
-    v5 = objc_loadWeakRetained((a1 + 40));
-    if (v5)
-    {
-      v6 = v5;
-      if ((*(v4 + 2178) & 1) == 0)
-      {
-        v7 = *(a1 + 48);
-        re::AssetHandle::AssetHandle(v8, (v5 - 8));
-        (*(*v7 + 16))(v7, v8);
-        re::AssetHandle::~AssetHandle(v8);
-      }
-    }
-  }
-}
-
-void __copy_helper_block_8_32c60_ZTSN2re10ArcWeakPtrINS_8internal22AssetManagerAliveTokenEEE40c48_ZTSN2re10ArcWeakPtrINS_8internal10AssetEntryEEE(uint64_t a1, uint64_t a2)
-{
-  *(a1 + 32) = 0;
-  objc_copyWeak((a1 + 32), (a2 + 32));
-  *(a1 + 40) = 0;
-
-  objc_copyWeak((a1 + 40), (a2 + 40));
-}
-
-void __destroy_helper_block_8_32c60_ZTSN2re10ArcWeakPtrINS_8internal22AssetManagerAliveTokenEEE40c48_ZTSN2re10ArcWeakPtrINS_8internal10AssetEntryEEE(uint64_t a1)
-{
-  objc_destroyWeak((a1 + 40));
-  *(a1 + 40) = 0;
-  objc_destroyWeak((a1 + 32));
-  *(a1 + 32) = 0;
-}
-
-void re::AssetManager::makeSharedResourcePayload(uint64_t a1, uint64_t a2, const char *a3)
-{
-  v5 = *(a2 + 8);
-  v6 = re::AssetHandle::AssetHandle(v21, v5);
-  re::DefaultAssetSerialize::DefaultAssetSerialize(&v13, v21);
-  v13 = &unk_1F5CB9868;
-  v19 = 0;
-  re::DynamicString::DynamicString(v20, &v11);
-  v20[4] = a1;
-  if (v11 && (v12 & 1) != 0)
-  {
-    (*(*v11 + 40))();
-  }
-
-  v7 = *(a1 + 1808);
-  v11 = *(v5 + 35);
-  v8 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v7, &v11);
-  (*(**v8 + 128))(*v8);
-  v9 = *v8;
-  v10 = re::internal::AssetEntry::assetPointer(v5);
-  (*(*v9 + 216))(v9, v10, &v13);
-  v13 = &unk_1F5CB9868;
-  if (v20[0])
-  {
-    if (v20[1])
-    {
-      (*(*v20[0] + 40))();
-    }
-
-    memset(v20, 0, 32);
-  }
-
-  v13 = &unk_1F5CB98A0;
-  if (v14 == 1)
-  {
-    if (v17)
-    {
-      if (BYTE8(v17))
-      {
-        (*(*v17 + 40))();
-      }
-
-      v18 = 0u;
-      v17 = 0u;
-    }
-
-    if (v15 && (v16 & 1) != 0)
-    {
-      (*(*v15 + 40))();
-    }
-  }
-
-  re::AssetHandle::~AssetHandle(v21);
-}
-
-uint64_t re::AssetManager::setResourcePayloadObserver(uint64_t result, uint64_t a2)
-{
-  atomic_load((result + 2177));
-  *(result + 1840) = a2;
-  return result;
-}
-
-void re::AssetManager::cancelLoadingAssetId(os_unfair_lock_s *this, uint64_t a2)
-{
-  os_unfair_lock_lock(this + 32);
-  re::AssetManager::lookupExistingAsset_assetTablesLocked(this, a2, v9);
-  os_unfair_lock_unlock(this + 32);
-  if (v9[0] == 1)
-  {
-    v4 = v11;
-    os_unfair_lock_lock(v11 + 128);
-    v5 = atomic_load((v4 + 896));
-    if (v5 == 1)
-    {
-      re::internal::AssetEntry::cancelResourceRequest_stateLocked(v4);
-      v6 = *(v4 + 528);
-      if (v6 && !*(v6 + 16) && !*(v4 + 912))
-      {
-        atomic_store(1u, (*(v6 + 48) + 24));
-      }
-
-      re::AssetManager::cancelLoadingAsset_entryStateLocked(this, v4, 1);
-      v7 = re::DynamicString::format("AssetId %llu has been removed over the network.", v8, a2);
-      re::AssetManager::putEntryInFailedState_entryStateLocked(v7, v4, 302, v8);
-      if (*&v8[0])
-      {
-        if (BYTE8(v8[0]))
-        {
-          (*(**&v8[0] + 40))();
-        }
-
-        memset(v8, 0, sizeof(v8));
-      }
-    }
-
-    os_unfair_lock_unlock((v4 + 512));
-    if (v9[0])
-    {
-      re::AssetHandle::~AssetHandle(&v10);
-    }
-  }
-}
-
-void re::AssetManager::entryLoadStateChanged(uint64_t a1, uint64_t a2, int *a3)
-{
-  if (*a3 <= 3 && *a3 != 1)
-  {
-    atomic_store(1u, (a1 + 1032));
-  }
-
-  if (*(a1 + 2234) != 1)
-  {
-    goto LABEL_16;
-  }
-
-  v6 = *a3;
-  if (*a3 == 3)
-  {
-    if ((re::internal::enableSignposts(0, 0) & 1) == 0)
-    {
-      goto LABEL_16;
-    }
-
-    goto LABEL_15;
-  }
-
-  if (v6 == 2)
-  {
-    if (!re::internal::enableSignposts(0, 0))
-    {
-      goto LABEL_16;
-    }
-
-LABEL_15:
-    kdebug_trace();
-    goto LABEL_16;
-  }
-
-  if (v6 == 1 && (re::internal::enableSignposts(0, 0) & 1) != 0)
-  {
-    goto LABEL_15;
-  }
-
 LABEL_16:
-  v7 = *(a2 + 112);
-  if ((v7 + 1) >= 2 && *(a1 + 1920))
-  {
-
-    re::NetworkActionQueue::queueSyncActionShareLoadState((a1 + 1152), v7);
-  }
-}
-
-void re::AssetManager::enqueueUnreferencedUnloadRequest(os_unfair_lock_s *this, re::internal::AssetEntry *a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  if (re::assetsHighFrequencyLoggingEnabled(void)::onceToken != -1)
-  {
-    dispatch_once(&re::assetsHighFrequencyLoggingEnabled(void)::onceToken, &__block_literal_global_0);
-  }
-
-  if (re::assetsHighFrequencyLoggingEnabled(void)::shouldLog == 1)
-  {
-    v4 = *re::assetsLogObjects(this);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      if (*(a2 + 168))
-      {
-        v5 = *(a2 + 22);
-      }
-
-      else
-      {
-        v5 = a2 + 169;
-      }
-
-      v7 = 136315138;
-      v8 = v5;
-      _os_log_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEFAULT, "Enqueue unreferenced unload request: %s", &v7, 0xCu);
-    }
-  }
-
-  os_unfair_lock_lock(this + 384);
-  if (a2)
-  {
-    v6 = a2 + 8;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  objc_initWeak(&v7, v6);
-  re::DynamicArray<re::ArcWeakPtr<re::internal::AssetEntry>>::add(&this[386], &v7);
-  objc_destroyWeak(&v7);
-  os_unfair_lock_unlock(this + 384);
-}
-
-uint64_t *re::AssetManager::registerAssetType(uint64_t a1, char **a2, uint64_t *a3)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  dispatch_assert_queue_V2(*(a1 + 776));
-  os_unfair_lock_lock((a1 + 2048));
-  v6 = *(a1 + 2072);
-  os_unfair_lock_unlock((a1 + 2048));
-  if (v6)
-  {
-    v8 = *re::assetsLogObjects(v7);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      v9 = *a2;
-      *buf = 136315138;
-      v16 = v9;
-      _os_log_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_DEFAULT, "Registering an asset type (%s) while there are active asset loading background tasks. Tasks that are already active may fail if they expect the type to be registered. Also, this could lead to a race condition.", buf, 0xCu);
-    }
-  }
-
-  v10 = *(a1 + 1808);
-  v11 = *a3;
-  *a3 = 0;
-  v13 = v11;
-  std::__function::__value_func<void ()(re::AssetLoader *)>::__value_func[abi:nn200100](&v14, (a3 + 1));
-  re::internal::AssetTypeRegistry::registerAssetType(v10, a2, &v13);
-  return std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>::~unique_ptr[abi:nn200100](&v13);
-}
-
-void re::AssetManager::registerCustomAssetType(re::AssetManager *this@<X0>, const re::CustomAssetRegistrationParameters *a2@<X1>, uint64_t a3@<X8>)
-{
-  v31 = *MEMORY[0x1E69E9840];
-  re::CustomAssetRegistrationParameters::validate(a2, v20);
-  if (v20[0])
-  {
-    v7 = re::globalAllocators(v6);
-    v8 = (*(*v7[2] + 32))(v7[2], 24, 8);
-    v9 = *(a2 + 8);
-    if (*(a2 + 7))
-    {
-      v10 = *(a2 + 7);
-    }
-
-    else
-    {
-      v10 = &__block_literal_global;
-    }
-
-    *v8 = &unk_1F5CB8398;
-    v8[1] = v10;
-    CFRetain(v10);
-    if (v9)
-    {
-      v11 = v9;
-    }
-
-    else
-    {
-      v11 = &__block_literal_global_5;
-    }
-
-    v8[2] = v11;
-    CFRetain(v11);
-    v29 = buf;
-    v27 = v26;
-    *buf = &unk_1F5CB8DF0;
-    v25 = v8;
-    v26[0] = &unk_1F5CB8DF0;
-    std::__function::__value_func<void ()(re::AssetLoader *)>::~__value_func[abi:nn200100](buf);
-    if (*(a2 + 4))
-    {
-      v12 = *(a2 + 5);
-    }
-
-    else
-    {
-      v12 = a2 + 33;
-    }
-
-    v13 = v25;
-    v25 = 0;
-    v22 = v13;
-    if (v27)
-    {
-      if (v27 == v26)
-      {
-        v24 = v23;
-        (*(*v27 + 24))();
-      }
-
-      else
-      {
-        v24 = v27;
-        v27 = 0;
+        re::Serializer<re::EncoderOPACK<re::FixedArrayInputStream>>::setError(a1, a2, "Found pointer reference instead of C string.");
+LABEL_23:
+        v15 = 0;
+        return v15 & 1;
       }
     }
 
     else
     {
-      v24 = 0;
-    }
-
-    dispatch_assert_queue_V2(*(this + 97));
-    os_unfair_lock_lock(this + 512);
-    v15 = *(this + 259);
-    os_unfair_lock_unlock(this + 512);
-    if (v15)
-    {
-      v17 = *re::assetsLogObjects(v16);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      if (!*a4)
       {
-        *buf = 136315138;
-        *&buf[4] = v12;
-        _os_log_impl(&dword_1E1C61000, v17, OS_LOG_TYPE_DEFAULT, "Registering an asset type (%s) while there are active asset loading background tasks. Tasks that are already active may fail if they expect the type to be registered. Also, this could lead to a race condition.", buf, 0xCu);
-      }
-    }
-
-    v18 = *(this + 226);
-    v19 = v22;
-    v22 = 0;
-    *buf = v19;
-    if (v24)
-    {
-      if (v24 == v23)
-      {
-        v30 = &buf[8];
-        (*(*v24 + 24))();
+        goto LABEL_44;
       }
 
-      else
-      {
-        v30 = v24;
-        v24 = 0;
-      }
+      (*(**(a1 + 48) + 40))(*(a1 + 48));
+      *a4 = 0;
+      v17 = v28;
     }
 
-    else
+    if (v17 == 2)
     {
-      v30 = 0;
-    }
-
-    re::internal::AssetTypeRegistry::registerOwnedAssetType(v12, v18, buf, a3);
-    std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>::~unique_ptr[abi:nn200100](buf);
-    std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>::~unique_ptr[abi:nn200100](&v22);
-    std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>::~unique_ptr[abi:nn200100](&v25);
-  }
-
-  else
-  {
-    v14 = v21;
-    *a3 = 0;
-    *(a3 + 8) = v14;
-  }
-
-  if ((v20[0] & 1) == 0)
-  {
-  }
-}
-
-BOOL re::AssetManager::registerAssetProvider(re::AssetManager *this, re::AssetProvider *a2)
-{
-  v2 = *(this + 238);
-  v7 = a2;
-  if (!a2)
-  {
-    return re::AssetProviderRegistry::registerAssetProvider(v2, &v7);
-  }
-
-  v4 = a2 + 8;
-  v5 = re::AssetProviderRegistry::registerAssetProvider(v2, &v7);
-
-  return v5;
-}
-
-void ___ZN2re12AssetManager15makeLoadRequestEv_block_invoke(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    v2 = WeakRetained;
-    v3 = WeakRetained[2];
-    if ((*(v3 + 2178) & 1) == 0)
-    {
-      re::AssetManager::updateNeedManualTicks(v3);
-    }
-  }
-}
-
-BOOL re::AssetManager::isLoading(re::AssetManager *this)
-{
-  dispatch_assert_queue_V2(*(this + 97));
-  os_unfair_lock_lock(this + 512);
-  v2 = *(this + 259);
-  os_unfair_lock_unlock(this + 512);
-  if (v2)
-  {
-    return 1;
-  }
-
-  os_unfair_lock_lock(this + 32);
-  v3 = *(this + 43);
-  os_unfair_lock_unlock(this + 32);
-  if (v3)
-  {
-    return 1;
-  }
-
-  os_unfair_lock_lock(this + 224);
-  v5 = *(this + 115);
-  if (v5)
-  {
-    v6 = 0;
-    while (1)
-    {
-      v7 = *(*(this + 118) + 8 * ((v6 + *(this + 116)) % *(this + 114)));
-      os_unfair_lock_lock(v7 + 64);
-      os_unfair_lock_opaque = v7[100]._os_unfair_lock_opaque;
-      os_unfair_lock_unlock(v7 + 64);
-      if (!os_unfair_lock_opaque)
+      v22 = *a4 ? strlen(*a4) : 0;
+      __dst = v22;
+      if (re::EncoderBinary<re::FixedArrayInputStream>::beginString((a1 + 24), a2, 0, &__dst, 0))
       {
-        break;
-      }
-
-      if (v5 == ++v6)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    os_unfair_lock_unlock(this + 224);
-    return 1;
-  }
-
-LABEL_8:
-  os_unfair_lock_unlock(this + 224);
-  v9 = *(this + 228);
-  if (v9)
-  {
-    if (*(v9 + 92))
-    {
-      return 1;
-    }
-  }
-
-  v10 = *(this + 229);
-  if (v10)
-  {
-    if ((*(*v10 + 24))(v10))
-    {
-      return 1;
-    }
-  }
-
-  return re::NetworkActionQueue::hasLoadActions(this + 288);
-}
-
-BOOL re::AssetManager::isUnloading(re::AssetManager *this)
-{
-  dispatch_assert_queue_V2(*(this + 97));
-  os_unfair_lock_lock(this + 384);
-  v2 = *(this + 195) != 0;
-  os_unfair_lock_unlock(this + 384);
-  return v2;
-}
-
-uint64_t re::AssetManager::assetByteSize(re::AssetManager *this, re::AssetHandle *a2)
-{
-  v2 = *(a2 + 1);
-  if (!v2)
-  {
-    return 0;
-  }
-
-  v3 = atomic_load((v2 + 896));
-  if (v3 != 2)
-  {
-    return 0;
-  }
-
-  v5 = *(a2 + 1);
-  os_unfair_lock_lock(v5 + 128);
-  v6 = re::AssetManager::assetByteSize_entryLocked(this, v5);
-  os_unfair_lock_unlock(v5 + 128);
-  return v6;
-}
-
-uint64_t re::AssetManager::assetNonSharedDataByteSize(re::AssetManager *this, re::AssetHandle *a2)
-{
-  v2 = *(a2 + 1);
-  if (!v2)
-  {
-    return 0;
-  }
-
-  v3 = atomic_load((v2 + 896));
-  if (v3 != 2)
-  {
-    return 0;
-  }
-
-  v5 = *(a2 + 1);
-  os_unfair_lock_lock(v5 + 128);
-  v6 = re::AssetManager::assetNonSharedDataByteSize_entryStateLocked(this, v5);
-  os_unfair_lock_unlock(v5 + 128);
-  return v6;
-}
-
-double re::AssetManager::gatherAssetStatisticsByType@<D0>(re::AssetManager *this@<X0>, void *a2@<X8>)
-{
-  v57 = *MEMORY[0x1E69E9840];
-  dispatch_assert_queue_V2(*(this + 97));
-  v4 = *(*(this + 226) + 28);
-  a2[1] = v4;
-  a2[2] = 0;
-  if (v4)
-  {
-    a2[2] = v6;
-    if (!v6)
-    {
-      goto LABEL_86;
-    }
-
-    v8 = v6;
-    v9 = v6;
-    v10 = v4 - 1;
-    if (v4 != 1)
-    {
-      v9 = v6;
-      do
-      {
-        *v9 = 0;
-        *(v9 + 1) = 0;
-        *(v9 + 6) = 0;
-        *(v9 + 2) = 0;
-        *(v9 + 2) = 0uLL;
-        *(v9 + 3) = 0uLL;
-        *(v9 + 4) = 0uLL;
-        *(v9 + 5) = 0uLL;
-        *(v9 + 12) = 0;
-        v9 = (v9 + 104);
-        --v10;
-      }
-
-      while (v10);
-    }
-
-    *v9 = 0;
-    *(v9 + 1) = 0;
-    *(v9 + 6) = 0;
-    *(v9 + 2) = 0;
-    *(v9 + 2) = 0u;
-    *(v9 + 3) = 0u;
-    *(v9 + 4) = 0u;
-    *(v9 + 5) = 0u;
-    *(v9 + 12) = 0;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v11 = *(this + 226);
-  v12 = *(v11 + 32);
-  if (v12)
-  {
-    v13 = 0;
-    v14 = *(v11 + 16);
-    while (1)
-    {
-      v15 = *v14;
-      v14 += 16;
-      if (v15 < 0)
-      {
-        break;
-      }
-
-      if (v12 == ++v13)
-      {
-        LODWORD(v13) = *(v11 + 32);
-        break;
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v13) = 0;
-  }
-
-  if (v13 != v12)
-  {
-    v16 = 0;
-    v17 = *(v11 + 16);
-    while (v16 != v4)
-    {
-      *(v8 + 13 * v16++ + 5) = *(v17 + (v13 << 6) + 8);
-      if (v12 <= v13 + 1)
-      {
-        v18 = v13 + 1;
-      }
-
-      else
-      {
-        v18 = v12;
-      }
-
-      while (v18 - 1 != v13)
-      {
-        LODWORD(v13) = v13 + 1;
-        if ((*(v17 + (v13 << 6)) & 0x80000000) != 0)
+        v23 = *a4;
+        v24 = __dst;
+        if (*a4 && __dst == v22)
         {
-          goto LABEL_25;
-        }
-      }
-
-      LODWORD(v13) = v18;
-LABEL_25:
-      if (v13 == v12)
-      {
-        goto LABEL_26;
-      }
-    }
-
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
-    v54 = 0u;
-    v52 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_86:
-    re::internal::assertLog(4, v7, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
-    _os_crash();
-    __break(1u);
-  }
-
-LABEL_26:
-  LODWORD(v54) = 0;
-  v52 = 0u;
-  v53 = 0u;
-  *(&v54 + 4) = 0x7FFFFFFFLL;
-  if (v4)
-  {
-    v19 = (v8 + 104 * v4);
-    do
-    {
-      v20 = *(v8 + 5);
-      v21 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v20 ^ (v20 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v20 ^ (v20 >> 30))) >> 27));
-      v22 = v21 ^ (v21 >> 31);
-      if (v52)
-      {
-        v23 = v22 % DWORD2(v53);
-        v24 = *(*(&v52 + 1) + 4 * v23);
-        if (v24 != 0x7FFFFFFF)
-        {
-          while (*(v53 + 32 * v24 + 8) != v20)
+          if (v22)
           {
-            v24 = *(v53 + 32 * v24) & 0x7FFFFFFF;
-            if (v24 == 0x7FFFFFFF)
-            {
-              goto LABEL_34;
-            }
-          }
-
-          goto LABEL_35;
-        }
-      }
-
-      else
-      {
-        LODWORD(v23) = 0;
-      }
-
 LABEL_34:
-      v25 = re::HashTable<re::AssetType const*,re::AssetTypeStatistics *,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::allocEntry(&v52, v23, v22);
-      *(v25 + 8) = *(v8 + 5);
-      *(v25 + 16) = v8;
-      ++DWORD2(v54);
-LABEL_35:
-      v8 = (v8 + 104);
-    }
-
-    while (v8 != v19);
-  }
-
-  os_unfair_lock_lock(this + 32);
-  v27 = *(this + 42);
-  if (v27)
-  {
-    v28 = 0;
-    v29 = *(this + 19);
-    while (1)
-    {
-      v30 = *v29;
-      v29 += 14;
-      if (v30 < 0)
-      {
-        break;
-      }
-
-      if (v27 == ++v28)
-      {
-        LODWORD(v28) = *(this + 42);
-        break;
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v28) = 0;
-  }
-
-  if (v28 != v27)
-  {
-    v31 = *(this + 19);
-    while (1)
-    {
-      v32 = *(v31 + 56 * v28 + 40);
-      if (v32)
-      {
-        v26 = (v32 + 8);
-      }
-
-      if (!v52)
-      {
-        break;
-      }
-
-      v33 = *(v32 + 280);
-      v34 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v33 ^ (v33 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v33 ^ (v33 >> 30))) >> 27));
-      v35 = (v34 ^ (v34 >> 31)) % DWORD2(v53);
-      v36 = v53;
-      v37 = *(*(&v52 + 1) + 4 * v35);
-      if (v37 == 0x7FFFFFFF)
-      {
-        goto LABEL_52;
-      }
-
-      while (*(v53 + 32 * v37 + 8) != v33)
-      {
-        v37 = *(v53 + 32 * v37) & 0x7FFFFFFF;
-        if (v37 == 0x7FFFFFFF)
-        {
-          goto LABEL_52;
-        }
-      }
-
-LABEL_53:
-      v38 = *(v36 + 32 * v37 + 16);
-      v39 = *(v38 + 8);
-      v40 = *(v38 + 16);
-      if (v40 >= v39)
-      {
-        v41 = v40 + 1;
-        if (v39 < v40 + 1)
-        {
-          if (*v38)
-          {
-            v42 = 2 * v39;
-            v43 = v39 == 0;
-            v44 = 8;
-            if (!v43)
-            {
-              v44 = v42;
-            }
-
-            if (v44 <= v41)
-            {
-              v45 = v41;
-            }
-
-            else
-            {
-              v45 = v44;
-            }
-
-            re::DynamicArray<re::AssetPath>::setCapacity(v38, v45);
-          }
-
-          else
-          {
-            re::DynamicArray<re::AssetPath>::setCapacity(v38, v41);
-            ++*(v38 + 24);
+            re::EncoderBinary<re::FixedArrayInputStream>::serializeString(a1 + 24, v23, 0);
+            v23 = *a4;
+            v25 = __dst;
+LABEL_43:
+            v23[v25] = 0;
+            re::EncoderBinary<re::DynamicArrayBufferedOutputStream>::endString((a1 + 24));
+            goto LABEL_44;
           }
         }
 
-        v40 = *(v38 + 16);
-      }
-
-      v46 = *(v38 + 32) + 80 * v40;
-      *v46 = *(v32 + 32);
-      re::DynamicString::DynamicString((v46 + 8), (v32 + 40));
-      re::DynamicString::DynamicString((v46 + 40), (v32 + 72));
-      *(v46 + 72) = *(v32 + 104);
-      ++*(v38 + 16);
-      ++*(v38 + 24);
-      ++*(v38 + 48);
-      v47 = atomic_load((v32 + 896));
-      if (v47 > 1)
-      {
-        if (v47 == 2)
+        else
         {
-          ++*(v38 + 72);
-          *(v38 + 88) += *(v32 + 776);
-          os_unfair_lock_lock((v32 + 512));
-          v49 = re::AssetManager::assetByteSize_entryLocked(this, v32);
-          os_unfair_lock_unlock((v32 + 512));
-          v48 = 96;
-          goto LABEL_74;
+          if (v23)
+          {
+            (*(**(a1 + 48) + 40))(*(a1 + 48));
+            *a4 = 0;
+            v24 = __dst;
+          }
+
+          if (v24 > (*(**(a1 + 24) + 64))(*(a1 + 24)))
+          {
+            (*(**(a1 + 24) + 64))(*(a1 + 24));
+            re::Serializer<re::EncoderOPACK<re::FixedArrayInputStream>>::setError(a1, a2, "String size greater than stream size during deserialization. String length = %zu, Stream length = %zu");
+            goto LABEL_23;
+          }
+
+          if (((__dst == -1) << 63) >> 63 != (__dst == -1))
+          {
+            re::Serializer<re::EncoderOPACK<re::FixedArrayInputStream>>::setError(a1, a2, "Size overflow during string deserialization. String length = %zu");
+            goto LABEL_23;
+          }
+
+          v23 = (*(**(a1 + 48) + 32))(*(a1 + 48), __dst + 1, 0);
+          *a4 = v23;
+          if (__dst)
+          {
+            goto LABEL_34;
+          }
         }
 
-        if (v47 != 3)
-        {
-          goto LABEL_75;
-        }
-
-        v48 = 80;
-      }
-
-      else if (v47)
-      {
-        if (v47 != 1)
-        {
-          goto LABEL_75;
-        }
-
-        v48 = 64;
-      }
-
-      else
-      {
-        v48 = 56;
-      }
-
-      v49 = 1;
-LABEL_74:
-      *(v38 + v48) += v49;
-LABEL_75:
-
-      if (*(this + 42) <= (v28 + 1))
-      {
-        v50 = v28 + 1;
-      }
-
-      else
-      {
-        v50 = *(this + 42);
-      }
-
-      v31 = *(this + 19);
-      while (v50 - 1 != v28)
-      {
-        LODWORD(v28) = v28 + 1;
-        if ((*(v31 + 56 * v28) & 0x80000000) != 0)
-        {
-          goto LABEL_83;
-        }
-      }
-
-      LODWORD(v28) = v50;
-LABEL_83:
-      if (v28 == v27)
-      {
-        goto LABEL_84;
+        v25 = 0;
+        goto LABEL_43;
       }
     }
 
-    v36 = v53;
-LABEL_52:
-    v37 = 0x7FFFFFFFLL;
-    goto LABEL_53;
-  }
-
-LABEL_84:
-  os_unfair_lock_unlock(this + 32);
-  return re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(&v52);
-}
-
-void re::AssetManager::findAssetHandlesOfType(os_unfair_lock_s *this@<X0>, const re::AssetType *a2@<X1>, uint64_t a3@<X8>)
-{
-  v51 = *MEMORY[0x1E69E9840];
-  os_unfair_lock_lock(this + 32);
-  os_unfair_lock_opaque = this[42]._os_unfair_lock_opaque;
-  if (os_unfair_lock_opaque)
-  {
-    v8 = 0;
-    v9 = *&this[38]._os_unfair_lock_opaque;
-    while (1)
-    {
-      v10 = *v9;
-      v9 += 14;
-      if (v10 < 0)
-      {
-        break;
-      }
-
-      if (os_unfair_lock_opaque == ++v8)
-      {
-        LODWORD(v8) = this[42];
-        break;
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v8) = 0;
-  }
-
-  if (v8 == os_unfair_lock_opaque)
-  {
-    v11 = 0;
-  }
-
-  else
-  {
-    v11 = 0;
-    v12 = *&this[38]._os_unfair_lock_opaque;
-    v13 = this[42]._os_unfair_lock_opaque;
-    do
-    {
-      v14 = *(v12 + 56 * v8 + 40);
-      if (v14)
-      {
-        v15 = (v14 + 8);
-        v16 = *(v14 + 280);
-
-        v13 = this[42]._os_unfair_lock_opaque;
-        v12 = *&this[38]._os_unfair_lock_opaque;
-      }
-
-      else
-      {
-        v16 = MEMORY[0x118];
-      }
-
-      if (v16 == a2)
-      {
-        ++v11;
-      }
-
-      if (v13 <= v8 + 1)
-      {
-        v17 = v8 + 1;
-      }
-
-      else
-      {
-        v17 = v13;
-      }
-
-      while (v17 - 1 != v8)
-      {
-        LODWORD(v8) = v8 + 1;
-        if ((*(v12 + 56 * v8) & 0x80000000) != 0)
-        {
-          goto LABEL_22;
-        }
-      }
-
-      LODWORD(v8) = v17;
-LABEL_22:
-      ;
-    }
-
-    while (v8 != os_unfair_lock_opaque);
-  }
-
-  v35 = 0uLL;
-  v36 = 0;
-  v18 = this[42]._os_unfair_lock_opaque;
-  if (v18)
-  {
-    v19 = 0;
-    v20 = *&this[38]._os_unfair_lock_opaque;
-    while (1)
-    {
-      v21 = *v20;
-      v20 += 14;
-      if (v21 < 0)
-      {
-        break;
-      }
-
-      if (v18 == ++v19)
-      {
-        LODWORD(v19) = this[42];
-        break;
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v19) = 0;
-  }
-
-  if (v19 != v18)
-  {
-    v22 = 0;
-    v23 = *&this[38]._os_unfair_lock_opaque;
-    do
-    {
-      v24 = *(v23 + 56 * v19 + 40);
-      if (v24)
-      {
-        v25 = v24 + 1;
-      }
-
-      if (v24[35] == a2)
-      {
-        re::AssetHandle::AssetHandle(&v32, v24);
-        v26 = *(&v35 + 1);
-        if (*(&v35 + 1) <= v22)
-        {
-          v37 = 0;
-          v49 = 0u;
-          v50 = 0u;
-          v48 = 0u;
-          v46 = 0u;
-          v47 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v38 = 136315906;
-          v39 = "operator[]";
-          v40 = 1024;
-          v41 = 468;
-          v42 = 2048;
-          v43 = v22;
-          v44 = 2048;
-          v45 = v26;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-        }
-
-        v27 = (v36 + 24 * v22);
-        v28 = v27[1];
-        v27[1] = v33;
-        v33 = v28;
-        v29 = *v27;
-        *v27 = 0;
-        *v27 = v32;
-        v32 = v29;
-        v30 = v27[2];
-        v27[2] = v34;
-        v34 = v30;
-        re::AssetHandle::~AssetHandle(&v32);
-        ++v22;
-      }
-
-      if (this[42]._os_unfair_lock_opaque <= (v19 + 1))
-      {
-        v31 = v19 + 1;
-      }
-
-      else
-      {
-        v31 = this[42]._os_unfair_lock_opaque;
-      }
-
-      v23 = *&this[38]._os_unfair_lock_opaque;
-      while (v31 - 1 != v19)
-      {
-        LODWORD(v19) = v19 + 1;
-        if ((*(v23 + 56 * v19) & 0x80000000) != 0)
-        {
-          goto LABEL_44;
-        }
-      }
-
-      LODWORD(v19) = v31;
 LABEL_44:
-      ;
+    re::EncoderBinary<re::DynamicArrayBufferedOutputStream>::endPointer((a1 + 24));
+    if (*a4 && *(a1 + 64) == 1)
+    {
+      (*(**(a1 + 48) + 40))(*(a1 + 48));
+      *a4 = 0;
     }
 
-    while (v19 != v18);
+    goto LABEL_47;
   }
 
-  *a3 = v35;
-  v35 = 0uLL;
-  *(a3 + 16) = v36;
-  v36 = 0;
-  re::FixedArray<re::AssetHandle>::deinit(&v35);
-  os_unfair_lock_unlock(this + 32);
-}
-
-BOOL re::AssetManager::runTaskInBackgroundLoadingGroup(uint64_t a1, id *a2, uint64_t a3)
-{
-  v3 = atomic_load((a1 + 2177));
-  if (v3)
-  {
-    return 0;
-  }
-
-  v4 = *(a1 + 1800);
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v8 = *a2;
-  v6 = re::internal::AssetBackgroundLoader::runTaskInBackgroundLoadingGroup(v4, &v8, a3);
-
-  return v6;
-}
-
-uint64_t re::AssetManager::enableBackgroundLoading(uint64_t this, char a2)
-{
-  v2 = *(this + 1800);
-  *(v2 + 4) = a2;
-  *(v2 + 5) = a2;
-  return this;
-}
-
-uint64_t re::AssetManager::enableNetworkLoadingRedirector(uint64_t a1, int a2, const char *a3, const char *a4)
-{
-  dispatch_assert_queue_V2(*(a1 + 776));
-  v13 = a2;
-  re::HashTable<re::internal::AssetLoadingRoot,re::DynamicString,re::internal::AssetLoadingRoot,re::internal::AssetLoadingRoot,true,false>::addOrReplace(a1 + 1848, &v13, &v11);
-  if (v11 && (v12 & 1) != 0)
-  {
-    (*(*v11 + 40))();
-  }
-
-  result = v14;
+  v28 = 0;
+  v14 = re::EncoderBinary<re::FixedArrayInputStream>::beginPointer((a1 + 24), a2, a3, &v28, 0);
+  v15 = 0;
   if (v14)
   {
-    if (v15)
+    if (!v28)
     {
-      return (*(*v14 + 40))();
+LABEL_12:
+      re::EncoderBinary<re::DynamicArrayBufferedOutputStream>::endPointer((a1 + 24));
+LABEL_47:
+      v15 = *(a1 + 64) ^ 1;
+      return v15 & 1;
+    }
+
+    if (v28 != 1)
+    {
+      __dst = 0;
+      if (re::EncoderBinary<re::FixedArrayInputStream>::beginString((a1 + 24), a2, 0, &__dst, 0))
+      {
+        if (__dst)
+        {
+          re::EncoderBinary<re::FixedArrayInputStream>::serializeString(a1 + 24, 0, 1);
+        }
+
+        re::EncoderBinary<re::DynamicArrayBufferedOutputStream>::endString((a1 + 24));
+      }
+
+      goto LABEL_12;
+    }
+
+    goto LABEL_16;
+  }
+
+  return v15 & 1;
+}
+
+uint64_t re::serializeStringID<re::EncoderBinary<re::FixedArrayInputStream>>(uint64_t a1, const char *a2, const re::TypeInfo *a3, _anonymous_namespace_ *a4, re *a5, const re::TypeInfo *a6, int a7)
+{
+  v9 = a3;
+  if (a5 == a6)
+  {
+    goto LABEL_14;
+  }
+
+  if (*a5 == *a6)
+  {
+    v14 = **(a5 + 2);
+    v15 = **(a6 + 2);
+    if (v14 == v15)
+    {
+      v17 = WORD1(v14) == WORD1(v15);
+      v16 = (v15 ^ v14) & 0xFFFFFF00000000;
+      v17 = v17 && v16 == 0;
+      if (v17)
+      {
+        goto LABEL_14;
+      }
     }
   }
 
-  return result;
+  else if (re::areSameTranslatedVersion(a5, a6, a3))
+  {
+    goto LABEL_14;
+  }
+
+  v18 = re::TypeInfo::name(a6);
+  if (*v18 >> 1 != 0x134375A94D9F7110 || (v19 = v18[1], v19 != "DynamicString") && strcmp(v19, "DynamicString"))
+  {
+    re::internal::setTypeMismatchError<re::EncoderOPACK<re::FixedArrayInputStream>>(a1, a2, a5, a6);
+    goto LABEL_26;
+  }
+
+LABEL_14:
+  if (!a7)
+  {
+    v31 = 0;
+    if (re::EncoderBinary<re::FixedArrayInputStream>::beginString((a1 + 24), a2, v9, &v31, 0))
+    {
+      v22 = v31;
+      if (v31)
+      {
+        if (v22 > (*(**(a1 + 24) + 64))(*(a1 + 24)))
+        {
+          (*(**(a1 + 24) + 64))(*(a1 + 24));
+          re::Serializer<re::EncoderOPACK<re::FixedArrayInputStream>>::setError(a1, a2, "String size greater than stream size during deserialization. String length = %zu, Stream length = %zu");
+          goto LABEL_26;
+        }
+
+        if (((v31 == -1) << 63) >> 63 != (v31 == -1))
+        {
+          re::Serializer<re::EncoderOPACK<re::FixedArrayInputStream>>::setError(a1, a2, "Size overflow during string deserialization. String length = %zu");
+          goto LABEL_26;
+        }
+
+        v25 = (*(**(a1 + 56) + 32))(*(a1 + 56), v31 + 1, 0);
+        v26 = re::EncoderBinary<re::FixedArrayInputStream>::serializeString(a1 + 24, v25, 0);
+        v25[v31] = 0;
+        __dst = 0;
+        v30 = &str_67;
+        v27 = re::StringID::operator=(a4, &__dst);
+        if (__dst)
+        {
+          if (__dst)
+          {
+          }
+        }
+
+        v24 = *(**(a1 + 56) + 40);
+      }
+
+      else
+      {
+        __dst = 0;
+        v30 = &str_67;
+        v23 = re::StringID::operator=(a4, &__dst);
+        if ((__dst & 1) == 0)
+        {
+LABEL_32:
+          re::EncoderBinary<re::DynamicArrayBufferedOutputStream>::endString((a1 + 24));
+          v21 = *(a1 + 64) ^ 1;
+          return v21 & 1;
+        }
+      }
+
+      v24();
+      goto LABEL_32;
+    }
+
+LABEL_26:
+    v21 = 0;
+    return v21 & 1;
+  }
+
+  __dst = 0;
+  v20 = re::EncoderBinary<re::FixedArrayInputStream>::beginString((a1 + 24), a2, v9, &__dst, 0);
+  v21 = 0;
+  if (v20)
+  {
+    if (__dst)
+    {
+      re::EncoderBinary<re::FixedArrayInputStream>::serializeString(a1 + 24, 0, 1);
+    }
+
+    goto LABEL_32;
+  }
+
+  return v21 & 1;
 }
 
-re::DynamicString *re::HashTable<re::internal::AssetLoadingRoot,re::DynamicString,re::internal::AssetLoadingRoot,re::internal::AssetLoadingRoot,true,false>::addOrReplace(uint64_t a1, _DWORD *a2, re::DynamicString *a3)
+uint64_t re::serializeIntrospectionCallbackSerializer<re::EncoderBinary<re::FixedArrayInputStream>>(uint64_t a1, const char *a2, const re::TypeInfo *a3, uint64_t a4, re *a5, const re::TypeInfo *a6, int a7)
 {
-  v9 = 0;
-  v10 = 0;
-  v11 = 0;
-  v6 = re::HashTable<re::internal::AssetLoadingRoot,re::DynamicString,re::internal::AssetLoadingRoot,re::internal::AssetLoadingRoot,true,false>::computeHash<re::internal::AssetLoadingRoot>(a2);
-  re::HashTable<re::internal::AssetLoadingRoot,re::DynamicString,re::internal::AssetLoadingRoot,re::internal::AssetLoadingRoot,true,false>::findEntry<re::internal::AssetLoadingRoot>(a1, a2, v6, &v9);
-  v7 = HIDWORD(v10);
-  if (HIDWORD(v10) == 0x7FFFFFFF)
+  v10 = a3;
+  v43 = *MEMORY[0x1E69E9840];
+  if (a5 != a6)
   {
-    return re::HashTable<re::internal::AssetLoadingRoot,re::DynamicString,re::internal::AssetLoadingRoot,re::internal::AssetLoadingRoot,true,false>::addInternal<re::internal::AssetLoadingRoot const&,re::DynamicString>(a1, &v9, a2, a3);
+    if (*a5 != *a6)
+    {
+      if (re::areSameTranslatedVersion(a5, a6, a3))
+      {
+        goto LABEL_4;
+      }
+
+LABEL_17:
+      re::internal::setTypeMismatchError<re::EncoderOPACK<re::FixedArrayInputStream>>(a1, a2, a5, a6);
+      goto LABEL_40;
+    }
+
+    v20 = **(a5 + 2);
+    v21 = **(a6 + 2);
+    if (v20 != v21)
+    {
+      goto LABEL_17;
+    }
+
+    v23 = WORD1(v20) == WORD1(v21);
+    v22 = (v21 ^ v20) & 0xFFFFFF00000000;
+    v23 = v23 && v22 == 0;
+    if (!v23)
+    {
+      goto LABEL_17;
+    }
+  }
+
+LABEL_4:
+  if (!a7)
+  {
+    v16 = *a5;
+    v17 = **(a5 + 2);
+    __dst[0] = 0x258C98EAAF29A10ALL;
+    __dst[1] = "CallbackSerializerAttribute";
+    v18 = re::TypeRegistry::typeID(buf, v16, __dst);
+    if (*buf && (v35 = *&buf[8], v36 = v17, LODWORD(v37) = -1, (v18 = re::HashTable<re::internal::TypeAttributeKey,re::internal::TypeAttributeData,re::Hash<re::internal::TypeAttributeKey>,re::EqualTo<re::internal::TypeAttributeKey>,true,false>::tryGet(v16 + 768, &v35)) != 0))
+    {
+      v19 = *v18;
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+
+    if (__dst[0])
+    {
+      if (__dst[0])
+      {
+      }
+    }
+
+    v24 = *v19;
+    v25 = *(a1 + 184);
+    __dst[0] = 0;
+    if (re::EncoderBinary<re::FixedArrayInputStream>::beginString((a1 + 24), a2, v10, __dst, 0))
+    {
+      v26 = *(a1 + 56);
+      v37 = 0;
+      v38 = 0;
+      v35 = v26;
+      v36 = 0;
+      re::DynamicString::setCapacity(&v35, 0);
+      if (__dst[0])
+      {
+        re::DynamicString::resize(&v35, __dst[0], 0);
+        if (v36)
+        {
+          v27 = v37;
+        }
+
+        else
+        {
+          v27 = &v36 + 1;
+        }
+
+        re::EncoderBinary<re::FixedArrayInputStream>::serializeString(a1 + 24, v27, 0);
+      }
+
+      re::EncoderBinary<re::DynamicArrayBufferedOutputStream>::endString((a1 + 24));
+      v28 = &v36 + 1;
+      if (v36)
+      {
+        v29 = v37;
+      }
+
+      else
+      {
+        v29 = &v36 + 1;
+      }
+
+      v30 = (*(v24 + 80))(*(a1 + 48), v25, v24, a4, v29);
+      if ((v30 & 1) == 0)
+      {
+        v31 = *re::foundationSerializationLogObjects(v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        {
+          if (v36)
+          {
+            v28 = v37;
+          }
+
+          v32 = v31;
+          v33 = re::TypeInfo::name(a5)[1];
+          *buf = 136315650;
+          *&buf[4] = a2;
+          *&buf[12] = 2080;
+          *&buf[14] = v28;
+          v41 = 2080;
+          v42 = v33;
+          _os_log_impl(&dword_1E1C61000, v32, OS_LOG_TYPE_INFO, "Failed to parse %s: %s (type %s) using deserialization callback - skipping.", buf, 0x20u);
+        }
+      }
+
+      if (v35 && (v36 & 1) != 0)
+      {
+        (*(*v35 + 40))();
+      }
+
+      goto LABEL_39;
+    }
+
+LABEL_40:
+    v15 = 0;
+    return v15 & 1;
+  }
+
+  v35 = 0;
+  v14 = re::EncoderBinary<re::FixedArrayInputStream>::beginString((a1 + 24), a2, v10, &v35, 0);
+  v15 = 0;
+  if (v14)
+  {
+    if (v35)
+    {
+      re::EncoderBinary<re::FixedArrayInputStream>::serializeString(a1 + 24, 0, 1);
+    }
+
+    re::EncoderBinary<re::DynamicArrayBufferedOutputStream>::endString((a1 + 24));
+LABEL_39:
+    v15 = *(a1 + 64) ^ 1;
+  }
+
+  return v15 & 1;
+}
+
+uint64_t re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderBinary<re::FixedArrayInputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::addOrReplace(uint64_t a1, unint64_t *a2, void *a3)
+{
+  v6 = *a2;
+  if (!*a1)
+  {
+    LODWORD(v7) = 0;
+    goto LABEL_8;
+  }
+
+  v7 = v6 % *(a1 + 24);
+  v8 = *(*(a1 + 8) + 4 * v7);
+  if (v8 == 0x7FFFFFFF)
+  {
+LABEL_8:
+    v10 = re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderBinary<re::FixedArrayInputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::allocEntry(a1, v7, v6);
+    *(v10 + 4) = *a2;
+    *(v10 + 16) = *a3;
+    result = v10 + 16;
+    ++*(a1 + 40);
+    return result;
+  }
+
+  v9 = *(a1 + 16);
+  while (*(v9 + 24 * v8 + 4) != v6)
+  {
+    v8 = *(v9 + 24 * v8) & 0x7FFFFFFF;
+    if (v8 == 0x7FFFFFFF)
+    {
+      goto LABEL_8;
+    }
   }
 
   ++*(a1 + 40);
-  return re::DynamicString::operator=((*(a1 + 16) + 88 * v7 + 48), a3);
+  v12 = v9 + 24 * v8;
+  *(v12 + 16) = *a3;
+  return v12 + 16;
 }
 
-uint64_t re::AssetManager::disableNetworkLoadingRedirector(uint64_t a1, int a2, const char *a3)
+uint64_t re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderBinary<re::FixedArrayInputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
 {
-  dispatch_assert_queue_V2(*(a1 + 776));
-  v8 = a2;
-  re::HashTable<re::internal::AssetLoadingRoot,re::DynamicString,re::internal::AssetLoadingRoot,re::internal::AssetLoadingRoot,true,false>::remove(a1 + 1848, &v8);
-  result = v9;
-  if (v9)
+  v4 = *(a1 + 36);
+  if (v4 == 0x7FFFFFFF)
   {
-    if (v10)
+    v4 = *(a1 + 32);
+    v5 = v4;
+    if (v4 == *(a1 + 24))
     {
-      return (*(*v9 + 40))();
+      re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderBinary<re::FixedArrayInputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::setCapacity(a1, 2 * *(a1 + 28));
+      a2 = a3 % *(a1 + 24);
+      v5 = *(a1 + 32);
     }
-  }
 
-  return result;
-}
-
-BOOL re::HashTable<re::internal::AssetLoadingRoot,re::DynamicString,re::internal::AssetLoadingRoot,re::internal::AssetLoadingRoot,true,false>::remove(uint64_t a1, _DWORD *a2)
-{
-  v4 = re::HashTable<re::internal::AssetLoadingRoot,re::DynamicString,re::internal::AssetLoadingRoot,re::internal::AssetLoadingRoot,true,false>::computeHash<re::internal::AssetLoadingRoot>(a2);
-  re::HashTable<re::internal::AssetLoadingRoot,re::DynamicString,re::internal::AssetLoadingRoot,re::internal::AssetLoadingRoot,true,false>::findEntry<re::internal::AssetLoadingRoot>(a1, a2, v4, v6);
-  return re::HashTable<re::internal::AssetLoadingRoot,re::DynamicString,re::internal::AssetLoadingRoot,re::internal::AssetLoadingRoot,true,false>::removeInternal(a1, v6);
-}
-
-void re::AssetManager::findDependencies(re::AssetManager *this@<X0>, os_unfair_lock_s *a2@<X1>, uint64_t a3@<X8>)
-{
-  os_unfair_lock_lock(a2 + 128);
-  v6 = atomic_load(&a2[224]._os_unfair_lock_opaque);
-  if (v6 == 2)
-  {
-    v7 = *(this + 226);
-    v11 = *&a2[70]._os_unfair_lock_opaque;
-    v8 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v7, &v11);
-    (*(**v8 + 128))(*v8);
-    v9 = *v8;
-    v10 = re::internal::AssetEntry::assetPointer(a2);
-    (*(*v9 + 120))(v9, v10);
+    *(a1 + 32) = v5 + 1;
+    v7 = *(a1 + 16);
+    v8 = *(v7 + 24 * v4);
   }
 
   else
   {
-    *(a3 + 32) = 0;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    *a3 = 0;
-    *(a3 + 24) = 0;
+    v7 = *(a1 + 16);
+    v8 = *(v7 + 24 * v4);
+    *(a1 + 36) = v8 & 0x7FFFFFFF;
   }
 
-  os_unfair_lock_unlock(a2 + 128);
+  v9 = 24 * v4;
+  *(v7 + v9) = v8 | 0x80000000;
+  v10 = *(a1 + 8);
+  *(v7 + v9) = *(v10 + 4 * a2) | 0x80000000;
+  *(v10 + 4 * a2) = v4;
+  ++*(a1 + 28);
+  return v7 + 24 * v4;
 }
 
-char *re::AssetManager::deviceAssetPathFromAssetLoadDescriptor@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, _BYTE *a5@<X8>)
+void re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderBinary<re::FixedArrayInputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::setCapacity(uint64_t a1, unsigned int a2)
 {
-  result = re::AssetProviderRegistry::deviceAssetPath(*(a1 + 1904), a2, a4, a5);
-  if (*a5 == 1 && (a3 & 1) == 0)
+  v4 = *a1;
+  if (*a1)
   {
-    if (*(a2 + 120))
+    if (a2 && *(a1 + 24) != a2 && *(a1 + 28) <= a2)
     {
-      v10 = *(a2 + 128);
+      memset(v9, 0, 36);
+      *&v9[36] = 0x7FFFFFFFLL;
+      re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::init(v9, v4, a2);
+      v5 = *v9;
+      *v9 = *a1;
+      *a1 = v5;
+      v6 = *&v9[16];
+      *&v9[16] = *(a1 + 16);
+      *(a1 + 16) = v6;
+      v7 = *&v9[24];
+      *&v9[24] = *(a1 + 24);
+      *(a1 + 24) = v7;
+      ++*&v9[40];
+      re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderBinary<re::FixedArrayInputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::move(a1, v9);
+      re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::deinit(v9);
+    }
+  }
+
+  else
+  {
+    if (a2)
+    {
+      v8 = a2;
     }
 
     else
     {
-      v10 = (a2 + 121);
+      v8 = 3;
     }
+  }
+}
 
-    v11 = re::internal::AssetTypeRegistry::assetTypeWithName(*(a1 + 1808), v10);
+uint64_t re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderBinary<re::FixedArrayInputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::move(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 32);
+  if (v2)
+  {
+    v4 = result;
+    v5 = 0;
+    for (i = 0; i < v2; ++i)
+    {
+      v7 = *(a2 + 16);
+      if ((*(v7 + v5) & 0x80000000) != 0)
+      {
+        result = re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderBinary<re::FixedArrayInputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::allocEntry(v4, *(v7 + v5 + 4) % *(v4 + 24), *(v7 + v5 + 4));
+        *(result + 4) = *(*(a2 + 16) + v5 + 4);
+        *(result + 16) = *(*(a2 + 16) + v5 + 16);
+        v2 = *(a2 + 32);
+      }
 
-    return re::AssetPath::updateWithCompiledExtension(a5 + 8, v11);
+      v5 += 24;
+    }
   }
 
   return result;
 }
 
-void re::AssetManager::deviceAssetPath(os_unfair_lock_s *a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, _BYTE *a5@<X8>)
+uint64_t re::SerializerV1<re::EncoderBinary<re::FixedArrayInputStream>>::serializeCString(uint64_t a1, const char *a2, const re::TypeInfo *a3, char **a4, re *a5, const re::TypeInfo *a6, char a7)
 {
-  v6 = *(*(a2 + 8) + 112);
-  if ((v6 + 1) >= 2 && (os_unfair_lock_lock(a1 + 32), v14 = v6, v10 = re::HashTable<unsigned long long,re::DynamicArray<re::AssetLoadDescriptor>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(&a1[46], &v14), os_unfair_lock_unlock(a1 + 32), v10) && (v11 = *(v10 + 16)) != 0)
+  if (a5 != a6)
   {
-    v12 = *(v10 + 32);
-    v13 = 144 * v11;
-    while (1)
+    if (*a5 != *a6)
     {
-      re::AssetManager::deviceAssetPathFromAssetLoadDescriptor(a1, v12, a3, a4, a5);
-      if (*a5)
+      if (re::areSameTranslatedVersion(a5, a6, a3))
       {
-        break;
+        goto LABEL_4;
       }
 
-      v12 += 144;
-      v13 -= 144;
-      if (!v13)
+LABEL_15:
+      re::internal::setTypeMismatchError<re::EncoderOPACK<re::FixedArrayInputStream>>(a1, a2, a5, a6);
+      goto LABEL_16;
+    }
+
+    v14 = **(a5 + 2);
+    v15 = **(a6 + 2);
+    if (v14 != v15)
+    {
+      goto LABEL_15;
+    }
+
+    v17 = WORD1(v14) == WORD1(v15);
+    v16 = (v15 ^ v14) & 0xFFFFFF00000000;
+    v17 = v17 && v16 == 0;
+    if (!v17)
+    {
+      goto LABEL_15;
+    }
+  }
+
+LABEL_4:
+  v33 = 0;
+  if (re::EncoderBinary<re::FixedArrayInputStream>::beginPointer((a1 + 24), a2, a3, &v33, 0))
+  {
+    if (v33 == 1)
+    {
+      v32 = 0;
+      if ((*(a1 + 64) & 1) == 0)
       {
-        goto LABEL_2;
+        re::EncoderBinary<re::FixedArrayInputStream>::serializeValue<int>(a1 + 24, "ID", 0, &v32, "Reference ID", 0);
+        if ((*(a1 + 64) & 1) == 0)
+        {
+          if (*(a1 + 328) <= v32)
+          {
+            re::Serializer<re::EncoderOPACK<re::FixedArrayInputStream>>::setError(a1, 0, "Invalid reference ID for shared object: %u");
+          }
+
+          else
+          {
+            re::internal::SharedObjectGraph::typeID(&__dst, (a1 + 256), v32);
+            if (__dst == *a5)
+            {
+              v20 = **(a5 + 2);
+              if (v29 == v20 && v30 == WORD1(v20) && ((v31 ^ HIDWORD(v20)) & 0xFFFFFF) == 0)
+              {
+                if ((a7 & 1) == 0)
+                {
+                  if (*a4)
+                  {
+                    v26 = *a4;
+                    if (v26 != re::internal::SharedObjectGraph::object((a1 + 256), v32))
+                    {
+                      (*(**(a1 + 48) + 40))(*(a1 + 48), *a4);
+                      *a4 = 0;
+                    }
+                  }
+
+                  *a4 = re::internal::SharedObjectGraph::object((a1 + 256), v32);
+                  if (*(a1 + 256) == 1 && *(a1 + 257) == 1)
+                  {
+                    re::internal::SharedObjectGraph::addChild((a1 + 256), *(*(a1 + 424) + 4 * *(a1 + 408) - 4), v32);
+                  }
+                }
+
+                goto LABEL_37;
+              }
+            }
+
+            v21 = *(a1 + 192);
+            re::internal::SharedObjectGraph::typeID(&__dst, (a1 + 256), v32);
+            re::TypeRegistry::typeName(v21, &__dst);
+            re::Serializer<re::EncoderOPACK<re::FixedArrayInputStream>>::setError(a1, 0, "Invalid reference ID for shared object. Expected type char *. Actual type %s.");
+          }
+        }
+      }
+    }
+
+    else
+    {
+      if (!v33)
+      {
+        if ((a7 & 1) == 0 && *a4)
+        {
+          (*(**(a1 + 48) + 40))(*(a1 + 48));
+          *a4 = 0;
+        }
+
+LABEL_37:
+        re::EncoderBinary<re::DynamicArrayBufferedOutputStream>::endPointer((a1 + 24));
+        v18 = *(a1 + 64) ^ 1;
+        return v18 & 1;
+      }
+
+      if ((a7 & 1) == 0 && *a4)
+      {
+        (*(**(a1 + 48) + 40))(*(a1 + 48));
+        *a4 = 0;
+      }
+
+      __dst = 0;
+      if (re::EncoderBinary<re::FixedArrayInputStream>::beginString((a1 + 24), a2, 0, &__dst, 0))
+      {
+        if (((__dst == -1) << 63) >> 63 == (__dst == -1))
+        {
+          v22 = (*(**(a1 + 48) + 32))(*(a1 + 48), __dst + 1, 0);
+          v23 = v22;
+          if ((a7 & 1) == 0)
+          {
+            *a4 = v22;
+          }
+
+          v24 = __dst;
+          if (__dst)
+          {
+            re::EncoderBinary<re::FixedArrayInputStream>::serializeString(a1 + 24, v22, 0);
+            v24 = __dst;
+          }
+
+          *(v23 + v24) = 0;
+          re::EncoderBinary<re::DynamicArrayBufferedOutputStream>::endString((a1 + 24));
+          v25 = **(a5 + 2);
+          *&v27 = *a5;
+          *(&v27 + 1) = v25;
+          re::internal::SharedObjectGraph::addObject(a1 + 256, v23, &v27);
+          goto LABEL_37;
+        }
+
+        re::Serializer<re::EncoderOPACK<re::FixedArrayInputStream>>::setError(a1, 0, "Size overflow during string deserialization. String length = %zu");
       }
     }
   }
 
-  else
-  {
-LABEL_2:
-    *a5 = 0;
-  }
+LABEL_16:
+  v18 = 0;
+  return v18 & 1;
 }
 
-uint64_t re::ProfilerManager::isProcessorEnabled<re::ProfilerFrameStatisticsProcessor,void>(uint64_t a1)
+uint64_t re::SerializerV1<re::EncoderBinary<re::FixedArrayInputStream>>::serializePointer(uint64_t a1, const char *a2, uint64_t a3, void **a4, re::TypeInfo *this, const re::TypeInfo *a6, int a7)
 {
-  v5 = re::ProfilerManager::getProcessorId<re::ProfilerFrameStatisticsProcessor>();
-  os_unfair_lock_lock((a1 + 16));
-  v2 = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>((a1 + 480), &v5);
-  if (v2)
+  isPointerToPolymorphicType = re::TypeInfo::isPointerToPolymorphicType(this);
+  if (this == a6)
   {
-    v3 = *(v2[3] + 8);
+    goto LABEL_4;
   }
 
-  else
+  if (*this == *a6)
   {
-    v3 = 0;
+    v21 = **(this + 2);
+    v22 = **(a6 + 2);
+    if (v21 == v22)
+    {
+      v24 = WORD1(v21) == WORD1(v22);
+      v23 = (v22 ^ v21) & 0xFFFFFF00000000;
+      v24 = v24 && v23 == 0;
+      if (v24)
+      {
+        goto LABEL_4;
+      }
+    }
   }
 
-  os_unfair_lock_unlock((a1 + 16));
-  return v3 & 1;
-}
-
-void re::AssetManager::registeredAssetTypes(re::AssetManager *this@<X0>, void *a2@<X8>)
-{
-  a2[2] = 0;
-  v3 = *(this + 226);
-  v4 = *(v3 + 28);
-  a2[1] = v4;
-  if (v4)
+  else if (re::areSameTranslatedVersion(this, a6, v14))
   {
-    v5 = 2 * v4;
-    a2[2] = v6;
-    if (!v6)
+LABEL_4:
+    v16 = 0;
+    goto LABEL_5;
+  }
+
+  if (*(a6 + 12) != 9 || isPointerToPolymorphicType && (!re::TypeInfo::isPointerToPolymorphicType(a6) || (v25 = re::TypeInfo::name(this), v26 = re::TypeInfo::name(a6), !re::StringID::operator==(v25, v26))))
+  {
+    re::internal::setTypeMismatchError<re::EncoderOPACK<re::FixedArrayInputStream>>(a1, a2, this, a6);
+    goto LABEL_28;
+  }
+
+  v16 = 1;
+LABEL_5:
+  re::TypeRegistry::typeInfo(*this, *(*(this + 2) + 80), &v55);
+  re::TypeInfo::TypeInfo(v53, v56);
+  re::TypeRegistry::typeInfo(*a6, *(*(a6 + 2) + 80), &v55);
+  re::TypeInfo::TypeInfo(v52, v56);
+  if (!isPointerToPolymorphicType || (a7 & 1) != 0)
+  {
+    v20 = *v54;
+    v51[0] = v53[0];
+    v51[1] = v20;
+    if (!v53[0])
+    {
+      goto LABEL_8;
+    }
+
+LABEL_11:
+    re::TypeRegistry::typeInfo(*this, v51, &v55);
+    re::TypeInfo::TypeInfo(v49, v56);
+    v48 = 0;
+    if (!re::EncoderBinary<re::FixedArrayInputStream>::beginPointer((a1 + 24), a2, a3, &v48, 0))
     {
       goto LABEL_28;
     }
 
-    v8 = v6;
-    v9 = v6;
-    if (v4 != 1)
+    if (v48 != 1)
     {
-      bzero(v6, v5 * 8 - 16);
-      v9 = &v8[v5 - 2];
+      if (!v48)
+      {
+        if ((a7 & 1) == 0 && *a4)
+        {
+          re::TypeInfo::releaseInstance(v49, *a4, *(a1 + 48), *(a1 + 184));
+          *a4 = 0;
+        }
+
+        goto LABEL_59;
+      }
+
+      if (isPointerToPolymorphicType)
+      {
+        re::internal::deserializePolymorphicObject<re::EncoderBinary<re::FixedArrayInputStream>,true>(a1, a2, a3, a4, this, v49, v52, v16, a7);
+        goto LABEL_59;
+      }
+
+      if (!a7)
+      {
+        Instance = *a4;
+        if (!*a4)
+        {
+          Instance = re::TypeInfo::createInstance(v53, *(a1 + 48), 0);
+        }
+
+        v36 = 0;
+        *a4 = Instance;
+        goto LABEL_55;
+      }
+
+      v33 = *(a1 + 192);
+      if (v53[0] != v33)
+      {
+        v34 = re::TypeInfo::name(v53);
+        re::TypeRegistry::typeInfo(&v55, v33, v34);
+        if ((v55 & 1) == 0)
+        {
+          Instance = 0;
+          v36 = 1;
+          goto LABEL_55;
+        }
+
+        re::TypeInfo::operator=(v53, v56);
+      }
+
+      Instance = re::TypeInfo::createInstance(v53, *(a1 + 48), 0);
+      v36 = 0;
+LABEL_55:
+      v37 = *v54;
+      *&v43 = v53[0];
+      *(&v43 + 1) = v37;
+      re::internal::SharedObjectGraph::beginObject((a1 + 256), Instance, &v43);
+      if ((*(a1 + 64) & 1) == 0)
+      {
+        (*(*a1 + 72))(a1, a2, 0, Instance, v53, v52, v36);
+      }
+
+      if (*(a1 + 256) == 1)
+      {
+        --*(a1 + 408);
+        ++*(a1 + 416);
+      }
+
+      goto LABEL_59;
     }
 
-    *v9 = 0;
-    v9[1] = 0;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v10 = *(v3 + 32);
-  if (v10)
-  {
-    v11 = 0;
-    v12 = *(v3 + 16);
-    while (1)
+    v47 = 0;
+    if (*(a1 + 64))
     {
-      v13 = *v12;
-      v12 += 16;
-      if (v13 < 0)
-      {
-        break;
-      }
-
-      if (v10 == ++v11)
-      {
-        LODWORD(v11) = *(v3 + 32);
-        break;
-      }
+      goto LABEL_28;
     }
-  }
 
-  else
-  {
-    LODWORD(v11) = 0;
-  }
-
-  if (v11 != v10)
-  {
-    v14 = 0;
-    v15 = *(v3 + 16);
-    while (1)
+    re::EncoderBinary<re::FixedArrayInputStream>::serializeValue<int>(a1 + 24, "ID", 0, &v47, "Reference ID", 0);
+    if (*(a1 + 64))
     {
-      v16 = v15 + (v11 << 6);
-      v17 = *(v16 + 8);
-      v18 = (*(**(v16 + 16) + 128))(*(v16 + 16));
-      if (v14 == v4)
+      goto LABEL_28;
+    }
+
+    if (*(a1 + 328) > v47)
+    {
+      re::internal::SharedObjectGraph::typeID(v46, (a1 + 256), v47);
+      if (!re::internal::areCompatible(this, v46))
       {
-        break;
+        v38 = re::TypeInfo::name(v53)[1];
+        v39 = *(a1 + 192);
+        re::internal::SharedObjectGraph::typeID(&v55, (a1 + 256), v47);
+        v41 = v38;
+        v42 = *(re::TypeRegistry::typeName(v39, &v55) + 1);
+        v17 = "Invalid reference. Objects are not compatible. Expected type %s. Actual type %s.";
+        goto LABEL_61;
       }
 
-      v19 = &v8[2 * v14];
-      *v19 = v17;
-      v19[1] = v18;
-      ++v14;
-      if (*(v3 + 32) <= (v11 + 1))
+      if (a7)
       {
-        v20 = v11 + 1;
+LABEL_59:
+        re::EncoderBinary<re::DynamicArrayBufferedOutputStream>::endPointer((a1 + 24));
+        v27 = *(a1 + 64) ^ 1;
+        return v27 & 1;
+      }
+
+      if (*a4)
+      {
+        v29 = *a4;
+        if (v29 != re::internal::SharedObjectGraph::object((a1 + 256), v47))
+        {
+          re::TypeInfo::releaseInstance(v49, *a4, *(a1 + 48), *(a1 + 184));
+          *a4 = 0;
+        }
+      }
+
+      v30 = re::internal::SharedObjectGraph::object((a1 + 256), v47);
+      v31 = v30;
+      *a4 = v30;
+      if ((*(v50 + 49) & 2) != 0)
+      {
+        v40 = *(v50 + 32);
+        if (v40)
+        {
+          v40(v30);
+        }
+
+        if (*(a1 + 256) == 1 && *(a1 + 257) == 1)
+        {
+          re::internal::SharedObjectGraph::addChild((a1 + 256), *(*(a1 + 424) + 4 * *(a1 + 408) - 4), v47);
+        }
       }
 
       else
       {
-        v20 = *(v3 + 32);
-      }
-
-      v15 = *(v3 + 16);
-      while (v20 - 1 != v11)
-      {
-        LODWORD(v11) = v11 + 1;
-        if ((*(v15 + (v11 << 6)) & 0x80000000) != 0)
+        re::internal::SharedObjectGraph::typeID(v45, (a1 + 256), v47);
+        if (!v45[0])
         {
-          goto LABEL_25;
+          v41 = v47;
+          v17 = "TypeID for shared object at index %d is invalid.";
+          goto LABEL_61;
+        }
+
+        re::TypeRegistry::typeInfo(v45[0], v45, &v55);
+        if ((v55 & 1) == 0)
+        {
+          v41 = v47;
+          v17 = "No TypeInfo found for shared object at index %d.";
+          goto LABEL_61;
+        }
+
+        v32 = re::TypeInfo::createInstance(v56, *(a1 + 48), *(a1 + 184));
+        *a4 = v32;
+        if ((re::TypeInfo::copy(v56, v32, v31, *(a1 + 48), *(a1 + 184)) & 1) == 0)
+        {
+          v41 = re::TypeInfo::name(v56)[1];
+          v17 = "Failed to copy non-shareable object of type '%s'.";
+LABEL_61:
+          v18 = a1;
+          v19 = 0;
+          goto LABEL_9;
         }
       }
 
-      LODWORD(v11) = v20;
-LABEL_25:
-      if (v11 == v10)
-      {
-        return;
-      }
+      re::internal::SharedObjectGraph::typeID(v44, (a1 + 256), v47);
+      re::TypeInfo::setActualTypeForPointer(this, a4, v44);
+      goto LABEL_59;
     }
 
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
+    v41 = v47;
+    v17 = "Invalid reference ID for shared object: %u";
+    goto LABEL_61;
+  }
+
+  re::internal::actualType(v51, a4, this);
+  if (v51[0])
+  {
+    goto LABEL_11;
+  }
+
+LABEL_8:
+  v41 = re::TypeInfo::name(this)[1];
+  v17 = "Failed to get actual type of polymorphic object. Type %s.";
+  v18 = a1;
+  v19 = a2;
+LABEL_9:
+  re::Serializer<re::EncoderOPACK<re::FixedArrayInputStream>>::setError(v18, v19, v17, v41, v42);
 LABEL_28:
-    re::internal::assertLog(4, v7, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
-    _os_crash();
+  v27 = 0;
+  return v27 & 1;
+}
+
+uint64_t re::internal::deserializePolymorphicObject<re::EncoderBinary<re::FixedArrayInputStream>,true>(uint64_t a1, uint64_t a2, uint64_t a3, void **a4, re::TypeRegistry **a5, re ***a6, re::TypeInfo *a7, int a8, char a9)
+{
+  v39 = *MEMORY[0x1E69E9840];
+  if (*(a1 + 64))
+  {
+    goto LABEL_10;
+  }
+
+  buf[0] = 1;
+  *v36 = 0;
+  *&v36[4] = a2;
+  v37 = 0u;
+  v38 = 0u;
+  re::Encoder<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>,re::DynamicArrayBufferedOutputStream>::pushState((a1 + 24), buf);
+  v34 = 0;
+  if (!re::EncoderBinary<re::FixedArrayInputStream>::serializeValue<long long>(a1 + 24, "customClassID", 1, &v34, "uint64", 0))
+  {
+    goto LABEL_10;
+  }
+
+  re::TypeInfo::typeIDForCustomClassID(v33, a7, v34);
+  if (!v33[0])
+  {
+    v16 = re::TypeInfo::name(a7);
+    re::Serializer<re::EncoderOPACK<re::FixedArrayInputStream>>::setError(a1, 0, "Unknown polymorphic %s type. Custom class ID = %llu", v16[1], v34);
+    goto LABEL_10;
+  }
+
+  if ((a9 & 1) == 0 && *a4)
+  {
+    re::TypeInfo::releaseInstance(a6, *a4, *(a1 + 48), *(a1 + 184));
+    *a4 = 0;
+  }
+
+  re::TypeRegistry::typeInfo(*a7, v33, buf);
+  re::TypeInfo::TypeInfo(v32, &v36[4]);
+  if (a8)
+  {
+    v15 = *(a1 + 192);
+  }
+
+  else
+  {
+    v15 = *(a1 + 192);
+    if (*a5 == v15)
+    {
+      re::TypeInfo::operator=(a6, v32);
+      v21 = v33[0];
+      v22 = v33[1];
+      goto LABEL_21;
+    }
+  }
+
+  v19 = re::TypeInfo::name(v32);
+  v20 = re::TypeRegistry::typeInfo(buf, v15, v19);
+  if (buf[0] == 1 && *(*(&v37 + 1) + 128) == 1)
+  {
+    re::TypeInfo::operator=(a6, &v36[4]);
+    v21 = *a6;
+    v22 = *a6[2];
+LABEL_21:
+    Instance = re::TypeInfo::createInstance(a6, *(a1 + 48), *(a1 + 184));
+    v27 = Instance;
+    if ((a9 & 1) == 0)
+    {
+      *a4 = Instance;
+      v30[0] = v21;
+      v30[1] = v22;
+      re::internal::setActualType(a4, a5, v30);
+    }
+
+    v29[0] = v21;
+    v29[1] = v22;
+    (*(*a1 + 16))(a1, v27, v29);
+    if ((*(a1 + 64) & 1) == 0)
+    {
+      (*(*a1 + 72))(a1, "object", 10, v27, a6, v32, v27 == 0);
+    }
+
+    goto LABEL_25;
+  }
+
+  v23 = *re::foundationSerializationLogObjects(v20);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  {
+    v24 = v23;
+    v25 = re::TypeInfo::name(v32)[1];
+    *buf = 136315138;
+    *v36 = v25;
+    _os_log_impl(&dword_1E1C61000, v24, OS_LOG_TYPE_DEFAULT, "No matching runtime type found for serialized polymorphic type %s. Skipping unknown type.", buf, 0xCu);
+  }
+
+  v31[0] = 0;
+  v31[1] = 0xFFFFFFFFLL;
+  (*(*a1 + 16))(a1, 0, v31);
+  if ((*(a1 + 64) & 1) == 0)
+  {
+    (*(*a1 + 72))(a1, "object", 10, 0, v32, v32, 1);
+  }
+
+LABEL_25:
+  (*(*a1 + 24))(a1);
+  if ((*(a1 + 64) & 1) == 0)
+  {
+    re::Encoder<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>,re::DynamicArrayBufferedOutputStream>::popState((a1 + 24), 1);
+    v28 = *(a1 + 152) + 48 * *(a1 + 136);
+    ++*(v28 - 16);
+    v17 = *(a1 + 64) ^ 1;
+    return v17 & 1;
+  }
+
+LABEL_10:
+  v17 = 0;
+  return v17 & 1;
+}
+
+double re::ColorManager::ColorManager(re::ColorManager *this)
+{
+  *this = 0;
+  *(this + 1) = xmmword_1E3047670;
+  *(this + 2) = xmmword_1E3047680;
+  *(this + 3) = xmmword_1E30476A0;
+  *(this + 4) = xmmword_1E3047670;
+  *(this + 5) = xmmword_1E3047680;
+  *(this + 6) = xmmword_1E30476A0;
+  *(this + 120) = 0u;
+  *(this + 28) = 0;
+  *(this + 136) = xmmword_1E3054790;
+  *(this + 152) = xmmword_1E304F3C0;
+  *(this + 168) = 0;
+  __asm { FMOV            V1.2S, #1.0 }
+
+  *(this + 172) = _D1;
+  *(this + 180) = 0;
+  *(this + 23) = 0x3F80000000000000;
+  *(this + 192) = 0;
+  *(this + 196) = xmmword_1E30547A0;
+  *(this + 220) = 0;
+  *(this + 212) = 0;
+  *(this + 221) = 257;
+  *(this + 782) = 0u;
+  result = 0.000000381469872;
+  *(this + 1568) = 0x3F8000003F800000;
+  *(this + 1569) = 1065353216;
+  *(this + 3140) = 1048576000;
+  *(this + 783) = xmmword_1E30547B0;
+  *(this + 12564) = 0;
+  return result;
+}
+
+uint64_t re::RealityDataPipeFactory::makeRenderGraphDataPipe(re *a1, uint64_t a2)
+{
+  v3 = re::globalAllocators(a1);
+  v4 = (*(*v3[2] + 32))(v3[2], 2200, 8);
+
+  return re::RealityDataPipe::RealityDataPipe(v4, a2);
+}
+
+void *re::internal::Callable<re::Engine::init(re::EngineConfiguration const&)::$_0,BOOL ()(void)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6710;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::init(re::EngineConfiguration const&)::$_0,BOOL ()(void)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6710;
+  a2[1] = v2;
+  return a2;
+}
+
+uint64_t (***re::FunctionBase<24ul,BOOL ()(void)>::destroyCallable(uint64_t a1))(void)
+{
+  result = *(a1 + 32);
+  if (result)
+  {
+    result = (**result)(result);
+    if (*(a1 + 32) != a1)
+    {
+      result = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    }
+
+    *(a1 + 32) = 0;
+  }
+
+  return result;
+}
+
+void re::ecs2::RenderOptionsManager::~RenderOptionsManager(re::ecs2::RenderOptionsManager *this)
+{
+  re::FixedArray<CoreIKTransform>::deinit(this + 42);
+  re::FixedArray<CoreIKTransform>::deinit(this + 39);
+  re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::~HierarchyStateTracking(this + 1);
+}
+
+{
+  re::FixedArray<CoreIKTransform>::deinit(this + 42);
+  re::FixedArray<CoreIKTransform>::deinit(this + 39);
+  re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::~HierarchyStateTracking(this + 1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t re::ecs2::RenderOptionsManager::renderOptions(re::ecs2::RenderOptionsManager *this)
+{
+  if (*(this + 35))
+  {
+    re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::updatePerEntityStateData(this + 8, 1);
+  }
+
+  return this + 8;
+}
+
+uint64_t re::ecs2::RenderOptionsManager::registerScene(re::ecs2::RenderOptionsManager *this, re::EventBus **a2)
+{
+  v48 = *MEMORY[0x1E69E9840];
+  v44 = a2;
+  v2 = a2[36];
+  if (!v2)
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) An event bus is expected for this system to track entity state changes.", "eventBus", "registerScene", 106);
+    _os_crash("assertion failure: (eventBus) An event bus is expected for this system to track entity state changes.");
     __break(1u);
   }
-}
 
-uint64_t re::AssetManager::pathStringfromAssetId(_anonymous_namespace_ *a1, uint64_t a2, uint64_t a3)
-{
-  *v9 = 0;
-  v12 = 0;
-  v13 = 0;
-  v11 = 0;
-  v6 = re::DynamicString::setCapacity(&v10, 0);
-  *(&v14 + 1) = 0;
-  v15 = 0uLL;
-  re::DynamicString::setCapacity(&v14, 0);
-  v16 = 0;
-  re::AssetPath::initAssetIdAssetPath(v9, a2, a3);
-  v7 = v10;
-  *(a1 + 2) = 0;
-  *(a1 + 3) = 0;
-  *a1 = v7;
-  *(a1 + 1) = 0;
-  re::DynamicString::setCapacity(a1, 0);
-  re::AssetPath::fullAssetPath(v9, a1);
-  if (v14)
+  v4 = (this + 8);
+  v38[0] = 0;
+  v38[1] = 0;
+  v39 = 1;
+  v41 = 0;
+  v42 = 0;
+  v40 = 0;
+  v43 = 0;
+  v5 = (*(*v4 + 16))(v4);
+  if (v6)
   {
-    if (BYTE8(v14))
-    {
-      (*(*v14 + 40))(v14);
-    }
-
-    v15 = 0u;
-    v14 = 0u;
-  }
-
-  result = v10;
-  if (v10)
-  {
-    if (v11)
-    {
-      return (*(*v10 + 40))(v10);
-    }
-  }
-
-  return result;
-}
-
-void re::AssetManager::lookupAssetPathString(os_unfair_lock_s *this@<X0>, char *a2@<X1>, const re::AssetPath *a3@<X2>, uint64_t a4@<X8>)
-{
-  os_unfair_lock_lock(this + 32);
-  v8 = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet<void>(&this[34], a2);
-  os_unfair_lock_unlock(this + 32);
-  if (v8)
-  {
-    v10 = *v65;
-    v11 = *&v65[16];
-    v12 = v66;
-    *a4 = 1;
-    *(a4 + 8) = v10;
-    *(a4 + 24) = v11;
-    *(a4 + 32) = v12;
-    return;
-  }
-
-  v13 = &v75;
-  v14 = re::StackScratchAllocator::StackScratchAllocator(v86);
-  re::AssetPath::invalidAssetPath(v14, &v80);
-  re::AssetManager::parseAssetPath(this, v86, a2, &v80, 0, v72);
-  v15 = a2;
-  if (v72[0] != 1)
-  {
-    goto LABEL_24;
-  }
-
-  *&v56[16] = 0;
-  v57 = 0;
-  *v56 = v74;
-  re::DynamicString::setCapacity(v56, 0);
-  re::AssetPath::fullAssetPath(&v73, v56);
-  os_unfair_lock_lock(this + 32);
-  v16 = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet(&this[34], v56);
-  os_unfair_lock_unlock(this + 32);
-  if (!v16)
-  {
-    v17 = v73;
-    if (v73 != v80 || ((v75 & 1) != 0 ? (v18 = *&v76[7]) : (v18 = v76), (v82 & 1) != 0 ? (v19 = *&v83[7]) : (v19 = v83), v15 = a2, strcmp(v18, v19)))
-    {
-      if (v17 != 5)
-      {
-        Descriptor = re::AssetManager::convertToLoadDescriptor(this, &v73, v65);
-        if (v65[0] == 1 && (Descriptor = re::ThreadSafeValue<re::AssetManager::AssetTables,re::UnfairLock>::read<re::AssetManager::lookupAssetPathString(char const*,re::AssetPath const&)::$_2>(this + 32, v65)) != 0)
-        {
-          re::AssetManager::pathStringfromAssetId(&v62, *Descriptor, v79);
-          v35 = v62;
-          v36 = v63;
-          v37 = v64;
-          *a4 = 1;
-          *(a4 + 8) = v35;
-          *(a4 + 24) = v36;
-          *(a4 + 32) = v37;
-        }
-
-        else
-        {
-          re::DynamicString::operator+(&v58, a2, &v62);
-          v43 = v62;
-          v62 = 0uLL;
-          v44 = v63;
-          v45 = v64;
-          v63 = 0;
-          v64 = 0;
-          *a4 = 0;
-          *(a4 + 8) = v43;
-          *(a4 + 24) = v44;
-          *(a4 + 32) = v45;
-          if (v58 && (v59 & 1) != 0)
-          {
-            (*(*v58 + 40))();
-          }
-        }
-
-        re::Optional<re::AssetLoadDescriptor>::~Optional(v65);
-        goto LABEL_6;
-      }
-
-      v20 = strrchr(a2, 47);
-      if (v20)
-      {
-        v15 = v20 + 1;
-      }
-
-      else
-      {
-        v15 = a2;
-      }
-    }
-
-    if (*v56 && (v56[8] & 1) != 0)
-    {
-      (*(**v56 + 40))();
-    }
-
-LABEL_24:
-    v21 = &v66;
-    re::AssetManager::parseAssetPath(this, v86, v15, a3, 0, v65);
-    if ((v65[0] & 1) == 0)
-    {
-      if (v67)
-      {
-        v26 = *&v68[7];
-      }
-
-      else
-      {
-        v26 = v68;
-      }
-
-      re::DynamicString::format("Unexpected error parsing unknown path '%s': %s", v56, a2, v26);
-      v27 = *v56;
-      v28 = *&v56[16];
-      v29 = v57;
-      *a4 = 0;
-      *(a4 + 8) = v27;
-      *(a4 + 24) = v28;
-      *(a4 + 32) = v29;
-      goto LABEL_31;
-    }
-
-    *&v56[16] = 0;
-    v57 = 0;
-    *v56 = *&v65[16];
-    re::DynamicString::setCapacity(v56, 0);
-    re::AssetPath::fullAssetPath(&v65[8], v56);
-    os_unfair_lock_lock(this + 32);
-    v22 = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet(&this[34], v56);
-    os_unfair_lock_unlock(this + 32);
-    v23 = *v56;
-    if (v22)
-    {
-      v24 = v57;
-      v25 = *&v56[8];
-      *a4 = 1;
-      *(a4 + 8) = v23;
-      *(a4 + 32) = v24;
-      *(a4 + 16) = v25;
-      goto LABEL_31;
-    }
-
-    if (*v56 && (v56[8] & 1) != 0)
-    {
-      v23 = (*(**v56 + 40))();
-    }
-
-    if (*a3 == 8)
-    {
-      re::AssetManager::resolveChildLoadDescriptors(a3, this, v56);
-      if (v56[0] == 1)
-      {
-        re::AssetManager::lookupExistingImmutableAssetId(this, &v56[8], v54);
-        if (v54[0])
-        {
-          re::AssetManager::pathStringfromAssetId(&v62, v55, *v71);
-          v31 = v62;
-          v32 = v63;
-          v33 = v64;
-          *a4 = 1;
-          *(a4 + 8) = v31;
-          *(a4 + 24) = v32;
-          *(a4 + 32) = v33;
-        }
-
-        else
-        {
-          re::AssetPath::fullAssetPath(a3, &v58);
-          if (v59)
-          {
-            v50 = v61;
-          }
-
-          else
-          {
-            v50 = v60;
-          }
-
-          re::DynamicString::format("Failed to find a registered AssetId for load descriptors resolved from relative path %s from parent %s. The resolved load descriptors must already be registered with an AssetId.", &v62, a2, v50);
-          v51 = v62;
-          v52 = v63;
-          v53 = v64;
-          *a4 = 0;
-          *(a4 + 8) = v51;
-          *(a4 + 24) = v52;
-          *(a4 + 32) = v53;
-          if (v58 && (v59 & 1) != 0)
-          {
-            (*(*v58 + 40))();
-          }
-        }
-
-        re::DynamicArray<re::AssetLoadDescriptor>::deinit(&v56[8]);
-        goto LABEL_31;
-      }
-
-      re::AssetPath::fullAssetPath(a3, &v58);
-      if (v59)
-      {
-        v46 = v61;
-      }
-
-      else
-      {
-        v46 = v60;
-      }
-
-      re::DynamicString::format("Failed to resolve child load descriptors with relative path %s from parent %s.", &v62, a2, v46);
-      v47 = v62;
-      v48 = v63;
-      v49 = v64;
-      *a4 = 0;
-      *(a4 + 8) = v47;
-      *(a4 + 24) = v48;
-      *(a4 + 32) = v49;
-      v41 = v58;
-      if (!v58 || (v59 & 1) == 0)
-      {
-LABEL_31:
-        if (v65[0] == 1)
-        {
-          v21 = &v65[16];
-          if (v69)
-          {
-            if (BYTE8(v69))
-            {
-              (*(*v69 + 40))();
-            }
-
-            v69 = 0u;
-            v70 = 0u;
-          }
-        }
-
-        re::DynamicString::deinit(v21);
-        goto LABEL_37;
-      }
-
-      v42 = v61;
-    }
-
-    else
-    {
-      re::DynamicString::operator+(&v62, a2, v56);
-      v38 = *v56;
-      memset(v56, 0, sizeof(v56));
-      v39 = *&v56[16];
-      v40 = v57;
-      v57 = 0;
-      *a4 = 0;
-      *(a4 + 8) = v38;
-      *(a4 + 24) = v39;
-      *(a4 + 32) = v40;
-      v41 = v62;
-      if (!v62 || (BYTE8(v62) & 1) == 0)
-      {
-        goto LABEL_31;
-      }
-
-      v42 = v63;
-    }
-
-    (*(*v41 + 40))(v41, v42);
-    goto LABEL_31;
-  }
-
-  re::DynamicString::DynamicString(v65, v56);
-  *a4 = 1;
-  *(a4 + 8) = *v65;
-  *(a4 + 32) = v66;
-  *(a4 + 16) = *&v65[8];
-LABEL_6:
-  if (*v56 && (v56[8] & 1) != 0)
-  {
-    (*(**v56 + 40))();
-  }
-
-LABEL_37:
-  if (v72[0] == 1)
-  {
-    v13 = &v74;
-    if (v77)
-    {
-      if (BYTE8(v77))
-      {
-        (*(*v77 + 40))();
-      }
-
-      v77 = 0u;
-      v78 = 0u;
-    }
-  }
-
-  v30.n128_f64[0] = re::DynamicString::deinit(v13);
-  if (v84)
-  {
-    if (BYTE8(v84))
-    {
-      (*(*v84 + 40))(v30.n128_f64[0]);
-    }
-
-    v30 = 0uLL;
-    v85 = 0u;
-    v84 = 0u;
-  }
-
-  if (v81)
-  {
-    if (v82)
-    {
-      (*(*v81 + 40))(v30);
-    }
-  }
-
-  re::StackScratchAllocator::~StackScratchAllocator(v86);
-}
-
-uint64_t re::ThreadSafeValue<re::AssetManager::AssetTables,re::UnfairLock>::read<re::AssetManager::lookupAssetPathString(char const*,re::AssetPath const&)::$_2>(os_unfair_lock_s *a1, uint64_t a2)
-{
-  os_unfair_lock_lock(a1);
-  v4 = re::HashTable<re::AssetLoadDescriptor,unsigned long long,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::tryGet(&a1[26], a2 + 8);
-  os_unfair_lock_unlock(a1);
-  return v4;
-}
-
-void re::AssetManager::getDescription(os_unfair_lock_s *this@<X0>, const re::internal::AssetEntry *a2@<X1>, char a3@<W2>, re::DynamicString *a4@<X8>)
-{
-  os_unfair_lock_lock(this + 32);
-
-  os_unfair_lock_unlock(this + 32);
-}
-
-re::DynamicString *re::AssetManager::getDescription_assetTablesLocked@<X0>(re::AssetManager *this@<X0>, re::Allocator *a2@<X1>, const re::internal::AssetEntry *a3@<X2>, char a4@<W3>, re::DynamicString *a5@<X8>)
-{
-  v7 = *(a3 + 14);
-  if ((v7 + 1) >= 2 && (v12 = this, *&v30 = *(a3 + 14), (this = re::HashTable<unsigned long long,re::DynamicArray<re::AssetLoadDescriptor>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(this + 184, &v30)) != 0))
-  {
-    v13 = this;
-    *(a5 + 2) = 0;
-    *(a5 + 3) = 0;
-    *a5 = a2;
-    *(a5 + 1) = 0;
-    re::DynamicString::setCapacity(a5, 0);
-    if ((a4 & 1) == 0)
-    {
-      re::DynamicString::format(a2, "%llu ", &v30, v7);
-      re::DynamicString::operator=(a5, &v30);
-      if (v30)
-      {
-        if (BYTE8(v30))
-        {
-          (*(*v30 + 40))();
-        }
-      }
-    }
-
-    v14 = **(a3 + 35);
-    v15 = strlen(v14);
-    re::DynamicString::append(a5, v14, v15);
-    result = re::DynamicString::append(a5, " ", 1uLL);
-    v16 = *(v13 + 2);
-    if (v16)
-    {
-      v17 = *(v13 + 4);
-      v18 = 144 * v16;
-      v19 = v16 - 1;
-      do
-      {
-        re::DynamicString::append(a5, "(", 1uLL);
-        v20 = *(v17 + 8);
-        v21 = (v17 + 9);
-        if (v20)
-        {
-          v22 = *(v17 + 16);
-        }
-
-        else
-        {
-          v22 = (v17 + 9);
-        }
-
-        v23 = v20 >> 1;
-        v24 = v20 >> 1;
-        if (*(v17 + 8))
-        {
-          v25 = v23;
-        }
-
-        else
-        {
-          v25 = v24;
-        }
-
-        re::DynamicString::append(a5, v22, v25);
-        re::DynamicString::append(a5, ")", 1uLL);
-        if (*(v17 + 8))
-        {
-          v21 = *(v17 + 16);
-        }
-
-        ProviderForScheme = re::AssetProviderRegistry::tryGetProviderForScheme(*(v12 + 238), v21);
-        if (ProviderForScheme)
-        {
-          v27 = ProviderForScheme;
-          v30 = 0u;
-          v31 = 0u;
-          re::DynamicString::setCapacity(&v30, 0);
-          (*(*v27 + 72))(v27, v17, &v30);
-          if (BYTE8(v30))
-          {
-            v28 = v31;
-          }
-
-          else
-          {
-            v28 = &v30 + 9;
-          }
-
-          if (BYTE8(v30))
-          {
-            v29 = *(&v30 + 1) >> 1;
-          }
-
-          else
-          {
-            v29 = BYTE8(v30) >> 1;
-          }
-
-          re::DynamicString::append(a5, v28, v29);
-          result = v30;
-          if (v30 && (BYTE8(v30) & 1) != 0)
-          {
-            result = (*(*v30 + 40))();
-          }
-        }
-
-        else
-        {
-          result = re::DynamicString::append(a5, "<no registered provider>", 0x18uLL);
-        }
-
-        if (v19)
-        {
-          result = re::DynamicString::append(a5, ";", 1uLL);
-        }
-
-        v17 += 144;
-        --v19;
-        v18 -= 144;
-      }
-
-      while (v18);
-    }
-  }
-
-  else
-  {
-    if (*(a3 + 17))
-    {
-      v8 = *(a3 + 18);
-    }
-
-    else
-    {
-      v8 = a3 + 137;
-    }
-  }
-
-  return result;
-}
-
-void re::AssetManager::tryToPerformSyncActionPreloadOnLocalPeerOrQueueForLater(os_unfair_lock_s *this, uint64_t a2)
-{
-  os_unfair_lock_lock(this + 32);
-  re::AssetManager::lookupExistingAsset_assetTablesLocked(this, a2, v7);
-  os_unfair_lock_unlock(this + 32);
-  memset(v6, 0, sizeof(v6));
-  if (v7[0])
-  {
-    v4 = v8;
-  }
-
-  else
-  {
-    v4 = v6;
-  }
-
-  v5 = re::AssetManager::performPreloadOnLocalPeerSyncAction(this, v4);
-  re::AssetHandle::~AssetHandle(v6);
-  if ((v5 & 1) == 0)
-  {
-    re::NetworkActionQueue::queueSyncActionPreloadOnLocalPeer(&this[288], a2);
-  }
-
-  if (v7[0] == 1)
-  {
-    re::AssetHandle::~AssetHandle(v8);
-  }
-}
-
-uint64_t re::AssetManager::finalizeAssetLoad(re::AssetManager *this, void *a2, uint64_t a3, char *a4)
-{
-  re::AssetManager::assetHandle(this, a4, v7);
-  re::AssetManager::processAssetPointer(this, a3, v7[1], 0);
-  re::AssetHandle::~AssetHandle(v7);
-  return 1;
-}
-
-void re::AssetManager::setDeserializedAssetPathRemapping(os_unfair_lock_s *this, char *a2, const char *a3)
-{
-  os_unfair_lock_lock(this + 32);
-  if (a3)
-  {
-    re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addOrReplace<void>(&this[92], a2, &v7);
-    if (v7 && (v8 & 1) != 0)
-    {
-      (*(*v7 + 40))();
-    }
-  }
-
-  else
-  {
-    re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::remove<void>(&this[92], a2);
-  }
-
-  LOBYTE(this[192]._os_unfair_lock_opaque) = this[99]._os_unfair_lock_opaque != 0;
-  os_unfair_lock_unlock(this + 32);
-}
-
-void re::AssetManager::fromPeerID(os_unfair_lock_s *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  os_unfair_lock_lock(this + 32);
-  re::AssetManager::lookupExistingAsset_assetTablesLocked(this, a2, v8);
-  os_unfair_lock_unlock(this + 32);
-  if (v8[0])
-  {
-    if (v10 && *(v10 + 3))
-    {
-      re::internal::AssetEntry::fromPeerID(v10, a3);
-    }
-
-    else
-    {
-      *a3 = 0;
-    }
-
-    re::AssetHandle::~AssetHandle(&v9);
-  }
-
-  else
-  {
-    v6 = *&this[480]._os_unfair_lock_opaque;
-    if (v6)
-    {
-      v7 = *(*v6 + 128);
-
-      v7();
-    }
-
-    else
-    {
-      *a3 = 1;
-      *(a3 + 8) = 0;
-    }
-  }
-}
-
-void re::internal::AssetIdLoadDescriptorTable::insertIntoMutableTables(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
-{
-  v16[1] = *MEMORY[0x1E69E9840];
-  v11 = a2;
-  if (a3)
-  {
-    v6 = 144 * a3;
+    v7 = v5;
+    v8 = 8 * v6;
     do
     {
-      v7 = re::HashTable<re::AssetLoadDescriptor,re::HashSet<unsigned long long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::tryGet(a1 + 96, a4);
-      if (v7)
+      v9 = *v7++;
+      v46 = re::globalAllocators(v5)[2];
+      v10 = (*(*v46 + 32))(v46, 32, 0);
+      *v10 = &unk_1F5CB67E0;
+      v10[1] = v4;
+      v10[2] = re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::invalidateEntityHierarchyEventHandler<REComponentDidChangeEvent>;
+      v10[3] = 0;
+      v47 = v10;
+      v11 = re::EventBus::subscribe<re::ecs2::Entity,REComponentDidChangeEvent>(v2, v45, v9, 0);
+      v13 = v12;
+      v14 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(v38);
+      *v14 = v11;
+      v14[1] = v13;
+      re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidChangeEvent const&)>::destroyCallable(v45);
+      re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::subscribeToEventToInvalidateEntityHierarchy<REComponentDidActivateEvent>(v4, v2, v38, v9);
+      v5 = re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::subscribeToEventToInvalidateEntityHierarchy<REComponentWillDeactivateEvent>(v4, v2, v38, v9);
+      v8 -= 8;
+    }
+
+    while (v8);
+  }
+
+  v15 = (*(*v4 + 24))(v4);
+  if (v16)
+  {
+    v17 = v15;
+    v18 = 8 * v16;
+    do
+    {
+      v19 = *v17++;
+      re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::subscribeToEventToInvalidateEntityHierarchy<REComponentDidActivateEvent>(v4, v2, v38, v19);
+      v15 = re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::subscribeToEventToInvalidateEntityHierarchy<REComponentWillDeactivateEvent>(v4, v2, v38, v19);
+      v18 -= 8;
+    }
+
+    while (v18);
+  }
+
+  v46 = re::globalAllocators(v15)[2];
+  v20 = (*(*v46 + 32))(v46, 32, 0);
+  *v20 = &unk_1F5CB68E8;
+  v20[1] = v4;
+  v20[2] = re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::invalidateEntityHierarchyEventHandler<RESceneEntityDidReparentEvent>;
+  v20[3] = 0;
+  v47 = v20;
+  v21 = re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityDidReparentEvent>(v2, v45, 0, 0);
+  v23 = v22;
+  v24 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(v38);
+  *v24 = v21;
+  v24[1] = v23;
+  v25 = re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::destroyCallable(v45);
+  v46 = re::globalAllocators(v25)[2];
+  v26 = (*(*v46 + 32))(v46, 32, 0);
+  *v26 = &unk_1F5CB6940;
+  v26[1] = v4;
+  v26[2] = re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::invalidateEntityHierarchyEventHandler<RESceneEntityDidActivateEvent>;
+  v26[3] = 0;
+  v47 = v26;
+  v27 = re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityDidActivateEvent>(v2, v45, 0, 0);
+  v29 = v28;
+  v30 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(v38);
+  *v30 = v27;
+  v30[1] = v29;
+  v31 = re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&)>::destroyCallable(v45);
+  v46 = re::globalAllocators(v31)[2];
+  v32 = (*(*v46 + 32))(v46, 32, 0);
+  *v32 = &unk_1F5CB6998;
+  v32[1] = v4;
+  v32[2] = re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::invalidateEntityHierarchyEventHandler<RESceneEntityWillDeactivateEvent>;
+  v32[3] = 0;
+  v47 = v32;
+  v33 = re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(v2, v45, 0, 0);
+  v35 = v34;
+  v36 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(v38);
+  *v36 = v33;
+  v36[1] = v35;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::destroyCallable(v45);
+  re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::add(this + 160, &v44, v38);
+  re::HashSetBase<re::ecs2::Scene const*,re::ecs2::Scene const*,re::internal::ValueAsKey<re::ecs2::Scene const*>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::add(this + 16, &v44);
+  re::BucketArray<RESubscriptionHandle,8ul>::deinit(v38);
+  result = v38[0];
+  if (v38[0])
+  {
+    if ((v39 & 1) == 0)
+    {
+      return (*(*v38[0] + 40))();
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::ecs2::RenderOptionsManager::unregisterScene(re::ecs2::RenderOptionsManager *this, re::ecs2::Scene *a2)
+{
+  v13 = a2;
+  re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(this + 16, &v13);
+  v3 = *(v13 + 13);
+  v4 = *(v3 + 344);
+  if (v4)
+  {
+    v5 = *(v3 + 360);
+    v6 = 8 * v4;
+    do
+    {
+      if (*(*v5 + 304))
       {
-        re::HashSetBase<unsigned long long,unsigned long long,re::internal::ValueAsKey<unsigned long long>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::add(v7, &v11);
+        (*(*(this + 1) + 40))(this + 8);
       }
 
-      else
-      {
-        v16[0] = v11;
-        memset(v10, 0, 36);
-        *&v10[36] = 0x7FFFFFFFLL;
-        re::HashSetBase<unsigned long long,unsigned long long,re::internal::ValueAsKey<unsigned long long>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::add(v10, v16);
-        v12 = 0;
-        v13 = 0;
-        v14 = 0;
-        v8 = re::Hash<re::AssetLoadDescriptor>::operator()(&v15, a4);
-        re::HashTable<re::AssetLoadDescriptor,re::HashSet<unsigned long long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::findEntry<re::AssetLoadDescriptor>(&v12, a1 + 96, a4, v8);
-        if (HIDWORD(v13) == 0x7FFFFFFF)
-        {
-          v9 = re::HashTable<re::AssetLoadDescriptor,re::HashSet<unsigned long long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::allocEntry(a1 + 96, v13, v12);
-          re::DynamicString::DynamicString((v9 + 8), a4);
-          re::DynamicArray<BOOL>::DynamicArray(v9 + 40, a4 + 4);
-          re::DynamicArray<BOOL>::DynamicArray(v9 + 80, a4 + 9);
-          re::DynamicString::DynamicString((v9 + 120), (a4 + 14));
-          *(v9 + 192) = 0;
-          *(v9 + 152) = *v10;
-          *v10 = 0uLL;
-          *(v9 + 168) = *&v10[16];
-          *&v10[16] = 0;
-          *(v9 + 176) = *&v10[24];
-          *&v10[24] = xmmword_1E3058120;
-          ++*(a1 + 136);
-        }
-
-        re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v10);
-      }
-
-      a4 += 18;
-      v6 -= 144;
+      v5 += 8;
+      v6 -= 8;
     }
 
     while (v6);
   }
-}
 
-uint64_t re::HashTable<re::AssetLoadDescriptor,re::HashSet<unsigned long long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::tryGet(uint64_t a1, uint64_t a2)
-{
-  v4 = re::Hash<re::AssetLoadDescriptor>::operator()(v6, a2);
-  re::HashTable<re::AssetLoadDescriptor,re::HashSet<unsigned long long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::findEntry<re::AssetLoadDescriptor>(v6, a1, a2, v4);
-  if (v7 == 0x7FFFFFFF)
+  result = re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::tryGet(this + 160, &v13);
+  if (result)
   {
-    return 0;
-  }
-
-  else
-  {
-    return *(a1 + 16) + 208 * v7 + 152;
-  }
-}
-
-uint64_t re::HashTable<unsigned long long,re::DynamicArray<re::AssetLoadDescriptor>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::add(uint64_t a1, void *a2, uint64_t *a3)
-{
-  v9 = 0;
-  v10 = 0;
-  v11 = 0;
-  v6 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
-  re::HashTable<unsigned long long,re::DynamicArray<re::AssetLoadDescriptor>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(a1, a2, (0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) ^ ((0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) >> 31), &v9);
-  if (HIDWORD(v10) != 0x7FFFFFFF)
-  {
-    return *(a1 + 16) + (HIDWORD(v10) << 6) + 16;
-  }
-
-  v7 = re::HashTable<unsigned long long,re::DynamicArray<re::AssetLoadDescriptor>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(a1, v10, v9);
-  *(v7 + 8) = *a2;
-  result = re::DynamicArray<re::AssetLoadDescriptor>::DynamicArray(v7 + 16, a3);
-  ++*(a1 + 40);
-  return result;
-}
-
-void *re::HashTable<re::AssetLoadDescriptor,unsigned long long,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::add(uint64_t a1, uint64_t *a2, void *a3)
-{
-  v8 = 0;
-  v9 = 0;
-  v10 = 0;
-  v6 = re::Hash<re::AssetLoadDescriptor>::operator()(&v11, a2);
-  re::HashTable<re::AssetLoadDescriptor,unsigned long long,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::findEntry<re::AssetLoadDescriptor>(a1, a2, v6, &v8);
-  if (HIDWORD(v9) == 0x7FFFFFFF)
-  {
-    return re::HashTable<re::AssetLoadDescriptor,unsigned long long,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::addInternal<re::AssetLoadDescriptor const&,unsigned long long const&>(a1, &v8, a2, a3);
-  }
-
-  else
-  {
-    return (*(a1 + 16) + 168 * HIDWORD(v9) + 152);
-  }
-}
-
-void re::HashTable<re::AssetLoadDescriptor,unsigned long long,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::remove(uint64_t a1, uint64_t a2)
-{
-  v4 = re::Hash<re::AssetLoadDescriptor>::operator()(v10, a2);
-  re::HashTable<re::AssetLoadDescriptor,unsigned long long,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::findEntry<re::AssetLoadDescriptor>(a1, a2, v4, v10);
-  v5 = v12;
-  if (v12 != 0x7FFFFFFF)
-  {
-    v6 = *(a1 + 16);
-    v7 = *(v6 + 168 * v12) & 0x7FFFFFFF;
-    if (v13 == 0x7FFFFFFF)
+    v8 = *(v13 + 36);
+    if (v8)
     {
-      *(*(a1 + 8) + 4 * v11) = v7;
-      v5 = v12;
-    }
-
-    else
-    {
-      *(v6 + 168 * v13) = *(v6 + 168 * v13) & 0x80000000 | v7;
-    }
-
-    re::HashTable<re::AssetLoadDescriptor,unsigned long long,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::free(v6, v5);
-    v8 = v12;
-    *(*(a1 + 16) + 168 * v12) = *(*(a1 + 16) + 168 * v12) & 0x80000000 | *(a1 + 36);
-    --*(a1 + 28);
-    v9 = *(a1 + 40) + 1;
-    *(a1 + 36) = v8;
-    *(a1 + 40) = v9;
-  }
-}
-
-uint64_t re::AssetManager::addCleanupBlock(uint64_t a1, uint64_t a2)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 2178) == 1)
-  {
-    v2 = *(a2 + 24);
-    if (v2)
-    {
-      v3 = *(*v2 + 48);
-
-      return v3();
-    }
-
-    else
-    {
-      v6 = std::__throw_bad_function_call[abi:nn200100]();
-      return re::AssetManager::assetRuntimeSizeLimit(v6);
-    }
-  }
-
-  else
-  {
-    std::__function::__value_func<void ()(void)>::__value_func[abi:nn200100](v7, a2);
-    os_unfair_lock_lock((a1 + 512));
-    re::DynamicArray<std::function<void ()(void)>>::add((a1 + 520), v7);
-    os_unfair_lock_unlock((a1 + 512));
-    return std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v7);
-  }
-}
-
-double re::HashTable<re::AssetLoadDescriptor,re::HashSet<unsigned long long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::deinit(uint64_t *a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    if (*(a1 + 8))
-    {
-      v3 = 0;
-      v4 = 0;
-      do
+      v9 = result;
+      v10 = *(result + 40);
+      if (v10)
       {
-        re::HashTable<re::AssetLoadDescriptor,re::HashSet<unsigned long long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::EntryBase::free((a1[2] + v3));
-        ++v4;
-        v3 += 208;
+        for (i = 0; i != v10; ++i)
+        {
+          v12 = re::BucketArray<RESubscriptionHandle,8ul>::operator[](v9, i);
+          re::EventBus::unsubscribe(v8, *v12, v12[1]);
+        }
       }
-
-      while (v4 < *(a1 + 8));
-      v2 = *a1;
     }
 
-    (*(*v2 + 40))(v2, a1[1]);
-    *(a1 + 8) = 0;
-    *a1 = 0u;
-    *(a1 + 1) = 0u;
-    *&result = 0x7FFFFFFFLL;
-    *(a1 + 36) = 0x7FFFFFFFLL;
+    return re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::remove(this + 160, &v13);
   }
 
   return result;
 }
 
-double re::HashTable<re::AssetLoadDescriptor,re::HashSet<unsigned long long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::EntryBase::free(uint64_t *a1)
+uint64_t *re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::~HierarchyStateTracking(uint64_t *a1)
 {
-  if ((*a1 & 0x80000000) != 0)
-  {
-    *a1 &= ~0x80000000;
-    v3 = a1 + 19;
-    re::DynamicString::deinit((a1 + 15));
-    re::DynamicArray<unsigned long>::deinit((a1 + 10));
-    re::DynamicArray<unsigned long>::deinit((a1 + 5));
-    re::DynamicString::deinit((a1 + 1));
-
-    return re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v3);
-  }
-
-  return result;
+  *a1 = &unk_1F5CB7C30;
+  v2 = a1 + 1;
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(a1 + 31);
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(a1 + 25);
+  re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::deinit(a1 + 19);
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(a1 + 13);
+  re::HashTable<re::Pair<re::StringSlice,re::StringSlice,true>,unsigned long,re::Hash<re::Pair<re::StringSlice,re::StringSlice,true>>,re::EqualTo<re::Pair<re::StringSlice,re::StringSlice,true>>,true,false>::deinit(a1 + 7);
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v2);
+  return a1;
 }
 
-double re::HashTable<re::AssetLoadDescriptor,unsigned long long,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::deinit(uint64_t *a1)
+void re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::clearEntityHierarchyStateData(_DWORD *a1, uint64_t a2)
+{
+  if (a1[21])
+  {
+    if (a1[74] != a1[24])
+    {
+      re::HashSetBase<unsigned long long,unsigned long long,re::internal::ValueAsKey<unsigned long long>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::clear((a1 + 62));
+    }
+
+    re::StackScratchAllocator::StackScratchAllocator(v15);
+    v9[0] = 0;
+    v9[1] = 0;
+    v10 = 1;
+    v12 = 0;
+    v13 = 0;
+    v11 = 0;
+    v14 = 0;
+    re::BucketArray<re::ecs2::Entity const*,32ul>::init(v9, v15, 1uLL);
+    *re::BucketArray<re::ecs2::Entity const*,32ul>::addUninitialized(v9) = a2;
+    while (v13)
+    {
+      v8 = *re::BucketArray<re::ecs2::Entity const*,32ul>::operator[](v9, v13 - 1);
+      re::BucketArray<re::ecs2::Entity const*,32ul>::operator[](v9, --v13);
+      ++v14;
+      if (!re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains((a1 + 62), &v8))
+      {
+        re::HashTable<re::ecs2::Entity const*,re::ecs2::EntityRenderOptions,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove((a1 + 14), &v8);
+        re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add((a1 + 62), &v8);
+        v4 = *(v8 + 344);
+        if (v4)
+        {
+          v5 = *(v8 + 360);
+          v6 = 8 * v4;
+          do
+          {
+            v7 = *v5++;
+            *re::BucketArray<re::ecs2::Entity const*,32ul>::addUninitialized(v9) = v7;
+            v6 -= 8;
+          }
+
+          while (v6);
+        }
+      }
+    }
+
+    a1[74] = a1[24];
+    re::BucketArray<re::ecs2::Entity const*,32ul>::deinit(v9);
+    if (v9[0] && (v10 & 1) == 0)
+    {
+      (*(*v9[0] + 40))();
+    }
+
+    re::StackScratchAllocator::~StackScratchAllocator(v15);
+  }
+}
+
+double re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::deinit(uint64_t *a1)
 {
   v2 = *a1;
   if (v2)
@@ -4162,7 +1740,7 @@ double re::HashTable<re::AssetLoadDescriptor,unsigned long long,re::Hash<re::Ass
       v3 = 0;
       do
       {
-        re::HashTable<re::AssetLoadDescriptor,unsigned long long,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::free(a1[2], v3++);
+        re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::free(a1, v3++);
       }
 
       while (v3 < *(a1 + 8));
@@ -4180,154 +1758,726 @@ double re::HashTable<re::AssetLoadDescriptor,unsigned long long,re::Hash<re::Ass
   return result;
 }
 
-double re::HashTable<re::AssetLoadDescriptor,unsigned long long,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::free(uint64_t a1, unsigned int a2)
+uint64_t re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::free(uint64_t result, unsigned int a2)
 {
-  v2 = (a1 + 168 * a2);
+  v2 = (*(result + 16) + 80 * a2);
   if ((*v2 & 0x80000000) != 0)
   {
     *v2 &= ~0x80000000;
-    re::DynamicString::deinit((v2 + 30));
-    re::DynamicArray<unsigned long>::deinit((v2 + 20));
-    re::DynamicArray<unsigned long>::deinit((v2 + 10));
+    v3 = (v2 + 4);
+    re::BucketArray<RESubscriptionHandle,8ul>::deinit(v3);
 
-    return re::DynamicString::deinit((v2 + 2));
+    return re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(v3);
   }
 
   return result;
 }
 
-double re::HashTable<unsigned long long,re::DynamicArray<re::AssetLoadDescriptor>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(uint64_t *a1)
+BOOL re::HashTable<re::ecs2::Entity const*,re::ecs2::EntityRenderOptions,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(uint64_t a1, void *a2)
 {
-  v2 = *a1;
-  if (v2)
+  v3 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  re::HashTable<re::ecs2::Entity const*,re::ecs2::EntityRenderOptions,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::findEntry<re::ecs2::Entity const*>(a1, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), v5);
+  return re::HashTable<re::ecs2::Entity const*,re::ecs2::EntityRenderOptions,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::removeInternal(a1, v5);
+}
+
+uint64_t re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(uint64_t a1, unint64_t *a2)
+{
+  v4 = *a2;
+  v5 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  v6 = (0x94D049BB133111EBLL * (v5 ^ (v5 >> 27))) ^ ((0x94D049BB133111EBLL * (v5 ^ (v5 >> 27))) >> 31);
+  v7 = *(a1 + 24);
+  if (!v7)
   {
+    LODWORD(v8) = 0;
+    goto LABEL_8;
+  }
+
+  v8 = v6 % v7;
+  v9 = *(*(a1 + 8) + 4 * (v6 % v7));
+  if (v9 == 0x7FFFFFFF)
+  {
+LABEL_8:
+    v12 = re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::addAsCopy(a1, v8, v6, a2, a2);
+    ++*(a1 + 40);
+    v11 = *(a1 + 16) + 24 * v12;
+    return v11 + 16;
+  }
+
+  v10 = *(a1 + 16);
+  while (*(v10 + 24 * v9 + 16) != v4)
+  {
+    LODWORD(v9) = *(v10 + 24 * v9 + 8) & 0x7FFFFFFF;
+    if (v9 == 0x7FFFFFFF)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  v11 = v10 + 24 * v9;
+  return v11 + 16;
+}
+
+_anonymous_namespace_ *re::BucketArray<re::ecs2::Entity const*,32ul>::init(uint64_t a1, uint64_t a2, unint64_t a3)
+{
+  *a1 = a2;
+  re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(a1, a3);
+  *(a1 + 16) += 2;
+  *(a1 + 40) = 0;
+  result = re::BucketArray<re::ecs2::Entity const*,32ul>::setBucketsCapacity(a1, a3);
+  ++*(a1 + 48);
+  return result;
+}
+
+_anonymous_namespace_ *re::BucketArray<re::ecs2::Entity const*,32ul>::setBucketsCapacity(_anonymous_namespace_ *result, unint64_t a2)
+{
+  v3 = result;
+  if (*result)
+  {
+    if (*(result + 5) < 32 * a2)
+    {
+      while (1)
+      {
+        v4 = v3[1];
+        if (v4 <= a2)
+        {
+          break;
+        }
+
+        result = re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(v3);
+      }
+
+      while (v4 < a2)
+      {
+        v5 = (*(**v3 + 32))(*v3, 256, 0);
+        result = re::DynamicOverflowArray<RESubscriptionHandle *,2ul>::add(v3, &v5);
+        v4 = v3[1];
+      }
+    }
+  }
+
+  else
+  {
+  }
+
+  return result;
+}
+
+uint64_t re::BucketArray<re::ecs2::Entity const*,32ul>::addUninitialized(uint64_t a1)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 40);
+  v3 = *(a1 + 8);
+  if (v2 + 1 > 32 * v3)
+  {
+    re::BucketArray<re::ecs2::Entity const*,32ul>::setBucketsCapacity(a1, (v2 + 32) >> 5);
     v3 = *(a1 + 8);
-    if (v3)
-    {
-      v4 = 0;
-      for (i = 0; i < v3; ++i)
-      {
-        v6 = a1[2];
-        v7 = *(v6 + v4);
-        if (v7 < 0)
-        {
-          *(v6 + v4) = v7 & 0x7FFFFFFF;
-          re::DynamicArray<re::AssetLoadDescriptor>::deinit(v6 + v4 + 16);
-          v3 = *(a1 + 8);
-        }
-
-        v4 += 64;
-      }
-
-      v2 = *a1;
-    }
-
-    (*(*v2 + 40))(v2, a1[1]);
-    *(a1 + 8) = 0;
-    *a1 = 0u;
-    *(a1 + 1) = 0u;
-    *&result = 0x7FFFFFFFLL;
-    *(a1 + 36) = 0x7FFFFFFFLL;
   }
 
+  if (v3 <= v2 >> 5)
+  {
+    v10 = 0;
+    memset(v19, 0, sizeof(v19));
+    v7 = MEMORY[0x1E69E9C10];
+    v11 = 136315906;
+    v12 = "operator[]";
+    v13 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v8 = 3;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+
+    v14 = 858;
+    v15 = 2048;
+    v16 = v2 >> 5;
+    v17 = 2048;
+    v18 = v3;
+    _os_log_send_and_compose_impl(v8, &v10, v19, 80, &dword_1E1C61000, v7, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v11, 38, v9);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  if (*(a1 + 16))
+  {
+    v4 = a1 + 24;
+  }
+
+  else
+  {
+    v4 = *(a1 + 32);
+  }
+
+  v5 = *(v4 + 8 * (v2 >> 5));
+  ++*(a1 + 40);
+  ++*(a1 + 48);
+  return v5 + 8 * (v2 & 0x1F);
+}
+
+unint64_t re::BucketArray<re::ecs2::Entity const*,32ul>::operator[](uint64_t a1, unint64_t a2)
+{
+  v23 = *MEMORY[0x1E69E9840];
+  v4 = *(a1 + 40);
+  if (v4 <= a2)
+  {
+    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 1011, a2, v4);
+    _os_crash("assertion failure: (index < m_size) Index out of range. index = %zu, size = %zu", v9, v10);
+    __break(1u);
+LABEL_8:
+    v13 = 0;
+    memset(v22, 0, sizeof(v22));
+    v7 = MEMORY[0x1E69E9C10];
+    v14 = 136315906;
+    v15 = "operator[]";
+    v16 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v8 = 3;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+
+    v17 = 858;
+    v18 = 2048;
+    v19 = v2;
+    v20 = 2048;
+    v21 = v3;
+    _os_log_send_and_compose_impl(v8, &v13, v22, 80, &dword_1E1C61000, v7, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v14, 38, v11, v12);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  v2 = a2 >> 5;
+  v3 = *(a1 + 8);
+  if (v3 <= a2 >> 5)
+  {
+    goto LABEL_8;
+  }
+
+  if (*(a1 + 16))
+  {
+    v5 = a1 + 24;
+  }
+
+  else
+  {
+    v5 = *(a1 + 32);
+  }
+
+  return *(v5 + 8 * v2) + 8 * (a2 & 0x1F);
+}
+
+BOOL re::HashTable<re::ecs2::Entity const*,re::ecs2::EntityRenderOptions,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::removeInternal(uint64_t a1, unsigned int *a2)
+{
+  v2 = a2[3];
+  if (v2 != 0x7FFFFFFF)
+  {
+    v3 = a2[4];
+    v4 = *(a1 + 16);
+    v5 = *(v4 + 56 * v2) & 0x7FFFFFFF;
+    if (v3 == 0x7FFFFFFF)
+    {
+      *(*(a1 + 8) + 4 * a2[2]) = v5;
+      v6 = a2[3];
+      v7 = v6;
+    }
+
+    else
+    {
+      *(v4 + 56 * v3) = *(v4 + 56 * v3) & 0x80000000 | v5;
+      v6 = v2;
+      v7 = v2;
+    }
+
+    v8 = *(a1 + 40);
+    *(v4 + 56 * v6) = *(a1 + 36);
+    --*(a1 + 28);
+    *(a1 + 36) = v7;
+    *(a1 + 40) = v8 + 1;
+  }
+
+  return v2 != 0x7FFFFFFF;
+}
+
+uint64_t re::HashTable<re::ecs2::Entity const*,re::ecs2::EntityRenderOptions,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::findEntry<re::ecs2::Entity const*>@<X0>(uint64_t result@<X0>, void *a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v4 = *result;
+  v5 = 0x7FFFFFFF;
+  if (!*result)
+  {
+    goto LABEL_10;
+  }
+
+  v4 = a3 % *(result + 24);
+  v6 = *(*(result + 8) + 4 * v4);
+  if (v6 == 0x7FFFFFFF)
+  {
+    goto LABEL_10;
+  }
+
+  v7 = *(result + 16);
+  if (*(v7 + 56 * v6 + 8) == *a2)
+  {
+    v5 = *(*(result + 8) + 4 * v4);
+LABEL_10:
+    v6 = 0x7FFFFFFF;
+    goto LABEL_11;
+  }
+
+  v8 = *(v7 + 56 * v6) & 0x7FFFFFFF;
+  v5 = 0x7FFFFFFF;
+  if (v8 != 0x7FFFFFFF)
+  {
+    v5 = 0x7FFFFFFF;
+    while (1)
+    {
+      v9 = v8;
+      if (*(v7 + 56 * v8 + 8) == *a2)
+      {
+        break;
+      }
+
+      v8 = *(v7 + 56 * v8) & 0x7FFFFFFF;
+      v6 = v9;
+      if (v8 == 0x7FFFFFFF)
+      {
+        v6 = v9;
+        goto LABEL_11;
+      }
+    }
+
+    v5 = v8;
+  }
+
+LABEL_11:
+  *a4 = a3;
+  *(a4 + 8) = v4;
+  *(a4 + 12) = v5;
+  *(a4 + 16) = v6;
   return result;
 }
 
-double re::Queue<re::SharedPtr<re::AssetLoadRequest::Data>>::deinit(uint64_t *a1)
+uint64_t re::BucketArray<re::ecs2::Entity const*,32ul>::deinit(uint64_t a1)
 {
-  v2 = *a1;
+  v2 = *(a1 + 40);
   if (v2)
   {
-    v3 = a1[5];
-    if (v3)
+    for (i = 0; i != v2; ++i)
     {
-      v4 = a1[2];
-      if (v4)
-      {
-        for (i = 0; i != v4; ++i)
-        {
-          v6 = (i + a1[3]) % a1[1];
-          v7 = a1[5];
-          v8 = *(v7 + 8 * v6);
-          if (v8)
-          {
-
-            *(v7 + 8 * v6) = 0;
-            v4 = a1[2];
-          }
-        }
-
-        v2 = *a1;
-        v3 = a1[5];
-      }
-
-      (*(*v2 + 40))(v2, v3);
+      re::BucketArray<re::ecs2::Entity const*,32ul>::operator[](a1, i);
     }
-
-    a1[5] = 0;
-    result = 0.0;
-    *a1 = 0u;
-    *(a1 + 1) = 0u;
-    *(a1 + 8) = 0;
   }
 
+  while (*(a1 + 8))
+  {
+    re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(a1);
+  }
+
+  result = re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(a1);
+  *(a1 + 40) = 0;
+  ++*(a1 + 48);
   return result;
 }
 
-uint64_t std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](uint64_t a1)
+uint64_t (***re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::subscribeToEventToInvalidateEntityHierarchy<REComponentDidActivateEvent>(re *a1, re::EventBus *a2, uint64_t a3, uint64_t a4))(void)
 {
-  v2 = *(a1 + 24);
-  if (v2 == a1)
+  v17 = *MEMORY[0x1E69E9840];
+  v15 = re::globalAllocators(a1)[2];
+  v8 = (*(*v15 + 32))(v15, 32, 0);
+  *v8 = &unk_1F5CB6838;
+  v8[1] = a1;
+  v8[2] = re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::invalidateEntityHierarchyEventHandler<REComponentDidActivateEvent>;
+  v8[3] = 0;
+  v16 = v8;
+  v9 = re::EventBus::subscribe<re::ecs2::Entity,REComponentDidActivateEvent>(a2, v14, a4, 0);
+  v11 = v10;
+  v12 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(a3);
+  *v12 = v9;
+  v12[1] = v11;
+  return re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidActivateEvent const&)>::destroyCallable(v14);
+}
+
+uint64_t (***re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::subscribeToEventToInvalidateEntityHierarchy<REComponentWillDeactivateEvent>(re *a1, re::EventBus *a2, uint64_t a3, uint64_t a4))(void)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v15 = re::globalAllocators(a1)[2];
+  v8 = (*(*v15 + 32))(v15, 32, 0);
+  *v8 = &unk_1F5CB6890;
+  v8[1] = a1;
+  v8[2] = re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::invalidateEntityHierarchyEventHandler<REComponentWillDeactivateEvent>;
+  v8[3] = 0;
+  v16 = v8;
+  v9 = re::EventBus::subscribe<re::ecs2::Entity,REComponentWillDeactivateEvent>(a2, v14, a4, 0);
+  v11 = v10;
+  v12 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(a3);
+  *v12 = v9;
+  v12[1] = v11;
+  return re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,REComponentWillDeactivateEvent const&)>::destroyCallable(v14);
+}
+
+uint64_t re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::add(uint64_t a1, uint64_t *a2, uint64_t a3)
+{
+  v8 = 0;
+  v9 = 0;
+  v10 = 0;
+  v6 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::findEntry<re::ecs2::Scene const*>(a1, a2, (0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) ^ ((0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) >> 31), &v8);
+  if (HIDWORD(v9) == 0x7FFFFFFF)
   {
-    (*(*v2 + 32))(v2);
+    return re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::addInternal<re::ecs2::Scene const* const&,re::BucketArray<RESubscriptionHandle,8ul>>(a1, &v8, a2, a3);
   }
 
-  else if (v2)
+  else
   {
-    (*(*v2 + 40))(v2);
+    return *(a1 + 16) + 80 * HIDWORD(v9) + 16;
+  }
+}
+
+uint64_t re::HashSetBase<re::ecs2::Scene const*,re::ecs2::Scene const*,re::internal::ValueAsKey<re::ecs2::Scene const*>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::add(uint64_t result, unint64_t *a2)
+{
+  v3 = result;
+  v4 = *a2;
+  v5 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  v6 = (0x94D049BB133111EBLL * (v5 ^ (v5 >> 27))) ^ ((0x94D049BB133111EBLL * (v5 ^ (v5 >> 27))) >> 31);
+  v7 = *(result + 24);
+  if (v7)
+  {
+    v8 = v6 % v7;
+    v9 = *(*(result + 8) + 4 * (v6 % v7));
+    if (v9 != 0x7FFFFFFF)
+    {
+      v10 = *(result + 16);
+      if (*(v10 + 24 * v9 + 16) == v4)
+      {
+        return result;
+      }
+
+      while (1)
+      {
+        LODWORD(v9) = *(v10 + 24 * v9 + 8) & 0x7FFFFFFF;
+        if (v9 == 0x7FFFFFFF)
+        {
+          break;
+        }
+
+        if (*(v10 + 24 * v9 + 16) == v4)
+        {
+          return result;
+        }
+      }
+    }
   }
 
+  else
+  {
+    LODWORD(v8) = 0;
+  }
+
+  result = re::HashSetBase<re::ecs2::Scene const*,re::ecs2::Scene const*,re::internal::ValueAsKey<re::ecs2::Scene const*>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::addAsCopy(result, v8, v6, a2, a2);
+  ++*(v3 + 40);
+  return result;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::invalidateEntityHierarchyEventHandler<REComponentDidChangeEvent>(uint64_t a1, unint64_t a2)
+{
+  v4 = a2;
+  if ((*(a2 + 387) & 1) == 0 && (*(a2 + 304) & 1) != 0 && !re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains(a1 + 200, &v4))
+  {
+    (*(*a1 + 40))(a1, v4);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(a1 + 104, &v4);
+  }
+
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,REComponentDidChangeEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidChangeEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,REComponentDidChangeEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidChangeEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB67E0;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,REComponentDidChangeEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidChangeEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB67E0;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::invalidateEntityHierarchyEventHandler<REComponentDidActivateEvent>(uint64_t a1, unint64_t a2)
+{
+  v4 = a2;
+  if ((*(a2 + 387) & 1) == 0 && (*(a2 + 304) & 1) != 0 && !re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains(a1 + 200, &v4))
+  {
+    (*(*a1 + 40))(a1, v4);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(a1 + 104, &v4);
+  }
+
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,REComponentDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidActivateEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,REComponentDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidActivateEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB6838;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,REComponentDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidActivateEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6838;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::invalidateEntityHierarchyEventHandler<REComponentWillDeactivateEvent>(uint64_t a1, unint64_t a2)
+{
+  v4 = a2;
+  if ((*(a2 + 387) & 1) == 0 && (*(a2 + 304) & 1) != 0 && !re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains(a1 + 200, &v4))
+  {
+    (*(*a1 + 40))(a1, v4);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(a1 + 104, &v4);
+  }
+
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,REComponentWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentWillDeactivateEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,REComponentWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentWillDeactivateEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB6890;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,REComponentWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentWillDeactivateEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6890;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityDidReparentEvent>(re::EventBus *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v9[5] = *MEMORY[0x1E69E9840];
+  v9[3] = *(a2 + 24);
+  v9[4] = 0;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::operator=<24ul>(v9, a2);
+  v7 = re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityDidReparentEvent>(a1, 0, v9, a3, a4);
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::destroyCallable(v9);
+  return v7;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::invalidateEntityHierarchyEventHandler<RESceneEntityDidReparentEvent>(uint64_t a1, unint64_t a2)
+{
+  v4 = a2;
+  if ((*(a2 + 387) & 1) == 0 && (*(a2 + 304) & 1) != 0 && !re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains(a1 + 200, &v4))
+  {
+    (*(*a1 + 40))(a1, v4);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(a1 + 104, &v4);
+  }
+
+  return 0;
+}
+
+uint64_t re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityDidReparentEvent>(re::EventBus *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v5 = a5;
+  v14[8] = *MEMORY[0x1E69E9840];
+  Type = re::EventBus::getTypeId<RESceneEntityDidReparentEvent>();
+  EventInfo = re::EventBus::addOrGetEventInfo(a1, Type);
+  re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityDidReparentEvent>(a3, v5, v14);
+  v12 = re::EventBus::EventInfo::addSubscription(EventInfo, v14, a2, a4);
+  re::FunctionBase<48ul,REEventHandlerResult ()(void *,void const*)>::destroyCallable(v14);
+  return v12;
+}
+
+uint64_t (***re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityDidReparentEvent>@<X0>(uint64_t a1@<X2>, char a2@<W4>, void *a3@<X8>))(void)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  v9 = *(a1 + 24);
+  v10 = 0;
+  if (a2)
+  {
+    v6 = re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::operator=<24ul>(v8, a1);
+    a3[6] = re::globalAllocators(v6)[2];
+    a3[7] = 0;
+    v5 = &unk_1F5CB7D30;
+  }
+
+  else
+  {
+    v4 = re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::operator=<24ul>(v8, a1);
+    a3[6] = re::globalAllocators(v4)[2];
+    a3[7] = 0;
+    v5 = &unk_1F5CB7D88;
+  }
+
+  *a3 = v5;
+  a3[4] = v9;
+  a3[5] = 0;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::operator=<24ul>((a3 + 1), v8);
+  a3[7] = a3;
+  return re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::destroyCallable(v8);
+}
+
+uint64_t re::EventBus::getTypeId<RESceneEntityDidReparentEvent>()
+{
+  v0 = &unk_1EE186000;
+  {
+    v0 = &unk_1EE186000;
+    if (v2)
+    {
+      re::EventBus::getTypeId<RESceneEntityDidReparentEvent>(void)const::s_id = re::EventBus::typeStringToId(("29RESceneEntityDidReparentEvent" & 0x7FFFFFFFFFFFFFFFLL), v3);
+      v0 = &unk_1EE186000;
+    }
+  }
+
+  return v0[12];
+}
+
+void *re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityDidReparentEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#1},REEventHandlerResult ()(void *,void const*)>::~Callable(void *a1)
+{
+  *a1 = &unk_1F5CB7D30;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::destroyCallable((a1 + 1));
   return a1;
 }
 
-uint64_t re::DynamicArray<unsigned long long>::operator=(uint64_t a1, uint64_t *a2)
+void re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityDidReparentEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#1},REEventHandlerResult ()(void *,void const*)>::~Callable(void *a1)
 {
-  if (a1 != a2)
-  {
-    v4 = *a2;
-    if (*a1)
-    {
-      if (v4)
-      {
-        re::DynamicArray<char const*>::copy(a1, a2);
-      }
+  *a1 = &unk_1F5CB7D30;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::destroyCallable((a1 + 1));
 
-      else
-      {
-        *(a1 + 16) = 0;
-      }
+  JUMPOUT(0x1E6906520);
+}
 
-      ++*(a1 + 24);
-    }
+uint64_t re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityDidReparentEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#1},REEventHandlerResult ()(void *,void const*)>::operator()(uint64_t a1, uint64_t *a2, uint64_t *a3)
+{
+  v3 = *a3;
+  v5 = *a2;
+  (*(**(a1 + 40) + 16))(*(a1 + 40), &v5, v3);
+  return 1;
+}
 
-    else if (v4)
-    {
-      v5 = a2[2];
-      *a1 = v4;
-      re::DynamicArray<float *>::setCapacity(a1, v5);
-      ++*(a1 + 24);
-      re::DynamicArray<char const*>::copy(a1, a2);
-    }
-  }
+void *re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityDidReparentEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#1},REEventHandlerResult ()(void *,void const*)>::cloneInto(uint64_t a1, void *a2)
+{
+  *a2 = &unk_1F5CB7D30;
+  a2[4] = *(a1 + 32);
+  a2[5] = 0;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::operator=<24ul>((a2 + 1), a1 + 8);
+  return a2;
+}
 
+void *re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityDidReparentEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#1},REEventHandlerResult ()(void *,void const*)>::moveInto(uint64_t a1, void *a2)
+{
+  *a2 = &unk_1F5CB7D30;
+  a2[4] = *(a1 + 32);
+  a2[5] = 0;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::operator=<24ul>((a2 + 1), a1 + 8);
+  return a2;
+}
+
+void *re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityDidReparentEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#2},REEventHandlerResult ()(void *,void const*)>::~Callable(void *a1)
+{
+  *a1 = &unk_1F5CB7D88;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::destroyCallable((a1 + 1));
   return a1;
 }
 
-uint64_t re::FunctionBase<24ul,void ()(re::DynamicArray<unsigned long long>)>::operator=<24ul>(uint64_t a1, uint64_t a2)
+void re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityDidReparentEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#2},REEventHandlerResult ()(void *,void const*)>::~Callable(void *a1)
+{
+  *a1 = &unk_1F5CB7D88;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::destroyCallable((a1 + 1));
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityDidReparentEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#2},REEventHandlerResult ()(void *,void const*)>::operator()(uint64_t a1, uint64_t *a2, uint64_t *a3)
+{
+  v3 = *a3;
+  v5 = *a2;
+  return (*(**(a1 + 40) + 16))(*(a1 + 40), &v5, v3);
+}
+
+void *re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityDidReparentEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#2},REEventHandlerResult ()(void *,void const*)>::cloneInto(uint64_t a1, void *a2)
+{
+  *a2 = &unk_1F5CB7D88;
+  a2[4] = *(a1 + 32);
+  a2[5] = 0;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::operator=<24ul>((a2 + 1), a1 + 8);
+  return a2;
+}
+
+void *re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityDidReparentEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#2},REEventHandlerResult ()(void *,void const*)>::moveInto(uint64_t a1, void *a2)
+{
+  *a2 = &unk_1F5CB7D88;
+  a2[4] = *(a1 + 32);
+  a2[5] = 0;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::operator=<24ul>((a2 + 1), a1 + 8);
+  return a2;
+}
+
+uint64_t re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::operator=<24ul>(uint64_t a1, uint64_t a2)
 {
   if (a1 != a2)
   {
-    re::FunctionBase<24ul,void ()(re::DynamicArray<unsigned long long>)>::destroyCallable(a1);
+    re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::destroyCallable(a1);
     v4 = *(a2 + 32);
     if (v4)
     {
@@ -4356,7 +2506,7 @@ uint64_t re::FunctionBase<24ul,void ()(re::DynamicArray<unsigned long long>)>::o
   return a1;
 }
 
-uint64_t (***re::FunctionBase<24ul,void ()(re::DynamicArray<unsigned long long>)>::destroyCallable(uint64_t a1))(void)
+uint64_t (***re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::destroyCallable(uint64_t a1))(void)
 {
   result = *(a1 + 32);
   if (result)
@@ -4373,47 +2523,376 @@ uint64_t (***re::FunctionBase<24ul,void ()(re::DynamicArray<unsigned long long>)
   return result;
 }
 
-unint64_t re::HashTable<unsigned long long,re::DynamicArray<re::AssetLoadDescriptor>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(uint64_t a1, void *a2)
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::operator()(void *a1, void *a2)
 {
-  v3 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
-  re::HashTable<unsigned long long,re::DynamicArray<re::AssetLoadDescriptor>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(a1, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), v5);
-  if (v6 == 0x7FFFFFFF)
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
   {
-    return 0;
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB68E8;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB68E8;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityDidActivateEvent>(re::EventBus *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v9[5] = *MEMORY[0x1E69E9840];
+  v9[3] = *(a2 + 24);
+  v9[4] = 0;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&)>::operator=<24ul>(v9, a2);
+  v7 = re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityDidActivateEvent>(a1, 0, v9, a3, a4);
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&)>::destroyCallable(v9);
+  return v7;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::invalidateEntityHierarchyEventHandler<RESceneEntityDidActivateEvent>(uint64_t a1, unint64_t a2)
+{
+  v5 = a2;
+  if ((*(a2 + 387) & 1) == 0)
+  {
+    v3 = a1 + 200;
+    (*(*a1 + 40))(a1);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(a1 + 104, &v5);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(v3, &v5);
+  }
+
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB6940;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6940;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(re::EventBus *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v9[5] = *MEMORY[0x1E69E9840];
+  v9[3] = *(a2 + 24);
+  v9[4] = 0;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::operator=<24ul>(v9, a2);
+  v7 = re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(a1, 0, v9, a3, a4);
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::destroyCallable(v9);
+  return v7;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::invalidateEntityHierarchyEventHandler<RESceneEntityWillDeactivateEvent>(uint64_t a1, unint64_t a2)
+{
+  v5 = a2;
+  v3 = a1 + 200;
+  (*(*a1 + 40))(a1);
+  re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(a1 + 104, &v5);
+  re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(v3, &v5);
+  return 0;
+}
+
+uint64_t re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(re::EventBus *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v5 = a5;
+  v14[8] = *MEMORY[0x1E69E9840];
+  Type = re::EventBus::getTypeId<RESceneEntityWillDeactivateEvent>();
+  EventInfo = re::EventBus::addOrGetEventInfo(a1, Type);
+  re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(a3, v5, v14);
+  v12 = re::EventBus::EventInfo::addSubscription(EventInfo, v14, a2, a4);
+  re::FunctionBase<48ul,REEventHandlerResult ()(void *,void const*)>::destroyCallable(v14);
+  return v12;
+}
+
+uint64_t (***re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>@<X0>(uint64_t a1@<X2>, char a2@<W4>, void *a3@<X8>))(void)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  v9 = *(a1 + 24);
+  v10 = 0;
+  if (a2)
+  {
+    v6 = re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::operator=<24ul>(v8, a1);
+    a3[6] = re::globalAllocators(v6)[2];
+    a3[7] = 0;
+    v5 = &unk_1F5CB7DE0;
   }
 
   else
   {
-    return *(a1 + 16) + (v6 << 6) + 16;
+    v4 = re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::operator=<24ul>(v8, a1);
+    a3[6] = re::globalAllocators(v4)[2];
+    a3[7] = 0;
+    v5 = &unk_1F5CB7E38;
   }
+
+  *a3 = v5;
+  a3[4] = v9;
+  a3[5] = 0;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::operator=<24ul>((a3 + 1), v8);
+  a3[7] = a3;
+  return re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::destroyCallable(v8);
 }
 
-uint64_t re::HashTable<unsigned long long,re::DynamicArray<re::AssetLoadDescriptor>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>@<X0>(uint64_t result@<X0>, void *a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t re::EventBus::getTypeId<RESceneEntityWillDeactivateEvent>()
+{
+  v0 = &unk_1EE186000;
+  {
+    v0 = &unk_1EE186000;
+    if (v2)
+    {
+      re::EventBus::getTypeId<RESceneEntityWillDeactivateEvent>(void)const::s_id = re::EventBus::typeStringToId(("32RESceneEntityWillDeactivateEvent" & 0x7FFFFFFFFFFFFFFFLL), v3);
+      v0 = &unk_1EE186000;
+    }
+  }
+
+  return v0[7];
+}
+
+void *re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#1},REEventHandlerResult ()(void *,void const*)>::~Callable(void *a1)
+{
+  *a1 = &unk_1F5CB7DE0;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::destroyCallable((a1 + 1));
+  return a1;
+}
+
+void re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#1},REEventHandlerResult ()(void *,void const*)>::~Callable(void *a1)
+{
+  *a1 = &unk_1F5CB7DE0;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::destroyCallable((a1 + 1));
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#1},REEventHandlerResult ()(void *,void const*)>::operator()(uint64_t a1, uint64_t *a2, uint64_t *a3)
+{
+  v3 = *a3;
+  v5 = *a2;
+  (*(**(a1 + 40) + 16))(*(a1 + 40), &v5, v3);
+  return 1;
+}
+
+void *re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#1},REEventHandlerResult ()(void *,void const*)>::cloneInto(uint64_t a1, void *a2)
+{
+  *a2 = &unk_1F5CB7DE0;
+  a2[4] = *(a1 + 32);
+  a2[5] = 0;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::operator=<24ul>((a2 + 1), a1 + 8);
+  return a2;
+}
+
+void *re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#1},REEventHandlerResult ()(void *,void const*)>::moveInto(uint64_t a1, void *a2)
+{
+  *a2 = &unk_1F5CB7DE0;
+  a2[4] = *(a1 + 32);
+  a2[5] = 0;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::operator=<24ul>((a2 + 1), a1 + 8);
+  return a2;
+}
+
+void *re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#2},REEventHandlerResult ()(void *,void const*)>::~Callable(void *a1)
+{
+  *a1 = &unk_1F5CB7E38;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::destroyCallable((a1 + 1));
+  return a1;
+}
+
+void re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#2},REEventHandlerResult ()(void *,void const*)>::~Callable(void *a1)
+{
+  *a1 = &unk_1F5CB7E38;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::destroyCallable((a1 + 1));
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#2},REEventHandlerResult ()(void *,void const*)>::operator()(uint64_t a1, uint64_t *a2, uint64_t *a3)
+{
+  v3 = *a3;
+  v5 = *a2;
+  return (*(**(a1 + 40) + 16))(*(a1 + 40), &v5, v3);
+}
+
+void *re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#2},REEventHandlerResult ()(void *,void const*)>::cloneInto(uint64_t a1, void *a2)
+{
+  *a2 = &unk_1F5CB7E38;
+  a2[4] = *(a1 + 32);
+  a2[5] = 0;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::operator=<24ul>((a2 + 1), a1 + 8);
+  return a2;
+}
+
+void *re::internal::Callable<re::FixedFunction<48ul,REEventHandlerResult ()(void *,void const*)> re::EventBus::createHandler<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(re::ecs2::Entity *,re::Function<REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)> const&,void const*,re::EventBus::HandlerOptions)::{lambda(void *,void const*)#2},REEventHandlerResult ()(void *,void const*)>::moveInto(uint64_t a1, void *a2)
+{
+  *a2 = &unk_1F5CB7E38;
+  a2[4] = *(a1 + 32);
+  a2[5] = 0;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::operator=<24ul>((a2 + 1), a1 + 8);
+  return a2;
+}
+
+uint64_t re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::operator=<24ul>(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::destroyCallable(a1);
+    v4 = *(a2 + 32);
+    if (v4)
+    {
+      v5 = (*(*v4 + 40))(v4);
+      v6 = a1;
+      if (v5 >= 0x19)
+      {
+        v7 = v5;
+        v8 = *(a1 + 24);
+        if (v8)
+        {
+          v6 = (*(*v8 + 32))(v8, v7, 0);
+        }
+
+        else
+        {
+          v6 = 0;
+        }
+      }
+
+      *(a1 + 32) = v6;
+      (*(**(a2 + 32) + 24))(*(a2 + 32));
+    }
+  }
+
+  return a1;
+}
+
+uint64_t (***re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::destroyCallable(uint64_t a1))(void)
+{
+  result = *(a1 + 32);
+  if (result)
+  {
+    result = (**result)(result);
+    if (*(a1 + 32) != a1)
+    {
+      result = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    }
+
+    *(a1 + 32) = 0;
+  }
+
+  return result;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB6998;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityRenderOptions>::*)(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6998;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::addInternal<re::ecs2::Scene const* const&,re::BucketArray<RESubscriptionHandle,8ul>>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+{
+  v7 = re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::allocEntry(a1, *(a2 + 8), *a2);
+  v8 = *a3;
+  *(v7 + 16) = 0;
+  v9 = v7 + 16;
+  *(v7 + 8) = v8;
+  *(v7 + 24) = 0;
+  *(v7 + 32) = 1;
+  *(v7 + 64) = 0;
+  *(v7 + 48) = 0;
+  *(v7 + 56) = 0;
+  *(v7 + 40) = 0;
+  re::BucketArray<RESubscriptionHandle,8ul>::swap(v7 + 16, a4);
+  ++*(a1 + 40);
+  return v9;
+}
+
+uint64_t re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::findEntry<re::ecs2::Scene const*>@<X0>(uint64_t result@<X0>, void *a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v4 = *result;
   v5 = 0x7FFFFFFF;
   if (!*result)
   {
-    goto LABEL_5;
+    goto LABEL_10;
   }
 
   v4 = a3 % *(result + 24);
   v6 = *(*(result + 8) + 4 * v4);
   if (v6 == 0x7FFFFFFF)
   {
-    goto LABEL_5;
+    goto LABEL_10;
   }
 
   v7 = *(result + 16);
-  if (*(v7 + (v6 << 6) + 8) == *a2)
+  if (*(v7 + 80 * v6 + 8) == *a2)
   {
     v5 = *(*(result + 8) + 4 * v4);
-LABEL_5:
-    LODWORD(v6) = 0x7FFFFFFF;
-    goto LABEL_6;
+LABEL_10:
+    v6 = 0x7FFFFFFF;
+    goto LABEL_11;
   }
 
-  v8 = *(v7 + (v6 << 6)) & 0x7FFFFFFF;
+  v8 = *(v7 + 80 * v6) & 0x7FFFFFFF;
   v5 = 0x7FFFFFFF;
   if (v8 != 0x7FFFFFFF)
   {
@@ -4421,24 +2900,24 @@ LABEL_5:
     while (1)
     {
       v9 = v8;
-      if (*(v7 + (v8 << 6) + 8) == *a2)
+      if (*(v7 + 80 * v8 + 8) == *a2)
       {
         break;
       }
 
-      v8 = *(v7 + (v8 << 6)) & 0x7FFFFFFF;
-      LODWORD(v6) = v9;
+      v8 = *(v7 + 80 * v8) & 0x7FFFFFFF;
+      v6 = v9;
       if (v8 == 0x7FFFFFFF)
       {
-        LODWORD(v6) = v9;
-        goto LABEL_6;
+        v6 = v9;
+        goto LABEL_11;
       }
     }
 
     v5 = v8;
   }
 
-LABEL_6:
+LABEL_11:
   *a4 = a3;
   *(a4 + 8) = v4;
   *(a4 + 12) = v5;
@@ -4446,7 +2925,5643 @@ LABEL_6:
   return result;
 }
 
-uint64_t re::DynamicOverflowArray<unsigned long long,1ul>::DynamicOverflowArray(uint64_t a1, uint64_t *a2)
+uint64_t re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
+{
+  v5 = *(a1 + 36);
+  if (v5 == 0x7FFFFFFF)
+  {
+    v5 = *(a1 + 32);
+    v6 = v5;
+    if (v5 == *(a1 + 24))
+    {
+      re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::setCapacity(a1, (2 * *(a1 + 28)));
+      a2 = a3 % *(a1 + 24);
+      v6 = *(a1 + 32);
+    }
+
+    *(a1 + 32) = v6 + 1;
+    v7 = *(a1 + 16);
+    v8 = *(v7 + 80 * v5);
+  }
+
+  else
+  {
+    v7 = *(a1 + 16);
+    v8 = *(v7 + 80 * v5);
+    *(a1 + 36) = v8 & 0x7FFFFFFF;
+  }
+
+  v9 = v7 + 80 * v5;
+  *v9 = v8 | 0x80000000;
+  v10 = *(a1 + 8);
+  *v9 = *(v10 + 4 * a2) | 0x80000000;
+  *(v10 + 4 * a2) = v5;
+  *(v9 + 72) = a3;
+  ++*(a1 + 28);
+  return v7 + 80 * v5;
+}
+
+void re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::setCapacity(uint64_t *a1, uint64_t a2)
+{
+  v2 = a2;
+  v4 = *a1;
+  if (*a1)
+  {
+    if (v2 && *(a1 + 6) != v2 && *(a1 + 7) <= v2)
+    {
+      memset(v9, 0, 36);
+      *&v9[36] = 0x7FFFFFFFLL;
+      re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::init(v9, v4, v2);
+      v5 = *v9;
+      *v9 = *a1;
+      *a1 = v5;
+      v6 = *&v9[16];
+      *&v9[16] = a1[2];
+      a1[2] = v6;
+      v7 = *&v9[24];
+      *&v9[24] = *(a1 + 3);
+      *(a1 + 3) = v7;
+      ++*&v9[40];
+      re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::move(a1, v9);
+      re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::deinit(v9);
+    }
+  }
+
+  else
+  {
+    if (v2)
+    {
+      v8 = v2;
+    }
+
+    else
+    {
+      v8 = 3;
+    }
+  }
+}
+
+uint64_t re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::move(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 32);
+  if (v2)
+  {
+    v4 = result;
+    v5 = 0;
+    for (i = 0; i < v2; ++i)
+    {
+      v7 = *(a2 + 16);
+      if ((*(v7 + v5) & 0x80000000) != 0)
+      {
+        v8 = re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::allocEntry(v4, *(v7 + v5 + 72) % *(v4 + 24), *(v7 + v5 + 72));
+        *(v8 + 8) = *(*(a2 + 16) + v5 + 8);
+        v9 = *(a2 + 16) + v5;
+        *(v8 + 16) = 0;
+        *(v8 + 24) = 0;
+        v8 += 16;
+        *(v8 + 16) = 1;
+        *(v8 + 48) = 0;
+        *(v8 + 32) = 0;
+        *(v8 + 40) = 0;
+        *(v8 + 24) = 0;
+        result = re::BucketArray<RESubscriptionHandle,8ul>::swap(v8, v9 + 16);
+        v2 = *(a2 + 32);
+      }
+
+      v5 += 80;
+    }
+  }
+
+  return result;
+}
+
+void re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::init(uint64_t a1, uint64_t a2, signed int a3)
+{
+  v4 = 245;
+  v5 = &re::internal::PrimeHelper::s_primes;
+  do
+  {
+    v6 = v4 >> 1;
+    v7 = &v5[v4 >> 1];
+    v9 = *v7;
+    v8 = (v7 + 1);
+    v4 += ~(v4 >> 1);
+    if (v9 < a3)
+    {
+      v5 = v8;
+    }
+
+    else
+    {
+      v4 = v6;
+    }
+  }
+
+  while (v4);
+  v10 = *v5;
+  *a1 = a2;
+  v11 = (4 * v10 + 15) & 0x7FFFFFFF0;
+  v12 = (*(*a2 + 32))(a2, v11 + 80 * v10, 16);
+  if (v12)
+  {
+    v14 = v12;
+    *(a1 + 8) = v12;
+    if (v10)
+    {
+      memset_pattern16(v12, &unk_1E304C660, 4 * v10);
+    }
+
+    *(a1 + 16) = &v14[v11];
+    *(a1 + 24) = v10;
+    *(a1 + 40) = 0;
+  }
+
+  else
+  {
+    re::internal::assertLog(4, v13, "assertion failure: '%s' (%s:line %i) Out of memory.", "temp", "init", 750);
+    _os_crash("assertion failure: (temp) Out of memory.");
+    __break(1u);
+  }
+}
+
+uint64_t re::HashSetBase<re::ecs2::Scene const*,re::ecs2::Scene const*,re::internal::ValueAsKey<re::ecs2::Scene const*>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::addAsCopy(uint64_t a1, unsigned int a2, unint64_t a3, uint64_t a4, void *a5)
+{
+  v8 = *(a1 + 36);
+  if (v8 == 0x7FFFFFFF)
+  {
+    v8 = *(a1 + 32);
+    v9 = v8;
+    if (v8 == *(a1 + 24))
+    {
+      re::HashSetBase<re::ecs2::Scene const*,re::ecs2::Scene const*,re::internal::ValueAsKey<re::ecs2::Scene const*>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::setCapacity(a1, 2 * *(a1 + 28));
+      a2 = a3 % *(a1 + 24);
+      v9 = *(a1 + 32);
+    }
+
+    *(a1 + 32) = v9 + 1;
+    v10 = *(a1 + 16);
+    v11 = *(v10 + 24 * v8 + 8);
+  }
+
+  else
+  {
+    v10 = *(a1 + 16);
+    v11 = *(v10 + 24 * v8 + 8);
+    *(a1 + 36) = v11 & 0x7FFFFFFF;
+  }
+
+  *(v10 + 24 * v8 + 8) = v11 | 0x80000000;
+  *(*(a1 + 16) + 24 * v8 + 8) = *(*(a1 + 16) + 24 * v8 + 8) & 0x80000000 | *(*(a1 + 8) + 4 * a2);
+  *(*(a1 + 16) + 24 * v8) = a3;
+  *(*(a1 + 16) + 24 * v8 + 16) = *a5;
+  *(*(a1 + 8) + 4 * a2) = v8;
+  ++*(a1 + 28);
+  return v8;
+}
+
+void re::HashSetBase<re::ecs2::Scene const*,re::ecs2::Scene const*,re::internal::ValueAsKey<re::ecs2::Scene const*>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::setCapacity(uint64_t a1, unsigned int a2)
+{
+  v4 = *a1;
+  if (*a1)
+  {
+    if (a2 && *(a1 + 24) != a2 && *(a1 + 28) <= a2)
+    {
+      memset(v13, 0, 36);
+      *&v13[36] = 0x7FFFFFFFLL;
+      re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::init(v13, v4, a2);
+      v5 = *v13;
+      *v13 = *a1;
+      *a1 = v5;
+      v6 = *&v13[16];
+      *&v13[16] = *(a1 + 16);
+      *(a1 + 16) = v6;
+      v8 = *&v13[24];
+      *&v13[24] = *(a1 + 24);
+      v7 = *&v13[32];
+      *(a1 + 24) = v8;
+      v9 = v7;
+      if (v7)
+      {
+        v10 = 0;
+        v11 = 0;
+        do
+        {
+          if ((*(*&v13[16] + v10 + 8) & 0x80000000) != 0)
+          {
+            re::HashSetBase<re::ecs2::Scene const*,re::ecs2::Scene const*,re::internal::ValueAsKey<re::ecs2::Scene const*>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::addAsCopy(a1, *(*&v13[16] + v10) % *(a1 + 24), *(*&v13[16] + v10), *&v13[16] + v10 + 16, (*&v13[16] + v10 + 16));
+            v9 = *&v13[32];
+          }
+
+          ++v11;
+          v10 += 24;
+        }
+
+        while (v11 < v9);
+      }
+
+      re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v13);
+    }
+  }
+
+  else
+  {
+    if (a2)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = 3;
+    }
+  }
+}
+
+uint64_t re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::tryGet(uint64_t a1, void *a2)
+{
+  v3 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::findEntry<re::ecs2::Scene const*>(a1, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), v5);
+  if (v6 == 0x7FFFFFFF)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(a1 + 16) + 80 * v6 + 16;
+  }
+}
+
+BOOL re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::remove(uint64_t a1, void *a2)
+{
+  v3 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::findEntry<re::ecs2::Scene const*>(a1, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), v5);
+  return re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::removeInternal(a1, v5);
+}
+
+BOOL re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::removeInternal(uint64_t a1, unsigned int *a2)
+{
+  v2 = a2[3];
+  if (v2 != 0x7FFFFFFF)
+  {
+    v5 = a2[4];
+    v6 = *(a1 + 16);
+    v7 = *(v6 + 80 * v2) & 0x7FFFFFFF;
+    if (v5 == 0x7FFFFFFF)
+    {
+      *(*(a1 + 8) + 4 * a2[2]) = v7;
+      v8 = a2[3];
+    }
+
+    else
+    {
+      *(v6 + 80 * v5) = *(v6 + 80 * v5) & 0x80000000 | v7;
+      v8 = v2;
+    }
+
+    re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::free(a1, v8);
+    v9 = a2[3];
+    v10 = *(a1 + 40);
+    *(*(a1 + 16) + 80 * v9) = *(*(a1 + 16) + 80 * v9) & 0x80000000 | *(a1 + 36);
+    --*(a1 + 28);
+    *(a1 + 36) = v9;
+    *(a1 + 40) = v10 + 1;
+  }
+
+  return v2 != 0x7FFFFFFF;
+}
+
+void re::ecs2::VisualProxyScopeManager::~VisualProxyScopeManager(re::ecs2::VisualProxyScopeManager *this)
+{
+  re::FixedArray<CoreIKTransform>::deinit(this + 39);
+  re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::~HierarchyStateTracking(this + 1);
+}
+
+{
+  re::FixedArray<CoreIKTransform>::deinit(this + 39);
+  re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::~HierarchyStateTracking(this + 1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::ecs2::VisualProxyScopeManager::updateScopeMaskData(re::ecs2::VisualProxyScopeManager *this)
+{
+  v1 = this + 8;
+  (*(*(this + 1) + 32))(this + 8, this + 112);
+  re::HashSetBase<unsigned long long,unsigned long long,re::internal::ValueAsKey<unsigned long long>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::clear((v1 + 104));
+  re::HashSetBase<unsigned long long,unsigned long long,re::internal::ValueAsKey<unsigned long long>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::clear((v1 + 200));
+
+  re::HashSetBase<unsigned long long,unsigned long long,re::internal::ValueAsKey<unsigned long long>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::clear((v1 + 248));
+}
+
+uint64_t re::ecs2::VisualProxyScopeManager::registerScene(re::ecs2::VisualProxyScopeManager *this, re::EventBus **a2)
+{
+  v48 = *MEMORY[0x1E69E9840];
+  v44 = a2;
+  v2 = a2[36];
+  if (!v2)
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) An event bus is expected for this system to track entity state changes.", "eventBus", "registerScene", 106);
+    _os_crash("assertion failure: (eventBus) An event bus is expected for this system to track entity state changes.");
+    __break(1u);
+  }
+
+  v4 = (this + 8);
+  v38[0] = 0;
+  v38[1] = 0;
+  v39 = 1;
+  v41 = 0;
+  v42 = 0;
+  v40 = 0;
+  v43 = 0;
+  v5 = (*(*v4 + 16))(v4);
+  if (v6)
+  {
+    v7 = v5;
+    v8 = 8 * v6;
+    do
+    {
+      v9 = *v7++;
+      v46 = re::globalAllocators(v5)[2];
+      v10 = (*(*v46 + 32))(v46, 32, 0);
+      *v10 = &unk_1F5CB6A58;
+      v10[1] = v4;
+      v10[2] = re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::invalidateEntityHierarchyEventHandler<REComponentDidChangeEvent>;
+      v10[3] = 0;
+      v47 = v10;
+      v11 = re::EventBus::subscribe<re::ecs2::Entity,REComponentDidChangeEvent>(v2, v45, v9, 0);
+      v13 = v12;
+      v14 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(v38);
+      *v14 = v11;
+      v14[1] = v13;
+      re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidChangeEvent const&)>::destroyCallable(v45);
+      re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::subscribeToEventToInvalidateEntityHierarchy<REComponentDidActivateEvent>(v4, v2, v38, v9);
+      v5 = re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::subscribeToEventToInvalidateEntityHierarchy<REComponentWillDeactivateEvent>(v4, v2, v38, v9);
+      v8 -= 8;
+    }
+
+    while (v8);
+  }
+
+  v15 = (*(*v4 + 24))(v4);
+  if (v16)
+  {
+    v17 = v15;
+    v18 = 8 * v16;
+    do
+    {
+      v19 = *v17++;
+      re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::subscribeToEventToInvalidateEntityHierarchy<REComponentDidActivateEvent>(v4, v2, v38, v19);
+      v15 = re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::subscribeToEventToInvalidateEntityHierarchy<REComponentWillDeactivateEvent>(v4, v2, v38, v19);
+      v18 -= 8;
+    }
+
+    while (v18);
+  }
+
+  v46 = re::globalAllocators(v15)[2];
+  v20 = (*(*v46 + 32))(v46, 32, 0);
+  *v20 = &unk_1F5CB6B60;
+  v20[1] = v4;
+  v20[2] = re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::invalidateEntityHierarchyEventHandler<RESceneEntityDidReparentEvent>;
+  v20[3] = 0;
+  v47 = v20;
+  v21 = re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityDidReparentEvent>(v2, v45, 0, 0);
+  v23 = v22;
+  v24 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(v38);
+  *v24 = v21;
+  v24[1] = v23;
+  v25 = re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::destroyCallable(v45);
+  v46 = re::globalAllocators(v25)[2];
+  v26 = (*(*v46 + 32))(v46, 32, 0);
+  *v26 = &unk_1F5CB6BB8;
+  v26[1] = v4;
+  v26[2] = re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::invalidateEntityHierarchyEventHandler<RESceneEntityDidActivateEvent>;
+  v26[3] = 0;
+  v47 = v26;
+  v27 = re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityDidActivateEvent>(v2, v45, 0, 0);
+  v29 = v28;
+  v30 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(v38);
+  *v30 = v27;
+  v30[1] = v29;
+  v31 = re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&)>::destroyCallable(v45);
+  v46 = re::globalAllocators(v31)[2];
+  v32 = (*(*v46 + 32))(v46, 32, 0);
+  *v32 = &unk_1F5CB6C10;
+  v32[1] = v4;
+  v32[2] = re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::invalidateEntityHierarchyEventHandler<RESceneEntityWillDeactivateEvent>;
+  v32[3] = 0;
+  v47 = v32;
+  v33 = re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(v2, v45, 0, 0);
+  v35 = v34;
+  v36 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(v38);
+  *v36 = v33;
+  v36[1] = v35;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::destroyCallable(v45);
+  re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::add(this + 160, &v44, v38);
+  re::HashSetBase<re::ecs2::Scene const*,re::ecs2::Scene const*,re::internal::ValueAsKey<re::ecs2::Scene const*>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::add(this + 16, &v44);
+  re::BucketArray<RESubscriptionHandle,8ul>::deinit(v38);
+  result = v38[0];
+  if (v38[0])
+  {
+    if ((v39 & 1) == 0)
+    {
+      return (*(*v38[0] + 40))();
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::ecs2::VisualProxyScopeManager::unregisterScene(re::ecs2::VisualProxyScopeManager *this, re::ecs2::Scene *a2)
+{
+  v13 = a2;
+  re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(this + 16, &v13);
+  v3 = *(v13 + 13);
+  v4 = *(v3 + 344);
+  if (v4)
+  {
+    v5 = *(v3 + 360);
+    v6 = 8 * v4;
+    do
+    {
+      if (*(*v5 + 304))
+      {
+        (*(*(this + 1) + 40))(this + 8);
+      }
+
+      v5 += 8;
+      v6 -= 8;
+    }
+
+    while (v6);
+  }
+
+  result = re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::tryGet(this + 160, &v13);
+  if (result)
+  {
+    v8 = *(v13 + 36);
+    if (v8)
+    {
+      v9 = result;
+      v10 = *(result + 40);
+      if (v10)
+      {
+        for (i = 0; i != v10; ++i)
+        {
+          v12 = re::BucketArray<RESubscriptionHandle,8ul>::operator[](v9, i);
+          re::EventBus::unsubscribe(v8, *v12, v12[1]);
+        }
+      }
+    }
+
+    return re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::remove(this + 160, &v13);
+  }
+
+  return result;
+}
+
+uint64_t *re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::~HierarchyStateTracking(uint64_t *a1)
+{
+  *a1 = &unk_1F5CB7CD0;
+  v2 = a1 + 1;
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(a1 + 31);
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(a1 + 25);
+  re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::deinit(a1 + 19);
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(a1 + 13);
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(a1 + 7);
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v2);
+  return a1;
+}
+
+void re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::clearEntityHierarchyStateData(_DWORD *a1, uint64_t a2)
+{
+  if (a1[21])
+  {
+    if (a1[74] != a1[24])
+    {
+      re::HashSetBase<unsigned long long,unsigned long long,re::internal::ValueAsKey<unsigned long long>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::clear((a1 + 62));
+    }
+
+    re::StackScratchAllocator::StackScratchAllocator(v15);
+    v9[0] = 0;
+    v9[1] = 0;
+    v10 = 1;
+    v12 = 0;
+    v13 = 0;
+    v11 = 0;
+    v14 = 0;
+    re::BucketArray<re::ecs2::Entity const*,32ul>::init(v9, v15, 1uLL);
+    *re::BucketArray<re::ecs2::Entity const*,32ul>::addUninitialized(v9) = a2;
+    while (v13)
+    {
+      v8 = *re::BucketArray<re::ecs2::Entity const*,32ul>::operator[](v9, v13 - 1);
+      re::BucketArray<re::ecs2::Entity const*,32ul>::operator[](v9, --v13);
+      ++v14;
+      if (!re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains((a1 + 62), &v8))
+      {
+        re::HashTable<re::ecs2::Entity const*,re::ecs2::EntityVisualProxyScopeData,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove((a1 + 14), &v8);
+        re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add((a1 + 62), &v8);
+        v4 = *(v8 + 344);
+        if (v4)
+        {
+          v5 = *(v8 + 360);
+          v6 = 8 * v4;
+          do
+          {
+            v7 = *v5++;
+            *re::BucketArray<re::ecs2::Entity const*,32ul>::addUninitialized(v9) = v7;
+            v6 -= 8;
+          }
+
+          while (v6);
+        }
+      }
+    }
+
+    a1[74] = a1[24];
+    re::BucketArray<re::ecs2::Entity const*,32ul>::deinit(v9);
+    if (v9[0] && (v10 & 1) == 0)
+    {
+      (*(*v9[0] + 40))();
+    }
+
+    re::StackScratchAllocator::~StackScratchAllocator(v15);
+  }
+}
+
+BOOL re::HashTable<re::ecs2::Entity const*,re::ecs2::EntityVisualProxyScopeData,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(uint64_t a1, void *a2)
+{
+  v3 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  re::HashTable<void *,unsigned int,re::Hash<void *>,re::EqualTo<void *>,true,false>::findEntry<void *>(a1, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), v5);
+  return re::HashTable<unsigned long long,re::PeerAttributionContext *,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::removeInternal(a1, v5);
+}
+
+uint64_t (***re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::subscribeToEventToInvalidateEntityHierarchy<REComponentDidActivateEvent>(re *a1, re::EventBus *a2, uint64_t a3, uint64_t a4))(void)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v15 = re::globalAllocators(a1)[2];
+  v8 = (*(*v15 + 32))(v15, 32, 0);
+  *v8 = &unk_1F5CB6AB0;
+  v8[1] = a1;
+  v8[2] = re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::invalidateEntityHierarchyEventHandler<REComponentDidActivateEvent>;
+  v8[3] = 0;
+  v16 = v8;
+  v9 = re::EventBus::subscribe<re::ecs2::Entity,REComponentDidActivateEvent>(a2, v14, a4, 0);
+  v11 = v10;
+  v12 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(a3);
+  *v12 = v9;
+  v12[1] = v11;
+  return re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidActivateEvent const&)>::destroyCallable(v14);
+}
+
+uint64_t (***re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::subscribeToEventToInvalidateEntityHierarchy<REComponentWillDeactivateEvent>(re *a1, re::EventBus *a2, uint64_t a3, uint64_t a4))(void)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v15 = re::globalAllocators(a1)[2];
+  v8 = (*(*v15 + 32))(v15, 32, 0);
+  *v8 = &unk_1F5CB6B08;
+  v8[1] = a1;
+  v8[2] = re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::invalidateEntityHierarchyEventHandler<REComponentWillDeactivateEvent>;
+  v8[3] = 0;
+  v16 = v8;
+  v9 = re::EventBus::subscribe<re::ecs2::Entity,REComponentWillDeactivateEvent>(a2, v14, a4, 0);
+  v11 = v10;
+  v12 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(a3);
+  *v12 = v9;
+  v12[1] = v11;
+  return re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,REComponentWillDeactivateEvent const&)>::destroyCallable(v14);
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::invalidateEntityHierarchyEventHandler<REComponentDidChangeEvent>(uint64_t a1, unint64_t a2)
+{
+  v4 = a2;
+  if ((*(a2 + 387) & 1) == 0 && (*(a2 + 304) & 1) != 0 && !re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains(a1 + 200, &v4))
+  {
+    (*(*a1 + 40))(a1, v4);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(a1 + 104, &v4);
+  }
+
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,REComponentDidChangeEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidChangeEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,REComponentDidChangeEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidChangeEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB6A58;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,REComponentDidChangeEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidChangeEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6A58;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::invalidateEntityHierarchyEventHandler<REComponentDidActivateEvent>(uint64_t a1, unint64_t a2)
+{
+  v4 = a2;
+  if ((*(a2 + 387) & 1) == 0 && (*(a2 + 304) & 1) != 0 && !re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains(a1 + 200, &v4))
+  {
+    (*(*a1 + 40))(a1, v4);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(a1 + 104, &v4);
+  }
+
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,REComponentDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidActivateEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,REComponentDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidActivateEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB6AB0;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,REComponentDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidActivateEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6AB0;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::invalidateEntityHierarchyEventHandler<REComponentWillDeactivateEvent>(uint64_t a1, unint64_t a2)
+{
+  v4 = a2;
+  if ((*(a2 + 387) & 1) == 0 && (*(a2 + 304) & 1) != 0 && !re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains(a1 + 200, &v4))
+  {
+    (*(*a1 + 40))(a1, v4);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(a1 + 104, &v4);
+  }
+
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,REComponentWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentWillDeactivateEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,REComponentWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentWillDeactivateEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB6B08;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,REComponentWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentWillDeactivateEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6B08;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::invalidateEntityHierarchyEventHandler<RESceneEntityDidReparentEvent>(uint64_t a1, unint64_t a2)
+{
+  v4 = a2;
+  if ((*(a2 + 387) & 1) == 0 && (*(a2 + 304) & 1) != 0 && !re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains(a1 + 200, &v4))
+  {
+    (*(*a1 + 40))(a1, v4);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(a1 + 104, &v4);
+  }
+
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB6B60;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6B60;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::invalidateEntityHierarchyEventHandler<RESceneEntityDidActivateEvent>(uint64_t a1, unint64_t a2)
+{
+  v5 = a2;
+  if ((*(a2 + 387) & 1) == 0)
+  {
+    v3 = a1 + 200;
+    (*(*a1 + 40))(a1);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(a1 + 104, &v5);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(v3, &v5);
+  }
+
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB6BB8;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6BB8;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::invalidateEntityHierarchyEventHandler<RESceneEntityWillDeactivateEvent>(uint64_t a1, unint64_t a2)
+{
+  v5 = a2;
+  v3 = a1 + 200;
+  (*(*a1 + 40))(a1);
+  re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(a1 + 104, &v5);
+  re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(v3, &v5);
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB6C10;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::EntityVisualProxyScopeData>::*)(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6C10;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+void re::ecs2::ShadowScopeManager::~ShadowScopeManager(re::ecs2::ShadowScopeManager *this)
+{
+  re::HashSetBase<re::ArcWeakPtr<re::ecs2::Entity>,re::ArcWeakPtr<re::ecs2::Entity>,re::internal::ValueAsKey<re::ArcWeakPtr<re::ecs2::Entity>>,re::Hash<re::ArcWeakPtr<re::ecs2::Entity>>,re::EqualTo<re::ArcWeakPtr<re::ecs2::Entity>>,true,false>::deinit(this + 23);
+  re::HashBrown<re::ecs2::ShadowScopeComponent const*,re::HashSet<re::ecs2::Entity *,re::Hash<re::ecs2::Entity *>,re::EqualTo<re::ecs2::Entity *>,true,false>,re::Hash<re::ecs2::ShadowScopeComponent const*>,re::EqualTo<re::ecs2::ShadowScopeComponent const*>,void,false>::deinit(this + 120);
+  re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit(this + 56);
+  re::HashTable<re::ecs2::Scene *,re::DynamicArray<RESubscriptionHandle>,re::Hash<re::ecs2::Scene *>,re::EqualTo<re::ecs2::Scene *>,true,false>::deinit(this + 1);
+}
+
+{
+  re::HashSetBase<re::ArcWeakPtr<re::ecs2::Entity>,re::ArcWeakPtr<re::ecs2::Entity>,re::internal::ValueAsKey<re::ArcWeakPtr<re::ecs2::Entity>>,re::Hash<re::ArcWeakPtr<re::ecs2::Entity>>,re::EqualTo<re::ArcWeakPtr<re::ecs2::Entity>>,true,false>::deinit(this + 23);
+  re::HashBrown<re::ecs2::ShadowScopeComponent const*,re::HashSet<re::ecs2::Entity *,re::Hash<re::ecs2::Entity *>,re::EqualTo<re::ecs2::Entity *>,true,false>,re::Hash<re::ecs2::ShadowScopeComponent const*>,re::EqualTo<re::ecs2::ShadowScopeComponent const*>,void,false>::deinit(this + 120);
+  re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit(this + 56);
+  re::HashTable<re::ecs2::Scene *,re::DynamicArray<RESubscriptionHandle>,re::Hash<re::ecs2::Scene *>,re::EqualTo<re::ecs2::Scene *>,true,false>::deinit(this + 1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t re::ecs2::ShadowScopeManager::getScope(re::ecs2::ShadowScopeManager *this, const re::ecs2::Entity *a2)
+{
+  v5 = a2;
+  v3 = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(this + 7, &v5);
+  if (v3 == -1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(*(this + 8) + 16 * v3 + 8);
+  }
+}
+
+uint64_t re::ecs2::ShadowScopeManager::getTrackedEntities(re::ecs2::ShadowScopeManager *this, const re::ecs2::ShadowScopeComponent *a2)
+{
+  v5 = a2;
+  v3 = re::HashBrown<re::ecs2::ShadowScopeComponent const*,re::HashSet<re::ecs2::Entity *,re::Hash<re::ecs2::Entity *>,re::EqualTo<re::ecs2::Entity *>,true,false>,re::Hash<re::ecs2::ShadowScopeComponent const*>,re::EqualTo<re::ecs2::ShadowScopeComponent const*>,void,false>::find(this + 15, &v5);
+  if (v3 == -1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(this + 16) + 56 * v3 + 8;
+  }
+}
+
+double re::HashSetBase<re::ArcWeakPtr<re::ecs2::Entity>,re::ArcWeakPtr<re::ecs2::Entity>,re::internal::ValueAsKey<re::ArcWeakPtr<re::ecs2::Entity>>,re::Hash<re::ArcWeakPtr<re::ecs2::Entity>>,re::EqualTo<re::ArcWeakPtr<re::ecs2::Entity>>,true,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2] + v4;
+        v7 = *(v6 + 8);
+        if (v7 < 0)
+        {
+          *(v6 + 8) = v7 & 0x7FFFFFFF;
+          objc_destroyWeak((v6 + 16));
+          *(v6 + 16) = 0;
+          v3 = *(a1 + 8);
+        }
+
+        v4 += 24;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+double re::HashBrown<re::ecs2::ShadowScopeComponent const*,re::HashSet<re::ecs2::Entity *,re::Hash<re::ecs2::Entity *>,re::EqualTo<re::ecs2::Entity *>,true,false>,re::Hash<re::ecs2::ShadowScopeComponent const*>,re::EqualTo<re::ecs2::ShadowScopeComponent const*>,void,false>::deinit(uint64_t a1)
+{
+  if (*(a1 + 56))
+  {
+    if (*(a1 + 8))
+    {
+      v10[0] = a1;
+      v2 = *(a1 + 16);
+      if (v2 >= 0x10)
+      {
+        v3 = 0;
+        v4 = *a1;
+        v5 = v2 >> 4;
+        while (1)
+        {
+          v6 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v4), xmmword_1E304FAD0)))), 0x3830282018100800).u16[0];
+          v10[1] = v6 ^ 0xFFFFLL;
+          if (v6 != 0xFFFFLL)
+          {
+            break;
+          }
+
+          v3 -= 16;
+          ++v4;
+          if (!--v5)
+          {
+            goto LABEL_10;
+          }
+        }
+
+        v7 = __clz(__rbit64(v6 ^ 0xFFFFLL));
+        v8 = v7 - v3;
+        v11 = v7 - v3;
+        if (v7 + 1 != v3)
+        {
+          do
+          {
+            re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit((*(a1 + 8) + 56 * v8 + 8));
+            re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned long long const&,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>&>>::operator++(v10);
+            v8 = v11;
+          }
+
+          while (v11 != -1);
+        }
+      }
+
+LABEL_10:
+      *(a1 + 8) = 0;
+    }
+
+    if (*a1)
+    {
+      (*(**(a1 + 56) + 40))(*(a1 + 56));
+      *a1 = 0;
+    }
+
+    result = 0.0;
+    *(a1 + 32) = 0u;
+    *(a1 + 48) = 0u;
+    *(a1 + 16) = 0u;
+  }
+
+  return result;
+}
+
+double re::HashTable<re::ecs2::Scene *,re::DynamicArray<RESubscriptionHandle>,re::Hash<re::ecs2::Scene *>,re::EqualTo<re::ecs2::Scene *>,true,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2];
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+          re::DynamicArray<unsigned long>::deinit(v6 + v4 + 16);
+          v3 = *(a1 + 8);
+        }
+
+        v4 += 64;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+uint64_t (***re::internal::Callable<re::Engine::init(re::EngineConfiguration const&)::$_1,void ()(re::Function<void ()(void)> const&)>::operator()(uint64_t a1, uint64_t a2))(void)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = *(a2 + 24);
+  v7 = 0;
+  re::FunctionBase<24ul,void ()(void)>::operator=<24ul>(v5, a2);
+  v3 = *(*(a1 + 8) + 872);
+  v9 = v6;
+  v10 = 0;
+  re::FunctionBase<24ul,void ()(void)>::operator=<24ul>(v8, v5);
+  re::ResourceFetchManager::executeWithMostRecentTransportVoucher(v3, v8);
+  re::FunctionBase<24ul,void ()(void)>::destroyCallable(v8);
+  return re::FunctionBase<24ul,void ()(void)>::destroyCallable(v5);
+}
+
+void *re::internal::Callable<re::Engine::init(re::EngineConfiguration const&)::$_1,void ()(re::Function<void ()(void)> const&)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6CD8;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::init(re::EngineConfiguration const&)::$_1,void ()(re::Function<void ()(void)> const&)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6CD8;
+  a2[1] = v2;
+  return a2;
+}
+
+uint64_t (***re::FunctionBase<24ul,void ()(re::Function<void ()(void)> const&)>::destroyCallable(uint64_t a1))(void)
+{
+  result = *(a1 + 32);
+  if (result)
+  {
+    result = (**result)(result);
+    if (*(a1 + 32) != a1)
+    {
+      result = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    }
+
+    *(a1 + 32) = 0;
+  }
+
+  return result;
+}
+
+uint64_t (***re::internal::Callable<re::Engine::init(re::EngineConfiguration const&)::$_2,void ()(unsigned long long,re::Function<void ()(void)> const&)>::operator()(uint64_t a1, void **a2, uint64_t a3))(void)
+{
+  v13 = *MEMORY[0x1E69E9840];
+  v4 = *a2;
+  v8 = *(a3 + 24);
+  v9 = 0;
+  re::FunctionBase<24ul,void ()(void)>::operator=<24ul>(v7, a3);
+  v5 = *(*(a1 + 8) + 872);
+  v11 = v8;
+  v12 = 0;
+  re::FunctionBase<24ul,void ()(void)>::operator=<24ul>(v10, v7);
+  re::ResourceFetchManager::executeWithMostRecentTransportVoucherForPeerID(v5, v4, v10);
+  re::FunctionBase<24ul,void ()(void)>::destroyCallable(v10);
+  return re::FunctionBase<24ul,void ()(void)>::destroyCallable(v7);
+}
+
+void *re::internal::Callable<re::Engine::init(re::EngineConfiguration const&)::$_2,void ()(unsigned long long,re::Function<void ()(void)> const&)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6D40;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::init(re::EngineConfiguration const&)::$_2,void ()(unsigned long long,re::Function<void ()(void)> const&)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6D40;
+  a2[1] = v2;
+  return a2;
+}
+
+uint64_t (***re::FunctionBase<24ul,void ()(unsigned long long,re::Function<void ()(void)> const&)>::destroyCallable(uint64_t a1))(void)
+{
+  result = *(a1 + 32);
+  if (result)
+  {
+    result = (**result)(result);
+    if (*(a1 + 32) != a1)
+    {
+      result = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    }
+
+    *(a1 + 32) = 0;
+  }
+
+  return result;
+}
+
+void re::VideoManager::VideoManager(re::VideoManager *this)
+{
+  *this = &unk_1F5CF8250;
+  *(this + 8) = 0u;
+  *(this + 24) = 0u;
+  *(this + 40) = 0u;
+  *(this + 56) = 0u;
+  *(this + 72) = 0u;
+  *(this + 88) = 0u;
+  *(this + 100) = 0u;
+  *(this + 116) = 0x7FFFFFFFLL;
+  *(this + 8) = 0u;
+  *(this + 9) = 0u;
+  *(this + 40) = 0;
+  *(this + 164) = 0x7FFFFFFFLL;
+  *(this + 11) = 0u;
+  *(this + 12) = 0u;
+  *(this + 52) = 0;
+  *(this + 212) = 0x7FFFFFFFLL;
+  *(this + 14) = 0u;
+  *(this + 15) = 0u;
+  *(this + 250) = 0u;
+  *(this + 34) = 0;
+  re::VideoAutoCounter::VideoAutoCounter((this + 280));
+}
+
+uint64_t re::DynamicArray<re::Scheduler::TaskDescriptor>::deinit(uint64_t a1)
+{
+  result = *a1;
+  if (result)
+  {
+    v3 = *(a1 + 32);
+    if (v3)
+    {
+      v4 = *(a1 + 16);
+      if (v4)
+      {
+        v5 = v4 << 7;
+        do
+        {
+          re::DynamicArray<unsigned long>::deinit(v3 + 88);
+          re::FunctionBase<24ul,void ()(float)>::destroyCallable(v3 + 40);
+          re::StringID::destroyString(v3);
+          v3 = (v3 + 128);
+          v5 -= 128;
+        }
+
+        while (v5);
+        result = *a1;
+        v3 = *(a1 + 32);
+      }
+
+      result = (*(*result + 40))(result, v3);
+    }
+
+    *(a1 + 32) = 0;
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    *a1 = 0;
+    ++*(a1 + 24);
+  }
+
+  return result;
+}
+
+uint64_t re::DynamicArray<re::Scheduler::TaskDescriptor>::add(_anonymous_namespace_ *this, uint64_t *a2)
+{
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
+  {
+    re::DynamicArray<re::Scheduler::TaskDescriptor>::growCapacity(this, v4 + 1);
+    v4 = *(this + 2);
+  }
+
+  v5 = *(this + 4) + (v4 << 7);
+  v6 = *a2;
+  *v5 = *v5 & 0xFFFFFFFFFFFFFFFELL | *a2 & 1;
+  *v5 = *a2 & 0xFFFFFFFFFFFFFFFELL | v6 & 1;
+  *(v5 + 8) = a2[1];
+  *a2 = 0;
+  a2[1] = &str_67;
+  v7 = *(a2 + 1);
+  *(v5 + 29) = *(a2 + 29);
+  *(v5 + 16) = v7;
+  *(v5 + 64) = a2[8];
+  *(v5 + 72) = 0;
+  result = re::FunctionBase<24ul,void ()(float)>::operator=<24ul>(v5 + 40, (a2 + 5));
+  v9 = a2[10];
+  *(v5 + 120) = 0;
+  *(v5 + 112) = 0;
+  *(v5 + 96) = 0;
+  *(v5 + 104) = 0;
+  *(v5 + 80) = v9;
+  *(v5 + 88) = 0;
+  v10 = a2[12];
+  *(v5 + 88) = a2[11];
+  *(v5 + 96) = v10;
+  a2[11] = 0;
+  a2[12] = 0;
+  v11 = *(v5 + 104);
+  *(v5 + 104) = a2[13];
+  a2[13] = v11;
+  v12 = *(v5 + 120);
+  *(v5 + 120) = a2[15];
+  a2[15] = v12;
+  ++*(a2 + 28);
+  ++*(v5 + 112);
+  ++*(this + 2);
+  ++*(this + 6);
+  return result;
+}
+
+_anonymous_namespace_ *re::DynamicArray<re::Scheduler::TaskDescriptor>::growCapacity(_anonymous_namespace_ *this, unint64_t a2)
+{
+  v2 = *(this + 1);
+  if (v2 < a2)
+  {
+    v3 = a2;
+    v4 = this;
+    if (*this)
+    {
+      v5 = 2 * v2;
+      v6 = v2 == 0;
+      v7 = 8;
+      if (!v6)
+      {
+        v7 = v5;
+      }
+
+      if (v7 > a2)
+      {
+        a2 = v7;
+      }
+
+      return re::DynamicArray<re::Scheduler::TaskDescriptor>::setCapacity(this, a2);
+    }
+
+    else
+    {
+      this = re::DynamicArray<re::Scheduler::TaskDescriptor>::setCapacity(v4, v3);
+      ++*(v4 + 6);
+    }
+  }
+
+  return this;
+}
+
+void *re::DynamicArray<re::Scheduler::TaskDescriptor>::setCapacity(void *result, unint64_t a2)
+{
+  v3 = result[1];
+  if (v3 != a2)
+  {
+    v5 = result;
+    if (result[2] <= a2)
+    {
+      result = *result;
+      if (!*v5)
+      {
+        result = re::DynamicArray<re::Scheduler::TaskDescriptor>::setCapacity(v5, a2);
+        ++*(v5 + 6);
+        return result;
+      }
+
+      if (a2)
+      {
+        if (a2 >> 57)
+        {
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 128, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v18, v20);
+          __break(1u);
+        }
+
+        else
+        {
+          v2 = a2 << 7;
+          result = (*(*result + 32))(result, a2 << 7, 8);
+          if (result)
+          {
+            v7 = result;
+            if (!v5[1])
+            {
+              goto LABEL_16;
+            }
+
+            goto LABEL_11;
+          }
+        }
+
+        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v19, v21);
+        __break(1u);
+        return result;
+      }
+
+      v7 = 0;
+      if (!v3)
+      {
+LABEL_16:
+        v5[4] = v7;
+        v5[1] = a2;
+        return result;
+      }
+
+LABEL_11:
+      v8 = v5[4];
+      v9 = v5[2];
+      if (v9)
+      {
+        v10 = &v8[16 * v9];
+        v11 = v7;
+        do
+        {
+          v12 = *v8;
+          *v11 = *v11 & 0xFFFFFFFFFFFFFFFELL | *v8 & 1;
+          *v11 = *v8 & 0xFFFFFFFFFFFFFFFELL | v12 & 1;
+          v11[1] = v8[1];
+          *v8 = 0;
+          v8[1] = &str_67;
+          v13 = *(v8 + 1);
+          *(v11 + 29) = *(v8 + 29);
+          *(v11 + 1) = v13;
+          v11[8] = v8[8];
+          v11[9] = 0;
+          re::FunctionBase<24ul,void ()(float)>::operator=<24ul>((v11 + 5), (v8 + 5));
+          v14 = v8[10];
+          v11[15] = 0;
+          *(v11 + 28) = 0;
+          v11[12] = 0;
+          v11[13] = 0;
+          v11[10] = v14;
+          v11[11] = 0;
+          v15 = v8[12];
+          v11[11] = v8[11];
+          v8[11] = 0;
+          v11[12] = v15;
+          v8[12] = 0;
+          v16 = v11[13];
+          v11[13] = v8[13];
+          v8[13] = v16;
+          v17 = v11[15];
+          v11[15] = v8[15];
+          v8[15] = v17;
+          ++*(v8 + 28);
+          ++*(v11 + 28);
+          re::DynamicArray<unsigned long>::deinit((v8 + 11));
+          re::FunctionBase<24ul,void ()(float)>::destroyCallable((v8 + 5));
+          re::StringID::destroyString(v8);
+          v8 += 16;
+          v11 += 16;
+        }
+
+        while (v8 != v10);
+        v8 = v5[4];
+      }
+
+      result = (*(**v5 + 40))(*v5, v8);
+      goto LABEL_16;
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::FunctionBase<24ul,void ()(float)>::operator=<24ul>(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    re::FunctionBase<24ul,void ()(float)>::destroyCallable(a1);
+    v4 = *(a2 + 32);
+    if (*(a1 + 24) != *(a2 + 24) || v4 == a2)
+    {
+      if (v4)
+      {
+        v6 = (*(*v4 + 40))(v4);
+        v7 = a1;
+        if (v6 >= 0x19)
+        {
+          v8 = v6;
+          v9 = *(a1 + 24);
+          if (v9)
+          {
+            v7 = (*(*v9 + 32))(v9, v8, 0);
+          }
+
+          else
+          {
+            v7 = 0;
+          }
+        }
+
+        *(a1 + 32) = v7;
+        (*(**(a2 + 32) + 32))(*(a2 + 32));
+        re::FunctionBase<24ul,void ()(float)>::destroyCallable(a2);
+      }
+    }
+
+    else
+    {
+      *(a1 + 32) = v4;
+      *(a2 + 32) = 0;
+    }
+  }
+
+  return a1;
+}
+
+{
+  if (a1 != a2)
+  {
+    re::FunctionBase<24ul,void ()(float)>::destroyCallable(a1);
+    v4 = *(a2 + 32);
+    if (v4)
+    {
+      v5 = (*(*v4 + 40))(v4);
+      v6 = a1;
+      if (v5 >= 0x19)
+      {
+        v7 = v5;
+        v8 = *(a1 + 24);
+        if (v8)
+        {
+          v6 = (*(*v8 + 32))(v8, v7, 0);
+        }
+
+        else
+        {
+          v6 = 0;
+        }
+      }
+
+      *(a1 + 32) = v6;
+      (*(**(a2 + 32) + 24))(*(a2 + 32));
+    }
+  }
+
+  return a1;
+}
+
+uint64_t (***re::FunctionBase<24ul,void ()(float)>::destroyCallable(uint64_t a1))(void)
+{
+  result = *(a1 + 32);
+  if (result)
+  {
+    result = (**result)(result);
+    if (*(a1 + 32) != a1)
+    {
+      result = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    }
+
+    *(a1 + 32) = 0;
+  }
+
+  return result;
+}
+
+uint64_t re::internal::Callable<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_0,void ()(float)>::operator()(re::ProfilerConfig *a1)
+{
+  v2 = *(*(*(a1 + 1) + 896) + 24) & 0xFFFFFFFFFFFFFFFLL;
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(a1);
+  if (isStatisticCollectionEnabled)
+  {
+    v4 = re::profilerThreadContext(isStatisticCollectionEnabled);
+    re::ProfilerThreadContext::begin(v4, *(*(a1 + 1) + 1024), v2 + 1, 1);
+  }
+
+  v5 = re::ProfilerConfig::isStatisticCollectionEnabled(isStatisticCollectionEnabled);
+  if (v5)
+  {
+    v6 = re::profilerThreadContext(v5);
+    re::ProfilerThreadContext::pushTimeScope(v6);
+  }
+
+  if (re::internal::enableSignposts(0, 0))
+  {
+    kdebug_trace();
+  }
+
+  result = re::internal::enableSignposts(0, 0);
+  if (result)
+  {
+
+    return kdebug_trace();
+  }
+
+  return result;
+}
+
+void *re::internal::Callable<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_0,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6DA8;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_0,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6DA8;
+  a2[1] = v2;
+  return a2;
+}
+
+void re::ProfilerThreadContext::pushTimeScope(re::ProfilerThreadContext *this)
+{
+  if (*(this + 19))
+  {
+    v2 = mach_absolute_time();
+    v4 = *(this + 16);
+    v3 = *(this + 17);
+    if (v4 >= v3)
+    {
+      v6 = *(this + 15);
+      v7 = v4 - v6;
+      v8 = (v4 - v6) >> 3;
+      v9 = v8 + 1;
+      if ((v8 + 1) >> 61)
+      {
+        std::string::__throw_length_error[abi:nn200100]();
+      }
+
+      v10 = v3 - v6;
+      if (v10 >> 2 > v9)
+      {
+        v9 = v10 >> 2;
+      }
+
+      v11 = v10 >= 0x7FFFFFFFFFFFFFF8;
+      v12 = 0x1FFFFFFFFFFFFFFFLL;
+      if (!v11)
+      {
+        v12 = v9;
+      }
+
+      if (v12)
+      {
+        std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned long long>>(this + 120, v12);
+      }
+
+      v13 = (v4 - v6) >> 3;
+      v14 = (8 * v8);
+      v15 = (8 * v8 - 8 * v13);
+      *v14 = v2;
+      v5 = v14 + 1;
+      memcpy(v15, v6, v7);
+      v16 = *(this + 15);
+      *(this + 15) = v15;
+      *(this + 16) = v5;
+      *(this + 17) = 0;
+      if (v16)
+      {
+        operator delete(v16);
+      }
+    }
+
+    else
+    {
+      *v4 = v2;
+      v5 = v4 + 8;
+    }
+
+    *(this + 16) = v5;
+  }
+}
+
+void std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned long long>>(uint64_t a1, unint64_t a2)
+{
+  if (!(a2 >> 61))
+  {
+    operator new();
+  }
+
+  std::string::__throw_length_error[abi:nn200100]();
+}
+
+uint64_t re::internal::Callable<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_1,void ()(float)>::operator()(uint64_t a1)
+{
+  v2 = **(a1 + 16);
+  v3 = mach_absolute_time();
+  **(a1 + 16) = v3;
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(v3);
+  if (isStatisticCollectionEnabled)
+  {
+    v9 = re::profilerThreadContext(isStatisticCollectionEnabled);
+    v10 = *(v9 + 152);
+    if (v10)
+    {
+      v11 = **(a1 + 16) - v2;
+      v12 = v10[16].u64[0];
+      v13 = v10[16].u64[1];
+      if (v12 >= v11)
+      {
+        v12 = **(a1 + 16) - v2;
+      }
+
+      if (v13 <= v11)
+      {
+        v13 = **(a1 + 16) - v2;
+      }
+
+      v10[16].i64[0] = v12;
+      v10[16].i64[1] = v13;
+      v14 = vdupq_n_s64(1uLL);
+      v14.i64[0] = v11;
+      v10[17] = vaddq_s64(v10[17], v14);
+      *(v9 + 184) = 0;
+    }
+  }
+
+  v15 = *(a1 + 8);
+
+  return re::FrameManager::nextFrame(v15, v5, v6, v7, v8);
+}
+
+uint64_t re::internal::Callable<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_1,void ()(float)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB6E00;
+  *(a2 + 8) = *(a1 + 8);
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_1,void ()(float)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB6E00;
+  *(a2 + 8) = *(a1 + 8);
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_2,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6E58;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_2,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6E58;
+  a2[1] = v2;
+  return a2;
+}
+
+void re::internal::Callable<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_4,void ()(float)>::operator()(uint64_t a1, uint64_t a2, BOOL a3)
+{
+  v3 = re::internal::enableSignposts(0, 0);
+  if (v3)
+  {
+    v3 = kdebug_trace();
+  }
+
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(v3);
+  if (isStatisticCollectionEnabled)
+  {
+    v5 = re::profilerThreadContext(isStatisticCollectionEnabled);
+    re::ProfilerThreadContext::popTimeScope(v5, 2u);
+  }
+
+  v6 = re::ProfilerConfig::isStatisticCollectionEnabled(isStatisticCollectionEnabled);
+  if (v6)
+  {
+    v7 = re::profilerThreadContext(v6);
+
+    re::ProfilerThreadContext::end(v7);
+  }
+}
+
+uint64_t re::internal::Callable<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_4,void ()(float)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB6EB0;
+  *(a2 + 8) = *(a1 + 8);
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_4,void ()(float)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB6EB0;
+  *(a2 + 8) = *(a1 + 8);
+  return a2;
+}
+
+int64x2_t re::ProfilerThreadContext::popTimeScope(uint64_t a1, unsigned int a2)
+{
+  if (*(a1 + 152))
+  {
+    v4 = mach_absolute_time();
+    v6 = *(a1 + 128);
+    v7 = *(v6 - 8);
+    *(a1 + 128) = v6 - 8;
+    v8 = *(a1 + 152);
+    if (v8)
+    {
+      v9 = v4 - v7;
+      v10 = (v8 + (a2 << 7));
+      v11 = v10[8].u64[0];
+      v12 = v10[8].u64[1];
+      if (v11 >= v9)
+      {
+        v11 = v9;
+      }
+
+      if (v12 <= v9)
+      {
+        v12 = v9;
+      }
+
+      v10[8].i64[0] = v11;
+      v10[8].i64[1] = v12;
+      v13 = vdupq_n_s64(1uLL);
+      v13.i64[0] = v9;
+      result = vaddq_s64(v10[9], v13);
+      v10[9] = result;
+      *(a1 + 184) = 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_0,void ()(float)>::operator()(re::ProfilerConfig *a1)
+{
+  v2 = *(*(*(a1 + 1) + 896) + 24);
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(a1);
+  if (isStatisticCollectionEnabled)
+  {
+    v4 = re::profilerThreadContext(isStatisticCollectionEnabled);
+    re::ProfilerThreadContext::begin(v4, *(*(a1 + 1) + 1024), v2 & 0xFFFFFFFFFFFFFFFLL, 1);
+  }
+
+  v5 = re::ProfilerConfig::isStatisticCollectionEnabled(isStatisticCollectionEnabled);
+  if (v5)
+  {
+    v6 = re::profilerThreadContext(v5);
+    re::ProfilerThreadContext::pushTimeScope(v6);
+  }
+
+  result = re::internal::enableSignposts(0, 0);
+  if (result)
+  {
+
+    return kdebug_trace();
+  }
+
+  return result;
+}
+
+void *re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_0,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6F08;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_0,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6F08;
+  a2[1] = v2;
+  return a2;
+}
+
+double re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_1,void ()(float)>::operator()(uint64_t a1)
+{
+  v1 = *(a1 + 8);
+  *(v1 + 8) = 0;
+  v2 = *(v1 + 64);
+  *(v1 + 80) = *(v1 + 48);
+  *(v1 + 96) = v2;
+  v3 = *(v1 + 32);
+  *(v1 + 48) = *(v1 + 16);
+  *(v1 + 64) = v3;
+  *(v1 + 168) = *(v1 + 140);
+  *(v1 + 180) = *(v1 + 152);
+  *(v1 + 140) = *(v1 + 112);
+  *(v1 + 152) = *(v1 + 124);
+  result = 0.0;
+  *(v1 + 112) = 0;
+  *(v1 + 120) = 0;
+  v5 = *(v1 + 216);
+  *(v1 + 252) = *(v1 + 232);
+  *(v1 + 236) = v5;
+  v6 = *(v1 + 196);
+  *(v1 + 232) = *(v1 + 212);
+  *(v1 + 216) = v6;
+  *(v1 + 196) = 0;
+  return result;
+}
+
+void *re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_1,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6F60;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_1,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6F60;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_2,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6FB8;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_2,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB6FB8;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_3,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7010;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_3,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7010;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_4,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7068;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_4,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7068;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_5,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB70C0;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_5,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB70C0;
+  a2[1] = v2;
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_6,void ()(float)>::operator()(uint64_t a1)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  v1 = *(a1 + 8);
+  v3[0] = &unk_1F5CB8C60;
+  v3[1] = v1;
+  v4 = 1;
+  v7 = v3;
+  v5 = 0;
+  v6 = 0;
+  re::runInLocalAutoreleasePool(v3);
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v3);
+}
+
+void *re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_6,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7118;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_6,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7118;
+  a2[1] = v2;
+  return a2;
+}
+
+void re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_7,void ()(float)>::operator()(uint64_t a1, float *a2)
+{
+  if ((*(*(a1 + 8) + 428) & 1) == 0)
+  {
+    re::AnimationManager::update(*(a1 + 16), *a2);
+    v4 = *(a1 + 16);
+
+    re::AnimationManager::applyAnimations(v4);
+  }
+}
+
+uint64_t re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_7,void ()(float)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB7170;
+  *(a2 + 8) = *(a1 + 8);
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_7,void ()(float)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB7170;
+  *(a2 + 8) = *(a1 + 8);
+  return a2;
+}
+
+void re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_8,void ()(float)>::operator()(uint64_t a1, uint64_t a2, BOOL a3)
+{
+  v3 = re::internal::enableSignposts(0, 0);
+  if (v3)
+  {
+    v3 = kdebug_trace();
+  }
+
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(v3);
+  if (isStatisticCollectionEnabled)
+  {
+    v5 = re::profilerThreadContext(isStatisticCollectionEnabled);
+    re::ProfilerThreadContext::popTimeScope(v5, 3u);
+  }
+
+  v6 = re::ProfilerConfig::isStatisticCollectionEnabled(isStatisticCollectionEnabled);
+  if (v6)
+  {
+    v7 = re::profilerThreadContext(v6);
+
+    re::ProfilerThreadContext::end(v7);
+  }
+}
+
+uint64_t re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_8,void ()(float)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB71C8;
+  *(a2 + 8) = *(a1 + 8);
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::Engine::configurePreparePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_8,void ()(float)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB71C8;
+  *(a2 + 8) = *(a1 + 8);
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::Engine::configureSimulatePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_0,void ()(float)>::operator()(re::ProfilerConfig *a1)
+{
+  v2 = *(*(*(a1 + 1) + 896) + 24);
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(a1);
+  if (isStatisticCollectionEnabled)
+  {
+    v4 = re::profilerThreadContext(isStatisticCollectionEnabled);
+    re::ProfilerThreadContext::begin(v4, *(*(a1 + 1) + 1024), v2 & 0xFFFFFFFFFFFFFFFLL, 1);
+  }
+
+  v5 = re::ProfilerConfig::isStatisticCollectionEnabled(isStatisticCollectionEnabled);
+  if (v5)
+  {
+    v6 = re::profilerThreadContext(v5);
+    re::ProfilerThreadContext::pushTimeScope(v6);
+  }
+
+  result = re::internal::enableSignposts(0, 0);
+  if (result)
+  {
+
+    return kdebug_trace();
+  }
+
+  return result;
+}
+
+void *re::internal::Callable<re::Engine::configureSimulatePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_0,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7220;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureSimulatePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_0,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7220;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureSimulatePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_1,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7278;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureSimulatePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_1,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7278;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureSimulatePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_2,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB72D0;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureSimulatePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_2,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB72D0;
+  a2[1] = v2;
+  return a2;
+}
+
+void re::internal::Callable<re::Engine::configureSimulatePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_3,void ()(float)>::operator()(void *result, float *a2)
+{
+  v47 = *MEMORY[0x1E69E9840];
+  v2 = result[1];
+  if ((*(v2 + 428) & 1) == 0)
+  {
+    v4 = *a2;
+    v5 = v2 + 160;
+    re::DataArray<re::ecs2::SceneGroup>::DataArrayIterator<re::ecs2::SceneGroup,re::ecs2::SceneGroup&>::DataArrayIterator(v46, v2 + 160, 0);
+    v35 = *&v46[0];
+    v36 = DWORD2(v46[0]);
+    if (v5 != *&v46[0] || DWORD2(v46[0]) != 0xFFFFFFFFLL)
+    {
+      v7 = 3.4028e38;
+      do
+      {
+        v8 = re::DataArray<re::ecs2::SceneGroup>::DataArrayIterator<re::ecs2::SceneGroup,re::ecs2::SceneGroup&>::operator*(&v35);
+        if (*(v8 + 8) != 2)
+        {
+          v9 = *(v8 + 200);
+          if (v9)
+          {
+            v10 = *(v8 + 216);
+            v11 = &v10[v9];
+            do
+            {
+              v12 = result[2];
+              *&v46[0] = *v10;
+              v13 = re::HashTable<re::ecs2::Scene const*,re::DataArray<re::ecs2::PhysicsSimulationData>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::tryGet(v12 + 480, v46);
+              if (v13)
+              {
+                v14 = v13;
+                re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::DataArrayIterator(v46, v13, 0);
+                v15 = *&v46[0];
+                v33 = *&v46[0];
+                v34 = DWORD2(v46[0]);
+                v16 = WORD4(v46[0]);
+                v17 = HIWORD(DWORD2(v46[0]));
+                v18 = v14 == *&v46[0] && WORD4(v46[0]) == 0xFFFF;
+                if (!v18 || v17 != 0xFFFF)
+                {
+                  do
+                  {
+                    v20 = v17;
+                    v21 = *(v15 + 16);
+                    if (v21 <= v17)
+                    {
+                      v37 = 0;
+                      memset(v46, 0, sizeof(v46));
+                      v29 = MEMORY[0x1E69E9C10];
+                      v30 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                      v38 = 136315906;
+                      v39 = "operator[]";
+                      v40 = 1024;
+                      if (v30)
+                      {
+                        v31 = 3;
+                      }
+
+                      else
+                      {
+                        v31 = 2;
+                      }
+
+                      v41 = 797;
+                      v42 = 2048;
+                      v43 = v20;
+                      v44 = 2048;
+                      v45 = v21;
+                      _os_log_send_and_compose_impl(v31, &v37, v46, 80, &dword_1E1C61000, v29, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v38, 38, v32, v33);
+                      _os_crash_msg();
+                      __break(1u);
+                    }
+
+                    v22 = *(*(v15 + 32) + 16 * v17) + 272 * v16;
+                    v25 = *(v22 + 16);
+                    v24 = v22 + 16;
+                    v23 = v25;
+                    if (v25)
+                    {
+                      re::PhysicsSimulation::update(v23, v4);
+                      if ((*(**v24 + 104))())
+                      {
+                        v26 = *(*v24 + 888);
+                        if ((*(*v24 + 68) - v26) <= v7)
+                        {
+                          v7 = *(*v24 + 68) - v26;
+                        }
+                      }
+                    }
+
+                    re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::increment(&v33);
+                    v15 = v33;
+                    v16 = v34;
+                    v17 = HIWORD(v34);
+                  }
+
+                  while (v33 != v14 || v34 != 0xFFFF || HIWORD(v34) != 0xFFFF);
+                }
+              }
+
+              ++v10;
+            }
+
+            while (v10 != v11);
+          }
+        }
+
+        re::DataArray<re::ecs2::SceneGroup>::DataArrayIterator<re::ecs2::SceneGroup,re::ecs2::SceneGroup&>::increment(&v35);
+      }
+
+      while (v35 != v5 || v36 != 0xFFFF || HIWORD(v36) != 0xFFFF);
+      if (v7 != 3.4028e38)
+      {
+        re::Scheduler::enqueueTaskWithDeadline(*(result[3] + 720), *(result[3] + 208), v7);
+      }
+    }
+  }
+}
+
+uint64_t re::internal::Callable<re::Engine::configureSimulatePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_3,void ()(float)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB7328;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::Engine::configureSimulatePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_3,void ()(float)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB7328;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::HashTable<re::ecs2::Scene const*,re::DataArray<re::ecs2::PhysicsSimulationData>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::tryGet(uint64_t a1, void *a2)
+{
+  v3 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  re::HashTable<re::ecs2::Scene const*,re::DataArray<re::ecs2::PhysicsSimulationData>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::findEntry<re::ecs2::Scene const*>(a1, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), &v5);
+  if (v6 == 0x7FFFFFFF)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(a1 + 16) + 88 * v6 + 16;
+  }
+}
+
+uint64_t re::HashTable<re::ecs2::Scene const*,re::DataArray<re::ecs2::PhysicsSimulationData>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::findEntry<re::ecs2::Scene const*>@<X0>(uint64_t result@<X0>, void *a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v4 = *result;
+  v5 = 0x7FFFFFFF;
+  if (!*result)
+  {
+    goto LABEL_10;
+  }
+
+  v4 = a3 % *(result + 24);
+  v6 = *(*(result + 8) + 4 * v4);
+  if (v6 == 0x7FFFFFFF)
+  {
+    goto LABEL_10;
+  }
+
+  v7 = *(result + 16);
+  if (*(v7 + 88 * v6 + 8) == *a2)
+  {
+    v5 = *(*(result + 8) + 4 * v4);
+LABEL_10:
+    v6 = 0x7FFFFFFF;
+    goto LABEL_11;
+  }
+
+  v8 = *(v7 + 88 * v6) & 0x7FFFFFFF;
+  v5 = 0x7FFFFFFF;
+  if (v8 != 0x7FFFFFFF)
+  {
+    v5 = 0x7FFFFFFF;
+    while (1)
+    {
+      v9 = v8;
+      if (*(v7 + 88 * v8 + 8) == *a2)
+      {
+        break;
+      }
+
+      v8 = *(v7 + 88 * v8) & 0x7FFFFFFF;
+      v6 = v9;
+      if (v8 == 0x7FFFFFFF)
+      {
+        v6 = v9;
+        goto LABEL_11;
+      }
+    }
+
+    v5 = v8;
+  }
+
+LABEL_11:
+  *a4 = a3;
+  *(a4 + 8) = v4;
+  *(a4 + 12) = v5;
+  *(a4 + 16) = v6;
+  return result;
+}
+
+void re::internal::Callable<re::Engine::configureSimulatePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_4,void ()(float)>::operator()(uint64_t a1, uint64_t a2, BOOL a3)
+{
+  v3 = re::internal::enableSignposts(0, 0);
+  if (v3)
+  {
+    v3 = kdebug_trace();
+  }
+
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(v3);
+  if (isStatisticCollectionEnabled)
+  {
+    v5 = re::profilerThreadContext(isStatisticCollectionEnabled);
+    re::ProfilerThreadContext::popTimeScope(v5, 4u);
+  }
+
+  v6 = re::ProfilerConfig::isStatisticCollectionEnabled(isStatisticCollectionEnabled);
+  if (v6)
+  {
+    v7 = re::profilerThreadContext(v6);
+
+    re::ProfilerThreadContext::end(v7);
+  }
+}
+
+uint64_t re::internal::Callable<re::Engine::configureSimulatePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_4,void ()(float)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB7380;
+  *(a2 + 8) = *(a1 + 8);
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::Engine::configureSimulatePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_4,void ()(float)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB7380;
+  *(a2 + 8) = *(a1 + 8);
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_0,void ()(float)>::operator()(re::ProfilerConfig *a1)
+{
+  v2 = *(*(*(a1 + 1) + 896) + 24);
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(a1);
+  if (isStatisticCollectionEnabled)
+  {
+    v4 = re::profilerThreadContext(isStatisticCollectionEnabled);
+    re::ProfilerThreadContext::begin(v4, *(*(a1 + 1) + 1024), v2 & 0xFFFFFFFFFFFFFFFLL, 1);
+  }
+
+  v5 = re::ProfilerConfig::isStatisticCollectionEnabled(isStatisticCollectionEnabled);
+  if (v5)
+  {
+    v6 = re::profilerThreadContext(v5);
+    re::ProfilerThreadContext::pushTimeScope(v6);
+  }
+
+  result = re::internal::enableSignposts(0, 0);
+  if (result)
+  {
+
+    return kdebug_trace();
+  }
+
+  return result;
+}
+
+void *re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_0,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB73D8;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_0,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB73D8;
+  a2[1] = v2;
+  return a2;
+}
+
+void re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_1,void ()(float)>::~Callable(uint64_t a1)
+{
+
+  JUMPOUT(0x1E6906520);
+}
+
+void *re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_1,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v3 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  *a2 = &unk_1F5CB7430;
+  a2[1] = v3;
+  a2[2] = v4;
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_1,void ()(float)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB7430;
+  v2 = *(a1 + 8);
+  *(a1 + 16) = 0;
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_2,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7488;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_2,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7488;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_3,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB74E0;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_3,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB74E0;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_4,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7538;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_4,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7538;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_5,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7590;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_5,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7590;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_7,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB75E8;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_7,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB75E8;
+  a2[1] = v2;
+  return a2;
+}
+
+void re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_8,void ()(float)>::operator()(uint64_t a1)
+{
+  v1 = *(a1 + 8);
+  v2 = re::ServiceLocator::serviceOrNull<re::ecs2::ECSService>(*(v1 + 688));
+  v3 = re::ServiceLocator::serviceOrNull<re::ColorManager>(*(v1 + 688));
+  v4 = v3;
+  if (v2)
+  {
+    v5 = v3 == 0;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5 || ((v6 = (*(*v2 + 288))(v2) + 120, re::DataArray<re::ecs2::SceneGroup>::DataArrayIterator<re::ecs2::SceneGroup,re::ecs2::SceneGroup&>::DataArrayIterator(&v20, v6, 0), v18 = v20, v19 = v21, v6 == v20) ? (v7 = v21 == 0xFFFFFFFFLL) : (v7 = 0), v7))
+  {
+LABEL_22:
+    *(v4 + 3135) = 1065353216;
+  }
+
+  else
+  {
+    while (1)
+    {
+      v8 = re::DataArray<re::ecs2::SceneGroup>::DataArrayIterator<re::ecs2::SceneGroup,re::ecs2::SceneGroup&>::operator*(&v18);
+      v9 = *(v8 + 200);
+      if (v9)
+      {
+        break;
+      }
+
+LABEL_14:
+      re::DataArray<re::ecs2::SceneGroup>::DataArrayIterator<re::ecs2::SceneGroup,re::ecs2::SceneGroup&>::increment(&v18);
+      if (v18 == v6 && v19 == 0xFFFF && HIWORD(v19) == 0xFFFF)
+      {
+        goto LABEL_22;
+      }
+    }
+
+    v10 = *(v8 + 216);
+    v11 = 8 * v9;
+    while (1)
+    {
+      v12 = *v10;
+      LOBYTE(v20) = 0;
+      SceneDataEntity = makeSceneDataEntity(v12, &v20, 0, re::ecs2::Scene::kLocalSceneDataEntityID, 0);
+      if (SceneDataEntity)
+      {
+        v14 = re::ecs2::EntityComponentCollection::get((SceneDataEntity + 48), re::ecs2::ComponentImpl<re::ecs2::EDRColorManagementComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType);
+        if (v14)
+        {
+          break;
+        }
+      }
+
+      ++v10;
+      v11 -= 8;
+      if (!v11)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    v17 = *(v14 + 32);
+    if (v17)
+    {
+      *(v4 + 3135) = (*(v17 + 16))();
+    }
+  }
+}
+
+void *re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_8,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7640;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_8,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7640;
+  a2[1] = v2;
+  return a2;
+}
+
+void re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_9,void ()(float)>::operator()(uint64_t a1, uint64_t a2, BOOL a3)
+{
+  v3 = re::internal::enableSignposts(0, 0);
+  if (v3)
+  {
+    v3 = kdebug_trace();
+  }
+
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(v3);
+  if (isStatisticCollectionEnabled)
+  {
+    v5 = re::profilerThreadContext(isStatisticCollectionEnabled);
+    re::ProfilerThreadContext::popTimeScope(v5, 5u);
+  }
+
+  v6 = re::ProfilerConfig::isStatisticCollectionEnabled(isStatisticCollectionEnabled);
+  if (v6)
+  {
+    v7 = re::profilerThreadContext(v6);
+
+    re::ProfilerThreadContext::end(v7);
+  }
+}
+
+uint64_t re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_9,void ()(float)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB7698;
+  *(a2 + 8) = *(a1 + 8);
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_9,void ()(float)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB7698;
+  *(a2 + 8) = *(a1 + 8);
+  return a2;
+}
+
+void re::internal::Callable<re::Engine::configureRenderPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_0,void ()(float)>::operator()(re::ProfilerConfig *a1)
+{
+  v2 = *(*(*(a1 + 1) + 896) + 24);
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(a1);
+  if (isStatisticCollectionEnabled)
+  {
+    v4 = re::profilerThreadContext(isStatisticCollectionEnabled);
+    v5 = *(*(a1 + 1) + 1024);
+
+    re::ProfilerThreadContext::begin(v4, v5, v2 & 0xFFFFFFFFFFFFFFFLL, 1);
+  }
+}
+
+void *re::internal::Callable<re::Engine::configureRenderPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_0,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB76F0;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureRenderPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_0,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB76F0;
+  a2[1] = v2;
+  return a2;
+}
+
+int64x2_t re::internal::Callable<re::Engine::configureRenderPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_1,void ()(float)>::operator()(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  v3 = (*(**(v2 + 992) + 104))(*(v2 + 992));
+  if (!v3)
+  {
+    v5 = *(*(v2 + 896) + 24);
+    isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(v3);
+    if (isStatisticCollectionEnabled)
+    {
+      v7 = re::profilerThreadContext(isStatisticCollectionEnabled);
+      if (*(v7 + 152))
+      {
+        v1 = mach_absolute_time();
+      }
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    if (re::internal::enableSignposts(0, 0))
+    {
+      kdebug_trace();
+    }
+
+    re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v15, 1520, v2, v5 & 0xFFFFFFFFFFFFFFFLL, 0, 0);
+    (*(*v2 + 56))(v2);
+    re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v15, v8, v9);
+    if (v7)
+    {
+      if (*(v7 + 152))
+      {
+        v10 = mach_absolute_time();
+        v11 = *(v7 + 152);
+        if (v11)
+        {
+          v12 = v11[56].u64[0];
+          if (v12 >= v10 - v1)
+          {
+            v12 = v10 - v1;
+          }
+
+          v11[56].i64[0] = v12;
+          v13 = v11[56].u64[1];
+          if (v13 <= v10 - v1)
+          {
+            v13 = v10 - v1;
+          }
+
+          v11[56].i64[1] = v13;
+          v14 = vdupq_n_s64(1uLL);
+          v14.i64[0] = v10 - v1;
+          result = vaddq_s64(v11[57], v14);
+          v11[57] = result;
+          *(v7 + 184) = 0;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+void *re::internal::Callable<re::Engine::configureRenderPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_1,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7748;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureRenderPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_1,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7748;
+  a2[1] = v2;
+  return a2;
+}
+
+void re::internal::Callable<re::Engine::configureRenderPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_2,void ()(float)>::operator()(re::ProfilerConfig *a1)
+{
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(a1);
+  if (isStatisticCollectionEnabled)
+  {
+    v2 = re::profilerThreadContext(isStatisticCollectionEnabled);
+
+    re::ProfilerThreadContext::end(v2);
+  }
+}
+
+void *re::internal::Callable<re::Engine::configureRenderPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_2,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  result = a2;
+  *a2 = &unk_1F5CB77A0;
+  return result;
+}
+
+void *re::internal::Callable<re::Engine::configureRenderPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_2,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  result = a2;
+  *a2 = &unk_1F5CB77A0;
+  return result;
+}
+
+uint64_t re::internal::Callable<re::Engine::configureEndTickPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_0,void ()(float)>::operator()(re::ProfilerConfig *a1)
+{
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(a1);
+  if (isStatisticCollectionEnabled)
+  {
+    v2 = re::profilerThreadContext(isStatisticCollectionEnabled);
+    re::ProfilerThreadContext::pushTimeScope(v2);
+  }
+
+  result = re::internal::enableSignposts(0, 0);
+  if (result)
+  {
+
+    return kdebug_trace();
+  }
+
+  return result;
+}
+
+void *re::internal::Callable<re::Engine::configureEndTickPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_0,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB77F8;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureEndTickPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_0,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB77F8;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureEndTickPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_1,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7850;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureEndTickPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_1,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7850;
+  a2[1] = v2;
+  return a2;
+}
+
+double re::internal::Callable<re::Engine::configureEndTickPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_2,void ()(float)>::operator()(uint64_t a1, uint64_t a2, BOOL a3)
+{
+  v3 = re::internal::enableSignposts(0, 0);
+  if (v3)
+  {
+    v3 = kdebug_trace();
+  }
+
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(v3);
+  if (isStatisticCollectionEnabled)
+  {
+    v6 = re::profilerThreadContext(isStatisticCollectionEnabled);
+
+    *&result = re::ProfilerThreadContext::popTimeScope(v6, 7u).u64[0];
+  }
+
+  return result;
+}
+
+void *re::internal::Callable<re::Engine::configureEndTickPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_2,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB78A8;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureEndTickPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_2,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB78A8;
+  a2[1] = v2;
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_0,void ()(float)>::operator()(re::ProfilerConfig *a1)
+{
+  v2 = *(*(*(a1 + 1) + 896) + 24);
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(a1);
+  if (isStatisticCollectionEnabled)
+  {
+    v4 = re::profilerThreadContext(isStatisticCollectionEnabled);
+    re::ProfilerThreadContext::begin(v4, *(*(a1 + 1) + 1024), v2 & 0xFFFFFFFFFFFFFFFLL, 1);
+  }
+
+  result = re::internal::enableSignposts(0, 0);
+  if (result)
+  {
+
+    return kdebug_trace();
+  }
+
+  return result;
+}
+
+void *re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_0,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7900;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_0,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7900;
+  a2[1] = v2;
+  return a2;
+}
+
+re::FrameProfiler *re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_1,void ()(float)>::operator()(uint64_t a1)
+{
+  result = *(a1 + 8);
+  if (*(result + 204) == 1 && (*(result + 17) & 1) == 0)
+  {
+    return re::FrameProfiler::frameUpdateFinished(result);
+  }
+
+  return result;
+}
+
+void *re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_1,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7958;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_1,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7958;
+  a2[1] = v2;
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_2,void ()(float)>::operator()(uint64_t a1, uint64_t a2, BOOL a3)
+{
+  if (re::internal::enableSignposts(0, 0))
+  {
+    kdebug_trace();
+  }
+
+  if (re::internal::enableSignposts(0, 0))
+  {
+    kdebug_trace();
+  }
+
+  memset(v8, 0, sizeof(v8));
+  v9 = 1065353216;
+  if (re::internal::enableSignposts(0, 0))
+  {
+    kdebug_trace();
+  }
+
+  v4 = re::internal::enableSignposts(0, 0);
+  if (v4)
+  {
+    v4 = kdebug_trace();
+  }
+
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(v4);
+  if (isStatisticCollectionEnabled)
+  {
+    v6 = re::profilerThreadContext(isStatisticCollectionEnabled);
+    re::ProfilerThreadContext::end(v6);
+  }
+
+  re::ProfilerManager::process(*(*(a1 + 8) + 1024), v8);
+  if (re::internal::enableSignposts(0, 0))
+  {
+    kdebug_trace();
+  }
+
+  return std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(v8);
+}
+
+void *re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_2,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB79B0;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_2,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB79B0;
+  a2[1] = v2;
+  return a2;
+}
+
+uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    do
+    {
+      v3 = *v2;
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+
+  v4 = *a1;
+  *a1 = 0;
+  if (v4)
+  {
+    operator delete(v4);
+  }
+
+  return a1;
+}
+
+uint64_t re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_3,void ()(float)>::operator()(uint64_t a1, uint64_t a2, BOOL a3)
+{
+  if (re::internal::enableSignposts(0, 0))
+  {
+    kdebug_trace();
+  }
+
+  v4 = re::internal::enableSignposts(0, 0);
+  if (v4)
+  {
+    v4 = kdebug_trace();
+  }
+
+  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(v4);
+  if (isStatisticCollectionEnabled)
+  {
+    v6 = re::profilerThreadContext(isStatisticCollectionEnabled);
+    re::ProfilerThreadContext::end(v6);
+  }
+
+  v7 = *(*(a1 + 8) + 1024);
+  memset(v9, 0, sizeof(v9));
+  v10 = 1065353216;
+  re::ProfilerManager::process(v7, v9);
+  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(v9);
+  result = re::internal::enableSignposts(0, 0);
+  if (result)
+  {
+    return kdebug_trace();
+  }
+
+  return result;
+}
+
+void *re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_3,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7A08;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_3,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7A08;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_4,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7A60;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_4,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7A60;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_5,void ()(float)>::cloneInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7AB8;
+  a2[1] = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::Engine::configureExitFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_5,void ()(float)>::moveInto(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5CB7AB8;
+  a2[1] = v2;
+  return a2;
+}
+
+void std::__shared_weak_count::__release_shared[abi:nn200100](std::__shared_weak_count *a1)
+{
+  if (!atomic_fetch_add(&a1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (a1->__on_zero_shared)(a1);
+
+    std::__shared_weak_count::__release_weak(a1);
+  }
+}
+
+uint64_t re::Event<re::Engine>::~Event(uint64_t a1)
+{
+  if (*a1)
+  {
+    re::DynamicArray<unsigned long>::deinit(a1);
+  }
+
+  v2 = *(a1 + 40);
+  if (v2)
+  {
+    if (*(a1 + 72))
+    {
+      (*(*v2 + 40))(v2);
+    }
+
+    *(a1 + 72) = 0;
+    *(a1 + 48) = 0;
+    *(a1 + 56) = 0;
+    *(a1 + 40) = 0;
+    ++*(a1 + 64);
+  }
+
+  re::DynamicArray<unsigned long>::deinit(a1);
+  return a1;
+}
+
+uint64_t re::HashSetBase<re::ServiceKey,re::ServiceRegistration,re::internal::ServiceKeyGetter,re::internal::ServiceKeyHash,re::internal::ServiceKeyEqualTo,false,false>::add(uint64_t a1, uint64_t *a2)
+{
+  v4 = re::internal::ServiceKeyHash::operator()(&v15, a2);
+  v5 = v4;
+  v6 = *(a1 + 24);
+  if (!v6)
+  {
+    LODWORD(v7) = 0;
+    goto LABEL_9;
+  }
+
+  v7 = v4 % v6;
+  v8 = *(*(a1 + 8) + 4 * (v4 % v6));
+  if (v8 == 0x7FFFFFFF)
+  {
+LABEL_9:
+    result = re::HashSetBase<re::ServiceKey,re::ServiceRegistration,re::internal::ServiceKeyGetter,re::internal::ServiceKeyHash,re::internal::ServiceKeyEqualTo,false,false>::addAsCopy(a1, v7, v5, a2, a2);
+    ++*(a1 + 40);
+    return result;
+  }
+
+  v9 = *a2;
+  v10 = *(a1 + 16);
+  while (1)
+  {
+    v11 = v10 + 40 * v8;
+    v13 = *(v11 + 8);
+    v12 = v11 + 8;
+    if (v13 == v9)
+    {
+      result = re::StringID::operator==((v12 + 8), a2 + 1);
+      if (result)
+      {
+        return result;
+      }
+    }
+
+    v8 = *(v10 + 40 * v8) & 0x7FFFFFFF;
+    if (v8 == 0x7FFFFFFF)
+    {
+      goto LABEL_9;
+    }
+  }
+}
+
+re::ServiceRegistration *re::ServiceRegistration::ServiceRegistration(re::ServiceRegistration *this, const re::IntrospectionBase *a2, StringID *a3, void *a4)
+{
+  re::StringID::StringID(&v9, a3);
+  *this = a2;
+  v7 = re::StringID::StringID((this + 8), &v9);
+  if (*&v9.var0)
+  {
+    if (*&v9.var0)
+    {
+    }
+  }
+
+  *(this + 3) = a4;
+  return this;
+}
+
+uint64_t re::HashSetBase<re::ServiceKey,re::ServiceRegistration,re::internal::ServiceKeyGetter,re::internal::ServiceKeyHash,re::internal::ServiceKeyEqualTo,false,false>::addAsCopy(uint64_t a1, unsigned int a2, unint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v8 = *(a1 + 36);
+  if (v8 == 0x7FFFFFFF)
+  {
+    v8 = *(a1 + 32);
+    v9 = v8;
+    if (v8 == *(a1 + 24))
+    {
+      re::HashSetBase<re::ServiceKey,re::ServiceRegistration,re::internal::ServiceKeyGetter,re::internal::ServiceKeyHash,re::internal::ServiceKeyEqualTo,false,false>::setCapacity(a1, (2 * *(a1 + 28)));
+      a2 = a3 % *(a1 + 24);
+      v9 = *(a1 + 32);
+    }
+
+    *(a1 + 32) = v9 + 1;
+    v11 = *(a1 + 16);
+    v12 = *(v11 + 40 * v8);
+  }
+
+  else
+  {
+    v11 = *(a1 + 16);
+    v12 = *(v11 + 40 * v8);
+    *(a1 + 36) = v12 & 0x7FFFFFFF;
+  }
+
+  v13 = 40 * v8;
+  *(v11 + v13) = v12 | 0x80000000;
+  *(*(a1 + 16) + v13) = *(*(a1 + 16) + 40 * v8) & 0x80000000 | *(*(a1 + 8) + 4 * a2);
+  v14 = (*(a1 + 16) + 40 * v8);
+  v14[1] = *a5;
+  re::StringID::StringID((v14 + 2), (a5 + 8));
+  v14[4] = *(a5 + 24);
+  *(*(a1 + 8) + 4 * a2) = v8;
+  ++*(a1 + 28);
+  return v8;
+}
+
+unint64_t re::internal::ServiceKeyHash::operator()(uint64_t a1, void *a2)
+{
+  v2 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  v3 = (0x94D049BB133111EBLL * (v2 ^ (v2 >> 27))) ^ ((0x94D049BB133111EBLL * (v2 ^ (v2 >> 27))) >> 31);
+  v4 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((a2[1] >> 31) ^ (a2[1] >> 1))) ^ ((0xBF58476D1CE4E5B9 * ((a2[1] >> 31) ^ (a2[1] >> 1))) >> 27));
+  return ((v4 ^ (v4 >> 31)) + (v3 << 6) + (v3 >> 2) - 0x61C8864680B583E9) ^ v3;
+}
+
+void re::HashSetBase<re::ServiceKey,re::ServiceRegistration,re::internal::ServiceKeyGetter,re::internal::ServiceKeyHash,re::internal::ServiceKeyEqualTo,false,false>::setCapacity(_anonymous_namespace_ *result, uint64_t a2)
+{
+  v2 = a2;
+  v4 = *result;
+  if (*result)
+  {
+    if (v2 && *(result + 6) != v2 && *(result + 7) <= v2)
+    {
+      memset(v14, 0, 36);
+      *&v14[36] = 0x7FFFFFFFLL;
+      re::HashSetBase<re::ServiceKey,re::ServiceRegistration,re::internal::ServiceKeyGetter,re::internal::ServiceKeyHash,re::internal::ServiceKeyEqualTo,false,false>::init(v14, v4, v2);
+      v5 = *v14;
+      *v14 = *result;
+      *result = v5;
+      v6 = *&v14[16];
+      *&v14[16] = *(result + 2);
+      *(result + 2) = v6;
+      v8 = *&v14[24];
+      *&v14[24] = *(result + 24);
+      v7 = *&v14[32];
+      *(result + 24) = v8;
+      v9 = v7;
+      if (v7)
+      {
+        v10 = 0;
+        v11 = 0;
+        do
+        {
+          if ((*(*&v14[16] + v10) & 0x80000000) != 0)
+          {
+            v12 = re::internal::ServiceKeyHash::operator()(&v15, (*&v14[16] + v10 + 8));
+            re::HashSetBase<re::ServiceKey,re::ServiceRegistration,re::internal::ServiceKeyGetter,re::internal::ServiceKeyHash,re::internal::ServiceKeyEqualTo,false,false>::addAsMove(result, v12 % *(result + 6), v12, *&v14[16] + v10 + 8, (*&v14[16] + v10 + 8));
+            v9 = *&v14[32];
+          }
+
+          ++v11;
+          v10 += 40;
+        }
+
+        while (v11 < v9);
+      }
+
+      re::HashSetBase<re::ServiceKey,re::ServiceRegistration,re::internal::ServiceKeyGetter,re::internal::ServiceKeyHash,re::internal::ServiceKeyEqualTo,false,false>::deinit(v14);
+    }
+  }
+
+  else
+  {
+    if (v2)
+    {
+      v13 = v2;
+    }
+
+    else
+    {
+      v13 = 3;
+    }
+  }
+}
+
+void re::HashSetBase<re::ServiceKey,re::ServiceRegistration,re::internal::ServiceKeyGetter,re::internal::ServiceKeyHash,re::internal::ServiceKeyEqualTo,false,false>::init(uint64_t a1, uint64_t a2, signed int a3)
+{
+  v4 = 245;
+  v5 = &re::internal::PrimeHelper::s_primes;
+  do
+  {
+    v6 = v4 >> 1;
+    v7 = &v5[v4 >> 1];
+    v9 = *v7;
+    v8 = (v7 + 1);
+    v4 += ~(v4 >> 1);
+    if (v9 < a3)
+    {
+      v5 = v8;
+    }
+
+    else
+    {
+      v4 = v6;
+    }
+  }
+
+  while (v4);
+  v10 = *v5;
+  *a1 = a2;
+  v11 = (4 * v10 + 15) & 0x7FFFFFFF0;
+  v12 = (*(*a2 + 32))(a2, v11 + 40 * v10, 16);
+  if (v12)
+  {
+    v14 = v12;
+    *(a1 + 8) = v12;
+    if (v10)
+    {
+      memset_pattern16(v12, &unk_1E304C660, 4 * v10);
+    }
+
+    *(a1 + 16) = &v14[v11];
+    *(a1 + 24) = v10;
+    *(a1 + 40) = 0;
+  }
+
+  else
+  {
+    re::internal::assertLog(4, v13, "assertion failure: '%s' (%s:line %i) Out of memory.", "temp", "init", 601);
+    _os_crash("assertion failure: (temp) Out of memory.");
+    __break(1u);
+  }
+}
+
+uint64_t re::HashSetBase<re::ServiceKey,re::ServiceRegistration,re::internal::ServiceKeyGetter,re::internal::ServiceKeyHash,re::internal::ServiceKeyEqualTo,false,false>::addAsMove(uint64_t a1, unsigned int a2, unint64_t a3, uint64_t a4, void *a5)
+{
+  v7 = *(a1 + 36);
+  if (v7 == 0x7FFFFFFF)
+  {
+    v7 = *(a1 + 32);
+    v8 = v7;
+    if (v7 == *(a1 + 24))
+    {
+      re::HashSetBase<re::ServiceKey,re::ServiceRegistration,re::internal::ServiceKeyGetter,re::internal::ServiceKeyHash,re::internal::ServiceKeyEqualTo,false,false>::setCapacity(a1, (2 * *(a1 + 28)));
+      a2 = a3 % *(a1 + 24);
+      v8 = *(a1 + 32);
+    }
+
+    *(a1 + 32) = v8 + 1;
+    v10 = *(a1 + 16);
+    v11 = *(v10 + 40 * v7);
+  }
+
+  else
+  {
+    v10 = *(a1 + 16);
+    v11 = *(v10 + 40 * v7);
+    *(a1 + 36) = v11 & 0x7FFFFFFF;
+  }
+
+  v12 = 40 * v7;
+  *(v10 + v12) = v11 | 0x80000000;
+  *(*(a1 + 16) + v12) = *(*(a1 + 16) + 40 * v7) & 0x80000000 | *(*(a1 + 8) + 4 * a2);
+  v13 = (*(a1 + 16) + 40 * v7);
+  v13[1] = *a5;
+  v14 = a5[1];
+  v13[2] = v13[2] & 0xFFFFFFFFFFFFFFFELL | v14 & 1;
+  v13[2] = a5[1] & 0xFFFFFFFFFFFFFFFELL | v14 & 1;
+  v15 = a5[3];
+  v13[3] = a5[2];
+  a5[1] = 0;
+  a5[2] = &str_67;
+  v13[4] = v15;
+  *(*(a1 + 8) + 4 * a2) = v7;
+  ++*(a1 + 28);
+  return v7;
+}
+
+double re::HashSetBase<re::ServiceKey,re::ServiceRegistration,re::internal::ServiceKeyGetter,re::internal::ServiceKeyHash,re::internal::ServiceKeyEqualTo,false,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2];
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+          re::StringID::destroyString((v6 + v4 + 16));
+          v3 = *(a1 + 8);
+        }
+
+        v4 += 40;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+void re::make::shared::object<re::EventBus>(re *a1@<X0>, uint64_t *a2@<X8>)
+{
+  v3 = re::globalAllocators(a1);
+  v4 = (*(*v3[2] + 32))(v3[2], 200, 8);
+  re::EventBus::EventBus(v4);
+  *a2 = v5;
+}
+
+uint64_t *re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>>::registerSerializeFuncs(void (***a1)(re::TypeRegistry **))
+{
+  re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::clear((a1 + 28));
+  (*a1)[8](a1);
+  result = re::TypeRegistry::typeID(&v12, a1[26], (a1 + 1));
+  if (v12)
+  {
+    v3 = a1[26];
+    v8 = v12;
+    re::TypeRegistry::attributesByAttributeType(v3, &v8, &v9);
+    if (v10)
+    {
+      v4 = (v11 + 40);
+      v5 = 48 * v10;
+      do
+      {
+        v6 = *(v4 - 2);
+        v7 = *v4;
+        v4 += 6;
+        v14 = v7;
+        v13 = v6 | 0xFFFFFFFF00000000;
+        re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::addOrReplace((a1 + 28), &v13, &v14);
+        v5 -= 48;
+      }
+
+      while (v5);
+    }
+
+    result = v9;
+    if (v9)
+    {
+      if (v11)
+      {
+        return (*(*v9 + 40))();
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t *re::Serializer<re::EncoderOPACK<re::FixedArrayInputStream>>::registerSerializeFuncs(void (***a1)(re::TypeRegistry **))
+{
+  re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::clear((a1 + 28));
+  (*a1)[8](a1);
+  result = re::TypeRegistry::typeID(&v12, a1[26], (a1 + 1));
+  if (v12)
+  {
+    v3 = a1[26];
+    v8 = v12;
+    re::TypeRegistry::attributesByAttributeType(v3, &v8, &v9);
+    if (v10)
+    {
+      v4 = (v11 + 40);
+      v5 = 48 * v10;
+      do
+      {
+        v6 = *(v4 - 2);
+        v7 = *v4;
+        v4 += 6;
+        v14 = v7;
+        v13 = v6 | 0xFFFFFFFF00000000;
+        re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::FixedArrayInputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::addOrReplace((a1 + 28), &v13, &v14);
+        v5 -= 48;
+      }
+
+      while (v5);
+    }
+
+    result = v9;
+    if (v9)
+    {
+      if (v11)
+      {
+        return (*(*v9 + 40))();
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t *re::Serializer<re::EncoderBinary<re::DynamicArrayBufferedOutputStream>>::registerSerializeFuncs(void (***a1)(re::TypeRegistry **))
+{
+  re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::clear((a1 + 26));
+  (*a1)[8](a1);
+  result = re::TypeRegistry::typeID(&v12, a1[24], (a1 + 1));
+  if (v12)
+  {
+    v3 = a1[24];
+    v8 = v12;
+    re::TypeRegistry::attributesByAttributeType(v3, &v8, &v9);
+    if (v10)
+    {
+      v4 = (v11 + 40);
+      v5 = 48 * v10;
+      do
+      {
+        v6 = *(v4 - 2);
+        v7 = *v4;
+        v4 += 6;
+        v14 = v7;
+        v13 = v6 | 0xFFFFFFFF00000000;
+        re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderBinary<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::addOrReplace((a1 + 26), &v13, &v14);
+        v5 -= 48;
+      }
+
+      while (v5);
+    }
+
+    result = v9;
+    if (v9)
+    {
+      if (v11)
+      {
+        return (*(*v9 + 40))();
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t *re::Serializer<re::EncoderBinary<re::FixedArrayInputStream>>::registerSerializeFuncs(void (***a1)(re::TypeRegistry **))
+{
+  re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::clear((a1 + 26));
+  (*a1)[8](a1);
+  result = re::TypeRegistry::typeID(&v12, a1[24], (a1 + 1));
+  if (v12)
+  {
+    v3 = a1[24];
+    v8 = v12;
+    re::TypeRegistry::attributesByAttributeType(v3, &v8, &v9);
+    if (v10)
+    {
+      v4 = (v11 + 40);
+      v5 = 48 * v10;
+      do
+      {
+        v6 = *(v4 - 2);
+        v7 = *v4;
+        v4 += 6;
+        v14 = v7;
+        v13 = v6 | 0xFFFFFFFF00000000;
+        re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderBinary<re::FixedArrayInputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::addOrReplace((a1 + 26), &v13, &v14);
+        v5 -= 48;
+      }
+
+      while (v5);
+    }
+
+    result = v9;
+    if (v9)
+    {
+      if (v11)
+      {
+        return (*(*v9 + 40))();
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::ProfilerManager::getProcessorId<re::FrameProfiler>()
+{
+  v0 = &unk_1EE187000;
+  {
+    v0 = &unk_1EE187000;
+    if (v2)
+    {
+      re::ProfilerManager::getProcessorId<re::FrameProfiler>(void)::processorId = atomic_fetch_add(&re::ProfilerManager::s_nextProcessorId, 1uLL) + 1;
+      v0 = &unk_1EE187000;
+    }
+  }
+
+  return v0[36];
+}
+
+void std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::__rehash<true>(uint64_t result, size_t __n)
+{
+  if (__n == 1)
+  {
+    prime = 2;
+  }
+
+  else
+  {
+    prime = __n;
+    if ((__n & (__n - 1)) != 0)
+    {
+      prime = std::__next_prime(__n);
+    }
+  }
+
+  v4 = *(result + 8);
+  if (prime > *&v4)
+  {
+    goto LABEL_6;
+  }
+
+  if (prime < *&v4)
+  {
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
+    if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
+    {
+      v5 = std::__next_prime(v5);
+    }
+
+    else
+    {
+      v7 = 1 << -__clz(v5 - 1);
+      if (v5 >= 2)
+      {
+        v5 = v7;
+      }
+    }
+
+    if (prime <= v5)
+    {
+      prime = v5;
+    }
+
+    if (prime < *&v4)
+    {
+LABEL_6:
+
+      std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::__do_rehash<true>(result, prime);
+    }
+  }
+}
+
+void std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::__do_rehash<true>(uint64_t a1, unint64_t a2)
+{
+  if (a2)
+  {
+    if (!(a2 >> 61))
+    {
+      operator new();
+    }
+
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  v3 = *a1;
+  *a1 = 0;
+  if (v3)
+  {
+    operator delete(v3);
+  }
+
+  *(a1 + 8) = 0;
+}
+
+uint64_t re::ProfilerManager::getProcessorId<re::ProfilerFlameChartProcessor>()
+{
+  v0 = &unk_1EE187000;
+  {
+    v0 = &unk_1EE187000;
+    if (v2)
+    {
+      re::ProfilerManager::getProcessorId<re::ProfilerFlameChartProcessor>(void)::processorId = atomic_fetch_add(&re::ProfilerManager::s_nextProcessorId, 1uLL) + 1;
+      v0 = &unk_1EE187000;
+    }
+  }
+
+  return v0[34];
+}
+
+uint64_t re::ProfilerManager::getProcessorId<re::ProfilerMiniHUDProcessor>()
+{
+  v0 = &unk_1EE187000;
+  {
+    v0 = &unk_1EE187000;
+    if (v2)
+    {
+      re::ProfilerManager::getProcessorId<re::ProfilerMiniHUDProcessor>(void)::processorId = atomic_fetch_add(&re::ProfilerManager::s_nextProcessorId, 1uLL) + 1;
+      v0 = &unk_1EE187000;
+    }
+  }
+
+  return v0[35];
+}
+
+uint64_t re::ProfilerManager::getProcessorId<re::ProfilerDetailedHUDProcessor>()
+{
+  v0 = &unk_1EE187000;
+  {
+    v0 = &unk_1EE187000;
+    if (v2)
+    {
+      re::ProfilerManager::getProcessorId<re::ProfilerDetailedHUDProcessor>(void)::processorId = atomic_fetch_add(&re::ProfilerManager::s_nextProcessorId, 1uLL) + 1;
+      v0 = &unk_1EE187000;
+    }
+  }
+
+  return v0[33];
+}
+
+void *std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(void *a1, unint64_t *a2)
+{
+  v2 = a1[1];
+  if (!*&v2)
+  {
+    return 0;
+  }
+
+  v3 = *a2;
+  v4 = vcnt_s8(v2);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
+  {
+    v5 = *a2;
+    if (v3 >= *&v2)
+    {
+      v5 = v3 % *&v2;
+    }
+  }
+
+  else
+  {
+    v5 = (*&v2 - 1) & v3;
+  }
+
+  v6 = *(*a1 + 8 * v5);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  for (result = *v6; result; result = *result)
+  {
+    v8 = result[1];
+    if (v8 == v3)
+    {
+      if (result[2] == v3)
+      {
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
+        {
+          v8 %= *&v2;
+        }
+      }
+
+      else
+      {
+        v8 &= *&v2 - 1;
+      }
+
+      if (v8 != v5)
+      {
+        return 0;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::ProfilerManager::getProcessorId<re::ProfilerLogProcessor>()
+{
+  v0 = &OBJC_IVAR___REMeshBlendShapeBufferDescriptor__blendShapeConstantsBuffer;
+  {
+    v0 = &OBJC_IVAR___REMeshBlendShapeBufferDescriptor__blendShapeConstantsBuffer;
+    if (v2)
+    {
+      re::ProfilerManager::getProcessorId<re::ProfilerLogProcessor>(void)::processorId = atomic_fetch_add(&re::ProfilerManager::s_nextProcessorId, 1uLL) + 1;
+      v0 = &OBJC_IVAR___REMeshBlendShapeBufferDescriptor__blendShapeConstantsBuffer;
+    }
+  }
+
+  return *(v0 + 150);
+}
+
+uint64_t re::ProfilerManager::getProcessorId<re::ProfilerCsvProcessor>()
+{
+  v0 = &OBJC_IVAR___REMeshBlendShapeBufferDescriptor__blendShapeConstantsBuffer;
+  {
+    v0 = &OBJC_IVAR___REMeshBlendShapeBufferDescriptor__blendShapeConstantsBuffer;
+    if (v2)
+    {
+      re::ProfilerManager::getProcessorId<re::ProfilerCsvProcessor>(void)::processorId = atomic_fetch_add(&re::ProfilerManager::s_nextProcessorId, 1uLL) + 1;
+      v0 = &OBJC_IVAR___REMeshBlendShapeBufferDescriptor__blendShapeConstantsBuffer;
+    }
+  }
+
+  return *(v0 + 152);
+}
+
+uint64_t re::introspect<re::ecs2::ECSService>(unsigned int a1)
+{
+  v1 = &unk_1EE187000;
+  {
+    v1 = &unk_1EE187000;
+    if (v3)
+    {
+      re::introspect<re::ecs2::ECSService>(BOOL)::info = re::ecs2::introspect_ECSService(a1, v4, v5, v6, v7, v8);
+      v1 = &unk_1EE187000;
+    }
+  }
+
+  return v1[167];
+}
+
+re::ecs2::DrawableQueueSyncSystem *re::ecs2::DrawableQueueSyncSystem::DrawableQueueSyncSystem(re::ecs2::DrawableQueueSyncSystem *this)
+{
+  v2 = re::ecs2::System::System(this, 1, 1);
+  *(v2 + 288) = 0;
+  *(v2 + 256) = 0u;
+  *(v2 + 272) = 0u;
+  *(v2 + 224) = 0u;
+  *(v2 + 240) = 0u;
+  *v2 = &unk_1F5CF14F8;
+  v3 = v2 + 312;
+  *(v2 + 320) = 0;
+  *(v2 + 328) = 0;
+  *(v2 + 312) = &unk_1F5CF1490;
+  *(v2 + 336) = 1;
+  *(v2 + 352) = 0;
+  *(v2 + 360) = 0;
+  *(v2 + 344) = 0;
+  *(v2 + 368) = 0;
+  v4 = (v2 + 376);
+  *(v2 + 376) = 0u;
+  *(v2 + 392) = 0u;
+  *(v2 + 408) = 0u;
+  *(v2 + 424) = 0u;
+  *(v2 + 440) = 0u;
+  *(v2 + 456) = 1;
+  *(v2 + 464) = 0u;
+  *(v2 + 480) = 0u;
+  *(v2 + 496) = 0;
+  *(v2 + 504) = 1;
+  *(v2 + 512) = 0u;
+  *(v2 + 528) = 0u;
+  *(v2 + 537) = 0u;
+  v7 = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity((this + 440), 0);
+  *(this + 114) += 2;
+  *(this + 60) = 0;
+  re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity((this + 488), 0);
+  *(this + 126) += 2;
+  *(this + 66) = 0;
+  *(this + 67) = this;
+  *(this + 68) = v3;
+  *(this + 552) = 1;
+  *(this + 35) = 0u;
+  *(this + 36) = 0u;
+  *(this + 148) = 0;
+  *(this + 596) = 0x7FFFFFFFLL;
+  return this;
+}
+
+uint64_t re::ecs2::System::System(uint64_t a1, char a2, char a3)
+{
+  ArcSharedObject::ArcSharedObject(a1, 0);
+  *a1 = &unk_1F5D00FD8;
+  *(a1 + 24) = -1;
+  *(a1 + 32) = -1;
+  *(a1 + 40) = 0;
+  *(a1 + 48) = a2;
+  *(a1 + 49) = a3;
+  *(a1 + 52) = 0;
+  *(a1 + 56) = 260;
+  *(a1 + 60) = 1023969417;
+  *(a1 + 64) = 0;
+  v6 = re::DataArray<re::ecs2::System::SystemScheduling>::DataArray(a1 + 72, 4);
+  *(a1 + 168) = 0;
+  *(a1 + 152) = 0u;
+  *(a1 + 136) = 0u;
+  *(a1 + 172) = 0x7FFFFFFFLL;
+  *(a1 + 216) = 0;
+  *(a1 + 192) = 0;
+  *(a1 + 200) = 0;
+  *(a1 + 184) = 0;
+  *(a1 + 208) = 0;
+  return a1;
+}
+
+uint64_t re::DataArray<re::ecs2::System::SystemScheduling>::DataArray(uint64_t a1, int a2)
+{
+  *(a1 + 24) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0u;
+  *(a1 + 48) = 0;
+  *(a1 + 32) = 0u;
+  *(a1 + 52) = 0x1FFFFFFFFLL;
+  re::DynamicArray<re::RigNodeConstraint>::setCapacity(a1, 0);
+  ++*(a1 + 24);
+  *(a1 + 44) = a2;
+  re::DataArray<re::ecs2::System::SystemScheduling>::allocBlock(a1);
+  return a1;
+}
+
+void re::DataArray<re::ecs2::System::SystemScheduling>::allocBlock(_anonymous_namespace_ *a1)
+{
+  v2 = 40 * *(a1 + 11);
+  v9.n128_u64[0] = (*(**a1 + 32))(*a1, v2, 0);
+  if (v9.n128_u64[0])
+  {
+    v2 = 4 * *(a1 + 11);
+    v9.n128_u64[1] = (*(**a1 + 32))(*a1, v2, 0);
+    if (v9.n128_u64[1])
+    {
+      re::DynamicArray<re::RigNodeConstraint>::add(a1, &v9);
+      *(a1 + 12) = 0;
+      return;
+    }
+  }
+
+  else
+  {
+    re::internal::assertLog(6, v3, "assertion failure: '%s' (%s:line %i) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "block.elements", "allocBlock", 520, v2, *(*a1 + 8), 0);
+    _os_crash("assertion failure: (block.elements) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v5, v7);
+    __break(1u);
+  }
+
+  re::internal::assertLog(6, v4, "assertion failure: '%s' (%s:line %i) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "block.allocationCounters", "allocBlock", 528, v2, *(*a1 + 8));
+  _os_crash("assertion failure: (block.allocationCounters) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v6, v8);
+  __break(1u);
+}
+
+uint64_t *re::BucketArray<re::ecs2::BasicComponentStateSceneData<re::ecs2::DrawableQueueSyncComponent>,4ul>::init(uint64_t a1, uint64_t a2, unint64_t a3)
+{
+  *a1 = a2;
+  re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(a1, a3);
+  *(a1 + 16) += 2;
+  *(a1 + 40) = 0;
+  result = re::BucketArray<re::ecs2::BasicComponentStateSceneData<re::ecs2::DrawableQueueSyncComponent>,4ul>::setBucketsCapacity(a1, a3);
+  ++*(a1 + 48);
+  return result;
+}
+
+void *re::HashBrown<re::ecs2::Scene const*,unsigned long,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,void,false>::init(void *result, uint64_t a2, uint64_t a3)
+{
+  v3 = result;
+  result[7] = a2;
+  v4 = 151 * a3;
+  v5 = ((151 * a3) >> 7) + 15;
+  result[2] = v5 & 0x3FFFFFFFFFFFFF0;
+  if ((v5 & 0x3FFFFFFFFFFFFF0) != 0)
+  {
+    v6 = v5 >> 4;
+    result = (*(*a2 + 32))(a2, 17 * (v5 & 0x3FFFFFFFFFFFFF0), 16);
+    *v3 = result;
+    if (v4 >= 0x80)
+    {
+      v7 = 0;
+      *&v8 = -1;
+      *(&v8 + 1) = -1;
+      do
+      {
+        *(*v3 + 16 * v7++) = v8;
+      }
+
+      while (v6 != v7);
+      result = *v3;
+    }
+
+    v3[1] = &result[2 * v6];
+    v9 = v3[2];
+  }
+
+  else
+  {
+    v9 = 0;
+    *result = 0;
+    result[1] = 0;
+  }
+
+  v3[5] = 0;
+  v3[6] = 0;
+  v3[3] = 0;
+  v3[4] = v9;
+  return result;
+}
+
+uint64_t *re::BucketArray<re::ecs2::BasicComponentStateSceneData<re::ecs2::DrawableQueueSyncComponent>,4ul>::setBucketsCapacity(uint64_t *result, unint64_t a2)
+{
+  v3 = result;
+  if (*result)
+  {
+    if (result[5] < 4 * a2)
+    {
+      while (1)
+      {
+        v4 = v3[1];
+        if (v4 <= a2)
+        {
+          break;
+        }
+
+        result = re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(v3);
+      }
+
+      while (v4 < a2)
+      {
+        v5 = (*(**v3 + 32))(*v3, 448, 0);
+        result = re::DynamicOverflowArray<RESubscriptionHandle *,2ul>::add(v3, &v5);
+        v4 = v3[1];
+      }
+    }
+  }
+
+  else
+  {
+  }
+
+  return result;
+}
+
+double re::ecs2::ThrottleManager::ThrottleManager(re::ecs2::ThrottleManager *this)
+{
+  ArcSharedObject::ArcSharedObject(this, 0);
+  *this = &unk_1F5D00730;
+  result = 0.0;
+  *(this + 24) = 0u;
+  *(this + 40) = 0u;
+  *(this + 52) = 0u;
+  *(this + 68) = 0x7FFFFFFFLL;
+  *(this + 29) = 0;
+  *(this + 30) = 0;
+  *(this + 16) = 0;
+  *(this + 34) = 0;
+  *(this + 5) = 0u;
+  *(this + 6) = 0u;
+  *(this + 56) = 0;
+  return result;
+}
+
+uint64_t re::introspect<re::SimulationClock>()
+{
+  v0 = &unk_1EE187000;
+  {
+    v0 = &unk_1EE187000;
+    if (v2)
+    {
+      re::introspect<re::SimulationClock>(BOOL)::info = re::introspect_SimulationClock(0);
+      v0 = &unk_1EE187000;
+    }
+  }
+
+  return v0[220];
+}
+
+double re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::addSubscription(_anonymous_namespace_ *a1, __int128 *a2)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  re::DynamicArray<re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription>::indexOf(a1, a2, &v6);
+  if ((v6 & 1) == 0)
+  {
+    if (*(a1 + 20))
+    {
+      LOBYTE(v6) = 1;
+      v5 = a2[1];
+      v7 = *a2;
+      v8 = v5;
+      *&result = re::DynamicArray<re::Pair<BOOL,re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription,true>>::add(a1 + 40, &v6).n128_u64[0];
+    }
+
+    else
+    {
+      *&result = re::DynamicArray<re::EvaluationRegister>::add(a1, a2).n128_u64[0];
+    }
+  }
+
+  return result;
+}
+
+__n128 re::DynamicArray<re::Pair<BOOL,re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription,true>>::add(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 8);
+  v5 = *(a1 + 16);
+  if (v5 >= v4)
+  {
+    v6 = v5 + 1;
+    if (v4 < v5 + 1)
+    {
+      if (*a1)
+      {
+        v7 = 2 * v4;
+        v8 = v4 == 0;
+        v9 = 8;
+        if (!v8)
+        {
+          v9 = v7;
+        }
+
+        if (v9 <= v6)
+        {
+          v10 = v6;
+        }
+
+        else
+        {
+          v10 = v9;
+        }
+
+        re::DynamicArray<re::Pair<BOOL,re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription,true>>::setCapacity(a1, v10);
+      }
+
+      else
+      {
+        re::DynamicArray<re::Pair<BOOL,re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription,true>>::setCapacity(a1, v6);
+        ++*(a1 + 24);
+      }
+    }
+
+    v5 = *(a1 + 16);
+  }
+
+  v11 = *(a1 + 32) + 40 * v5;
+  result = *a2;
+  v13 = *(a2 + 16);
+  *(v11 + 32) = *(a2 + 32);
+  *v11 = result;
+  *(v11 + 16) = v13;
+  ++*(a1 + 16);
+  ++*(a1 + 24);
+  return result;
+}
+
+uint64_t re::DynamicArray<re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription>::indexOf@<X0>(uint64_t result@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+{
+  v3 = *(result + 32);
+  v4 = *(result + 16);
+  if (v4)
+  {
+    v5 = 32 * v4;
+    v6 = *(result + 32);
+    while (*v6 != *a2 || v6[1] != a2[1] || v6[2] != a2[2])
+    {
+      v6 += 4;
+      v5 -= 32;
+      if (!v5)
+      {
+        goto LABEL_13;
+      }
+    }
+  }
+
+  else
+  {
+    v6 = *(result + 32);
+  }
+
+  if (v6 == (v3 + 32 * v4))
+  {
+LABEL_13:
+    v8 = 0;
+  }
+
+  else
+  {
+    *(a3 + 8) = (v6 - v3) >> 5;
+    v8 = 1;
+  }
+
+  *a3 = v8;
+  return result;
+}
+
+void *re::DynamicArray<re::Pair<BOOL,re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription,true>>::setCapacity(void *result, unint64_t a2)
+{
+  v3 = result[1];
+  if (v3 != a2)
+  {
+    v5 = result;
+    if (result[2] <= a2)
+    {
+      result = *result;
+      if (*v5)
+      {
+        if (!a2)
+        {
+          v7 = 0;
+          if (!v3)
+          {
+            goto LABEL_9;
+          }
+
+          goto LABEL_8;
+        }
+
+        if (is_mul_ok(a2, 0x28uLL))
+        {
+          v2 = 40 * a2;
+          result = (*(*result + 32))(result, 40 * a2, 8);
+          if (result)
+          {
+            v7 = result;
+            if (!v5[1])
+            {
+LABEL_9:
+              v5[4] = v7;
+              v5[1] = a2;
+              return result;
+            }
+
+LABEL_8:
+            memcpy(v7, v5[4], 40 * v5[2]);
+            result = (*(**v5 + 40))(*v5, v5[4]);
+            goto LABEL_9;
+          }
+        }
+
+        else
+        {
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 40, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v8, v10);
+          __break(1u);
+        }
+
+        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v9, v11);
+        __break(1u);
+      }
+
+      else
+      {
+        result = re::DynamicArray<re::Pair<BOOL,re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription,true>>::setCapacity(v5, a2);
+        ++*(v5 + 6);
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::createSubscription<re::Engine>(re::Engine *,REEventHandlerResult (re::Engine::*)(re::SimulationTimer*,re::SimulationTimerEventArgs const&))::{lambda(re::SimulationTimer*,re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription const&,re::SimulationTimerEventArgs const&)#1}::__invoke(uint64_t a1, void *a2)
+{
+  v3 = a2[1];
+  v4 = a2[2];
+  v5 = (*a2 + (v4 >> 1));
+  if (v4)
+  {
+    v3 = *(*v5 + v3);
+  }
+
+  return v3(v5, a1);
+}
+
+uint64_t re::ecs2::System::System(uint64_t a1, char a2)
+{
+  ArcSharedObject::ArcSharedObject(a1, 0);
+  *a1 = &unk_1F5D00FD8;
+  *(a1 + 24) = -1;
+  *(a1 + 32) = -1;
+  *(a1 + 40) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 49) = a2;
+  *(a1 + 52) = 0;
+  *(a1 + 56) = 260;
+  *(a1 + 60) = 1023969417;
+  *(a1 + 64) = 0;
+  v4 = re::DataArray<re::ecs2::System::SystemScheduling>::DataArray(a1 + 72, 4);
+  *(a1 + 168) = 0;
+  *(a1 + 152) = 0u;
+  *(a1 + 136) = 0u;
+  *(a1 + 172) = 0x7FFFFFFFLL;
+  *(a1 + 216) = 0;
+  *(a1 + 192) = 0;
+  *(a1 + 200) = 0;
+  *(a1 + 184) = 0;
+  *(a1 + 208) = 0;
+  return a1;
+}
+
+uint64_t re::ProfilerManager::getProcessorId<re::FrameAnalysisProfilerProcessor>()
+{
+  if ((atomic_load_explicit(&qword_1EE191778, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE191778))
+  {
+    qword_1EE191770 = atomic_fetch_add(&re::ProfilerManager::s_nextProcessorId, 1uLL) + 1;
+    __cxa_guard_release(&qword_1EE191778);
+  }
+
+  return qword_1EE191770;
+}
+
+void re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::removeSubscription(uint64_t a1, __int128 *a2)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  re::DynamicArray<re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription>::indexOf(a1, a2, v5);
+  if (v5[0] == 1)
+  {
+    if (*(a1 + 80))
+    {
+      v5[0] = 0;
+      v4 = a2[1];
+      v6 = *a2;
+      v7 = v4;
+      re::DynamicArray<re::Pair<BOOL,re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription,true>>::add(a1 + 40, v5);
+    }
+
+    else
+    {
+      re::DynamicArray<re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription>::removeStable(a1, a2);
+    }
+  }
+}
+
+uint64_t re::DynamicArray<re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription>::removeStable(void *a1, void *a2)
+{
+  re::DynamicArray<re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription>::indexOf(a1, a2, v5);
+  v3 = v5[0];
+  if (v5[0] == 1)
+  {
+    re::DynamicArray<re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription>::removeStableAt(a1, v6);
+  }
+
+  return v3;
+}
+
+void *re::DynamicArray<re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription>::removeStableAt(void *result, unint64_t a2)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  v3 = result[2];
+  if (v3 <= a2)
+  {
+    v11 = 0;
+    memset(v20, 0, sizeof(v20));
+    v8 = MEMORY[0x1E69E9C10];
+    v12 = 136315906;
+    v13 = "removeStableAt";
+    v14 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v9 = 3;
+    }
+
+    else
+    {
+      v9 = 2;
+    }
+
+    v15 = 969;
+    v16 = 2048;
+    v17 = a2;
+    v18 = 2048;
+    v19 = v3;
+    _os_log_send_and_compose_impl(v9, &v11, v20, 80, &dword_1E1C61000, v8, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v12, 38, v10);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  v4 = result;
+  v5 = v3 - 1;
+  if (v3 - 1 > a2)
+  {
+    v6 = result[4];
+    result = (v6 + 32 * a2);
+    v7 = (v6 + 32 * v3);
+    if (v7 != (result + 4))
+    {
+      result = memmove(result, result + 4, v7 - (result + 4));
+      v5 = v4[2] - 1;
+    }
+  }
+
+  v4[2] = v5;
+  ++*(v4 + 6);
+  return result;
+}
+
+double re::HashTable<unsigned long long,re::Function<void ()(void)>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2];
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+          re::FunctionBase<24ul,void ()(void)>::destroyCallable(v6 + v4 + 16);
+          v3 = *(a1 + 8);
+        }
+
+        v4 += 64;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+double re::HashTable<unsigned long long,re::ecs2::EntityHandle,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2];
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          v8 = v6 + v4;
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+          re::ecs2::EntityHandle::reset((v6 + v4 + 16));
+          objc_destroyWeak((v8 + 16));
+          *(v8 + 16) = 0;
+          v3 = *(a1 + 8);
+        }
+
+        v4 += 48;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+uint64_t re::HashSetBase<re::ServiceKey,re::ServiceRegistration,re::internal::ServiceKeyGetter,re::internal::ServiceKeyHash,re::internal::ServiceKeyEqualTo,false,false>::remove(uint64_t a1, uint64_t *a2)
+{
+  v4 = re::internal::ServiceKeyHash::operator()(&v23, a2);
+  v5 = *(a1 + 24);
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v6 = v4 % v5;
+  v7 = *(a1 + 8);
+  v8 = *(v7 + 4 * (v4 % v5));
+  if (v8 == 0x7FFFFFFF)
+  {
+    return 0;
+  }
+
+  v11 = *a2;
+  v9 = a2 + 1;
+  v10 = v11;
+  v12 = *(a1 + 16);
+  v13 = 0x7FFFFFFFLL;
+  while (1)
+  {
+    v14 = v12 + 40 * v8;
+    v16 = *(v14 + 8);
+    v15 = v14 + 8;
+    if (v16 == v10 && re::StringID::operator==((v15 + 8), v9))
+    {
+      break;
+    }
+
+    v13 = v8;
+    v8 = *(v12 + 40 * v8) & 0x7FFFFFFF;
+    if (v8 == 0x7FFFFFFF)
+    {
+      return 0;
+    }
+  }
+
+  v18 = *(v12 + 40 * v8) & 0x7FFFFFFF;
+  if (v13 == 0x7FFFFFFF)
+  {
+    *(v7 + 4 * v6) = v18;
+  }
+
+  else
+  {
+    *(v12 + 40 * v13) = *(v12 + 40 * v13) & 0x80000000 | v18;
+  }
+
+  v19 = *(a1 + 16);
+  v20 = (v19 + 40 * v8);
+  v21 = *v20;
+  if (*v20 < 0)
+  {
+    *v20 = v21 & 0x7FFFFFFF;
+    re::StringID::destroyString((v20 + 4));
+    v19 = *(a1 + 16);
+    v21 = *(v19 + 40 * v8);
+  }
+
+  v22 = *(a1 + 40);
+  *(v19 + 40 * v8) = *(a1 + 36) | v21 & 0x80000000;
+  --*(a1 + 28);
+  *(a1 + 36) = v8;
+  *(a1 + 40) = v22 + 1;
+  return 1;
+}
+
+double re::HashTable<unsigned long long,re::SharedPtr<re::ecs2::Entity>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2];
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          v8 = v6 + v4;
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+          v9 = *(v6 + v4 + 16);
+          if (v9)
+          {
+
+            *(v8 + 16) = 0;
+            v3 = *(a1 + 8);
+          }
+        }
+
+        v4 += 32;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+double re::HashTable<unsigned long long,re::HashSet<unsigned long long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2];
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+          re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit((v6 + v4 + 16));
+          v3 = *(a1 + 8);
+        }
+
+        v4 += 72;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,re::ecs2::RemoteEffectAudioPlaybackData>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ecs2::RemoteEffectAudioPlaybackData>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ecs2::RemoteEffectAudioPlaybackData>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ecs2::RemoteEffectAudioPlaybackData>>>::~__hash_table(uint64_t a1)
+{
+  std::__hash_table<std::__hash_value_type<unsigned long long,re::ecs2::RemoteEffectAudioPlaybackData>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ecs2::RemoteEffectAudioPlaybackData>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ecs2::RemoteEffectAudioPlaybackData>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ecs2::RemoteEffectAudioPlaybackData>>>::__deallocate_node(a1, *(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void std::__hash_table<std::__hash_value_type<unsigned long long,re::ecs2::RemoteEffectAudioPlaybackData>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ecs2::RemoteEffectAudioPlaybackData>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ecs2::RemoteEffectAudioPlaybackData>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ecs2::RemoteEffectAudioPlaybackData>>>::__deallocate_node(uint64_t a1, re::ecs2::Entity **a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    do
+    {
+      v3 = *v2;
+      re::ecs2::RemoteEffectAudioPlaybackData::~RemoteEffectAudioPlaybackData(v2 + 3);
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+}
+
+double re::HashTable<unsigned long long,re::ecs2::RemoteEffectShaderData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2];
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+          re::ecs2::RemoteEffectShaderData::~RemoteEffectShaderData((v6 + v4 + 16));
+          v3 = *(a1 + 8);
+        }
+
+        v4 += 832;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+double re::HashTable<unsigned long long,re::HashTable<re::ecs2::RemoteEffectHitTestSource,re::SharedPtr<re::ecs2::RemoteEffectHoverState>,re::Hash<re::ecs2::RemoteEffectHitTestSource>,re::EqualTo<re::ecs2::RemoteEffectHitTestSource>,true,false>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2];
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+          re::HashTable<re::ecs2::RemoteEffectHitTestSource,re::SharedPtr<re::ecs2::RemoteEffectHoverState>,re::Hash<re::ecs2::RemoteEffectHitTestSource>,re::EqualTo<re::ecs2::RemoteEffectHitTestSource>,true,false>::deinit((v6 + v4 + 16));
+          v3 = *(a1 + 8);
+        }
+
+        v4 += 72;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+double re::HashTable<re::ecs2::RemoteEffectHitTestSource,re::SharedPtr<re::ecs2::RemoteEffectHoverState>,re::Hash<re::ecs2::RemoteEffectHitTestSource>,re::EqualTo<re::ecs2::RemoteEffectHitTestSource>,true,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    if (*(a1 + 8))
+    {
+      v3 = 0;
+      do
+      {
+        re::HashTable<re::ecs2::RemoteEffectHitTestSource,re::SharedPtr<re::ecs2::RemoteEffectHoverState>,re::Hash<re::ecs2::RemoteEffectHitTestSource>,re::EqualTo<re::ecs2::RemoteEffectHitTestSource>,true,false>::free(a1, v3++);
+      }
+
+      while (v3 < *(a1 + 8));
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+void re::HashTable<re::ecs2::RemoteEffectHitTestSource,re::SharedPtr<re::ecs2::RemoteEffectHoverState>,re::Hash<re::ecs2::RemoteEffectHitTestSource>,re::EqualTo<re::ecs2::RemoteEffectHitTestSource>,true,false>::free(uint64_t a1, unsigned int a2)
+{
+  v2 = *(a1 + 16) + 24 * a2;
+  if ((*v2 & 0x80000000) != 0)
+  {
+    *v2 &= ~0x80000000;
+    v3 = *(v2 + 8);
+    if (v3)
+    {
+
+      *(v2 + 8) = 0;
+    }
+  }
+}
+
+double re::HashTable<unsigned long long,re::VFXManager::VFXEffectData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2];
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          v8 = v6 + v4;
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+
+          v3 = *(a1 + 8);
+        }
+
+        v4 += 56;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+double re::HashTable<unsigned long long,re::VFXManager::VFXRuntimeData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2];
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          v8 = v6 + v4;
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+
+          v3 = *(a1 + 8);
+        }
+
+        v4 += 64;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+void re::ecs2::PhysicsSimulationTracking::~PhysicsSimulationTracking(re::ecs2::PhysicsSimulationTracking *this)
+{
+  *(this + 44) = 0;
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(this + 70);
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(this + 64);
+  re::HashTable<re::ecs2::Scene const*,re::DataArray<re::ecs2::PhysicsSimulationData>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::deinit(this + 58);
+  re::BucketArray<RESubscriptionHandle,8ul>::deinit(this + 408);
+  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 408);
+  re::FixedArray<CoreIKTransform>::deinit(this + 41);
+  re::FixedArray<CoreIKTransform>::deinit(this + 38);
+
+  re::ecs2::HierarchyStateTracking<re::ecs2::RootPhysicsSimulationData>::~HierarchyStateTracking(this);
+}
+
+{
+  re::ecs2::PhysicsSimulationTracking::~PhysicsSimulationTracking(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t *re::ecs2::HierarchyStateTracking<re::ecs2::RootPhysicsSimulationData>::~HierarchyStateTracking(uint64_t *a1)
+{
+  *a1 = &unk_1F5CB7C80;
+  v2 = a1 + 1;
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(a1 + 31);
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(a1 + 25);
+  re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::deinit(a1 + 19);
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(a1 + 13);
+  re::HashTable<re::Pair<re::StringSlice,re::StringSlice,true>,unsigned long,re::Hash<re::Pair<re::StringSlice,re::StringSlice,true>>,re::EqualTo<re::Pair<re::StringSlice,re::StringSlice,true>>,true,false>::deinit(a1 + 7);
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v2);
+  return a1;
+}
+
+double re::HashTable<re::ecs2::Scene const*,re::DataArray<re::ecs2::PhysicsSimulationData>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2];
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+          v8 = v6 + v4 + 16;
+          re::DataArray<re::ecs2::PhysicsSimulationData>::deinit(v8);
+          re::DynamicArray<unsigned long>::deinit(v8);
+          v3 = *(a1 + 8);
+        }
+
+        v4 += 88;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+uint64_t re::DataArray<re::ecs2::PhysicsSimulationData>::deinit(uint64_t result)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  if (*(result + 44))
+  {
+    v1 = result;
+    v2 = re::DataArray<re::ecs2::PhysicsSimulationData>::clear(result);
+    if (!v1[2])
+    {
+      v7 = 0;
+      memset(v16, 0, sizeof(v16));
+      v4 = MEMORY[0x1E69E9C10];
+      v8 = 136315906;
+      v9 = "operator[]";
+      v10 = 1024;
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        v5 = 3;
+      }
+
+      else
+      {
+        v5 = 2;
+      }
+
+      v11 = 789;
+      v12 = 2048;
+      v13 = 0;
+      v14 = 2048;
+      v15 = 0;
+      _os_log_send_and_compose_impl(v5, &v7, v16, 80, &dword_1E1C61000, v4, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v8, 38, v6);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    v3 = v1[4];
+    (*(**v1 + 40))(*v1, *v3, v2);
+    (*(**v1 + 40))(*v1, v3[1]);
+    result = re::DynamicArray<unsigned long>::deinit(v1);
+    *(v1 + 11) = 0;
+  }
+
+  return result;
+}
+
+double re::DataArray<re::ecs2::PhysicsSimulationData>::clear(void *a1)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::DataArrayIterator(v24, a1, 0);
+  if (*&v24[0] != a1 || DWORD2(v24[0]) != 0xFFFFFFFFLL)
+  {
+    do
+    {
+      v3 = re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::handle(v24);
+      re::DataArray<re::ecs2::PhysicsSimulationData>::destroy(a1, v3);
+      re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::increment(v24);
+    }
+
+    while (*&v24[0] != a1 || WORD4(v24[0]) != 0xFFFF || WORD5(v24[0]) != 0xFFFF);
+  }
+
+  v6 = a1[2];
+  v7 = v6 - 1;
+  if (v6 != 1)
+  {
+    v8 = 16 * v6;
+    do
+    {
+      v9 = a1[2];
+      if (v9 <= v7)
+      {
+        v15 = 0;
+        memset(v24, 0, sizeof(v24));
+        v12 = MEMORY[0x1E69E9C10];
+        v16 = 136315906;
+        v17 = "operator[]";
+        v18 = 1024;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v13 = 3;
+        }
+
+        else
+        {
+          v13 = 2;
+        }
+
+        v19 = 789;
+        v20 = 2048;
+        v21 = v7;
+        v22 = 2048;
+        v23 = v9;
+        _os_log_send_and_compose_impl(v13, &v15, v24, 80, &dword_1E1C61000, v12, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v16, 38, v14);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+      v10 = a1[4] + v8;
+      (*(**a1 + 40))(*a1, *(v10 - 16));
+      (*(**a1 + 40))(*a1, *(v10 - 8));
+      re::DynamicArray<re::DataArray<re::RigGraphOperatorDefinition>::ElementBlock>::removeAt(a1, v7);
+      v8 -= 16;
+      --v7;
+    }
+
+    while (v7);
+  }
+
+  result = NAN;
+  a1[6] = 0xFFFFFFFF00000000;
+  return result;
+}
+
+void re::DataArray<re::ecs2::PhysicsSimulationData>::destroy(uint64_t a1, unint64_t a2)
+{
+  v2 = a2;
+  v21 = *MEMORY[0x1E69E9840];
+  v4 = a2 >> 16;
+  v5 = re::DataArray<re::ecs2::PhysicsSimulationData>::tryGet(a1, a2 & 0xFFFFFFFF00000000 | (WORD1(a2) << 16) | a2);
+  if (v5)
+  {
+    v6 = v5;
+    re::ecs2::PhysicsSimulationData::deinit(v5);
+    objc_destroyWeak(v6 + 7);
+    *(v6 + 7) = 0;
+    v7 = *(a1 + 16);
+    if (v7 <= HIWORD(v2))
+    {
+      v11 = 0;
+      memset(v20, 0, sizeof(v20));
+      v8 = MEMORY[0x1E69E9C10];
+      v12 = 136315906;
+      v13 = "operator[]";
+      v14 = 1024;
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        v9 = 3;
+      }
+
+      else
+      {
+        v9 = 2;
+      }
+
+      v15 = 789;
+      v16 = 2048;
+      v17 = HIWORD(v2);
+      v18 = 2048;
+      v19 = v7;
+      _os_log_send_and_compose_impl(v9, &v11, v20, 80, &dword_1E1C61000, v8, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v12, 38, v10);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    *(*(*(a1 + 32) + 16 * HIWORD(v2) + 8) + 4 * v2) = 0;
+    *v6 = *(a1 + 52);
+    *(a1 + 52) = v2;
+    *(a1 + 54) = v4;
+    --*(a1 + 40);
+  }
+}
+
+uint64_t re::DataArray<re::ecs2::PhysicsSimulationData>::tryGet(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 16);
+  if (WORD1(a2) < v2 && ((v2 - 1) != WORD1(a2) ? (v3 = *(a1 + 44)) : (v3 = *(a1 + 48)), a2 < v3 && ((v4 = (*(a1 + 32) + 16 * WORD1(a2)), (v5 = *(v4[1] + 4 * a2)) != 0) ? (v6 = v5 == (HIDWORD(a2) & 0xFFFFFF)) : (v6 = 0), v6)))
+  {
+    return *v4 + 272 * a2;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void re::ecs2::HierarchyStateTracking<re::ecs2::RootPhysicsSimulationData>::clearEntityHierarchyStateData(_DWORD *a1, uint64_t a2)
+{
+  if (a1[21])
+  {
+    if (a1[74] != a1[24])
+    {
+      re::HashSetBase<unsigned long long,unsigned long long,re::internal::ValueAsKey<unsigned long long>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::clear((a1 + 62));
+    }
+
+    re::StackScratchAllocator::StackScratchAllocator(v15);
+    v9[0] = 0;
+    v9[1] = 0;
+    v10 = 1;
+    v12 = 0;
+    v13 = 0;
+    v11 = 0;
+    v14 = 0;
+    re::BucketArray<re::ecs2::Entity const*,32ul>::init(v9, v15, 1uLL);
+    *re::BucketArray<re::ecs2::Entity const*,32ul>::addUninitialized(v9) = a2;
+    while (v13)
+    {
+      v8 = *re::BucketArray<re::ecs2::Entity const*,32ul>::operator[](v9, v13 - 1);
+      re::BucketArray<re::ecs2::Entity const*,32ul>::operator[](v9, --v13);
+      ++v14;
+      if (!re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains((a1 + 62), &v8))
+      {
+        re::HashTable<re::ecs2::Entity const*,re::ecs2::EntityRenderOptions,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove((a1 + 14), &v8);
+        re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add((a1 + 62), &v8);
+        v4 = *(v8 + 344);
+        if (v4)
+        {
+          v5 = *(v8 + 360);
+          v6 = 8 * v4;
+          do
+          {
+            v7 = *v5++;
+            *re::BucketArray<re::ecs2::Entity const*,32ul>::addUninitialized(v9) = v7;
+            v6 -= 8;
+          }
+
+          while (v6);
+        }
+      }
+    }
+
+    a1[74] = a1[24];
+    re::BucketArray<re::ecs2::Entity const*,32ul>::deinit(v9);
+    if (v9[0] && (v10 & 1) == 0)
+    {
+      (*(*v9[0] + 40))();
+    }
+
+    re::StackScratchAllocator::~StackScratchAllocator(v15);
+  }
+}
+
+void re::Scheduler::~Scheduler(re::Scheduler *this)
+{
+  re::FixedArray<CoreIKTransform>::deinit(this + 101);
+  re::FixedArray<re::DynamicBitset<unsigned long long,256ul>>::deinit(this + 98);
+  re::FixedArray<re::DynamicBitset<unsigned long long,256ul>>::deinit(this + 95);
+  re::DynamicArray<unsigned long>::deinit(this + 704);
+  re::FixedArray<re::DynamicBitset<unsigned long long,256ul>>::deinit(this + 85);
+  re::FixedArray<CoreIKTransform>::deinit(this + 82);
+  re::FixedArray<re::DynamicBitset<unsigned long long,256ul>>::deinit(this + 79);
+  re::FixedArray<CoreIKTransform>::deinit(this + 76);
+  re::FixedArray<CoreIKTransform>::deinit(this + 73);
+  re::FixedArray<CoreIKTransform>::deinit(this + 70);
+  re::FixedArray<CoreIKTransform>::deinit(this + 67);
+  re::FixedArray<re::Function<void ()(float)>>::deinit(this + 64);
+  re::FixedArray<CoreIKTransform>::deinit(this + 61);
+  re::FixedArray<CoreIKTransform>::deinit(this + 58);
+  re::FixedArray<CoreIKTransform>::deinit(this + 55);
+  re::FixedArray<re::DynamicBitset<unsigned long long,256ul>>::deinit(this + 52);
+  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 344);
+  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 272);
+  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 200);
+  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 128);
+  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 56);
+  re::FixedArray<re::StringID>::deinit(this + 4);
+  re::FixedArray<re::StringID>::deinit(this + 1);
+}
+
+void *re::FixedArray<re::DynamicBitset<unsigned long long,256ul>>::deinit(void *result)
+{
+  if (*result)
+  {
+    v1 = result;
+    v3 = result + 1;
+    v2 = result[1];
+    if (v2)
+    {
+      v4 = result[2];
+      v5 = 72 * v2;
+      do
+      {
+        re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(v4);
+        v4 += 72;
+        v5 -= 72;
+      }
+
+      while (v5);
+      result = (*(**v1 + 40))(*v1, v1[2]);
+      *v3 = 0;
+      v3[1] = 0;
+    }
+
+    *v1 = 0;
+  }
+
+  return result;
+}
+
+void *re::FixedArray<re::Function<void ()(float)>>::deinit(void *result)
+{
+  if (*result)
+  {
+    v1 = result;
+    v3 = result + 1;
+    v2 = result[1];
+    if (v2)
+    {
+      v4 = result[2];
+      v5 = 40 * v2;
+      do
+      {
+        re::FunctionBase<24ul,void ()(float)>::destroyCallable(v4);
+        v4 += 40;
+        v5 -= 40;
+      }
+
+      while (v5);
+      result = (*(**v1 + 40))(*v1, v1[2]);
+      *v3 = 0;
+      v3[1] = 0;
+    }
+
+    *v1 = 0;
+  }
+
+  return result;
+}
+
+uint64_t re::EventBus::getTypeId<REEngineDoUpdateEvent>()
+{
+  v0 = &unk_1EE186000;
+  {
+    v0 = &unk_1EE186000;
+    if (v2)
+    {
+      re::EventBus::getTypeId<REEngineDoUpdateEvent>(void)const::s_id = re::EventBus::typeStringToId(("21REEngineDoUpdateEvent" & 0x7FFFFFFFFFFFFFFFLL), v3);
+      v0 = &unk_1EE186000;
+    }
+  }
+
+  return v0[23];
+}
+
+__n128 std::__function::__func<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_3,std::allocator<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_3>,void ()(re::Scheduler::TaskDescriptor)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB7B10;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void std::__function::__func<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_3,std::allocator<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_3>,void ()(re::Scheduler::TaskDescriptor)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v15 = *MEMORY[0x1E69E9840];
+  v4 = *(a2 + 8);
+  *&v8.var0 = *a2;
+  v8.var1 = v4;
+  *a2 = 0;
+  *(a2 + 8) = &str_67;
+  *v9 = *(a2 + 16);
+  *&v9[13] = *(a2 + 29);
+  v10[3] = *(a2 + 64);
+  v10[4] = 0;
+  re::FunctionBase<24ul,void ()(float)>::operator=<24ul>(v10, a2 + 40);
+  v5 = *(a2 + 88);
+  v10[5] = *(a2 + 80);
+  v11 = v5;
+  v12 = *(a2 + 96);
+  *(a2 + 88) = 0;
+  *(a2 + 96) = 0;
+  *(a2 + 104) = 0;
+  v14 = *(a2 + 120);
+  *(a2 + 120) = 0;
+  ++*(a2 + 112);
+  v13 = 1;
+  v6 = *(a1 + 8);
+  *(v6 + 88) = re::Scheduler::ScheduleDescriptor::addTask(*(a1 + 16), &v8);
+  if (v11)
+  {
+    if (v14)
+    {
+      (*(*v11 + 40))();
+    }
+
+    v14 = 0;
+    v12 = 0uLL;
+    v11 = 0;
+    ++v13;
+  }
+
+  v7 = re::FunctionBase<24ul,void ()(float)>::destroyCallable(v10);
+  if (*&v8.var0)
+  {
+    if (*&v8.var0)
+    {
+    }
+  }
+}
+
+uint64_t std::__function::__func<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_3,std::allocator<re::Engine::configureEnterFramePhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&)::$_3>,void ()(re::Scheduler::TaskDescriptor)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t re::Scheduler::ScheduleDescriptor::addTask(uint64_t a1, StringID *a2)
+{
+  if (a2[4].var1)
+  {
+    v4 = *(a1 + 56);
+    if (v4 >= *(a1 + 48))
+    {
+      re::DynamicArray<re::Scheduler::TaskDescriptor>::growCapacity((a1 + 40), v4 + 1);
+      v4 = *(a1 + 56);
+    }
+
+    v5 = *(a1 + 72) + (v4 << 7);
+    re::StringID::StringID(v5, a2);
+    v6 = a2[1];
+    *(v5 + 29) = *(&a2[1].var1 + 5);
+    *(v5 + 16) = v6;
+    *(v5 + 64) = *&a2[4].var0;
+    *(v5 + 72) = 0;
+    re::FunctionBase<24ul,void ()(float)>::operator=<24ul>(v5 + 40, &a2[2].var1);
+    *(v5 + 80) = *&a2[5].var0;
+    re::DynamicArray<unsigned long>::DynamicArray(v5 + 88, &a2[5].var1);
+    result = *(a1 + 56);
+    *(a1 + 56) = result + 1;
+    ++*(a1 + 64);
+  }
+
+  else
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Task Descriptor does not contain an update function", "taskDescriptor.taskFunction", "addTask", 142);
+    result = _os_crash("assertion failure: (taskDescriptor.taskFunction) Task Descriptor does not contain an update function");
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__value_func<void ()(re::Scheduler::TaskDescriptor)>::~__value_func[abi:nn200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+re::EventBus::EventInfo *re::EventBus::subscriptionCountInternal<re::Engine,REEngineDoUpdateEvent>(uint64_t a1, unint64_t a2, unint64_t a3)
+{
+  result = re::EventBus::getEventInfo<REEngineDoUpdateEvent>(a1);
+  if (result)
+  {
+    result = re::EventBus::EventInfo::getSubscriptions(result, a2, a3);
+    if (result)
+    {
+      return *(result + 15);
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::EventBus::getEventInfo<REEngineDoUpdateEvent>(uint64_t a1)
+{
+  Type = re::EventBus::getTypeId<REEngineDoUpdateEvent>();
+  v2 = re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::find((a1 + 24), &Type);
+  if (v2 == -1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(*(a1 + 32) + 48 * v2 + 8);
+  }
+}
+
+unint64_t re::EventBus::EventInfo::getSubscriptions(re::EventBus::EventInfo *this, unint64_t a2, unint64_t a3)
+{
+  if (!(a2 | a3))
+  {
+    return this + 88;
+  }
+
+  v6[0] = a2;
+  v6[1] = a3;
+  v4 = re::HashBrown<re::Pair<void const*,void const*,true>,re::EventBus::Subscriptions,re::Hash<re::Pair<void const*,void const*,true>>,re::EqualTo<re::Pair<void const*,void const*,true>>,void,false>::find(this + 27, v6);
+  if (v4 == -1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(this + 28) + 144 * v4 + 16;
+  }
+}
+
+__n128 std::__function::__func<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_6,std::allocator<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_6>,void ()(re::Scheduler::TaskDescriptor)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5CB7BA0;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void std::__function::__func<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_6,std::allocator<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_6>,void ()(re::Scheduler::TaskDescriptor)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v15 = *MEMORY[0x1E69E9840];
+  v4 = *(a2 + 8);
+  *&v8.var0 = *a2;
+  v8.var1 = v4;
+  *a2 = 0;
+  *(a2 + 8) = &str_67;
+  *v9 = *(a2 + 16);
+  *&v9[13] = *(a2 + 29);
+  v10[3] = *(a2 + 64);
+  v10[4] = 0;
+  re::FunctionBase<24ul,void ()(float)>::operator=<24ul>(v10, a2 + 40);
+  v5 = *(a2 + 88);
+  v10[5] = *(a2 + 80);
+  v11 = v5;
+  v12 = *(a2 + 96);
+  *(a2 + 88) = 0;
+  *(a2 + 96) = 0;
+  *(a2 + 104) = 0;
+  v14 = *(a2 + 120);
+  *(a2 + 120) = 0;
+  ++*(a2 + 112);
+  v13 = 1;
+  v6 = *(a1 + 8);
+  *(v6 + 224) = re::Scheduler::ScheduleDescriptor::addTask(*(a1 + 16), &v8);
+  if (v11)
+  {
+    if (v14)
+    {
+      (*(*v11 + 40))();
+    }
+
+    v14 = 0;
+    v12 = 0uLL;
+    v11 = 0;
+    ++v13;
+  }
+
+  v7 = re::FunctionBase<24ul,void ()(float)>::destroyCallable(v10);
+  if (*&v8.var0)
+  {
+    if (*&v8.var0)
+    {
+    }
+  }
+}
+
+uint64_t std::__function::__func<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_6,std::allocator<re::Engine::configureCommitPhase(re::FrameTaskHandles &,re::Scheduler::ScheduleDescriptor &,re::FrameTaskSet const&,re::DataArrayHandle<re::ecs2::SceneGroup>)::$_6>,void ()(re::Scheduler::TaskDescriptor)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+_anonymous_namespace_ *re::DynamicOverflowArray<unsigned long long,5ul>::resize(_anonymous_namespace_ *result, unint64_t a2, void *a3)
+{
+  v4 = result;
+  v5 = *(result + 1);
+  if (v5 >= a2)
+  {
+    if (v5 <= a2)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = re::DynamicOverflowArray<unsigned long long,5ul>::reserve(result, a2);
+    v7 = *(v4 + 1);
+    if (v7 < a2)
+    {
+      do
+      {
+        v8 = v4 + 24;
+        if ((*(v4 + 16) & 1) == 0)
+        {
+          v8 = *(v4 + 4);
+        }
+
+        *&v8[8 * v7++] = *a3;
+      }
+
+      while (a2 != v7);
+    }
+  }
+
+  *(v4 + 1) = a2;
+  *(v4 + 4) += 2;
+  return result;
+}
+
+_anonymous_namespace_ *re::DynamicOverflowArray<unsigned long long,5ul>::reserve(_anonymous_namespace_ *result, unint64_t a2)
+{
+  v3 = result;
+  if (*result)
+  {
+    if ((*(result + 4) & 1) == 0)
+    {
+LABEL_3:
+      v4 = *(v3 + 3);
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    result = re::DynamicOverflowArray<unsigned long long,5ul>::setCapacity(v3, a2);
+    v5 = *(v3 + 4) + 2;
+    *(v3 + 4) = v5;
+    if ((v5 & 1) == 0)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v4 = 5;
+LABEL_6:
+  if (v4 < a2)
+  {
+
+    return re::DynamicOverflowArray<unsigned long long,5ul>::setCapacity(v3, a2);
+  }
+
+  return result;
+}
+
+_anonymous_namespace_ *re::DynamicOverflowArray<unsigned long long,5ul>::setCapacity(_anonymous_namespace_ *result, unint64_t a2)
+{
+  v4 = result;
+  v5 = *result;
+  if (a2 && !v5)
+  {
+    result = re::DynamicOverflowArray<unsigned long long,5ul>::setCapacity(v4, a2);
+    v6 = *(v4 + 4) + 2;
+LABEL_4:
+    *(v4 + 4) = v6;
+    return result;
+  }
+
+  v7 = *(result + 4);
+  if (v7)
+  {
+    v8 = 5;
+  }
+
+  else
+  {
+    v8 = *(result + 3);
+  }
+
+  if (v8 != a2)
+  {
+    v9 = *(result + 1);
+    if (v9 <= a2 && (a2 > 5 || (v7 & 1) == 0))
+    {
+      if (a2 < 6)
+      {
+        v14 = (result + 24);
+        v15 = *(v4 + 4);
+        if (v7)
+        {
+          v16 = v4 + 24;
+        }
+
+        else
+        {
+          v16 = *(v4 + 4);
+        }
+
+        memcpy(v14, v16, 8 * v9);
+        result = (*(*v5 + 40))(v5, v15);
+        v6 = *(v4 + 4) | 1;
+        goto LABEL_4;
+      }
+
+      if (a2 >> 61)
+      {
+        re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicOverflowArray<T, N>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 646, 8, a2);
+        _os_crash("assertion failure: (!overflow) Size overflow in DynamicOverflowArray<T, N>::setCapacity(). Element size = %zu, capacity = %zu", v18, v20);
+        __break(1u);
+      }
+
+      else
+      {
+        v2 = 8 * a2;
+        v10 = (*(*v5 + 32))(*result, 8 * a2, 8);
+        if (v10)
+        {
+          v12 = v10;
+          if (*(v4 + 16))
+          {
+            v13 = v4 + 24;
+          }
+
+          else
+          {
+            v13 = *(v4 + 4);
+          }
+
+          result = memcpy(v10, v13, 8 * *(v4 + 1));
+          v17 = *(v4 + 4);
+          if ((v17 & 1) == 0)
+          {
+            result = (*(**v4 + 40))(*v4, *(v4 + 4));
+            v17 = *(v4 + 4);
+          }
+
+          *(v4 + 4) = v17 & 0xFFFFFFFE;
+          *(v4 + 3) = a2;
+          *(v4 + 4) = v12;
+          return result;
+        }
+      }
+
+      re::internal::assertLog(6, v11, "assertion failure: '%s' (%s:line %i) DynamicOverflowArray<T, N> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 650, v2, *(*v4 + 8));
+      result = _os_crash("assertion failure: (newData) DynamicOverflowArray<T, N> is out of memory (tried to allocate %zu bytes from allocator '%s').", v19, v21);
+      __break(1u);
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::DynamicOverflowArray<unsigned long long,2ul>::DynamicOverflowArray(uint64_t a1, uint64_t *a2)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
@@ -4458,20 +8573,20 @@ uint64_t re::DynamicOverflowArray<unsigned long long,1ul>::DynamicOverflowArray(
   {
     v5 = a2[1];
     *a1 = v3;
-    re::DynamicOverflowArray<unsigned long long,1ul>::setCapacity(a1, v5);
+    re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(a1, v5);
     *(a1 + 16) += 2;
-    re::DynamicOverflowArray<unsigned long long,1ul>::copy(a1, a2);
+    re::DynamicOverflowArray<unsigned long long,2ul>::copy(a1, a2);
   }
 
   return a1;
 }
 
-void *re::DynamicOverflowArray<unsigned long long,1ul>::copy(uint64_t a1, uint64_t a2)
+void *re::DynamicOverflowArray<unsigned long long,2ul>::copy(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 8);
   if (v4 >= *(a1 + 8))
   {
-    re::DynamicOverflowArray<unsigned long long,1ul>::setCapacity(a1, *(a2 + 8));
+    re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(a1, *(a2 + 8));
     if (*(a2 + 16))
     {
       v7 = (a2 + 24);
@@ -4564,1565 +8679,338 @@ LABEL_25:
   return result;
 }
 
-void *re::DynamicOverflowArray<unsigned long long,1ul>::setCapacity(void *result, unint64_t a2)
+_anonymous_namespace_ *re::DynamicOverflowArray<unsigned long long,2ul>::resize(_anonymous_namespace_ *result, unint64_t a2, void *a3)
 {
   v4 = result;
-  v5 = *result;
-  if (a2 && !v5)
+  v5 = *(result + 1);
+  if (v5 >= a2)
   {
-    result = re::DynamicOverflowArray<unsigned long long,1ul>::setCapacity(v4, a2);
-    v6 = *(v4 + 4) + 2;
-LABEL_4:
-    *(v4 + 4) = v6;
-    return result;
-  }
-
-  v7 = *(result + 4);
-  if (v7)
-  {
-    v8 = 1;
+    if (v5 <= a2)
+    {
+      return result;
+    }
   }
 
   else
   {
-    v8 = result[3];
+    result = re::DynamicOverflowArray<unsigned long long,2ul>::reserve(result, a2);
+    v7 = *(v4 + 1);
+    if (v7 < a2)
+    {
+      do
+      {
+        v8 = v4 + 24;
+        if ((*(v4 + 16) & 1) == 0)
+        {
+          v8 = *(v4 + 4);
+        }
+
+        *&v8[8 * v7++] = *a3;
+      }
+
+      while (a2 != v7);
+    }
   }
 
-  if (v8 != a2)
+  *(v4 + 1) = a2;
+  *(v4 + 4) += 2;
+  return result;
+}
+
+_anonymous_namespace_ *re::DynamicOverflowArray<unsigned long long,2ul>::reserve(_anonymous_namespace_ *result, unint64_t a2)
+{
+  v3 = result;
+  if (*result)
   {
-    v9 = result[1];
-    if (v9 <= a2 && (a2 > 1 || (v7 & 1) == 0))
+    if ((*(result + 4) & 1) == 0)
     {
-      if (a2 < 2)
-      {
-        v14 = result + 3;
-        v15 = v4[4];
-        if (v7)
-        {
-          v16 = v4 + 3;
-        }
-
-        else
-        {
-          v16 = v4[4];
-        }
-
-        memcpy(v14, v16, 8 * v9);
-        result = (*(*v5 + 40))(v5, v15);
-        v6 = *(v4 + 4) | 1;
-        goto LABEL_4;
-      }
-
-      if (a2 >> 61)
-      {
-        re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicOverflowArray<T, N>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 646, 8, a2);
-        _os_crash();
-        __break(1u);
-      }
-
-      else
-      {
-        v2 = 8 * a2;
-        v10 = (*(*v5 + 32))(*result, 8 * a2, 8);
-        if (v10)
-        {
-          v12 = v10;
-          if (v4[2])
-          {
-            v13 = v4 + 3;
-          }
-
-          else
-          {
-            v13 = v4[4];
-          }
-
-          result = memcpy(v10, v13, 8 * v4[1]);
-          v17 = *(v4 + 4);
-          if ((v17 & 1) == 0)
-          {
-            result = (*(**v4 + 40))(*v4, v4[4]);
-            v17 = *(v4 + 4);
-          }
-
-          *(v4 + 4) = v17 & 0xFFFFFFFE;
-          v4[3] = a2;
-          v4[4] = v12;
-          return result;
-        }
-      }
-
-      re::internal::assertLog(6, v11, "assertion failure: '%s' (%s:line %i) DynamicOverflowArray<T, N> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 650, v2, *(*v4 + 8));
-      result = _os_crash();
-      __break(1u);
+LABEL_3:
+      v4 = *(v3 + 3);
+      goto LABEL_6;
     }
+  }
+
+  else
+  {
+    result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, a2);
+    v5 = *(v3 + 4) + 2;
+    *(v3 + 4) = v5;
+    if ((v5 & 1) == 0)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v4 = 2;
+LABEL_6:
+  if (v4 < a2)
+  {
+
+    return re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, a2);
   }
 
   return result;
 }
 
-uint64_t re::HashTable<re::AssetLoadDescriptor,unsigned long long,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::tryGet(uint64_t a1, uint64_t a2)
+void re::NetworkAssetManager::init(re::Bundle *a1, uint64_t a2, uint64_t a3, char a4)
 {
-  v4 = re::Hash<re::AssetLoadDescriptor>::operator()(v6, a2);
-  re::HashTable<re::AssetLoadDescriptor,unsigned long long,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::findEntry<re::AssetLoadDescriptor>(a1, a2, v4, v6);
-  if (v7 == 0x7FFFFFFF)
+  v18 = *MEMORY[0x1E69E9840];
+  *(a1 + 2) = a2;
+  if (a2)
   {
+    *&v16 = a1;
+    *(&v16 + 1) = re::NetworkAssetManager::onComponentUpdated;
+    *&v17 = 0;
+    *(&v17 + 1) = re::Event<re::NetworkSystem,re::ecs2::Component *>::createSubscription<re::NetworkAssetManager>(re::NetworkAssetManager *,REEventHandlerResult (re::NetworkAssetManager::*)(re::NetworkSystem*,re::ecs2::Component *))::{lambda(re::NetworkSystem*,re::Event<re::NetworkSystem,re::ecs2::Component *>::Subscription const&,re::ecs2::Component *&&)#1}::__invoke;
+    re::Event<re::NetworkSystem,re::ecs2::Component *>::addSubscription((a2 + 352), &v16);
+  }
+
+  *(a1 + 1) = a3;
+  *(a1 + 216) = a4;
+  re::Bundle::application(&v15);
+  v7 = (*(*a1 + 104))(a1);
+  re::Bundle::ID(&v11, &v15);
+  if (v12)
+  {
+    v9 = *&v13[7];
+  }
+
+  else
+  {
+    v9 = v13;
+  }
+
+  re::DynamicString::format(&v16, "RootAssetEntity-%llu-%s", v8, v7, v9);
+  re::StringID::StringID(v14, &v16);
+  v10 = re::StringID::operator=((a1 + 200), v14);
+  if (v14[0])
+  {
+    if (v14[0])
+    {
+    }
+  }
+
+  v14[0] = 0;
+  v14[1] = &str_67;
+  if (v16)
+  {
+    if (BYTE8(v16))
+    {
+      (*(*v16 + 40))();
+    }
+
+    v16 = 0u;
+    v17 = 0u;
+  }
+
+  if (v11 && (v12 & 1) != 0)
+  {
+    (*(*v11 + 40))();
+  }
+}
+
+uint64_t re::NetworkAssetManager::onComponentUpdated(re::NetworkAssetManager *this, re::NetworkSystem *a2, re::ecs2::Component *a3)
+{
+  v5 = (*(*a3 + 40))(a3, a2);
+  v6 = (*(*v5 + 48))(v5);
+  v7 = &unk_1EE187000;
+  do
+  {
+    {
+      v11 = v7;
+      v7 = v11;
+      if (v12)
+      {
+        v11[96] = re::ecs2::introspect_NetworkAssetComponent(0, v13, v14, v15, v16, v17);
+        v7 = v11;
+      }
+    }
+
+    if (v6 == v7[96])
+    {
+      v31 = *(a3 + 4);
+      v32 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v31 ^ (v31 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v31 ^ (v31 >> 30))) >> 27));
+      re::HashTable<unsigned long long,re::ecs2::EntityHandle,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(v36, this + 32, v31, v32 ^ (v32 >> 31));
+      if (v37 == 0x7FFFFFFF)
+      {
+        (*(*this + 136))(this, v31, a3 + 72, *(a3 + 2));
+        v31 = *(a3 + 4);
+      }
+
+      (*(*this + 216))(this, v31);
+      return 0;
+    }
+
+    v8 = *(v6 + 56);
+    if (!v8)
+    {
+      break;
+    }
+
+    v9 = *(v6 + 64);
+    while (1)
+    {
+      v10 = *v9;
+      if (**v9 == 1 && v10[10] == 3)
+      {
+        break;
+      }
+
+      ++v9;
+      if (!--v8)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    v6 = *(v10 + 2);
+  }
+
+  while (v6);
+LABEL_14:
+  v18 = (*(*a3 + 40))(a3);
+  v19 = (*(*v18 + 48))(v18);
+  v20 = &unk_1EE187000;
+  while (1)
+  {
+    {
+      v24 = v20;
+      v20 = v24;
+      if (v25)
+      {
+        v24[114] = re::ecs2::introspect_AssetStateComponent(0, v26, v27, v28, v29, v30);
+        v20 = v24;
+      }
+    }
+
+    if (v19 == v20[114])
+    {
+      break;
+    }
+
+    v21 = *(v19 + 56);
+    if (v21)
+    {
+      for (i = *(v19 + 64); ; ++i)
+      {
+        v23 = *i;
+        if (**i == 1 && v23[10] == 3)
+        {
+          break;
+        }
+
+        if (!--v21)
+        {
+          return 0;
+        }
+      }
+
+      v19 = *(v23 + 2);
+      if (v19)
+      {
+        continue;
+      }
+    }
+
     return 0;
   }
 
-  else
+  v33 = *(a3 + 5);
+  if (v33 != (*(*this + 104))(this))
   {
-    return *(a1 + 16) + 168 * v7 + 152;
-  }
-}
-
-uint64_t re::HashTable<re::AssetLoadDescriptor,unsigned long long,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::findEntry<re::AssetLoadDescriptor>@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v6 = 0x7FFFFFFF;
-  if (!*result)
-  {
-    LODWORD(v8) = 0;
-    goto LABEL_6;
-  }
-
-  v7 = result;
-  v8 = a3 % *(result + 24);
-  v9 = *(*(result + 8) + 4 * v8);
-  if (v9 == 0x7FFFFFFF)
-  {
-LABEL_6:
-    v9 = 0x7FFFFFFF;
-    goto LABEL_7;
-  }
-
-  result = re::EqualTo<re::AssetLoadDescriptor>::operator()(&v14, *(result + 16) + 168 * v9 + 8, a2);
-  if (result)
-  {
-    v6 = v9;
-    goto LABEL_6;
-  }
-
-  v11 = *(v7 + 16);
-  v12 = *(v11 + 168 * v9) & 0x7FFFFFFF;
-  v6 = 0x7FFFFFFF;
-  if (v12 != 0x7FFFFFFF)
-  {
-    v6 = 0x7FFFFFFF;
-    while (1)
+    v34 = *(this + 28);
+    if (v34)
     {
-      v13 = v12;
-      result = re::EqualTo<re::AssetLoadDescriptor>::operator()(&v14, v11 + 168 * v12 + 8, a2);
-      if (result)
-      {
-        break;
-      }
-
-      v11 = *(v7 + 16);
-      v12 = *(v11 + 168 * v13) & 0x7FFFFFFF;
-      v9 = v13;
-      if (v12 == 0x7FFFFFFF)
-      {
-        v9 = v13;
-        goto LABEL_7;
-      }
-    }
-
-    v6 = v13;
-  }
-
-LABEL_7:
-  *a4 = a3;
-  *(a4 + 8) = v8;
-  *(a4 + 12) = v6;
-  *(a4 + 16) = v9;
-  return result;
-}
-
-BOOL re::EqualTo<re::AssetLoadDescriptor>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  result = re::DynamicString::operator==(a2, a3);
-  if (result)
-  {
-    result = re::DynamicString::operator==(a2 + 112, a3 + 112);
-    if (result)
-    {
-      v6 = *(a2 + 48);
-      return v6 == *(a3 + 48) && memcmp(*(a2 + 64), *(a3 + 64), v6) == 0;
+      (**v34)(v34, *(a3 + 4), *(a3 + 5), *(a3 + 48), 0, 0);
     }
   }
 
-  return result;
+  return 0;
 }
 
-unint64_t re::Hash<re::AssetLoadDescriptor>::operator()(uint64_t a1, uint64_t a2)
+void re::NetworkAssetManager::deinit(re::NetworkAssetManager *this)
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v3 = re::Hash<re::DynamicString>::operator()(v9, a2);
-  v4 = re::Hash<re::DynamicString>::operator()(v9, a2 + 112);
-  v5 = *(a2 + 48);
-  if (v5)
-  {
-    MurmurHash3_x64_128(*(a2 + 64), v5, 0, v9);
-    v6 = ((v9[1] - 0x61C8864680B583E9 + (v9[0] << 6) + (v9[0] >> 2)) ^ v9[0]) - 0x61C8864680B583E9;
-  }
-
-  else
-  {
-    v6 = 0x9E3779B97F4A7C17;
-  }
-
-  v7 = ((v3 << 6) - 0x61C8864680B583E9 + (v3 >> 2) + v4) ^ v3;
-  return ((v7 >> 2) + (v7 << 6) + v6) ^ v7;
-}
-
-BOOL re::HashTable<re::AssetLoadDescriptor,re::HashSet<unsigned long long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>,re::Hash<re::AssetLoadDescriptor>,re::EqualTo<re::AssetLoadDescriptor>,true,false>::findEntry<re::AssetLoadDescriptor>(_BOOL8 result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  v5 = result;
-  v6 = 0x7FFFFFFF;
-  if (!*a2)
-  {
-    LODWORD(v8) = 0;
-    goto LABEL_6;
-  }
-
-  v8 = a4 % *(a2 + 24);
-  v9 = *(*(a2 + 8) + 4 * v8);
-  if (v9 == 0x7FFFFFFF)
-  {
-LABEL_6:
-    v9 = 0x7FFFFFFF;
-    goto LABEL_7;
-  }
-
-  result = re::EqualTo<re::AssetLoadDescriptor>::operator()(&v14, *(a2 + 16) + 208 * v9 + 8, a3);
-  if (result)
-  {
-    v6 = v9;
-    goto LABEL_6;
-  }
-
-  v11 = *(a2 + 16);
-  v12 = *(v11 + 208 * v9) & 0x7FFFFFFF;
-  v6 = 0x7FFFFFFF;
-  if (v12 != 0x7FFFFFFF)
-  {
-    v6 = 0x7FFFFFFF;
-    while (1)
-    {
-      v13 = v12;
-      result = re::EqualTo<re::AssetLoadDescriptor>::operator()(&v14, v11 + 208 * v12 + 8, a3);
-      if (result)
-      {
-        break;
-      }
-
-      v11 = *(a2 + 16);
-      v12 = *(v11 + 208 * v13) & 0x7FFFFFFF;
-      v9 = v13;
-      if (v12 == 0x7FFFFFFF)
-      {
-        v9 = v13;
-        goto LABEL_7;
-      }
-    }
-
-    v6 = v13;
-  }
-
-LABEL_7:
-  *v5 = a4;
-  *(v5 + 8) = v8;
-  *(v5 + 12) = v6;
-  *(v5 + 16) = v9;
-  return result;
-}
-
-_anonymous_namespace_ *re::DynamicOverflowArray<unsigned long long,1ul>::add(uint64_t a1, void *a2)
-{
-  result = re::DynamicOverflowArray<unsigned long long,1ul>::ensureCapacity(a1);
-  if (*(a1 + 16))
-  {
-    v5 = a1 + 24;
-  }
-
-  else
-  {
-    v5 = *(a1 + 32);
-  }
-
-  v6 = *(a1 + 8);
-  *(v5 + 8 * v6) = *a2;
-  *(a1 + 8) = v6 + 1;
-  *(a1 + 16) += 2;
-  return result;
-}
-
-uint64_t re::DynamicOverflowArray<unsigned long long,1ul>::indexOf@<X0>(uint64_t result@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
-{
-  v3 = *(result + 16);
-  if (v3)
-  {
-    v4 = (result + 24);
-  }
-
-  else
-  {
-    v4 = *(result + 32);
-  }
-
-  v5 = *(result + 8);
-  if (v5)
-  {
-    v6 = 8 * v5;
-    v7 = &v4[v5];
-    while (*v4 != *a2)
-    {
-      ++v4;
-      v6 -= 8;
-      if (!v6)
-      {
-        v4 = v7;
-        break;
-      }
-    }
-  }
-
-  if (v3)
-  {
-    v8 = result + 24;
-  }
-
-  else
-  {
-    v8 = *(result + 32);
-  }
-
-  if (v4 == (v8 + 8 * v5))
-  {
-    *a3 = 0;
-  }
-
-  else
-  {
-    *a3 = 1;
-    *(a3 + 8) = (v4 - v8) >> 3;
-  }
-
-  return result;
-}
-
-_anonymous_namespace_ *re::DynamicOverflowArray<unsigned long long,1ul>::ensureCapacity(_anonymous_namespace_ *result)
-{
-  v1 = result;
-  if (*result)
-  {
-    v2 = *(result + 1);
-    if (*(result + 16))
-    {
-      v3 = 1;
-    }
-
-    else
-    {
-      v3 = *(result + 3);
-    }
-
-    if (v2 >= v3)
-    {
-
-      return re::DynamicOverflowArray<unsigned long long,1ul>::growCapacity(result, v2 + 1);
-    }
-  }
-
-  else
-  {
-    v4 = *(v1 + 1);
-    result = re::DynamicOverflowArray<unsigned long long,1ul>::setCapacity(v1, v4 + 1);
-    *(v1 + 4) += 2;
-  }
-
-  return result;
-}
-
-_anonymous_namespace_ *re::DynamicOverflowArray<unsigned long long,1ul>::growCapacity(_anonymous_namespace_ *result, unint64_t a2)
-{
-  v2 = a2;
-  v3 = result;
-  if (!*result)
-  {
-    result = re::DynamicOverflowArray<unsigned long long,1ul>::setCapacity(v3, v2);
-    *(v3 + 4) += 2;
-    return result;
-  }
-
-  if (*(result + 16))
-  {
-    if (a2 <= 1)
-    {
-      return result;
-    }
-
-    v5 = 2;
-  }
-
-  else
-  {
-    v4 = *(result + 3);
-    if (v4 >= a2)
-    {
-      return result;
-    }
-
-    v5 = 2 * v4;
-  }
-
-  if (v5 > a2)
-  {
-    a2 = v5;
-  }
-
-  return re::DynamicOverflowArray<unsigned long long,1ul>::setCapacity(result, a2);
-}
-
-uint64_t re::internal::Callable<re::AssetManager::tryLoadAssetOverNetwork_entryStateLocked(re::internal::AssetEntry &)::$_0,void ()(re::Result<re::SharedResourcePayload,re::WrappedError>)>::~Callable(uint64_t a1)
-{
-  *a1 = &unk_1F5CB8A00;
-  objc_destroyWeak((a1 + 8));
-  *(a1 + 8) = 0;
-  return a1;
-}
-
-void re::internal::Callable<re::AssetManager::tryLoadAssetOverNetwork_entryStateLocked(re::internal::AssetEntry &)::$_0,void ()(re::Result<re::SharedResourcePayload,re::WrappedError>)>::~Callable(uint64_t a1)
-{
-  *a1 = &unk_1F5CB8A00;
-  objc_destroyWeak((a1 + 8));
-  *(a1 + 8) = 0;
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::internal::Callable<re::AssetManager::tryLoadAssetOverNetwork_entryStateLocked(re::internal::AssetEntry &)::$_0,void ()(re::Result<re::SharedResourcePayload,re::WrappedError>)>::operator()(uint64_t a1, uint64_t a2)
-{
-  v10[0] = *a2;
-  v2 = *(a2 + 8);
-  *(a2 + 8) = 0;
-  v9 = v2;
-  v11 = v2;
-  v3 = *(a1 + 16);
-  WeakRetained = objc_loadWeakRetained((a1 + 8));
-  if (WeakRetained)
-  {
-    v5 = WeakRetained;
-    v6 = &WeakRetained[-2];
-    os_unfair_lock_lock(WeakRetained + 126);
-    re::AssetManager::processUpdatedResourcePayload_entryStateLocked(v3, v6, v10, v7);
-    os_unfair_lock_unlock(v5 + 126);
-
-    v8 = v11;
-  }
-
-  else
-  {
-    v8 = v9;
-  }
-}
-
-uint64_t re::internal::Callable<re::AssetManager::tryLoadAssetOverNetwork_entryStateLocked(re::internal::AssetEntry &)::$_0,void ()(re::Result<re::SharedResourcePayload,re::WrappedError>)>::cloneInto(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5CB8A00;
-  *(a2 + 8) = 0;
-  objc_copyWeak((a2 + 8), (a1 + 8));
-  *(a2 + 16) = *(a1 + 16);
-  return a2;
-}
-
-uint64_t re::internal::Callable<re::AssetManager::tryLoadAssetOverNetwork_entryStateLocked(re::internal::AssetEntry &)::$_0,void ()(re::Result<re::SharedResourcePayload,re::WrappedError>)>::moveInto(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5CB8A00;
-  *(a2 + 8) = 0;
-  objc_moveWeak((a2 + 8), (a1 + 8));
-  *(a2 + 16) = *(a1 + 16);
-  return a2;
-}
-
-uint64_t (***re::FunctionBase<24ul,void ()(re::Result<re::SharedResourcePayload,re::WrappedError>)>::destroyCallable(uint64_t a1))(void)
-{
-  result = *(a1 + 32);
-  if (result)
-  {
-    result = (**result)(result);
-    if (*(a1 + 32) != a1)
-    {
-      result = (*(**(a1 + 24) + 40))(*(a1 + 24));
-    }
-
-    *(a1 + 32) = 0;
-  }
-
-  return result;
-}
-
-uint64_t re::DynamicArray<re::internal::DeferredUnregister *>::operator=(uint64_t result, uint64_t a2)
-{
-  if (result != a2)
-  {
-    v4 = *result;
-    v5 = *a2;
-    if (*result)
-    {
-      v6 = v5 == 0;
-    }
-
-    else
-    {
-      v6 = 1;
-    }
-
-    if (v6 || v4 == v5)
-    {
-      v8 = *(result + 8);
-      v9 = *(a2 + 8);
-      *result = v5;
-      *(result + 8) = v9;
-      *a2 = v4;
-      *(a2 + 8) = v8;
-      v10 = *(result + 16);
-      *(result + 16) = *(a2 + 16);
-      *(a2 + 16) = v10;
-      v11 = *(result + 32);
-      *(result + 32) = *(a2 + 32);
-      *(a2 + 32) = v11;
-      ++*(a2 + 24);
-      ++*(result + 24);
-    }
-
-    else
-    {
-      re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "!isInitialized() || !other.isInitialized() || m_allocator == other.m_allocator", "operator=", 503, v2, v3);
-      result = _os_crash();
-      __break(1u);
-    }
-  }
-
-  return result;
-}
-
-_anonymous_namespace_ *re::DynamicArray<re::SharedPtr<re::internal::AssetReference>>::add(_anonymous_namespace_ *result, void *a2)
-{
-  v3 = result;
-  v5 = *(result + 1);
-  v4 = *(result + 2);
-  if (v4 >= v5)
-  {
-    v6 = v4 + 1;
-    if (v5 < v4 + 1)
-    {
-      if (*result)
-      {
-        v7 = 2 * v5;
-        if (!v5)
-        {
-          v7 = 8;
-        }
-
-        if (v7 <= v6)
-        {
-          v8 = v6;
-        }
-
-        else
-        {
-          v8 = v7;
-        }
-
-        result = re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(result, v8);
-      }
-
-      else
-      {
-        result = re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(v3, v6);
-        ++*(v3 + 6);
-      }
-    }
-
-    v4 = *(v3 + 2);
-  }
-
-  *(*(v3 + 4) + 8 * v4) = *a2;
-  *a2 = 0;
-  *(v3 + 2) = v4 + 1;
-  ++*(v3 + 6);
-  return result;
-}
-
-uint64_t re::internal::Callable<re::AssetManager::putEntryInLoadingState_entryStateLocked(re::internal::AssetEntry &,BOOL)::$_0,void ()(re::Result<re::SharedResourcePayload,re::WrappedError>)>::~Callable(uint64_t a1)
-{
-  *a1 = &unk_1F5CB8A68;
-  objc_destroyWeak((a1 + 8));
-  *(a1 + 8) = 0;
-  return a1;
-}
-
-void re::internal::Callable<re::AssetManager::putEntryInLoadingState_entryStateLocked(re::internal::AssetEntry &,BOOL)::$_0,void ()(re::Result<re::SharedResourcePayload,re::WrappedError>)>::~Callable(uint64_t a1)
-{
-  *a1 = &unk_1F5CB8A68;
-  objc_destroyWeak((a1 + 8));
-  *(a1 + 8) = 0;
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::internal::Callable<re::AssetManager::putEntryInLoadingState_entryStateLocked(re::internal::AssetEntry &,BOOL)::$_0,void ()(re::Result<re::SharedResourcePayload,re::WrappedError>)>::operator()(uint64_t a1, uint64_t a2)
-{
-  v10[0] = *a2;
-  v2 = *(a2 + 8);
-  *(a2 + 8) = 0;
-  v9 = v2;
-  v11 = v2;
-  v3 = *(a1 + 16);
-  WeakRetained = objc_loadWeakRetained((a1 + 8));
-  if (WeakRetained)
-  {
-    v5 = WeakRetained;
-    v6 = &WeakRetained[-2];
-    os_unfair_lock_lock(WeakRetained + 126);
-    re::AssetManager::processUpdatedResourcePayload_entryStateLocked(v3, v6, v10, v7);
-    os_unfair_lock_unlock(v5 + 126);
-
-    v8 = v11;
-  }
-
-  else
-  {
-    v8 = v9;
-  }
-}
-
-uint64_t re::internal::Callable<re::AssetManager::putEntryInLoadingState_entryStateLocked(re::internal::AssetEntry &,BOOL)::$_0,void ()(re::Result<re::SharedResourcePayload,re::WrappedError>)>::cloneInto(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5CB8A68;
-  *(a2 + 8) = 0;
-  objc_copyWeak((a2 + 8), (a1 + 8));
-  *(a2 + 16) = *(a1 + 16);
-  return a2;
-}
-
-uint64_t re::internal::Callable<re::AssetManager::putEntryInLoadingState_entryStateLocked(re::internal::AssetEntry &,BOOL)::$_0,void ()(re::Result<re::SharedResourcePayload,re::WrappedError>)>::moveInto(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5CB8A68;
-  *(a2 + 8) = 0;
-  objc_moveWeak((a2 + 8), (a1 + 8));
-  *(a2 + 16) = *(a1 + 16);
-  return a2;
-}
-
-re::CancellationTokenSource *re::CancellationTokenSource::CancellationTokenSource(re::CancellationTokenSource *this)
-{
-  ArcSharedObject::ArcSharedObject(this, 0);
-  *(this + 3) = 0;
-  *this = &unk_1F5CB8E80;
-  re::make::shared::object<re::CancellationToken>(v2, &v5);
-  v3 = *(this + 3);
-  *(this + 3) = v5;
-  v5 = v3;
-  if (v3)
-  {
-  }
-
-  return this;
-}
-
-void re::CancellationTokenSource::~CancellationTokenSource(re::CancellationTokenSource *this)
-{
-  *this = &unk_1F5CB8E80;
-  v2 = *(this + 3);
+  v3 = (this + 184);
+  v2 = *(this + 23);
   if (v2)
   {
-
-    *(this + 3) = 0;
-  }
-
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-}
-
-{
-  *this = &unk_1F5CB8E80;
-  v2 = *(this + 3);
-  if (v2)
-  {
-
-    *(this + 3) = 0;
-  }
-
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::make::shared::object<re::CancellationToken>(re *a1@<X0>, uint64_t *a2@<X8>)
-{
-  v3 = re::globalAllocators(a1);
-  v4 = (*(*v3[2] + 32))(v3[2], 32, 8);
-  ArcSharedObject::ArcSharedObject(v4, 0);
-  *v4 = &unk_1F5CB8EC8;
-  *(v4 + 24) = 0;
-  *a2 = v4;
-}
-
-void re::CancellationToken::~CancellationToken(re::CancellationToken *this)
-{
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-}
-
-{
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-
-  JUMPOUT(0x1E6906520);
-}
-
-uint64_t std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void re::DynamicArray<re::ArcWeakPtr<re::internal::AssetEntry>>::add(_anonymous_namespace_ *this, id *from)
-{
-  v4 = *(this + 2);
-  if (v4 >= *(this + 1))
-  {
-    re::DynamicArray<re::ArcWeakPtr<re::internal::AssetEntry>>::growCapacity(this, v4 + 1);
-    v4 = *(this + 2);
-  }
-
-  v5 = (*(this + 4) + 8 * v4);
-  *v5 = 0;
-  objc_moveWeak(v5, from);
-  ++*(this + 2);
-  ++*(this + 6);
-}
-
-void *re::DynamicArray<re::ArcWeakPtr<re::internal::AssetEntry>>::growCapacity(void *this, unint64_t a2)
-{
-  v2 = this[1];
-  if (v2 < a2)
-  {
-    v3 = a2;
-    v4 = this;
-    if (*this)
+    if (!*(v2 + 56) || ((*(**(this + 1) + 120))(*(this + 1), v3), (v2 = *(this + 23)) != 0))
     {
-      v5 = 2 * v2;
-      v6 = v2 == 0;
-      v7 = 8;
-      if (!v6)
-      {
-        v7 = v5;
-      }
 
-      if (v7 > a2)
-      {
-        a2 = v7;
-      }
-
-      return re::DynamicArray<re::ArcWeakPtr<re::internal::AssetEntry>>::setCapacity(this, a2);
-    }
-
-    else
-    {
-      this = re::DynamicArray<re::ArcWeakPtr<re::internal::AssetEntry>>::setCapacity(v4, v3);
-      ++*(v4 + 6);
-    }
-  }
-
-  return this;
-}
-
-void *re::DynamicArray<re::ArcWeakPtr<re::internal::AssetEntry>>::setCapacity(void *result, unint64_t a2)
-{
-  v3 = result[1];
-  if (v3 != a2)
-  {
-    v5 = result;
-    if (result[2] <= a2)
-    {
-      result = *result;
-      if (!*v5)
-      {
-        result = re::DynamicArray<re::ArcWeakPtr<re::internal::AssetEntry>>::setCapacity(v5, a2);
-        ++*(v5 + 6);
-        return result;
-      }
-
-      if (a2)
-      {
-        if (a2 >> 61)
-        {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 8, a2);
-          _os_crash();
-          __break(1u);
-        }
-
-        else
-        {
-          v2 = 8 * a2;
-          result = (*(*result + 32))(result, 8 * a2, 8);
-          if (result)
-          {
-            v7 = result;
-            if (!v5[1])
-            {
-              goto LABEL_16;
-            }
-
-            goto LABEL_11;
-          }
-        }
-
-        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
-        __break(1u);
-        return result;
-      }
-
-      v7 = 0;
-      if (!v3)
-      {
-LABEL_16:
-        v5[4] = v7;
-        v5[1] = a2;
-        return result;
-      }
-
-LABEL_11:
-      v8 = v5[4];
-      v9 = v5[2];
-      if (v9)
-      {
-        v10 = 8 * v9;
-        v11 = v7;
-        v12 = v7;
-        do
-        {
-          *v12++ = 0;
-          objc_moveWeak(v11, v8);
-          objc_destroyWeak(v8);
-          *v8++ = 0;
-          v11 = v12;
-          v10 -= 8;
-        }
-
-        while (v10);
-        v8 = v5[4];
-      }
-
-      result = (*(**v5 + 40))(*v5, v8);
-      goto LABEL_16;
-    }
-  }
-
-  return result;
-}
-
-void *re::Queue<re::SharedPtr<re::AssetLoadRequest::Data>>::enqueue(void *this, uint64_t *a2)
-{
-  v3 = this;
-  v5 = this[1];
-  v4 = this[2];
-  if (v4 + 1 >= v5)
-  {
-    this = re::Queue<re::SharedPtr<re::AssetLoadRequest::Data>>::growCapacity(this, v4 + 1);
-    v5 = v3[1];
-    v4 = v3[2];
-  }
-
-  v6 = (v3[3] + v4) % v5;
-  v7 = *a2;
-  *(v3[5] + 8 * v6) = *a2;
-  if (v7)
-  {
-    this = (v7 + 8);
-    v4 = v3[2];
-  }
-
-  v3[2] = v4 + 1;
-  ++*(v3 + 8);
-  return this;
-}
-
-void *re::Queue<re::SharedPtr<re::AssetLoadRequest::Data>>::growCapacity(void *this, unint64_t a2)
-{
-  v2 = this[1];
-  if (v2 < a2)
-  {
-    v3 = a2;
-    v4 = this;
-    if (*this)
-    {
-      v5 = 2 * v2;
-      v6 = v2 == 0;
-      v7 = 8;
-      if (!v6)
-      {
-        v7 = v5;
-      }
-
-      if (v7 > a2)
-      {
-        a2 = v7;
-      }
-
-      return re::Queue<re::SharedPtr<re::AssetLoadRequest::Data>>::setCapacity(this, a2);
-    }
-
-    else
-    {
-      this = re::Queue<re::SharedPtr<re::AssetLoadRequest::Data>>::setCapacity(v4, v3);
-      v4[2] = 0;
-      v4[3] = 0;
-      *(v4 + 8) = 0;
-    }
-  }
-
-  return this;
-}
-
-void *re::Queue<re::SharedPtr<re::AssetLoadRequest::Data>>::setCapacity(void *result, unint64_t a2)
-{
-  v3 = result[1];
-  if (v3 != a2)
-  {
-    v5 = result;
-    v6 = result + 2;
-    if (result[2] <= a2)
-    {
-      result = *result;
-      if (!*v5)
-      {
-        result = re::Queue<re::SharedPtr<re::AssetLoadRequest::Data>>::setCapacity(v5, a2);
-        *v6 = 0;
-        v6[1] = 0;
-        *(v6 + 4) = 0;
-        return result;
-      }
-
-      if (a2)
-      {
-        if (a2 >> 61)
-        {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in Queue<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 440, 8, a2);
-          _os_crash();
-          __break(1u);
-        }
-
-        else
-        {
-          v2 = 8 * a2;
-          result = (*(*result + 32))(result, 8 * a2, 8);
-          if (result)
-          {
-            v8 = result;
-            v3 = v5[1];
-            if (!v3)
-            {
-              goto LABEL_18;
-            }
-
-            goto LABEL_11;
-          }
-        }
-
-        re::internal::assertLog(6, v7, "assertion failure: '%s' (%s:line %i) Queue<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 444, v2, *(*v5 + 8));
-        result = _os_crash();
-        __break(1u);
-        return result;
-      }
-
-      v8 = 0;
-      if (!v3)
-      {
-LABEL_18:
-        v5[5] = v8;
-        v5[1] = a2;
-        return result;
-      }
-
-LABEL_11:
-      v9 = v5[2];
-      v10 = v5[5];
-      if (v9)
-      {
-        v11 = v5[3];
-        v12 = v11;
-        do
-        {
-          v8[v12] = *(v10 + 8 * (v11 % v3));
-          *(v10 + 8 * (v11 % v3)) = 0;
-          if (v12 + 1 < a2)
-          {
-            ++v12;
-          }
-
-          else
-          {
-            v12 = 0;
-          }
-
-          ++v11;
-          --v9;
-        }
-
-        while (v9);
-      }
-
-      result = (*(**v5 + 40))(*v5, v10);
-      goto LABEL_18;
-    }
-  }
-
-  return result;
-}
-
-void *re::DynamicArray<re::AssetPath>::setCapacity(void *result, unint64_t a2)
-{
-  v3 = result[1];
-  if (v3 != a2)
-  {
-    v5 = result;
-    if (result[2] <= a2)
-    {
-      result = *result;
-      if (!*v5)
-      {
-        result = re::DynamicArray<re::AssetPath>::setCapacity(v5, a2);
-        ++*(v5 + 6);
-        return result;
-      }
-
-      if (a2)
-      {
-        if (is_mul_ok(a2, 0x50uLL))
-        {
-          v2 = 80 * a2;
-          result = (*(*result + 32))(result, 80 * a2, 8);
-          if (result)
-          {
-            v7 = result;
-            if (!v5[1])
-            {
-              goto LABEL_16;
-            }
-
-            goto LABEL_11;
-          }
-        }
-
-        else
-        {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 80, a2);
-          _os_crash();
-          __break(1u);
-        }
-
-        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
-        __break(1u);
-        return result;
-      }
-
-      v7 = 0;
-      if (!v3)
-      {
-LABEL_16:
-        v5[4] = v7;
-        v5[1] = a2;
-        return result;
-      }
-
-LABEL_11:
-      v8 = v5[4];
-      v9 = v5[2];
-      if (v9)
-      {
-        v10 = &v8[10 * v9];
-        v11 = v7;
-        do
-        {
-          *v11 = *v8;
-          *(v11 + 1) = 0u;
-          *(v11 + 3) = 0u;
-          v12 = (v8 + 1);
-          v11[1] = v8[1];
-          v8[1] = 0;
-          v11[4] = v8[4];
-          v8[4] = 0;
-          v14 = v11[2];
-          v13 = v11[3];
-          v15 = v8[3];
-          v11[2] = v8[2];
-          v11[3] = v15;
-          v8[2] = v14;
-          v8[3] = v13;
-          *(v11 + 7) = 0u;
-          *(v11 + 5) = 0u;
-          v17 = v8[5];
-          v16 = (v8 + 5);
-          v11[5] = v17;
-          *v16 = 0;
-          v11[8] = *(v16 + 3);
-          *(v16 + 3) = 0;
-          v19 = v11[6];
-          v18 = v11[7];
-          v20 = *(v16 + 2);
-          v11[6] = *(v16 + 1);
-          v11[7] = v20;
-          *(v16 + 1) = v19;
-          *(v16 + 2) = v18;
-          v11[9] = *(v16 + 4);
-          re::DynamicString::deinit(v16);
-          re::DynamicString::deinit(v12);
-          v11 += 10;
-          v8 = (v16 + 40);
-        }
-
-        while (v8 != v10);
-        v8 = v5[4];
-      }
-
-      result = (*(**v5 + 40))(*v5, v8);
-      goto LABEL_16;
-    }
-  }
-
-  return result;
-}
-
-void *re::FixedArray<re::AssetHandle>::deinit(void *result)
-{
-  if (*result)
-  {
-    v1 = result;
-    v3 = result + 1;
-    v2 = result[1];
-    if (v2)
-    {
-      v4 = result[2];
-      v5 = 24 * v2;
-      do
-      {
-        re::AssetHandle::~AssetHandle(v4);
-        v4 = (v6 + 24);
-        v5 -= 24;
-      }
-
-      while (v5);
-      result = (*(**v1 + 40))(*v1, v1[2]);
       *v3 = 0;
-      v3[1] = 0;
     }
-
-    *v1 = 0;
   }
 
-  return result;
+  v4 = *(this + 3);
+  if (v4)
+  {
+
+    *(this + 3) = 0;
+  }
+
+  *(this + 1) = 0;
+  v5 = *(this + 2);
+  if (v5)
+  {
+    re::Event<re::NetworkSystem,re::ecs2::Component *>::unsubscribe<re::NetworkAssetManager>((v5 + 352), this);
+  }
+
+  *(this + 2) = 0;
 }
 
-re::DynamicString *std::__copy_impl::operator()[abi:nn200100]<re::AssetPath *,re::AssetPath *,re::AssetPath *>(re::DynamicString *result, re::DynamicString *a2, uint64_t a3)
+void re::Event<re::NetworkSystem,re::ecs2::Component *>::unsubscribe<re::NetworkAssetManager>(void *result, uint64_t a2)
 {
-  if (result != a2)
+  v10 = *MEMORY[0x1E69E9840];
+  if (result[2])
   {
-    v4 = (a3 + 40);
-    v5 = (result + 40);
+    v4 = 0;
     do
     {
-      *(v4 - 10) = *(v5 - 10);
-      re::DynamicString::operator=((v4 - 4), (v5 - 4));
-      result = re::DynamicString::operator=(v4, v5);
-      v4[4] = v5[4];
-      v4 += 10;
-      v6 = (v5 + 5);
-      v5 += 10;
-    }
-
-    while (v6 != a2);
-  }
-
-  return result;
-}
-
-uint64_t re::DynamicArray<re::AssetPath>::deinit(uint64_t a1)
-{
-  result = *a1;
-  if (result)
-  {
-    v3 = *(a1 + 32);
-    if (v3)
-    {
-      v4 = *(a1 + 16);
-      if (v4)
+      v5 = (result[4] + 32 * v4);
+      if (*v5 == a2)
       {
-        v5 = 80 * v4;
-        v6 = (v3 + 40);
-        do
+        if (!*(result + 20))
         {
-          re::DynamicString::deinit(v6);
-          re::DynamicString::deinit((v6 - 32));
-          v6 = (v6 + 80);
-          v5 -= 80;
+          re::DynamicArray<re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription>::removeStableAt(result, v4);
+          continue;
         }
 
-        while (v5);
-        result = *a1;
-        v3 = *(a1 + 32);
+        v7[0] = 0;
+        v6 = *v5;
+        v9 = v5[1];
+        v8 = v6;
+        re::DynamicArray<re::Pair<BOOL,re::Event<re::NetworkSystem,re::ecs2::Component *>::Subscription,true>>::add((result + 5), v7);
       }
 
-      result = (*(*result + 40))(result, v3);
+      ++v4;
     }
 
-    *(a1 + 32) = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-    *a1 = 0;
-    ++*(a1 + 24);
+    while (v4 < result[2]);
   }
-
-  return result;
 }
 
-double _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN2re23AssetNetworkSharingModeENS8_9HashTableINS8_13DynamicStringEyNS8_4HashISB_EENS8_7EqualToISB_EELb1ELb0EEENS8_19AssetLoadDescriptorESB_NS8_18NetworkActionQueue6Action15NetworkLoadDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSM_1EJS9_SG_SH_SB_SK_EEEEEEDcSO_DpT0_(uint64_t a1, uint64_t a2)
+id *re::NetworkAssetManager::assetLoadDescriptors@<X0>(re::NetworkAssetManager *this@<X0>, _BYTE *a2@<X8>, unint64_t a3@<X1>)
 {
-  re::DynamicString::deinit((a2 + 112));
-  re::DynamicArray<unsigned long>::deinit(a2 + 72);
-  re::DynamicArray<unsigned long>::deinit(a2 + 32);
-
-  return re::DynamicString::deinit(a2);
-}
-
-re::DynamicString *re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addOrReplace<void>(uint64_t a1, char *a2, re::DynamicString *a3)
-{
-  v10 = 0;
-  v11 = a2;
-  v8 = 0;
-  v9 = 0;
-  v5 = re::Hash<re::DynamicString>::operator()(&v12, a2);
-  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<char const*>(a1, &v11, v5, &v8);
-  v6 = HIDWORD(v9);
-  if (HIDWORD(v9) == 0x7FFFFFFF)
+  result = re::HashTable<unsigned long long,re::ecs2::EntityHandle,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(this + 32, a3);
+  if (result && (result = re::ecs2::EntityHandle::resolve(result, *(this + 1))) != 0 && (result = re::ecs2::EntityComponentCollection::get((result + 6), re::ecs2::ComponentImpl<re::ecs2::NetworkAssetComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType)) != 0)
   {
-    return re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addInternal<char const*&,re::DynamicString>(a1, &v8, &v11, a3);
-  }
+    *a2 = 1;
 
-  ++*(a1 + 40);
-  return re::DynamicString::operator=((*(a1 + 16) + 80 * v6 + 40), a3);
-}
-
-BOOL re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::remove<void>(uint64_t a1, char *a2)
-{
-  v6 = a2;
-  v3 = re::Hash<re::DynamicString>::operator()(v5, a2);
-  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<char const*>(a1, &v6, v3, v5);
-  return re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::removeInternal(a1, v5);
-}
-
-uint64_t re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addInternal<char const*&,re::DynamicString>(uint64_t a1, uint64_t a2, const char **a3, void *a4)
-{
-  v7 = re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(a1, *(a2 + 8), *a2);
-  v8 = *a3;
-  *(v7 + 40) = 0u;
-  v7 += 40;
-  *(v7 + 16) = 0u;
-  *(v7 + 24) = a4[3];
-  v9 = a4[1];
-  *v7 = *a4;
-  *a4 = 0;
-  v10 = a4[2];
-  a4[3] = 0;
-  v12 = *(v7 + 8);
-  v11 = *(v7 + 16);
-  *(v7 + 8) = v9;
-  *(v7 + 16) = v10;
-  a4[1] = v12;
-  a4[2] = v11;
-  ++*(a1 + 40);
-  return v7;
-}
-
-uint64_t re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<char const*>@<X0>(uint64_t result@<X0>, const char **a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v6 = 0x7FFFFFFF;
-  if (!*result)
-  {
-    LODWORD(v7) = 0;
-    goto LABEL_17;
-  }
-
-  v7 = a3 % *(result + 24);
-  v8 = *(*(result + 8) + 4 * v7);
-  if (v8 == 0x7FFFFFFF)
-  {
-LABEL_17:
-    v8 = 0x7FFFFFFF;
-    goto LABEL_18;
-  }
-
-  v9 = *(result + 16);
-  v10 = *a2;
-  v11 = v9 + 80 * v8;
-  v12 = *(v11 + 16);
-  v13 = *(v11 + 24);
-  v14 = (v11 + 17);
-  if (v12)
-  {
-    v15 = v13;
+    return re::DynamicArray<re::AssetLoadDescriptor>::DynamicArray((a2 + 8), result + 9);
   }
 
   else
   {
-    v15 = v14;
-  }
-
-  result = strcmp(v15, *a2);
-  if (!result)
-  {
-    v6 = v8;
-    goto LABEL_17;
-  }
-
-  v16 = *(v9 + 80 * v8) & 0x7FFFFFFF;
-  v6 = 0x7FFFFFFF;
-  if (v16 != 0x7FFFFFFF)
-  {
-    v6 = 0x7FFFFFFF;
-    while (1)
-    {
-      v17 = v16;
-      v18 = v9 + 80 * v16;
-      v19 = *(v18 + 16);
-      v20 = *(v18 + 24);
-      v21 = v18 + 17;
-      v22 = ((v19 & 1) != 0 ? v20 : v21);
-      result = strcmp(v22, v10);
-      if (!result)
-      {
-        break;
-      }
-
-      v16 = *(v9 + 80 * v17) & 0x7FFFFFFF;
-      v8 = v17;
-      if (v16 == 0x7FFFFFFF)
-      {
-        v8 = v17;
-        goto LABEL_18;
-      }
-    }
-
-    v6 = v17;
-  }
-
-LABEL_18:
-  *a4 = a3;
-  *(a4 + 8) = v7;
-  *(a4 + 12) = v6;
-  *(a4 + 16) = v8;
-  return result;
-}
-
-uint64_t re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
-{
-  v5 = *(a1 + 36);
-  if (v5 == 0x7FFFFFFF)
-  {
-    v5 = *(a1 + 32);
-    v6 = v5;
-    if (v5 == *(a1 + 24))
-    {
-      re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::setCapacity(a1, 2 * *(a1 + 28));
-      a2 = a3 % *(a1 + 24);
-      v6 = *(a1 + 32);
-    }
-
-    *(a1 + 32) = v6 + 1;
-    v7 = *(a1 + 16);
-    v8 = *(v7 + 80 * v5);
-  }
-
-  else
-  {
-    v7 = *(a1 + 16);
-    v8 = *(v7 + 80 * v5);
-    *(a1 + 36) = v8 & 0x7FFFFFFF;
-  }
-
-  v9 = v7 + 80 * v5;
-  *v9 = v8 | 0x80000000;
-  v10 = *(a1 + 8);
-  *v9 = *(v10 + 4 * a2) | 0x80000000;
-  *(v10 + 4 * a2) = v5;
-  *(v9 + 72) = a3;
-  ++*(a1 + 28);
-  return v7 + 80 * v5;
-}
-
-void re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::setCapacity(uint64_t a1, unsigned int a2)
-{
-  v4 = *a1;
-  if (*a1)
-  {
-    if (a2 && *(a1 + 24) != a2 && *(a1 + 28) <= a2)
-    {
-      memset(v9, 0, 36);
-      *&v9[36] = 0x7FFFFFFFLL;
-      re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::init(v9, v4, a2);
-      v5 = *v9;
-      *v9 = *a1;
-      *a1 = v5;
-      v6 = *&v9[16];
-      *&v9[16] = *(a1 + 16);
-      *(a1 + 16) = v6;
-      v7 = *&v9[24];
-      *&v9[24] = *(a1 + 24);
-      *(a1 + 24) = v7;
-      ++*&v9[40];
-      re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::move(a1, v9);
-      re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(v9);
-    }
-  }
-
-  else
-  {
-    if (a2)
-    {
-      v8 = a2;
-    }
-
-    else
-    {
-      v8 = 3;
-    }
-  }
-}
-
-uint64_t re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::move(uint64_t result, uint64_t a2)
-{
-  v2 = *(a2 + 32);
-  if (v2)
-  {
-    v4 = result;
-    v5 = 0;
-    v6 = 40;
-    do
-    {
-      v7 = *(a2 + 16) + v6;
-      if ((*(v7 - 40) & 0x80000000) != 0)
-      {
-        result = re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(v4, *(v7 + 32) % *(v4 + 24));
-        v8 = *(a2 + 16) + v6;
-        *(result + 24) = 0u;
-        *(result + 8) = 0u;
-        *(result + 32) = *(v8 - 8);
-        v9 = *(v8 - 24);
-        *(result + 8) = *(v8 - 32);
-        *(v8 - 32) = 0;
-        v10 = *(v8 - 16);
-        *(v8 - 8) = 0;
-        v12 = *(result + 16);
-        v11 = *(result + 24);
-        *(result + 16) = v9;
-        *(result + 24) = v10;
-        *(v8 - 24) = v12;
-        *(v8 - 16) = v11;
-        v13 = (*(a2 + 16) + v6);
-        *(result + 56) = 0u;
-        *(result + 40) = 0u;
-        *(result + 64) = v13[3];
-        v14 = v13[1];
-        *(result + 40) = *v13;
-        *v13 = 0;
-        v15 = v13[2];
-        v13[3] = 0;
-        v17 = *(result + 48);
-        v16 = *(result + 56);
-        *(result + 48) = v14;
-        *(result + 56) = v15;
-        v13[1] = v17;
-        v13[2] = v16;
-        v2 = *(a2 + 32);
-      }
-
-      ++v5;
-      v6 += 80;
-    }
-
-    while (v5 < v2);
+    *a2 = 0;
   }
 
   return result;
 }
 
-BOOL re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::removeInternal(uint64_t a1, unsigned int *a2)
+uint64_t re::HashTable<unsigned long long,re::ecs2::EntityHandle,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(uint64_t a1, unint64_t a2)
 {
-  v2 = a2[3];
-  if (v2 != 0x7FFFFFFF)
-  {
-    v5 = a2[4];
-    v6 = *(a1 + 16);
-    v7 = *(v6 + 80 * v2) & 0x7FFFFFFF;
-    if (v5 == 0x7FFFFFFF)
-    {
-      *(*(a1 + 8) + 4 * a2[2]) = v7;
-      v8 = a2[3];
-    }
-
-    else
-    {
-      *(v6 + 80 * v5) = *(v6 + 80 * v5) & 0x80000000 | v7;
-      v8 = v2;
-    }
-
-    re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::EntryBase::free((v6 + 80 * v8));
-    v9 = a2[3];
-    v10 = *(a1 + 40);
-    *(*(a1 + 16) + 80 * v9) = *(*(a1 + 16) + 80 * v9) & 0x80000000 | *(a1 + 36);
-    --*(a1 + 28);
-    *(a1 + 36) = v9;
-    *(a1 + 40) = v10 + 1;
-  }
-
-  return v2 != 0x7FFFFFFF;
-}
-
-double re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::EntryBase::free(_DWORD *a1)
-{
-  if ((*a1 & 0x80000000) != 0)
-  {
-    *a1 &= ~0x80000000;
-    v2 = (a1 + 10);
-    re::DynamicString::deinit((a1 + 2));
-
-    return re::DynamicString::deinit(v2);
-  }
-
-  return result;
-}
-
-uint64_t re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet<void>(uint64_t a1, char *a2)
-{
-  v7 = a2;
-  v3 = re::Hash<re::DynamicString>::operator()(v5, a2);
-  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<char const*>(a1, &v7, v3, v5);
+  v3 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) >> 27));
+  re::HashTable<unsigned long long,re::ecs2::EntityHandle,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(v5, a1, a2, v3 ^ (v3 >> 31));
   if (v6 == 0x7FFFFFFF)
   {
     return 0;
@@ -6130,3632 +9018,801 @@ uint64_t re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicS
 
   else
   {
-    return *(a1 + 16) + 80 * v6 + 40;
+    return *(a1 + 16) + 48 * v6 + 16;
   }
 }
 
-uint64_t re::DynamicArray<std::function<void ()(void)>>::add(_anonymous_namespace_ *this, uint64_t a2)
+void re::NetworkAssetManager::dependencyAssetId(re::NetworkAssetManager *this@<X0>, char *a2@<X2>, unint64_t a3@<X1>, uint64_t a4@<X8>)
 {
-  v4 = *(this + 2);
-  if (v4 >= *(this + 1))
+  v38 = *MEMORY[0x1E69E9840];
+  v8 = re::HashTable<unsigned long long,re::ecs2::EntityHandle,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(this + 32, a3);
+  if (!v8)
   {
-    re::DynamicArray<std::function<void ()(void)>>::growCapacity(this, v4 + 1);
-    v4 = *(this + 2);
+    goto LABEL_11;
   }
 
-  result = std::__function::__value_func<void ()(void)>::__value_func[abi:nn200100](*(this + 4) + 32 * v4, a2);
-  ++*(this + 2);
-  ++*(this + 6);
+  v9 = re::ecs2::EntityHandle::resolve(v8, *(this + 1));
+  if (!v9)
+  {
+    v19 = *re::assetsLogObjects(0);
+    if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_11;
+    }
+
+    v32 = 134217984;
+    v33 = a3;
+    v16 = "Failed to resolve entity from entity handle for asset with id %llu.";
+LABEL_23:
+    v17 = v19;
+    v18 = 12;
+    goto LABEL_24;
+  }
+
+  v10 = re::ecs2::EntityComponentCollection::get((v9 + 48), re::ecs2::ComponentImpl<re::ecs2::NetworkAssetComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType);
+  if (!v10)
+  {
+    v19 = *re::assetsLogObjects(0);
+    if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_11;
+    }
+
+    v32 = 134217984;
+    v33 = a3;
+    v16 = "Network asset entity with asset id %llu has no NetworkAssetComponent.";
+    goto LABEL_23;
+  }
+
+  v11 = v10;
+  v12 = re::Hash<re::DynamicString>::operator()(&v32, a2);
+  if (!*(v11 + 112))
+  {
+    goto LABEL_6;
+  }
+
+  v13 = *(*(v11 + 120) + 4 * (v12 % *(v11 + 136)));
+  if (v13 == 0x7FFFFFFF)
+  {
+    goto LABEL_6;
+  }
+
+  v20 = *(v11 + 128);
+  v21 = v20 + 56 * v13;
+  v22 = *(v21 + 16);
+  v23 = *(v21 + 24);
+  v24 = (v21 + 17);
+  if (v22)
+  {
+    v25 = v23;
+  }
+
+  else
+  {
+    v25 = v24;
+  }
+
+  v12 = strcmp(v25, a2);
+  if (v12)
+  {
+    while (1)
+    {
+      v26 = *(v20 + 56 * v13);
+      v13 = v26 & 0x7FFFFFFF;
+      if ((v26 & 0x7FFFFFFF) == 0x7FFFFFFF)
+      {
+        break;
+      }
+
+      v27 = v20 + 56 * v13;
+      v28 = *(v27 + 16);
+      v29 = *(v27 + 24);
+      v30 = (v27 + 17);
+      if (v28)
+      {
+        v31 = v29;
+      }
+
+      else
+      {
+        v31 = v30;
+      }
+
+      v12 = strcmp(v31, a2);
+      if (!v12)
+      {
+        goto LABEL_21;
+      }
+    }
+
+LABEL_6:
+    v14 = *re::assetsLogObjects(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    {
+      v15 = *(v11 + 140);
+      v32 = 134218498;
+      v33 = a3;
+      v34 = 2080;
+      v35 = a2;
+      v36 = 1024;
+      v37 = v15;
+      v16 = "Network asset entity with asset id %llu does not have any dependencies registered for relative path '%s'. Dependencies count = %u";
+      v17 = v14;
+      v18 = 28;
+LABEL_24:
+      _os_log_debug_impl(&dword_1E1C61000, v17, OS_LOG_TYPE_DEBUG, v16, &v32, v18);
+    }
+
+LABEL_11:
+    *a4 = 0;
+    return;
+  }
+
+LABEL_21:
+  *a4 = 1;
+  *(a4 + 8) = *(v20 + 56 * v13 + 40);
+}
+
+id *re::NetworkAssetManager::netComponent(re::NetworkAssetManager *this, unint64_t a2)
+{
+  result = re::HashTable<unsigned long long,re::ecs2::EntityHandle,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(this + 32, a2);
+  if (result)
+  {
+    result = re::ecs2::EntityHandle::resolve(result, *(this + 1));
+    if (result)
+    {
+      return re::ecs2::EntityComponentCollection::get((result + 6), re::ecs2::ComponentImpl<re::ecs2::NetworkAssetComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType);
+    }
+  }
+
   return result;
 }
 
-void *re::DynamicArray<std::function<void ()(void)>>::growCapacity(void *this, unint64_t a2)
+id *re::NetworkAssetManager::ownerPeerID@<X0>(re::NetworkAssetManager *this@<X0>, unint64_t a2@<X1>, re::NetworkAssetManager *a3@<X8>)
 {
-  v2 = this[1];
-  if (v2 < a2)
+  result = re::HashTable<unsigned long long,re::ecs2::EntityHandle,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(this + 32, a2);
+  if (result)
   {
-    v3 = a2;
-    v4 = this;
-    if (*this)
+    v6 = re::ecs2::EntityHandle::resolve(result, *(this + 1));
+
+    return re::NetworkAssetManager::ownerPeerID(a3, this, v6);
+  }
+
+  else
+  {
+    *a3 = 0;
+  }
+
+  return result;
+}
+
+_BYTE *re::NetworkAssetManager::ownerPeerID(_BYTE *this, const re::ecs2::Entity *a2, uint64_t a3)
+{
+  v3 = this;
+  if (a3 && (v4 = *(a3 + 216)) != 0)
+  {
+    v5 = *(a3 + 32);
+    if (v5 && (*(v5 + 304) & 0x80) != 0)
     {
-      v5 = 2 * v2;
-      v6 = v2 == 0;
-      v7 = 8;
-      if (!v6)
+      v5 = 0;
+    }
+
+    v6 = *(a2 + 3);
+    if (v6 != v5 || v6 == 0)
+    {
+      if (*(v4 + 32))
       {
-        v7 = v5;
+        this = RESyncableGetOwnerPeerID();
       }
 
-      if (v7 > a2)
+      else
       {
-        a2 = v7;
+        this = *(v4 + 64);
       }
-
-      return re::DynamicArray<std::function<void ()(void)>>::setCapacity(this, a2);
     }
 
     else
     {
-      this = re::DynamicArray<std::function<void ()(void)>>::setCapacity(v4, v3);
-      ++*(v4 + 6);
+      this = RESyncServiceGetLocalPeerId();
+    }
+
+    *v3 = 1;
+    *(v3 + 1) = this;
+  }
+
+  else
+  {
+    *this = 0;
+  }
+
+  return this;
+}
+
+uint64_t re::NetworkAssetManager::fromPeerID@<X0>(re::NetworkAssetManager *this@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  result = re::HashTable<unsigned long long,re::ecs2::EntityHandle,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(this + 32, a2);
+  if (result && (result = re::ecs2::EntityHandle::resolve(result, *(this + 1))) != 0 && (v6 = *(result + 216)) != 0)
+  {
+    if (*(v6 + 32))
+    {
+      result = RESyncableGetFromPeerID();
+    }
+
+    else
+    {
+      result = *(v6 + 64);
+    }
+
+    *a3 = 1;
+    *(a3 + 8) = result;
+  }
+
+  else
+  {
+    *a3 = 0;
+  }
+
+  return result;
+}
+
+char *re::NetworkAssetManager::setUseIndependentScene(char *this, uint64_t a2)
+{
+  if (this[192] != a2)
+  {
+    if (*(this + 22))
+    {
+      re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Network asset manager has already attached to a scene", "m_activeScene == nullptr", "setUseIndependentScene", 223, v2, v3);
+      this = _os_crash("assertion failure: (m_activeScene == nullptr) Network asset manager has already attached to a scene");
+      __break(1u);
+    }
+
+    else
+    {
+      this[192] = a2;
+      if (*(this + 3))
+      {
+
+        return re::NetworkAssetManager::getOrCreateAssetRootEntity(this);
+      }
     }
   }
 
   return this;
 }
 
-void *re::DynamicArray<std::function<void ()(void)>>::setCapacity(void *result, unint64_t a2)
+char *re::NetworkAssetManager::getOrCreateAssetRootEntity(re::NetworkAssetManager *this)
 {
-  v3 = result[1];
-  if (v3 != a2)
+  v1 = this;
+  if (*(this + 192) == 1)
   {
-    v5 = result;
-    if (result[2] <= a2)
+    v2 = (this + 184);
+    if (!*(this + 23))
     {
-      result = *result;
-      if (!*v5)
+      v15[0] = 0x70790C8A86948A1ELL;
+      v15[1] = "RootAssetScene";
+      re::make::shared::object<re::ecs2::Scene,re::ConstStringID>(v15, &v16);
+      v4 = *v2;
+      v5 = v16;
+      *v2 = v16;
+      v16 = v4;
+      if (v4)
       {
-        result = re::DynamicArray<std::function<void ()(void)>>::setCapacity(v5, a2);
-        ++*(v5 + 6);
-        return result;
+
+        v5 = *v2;
       }
 
-      if (a2)
+      this = re::ecs2::Scene::setHiddenFromSwiftAPI(v5, v3);
+      if (*(v1 + 193) == 1)
       {
-        if (a2 >> 59)
-        {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 32, a2);
-          _os_crash();
-          __break(1u);
-        }
-
-        else
-        {
-          v2 = 32 * a2;
-          result = (*(*result + 32))(result, 32 * a2, 8);
-          if (result)
-          {
-            v7 = result;
-            if (!v5[1])
-            {
-              goto LABEL_21;
-            }
-
-            goto LABEL_11;
-          }
-        }
-
-        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
-        __break(1u);
-        return result;
+        this = (*(**(v1 + 1) + 112))(*(v1 + 1), v1 + 184, 0xFFFFFFFFLL);
       }
 
-      v7 = 0;
-      if (!v3)
+      v6 = *(v1 + 3);
+      v7 = *(v1 + 23);
+      *(v1 + 22) = v7;
+      if (v6)
       {
-LABEL_21:
-        v5[4] = v7;
-        v5[1] = a2;
-        return result;
+        re::Collection<re::SharedPtr<re::ecs2::Entity>>::add((*(v7 + 104) + 320), v1 + 3);
       }
-
-LABEL_11:
-      v8 = v5[4];
-      v9 = v5[2];
-      if (v9)
-      {
-        v10 = 32 * v9;
-        v11 = v7;
-        do
-        {
-          v12 = *(v8 + 24);
-          if (v12)
-          {
-            if (v8 == v12)
-            {
-              v11[3] = v11;
-              (*(**(v8 + 24) + 24))(*(v8 + 24), v11);
-            }
-
-            else
-            {
-              v11[3] = v12;
-              *(v8 + 24) = 0;
-            }
-          }
-
-          else
-          {
-            v11[3] = 0;
-          }
-
-          std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v8);
-          v8 += 32;
-          v11 += 4;
-          v10 -= 32;
-        }
-
-        while (v10);
-        v8 = v5[4];
-      }
-
-      result = (*(**v5 + 40))(*v5, v8);
-      goto LABEL_21;
     }
   }
 
-  return result;
+  v8 = (v1 + 24);
+  if (!*(v1 + 3))
+  {
+    v9 = re::ecs2::EntityFactory::instance(this);
+    re::ecs2::EntityFactory::make(v15, v9, 4uLL);
+    v10 = *v8;
+    v11 = v15[0];
+    *v8 = v15[0];
+    if (v10)
+    {
+
+      v11 = *v8;
+    }
+
+    *(v11 + 76) |= 0x1400u;
+    re::StringID::StringID(v15, (v1 + 200));
+    v12 = re::StringID::operator=(v11 + 36, v15);
+    if (v15[0])
+    {
+      if (v15[0])
+      {
+      }
+    }
+
+    re::ecs2::EntityComponentCollection::add((*(v1 + 3) + 48), re::ecs2::ComponentImpl<re::ecs2::LinkedTLEComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType);
+    re::ecs2::EntityComponentCollection::add((*(v1 + 3) + 48), re::ecs2::ComponentImpl<re::ecs2::NetworkComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
+    v13 = *(v1 + 22);
+    if (v13)
+    {
+      re::Collection<re::SharedPtr<re::ecs2::Entity>>::add((*(v13 + 104) + 320), v1 + 3);
+    }
+  }
+
+  return *v8;
 }
 
-uint64_t std::__function::__value_func<void ()(void)>::__value_func[abi:nn200100](uint64_t a1, uint64_t a2)
+void re::NetworkAssetManager::hackOneTimeSetUp(re::NetworkAssetManager *this)
 {
-  v3 = *(a2 + 24);
-  if (v3)
+  if ((*(this + 193) & 1) == 0)
   {
-    if (v3 == a2)
+    if (*(this + 192) != 1)
     {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+LABEL_8:
+      *(this + 193) = 1;
+      return;
     }
 
-    else
+    v2 = (*(**(this + 1) + 288))(*(this + 1));
+    v3 = re::ecs2::SceneGroupCollection::sceneCount(v2);
+    if (v3)
     {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
+      if (*(this + 23))
+      {
+        v4 = *re::assetsLogObjects(v3);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+        {
+          *v6 = 0;
+          _os_log_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEFAULT, "Network asset one-time set up: adding asset scene to ECS service", v6, 2u);
+        }
+
+        (*(**(this + 1) + 112))(*(this + 1), this + 184, 0xFFFFFFFFLL);
+      }
+
+      goto LABEL_8;
     }
+
+    v5 = *re::assetsLogObjects(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_debug_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_DEBUG, "Delaying network asset one-time set up: no other scenes yet", buf, 2u);
+    }
+  }
+}
+
+void re::Collection<re::SharedPtr<re::ecs2::Entity>>::add(void *a1, uint64_t *a2)
+{
+  v3 = a1[3];
+  v4 = *a2;
+  v7 = v4;
+  if (v4)
+  {
+    v5 = (v4 + 8);
+  }
+
+  (*(*a1 + 24))(a1, v3, &v7);
+  v6 = a1[3];
+  re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::add((a1 + 1), &v7);
+  (*(*a1 + 48))(a1, v6, &v7);
+  if (v7)
+  {
+  }
+}
+
+BOOL re::NetworkAssetManager::shareAsset(re::NetworkAssetManager *a1, unint64_t a2, uint64_t *a3, const char **a4, char a5, uint64_t a6)
+{
+  v35 = *MEMORY[0x1E69E9840];
+  v12 = re::HashTable<unsigned long long,re::ecs2::EntityHandle,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(a1 + 32, a2);
+  if (v12)
+  {
+    return v12 == 0;
+  }
+
+  AssetRootEntity = re::NetworkAssetManager::getOrCreateAssetRootEntity(a1);
+  v15 = strlen(*a4);
+  v31[1] = 0;
+  v32 = 1;
+  v33 = 0;
+  v34 = 0;
+  re::DynamicOverflowArray<char,91ul>::setCapacity(v31, v15 + 28);
+  v16 = v32;
+  v32 += 2;
+  if (v16)
+  {
+    v17 = &v33;
   }
 
   else
   {
-    *(a1 + 24) = 0;
+    v17 = v34;
+  }
+
+  if (v16)
+  {
+    v18 = 91;
+  }
+
+  else
+  {
+    v18 = v33;
+  }
+
+  snprintf(v17, v18, "%s Asset:%llu", *a4, a2);
+  if (v32)
+  {
+    v19 = &v33;
+  }
+
+  else
+  {
+    v19 = v34;
+  }
+
+  v20 = (*(**(re::ecs2::ComponentImpl<re::ecs2::NetworkAssetComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType + 7) + 32))(*(re::ecs2::ComponentImpl<re::ecs2::NetworkAssetComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType + 7), 232, 0);
+  *v20 = 0u;
+  *(v20 + 16) = 0u;
+  *(v20 + 32) = 0u;
+  *(v20 + 48) = 0u;
+  *(v20 + 64) = 0u;
+  *(v20 + 80) = 0u;
+  *(v20 + 96) = 0u;
+  *(v20 + 112) = 0u;
+  *(v20 + 128) = 0u;
+  *(v20 + 144) = 0u;
+  *(v20 + 160) = 0u;
+  *(v20 + 176) = 0u;
+  *(v20 + 192) = 0u;
+  *(v20 + 208) = 0u;
+  *(v20 + 224) = 0;
+  ArcSharedObject::ArcSharedObject(v20, 0);
+  *(v21 + 16) = 0;
+  *(v21 + 24) = 0;
+  *v21 = &unk_1F5CB8088;
+  *(v21 + 56) = 0u;
+  *(v21 + 40) = 0u;
+  v22 = (v21 + 40);
+  re::DynamicString::setCapacity(v22, 0);
+  *(v20 + 96) = 0;
+  *(v20 + 88) = 0;
+  *(v20 + 72) = 0u;
+  *(v20 + 104) = 0u;
+  *(v20 + 120) = 0u;
+  *(v20 + 132) = 0u;
+  *(v20 + 148) = 0x7FFFFFFFLL;
+  *(v20 + 160) = 0;
+  *(v20 + 168) = 0u;
+  *(v20 + 184) = 0u;
+  *(v20 + 200) = 0;
+  *(v20 + 204) = 0x7FFFFFFFLL;
+  *(v20 + 216) = 0;
+  *(v20 + 32) = a2;
+  v23 = *a4;
+  v24 = strlen(v23);
+  v30[0] = v23;
+  v30[1] = v24;
+  re::DynamicString::operator=(v22, v30);
+  re::DynamicArray<re::AssetLoadDescriptor>::operator=(v20 + 72, a3);
+  *(v20 + 160) = a5;
+  if ((*(v20 + 216) & 1) == 0)
+  {
+    if ((*a6 & 1) == 0)
+    {
+      goto LABEL_18;
+    }
+
+    *(v20 + 216) = 1;
+LABEL_17:
+    *(v20 + 224) = *(a6 + 8);
+    goto LABEL_18;
+  }
+
+  if (*a6)
+  {
+    goto LABEL_17;
+  }
+
+  *(v20 + 216) = 0;
+LABEL_18:
+  v25 = v29;
+  v26 = re::ecs2::EntityComponentCollection::add((v29 + 48), re::ecs2::ComponentImpl<re::ecs2::NetworkComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
+  v28 = v20;
+  v27 = (v20 + 8);
+  re::ecs2::EntityComponentCollection::add(v25 + 48, &v28, 1);
+  if (v28)
+  {
+
+    v28 = 0;
+  }
+
+  re::ecs2::NetworkComponent::markDirty(v26, v20);
+  (*(*a1 + 136))(a1, a2, a3, v25);
+
+  if (v25)
+  {
+  }
+
+  if (v31[0] && (v32 & 1) == 0)
+  {
+    (*(*v31[0] + 40))();
+  }
+
+  return v12 == 0;
+}
+
+void anonymous namespace::makeAssetEntity(_anonymous_namespace_ *this, const char *a2, re::ecs2::Entity *a3)
+{
+  v6 = re::ecs2::EntityFactory::instance(this);
+  v7 = re::ecs2::EntityFactory::make(this, v6, 4uLL);
+  v8 = *this;
+  *(v8 + 304) |= 0x1400u;
+  v10 = 0;
+  v11 = &str_67;
+  v9 = re::StringID::operator=((v8 + 288), &v10);
+  if (v10)
+  {
+    if (v10)
+    {
+    }
+  }
+
+  re::ecs2::Entity::setParentInternal(v8, a3, 0xFFFFFFFFFFFFFFFFLL);
+}
+
+uint64_t re::DynamicArray<re::AssetLoadDescriptor>::operator=(uint64_t a1, uint64_t *a2)
+{
+  if (a1 != a2)
+  {
+    v4 = *a2;
+    if (*a1)
+    {
+      if (v4)
+      {
+        re::DynamicArray<re::AssetLoadDescriptor>::copy(a1, a2);
+        ++*(a1 + 24);
+      }
+
+      else
+      {
+        re::DynamicArray<re::AssetLoadDescriptor>::clear(a1);
+      }
+    }
+
+    else if (v4)
+    {
+      v5 = a2[2];
+      *a1 = v4;
+      re::DynamicArray<re::AssetLoadDescriptor>::setCapacity(a1, v5);
+      ++*(a1 + 24);
+      re::DynamicArray<re::AssetLoadDescriptor>::copy(a1, a2);
+    }
   }
 
   return a1;
 }
 
-double re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(uint64_t *a1)
+BOOL re::NetworkAssetManager::preloadAsset(uint64_t a1, re::AssetHandle *this, __int16 ***a3)
 {
-  v2 = *a1;
-  if (v2)
+  v51 = *MEMORY[0x1E69E9840];
+  v6 = re::AssetHandle::assetInfo(this);
+  v7 = *(v6 + 10);
+  if (v7 + 1 <= 1)
   {
-    if (*(a1 + 8))
+    v8 = *re::assetsLogObjects(v6);
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    if (!result)
     {
-      v3 = 0;
-      v4 = 0;
-      do
-      {
-        re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::EntryBase::free((a1[2] + v3));
-        ++v4;
-        v3 += 80;
-      }
-
-      while (v4 < *(a1 + 8));
-      v2 = *a1;
+      return result;
     }
 
-    (*(*v2 + 40))(v2, a1[1]);
-    *(a1 + 8) = 0;
-    *a1 = 0u;
-    *(a1 + 1) = 0u;
-    *&result = 0x7FFFFFFFLL;
-    *(a1 + 36) = 0x7FFFFFFFLL;
+    *__str = 0;
+    v10 = "Will not preload asset with assetID: 0.";
+    v11 = v8;
+    v12 = 2;
+    goto LABEL_41;
   }
 
-  return result;
-}
-
-uint64_t re::DynamicArray<re::DynamicString>::deinit(uint64_t a1)
-{
-  result = *a1;
-  if (result)
+  if (!a3[1])
   {
-    v3 = *(a1 + 32);
-    if (v3)
+    v35 = *re::assetsLogObjects(v6);
+    result = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+    if (!result)
     {
-      v4 = *(a1 + 16);
-      if (v4)
+      return result;
+    }
+
+    v36 = *(re::AssetHandle::assetInfo(this) + 10);
+    if (v36 == -1)
+    {
+      v36 = 0;
+    }
+
+    v37 = **(*(this + 1) + 280);
+    *__str = 134218242;
+    v48 = v36;
+    v49 = 2080;
+    v50 = v37;
+    v10 = "Will not preload assetId:%llu, asset type: %s, because there are 0 peerIDs.";
+LABEL_40:
+    v11 = v35;
+    v12 = 22;
+LABEL_41:
+    _os_log_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_DEFAULT, v10, __str, v12);
+    return 0;
+  }
+
+  v13 = re::HashTable<unsigned long long,re::ecs2::EntityHandle,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(a1 + 32, v7);
+  if (!v13)
+  {
+    v35 = *re::assetsLogObjects(0);
+    result = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+    if (!result)
+    {
+      return result;
+    }
+
+    v38 = *(re::AssetHandle::assetInfo(this) + 10);
+    if (v38 == -1)
+    {
+      v38 = 0;
+    }
+
+    v39 = **(*(this + 1) + 280);
+    *__str = 134218242;
+    v48 = v38;
+    v49 = 2080;
+    v50 = v39;
+    v10 = "Failed to preload assetId:%llu, asset type: %s, because there is no assetEntityHandle.";
+    goto LABEL_40;
+  }
+
+  v14 = *(a1 + 8);
+  if (!v14)
+  {
+    v35 = *re::assetsLogObjects(v13);
+    result = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+    if (!result)
+    {
+      return result;
+    }
+
+    v40 = *(re::AssetHandle::assetInfo(this) + 10);
+    if (v40 == -1)
+    {
+      v40 = 0;
+    }
+
+    v41 = **(*(this + 1) + 280);
+    *__str = 134218242;
+    v48 = v40;
+    v49 = 2080;
+    v50 = v41;
+    v10 = "Failed to preload assetId:%llu, asset type: %s, because there is no ECS Service.";
+    goto LABEL_40;
+  }
+
+  v15 = re::ecs2::EntityHandle::resolve(v13, v14);
+  if (!v15)
+  {
+    v35 = *re::assetsLogObjects(0);
+    result = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+    if (!result)
+    {
+      return result;
+    }
+
+    v42 = *(re::AssetHandle::assetInfo(this) + 10);
+    if (v42 == -1)
+    {
+      v42 = 0;
+    }
+
+    v43 = **(*(this + 1) + 280);
+    *__str = 134218242;
+    v48 = v42;
+    v49 = 2080;
+    v50 = v43;
+    v10 = "Failed to preload assetId:%llu, asset type: %s, because there is no Asset Entity.";
+    goto LABEL_40;
+  }
+
+  v16 = v15;
+  v17 = *(v15 + 43);
+  if (v17)
+  {
+    v18 = *(v15 + 45);
+    v19 = 8 * v17;
+    do
+    {
+      v20 = *v18;
+      if (*v18)
       {
-        v5 = 32 * v4;
-        do
+        v21 = (v20 + 8);
+        v22 = re::ecs2::EntityComponentCollection::get((v20 + 48), re::ecs2::ComponentImpl<re::ecs2::AssetPreloadComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType);
+
+        if (v22)
         {
-          re::DynamicString::deinit(v3);
-          v3 = (v3 + 32);
-          v5 -= 32;
+          return 0;
         }
-
-        while (v5);
-        result = *a1;
-        v3 = *(a1 + 32);
       }
 
-      result = (*(*result + 40))(result, v3);
-    }
-
-    *(a1 + 32) = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-    *a1 = 0;
-    ++*(a1 + 24);
-  }
-
-  return result;
-}
-
-uint64_t re::DynamicArray<re::AssetHandle>::deinit(uint64_t a1)
-{
-  result = *a1;
-  if (result)
-  {
-    v3 = *(a1 + 32);
-    if (v3)
-    {
-      v4 = *(a1 + 16);
-      if (v4)
+      else if (re::ecs2::EntityComponentCollection::get(0x30, re::ecs2::ComponentImpl<re::ecs2::AssetPreloadComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType))
       {
-        v5 = 24 * v4;
-        do
-        {
-          re::AssetHandle::~AssetHandle(v3);
-          v3 = (v3 + 24);
-          v5 -= 24;
-        }
-
-        while (v5);
-        result = *a1;
-        v3 = *(a1 + 32);
+        return 0;
       }
 
-      result = (*(*result + 40))(result, v3);
+      ++v18;
+      v19 -= 8;
     }
 
-    *(a1 + 32) = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-    *a1 = 0;
-    ++*(a1 + 24);
+    while (v19);
   }
 
-  return result;
-}
-
-void *re::DynamicArray<re::AssetHandle>::growCapacity(void *this, unint64_t a2)
-{
-  v2 = this[1];
-  if (v2 < a2)
+  if (snprintf(__str, 0x34uLL, "AssetPreload for Asset:%llu", v7) >= 0x34)
   {
-    v3 = a2;
-    v4 = this;
-    if (*this)
+    re::internal::assertLog(4, v23, "assertion failure: '%s' (%s:line %i) buffer is not big enough", "snprintfRes < bufferSize", "preloadAsset", 397);
+    _os_crash("assertion failure: (snprintfRes < bufferSize) buffer is not big enough");
+    __break(1u);
+  }
+
+  v24 = (*(**(re::ecs2::ComponentImpl<re::ecs2::AssetPreloadComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType + 7) + 32))(*(re::ecs2::ComponentImpl<re::ecs2::AssetPreloadComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType + 7), 56, 0);
+  *v24 = 0u;
+  *(v24 + 16) = 0u;
+  *(v24 + 32) = 0u;
+  *(v24 + 48) = 0;
+  ArcSharedObject::ArcSharedObject(v24, 0);
+  *(v25 + 16) = 0;
+  *(v25 + 24) = 0;
+  *v25 = &unk_1F5CB8110;
+  *(v25 + 40) = 0;
+  *(v25 + 48) = 0;
+  *(v25 + 32) = 0;
+  v26 = v46;
+  v45 = v25;
+  v27 = (v25 + 8);
+  re::ecs2::EntityComponentCollection::add(v26 + 48, &v45, 1);
+  if (v45)
+  {
+
+    v45 = 0;
+  }
+
+  v28 = re::ecs2::EntityComponentCollection::add((v26 + 48), re::ecs2::ComponentImpl<re::ecs2::NetworkComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
+  re::ecs2::NetworkComponent::setNetworkShareMode(v28, 0, v29, v30);
+  v44[0] = 0x300000001;
+  v31 = a3[1];
+  if (v31)
+  {
+    v32 = *a3;
+    v33 = 8 * v31;
+    do
     {
-      v5 = 2 * v2;
-      v6 = v2 == 0;
-      v7 = 8;
-      if (!v6)
-      {
-        v7 = v5;
-      }
-
-      if (v7 > a2)
-      {
-        a2 = v7;
-      }
-
-      return re::DynamicArray<re::AssetHandle>::setCapacity(this, a2);
+      v34 = *v32++;
+      re::ecs2::SyncAccessControl::addEntry(v44, v34, 0);
+      v33 -= 8;
     }
 
-    else
-    {
-      this = re::DynamicArray<re::AssetHandle>::setCapacity(v4, v3);
-      ++*(v4 + 6);
-    }
+    while (v33);
   }
 
-  return this;
-}
+  re::ecs2::NetworkComponent::setAccessControl(v28, v44);
+  re::ecs2::NetworkComponent::markDirty(v28, v24);
+  re::ecs2::SyncAccessControl::~SyncAccessControl(v44);
 
-void *re::DynamicArray<re::AssetHandle>::setCapacity(void *result, unint64_t a2)
-{
-  v3 = result[1];
-  if (v3 != a2)
-  {
-    v5 = result;
-    if (result[2] <= a2)
-    {
-      result = *result;
-      if (!*v5)
-      {
-        result = re::DynamicArray<re::AssetHandle>::setCapacity(v5, a2);
-        ++*(v5 + 6);
-        return result;
-      }
-
-      if (a2)
-      {
-        if (is_mul_ok(a2, 0x18uLL))
-        {
-          v2 = 24 * a2;
-          result = (*(*result + 32))(result, 24 * a2, 8);
-          if (result)
-          {
-            v7 = result;
-            if (!v5[1])
-            {
-              goto LABEL_16;
-            }
-
-            goto LABEL_11;
-          }
-        }
-
-        else
-        {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 24, a2);
-          _os_crash();
-          __break(1u);
-        }
-
-        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
-        __break(1u);
-        return result;
-      }
-
-      v7 = 0;
-      if (!v3)
-      {
-LABEL_16:
-        v5[4] = v7;
-        v5[1] = a2;
-        return result;
-      }
-
-LABEL_11:
-      v8 = v5[4];
-      v9 = v5[2];
-      if (v9)
-      {
-        v10 = 24 * v9;
-        v11 = v7;
-        do
-        {
-          *v11 = 0;
-          v11[1] = 0;
-          v11[2] = 0;
-          v11[1] = *(v8 + 1);
-          *(v8 + 1) = 0;
-          v12 = *v11;
-          *v11 = 0;
-          *v11 = *v8;
-          *v8 = v12;
-          v13 = v11[2];
-          v11[2] = *(v8 + 2);
-          *(v8 + 2) = v13;
-          re::AssetHandle::~AssetHandle(v8);
-          v8 = (v8 + 24);
-          v11 += 3;
-          v10 -= 24;
-        }
-
-        while (v10);
-        v8 = v5[4];
-      }
-
-      result = (*(**v5 + 40))(*v5, v8);
-      goto LABEL_16;
-    }
-  }
-
-  return result;
-}
-
-uint64_t re::DynamicArray<re::DynamicArray<re::AssetLoadDescriptor>>::deinit(uint64_t a1)
-{
-  result = *a1;
-  if (result)
-  {
-    v3 = *(a1 + 32);
-    if (v3)
-    {
-      v4 = *(a1 + 16);
-      if (v4)
-      {
-        v5 = 40 * v4;
-        do
-        {
-          re::DynamicArray<re::AssetLoadDescriptor>::deinit(v3);
-          v3 += 40;
-          v5 -= 40;
-        }
-
-        while (v5);
-        result = *a1;
-        v3 = *(a1 + 32);
-      }
-
-      result = (*(*result + 40))(result, v3);
-    }
-
-    *(a1 + 32) = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-    *a1 = 0;
-    ++*(a1 + 24);
-  }
-
-  return result;
-}
-
-uint64_t re::HashSetBase<re::AssetHandle,re::AssetHandle,re::internal::ValueAsKey<re::AssetHandle>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::addAsCopy(uint64_t a1, unsigned int a2, unint64_t a3, int a4, re::AssetHandle *a5)
-{
-  v9 = *(a1 + 36);
-  if (v9 == 0x7FFFFFFF)
-  {
-    v9 = *(a1 + 32);
-    v10 = v9;
-    if (v9 == *(a1 + 24))
-    {
-      re::HashSetBase<re::AssetHandle,re::AssetHandle,re::internal::ValueAsKey<re::AssetHandle>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::setCapacity(a1, 2 * *(a1 + 28));
-      a2 = a3 % *(a1 + 24);
-      v10 = *(a1 + 32);
-    }
-
-    *(a1 + 32) = v10 + 1;
-    v11 = *(a1 + 16);
-    v12 = *(v11 + 40 * v9 + 8);
-  }
-
-  else
-  {
-    v11 = *(a1 + 16);
-    v12 = *(v11 + 40 * v9 + 8);
-    *(a1 + 36) = v12 & 0x7FFFFFFF;
-  }
-
-  *(v11 + 40 * v9 + 8) = v12 | 0x80000000;
-  *(*(a1 + 16) + 40 * v9 + 8) = *(*(a1 + 16) + 40 * v9 + 8) & 0x80000000 | *(*(a1 + 8) + 4 * a2);
-  *(*(a1 + 16) + 40 * v9) = a3;
-  re::AssetHandle::AssetHandle((*(a1 + 16) + 40 * v9 + 16), a5);
-  *(*(a1 + 8) + 4 * a2) = v9;
-  ++*(a1 + 28);
-  return v9;
-}
-
-void re::HashSetBase<re::AssetHandle,re::AssetHandle,re::internal::ValueAsKey<re::AssetHandle>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::setCapacity(uint64_t a1, unsigned int a2)
-{
-  v4 = *a1;
-  if (*a1)
-  {
-    if (a2 && *(a1 + 24) != a2 && *(a1 + 28) <= a2)
-    {
-      memset(v13, 0, 36);
-      *&v13[36] = 0x7FFFFFFFLL;
-      re::HashSetBase<re::ServiceKey,re::ServiceRegistration,re::internal::ServiceKeyGetter,re::internal::ServiceKeyHash,re::internal::ServiceKeyEqualTo,false,false>::init(v13, v4, a2);
-      v5 = *v13;
-      *v13 = *a1;
-      *a1 = v5;
-      v6 = *&v13[16];
-      *&v13[16] = *(a1 + 16);
-      *(a1 + 16) = v6;
-      v8 = *&v13[24];
-      *&v13[24] = *(a1 + 24);
-      v7 = *&v13[32];
-      *(a1 + 24) = v8;
-      v9 = v7;
-      if (v7)
-      {
-        v10 = 0;
-        v11 = 0;
-        do
-        {
-          if ((*(*&v13[16] + v10 + 8) & 0x80000000) != 0)
-          {
-            re::HashSetBase<re::AssetHandle,re::AssetHandle,re::internal::ValueAsKey<re::AssetHandle>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::addAsMove(a1, *(*&v13[16] + v10) % *(a1 + 24), *(*&v13[16] + v10), *&v13[16] + v10 + 16, (*&v13[16] + v10 + 16));
-            v9 = *&v13[32];
-          }
-
-          ++v11;
-          v10 += 40;
-        }
-
-        while (v11 < v9);
-      }
-
-      re::HashSetBase<re::AssetHandle,re::AssetHandle,re::internal::ValueAsKey<re::AssetHandle>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::deinit(v13);
-    }
-  }
-
-  else
-  {
-    if (a2)
-    {
-      v12 = a2;
-    }
-
-    else
-    {
-      v12 = 3;
-    }
-  }
-}
-
-uint64_t re::HashSetBase<re::AssetHandle,re::AssetHandle,re::internal::ValueAsKey<re::AssetHandle>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::addAsMove(uint64_t a1, unsigned int a2, unint64_t a3, uint64_t a4, void *a5)
-{
-  v8 = *(a1 + 36);
-  if (v8 == 0x7FFFFFFF)
-  {
-    v8 = *(a1 + 32);
-    v9 = v8;
-    if (v8 == *(a1 + 24))
-    {
-      re::HashSetBase<re::AssetHandle,re::AssetHandle,re::internal::ValueAsKey<re::AssetHandle>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::setCapacity(a1, (2 * *(a1 + 28)));
-      a2 = a3 % *(a1 + 24);
-      v9 = *(a1 + 32);
-    }
-
-    *(a1 + 32) = v9 + 1;
-    v10 = *(a1 + 16);
-    v11 = *(v10 + 40 * v8 + 8);
-  }
-
-  else
-  {
-    v10 = *(a1 + 16);
-    v11 = *(v10 + 40 * v8 + 8);
-    *(a1 + 36) = v11 & 0x7FFFFFFF;
-  }
-
-  *(v10 + 40 * v8 + 8) = v11 | 0x80000000;
-  *(*(a1 + 16) + 40 * v8 + 8) = *(*(a1 + 16) + 40 * v8 + 8) & 0x80000000 | *(*(a1 + 8) + 4 * a2);
-  *(*(a1 + 16) + 40 * v8) = a3;
-  v12 = (*(a1 + 16) + 40 * v8);
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = 0;
-  v12[3] = a5[1];
-  a5[1] = 0;
-  v13 = v12[2];
-  v12[2] = 0;
-  v12[2] = *a5;
-  *a5 = v13;
-  v14 = v12[4];
-  v12[4] = a5[2];
-  a5[2] = v14;
-  *(*(a1 + 8) + 4 * a2) = v8;
-  ++*(a1 + 28);
-  return v8;
-}
-
-double re::HashSetBase<re::AssetHandle,re::AssetHandle,re::internal::ValueAsKey<re::AssetHandle>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::deinit(uint64_t *a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    v3 = *(a1 + 8);
-    if (v3)
-    {
-      v4 = 0;
-      v5 = 8;
-      do
-      {
-        v6 = a1[2];
-        v7 = *(v6 + v5);
-        if (v7 < 0)
-        {
-          *(v6 + v5) = v7 & 0x7FFFFFFF;
-          re::AssetHandle::~AssetHandle((v6 + v5 + 8));
-          v3 = *(a1 + 8);
-        }
-
-        ++v4;
-        v5 += 40;
-      }
-
-      while (v4 < v3);
-      v2 = *a1;
-    }
-
-    (*(*v2 + 40))(v2, a1[1]);
-    *(a1 + 8) = 0;
-    *a1 = 0u;
-    *(a1 + 1) = 0u;
-    *&result = 0x7FFFFFFFLL;
-    *(a1 + 36) = 0x7FFFFFFFLL;
-  }
-
-  return result;
-}
-
-double re::HashTable<re::internal::AssetLoadingRoot,re::DynamicString,re::internal::AssetLoadingRoot,re::internal::AssetLoadingRoot,true,false>::deinit(uint64_t *a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    if (*(a1 + 8))
-    {
-      v3 = 0;
-      v4 = 0;
-      do
-      {
-        re::HashTable<re::internal::AssetLoadingRoot,re::DynamicString,re::internal::AssetLoadingRoot,re::internal::AssetLoadingRoot,true,false>::EntryBase::free((a1[2] + v3));
-        ++v4;
-        v3 += 88;
-      }
-
-      while (v4 < *(a1 + 8));
-      v2 = *a1;
-    }
-
-    (*(*v2 + 40))(v2, a1[1]);
-    *(a1 + 8) = 0;
-    *a1 = 0u;
-    *(a1 + 1) = 0u;
-    *&result = 0x7FFFFFFFLL;
-    *(a1 + 36) = 0x7FFFFFFFLL;
-  }
-
-  return result;
-}
-
-double re::HashTable<re::internal::AssetLoadingRoot,re::DynamicString,re::internal::AssetLoadingRoot,re::internal::AssetLoadingRoot,true,false>::EntryBase::free(_DWORD *a1)
-{
-  if ((*a1 & 0x80000000) != 0)
-  {
-    *a1 &= ~0x80000000;
-    v2 = (a1 + 12);
-    re::DynamicString::deinit((a1 + 4));
-
-    return re::DynamicString::deinit(v2);
-  }
-
-  return result;
-}
-
-void MemoryAssetProvider::~MemoryAssetProvider(MemoryAssetProvider *this)
-{
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-}
-
-{
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void MemoryAssetProvider::load(uint64_t a1, uint64_t a2)
-{
-  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Can't load a memory asset", "!Unreachable code", "load", 246);
-  _os_crash();
-  __break(1u);
-}
-
-re::DynamicString *MemoryAssetProvider::resolveChild@<X0>(const re::AssetLoadDescriptor *a1@<X1>, re::AssetProvider *a2@<X2>, const re::DynamicString *a3@<X3>, uint64_t a4@<X8>)
-{
-  if (*(a1 + 8))
-  {
-    v9 = *(a1 + 2);
-  }
-
-  else
-  {
-    v9 = a1 + 9;
-  }
-
-  v10 = strcmp(v9, "MemoryAsset");
-  if (v10)
-  {
-    result = re::DynamicString::format("Scheme %s does not match scheme %s.", &v28, v9, "MemoryAsset");
-    v12 = v28;
-    v13 = v29;
-    v14 = v30;
-    *a4 = 0;
-    *(a4 + 8) = v12;
-    *(a4 + 24) = v13;
-    *(a4 + 32) = v14;
-  }
-
-  else
-  {
-    v41 = 0;
-    v42 = 0;
-    v43 = 0;
-    re::DynamicString::setCapacity(&v40, 0);
-    v15 = re::AssetLoadDescriptor::getIntrospectableData<re::DynamicString>(a1, &v40);
-    if (v15)
-    {
-      if (v41)
-      {
-        v16 = v42;
-      }
-
-      else
-      {
-        v16 = (&v41 + 1);
-      }
-
-      re::AssetProvider::resolveChildPath(a2, v16, v39);
-      MemoryAssetProvider::makeDescriptor(v39, a3, &v28);
-      v17 = v28;
-      *(a4 + 48) = v31;
-      v18 = v34;
-      *(a4 + 72) = v33;
-      v28 = 0u;
-      v19 = v29;
-      v20 = v30;
-      v29 = 0;
-      v21 = *(&v30 + 1);
-      v30 = 0u;
-      ++v32;
-      v23 = v37;
-      v22 = v38;
-      v24 = v36;
-      *a4 = 1;
-      *(a4 + 24) = v19;
-      *(a4 + 32) = v20;
-      *(a4 + 8) = v17;
-      *(a4 + 40) = v21;
-      v31 = 0u;
-      *(a4 + 64) = 1;
-      v33 = 0u;
-      v34 = 0u;
-      *(a4 + 88) = v18;
-      *(a4 + 104) = 1;
-      *(a4 + 112) = v35;
-      *(a4 + 136) = v23;
-      *(a4 + 144) = v22;
-      *(a4 + 128) = v24;
-      if (*&v39[0])
-      {
-        if (BYTE8(v39[0]))
-        {
-          (*(**&v39[0] + 40))();
-        }
-
-        memset(v39, 0, sizeof(v39));
-      }
-    }
-
-    else
-    {
-      v25 = v28;
-      v26 = v29;
-      v27 = v30;
-      *a4 = 0;
-      *(a4 + 8) = v25;
-      *(a4 + 24) = v26;
-      *(a4 + 32) = v27;
-    }
-
-    result = v40;
-    if (v40)
-    {
-      if (v41)
-      {
-        return (*(*v40 + 40))();
-      }
-    }
-  }
-
-  return result;
-}
-
-re::DynamicString *MemoryAssetProvider::getDescription(MemoryAssetProvider *this, const re::AssetLoadDescriptor *a2, re::DynamicString *a3)
-{
-  v7 = 0;
-  v8 = 0;
-  v9 = 0;
-  re::DynamicString::setCapacity(&v6, 0);
-  if (re::AssetLoadDescriptor::getIntrospectableData<re::DynamicString>(a2, &v6))
-  {
-    re::DynamicString::operator=(a3, &v6);
-  }
-
-  else
-  {
-    v10[0] = "mangled";
-    v10[1] = 7;
-    re::DynamicString::operator=(a3, v10);
-  }
-
-  result = v6;
-  if (v6)
-  {
-    if (v7)
-    {
-      return (*(*v6 + 40))();
-    }
-  }
-
-  return result;
-}
-
-re::DynamicString *MemoryAssetProvider::getAssetPathForRelease@<X0>(_anonymous_namespace_ *a1@<X0>, char *a2@<X1>, re::internal::AssetTypeRegistry *a3@<X2>, uint64_t a4@<X8>)
-{
-  v27 = 0;
-  v28 = 0;
-  v29 = 0;
-  re::DynamicString::setCapacity(&v26, 0);
-  re::AssetLoadDescriptor::getIntrospectableData<re::DynamicString>(a2, &v26);
-  if (*(a2 + 15))
-  {
-    v7 = *(a2 + 16);
-  }
-
-  else
-  {
-    v7 = a2 + 121;
-  }
-
-  v8 = re::internal::AssetTypeRegistry::assetTypeWithName(a3, v7);
-  LODWORD(v18) = 0;
-  v21 = 0;
-  v22 = 0;
-  v20 = 0;
-  v9 = re::DynamicString::setCapacity(&v19, 0);
-  *(&v23 + 1) = 0;
-  v24 = 0uLL;
-  re::DynamicString::setCapacity(&v23, 0);
-  v25 = 0;
-  if (v27)
-  {
-    v10 = v28;
-  }
-
-  else
-  {
-    v10 = &v27 + 1;
-  }
-
-  re::AssetPath::initMemoryAssetPath(&v18, v10, v8);
-  v16 = 0;
-  v17 = 0;
-  v15 = v19;
-  re::DynamicString::setCapacity(&v15, 0);
-  re::AssetPath::fullAssetPath(&v18, &v15);
-  v11 = v15;
-  v12 = v16;
-  v13 = v17;
-  *a4 = 1;
-  *(a4 + 8) = v11;
-  *(a4 + 24) = v12;
-  *(a4 + 32) = v13;
-  if (v23)
-  {
-    if (BYTE8(v23))
-    {
-      (*(*v23 + 40))();
-    }
-
-    v24 = 0u;
-    v23 = 0u;
-  }
-
-  if (v19 && (v20 & 1) != 0)
-  {
-    (*(*v19 + 40))();
-  }
-
-  result = v26;
   if (v26)
   {
-    if (v27)
-    {
-      return (*(*v26 + 40))();
-    }
   }
 
-  return result;
-}
-
-uint64_t MemoryAssetProvider::makeDescriptorFromAssetPath@<X0>(const re::DynamicString ***a1@<X1>, uint64_t a2@<X8>)
-{
-  MemoryAssetProvider::makeDescriptor((a1 + 5), *a1[9], &v6);
-  v4.n128_f64[0] = re::Optional<re::AssetLoadDescriptor>::Optional(a2, &v6);
-  if (v18)
-  {
-    if (BYTE8(v18))
-    {
-      (*(*v18 + 40))(v4.n128_f64[0]);
-    }
-
-    v4 = 0uLL;
-    v18 = 0u;
-    v19 = 0u;
-  }
-
-  if (v13)
-  {
-    if (v17)
-    {
-      (*(*v13 + 40))(v4);
-    }
-
-    v17 = 0;
-    v14 = 0;
-    v15 = 0;
-    v13 = 0;
-    ++v16;
-  }
-
-  if (v8)
-  {
-    if (v12)
-    {
-      (*(*v8 + 40))(v4);
-    }
-
-    v12 = 0;
-    v9 = 0;
-    v10 = 0;
-    v8 = 0;
-    ++v11;
-  }
-
-  result = v6;
-  if (v6)
-  {
-    if (v7)
-    {
-      return (*(*v6 + 40))(v4);
-    }
-  }
-
-  return result;
-}
-
-uint64_t re::AssetLoadDescriptor::getIntrospectableData<re::DynamicString>(re::AssetLoadDescriptor *a1, re::DynamicString **a2)
-{
-  v3 = a2;
-  v4 = &unk_1EE187000;
-  {
-    v11 = a1;
-    v4 = &unk_1EE187000;
-    v9 = v7;
-    v3 = a2;
-    a1 = v11;
-    if (v9)
-    {
-      re::introspect<re::DynamicString>(BOOL)::info = re::IntrospectionInfo<re::DynamicString>::get(0, v8);
-      v4 = &unk_1EE187000;
-      v3 = a2;
-      a1 = v11;
-    }
-  }
-
-  v5 = *(v4 + 231);
-
-  return re::AssetLoadDescriptor::getIntrospectableData(a1, v5, v3, 0);
-}
-
-void re::internal::AssetManagerAliveToken::~AssetManagerAliveToken(dispatch_group_t **this)
-{
-  *this = &unk_1F5CB8B88;
-  dispatch_group_leave(*this[4]);
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 1);
-}
-
-{
-  *this = &unk_1F5CB8B88;
-  dispatch_group_leave(*this[4]);
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 1);
-
-  JUMPOUT(0x1E6906520);
-}
-
-uint64_t re::DynamicArray<re::internal::AssetNetworkLoader::SerializedAssetResponse>::deinit(uint64_t a1)
-{
-  result = *a1;
-  if (result)
-  {
-    v3 = *(a1 + 32);
-    if (v3)
-    {
-      v4 = *(a1 + 16);
-      if (v4)
-      {
-        v5 = 112 * v4;
-        v6 = v3 + 64;
-        do
-        {
-          re::DynamicArray<unsigned long>::deinit(v6);
-          re::DynamicString::deinit((v6 - 32));
-          re::AssetHandle::~AssetHandle((v6 - 56));
-          v6 += 112;
-          v5 -= 112;
-        }
-
-        while (v5);
-        result = *a1;
-        v3 = *(a1 + 32);
-      }
-
-      result = (*(*result + 40))(result, v3);
-    }
-
-    *(a1 + 32) = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-    *a1 = 0;
-    ++*(a1 + 24);
-  }
-
-  return result;
-}
-
-double re::HashTable<re::DynamicString,re::internal::AssetNetworkLoader::FragmentedNetworkAsset,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(uint64_t *a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    v3 = *(a1 + 8);
-    if (v3)
-    {
-      v4 = 0;
-      for (i = 0; i < v3; ++i)
-      {
-        v6 = a1[2];
-        v7 = *(v6 + v4);
-        if (v7 < 0)
-        {
-          *(v6 + v4) = v7 & 0x7FFFFFFF;
-          re::DynamicString::deinit((v6 + v4 + 8));
-          v3 = *(a1 + 8);
-        }
-
-        v4 += 88;
-      }
-
-      v2 = *a1;
-    }
-
-    (*(*v2 + 40))(v2, a1[1]);
-    *(a1 + 8) = 0;
-    *a1 = 0u;
-    *(a1 + 1) = 0u;
-    *&result = 0x7FFFFFFFLL;
-    *(a1 + 36) = 0x7FFFFFFFLL;
-  }
-
-  return result;
-}
-
-double re::HashTable<re::DynamicString,re::internal::AssetNetworkLoader::PendingRequestedAsset,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(uint64_t *a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    if (*(a1 + 8))
-    {
-      v3 = 0;
-      v4 = 0;
-      do
-      {
-        re::HashTable<re::DynamicString,re::internal::AssetNetworkLoader::PendingRequestedAsset,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::EntryBase::free((a1[2] + v3));
-        ++v4;
-        v3 += 80;
-      }
-
-      while (v4 < *(a1 + 8));
-      v2 = *a1;
-    }
-
-    (*(*v2 + 40))(v2, a1[1]);
-    *(a1 + 8) = 0;
-    *a1 = 0u;
-    *(a1 + 1) = 0u;
-    *&result = 0x7FFFFFFFLL;
-    *(a1 + 36) = 0x7FFFFFFFLL;
-  }
-
-  return result;
-}
-
-void re::HashTable<re::DynamicString,re::internal::AssetNetworkLoader::PendingRequestedAsset,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::EntryBase::free(_DWORD *a1)
-{
-  if ((*a1 & 0x80000000) != 0)
-  {
-    *a1 &= ~0x80000000;
-    v2 = (a1 + 12);
-    re::DynamicString::deinit((a1 + 2));
-
-    re::AssetHandle::~AssetHandle(v2);
-  }
-}
-
-void re::HashSetBase<re::internal::AssetEntry *,re::internal::AssetEntry *,re::internal::ValueAsKey<re::internal::AssetEntry *>,re::Hash<re::internal::AssetEntry *>,re::EqualTo<re::internal::AssetEntry *>,true,false>::setCapacity(uint64_t a1, unsigned int a2)
-{
-  v4 = *a1;
-  if (*a1)
-  {
-    if (a2 && *(a1 + 24) != a2 && *(a1 + 28) <= a2)
-    {
-      memset(v13, 0, 36);
-      *&v13[36] = 0x7FFFFFFFLL;
-      re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::init(v13, v4, a2);
-      v5 = *v13;
-      *v13 = *a1;
-      *a1 = v5;
-      v6 = *&v13[16];
-      v7 = *(a1 + 16);
-      *&v13[16] = v7;
-      *(a1 + 16) = v6;
-      v9 = *&v13[24];
-      *&v13[24] = *(a1 + 24);
-      v8 = *&v13[32];
-      *(a1 + 24) = v9;
-      v10 = v8;
-      if (v8)
-      {
-        v11 = (v7 + 16);
-        do
-        {
-          if ((*(v11 - 1) & 0x80000000) != 0)
-          {
-            re::HashSetBase<re::internal::AssetEntry *,re::internal::AssetEntry *,re::internal::ValueAsKey<re::internal::AssetEntry *>,re::Hash<re::internal::AssetEntry *>,re::EqualTo<re::internal::AssetEntry *>,true,false>::addAsMove(a1, *(v11 - 2) % *(a1 + 24), *(v11 - 2), v11);
-          }
-
-          v11 += 3;
-          --v10;
-        }
-
-        while (v10);
-      }
-
-      re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v13);
-    }
-  }
-
-  else
-  {
-    if (a2)
-    {
-      v12 = a2;
-    }
-
-    else
-    {
-      v12 = 3;
-    }
-  }
-}
-
-uint64_t re::HashSetBase<re::internal::AssetEntry *,re::internal::AssetEntry *,re::internal::ValueAsKey<re::internal::AssetEntry *>,re::Hash<re::internal::AssetEntry *>,re::EqualTo<re::internal::AssetEntry *>,true,false>::addAsMove(uint64_t result, unsigned int a2, unint64_t a3, void *a4)
-{
-  v6 = result;
-  v7 = *(result + 36);
-  if (v7 == 0x7FFFFFFF)
-  {
-    v7 = *(result + 32);
-    v8 = v7;
-    if (v7 == *(result + 24))
-    {
-      result = re::HashSetBase<re::internal::AssetEntry *,re::internal::AssetEntry *,re::internal::ValueAsKey<re::internal::AssetEntry *>,re::Hash<re::internal::AssetEntry *>,re::EqualTo<re::internal::AssetEntry *>,true,false>::setCapacity(result, (2 * *(result + 28)));
-      a2 = a3 % *(v6 + 24);
-      v8 = *(v6 + 32);
-    }
-
-    *(v6 + 32) = v8 + 1;
-    v9 = *(v6 + 16);
-    v10 = *(v9 + 24 * v7 + 8);
-  }
-
-  else
-  {
-    v9 = *(result + 16);
-    v10 = *(v9 + 24 * v7 + 8);
-    *(result + 36) = v10 & 0x7FFFFFFF;
-  }
-
-  *(v9 + 24 * v7 + 8) = v10 | 0x80000000;
-  *(*(v6 + 16) + 24 * v7 + 8) = *(*(v6 + 16) + 24 * v7 + 8) & 0x80000000 | *(*(v6 + 8) + 4 * a2);
-  *(*(v6 + 16) + 24 * v7) = a3;
-  *(*(v6 + 16) + 24 * v7 + 16) = *a4;
-  *(*(v6 + 8) + 4 * a2) = v7;
-  ++*(v6 + 28);
-  return result;
-}
-
-uint64_t std::__function::__func<re::AssetManager::deinit(void)::$_3,std::allocator<re::AssetManager::deinit(void)::$_3>,void ()(re::NetworkActionQueue::Action const&)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F5CB8BD0;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t std::__function::__func<re::AssetManager::deinit(void)::$_3,std::allocator<re::AssetManager::deinit(void)::$_3>,void ()(re::NetworkActionQueue::Action const&)>::operator()(uint64_t result, uint64_t a2)
-{
-  if (*(a2 + 160) == 8)
-  {
-    if (*(a2 + 144) == 4)
-    {
-      v2 = *(*(result + 8) + 1808);
-      v6 = *(a2 + 8);
-      v3 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v2, &v6);
-      (*(**v3 + 128))(*v3);
-      v4 = *(**v3 + 16);
-
-      return v4();
-    }
-
-    else
-    {
-      v5 = std::__throw_bad_variant_access[abi:nn200100]();
-      return std::__function::__func<re::AssetManager::deinit(void)::$_3,std::allocator<re::AssetManager::deinit(void)::$_3>,void ()(re::NetworkActionQueue::Action const&)>::target(v5);
-    }
-  }
-
-  return result;
-}
-
-uint64_t std::__function::__func<re::AssetManager::deinit(void)::$_3,std::allocator<re::AssetManager::deinit(void)::$_3>,void ()(re::NetworkActionQueue::Action const&)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void re::HashTable<re::DynamicString,re::SharedPtr<re::internal::AssetEntry>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::EntryBase::free(uint64_t a1)
-{
-  if ((*a1 & 0x80000000) != 0)
-  {
-    *a1 &= ~0x80000000;
-    re::DynamicString::deinit((a1 + 8));
-    v2 = *(a1 + 40);
-    if (v2)
-    {
-
-      *(a1 + 40) = 0;
-    }
-  }
-}
-
-void std::__list_imp<re::Pair<re::DynamicString,re::Pair<re::SharedPtr<re::RealityFile>,unsigned int,true>,true>>::clear(uint64_t *a1)
-{
-  if (a1[2])
-  {
-    v2 = a1[1];
-    v3 = *(*a1 + 8);
-    v4 = *v2;
-    *(v4 + 8) = v3;
-    *v3 = v4;
-    a1[2] = 0;
-    if (v2 != a1)
-    {
-      do
-      {
-        v5 = v2[1];
-        std::__destroy_at[abi:nn200100]<re::Pair<re::DynamicString,re::Pair<re::SharedPtr<re::RealityFile>,unsigned int,true>,true>,0>((v2 + 2));
-        operator delete(v2);
-        v2 = v5;
-      }
-
-      while (v5 != a1);
-    }
-  }
-}
-
-double std::__destroy_at[abi:nn200100]<re::Pair<re::DynamicString,re::Pair<re::SharedPtr<re::RealityFile>,unsigned int,true>,true>,0>(re::DynamicString *this)
-{
-  v2 = *(this + 4);
-  if (v2)
-  {
-
-    *(this + 4) = 0;
-  }
-
-  return re::DynamicString::deinit(this);
-}
-
-void std::__tree<std::__value_type<re::Pose<float>,re::PoseQuantization::QuantizedValue>,std::__map_value_compare<re::Pose<float>,std::__value_type<re::Pose<float>,re::PoseQuantization::QuantizedValue>,re::PoseQuantization::Less,true>,std::allocator<std::__value_type<re::Pose<float>,re::PoseQuantization::QuantizedValue>>>::destroy(void *a1)
-{
-  if (a1)
-  {
-    std::__tree<std::__value_type<re::Pose<float>,re::PoseQuantization::QuantizedValue>,std::__map_value_compare<re::Pose<float>,std::__value_type<re::Pose<float>,re::PoseQuantization::QuantizedValue>,re::PoseQuantization::Less,true>,std::allocator<std::__value_type<re::Pose<float>,re::PoseQuantization::QuantizedValue>>>::destroy(*a1);
-    std::__tree<std::__value_type<re::Pose<float>,re::PoseQuantization::QuantizedValue>,std::__map_value_compare<re::Pose<float>,std::__value_type<re::Pose<float>,re::PoseQuantization::QuantizedValue>,re::PoseQuantization::Less,true>,std::allocator<std::__value_type<re::Pose<float>,re::PoseQuantization::QuantizedValue>>>::destroy(a1[1]);
-
-    operator delete(a1);
-  }
-}
-
-double re::HashTable<re::CollisionShapeAssetRegistryKey,re::ArcWeakPtr<re::internal::AssetReference>,re::Hash<re::CollisionShapeAssetRegistryKey>,re::EqualTo<re::CollisionShapeAssetRegistryKey>,true,false>::deinit(uint64_t *a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    if (*(a1 + 8))
-    {
-      v3 = 0;
-      v4 = 0;
-      do
-      {
-        re::HashTable<re::CollisionShapeAssetRegistryKey,re::ArcWeakPtr<re::internal::AssetReference>,re::Hash<re::CollisionShapeAssetRegistryKey>,re::EqualTo<re::CollisionShapeAssetRegistryKey>,true,false>::EntryBase::free(a1[2] + v3);
-        ++v4;
-        v3 += 72;
-      }
-
-      while (v4 < *(a1 + 8));
-      v2 = *a1;
-    }
-
-    (*(*v2 + 40))(v2, a1[1]);
-    *(a1 + 8) = 0;
-    *a1 = 0u;
-    *(a1 + 1) = 0u;
-    *&result = 0x7FFFFFFFLL;
-    *(a1 + 36) = 0x7FFFFFFFLL;
-  }
-
-  return result;
-}
-
-void re::HashTable<re::CollisionShapeAssetRegistryKey,re::ArcWeakPtr<re::internal::AssetReference>,re::Hash<re::CollisionShapeAssetRegistryKey>,re::EqualTo<re::CollisionShapeAssetRegistryKey>,true,false>::EntryBase::free(uint64_t a1)
-{
-  if ((*a1 & 0x80000000) != 0)
-  {
-    *a1 &= ~0x80000000;
-    re::FixedArray<CoreIKTransform>::deinit((a1 + 32));
-    re::FixedArray<CoreIKTransform>::deinit((a1 + 8));
-    objc_destroyWeak((a1 + 56));
-    *(a1 + 56) = 0;
-  }
-}
-
-__n128 std::__function::__func<re::AssetManager::update(BOOL,BOOL)::$_0,std::allocator<re::AssetManager::update(BOOL,BOOL)::$_0>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5CB8C60;
-  result = *(a1 + 8);
-  *(a2 + 8) = result;
-  *(a2 + 22) = 0;
-  *(a2 + 18) = 0;
-  return result;
-}
-
-void std::__function::__func<re::AssetManager::update(BOOL,BOOL)::$_0,std::allocator<re::AssetManager::update(BOOL,BOOL)::$_0>,void ()(void)>::operator()(uint64_t a1)
-{
-  v298 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 8);
-  v4 = re::internal::enableSignposts(0, 0);
-  if (v4)
-  {
-    v4 = re::internal::enableHighFrequencyTracing(0, 0);
-    if (v4)
-    {
-      re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(buf, 2000, v3);
-      re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(buf);
-    }
-  }
-
-  isStatisticCollectionEnabled = re::ProfilerConfig::isStatisticCollectionEnabled(v4);
-  if (isStatisticCollectionEnabled)
-  {
-    rep = re::profilerThreadContext(isStatisticCollectionEnabled);
-    if (*(rep + 152))
-    {
-      v258 = mach_absolute_time();
-    }
-  }
-
-  else
-  {
-    rep = 0;
-  }
-
-  if (*(a1 + 17) == 1)
-  {
-    *(v3 + 2561) = 0;
-  }
-
-  v271 = *(v3 + 2272);
-  v272 = *(v3 + 2288);
-  v273 = 0u;
-  v274 = 0u;
-  v275 = 0;
-  v276 = 0x7FFFFFFFLL;
-  v7 = *(v3 + 2304);
-  if (v7)
-  {
-    if (*(v3 + 2332) <= 3u)
-    {
-      v8 = 3;
-    }
-
-    else
-    {
-      v8 = *(v3 + 2332);
-    }
-
-    re::HashTable<re::StringID,re::TimelineEventParameterDescription,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(&v273, v7, v8);
-    re::HashTable<re::AssetType const*,std::pair<unsigned long,unsigned long>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::copy(&v273, v3 + 2304);
-  }
-
-  v263 = (v3 + 2304);
-  v260 = rep;
-  if (*(a1 + 16))
-  {
-    v9 = *(v3 + 2224);
-    v10 = dispatch_time(0, 0);
-    v11 = v10;
-    if (v9 != -1)
-    {
-      v12 = dispatch_time(v10, v9);
-      goto LABEL_20;
-    }
-  }
-
-  else
-  {
-    v11 = dispatch_time(0, 0);
-    v9 = -1;
-  }
-
-  v12 = -1;
-LABEL_20:
-  *&v290[32] = 0;
-  memset(v290, 0, 28);
-  v13 = *(v3 + 40);
-  if (v13)
-  {
-    rep = v294;
-    v14 = *(v3 + 56);
-    v15 = 8 * v13;
-    do
-    {
-      v16 = *v14;
-      *buf = v16;
-      if (v16)
-      {
-        v17 = (v16 + 8);
-      }
-
-      v1 = *(v16 + 24);
-      os_unfair_lock_lock((v1 + 256));
-      v18 = *(v1 + 400);
-      os_unfair_lock_unlock((v1 + 256));
-      if (v18)
-      {
-        re::DynamicArray<re::SharedPtr<re::AssetLoadRequest>>::add(v290, buf);
-      }
-
-      ++v14;
-      v15 -= 8;
-    }
-
-    while (v15);
-    if (*&v290[16])
-    {
-      v19 = *&v290[32];
-      v20 = *&v290[32] + 8 * *&v290[16];
-      do
-      {
-        v21 = *v19;
-        if (*v19)
-        {
-          v22 = (v21 + 8);
-        }
-
-        v23 = *(v3 + 56);
-        v1 = *(v3 + 40);
-        v24 = v23;
-        if (v1)
-        {
-          v25 = 8 * v1;
-          v24 = *(v3 + 56);
-          while (*v24 != v21)
-          {
-            v24 += 8;
-            v25 -= 8;
-            if (!v25)
-            {
-              goto LABEL_43;
-            }
-          }
-        }
-
-        v26 = &v23[8 * v1];
-        if (v24 != v26)
-        {
-          v27 = (v24 - v23);
-          v28 = (v24 - v23) >> 3;
-          if (v1 <= v28)
-          {
-            goto LABEL_482;
-          }
-
-          v29 = v1 - 1;
-          if (v1 - 1 > v28)
-          {
-            v30 = *&v27[v23];
-            *&v27[v23] = *(v26 - 1);
-            *(v26 - 1) = v30;
-            v23 = *(v3 + 56);
-          }
-
-          v1 = &v23[8 * v1];
-          v31 = *(v1 - 8);
-          if (v31)
-          {
-
-            *(v1 - 8) = 0;
-            v29 = *(v3 + 40) - 1;
-          }
-
-          *(v3 + 40) = v29;
-          ++*(v3 + 48);
-        }
-
-LABEL_43:
-        if (v21)
-        {
-        }
-
-        ++v19;
-      }
-
-      while (v19 != v20);
-    }
-  }
-
-  re::DynamicArray<re::SharedPtr<re::Shareable<re::AssetLoadDescriptor>>>::deinit(v290);
-  *buf = v11;
-  *&buf[8] = v12;
-  *&buf[16] = v9;
-  re::AssetManager::updateLoadRequests(v3, buf);
-  *buf = v11;
-  *&buf[8] = v12;
-  *&buf[16] = v9;
-  v28 = buf;
-  re::AssetManager::processUnreferencedUnloadRequests(v3, buf);
-  if (re::internal::enableSignposts(0, 0) && re::internal::enableHighFrequencyTracing(0, 0))
-  {
-    re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(buf, 2012, 61);
-    re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(buf);
-  }
-
-  v259 = (v3 + 2272);
-  atomic_load((v3 + 2177));
-  v265.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
-  v261 = v9;
-  v262 = v12;
-  do
-  {
-    LoadItemResult = re::internal::AssetBackgroundLoader::tryGetLoadItemResult(*(v3 + 1800), 1);
-    if (!LoadItemResult)
-    {
-      break;
-    }
-
-    rep = LoadItemResult;
-    v34 = *(LoadItemResult + 24);
-    v35 = *(v34 + 16);
-    switch(v35)
-    {
-      case 2:
-        re::AssetManager::onUnloadComplete(v3, *v34);
-        break;
-      case 1:
-        v37 = *(LoadItemResult + 144);
-        if (v37 == 3)
-        {
-          v39 = *re::assetsLogObjects(LoadItemResult);
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
-          {
-            if (*(rep + 40))
-            {
-              v40 = *(rep + 48);
-            }
-
-            else
-            {
-              v40 = rep + 41;
-            }
-
-            *buf = 136315138;
-            *&buf[4] = v40;
-            _os_log_impl(&dword_1E1C61000, v39, OS_LOG_TYPE_DEFAULT, "Asset load (which was cancelled) failed '%s'", buf, 0xCu);
-          }
-
-          if (*(rep + 152) == 1)
-          {
-            re::DynamicString::append((rep + 160), " (was also cancelled)", 0x15uLL);
-          }
-        }
-
-        else
-        {
-          if (v37 != 2)
-          {
-            goto LABEL_488;
-          }
-
-          if (*(LoadItemResult + 40))
-          {
-            v38 = *(LoadItemResult + 48);
-          }
-
-          else
-          {
-            v38 = (LoadItemResult + 41);
-          }
-
-          re::AssetManager::unloadAssetPointer(v3, *(LoadItemResult + 64), *(LoadItemResult + 96), v38, *v34);
-          *(rep + 96) = 0;
-          v49 = *(rep + 104);
-          if (v49)
-          {
-
-            *(rep + 104) = 0;
-          }
-        }
-
-        break;
-      case 0:
-        v291[0] = 0;
-        if (*(LoadItemResult + 352) == 1)
-        {
-          v36 = *(LoadItemResult + 368);
-          goto LABEL_63;
-        }
-
-        if (*(LoadItemResult + 192) == 1)
-        {
-          v36 = *(LoadItemResult + 248);
-LABEL_63:
-          os_unfair_lock_lock((v3 + 128));
-          re::AssetManager::lookupExistingAsset_assetTablesLocked(v3, v36, buf);
-          os_unfair_lock_unlock((v3 + 128));
-LABEL_64:
-          LoadItemResult = re::Optional<re::AssetHandle>::operator=(v291, buf);
-          if (buf[0] == 1)
-          {
-            re::AssetHandle::~AssetHandle(&buf[8]);
-          }
-        }
-
-        else if (*(LoadItemResult + 256) == 1)
-        {
-          re::AssetManager::lookupExistingAsset(buf, v3, LoadItemResult + 264);
-          goto LABEL_64;
-        }
-
-        if (v291[0])
-        {
-          v41 = *&v291[16];
-          os_unfair_lock_lock((*&v291[16] + 512));
-          *(v41 + 528) = 0;
-          v44 = *(rep + 144);
-          if (v44 == 3)
-          {
-            v1 = "Load failed";
-            if (*(rep + 152) == 1)
-            {
-              if (*(rep + 168))
-              {
-                v1 = *(rep + 176);
-              }
-
-              else
-              {
-                v1 = rep + 169;
-              }
-            }
-
-            if (*(v41 + 24))
-            {
-              re::AssetManager::putEntryInFailedState_entryStateLocked(v65, v41, 300, buf);
-              if (*buf)
-              {
-                if (buf[8])
-                {
-                  (*(**buf + 40))();
-                }
-
-                memset(buf, 0, sizeof(buf));
-              }
-            }
-
-            else
-            {
-              v66 = *re::assetsLogObjects(v42);
-              if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
-              {
-                if (*(rep + 40))
-                {
-                  v67 = *(rep + 48);
-                }
-
-                else
-                {
-                  v67 = rep + 41;
-                }
-
-                *buf = 136315394;
-                *&buf[4] = v67;
-                *&buf[12] = 2080;
-                *&buf[14] = v1;
-                _os_log_error_impl(&dword_1E1C61000, v66, OS_LOG_TYPE_ERROR, "Failed to load asset path '%s' -- %s", buf, 0x16u);
-              }
-            }
-          }
-
-          else
-          {
-            if (v44 != 2)
-            {
-              goto LABEL_489;
-            }
-
-            if (*(v41 + 544) == 1)
-            {
-              v45 = *re::assetsLogObjects(v42);
-              if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
-              {
-                if (*(rep + 40))
-                {
-                  v46 = *(rep + 48);
-                }
-
-                else
-                {
-                  v46 = rep + 41;
-                }
-
-                *buf = 136315138;
-                *&buf[4] = v46;
-                _os_log_impl(&dword_1E1C61000, v45, OS_LOG_TYPE_DEFAULT, "Couldn't load asset at %s as there is an existing asset being registered", buf, 0xCu);
-              }
-
-              v68 = *(v3 + 1808);
-              *buf = *(rep + 64);
-              v69 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v68, buf);
-              (*(**v69 + 128))(*v69);
-              (*(**v69 + 16))(*v69, *(rep + 96));
-              *(rep + 96) = 0;
-              v70 = *(rep + 104);
-              if (v70)
-              {
-
-                *(rep + 104) = 0;
-              }
-
-              *(rep + 144) = 3;
-              goto LABEL_150;
-            }
-
-            if (*(rep + 352) != 1)
-            {
-LABEL_149:
-              *(v41 + 545) = 0;
-              re::AssetManager::processLoadedAsset_entryStateLocked(v3, v41, *(rep + 96), *(rep + 104));
-              *(v41 + 776) = *(rep + 416);
-              v73 = *(rep + 136);
-              *(v41 + 960) = *(rep + 128);
-              *(v41 + 968) = v73;
-              ++*(v3 + 1024);
-              goto LABEL_150;
-            }
-
-            v52 = *re::assetsLogObjects(v42);
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
-            {
-              if (*(rep + 40))
-              {
-                v86 = *(rep + 48);
-              }
-
-              else
-              {
-                v86 = rep + 41;
-              }
-
-              *buf = 136315138;
-              *&buf[4] = v86;
-              _os_log_debug_impl(&dword_1E1C61000, v52, OS_LOG_TYPE_DEBUG, "Processing Payload for '%s'", buf, 0xCu);
-            }
-
-            v257 = v11;
-            v53 = (*(**(v3 + 1920) + 104))(*(v3 + 1920));
-            re::DynamicString::format("%llu", &v277, v53);
-            re::AssetHandle::AssetHandle(&v280, v41);
-            re::DefaultAssetSerialize::DefaultAssetSerialize(buf, &v280);
-            v1 = &unk_1F5CB9868;
-            *buf = &unk_1F5CB9868;
-            BYTE8(v286) = 1;
-            v28 = buf;
-            re::DynamicString::DynamicString(&v287, &v277);
-            v289 = v3;
-            v54 = *(v3 + 1808);
-            *v290 = *(rep + 64);
-            v55 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v54, v290);
-            (*(**v55 + 128))(*v55);
-            v56 = *v55;
-            (*(**v55 + 176))(v290, *v55, *(rep + 96));
-            if (*&v290[16])
-            {
-              v57 = *&v290[32];
-              v58 = 8 * *&v290[16];
-              do
-              {
-                v59 = *v57;
-                v60 = re::AssetHandle::serializationString(*v57, v294);
-                if (v294[1])
-                {
-                  v61 = v294[1] >> 1;
-                }
-
-                else
-                {
-                  v61 = LOBYTE(v294[1]) >> 1;
-                }
-
-                if (v61)
-                {
-                  if (v294[1])
-                  {
-                    v62 = v294[2];
-                  }
-
-                  else
-                  {
-                    v62 = &v294[1] + 1;
-                  }
-                }
-
-                if (v294[0] && (v294[1] & 1) != 0)
-                {
-                  (*(*v294[0] + 40))();
-                }
-
-                ++v57;
-                v58 -= 8;
-              }
-
-              while (v58);
-            }
-
-            v63 = *(rep + 360);
-            *(rep + 360) = 0;
-            v294[0] = v63;
-            if (*(rep + 40))
-            {
-              v64 = *(rep + 48);
-            }
-
-            else
-            {
-              v64 = rep + 41;
-            }
-
-            v71 = (*(*v56 + 240))(v56, v294, *(rep + 96), v64);
-
-            if ((v71 & 1) == 0)
-            {
-              (*(*v56 + 16))(v56, *(rep + 96));
-            }
-
-            v72 = *v290;
-            if (*v290 && *&v290[32])
-            {
-              v72 = (*(**v290 + 40))();
-            }
-
-            v12 = v262;
-            v11 = v257;
-            if (v71)
-            {
-              *buf = &unk_1F5CB9868;
-              if (v287)
-              {
-                if (BYTE8(v287))
-                {
-                  (*(*v287 + 40))();
-                }
-
-                v288 = 0u;
-                v28 = buf;
-                v287 = 0u;
-              }
-
-              *buf = &unk_1F5CB98A0;
-              if (buf[8] == 1)
-              {
-                if (*&v285[24])
-                {
-                  if (v285[32])
-                  {
-                    (*(**&v285[24] + 40))();
-                  }
-
-                  v28 = buf;
-                  memset(&v285[24], 0, 32);
-                }
-
-                if (*&buf[24] && (v285[0] & 1) != 0)
-                {
-                  (*(**&buf[24] + 40))();
-                }
-              }
-
-              re::AssetHandle::~AssetHandle(&v280);
-              if (v277 && (v278 & 1) != 0)
-              {
-                (*(*v277 + 40))();
-              }
-
-              goto LABEL_149;
-            }
-
-            re::AssetManager::putEntryInFailedState_entryStateLocked(v85, v41, 303, v290);
-            if (*v290)
-            {
-              if (v290[8])
-              {
-                (*(**v290 + 40))();
-              }
-
-              memset(v290, 0, 32);
-            }
-
-            *buf = &unk_1F5CB9868;
-            if (v287)
-            {
-              if (BYTE8(v287))
-              {
-                (*(*v287 + 40))();
-              }
-
-              v288 = 0u;
-              v28 = buf;
-              v287 = 0u;
-            }
-
-            *buf = &unk_1F5CB98A0;
-            if (buf[8] == 1)
-            {
-              if (*&v285[24])
-              {
-                if (v285[32])
-                {
-                  (*(**&v285[24] + 40))();
-                }
-
-                v28 = buf;
-                memset(&v285[24], 0, 32);
-              }
-
-              if (*&buf[24] && (v285[0] & 1) != 0)
-              {
-                (*(**&buf[24] + 40))();
-              }
-            }
-
-            re::AssetHandle::~AssetHandle(&v280);
-            if (v277 && (v278 & 1) != 0)
-            {
-              (*(*v277 + 40))();
-            }
-          }
-
-LABEL_150:
-          os_unfair_lock_unlock((v41 + 512));
-        }
-
-        else
-        {
-          v47 = *re::assetsLogObjects(LoadItemResult);
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
-          {
-            if (*(rep + 40))
-            {
-              v48 = *(rep + 48);
-            }
-
-            else
-            {
-              v48 = rep + 41;
-            }
-
-            *buf = 136315138;
-            *&buf[4] = v48;
-            _os_log_impl(&dword_1E1C61000, v47, OS_LOG_TYPE_DEFAULT, "Existing asset not found for '%s', may have been unloaded.", buf, 0xCu);
-          }
-
-          if (*(rep + 96))
-          {
-            v50 = *(v3 + 1808);
-            *buf = *(rep + 64);
-            v51 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v50, buf);
-            (*(**v51 + 128))(*v51);
-            (*(**v51 + 16))(*v51, *(rep + 96));
-          }
-        }
-
-        if (v291[0] == 1)
-        {
-          re::AssetHandle::~AssetHandle(&v291[8]);
-        }
-
-        break;
-    }
-
-    ++*(v3 + 2272);
-    os_unfair_lock_lock((v3 + 2048));
-    v75 = *(rep + 24);
-    v76 = *(v3 + 2088);
-    v77 = *(v3 + 2072);
-    v78 = v76;
-    if (v77)
-    {
-      v79 = 8 * v77;
-      v78 = *(v3 + 2088);
-      while (*v78 != v75)
-      {
-        v78 += 8;
-        v79 -= 8;
-        if (!v79)
-        {
-          goto LABEL_163;
-        }
-      }
-    }
-
-    v80 = &v76[8 * v77];
-    if (v78 != v80)
-    {
-      v81 = v78 - v76;
-      v82 = v81 >> 3;
-      if (v77 <= v81 >> 3)
-      {
-        goto LABEL_480;
-      }
-
-      if (v77 - 1 > v82)
-      {
-        *&v76[v81] = *(v80 - 1);
-      }
-
-      *(v3 + 2072) = v77 - 1;
-      ++*(v3 + 2080);
-    }
-
-LABEL_163:
-    if (v75)
-    {
-      v1 = re::globalAllocators(v74)[2];
-      v75[3] = &unk_1F5CB8E80;
-      v83 = v75[6];
-      if (v83)
-      {
-
-        v75[6] = 0;
-      }
-
-      v75[3] = &unk_1F5CCF868;
-      objc_destructInstance(v75 + 4);
-      v84 = v75[1];
-      if (v84)
-      {
-
-        v75[1] = 0;
-      }
-
-      (*(*v1 + 40))(v1, v75);
-    }
-
-    re::internal::AssetBackgroundLoader::assetLoadItemFree(*(v3 + 1800), rep);
-    os_unfair_lock_unlock((v3 + 2048));
-  }
-
-  while (dispatch_time(0, 0) < v12);
-  *(v3 + 2280) += std::chrono::steady_clock::now().__d_.__rep_ - v265.__d_.__rep_;
-  v87 = *(v3 + 1840);
-  if (v87)
-  {
-    rep = std::chrono::steady_clock::now().__d_.__rep_;
-    *(v3 + 2288) += (*(*v87 + 40))(v87, v12);
-    *(v3 + 2296) += std::chrono::steady_clock::now().__d_.__rep_ - rep;
-  }
-
-  if (re::internal::enableSignposts(0, 0) && re::internal::enableHighFrequencyTracing(0, 0))
-  {
-    re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(buf, 2012, 61);
-    re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(buf);
-  }
-
-  atomic_load((v3 + 2177));
-  memset(v290, 0, 36);
-  *&v290[36] = 0x7FFFFFFFLL;
-  os_unfair_lock_lock((v3 + 128));
-  v297 = 0;
-  memset(v294, 0, sizeof(v294));
-  v295 = 0;
-  if (*(v3 + 328))
-  {
-    v88 = *(v3 + 344);
-    v294[0] = *(v3 + 328);
-    re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(v294, v88);
-    ++v295;
-    v89 = *(v3 + 344);
-    v90 = v294[2];
-    if (v89 >= v294[2])
-    {
-      re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(v294, *(v3 + 344));
-      v96 = *(v3 + 360);
-      v97 = v294[2];
-      v98 = v297;
-      if (v294[2])
-      {
-        v28 = 8 * v294[2];
-        rep = v297;
-        do
-        {
-          v99 = *v96++;
-          re::SharedPtr<re::SkeletalPoseJointDefinition>::reset(rep, v99);
-          rep += 8;
-          v28 -= 8;
-        }
-
-        while (v28);
-        v96 = *(v3 + 360);
-      }
-
-      if (v97 != v89)
-      {
-        rep = &v96[v97];
-        v100 = &v98[v97];
-        v101 = 8 * v89 - 8 * v97;
-        do
-        {
-          v102 = *rep;
-          *v100 = *rep;
-          if (v102)
-          {
-            v103 = (v102 + 8);
-          }
-
-          rep += 8;
-          ++v100;
-          v101 -= 8;
-        }
-
-        while (v101);
-      }
-    }
-
-    else
-    {
-      v91 = v297;
-      if (v89)
-      {
-        v92 = *(v3 + 360);
-        v28 = 8 * v89;
-        v93 = v297;
-        do
-        {
-          v94 = *v92++;
-          re::SharedPtr<re::SkeletalPoseJointDefinition>::reset(v93++, v94);
-          v28 -= 8;
-        }
-
-        while (v28);
-      }
-
-      rep = &v91[v89];
-      v95 = 8 * v90 - 8 * v89;
-      do
-      {
-        if (*rep)
-        {
-
-          *rep = 0;
-        }
-
-        rep += 8;
-        v95 -= 8;
-      }
-
-      while (v95);
-    }
-
-    v294[2] = v89;
-    os_unfair_lock_unlock((v3 + 128));
-    if (v89)
-    {
-      v1 = 0;
-      v28 = 0x7FFFFFFFLL;
-      while (1)
-      {
-        if (dispatch_time(0, 0) >= v12)
-        {
-          goto LABEL_243;
-        }
-
-        if (v89 <= v1)
-        {
-          goto LABEL_481;
-        }
-
-        v104 = *(v297[v1] + 24);
-        *v291 = v104;
-        if (v104)
-        {
-          v105 = (v104 + 8);
-          v106 = *v291;
-          if (*v291)
-          {
-            break;
-          }
-        }
-
-LABEL_242:
-        if (v89 <= ++v1)
-        {
-          goto LABEL_243;
-        }
-      }
-
-      if (*(*v291 + 768))
-      {
-LABEL_241:
-
-        v89 = v294[2];
-        goto LABEL_242;
-      }
-
-      v107.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
-      v108 = *v291;
-      os_unfair_lock_lock((*v291 + 512));
-      v109 = *v291;
-      *(*v291 + 768) = 1;
-      *buf = &unk_1F5CB8CE0;
-      *&buf[8] = v3;
-      *&buf[16] = v291;
-      *&buf[24] = buf;
-      re::runInLocalAutoreleasePool(buf);
-      std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](buf);
-      v110 = *v291;
-      *(*v291 + 768) = 0;
-      if ((*(v109 + 544) & 1) == 0)
-      {
-        *buf = v110;
-        v111 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v110 ^ (v110 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v110 ^ (v110 >> 30))) >> 27));
-        v112 = v111 ^ (v111 >> 31);
-        if (*&v290[24])
-        {
-          v113 = v112 % *&v290[24];
-          v114 = *(*&v290[8] + 4 * v113);
-          if (v114 != 0x7FFFFFFF)
-          {
-            while (*(*&v290[16] + 24 * v114 + 16) != v110)
-            {
-              LODWORD(v114) = *(*&v290[16] + 24 * v114 + 8) & 0x7FFFFFFF;
-              if (v114 == 0x7FFFFFFF)
-              {
-                goto LABEL_235;
-              }
-            }
-
-            goto LABEL_236;
-          }
-        }
-
-        else
-        {
-          LODWORD(v113) = 0;
-        }
-
-LABEL_235:
-        re::HashSetBase<re::internal::AssetEntry *,re::internal::AssetEntry *,re::internal::ValueAsKey<re::internal::AssetEntry *>,re::Hash<re::internal::AssetEntry *>,re::EqualTo<re::internal::AssetEntry *>,true,false>::addAsMove(v290, v113, v112, buf);
-        ++*&v290[40];
-      }
-
-LABEL_236:
-      v115.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_ - v107.__d_.__rep_;
-      rep = *(*v291 + 280);
-      v116 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (rep ^ (rep >> 30))) ^ ((0xBF58476D1CE4E5B9 * (rep ^ (rep >> 30))) >> 27));
-      v117 = v116 ^ (v116 >> 31);
-      re::HashTable<re::AssetType const*,std::pair<unsigned long,unsigned long>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::findEntry<re::AssetType const*>(buf, v263, rep, v117);
-      if (*&buf[12] == 0x7FFFFFFF)
-      {
-        memset(buf, 0, 24);
-        re::HashTable<re::AssetType const*,std::pair<unsigned long,unsigned long>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::findEntry<re::AssetType const*>(buf, v263, rep, v117);
-        if (*&buf[12] == 0x7FFFFFFF)
-        {
-          v118 = re::HashTable<re::AssetType const*,std::pair<unsigned long,unsigned long>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::allocEntry(v263, *&buf[8], *buf);
-          v118[1].__d_.__rep_ = rep;
-          v118[2].__d_.__rep_ = 1;
-          v118[3].__d_.__rep_ = v115.__d_.__rep_;
-          ++*(v3 + 2344);
-        }
-      }
-
-      else
-      {
-        v119 = (*(v3 + 2320) + 40 * *&buf[12]);
-        v120.i64[0] = vdupq_n_s64(1uLL).u64[0];
-        v120.u64[1] = v115.__d_.__rep_;
-        v119[1] = vaddq_s64(v119[1], v120);
-      }
-
-      v12 = v262;
-      os_unfair_lock_unlock(v108 + 128);
-      v106 = *v291;
-      if (!*v291)
-      {
-        goto LABEL_242;
-      }
-
-      goto LABEL_241;
-    }
-  }
-
-  else
-  {
-    os_unfair_lock_unlock((v3 + 128));
-  }
-
-LABEL_243:
-  re::DynamicArray<re::SharedPtr<re::Shareable<re::AssetLoadDescriptor>>>::deinit(v294);
-  os_unfair_lock_lock((v3 + 128));
-  v121 = *(v3 + 344);
-  if (v121)
-  {
-    v122 = 0;
-    do
-    {
-      v123 = *(v3 + 360);
-      while (!re::HashSetBase<re::internal::AssetEntry *,re::internal::AssetEntry *,re::internal::ValueAsKey<re::internal::AssetEntry *>,re::Hash<re::internal::AssetEntry *>,re::EqualTo<re::internal::AssetEntry *>,true,false>::contains(v290, *(*(v123 + 8 * v122) + 24)))
-      {
-        if (v121 <= ++v122)
-        {
-          goto LABEL_250;
-        }
-      }
-
-      re::DynamicArray<re::SharedPtr<re::internal::AssetReference>>::removeAt(v3 + 328, v122);
-      v121 = *(v3 + 344);
-    }
-
-    while (v121 > v122);
-  }
-
-LABEL_250:
-  os_unfair_lock_unlock((v3 + 128));
-  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v290);
-  v124 = *(v3 + 1824);
-  if (v124)
-  {
-    re::internal::AssetNetworkLoader::update(v124);
-  }
-
-  *buf = v11;
-  *&buf[8] = v12;
-  *&buf[16] = v261;
-  re::AssetManager::updateLoadRequests(v3, buf);
-  v125 = *(v3 + 2184);
-  if (v125 && v125[204] == 1 && (v125[17] & 1) == 0)
-  {
-    v126 = (v125[176] >> 2) & 1;
-  }
-
-  else
-  {
-    v126 = 0;
-  }
-
-  v127 = *(v3 + 2192);
-  if (v127)
-  {
-    v127 = re::ProfilerManager::isProcessorEnabled<re::ProfilerFrameStatisticsProcessor,void>(v127);
-    v128 = v127;
-  }
-
-  else
-  {
-    v128 = 0;
-  }
-
-  if (!re::ProfilerConfig::isStatisticCollectionEnabled(v127) || ((v126 | v128) & 1) == 0)
-  {
-    goto LABEL_394;
-  }
-
-  v294[0] = 0;
-  *v291 = 0;
-  v277 = 0;
-  re::AssetManager::gatherAssetStatisticsByType(v3, v290);
-  if (*&v290[8])
-  {
-    v130 = 0;
-    v28 = 0;
-    v131 = 0;
-    v132 = 0;
-    v133 = *&v290[16];
-    v264 = v3;
-    v266 = *&v290[16] + 104 * *&v290[8];
-    do
-    {
-      *v285 = 0;
-      memset(buf, 0, 28);
-      if (*v133)
-      {
-        v267 = v130;
-        v269 = v28;
-        v134 = v131;
-        v135 = *(v133 + 16);
-        *buf = *v133;
-        re::DynamicArray<re::AssetPath>::setCapacity(buf, v135);
-        ++*&buf[24];
-        v136 = *(v133 + 16);
-        v137 = *&buf[16];
-        if (v136 >= *&buf[16])
-        {
-          re::DynamicArray<re::AssetPath>::setCapacity(buf, *(v133 + 16));
-          v141 = *&buf[16];
-          v142 = *v285;
-          v129 = std::__copy_impl::operator()[abi:nn200100]<re::AssetPath *,re::AssetPath *,re::AssetPath *>(*(v133 + 32), (*(v133 + 32) + 80 * *&buf[16]), *v285);
-          if (v141 != v136)
-          {
-            v143 = *(v133 + 32);
-            v144 = v143 + 80 * v136;
-            v145 = 80 * v141;
-            do
-            {
-              v146 = v143 + v145;
-              *(v142 + v145) = *(v143 + v145);
-              re::DynamicString::DynamicString((v142 + v145 + 8), (v143 + v145 + 8));
-              v129 = re::DynamicString::DynamicString((v142 + v145 + 40), (v143 + v145 + 40));
-              *(v142 + v145 + 72) = *(v143 + v145 + 72);
-              v143 += 80;
-              v142 += 80;
-            }
-
-            while (v146 + 80 != v144);
-          }
-        }
-
-        else
-        {
-          v138 = *v285;
-          std::__copy_impl::operator()[abi:nn200100]<re::AssetPath *,re::AssetPath *,re::AssetPath *>(*(v133 + 32), (*(v133 + 32) + 80 * v136), *v285);
-          v139 = 80 * v137 - 80 * v136;
-          v140 = (v138 + 80 * v136 + 40);
-          do
-          {
-            re::DynamicString::deinit(v140);
-            re::DynamicString::deinit((v140 - 32));
-            v140 = (v140 + 80);
-            v139 -= 80;
-          }
-
-          while (v139);
-        }
-
-        *&buf[16] = v136;
-        v131 = v134;
-        v3 = v264;
-        v28 = v269;
-        v130 = v267;
-      }
-
-      *&v285[8] = *(v133 + 40);
-      *&v285[24] = *(v133 + 56);
-      *&v285[40] = *(v133 + 72);
-      v286 = *(v133 + 88);
-      v147 = *&v285[8];
-      v148 = re::MeshAsset::assetType(v129);
-      v149 = v147;
-      do
-      {
-        v150 = v149;
-        if (v149 == v148)
-        {
-          break;
-        }
-
-        v149 = v149[2];
-      }
-
-      while (v149);
-      v151 = *(&v286 + 1);
-      v152 = v150 == v148;
-      if (v150 == v148)
-      {
-        v153 = *(&v286 + 1);
-      }
-
-      else
-      {
-        v153 = 0;
-      }
-
-      v28 += v153;
-      if (v152)
-      {
-        ++v130;
-      }
-
-      v154 = re::TextureAsset::assetType(v148);
-      while (1)
-      {
-        v155 = v147;
-        if (v147 == v154)
-        {
-          break;
-        }
-
-        v147 = v147[2];
-        if (!v147)
-        {
-          v151 = 0;
-          break;
-        }
-      }
-
-      if (v155 == v154)
-      {
-        ++v132;
-      }
-
-      v131 += v151;
-      v129 = re::DynamicArray<re::AssetPath>::deinit(buf);
-      v133 += 104;
-    }
-
-    while (v133 != v266);
-  }
-
-  else
-  {
-    v132 = 0;
-    v131 = 0;
-    v28 = 0;
-    v130 = 0;
-  }
-
-  os_unfair_lock_lock((v3 + 128));
-  v156 = *(v3 + 168);
-  if (v156)
-  {
-    v157 = 0;
-    v158 = *(v3 + 152);
-    while (1)
-    {
-      v159 = *v158;
-      v158 += 14;
-      if (v159 < 0)
-      {
-        break;
-      }
-
-      if (v156 == ++v157)
-      {
-        LODWORD(v157) = *(v3 + 168);
-        break;
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v157) = 0;
-  }
-
-  if (v157 != v156)
-  {
-    v160 = 0;
-    v268 = 0;
-    v270 = 0;
-    v161 = *(v3 + 152);
-    while (1)
-    {
-      v162 = *(v161 + 56 * v157 + 40);
-      if (v162)
-      {
-        v163 = (v162 + 8);
-      }
-
-      v164 = atomic_load((v162 + 896));
-      if (v164 <= 1)
-      {
-        break;
-      }
-
-      if (v164 != 2)
-      {
-        if (v164 != 3)
-        {
-          goto LABEL_310;
-        }
-
-        v165 = &v277;
-        goto LABEL_308;
-      }
-
-      ++v268;
-      v270 += *(v162 + 776);
-LABEL_310:
-      ++v160;
-
-      if (*(v3 + 168) <= (v157 + 1))
-      {
-        v166 = v157 + 1;
-      }
-
-      else
-      {
-        v166 = *(v3 + 168);
-      }
-
-      v161 = *(v3 + 152);
-      while (v166 - 1 != v157)
-      {
-        LODWORD(v157) = v157 + 1;
-        if ((*(v161 + 56 * v157) & 0x80000000) != 0)
-        {
-          goto LABEL_318;
-        }
-      }
-
-      LODWORD(v157) = v166;
-LABEL_318:
-      if (v157 == v156)
-      {
-        goto LABEL_319;
-      }
-    }
-
-    if (v164)
-    {
-      if (v164 != 1)
-      {
-        goto LABEL_310;
-      }
-
-      v165 = v291;
-    }
-
-    else
-    {
-      v165 = v294;
-    }
-
-LABEL_308:
-    *v165 = *v165 + 1;
-    goto LABEL_310;
-  }
-
-  v160 = 0;
-  v268 = 0;
-  v270 = 0;
-LABEL_319:
-  os_unfair_lock_unlock((v3 + 128));
-  v168 = re::ProfilerConfig::isStatisticCollectionEnabled(v167);
-  if (v168)
-  {
-    v168 = re::profilerThreadContext(v168);
-    v169 = *(v168 + 152);
-    if (v169)
-    {
-      v170 = v294[0];
-      v171 = v169[440].i64[0];
-      if (v171 >= v294[0])
-      {
-        v171 = v294[0];
-      }
-
-      v169[440].i64[0] = v171;
-      v172 = v169[440].i64[1];
-      if (v172 <= v170)
-      {
-        v172 = v170;
-      }
-
-      v169[440].i64[1] = v172;
-      v173 = vdupq_n_s64(1uLL);
-      v173.i64[0] = v170;
-      v169[441] = vaddq_s64(v169[441], v173);
-      *(v168 + 184) = 0;
-    }
-  }
-
-  v174 = re::ProfilerConfig::isStatisticCollectionEnabled(v168);
-  v12 = v262;
-  if (v174)
-  {
-    v174 = re::profilerThreadContext(v174);
-    v175 = *(v174 + 152);
-    if (v175)
-    {
-      v176 = *v291;
-      v177 = v175[448].u64[0];
-      if (v177 >= *v291)
-      {
-        v177 = *v291;
-      }
-
-      v175[448].i64[0] = v177;
-      v178 = v175[448].u64[1];
-      if (v178 <= v176)
-      {
-        v178 = v176;
-      }
-
-      v175[448].i64[1] = v178;
-      v179 = vdupq_n_s64(1uLL);
-      v179.i64[0] = v176;
-      v175[449] = vaddq_s64(v175[449], v179);
-      *(v174 + 184) = 0;
-    }
-  }
-
-  v180 = re::ProfilerConfig::isStatisticCollectionEnabled(v174);
-  if (v180)
-  {
-    v180 = re::profilerThreadContext(v180);
-    v181 = *(v180 + 152);
-    if (v181)
-    {
-      v182 = v181[456].u64[0];
-      if (v182 >= v268)
-      {
-        v182 = v268;
-      }
-
-      v181[456].i64[0] = v182;
-      v183 = v181[456].u64[1];
-      if (v183 <= v268)
-      {
-        v183 = v268;
-      }
-
-      v181[456].i64[1] = v183;
-      v184 = vdupq_n_s64(1uLL);
-      v184.i64[0] = v268;
-      v181[457] = vaddq_s64(v181[457], v184);
-      *(v180 + 184) = 0;
-    }
-  }
-
-  v185 = re::ProfilerConfig::isStatisticCollectionEnabled(v180);
-  if (v185)
-  {
-    v185 = re::profilerThreadContext(v185);
-    v186 = *(v185 + 152);
-    if (v186)
-    {
-      v187 = v277;
-      v188 = v186[464].u64[0];
-      if (v188 >= v277)
-      {
-        v188 = v277;
-      }
-
-      v186[464].i64[0] = v188;
-      v189 = v186[464].u64[1];
-      if (v189 <= v187)
-      {
-        v189 = v187;
-      }
-
-      v186[464].i64[1] = v189;
-      v190 = vdupq_n_s64(1uLL);
-      v190.i64[0] = v187;
-      v186[465] = vaddq_s64(v186[465], v190);
-      *(v185 + 184) = 0;
-    }
-  }
-
-  v191 = re::ProfilerConfig::isStatisticCollectionEnabled(v185);
-  if (v191)
-  {
-    v191 = re::profilerThreadContext(v191);
-    v192 = *(v191 + 152);
-    if (v192)
-    {
-      v193 = v192[472].u64[0];
-      if (v193 >= v160)
-      {
-        v193 = v160;
-      }
-
-      v192[472].i64[0] = v193;
-      v194 = v192[472].u64[1];
-      if (v194 <= v160)
-      {
-        v194 = v160;
-      }
-
-      v192[472].i64[1] = v194;
-      v195 = vdupq_n_s64(1uLL);
-      v195.i64[0] = v160;
-      v192[473] = vaddq_s64(v192[473], v195);
-      *(v191 + 184) = 0;
-    }
-  }
-
-  v196 = re::ProfilerConfig::isStatisticCollectionEnabled(v191);
-  if (v196)
-  {
-    v196 = re::profilerThreadContext(v196);
-    v197 = *(v196 + 152);
-    if (v197)
-    {
-      v198 = v197[480].u64[0];
-      if (v198 >= v270)
-      {
-        v198 = v270;
-      }
-
-      v197[480].i64[0] = v198;
-      v199 = v197[480].u64[1];
-      if (v199 <= v270)
-      {
-        v199 = v270;
-      }
-
-      v197[480].i64[1] = v199;
-      v200 = vdupq_n_s64(1uLL);
-      v200.i64[0] = v270;
-      v197[481] = vaddq_s64(v197[481], v200);
-      *(v196 + 184) = 0;
-    }
-  }
-
-  v201 = re::ProfilerConfig::isStatisticCollectionEnabled(v196);
-  if (v201)
-  {
-    v201 = re::profilerThreadContext(v201);
-    v202 = *(v201 + 152);
-    if (v202)
-    {
-      v203 = v202[504].u64[0];
-      if (v203 >= v130)
-      {
-        v203 = v130;
-      }
-
-      v202[504].i64[0] = v203;
-      v204 = v202[504].u64[1];
-      if (v204 <= v130)
-      {
-        v204 = v130;
-      }
-
-      v202[504].i64[1] = v204;
-      v205 = vdupq_n_s64(1uLL);
-      v205.i64[0] = v130;
-      v202[505] = vaddq_s64(v202[505], v205);
-      *(v201 + 184) = 0;
-    }
-  }
-
-  v206 = re::ProfilerConfig::isStatisticCollectionEnabled(v201);
-  if (v206)
-  {
-    v206 = re::profilerThreadContext(v206);
-    v207 = *(v206 + 152);
-    if (v207)
-    {
-      v208 = v207[512].u64[0];
-      if (v208 >= v28)
-      {
-        v208 = v28;
-      }
-
-      v207[512].i64[0] = v208;
-      v209 = v207[512].u64[1];
-      if (v209 <= v28)
-      {
-        v209 = v28;
-      }
-
-      v207[512].i64[1] = v209;
-      v210 = vdupq_n_s64(1uLL);
-      v210.i64[0] = v28;
-      v207[513] = vaddq_s64(v207[513], v210);
-      *(v206 + 184) = 0;
-    }
-  }
-
-  v211 = re::ProfilerConfig::isStatisticCollectionEnabled(v206);
-  if (v211)
-  {
-    v211 = re::profilerThreadContext(v211);
-    v212 = *(v211 + 152);
-    if (v212)
-    {
-      v213 = v212[520].u64[0];
-      if (v213 >= v132)
-      {
-        v213 = v132;
-      }
-
-      v212[520].i64[0] = v213;
-      v214 = v212[520].u64[1];
-      if (v214 <= v132)
-      {
-        v214 = v132;
-      }
-
-      v212[520].i64[1] = v214;
-      v215 = vdupq_n_s64(1uLL);
-      v215.i64[0] = v132;
-      v212[521] = vaddq_s64(v212[521], v215);
-      *(v211 + 184) = 0;
-    }
-  }
-
-  v216 = re::ProfilerConfig::isStatisticCollectionEnabled(v211);
-  if (v216)
-  {
-    v217 = re::profilerThreadContext(v216);
-    v218 = *(v217 + 152);
-    if (v218)
-    {
-      v219 = v218[528].u64[0];
-      if (v219 >= v131)
-      {
-        v219 = v131;
-      }
-
-      v218[528].i64[0] = v219;
-      v220 = v218[528].u64[1];
-      if (v220 <= v131)
-      {
-        v220 = v131;
-      }
-
-      v218[528].i64[1] = v220;
-      v221 = vdupq_n_s64(1uLL);
-      v221.i64[0] = v131;
-      v218[529] = vaddq_s64(v218[529], v221);
-      *(v217 + 184) = 0;
-    }
-  }
-
-  v222 = *v290;
-  if (*v290 && *&v290[8])
-  {
-    v223 = *&v290[16];
-    v224 = 104 * *&v290[8];
-    v225 = *&v290[16];
-    do
-    {
-      re::DynamicArray<re::AssetPath>::deinit(v225);
-      v225 += 104;
-      v224 -= 104;
-    }
-
-    while (v224);
-    (*(*v222 + 40))(v222, v223);
-  }
-
-LABEL_394:
-  v226 = atomic_load((v3 + 2177));
-  if ((v226 & 1) == 0 && (*(v3 + 2178) & 1) == 0)
-  {
-    dispatch_assert_queue_V2(*(v3 + 776));
-  }
-
-  if (!*(v3 + 1920))
-  {
-    re::NetworkActionQueue::readActions((v3 + 1152), buf);
-    if (*&buf[16])
-    {
-      v246 = *re::assetsLogObjects(v245);
-      if (os_log_type_enabled(v246, OS_LOG_TYPE_DEFAULT))
-      {
-        *v290 = 0;
-        _os_log_impl(&dword_1E1C61000, v246, OS_LOG_TYPE_DEFAULT, "Found queued network actions when NetworkAssetService does not exist!, this can occur during AssetManager::deinit()", v290, 2u);
-      }
-    }
-
-    v244 = buf;
-    goto LABEL_443;
-  }
-
-  re::NetworkActionQueue::readActions((v3 + 1152), v290);
-  v277 = 0;
-  v278 = 0;
-  v279 = 0;
-  v280 = 0;
-  v281 = 0;
-  v282 = 0;
-  v227 = *&v290[16];
-  buf[0] = 0;
-  v230 = *&v290[16];
-  buf[0] = 0;
-  v232 = *&v290[16];
-  v297 = 0;
-  v294[1] = 0;
-  v294[2] = 0;
-  v295 = 0;
-  re::DynamicArray<re::AssetHandle>::setCapacity(v294, v232);
-  ++v295;
-  os_unfair_lock_lock((v3 + 128));
-  if (!*&v290[16])
-  {
-    goto LABEL_423;
-  }
-
-  v233 = (*&v290[32] + 160);
-  v234 = 168 * *&v290[16];
-  do
-  {
-    if (*v233 == 4 || *v233 == 1)
-    {
-      memset(buf, 0, 24);
-      re::DynamicArray<re::AssetHandle>::add(v294, buf);
-      v236 = buf;
-LABEL_406:
-      re::AssetHandle::~AssetHandle(v236);
-      goto LABEL_407;
-    }
-
-    re::AssetManager::lookupExistingAsset_assetTablesLocked(v3, *(v233 - 1), buf);
-    if (buf[0] == 1)
-    {
-      re::DynamicArray<re::AssetHandle>::add(v294, &buf[8]);
-    }
-
-    else
-    {
-      memset(v291, 0, 24);
-      re::DynamicArray<re::AssetHandle>::add(v294, v291);
-      re::AssetHandle::~AssetHandle(v291);
-    }
-
-    if (buf[0] == 1)
-    {
-      v236 = &buf[8];
-      goto LABEL_406;
-    }
-
-LABEL_407:
-    v233 += 42;
-    v234 -= 168;
-  }
-
-  while (v234);
-  v237 = *&v290[16];
-  if (*&v290[16])
-  {
-    v238 = 0;
-    v239 = 0;
-    rep = 0;
-    while (1)
-    {
-      v1 = v294[2];
-      if (v294[2] <= rep)
-      {
-        break;
-      }
-
-      if ((*(*&v290[32] + v238 + 160) - 9) <= 0xFFFFFFF7)
-      {
-        v240 = re::AssetManager::performQueuedSyncAction(v3, *&v290[32] + v238, &v297[v239]);
-        v1 = v278;
-        if (v278 <= rep)
-        {
-          goto LABEL_486;
-        }
-
-        *(v279 + rep) = v240;
-        v1 = v281;
-        if (v281 <= rep)
-        {
-          goto LABEL_487;
-        }
-
-        *(v282 + rep) = 1;
-        if (dispatch_time(0, 0) >= v12)
-        {
-          goto LABEL_423;
-        }
-
-        v237 = *&v290[16];
-      }
-
-      ++rep;
-      v239 += 3;
-      v238 += 168;
-      if (rep >= v237)
-      {
-        goto LABEL_423;
-      }
-    }
-
-LABEL_483:
-    v283 = 0;
-    memset(v285, 0, 48);
-    memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v291 = 136315906;
-    *&v291[4] = "operator[]";
-    *&v291[12] = 1024;
-    *&v291[14] = 789;
-    *&v291[18] = 2048;
-    *&v291[20] = rep;
-    v292 = 2048;
-    v293 = v1;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_484:
-    v283 = 0;
-    memset(v285, 0, 48);
-    memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v291 = 136315906;
-    *&v291[4] = "operator[]";
-    *&v291[12] = 1024;
-    *&v291[14] = 468;
-    *&v291[18] = 2048;
-    *&v291[20] = rep;
-    v292 = 2048;
-    v293 = v1;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_485:
-    v283 = 0;
-    memset(v285, 0, 48);
-    memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v291 = 136315906;
-    *&v291[4] = "operator[]";
-    *&v291[12] = 1024;
-    *&v291[14] = 468;
-    *&v291[18] = 2048;
-    *&v291[20] = rep;
-    v292 = 2048;
-    v293 = v1;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_486:
-    v283 = 0;
-    memset(v285, 0, 48);
-    memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v291 = 136315906;
-    *&v291[4] = "operator[]";
-    *&v291[12] = 1024;
-    *&v291[14] = 468;
-    *&v291[18] = 2048;
-    *&v291[20] = rep;
-    v292 = 2048;
-    v293 = v1;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_487:
-    v283 = 0;
-    memset(v285, 0, 48);
-    memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v291 = 136315906;
-    *&v291[4] = "operator[]";
-    *&v291[12] = 1024;
-    *&v291[14] = 468;
-    *&v291[18] = 2048;
-    *&v291[20] = rep;
-    v292 = 2048;
-    v293 = v1;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_488:
-    re::internal::assertLog(4, v33, "assertion failure: '%s' (%s:line %i) ", "!Unreachable code", "processLoadItem", 2958);
-    _os_crash();
-    __break(1u);
-LABEL_489:
-    re::internal::assertLog(4, v43, "assertion failure: '%s' (%s:line %i) ", "!Unreachable code", "processLoadItem", 2936);
-    _os_crash();
-    __break(1u);
-  }
-
-LABEL_423:
-  os_unfair_lock_unlock((v3 + 128));
-  v241 = *&v290[16];
-  if (*&v290[16])
-  {
-    v242 = 0;
-    v77 = 0;
-    rep = 0;
-    v82 = 1;
-    while (1)
-    {
-      v1 = v294[2];
-      if (v294[2] <= rep)
-      {
-        break;
-      }
-
-      if ((*(*&v290[32] + v242 + 160) - 9) >= 0xFFFFFFF8)
-      {
-        v243 = re::AssetManager::performQueuedSyncAction(v3, *&v290[32] + v242, (v297 + v77));
-        v1 = v278;
-        if (v278 <= rep)
-        {
-          goto LABEL_484;
-        }
-
-        *(v279 + rep) = v243;
-        v1 = v281;
-        if (v281 <= rep)
-        {
-          goto LABEL_485;
-        }
-
-        *(v282 + rep) = 1;
-        if (dispatch_time(0, 0) >= v12)
-        {
-          goto LABEL_432;
-        }
-
-        v241 = *&v290[16];
-      }
-
-      ++rep;
-      v77 += 24;
-      v242 += 168;
-      if (rep >= v241)
-      {
-        goto LABEL_432;
-      }
-    }
-
-    v283 = 0;
-    memset(v285, 0, 48);
-    memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v291 = 136315906;
-    *&v291[4] = "operator[]";
-    *&v291[12] = 1024;
-    *&v291[14] = 789;
-    *&v291[18] = 2048;
-    *&v291[20] = rep;
-    v292 = 2048;
-    v293 = v1;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_480:
-    v294[0] = 0;
-    memset(v285, 0, 48);
-    memset(buf, 0, sizeof(buf));
-    v89 = MEMORY[0x1E69E9C10];
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v290 = 136315906;
-    *&v290[4] = "removeAt";
-    *&v290[12] = 1024;
-    *&v290[14] = 931;
-    *&v290[18] = 2048;
-    *&v290[20] = v82;
-    *&v290[28] = 2048;
-    *&v290[30] = v77;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_481:
-    v277 = 0;
-    memset(v285, 0, 48);
-    memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v291 = 136315906;
-    *&v291[4] = "operator[]";
-    *&v291[12] = 1024;
-    *&v291[14] = 789;
-    *&v291[18] = 2048;
-    *&v291[20] = v1;
-    v292 = 2048;
-    v293 = v89;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_482:
-    *v291 = 0;
-    memset(v285, 0, 48);
-    memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v294[0]) = 136315906;
-    *(v294 + 4) = "removeAt";
-    WORD2(v294[1]) = 1024;
-    *(&v294[1] + 6) = 931;
-    WORD1(v294[2]) = 2048;
-    *(rep + 20) = v28;
-    v296 = 2048;
-    *(rep + 30) = v1;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_483;
-  }
-
-LABEL_432:
-  re::NetworkActionQueue::removeActions(v3 + 1152, &v277, &v280);
-  re::DynamicArray<re::AssetHandle>::deinit(v294);
-  if (v280 && v281)
-  {
-    (*(*v280 + 40))();
-  }
-
-  if (v277 && v278)
-  {
-    (*(*v277 + 40))();
-  }
-
-  v244 = v290;
-LABEL_443:
-  re::DynamicArray<re::NetworkActionQueue::Action>::deinit(v244);
-  *v285 = 0;
-  memset(buf, 0, 28);
-  os_unfair_lock_lock((v3 + 1664));
-  re::DynamicArray<unsigned long long>::operator=(buf, (v3 + 1672));
-  *(v3 + 1688) = 0;
-  ++*(v3 + 1696);
-  os_unfair_lock_unlock((v3 + 1664));
-  v247 = *(v3 + 2368);
-  if (v247)
-  {
-    v248 = *(v3 + 2384);
-    v249 = 40 * v247;
-    do
-    {
-      *&v290[24] = *(v248 + 24);
-      *&v290[32] = 0;
-      re::FunctionBase<24ul,void ()(re::DynamicArray<unsigned long long>)>::operator=<24ul>(v290, v248);
-      re::DynamicArray<char const*>::DynamicArray(v294, buf);
-      (*(**&v290[32] + 16))(*&v290[32], v294);
-      if (v294[0])
-      {
-        if (v297)
-        {
-          (*(*v294[0] + 40))();
-        }
-
-        v297 = 0;
-        memset(v294, 0, sizeof(v294));
-        ++v295;
-      }
-
-      re::FunctionBase<24ul,void ()(re::DynamicArray<unsigned long long>)>::destroyCallable(v290);
-      v248 += 40;
-      v249 -= 40;
-    }
-
-    while (v249);
-  }
-
-  if (*buf && *v285)
-  {
-    (*(**buf + 40))();
-  }
-
-  re::AssetManager::updateNeedManualTicks(v3);
-  v250 = *(v3 + 1920);
-  if (v250)
-  {
-    (*(*v250 + 200))(v250);
-  }
-
-  if (dispatch_time(0, 0) >= v12)
-  {
-    if (re::internal::enableSignposts(0, 0))
-    {
-      kdebug_trace();
-    }
-
-    ++*(v3 + 2248);
-  }
-
-  else
-  {
-    *v259 = v271;
-    v259[1] = v272;
-    if (*v263)
-    {
-      re::HashTable<re::AssetType const*,std::pair<unsigned long,unsigned long>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::clear(v263);
-      if (v273)
-      {
-        if (*(v3 + 2328) < HIDWORD(v274))
-        {
-          re::HashTable<re::AssetType const*,std::pair<unsigned long,unsigned long>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::setCapacity(v263, HIDWORD(v274));
-        }
-
-        re::HashTable<re::AssetType const*,std::pair<unsigned long,unsigned long>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::copy(v263, &v273);
-        ++*(v3 + 2344);
-      }
-    }
-
-    else if (v273)
-    {
-      if (HIDWORD(v274) <= 3)
-      {
-        v256 = 3;
-      }
-
-      else
-      {
-        v256 = HIDWORD(v274);
-      }
-
-      re::HashTable<re::StringID,re::TimelineEventParameterDescription,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v263, v273, v256);
-      re::HashTable<re::AssetType const*,std::pair<unsigned long,unsigned long>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::copy(v263, &v273);
-    }
-  }
-
-  re::HashTable<unsigned long long,re::internal::MemoryAttributionTaskAndPeerID,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(&v273);
-  if (v260)
-  {
-    if (*(v260 + 152))
-    {
-      v251 = mach_absolute_time();
-      v252 = *(v260 + 152);
-      if (v252)
-      {
-        v253 = v252[176].u64[0];
-        if (v253 >= v251 - v258)
-        {
-          v253 = v251 - v258;
-        }
-
-        v252[176].i64[0] = v253;
-        v254 = v252[176].u64[1];
-        if (v254 <= v251 - v258)
-        {
-          v254 = v251 - v258;
-        }
-
-        v252[176].i64[1] = v254;
-        v255 = vdupq_n_s64(1uLL);
-        v255.i64[0] = v251 - v258;
-        v252[177] = vaddq_s64(v252[177], v255);
-        *(v260 + 184) = 0;
-      }
-    }
-  }
-}
-
-uint64_t std::__function::__func<re::AssetManager::update(BOOL,BOOL)::$_0,std::allocator<re::AssetManager::update(BOOL,BOOL)::$_0>,void ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t re::HashTable<re::AssetType const*,std::pair<unsigned long,unsigned long>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::copy(uint64_t result, uint64_t a2)
-{
-  v2 = *(a2 + 32);
-  if (v2)
-  {
-    v4 = result;
-    v5 = 0;
-    for (i = 0; i < v2; ++i)
-    {
-      v7 = *(a2 + 16);
-      if ((*(v7 + v5) & 0x80000000) != 0)
-      {
-        result = re::HashTable<re::AssetType const*,std::pair<unsigned long,unsigned long>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::allocEntry(v4, *(v7 + v5 + 32) % *(v4 + 24), *(v7 + v5 + 32));
-        *(result + 8) = *(*(a2 + 16) + v5 + 8);
-        *(result + 16) = *(*(a2 + 16) + v5 + 16);
-        v2 = *(a2 + 32);
-      }
-
-      v5 += 40;
-    }
-  }
-
-  return result;
-}
-
-uint64_t re::HashTable<re::AssetType const*,std::pair<unsigned long,unsigned long>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
-{
-  v5 = *(a1 + 36);
-  if (v5 == 0x7FFFFFFF)
-  {
-    v5 = *(a1 + 32);
-    v6 = v5;
-    if (v5 == *(a1 + 24))
-    {
-      re::HashTable<re::AssetType const*,std::pair<unsigned long,unsigned long>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::setCapacity(a1, 2 * *(a1 + 28));
-      a2 = a3 % *(a1 + 24);
-      v6 = *(a1 + 32);
-    }
-
-    *(a1 + 32) = v6 + 1;
-    v7 = *(a1 + 16);
-    v8 = *(v7 + 40 * v5);
-  }
-
-  else
-  {
-    v7 = *(a1 + 16);
-    v8 = *(v7 + 40 * v5);
-    *(a1 + 36) = v8 & 0x7FFFFFFF;
-  }
-
-  v9 = v7 + 40 * v5;
-  *v9 = v8 | 0x80000000;
-  v10 = *(a1 + 8);
-  *v9 = *(v10 + 4 * a2) | 0x80000000;
-  *(v10 + 4 * a2) = v5;
-  *(v9 + 32) = a3;
-  ++*(a1 + 28);
-  return v7 + 40 * v5;
-}
-
-void re::HashTable<re::AssetType const*,std::pair<unsigned long,unsigned long>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::setCapacity(uint64_t a1, unsigned int a2)
-{
-  v4 = *a1;
-  if (*a1)
-  {
-    if (a2 && *(a1 + 24) != a2 && *(a1 + 28) <= a2)
-    {
-      memset(v14, 0, 36);
-      *&v14[36] = 0x7FFFFFFFLL;
-      re::HashTable<re::StringID,re::TimelineEventParameterDescription,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v14, v4, a2);
-      v5 = *v14;
-      *v14 = *a1;
-      *a1 = v5;
-      v6 = *&v14[16];
-      v7 = *(a1 + 16);
-      *&v14[16] = v7;
-      *(a1 + 16) = v6;
-      v9 = *&v14[24];
-      *&v14[24] = *(a1 + 24);
-      v8 = *&v14[32];
-      *(a1 + 24) = v9;
-      ++*&v14[40];
-      v10 = v8;
-      if (v8)
-      {
-        v11 = v7 + 16;
-        do
-        {
-          if ((*(v11 - 16) & 0x80000000) != 0)
-          {
-            v12 = re::HashTable<re::AssetType const*,std::pair<unsigned long,unsigned long>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::allocEntry(a1, *(v11 + 16) % *(a1 + 24));
-            *(v12 + 8) = *(v11 - 8);
-            *(v12 + 16) = *v11;
-          }
-
-          v11 += 40;
-          --v10;
-        }
-
-        while (v10);
-      }
-
-      re::HashTable<unsigned long long,re::internal::MemoryAttributionTaskAndPeerID,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(v14);
-    }
-  }
-
-  else
-  {
-    if (a2)
-    {
-      v13 = a2;
-    }
-
-    else
-    {
-      v13 = 3;
-    }
-  }
+  return 1;
 }

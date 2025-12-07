@@ -53,10 +53,10 @@ uint64_t __33__SUCoreSimulate_sharedSimulator__block_invoke()
 
 - (SUCoreSimulate)init
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = SUCoreSimulate;
-  v2 = [(SUCoreSimulate *)&v18 init];
+  v22 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = SUCoreSimulate;
+  v2 = [(SUCoreSimulate *)&v17 init];
   if (v2)
   {
     v3 = +[SUCoreDevice sharedDevice];
@@ -86,9 +86,9 @@ uint64_t __33__SUCoreSimulate_sharedSimulator__block_invoke()
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v20 = commonDomain;
-        v21 = 2112;
-        v22 = @"core.simulate";
+        v19 = commonDomain;
+        v20 = 2112;
+        v21 = @"core.simulate";
         _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SIMULATE] DISPATCH: created simulate dispatch queue domain(%@.%@)", buf, 0x16u);
       }
     }
@@ -102,7 +102,6 @@ uint64_t __33__SUCoreSimulate_sharedSimulator__block_invoke()
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -141,7 +140,7 @@ uint64_t __33__SUCoreSimulate_sharedSimulator__block_invoke()
 
 - (void)_adoptAllEventAlterations:(id)alterations
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   alterationsCopy = alterations;
   simulateQueue = [(SUCoreSimulate *)self simulateQueue];
   dispatch_assert_queue_V2(simulateQueue);
@@ -159,7 +158,7 @@ uint64_t __33__SUCoreSimulate_sharedSimulator__block_invoke()
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v46 = alterationsCopy;
+        v45 = alterationsCopy;
         _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SIMULATE] simulate event alterations file does not exist (file non-existent): %@", buf, 0xCu);
       }
 
@@ -167,10 +166,10 @@ uint64_t __33__SUCoreSimulate_sharedSimulator__block_invoke()
       goto LABEL_33;
     }
 
-    v39 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v44 = 0;
-    v9 = [MEMORY[0x1E696AEC0] stringWithContentsOfFile:alterationsCopy encoding:1 error:&v44];
-    v10 = v44;
+    v38 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v43 = 0;
+    v9 = [MEMORY[0x1E696AEC0] stringWithContentsOfFile:alterationsCopy encoding:1 error:&v43];
+    v10 = v43;
     if (v10)
     {
       v11 = +[SUCoreDiag sharedDiag];
@@ -184,30 +183,30 @@ LABEL_33:
     v14 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"\r\n"];
     v15 = [v9 componentsSeparatedByCharactersInSet:v14];
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v11 = v15;
-    v16 = [v11 countByEnumeratingWithState:&v40 objects:v47 count:16];
+    v16 = [v11 countByEnumeratingWithState:&v39 objects:v46 count:16];
     if (v16)
     {
       v17 = v16;
-      v35 = v9;
-      v36 = defaultManager;
-      v37 = alterationsCopy;
-      v18 = *v41;
-      v38 = 1;
+      v34 = v9;
+      v35 = defaultManager;
+      v36 = alterationsCopy;
+      v18 = *v40;
+      v37 = 1;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v41 != v18)
+          if (*v40 != v18)
           {
             objc_enumerationMutation(v11);
           }
 
-          v20 = *(*(&v40 + 1) + 8 * i);
+          v20 = *(*(&v39 + 1) + 8 * i);
           if ([v20 length])
           {
             v21 = [v20 substringWithRange:{0, 1}];
@@ -220,13 +219,13 @@ LABEL_33:
               if (v23)
               {
                 moduleName = [v23 moduleName];
-                v26 = [v39 safeObjectForKey:moduleName ofClass:objc_opt_class()];
+                v26 = [v38 safeObjectForKey:moduleName ofClass:objc_opt_class()];
 
                 if (!v26)
                 {
                   v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
                   moduleName2 = [v24 moduleName];
-                  [v39 setSafeObject:v26 forKey:moduleName2];
+                  [v38 setSafeObject:v26 forKey:moduleName2];
                 }
 
                 v28 = +[SUCoreLog sharedLogger];
@@ -236,7 +235,7 @@ LABEL_33:
                 {
                   summary = [v24 summary];
                   *buf = 138412290;
-                  v46 = summary;
+                  v45 = summary;
                   _os_log_impl(&dword_1E0F71000, oslog2, OS_LOG_TYPE_DEFAULT, "[SIMULATE] adding event: %@", buf, 0xCu);
                 }
 
@@ -251,26 +250,26 @@ LABEL_33:
                 if (os_log_type_enabled(oslog3, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v46 = v20;
+                  v45 = v20;
                   _os_log_impl(&dword_1E0F71000, oslog3, OS_LOG_TYPE_DEFAULT, "[SIMULATE] failed parsing line: %@", buf, 0xCu);
                 }
 
                 NSLog(@"[SIMULATE] failed parsing line: %@", v20);
-                v38 = 0;
+                v37 = 0;
               }
             }
           }
         }
 
-        v17 = [v11 countByEnumeratingWithState:&v40 objects:v47 count:16];
+        v17 = [v11 countByEnumeratingWithState:&v39 objects:v46 count:16];
       }
 
       while (v17);
 
-      defaultManager = v36;
-      alterationsCopy = v37;
-      v9 = v35;
-      if ((v38 & 1) == 0)
+      defaultManager = v35;
+      alterationsCopy = v36;
+      v9 = v34;
+      if ((v37 & 1) == 0)
       {
         v33 = +[SUCoreDiag sharedDiag];
         [v33 trackError:@"[SIMULATE] SETUP" forReason:@"adopt event alterations (parsing failed)" withResult:8121 withError:0];
@@ -283,7 +282,7 @@ LABEL_33:
     {
     }
 
-    [(SUCoreSimulate *)self setEventAlterations:v39];
+    [(SUCoreSimulate *)self setEventAlterations:v38];
     goto LABEL_32;
   }
 
@@ -291,7 +290,6 @@ LABEL_33:
   [v7 trackError:@"[SIMULATE] SETUP" forReason:@"adopt event alterations (already adopted)" withResult:8111 withError:0];
 
 LABEL_34:
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_eventFromLine:(id)line
@@ -460,7 +458,7 @@ LABEL_26:
 
 - (id)_splitString:(id)string byTheFirstOccurrenceOf:(id)of
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v6 = [stringCopy rangeOfString:of];
   if (v6 == 0x7FFFFFFFFFFFFFFFLL)
@@ -473,25 +471,23 @@ LABEL_26:
     v8 = v6;
     v9 = [stringCopy substringToIndex:v6];
     v10 = [stringCopy substringFromIndex:v8 + 1];
-    v13[0] = v9;
-    v13[1] = v10;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+    v12[0] = v9;
+    v12[1] = v10;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (BOOL)_parseOptionalEntriesInLineFromWords:(id)words argStartAt:(int *)at argEndAt:(int *)endAt argDuration:(int *)duration argUntilStop:(id *)stop argAssetBuildVersions:(id *)versions argAssetProductVersions:(id *)productVersions argAssetAttributesPlist:(id *)self0 argAssetState:(id *)self1 argUpdateInfoPlist:(id *)self2 argErrorDomain:(id *)self3 argErrorCode:(int64_t *)self4 argErrorUserInfo:(id *)self5 argErrorRecoverable:(int64_t *)self6
 {
-  v129 = *MEMORY[0x1E69E9840];
+  v128 = *MEMORY[0x1E69E9840];
+  v119 = 0u;
   v120 = 0u;
   v121 = 0u;
   v122 = 0u;
-  v123 = 0u;
   obj = words;
-  v18 = [obj countByEnumeratingWithState:&v120 objects:v128 count:16];
+  v18 = [obj countByEnumeratingWithState:&v119 objects:v127 count:16];
   if (!v18)
   {
     v99 = 0;
@@ -504,21 +500,21 @@ LABEL_26:
 
   v19 = v18;
   versionsCopy = versions;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
   v20 = 1;
-  v21 = *v121;
+  v21 = *v120;
   do
   {
     v22 = 0;
     do
     {
-      if (*v121 != v21)
+      if (*v120 != v21)
       {
         objc_enumerationMutation(obj);
       }
 
-      v23 = *(*(&v120 + 1) + 8 * v22);
+      v23 = *(*(&v119 + 1) + 8 * v22);
       v24 = [(SUCoreSimulate *)self _splitString:v23 byTheFirstOccurrenceOf:@"="];
       v25 = v24;
       if (!v24 || [v24 count] != 2)
@@ -529,7 +525,7 @@ LABEL_26:
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v125 = v23;
+          v124 = v23;
           _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SIMULATE] failed parsing tokens (unexpected format, expected 'key=value') for: '%@'", buf, 0xCu);
         }
 
@@ -556,7 +552,7 @@ LABEL_26:
         if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v125 = v23;
+          v124 = v23;
           _os_log_impl(&dword_1E0F71000, oslog2, OS_LOG_TYPE_DEFAULT, "[SIMULATE] failed parsing 'startAt' (expected int) for: '%@'", buf, 0xCu);
         }
 
@@ -580,7 +576,7 @@ LABEL_26:
           if (os_log_type_enabled(oslog3, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v125 = v23;
+            v124 = v23;
             _os_log_impl(&dword_1E0F71000, oslog3, OS_LOG_TYPE_DEFAULT, "[SIMULATE] failed parsing 'endAt' (expected int) for: '%@'", buf, 0xCu);
           }
 
@@ -608,7 +604,7 @@ LABEL_16:
             if (os_log_type_enabled(oslog4, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v125 = v23;
+              v124 = v23;
               _os_log_impl(&dword_1E0F71000, oslog4, OS_LOG_TYPE_DEFAULT, "[SIMULATE] failed parsing 'duration' (expected int) for: '%@'", buf, 0xCu);
             }
 
@@ -636,7 +632,7 @@ LABEL_16:
             v50 = [v25 objectAtIndexedSubscript:1];
             v51 = [v50 componentsSeparatedByString:{@", "}];
 
-            v114 = v51;
+            v113 = v51;
             goto LABEL_17;
           }
 
@@ -648,7 +644,7 @@ LABEL_16:
             v54 = [v25 objectAtIndexedSubscript:1];
             v55 = [v54 componentsSeparatedByString:{@", "}];
 
-            v113 = v55;
+            v112 = v55;
             goto LABEL_17;
           }
 
@@ -665,7 +661,7 @@ LABEL_16:
             {
               v60 = *plist;
               *buf = 138412290;
-              v125 = v60;
+              v124 = v60;
               v61 = oslog5;
               v62 = "[SIMULATE] using assetAttributesPlist: '%@'";
               goto LABEL_52;
@@ -692,7 +688,7 @@ LABEL_53:
 
             v66 = *state;
             *buf = 138412290;
-            v125 = v66;
+            v124 = v66;
             v61 = oslog5;
             v62 = "[SIMULATE] using assetState: '%@'";
 LABEL_52:
@@ -716,7 +712,7 @@ LABEL_52:
 
             v70 = *infoPlist;
             *buf = 138412290;
-            v125 = v70;
+            v124 = v70;
             v61 = oslog5;
             v62 = "[SIMULATE] using updateInfoPlist: '%@'";
             goto LABEL_52;
@@ -738,7 +734,7 @@ LABEL_52:
 
             v74 = *domain;
             *buf = 138412290;
-            v125 = v74;
+            v124 = v74;
             v61 = oslog5;
             v62 = "[SIMULATE] using errorDomain: '%@'";
             goto LABEL_52;
@@ -760,7 +756,7 @@ LABEL_52:
               if (os_log_type_enabled(oslog6, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v125 = v23;
+                v124 = v23;
                 _os_log_impl(&dword_1E0F71000, oslog6, OS_LOG_TYPE_DEFAULT, "[SIMULATE] failed parsing 'errorCode' (expected SUCoreErrorCode) for: '%@'", buf, 0xCu);
               }
 
@@ -787,7 +783,7 @@ LABEL_52:
                 if (os_log_type_enabled(oslog7, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v125 = v23;
+                  v124 = v23;
                   _os_log_impl(&dword_1E0F71000, oslog7, OS_LOG_TYPE_DEFAULT, "[SIMULATE] failed parsing 'errorUserInfo' (expected {k1=v1;k2=v2;}) for: '%@'", buf, 0xCu);
                 }
 
@@ -809,7 +805,7 @@ LABEL_52:
                 if (os_log_type_enabled(oslog8, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v125 = v23;
+                  v124 = v23;
                   _os_log_impl(&dword_1E0F71000, oslog8, OS_LOG_TYPE_DEFAULT, "[SIMULATE] failed parsing option (unexpected/unsupported option key) for: '%@'", buf, 0xCu);
                 }
 
@@ -828,7 +824,7 @@ LABEL_52:
                 if (os_log_type_enabled(oslog9, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v125 = v23;
+                  v124 = v23;
                   _os_log_impl(&dword_1E0F71000, oslog9, OS_LOG_TYPE_DEFAULT, "[SIMULATE] failed parsing 'errorRecoverable' (expected SUCoreSimulateEventBoolean) for: '%@'", buf, 0xCu);
                 }
 
@@ -846,24 +842,24 @@ LABEL_17:
     }
 
     while (v19 != v22);
-    v95 = [obj countByEnumeratingWithState:&v120 objects:v128 count:16];
+    v95 = [obj countByEnumeratingWithState:&v119 objects:v127 count:16];
     v19 = v95;
   }
 
   while (v95);
-  v97 = v113;
-  v96 = v114;
-  v98 = v114 != 0;
-  v99 = v113 != 0;
-  if (v114 && v113)
+  v97 = v112;
+  v96 = v113;
+  v98 = v113 != 0;
+  v99 = v112 != 0;
+  if (v113 && v112)
   {
-    v100 = [v114 count];
-    if (v100 == [v113 count])
+    v100 = [v113 count];
+    if (v100 == [v112 count])
     {
-      v101 = v114;
-      *versionsCopy = v114;
-      v102 = v113;
-      *productVersions = v113;
+      v101 = v113;
+      *versionsCopy = v113;
+      v102 = v112;
+      *productVersions = v112;
       goto LABEL_90;
     }
 
@@ -872,16 +868,16 @@ LABEL_17:
 
     if (os_log_type_enabled(oslog10, OS_LOG_TYPE_DEFAULT))
     {
-      v107 = [v114 count];
-      v108 = [v113 count];
+      v107 = [v113 count];
+      v108 = [v112 count];
       *buf = 134218240;
-      v125 = v107;
-      v126 = 2048;
-      v127 = v108;
+      v124 = v107;
+      v125 = 2048;
+      v126 = v108;
       _os_log_impl(&dword_1E0F71000, oslog10, OS_LOG_TYPE_DEFAULT, "[SIMULATE] syntax error: assetBuildVersions (%lu) and assetProductVersions (%lu) must have the same count", buf, 0x16u);
     }
 
-    NSLog(@"[SIMULATE] syntax error: assetBuildVersions (%lu) and assetProductVersions (%lu) must have the same count", [v114 count], objc_msgSend(v113, "count"));
+    NSLog(@"[SIMULATE] syntax error: assetBuildVersions (%lu) and assetProductVersions (%lu) must have the same count", [v113 count], objc_msgSend(v112, "count"));
 LABEL_89:
     v20 = 0;
     goto LABEL_90;
@@ -899,13 +895,12 @@ LABEL_81:
       _os_log_impl(&dword_1E0F71000, oslog11, OS_LOG_TYPE_DEFAULT, "[SIMULATE] syntax error: assetBuildVersions and assetProductVersions must both be defined", buf, 2u);
     }
 
-    NSLog(@"[SIMULATE] syntax error: assetBuildVersions and assetProductVersions must both be defined", v111);
+    NSLog(@"[SIMULATE] syntax error: assetBuildVersions and assetProductVersions must both be defined", v110);
     goto LABEL_89;
   }
 
 LABEL_90:
 
-  v109 = *MEMORY[0x1E69E9840];
   return v20 & 1;
 }
 
@@ -972,9 +967,9 @@ LABEL_14:
 
 - (BOOL)_parseDictionaryFromString:(id)string destination:(id *)destination
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   stringCopy = string;
-  v25 = stringCopy;
+  v24 = stringCopy;
   if (destination)
   {
     propertyListFromStringsFileFormat = [stringCopy propertyListFromStringsFileFormat];
@@ -982,26 +977,26 @@ LABEL_14:
     destinationCopy = destination;
     v8 = objc_alloc_init(MEMORY[0x1E696ADA0]);
     [v8 setNumberStyle:1];
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v9 = propertyListFromStringsFileFormat;
-    v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v10)
     {
-      v11 = *v27;
+      v11 = *v26;
       v12 = MEMORY[0x1E695E118];
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v27 != v11)
+          if (*v26 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v26 + 1) + 8 * i);
+          v14 = *(*(&v25 + 1) + 8 * i);
           v15 = [v9 valueForKey:v14];
           v16 = [v8 numberFromString:v15];
           v17 = v16;
@@ -1011,7 +1006,7 @@ LABEL_14:
           }
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v10);
@@ -1028,7 +1023,6 @@ LABEL_14:
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -1197,7 +1191,7 @@ uint64_t __42__SUCoreSimulate_clearAllEventAlterations__block_invoke(uint64_t a1
 
 - (void)_dumpAllEventAlterations
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   simulateQueue = [(SUCoreSimulate *)self simulateQueue];
   dispatch_assert_queue_V2(simulateQueue);
 
@@ -1209,46 +1203,46 @@ uint64_t __42__SUCoreSimulate_clearAllEventAlterations__block_invoke(uint64_t a1
     v6 = eventAlterations2;
     if (eventAlterations2)
     {
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
-      v28 = [eventAlterations2 countByEnumeratingWithState:&v34 objects:v41 count:16];
-      if (v28)
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
+      v27 = [eventAlterations2 countByEnumeratingWithState:&v33 objects:v40 count:16];
+      if (v27)
       {
         v7 = 0;
-        v27 = *v35;
-        v26 = v6;
+        v26 = *v34;
+        v25 = v6;
         do
         {
-          for (i = 0; i != v28; ++i)
+          for (i = 0; i != v27; ++i)
           {
-            if (*v35 != v27)
+            if (*v34 != v26)
             {
               objc_enumerationMutation(v6);
             }
 
-            v9 = [v6 safeObjectForKey:*(*(&v34 + 1) + 8 * i) ofClass:objc_opt_class()];
+            v9 = [v6 safeObjectForKey:*(*(&v33 + 1) + 8 * i) ofClass:objc_opt_class()];
+            v29 = 0u;
             v30 = 0u;
             v31 = 0u;
             v32 = 0u;
-            v33 = 0u;
-            v10 = [v9 countByEnumeratingWithState:&v30 objects:v40 count:16];
+            v10 = [v9 countByEnumeratingWithState:&v29 objects:v39 count:16];
             if (v10)
             {
               v11 = v10;
-              v29 = i;
-              v12 = *v31;
+              v28 = i;
+              v12 = *v30;
               do
               {
                 for (j = 0; j != v11; ++j)
                 {
-                  if (*v31 != v12)
+                  if (*v30 != v12)
                   {
                     objc_enumerationMutation(v9);
                   }
 
-                  v14 = *(*(&v30 + 1) + 8 * j);
+                  v14 = *(*(&v29 + 1) + 8 * j);
                   v15 = +[SUCoreLog sharedLogger];
                   oslog = [v15 oslog];
 
@@ -1256,7 +1250,7 @@ uint64_t __42__SUCoreSimulate_clearAllEventAlterations__block_invoke(uint64_t a1
                   {
                     summary = [v14 summary];
                     *buf = 138412290;
-                    v39 = summary;
+                    v38 = summary;
                     _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SIMULATE] dump all events - %@", buf, 0xCu);
                   }
 
@@ -1264,20 +1258,20 @@ uint64_t __42__SUCoreSimulate_clearAllEventAlterations__block_invoke(uint64_t a1
                   NSLog(@"[SIMULATE] dump all events - %@", summary2);
                 }
 
-                v11 = [v9 countByEnumeratingWithState:&v30 objects:v40 count:16];
+                v11 = [v9 countByEnumeratingWithState:&v29 objects:v39 count:16];
               }
 
               while (v11);
               v7 = 1;
-              v6 = v26;
-              i = v29;
+              v6 = v25;
+              i = v28;
             }
           }
 
-          v28 = [v6 countByEnumeratingWithState:&v34 objects:v41 count:16];
+          v27 = [v6 countByEnumeratingWithState:&v33 objects:v40 count:16];
         }
 
-        while (v28);
+        while (v27);
         if (v7)
         {
           goto LABEL_31;
@@ -1313,7 +1307,7 @@ uint64_t __42__SUCoreSimulate_clearAllEventAlterations__block_invoke(uint64_t a1
     NSLog(v21);
 LABEL_31:
 
-    goto LABEL_32;
+    return;
   }
 
   v22 = +[SUCoreLog sharedLogger];
@@ -1326,8 +1320,6 @@ LABEL_31:
   }
 
   NSLog(@"[SIMULATE] cannot dump events (no persisted state)");
-LABEL_32:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (int)countOfAlterationsPerformed
@@ -1370,7 +1362,7 @@ LABEL_32:
   return v7;
 }
 
-uint64_t __45__SUCoreSimulate_countOfAlterationsPerformed__block_invoke(uint64_t a1)
+void *__45__SUCoreSimulate_countOfAlterationsPerformed__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) alterationsPerformed];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1422,10 +1414,7 @@ uint64_t __45__SUCoreSimulate_countOfAlterationsPerformed__block_invoke(uint64_t
 
 uint64_t __41__SUCoreSimulate_lastAlterationPerformed__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) lastAlteration];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) lastAlteration];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -1476,10 +1465,7 @@ void __35__SUCoreSimulate_begin_atFunction___block_invoke(uint64_t a1)
 
   if (!*(*(*(a1 + 56) + 8) + 40) && ([*(a1 + 40) isEqualToString:@"*"] & 1) == 0)
   {
-    v5 = [*(a1 + 32) _locateEventForModule:@"*" forIdentity:*(a1 + 48) withTrigger:1 forEvent:0 inState:0];
-    v6 = *(*(a1 + 56) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) _locateEventForModule:@"*" forIdentity:*(a1 + 48) withTrigger:1 forEvent:0 inState:0];
 
     MEMORY[0x1EEE66BB8]();
   }
@@ -1531,10 +1517,7 @@ void __33__SUCoreSimulate_end_atFunction___block_invoke(uint64_t a1)
 
   if (!*(*(*(a1 + 56) + 8) + 40) && ([*(a1 + 40) isEqualToString:@"*"] & 1) == 0)
   {
-    v5 = [*(a1 + 32) _locateEventForModule:@"*" forIdentity:*(a1 + 48) withTrigger:2 forEvent:0 inState:0];
-    v6 = *(*(a1 + 56) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) _locateEventForModule:@"*" forIdentity:*(a1 + 48) withTrigger:2 forEvent:0 inState:0];
 
     MEMORY[0x1EEE66BB8]();
   }
@@ -1581,10 +1564,7 @@ void __33__SUCoreSimulate_end_atFunction___block_invoke(uint64_t a1)
 
 uint64_t __39__SUCoreSimulate_fsm_forEvent_inState___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _locateEventForModule:@"fsm" forIdentity:*(a1 + 40) withTrigger:3 forEvent:*(a1 + 48) inState:*(a1 + 56)];
-  v3 = *(*(a1 + 64) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 64) + 8) + 40) = [*(a1 + 32) _locateEventForModule:@"fsm" forIdentity:*(a1 + 40) withTrigger:3 forEvent:*(a1 + 48) inState:*(a1 + 56)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -1605,7 +1585,7 @@ uint64_t __39__SUCoreSimulate_fsm_forEvent_inState___block_invoke(uint64_t a1)
 
 - (id)_locateEventForModule:(id)module forIdentity:(id)identity withTrigger:(int64_t)trigger forEvent:(id)event inState:(id)state
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   moduleCopy = module;
   identityCopy = identity;
   eventCopy = event;
@@ -1624,12 +1604,12 @@ uint64_t __39__SUCoreSimulate_fsm_forEvent_inState___block_invoke(uint64_t a1)
   eventAlterations2 = [(SUCoreSimulate *)self eventAlterations];
   v17 = [eventAlterations2 safeObjectForKey:moduleCopy ofClass:objc_opt_class()];
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v18 = v17;
-  v19 = [v18 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (!v19)
   {
 
@@ -1639,10 +1619,10 @@ LABEL_30:
   }
 
   v20 = v19;
-  v37 = moduleCopy;
-  v41 = 0;
-  v42 = v18;
-  v21 = *v44;
+  v36 = moduleCopy;
+  v40 = 0;
+  v41 = v18;
+  v21 = *v43;
   v22 = selfCopy;
   triggerCopy4 = trigger;
   do
@@ -1650,12 +1630,12 @@ LABEL_30:
     v24 = 0;
     do
     {
-      if (*v44 != v21)
+      if (*v43 != v21)
       {
         objc_enumerationMutation(v18);
       }
 
-      v25 = *(*(&v43 + 1) + 8 * v24);
+      v25 = *(*(&v42 + 1) + 8 * v24);
       identityName = [v25 identityName];
       v27 = [identityName isEqualToString:identityCopy];
       if (!eventCopy)
@@ -1670,14 +1650,14 @@ LABEL_30:
         if (simTrigger == triggerCopy4)
         {
           [v25 setCount:{objc_msgSend(v25, "count") + 1}];
-          v18 = v42;
+          v18 = v41;
           if (![(SUCoreSimulate *)v22 _isValidEvent:v25])
           {
             goto LABEL_20;
           }
 
-          identityName = v41;
-          v41 = v25;
+          identityName = v40;
+          v40 = v25;
           goto LABEL_19;
         }
 
@@ -1693,7 +1673,7 @@ LABEL_30:
       if (([fsmEvent isEqualToString:eventCopy] & 1) == 0)
       {
 
-        v18 = v42;
+        v18 = v41;
         goto LABEL_19;
       }
 
@@ -1705,17 +1685,17 @@ LABEL_30:
         v22 = selfCopy;
         triggerCopy4 = trigger;
 LABEL_23:
-        v18 = v42;
+        v18 = v41;
         goto LABEL_20;
       }
 
       [v25 setCount:{objc_msgSend(v25, "count") + 1}];
       v22 = selfCopy;
-      v18 = v42;
+      v18 = v41;
       if ([(SUCoreSimulate *)selfCopy _isValidEvent:v25])
       {
-        identityName = v41;
-        v41 = v25;
+        identityName = v40;
+        v40 = v25;
         triggerCopy4 = trigger;
 LABEL_19:
 
@@ -1728,44 +1708,42 @@ LABEL_20:
     }
 
     while (v20 != v24);
-    v32 = [v18 countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v32 = [v18 countByEnumeratingWithState:&v42 objects:v46 count:16];
     v20 = v32;
   }
 
   while (v32);
 
-  v33 = v41;
-  if (v41)
+  v33 = v40;
+  if (v40)
   {
-    moduleCopy = v37;
-    if ([(SUCoreSimulate *)v22 _isImmediateEvent:v41])
+    moduleCopy = v36;
+    if ([(SUCoreSimulate *)v22 _isImmediateEvent:v40])
     {
-      v34 = [(SUCoreSimulate *)v22 _performSimulatedEventAlteration:v41];
+      v34 = [(SUCoreSimulate *)v22 _performSimulatedEventAlteration:v40];
 
       v33 = v34;
     }
 
     else
     {
-      [(SUCoreSimulate *)v22 _triggerOffQueueAlteration:v41];
+      [(SUCoreSimulate *)v22 _triggerOffQueueAlteration:v40];
     }
   }
 
   else
   {
-    moduleCopy = v37;
+    moduleCopy = v36;
   }
 
 LABEL_31:
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return v33;
 }
 
 - (BOOL)_isValidEvent:(id)event
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v4 = eventCopy;
   if (eventCopy)
@@ -1811,9 +1789,9 @@ LABEL_31:
     }
 
     *buf = 138412546;
-    v19 = summary;
-    v20 = 2112;
-    v21 = v12;
+    v18 = summary;
+    v19 = 2112;
+    v20 = v12;
     _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SIMULATE] located event: %@ | valid=%@", buf, 0x16u);
   }
 
@@ -1831,7 +1809,6 @@ LABEL_31:
 
   NSLog(@"[SIMULATE] located event: %@ | valid=%@", summary2, v15);
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1875,7 +1852,7 @@ LABEL_7:
 
 - (id)_performSimulatedEventAlteration:(id)alteration
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   alterationCopy = alteration;
   simulateQueue = [(SUCoreSimulate *)self simulateQueue];
   dispatch_assert_queue_V2(simulateQueue);
@@ -1894,7 +1871,7 @@ LABEL_7:
         {
           summary = [alterationCopy summary];
           *buf = 138412290;
-          v25 = summary;
+          v24 = summary;
           _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SIMULATE] PERFORM - no simulated action: %@", buf, 0xCu);
         }
 
@@ -1980,14 +1957,12 @@ LABEL_24:
   v16 = 0;
 LABEL_25:
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 - (id)_performOffQueueEvent:(id)event
 {
-  v58[4] = *MEMORY[0x1E69E9840];
+  v57[4] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   simulateQueue = [(SUCoreSimulate *)self simulateQueue];
   dispatch_assert_queue_not_V2(simulateQueue);
@@ -2003,16 +1978,16 @@ LABEL_25:
   {
     v7 = *MEMORY[0x1E696A3A8];
     v8 = *MEMORY[0x1E696A370];
-    v57[0] = *MEMORY[0x1E696A3A0];
-    v57[1] = v8;
-    v58[0] = v7;
-    v58[1] = &unk_1F5BE9778;
+    v56[0] = *MEMORY[0x1E696A3A0];
+    v56[1] = v8;
+    v57[0] = v7;
+    v57[1] = &unk_1F5BE9778;
     v9 = *MEMORY[0x1E696A328];
-    v57[2] = *MEMORY[0x1E696A360];
-    v57[3] = v9;
-    v58[2] = @"root";
-    v58[3] = @"wheel";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:4];
+    v56[2] = *MEMORY[0x1E696A360];
+    v56[3] = v9;
+    v57[2] = @"root";
+    v57[3] = @"wheel";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:4];
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     untilStop2 = [eventCopy untilStop];
     summary = [eventCopy summary];
@@ -2032,9 +2007,9 @@ LABEL_25:
       {
         untilStop3 = [eventCopy untilStop];
         *buf = 138412546;
-        *v56 = untilStop3;
-        *&v56[8] = 2112;
-        *&v56[10] = untilStop8;
+        *v55 = untilStop3;
+        *&v55[8] = 2112;
+        *&v55[10] = untilStop8;
         _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SIMULATE] PERFORM(OFF_QUEUE) - pausing until stop file(%@) has been deleted (running on queue %@)...", buf, 0x16u);
       }
 
@@ -2062,7 +2037,7 @@ LABEL_25:
       {
         untilStop6 = [eventCopy untilStop];
         *buf = 138412290;
-        *v56 = untilStop6;
+        *v55 = untilStop6;
         _os_log_impl(&dword_1E0F71000, oslog2, OS_LOG_TYPE_DEFAULT, "[SIMULATE] PERFORM(OFF_QUEUE) - ...pausing [stop file(%@) has been deleted]", buf, 0xCu);
       }
     }
@@ -2076,7 +2051,7 @@ LABEL_25:
       {
         untilStop7 = [eventCopy untilStop];
         *buf = 138412290;
-        *v56 = untilStop7;
+        *v55 = untilStop7;
         _os_log_impl(&dword_1E0F71000, oslog3, OS_LOG_TYPE_DEFAULT, "[SIMULATE] PERFORM(OFF_QUEUE) - unable to create stop file(%@)", buf, 0xCu);
       }
 
@@ -2123,9 +2098,9 @@ LABEL_16:
       }
 
       *buf = 67109378;
-      *v56 = duration;
-      *&v56[4] = 2112;
-      *&v56[6] = v38;
+      *v55 = duration;
+      *&v55[4] = 2112;
+      *&v55[6] = v38;
       _os_log_impl(&dword_1E0F71000, oslog4, OS_LOG_TYPE_DEFAULT, "[SIMULATE] PERFORM(OFF_QUEUE) - sleeping for %d second%@...", buf, 0x12u);
     }
 
@@ -2191,9 +2166,9 @@ LABEL_29:
       {
 LABEL_56:
         v42 = +[SUCoreDiag sharedDiag];
-        v50 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v49 = objc_alloc(MEMORY[0x1E696AEC0]);
         summary2 = [eventCopy summary];
-        v45 = [v50 initWithFormat:@"unknown simulate action: %@", summary2];
+        v45 = [v49 initWithFormat:@"unknown simulate action: %@", summary2];
         goto LABEL_47;
       }
 
@@ -2236,11 +2211,11 @@ LABEL_44:
 
     else
     {
-      v51 = +[SUCoreDiag sharedDiag];
-      v52 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v50 = +[SUCoreDiag sharedDiag];
+      v51 = objc_alloc(MEMORY[0x1E696AEC0]);
       summary3 = [eventCopy summary];
-      v54 = [v52 initWithFormat:@"no registered callback when handling off-queue: %@", summary3];
-      [v51 trackError:@"[SIMULATE] PERFORM(OFF_QUEUE)" forReason:v54 withResult:8101 withError:0];
+      v53 = [v51 initWithFormat:@"no registered callback when handling off-queue: %@", summary3];
+      [v50 trackError:@"[SIMULATE] PERFORM(OFF_QUEUE)" forReason:v53 withResult:8101 withError:0];
     }
   }
 
@@ -2250,14 +2225,12 @@ LABEL_49:
   v41 = 0;
 LABEL_50:
 
-  v47 = *MEMORY[0x1E69E9840];
-
   return v41;
 }
 
 - (void)_performingAlteration:(id)alteration
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   alterationCopy = alteration;
   simulateQueue = [(SUCoreSimulate *)self simulateQueue];
   dispatch_assert_queue_V2(simulateQueue);
@@ -2271,19 +2244,17 @@ LABEL_50:
   {
     alterationsPerformed = [(SUCoreSimulate *)self alterationsPerformed];
     summary = [alterationCopy summary];
-    v11[0] = 67109378;
-    v11[1] = alterationsPerformed;
-    v12 = 2112;
-    v13 = summary;
-    _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SIMULATE] PERFORM #%d - %@", v11, 0x12u);
+    v10[0] = 67109378;
+    v10[1] = alterationsPerformed;
+    v11 = 2112;
+    v12 = summary;
+    _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SIMULATE] PERFORM #%d - %@", v10, 0x12u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_triggerOffQueueAlteration:(id)alteration
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   alterationCopy = alteration;
   simulateQueue = [(SUCoreSimulate *)self simulateQueue];
   dispatch_assert_queue_V2(simulateQueue);
@@ -2297,28 +2268,24 @@ LABEL_50:
   {
     alterationsPerformed = [(SUCoreSimulate *)self alterationsPerformed];
     summary = [alterationCopy summary];
-    v11[0] = 67109378;
-    v11[1] = alterationsPerformed;
-    v12 = 2112;
-    v13 = summary;
-    _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SIMULATE] TRIGGER #%d - %@", v11, 0x12u);
+    v10[0] = 67109378;
+    v10[1] = alterationsPerformed;
+    v11 = 2112;
+    v12 = summary;
+    _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[SIMULATE] TRIGGER #%d - %@", v10, 0x12u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performSimulatedEventAlteration:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a1 alterationsPerformed];
   v6 = [a2 summary];
-  v8[0] = 67109378;
-  v8[1] = v5;
-  v9 = 2112;
-  v10 = v6;
-  _os_log_fault_impl(&dword_1E0F71000, a3, OS_LOG_TYPE_FAULT, "[SIMULATE] PERFORM #%d - causing fault: %@", v8, 0x12u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = 67109378;
+  v7[1] = v5;
+  v8 = 2112;
+  v9 = v6;
+  _os_log_fault_impl(&dword_1E0F71000, a3, OS_LOG_TYPE_FAULT, "[SIMULATE] PERFORM #%d - causing fault: %@", v7, 0x12u);
 }
 
 @end

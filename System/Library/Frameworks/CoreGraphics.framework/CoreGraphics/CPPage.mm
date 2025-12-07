@@ -942,7 +942,7 @@ LABEL_37:
   result = self->_layout;
   if (!result)
   {
-    v4 = CGPDFCountElementsInCPChunk(self);
+    v4 = CGPDFCountElementsInCPChunk(self, a2);
     if (!CGPDFLayoutGetTypeID_id)
     {
       CGPDFLayoutGetTypeID_id = _CFRuntimeRegisterClass();

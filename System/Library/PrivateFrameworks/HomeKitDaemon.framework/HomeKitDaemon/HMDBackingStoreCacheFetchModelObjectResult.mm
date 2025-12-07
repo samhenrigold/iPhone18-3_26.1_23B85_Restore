@@ -6,12 +6,12 @@
 
 - (HMDBackingStoreCacheFetchModelObjectResult)initWithRecord:(id)record data:(id)data encoding:(unint64_t)encoding error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   dataCopy = data;
-  v26.receiver = self;
-  v26.super_class = HMDBackingStoreCacheFetchModelObjectResult;
-  v12 = [(HMDBackingStoreCacheFetchModelObjectResult *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = HMDBackingStoreCacheFetchModelObjectResult;
+  v12 = [(HMDBackingStoreCacheFetchModelObjectResult *)&v25 init];
   if (!v12)
   {
     goto LABEL_13;
@@ -41,9 +41,9 @@
         v21 = HMFGetLogIdentifier();
         v22 = *error;
         *buf = 138543618;
-        v28 = v21;
-        v29 = 2112;
-        v30 = v22;
+        v27 = v21;
+        v28 = 2112;
+        v29 = v22;
         _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@unable to decode cached object %@", buf, 0x16u);
       }
 
@@ -76,7 +76,6 @@ LABEL_13:
 
 LABEL_17:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 

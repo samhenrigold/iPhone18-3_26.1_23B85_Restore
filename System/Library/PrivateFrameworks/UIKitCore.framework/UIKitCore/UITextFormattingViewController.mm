@@ -1990,9 +1990,9 @@ LABEL_15:
     {
       delegate2 = [(UITextFormattingViewController *)self _textView];
       changeType = [valueCopy changeType];
-      v28 = [changeType isEqualToString:@"UITextFormattingViewControllerIncreaseFontSizeChange"];
+      isEqualToString = objc_msgSend_isEqualToString_(changeType);
 
-      if (v28)
+      if (isEqualToString)
       {
         _editResponder2 = [(UITextFormattingViewController *)self _editResponder];
 
@@ -2009,7 +2009,7 @@ LABEL_39:
       }
 
       changeType2 = [valueCopy changeType];
-      v32 = [changeType2 isEqualToString:@"UITextFormattingViewControllerDecreaseFontSizeChange"];
+      v32 = objc_msgSend_isEqualToString_(changeType2);
 
       if (v32)
       {
@@ -2026,7 +2026,7 @@ LABEL_39:
       }
 
       changeType3 = [valueCopy changeType];
-      v37 = [changeType3 isEqualToString:@"UITextFormattingViewControllerFontSizeChange"];
+      v37 = objc_msgSend_isEqualToString_(changeType3);
 
       if (v37)
       {
@@ -2054,9 +2054,9 @@ LABEL_39:
       }
 
       changeType4 = [valueCopy changeType];
-      v44 = [changeType4 isEqualToString:@"UITextFormattingViewControllerSetBoldChange"];
+      v44 = objc_msgSend_isEqualToString_(changeType4);
 
-      if (v44 || ([valueCopy changeType], v45 = objc_claimAutoreleasedReturnValue(), v46 = objc_msgSend(v45, "isEqualToString:", @"UITextFormattingViewControllerRemoveBoldChange"), v45, v46))
+      if (v44 || ([valueCopy changeType], v45 = objc_claimAutoreleasedReturnValue(), v46 = objc_msgSend_isEqualToString_(v45), v45, v46))
       {
         _editResponder6 = [(UITextFormattingViewController *)self _editResponder];
 
@@ -2071,9 +2071,9 @@ LABEL_39:
       }
 
       changeType5 = [valueCopy changeType];
-      v52 = [changeType5 isEqualToString:@"UITextFormattingViewControllerSetItalicChange"];
+      v52 = objc_msgSend_isEqualToString_(changeType5);
 
-      if (v52 || ([valueCopy changeType], v53 = objc_claimAutoreleasedReturnValue(), v54 = objc_msgSend(v53, "isEqualToString:", @"UITextFormattingViewControllerRemoveItalicChange"), v53, v54))
+      if (v52 || ([valueCopy changeType], v53 = objc_claimAutoreleasedReturnValue(), v54 = objc_msgSend_isEqualToString_(v53), v53, v54))
       {
         _editResponder7 = [(UITextFormattingViewController *)self _editResponder];
 
@@ -2088,9 +2088,9 @@ LABEL_39:
       }
 
       changeType6 = [valueCopy changeType];
-      v57 = [changeType6 isEqualToString:@"UITextFormattingViewControllerSetUnderlineChange"];
+      v57 = objc_msgSend_isEqualToString_(changeType6);
 
-      if (v57 || ([valueCopy changeType], v58 = objc_claimAutoreleasedReturnValue(), v59 = objc_msgSend(v58, "isEqualToString:", @"UITextFormattingViewControllerRemoveUnderlineChange"), v58, v59))
+      if (v57 || ([valueCopy changeType], v58 = objc_claimAutoreleasedReturnValue(), v59 = objc_msgSend_isEqualToString_(v58), v58, v59))
       {
         _editResponder8 = [(UITextFormattingViewController *)self _editResponder];
 
@@ -2105,7 +2105,7 @@ LABEL_39:
       }
 
       changeType7 = [valueCopy changeType];
-      v62 = [changeType7 isEqualToString:@"UITextFormattingViewControllerTextAlignmentChange"];
+      v62 = objc_msgSend_isEqualToString_(changeType7);
 
       if (v62)
       {
@@ -2142,7 +2142,7 @@ LABEL_39:
       }
 
       changeType8 = [valueCopy changeType];
-      v65 = [changeType8 isEqualToString:@"UITextFormattingViewControllerLineHeightPointSizeChange"];
+      v65 = objc_msgSend_isEqualToString_(changeType8);
 
       if (v65)
       {
@@ -2156,7 +2156,7 @@ LABEL_34:
       if (delegate2)
       {
         changeType9 = [valueCopy changeType];
-        v67 = [changeType9 isEqualToString:@"UITextFormattingViewControllerHighlightChange"];
+        v67 = objc_msgSend_isEqualToString_(changeType9);
 
         if (v67)
         {

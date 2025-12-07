@@ -1,15 +1,1014 @@
-uint64_t kaldi::WordBoundaryInfo::TypeOfPhone(kaldi::WordBoundaryInfo *this, unsigned int a2)
+void quasar::QuasarG2PBase::normalizeToken(const std::locale *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+{
+  if (*(a2 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(&matches, *a2, *(a2 + 8));
+  }
+
+  else
+  {
+    matches = *a2;
+  }
+
+  quasar::trim(&matches);
+  if ((SHIBYTE(matches.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  {
+    if (*(&matches.__r_.__value_.__s + 23))
+    {
+      goto LABEL_6;
+    }
+
+LABEL_24:
+    std::string::basic_string[abi:ne200100]<0>(a3, "");
+    goto LABEL_142;
+  }
+
+  if (!matches.__r_.__value_.__l.__size_)
+  {
+    goto LABEL_24;
+  }
+
+LABEL_6:
+  v73 = 0;
+  v74 = 0;
+  v75 = 0;
+  v76 = 0;
+  v77 = 0;
+  v78 = 0;
+  v79 = 0;
+  v80 = 0;
+  v5 = 0;
+  memset(v72, 0, 41);
+  {
+    v5 = 0;
+    if (v53)
+    {
+      operator new();
+    }
+  }
+
+  memset(&__p.__prefix_, 0, 17);
+  memset(&__p.__suffix_, 0, 17);
+  __p.__ready_ = 0;
+  __p.__position_start_ = 0;
+  *&__p.__matches_.__begin_ = v5;
+  *&__p.__matches_.__end_cap_.__value_ = v5;
+  size = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+  if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v7 = &matches;
+  }
+
+  else
+  {
+    v7 = matches.__r_.__value_.__r.__words[0];
+  }
+
+  if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    size = matches.__r_.__value_.__l.__size_;
+  }
+
+  *(&__p.__unmatched_.std::pair<const wchar_t *, const wchar_t *> + 1) = v5;
+  v8 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(quasar::QuasarG2PBase::normalizeToken(std::string const&)::PATTERN_1, v7, v7 + size, &__p, 0);
+  v9 = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+  if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v10 = &matches;
+  }
+
+  else
+  {
+    v10 = matches.__r_.__value_.__r.__words[0];
+  }
+
+  if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    v9 = matches.__r_.__value_.__l.__size_;
+  }
+
+  std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(v72, v10, (v10 + v9), &__p, 0);
+  if (__p.__matches_.__begin_)
+  {
+    __p.__matches_.__end_ = __p.__matches_.__begin_;
+    operator delete(__p.__matches_.__begin_);
+  }
+
+  if (v8)
+  {
+    if (quasar::gLogLevel >= 2)
+    {
+      v70 = 0u;
+      v71 = 0u;
+      v68 = 0u;
+      v69 = 0u;
+      v66 = 0u;
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      memset(&__p, 0, sizeof(__p));
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(&__p);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, "input contains | which is the separator for g2p model.", 54);
+      quasar::QuasarWarnMessage::~QuasarWarnMessage(&__p);
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(a3, "");
+  }
+
+  else
+  {
+    {
+      operator new();
+    }
+
+    {
+      operator new();
+    }
+
+    memset(&__p.__prefix_, 0, 17);
+    memset(&__p.__suffix_, 0, 17);
+    __p.__ready_ = 0;
+    __p.__position_start_ = 0;
+    memset(&__p, 0, 32);
+    v11 = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v12 = &matches;
+    }
+
+    else
+    {
+      v12 = matches.__r_.__value_.__r.__words[0];
+    }
+
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v11 = matches.__r_.__value_.__l.__size_;
+    }
+
+    *(&__p.__unmatched_.std::pair<const wchar_t *, const wchar_t *> + 1) = 0uLL;
+    v13 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(quasar::QuasarG2PBase::normalizeToken(std::string const&)::PATTERN_2, v12, v12 + v11, &__p, 0);
+    v14 = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v15 = &matches;
+    }
+
+    else
+    {
+      v15 = matches.__r_.__value_.__r.__words[0];
+    }
+
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v14 = matches.__r_.__value_.__l.__size_;
+    }
+
+    std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(v72, v15, (v15 + v14), &__p, 0);
+    if (__p.__matches_.__begin_)
+    {
+      __p.__matches_.__end_ = __p.__matches_.__begin_;
+      operator delete(__p.__matches_.__begin_);
+    }
+
+    if (v13)
+    {
+      memset(&__p, 0, 24);
+      v16 = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+      if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v17.__i_ = &matches;
+      }
+
+      else
+      {
+        v17.__i_ = matches.__r_.__value_.__r.__words[0];
+      }
+
+      if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        v16 = matches.__r_.__value_.__l.__size_;
+      }
+
+      v18.__i_ = &v17.__i_[v16];
+      std::regex_replace[abi:ne200100]<std::back_insert_iterator<std::string>,std::__wrap_iter<char const*>,std::regex_traits<char>,char>(&__p, v17, v18, quasar::QuasarG2PBase::normalizeToken(std::string const&)::PATTERN_3, "_", 0);
+      if (SHIBYTE(matches.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(matches.__r_.__value_.__l.__data_);
+      }
+
+      matches = __p.__matches_;
+    }
+
+    {
+      operator new();
+    }
+
+    {
+      operator new();
+    }
+
+    memset(&__p.__prefix_, 0, 17);
+    memset(&__p.__suffix_, 0, 17);
+    __p.__ready_ = 0;
+    __p.__position_start_ = 0;
+    memset(&__p, 0, 32);
+    v19 = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      p_matches = &matches;
+    }
+
+    else
+    {
+      p_matches = matches.__r_.__value_.__r.__words[0];
+    }
+
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v19 = matches.__r_.__value_.__l.__size_;
+    }
+
+    *(&__p.__unmatched_.std::pair<const wchar_t *, const wchar_t *> + 1) = 0uLL;
+    v21 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(quasar::QuasarG2PBase::normalizeToken(std::string const&)::PATTERN_4, p_matches, p_matches + v19, &__p, 0);
+    v22 = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v23 = &matches;
+    }
+
+    else
+    {
+      v23 = matches.__r_.__value_.__r.__words[0];
+    }
+
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v22 = matches.__r_.__value_.__l.__size_;
+    }
+
+    std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(v72, v23, (v23 + v22), &__p, 0);
+    if (__p.__matches_.__begin_)
+    {
+      __p.__matches_.__end_ = __p.__matches_.__begin_;
+      operator delete(__p.__matches_.__begin_);
+    }
+
+    if (v21)
+    {
+      memset(&__p, 0, 24);
+      v24 = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+      if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v25.__i_ = &matches;
+      }
+
+      else
+      {
+        v25.__i_ = matches.__r_.__value_.__r.__words[0];
+      }
+
+      if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        v24 = matches.__r_.__value_.__l.__size_;
+      }
+
+      v26.__i_ = &v25.__i_[v24];
+      std::regex_replace[abi:ne200100]<std::back_insert_iterator<std::string>,std::__wrap_iter<char const*>,std::regex_traits<char>,char>(&__p, v25, v26, quasar::QuasarG2PBase::normalizeToken(std::string const&)::PATTERN_5, "_", 0);
+      if (SHIBYTE(matches.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(matches.__r_.__value_.__l.__data_);
+      }
+
+      matches = __p.__matches_;
+    }
+
+    {
+      operator new();
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(v59, "");
+    std::string::basic_string[abi:ne200100]<0>(v57, "");
+    quasar::toUpper(&matches, a1 + 14, &a1[15], &__p);
+    if (SHIBYTE(value) < 0)
+    {
+      operator delete(v59[0]);
+    }
+
+    *v59 = *&__p.__matches_.__begin_;
+    value = __p.__matches_.__end_cap_.__value_;
+    quasar::toLower(&matches, a1 + 14, &a1[15], &__p);
+    if (SHIBYTE(v58) < 0)
+    {
+      operator delete(v57[0]);
+    }
+
+    *v57 = *&__p.__matches_.__begin_;
+    v58 = __p.__matches_.__end_cap_.__value_;
+    if (SHIBYTE(value) >= 0)
+    {
+      v27 = HIBYTE(value);
+    }
+
+    else
+    {
+      v27 = v59[1];
+    }
+
+    v28 = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v28 = matches.__r_.__value_.__l.__size_;
+    }
+
+    if (v27 == v28)
+    {
+      v29 = SHIBYTE(value) >= 0 ? v59 : v59[0];
+      v30 = (matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &matches : matches.__r_.__value_.__r.__words[0];
+      if (!memcmp(v29, v30, v27))
+      {
+        v48 = HIBYTE(v58);
+        if (SHIBYTE(v58) < 0)
+        {
+          v48 = v57[1];
+        }
+
+        if (v48 != v27 || (SHIBYTE(v58) >= 0 ? (v49 = v57) : (v49 = v57[0]), memcmp(v49, v30, v27)))
+        {
+          memset(&__p.__prefix_, 0, 17);
+          memset(&__p.__suffix_, 0, 17);
+          __p.__ready_ = 0;
+          __p.__position_start_ = 0;
+          memset(&__p, 0, 41);
+          v50 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(quasar::QuasarG2PBase::normalizeToken(std::string const&)::PATTERN_6, v30, v30 + v27, &__p, 0);
+          v51 = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+          if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            v52 = &matches;
+          }
+
+          else
+          {
+            v52 = matches.__r_.__value_.__r.__words[0];
+          }
+
+          if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          {
+            v51 = matches.__r_.__value_.__l.__size_;
+          }
+
+          std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(v72, v52, (v52 + v51), &__p, 0);
+          if (__p.__matches_.__begin_)
+          {
+            __p.__matches_.__end_ = __p.__matches_.__begin_;
+            operator delete(__p.__matches_.__begin_);
+          }
+
+          if ((v50 & 1) == 0)
+          {
+            std::string::basic_string[abi:ne200100]<0>(&__p, "");
+            tokenize_utf8_string(v56, &matches, &__p);
+            v54[0] = "_";
+            v54[1] = 1;
+            quasar::join<std::vector<std::string>>(v56, v54);
+            if (SHIBYTE(matches.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(matches.__r_.__value_.__l.__data_);
+            }
+
+            matches = v55;
+            v55.__r_.__value_.__r.__words[0] = v56;
+            std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v55);
+            if (SHIBYTE(__p.__matches_.__end_cap_.__value_) < 0)
+            {
+              operator delete(__p.__matches_.__begin_);
+            }
+          }
+        }
+      }
+    }
+
+    {
+      operator new();
+    }
+
+    {
+      operator new();
+    }
+
+    memset(&__p.__prefix_, 0, 17);
+    memset(&__p.__suffix_, 0, 17);
+    __p.__ready_ = 0;
+    __p.__position_start_ = 0;
+    memset(&__p, 0, 32);
+    v31 = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v32 = &matches;
+    }
+
+    else
+    {
+      v31 = matches.__r_.__value_.__l.__size_;
+      v32 = matches.__r_.__value_.__r.__words[0];
+    }
+
+    *(&__p.__unmatched_.std::pair<const wchar_t *, const wchar_t *> + 1) = 0uLL;
+    v33 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(quasar::QuasarG2PBase::normalizeToken(std::string const&)::PATTERN_7, v32, v32 + v31, &__p, 0);
+    v34 = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v35 = &matches;
+    }
+
+    else
+    {
+      v35 = matches.__r_.__value_.__r.__words[0];
+    }
+
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v34 = matches.__r_.__value_.__l.__size_;
+    }
+
+    std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(v72, v35, (v35 + v34), &__p, 0);
+    if (__p.__matches_.__begin_)
+    {
+      __p.__matches_.__end_ = __p.__matches_.__begin_;
+      operator delete(__p.__matches_.__begin_);
+    }
+
+    if (v33)
+    {
+      memset(&__p, 0, 24);
+      v36 = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+      if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v37.__i_ = &matches;
+      }
+
+      else
+      {
+        v37.__i_ = matches.__r_.__value_.__r.__words[0];
+      }
+
+      if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        v36 = matches.__r_.__value_.__l.__size_;
+      }
+
+      v38.__i_ = &v37.__i_[v36];
+      std::regex_replace[abi:ne200100]<std::back_insert_iterator<std::string>,std::__wrap_iter<char const*>,std::regex_traits<char>,char>(&__p, v37, v38, quasar::QuasarG2PBase::normalizeToken(std::string const&)::PATTERN_8, "_$1", 0);
+      if (SHIBYTE(matches.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(matches.__r_.__value_.__l.__data_);
+      }
+
+      matches = __p.__matches_;
+    }
+
+    {
+      operator new();
+    }
+
+    memset(&__p, 0, 24);
+    v39 = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v40.__i_ = &matches;
+    }
+
+    else
+    {
+      v40.__i_ = matches.__r_.__value_.__r.__words[0];
+    }
+
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v39 = matches.__r_.__value_.__l.__size_;
+    }
+
+    v41.__i_ = &v40.__i_[v39];
+    std::regex_replace[abi:ne200100]<std::back_insert_iterator<std::string>,std::__wrap_iter<char const*>,std::regex_traits<char>,char>(&__p, v40, v41, quasar::QuasarG2PBase::normalizeToken(std::string const&)::PATTERN_9, "_", 0);
+    if (SHIBYTE(matches.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(matches.__r_.__value_.__l.__data_);
+    }
+
+    matches = __p.__matches_;
+    {
+      operator new();
+    }
+
+    memset(&__p, 0, 24);
+    v42 = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v43.__i_ = &matches;
+    }
+
+    else
+    {
+      v43.__i_ = matches.__r_.__value_.__r.__words[0];
+    }
+
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v42 = matches.__r_.__value_.__l.__size_;
+    }
+
+    v44.__i_ = &v43.__i_[v42];
+    std::regex_replace[abi:ne200100]<std::back_insert_iterator<std::string>,std::__wrap_iter<char const*>,std::regex_traits<char>,char>(&__p, v43, v44, quasar::QuasarG2PBase::normalizeToken(std::string const&)::PATTERN_10, "_", 0);
+    if (SHIBYTE(matches.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(matches.__r_.__value_.__l.__data_);
+    }
+
+    matches = __p.__matches_;
+    {
+      operator new();
+    }
+
+    memset(&__p, 0, 24);
+    v45 = HIBYTE(matches.__r_.__value_.__r.__words[2]);
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v46.__i_ = &matches;
+    }
+
+    else
+    {
+      v46.__i_ = matches.__r_.__value_.__r.__words[0];
+    }
+
+    if ((matches.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v45 = matches.__r_.__value_.__l.__size_;
+    }
+
+    v47.__i_ = &v46.__i_[v45];
+    std::regex_replace[abi:ne200100]<std::back_insert_iterator<std::string>,std::__wrap_iter<char const*>,std::regex_traits<char>,char>(&__p, v46, v47, quasar::QuasarG2PBase::normalizeToken(std::string const&)::PATTERN_11, "|", 0);
+    if (SHIBYTE(matches.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(matches.__r_.__value_.__l.__data_);
+    }
+
+    matches = __p.__matches_;
+    quasar::toLower(&matches, a1 + 14, &a1[15], &__p);
+    if (SHIBYTE(matches.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(matches.__r_.__value_.__l.__data_);
+    }
+
+    matches.__r_.__value_.__r.__words[2] = __p.__matches_.__end_cap_.__value_;
+    *a3 = *&__p.__matches_.__begin_;
+    a3[2] = *(&matches.__r_.__value_.__l + 2);
+    memset(&matches, 0, sizeof(matches));
+    if (SHIBYTE(v58) < 0)
+    {
+      operator delete(v57[0]);
+    }
+
+    if (SHIBYTE(value) < 0)
+    {
+      operator delete(v59[0]);
+    }
+  }
+
+  if (v72[0].__begin_)
+  {
+    v72[0].__end_ = v72[0].__begin_;
+    operator delete(v72[0].__begin_);
+  }
+
+LABEL_142:
+  if (SHIBYTE(matches.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(matches.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_1B523E7D4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int128 __p, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, __int128 a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, __int128 a36, __int128 a37, __int128 a38, __int128 a39, __int128 a40, __int128 a41, __int128 a42, __int128 a43, __int128 a44, __int128 a45, __int128 a46, __int128 a47, __int128 a48, __int128 a49, __int128 a50)
+{
+  MEMORY[0x1B8C85350](v50, 0x1060C4040BE2400, a3, a4, a5, a6, a7, a8);
+  if (a21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a28 < 0)
+  {
+    operator delete(a23);
+  }
+
+  v53 = *(v51 - 192);
+  if (v53)
+  {
+    *(v51 - 184) = v53;
+    operator delete(v53);
+  }
+
+  if (*(v51 - 57) < 0)
+  {
+    operator delete(*(v51 - 80));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void quasar::QuasarG2PBase::chopTokenIntoUTF8Units(quasar::QuasarG2PBase *this@<X0>, std::string *a2@<X8>)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  (*(*this + 64))(&__p);
+  memset(&v5, 0, sizeof(v5));
+  v4 = (*(*this + 72))(this);
+  if (v4)
+  {
+    tokenize_entry(&__p, this + 336, v4, 0, &v8);
+    std::vector<std::string>::__vdeallocate(&v5);
+    v5 = v8;
+    v7 = &v8;
+    memset(&v8, 0, sizeof(v8));
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v7);
+    *a2 = v5;
+    memset(&v5, 0, sizeof(v5));
+  }
+
+  else
+  {
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v8, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v8 = __p;
+    }
+
+    a2->__r_.__value_.__r.__words[0] = 0;
+    a2->__r_.__value_.__l.__size_ = 0;
+    a2->__r_.__value_.__r.__words[2] = 0;
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(a2, &v8, v9, 1uLL);
+    if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v8.__r_.__value_.__l.__data_);
+    }
+  }
+
+  v8.__r_.__value_.__r.__words[0] = &v5;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v8);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_1B523EF8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, __int128 a20, __int128 a21, __int128 a22, __int128 a23, __int128 a24, __int128 a25, __int128 a26, __int128 a27, __int128 a28, __int128 a29, __int128 a30, __int128 a31, __int128 a32, __int128 a33, __int128 a34, __int128 a35, __int128 a36)
+{
+  switch(a2)
+  {
+    case 4:
+      v37 = __cxa_begin_catch(a1);
+      if (quasar::gLogLevel >= 2)
+      {
+        v38 = v37;
+        a35 = 0u;
+        a36 = 0u;
+        a33 = 0u;
+        a34 = 0u;
+        a31 = 0u;
+        a32 = 0u;
+        a29 = 0u;
+        a30 = 0u;
+        a27 = 0u;
+        a28 = 0u;
+        a25 = 0u;
+        a26 = 0u;
+        a23 = 0u;
+        a24 = 0u;
+        a21 = 0u;
+        a22 = 0u;
+        a20 = 0u;
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(&a20);
+        v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&a20, "Not enough space, ", 18);
+        v40 = (*(*v38 + 16))(v38);
+        v41 = strlen(v40);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, v40, v41);
+        quasar::QuasarWarnMessage::~QuasarWarnMessage(&a20);
+      }
+
+      break;
+    case 3:
+      v42 = __cxa_begin_catch(a1);
+      if (quasar::gLogLevel >= 2)
+      {
+        v43 = v42;
+        a35 = 0u;
+        a36 = 0u;
+        a33 = 0u;
+        a34 = 0u;
+        a31 = 0u;
+        a32 = 0u;
+        a29 = 0u;
+        a30 = 0u;
+        a27 = 0u;
+        a28 = 0u;
+        a25 = 0u;
+        a26 = 0u;
+        a23 = 0u;
+        a24 = 0u;
+        a21 = 0u;
+        a22 = 0u;
+        a20 = 0u;
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(&a20);
+        v44 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&a20, "Invalid UTF-8, ", 15);
+        v45 = (*(*v43 + 16))(v43);
+        v46 = strlen(v45);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, v45, v46);
+        quasar::QuasarWarnMessage::~QuasarWarnMessage(&a20);
+      }
+
+      break;
+    case 2:
+      v47 = __cxa_begin_catch(a1);
+      if (quasar::gLogLevel >= 2)
+      {
+        v48 = v47;
+        a35 = 0u;
+        a36 = 0u;
+        a33 = 0u;
+        a34 = 0u;
+        a31 = 0u;
+        a32 = 0u;
+        a29 = 0u;
+        a30 = 0u;
+        a27 = 0u;
+        a28 = 0u;
+        a25 = 0u;
+        a26 = 0u;
+        a23 = 0u;
+        a24 = 0u;
+        a21 = 0u;
+        a22 = 0u;
+        a20 = 0u;
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(&a20);
+        v49 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&a20, "Invalid code point, ", 20);
+        v50 = (*(*v48 + 16))(v48);
+        v51 = strlen(v50);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v49, v50, v51);
+        quasar::QuasarWarnMessage::~QuasarWarnMessage(&a20);
+      }
+
+      break;
+    default:
+      if (a2 != 1)
+      {
+        *&a20 = &a9;
+        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a20);
+        if (a18 < 0)
+        {
+          operator delete(__p);
+        }
+
+        _Unwind_Resume(a1);
+      }
+
+      v52 = __cxa_begin_catch(a1);
+      if (quasar::gLogLevel >= 2)
+      {
+        v53 = v52;
+        a35 = 0u;
+        a36 = 0u;
+        a33 = 0u;
+        a34 = 0u;
+        a31 = 0u;
+        a32 = 0u;
+        a29 = 0u;
+        a30 = 0u;
+        a27 = 0u;
+        a28 = 0u;
+        a25 = 0u;
+        a26 = 0u;
+        a23 = 0u;
+        a24 = 0u;
+        a21 = 0u;
+        a22 = 0u;
+        a20 = 0u;
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(&a20);
+        v54 = (*(*v53 + 16))(v53);
+        v55 = strlen(v54);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&a20, v54, v55);
+        quasar::QuasarWarnMessage::~QuasarWarnMessage(&a20);
+      }
+
+      break;
+  }
+
+  __cxa_end_catch();
+  JUMPOUT(0x1B523EEC8);
+}
+
+void std::default_delete<quasar::PronCombinator>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  if (a2)
+  {
+    std::__tree<int>::destroy(a2 + 8, *(a2 + 16));
+
+    JUMPOUT(0x1B8C85350);
+  }
+}
+
+uint64_t kaldi::LatticeWordAligner::ComputationState::OutputSilenceArc(uint64_t a1, uint64_t a2, kaldi::TransitionModel *this, uint64_t a4, _BYTE *a5)
+{
+  if (*a1 == *(a1 + 8))
+  {
+    return 0;
+  }
+
+  v10 = kaldi::TransitionModel::TransitionIdToPhone(this, **a1);
+  kaldi::WordBoundaryInfo::TypeOfPhone(a2, v10);
+  if (v11 != 5)
+  {
+    return 0;
+  }
+
+  v30 = a4;
+  v12 = *(a1 + 8) - *a1;
+  v13 = v12 >> 2;
+  v14 = 0;
+  if (v12)
+  {
+    if (v13 <= 1)
+    {
+      v15 = 1;
+    }
+
+    else
+    {
+      v15 = v12 >> 2;
+    }
+
+    while (1)
+    {
+      v16 = *(*a1 + 4 * v14);
+      if (kaldi::TransitionModel::TransitionIdToPhone(this, v16) != v10 && (*a5 & 1) == 0)
+      {
+        *a5 = 1;
+        if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
+        {
+          kaldi::KaldiWarnMessage::KaldiWarnMessage(&v38);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38, "Phone changed before final transition-id found [broken lattice or mismatched model or wrong --reorder option?]", 110);
+          kaldi::KaldiLogMessage::~KaldiLogMessage(&v38);
+        }
+      }
+
+      if (kaldi::TransitionModel::IsFinal(this, v16))
+      {
+        break;
+      }
+
+      if (v15 == ++v14)
+      {
+        v14 = v15;
+        break;
+      }
+    }
+  }
+
+  if (v14 == v13)
+  {
+    return 0;
+  }
+
+  v17 = v14 + 1;
+  if (v14 + 1 < v13 && (*(a2 + 56) & 1) != 0)
+  {
+    while (kaldi::TransitionModel::IsSelfLoop(this, *(*a1 + 4 * v17)))
+    {
+      if (v13 == ++v17)
+      {
+        return 0;
+      }
+    }
+  }
+
+  if (v17 == v13)
+  {
+    return 0;
+  }
+
+  if (kaldi::TransitionModel::TransitionIdToPhone(this, *(*a1 + 4 * v17 - 4)) != v10 && (*a5 & 1) == 0 && (kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
+  {
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v38);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38, "Phone changed unexpectedly in lattice [broken lattice or mismatched model?]", 75);
+    kaldi::KaldiLogMessage::~KaldiLogMessage(&v38);
+  }
+
+  v19 = *a1;
+  v36 = 0;
+  v37 = 0;
+  v35 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(&v35, v19, &v19[v17], v17);
+  v20 = *(a2 + 24);
+  v31 = *(a1 + 48);
+  v33 = 0;
+  v34 = 0;
+  v32 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v32, v35, v36, (v36 - v35) >> 2);
+  LODWORD(v38.__locale_) = v20;
+  HIDWORD(v38.__locale_) = v20;
+  v39 = v31;
+  v41 = 0;
+  v42 = 0;
+  __p = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v32, v33, (v33 - v32) >> 2);
+  v21 = -1;
+  v43 = -1;
+  *v30 = v38;
+  *(v30 + 8) = v39;
+  if (&v38 != v30)
+  {
+    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v30 + 16), __p, v41, (v41 - __p) >> 2);
+    v21 = v43;
+  }
+
+  *(v30 + 40) = v21;
+  if (__p)
+  {
+    v41 = __p;
+    operator delete(__p);
+  }
+
+  if (v32)
+  {
+    v33 = v32;
+    operator delete(v32);
+  }
+
+  v23 = *(a1 + 24);
+  v22 = *(a1 + 32);
+  if (v23 != v22)
+  {
+    do
+    {
+      if (*v23 != *(a2 + 24))
+      {
+        break;
+      }
+
+      v24 = v23;
+      v25 = v22 - (v23 + 4);
+      if (v22 != v23 + 4)
+      {
+        memmove(v23, v23 + 4, v22 - (v23 + 4));
+        v24 = *(a1 + 24);
+      }
+
+      v22 = &v23[v25];
+      *(a1 + 32) = &v23[v25];
+      v23 = v24;
+    }
+
+    while (v24 != v22);
+  }
+
+  if (v17)
+  {
+    v27 = *a1;
+    v26 = *(a1 + 8);
+    v28 = (*a1 + 4 * v17);
+    v29 = v26 - v28;
+    if (v26 != v28)
+    {
+      memmove(*a1, v28, v26 - v28);
+    }
+
+    *(a1 + 8) = v27 + v29;
+  }
+
+  *(a1 + 48) = 0;
+  if (v35)
+  {
+    v36 = v35;
+    operator delete(v35);
+  }
+
+  return 1;
+}
+
+void kaldi::WordBoundaryInfo::TypeOfPhone(kaldi::WordBoundaryInfo *this, unsigned int a2)
 {
   if ((a2 & 0x80000000) != 0 || a2 > ((*(this + 1) - *this) >> 2))
   {
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(v6);
-    v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "Phone ", 6);
-    v4 = MEMORY[0x1B8C84C00](v3, a2);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v4, " was not specified in word-boundary file (or options)");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v6);
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(v5);
+    v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "Phone ", 6);
+    v3 = MEMORY[0x1B8C84C00](v2, a2);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v3, " was not specified in word-boundary file (or options)");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v5);
   }
-
-  return *(*this + 4 * a2);
 }
 
 uint64_t kaldi::LatticeWordAligner::ComputationState::OutputUnpronouncedWordArc(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -138,153 +1137,154 @@ uint64_t kaldi::LatticeWordAligner::ComputationState::OutputOnePhoneWordArc(uint
   }
 
   v14 = kaldi::TransitionModel::TransitionIdToPhone(this, **a1);
-  if (kaldi::WordBoundaryInfo::TypeOfPhone(a2, v14) != 3)
+  kaldi::WordBoundaryInfo::TypeOfPhone(a2, v14);
+  if (v15 != 3)
   {
     return 0;
   }
 
-  v31 = a4;
-  v15 = *(a1 + 8) - *a1;
-  v16 = v15 >> 2;
-  v17 = 0;
-  if (v15)
+  v32 = a4;
+  v16 = *(a1 + 8) - *a1;
+  v17 = v16 >> 2;
+  v18 = 0;
+  if (v16)
   {
-    if (v16 <= 1)
+    if (v17 <= 1)
     {
-      v18 = 1;
+      v19 = 1;
     }
 
     else
     {
-      v18 = v15 >> 2;
+      v19 = v16 >> 2;
     }
 
     while (1)
     {
-      v19 = *(*a1 + 4 * v17);
-      if (kaldi::TransitionModel::TransitionIdToPhone(this, v19) != v14 && (*a5 & 1) == 0 && (kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
+      v20 = *(*a1 + 4 * v18);
+      if (kaldi::TransitionModel::TransitionIdToPhone(this, v20) != v14 && (*a5 & 1) == 0 && (kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
       {
-        kaldi::KaldiWarnMessage::KaldiWarnMessage(&v39);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "Phone changed before final transition-id found [broken lattice or mismatched model or wrong --reorder option?]", 110);
-        kaldi::KaldiLogMessage::~KaldiLogMessage(&v39);
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(&v40);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40, "Phone changed before final transition-id found [broken lattice or mismatched model or wrong --reorder option?]", 110);
+        kaldi::KaldiLogMessage::~KaldiLogMessage(&v40);
       }
 
-      if (kaldi::TransitionModel::IsFinal(this, v19))
+      if (kaldi::TransitionModel::IsFinal(this, v20))
       {
         break;
       }
 
-      if (v18 == ++v17)
+      if (v19 == ++v18)
       {
-        v17 = v18;
+        v18 = v19;
         break;
       }
     }
   }
 
-  if (v17 == v16)
+  if (v18 == v17)
   {
     return 0;
   }
 
-  v20 = v17 + 1;
-  if (v20 < v16 && (*(a2 + 56) & 1) != 0)
+  v21 = v18 + 1;
+  if (v21 < v17 && (*(a2 + 56) & 1) != 0)
   {
-    while (kaldi::TransitionModel::IsSelfLoop(this, *(*a1 + 4 * v20)))
+    while (kaldi::TransitionModel::IsSelfLoop(this, *(*a1 + 4 * v21)))
     {
       result = 0;
-      if (v16 == ++v20)
+      if (v17 == ++v21)
       {
         return result;
       }
     }
   }
 
-  if (v20 == v16)
+  if (v21 == v17)
   {
     return 0;
   }
 
-  if (kaldi::TransitionModel::TransitionIdToPhone(this, *(*a1 + 4 * v20 - 4)) != v14 && (*a5 & 1) == 0)
+  if (kaldi::TransitionModel::TransitionIdToPhone(this, *(*a1 + 4 * v21 - 4)) != v14 && (*a5 & 1) == 0)
   {
     if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
     {
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v39);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "Phone changed unexpectedly in lattice [broken lattice or mismatched model?]", 75);
-      kaldi::KaldiLogMessage::~KaldiLogMessage(&v39);
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v40);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40, "Phone changed unexpectedly in lattice [broken lattice or mismatched model?]", 75);
+      kaldi::KaldiLogMessage::~KaldiLogMessage(&v40);
     }
 
     *a5 = 1;
   }
 
-  v22 = *a1;
-  v37 = 0;
+  v23 = *a1;
   v38 = 0;
-  v36 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(&v36, v22, &v22[v20], v20);
-  v32 = *(a1 + 48);
-  v34 = 0;
+  v39 = 0;
+  v37 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(&v37, v23, &v23[v21], v21);
+  v33 = *(a1 + 48);
   v35 = 0;
-  v33 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v33, v36, v37, (v37 - v36) >> 2);
-  LODWORD(v39.__locale_) = v11;
-  HIDWORD(v39.__locale_) = v11;
-  v40 = v32;
-  v42 = 0;
+  v36 = 0;
+  v34 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v34, v37, v38, (v38 - v37) >> 2);
+  LODWORD(v40.__locale_) = v11;
+  HIDWORD(v40.__locale_) = v11;
+  v41 = v33;
   v43 = 0;
+  v44 = 0;
   __p = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v33, v34, (v34 - v33) >> 2);
-  v23 = -1;
-  v44 = -1;
-  *v31 = v39;
-  *(v31 + 8) = v40;
-  if (&v39 != v31)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v34, v35, (v35 - v34) >> 2);
+  v24 = -1;
+  v45 = -1;
+  *v32 = v40;
+  *(v32 + 8) = v41;
+  if (&v40 != v32)
   {
-    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v31 + 16), __p, v42, (v42 - __p) >> 2);
-    v23 = v44;
+    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v32 + 16), __p, v43, (v43 - __p) >> 2);
+    v24 = v45;
   }
 
-  *(v31 + 40) = v23;
+  *(v32 + 40) = v24;
   if (__p)
   {
-    v42 = __p;
+    v43 = __p;
     operator delete(__p);
   }
 
-  if (v33)
+  if (v34)
   {
-    v34 = v33;
-    operator delete(v33);
+    v35 = v34;
+    operator delete(v34);
   }
 
-  if (v20)
+  if (v21)
   {
-    v25 = *a1;
-    v24 = *(a1 + 8);
-    v26 = (*a1 + 4 * v20);
-    v27 = v24 - v26;
-    if (v24 != v26)
+    v26 = *a1;
+    v25 = *(a1 + 8);
+    v27 = (*a1 + 4 * v21);
+    v28 = v25 - v27;
+    if (v25 != v27)
     {
-      memmove(*a1, v26, v24 - v26);
+      memmove(*a1, v27, v25 - v27);
     }
 
-    *(a1 + 8) = v25 + v27;
+    *(a1 + 8) = v26 + v28;
   }
 
-  v29 = *(a1 + 24);
-  v28 = *(a1 + 32);
-  v30 = v28 - (v29 + 4);
-  if (v28 != v29 + 4)
+  v30 = *(a1 + 24);
+  v29 = *(a1 + 32);
+  v31 = v29 - (v30 + 4);
+  if (v29 != v30 + 4)
   {
-    memmove(*(a1 + 24), (v29 + 4), v28 - (v29 + 4));
+    memmove(*(a1 + 24), (v30 + 4), v29 - (v30 + 4));
   }
 
-  *(a1 + 32) = v29 + v30;
+  *(a1 + 32) = v30 + v31;
   *(a1 + 48) = 0;
-  if (v36)
+  if (v37)
   {
-    v37 = v36;
-    operator delete(v36);
+    v38 = v37;
+    operator delete(v37);
   }
 
   return 1;
@@ -319,237 +1319,240 @@ uint64_t kaldi::LatticeWordAligner::ComputationState::OutputNormalWordArc(uint64
   }
 
   v14 = kaldi::TransitionModel::TransitionIdToPhone(this, **a1);
-  if (kaldi::WordBoundaryInfo::TypeOfPhone(a2, v14) != 1)
+  kaldi::WordBoundaryInfo::TypeOfPhone(a2, v14);
+  if (v15 != 1)
   {
     return 0;
   }
 
-  v15 = *(a1 + 8) - *a1;
-  v16 = v15 >> 2;
-  v17 = 0;
-  if (v15)
+  v16 = *(a1 + 8) - *a1;
+  v17 = v16 >> 2;
+  v18 = 0;
+  if (v16)
   {
-    if (v16 <= 1)
+    if (v17 <= 1)
     {
-      v18 = 1;
+      v19 = 1;
     }
 
     else
     {
-      v18 = v15 >> 2;
+      v19 = v16 >> 2;
     }
 
-    while (!kaldi::TransitionModel::IsFinal(this, *(*a1 + 4 * v17)))
+    while (!kaldi::TransitionModel::IsFinal(this, *(*a1 + 4 * v18)))
     {
-      if (v18 == ++v17)
+      if (v19 == ++v18)
       {
-        v17 = v18;
+        v18 = v19;
         break;
       }
     }
   }
 
-  if (v17 == v16)
+  if (v18 == v17)
   {
     return 0;
   }
 
-  v19 = v17 + 1;
-  if (v19 < v16 && (*(a2 + 56) & 1) != 0)
+  v20 = v18 + 1;
+  if (v20 < v17 && (*(a2 + 56) & 1) != 0)
   {
-    while (kaldi::TransitionModel::IsSelfLoop(this, *(*a1 + 4 * v19)))
+    while (kaldi::TransitionModel::IsSelfLoop(this, *(*a1 + 4 * v20)))
     {
       result = 0;
-      if (v16 == ++v19)
+      if (v17 == ++v20)
       {
         return result;
       }
     }
   }
 
-  if (v19 == v16)
+  if (v20 == v17)
   {
     return 0;
   }
 
-  if (kaldi::TransitionModel::TransitionIdToPhone(this, *(*a1 + 4 * v19 - 4)) != v14 && (*a5 & 1) == 0)
+  if (kaldi::TransitionModel::TransitionIdToPhone(this, *(*a1 + 4 * v20 - 4)) != v14 && (*a5 & 1) == 0)
   {
     if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
     {
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v42);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v42, "Phone changed unexpectedly in lattice [broken lattice or mismatched model?]", 75);
-      kaldi::KaldiLogMessage::~KaldiLogMessage(&v42);
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v45);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v45, "Phone changed unexpectedly in lattice [broken lattice or mismatched model?]", 75);
+      kaldi::KaldiLogMessage::~KaldiLogMessage(&v45);
     }
 
     *a5 = 1;
   }
 
-  if (v19 < v16)
+  if (v20 < v17)
   {
     do
     {
-      v21 = kaldi::TransitionModel::TransitionIdToPhone(this, *(*a1 + 4 * v19));
-      if (kaldi::WordBoundaryInfo::TypeOfPhone(a2, v21) == 2)
+      v22 = kaldi::TransitionModel::TransitionIdToPhone(this, *(*a1 + 4 * v20));
+      kaldi::WordBoundaryInfo::TypeOfPhone(a2, v22);
+      if (v23 == 2)
       {
         break;
       }
 
-      if (kaldi::WordBoundaryInfo::TypeOfPhone(a2, v21) != 4 && (*a5 & 1) == 0)
+      kaldi::WordBoundaryInfo::TypeOfPhone(a2, v22);
+      if (v24 != 4 && (*a5 & 1) == 0)
       {
         if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
         {
-          kaldi::KaldiWarnMessage::KaldiWarnMessage(&v42);
-          v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v42, "Unexpected phone ", 17);
-          v23 = MEMORY[0x1B8C84C00](v22, v21);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, " found inside a word.", 21);
-          kaldi::KaldiLogMessage::~KaldiLogMessage(&v42);
+          kaldi::KaldiWarnMessage::KaldiWarnMessage(&v45);
+          v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v45, "Unexpected phone ", 17);
+          v26 = MEMORY[0x1B8C84C00](v25, v22);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, " found inside a word.", 21);
+          kaldi::KaldiLogMessage::~KaldiLogMessage(&v45);
         }
 
         *a5 = 1;
       }
 
       result = 0;
-      ++v19;
+      ++v20;
     }
 
-    while (v16 != v19);
+    while (v17 != v20);
   }
 
-  if (v19 == v16)
+  if (v20 == v17)
   {
     return 0;
   }
 
-  v24 = kaldi::TransitionModel::TransitionIdToPhone(this, *(*a1 + 4 * v19));
-  if (v19 < v16)
+  v27 = kaldi::TransitionModel::TransitionIdToPhone(this, *(*a1 + 4 * v20));
+  if (v20 < v17)
   {
     do
     {
-      if (kaldi::TransitionModel::TransitionIdToPhone(this, *(*a1 + 4 * v19)) != v24 && (*a5 & 1) == 0)
+      if (kaldi::TransitionModel::TransitionIdToPhone(this, *(*a1 + 4 * v20)) != v27 && (*a5 & 1) == 0)
       {
         *a5 = 1;
         if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
         {
-          kaldi::KaldiWarnMessage::KaldiWarnMessage(&v42);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v42, "Phone changed before final transition-id found [broken lattice or mismatched model or wrong --reorder option?]", 110);
-          kaldi::KaldiLogMessage::~KaldiLogMessage(&v42);
+          kaldi::KaldiWarnMessage::KaldiWarnMessage(&v45);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v45, "Phone changed before final transition-id found [broken lattice or mismatched model or wrong --reorder option?]", 110);
+          kaldi::KaldiLogMessage::~KaldiLogMessage(&v45);
         }
       }
 
-      if (kaldi::TransitionModel::IsFinal(this, *(*a1 + 4 * v19)))
+      if (kaldi::TransitionModel::IsFinal(this, *(*a1 + 4 * v20)))
       {
         break;
       }
 
       result = 0;
-      ++v19;
+      ++v20;
     }
 
-    while (v16 != v19);
+    while (v17 != v20);
   }
 
-  if (v19 == v16)
+  if (v20 == v17)
   {
     return 0;
   }
 
-  v25 = v19 + 1;
-  if (v19 + 1 < v16 && (*(a2 + 56) & 1) != 0)
+  v28 = v20 + 1;
+  if (v20 + 1 < v17 && (*(a2 + 56) & 1) != 0)
   {
-    while (kaldi::TransitionModel::IsSelfLoop(this, *(*a1 + 4 * v25)))
+    while (kaldi::TransitionModel::IsSelfLoop(this, *(*a1 + 4 * v28)))
     {
       result = 0;
-      if (v16 == ++v25)
+      if (v17 == ++v28)
       {
         return result;
       }
     }
   }
 
-  if (v25 == v16)
+  if (v28 == v17)
   {
     return 0;
   }
 
-  if (kaldi::TransitionModel::TransitionIdToPhone(this, *(*a1 + 4 * v25 - 4)) != v24 && (*a5 & 1) == 0)
+  if (kaldi::TransitionModel::TransitionIdToPhone(this, *(*a1 + 4 * v28 - 4)) != v27 && (*a5 & 1) == 0)
   {
     *a5 = 1;
     if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
     {
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v42);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v42, "Phone changed while following final self-loop [broken lattice or mismatched model or wrong --reorder option?]", 109);
-      kaldi::KaldiLogMessage::~KaldiLogMessage(&v42);
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v45);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v45, "Phone changed while following final self-loop [broken lattice or mismatched model or wrong --reorder option?]", 109);
+      kaldi::KaldiLogMessage::~KaldiLogMessage(&v45);
     }
   }
 
-  v26 = *a1;
+  v29 = *a1;
+  v43 = 0;
+  v44 = 0;
+  v42 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(&v42, v29, &v29[v28], v28);
+  v38 = *(a1 + 48);
   v40 = 0;
   v41 = 0;
   v39 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(&v39, v26, &v26[v25], v25);
-  v35 = *(a1 + 48);
-  v37 = 0;
-  v38 = 0;
-  v36 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v36, v39, v40, (v40 - v39) >> 2);
-  LODWORD(v42.__locale_) = v11;
-  HIDWORD(v42.__locale_) = v11;
-  v43 = v35;
-  v45 = 0;
-  v46 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v39, v42, v43, (v43 - v42) >> 2);
+  LODWORD(v45.__locale_) = v11;
+  HIDWORD(v45.__locale_) = v11;
+  v46 = v38;
+  v48 = 0;
+  v49 = 0;
   __p = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v36, v37, (v37 - v36) >> 2);
-  v27 = -1;
-  v47 = -1;
-  *a4 = v42;
-  *(a4 + 8) = v43;
-  if (&v42 != a4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v39, v40, (v40 - v39) >> 2);
+  v30 = -1;
+  v50 = -1;
+  *a4 = v45;
+  *(a4 + 8) = v46;
+  if (&v45 != a4)
   {
-    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((a4 + 16), __p, v45, (v45 - __p) >> 2);
-    v27 = v47;
+    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((a4 + 16), __p, v48, (v48 - __p) >> 2);
+    v30 = v50;
   }
 
-  *(a4 + 40) = v27;
+  *(a4 + 40) = v30;
   if (__p)
   {
-    v45 = __p;
+    v48 = __p;
     operator delete(__p);
   }
 
-  if (v36)
-  {
-    v37 = v36;
-    operator delete(v36);
-  }
-
-  if (v25)
-  {
-    v29 = *a1;
-    v28 = *(a1 + 8);
-    v30 = (*a1 + 4 * v25);
-    v31 = v28 - v30;
-    if (v28 != v30)
-    {
-      memmove(*a1, v30, v28 - v30);
-    }
-
-    *(a1 + 8) = v29 + v31;
-  }
-
-  v33 = *(a1 + 24);
-  v32 = *(a1 + 32);
-  v34 = v32 - (v33 + 4);
-  if (v32 != v33 + 4)
-  {
-    memmove(*(a1 + 24), (v33 + 4), v32 - (v33 + 4));
-  }
-
-  *(a1 + 32) = v33 + v34;
-  *(a1 + 48) = 0;
   if (v39)
   {
     v40 = v39;
     operator delete(v39);
+  }
+
+  if (v28)
+  {
+    v32 = *a1;
+    v31 = *(a1 + 8);
+    v33 = (*a1 + 4 * v28);
+    v34 = v31 - v33;
+    if (v31 != v33)
+    {
+      memmove(*a1, v33, v31 - v33);
+    }
+
+    *(a1 + 8) = v32 + v34;
+  }
+
+  v36 = *(a1 + 24);
+  v35 = *(a1 + 32);
+  v37 = v35 - (v36 + 4);
+  if (v35 != v36 + 4)
+  {
+    memmove(*(a1 + 24), (v36 + 4), v35 - (v36 + 4));
+  }
+
+  *(a1 + 32) = v36 + v37;
+  *(a1 + 48) = 0;
+  if (v42)
+  {
+    v43 = v42;
+    operator delete(v42);
   }
 
   return 1;
@@ -566,50 +1569,50 @@ void kaldi::LatticeWordAligner::ComputationState::OutputArcForce(uint64_t a1, ui
       *a5 = 1;
       if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
       {
-        kaldi::KaldiWarnMessage::KaldiWarnMessage(&v45);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v45, "Discarding word-ids at the end of a sentence, that don't have alignments.", 73);
-        kaldi::KaldiLogMessage::~KaldiLogMessage(&v45);
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(&v51);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v51, "Discarding word-ids at the end of a sentence, that don't have alignments.", 73);
+        kaldi::KaldiLogMessage::~KaldiLogMessage(&v51);
         v10 = *a1;
         v11 = *(a1 + 8);
       }
     }
 
-    v38 = *(a1 + 48);
-    v43 = 0;
-    v44 = 0;
-    v42 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v42, v10, v11, (v11 - v10) >> 2);
-    v45.__locale_ = 0;
-    v46 = v38;
-    v48 = 0;
+    v44 = *(a1 + 48);
     v49 = 0;
+    v50 = 0;
+    v48 = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v48, v10, v11, (v11 - v10) >> 2);
+    v51.__locale_ = 0;
+    v52 = v44;
+    v54 = 0;
+    v55 = 0;
     __p = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v42, v43, (v43 - v42) >> 2);
-    v25 = -1;
-    v50 = -1;
-    *a4 = v45;
-    *(a4 + 8) = v46;
-    if (&v45 != a4)
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v48, v49, (v49 - v48) >> 2);
+    v30 = -1;
+    v56 = -1;
+    *a4 = v51;
+    *(a4 + 8) = v52;
+    if (&v51 != a4)
     {
-      std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((a4 + 16), __p, v48, (v48 - __p) >> 2);
-      v25 = v50;
+      std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((a4 + 16), __p, v54, (v54 - __p) >> 2);
+      v30 = v56;
     }
 
-    *(a4 + 40) = v25;
+    *(a4 + 40) = v30;
     if (__p)
     {
-      v48 = __p;
+      v54 = __p;
       operator delete(__p);
     }
 
     *(a1 + 48) = 0;
-    v26 = *(a1 + 24);
+    v31 = *(a1 + 24);
 LABEL_50:
-    *(a1 + 32) = v26;
-    if (v42)
+    *(a1 + 32) = v31;
+    if (v48)
     {
-      v43 = v42;
-      operator delete(v42);
+      v49 = v48;
+      operator delete(v48);
     }
 
     return;
@@ -623,137 +1626,152 @@ LABEL_50:
     {
       v14 = kaldi::TransitionModel::TransitionIdToPhone(this, *v10);
       v15 = kaldi::TransitionModel::TransitionIdToPhone(this, *(*(a1 + 8) - 4));
-      v16 = kaldi::WordBoundaryInfo::TypeOfPhone(a2, v14) == 3 && v14 == v15;
-      if (!v16 && (kaldi::WordBoundaryInfo::TypeOfPhone(a2, v14) != 1 || kaldi::WordBoundaryInfo::TypeOfPhone(a2, v15) != 2) && (kaldi::WordBoundaryInfo::TypeOfPhone(a2, v14) != 5 || kaldi::WordBoundaryInfo::TypeOfPhone(a2, v15) != 5))
+      kaldi::WordBoundaryInfo::TypeOfPhone(a2, v14);
+      if (v16 != 3 || v14 != v15)
       {
-        goto LABEL_41;
+        kaldi::WordBoundaryInfo::TypeOfPhone(a2, v14);
+        if (v18 != 1 || (kaldi::WordBoundaryInfo::TypeOfPhone(a2, v15), v19 != 2))
+        {
+          kaldi::WordBoundaryInfo::TypeOfPhone(a2, v14);
+          if (v20 != 5)
+          {
+            goto LABEL_41;
+          }
+
+          kaldi::WordBoundaryInfo::TypeOfPhone(a2, v15);
+          if (v21 != 5)
+          {
+            goto LABEL_41;
+          }
+        }
       }
 
-      v17 = *(a1 + 8);
+      v22 = *(a1 + 8);
       if (*(a2 + 56))
       {
-        v18 = (v17 - *a1) >> 2;
-        v19 = 4 * (v18 - 1);
-        v20 = v18 - 1;
+        v23 = (v22 - *a1) >> 2;
+        v24 = 4 * (v23 - 1);
+        v25 = v23 - 1;
         while (1)
         {
-          v21 = v19;
-          v22 = *a1;
-          if (v20 < 1)
+          v26 = v24;
+          v27 = *a1;
+          if (v25 < 1)
           {
             break;
           }
 
-          IsSelfLoop = kaldi::TransitionModel::IsSelfLoop(this, v22[v20 & 0x7FFFFFFF]);
-          v19 = v21 - 4;
-          --v20;
+          IsSelfLoop = kaldi::TransitionModel::IsSelfLoop(this, v27[v25 & 0x7FFFFFFF]);
+          v24 = v26 - 4;
+          --v25;
           if (!IsSelfLoop)
           {
-            v22 = *a1;
+            v27 = *a1;
             break;
           }
         }
 
-        v24 = (v22 + v21);
+        v29 = (v27 + v26);
       }
 
       else
       {
-        v24 = (v17 - 4);
+        v29 = (v22 - 4);
       }
 
-      if (!kaldi::TransitionModel::IsFinal(this, *v24))
+      if (!kaldi::TransitionModel::IsFinal(this, *v29))
       {
 LABEL_41:
         *a5 = 1;
         if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
         {
-          kaldi::KaldiWarnMessage::KaldiWarnMessage(&v45);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v45, "Invalid word at end of lattice [partial lattice, forced out?]", 61);
-          kaldi::KaldiLogMessage::~KaldiLogMessage(&v45);
+          kaldi::KaldiWarnMessage::KaldiWarnMessage(&v51);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v51, "Invalid word at end of lattice [partial lattice, forced out?]", 61);
+          kaldi::KaldiLogMessage::~KaldiLogMessage(&v51);
         }
       }
     }
 
-    v40 = *(a1 + 48);
-    v43 = 0;
-    v44 = 0;
-    v42 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v42, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 2);
-    LODWORD(v45.__locale_) = v13;
-    HIDWORD(v45.__locale_) = v13;
-    v46 = v40;
-    v48 = 0;
+    v46 = *(a1 + 48);
     v49 = 0;
+    v50 = 0;
+    v48 = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v48, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 2);
+    LODWORD(v51.__locale_) = v13;
+    HIDWORD(v51.__locale_) = v13;
+    v52 = v46;
+    v54 = 0;
+    v55 = 0;
     __p = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v42, v43, (v43 - v42) >> 2);
-    v34 = -1;
-    v50 = -1;
-    *a4 = v45;
-    *(a4 + 8) = v46;
-    if (&v45 != a4)
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v48, v49, (v49 - v48) >> 2);
+    v40 = -1;
+    v56 = -1;
+    *a4 = v51;
+    *(a4 + 8) = v52;
+    if (&v51 != a4)
     {
-      std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((a4 + 16), __p, v48, (v48 - __p) >> 2);
-      v34 = v50;
+      std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((a4 + 16), __p, v54, (v54 - __p) >> 2);
+      v40 = v56;
     }
 
-    *(a4 + 40) = v34;
+    *(a4 + 40) = v40;
     if (__p)
     {
-      v48 = __p;
+      v54 = __p;
       operator delete(__p);
     }
 
     *(a1 + 48) = 0;
     *(a1 + 8) = *a1;
-    v36 = *(a1 + 24);
-    v35 = *(a1 + 32);
-    v37 = v35 - (v36 + 4);
-    if (v35 != v36 + 4)
+    v42 = *(a1 + 24);
+    v41 = *(a1 + 32);
+    v43 = v41 - (v42 + 4);
+    if (v41 != v42 + 4)
     {
-      memmove(*(a1 + 24), (v36 + 4), v35 - (v36 + 4));
+      memmove(*(a1 + 24), (v42 + 4), v41 - (v42 + 4));
     }
 
-    v26 = v36 + v37;
+    v31 = v42 + v43;
     goto LABEL_50;
   }
 
-  v27 = kaldi::TransitionModel::TransitionIdToPhone(this, *v10);
-  if (kaldi::WordBoundaryInfo::TypeOfPhone(a2, v27) == 5)
+  v32 = kaldi::TransitionModel::TransitionIdToPhone(this, *v10);
+  kaldi::WordBoundaryInfo::TypeOfPhone(a2, v32);
+  if (v33 == 5)
   {
-    if (v27 == kaldi::TransitionModel::TransitionIdToPhone(this, *(*(a1 + 8) - 4)))
+    if (v32 == kaldi::TransitionModel::TransitionIdToPhone(this, *(*(a1 + 8) - 4)))
     {
       if ((*a5 & 1) == 0)
       {
-        v28 = *a1;
-        v29 = (*(a1 + 8) - *a1) >> 2;
+        v34 = *a1;
+        v35 = (*(a1 + 8) - *a1) >> 2;
         if (*(a2 + 56) == 1)
         {
-          v30 = v29 - 1;
+          v36 = v35 - 1;
           do
           {
-            v31 = kaldi::TransitionModel::IsSelfLoop(this, *(*a1 + 4 * v30));
-            LODWORD(v29) = v29 - 1;
-            v32 = v30-- < 1;
+            v37 = kaldi::TransitionModel::IsSelfLoop(this, *(*a1 + 4 * v36));
+            LODWORD(v35) = v35 - 1;
+            v38 = v36-- < 1;
           }
 
-          while (!v32 && v31);
-          v28 = *a1;
+          while (!v38 && v37);
+          v34 = *a1;
         }
 
         else
         {
-          LODWORD(v29) = v29 - 1;
+          LODWORD(v35) = v35 - 1;
         }
 
-        if (!kaldi::TransitionModel::IsFinal(this, *(v28 + 4 * v29)))
+        if (!kaldi::TransitionModel::IsFinal(this, v34[v35]))
         {
           *a5 = 1;
           if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
           {
-            kaldi::KaldiWarnMessage::KaldiWarnMessage(&v45);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v45, "Broken silence arc at end of utterance (does not reach end of silence)", 70);
-            kaldi::KaldiLogMessage::~KaldiLogMessage(&v45);
+            kaldi::KaldiWarnMessage::KaldiWarnMessage(&v51);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v51, "Broken silence arc at end of utterance (does not reach end of silence)", 70);
+            kaldi::KaldiLogMessage::~KaldiLogMessage(&v51);
           }
         }
       }
@@ -762,28 +1780,28 @@ LABEL_41:
     else if ((*a5 & 1) == 0)
     {
       *a5 = 1;
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v45);
-      std::operator<<[abi:ne200100]<std::char_traits<char>>(&v45, "Broken silence arc at end of utterance (the phone changed); code error");
-      kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v45);
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v51);
+      std::operator<<[abi:ne200100]<std::char_traits<char>>(&v51, "Broken silence arc at end of utterance (the phone changed); code error");
+      kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v51);
     }
 
-    v41 = *(a1 + 48);
-    v43 = 0;
-    v44 = 0;
-    v42 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v42, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 2);
-    LODWORD(v45.__locale_) = *(a2 + 24);
-    HIDWORD(v45.__locale_) = v45.__locale_;
-    v46 = v41;
-    v48 = 0;
+    v47 = *(a1 + 48);
     v49 = 0;
+    v50 = 0;
+    v48 = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v48, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 2);
+    LODWORD(v51.__locale_) = *(a2 + 24);
+    HIDWORD(v51.__locale_) = v51.__locale_;
+    v52 = v47;
+    v54 = 0;
+    v55 = 0;
     __p = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v42, v43, (v43 - v42) >> 2);
-    v33 = -1;
-    v50 = -1;
-    *a4 = v45;
-    *(a4 + 8) = v46;
-    if (&v45 == a4)
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v48, v49, (v49 - v48) >> 2);
+    v39 = -1;
+    v56 = -1;
+    *a4 = v51;
+    *(a4 + 8) = v52;
+    if (&v51 == a4)
     {
       goto LABEL_60;
     }
@@ -796,48 +1814,48 @@ LABEL_41:
       *a5 = 1;
       if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
       {
-        kaldi::KaldiWarnMessage::KaldiWarnMessage(&v45);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v45, "Partial word detected at end of utterance", 41);
-        kaldi::KaldiLogMessage::~KaldiLogMessage(&v45);
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(&v51);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v51, "Partial word detected at end of utterance", 41);
+        kaldi::KaldiLogMessage::~KaldiLogMessage(&v51);
       }
     }
 
-    v39 = *(a1 + 48);
-    v43 = 0;
-    v44 = 0;
-    v42 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v42, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 2);
-    LODWORD(v45.__locale_) = *(a2 + 28);
-    HIDWORD(v45.__locale_) = v45.__locale_;
-    v46 = v39;
-    v48 = 0;
+    v45 = *(a1 + 48);
     v49 = 0;
+    v50 = 0;
+    v48 = 0;
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v48, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 2);
+    LODWORD(v51.__locale_) = *(a2 + 28);
+    HIDWORD(v51.__locale_) = v51.__locale_;
+    v52 = v45;
+    v54 = 0;
+    v55 = 0;
     __p = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v42, v43, (v43 - v42) >> 2);
-    v33 = -1;
-    v50 = -1;
-    *a4 = v45;
-    *(a4 + 8) = v46;
-    if (&v45 == a4)
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v48, v49, (v49 - v48) >> 2);
+    v39 = -1;
+    v56 = -1;
+    *a4 = v51;
+    *(a4 + 8) = v52;
+    if (&v51 == a4)
     {
       goto LABEL_60;
     }
   }
 
-  std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((a4 + 16), __p, v48, (v48 - __p) >> 2);
-  v33 = v50;
+  std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((a4 + 16), __p, v54, (v54 - __p) >> 2);
+  v39 = v56;
 LABEL_60:
-  *(a4 + 40) = v33;
+  *(a4 + 40) = v39;
   if (__p)
   {
-    v48 = __p;
+    v54 = __p;
     operator delete(__p);
   }
 
-  if (v42)
+  if (v48)
   {
-    v43 = v42;
-    operator delete(v42);
+    v49 = v48;
+    operator delete(v48);
   }
 
   *(a1 + 8) = *a1;
@@ -850,8 +1868,8 @@ void kaldi::LoadUnpronouncedWords(uint64_t a1@<X0>, void *a2@<X8>)
   a2[1] = 0;
   *a2 = a2 + 1;
   v19 = 0;
-  v3 = kaldi::Input::Input(v18, a1, &v19);
-  v4 = kaldi::Input::Stream(v3);
+  kaldi::Input::Input(&v18, a1);
+  kaldi::Input::Stream(v3);
   if (v19 == 1)
   {
     kaldi::KaldiWarnMessage::KaldiWarnMessage(&v17);
@@ -905,7 +1923,7 @@ void kaldi::LoadUnpronouncedWords(uint64_t a1@<X0>, void *a2@<X8>)
       kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v17);
     }
 
-    std::__tree<int>::__emplace_unique_key_args<int,int const&>(a2, &v13);
+    std::__tree<int>::__emplace_unique_key_args<int,int const&>(a2, &v13, &v13);
   }
 
   if (SHIBYTE(v16) < 0)
@@ -913,7 +1931,7 @@ void kaldi::LoadUnpronouncedWords(uint64_t a1@<X0>, void *a2@<X8>)
     operator delete(__p);
   }
 
-  kaldi::Input::~Input(v18);
+  kaldi::Input::~Input(&v18);
 }
 
 void sub_1B5240AD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, std::locale a16)
@@ -928,7 +1946,7 @@ void sub_1B5240AD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::WordAlignLattice(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t kaldi::WordAlignLattice(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   kaldi::LatticeWordAligner::LatticeWordAligner(v7, a1, a2, a3, a4, a5);
   v5 = kaldi::LatticeWordAligner::AlignLattice(v7);
@@ -1038,18 +2056,18 @@ uint64_t kaldi::LatticeWordAligner::AlignLattice(kaldi::LatticeWordAligner *this
   return 0;
 }
 
-void sub_1B5240E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B5240E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   kaldi::LatticeWordAligner::Tuple::~Tuple(va);
   kaldi::LatticeWordAligner::ComputationState::~ComputationState(va1);
   _Unwind_Resume(a1);
@@ -1067,7 +2085,7 @@ uint64_t kaldi::LatticeWordAligner::LatticeWordAligner(uint64_t a1, uint64_t a2,
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  std::vector<kaldi::WordBoundaryInfo::PhoneType>::__init_with_size[abi:ne200100]<kaldi::WordBoundaryInfo::PhoneType*,kaldi::WordBoundaryInfo::PhoneType*>(a1 + 32, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 2);
+  std::vector<kaldi::WordBoundaryInfo::PhoneType>::__init_with_size[abi:ne200100]<kaldi::WordBoundaryInfo::PhoneType*,kaldi::WordBoundaryInfo::PhoneType*>((a1 + 32), *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 2);
   *(a1 + 56) = *(a4 + 24);
   std::set<int>::set[abi:ne200100]((a1 + 64), a4 + 32);
   *(a1 + 88) = *(a4 + 56);
@@ -1080,9 +2098,9 @@ uint64_t kaldi::LatticeWordAligner::LatticeWordAligner(uint64_t a1, uint64_t a2,
   *(a1 + 176) = 0u;
   *(a1 + 192) = 1065353216;
   *(a1 + 200) = 0;
-  v17[0] = 0;
+  v17[0].__locale_ = 0;
   v12 = fst::TestProperties<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(a1, 17039360, v17);
-  *(*(a1 + 8) + 8) = *(*(a1 + 8) + 8) & (~v17[0] | 4) | v17[0] & v12;
+  *(*(a1 + 8) + 8) = *(*(a1 + 8) + 8) & (~v17[0].__locale_ | 4) | v17[0].__locale_ & v12;
   if ((v12 & 0x1040000) != 0x40000 && kaldi::g_kaldi_verbose_level >= -1)
   {
     kaldi::KaldiWarnMessage::KaldiWarnMessage(v17);
@@ -1253,17 +2271,17 @@ LABEL_26:
   return v2;
 }
 
-void sub_1B52413D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_1B52413D4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    (*(*a14 + 8))(a14);
+    (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<kaldi::WordBoundaryInfo::PhoneType>::__init_with_size[abi:ne200100]<kaldi::WordBoundaryInfo::PhoneType*,kaldi::WordBoundaryInfo::PhoneType*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<kaldi::WordBoundaryInfo::PhoneType>::__init_with_size[abi:ne200100]<kaldi::WordBoundaryInfo::PhoneType*,kaldi::WordBoundaryInfo::PhoneType*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1485,7 +2503,7 @@ uint64_t kaldi::LatticeWordAligner::GetStateForTuple(int64x2_t *this, int **a2, 
 
   v7 = (*(*this[6].i64[1] + 200))(this[6].i64[1]);
   v9 = a2;
-  *(std::__hash_table<std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,std::__unordered_map_hasher<kaldi::LatticeWordAligner::Tuple,std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,kaldi::LatticeWordAligner::TupleHash,kaldi::LatticeWordAligner::TupleEqual,true>,std::__unordered_map_equal<kaldi::LatticeWordAligner::Tuple,std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,kaldi::LatticeWordAligner::TupleEqual,kaldi::LatticeWordAligner::TupleHash,true>,std::allocator<std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>>>::__emplace_unique_key_args<kaldi::LatticeWordAligner::Tuple,std::piecewise_construct_t const&,std::tuple<kaldi::LatticeWordAligner::Tuple const&>,std::tuple<>>(this[10].i64, a2) + 20) = v7;
+  *(std::__hash_table<std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,std::__unordered_map_hasher<kaldi::LatticeWordAligner::Tuple,std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,kaldi::LatticeWordAligner::TupleHash,kaldi::LatticeWordAligner::TupleEqual,true>,std::__unordered_map_equal<kaldi::LatticeWordAligner::Tuple,std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,kaldi::LatticeWordAligner::TupleEqual,kaldi::LatticeWordAligner::TupleHash,true>,std::allocator<std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>>>::__emplace_unique_key_args<kaldi::LatticeWordAligner::Tuple,std::piecewise_construct_t const&,std::tuple<kaldi::LatticeWordAligner::Tuple const&>,std::tuple<>>(this[10].i64, a2, &std::piecewise_construct, &v9, &v14) + 20) = v7;
   if (a3)
   {
     LODWORD(v9) = *a2;
@@ -1511,11 +2529,9 @@ uint64_t kaldi::LatticeWordAligner::GetStateForTuple(int64x2_t *this, int **a2, 
 void kaldi::LatticeWordAligner::RemoveEpsilonsFromLattice(kaldi::LatticeWordAligner *this)
 {
   v1 = *(this + 13);
-  v2 = vneg_f32(0x7F0000007FLL);
-  v4 = 0;
-  v5 = 0;
-  __p = 0;
-  fst::RmEpsilon<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(v1);
+  v2[0] = vneg_f32(0x7F0000007FLL);
+  memset(&v2[1], 0, 24);
+  fst::RmEpsilon<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(v1, 1, v2, -1, 0.00097656);
 }
 
 void sub_1B5241A78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14)
@@ -1609,7 +2625,7 @@ LABEL_6:
       operator delete(__p);
     }
 
-    v33 = v46;
+    LODWORD(v33) = v46;
     kaldi::LatticeWordAligner::ComputationState::ComputationState(v34, v47);
     kaldi::LatticeWordAligner::ProcessFinal(this, &v33, v5);
     if (v35)
@@ -1734,18 +2750,19 @@ LABEL_29:
   }
 }
 
-void sub_1B5241F00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_1B5241F00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   kaldi::LatticeWordAligner::Tuple::~Tuple(&a29);
-  kaldi::LatticeWordAligner::Tuple::~Tuple(&a37);
-  v39 = *(v37 - 192);
-  if (v39)
+  kaldi::LatticeWordAligner::Tuple::~Tuple(va);
+  v38 = *(v36 - 192);
+  if (v38)
   {
-    *(v37 - 184) = v39;
-    operator delete(v39);
+    *(v36 - 184) = v38;
+    operator delete(v38);
   }
 
-  kaldi::LatticeWordAligner::Tuple::~Tuple((v37 - 160));
+  kaldi::LatticeWordAligner::Tuple::~Tuple((v36 - 160));
   _Unwind_Resume(a1);
 }
 
@@ -1758,7 +2775,7 @@ kaldi::LatticeWordAligner::ComputationState *kaldi::LatticeWordAligner::Computat
   *(this + 3) = 0;
   *(this + 4) = 0;
   *(this + 5) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 2);
   *(this + 6) = *(a2 + 6);
   return this;
 }
@@ -1941,36 +2958,36 @@ BOOL kaldi::LatticeWordAligner::ComputationState::operator==(uint64_t a1, uint64
   }
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,std::__unordered_map_hasher<kaldi::LatticeWordAligner::Tuple,std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,kaldi::LatticeWordAligner::TupleHash,kaldi::LatticeWordAligner::TupleEqual,true>,std::__unordered_map_equal<kaldi::LatticeWordAligner::Tuple,std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,kaldi::LatticeWordAligner::TupleEqual,kaldi::LatticeWordAligner::TupleHash,true>,std::allocator<std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>>>::__emplace_unique_key_args<kaldi::LatticeWordAligner::Tuple,std::piecewise_construct_t const&,std::tuple<kaldi::LatticeWordAligner::Tuple const&>,std::tuple<>>(void *a1, int **this)
+uint64_t *std::__hash_table<std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,std::__unordered_map_hasher<kaldi::LatticeWordAligner::Tuple,std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,kaldi::LatticeWordAligner::TupleHash,kaldi::LatticeWordAligner::TupleEqual,true>,std::__unordered_map_equal<kaldi::LatticeWordAligner::Tuple,std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,kaldi::LatticeWordAligner::TupleEqual,kaldi::LatticeWordAligner::TupleHash,true>,std::allocator<std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>>>::__emplace_unique_key_args<kaldi::LatticeWordAligner::Tuple,std::piecewise_construct_t const&,std::tuple<kaldi::LatticeWordAligner::Tuple const&>,std::tuple<>>(void *a1, int **this, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v5 = (this + 1);
-  v4 = *this;
-  v6 = v4 + 102763 * kaldi::LatticeWordAligner::ComputationState::Hash(this + 1);
-  v7 = a1[1];
-  if (!*&v7)
+  v8 = this + 1;
+  v7 = *this;
+  v9 = v7 + 102763 * kaldi::LatticeWordAligner::ComputationState::Hash(this + 1);
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_19;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v10 = v6;
-    if (v6 >= *&v7)
+    v13 = v9;
+    if (v9 >= *&v10)
     {
-      v10 = v6 % *&v7;
+      v13 = v9 % *&v10;
     }
   }
 
   else
   {
-    v10 = (*&v7 - 1) & v6;
+    v13 = (*&v10 - 1) & v9;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_19:
     std::__hash_table<std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,std::__unordered_map_hasher<kaldi::LatticeWordAligner::Tuple,std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,kaldi::LatticeWordAligner::TupleHash,kaldi::LatticeWordAligner::TupleEqual,true>,std::__unordered_map_equal<kaldi::LatticeWordAligner::Tuple,std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,kaldi::LatticeWordAligner::TupleEqual,kaldi::LatticeWordAligner::TupleHash,true>,std::allocator<std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<kaldi::LatticeWordAligner::Tuple const&>,std::tuple<>>();
@@ -1978,49 +2995,49 @@ LABEL_19:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v6)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v12 > 1)
     {
-      if (v13 >= *&v7)
+      if (v16 >= *&v10)
       {
-        v13 %= *&v7;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v13 &= *&v7 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v13 != v10)
+    if (v16 != v13)
     {
       goto LABEL_19;
     }
 
 LABEL_18:
-    v12 = *v12;
-    if (!v12)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_19;
     }
   }
 
-  if (*(v12 + 4) != *this || !kaldi::LatticeWordAligner::ComputationState::operator==((v12 + 3), v5))
+  if (*(v15 + 4) != *this || !kaldi::LatticeWordAligner::ComputationState::operator==((v15 + 3), v8))
   {
     goto LABEL_18;
   }
 
-  return v12;
+  return v15;
 }
 
-void sub_1B5242598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B5242598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<kaldi::LatticeWordAligner::Tuple,int>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2042,10 +3059,10 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<kaldi::LatticeW
   return a1;
 }
 
-const void **std::deque<std::pair<kaldi::LatticeWordAligner::Tuple,int>>::__add_front_capacity(uint64_t a1)
+void std::deque<std::pair<kaldi::LatticeWordAligner::Tuple,int>>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -2057,15 +3074,15 @@ const void **std::deque<std::pair<kaldi::LatticeWordAligner::Tuple,int>>::__add_
     v4 = 56 * ((v2 - v1) >> 3) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x38)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x38)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -2073,24 +3090,24 @@ const void **std::deque<std::pair<kaldi::LatticeWordAligner::Tuple,int>>::__add_
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<kaldi::CuWorkspace *>>(a1, v10);
+    v10[4] = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<kaldi::CuWorkspace *>>(a1, v9);
   }
 
-  *(a1 + 32) = v5 + 56;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *,std::allocator<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *>>::emplace_front<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *>(a1, v11);
+  a1[4] = (v5 + 56);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *,std::allocator<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *>>::emplace_front<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *>(a1, v10);
 }
 
 void sub_1B5242894(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -2104,11 +3121,11 @@ void sub_1B5242894(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void fst::RemoveSomeInputSymbols<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,int>(uint64_t *a1, uint64_t a2)
+void fst::RemoveSomeInputSymbols<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,int>(uint64_t a1, uint64_t a2)
 {
   kaldi::ConstIntegerSet<int>::ConstIntegerSet(v7, a1);
-  kaldi::ConstIntegerSet<int>::ConstIntegerSet(v3, v7);
-  fst::Map<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::RemoveSomeInputSymbolsMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,int>>(a2, v3);
+  kaldi::ConstIntegerSet<int>::ConstIntegerSet(&v3, v7);
+  fst::Map<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::RemoveSomeInputSymbolsMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,int>>(a2, &v3);
   if (__p)
   {
     v6 = __p;
@@ -2141,8 +3158,8 @@ void sub_1B5242964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void fst::Map<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::RemoveSomeInputSymbolsMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,int>>(uint64_t a1, uint64_t a2)
 {
-  kaldi::ConstIntegerSet<int>::ConstIntegerSet(v3, a2);
-  fst::ArcMap<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::RemoveSomeInputSymbolsMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,int>>(a1, v3);
+  kaldi::ConstIntegerSet<int>::ConstIntegerSet(&v3, a2);
+  fst::ArcMap<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::RemoveSomeInputSymbolsMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,int>>(a1, &v3);
   if (__p)
   {
     v6 = __p;
@@ -2155,12 +3172,12 @@ void fst::Map<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<flo
   }
 }
 
-uint64_t kaldi::ConstIntegerSet<int>::ConstIntegerSet(uint64_t a1, uint64_t *a2)
+uint64_t kaldi::ConstIntegerSet<int>::ConstIntegerSet(uint64_t a1, uint64_t a2)
 {
   *(a1 + 16) = 0u;
   *(a1 + 32) = 0u;
   *(a1 + 48) = 0u;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 40, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 40), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   std::__sort<std::__less<int,int> &,int *>();
   v3 = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<int *>,std::__wrap_iter<int *>,std::__equal_to &>(*(a1 + 40), *(a1 + 48));
   if (v3 != *(a1 + 48))
@@ -2332,7 +3349,7 @@ BOOL fst::RemoveSomeInputSymbolsMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<
   *(a3 + 16) = 0;
   *(a3 + 24) = 0;
   *(a3 + 32) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a3 + 16, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a3 + 16), *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
   *(a3 + 40) = *(a2 + 40);
   result = kaldi::ConstIntegerSet<int>::count(a1, *a3);
   if (result)
@@ -2503,7 +3520,7 @@ void sub_1B52435E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::ProjectMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>::operator()@<X0>(_DWORD *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t *fst::ProjectMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>::operator()@<X0>(_DWORD *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = *(a2 + 4 * (*a1 != 1));
   v5 = *(a2 + 40);
@@ -2513,7 +3530,7 @@ uint64_t fst::ProjectMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::Lattic
   *(a3 + 24) = 0;
   *(a3 + 32) = 0;
   *(a3 + 16) = 0;
-  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a3 + 16, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
+  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a3 + 16), *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
   *(a3 + 40) = v5;
   return result;
 }
@@ -2537,14 +3554,14 @@ uint64_t kaldi::LatticeWordAligner::ComputationState::OutputArc(uint64_t a1, uin
   return kaldi::LatticeWordAligner::ComputationState::OutputOnePhoneWordArc(a1, a2, a3, a4, a5);
 }
 
-void kaldi::LatticeWordAligner::ProcessFinal(uint64_t a1, uint64_t a2, uint64_t a3)
+void kaldi::LatticeWordAligner::ProcessFinal(uint64_t a1, int **a2, uint64_t a3)
 {
-  if (*(a2 + 8) != *(a2 + 16) || *(a2 + 32) != *(a2 + 40))
+  if (a2[1] != a2[2] || a2[4] != a2[5])
   {
     __p = 0;
     v23 = 0;
     v24 = 0;
-    kaldi::LatticeWordAligner::ComputationState::OutputArcForce(a2 + 8, a1 + 32, *(a1 + 16), &v20, (a1 + 200));
+    kaldi::LatticeWordAligner::ComputationState::OutputArcForce((a2 + 1), a1 + 32, *(a1 + 16), &v20, (a1 + 200));
     StateForTuple = kaldi::LatticeWordAligner::GetStateForTuple(a1, a2, 1);
     (*(**(a1 + 104) + 208))(*(a1 + 104), a3, &v20);
     v6 = __p;
@@ -2557,7 +3574,7 @@ void kaldi::LatticeWordAligner::ProcessFinal(uint64_t a1, uint64_t a2, uint64_t 
     goto LABEL_5;
   }
 
-  v20 = *(a2 + 56);
+  v20 = a2[7];
   __p = 0;
   v23 = 0;
   v21 = 0;
@@ -2629,7 +3646,7 @@ LABEL_11:
   v31 = 0;
   v32 = 0;
   v30 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v30, v8[1], v8[2], (v8[2] - v8[1]) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v30, v8[1], v8[2], v8[2] - v8[1]);
   (*(*v7 + 184))(v7, a3, v29);
   if (v30)
   {
@@ -2822,19 +3839,19 @@ LABEL_6:
   return a1;
 }
 
-void fst::ArcSort<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>(uint64_t a1)
+void fst::ArcSort<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v3 = a1;
-  v4 = &v6;
-  memset(v5, 0, sizeof(v5));
-  v1[0] = a1;
-  v1[1] = &v6;
-  memset(v2, 0, sizeof(v2));
-  fst::StateMap<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::ArcSortMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>(a1, v1);
-  v7 = v2;
-  std::vector<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>::__destroy_vector::operator()[abi:ne200100](&v7);
-  v7 = v5;
-  std::vector<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>::__destroy_vector::operator()[abi:ne200100](&v7);
+  v10 = a1;
+  v11 = &v13;
+  memset(v12, 0, sizeof(v12));
+  v8[0] = a1;
+  v8[1] = &v13;
+  memset(v9, 0, sizeof(v9));
+  fst::StateMap<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::ArcSortMapper<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>(a1, v8);
+  v14 = v9;
+  std::vector<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>::__destroy_vector::operator()[abi:ne200100](&v14);
+  v14 = v12;
+  std::vector<fst::ReverseArc<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>::__destroy_vector::operator()[abi:ne200100](&v14);
 }
 
 void sub_1B5243F3C(_Unwind_Exception *a1)
@@ -2995,7 +4012,7 @@ void sub_1B5244424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,false>(unint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,false>(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
   v9 = a1;
@@ -3012,13 +4029,13 @@ LABEL_2:
       switch(v13)
       {
         case 3uLL:
-          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(v9, v9 + 48, (a2 - 6));
+          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(v9, v9 + 6, a2 - 6);
           return;
         case 4uLL:
-          std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(v9, v9 + 48, v9 + 96, (a2 - 6));
+          std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(v9, (v9 + 6), (v9 + 12), a2 - 6);
           return;
         case 5uLL:
-          std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(v9, v9 + 48, v9 + 96, v9 + 144, (a2 - 6));
+          std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(v9, (v9 + 6), (v9 + 12), (v9 + 18), a2 - 6);
           return;
       }
     }
@@ -3042,12 +4059,12 @@ LABEL_2:
         std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v46, v23[2], v23[3], (v23[3] - v23[2]) >> 2);
         v49 = *(v23 + 10);
         v38 = *v9;
-        v39 = *(v9 + 8);
+        v39 = v9[1];
         v41 = 0;
         v42 = 0;
         v40 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v40, *(v9 + 16), *(v9 + 24), (*(v9 + 24) - *(v9 + 16)) >> 2);
-        v43 = *(v9 + 40);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v40, v9[2], v9[3], (v9[3] - v9[2]) >> 2);
+        v43 = *(v9 + 10);
         v25 = v44;
         v26 = v38;
         if (v40)
@@ -3092,10 +4109,10 @@ LABEL_2:
     }
 
     v14 = v13 >> 1;
-    v15 = (v9 + 48 * (v13 >> 1));
+    v15 = &v9[6 * (v13 >> 1)];
     if (v12 < 0x1801)
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(v15, v9, (a2 - 6));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(v15, v9, a2 - 6);
       if (a5)
       {
         goto LABEL_21;
@@ -3104,12 +4121,12 @@ LABEL_2:
 
     else
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(v9, v15, (a2 - 6));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(v9, v15, a2 - 6);
       v16 = 3 * v14;
-      v17 = v9 + 48 * v14 - 48;
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(v9 + 48, v17, (a2 - 12));
-      v18 = v9 + 48 + 16 * v16;
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(a1 + 96, v18, (a2 - 18));
+      v17 = &v9[6 * v14 - 6];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(v9 + 6, v17, a2 - 12);
+      v18 = &v9[2 * v16 + 6];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(a1 + 12, v18, a2 - 18);
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(v17, v15, v18);
       std::swap[abi:ne200100]<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(a1, v15);
       if (a5)
@@ -3118,19 +4135,19 @@ LABEL_2:
       }
     }
 
-    v32 = *(a1 - 48);
-    v33 = *(a1 - 40);
+    v32 = *(a1 - 6);
+    v33 = *(a1 - 5);
     v35 = 0;
     v36 = 0;
     v34 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v34, *(a1 - 32), *(a1 - 24), (*(a1 - 24) - *(a1 - 32)) >> 2);
-    v37 = *(a1 - 8);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v34, *(a1 - 4), *(a1 - 3), (*(a1 - 3) - *(a1 - 4)) >> 2);
+    v37 = *(a1 - 2);
     v27 = *a1;
     v29 = 0;
     v30 = 0;
     __p = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *(a1 + 16), *(a1 + 24), (*(a1 + 24) - *(a1 + 16)) >> 2);
-    v31 = *(a1 + 40);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, a1[2], a1[3], (a1[3] - a1[2]) >> 2);
+    v31 = *(a1 + 10);
     v19 = v32;
     if (__p)
     {
@@ -3158,7 +4175,7 @@ LABEL_21:
     }
 
     v22 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*>(a1, v20);
-    v9 = (v20 + 6);
+    v9 = v20 + 6;
     if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*>((v20 + 6), a2))
     {
       a4 = -v11;
@@ -3176,7 +4193,7 @@ LABEL_21:
     {
 LABEL_24:
       std::__introsort<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,false>(a1, v20, a3, -v11, a5 & 1);
-      v9 = (v20 + 6);
+      v9 = v20 + 6;
 LABEL_26:
       a5 = 0;
       a4 = -v11;
@@ -3202,22 +4219,22 @@ void sub_1B5244840(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(uint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   v67 = *a2;
-  v68 = *(a2 + 8);
+  v68 = a2[1];
   v70 = 0;
   v71 = 0;
   v69 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v69, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
-  v72 = *(a2 + 40);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v69, a2[2], a2[3], (a2[3] - a2[2]) >> 2);
+  v72 = *(a2 + 10);
   v61 = *a1;
-  v62 = *(a1 + 8);
+  v62 = a1[1];
   v64 = 0;
   v65 = 0;
   v63 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v63, *(a1 + 16), *(a1 + 24), (*(a1 + 24) - *(a1 + 16)) >> 2);
-  v66 = *(a1 + 40);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v63, a1[2], a1[3], (a1[3] - a1[2]) >> 2);
+  v66 = *(a1 + 10);
   v6 = v67;
   if (v63)
   {
@@ -3234,19 +4251,19 @@ uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
   if (v6 < v61)
   {
     v31 = *a3;
-    v32 = *(a3 + 8);
+    v32 = a3[1];
     v34 = 0;
     v35 = 0;
     v33 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v33, *(a3 + 16), *(a3 + 24), (*(a3 + 24) - *(a3 + 16)) >> 2);
-    v36 = *(a3 + 40);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v33, a3[2], a3[3], (a3[3] - a3[2]) >> 2);
+    v36 = *(a3 + 10);
     v25 = *a2;
-    v26 = *(a2 + 8);
+    v26 = a2[1];
     v28 = 0;
     v29 = 0;
     __p = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
-    v30 = *(a2 + 40);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, a2[2], a2[3], (a2[3] - a2[2]) >> 2);
+    v30 = *(a2 + 10);
     v7 = v31;
     if (__p)
     {
@@ -3264,18 +4281,18 @@ uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
     {
       std::swap[abi:ne200100]<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(a1, a2);
       v19 = *a3;
-      v20 = *(a3 + 8);
+      v20 = a3[1];
       v22 = 0;
       v23 = 0;
       v21 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v21, *(a3 + 16), *(a3 + 24), (*(a3 + 24) - *(a3 + 16)) >> 2);
-      v24 = *(a3 + 40);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v21, a3[2], a3[3], (a3[3] - a3[2]) >> 2);
+      v24 = *(a3 + 10);
       v14 = *a2;
       v16 = 0;
       v17 = 0;
       v15 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v15, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
-      v18 = *(a2 + 40);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v15, a2[2], a2[3], (a2[3] - a2[2]) >> 2);
+      v18 = *(a2 + 10);
       v12 = v19;
       if (v15)
       {
@@ -3309,19 +4326,19 @@ LABEL_30:
   }
 
   v55 = *a3;
-  v56 = *(a3 + 8);
+  v56 = a3[1];
   v58 = 0;
   v59 = 0;
   v57 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v57, *(a3 + 16), *(a3 + 24), (*(a3 + 24) - *(a3 + 16)) >> 2);
-  v60 = *(a3 + 40);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v57, a3[2], a3[3], (a3[3] - a3[2]) >> 2);
+  v60 = *(a3 + 10);
   v49 = *a2;
-  v50 = *(a2 + 8);
+  v50 = a2[1];
   v52 = 0;
   v53 = 0;
   v51 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v51, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
-  v54 = *(a2 + 40);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v51, a2[2], a2[3], (a2[3] - a2[2]) >> 2);
+  v54 = *(a2 + 10);
   v9 = v55;
   if (v51)
   {
@@ -3339,19 +4356,19 @@ LABEL_30:
   {
     std::swap[abi:ne200100]<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(a2, a3);
     v43 = *a2;
-    v44 = *(a2 + 8);
+    v44 = a2[1];
     v46 = 0;
     v47 = 0;
     v45 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v45, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
-    v48 = *(a2 + 40);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v45, a2[2], a2[3], (a2[3] - a2[2]) >> 2);
+    v48 = *(a2 + 10);
     v37 = *a1;
-    v38 = *(a1 + 8);
+    v38 = a1[1];
     v40 = 0;
     v41 = 0;
     v39 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v39, *(a1 + 16), *(a1 + 24), (*(a1 + 24) - *(a1 + 16)) >> 2);
-    v42 = *(a1 + 40);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v39, a1[2], a1[3], (a1[3] - a1[2]) >> 2);
+    v42 = *(a1 + 10);
     v10 = v43;
     if (v39)
     {
@@ -3389,16 +4406,16 @@ void sub_1B5244C34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(a1, a2, a3);
   v40 = *a4;
-  v41 = *(a4 + 8);
+  v41 = a4[1];
   v43 = 0;
   v44 = 0;
   v42 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v42, *(a4 + 16), *(a4 + 24), (*(a4 + 24) - *(a4 + 16)) >> 2);
-  v45 = *(a4 + 40);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v42, a4[2], a4[3], (a4[3] - a4[2]) >> 2);
+  v45 = *(a4 + 10);
   v34 = *a3;
   v35 = *(a3 + 8);
   v37 = 0;
@@ -3497,16 +4514,16 @@ void sub_1B5244EFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(a1, a2, a3, a4);
   v55 = *a5;
-  v56 = *(a5 + 8);
+  v56 = a5[1];
   v58 = 0;
   v59 = 0;
   v57 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v57, *(a5 + 16), *(a5 + 24), (*(a5 + 24) - *(a5 + 16)) >> 2);
-  v60 = *(a5 + 40);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v57, a5[2], a5[3], (a5[3] - a5[2]) >> 2);
+  v60 = *(a5 + 10);
   v49 = *a4;
   v50 = *(a4 + 8);
   v52 = 0;
@@ -3728,7 +4745,7 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompa
             }
           }
 
-          v11 = (a1 + i);
+          v11 = a1 + i;
 LABEL_19:
           *v11 = v25;
           v12 = HIDWORD(v26);
@@ -3767,15 +4784,15 @@ void sub_1B524553C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*>(uint64_t a1, void *a2)
+void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*>(void *a1, void *a2)
 {
   if (a1 != a2)
   {
     v2 = a1;
-    v3 = (a1 + 48);
-    if ((a1 + 48) != a2)
+    v3 = a1 + 6;
+    if (a1 + 6 != a2)
     {
-      v4 = (a1 + 88);
+      v4 = a1 + 11;
       do
       {
         v5 = v3;
@@ -3887,16 +4904,16 @@ void sub_1B52457F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &>(unint64_t a1, uint64_t *a2)
+uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &>(uint64_t *a1, uint64_t *a2)
 {
   v85 = *a1;
-  v4 = (a1 + 8);
-  v86 = *(a1 + 8);
+  v4 = a1 + 1;
+  v86 = a1[1];
   v88 = 0;
   v89 = 0;
   v87 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v87, *(a1 + 16), *(a1 + 24), (*(a1 + 24) - *(a1 + 16)) >> 2);
-  v90 = *(a1 + 40);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v87, a1[2], a1[3], (a1[3] - a1[2]) >> 2);
+  v90 = *(a1 + 10);
   v79 = v85;
   v80 = v86;
   v82 = 0;
@@ -3926,7 +4943,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
 
   if (v5 >= v73)
   {
-    for (i = a1 + 48; i < a2; i += 48)
+    for (i = a1 + 6; i < a2; i += 6)
     {
       v55 = v85;
       v56 = v86;
@@ -3936,12 +4953,12 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
       std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v57, v87, v88, (v88 - v87) >> 2);
       v60 = v90;
       v49 = *i;
-      v50 = *(i + 8);
+      v50 = i[1];
       v52 = 0;
       v53 = 0;
       v51 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v51, *(i + 16), *(i + 24), (*(i + 24) - *(i + 16)) >> 2);
-      v54 = *(i + 40);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v51, i[2], i[3], (i[3] - i[2]) >> 2);
+      v54 = *(i + 10);
       v8 = v55;
       if (v51)
       {
@@ -3974,13 +4991,13 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
       v69 = 0;
       std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v69, v87, v88, (v88 - v87) >> 2);
       v72 = v90;
-      v61 = *(i + 48);
-      v62 = *(i + 56);
+      v61 = i[6];
+      v62 = i[7];
       v64 = 0;
       v65 = 0;
       __p = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *(i + 64), *(i + 72), (*(i + 72) - *(i + 64)) >> 2);
-      v66 = *(i + 88);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, i[8], i[9], (i[9] - i[8]) >> 2);
+      v66 = *(i + 22);
       v7 = v67;
       if (__p)
       {
@@ -3994,7 +5011,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
         operator delete(v69);
       }
 
-      i += 48;
+      i += 6;
     }
 
     while (v7 >= v61);
@@ -4049,13 +5066,13 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
       v33 = 0;
       std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v33, v87, v88, (v88 - v87) >> 2);
       v36 = v90;
-      v25 = *(i + 48);
-      v26 = *(i + 56);
+      v25 = i[6];
+      v26 = i[7];
       v28 = 0;
       v29 = 0;
       v27 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v27, *(i + 64), *(i + 72), (*(i + 72) - *(i + 64)) >> 2);
-      v30 = *(i + 88);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v27, i[8], i[9], (i[9] - i[8]) >> 2);
+      v30 = *(i + 22);
       v10 = v31;
       v11 = v25;
       if (v27)
@@ -4070,7 +5087,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
         operator delete(v33);
       }
 
-      i += 48;
+      i += 6;
     }
 
     while (v10 >= v11);
@@ -4108,21 +5125,21 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
     while (v12 < v14);
   }
 
-  if (i - 48 != a1)
+  if (i - 6 != a1)
   {
-    *a1 = *(i - 48);
-    fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>::operator=(v4, i - 40);
-    *(a1 + 40) = *(i - 8);
+    *a1 = *(i - 6);
+    fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>::operator=(v4, (i - 5));
+    *(a1 + 10) = *(i - 2);
   }
 
-  *(i - 48) = v85;
-  *(i - 40) = v86;
-  if ((i - 40) != &v86)
+  *(i - 6) = v85;
+  *(i - 5) = v86;
+  if (i - 5 != &v86)
   {
-    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((i - 32), v87, v88, (v88 - v87) >> 2);
+    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(i - 4, v87, v88, (v88 - v87) >> 2);
   }
 
-  *(i - 8) = v90;
+  *(i - 2) = v90;
   if (v87)
   {
     v88 = v87;
@@ -4151,27 +5168,27 @@ void sub_1B5245D54(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &>(uint64_t a1, unint64_t a2)
+uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &>(uint64_t *a1, uint64_t *a2)
 {
   v82 = *a1;
-  v21 = (a1 + 8);
-  v83 = *(a1 + 8);
+  v21 = a1 + 1;
+  v83 = a1[1];
   v85 = 0;
   v86 = 0;
   v84 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v84, *(a1 + 16), *(a1 + 24), (*(a1 + 24) - *(a1 + 16)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v84, a1[2], a1[3], (a1[3] - a1[2]) >> 2);
   v4 = 0;
   v22 = a1;
-  v87 = *(a1 + 40);
+  v87 = *(a1 + 10);
   do
   {
-    v76 = *(a1 + v4 + 48);
-    v77 = *(a1 + v4 + 56);
+    v76 = a1[v4 + 6];
+    v77 = a1[v4 + 7];
     v79 = 0;
     v80 = 0;
     v78 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v78, *(a1 + v4 + 64), *(a1 + v4 + 72), (*(a1 + v4 + 72) - *(a1 + v4 + 64)) >> 2);
-    v81 = *(a1 + v4 + 88);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v78, a1[v4 + 8], a1[v4 + 9], (a1[v4 + 9] - a1[v4 + 8]) >> 2);
+    v81 = a1[v4 + 11];
     v70 = v82;
     v71 = v83;
     v73 = 0;
@@ -4192,12 +5209,12 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
       operator delete(v78);
     }
 
-    v4 += 48;
+    v4 += 6;
   }
 
   while (v5 < v70);
-  v6 = a1 + v4;
-  if (v4 == 48)
+  v6 = &a1[v4];
+  if (v4 == 6)
   {
     if (v6 >= a2)
     {
@@ -4206,15 +5223,15 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
 
     else
     {
-      for (i = a2 - 48; ; i -= 48)
+      for (i = a2 - 6; ; i -= 6)
       {
         v64 = *i;
-        v65 = *(i + 8);
+        v65 = i[1];
         v67 = 0;
         v68 = 0;
         v66 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v66, *(i + 16), *(i + 24), (*(i + 24) - *(i + 16)) >> 2);
-        v69 = *(i + 40);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v66, i[2], i[3], (i[3] - i[2]) >> 2);
+        v69 = *(i + 10);
         v58 = v82;
         v59 = v83;
         v61 = 0;
@@ -4248,15 +5265,15 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     i = a2;
     do
     {
-      v8 = *(i - 48);
-      i -= 48;
+      v8 = *(i - 6);
+      i -= 6;
       v52 = v8;
-      v53 = *(i + 8);
+      v53 = i[1];
       v55 = 0;
       v56 = 0;
       v54 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v54, *(i + 16), *(i + 24), (*(i + 24) - *(i + 16)) >> 2);
-      v57 = *(a2 - 8);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v54, i[2], i[3], (i[3] - i[2]) >> 2);
+      v57 = *(a2 - 2);
       v46 = v82;
       v47 = v83;
       v49 = 0;
@@ -4283,7 +5300,7 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     while (v9 >= v46);
   }
 
-  v11 = (v22 + v4);
+  v11 = &v22[v4];
   if (v6 < i)
   {
     v12 = i;
@@ -4371,7 +5388,7 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
   {
     *v22 = *(v11 - 6);
     fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>::operator=(v21, (v11 - 5));
-    *(v22 + 40) = *(v11 - 2);
+    *(v22 + 10) = *(v11 - 2);
   }
 
   *(v11 - 6) = v82;
@@ -4403,7 +5420,7 @@ void sub_1B52462CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*>(uint64_t a1, uint64_t *a2)
 {
   v3 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 4);
   if (v3 <= 2)
@@ -4412,13 +5429,13 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::
     {
       if (v3 == 2)
       {
-        v52 = *(a2 - 48);
-        v53 = *(a2 - 40);
+        v52 = *(a2 - 6);
+        v53 = *(a2 - 5);
         v55 = 0;
         v56 = 0;
         v54 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v54, *(a2 - 32), *(a2 - 24), (*(a2 - 24) - *(a2 - 32)) >> 2);
-        v57 = *(a2 - 8);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v54, *(a2 - 4), *(a2 - 3), (*(a2 - 3) - *(a2 - 4)) >> 2);
+        v57 = *(a2 - 2);
         v46 = *a1;
         v47 = *(a1 + 8);
         v49 = 0;
@@ -4441,7 +5458,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::
 
         if (v4 < v46)
         {
-          std::swap[abi:ne200100]<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(a1, (a2 - 48));
+          std::swap[abi:ne200100]<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(a1, a2 - 6);
         }
 
         return 1;
@@ -4456,21 +5473,21 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::
   switch(v3)
   {
     case 3:
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(a1, a1 + 48, a2 - 48);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(a1, (a1 + 48), a2 - 6);
       return 1;
     case 4:
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(a1, a1 + 48, a1 + 96, a2 - 48);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(a1, a1 + 48, a1 + 96, a2 - 6);
       return 1;
     case 5:
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(a1, a1 + 48, a1 + 96, a1 + 144, a2 - 48);
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(a1, a1 + 48, a1 + 96, a1 + 144, a2 - 6);
       return 1;
   }
 
 LABEL_15:
-  v5 = a1 + 96;
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(a1, a1 + 48, a1 + 96);
-  v6 = a1 + 144;
-  if (a1 + 144 == a2)
+  v5 = (a1 + 96);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*,0>(a1, (a1 + 48), (a1 + 96));
+  v6 = (a1 + 144);
+  if ((a1 + 144) == a2)
   {
     return 1;
   }
@@ -4480,19 +5497,19 @@ LABEL_15:
   while (1)
   {
     v40 = *v6;
-    v41 = *(v6 + 8);
+    v41 = v6[1];
     v43 = 0;
     v44 = 0;
     v42 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v42, *(v6 + 16), *(v6 + 24), (*(v6 + 24) - *(v6 + 16)) >> 2);
-    v45 = *(v6 + 40);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v42, v6[2], v6[3], (v6[3] - v6[2]) >> 2);
+    v45 = *(v6 + 10);
     v34 = *v5;
-    v35 = *(v5 + 8);
+    v35 = v5[1];
     v37 = 0;
     v38 = 0;
     __p = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *(v5 + 16), *(v5 + 24), (*(v5 + 24) - *(v5 + 16)) >> 2);
-    v39 = *(v5 + 40);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v5[2], v5[3], (v5[3] - v5[2]) >> 2);
+    v39 = *(v5 + 10);
     v9 = v40;
     v10 = v34;
     if (__p)
@@ -4510,12 +5527,12 @@ LABEL_15:
     if (v9 < v10)
     {
       v28 = *v6;
-      v29 = *(v6 + 8);
+      v29 = v6[1];
       v31 = 0;
       v32 = 0;
       v30 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v30, *(v6 + 16), *(v6 + 24), (*(v6 + 24) - *(v6 + 16)) >> 2);
-      v33 = *(v6 + 40);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v30, v6[2], v6[3], (v6[3] - v6[2]) >> 2);
+      v33 = *(v6 + 10);
       for (i = v7; ; i -= 48)
       {
         *(a1 + i + 144) = *(a1 + i + 96);
@@ -4579,13 +5596,13 @@ LABEL_32:
 
       if (++v8 == 8)
       {
-        return v6 + 48 == a2;
+        return v6 + 6 == a2;
       }
     }
 
     v5 = v6;
     v7 += 48;
-    v6 += 48;
+    v6 += 6;
     if (v6 == a2)
     {
       return 1;
@@ -4747,25 +5764,25 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
     if ((v4 >> 1) >= (0xAAAAAAAAAAAAAAABLL * ((a4 - a1) >> 4)))
     {
       v9 = (0x5555555555555556 * ((a4 - a1) >> 4)) | 1;
-      v10 = (a1 + 48 * v9);
+      v10 = a1 + 48 * v9;
       v11 = 0x5555555555555556 * ((a4 - a1) >> 4) + 2;
       if (v11 < a3)
       {
         v69 = *v10;
-        v70 = v10[1];
+        v70 = *(v10 + 8);
         v72 = 0;
         v73 = 0;
         v71 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v71, v10[2], v10[3], (v10[3] - v10[2]) >> 2);
-        v12 = v10[6];
-        v74 = *(v10 + 10);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v71, *(v10 + 16), *(v10 + 24), (*(v10 + 24) - *(v10 + 16)) >> 2);
+        v12 = *(v10 + 48);
+        v74 = *(v10 + 40);
         v63 = v12;
-        v64 = v10[7];
+        v64 = *(v10 + 56);
         v66 = 0;
         v67 = 0;
         v65 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v65, v10[8], v10[9], (v10[9] - v10[8]) >> 2);
-        v68 = *(v10 + 22);
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v65, *(v10 + 64), *(v10 + 72), (*(v10 + 72) - *(v10 + 64)) >> 2);
+        v68 = *(v10 + 88);
         v13 = v69;
         if (v65)
         {
@@ -4781,18 +5798,18 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
 
         if (v13 < v63)
         {
-          v10 += 6;
+          v10 += 48;
           v9 = v11;
         }
       }
 
       v57 = *v10;
-      v58 = v10[1];
+      v58 = *(v10 + 8);
       v60 = 0;
       v61 = 0;
       v59 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v59, v10[2], v10[3], (v10[3] - v10[2]) >> 2);
-      v62 = *(v10 + 10);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v59, *(v10 + 16), *(v10 + 24), (*(v10 + 24) - *(v10 + 16)) >> 2);
+      v62 = *(v10 + 40);
       v51 = *v5;
       v52 = v5[1];
       v54 = 0;
@@ -4826,8 +5843,8 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
         {
           v15 = v10;
           *v5 = *v10;
-          fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>::operator=(v5 + 1, (v10 + 1));
-          *(v5 + 10) = *(v10 + 10);
+          fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>::operator=(v5 + 1, v10 + 8);
+          *(v5 + 10) = *(v10 + 40);
           if (v7 < v9)
           {
             break;
@@ -4835,25 +5852,25 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
 
           v16 = 2 * v9;
           v9 = (2 * v9) | 1;
-          v10 = (a1 + 48 * v9);
+          v10 = a1 + 48 * v9;
           v17 = v16 + 2;
           if (v16 + 2 < a3)
           {
             v39 = *v10;
-            v40 = v10[1];
+            v40 = *(v10 + 8);
             v42 = 0;
             v43 = 0;
             v41 = 0;
-            std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v41, v10[2], v10[3], (v10[3] - v10[2]) >> 2);
-            v18 = v10[6];
-            v44 = *(v10 + 10);
+            std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v41, *(v10 + 16), *(v10 + 24), (*(v10 + 24) - *(v10 + 16)) >> 2);
+            v18 = *(v10 + 48);
+            v44 = *(v10 + 40);
             v33 = v18;
-            v34 = v10[7];
+            v34 = *(v10 + 56);
             v36 = 0;
             v37 = 0;
             v35 = 0;
-            std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v35, v10[8], v10[9], (v10[9] - v10[8]) >> 2);
-            v38 = *(v10 + 22);
+            std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v35, *(v10 + 64), *(v10 + 72), (*(v10 + 72) - *(v10 + 64)) >> 2);
+            v38 = *(v10 + 88);
             v19 = v39;
             v20 = v33;
             if (v35)
@@ -4870,18 +5887,18 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
 
             if (v19 < v20)
             {
-              v10 += 6;
+              v10 += 48;
               v9 = v17;
             }
           }
 
           v27 = *v10;
-          v28 = v10[1];
+          v28 = *(v10 + 8);
           v30 = 0;
           v31 = 0;
           v29 = 0;
-          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v29, v10[2], v10[3], (v10[3] - v10[2]) >> 2);
-          v32 = *(v10 + 10);
+          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v29, *(v10 + 16), *(v10 + 24), (*(v10 + 24) - *(v10 + 16)) >> 2);
+          v32 = *(v10 + 40);
           v22 = v45;
           v24 = 0;
           v25 = 0;
@@ -4906,13 +5923,13 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fs
 
         while (v21 >= v22);
         *v15 = v45;
-        v15[1] = v46;
+        *(v15 + 8) = v46;
         if (v15 != &v45)
         {
-          std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(v15 + 2, v47, v48, (v48 - v47) >> 2);
+          std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v15 + 16), v47, v48, (v48 - v47) >> 2);
         }
 
-        *(v15 + 10) = v50;
+        *(v15 + 40) = v50;
         if (v47)
         {
           v48 = v47;
@@ -4933,17 +5950,17 @@ void sub_1B5246ED0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
     v10 = *a1;
-    v11 = *(a1 + 8);
+    v11 = a1[1];
     v13 = 0;
     v14 = 0;
     __p = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *(a1 + 16), *(a1 + 24), (*(a1 + 24) - *(a1 + 16)) >> 2);
-    v15 = *(a1 + 40);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, a1[2], a1[3], (a1[3] - a1[2]) >> 2);
+    v15 = *(a1 + 10);
     v8 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*>(a1, a3, a4);
     v9 = v8;
     if (v8 == (a2 - 48))
@@ -4971,7 +5988,7 @@ void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst
       }
 
       *(a2 - 8) = v15;
-      std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*>(a1, (v9 + 6), a3, 0xAAAAAAAAAAAAAAABLL * ((v9 - a1 + 48) >> 4));
+      std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>> &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>*>(a1, (v9 + 6), a3, 0xAAAAAAAAAAAAAAABLL * (((v9 + 6) - a1) >> 4));
     }
 
     if (__p)
@@ -5174,41 +6191,41 @@ void sub_1B52474A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -5229,7 +6246,7 @@ void fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::L
   *(a1 + 60) = 0u;
   *(a1 + 76) = 0u;
   *(a1 + 92) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 72, 0, 0, 0);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 72), 0, 0, 0);
   *(a1 + 96) = -1;
   *(a1 + 106) = 0;
   fst::MemoryPool<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::MemoryPool((a1 + 112), 1);
@@ -5329,7 +6346,7 @@ uint64_t fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fs
 void fst::MemoryPool<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::~MemoryPool(quasar::Bitmap *a1)
 {
   *a1 = &unk_1F2D07BC8;
-  fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::Link>::~MemoryArena(a1 + 1);
+  fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::Link>::~MemoryArena((a1 + 8));
   quasar::Bitmap::~Bitmap(a1);
 
   JUMPOUT(0x1B8C85350);
@@ -5337,7 +6354,7 @@ void fst::MemoryPool<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::CompactLatticeWe
 
 {
   *a1 = &unk_1F2D07BC8;
-  fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::Link>::~MemoryArena(a1 + 1);
+  fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::Link>::~MemoryArena((a1 + 8));
 
   quasar::Bitmap::~Bitmap(a1);
 }
@@ -5360,7 +6377,7 @@ void sub_1B5247B14(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::Link>::~MemoryArena(void *a1)
+void fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::Link>::~MemoryArena(quasar::Bitmap *a1)
 {
   fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::Link>::~MemoryArena(a1);
 
@@ -5369,9 +6386,9 @@ void fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst:
 
 {
   *a1 = &unk_1F2D07C08;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v2 = (a1 + 24);
+  v3 = *(a1 + 4);
+  if (v3 != (a1 + 24))
   {
     do
     {
@@ -5424,7 +6441,7 @@ void *fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::
   }
 
   a1[14] = &unk_1F2D07BC8;
-  fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::Link>::~MemoryArena(a1 + 15);
+  fst::MemoryArena<fst::MemoryPool<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::Link>::~MemoryArena((a1 + 15));
   quasar::Bitmap::~Bitmap(v3);
   v6 = a1[9];
   if (v6)
@@ -5451,7 +6468,7 @@ void fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::L
   *(a1 + 64) = v5;
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 72, *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 72), *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
   *(a1 + 96) = *(a2 + 96);
   *(a1 + 106) = *(a2 + 106);
   fst::MemoryPool<fst::ArcIterator<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>>::MemoryPool((a1 + 112), 1);
@@ -5961,7 +6978,7 @@ uint64_t fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fs
   return result;
 }
 
-uint64_t quasar::SentencePieceOptions::options@<X0>(quasar::SentencePieceOptions *this@<X0>, void *a2@<X8>)
+uint64_t *quasar::SentencePieceOptions::options@<X0>(quasar::SentencePieceOptions *this@<X0>, uint64_t *a2@<X8>)
 {
   v4 = *MEMORY[0x1E69E9840];
   v3[0] = this + 16;
@@ -6157,7 +7174,7 @@ void sub_1B5248EF0()
 void quasar::SentencePieceBlock::process(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v3 = a1;
-  v180 = *MEMORY[0x1E69E9840];
+  v178 = *MEMORY[0x1E69E9840];
   v4 = *a3;
   v121 = a3[1];
   if (*a3 != v121)
@@ -6429,16 +7446,16 @@ void quasar::SentencePieceBlock::process(uint64_t a1, uint64_t a2, uint64_t *a3)
       }
 
       std::vector<quasar::TranslationPhraseInternal>::push_back[abi:ne200100](v131, v133);
-      quasar::TranslationPhraseInternal::TranslationPhraseInternal(&v165, v133);
-      v29 = v177;
+      quasar::TranslationPhraseInternal::TranslationPhraseInternal(&v163, v133);
+      v29 = v175;
       if ((*(a1 + 648) - 1) >= 2)
       {
-        v46 = v178;
+        v46 = v176;
         goto LABEL_71;
       }
 
-      std::vector<quasar::TranslationTokenInternal>::__base_destruct_at_end[abi:ne200100](&v177, v177);
-      v176 = 0;
+      std::vector<quasar::TranslationTokenInternal>::__base_destruct_at_end[abi:ne200100](&v175, v175);
+      v174 = 0;
       v30 = v135;
       v31 = v136;
       if (v135 == v136)
@@ -6450,11 +7467,11 @@ void quasar::SentencePieceBlock::process(uint64_t a1, uint64_t a2, uint64_t *a3)
       v32 = 1;
       while (1)
       {
-        v33 = v178;
-        if (v177 != v178)
+        v33 = v176;
+        if (v175 != v176)
         {
-          v34 = *(v178 - 4);
-          if (*(v178 - 8) == v34 || ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v35 = &__str) : (v35 = __str.__r_.__value_.__r.__words[0]), v35->__r_.__value_.__s.__data_[v34 - 1] != 32))
+          v34 = *(v176 - 4);
+          if (*(v176 - 8) == v34 || ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v35 = &__str) : (v35 = __str.__r_.__value_.__r.__words[0]), v35->__r_.__value_.__s.__data_[v34 - 1] != 32))
           {
             v36 = v30[16].i32[0];
             if (v36 == v30[16].i32[1] || ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (p_str = &__str) : (p_str = __str.__r_.__value_.__r.__words[0]), p_str->__r_.__value_.__s.__data_[v36] != 32))
@@ -6517,11 +7534,11 @@ void quasar::SentencePieceBlock::process(uint64_t a1, uint64_t a2, uint64_t *a3)
             }
           }
 
-          *(v178 - 80) = *(v178 - 80) / v32;
+          *(v176 - 80) = *(v176 - 80) / v32;
         }
 
-        std::vector<quasar::TranslationTokenInternal>::push_back[abi:ne200100](&v177, v30);
-        *(v178 - 72) = -1;
+        std::vector<quasar::TranslationTokenInternal>::push_back[abi:ne200100](&v175, v30);
+        *(v176 - 72) = -1;
         v32 = 1;
 LABEL_65:
         v30 += 17;
@@ -6529,11 +7546,11 @@ LABEL_65:
         {
           v45 = v32;
 LABEL_69:
-          v29 = v177;
-          v46 = v178;
-          if (v177 != v178)
+          v29 = v175;
+          v46 = v176;
+          if (v175 != v176)
           {
-            *(v178 - 80) = *(v178 - 80) / v45;
+            *(v176 - 80) = *(v176 - 80) / v45;
           }
 
 LABEL_71:
@@ -6667,7 +7684,7 @@ LABEL_87:
               }
 
 LABEL_105:
-              std::string::basic_string(__src, &__str, v62, v53 - v52, &v160);
+              std::string::basic_string(__src, &__str, v62, v53 - v52, v160);
               if (v29[2].i8[7] < 0)
               {
                 operator delete(*v29);
@@ -6676,8 +7693,8 @@ LABEL_105:
               v71 = *__src;
               v29[2] = v139;
               *v29->f32 = v71;
-              std::to_string(&v160, v29[7].f32[0]);
-              v72 = std::string::insert(&v160, 0, " ");
+              std::to_string(v160, v29[7].f32[0]);
+              v72 = std::string::insert(v160, 0, " ");
               v73 = *&v72->__r_.__value_.__l.__data_;
               *&v139 = *(&v72->__r_.__value_.__l + 2);
               *__src = v73;
@@ -6710,9 +7727,9 @@ LABEL_105:
                 operator delete(__src[0]);
               }
 
-              if (SHIBYTE(v160.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v160[0].__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v160.__r_.__value_.__l.__data_);
+                operator delete(v160[0].__r_.__value_.__l.__data_);
               }
 
               v76 = v29[7].f32[0];
@@ -6725,16 +7742,16 @@ LABEL_105:
             }
 
             while (v29 != v46);
-            v77 = v178;
-            v46 = v177;
+            v77 = v176;
+            v46 = v175;
           }
 
           v78 = v77 - v46;
           if (!v78 || (v48 & 1) != 0)
           {
             v82 = *(v4 + 224);
-            v165.__r_.__value_.__r.__words[0] = *v4;
-            v179 = v82;
+            v163.__r_.__value_.__r.__words[0] = *v4;
+            v177 = v82;
             v81 = *(v4 + 8);
             v80 = a1;
           }
@@ -6742,14 +7759,14 @@ LABEL_105:
           else
           {
             v79 = (v51 / (0xF0F0F0F0F0F0F0F1 * (v78 >> 3)));
-            *(v165.__r_.__value_.__r.__words + 1) = v79;
-            *&v165.__r_.__value_.__l.__data_ = v50;
-            v179 = v49;
+            *(v163.__r_.__value_.__r.__words + 1) = v79;
+            *&v163.__r_.__value_.__l.__data_ = v50;
+            v177 = v49;
             v80 = a1;
             v81 = v79 != -1 && *quasar::OptionValue<double>::value((a1 + 488)) > v79;
           }
 
-          v165.__r_.__value_.__s.__data_[8] = v81;
+          v163.__r_.__value_.__s.__data_[8] = v81;
           quasar::PTree::PTree(__src);
           if ((*quasar::OptionValue<BOOL>::value((v80 + 184)) & 1) == 0)
           {
@@ -6764,9 +7781,9 @@ LABEL_105:
             BYTE8(v141) = *(v83 + 56);
           }
 
-          std::string::basic_string[abi:ne200100]<0>(&v160, quasar::SENTENCEPIECE_DECODER_INPUT_META);
-          std::string::basic_string[abi:ne200100]<0>(v161, quasar::SENTENCEPIECE_DECODER_OUTPUT_META);
-          std::set<std::string>::set[abi:ne200100](&v123, &v160.__r_.__value_.__l.__data_, 2);
+          std::string::basic_string[abi:ne200100]<0>(v160, quasar::SENTENCEPIECE_DECODER_INPUT_META);
+          std::string::basic_string[abi:ne200100]<0>(v160[1].__r_.__value_.__r.__words, quasar::SENTENCEPIECE_DECODER_OUTPUT_META);
+          std::set<std::string>::set[abi:ne200100](&v123, &v160[0].__r_.__value_.__l.__data_, 2);
           std::string::basic_string[abi:ne200100]<0>(__p, "firstleg ");
           quasar::backupMetaInfo(__src, &v123, __p);
           if (v127 < 0)
@@ -6778,19 +7795,19 @@ LABEL_105:
           v84 = 0;
           while (1)
           {
-            if (SHIBYTE(v163[v84]) < 0)
+            if (SHIBYTE(v160[v84 / 0x18 + 1].__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(*(&v160 + v84 * 8 + 24));
+              operator delete(v160[v84 / 0x18 + 1].__r_.__value_.__l.__data_);
             }
 
-            v84 -= 3;
-            if (v84 == -6)
+            v84 -= 24;
+            if (v84 == -48)
             {
               std::string::basic_string[abi:ne200100]<0>(&v123, quasar::SENTENCEPIECE_DECODER_INPUT_META);
-              quasar::TranslationPhraseInternal::convertTokensToString(__p, v133);
-              quasar::PTree::PTree(&v160, __p);
-              quasar::PTree::putChild(__src, &v123, &v160, 1);
-              quasar::PTree::~PTree(&v160);
+              quasar::TranslationPhraseInternal::convertTokensToString(v133);
+              quasar::PTree::PTree(v160, __p);
+              quasar::PTree::putChild(__src, &v123, v160, 1);
+              quasar::PTree::~PTree(&v160[0].__r_.__value_.__l.__data_);
               if (v127 < 0)
               {
                 operator delete(__p[0]);
@@ -6802,31 +7819,30 @@ LABEL_105:
               }
 
               std::string::basic_string[abi:ne200100]<0>(&v123, quasar::SENTENCEPIECE_DECODER_OUTPUT_META);
-              quasar::PTree::PTree(&v160, &__str);
-              quasar::PTree::putChild(__src, &v123, &v160, 1);
-              quasar::PTree::~PTree(&v160);
+              quasar::PTree::PTree(v160, &__str);
+              quasar::PTree::putChild(__src, &v123, v160, 1);
+              quasar::PTree::~PTree(&v160[0].__r_.__value_.__l.__data_);
               if (v125 < 0)
               {
                 operator delete(v123);
               }
 
               std::string::basic_string[abi:ne200100]<0>(&v123, quasar::SENTENCE_CONFIDENCE_META);
-              v85 = *(v165.__r_.__value_.__r.__words + 1);
-              LODWORD(v160.__r_.__value_.__l.__data_) = quasar::getType(*(v165.__r_.__value_.__r.__words + 1));
-              std::to_string(&v160.__r_.__value_.__r.__words[1], v85);
-              v162 = 0;
-              v163[0] = 0;
-              v163[1] = 0;
-              v164 = 1;
-              quasar::PTree::putChild(__src, &v123, &v160, 1);
-              quasar::PTree::~PTree(&v160);
+              v85 = *(v163.__r_.__value_.__r.__words + 1);
+              LODWORD(v160[0].__r_.__value_.__l.__data_) = quasar::getType(*(v163.__r_.__value_.__r.__words + 1));
+              std::to_string(&v160[0].__r_.__value_.__r.__words[1], v85);
+              *&v160[1].__r_.__value_.__r.__words[1] = 0uLL;
+              v161 = 0;
+              v162 = 1;
+              quasar::PTree::putChild(__src, &v123, v160, 1);
+              quasar::PTree::~PTree(&v160[0].__r_.__value_.__l.__data_);
               if (v125 < 0)
               {
                 operator delete(v123);
               }
 
               std::string::basic_string[abi:ne200100]<0>(&v123, quasar::LOW_CONFIDENCE_META);
-              if (v165.__r_.__value_.__s.__data_[8])
+              if (v163.__r_.__value_.__s.__data_[8])
               {
                 v86 = "true";
               }
@@ -6837,9 +7853,9 @@ LABEL_105:
               }
 
               std::string::basic_string[abi:ne200100]<0>(__p, v86);
-              quasar::PTree::PTree(&v160, __p);
-              quasar::PTree::putChild(__src, &v123, &v160, 1);
-              quasar::PTree::~PTree(&v160);
+              quasar::PTree::PTree(v160, __p);
+              quasar::PTree::putChild(__src, &v123, v160, 1);
+              quasar::PTree::~PTree(&v160[0].__r_.__value_.__l.__data_);
               if (v127 < 0)
               {
                 operator delete(__p[0]);
@@ -6850,8 +7866,8 @@ LABEL_105:
                 operator delete(v123);
               }
 
-              std::string::basic_string[abi:ne200100]<0>(&v160, quasar::WORD_CONFIDENCES_META);
-              quasar::PTree::getStringOptional(__src, &v160);
+              std::string::basic_string[abi:ne200100]<0>(v160, quasar::WORD_CONFIDENCES_META);
+              quasar::PTree::getStringOptional(__src, v160);
             }
           }
         }
@@ -6861,8 +7877,8 @@ LABEL_105:
     v88 = &unk_1EB908000;
     while (1)
     {
-      quasar::TranslationPhraseInternal::convertTokensToString(&v160, v4);
-      quasar::TranslationPhraseInternal::computeTokenRanges(v4, &v123);
+      quasar::TranslationPhraseInternal::convertTokensToString(v4);
+      quasar::TranslationPhraseInternal::computeTokenRanges(&v123, v4);
       sentencepiece::SentencePieceText::SentencePieceText(v155, 0);
       (*(**(v3 + 632) + 184))(__p);
       if (__p[0])
@@ -6930,7 +7946,7 @@ LABEL_190:
         v136[-14].i8[0] = 0;
       }
 
-      quasar::TranslationPhraseInternal::convertTokensToString(v131, v133);
+      quasar::TranslationPhraseInternal::convertTokensToString(v133);
       v134 = 1;
       quasar::PTree::PTree(__src);
       if ((*quasar::OptionValue<BOOL>::value((v3 + 184)) & 1) == 0)
@@ -6946,9 +7962,9 @@ LABEL_190:
         BYTE8(v141) = *(v105 + 56);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v165, v88[173]);
-      std::string::basic_string[abi:ne200100]<0>(&v166, quasar::SENTENCEPIECE_ENCODER_OUTPUT_META);
-      std::set<std::string>::set[abi:ne200100](&__str, &v165.__r_.__value_.__l.__data_, 2);
+      std::string::basic_string[abi:ne200100]<0>(&v163, v88[173]);
+      std::string::basic_string[abi:ne200100]<0>(&v164, quasar::SENTENCEPIECE_ENCODER_OUTPUT_META);
+      std::set<std::string>::set[abi:ne200100](&__str, &v163.__r_.__value_.__l.__data_, 2);
       std::string::basic_string[abi:ne200100]<0>(&v129, "firstleg ");
       quasar::backupMetaInfo(__src, &__str, &v129.__r_.__value_.__l.__data_);
       if (SHIBYTE(v129.__r_.__value_.__r.__words[2]) < 0)
@@ -6959,25 +7975,25 @@ LABEL_190:
       std::__tree<std::string>::destroy(&__str, __str.__r_.__value_.__l.__size_);
       for (i = 0; i != -6; i -= 3)
       {
-        if (SHIBYTE(v168[i]) < 0)
+        if (SHIBYTE(v166[i]) < 0)
         {
-          operator delete(*(&v165 + i * 8 + 24));
+          operator delete(*(&v163 + i * 8 + 24));
         }
       }
 
       std::string::basic_string[abi:ne200100]<0>(&__str, v88[173]);
-      quasar::PTree::PTree(&v165, &v160);
-      quasar::PTree::putChild(__src, &__str, &v165, 1);
-      quasar::PTree::~PTree(&v165);
+      quasar::PTree::PTree(&v163, v160);
+      quasar::PTree::putChild(__src, &__str, &v163, 1);
+      quasar::PTree::~PTree(&v163.__r_.__value_.__l.__data_);
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__str.__r_.__value_.__l.__data_);
       }
 
       std::string::basic_string[abi:ne200100]<0>(&__str, quasar::SENTENCEPIECE_ENCODER_OUTPUT_META);
-      quasar::PTree::PTree(&v165, v131);
-      quasar::PTree::putChild(__src, &__str, &v165, 1);
-      quasar::PTree::~PTree(&v165);
+      quasar::PTree::PTree(&v163, v131);
+      quasar::PTree::putChild(__src, &__str, &v163, 1);
+      quasar::PTree::~PTree(&v163.__r_.__value_.__l.__data_);
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__str.__r_.__value_.__l.__data_);
@@ -6991,7 +8007,7 @@ LABEL_190:
         operator delete(v131[0]);
       }
 
-      quasar::TranslationPhraseInternal::~TranslationPhraseInternal(v133);
+      quasar::TranslationPhraseInternal::~TranslationPhraseInternal(&v133[0].__r_.__value_.__l.__data_);
       sentencepiece::util::Status::~Status(__p);
       sentencepiece::SentencePieceText::~SentencePieceText(v155);
       if (v123)
@@ -7000,9 +8016,9 @@ LABEL_190:
         operator delete(v123);
       }
 
-      if (SHIBYTE(v160.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v160[0].__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v160.__r_.__value_.__l.__data_);
+        operator delete(v160[0].__r_.__value_.__l.__data_);
       }
 
       v4 += 264;
@@ -7010,13 +8026,13 @@ LABEL_190:
       {
         v107 = *(*v3 - 24);
         std::string::basic_string[abi:ne200100]<0>(__src, "tokens");
-        quasar::ProcessingBlock::send(v3 + v107, __src, v159, 1);
+        quasar::ProcessingBlock::send((v3 + v107), __src, v159, 1);
         if (SBYTE7(v139) < 0)
         {
           operator delete(__src[0]);
         }
 
-        quasar::ProcessingBlock::send(v3 + *(*v3 - 24), v159, 0);
+        quasar::ProcessingBlock::send((v3 + *(*v3 - 24)), v159, 0);
         __src[0] = v159;
         std::vector<quasar::TranslationPhraseInternal>::__destroy_vector::operator()[abi:ne200100](__src);
         return;
@@ -7030,24 +8046,24 @@ LABEL_190:
     while (1)
     {
       v94 = *v89;
-      v168[0] = 0;
-      v168[1] = 0;
-      v167 = 0;
-      memset(&v165, 0, sizeof(v165));
-      v166 = 0;
-      v169 = 3212836864;
-      v170 = -1;
+      v166[0] = 0;
+      v166[1] = 0;
+      v165 = 0;
+      memset(&v163, 0, sizeof(v163));
+      LOWORD(v164) = 0;
+      v167 = 3212836864;
+      v168 = -1;
+      v169 = 0u;
+      v170 = 0u;
       v171 = 0u;
-      v172 = 0u;
-      v173 = 0u;
-      v174 = 0;
-      v175 = -1;
-      std::string::operator=(&v165, (*(v94 + 48) & 0xFFFFFFFFFFFFFFFELL));
-      std::string::operator=(&v171, (*(v94 + 56) & 0xFFFFFFFFFFFFFFFELL));
-      v170 = *(v94 + 64);
+      v172 = 0;
+      v173 = -1;
+      std::string::operator=(&v163, (*(v94 + 48) & 0xFFFFFFFFFFFFFFFELL));
+      std::string::operator=(&v169, (*(v94 + 56) & 0xFFFFFFFFFFFFFFFELL));
+      v168 = *(v94 + 64);
       v95 = *(v94 + 68);
-      v175 = v95;
-      LOBYTE(v166) = 1;
+      v173 = v95;
+      LOBYTE(v164) = 1;
       v96 = (v124 - v123) >> 3;
       if (v96 <= v90)
       {
@@ -7089,39 +8105,39 @@ LABEL_168:
       }
 
       v103 = *(v4 + 200) + 136 * v90;
-      LODWORD(v169) = *(v103 + 56);
+      LODWORD(v167) = *(v103 + 56);
       if (v92)
       {
-        HIDWORD(v169) = *(v103 + 60);
-        *(&v172 + 1) = *(v103 + 96);
-        if (&v165 != v103)
+        HIDWORD(v167) = *(v103 + 60);
+        *(&v170 + 1) = *(v103 + 96);
+        if (&v163 != v103)
         {
-          std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(&v167, *(v103 + 32), *(v103 + 40), (*(v103 + 40) - *(v103 + 32)) >> 2);
+          std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(&v165, *(v103 + 32), *(v103 + 40), (*(v103 + 40) - *(v103 + 32)) >> 2);
         }
       }
 
 LABEL_179:
-      std::vector<quasar::TranslationTokenInternal>::push_back[abi:ne200100](&v135, &v165);
-      if (v173)
+      std::vector<quasar::TranslationTokenInternal>::push_back[abi:ne200100](&v135, &v163);
+      if (v171)
       {
-        *(&v173 + 1) = v173;
-        operator delete(v173);
-      }
-
-      if (SBYTE7(v172) < 0)
-      {
+        *(&v171 + 1) = v171;
         operator delete(v171);
       }
 
-      if (v167)
+      if (SBYTE7(v170) < 0)
       {
-        v168[0] = v167;
-        operator delete(v167);
+        operator delete(v169);
       }
 
-      if (SHIBYTE(v165.__r_.__value_.__r.__words[2]) < 0)
+      if (v165)
       {
-        operator delete(v165.__r_.__value_.__l.__data_);
+        v166[0] = v165;
+        operator delete(v165);
+      }
+
+      if (SHIBYTE(v163.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v163.__r_.__value_.__l.__data_);
       }
 
       v92 = 0;
@@ -7201,19 +8217,19 @@ LABEL_174:
 
     if (*(v133[0].__r_.__value_.__r.__words + 1) == 1000.0)
     {
-      LODWORD(v169) = 1148846080;
+      LODWORD(v167) = 1148846080;
     }
 
     else
     {
-      LODWORD(v169) = -1082130432;
+      LODWORD(v167) = -1082130432;
       v91 |= *(v133[0].__r_.__value_.__r.__words + 1) != -1.0;
     }
 
     goto LABEL_179;
   }
 
-  v87 = a1 + *(*a1 - 24);
+  v87 = (a1 + *(*a1 - 24));
 
   quasar::ProcessingBlock::send(v87, a3, 0);
 }
@@ -7231,11 +8247,25 @@ void sub_1B524A608(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     operator delete(a14);
   }
 
-  quasar::PTree::~PTree(&a71);
+  quasar::PTree::~PTree(&a65);
   JUMPOUT(0x1B524A9B0);
 }
 
-void sub_1B524A658(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1B524A628(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
+  sentencepiece::util::Status::~Status(va);
+  JUMPOUT(0x1B524A8FCLL);
+}
+
+void sub_1B524A638(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
+  sentencepiece::util::Status::~Status(va);
+  JUMPOUT(0x1B524A960);
+}
+
+void sub_1B524A658(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   if (a34 < 0)
   {
@@ -7255,8 +8285,8 @@ void sub_1B524A658(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(STACK[0x348]);
   }
 
-  a68 = &STACK[0x328];
-  std::vector<quasar::TranslationPhraseInternal>::__destroy_vector::operator()[abi:ne200100](&a68);
+  a65 = &STACK[0x328];
+  std::vector<quasar::TranslationPhraseInternal>::__destroy_vector::operator()[abi:ne200100](&a65);
   _Unwind_Resume(a1);
 }
 
@@ -7359,7 +8389,7 @@ void sub_1B524A9AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x1B524AA28);
 }
 
-uint64_t std::vector<quasar::TranslationTokenInternal>::push_back[abi:ne200100](uint64_t *a1, const quasar::TranslationTokenInternal *a2)
+uint64_t std::vector<quasar::TranslationTokenInternal>::push_back[abi:ne200100](void *a1, const quasar::TranslationTokenInternal *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -7649,176 +8679,176 @@ void sub_1B524B370(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t quasar::OptionValue<double>::debugInfo(uint64_t a1)
 {
-  v2 = quasar::OptionValue<BOOL>::fallback(a1);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v33);
-  v3 = *(a1 + 31);
-  if (v3 >= 0)
+  v3 = quasar::OptionValue<BOOL>::fallback(a1);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v34);
+  v4 = *(a1 + 31);
+  if (v4 >= 0)
   {
-    v4 = a1 + 8;
+    v5 = a1 + 8;
   }
 
   else
   {
-    v4 = *(a1 + 8);
+    v5 = *(a1 + 8);
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(a1 + 31);
+    v6 = *(a1 + 31);
   }
 
   else
   {
-    v5 = *(a1 + 16);
+    v6 = *(a1 + 16);
   }
 
-  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, v4, v5);
-  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, ": ", 2);
-  v8 = MEMORY[0x1B8C84BE0](v7, *(v2 + 104));
-  v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, " (", 2);
-  v12 = *(v2 + 32);
-  v11 = v2 + 32;
-  v10 = v12;
-  v13 = *(v11 + 23);
-  if (v13 >= 0)
+  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, v5, v6);
+  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ": ", 2);
+  v9 = MEMORY[0x1B8C84BE0](v8, *(v3 + 104));
+  v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " (", 2);
+  v13 = *(v3 + 32);
+  v12 = v3 + 32;
+  v11 = v13;
+  v14 = *(v12 + 23);
+  if (v14 >= 0)
   {
-    v14 = v11;
+    v15 = v12;
   }
 
   else
   {
-    v14 = v10;
+    v15 = v11;
   }
 
-  if (v13 >= 0)
+  if (v14 >= 0)
   {
-    v15 = *(v11 + 23);
+    v16 = *(v12 + 23);
   }
 
   else
   {
-    v15 = *(v11 + 8);
+    v16 = *(v12 + 8);
   }
 
-  v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v14, v15);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, ")", 1);
+  v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, v15, v16);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, ")", 1);
   if (*(a1 + 136))
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, " overrides: [", 13);
-    v17 = *(a1 + 120);
-    v18 = (a1 + 128);
-    if (v17 != (a1 + 128))
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, " overrides: [", 13);
+    v18 = *(a1 + 120);
+    v19 = (a1 + 128);
+    if (v18 != (a1 + 128))
     {
       do
       {
-        v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "", 1);
-        v20 = *(v17 + 55);
-        if (v20 >= 0)
+        v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "", 1);
+        v21 = *(v18 + 55);
+        if (v21 >= 0)
         {
-          v21 = (v17 + 4);
+          v22 = (v18 + 4);
         }
 
         else
         {
-          v21 = *(v17 + 4);
+          v22 = *(v18 + 4);
         }
 
-        if (v20 >= 0)
+        if (v21 >= 0)
         {
-          v22 = *(v17 + 55);
+          v23 = *(v18 + 55);
         }
 
         else
         {
-          v22 = *(v17 + 5);
+          v23 = *(v18 + 5);
         }
 
-        v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, v21, v22);
-        v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, ": ", 3);
-        MEMORY[0x1B8C84BE0](v24, v17[7]);
-        v25 = *v18;
-        v26 = (a1 + 128);
-        if (*v18)
+        v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, v22, v23);
+        v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, ": ", 3);
+        MEMORY[0x1B8C84BE0](v25, v18[7]);
+        v26 = *v19;
+        v27 = (a1 + 128);
+        if (*v19)
         {
           do
           {
-            v27 = v25;
-            v25 = *(v25 + 1);
+            v28 = v26;
+            v26 = *(v26 + 1);
           }
 
-          while (v25);
+          while (v26);
         }
 
         else
         {
           do
           {
-            v27 = *(v26 + 2);
-            v28 = *v27 == v26;
-            v26 = v27;
-          }
-
-          while (v28);
-        }
-
-        if (v17 != v27)
-        {
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, ", ", 2);
-        }
-
-        v29 = *(v17 + 1);
-        if (v29)
-        {
-          do
-          {
-            v30 = v29;
-            v29 = *v29;
+            v28 = *(v27 + 2);
+            v29 = *v28 == v27;
+            v27 = v28;
           }
 
           while (v29);
         }
 
+        if (v18 != v28)
+        {
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, ", ", 2);
+        }
+
+        v30 = *(v18 + 1);
+        if (v30)
+        {
+          do
+          {
+            v31 = v30;
+            v30 = *v30;
+          }
+
+          while (v30);
+        }
+
         else
         {
           do
           {
-            v30 = *(v17 + 2);
-            v28 = *v30 == v17;
-            v17 = v30;
+            v31 = *(v18 + 2);
+            v29 = *v31 == v18;
+            v18 = v31;
           }
 
-          while (!v28);
+          while (!v29);
         }
 
-        v17 = v30;
+        v18 = v31;
       }
 
-      while (v30 != v18);
+      while (v31 != v19);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "]", 1);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v35, "]", 1);
   }
 
   std::stringbuf::str();
-  v33[0] = *MEMORY[0x1E69E54D8];
-  v31 = *(MEMORY[0x1E69E54D8] + 72);
-  *(v33 + *(v33[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
-  v34 = v31;
-  v35 = MEMORY[0x1E69E5548] + 16;
-  if (v37 < 0)
+  v34[0] = *MEMORY[0x1E69E54D8];
+  v32 = *(MEMORY[0x1E69E54D8] + 72);
+  *(v34 + *(v34[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+  v35 = v32;
+  v36 = MEMORY[0x1E69E5548] + 16;
+  if (v38 < 0)
   {
-    operator delete(v36[7].__locale_);
+    operator delete(v37[7].__locale_);
   }
 
-  v35 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v36);
+  v36 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v37);
   std::iostream::~basic_iostream();
-  return MEMORY[0x1B8C85200](&v38);
+  return MEMORY[0x1B8C85200](&v39);
 }
 
-void sub_1B524B6D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B524B6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -7827,7 +8857,7 @@ void quasar::OptionValue<double>::addOverride(uint64_t a1, uint64_t a2, uint64_t
 {
   v4 = a2;
   v5 = a3;
-  quasar::PTree::getOptional<double>(a4, a1 + 8);
+  quasar::PTree::getOptional<double>(a4, (a1 + 8));
 }
 
 void sub_1B524B808(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void **__p, uint64_t a13)
@@ -7887,18 +8917,18 @@ uint64_t std::__shared_ptr_pointer<sentencepiece::SentencePieceProcessor *,std::
   }
 }
 
-void *std::set<std::string>::set[abi:ne200100](void *a1, const void **a2, uint64_t a3)
+uint64_t std::set<std::string>::set[abi:ne200100](uint64_t a1, const void **a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = (a1 + 1);
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = a1 + 8;
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a3)
   {
     v6 = 24 * a3;
     do
     {
-      std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(a1, v4, a2);
+      std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(a1, v4, a2, a2);
       a2 += 3;
       v6 -= 24;
     }
@@ -7932,7 +8962,7 @@ uint64_t quasar::OptionValue<double>::value(void *a1)
             v9 = std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::find<std::string>((a1 + 15), v7);
             if (a1 + 16 != v9)
             {
-              v2 = v9 + 56;
+              v2 = (v9 + 7);
             }
           }
         }
@@ -7945,38 +8975,38 @@ uint64_t quasar::OptionValue<double>::value(void *a1)
   return v2;
 }
 
-uint64_t kaldi::CuWorkspace::GetMatrix<float>@<X0>(void *a1@<X0>, uint64_t a2@<X1>, unsigned int a3@<W2>, int a4@<W3>, uint64_t a5@<X8>)
+void kaldi::CuWorkspace::GetMatrix<float>(void *a1@<X0>, uint64_t a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>, int a5@<W3>)
 {
   v7 = a3 * a2;
   if (a1[8] < (4 * v7))
   {
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(v17);
-    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "Failed to create a ", 19);
-    v11 = MEMORY[0x1B8C84C00](v10, a2);
-    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, " by ", 4);
-    v13 = MEMORY[0x1B8C84C00](v12, a3);
-    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, " matrix with only ", 18);
-    v15 = MEMORY[0x1B8C84C60](v14, a1[8]);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v15, " bytes available in the workspace");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v17);
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(v16);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, "Failed to create a ", 19);
+    v10 = MEMORY[0x1B8C84C00](v9, a2);
+    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, " by ", 4);
+    v12 = MEMORY[0x1B8C84C00](v11, a3);
+    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, " matrix with only ", 18);
+    v14 = MEMORY[0x1B8C84C60](v13, a1[8]);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v14, " bytes available in the workspace");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v16);
   }
 
-  kaldi::CuWorkspace::GetVector<float>(a1, v7, a4, v17);
-  return kaldi::CuSubMatrix<float>::CuSubMatrix(a5, v17, a2);
+  kaldi::CuWorkspace::GetVector<float>(a1, v7, a5, v16);
+  kaldi::CuSubMatrix<float>::CuSubMatrix(a4, v16, a2);
 }
 
-void *kaldi::CuWorkspace::GetVector<float>@<X0>(void *a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, void *a4@<X8>)
+void kaldi::CuWorkspace::GetVector<float>(void *a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, void *a4@<X8>)
 {
   v6 = 4 * a2;
   if (v6 > a1[8])
   {
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(v14);
-    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "Failed to create a vector of ", 29);
-    v11 = MEMORY[0x1B8C84C00](v10, a2);
-    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, " elements with only ", 20);
-    v13 = MEMORY[0x1B8C84C60](v12, a1[8]);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v13, " bytes available in the workspace");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v14);
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(v13);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, "Failed to create a vector of ", 29);
+    v10 = MEMORY[0x1B8C84C00](v9, a2);
+    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, " elements with only ", 20);
+    v12 = MEMORY[0x1B8C84C60](v11, a1[8]);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v12, " bytes available in the workspace");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v13);
   }
 
   v7 = a1[1];
@@ -7990,10 +9020,9 @@ void *kaldi::CuWorkspace::GetVector<float>@<X0>(void *a1@<X0>, uint64_t a2@<X1>,
     kaldi::CuVectorBase<float>::SetZero(a4);
   }
 
-  result = std::deque<char *>::push_back(a1 + 2, a1 + 1);
+  std::deque<char *>::push_back(a1 + 2, a1 + 1);
   a1[1] += v6;
   a1[8] -= v6;
-  return result;
 }
 
 void sub_1B524BDE0(_Unwind_Exception *a1)
@@ -8016,7 +9045,7 @@ kaldi::CuWorkspace *kaldi::CuWorkspace::CuWorkspace(kaldi::CuWorkspace *this, si
   return this;
 }
 
-void *kaldi::CuWorkspace::Allocate(kaldi::CuWorkspace *this, size_t a2)
+void kaldi::CuWorkspace::Allocate(kaldi::CuWorkspace *this, size_t a2)
 {
   if ((a2 & 0x8000000000000000) != 0)
   {
@@ -8027,10 +9056,9 @@ void *kaldi::CuWorkspace::Allocate(kaldi::CuWorkspace *this, size_t a2)
 
   kaldi::CuWorkspace::Destroy(this);
   *(this + 8) = a2;
-  result = malloc_type_malloc(a2, 0x100004077774924uLL);
-  *this = result;
-  *(this + 1) = result;
-  return result;
+  v4 = malloc_type_malloc(a2, 0x100004077774924uLL);
+  *this = v4;
+  *(this + 1) = v4;
 }
 
 void kaldi::CuWorkspace::Destroy(kaldi::CuWorkspace *this)
@@ -8094,9 +9122,8 @@ void kaldi::CuWorkspace::GetChildWorkspace(kaldi::CuWorkspace *this, uint64_t a2
   kaldi::KaldiErrorMessage::~KaldiErrorMessage(v8);
 }
 
-void *std::deque<char *>::push_back(void *result, void *a2)
+void std::deque<char *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -8113,30 +9140,29 @@ void *std::deque<char *>::push_back(void *result, void *a2)
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<char *>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<char *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<char *>::__add_back_capacity(void *a1)
+void std::deque<char *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -8144,25 +9170,25 @@ void *std::deque<char *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>::emplace_back<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>::emplace_back<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **&>(a1, &v9);
 }
 
 void sub_1B524C2C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -8387,26 +9413,26 @@ LABEL_28:
   }
 }
 
-void sub_1B524E394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B524E394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   quasar::QuasarDebugMessage::~QuasarDebugMessage(va);
-  v5 = *v3;
-  if (*v3)
+  v7 = *v5;
+  if (*v5)
   {
-    *(v3 + 8) = v5;
-    operator delete(v5);
+    *(v5 + 8) = v7;
+    operator delete(v7);
   }
 
   _Unwind_Resume(a1);
 }
 
-void quasar::EndpointConfigHelper::initModels(uint64_t a1, kaldi::nnet1::Nnet *a2, int a3)
+void quasar::EndpointConfigHelper::initModels(uint64_t **a1, kaldi::nnet1::Nnet *a2, int a3)
 {
   v3 = *(a1 + 23);
   if ((v3 & 0x80u) != 0)
   {
-    v3 = *(a1 + 8);
+    v3 = a1[1];
   }
 
   if (!v3)
@@ -8435,7 +9461,7 @@ void quasar::EndpointConfigHelper::initModels(uint64_t a1, kaldi::nnet1::Nnet *a
 
   if (a3)
   {
-    fst::FstReadOptions::FstReadOptions(__p, a1, 0, 0, 0);
+    fst::FstReadOptions::FstReadOptions(__p);
     LODWORD(v13) = 2;
     kaldi::nnet1::Nnet::ReadMapped(a2, __p);
   }
@@ -8480,7 +9506,7 @@ void quasar::EndpointConfigHelper::initModels(uint64_t a1, kaldi::nnet1::Nnet *a
 
     else
     {
-      v9 = *(a1 + 8);
+      v9 = a1[1];
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v8, v9);
@@ -8892,1132 +9918,4 @@ LABEL_85:
 
   *&v38 = &v55;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v38);
-}
-
-void sub_1B524EB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
-{
-  a9 = (v9 - 112);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a9);
-  _Unwind_Resume(a1);
-}
-
-void sub_1B524F1A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45)
-{
-  if (a19 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Block_object_dispose(&a30, 8);
-  _Block_object_dispose(&a34, 8);
-
-  _Block_object_dispose(&a40, 8);
-  _Block_object_dispose((v46 - 256), 8);
-
-  _Block_object_dispose((v46 - 208), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1B524F594(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1B524F6B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-const void **std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, const void **a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-_DWORD *kaldi::quasar::ConfidenceFeatureExtractor<std::string>::ConfidenceFeatureExtractor(_DWORD *a1, int a2, std::string **a3, int a4, uint64_t a5, float a6)
-{
-  v9 = a1;
-  v97 = *MEMORY[0x1E69E9840];
-  *a1 = a2;
-  std::unordered_map<std::string,float>::unordered_map((a1 + 2), a5);
-  *(v9 + 12) = a6;
-  std::string::basic_string[abi:ne200100]<0>(&v83, "token_post_in_cnet_slot");
-  std::string::basic_string[abi:ne200100]<0>(v86, "max_post_in_cnet_slot");
-  std::string::basic_string[abi:ne200100]<0>(v87, "secondmax_post_in_cnet_slot");
-  std::string::basic_string[abi:ne200100]<0>(v88, "num_arcs_in_cnet_slot");
-  std::string::basic_string[abi:ne200100]<0>(v89, "logpost");
-  std::string::basic_string[abi:ne200100]<0>(v90, "avg_loglike");
-  std::string::basic_string[abi:ne200100]<0>(v91, "hyp_len");
-  std::string::basic_string[abi:ne200100]<0>(v92, "token_pos_in_hyp");
-  std::string::basic_string[abi:ne200100]<0>(v93, "token_freq");
-  std::string::basic_string[abi:ne200100]<0>(v94, "token_logfreq");
-  std::string::basic_string[abi:ne200100]<0>(v95, "num_frames");
-  std::string::basic_string[abi:ne200100]<0>(v96, "spk_rate");
-  *(v9 + 7) = 0;
-  *(v9 + 8) = 0;
-  *(v9 + 9) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>((v9 + 14), &v83, &v97, 0xCuLL);
-  v10 = 36;
-  do
-  {
-    if (*(&v83 + 8 * v10 - 1) < 0)
-    {
-      operator delete((&v80)[v10]);
-    }
-
-    v10 -= 3;
-  }
-
-  while (v10 * 8);
-  *(v9 + 40) = 0;
-  if (a4 < 0)
-  {
-    a4 = *v9;
-  }
-
-  else if (!a4 || *v9 < a4)
-  {
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v83);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v83, "(num_hyps_out > 0) && (num_hyps_out <= num_hyps_in_)", 52);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v83);
-  }
-
-  v9[1] = a4;
-  v12 = *a3;
-  v11 = a3[1];
-  if (v11 == *a3)
-  {
-    if (*(v9 + 4))
-    {
-      goto LABEL_64;
-    }
-
-    v27 = (v9 + 14);
-    v83 = 0;
-    v84 = 0;
-    v85 = 0;
-    v29 = *(v9 + 7);
-    v28 = *(v9 + 8);
-    if (v28 == v29)
-    {
-LABEL_61:
-      if (v27 != &v83)
-      {
-        std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>(v27, v83, v84, 0xAAAAAAAAAAAAAAABLL * ((v84 - v83) >> 3));
-      }
-
-      v80 = &v83;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v80);
-      goto LABEL_64;
-    }
-
-    v30 = 0;
-    v31 = 0;
-    while (1)
-    {
-      v32 = (v29 + v30);
-      if (*(v29 + v30 + 23) < 0)
-      {
-        if (*(v32 + 1) == 10 && **v32 == 0x72665F6E656B6F74 && *(*v32 + 8) == 29029)
-        {
-          goto LABEL_60;
-        }
-
-        if (*(v32 + 1) == 13)
-        {
-          v33 = *v32;
-LABEL_49:
-          v35 = *v33;
-          v36 = *(v33 + 5);
-          if (v35 == 0x6F6C5F6E656B6F74 && v36 == 0x71657266676F6C5FLL)
-          {
-            goto LABEL_60;
-          }
-        }
-      }
-
-      else if (*(v29 + v30 + 23) == 10)
-      {
-        if (*v32 == 0x72665F6E656B6F74 && *(v32 + 4) == 29029)
-        {
-          goto LABEL_60;
-        }
-      }
-
-      else
-      {
-        v33 = (v29 + v30);
-        if (*(v29 + v30 + 23) == 13)
-        {
-          goto LABEL_49;
-        }
-      }
-
-      std::vector<std::string>::push_back[abi:ne200100](&v83, v32);
-      v29 = *(v9 + 7);
-      v28 = *(v9 + 8);
-LABEL_60:
-      ++v31;
-      v30 += 24;
-      if (0xAAAAAAAAAAAAAAABLL * ((v28 - v29) >> 3) <= v31)
-      {
-        goto LABEL_61;
-      }
-    }
-  }
-
-  v76 = a3[1];
-  v77 = a3;
-  v78 = v9;
-  v79 = (v9 + 14);
-  v13 = 0;
-  v14 = (v11 - *a3) >> 3;
-  v15 = 0xAAAAAAAAAAAAAAABLL * v14;
-  v17 = *(v9 + 7);
-  v16 = *(v9 + 8);
-  if (0xAAAAAAAAAAAAAAABLL * v14 <= 1)
-  {
-    v18 = 1;
-  }
-
-  else
-  {
-    v18 = 0xAAAAAAAAAAAAAAABLL * v14;
-  }
-
-  do
-  {
-    v19 = v17;
-    if (v17 != v16)
-    {
-      v20 = &v12[v13];
-      v21 = HIBYTE(v20->__r_.__value_.__r.__words[2]);
-      if (v21 >= 0)
-      {
-        size = HIBYTE(v20->__r_.__value_.__r.__words[2]);
-      }
-
-      else
-      {
-        size = v20->__r_.__value_.__l.__size_;
-      }
-
-      if (v21 >= 0)
-      {
-        v23 = &v12[v13];
-      }
-
-      else
-      {
-        v23 = v20->__r_.__value_.__r.__words[0];
-      }
-
-      v19 = v17;
-      while (1)
-      {
-        v24 = *(v19 + 23);
-        v25 = v24;
-        if ((v24 & 0x80u) != 0)
-        {
-          v24 = *(v19 + 8);
-        }
-
-        if (v24 == size)
-        {
-          v26 = v25 >= 0 ? v19 : *v19;
-          if (!memcmp(v26, v23, size))
-          {
-            break;
-          }
-        }
-
-        v19 += 24;
-        if (v19 == v16)
-        {
-          goto LABEL_146;
-        }
-      }
-    }
-
-    if (v19 == v16)
-    {
-LABEL_146:
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v83);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v83, "std::find(feature_list_.begin(), feature_list_.end(), feature_list[i]) != feature_list_.end() && Unknown feature provided in the feature list", 143);
-      kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v83);
-    }
-
-    ++v13;
-  }
-
-  while (v13 != v18);
-  v9 = v78;
-  if (v79 != v77)
-  {
-    std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>(v79, v12, v76, v15);
-  }
-
-LABEL_64:
-  v39 = *(v9 + 7);
-  v40 = *(v9 + 8);
-  v41 = v39;
-  if (v39 != v40)
-  {
-    v42 = *(v9 + 7);
-    while (1)
-    {
-      v43 = *(v42 + 23);
-      if (v43 < 0)
-      {
-        if (v42[1] != 10)
-        {
-          goto LABEL_75;
-        }
-
-        v44 = *v42;
-      }
-
-      else
-      {
-        v44 = v42;
-        if (v43 != 10)
-        {
-          goto LABEL_75;
-        }
-      }
-
-      v45 = *v44;
-      v46 = *(v44 + 4);
-      if (v45 == 0x72665F6E656B6F74 && v46 == 29029)
-      {
-        if (v42 != v40)
-        {
-          goto LABEL_91;
-        }
-
-LABEL_76:
-        v41 = *(v9 + 7);
-        while (2)
-        {
-          v48 = *(v41 + 23);
-          if (v48 < 0)
-          {
-            if (*(v41 + 8) != 13)
-            {
-              goto LABEL_86;
-            }
-
-            v49 = *v41;
-          }
-
-          else
-          {
-            v49 = v41;
-            if (v48 != 13)
-            {
-LABEL_86:
-              v41 += 24;
-              if (v41 == v40)
-              {
-                goto LABEL_92;
-              }
-
-              continue;
-            }
-          }
-
-          break;
-        }
-
-        v50 = *v49;
-        v51 = *(v49 + 5);
-        if (v50 == 0x6F6C5F6E656B6F74 && v51 == 0x71657266676F6C5FLL)
-        {
-          break;
-        }
-
-        goto LABEL_86;
-      }
-
-LABEL_75:
-      v42 += 3;
-      if (v42 == v40)
-      {
-        goto LABEL_76;
-      }
-    }
-  }
-
-  if (v41 != v40)
-  {
-LABEL_91:
-    if (!*(v9 + 4))
-    {
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(&v83);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v83, "token_unigram_frequencies_.size() > 0", 37);
-      kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v83);
-    }
-  }
-
-LABEL_92:
-  if (v39 != v40)
-  {
-    v53 = *(v9 + 7);
-    while (1)
-    {
-      v54 = *(v53 + 23);
-      if (v54 < 0)
-      {
-        if (v53[1] != 10)
-        {
-          goto LABEL_103;
-        }
-
-        v55 = *v53;
-      }
-
-      else
-      {
-        v55 = v53;
-        if (v54 != 10)
-        {
-          goto LABEL_103;
-        }
-      }
-
-      v56 = *v55;
-      v57 = *(v55 + 4);
-      if (v56 == 0x6D6172665F6D756ELL && v57 == 29541)
-      {
-        if (v53 != v40)
-        {
-LABEL_115:
-          *(v9 + 80) = 1;
-          goto LABEL_116;
-        }
-
-LABEL_104:
-        v59 = *(v39 + 23);
-        if (v59 < 0)
-        {
-          if (*(v39 + 8) != 8)
-          {
-            goto LABEL_110;
-          }
-
-          v60 = *v39;
-        }
-
-        else
-        {
-          v60 = v39;
-          if (v59 != 8)
-          {
-            goto LABEL_110;
-          }
-        }
-
-        if (*v60 == 0x657461725F6B7073)
-        {
-          break;
-        }
-
-LABEL_110:
-        v39 += 24;
-        if (v39 == v40)
-        {
-          goto LABEL_116;
-        }
-
-        goto LABEL_104;
-      }
-
-LABEL_103:
-      v53 += 3;
-      if (v53 == v40)
-      {
-        goto LABEL_104;
-      }
-    }
-  }
-
-  if (v39 != v40)
-  {
-    goto LABEL_115;
-  }
-
-LABEL_116:
-  std::string::basic_string[abi:ne200100]<0>(&v83, "token_post_in_cnet_slot");
-  std::string::basic_string[abi:ne200100]<0>(v86, "max_post_in_cnet_slot");
-  std::string::basic_string[abi:ne200100]<0>(v87, "secondmax_post_in_cnet_slot");
-  std::string::basic_string[abi:ne200100]<0>(v88, "num_arcs_in_cnet_slot");
-  v80 = 0;
-  v81 = 0;
-  v82 = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v80, &v83, v89, 4uLL);
-  for (i = 0; i != -96; i -= 24)
-  {
-    if (v88[i + 23] < 0)
-    {
-      operator delete(*&v88[i]);
-    }
-  }
-
-  v62 = v80;
-  if (v81 != v80)
-  {
-    v63 = 0;
-    v64 = *(v9 + 7);
-    v65 = *(v9 + 8);
-    if (0xAAAAAAAAAAAAAAABLL * (v81 - v80) <= 1)
-    {
-      v66 = 1;
-    }
-
-    else
-    {
-      v66 = 0xAAAAAAAAAAAAAAABLL * (v81 - v80);
-    }
-
-    while (1)
-    {
-      v67 = v64;
-      if (v64 != v65)
-      {
-        v68 = &v62[3 * v63];
-        v69 = *(v68 + 23);
-        if (v69 >= 0)
-        {
-          v70 = *(v68 + 23);
-        }
-
-        else
-        {
-          v70 = v68[1];
-        }
-
-        if (v69 >= 0)
-        {
-          v71 = &v62[3 * v63];
-        }
-
-        else
-        {
-          v71 = *v68;
-        }
-
-        v67 = v64;
-        while (1)
-        {
-          v72 = *(v67 + 23);
-          v73 = v72;
-          if ((v72 & 0x80u) != 0)
-          {
-            v72 = *(v67 + 8);
-          }
-
-          if (v72 == v70)
-          {
-            v74 = v73 >= 0 ? v67 : *v67;
-            if (!memcmp(v74, v71, v70))
-            {
-              break;
-            }
-          }
-
-          v67 += 24;
-          if (v67 == v65)
-          {
-            goto LABEL_142;
-          }
-        }
-      }
-
-      if (v67 != v65)
-      {
-        break;
-      }
-
-LABEL_142:
-      if (++v63 == v66)
-      {
-        goto LABEL_145;
-      }
-    }
-
-    *(v9 + 81) = 1;
-  }
-
-LABEL_145:
-  v83 = &v80;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v83);
-  return v9;
-}
-
-void sub_1B52502D4(void *a1, int a2)
-{
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
-  JUMPOUT(0x1B5250308);
-}
-
-void kaldi::quasar::ConfidenceFeatureExtractor<std::string>::GetConfidenceFeaturesFromNBest(uint64_t a1, uint64_t *a2, uint64_t *a3, int a4, uint64_t *a5)
-{
-  v82 = *MEMORY[0x1E69E9840];
-  v66 = a4;
-  v5 = 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3);
-  if (v5 != *a1)
-  {
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v78);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(&v78, "nbest_hyps.size() == num_hyps_in_");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v78);
-  }
-
-  if (v5 != (a3[1] - *a3) >> 2)
-  {
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v78);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(&v78, "nbest_loglikes.size() == num_hyps_in_");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v78);
-  }
-
-  if (a4 <= 0 && (*(a1 + 80) & 1) != 0)
-  {
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v78);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(&v78, "num_frames > 0");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v78);
-  }
-
-  v10 = *a5;
-    ;
-  }
-
-  a5[1] = v10;
-  if (*(a1 + 4) >= 1)
-  {
-    v11 = 0;
-    v12 = 0;
-    do
-    {
-      kaldi::Matrix<float>::Matrix(&v78, -1431655765 * ((*(*a2 + v11 + 8) - *(*a2 + v11)) >> 3), -1431655765 * ((*(a1 + 64) - *(a1 + 56)) >> 3), 0, 0);
-      v13 = a5[1];
-      if (v13 >= a5[2])
-      {
-        v14 = std::vector<kaldi::Matrix<float>>::__emplace_back_slow_path<kaldi::Matrix<float>>(a5, &v78);
-      }
-
-      else
-      {
-        kaldi::Matrix<float>::Matrix(a5[1], &v78);
-        v14 = v13 + 40;
-        a5[1] = v13 + 40;
-      }
-
-      a5[1] = v14;
-      kaldi::Matrix<float>::~Matrix(&v78);
-      ++v12;
-      v11 += 24;
-    }
-
-    while (v12 < *(a1 + 4));
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "hyp_len");
-  v78 = &unk_1F2D08068;
-  v79 = a2;
-  v81 = &v78;
-  kaldi::quasar::ConfidenceFeatureExtractor<std::string>::ExtractFeature(a1, &__p, &v78, a2, a5);
-  std::__function::__value_func<float ()(int,int)>::~__value_func[abi:ne200100](&v78);
-  if (v71 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "token_pos_in_hyp");
-  v78 = &unk_1F2D080F8;
-  v81 = &v78;
-  kaldi::quasar::ConfidenceFeatureExtractor<std::string>::ExtractFeature(a1, &__p, &v78, a2, a5);
-  std::__function::__value_func<float ()(int,int)>::~__value_func[abi:ne200100](&v78);
-  if (v71 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "token_freq");
-  v78 = &unk_1F2D08178;
-  v79 = a1;
-  v80 = a2;
-  v81 = &v78;
-  kaldi::quasar::ConfidenceFeatureExtractor<std::string>::ExtractFeature(a1, &__p, &v78, a2, a5);
-  std::__function::__value_func<float ()(int,int)>::~__value_func[abi:ne200100](&v78);
-  if (v71 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "token_logfreq");
-  v78 = &unk_1F2D081F8;
-  v79 = a1;
-  v80 = a2;
-  v81 = &v78;
-  kaldi::quasar::ConfidenceFeatureExtractor<std::string>::ExtractFeature(a1, &__p, &v78, a2, a5);
-  std::__function::__value_func<float ()(int,int)>::~__value_func[abi:ne200100](&v78);
-  if (v71 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "num_frames");
-  v78 = &unk_1F2D08278;
-  v79 = &v66;
-  v81 = &v78;
-  kaldi::quasar::ConfidenceFeatureExtractor<std::string>::ExtractFeature(a1, &__p, &v78, a2, a5);
-  std::__function::__value_func<float ()(int,int)>::~__value_func[abi:ne200100](&v78);
-  if (v71 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "spk_rate");
-  v78 = &unk_1F2D082F8;
-  v79 = a2;
-  v80 = &v66;
-  v81 = &v78;
-  kaldi::quasar::ConfidenceFeatureExtractor<std::string>::ExtractFeature(a1, &__p, &v78, a2, a5);
-  std::__function::__value_func<float ()(int,int)>::~__value_func[abi:ne200100](&v78);
-  if (v71 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "avg_loglike");
-  v78 = &unk_1F2D08378;
-  v79 = a3;
-  v80 = a2;
-  v81 = &v78;
-  kaldi::quasar::ConfidenceFeatureExtractor<std::string>::ExtractFeature(a1, &__p, &v78, a2, a5);
-  std::__function::__value_func<float ()(int,int)>::~__value_func[abi:ne200100](&v78);
-  if (v71 < 0)
-  {
-    operator delete(__p);
-  }
-
-  v63 = 0;
-  v64 = 0;
-  v65 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v63, *a3, a3[1], (a3[1] - *a3) >> 2);
-  kaldi::quasar::ApplySoftMax(&v63);
-  std::string::basic_string[abi:ne200100]<0>(&__p, "logpost");
-  v78 = &unk_1F2D083F8;
-  v79 = &v63;
-  v81 = &v78;
-  kaldi::quasar::ConfidenceFeatureExtractor<std::string>::ExtractFeature(a1, &__p, &v78, a2, a5);
-  std::__function::__value_func<float ()(int,int)>::~__value_func[abi:ne200100](&v78);
-  if (v71 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (*(a1 + 81) == 1)
-  {
-    v68[0] = &unk_1F2D08478;
-    v68[3] = v68;
-    v67[0] = &unk_1F2D08508;
-    v67[3] = v67;
-    kaldi::quasar::ConfusionNetwork<std::string>::ConfusionNetwork(&__p, a2, &v63, v68, v67);
-    std::__function::__value_func<std::string ()(std::string)>::~__value_func[abi:ne200100](v67);
-    std::__function::__value_func<std::vector<std::string> ()(std::vector<std::string>)>::~__value_func[abi:ne200100](v68);
-    v60 = 0;
-    v61 = 0;
-    v62 = 0;
-    std::vector<kaldi::quasar::ConfusionNetworkSlot<std::string>>::__init_with_size[abi:ne200100]<kaldi::quasar::ConfusionNetworkSlot<std::string>*,kaldi::quasar::ConfusionNetworkSlot<std::string>*>(&v60, v76, v77, 0x2E8BA2E8BA2E8BA3 * ((v77 - v76) >> 4));
-    v15 = *(a1 + 4);
-    v78 = 0;
-    std::vector<unsigned long>::vector[abi:ne200100](v59, v15);
-    v17 = v60;
-    v16 = v61;
-    if (v61 == v60)
-    {
-      goto LABEL_115;
-    }
-
-    v18 = 0;
-    LODWORD(v19) = *(a1 + 4);
-    while (1)
-    {
-      if (v19 < 1)
-      {
-        goto LABEL_114;
-      }
-
-      v20 = 0;
-      do
-      {
-        if ((kaldi::quasar::ConfusionNetworkSlot<std::string>::HasTokenFromSequence(v60 + 176 * v18, v20) & 1) == 0)
-        {
-          goto LABEL_104;
-        }
-
-        if (!kaldi::quasar::ConfusionNetworkSlot<std::string>::HasToken(v60 + 176 * v18, *(*a2 + 24 * v20) + 24 * *(v59[0] + v20)))
-        {
-          kaldi::KaldiWarnMessage::KaldiWarnMessage(&v78);
-          v52 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v78, "Hypothesis token (", 18);
-          v53 = *(*a2 + 24 * v20) + 24 * *(v59[0] + v20);
-          v54 = *(v53 + 23);
-          if (v54 >= 0)
-          {
-            v55 = *(*a2 + 24 * v20) + 24 * *(v59[0] + v20);
-          }
-
-          else
-          {
-            v55 = *v53;
-          }
-
-          if (v54 >= 0)
-          {
-            v56 = *(v53 + 23);
-          }
-
-          else
-          {
-            v56 = *(v53 + 8);
-          }
-
-          v57 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v52, v55, v56);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v57, ") does not match any arc in the confusion network slot", 54);
-          kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v78);
-        }
-
-        v21 = *(a1 + 56);
-        v22 = *(a1 + 64);
-        v23 = v21;
-        if (v21 != v22)
-        {
-          v23 = *(a1 + 56);
-          while (1)
-          {
-            if (*(v23 + 23) < 0 && *(v23 + 8) == 23)
-            {
-              v24 = **v23 == 0x6F705F6E656B6F74 && *(*v23 + 8) == 0x6E635F6E695F7473;
-              if (v24 && *(*v23 + 15) == 0x746F6C735F74656ELL)
-              {
-                break;
-              }
-            }
-
-            v23 += 24;
-            if (v23 == v22)
-            {
-              goto LABEL_52;
-            }
-          }
-        }
-
-        if (v23 != v22)
-        {
-          TokenWeight = kaldi::quasar::ConfusionNetworkSlot<std::string>::GetTokenWeight(v60 + 176 * v18, *(*a2 + 24 * v20) + 24 * *(v59[0] + v20));
-          v21 = *(a1 + 56);
-          *(*(*a5 + 40 * v20) + 4 * (*(*a5 + 40 * v20 + 16) * *(v59[0] + v20)) + ((0xAAAAAAAB00000000 * ((v23 - v21) >> 3)) >> 30)) = LODWORD(TokenWeight);
-          v22 = *(a1 + 64);
-        }
-
-LABEL_52:
-        if (v21 == v22)
-        {
-LABEL_67:
-          v36 = 0;
-          v37 = 0;
-          goto LABEL_68;
-        }
-
-        v27 = -v21;
-        v28 = v21;
-        while (1)
-        {
-          v29 = *(v28 + 23);
-          if (v29 < 0)
-          {
-            break;
-          }
-
-          v30 = v28;
-          if (v29 == 21)
-          {
-            goto LABEL_59;
-          }
-
-LABEL_66:
-          v28 += 24;
-          v27 -= 24;
-          if (v28 == v22)
-          {
-            goto LABEL_67;
-          }
-        }
-
-        if (*(v28 + 8) != 21)
-        {
-          goto LABEL_66;
-        }
-
-        v30 = *v28;
-LABEL_59:
-        v31 = *v30;
-        v32 = v30[1];
-        v33 = *(v30 + 13);
-        if (v31 != 0x74736F705F78616DLL || v32 != 0x74656E635F6E695FLL || v33 != 0x746F6C735F74656ELL)
-        {
-          goto LABEL_66;
-        }
-
-        if (v28 == v22)
-        {
-          goto LABEL_67;
-        }
-
-        kaldi::quasar::ConfusionNetworkSlot<std::string>::GetTopWeights(v60 + 176 * v18, 2uLL, &v78, 0.0);
-        v37 = v78;
-        v36 = v79;
-        v21 = *(a1 + 56);
-        *(*(*a5 + 40 * v20) + 4 * (*(*a5 + 40 * v20 + 16) * *(v59[0] + v20)) + ((0xAAAAAAAB00000000 * (-(v21 + v27) >> 3)) >> 30)) = *v78;
-        v22 = *(a1 + 64);
-LABEL_68:
-        if (v21 != v22)
-        {
-          v38 = -v21;
-          v39 = v21;
-          while (1)
-          {
-            if (*(v39 + 23) < 0 && *(v39 + 8) == 27)
-            {
-              v40 = **v39 == 0x616D646E6F636573 && *(*v39 + 8) == 0x695F74736F705F78;
-              v41 = v40 && *(*v39 + 16) == 0x735F74656E635F6ELL;
-              if (v41 && *(*v39 + 19) == 0x746F6C735F74656ELL)
-              {
-                break;
-              }
-            }
-
-            v39 += 24;
-            v38 -= 24;
-            if (v39 == v22)
-            {
-              goto LABEL_83;
-            }
-          }
-
-          if (v39 != v22)
-          {
-            if ((v36 - v37) <= 4)
-            {
-              kaldi::quasar::ConfusionNetworkSlot<std::string>::GetTopWeights(v60 + 176 * v18, 2uLL, &v78, 0.0);
-              if (v37)
-              {
-                operator delete(v37);
-              }
-
-              v37 = v78;
-              v21 = *(a1 + 56);
-              v22 = *(a1 + 64);
-            }
-
-            *(*(*a5 + 40 * v20) + 4 * (*(*a5 + 40 * v20 + 16) * *(v59[0] + v20)) + ((0xAAAAAAAB00000000 * (-(v21 + v38) >> 3)) >> 30)) = *(v37 + 1);
-          }
-        }
-
-LABEL_83:
-        v43 = v21;
-        v44 = v21;
-        if (v21 == v22)
-        {
-          goto LABEL_99;
-        }
-
-        while (2)
-        {
-          v45 = *(v21 + 23);
-          if (v45 < 0)
-          {
-            if (*(v21 + 8) != 21)
-            {
-              goto LABEL_96;
-            }
-
-            v46 = *v21;
-          }
-
-          else
-          {
-            v46 = v21;
-            if (v45 != 21)
-            {
-              goto LABEL_96;
-            }
-          }
-
-          v47 = *v46;
-          v48 = v46[1];
-          v49 = *(v46 + 13);
-          if (v47 == 0x736372615F6D756ELL && v48 == 0x74656E635F6E695FLL && v49 == 0x746F6C735F74656ELL)
-          {
-            goto LABEL_98;
-          }
-
-LABEL_96:
-          v21 += 24;
-          if (v21 != v22)
-          {
-            continue;
-          }
-
-          break;
-        }
-
-        v21 = v22;
-LABEL_98:
-        v44 = v21;
-LABEL_99:
-        if (v22 != v44)
-        {
-          *(*(*a5 + 40 * v20) + 4 * (*(*a5 + 40 * v20 + 16) * *(v59[0] + v20)) + ((0xAAAAAAAB00000000 * ((v44 - v43) >> 3)) >> 30)) = *(v60 + 176 * v18 + 32);
-        }
-
-        if (v37)
-        {
-          operator delete(v37);
-        }
-
-        ++*(v59[0] + v20);
-LABEL_104:
-        ++v20;
-        v19 = *(a1 + 4);
-      }
-
-      while (v20 < v19);
-      v17 = v60;
-      v16 = v61;
-LABEL_114:
-      if (0x2E8BA2E8BA2E8BA3 * ((v16 - v17) >> 4) <= ++v18)
-      {
-LABEL_115:
-        if (v59[0])
-        {
-          v59[1] = v59[0];
-          operator delete(v59[0]);
-        }
-
-        v78 = &v60;
-        std::vector<kaldi::quasar::ConfusionNetworkSlot<std::string>>::__destroy_vector::operator()[abi:ne200100](&v78);
-        v78 = &v76;
-        std::vector<kaldi::quasar::ConfusionNetworkSlot<std::string>>::__destroy_vector::operator()[abi:ne200100](&v78);
-        v78 = &v75;
-        std::vector<std::vector<std::string>>::__destroy_vector::operator()[abi:ne200100](&v78);
-        if (v73)
-        {
-          v74 = v73;
-          operator delete(v73);
-        }
-
-        std::__function::__value_func<std::string ()(std::string)>::~__value_func[abi:ne200100](&v72);
-        std::__function::__value_func<std::vector<std::string> ()(std::vector<std::string>)>::~__value_func[abi:ne200100](&v70);
-        break;
-      }
-    }
-  }
-
-  if (v63)
-  {
-    v64 = v63;
-    operator delete(v63);
-  }
 }

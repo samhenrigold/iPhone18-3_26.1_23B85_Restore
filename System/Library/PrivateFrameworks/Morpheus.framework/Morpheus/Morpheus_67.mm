@@ -1,26 +1,26 @@
-void sub_25A62B208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A62B208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<float,float,true,mlx::core::ScalarVector<mlx::core::detail::Add>>(_DWORD *a1, float *a2, float *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, double a9, void *a10)
+void mlx::core::binary_op_dispatch_dims<float,float,true,mlx::core::ScalarVector<mlx::core::detail::Add>>(_DWORD *a1, float *a2, float *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, double d0_0, void *a9)
 {
   v16 = a4 - 3;
   switch(a4)
   {
     case 3:
 
-      mlx::core::binary_op_dims<float,float,mlx::core::ScalarVector<mlx::core::detail::Add>,3,true>(a1, a2, a3, a6, a7, a8, a10, 0, a9);
+      mlx::core::binary_op_dims<float,float,mlx::core::ScalarVector<mlx::core::detail::Add>,3,true>(a1, a2, a3, a6, a7, a8, a9, 0, d0_0);
       break;
     case 2:
 
-      mlx::core::binary_op_dims<float,float,mlx::core::ScalarVector<mlx::core::detail::Add>,2,true>(a1, a2, a3, a6, a7, a8, a10, 0, a9);
+      mlx::core::binary_op_dims<float,float,mlx::core::ScalarVector<mlx::core::detail::Add>,2,true>(a1, a2, a3, a6, a7, a8, a9, 0, d0_0);
       break;
     case 1:
 
-      mlx::core::binary_op_dims<float,float,mlx::core::ScalarVector<mlx::core::detail::Add>,1,true>(a1, a2, a3, a6, a7, a8, a10, 0, a9);
+      mlx::core::binary_op_dims<float,float,mlx::core::ScalarVector<mlx::core::detail::Add>,1,true>(a1, a2, a3, a6, a7, a8, a9, 0, d0_0);
       break;
     default:
       mlx::core::ContiguousIterator::ContiguousIterator(&v62, a6, a7, a4 - 3);
@@ -29,11 +29,11 @@ void mlx::core::binary_op_dispatch_dims<float,float,true,mlx::core::ScalarVector
       {
         v20 = a5;
         v21 = 0;
-        v54 = *(*a10 + 8 * a4 - 32);
+        v54 = *(*a9 + 8 * a4 - 32);
         v22 = v20;
         do
         {
-          mlx::core::binary_op_dims<float,float,mlx::core::ScalarVector<mlx::core::detail::Add>,3,true>(&a1[v62], &a2[v55], &a3[v21], a6, a7, a8, a10, v16, v19);
+          mlx::core::binary_op_dims<float,float,mlx::core::ScalarVector<mlx::core::detail::Add>,3,true>(&a1[v62], &a2[v55], &a3[v21], a6, a7, a8, a9, v16, v19);
           v23 = v64 - v63;
           v24 = (v64 - v63) >> 2;
           if (v24)
@@ -181,14 +181,14 @@ void mlx::core::binary_op_dispatch_dims<float,float,true,mlx::core::ScalarVector
   }
 }
 
-void sub_25A62B620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A62B620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<float,float,false,mlx::core::detail::Add>(float *a1, float *a2, float *a3, int a4, int a5, int **a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<float,float,false,mlx::core::detail::Add>(float *a1, float *a2, float *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void **a9)
 {
   v12 = a3;
   v13 = a2;
@@ -230,7 +230,7 @@ void mlx::core::binary_op_dispatch_dims<float,float,false,mlx::core::detail::Add
       if (a5 >= 1)
       {
         v22 = 0;
-        v23 = *(*a9 + 8 * a4 - 32);
+        v23 = (*a9)[a4 - 4];
         do
         {
           mlx::core::binary_op_dims<float,float,mlx::core::detail::Add,3,false>(&v14[v62], &v13[v55], &v12[v22], a6, a7, a8, a9, v15);
@@ -381,9 +381,9 @@ void mlx::core::binary_op_dispatch_dims<float,float,false,mlx::core::detail::Add
   }
 }
 
-void sub_25A62BA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A62BA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
@@ -413,7 +413,7 @@ float *mlx::core::binary_op_dims<float,float,mlx::core::VectorVector<mlx::core::
           v19 = &a3[v17];
           v20 = vaddq_f32(*&result[v17 + 4], *&a2[v17 + 4]);
           *v19 = vaddq_f32(*&result[v17], *&a2[v17]);
-          v19[1] = v20;
+          *(v19 + 1) = v20;
           v15 = v18 - 8;
           v17 += 8;
         }
@@ -525,7 +525,7 @@ float *mlx::core::binary_op_dims<float,float,mlx::core::VectorScalar<mlx::core::
           v20 = &a3[v17];
           v21 = vaddq_f32(v18, *&result[v17 + 4]);
           *v20 = vaddq_f32(v18, *&result[v17]);
-          v20[1] = v21;
+          *(v20 + 1) = v21;
           v14 -= 8;
           v17 += 8;
         }
@@ -634,7 +634,7 @@ _DWORD *mlx::core::binary_op_dims<float,float,mlx::core::ScalarVector<mlx::core:
           v20 = &a3[v17];
           v21 = vaddq_f32(v18, *&a2[v17 + 4]);
           *v20 = vaddq_f32(v18, *&a2[v17]);
-          v20[1] = v21;
+          *(v20 + 1) = v21;
           v14 -= 8;
           v17 += 8;
         }
@@ -792,7 +792,7 @@ float *mlx::core::binary_op_dims<float,float,mlx::core::detail::Add,3,false>(flo
 
 void mlx::core::binary_op<double,double,mlx::core::detail::Add>(uint64_t *a1, uint64_t *a2, uint64_t *a3, int a4)
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   v8 = *a1;
   v9 = *(*a1 + 152);
   v10 = *(*a2 + 152);
@@ -802,7 +802,7 @@ void mlx::core::binary_op<double,double,mlx::core::detail::Add>(uint64_t *a1, ui
     if (!a4)
     {
       v11->f64[0] = *v9 + v10->f64[0];
-      goto LABEL_84;
+      return;
     }
 
     if (a4 == 1)
@@ -848,38 +848,38 @@ void mlx::core::binary_op<double,double,mlx::core::detail::Add>(uint64_t *a1, ui
         while (v62 > 1);
       }
 
-      goto LABEL_84;
+      return;
     }
 
 LABEL_13:
-    memset(v76, 0, sizeof(v76));
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v76, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+    memset(v75, 0, sizeof(v75));
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v75, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
     v25 = *a2;
-    memset(v77, 0, sizeof(v77));
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v77, *(v25 + 24), *(v25 + 32), (*(v25 + 32) - *(v25 + 24)) >> 3);
+    memset(v76, 0, sizeof(v76));
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v76, *(v25 + 24), *(v25 + 32), (*(v25 + 32) - *(v25 + 24)) >> 3);
     v26 = *a3;
-    v79[0] = 0;
-    v79[1] = 0;
-    v78 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v78, *(v26 + 24), *(v26 + 32), (*(v26 + 32) - *(v26 + 24)) >> 3);
-    memset(v71, 0, sizeof(v71));
-    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(v71, v76, &v80, 3uLL);
-    mlx::core::collapse_contiguous_dims(v8, v71, 0x7FFFFFFFuLL, &__p);
-    v75 = v71;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v75);
+    v78[0] = 0;
+    v78[1] = 0;
+    v77 = 0;
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v77, *(v26 + 24), *(v26 + 32), (*(v26 + 32) - *(v26 + 24)) >> 3);
+    memset(v70, 0, sizeof(v70));
+    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(v70, v75, &v79, 3uLL);
+    mlx::core::collapse_contiguous_dims(v8, v70, 0x7FFFFFFFuLL, &__p);
+    v74 = v70;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v74);
     for (i = 0; i != -9; i -= 3)
     {
-      v28 = v79[i - 1];
+      v28 = v78[i - 1];
       if (v28)
       {
-        v79[i] = v28;
+        v78[i] = v28;
         operator delete(v28);
       }
     }
 
-    v29 = v74 + 6;
-    v30 = *v74;
-    v31 = (v74[1] - *v74) >> 3;
+    v29 = v73 + 6;
+    v30 = *v73;
+    v31 = (v73[1] - *v73) >> 3;
     v32 = v31 - 1;
     if (v31 - 1 >= -1)
     {
@@ -892,10 +892,10 @@ LABEL_13:
     v36 = v31 - 1;
     while ((v36 & 0x80000000) == 0)
     {
-      v37 = 8 * (v36 & 0x7FFFFFFF);
+      v37 = v36 & 0x7FFFFFFF;
       --v34;
       --v36;
-      if (*(v30 + v37) != *(*v29 + v37))
+      if (v30[v37] != (*v29)[v37])
       {
         goto LABEL_29;
       }
@@ -903,8 +903,8 @@ LABEL_13:
 
     v34 = v33;
 LABEL_29:
-    v44 = v74[3];
-    v45 = (v74[4] - v44) >> 3;
+    v44 = v73[3];
+    v45 = (v73[4] - v44) >> 3;
     v46 = v45 - 1;
     if (v45 - 1 >= -1)
     {
@@ -917,10 +917,10 @@ LABEL_29:
     v50 = v45 - 1;
     while ((v50 & 0x80000000) == 0)
     {
-      v51 = 8 * (v50 & 0x7FFFFFFF);
+      v51 = v50 & 0x7FFFFFFF;
       --v48;
       --v50;
-      if (*(v44 + v51) != *(*v29 + v51))
+      if (v44[v51] != (*v29)[v51])
       {
         goto LABEL_36;
       }
@@ -931,7 +931,7 @@ LABEL_36:
     v52 = v31 + 1;
     while ((v35 & 0x80000000) == 0)
     {
-      v53 = *(v30 + 8 * (v35 & 0x7FFFFFFF));
+      v53 = v30[v35 & 0x7FFFFFFF];
       --v52;
       --v35;
       if (v53)
@@ -945,7 +945,7 @@ LABEL_41:
     v54 = v45 + 1;
     while ((v49 & 0x80000000) == 0)
     {
-      v55 = *(v44 + 8 * (v49 & 0x7FFFFFFF));
+      v55 = v44[v49 & 0x7FFFFFFF];
       --v54;
       --v49;
       if (v55)
@@ -956,7 +956,7 @@ LABEL_41:
 
     v54 = v47;
 LABEL_46:
-    v56 = (v73 - __p) >> 2;
+    v56 = (v72 - __p) >> 2;
     if (v34 <= v48)
     {
       v57 = v48;
@@ -984,7 +984,7 @@ LABEL_46:
 
     else
     {
-      v48 = (v73 - __p) >> 2;
+      v48 = (v72 - __p) >> 2;
       v58 = a4;
     }
 
@@ -1019,7 +1019,7 @@ LABEL_46:
       v61 = 3;
     }
 
-    if (!v60 || *(*v29 + 8 * v60 - 8) < 16)
+    if (!v60 || (*v29)[v60 - 1] < 16)
     {
       goto LABEL_67;
     }
@@ -1027,30 +1027,30 @@ LABEL_46:
     switch(v61)
     {
       case 1:
-        mlx::core::binary_op_dispatch_dims<double,double,true,mlx::core::ScalarVector<mlx::core::detail::Add>>(v9, v10->f64, v11->f64, v60, *(*a1 + 48), &__p, v74, v74 + 3, v74 + 6);
+        mlx::core::binary_op_dispatch_dims<double,double,true,mlx::core::ScalarVector<mlx::core::detail::Add>>(v9, v10->f64, v11->f64, v60, *(*a1 + 48), &__p, v73, v73 + 3, v73 + 6);
         break;
       case 2:
-        mlx::core::binary_op_dispatch_dims<double,double,true,mlx::core::VectorScalar<mlx::core::detail::Add>>(v9, v10->f64, v11->f64, v60, *(*a1 + 48), &__p, v74, v74 + 3, v74 + 6);
+        mlx::core::binary_op_dispatch_dims<double,double,true,mlx::core::VectorScalar<mlx::core::detail::Add>>(v9, v10->f64, v11->f64, v60, *(*a1 + 48), &__p, v73, v73 + 3, v73 + 6);
         break;
       case 3:
-        mlx::core::binary_op_dispatch_dims<double,double,true,mlx::core::VectorVector<mlx::core::detail::Add>>(v9, v10->f64, v11->f64, v60, *(*a1 + 48), &__p, v74, v74 + 3, v74 + 6);
+        mlx::core::binary_op_dispatch_dims<double,double,true,mlx::core::VectorVector<mlx::core::detail::Add>>(v9, v10->f64, v11->f64, v60, *(*a1 + 48), &__p, v73, v73 + 3, v73 + 6);
         break;
       default:
         LODWORD(v56) = v60;
 LABEL_67:
-        mlx::core::binary_op_dispatch_dims<double,double,false,mlx::core::detail::Add>(v9, v10->f64, v11->f64, v56, *(*a1 + 48), &__p, v74, v74 + 3, v74 + 6);
+        mlx::core::binary_op_dispatch_dims<double,double,false,mlx::core::detail::Add>(v9, v10->f64, v11->f64, v56, *(*a1 + 48), &__p, v73, v73 + 3, v73 + 6);
         break;
     }
 
-    v76[0] = &v74;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v76);
+    v75[0] = &v73;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v75);
     if (__p)
     {
-      v73 = __p;
+      v72 = __p;
       operator delete(__p);
     }
 
-    goto LABEL_84;
+    return;
   }
 
   if (a4 == 2)
@@ -1149,19 +1149,16 @@ LABEL_67:
       while (v64 > 1);
     }
   }
-
-LABEL_84:
-  v70 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A62C834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25A62C834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<double,double,true,mlx::core::VectorVector<mlx::core::detail::Add>>(double *a1, double *a2, double *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<double,double,true,mlx::core::VectorVector<mlx::core::detail::Add>>(double *a1, double *a2, double *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v15 = a4 - 3;
   switch(a4)
@@ -1337,14 +1334,14 @@ void mlx::core::binary_op_dispatch_dims<double,double,true,mlx::core::VectorVect
   }
 }
 
-void sub_25A62CCB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A62CCB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<double,double,true,mlx::core::VectorScalar<mlx::core::detail::Add>>(double *a1, double *a2, double *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<double,double,true,mlx::core::VectorScalar<mlx::core::detail::Add>>(double *a1, double *a2, double *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v15 = a4 - 3;
   switch(a4)
@@ -1520,14 +1517,14 @@ void mlx::core::binary_op_dispatch_dims<double,double,true,mlx::core::VectorScal
   }
 }
 
-void sub_25A62D0CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A62D0CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<double,double,true,mlx::core::ScalarVector<mlx::core::detail::Add>>(double *a1, double *a2, double *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<double,double,true,mlx::core::ScalarVector<mlx::core::detail::Add>>(double *a1, double *a2, double *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v15 = a4 - 3;
   switch(a4)
@@ -1703,14 +1700,14 @@ void mlx::core::binary_op_dispatch_dims<double,double,true,mlx::core::ScalarVect
   }
 }
 
-void sub_25A62D4E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A62D4E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<double,double,false,mlx::core::detail::Add>(double *a1, double *a2, double *a3, int a4, int a5, int **a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<double,double,false,mlx::core::detail::Add>(double *a1, double *a2, double *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void **a9)
 {
   v12 = a3;
   v13 = a2;
@@ -1752,7 +1749,7 @@ void mlx::core::binary_op_dispatch_dims<double,double,false,mlx::core::detail::A
       if (a5 >= 1)
       {
         v22 = 0;
-        v23 = *(*a9 + 8 * a4 - 32);
+        v23 = (*a9)[a4 - 4];
         do
         {
           mlx::core::binary_op_dims<double,double,mlx::core::detail::Add,3,false>(&v14[v62], &v13[v55], &v12[v22], a6, a7, a8, a9, v15);
@@ -1903,9 +1900,9 @@ void mlx::core::binary_op_dispatch_dims<double,double,false,mlx::core::detail::A
   }
 }
 
-void sub_25A62D904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A62D904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
@@ -1935,7 +1932,7 @@ double *mlx::core::binary_op_dims<double,double,mlx::core::VectorVector<mlx::cor
           v19 = &a3[v17];
           v20 = vaddq_f64(*&result[v17 + 2], *&a2[v17 + 2]);
           *v19 = vaddq_f64(*&result[v17], *&a2[v17]);
-          v19[1] = v20;
+          *(v19 + 1) = v20;
           v15 = v18 - 4;
           v17 += 4;
         }
@@ -2047,7 +2044,7 @@ double *mlx::core::binary_op_dims<double,double,mlx::core::VectorScalar<mlx::cor
           v20 = &a3[v17];
           v21 = vaddq_f64(v18, *&result[v17 + 2]);
           *v20 = vaddq_f64(v18, *&result[v17]);
-          v20[1] = v21;
+          *(v20 + 1) = v21;
           v14 -= 4;
           v17 += 4;
         }
@@ -2156,7 +2153,7 @@ double *mlx::core::binary_op_dims<double,double,mlx::core::ScalarVector<mlx::cor
           v20 = &a3[v17];
           v21 = vaddq_f64(v18, *&a2[v17 + 2]);
           *v20 = vaddq_f64(v18, *&a2[v17]);
-          v20[1] = v21;
+          *(v20 + 1) = v21;
           v14 -= 4;
           v17 += 4;
         }
@@ -2314,7 +2311,7 @@ double *mlx::core::binary_op_dims<double,double,mlx::core::detail::Add,3,false>(
 
 void mlx::core::binary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Add>(uint64_t *a1, uint64_t *a2, uint64_t *a3, int a4)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v8 = *a1;
   v9 = *(*a1 + 152);
   v10 = *(*a2 + 152);
@@ -2325,7 +2322,7 @@ void mlx::core::binary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx:
     {
       v31 = COERCE_FLOAT(*v9 << 16) + COERCE_FLOAT(*v10 << 16);
       *v11 = (LODWORD(v31) + (HIWORD(LODWORD(v31)) & 1u) + 0x7FFF) >> 16;
-      goto LABEL_71;
+      return;
     }
 
     if (a4 == 1)
@@ -2345,38 +2342,38 @@ void mlx::core::binary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx:
         while (v14 > 1);
       }
 
-      goto LABEL_71;
+      return;
     }
 
 LABEL_14:
-    memset(v59, 0, sizeof(v59));
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v59, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+    memset(v58, 0, sizeof(v58));
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v58, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
     v18 = *a2;
-    memset(v60, 0, sizeof(v60));
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v60, *(v18 + 24), *(v18 + 32), (*(v18 + 32) - *(v18 + 24)) >> 3);
+    memset(v59, 0, sizeof(v59));
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v59, *(v18 + 24), *(v18 + 32), (*(v18 + 32) - *(v18 + 24)) >> 3);
     v19 = *a3;
-    v62[0] = 0;
-    v62[1] = 0;
-    v61 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v61, *(v19 + 24), *(v19 + 32), (*(v19 + 32) - *(v19 + 24)) >> 3);
-    memset(v54, 0, sizeof(v54));
-    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(v54, v59, &v63, 3uLL);
-    mlx::core::collapse_contiguous_dims(v8, v54, 0x7FFFFFFFuLL, &__p);
-    v58 = v54;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v58);
+    v61[0] = 0;
+    v61[1] = 0;
+    v60 = 0;
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v60, *(v19 + 24), *(v19 + 32), (*(v19 + 32) - *(v19 + 24)) >> 3);
+    memset(v53, 0, sizeof(v53));
+    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(v53, v58, &v62, 3uLL);
+    mlx::core::collapse_contiguous_dims(v8, v53, 0x7FFFFFFFuLL, &__p);
+    v57 = v53;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v57);
     for (i = 0; i != -9; i -= 3)
     {
-      v21 = v62[i - 1];
+      v21 = v61[i - 1];
       if (v21)
       {
-        v62[i] = v21;
+        v61[i] = v21;
         operator delete(v21);
       }
     }
 
-    v22 = v57 + 6;
-    v23 = *v57;
-    v24 = (v57[1] - *v57) >> 3;
+    v22 = v56 + 6;
+    v23 = *v56;
+    v24 = (v56[1] - *v56) >> 3;
     v25 = v24 - 1;
     if (v24 - 1 >= -1)
     {
@@ -2389,10 +2386,10 @@ LABEL_14:
     v29 = v24 - 1;
     while ((v29 & 0x80000000) == 0)
     {
-      v30 = 8 * (v29 & 0x7FFFFFFF);
+      v30 = v29 & 0x7FFFFFFF;
       --v27;
       --v29;
-      if (*(v23 + v30) != *(*v22 + v30))
+      if (v23[v30] != (*v22)[v30])
       {
         goto LABEL_30;
       }
@@ -2400,8 +2397,8 @@ LABEL_14:
 
     v27 = v26;
 LABEL_30:
-    v35 = v57[3];
-    v36 = (v57[4] - v35) >> 3;
+    v35 = v56[3];
+    v36 = (v56[4] - v35) >> 3;
     v37 = v36 - 1;
     if (v36 - 1 >= -1)
     {
@@ -2414,10 +2411,10 @@ LABEL_30:
     v41 = v36 - 1;
     while ((v41 & 0x80000000) == 0)
     {
-      v42 = 8 * (v41 & 0x7FFFFFFF);
+      v42 = v41 & 0x7FFFFFFF;
       --v39;
       --v41;
-      if (*(v35 + v42) != *(*v22 + v42))
+      if (v35[v42] != (*v22)[v42])
       {
         goto LABEL_37;
       }
@@ -2428,7 +2425,7 @@ LABEL_37:
     v43 = v24 + 1;
     while ((v28 & 0x80000000) == 0)
     {
-      v44 = *(v23 + 8 * (v28 & 0x7FFFFFFF));
+      v44 = v23[v28 & 0x7FFFFFFF];
       --v43;
       --v28;
       if (v44)
@@ -2442,7 +2439,7 @@ LABEL_42:
     v45 = v36 + 1;
     while ((v40 & 0x80000000) == 0)
     {
-      v46 = *(v35 + 8 * (v40 & 0x7FFFFFFF));
+      v46 = v35[v40 & 0x7FFFFFFF];
       --v45;
       --v40;
       if (v46)
@@ -2453,7 +2450,7 @@ LABEL_42:
 
     v45 = v38;
 LABEL_47:
-    v47 = (v56 - __p) >> 2;
+    v47 = (v55 - __p) >> 2;
     if (v27 <= v39)
     {
       v48 = v39;
@@ -2481,7 +2478,7 @@ LABEL_47:
 
     else
     {
-      v39 = (v56 - __p) >> 2;
+      v39 = (v55 - __p) >> 2;
       v49 = a4;
     }
 
@@ -2516,7 +2513,7 @@ LABEL_47:
       v52 = 3;
     }
 
-    if (!v51 || *(*v22 + 8 * v51 - 8) < 16)
+    if (!v51 || (*v22)[v51 - 1] < 16)
     {
       goto LABEL_68;
     }
@@ -2524,30 +2521,30 @@ LABEL_47:
     switch(v52)
     {
       case 1:
-        mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,true,mlx::core::ScalarVector<mlx::core::detail::Add>>(v9, v10, v11, v51, *(*a1 + 48), &__p, v57, v57 + 3, v57 + 6);
+        mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,true,mlx::core::ScalarVector<mlx::core::detail::Add>>(v9, v10, v11, v51, *(*a1 + 48), &__p, v56, v56 + 3, v56 + 6);
         break;
       case 2:
-        mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,true,mlx::core::VectorScalar<mlx::core::detail::Add>>(v9, v10, v11, v51, *(*a1 + 48), &__p, v57, v57 + 3, v57 + 6);
+        mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,true,mlx::core::VectorScalar<mlx::core::detail::Add>>(v9, v10, v11, v51, *(*a1 + 48), &__p, v56, v56 + 3, v56 + 6);
         break;
       case 3:
-        mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,true,mlx::core::VectorVector<mlx::core::detail::Add>>(v9, v10, v11, v51, *(*a1 + 48), &__p, v57, v57 + 3, v57 + 6);
+        mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,true,mlx::core::VectorVector<mlx::core::detail::Add>>(v9, v10, v11, v51, *(*a1 + 48), &__p, v56, v56 + 3, v56 + 6);
         break;
       default:
         LODWORD(v47) = v51;
 LABEL_68:
-        mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,false,mlx::core::detail::Add>(v9, v10, v11, v47, *(*a1 + 48), &__p, v57, v57 + 3, v57 + 6);
+        mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,false,mlx::core::detail::Add>(v9, v10, v11, v47, *(*a1 + 48), &__p, v56, v56 + 3, v56 + 6);
         break;
     }
 
-    v59[0] = &v57;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v59);
+    v58[0] = &v56;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v58);
     if (__p)
     {
-      v56 = __p;
+      v55 = __p;
       operator delete(__p);
     }
 
-    goto LABEL_71;
+    return;
   }
 
   if (a4 == 2)
@@ -2591,19 +2588,16 @@ LABEL_68:
       while (v16 > 1);
     }
   }
-
-LABEL_71:
-  v53 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A62E74C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25A62E74C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,true,mlx::core::VectorVector<mlx::core::detail::Add>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,true,mlx::core::VectorVector<mlx::core::detail::Add>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v15 = a4 - 3;
   switch(a4)
@@ -2779,14 +2773,14 @@ void mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX
   }
 }
 
-void sub_25A62EBCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A62EBCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,true,mlx::core::VectorScalar<mlx::core::detail::Add>>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,true,mlx::core::VectorScalar<mlx::core::detail::Add>>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v15 = a4 - 3;
   switch(a4)
@@ -2962,14 +2956,14 @@ void mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX
   }
 }
 
-void sub_25A62EFE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A62EFE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,true,mlx::core::ScalarVector<mlx::core::detail::Add>>(unsigned __int16 *a1, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,true,mlx::core::ScalarVector<mlx::core::detail::Add>>(unsigned __int16 *a1, uint64_t a2, uint64_t a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v15 = a4 - 3;
   switch(a4)
@@ -3145,14 +3139,14 @@ void mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX
   }
 }
 
-void sub_25A62F3FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A62F3FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,false,mlx::core::detail::Add>(unsigned __int16 *a1, unsigned __int16 *a2, _WORD *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,false,mlx::core::detail::Add>(unsigned __int16 *a1, unsigned __int16 *a2, _WORD *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v15 = a4 - 3;
   switch(a4)
@@ -3328,9 +3322,9 @@ void mlx::core::binary_op_dispatch_dims<mlx::core::_MLX_BFloat16,mlx::core::_MLX
   }
 }
 
-void sub_25A62F814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A62F814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
@@ -3669,7 +3663,7 @@ unsigned __int16 *mlx::core::binary_op_dims<mlx::core::_MLX_BFloat16,mlx::core::
 
 void mlx::core::binary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Add>(uint64_t *a1, uint64_t *a2, uint64_t *a3, int a4)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v8 = *a1;
   v9 = *(*a1 + 152);
   v10 = *(*a2 + 152);
@@ -3679,7 +3673,7 @@ void mlx::core::binary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::cor
     if (!a4)
     {
       *v11 = vadd_f32(*v9, *v10);
-      goto LABEL_71;
+      return;
     }
 
     if (a4 == 1)
@@ -3699,38 +3693,38 @@ void mlx::core::binary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::cor
         while (v14 > 1);
       }
 
-      goto LABEL_71;
+      return;
     }
 
 LABEL_14:
-    memset(v62, 0, sizeof(v62));
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v62, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+    memset(v61, 0, sizeof(v61));
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v61, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
     v21 = *a2;
-    memset(v63, 0, sizeof(v63));
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v63, *(v21 + 24), *(v21 + 32), (*(v21 + 32) - *(v21 + 24)) >> 3);
+    memset(v62, 0, sizeof(v62));
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v62, *(v21 + 24), *(v21 + 32), (*(v21 + 32) - *(v21 + 24)) >> 3);
     v22 = *a3;
-    v65[0] = 0;
-    v65[1] = 0;
-    v64 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v64, *(v22 + 24), *(v22 + 32), (*(v22 + 32) - *(v22 + 24)) >> 3);
-    memset(v57, 0, sizeof(v57));
-    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(v57, v62, &v66, 3uLL);
-    mlx::core::collapse_contiguous_dims(v8, v57, 0x7FFFFFFFuLL, &__p);
-    v61 = v57;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v61);
+    v64[0] = 0;
+    v64[1] = 0;
+    v63 = 0;
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v63, *(v22 + 24), *(v22 + 32), (*(v22 + 32) - *(v22 + 24)) >> 3);
+    memset(v56, 0, sizeof(v56));
+    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(v56, v61, &v65, 3uLL);
+    mlx::core::collapse_contiguous_dims(v8, v56, 0x7FFFFFFFuLL, &__p);
+    v60 = v56;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v60);
     for (i = 0; i != -9; i -= 3)
     {
-      v24 = v65[i - 1];
+      v24 = v64[i - 1];
       if (v24)
       {
-        v65[i] = v24;
+        v64[i] = v24;
         operator delete(v24);
       }
     }
 
-    v25 = v60 + 6;
-    v26 = *v60;
-    v27 = (v60[1] - *v60) >> 3;
+    v25 = v59 + 6;
+    v26 = *v59;
+    v27 = (v59[1] - *v59) >> 3;
     v28 = v27 - 1;
     if (v27 - 1 >= -1)
     {
@@ -3743,10 +3737,10 @@ LABEL_14:
     v32 = v27 - 1;
     while ((v32 & 0x80000000) == 0)
     {
-      v33 = 8 * (v32 & 0x7FFFFFFF);
+      v33 = v32 & 0x7FFFFFFF;
       --v30;
       --v32;
-      if (*(v26 + v33) != *(*v25 + v33))
+      if (v26[v33] != (*v25)[v33])
       {
         goto LABEL_30;
       }
@@ -3754,8 +3748,8 @@ LABEL_14:
 
     v30 = v29;
 LABEL_30:
-    v38 = v60[3];
-    v39 = (v60[4] - v38) >> 3;
+    v38 = v59[3];
+    v39 = (v59[4] - v38) >> 3;
     v40 = v39 - 1;
     if (v39 - 1 >= -1)
     {
@@ -3768,10 +3762,10 @@ LABEL_30:
     v44 = v39 - 1;
     while ((v44 & 0x80000000) == 0)
     {
-      v45 = 8 * (v44 & 0x7FFFFFFF);
+      v45 = v44 & 0x7FFFFFFF;
       --v42;
       --v44;
-      if (*(v38 + v45) != *(*v25 + v45))
+      if (v38[v45] != (*v25)[v45])
       {
         goto LABEL_37;
       }
@@ -3782,7 +3776,7 @@ LABEL_37:
     v46 = v27 + 1;
     while ((v31 & 0x80000000) == 0)
     {
-      v47 = *(v26 + 8 * (v31 & 0x7FFFFFFF));
+      v47 = v26[v31 & 0x7FFFFFFF];
       --v46;
       --v31;
       if (v47)
@@ -3796,7 +3790,7 @@ LABEL_42:
     v48 = v39 + 1;
     while ((v43 & 0x80000000) == 0)
     {
-      v49 = *(v38 + 8 * (v43 & 0x7FFFFFFF));
+      v49 = v38[v43 & 0x7FFFFFFF];
       --v48;
       --v43;
       if (v49)
@@ -3807,7 +3801,7 @@ LABEL_42:
 
     v48 = v41;
 LABEL_47:
-    v50 = (v59 - __p) >> 2;
+    v50 = (v58 - __p) >> 2;
     if (v30 <= v42)
     {
       v51 = v42;
@@ -3835,7 +3829,7 @@ LABEL_47:
 
     else
     {
-      v42 = (v59 - __p) >> 2;
+      v42 = (v58 - __p) >> 2;
       v52 = a4;
     }
 
@@ -3870,7 +3864,7 @@ LABEL_47:
       v55 = 3;
     }
 
-    if (!v54 || *(*v25 + 8 * v54 - 8) < 16)
+    if (!v54 || (*v25)[v54 - 1] < 16)
     {
       goto LABEL_68;
     }
@@ -3878,30 +3872,30 @@ LABEL_47:
     switch(v55)
     {
       case 1:
-        mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,true,mlx::core::ScalarVector<mlx::core::detail::Add>>(v9, v10, v11, v54, *(*a1 + 48), &__p, v60, v60 + 3, v60 + 6);
+        mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,true,mlx::core::ScalarVector<mlx::core::detail::Add>>(v9, v10, v11, v54, *(*a1 + 48), &__p, v59, v59 + 3, v59 + 6);
         break;
       case 2:
-        mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,true,mlx::core::VectorScalar<mlx::core::detail::Add>>(v9, v10, v11, v54, *(*a1 + 48), &__p, v60, v60 + 3, v60 + 6);
+        mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,true,mlx::core::VectorScalar<mlx::core::detail::Add>>(v9, v10, v11, v54, *(*a1 + 48), &__p, v59, v59 + 3, v59 + 6);
         break;
       case 3:
-        mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,true,mlx::core::VectorVector<mlx::core::detail::Add>>(v9, v10, v11, v54, *(*a1 + 48), &__p, v60, v60 + 3, v60 + 6);
+        mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,true,mlx::core::VectorVector<mlx::core::detail::Add>>(v9, v10, v11, v54, *(*a1 + 48), &__p, v59, v59 + 3, v59 + 6);
         break;
       default:
         LODWORD(v50) = v54;
 LABEL_68:
-        mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,false,mlx::core::detail::Add>(v9, v10, v11, v50, *(*a1 + 48), &__p, v60, v60 + 3, v60 + 6);
+        mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,false,mlx::core::detail::Add>(v9, v10, v11, v50, *(*a1 + 48), &__p, v59, v59 + 3, v59 + 6);
         break;
     }
 
-    v62[0] = &v60;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v62);
+    v61[0] = &v59;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v61);
     if (__p)
     {
-      v59 = __p;
+      v58 = __p;
       operator delete(__p);
     }
 
-    goto LABEL_71;
+    return;
   }
 
   if (a4 == 2)
@@ -3945,19 +3939,16 @@ LABEL_68:
       while (v17 > 1);
     }
   }
-
-LABEL_71:
-  v56 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25A6305EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25A6305EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,true,mlx::core::VectorVector<mlx::core::detail::Add>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,true,mlx::core::VectorVector<mlx::core::detail::Add>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v15 = a4 - 3;
   switch(a4)
@@ -4133,14 +4124,14 @@ void mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::comple
   }
 }
 
-void sub_25A630A6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A630A6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,true,mlx::core::VectorScalar<mlx::core::detail::Add>>(uint64_t a1, float32x2_t *a2, uint64_t a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,true,mlx::core::VectorScalar<mlx::core::detail::Add>>(uint64_t a1, float32x2_t *a2, uint64_t a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v15 = a4 - 3;
   switch(a4)
@@ -4316,14 +4307,14 @@ void mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::comple
   }
 }
 
-void sub_25A630E84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A630E84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,true,mlx::core::ScalarVector<mlx::core::detail::Add>>(float32x2_t *a1, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,true,mlx::core::ScalarVector<mlx::core::detail::Add>>(float32x2_t *a1, uint64_t a2, uint64_t a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v15 = a4 - 3;
   switch(a4)
@@ -4499,14 +4490,14 @@ void mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::comple
   }
 }
 
-void sub_25A63129C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A63129C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,false,mlx::core::detail::Add>(float32x2_t *a1, float32x2_t *a2, float32x2_t *a3, int a4, int a5, int **a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::complex64_t,false,mlx::core::detail::Add>(float32x2_t *a1, float32x2_t *a2, float32x2_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void **a9)
 {
   v12 = a3;
   v13 = a2;
@@ -4548,7 +4539,7 @@ void mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::comple
       if (a5 >= 1)
       {
         v22 = 0;
-        v23 = *(*a9 + 8 * a4 - 32);
+        v23 = (*a9)[a4 - 4];
         do
         {
           mlx::core::binary_op_dims<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Add,3,false>(&v14[v62], &v13[v55], &v12[v22], a6, a7, a8, a9, v15);
@@ -4699,9 +4690,9 @@ void mlx::core::binary_op_dispatch_dims<mlx::core::complex64_t,mlx::core::comple
   }
 }
 
-void sub_25A6316BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A6316BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
@@ -5222,7 +5213,7 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
 
 void mlx::core::DivMod::eval_cpu(std::vector<mlx::core::array> const&,std::vector<mlx::core::array>&)::$_0::operator()(uint64_t *a1)
 {
-  v995[1] = *MEMORY[0x277D85DE8];
+  v994[1] = *MEMORY[0x277D85DE8];
   v1 = a1[4];
   v2 = a1;
   switch(*(v1 + 56))
@@ -5232,33 +5223,33 @@ void mlx::core::DivMod::eval_cpu(std::vector<mlx::core::array> const&,std::vecto
       if (v3 == 4)
       {
         v4 = *a1;
+        v985 = 0;
         v986 = 0;
         v987 = 0;
-        v988 = 0;
-        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v986, *(v4 + 24), *(v4 + 32), (*(v4 + 32) - *(v4 + 24)) >> 3);
+        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v985, *(v4 + 24), *(v4 + 32), (*(v4 + 32) - *(v4 + 24)) >> 3);
         v5 = v2[2];
-        v990 = 0;
-        v991 = 0;
         v989 = 0;
-        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v989, *(v5 + 24), *(v5 + 32), (*(v5 + 32) - *(v5 + 24)) >> 3);
+        v990 = 0;
+        v988 = 0;
+        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v988, *(v5 + 24), *(v5 + 32), (*(v5 + 32) - *(v5 + 24)) >> 3);
         v6 = v2[4];
-        v993 = 0;
-        v994 = 0;
         v992 = 0;
-        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v992, *(v6 + 24), *(v6 + 32), (*(v6 + 32) - *(v6 + 24)) >> 3);
+        v993 = 0;
+        v991 = 0;
+        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v991, *(v6 + 24), *(v6 + 32), (*(v6 + 32) - *(v6 + 24)) >> 3);
+        v974 = 0;
         v975 = 0;
         v976 = 0;
-        v977 = 0;
-        std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v975, &v986, v995, 3uLL);
-        mlx::core::collapse_contiguous_dims(v4, &v975, 0x7FFFFFFFuLL, &v982);
-        v985 = &v975;
-        std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v985);
+        std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v974, &v985, v994, 3uLL);
+        mlx::core::collapse_contiguous_dims(v4, &v974, 0x7FFFFFFFuLL, &v981);
+        v984 = &v974;
+        std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v984);
         for (i = 0; i != -9; i -= 3)
         {
-          v8 = *(&v992 + i * 8);
+          v8 = *(&v991 + i * 8);
           if (v8)
           {
-            (&v993)[i] = v8;
+            (&v992)[i] = v8;
             operator delete(v8);
           }
         }
@@ -5266,17 +5257,17 @@ void mlx::core::DivMod::eval_cpu(std::vector<mlx::core::array> const&,std::vecto
         v9 = *(*v2 + 152);
         v10 = *(v2[4] + 152);
         v11 = *(v2[6] + 152);
-        v12 = v984[0];
-        v13 = v983 - v982;
-        v14 = (v983 - v982) >> 2;
+        v12 = v983[0];
+        v13 = v982 - v981;
+        v14 = (v982 - v981) >> 2;
         if (v14 == 1)
         {
-          v367 = *v982;
-          if (*v982 >= 1)
+          v367 = *v981;
+          if (*v981 >= 1)
           {
             v368 = 0;
-            v369 = **v984[0];
-            v370 = **(v984[0] + 6);
+            v369 = **v983[0];
+            v370 = **(v983[0] + 6);
             do
             {
               *(v10 + v368) = *v9;
@@ -5295,16 +5286,16 @@ void mlx::core::DivMod::eval_cpu(std::vector<mlx::core::array> const&,std::vecto
         v15 = (v14 - 2);
         if (v14 == 2)
         {
-          v16 = *v982;
-          if (*v982 >= 1)
+          v16 = *v981;
+          if (*v981 >= 1)
           {
             v17 = 0;
-            v18 = v984[0][6];
-            v19 = **v984[0];
-            v20 = *(*v984[0] + 8);
+            v18 = v983[0][6];
+            v19 = **v983[0];
+            v20 = *(*v983[0] + 8);
             v21 = *v18;
             v22 = v18[1];
-            v23 = *(v982 + 1);
+            v23 = *(v981 + 1);
             do
             {
               if (v23 >= 1)
@@ -5336,105 +5327,105 @@ void mlx::core::DivMod::eval_cpu(std::vector<mlx::core::array> const&,std::vecto
           goto LABEL_598;
         }
 
-        mlx::core::ContiguousIterator::ContiguousIterator(&v986, &v982, v984[0], v14 - 2);
-        mlx::core::ContiguousIterator::ContiguousIterator(&v975, &v982, v12 + 3, v15);
-        v971 = *(*v2 + 48);
-        if (!v971)
+        mlx::core::ContiguousIterator::ContiguousIterator(&v985, &v981, v983[0], v14 - 2);
+        mlx::core::ContiguousIterator::ContiguousIterator(&v974, &v981, v12 + 3, v15);
+        v970 = *(*v2 + 48);
+        if (!v970)
         {
           v637 = __p;
 LABEL_586:
           if (v637)
           {
-            v981 = v637;
+            v980 = v637;
             operator delete(v637);
           }
 
-          if (v978)
+          if (v977)
           {
-            v979 = v978;
-            operator delete(v978);
+            v978 = v977;
+            operator delete(v977);
           }
 
-          if (v976)
+          if (v975)
           {
-            v977 = v976;
-            operator delete(v976);
+            v976 = v975;
+            operator delete(v975);
           }
 
-          if (v993)
+          if (v992)
           {
-            v994 = v993;
-            operator delete(v993);
+            v993 = v992;
+            operator delete(v992);
           }
 
-          if (v990)
+          if (v989)
           {
-            v991 = v990;
-            operator delete(v990);
+            v990 = v989;
+            operator delete(v989);
           }
 
-          if (v987)
+          if (v986)
           {
-            v988 = v987;
-            operator delete(v987);
+            v987 = v986;
+            operator delete(v986);
           }
 
 LABEL_598:
-          v986 = v984;
-          std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v986);
-          if (v982)
+          v985 = v983;
+          std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v985);
+          if (v981)
           {
-            v983 = v982;
-            operator delete(v982);
+            v982 = v981;
+            operator delete(v981);
           }
 
           goto LABEL_600;
         }
 
-        v959 = v2;
+        v958 = v2;
         v588 = 0;
-        v969 = v12[6];
-        v970 = *(v969 + (((v13 << 30) - 0x300000000) >> 29));
-        v968 = *v12;
-        v974 = v982;
-        v966 = ((v13 << 30) - 0x100000000) >> 32;
-        v589 = v986;
-        v590 = v990;
-        v591 = (v988 - v987) >> 2;
-        v592 = (((v988 - v987) << 30) - 0x100000000) >> 32;
-        v963 = v993;
-        v973 = &v993[4 * v592];
-        v967 = v592;
-        v593 = &v987[4 * v592];
-        v594 = v975;
-        v595 = v978;
-        v596 = (v977 - v976) >> 2;
-        v964 = __p;
-        v965 = (((v977 - v976) << 30) - 0x100000000) >> 32;
-        v972 = __p + 4 * v965;
+        v968 = v12[6];
+        v969 = *(v968 + (((v13 << 30) - 0x300000000) >> 29));
+        v967 = *v12;
+        v973 = v981;
+        v965 = ((v13 << 30) - 0x100000000) >> 32;
+        v589 = v985;
+        v590 = v989;
+        v591 = (v987 - v986) >> 2;
+        v592 = (((v987 - v986) << 30) - 0x100000000) >> 32;
+        v962 = v992;
+        v972 = &v992[4 * v592];
+        v966 = v592;
+        v593 = &v986[4 * v592];
+        v594 = v974;
+        v595 = v977;
+        v596 = (v976 - v975) >> 2;
+        v963 = __p;
+        v964 = (((v976 - v975) << 30) - 0x100000000) >> 32;
+        v971 = __p + 4 * v964;
         v597 = 4 * (v591 & 0x7FFFFFFF);
-        v961 = v987 - 8;
-        v962 = (v596 & 0x7FFFFFFF) - 1;
+        v960 = v986 - 8;
+        v961 = (v596 & 0x7FFFFFFF) - 1;
         v598 = 4 * (v596 & 0x7FFFFFFF);
-        v960 = v976 - 8;
-        v599 = v976 + 4 * v965;
+        v959 = v975 - 8;
+        v599 = v975 + 4 * v964;
         while (1)
         {
           v600 = v596;
           v601 = v593;
           v602 = v15;
-          v603 = v974[v15];
+          v603 = v973[v15];
           if (v603 >= 1)
           {
             v604 = 0;
-            v605 = *(v968 + 8 * v15);
-            v606 = *(v969 + 8 * v15);
+            v605 = *(v967 + 8 * v15);
+            v606 = *(v968 + 8 * v15);
             v607 = v11 + v588;
             v608 = v10 + v588;
             v609 = v589 + v9;
-            v610 = *(v968 + 8 * v966);
-            v611 = *(v969 + 8 * v966);
-            v612 = v974[v966];
+            v610 = *(v967 + 8 * v965);
+            v611 = *(v968 + 8 * v965);
+            v612 = v973[v965];
             do
             {
               if (v612 >= 1)
@@ -5477,22 +5468,22 @@ LABEL_598:
           }
 
 LABEL_404:
-          v588 += v970;
-          if (v588 >= v971)
+          v588 += v969;
+          if (v588 >= v970)
           {
-            v637 = v964;
-            v2 = v959;
+            v637 = v963;
+            v2 = v958;
             goto LABEL_586;
           }
         }
 
-        v616 = *v973;
+        v616 = *v972;
         v593 = v601;
         v15 = v602;
         if (v591 < 2)
         {
-          v618 = v967;
-          v626 = v973;
+          v618 = v966;
+          v626 = v972;
           v596 = v600;
         }
 
@@ -5503,17 +5494,17 @@ LABEL_404:
           if (v616 == v617)
           {
             v618 = (v591 & 0x7FFFFFFF) - 1;
-            v619 = v963;
-            v620 = v961;
+            v619 = v962;
+            v620 = v960;
             v621 = v593;
-            v622 = v973;
-            v623 = v967;
+            v622 = v972;
+            v623 = v966;
             do
             {
               v624 = v618;
               *v622 = 0;
               v589 = (v589 - v590[v623] * (*v621 - 1));
-              v986 = v589;
+              v985 = v589;
               --v618;
               v622 = &v619[v597 - 8];
               v616 = *v622;
@@ -5535,35 +5526,35 @@ LABEL_404:
 
           else
           {
-            v618 = v967;
-            v626 = v973;
+            v618 = v966;
+            v626 = v972;
           }
         }
 
         *v626 = v616 + 1;
         v589 = (v589 + v590[v618]);
-        v986 = v589;
+        v985 = v589;
         if (!v596)
         {
           goto LABEL_404;
         }
 
 LABEL_396:
-        v627 = *v972;
+        v627 = *v971;
         if (v596 >= 2 && v627 == *v599 - 1)
         {
-          v628 = v964;
-          v629 = v965;
-          v630 = v960;
-          v631 = v962;
+          v628 = v963;
+          v629 = v964;
+          v630 = v959;
+          v631 = v961;
           v632 = v599;
-          v633 = v972;
+          v633 = v971;
           do
           {
             v634 = v631;
             *v633 = 0;
             v594 -= v595[v629] * (*v632 - 1);
-            v975 = v594;
+            v974 = v594;
             --v631;
             v633 = &v628[v598 - 8];
             v627 = *v633;
@@ -5585,13 +5576,13 @@ LABEL_396:
 
         else
         {
-          v631 = v965;
-          v636 = v972;
+          v631 = v964;
+          v636 = v971;
         }
 
         *v636 = v627 + 1;
         v594 += v595[v631];
-        v975 = v594;
+        v974 = v594;
         goto LABEL_404;
       }
 
@@ -5642,33 +5633,33 @@ LABEL_600:
       if (v890 == 4)
       {
         v891 = *v2;
+        v985 = 0;
         v986 = 0;
         v987 = 0;
-        v988 = 0;
-        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v986, *(v891 + 24), *(v891 + 32), (*(v891 + 32) - *(v891 + 24)) >> 3);
+        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v985, *(v891 + 24), *(v891 + 32), (*(v891 + 32) - *(v891 + 24)) >> 3);
         v892 = v2[2];
-        v990 = 0;
-        v991 = 0;
         v989 = 0;
-        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v989, *(v892 + 24), *(v892 + 32), (*(v892 + 32) - *(v892 + 24)) >> 3);
+        v990 = 0;
+        v988 = 0;
+        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v988, *(v892 + 24), *(v892 + 32), (*(v892 + 32) - *(v892 + 24)) >> 3);
         v893 = v2[4];
-        v993 = 0;
-        v994 = 0;
         v992 = 0;
-        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v992, *(v893 + 24), *(v893 + 32), (*(v893 + 32) - *(v893 + 24)) >> 3);
+        v993 = 0;
+        v991 = 0;
+        std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v991, *(v893 + 24), *(v893 + 32), (*(v893 + 32) - *(v893 + 24)) >> 3);
+        v974 = 0;
         v975 = 0;
         v976 = 0;
-        v977 = 0;
-        std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v975, &v986, v995, 3uLL);
-        mlx::core::collapse_contiguous_dims(v891, &v975, 0x7FFFFFFFuLL, &v982);
-        v985 = &v975;
-        std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v985);
+        std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v974, &v985, v994, 3uLL);
+        mlx::core::collapse_contiguous_dims(v891, &v974, 0x7FFFFFFFuLL, &v981);
+        v984 = &v974;
+        std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v984);
         for (n = 0; n != -9; n -= 3)
         {
-          v895 = *(&v992 + n * 8);
+          v895 = *(&v991 + n * 8);
           if (v895)
           {
-            (&v993)[n] = v895;
+            (&v992)[n] = v895;
             operator delete(v895);
           }
         }
@@ -5677,18 +5668,18 @@ LABEL_600:
         v897 = *(v2[2] + 152);
         v898 = *(v2[4] + 152);
         v899 = *(v2[6] + 152);
-        v900 = v984[0];
-        v901 = v983 - v982;
-        v902 = (v983 - v982) >> 2;
+        v900 = v983[0];
+        v901 = v982 - v981;
+        v902 = (v982 - v981) >> 2;
         if (v902 == 1)
         {
-          v912 = *v982;
-          if (*v982 >= 1)
+          v912 = *v981;
+          if (*v981 >= 1)
           {
             v913 = 0;
-            v914 = **v984[0];
-            v915 = **(v984[0] + 3);
-            v916 = **(v984[0] + 6);
+            v914 = **v983[0];
+            v915 = **(v983[0] + 3);
+            v916 = **(v983[0] + 6);
             do
             {
               v917 = *v896 % *v897;
@@ -5713,37 +5704,37 @@ LABEL_600:
 
           else
           {
-            mlx::core::ContiguousIterator::ContiguousIterator(&v986, &v982, v984[0], v902 - 2);
-            mlx::core::ContiguousIterator::ContiguousIterator(&v975, &v982, v900 + 3, v903);
+            mlx::core::ContiguousIterator::ContiguousIterator(&v985, &v981, v983[0], v902 - 2);
+            mlx::core::ContiguousIterator::ContiguousIterator(&v974, &v981, v900 + 3, v903);
             if (*(*v2 + 48))
             {
               v918 = 0;
               v919 = *(v900[6] + (((v901 << 30) - 0x300000000) >> 29));
               do
               {
-                v920 = v988 - v987;
-                v921 = (v988 - v987) >> 2;
+                v920 = v987 - v986;
+                v921 = (v987 - v986) >> 2;
                 if (v921)
                 {
-                  v922 = v993;
+                  v922 = v992;
                   v923 = ((v920 << 30) - 0x100000000) >> 32;
-                  v924 = &v993[4 * v923];
+                  v924 = &v992[4 * v923];
                   v925 = *v924;
-                  v926 = &v987[4 * v923];
-                  v927 = v990;
-                  v928 = v986;
+                  v926 = &v986[4 * v923];
+                  v927 = v989;
+                  v928 = v985;
                   if (v921 >= 2 && v925 == *v926 - 1)
                   {
                     v931 = (v920 >> 2) & 0x7FFFFFFF;
                     v930 = v931 - 1;
                     v932 = 4 * v931;
-                    v933 = v987 - 8;
+                    v933 = v986 - 8;
                     do
                     {
                       v934 = v930;
                       *v924 = 0;
                       v928 = (v928 - v927[v923] * (*v926 - 1));
-                      v986 = v928;
+                      v985 = v928;
                       --v930;
                       v924 = &v922[v932 - 8];
                       v925 = *v924;
@@ -5769,31 +5760,31 @@ LABEL_600:
                   }
 
                   *v924 = v925 + 1;
-                  v986 = (v928 + v927[v930]);
+                  v985 = (v928 + v927[v930]);
                 }
 
-                v936 = v977 - v976;
-                v937 = (v977 - v976) >> 2;
+                v936 = v976 - v975;
+                v937 = (v976 - v975) >> 2;
                 if (v937)
                 {
                   v938 = __p;
                   v939 = ((v936 << 30) - 0x100000000) >> 32;
                   v940 = __p + 4 * v939;
                   v941 = *v940;
-                  v942 = v978;
-                  v943 = v975;
-                  if (v937 >= 2 && (v944 = v976 + 4 * v939, v941 == *v944 - 1))
+                  v942 = v977;
+                  v943 = v974;
+                  if (v937 >= 2 && (v944 = v975 + 4 * v939, v941 == *v944 - 1))
                   {
                     v945 = (v936 >> 2) & 0x7FFFFFFF;
                     v946 = v945 - 1;
                     v947 = 4 * v945;
-                    v948 = v976 - 8;
+                    v948 = v975 - 8;
                     do
                     {
                       v949 = v946;
                       *v940 = 0;
                       v943 -= v942[v939] * (*v944 - 1);
-                      v975 = v943;
+                      v974 = v943;
                       --v946;
                       v940 = &v938[v947 - 8];
                       v941 = *v940;
@@ -5819,7 +5810,7 @@ LABEL_600:
                   }
 
                   *v940 = v941 + 1;
-                  v975 = v942[v946] + v943;
+                  v974 = v942[v946] + v943;
                 }
 
                 v918 += v919;
@@ -5831,49 +5822,49 @@ LABEL_600:
 LABEL_642:
             if (__p)
             {
-              v981 = __p;
+              v980 = __p;
               operator delete(__p);
             }
 
-            if (v978)
+            if (v977)
             {
-              v979 = v978;
-              operator delete(v978);
+              v978 = v977;
+              operator delete(v977);
             }
 
-            if (v976)
+            if (v975)
             {
-              v977 = v976;
-              operator delete(v976);
+              v976 = v975;
+              operator delete(v975);
             }
 
-            if (v993)
+            if (v992)
             {
-              v994 = v993;
-              operator delete(v993);
+              v993 = v992;
+              operator delete(v992);
             }
 
-            if (v990)
+            if (v989)
             {
-              v991 = v990;
-              operator delete(v990);
+              v990 = v989;
+              operator delete(v989);
             }
 
-            if (v987)
+            if (v986)
             {
-              v988 = v987;
-              operator delete(v987);
+              v987 = v986;
+              operator delete(v986);
             }
           }
         }
 
 LABEL_654:
-        v986 = v984;
-        std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v986);
-        if (v982)
+        v985 = v983;
+        std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v985);
+        if (v981)
         {
-          v983 = v982;
-          operator delete(v982);
+          v982 = v981;
+          operator delete(v981);
         }
       }
 
@@ -5891,15 +5882,15 @@ LABEL_654:
           {
             if (*(v906 + 160))
             {
-              v952 = 0;
+              v951 = 0;
               do
               {
-                v953 = *v905 % v907[v952];
-                v908[v952] = *v905 / v907[v952];
-                v909[v952++] = v953;
+                v952 = *v905 % v907[v951];
+                v908[v951] = *v905 / v907[v951];
+                v909[v951++] = v952;
               }
 
-              while (v952 < *(v2[2] + 160));
+              while (v951 < *(v2[2] + 160));
             }
           }
 
@@ -5921,29 +5912,27 @@ LABEL_654:
 
           else if (*(v904 + 48))
           {
-            v956 = 0;
+            v955 = 0;
             do
             {
-              v957 = v905[v956] % v907[v956];
-              v908[v956] = v905[v956] / v907[v956];
-              v909[v956++] = v957;
+              v956 = v905[v955] % v907[v955];
+              v908[v955] = v905[v955] / v907[v955];
+              v909[v955++] = v956;
             }
 
-            while (v956 < *(*v2 + 48));
+            while (v955 < *(*v2 + 48));
           }
         }
 
         else
         {
-          v954 = *v905;
-          v955 = *v907;
-          *v908 = v954 / v955;
-          *v909 = v954 % v955;
+          v953 = *v905;
+          v954 = *v907;
+          *v908 = v953 / v954;
+          *v909 = v953 % v954;
         }
       }
 
-LABEL_656:
-      v951 = *MEMORY[0x277D85DE8];
       return;
     case 1:
       goto LABEL_600;
@@ -5998,37 +5987,37 @@ LABEL_656:
             break;
         }
 
-        goto LABEL_656;
+        return;
       }
 
       v84 = *a1;
+      v985 = 0;
       v986 = 0;
       v987 = 0;
-      v988 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v986, *(v84 + 24), *(v84 + 32), (*(v84 + 32) - *(v84 + 24)) >> 3);
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v985, *(v84 + 24), *(v84 + 32), (*(v84 + 32) - *(v84 + 24)) >> 3);
       v85 = v2[2];
-      v990 = 0;
-      v991 = 0;
       v989 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v989, *(v85 + 24), *(v85 + 32), (*(v85 + 32) - *(v85 + 24)) >> 3);
+      v990 = 0;
+      v988 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v988, *(v85 + 24), *(v85 + 32), (*(v85 + 32) - *(v85 + 24)) >> 3);
       v86 = v2[4];
-      v993 = 0;
-      v994 = 0;
       v992 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v992, *(v86 + 24), *(v86 + 32), (*(v86 + 32) - *(v86 + 24)) >> 3);
+      v993 = 0;
+      v991 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v991, *(v86 + 24), *(v86 + 32), (*(v86 + 32) - *(v86 + 24)) >> 3);
+      v974 = 0;
       v975 = 0;
       v976 = 0;
-      v977 = 0;
-      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v975, &v986, v995, 3uLL);
-      mlx::core::collapse_contiguous_dims(v84, &v975, 0x7FFFFFFFuLL, &v982);
-      v985 = &v975;
-      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v985);
+      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v974, &v985, v994, 3uLL);
+      mlx::core::collapse_contiguous_dims(v84, &v974, 0x7FFFFFFFuLL, &v981);
+      v984 = &v974;
+      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v984);
       for (mm = 0; mm != -9; mm -= 3)
       {
-        v88 = *(&v992 + mm * 8);
+        v88 = *(&v991 + mm * 8);
         if (v88)
         {
-          (&v993)[mm] = v88;
+          (&v992)[mm] = v88;
           operator delete(v88);
         }
       }
@@ -6037,18 +6026,18 @@ LABEL_656:
       v90 = *(v2[2] + 152);
       v91 = *(v2[4] + 152);
       v92 = *(v2[6] + 152);
-      v93 = v984[0];
-      v94 = v983 - v982;
-      v95 = (v983 - v982) >> 2;
+      v93 = v983[0];
+      v94 = v982 - v981;
+      v95 = (v982 - v981) >> 2;
       if (v95 == 1)
       {
-        v317 = *v982;
-        if (*v982 >= 1)
+        v317 = *v981;
+        if (*v981 >= 1)
         {
           v318 = 0;
-          v319 = 2 * **v984[0];
-          v320 = 2 * **(v984[0] + 3);
-          v321 = 2 * **(v984[0] + 6);
+          v319 = 2 * **v983[0];
+          v320 = 2 * **(v983[0] + 3);
+          v321 = 2 * **(v983[0] + 6);
           do
           {
             v322 = *v89 % *v90;
@@ -6072,36 +6061,36 @@ LABEL_656:
         goto LABEL_654;
       }
 
-      mlx::core::ContiguousIterator::ContiguousIterator(&v986, &v982, v984[0], v95 - 2);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v975, &v982, v93 + 3, v96);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v985, &v981, v983[0], v95 - 2);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v974, &v981, v93 + 3, v96);
       if (*(*v2 + 48))
       {
         v492 = 0;
         v493 = *(v93[6] + (((v94 << 30) - 0x300000000) >> 29));
         do
         {
-          v494 = v988 - v987;
-          v495 = (v988 - v987) >> 2;
+          v494 = v987 - v986;
+          v495 = (v987 - v986) >> 2;
           if (v495)
           {
-            v496 = v993;
+            v496 = v992;
             v497 = ((v494 << 30) - 0x100000000) >> 32;
-            v498 = &v993[4 * v497];
+            v498 = &v992[4 * v497];
             v499 = *v498;
-            v500 = v990;
-            v501 = v986;
-            if (v495 >= 2 && (v502 = &v987[4 * v497], v499 == *v502 - 1))
+            v500 = v989;
+            v501 = v985;
+            if (v495 >= 2 && (v502 = &v986[4 * v497], v499 == *v502 - 1))
             {
               v503 = (v494 >> 2) & 0x7FFFFFFF;
               v504 = v503 - 1;
               v505 = 4 * v503;
-              v506 = v987 - 8;
+              v506 = v986 - 8;
               do
               {
                 v507 = v504;
                 *v498 = 0;
                 v501 = (v501 - v500[v497] * (*v502 - 1));
-                v986 = v501;
+                v985 = v501;
                 --v504;
                 v498 = &v496[v505 - 8];
                 v499 = *v498;
@@ -6127,31 +6116,31 @@ LABEL_656:
             }
 
             *v498 = v499 + 1;
-            v986 = (v501 + v500[v504]);
+            v985 = (v501 + v500[v504]);
           }
 
-          v509 = v977 - v976;
-          v510 = (v977 - v976) >> 2;
+          v509 = v976 - v975;
+          v510 = (v976 - v975) >> 2;
           if (v510)
           {
             v511 = __p;
             v512 = ((v509 << 30) - 0x100000000) >> 32;
             v513 = __p + 4 * v512;
             v514 = *v513;
-            v515 = v978;
-            v516 = v975;
-            if (v510 >= 2 && (v517 = v976 + 4 * v512, v514 == *v517 - 1))
+            v515 = v977;
+            v516 = v974;
+            if (v510 >= 2 && (v517 = v975 + 4 * v512, v514 == *v517 - 1))
             {
               v518 = (v509 >> 2) & 0x7FFFFFFF;
               v519 = v518 - 1;
               v520 = 4 * v518;
-              v521 = v976 - 8;
+              v521 = v975 - 8;
               do
               {
                 v522 = v519;
                 *v513 = 0;
                 v516 -= v515[v512] * (*v517 - 1);
-                v975 = v516;
+                v974 = v516;
                 --v519;
                 v513 = &v511[v520 - 8];
                 v514 = *v513;
@@ -6177,7 +6166,7 @@ LABEL_656:
             }
 
             *v513 = v514 + 1;
-            v975 = v515[v519] + v516;
+            v974 = v515[v519] + v516;
           }
 
           v492 += v493;
@@ -6237,37 +6226,37 @@ LABEL_656:
             break;
         }
 
-        goto LABEL_656;
+        return;
       }
 
       v98 = *a1;
+      v985 = 0;
       v986 = 0;
       v987 = 0;
-      v988 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v986, *(v98 + 24), *(v98 + 32), (*(v98 + 32) - *(v98 + 24)) >> 3);
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v985, *(v98 + 24), *(v98 + 32), (*(v98 + 32) - *(v98 + 24)) >> 3);
       v99 = v2[2];
-      v990 = 0;
-      v991 = 0;
       v989 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v989, *(v99 + 24), *(v99 + 32), (*(v99 + 32) - *(v99 + 24)) >> 3);
+      v990 = 0;
+      v988 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v988, *(v99 + 24), *(v99 + 32), (*(v99 + 32) - *(v99 + 24)) >> 3);
       v100 = v2[4];
-      v993 = 0;
-      v994 = 0;
       v992 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v992, *(v100 + 24), *(v100 + 32), (*(v100 + 32) - *(v100 + 24)) >> 3);
+      v993 = 0;
+      v991 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v991, *(v100 + 24), *(v100 + 32), (*(v100 + 32) - *(v100 + 24)) >> 3);
+      v974 = 0;
       v975 = 0;
       v976 = 0;
-      v977 = 0;
-      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v975, &v986, v995, 3uLL);
-      mlx::core::collapse_contiguous_dims(v98, &v975, 0x7FFFFFFFuLL, &v982);
-      v985 = &v975;
-      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v985);
+      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v974, &v985, v994, 3uLL);
+      mlx::core::collapse_contiguous_dims(v98, &v974, 0x7FFFFFFFuLL, &v981);
+      v984 = &v974;
+      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v984);
       for (i3 = 0; i3 != -9; i3 -= 3)
       {
-        v102 = *(&v992 + i3 * 8);
+        v102 = *(&v991 + i3 * 8);
         if (v102)
         {
-          (&v993)[i3] = v102;
+          (&v992)[i3] = v102;
           operator delete(v102);
         }
       }
@@ -6276,18 +6265,18 @@ LABEL_656:
       v104 = *(v2[2] + 152);
       v105 = *(v2[4] + 152);
       v106 = *(v2[6] + 152);
-      v107 = v984[0];
-      v108 = v983 - v982;
-      v109 = (v983 - v982) >> 2;
+      v107 = v983[0];
+      v108 = v982 - v981;
+      v109 = (v982 - v981) >> 2;
       if (v109 == 1)
       {
-        v355 = *v982;
-        if (*v982 >= 1)
+        v355 = *v981;
+        if (*v981 >= 1)
         {
           v356 = 0;
-          v357 = 4 * **v984[0];
-          v358 = 4 * **(v984[0] + 3);
-          v359 = 4 * **(v984[0] + 6);
+          v357 = 4 * **v983[0];
+          v358 = 4 * **(v983[0] + 3);
+          v359 = 4 * **(v983[0] + 6);
           do
           {
             v360 = *v103 % *v104;
@@ -6311,36 +6300,36 @@ LABEL_656:
         goto LABEL_654;
       }
 
-      mlx::core::ContiguousIterator::ContiguousIterator(&v986, &v982, v984[0], v109 - 2);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v975, &v982, v107 + 3, v110);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v985, &v981, v983[0], v109 - 2);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v974, &v981, v107 + 3, v110);
       if (*(*v2 + 48))
       {
         v524 = 0;
         v525 = *(v107[6] + (((v108 << 30) - 0x300000000) >> 29));
         do
         {
-          v526 = v988 - v987;
-          v527 = (v988 - v987) >> 2;
+          v526 = v987 - v986;
+          v527 = (v987 - v986) >> 2;
           if (v527)
           {
-            v528 = v993;
+            v528 = v992;
             v529 = ((v526 << 30) - 0x100000000) >> 32;
-            v530 = &v993[4 * v529];
+            v530 = &v992[4 * v529];
             v531 = *v530;
-            v532 = v990;
-            v533 = v986;
-            if (v527 >= 2 && (v534 = &v987[4 * v529], v531 == *v534 - 1))
+            v532 = v989;
+            v533 = v985;
+            if (v527 >= 2 && (v534 = &v986[4 * v529], v531 == *v534 - 1))
             {
               v535 = (v526 >> 2) & 0x7FFFFFFF;
               v536 = v535 - 1;
               v537 = 4 * v535;
-              v538 = v987 - 8;
+              v538 = v986 - 8;
               do
               {
                 v539 = v536;
                 *v530 = 0;
                 v533 = (v533 - v532[v529] * (*v534 - 1));
-                v986 = v533;
+                v985 = v533;
                 --v536;
                 v530 = &v528[v537 - 8];
                 v531 = *v530;
@@ -6366,31 +6355,31 @@ LABEL_656:
             }
 
             *v530 = v531 + 1;
-            v986 = (v533 + v532[v536]);
+            v985 = (v533 + v532[v536]);
           }
 
-          v541 = v977 - v976;
-          v542 = (v977 - v976) >> 2;
+          v541 = v976 - v975;
+          v542 = (v976 - v975) >> 2;
           if (v542)
           {
             v543 = __p;
             v544 = ((v541 << 30) - 0x100000000) >> 32;
             v545 = __p + 4 * v544;
             v546 = *v545;
-            v547 = v978;
-            v548 = v975;
-            if (v542 >= 2 && (v549 = v976 + 4 * v544, v546 == *v549 - 1))
+            v547 = v977;
+            v548 = v974;
+            if (v542 >= 2 && (v549 = v975 + 4 * v544, v546 == *v549 - 1))
             {
               v550 = (v541 >> 2) & 0x7FFFFFFF;
               v551 = v550 - 1;
               v552 = 4 * v550;
-              v553 = v976 - 8;
+              v553 = v975 - 8;
               do
               {
                 v554 = v551;
                 *v545 = 0;
                 v548 -= v547[v544] * (*v549 - 1);
-                v975 = v548;
+                v974 = v548;
                 --v551;
                 v545 = &v543[v552 - 8];
                 v546 = *v545;
@@ -6416,7 +6405,7 @@ LABEL_656:
             }
 
             *v545 = v546 + 1;
-            v975 = v547[v551] + v548;
+            v974 = v547[v551] + v548;
           }
 
           v524 += v525;
@@ -6476,37 +6465,37 @@ LABEL_656:
             break;
         }
 
-        goto LABEL_656;
+        return;
       }
 
       v42 = *a1;
+      v985 = 0;
       v986 = 0;
       v987 = 0;
-      v988 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v986, *(v42 + 24), *(v42 + 32), (*(v42 + 32) - *(v42 + 24)) >> 3);
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v985, *(v42 + 24), *(v42 + 32), (*(v42 + 32) - *(v42 + 24)) >> 3);
       v43 = v2[2];
-      v990 = 0;
-      v991 = 0;
       v989 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v989, *(v43 + 24), *(v43 + 32), (*(v43 + 32) - *(v43 + 24)) >> 3);
+      v990 = 0;
+      v988 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v988, *(v43 + 24), *(v43 + 32), (*(v43 + 32) - *(v43 + 24)) >> 3);
       v44 = v2[4];
-      v993 = 0;
-      v994 = 0;
       v992 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v992, *(v44 + 24), *(v44 + 32), (*(v44 + 32) - *(v44 + 24)) >> 3);
+      v993 = 0;
+      v991 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v991, *(v44 + 24), *(v44 + 32), (*(v44 + 32) - *(v44 + 24)) >> 3);
+      v974 = 0;
       v975 = 0;
       v976 = 0;
-      v977 = 0;
-      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v975, &v986, v995, 3uLL);
-      mlx::core::collapse_contiguous_dims(v42, &v975, 0x7FFFFFFFuLL, &v982);
-      v985 = &v975;
-      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v985);
+      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v974, &v985, v994, 3uLL);
+      mlx::core::collapse_contiguous_dims(v42, &v974, 0x7FFFFFFFuLL, &v981);
+      v984 = &v974;
+      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v984);
       for (i7 = 0; i7 != -9; i7 -= 3)
       {
-        v46 = *(&v992 + i7 * 8);
+        v46 = *(&v991 + i7 * 8);
         if (v46)
         {
-          (&v993)[i7] = v46;
+          (&v992)[i7] = v46;
           operator delete(v46);
         }
       }
@@ -6515,18 +6504,18 @@ LABEL_656:
       v48 = *(v2[2] + 152);
       v49 = *(v2[4] + 152);
       v50 = *(v2[6] + 152);
-      v51 = v984[0];
-      v52 = v983 - v982;
-      v53 = (v983 - v982) >> 2;
+      v51 = v983[0];
+      v52 = v982 - v981;
+      v53 = (v982 - v981) >> 2;
       if (v53 == 1)
       {
-        v300 = *v982;
-        if (*v982 >= 1)
+        v300 = *v981;
+        if (*v981 >= 1)
         {
           v301 = 0;
-          v302 = 8 * **v984[0];
-          v303 = 8 * **(v984[0] + 3);
-          v304 = 8 * **(v984[0] + 6);
+          v302 = 8 * **v983[0];
+          v303 = 8 * **(v983[0] + 3);
+          v304 = 8 * **(v983[0] + 6);
           do
           {
             v305 = *v47 % *v48;
@@ -6550,36 +6539,36 @@ LABEL_656:
         goto LABEL_654;
       }
 
-      mlx::core::ContiguousIterator::ContiguousIterator(&v986, &v982, v984[0], v53 - 2);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v975, &v982, v51 + 3, v54);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v985, &v981, v983[0], v53 - 2);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v974, &v981, v51 + 3, v54);
       if (*(*v2 + 48))
       {
         v371 = 0;
         v372 = *(v51[6] + (((v52 << 30) - 0x300000000) >> 29));
         do
         {
-          v373 = v988 - v987;
-          v374 = (v988 - v987) >> 2;
+          v373 = v987 - v986;
+          v374 = (v987 - v986) >> 2;
           if (v374)
           {
-            v375 = v993;
+            v375 = v992;
             v376 = ((v373 << 30) - 0x100000000) >> 32;
-            v377 = &v993[4 * v376];
+            v377 = &v992[4 * v376];
             v378 = *v377;
-            v379 = v990;
-            v380 = v986;
-            if (v374 >= 2 && (v381 = &v987[4 * v376], v378 == *v381 - 1))
+            v379 = v989;
+            v380 = v985;
+            if (v374 >= 2 && (v381 = &v986[4 * v376], v378 == *v381 - 1))
             {
               v382 = (v373 >> 2) & 0x7FFFFFFF;
               v383 = v382 - 1;
               v384 = 4 * v382;
-              v385 = v987 - 8;
+              v385 = v986 - 8;
               do
               {
                 v386 = v383;
                 *v377 = 0;
                 v380 = (v380 - v379[v376] * (*v381 - 1));
-                v986 = v380;
+                v985 = v380;
                 --v383;
                 v377 = &v375[v384 - 8];
                 v378 = *v377;
@@ -6605,31 +6594,31 @@ LABEL_656:
             }
 
             *v377 = v378 + 1;
-            v986 = (v380 + v379[v383]);
+            v985 = (v380 + v379[v383]);
           }
 
-          v388 = v977 - v976;
-          v389 = (v977 - v976) >> 2;
+          v388 = v976 - v975;
+          v389 = (v976 - v975) >> 2;
           if (v389)
           {
             v390 = __p;
             v391 = ((v388 << 30) - 0x100000000) >> 32;
             v392 = __p + 4 * v391;
             v393 = *v392;
-            v394 = v978;
-            v395 = v975;
-            if (v389 >= 2 && (v396 = v976 + 4 * v391, v393 == *v396 - 1))
+            v394 = v977;
+            v395 = v974;
+            if (v389 >= 2 && (v396 = v975 + 4 * v391, v393 == *v396 - 1))
             {
               v397 = (v388 >> 2) & 0x7FFFFFFF;
               v398 = v397 - 1;
               v399 = 4 * v397;
-              v400 = v976 - 8;
+              v400 = v975 - 8;
               do
               {
                 v401 = v398;
                 *v392 = 0;
                 v395 -= v394[v391] * (*v396 - 1);
-                v975 = v395;
+                v974 = v395;
                 --v398;
                 v392 = &v390[v399 - 8];
                 v393 = *v392;
@@ -6655,7 +6644,7 @@ LABEL_656:
             }
 
             *v392 = v393 + 1;
-            v975 = v394[v398] + v395;
+            v974 = v394[v398] + v395;
           }
 
           v371 += v372;
@@ -6734,37 +6723,37 @@ LABEL_656:
           *v265 = v869 % v870;
         }
 
-        goto LABEL_656;
+        return;
       }
 
       v126 = *a1;
+      v985 = 0;
       v986 = 0;
       v987 = 0;
-      v988 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v986, *(v126 + 24), *(v126 + 32), (*(v126 + 32) - *(v126 + 24)) >> 3);
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v985, *(v126 + 24), *(v126 + 32), (*(v126 + 32) - *(v126 + 24)) >> 3);
       v127 = v2[2];
-      v990 = 0;
-      v991 = 0;
       v989 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v989, *(v127 + 24), *(v127 + 32), (*(v127 + 32) - *(v127 + 24)) >> 3);
+      v990 = 0;
+      v988 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v988, *(v127 + 24), *(v127 + 32), (*(v127 + 32) - *(v127 + 24)) >> 3);
       v128 = v2[4];
-      v993 = 0;
-      v994 = 0;
       v992 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v992, *(v128 + 24), *(v128 + 32), (*(v128 + 32) - *(v128 + 24)) >> 3);
+      v993 = 0;
+      v991 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v991, *(v128 + 24), *(v128 + 32), (*(v128 + 32) - *(v128 + 24)) >> 3);
+      v974 = 0;
       v975 = 0;
       v976 = 0;
-      v977 = 0;
-      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v975, &v986, v995, 3uLL);
-      mlx::core::collapse_contiguous_dims(v126, &v975, 0x7FFFFFFFuLL, &v982);
-      v985 = &v975;
-      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v985);
+      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v974, &v985, v994, 3uLL);
+      mlx::core::collapse_contiguous_dims(v126, &v974, 0x7FFFFFFFuLL, &v981);
+      v984 = &v974;
+      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v984);
       for (i8 = 0; i8 != -9; i8 -= 3)
       {
-        v130 = *(&v992 + i8 * 8);
+        v130 = *(&v991 + i8 * 8);
         if (v130)
         {
-          (&v993)[i8] = v130;
+          (&v992)[i8] = v130;
           operator delete(v130);
         }
       }
@@ -6773,18 +6762,18 @@ LABEL_656:
       v132 = *(v2[2] + 152);
       v133 = *(v2[4] + 152);
       v134 = *(v2[6] + 152);
-      v135 = v984[0];
-      v136 = v983 - v982;
-      v137 = (v983 - v982) >> 2;
+      v135 = v983[0];
+      v136 = v982 - v981;
+      v137 = (v982 - v981) >> 2;
       if (v137 == 1)
       {
-        v467 = *v982;
-        if (*v982 >= 1)
+        v467 = *v981;
+        if (*v981 >= 1)
         {
           v468 = 0;
-          v469 = **v984[0];
-          v470 = **(v984[0] + 3);
-          v471 = **(v984[0] + 6);
+          v469 = **v983[0];
+          v470 = **(v983[0] + 3);
+          v471 = **(v983[0] + 6);
           do
           {
             v472 = *v131 % *v132;
@@ -6808,37 +6797,37 @@ LABEL_656:
         goto LABEL_654;
       }
 
-      mlx::core::ContiguousIterator::ContiguousIterator(&v986, &v982, v984[0], v137 - 2);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v975, &v982, v135 + 3, v138);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v985, &v981, v983[0], v137 - 2);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v974, &v981, v135 + 3, v138);
       if (*(*v2 + 48))
       {
         v638 = 0;
         v639 = *(v135[6] + (((v136 << 30) - 0x300000000) >> 29));
         do
         {
-          v640 = v988 - v987;
-          v641 = (v988 - v987) >> 2;
+          v640 = v987 - v986;
+          v641 = (v987 - v986) >> 2;
           if (v641)
           {
-            v642 = v993;
+            v642 = v992;
             v643 = ((v640 << 30) - 0x100000000) >> 32;
-            v644 = &v993[4 * v643];
+            v644 = &v992[4 * v643];
             v645 = *v644;
-            v646 = &v987[4 * v643];
-            v647 = v990;
-            v648 = v986;
+            v646 = &v986[4 * v643];
+            v647 = v989;
+            v648 = v985;
             if (v641 >= 2 && v645 == *v646 - 1)
             {
               v651 = (v640 >> 2) & 0x7FFFFFFF;
               v650 = v651 - 1;
               v652 = 4 * v651;
-              v653 = v987 - 8;
+              v653 = v986 - 8;
               do
               {
                 v654 = v650;
                 *v644 = 0;
                 v648 = (v648 - v647[v643] * (*v646 - 1));
-                v986 = v648;
+                v985 = v648;
                 --v650;
                 v644 = &v642[v652 - 8];
                 v645 = *v644;
@@ -6864,31 +6853,31 @@ LABEL_656:
             }
 
             *v644 = v645 + 1;
-            v986 = (v648 + v647[v650]);
+            v985 = (v648 + v647[v650]);
           }
 
-          v656 = v977 - v976;
-          v657 = (v977 - v976) >> 2;
+          v656 = v976 - v975;
+          v657 = (v976 - v975) >> 2;
           if (v657)
           {
             v658 = __p;
             v659 = ((v656 << 30) - 0x100000000) >> 32;
             v660 = __p + 4 * v659;
             v661 = *v660;
-            v662 = v978;
-            v663 = v975;
-            if (v657 >= 2 && (v664 = v976 + 4 * v659, v661 == *v664 - 1))
+            v662 = v977;
+            v663 = v974;
+            if (v657 >= 2 && (v664 = v975 + 4 * v659, v661 == *v664 - 1))
             {
               v665 = (v656 >> 2) & 0x7FFFFFFF;
               v666 = v665 - 1;
               v667 = 4 * v665;
-              v668 = v976 - 8;
+              v668 = v975 - 8;
               do
               {
                 v669 = v666;
                 *v660 = 0;
                 v663 -= v662[v659] * (*v664 - 1);
-                v975 = v663;
+                v974 = v663;
                 --v666;
                 v660 = &v658[v667 - 8];
                 v661 = *v660;
@@ -6914,7 +6903,7 @@ LABEL_656:
             }
 
             *v660 = v661 + 1;
-            v975 = v662[v666] + v663;
+            v974 = v662[v666] + v663;
           }
 
           v638 += v639;
@@ -6981,37 +6970,37 @@ LABEL_568:
           *v233 = v829 - v831 * v830;
         }
 
-        goto LABEL_656;
+        return;
       }
 
       v140 = *a1;
+      v985 = 0;
       v986 = 0;
       v987 = 0;
-      v988 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v986, *(v140 + 24), *(v140 + 32), (*(v140 + 32) - *(v140 + 24)) >> 3);
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v985, *(v140 + 24), *(v140 + 32), (*(v140 + 32) - *(v140 + 24)) >> 3);
       v141 = v2[2];
-      v990 = 0;
-      v991 = 0;
       v989 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v989, *(v141 + 24), *(v141 + 32), (*(v141 + 32) - *(v141 + 24)) >> 3);
+      v990 = 0;
+      v988 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v988, *(v141 + 24), *(v141 + 32), (*(v141 + 32) - *(v141 + 24)) >> 3);
       v142 = v2[4];
-      v993 = 0;
-      v994 = 0;
       v992 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v992, *(v142 + 24), *(v142 + 32), (*(v142 + 32) - *(v142 + 24)) >> 3);
+      v993 = 0;
+      v991 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v991, *(v142 + 24), *(v142 + 32), (*(v142 + 32) - *(v142 + 24)) >> 3);
+      v974 = 0;
       v975 = 0;
       v976 = 0;
-      v977 = 0;
-      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v975, &v986, v995, 3uLL);
-      mlx::core::collapse_contiguous_dims(v140, &v975, 0x7FFFFFFFuLL, &v982);
-      v985 = &v975;
-      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v985);
+      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v974, &v985, v994, 3uLL);
+      mlx::core::collapse_contiguous_dims(v140, &v974, 0x7FFFFFFFuLL, &v981);
+      v984 = &v974;
+      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v984);
       for (i12 = 0; i12 != -9; i12 -= 3)
       {
-        v144 = *(&v992 + i12 * 8);
+        v144 = *(&v991 + i12 * 8);
         if (v144)
         {
-          (&v993)[i12] = v144;
+          (&v992)[i12] = v144;
           operator delete(v144);
         }
       }
@@ -7020,18 +7009,18 @@ LABEL_568:
       v146 = *(v2[2] + 152);
       v147 = *(v2[4] + 152);
       v148 = *(v2[6] + 152);
-      v149 = v984[0];
-      v150 = v983 - v982;
-      v151 = (v983 - v982) >> 2;
+      v149 = v983[0];
+      v150 = v982 - v981;
+      v151 = (v982 - v981) >> 2;
       if (v151 == 1)
       {
-        v473 = *v982;
-        if (*v982 >= 1)
+        v473 = *v981;
+        if (*v981 >= 1)
         {
           v474 = 0;
-          v475 = 2 * **v984[0];
-          v476 = 2 * **(v984[0] + 3);
-          v477 = 2 * **(v984[0] + 6);
+          v475 = 2 * **v983[0];
+          v476 = 2 * **(v983[0] + 3);
+          v477 = 2 * **(v983[0] + 6);
           do
           {
             v478 = *v145 % *v146;
@@ -7055,36 +7044,36 @@ LABEL_568:
         goto LABEL_654;
       }
 
-      mlx::core::ContiguousIterator::ContiguousIterator(&v986, &v982, v984[0], v151 - 2);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v975, &v982, v149 + 3, v152);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v985, &v981, v983[0], v151 - 2);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v974, &v981, v149 + 3, v152);
       if (*(*v2 + 48))
       {
         v671 = 0;
         v672 = *(v149[6] + (((v150 << 30) - 0x300000000) >> 29));
         do
         {
-          v673 = v988 - v987;
-          v674 = (v988 - v987) >> 2;
+          v673 = v987 - v986;
+          v674 = (v987 - v986) >> 2;
           if (v674)
           {
-            v675 = v993;
+            v675 = v992;
             v676 = ((v673 << 30) - 0x100000000) >> 32;
-            v677 = &v993[4 * v676];
+            v677 = &v992[4 * v676];
             v678 = *v677;
-            v679 = v990;
-            v680 = v986;
-            if (v674 >= 2 && (v681 = &v987[4 * v676], v678 == *v681 - 1))
+            v679 = v989;
+            v680 = v985;
+            if (v674 >= 2 && (v681 = &v986[4 * v676], v678 == *v681 - 1))
             {
               v682 = (v673 >> 2) & 0x7FFFFFFF;
               v683 = v682 - 1;
               v684 = 4 * v682;
-              v685 = v987 - 8;
+              v685 = v986 - 8;
               do
               {
                 v686 = v683;
                 *v677 = 0;
                 v680 = (v680 - v679[v676] * (*v681 - 1));
-                v986 = v680;
+                v985 = v680;
                 --v683;
                 v677 = &v675[v684 - 8];
                 v678 = *v677;
@@ -7110,31 +7099,31 @@ LABEL_568:
             }
 
             *v677 = v678 + 1;
-            v986 = (v680 + v679[v683]);
+            v985 = (v680 + v679[v683]);
           }
 
-          v688 = v977 - v976;
-          v689 = (v977 - v976) >> 2;
+          v688 = v976 - v975;
+          v689 = (v976 - v975) >> 2;
           if (v689)
           {
             v690 = __p;
             v691 = ((v688 << 30) - 0x100000000) >> 32;
             v692 = __p + 4 * v691;
             v693 = *v692;
-            v694 = v978;
-            v695 = v975;
-            if (v689 >= 2 && (v696 = v976 + 4 * v691, v693 == *v696 - 1))
+            v694 = v977;
+            v695 = v974;
+            if (v689 >= 2 && (v696 = v975 + 4 * v691, v693 == *v696 - 1))
             {
               v697 = (v688 >> 2) & 0x7FFFFFFF;
               v698 = v697 - 1;
               v699 = 4 * v697;
-              v700 = v976 - 8;
+              v700 = v975 - 8;
               do
               {
                 v701 = v698;
                 *v692 = 0;
                 v695 -= v694[v691] * (*v696 - 1);
-                v975 = v695;
+                v974 = v695;
                 --v698;
                 v692 = &v690[v699 - 8];
                 v693 = *v692;
@@ -7160,7 +7149,7 @@ LABEL_568:
             }
 
             *v692 = v693 + 1;
-            v975 = v694[v698] + v695;
+            v974 = v694[v698] + v695;
           }
 
           v671 += v672;
@@ -7227,37 +7216,37 @@ LABEL_542:
           *v243 = v843 - v845 * v844;
         }
 
-        goto LABEL_656;
+        return;
       }
 
       v112 = *a1;
+      v985 = 0;
       v986 = 0;
       v987 = 0;
-      v988 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v986, *(v112 + 24), *(v112 + 32), (*(v112 + 32) - *(v112 + 24)) >> 3);
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v985, *(v112 + 24), *(v112 + 32), (*(v112 + 32) - *(v112 + 24)) >> 3);
       v113 = v2[2];
-      v990 = 0;
-      v991 = 0;
       v989 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v989, *(v113 + 24), *(v113 + 32), (*(v113 + 32) - *(v113 + 24)) >> 3);
+      v990 = 0;
+      v988 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v988, *(v113 + 24), *(v113 + 32), (*(v113 + 32) - *(v113 + 24)) >> 3);
       v114 = v2[4];
-      v993 = 0;
-      v994 = 0;
       v992 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v992, *(v114 + 24), *(v114 + 32), (*(v114 + 32) - *(v114 + 24)) >> 3);
+      v993 = 0;
+      v991 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v991, *(v114 + 24), *(v114 + 32), (*(v114 + 32) - *(v114 + 24)) >> 3);
+      v974 = 0;
       v975 = 0;
       v976 = 0;
-      v977 = 0;
-      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v975, &v986, v995, 3uLL);
-      mlx::core::collapse_contiguous_dims(v112, &v975, 0x7FFFFFFFuLL, &v982);
-      v985 = &v975;
-      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v985);
+      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v974, &v985, v994, 3uLL);
+      mlx::core::collapse_contiguous_dims(v112, &v974, 0x7FFFFFFFuLL, &v981);
+      v984 = &v974;
+      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v984);
       for (i16 = 0; i16 != -9; i16 -= 3)
       {
-        v116 = *(&v992 + i16 * 8);
+        v116 = *(&v991 + i16 * 8);
         if (v116)
         {
-          (&v993)[i16] = v116;
+          (&v992)[i16] = v116;
           operator delete(v116);
         }
       }
@@ -7266,18 +7255,18 @@ LABEL_542:
       v118 = *(v2[2] + 152);
       v119 = *(v2[4] + 152);
       v120 = *(v2[6] + 152);
-      v121 = v984[0];
-      v122 = v983 - v982;
-      v123 = (v983 - v982) >> 2;
+      v121 = v983[0];
+      v122 = v982 - v981;
+      v123 = (v982 - v981) >> 2;
       if (v123 == 1)
       {
-        v361 = *v982;
-        if (*v982 >= 1)
+        v361 = *v981;
+        if (*v981 >= 1)
         {
           v362 = 0;
-          v363 = 4 * **v984[0];
-          v364 = 4 * **(v984[0] + 3);
-          v365 = 4 * **(v984[0] + 6);
+          v363 = 4 * **v983[0];
+          v364 = 4 * **(v983[0] + 3);
+          v365 = 4 * **(v983[0] + 6);
           do
           {
             v366 = *v117 % *v118;
@@ -7301,36 +7290,36 @@ LABEL_542:
         goto LABEL_654;
       }
 
-      mlx::core::ContiguousIterator::ContiguousIterator(&v986, &v982, v984[0], v123 - 2);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v975, &v982, v121 + 3, v124);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v985, &v981, v983[0], v123 - 2);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v974, &v981, v121 + 3, v124);
       if (*(*v2 + 48))
       {
         v556 = 0;
         v557 = *(v121[6] + (((v122 << 30) - 0x300000000) >> 29));
         do
         {
-          v558 = v988 - v987;
-          v559 = (v988 - v987) >> 2;
+          v558 = v987 - v986;
+          v559 = (v987 - v986) >> 2;
           if (v559)
           {
-            v560 = v993;
+            v560 = v992;
             v561 = ((v558 << 30) - 0x100000000) >> 32;
-            v562 = &v993[4 * v561];
+            v562 = &v992[4 * v561];
             v563 = *v562;
-            v564 = v990;
-            v565 = v986;
-            if (v559 >= 2 && (v566 = &v987[4 * v561], v563 == *v566 - 1))
+            v564 = v989;
+            v565 = v985;
+            if (v559 >= 2 && (v566 = &v986[4 * v561], v563 == *v566 - 1))
             {
               v567 = (v558 >> 2) & 0x7FFFFFFF;
               v568 = v567 - 1;
               v569 = 4 * v567;
-              v570 = v987 - 8;
+              v570 = v986 - 8;
               do
               {
                 v571 = v568;
                 *v562 = 0;
                 v565 = (v565 - v564[v561] * (*v566 - 1));
-                v986 = v565;
+                v985 = v565;
                 --v568;
                 v562 = &v560[v569 - 8];
                 v563 = *v562;
@@ -7356,31 +7345,31 @@ LABEL_542:
             }
 
             *v562 = v563 + 1;
-            v986 = (v565 + v564[v568]);
+            v985 = (v565 + v564[v568]);
           }
 
-          v573 = v977 - v976;
-          v574 = (v977 - v976) >> 2;
+          v573 = v976 - v975;
+          v574 = (v976 - v975) >> 2;
           if (v574)
           {
             v575 = __p;
             v576 = ((v573 << 30) - 0x100000000) >> 32;
             v577 = __p + 4 * v576;
             v578 = *v577;
-            v579 = v978;
-            v580 = v975;
-            if (v574 >= 2 && (v581 = v976 + 4 * v576, v578 == *v581 - 1))
+            v579 = v977;
+            v580 = v974;
+            if (v574 >= 2 && (v581 = v975 + 4 * v576, v578 == *v581 - 1))
             {
               v582 = (v573 >> 2) & 0x7FFFFFFF;
               v583 = v582 - 1;
               v584 = 4 * v582;
-              v585 = v976 - 8;
+              v585 = v975 - 8;
               do
               {
                 v586 = v583;
                 *v577 = 0;
                 v580 -= v579[v576] * (*v581 - 1);
-                v975 = v580;
+                v974 = v580;
                 --v583;
                 v577 = &v575[v584 - 8];
                 v578 = *v577;
@@ -7406,7 +7395,7 @@ LABEL_542:
             }
 
             *v577 = v578 + 1;
-            v975 = v579[v583] + v580;
+            v974 = v579[v583] + v580;
           }
 
           v556 += v557;
@@ -7473,37 +7462,37 @@ LABEL_575:
           *v196 = v795 - v797 * v796;
         }
 
-        goto LABEL_656;
+        return;
       }
 
       v168 = *a1;
+      v985 = 0;
       v986 = 0;
       v987 = 0;
-      v988 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v986, *(v168 + 24), *(v168 + 32), (*(v168 + 32) - *(v168 + 24)) >> 3);
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v985, *(v168 + 24), *(v168 + 32), (*(v168 + 32) - *(v168 + 24)) >> 3);
       v169 = v2[2];
-      v990 = 0;
-      v991 = 0;
       v989 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v989, *(v169 + 24), *(v169 + 32), (*(v169 + 32) - *(v169 + 24)) >> 3);
+      v990 = 0;
+      v988 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v988, *(v169 + 24), *(v169 + 32), (*(v169 + 32) - *(v169 + 24)) >> 3);
       v170 = v2[4];
-      v993 = 0;
-      v994 = 0;
       v992 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v992, *(v170 + 24), *(v170 + 32), (*(v170 + 32) - *(v170 + 24)) >> 3);
+      v993 = 0;
+      v991 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v991, *(v170 + 24), *(v170 + 32), (*(v170 + 32) - *(v170 + 24)) >> 3);
+      v974 = 0;
       v975 = 0;
       v976 = 0;
-      v977 = 0;
-      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v975, &v986, v995, 3uLL);
-      mlx::core::collapse_contiguous_dims(v168, &v975, 0x7FFFFFFFuLL, &v982);
-      v985 = &v975;
-      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v985);
+      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v974, &v985, v994, 3uLL);
+      mlx::core::collapse_contiguous_dims(v168, &v974, 0x7FFFFFFFuLL, &v981);
+      v984 = &v974;
+      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v984);
       for (i20 = 0; i20 != -9; i20 -= 3)
       {
-        v172 = *(&v992 + i20 * 8);
+        v172 = *(&v991 + i20 * 8);
         if (v172)
         {
-          (&v993)[i20] = v172;
+          (&v992)[i20] = v172;
           operator delete(v172);
         }
       }
@@ -7512,18 +7501,18 @@ LABEL_575:
       v174 = *(v2[2] + 152);
       v175 = *(v2[4] + 152);
       v176 = *(v2[6] + 152);
-      v177 = v984[0];
-      v178 = v983 - v982;
-      v179 = (v983 - v982) >> 2;
+      v177 = v983[0];
+      v178 = v982 - v981;
+      v179 = (v982 - v981) >> 2;
       if (v179 == 1)
       {
-        v486 = *v982;
-        if (*v982 >= 1)
+        v486 = *v981;
+        if (*v981 >= 1)
         {
           v487 = 0;
-          v488 = 8 * **v984[0];
-          v489 = 8 * **(v984[0] + 3);
-          v490 = 8 * **(v984[0] + 6);
+          v488 = 8 * **v983[0];
+          v489 = 8 * **(v983[0] + 3);
+          v490 = 8 * **(v983[0] + 6);
           do
           {
             v491 = *v173 % *v174;
@@ -7547,36 +7536,36 @@ LABEL_575:
         goto LABEL_654;
       }
 
-      mlx::core::ContiguousIterator::ContiguousIterator(&v986, &v982, v984[0], v179 - 2);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v975, &v982, v177 + 3, v180);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v985, &v981, v983[0], v179 - 2);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v974, &v981, v177 + 3, v180);
       if (*(*v2 + 48))
       {
         v735 = 0;
         v736 = *(v177[6] + (((v178 << 30) - 0x300000000) >> 29));
         do
         {
-          v737 = v988 - v987;
-          v738 = (v988 - v987) >> 2;
+          v737 = v987 - v986;
+          v738 = (v987 - v986) >> 2;
           if (v738)
           {
-            v739 = v993;
+            v739 = v992;
             v740 = ((v737 << 30) - 0x100000000) >> 32;
-            v741 = &v993[4 * v740];
+            v741 = &v992[4 * v740];
             v742 = *v741;
-            v743 = v990;
-            v744 = v986;
-            if (v738 >= 2 && (v745 = &v987[4 * v740], v742 == *v745 - 1))
+            v743 = v989;
+            v744 = v985;
+            if (v738 >= 2 && (v745 = &v986[4 * v740], v742 == *v745 - 1))
             {
               v746 = (v737 >> 2) & 0x7FFFFFFF;
               v747 = v746 - 1;
               v748 = 4 * v746;
-              v749 = v987 - 8;
+              v749 = v986 - 8;
               do
               {
                 v750 = v747;
                 *v741 = 0;
                 v744 = (v744 - v743[v740] * (*v745 - 1));
-                v986 = v744;
+                v985 = v744;
                 --v747;
                 v741 = &v739[v748 - 8];
                 v742 = *v741;
@@ -7602,31 +7591,31 @@ LABEL_575:
             }
 
             *v741 = v742 + 1;
-            v986 = (v744 + v743[v747]);
+            v985 = (v744 + v743[v747]);
           }
 
-          v752 = v977 - v976;
-          v753 = (v977 - v976) >> 2;
+          v752 = v976 - v975;
+          v753 = (v976 - v975) >> 2;
           if (v753)
           {
             v754 = __p;
             v755 = ((v752 << 30) - 0x100000000) >> 32;
             v756 = __p + 4 * v755;
             v757 = *v756;
-            v758 = v978;
-            v759 = v975;
-            if (v753 >= 2 && (v760 = v976 + 4 * v755, v757 == *v760 - 1))
+            v758 = v977;
+            v759 = v974;
+            if (v753 >= 2 && (v760 = v975 + 4 * v755, v757 == *v760 - 1))
             {
               v761 = (v752 >> 2) & 0x7FFFFFFF;
               v762 = v761 - 1;
               v763 = 4 * v761;
-              v764 = v976 - 8;
+              v764 = v975 - 8;
               do
               {
                 v765 = v762;
                 *v756 = 0;
                 v759 -= v758[v755] * (*v760 - 1);
-                v975 = v759;
+                v974 = v759;
                 --v762;
                 v756 = &v754[v763 - 8];
                 v757 = *v756;
@@ -7652,7 +7641,7 @@ LABEL_575:
             }
 
             *v756 = v757 + 1;
-            v975 = v758[v762] + v759;
+            v974 = v758[v762] + v759;
           }
 
           v735 += v736;
@@ -7768,37 +7757,37 @@ LABEL_575:
           *v216 = LOWORD(_S0);
         }
 
-        goto LABEL_656;
+        return;
       }
 
       v70 = *a1;
+      v985 = 0;
       v986 = 0;
       v987 = 0;
-      v988 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v986, *(v70 + 24), *(v70 + 32), (*(v70 + 32) - *(v70 + 24)) >> 3);
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v985, *(v70 + 24), *(v70 + 32), (*(v70 + 32) - *(v70 + 24)) >> 3);
       v71 = v2[2];
-      v990 = 0;
-      v991 = 0;
       v989 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v989, *(v71 + 24), *(v71 + 32), (*(v71 + 32) - *(v71 + 24)) >> 3);
+      v990 = 0;
+      v988 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v988, *(v71 + 24), *(v71 + 32), (*(v71 + 32) - *(v71 + 24)) >> 3);
       v72 = v2[4];
-      v993 = 0;
-      v994 = 0;
       v992 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v992, *(v72 + 24), *(v72 + 32), (*(v72 + 32) - *(v72 + 24)) >> 3);
+      v993 = 0;
+      v991 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v991, *(v72 + 24), *(v72 + 32), (*(v72 + 32) - *(v72 + 24)) >> 3);
+      v974 = 0;
       v975 = 0;
       v976 = 0;
-      v977 = 0;
-      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v975, &v986, v995, 3uLL);
-      mlx::core::collapse_contiguous_dims(v70, &v975, 0x7FFFFFFFuLL, &v982);
-      v985 = &v975;
-      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v985);
+      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v974, &v985, v994, 3uLL);
+      mlx::core::collapse_contiguous_dims(v70, &v974, 0x7FFFFFFFuLL, &v981);
+      v984 = &v974;
+      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v984);
       for (i24 = 0; i24 != -9; i24 -= 3)
       {
-        v74 = *(&v992 + i24 * 8);
+        v74 = *(&v991 + i24 * 8);
         if (v74)
         {
-          (&v993)[i24] = v74;
+          (&v992)[i24] = v74;
           operator delete(v74);
         }
       }
@@ -7807,18 +7796,18 @@ LABEL_575:
       v76 = *(v2[2] + 152);
       v77 = *(v2[4] + 152);
       v78 = *(v2[6] + 152);
-      v79 = v984[0];
-      v80 = v983 - v982;
-      v81 = (v983 - v982) >> 2;
+      v79 = v983[0];
+      v80 = v982 - v981;
+      v81 = (v982 - v981) >> 2;
       if (v81 == 1)
       {
-        v306 = *v982;
-        if (*v982 >= 1)
+        v306 = *v981;
+        if (*v981 >= 1)
         {
           v307 = 0;
-          v308 = 2 * **v984[0];
-          v309 = 2 * **(v984[0] + 3);
-          v310 = 2 * **(v984[0] + 6);
+          v308 = 2 * **v983[0];
+          v309 = 2 * **(v983[0] + 3);
+          v310 = 2 * **(v983[0] + 6);
           do
           {
             _H0 = *v75;
@@ -7855,36 +7844,36 @@ LABEL_575:
         goto LABEL_654;
       }
 
-      mlx::core::ContiguousIterator::ContiguousIterator(&v986, &v982, v984[0], v81 - 2);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v975, &v982, v79 + 3, v82);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v985, &v981, v983[0], v81 - 2);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v974, &v981, v79 + 3, v82);
       if (*(*v2 + 48))
       {
         v435 = 0;
         v436 = *(v79[6] + (((v80 << 30) - 0x300000000) >> 29));
         do
         {
-          v437 = v988 - v987;
-          v438 = (v988 - v987) >> 2;
+          v437 = v987 - v986;
+          v438 = (v987 - v986) >> 2;
           if (v438)
           {
-            v439 = v993;
+            v439 = v992;
             v440 = ((v437 << 30) - 0x100000000) >> 32;
-            v441 = &v993[4 * v440];
+            v441 = &v992[4 * v440];
             v442 = *v441;
-            v443 = v990;
-            v444 = v986;
-            if (v438 >= 2 && (v445 = &v987[4 * v440], v442 == *v445 - 1))
+            v443 = v989;
+            v444 = v985;
+            if (v438 >= 2 && (v445 = &v986[4 * v440], v442 == *v445 - 1))
             {
               v446 = (v437 >> 2) & 0x7FFFFFFF;
               v447 = v446 - 1;
               v448 = 4 * v446;
-              v449 = v987 - 8;
+              v449 = v986 - 8;
               do
               {
                 v450 = v447;
                 *v441 = 0;
                 v444 = (v444 - v443[v440] * (*v445 - 1));
-                v986 = v444;
+                v985 = v444;
                 --v447;
                 v441 = &v439[v448 - 8];
                 v442 = *v441;
@@ -7910,31 +7899,31 @@ LABEL_575:
             }
 
             *v441 = v442 + 1;
-            v986 = (v444 + v443[v447]);
+            v985 = (v444 + v443[v447]);
           }
 
-          v452 = v977 - v976;
-          v453 = (v977 - v976) >> 2;
+          v452 = v976 - v975;
+          v453 = (v976 - v975) >> 2;
           if (v453)
           {
             v454 = __p;
             v455 = ((v452 << 30) - 0x100000000) >> 32;
             v456 = __p + 4 * v455;
             v457 = *v456;
-            v458 = v978;
-            v459 = v975;
-            if (v453 >= 2 && (v460 = v976 + 4 * v455, v457 == *v460 - 1))
+            v458 = v977;
+            v459 = v974;
+            if (v453 >= 2 && (v460 = v975 + 4 * v455, v457 == *v460 - 1))
             {
               v461 = (v452 >> 2) & 0x7FFFFFFF;
               v462 = v461 - 1;
               v463 = 4 * v461;
-              v464 = v976 - 8;
+              v464 = v975 - 8;
               do
               {
                 v465 = v462;
                 *v456 = 0;
                 v459 -= v458[v455] * (*v460 - 1);
-                v975 = v459;
+                v974 = v459;
                 --v462;
                 v456 = &v454[v463 - 8];
                 v457 = *v456;
@@ -7960,7 +7949,7 @@ LABEL_575:
             }
 
             *v456 = v457 + 1;
-            v975 = v458[v462] + v459;
+            v974 = v458[v462] + v459;
           }
 
           v435 += v436;
@@ -8029,37 +8018,37 @@ LABEL_575:
           *v281 = v875;
         }
 
-        goto LABEL_656;
+        return;
       }
 
       v154 = *a1;
+      v985 = 0;
       v986 = 0;
       v987 = 0;
-      v988 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v986, *(v154 + 24), *(v154 + 32), (*(v154 + 32) - *(v154 + 24)) >> 3);
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v985, *(v154 + 24), *(v154 + 32), (*(v154 + 32) - *(v154 + 24)) >> 3);
       v155 = v2[2];
-      v990 = 0;
-      v991 = 0;
       v989 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v989, *(v155 + 24), *(v155 + 32), (*(v155 + 32) - *(v155 + 24)) >> 3);
+      v990 = 0;
+      v988 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v988, *(v155 + 24), *(v155 + 32), (*(v155 + 32) - *(v155 + 24)) >> 3);
       v156 = v2[4];
-      v993 = 0;
-      v994 = 0;
       v992 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v992, *(v156 + 24), *(v156 + 32), (*(v156 + 32) - *(v156 + 24)) >> 3);
+      v993 = 0;
+      v991 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v991, *(v156 + 24), *(v156 + 32), (*(v156 + 32) - *(v156 + 24)) >> 3);
+      v974 = 0;
       v975 = 0;
       v976 = 0;
-      v977 = 0;
-      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v975, &v986, v995, 3uLL);
-      mlx::core::collapse_contiguous_dims(v154, &v975, 0x7FFFFFFFuLL, &v982);
-      v985 = &v975;
-      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v985);
+      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v974, &v985, v994, 3uLL);
+      mlx::core::collapse_contiguous_dims(v154, &v974, 0x7FFFFFFFuLL, &v981);
+      v984 = &v974;
+      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v984);
       for (i28 = 0; i28 != -9; i28 -= 3)
       {
-        v158 = *(&v992 + i28 * 8);
+        v158 = *(&v991 + i28 * 8);
         if (v158)
         {
-          (&v993)[i28] = v158;
+          (&v992)[i28] = v158;
           operator delete(v158);
         }
       }
@@ -8068,18 +8057,18 @@ LABEL_575:
       v160 = *(v2[2] + 152);
       v161 = *(v2[4] + 152);
       v162 = *(v2[6] + 152);
-      v163 = v984[0];
-      v164 = v983 - v982;
-      v165 = (v983 - v982) >> 2;
+      v163 = v983[0];
+      v164 = v982 - v981;
+      v165 = (v982 - v981) >> 2;
       if (v165 == 1)
       {
-        v479 = *v982;
-        if (*v982 >= 1)
+        v479 = *v981;
+        if (*v981 >= 1)
         {
           v480 = 0;
-          v481 = 4 * **v984[0];
-          v482 = 4 * **(v984[0] + 3);
-          v483 = 4 * **(v984[0] + 6);
+          v481 = 4 * **v983[0];
+          v482 = 4 * **(v983[0] + 3);
+          v483 = 4 * **(v983[0] + 6);
           do
           {
             v484 = truncf(*v159 / *v160);
@@ -8104,36 +8093,36 @@ LABEL_575:
         goto LABEL_654;
       }
 
-      mlx::core::ContiguousIterator::ContiguousIterator(&v986, &v982, v984[0], v165 - 2);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v975, &v982, v163 + 3, v166);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v985, &v981, v983[0], v165 - 2);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v974, &v981, v163 + 3, v166);
       if (*(*v2 + 48))
       {
         v703 = 0;
         v704 = *(v163[6] + (((v164 << 30) - 0x300000000) >> 29));
         do
         {
-          v705 = v988 - v987;
-          v706 = (v988 - v987) >> 2;
+          v705 = v987 - v986;
+          v706 = (v987 - v986) >> 2;
           if (v706)
           {
-            v707 = v993;
+            v707 = v992;
             v708 = ((v705 << 30) - 0x100000000) >> 32;
-            v709 = &v993[4 * v708];
+            v709 = &v992[4 * v708];
             v710 = *v709;
-            v711 = v990;
-            v712 = v986;
-            if (v706 >= 2 && (v713 = &v987[4 * v708], v710 == *v713 - 1))
+            v711 = v989;
+            v712 = v985;
+            if (v706 >= 2 && (v713 = &v986[4 * v708], v710 == *v713 - 1))
             {
               v714 = (v705 >> 2) & 0x7FFFFFFF;
               v715 = v714 - 1;
               v716 = 4 * v714;
-              v717 = v987 - 8;
+              v717 = v986 - 8;
               do
               {
                 v718 = v715;
                 *v709 = 0;
                 v712 = (v712 - v711[v708] * (*v713 - 1));
-                v986 = v712;
+                v985 = v712;
                 --v715;
                 v709 = &v707[v716 - 8];
                 v710 = *v709;
@@ -8159,31 +8148,31 @@ LABEL_575:
             }
 
             *v709 = v710 + 1;
-            v986 = (v712 + v711[v715]);
+            v985 = (v712 + v711[v715]);
           }
 
-          v720 = v977 - v976;
-          v721 = (v977 - v976) >> 2;
+          v720 = v976 - v975;
+          v721 = (v976 - v975) >> 2;
           if (v721)
           {
             v722 = __p;
             v723 = ((v720 << 30) - 0x100000000) >> 32;
             v724 = __p + 4 * v723;
             v725 = *v724;
-            v726 = v978;
-            v727 = v975;
-            if (v721 >= 2 && (v728 = v976 + 4 * v723, v725 == *v728 - 1))
+            v726 = v977;
+            v727 = v974;
+            if (v721 >= 2 && (v728 = v975 + 4 * v723, v725 == *v728 - 1))
             {
               v729 = (v720 >> 2) & 0x7FFFFFFF;
               v730 = v729 - 1;
               v731 = 4 * v729;
-              v732 = v976 - 8;
+              v732 = v975 - 8;
               do
               {
                 v733 = v730;
                 *v724 = 0;
                 v727 -= v726[v723] * (*v728 - 1);
-                v975 = v727;
+                v974 = v727;
                 --v730;
                 v724 = &v722[v731 - 8];
                 v725 = *v724;
@@ -8209,7 +8198,7 @@ LABEL_575:
             }
 
             *v724 = v725 + 1;
-            v975 = v726[v730] + v727;
+            v974 = v726[v730] + v727;
           }
 
           v703 += v704;
@@ -8278,37 +8267,37 @@ LABEL_575:
           *v186 = v772;
         }
 
-        goto LABEL_656;
+        return;
       }
 
       v28 = *a1;
+      v985 = 0;
       v986 = 0;
       v987 = 0;
-      v988 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v986, *(v28 + 24), *(v28 + 32), (*(v28 + 32) - *(v28 + 24)) >> 3);
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v985, *(v28 + 24), *(v28 + 32), (*(v28 + 32) - *(v28 + 24)) >> 3);
       v29 = v2[2];
-      v990 = 0;
-      v991 = 0;
       v989 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v989, *(v29 + 24), *(v29 + 32), (*(v29 + 32) - *(v29 + 24)) >> 3);
+      v990 = 0;
+      v988 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v988, *(v29 + 24), *(v29 + 32), (*(v29 + 32) - *(v29 + 24)) >> 3);
       v30 = v2[4];
-      v993 = 0;
-      v994 = 0;
       v992 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v992, *(v30 + 24), *(v30 + 32), (*(v30 + 32) - *(v30 + 24)) >> 3);
+      v993 = 0;
+      v991 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v991, *(v30 + 24), *(v30 + 32), (*(v30 + 32) - *(v30 + 24)) >> 3);
+      v974 = 0;
       v975 = 0;
       v976 = 0;
-      v977 = 0;
-      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v975, &v986, v995, 3uLL);
-      mlx::core::collapse_contiguous_dims(v28, &v975, 0x7FFFFFFFuLL, &v982);
-      v985 = &v975;
-      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v985);
+      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v974, &v985, v994, 3uLL);
+      mlx::core::collapse_contiguous_dims(v28, &v974, 0x7FFFFFFFuLL, &v981);
+      v984 = &v974;
+      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v984);
       for (i32 = 0; i32 != -9; i32 -= 3)
       {
-        v32 = *(&v992 + i32 * 8);
+        v32 = *(&v991 + i32 * 8);
         if (v32)
         {
-          (&v993)[i32] = v32;
+          (&v992)[i32] = v32;
           operator delete(v32);
         }
       }
@@ -8317,18 +8306,18 @@ LABEL_575:
       v34 = *(v2[2] + 152);
       v35 = *(v2[4] + 152);
       v36 = *(v2[6] + 152);
-      v37 = v984[0];
-      v38 = v983 - v982;
-      v39 = (v983 - v982) >> 2;
+      v37 = v983[0];
+      v38 = v982 - v981;
+      v39 = (v982 - v981) >> 2;
       if (v39 == 1)
       {
-        v293 = *v982;
-        if (*v982 >= 1)
+        v293 = *v981;
+        if (*v981 >= 1)
         {
           v294 = 0;
-          v295 = 8 * **v984[0];
-          v296 = 8 * **(v984[0] + 3);
-          v297 = 8 * **(v984[0] + 6);
+          v295 = 8 * **v983[0];
+          v296 = 8 * **(v983[0] + 3);
+          v297 = 8 * **(v983[0] + 6);
           do
           {
             v298 = trunc(*v33 / *v34);
@@ -8353,36 +8342,36 @@ LABEL_575:
         goto LABEL_654;
       }
 
-      mlx::core::ContiguousIterator::ContiguousIterator(&v986, &v982, v984[0], v39 - 2);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v975, &v982, v37 + 3, v40);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v985, &v981, v983[0], v39 - 2);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v974, &v981, v37 + 3, v40);
       if (*(*v2 + 48))
       {
         v323 = 0;
         v324 = *(v37[6] + (((v38 << 30) - 0x300000000) >> 29));
         do
         {
-          v325 = v988 - v987;
-          v326 = (v988 - v987) >> 2;
+          v325 = v987 - v986;
+          v326 = (v987 - v986) >> 2;
           if (v326)
           {
-            v327 = v993;
+            v327 = v992;
             v328 = ((v325 << 30) - 0x100000000) >> 32;
-            v329 = &v993[4 * v328];
+            v329 = &v992[4 * v328];
             v330 = *v329;
-            v331 = v990;
-            v332 = v986;
-            if (v326 >= 2 && (v333 = &v987[4 * v328], v330 == *v333 - 1))
+            v331 = v989;
+            v332 = v985;
+            if (v326 >= 2 && (v333 = &v986[4 * v328], v330 == *v333 - 1))
             {
               v334 = (v325 >> 2) & 0x7FFFFFFF;
               v335 = v334 - 1;
               v336 = 4 * v334;
-              v337 = v987 - 8;
+              v337 = v986 - 8;
               do
               {
                 v338 = v335;
                 *v329 = 0;
                 v332 = (v332 - v331[v328] * (*v333 - 1));
-                v986 = v332;
+                v985 = v332;
                 --v335;
                 v329 = &v327[v336 - 8];
                 v330 = *v329;
@@ -8408,31 +8397,31 @@ LABEL_575:
             }
 
             *v329 = v330 + 1;
-            v986 = (v332 + v331[v335]);
+            v985 = (v332 + v331[v335]);
           }
 
-          v340 = v977 - v976;
-          v341 = (v977 - v976) >> 2;
+          v340 = v976 - v975;
+          v341 = (v976 - v975) >> 2;
           if (v341)
           {
             v342 = __p;
             v343 = ((v340 << 30) - 0x100000000) >> 32;
             v344 = __p + 4 * v343;
             v345 = *v344;
-            v346 = v978;
-            v347 = v975;
-            if (v341 >= 2 && (v348 = v976 + 4 * v343, v345 == *v348 - 1))
+            v346 = v977;
+            v347 = v974;
+            if (v341 >= 2 && (v348 = v975 + 4 * v343, v345 == *v348 - 1))
             {
               v349 = (v340 >> 2) & 0x7FFFFFFF;
               v350 = v349 - 1;
               v351 = 4 * v349;
-              v352 = v976 - 8;
+              v352 = v975 - 8;
               do
               {
                 v353 = v350;
                 *v344 = 0;
                 v347 -= v346[v343] * (*v348 - 1);
-                v975 = v347;
+                v974 = v347;
                 --v350;
                 v344 = &v342[v351 - 8];
                 v345 = *v344;
@@ -8458,7 +8447,7 @@ LABEL_575:
             }
 
             *v344 = v345 + 1;
-            v975 = v346[v350] + v347;
+            v974 = v346[v350] + v347;
           }
 
           v323 += v324;
@@ -8537,37 +8526,37 @@ LABEL_575:
           *v205 = (LODWORD(v801) + (HIWORD(LODWORD(v801)) & 1u) + 0x7FFF) >> 16;
         }
 
-        goto LABEL_656;
+        return;
       }
 
       v56 = *a1;
+      v985 = 0;
       v986 = 0;
       v987 = 0;
-      v988 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v986, *(v56 + 24), *(v56 + 32), (*(v56 + 32) - *(v56 + 24)) >> 3);
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v985, *(v56 + 24), *(v56 + 32), (*(v56 + 32) - *(v56 + 24)) >> 3);
       v57 = v2[2];
-      v990 = 0;
-      v991 = 0;
       v989 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v989, *(v57 + 24), *(v57 + 32), (*(v57 + 32) - *(v57 + 24)) >> 3);
+      v990 = 0;
+      v988 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v988, *(v57 + 24), *(v57 + 32), (*(v57 + 32) - *(v57 + 24)) >> 3);
       v58 = v2[4];
-      v993 = 0;
-      v994 = 0;
       v992 = 0;
-      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v992, *(v58 + 24), *(v58 + 32), (*(v58 + 32) - *(v58 + 24)) >> 3);
+      v993 = 0;
+      v991 = 0;
+      std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v991, *(v58 + 24), *(v58 + 32), (*(v58 + 32) - *(v58 + 24)) >> 3);
+      v974 = 0;
       v975 = 0;
       v976 = 0;
-      v977 = 0;
-      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v975, &v986, v995, 3uLL);
-      mlx::core::collapse_contiguous_dims(v56, &v975, 0x7FFFFFFFuLL, &v982);
-      v985 = &v975;
-      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v985);
+      std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(&v974, &v985, v994, 3uLL);
+      mlx::core::collapse_contiguous_dims(v56, &v974, 0x7FFFFFFFuLL, &v981);
+      v984 = &v974;
+      std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v984);
       for (i36 = 0; i36 != -9; i36 -= 3)
       {
-        v60 = *(&v992 + i36 * 8);
+        v60 = *(&v991 + i36 * 8);
         if (v60)
         {
-          (&v993)[i36] = v60;
+          (&v992)[i36] = v60;
           operator delete(v60);
         }
       }
@@ -8576,9 +8565,9 @@ LABEL_575:
       v62 = *(v2[2] + 152);
       v63 = *(v2[4] + 152);
       v64 = *(v2[6] + 152);
-      v65 = v984[0];
-      v66 = v983 - v982;
-      v67 = (v983 - v982) >> 2;
+      v65 = v983[0];
+      v66 = v982 - v981;
+      v67 = (v982 - v981) >> 2;
       if (v67 == 1)
       {
         goto LABEL_654;
@@ -8590,36 +8579,36 @@ LABEL_575:
         goto LABEL_654;
       }
 
-      mlx::core::ContiguousIterator::ContiguousIterator(&v986, &v982, v984[0], v67 - 2);
-      mlx::core::ContiguousIterator::ContiguousIterator(&v975, &v982, v65 + 3, v68);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v985, &v981, v983[0], v67 - 2);
+      mlx::core::ContiguousIterator::ContiguousIterator(&v974, &v981, v65 + 3, v68);
       if (*(*v2 + 48))
       {
         v403 = 0;
         v404 = *(v65[6] + (((v66 << 30) - 0x300000000) >> 29));
         do
         {
-          v405 = v988 - v987;
-          v406 = (v988 - v987) >> 2;
+          v405 = v987 - v986;
+          v406 = (v987 - v986) >> 2;
           if (v406)
           {
-            v407 = v993;
+            v407 = v992;
             v408 = ((v405 << 30) - 0x100000000) >> 32;
-            v409 = &v993[4 * v408];
+            v409 = &v992[4 * v408];
             v410 = *v409;
-            v411 = v990;
-            v412 = v986;
-            if (v406 >= 2 && (v413 = &v987[4 * v408], v410 == *v413 - 1))
+            v411 = v989;
+            v412 = v985;
+            if (v406 >= 2 && (v413 = &v986[4 * v408], v410 == *v413 - 1))
             {
               v414 = (v405 >> 2) & 0x7FFFFFFF;
               v415 = v414 - 1;
               v416 = 4 * v414;
-              v417 = v987 - 8;
+              v417 = v986 - 8;
               do
               {
                 v418 = v415;
                 *v409 = 0;
                 v412 = (v412 - v411[v408] * (*v413 - 1));
-                v986 = v412;
+                v985 = v412;
                 --v415;
                 v409 = &v407[v416 - 8];
                 v410 = *v409;
@@ -8645,31 +8634,31 @@ LABEL_575:
             }
 
             *v409 = v410 + 1;
-            v986 = (v412 + v411[v415]);
+            v985 = (v412 + v411[v415]);
           }
 
-          v420 = v977 - v976;
-          v421 = (v977 - v976) >> 2;
+          v420 = v976 - v975;
+          v421 = (v976 - v975) >> 2;
           if (v421)
           {
             v422 = __p;
             v423 = ((v420 << 30) - 0x100000000) >> 32;
             v424 = __p + 4 * v423;
             v425 = *v424;
-            v426 = v978;
-            v427 = v975;
-            if (v421 >= 2 && (v428 = v976 + 4 * v423, v425 == *v428 - 1))
+            v426 = v977;
+            v427 = v974;
+            if (v421 >= 2 && (v428 = v975 + 4 * v423, v425 == *v428 - 1))
             {
               v429 = (v420 >> 2) & 0x7FFFFFFF;
               v430 = v429 - 1;
               v431 = 4 * v429;
-              v432 = v976 - 8;
+              v432 = v975 - 8;
               do
               {
                 v433 = v430;
                 *v424 = 0;
                 v427 -= v426[v423] * (*v428 - 1);
-                v975 = v427;
+                v974 = v427;
                 --v430;
                 v424 = &v422[v431 - 8];
                 v425 = *v424;
@@ -8695,7 +8684,7 @@ LABEL_575:
             }
 
             *v424 = v425 + 1;
-            v975 = v426[v430] + v427;
+            v974 = v426[v430] + v427;
           }
 
           v403 += v404;
@@ -8710,14 +8699,15 @@ LABEL_575:
       std::runtime_error::runtime_error(exception, "[DivMod] Complex type not supported");
       __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     default:
-      goto LABEL_656;
+      return;
   }
 }
 
-void sub_25A6368A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_25A6368A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator((v38 - 192));
-  std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(&a38);
+  va_start(va, a37);
+  mlx::core::ContiguousIterator::~ContiguousIterator((v37 - 192));
+  std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(va);
   _Unwind_Resume(a1);
 }
 
@@ -9495,11 +9485,11 @@ void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_
   operator delete(a1);
 }
 
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_12_GLOBAL__N_16binaryINS3_6detail6DivideEEEvRKNS3_5arrayESD_RSB_T_NS3_6StreamEEUlvE_JEEEvOSF_DpOT0_EUlvE_NS_9allocatorISM_EEFvvEEclEv(uint64_t a1, double a2)
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_12_GLOBAL__N_16binaryINS3_6detail6DivideEEEvRKNS3_5arrayESD_RSB_T_NS3_6StreamEEUlvE_JEEEvOSF_DpOT0_EUlvE_NS_9allocatorISM_EEFvvEEclEv(uint64_t a1, double a2, __n128 a3)
 {
-  v3 = mlx::core::scheduler::scheduler(v2);
+  v4 = mlx::core::scheduler::scheduler(v3);
 
-  mlx::core::scheduler::Scheduler::notify_task_completion(v3);
+  mlx::core::scheduler::Scheduler::notify_task_completion(v4);
 }
 
 uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_12_GLOBAL__N_16binaryINS3_6detail6DivideEEEvRKNS3_5arrayESD_RSB_T_NS3_6StreamEEUlvE_JEEEvOSF_DpOT0_EUlvE_NS_9allocatorISM_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
@@ -9514,52 +9504,52 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void std::__bind<void mlx::core::anonymous namespace::binary<mlx::core::detail::Divide>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,mlx::core::detail::Divide,mlx::core::Stream)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1, double a2)
+void std::__bind<void mlx::core::anonymous namespace::binary<mlx::core::detail::Divide>(mlx::core::array const&,mlx::core::array const&,mlx::core::array&,mlx::core::detail::Divide,mlx::core::Stream)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t result, double a2, __n128 a3)
 {
-  v2 = (a1 + 32);
-  switch(*(*(a1 + 32) + 56))
+  v3 = (result + 32);
+  switch(*(*(result + 32) + 56))
   {
     case 0:
-      mlx::core::binary_op<BOOL,BOOL,mlx::core::detail::Divide>(a1, (a1 + 16), v2, *(a1 + 48));
+      mlx::core::binary_op<BOOL,BOOL,mlx::core::detail::Divide>(result, (result + 16), v3, *(result + 48));
       break;
     case 1:
-      mlx::core::binary_op<unsigned char,unsigned char,mlx::core::detail::Divide>(a1, (a1 + 16), v2, *(a1 + 48));
+      mlx::core::binary_op<unsigned char,unsigned char,mlx::core::detail::Divide>(result, (result + 16), v3, *(result + 48));
       break;
     case 2:
-      mlx::core::binary_op<unsigned short,unsigned short,mlx::core::detail::Divide>(a1, (a1 + 16), v2, *(a1 + 48));
+      mlx::core::binary_op<unsigned short,unsigned short,mlx::core::detail::Divide>(result, (result + 16), v3, *(result + 48));
       break;
     case 3:
-      mlx::core::binary_op<unsigned int,unsigned int,mlx::core::detail::Divide>(a1, (a1 + 16), v2, *(a1 + 48));
+      mlx::core::binary_op<unsigned int,unsigned int,mlx::core::detail::Divide>(result, (result + 16), v3, *(result + 48));
       break;
     case 4:
-      mlx::core::binary_op<unsigned long long,unsigned long long,mlx::core::detail::Divide>(a1, (a1 + 16), v2, *(a1 + 48));
+      mlx::core::binary_op<unsigned long long,unsigned long long,mlx::core::detail::Divide>(result, (result + 16), v3, *(result + 48));
       break;
     case 5:
-      mlx::core::binary_op<signed char,signed char,mlx::core::detail::Divide>(a1, (a1 + 16), v2, *(a1 + 48));
+      mlx::core::binary_op<signed char,signed char,mlx::core::detail::Divide>(result, (result + 16), v3, *(result + 48));
       break;
     case 6:
-      mlx::core::binary_op<short,short,mlx::core::detail::Divide>(a1, (a1 + 16), v2, *(a1 + 48));
+      mlx::core::binary_op<short,short,mlx::core::detail::Divide>(result, (result + 16), v3, *(result + 48));
       break;
     case 7:
-      mlx::core::binary_op<int,int,mlx::core::detail::Divide>(a1, (a1 + 16), v2, *(a1 + 48));
+      mlx::core::binary_op<int,int,mlx::core::detail::Divide>(result, (result + 16), v3, *(result + 48));
       break;
     case 8:
-      mlx::core::binary_op<long long,long long,mlx::core::detail::Divide>(a1, (a1 + 16), v2, *(a1 + 48));
+      mlx::core::binary_op<long long,long long,mlx::core::detail::Divide>(result, (result + 16), v3, *(result + 48));
       break;
     case 9:
-      mlx::core::binary_op<half,half,mlx::core::detail::Divide>(a1, (a1 + 16), v2, *(a1 + 48), *&a2);
+      mlx::core::binary_op<half,half,mlx::core::detail::Divide>(result, (result + 16), v3, *(result + 48), *&a2);
       break;
     case 0xA:
-      mlx::core::binary_op<float,float,mlx::core::detail::Divide>(a1, (a1 + 16), v2, *(a1 + 48), a2);
+      mlx::core::binary_op<float,float,mlx::core::detail::Divide>(result, (result + 16), v3, *(result + 48), a2);
       break;
     case 0xB:
-      mlx::core::binary_op<double,double,mlx::core::detail::Divide>(a1, (a1 + 16), v2, *(a1 + 48));
+      mlx::core::binary_op<double,double,mlx::core::detail::Divide>(result, (result + 16), v3, *(result + 48));
       break;
     case 0xC:
-      mlx::core::binary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Divide>(a1, (a1 + 16), v2, *(a1 + 48));
+      mlx::core::binary_op<mlx::core::_MLX_BFloat16,mlx::core::_MLX_BFloat16,mlx::core::detail::Divide>(result, (result + 16), v3, *(result + 48));
       break;
     case 0xD:
-      mlx::core::binary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Divide>(a1, (a1 + 16), v2, *(a1 + 48));
+      mlx::core::binary_op<mlx::core::complex64_t,mlx::core::complex64_t,mlx::core::detail::Divide>(result, (result + 16), v3, *(result + 48), a2, a3);
       break;
     default:
       return;
@@ -9568,287 +9558,283 @@ void std::__bind<void mlx::core::anonymous namespace::binary<mlx::core::detail::
 
 void mlx::core::binary_op<BOOL,BOOL,mlx::core::detail::Divide>(uint64_t *a1, uint64_t *a2, uint64_t *a3, int a4)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v8 = *a1;
   v9 = *(*a1 + 152);
   v10 = *(*a2 + 152);
   v11 = *(*a3 + 152);
-  if (a4 > 1)
+  if (a4 <= 1)
   {
-    if (a4 == 2)
+    if (!a4)
     {
-      v31 = *(v8 + 160);
-      if (v31 >= 1)
-      {
-        v32 = v31 + 1;
-        do
-        {
-          v33 = *v9++;
-          *v11++ = v33 & 1;
-          --v32;
-        }
-
-        while (v32 > 1);
-      }
-
-      goto LABEL_71;
+      *v11 = *v9;
+      return;
     }
 
-    if (a4 == 3)
+    if (a4 == 1)
     {
-      v15 = *(v8 + 48);
-      if (v15 >= 1)
+      v12 = *(*a2 + 160);
+      if (v12 >= 1)
       {
-        v16 = v15 + 1;
-        do
-        {
-          v17 = *v9++;
-          *v11++ = v17 & 1;
-          --v16;
-        }
+        v13 = *v9;
 
-        while (v16 > 1);
+        memset(v11, v13, v12 & 0x7FFFFFFF);
       }
 
-      goto LABEL_71;
+      return;
     }
 
-    goto LABEL_14;
-  }
-
-  if (!a4)
-  {
-    *v11 = *v9;
-    goto LABEL_71;
-  }
-
-  if (a4 != 1)
-  {
 LABEL_14:
-    memset(v58, 0, sizeof(v58));
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v58, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
-    v18 = *a2;
-    memset(v59, 0, sizeof(v59));
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v59, *(v18 + 24), *(v18 + 32), (*(v18 + 32) - *(v18 + 24)) >> 3);
-    v19 = *a3;
-    v61[0] = 0;
-    v61[1] = 0;
-    v60 = 0;
-    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v60, *(v19 + 24), *(v19 + 32), (*(v19 + 32) - *(v19 + 24)) >> 3);
-    memset(v53, 0, sizeof(v53));
-    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(v53, v58, &v62, 3uLL);
-    mlx::core::collapse_contiguous_dims(v8, v53, 0x7FFFFFFFuLL, &__p);
-    v57 = v53;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v57);
+    memset(v56, 0, sizeof(v56));
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v56, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+    v17 = *a2;
+    memset(v57, 0, sizeof(v57));
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v57, *(v17 + 24), *(v17 + 32), (*(v17 + 32) - *(v17 + 24)) >> 3);
+    v18 = *a3;
+    v59[0] = 0;
+    v59[1] = 0;
+    v58 = 0;
+    std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v58, *(v18 + 24), *(v18 + 32), (*(v18 + 32) - *(v18 + 24)) >> 3);
+    memset(v51, 0, sizeof(v51));
+    std::vector<std::vector<long long>>::__init_with_size[abi:ne200100]<std::vector<long long> const*,std::vector<long long> const*>(v51, v56, &v60, 3uLL);
+    mlx::core::collapse_contiguous_dims(v8, v51, 0x7FFFFFFFuLL, &__p);
+    v55 = v51;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v55);
     for (i = 0; i != -9; i -= 3)
     {
-      v21 = v61[i - 1];
-      if (v21)
+      v20 = v59[i - 1];
+      if (v20)
       {
-        v61[i] = v21;
-        operator delete(v21);
+        v59[i] = v20;
+        operator delete(v20);
       }
     }
 
-    v22 = (*v56 + 48);
-    v23 = **v56;
-    v24 = (*(*v56 + 8) - **v56) >> 3;
-    v25 = v24 - 1;
-    if (v24 - 1 >= -1)
+    v21 = (*v54 + 48);
+    v22 = **v54;
+    v23 = (*(*v54 + 8) - **v54) >> 3;
+    v24 = v23 - 1;
+    if (v23 - 1 >= -1)
     {
-      v25 = -1;
+      v24 = -1;
     }
 
-    v26 = v25 + 1;
-    v27 = v24 + 1;
-    v28 = v24 - 1;
-    v29 = v24 - 1;
-    while ((v29 & 0x80000000) == 0)
+    v25 = v24 + 1;
+    v26 = v23 + 1;
+    v27 = v23 - 1;
+    v28 = v23 - 1;
+    while ((v28 & 0x80000000) == 0)
     {
-      v30 = 8 * (v29 & 0x7FFFFFFF);
-      --v27;
-      --v29;
-      if (*(v23 + v30) != *(*v22 + v30))
+      v29 = 8 * (v28 & 0x7FFFFFFF);
+      --v26;
+      --v28;
+      if (*(v22 + v29) != *(*v21 + v29))
       {
         goto LABEL_30;
       }
     }
 
-    v27 = v26;
+    v26 = v25;
 LABEL_30:
-    v34 = *(*v56 + 24);
-    v35 = (*(*v56 + 32) - v34) >> 3;
-    v36 = v35 - 1;
-    if (v35 - 1 >= -1)
+    v33 = *(*v54 + 24);
+    v34 = (*(*v54 + 32) - v33) >> 3;
+    v35 = v34 - 1;
+    if (v34 - 1 >= -1)
     {
-      v36 = -1;
+      v35 = -1;
     }
 
-    v37 = v36 + 1;
-    v38 = v35 + 1;
-    v39 = v35 - 1;
-    v40 = v35 - 1;
-    while ((v40 & 0x80000000) == 0)
+    v36 = v35 + 1;
+    v37 = v34 + 1;
+    v38 = v34 - 1;
+    v39 = v34 - 1;
+    while ((v39 & 0x80000000) == 0)
     {
-      v41 = 8 * (v40 & 0x7FFFFFFF);
-      --v38;
-      --v40;
-      if (*(v34 + v41) != *(*v22 + v41))
+      v40 = 8 * (v39 & 0x7FFFFFFF);
+      --v37;
+      --v39;
+      if (*(v33 + v40) != *(*v21 + v40))
       {
         goto LABEL_37;
       }
     }
 
-    v38 = v37;
+    v37 = v36;
 LABEL_37:
-    v42 = v24 + 1;
-    while ((v28 & 0x80000000) == 0)
+    v41 = v23 + 1;
+    while ((v27 & 0x80000000) == 0)
     {
-      v43 = *(v23 + 8 * (v28 & 0x7FFFFFFF));
-      --v42;
-      --v28;
-      if (v43)
+      v42 = *(v22 + 8 * (v27 & 0x7FFFFFFF));
+      --v41;
+      --v27;
+      if (v42)
       {
         goto LABEL_42;
       }
     }
 
-    v42 = v26;
+    v41 = v25;
 LABEL_42:
-    v44 = v35 + 1;
-    while ((v39 & 0x80000000) == 0)
+    v43 = v34 + 1;
+    while ((v38 & 0x80000000) == 0)
     {
-      v45 = *(v34 + 8 * (v39 & 0x7FFFFFFF));
-      --v44;
-      --v39;
-      if (v45)
+      v44 = *(v33 + 8 * (v38 & 0x7FFFFFFF));
+      --v43;
+      --v38;
+      if (v44)
       {
         goto LABEL_47;
       }
     }
 
-    v44 = v37;
+    v43 = v36;
 LABEL_47:
-    v46 = (v55 - __p) >> 2;
-    if (v27 <= v38)
+    v45 = (v53 - __p) >> 2;
+    if (v26 <= v37)
     {
-      v47 = v38;
+      v46 = v37;
     }
 
     else
     {
-      v47 = v27;
+      v46 = v26;
     }
 
-    if (v27 <= v44)
+    if (v26 <= v43)
     {
-      v27 = v44;
+      v26 = v43;
     }
 
-    if (v42 > v38)
+    if (v41 > v37)
     {
-      v38 = v42;
+      v37 = v41;
     }
 
-    if (v46 > v38)
+    if (v45 > v37)
     {
-      v48 = 1;
+      v47 = 1;
     }
 
     else
     {
-      v38 = (v55 - __p) >> 2;
-      v48 = a4;
+      v37 = (v53 - __p) >> 2;
+      v47 = a4;
     }
 
-    if (v46 > v27)
+    if (v45 > v26)
     {
-      v49 = 2;
+      v48 = 2;
     }
 
     else
     {
-      v27 = v38;
-      v49 = v48;
+      v26 = v37;
+      v48 = v47;
     }
 
-    if (v46 <= v47)
+    if (v45 <= v46)
     {
-      v50 = v27;
+      v49 = v26;
     }
 
     else
     {
-      v50 = v47;
+      v49 = v46;
     }
 
-    if (v46 <= v47)
+    if (v45 <= v46)
     {
-      v51 = v49;
+      v50 = v48;
     }
 
     else
     {
-      v51 = 3;
+      v50 = 3;
     }
 
-    if (!v50 || *(*v22 + 8 * v50 - 8) < 16)
+    if (!v49 || *(*v21 + 8 * v49 - 8) < 16)
     {
       goto LABEL_68;
     }
 
-    if (v51 == 1)
+    if (v50 == 1)
     {
-      mlx::core::binary_op_dispatch_dims<BOOL,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Divide>>(v9, v10, v11, v50, *(*a1 + 48), &__p, *v56, (*v56 + 24), (*v56 + 48));
+      mlx::core::binary_op_dispatch_dims<BOOL,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Divide>>(v9, v10, v11, v49, *(*a1 + 48), &__p, *v54, (*v54 + 24), (*v54 + 48));
     }
 
     else
     {
-      if (v51 != 2 && v51 != 3)
+      if (v50 != 2 && v50 != 3)
       {
-        LODWORD(v46) = v50;
+        LODWORD(v45) = v49;
 LABEL_68:
-        mlx::core::binary_op_dispatch_dims<BOOL,BOOL,false,mlx::core::detail::Divide>(v9, v10, v11, v46, *(*a1 + 48), &__p, *v56, (*v56 + 24), (*v56 + 48));
+        mlx::core::binary_op_dispatch_dims<BOOL,BOOL,false,mlx::core::detail::Divide>(v9, v10, v11, v45, *(*a1 + 48), &__p, *v54, (*v54 + 24), (*v54 + 48));
         goto LABEL_69;
       }
 
-      mlx::core::binary_op_dispatch_dims<BOOL,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Divide>>(v9, v10, v11, v50, *(*a1 + 48), &__p, *v56, (*v56 + 24), (*v56 + 48));
+      mlx::core::binary_op_dispatch_dims<BOOL,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Divide>>(v9, v10, v11, v49, *(*a1 + 48), &__p, *v54, (*v54 + 24), (*v54 + 48));
     }
 
 LABEL_69:
-    v58[0] = v56;
-    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v58);
+    v56[0] = v54;
+    std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v56);
     if (__p)
     {
-      v55 = __p;
+      v53 = __p;
       operator delete(__p);
     }
 
-    goto LABEL_71;
-  }
-
-  v12 = *(*a2 + 160);
-  if (v12 < 1)
-  {
-LABEL_71:
-    v52 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  v13 = *v9;
-  v14 = *MEMORY[0x277D85DE8];
+  if (a4 == 2)
+  {
+    v30 = *(v8 + 160);
+    if (v30 >= 1)
+    {
+      v31 = v30 + 1;
+      do
+      {
+        v32 = *v9++;
+        *v11++ = v32 & 1;
+        --v31;
+      }
 
-  memset(v11, v13, v12 & 0x7FFFFFFF);
+      while (v31 > 1);
+    }
+  }
+
+  else
+  {
+    if (a4 != 3)
+    {
+      goto LABEL_14;
+    }
+
+    v14 = *(v8 + 48);
+    if (v14 >= 1)
+    {
+      v15 = v14 + 1;
+      do
+      {
+        v16 = *v9++;
+        *v11++ = v16 & 1;
+        --v15;
+      }
+
+      while (v15 > 1);
+    }
+  }
 }
 
-void sub_25A638808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25A638808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::tuple<std::vector<int>,std::vector<std::vector<long long>>>::~tuple(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<BOOL,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Divide>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int **a6, uint64_t *a7, uint64_t *a8, uint64_t **a9)
+void mlx::core::binary_op_dispatch_dims<BOOL,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Divide>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, uint64_t **a9)
 {
   v12 = a3;
   v14 = a1;

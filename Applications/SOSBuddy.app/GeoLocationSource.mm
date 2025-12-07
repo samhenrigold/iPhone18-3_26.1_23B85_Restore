@@ -7,7 +7,7 @@
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  sub_10001D630(0, &unk_10035BB58);
+  sub_10001D630(0, &unk_10035BB58, CLLocation_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   managerCopy = manager;
   selfCopy = self;

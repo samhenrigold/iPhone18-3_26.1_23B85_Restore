@@ -95,7 +95,7 @@
 - (BOOL)shouldShowPersonalizationScreenIsUsingDefaultNickname:(BOOL)nickname
 {
   nicknameCopy = nickname;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = +[GKPreferences shared];
   if ([v5 isAccountModificationRestricted])
   {
@@ -109,13 +109,13 @@ LABEL_3:
     v7 = os_log_GKOnboarding;
     if (os_log_type_enabled(os_log_GKOnboarding, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_227904000, v7, OS_LOG_TYPE_INFO, "shouldShowPersonalizationScreen? NO -- Avatar & Nickname and Profile Privacy Changes are restricted.", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_227904000, v7, OS_LOG_TYPE_INFO, "shouldShowPersonalizationScreen? NO -- Avatar & Nickname and Profile Privacy Changes are restricted.", &v21, 2u);
     }
 
 LABEL_16:
     LOBYTE(nicknameCopy) = 0;
-    goto LABEL_17;
+    return nicknameCopy;
   }
 
   v8 = +[GKPreferences shared];
@@ -149,9 +149,9 @@ LABEL_16:
     {
       v15 = v14;
       lastPersonalizationVersionDisplayed2 = [(GKPlayerInternalOnboarding *)self lastPersonalizationVersionDisplayed];
-      v22 = 138412290;
-      v23 = lastPersonalizationVersionDisplayed2;
-      _os_log_impl(&dword_227904000, v15, OS_LOG_TYPE_INFO, "shouldShowPersonalizationScreen? NO -- lastPersonalizationVersionDisplayed=%@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = lastPersonalizationVersionDisplayed2;
+      _os_log_impl(&dword_227904000, v15, OS_LOG_TYPE_INFO, "shouldShowPersonalizationScreen? NO -- lastPersonalizationVersionDisplayed=%@", &v21, 0xCu);
     }
 
     goto LABEL_16;
@@ -159,31 +159,29 @@ LABEL_16:
 
   if (!os_log_GKGeneral)
   {
-    v19 = GKOSLoggers();
+    v18 = GKOSLoggers();
   }
 
-  v20 = os_log_GKOnboarding;
+  v19 = os_log_GKOnboarding;
   if (os_log_type_enabled(os_log_GKOnboarding, OS_LOG_TYPE_INFO))
   {
-    v21 = @"NO";
+    v20 = @"NO";
     if (nicknameCopy)
     {
-      v21 = @"YES";
+      v20 = @"YES";
     }
 
-    v22 = 138412290;
-    v23 = v21;
-    _os_log_impl(&dword_227904000, v20, OS_LOG_TYPE_INFO, "shouldShowPersonalizationScreen? %@", &v22, 0xCu);
+    v21 = 138412290;
+    v22 = v20;
+    _os_log_impl(&dword_227904000, v19, OS_LOG_TYPE_INFO, "shouldShowPersonalizationScreen? %@", &v21, 0xCu);
   }
 
-LABEL_17:
-  v17 = *MEMORY[0x277D85DE8];
   return nicknameCopy;
 }
 
 - (BOOL)hasAcknowledgedLatestGDPR
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = +[GKPrivacyContentVersion currentVersion];
   if (!os_log_GKGeneral)
   {
@@ -197,21 +195,19 @@ LABEL_17:
     v7 = v5;
     v8 = [v6 numberWithUnsignedInteger:{-[GKPlayerInternalOnboarding lastPrivacyNoticeVersionDisplayed](self, "lastPrivacyNoticeVersionDisplayed")}];
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v3];
-    v12 = 138412546;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v9;
-    _os_log_impl(&dword_227904000, v7, OS_LOG_TYPE_INFO, "hasAcknowledgedLatestGDPR Local State=%@ VS OBPrivacyFlow=%@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v9;
+    _os_log_impl(&dword_227904000, v7, OS_LOG_TYPE_INFO, "hasAcknowledgedLatestGDPR Local State=%@ VS OBPrivacyFlow=%@", &v11, 0x16u);
   }
 
-  result = [(GKPlayerInternalOnboarding *)self lastPrivacyNoticeVersionDisplayed]>= v3;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(GKPlayerInternalOnboarding *)self lastPrivacyNoticeVersionDisplayed]>= v3;
 }
 
 - (BOOL)shouldShowFriendSuggestionsScreen
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = +[GKPreferences shared];
   isFriendRequestsRestricted = [v3 isFriendRequestsRestricted];
 
@@ -225,11 +221,11 @@ LABEL_17:
     v6 = os_log_GKOnboarding;
     if (os_log_type_enabled(os_log_GKOnboarding, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_227904000, v6, OS_LOG_TYPE_INFO, "shouldShowFriendSuggestionsScreen? NO -- Adding Friends is restricted.", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_227904000, v6, OS_LOG_TYPE_INFO, "shouldShowFriendSuggestionsScreen? NO -- Adding Friends is restricted.", &v16, 2u);
     }
 
-    v7 = 0;
+    return 0;
   }
 
   else
@@ -258,22 +254,21 @@ LABEL_17:
 
       v13 = v11;
       lastFriendSuggestionsVersionDisplayed2 = [(GKPlayerInternalOnboarding *)self lastFriendSuggestionsVersionDisplayed];
-      v17 = 138412546;
-      v18 = v12;
-      v19 = 2112;
-      v20 = lastFriendSuggestionsVersionDisplayed2;
-      _os_log_impl(&dword_227904000, v13, OS_LOG_TYPE_INFO, "shouldShowFriendSuggestionsScreen? %@ -- lastFriendSuggestionsVersionDisplayed=%@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = v12;
+      v18 = 2112;
+      v19 = lastFriendSuggestionsVersionDisplayed2;
+      _os_log_impl(&dword_227904000, v13, OS_LOG_TYPE_INFO, "shouldShowFriendSuggestionsScreen? %@ -- lastFriendSuggestionsVersionDisplayed=%@", &v16, 0x16u);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)shouldShowContactsIntegrationConsentScreenIsUsingDefaultContactsIntegrationConsent:(BOOL)consent
 {
   consentCopy = consent;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   lastContactsIntegrationConsentVersionDisplayed = [(GKPlayerInternalOnboarding *)self lastContactsIntegrationConsentVersionDisplayed];
   v6 = [lastContactsIntegrationConsentVersionDisplayed length];
 
@@ -289,9 +284,9 @@ LABEL_17:
     {
       v9 = v8;
       lastContactsIntegrationConsentVersionDisplayed2 = [(GKPlayerInternalOnboarding *)self lastContactsIntegrationConsentVersionDisplayed];
-      v16 = 138412290;
-      v17 = lastContactsIntegrationConsentVersionDisplayed2;
-      _os_log_impl(&dword_227904000, v9, OS_LOG_TYPE_INFO, "shouldShowContactsIntegrationConsentScreen? NO -- lastContactsIntegrationConsentVersionDisplayed=%@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = lastContactsIntegrationConsentVersionDisplayed2;
+      _os_log_impl(&dword_227904000, v9, OS_LOG_TYPE_INFO, "shouldShowContactsIntegrationConsentScreen? NO -- lastContactsIntegrationConsentVersionDisplayed=%@", &v15, 0xCu);
     }
 
     LOBYTE(consentCopy) = 0;
@@ -313,13 +308,12 @@ LABEL_17:
         v13 = @"YES";
       }
 
-      v16 = 138412290;
-      v17 = v13;
-      _os_log_impl(&dword_227904000, v12, OS_LOG_TYPE_INFO, "shouldShowContactsIntegrationConsentScreen? %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v13;
+      _os_log_impl(&dword_227904000, v12, OS_LOG_TYPE_INFO, "shouldShowContactsIntegrationConsentScreen? %@", &v15, 0xCu);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return consentCopy;
 }
 

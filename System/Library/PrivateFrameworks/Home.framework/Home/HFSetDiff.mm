@@ -63,7 +63,7 @@
 
 - (id)diffByMergingDiff:(id)diff keyGenerator:(id)generator
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   diffCopy = diff;
   generatorCopy = generator;
   toSet = [(HFSetDiff *)self toSet];
@@ -78,30 +78,28 @@
 
   v16 = MEMORY[0x277CBEB98];
   allKeys = [v11 allKeys];
-  v35[0] = allKeys;
+  v34[0] = allKeys;
   allKeys2 = [v15 allKeys];
-  v35[1] = allKeys2;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+  v34[1] = allKeys2;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
   na_arrayByFlattening = [v19 na_arrayByFlattening];
   v21 = [v16 setWithArray:na_arrayByFlattening];
 
   v22 = [(HFSetDiff *)self mutableCopy];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __44__HFSetDiff_diffByMergingDiff_keyGenerator___block_invoke;
-  v30[3] = &unk_277E016D0;
-  v31 = v11;
-  v32 = v15;
-  v33 = diffCopy;
-  v34 = v22;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __44__HFSetDiff_diffByMergingDiff_keyGenerator___block_invoke;
+  v29[3] = &unk_277E016D0;
+  v30 = v11;
+  v31 = v15;
+  v32 = diffCopy;
+  v33 = v22;
   v23 = v22;
   v24 = diffCopy;
   v25 = v15;
   v26 = v11;
-  [v21 na_each:v30];
+  [v21 na_each:v29];
   v27 = [v23 copy];
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }

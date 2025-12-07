@@ -557,7 +557,7 @@ uint64_t __49__PUAssetViewModel__updateVideoPlaybackStartTime__block_invoke(uint
     v6 = v5;
     if (v5)
     {
-      [v5 CMTimeRangeValue];
+      objc_msgSend_CMTimeRangeValue(v5);
     }
 
     else
@@ -1262,7 +1262,7 @@ LABEL_11:
   v5 = videoPlayer;
   if (videoPlayer)
   {
-    [videoPlayer duration];
+    objc_msgSend_duration(videoPlayer);
   }
 
   else
@@ -1688,7 +1688,7 @@ void __43__PUAssetViewModel__updateMediaControllers__block_invoke(uint64_t a1, d
   [v9 performChanges:v10];
 }
 
-uint64_t __48__PUAssetViewModel__updatePlayersLoadingAllowed__block_invoke(uint64_t a1)
+void *__48__PUAssetViewModel__updatePlayersLoadingAllowed__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setLivePhotoLoadingDisabled:*(a1 + 56) forReason:@"OutOfFocus"];
   [*(a1 + 32) setLivePhotoLoadingDisabled:objc_msgSend(*(a1 + 40) forReason:{"isLivePhotoContentAllowed") ^ 1, @"LivePhotoContentDisallowed"}];
@@ -1703,7 +1703,7 @@ uint64_t __48__PUAssetViewModel__updatePlayersLoadingAllowed__block_invoke(uint6
   return result;
 }
 
-uint64_t __48__PUAssetViewModel__updatePlayersLoadingAllowed__block_invoke_2(uint64_t a1)
+void *__48__PUAssetViewModel__updatePlayersLoadingAllowed__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) setAnimatedImageLoadingDisabled:*(a1 + 40) forReason:@"OutOfFocus"];
   if (*(a1 + 40) == 1)

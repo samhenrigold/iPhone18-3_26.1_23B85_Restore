@@ -8,6 +8,7 @@
 - (void)fireTriggerWithIdentifier:(id)identifier force:(BOOL)force eventInfo:(id)info completion:(id)completion;
 - (void)handleCallbackForTriggerWithIdentifier:(id)identifier info:(id)info;
 - (void)handleSunriseSunsetChanged;
+- (void)queue_fireTriggerWithIdentifier:(id)identifier force:(BOOL)force eventInfo:(id)info completion:(id)completion;
 - (void)queue_unregisterCallbackForIdentifier:(id)identifier;
 - (void)registerCallback:(id)callback withIdentifier:(id)identifier;
 - (void)registerConfiguredTrigger:(id)trigger completion:(id)completion;
@@ -19,7 +20,7 @@
 
 - (void)checkTriggerStateWithKeyPath:(id)path completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   completionCopy = completion;
   v9 = completionCopy;
@@ -54,9 +55,9 @@ LABEL_3:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "[WFCoreDuetListener checkTriggerStateWithKeyPath:completion:]";
-      v26 = 2112;
-      v27 = pathCopy;
+      v24 = "[WFCoreDuetListener checkTriggerStateWithKeyPath:completion:]";
+      v25 = 2112;
+      v26 = pathCopy;
       _os_log_impl(&dword_23103C000, v17, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
     }
 
@@ -86,9 +87,9 @@ LABEL_9:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v25 = "[WFCoreDuetListener checkTriggerStateWithKeyPath:completion:]";
-    v26 = 2112;
-    v27 = v18;
+    v24 = "[WFCoreDuetListener checkTriggerStateWithKeyPath:completion:]";
+    v25 = 2112;
+    v26 = v18;
     _os_log_impl(&dword_23103C000, v19, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
   }
 
@@ -97,8 +98,6 @@ LABEL_9:
 
   pathCopy = 0;
 LABEL_13:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkTriggerStateWithIdentifier:(id)identifier completion:(id)completion
@@ -144,11 +143,11 @@ LABEL_3:
 
 void __65__WFCoreDuetListener_checkTriggerStateWithIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v22 = 0;
-  v3 = [v2 databaseWithError:&v22];
-  v4 = v22;
+  v21 = 0;
+  v3 = [v2 databaseWithError:&v21];
+  v4 = v21;
   if (v3)
   {
     v5 = [v3 configuredTriggerForTriggerID:*(a1 + 40)];
@@ -179,9 +178,9 @@ void __65__WFCoreDuetListener_checkTriggerStateWithIdentifier_completion___block
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v24 = "[WFCoreDuetListener checkTriggerStateWithIdentifier:completion:]_block_invoke";
-          v25 = 2112;
-          v26 = v9;
+          v23 = "[WFCoreDuetListener checkTriggerStateWithIdentifier:completion:]_block_invoke";
+          v24 = 2112;
+          v25 = v9;
           _os_log_impl(&dword_23103C000, v19, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
         }
 
@@ -198,9 +197,9 @@ void __65__WFCoreDuetListener_checkTriggerStateWithIdentifier_completion___block
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v24 = "[WFCoreDuetListener checkTriggerStateWithIdentifier:completion:]_block_invoke";
-        v25 = 2112;
-        v26 = v8;
+        v23 = "[WFCoreDuetListener checkTriggerStateWithIdentifier:completion:]_block_invoke";
+        v24 = 2112;
+        v25 = v8;
         _os_log_impl(&dword_23103C000, v17, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
       }
 
@@ -216,16 +215,14 @@ void __65__WFCoreDuetListener_checkTriggerStateWithIdentifier_completion___block
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "[WFCoreDuetListener checkTriggerStateWithIdentifier:completion:]_block_invoke";
-      v25 = 2114;
-      v26 = v4;
+      v23 = "[WFCoreDuetListener checkTriggerStateWithIdentifier:completion:]_block_invoke";
+      v24 = 2114;
+      v25 = v4;
       _os_log_impl(&dword_23103C000, v16, OS_LOG_TYPE_ERROR, "%s Failed to load database: %{public}@", buf, 0x16u);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fireTriggerWithIdentifier:(id)identifier force:(BOOL)force eventInfo:(id)info completion:(id)completion
@@ -273,69 +270,105 @@ LABEL_3:
   dispatch_async(queue, block);
 }
 
-- (void)handleSunriseSunsetChanged
+- (void)queue_fireTriggerWithIdentifier:(id)identifier force:(BOOL)force eventInfo:(id)info completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  forceCopy = force;
+  completionCopy = completion;
+  infoCopy = info;
+  identifierCopy = identifier;
   queue = [(WFCoreDuetListener *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v26 = 0;
-  v4 = [(WFCoreDuetListener *)self databaseWithError:&v26];
-  v5 = v26;
+  if (identifierCopy)
+  {
+    if (completionCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"WFCoreDuetListener.m" lineNumber:273 description:{@"Invalid parameter not satisfying: %@", @"identifier"}];
+
+    if (completionCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler2 handleFailureInMethod:a2 object:self file:@"WFCoreDuetListener.m" lineNumber:274 description:{@"Invalid parameter not satisfying: %@", @"completionHandler"}];
+
+LABEL_3:
+  eventQueue = [(WFCoreDuetListener *)self eventQueue];
+  [eventQueue enqueueTriggerWithIdentifier:identifierCopy eventInfo:infoCopy force:forceCopy completion:completionCopy];
+}
+
+- (void)handleSunriseSunsetChanged
+{
+  v31 = *MEMORY[0x277D85DE8];
+  queue = [(WFCoreDuetListener *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v25 = 0;
+  v4 = [(WFCoreDuetListener *)self databaseWithError:&v25];
+  v5 = v25;
   v6 = v5;
   if (v4)
   {
-    v19 = v5;
-    v20 = v4;
+    v18 = v5;
+    v19 = v4;
     allConfiguredTriggers = [v4 allConfiguredTriggers];
     descriptors = [allConfiguredTriggers descriptors];
     v9 = [descriptors if_compactMap:&__block_literal_global_1016];
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v23;
+      v13 = *v22;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v23 != v13)
+          if (*v22 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v22 + 1) + 8 * i);
-          v21 = 0;
-          [(WFCoreDuetListener *)self registerTrigger:v15 error:&v21];
-          v16 = v21;
+          v15 = *(*(&v21 + 1) + 8 * i);
+          v20 = 0;
+          [(WFCoreDuetListener *)self registerTrigger:v15 error:&v20];
+          v16 = v20;
           if (v16)
           {
             v17 = getWFTriggersLogObject();
             if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
             {
               *buf = 136315394;
-              v29 = "[WFCoreDuetListener handleSunriseSunsetChanged]";
-              v30 = 2114;
-              v31 = v16;
+              v28 = "[WFCoreDuetListener handleSunriseSunsetChanged]";
+              v29 = 2114;
+              v30 = v16;
               _os_log_impl(&dword_23103C000, v17, OS_LOG_TYPE_FAULT, "%s Failed to update trigger after sunrise/sunset change: %{public}@", buf, 0x16u);
             }
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v12);
     }
 
-    v6 = v19;
-    v4 = v20;
+    v6 = v18;
+    v4 = v19;
   }
 
   else
@@ -344,14 +377,12 @@ LABEL_3:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v29 = "[WFCoreDuetListener handleSunriseSunsetChanged]";
-      v30 = 2114;
-      v31 = v6;
+      v28 = "[WFCoreDuetListener handleSunriseSunsetChanged]";
+      v29 = 2114;
+      v30 = v6;
       _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_ERROR, "%s Failed tp load database: %{public}@", buf, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void *__48__WFCoreDuetListener_handleSunriseSunsetChanged__block_invoke(uint64_t a1, void *a2)
@@ -383,7 +414,7 @@ void *__48__WFCoreDuetListener_handleSunriseSunsetChanged__block_invoke(uint64_t
 
 - (void)registerSunriseSunsetCallbackIfNeeded
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   queue = [(WFCoreDuetListener *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -395,7 +426,7 @@ void *__48__WFCoreDuetListener_handleSunriseSunsetChanged__block_invoke(uint64_t
     if (v6)
     {
       *buf = 136315138;
-      v15 = "[WFCoreDuetListener registerSunriseSunsetCallbackIfNeeded]";
+      v14 = "[WFCoreDuetListener registerSunriseSunsetCallbackIfNeeded]";
       _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_INFO, "%s Already registered for sunrise / sunset changes", buf, 0xCu);
     }
   }
@@ -405,7 +436,7 @@ void *__48__WFCoreDuetListener_handleSunriseSunsetChanged__block_invoke(uint64_t
     if (v6)
     {
       *buf = 136315138;
-      v15 = "[WFCoreDuetListener registerSunriseSunsetCallbackIfNeeded]";
+      v14 = "[WFCoreDuetListener registerSunriseSunsetCallbackIfNeeded]";
       _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_INFO, "%s Registering for sunrise / sunset changes", buf, 0xCu);
     }
 
@@ -415,19 +446,17 @@ void *__48__WFCoreDuetListener_handleSunriseSunsetChanged__block_invoke(uint64_t
 
     objc_initWeak(buf, self);
     v9 = MEMORY[0x277CFE350];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __59__WFCoreDuetListener_registerSunriseSunsetCallbackIfNeeded__block_invoke;
-    v12[3] = &unk_278900258;
-    objc_copyWeak(&v13, buf);
-    v10 = [v9 localWakingRegistrationWithIdentifier:@"com.apple.siriactionsd.registrationForSunsetSunrise" contextualPredicate:v5 clientIdentifier:@"com.apple.siriactionsd.contextstore-registration" callback:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __59__WFCoreDuetListener_registerSunriseSunsetCallbackIfNeeded__block_invoke;
+    v11[3] = &unk_278900258;
+    objc_copyWeak(&v12, buf);
+    v10 = [v9 localWakingRegistrationWithIdentifier:@"com.apple.siriactionsd.registrationForSunsetSunrise" contextualPredicate:v5 clientIdentifier:@"com.apple.siriactionsd.contextstore-registration" callback:v11];
     [(WFCoreDuetListener *)self registerCallback:v10 withIdentifier:@"com.apple.siriactionsd.registrationForSunsetSunrise"];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __59__WFCoreDuetListener_registerSunriseSunsetCallbackIfNeeded__block_invoke(uint64_t a1)
@@ -444,7 +473,7 @@ void __59__WFCoreDuetListener_registerSunriseSunsetCallbackIfNeeded__block_invok
 
 - (void)queue_unregisterCallbackForIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   queue = [(WFCoreDuetListener *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -457,11 +486,11 @@ void __59__WFCoreDuetListener_registerSunriseSunsetCallbackIfNeeded__block_invok
     v8 = getWFTriggersLogObject();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 136315394;
-      v13 = "[WFCoreDuetListener queue_unregisterCallbackForIdentifier:]";
-      v14 = 2114;
-      v15 = identifierCopy;
-      _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_DEBUG, "%s Deleting context store registration for identifier: %{public}@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[WFCoreDuetListener queue_unregisterCallbackForIdentifier:]";
+      v13 = 2114;
+      v14 = identifierCopy;
+      _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_DEBUG, "%s Deleting context store registration for identifier: %{public}@", &v11, 0x16u);
     }
 
     userContext = [(WFCoreDuetListener *)self userContext];
@@ -470,13 +499,11 @@ void __59__WFCoreDuetListener_registerSunriseSunsetCallbackIfNeeded__block_invok
     registrations2 = [(WFCoreDuetListener *)self registrations];
     [registrations2 setObject:0 forKeyedSubscript:identifierCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerCallback:(id)callback withIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   callbackCopy = callback;
   queue = [(WFCoreDuetListener *)self queue];
@@ -510,9 +537,9 @@ LABEL_3:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v17 = "[WFCoreDuetListener registerCallback:withIdentifier:]";
-    v18 = 2114;
-    v19 = identifierCopy;
+    v16 = "[WFCoreDuetListener registerCallback:withIdentifier:]";
+    v17 = 2114;
+    v18 = identifierCopy;
     _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_DEBUG, "%s Creating context store registration for identifier: %{public}@", buf, 0x16u);
   }
 
@@ -521,8 +548,6 @@ LABEL_3:
 
   registrations = [(WFCoreDuetListener *)self registrations];
   [registrations setObject:callbackCopy forKeyedSubscript:identifierCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isCallbackRegisteredWithIdentifier:(id)identifier
@@ -539,7 +564,7 @@ LABEL_3:
 
 - (void)handleCallbackForTriggerWithIdentifier:(id)identifier info:(id)info
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   infoCopy = info;
   queue = [(WFCoreDuetListener *)self queue];
@@ -558,8 +583,8 @@ LABEL_3:
     *&buf[4] = "[WFCoreDuetListener handleCallbackForTriggerWithIdentifier:info:]";
     *&buf[12] = 2114;
     *&buf[14] = identifierCopy;
-    v33 = 2112;
-    v34 = infoCopy;
+    v32 = 2112;
+    v33 = infoCopy;
     _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_DEFAULT, "%s 🤖 Handling callback for registration with identifier (%{public}@) and info: %@", buf, 0x20u);
   }
 
@@ -585,9 +610,9 @@ LABEL_3:
     {
       value = [v13 value];
       value2 = [v14 value];
-      v29 = value;
+      v28 = value;
       v19 = VCSerializedEventInfo(value);
-      v28 = value2;
+      v27 = value2;
       v20 = VCSerializedEventInfo(value2);
       v21 = v20;
       if (v19 | v20)
@@ -602,8 +627,8 @@ LABEL_3:
           v22 = v16;
         }
 
-        v35[0] = @"NewValue";
-        v35[1] = @"OldValue";
+        v34[0] = @"NewValue";
+        v34[1] = @"OldValue";
         if (v20)
         {
           v23 = v20;
@@ -616,7 +641,7 @@ LABEL_3:
 
         *buf = v22;
         *&buf[8] = v23;
-        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v35 count:2];
+        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v34 count:2];
       }
 
       else
@@ -641,21 +666,19 @@ LABEL_3:
     v16 = MEMORY[0x277CBEC10];
   }
 
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___block_invoke;
-  v30[3] = &unk_2788FE608;
-  v30[4] = self;
-  v31 = identifierCopy;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___block_invoke;
+  v29[3] = &unk_2788FE608;
+  v29[4] = self;
+  v30 = identifierCopy;
   v25 = identifierCopy;
-  [(WFCoreDuetListener *)self fireTriggerWithIdentifier:v25 force:0 eventInfo:v16 completion:v30];
-
-  v26 = *MEMORY[0x277D85DE8];
+  [(WFCoreDuetListener *)self fireTriggerWithIdentifier:v25 force:0 eventInfo:v16 completion:v29];
 }
 
 void __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -663,33 +686,31 @@ void __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___bloc
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "[WFCoreDuetListener handleCallbackForTriggerWithIdentifier:info:]_block_invoke";
-      v14 = 2114;
-      v15 = v5;
+      v12 = "[WFCoreDuetListener handleCallbackForTriggerWithIdentifier:info:]_block_invoke";
+      v13 = 2114;
+      v14 = v5;
       _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_ERROR, "%s Failed to fire trigger: %{public}@", buf, 0x16u);
     }
   }
 
   v7 = [*(a1 + 32) queue];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___block_invoke_211;
-  v10[3] = &unk_2788FFFC0;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___block_invoke_211;
+  v9[3] = &unk_2788FFFC0;
   v8 = *(a1 + 40);
-  v10[4] = *(a1 + 32);
-  v11 = v8;
-  dispatch_async(v7, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[4] = *(a1 + 32);
+  v10 = v8;
+  dispatch_async(v7, v9);
 }
 
 void __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___block_invoke_211(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v17 = 0;
-  v3 = [v2 databaseWithError:&v17];
-  v4 = v17;
+  v16 = 0;
+  v3 = [v2 databaseWithError:&v16];
+  v4 = v16;
   if (v3)
   {
     v5 = [v3 configuredTriggerForTriggerID:*(a1 + 40)];
@@ -702,14 +723,14 @@ void __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___bloc
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v19 = "[WFCoreDuetListener handleCallbackForTriggerWithIdentifier:info:]_block_invoke";
+        v18 = "[WFCoreDuetListener handleCallbackForTriggerWithIdentifier:info:]_block_invoke";
         _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_INFO, "%s Re-registering trigger", buf, 0xCu);
       }
 
       v9 = *(a1 + 32);
-      v16 = 0;
-      v10 = [v9 registerTrigger:v5 error:&v16];
-      v11 = v16;
+      v15 = 0;
+      v10 = [v9 registerTrigger:v5 error:&v15];
+      v11 = v15;
       if ((v10 & 1) == 0)
       {
         v12 = getWFTriggersLogObject();
@@ -717,9 +738,9 @@ void __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___bloc
         {
           v13 = *(a1 + 40);
           *buf = 136315394;
-          v19 = "[WFCoreDuetListener handleCallbackForTriggerWithIdentifier:info:]_block_invoke";
-          v20 = 2114;
-          v21 = v13;
+          v18 = "[WFCoreDuetListener handleCallbackForTriggerWithIdentifier:info:]_block_invoke";
+          v19 = 2114;
+          v20 = v13;
           _os_log_impl(&dword_23103C000, v12, OS_LOG_TYPE_ERROR, "%s 🤖 Failed to reregister trigger after firing with identifier: %{public}@", buf, 0x16u);
         }
       }
@@ -738,14 +759,12 @@ void __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___bloc
     {
       v14 = *(a1 + 40);
       *buf = 136315394;
-      v19 = "[WFCoreDuetListener handleCallbackForTriggerWithIdentifier:info:]_block_invoke";
-      v20 = 2114;
-      v21 = v14;
+      v18 = "[WFCoreDuetListener handleCallbackForTriggerWithIdentifier:info:]_block_invoke";
+      v19 = 2114;
+      v20 = v14;
       _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_ERROR, "%s 🤖 Failed to reregister trigger after firing with identifier because the database could not be loaded: %{public}@", buf, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterConfiguredTriggerWithIdentifier:(id)identifier
@@ -764,7 +783,7 @@ void __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___bloc
 
 - (BOOL)registerTrigger:(id)trigger error:(id *)error
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   queue = [(WFCoreDuetListener *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -794,9 +813,9 @@ void __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___bloc
       v11 = 0;
     }
 
-    v37 = v11;
+    v36 = v11;
     contextStorePredicate = [trigger contextStorePredicate];
-    v38 = contextStorePredicate != 0;
+    v37 = contextStorePredicate != 0;
     if (contextStorePredicate)
     {
       contextStoreQualityOfService = [trigger contextStoreQualityOfService];
@@ -818,17 +837,17 @@ void __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___bloc
         v18 = objc_opt_class();
         v19 = NSStringFromClass(v18);
         *buf = 136316418;
-        v43 = "[WFCoreDuetListener registerTrigger:error:]";
-        v44 = 2112;
-        v45 = contextStorePredicate;
-        v46 = 1024;
-        *v47 = contextStoreQualityOfService;
-        *&v47[4] = 2112;
-        *&v47[6] = v16;
-        v48 = 2112;
-        v49 = identifier2;
-        v50 = 2114;
-        v51 = v19;
+        v42 = "[WFCoreDuetListener registerTrigger:error:]";
+        v43 = 2112;
+        v44 = contextStorePredicate;
+        v45 = 1024;
+        *v46 = contextStoreQualityOfService;
+        *&v46[4] = 2112;
+        *&v46[6] = v16;
+        v47 = 2112;
+        v48 = identifier2;
+        v49 = 2114;
+        v50 = v19;
         _os_log_impl(&dword_23103C000, v15, OS_LOG_TYPE_DEFAULT, "%s Registering predicate (%@) with QoS (%u) device (%@) for trigger: (%@) of trigger type: (%{public}@)", buf, 0x3Au);
       }
 
@@ -837,7 +856,7 @@ void __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___bloc
       aBlock[1] = 3221225472;
       aBlock[2] = __44__WFCoreDuetListener_registerTrigger_error___block_invoke;
       aBlock[3] = &unk_278900258;
-      objc_copyWeak(&v40, &location);
+      objc_copyWeak(&v39, &location);
       v20 = _Block_copy(aBlock);
       if (contextStoreRegistrationIsForWatch)
       {
@@ -869,9 +888,9 @@ void __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___bloc
             v30 = objc_opt_class();
             v31 = NSStringFromClass(v30);
             *buf = 136315394;
-            v43 = "[WFCoreDuetListener registerTrigger:error:]";
-            v44 = 2114;
-            v45 = v31;
+            v42 = "[WFCoreDuetListener registerTrigger:error:]";
+            v43 = 2114;
+            v44 = v31;
             _os_log_impl(&dword_23103C000, v29, OS_LOG_TYPE_FAULT, "%s For watch, predicate must be _CDMDCSContextualPredicate, not %{public}@", buf, 0x16u);
           }
 
@@ -881,8 +900,8 @@ void __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___bloc
 
       else
       {
-        LODWORD(v35) = contextStoreQualityOfService;
-        v25 = [MEMORY[0x277CFE350] registrationWithIdentifier:identifier contextualPredicate:contextStorePredicate dismissalPolicy:0 deviceSet:0 clientIdentifier:@"com.apple.siriactionsd.contextstore-registration" mustWake:1 qualityOfService:v35 callback:v20];
+        LODWORD(v34) = contextStoreQualityOfService;
+        v25 = [MEMORY[0x277CFE350] registrationWithIdentifier:identifier contextualPredicate:contextStorePredicate dismissalPolicy:0 deviceSet:0 clientIdentifier:@"com.apple.siriactionsd.contextstore-registration" mustWake:1 qualityOfService:v34 callback:v20];
       }
 
       objc_opt_class();
@@ -893,7 +912,7 @@ void __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___bloc
 
       [(WFCoreDuetListener *)self registerCallback:v25 withIdentifier:identifier];
 
-      objc_destroyWeak(&v40);
+      objc_destroyWeak(&v39);
       objc_destroyWeak(&location);
     }
 
@@ -905,11 +924,11 @@ void __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___bloc
         v27 = objc_opt_class();
         v28 = NSStringFromClass(v27);
         *buf = 136315650;
-        v43 = "[WFCoreDuetListener registerTrigger:error:]";
-        v44 = 2112;
-        v45 = trigger;
-        v46 = 2114;
-        *v47 = v28;
+        v42 = "[WFCoreDuetListener registerTrigger:error:]";
+        v43 = 2112;
+        v44 = trigger;
+        v45 = 2114;
+        *v46 = v28;
         _os_log_impl(&dword_23103C000, v26, OS_LOG_TYPE_FAULT, "%s Unable to generate predicate for trigger: %@ of type: %{public}@, unregistering.", buf, 0x20u);
       }
 
@@ -922,11 +941,10 @@ void __66__WFCoreDuetListener_handleCallbackForTriggerWithIdentifier_info___bloc
     identifier3 = [triggerCopy identifier];
     [(WFCoreDuetListener *)self queue_unregisterCallbackForIdentifier:identifier3];
 
-    v38 = 0;
+    v37 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-  return v38;
+  return v37;
 }
 
 void __44__WFCoreDuetListener_registerTrigger_error___block_invoke(uint64_t a1, void *a2, void *a3)

@@ -71,11 +71,11 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v66[2] = *MEMORY[0x277D85DE8];
+  v65[2] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  v65.receiver = self;
-  v65.super_class = WSWebSheetView;
-  height = [(WSWebSheetView *)&v65 initWithFrame:x, y, width, height];
+  v64.receiver = self;
+  v64.super_class = WSWebSheetView;
+  height = [(WSWebSheetView *)&v64 initWithFrame:x, y, width, height];
   v12 = height;
   if (height)
   {
@@ -124,9 +124,9 @@
     [(UIBarButtonItem *)v12->_backButtonItem setEnabled:0];
     [(UIBarButtonItem *)v12->_forwardButtonItem setEnabled:0];
     v30 = v12->_navigationItem;
-    v66[0] = v12->_backButtonItem;
-    v66[1] = v12->_forwardButtonItem;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
+    v65[0] = v12->_backButtonItem;
+    v65[1] = v12->_forwardButtonItem;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
     [(UINavigationItem *)v30 setLeftBarButtonItems:v31];
 
     [(UINavigationItem *)v12->_navigationItem setRightBarButtonItem:v12->_cancelBarButtonItem];
@@ -208,7 +208,6 @@
     }
   }
 
-  v63 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -223,7 +222,7 @@
   dispatch_async(queue, block);
 }
 
-uint64_t __42__WSWebSheetView_dequeueRedirectTypeQueue__block_invoke(uint64_t a1)
+void *__42__WSWebSheetView_dequeueRedirectTypeQueue__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 520) count];
   if (result)
@@ -551,9 +550,7 @@ void __37__WSWebSheetView_updateResultOptions__block_invoke_2(uint64_t a1)
 
 - (void)setProbeURL:(id)l
 {
-  v4 = [l copy];
-  probeURL = self->_probeURL;
-  self->_probeURL = v4;
+  self->_probeURL = [l copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -588,7 +585,7 @@ void __37__WSWebSheetView_updateResultOptions__block_invoke_2(uint64_t a1)
 - (id)_lockIconImage
 {
   v2 = MEMORY[0x277D755B8];
-  v3 = GetBundle();
+  v3 = GetBundle(self);
   v4 = [v2 imageNamed:@"Lock" inBundle:v3];
 
   return v4;
@@ -856,7 +853,7 @@ uint64_t __30__WSWebSheetView_cancelTapped__block_invoke_3(uint64_t a1)
   return isChinaRegion_isChinaRegion;
 }
 
-uint64_t __31__WSWebSheetView_isChinaRegion__block_invoke()
+void *__31__WSWebSheetView_isChinaRegion__block_invoke()
 {
   v0 = CPGetDeviceRegionCode();
   NSLog(&cfstr_DeviceRegionCo.isa, v0);
@@ -1740,36 +1737,36 @@ LABEL_16:
 
 - (BOOL)isConfigurationProfileMIMEType:(id)type
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   typeCopy = type;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
   acceptedMIMETypes = [mEMORY[0x277D262A0] acceptedMIMETypes];
 
-  v6 = [acceptedMIMETypes countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [acceptedMIMETypes countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(acceptedMIMETypes);
         }
 
-        if (![typeCopy caseInsensitiveCompare:*(*(&v11 + 1) + 8 * i)])
+        if (![typeCopy caseInsensitiveCompare:*(*(&v10 + 1) + 8 * i)])
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [acceptedMIMETypes countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [acceptedMIMETypes countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -1781,7 +1778,6 @@ LABEL_16:
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1984,18 +1980,17 @@ void __78__WSWebSheetView_webView_didReceiveAuthenticationChallenge_completionHa
 
 void __55__WSWebSheetView__scrapeUserCredentialsUsingJavaScript__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = a2;
+  v12 = a2;
   v5 = a3;
-  v6 = *(a1 + 40);
-  NSLog(&cfstr_CompletedUserI.isa, v6, *(*(a1 + 32) + 640));
-  v7 = [v5 domain];
-  if ([v7 isEqualToString:*MEMORY[0x277CE38D0]])
+  NSLog(&cfstr_CompletedUserI.isa, *(a1 + 40), *(*(a1 + 32) + 640));
+  v6 = [v5 domain];
+  if ([v6 isEqualToString:*MEMORY[0x277CE38D0]])
   {
-    v8 = [v5 code];
+    v7 = [v5 code];
 
-    if (v8 == 5)
+    if (v7 == 5)
     {
-      NSLog(&cfstr_FailedToGetUse.isa, v5, v13);
+      NSLog(&cfstr_FailedToGetUse.isa, v5, v11);
       goto LABEL_13;
     }
   }
@@ -2004,15 +1999,15 @@ void __55__WSWebSheetView__scrapeUserCredentialsUsingJavaScript__block_invoke(ui
   {
   }
 
-  v9 = *(*(a1 + 32) + 640);
-  if (*(a1 + 40) == v9)
+  v8 = *(*(a1 + 32) + 640);
+  if (*(a1 + 40) == v8)
   {
-    if ([v14 count])
+    if ([v12 count])
     {
-      [*(*(a1 + 32) + 648) addEntriesFromDictionary:v14];
-      v10 = [*(*(a1 + 32) + 648) description];
-      v11 = [v10 redactedSensitiveContentForWiFi];
-      NSLog(&cfstr_UpdatedUserEnt.isa, v11);
+      [*(*(a1 + 32) + 648) addEntriesFromDictionary:v12];
+      v9 = [*(*(a1 + 32) + 648) description];
+      v10 = [v9 redactedSensitiveContentForWiFi];
+      NSLog(&cfstr_UpdatedUserEnt.isa, v10);
     }
 
     else if (v5)
@@ -2020,14 +2015,13 @@ void __55__WSWebSheetView__scrapeUserCredentialsUsingJavaScript__block_invoke(ui
       NSLog(&cfstr_FailedToGetUse_0.isa, v5);
     }
 
-    v12 = *(a1 + 40);
-    NSLog(&cfstr_WillReRegister.isa, v12, *(*(a1 + 32) + 640));
+    NSLog(&cfstr_WillReRegister.isa, *(a1 + 40), *(*(a1 + 32) + 640));
     [*(a1 + 32) _scrapeUserCredentialsUsingJavaScript];
   }
 
   else
   {
-    NSLog(&cfstr_WillNotReRegis.isa, *(a1 + 40), v9);
+    NSLog(&cfstr_WillNotReRegis.isa, *(a1 + 40), v8);
   }
 
 LABEL_13:
@@ -2045,9 +2039,7 @@ LABEL_13:
       self->_navigationURLAtStart = 0;
     }
 
-    v6 = [(WKWebView *)self->_webView URL];
-    v7 = self->_navigationURLAtStart;
-    self->_navigationURLAtStart = v6;
+    self->_navigationURLAtStart = [(WKWebView *)self->_webView URL];
 
     MEMORY[0x2821F96F8]();
   }
@@ -2148,7 +2140,7 @@ void __38__WSWebSheetView_dispatchCaptiveProbe__block_invoke_2(uint64_t a1, uint
 
 - (id)_fetchCaptivePortalCredentialsAndReturnNetworkName:(id *)name deviceName:(id *)deviceName
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (_os_feature_enabled_impl() && _os_feature_enabled_impl())
   {
     currentKnownNetworkProfile = [(CWFInterface *)self->_corewifi currentKnownNetworkProfile];
@@ -2159,9 +2151,9 @@ void __38__WSWebSheetView_dispatchCaptiveProbe__block_invoke_2(uint64_t a1, uint
       if (networkName)
       {
         corewifi = self->_corewifi;
-        v37 = 0;
-        v11 = [(CWFInterface *)corewifi captivePortalCredentialsForKnownNetworkProfile:v8 error:&v37];
-        v12 = v37;
+        v36 = 0;
+        v11 = [(CWFInterface *)corewifi captivePortalCredentialsForKnownNetworkProfile:v8 error:&v36];
+        v12 = v36;
         v13 = v12;
         if (v12)
         {
@@ -2171,28 +2163,28 @@ void __38__WSWebSheetView_dispatchCaptiveProbe__block_invoke_2(uint64_t a1, uint
 
         else
         {
-          v30 = v11;
-          v31 = networkName;
+          v29 = v11;
+          v30 = networkName;
           [(CWFInterface *)self->_corewifi nearbyRecommendedNetworks];
+          v32 = 0u;
           v33 = 0u;
           v34 = 0u;
-          v35 = 0u;
-          obj = v36 = 0u;
-          v15 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+          obj = v35 = 0u;
+          v15 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v34;
+            v17 = *v33;
 LABEL_12:
             v18 = 0;
             while (1)
             {
-              if (*v34 != v17)
+              if (*v33 != v17)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v19 = *(*(&v33 + 1) + 8 * v18);
+              v19 = *(*(&v32 + 1) + 8 * v18);
               identifier = [v19 identifier];
               identifier2 = [v8 identifier];
               v22 = [identifier isEqualToString:identifier2];
@@ -2204,7 +2196,7 @@ LABEL_12:
 
               if (v16 == ++v18)
               {
-                v16 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+                v16 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
                 if (v16)
                 {
                   goto LABEL_12;
@@ -2234,12 +2226,12 @@ LABEL_21:
             receivedFromDeviceName = 0;
           }
 
-          v11 = v30;
-          networkName = v31;
+          v11 = v29;
+          networkName = v30;
           if (name)
           {
-            v25 = v31;
-            *name = v31;
+            v25 = v30;
+            *name = v30;
           }
 
           v26 = v24 ^ 1;
@@ -2254,7 +2246,7 @@ LABEL_21:
             *deviceName = receivedFromDeviceName;
           }
 
-          v14 = v30;
+          v14 = v29;
 
           v13 = 0;
         }
@@ -2279,14 +2271,12 @@ LABEL_21:
     v14 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (void)_populateTextSuggestionsWithCaptivePortalCredentials:(id)credentials networkName:(id)name deviceName:(id)deviceName inputSession:(id)session
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   deviceNameCopy = deviceName;
   sessionCopy = session;
   v10 = [(UITextSuggestion *)WSWebSheetAutoFillTextSuggestion textSuggestionWithInputText:&stru_2882BFA40];
@@ -2314,11 +2304,9 @@ LABEL_21:
   v18 = [v15 stringWithFormat:v17];
   [v10 setDisplayText:v18];
 
-  v21[0] = v10;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = v10;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   [sessionCopy setSuggestions:v19];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_webView:(id)view didStartInputSession:(id)session
@@ -2448,7 +2436,7 @@ void __57__WSWebSheetView__autoFillUserCredentialsUsingJavaScript__block_invoke_
 {
   if (a3)
   {
-    NSLog(&cfstr_FailedToAutoFi.isa, a3);
+    NSLog(&cfstr_FailedToAutoFi.isa, a2, a3);
   }
 }
 
@@ -2502,9 +2490,7 @@ void __57__WSWebSheetView__autoFillUserCredentialsUsingJavaScript__block_invoke_
 - (void)_startCaptiveProbeDispatchTimer
 {
   [(WSWebSheetView *)self _stopCaptiveProbeDispatchTimer];
-  v3 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel__captiveProbeDispatchTimerDidFire_ selector:0 userInfo:0 repeats:10.0];
-  captiveProbeDispatchTimer = self->_captiveProbeDispatchTimer;
-  self->_captiveProbeDispatchTimer = v3;
+  self->_captiveProbeDispatchTimer = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel__captiveProbeDispatchTimerDidFire_ selector:0 userInfo:0 repeats:10.0];
 
   MEMORY[0x2821F96F8]();
 }

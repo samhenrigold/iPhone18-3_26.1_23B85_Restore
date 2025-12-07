@@ -42,9 +42,9 @@
   v8 = [(PTMetalContext *)&v23 init];
   if (v8)
   {
-    device = [queueCopy device];
+    v9 = objc_msgSend_device(queueCopy);
     device = v8->_device;
-    v8->_device = device;
+    v8->_device = v9;
 
     objc_storeStrong(&v8->_commandQueue, queue);
     v8->_allowCommandbufferAllocation = 0;
@@ -73,7 +73,7 @@
 
     else
     {
-      v21 = _PTLogSystem();
+      v21 = _PTLogSystem(0);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [PTMetalContext initWithCommandQueue:bundleClass:];
@@ -95,12 +95,13 @@
 {
   if (self->_allowCommandbufferAllocation)
   {
-    if ([(MTLCommandBuffer *)self->_commandBuffer status])
+    status = [(MTLCommandBuffer *)self->_commandBuffer status];
+    if (status)
     {
-      v3 = _PTLogSystem();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v4 = _PTLogSystem(status);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        [(PTMetalContext *)v3 commandBuffer:v4];
+        [(PTMetalContext *)v4 commandBuffer:v5];
       }
     }
 
@@ -108,40 +109,40 @@
     if (!commandBuffer)
     {
       commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
-      v13 = self->_commandBuffer;
+      v14 = self->_commandBuffer;
       self->_commandBuffer = commandBuffer;
 
-      v14 = self->_commandBuffer;
-      if (!v14)
+      v15 = self->_commandBuffer;
+      if (!v15)
       {
-        v15 = _PTLogSystem();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = _PTLogSystem(0);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke_cold_2(v15, v16, v17, v18, v19, v20, v21, v22);
+          __44__PTVFXResources_asyncVFXInit_metalContext___block_invoke_cold_2(v16, v17, v18, v19, v20, v21, v22, v23);
         }
 
-        v14 = self->_commandBuffer;
+        v15 = self->_commandBuffer;
       }
 
-      [(MTLCommandBuffer *)v14 setLabel:@"Portrait.framework"];
+      [(MTLCommandBuffer *)v15 setLabel:@"Portrait.framework"];
       commandBuffer = self->_commandBuffer;
     }
 
-    v23 = commandBuffer;
+    v24 = commandBuffer;
   }
 
   else
   {
-    v24 = _PTLogSystem();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = _PTLogSystem(self);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [(PTMetalContext *)v24 commandBuffer:v25];
+      [(PTMetalContext *)v25 commandBuffer:v26];
     }
 
-    v23 = 0;
+    v24 = 0;
   }
 
-  return v23;
+  return v24;
 }
 
 - (void)commit
@@ -183,13 +184,14 @@
   constantsCopy = constants;
   if (!constantsCopy)
   {
-    v10 = [(MTLLibrary *)self->_library newFunctionWithName:nameCopy];
-    if (v10)
+    v17 = [(MTLLibrary *)self->_library newFunctionWithName:nameCopy];
+    v10 = v17;
+    if (v17)
     {
       goto LABEL_20;
     }
 
-    v11 = 0;
+    v12 = 0;
     goto LABEL_12;
   }
 
@@ -197,23 +199,24 @@
   library = self->_library;
   if (pipelineLibrary)
   {
-    v19 = 0;
-    v10 = [(MTLLibrary *)library newFunctionWithName:nameCopy constantValues:constantsCopy pipelineLibrary:pipelineLibrary error:&v19];
-    v11 = v19;
+    v21 = 0;
+    v10 = [(MTLLibrary *)library newFunctionWithName:nameCopy constantValues:constantsCopy pipelineLibrary:pipelineLibrary error:&v21];
+    v11 = v21;
+    v12 = v11;
     if (!v10)
     {
-      v12 = _PTLogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = _PTLogSystem(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [PTMetalContext functionWithName:nameCopy withConstants:?];
       }
 
-      v13 = self->_library;
-      v18 = v11;
-      v10 = [(MTLLibrary *)v13 newFunctionWithName:nameCopy constantValues:constantsCopy error:&v18];
-      v14 = v18;
+      v14 = self->_library;
+      v20 = v12;
+      v10 = [(MTLLibrary *)v14 newFunctionWithName:nameCopy constantValues:constantsCopy error:&v20];
+      v15 = v20;
 
-      v11 = v14;
+      v12 = v15;
       if (!v10)
       {
         goto LABEL_7;
@@ -223,21 +226,22 @@
 
   else
   {
-    v20 = 0;
-    v10 = [(MTLLibrary *)library newFunctionWithName:nameCopy constantValues:constantsCopy error:&v20];
-    v11 = v20;
+    v22 = 0;
+    v10 = [(MTLLibrary *)library newFunctionWithName:nameCopy constantValues:constantsCopy error:&v22];
+    v11 = v22;
+    v12 = v11;
     if (!v10)
     {
 LABEL_7:
-      v15 = _PTLogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = _PTLogSystem(v11);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [PTMetalContext functionWithName:v11 withConstants:?];
+        [PTMetalContext functionWithName:v12 withConstants:?];
       }
 
 LABEL_12:
-      v16 = _PTLogSystem();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = _PTLogSystem(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [PTMetalContext functionWithName:nameCopy withConstants:?];
       }
@@ -247,15 +251,15 @@ LABEL_12:
     }
   }
 
-  if (!v11)
+  if (!v12)
   {
     goto LABEL_20;
   }
 
-  v16 = _PTLogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v18 = _PTLogSystem(v11);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    [PTMetalContext functionWithName:v11 withConstants:v16];
+    [PTMetalContext functionWithName:v12 withConstants:v18];
   }
 
 LABEL_19:
@@ -306,7 +310,7 @@ LABEL_20:
 {
   [a1 UTF8String];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_4(&dword_2243FB000, v1, v2, "Unable to load function %s from pipeline library. Retrying from library.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_4(&dword_2243FB000, v1, v2, "Unable to load function %s from pipeline library. Retrying from library.", v3, v4, v5, v6);
 }
 
 - (void)functionWithName:(void *)a1 withConstants:(NSObject *)a2 .cold.2(void *a1, NSObject *a2)
@@ -323,14 +327,14 @@ LABEL_20:
   v1 = [a1 description];
   [v1 UTF8String];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_4(&dword_2243FB000, v2, v3, "Metal shader compilation error: %s", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_4(&dword_2243FB000, v2, v3, "Metal shader compilation error: %s", v4, v5, v6, v7);
 }
 
 - (void)functionWithName:(void *)a1 withConstants:.cold.4(void *a1)
 {
   [a1 UTF8String];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_4(&dword_2243FB000, v1, v2, "Unable to load function %s.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_4(&dword_2243FB000, v1, v2, "Unable to load function %s.", v3, v4, v5, v6);
 }
 
 @end

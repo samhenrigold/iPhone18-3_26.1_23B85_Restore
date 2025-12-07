@@ -36,7 +36,7 @@
   *(self + OBJC_IVAR___BKEngagementManagerMetadata_lastSyncFromCloudKitError) = 0;
   v5(self + OBJC_IVAR___BKEngagementManagerMetadata_lastSyncFromCloudKitErrorTimestamp, 1, 1, v4);
   v7.receiver = self;
-  v7.super_class = type metadata accessor for EngagementManagerMetadata();
+  v7.super_class = type metadata accessor for EngagementManagerMetadata(0);
   return [(BKEngagementManagerMetadata *)&v7 init];
 }
 

@@ -216,81 +216,83 @@
     *&v17 = y;
     v19 = width;
     v20 = height;
-    v58 = CGRectApplyAffineTransform(*(&v17 - 8), &transform);
-    v22 = v58.origin.x;
-    v23 = v58.origin.y;
+    v64 = CGRectApplyAffineTransform(*(&v17 - 8), &transform);
+    v23 = v64.origin.x;
+    v24 = v64.origin.y;
     if (!integral)
     {
-      objc_msgSend_integralFillRenderingRectFromElementRect_(TSCHRenderUtilities, v21, v58.origin.x, v58.origin.y, v58.size.width, v58.size.height);
-      v22 = v24;
+      v21 = objc_msgSend_integralFillRenderingRectFromElementRect_(TSCHRenderUtilities, v22, v64.origin.x, v64.origin.y, v64.size.width, v64.size.height);
       v23 = v25;
+      v24 = v26;
     }
 
-    sub_27628CEF8();
-    v27 = v26;
-    v29 = v28;
-    objc_msgSend_contentsScale(self, v30, v26, v28, v31);
-    v33 = v32;
-    TSUMultiplySizeScalar();
-    sub_27628CEF8();
-    v38 = objc_msgSend_canvas(self, v34, v35, v36, v37);
-    v39 = sub_276320100(v38);
+    sub_27628CEF8(v21, v64.size.width, v64.size.height);
+    v28 = v27;
+    v30 = v29;
+    objc_msgSend_contentsScale(self, v31, v27, v29, v32);
+    v34 = v33;
+    v35 = TSUMultiplySizeScalar();
+    sub_27628CEF8(v35, v36, v37);
+    v39 = v38;
+    v41 = v40;
+    v44 = objc_msgSend_canvas(self, v42, v38, v40, v43);
+    v45 = sub_276320100(v44, 1, fmax(v39, 1.0), fmax(v41, 1.0));
 
-    if (v39)
+    if (v45)
     {
-      CGContextSaveGState(v39);
-      CGContextScaleCTM(v39, v33, v33);
-      v59.origin.x = v22;
-      v59.origin.y = v23;
-      v59.size.width = v27;
-      v59.size.height = v29;
-      MinX = CGRectGetMinX(v59);
-      v60.origin.x = v22;
-      v60.origin.y = v23;
-      v60.size.width = v27;
-      v60.size.height = v29;
-      MinY = CGRectGetMinY(v60);
-      CGContextTranslateCTM(v39, -MinX, -MinY);
-      v42 = *&transform->c;
+      CGContextSaveGState(v45);
+      CGContextScaleCTM(v45, v34, v34);
+      v65.origin.x = v23;
+      v65.origin.y = v24;
+      v65.size.width = v28;
+      v65.size.height = v30;
+      MinX = CGRectGetMinX(v65);
+      v66.origin.x = v23;
+      v66.origin.y = v24;
+      v66.size.width = v28;
+      v66.size.height = v30;
+      MinY = CGRectGetMinY(v66);
+      CGContextTranslateCTM(v45, -MinX, -MinY);
+      v48 = *&transform->c;
       *&transform.a = *&transform->a;
-      *&transform.c = v42;
+      *&transform.c = v48;
       *&transform.tx = *&transform->tx;
-      CGAffineTransformInvert(&v55, &transform);
-      transform = v55;
-      v61.origin.x = v22;
-      v61.origin.y = v23;
-      v61.size.width = v27;
-      v61.size.height = v29;
-      v62 = CGRectApplyAffineTransform(v61, &transform);
-      v43 = v62.origin.x;
-      v44 = v62.origin.y;
-      v45 = v62.size.width;
-      v46 = v62.size.height;
-      *&v62.origin.y = *&transform->c;
+      CGAffineTransformInvert(&v61, &transform);
+      transform = v61;
+      v67.origin.x = v23;
+      v67.origin.y = v24;
+      v67.size.width = v28;
+      v67.size.height = v30;
+      v68 = CGRectApplyAffineTransform(v67, &transform);
+      v49 = v68.origin.x;
+      v50 = v68.origin.y;
+      v51 = v68.size.width;
+      v52 = v68.size.height;
+      *&v68.origin.y = *&transform->c;
       *&transform.a = *&transform->a;
-      *&transform.c = *&v62.origin.y;
+      *&transform.c = *&v68.origin.y;
       *&transform.tx = *&transform->tx;
-      CGContextConcatCTM(v39, &transform);
-      v47 = sub_2762A1EB8(fillCopy, v39, v43, v44, v45, v46);
+      CGContextConcatCTM(v45, &transform);
+      v53 = sub_2762A1EB8(fillCopy, v45, v49, v50, v51, v52);
 
-      objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v48, v43, v44, v45, v47, v39, v46);
-      CGContextRestoreGState(v39);
-      Image = CGBitmapContextCreateImage(v39);
-      CGContextRelease(v39);
-      v16 = objc_msgSend_imageWithCGImage_(MEMORY[0x277D811F8], v50, v51, v52, v53, Image);
+      objc_msgSend_drawFill_inContext_frame_(TSCHRenderUtilities, v54, v49, v50, v51, v53, v45, v52);
+      CGContextRestoreGState(v45);
+      Image = CGBitmapContextCreateImage(v45);
+      CGContextRelease(v45);
+      v16 = objc_msgSend_imageWithCGImage_(MEMORY[0x277D811F8], v56, v57, v58, v59, Image);
       CGImageRelease(Image);
       if (frame)
       {
-        frame->origin.x = v22;
-        frame->origin.y = v23;
-        fillCopy = v47;
-        frame->size.width = v27;
-        frame->size.height = v29;
+        frame->origin.x = v23;
+        frame->origin.y = v24;
+        fillCopy = v53;
+        frame->size.width = v28;
+        frame->size.height = v30;
       }
 
       else
       {
-        fillCopy = v47;
+        fillCopy = v53;
       }
     }
 

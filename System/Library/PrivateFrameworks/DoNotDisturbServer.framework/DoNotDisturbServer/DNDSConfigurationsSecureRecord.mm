@@ -130,78 +130,77 @@
 + (id)newWithDictionaryRepresentation:(id)representation context:(id)context
 {
   selfCopy = self;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v6 = [representation objectForKey:@"modeConfigurations"];
   v7 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = [v6 allKeys];
-  v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         v13 = [v6 objectForKey:{v12, selfCopy}];
         v14 = [DNDSConfigurationSecureRecord newWithDictionaryRepresentation:v13 context:contextCopy];
 
         [v7 setObject:v14 forKey:v12];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
 
   v15 = [[selfCopy alloc] _initWithModeConfigurations:v7];
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (id)dictionaryRepresentationWithContext:(id)context
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (([contextCopy partitionType] & 2) != 0)
   {
-    v19 = dictionary;
+    v18 = dictionary;
     dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     modeConfigurations = [(DNDSConfigurationsSecureRecord *)self modeConfigurations];
     allKeys = [modeConfigurations allKeys];
 
-    v9 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * i);
+          v13 = *(*(&v19 + 1) + 8 * i);
           modeConfigurations2 = [(DNDSConfigurationsSecureRecord *)self modeConfigurations];
           v15 = [modeConfigurations2 objectForKey:v13];
 
@@ -209,17 +208,15 @@
           [dictionary2 setObject:v16 forKey:v13];
         }
 
-        v10 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v10);
     }
 
-    dictionary = v19;
-    [v19 setObject:dictionary2 forKey:@"modeConfigurations"];
+    dictionary = v18;
+    [v18 setObject:dictionary2 forKey:@"modeConfigurations"];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

@@ -9,15 +9,15 @@
 
 - (id)AND:()MTAdditions
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v3 = MEMORY[0x1E696AB28];
-    v10[0] = self;
-    v10[1] = a3;
+    v9[0] = self;
+    v9[1] = a3;
     v4 = MEMORY[0x1E695DEC8];
     v5 = a3;
-    v6 = [v4 arrayWithObjects:v10 count:2];
+    v6 = [v4 arrayWithObjects:v9 count:2];
     selfCopy = [v3 andPredicateWithSubpredicates:v6];
   }
 
@@ -26,23 +26,19 @@
     selfCopy = self;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return selfCopy;
 }
 
 - (id)OR:()MTAdditions
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AB28];
-  v10[0] = self;
-  v10[1] = a3;
+  v9[0] = self;
+  v9[1] = a3;
   v4 = MEMORY[0x1E695DEC8];
   v5 = a3;
-  v6 = [v4 arrayWithObjects:v10 count:2];
+  v6 = [v4 arrayWithObjects:v9 count:2];
   v7 = [v3 orPredicateWithSubpredicates:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

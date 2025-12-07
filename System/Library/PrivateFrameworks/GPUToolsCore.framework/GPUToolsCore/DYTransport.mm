@@ -2,6 +2,7 @@
 - (BOOL)_activateSource:(id)source;
 - (BOOL)relayMessage:(id)message error:(id *)error;
 - (BOOL)send:(id)send inReplyTo:(id)to error:(id *)error replyQueue:(id)queue timeout:(unint64_t)timeout handler:(id)handler;
+- (BOOL)sendNewMessage:(int)message error:(id *)error replyQueue:(id)queue timeout:(unint64_t)timeout handler:(id)handler;
 - (DYTransport)init;
 - (NSURL)url;
 - (id)debugDescription;
@@ -200,39 +201,38 @@ void __32__DYTransport__dispatchMessage___block_invoke(void *a1)
   v1 = a1[4];
   if ((*(v1 + 24) & 1) == 0)
   {
-    v3 = a1[5];
-    v4 = (*(*(v1 + 16) + 16))();
-    v5 = a1[4];
-    if (v4)
+    v3 = (*(*(v1 + 16) + 16))();
+    v4 = a1[4];
+    if (v3)
     {
-      v6 = *(v5 + 32);
-      if (v6)
+      v5 = *(v4 + 32);
+      if (v5)
       {
-        v7 = dispatch_time(0, v6);
-        v8 = a1[6];
-        v9 = *(v8 + 24);
-        v12[0] = MEMORY[0x277D85DD0];
-        v12[1] = 3221225472;
-        v12[2] = __32__DYTransport__dispatchMessage___block_invoke_3;
-        v12[3] = &unk_27930CAB0;
-        v12[4] = v8;
-        v12[5] = a1[7];
-        dispatch_after(v7, v9, v12);
+        v6 = dispatch_time(0, v5);
+        v7 = a1[6];
+        v8 = *(v7 + 24);
+        v11[0] = MEMORY[0x277D85DD0];
+        v11[1] = 3221225472;
+        v11[2] = __32__DYTransport__dispatchMessage___block_invoke_3;
+        v11[3] = &unk_27930CAB0;
+        v11[4] = v7;
+        v11[5] = a1[7];
+        dispatch_after(v6, v8, v11);
       }
     }
 
     else
     {
-      *(v5 + 24) = 1;
-      v10 = a1[6];
-      v11 = *(v10 + 24);
+      *(v4 + 24) = 1;
+      v9 = a1[6];
+      v10 = *(v9 + 24);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __32__DYTransport__dispatchMessage___block_invoke_2;
       block[3] = &unk_27930C9B8;
-      block[4] = v10;
-      v14 = *(a1 + 14);
-      dispatch_async(v11, block);
+      block[4] = v9;
+      v13 = *(a1 + 14);
+      dispatch_async(v10, block);
     }
   }
 }
@@ -244,13 +244,13 @@ void __32__DYTransport__dispatchMessage___block_invoke(void *a1)
   [(DYTransport *)self _scheduleInvalidation:v3];
 }
 
-uint64_t __37__DYTransport__scheduleInvalidation___block_invoke(uint64_t result)
+id *__37__DYTransport__scheduleInvalidation___block_invoke(id *result)
 {
-  if (!*(*(result + 32) + 88))
+  if (!*(result[4] + 11))
   {
     v2 = result;
-    *(*(result + 32) + 88) = *(result + 40);
-    v3 = *(v2 + 32);
+    *(result[4] + 11) = result[5];
+    v3 = v2[4];
 
     return [v3 _invalidate];
   }
@@ -460,6 +460,14 @@ uint64_t __63__DYTransport_send_inReplyTo_error_replyQueue_timeout_handler___blo
   return [v2 dispatchError:v3];
 }
 
+- (BOOL)sendNewMessage:(int)message error:(id *)error replyQueue:(id)queue timeout:(unint64_t)timeout handler:(id)handler
+{
+  v12 = [[DYTransportMessage alloc] initWithKind:*&message attributes:0 payload:0];
+  LOBYTE(handler) = [(DYTransport *)self send:v12 inReplyTo:0 error:error replyQueue:queue timeout:timeout handler:handler];
+
+  return handler;
+}
+
 - (BOOL)relayMessage:(id)message error:(id *)error
 {
   if ([message transport] == self)
@@ -519,14 +527,14 @@ void *__34__DYTransport_newSourceWithQueue___block_invoke(void *result)
   return result;
 }
 
-uint64_t __31__DYTransport__activateSource___block_invoke(uint64_t result)
+void *__31__DYTransport__activateSource___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 52) & 1) == 0)
   {
     v2 = result;
-    result = [*(v1 + 80) addObject:*(result + 40)];
-    *(*(*(v2 + 48) + 8) + 24) = 1;
+    result = [*(v1 + 80) addObject:result[5]];
+    *(*(v2[6] + 8) + 24) = 1;
   }
 
   return result;
@@ -534,32 +542,32 @@ uint64_t __31__DYTransport__activateSource___block_invoke(uint64_t result)
 
 - (void)_dispatchMessage:(id)message
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if ((self->_interposerVersion & 1) == 0)
   {
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     error = self->_error;
-    v11 = OUTLINED_FUNCTION_1_0(self, a2, message, v3, v4, v5, v6, v7, v29, v30, v31, v32, v33, messageCopy, selfCopy, v36, 0, 0, 0, 0, 0, 0, 0, 0, v41, v42);
+    v11 = OUTLINED_FUNCTION_1_0(self, a2, message, v3, v4, v5, v6, v7, v28, v29, v30, v31, v32, messageCopy, selfCopy, v35, 0, 0, 0, 0, 0, 0, 0, 0, v40);
     if (v11)
     {
       v12 = v11;
-      v13 = *v38;
+      v13 = *v37;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v38 != v13)
+          if (*v37 != v13)
           {
             objc_enumerationMutation(error);
           }
 
-          v15 = [*(*(&v37 + 1) + 8 * i) _dispatch:message];
+          v15 = [*(*(&v36 + 1) + 8 * i) _dispatch:message];
         }
 
-        v12 = OUTLINED_FUNCTION_1_0(v15, v16, v17, v18, v19, v20, v21, v22, v29, v30, v31, v32, v33, messageCopy, selfCopy, v36, v37, *(&v37 + 1), v38, *(&v38 + 1), v39, *(&v39 + 1), v40, *(&v40 + 1), v41, v42);
+        v12 = OUTLINED_FUNCTION_1_0(v15, v16, v17, v18, v19, v20, v21, v22, v28, v29, v30, v31, v32, messageCopy, selfCopy, v35, v36, *(&v36 + 1), v37, *(&v37 + 1), v38, *(&v38 + 1), v39, *(&v39 + 1), v40);
       }
 
       while (v12);
@@ -575,20 +583,18 @@ uint64_t __31__DYTransport__activateSource___block_invoke(uint64_t result)
         v26 = *(v25 + 40) + 1;
         *(v25 + 40) = v26;
         v27 = *(v25 + 8);
-        v29 = MEMORY[0x277D85DD0];
-        v30 = 3221225472;
-        v31 = __32__DYTransport__dispatchMessage___block_invoke;
-        v32 = &unk_27930CAD8;
-        v33 = v25;
+        v28 = MEMORY[0x277D85DD0];
+        v29 = 3221225472;
+        v30 = __32__DYTransport__dispatchMessage___block_invoke;
+        v31 = &unk_27930CAD8;
+        v32 = v25;
         messageCopy = message;
         selfCopy = self;
-        v36 = __PAIR64__(v26, v24);
-        dispatch_async(v27, &v29);
+        v35 = __PAIR64__(v26, v24);
+        dispatch_async(v27, &v28);
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleInvalidation:(id)invalidation
@@ -633,9 +639,9 @@ void __34__DYTransport_relayMessage_error___block_invoke(uint64_t a1)
 {
   if (result)
   {
-    p_isa = &result->super.super.isa;
+    v3 = result;
     result = [DYError errorWithDomain:@"DYErrorDomain" code:35 userInfo:0];
-    *p_isa = result;
+    v3->super.super.isa = result;
   }
 
   *a2 = 0;
@@ -646,9 +652,9 @@ void __34__DYTransport_relayMessage_error___block_invoke(uint64_t a1)
 {
   if (result)
   {
-    p_isa = &result->super.super.isa;
+    v3 = result;
     result = [DYError errorWithDomain:@"DYErrorDomain" code:33 userInfo:0];
-    *p_isa = result;
+    v3->super.super.isa = result;
   }
 
   *a2 = 0;
@@ -659,9 +665,9 @@ void __34__DYTransport_relayMessage_error___block_invoke(uint64_t a1)
 {
   if (result)
   {
-    p_isa = &result->super.super.isa;
+    v3 = result;
     result = [DYError errorWithDomain:@"DYErrorDomain" code:32 userInfo:0];
-    *p_isa = result;
+    v3->super.super.isa = result;
   }
 
   *a2 = 0;
@@ -672,9 +678,9 @@ void __34__DYTransport_relayMessage_error___block_invoke(uint64_t a1)
 {
   if (result)
   {
-    p_isa = &result->super.super.isa;
+    v3 = result;
     result = [DYError errorWithDomain:@"DYErrorDomain" code:34 userInfo:0];
-    *p_isa = result;
+    v3->super.super.isa = result;
   }
 
   *a2 = 0;
@@ -696,9 +702,9 @@ uint64_t __63__DYTransport_send_inReplyTo_error_replyQueue_timeout_handler___blo
 {
   if (result)
   {
-    p_isa = &result->super.super.isa;
+    v3 = result;
     result = [DYError errorWithDomain:@"DYErrorDomain" code:40 userInfo:0];
-    *p_isa = result;
+    v3->super.super.isa = result;
   }
 
   *a2 = 0;

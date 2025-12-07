@@ -34,36 +34,37 @@
 
 + (id)requiredPropertiesForModelClass:(Class)class
 {
-  swift_getObjCClassMetadata();
-  v3 = sub_10F414();
+  ObjCClassMetadata = swift_getObjCClassMetadata();
+  v4 = sub_10F414(ObjCClassMetadata);
 
-  return v3;
+  return v4;
 }
 
 - (int64_t)calculatePlayabilityStatusWithModel:(id)model
 {
   modelCopy = model;
   selfCopy = self;
-  v7 = sub_10AC20(model);
+  sub_10AC20(model);
+  v8 = v7;
 
-  return v7;
+  return v8;
 }
 
 - (void)environmentMonitorDidChangeNetworkType:(id)type
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_DE9D30);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v11 - v5;
-  v7 = sub_AB9990();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_DE9D30, &unk_AF79A0);
+  __chkstk_darwin();
+  v5 = &v10 - v4;
+  v6 = sub_AB9990();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
   sub_AB9940();
   selfCopy = self;
-  v9 = sub_AB9930();
-  v10 = swift_allocObject();
-  v10[2] = v9;
-  v10[3] = &protocol witness table for MainActor;
-  v10[4] = selfCopy;
-  sub_DBDC8(0, 0, v6, &unk_AFE878, v10);
+  v8 = sub_AB9930();
+  v9 = swift_allocObject();
+  v9[2] = v8;
+  v9[3] = &protocol witness table for MainActor;
+  v9[4] = selfCopy;
+  sub_DBDC8(0, 0, v5, &unk_AFE878, v9);
 }
 
 @end

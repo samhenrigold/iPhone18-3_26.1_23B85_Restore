@@ -15,7 +15,7 @@
   dsid = self->super._dsid;
   self->super._dsid = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, dsid);
 }
 
 - (void)setAltDSID:(id)d
@@ -24,7 +24,7 @@
   altDSID = self->super._altDSID;
   self->super._altDSID = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, altDSID);
 }
 
 - (void)setAppleID:(id)d
@@ -33,7 +33,7 @@
   appleID = self->super._appleID;
   self->super._appleID = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, appleID);
 }
 
 - (void)setPrincipalPath:(id)path
@@ -42,7 +42,7 @@
   principalPath = self->super._principalPath;
   self->super._principalPath = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, principalPath);
 }
 
 - (void)setNameComponents:(id)components
@@ -51,7 +51,7 @@
   nameComponents = self->super._nameComponents;
   self->super._nameComponents = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, nameComponents);
 }
 
 - (id)copyWithZone:(_NSZone *)zone

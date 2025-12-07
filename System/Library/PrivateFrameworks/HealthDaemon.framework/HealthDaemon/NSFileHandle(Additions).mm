@@ -7,7 +7,7 @@
 
 - (BOOL)hk_writeValue:()Additions size:error:
 {
-  v8 = [MEMORY[0x277CBEA90] dataWithBytes:? length:?];
+  v8 = [MEMORY[0x277CBEA90] dataWithBytes:a3 length:?];
   offsetInFile = [self offsetInFile];
   [self writeData:v8];
   v10 = offsetInFile + a4 == [self offsetInFile];

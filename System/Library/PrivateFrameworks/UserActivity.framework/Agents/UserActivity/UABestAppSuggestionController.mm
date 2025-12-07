@@ -106,7 +106,7 @@
   {
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -139,7 +139,7 @@
         v10 = [UAAuditToken alloc];
         if (connectionCopy)
         {
-          [connectionCopy auditToken];
+          objc_msgSend_auditToken(connectionCopy);
         }
 
         else
@@ -166,7 +166,7 @@
   {
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else

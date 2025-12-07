@@ -27,7 +27,7 @@ uint64_t __42__NSIndexSet_ContactsFoundation___cn_any___block_invoke(uint64_t a1
   return result;
 }
 
-uint64_t __45__NSIndexSet_ContactsFoundation___cn_filter___block_invoke(uint64_t a1, uint64_t a2)
+void *__45__NSIndexSet_ContactsFoundation___cn_filter___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)

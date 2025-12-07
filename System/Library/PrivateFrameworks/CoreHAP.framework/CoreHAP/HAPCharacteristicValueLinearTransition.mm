@@ -96,52 +96,52 @@ LABEL_15:
 
 - (id)serializeWithError:(id *)error
 {
-  v57 = *MEMORY[0x277D85DE8];
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
+  v56 = *MEMORY[0x277D85DE8];
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
+  v39 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v35 = 0u;
   TLV8BufferInit();
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   selfCopy = self;
   transitionPoints = [(HAPCharacteristicValueLinearTransition *)self transitionPoints];
-  v6 = [transitionPoints countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v6 = [transitionPoints countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v32;
+    v8 = *v31;
     v9 = 1;
     errorCopy = error;
     while (1)
     {
       v10 = 0;
 LABEL_4:
-      if (*v32 != v8)
+      if (*v31 != v8)
       {
         objc_enumerationMutation(transitionPoints);
       }
 
-      v11 = *(*(&v31 + 1) + 8 * v10);
+      v11 = *(*(&v30 + 1) + 8 * v10);
       if ((v9 & 1) == 0)
       {
         v12 = TLV8BufferAppend();
@@ -151,9 +151,9 @@ LABEL_4:
         }
       }
 
-      v30 = 0;
-      v13 = [v11 serializeWithError:{&v30, errorCopy}];
-      v14 = v30;
+      v29 = 0;
+      v13 = [v11 serializeWithError:{&v29, errorCopy}];
+      v14 = v29;
       if (v14)
       {
         v21 = v14;
@@ -195,7 +195,7 @@ LABEL_4:
         goto LABEL_4;
       }
 
-      v7 = [transitionPoints countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v7 = [transitionPoints countByEnumeratingWithState:&v30 objects:v34 count:16];
       v9 = 0;
       error = errorCopy;
       if (!v7)
@@ -218,9 +218,9 @@ LABEL_17:
   if (startBehavior)
   {
     startBehavior2 = [(HAPCharacteristicValueLinearTransition *)selfCopy startBehavior];
-    v29 = 0;
-    transitionPoints = [startBehavior2 serializeWithError:&v29];
-    v21 = v29;
+    v28 = 0;
+    transitionPoints = [startBehavior2 serializeWithError:&v28];
+    v21 = v28;
 
     if (v21)
     {
@@ -259,12 +259,10 @@ LABEL_23:
     }
   }
 
-  v23 = [MEMORY[0x277CBEA90] dataWithBytes:v36 length:?];
+  v23 = [MEMORY[0x277CBEA90] dataWithBytes:v35 length:?];
   v21 = 0;
 LABEL_29:
   TLV8BufferFree();
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

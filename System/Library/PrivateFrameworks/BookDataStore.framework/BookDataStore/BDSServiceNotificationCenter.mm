@@ -107,49 +107,47 @@
 
 - (void)handleServiceNotificationNames:(id)names latestChangeToken:(int64_t)token
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   namesCopy = names;
-  v7 = BDSServiceXPCNotificationLog();
+  v7 = BDSServiceXPCNotificationLog(namesCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
-    v11 = namesCopy;
-    v12 = 2048;
+    v9 = 138543618;
+    v10 = namesCopy;
+    v11 = 2048;
     tokenCopy = token;
-    _os_log_impl(&dword_1E45E0000, v7, OS_LOG_TYPE_DEFAULT, "handleServiceNotificationNames: %{public}@, latestChangeToken:%ld", &v10, 0x16u);
+    _os_log_impl(&dword_1E45E0000, v7, OS_LOG_TYPE_DEFAULT, "handleServiceNotificationNames: %{public}@, latestChangeToken:%ld", &v9, 0x16u);
   }
 
   v8 = [MEMORY[0x1E696AD98] numberWithInteger:token];
   [(BDSServiceNotificationCenter *)self _postServiceNotificationNames:namesCopy andUpdateChangeToken:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postServiceNotificationNames:(id)names andUpdateChangeToken:(id)token
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   namesCopy = names;
   tokenCopy = token;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v8 = [namesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [namesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(namesCopy);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
+        v12 = *(*(&v14 + 1) + 8 * v11);
         defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
         [defaultCenter postNotificationName:v12 object:0];
 
@@ -157,15 +155,13 @@
       }
 
       while (v9 != v11);
-      v9 = [namesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [namesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
 
   [(BDSServiceNotificationCenter *)self _updateChangeToken:tokenCopy];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateChangeToken:(id)token

@@ -95,27 +95,26 @@
 
 - (void)_didInstalledNewVoiceTriggerAsset
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[CSVoiceTriggerAssetDownloadMonitor _didInstalledNewVoiceTriggerAsset]";
+    v6 = "[CSVoiceTriggerAssetDownloadMonitor _didInstalledNewVoiceTriggerAsset]";
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s New VoiceTrigger is now installed", buf, 0xCu);
   }
 
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __71__CSVoiceTriggerAssetDownloadMonitor__didInstalledNewVoiceTriggerAsset__block_invoke;
-  v5[3] = &unk_1E865CB20;
-  v5[4] = self;
-  [(CSEventMonitor *)self enumerateObservers:v5];
-  v4 = *MEMORY[0x1E69E9840];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __71__CSVoiceTriggerAssetDownloadMonitor__didInstalledNewVoiceTriggerAsset__block_invoke;
+  v4[3] = &unk_1E865CB20;
+  v4[4] = self;
+  [(CSEventMonitor *)self enumerateObservers:v4];
 }
 
 - (void)_stopMonitoring
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   notifyToken = self->_notifyToken;
   if (notifyToken != -1)
   {
@@ -124,9 +123,9 @@
     v4 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "[CSVoiceTriggerAssetDownloadMonitor _stopMonitoring]";
-      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : VoiceTrigger Asset Download", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[CSVoiceTriggerAssetDownloadMonitor _stopMonitoring]";
+      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : VoiceTrigger Asset Download", &v9, 0xCu);
     }
   }
 
@@ -142,9 +141,9 @@
         v6 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = 136315138;
-          v11 = "[CSVoiceTriggerAssetDownloadMonitor _stopMonitoring]";
-          _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : Gibraltar VoiceTrigger Asset Download", &v10, 0xCu);
+          v9 = 136315138;
+          v10 = "[CSVoiceTriggerAssetDownloadMonitor _stopMonitoring]";
+          _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : Gibraltar VoiceTrigger Asset Download", &v9, 0xCu);
         }
       }
     }
@@ -158,18 +157,16 @@
     v8 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "[CSVoiceTriggerAssetDownloadMonitor _stopMonitoring]";
-      _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : Studio Display VoiceTrigger Asset Download", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[CSVoiceTriggerAssetDownloadMonitor _stopMonitoring]";
+      _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : Studio Display VoiceTrigger Asset Download", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   if (self->_notifyToken == -1)
   {
@@ -184,7 +181,7 @@
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "[CSVoiceTriggerAssetDownloadMonitor _startMonitoringWithQueue:]";
+      v13 = "[CSVoiceTriggerAssetDownloadMonitor _startMonitoringWithQueue:]";
       _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : VoiceTrigger Asset Download", buf, 0xCu);
     }
   }
@@ -195,17 +192,17 @@
     {
       if (self->_gibraltarMacNotifyToken == -1)
       {
-        v11[0] = MEMORY[0x1E69E9820];
-        v11[1] = 3221225472;
-        v11[2] = __64__CSVoiceTriggerAssetDownloadMonitor__startMonitoringWithQueue___block_invoke_3;
-        v11[3] = &unk_1E865C9F0;
-        v11[4] = self;
-        notify_register_dispatch("com.apple.MobileAsset.VoiceTriggerAssetsMac.ma.new-asset-installed", &self->_gibraltarMacNotifyToken, queueCopy, v11);
+        v10[0] = MEMORY[0x1E69E9820];
+        v10[1] = 3221225472;
+        v10[2] = __64__CSVoiceTriggerAssetDownloadMonitor__startMonitoringWithQueue___block_invoke_3;
+        v10[3] = &unk_1E865C9F0;
+        v10[4] = self;
+        notify_register_dispatch("com.apple.MobileAsset.VoiceTriggerAssetsMac.ma.new-asset-installed", &self->_gibraltarMacNotifyToken, queueCopy, v10);
         v7 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v14 = "[CSVoiceTriggerAssetDownloadMonitor _startMonitoringWithQueue:]";
+          v13 = "[CSVoiceTriggerAssetDownloadMonitor _startMonitoringWithQueue:]";
           _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : Gibraltar VoiceTrigger Asset Download", buf, 0xCu);
         }
       }
@@ -214,29 +211,29 @@
 
   if (self->_darwinNotifyToken == -1)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __64__CSVoiceTriggerAssetDownloadMonitor__startMonitoringWithQueue___block_invoke_4;
-    v10[3] = &unk_1E865C9F0;
-    v10[4] = self;
-    notify_register_dispatch("com.apple.MobileAsset.VoiceTriggerAssetsStudioDisplay.ma.new-asset-installed", &self->_darwinNotifyToken, queueCopy, v10);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __64__CSVoiceTriggerAssetDownloadMonitor__startMonitoringWithQueue___block_invoke_4;
+    v9[3] = &unk_1E865C9F0;
+    v9[4] = self;
+    notify_register_dispatch("com.apple.MobileAsset.VoiceTriggerAssetsStudioDisplay.ma.new-asset-installed", &self->_darwinNotifyToken, queueCopy, v9);
     v8 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "[CSVoiceTriggerAssetDownloadMonitor _startMonitoringWithQueue:]";
+      v13 = "[CSVoiceTriggerAssetDownloadMonitor _startMonitoringWithQueue:]";
       _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : Studio Display VoiceTrigger Asset Download", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __52__CSVoiceTriggerAssetDownloadMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance__sharedInstance_5561 = objc_alloc_init(CSVoiceTriggerAssetDownloadMonitor);
+  v0 = objc_alloc_init(CSVoiceTriggerAssetDownloadMonitor);
+  v1 = sharedInstance__sharedInstance_5561;
+  sharedInstance__sharedInstance_5561 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

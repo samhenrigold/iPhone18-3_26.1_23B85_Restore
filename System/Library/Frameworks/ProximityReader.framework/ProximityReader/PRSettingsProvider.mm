@@ -7,6 +7,10 @@
 + (BOOL)shouldDisablePINPrivacyLockForBundleID:(id)d;
 + (BOOL)shouldShowPINPrivacyLockForBundleID:(id)d;
 + (void)removeMDMAppAttribute:(int64_t)attribute forBundleID:(id)d;
++ (void)setAlwaysPlaySound:(BOOL)sound forBundleID:(id)d;
++ (void)setEnableDiagnostics:(BOOL)diagnostics forBundleID:(id)d;
++ (void)setMDMAppAttribute:(int64_t)attribute withValue:(BOOL)value forBundleID:(id)d;
++ (void)setPINPrivacyLock:(BOOL)lock forBundleID:(id)d;
 @end
 
 @implementation PRSettingsProvider
@@ -157,6 +161,66 @@ LABEL_17:
   return bOOLValue;
 }
 
++ (void)setPINPrivacyLock:(BOOL)lock forBundleID:(id)d
+{
+  lockCopy = lock;
+  dCopy = d;
+  NSLog(&cfstr_Prsettingsprov_14.isa);
+  if ([dCopy length])
+  {
+    NSLog(&cfstr_Prsettingsprov_16.isa, lockCopy);
+    dCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", @"PREnablePrivacyLockKey", dCopy];
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:lockCopy];
+    v7 = *MEMORY[0x277CBF040];
+    v8 = *MEMORY[0x277CBF010];
+    CFPreferencesSetValue(dCopy, v6, @"com.apple.merchantd", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+    CFPreferencesSynchronize(@"com.apple.merchantd", v7, v8);
+  }
+
+  else
+  {
+    NSLog(&cfstr_Prsettingsprov_15.isa);
+  }
+}
+
++ (void)setMDMAppAttribute:(int64_t)attribute withValue:(BOOL)value forBundleID:(id)d
+{
+  valueCopy = value;
+  dCopy = d;
+  if ([dCopy length])
+  {
+    if (attribute)
+    {
+      NSLog(&cfstr_Prsettingsprov_21.isa);
+    }
+
+    else
+    {
+      NSLog(&cfstr_Prsettingsprov_18.isa, valueCopy, dCopy);
+      dCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", @"PRMDMAttrPrivacyLock", dCopy];
+      v8 = CFPreferencesCopyAppValue(dCopy, @"com.apple.merchantd");
+      v9 = v8;
+      if (!v8 || [v8 BOOLValue] != valueCopy)
+      {
+        NSLog(&cfstr_Prsettingsprov_19.isa, valueCopy, dCopy);
+        v10 = [MEMORY[0x277CCABB0] numberWithBool:valueCopy];
+        v11 = *MEMORY[0x277CBF040];
+        v12 = *MEMORY[0x277CBF010];
+        CFPreferencesSetValue(dCopy, v10, @"com.apple.merchantd", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+        dCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", @"PREnablePrivacyLockKey", dCopy];
+        NSLog(&cfstr_Prsettingsprov_20.isa, valueCopy, dCopy2);
+        CFPreferencesSetValue(dCopy2, [MEMORY[0x277CCABB0] numberWithBool:valueCopy], @"com.apple.merchantd", v11, v12);
+        CFPreferencesSynchronize(@"com.apple.merchantd", v11, v12);
+      }
+    }
+  }
+
+  else
+  {
+    NSLog(&cfstr_Prsettingsprov_17.isa);
+  }
+}
+
 + (void)removeMDMAppAttribute:(int64_t)attribute forBundleID:(id)d
 {
   dCopy = d;
@@ -222,6 +286,28 @@ LABEL_17:
   return bOOLValue;
 }
 
++ (void)setAlwaysPlaySound:(BOOL)sound forBundleID:(id)d
+{
+  soundCopy = sound;
+  dCopy = d;
+  NSLog(&cfstr_Prsettingsprov_28.isa);
+  if ([dCopy length])
+  {
+    NSLog(&cfstr_Prsettingsprov_29.isa, soundCopy);
+    dCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", @"PREnableAlwaysPlaySound", dCopy];
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:soundCopy];
+    v7 = *MEMORY[0x277CBF040];
+    v8 = *MEMORY[0x277CBF010];
+    CFPreferencesSetValue(dCopy, v6, @"com.apple.merchantd", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+    CFPreferencesSynchronize(@"com.apple.merchantd", v7, v8);
+  }
+
+  else
+  {
+    NSLog(&cfstr_Prsettingsprov_15.isa);
+  }
+}
+
 + (BOOL)getEnableDiagnosticsForBundleID:(id)d
 {
   dCopy = d;
@@ -251,6 +337,28 @@ LABEL_17:
   }
 
   return bOOLValue;
+}
+
++ (void)setEnableDiagnostics:(BOOL)diagnostics forBundleID:(id)d
+{
+  diagnosticsCopy = diagnostics;
+  dCopy = d;
+  NSLog(&cfstr_Prsettingsprov_32.isa);
+  if ([dCopy length])
+  {
+    NSLog(&cfstr_Prsettingsprov_33.isa, diagnosticsCopy);
+    dCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", @"PREnableDiagnostics", dCopy];
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:diagnosticsCopy];
+    v7 = *MEMORY[0x277CBF040];
+    v8 = *MEMORY[0x277CBF010];
+    CFPreferencesSetValue(dCopy, v6, @"com.apple.merchantd", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+    CFPreferencesSynchronize(@"com.apple.merchantd", v7, v8);
+  }
+
+  else
+  {
+    NSLog(&cfstr_Prsettingsprov_15.isa);
+  }
 }
 
 @end

@@ -187,7 +187,7 @@ LABEL_15:
 - (id)valueForMetricsField:(id)field
 {
   fieldCopy = field;
-  if ([fieldCopy isEqualToString:*MEMORY[0x277D6A490]])
+  if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     item = self->_item;
     if (item)
@@ -203,7 +203,7 @@ LABEL_15:
     goto LABEL_8;
   }
 
-  if (([fieldCopy isEqualToString:*MEMORY[0x277D6A4A0]] & 1) != 0 || objc_msgSend(fieldCopy, "isEqualToString:", *MEMORY[0x277D6A4A8]))
+  if ((objc_msgSend_isEqualToString_(fieldCopy) & 1) != 0 || objc_msgSend_isEqualToString_(fieldCopy))
   {
     title = [(SUUILink *)self title];
 LABEL_8:

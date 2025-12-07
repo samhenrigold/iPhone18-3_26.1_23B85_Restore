@@ -26,30 +26,30 @@
 {
   if (a3)
   {
-    return [self addObject:?];
+    return [result addObject:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)itk_removeNonNilObject:()ITK
 {
   if (a3)
   {
-    return [self removeObject:?];
+    return [result removeObject:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)itk_addObjectsFromNonNilArray:()ITK
 {
   if (a3)
   {
-    return [self addObjectsFromArray:?];
+    return [result addObjectsFromArray:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)itk_removeObjectsFromNonNilArray:()ITK

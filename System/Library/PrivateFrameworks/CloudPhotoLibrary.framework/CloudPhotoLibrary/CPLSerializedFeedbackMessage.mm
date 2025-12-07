@@ -39,16 +39,14 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"uuid";
+  v8[2] = *MEMORY[0x1E69E9840];
+  v7[0] = @"uuid";
   uUIDString = [(NSUUID *)self->_uuid UUIDString];
-  v8[1] = @"msg";
-  v9[0] = uUIDString;
+  v7[1] = @"msg";
+  v8[0] = uUIDString;
   data = [(CPLServerFeedbackMessage *)self->_serverMessage data];
-  v9[1] = data;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = data;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -151,41 +149,41 @@
 
 + (id)messagesForPlistRepresentation:(id)representation
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     array = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(representationCopy, "count")}];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v5 = representationCopy;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           v11 = [CPLSerializedFeedbackMessage alloc];
-          v12 = [(CPLSerializedFeedbackMessage *)v11 initWithDictionaryRepresentation:v10, v15];
+          v12 = [(CPLSerializedFeedbackMessage *)v11 initWithDictionaryRepresentation:v10, v14];
           if (v12)
           {
             [array addObject:v12];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -197,46 +195,42 @@
     array = [MEMORY[0x1E695DEC8] array];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 + (id)plistRepresentationForMessages:(id)messages
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(messagesCopy, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = messagesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        dictionaryRepresentation = [*(*(&v13 + 1) + 8 * i) dictionaryRepresentation];
+        dictionaryRepresentation = [*(*(&v12 + 1) + 8 * i) dictionaryRepresentation];
         [v4 addObject:dictionaryRepresentation];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

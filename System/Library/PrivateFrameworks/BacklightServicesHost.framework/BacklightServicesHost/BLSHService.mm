@@ -2,7 +2,9 @@
 + (id)sharedService;
 + (id)startLocalOnlyServiceWithConfiguration:(id)configuration;
 + (id)startServiceWithPlatformProvider:(id)provider;
++ (id)startServiceWithPlatformProvider:(id)provider localOnly:(BOOL)only;
 + (void)sharedService;
+- (BLSHService)initWithPlatformProvider:(id)provider localOnly:(BOOL)only;
 - (void)beginSpecialManagementForHostEnvironment:(id)environment;
 - (void)dealloc;
 @end
@@ -38,6 +40,25 @@
   return v6;
 }
 
++ (id)startServiceWithPlatformProvider:(id)provider localOnly:(BOOL)only
+{
+  onlyCopy = only;
+  providerCopy = provider;
+  os_unfair_lock_lock(&_classLock_2);
+  if (_sharedService)
+  {
+    [BLSHService startServiceWithPlatformProvider:a2 localOnly:self];
+  }
+
+  v8 = [[self alloc] initWithPlatformProvider:providerCopy localOnly:onlyCopy];
+  v9 = _sharedService;
+  _sharedService = v8;
+
+  os_unfair_lock_unlock(&_classLock_2);
+
+  return v8;
+}
+
 + (id)sharedService
 {
   os_unfair_lock_lock(&_classLock_2);
@@ -49,6 +70,89 @@
   }
 
   return v4;
+}
+
+- (BLSHService)initWithPlatformProvider:(id)provider localOnly:(BOOL)only
+{
+  onlyCopy = only;
+  v38[1] = *MEMORY[0x277D85DE8];
+  providerCopy = provider;
+  v36.receiver = self;
+  v36.super_class = BLSHService;
+  v8 = [(BLSHService *)&v36 init];
+  v9 = v8;
+  if (v8)
+  {
+    objc_storeStrong(&v8->_platformProvider, provider);
+    backlightPlatformProvider = [providerCopy backlightPlatformProvider];
+    v11 = objc_opt_respondsToSelector();
+    v12 = providerCopy;
+    if (v11 & 1) != 0 || (v13 = objc_opt_respondsToSelector(), v12 = backlightPlatformProvider, (v13))
+    {
+      [v12 serviceInitializing:v9];
+    }
+
+    v14 = [[BLSHBacklightOSInterfaceProvider alloc] initWithPlatformProvider:backlightPlatformProvider];
+    osInterfaceProvider = v9->_osInterfaceProvider;
+    v9->_osInterfaceProvider = v14;
+
+    [BLSHBacklightOSInterfaceProvider setSharedProvider:v9->_osInterfaceProvider];
+    v16 = [BLSHAssertionService serviceWithOSInterfaceProvider:v9->_osInterfaceProvider localOnly:onlyCopy];
+    assertionService = v9->_assertionService;
+    v9->_assertionService = v16;
+
+    v18 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.BacklightServices"];
+    v37 = @"disableHostInvalidationBudget";
+    v38[0] = MEMORY[0x277CBEC28];
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+    [v18 registerDefaults:v19];
+
+    v20 = [v18 BOOLForKey:@"disableHostInvalidationBudget"];
+    v21 = bls_backlight_log();
+    v22 = v21;
+    if (v20)
+    {
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_21FD11000, v22, OS_LOG_TYPE_DEFAULT, "disabling host side invalidation budget because default is set", buf, 2u);
+      }
+
+      v23 = objc_alloc_init(BLSHNullInactiveBudgetPolicy);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_21FD11000, v22, OS_LOG_TYPE_INFO, "enabling host side invalidation budget.", buf, 2u);
+      }
+
+      v23 = [[BLSHInactiveBudgetPolicy alloc] initWithOSTimerProvider:v9->_osInterfaceProvider];
+    }
+
+    inactiveBudgetPolicy = v9->_inactiveBudgetPolicy;
+    v9->_inactiveBudgetPolicy = v23;
+    v25 = v23;
+
+    v9->_stateHandler = os_state_add_handler();
+    v26 = v9->_osInterfaceProvider;
+    localAssertionService = [(BLSHAssertionService *)v9->_assertionService localAssertionService];
+    [(BLSHBacklightOSInterfaceProvider *)v26 registerHandlersForService:localAssertionService];
+
+    v28 = v9->_osInterfaceProvider;
+    localAssertionService2 = [(BLSHAssertionService *)v9->_assertionService localAssertionService];
+    v30 = [BLSHBacklightService serviceWithPlatformProvider:backlightPlatformProvider osInterfaceProvider:v28 inactiveBudgetPolicy:v25 localAssertionService:localAssertionService2 localOnly:onlyCopy];
+    backlightService = v9->_backlightService;
+    v9->_backlightService = v30;
+
+    v32 = objc_alloc_init(BLSHDefaultsObserver);
+    defaultsObserver = v9->_defaultsObserver;
+    v9->_defaultsObserver = v32;
+  }
+
+  return v9;
 }
 
 - (void)dealloc
@@ -153,12 +257,10 @@
 
 - (void)beginSpecialManagementForHostEnvironment:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v4 = [a2 identifier];
   OUTLINED_FUNCTION_0_13();
-  _os_log_error_impl(&dword_21FD11000, a3, OS_LOG_TYPE_ERROR, "%p beginSpecialManagementForHostEnvironment:%{public}@ is no longer necessary", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21FD11000, a3, OS_LOG_TYPE_ERROR, "%p beginSpecialManagementForHostEnvironment:%{public}@ is no longer necessary", v5, 0x16u);
 }
 
 @end

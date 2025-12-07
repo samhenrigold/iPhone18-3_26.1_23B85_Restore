@@ -8,131 +8,132 @@
 - (double)_dataArray:(id)array featureCount:(unsigned int)count useKeypaths:(BOOL)keypaths
 {
   keypathsCopy = keypaths;
-  v55 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
+  v8 = objc_msgSend_count(arrayCopy);
   countCopy = count;
-  v33 = malloc_type_calloc(8uLL, [arrayCopy count] * count, 0x13FA2A48uLL);
-  v48 = 0u;
+  v34 = malloc_type_calloc(8uLL, v8 * count, 0x13FA2A48uLL);
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
   obj = arrayCopy;
-  v9 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
-  if (v9)
+  v10 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = 0;
-    v12 = *v49;
-    v13 = 8 * countCopy;
-    v35 = 8 * countCopy;
-    v36 = *v49;
+    v11 = v10;
+    v12 = 0;
+    v13 = *v50;
+    v14 = 8 * countCopy;
+    v36 = 8 * countCopy;
+    v37 = *v50;
     do
     {
-      v14 = 0;
-      v15 = v33 + v13 * v11;
-      v34 = v10 + v11;
-      v39 = v10;
+      v15 = 0;
+      v16 = v34 + v14 * v12;
+      v35 = v11 + v12;
+      v40 = v11;
       do
       {
-        if (*v49 != v12)
+        if (*v50 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v48 + 1) + 8 * v14);
+        v17 = *(*(&v49 + 1) + 8 * v15);
         if (keypathsCopy)
         {
-          v46 = 0uLL;
           v47 = 0uLL;
-          v44 = 0uLL;
+          v48 = 0uLL;
           v45 = 0uLL;
+          v46 = 0uLL;
           numericValueKeypaths = [(PLDataClustering *)self numericValueKeypaths];
-          v18 = [numericValueKeypaths countByEnumeratingWithState:&v44 objects:v53 count:16];
-          if (!v18)
+          v19 = [numericValueKeypaths countByEnumeratingWithState:&v45 objects:v54 count:16];
+          if (!v19)
           {
             goto LABEL_23;
           }
 
-          v19 = v18;
-          v20 = keypathsCopy;
-          v21 = 0;
-          v22 = *v45;
+          v20 = v19;
+          v21 = keypathsCopy;
+          v22 = 0;
+          v23 = *v46;
           do
           {
-            for (i = 0; i != v19; ++i)
+            for (i = 0; i != v20; ++i)
             {
-              if (*v45 != v22)
+              if (*v46 != v23)
               {
                 objc_enumerationMutation(numericValueKeypaths);
               }
 
-              v24 = [v16 valueForKeyPath:*(*(&v44 + 1) + 8 * i)];
-              [v24 doubleValue];
-              *&v15[8 * v21] = v25;
+              v25 = [v17 valueForKeyPath:*(*(&v45 + 1) + 8 * i)];
+              [v25 doubleValue];
+              *&v16[8 * v22] = v26;
 
-              ++v21;
+              ++v22;
             }
 
-            v19 = [numericValueKeypaths countByEnumeratingWithState:&v44 objects:v53 count:16];
+            v20 = [numericValueKeypaths countByEnumeratingWithState:&v45 objects:v54 count:16];
           }
 
-          while (v19);
-          keypathsCopy = v20;
-          v13 = v35;
-          v12 = v36;
+          while (v20);
+          keypathsCopy = v21;
+          v14 = v36;
+          v13 = v37;
         }
 
         else
         {
-          v42 = 0uLL;
           v43 = 0uLL;
-          v40 = 0uLL;
+          v44 = 0uLL;
           v41 = 0uLL;
-          numericValueKeypaths = v16;
-          v26 = [numericValueKeypaths countByEnumeratingWithState:&v40 objects:v52 count:16];
-          if (!v26)
+          v42 = 0uLL;
+          numericValueKeypaths = v17;
+          v27 = [numericValueKeypaths countByEnumeratingWithState:&v41 objects:v53 count:16];
+          if (!v27)
           {
             goto LABEL_23;
           }
 
-          v27 = v26;
-          v28 = 0;
-          v29 = *v41;
+          v28 = v27;
+          v29 = 0;
+          v30 = *v42;
           do
           {
-            for (j = 0; j != v27; ++j)
+            for (j = 0; j != v28; ++j)
             {
-              if (*v41 != v29)
+              if (*v42 != v30)
               {
                 objc_enumerationMutation(numericValueKeypaths);
               }
 
-              [*(*(&v40 + 1) + 8 * j) doubleValue];
-              *&v15[8 * v28++] = v31;
+              [*(*(&v41 + 1) + 8 * j) doubleValue];
+              *&v16[8 * v29++] = v32;
             }
 
-            v27 = [numericValueKeypaths countByEnumeratingWithState:&v40 objects:v52 count:16];
+            v28 = [numericValueKeypaths countByEnumeratingWithState:&v41 objects:v53 count:16];
           }
 
-          while (v27);
+          while (v28);
         }
 
-        v10 = v39;
+        v11 = v40;
 LABEL_23:
 
-        ++v14;
-        v15 += v13;
+        ++v15;
+        v16 += v14;
       }
 
-      while (v14 != v10);
-      v10 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
-      v11 = v34;
+      while (v15 != v11);
+      v11 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
+      v12 = v35;
     }
 
-    while (v10);
+    while (v11);
   }
 
-  return v33;
+  return v34;
 }
 
 - (id)_performWithDataset:(id)dataset numericData:(id)data progressBlock:(id)block
@@ -173,7 +174,7 @@ LABEL_95:
     [(PLDataClustering *)self numericValueKeypaths];
   }
   v14 = ;
-  v15 = [v14 count];
+  v15 = objc_msgSend_count(v14);
 
   if (!v15 || !self->_k)
   {
@@ -196,7 +197,7 @@ LABEL_96:
     goto LABEL_168;
   }
 
-  if (![datasetCopy count])
+  if (!objc_msgSend_count(datasetCopy))
   {
     if (!v12)
     {
@@ -219,7 +220,7 @@ LABEL_96:
   v134 = blockCopy;
   v137 = v12;
   v135 = datasetCopy;
-  if ([datasetCopy count] <= self->_k)
+  if (objc_msgSend_count(datasetCopy) <= self->_k)
   {
     array = [MEMORY[0x1E695DF70] array];
     v147 = 0u;
@@ -288,7 +289,7 @@ LABEL_96:
   }
 
   v17 = [(PLKMeansClustering *)self _dataArray:v16 featureCount:v15 useKeypaths:dataCopy == 0];
-  v18 = [datasetCopy count];
+  v18 = objc_msgSend_count(datasetCopy);
   v19 = v18;
   v136 = malloc_type_calloc(4uLL, v18, 0xE72C7B6DuLL);
   v20 = malloc_type_calloc(4uLL, self->_k, 0x11CED078uLL);
@@ -538,7 +539,7 @@ LABEL_116:
       [j addObject:array2];
     }
 
-    v104 = [v101 count];
+    v104 = objc_msgSend_count(v101, v131);
     v105 = v104;
     if (v104)
     {
@@ -846,7 +847,7 @@ LABEL_127:
     [n addObject:array3];
   }
 
-  v120 = [v117 count];
+  v120 = objc_msgSend_count(v117, v131);
   v121 = v120;
   if (v120)
   {

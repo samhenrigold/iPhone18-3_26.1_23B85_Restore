@@ -72,7 +72,7 @@
 - (const)mathMLAttributes
 {
   {
-    std::set<EQKitTypes::Attributes::Enum>::set[abi:nn200100]<EQKitTypes::Attributes::Enum const*>(-[EQKitMathMLMTr mathMLAttributes]::sAttributesSet, &-[EQKitMathMLMTr mathMLAttributes]::sAttributesData, -[EQKitMathMLMTd mathMLAttributes]::sAttributesData);
+    std::set<EQKitTypes::Attributes::Enum>::set[abi:nn200100]<EQKitTypes::Attributes::Enum const*>(-[EQKitMathMLMTr mathMLAttributes]::sAttributesSet, &-[EQKitMathMLMTr mathMLAttributes]::sAttributesData, &-[EQKitMathMLMTd mathMLAttributes]::sAttributesData);
   }
 
   return [EQKitMathMLMTr mathMLAttributes]::sAttributesSet;

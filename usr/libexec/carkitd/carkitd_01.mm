@@ -1,28 +1,3 @@
-void sub_10003F0F0(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 40));
-  objc_destroyWeak((v2 - 80));
-  _Unwind_Resume(a1);
-}
-
-void sub_10003F114(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = CarPairingLogging();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-  {
-    sub_1000867C0();
-  }
-
-  [WeakRetained _mainQueue_unblockSessionQueue];
-  v6 = [WeakRetained setupLauncher];
-  [v6 invalidate];
-
-  [WeakRetained setSetupLauncher:0];
-  (*(*(a1 + 32) + 16))();
-}
-
 void sub_10003F1C0(uint64_t a1)
 {
   block[0] = _NSConcreteStackBlock;
@@ -95,12 +70,13 @@ void sub_10003F838(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_10003FD50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_10003FD50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  objc_destroyWeak((v30 + 40));
+  va_start(va, a28);
   objc_destroyWeak((v29 + 40));
+  objc_destroyWeak((v28 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -318,7 +294,7 @@ Class sub_100041624(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -338,7 +314,6 @@ LABEL_4:
 
 uint64_t sub_100041768(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100107F60 = result;
   return result;
@@ -412,25 +387,26 @@ void sub_100041FB0(uint64_t a1)
 
 id sub_100042438(uint64_t a1)
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v2 = off_100107F68;
-  v10 = off_100107F68;
+  v11 = off_100107F68;
   if (!off_100107F68)
   {
     v3 = sub_100045C54();
-    v8[3] = dlsym(v3, "NSStringFromCRAccNavRole");
-    off_100107F68 = v8[3];
-    v2 = v8[3];
+    v9[3] = dlsym(v3, "NSStringFromCRAccNavRole");
+    off_100107F68 = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v2)
   {
-    v6 = sub_100084C30();
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(v6);
+    sub_100084C30();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
   v4 = v2(a1);
@@ -438,9 +414,9 @@ id sub_100042438(uint64_t a1)
   return v4;
 }
 
-void sub_100042998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100042998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -707,7 +683,7 @@ uint64_t sub_100045C54()
   v1 = v3[0];
   if (!qword_100107F70)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -722,7 +698,6 @@ LABEL_7:
 
 uint64_t sub_100045D54(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100107F70 = result;
   return result;
@@ -740,7 +715,7 @@ Class sub_100045DC8(uint64_t a1)
 
   else
   {
-    v3 = sub_100086F30();
+    sub_100086F30();
     return sub_100045E20(v3);
   }
 
@@ -971,37 +946,36 @@ void sub_100046D84(uint64_t a1)
 
 void sub_100046F74(uint64_t a1)
 {
-  v8 = 0;
+  v7 = 0;
   objc_opt_class();
-  v3 = (a1 + 32);
-  v2 = *(a1 + 32);
-  v4 = OPACKDecodeData();
-  if (v4 && (objc_opt_isKindOfClass() & 1) != 0)
+  v2 = (a1 + 32);
+  v3 = OPACKDecodeData();
+  if (v3 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v5 = v4;
+    v4 = v3;
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  if (v5)
+  if (v4)
   {
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_10004709C;
-    v7[3] = &unk_1000DEC30;
-    v7[4] = *(a1 + 40);
-    [v5 enumerateKeysAndObjectsUsingBlock:v7];
+    v6[0] = _NSConcreteStackBlock;
+    v6[1] = 3221225472;
+    v6[2] = sub_10004709C;
+    v6[3] = &unk_1000DEC30;
+    v6[4] = *(a1 + 40);
+    [v4 enumerateKeysAndObjectsUsingBlock:v6];
   }
 
   else
   {
-    v6 = sub_100002A68(6uLL);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = sub_100002A68(6uLL);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_100086FC0(v3, &v8, v6);
+      sub_100086FC0(v2, &v7, v5);
     }
   }
 }
@@ -2259,28 +2233,26 @@ void sub_10004DCB8(void *a1, int a2)
 
   else if (v5)
   {
-    *v12 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "pairing completed with failure", v12, 2u);
+    *v10 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "pairing completed with failure", v10, 2u);
   }
 
   (*(a1[4] + 16))();
-  v6 = a1[5];
-  v7 = a1[6];
-  v8 = BTPairingAgentClearOOBDataForDevice();
-  v9 = CarPairingLogging();
-  v10 = v9;
-  if (v8)
+  v6 = BTPairingAgentClearOOBDataForDevice();
+  v7 = CarPairingLogging();
+  v8 = v7;
+  if (v6)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100087434(a1);
+      sub_100087434();
     }
   }
 
-  else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "cleared OOB data", v11, 2u);
+    *v9 = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "cleared OOB data", v9, 2u);
   }
 }
 
@@ -2317,39 +2289,39 @@ void sub_10004DE94(uint64_t a1)
   }
 }
 
-id sub_10004DFC0(uint64_t a1)
+id sub_10004DFC0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = BTPairingAgentCancelPairing();
-  v3 = CarPairingLogging();
-  v4 = v3;
-  if (v2)
+  v4 = BTPairingAgentCancelPairing();
+  v5 = CarPairingLogging();
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1000874AC();
     }
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "successfully canceled BT pairing", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "successfully canceled BT pairing", buf, 2u);
   }
 
-  v5 = [*(a1 + 32) bluetoothAddress];
+  v7 = [*(a1 + 32) bluetoothAddress];
 
-  if (v5)
+  if (v7)
   {
-    v14 = 0;
-    v13 = 0;
-    v6 = [*(a1 + 32) bluetoothAddress];
-    [v6 getBytes:&v13 length:6];
+    v16 = 0;
+    v15 = 0;
+    v8 = [*(a1 + 32) bluetoothAddress];
+    [v8 getBytes:&v15 length:6];
 
     *buf = 0;
     if (BTDeviceFromAddress())
     {
-      v7 = CarPairingLogging();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = CarPairingLogging();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_10008751C();
       }
@@ -2357,21 +2329,21 @@ id sub_10004DFC0(uint64_t a1)
 
     else
     {
-      v8 = BTPairingAgentClearOOBDataForDevice();
-      v9 = CarPairingLogging();
-      v7 = v9;
-      if (v8)
+      v10 = BTPairingAgentClearOOBDataForDevice();
+      v11 = CarPairingLogging();
+      v9 = v11;
+      if (v10)
       {
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           sub_10008758C();
         }
       }
 
-      else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v11 = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "cleared OOB data", v11, 2u);
+        *v13 = 0;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "cleared OOB data", v13, 2u);
       }
     }
   }
@@ -2454,9 +2426,7 @@ uint64_t sub_10004EAC4(uint64_t result)
       sub_10008782C();
     }
 
-    v4 = *(*(v1 + 32) + 16);
     BTPairingAgentStop();
-    v5 = *(v1 + 32);
     result = BTPairingAgentDestroy();
     *(*(v1 + 32) + 16) = 0;
     v2 = *(v1 + 32);
@@ -2464,15 +2434,13 @@ uint64_t sub_10004EAC4(uint64_t result)
 
   if (*(v2 + 8))
   {
-    v6 = CarPairingLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v4 = CarPairingLogging();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       sub_100087860();
     }
 
-    v7 = *(*(v1 + 32) + 8);
     BTServiceRemoveCallbacks();
-    v8 = *(v1 + 32);
     result = BTSessionDetachWithQueue();
     *(*(v1 + 32) + 8) = 0;
   }
@@ -2648,12 +2616,11 @@ void sub_10004F800(uint64_t a1, uint64_t a2)
     [WeakRetained setConnectionTimer:0];
   }
 
-  v6 = *(a1 + 48);
   BTServiceRemoveCallbacks();
-  v7 = *(a1 + 32);
-  if (v7)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    (*(v7 + 16))(v7, a2);
+    (*(v6 + 16))(v6, a2);
   }
 }
 
@@ -2703,12 +2670,11 @@ void sub_10004FA24(uint64_t a1)
       if ([v3 isEqualToString:v4])
       {
         v7 = [*(a1 + 32) _intendedServiceMask];
-        v13 = 0;
-        v8 = *(a1 + 40);
+        v12 = 0;
         if (BTDeviceGetConnectedServices())
         {
-          v9 = CarPairingLogging();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v8 = CarPairingLogging();
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
             sub_100087AF8();
           }
@@ -2716,44 +2682,44 @@ void sub_10004FA24(uint64_t a1)
 
         else
         {
-          v11 = CarPairingLogging();
-          v9 = v11;
-          if ((v13 & v7) != 0)
+          v10 = CarPairingLogging();
+          v8 = v10;
+          if ((v12 & v7) != 0)
           {
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138478083;
-              v15 = v5;
-              v16 = 1024;
-              LODWORD(v17) = v13;
-              _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "bluetooth connected to %{private}@ with services: %i", buf, 0x12u);
+              v14 = v5;
+              v15 = 1024;
+              LODWORD(v16) = v12;
+              _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "bluetooth connected to %{private}@ with services: %i", buf, 0x12u);
             }
 
-            v12 = [*(a1 + 32) bluetoothConnectedHandler];
-            v9 = v12;
-            if (v12)
+            v11 = [*(a1 + 32) bluetoothConnectedHandler];
+            v8 = v11;
+            if (v11)
             {
-              (*(v12 + 16))(v12);
+              (*(v11 + 16))(v11);
             }
           }
 
-          else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
-            sub_100087B68(&v13, v7, v9);
+            sub_100087B68(&v12, v7, v8);
           }
         }
       }
 
       else
       {
-        v10 = CarPairingLogging();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v9 = CarPairingLogging();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138478083;
-          v15 = v5;
-          v16 = 2113;
-          v17 = v3;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "connected address %{private}@ doesn't match expected address %{private}@", buf, 0x16u);
+          v14 = v5;
+          v15 = 2113;
+          v16 = v3;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "connected address %{private}@ doesn't match expected address %{private}@", buf, 0x16u);
         }
       }
     }
@@ -2840,33 +2806,32 @@ void sub_100050744(uint64_t a1)
   objc_destroyWeak(&v8);
 }
 
-void sub_100050860(uint64_t a1, int a2)
+void sub_100050860(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
   v4 = (a1 + 48);
   if (*(a1 + 48) == a2)
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 
   else
   {
-    v7 = CarDNDWDLogging();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v6 = CarDNDWDLogging();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      sub_100087CB8(v4, v2, v7);
+      sub_100087CB8(v4, v2, v6);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_10005098C;
-    v9[3] = &unk_1000DDB90;
-    v10 = *(a1 + 32);
-    [WeakRetained _setDNDActive:0 trigger:1 withStartingGeofence:0 completion:v9];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10005098C;
+    v8[3] = &unk_1000DDB90;
+    v9 = *(a1 + 32);
+    [WeakRetained _setDNDActive:0 trigger:1 withStartingGeofence:0 completion:v8];
   }
 }
 
@@ -3087,7 +3052,7 @@ void sub_1000531B4(uint64_t a1)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_100087EE8(a1);
+      sub_100087EE8();
     }
 
     v7 = 3;
@@ -3315,86 +3280,85 @@ void sub_100054D7C(uint64_t a1)
 
 void sub_100054FAC(uint64_t a1)
 {
-  v2 = (a1 + 40);
-  v3 = [*(a1 + 32) _vehicleForVehicleIdentifier:*(a1 + 40)];
-  v4 = v3;
-  if (v3)
+  v2 = [*(a1 + 32) _vehicleForVehicleIdentifier:*(a1 + 40)];
+  v3 = v2;
+  if (v2)
   {
-    v5 = [v3 clusterAssetIdentifier];
-    if (v5)
+    v4 = [v2 clusterAssetIdentifier];
+    if (v4)
     {
-      v6 = [*(a1 + 32) _assetRequestForVehicle:v4];
-      if (v6)
+      v5 = [*(a1 + 32) _assetRequestForVehicle:v3];
+      if (v5)
       {
-        v7 = [*(a1 + 32) assetDownloader];
-        v8 = [v7 assetRequests];
-        v9 = [v8 containsObject:v6];
+        v6 = [*(a1 + 32) assetDownloader];
+        v7 = [v6 assetRequests];
+        v8 = [v7 containsObject:v5];
 
-        if ((v9 & 1) == 0)
+        if ((v8 & 1) == 0)
         {
-          v10 = CarThemeAssetsLogging();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v9 = CarThemeAssetsLogging();
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v26 = v6;
-            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "asset requested before vehicle ever connected, tracking asset request for download anyway: %@", buf, 0xCu);
+            v25 = v5;
+            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "asset requested before vehicle ever connected, tracking asset request for download anyway: %@", buf, 0xCu);
           }
 
           [*(a1 + 32) _mainQueue_updateAssetRequests];
         }
       }
 
-      v11 = [*(a1 + 32) _assetVersionForVehicle:v4];
-      v12 = [v4 clusterAssetURL];
-      v13 = v12;
-      v24 = v6;
-      if (v11 && v12)
+      v10 = [*(a1 + 32) _assetVersionForVehicle:v3];
+      v11 = [v3 clusterAssetURL];
+      v12 = v11;
+      v23 = v5;
+      if (v10 && v11)
       {
-        v14 = [[CARThemeAsset alloc] initWithBaseURL:v12 version:v11];
+        v13 = [[CARThemeAsset alloc] initWithBaseURL:v11 version:v10];
       }
 
       else
       {
-        v17 = CarThemeAssetsLogging();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v16 = CarThemeAssetsLogging();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v26 = v4;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "vehicle doesn't have an applied asset yet: %@", buf, 0xCu);
+          v25 = v3;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "vehicle doesn't have an applied asset yet: %@", buf, 0xCu);
         }
 
-        v14 = 0;
+        v13 = 0;
       }
 
-      v18 = [*(a1 + 32) _stagedAssetVersionForVehicle:v4];
-      v19 = [v4 stagedClusterAssetURL];
-      v20 = v19;
-      if (v18 && v19)
+      v17 = [*(a1 + 32) _stagedAssetVersionForVehicle:v3];
+      v18 = [v3 stagedClusterAssetURL];
+      v19 = v18;
+      if (v17 && v18)
       {
-        v21 = [[CARThemeAsset alloc] initWithBaseURL:v19 version:v18];
+        v20 = [[CARThemeAsset alloc] initWithBaseURL:v18 version:v17];
       }
 
       else
       {
-        v22 = CarThemeAssetsLogging();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v21 = CarThemeAssetsLogging();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v26 = v4;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "vehicle doesn't have a staged asset: %@", buf, 0xCu);
+          v25 = v3;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "vehicle doesn't have a staged asset: %@", buf, 0xCu);
         }
 
-        v21 = 0;
+        v20 = 0;
       }
 
-      v23 = CarThemeAssetsLogging();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v22 = CarThemeAssetsLogging();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v26 = v14;
-        v27 = 2114;
-        v28 = v21;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "replying with active asset %{public}@, staged asset: %{public}@", buf, 0x16u);
+        v25 = v13;
+        v26 = 2114;
+        v27 = v20;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "replying with active asset %{public}@, staged asset: %{public}@", buf, 0x16u);
       }
 
       (*(*(a1 + 48) + 16))();
@@ -3402,12 +3366,12 @@ void sub_100054FAC(uint64_t a1)
 
     else
     {
-      v16 = CarThemeAssetsLogging();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v15 = CarThemeAssetsLogging();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v26 = v4;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "vehicle doesn't have an asset ID: %@", buf, 0xCu);
+        v25 = v3;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "vehicle doesn't have an asset ID: %@", buf, 0xCu);
       }
 
       (*(*(a1 + 48) + 16))();
@@ -3416,10 +3380,10 @@ void sub_100054FAC(uint64_t a1)
 
   else
   {
-    v15 = CarThemeAssetsLogging();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = CarThemeAssetsLogging();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_1000880CC(v2);
+      sub_1000880CC();
     }
 
     (*(*(a1 + 48) + 16))();
@@ -3626,55 +3590,53 @@ uint64_t sub_10005703C(uint64_t a1)
 
 void sub_1000577B0(uint64_t a1)
 {
-  v50[0] = _NSConcreteStackBlock;
-  v50[1] = 3221225472;
-  v50[2] = sub_100058084;
-  v50[3] = &unk_1000DF548;
+  v47[0] = _NSConcreteStackBlock;
+  v47[1] = 3221225472;
+  v47[2] = sub_100058084;
+  v47[3] = &unk_1000DF548;
   v2 = *(a1 + 80);
   v3 = *(a1 + 40);
   v4 = *(a1 + 32);
-  v52 = v2;
-  v50[4] = v4;
-  v51 = v3;
-  v5 = objc_retainBlock(v50);
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() _carplayLibraryDirectoryForAssetIdentifier:*(a1 + 40)];
-  if (v7)
+  v49 = v2;
+  v47[4] = v4;
+  v48 = v3;
+  v5 = objc_retainBlock(v47);
+  v6 = [objc_opt_class() _carplayLibraryDirectoryForAssetIdentifier:*(a1 + 40)];
+  if (v6)
   {
-    *&v57 = 0;
-    *(&v57 + 1) = &v57;
-    v58 = 0x3032000000;
-    v59 = sub_100058180;
-    v60 = sub_100058190;
-    v61 = 0;
-    v47 = 0;
-    v48[0] = &v47;
-    v48[1] = 0x3032000000;
-    v48[2] = sub_100058180;
-    v48[3] = sub_100058190;
-    v49 = 0;
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x3032000000;
-    v44 = sub_100058180;
-    v45 = sub_100058190;
+    *&v54 = 0;
+    *(&v54 + 1) = &v54;
+    v55 = 0x3032000000;
+    v56 = sub_100058180;
+    v57 = sub_100058190;
+    v58 = 0;
+    v44 = 0;
+    v45[0] = &v44;
+    v45[1] = 0x3032000000;
+    v45[2] = sub_100058180;
+    v45[3] = sub_100058190;
     v46 = 0;
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    v10 = *(a1 + 40);
-    v40[0] = _NSConcreteStackBlock;
-    v40[1] = 3221225472;
-    v40[2] = sub_100058198;
-    v40[3] = &unk_1000DF570;
-    v40[4] = &v57;
-    v40[5] = &v47;
-    v40[6] = &v41;
-    [v9 _readMetadataFromAsset:v7 assetIdentifier:v10 completion:v40];
-    v11 = *(*(&v57 + 1) + 40);
-    if (!v11)
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x3032000000;
+    v41 = sub_100058180;
+    v42 = sub_100058190;
+    v43 = 0;
+    v7 = objc_opt_class();
+    v8 = *(a1 + 40);
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_100058198;
+    v37[3] = &unk_1000DF570;
+    v37[4] = &v54;
+    v37[5] = &v44;
+    v37[6] = &v38;
+    [v7 _readMetadataFromAsset:v6 assetIdentifier:v8 completion:v37];
+    v9 = *(*(&v54 + 1) + 40);
+    if (!v9)
     {
-      v20 = CarThemeAssetsLogging();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v17 = CarThemeAssetsLogging();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_100088378();
       }
@@ -3683,65 +3645,64 @@ void sub_1000577B0(uint64_t a1)
       goto LABEL_19;
     }
 
-    v12 = [v11 iOSContentVersion];
-    v13 = [*(*(&v57 + 1) + 40) accessoryContentVersion];
-    v14 = *(a1 + 32);
+    v10 = [v9 iOSContentVersion];
+    v11 = [*(*(&v54 + 1) + 40) accessoryContentVersion];
     if ([objc_opt_class() _shouldForceUpdateAsset])
     {
-      v15 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%lu", [*(a1 + 48) integerValue] + 1);
+      v12 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%lu", [*(a1 + 48) integerValue] + 1);
 
-      v16 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [*(a1 + 56) unsignedIntegerValue] + 1);
+      v13 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [*(a1 + 56) unsignedIntegerValue] + 1);
 
-      v17 = CarThemeAssetsLogging();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v14 = CarThemeAssetsLogging();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v54 = v15;
-        v55 = 2114;
-        v56 = v16;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "force updating asset versions to: iOS %{public}@, accessory %{public}@", buf, 0x16u);
+        v51 = v12;
+        v52 = 2114;
+        v53 = v13;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "force updating asset versions to: iOS %{public}@, accessory %{public}@", buf, 0x16u);
       }
     }
 
     else
     {
-      v16 = v13;
-      v15 = v12;
+      v13 = v11;
+      v12 = v10;
     }
 
-    v21 = [[CARThemeAssetVersion alloc] initWithIdentifier:*(a1 + 40) iOSContentVersion:v15 accessoryContentVersion:v16];
-    if ([*(a1 + 64) compare:v21] == -1)
+    v18 = [[CARThemeAssetVersion alloc] initWithIdentifier:*(a1 + 40) iOSContentVersion:v12 accessoryContentVersion:v13];
+    if ([*(a1 + 64) compare:v18] == -1)
     {
-      if (*(v48[0] + 40))
+      if (*(v45[0] + 40))
       {
-        v24 = [*(a1 + 72) maximumCompatibilityVersion];
-        if ([*(v48[0] + 40) unsignedIntegerValue] <= v24)
+        v21 = [*(a1 + 72) maximumCompatibilityVersion];
+        if ([*(v45[0] + 40) unsignedIntegerValue] <= v21)
         {
-          v27 = CarThemeAssetsLogging();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          v24 = CarThemeAssetsLogging();
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
-            v28 = *(v48[0] + 40);
+            v25 = *(v45[0] + 40);
             *buf = 138412546;
-            v54 = v28;
-            v55 = 2048;
-            v56 = v24;
-            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "asset's minimum compatibility version of %@ is valid for supported compatibility version: %lu", buf, 0x16u);
+            v51 = v25;
+            v52 = 2048;
+            v53 = v21;
+            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "asset's minimum compatibility version of %@ is valid for supported compatibility version: %lu", buf, 0x16u);
           }
 
-          if (v42[5])
+          if (v39[5])
           {
-            v29 = [*(a1 + 72) maximumSDKVersion];
-            if ([v42[5] cr_buildVersionCompare:v29] + 1 > 1)
+            v26 = [*(a1 + 72) maximumSDKVersion];
+            if ([v39[5] cr_buildVersionCompare:v26] + 1 > 1)
             {
-              v37 = CarThemeAssetsLogging();
-              if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+              v34 = CarThemeAssetsLogging();
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
               {
-                v38 = v42[5];
+                v35 = v39[5];
                 *buf = 138412546;
-                v54 = v38;
-                v55 = 2112;
-                v56 = v29;
-                _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "override asset's minimum SDK version of %@ is not valid for SDK: %@", buf, 0x16u);
+                v51 = v35;
+                v52 = 2112;
+                v53 = v26;
+                _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "override asset's minimum SDK version of %@ is not valid for SDK: %@", buf, 0x16u);
               }
 
               (v5[2])(v5, 0, 0);
@@ -3749,44 +3710,44 @@ void sub_1000577B0(uint64_t a1)
 
             else
             {
-              v30 = CarThemeAssetsLogging();
-              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+              v27 = CarThemeAssetsLogging();
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
               {
-                v31 = v42[5];
+                v28 = v39[5];
                 *buf = 138412546;
-                v54 = v31;
-                v55 = 2112;
-                v56 = v29;
-                _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "asset's minimum SDK version of %@ is valid for SDK: %@", buf, 0x16u);
+                v51 = v28;
+                v52 = 2112;
+                v53 = v26;
+                _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "asset's minimum SDK version of %@ is valid for SDK: %@", buf, 0x16u);
               }
 
-              v32 = CarThemeAssetsLogging();
-              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+              v29 = CarThemeAssetsLogging();
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v54 = v21;
-                _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "preparing override asset: %{public}@", buf, 0xCu);
+                v51 = v18;
+                _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "preparing override asset: %{public}@", buf, 0xCu);
               }
 
-              v33 = [*(a1 + 32) _internalQueue_generatedAssetForSourceAssetURL:v7 version:v21];
-              if (v33)
+              v30 = [*(a1 + 32) _internalQueue_generatedAssetForSourceAssetURL:v6 version:v18];
+              if (v30)
               {
-                v34 = [[CARThemeAsset alloc] initWithBaseURL:v33 version:v21];
-                v35 = CarThemeAssetsLogging();
-                if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+                v31 = [[CARThemeAsset alloc] initWithBaseURL:v30 version:v18];
+                v32 = CarThemeAssetsLogging();
+                if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v54 = v34;
-                  _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "prepared override asset %@", buf, 0xCu);
+                  v51 = v31;
+                  _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "prepared override asset %@", buf, 0xCu);
                 }
 
-                (v5[2])(v5, v34, 0);
+                (v5[2])(v5, v31, 0);
               }
 
               else
               {
-                v39 = CarThemeAssetsLogging();
-                if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+                v36 = CarThemeAssetsLogging();
+                if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                 {
                   sub_10008825C();
                 }
@@ -3798,40 +3759,40 @@ void sub_1000577B0(uint64_t a1)
             goto LABEL_18;
           }
 
-          v36 = CarThemeAssetsLogging();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+          v33 = CarThemeAssetsLogging();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
             sub_100088290();
           }
 
-          v26 = 0;
+          v23 = 0;
         }
 
         else
         {
-          v25 = CarThemeAssetsLogging();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v22 = CarThemeAssetsLogging();
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            sub_1000882C4(v48, v24, v25);
+            sub_1000882C4(v45, v21, v22);
           }
 
-          v26 = *(v48[0] + 40);
+          v23 = *(v45[0] + 40);
         }
 
-        (v5[2])(v5, 0, v26);
+        (v5[2])(v5, 0, v23);
 LABEL_18:
 
 LABEL_19:
-        _Block_object_dispose(&v41, 8);
+        _Block_object_dispose(&v38, 8);
 
-        _Block_object_dispose(&v47, 8);
-        _Block_object_dispose(&v57, 8);
+        _Block_object_dispose(&v44, 8);
+        _Block_object_dispose(&v54, 8);
 
         goto LABEL_20;
       }
 
-      v22 = CarThemeAssetsLogging();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v19 = CarThemeAssetsLogging();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_100088344();
       }
@@ -3839,13 +3800,13 @@ LABEL_19:
 
     else
     {
-      v22 = CarThemeAssetsLogging();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v19 = CarThemeAssetsLogging();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = *(a1 + 64);
+        v20 = *(a1 + 64);
         *buf = 138543362;
-        v54 = v23;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "asset is already the latest overall version: %{public}@", buf, 0xCu);
+        v51 = v20;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "asset is already the latest overall version: %{public}@", buf, 0xCu);
       }
     }
 
@@ -3853,32 +3814,32 @@ LABEL_19:
     goto LABEL_18;
   }
 
-  v18 = CarThemeAssetsLogging();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v15 = CarThemeAssetsLogging();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = *(a1 + 40);
-    LODWORD(v57) = 138543362;
-    *(&v57 + 4) = v19;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "no override asset available for %{public}@", &v57, 0xCu);
+    v16 = *(a1 + 40);
+    LODWORD(v54) = 138543362;
+    *(&v54 + 4) = v16;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "no override asset available for %{public}@", &v54, 0xCu);
   }
 
   (v5[2])(v5, 0, 0);
 LABEL_20:
 }
 
-void sub_100057FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_100057FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v10 - 176), 8);
+  _Block_object_dispose((v17 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4817,13 +4778,13 @@ void sub_10005DE44(uint64_t a1)
   [v1 _mainQueue_gatherVehicleLogsThenPerformSysdiagnoseWithDiagnosticData:v2 isInternal:v3 completion:v4];
 }
 
-uint64_t sub_10005DEF4(uint64_t a1)
+uint64_t sub_10005DEF4(uint64_t a1, uint64_t a2)
 {
-  v2 = CarDiagnosticsLogging();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CarDiagnosticsLogging();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Vehicle logs gathered", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Vehicle logs gathered", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
@@ -4844,22 +4805,22 @@ void sub_10005E2E8(uint64_t a1, void *a2)
   (*(*(a1 + 40) + 16))(*(a1 + 40), v6, v7, v8);
 }
 
-void sub_10005E394(uint64_t a1)
+void sub_10005E394(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = CarDiagnosticsLogging();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v3 = *(a1 + 32);
+  v4 = CarDiagnosticsLogging();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
-      v5 = *(a1 + 40);
-      v6 = [*(a1 + 32) localizedDescription];
-      v8 = 138412546;
-      v9 = v5;
-      v10 = 2112;
-      v11 = v6;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ Error creating draft - %@", &v8, 0x16u);
+      v6 = *(a1 + 40);
+      v7 = [*(a1 + 32) localizedDescription];
+      v9 = 138412546;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v7;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ Error creating draft - %@", &v9, 0x16u);
     }
 
     [*(a1 + 40) _mainQueue_displayDraftErrorBanner];
@@ -4867,12 +4828,12 @@ void sub_10005E394(uint64_t a1)
 
   else
   {
-    if (v4)
+    if (v5)
     {
-      v7 = *(a1 + 40);
-      v8 = 138412290;
-      v9 = v7;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ Successfully created draft", &v8, 0xCu);
+      v8 = *(a1 + 40);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ Successfully created draft", &v9, 0xCu);
     }
   }
 }
@@ -5079,32 +5040,32 @@ void sub_10005F160(uint64_t a1)
   [CRDiagnosticsData removeDiagnosticsFoldersBeforeTime:v1];
 }
 
-void sub_10005F394(id *a1)
+void sub_10005F394(id *a1, uint64_t a2)
 {
-  v2 = CarDiagnosticsLogging();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CarDiagnosticsLogging();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "finished waiting on previous diagnostics", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "finished waiting on previous diagnostics", buf, 2u);
   }
 
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10005F4FC;
   block[3] = &unk_1000DF8E0;
-  v9 = a1[6];
-  v7 = a1[4];
-  v8 = a1[5];
+  v10 = a1[6];
+  v8 = a1[4];
+  v9 = a1[5];
   dispatch_sync(&_dispatch_main_q, block);
-  v3 = a1[4];
-  v4 = dispatch_time(0, 600000000000);
-  if (dispatch_semaphore_wait(v3, v4))
+  v4 = a1[4];
+  v5 = dispatch_time(0, 600000000000);
+  if (dispatch_semaphore_wait(v4, v5))
   {
-    v5 = CarDiagnosticsLogging();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CarDiagnosticsLogging();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "timed out waiting on previous diagnostics", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "timed out waiting on previous diagnostics", buf, 2u);
     }
   }
 }
@@ -5134,22 +5095,22 @@ void sub_10005F9D4(uint64_t a1, void *a2)
   }
 }
 
-id sub_10005FA84(uint64_t a1)
+id sub_10005FA84(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = CarDiagnosticsLogging();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v3 = *(a1 + 32);
+  v4 = CarDiagnosticsLogging();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
-      v5 = *(a1 + 40);
-      v6 = [*(a1 + 32) localizedDescription];
-      v9 = 138412546;
-      v10 = v5;
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ Error creating draft - %@", &v9, 0x16u);
+      v6 = *(a1 + 40);
+      v7 = [*(a1 + 32) localizedDescription];
+      v10 = 138412546;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ Error creating draft - %@", &v10, 0x16u);
     }
 
     return [*(a1 + 40) _mainQueue_displayDraftErrorBanner];
@@ -5157,12 +5118,12 @@ id sub_10005FA84(uint64_t a1)
 
   else
   {
-    if (v4)
+    if (v5)
     {
-      v8 = *(a1 + 40);
-      v9 = 138412290;
-      v10 = v8;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ Successfully created draft", &v9, 0xCu);
+      v9 = *(a1 + 40);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ Successfully created draft", &v10, 0xCu);
     }
 
     [*(a1 + 40) setPendingDrafts:{objc_msgSend(*(a1 + 40), "pendingDrafts") + 1}];
@@ -5323,82 +5284,82 @@ void sub_100060894(uint64_t a1, uint64_t a2, void *a3, void *a4)
   dispatch_async(&_dispatch_main_q, block);
 }
 
-void sub_100060974(uint64_t a1)
+void sub_100060974(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32))
   {
 LABEL_2:
-    v2 = CarDiagnosticsLogging();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = CarDiagnosticsLogging();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 64) + 1;
-      if (v3 >= 6)
+      v4 = *(a1 + 64) + 1;
+      if (v4 >= 6)
       {
-        v4 = [NSString stringWithFormat:@"Unknown (%ld)", *(a1 + 64)];
+        v5 = [NSString stringWithFormat:@"Unknown (%ld)", *(a1 + 64)];
       }
 
       else
       {
-        v4 = *(&off_1000DFAD8 + v3);
+        v5 = *(&off_1000DFAD8 + v4);
       }
 
-      v6 = *(a1 + 32);
+      v7 = *(a1 + 32);
       *buf = 138412546;
-      v20 = v4;
-      v21 = 2112;
-      v22 = v6;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Dictation failed: state %@, error %@", buf, 0x16u);
+      v21 = v5;
+      v22 = 2112;
+      v23 = v7;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Dictation failed: state %@, error %@", buf, 0x16u);
     }
 
     if (*(a1 + 64) == -1)
     {
-      v8 = [@"Dictation Error. " stringByAppendingString:@"Please make sure you have Dictation enabled."];
+      v9 = [@"Dictation Error. " stringByAppendingString:@"Please make sure you have Dictation enabled."];
     }
 
     else
     {
-      v7 = [*(a1 + 32) localizedDescription];
-      v8 = [@"Dictation Error. " stringByAppendingString:v7];
+      v8 = [*(a1 + 32) localizedDescription];
+      v9 = [@"Dictation Error. " stringByAppendingString:v8];
     }
 
-    v9 = *(a1 + 40);
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100060C6C;
-    v17[3] = &unk_1000DE970;
-    v18 = *(a1 + 56);
-    [v9 _mainQueue_presentCarAlertWithTitle:v8 dismissTime:v17 completion:10.0];
+    v10 = *(a1 + 40);
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100060C6C;
+    v18[3] = &unk_1000DE970;
+    v19 = *(a1 + 56);
+    [v10 _mainQueue_presentCarAlertWithTitle:v9 dismissTime:v18 completion:10.0];
 
     goto LABEL_15;
   }
 
-  v5 = *(a1 + 64);
-  if (v5 == 4)
+  v6 = *(a1 + 64);
+  if (v6 == 4)
   {
-    v8 = [*(a1 + 48) transcription];
-    v11 = [v8 length];
-    v12 = CarDiagnosticsLogging();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-    if (v11)
+    v9 = [*(a1 + 48) transcription];
+    v12 = [v9 length];
+    v13 = CarDiagnosticsLogging();
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    if (v12)
     {
-      if (v13)
+      if (v14)
       {
         *buf = 138477827;
-        v20 = v8;
-        v14 = "Dictation transcribed: %{private}@";
-        v15 = v12;
-        v16 = 12;
+        v21 = v9;
+        v15 = "Dictation transcribed: %{private}@";
+        v16 = v13;
+        v17 = 12;
 LABEL_25:
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v14, buf, v16);
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, v15, buf, v17);
       }
     }
 
-    else if (v13)
+    else if (v14)
     {
       *buf = 0;
-      v14 = "Dictation stopped without transcription.";
-      v15 = v12;
-      v16 = 2;
+      v15 = "Dictation stopped without transcription.";
+      v16 = v13;
+      v17 = 2;
       goto LABEL_25;
     }
 
@@ -5408,9 +5369,9 @@ LABEL_15:
     return;
   }
 
-  if (v5 != 1)
+  if (v6 != 1)
   {
-    if (v5 != -1)
+    if (v6 != -1)
     {
       return;
     }
@@ -5418,9 +5379,9 @@ LABEL_15:
     goto LABEL_2;
   }
 
-  v10 = *(a1 + 40);
+  v11 = *(a1 + 40);
 
-  [v10 _mainQueue_presentCarAlertWithTitle:@"Dictation in Progress. Tap to Stop" dismissTime:&stru_1000DF9B0 completion:30.0];
+  [v11 _mainQueue_presentCarAlertWithTitle:@"Dictation in Progress. Tap to Stop" dismissTime:&stru_1000DF9B0 completion:30.0];
 }
 
 void sub_100060C80(id a1, unint64_t a2)
@@ -5620,13 +5581,13 @@ id sub_100062154(uint64_t a1)
   return result;
 }
 
-id sub_100063330(uint64_t a1)
+id sub_100063330(uint64_t a1, uint64_t a2)
 {
-  v2 = CarDiagnosticsLogging();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CarDiagnosticsLogging();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Session disconnect", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Session disconnect", v5, 2u);
   }
 
   [*(a1 + 32) setInitialDiagnosticsBannerPresented:0];
@@ -5806,7 +5767,7 @@ void sub_100064A78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100064A94(uint64_t a1, int a2)
+void sub_100064A94(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
   v4 = (a1 + 52);
@@ -5934,6 +5895,13 @@ void sub_1000663E8(uint64_t a1)
   [v1 setHasMigratedToDriving:1];
 }
 
+void sub_100066F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_100066F70(uint64_t a1)
 {
   v2 = [*(a1 + 32) stateMachine];
@@ -5959,10 +5927,11 @@ void sub_1000675EC(id a1)
   [qword_100107FD8 setLocale:v3];
 }
 
-void sub_100067678(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100067678(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void sub_100067B2C(id a1, BOOL a2, NSError *a3)
@@ -6318,13 +6287,13 @@ uint64_t sub_100068C30(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100068C48()
+uint64_t sub_100068C48(uint64_t a1)
 {
-  v0 = CarGeneralLogging();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = CarGeneralLogging();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "system language changed, exiting", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "system language changed, exiting", v3, 2u);
   }
 
   return xpc_transaction_exit_clean();
@@ -6387,9 +6356,9 @@ id sub_100068E3C(void *a1)
   return [v8 resume];
 }
 
-void sub_100069130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100069130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6403,33 +6372,32 @@ void sub_100069148(uint64_t a1)
 
 void sub_100069268(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() identifier];
-  v4 = [*(a1 + 32) dictionaryRepresentation];
-  v5 = [*(a1 + 40) plistMessenger];
-  v13 = 0;
-  v6 = [v5 dataForMessageWithIdentifier:v3 contents:v4 error:&v13];
-  v7 = v13;
+  v2 = [objc_opt_class() identifier];
+  v3 = [*(a1 + 32) dictionaryRepresentation];
+  v4 = [*(a1 + 40) plistMessenger];
+  v12 = 0;
+  v5 = [v4 dataForMessageWithIdentifier:v2 contents:v3 error:&v12];
+  v6 = v12;
 
-  if (v6)
+  if (v5)
   {
-    v8 = [*(a1 + 40) service];
-    v9 = [v8 activeChannel];
+    v7 = [*(a1 + 40) service];
+    v8 = [v7 activeChannel];
 
-    if (v9)
+    if (v8)
     {
-      [v9 sendData:v6];
-      v10 = [*(a1 + 40) activeMessagesForDatas];
-      [v10 setObject:*(a1 + 32) forKey:v6];
+      [v8 sendData:v5];
+      v9 = [*(a1 + 40) activeMessagesForDatas];
+      [v9 setObject:*(a1 + 32) forKey:v5];
     }
 
     else
     {
-      v12 = sub_100002A68(2uLL);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100002A68(2uLL);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "no active channel", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "no active channel", buf, 2u);
       }
 
       [*(a1 + 40) _queue_handleFailedToSendMessage:*(a1 + 32)];
@@ -6438,12 +6406,12 @@ void sub_100069268(uint64_t a1)
 
   else
   {
-    v11 = sub_100002A68(2uLL);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100002A68(2uLL);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v4;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "failed to encode message contents: %@", buf, 0xCu);
+      v14 = v3;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "failed to encode message contents: %@", buf, 0xCu);
     }
 
     [*(a1 + 40) _queue_handleFailedToSendMessage:*(a1 + 32)];
@@ -6665,19 +6633,19 @@ void sub_10006B680(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10006C790(uint64_t a1)
+void sub_10006C790(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = CarSilentModeLogging();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = CarSilentModeLogging();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Ringer switch toggled", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Ringer switch toggled", v6, 2u);
   }
 
   [*(a1 + 32) setLastModeChangeByCarkitd:0];
   [*(a1 + 32) setShouldResetMuteState:0];
-  v3 = [*(a1 + 32) muteStatus];
-  [*(a1 + 32) setShouldResetToMuted:{objc_msgSend(v3, "isDeviceSilentModeOn")}];
+  v5 = [*(a1 + 32) muteStatus];
+  [*(a1 + 32) setShouldResetToMuted:{objc_msgSend(v5, "isDeviceSilentModeOn")}];
 }
 
 void sub_10006C8D8(uint64_t a1)
@@ -6786,29 +6754,28 @@ void sub_10006D68C(uint64_t a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "received download hint for asset request %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "received download hint for asset request %@", &v8, 0xCu);
   }
 
   v4 = [*(a1 + 40) assetRequests];
-  v5 = (a1 + 32);
-  v6 = [v4 containsObject:*(a1 + 32)];
+  v5 = [v4 containsObject:*(a1 + 32)];
 
-  if (v6)
+  if (v5)
   {
-    v7 = CarThemeAssetsLogging();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = CarThemeAssetsLogging();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_100089244(v5);
+      sub_100089244();
     }
   }
 
   else
   {
-    v8 = *(a1 + 40);
-    v7 = [NSSet setWithObject:*(a1 + 32)];
-    [v8 _assetQueue_queryUpdatedAssetsForRequests:v7];
+    v7 = *(a1 + 40);
+    v6 = [NSSet setWithObject:*(a1 + 32)];
+    [v7 _assetQueue_queryUpdatedAssetsForRequests:v6];
   }
 }
 
@@ -6872,7 +6839,7 @@ void sub_10006DD70(uint64_t a1)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_1000892F8(a1);
+      sub_1000892F8();
     }
 
     [WeakRetained setAssetRequests:0];
@@ -6998,9 +6965,9 @@ LABEL_18:
 LABEL_19:
 }
 
-void sub_10006E588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10006E588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -7055,7 +7022,7 @@ void sub_10006E7D4(uint64_t a1)
     v3 = CarThemeAssetsLogging();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_100089550(a1);
+      sub_100089550();
     }
 
     [WeakRetained _assetQueue_notifyObserverOfFailedDownloadForAssetRequest:*(a1 + 48) version:*(a1 + 64) error:*(a1 + 56)];
@@ -8251,234 +8218,230 @@ void sub_100072DE8(_Unwind_Exception *a1)
 void sub_100072E04(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  v208 = a3;
+  v206 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v209 = v5;
+  v207 = v5;
   v6 = [v5 firstObject];
   v7 = [v6 vehicleInformation];
   v8 = [v7 mutableCopy];
   v9 = v8;
-  v10 = MAAsset_ptr;
   if (v8)
   {
-    v212 = v8;
+    v210 = v8;
   }
 
   else
   {
-    v212 = objc_opt_new();
+    v210 = objc_opt_new();
   }
 
-  v11 = MAAsset_ptr;
-  v207 = [NSSet setWithObject:&off_1000E8188];
+  v10 = MAAsset_ptr;
+  v205 = [NSSet setWithObject:&off_1000E8188];
   [v6 allEventsOfTypes:?];
+  v223 = 0u;
+  v224 = 0u;
   v225 = 0u;
-  v226 = 0u;
-  v227 = 0u;
-  v12 = v228 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v225 objects:v234 count:16];
-  obj = v12;
-  v210 = v6;
-  if (!v13)
+  v11 = v226 = 0u;
+  v12 = [v11 countByEnumeratingWithState:&v223 objects:v232 count:16];
+  obj = v11;
+  v208 = v6;
+  if (!v12)
   {
 
-    v30 = 0;
     v29 = 0;
-    v31 = 0;
-    v214 = 0;
-    v215 = 0;
+    v28 = 0;
+    v30 = 0;
+    v212 = 0;
+    v213 = 0;
     goto LABEL_29;
   }
 
+  v212 = 0;
+  v213 = 0;
   v214 = 0;
-  v215 = 0;
-  v216 = 0;
+  v13 = 0;
   v14 = 0;
-  v15 = 0;
-  v16 = *v226;
-  v17 = CARiAPConnectionStart;
-  v18 = CARiAPAuthComplete;
-  v19 = CARiAPAuthStarted;
-  v218 = CARiAP2EndpointCreated;
-  v213 = CARiAPStartSessionReceived;
+  v15 = *v224;
+  v16 = CARiAPConnectionStart;
+  v17 = CARiAPAuthComplete;
+  v18 = CARiAPAuthStarted;
+  v216 = CARiAP2EndpointCreated;
+  v211 = CARiAPStartSessionReceived;
   do
   {
-    for (i = 0; i != v13; i = (i + 1))
+    for (i = 0; i != v12; i = (i + 1))
     {
-      if (*v226 != v16)
+      if (*v224 != v15)
       {
         objc_enumerationMutation(obj);
       }
 
-      v21 = *(*(&v225 + 1) + 8 * i);
-      v22 = [v21 eventName];
-      if ([v22 isEqualToString:v17])
+      v20 = *(*(&v223 + 1) + 8 * i);
+      v21 = [v20 eventName];
+      if ([v21 isEqualToString:v16])
       {
-        v23 = [v21 eventDate];
-        v24 = v15;
-        v15 = v23;
+        v22 = [v20 eventDate];
+        v23 = v14;
+        v14 = v22;
       }
 
-      else if ([v22 isEqualToString:v18])
+      else if ([v21 isEqualToString:v17])
       {
-        v25 = [v21 eventDate];
-        v24 = v14;
-        v14 = v25;
+        v24 = [v20 eventDate];
+        v23 = v13;
+        v13 = v24;
       }
 
-      else if ([v22 isEqualToString:v19])
+      else if ([v21 isEqualToString:v18])
       {
-        v26 = [v21 eventDate];
-        v24 = v216;
-        v216 = v26;
+        v25 = [v20 eventDate];
+        v23 = v214;
+        v214 = v25;
       }
 
-      else if ([v22 isEqualToString:v218])
+      else if ([v21 isEqualToString:v216])
       {
-        v27 = [v21 eventDate];
-        v24 = v215;
-        v215 = v27;
+        v26 = [v20 eventDate];
+        v23 = v213;
+        v213 = v26;
       }
 
       else
       {
-        if (![v22 isEqualToString:v213])
+        if (![v21 isEqualToString:v211])
         {
           goto LABEL_20;
         }
 
-        v28 = [v21 eventDate];
-        v24 = v214;
-        v214 = v28;
+        v27 = [v20 eventDate];
+        v23 = v212;
+        v212 = v27;
       }
 
 LABEL_20:
     }
 
-    v13 = [obj countByEnumeratingWithState:&v225 objects:v234 count:16];
+    v12 = [obj countByEnumeratingWithState:&v223 objects:v232 count:16];
   }
 
-  while (v13);
+  while (v12);
 
+  v28 = v13;
+  LODWORD(v12) = v13 != 0;
   v29 = v14;
-  LODWORD(v13) = v14 != 0;
-  v30 = v15;
-  if (!v15)
+  if (!v14)
   {
-    v6 = v210;
-    v31 = v216;
+    v6 = v208;
+    v30 = v214;
     v10 = MAAsset_ptr;
-    v11 = MAAsset_ptr;
     goto LABEL_29;
   }
 
-  v6 = v210;
+  v6 = v208;
   v10 = MAAsset_ptr;
-  v11 = MAAsset_ptr;
-  if (!v14)
+  if (!v13)
   {
     goto LABEL_26;
   }
 
-  if ([v15 compare:v14] == -1)
+  if ([v14 compare:v13] == -1)
   {
-    [v14 timeIntervalSinceDate:v15];
-    v191 = v190;
-    v192 = [NSNumber numberWithDouble:?];
-    v193 = [v192 stringValue];
-    [v212 setObject:v193 forKeyedSubscript:@"totalIAPConnectionTime"];
+    [v13 timeIntervalSinceDate:v14];
+    v189 = v188;
+    v190 = [NSNumber numberWithDouble:?];
+    v191 = [v190 stringValue];
+    [v210 setObject:v191 forKeyedSubscript:@"totalIAPConnectionTime"];
 
-    v13 = CarGeneralLogging();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v12 = CarGeneralLogging();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v194 = [NSNumber numberWithDouble:v191];
+      v192 = [NSNumber numberWithDouble:v189];
       *buf = 138412290;
-      v230 = v194;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Total iAP connection time: %@", buf, 0xCu);
+      v228 = v192;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Total iAP connection time: %@", buf, 0xCu);
     }
 
-    LODWORD(v13) = 1;
+    LODWORD(v12) = 1;
+    v28 = v13;
     v29 = v14;
-    v30 = v15;
-    v31 = v216;
+    v30 = v214;
   }
 
   else
   {
-    LODWORD(v13) = 1;
+    LODWORD(v12) = 1;
 LABEL_26:
-    v31 = v216;
+    v30 = v214;
 LABEL_29:
-    [WeakRetained _sendAnalyticsErrorWithNSDate:v30 endDate:v29 errorCategory:@"Total iAP connection time"];
+    [WeakRetained _sendAnalyticsErrorWithNSDate:v29 endDate:v28 errorCategory:@"Total iAP connection time"];
   }
 
-  v205 = v29;
-  v206 = v30;
-  v217 = v31;
-  if (v31 && v13 && [v31 compare:v29] == -1)
+  v203 = v28;
+  v204 = v29;
+  v215 = v30;
+  if (v30 && v12 && [v30 compare:v28] == -1)
   {
-    [v29 timeIntervalSinceDate:v31];
-    v179 = v178;
-    v180 = [NSNumber numberWithDouble:?];
-    v181 = [v180 stringValue];
-    [v212 setObject:v181 forKeyedSubscript:@"totalIAPAuthTime"];
+    [v28 timeIntervalSinceDate:v30];
+    v177 = v176;
+    v178 = [NSNumber numberWithDouble:?];
+    v179 = [v178 stringValue];
+    [v210 setObject:v179 forKeyedSubscript:@"totalIAPAuthTime"];
 
-    v182 = CarGeneralLogging();
-    if (os_log_type_enabled(v182, OS_LOG_TYPE_DEFAULT))
+    v180 = CarGeneralLogging();
+    if (os_log_type_enabled(v180, OS_LOG_TYPE_DEFAULT))
     {
-      v183 = [NSNumber numberWithDouble:v179];
+      v181 = [NSNumber numberWithDouble:v177];
       *buf = 138412290;
-      v230 = v183;
-      _os_log_impl(&_mh_execute_header, v182, OS_LOG_TYPE_DEFAULT, "Total iAP authentication time: %@", buf, 0xCu);
+      v228 = v181;
+      _os_log_impl(&_mh_execute_header, v180, OS_LOG_TYPE_DEFAULT, "Total iAP authentication time: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    [WeakRetained _sendAnalyticsErrorWithNSDate:v31 endDate:v29 errorCategory:@"Total iAP authentication time"];
+    [WeakRetained _sendAnalyticsErrorWithNSDate:v30 endDate:v28 errorCategory:@"Total iAP authentication time"];
   }
 
-  v204 = [v11[59] setWithObject:&off_1000E81E8];
-  v32 = [v6 allEventsOfTypes:?];
-  v33 = v10[55];
-  v219 = objc_opt_new();
+  v202 = [v10[59] setWithObject:&off_1000E81E8];
+  v31 = [v6 allEventsOfTypes:?];
+  v217 = objc_opt_new();
+  v219 = 0u;
+  v220 = 0u;
   v221 = 0u;
   v222 = 0u;
-  v223 = 0u;
-  v224 = 0u;
-  v34 = v32;
-  v35 = [v34 countByEnumeratingWithState:&v221 objects:v233 count:16];
-  if (!v35)
+  v32 = v31;
+  v33 = [v32 countByEnumeratingWithState:&v219 objects:v231 count:16];
+  if (!v33)
   {
-    v37 = 0;
+    v35 = 0;
     goto LABEL_50;
   }
 
-  v36 = v35;
-  v37 = 0;
-  v38 = *v222;
-  v39 = CARAirPlayConnectionTimeInfo;
-  v40 = CARAirPlayCarSentStatistics;
+  v34 = v33;
+  v35 = 0;
+  v36 = *v220;
+  v37 = CARAirPlayConnectionTimeInfo;
+  v38 = CARAirPlayCarSentStatistics;
   while (2)
   {
-    v41 = 0;
+    v39 = 0;
     while (2)
     {
-      if (*v222 != v38)
+      if (*v220 != v36)
       {
-        objc_enumerationMutation(v34);
+        objc_enumerationMutation(v32);
       }
 
-      v42 = *(*(&v221 + 1) + 8 * v41);
-      v43 = [v42 eventName];
-      if ([v43 isEqualToString:v39])
+      v40 = *(*(&v219 + 1) + 8 * v39);
+      v41 = [v40 eventName];
+      if ([v41 isEqualToString:v37])
       {
-        v44 = [v42 payload];
+        v42 = [v40 payload];
 
-        if (v44)
+        if (v42)
         {
-          v45 = [v42 payload];
-          [v219 addEntriesFromDictionary:v45];
+          v43 = [v40 payload];
+          [v217 addEntriesFromDictionary:v43];
           goto LABEL_45;
         }
       }
@@ -8487,17 +8450,17 @@ LABEL_29:
       {
       }
 
-      v46 = [v42 eventName];
-      v47 = [v46 isEqualToString:v40];
+      v44 = [v40 eventName];
+      v45 = [v44 isEqualToString:v38];
 
-      if (v47)
+      if (v45)
       {
-        [v42 eventDate];
-        v37 = v45 = v37;
+        [v40 eventDate];
+        v35 = v43 = v35;
 LABEL_45:
       }
 
-      if (v36 != ++v41)
+      if (v34 != ++v39)
       {
         continue;
       }
@@ -8505,8 +8468,8 @@ LABEL_45:
       break;
     }
 
-    v36 = [v34 countByEnumeratingWithState:&v221 objects:v233 count:16];
-    if (v36)
+    v34 = [v32 countByEnumeratingWithState:&v219 objects:v231 count:16];
+    if (v34)
     {
       continue;
     }
@@ -8516,429 +8479,429 @@ LABEL_45:
 
 LABEL_50:
 
-  v48 = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH %@", @"AP_SIGNPOST_ALTERNATESCREEN_["];
-  v49 = WeakRetained;
-  v50 = [WeakRetained airplayScreenDisplayingTimes];
-  v51 = [v50 allKeys];
-  v52 = [v51 filteredArrayUsingPredicate:v48];
+  v46 = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH %@", @"AP_SIGNPOST_ALTERNATESCREEN_["];
+  v47 = WeakRetained;
+  v48 = [WeakRetained airplayScreenDisplayingTimes];
+  v49 = [v48 allKeys];
+  v50 = [v49 filteredArrayUsingPredicate:v46];
 
-  v53 = [v219 count];
-  v54 = [WeakRetained airplayScreenDisplayingTimes];
-  v55 = [v54 count];
+  v51 = [v217 count];
+  v52 = [WeakRetained airplayScreenDisplayingTimes];
+  v53 = [v52 count];
 
-  if (v53)
+  if (v51)
   {
-    v56 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_AUTHORIZE_START"];
-    [v56 doubleValue];
-    v58 = v57;
+    v54 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_AUTHORIZE_START"];
+    [v54 doubleValue];
+    v56 = v55;
 
-    v59 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_AUTHORIZE_COMPLETE"];
-    [v59 doubleValue];
-    v61 = v60;
+    v57 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_AUTHORIZE_COMPLETE"];
+    [v57 doubleValue];
+    v59 = v58;
 
-    if (v58 <= 0.0 || v61 <= 0.0 || v61 <= v58)
+    if (v56 <= 0.0 || v59 <= 0.0 || v59 <= v56)
     {
-      [WeakRetained _sendAnalyticsErrorWithDouble:@"AirPlay authentication time" endDate:v58 errorCategory:v61];
+      [WeakRetained _sendAnalyticsErrorWithDouble:@"AirPlay authentication time" endDate:v56 errorCategory:v59];
     }
 
     else
     {
-      v62 = [NSNumber numberWithDouble:v61 - v58];
-      v63 = [v62 stringValue];
-      [v212 setObject:v63 forKeyedSubscript:@"mfiAuthTime"];
+      v60 = [NSNumber numberWithDouble:v59 - v56];
+      v61 = [v60 stringValue];
+      [v210 setObject:v61 forKeyedSubscript:@"mfiAuthTime"];
 
-      v64 = CarGeneralLogging();
-      if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+      v62 = CarGeneralLogging();
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
       {
-        v65 = [v212 objectForKeyedSubscript:@"mfiAuthTime"];
+        v63 = [v210 objectForKeyedSubscript:@"mfiAuthTime"];
         *buf = 138412290;
-        v230 = v65;
-        _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "Total AirPlay authentication time: %@", buf, 0xCu);
+        v228 = v63;
+        _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "Total AirPlay authentication time: %@", buf, 0xCu);
       }
     }
 
-    v66 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_ENDPOINTSELECTED"];
-    [v66 doubleValue];
-    v68 = v67;
+    v64 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_ENDPOINTSELECTED"];
+    [v64 doubleValue];
+    v66 = v65;
 
-    v69 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_SENT_STATISTICS"];
-    [v69 doubleValue];
-    v71 = v70;
+    v67 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_SENT_STATISTICS"];
+    [v67 doubleValue];
+    v69 = v68;
 
-    if (v68 <= 0.0 || v71 <= 0.0 || v71 <= v68)
+    if (v66 <= 0.0 || v69 <= 0.0 || v69 <= v66)
     {
-      [WeakRetained _sendAnalyticsErrorWithDouble:@"AirPlay/CarPlay activation logic time" endDate:v68 errorCategory:v71];
+      [WeakRetained _sendAnalyticsErrorWithDouble:@"AirPlay/CarPlay activation logic time" endDate:v66 errorCategory:v69];
     }
 
     else
     {
-      v72 = [NSNumber numberWithDouble:v71 - v68];
-      v73 = [v72 stringValue];
-      [v212 setObject:v73 forKeyedSubscript:@"activationLogicTime"];
+      v70 = [NSNumber numberWithDouble:v69 - v66];
+      v71 = [v70 stringValue];
+      [v210 setObject:v71 forKeyedSubscript:@"activationLogicTime"];
 
-      v74 = CarGeneralLogging();
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+      v72 = CarGeneralLogging();
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
       {
-        v75 = [v212 objectForKeyedSubscript:@"activationLogicTime"];
+        v73 = [v210 objectForKeyedSubscript:@"activationLogicTime"];
         *buf = 138412290;
-        v230 = v75;
-        _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "AirPlay/CarPlay activation logic time: %@", buf, 0xCu);
+        v228 = v73;
+        _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "AirPlay/CarPlay activation logic time: %@", buf, 0xCu);
       }
     }
 
-    v76 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_PAIRING_START"];
-    [v76 doubleValue];
-    v78 = v77;
+    v74 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_PAIRING_START"];
+    [v74 doubleValue];
+    v76 = v75;
 
-    v79 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_PAIRING_COMPLETE"];
-    [v79 doubleValue];
-    v81 = v80;
+    v77 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_PAIRING_COMPLETE"];
+    [v77 doubleValue];
+    v79 = v78;
 
-    if (v78 <= 0.0 || v81 <= 0.0 || v81 <= v78)
+    if (v76 <= 0.0 || v79 <= 0.0 || v79 <= v76)
     {
-      [WeakRetained _sendAnalyticsErrorWithDouble:@"AirPlay pairing time" endDate:v78 errorCategory:v81];
+      [WeakRetained _sendAnalyticsErrorWithDouble:@"AirPlay pairing time" endDate:v76 errorCategory:v79];
     }
 
     else
     {
-      v82 = [NSNumber numberWithDouble:v81 - v78];
-      v83 = [v82 stringValue];
-      [v212 setObject:v83 forKeyedSubscript:@"airPlayPairingTime"];
+      v80 = [NSNumber numberWithDouble:v79 - v76];
+      v81 = [v80 stringValue];
+      [v210 setObject:v81 forKeyedSubscript:@"airPlayPairingTime"];
 
-      v84 = CarGeneralLogging();
-      if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+      v82 = CarGeneralLogging();
+      if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
       {
-        v85 = [v212 objectForKeyedSubscript:@"airPlayPairingTime"];
+        v83 = [v210 objectForKeyedSubscript:@"airPlayPairingTime"];
         *buf = 138412290;
-        v230 = v85;
-        _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "AirPlay pairing time: %@", buf, 0xCu);
+        v228 = v83;
+        _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "AirPlay pairing time: %@", buf, 0xCu);
       }
     }
 
-    v86 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_INITIALCONNECTION_START"];
-    [v86 doubleValue];
-    v88 = v87;
+    v84 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_INITIALCONNECTION_START"];
+    [v84 doubleValue];
+    v86 = v85;
 
-    v89 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_INITIALCONNECTION_COMPLETE"];
-    [v89 doubleValue];
-    v91 = v90;
+    v87 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_INITIALCONNECTION_COMPLETE"];
+    [v87 doubleValue];
+    v89 = v88;
 
-    if (v88 <= 0.0 || v91 <= 0.0 || v91 <= v88)
+    if (v86 <= 0.0 || v89 <= 0.0 || v89 <= v86)
     {
-      [WeakRetained _sendAnalyticsErrorWithDouble:@"Control stream connection time" endDate:v88 errorCategory:v91];
+      [WeakRetained _sendAnalyticsErrorWithDouble:@"Control stream connection time" endDate:v86 errorCategory:v89];
     }
 
     else
     {
-      v92 = [NSNumber numberWithDouble:v91 - v88];
-      v93 = [v92 stringValue];
-      [v212 setObject:v93 forKeyedSubscript:@"controlStreamConnectionTime"];
+      v90 = [NSNumber numberWithDouble:v89 - v86];
+      v91 = [v90 stringValue];
+      [v210 setObject:v91 forKeyedSubscript:@"controlStreamConnectionTime"];
 
-      v94 = CarGeneralLogging();
-      if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
+      v92 = CarGeneralLogging();
+      if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
       {
-        v95 = [v212 objectForKeyedSubscript:@"controlStreamConnectionTime"];
+        v93 = [v210 objectForKeyedSubscript:@"controlStreamConnectionTime"];
         *buf = 138412290;
-        v230 = v95;
-        _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_DEFAULT, "Control stream connection time: %@", buf, 0xCu);
+        v228 = v93;
+        _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_DEFAULT, "Control stream connection time: %@", buf, 0xCu);
       }
     }
 
-    v96 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_SETUPMESSAGE_START"];
-    [v96 doubleValue];
-    v98 = v97;
+    v94 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_SETUPMESSAGE_START"];
+    [v94 doubleValue];
+    v96 = v95;
 
-    v99 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_SETUPMESSAGE_COMPLETE"];
-    [v99 doubleValue];
-    v101 = v100;
+    v97 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_SETUPMESSAGE_COMPLETE"];
+    [v97 doubleValue];
+    v99 = v98;
 
-    if (v98 <= 0.0 || v101 <= 0.0 || v101 <= v98)
+    if (v96 <= 0.0 || v99 <= 0.0 || v99 <= v96)
     {
-      [WeakRetained _sendAnalyticsErrorWithDouble:@"Setup message exchange time" endDate:v98 errorCategory:v101];
+      [WeakRetained _sendAnalyticsErrorWithDouble:@"Setup message exchange time" endDate:v96 errorCategory:v99];
     }
 
     else
     {
-      v102 = [NSNumber numberWithDouble:v101 - v98];
-      v103 = [v102 stringValue];
-      [v212 setObject:v103 forKeyedSubscript:@"setupMessageTime"];
+      v100 = [NSNumber numberWithDouble:v99 - v96];
+      v101 = [v100 stringValue];
+      [v210 setObject:v101 forKeyedSubscript:@"setupMessageTime"];
 
-      v104 = CarGeneralLogging();
-      if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
+      v102 = CarGeneralLogging();
+      if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
       {
-        v105 = [v212 objectForKeyedSubscript:@"setupMessageTime"];
+        v103 = [v210 objectForKeyedSubscript:@"setupMessageTime"];
         *buf = 138412290;
-        v230 = v105;
-        _os_log_impl(&_mh_execute_header, v104, OS_LOG_TYPE_DEFAULT, "Setup message exchange time: %@", buf, 0xCu);
+        v228 = v103;
+        _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_DEFAULT, "Setup message exchange time: %@", buf, 0xCu);
       }
     }
 
-    v106 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_INFOMESSAGE_START"];
-    [v106 doubleValue];
-    v108 = v107;
+    v104 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_INFOMESSAGE_START"];
+    [v104 doubleValue];
+    v106 = v105;
 
-    v109 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_INFOMESSAGE_COMPLETE"];
-    [v109 doubleValue];
-    v111 = v110;
+    v107 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_INFOMESSAGE_COMPLETE"];
+    [v107 doubleValue];
+    v109 = v108;
 
-    if (v108 <= 0.0 || v111 <= 0.0 || v111 <= v108)
+    if (v106 <= 0.0 || v109 <= 0.0 || v109 <= v106)
     {
-      [WeakRetained _sendAnalyticsErrorWithDouble:@"Info message exchange time" endDate:v108 errorCategory:v111];
+      [WeakRetained _sendAnalyticsErrorWithDouble:@"Info message exchange time" endDate:v106 errorCategory:v109];
     }
 
     else
     {
-      v112 = [NSNumber numberWithDouble:v111 - v108];
-      v113 = [v112 stringValue];
-      [v212 setObject:v113 forKeyedSubscript:@"infoMessageTime"];
+      v110 = [NSNumber numberWithDouble:v109 - v106];
+      v111 = [v110 stringValue];
+      [v210 setObject:v111 forKeyedSubscript:@"infoMessageTime"];
 
-      v114 = CarGeneralLogging();
-      if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
+      v112 = CarGeneralLogging();
+      if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
       {
-        v115 = [v212 objectForKeyedSubscript:@"infoMessageTime"];
+        v113 = [v210 objectForKeyedSubscript:@"infoMessageTime"];
         *buf = 138412290;
-        v230 = v115;
-        _os_log_impl(&_mh_execute_header, v114, OS_LOG_TYPE_DEFAULT, "Info message exchange time: %@", buf, 0xCu);
+        v228 = v113;
+        _os_log_impl(&_mh_execute_header, v112, OS_LOG_TYPE_DEFAULT, "Info message exchange time: %@", buf, 0xCu);
       }
     }
 
-    v116 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_STARTEDBROWSE_USB"];
-    [v116 doubleValue];
-    v118 = v117;
+    v114 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_STARTEDBROWSE_USB"];
+    [v114 doubleValue];
+    v116 = v115;
 
-    v119 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_ENDPOINTADDED_USB"];
-    [v119 doubleValue];
-    v121 = v120;
+    v117 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_ENDPOINTADDED_USB"];
+    [v117 doubleValue];
+    v119 = v118;
 
-    if (v118 <= 0.0 || v121 <= 0.0 || v121 <= v118)
+    if (v116 <= 0.0 || v119 <= 0.0 || v119 <= v116)
     {
-      [WeakRetained _sendAnalyticsErrorWithDouble:@"Bonjour browse time" endDate:v118 errorCategory:v121];
+      [WeakRetained _sendAnalyticsErrorWithDouble:@"Bonjour browse time" endDate:v116 errorCategory:v119];
     }
 
     else
     {
-      v122 = [NSNumber numberWithDouble:v121 - v118];
-      v123 = [v122 stringValue];
-      [v212 setObject:v123 forKeyedSubscript:@"bonjourBrowseTime"];
+      v120 = [NSNumber numberWithDouble:v119 - v116];
+      v121 = [v120 stringValue];
+      [v210 setObject:v121 forKeyedSubscript:@"bonjourBrowseTime"];
 
-      v124 = CarGeneralLogging();
-      if (os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT))
+      v122 = CarGeneralLogging();
+      if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
       {
-        v125 = [v212 objectForKeyedSubscript:@"bonjourBrowseTime"];
+        v123 = [v210 objectForKeyedSubscript:@"bonjourBrowseTime"];
         *buf = 138412290;
-        v230 = v125;
-        _os_log_impl(&_mh_execute_header, v124, OS_LOG_TYPE_DEFAULT, "Bonjour browse time: %@", buf, 0xCu);
+        v228 = v123;
+        _os_log_impl(&_mh_execute_header, v122, OS_LOG_TYPE_DEFAULT, "Bonjour browse time: %@", buf, 0xCu);
       }
     }
 
-    v126 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_CONTROLSERVER_STARTEDSERVER"];
-    [v126 doubleValue];
-    v128 = v127;
+    v124 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_CONTROLSERVER_STARTEDSERVER"];
+    [v124 doubleValue];
+    v126 = v125;
 
-    v129 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_DNS_RESOLVED"];
-    [v129 doubleValue];
-    v131 = v130;
+    v127 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_DNS_RESOLVED"];
+    [v127 doubleValue];
+    v129 = v128;
 
-    if (v128 <= 0.0 || v131 <= 0.0 || v131 <= v128)
+    if (v126 <= 0.0 || v129 <= 0.0 || v129 <= v126)
     {
-      [WeakRetained _sendAnalyticsErrorWithDouble:@"Bonjour to DNS time" endDate:v128 errorCategory:v131];
+      [WeakRetained _sendAnalyticsErrorWithDouble:@"Bonjour to DNS time" endDate:v126 errorCategory:v129];
     }
 
     else
     {
-      v132 = [NSNumber numberWithDouble:v131 - v128];
-      v133 = [v132 stringValue];
-      [v212 setObject:v133 forKeyedSubscript:@"bonjourToDNSTime"];
+      v130 = [NSNumber numberWithDouble:v129 - v126];
+      v131 = [v130 stringValue];
+      [v210 setObject:v131 forKeyedSubscript:@"bonjourToDNSTime"];
 
-      v134 = CarGeneralLogging();
-      if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
+      v132 = CarGeneralLogging();
+      if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
       {
-        v135 = [v212 objectForKeyedSubscript:@"bonjourToDNSTime"];
+        v133 = [v210 objectForKeyedSubscript:@"bonjourToDNSTime"];
         *buf = 138412290;
-        v230 = v135;
-        _os_log_impl(&_mh_execute_header, v134, OS_LOG_TYPE_DEFAULT, "Bonjour to DNS time: %@", buf, 0xCu);
+        v228 = v133;
+        _os_log_impl(&_mh_execute_header, v132, OS_LOG_TYPE_DEFAULT, "Bonjour to DNS time: %@", buf, 0xCu);
       }
     }
 
-    v136 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_STARTSESSION_START"];
-    [v136 doubleValue];
-    v138 = v137;
+    v134 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_STARTSESSION_START"];
+    [v134 doubleValue];
+    v136 = v135;
 
-    v139 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_STARTSESSION_COMPLETE"];
-    [v139 doubleValue];
-    v141 = v140;
+    v137 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_STARTSESSION_COMPLETE"];
+    [v137 doubleValue];
+    v139 = v138;
 
-    if (v138 <= 0.0 || v141 <= 0.0 || v141 <= v138)
+    if (v136 <= 0.0 || v139 <= 0.0 || v139 <= v136)
     {
-      [WeakRetained _sendAnalyticsErrorWithDouble:@"iAP StartSession time" endDate:v138 errorCategory:v141];
+      [WeakRetained _sendAnalyticsErrorWithDouble:@"iAP StartSession time" endDate:v136 errorCategory:v139];
     }
 
     else
     {
-      v142 = [NSNumber numberWithDouble:v141 - v138];
-      v143 = [v142 stringValue];
-      [v212 setObject:v143 forKeyedSubscript:@"iAPStartSessionTime"];
+      v140 = [NSNumber numberWithDouble:v139 - v136];
+      v141 = [v140 stringValue];
+      [v210 setObject:v141 forKeyedSubscript:@"iAPStartSessionTime"];
 
-      v144 = CarGeneralLogging();
-      if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
+      v142 = CarGeneralLogging();
+      if (os_log_type_enabled(v142, OS_LOG_TYPE_DEFAULT))
       {
-        v145 = [v212 objectForKeyedSubscript:@"iAPStartSessionTime"];
+        v143 = [v210 objectForKeyedSubscript:@"iAPStartSessionTime"];
         *buf = 138412290;
-        v230 = v145;
-        _os_log_impl(&_mh_execute_header, v144, OS_LOG_TYPE_DEFAULT, "iAP StartSession total time: %@", buf, 0xCu);
+        v228 = v143;
+        _os_log_impl(&_mh_execute_header, v142, OS_LOG_TYPE_DEFAULT, "iAP StartSession total time: %@", buf, 0xCu);
       }
     }
 
-    v146 = v214;
-    v147 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_DNS_RESOLVED"];
-    [v147 doubleValue];
-    v148 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
+    v144 = v212;
+    v145 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_DNS_RESOLVED"];
+    [v145 doubleValue];
+    v146 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
 
-    v202 = v146;
-    v203 = v48;
-    v201 = v148;
-    if (v146 && v148 && [v146 compare:v148] == -1)
+    v200 = v144;
+    v201 = v46;
+    v199 = v146;
+    if (v144 && v146 && [v144 compare:v146] == -1)
     {
-      [v148 timeIntervalSinceDate:v146];
-      v196 = v195;
-      v197 = [NSNumber numberWithDouble:?];
-      v198 = [v197 stringValue];
-      [v212 setObject:v198 forKeyedSubscript:@"iAPStartSessiontoDNSTime"];
+      [v146 timeIntervalSinceDate:v144];
+      v194 = v193;
+      v195 = [NSNumber numberWithDouble:?];
+      v196 = [v195 stringValue];
+      [v210 setObject:v196 forKeyedSubscript:@"iAPStartSessiontoDNSTime"];
 
-      v199 = CarGeneralLogging();
-      if (os_log_type_enabled(v199, OS_LOG_TYPE_DEFAULT))
+      v197 = CarGeneralLogging();
+      if (os_log_type_enabled(v197, OS_LOG_TYPE_DEFAULT))
       {
-        v200 = [NSNumber numberWithDouble:v196];
+        v198 = [NSNumber numberWithDouble:v194];
         *buf = 138412290;
-        v230 = v200;
-        _os_log_impl(&_mh_execute_header, v199, OS_LOG_TYPE_DEFAULT, "iAP Start Session to DNS time: %@", buf, 0xCu);
+        v228 = v198;
+        _os_log_impl(&_mh_execute_header, v197, OS_LOG_TYPE_DEFAULT, "iAP Start Session to DNS time: %@", buf, 0xCu);
       }
 
-      v49 = WeakRetained;
-      if (v55)
+      v47 = WeakRetained;
+      if (v53)
       {
 LABEL_118:
-        v149 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_SENT_STATISTICS"];
-        [v149 doubleValue];
-        v151 = v150;
+        v147 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_SENT_STATISTICS"];
+        [v147 doubleValue];
+        v149 = v148;
 
-        v152 = [v49 airplayScreenDisplayingTimes];
-        v153 = [v152 objectForKeyedSubscript:@"AP_SIGNPOST_MAINSCREEN_DISPLAYING"];
-        [v153 doubleValue];
-        v155 = v154;
+        v150 = [v47 airplayScreenDisplayingTimes];
+        v151 = [v150 objectForKeyedSubscript:@"AP_SIGNPOST_MAINSCREEN_DISPLAYING"];
+        [v151 doubleValue];
+        v153 = v152;
 
-        if (v151 <= 0.0 || v155 <= 0.0 || v155 <= v151)
+        if (v149 <= 0.0 || v153 <= 0.0 || v153 <= v149)
         {
-          [v49 _sendAnalyticsErrorWithDouble:@"Main Screen Display/UI Bring up time" endDate:v151 errorCategory:v155];
+          [v47 _sendAnalyticsErrorWithDouble:@"Main Screen Display/UI Bring up time" endDate:v149 errorCategory:v153];
         }
 
         else
         {
-          v156 = [NSNumber numberWithDouble:v155 - v151];
-          v157 = [v156 stringValue];
-          [v212 setObject:v157 forKeyedSubscript:@"mainScreenUIBringUpTime"];
+          v154 = [NSNumber numberWithDouble:v153 - v149];
+          v155 = [v154 stringValue];
+          [v210 setObject:v155 forKeyedSubscript:@"mainScreenUIBringUpTime"];
 
-          v158 = CarGeneralLogging();
-          if (os_log_type_enabled(v158, OS_LOG_TYPE_DEFAULT))
+          v156 = CarGeneralLogging();
+          if (os_log_type_enabled(v156, OS_LOG_TYPE_DEFAULT))
           {
-            v159 = [v212 objectForKeyedSubscript:@"mainScreenUIBringUpTime"];
+            v157 = [v210 objectForKeyedSubscript:@"mainScreenUIBringUpTime"];
             *buf = 138412290;
-            v230 = v159;
-            _os_log_impl(&_mh_execute_header, v158, OS_LOG_TYPE_DEFAULT, "Main Screen Display/UI Bring up time: %@", buf, 0xCu);
+            v228 = v157;
+            _os_log_impl(&_mh_execute_header, v156, OS_LOG_TYPE_DEFAULT, "Main Screen Display/UI Bring up time: %@", buf, 0xCu);
           }
         }
 
-        if ([v52 count])
+        if ([v50 count])
         {
-          v160 = 1;
+          v158 = 1;
           do
           {
-            v161 = [v219 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_SENT_STATISTICS"];
-            [v161 doubleValue];
-            v163 = v162;
+            v159 = [v217 objectForKeyedSubscript:@"AP_SIGNPOST_CAR_SENT_STATISTICS"];
+            [v159 doubleValue];
+            v161 = v160;
 
-            v164 = v49;
-            v165 = [v49 airplayScreenDisplayingTimes];
-            v166 = v52;
-            v167 = [v52 objectAtIndex:v160 - 1];
-            v168 = [v165 objectForKeyedSubscript:v167];
-            [v168 doubleValue];
-            v170 = v169;
+            v162 = v47;
+            v163 = [v47 airplayScreenDisplayingTimes];
+            v164 = v50;
+            v165 = [v50 objectAtIndex:v158 - 1];
+            v166 = [v163 objectForKeyedSubscript:v165];
+            [v166 doubleValue];
+            v168 = v167;
 
-            if (v163 <= 0.0 || (v170 > 0.0 ? (v171 = v170 <= v163) : (v171 = 1), v171))
+            if (v161 <= 0.0 || (v168 > 0.0 ? (v169 = v168 <= v161) : (v169 = 1), v169))
             {
-              v49 = v164;
-              [v164 _sendAnalyticsErrorWithDouble:@"Alternate Screen Display/UI Bring up time" endDate:v163 errorCategory:v170];
+              v47 = v162;
+              [v162 _sendAnalyticsErrorWithDouble:@"Alternate Screen Display/UI Bring up time" endDate:v161 errorCategory:v168];
             }
 
             else
             {
-              v172 = [NSNumber numberWithDouble:v170 - v163];
-              v173 = [v172 stringValue];
-              v174 = [NSString stringWithFormat:@"altScreen%luUIBringUpTime", v160];
-              [v212 setObject:v173 forKeyedSubscript:v174];
+              v170 = [NSNumber numberWithDouble:v168 - v161];
+              v171 = [v170 stringValue];
+              v172 = [NSString stringWithFormat:@"altScreen%luUIBringUpTime", v158];
+              [v210 setObject:v171 forKeyedSubscript:v172];
 
-              v175 = CarGeneralLogging();
-              if (os_log_type_enabled(v175, OS_LOG_TYPE_DEFAULT))
+              v173 = CarGeneralLogging();
+              if (os_log_type_enabled(v173, OS_LOG_TYPE_DEFAULT))
               {
-                v176 = [NSString stringWithFormat:@"altScreen%luUIBringUpTime", v160];
-                v177 = [v212 objectForKeyedSubscript:v176];
+                v174 = [NSString stringWithFormat:@"altScreen%luUIBringUpTime", v158];
+                v175 = [v210 objectForKeyedSubscript:v174];
                 *buf = 134218242;
-                v230 = v160;
-                v231 = 2112;
-                v232 = v177;
-                _os_log_impl(&_mh_execute_header, v175, OS_LOG_TYPE_DEFAULT, "Alternate Screen Display/UI %lu Bring up time: %@", buf, 0x16u);
+                v228 = v158;
+                v229 = 2112;
+                v230 = v175;
+                _os_log_impl(&_mh_execute_header, v173, OS_LOG_TYPE_DEFAULT, "Alternate Screen Display/UI %lu Bring up time: %@", buf, 0x16u);
               }
 
-              v49 = v164;
+              v47 = v162;
             }
 
-            ++v160;
-            v52 = v166;
+            ++v158;
+            v50 = v164;
           }
 
-          while (v160 <= [v166 count]);
+          while (v158 <= [v164 count]);
         }
       }
     }
 
     else
     {
-      [WeakRetained _sendAnalyticsErrorWithNSDate:v146 endDate:v148 errorCategory:@"iAP Start Session to DNS time"];
-      if (v55)
+      [WeakRetained _sendAnalyticsErrorWithNSDate:v144 endDate:v146 errorCategory:@"iAP Start Session to DNS time"];
+      if (v53)
       {
         goto LABEL_118;
       }
     }
 
-    v48 = v203;
+    v46 = v201;
   }
 
-  if (v215 && v37 && [v215 compare:v37] == -1)
+  if (v213 && v35 && [v213 compare:v35] == -1)
   {
-    [v37 timeIntervalSinceDate:v215];
-    v185 = v184;
-    v186 = [NSNumber numberWithDouble:?];
-    v187 = [v186 stringValue];
-    [v212 setObject:v187 forKeyedSubscript:@"endToEndTime"];
+    [v35 timeIntervalSinceDate:v213];
+    v183 = v182;
+    v184 = [NSNumber numberWithDouble:?];
+    v185 = [v184 stringValue];
+    [v210 setObject:v185 forKeyedSubscript:@"endToEndTime"];
 
-    v188 = CarGeneralLogging();
-    if (os_log_type_enabled(v188, OS_LOG_TYPE_DEFAULT))
+    v186 = CarGeneralLogging();
+    if (os_log_type_enabled(v186, OS_LOG_TYPE_DEFAULT))
     {
-      v189 = [NSNumber numberWithDouble:v185];
+      v187 = [NSNumber numberWithDouble:v183];
       *buf = 138412290;
-      v230 = v189;
-      _os_log_impl(&_mh_execute_header, v188, OS_LOG_TYPE_DEFAULT, "Total End to End Connection time: %@", buf, 0xCu);
+      v228 = v187;
+      _os_log_impl(&_mh_execute_header, v186, OS_LOG_TYPE_DEFAULT, "Total End to End Connection time: %@", buf, 0xCu);
     }
 
-    v49 = WeakRetained;
+    v47 = WeakRetained;
   }
 
   else
   {
-    [v49 _sendAnalyticsErrorWithNSDate:v215 endDate:v37 errorCategory:@"End to End Connection time"];
+    [v47 _sendAnalyticsErrorWithNSDate:v213 endDate:v35 errorCategory:@"End to End Connection time"];
   }
 
-  [v49 sendEvent:9 withDictionary:v212];
-  [v49 sendPreviousSessionData:v209];
+  [v47 sendEvent:9 withDictionary:v210];
+  [v47 sendPreviousSessionData:v207];
 }

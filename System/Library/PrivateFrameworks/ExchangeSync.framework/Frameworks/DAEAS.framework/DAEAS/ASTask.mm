@@ -50,6 +50,7 @@
 - (void)_setHTTPParametersOnRequest:(id)request outBodyStream:(id *)stream outBodyData:(id *)data;
 - (void)_tearDownResourcesHelper;
 - (void)_timeoutEnforcerFired:(id)fired;
+- (void)cancelTaskWithReason:(int)reason underlyingError:(id)error;
 - (void)dealloc;
 - (void)didCallOutToDelegate;
 - (void)didProcessContext:(id)context;
@@ -361,15 +362,15 @@
 
 - (BOOL)checkForErrorInContext:(id)context
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   currentlyParsingItem = [(ASTask *)self currentlyParsingItem];
 
   if (!currentlyParsingItem)
   {
-    v29 = 0;
     v28 = 0;
-    if ([(ASTask *)self getTopLevelToken:&v29 + 1 outStatusCodePage:&v29 outStatusToken:&v28])
+    v27 = 0;
+    if ([(ASTask *)self getTopLevelToken:&v28 + 1 outStatusCodePage:&v28 outStatusToken:&v27])
     {
       if (!self->_haveSwitchedCodePage)
       {
@@ -380,7 +381,7 @@
 
         if ([contextCopy currentByte])
         {
-          currentlyParsingItem3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Expected switch to code page 0x%x", v29];
+          currentlyParsingItem3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Expected switch to code page 0x%x", v28];
           foundStatus = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d - Failure at index %lld:", "/Library/Caches/com.apple.xbs/Sources/ExchangeSync/ActiveSync/ASTasks/ASTask.m", 278, objc_msgSend(contextCopy, "curOffset")];
           v15 = DALoggingwithCategory();
           v16 = *(MEMORY[0x277D03988] + 3);
@@ -388,7 +389,7 @@
           {
             curOffset = [contextCopy curOffset];
             *buf = 134217984;
-            v31 = curOffset;
+            v30 = curOffset;
             _os_log_impl(&dword_24A0AC000, v15, v16, "Failure at index %lld:", buf, 0xCu);
           }
 
@@ -399,15 +400,15 @@
           }
 
           *buf = 138412290;
-          v31 = currentlyParsingItem3;
+          v30 = currentlyParsingItem3;
           goto LABEL_30;
         }
 
         [contextCopy advanceOffsetByAmount:1];
-        v21 = v29;
+        v21 = v28;
         if (v21 != [contextCopy currentByte])
         {
-          currentlyParsingItem3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Expected switch to code page 0x%x", v29];
+          currentlyParsingItem3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Expected switch to code page 0x%x", v28];
           foundStatus = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d - Failure at index %lld:", "/Library/Caches/com.apple.xbs/Sources/ExchangeSync/ActiveSync/ASTasks/ASTask.m", 278, objc_msgSend(contextCopy, "curOffset")];
           v24 = DALoggingwithCategory();
           v16 = *(MEMORY[0x277D03988] + 3);
@@ -415,7 +416,7 @@
           {
             curOffset2 = [contextCopy curOffset];
             *buf = 134217984;
-            v31 = curOffset2;
+            v30 = curOffset2;
             _os_log_impl(&dword_24A0AC000, v24, v16, "Failure at index %lld:", buf, 0xCu);
           }
 
@@ -426,12 +427,12 @@
           }
 
           *buf = 138412290;
-          v31 = currentlyParsingItem3;
+          v30 = currentlyParsingItem3;
           goto LABEL_30;
         }
 
         [contextCopy advanceOffsetByAmount:1];
-        [contextCopy setCodePage:v29];
+        [contextCopy setCodePage:v28];
         self->_haveSwitchedCodePage = 1;
       }
 
@@ -439,7 +440,7 @@
       {
 LABEL_5:
         v6 = [ASTopLevelErrorChecker alloc];
-        v7 = [(ASTopLevelErrorChecker *)v6 initWithCodePage:v29 statusToken:v28];
+        v7 = [(ASTopLevelErrorChecker *)v6 initWithCodePage:v28 statusToken:v27];
         [(ASTask *)self setCurrentlyParsingItem:v7];
 
         goto LABEL_6;
@@ -451,13 +452,13 @@ LABEL_5:
       }
 
       currentByte = [contextCopy currentByte];
-      if ((currentByte & 0x3F) == HIBYTE(v29))
+      if ((currentByte & 0x3F) == HIBYTE(v28))
       {
         self->_haveParsedCommand = 1;
         goto LABEL_5;
       }
 
-      currentlyParsingItem3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Expected top level token 0x%x", HIBYTE(v29)];
+      currentlyParsingItem3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Expected top level token 0x%x", HIBYTE(v28)];
       foundStatus = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d - Failure at index %lld:", "/Library/Caches/com.apple.xbs/Sources/ExchangeSync/ActiveSync/ASTasks/ASTask.m", 279, objc_msgSend(contextCopy, "curOffset")];
       v22 = DALoggingwithCategory();
       v16 = *(MEMORY[0x277D03988] + 3);
@@ -465,7 +466,7 @@ LABEL_5:
       {
         curOffset3 = [contextCopy curOffset];
         *buf = 134217984;
-        v31 = curOffset3;
+        v30 = curOffset3;
         _os_log_impl(&dword_24A0AC000, v22, v16, "Failure at index %lld:", buf, 0xCu);
       }
 
@@ -479,7 +480,7 @@ LABEL_31:
       }
 
       *buf = 138412290;
-      v31 = currentlyParsingItem3;
+      v30 = currentlyParsingItem3;
 LABEL_30:
       _os_log_impl(&dword_24A0AC000, v18, v16, "failure reason was %@", buf, 0xCu);
       goto LABEL_31;
@@ -519,7 +520,6 @@ LABEL_19:
   v20 = 0;
 LABEL_34:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -686,7 +686,7 @@ LABEL_25:
 
 - (void)didProcessContext:(id)context
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   parseErrorReason = [contextCopy parseErrorReason];
 
@@ -694,19 +694,18 @@ LABEL_25:
   {
     v6 = MEMORY[0x277CCA9B8];
     v7 = *MEMORY[0x277D038E0];
-    v17 = @"DAWBXMLParseErrorReason";
+    v16 = @"DAWBXMLParseErrorReason";
     parseErrorReason2 = [contextCopy parseErrorReason];
-    v18[0] = parseErrorReason2;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v17[0] = parseErrorReason2;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     parseErrorReason = [v6 errorWithDomain:v7 code:1 userInfo:v9];
   }
 
   v10 = objc_opt_class();
-  v16 = NSStringFromClass(v10);
-  _EASTaskLogPublic(v16, v11, v12, 7, self, @"NSURLSession Convert: invoke finishWithError %@ for %@ %p", v13, v14, 0);
+  v15 = NSStringFromClass(v10);
+  _EASTaskLogPublic(v15, v11, v12, 7, self, @"NSURLSession Convert: invoke finishWithError %@ for %@ %p", v13, v14, 0);
 
   [(ASTask *)self finishWithError:parseErrorReason];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_timeoutEnforcerFired:(id)fired
@@ -726,31 +725,31 @@ LABEL_25:
 
 - (void)_assignConnectionProperties:(id)properties toSessionConfiguration:(id)configuration
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   configurationCopy = configuration;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = [propertiesCopy allKeys];
-  v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     v11 = *MEMORY[0x277CBADA0];
-    v22 = *MEMORY[0x277CBAE78];
+    v21 = *MEMORY[0x277CBAE78];
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         v14 = [propertiesCopy objectForKeyedSubscript:v13];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -768,7 +767,7 @@ LABEL_12:
           goto LABEL_14;
         }
 
-        v16 = [v13 isEqualToString:v22];
+        v16 = [v13 isEqualToString:v21];
         if (v16)
         {
           v15 = [propertiesCopy objectForKeyedSubscript:v13];
@@ -780,13 +779,11 @@ LABEL_12:
 LABEL_14:
       }
 
-      v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadRequest:(id)request
@@ -870,7 +867,7 @@ LABEL_21:
       v31 = DALoggingwithCategory();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
       {
-        [ASTask loadRequest:];
+        [ASTask loadRequest:?];
       }
     }
 
@@ -959,7 +956,6 @@ LABEL_22:
       v52 = @"YES";
     }
 
-    v86 = self->_session;
     _EASTaskLogPublic(isDiscretionary, v48, v49, 7, self, @"Low Data Mode: discretionary flag is set to %@ for session %p ASTask %p", v50, v51, v52);
     v53 = [MEMORY[0x277CBABB8] sessionWithConfiguration:defaultSessionConfiguration delegate:self delegateQueue:0];
     v54 = self->_session;
@@ -967,8 +963,8 @@ LABEL_22:
 
     v55 = self->_session;
     v56 = objc_opt_class();
-    v87 = NSStringFromClass(v56);
-    _EASTaskLogPublic(v87, v57, v58, 7, self, @"NSURLSession Convert: create session %p for %@ %p", v59, v60, v55);
+    v86 = NSStringFromClass(v56);
+    _EASTaskLogPublic(v86, v57, v58, 7, self, @"NSURLSession Convert: create session %p for %@ %p", v59, v60, v55);
 
     session = self->_session;
   }
@@ -979,8 +975,8 @@ LABEL_22:
 
   v63 = self->_dataTask;
   v64 = objc_opt_class();
-  v88 = NSStringFromClass(v64);
-  _EASTaskLogPublic(v88, v65, v66, 7, self, @"NSURLSession Convert: create data task %p for %@ %p", v67, v68, v63);
+  v87 = NSStringFromClass(v64);
+  _EASTaskLogPublic(v87, v65, v66, 7, self, @"NSURLSession Convert: create data task %p for %@ %p", v67, v68, v63);
 
   date = [MEMORY[0x277CBEAA8] date];
   dateConnectionWentOut = self->_dateConnectionWentOut;
@@ -994,8 +990,8 @@ LABEL_22:
     _EASTaskLogPublic(da_urlForLogging, v73, v74, 3, self, @"Error creating connection with request %@: URL %@", v75, v76, self);
 
     v77 = objc_opt_class();
-    v89 = NSStringFromClass(v77);
-    _EASTaskLogPublic(v89, v78, v79, 7, self, @"NSURLSession Convert: invoke finishWithError %@ for %@ %p", v80, v81, 0);
+    v88 = NSStringFromClass(v77);
+    _EASTaskLogPublic(v88, v78, v79, 7, self, @"NSURLSession Convert: invoke finishWithError %@ for %@ %p", v80, v81, 0);
 
     v82 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA738] code:-1 userInfo:0];
     [(ASTask *)self finishWithError:v82];
@@ -1114,24 +1110,8 @@ LABEL_22:
 - (void)performTask
 {
   requiresEASVersionUpdate = [(ASTask *)self requiresEASVersionUpdate];
-  if (requiresEASVersionUpdate)
+  if ((requiresEASVersionUpdate & 1) != 0 || -[ASTask requiresEASVersionInformaton](self, "requiresEASVersionInformaton") && (WeakRetained = objc_loadWeakRetained(&self->_taskManager), [WeakRetained protocol], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "protocolVersion"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "isEqualToString:", @"Unknown"), v10, v9, WeakRetained, v11))
   {
-    goto LABEL_2;
-  }
-
-  if (![(ASTask *)self requiresEASVersionInformaton])
-  {
-    goto LABEL_7;
-  }
-
-  WeakRetained = objc_loadWeakRetained(&self->_taskManager);
-  protocol = [WeakRetained protocol];
-  protocolVersion = [protocol protocolVersion];
-  v11 = [protocolVersion isEqualToString:@"Unknown"];
-
-  if (v11)
-  {
-LABEL_2:
     _EASTaskLogPublic(requiresEASVersionUpdate, v4, v5, 6, self, @"Task %@ requesting modal to refresh version information", v6, v7, self);
 
     [(ASTask *)self _pushModalForReason:0];
@@ -1139,7 +1119,6 @@ LABEL_2:
 
   else
   {
-LABEL_7:
 
     [(ASTask *)self _continuePerformTask];
   }
@@ -1221,19 +1200,8 @@ LABEL_7:
 
   else
   {
-    if ([(ASTask *)self requiresEASVersionUpdate])
+    if (-[ASTask requiresEASVersionUpdate](self, "requiresEASVersionUpdate") || (v7 = objc_loadWeakRetained(&self->_taskManager), [v7 protocol], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "protocolVersion"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqualToString:", @"Unknown"), v9, v8, v7, v10))
     {
-      goto LABEL_6;
-    }
-
-    v7 = objc_loadWeakRetained(&self->_taskManager);
-    protocol = [v7 protocol];
-    protocolVersion = [protocol protocolVersion];
-    v10 = [protocolVersion isEqualToString:@"Unknown"];
-
-    if (v10)
-    {
-LABEL_6:
       v22 = objc_loadWeakRetained(&self->_taskManager);
       [v22 requestEASVersionWithDelegateTask:self];
 LABEL_19:
@@ -1399,7 +1367,7 @@ LABEL_9:
 
 - (void)_continuePerformTask
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v3 = objc_sync_enter(selfCopy);
   if (!selfCopy->_finished)
@@ -1423,12 +1391,12 @@ LABEL_38:
       goto LABEL_39;
     }
 
-    v81 = [MEMORY[0x277CBEBC0] URLWithString:_url];
+    v80 = [MEMORY[0x277CBEBC0] URLWithString:_url];
     timeoutInterval = [(ASTask *)selfCopy timeoutInterval];
     _EASTaskLogPublic(timeoutInterval, v18, v19, 6, selfCopy, @"Using timeout of %lf", v20, v21, v22);
     v23 = objc_alloc(MEMORY[0x277CBAB50]);
     [(ASTask *)selfCopy timeoutInterval];
-    v24 = [v23 initWithURL:v81 cachePolicy:0 timeoutInterval:?];
+    v24 = [v23 initWithURL:v80 cachePolicy:0 timeoutInterval:?];
     _isWBXML = [(ASTask *)selfCopy _isWBXML];
     v26 = objc_loadWeakRetained(&selfCopy->_taskManager);
     account2 = [v26 account];
@@ -1441,7 +1409,7 @@ LABEL_38:
       if (shouldUseOpportunisticSockets)
       {
         v31 = [v24 setNetworkServiceType:5];
-        _EASTaskLogPublic(v31, v32, v33, 6, selfCopy, @"Task is using opportunistic sockets", v34, v35, v78);
+        _EASTaskLogPublic(v31, v32, v33, 6, selfCopy, @"Task is using opportunistic sockets", v34, v35, v77);
       }
     }
 
@@ -1449,11 +1417,11 @@ LABEL_38:
     {
     }
 
+    v92 = 0;
     v93 = 0;
-    v94 = 0;
-    [(ASTask *)selfCopy _setHTTPParametersOnRequest:v24 outBodyStream:&v94 outBodyData:&v93];
-    v80 = v94;
-    v87 = v93;
+    [(ASTask *)selfCopy _setHTTPParametersOnRequest:v24 outBodyStream:&v93 outBodyData:&v92];
+    v79 = v93;
+    v86 = v92;
     v36 = [(ASTask *)selfCopy _HTTPMethodForRequest:v24];
     [v24 setHTTPMethod:v36];
 
@@ -1490,8 +1458,8 @@ LABEL_38:
 
     if (identityPersist)
     {
-      _EASTaskLogPublic(v41, v42, v43, 6, selfCopy, @"Found identity, attaching client certificate", v44, v45, v78);
-      v46 = v87;
+      _EASTaskLogPublic(v41, v42, v43, 6, selfCopy, @"Found identity, attaching client certificate", v44, v45, v77);
+      v46 = v86;
       v47 = _DASecCopyIdentityFromPersist();
       if (!v47)
       {
@@ -1524,13 +1492,13 @@ LABEL_27:
             [v60 setObject:@"<Redacted>" forKeyedSubscript:@"Authorization"];
           }
 
-          v46 = v87;
+          v46 = v86;
         }
 
         _EASTaskLogPublic(v55, v56, v57, 6, selfCopy, @"headers: %@", v58, v59, v60);
-        if (v80)
+        if (v79)
         {
-          _EASTaskLogPublic(v63, v64, v65, 6, selfCopy, @"Outgoing request body: streamed", v66, v67, v79);
+          _EASTaskLogPublic(v63, v64, v65, 6, selfCopy, @"Outgoing request body: streamed", v66, v67, v78);
         }
 
         else if (_isWBXML)
@@ -1540,57 +1508,57 @@ LABEL_27:
             -[ASTask setSentBytesCount:](selfCopy, "setSentBytesCount:", [v46 length]);
             allHTTPHeaderFields2 = [v24 allHTTPHeaderFields];
             [allHTTPHeaderFields2 allKeys];
+            v90 = 0u;
             v91 = 0u;
-            v92 = 0u;
-            v89 = 0u;
-            v70 = v90 = 0u;
-            v71 = [v70 countByEnumeratingWithState:&v89 objects:v95 count:16];
-            if (v71)
+            v88 = 0u;
+            v69 = v89 = 0u;
+            v70 = [v69 countByEnumeratingWithState:&v88 objects:v94 count:16];
+            if (v70)
             {
-              v72 = *v90;
+              v71 = *v89;
               do
               {
-                for (i = 0; i != v71; ++i)
+                for (i = 0; i != v70; ++i)
                 {
-                  if (*v90 != v72)
+                  if (*v89 != v71)
                   {
-                    objc_enumerationMutation(v70);
+                    objc_enumerationMutation(v69);
                   }
 
-                  v74 = *(*(&v89 + 1) + 8 * i);
-                  -[ASTask setSentBytesCount:](selfCopy, "setSentBytesCount:", [v74 length] + -[ASTask sentBytesCount](selfCopy, "sentBytesCount") + 2);
-                  v75 = [allHTTPHeaderFields2 objectForKeyedSubscript:v74];
-                  -[ASTask setSentBytesCount:](selfCopy, "setSentBytesCount:", [v75 length] + -[ASTask sentBytesCount](selfCopy, "sentBytesCount") + 1);
+                  v73 = *(*(&v88 + 1) + 8 * i);
+                  -[ASTask setSentBytesCount:](selfCopy, "setSentBytesCount:", [v73 length] + -[ASTask sentBytesCount](selfCopy, "sentBytesCount") + 2);
+                  v74 = [allHTTPHeaderFields2 objectForKeyedSubscript:v73];
+                  -[ASTask setSentBytesCount:](selfCopy, "setSentBytesCount:", [v74 length] + -[ASTask sentBytesCount](selfCopy, "sentBytesCount") + 1);
                 }
 
-                v71 = [v70 countByEnumeratingWithState:&v89 objects:v95 count:16];
+                v70 = [v69 countByEnumeratingWithState:&v88 objects:v94 count:16];
               }
 
-              while (v71);
+              while (v70);
             }
 
-            if (v87)
+            if (v86)
             {
-              logWBXMLDataToExchangeTrafficLog(v87);
+              logWBXMLDataToExchangeTrafficLog(v86);
             }
 
             else
             {
-              v77 = objc_opt_new();
-              logWBXMLDataToExchangeTrafficLog(v77);
+              v76 = objc_opt_new();
+              logWBXMLDataToExchangeTrafficLog(v76);
             }
           }
         }
 
         else
         {
-          v76 = v46;
-          if ([v87 bytes])
+          v75 = v46;
+          if ([v86 bytes])
           {
-            -[ASTask setSentBytesCount:](selfCopy, "setSentBytesCount:", [v87 length]);
+            -[ASTask setSentBytesCount:](selfCopy, "setSentBytesCount:", [v86 length]);
             if (shouldDALogAtLevel())
             {
-              logPlainTextDataToExchangeTrafficLog(v87);
+              logPlainTextDataToExchangeTrafficLog(v86);
             }
           }
 
@@ -1621,15 +1589,13 @@ LABEL_27:
       CFRelease(v47);
     }
 
-    v46 = v87;
+    v46 = v86;
     goto LABEL_27;
   }
 
   _EASTaskLogPublic(v3, v4, v5, 6, selfCopy, @"Task was cancelled. Bailing out of _continuePerformTask", v6, v7, selfCopy);
 LABEL_39:
   objc_sync_exit(selfCopy);
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)attemptRetryWithStatus:(int64_t)status error:(id)error
@@ -1828,6 +1794,70 @@ LABEL_26:
   [(ASTask *)self didCallOutToDelegate];
 }
 
+- (void)cancelTaskWithReason:(int)reason underlyingError:(id)error
+{
+  v4 = *&reason;
+  v27[2] = *MEMORY[0x277D85DE8];
+  errorCopy = error;
+  v11 = errorCopy;
+  if (self->_finished)
+  {
+    v12 = @"Task is already finished. Cancel task does nothing.";
+LABEL_5:
+    _EASTaskLogPublic(errorCopy, v7, v8, 6, self, v12, v9, v10, v25);
+    goto LABEL_14;
+  }
+
+  errorCopy = [(ASTask *)self isInCallOutToDelegate];
+  if (errorCopy)
+  {
+    v12 = @"Task is in callout to delegate. Cancel task does nothing.";
+    goto LABEL_5;
+  }
+
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if (![(ASTask *)selfCopy isLoadedOnMainThread])
+  {
+    thread = [(ASTask *)selfCopy thread];
+
+    if (!thread)
+    {
+      -[ASTask setIsLoadedOnMainThread:](selfCopy, "setIsLoadedOnMainThread:", [MEMORY[0x277CCACC8] isMainThread]);
+      if (![(ASTask *)selfCopy isLoadedOnMainThread])
+      {
+        currentThread = [MEMORY[0x277CCACC8] currentThread];
+        [(ASTask *)selfCopy setThread:currentThread];
+      }
+    }
+  }
+
+  objc_sync_exit(selfCopy);
+
+  _EASTaskLogPublic(v16, v17, v18, 6, selfCopy, @"Task canceled due to reason %d", v19, v20, v4);
+  if (v11)
+  {
+    v21 = [MEMORY[0x277CCABB0] numberWithInteger:{-[ASTask taskStatusForError:](selfCopy, "taskStatusForError:", v11)}];
+    v22 = *MEMORY[0x277D038E8];
+    v26[0] = *MEMORY[0x277CCA7E8];
+    v26[1] = v22;
+    v27[0] = v11;
+    v27[1] = v21;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  v24 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D038E0] code:-1 userInfo:v23];
+  [(ASTask *)selfCopy finishWithError:v24];
+
+  [(NSURLSessionDataTask *)selfCopy->_dataTask cancel];
+LABEL_14:
+}
+
 - (id)_applyAuthenticationChain:(id)chain toRequest:(id)request
 {
   requestCopy = request;
@@ -1866,7 +1896,7 @@ LABEL_26:
 
 - (void)_handleBadPasswordResponse
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   taskManager = [(ASTask *)self taskManager];
   account = [taskManager account];
 
@@ -1874,12 +1904,12 @@ LABEL_26:
   mEMORY[0x277D037B0] = [MEMORY[0x277D037B0] sharedPowerAssertionManager];
   [mEMORY[0x277D037B0] dropPowerAssertionsForGroupIdentifier:persistentUUID];
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __36__ASTask__handleBadPasswordResponse__block_invoke;
-  v16[3] = &unk_278FC8280;
-  v16[4] = self;
-  v7 = MEMORY[0x24C2119B0](v16);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __36__ASTask__handleBadPasswordResponse__block_invoke;
+  v15[3] = &unk_278FC8280;
+  v15[4] = self;
+  v7 = MEMORY[0x24C2119B0](v15);
   taskManager2 = [(ASTask *)self taskManager];
   account2 = [taskManager2 account];
   isValidating = [account2 isValidating];
@@ -1903,16 +1933,14 @@ LABEL_26:
       }
 
       *buf = 138412546;
-      v18 = account;
-      v19 = 2112;
-      v20 = v14;
+      v17 = account;
+      v18 = 2112;
+      v19 = v14;
       _os_log_impl(&dword_24A0AC000, v11, v12, "ExchangeSync is renewing credentials for account %@ by forcing-prompt: %@", buf, 0x16u);
     }
 
     [account renewCredentialsWithHandler:v7];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __36__ASTask__handleBadPasswordResponse__block_invoke(uint64_t a1, uint64_t a2)
@@ -1947,7 +1975,7 @@ void __36__ASTask__handleBadPasswordResponse__block_invoke_2(uint64_t a1)
 
 - (void)_handleCredentialRenewalResult:(id)result
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   integerValue = [result integerValue];
   taskManager = [(ASTask *)self taskManager];
   account = [taskManager account];
@@ -1967,18 +1995,18 @@ void __36__ASTask__handleBadPasswordResponse__block_invoke_2(uint64_t a1)
       v13 = NSStringFromClass(v12);
       wasUserInitiated = [account wasUserInitiated];
       v15 = @"NO";
-      *v40 = 138543874;
-      *&v40[4] = v13;
+      *v39 = 138543874;
+      *&v39[4] = v13;
       if (wasUserInitiated)
       {
         v15 = @"YES";
       }
 
-      v41 = 2114;
-      v42 = v15;
-      v43 = 2048;
-      v44 = integerValue;
-      _os_log_impl(&dword_24A0AC000, mEMORY[0x277D03788], v10, "ExchangeSync failed to renew credentials for account %{public}@ by forcing-prompt: %{public}@ - renewalResult = %ld", v40, 0x20u);
+      v40 = 2114;
+      v41 = v15;
+      v42 = 2048;
+      v43 = integerValue;
+      _os_log_impl(&dword_24A0AC000, mEMORY[0x277D03788], v10, "ExchangeSync failed to renew credentials for account %{public}@ by forcing-prompt: %{public}@ - renewalResult = %ld", v39, 0x20u);
     }
   }
 
@@ -1995,11 +2023,11 @@ void __36__ASTask__handleBadPasswordResponse__block_invoke_2(uint64_t a1)
         v19 = @"YES";
       }
 
-      *v40 = 138543618;
-      *&v40[4] = v17;
-      v41 = 2114;
-      v42 = v19;
-      _os_log_impl(&dword_24A0AC000, mEMORY[0x277D03788], v10, "ExchangeSync successfully renewed credentials for account %{public}@ by forcing-prompt: %{public}@", v40, 0x16u);
+      *v39 = 138543618;
+      *&v39[4] = v17;
+      v40 = 2114;
+      v41 = v19;
+      _os_log_impl(&dword_24A0AC000, mEMORY[0x277D03788], v10, "ExchangeSync successfully renewed credentials for account %{public}@ by forcing-prompt: %{public}@", v39, 0x16u);
     }
 
     mEMORY[0x277D03788] = [MEMORY[0x277D03788] sharedKeychain];
@@ -2030,13 +2058,13 @@ void __36__ASTask__handleBadPasswordResponse__block_invoke_2(uint64_t a1)
         v38 = @"Password renewed. Canceling task anyway. The accountsd should notify dataaccessd to reload the accounts.";
       }
 
-      _EASTaskLogPublic(askedToCancelWhileModal, v34, v35, 6, self, v38, v36, v37, *v40);
+      _EASTaskLogPublic(askedToCancelWhileModal, v34, v35, 6, self, v38, v36, v37, *v39);
       v31 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D038E0] code:-1 userInfo:0];
     }
 
     else
     {
-      _EASTaskLogPublic(_popModal, v26, v27, 6, self, @"Password renewal rejected or failed. Finishing the task with error.", v28, v29, *v40);
+      _EASTaskLogPublic(_popModal, v26, v27, 6, self, @"Password renewal rejected or failed. Finishing the task with error.", v28, v29, *v39);
       v30 = self->_passwordNotificationError;
       self->_passwordNotificationError = 0;
       v31 = v30;
@@ -2047,10 +2075,8 @@ void __36__ASTask__handleBadPasswordResponse__block_invoke_2(uint64_t a1)
     goto LABEL_21;
   }
 
-  _EASTaskLogPublic(v20, v21, v22, 6, self, @"Got a password response, but our manager already tore us down.", v23, v24, *v40);
+  _EASTaskLogPublic(v20, v21, v22, 6, self, @"Got a password response, but our manager already tore us down.", v23, v24, *v39);
 LABEL_21:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_handleCertificateError:(id)error
@@ -2516,38 +2542,38 @@ LABEL_34:
 
 - (void)URLSession:(id)session task:(id)task didFinishCollectingMetrics:(id)metrics
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   metricsCopy = metrics;
   v11 = objc_opt_class();
-  v29 = NSStringFromClass(v11);
-  v31 = taskCopy;
-  v32 = sessionCopy;
-  _EASTaskLogPublic(v29, v12, v13, 7, self, @"NSURLSession Convert: session %p task %p didFinishCollectingMetrics %@ for %@ %p", v14, v15, sessionCopy);
+  v28 = NSStringFromClass(v11);
+  v30 = taskCopy;
+  v31 = sessionCopy;
+  _EASTaskLogPublic(v28, v12, v13, 7, self, @"NSURLSession Convert: session %p task %p didFinishCollectingMetrics %@ for %@ %p", v14, v15, sessionCopy);
 
-  v30 = metricsCopy;
+  v29 = metricsCopy;
   transactionMetrics = [metricsCopy transactionMetrics];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v17 = [transactionMetrics countByEnumeratingWithState:&v33 objects:v45 count:16];
+  v17 = [transactionMetrics countByEnumeratingWithState:&v32 objects:v44 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v34;
+    v19 = *v33;
     v20 = *(MEMORY[0x277D03988] + 6);
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v34 != v19)
+        if (*v33 != v19)
         {
           objc_enumerationMutation(transactionMetrics);
         }
 
-        v22 = *(*(&v33 + 1) + 8 * i);
+        v22 = *(*(&v32 + 1) + 8 * i);
         v23 = DALoggingwithCategory();
         if (os_log_type_enabled(v23, v20))
         {
@@ -2556,24 +2582,22 @@ LABEL_34:
           v26 = [request URL];
           absoluteString = [v26 absoluteString];
           *buf = 134218754;
-          v38 = v32;
-          v39 = 2048;
-          v40 = v31;
-          v41 = 2114;
-          v42 = networkProtocolName;
-          v43 = 2112;
-          v44 = absoluteString;
+          v37 = v31;
+          v38 = 2048;
+          v39 = v30;
+          v40 = 2114;
+          v41 = networkProtocolName;
+          v42 = 2112;
+          v43 = absoluteString;
           _os_log_impl(&dword_24A0AC000, v23, v20, "NSURLSession Metrics: session %p task %p used protocol %{public}@ for URL %@", buf, 0x2Au);
         }
       }
 
-      v18 = [transactionMetrics countByEnumeratingWithState:&v33 objects:v45 count:16];
+      v18 = [transactionMetrics countByEnumeratingWithState:&v32 objects:v44 count:16];
     }
 
     while (v18);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
@@ -2622,23 +2646,23 @@ LABEL_34:
 
 - (void)_URLSessionDataTaskDidReceiveData:(id)data
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = dataCopy;
   if (!self->_finished)
   {
     v6 = dataCopy;
     self->_didReceiveData = 1;
-    _EASTaskLogPublic(v6, v7, v8, 6, self, @"didReceiveData", v9, v10, v57);
+    _EASTaskLogPublic(v6, v7, v8, 6, self, @"didReceiveData", v9, v10, v55);
     if (-[NSHTTPURLResponse expectedContentLength](self->_response, "expectedContentLength") == -1 || (v11 = [v6 length], v12 = -[ASParseContext currentBytesReceivedCount](self->_parseContext, "currentBytesReceivedCount") + v11, v12 >= -[NSHTTPURLResponse expectedContentLength](self->_response, "expectedContentLength")))
     {
       if ([(NSHTTPURLResponse *)self->_response expectedContentLength]== -1)
       {
-        v19 = objc_opt_class();
+        v18 = objc_opt_class();
         [v6 length];
         [v6 length];
         currentBytesReceivedCount = [(ASParseContext *)self->_parseContext currentBytesReceivedCount];
-        _EASTaskLogPublic(currentBytesReceivedCount, v21, v22, 6, self, @"%@ didReceiveData: %d new bytes, have received a total of %lld, no information on expected total", v23, v24, v19);
+        _EASTaskLogPublic(currentBytesReceivedCount, v20, v21, 6, self, @"%@ didReceiveData: %d new bytes, have received a total of %lld, no information on expected total", v22, v23, v18);
       }
     }
 
@@ -2646,10 +2670,10 @@ LABEL_34:
     {
       v13 = objc_opt_class();
       [v6 length];
-      v14 = [v6 length];
-      v58 = [(ASParseContext *)self->_parseContext currentBytesReceivedCount]+ v14;
+      [v6 length];
+      [(ASParseContext *)self->_parseContext currentBytesReceivedCount];
       expectedContentLength = [(NSHTTPURLResponse *)self->_response expectedContentLength];
-      _EASTaskLogPublic(expectedContentLength, v15, v16, 6, self, @"%@ didReceiveData: %d new bytes, now received %lld/%lld total", v17, v18, v13);
+      _EASTaskLogPublic(expectedContentLength, v14, v15, 6, self, @"%@ didReceiveData: %d new bytes, now received %lld/%lld total", v16, v17, v13);
     }
 
     if (!self->_isFakingIt && [(NSHTTPURLResponse *)self->_response statusCode]- 300 < 0xFFFFFF9C)
@@ -2660,159 +2684,159 @@ LABEL_34:
     expectedContentLength2 = [(NSHTTPURLResponse *)self->_response expectedContentLength];
     if (expectedContentLength2 == -1)
     {
-      v26 = 0;
+      v25 = 0;
     }
 
     else
     {
-      v26 = expectedContentLength2;
+      v25 = expectedContentLength2;
     }
 
-    v27 = self->_parseContext;
-    [(ASParseContext *)v27 setExpectedTotalBytesCount:v26];
-    [(ASParseContext *)v27 addData:v6];
-    v28 = 1;
-    [(ASParseContext *)v27 setMoreDataExpected:1];
+    v26 = self->_parseContext;
+    [(ASParseContext *)v26 setExpectedTotalBytesCount:v25];
+    [(ASParseContext *)v26 addData:v6];
+    v27 = 1;
+    [(ASParseContext *)v26 setMoreDataExpected:1];
     if (!self->_isFakingIt)
     {
       responseContentType = [(ASTask *)self responseContentType];
-      v28 = [responseContentType isEqualToString:@"application/vnd.ms-sync.wbxml"];
+      v27 = [responseContentType isEqualToString:@"application/vnd.ms-sync.wbxml"];
     }
 
-    dataGeneration = [(ASParseContext *)v27 dataGeneration];
-    _EASTaskLogPublic(dataGeneration, v31, v32, 6, self, @"data generation is %d", v33, v34, dataGeneration);
-    if ([(ASParseContext *)v27 dataGeneration]== 1)
+    dataGeneration = [(ASParseContext *)v26 dataGeneration];
+    _EASTaskLogPublic(dataGeneration, v30, v31, 6, self, @"data generation is %d", v32, v33, dataGeneration);
+    if ([(ASParseContext *)v26 dataGeneration]== 1)
     {
       [(ASTask *)self willProcessContext];
     }
 
-    if (v28)
+    if (v27)
     {
-      if ([(ASParseContext *)v27 curOffset]<= 3 && ![(ASParseContext *)v27 hasNumberOfTokensRemaining:4])
+      if ([(ASParseContext *)v26 curOffset]<= 3 && ![(ASParseContext *)v26 hasNumberOfTokensRemaining:4])
       {
-        [(ASParseContext *)v27 setDataGeneration:[(ASParseContext *)v27 dataGeneration]- 1];
+        [(ASParseContext *)v26 setDataGeneration:[(ASParseContext *)v26 dataGeneration]- 1];
 LABEL_50:
 
 LABEL_51:
         goto LABEL_52;
       }
 
-      if ([(ASParseContext *)v27 dataGeneration]== 1)
+      if ([(ASParseContext *)v26 dataGeneration]== 1)
       {
-        if ([(ASParseContext *)v27 currentByte]!= 3)
+        if ([(ASParseContext *)v26 currentByte]!= 3)
         {
-          v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid prefix"];
-          v41 = MEMORY[0x277CCACA8];
-          [(ASParseContext *)v27 curOffset];
-          v37 = [v41 stringWithFormat:@"%s:%d - Failure at index %lld:"];
-          v42 = DALoggingwithCategory();
-          v39 = *(MEMORY[0x277D03988] + 3);
-          if (os_log_type_enabled(v42, v39))
+          v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid prefix"];
+          v40 = MEMORY[0x277CCACA8];
+          [(ASParseContext *)v26 curOffset];
+          v36 = [v40 stringWithFormat:@"%s:%d - Failure at index %lld:"];
+          v41 = DALoggingwithCategory();
+          v38 = *(MEMORY[0x277D03988] + 3);
+          if (os_log_type_enabled(v41, v38))
           {
             *buf = 134217984;
-            curOffset = [(ASParseContext *)v27 curOffset];
-            _os_log_impl(&dword_24A0AC000, v42, v39, "Failure at index %lld:", buf, 0xCu);
+            curOffset = [(ASParseContext *)v26 curOffset];
+            _os_log_impl(&dword_24A0AC000, v41, v38, "Failure at index %lld:", buf, 0xCu);
           }
 
-          v40 = DALoggingwithCategory();
-          if (!os_log_type_enabled(v40, v39))
+          v39 = DALoggingwithCategory();
+          if (!os_log_type_enabled(v39, v38))
           {
             goto LABEL_42;
           }
 
           *buf = 138412290;
-          curOffset = v35;
+          curOffset = v34;
           goto LABEL_41;
         }
 
-        [(ASParseContext *)v27 advanceOffsetByAmount:1];
-        if ([(ASParseContext *)v27 currentByte]!= 1)
+        [(ASParseContext *)v26 advanceOffsetByAmount:1];
+        if ([(ASParseContext *)v26 currentByte]!= 1)
         {
-          v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid prefix"];
-          v43 = MEMORY[0x277CCACA8];
-          [(ASParseContext *)v27 curOffset];
-          v37 = [v43 stringWithFormat:@"%s:%d - Failure at index %lld:"];
-          v44 = DALoggingwithCategory();
-          v39 = *(MEMORY[0x277D03988] + 3);
-          if (os_log_type_enabled(v44, v39))
+          v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid prefix"];
+          v42 = MEMORY[0x277CCACA8];
+          [(ASParseContext *)v26 curOffset];
+          v36 = [v42 stringWithFormat:@"%s:%d - Failure at index %lld:"];
+          v43 = DALoggingwithCategory();
+          v38 = *(MEMORY[0x277D03988] + 3);
+          if (os_log_type_enabled(v43, v38))
           {
             *buf = 134217984;
-            curOffset = [(ASParseContext *)v27 curOffset];
-            _os_log_impl(&dword_24A0AC000, v44, v39, "Failure at index %lld:", buf, 0xCu);
+            curOffset = [(ASParseContext *)v26 curOffset];
+            _os_log_impl(&dword_24A0AC000, v43, v38, "Failure at index %lld:", buf, 0xCu);
           }
 
-          v40 = DALoggingwithCategory();
-          if (!os_log_type_enabled(v40, v39))
+          v39 = DALoggingwithCategory();
+          if (!os_log_type_enabled(v39, v38))
           {
             goto LABEL_42;
           }
 
           *buf = 138412290;
-          curOffset = v35;
+          curOffset = v34;
           goto LABEL_41;
         }
 
-        [(ASParseContext *)v27 advanceOffsetByAmount:1];
-        if ([(ASParseContext *)v27 currentByte]!= 106)
+        [(ASParseContext *)v26 advanceOffsetByAmount:1];
+        if ([(ASParseContext *)v26 currentByte]!= 106)
         {
-          v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid prefix"];
-          v45 = MEMORY[0x277CCACA8];
-          [(ASParseContext *)v27 curOffset];
-          v37 = [v45 stringWithFormat:@"%s:%d - Failure at index %lld:"];
-          v46 = DALoggingwithCategory();
-          v39 = *(MEMORY[0x277D03988] + 3);
-          if (os_log_type_enabled(v46, v39))
+          v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid prefix"];
+          v44 = MEMORY[0x277CCACA8];
+          [(ASParseContext *)v26 curOffset];
+          v36 = [v44 stringWithFormat:@"%s:%d - Failure at index %lld:"];
+          v45 = DALoggingwithCategory();
+          v38 = *(MEMORY[0x277D03988] + 3);
+          if (os_log_type_enabled(v45, v38))
           {
             *buf = 134217984;
-            curOffset = [(ASParseContext *)v27 curOffset];
-            _os_log_impl(&dword_24A0AC000, v46, v39, "Failure at index %lld:", buf, 0xCu);
+            curOffset = [(ASParseContext *)v26 curOffset];
+            _os_log_impl(&dword_24A0AC000, v45, v38, "Failure at index %lld:", buf, 0xCu);
           }
 
-          v40 = DALoggingwithCategory();
-          if (!os_log_type_enabled(v40, v39))
+          v39 = DALoggingwithCategory();
+          if (!os_log_type_enabled(v39, v38))
           {
             goto LABEL_42;
           }
 
           *buf = 138412290;
-          curOffset = v35;
+          curOffset = v34;
           goto LABEL_41;
         }
 
-        [(ASParseContext *)v27 advanceOffsetByAmount:1];
-        if ([(ASParseContext *)v27 currentByte])
+        [(ASParseContext *)v26 advanceOffsetByAmount:1];
+        if ([(ASParseContext *)v26 currentByte])
         {
-          v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid prefix"];
-          v36 = MEMORY[0x277CCACA8];
-          [(ASParseContext *)v27 curOffset];
-          v37 = [v36 stringWithFormat:@"%s:%d - Failure at index %lld:"];
-          v38 = DALoggingwithCategory();
-          v39 = *(MEMORY[0x277D03988] + 3);
-          if (os_log_type_enabled(v38, v39))
+          v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid prefix"];
+          v35 = MEMORY[0x277CCACA8];
+          [(ASParseContext *)v26 curOffset];
+          v36 = [v35 stringWithFormat:@"%s:%d - Failure at index %lld:"];
+          v37 = DALoggingwithCategory();
+          v38 = *(MEMORY[0x277D03988] + 3);
+          if (os_log_type_enabled(v37, v38))
           {
             *buf = 134217984;
-            curOffset = [(ASParseContext *)v27 curOffset];
-            _os_log_impl(&dword_24A0AC000, v38, v39, "Failure at index %lld:", buf, 0xCu);
+            curOffset = [(ASParseContext *)v26 curOffset];
+            _os_log_impl(&dword_24A0AC000, v37, v38, "Failure at index %lld:", buf, 0xCu);
           }
 
-          v40 = DALoggingwithCategory();
-          if (!os_log_type_enabled(v40, v39))
+          v39 = DALoggingwithCategory();
+          if (!os_log_type_enabled(v39, v38))
           {
             goto LABEL_42;
           }
 
           *buf = 138412290;
-          curOffset = v35;
+          curOffset = v34;
 LABEL_41:
-          _os_log_impl(&dword_24A0AC000, v40, v39, "failure reason was %@", buf, 0xCu);
+          _os_log_impl(&dword_24A0AC000, v39, v38, "failure reason was %@", buf, 0xCu);
 LABEL_42:
 
-          [(ASParseContext *)v27 setParseErrorReason:v37];
-          _EASTaskLogPublic(v47, v48, v49, 3, self, @"did receive data, but the header wasn't something I understand", v50, v51, "/Library/Caches/com.apple.xbs/Sources/ExchangeSync/ActiveSync/ASTasks/ASTask.m");
+          [(ASParseContext *)v26 setParseErrorReason:v36];
+          _EASTaskLogPublic(v46, v47, v48, 3, self, @"did receive data, but the header wasn't something I understand", v49, v50, "/Library/Caches/com.apple.xbs/Sources/ExchangeSync/ActiveSync/ASTasks/ASTask.m");
           goto LABEL_50;
         }
 
-        [(ASParseContext *)v27 advanceOffsetByAmount:1];
+        [(ASParseContext *)v26 advanceOffsetByAmount:1];
       }
 
       if (!self->_haveCheckedForTopLevelError)
@@ -2823,28 +2847,26 @@ LABEL_42:
 
         if (usesTopLevelStatusCodes)
         {
-          v55 = [(ASTask *)self checkForErrorInContext:v27];
-          self->_haveCheckedForTopLevelError = v55;
-          if (!v55 || self->_handledTopLevelError)
+          v54 = [(ASTask *)self checkForErrorInContext:v26];
+          self->_haveCheckedForTopLevelError = v54;
+          if (!v54 || self->_handledTopLevelError)
           {
             goto LABEL_50;
           }
 
-          [(ASParseContext *)v27 resetToZeroOffset];
+          [(ASParseContext *)v26 resetToZeroOffset];
           *&self->_haveSwitchedCodePage = 0;
-          [(ASParseContext *)v27 advanceOffsetByAmount:4];
-          [(ASParseContext *)v27 setKeepPreviousData:0];
+          [(ASParseContext *)v26 advanceOffsetByAmount:4];
+          [(ASParseContext *)v26 setKeepPreviousData:0];
         }
       }
     }
 
-    [(ASTask *)self processContext:v27];
+    [(ASTask *)self processContext:v26];
     goto LABEL_50;
   }
 
 LABEL_52:
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldUseUsernamePasswordForAuthenticationMethod:(id)method
@@ -3065,13 +3087,13 @@ LABEL_15:
 
 - (void)_handleCompletionError:(id)error
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   flushLogs = [(ASParseContext *)self->_parseContext flushLogs];
   self->_didFailWithError = 1;
   if (self->_finishedByTimeoutEnforcer)
   {
-    _EASTaskLogPublic(flushLogs, v7, v8, 6, self, @"Ignoring extraneous finish, we already tore ourselves down due to a timeout", v9, v10, v89);
+    _EASTaskLogPublic(flushLogs, v7, v8, 6, self, @"Ignoring extraneous finish, we already tore ourselves down due to a timeout", v9, v10, v88);
   }
 
   [(ASTask *)self setTimeoutEnforcer:0];
@@ -3138,15 +3160,15 @@ LABEL_15:
         v62 = [(ASTask *)self _handleCertificateError:errorCopy];
         if (v62)
         {
-          _EASTaskLogPublic(v62, v63, v64, 6, self, @"Handled client certificate request and re-issued NSURLRequest.", v65, v66, v90);
+          _EASTaskLogPublic(v62, v63, v64, 6, self, @"Handled client certificate request and re-issued NSURLRequest.", v65, v66, v89);
           goto LABEL_48;
         }
       }
     }
 
     v67 = objc_opt_class();
-    v92 = NSStringFromClass(v67);
-    _EASTaskLogPublic(v92, v68, v69, 7, self, @"NSURLSession Convert: invoke finishWithError %@ for %@ %p", v70, v71, errorCopy);
+    v91 = NSStringFromClass(v67);
+    _EASTaskLogPublic(v91, v68, v69, 7, self, @"NSURLSession Convert: invoke finishWithError %@ for %@ %p", v70, v71, errorCopy);
 
     [(ASTask *)self finishWithError:errorCopy];
     goto LABEL_48;
@@ -3154,30 +3176,30 @@ LABEL_15:
 
 LABEL_9:
   v33 = [(NSHTTPURLResponse *)self->_response valueForHTTPHeaderField:@"Www-Authenticate"];
+  v96 = 0u;
   v97 = 0u;
   v98 = 0u;
   v99 = 0u;
-  v100 = 0u;
   taskManager2 = [v33 componentsSeparatedByString:{@", "}];
-  v35 = [taskManager2 countByEnumeratingWithState:&v97 objects:v101 count:16];
+  v35 = [taskManager2 countByEnumeratingWithState:&v96 objects:v100 count:16];
   if (v35)
   {
     v36 = v35;
     selfCopy = self;
-    v95 = errorCopy;
-    v96 = 0;
+    v94 = errorCopy;
+    v95 = 0;
     v37 = 0;
-    v38 = *v98;
+    v38 = *v97;
     while (1)
     {
       for (i = 0; i != v36; ++i)
       {
-        if (*v98 != v38)
+        if (*v97 != v38)
         {
           objc_enumerationMutation(taskManager2);
         }
 
-        v40 = *(*(&v97 + 1) + 8 * i);
+        v40 = *(*(&v96 + 1) + 8 * i);
         whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
         v42 = [v40 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
 
@@ -3203,8 +3225,8 @@ LABEL_9:
           {
             v44 = [v40 substringFromIndex:v47 + 1];
             v48 = [v44 stringByReplacingOccurrencesOfString:@"" withString:&stru_285D39BD0];
-            v46 = v96;
-            v96 = v48;
+            v46 = v95;
+            v95 = v48;
 LABEL_20:
           }
         }
@@ -3212,7 +3234,7 @@ LABEL_20:
 LABEL_21:
       }
 
-      v36 = [taskManager2 countByEnumeratingWithState:&v97 objects:v101 count:16];
+      v36 = [taskManager2 countByEnumeratingWithState:&v96 objects:v100 count:16];
       if (!v36)
       {
 
@@ -3220,15 +3242,15 @@ LABEL_21:
         {
           v49 = [v37 isEqualToString:@"insufficient_claims"];
           self = selfCopy;
-          errorCopy = v95;
-          v54 = v96;
+          errorCopy = v94;
+          v54 = v95;
           if (v49)
           {
             _EASTaskLogPublic(v49, v50, v51, 3, selfCopy, @"Received error: '%@' with claims: %@, storing to the account.", v52, v53, v37);
             taskManager2 = [(ASTask *)selfCopy taskManager];
             account2 = [taskManager2 account];
             backingAccountInfo = [account2 backingAccountInfo];
-            [backingAccountInfo setObject:v96 forKeyedSubscript:*MEMORY[0x277D07AC8]];
+            [backingAccountInfo setObject:v95 forKeyedSubscript:*MEMORY[0x277D07AC8]];
 
             goto LABEL_37;
           }
@@ -3237,8 +3259,8 @@ LABEL_21:
         else
         {
           self = selfCopy;
-          errorCopy = v95;
-          v54 = v96;
+          errorCopy = v94;
+          v54 = v95;
         }
 
         goto LABEL_42;
@@ -3251,7 +3273,7 @@ LABEL_21:
 LABEL_37:
 
 LABEL_42:
-  _EASTaskLogPublic(v49, v50, v51, 3, self, @"Bad password error received.", v52, v53, v90);
+  _EASTaskLogPublic(v49, v50, v51, 3, self, @"Bad password error received.", v52, v53, v89);
   if ([(ASTask *)self shouldHandlePasswordErrors])
   {
     numBadPasswordResponses = self->_numBadPasswordResponses;
@@ -3282,14 +3304,13 @@ LABEL_42:
   else
   {
     v80 = objc_opt_class();
-    v93 = NSStringFromClass(v80);
-    _EASTaskLogPublic(v93, v81, v82, 7, self, @"NSURLSession Convert: invoke finishWithError %@ for %@ %p", v83, v84, errorCopy);
+    v92 = NSStringFromClass(v80);
+    _EASTaskLogPublic(v92, v81, v82, 7, self, @"NSURLSession Convert: invoke finishWithError %@ for %@ %p", v83, v84, errorCopy);
 
     [(ASTask *)self finishWithError:errorCopy];
   }
 
 LABEL_48:
-  v88 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleTopLevelErrorStatus:(id)status
@@ -3517,21 +3538,18 @@ LABEL_20:
 
 - (void)loadRequest:(void *)a1 .cold.4(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 UTF8String];
-  OUTLINED_FUNCTION_2(&dword_24A0AC000, v1, v2, "Process %s does not invoke ASTask on main thread!", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = [a1 UTF8String];
+  OUTLINED_FUNCTION_2(&dword_24A0AC000, v1, v2, "Process %s does not invoke ASTask on main thread!", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
-- (void)loadRequest:.cold.5()
+- (void)loadRequest:(uint64_t)a1 .cold.5(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  [v1 UTF8String];
-  OUTLINED_FUNCTION_2(&dword_24A0AC000, v2, v3, "Accountsd is loading %s!", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 136315138;
+  *(&v9 + 4) = [v2 UTF8String];
+  OUTLINED_FUNCTION_2(&dword_24A0AC000, v3, v4, "Accountsd is loading %s!", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)finishWithError:(uint64_t)a3 afterDelegateCallout:(uint64_t)a4 .cold.1(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)

@@ -150,7 +150,7 @@ LABEL_5:
     v16 = 0u;
     if (_axIndexPathHolder)
     {
-      [_axIndexPathHolder indexPath];
+      objc_msgSend_indexPath(_axIndexPathHolder);
     }
 
     selectionSnapshot = [_axSelectionManager selectionSnapshot];

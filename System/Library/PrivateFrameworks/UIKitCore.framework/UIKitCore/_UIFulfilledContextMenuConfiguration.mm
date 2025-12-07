@@ -24,8 +24,8 @@
 
   else
   {
-    menu = [(_UIFulfilledContextMenuConfiguration *)self menu];
-    v4 = ([menu metadata] >> 24) & 1;
+    v5 = objc_msgSend_menu(self);
+    v4 = ([v5 metadata] >> 24) & 1;
   }
 
   return v4;

@@ -112,13 +112,12 @@ uint64_t __27__AXSSDatabaseManager_init__block_invoke(uint64_t a1)
 
 - (void)setupDatabase
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1C0E8A000, log, OS_LOG_TYPE_ERROR, "Could not make directory: %@. error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1C0E8A000, log, OS_LOG_TYPE_ERROR, "Could not make directory: %@. error: %@", &v3, 0x16u);
 }
 
 void __36__AXSSDatabaseManager_setupDatabase__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -147,42 +146,42 @@ void __36__AXSSDatabaseManager_setupDatabase__block_invoke(uint64_t a1, uint64_t
 
 - (id)cloudObjectFromLocalObjects:(id)objects withTable:(id)table andObjectID:(id)d
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   tableCopy = table;
   dCopy = d;
   v11 = [MEMORY[0x1E695DFA8] set];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = objectsCopy;
-  v32 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
-  if (v32)
+  v31 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  if (v31)
   {
-    v12 = *v36;
-    v29 = *v36;
-    v30 = v11;
+    v12 = *v35;
+    v28 = *v35;
+    v29 = v11;
     do
     {
-      for (i = 0; i != v32; ++i)
+      for (i = 0; i != v31; ++i)
       {
-        if (*v36 != v12)
+        if (*v35 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v35 + 1) + 8 * i);
+        v14 = *(*(&v34 + 1) + 8 * i);
         v15 = [MEMORY[0x1E695D5E0] fetchRequestWithEntityName:tableCopy];
-        v33 = v14;
+        v32 = v14;
         v16 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%@ = %@", dCopy, v14];
         [v15 setPredicate:v16];
 
         [v15 setReturnsObjectsAsFaults:0];
         managedObjectContext = [(AXSSDatabaseManager *)self managedObjectContext];
-        v34 = 0;
-        v18 = [managedObjectContext executeFetchRequest:v15 error:&v34];
-        v19 = v34;
+        v33 = 0;
+        v18 = [managedObjectContext executeFetchRequest:v15 error:&v33];
+        v19 = v33;
 
         lastObject = [v18 lastObject];
         if (lastObject)
@@ -205,22 +204,20 @@ void __36__AXSSDatabaseManager_setupDatabase__block_invoke(uint64_t a1, uint64_t
 
           self = v24;
           dCopy = v23;
-          v12 = v29;
-          [v26 setValue:v33 forKey:dCopy];
+          v12 = v28;
+          [v26 setValue:v32 forKey:dCopy];
           lastObject = v26;
-          v11 = v30;
+          v11 = v29;
         }
 
         [v11 addObject:lastObject];
       }
 
-      v32 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v31 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
-    while (v32);
+    while (v31);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -270,35 +267,32 @@ void __42__AXSSDatabaseManager__identityDidChange___block_invoke(uint64_t a1)
 
 void __41__AXSSDatabaseManager__storesWillChange___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) managedObjectContext];
   v3 = [v2 hasChanges];
 
   v4 = *(a1 + 32);
   if (v3)
   {
-    v11 = 0;
-    v5 = [v4 saveIfPossible:&v11];
-    v6 = v11;
+    v9 = 0;
+    v5 = [v4 saveIfPossible:&v9];
+    v6 = v9;
     if ((v5 & 1) == 0)
     {
       v7 = AXLogCommon();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v13 = v6;
+        v11 = v6;
         _os_log_impl(&dword_1C0E8A000, v7, OS_LOG_TYPE_DEFAULT, "Failed to save database due to storesWillChange: %@", buf, 0xCu);
       }
     }
-
-    v8 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v10 = [v4 managedObjectContext];
-    [v10 reset];
-    v9 = *MEMORY[0x1E69E9840];
+    v8 = [v4 managedObjectContext];
+    [v8 reset];
   }
 }
 
@@ -380,7 +374,7 @@ void __38__AXSSDatabaseManager_saveIfPossible___block_invoke(uint64_t a1)
 
 + (id)sharedDatabase
 {
-  OUTLINED_FUNCTION_2_2();
+  OUTLINED_FUNCTION_2_2(self);
   OUTLINED_FUNCTION_0_3();
   NSRequestConcreteImplementation();
   return 0;
@@ -388,7 +382,7 @@ void __38__AXSSDatabaseManager_saveIfPossible___block_invoke(uint64_t a1)
 
 - (id)managedObjectModelName
 {
-  OUTLINED_FUNCTION_2_2();
+  OUTLINED_FUNCTION_2_2(self);
   OUTLINED_FUNCTION_0_3();
   NSRequestConcreteImplementation();
   return 0;
@@ -396,7 +390,7 @@ void __38__AXSSDatabaseManager_saveIfPossible___block_invoke(uint64_t a1)
 
 - (id)cloudKitContainer
 {
-  OUTLINED_FUNCTION_2_2();
+  OUTLINED_FUNCTION_2_2(self);
   OUTLINED_FUNCTION_0_3();
   NSRequestConcreteImplementation();
   return 0;
@@ -404,7 +398,7 @@ void __38__AXSSDatabaseManager_saveIfPossible___block_invoke(uint64_t a1)
 
 - (id)containerIdentifier
 {
-  OUTLINED_FUNCTION_2_2();
+  OUTLINED_FUNCTION_2_2(self);
   OUTLINED_FUNCTION_0_3();
   NSRequestConcreteImplementation();
   return 0;
@@ -412,7 +406,7 @@ void __38__AXSSDatabaseManager_saveIfPossible___block_invoke(uint64_t a1)
 
 - (id)apsConnectionMachServiceName
 {
-  OUTLINED_FUNCTION_2_2();
+  OUTLINED_FUNCTION_2_2(self);
   OUTLINED_FUNCTION_0_3();
   NSRequestConcreteImplementation();
   return 0;
@@ -420,7 +414,7 @@ void __38__AXSSDatabaseManager_saveIfPossible___block_invoke(uint64_t a1)
 
 - (void)userAuthChanged
 {
-  OUTLINED_FUNCTION_2_2();
+  OUTLINED_FUNCTION_2_2(self);
   OUTLINED_FUNCTION_0_3();
 
   NSRequestConcreteImplementation();
@@ -428,11 +422,10 @@ void __38__AXSSDatabaseManager_saveIfPossible___block_invoke(uint64_t a1)
 
 void __36__AXSSDatabaseManager_setupDatabase__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_ERROR, "DB err: resetting storage coordinator %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_ERROR, "DB err: resetting storage coordinator %@", &v2, 0xCu);
 }
 
 @end

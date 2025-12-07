@@ -57,32 +57,38 @@
 
 - (NSString)description
 {
-  NSAppendPrintF();
-  v14 = 0;
-  v3 = +[SDStatusMonitor sharedMonitor];
-  deviceInformation = [v3 deviceInformation];
-  NSAppendPrintF();
-  v4 = v14;
+  v20 = 0;
+  NSAppendPrintF(&v20, "\n");
+  v3 = v20;
+  v19 = v3;
+  v4 = +[SDStatusMonitor sharedMonitor];
+  deviceInformation = [v4 deviceInformation];
+  NSAppendPrintF(&v19, "Device Information: %@\n", deviceInformation);
+  v6 = v19;
 
-  v5 = +[SDServerBrowser sharedBrowser];
-  v12 = [v5 description];
-  NSAppendPrintF();
-  v6 = v4;
+  v18 = v6;
+  v7 = +[SDServerBrowser sharedBrowser];
+  v8 = [v7 description];
+  NSAppendPrintF(&v18, "%@\n", v8);
+  v9 = v18;
 
   airDropService = self->_airDropService;
   if (airDropService)
   {
-    v13 = [(SDAirDropService_objc *)airDropService description];
-    NSAppendPrintF();
-    v8 = v6;
+    v17 = v9;
+    v11 = [(SDAirDropService_objc *)airDropService description];
+    NSAppendPrintF(&v17, "%@\n", v11);
+    v12 = v17;
 
-    v6 = v8;
+    v9 = v12;
   }
 
-  NSAppendPrintF();
-  v9 = v6;
+  v16 = v9;
+  NSAppendPrintF(&v16, "SharingDaemon State End\n");
+  v13 = v16;
+  v14 = v16;
 
-  return v6;
+  return v13;
 }
 
 + (id)sharedDaemon
@@ -361,34 +367,33 @@ LABEL_9:
 {
   arrayCopy = array;
   v4 = xpc_array_create(0, 0);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = arrayCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
-        v11 = _SFNodeXPCObjectCreate();
-        if (v11)
+        v10 = _SFNodeXPCObjectCreate();
+        if (v10)
         {
-          xpc_array_append_value(v4, v11);
+          xpc_array_append_value(v4, v10);
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);

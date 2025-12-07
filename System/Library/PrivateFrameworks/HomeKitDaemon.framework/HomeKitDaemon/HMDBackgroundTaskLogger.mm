@@ -10,7 +10,7 @@
 
 - (void)submitNotFiredLogEventForTask:(id)task
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   v5 = objc_autoreleasePoolPush();
   expectedFireDate = [taskCopy expectedFireDate];
@@ -30,13 +30,13 @@
     {
       v15 = HMFGetLogIdentifier();
       identifier = [taskCopy identifier];
-      v19 = 138543874;
-      v20 = v15;
-      v21 = 2112;
-      v22 = v11;
-      v23 = 2112;
-      v24 = identifier;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Submitting never fired log %@ with identifier %@", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v15;
+      v20 = 2112;
+      v21 = v11;
+      v22 = 2112;
+      v23 = identifier;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Submitting never fired log %@ with identifier %@", &v18, 0x20u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -45,13 +45,11 @@
   }
 
   objc_autoreleasePoolPop(v5);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitLogEventForTask:(id)task
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   v5 = objc_autoreleasePoolPush();
   v6 = [HMDBackgroundTaskLogEvent alloc];
@@ -65,13 +63,13 @@
   {
     v12 = HMFGetLogIdentifier();
     identifier = [taskCopy identifier];
-    v16 = 138543874;
-    v17 = v12;
-    v18 = 2112;
-    v19 = v8;
-    v20 = 2112;
-    v21 = identifier;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Submitting log %@ with identifier %@", &v16, 0x20u);
+    v15 = 138543874;
+    v16 = v12;
+    v17 = 2112;
+    v18 = v8;
+    v19 = 2112;
+    v20 = identifier;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Submitting log %@ with identifier %@", &v15, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -79,7 +77,6 @@
   [submitter submitLogEvent:v8];
 
   objc_autoreleasePoolPop(v5);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDBackgroundTaskLogger)init
@@ -119,10 +116,9 @@
 
 void __38__HMDBackgroundTaskLogger_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_260533;
-  logCategory__hmf_once_v3_260533 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_260533;
+  logCategory__hmf_once_v3_260533 = v0;
 }
 
 @end

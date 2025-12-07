@@ -4,11 +4,12 @@
 - (BOOL)mixWithOthersActive;
 - (BOOL)start:(id *)start;
 - (BOOL)stop:(id *)stop;
-- (CMSampleBufferRef)_createSampleBufferForTimestampedAudioBufferList:(int)list audioBufferIndex:;
 - (NSArray)audioLevels;
-- (char)_initWithAttributes:(uint64_t)attributes sessionPreset:(const void *)preset clock:(char)clock doConfigureAudio:(char)audio doMixWithOthers:(char)others doAllowHQBluetoothRecording:(void *)recording audioSession:(unsigned __int8)session isAppAudioSession:(char)self0 doEndInterruption:(unsigned __int8)self1 audioSessionIsProxy:(unsigned __int8)self2 audioIsPlayingToBuiltinSpeaker:(unsigned __int8)self3 audioSessionActivatedByBWGraph:(_OWORD *)self4 clientAuditToken:(uint64_t)self5 clientSDKVersionToken:(char)self6 clientOSVersionSupportsDecoupledIO:(void *)self7 clientAudioClockDeviceUID:(void *)self8 preferredIOBufferDuration:(void *)self9 audioCaptureConnectionConfigurations:(char)configurations isConfiguredForContinuityCapture:(unsigned __int8)capture isAudioOnlyRecordingSession:(void *)recordingSession remoteIOOutputFormat:(int *)format outErr:;
+- (char)_initWithAttributes:(uint64_t)attributes sessionPreset:(const void *)preset clock:(char)clock doConfigureAudio:(char)audio doMixWithOthers:(char)others doAllowHQBluetoothRecording:(void *)recording audioSession:(char)session isAppAudioSession:(char)self0 doEndInterruption:(char)self1 audioSessionIsProxy:(char)self2 audioIsPlayingToBuiltinSpeaker:(unsigned __int8)self3 audioSessionActivatedByBWGraph:(_OWORD *)self4 clientAuditToken:(uint64_t)self5 clientSDKVersionToken:(char)self6 clientOSVersionSupportsDecoupledIO:(void *)self7 clientAudioClockDeviceUID:(void *)self8 preferredIOBufferDuration:(void *)self9 audioCaptureConnectionConfigurations:(char)configurations isConfiguredForContinuityCapture:(char)capture isAudioOnlyRecordingSession:(void *)recordingSession remoteIOOutputFormat:(int *)format outErr:;
 - (double)_desiredSampleRate:(uint64_t)rate;
-- (id)_copyAudioSessionMXProperty:(_DWORD *)property err:;
+- (float)_setVADCameraParametersWithDirection:(uint64_t)direction zoomFactor:(float)factor forTime:;
+- (id)_copyAudioSessionMXProperty:(unsigned int *)property err:;
+- (id)_createSampleBufferForTimestampedAudioBufferList:(int)list audioBufferIndex:;
 - (id)messageDispatchQueueForOutput:(id)output;
 - (id)outputForMicSourcePosition:(int)position;
 - (uint64_t)_configureAudioSessionWithDefaultHardwareSampleRate:(double)rate didCallDoNotNotifyOtherSessionsOnNextInactive:;
@@ -19,7 +20,6 @@
 - (uint64_t)_setAudioSessionAudioModeAndSelectMic:(uint64_t)mic;
 - (uint64_t)_setAudioSessionBatchedMXProperties:(uint64_t)properties;
 - (uint64_t)_setAudioSessionMXPropertyWithKey:(uint64_t)key value:;
-- (uint64_t)_setVADCameraParametersWithDirection:(uint64_t)direction zoomFactor:(float)factor forTime:;
 - (uint64_t)_setupAudioUnit;
 - (uint64_t)_setupPrepareToRecordStateWithFlags:(uint64_t)result;
 - (uint64_t)_updatePullFormatDescription;
@@ -252,35 +252,34 @@ void __36__BWAudioSourceNode__setupAudioUnit__block_invoke(uint64_t a1)
   {
     v2 = objc_autoreleasePoolPush();
     currentRoute = [*(self + 160) currentRoute];
-    v27 = 0;
+    v25 = 0;
+    v21 = 0u;
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v26 = 0u;
     inputs = [currentRoute inputs];
-    v5 = [inputs countByEnumeratingWithState:&v23 objects:v22 count:16];
+    v5 = [inputs countByEnumeratingWithState:&v21 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v24;
-      v8 = *MEMORY[0x1E698D668];
+      v7 = *v22;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v24 != v7)
+          if (*v22 != v7)
           {
             objc_enumerationMutation(inputs);
           }
 
-          if ([objc_msgSend(*(*(&v23 + 1) + 8 * i) "portType")])
+          if (objc_msgSend_isEqualToString_([*(*(&v21 + 1) + 8 * i) portType]))
           {
-            v10 = 0;
+            v9 = 0;
             goto LABEL_12;
           }
         }
 
-        v6 = [inputs countByEnumeratingWithState:&v23 objects:v22 count:16];
+        v6 = [inputs countByEnumeratingWithState:&v21 objects:v20 count:16];
         if (v6)
         {
           continue;
@@ -290,37 +289,36 @@ void __36__BWAudioSourceNode__setupAudioUnit__block_invoke(uint64_t a1)
       }
     }
 
-    v10 = 1;
+    v9 = 1;
 LABEL_12:
-    v20 = 0u;
-    v21 = 0u;
     v18 = 0u;
     v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     outputs = [currentRoute outputs];
-    v12 = [outputs countByEnumeratingWithState:&v18 objects:v17 count:16];
-    if (v12)
+    v11 = [outputs countByEnumeratingWithState:&v16 objects:v15 count:16];
+    if (v11)
     {
-      v13 = v12;
-      v14 = *v19;
-      v15 = *MEMORY[0x1E698D678];
+      v12 = v11;
+      v13 = *v17;
 LABEL_14:
-      v16 = 0;
+      v14 = 0;
       while (1)
       {
-        if (*v19 != v14)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(outputs);
         }
 
-        if ([objc_msgSend(*(*(&v18 + 1) + 8 * v16) "portType")])
+        if (objc_msgSend_isEqualToString_([*(*(&v16 + 1) + 8 * v14) portType]))
         {
           break;
         }
 
-        if (v13 == ++v16)
+        if (v12 == ++v14)
         {
-          v13 = [outputs countByEnumeratingWithState:&v18 objects:v17 count:16];
-          if (v13)
+          v12 = [outputs countByEnumeratingWithState:&v16 objects:v15 count:16];
+          if (v12)
           {
             goto LABEL_14;
           }
@@ -329,13 +327,13 @@ LABEL_14:
         }
       }
 
-      if (v10)
+      if (v9)
       {
         goto LABEL_25;
       }
 
-      [*(self + 160) overrideOutputAudioPort:1936747378 error:&v27];
-      [v27 code];
+      [*(self + 160) overrideOutputAudioPort:1936747378 error:&v25];
+      [v25 code];
     }
 
     else
@@ -370,7 +368,7 @@ LABEL_25:
   dispatch_async(generateSamplesDispatchQueue, block);
 }
 
-uint64_t __49__BWAudioSourceNode_makeCurrentConfigurationLive__block_invoke(uint64_t a1)
+void *__49__BWAudioSourceNode_makeCurrentConfigurationLive__block_invoke(uint64_t a1)
 {
   v2 = 128;
   v3 = 3;
@@ -406,7 +404,7 @@ uint64_t __49__BWAudioSourceNode_makeCurrentConfigurationLive__block_invoke(uint
     kdebug_trace();
   }
 
-  v105[0] = 0;
+  v125[0] = 0;
   if (self->_streamStarted)
   {
     v6 = 1;
@@ -414,28 +412,29 @@ uint64_t __49__BWAudioSourceNode_makeCurrentConfigurationLive__block_invoke(uint
   }
 
   deviceIDOut[0] = 0;
-  if (CMAudioDeviceClockGetAudioDevice(self->_clock, 0, deviceIDOut, 0))
+  AudioDevice = CMAudioDeviceClockGetAudioDevice(self->_clock, 0, deviceIDOut, 0);
+  if (AudioDevice)
   {
     self->_audioDeviceID = deviceIDOut[0];
   }
 
   if (self->_audioSessionIsProxy)
   {
-    [BWAudioSourceNode start:];
+    [(BWAudioSourceNode *)AudioDevice start:v8, v9, v10, v11, v12, v13, v14];
     code = -12782;
-    v30 = 1;
+    v38 = 1;
 LABEL_125:
-    startCopy7 = start;
+    startCopy6 = start;
     goto LABEL_49;
   }
 
-  v89 = 280;
+  v104 = 280;
   audioSession = self->_audioSession;
   if (self->_configuresSession)
   {
     if (audioSession)
     {
-      [(BWAudioSourceNode *)self _setAudioSessionAudioModeAndSelectMic:v105];
+      [(BWAudioSourceNode *)self _setAudioSessionAudioModeAndSelectMic:v125];
     }
   }
 
@@ -443,35 +442,35 @@ LABEL_125:
   {
     if (audioSession)
     {
-      v8 = dword_1ED844430 == 0;
+      v16 = dword_1ED844430 == 0;
     }
 
     else
     {
-      v8 = 1;
+      v16 = 1;
     }
 
-    if (!v8)
+    if (!v16)
     {
-      LODWORD(v103) = 0;
+      LODWORD(v123) = 0;
       type[0] = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v10 = v103;
+      v18 = v123;
       if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type[0]))
       {
-        v11 = v10;
+        v19 = v18;
       }
 
       else
       {
-        v11 = v10 & 0xFFFFFFFE;
+        v19 = v18 & 0xFFFFFFFE;
       }
 
-      if (v11)
+      if (v19)
       {
         LODWORD(time.value) = 136315138;
         *(&time.value + 4) = "[BWAudioSourceNode start:]";
-        LODWORD(v88) = 12;
+        LODWORD(v103) = 12;
         p_time = &time;
         _os_log_send_and_compose_impl();
       }
@@ -480,17 +479,17 @@ LABEL_125:
     }
   }
 
-  v12 = self->_audioSession;
-  if (!v12)
+  v20 = self->_audioSession;
+  if (!v20)
   {
 LABEL_102:
     updated = [(BWAudioSourceNode *)self _updatePullFormatDescription];
     if (updated)
     {
       code = updated;
-      v30 = 1;
+      v38 = 1;
 LABEL_138:
-      startCopy7 = start;
+      startCopy6 = start;
       goto LABEL_48;
     }
 
@@ -512,115 +511,115 @@ LABEL_138:
     if (!self->_audioSession || self->_isAppAudioSession)
     {
 LABEL_105:
-      v58 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_generateSamplesDispatchQueue);
-      self->_silenceTimer = v58;
-      if (v58)
+      v66 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_generateSamplesDispatchQueue);
+      self->_silenceTimer = v66;
+      if (v66)
       {
         handler[0] = MEMORY[0x1E69E9820];
         handler[1] = 3221225472;
         handler[2] = __27__BWAudioSourceNode_start___block_invoke_36;
         handler[3] = &unk_1E798F870;
         handler[4] = self;
-        dispatch_source_set_event_handler(v58, handler);
+        dispatch_source_set_event_handler(v66, handler);
         StreamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(self->_auOutputFormatDescription);
         CurrentHostTime = AudioGetCurrentHostTime();
-        v61 = AudioConvertHostTimeToNanos(CurrentHostTime);
-        CMTimeMake(&time, v61, 1000000000);
+        v76 = AudioConvertHostTimeToNanos(CurrentHostTime);
+        CMTimeMake(&time, v76, 1000000000);
         HostTimeClock = CMClockGetHostTimeClock();
-        CMSyncConvertTime(&v104, &time, HostTimeClock, *(&self->super.super.super.isa + v89));
-        *&self->_currentSilenceBuffer.pts.value = *&v104.value;
-        epoch = v104.epoch;
-        self->_currentSilenceBuffer.pts.epoch = v104.epoch;
+        CMSyncConvertTime(&v124, &time, HostTimeClock, *(&self->super.super.super.isa + v104));
+        *&self->_currentSilenceBuffer.pts.value = *&v124.value;
+        epoch = v124.epoch;
+        self->_currentSilenceBuffer.pts.epoch = v124.epoch;
         mSampleRate = StreamBasicDescription->mSampleRate;
         *&time.value = *&self->_currentSilenceBuffer.pts.value;
         time.epoch = epoch;
         v6 = 1;
-        CMTimeConvertScale(&v104, &time, mSampleRate, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
-        self->_currentSilenceBuffer.pts = v104;
+        CMTimeConvertScale(&v124, &time, mSampleRate, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
+        self->_currentSilenceBuffer.pts = v124;
         silenceTimer = self->_silenceTimer;
-        v66 = dispatch_time(0, 2000000000);
-        dispatch_source_set_timer(silenceTimer, v66, 0xFFFFFFFFFFFFFFFFLL, 0);
+        v81 = dispatch_time(0, 2000000000);
+        dispatch_source_set_timer(silenceTimer, v81, 0xFFFFFFFFFFFFFFFFLL, 0);
         dispatch_resume(self->_silenceTimer);
-        v67 = AudioOutputUnitStart(self->_audioUnit);
-        if (!v67)
+        v82 = AudioOutputUnitStart(self->_audioUnit);
+        if (!v82)
         {
           self->_streamStarted = 1;
           zoomHandlerQueue = self->_zoomHandlerQueue;
-          v92[0] = MEMORY[0x1E69E9820];
-          v92[1] = 3221225472;
-          v92[2] = __27__BWAudioSourceNode_start___block_invoke_37;
-          v92[3] = &unk_1E798F870;
-          v92[4] = self;
-          dispatch_sync(zoomHandlerQueue, v92);
+          v108 = MEMORY[0x1E69E9820];
+          v109 = 3221225472;
+          v110 = __27__BWAudioSourceNode_start___block_invoke_37;
+          v111 = &unk_1E798F870;
+          selfCopy = self;
+          dispatch_sync(zoomHandlerQueue, &v108);
           v5 = MEMORY[0x1E695FF58];
           goto LABEL_70;
         }
 
-        code = v67;
+        code = v82;
         if (self->_audioSession && !self->_isAppAudioSession)
         {
-          v78 = MEMORY[0x1E695E110];
+          v93 = MEMORY[0x1E695E110];
           [(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:MEMORY[0x1E695E110] value:?];
-          [(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:v78 value:?];
+          [(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:v93 value:?];
         }
 
-        LODWORD(v103) = 0;
+        LODWORD(v123) = 0;
         type[0] = OS_LOG_TYPE_DEFAULT;
-        v68 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v69 = v103;
-        if (os_log_type_enabled(v68, type[0]))
+        v83 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v84 = v123;
+        if (os_log_type_enabled(v83, type[0]))
         {
-          v70 = v69;
+          v85 = v84;
         }
 
         else
         {
-          v70 = v69 & 0xFFFFFFFE;
+          v85 = v84 & 0xFFFFFFFE;
         }
 
-        startCopy7 = start;
-        if (v70)
+        startCopy6 = start;
+        if (v85)
         {
           LODWORD(time.value) = 136315394;
           *(&time.value + 4) = "[BWAudioSourceNode start:]";
           LOWORD(time.flags) = 1024;
           *(&time.flags + 2) = code;
-          LODWORD(v88) = 18;
+          LODWORD(v103) = 18;
           p_time = &time;
           _os_log_send_and_compose_impl();
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
-        v30 = 0;
+        v38 = 0;
         goto LABEL_48;
       }
 
-      [BWAudioSourceNode start:];
-      v30 = 0;
+      [(BWAudioSourceNode *)0 start:v67, v68, v69, v70, v71, v72, v73];
+      v38 = 0;
       code = -12780;
       goto LABEL_138;
     }
 
-    v72 = [(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:MEMORY[0x1E695E118] value:?];
-    if (v72)
+    v87 = [(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:MEMORY[0x1E695E118] value:?];
+    if (v87)
     {
-      code = v72;
-      v74 = MEMORY[0x1E695FF58];
-      LODWORD(v103) = 0;
+      code = v87;
+      v89 = MEMORY[0x1E695FF58];
+      LODWORD(v123) = 0;
       type[0] = OS_LOG_TYPE_DEFAULT;
-      v84 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v85 = v103;
-      if (os_log_type_enabled(v84, type[0]))
+      v99 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v100 = v123;
+      if (os_log_type_enabled(v99, type[0]))
       {
-        v86 = v85;
+        v101 = v100;
       }
 
       else
       {
-        v86 = v85 & 0xFFFFFFFE;
+        v101 = v100 & 0xFFFFFFFE;
       }
 
-      if (!v86)
+      if (!v101)
       {
         goto LABEL_145;
       }
@@ -628,29 +627,29 @@ LABEL_105:
 
     else
     {
-      v73 = [(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:MEMORY[0x1E695E118] value:?];
-      if (!v73)
+      v88 = [(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:MEMORY[0x1E695E118] value:?];
+      if (!v88)
       {
         goto LABEL_105;
       }
 
-      code = v73;
-      v74 = MEMORY[0x1E695FF58];
-      LODWORD(v103) = 0;
+      code = v88;
+      v89 = MEMORY[0x1E695FF58];
+      LODWORD(v123) = 0;
       type[0] = OS_LOG_TYPE_DEFAULT;
-      v75 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v76 = v103;
-      if (os_log_type_enabled(v75, type[0]))
+      v90 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v91 = v123;
+      if (os_log_type_enabled(v90, type[0]))
       {
-        v77 = v76;
+        v92 = v91;
       }
 
       else
       {
-        v77 = v76 & 0xFFFFFFFE;
+        v92 = v91 & 0xFFFFFFFE;
       }
 
-      if (!v77)
+      if (!v92)
       {
         goto LABEL_145;
       }
@@ -660,46 +659,46 @@ LABEL_105:
     *(&time.value + 4) = "[BWAudioSourceNode start:]";
     LOWORD(time.flags) = 1024;
     *(&time.flags + 2) = code;
-    LODWORD(v88) = 18;
+    LODWORD(v103) = 18;
     p_time = &time;
     _os_log_send_and_compose_impl();
 LABEL_145:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v30 = 0;
-    v5 = v74;
+    v38 = 0;
+    v5 = v89;
     goto LABEL_125;
   }
 
-  isActive = [(AVAudioSession *)v12 isActive];
-  v14 = isActive;
+  isActive = [(AVAudioSession *)v20 isActive];
+  v22 = isActive;
   if (!self->_clientAudioClockDeviceUID)
   {
     if (isActive)
     {
       if (self->_audioSession && dword_1ED844430)
       {
-        LODWORD(v103) = 0;
+        LODWORD(v123) = 0;
         type[0] = OS_LOG_TYPE_DEFAULT;
-        v51 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v52 = v103;
-        if (os_log_type_enabled(v51, type[0]))
+        v59 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v60 = v123;
+        if (os_log_type_enabled(v59, type[0]))
         {
-          v53 = v52;
+          v61 = v60;
         }
 
         else
         {
-          v53 = v52 & 0xFFFFFFFE;
+          v61 = v60 & 0xFFFFFFFE;
         }
 
-        if (v53)
+        if (v61)
         {
-          v54 = self->_audioSession;
+          v62 = self->_audioSession;
           LODWORD(time.value) = 136315394;
           *(&time.value + 4) = "[BWAudioSourceNode start:]";
           LOWORD(time.flags) = 2048;
-          *(&time.flags + 2) = v54;
-          LODWORD(v88) = 22;
+          *(&time.flags + 2) = v62;
+          LODWORD(v103) = 22;
           p_time = &time;
           _os_log_send_and_compose_impl();
         }
@@ -713,110 +712,110 @@ LABEL_101:
     }
 
 LABEL_32:
-    v21 = self->_audioSession;
-    if (v21)
+    v29 = self->_audioSession;
+    if (v29)
     {
       if (dword_1ED844430)
       {
-        LODWORD(v103) = 0;
+        LODWORD(v123) = 0;
         type[0] = OS_LOG_TYPE_DEFAULT;
-        v22 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v23 = v103;
-        if (os_log_type_enabled(v22, type[0]))
+        v30 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v31 = v123;
+        if (os_log_type_enabled(v30, type[0]))
         {
-          v24 = v23;
+          v32 = v31;
         }
 
         else
         {
-          v24 = v23 & 0xFFFFFFFE;
+          v32 = v31 & 0xFFFFFFFE;
         }
 
-        if (v24)
+        if (v32)
         {
-          v25 = self->_audioSession;
+          v33 = self->_audioSession;
           LODWORD(time.value) = 136315394;
           *(&time.value + 4) = "[BWAudioSourceNode start:]";
           LOWORD(time.flags) = 2048;
-          *(&time.flags + 2) = v25;
-          LODWORD(v88) = 22;
+          *(&time.flags + 2) = v33;
+          LODWORD(v103) = 22;
           p_time = &time;
           _os_log_send_and_compose_impl();
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
-        v21 = self->_audioSession;
+        v29 = self->_audioSession;
       }
 
-      v103 = 0;
-      [(AVAudioSession *)v21 setActive:1 error:&v103, p_time, v88, 280];
-      code = [v103 code];
+      v123 = 0;
+      [(AVAudioSession *)v29 setActive:1 error:&v123, p_time, v103, 280];
+      code = [v123 code];
       if (code)
       {
-        LODWORD(v103) = 0;
+        LODWORD(v123) = 0;
         type[0] = OS_LOG_TYPE_DEFAULT;
-        v26 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v27 = v103;
-        if (os_log_type_enabled(v26, type[0]))
+        v34 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v35 = v123;
+        if (os_log_type_enabled(v34, type[0]))
         {
-          v28 = v27;
+          v36 = v35;
         }
 
         else
         {
-          v28 = v27 & 0xFFFFFFFE;
+          v36 = v35 & 0xFFFFFFFE;
         }
 
-        if (v28)
+        if (v36)
         {
           LODWORD(time.value) = 136315394;
           *(&time.value + 4) = "[BWAudioSourceNode start:]";
           LOWORD(time.flags) = 1024;
           *(&time.flags + 2) = code;
-          LODWORD(v88) = 18;
+          LODWORD(v103) = 18;
           p_time = &time;
           _os_log_send_and_compose_impl();
         }
 
-        startCopy7 = start;
+        startCopy6 = start;
         fig_log_call_emit_and_clean_up_after_send_and_compose();
         goto LABEL_47;
       }
 
       if (!self->_isConfiguredForContinuityCapture)
       {
-        v95[0] = @"camera wind suppression";
-        v96[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_windNoiseRemovalEnabled];
-        v95[1] = @"camera real time dynamics";
-        v96[1] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:!self->_cinematicVideoCaptureEnabled];
-        v95[2] = @"camera capture is audio only";
-        v96[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_isAudioOnlyRecordingSession];
-        v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v96 forKeys:v95 count:3];
-        if ([v47 count])
+        v115[0] = @"camera wind suppression";
+        v116[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_windNoiseRemovalEnabled];
+        v115[1] = @"camera real time dynamics";
+        v116[1] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:!self->_cinematicVideoCaptureEnabled];
+        v115[2] = @"camera capture is audio only";
+        v116[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_isAudioOnlyRecordingSession];
+        v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v116 forKeys:v115 count:3];
+        if ([v55 count])
         {
           if (dword_1ED844430)
           {
             *type = 0;
-            v101 = OS_LOG_TYPE_DEFAULT;
-            v48 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v49 = *type;
-            if (os_log_type_enabled(v48, v101))
+            v121 = OS_LOG_TYPE_DEFAULT;
+            v56 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            v57 = *type;
+            if (os_log_type_enabled(v56, v121))
             {
-              v50 = v49;
+              v58 = v57;
             }
 
             else
             {
-              v50 = v49 & 0xFFFFFFFE;
+              v58 = v57 & 0xFFFFFFFE;
             }
 
-            if (v50)
+            if (v58)
             {
               LODWORD(time.value) = 136315394;
               *(&time.value + 4) = "[BWAudioSourceNode start:]";
               LOWORD(time.flags) = 2112;
-              *(&time.flags + 2) = v47;
-              LODWORD(v88) = 22;
+              *(&time.flags + 2) = v55;
+              LODWORD(v103) = 22;
               p_time = &time;
               _os_log_send_and_compose_impl();
             }
@@ -824,14 +823,14 @@ LABEL_32:
             fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
 
-          v55 = [(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:v47 value:?];
-          if (v55)
+          v63 = [(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:v55 value:?];
+          if (v63)
           {
-            code = v55;
-            [BWAudioSourceNode start:];
-            startCopy7 = start;
+            code = v63;
+            [(BWAudioSourceNode *)v63 start:?];
+            startCopy6 = start;
 LABEL_47:
-            v30 = 1;
+            v38 = 1;
 LABEL_48:
             v5 = MEMORY[0x1E695FF58];
             goto LABEL_49;
@@ -844,45 +843,44 @@ LABEL_48:
     goto LABEL_101;
   }
 
-  v103 = 0;
-  v15 = [(AVAudioSession *)self->_audioSession setActive:0 error:&v103];
-  code = [v103 code];
-  if (!code && v15)
+  v123 = 0;
+  v23 = [(AVAudioSession *)self->_audioSession setActive:0 error:&v123];
+  code = [v123 code];
+  if (!code && v23)
   {
-    v17 = [(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:self->_clientAudioClockDeviceUID value:?];
-    if (v17)
+    v25 = [(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:self->_clientAudioClockDeviceUID value:?];
+    if (v25)
     {
-      code = v17;
-      v88 = v3;
-      LODWORD(p_time) = v17;
-      FigDebugAssert3();
+      code = v25;
+      LODWORD(p_time) = v25;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", p_time, v3, 0x118, start, deviceIDOut[0], v108, v109, v110);
       *type = 0;
-      v101 = OS_LOG_TYPE_DEFAULT;
-      v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v19 = *type;
-      if (os_log_type_enabled(v18, v101))
+      v121 = OS_LOG_TYPE_DEFAULT;
+      v26 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v27 = *type;
+      if (os_log_type_enabled(v26, v121))
       {
-        v20 = v19;
+        v28 = v27;
       }
 
       else
       {
-        v20 = v19 & 0xFFFFFFFE;
+        v28 = v27 & 0xFFFFFFFE;
       }
 
-      if (v20)
+      if (v28)
       {
         LODWORD(time.value) = 136315394;
         *(&time.value + 4) = "[BWAudioSourceNode start:]";
         LOWORD(time.flags) = 1024;
         *(&time.flags + 2) = code;
-        LODWORD(v88) = 18;
+        LODWORD(v103) = 18;
         p_time = &time;
         _os_log_send_and_compose_impl();
       }
 
-      startCopy7 = start;
-      v30 = 1;
+      startCopy6 = v106;
+      v38 = 1;
       fig_log_call_emit_and_clean_up_after_send_and_compose();
       goto LABEL_48;
     }
@@ -890,47 +888,47 @@ LABEL_48:
     goto LABEL_32;
   }
 
-  v79 = MEMORY[0x1E695FF58];
+  v94 = MEMORY[0x1E695FF58];
   *type = 0;
-  v101 = OS_LOG_TYPE_DEFAULT;
-  v80 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v81 = *type;
-  if (os_log_type_enabled(v80, v101))
+  v121 = OS_LOG_TYPE_DEFAULT;
+  v95 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+  v96 = *type;
+  if (os_log_type_enabled(v95, v121))
   {
-    v82 = v81;
+    v97 = v96;
   }
 
   else
   {
-    v82 = v81 & 0xFFFFFFFE;
+    v97 = v96 & 0xFFFFFFFE;
   }
 
-  if (v82)
+  if (v97)
   {
-    v83 = @"NO";
+    v98 = @"NO";
     *(&time.value + 4) = "[BWAudioSourceNode start:]";
     LOWORD(time.flags) = 2112;
     LODWORD(time.value) = 136315906;
-    if (v14)
+    if (v22)
     {
-      v83 = @"YES";
+      v98 = @"YES";
     }
 
-    *(&time.flags + 2) = v83;
+    *(&time.flags + 2) = v98;
     HIWORD(time.epoch) = 1024;
-    v98 = v15;
-    v99 = 1024;
-    v100 = code;
-    LODWORD(v88) = 34;
+    v118 = v23;
+    v119 = 1024;
+    v120 = code;
+    LODWORD(v103) = 34;
     p_time = &time;
     _os_log_send_and_compose_impl();
   }
 
-  startCopy7 = start;
-  v30 = 1;
+  startCopy6 = start;
+  v38 = 1;
   fig_log_call_emit_and_clean_up_after_send_and_compose();
   v6 = 1;
-  v5 = v79;
+  v5 = v94;
   if (!code)
   {
     goto LABEL_69;
@@ -941,29 +939,29 @@ LABEL_49:
   if (self->_didBeginInterruption)
   {
     self->_didBeginInterruption = 0;
-    v31 = self->_audioSession;
-    if (v31)
+    v39 = self->_audioSession;
+    if (v39)
     {
       *deviceIDOut = 0;
-      [(AVAudioSession *)v31 setActive:0 error:deviceIDOut];
+      [(AVAudioSession *)v39 setActive:0 error:deviceIDOut];
       if (*deviceIDOut)
       {
-        v32 = v5;
+        v40 = v5;
         *type = 0;
-        v101 = OS_LOG_TYPE_DEFAULT;
-        v33 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v34 = *type;
-        if (os_log_type_enabled(v33, v101))
+        v121 = OS_LOG_TYPE_DEFAULT;
+        v41 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v42 = *type;
+        if (os_log_type_enabled(v41, v121))
         {
-          v35 = v34;
+          v43 = v42;
         }
 
         else
         {
-          v35 = v34 & 0xFFFFFFFE;
+          v43 = v42 & 0xFFFFFFFE;
         }
 
-        if (!v35)
+        if (!v43)
         {
           goto LABEL_64;
         }
@@ -973,32 +971,32 @@ LABEL_49:
     }
   }
 
-  else if (v105[0] == 1)
+  else if (v125[0] == 1)
   {
     [(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:MEMORY[0x1E695E110] value:?];
-    v36 = self->_audioSession;
-    if (v36)
+    v44 = self->_audioSession;
+    if (v44)
     {
       *deviceIDOut = 0;
-      [(AVAudioSession *)v36 setActive:0 error:deviceIDOut];
+      [(AVAudioSession *)v44 setActive:0 error:deviceIDOut];
       if (*deviceIDOut)
       {
-        v32 = v5;
+        v40 = v5;
         *type = 0;
-        v101 = OS_LOG_TYPE_DEFAULT;
-        v37 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v38 = *type;
-        if (os_log_type_enabled(v37, v101))
+        v121 = OS_LOG_TYPE_DEFAULT;
+        v45 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v46 = *type;
+        if (os_log_type_enabled(v45, v121))
         {
-          v39 = v38;
+          v47 = v46;
         }
 
         else
         {
-          v39 = v38 & 0xFFFFFFFE;
+          v47 = v46 & 0xFFFFFFFE;
         }
 
-        if (!v39)
+        if (!v47)
         {
           goto LABEL_64;
         }
@@ -1008,20 +1006,20 @@ LABEL_56:
         *(&time.value + 4) = "[BWAudioSourceNode start:]";
         LOWORD(time.flags) = 2112;
         *(&time.flags + 2) = *deviceIDOut;
-        LODWORD(v88) = 22;
+        LODWORD(v103) = 22;
         p_time = &time;
         _os_log_send_and_compose_impl();
 LABEL_64:
         fig_log_call_emit_and_clean_up_after_send_and_compose();
-        v5 = v32;
+        v5 = v40;
       }
     }
   }
 
-  if (!startCopy7)
+  if (!startCopy6)
   {
     v6 = 0;
-    if (!v30)
+    if (!v38)
     {
       goto LABEL_70;
     }
@@ -1030,8 +1028,8 @@ LABEL_64:
   }
 
   v6 = 0;
-  *startCopy7 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:code userInfo:0];
-  if (v30)
+  *startCopy6 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:code userInfo:0];
+  if (v38)
   {
 LABEL_69:
     [(BWAudioSourceNode *)self makeOutputsLiveIfNeeded:p_time];
@@ -1051,19 +1049,19 @@ LABEL_70:
     FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
     deviceIDOut[0] = 0;
     type[0] = OS_LOG_TYPE_DEFAULT;
-    v42 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v43 = deviceIDOut[0];
-    if (os_log_type_enabled(v42, type[0]))
+    v50 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v51 = deviceIDOut[0];
+    if (os_log_type_enabled(v50, type[0]))
     {
-      v44 = v43;
+      v52 = v51;
     }
 
     else
     {
-      v44 = v43 & 0xFFFFFFFE;
+      v52 = v51 & 0xFFFFFFFE;
     }
 
-    if (v44)
+    if (v52)
     {
       LODWORD(time.value) = 136315138;
       *(&time.value + 4) = "[BWAudioSourceNode start:]";
@@ -1071,10 +1069,10 @@ LABEL_70:
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    LOWORD(v104.value) = 0;
-    v45 = _os_log_send_and_compose_impl();
-    FigCapturePleaseFileRadar(FrameworkRadarComponent, v45, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWAudioSourceNode.m", 626, @"LastShownDate:BWAudioSourceNode.m:626", @"LastShownBuild:BWAudioSourceNode.m:626", 0);
-    free(v45);
+    LOWORD(v124.value) = 0;
+    v53 = _os_log_send_and_compose_impl();
+    FigCapturePleaseFileRadar(FrameworkRadarComponent, v53, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWAudioSourceNode.m", 626, @"LastShownDate:BWAudioSourceNode.m:626", @"LastShownBuild:BWAudioSourceNode.m:626", 0);
+    free(v53);
   }
 
   if (*v5 == 1)
@@ -1714,11 +1712,11 @@ uint64_t __42__BWAudioSourceNode_unprepareForRecording__block_invoke(uint64_t a1
   if (result)
   {
     v1 = result;
-    v229[0] = 0;
+    v341[0] = 0;
     v2 = *(result + 588);
     memset(__s2, 0, sizeof(__s2));
     v3 = *(result + 160);
-    v227 = 0;
+    v339 = 0;
     if (v3)
     {
       [v3 inputSampleRate];
@@ -1726,18 +1724,18 @@ uint64_t __42__BWAudioSourceNode_unprepareForRecording__block_invoke(uint64_t a1
       StreamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(*(v1 + 296));
       if (!StreamBasicDescription)
       {
-        v229[0] = -12710;
+        v341[0] = -12710;
         OUTLINED_FUNCTION_19_29();
         OUTLINED_FUNCTION_18_28();
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v196 = OUTLINED_FUNCTION_27_17(os_log_and_send_and_compose_flags_and_os_log_type, v189, v190, v191, v192, v193, v194, v195, v215, v216, v217, v218, *v219, *&v219[8], *&v219[16], *&v219[24], v220, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v223, v224, v225[0]);
-        if (OUTLINED_FUNCTION_5_2(v196))
+        v293 = OUTLINED_FUNCTION_27_17(os_log_and_send_and_compose_flags_and_os_log_type, v286, v287, v288, v289, v290, v291, v292, v327, v328, v329, v330, *v331, *&v331[8], *&v331[16], *&v331[24], v332, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v335, v336, v337[0]);
+        if (OUTLINED_FUNCTION_5_2(v293))
         {
           *__s1 = 136315138;
           *&__s1[4] = "[BWAudioSourceNode _updatePullFormatDescription]";
           OUTLINED_FUNCTION_3_89();
           OUTLINED_FUNCTION_4_80();
-          OUTLINED_FUNCTION_124();
+          OUTLINED_FUNCTION_124(v294, v295, v296, v297, v298);
         }
 
         goto LABEL_161;
@@ -1751,15 +1749,15 @@ uint64_t __42__BWAudioSourceNode_unprepareForRecording__block_invoke(uint64_t a1
       v9 = v5;
       if (*(v1 + 198) == 1)
       {
-        v155 = [(BWAudioSourceNode *)v1 _desiredSampleRate:?];
-        if (v5 <= v155)
+        v232 = [(BWAudioSourceNode *)v1 _desiredSampleRate:?];
+        if (v5 <= v232)
         {
           v9 = v5;
         }
 
         else
         {
-          v9 = v155;
+          v9 = v232;
         }
       }
 
@@ -1770,21 +1768,21 @@ uint64_t __42__BWAudioSourceNode_unprepareForRecording__block_invoke(uint64_t a1
         {
           OUTLINED_FUNCTION_19_29();
           OUTLINED_FUNCTION_18_28();
-          v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v29 = OUTLINED_FUNCTION_17_30(v21, v22, v23, v24, v25, v26, v27, v28, v215, v216, v217, v218, *v219, *&v219[8], *&v219[16], *&v219[24], v220, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v223, v224, v225[0]);
-          if (OUTLINED_FUNCTION_6(v29))
+          v26 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v34 = OUTLINED_FUNCTION_17_30(v26, v27, v28, v29, v30, v31, v32, v33, v327, v328, v329, v330, *v331, *&v331[8], *&v331[16], *&v331[24], v332, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v335, v336, v337[0]);
+          if (OUTLINED_FUNCTION_6(v34))
           {
             *__s1 = 136315650;
             OUTLINED_FUNCTION_42_13();
             *&__s1[24] = v5;
             OUTLINED_FUNCTION_3_89();
             OUTLINED_FUNCTION_4_80();
-            OUTLINED_FUNCTION_18_2();
+            OUTLINED_FUNCTION_18_2(v35, v36, v37, v38, v39);
             OUTLINED_FUNCTION_32_12();
           }
 
           OUTLINED_FUNCTION_0_102();
-          OUTLINED_FUNCTION_17_8();
+          OUTLINED_FUNCTION_17_8(v45, v46, v47, v48, v49);
         }
       }
 
@@ -1795,7 +1793,7 @@ uint64_t __42__BWAudioSourceNode_unprepareForRecording__block_invoke(uint64_t a1
           OUTLINED_FUNCTION_19_29();
           OUTLINED_FUNCTION_18_28();
           v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v19 = OUTLINED_FUNCTION_17_30(v11, v12, v13, v14, v15, v16, v17, v18, v215, v216, v217, v218, *v219, *&v219[8], *&v219[16], *&v219[24], v220, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v223, v224, v225[0]);
+          v19 = OUTLINED_FUNCTION_17_30(v11, v12, v13, v14, v15, v16, v17, v18, v327, v328, v329, v330, *v331, *&v331[8], *&v331[16], *&v331[24], v332, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v335, v336, v337[0]);
           if (OUTLINED_FUNCTION_6(v19))
           {
             *__s1 = 136315906;
@@ -1805,12 +1803,12 @@ uint64_t __42__BWAudioSourceNode_unprepareForRecording__block_invoke(uint64_t a1
             *&__s1[34] = v5;
             OUTLINED_FUNCTION_3_89();
             OUTLINED_FUNCTION_4_80();
-            OUTLINED_FUNCTION_18_2();
+            OUTLINED_FUNCTION_18_2(v21, v22, v23, v24, v25);
             OUTLINED_FUNCTION_32_12();
           }
 
           OUTLINED_FUNCTION_0_102();
-          OUTLINED_FUNCTION_17_8();
+          OUTLINED_FUNCTION_17_8(v40, v41, v42, v43, v44);
         }
 
         *__s2 = v9;
@@ -1818,16 +1816,16 @@ uint64_t __42__BWAudioSourceNode_unprepareForRecording__block_invoke(uint64_t a1
 
       if (*(v1 + 160))
       {
-        v156 = [(BWAudioSourceNode *)v1 _copyAudioSessionMXProperty:v229 err:?];
-        intValue = [v156 intValue];
+        v233 = [(BWAudioSourceNode *)v1 _copyAudioSessionMXProperty:v341 err:?];
+        intValue = [v233 intValue];
 
         if (dword_1ED844430)
         {
           OUTLINED_FUNCTION_19_29();
           OUTLINED_FUNCTION_18_28();
-          v157 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v165 = OUTLINED_FUNCTION_58_14(v157, v158, v159, v160, v161, v162, v163, v164, v215, v216, v217, v218, *v219, *&v219[8], *&v219[16], *&v219[24], v220, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v223, v224, v225[0]);
-          if (OUTLINED_FUNCTION_5_24(v165))
+          v234 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v242 = OUTLINED_FUNCTION_58_14(v234, v235, v236, v237, v238, v239, v240, v241, v327, v328, v329, v330, *v331, *&v331[8], *&v331[16], *&v331[24], v332, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v335, v336, v337[0]);
+          if (OUTLINED_FUNCTION_5_24(v242))
           {
             *__s1 = 136315394;
             *&__s1[4] = "[BWAudioSourceNode _updatePullFormatDescription]";
@@ -1840,22 +1838,22 @@ uint64_t __42__BWAudioSourceNode_unprepareForRecording__block_invoke(uint64_t a1
           }
 
           OUTLINED_FUNCTION_0_102();
-          OUTLINED_FUNCTION_13_0();
+          OUTLINED_FUNCTION_13_0(v243, v244, v245, v246, v247);
         }
 
-        if (v229[0])
+        if (v341[0])
         {
           OUTLINED_FUNCTION_19_29();
           OUTLINED_FUNCTION_18_28();
-          v166 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v174 = OUTLINED_FUNCTION_27_17(v166, v167, v168, v169, v170, v171, v172, v173, v215, v216, v217, v218, *v219, *&v219[8], *&v219[16], *&v219[24], v220, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v223, v224, v225[0]);
-          if (OUTLINED_FUNCTION_5_2(v174))
+          v248 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v256 = OUTLINED_FUNCTION_27_17(v248, v249, v250, v251, v252, v253, v254, v255, v327, v328, v329, v330, *v331, *&v331[8], *&v331[16], *&v331[24], v332, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v335, v336, v337[0]);
+          if (OUTLINED_FUNCTION_5_2(v256))
           {
             *__s1 = 136315394;
             OUTLINED_FUNCTION_9_54();
             OUTLINED_FUNCTION_3_89();
             OUTLINED_FUNCTION_4_80();
-            OUTLINED_FUNCTION_124();
+            OUTLINED_FUNCTION_124(v257, v258, v259, v260, v261);
           }
 
           goto LABEL_161;
@@ -1873,13 +1871,13 @@ uint64_t __42__BWAudioSourceNode_unprepareForRecording__block_invoke(uint64_t a1
         {
           OUTLINED_FUNCTION_19_29();
           OUTLINED_FUNCTION_18_28();
-          v31 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v39 = OUTLINED_FUNCTION_58_14(v31, v32, v33, v34, v35, v36, v37, v38, v215, v216, v217, v218, *v219, *&v219[8], *&v219[16], *&v219[24], v220, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v223, v224, v225[0]);
-          if (OUTLINED_FUNCTION_5_24(v39))
+          v51 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v59 = OUTLINED_FUNCTION_58_14(v51, v52, v53, v54, v55, v56, v57, v58, v327, v328, v329, v330, *v331, *&v331[8], *&v331[16], *&v331[24], v332, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v335, v336, v337[0]);
+          if (OUTLINED_FUNCTION_5_24(v59))
           {
             *__s1 = 136315650;
             OUTLINED_FUNCTION_9_54();
-            *&__s1[18] = v40;
+            *&__s1[18] = v60;
             *&__s1[20] = intValue;
             OUTLINED_FUNCTION_3_89();
             OUTLINED_FUNCTION_4_80();
@@ -1888,7 +1886,7 @@ uint64_t __42__BWAudioSourceNode_unprepareForRecording__block_invoke(uint64_t a1
           }
 
           OUTLINED_FUNCTION_0_102();
-          OUTLINED_FUNCTION_13_0();
+          OUTLINED_FUNCTION_13_0(v61, v62, v63, v64, v65);
         }
 
         *&__s2[24] = (*&__s2[32] >> 3) * intValue;
@@ -1904,14 +1902,14 @@ uint64_t __42__BWAudioSourceNode_unprepareForRecording__block_invoke(uint64_t a1
         *&__s1[32] = *&__s2[32];
         if (*&__s2[28] != 3)
         {
-          v229[0] = -12780;
-          v206 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v214 = OUTLINED_FUNCTION_59_11(v206, v207, v208, v209, v210, v211, v212, v213, v215, v216, v217, v218, *v219, *&v219[8], *&v219[16], *&v219[24], v220, OS_LOG_TYPE_DEFAULT, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v223, v224, 0);
-          if (OUTLINED_FUNCTION_5_2(v214))
+          v341[0] = -12780;
+          v313 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v321 = OUTLINED_FUNCTION_59_11(v313, v314, v315, v316, v317, v318, v319, v320, v327, v328, v329, v330, *v331, *&v331[8], *&v331[16], *&v331[24], v332, OS_LOG_TYPE_DEFAULT, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v335, v336, 0);
+          if (OUTLINED_FUNCTION_5_2(v321))
           {
             OUTLINED_FUNCTION_2_1();
             OUTLINED_FUNCTION_4_80();
-            OUTLINED_FUNCTION_124();
+            OUTLINED_FUNCTION_124(v322, v323, v324, v325, v326);
           }
 
           goto LABEL_161;
@@ -1959,30 +1957,30 @@ uint64_t __42__BWAudioSourceNode_unprepareForRecording__block_invoke(uint64_t a1
 LABEL_33:
     v10 = 1;
 LABEL_34:
-    v41 = -346533888;
+    v66 = -346533888;
     if ([OUTLINED_FUNCTION_47_12() streamDescription])
     {
       streamDescription = [OUTLINED_FUNCTION_47_12() streamDescription];
       v2 = 0;
-      v43 = *(streamDescription + 32);
-      v44 = *(streamDescription + 16);
+      v68 = *(streamDescription + 32);
+      v69 = *(streamDescription + 16);
       *__s2 = *streamDescription;
-      *&__s2[16] = v44;
-      *&__s2[32] = v43;
+      *&__s2[16] = v69;
+      *&__s2[32] = v68;
     }
 
     else if (!v10)
     {
-      v69 = 0;
+      v106 = 0;
       goto LABEL_59;
     }
 
     if (dword_1ED844430)
     {
       OUTLINED_FUNCTION_15_35();
-      v45 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v53 = OUTLINED_FUNCTION_17_30(v45, v46, v47, v48, v49, v50, v51, v52, v215, v216, v217, v218, *v219, *&v219[8], *&v219[16], *&v219[24], v220, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v223, v224, v225[0]);
-      if (OUTLINED_FUNCTION_6(v53))
+      v70 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v78 = OUTLINED_FUNCTION_17_30(v70, v71, v72, v73, v74, v75, v76, v77, v327, v328, v329, v330, *v331, *&v331[8], *&v331[16], *&v331[24], v332, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v335, v336, v337[0]);
+      if (OUTLINED_FUNCTION_6(v78))
       {
         *__s1 = 136316418;
         *&__s1[4] = "[BWAudioSourceNode _updatePullFormatDescription]";
@@ -1998,20 +1996,20 @@ LABEL_34:
         *&__s1[42] = *&__s2[32];
         OUTLINED_FUNCTION_3_89();
         OUTLINED_FUNCTION_4_80();
-        OUTLINED_FUNCTION_18_2();
+        OUTLINED_FUNCTION_18_2(v79, v80, v81, v82, v83);
         OUTLINED_FUNCTION_32_12();
       }
 
       OUTLINED_FUNCTION_0_102();
-      OUTLINED_FUNCTION_17_8();
+      OUTLINED_FUNCTION_17_8(v84, v85, v86, v87, v88);
     }
 
     OUTLINED_FUNCTION_34_20();
     OUTLINED_FUNCTION_52_14();
-    v229[0] = AudioUnitSetProperty(v54, v55, v56, v57, v58, 0x28u);
-    if (v229[0])
+    v341[0] = AudioUnitSetProperty(v89, v90, v91, v92, v93, 0x28u);
+    if (v341[0])
     {
-      return v229[0];
+      return v341[0];
     }
 
     if (v2 == 2)
@@ -2020,17 +2018,17 @@ LABEL_34:
       *&__s1[16] = unk_1AD056700;
       OUTLINED_FUNCTION_34_20();
       OUTLINED_FUNCTION_52_14();
-      v229[0] = AudioUnitSetProperty(v59, v60, v61, v62, v63, 0x20u);
-      if (v229[0])
+      v341[0] = AudioUnitSetProperty(v94, v95, v96, v97, v98, 0x20u);
+      if (v341[0])
       {
         OUTLINED_FUNCTION_41_13();
-        v197 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v205 = OUTLINED_FUNCTION_59_11(v197, v198, v199, v200, v201, v202, v203, v204, v215, v216, v217, v218, *v219, *&v219[8], *&v219[16], *&v219[24], v220, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v223, v224, *v225);
-        if (OUTLINED_FUNCTION_5_2(v205))
+        v299 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v307 = OUTLINED_FUNCTION_59_11(v299, v300, v301, v302, v303, v304, v305, v306, v327, v328, v329, v330, *v331, *&v331[8], *&v331[16], *&v331[24], v332, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v335, v336, *v337);
+        if (OUTLINED_FUNCTION_5_2(v307))
         {
           OUTLINED_FUNCTION_2_1();
           OUTLINED_FUNCTION_4_80();
-          OUTLINED_FUNCTION_124();
+          OUTLINED_FUNCTION_124(v308, v309, v310, v311, v312);
         }
 
         goto LABEL_161;
@@ -2039,50 +2037,50 @@ LABEL_34:
       if ((dword_1ED844430 & 0x20) != 0)
       {
         OUTLINED_FUNCTION_41_13();
-        v64 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v65 = *v225;
-        if (os_log_type_enabled(v64, type))
+        v99 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v100 = *v337;
+        if (os_log_type_enabled(v99, type))
         {
-          v66 = v65;
+          v101 = v100;
         }
 
         else
         {
-          v66 = v65 & 0xFFFFFFFE;
+          v101 = v100 & 0xFFFFFFFE;
         }
 
-        if (v66)
+        if (v101)
         {
-          *v219 = 136315394;
-          *&v219[4] = "[BWAudioSourceNode _updatePullFormatDescription]";
-          *&v219[12] = 2112;
-          *&v219[14] = BWStringFromAudioChannelLayout(__s1);
+          *v331 = 136315394;
+          *&v331[4] = "[BWAudioSourceNode _updatePullFormatDescription]";
+          *&v331[12] = 2112;
+          *&v331[14] = BWStringFromAudioChannelLayout(__s1);
           OUTLINED_FUNCTION_2_1();
-          OUTLINED_FUNCTION_58_1();
+          OUTLINED_FUNCTION_58_1(v101, v102, &v338, v103, &dword_1AC90E000);
         }
 
         OUTLINED_FUNCTION_0_102();
-        OUTLINED_FUNCTION_17_8();
+        OUTLINED_FUNCTION_17_8(v114, v115, v116, v117, v118);
       }
 
-      v69 = 1;
+      v106 = 1;
       v2 = 2;
     }
 
-    else if ([OUTLINED_FUNCTION_47_12() channelLayout] && (v67 = objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_47_12(), "channelLayout"), "layout")) != 0)
+    else if ([OUTLINED_FUNCTION_47_12() channelLayout] && (v104 = objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_47_12(), "channelLayout"), "layout")) != 0)
     {
-      v68 = v67;
+      v105 = v104;
       OUTLINED_FUNCTION_34_20();
-      v69 = 1;
+      v106 = 1;
       OUTLINED_FUNCTION_52_14();
-      v229[0] = AudioUnitSetProperty(v70, v71, v72, v73, v68, v74);
-      if (v229[0])
+      v341[0] = AudioUnitSetProperty(v107, v108, v109, v110, v105, v111);
+      if (v341[0])
       {
         OUTLINED_FUNCTION_19_29();
         OUTLINED_FUNCTION_18_28();
-        v75 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v76 = os_log_type_enabled(v75, v225[0]);
-        if (OUTLINED_FUNCTION_6(v76))
+        v112 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v113 = os_log_type_enabled(v112, v337[0]);
+        if (OUTLINED_FUNCTION_6(v113))
         {
           *__s1 = 136315394;
           OUTLINED_FUNCTION_9_54();
@@ -2098,19 +2096,19 @@ LABEL_34:
 
     else
     {
-      v69 = 1;
+      v106 = 1;
     }
 
 LABEL_59:
     ChannelLayout = CMAudioFormatDescriptionGetChannelLayout(*(v1 + 296), 0);
-    v78 = OUTLINED_FUNCTION_34_20();
-    v229[0] = AudioUnitInitialize(v78);
-    if (v229[0])
+    v120 = OUTLINED_FUNCTION_34_20();
+    v341[0] = AudioUnitInitialize(v120);
+    if (v341[0])
     {
       OUTLINED_FUNCTION_15_35();
-      v175 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v183 = OUTLINED_FUNCTION_27_17(v175, v176, v177, v178, v179, v180, v181, v182, v215, v216, v217, v218, *v219, *&v219[8], *&v219[16], *&v219[24], v220, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v223, v224, v225[0]);
-      if (!OUTLINED_FUNCTION_5_2(v183))
+      v262 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v270 = OUTLINED_FUNCTION_27_17(v262, v263, v264, v265, v266, v267, v268, v269, v327, v328, v329, v330, *v331, *&v331[8], *&v331[16], *&v331[24], v332, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v335, v336, v337[0]);
+      if (!OUTLINED_FUNCTION_5_2(v270))
       {
         goto LABEL_161;
       }
@@ -2123,169 +2121,169 @@ LABEL_59:
 
     if (ChannelLayout)
     {
-      v79 = v69;
+      v121 = v106;
     }
 
     else
     {
-      v79 = 1;
+      v121 = 1;
     }
 
-    if (v79 != 1)
+    if (v121 != 1)
     {
 LABEL_124:
-      v229[0] = [(BWAudioSourceNode *)v1 _getAudioDevicePullFrames:?];
-      if (v229[0])
+      v341[0] = [(BWAudioSourceNode *)v1 _getAudioDevicePullFrames:?];
+      if (v341[0])
       {
-        return v229[0];
+        return v341[0];
       }
 
-      v142 = v227;
+      v214 = v339;
       if (v9 != v5)
       {
-        v142 = vcvtpd_u64_f64(v9 * v227 / v5);
-        v227 = v142;
+        v214 = vcvtpd_u64_f64(v9 * v339 / v5);
+        v339 = v214;
       }
 
-      if (v142 != *(v1 + 304))
+      if (v214 != *(v1 + 304))
       {
-        *(v1 + 304) = v142;
-        v229[0] = [(BWAudioSourceNode *)v1 _generatePullBuffers];
-        if (v229[0])
+        *(v1 + 304) = v214;
+        v341[0] = [(BWAudioSourceNode *)v1 _generatePullBuffers];
+        if (v341[0])
         {
-          return v229[0];
+          return v341[0];
         }
       }
 
       [OUTLINED_FUNCTION_24_20() sampleRate];
-      v144 = v143;
+      v216 = v215;
       [OUTLINED_FUNCTION_24_20() inputLatency];
-      CMTimeMake(&v226, (v144 * v145 + 0.5), *__s2);
-      *(v1 + 456) = v226;
-      CMTimeMake(&v226, 2, *__s2);
-      *(v1 + 384) = v226;
+      CMTimeMake(&v338, (v216 * v217 + 0.5), *__s2);
+      *(v1 + 456) = v338;
+      CMTimeMake(&v338, 2, *__s2);
+      *(v1 + 384) = v338;
       if (!dword_1ED844430)
       {
-        return v229[0];
+        return v341[0];
       }
 
       OUTLINED_FUNCTION_15_35();
-      v146 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v154 = OUTLINED_FUNCTION_17_30(v146, v147, v148, v149, v150, v151, v152, v153, v215, v216, v217, v218, *v219, *&v219[8], *&v219[16], *&v219[24], v220, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v223, v224, v225[0]);
-      if (OUTLINED_FUNCTION_6(v154))
+      v218 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v226 = OUTLINED_FUNCTION_17_30(v218, v219, v220, v221, v222, v223, v224, v225, v327, v328, v329, v330, *v331, *&v331[8], *&v331[16], *&v331[24], v332, type, *__s1, *&__s1[8], *&__s1[16], *&__s1[24], *&__s1[32], *&__s1[40], v335, v336, v337[0]);
+      if (OUTLINED_FUNCTION_6(v226))
       {
         *__s1 = 136315394;
         OUTLINED_FUNCTION_9_54();
         OUTLINED_FUNCTION_3_89();
         OUTLINED_FUNCTION_4_80();
-        OUTLINED_FUNCTION_18_2();
+        OUTLINED_FUNCTION_18_2(v227, v228, v229, v230, v231);
         OUTLINED_FUNCTION_32_12();
       }
 
 LABEL_131:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      return v229[0];
+      return v341[0];
     }
 
-    *v225 = 0;
-    HIDWORD(v224) = 0;
+    *v337 = 0;
+    HIDWORD(v336) = 0;
     if (*(v1 + 664))
     {
-      v80 = 2;
+      v122 = 2;
     }
 
     else
     {
-      v80 = 1;
+      v122 = 1;
     }
 
-    v81 = OUTLINED_FUNCTION_34_20();
-    v229[0] = AudioUnitGetPropertyInfo(v81, 0x13u, v80, 1u, &v224 + 1, 0);
-    if (v229[0] || !HIDWORD(v224))
+    v123 = OUTLINED_FUNCTION_34_20();
+    v341[0] = AudioUnitGetPropertyInfo(v123, 0x13u, v122, 1u, &v336 + 1, 0);
+    if (v341[0] || !HIDWORD(v336))
     {
       OUTLINED_FUNCTION_1_112();
-      v89 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v90 = os_log_type_enabled(v89, type);
-      if (OUTLINED_FUNCTION_6(v90))
+      v131 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v132 = os_log_type_enabled(v131, type);
+      if (OUTLINED_FUNCTION_6(v132))
       {
         *__s1 = 136315650;
         *&__s1[4] = "[BWAudioSourceNode _updatePullFormatDescription]";
         *&__s1[12] = 1024;
-        *&__s1[14] = v229[0];
+        *&__s1[14] = v341[0];
         *&__s1[18] = 1024;
-        *&__s1[20] = HIDWORD(v224);
+        *&__s1[20] = HIDWORD(v336);
         OUTLINED_FUNCTION_3_89();
         OUTLINED_FUNCTION_4_80();
-        OUTLINED_FUNCTION_18_2();
+        OUTLINED_FUNCTION_18_2(v133, v134, v135, v136, v137);
         OUTLINED_FUNCTION_32_12();
       }
 
-      v84 = &unk_1ED844000;
+      v126 = &unk_1ED844000;
       OUTLINED_FUNCTION_1_4();
-      OUTLINED_FUNCTION_17_8();
+      OUTLINED_FUNCTION_17_8(v138, v139, v140, v141, v142);
     }
 
     else
     {
-      v82 = malloc_type_malloc(HIDWORD(v224), 0x74A508A4uLL);
-      v83 = OUTLINED_FUNCTION_34_20();
-      v229[0] = AudioUnitGetProperty(v83, 0x13u, v80, 1u, v82, &v224 + 1);
-      v84 = &unk_1ED844000;
-      if (!v229[0])
+      v124 = malloc_type_malloc(HIDWORD(v336), 0x74A508A4uLL);
+      v125 = OUTLINED_FUNCTION_34_20();
+      v341[0] = AudioUnitGetProperty(v125, 0x13u, v122, 1u, v124, &v336 + 1);
+      v126 = &unk_1ED844000;
+      if (!v341[0])
       {
         goto LABEL_81;
       }
 
       OUTLINED_FUNCTION_1_112();
-      v85 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v41 = *v219;
-      if (os_log_type_enabled(v85, type))
+      v127 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v66 = *v331;
+      if (os_log_type_enabled(v127, type))
       {
-        v86 = *v219;
+        v128 = *v331;
       }
 
       else
       {
-        v86 = *v219 & 0xFFFFFFFE;
+        v128 = *v331 & 0xFFFFFFFE;
       }
 
-      if (v86)
+      if (v128)
       {
-        v87 = v229[0];
-        v88 = BWStringFromAudioChannelLayout(v82);
+        v129 = v341[0];
+        v130 = BWStringFromAudioChannelLayout(v124);
         *__s1 = 136315906;
         *&__s1[4] = "[BWAudioSourceNode _updatePullFormatDescription]";
         *&__s1[12] = 1024;
-        *&__s1[14] = v87;
+        *&__s1[14] = v129;
         *&__s1[18] = 2112;
-        *&__s1[20] = v88;
+        *&__s1[20] = v130;
         *&__s1[28] = 1024;
-        *&__s1[30] = HIDWORD(v224);
+        *&__s1[30] = HIDWORD(v336);
         OUTLINED_FUNCTION_3_89();
         OUTLINED_FUNCTION_4_4();
         _os_log_send_and_compose_impl();
-        v41 = *v219;
+        v66 = *v331;
       }
 
       OUTLINED_FUNCTION_1_4();
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      HIDWORD(v224) = 0;
-      if (!v82)
+      HIDWORD(v336) = 0;
+      if (!v124)
       {
 LABEL_81:
-        if (v84[268])
+        if (v126[268])
         {
           OUTLINED_FUNCTION_1_112();
-          v91 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          OUTLINED_FUNCTION_26_21(v91, v92, v93, v94, v95, v96, v97, v98, v215, v216, v217, v218, *v219, *&v219[8], *&v219[16], *&v219[24], v220, type);
+          v143 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          OUTLINED_FUNCTION_26_21(v143, v144, v145, v146, v147, v148, v149, v150, v327, v328, v329, v330, *v331, *&v331[8], *&v331[16], *&v331[24], v332, type);
           OUTLINED_FUNCTION_46();
-          if (v41)
+          if (v66)
           {
-            v99 = BWStringFromAudioChannelLayout(v82);
+            v151 = BWStringFromAudioChannelLayout(v124);
             *__s1 = 136315394;
             *&__s1[4] = "[BWAudioSourceNode _updatePullFormatDescription]";
             *&__s1[12] = 2112;
-            *&__s1[14] = v99;
+            *&__s1[14] = v151;
             OUTLINED_FUNCTION_3_89();
             OUTLINED_FUNCTION_4_4();
             _os_log_send_and_compose_impl();
@@ -2293,42 +2291,42 @@ LABEL_81:
           }
 
           OUTLINED_FUNCTION_0_102();
-          OUTLINED_FUNCTION_13_0();
+          OUTLINED_FUNCTION_13_0(v152, v153, v154, v155, v156);
         }
 
-        if (v2 == 2 && v82)
+        if (v2 == 2 && v124)
         {
-          if (!*v82 && v82[2] == 6 && v82[3] == 208 && v82[8] == 209 && v82[13] == 0x20000 && v82[18] == 131073 && v82[23] == 131074 && v82[28] == 131075)
+          if (!*v124 && v124[2] == 6 && v124[3] == 208 && v124[8] == 209 && v124[13] == 0x20000 && v124[18] == 131073 && v124[23] == 131074 && v124[28] == 131075)
           {
             goto LABEL_103;
           }
 
           OUTLINED_FUNCTION_1_112();
-          v100 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          OUTLINED_FUNCTION_26_21(v100, v101, v102, v103, v104, v105, v106, v107, v215, v216, v217, v218, *v219, *&v219[8], *&v219[16], *&v219[24], v220, type);
+          v157 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          OUTLINED_FUNCTION_26_21(v157, v158, v159, v160, v161, v162, v163, v164, v327, v328, v329, v330, *v331, *&v331[8], *&v331[16], *&v331[24], v332, type);
           OUTLINED_FUNCTION_46();
-          if (!v41)
+          if (!v66)
           {
 LABEL_102:
             OUTLINED_FUNCTION_1_4();
-            OUTLINED_FUNCTION_13_0();
+            OUTLINED_FUNCTION_13_0(v174, v175, v176, v177, v178);
 LABEL_103:
             OUTLINED_FUNCTION_2_5();
-            v229[0] = CMAudioFormatDescriptionCreate(v117, v118, v119, v120, v121, v122, 0, v123);
-            free(v82);
-            if (!v229[0])
+            v341[0] = CMAudioFormatDescriptionCreate(v179, v180, v181, v182, v183, v184, 0, v185);
+            free(v124);
+            if (!v341[0])
             {
-              if (v84[268])
+              if (v126[268])
               {
                 OUTLINED_FUNCTION_1_112();
-                v124 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v125 = os_log_type_enabled(v124, type);
-                if (OUTLINED_FUNCTION_5_24(v125))
+                v186 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v187 = os_log_type_enabled(v186, type);
+                if (OUTLINED_FUNCTION_5_24(v187))
                 {
                   *__s1 = 136315394;
                   *&__s1[4] = "[BWAudioSourceNode _updatePullFormatDescription]";
                   *&__s1[12] = 2112;
-                  *&__s1[14] = *v225;
+                  *&__s1[14] = *v337;
                   OUTLINED_FUNCTION_3_89();
                   OUTLINED_FUNCTION_4_80();
                   _os_log_send_and_compose_impl();
@@ -2336,25 +2334,25 @@ LABEL_103:
                 }
 
                 OUTLINED_FUNCTION_0_102();
-                OUTLINED_FUNCTION_13_0();
+                OUTLINED_FUNCTION_13_0(v188, v189, v190, v191, v192);
               }
 
-              v126 = *(v1 + 296);
-              v127 = *v225;
-              *(v1 + 296) = *v225;
-              if (v127)
+              v193 = *(v1 + 296);
+              v194 = *v337;
+              *(v1 + 296) = *v337;
+              if (v194)
               {
-                CFRetain(v127);
+                CFRetain(v194);
               }
 
-              if (v126)
+              if (v193)
               {
-                CFRelease(v126);
+                CFRelease(v193);
               }
 
-              if (*v225)
+              if (*v337)
               {
-                CFRelease(*v225);
+                CFRelease(*v337);
               }
 
               type = 0;
@@ -2362,36 +2360,36 @@ LABEL_103:
               {
                 type = CFRetain(*(v1 + 296));
 LABEL_121:
-                v140 = 3;
-                v141 = v1;
+                v212 = 3;
+                v213 = v1;
                 do
                 {
-                  [*(v141 + 128) setFormat:+[BWAudioFormat formatWithAudioFormatDescription:](BWAudioFormat, "formatWithAudioFormatDescription:", type)];
-                  v141 += 8;
-                  --v140;
+                  [*(v213 + 128) setFormat:+[BWAudioFormat formatWithAudioFormatDescription:](BWAudioFormat, "formatWithAudioFormatDescription:", type)];
+                  v213 += 8;
+                  --v212;
                 }
 
-                while (v140);
+                while (v212);
                 CFRelease(type);
                 goto LABEL_124;
               }
 
-              *v219 = *__s2;
-              *&v219[16] = *&__s2[16];
-              v220 = *&__s2[32];
-              *&v219[28] = 1;
-              *&v219[12] = *&__s2[12] & 0xFFFFFFDF;
-              v128 = malloc_type_calloc(0xCuLL, 1uLL, 0xC43F175AuLL);
-              *v128 = 6553601;
+              *v331 = *__s2;
+              *&v331[16] = *&__s2[16];
+              v332 = *&__s2[32];
+              *&v331[28] = 1;
+              *&v331[12] = *&__s2[12] & 0xFFFFFFDF;
+              v195 = malloc_type_calloc(0xCuLL, 1uLL, 0xC43F175AuLL);
+              *v195 = 6553601;
               OUTLINED_FUNCTION_2_5();
-              v136 = CMAudioFormatDescriptionCreate(v129, v130, v131, v132, v133, v134, 0, v135);
-              v229[0] = v136;
-              if (v84[268])
+              v203 = CMAudioFormatDescriptionCreate(v196, v197, v198, v199, v200, v201, 0, v202);
+              v341[0] = v203;
+              if (v126[268])
               {
                 OUTLINED_FUNCTION_39_17();
-                v137 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v138 = os_log_type_enabled(v137, BYTE3(v218));
-                if (OUTLINED_FUNCTION_5_24(v138))
+                v204 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v205 = os_log_type_enabled(v204, BYTE3(v330));
+                if (OUTLINED_FUNCTION_5_24(v205))
                 {
                   *__s1 = 136315394;
                   *&__s1[4] = "[BWAudioSourceNode _updatePullFormatDescription]";
@@ -2403,43 +2401,43 @@ LABEL_121:
                 }
 
                 OUTLINED_FUNCTION_0_102();
-                OUTLINED_FUNCTION_13_0();
-                v139 = v229[0];
+                OUTLINED_FUNCTION_13_0(v207, v208, v209, v210, v211);
+                v206 = v341[0];
               }
 
               else
               {
-                v139 = v136;
+                v206 = v203;
               }
 
-              free(v128);
-              if (!v139)
+              free(v195);
+              if (!v206)
               {
                 goto LABEL_121;
               }
 
               OUTLINED_FUNCTION_39_17();
-              v186 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v187 = os_log_type_enabled(v186, BYTE3(v218));
-              if (OUTLINED_FUNCTION_5_2(v187))
+              v278 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              v279 = os_log_type_enabled(v278, BYTE3(v330));
+              if (OUTLINED_FUNCTION_5_2(v279))
               {
                 *__s1 = 136316674;
                 *&__s1[4] = "[BWAudioSourceNode _updatePullFormatDescription]";
                 *&__s1[12] = 1024;
-                *&__s1[14] = v229[0];
+                *&__s1[14] = v341[0];
                 *&__s1[18] = 1024;
-                *&__s1[20] = *&v219[8];
+                *&__s1[20] = *&v331[8];
                 *&__s1[24] = 2048;
-                *&__s1[26] = *v219;
+                *&__s1[26] = *v331;
                 *&__s1[34] = 1024;
-                *&__s1[36] = *&v219[12];
+                *&__s1[36] = *&v331[12];
                 *&__s1[40] = 1024;
                 *&__s1[42] = 1;
                 *&__s1[46] = 1024;
-                LODWORD(v223) = v220;
+                LODWORD(v335) = v332;
                 OUTLINED_FUNCTION_3_89();
                 OUTLINED_FUNCTION_4_80();
-                OUTLINED_FUNCTION_124();
+                OUTLINED_FUNCTION_124(v280, v281, v282, v283, v284);
               }
 
 LABEL_161:
@@ -2448,9 +2446,9 @@ LABEL_161:
             }
 
             OUTLINED_FUNCTION_1_112();
-            v184 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v185 = os_log_type_enabled(v184, type);
-            if (!OUTLINED_FUNCTION_5_2(v185))
+            v271 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            v272 = os_log_type_enabled(v271, type);
+            if (!OUTLINED_FUNCTION_5_2(v272))
             {
               goto LABEL_161;
             }
@@ -2458,7 +2456,7 @@ LABEL_161:
             *__s1 = 136316674;
             *&__s1[4] = "[BWAudioSourceNode _updatePullFormatDescription]";
             *&__s1[12] = 1024;
-            *&__s1[14] = v229[0];
+            *&__s1[14] = v341[0];
             *&__s1[18] = 1024;
             *&__s1[20] = *&__s2[8];
             *&__s1[24] = 2048;
@@ -2468,37 +2466,37 @@ LABEL_161:
             *&__s1[40] = 1024;
             *&__s1[42] = *&__s2[28];
             *&__s1[46] = 1024;
-            LODWORD(v223) = *&__s2[32];
+            LODWORD(v335) = *&__s2[32];
             OUTLINED_FUNCTION_3_89();
 LABEL_151:
             OUTLINED_FUNCTION_4_80();
-            OUTLINED_FUNCTION_124();
+            OUTLINED_FUNCTION_124(v273, v274, v275, v276, v277);
             goto LABEL_161;
           }
         }
 
         else
         {
-          if (v2 != 1 || !v82 || v82[2] == 2)
+          if (v2 != 1 || !v124 || v124[2] == 2)
           {
             goto LABEL_103;
           }
 
           OUTLINED_FUNCTION_1_112();
-          v108 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          OUTLINED_FUNCTION_26_21(v108, v109, v110, v111, v112, v113, v114, v115, v215, v216, v217, v218, *v219, *&v219[8], *&v219[16], *&v219[24], v220, type);
+          v165 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          OUTLINED_FUNCTION_26_21(v165, v166, v167, v168, v169, v170, v171, v172, v327, v328, v329, v330, *v331, *&v331[8], *&v331[16], *&v331[24], v332, type);
           OUTLINED_FUNCTION_46();
-          if (!v41)
+          if (!v66)
           {
             goto LABEL_102;
           }
         }
 
-        v116 = BWStringFromAudioChannelLayout(v82);
+        v173 = BWStringFromAudioChannelLayout(v124);
         *__s1 = 136315394;
         *&__s1[4] = "[BWAudioSourceNode _updatePullFormatDescription]";
         *&__s1[12] = 2112;
-        *&__s1[14] = v116;
+        *&__s1[14] = v173;
         OUTLINED_FUNCTION_3_89();
         OUTLINED_FUNCTION_4_4();
         _os_log_send_and_compose_impl();
@@ -2506,10 +2504,10 @@ LABEL_151:
         goto LABEL_102;
       }
 
-      free(v82);
+      free(v124);
     }
 
-    v82 = 0;
+    v124 = 0;
     goto LABEL_81;
   }
 
@@ -2636,7 +2634,7 @@ LABEL_21:
     {
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v10);
     }
 
     if (BWAudioCaptureModeIsSpatial(*(timer + 588)))
@@ -2699,27 +2697,27 @@ LABEL_21:
   }
 }
 
-- (char)_initWithAttributes:(uint64_t)attributes sessionPreset:(const void *)preset clock:(char)clock doConfigureAudio:(char)audio doMixWithOthers:(char)others doAllowHQBluetoothRecording:(void *)recording audioSession:(unsigned __int8)session isAppAudioSession:(char)self0 doEndInterruption:(unsigned __int8)self1 audioSessionIsProxy:(unsigned __int8)self2 audioIsPlayingToBuiltinSpeaker:(unsigned __int8)self3 audioSessionActivatedByBWGraph:(_OWORD *)self4 clientAuditToken:(uint64_t)self5 clientSDKVersionToken:(char)self6 clientOSVersionSupportsDecoupledIO:(void *)self7 clientAudioClockDeviceUID:(void *)self8 preferredIOBufferDuration:(void *)self9 audioCaptureConnectionConfigurations:(char)configurations isConfiguredForContinuityCapture:(unsigned __int8)capture isAudioOnlyRecordingSession:(void *)recordingSession remoteIOOutputFormat:(int *)format outErr:
+- (char)_initWithAttributes:(uint64_t)attributes sessionPreset:(const void *)preset clock:(char)clock doConfigureAudio:(char)audio doMixWithOthers:(char)others doAllowHQBluetoothRecording:(void *)recording audioSession:(char)session isAppAudioSession:(char)self0 doEndInterruption:(char)self1 audioSessionIsProxy:(char)self2 audioIsPlayingToBuiltinSpeaker:(unsigned __int8)self3 audioSessionActivatedByBWGraph:(_OWORD *)self4 clientAuditToken:(uint64_t)self5 clientSDKVersionToken:(char)self6 clientOSVersionSupportsDecoupledIO:(void *)self7 clientAudioClockDeviceUID:(void *)self8 preferredIOBufferDuration:(void *)self9 audioCaptureConnectionConfigurations:(char)configurations isConfiguredForContinuityCapture:(char)capture isAudioOnlyRecordingSession:(void *)recordingSession remoteIOOutputFormat:(int *)format outErr:
 {
   selfCopy = self;
   if (self)
   {
     if (preset)
     {
-      v97.receiver = self;
-      v97.super_class = BWAudioSourceNode;
-      selfCopy = objc_msgSendSuper2(&v97, sel_init);
+      v98.receiver = self;
+      v98.super_class = BWAudioSourceNode;
+      selfCopy = objc_msgSendSuper2(&v98, sel_init);
       if (!selfCopy)
       {
         return selfCopy;
       }
 
-      v72 = v23;
+      v73 = v23;
       recordingSessionCopy3 = recordingSession;
       dCopy = d;
       oCopy = o;
       graphCopy = graph;
-      HIDWORD(v73) = proxy;
+      HIDWORD(v74) = proxy;
       *(selfCopy + 35) = CFRetain(preset);
       *(selfCopy + 72) = 0;
       *(selfCopy + 113) = 1;
@@ -2729,8 +2727,8 @@ LABEL_21:
       if (selfCopy[648] == 1 && dword_1ED844430)
       {
         recordingSessionCopy2 = recordingSession;
+        v97 = 0;
         v96 = 0;
-        v95 = 0;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -2744,7 +2742,7 @@ LABEL_21:
         LODWORD(recordingSessionCopy2) = capture;
         LODWORD(v70) = session;
         HIDWORD(v70) = interruption;
-        HIDWORD(v73) = speaker;
+        HIDWORD(v74) = speaker;
         *(selfCopy + 20) = recording;
         selfCopy[198] = clock;
         selfCopy[199] = audio;
@@ -2780,9 +2778,9 @@ LABEL_21:
       *(selfCopy + 216) = *graph;
       *(selfCopy + 232) = v38;
       v39 = *(selfCopy + 232);
-      v94[0] = *(selfCopy + 216);
-      v94[1] = v39;
-      *(selfCopy + 62) = FigCaptureGetPIDFromAuditToken(v94);
+      v95[0] = *(selfCopy + 216);
+      v95[1] = v39;
+      *(selfCopy + 62) = FigCaptureGetPIDFromAuditToken(v95);
       *(selfCopy + 32) = token;
       *(selfCopy + 33) = o;
       *(selfCopy + 34) = d;
@@ -2794,7 +2792,7 @@ LABEL_21:
       *(selfCopy + 26) = 0;
       do
       {
-        builtInMicrophoneRequiredSampleRate = OUTLINED_FUNCTION_60_1(builtInMicrophoneRequiredSampleRate, v41, v42, v43, v44, v45, v46, v47, v67, v68, v69, v70, recordingSessionCopy2, v72, v73, graphCopy, oCopy, dCopy, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, 0);
+        builtInMicrophoneRequiredSampleRate = OUTLINED_FUNCTION_60_1(builtInMicrophoneRequiredSampleRate, v41, v42, v43, v44, v45, v46, v47, v67, v68, v69, v70, recordingSessionCopy2, v73, v74, graphCopy, oCopy, dCopy, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94);
         if (builtInMicrophoneRequiredSampleRate)
         {
           v49 = builtInMicrophoneRequiredSampleRate;
@@ -2836,7 +2834,7 @@ LABEL_21:
             }
 
             while (v49 != v51);
-            builtInMicrophoneRequiredSampleRate = OUTLINED_FUNCTION_60_1(isKindOfClass, v54, v55, v56, v57, v58, v59, v60, v67, v68, v69, v70, recordingSessionCopy2, v72, v73, graphCopy, oCopy, dCopy, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93);
+            builtInMicrophoneRequiredSampleRate = OUTLINED_FUNCTION_60_1(isKindOfClass, v54, v55, v56, v57, v58, v59, v60, v67, v68, v69, v70, recordingSessionCopy2, v73, v74, graphCopy, oCopy, dCopy, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94);
             v49 = builtInMicrophoneRequiredSampleRate;
             if (builtInMicrophoneRequiredSampleRate)
             {
@@ -2870,13 +2868,13 @@ LABEL_30:
 
       v66 = _setupAudioUnit;
       OUTLINED_FUNCTION_1_5();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v67, v68, v69, v70, recordingSessionCopy2, v73, v74, graphCopy);
     }
 
     else
     {
       OUTLINED_FUNCTION_0_8();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v68, v69, v70, recordingSessionCopy2, v72, v74, v75);
       v66 = -12780;
     }
 
@@ -2943,7 +2941,7 @@ LABEL_30:
   [(BWNode *)&v9 dealloc];
 }
 
-- (id)_copyAudioSessionMXProperty:(_DWORD *)property err:
+- (id)_copyAudioSessionMXProperty:(unsigned int *)property err:
 {
   if (!self)
   {
@@ -2993,7 +2991,7 @@ LABEL_30:
   return 0;
 }
 
-- (uint64_t)_setVADCameraParametersWithDirection:(uint64_t)direction zoomFactor:(float)factor forTime:
+- (float)_setVADCameraParametersWithDirection:(uint64_t)direction zoomFactor:(float)factor forTime:
 {
   if (result)
   {
@@ -3003,7 +3001,7 @@ LABEL_30:
     {
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2_5();
-      result = FigDebugAssert3();
+      result = FigDebugAssert3(v15);
     }
 
     if ((*(v7 + 194) & 1) == 0)
@@ -3013,9 +3011,9 @@ LABEL_30:
         factor = 1.0;
       }
 
-      if (a2 != -1 || factor != *(v7 + 600))
+      if (a2 != -1 || factor != v7[150])
       {
-        *&v8 = *(v7 + 596) / factor;
+        *&v8 = v7[149] / factor;
         v9 = [MEMORY[0x1E696AD98] numberWithFloat:v8];
         if ((a2 & 0x80000000) != 0)
         {
@@ -3034,23 +3032,23 @@ LABEL_30:
         result = [(BWAudioSourceNode *)v7 _setAudioSessionMXPropertyWithKey:v14 value:?];
         if (!result)
         {
-          *(v7 + 600) = factor;
+          v7[150] = factor;
         }
       }
 
-      *(v7 + 624) = *(v7 + 616) + direction;
+      *(v7 + 78) = *(v7 + 77) + direction;
     }
   }
 
   return result;
 }
 
-uint64_t __82__BWAudioSourceNode__updateStereoAudioCapturePairedCameraZoomFactorAndStartTimer___block_invoke(uint64_t a1)
+void __82__BWAudioSourceNode__updateStereoAudioCapturePairedCameraZoomFactorAndStartTimer___block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 632) = 0;
   v2 = *(a1 + 32);
 
-  return [(BWAudioSourceNode *)v2 _updateStereoAudioCapturePairedCameraZoomFactorAndStartTimer:?];
+  [(BWAudioSourceNode *)v2 _updateStereoAudioCapturePairedCameraZoomFactorAndStartTimer:?];
 }
 
 - (double)_desiredSampleRate:(uint64_t)rate
@@ -3079,7 +3077,7 @@ uint64_t __82__BWAudioSourceNode__updateStereoAudioCapturePairedCameraZoomFactor
 
   if (result == 0.0)
   {
-    result = FigCaptureSourceDefaultAudioSampleRateForClientSDKVersionToken();
+    result = FigCaptureSourceDefaultAudioSampleRateForClientSDKVersionToken(*(rate + 256));
   }
 
   if (a2)
@@ -3201,16 +3199,15 @@ uint64_t __82__BWAudioSourceNode__updateStereoAudioCapturePairedCameraZoomFactor
     kdebug_trace();
   }
 
-  v15 = 0;
+  HIDWORD(v17) = 0;
   availableInputs = [*(v1 + 160) availableInputs];
   if ([availableInputs count])
   {
     v4 = [availableInputs objectAtIndexedSubscript:0];
-    portType = [v4 portType];
-    v6 = [portType isEqualToString:*MEMORY[0x1E698D668]];
+    isEqualToString = objc_msgSend_isEqualToString_([v4 portType]);
     if (v4)
     {
-      if (v6)
+      if (isEqualToString)
       {
         OUTLINED_FUNCTION_48_15();
         if (!FigCFEqual())
@@ -3231,45 +3228,45 @@ uint64_t __82__BWAudioSourceNode__updateStereoAudioCapturePairedCameraZoomFactor
           }
         }
 
-        v7 = [(BWAudioSourceNode *)v1 _copyAudioSessionMXProperty:&v15 err:?];
-        bw_builtInMicRouteDictionary = [v7 bw_builtInMicRouteDictionary];
+        v6 = [(BWAudioSourceNode *)v1 _copyAudioSessionMXProperty:&v17 + 1 err:?];
+        bw_builtInMicRouteDictionary = [v6 bw_builtInMicRouteDictionary];
         if (bw_builtInMicRouteDictionary)
         {
-          v9 = bw_builtInMicRouteDictionary;
+          v8 = bw_builtInMicRouteDictionary;
           if (*(v1 + 144))
           {
             if ([v1 isAudioPlayingToBuiltinSpeaker])
             {
-              v10 = 1651799149;
+              v9 = 1651799149;
             }
 
             else
             {
-              v10 = 1718775412;
+              v9 = 1718775412;
             }
 
 LABEL_19:
-            v11 = [v9 bw_dataSourceDictionaryForDesiredMicOrientation:v10];
-            if (v11)
+            v10 = [v8 bw_dataSourceDictionaryForDesiredMicOrientation:v9];
+            if (v10)
             {
-              v12 = v11;
-              v13 = [v11 bw_optimalMicPolarPatternForAudioCaptureMode:*(v1 + 588)];
-              v14 = [MEMORY[0x1E695DEC8] bw_selectedInputsArrayForBuiltInMicRouteDictionary:v9 dataSource:v12 polarPattern:v13];
-              if (v14)
+              v11 = v10;
+              v12 = [v10 bw_optimalMicPolarPatternForAudioCaptureMode:*(v1 + 588)];
+              v13 = [MEMORY[0x1E695DEC8] bw_selectedInputsArrayForBuiltInMicRouteDictionary:v8 dataSource:v11 polarPattern:v12];
+              if (v13)
               {
-                v15 = [(BWAudioSourceNode *)v1 _setAudioSessionMXPropertyWithKey:v14 value:?];
-                if (v15)
+                HIDWORD(v17) = [(BWAudioSourceNode *)v1 _setAudioSessionMXPropertyWithKey:v13 value:?];
+                if (HIDWORD(v17))
                 {
                   OUTLINED_FUNCTION_1_5();
-                  FigDebugAssert3();
+                  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v15, v16, v17, v18, v19, v20, v21);
                 }
               }
 
               else
               {
                 OUTLINED_FUNCTION_0();
-                FigDebugAssert3();
-                v15 = -12783;
+                FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v15, v16, v17, v18, v19, v20, v21);
+                HIDWORD(v17) = -12783;
               }
             }
 
@@ -3278,15 +3275,15 @@ LABEL_19:
 
           if (*(v1 + 136))
           {
-            v10 = 1650549611;
+            v9 = 1650549611;
             goto LABEL_19;
           }
         }
 
 LABEL_23:
-        if (v7)
+        if (v6)
         {
-          CFRelease(v7);
+          CFRelease(v6);
         }
       }
     }
@@ -3299,7 +3296,7 @@ LABEL_25:
     kdebug_trace();
   }
 
-  return v15;
+  return HIDWORD(v17);
 }
 
 - (uint64_t)_configureAudioSessionWithDefaultHardwareSampleRate:(double)rate didCallDoNotNotifyOtherSessionsOnNextInactive:
@@ -3316,7 +3313,7 @@ LABEL_25:
     kdebug_trace();
   }
 
-  v30 = 0;
+  v31 = 0;
   v6 = *(self + 176);
   [(BWAudioSourceNode *)self _deactivateAudioSessionIfNecessary:a2];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -3334,126 +3331,122 @@ LABEL_25:
   if (-[BWAudioSourceNode _setAudioSessionMXPropertyWithKey:value:](self, *MEMORY[0x1E69B02B8], [MEMORY[0x1E696AD98] numberWithBool:*(self + 200)]))
   {
     OUTLINED_FUNCTION_1_5();
-    goto LABEL_49;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+    goto LABEL_28;
   }
 
-  if (v6 && ([OUTLINED_FUNCTION_24_20() preferDecoupledIO:1 error:&v30], !objc_msgSend(v30, "code")))
+  if (v6 && ([OUTLINED_FUNCTION_24_20() preferDecoupledIO:1 error:&v31], !objc_msgSend(v31, "code")))
   {
-    [OUTLINED_FUNCTION_24_20() setPreferredInputSampleRate:&v30 error:rate];
+    [OUTLINED_FUNCTION_24_20() setPreferredInputSampleRate:&v31 error:rate];
   }
 
   else
   {
-    [OUTLINED_FUNCTION_24_20() setPreferredOutputSampleRate:&v30 error:rate];
+    [OUTLINED_FUNCTION_24_20() setPreferredOutputSampleRate:&v31 error:rate];
   }
 
-  [v30 code];
+  [v31 code];
   [OUTLINED_FUNCTION_24_20() setAudioHardwareControlFlags:? error:?];
-  if ([v30 code])
+  if (![v31 code])
   {
-    goto LABEL_48;
-  }
-
-  v11 = *(self + 272);
-  if (v11)
-  {
-    v12 = *(self + 160);
-    [v11 doubleValue];
-    [v12 setPreferredIOBufferFrameSize:(v13 * rate) error:&v30];
-    if ([v30 code])
+    v11 = *(self + 272);
+    if (!v11 || (v12 = *(self + 160), [v11 doubleValue], objc_msgSend(v12, "setPreferredIOBufferFrameSize:error:", (v13 * rate), &v31), !objc_msgSend(v31, "code")))
     {
-      goto LABEL_48;
+      OUTLINED_FUNCTION_33();
+      if (!v10)
+      {
+        goto LABEL_23;
+      }
+
+      mEMORY[0x1E69AED10]2 = [MEMORY[0x1E69AED10] sharedInstance];
+      v15 = [objc_msgSend(self "graph")];
+      [mEMORY[0x1E69AED10]2 setAttribute:v15 forKey:*MEMORY[0x1E69AE9E0] error:&v31];
+      if (![v31 code])
+      {
+        if ([(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:MEMORY[0x1E695E118] value:?])
+        {
+LABEL_45:
+          OUTLINED_FUNCTION_1_5();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+          goto LABEL_28;
+        }
+
+LABEL_23:
+        if (![(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:0 value:?])
+        {
+          if (BWAudioCaptureModeIsSpatial(*(self + 588)))
+          {
+            v16 = *(self + 144) == 0;
+            os_unfair_lock_lock((self + 644));
+            v17 = *(self + 640);
+            os_unfair_lock_unlock((self + 644));
+            v18 = *(self + 608);
+            block[0] = MEMORY[0x1E69E9820];
+            block[1] = 3221225472;
+            block[2] = __119__BWAudioSourceNode__configureAudioSessionWithDefaultHardwareSampleRate_didCallDoNotNotifyOtherSessionsOnNextInactive___block_invoke;
+            block[3] = &unk_1E7990178;
+            block[4] = self;
+            v29 = v16;
+            v30 = v17;
+            dispatch_async(v18, block);
+          }
+
+          else if (FigCFEqual() && (*(self + 194) & 1) == 0)
+          {
+            v20 = *(self + 128);
+            v10 = v20 == 0;
+            v21 = v20 != 0;
+            if (v10)
+            {
+              v22 = 2;
+            }
+
+            else
+            {
+              v22 = 3;
+            }
+
+            if (*(self + 136))
+            {
+              v21 = v22;
+            }
+
+            if (*(self + 144))
+            {
+              v23 = v21 | 4u;
+            }
+
+            else
+            {
+              v23 = v21;
+            }
+
+            v26[0] = @"camera mics";
+            v27[0] = [MEMORY[0x1E696AD98] numberWithInt:v23];
+            v26[1] = @"camera wind suppression";
+            v27[1] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(self + 592)];
+            v26[2] = @"camera real time dynamics";
+            v27[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(self + 593) ^ 1u];
+            v26[3] = @"camera capture is audio only";
+            v27[3] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(self + 650)];
+            v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:4];
+            if ([(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:v24 value:?])
+            {
+              OUTLINED_FUNCTION_1_5();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+            }
+          }
+
+          goto LABEL_28;
+        }
+
+        goto LABEL_45;
+      }
     }
   }
 
-  OUTLINED_FUNCTION_33();
-  if (!v10)
-  {
-    goto LABEL_23;
-  }
-
-  mEMORY[0x1E69AED10]2 = [MEMORY[0x1E69AED10] sharedInstance];
-  v15 = [objc_msgSend(self "graph")];
-  [mEMORY[0x1E69AED10]2 setAttribute:v15 forKey:*MEMORY[0x1E69AE9E0] error:&v30];
-  if ([v30 code])
-  {
-LABEL_48:
-    OUTLINED_FUNCTION_0_8();
-    goto LABEL_49;
-  }
-
-  if ([(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:MEMORY[0x1E695E118] value:?])
-  {
-    goto LABEL_45;
-  }
-
-LABEL_23:
-  if ([(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:0 value:?])
-  {
-LABEL_45:
-    OUTLINED_FUNCTION_1_5();
-    goto LABEL_49;
-  }
-
-  if (BWAudioCaptureModeIsSpatial(*(self + 588)))
-  {
-    v16 = *(self + 144) == 0;
-    os_unfair_lock_lock((self + 644));
-    v17 = *(self + 640);
-    os_unfair_lock_unlock((self + 644));
-    v18 = *(self + 608);
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = __119__BWAudioSourceNode__configureAudioSessionWithDefaultHardwareSampleRate_didCallDoNotNotifyOtherSessionsOnNextInactive___block_invoke;
-    block[3] = &unk_1E7990178;
-    block[4] = self;
-    v28 = v16;
-    v29 = v17;
-    dispatch_async(v18, block);
-    goto LABEL_28;
-  }
-
-  if (!FigCFEqual() || (*(self + 194) & 1) != 0)
-  {
-    goto LABEL_28;
-  }
-
-  v20 = *(self + 128);
-  v10 = v20 == 0;
-  v21 = v20 != 0;
-  if (v10)
-  {
-    v22 = 2;
-  }
-
-  else
-  {
-    v22 = 3;
-  }
-
-  if (*(self + 136))
-  {
-    v21 = v22;
-  }
-
-  v23 = *(self + 144) ? v21 | 4 : v21;
-  v25[0] = @"camera mics";
-  v26[0] = [MEMORY[0x1E696AD98] numberWithInt:v23];
-  v25[1] = @"camera wind suppression";
-  v26[1] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(self + 592)];
-  v25[2] = @"camera real time dynamics";
-  v26[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(self + 593) ^ 1u];
-  v25[3] = @"camera capture is audio only";
-  v26[3] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(self + 650)];
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:4];
-  if (![(BWAudioSourceNode *)self _setAudioSessionMXPropertyWithKey:v24 value:?])
-  {
-    goto LABEL_28;
-  }
-
-  OUTLINED_FUNCTION_1_5();
-LABEL_49:
-  FigDebugAssert3();
+  OUTLINED_FUNCTION_0_8();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v25);
 LABEL_28:
   OUTLINED_FUNCTION_18();
   if (v10)
@@ -3467,22 +3460,29 @@ LABEL_28:
 
 - (uint64_t)_deactivateAudioSessionIfNecessary:(uint64_t)necessary
 {
-  if (necessary && [*(necessary + 160) isActive] && (objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_24_20(), "category"), "isEqualToString:", *MEMORY[0x1E698D510]) & 1) == 0)
+  if (necessary)
   {
-    if ((*(necessary + 196) & 1) == 0)
+    if ([*(necessary + 160) isActive])
     {
-      [(BWAudioSourceNode *)necessary _setAudioSessionMXPropertyWithKey:MEMORY[0x1E695E118] value:?];
-      *a2 = 1;
-    }
+      category = [OUTLINED_FUNCTION_24_20() category];
+      if ((objc_msgSend_isEqualToString_(category) & 1) == 0)
+      {
+        if ((*(necessary + 196) & 1) == 0)
+        {
+          [(BWAudioSourceNode *)necessary _setAudioSessionMXPropertyWithKey:MEMORY[0x1E695E118] value:?];
+          *a2 = 1;
+        }
 
-    v5 = 0;
-    [OUTLINED_FUNCTION_24_20() setActive:0 error:&v5];
+        v6 = 0;
+        [OUTLINED_FUNCTION_24_20() setActive:0 error:&v6];
+      }
+    }
   }
 
   return 0;
 }
 
-uint64_t __119__BWAudioSourceNode__configureAudioSessionWithDefaultHardwareSampleRate_didCallDoNotNotifyOtherSessionsOnNextInactive___block_invoke(uint64_t a1)
+float *__119__BWAudioSourceNode__configureAudioSessionWithDefaultHardwareSampleRate_didCallDoNotNotifyOtherSessionsOnNextInactive___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
@@ -3566,17 +3566,19 @@ uint64_t __119__BWAudioSourceNode__configureAudioSessionWithDefaultHardwareSampl
   }
 
   v3 = 0;
-  v8 = 0;
+  v15 = 0;
   if (a2)
   {
-    v5 = [(BWAudioSourceNode *)frames _copyAudioSessionMXProperty:&v8 err:?];
+    v5 = [(BWAudioSourceNode *)frames _copyAudioSessionMXProperty:&v15 err:?];
     v6 = v5;
-    if (v8)
+    if (v15)
     {
+      v14 = 0;
+      v13 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       OUTLINED_FUNCTION_1_4();
-      OUTLINED_FUNCTION_17_8();
+      OUTLINED_FUNCTION_17_8(v8, v9, v10, v11, v12);
     }
 
     else
@@ -3584,7 +3586,7 @@ uint64_t __119__BWAudioSourceNode__configureAudioSessionWithDefaultHardwareSampl
       *a2 = [v5 intValue];
     }
 
-    return v8;
+    return v15;
   }
 
   return v3;
@@ -3701,18 +3703,18 @@ uint64_t __119__BWAudioSourceNode__configureAudioSessionWithDefaultHardwareSampl
   return v19;
 }
 
-- (CMSampleBufferRef)_createSampleBufferForTimestampedAudioBufferList:(int)list audioBufferIndex:
+- (id)_createSampleBufferForTimestampedAudioBufferList:(int)list audioBufferIndex:
 {
   if (result)
   {
     v5 = result;
-    v6 = [objc_msgSend(*(result + 2) "format")];
+    v6 = [objc_msgSend(result[2] "format")];
     StreamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(v6);
     v8 = StreamBasicDescription;
     mBytesPerFrame = StreamBasicDescription->mBytesPerFrame;
     v10 = mBytesPerFrame * *(a2 + 56);
     v11 = *(a2 + 20) * mBytesPerFrame;
-    if (StreamBasicDescription->mChannelsPerFrame >= 2 && (StreamBasicDescription->mFormatFlags & 0x20) != 0 && [objc_msgSend(v5 "outputs")] == 1)
+    if (StreamBasicDescription->mChannelsPerFrame >= 2 && (StreamBasicDescription->mFormatFlags & 0x20) != 0 && [-[opaqueCMSampleBuffer outputs](v5 "outputs")] == 1)
     {
       mChannelsPerFrame = v8->mChannelsPerFrame;
       v10 = mChannelsPerFrame * v10;
@@ -3754,7 +3756,7 @@ uint64_t __119__BWAudioSourceNode__configureAudioSessionWithDefaultHardwareSampl
       formatDescription = v6;
       if (v11)
       {
-        if (v5[595] == 1 && v8->mChannelsPerFrame == 2 && (v8->mFormatFlags & 0x20) == 0)
+        if (*(v5 + 595) == 1 && v8->mChannelsPerFrame == 2 && (v8->mFormatFlags & 0x20) == 0)
         {
           v24 = 0;
           v25 = v8->mBytesPerFrame >> 1;
@@ -3815,7 +3817,7 @@ uint64_t __119__BWAudioSourceNode__configureAudioSessionWithDefaultHardwareSampl
 
       CMTimeMake(&v44.duration, 1, v8->mSampleRate);
       lhs = *(a2 + 24);
-      OUTLINED_FUNCTION_49_11((v39 + 456));
+      OUTLINED_FUNCTION_49_11(v39 + 456);
       CMTimeSubtract(&v42, &lhs, &rhs);
       v44.presentationTimeStamp = v42;
       v44.decodeTimeStamp = **&MEMORY[0x1E6960C70];
@@ -4023,32 +4025,36 @@ uint64_t __119__BWAudioSourceNode__configureAudioSessionWithDefaultHardwareSampl
   return result;
 }
 
-- (uint64_t)start:.cold.2()
+- (double)start:(uint64_t)a3 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = OUTLINED_FUNCTION_31_18();
-  v8 = OUTLINED_FUNCTION_4_1(v0, v1, v2, v3, v4, v5, v6, v7, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_5_2(v8))
+  v8 = OUTLINED_FUNCTION_31_18(a1, a2, a3, a4, a5, a6, a7, a8, v21, v23, v25, v27, SWORD2(v27), SBYTE6(v27), SHIBYTE(v27));
+  v16 = OUTLINED_FUNCTION_4_1(v8, v9, v10, v11, v12, v13, v14, v15, v22, v24, v26, v28, v29, v30, v31);
+  if (OUTLINED_FUNCTION_5_2(v16))
   {
+    v33 = 136315138;
     OUTLINED_FUNCTION_2_11("[BWAudioSourceNode start:]");
-    OUTLINED_FUNCTION_21();
+    OUTLINED_FUNCTION_21(v17, v18, v32, v19, &dword_1AC90E000);
   }
 
   OUTLINED_FUNCTION_1_4();
-  return fig_log_call_emit_and_clean_up_after_send_and_compose();
+  fig_log_call_emit_and_clean_up_after_send_and_compose();
+  return result;
 }
 
-- (uint64_t)start:.cold.3()
+- (double)start:(uint64_t)a3 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = OUTLINED_FUNCTION_31_18();
-  v8 = OUTLINED_FUNCTION_4_1(v0, v1, v2, v3, v4, v5, v6, v7, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_5_2(v8))
+  v8 = OUTLINED_FUNCTION_31_18(a1, a2, a3, a4, a5, a6, a7, a8, v21, v23, v25, v27, SWORD2(v27), SBYTE6(v27), SHIBYTE(v27));
+  v16 = OUTLINED_FUNCTION_4_1(v8, v9, v10, v11, v12, v13, v14, v15, v22, v24, v26, v28, v29, v30, v31);
+  if (OUTLINED_FUNCTION_5_2(v16))
   {
+    v33 = 136315138;
     OUTLINED_FUNCTION_2_11("[BWAudioSourceNode start:]");
-    OUTLINED_FUNCTION_21();
+    OUTLINED_FUNCTION_21(v17, v18, v32, v19, &dword_1AC90E000);
   }
 
   OUTLINED_FUNCTION_1_4();
-  return fig_log_call_emit_and_clean_up_after_send_and_compose();
+  fig_log_call_emit_and_clean_up_after_send_and_compose();
+  return result;
 }
 
 - (uint64_t)stop:(uint64_t)a1 .cold.2(uint64_t a1)
@@ -4071,7 +4077,7 @@ uint64_t __119__BWAudioSourceNode__configureAudioSessionWithDefaultHardwareSampl
   if (result)
   {
     OUTLINED_FUNCTION_1_5();
-    return FigDebugAssert3();
+    return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v7, v8, v9, v10, v11, vars0, vars8);
   }
 
   return result;

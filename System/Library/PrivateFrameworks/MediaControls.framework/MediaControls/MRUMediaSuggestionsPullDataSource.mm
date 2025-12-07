@@ -132,36 +132,36 @@ void __60__MRUMediaSuggestionsPullDataSource_refreshMediaSuggestions__block_invo
 
 void __60__MRUMediaSuggestionsPullDataSource_refreshMediaSuggestions__block_invoke_3(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 8) = 0;
   v2 = objc_loadWeakRetained((a1 + 56));
   objc_sync_enter(v2);
   [v2 setMediaSuggestions:*(a1 + 40)];
   objc_sync_exit(v2);
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __60__MRUMediaSuggestionsPullDataSource_refreshMediaSuggestions__block_invoke_4;
-  v8[3] = &unk_1E76639D0;
-  v8[4] = v2;
-  v9 = *(a1 + 40);
-  dispatch_async(MEMORY[0x1E69E96A0], v8);
-  v3 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __60__MRUMediaSuggestionsPullDataSource_refreshMediaSuggestions__block_invoke_4;
+  v9[3] = &unk_1E76639D0;
+  v9[4] = v2;
+  v10 = *(a1 + 40);
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
+  v4 = MCLogCategoryDefault(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = objc_opt_class();
-    v5 = *(*(a1 + 32) + 32);
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 48);
+    v5 = objc_opt_class();
+    v6 = *(*(a1 + 32) + 32);
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
     *buf = 138413058;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v7;
-    _os_log_impl(&dword_1A20FC000, v3, OS_LOG_TYPE_DEFAULT, "%@, %@ request retrieved media suggestions: %@, error: %@", buf, 0x2Au);
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v7;
+    v17 = 2112;
+    v18 = v8;
+    _os_log_impl(&dword_1A20FC000, v4, OS_LOG_TYPE_DEFAULT, "%@, %@ request retrieved media suggestions: %@, error: %@", buf, 0x2Au);
   }
 }
 

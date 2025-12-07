@@ -211,7 +211,7 @@ void __98__WBSPrimaryAppleAccountObserver_getPrimaryAppleAccountHasSafariSyncEna
   return v3;
 }
 
-uint64_t __57__WBSPrimaryAppleAccountObserver_isCurrentAppleIDManaged__block_invoke(uint64_t a1)
+void *__57__WBSPrimaryAppleAccountObserver_isCurrentAppleIDManaged__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) aa_isManagedAppleID];
   *(*(*(a1 + 40) + 8) + 24) = result;

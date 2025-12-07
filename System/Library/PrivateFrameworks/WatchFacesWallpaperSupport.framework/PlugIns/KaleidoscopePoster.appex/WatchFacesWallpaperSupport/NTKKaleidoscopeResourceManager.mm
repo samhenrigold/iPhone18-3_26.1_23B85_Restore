@@ -149,77 +149,76 @@
   fragmentNameCopy = fragmentName;
   libraryCopy = library;
   archiveCopy = archive;
-  v18 = *(&off_100034FE0 + type);
-  v19 = @"off";
+  v18 = @"off";
   if (blendingCopy)
   {
-    v19 = @"on";
+    v18 = @"on";
   }
 
-  v20 = [NSString stringWithFormat:@"%@_blend_%@", *(&off_100034FE0 + type), v19];
-  v51 = blendingCopy;
-  v21 = objc_opt_new();
-  [v21 setConstantValue:&v51 type:53 atIndex:0];
-  v22 = +[MTLFunctionDescriptor functionDescriptor];
-  v50 = nameCopy;
-  [v22 setName:nameCopy];
-  [v22 setConstantValues:v21];
-  v23 = [archiveCopy newFunctionInLibrary:libraryCopy withDescriptor:v22];
-  v49 = fragmentNameCopy;
-  [v22 setName:fragmentNameCopy];
-  v47 = libraryCopy;
-  v24 = [archiveCopy newFunctionInLibrary:libraryCopy withDescriptor:v22];
-  v25 = objc_alloc_init(MTLRenderPipelineDescriptor);
-  v48 = v20;
-  [v25 setLabel:v20];
-  v46 = v23;
-  [v25 setVertexFunction:v23];
-  [v25 setFragmentFunction:v24];
+  v19 = [NSString stringWithFormat:@"%@_blend_%@", *(&off_100034FE0 + type), v18];
+  v50 = blendingCopy;
+  v20 = objc_opt_new();
+  [v20 setConstantValue:&v50 type:53 atIndex:0];
+  v21 = +[MTLFunctionDescriptor functionDescriptor];
+  v49 = nameCopy;
+  [v21 setName:nameCopy];
+  [v21 setConstantValues:v20];
+  v22 = [archiveCopy newFunctionInLibrary:libraryCopy withDescriptor:v21];
+  v48 = fragmentNameCopy;
+  [v21 setName:fragmentNameCopy];
+  v46 = libraryCopy;
+  v23 = [archiveCopy newFunctionInLibrary:libraryCopy withDescriptor:v21];
+  v24 = objc_alloc_init(MTLRenderPipelineDescriptor);
+  v47 = v19;
+  [v24 setLabel:v19];
+  v45 = v22;
+  [v24 setVertexFunction:v22];
+  [v24 setFragmentFunction:v23];
   viewMtlPixelFormat = self->_viewMtlPixelFormat;
-  colorAttachments = [v25 colorAttachments];
-  v28 = [colorAttachments objectAtIndexedSubscript:0];
-  [v28 setPixelFormat:viewMtlPixelFormat];
+  colorAttachments = [v24 colorAttachments];
+  v27 = [colorAttachments objectAtIndexedSubscript:0];
+  [v27 setPixelFormat:viewMtlPixelFormat];
 
   if (blendingCopy)
   {
-    colorAttachments2 = [v25 colorAttachments];
-    v30 = [colorAttachments2 objectAtIndexedSubscript:0];
-    [v30 setBlendingEnabled:1];
+    colorAttachments2 = [v24 colorAttachments];
+    v29 = [colorAttachments2 objectAtIndexedSubscript:0];
+    [v29 setBlendingEnabled:1];
 
-    colorAttachments3 = [v25 colorAttachments];
-    v32 = [colorAttachments3 objectAtIndexedSubscript:0];
-    [v32 setRgbBlendOperation:0];
+    colorAttachments3 = [v24 colorAttachments];
+    v31 = [colorAttachments3 objectAtIndexedSubscript:0];
+    [v31 setRgbBlendOperation:0];
 
-    colorAttachments4 = [v25 colorAttachments];
-    v34 = [colorAttachments4 objectAtIndexedSubscript:0];
-    [v34 setAlphaBlendOperation:0];
+    colorAttachments4 = [v24 colorAttachments];
+    v33 = [colorAttachments4 objectAtIndexedSubscript:0];
+    [v33 setAlphaBlendOperation:0];
 
-    colorAttachments5 = [v25 colorAttachments];
-    v36 = [colorAttachments5 objectAtIndexedSubscript:0];
-    [v36 setSourceRGBBlendFactor:4];
+    colorAttachments5 = [v24 colorAttachments];
+    v35 = [colorAttachments5 objectAtIndexedSubscript:0];
+    [v35 setSourceRGBBlendFactor:4];
 
-    colorAttachments6 = [v25 colorAttachments];
-    v38 = [colorAttachments6 objectAtIndexedSubscript:0];
-    [v38 setSourceAlphaBlendFactor:4];
+    colorAttachments6 = [v24 colorAttachments];
+    v37 = [colorAttachments6 objectAtIndexedSubscript:0];
+    [v37 setSourceAlphaBlendFactor:4];
 
-    colorAttachments7 = [v25 colorAttachments];
-    v40 = [colorAttachments7 objectAtIndexedSubscript:0];
-    [v40 setDestinationRGBBlendFactor:5];
+    colorAttachments7 = [v24 colorAttachments];
+    v39 = [colorAttachments7 objectAtIndexedSubscript:0];
+    [v39 setDestinationRGBBlendFactor:5];
 
-    colorAttachments8 = [v25 colorAttachments];
-    v42 = [colorAttachments8 objectAtIndexedSubscript:0];
-    [v42 setDestinationAlphaBlendFactor:5];
+    colorAttachments8 = [v24 colorAttachments];
+    v41 = [colorAttachments8 objectAtIndexedSubscript:0];
+    [v41 setDestinationAlphaBlendFactor:5];
   }
 
-  v43 = [archiveCopy newRenderPipelineStateForDevice:self->_device withDescriptor:v25];
-  if (!v43)
+  v42 = [archiveCopy newRenderPipelineStateForDevice:self->_device withDescriptor:v24];
+  if (!v42)
   {
     sub_100024514();
   }
 
-  v44 = v43;
+  v43 = v42;
 
-  return v44;
+  return v43;
 }
 
 - (void)_queue_setupPipelineForType:(unint64_t)type vertexName:(id)name fragmentName:(id)fragmentName inLibrary:(id)library archive:(id)archive

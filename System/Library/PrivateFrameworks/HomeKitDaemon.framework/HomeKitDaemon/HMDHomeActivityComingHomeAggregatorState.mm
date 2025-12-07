@@ -40,7 +40,7 @@
 
 - (id)attributeDescriptions
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   type = [(HMDHomeActivityComingHomeAggregatorState *)self type];
   if (type)
@@ -62,15 +62,13 @@
   }
 
   v6 = [v3 initWithName:@"Type" value:v5];
-  v14[0] = v6;
+  v13[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   transitionalStateEndDate = [(HMDHomeActivityComingHomeAggregatorState *)self transitionalStateEndDate];
   hmf_localTimeDescription = [transitionalStateEndDate hmf_localTimeDescription];
   v10 = [v7 initWithName:@"Transitional State End Date" value:hmf_localTimeDescription];
-  v14[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
 
   return v11;
 }
@@ -85,7 +83,7 @@
   if (v7)
   {
     v7->_type = type;
-    v9 = [dateCopy copy];
+    v9 = objc_msgSend_copy(dateCopy);
     transitionalStateEndDate = v8->_transitionalStateEndDate;
     v8->_transitionalStateEndDate = v9;
   }

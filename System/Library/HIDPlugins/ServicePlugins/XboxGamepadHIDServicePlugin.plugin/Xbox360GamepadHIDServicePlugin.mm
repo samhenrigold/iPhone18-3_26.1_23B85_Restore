@@ -1,5 +1,6 @@
 @interface Xbox360GamepadHIDServicePlugin
 - (BOOL)setProperty:(id)property forKey:(id)key client:(id)client;
+- (Xbox360GamepadHIDServicePlugin)initWithService:(unsigned int)service;
 - (id)defaultHapticMotors;
 - (id)propertyForKey:(id)key client:(id)client;
 - (void)activate;
@@ -11,6 +12,20 @@
 @end
 
 @implementation Xbox360GamepadHIDServicePlugin
+
+- (Xbox360GamepadHIDServicePlugin)initWithService:(unsigned int)service
+{
+  v7.receiver = self;
+  v7.super_class = Xbox360GamepadHIDServicePlugin;
+  v3 = [(GCGamepadHIDServicePlugin *)&v7 initWithService:*&service];
+  v4 = v3;
+  if (v3)
+  {
+    v5 = v3;
+  }
+
+  return v4;
+}
 
 - (void)activate
 {

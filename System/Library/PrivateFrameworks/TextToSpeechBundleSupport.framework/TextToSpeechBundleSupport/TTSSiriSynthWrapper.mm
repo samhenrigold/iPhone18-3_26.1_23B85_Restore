@@ -58,7 +58,7 @@
     v5 = currentNeuralStyle2;
     if (currentNeuralStyle2)
     {
-      [currentNeuralStyle2 getStyleVector];
+      objc_msgSend_getStyleVector(currentNeuralStyle2);
     }
 
     else
@@ -95,45 +95,45 @@
 
 - (id)_neuralStyles
 {
-  v24 = *MEMORY[0x277D85DE8];
-  TTSSynthesizer::available_neural_styles(&v21, [(TTSSiriSynthWrapper *)self synthesizer]);
-  memset(v20, 0, sizeof(v20));
+  v23 = *MEMORY[0x277D85DE8];
+  TTSSynthesizer::available_neural_styles(&v20, [(TTSSiriSynthWrapper *)self synthesizer]);
+  memset(v19, 0, sizeof(v19));
   array = [MEMORY[0x277CBEB18] array];
-  v4 = v21;
-  v5 = v22;
-  if (v21 != v22)
+  v4 = v20;
+  v5 = v21;
+  if (v20 != v21)
   {
     *&v3 = 136315138;
-    v15 = v3;
+    v14 = v3;
     do
     {
       v6 = [TTSNeuralStyle alloc];
       if (*(v4 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v19, *v4, *(v4 + 8));
+        std::string::__init_copy_ctor_external(&v18, *v4, *(v4 + 8));
       }
 
       else
       {
         v7 = *v4;
-        v19.__r_.__value_.__r.__words[2] = *(v4 + 16);
-        *&v19.__r_.__value_.__l.__data_ = v7;
+        v18.__r_.__value_.__r.__words[2] = *(v4 + 16);
+        *&v18.__r_.__value_.__l.__data_ = v7;
       }
 
       __p = 0;
+      v16 = 0;
       v17 = 0;
-      v18 = 0;
       std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, *(v4 + 48), *(v4 + 56), (*(v4 + 56) - *(v4 + 48)) >> 2);
-      v8 = [(TTSNeuralStyle *)v6 initWithName:&v19 vector:&__p];
+      v8 = [(TTSNeuralStyle *)v6 initWithName:&v18 vector:&__p];
       if (__p)
       {
-        v17 = __p;
+        v16 = __p;
         operator delete(__p);
       }
 
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v19.__r_.__value_.__l.__data_);
+        operator delete(v18.__r_.__value_.__l.__data_);
         if (!v8)
         {
 LABEL_12:
@@ -146,7 +146,7 @@ LABEL_12:
               v10 = *v4;
             }
 
-            *buf = v15;
+            *buf = v14;
             *&buf[4] = v10;
             _os_log_fault_impl(&dword_26D514000, v9, OS_LOG_TYPE_FAULT, "Siri returned style %s for which we have no localization.", buf, 0xCu);
           }
@@ -160,7 +160,7 @@ LABEL_12:
         goto LABEL_12;
       }
 
-      [array addObject:{v8, v15}];
+      [array addObject:{v8, v14}];
 LABEL_14:
 
       v4 += 72;
@@ -169,7 +169,7 @@ LABEL_14:
     while (v4 != v5);
   }
 
-  v11 = [array indexOfObjectPassingTest:{&__block_literal_global, v15}];
+  v11 = [array indexOfObjectPassingTest:{&__block_literal_global, v14}];
   if (v11 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v12 = [array objectAtIndexedSubscript:v11];
@@ -177,11 +177,10 @@ LABEL_14:
     [array insertObject:v12 atIndex:0];
   }
 
-  *buf = v20;
+  *buf = v19;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](buf);
-  v20[0] = &v21;
-  std::vector<TTSSynthesizer::SpeakingStyle>::__destroy_vector::operator()[abi:ne200100](v20);
-  v13 = *MEMORY[0x277D85DE8];
+  v19[0] = &v20;
+  std::vector<TTSSynthesizer::SpeakingStyle>::__destroy_vector::operator()[abi:ne200100](v19);
 
   return array;
 }
@@ -249,7 +248,7 @@ void __46__TTSSiriSynthWrapper__applyPostRuleRewrites___block_invoke_2(uint64_t 
     v12 = v3;
     v5 = [v3 range];
     v7 = [v4 substringWithRange:{v5, v6}];
-    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"\x1B\\tn=raw\\%@\x1B\\tn=spell\\"", v7];
+    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"\x1B\\tn=raw\\%@\x1B\\tn=spell\", v7];
     v9 = *(a1 + 40);
     v10 = [v12 range];
     [v9 transformRange:v10 to:{v11, v8}];
@@ -466,7 +465,7 @@ void __40__TTSSiriSynthWrapper_synthesizeString___block_invoke(uint64_t a1)
     [(TTSSiriSynthWrapper *)self synthesizer];
     if (resourceCopy)
     {
-      [resourceCopy siriVoiceResource];
+      objc_msgSend_siriVoiceResource(resourceCopy);
     }
 
     else
@@ -497,37 +496,35 @@ void __40__TTSSiriSynthWrapper_synthesizeString___block_invoke(uint64_t a1)
 
 - (void)unloadAllVoiceResources
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   voiceResources = [(TTSSiriSynthWrapper *)self voiceResources];
-  v4 = [voiceResources countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v4 = [voiceResources countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v4)
   {
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(voiceResources);
         }
 
-        [(TTSSiriSynthWrapper *)self unloadVoiceResource:*(*(&v8 + 1) + 8 * v6++)];
+        [(TTSSiriSynthWrapper *)self unloadVoiceResource:*(*(&v7 + 1) + 8 * v6++)];
       }
 
       while (v4 != v6);
-      v4 = [voiceResources countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [voiceResources countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (TTSSiriSynthWrapperDelegate)delegate
@@ -546,11 +543,10 @@ void __40__TTSSiriSynthWrapper_synthesizeString___block_invoke(uint64_t a1)
 
 void __40__TTSSiriSynthWrapper_synthesizeString___block_invoke_cold_1(const std::logic_error *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 136315138;
-  v5 = std::logic_error::what(a1);
-  _os_log_fault_impl(&dword_26D514000, a2, OS_LOG_TYPE_FAULT, "Siri threw an exception instead of reporting an error via callback: %s", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 136315138;
+  v4 = std::logic_error::what(a1);
+  _os_log_fault_impl(&dword_26D514000, a2, OS_LOG_TYPE_FAULT, "Siri threw an exception instead of reporting an error via callback: %s", &v3, 0xCu);
 }
 
 @end

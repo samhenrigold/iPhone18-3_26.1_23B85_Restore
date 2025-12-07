@@ -152,13 +152,14 @@ LABEL_9:
 
 - (id)copyMatchingItemsWithDatabase:(CalDatabase *)database
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CF74E0] = [MEMORY[0x277CF74E0] shared];
   get_enableTravelAdvisoriesForAutomaticBehavior = [mEMORY[0x277CF74E0] get_enableTravelAdvisoriesForAutomaticBehavior];
 
   if (get_enableTravelAdvisoriesForAutomaticBehavior)
   {
-    result = [(CADTravelEventsPredicate *)self _fetchTravelEventsWithDatabase:database];
+    [(CADTravelEventsPredicate *)self _fetchTravelEventsWithDatabase:database];
+    return objc_claimAutoreleasedReturnValue();
   }
 
   else
@@ -166,30 +167,27 @@ LABEL_9:
     v8 = CADLogHandle;
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 138412290;
+      v9 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_22430B000, v8, OS_LOG_TYPE_DEBUG, "Will not perform travel event search because travel advisories are not enabled globally.  Predicate: [%@]", &v10, 0xCu);
+      _os_log_impl(&dword_22430B000, v8, OS_LOG_TYPE_DEBUG, "Will not perform travel event search because travel advisories are not enabled globally.  Predicate: [%@]", &v9, 0xCu);
     }
 
-    result = 0;
+    return 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (id)_fetchTravelEventsWithDatabase:(CalDatabase *)database
 {
   v51 = *MEMORY[0x277D85DE8];
-  v4 = CalDatabaseCopyEventOccurrenceCache();
+  v5 = CalDatabaseCopyEventOccurrenceCache();
   AuxilliaryDatabaseID = CalDatabaseGetAuxilliaryDatabaseID();
-  v6 = [(EKPredicate *)self calendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
-  v7 = [(EKPredicate *)self restrictedCalendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
-  FilterFromRowIDs = CreateFilterFromRowIDs(v6, v7);
-  v9 = CADLogHandle;
+  v7 = [(EKPredicate *)self calendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
+  v8 = [(EKPredicate *)self restrictedCalendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
+  FilterFromRowIDs = CreateFilterFromRowIDs(v7, v8, 2, database);
+  v10 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v10 = v9;
+    v11 = v10;
     startDate = [(EKPredicate *)self startDate];
     endDate = [(EKPredicate *)self endDate];
     *buf = 138413058;
@@ -197,30 +195,30 @@ LABEL_9:
     v45 = 2112;
     v46 = endDate;
     v47 = 2112;
-    v48 = v6;
+    v48 = v7;
     v49 = 2112;
-    v50 = v7;
-    _os_log_impl(&dword_22430B000, v10, OS_LOG_TYPE_DEBUG, "Commencing travel event search with start date: [%@] end date: [%@] calendar object IDs: [%@] restricted calendar row IDs: [%@]", buf, 0x2Au);
+    v50 = v8;
+    _os_log_impl(&dword_22430B000, v11, OS_LOG_TYPE_DEBUG, "Commencing travel event search with start date: [%@] end date: [%@] calendar object IDs: [%@] restricted calendar row IDs: [%@]", buf, 0x2Au);
   }
 
   startDate2 = [(EKPredicate *)self startDate];
   endDate2 = [(EKPredicate *)self endDate];
   defaultTimeZone = [MEMORY[0x277CBEBB0] defaultTimeZone];
-  v16 = CalEventOccurrenceCacheCopyEventOccurrencesInDateRange();
+  v17 = CalEventOccurrenceCacheCopyEventOccurrencesInDateRange();
 
-  if (v16)
+  if (v17)
   {
     v38 = FilterFromRowIDs;
-    v39 = v7;
-    v40 = v6;
-    v41 = v4;
-    Count = CFArrayGetCount(v16);
-    v18 = CADLogHandle;
+    v39 = v8;
+    v40 = v7;
+    v41 = v5;
+    Count = CFArrayGetCount(v17);
+    v19 = CADLogHandle;
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
       selfCopy = Count;
-      _os_log_impl(&dword_22430B000, v18, OS_LOG_TYPE_DEBUG, "Found [%ld] travel event candidates.", buf, 0xCu);
+      _os_log_impl(&dword_22430B000, v19, OS_LOG_TYPE_DEBUG, "Found [%ld] travel event candidates.", buf, 0xCu);
     }
 
     v42 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:Count];
@@ -228,31 +226,31 @@ LABEL_9:
     {
       for (i = 0; Count != i; ++i)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v16, i);
+        ValueAtIndex = CFArrayGetValueAtIndex(v17, i);
         CalEventOccurrenceGetEvent();
         if (CalEventIsCandidateForTravelAdvisories())
         {
           [v42 addObject:ValueAtIndex];
-          v21 = CADLogHandle;
+          v22 = CADLogHandle;
           if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
           {
-            v22 = MEMORY[0x277CBEAA8];
-            v23 = v21;
+            v23 = MEMORY[0x277CBEAA8];
+            v24 = v22;
             CalEventOccurrenceGetDate();
-            v24 = [v22 dateWithTimeIntervalSinceReferenceDate:?];
-            v25 = CalCalendarItemCopySummary();
-            v26 = MEMORY[0x277CBEAA8];
-            v27 = v25;
+            v25 = [v23 dateWithTimeIntervalSinceReferenceDate:?];
+            v26 = CalCalendarItemCopySummary();
+            v27 = MEMORY[0x277CBEAA8];
+            v28 = v26;
             CalEventOccurrenceGetDate();
-            [v26 dateWithTimeIntervalSinceReferenceDate:?];
-            v28 = CalEventCopyURI();
+            [v27 dateWithTimeIntervalSinceReferenceDate:?];
+            v29 = CalEventCopyURI();
             *buf = 138412802;
-            selfCopy = v24;
+            selfCopy = v25;
             v45 = 2112;
-            v46 = v25;
+            v46 = v26;
             v47 = 2112;
-            v48 = v28;
-            _os_log_impl(&dword_22430B000, v23, OS_LOG_TYPE_DEBUG, "Accepted travel event candidate.  Start date: [%@] title: [%@] URI: [%@]", buf, 0x20u);
+            v48 = v29;
+            _os_log_impl(&dword_22430B000, v24, OS_LOG_TYPE_DEBUG, "Accepted travel event candidate.  Start date: [%@] title: [%@] URI: [%@]", buf, 0x20u);
 
 LABEL_13:
           }
@@ -260,26 +258,26 @@ LABEL_13:
 
         else
         {
-          v29 = CADLogHandle;
+          v30 = CADLogHandle;
           if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
           {
-            v30 = MEMORY[0x277CBEAA8];
-            v23 = v29;
+            v31 = MEMORY[0x277CBEAA8];
+            v24 = v30;
             CalEventOccurrenceGetDate();
-            v24 = [v30 dateWithTimeIntervalSinceReferenceDate:?];
-            v31 = CalCalendarItemCopySummary();
-            v32 = MEMORY[0x277CBEAA8];
-            v33 = v31;
+            v25 = [v31 dateWithTimeIntervalSinceReferenceDate:?];
+            v32 = CalCalendarItemCopySummary();
+            v33 = MEMORY[0x277CBEAA8];
+            v34 = v32;
             CalEventOccurrenceGetDate();
-            [v32 dateWithTimeIntervalSinceReferenceDate:?];
-            v34 = CalEventCopyURI();
+            [v33 dateWithTimeIntervalSinceReferenceDate:?];
+            v35 = CalEventCopyURI();
             *buf = 138412802;
-            selfCopy = v24;
+            selfCopy = v25;
             v45 = 2112;
-            v46 = v31;
+            v46 = v32;
             v47 = 2112;
-            v48 = v34;
-            _os_log_impl(&dword_22430B000, v23, OS_LOG_TYPE_DEBUG, "Rejected travel event candidate.  Start date: [%@] title: [%@] URI: [%@]", buf, 0x20u);
+            v48 = v35;
+            _os_log_impl(&dword_22430B000, v24, OS_LOG_TYPE_DEBUG, "Rejected travel event candidate.  Start date: [%@] title: [%@] URI: [%@]", buf, 0x20u);
 
             goto LABEL_13;
           }
@@ -287,11 +285,11 @@ LABEL_13:
       }
     }
 
-    CFRelease(v16);
-    v6 = v40;
-    v4 = v41;
+    CFRelease(v17);
+    v7 = v40;
+    v5 = v41;
     FilterFromRowIDs = v38;
-    v7 = v39;
+    v8 = v39;
     if (v38)
     {
       goto LABEL_16;
@@ -316,12 +314,10 @@ LABEL_16:
     }
   }
 
-  if (v4)
+  if (v5)
   {
-    CFRelease(v4);
+    CFRelease(v5);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v42;
 }

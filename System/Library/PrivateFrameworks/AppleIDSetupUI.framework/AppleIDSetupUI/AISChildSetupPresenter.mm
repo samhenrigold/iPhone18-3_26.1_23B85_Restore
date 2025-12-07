@@ -25,10 +25,9 @@
 
 - (AISChildSetupStoreProtocol)childSetupStore
 {
-  v2 = *(self + OBJC_IVAR___AISChildSetupPresenter_childSetupStore);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)startFlowWithViewControllerPresentationHandler:(id)handler

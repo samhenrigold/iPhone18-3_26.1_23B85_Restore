@@ -40,31 +40,31 @@
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   keyEnumerator = [(NSMapTable *)self->_accounts keyEnumerator];
-  v4 = [keyEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [keyEnumerator countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        [*(*(&v9 + 1) + 8 * v6++) invalidate];
+        [*(*(&v8 + 1) + 8 * v6++) invalidate];
       }
 
       while (v4 != v6);
-      v4 = [keyEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [keyEnumerator countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
@@ -72,22 +72,21 @@
 
   [(NSMapTable *)self->_accounts removeAllObjects];
   [(NSXPCListener *)self->_listener invalidate];
-  v8.receiver = self;
-  v8.super_class = ACIXPCProvider;
-  [(ACIXPCProvider *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = ACIXPCProvider;
+  [(ACIXPCProvider *)&v7 dealloc];
 }
 
 - (void)teardownConnection:(id)connection
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v5 = _aciLogGeneral();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = connectionCopy;
-    _os_log_impl(&dword_23C3F5000, v5, OS_LOG_TYPE_DEFAULT, "teardownConnection(%@) begin", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = connectionCopy;
+    _os_log_impl(&dword_23C3F5000, v5, OS_LOG_TYPE_DEFAULT, "teardownConnection(%@) begin", &v9, 0xCu);
   }
 
   v6 = self->_accounts;
@@ -108,17 +107,15 @@
   v8 = _aciLogGeneral();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = connectionCopy;
-    _os_log_impl(&dword_23C3F5000, v8, OS_LOG_TYPE_DEFAULT, "teardownConnection(%@) end", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = connectionCopy;
+    _os_log_impl(&dword_23C3F5000, v8, OS_LOG_TYPE_DEFAULT, "teardownConnection(%@) end", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   objc_initWeak(&location, self);
@@ -127,9 +124,9 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v23 = listenerCopy;
-    v24 = 2112;
-    v25 = v8;
+    v22 = listenerCopy;
+    v23 = 2112;
+    v24 = v8;
     _os_log_impl(&dword_23C3F5000, v9, OS_LOG_TYPE_DEFAULT, "listener(listener:%@, shouldAcceptNewConnection:%@) begin", buf, 0x16u);
   }
 
@@ -141,14 +138,14 @@
   v12 = +[ACIXPCProvider remoteServiceClientInterface];
   [v8 setRemoteObjectInterface:v12];
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __53__ACIXPCProvider_listener_shouldAcceptNewConnection___block_invoke;
-  v18[3] = &unk_278BBBDC8;
-  objc_copyWeak(&v20, &location);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __53__ACIXPCProvider_listener_shouldAcceptNewConnection___block_invoke;
+  v17[3] = &unk_278BBBDC8;
+  objc_copyWeak(&v19, &location);
   v13 = v8;
-  v19 = v13;
-  [v13 setInvalidationHandler:v18];
+  v18 = v13;
+  [v13 setInvalidationHandler:v17];
   v14 = self->_accounts;
   objc_sync_enter(v14);
   [(NSMapTable *)self->_accounts setObject:v10 forKey:v13];
@@ -162,16 +159,15 @@
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v23 = listenerCopy;
-    v24 = 2112;
-    v25 = v13;
+    v22 = listenerCopy;
+    v23 = 2112;
+    v24 = v13;
     _os_log_impl(&dword_23C3F5000, v15, OS_LOG_TYPE_DEFAULT, "listener(listener:%@, shouldAcceptNewConnection:%@) end", buf, 0x16u);
   }
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
 
-  v16 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

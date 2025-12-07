@@ -770,21 +770,21 @@ LABEL_30:
 
 - (HostWatcher)initWithCheckinGoop:(void *)goop
 {
-  v58.receiver = self;
-  v58.super_class = HostWatcher;
+  v54.receiver = self;
+  v54.super_class = HostWatcher;
   theDict = 0;
-  v4 = [(HostWatcher *)&v58 init];
+  v4 = [(HostWatcher *)&v54 init];
   if (!v4)
   {
     v10 = 0;
     goto LABEL_48;
   }
 
-  v64[0] = @"CheckinConnectionInfo";
-  v64[1] = @"NoHeartBeat";
-  v65[0] = goop;
-  v65[1] = &__kCFBooleanTrue;
-  v5 = [NSDictionary dictionaryWithObjects:v65 forKeys:v64 count:2];
+  v60[0] = @"CheckinConnectionInfo";
+  v60[1] = @"NoHeartBeat";
+  v61[0] = goop;
+  v61[1] = &__kCFBooleanTrue;
+  v5 = [NSDictionary dictionaryWithObjects:v61 forKeys:v60 count:2];
   v6 = secure_lockdown_checkin();
   if (!v6)
   {
@@ -792,23 +792,20 @@ LABEL_30:
     v12 = *(v4 + 5);
     *(v4 + 5) = v11;
 
-    v13 = *(v4 + 5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = CFDictionaryGetValue(theDict, @"HostName");
-      v15 = *(v4 + 6);
-      *(v4 + 6) = v14;
+      v13 = CFDictionaryGetValue(theDict, @"HostName");
+      v14 = *(v4 + 6);
+      *(v4 + 6) = v13;
 
-      v16 = *(v4 + 6);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v17 = *(v4 + 6);
+        v15 = *(v4 + 6);
         *(v4 + 6) = @"Unknown host";
       }
 
-      v18 = *(v4 + 8);
       socket = lockdown_get_socket();
       v4[6] = socket;
       if (socket == -1)
@@ -825,7 +822,6 @@ LABEL_30:
       else
       {
         *(v4 + 11) = 0;
-        v20 = *(v4 + 8);
         securecontext = lockdown_get_securecontext();
         *(v4 + 16) = securecontext;
         if (!securecontext && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -834,96 +830,96 @@ LABEL_30:
           _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "SSL not enabled on this connection.", buf, 2u);
         }
 
-        v22 = objc_alloc_init(NSMutableSet);
-        v23 = *(v4 + 9);
-        *(v4 + 9) = v22;
+        v18 = objc_alloc_init(NSMutableSet);
+        v19 = *(v4 + 9);
+        *(v4 + 9) = v18;
 
         if (*(v4 + 9))
         {
-          v24 = objc_alloc_init(NSMutableArray);
-          v25 = *(v4 + 10);
-          *(v4 + 10) = v24;
+          v20 = objc_alloc_init(NSMutableArray);
+          v21 = *(v4 + 10);
+          *(v4 + 10) = v20;
 
           if (*(v4 + 10))
           {
             if (sub_100000FF8(v4[6]))
             {
-              v26 = sub_10000487C(v4[6]);
-              v27 = *(v4 + 7);
-              *(v4 + 7) = v26;
+              v22 = sub_10000487C(v4[6]);
+              v23 = *(v4 + 7);
+              *(v4 + 7) = v22;
 
               if (*(v4 + 7))
               {
-                v28 = [NSString alloc];
-                v29 = objc_opt_class();
-                v30 = [v28 initWithFormat:@"<%s: %p> [%@ %@ '%@'] [fd=%d]", class_getName(v29), v4, *(v4 + 5), *(v4 + 7), *(v4 + 6), v4[6]];
-                v31 = *(v4 + 11);
-                *(v4 + 11) = v30;
+                v24 = [NSString alloc];
+                v25 = objc_opt_class();
+                v26 = [v24 initWithFormat:@"<%s: %p> [%@ %@ '%@'] [fd=%d]", class_getName(v25), v4, *(v4 + 5), *(v4 + 7), *(v4 + 6), v4[6]];
+                v27 = *(v4 + 11);
+                *(v4 + 11) = v26;
 
                 if (*(v4 + 11))
                 {
-                  v32 = IORegisterForSystemPower(v4, v4 + 15, sub_100004954, v4 + 5);
-                  v4[4] = v32;
-                  if (v32)
+                  v28 = IORegisterForSystemPower(v4, v4 + 15, sub_100004954, v4 + 5);
+                  v4[4] = v28;
+                  if (v28)
                   {
-                    v33 = [NSString alloc];
+                    v29 = [NSString alloc];
                     hostID = [v4 hostID];
-                    v35 = [v33 initWithFormat:@"com.apple.mobile.heartbeat.pingQueue.%@", hostID];
+                    v31 = [v29 initWithFormat:@"com.apple.mobile.heartbeat.pingQueue.%@", hostID];
 
-                    if (v35)
+                    if (v31)
                     {
-                      v36 = dispatch_queue_create([v35 UTF8String], 0);
-                      v37 = *(v4 + 12);
-                      *(v4 + 12) = v36;
+                      v32 = dispatch_queue_create([v31 UTF8String], 0);
+                      v33 = *(v4 + 12);
+                      *(v4 + 12) = v32;
 
                       if (*(v4 + 12))
                       {
-                        v38 = dispatch_semaphore_create(0);
-                        v39 = *(v4 + 13);
-                        *(v4 + 13) = v38;
+                        v34 = dispatch_semaphore_create(0);
+                        v35 = *(v4 + 13);
+                        *(v4 + 13) = v34;
 
                         if (*(v4 + 13))
                         {
                           IONotificationPortSetDispatchQueue(*(v4 + 15), qword_100010C08);
                           objc_initWeak(buf, v4);
-                          v40 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, qword_100010C08);
-                          v41 = *(v4 + 14);
-                          *(v4 + 14) = v40;
+                          v36 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, qword_100010C08);
+                          v37 = *(v4 + 14);
+                          *(v4 + 14) = v36;
 
-                          v42 = *(v4 + 14);
-                          if (v42)
+                          v38 = *(v4 + 14);
+                          if (v38)
                           {
-                            dispatch_source_set_timer(v42, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
-                            v43 = *(v4 + 14);
+                            dispatch_source_set_timer(v38, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
+                            v39 = *(v4 + 14);
                             handler[0] = _NSConcreteStackBlock;
                             handler[1] = 3221225472;
                             handler[2] = sub_100004960;
                             handler[3] = &unk_10000C6C8;
-                            objc_copyWeak(&v56, buf);
-                            dispatch_source_set_event_handler(v43, handler);
-                            v44 = *(v4 + 14);
-                            v53[0] = _NSConcreteStackBlock;
-                            v53[1] = 3221225472;
-                            v53[2] = sub_100004AB0;
-                            v53[3] = &unk_10000C6C8;
-                            objc_copyWeak(&v54, buf);
-                            dispatch_source_set_cancel_handler(v44, v53);
+                            objc_copyWeak(&v52, buf);
+                            dispatch_source_set_event_handler(v39, handler);
+                            v40 = *(v4 + 14);
+                            v49[0] = _NSConcreteStackBlock;
+                            v49[1] = 3221225472;
+                            v49[2] = sub_100004AB0;
+                            v49[3] = &unk_10000C6C8;
+                            objc_copyWeak(&v50, buf);
+                            dispatch_source_set_cancel_handler(v40, v49);
                             dispatch_resume(*(v4 + 14));
-                            objc_destroyWeak(&v54);
-                            objc_destroyWeak(&v56);
+                            objc_destroyWeak(&v50);
+                            objc_destroyWeak(&v52);
                             objc_destroyWeak(buf);
-                            v45 = os_transaction_create();
-                            v46 = *(v4 + 4);
-                            *(v4 + 4) = v45;
+                            v41 = os_transaction_create();
+                            v42 = *(v4 + 4);
+                            *(v4 + 4) = v41;
 
-                            v47 = *(v4 + 11);
-                            v62 = *(v4 + 5);
-                            v63 = v47;
-                            sub_10000117C(@"com.apple.heartbeatd.host.attached", [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1]);
+                            v43 = *(v4 + 11);
+                            v58 = *(v4 + 5);
+                            v59 = v43;
+                            sub_10000117C(@"com.apple.heartbeatd.host.attached", [NSDictionary dictionaryWithObjects:&v59 forKeys:&v58 count:1]);
                             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                             {
                               *buf = 138543362;
-                              v61 = v4;
+                              v57 = v4;
                               _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Initialized host watcher: %{public}@", buf, 0xCu);
                             }
 
@@ -933,8 +929,8 @@ LABEL_30:
 
                           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                           {
-                            *v57 = 0;
-                            _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to create timer.", v57, 2u);
+                            *v53 = 0;
+                            _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to create timer.", v53, 2u);
                           }
 
                           objc_destroyWeak(buf);
@@ -944,7 +940,7 @@ LABEL_30:
                         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                         {
                           *buf = 0;
-                          v52 = "Failed to create ping semaphore.";
+                          v48 = "Failed to create ping semaphore.";
                           goto LABEL_67;
                         }
                       }
@@ -952,9 +948,9 @@ LABEL_30:
                       else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                       {
                         *buf = 0;
-                        v52 = "Failed to allocate queue.";
+                        v48 = "Failed to allocate queue.";
 LABEL_67:
-                        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v52, buf, 2u);
+                        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v48, buf, 2u);
                       }
 
 LABEL_71:
@@ -1063,7 +1059,7 @@ LABEL_71:
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v61) = v7;
+    LODWORD(v57) = v7;
     v8 = "Failed to checkin: %d";
     v9 = 8;
 LABEL_45:
@@ -1083,26 +1079,26 @@ LABEL_48:
   theDict = 0;
   if (v4)
   {
-    v48 = v10;
+    v44 = v10;
   }
 
   else
   {
-    v48 = 1;
+    v44 = 1;
   }
 
-  if ((v48 & 1) == 0)
+  if ((v44 & 1) == 0)
   {
     if (v4[4])
     {
-      v49 = IODeregisterForSystemPower(v4 + 5);
-      if (v49)
+      v45 = IODeregisterForSystemPower(v4 + 5);
+      if (v45)
       {
-        v50 = v49;
+        v46 = v45;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          LODWORD(v61) = v50;
+          LODWORD(v57) = v46;
           _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "IODeregisterForSystemPower failed: %08x", buf, 8u);
         }
       }

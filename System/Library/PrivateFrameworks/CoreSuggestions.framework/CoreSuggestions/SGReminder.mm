@@ -266,12 +266,11 @@ LABEL_32:
   v11 = [(SGLocation *)self->_dueLocation copyWithZone:zone];
   dueLocationTrigger = self->_dueLocationTrigger;
   v13 = [(NSURL *)self->_sourceURL copyWithZone:zone];
-  contactIdentifier = self->_contactIdentifier;
-  LOBYTE(v18) = self->_reminderStatus;
-  LOBYTE(v17) = dueLocationTrigger;
-  v15 = [v5 initWithRecordId:recordId origin:origin title:title dueDateComponents:v9 dueLocationType:dueLocationType dueLocation:v11 dueLocationTrigger:v17 sourceURL:v13 reminderStatus:v18 opaqueKey:self->_opaqueKey uniqueKey:self->_uniqueKey contactIdentifier:contactIdentifier creationDate:self->_creationDate];
+  LOBYTE(v17) = self->_reminderStatus;
+  LOBYTE(v16) = dueLocationTrigger;
+  v14 = [v5 initWithRecordId:recordId origin:origin title:title dueDateComponents:v9 dueLocationType:dueLocationType dueLocation:v11 dueLocationTrigger:v16 sourceURL:v13 reminderStatus:v17 opaqueKey:self->_opaqueKey uniqueKey:self->_uniqueKey contactIdentifier:self->_contactIdentifier creationDate:self->_creationDate];
 
-  return v15;
+  return v14;
 }
 
 - (SGReminder)initWithCoder:(id)coder

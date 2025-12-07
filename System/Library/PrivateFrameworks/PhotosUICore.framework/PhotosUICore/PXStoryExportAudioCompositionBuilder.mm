@@ -104,9 +104,9 @@ LABEL_11:
   v8 = v7;
   v64 = 0uLL;
   v65 = 0;
-  [(PXStoryExportAudioCompositionBuilder *)self outroDuration];
+  objc_msgSend_outroDuration(self);
   memset(&v63, 0, sizeof(v63));
-  [(PXStoryExportAudioCompositionBuilder *)self maximumDuration];
+  objc_msgSend_maximumDuration(self);
   *&rhs.start.value = v64;
   rhs.start.epoch = v65;
   CMTimeSubtract(&start.start, &lhs.start, &rhs.start);
@@ -172,7 +172,7 @@ LABEL_11:
 
           if (v18)
           {
-            [v18 timeMapping];
+            objc_msgSend_timeMapping(v18);
           }
 
           else
@@ -281,7 +281,7 @@ LABEL_31:
 
           if (v23)
           {
-            [v23 timeMapping];
+            objc_msgSend_timeMapping(v23);
             time1 = v48;
             memset(&duration, 0, 24);
             time2 = v66;
@@ -333,7 +333,7 @@ LABEL_42:
         memset(&start, 0, sizeof(start));
         if (v44)
         {
-          [v44 timeRange];
+          objc_msgSend_timeRange(v44);
         }
 
         else
@@ -404,7 +404,7 @@ uint64_t __68__PXStoryExportAudioCompositionBuilder__applyMusicDuckingAndFadeOut
   v5 = a3;
   if (v4)
   {
-    [v4 timeMapping];
+    objc_msgSend_timeMapping(v4);
   }
 
   else
@@ -421,7 +421,7 @@ uint64_t __68__PXStoryExportAudioCompositionBuilder__applyMusicDuckingAndFadeOut
   v22.epoch = v20;
   if (v5)
   {
-    [v5 timeMapping];
+    objc_msgSend_timeMapping(v5);
   }
 
   else
@@ -450,10 +450,10 @@ uint64_t __68__PXStoryExportAudioCompositionBuilder__applyMusicDuckingAndFadeOut
   audioFadeCurve = [v14 audioFadeCurve];
   if (segmentCopy)
   {
-    [segmentCopy timeMapping];
+    objc_msgSend_timeMapping(segmentCopy);
     *&v45.value = v42;
     v45.epoch = v43;
-    [segmentCopy timeMapping];
+    objc_msgSend_timeMapping(segmentCopy);
   }
 
   else
@@ -556,11 +556,11 @@ uint64_t __68__PXStoryExportAudioCompositionBuilder__applyMusicDuckingAndFadeOut
   memset(&v26[80], 0, 48);
   if (trackCopy)
   {
-    [trackCopy timeRange];
+    objc_msgSend_timeRange(trackCopy);
   }
 
   memset(&v26[56], 0, 24);
-  [(PXStoryExportAudioCompositionBuilder *)self maximumDuration];
+  objc_msgSend_maximumDuration(self);
   v14 = *&time->var0;
   time.epoch = time->var3;
   range = *&v26[80];
@@ -836,7 +836,7 @@ LABEL_27:
               v60 = 0u;
               if (v21)
               {
-                [v21 timeRange];
+                objc_msgSend_timeRange(v21);
               }
 
               v58 = v61;

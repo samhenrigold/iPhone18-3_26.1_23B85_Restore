@@ -3,6 +3,7 @@
 - (BOOL)isRegistered;
 - (TKHostToken)initWithCoder:(id)coder;
 - (TKHostToken)initWithTokenID:(id)d persistent:(BOOL)persistent;
+- (TKHostToken)initWithTokenID:(id)d persistent:(BOOL)persistent tokenRegistration:(id)registration;
 - (TKHostTokenDriver)driver;
 - (TKHostTokenRegistry)registry;
 - (id)description;
@@ -86,6 +87,20 @@
   }
 
   return v9;
+}
+
+- (TKHostToken)initWithTokenID:(id)d persistent:(BOOL)persistent tokenRegistration:(id)registration
+{
+  persistentCopy = persistent;
+  registrationCopy = registration;
+  v10 = [(TKHostToken *)self initWithTokenID:d persistent:persistentCopy];
+  v11 = v10;
+  if (v10)
+  {
+    objc_storeStrong(&v10->_tokenRegistration, registration);
+  }
+
+  return v11;
 }
 
 - (id)description
@@ -244,7 +259,7 @@
     else
     {
       v10 = [NSError errorWithDomain:TKErrorDomain code:TKTokenNotFoundAndRegistered userInfo:0];
-      v11 = sub_1000017C0();
+      v11 = sub_1000017C0(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         sub_10001D884(self, v11);

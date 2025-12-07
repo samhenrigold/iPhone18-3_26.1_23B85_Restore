@@ -110,7 +110,6 @@
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
   }
 
@@ -121,7 +120,6 @@
 
   if (*&self->_has)
   {
-    primaryIdentifier = self->_primaryIdentifier;
     PBDataWriterWriteUint64Field();
   }
 
@@ -142,7 +140,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -244,7 +241,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 56);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 56) & 4) == 0 || self->_version != *(equalCopy + 13))
@@ -264,14 +260,13 @@
     if (![(CSDMessagingHandle *)primaryHandle isEqual:?])
     {
 LABEL_25:
-      v12 = 0;
+      v10 = 0;
       goto LABEL_26;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 56);
   if (has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_primaryIdentifier != *(equalCopy + 1))
@@ -309,7 +304,7 @@ LABEL_25:
     }
   }
 
-  v12 = (*(equalCopy + 56) & 2) == 0;
+  v10 = (*(equalCopy + 56) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_type != *(equalCopy + 12))
@@ -317,12 +312,12 @@ LABEL_25:
       goto LABEL_25;
     }
 
-    v12 = 1;
+    v10 = 1;
   }
 
 LABEL_26:
 
-  return v12;
+  return v10;
 }
 
 - (unint64_t)hash

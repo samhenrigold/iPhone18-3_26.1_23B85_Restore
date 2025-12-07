@@ -4,38 +4,39 @@
 - (int64_t)_selectedEncoding;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateTableCheckedSelection:(id)selection;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VoiceOverSpeakSecondsDetailController
 
 - (id)specifiers
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v18 = *MEMORY[0x277D3FC48];
+    v17 = *MEMORY[0x277D3FC48];
     selfCopy = self;
     [(VoiceOverSpeakSecondsDetailController *)self loadSpecifiersFromPlistName:@"SpeakSecondsSettings" target:?];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    obj = v24 = 0u;
-    v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    obj = v23 = 0u;
+    v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v22;
+      v6 = *v21;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v22 != v6)
+          if (*v21 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v21 + 1) + 8 * i);
+          v8 = *(*(&v20 + 1) + 8 * i);
           identifier = [v8 identifier];
           v10 = [identifier isEqualToString:@"VOICEOVER_SPEAK_SECONDS_ALWAYS"];
 
@@ -61,21 +62,49 @@
           }
         }
 
-        v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v5);
     }
 
-    v15 = *(&selfCopy->super.super.super.super.super.super.isa + v18);
-    *(&selfCopy->super.super.super.super.super.super.isa + v18) = obj;
+    v15 = *(&selfCopy->super.super.super.super.super.super.isa + v17);
+    *(&selfCopy->super.super.super.super.super.super.isa + v17) = obj;
 
-    v3 = *(&selfCopy->super.super.super.super.super.super.isa + v18);
+    v3 = *(&selfCopy->super.super.super.super.super.super.isa + v17);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v20[2] = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = VoiceOverSpeakSecondsDetailController;
+  [(AccessibilityBridgeBaseController *)&v19 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"VOICEOVER_SPEAK_SECONDS" table:@"VoiceOverSettings" locale:currentLocale bundleURL:bundleURL];
+
+  v8 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v3 bundleURL];
+  v11 = [v8 initWithKey:@"VOICEOVER_TITLE" table:@"AccessibilitySettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v12 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL3 = [v3 bundleURL];
+  v15 = [v12 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale3 bundleURL:bundleURL3];
+
+  v16 = MEMORY[0x277CF3470];
+  v20[0] = v15;
+  v20[1] = v11;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v18 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=VOICEOVER_ID/SpeakSeconds"];
+  [v16 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v7 localizedNavigationComponents:v17 deepLink:v18];
 }
 
 - (int64_t)_selectedEncoding

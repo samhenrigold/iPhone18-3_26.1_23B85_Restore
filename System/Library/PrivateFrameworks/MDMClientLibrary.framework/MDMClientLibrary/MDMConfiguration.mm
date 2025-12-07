@@ -115,13 +115,12 @@ void __39__MDMConfiguration_sharedConfiguration__block_invoke_3()
 
 - (BOOL)memberQueueReadConfigurationOutError:(id *)error
 {
-  v65 = *MEMORY[0x277D85DE8];
-  v62.receiver = self;
-  v62.super_class = MDMConfiguration;
-  if (![(MDMConfigurationBase *)&v62 memberQueueReadConfigurationOutError:?])
+  v64 = *MEMORY[0x277D85DE8];
+  v61.receiver = self;
+  v61.super_class = MDMConfiguration;
+  if (![(MDMConfigurationBase *)&v61 memberQueueReadConfigurationOutError:?])
   {
-    v33 = 0;
-    goto LABEL_69;
+    return 0;
   }
 
   v5 = *(DMCLogObjects() + 8);
@@ -434,43 +433,15 @@ LABEL_36:
   [(MDMConfiguration *)self setMemberQueuePushMagic:v35];
 
   memberQueuePushMagic = [(MDMConfiguration *)self memberQueuePushMagic];
-  if (!memberQueuePushMagic)
+  if (!memberQueuePushMagic || (v37 = memberQueuePushMagic, -[MDMConfiguration memberQueuePushMagic](self, "memberQueuePushMagic"), v38 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v39 = objc_opt_isKindOfClass(), v38, v37, (v39 & 1) == 0) || (v18 = @"OrganizationInfo", [memberQueueMDMDictionary objectForKey:@"OrganizationInfo"], v40 = objc_claimAutoreleasedReturnValue(), -[MDMConfiguration setMemberQueueOrganizationInfo:](self, "setMemberQueueOrganizationInfo:", v40), v40, -[MDMConfiguration memberQueueOrganizationInfo](self, "memberQueueOrganizationInfo"), (v41 = objc_claimAutoreleasedReturnValue()) != 0) && (v42 = v41, -[MDMConfiguration memberQueueOrganizationInfo](self, "memberQueueOrganizationInfo"), v43 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v44 = objc_opt_isKindOfClass(), v43, v42, (v44 & 1) == 0))
   {
-    goto LABEL_70;
-  }
-
-  v37 = memberQueuePushMagic;
-  memberQueuePushMagic2 = [(MDMConfiguration *)self memberQueuePushMagic];
-  objc_opt_class();
-  v39 = objc_opt_isKindOfClass();
-
-  if ((v39 & 1) == 0)
-  {
-    goto LABEL_70;
-  }
-
-  v18 = @"OrganizationInfo";
-  v40 = [memberQueueMDMDictionary objectForKey:@"OrganizationInfo"];
-  [(MDMConfiguration *)self setMemberQueueOrganizationInfo:v40];
-
-  memberQueueOrganizationInfo = [(MDMConfiguration *)self memberQueueOrganizationInfo];
-  if (memberQueueOrganizationInfo)
-  {
-    v42 = memberQueueOrganizationInfo;
-    memberQueueOrganizationInfo2 = [(MDMConfiguration *)self memberQueueOrganizationInfo];
-    objc_opt_class();
-    v44 = objc_opt_isKindOfClass();
-
-    if ((v44 & 1) == 0)
-    {
 LABEL_70:
-      v59 = MEMORY[0x277CCA9B8];
-      v60 = *MEMORY[0x277D03480];
-      v61 = v18;
-      v8 = DMCErrorArray();
-      memberQueueMDMOptions = [v59 DMCErrorWithDomain:v60 code:12011 descriptionArray:v8 errorType:{*MEMORY[0x277D032F8], v61, 0}];
-      goto LABEL_55;
-    }
+    v58 = MEMORY[0x277CCA9B8];
+    v59 = *MEMORY[0x277D03480];
+    v60 = v18;
+    v8 = DMCErrorArray();
+    memberQueueMDMOptions = [v58 DMCErrorWithDomain:v59 code:12011 descriptionArray:v8 errorType:{*MEMORY[0x277D032F8], v60, 0}];
+    goto LABEL_55;
   }
 
   v18 = @"MDMOptions";
@@ -527,7 +498,7 @@ LABEL_56:
     if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v64 = memberQueueMDMOptions;
+      v63 = memberQueueMDMOptions;
       _os_log_impl(&dword_22E997000, v55, OS_LOG_TYPE_ERROR, "MDMConfiguration: memberQueueReadConfigurationOutError: Invalid MDM installation found. Error: %{public}@", buf, 0xCu);
     }
 
@@ -538,8 +509,6 @@ LABEL_56:
     }
   }
 
-LABEL_69:
-  v57 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
@@ -611,19 +580,8 @@ void __43__MDMConfiguration_copyMemberQueueIdentity__block_invoke(uint64_t a1)
 
   if (v2)
   {
-    if ([*(a1 + 32) memberQueueIdentity])
+    if ([*(a1 + 32) memberQueueIdentity] || (v3 = MEMORY[0x277D03520], objc_msgSend(*(a1 + 32), "memberQueueIdentityPersistentID"), v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "memberQueuePersonaID"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "setMemberQueueIdentity:", objc_msgSend(v3, "copyIdentityWithPersistentID:useSystemKeychain:enforcePersonalPersona:", v4, 1, v5 != 0)), v5, v4, objc_msgSend(*(a1 + 32), "memberQueueIdentity")))
     {
-      goto LABEL_4;
-    }
-
-    v3 = MEMORY[0x277D03520];
-    v4 = [*(a1 + 32) memberQueueIdentityPersistentID];
-    v5 = [*(a1 + 32) memberQueuePersonaID];
-    [*(a1 + 32) setMemberQueueIdentity:{objc_msgSend(v3, "copyIdentityWithPersistentID:useSystemKeychain:enforcePersonalPersona:", v4, 1, v5 != 0)}];
-
-    if ([*(a1 + 32) memberQueueIdentity])
-    {
-LABEL_4:
       *(*(*(a1 + 40) + 8) + 24) = [*(a1 + 32) memberQueueIdentity];
       v6 = *(*(*(a1 + 40) + 8) + 24);
       if (v6)
@@ -675,10 +633,7 @@ LABEL_4:
 
 uint64_t __45__MDMConfiguration_managingProfileIdentifier__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueManagingProfileIdentifier];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueueManagingProfileIdentifier];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -708,10 +663,7 @@ uint64_t __45__MDMConfiguration_managingProfileIdentifier__block_invoke(uint64_t
 
 uint64_t __51__MDMConfiguration_checkInPinnedSecCertificateRefs__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueCheckInPinnedSecCertificateRefs];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueueCheckInPinnedSecCertificateRefs];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -737,7 +689,7 @@ uint64_t __51__MDMConfiguration_checkInPinnedSecCertificateRefs__block_invoke(ui
   return selfCopy;
 }
 
-uint64_t __50__MDMConfiguration_pinningRevocationCheckRequired__block_invoke(uint64_t a1)
+void *__50__MDMConfiguration_pinningRevocationCheckRequired__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) memberQueuePinningRevocationCheckRequired];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -765,7 +717,7 @@ uint64_t __50__MDMConfiguration_pinningRevocationCheckRequired__block_invoke(uin
   return selfCopy;
 }
 
-uint64_t __31__MDMConfiguration_signMessage__block_invoke(uint64_t a1)
+void *__31__MDMConfiguration_signMessage__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) memberQueueSignMessage];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -793,7 +745,7 @@ uint64_t __31__MDMConfiguration_signMessage__block_invoke(uint64_t a1)
   return selfCopy;
 }
 
-uint64_t __32__MDMConfiguration_isADEProfile__block_invoke(uint64_t a1)
+void *__32__MDMConfiguration_isADEProfile__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) memberQueueIsADEProfile];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -825,10 +777,7 @@ uint64_t __32__MDMConfiguration_isADEProfile__block_invoke(uint64_t a1)
 
 uint64_t __25__MDMConfiguration_topic__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueTopic];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueueTopic];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -858,10 +807,7 @@ uint64_t __25__MDMConfiguration_topic__block_invoke(uint64_t a1)
 
 uint64_t __36__MDMConfiguration_organizationInfo__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueOrganizationInfo];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueueOrganizationInfo];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -891,10 +837,7 @@ uint64_t __36__MDMConfiguration_organizationInfo__block_invoke(uint64_t a1)
 
 uint64_t __29__MDMConfiguration_serverURL__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueServerURL];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueueServerURL];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -924,10 +867,7 @@ uint64_t __29__MDMConfiguration_serverURL__block_invoke(uint64_t a1)
 
 uint64_t __30__MDMConfiguration_checkInURL__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueCheckInURL];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueueCheckInURL];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -957,10 +897,7 @@ uint64_t __30__MDMConfiguration_checkInURL__block_invoke(uint64_t a1)
 
 uint64_t __38__MDMConfiguration_serverCapabilities__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueServerCapabilities];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueueServerCapabilities];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -986,7 +923,7 @@ uint64_t __38__MDMConfiguration_serverCapabilities__block_invoke(uint64_t a1)
   return selfCopy;
 }
 
-uint64_t __36__MDMConfiguration_isUserEnrollment__block_invoke(uint64_t a1)
+void *__36__MDMConfiguration_isUserEnrollment__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) memberQueueIsUserEnrollment];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1014,7 +951,7 @@ uint64_t __36__MDMConfiguration_isUserEnrollment__block_invoke(uint64_t a1)
   return selfCopy;
 }
 
-uint64_t __38__MDMConfiguration_supportUserChannel__block_invoke(uint64_t a1)
+void *__38__MDMConfiguration_supportUserChannel__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) memberQueueSupportUserChannel];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1046,10 +983,7 @@ uint64_t __38__MDMConfiguration_supportUserChannel__block_invoke(uint64_t a1)
 
 uint64_t __32__MDMConfiguration_enrollmentID__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueEnrollmentID];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueueEnrollmentID];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1079,10 +1013,7 @@ uint64_t __32__MDMConfiguration_enrollmentID__block_invoke(uint64_t a1)
 
 uint64_t __29__MDMConfiguration_personaID__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueuePersonaID];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueuePersonaID];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1112,10 +1043,7 @@ uint64_t __29__MDMConfiguration_personaID__block_invoke(uint64_t a1)
 
 uint64_t __35__MDMConfiguration_easEnrollmentID__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueEASEnrollmentID];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueueEASEnrollmentID];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1145,10 +1073,7 @@ uint64_t __35__MDMConfiguration_easEnrollmentID__block_invoke(uint64_t a1)
 
 uint64_t __31__MDMConfiguration_rmAccountID__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueRMAccountID];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueueRMAccountID];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1178,10 +1103,7 @@ uint64_t __31__MDMConfiguration_rmAccountID__block_invoke(uint64_t a1)
 
 uint64_t __34__MDMConfiguration_enrollmentMode__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueEnrollmentMode];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueueEnrollmentMode];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1207,7 +1129,7 @@ uint64_t __34__MDMConfiguration_enrollmentMode__block_invoke(uint64_t a1)
   return selfCopy;
 }
 
-uint64_t __35__MDMConfiguration_isProfileLocked__block_invoke(uint64_t a1)
+void *__35__MDMConfiguration_isProfileLocked__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) memberQueueIsProfileLocked];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1234,7 +1156,7 @@ uint64_t __35__MDMConfiguration_isProfileLocked__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __32__MDMConfiguration_accessRights__block_invoke(uint64_t a1)
+void *__32__MDMConfiguration_accessRights__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) memberQueueAccessRights];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1266,10 +1188,7 @@ uint64_t __32__MDMConfiguration_accessRights__block_invoke(uint64_t a1)
 
 uint64_t __29__MDMConfiguration_pushMagic__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueuePushMagic];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueuePushMagic];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1395,7 +1314,7 @@ void __39__MDMConfiguration_getOrgTokenForMAID___block_invoke(uint64_t a1, void 
 
 void __60__MDMConfiguration_getOrgTokenForMAIDWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1403,9 +1322,9 @@ void __60__MDMConfiguration_getOrgTokenForMAIDWithCompletionHandler___block_invo
     v7 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138543362;
-      v14 = v6;
-      _os_log_impl(&dword_22E997000, v7, OS_LOG_TYPE_ERROR, "MDMConfiguration: Failed to get org token with error: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v6;
+      _os_log_impl(&dword_22E997000, v7, OS_LOG_TYPE_ERROR, "MDMConfiguration: Failed to get org token with error: %{public}@", &v12, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -1424,8 +1343,8 @@ void __60__MDMConfiguration_getOrgTokenForMAIDWithCompletionHandler___block_invo
       v9 = *(DMCLogObjects() + 8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v13) = 0;
-        _os_log_impl(&dword_22E997000, v9, OS_LOG_TYPE_ERROR, "MDMConfiguration: Failed to covert TokenData to a string. The data might not be properly encoded.", &v13, 2u);
+        LOWORD(v12) = 0;
+        _os_log_impl(&dword_22E997000, v9, OS_LOG_TYPE_ERROR, "MDMConfiguration: Failed to covert TokenData to a string. The data might not be properly encoded.", &v12, 2u);
       }
 
       v10 = *(a1 + 32);
@@ -1433,8 +1352,6 @@ void __60__MDMConfiguration_getOrgTokenForMAIDWithCompletionHandler___block_invo
       (*(v10 + 16))(v10, 0, v11);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)getWatchPairingTokenForPhoneID:(id)d watchID:(id)iD securityToken:(id)token completionHandler:(id)handler
@@ -1455,7 +1372,7 @@ void __60__MDMConfiguration_getOrgTokenForMAIDWithCompletionHandler___block_invo
 
 void __91__MDMConfiguration_getWatchPairingTokenForPhoneID_watchID_securityToken_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   v7 = *(DMCLogObjects() + 8);
@@ -1463,20 +1380,20 @@ void __91__MDMConfiguration_getWatchPairingTokenForPhoneID_watchID_securityToken
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138543362;
-      v14 = v5;
+      v12 = 138543362;
+      v13 = v5;
       v8 = "MDMConfiguration: Failed to get Watch pairing token with error: %{public}@";
       v9 = v7;
       v10 = OS_LOG_TYPE_ERROR;
       v11 = 12;
 LABEL_6:
-      _os_log_impl(&dword_22E997000, v9, v10, v8, &v13, v11);
+      _os_log_impl(&dword_22E997000, v9, v10, v8, &v12, v11);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v13) = 0;
+    LOWORD(v12) = 0;
     v8 = "MDMConfiguration: getWatchPairingTokenForPhoneID finished";
     v9 = v7;
     v10 = OS_LOG_TYPE_INFO;
@@ -1485,8 +1402,6 @@ LABEL_6:
   }
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), v6);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isRapidReturnToService
@@ -1516,22 +1431,22 @@ LABEL_6:
 
 + (BOOL)hasIncompleteMigration
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D03568]);
   v3 = MDMMigrationConfigFilePath();
   v4 = [v2 initWithFilePath:v3];
 
   v5 = *MEMORY[0x277D03418];
-  v12 = 0;
-  v6 = [v4 retrieveValueForKey:v5 error:&v12];
-  v7 = v12;
+  v11 = 0;
+  v6 = [v4 retrieveValueForKey:v5 error:&v11];
+  v7 = v11;
   v8 = *DMCLogObjects();
   if (v7)
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_22E997000, v8, OS_LOG_TYPE_ERROR, "Failed to retrieve HasIncompleteMigration info with error: %{public}@", buf, 0xCu);
     }
 
@@ -1543,16 +1458,15 @@ LABEL_6:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v14 = "+[MDMConfiguration hasIncompleteMigration]";
-      v15 = 2112;
-      v16 = v6;
+      v13 = "+[MDMConfiguration hasIncompleteMigration]";
+      v14 = 2112;
+      v15 = v6;
       _os_log_impl(&dword_22E997000, v8, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
     }
 
     bOOLValue = [v6 BOOLValue];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
@@ -1568,19 +1482,19 @@ LABEL_6:
 
 - (NSUUID)wallpaperConfigurationUUID
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  v2 = [(MDMConfigurationBase *)self getPropertyForKey:@"wallpaperConfigUUID" error:&v8];
-  v3 = v8;
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0;
+  v2 = [(MDMConfigurationBase *)self getPropertyForKey:@"wallpaperConfigUUID" error:&v7];
+  v3 = v7;
   if (v3)
   {
     v4 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v10 = "[MDMConfiguration(Wallpaper) wallpaperConfigurationUUID]";
-      v11 = 2114;
-      v12 = v3;
+      v9 = "[MDMConfiguration(Wallpaper) wallpaperConfigurationUUID]";
+      v10 = 2114;
+      v11 = v3;
       _os_log_impl(&dword_22E997000, v4, OS_LOG_TYPE_ERROR, "%s Failed to get wallpaper config UUID with error: %{public}@", buf, 0x16u);
     }
 
@@ -1592,32 +1506,28 @@ LABEL_6:
     v5 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v2];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)setWallpaperConfigurationUUID:(id)d
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   uUIDString = [d UUIDString];
-  v8 = 0;
-  [(MDMConfigurationBase *)self setPropertyForKey:@"wallpaperConfigUUID" value:uUIDString error:&v8];
-  v5 = v8;
+  v7 = 0;
+  [(MDMConfigurationBase *)self setPropertyForKey:@"wallpaperConfigUUID" value:uUIDString error:&v7];
+  v5 = v7;
   if (v5)
   {
     v6 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v10 = "[MDMConfiguration(Wallpaper) setWallpaperConfigurationUUID:]";
-      v11 = 2114;
-      v12 = v5;
+      v9 = "[MDMConfiguration(Wallpaper) setWallpaperConfigurationUUID:]";
+      v10 = 2114;
+      v11 = v5;
       _os_log_impl(&dword_22E997000, v6, OS_LOG_TYPE_ERROR, "%s Failed to set wallpaper config UUID with error: %{public}@", buf, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

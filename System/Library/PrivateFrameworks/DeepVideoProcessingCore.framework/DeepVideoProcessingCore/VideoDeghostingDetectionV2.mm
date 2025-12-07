@@ -740,7 +740,7 @@ void __146__VideoDeghostingDetectionV2_process_futureFrames_opticalCenter_future
   }
 }
 
-uint64_t __146__VideoDeghostingDetectionV2_process_futureFrames_opticalCenter_futureOpticalCenter_opticalCenterMvShift_outputImgBufTMinus1_outputImgBufTMinus2___block_invoke_40(uint64_t a1)
+void *__146__VideoDeghostingDetectionV2_process_futureFrames_opticalCenter_futureOpticalCenter_opticalCenterMvShift_outputImgBufTMinus1_outputImgBufTMinus2___block_invoke_40(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = 48;

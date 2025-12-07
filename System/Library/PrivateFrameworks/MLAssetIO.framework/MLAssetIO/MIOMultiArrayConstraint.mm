@@ -10,10 +10,10 @@
 
 - (MIOMultiArrayConstraint)initWithSpecification:(const void *)specification
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v28.receiver = self;
-  v28.super_class = MIOMultiArrayConstraint;
-  v4 = [(MIOMultiArrayConstraint *)&v28 init];
+  v33 = *MEMORY[0x1E69E9840];
+  v27.receiver = self;
+  v27.super_class = MIOMultiArrayConstraint;
+  v4 = [(MIOMultiArrayConstraint *)&v27 init];
   v5 = v4;
   if (v4)
   {
@@ -83,33 +83,33 @@
         goto LABEL_20;
       }
 
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       enumeratedShapes2 = [(MIOMultiArrayShapeConstraint *)v8 sizeRangeForDimension];
-      v21 = [enumeratedShapes2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v21 = [enumeratedShapes2 countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v21)
       {
-        v22 = *v30;
+        v22 = *v29;
         do
         {
           v23 = 0;
           do
           {
-            if (*v30 != v22)
+            if (*v29 != v22)
             {
               objc_enumerationMutation(enumeratedShapes2);
             }
 
-            v24 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(*(&v29 + 1) + 8 * v23), "MIORangeValue")}];
+            v24 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(*(&v28 + 1) + 8 * v23), "MIORangeValue")}];
             [(NSArray *)v9 addObject:v24];
 
             ++v23;
           }
 
           while (v21 != v23);
-          v21 = [enumeratedShapes2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+          v21 = [enumeratedShapes2 countByEnumeratingWithState:&v28 objects:v32 count:16];
         }
 
         while (v21);
@@ -121,7 +121,6 @@ LABEL_20:
     v5->_shape = v9;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -248,30 +247,30 @@ LABEL_16:
 
 - (unint64_t)hash
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   shape = [(MIOMultiArrayConstraint *)self shape];
-  v4 = [shape countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [shape countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
-    v5 = *v14;
+    v5 = *v13;
     v6 = 1;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(shape);
         }
 
-        v6 ^= [*(*(&v13 + 1) + 8 * i) hash];
+        v6 ^= [*(*(&v12 + 1) + 8 * i) hash];
       }
 
-      v4 = [shape countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [shape countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -286,7 +285,6 @@ LABEL_16:
   shapeConstraint = [(MIOMultiArrayConstraint *)self shapeConstraint];
   v10 = [shapeConstraint hash];
 
-  v11 = *MEMORY[0x1E69E9840];
   return dataType ^ v6 ^ v10;
 }
 

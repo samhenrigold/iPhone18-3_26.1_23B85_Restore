@@ -48,7 +48,7 @@
 
   selfCopy = self;
   sub_23DDC73C4(v7, v6);
-  sub_23DDCC0D8(v7);
+  sub_23DDCC0D8(v7, v6);
 }
 
 @end

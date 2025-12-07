@@ -147,9 +147,9 @@
     goto LABEL_33;
   }
 
-  v13 = [(NSString *)v7 isEqualToString:v8];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v13)
+  if (isEqualToString)
   {
 LABEL_10:
     abbreviationCode = self->_abbreviationCode;
@@ -169,7 +169,7 @@ LABEL_10:
         goto LABEL_32;
       }
 
-      v17 = [(NSString *)v12 isEqualToString:v16];
+      v17 = objc_msgSend_isEqualToString_(v12);
 
       if (!v17)
       {
@@ -203,7 +203,7 @@ LABEL_33:
 
     if (v20 && v21)
     {
-      v22 = [(NSString *)v20 isEqualToString:v21];
+      v22 = objc_msgSend_isEqualToString_(v20);
 
       if (!v22)
       {
@@ -399,21 +399,21 @@ LABEL_15:
             v16 = v15;
             if (v14 == v15)
             {
-              v17 = 1;
+              isEqualToString = 1;
             }
 
             else
             {
-              v17 = 0;
+              isEqualToString = 0;
               if (v14 && v15)
               {
-                v17 = [v14 isEqualToString:v15];
+                isEqualToString = objc_msgSend_isEqualToString_(v14);
               }
             }
 
             parentRegion2 = [v11 parentRegion];
 
-            if (v17)
+            if (isEqualToString)
             {
               break;
             }
@@ -423,7 +423,7 @@ LABEL_15:
 
           while (parentRegion2);
 
-          if (v17)
+          if (isEqualToString)
           {
             v19 = 1;
             goto LABEL_20;

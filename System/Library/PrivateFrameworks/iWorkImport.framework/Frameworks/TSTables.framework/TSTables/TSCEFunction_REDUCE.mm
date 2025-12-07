@@ -8,62 +8,62 @@
 {
   v8 = **arguments;
   v9 = *(*arguments + 16);
-  v106 = 0;
-  v11 = objc_msgSend_asFunctorValue_functionSpec_argumentIndex_outError_(v9, v10, context, spec, 2, &v106);
-  v16 = v106;
-  if (v16)
+  v91 = 0;
+  v11 = objc_msgSend_asFunctorValue_functionSpec_argumentIndex_outError_(v9, v10, context, spec, 2, &v91);
+  v15 = v91;
+  if (v15)
   {
-    v17 = objc_msgSend_raiseErrorOrConvert_(context, v12, v16, v14, v15);
+    v16 = objc_msgSend_raiseErrorOrConvert_(context, v12, v15, v14);
     goto LABEL_24;
   }
 
-  v93 = v11;
-  v22 = objc_msgSend_functor(v11, v12, v13, v14, v15);
-  if (v22->_numArgs != 2)
+  v78 = v11;
+  v20 = objc_msgSend_functor(v11, v12, v13, v14);
+  if (v20->_numArgs != 2)
   {
-    v27 = objc_msgSend_functionName(spec, v18, v19, v20, v21);
-    v16 = objc_msgSend_wrongArityForLambdaError_providedArity_expectedArity_(TSCEError, v28, v27, v22->_numArgs + 1, 3);
+    v24 = objc_msgSend_functionName(spec, v17, v18, v19);
+    v15 = objc_msgSend_wrongArityForLambdaError_providedArity_expectedArity_(TSCEError, v25, v24, v20->_numArgs + 1, 3);
 
-    v17 = objc_msgSend_raiseErrorOrConvert_(context, v29, v16, v30, v31);
+    v16 = objc_msgSend_raiseErrorOrConvert_(context, v26, v15, v27);
     goto LABEL_24;
   }
 
-  v23 = *(*arguments + 8);
-  v105 = 0;
-  v94 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v23, v18, context, spec, 1, 0, &v105);
-  v16 = v105;
-  if (!v16)
+  v21 = *(*arguments + 8);
+  v90 = 0;
+  v79 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v21, v17, context, spec, 1, 0, &v90);
+  v15 = v90;
+  if (!v15)
   {
-    v32 = v8;
-    v104 = v32;
-    v103 = objc_msgSend_dimensions(v94, v33, v34, v35, v36);
+    v28 = v8;
+    v89 = v28;
+    v88 = objc_msgSend_dimensions(v79, v29, v30, v31);
     contextCopy = context;
-    v97[0] = contextCopy;
-    v97[1] = spec;
-    v98 = 0;
-    v99[0] = 1;
-    *(v99 + 7) = 0;
-    v100 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
-    v101 = 0;
-    v102 = 0;
-    v96 = 0;
-    isTokenOrEmptyArg = objc_msgSend_isTokenOrEmptyArg(v32, v38, v39, v40, v41);
-    if (objc_msgSend_isError(v32, v43, v44, v45, v46))
+    v82[0] = contextCopy;
+    v82[1] = spec;
+    v83 = 0;
+    v84[0] = 1;
+    *(v84 + 7) = 0;
+    v85 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
+    v86 = 0;
+    v87 = 0;
+    v81 = 0;
+    isTokenOrEmptyArg = objc_msgSend_isTokenOrEmptyArg(v28, v33, v34, v35);
+    if (objc_msgSend_isError(v28, v37, v38, v39))
     {
-      v51 = objc_msgSend_asErrorValue(v32, v47, v48, v49, v50);
-      v56 = objc_msgSend_error(v51, v52, v53, v54, v55);
+      v43 = objc_msgSend_asErrorValue(v28, v40, v41, v42);
+      v47 = objc_msgSend_error(v43, v44, v45, v46);
 
-      if (objc_msgSend_errorType(v56, v57, v58, v59, v60) == 135)
+      if (objc_msgSend_errorType(v47, v48, v49, v50) == 135)
       {
-        v62 = v104;
-        v104 = 0;
+        v52 = v89;
+        v89 = 0;
       }
 
       else
       {
-        if (v56)
+        if (v47)
         {
-          v17 = objc_msgSend_raiseErrorOrConvert_(contextCopy, v47, v56, v61, v50);
+          v16 = objc_msgSend_raiseErrorOrConvert_(contextCopy, v40, v47, v51);
 
 LABEL_22:
           goto LABEL_23;
@@ -72,47 +72,47 @@ LABEL_22:
         if ((isTokenOrEmptyArg & 1) == 0)
         {
 LABEL_12:
-          v92 = v8;
-          if (v96.column != 0x7FFFFFFF && v96.row != 0x7FFFFFFF)
+          v77 = v8;
+          if (v81.column != 0x7FFFFFFF && v81.row != 0x7FFFFFFF)
           {
             do
             {
-              memset(v95, 0, sizeof(v95));
-              v107[0] = objc_msgSend_valueAtGridCoord_accessContext_(v94, v47, *&v96, v97, v50, v92);
-              sub_221179A54(v95, &v104);
-              sub_221179A54(v95, v107);
-              v65 = TSCEFunctor::evaluateWithArgs(v22, contextCopy, v95);
-              v66 = v104;
-              v104 = v65;
+              memset(v80, 0, sizeof(v80));
+              v92[0] = objc_msgSend_valueAtGridCoord_accessContext_(v79, v40, *&v81, v82, v77);
+              sub_221179A54(v80, &v89);
+              sub_221179A54(v80, v92);
+              v55 = TSCEFunctor::evaluateWithArgs(v20, contextCopy, v80);
+              v56 = v89;
+              v89 = v55;
 
-              v70 = objc_msgSend_errorWithContext_(v104, v67, contextCopy, v68, v69);
-              v75 = v70;
-              if (v70 && objc_msgSend_errorType(v70, v71, v72, v73, v74) == 168)
+              v59 = objc_msgSend_errorWithContext_(v89, v57, contextCopy, v58);
+              v63 = v59;
+              if (v59 && objc_msgSend_errorType(v59, v60, v61, v62) == 168)
               {
-                v80 = objc_msgSend_functionName(spec, v76, v77, v78, v79);
-                v84 = objc_msgSend_evaluationRecursingTooDeepError_(TSCEError, v81, v80, v82, v83);
-                v88 = objc_msgSend_errorValue_(TSCEErrorValue, v85, v84, v86, v87);
-                v89 = v104;
-                v104 = v88;
+                v67 = objc_msgSend_functionName(spec, v64, v65, v66);
+                v70 = objc_msgSend_evaluationRecursingTooDeepError_(TSCEError, v68, v67, v69);
+                v73 = objc_msgSend_errorValue_(TSCEErrorValue, v71, v70, v72);
+                v74 = v89;
+                v89 = v73;
 
-                v90 = 1;
+                v75 = 1;
               }
 
               else
               {
-                v90 = 0;
-                v96 = TSCEGridDimensions::nextCoordRowMajorOrder(&v103, &v96);
+                v75 = 0;
+                v81 = TSCEGridDimensions::nextCoordRowMajorOrder(&v88, &v81);
               }
 
-              v107[0] = v95;
-              sub_22107C2C0(v107);
+              v92[0] = v80;
+              sub_22107C2C0(v92);
             }
 
-            while ((v90 & 1) == 0 && v96.column != 0x7FFFFFFF && v96.row != 0x7FFFFFFF);
+            while ((v75 & 1) == 0 && v81.column != 0x7FFFFFFF && v81.row != 0x7FFFFFFF);
           }
 
-          v17 = v104;
-          v8 = v92;
+          v16 = v89;
+          v8 = v77;
           goto LABEL_22;
         }
       }
@@ -123,21 +123,21 @@ LABEL_12:
       goto LABEL_12;
     }
 
-    v63 = objc_msgSend_valueAtGridCoord_accessContext_(v94, v47, *&v96, v97, v50);
-    v64 = v104;
-    v104 = v63;
+    v53 = objc_msgSend_valueAtGridCoord_accessContext_(v79, v40, *&v81, v82);
+    v54 = v89;
+    v89 = v53;
 
-    v96 = TSCEGridDimensions::nextCoordRowMajorOrder(&v103, &v96);
+    v81 = TSCEGridDimensions::nextCoordRowMajorOrder(&v88, &v81);
     goto LABEL_12;
   }
 
-  v17 = objc_msgSend_raiseErrorOrConvert_(context, v24, v16, v25, v26);
+  v16 = objc_msgSend_raiseErrorOrConvert_(context, v22, v15, v23);
 LABEL_23:
-  v11 = v93;
+  v11 = v78;
 
 LABEL_24:
 
-  return v17;
+  return v16;
 }
 
 @end

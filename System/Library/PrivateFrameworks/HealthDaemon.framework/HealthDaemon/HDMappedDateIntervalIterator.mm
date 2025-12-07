@@ -18,7 +18,7 @@
   v7 = [(HDDateIntervalIterator *)&v11 initWithDateIntervals:v6];
   if (v7)
   {
-    v8 = [mapCopy copy];
+    v8 = objc_msgSend_copy(mapCopy);
     dateIntervalMap = v7->_dateIntervalMap;
     v7->_dateIntervalMap = v8;
   }

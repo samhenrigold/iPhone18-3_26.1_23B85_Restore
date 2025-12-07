@@ -78,13 +78,13 @@
 
 - (void)loadView
 {
-  v7.receiver = self;
-  v7.super_class = SKUIMenuViewController;
-  [(SKUIMenuViewController *)&v7 loadView];
+  v9.receiver = self;
+  v9.super_class = SKUIMenuViewController;
+  [(SKUIMenuViewController *)&v9 loadView];
   tableView = [(SKUIMenuViewController *)self tableView];
   [tableView registerClass:objc_opt_class() forCellReuseIdentifier:@"a"];
-  [tableView setSeparatorStyle:0];
-  [tableView setSemanticContentAttribute:storeSemanticContentAttribute()];
+  v4 = [tableView setSeparatorStyle:0];
+  [tableView setSemanticContentAttribute:{storeSemanticContentAttribute(v4, v5)}];
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
   [tableView setBackgroundColor:systemBackgroundColor];
 

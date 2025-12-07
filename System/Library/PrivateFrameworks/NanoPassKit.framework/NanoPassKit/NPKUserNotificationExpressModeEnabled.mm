@@ -10,11 +10,11 @@
 
 - (NPKUserNotificationExpressModeEnabled)initWithPass:(id)pass expressNotificationType:(unint64_t)type
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   passCopy = pass;
-  v17.receiver = self;
-  v17.super_class = NPKUserNotificationExpressModeEnabled;
-  v7 = [(NPKPassUserNotification *)&v17 initWithPass:passCopy];
+  v18.receiver = self;
+  v18.super_class = NPKUserNotificationExpressModeEnabled;
+  v7 = [(NPKPassUserNotification *)&v18 initWithPass:passCopy];
   if (v7)
   {
     paymentPass = [passCopy paymentPass];
@@ -27,21 +27,21 @@
 
     else
     {
-      v10 = pk_General_log();
-      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+      v11 = pk_General_log(v10);
+      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-      if (v11)
+      if (v12)
       {
-        v12 = pk_General_log();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v14 = pk_General_log(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = objc_opt_class();
+          v15 = objc_opt_class();
           uniqueID = [passCopy uniqueID];
           *buf = 138412546;
-          v19 = v13;
-          v20 = 2112;
-          v21 = uniqueID;
-          _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Warning: %@ only supports notifications for Home Key passes. Pass with uniqueID: %@", buf, 0x16u);
+          v20 = v15;
+          v21 = 2112;
+          v22 = uniqueID;
+          _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Warning: %@ only supports notifications for Home Key passes. Pass with uniqueID: %@", buf, 0x16u);
         }
       }
 
@@ -49,7 +49,6 @@
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -87,16 +86,14 @@
 
 - (id)userInfo
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = *MEMORY[0x277D38848];
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = *MEMORY[0x277D38848];
   pass = [(NPKPassUserNotification *)self pass];
   uniqueID = [pass uniqueID];
-  v7[1] = *MEMORY[0x277D38AE0];
-  v8[0] = uniqueID;
-  v8[1] = @"false";
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D38AE0];
+  v7[0] = uniqueID;
+  v7[1] = @"false";
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }

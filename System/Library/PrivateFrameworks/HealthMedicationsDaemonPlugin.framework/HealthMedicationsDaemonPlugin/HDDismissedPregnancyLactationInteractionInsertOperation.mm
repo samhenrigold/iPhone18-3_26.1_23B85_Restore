@@ -23,25 +23,25 @@
 
 - (BOOL)performWithProfile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   if ([(NSArray *)self->_dismissedInteractions count])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v8 = self->_dismissedInteractions;
-    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v8);
           }
@@ -53,7 +53,7 @@
           }
         }
 
-        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v10)
         {
           continue;
@@ -72,7 +72,6 @@ LABEL_12:
     v13 = 1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

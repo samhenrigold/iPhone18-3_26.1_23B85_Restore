@@ -8,9 +8,11 @@
 - (void)_presentEngagementAccountViewControllerWithBag:(id)bag;
 - (void)_presentLegacyAccountViewController;
 - (void)_waitForPromises;
+- (void)accountPageViewController:(id)controller financeInterruptionResolved:(BOOL)resolved;
 - (void)accountPageViewControllerDidFinish:(id)finish;
 - (void)followUpPerformUpdateWithCompletionHandler:(id)handler;
 - (void)processFollowUpItem:(id)item selectedAction:(id)action completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -27,6 +29,18 @@
   v4 = +[UIColor clearColor];
   view2 = [(AMSFollowUpViewController *)self view];
   [view2 setBackgroundColor:v4];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AMSFollowUpViewController;
+  [(AMSFollowUpViewController *)&v4 viewDidAppear:appear];
+  if (![(AMSFollowUpViewController *)self viewHasAppeared])
+  {
+    [(AMSFollowUpViewController *)self _presentAccountViewController];
+    [(AMSFollowUpViewController *)self setViewHasAppeared:1];
+  }
 }
 
 - (void)processFollowUpItem:(id)item selectedAction:(id)action completion:(id)completion
@@ -351,6 +365,31 @@
   block[3] = &unk_100008378;
   block[4] = self;
   dispatch_async(&_dispatch_main_q, block);
+}
+
+- (void)accountPageViewController:(id)controller financeInterruptionResolved:(BOOL)resolved
+{
+  v5 = [AMSLogConfig sharedFollowUpConfig:controller];
+  if (!v5)
+  {
+    v5 = +[AMSLogConfig sharedConfig];
+  }
+
+  oSLogObject = [v5 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = objc_opt_class();
+    v8 = v7;
+    item = [(AMSFollowUpViewController *)self item];
+    logKey = [item logKey];
+    v11 = 138543618;
+    v12 = v7;
+    v13 = 2114;
+    v14 = logKey;
+    _os_log_impl(&_mh_execute_header, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Interruption resolved", &v11, 0x16u);
+  }
+
+  [(AMSFollowUpViewController *)self _enqueueClearFollowUp];
 }
 
 - (void)accountPageViewControllerDidFinish:(id)finish

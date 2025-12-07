@@ -139,28 +139,29 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v14 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      [(ATXDigestTimeline *)self initWithProto:v14];
+      [(ATXDigestTimeline *)self initWithProto:v15];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  eventType = [(ATXPBNotificationGroupEvent *)v5 eventType];
-  v7 = objc_alloc(MEMORY[0x1E696AFB0]);
-  uuid = [(ATXPBNotificationGroupEvent *)v5 uuid];
-  v9 = [v7 initWithUUIDString:uuid];
+  v6 = protoCopy;
+  eventType = [(ATXPBNotificationGroupEvent *)v6 eventType];
+  v8 = objc_alloc(MEMORY[0x1E696AFB0]);
+  uuid = [(ATXPBNotificationGroupEvent *)v6 uuid];
+  v10 = [v8 initWithUUIDString:uuid];
 
-  v10 = objc_alloc(MEMORY[0x1E695DF00]);
-  secondsSinceReferenceDate = [(ATXPBNotificationGroupEvent *)v5 secondsSinceReferenceDate];
+  v11 = objc_alloc(MEMORY[0x1E695DF00]);
+  secondsSinceReferenceDate = [(ATXPBNotificationGroupEvent *)v6 secondsSinceReferenceDate];
 
-  v12 = [v10 initWithTimeIntervalSinceReferenceDate:secondsSinceReferenceDate];
-  self = [(ATXNotificationGroupEvent *)self initWithEventType:eventType uuid:v9 eventDate:v12];
+  v13 = [v11 initWithTimeIntervalSinceReferenceDate:secondsSinceReferenceDate];
+  self = [(ATXNotificationGroupEvent *)self initWithEventType:eventType uuid:v10 eventDate:v13];
 
   selfCopy = self;
 LABEL_8:

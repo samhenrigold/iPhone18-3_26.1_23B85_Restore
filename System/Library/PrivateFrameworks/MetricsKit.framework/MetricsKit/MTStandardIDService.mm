@@ -288,38 +288,37 @@ void __36__MTStandardIDService_configPromise__block_invoke(uint64_t a1, void *a2
   v16 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
+  v8 = v7;
   if (v7)
   {
-    v8 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = MTMetricsKitOSLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v14 = 138412290;
-      v15 = v7;
-      _os_log_impl(&dword_258F4B000, v8, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to retrieve metrics bag key value: %@", &v14, 0xCu);
+      v15 = v8;
+      _os_log_impl(&dword_258F4B000, v9, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to retrieve metrics bag key value: %@", &v14, 0xCu);
     }
   }
 
-  v9 = [v6 objectForKeyedSubscript:@"identifiers"];
-  v10 = [MTIDConfig alloc];
-  if (v9)
+  v10 = [v6 objectForKeyedSubscript:@"identifiers"];
+  v11 = [MTIDConfig alloc];
+  if (v10)
   {
-    v11 = v9;
+    v12 = v10;
   }
 
   else
   {
-    v11 = MEMORY[0x277CBEC10];
+    v12 = MEMORY[0x277CBEC10];
   }
 
-  v12 = [(MTIDConfig *)v10 initWithDictionary:v11];
-  if (v9)
+  v13 = [(MTIDConfig *)v11 initWithDictionary:v12];
+  if (v10)
   {
-    [*(a1 + 32) setConfig:v12];
+    [*(a1 + 32) setConfig:v13];
   }
 
-  [*(a1 + 40) finishWithResult:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [*(a1 + 40) finishWithResult:v13];
 }
 
 id __36__MTStandardIDService_configPromise__block_invoke_42(uint64_t a1, void *a2)
@@ -531,10 +530,10 @@ id __48__MTStandardIDService_IDFieldsForTopic_options___block_invoke_2(uint64_t 
 
 void __48__MTStandardIDService_IDFieldsForTopic_options___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = MTMetricsKitOSLog();
+  v7 = MTMetricsKitOSLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     if (v5)
@@ -549,16 +548,14 @@ void __48__MTStandardIDService_IDFieldsForTopic_options___block_invoke_4(uint64_
 
     v9 = *(a1 + 32);
     v10 = *(a1 + 40);
-    v12 = 138412802;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v10;
-    _os_log_impl(&dword_258F4B000, v7, OS_LOG_TYPE_DEBUG, "MetricsKit: Rendered ID fields: %@ for topic: %@ options: %@", &v12, 0x20u);
+    v11 = 138412802;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v10;
+    _os_log_impl(&dword_258F4B000, v7, OS_LOG_TYPE_DEBUG, "MetricsKit: Rendered ID fields: %@ for topic: %@ options: %@", &v11, 0x20u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resetIDForTopics:(id)topics options:(id)options
@@ -582,29 +579,29 @@ void __48__MTStandardIDService_IDFieldsForTopic_options___block_invoke_4(uint64_
 
 id __48__MTStandardIDService_resetIDForTopics_options___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBEB58] setWithCapacity:{2 * objc_msgSend(*(a1 + 32), "count")}];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v25;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
+        v10 = *(*(&v24 + 1) + 8 * i);
         v11 = [v3 namespaceForTopic:v10 idType:2];
         if (v11)
         {
@@ -621,7 +618,7 @@ id __48__MTStandardIDService_resetIDForTopics_options___block_invoke(uint64_t a1
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v7);
@@ -631,44 +628,42 @@ id __48__MTStandardIDService_resetIDForTopics_options___block_invoke(uint64_t a1
   v16 = [v4 allObjects];
   v17 = [v15 resetSchemes:v16 options:*(a1 + 48)];
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __48__MTStandardIDService_resetIDForTopics_options___block_invoke_2;
-  v22[3] = &unk_2798CD650;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __48__MTStandardIDService_resetIDForTopics_options___block_invoke_2;
+  v21[3] = &unk_2798CD650;
   v18 = *(a1 + 40);
-  v23 = v4;
-  v24 = v18;
+  v22 = v4;
+  v23 = v18;
   v19 = v4;
-  [v17 addSuccessBlock:v22];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [v17 addSuccessBlock:v21];
 
   return v17;
 }
 
 void __48__MTStandardIDService_resetIDForTopics_options___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v7 idNamespace];
         [MTStandardIDService triggerInterprocessChangeNotifier:v8];
 
@@ -677,13 +672,11 @@ void __48__MTStandardIDService_resetIDForTopics_options___block_invoke_2(uint64_
         [v9 removeNamespace:v10];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queryIDForTopic:(id)topic type:(int64_t)type options:(id)options completion:(id)completion
@@ -707,15 +700,15 @@ void __48__MTStandardIDService_resetIDForTopics_options___block_invoke_2(uint64_
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [date timeIntervalSinceDate:v6];
-      if (v9 < 86400.0)
+      v9 = [date timeIntervalSinceDate:v6];
+      if (v10 < 86400.0)
       {
-        v10 = MTMetricsKitOSLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        v11 = MTMetricsKitOSLog(v9);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
           v20 = v6;
-          _os_log_impl(&dword_258F4B000, v10, OS_LOG_TYPE_INFO, "MetricsKit: Skipping ID service maintenance because the last performed maintenance was too recent at %@", buf, 0xCu);
+          _os_log_impl(&dword_258F4B000, v11, OS_LOG_TYPE_INFO, "MetricsKit: Skipping ID service maintenance because the last performed maintenance was too recent at %@", buf, 0xCu);
         }
 
         completionCopy[2](completionCopy, 0);
@@ -728,9 +721,9 @@ void __48__MTStandardIDService_resetIDForTopics_options___block_invoke_2(uint64_
 
   standardUserDefaults = [(MTStandardIDService *)self filledOptions:0];
   secretStore = [(MTStandardIDService *)self secretStore];
-  v12 = objc_opt_respondsToSelector();
+  v13 = objc_opt_respondsToSelector();
 
-  if (v12)
+  if (v13)
   {
     configPromise = [(MTStandardIDService *)self configPromise];
     v17[0] = MEMORY[0x277D85DD0];
@@ -764,8 +757,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 id __56__MTStandardIDService_performMaintenanceWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -951,10 +942,10 @@ id __47__MTStandardIDService_IDForTopic_type_options___block_invoke(uint64_t a1,
 
 void __47__MTStandardIDService_IDForTopic_type_options___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = MTMetricsKitOSLog();
+  v7 = MTMetricsKitOSLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     if (v5)
@@ -969,19 +960,17 @@ void __47__MTStandardIDService_IDForTopic_type_options___block_invoke_2(uint64_t
 
     v9 = *(a1 + 32);
     v10 = *(a1 + 40);
-    v12 = 138412802;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v10;
-    _os_log_impl(&dword_258F4B000, v7, OS_LOG_TYPE_DEBUG, "MetricsKit: Rendered ID fields: %@ for topic: %@ options: %@", &v12, 0x20u);
+    v11 = 138412802;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v10;
+    _os_log_impl(&dword_258F4B000, v7, OS_LOG_TYPE_DEBUG, "MetricsKit: Rendered ID fields: %@ for topic: %@ options: %@", &v11, 0x20u);
     if (v5)
     {
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)IDsForNamespaces:(id)namespaces options:(id)options fromConfig:(id)config
@@ -1126,26 +1115,8 @@ void __61__MTStandardIDService_IDInfoForNamespace_options_fromConfig___block_inv
     }
   }
 
-  if ([v10 lifespan] < 1)
+  if ([v10 lifespan] < 1 || (+[MTFrameworkEnvironment sharedEnvironment](MTFrameworkEnvironment, "sharedEnvironment"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "date"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v83, "timeIntervalSinceDate:", v19), v21 = v20, v19, v18, objc_msgSend(v10, "maxPastTimeInterval"), v21 >= -v28) && (objc_msgSend(v10, "maxFutureTimeInterval"), v21 <= v29))
   {
-    goto LABEL_10;
-  }
-
-  v18 = +[MTFrameworkEnvironment sharedEnvironment];
-  date = [v18 date];
-  [v83 timeIntervalSinceDate:date];
-  v21 = v20;
-
-  [v10 maxPastTimeInterval];
-  if (v21 < -v28)
-  {
-    goto LABEL_9;
-  }
-
-  [v10 maxFutureTimeInterval];
-  if (v21 <= v29)
-  {
-LABEL_10:
     v32 = [optionsCopy objectForKeyedSubscript:@"reset"];
     bOOLValue3 = [v32 BOOLValue];
 
@@ -1182,63 +1153,63 @@ LABEL_10:
 
     if (v80)
     {
-      v44 = !v37;
+      v45 = !v37;
     }
 
     else
     {
-      v44 = 1;
+      v45 = 1;
     }
 
-    v45 = MTMetricsKitOSLog();
-    v46 = os_log_type_enabled(v45, OS_LOG_TYPE_INFO);
-    if ((v44 | bOOLValue))
+    v46 = MTMetricsKitOSLog(v44);
+    v47 = os_log_type_enabled(v46, OS_LOG_TYPE_INFO);
+    if ((v45 | bOOLValue))
     {
       if (v80)
       {
-        if (v46)
+        if (v47)
         {
           idNamespace = [v10 idNamespace];
           *buf = 138412290;
           v96 = idNamespace;
-          _os_log_impl(&dword_258F4B000, v45, OS_LOG_TYPE_INFO, "MetricsKit: ID promise for scheme %@ is cached but not used", buf, 0xCu);
+          _os_log_impl(&dword_258F4B000, v46, OS_LOG_TYPE_INFO, "MetricsKit: ID promise for scheme %@ is cached but not used", buf, 0xCu);
         }
       }
 
-      else if (v46)
+      else if (v47)
       {
         idNamespace2 = [v10 idNamespace];
         *buf = 138412290;
         v96 = idNamespace2;
-        _os_log_impl(&dword_258F4B000, v45, OS_LOG_TYPE_INFO, "MetricsKit: ID promise for scheme %@ is not cached", buf, 0xCu);
+        _os_log_impl(&dword_258F4B000, v46, OS_LOG_TYPE_INFO, "MetricsKit: ID promise for scheme %@ is not cached", buf, 0xCu);
       }
 
-      v51 = MEMORY[0x277CBEB18];
+      v52 = MEMORY[0x277CBEB18];
       correlations = [v10 correlations];
-      v53 = correlations;
+      v54 = correlations;
       if (correlations)
       {
-        v54 = correlations;
+        v55 = correlations;
       }
 
       else
       {
-        v54 = MEMORY[0x277CBEBF8];
+        v55 = MEMORY[0x277CBEBF8];
       }
 
-      v78 = [v51 arrayWithArray:v54];
+      v78 = [v52 arrayWithArray:v55];
 
       [v78 removeObject:v81];
       secretStore = [(MTStandardIDService *)self secretStore];
       v77 = [secretStore secretForScheme:v10 options:v35];
 
       v75 = dispatch_get_global_queue(0, 0);
-      v56 = [[MTPromiseWithTimeout alloc] initWithTimeout:v75 queue:&__block_literal_global_102 timeoutBlock:55.0];
+      v57 = [[MTPromiseWithTimeout alloc] initWithTimeout:v75 queue:&__block_literal_global_102 timeoutBlock:55.0];
       v92[0] = MEMORY[0x277D85DD0];
       v92[1] = 3221225472;
       v92[2] = __62__MTStandardIDService__IDInfoForNamespace_options_fromConfig___block_invoke_2;
       v92[3] = &unk_2798CD788;
-      v74 = v56;
+      v74 = v57;
       v93 = v74;
       [v77 addFinishBlock:v92];
       v73 = [(MTStandardIDService *)self IDsForNamespaces:v78 options:v79 fromConfig:configCopy];
@@ -1248,38 +1219,38 @@ LABEL_10:
         associatedObjects = [(MTStandardIDService *)self associatedObjects];
         objc_sync_enter(associatedObjects);
         associatedObjects2 = [(MTStandardIDService *)self associatedObjects];
-        v59 = [associatedObjects2 objectForKeyedSubscript:@"AMSBag"];
+        v60 = [associatedObjects2 objectForKeyedSubscript:@"AMSBag"];
 
-        if (v59)
+        if (v60)
         {
           associatedObjects3 = [(MTStandardIDService *)self associatedObjects];
-          v61 = [associatedObjects3 objectForKeyedSubscript:@"perfKit"];
+          v62 = [associatedObjects3 objectForKeyedSubscript:@"perfKit"];
 
-          if (!v61)
+          if (!v62)
           {
-            v61 = [(MTMetricsKitTemplate *)MTPerfKit kitWithTopic:performanceTopic amsBag:v59];
+            v62 = [(MTMetricsKitTemplate *)MTPerfKit kitWithTopic:performanceTopic amsBag:v60];
             associatedObjects4 = [(MTStandardIDService *)self associatedObjects];
-            [associatedObjects4 setObject:v61 forKeyedSubscript:@"perfKit"];
+            [associatedObjects4 setObject:v62 forKeyedSubscript:@"perfKit"];
           }
         }
 
         else
         {
-          v61 = 0;
+          v62 = 0;
         }
 
         objc_sync_exit(associatedObjects);
-        if (v61)
+        if (v62)
         {
-          v63 = [v61 flexibleMeasurementWithEventType:@"idRequest"];
-          [v63 mark:@"requestStartTime"];
+          v64 = [v62 flexibleMeasurementWithEventType:@"idRequest"];
+          [v64 mark:@"requestStartTime"];
           v89[0] = MEMORY[0x277D85DD0];
           v89[1] = 3221225472;
           v89[2] = __62__MTStandardIDService__IDInfoForNamespace_options_fromConfig___block_invoke_3;
           v89[3] = &unk_2798CD7B0;
           v90 = v10;
-          v91 = v63;
-          v64 = v63;
+          v91 = v64;
+          v65 = v64;
           [v77 addFinishBlock:v89];
         }
       }
@@ -1287,49 +1258,46 @@ LABEL_10:
       promise = [(MTPromiseWithTimeout *)v74 promise];
       v94[0] = promise;
       v94[1] = v73;
-      v66 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:2];
-      v67 = [MTPromise promiseWithAll:v66];
+      v67 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:2];
+      v68 = [MTPromise promiseWithAll:v67];
       v85[0] = MEMORY[0x277D85DD0];
       v85[1] = 3221225472;
       v85[2] = __62__MTStandardIDService__IDInfoForNamespace_options_fromConfig___block_invoke_115;
       v85[3] = &unk_2798CD458;
-      v68 = v10;
-      v86 = v68;
+      v69 = v10;
+      v86 = v69;
       v87 = v84;
       selfCopy = self;
-      v31 = [v67 thenWithBlock:v85];
+      v31 = [v68 thenWithBlock:v85];
 
       cache2 = [(MTStandardIDService *)self cache];
-      [cache2 addIdInfoPromise:v31 forScheme:v68 options:v35];
+      [cache2 addIdInfoPromise:v31 forScheme:v69 options:v35];
 
-      v49 = v80;
+      v50 = v80;
     }
 
     else
     {
-      if (v46)
+      if (v47)
       {
         idNamespace3 = [v10 idNamespace];
         *buf = 138412290;
         v96 = idNamespace3;
-        _os_log_impl(&dword_258F4B000, v45, OS_LOG_TYPE_INFO, "MetricsKit: Returning cached ID promise for scheme %@", buf, 0xCu);
+        _os_log_impl(&dword_258F4B000, v46, OS_LOG_TYPE_INFO, "MetricsKit: Returning cached ID promise for scheme %@", buf, 0xCu);
       }
 
-      v49 = v80;
+      v50 = v80;
       v31 = v80;
     }
   }
 
   else
   {
-LABEL_9:
     v30 = MTError(706, @"Date for the request ID is out of bounds", v22, v23, v24, v25, v26, v27, v72);
     v31 = [MTPromise promiseWithError:v30];
   }
 
 LABEL_43:
-
-  v70 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -1359,15 +1327,15 @@ void __62__MTStandardIDService__IDInfoForNamespace_options_fromConfig___block_in
 
 void __62__MTStandardIDService__IDInfoForNamespace_options_fromConfig___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = MTMetricsKitOSLog();
+  v7 = MTMetricsKitOSLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = [*(a1 + 32) idNamespace];
     *buf = 138412290;
-    v28 = v8;
+    v27 = v8;
     _os_log_impl(&dword_258F4B000, v7, OS_LOG_TYPE_INFO, "MetricsKit: Secret promise for scheme %@ completed", buf, 0xCu);
   }
 
@@ -1375,10 +1343,10 @@ void __62__MTStandardIDService__IDInfoForNamespace_options_fromConfig___block_in
   {
     [*(a1 + 40) mark:@"requestEndTime"];
     v9 = *(a1 + 40);
-    v25 = @"syncState";
+    v24 = @"syncState";
     v10 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v5, "isSynchronized")}];
-    v26 = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v25 = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     [v9 addFields:{v11, 0}];
 
     v12 = [v5 syncStatusCode];
@@ -1386,10 +1354,10 @@ void __62__MTStandardIDService__IDInfoForNamespace_options_fromConfig___block_in
     if (v12)
     {
       v13 = *(a1 + 40);
-      v23 = @"statusCode";
+      v22 = @"statusCode";
       v14 = [v5 syncStatusCode];
-      v24 = v14;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v23 = v14;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
       [v13 addFields:{v15, 0}];
 LABEL_8:
     }
@@ -1398,25 +1366,23 @@ LABEL_8:
   else if (v6)
   {
     v16 = *(a1 + 40);
-    v21 = @"statusCode";
+    v20 = @"statusCode";
     v17 = MEMORY[0x277CCACA8];
     v14 = [v6 domain];
     v15 = [v17 stringWithFormat:@"%@-%ld", v14, objc_msgSend(v6, "code")];
-    v22 = v15;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v21 = v15;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
     [v16 addFields:{v18, 0}];
 
     goto LABEL_8;
   }
 
   v19 = [*(a1 + 40) record];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 id __62__MTStandardIDService__IDInfoForNamespace_options_fromConfig___block_invoke_115(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count] != 2)
   {
@@ -1425,13 +1391,13 @@ id __62__MTStandardIDService__IDInfoForNamespace_options_fromConfig___block_invo
 
   v4 = [v3 objectAtIndexedSubscript:0];
   v5 = [v3 objectAtIndexedSubscript:1];
-  v6 = MTMetricsKitOSLog();
+  v6 = MTMetricsKitOSLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = [*(a1 + 32) idNamespace];
-    v17 = 138412290;
-    v18 = v7;
-    _os_log_impl(&dword_258F4B000, v6, OS_LOG_TYPE_INFO, "MetricsKit: Secret promise and correlations promise for scheme %@ completed", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = v7;
+    _os_log_impl(&dword_258F4B000, v6, OS_LOG_TYPE_INFO, "MetricsKit: Secret promise and correlations promise for scheme %@ completed", &v16, 0xCu);
   }
 
   v8 = [v4 value];
@@ -1452,21 +1418,19 @@ id __62__MTStandardIDService__IDInfoForNamespace_options_fromConfig___block_invo
 
   v14 = [MTPromise promiseWithResult:v13];
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)generateIDInfo:(id)info secret:(id)secret dsId:(id)id correlationIDs:(id)ds
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   secretCopy = secret;
   idCopy = id;
   dsCopy = ds;
   v12 = MEMORY[0x277CBEB18];
   idNamespace = [infoCopy idNamespace];
-  v51 = infoCopy;
+  v50 = infoCopy;
   version = [infoCopy version];
   v15 = version;
   if (version)
@@ -1491,33 +1455,33 @@ id __62__MTStandardIDService__IDInfoForNamespace_options_fromConfig___block_invo
     v19 = &stru_286A3A510;
   }
 
-  v52 = [v12 arrayWithObjects:{idNamespace, v16, v19, 0}];
+  v51 = [v12 arrayWithObjects:{idNamespace, v16, v19, 0}];
 
   effectiveDate = [secretCopy effectiveDate];
   expirationDate = [secretCopy expirationDate];
-  v50 = secretCopy;
+  v49 = secretCopy;
   isSynchronized = [secretCopy isSynchronized];
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   obj = dsCopy;
-  v23 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+  v23 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v55;
-    v26 = v52;
+    v25 = *v54;
+    v26 = v51;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v55 != v25)
+        if (*v54 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v28 = *(*(&v54 + 1) + 8 * i);
+        v28 = *(*(&v53 + 1) + 8 * i);
         idString = [v28 idString];
         [v26 addObject:idString];
 
@@ -1533,7 +1497,7 @@ id __62__MTStandardIDService__IDInfoForNamespace_options_fromConfig___block_invo
               effectiveDate4 = [v28 effectiveDate];
 
               effectiveDate = effectiveDate4;
-              v26 = v52;
+              v26 = v51;
             }
           }
         }
@@ -1555,7 +1519,7 @@ id __62__MTStandardIDService__IDInfoForNamespace_options_fromConfig___block_invo
               expirationDate4 = [v28 expirationDate];
 
               expirationDate = expirationDate4;
-              v26 = v52;
+              v26 = v51;
             }
           }
         }
@@ -1568,35 +1532,33 @@ id __62__MTStandardIDService__IDInfoForNamespace_options_fromConfig___block_invo
         isSynchronized = isSynchronized & [v28 isSynchronized];
       }
 
-      v24 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+      v24 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
     }
 
     while (v24);
   }
 
   string = [MEMORY[0x277CCAB68] string];
-  version2 = [v51 version];
+  version2 = [v50 version];
   v40 = [version2 length];
 
   if (v40)
   {
-    version3 = [v51 version];
+    version3 = [v50 version];
     [string appendString:version3];
 
     [string appendString:@"_"];
   }
 
-  v42 = [v52 componentsJoinedByString:@"\n"];
+  v42 = [v51 componentsJoinedByString:@"\n"];
   mt_SHA1Base62String = [v42 mt_SHA1Base62String];
   [string appendString:mt_SHA1Base62String];
 
-  v44 = [[MTIDInfo alloc] initWithScheme:v51 secret:v50 idString:string dsId:idCopy effectiveDate:effectiveDate expirationDate:expirationDate];
+  v44 = [[MTIDInfo alloc] initWithScheme:v50 secret:v49 idString:string dsId:idCopy effectiveDate:effectiveDate expirationDate:expirationDate];
   [(MTIDInfo *)v44 setIsSynchronized:isSynchronized];
   scheme = [(MTIDInfo *)v44 scheme];
   idNamespace2 = [scheme idNamespace];
   [MTStandardIDService registerInterprocessChangeNotifier:idNamespace2];
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v44;
 }
@@ -1655,36 +1617,34 @@ id __55__MTStandardIDService_secretValueForNamespace_options___block_invoke_3(ui
 
 void __41__MTStandardIDService_flushPerfKitEvents__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a3;
-  v4 = MTMetricsKitOSLog();
+  v4 = MTMetricsKitOSLog(v3);
   v5 = v4;
   if (v3)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v3;
+      v10 = 138412290;
+      v11 = v3;
       v6 = "MetricsKit: Failed to flush PerfKit events. Error %@";
       v7 = v5;
       v8 = OS_LOG_TYPE_ERROR;
       v9 = 12;
 LABEL_6:
-      _os_log_impl(&dword_258F4B000, v7, v8, v6, &v11, v9);
+      _os_log_impl(&dword_258F4B000, v7, v8, v6, &v10, v9);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v11) = 0;
+    LOWORD(v10) = 0;
     v6 = "MetricsKit: Flushed PerfKit events";
     v7 = v5;
     v8 = OS_LOG_TYPE_DEBUG;
     v9 = 2;
     goto LABEL_6;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)registerInterprocessChangeNotifier:(id)notifier
@@ -1724,16 +1684,14 @@ uint64_t __58__MTStandardIDService_registerInterprocessChangeNotifier___block_in
 
 void __58__MTStandardIDService_registerInterprocessChangeNotifier___block_invoke_2(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAB98] defaultCenter];
-  v6 = *(a1 + 32);
-  v7 = @"namespaces";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v5 = *(a1 + 32);
+  v6 = @"namespaces";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [v2 postNotificationName:@"MTIDNamespacesDidResetNotification" object:0 userInfo:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)writeDebugData:(id)data toFileWithNameFormat:(id)format
@@ -1768,30 +1726,28 @@ void __58__MTStandardIDService_registerInterprocessChangeNotifier___block_invoke
   [MEMORY[0x277CCAAA0] writeJSONObject:dataCopy toStream:v22 options:0 error:&v28];
 
   v23 = v28;
-  [v22 close];
+  close = [v22 close];
   if (v23)
   {
-    v24 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = MTMetricsKitOSLog(close);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
       v30 = v21;
       v31 = 2112;
       v32 = v23;
-      _os_log_impl(&dword_258F4B000, v24, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to write to %@ error %@", buf, 0x16u);
+      _os_log_impl(&dword_258F4B000, v25, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to write to %@ error %@", buf, 0x16u);
     }
 
-    v25 = 0;
+    v26 = 0;
   }
 
   else
   {
-    v25 = v21;
+    v26 = v21;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v25;
+  return v26;
 }
 
 - (void)_clearLocalData
@@ -1802,11 +1758,11 @@ void __58__MTStandardIDService_registerInterprocessChangeNotifier___block_invoke
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"MTIDNamespacesDidResetNotification" object:0 userInfo:0];
 
-  v4 = MTMetricsKitOSLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = MTMetricsKitOSLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_258F4B000, v4, OS_LOG_TYPE_INFO, "MetricsKit: ID service has cleared local cached data", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_258F4B000, v5, OS_LOG_TYPE_INFO, "MetricsKit: ID service has cleared local cached data", v6, 2u);
   }
 }
 
@@ -1836,11 +1792,11 @@ void __32__MTStandardIDService__resetIDs__block_invoke(uint64_t a1, void *a2)
   v6 = [v4 allKnownSchemes];
 
   v7 = [v5 resetSchemes:v6 options:*(a1 + 40)];
-  v8 = MTMetricsKitOSLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = MTMetricsKitOSLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_258F4B000, v8, OS_LOG_TYPE_INFO, "MetricsKit: ID service has reset IDs in all namespaces", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_258F4B000, v9, OS_LOG_TYPE_INFO, "MetricsKit: ID service has reset IDs in all namespaces", v10, 2u);
   }
 }
 
@@ -1860,18 +1816,17 @@ void __32__MTStandardIDService__resetIDs__block_invoke(uint64_t a1, void *a2)
   }
 
   v6 = [MTStandardIDService writeDebugData:debugInfo toFileWithNameFormat:@"MTIDSecrets-%@-%@.json"];
+  v7 = v6;
   if (v6)
   {
-    v7 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = MTMetricsKitOSLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_258F4B000, v7, OS_LOG_TYPE_INFO, "MetricsKit: ID service has written current secrets to %@", &v9, 0xCu);
+      v10 = v7;
+      _os_log_impl(&dword_258F4B000, v8, OS_LOG_TYPE_INFO, "MetricsKit: ID service has written current secrets to %@", &v9, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getIDs
@@ -1895,38 +1850,38 @@ void __32__MTStandardIDService__resetIDs__block_invoke(uint64_t a1, void *a2)
 
 void __30__MTStandardIDService__getIDs__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v19 = a2;
-  v3 = [v19 allKnownSchemes];
+  v26 = *MEMORY[0x277D85DE8];
+  v18 = a2;
+  v3 = [v18 allKnownSchemes];
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = v3;
-  v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       v8 = 0;
       do
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * v8);
+        v9 = *(*(&v21 + 1) + 8 * v8);
         v10 = [MEMORY[0x277CBEB38] dictionary];
         v11 = [v9 dictionaryRepresentation];
         [v10 setObject:v11 forKeyedSubscript:@"scheme"];
 
         WeakRetained = objc_loadWeakRetained((a1 + 40));
         v13 = [v9 idNamespace];
-        v14 = [WeakRetained IDInfoForNamespace:v13 options:*(a1 + 32) fromConfig:v19];
+        v14 = [WeakRetained IDInfoForNamespace:v13 options:*(a1 + 32) fromConfig:v18];
         v15 = [v14 thenWithBlock:&__block_literal_global_151];
         [v10 setObject:v15 forKeyedSubscript:@"current"];
 
@@ -1935,21 +1890,19 @@ void __30__MTStandardIDService__getIDs__block_invoke(uint64_t a1, void *a2)
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v6);
   }
 
   v16 = [MTPromise promiseWithComposition:v4];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __30__MTStandardIDService__getIDs__block_invoke_3;
-  v20[3] = &unk_2798CD258;
-  v21 = *(a1 + 32);
-  [v16 addFinishBlock:v20];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __30__MTStandardIDService__getIDs__block_invoke_3;
+  v19[3] = &unk_2798CD258;
+  v20 = *(a1 + 32);
+  [v16 addFinishBlock:v19];
 }
 
 id __30__MTStandardIDService__getIDs__block_invoke_2(uint64_t a1, void *a2)
@@ -1977,16 +1930,14 @@ void __30__MTStandardIDService__getIDs__block_invoke_3(uint64_t a1, void *a2)
 
   if (v7)
   {
-    v8 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = MTMetricsKitOSLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = 138412290;
       v11 = v7;
-      _os_log_impl(&dword_258F4B000, v8, OS_LOG_TYPE_INFO, "MetricsKit: ID service has written the current IDs to %@", &v10, 0xCu);
+      _os_log_impl(&dword_258F4B000, v9, OS_LOG_TYPE_INFO, "MetricsKit: ID service has written the current IDs to %@", &v10, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getConfig
@@ -2001,19 +1952,18 @@ void __30__MTStandardIDService__getIDs__block_invoke_3(uint64_t a1, void *a2)
   {
     dictionaryRepresentation2 = [v3 dictionaryRepresentation];
     v6 = [MTStandardIDService writeDebugData:dictionaryRepresentation2 toFileWithNameFormat:@"MTIDConfig-%@-%@.json"];
+    v7 = v6;
     if (v6)
     {
-      v7 = MTMetricsKitOSLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = MTMetricsKitOSLog(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = 138412290;
-        v10 = v6;
-        _os_log_impl(&dword_258F4B000, v7, OS_LOG_TYPE_INFO, "MetricsKit: ID service has written current config to %@", &v9, 0xCu);
+        v10 = v7;
+        _os_log_impl(&dword_258F4B000, v8, OS_LOG_TYPE_INFO, "MetricsKit: ID service has written current config to %@", &v9, 0xCu);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

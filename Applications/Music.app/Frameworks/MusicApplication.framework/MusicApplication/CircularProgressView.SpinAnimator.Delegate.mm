@@ -10,12 +10,13 @@
   v4 = *(&self->super.isa + OBJC_IVAR____TtCCC11MusicCoreUI20CircularProgressViewP33_2327D9925563EEC9FF3A63D4DED4721D12SpinAnimator8Delegate_onAnimationDidStop);
   if (v4)
   {
+    v6 = *&self->onAnimationDidStop[OBJC_IVAR____TtCCC11MusicCoreUI20CircularProgressViewP33_2327D9925563EEC9FF3A63D4DED4721D12SpinAnimator8Delegate_onAnimationDidStop];
     stopCopy = stop;
     selfCopy = self;
-    sub_307CC(v4);
+    sub_307CC(v4, v6);
     v4(stopCopy);
 
-    sub_17654(v4);
+    sub_17654(v4, v6);
   }
 }
 

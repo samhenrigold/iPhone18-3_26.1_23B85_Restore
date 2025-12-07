@@ -12,7 +12,7 @@
     sub_1000169CC();
   }
 
-  v9 = &OrgApacheLuceneIndexFilteredTermsEnum_AcceptStatusEnum_values_;
+  v9 = OrgApacheLuceneIndexFilteredTermsEnum_AcceptStatusEnum_values_;
   if (PrefixCodedLongShiftWithOrgApacheLuceneUtilBytesRef)
   {
     v9 = &qword_1005578F0;

@@ -62,9 +62,11 @@
 
 uint64_t __37__ICEnvironmentMonitor_sharedMonitor__block_invoke()
 {
-  sharedMonitor_sSharedMonitor_40163 = objc_alloc_init(ICEnvironmentMonitor);
+  v0 = objc_alloc_init(ICEnvironmentMonitor);
+  v1 = sharedMonitor_sSharedMonitor_40163;
+  sharedMonitor_sSharedMonitor_40163 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (ICEnvironmentMonitor)init
@@ -1327,7 +1329,7 @@ uint64_t __47__ICEnvironmentMonitor_didStopTrackingAllNOIs___block_invoke_119(ui
   dispatch_async(accessQueue, v7);
 }
 
-uint64_t __43__ICEnvironmentMonitor_didStopTrackingNOI___block_invoke(uint64_t a1)
+char *__43__ICEnvironmentMonitor_didStopTrackingNOI___block_invoke(uint64_t a1)
 {
   v17 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) interface];
@@ -1393,7 +1395,7 @@ uint64_t __43__ICEnvironmentMonitor_didStopTrackingNOI___block_invoke(uint64_t a
   dispatch_async(accessQueue, v7);
 }
 
-uint64_t __44__ICEnvironmentMonitor_didStartTrackingNOI___block_invoke(uint64_t a1)
+char *__44__ICEnvironmentMonitor_didStartTrackingNOI___block_invoke(uint64_t a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) interface];

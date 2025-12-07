@@ -16,7 +16,7 @@
 
 - (void)_setUpMultiplexedViewController
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = self->_multiplexedViewController;
   v4 = v3;
   if (v3)
@@ -25,61 +25,61 @@
 
     if (parentViewController != self)
     {
-      v6 = SBLogWidgets();
-      if (os_signpost_enabled(v6))
+      v7 = SBLogWidgets(v6);
+      if (os_signpost_enabled(v7))
       {
-        v7 = MEMORY[0x1E696AEC0];
-        v8 = objc_opt_class();
-        v9 = NSStringFromClass(v8);
-        v10 = [v7 stringWithFormat:@"<%@: %p>", v9, self];
+        v8 = MEMORY[0x1E696AEC0];
+        v9 = objc_opt_class();
+        v10 = NSStringFromClass(v9);
+        v11 = [v8 stringWithFormat:@"<%@: %p>", v10, self];
         *buf = 138543362;
-        v25 = v10;
-        _os_signpost_emit_with_name_impl(&dword_1BEB18000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_MULTIPLEX_ACTIVATE", "%{public}@", buf, 0xCu);
+        v27 = v11;
+        _os_signpost_emit_with_name_impl(&dword_1BEB18000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_MULTIPLEX_ACTIVATE", "%{public}@", buf, 0xCu);
       }
 
       view = [(UIViewController *)v4 view];
       view2 = [(SBHMultiplexingViewController *)self view];
-      [view2 bounds];
+      objc_msgSend_bounds(view2);
       [view setFrame:?];
 
       [view setAutoresizingMask:18];
       [(UIViewController *)v4 bs_endAppearanceTransition:1];
       [(SBHMultiplexingViewController *)self bs_addChildViewController:v4];
-      v19 = 0u;
-      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
-      v13 = [(NSHashTable *)self->_observers copy];
-      v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
-      if (v14)
+      v23 = 0u;
+      v24 = 0u;
+      v14 = [(NSHashTable *)self->_observers copy];
+      v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      if (v15)
       {
-        v15 = v14;
-        v16 = *v20;
+        v16 = v15;
+        v17 = *v22;
         do
         {
-          v17 = 0;
+          v18 = 0;
           do
           {
-            if (*v20 != v16)
+            if (*v22 != v17)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v14);
             }
 
-            [*(*(&v19 + 1) + 8 * v17++) multiplexingViewControllerDidActivate:self];
+            [*(*(&v21 + 1) + 8 * v18++) multiplexingViewControllerDidActivate:self];
           }
 
-          while (v15 != v17);
-          v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          while (v16 != v18);
+          v16 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
-        while (v15);
+        while (v16);
       }
 
-      v18 = SBLogWidgets();
-      if (os_signpost_enabled(v18))
+      v20 = SBLogWidgets(v19);
+      if (os_signpost_enabled(v20))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1BEB18000, v18, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_MULTIPLEX_ACTIVATE", " isAnimation=YES ", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1BEB18000, v20, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_MULTIPLEX_ACTIVATE", " isAnimation=YES ", buf, 2u);
       }
     }
   }
@@ -94,10 +94,10 @@
 
 - (void)deactivate
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (self->_multiplexedViewController)
   {
-    v3 = SBLogWidgets();
+    v3 = SBLogWidgets(self);
     if (os_signpost_enabled(v3))
     {
       v4 = MEMORY[0x1E696AEC0];
@@ -105,66 +105,66 @@
       v6 = NSStringFromClass(v5);
       v7 = [v4 stringWithFormat:@"<%@: %p>", v6, self];
       *buf = 138543362;
-      v25 = v7;
+      v27 = v7;
       _os_signpost_emit_with_name_impl(&dword_1BEB18000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_MULTIPLEX_DEACTIVATE", "%{public}@", buf, 0xCu);
     }
 
-    v8 = SBLogWidgets();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogWidgets(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
       *buf = 138543618;
-      v25 = v10;
-      v26 = 2048;
+      v27 = v11;
+      v28 = 2048;
       selfCopy = self;
-      _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> deactivate", buf, 0x16u);
+      _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> deactivate", buf, 0x16u);
     }
 
+    v23 = 0u;
+    v24 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v11 = [(NSHashTable *)self->_observers copy];
-    v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v12)
+    v12 = [(NSHashTable *)self->_observers copy];
+    v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v20;
+      v14 = v13;
+      v15 = *v22;
       do
       {
-        v15 = 0;
+        v16 = 0;
         do
         {
-          if (*v20 != v14)
+          if (*v22 != v15)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v19 + 1) + 8 * v15);
+          v17 = *(*(&v21 + 1) + 8 * v16);
           if (objc_opt_respondsToSelector())
           {
-            [v16 multiplexingViewControllerWillDeactivate:self];
+            [v17 multiplexingViewControllerWillDeactivate:self];
           }
 
-          ++v15;
+          ++v16;
         }
 
-        while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        while (v14 != v16);
+        v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
     multiplexedViewController = self->_multiplexedViewController;
     self->_multiplexedViewController = 0;
 
-    v18 = SBLogWidgets();
-    if (os_signpost_enabled(v18))
+    v20 = SBLogWidgets(v19);
+    if (os_signpost_enabled(v20))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v18, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_MULTIPLEX_DEACTIVATE", " isAnimation=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v20, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_MULTIPLEX_DEACTIVATE", " isAnimation=YES ", buf, 2u);
     }
   }
 }
@@ -218,7 +218,7 @@
 {
   v21 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
-  v5 = SBLogWidgets();
+  v5 = SBLogWidgets(controllerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();

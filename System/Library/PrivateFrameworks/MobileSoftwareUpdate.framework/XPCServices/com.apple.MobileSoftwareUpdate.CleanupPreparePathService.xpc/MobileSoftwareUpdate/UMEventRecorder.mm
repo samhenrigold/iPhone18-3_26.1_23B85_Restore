@@ -11,6 +11,7 @@
 - (UMEventRecorder)initWithOptions:(id)options;
 - (double)_timeIntervalUntilRetry:(id)retry;
 - (id)_copyEscapeStringsForEventData:(id)data;
+- (id)_copyUnsubmittedEventsFromDirectory:(id)directory skipEventsIfPreviouslySubmittedAndWithinBackoffTime:(BOOL)time previouslySubmittedEventSkipped:(BOOL *)skipped;
 - (id)_currentEAPFSMode;
 - (id)_currentOSVersion;
 - (id)_defaults;
@@ -1167,7 +1168,6 @@ LABEL_12:
       v13 = [(NSString *)self->_targetOSVersion isEqualToString:v12];
       if ((v13 & 1) == 0)
       {
-        targetOSVersion = self->_targetOSVersion;
         _log(v13, @"startRecordingInstall for %@ found an install currently in progress for %@", v14, v15, v16, v17, v18, v19, v12);
         [(UMEventRecorder *)self recordEvent:@"incompleteInstall" information:0 installIsComplete:1];
       }
@@ -1237,7 +1237,7 @@ LABEL_25:
   else
   {
 
-    _log(0, @"asset attributes do not include build - update metrics disabled", v6, v7, v8, v9, v10, v11, v60);
+    _log(0, @"asset attributes do not include build - update metrics disabled", v6, v7, v8, v9, v10, v11, v59);
   }
 }
 
@@ -1600,7 +1600,7 @@ LABEL_18:
 
 - (id)_copyEscapeStringsForEventData:(id)data
 {
-  v4 = [NSMutableCharacterSet characterSetWithCharactersInString:@"%\\""];
+  v4 = [NSMutableCharacterSet characterSetWithCharactersInString:@"%\"];
   [(NSMutableCharacterSet *)v4 formUnionWithCharacterSet:+[NSCharacterSet controlCharacterSet]];
   [(NSMutableCharacterSet *)v4 formUnionWithCharacterSet:+[NSCharacterSet newlineCharacterSet]];
   v5 = [NSMutableCharacterSet characterSetWithRange:0, 127];
@@ -1996,7 +1996,7 @@ LABEL_5:
 
 void __56__UMEventRecorder_submitEventsInBackground_withOptions___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  _log(a1, @"submitEventsInBackground running", a3, a4, a5, a6, a7, a8, v79);
+  _log(a1, @"submitEventsInBackground running", a3, a4, a5, a6, a7, a8, v80);
   v9 = *(a1 + 32);
   v10 = +[NSMutableArray arrayWithArray:](NSMutableArray, "arrayWithArray:", [*(a1 + 40) droppedEvents]);
   [objc_msgSend(*(a1 + 40) "droppedEvents")];
@@ -2004,7 +2004,7 @@ void __56__UMEventRecorder_submitEventsInBackground_withOptions___block_invoke(u
   v12 = [*(a1 + 40) _legacyEventDirectory];
   if (*(a1 + 48) == 1)
   {
-    v81 = os_transaction_create();
+    v82 = os_transaction_create();
     v13 = *(a1 + 32);
     if (v13)
     {
@@ -2022,109 +2022,120 @@ void __56__UMEventRecorder_submitEventsInBackground_withOptions___block_invoke(u
 
   else
   {
-    v81 = 0;
+    v82 = 0;
   }
 
-  v84 = 0;
-  v20 = ![*(a1 + 32) objectForKey:@"forceEventResubmission"] || (objc_msgSend(objc_msgSend(*(a1 + 32), "objectForKey:", @"forceEventResubmission"), "BOOLValue") & 1) == 0;
-  logfunction(", 1, @"%s: Previously submitted events will %s resubmitted\n\n", v15, v16, v17, v18, v19, "[UMEventRecorder submitEventsInBackground:withOptions:]_block_invoke"");
-  v21 = [*(a1 + 40) _copyUnsubmittedEventsFromDirectory:v11 skipEventsIfPreviouslySubmittedAndWithinBackoffTime:v20 previouslySubmittedEventSkipped:&v84 + 1];
-  if (v21)
+  v85 = 0;
+  if ([*(a1 + 32) objectForKey:@"forceEventResubmission"] && (objc_msgSend(objc_msgSend(*(a1 + 32), "objectForKey:", @"forceEventResubmission"), "BOOLValue") & 1) != 0)
   {
-    v28 = v21;
-    if ([v21 count])
-    {
-      v29 = [v28 count];
-      _log(v29, @"Found %lu unsubmitted events in update volume", v30, v31, v32, v33, v34, v35, v29);
-      [(NSMutableArray *)v10 addObjectsFromArray:v28];
-    }
-
-    CFRelease(v28);
+    v20 = 0;
+    v21 = "BE";
   }
 
   else
   {
-    _log(0, @"Unable to check for unsubmitted events on the update volume", v22, v23, v24, v25, v26, v27, v80);
+    v21 = "NOT BE";
+    v20 = 1;
   }
 
-  if (HIBYTE(v84) == 1)
+  logfunction(", 1, @"%s: Previously submitted events will %s resubmitted\n\n", v15, v16, v17, v18, v19, "[UMEventRecorder submitEventsInBackground:withOptions:]_block_invoke"", v21);
+  v22 = [*(a1 + 40) _copyUnsubmittedEventsFromDirectory:v11 skipEventsIfPreviouslySubmittedAndWithinBackoffTime:v20 previouslySubmittedEventSkipped:&v85 + 1];
+  if (v22)
   {
-    _log(v36, @"Some events from the update volume were skipped since we had previously attempted to submit them and we are within the retry period", v37, v38, v39, v40, v41, v42, v80);
-  }
-
-  v43 = [*(a1 + 40) _copyUnsubmittedEventsFromDirectory:v12 skipEventsIfPreviouslySubmittedAndWithinBackoffTime:v20 previouslySubmittedEventSkipped:&v84];
-  if (v43)
-  {
-    v50 = v43;
-    if ([v43 count])
+    v29 = v22;
+    if ([v22 count])
     {
-      v51 = [v50 count];
-      _log(v51, @"Found %lu unsubmitted events in data volume", v52, v53, v54, v55, v56, v57, v51);
-      [(NSMutableArray *)v10 addObjectsFromArray:v50];
+      v30 = [v29 count];
+      _log(v30, @"Found %lu unsubmitted events in update volume", v31, v32, v33, v34, v35, v36, v30);
+      [(NSMutableArray *)v10 addObjectsFromArray:v29];
     }
 
-    CFRelease(v50);
+    CFRelease(v29);
   }
 
   else
   {
-    _log(0, @"Unable to check for events from the data volume", v44, v45, v46, v47, v48, v49, v80);
+    _log(0, @"Unable to check for unsubmitted events on the update volume", v23, v24, v25, v26, v27, v28, v81);
   }
 
-  if (v84 == 1)
+  if (HIBYTE(v85) == 1)
   {
-    _log(v58, @"Some events from the data volume were skipped since we had previously attempted to submit them and we are within the retry period", v59, v60, v61, v62, v63, v64, v80);
+    _log(v37, @"Some events from the update volume were skipped since we had previously attempted to submit them and we are within the retry period", v38, v39, v40, v41, v42, v43, v81);
   }
 
-  if ((v84 & 0x100) != 0 || v84 == 1)
+  v44 = [*(a1 + 40) _copyUnsubmittedEventsFromDirectory:v12 skipEventsIfPreviouslySubmittedAndWithinBackoffTime:v20 previouslySubmittedEventSkipped:&v85];
+  if (v44)
   {
-    _log(v58, @"Continuing with submissions but scheduling retry for skipped events", v59, v60, v61, v62, v63, v64, v80);
+    v51 = v44;
+    if ([v44 count])
+    {
+      v52 = [v51 count];
+      _log(v52, @"Found %lu unsubmitted events in data volume", v53, v54, v55, v56, v57, v58, v52);
+      [(NSMutableArray *)v10 addObjectsFromArray:v51];
+    }
+
+    CFRelease(v51);
+  }
+
+  else
+  {
+    _log(0, @"Unable to check for events from the data volume", v45, v46, v47, v48, v49, v50, v81);
+  }
+
+  if (v85 == 1)
+  {
+    _log(v59, @"Some events from the data volume were skipped since we had previously attempted to submit them and we are within the retry period", v60, v61, v62, v63, v64, v65, v81);
+  }
+
+  if ((v85 & 0x100) != 0 || v85 == 1)
+  {
+    _log(v59, @"Continuing with submissions but scheduling retry for skipped events", v60, v61, v62, v63, v64, v65, v81);
     [*(a1 + 40) _scheduleEventSubmissionRetry];
   }
 
-  v65 = dispatch_group_create();
+  v66 = dispatch_group_create();
   while ([(NSMutableArray *)v10 count])
   {
-    v66 = [(NSMutableArray *)v10 objectAtIndex:0];
-    v67 = [v66 objectForKey:@"Submission URL"];
-    v68 = [NSURL URLWithString:v67];
-    if (v68)
+    v67 = [(NSMutableArray *)v10 objectAtIndex:0];
+    v68 = [v67 objectForKey:@"Submission URL"];
+    v69 = [NSURL URLWithString:v68];
+    if (v69)
     {
-      v75 = v68;
-      v76 = +[NSMutableArray array];
-      v77 = [v66 objectForKey:@"Install Id"];
+      v76 = v69;
+      v77 = +[NSMutableArray array];
+      v78 = [v67 objectForKey:@"Install Id"];
+      v84[0] = _NSConcreteStackBlock;
+      v84[1] = 3254779904;
+      v84[2] = __56__UMEventRecorder_submitEventsInBackground_withOptions___block_invoke_2;
+      v84[3] = &__block_descriptor_56_e8_32o40o48o_e29_v32__0__NSDictionary_8Q16_B24l;
+      v84[4] = v78;
+      v84[5] = v68;
+      v84[6] = v77;
+      [(NSMutableArray *)v10 enumerateObjectsUsingBlock:v84];
+      dispatch_group_enter(v66);
+      v79 = *(a1 + 40);
       v83[0] = _NSConcreteStackBlock;
       v83[1] = 3254779904;
-      v83[2] = __56__UMEventRecorder_submitEventsInBackground_withOptions___block_invoke_2;
-      v83[3] = &__block_descriptor_56_e8_32o40o48o_e29_v32__0__NSDictionary_8Q16_B24l;
-      v83[4] = v77;
-      v83[5] = v67;
-      v83[6] = v76;
-      [(NSMutableArray *)v10 enumerateObjectsUsingBlock:v83];
-      dispatch_group_enter(v65);
-      v78 = *(a1 + 40);
-      v82[0] = _NSConcreteStackBlock;
-      v82[1] = 3254779904;
-      v82[2] = __56__UMEventRecorder_submitEventsInBackground_withOptions___block_invoke_711;
-      v82[3] = &__block_descriptor_40_e8_32o_e5_v8__0l;
-      v82[4] = v65;
-      [v78 _submitEvents:v76 toURL:v75 withOptions:v9 completionHandler:v82];
-      [(NSMutableArray *)v10 removeObjectsInArray:v76];
+      v83[2] = __56__UMEventRecorder_submitEventsInBackground_withOptions___block_invoke_711;
+      v83[3] = &__block_descriptor_40_e8_32o_e5_v8__0l;
+      v83[4] = v66;
+      [v79 _submitEvents:v77 toURL:v76 withOptions:v9 completionHandler:v83];
+      [(NSMutableArray *)v10 removeObjectsInArray:v77];
     }
 
     else
     {
-      _log(0, @"invalid url string %@", v69, v70, v71, v72, v73, v74, v67);
+      _log(0, @"invalid url string %@", v70, v71, v72, v73, v74, v75, v68);
       [(NSMutableArray *)v10 removeObjectAtIndex:0];
     }
   }
 
-  dispatch_group_wait(v65, 0xFFFFFFFFFFFFFFFFLL);
+  dispatch_group_wait(v66, 0xFFFFFFFFFFFFFFFFLL);
   if (*(a1 + 48) == 1)
   {
   }
 
-  dispatch_release(v65);
+  dispatch_release(v66);
 }
 
 id __56__UMEventRecorder_submitEventsInBackground_withOptions___block_invoke_2(uint64_t a1, void *a2)
@@ -2175,12 +2186,162 @@ id __56__UMEventRecorder_submitEventsInBackground_withOptions___block_invoke_2(u
   [(UMEventRecorder *)self submitEventsInBackground:0 withOptions:v7];
 }
 
+- (id)_copyUnsubmittedEventsFromDirectory:(id)directory skipEventsIfPreviouslySubmittedAndWithinBackoffTime:(BOOL)time previouslySubmittedEventSkipped:(BOOL *)skipped
+{
+  if (!directory)
+  {
+    _log(self, @"Invalid directory passed to %s", 0, time, skipped, v5, v6, v7, "[UMEventRecorder _copyUnsubmittedEventsFromDirectory:skipEventsIfPreviouslySubmittedAndWithinBackoffTime:previouslySubmittedEventSkipped:]");
+    return 0;
+  }
+
+  timeCopy = time;
+  v12 = objc_alloc_init(NSMutableArray);
+  v13 = -[NSFileManager enumeratorAtPath:](+[NSFileManager defaultManager](NSFileManager, "defaultManager"), "enumeratorAtPath:", [directory path]);
+  if (!v13)
+  {
+    path = [directory path];
+    _log(path, @"failed to create enumerator of path: %@", v15, v16, v17, v18, v19, v20, path);
+  }
+
+  nextObject = [(NSDirectoryEnumerator *)v13 nextObject];
+  if (nextObject)
+  {
+    nextObject2 = nextObject;
+    v97 = v12;
+    skippedCopy = skipped;
+    selfCopy = self;
+    v96 = timeCopy;
+    v23 = @"failed to create url to event file";
+    v24 = @"plist";
+    while (1)
+    {
+      objc_opt_class();
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
+      {
+        break;
+      }
+
+      isKindOfClass = [directory URLByAppendingPathComponent:nextObject2];
+      if (!isKindOfClass)
+      {
+        v82 = v23;
+        goto LABEL_25;
+      }
+
+      v32 = isKindOfClass;
+      if (([objc_msgSend(isKindOfClass "lastPathComponent")] & 1) != 0 || !objc_msgSend(objc_msgSend(v32, "pathExtension"), "isEqualToString:", v24))
+      {
+        goto LABEL_26;
+      }
+
+      v33 = [NSMutableDictionary dictionaryWithContentsOfURL:v32];
+      if (v33)
+      {
+        v40 = v33;
+        v41 = v23;
+        v42 = v24;
+        v43 = [(NSMutableDictionary *)v33 objectForKey:@"Install Id"];
+        if (v43 && (objc_opt_class(), v43 = objc_opt_isKindOfClass(), (v43 & 1) != 0))
+        {
+          v50 = [(NSMutableDictionary *)v40 objectForKey:@"Event Data"];
+          if (v50 && (objc_opt_class(), v50 = objc_opt_isKindOfClass(), (v50 & 1) != 0))
+          {
+            v57 = [(NSMutableDictionary *)v40 objectForKey:@"Submission URL"];
+            if (v57 && (objc_opt_class(), v57 = objc_opt_isKindOfClass(), (v57 & 1) != 0))
+            {
+              v64 = [(NSMutableDictionary *)v40 objectForKey:@"Submission Attempts"];
+              if (!v64 || (objc_opt_class(), v65 = objc_opt_isKindOfClass(), (v65 & 1) != 0))
+              {
+                v93 = v64;
+                v72 = [(NSMutableDictionary *)v40 objectForKey:@"Last Submission Attempt"];
+                v24 = v42;
+                v79 = v72;
+                if (!v72 || (objc_opt_class(), v72 = objc_opt_isKindOfClass(), (v72 & 1) != 0))
+                {
+                  v80 = v79;
+                  v81 = v79 == 0;
+                  v23 = v41;
+                  if ((v93 == 0) == v81)
+                  {
+                    if (v80 && v96 && (v83 = [(UMEventRecorder *)selfCopy _timeIntervalUntilRetry:v40], v90 > 0.0))
+                    {
+                      _log(v83, @"Skipped copying of %@ since it was previoulsy submitted and we are within the retry timeout", v84, v85, v86, v87, v88, v89, v32);
+                      if (skippedCopy)
+                      {
+                        *skippedCopy = 1;
+                      }
+                    }
+
+                    else
+                    {
+                      -[NSMutableDictionary setObject:forKey:](v40, "setObject:forKey:", [v32 path], @"Local Path");
+                      [v97 addObject:v40];
+                    }
+                  }
+
+                  else
+                  {
+                    _log(v72, @"%@ has incomplete last submission attempt data", v73, v74, v75, v76, v77, v78, v32);
+                  }
+
+                  goto LABEL_26;
+                }
+
+                _log(v72, @"%@ has bogus last submission attempt date", v73, v74, v75, v76, v77, v78, v32);
+                goto LABEL_33;
+              }
+
+              _log(v65, @"%@ has bogus submission attempt count", v66, v67, v68, v69, v70, v71, v32);
+            }
+
+            else
+            {
+              _log(v57, @"%@ has missing or bogus submission URL", v58, v59, v60, v61, v62, v63, v32);
+            }
+          }
+
+          else
+          {
+            _log(v50, @"%@ has missing or bogus event data", v51, v52, v53, v54, v55, v56, v32);
+          }
+        }
+
+        else
+        {
+          _log(v43, @"%@ has missing or bogus install identifier", v44, v45, v46, v47, v48, v49, v32);
+        }
+
+        v24 = v42;
+LABEL_33:
+        v23 = v41;
+        goto LABEL_26;
+      }
+
+      _log(0, @"unable to load event from %@", v34, v35, v36, v37, v38, v39, v32);
+LABEL_26:
+      nextObject2 = [(NSDirectoryEnumerator *)v13 nextObject];
+      if (!nextObject2)
+      {
+        return v97;
+      }
+    }
+
+    v82 = @"file in enumerator is nil or not a string";
+LABEL_25:
+    _log(isKindOfClass, v82, v26, v27, v28, v29, v30, v31, v92);
+    goto LABEL_26;
+  }
+
+  return v12;
+}
+
 - (id)_loadUnsubmittedEvents
 {
   v3 = +[NSMutableArray array];
   _eventDirectory = [(UMEventRecorder *)self _eventDirectory];
   _legacyEventDirectory = [(UMEventRecorder *)self _legacyEventDirectory];
-  _log(_legacyEventDirectory, @"Loading unsubmitted events from update volume", v6, v7, v8, v9, v10, v11, v60);
+  _log(_legacyEventDirectory, @"Loading unsubmitted events from update volume", v6, v7, v8, v9, v10, v11, v61);
   v12 = [(UMEventRecorder *)self _copyUnsubmittedEventsFromDirectory:_eventDirectory skipEventsIfPreviouslySubmittedAndWithinBackoffTime:0 previouslySubmittedEventSkipped:0];
   if (v12)
   {
@@ -2194,7 +2355,7 @@ id __56__UMEventRecorder_submitEventsInBackground_withOptions___block_invoke_2(u
 
     else
     {
-      _log(0, @"No unsubmitted events found in update volume", v20, v21, v22, v23, v24, v25, v61);
+      _log(0, @"No unsubmitted events found in update volume", v20, v21, v22, v23, v24, v25, v62);
     }
 
     CFRelease(v19);
@@ -2202,7 +2363,7 @@ id __56__UMEventRecorder_submitEventsInBackground_withOptions___block_invoke_2(u
 
   else
   {
-    _log(0, @"Unable to determine state of unsubmitted events(if any) on update volume", v13, v14, v15, v16, v17, v18, v61);
+    _log(0, @"Unable to determine state of unsubmitted events(if any) on update volume", v13, v14, v15, v16, v17, v18, v62);
   }
 
   v33 = [(UMEventRecorder *)self _copyUnsubmittedEventsFromDirectory:_legacyEventDirectory skipEventsIfPreviouslySubmittedAndWithinBackoffTime:0 previouslySubmittedEventSkipped:0];
@@ -2218,7 +2379,7 @@ id __56__UMEventRecorder_submitEventsInBackground_withOptions___block_invoke_2(u
 
     else
     {
-      _log(0, @"No unsubmitted events found in data volume", v41, v42, v43, v44, v45, v46, v62);
+      _log(0, @"No unsubmitted events found in data volume", v41, v42, v43, v44, v45, v46, v63);
     }
 
     CFRelease(v40);
@@ -2226,11 +2387,11 @@ id __56__UMEventRecorder_submitEventsInBackground_withOptions___block_invoke_2(u
 
   else
   {
-    _log(0, @"Unable to determine state of unsubmitted events(if any) on data volume", v34, v35, v36, v37, v38, v39, v62);
+    _log(0, @"Unable to determine state of unsubmitted events(if any) on data volume", v34, v35, v36, v37, v38, v39, v63);
   }
 
-  [v3 count];
-  logfunction(", 1, @"[%s] total numUnsubmittedEvents = %lu\n\n", v54, v55, v56, v57, v58, "[UMEventRecorder _loadUnsubmittedEvents]"");
+  v54 = [v3 count];
+  logfunction(", 1, @"[%s] total numUnsubmittedEvents = %lu\n\n", v55, v56, v57, v58, v59, "[UMEventRecorder _loadUnsubmittedEvents]"", v54);
   return v3;
 }
 

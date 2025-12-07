@@ -52,7 +52,7 @@
       if (v6)
       {
         v7 = v6;
-        v8 = rbs_general_log();
+        v8 = rbs_general_log(v6);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           [RBSMachPortTaskNameRight initWithPID:v7];
@@ -79,7 +79,7 @@ LABEL_11:
   if (v10)
   {
     v11 = v10;
-    v12 = rbs_general_log();
+    v12 = rbs_general_log(v10);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [RBSMachPortTaskNameRight initWithPID:v11];
@@ -113,9 +113,10 @@ LABEL_15:
 
   else
   {
+    v4 = *&d;
     if (_RBSSandboxCanGetMachTaskName(d))
     {
-      v6 = [(RBSMachPortTaskNameRight *)[self alloc] initWithPID:d];
+      v6 = [(RBSMachPortTaskNameRight *)[self alloc] initWithPID:v4];
     }
 
     else
@@ -213,20 +214,16 @@ LABEL_15:
 
 - (void)initWithPID:(mach_error_t)a1 .cold.1(mach_error_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   mach_error_string(a1);
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_2(&dword_18E8AD000, v1, v2, "Unable to obtain a task name port right for pid %i: %{public}s (0x%x)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_18E8AD000, v1, v2, "Unable to obtain a task name port right for pid %i: %{public}s (0x%x)", v3, v4, v5, v6);
 }
 
 - (void)initWithPID:(mach_error_t)a1 .cold.2(mach_error_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   mach_error_string(a1);
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_2(&dword_18E8AD000, v1, v2, "Unable to obtain an audit token for pid %i: %{public}s (0x%x)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_18E8AD000, v1, v2, "Unable to obtain an audit token for pid %i: %{public}s (0x%x)", v3, v4, v5, v6);
 }
 
 @end

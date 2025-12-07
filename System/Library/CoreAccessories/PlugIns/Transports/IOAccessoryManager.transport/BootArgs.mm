@@ -38,7 +38,7 @@
 
 void __30__BootArgs_configuredBootArgs__block_invoke()
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v0 = +[BootArgs configuredBootArgsString];
   v1 = v0;
   if (v0)
@@ -46,30 +46,30 @@ void __30__BootArgs_configuredBootArgs__block_invoke()
     v2 = [v0 componentsSeparatedByString:@" "];
     if ([v2 count])
     {
-      v16 = v1;
+      v15 = v1;
       v3 = [MEMORY[0x277CBEB38] dictionary];
+      v16 = 0u;
       v17 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v20 = 0u;
-      v15 = v2;
+      v14 = v2;
       v4 = v2;
-      v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v18;
+        v7 = *v17;
         do
         {
           v8 = 0;
           do
           {
-            if (*v18 != v7)
+            if (*v17 != v7)
             {
               objc_enumerationMutation(v4);
             }
 
-            v9 = [*(*(&v17 + 1) + 8 * v8) componentsSeparatedByString:{@"=", v15}];
+            v9 = [*(*(&v16 + 1) + 8 * v8) componentsSeparatedByString:{@"=", v14}];
             if ([v9 count])
             {
               if ([v9 count] < 2)
@@ -90,7 +90,7 @@ void __30__BootArgs_configuredBootArgs__block_invoke()
           }
 
           while (v6 != v8);
-          v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
         }
 
         while (v6);
@@ -100,12 +100,10 @@ void __30__BootArgs_configuredBootArgs__block_invoke()
       v13 = configuredBootArgs_bootArgsDict;
       configuredBootArgs_bootArgsDict = v12;
 
-      v2 = v15;
-      v1 = v16;
+      v2 = v14;
+      v1 = v15;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)configuredBootArgsString

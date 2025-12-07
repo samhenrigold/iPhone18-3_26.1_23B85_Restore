@@ -51,7 +51,7 @@
       v5 = equalCopy;
       v10.receiver = self;
       v10.super_class = SUUIStorePagePinnedBackdropLayoutAttributes;
-      v8 = [(UICollectionViewLayoutAttributes *)&v10 isEqual:v5]&& ((backdropColor = self->_backdropColor, backdropColor == v5->_backdropColor) || [(UIColor *)backdropColor isEqual:?]) && ((backdropGroupName = self->_backdropGroupName, backdropGroupName == v5->_backdropGroupName) || [(NSString *)backdropGroupName isEqualToString:?]) && self->_backdropStyle == v5->_backdropStyle && self->_hidesBackdropView == v5->_hidesBackdropView && self->_transitionProgress != v5->_transitionProgress;
+      v8 = [(UICollectionViewLayoutAttributes *)&v10 isEqual:v5]&& ((backdropColor = self->_backdropColor, backdropColor == v5->_backdropColor) || [(UIColor *)backdropColor isEqual:?]) && ((backdropGroupName = self->_backdropGroupName, backdropGroupName == v5->_backdropGroupName) || objc_msgSend_isEqualToString_(backdropGroupName)) && self->_backdropStyle == v5->_backdropStyle && self->_hidesBackdropView == v5->_hidesBackdropView && self->_transitionProgress != v5->_transitionProgress;
     }
 
     else

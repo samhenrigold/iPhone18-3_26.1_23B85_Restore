@@ -102,197 +102,192 @@ void __58__EDActivityRegistry_registerActivityObserver_completion___block_invoke
 
 - (void)startedActivity:(id)activity
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   os_unfair_lock_lock(&self->_lock);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v5 = self->_observers;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v6)
   {
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) startedActivity:{activityCopy, v10}];
+        [*(*(&v9 + 1) + 8 * v8++) startedActivity:{activityCopy, v9}];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activityWithID:(id)d finishedWithError:(id)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   errorCopy = error;
   os_unfair_lock_lock(&self->_lock);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v8 = self->_observers;
-  v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v9)
   {
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) activityWithID:dCopy finishedWithError:{errorCopy, v13}];
+        [*(*(&v12 + 1) + 8 * v11++) activityWithID:dCopy finishedWithError:{errorCopy, v12}];
       }
 
       while (v9 != v11);
-      v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activityWithID:(id)d setUserInfoObject:(id)object forKey:(id)key
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
   objectCopy = object;
   keyCopy = key;
   os_unfair_lock_lock(&self->_lock);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v11 = self->_observers;
-  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v12)
   {
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        [*(*(&v16 + 1) + 8 * v14++) activityWithID:dCopy setUserInfoObject:objectCopy forKey:{keyCopy, v16}];
+        [*(*(&v15 + 1) + 8 * v14++) activityWithID:dCopy setUserInfoObject:objectCopy forKey:{keyCopy, v15}];
       }
 
       while (v12 != v14);
-      v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v12);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activityWithID:(id)d setCompletedCount:(int64_t)count totalCount:(int64_t)totalCount
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
   os_unfair_lock_lock(&self->_lock);
   v9 = [MEMORY[0x1E696AD98] numberWithLongLong:count];
   v10 = [MEMORY[0x1E696AD98] numberWithLongLong:totalCount];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v11 = self->_observers;
-  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v12)
   {
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        [*(*(&v16 + 1) + 8 * v14++) activityWithID:dCopy setCompletedCount:v9 totalCount:{v10, v16}];
+        [*(*(&v15 + 1) + 8 * v14++) activityWithID:dCopy setCompletedCount:v9 totalCount:{v10, v15}];
       }
 
       while (v12 != v14);
-      v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v12);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removedActivityWithID:(id)d
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dCopy = d;
   os_unfair_lock_lock(&self->_lock);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v5 = self->_observers;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v6)
   {
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) removedActivityWithID:{dCopy, v10}];
+        [*(*(&v9 + 1) + 8 * v8++) removedActivityWithID:{dCopy, v9}];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

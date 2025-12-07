@@ -86,10 +86,16 @@
   if (label)
   {
     sub_8F5F4();
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
   }
 
   selfCopy = self;
-  sub_18714();
+  sub_18714(selfCopy, v5);
 }
 
 - (CGSize)intrinsicContentSize

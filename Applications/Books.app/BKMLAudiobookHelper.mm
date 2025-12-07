@@ -104,21 +104,21 @@
 
   if (v6)
   {
-    v7 = v6[2](v6, width, height);
+    v8 = v6[2](v6, width, height);
   }
 
   else
   {
-    v8 = sub_1001B9CD0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = sub_1001B9CD0(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      sub_1007909F0(v8);
+      sub_1007909F0(v9);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)helperViewControllerWithOptions:(id)options completion:(id)completion

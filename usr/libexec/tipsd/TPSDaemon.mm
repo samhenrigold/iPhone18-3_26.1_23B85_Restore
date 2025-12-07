@@ -75,9 +75,13 @@
 - (void)showNewTipNotification;
 - (void)supportFlowContentWithCompletionHandler:(id)handler;
 - (void)tipsAppActive;
+- (void)tipsManager:(id)manager contextualEligibilityWithTipIdentifiers:(id)identifiers tipsDeliveryInfoMap:(id)map deliveryInfoMap:(id)infoMap experimentCampChangesToAll:(BOOL)all;
 - (void)tipsManager:(id)manager eligibilityCompletedWithTipIdentifiers:(id)identifiers contextualTipIdentifiers:(id)tipIdentifiers tipsDeliveryInfoMap:(id)map deliveryInfoMap:(id)infoMap;
+- (void)tipsManagerContentUpdateOverrideCompleted:(id)completed contentPackage:(id)package hmtContentPackage:(id)contentPackage shouldUpdateNotification:(BOOL)notification error:(id)error;
 - (void)unregisterDarwinNotification:(id)notification;
 - (void)unregisterImmediateNotifications;
+- (void)updateContentFromOrigin:(BOOL)origin systemEducationRequest:(BOOL)request indexContent:(BOOL)content contextualEligibility:(BOOL)eligibility widgetEligibility:(BOOL)widgetEligibility notificationEligibility:(BOOL)notificationEligibility preferredNotificationIdentifiers:(id)identifiers shouldDeferBlock:(id)self0 completionHandler:(id)self1;
+- (void)updateContentWithActivity:(id)activity identifier:(id)identifier preferredNotificationIdentifiers:(id)identifiers multiuserModeOn:(BOOL)on contextualEligibility:(BOOL)eligibility widgetEligibility:(BOOL)widgetEligibility notificationEligibility:(BOOL)notificationEligibility;
 - (void)updateNotificationStatus;
 - (void)updateSessionMapWithIdentifier:(id)identifier data:(id)data;
 - (void)userGuideMapWithCompletionHandler:(id)handler;
@@ -412,6 +416,67 @@
   _Block_object_dispose(v9, 8);
 
   return v4;
+}
+
+- (void)updateContentWithActivity:(id)activity identifier:(id)identifier preferredNotificationIdentifiers:(id)identifiers multiuserModeOn:(BOOL)on contextualEligibility:(BOOL)eligibility widgetEligibility:(BOOL)widgetEligibility notificationEligibility:(BOOL)notificationEligibility
+{
+  widgetEligibilityCopy = widgetEligibility;
+  eligibilityCopy = eligibility;
+  onCopy = on;
+  activityCopy = activity;
+  identifierCopy = identifier;
+  identifiersCopy = identifiers;
+  v17 = +[TPSLogger daemon];
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    *v32 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Update content with event %@.", buf, 0xCu);
+  }
+
+  v18 = [(TPSDaemon *)self shouldDeferBlockForXPCActivity:activityCopy];
+  v19 = [(TPSDaemon *)self xpcActivitySetStateBlockForIdentifier:identifierCopy];
+  v20 = v18[2](v18);
+  if (((v20 | onCopy) & 1) != 0 || (v21 = atomic_load(byte_1000299E0), (v21 & 1) == 0) || ![(TPSDaemon *)self setupCompleted])
+  {
+    v22 = +[TPSLogger daemon];
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      v23 = atomic_load(byte_1000299E0);
+      *buf = 67109632;
+      *v32 = v20;
+      *&v32[4] = 1024;
+      *&v32[6] = onCopy;
+      v33 = 1024;
+      v34 = v23 & 1;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Update content skipped. deferBlock %d, multiuserModeOn %d, deviceUnlockedSinceBoot %d", buf, 0x14u);
+    }
+
+    goto LABEL_11;
+  }
+
+  if (!(v19[2])(v19, activityCopy, 4))
+  {
+LABEL_11:
+    (v19)[2](v19, activityCopy, 5);
+    goto LABEL_12;
+  }
+
+  objc_initWeak(buf, self);
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_100004214;
+  v25[3] = &unk_100024C08;
+  objc_copyWeak(&v29, buf);
+  notificationEligibilityCopy = notificationEligibility;
+  v27 = v18;
+  v28 = v19;
+  v26 = activityCopy;
+  [(TPSDaemon *)self updateContentFromOrigin:1 systemEducationRequest:1 indexContent:1 contextualEligibility:eligibilityCopy widgetEligibility:widgetEligibilityCopy notificationEligibility:notificationEligibility preferredNotificationIdentifiers:identifiersCopy shouldDeferBlock:v27 completionHandler:v25];
+
+  objc_destroyWeak(&v29);
+  objc_destroyWeak(buf);
+LABEL_12:
 }
 
 - (BOOL)contentUpdatePostProcessingContentPackage:(id)package shouldUpdateNotification:(BOOL)notification shouldDeferBlock:(id)block error:(id)error
@@ -756,6 +821,89 @@ LABEL_13:
   }
 }
 
+- (void)updateContentFromOrigin:(BOOL)origin systemEducationRequest:(BOOL)request indexContent:(BOOL)content contextualEligibility:(BOOL)eligibility widgetEligibility:(BOOL)widgetEligibility notificationEligibility:(BOOL)notificationEligibility preferredNotificationIdentifiers:(id)identifiers shouldDeferBlock:(id)self0 completionHandler:(id)self1
+{
+  notificationEligibilityCopy = notificationEligibility;
+  widgetEligibilityCopy = widgetEligibility;
+  eligibilityCopy = eligibility;
+  requestCopy = request;
+  originCopy = origin;
+  identifiersCopy = identifiers;
+  blockCopy = block;
+  handlerCopy = handler;
+  if (!blockCopy || !blockCopy[2](blockCopy))
+  {
+    v31 = requestCopy;
+    v32 = widgetEligibilityCopy;
+    notificationController = [(TPSDaemon *)self notificationController];
+    v23 = [notificationController isNotificationSettingValid] ^ 1;
+
+    tipsAppInstalled = [(TPSDaemon *)self tipsAppInstalled];
+    v25 = tipsAppInstalled;
+    if ((v23 & 1) != 0 || (tipsAppInstalled & 1) == 0)
+    {
+      if (notificationEligibilityCopy)
+      {
+        v29 = +[TPSLogger daemon];
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67109376;
+          v37 = v23;
+          v38 = 1024;
+          v39 = v25;
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Skip checking notification. Notification disabled %d Tips app installed %d", buf, 0xEu);
+        }
+      }
+
+      notificationController2 = [(TPSDaemon *)self notificationController];
+      [notificationController2 clearNotificationCache];
+    }
+
+    else
+    {
+      if (!notificationEligibilityCopy)
+      {
+LABEL_16:
+        tipsManager = [(TPSDaemon *)self tipsManager];
+        v33[0] = _NSConcreteStackBlock;
+        v33[1] = 3221225472;
+        v33[2] = sub_100006118;
+        v33[3] = &unk_100024D10;
+        contentCopy = content;
+        v33[4] = self;
+        v34 = handlerCopy;
+        [tipsManager contentFromOrigin:originCopy systemEducationRequest:v31 processTipKitContent:eligibilityCopy contextualEligibility:eligibilityCopy widgetEligibility:v32 notificationEligibility:notificationEligibilityCopy preferredNotificationIdentifiers:identifiersCopy shouldDeferBlock:blockCopy completionHandler:v33];
+
+        goto LABEL_17;
+      }
+
+      welcome = [(TPSDaemon *)self welcome];
+      shouldShowWelcomeNotification = [welcome shouldShowWelcomeNotification];
+
+      if (!shouldShowWelcomeNotification)
+      {
+        notificationEligibilityCopy = 1;
+        goto LABEL_16;
+      }
+
+      notificationController2 = +[TPSLogger daemon];
+      if (os_log_type_enabled(notificationController2, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, notificationController2, OS_LOG_TYPE_DEFAULT, "Skip checking notification. Welcome notification in progress", buf, 2u);
+      }
+    }
+
+    notificationEligibilityCopy = 0;
+    goto LABEL_16;
+  }
+
+  v21 = [NSError errorWithDomain:TPSTipsManagerErrorDomain code:4 userInfo:0];
+  (*(handlerCopy + 2))(handlerCopy, 0, 0, v21);
+
+LABEL_17:
+}
+
 - (void)indexContentPackage:(id)package hmtContentPackage:(id)contentPackage
 {
   packageCopy = package;
@@ -841,19 +989,22 @@ LABEL_13:
 - (void)logDaemonActiveEventWithReason:(id)reason
 {
   reasonCopy = reason;
+  v5 = reasonCopy;
   if (reasonCopy)
   {
-    v5 = atomic_load(byte_1000299E0);
-    if (v5)
+    v6 = atomic_load(byte_1000299E0);
+    if (v6)
     {
-      v6 = [TPSAnalyticsEventDaemonActive eventWithReason:reasonCopy alreadyRunning:self->_alreadyRunning];
-      [v6 log];
+      v8 = reasonCopy;
+      v7 = [TPSAnalyticsEventDaemonActive eventWithReason:reasonCopy alreadyRunning:self->_alreadyRunning];
+      [v7 log];
 
+      v5 = v8;
       self->_alreadyRunning = 1;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(reasonCopy, v5);
 }
 
 - (void)URLSession:(id)session task:(id)task _willSendRequestForEstablishedConnection:(id)connection completionHandler:(id)handler
@@ -1256,9 +1407,9 @@ LABEL_13:
 {
   connectionCopy = connection;
   v13 = 0;
-  v14[0] = &v13;
-  v14[1] = 0x2020000000;
-  v15 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   appConnectionQueue = self->_appConnectionQueue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
@@ -1272,10 +1423,10 @@ LABEL_13:
   v7 = +[TPSLogger default];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001544C(v14);
+    sub_10001544C();
   }
 
-  v8 = *(v14[0] + 24);
+  v8 = *(v14 + 24);
   _Block_object_dispose(&v13, 8);
 
   return v8;
@@ -2168,6 +2319,29 @@ LABEL_10:
   [usageEventManager updateContextualInfoForIdentifiers:allObjects tipsDeliveryInfoMap:mapCopy deliveryInfoMap:infoMapCopy];
 }
 
+- (void)tipsManager:(id)manager contextualEligibilityWithTipIdentifiers:(id)identifiers tipsDeliveryInfoMap:(id)map deliveryInfoMap:(id)infoMap experimentCampChangesToAll:(BOOL)all
+{
+  allCopy = all;
+  infoMapCopy = infoMap;
+  mapCopy = map;
+  identifiersCopy = identifiers;
+  discoverabilityController = [(TPSDaemon *)self discoverabilityController];
+  [discoverabilityController contextualEligibilityWithTipIdentifiers:identifiersCopy tipsDeliveryInfoMap:mapCopy deliveryInfoMap:infoMapCopy experimentCampChangesToAll:allCopy];
+}
+
+- (void)tipsManagerContentUpdateOverrideCompleted:(id)completed contentPackage:(id)package hmtContentPackage:(id)contentPackage shouldUpdateNotification:(BOOL)notification error:(id)error
+{
+  notificationCopy = notification;
+  packageCopy = package;
+  errorCopy = error;
+  if (packageCopy)
+  {
+    [(TPSDaemon *)self indexContentPackage:packageCopy hmtContentPackage:contentPackage];
+  }
+
+  [(TPSDaemon *)self contentUpdatePostProcessingContentPackage:packageCopy shouldUpdateNotification:notificationCopy shouldDeferBlock:0 error:errorCopy];
+}
+
 - (BOOL)canCheckForNewTipNotification:(id)notification
 {
   welcome = [(TPSDaemon *)self welcome];
@@ -2300,12 +2474,11 @@ LABEL_5:
 {
   v2 = type metadata accessor for TipsLog();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v6 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   static TipsLog.analytics.getter();
   logDebug(_:_:)();
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   static SupportFlowSessionManager.logAllSessions()();
 }
 
@@ -2324,89 +2497,86 @@ LABEL_5:
 - (void)availableUserGuideIdentifiersWithReply:(id)reply
 {
   v5 = sub_10000CEDC(&qword_100029FA0, &qword_100019518);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v18 - v7;
-  v9 = _Block_copy(reply);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  v11 = objc_opt_self();
+  v7 = &v17 - v6;
+  v8 = _Block_copy(reply);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  v10 = objc_opt_self();
   selfCopy = self;
-  _Block_copy(v9);
-  if ([v11 supportsUserGuide])
+  _Block_copy(v8);
+  if ([v10 supportsUserGuide])
   {
-    v12 = type metadata accessor for TaskPriority();
-    (*(*(v12 - 8) + 56))(v8, 1, 1, v12);
-    v13 = swift_allocObject();
-    v13[2] = 0;
-    v13[3] = 0;
-    v14 = selfCopy;
-    v13[4] = selfCopy;
-    v13[5] = sub_100012C94;
-    v13[6] = v10;
-    v15 = v14;
+    v11 = type metadata accessor for TaskPriority();
+    (*(*(v11 - 8) + 56))(v7, 1, 1, v11);
+    v12 = swift_allocObject();
+    v12[2] = 0;
+    v12[3] = 0;
+    v13 = selfCopy;
+    v12[4] = selfCopy;
+    v12[5] = sub_100012C94;
+    v12[6] = v9;
+    v14 = v13;
 
-    sub_10000F0A8(0, 0, v8, &unk_100019570, v13);
+    sub_10000F0A8(0, 0, v7, &unk_100019570, v12);
 
-    _Block_release(v9);
+    _Block_release(v8);
   }
 
   else
   {
     isa = Array._bridgeToObjectiveC()().super.isa;
-    (*(v9 + 2))(v9, isa);
+    (*(v8 + 2))(v8, isa);
 
-    _Block_release(v9);
-    v17 = selfCopy;
+    _Block_release(v8);
+    v16 = selfCopy;
   }
 }
 
 - (void)fetchDocumentWithIdentifier:(id)identifier reply:(id)reply
 {
   v6 = sub_10000CEDC(&qword_100029FA0, &qword_100019518);
-  v7 = *(*(v6 - 8) + 64);
   __chkstk_darwin(v6 - 8);
-  v9 = &v18 - v8;
-  v10 = _Block_copy(reply);
-  v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v13 = v12;
-  v14 = swift_allocObject();
-  *(v14 + 16) = v10;
-  v15 = type metadata accessor for TaskPriority();
-  (*(*(v15 - 8) + 56))(v9, 1, 1, v15);
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = self;
-  v16[5] = sub_100012A68;
-  v16[6] = v14;
-  v16[7] = v11;
-  v16[8] = v13;
+  v8 = &v17 - v7;
+  v9 = _Block_copy(reply);
+  v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v12 = v11;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v9;
+  v14 = type metadata accessor for TaskPriority();
+  (*(*(v14 - 8) + 56))(v8, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = self;
+  v15[5] = sub_100012A68;
+  v15[6] = v13;
+  v15[7] = v10;
+  v15[8] = v12;
   selfCopy = self;
-  sub_10000F0A8(0, 0, v9, &unk_100019568, v16);
+  sub_10000F0A8(0, 0, v8, &unk_100019568, v15);
 }
 
 - (void)resolveContextForKeys:(id)keys reply:(id)reply
 {
   v7 = sub_10000CEDC(&qword_100029FA0, &qword_100019518);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v17 - v9;
-  v11 = _Block_copy(reply);
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
-  v13 = type metadata accessor for TaskPriority();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = keys;
-  v14[5] = self;
-  v14[6] = sub_100012A10;
-  v14[7] = v12;
+  v9 = &v16 - v8;
+  v10 = _Block_copy(reply);
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
+  v12 = type metadata accessor for TaskPriority();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = keys;
+  v13[5] = self;
+  v13[6] = sub_100012A10;
+  v13[7] = v11;
   keysCopy = keys;
   selfCopy = self;
-  sub_10000F0A8(0, 0, v10, &unk_100019560, v14);
+  sub_10000F0A8(0, 0, v9, &unk_100019560, v13);
 }
 
 @end

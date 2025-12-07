@@ -19,43 +19,44 @@
   resConfig = self->_resConfig;
   self->_resConfig = &stru_1F496CB30;
 
-  v15.receiver = self;
-  v15.super_class = VCPCNNPetsDetectorEspresso;
-  v9 = [(VCPCNNPetsDetectorEspresso *)&v15 init];
+  v17.receiver = self;
+  v17.super_class = VCPCNNPetsDetectorEspresso;
+  v9 = [(VCPCNNPetsDetectorEspresso *)&v17 init];
+  v11 = v9;
   if (v9)
   {
-    if (DeviceHasANE())
+    if (DeviceHasANE(v9, v10))
     {
-      v10 = [objc_opt_class() sharedModel:v7];
+      v12 = [objc_opt_class() sharedModel:v7];
     }
 
     else
     {
-      v10 = [[VCPCNNModelEspresso alloc] initWithParameters:v7 inputNames:0 outputNames:0 properties:0];
+      v12 = [[VCPCNNModelEspresso alloc] initWithParameters:v7 inputNames:0 outputNames:0 properties:0];
     }
 
-    modelEspresso = v9->_modelEspresso;
-    v9->_modelEspresso = v10;
+    modelEspresso = v11->_modelEspresso;
+    v11->_modelEspresso = v12;
 
-    if (v9->_modelEspresso)
+    if (v11->_modelEspresso)
     {
-      v11 = v9;
+      v13 = v11;
     }
 
     else
     {
-      v11 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v11 = 0;
+    v13 = 0;
   }
 
-  v13 = v11;
+  v15 = v13;
 
-  return v13;
+  return v15;
 }
 
 + (id)sharedModel:(id)model
@@ -121,14 +122,14 @@ VCPCNNModelEspresso *__42__VCPCNNPetsDetectorEspresso_sharedModel___block_invoke
     }
 
     modelEspresso = self->_modelEspresso;
-    if (modelEspresso && ([(VCPCNNModelEspresso *)modelEspresso inputBlob], (v12 = self->_modelEspresso) != 0))
+    if (modelEspresso && (objc_msgSend_inputBlob(modelEspresso), (v12 = self->_modelEspresso) != 0))
     {
-      [(VCPCNNModelEspresso *)v12 inputBlob];
+      objc_msgSend_inputBlob(v12);
       v13 = self->_modelEspresso;
       v14 = v20 * v21;
       if (v13)
       {
-        [(VCPCNNModelEspresso *)v13 inputBlob];
+        objc_msgSend_inputBlob(v13);
         v15 = v19;
 LABEL_18:
         v16 = v14 * v15;
@@ -173,7 +174,7 @@ LABEL_18:
   modelEspresso = self->_modelEspresso;
   if (modelEspresso)
   {
-    [(VCPCNNModelEspresso *)modelEspresso inputBlob:*&buffer];
+    objc_msgSend_inputBlob(modelEspresso, a2, *&buffer, *&width);
     v10 = v15;
   }
 
@@ -186,7 +187,7 @@ LABEL_18:
   v11 = self->_modelEspresso;
   if (v11)
   {
-    [(VCPCNNModelEspresso *)v11 inputBlob];
+    objc_msgSend_inputBlob(v11);
     v12 = v14;
   }
 
@@ -216,17 +217,17 @@ LABEL_18:
     modelEspresso = self->_modelEspresso;
     if (modelEspresso)
     {
-      [(VCPCNNModelEspresso *)modelEspresso outputBlob];
+      objc_msgSend_outputBlob(modelEspresso);
       v14 = self->_modelEspresso;
       v15 = DWORD2(v25);
       if (v14)
       {
-        [(VCPCNNModelEspresso *)v14 outputBlob];
+        objc_msgSend_outputBlob(v14);
         v16 = v25;
         v17 = self->_modelEspresso;
         if (v17)
         {
-          [(VCPCNNModelEspresso *)v17 outputBlob];
+          objc_msgSend_outputBlob(v17);
           v18 = v20;
 LABEL_12:
           v12 = [(VCPCNNPetsDetector *)self generatePetsRegions:v18 outHeight:v15 outWidth:v16 boxes:boxesCopy faceBoxes:faceBoxesCopy maxNumRegions:self->_maxNumRegions, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30];

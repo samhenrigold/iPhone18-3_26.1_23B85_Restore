@@ -10,9 +10,10 @@
 - (id)handleNotification:(const MIDINotification *)notification
 {
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  __dst[0] = 0uLL;
-  *(&__dst[1] + 5) = 0;
-  *&__dst[1] = 0;
+  __dst[0] = 0;
+  __dst[1] = 0;
+  *(&__dst[2] + 5) = 0;
+  __dst[2] = 0;
   messageID = notification->messageID;
   messageSize = notification->messageSize;
   if (messageID > 21)
@@ -82,7 +83,7 @@
 
   v7 = "Unknown Notification Type";
 LABEL_25:
-  NSLog(&cfstr_Handlenotifica.isa, notification, messageID, v7, messageSize, __dst[0], __dst[1]);
+  NSLog(&cfstr_Handlenotifica.isa, notification, messageID, v7, messageSize, __dst[0], __dst[1], __dst[2], __dst[3]);
   if ((messageID - 10) > 2)
   {
     NSLog(&cfstr_DisallowedMess.isa);
@@ -96,18 +97,19 @@ LABEL_25:
     {
       v10 = notification + 1;
       memcpy(__dst, v10, messageSize);
-      v11 = BYTE12(__dst[1]);
+      v11 = BYTE4(__dst[3]);
       v12 = *(__dst + 4);
-      v13 = DWORD1(__dst[1]);
-      v14 = [MIDICIDiscoveredNode alloc];
-      v15 = [(MIDICIDiscoveredNode *)v14 initWithDestination:DWORD2(__dst[1]) deviceID:v12 profilesSupported:(v11 >> 2) & 1 propertiesSupported:(v11 >> 3) & 1 maxSysExSize:v13];
+      v13 = *(&__dst[1] + 4);
+      v14 = HIDWORD(__dst[2]);
+      v15 = [MIDICIDiscoveredNode alloc];
+      v16 = [(MIDICIDiscoveredNode *)v15 initWithDestination:LODWORD(__dst[3]) deviceID:v12 profilesSupported:v13 propertiesSupported:(v11 >> 2) & 1 maxSysExSize:(v11 >> 3) & 1, v14];
 
-      NSLog(&cfstr_PeerDiscovered.isa, v15);
-      [v4 addObject:v15];
+      NSLog(&cfstr_PeerDiscovered.isa, v16);
+      [v4 addObject:v16];
       notification = (v10 + messageSize);
       v9 = notification->messageID;
       messageSize = notification->messageSize;
-      v8 = v15;
+      v8 = v16;
     }
 
     if (v9 == 12 || v9 == 40)

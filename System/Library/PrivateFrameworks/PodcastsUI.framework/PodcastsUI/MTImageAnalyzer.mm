@@ -183,7 +183,7 @@ uint64_t __44__MTImageAnalyzer_colorThemeForPodcastUuid___block_invoke(uint64_t 
   return v19;
 }
 
-uint64_t __35__MTImageAnalyzer_addImage_forKey___block_invoke(void *a1)
+void *__35__MTImageAnalyzer_addImage_forKey___block_invoke(void *a1)
 {
   result = [MEMORY[0x277D3DB50] createOrUpdateTheme:a1[4] forUuid:a1[5] inMOC:a1[6]];
   if (result)

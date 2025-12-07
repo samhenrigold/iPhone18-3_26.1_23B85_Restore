@@ -39,9 +39,7 @@
     self->_accessMode = mode;
     if (mode <= 2)
     {
-      v4 = objc_alloc_init(*(&off_10001C770)[mode]);
-      typologyPreferences = self->_typologyPreferences;
-      self->_typologyPreferences = v4;
+      self->_typologyPreferences = objc_alloc_init(*(&off_10001C770)[mode]);
 
       _objc_release_x1();
     }
@@ -61,18 +59,18 @@
     typologyPreferences2 = [(TYATypologyAccessSession *)self typologyPreferences];
     typologyDirectoryURL = [typologyPreferences2 typologyDirectoryURL];
 
-    v12[0] = NSURLNameKey;
-    v12[1] = NSURLIsDirectoryKey;
-    v8 = [NSArray arrayWithObjects:v12 count:2];
-    v9 = [&stru_10001C750 copy];
-    v10 = +[NSFileManager defaultManager];
-    v11 = [v10 enumeratorAtURL:typologyDirectoryURL includingPropertiesForKeys:v8 options:5 errorHandler:v9];
-    [(TYATypologyAccessSession *)self setDirectoryEnumerator:v11];
+    v13[0] = NSURLNameKey;
+    v13[1] = NSURLIsDirectoryKey;
+    v9 = [NSArray arrayWithObjects:v13 count:2];
+    v10 = [&stru_10001C750 copy];
+    v11 = +[NSFileManager defaultManager];
+    v12 = [v11 enumeratorAtURL:typologyDirectoryURL includingPropertiesForKeys:v9 options:5 errorHandler:v10];
+    [(TYATypologyAccessSession *)self setDirectoryEnumerator:v12];
   }
 
   else
   {
-    typologyDirectoryURL = TYALog();
+    typologyDirectoryURL = TYALog(v6);
     if (os_log_type_enabled(typologyDirectoryURL, OS_LOG_TYPE_ERROR))
     {
       sub_10000D014();
@@ -85,11 +83,11 @@
   lCopy = l;
   path = [lCopy path];
   [path fileSystemRepresentation];
-  [(TYATypologyAccessSession *)self auditToken];
+  objc_msgSend_auditToken(self);
   v6 = sandbox_extension_issue_file_to_process();
   if (!v6)
   {
-    v14 = TYALog();
+    v14 = TYALog(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10000D140(lCopy, v14);
@@ -100,7 +98,7 @@
 
   v7 = v6;
   v8 = [[NSString alloc] initWithBytesNoCopy:v7 length:strlen(v7) encoding:4 freeWhenDone:1];
-  v9 = TYALog();
+  v9 = TYALog(v8);
   v10 = v9;
   if (!v8)
   {
@@ -134,7 +132,7 @@ LABEL_13:
 
 - (void)startEnumeration
 {
-  v3 = TYALog();
+  v3 = TYALog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -203,35 +201,36 @@ LABEL_15:
 
       if (isTypologyInDatavault)
       {
-        v10 = [(TYATypologyAccessSession *)self _issueSandboxExtensionForURL:nextObject];
+        v11 = [(TYATypologyAccessSession *)self _issueSandboxExtensionForURL:nextObject];
+        v12 = v11;
       }
 
       else
       {
-        v10 = 0;
+        v12 = 0;
       }
 
-      v12 = TYALog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v14 = TYALog(v11);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         lastPathComponent = [nextObject lastPathComponent];
-        v14 = 136380931;
+        v16 = 136380931;
         uTF8String = [lastPathComponent UTF8String];
-        v16 = 2081;
-        uTF8String2 = [v10 UTF8String];
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "-nextTypologyURL: -> (%{private}s, %{private}s)", &v14, 0x16u);
+        v18 = 2081;
+        uTF8String2 = [v12 UTF8String];
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "-nextTypologyURL: -> (%{private}s, %{private}s)", &v16, 0x16u);
       }
 
-      lCopy[2](lCopy, nextObject, v10);
+      lCopy[2](lCopy, nextObject, v12);
       goto LABEL_13;
     }
   }
 
-  v11 = TYALog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v13 = TYALog(v8);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v14) = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "-nextTypologyURL: -> ((null), (null))", &v14, 2u);
+    LOWORD(v16) = 0;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "-nextTypologyURL: -> ((null), (null))", &v16, 2u);
   }
 
   lCopy[2](lCopy, 0, 0);
@@ -242,11 +241,11 @@ LABEL_13:
 {
   nameCopy = name;
   completionCopy = completion;
-  v8 = TYALog();
+  v8 = TYALog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138477827;
-    v20 = nameCopy;
+    v21 = nameCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Removing typology file with name: %{private}@", buf, 0xCu);
   }
 
@@ -258,14 +257,14 @@ LABEL_13:
     v12 = [typologyDirectoryURL URLByAppendingPathComponent:v9 isDirectory:0];
 
     v13 = +[NSFileManager defaultManager];
-    v18 = 0;
-    v14 = [v13 removeItemAtURL:v12 error:&v18];
-    v15 = v18;
+    v19 = 0;
+    v14 = [v13 removeItemAtURL:v12 error:&v19];
+    v15 = v19;
 
     if ((v14 & 1) == 0)
     {
-      v16 = TYALog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = TYALog(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_10000D1DC();
       }
@@ -274,8 +273,8 @@ LABEL_13:
 
   else
   {
-    v17 = TYALog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = TYALog(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10000D24C();
     }
@@ -289,7 +288,7 @@ LABEL_13:
 
 - (void)setTypologyAccessMode:(unint64_t)mode
 {
-  v5 = TYALog();
+  v5 = TYALog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = 134217984;
@@ -310,14 +309,14 @@ LABEL_13:
     v11 = [objc_opt_class() _safeFilenameWithName:nameCopy];
     if (!v11)
     {
-      v24 = TYALog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = TYALog(0);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         sub_10000D24C();
       }
 
-      v22 = [NSError errorWithDomain:NSCocoaErrorDomain code:514 userInfo:0];
-      v23 = 0;
+      v24 = [NSError errorWithDomain:NSCocoaErrorDomain code:514 userInfo:0];
+      v25 = 0;
       goto LABEL_17;
     }
 
@@ -325,30 +324,30 @@ LABEL_13:
     typologyDirectoryURL = [typologyPreferences typologyDirectoryURL];
     v14 = [typologyDirectoryURL URLByAppendingPathComponent:v11];
 
-    v15 = TYALog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = TYALog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 138477827;
-      v29 = v14;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Write data to typology file at url: %{private}@", buf, 0xCu);
+      v31 = v14;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Write data to typology file at url: %{private}@", buf, 0xCu);
     }
 
-    v16 = +[NSFileManager defaultManager];
+    v17 = +[NSFileManager defaultManager];
     typologyPreferences2 = [(TYATypologyAccessSession *)self typologyPreferences];
     typologyDirectoryURL2 = [typologyPreferences2 typologyDirectoryURL];
-    v27 = 0;
-    v19 = [v16 createDirectoryAtURL:typologyDirectoryURL2 withIntermediateDirectories:1 attributes:&__NSDictionary0__struct error:&v27];
-    v20 = v27;
+    v29 = 0;
+    v20 = [v17 createDirectoryAtURL:typologyDirectoryURL2 withIntermediateDirectories:1 attributes:&__NSDictionary0__struct error:&v29];
+    v21 = v29;
 
-    if (v19)
+    if (v20)
     {
-      v26 = v20;
-      v21 = [dataCopy writeToURL:v14 options:2 error:&v26];
-      v22 = v26;
+      v28 = v21;
+      v23 = [dataCopy writeToURL:v14 options:2 error:&v28];
+      v24 = v28;
 
-      if (v21)
+      if (v23)
       {
-        v23 = 1;
+        v25 = 1;
 LABEL_16:
 
 LABEL_17:
@@ -358,23 +357,23 @@ LABEL_17:
 
     else
     {
-      v22 = v20;
+      v24 = v21;
     }
 
-    v25 = TYALog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = TYALog(v22);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_10000D2BC();
     }
 
-    v23 = 0;
+    v25 = 0;
     goto LABEL_16;
   }
 
-  v22 = 0;
-  v23 = 0;
+  v24 = 0;
+  v25 = 0;
 LABEL_18:
-  completionCopy[2](completionCopy, v23, v22);
+  completionCopy[2](completionCopy, v25, v24);
 }
 
 - ($115C4C562B26FF47E01F9F4EA65B5887)auditToken

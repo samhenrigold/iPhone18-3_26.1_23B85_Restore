@@ -76,7 +76,7 @@
 - (NSString)title
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for JSDrivenViewController();
+  v7.super_class = type metadata accessor for JSDrivenViewController(0);
   v2 = v7.receiver;
   title = [(JSDrivenViewController *)&v7 title];
   if (title)
@@ -117,7 +117,7 @@
 - (UIColor)viewBackgroundColor
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for JSDrivenViewController();
+  v4.super_class = type metadata accessor for JSDrivenViewController(0);
   viewBackgroundColor = [(JSDrivenViewController *)&v4 viewBackgroundColor];
 
   return viewBackgroundColor;
@@ -126,7 +126,7 @@
 - (void)setViewBackgroundColor:(id)color
 {
   v8.receiver = self;
-  v8.super_class = type metadata accessor for JSDrivenViewController();
+  v8.super_class = type metadata accessor for JSDrivenViewController(0);
   colorCopy = color;
   v5 = v8.receiver;
   [(JSDrivenViewController *)&v8 setViewBackgroundColor:colorCopy];
@@ -138,14 +138,14 @@
 - (void)willMoveToParentViewController:(id)controller
 {
   v8.receiver = self;
-  v8.super_class = type metadata accessor for JSDrivenViewController();
+  v8.super_class = type metadata accessor for JSDrivenViewController(0);
   v4 = v8.receiver;
   controllerCopy = controller;
   [(JSDrivenViewController *)&v8 willMoveToParentViewController:controllerCopy];
   if (controllerCopy)
   {
     v6 = [(objc_class *)v4 navigationItem:v8.receiver];
-    sub_13C80(0, &unk_DF12E0);
+    sub_13C80(0, &unk_DF12E0, UIBarButtonItem_ptr);
     isa = sub_AB9740().super.isa;
     [v6 setRightBarButtonItems:isa animated:0];
 

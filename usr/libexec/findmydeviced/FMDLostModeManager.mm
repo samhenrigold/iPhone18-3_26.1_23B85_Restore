@@ -7,6 +7,7 @@
 - (void)_updateLocationServicesState;
 - (void)dealloc;
 - (void)disableLostMode;
+- (void)enableLostModeWithMessage:(id)message ownerNumber:(id)number facetimeCapable:(BOOL)capable enableLocationServices:(BOOL)services turnOffStatusBarIconAfterLostMode:(BOOL)mode;
 @end
 
 @implementation FMDLostModeManager
@@ -21,7 +22,7 @@
   v2 = qword_1003144F8;
   if (!qword_1003144F8)
   {
-    v3 = sub_100002880();
+    v3 = sub_100002880(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -36,7 +37,7 @@
 
 - (FMDLostModeManager)init
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_1002263D4(v3);
@@ -47,34 +48,35 @@
 
 - (id)initSingleton
 {
-  v7.receiver = self;
-  v7.super_class = FMDLostModeManager;
-  v2 = [(FMDLostModeManager *)&v7 init];
+  v8.receiver = self;
+  v8.super_class = FMDLostModeManager;
+  v2 = [(FMDLostModeManager *)&v8 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100002880();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_100002880(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      sub_100226418(v3);
+      sub_100226418(v4);
     }
 
-    v4 = objc_alloc_init(FMStateCapture);
-    [(FMDLostModeManager *)v2 setStateCapture:v4];
+    v5 = objc_alloc_init(FMStateCapture);
+    [(FMDLostModeManager *)v3 setStateCapture:v5];
 
-    stateCapture = [(FMDLostModeManager *)v2 stateCapture];
+    stateCapture = [(FMDLostModeManager *)v3 stateCapture];
     [stateCapture setStateCaptureBlock:&stru_1002CD800];
 
-    [(FMDLostModeManager *)v2 _loadLostModeInfo];
-    [(FMDLostModeManager *)v2 _updateLocationServicesState];
-    objc_storeStrong(&qword_1003144F8, v2);
+    [(FMDLostModeManager *)v3 _loadLostModeInfo];
+    [(FMDLostModeManager *)v3 _updateLocationServicesState];
+    objc_storeStrong(&qword_1003144F8, v3);
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1002258DC(self, v3);
@@ -88,6 +90,113 @@
   [(FMDLostModeManager *)&v5 dealloc];
 }
 
+- (void)enableLostModeWithMessage:(id)message ownerNumber:(id)number facetimeCapable:(BOOL)capable enableLocationServices:(BOOL)services turnOffStatusBarIconAfterLostMode:(BOOL)mode
+{
+  modeCopy = mode;
+  servicesCopy = services;
+  capableCopy = capable;
+  messageCopy = message;
+  numberCopy = number;
+  lockScreenMessage = [(FMDLostModeManager *)self lockScreenMessage];
+  if (lockScreenMessage != messageCopy)
+  {
+    lockScreenMessage2 = [(FMDLostModeManager *)self lockScreenMessage];
+    if (![messageCopy isEqualToString:lockScreenMessage2])
+    {
+      v16 = 1;
+LABEL_11:
+
+      goto LABEL_12;
+    }
+  }
+
+  lockScreenOwnerNumber = [(FMDLostModeManager *)self lockScreenOwnerNumber];
+  if (lockScreenOwnerNumber == numberCopy)
+  {
+    v16 = 0;
+  }
+
+  else
+  {
+    v34 = servicesCopy;
+    v18 = modeCopy;
+    lockScreenOwnerNumber2 = [(FMDLostModeManager *)self lockScreenOwnerNumber];
+    v20 = ([numberCopy isEqualToString:lockScreenOwnerNumber2] & 1) == 0 && -[FMDLostModeManager lockScreenFacetimeCapable](self, "lockScreenFacetimeCapable") == capableCopy;
+
+    v16 = v20;
+    modeCopy = v18;
+    servicesCopy = v34;
+  }
+
+  if (lockScreenMessage != messageCopy)
+  {
+    goto LABEL_11;
+  }
+
+LABEL_12:
+
+  [(FMDLostModeManager *)self setLostModeEnabled:1];
+  [(FMDLostModeManager *)self setLockScreenMessage:messageCopy];
+  [(FMDLostModeManager *)self setLockScreenOwnerNumber:numberCopy];
+  [(FMDLostModeManager *)self setLockScreenFacetimeCapable:capableCopy];
+  [(FMDLostModeManager *)self setEnableLocationServices:servicesCopy];
+  [(FMDLostModeManager *)self _updateLocationServicesState];
+  if (![(FMDLostModeManager *)self turnStatusBarIconOffAfterLostMode])
+  {
+    [(FMDLostModeManager *)self setTurnStatusBarIconOffAfterLostMode:modeCopy];
+  }
+
+  [(FMDLostModeManager *)self _storeLostModeInfo];
+  v21 = objc_opt_new();
+  disableBiometricID = [v21 disableBiometricID];
+
+  v24 = sub_100002880(v23);
+  v25 = v24;
+  if (disableBiometricID)
+  {
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      sub_10022645C(disableBiometricID, v25);
+    }
+  }
+
+  else if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Disabled biometric ID after entering lost mode", buf, 2u);
+  }
+
+  v26 = +[FMDAppleAccountManager sharedInstance];
+  iCloudACAccount = [v26 iCloudACAccount];
+
+  v35 = 0;
+  v28 = [iCloudACAccount credentialWithError:&v35];
+  v29 = v35;
+  v30 = v29;
+  if (!iCloudACAccount || v29)
+  {
+    v31 = sub_100002880(v29);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    {
+      sub_1002264D4(iCloudACAccount, v30, v31);
+    }
+  }
+
+  else
+  {
+    [v28 setCredentialItem:0 forKey:ACRawPasswordKey];
+  }
+
+  v32 = +[NSNotificationCenter defaultCenter];
+  [v32 postNotificationName:@"com.apple.AOSNotification.LostModeInfoChanged" object:0];
+
+  if (v16)
+  {
+    DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+    CFNotificationCenterPostNotification(DarwinNotifyCenter, kLostModeChangedRestrictedNotification, 0, 0, 1u);
+  }
+}
+
 - (void)_updateLocationServicesState
 {
   enableLocationServices = [(FMDLostModeManager *)self enableLocationServices];
@@ -97,26 +206,26 @@
   {
     if (!locationServicesAssertion)
     {
-      v5 = sub_100002880();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_100002880(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Accquiring emergency location services assertion", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Accquiring emergency location services assertion", buf, 2u);
       }
 
-      v6 = [NSBundle bundleWithPath:@"/System/Library/PrivateFrameworks/FindMyDevice.framework"];
-      v7 = [CLEmergencyEnablementAssertion newAssertionForBundle:v6 withReason:@"LostMode"];
-      [(FMDLostModeManager *)self setLocationServicesAssertion:v7];
+      v7 = [NSBundle bundleWithPath:@"/System/Library/PrivateFrameworks/FindMyDevice.framework"];
+      v8 = [CLEmergencyEnablementAssertion newAssertionForBundle:v7 withReason:@"LostMode"];
+      [(FMDLostModeManager *)self setLocationServicesAssertion:v8];
     }
   }
 
   else if (locationServicesAssertion)
   {
-    v8 = sub_100002880();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100002880(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Releasing the emergency location services assertion", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Releasing the emergency location services assertion", v11, 2u);
     }
 
     locationServicesAssertion2 = [(FMDLostModeManager *)self locationServicesAssertion];
@@ -207,7 +316,7 @@
 
 - (void)disableLostMode
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -220,13 +329,14 @@
     [(FMDLostModeManager *)self _updateLocationServicesState];
   }
 
-  if ([(FMDLostModeManager *)self turnStatusBarIconOffAfterLostMode])
+  turnStatusBarIconOffAfterLostMode = [(FMDLostModeManager *)self turnStatusBarIconOffAfterLostMode];
+  if (turnStatusBarIconOffAfterLostMode)
   {
-    v4 = sub_100002880();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100002880(turnStatusBarIconOffAfterLostMode);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Turning off status bar icon since it was off before the device entered lost mode", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Turning off status bar icon since it was off before the device entered lost mode", v7, 2u);
     }
 
     [CLLocationManager setStatusBarIconEnabled:0 forLocationEntityClass:4];

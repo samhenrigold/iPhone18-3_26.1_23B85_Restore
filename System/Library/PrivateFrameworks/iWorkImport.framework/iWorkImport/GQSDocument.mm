@@ -292,7 +292,7 @@ LABEL_9:
   mWrapPoints = self->mWrapPoints;
   pointCopy = point;
   pointCopy2 = point;
-  sub_9828(mWrapPoints, &pointCopy);
+  sub_9828(mWrapPoints, &pointCopy, &pointCopy);
 }
 
 - (void)clearWrapPoints

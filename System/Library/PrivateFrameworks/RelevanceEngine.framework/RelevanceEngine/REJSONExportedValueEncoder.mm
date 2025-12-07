@@ -43,14 +43,14 @@ uint64_t __44__REJSONExportedValueEncoder__dateFormatter__block_invoke()
 
 - (void)_writeValueAsJSON:(id)n toStream:(id)stream
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   v6 = MEMORY[0x277CCAAA0];
   nCopy = n;
   v7 = MEMORY[0x277CBEA60];
   nCopy2 = n;
   v9 = [v7 arrayWithObjects:&nCopy count:1];
-  v10 = [v6 dataWithJSONObject:v9 options:0 error:{0, nCopy, v17}];
+  v10 = [v6 dataWithJSONObject:v9 options:0 error:{0, nCopy, v16}];
 
   v11 = objc_alloc(MEMORY[0x277CCACA8]);
   v12 = [v11 initWithData:v10 encoding:4];
@@ -62,8 +62,6 @@ uint64_t __44__REJSONExportedValueEncoder__dateFormatter__block_invoke()
     [streamCopy re_writeString:v14];
     v12 = v14;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeDictionaryValuePairToStream:(id)stream keyWriter:(id)writer valueWriter:(id)valueWriter isLast:(BOOL)last

@@ -496,7 +496,7 @@ LABEL_20:
     v20 = brc_default_log();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      sub_100029250(selfCopy2);
+      sub_100029250();
     }
 
     v21 = [NSError errorWithDomain:NSFileProviderErrorDomain code:-1002 userInfo:0];

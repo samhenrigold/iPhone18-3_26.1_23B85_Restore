@@ -1,6 +1,7 @@
 @interface REMListSublistContextChangeItem
 - (REMListSublistContextChangeItem)initWithListChangeItem:(id)item;
 - (id)_accountChangeItem;
+- (void)_insertMergeableOrderingNode:(id)node adjacentToMergeableOrderingNode:(id)orderingNode isAfter:(BOOL)after;
 - (void)addMergeableOrderingNode:(id)node;
 - (void)addSmartListChangeItem:(id)item;
 - (void)insertMergeableOrderingNode:(id)node afterMergeableOrderingNode:(id)orderingNode;
@@ -26,6 +27,29 @@
   }
 
   return v7;
+}
+
+- (void)_insertMergeableOrderingNode:(id)node adjacentToMergeableOrderingNode:(id)orderingNode isAfter:(BOOL)after
+{
+  afterCopy = after;
+  nodeCopy = node;
+  orderingNodeCopy = orderingNode;
+  if ([nodeCopy isSubContainer])
+  {
+    v10 = +[REMLogStore write];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    {
+      [REMListSublistContextChangeItem _insertMergeableOrderingNode:adjacentToMergeableOrderingNode:isAfter:];
+    }
+  }
+
+  listChangeItem = [(REMListSublistContextChangeItem *)self listChangeItem];
+  saveRequest = [listChangeItem saveRequest];
+  listChangeItem2 = [(REMListSublistContextChangeItem *)self listChangeItem];
+  v14 = [saveRequest _updateAccountWithListChangeItem:listChangeItem2];
+
+  listChangeItem3 = [(REMListSublistContextChangeItem *)self listChangeItem];
+  [v14 insertMergeableOrderingNode:nodeCopy adjacentToMergeableOrderingNode:orderingNodeCopy isAfter:afterCopy withParentMergeableOrderingNode:listChangeItem3];
 }
 
 - (void)addSmartListChangeItem:(id)item
@@ -146,14 +170,11 @@
 - (void)_insertMergeableOrderingNode:adjacentToMergeableOrderingNode:isAfter:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x1E69E9840];
   v2 = [v1 remObjectID];
   v3 = [v0 listChangeItem];
-  v10 = [v3 objectID];
+  v9 = [v3 objectID];
   OUTLINED_FUNCTION_0_2();
   _os_log_fault_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

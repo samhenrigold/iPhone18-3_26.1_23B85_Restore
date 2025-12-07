@@ -64,7 +64,7 @@
     v7 = v6;
     if (v6)
     {
-      [v6 balloonHostAuditToken];
+      objc_msgSend_balloonHostAuditToken(v6, 0, 0);
     }
 
     v8 = IMDAuditTokenTaskCopyValueForEntitlement();

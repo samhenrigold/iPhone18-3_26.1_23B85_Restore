@@ -20,7 +20,7 @@ id sub_100003F24()
   return v0;
 }
 
-id sub_100003F64()
+NPSManager *sub_100003F64()
 {
   objc_opt_self();
   v0 = objc_opt_new();
@@ -52,20 +52,14 @@ void sub_100005E60(id a1)
 
 uint64_t sub_10000610C(uint64_t a1)
 {
-  v2 = sub_100003F24();
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 104);
-  *(v3 + 104) = v2;
+  *(*(a1 + 32) + 104) = sub_100003F24();
 
   return _objc_release_x1();
 }
 
 uint64_t sub_100006204(uint64_t a1)
 {
-  v2 = sub_100003F64();
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 112);
-  *(v3 + 112) = v2;
+  *(*(a1 + 32) + 112) = sub_100003F64();
 
   return _objc_release_x1();
 }
@@ -681,9 +675,9 @@ BOOL sub_10000AEF8(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
   return v13;
 }
 
-void sub_10000B42C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10000B42C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -701,17 +695,16 @@ void sub_10000B464(uint64_t a1, void *a2)
   v4 = NSSLogForType();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Unpaired with error: (%@)", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Unpaired with error: (%@)", &v7, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *(*(*(a1 + 40) + 8) + 40);
   NSSOSTransactionComplete();
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = 0;
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = 0;
 }
 
 void sub_10000CEF8(uint64_t a1)
@@ -804,11 +797,9 @@ id sub_100011D64(uint64_t a1)
   v4 = *(v3 + 32);
   *(v3 + 32) = v2;
 
-  v5 = *(a1 + 32);
-  v7 = *(v5 + 24);
-  v6 = *(v5 + 32);
+  v5 = *(*(a1 + 32) + 32);
 
-  return [v6 setDelegate:? queue:?];
+  return [v5 setDelegate:? queue:?];
 }
 
 void sub_100012504(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -1018,11 +1009,10 @@ void sub_100014CD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_100014CF4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v4 = [objc_opt_class() serverProtocol];
-  v2 = [NSXPCInterface interfaceWithProtocol:v4];
-  v3 = qword_10003DD28;
-  qword_10003DD28 = v2;
+  v3 = [objc_opt_class() serverProtocol];
+  v1 = [NSXPCInterface interfaceWithProtocol:v3];
+  v2 = qword_10003DD28;
+  qword_10003DD28 = v1;
 }
 
 void sub_100014D68(uint64_t a1)
@@ -1360,12 +1350,11 @@ void sub_100018448(uint64_t a1)
   v3 = qword_10003DD58;
   qword_10003DD58 = v2;
 
-  v4 = *(a1 + 32);
   [objc_opt_class() associateProtobufHandlers:qword_10003DD58];
-  v5 = qword_10003DD58;
-  v6 = *(a1 + 32);
-  v7 = [v6 idsQueue];
-  [v5 addDelegate:v6 queue:v7];
+  v4 = qword_10003DD58;
+  v5 = *(a1 + 32);
+  v6 = [v5 idsQueue];
+  [v4 addDelegate:v5 queue:v6];
 }
 
 void sub_100018604(uint64_t a1)
@@ -1388,6 +1377,13 @@ void sub_100018604(uint64_t a1)
   }
 }
 
+void sub_10001A268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_10001A288(uint64_t a1)
 {
   v2 = NSSLogForType();
@@ -1395,17 +1391,16 @@ uint64_t sub_10001A288(uint64_t a1)
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Timed out waiting for reply to message (%@) in container (%@)", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Timed out waiting for reply to message (%@) in container (%@)", &v6, 0x16u);
   }
 
   dispatch_source_cancel(*(a1 + 48));
   [*(a1 + 56) removeObjectForKey:*(a1 + 32)];
   [*(a1 + 64) removeObjectForKey:*(a1 + 32)];
-  v5 = *(a1 + 72);
   return (*(*(a1 + 80) + 16))();
 }
 
@@ -1418,11 +1413,10 @@ uint64_t sub_10001A370(uint64_t result, uint64_t a2)
 
 void sub_10001A388(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 32) + 8) + 40);
   NSSOSTransactionComplete();
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = 0;
+  v2 = *(*(a1 + 32) + 8);
+  v3 = *(v2 + 40);
+  *(v2 + 40) = 0;
 }
 
 void sub_10001AEBC(uint64_t a1)
@@ -1434,11 +1428,10 @@ void sub_10001AEBC(uint64_t a1)
   {
     if (v4)
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Remote device successfully received Airplane Mode Mirroring message", &v11, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Remote device successfully received Airplane Mode Mirroring message", &v9, 2u);
     }
 
-    v5 = *(a1 + 32);
     [objc_opt_class() tellRadiosPrefsToEnableAirplaneMode:*(a1 + 65)];
   }
 
@@ -1446,23 +1439,22 @@ void sub_10001AEBC(uint64_t a1)
   {
     if (v4)
     {
-      v6 = *(a1 + 40);
-      v7 = *(a1 + 48);
-      v11 = 138412546;
+      v5 = *(a1 + 40);
+      v6 = *(a1 + 48);
+      v9 = 138412546;
+      v10 = v5;
+      v11 = 2112;
       v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Airplane Mode Mirroring message (%@) failed to send with error: (%@)", &v11, 0x16u);
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Airplane Mode Mirroring message (%@) failed to send with error: (%@)", &v9, 0x16u);
     }
 
     [*(a1 + 32) failedToMirrorAirplaneMode:*(a1 + 65)];
   }
 
-  v8 = *(*(*(a1 + 56) + 8) + 40);
   NSSOSTransactionComplete();
-  v9 = *(*(a1 + 56) + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = 0;
+  v7 = *(*(a1 + 56) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = 0;
 }
 
 void sub_10001B4B4(uint64_t a1)
@@ -1474,9 +1466,9 @@ void sub_10001B4B4(uint64_t a1)
     v4 = objc_opt_new();
     [v4 setEnabled:*(a1 + 48)];
     v5 = *(a1 + 32);
-    v26 = 0;
-    v6 = [v5 sendMessage:v4 identifier:&v26 sendTimeout:0 wantsAcknowledgement:@"airplaneMode" queueOneIdentifier:1 overBluetoothOnly:v3];
-    v7 = v26;
+    v24 = 0;
+    v6 = [v5 sendMessage:v4 identifier:&v24 sendTimeout:0 wantsAcknowledgement:@"airplaneMode" queueOneIdentifier:1 overBluetoothOnly:v3];
+    v7 = v24;
     v8 = *(a1 + 32);
     if (v6)
     {
@@ -1485,31 +1477,31 @@ void sub_10001B4B4(uint64_t a1)
 
     else
     {
-      v12 = v8[11];
-      v13 = [NSNumber numberWithBool:*(a1 + 48)];
-      [v12 setObject:v13 forKey:v7];
+      v11 = v8[11];
+      v12 = [NSNumber numberWithBool:*(a1 + 48)];
+      [v11 setObject:v12 forKey:v7];
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v28 = 0x3032000000;
-      v29 = sub_10001A370;
-      v30 = sub_10001A380;
-      v14 = [NSString stringWithFormat:@"%s-ids-timeout", "[NSSServer enableAirplaneMode:completionHandler:]_block_invoke"];
-      v31 = NSSOSTransactionCreate();
+      v26 = 0x3032000000;
+      v27 = sub_10001A370;
+      v28 = sub_10001A380;
+      v13 = [NSString stringWithFormat:@"%s-ids-timeout", "[NSSServer enableAirplaneMode:completionHandler:]_block_invoke"];
+      v29 = NSSOSTransactionCreate();
 
-      v15 = *(a1 + 32);
-      v16 = *(v15 + 32);
+      v14 = *(a1 + 32);
+      v15 = *(v14 + 32);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10001B798;
       block[3] = &unk_1000351F0;
-      block[4] = v15;
-      v17 = v7;
-      v24 = v3;
-      v25 = *(a1 + 48);
-      v22 = v17;
+      block[4] = v14;
+      v16 = v7;
+      v22 = v3;
+      v23 = *(a1 + 48);
+      v20 = v16;
       p_buf = &buf;
-      dispatch_async(v16, block);
+      dispatch_async(v15, block);
 
       _Block_object_dispose(&buf, 8);
     }
@@ -1538,15 +1530,13 @@ void sub_10001B4B4(uint64_t a1)
       }
     }
 
-    v11 = *(a1 + 32);
     [objc_opt_class() tellRadiosPrefsToEnableAirplaneMode:*(a1 + 48)];
   }
 
-  v18 = *(*(*(a1 + 40) + 8) + 40);
   NSSOSTransactionComplete();
-  v19 = *(*(a1 + 40) + 8);
-  v20 = *(v19 + 40);
-  *(v19 + 40) = 0;
+  v17 = *(*(a1 + 40) + 8);
+  v18 = *(v17 + 40);
+  *(v17 + 40) = 0;
 }
 
 void sub_10001B798(uint64_t a1)
@@ -1554,18 +1544,17 @@ void sub_10001B798(uint64_t a1)
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 56);
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_10001B858;
-  v8[3] = &unk_1000351C8;
-  v8[4] = v2;
-  v9 = *(a1 + 64);
-  [v2 scheduleTimerForIdentifier:v3 requests:0 timeout:v8 timeoutHandler:v2[10] timers:@"airplane" utilityName:v4];
-  v5 = *(*(*(a1 + 48) + 8) + 40);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10001B858;
+  v7[3] = &unk_1000351C8;
+  v7[4] = v2;
+  v8 = *(a1 + 64);
+  [v2 scheduleTimerForIdentifier:v3 requests:0 timeout:v7 timeoutHandler:v2[10] timers:@"airplane" utilityName:v4];
   NSSOSTransactionComplete();
-  v6 = *(*(a1 + 48) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = 0;
+  v5 = *(*(a1 + 48) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = 0;
 }
 
 void sub_10001B858(uint64_t a1)
@@ -1594,22 +1583,19 @@ void sub_10001B858(uint64_t a1)
 void sub_10001B970(uint64_t a1)
 {
   [*(a1 + 32) failedToMirrorAirplaneMode:*(a1 + 48)];
-  v2 = *(*(*(a1 + 40) + 8) + 40);
   NSSOSTransactionComplete();
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = 0;
+  v2 = *(*(a1 + 40) + 8);
+  v3 = *(v2 + 40);
+  *(v2 + 40) = 0;
 }
 
 void sub_10001C2F8(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   [objc_opt_class() tellRadiosPrefsToEnableAirplaneMode:{objc_msgSend(*(a1 + 40), "enabled")}];
-  v3 = *(*(*(a1 + 48) + 8) + 40);
   NSSOSTransactionComplete();
-  v4 = *(*(a1 + 48) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = 0;
+  v2 = *(*(a1 + 48) + 8);
+  v3 = *(v2 + 40);
+  *(v2 + 40) = 0;
 }
 
 void sub_10001CDA4(uint64_t a1)
@@ -1784,92 +1770,92 @@ LABEL_30:
 LABEL_32:
 }
 
-void sub_10001F318(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001F318(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 unint64_t sub_10001F358()
 {
   v0 = type metadata accessor for ActivityUIDismissalPolicy();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin();
-  v4 = &v13 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v12 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10001F5DC(&qword_10003DCE8, &qword_100025A78);
   result = static Activity.activities.getter();
-  v6 = result;
+  v5 = result;
   if (!(result >> 62))
   {
-    v7 = *((result & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v7)
+    v6 = *((result & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v6)
     {
       goto LABEL_3;
     }
 
 LABEL_12:
 
-    return v7 != 0;
+    return v6 != 0;
   }
 
   result = _CocoaArrayWrapper.endIndex.getter();
-  v7 = result;
+  v6 = result;
   if (!result)
   {
     goto LABEL_12;
   }
 
 LABEL_3:
-  v20 = 0;
+  v19 = 0;
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v21 = 0x80;
-  v8 = v7 - 1;
-  if (v7 >= 1)
+  v20 = 0x80;
+  v7 = v6 - 1;
+  if (v6 >= 1)
   {
-    v14 = v7;
-    v9 = 0;
-    v10 = (v1 + 8);
-    if ((v6 & 0xC000000000000001) == 0)
+    v13 = v6;
+    v8 = 0;
+    v9 = (v1 + 8);
+    if ((v5 & 0xC000000000000001) == 0)
     {
       goto LABEL_6;
     }
 
 LABEL_5:
-    v11 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+    v10 = specialized _ArrayBuffer._getElementSlowPath(_:)();
     while (1)
     {
-      v12 = *LiveActivityService.shared.unsafeMutableAddressor();
+      v11 = *LiveActivityService.shared.unsafeMutableAddressor();
 
       LiveActivityText.init(title:subtitle:)();
       LiveActivityTextMap.init(dynamicIslandExpanded:lockScreen:)();
       LiveActivityImageMap.init(imagePath:)();
       LiveActivitySetupState.init(textMap:imageMap:metadata:shouldSuppressAlert:)();
-      memcpy(v15, v17, 0x1AAuLL);
+      memcpy(v14, v16, 0x1AAuLL);
       static ActivityUIDismissalPolicy.immediate.getter();
-      (*(*v12 + 88))(v11, v15, v4);
+      (*(*v11 + 88))(v10, v14, v3);
 
-      (*v10)(v4, v0);
-      memcpy(v16, v15, 0x1AAuLL);
-      sub_10001F624(v16);
-      if (v8 == v9)
+      (*v9)(v3, v0);
+      memcpy(v15, v14, 0x1AAuLL);
+      sub_10001F624(v15);
+      if (v7 == v8)
       {
         break;
       }
 
-      ++v9;
-      if ((v6 & 0xC000000000000001) != 0)
+      ++v8;
+      if ((v5 & 0xC000000000000001) != 0)
       {
         goto LABEL_5;
       }
 
 LABEL_6:
-      v11 = *(v6 + 8 * v9 + 32);
+      v10 = *(v5 + 8 * v8 + 32);
     }
 
-    v7 = v14;
-    return v7 != 0;
+    v6 = v13;
+    return v6 != 0;
   }
 
   __break(1u);
@@ -1881,7 +1867,6 @@ uint64_t sub_10001F5DC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1942,5 +1927,7 @@ uint64_t sub_10001F6CC(uint64_t result, char a2)
 void sub_10001F77C(void *a1)
 {
   v1 = [a1 localizedDescription];
-  sub_10001F318(&_mh_execute_header, v2, v3, "NSSWatchFaceCoordinator: Error syncing domain accessor: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_10001F318(&_mh_execute_header, v2, v3, "NSSWatchFaceCoordinator: Error syncing domain accessor: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }

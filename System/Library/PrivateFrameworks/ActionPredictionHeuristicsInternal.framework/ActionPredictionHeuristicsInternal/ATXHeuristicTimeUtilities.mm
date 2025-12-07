@@ -59,46 +59,46 @@
   heuristicDevice = [environmentCopy heuristicDevice];
   v6 = [(ATXSetAlarmTimeOfDayDataSource *)v4 initWithDevice:heuristicDevice];
 
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__16;
+  v22 = __Block_byref_object_dispose__16;
+  v23 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__16;
+  v16 = __Block_byref_object_dispose__16;
   v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__16;
-  v21 = __Block_byref_object_dispose__16;
-  v22 = 0;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = __Block_byref_object_copy__16;
-  v15 = __Block_byref_object_dispose__16;
-  v16 = 0;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __74__ATXHeuristicTimeUtilities_usualAlarmTimeOfDayDataSourceWithEnvironment___block_invoke;
-  v10[3] = &unk_278C3CDD0;
-  v10[4] = &v17;
-  v10[5] = &v11;
-  [(ATXSetAlarmTimeOfDayDataSource *)v6 alarmTimeOfDay:v10];
-  if (v12[5])
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __74__ATXHeuristicTimeUtilities_usualAlarmTimeOfDayDataSourceWithEnvironment___block_invoke;
+  v11[3] = &unk_278C3CDD0;
+  v11[4] = &v18;
+  v11[5] = &v12;
+  v7 = [(ATXSetAlarmTimeOfDayDataSource *)v6 alarmTimeOfDay:v11];
+  if (v13[5])
   {
-    v7 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_context_heuristic(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [ATXHeuristicTimeUtilities usualAlarmTimeOfDayDataSourceWithEnvironment:v7];
+      [ATXHeuristicTimeUtilities usualAlarmTimeOfDayDataSourceWithEnvironment:v8];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = v18[5];
+    v9 = v19[5];
   }
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v12, 8);
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v18, 8);
 
-  return v8;
+  return v9;
 }
 
 void __74__ATXHeuristicTimeUtilities_usualAlarmTimeOfDayDataSourceWithEnvironment___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -122,47 +122,47 @@ void __74__ATXHeuristicTimeUtilities_usualAlarmTimeOfDayDataSourceWithEnvironmen
   heuristicDevice = [environmentCopy heuristicDevice];
   v10 = [(ATXAlarmsDataSource *)v8 initWithDevice:heuristicDevice];
 
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__16;
+  v28 = __Block_byref_object_dispose__16;
+  v29 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__16;
+  v22 = __Block_byref_object_dispose__16;
   v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__16;
-  v27 = __Block_byref_object_dispose__16;
-  v28 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__16;
-  v21 = __Block_byref_object_dispose__16;
-  v22 = 0;
   v11 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:s];
   v12 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:tS];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __66__ATXHeuristicTimeUtilities_enabledAlarmsFromTS_toTS_environment___block_invoke;
-  v16[3] = &unk_278C3CDA8;
-  v16[4] = &v23;
-  v16[5] = &v17;
-  [(ATXAlarmsDataSource *)v10 alarmsFromDate:v11 toDate:v12 completionHandler:v16];
-  if (v18[5])
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __66__ATXHeuristicTimeUtilities_enabledAlarmsFromTS_toTS_environment___block_invoke;
+  v17[3] = &unk_278C3CDA8;
+  v17[4] = &v24;
+  v17[5] = &v18;
+  v13 = [(ATXAlarmsDataSource *)v10 alarmsFromDate:v11 toDate:v12 completionHandler:v17];
+  if (v19[5])
   {
-    v13 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_context_heuristic(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [ATXHeuristicTimeUtilities enabledAlarmsFromTS:v13 toTS:? environment:?];
+      [ATXHeuristicTimeUtilities enabledAlarmsFromTS:v14 toTS:? environment:?];
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v14 = v24[5];
+    v15 = v25[5];
   }
 
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v24, 8);
 
-  return v14;
+  return v15;
 }
 
 void __66__ATXHeuristicTimeUtilities_enabledAlarmsFromTS_toTS_environment___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -181,20 +181,18 @@ void __66__ATXHeuristicTimeUtilities_enabledAlarmsFromTS_toTS_environment___bloc
 
 + (void)usualAlarmTimeOfDayDataSourceWithEnvironment:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136446210;
-  v3 = "+[ATXHeuristicTimeUtilities usualAlarmTimeOfDayDataSourceWithEnvironment:]";
-  _os_log_error_impl(&dword_23E3EA000, log, OS_LOG_TYPE_ERROR, "Error querying data source %{public}s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136446210;
+  v2 = "+[ATXHeuristicTimeUtilities usualAlarmTimeOfDayDataSourceWithEnvironment:]";
+  _os_log_error_impl(&dword_23E3EA000, log, OS_LOG_TYPE_ERROR, "Error querying data source %{public}s", &v1, 0xCu);
 }
 
 + (void)enabledAlarmsFromTS:(os_log_t)log toTS:environment:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136446210;
-  v3 = "+[ATXHeuristicTimeUtilities enabledAlarmsFromTS:toTS:environment:]";
-  _os_log_error_impl(&dword_23E3EA000, log, OS_LOG_TYPE_ERROR, "Error querying data source %{public}s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136446210;
+  v2 = "+[ATXHeuristicTimeUtilities enabledAlarmsFromTS:toTS:environment:]";
+  _os_log_error_impl(&dword_23E3EA000, log, OS_LOG_TYPE_ERROR, "Error querying data source %{public}s", &v1, 0xCu);
 }
 
 @end

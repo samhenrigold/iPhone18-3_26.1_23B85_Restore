@@ -292,7 +292,7 @@
     v14 = __nwlog_obj();
     *buf = 136446210;
     v27 = "[NWPathFlow initWithPathFlow:]";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v24 = 0;
@@ -371,7 +371,7 @@ LABEL_38:
   v9 = __nwlog_obj();
   *buf = 136446210;
   v27 = "[NWPathFlow initWithPathFlow:]";
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null pathFlow", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v24 = 0;

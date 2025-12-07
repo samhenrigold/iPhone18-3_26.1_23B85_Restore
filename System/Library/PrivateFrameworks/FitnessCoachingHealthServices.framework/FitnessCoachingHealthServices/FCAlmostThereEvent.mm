@@ -35,7 +35,7 @@
 
 - (BOOL)shouldFireWithTypicalDayModel:(id)model evaluationDelegate:(id)delegate
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   delegateCopy = delegate;
   if ([delegateCopy currentExperienceType] != 1)
@@ -44,8 +44,8 @@
     v12 = *MEMORY[0x277CCC290];
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_24B55B000, v12, OS_LOG_TYPE_DEFAULT, "Almost there event should not fire, fitness junior user", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_24B55B000, v12, OS_LOG_TYPE_DEFAULT, "Almost there event should not fire, fitness junior user", &v21, 2u);
     }
 
     goto LABEL_7;
@@ -72,10 +72,10 @@ LABEL_7:
     [modelCopy currentExerciseGoalPercentage];
   }
 
-  v16 = v11;
+  v15 = v11;
   [(FCCAlmostThereConfiguration *)self->_configuration minimumPercentageComplete];
-  v18 = v17;
-  if (v16 >= v17)
+  v17 = v16;
+  if (v15 >= v16)
   {
     v13 = v10;
   }
@@ -86,25 +86,24 @@ LABEL_7:
   }
 
   _HKInitializeLogging();
-  v19 = *MEMORY[0x277CCC290];
+  v18 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
     configuration = self->_configuration;
-    v21 = v19;
-    v22 = 134218752;
+    v20 = v18;
+    v21 = 134218752;
     goalType = [(FCCAlmostThereConfiguration *)configuration goalType];
-    v24 = 1024;
-    v25 = v10;
-    v26 = 1024;
-    v27 = v16 >= v18;
-    v28 = 1024;
-    v29 = v13;
-    _os_log_impl(&dword_24B55B000, v21, OS_LOG_TYPE_DEFAULT, "AlmostThere reason evaluating whether to fire for goal type %lu, willEndDayWithGoalIncomplete: %{BOOL}d, hasCrossedAlmostThereGoalThreshold: %{BOOL}d, result: %{BOOL}d", &v22, 0x1Eu);
+    v23 = 1024;
+    v24 = v10;
+    v25 = 1024;
+    v26 = v15 >= v17;
+    v27 = 1024;
+    v28 = v13;
+    _os_log_impl(&dword_24B55B000, v20, OS_LOG_TYPE_DEFAULT, "AlmostThere reason evaluating whether to fire for goal type %lu, willEndDayWithGoalIncomplete: %{BOOL}d, hasCrossedAlmostThereGoalThreshold: %{BOOL}d, result: %{BOOL}d", &v21, 0x1Eu);
   }
 
 LABEL_8:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -120,15 +119,13 @@ LABEL_8:
 
 - (id)goalProgressContentForModel:(id)model
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = objc_alloc(MEMORY[0x277D09CB8]);
   eventIdentifier = [(FCAlmostThereEvent *)self eventIdentifier];
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{-[FCCAlmostThereConfiguration goalType](self->_configuration, "goalType")}];
-  v11[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v8 = [v4 initWithEventIdentifier:eventIdentifier goalTypesToDisplay:v7 goalTypeToHighlight:-[FCCAlmostThereConfiguration goalType](self->_configuration expectedGoalValue:{"goalType"), 0.0}];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

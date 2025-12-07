@@ -57,7 +57,7 @@
       CFMachPortSetInvalidationCallBack(v7, _voiceOverTouchDied);
     }
 
-    _AXLogWithFacility();
+    _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"VoiceOverTouch is back... (%d)\n");
   }
 
   else
@@ -72,11 +72,11 @@
   sp = 0;
   if (bootstrap_check_in(*MEMORY[0x29EDCA6A0], "com.apple.SpringBoard.VOT", &sp))
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not check in as: %s\n");
     v2 = MEMORY[0x29EDCA6B0];
     if (!mach_port_allocate(*MEMORY[0x29EDCA6B0], 1u, &sp) && !mach_port_insert_right(*v2, sp, sp, 0x14u) && bootstrap_register2())
     {
-      _AXLogWithFacility();
+      _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not register!");
     }
   }
 

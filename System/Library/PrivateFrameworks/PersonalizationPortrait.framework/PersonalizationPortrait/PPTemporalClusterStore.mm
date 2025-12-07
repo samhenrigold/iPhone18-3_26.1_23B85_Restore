@@ -24,31 +24,30 @@
 
 void __85__PPTemporalClusterStore_iterRankedTemporalClustersForStartDate_endDate_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*a3 & 1) == 0)
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         if (*a3)
         {
@@ -57,7 +56,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -68,8 +67,6 @@ LABEL_4:
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (PPTemporalClusterStore)init

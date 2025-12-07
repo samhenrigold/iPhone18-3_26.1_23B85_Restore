@@ -123,31 +123,31 @@
 
 void __41__AXMDataSummary_computeRegressionModel___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  [*(*(*(a1 + 48) + 8) + 40) numValues];
-  MEMORY[0x1EEE9AC00]();
-  v3 = &block[-2] - v2;
-  [*(*(*(a1 + 48) + 8) + 40) numValues];
-  MEMORY[0x1EEE9AC00]();
-  v5 = &block[-2] - v4;
-  v6 = *(*(*(a1 + 48) + 8) + 40);
-  v7 = [*(a1 + 32) xValues];
-  [v6 getValues:v3 fromNSNumberArray:v7];
-
+  v19 = *MEMORY[0x1E69E9840];
+  v2 = [*(*(*(a1 + 48) + 8) + 40) numValues];
+  MEMORY[0x1EEE9AC00](v2);
+  v4 = &block[-2] - v3;
+  v5 = [*(*(*(a1 + 48) + 8) + 40) numValues];
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &block[-2] - v6;
   v8 = *(*(*(a1 + 48) + 8) + 40);
-  v9 = [*(a1 + 32) yValues];
-  [v8 getValues:v5 fromNSNumberArray:v9];
+  v9 = [*(a1 + 32) xValues];
+  [v8 getValues:v4 fromNSNumberArray:v9];
 
-  v10 = +[AXMDataRegressionModel getModelForX:y:n:](AXMDataRegressionModel, "getModelForX:y:n:", v3, v5, [*(*(*(a1 + 48) + 8) + 40) numValues]);
+  v10 = *(*(*(a1 + 48) + 8) + 40);
+  v11 = [*(a1 + 32) yValues];
+  [v10 getValues:v7 fromNSNumberArray:v11];
+
+  v12 = +[AXMDataRegressionModel getModelForX:y:n:](AXMDataRegressionModel, "getModelForX:y:n:", v4, v7, [*(*(*(a1 + 48) + 8) + 40) numValues]);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __41__AXMDataSummary_computeRegressionModel___block_invoke_2;
   block[3] = &unk_1E7A1E0E8;
-  v15 = v10;
-  v13 = *(a1 + 40);
-  v11 = v13;
-  v16 = v13;
-  v12 = v10;
+  v17 = v12;
+  v15 = *(a1 + 40);
+  v13 = v15;
+  v18 = v15;
+  v14 = v12;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 

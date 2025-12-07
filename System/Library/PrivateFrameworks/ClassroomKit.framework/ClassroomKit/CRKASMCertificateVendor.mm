@@ -148,8 +148,7 @@ LABEL_21:
     while (v7);
   }
 
-  [(CRKASMCertificateVendor *)selfCopy forgetPersistentIDs:v36];
-  v26 = _CRKLogASM_17();
+  v26 = _CRKLogASM_17([(CRKASMCertificateVendor *)selfCopy forgetPersistentIDs:v36]);
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     stop = [v30 stop];
@@ -165,18 +164,18 @@ LABEL_21:
 
 - (id)manifest
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [CRKExecutionTimer startedTimerWithDescription:@"Read certificate manifest"];
   credentialStore = [(CRKASMCertificateVendor *)self credentialStore];
   certificateManifest = [credentialStore certificateManifest];
 
-  v6 = _CRKLogASM_17();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _CRKLogASM_17(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     stop = [v3 stop];
-    v9 = 138412290;
-    v10 = stop;
-    _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = stop;
+    _os_log_impl(&dword_243550000, v7, OS_LOG_TYPE_DEFAULT, "%@", &v10, 0xCu);
   }
 
   return certificateManifest;
@@ -185,12 +184,13 @@ LABEL_21:
 - (void)forgetPersistentIDs:(id)ds
 {
   dsCopy = ds;
-  if ([dsCopy count])
+  v5 = [dsCopy count];
+  if (v5)
   {
-    v5 = _CRKLogASM_17();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _CRKLogASM_17(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(CRKASMCertificateVendor *)dsCopy forgetPersistentIDs:v5];
+      [(CRKASMCertificateVendor *)dsCopy forgetPersistentIDs:v6];
     }
 
     credentialStore = [(CRKASMCertificateVendor *)self credentialStore];

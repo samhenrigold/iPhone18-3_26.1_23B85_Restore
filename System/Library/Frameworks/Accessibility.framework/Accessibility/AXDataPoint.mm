@@ -148,26 +148,26 @@
 
 - (id)_additionalCategoricalValue
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [(AXDataPoint *)self additionalValues];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v2 = v14 = 0u;
-  category2 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = v13 = 0u;
+  category2 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (category2)
   {
-    v4 = *v12;
+    v4 = *v11;
     while (2)
     {
       for (i = 0; i != category2; i = i + 1)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         category = [v6 category];
         v8 = [category length];
 
@@ -178,7 +178,7 @@
         }
       }
 
-      category2 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      category2 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (category2)
       {
         continue;
@@ -190,33 +190,31 @@
 
 LABEL_11:
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return category2;
 }
 
 - (id)_additionalNumericValue
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [(AXDataPoint *)self additionalValues];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v2 = v15 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v2 = v14 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
-    v4 = *v13;
+    v4 = *v12;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v13 != v4)
+        if (*v12 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v12 + 1) + 8 * i);
+        v6 = *(*(&v11 + 1) + 8 * i);
         category = [v6 category];
         v8 = [category length];
 
@@ -229,7 +227,7 @@ LABEL_11:
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v3)
       {
         continue;
@@ -240,8 +238,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

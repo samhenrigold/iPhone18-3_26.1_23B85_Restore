@@ -229,23 +229,22 @@ void __51__GTMTLCaptureService_notifyCaptureObjectsChanged___block_invoke(uint64
   v4 = dispatch_group_create();
   v5 = [NSMutableArray alloc];
   requests = [updateCopy requests];
-  v70 = [v5 initWithCapacity:{objc_msgSend(requests, "count")}];
+  v63 = [v5 initWithCapacity:{objc_msgSend(requests, "count")}];
 
   requestID = [updateCopy requestID];
   requests2 = [updateCopy requests];
   v8 = [requests2 count];
 
-  v9 = &GSSystemRootDirectory_ptr;
   if (v8)
   {
-    v10 = 0;
-    v64 = v4;
-    v65 = updateCopy;
+    v9 = 0;
+    v57 = v4;
+    v58 = updateCopy;
     while (1)
     {
       dispatch_group_enter(v4);
       requests3 = [updateCopy requests];
-      v12 = [requests3 objectAtIndexedSubscript:v10];
+      v11 = [requests3 objectAtIndexedSubscript:v9];
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -256,128 +255,124 @@ void __51__GTMTLCaptureService_notifyCaptureObjectsChanged___block_invoke(uint64
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v28 = v12;
-        configuration = [v28 configuration];
+        v27 = v11;
+        configuration = [v27 configuration];
         enablePresentDownload = [configuration enablePresentDownload];
         dword_31F7C8 = dword_31F7C8 & 0xFFFFFFFE | enablePresentDownload;
         qword_31F7C0 = [configuration presentDownloadSize];
         if ([configuration enableLogErrors])
         {
-          v30 = 2;
+          v29 = 2;
         }
 
         else
+        {
+          v29 = 0;
+        }
+
+        dword_31F7C8 = dword_31F7C8 & 0xFFFFFFFD | v29;
+        if ([configuration disableHashResources])
         {
           v30 = 0;
         }
 
-        dword_31F7C8 = dword_31F7C8 & 0xFFFFFFFD | v30;
-        if ([configuration disableHashResources])
-        {
-          v31 = 0;
-        }
-
         else
         {
-          v31 = 32;
+          v30 = 32;
         }
 
-        dword_31F7C8 = dword_31F7C8 & 0xFFFFFFDF | v31;
+        dword_31F7C8 = dword_31F7C8 & 0xFFFFFFDF | v30;
         GT_ENV = [configuration waitEventTimeout];
         qword_31F7B0 = [configuration maxDownloadCommandBuffers];
-        v32 = v9[401];
-        v18 = objc_opt_new();
-        v72 = 0;
-        v33 = [NSKeyedArchiver archivedDataWithRootObject:&__kCFBooleanTrue requiringSecureCoding:1 error:&v72];
-        v34 = v72;
-        [v18 setData:v33];
+        v17 = objc_opt_new();
+        v65 = 0;
+        v31 = [NSKeyedArchiver archivedDataWithRootObject:&__kCFBooleanTrue requiringSecureCoding:1 error:&v65];
+        v32 = v65;
+        [v17 setData:v31];
 
-        [v18 setError:v34];
-        requestID2 = [v28 requestID];
+        [v17 setError:v32];
+        requestID2 = [v27 requestID];
 
-        [v18 setRequestID:requestID2];
-        [v70 setObject:v18 atIndexedSubscript:v10];
+        [v17 setRequestID:requestID2];
+        [v63 setObject:v17 atIndexedSubscript:v9];
         dispatch_group_leave(v4);
 
-        v9 = &GSSystemRootDirectory_ptr;
 LABEL_38:
-
         goto LABEL_39;
       }
 
-      v36 = v9[401];
       configuration = objc_opt_new();
-      [configuration setRequestID:{objc_msgSend(v12, "requestID")}];
-      v37 = [NSError alloc];
-      v92 = NSLocalizedDescriptionKey;
-      v93 = @"unknown request";
-      v38 = [NSDictionary dictionaryWithObjects:&v93 forKeys:&v92 count:1];
-      v39 = [v37 initWithDomain:NSCocoaErrorDomain code:1 userInfo:v38];
-      [configuration setError:v39];
+      [configuration setRequestID:{objc_msgSend(v11, "requestID")}];
+      v34 = [NSError alloc];
+      v85 = NSLocalizedDescriptionKey;
+      v86 = @"unknown request";
+      v35 = [NSDictionary dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+      v36 = [v34 initWithDomain:NSCocoaErrorDomain code:1 userInfo:v35];
+      [configuration setError:v36];
 
-      [v70 setObject:configuration atIndexedSubscript:v10];
+      [v63 setObject:configuration atIndexedSubscript:v9];
       dispatch_group_leave(v4);
 LABEL_39:
 
-      ++v10;
+      ++v9;
       requests4 = [updateCopy requests];
-      v55 = [requests4 count];
+      v49 = [requests4 count];
 
-      if (v55 <= v10)
+      if (v49 <= v9)
       {
         goto LABEL_40;
       }
     }
 
-    configuration = v12;
+    configuration = v11;
     requestID3 = [configuration requestID];
     streamRef = [configuration streamRef];
     enable = [configuration enable];
     Stream = GTTraceContext_getStream(g_ctx, streamRef);
     if (Stream)
     {
-      v69 = requestID3;
-      v18 = *(Stream + 16);
+      v62 = requestID3;
+      v17 = *(Stream + 16);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v66 = enable;
-        v67 = v18;
-        v19 = v18;
-        v88 = 0u;
-        v89 = 0u;
-        v90 = 0u;
-        v91 = 0u;
-        v68 = v19;
-        superlayer = [v19 superlayer];
+        v59 = enable;
+        v60 = v17;
+        v18 = v17;
+        v81 = 0u;
+        v82 = 0u;
+        v83 = 0u;
+        v84 = 0u;
+        v61 = v18;
+        superlayer = [v18 superlayer];
         sublayers = [superlayer sublayers];
 
-        v22 = [sublayers countByEnumeratingWithState:&v88 objects:v96 count:16];
-        if (v22)
+        v21 = [sublayers countByEnumeratingWithState:&v81 objects:v89 count:16];
+        if (v21)
         {
-          v23 = *v89;
+          v22 = *v82;
           while (2)
           {
-            for (i = 0; i != v22; i = i + 1)
+            for (i = 0; i != v21; i = i + 1)
             {
-              if (*v89 != v23)
+              if (*v82 != v22)
               {
                 objc_enumerationMutation(sublayers);
               }
 
-              v25 = *(*(&v88 + 1) + 8 * i);
-              name = [v25 name];
-              v27 = [name isEqualToString:@"gputools.overlay"];
+              v24 = *(*(&v81 + 1) + 8 * i);
+              name = [v24 name];
+              v26 = [name isEqualToString:@"gputools.overlay"];
 
-              if (v27)
+              if (v26)
               {
-                v22 = v25;
+                v21 = v24;
                 goto LABEL_27;
               }
             }
 
-            v22 = [sublayers countByEnumeratingWithState:&v88 objects:v96 count:16];
-            if (v22)
+            v21 = [sublayers countByEnumeratingWithState:&v81 objects:v89 count:16];
+            if (v21)
             {
               continue;
             }
@@ -386,109 +381,103 @@ LABEL_39:
           }
 
 LABEL_27:
-          v4 = v64;
-          updateCopy = v65;
-          v9 = &GSSystemRootDirectory_ptr;
+          v4 = v57;
+          updateCopy = v58;
         }
 
-        v47 = v68;
-        if (v22 || ((v66 ^ 1) & 1) != 0)
+        v42 = v61;
+        if (v21 || ((v59 ^ 1) & 1) != 0)
         {
-          v50 = v66;
-          if (!v22)
+          v45 = v59;
+          if (!v21)
           {
-            v50 = 1;
+            v45 = 1;
           }
 
-          if (v50)
+          if (v45)
           {
-            v51 = v9[401];
-            v49 = objc_opt_new();
-            v74 = 0;
-            v52 = [NSKeyedArchiver archivedDataWithRootObject:&__kCFBooleanFalse requiringSecureCoding:1 error:&v74];
-            v53 = v74;
-            [v49 setData:v52];
+            v44 = objc_opt_new();
+            v67 = 0;
+            v46 = [NSKeyedArchiver archivedDataWithRootObject:&__kCFBooleanFalse requiringSecureCoding:1 error:&v67];
+            v47 = v67;
+            [v44 setData:v46];
 
-            v47 = v68;
-            [v49 setError:v53];
-            [v49 setRequestID:v69];
-            [v70 setObject:v49 atIndexedSubscript:v10];
+            v42 = v61;
+            [v44 setError:v47];
+            [v44 setRequestID:v62];
+            [v63 setObject:v44 atIndexedSubscript:v9];
             dispatch_group_leave(v4);
-
-            v9 = &GSSystemRootDirectory_ptr;
           }
 
           else
           {
-            v75[0] = _NSConcreteStackBlock;
-            v75[1] = 3221225472;
-            v75[2] = __30__GTMTLCaptureService_update___block_invoke_2;
-            v75[3] = &unk_2F1D20;
-            v22 = v22;
-            v76 = v22;
-            v79 = v69;
-            v77 = v70;
-            v80 = v10;
-            v78 = v4;
-            dispatch_async(&_dispatch_main_q, v75);
+            v68[0] = _NSConcreteStackBlock;
+            v68[1] = 3221225472;
+            v68[2] = __30__GTMTLCaptureService_update___block_invoke_2;
+            v68[3] = &unk_2F1D20;
+            v21 = v21;
+            v69 = v21;
+            v72 = v62;
+            v70 = v63;
+            v73 = v9;
+            v71 = v4;
+            dispatch_async(&_dispatch_main_q, v68);
 
-            v49 = v76;
+            v44 = v69;
           }
         }
 
         else
         {
-          v48 = +[CALayer layer];
+          v43 = +[CALayer layer];
           block[0] = _NSConcreteStackBlock;
           block[1] = 3221225472;
           block[2] = __30__GTMTLCaptureService_update___block_invoke;
           block[3] = &unk_2F1CF8;
-          v22 = v48;
-          v82 = v22;
-          v83 = v68;
-          v86 = v69;
-          v84 = v70;
-          v87 = v10;
-          v85 = v4;
+          v21 = v43;
+          v75 = v21;
+          v76 = v61;
+          v79 = v62;
+          v77 = v63;
+          v80 = v9;
+          v78 = v4;
           dispatch_async(&_dispatch_main_q, block);
 
-          v49 = v82;
+          v44 = v75;
         }
 
-        v18 = v67;
+        v17 = v60;
       }
 
       else
       {
-        v45 = v9[401];
-        v22 = objc_opt_new();
-        v73 = 0;
-        v46 = [NSKeyedArchiver archivedDataWithRootObject:&__kCFBooleanFalse requiringSecureCoding:1 error:&v73];
-        v47 = v73;
-        [v22 setData:v46];
+        v21 = objc_opt_new();
+        v66 = 0;
+        v41 = [NSKeyedArchiver archivedDataWithRootObject:&__kCFBooleanFalse requiringSecureCoding:1 error:&v66];
+        v42 = v66;
+        [v21 setData:v41];
 
-        [v22 setError:v47];
-        [v22 setRequestID:v69];
-        [v70 setObject:v22 atIndexedSubscript:v10];
+        [v21 setError:v42];
+        [v21 setRequestID:v62];
+        [v63 setObject:v21 atIndexedSubscript:v9];
         dispatch_group_leave(v4);
       }
     }
 
     else
     {
-      v40 = v9[401];
-      v41 = objc_opt_new();
-      [v41 setData:0];
-      v42 = [NSError alloc];
-      v94 = NSLocalizedDescriptionKey;
-      v95 = @"unknown streamRef";
-      v43 = [NSDictionary dictionaryWithObjects:&v95 forKeys:&v94 count:1];
-      v44 = [v42 initWithDomain:NSCocoaErrorDomain code:1 userInfo:v43];
-      [v41 setError:v44];
+      v37 = objc_opt_new();
+      [v37 setData:0];
+      v38 = [NSError alloc];
+      v87 = NSLocalizedDescriptionKey;
+      v88 = @"unknown streamRef";
+      v39 = [NSDictionary dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+      v40 = [v38 initWithDomain:NSCocoaErrorDomain code:1 userInfo:v39];
+      [v37 setError:v40];
 
-      v18 = v41;
-      [v41 setRequestID:requestID3];
-      [v70 setObject:v41 atIndexedSubscript:v10];
+      v17 = v37;
+      [v37 setRequestID:requestID3];
+      [v63 setObject:v37 atIndexedSubscript:v9];
       dispatch_group_leave(v4);
     }
 
@@ -497,18 +486,17 @@ LABEL_27:
 
 LABEL_40:
   dispatch_group_wait(v4, 0xFFFFFFFFFFFFFFFFLL);
-  v56 = v9[401];
-  v57 = objc_opt_new();
-  v58 = [v70 copy];
-  v71 = 0;
-  v59 = [NSKeyedArchiver archivedDataWithRootObject:v58 requiringSecureCoding:1 error:&v71];
-  v60 = v71;
-  [v57 setData:v59];
+  v50 = objc_opt_new();
+  v51 = [v63 copy];
+  v64 = 0;
+  v52 = [NSKeyedArchiver archivedDataWithRootObject:v51 requiringSecureCoding:1 error:&v64];
+  v53 = v64;
+  [v50 setData:v52];
 
-  [v57 setError:v60];
-  [v57 setRequestID:requestID];
+  [v50 setError:v53];
+  [v50 setRequestID:requestID];
   completionHandler = [updateCopy completionHandler];
-  (completionHandler)[2](completionHandler, v57);
+  (completionHandler)[2](completionHandler, v50);
 
   return 0;
 }

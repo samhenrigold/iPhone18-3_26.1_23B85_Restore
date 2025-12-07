@@ -260,7 +260,7 @@ LABEL_24:
     v4 = [v3 newDataURLForResource:@"Booklet" ofType:@"png" withMIMEType:@"image/png"];
     v5 = [v3 newDataURLForResource:@"Video" ofType:@"png" withMIMEType:@"image/png"];
     v6 = objc_alloc(MEMORY[0x277CCACA8]);
-    _stylesheetString_sStylesheet = [v6 initWithFormat:@"body { margin: 0; padding: 11px 16px; font-family: '%@'; font-size: 12px; color: #333; line-height: 15px; }body > strong { display: block; margin-bottom: -14px; }ul { line-height: 16px; margin: 6px 0 -5px; padding: 0; list-style: none; }li { margin-bottom: 5px; padding-left: 24px; }li.booklet { background: url(\"%@\", objc_msgSend(objc_msgSend(MEMORY[0x277D74300], "systemFontOfSize:", 0.0), "familyName"), objc_msgSend(v4, "absoluteString"), objc_msgSend(v5, "absoluteString"")];
+    _stylesheetString_sStylesheet = [v6 initWithFormat:@"body { margin: 0; padding: 11px 16px; font-family: '%@'; font-size: 12px; color: #333; line-height: 15px; }body > strong { display: block; margin-bottom: -14px; }ul { line-height: 16px; margin: 6px 0 -5px; padding: 0; list-style: none; }li { margin-bottom: 5px; padding-left: 24px; }li.booklet { background: url(%@, objc_msgSend(objc_msgSend(MEMORY[0x277D74300], "systemFontOfSize:", 0.0), "familyName"), objc_msgSend(v4, "absoluteString"), objc_msgSend(v5, "absoluteString"")];
 
     return _stylesheetString_sStylesheet;
   }

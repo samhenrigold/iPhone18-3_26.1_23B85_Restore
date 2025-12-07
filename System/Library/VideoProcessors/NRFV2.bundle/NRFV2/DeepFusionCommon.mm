@@ -29,24 +29,23 @@
   v5 = !v4;
   if (!v4)
   {
-    v8 = *&parameters->var0;
-    *&v9 = params->red_combo_gain;
-    HIDWORD(v9) = 1.0;
+    *&v8 = params->red_combo_gain;
+    HIDWORD(v8) = 1.0;
     LODWORD(parameters->var2) = *&parameters->var2;
-    *&parameters->var0 = v9;
+    *&parameters->var0 = v8;
     parameters->var2 = params->blue_combo_gain;
-    *&parameters->var0 = v9;
+    *&parameters->var0 = v8;
     *&parameters->var4 = params->analog_gain;
     objc_msgSend_calculateReadNoise_(DeepFusionCommon, a2, params, params);
-    parameters->var5 = v10;
+    parameters->var5 = v9;
     *&parameters[1].var0 = *&params->conversion_gain;
     LOBYTE(parameters[1].var2) = 0;
     parameters[1].var3 = params->lsModulationWeight;
     if (params->hr_enabled)
     {
       p_hr_gain_down_ratio = &params->hr_gain_down_ratio;
-      v12 = vld1q_dup_f32(p_hr_gain_down_ratio);
-      *&parameters->var0 = vdivq_f32(*&parameters->var0, v12);
+      v11 = vld1q_dup_f32(p_hr_gain_down_ratio);
+      *&parameters->var0 = vdivq_f32(*&parameters->var0, v11);
     }
   }
 

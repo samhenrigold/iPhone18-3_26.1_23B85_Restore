@@ -2750,7 +2750,7 @@ LABEL_226:
 
             else
             {
-              v86 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v79, v122, @"\\"", &stru_1EF1C0318, v124, v125);
+              v86 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v79, v122, @"\", &stru_1EF1C0318, v124, v125);
             }
 
             v148 = v86;
@@ -2921,7 +2921,7 @@ LABEL_87:
 
           else
           {
-            v121 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v114, v138, @"\\"", &stru_1EF1C0318, v140, v141);
+            v121 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v114, v138, @"\", &stru_1EF1C0318, v140, v141);
           }
 
           v208 = v121;

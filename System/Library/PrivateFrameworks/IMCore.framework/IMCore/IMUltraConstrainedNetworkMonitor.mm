@@ -33,7 +33,7 @@
   isUltraConstrained = [updateCopy isUltraConstrained];
   v6 = *(&selfCopy->super.isa + OBJC_IVAR___IMUltraConstrainedNetworkMonitor_isUltraConstrained);
   *(&selfCopy->super.isa + OBJC_IVAR___IMUltraConstrainedNetworkMonitor_isUltraConstrained) = isUltraConstrained;
-  sub_1A84A41F0(v6);
+  sub_1A84A41F0(v6, selfCopy);
 }
 
 @end

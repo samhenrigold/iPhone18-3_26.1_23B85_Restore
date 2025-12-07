@@ -73,39 +73,39 @@ void __39__VCRecordZoneParser_activeRecordZone___block_invoke(uint64_t a1, void 
 
 + (id)sortedVoiceShortcutZoneIDsFromZoneIDs:(id)ds
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   if (dsCopy)
   {
     v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(dsCopy, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v6 = dsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (!v7)
     {
       goto LABEL_16;
     }
 
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     while (1)
     {
       v10 = 0;
       do
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * v10);
-        v23 = 0;
-        if ([self parseZoneID:v11 intoIndex:&v23])
+        v11 = *(*(&v23 + 1) + 8 * v10);
+        v22 = 0;
+        if ([self parseZoneID:v11 intoIndex:&v22])
         {
-          v12 = [MEMORY[0x1E696AD98] numberWithInteger:v23];
+          v12 = [MEMORY[0x1E696AD98] numberWithInteger:v22];
           [v5 setObject:v11 forKeyedSubscript:v12];
 LABEL_9:
 
@@ -119,9 +119,9 @@ LABEL_9:
           {
             zoneName = [v11 zoneName];
             *buf = 136315394;
-            v29 = "+[VCRecordZoneParser sortedVoiceShortcutZoneIDsFromZoneIDs:]";
-            v30 = 2112;
-            v31 = zoneName;
+            v28 = "+[VCRecordZoneParser sortedVoiceShortcutZoneIDsFromZoneIDs:]";
+            v29 = 2112;
+            v30 = zoneName;
             _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_ERROR, "%s Ignoring zone with unexpected name: (%@)", buf, 0x16u);
           }
 
@@ -133,7 +133,7 @@ LABEL_11:
       }
 
       while (v8 != v10);
-      v14 = [v6 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v14 = [v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
       v8 = v14;
       if (!v14)
       {
@@ -142,13 +142,13 @@ LABEL_16:
         allKeys = [v5 allKeys];
         v16 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __60__VCRecordZoneParser_sortedVoiceShortcutZoneIDsFromZoneIDs___block_invoke;
-        v21[3] = &unk_1E837F118;
-        v22 = v5;
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __60__VCRecordZoneParser_sortedVoiceShortcutZoneIDsFromZoneIDs___block_invoke;
+        v20[3] = &unk_1E837F118;
+        v21 = v5;
         v17 = v5;
-        v18 = [v16 if_compactMap:v21];
+        v18 = [v16 if_compactMap:v20];
 
         goto LABEL_18;
       }
@@ -157,8 +157,6 @@ LABEL_16:
 
   v18 = 0;
 LABEL_18:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -169,7 +167,7 @@ LABEL_18:
   zoneName = [dCopy zoneName];
   if ([zoneName length] && (objc_msgSend(self, "shouldIgnoreZoneID:", dCopy) & 1) == 0)
   {
-    if ([zoneName isEqualToString:@"VoiceShortcuts"])
+    if (objc_msgSend_isEqualToString_(zoneName))
     {
       *index = 0;
       v8 = 1;

@@ -50,23 +50,21 @@
 
 void __57__IntelligentCallScreeningMenuCellOption_optionMenuItems__block_invoke()
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   v0 = [IntelligentCallScreeningMenuCellOption alloc];
   v1 = [&unk_284EEBF78 stringValue];
   v2 = [(IntelligentCallScreeningMenuCellOption *)v0 initWithTitleKey:@"INTELLIGENT_CALL_SCREENING_OPTION_NEVER_TITLE" explanationKey:@"INTELLIGENT_CALL_SCREENING_OPTION_NEVER_EXPLANATION" optionID:v1];
   v3 = [IntelligentCallScreeningMenuCellOption alloc];
   v4 = [&unk_284EEBF90 stringValue];
   v5 = [(IntelligentCallScreeningMenuCellOption *)v3 initWithTitleKey:@"INTELLIGENT_CALL_SCREENING_OPTION_ASK_TITLE" explanationKey:@"INTELLIGENT_CALL_SCREENING_OPTION_ASK_EXPLANATION" optionID:v4];
-  v12[1] = v5;
+  v11[1] = v5;
   v6 = [IntelligentCallScreeningMenuCellOption alloc];
   v7 = [&unk_284EEBFA8 stringValue];
   v8 = [(IntelligentCallScreeningMenuCellOption *)v6 initWithTitleKey:@"INTELLIGENT_CALL_SCREENING_OPTION_SILENCE_TITLE" explanationKey:@"INTELLIGENT_CALL_SCREENING_OPTION_SILENCE_EXPLANATION" optionID:v7];
-  v12[2] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+  v11[2] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
   v10 = optionMenuItems_optionMenuItems;
   optionMenuItems_optionMenuItems = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

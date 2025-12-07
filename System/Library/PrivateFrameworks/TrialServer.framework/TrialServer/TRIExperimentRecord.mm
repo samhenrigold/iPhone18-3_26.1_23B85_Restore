@@ -6,6 +6,7 @@
 - (BOOL)isExpiredExperiment;
 - (TRIExperimentRecord)initWithDeploymentEnvironment:(int)environment experimentDeployment:(id)deployment treatmentId:(id)id factorPackSetId:(id)setId type:(int)type status:(int64_t)status startDate:(id)date endDate:(id)self0 namespaces:(id)self1 isManuallyTargeted:(BOOL)self2 artifact:(id)self3 experimentType:(int)self4;
 - (id)copyWithReplacementArtifact:(id)artifact;
+- (id)copyWithReplacementDeploymentEnvironment:(int)environment;
 - (id)copyWithReplacementEndDate:(id)date;
 - (id)copyWithReplacementExperimentDeployment:(id)deployment;
 - (id)copyWithReplacementExperimentType:(int)type;
@@ -15,6 +16,7 @@
 - (id)copyWithReplacementStartDate:(id)date;
 - (id)copyWithReplacementStatus:(int64_t)status;
 - (id)copyWithReplacementTreatmentId:(id)id;
+- (id)copyWithReplacementType:(int)type;
 - (id)counterfactualsTreatmentsToFactorPackSetIds;
 - (id)description;
 - (id)versionedNamespaces;
@@ -157,6 +159,15 @@ LABEL_5:
   return v25;
 }
 
+- (id)copyWithReplacementDeploymentEnvironment:(int)environment
+{
+  v3 = *&environment;
+  v5 = objc_alloc(objc_opt_class());
+  LODWORD(v8) = self->_experimentType;
+  LOBYTE(v7) = self->_isManuallyTargeted;
+  return [v5 initWithDeploymentEnvironment:v3 experimentDeployment:self->_experimentDeployment treatmentId:self->_treatmentId factorPackSetId:self->_factorPackSetId type:self->_type status:self->_status startDate:self->_startDate endDate:self->_endDate namespaces:self->_namespaces isManuallyTargeted:v7 artifact:self->_artifact experimentType:v8];
+}
+
 - (id)copyWithReplacementExperimentDeployment:(id)deployment
 {
   deploymentCopy = deployment;
@@ -188,6 +199,15 @@ LABEL_5:
   v6 = [v5 initWithDeploymentEnvironment:self->_deploymentEnvironment experimentDeployment:self->_experimentDeployment treatmentId:self->_treatmentId factorPackSetId:idCopy type:self->_type status:self->_status startDate:self->_startDate endDate:self->_endDate namespaces:self->_namespaces isManuallyTargeted:v8 artifact:self->_artifact experimentType:v9];
 
   return v6;
+}
+
+- (id)copyWithReplacementType:(int)type
+{
+  v3 = *&type;
+  v5 = objc_alloc(objc_opt_class());
+  LODWORD(v8) = self->_experimentType;
+  LOBYTE(v7) = self->_isManuallyTargeted;
+  return [v5 initWithDeploymentEnvironment:self->_deploymentEnvironment experimentDeployment:self->_experimentDeployment treatmentId:self->_treatmentId factorPackSetId:self->_factorPackSetId type:v3 status:self->_status startDate:self->_startDate endDate:self->_endDate namespaces:self->_namespaces isManuallyTargeted:v7 artifact:self->_artifact experimentType:v8];
 }
 
 - (id)copyWithReplacementStatus:(int64_t)status
@@ -262,168 +282,8 @@ LABEL_5:
 {
   recordCopy = record;
   v5 = recordCopy;
-  if (!recordCopy)
+  if (!recordCopy || (deploymentEnvironment = self->_deploymentEnvironment, deploymentEnvironment != [recordCopy deploymentEnvironment]) || (v7 = self->_experimentDeployment == 0, objc_msgSend(v5, "experimentDeployment"), v8 = objc_claimAutoreleasedReturnValue(), v9 = v8 != 0, v8, v7 == v9) || (experimentDeployment = self->_experimentDeployment) != 0 && (objc_msgSend(v5, "experimentDeployment"), v11 = objc_claimAutoreleasedReturnValue(), v12 = -[TRIExperimentDeployment isEqual:](experimentDeployment, "isEqual:", v11), v11, !v12) || (v13 = self->_treatmentId == 0, objc_msgSend(v5, "treatmentId"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, v13 == v15) || (treatmentId = self->_treatmentId) != 0 && (objc_msgSend(v5, "treatmentId"), v17 = objc_claimAutoreleasedReturnValue(), v18 = -[NSString isEqual:](treatmentId, "isEqual:", v17), v17, !v18) || (v19 = self->_factorPackSetId == 0, objc_msgSend(v5, "factorPackSetId"), v20 = objc_claimAutoreleasedReturnValue(), v21 = v20 != 0, v20, v19 == v21) || (factorPackSetId = self->_factorPackSetId) != 0 && (objc_msgSend(v5, "factorPackSetId"), v23 = objc_claimAutoreleasedReturnValue(), v24 = -[TRIFactorPackSetId isEqual:](factorPackSetId, "isEqual:", v23), v23, !v24) || (type = self->_type, type != objc_msgSend(v5, "type")) || (status = self->_status, status != objc_msgSend(v5, "status")) || (v27 = self->_startDate == 0, objc_msgSend(v5, "startDate"), v28 = objc_claimAutoreleasedReturnValue(), v29 = v28 != 0, v28, v27 == v29) || (startDate = self->_startDate) != 0 && (objc_msgSend(v5, "startDate"), v31 = objc_claimAutoreleasedReturnValue(), v32 = -[NSDate isEqual:](startDate, "isEqual:", v31), v31, !v32) || (v33 = self->_endDate == 0, objc_msgSend(v5, "endDate"), v34 = objc_claimAutoreleasedReturnValue(), v35 = v34 != 0, v34, v33 == v35) || (endDate = self->_endDate) != 0 && (objc_msgSend(v5, "endDate"), v37 = objc_claimAutoreleasedReturnValue(), v38 = -[NSDate isEqual:](endDate, "isEqual:", v37), v37, !v38) || (v39 = self->_namespaces == 0, objc_msgSend(v5, "namespaces"), v40 = objc_claimAutoreleasedReturnValue(), v41 = v40 != 0, v40, v39 == v41) || (namespaces = self->_namespaces) != 0 && (objc_msgSend(v5, "namespaces"), v43 = objc_claimAutoreleasedReturnValue(), v44 = -[NSArray isEqual:](namespaces, "isEqual:", v43), v43, !v44) || (isManuallyTargeted = self->_isManuallyTargeted, isManuallyTargeted != objc_msgSend(v5, "isManuallyTargeted")) || (v46 = self->_artifact == 0, objc_msgSend(v5, "artifact"), v47 = objc_claimAutoreleasedReturnValue(), v48 = v47 != 0, v47, v46 == v48) || (artifact = self->_artifact) != 0 && (objc_msgSend(v5, "artifact"), v50 = objc_claimAutoreleasedReturnValue(), v51 = -[TRIClientExperimentArtifact isEqual:](artifact, "isEqual:", v50), v50, !v51))
   {
-    goto LABEL_28;
-  }
-
-  deploymentEnvironment = self->_deploymentEnvironment;
-  if (deploymentEnvironment != [recordCopy deploymentEnvironment])
-  {
-    goto LABEL_28;
-  }
-
-  v7 = self->_experimentDeployment == 0;
-  experimentDeployment = [v5 experimentDeployment];
-  v9 = experimentDeployment != 0;
-
-  if (v7 == v9)
-  {
-    goto LABEL_28;
-  }
-
-  experimentDeployment = self->_experimentDeployment;
-  if (experimentDeployment)
-  {
-    experimentDeployment2 = [v5 experimentDeployment];
-    v12 = [(TRIExperimentDeployment *)experimentDeployment isEqual:experimentDeployment2];
-
-    if (!v12)
-    {
-      goto LABEL_28;
-    }
-  }
-
-  v13 = self->_treatmentId == 0;
-  treatmentId = [v5 treatmentId];
-  v15 = treatmentId != 0;
-
-  if (v13 == v15)
-  {
-    goto LABEL_28;
-  }
-
-  treatmentId = self->_treatmentId;
-  if (treatmentId)
-  {
-    treatmentId2 = [v5 treatmentId];
-    v18 = [(NSString *)treatmentId isEqual:treatmentId2];
-
-    if (!v18)
-    {
-      goto LABEL_28;
-    }
-  }
-
-  v19 = self->_factorPackSetId == 0;
-  factorPackSetId = [v5 factorPackSetId];
-  v21 = factorPackSetId != 0;
-
-  if (v19 == v21)
-  {
-    goto LABEL_28;
-  }
-
-  factorPackSetId = self->_factorPackSetId;
-  if (factorPackSetId)
-  {
-    factorPackSetId2 = [v5 factorPackSetId];
-    v24 = [(TRIFactorPackSetId *)factorPackSetId isEqual:factorPackSetId2];
-
-    if (!v24)
-    {
-      goto LABEL_28;
-    }
-  }
-
-  type = self->_type;
-  if (type != [v5 type])
-  {
-    goto LABEL_28;
-  }
-
-  status = self->_status;
-  if (status != [v5 status])
-  {
-    goto LABEL_28;
-  }
-
-  v27 = self->_startDate == 0;
-  startDate = [v5 startDate];
-  v29 = startDate != 0;
-
-  if (v27 == v29)
-  {
-    goto LABEL_28;
-  }
-
-  startDate = self->_startDate;
-  if (startDate)
-  {
-    startDate2 = [v5 startDate];
-    v32 = [(NSDate *)startDate isEqual:startDate2];
-
-    if (!v32)
-    {
-      goto LABEL_28;
-    }
-  }
-
-  v33 = self->_endDate == 0;
-  endDate = [v5 endDate];
-  v35 = endDate != 0;
-
-  if (v33 == v35)
-  {
-    goto LABEL_28;
-  }
-
-  endDate = self->_endDate;
-  if (endDate)
-  {
-    endDate2 = [v5 endDate];
-    v38 = [(NSDate *)endDate isEqual:endDate2];
-
-    if (!v38)
-    {
-      goto LABEL_28;
-    }
-  }
-
-  v39 = self->_namespaces == 0;
-  namespaces = [v5 namespaces];
-  v41 = namespaces != 0;
-
-  if (v39 == v41)
-  {
-    goto LABEL_28;
-  }
-
-  namespaces = self->_namespaces;
-  if (namespaces)
-  {
-    namespaces2 = [v5 namespaces];
-    v44 = [(NSArray *)namespaces isEqual:namespaces2];
-
-    if (!v44)
-    {
-      goto LABEL_28;
-    }
-  }
-
-  isManuallyTargeted = self->_isManuallyTargeted;
-  if (isManuallyTargeted != [v5 isManuallyTargeted])
-  {
-    goto LABEL_28;
-  }
-
-  v46 = self->_artifact == 0;
-  artifact = [v5 artifact];
-  v48 = artifact != 0;
-
-  if (v46 == v48 || (artifact = self->_artifact) != 0 && ([v5 artifact], v50 = objc_claimAutoreleasedReturnValue(), v51 = -[TRIClientExperimentArtifact isEqual:](artifact, "isEqual:", v50), v50, !v51))
-  {
-LABEL_28:
     v53 = 0;
   }
 

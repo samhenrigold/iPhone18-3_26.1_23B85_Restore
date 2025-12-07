@@ -26,7 +26,7 @@
 
 - (MTLCountersCommandBuffer)initWithCommandBuffer:(id)buffer commandQueue:(id)queue descriptor:(id)descriptor
 {
-  if ((atomic_load_explicit(&qword_27DA61180, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_27DA61180, memory_order_acquire) & 1) == 0)
   {
     queueCopy = queue;
     selfCopy = self;
@@ -378,7 +378,7 @@
 
 - (void)initWithCommandBuffer:commandQueue:descriptor:.cold.1()
 {
-  if (__cxa_guard_acquire(&qword_27DA61180))
+  if (__cxa_guard_acquire(byte_27DA61180))
   {
     v0 = getenv("MTL_XML_DUMP_EVENTS");
     if (!v0)
@@ -388,7 +388,7 @@
 
     _MergedGlobals = strtol(v0, 0, 0) != 0;
 
-    __cxa_guard_release(&qword_27DA61180);
+    __cxa_guard_release(byte_27DA61180);
   }
 }
 

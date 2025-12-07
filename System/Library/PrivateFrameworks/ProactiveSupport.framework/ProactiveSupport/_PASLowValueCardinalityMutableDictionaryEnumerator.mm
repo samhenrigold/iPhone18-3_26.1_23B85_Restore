@@ -49,7 +49,7 @@
 
 - (id)allObjects
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v3 = objc_opt_new();
@@ -71,28 +71,28 @@
     for (i = self->_i; i; i = self->_i)
     {
       v8 = [(NSArray *)self->_objectsAndKeys objectAtIndexedSubscript:i - 1];
+      v16 = 0u;
       v17 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v20 = 0u;
-      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v9)
       {
         v10 = v9;
         v11 = 0;
-        v12 = *v18;
+        v12 = *v17;
         do
         {
           v13 = 0;
           v14 = v11;
           do
           {
-            if (*v18 != v12)
+            if (*v17 != v12)
             {
               objc_enumerationMutation(v8);
             }
 
-            v11 = *(*(&v17 + 1) + 8 * v13);
+            v11 = *(*(&v16 + 1) + 8 * v13);
 
             [v3 addObject:v11];
             ++v13;
@@ -100,7 +100,7 @@
           }
 
           while (v10 != v13);
-          v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
         }
 
         while (v10);
@@ -114,8 +114,6 @@
   {
     v3 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

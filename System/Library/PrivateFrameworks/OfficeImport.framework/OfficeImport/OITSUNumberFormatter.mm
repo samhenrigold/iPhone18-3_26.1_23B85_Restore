@@ -1275,16 +1275,16 @@ LABEL_35:
     if (!self->_harmonizedNumberFormatterSymbols)
     {
       locale = obj->_locale;
-      v4 = SFUBundle();
-      v5 = [OITSULocaleStructuredDictionary dictionaryWithContentsOfFileForLocale:locale inDirectory:@"NumberFormatterSymbols" inBundle:v4];
+      v5 = SFUBundle(obj, v3);
+      v6 = [OITSULocaleStructuredDictionary dictionaryWithContentsOfFileForLocale:locale inDirectory:@"NumberFormatterSymbols" inBundle:v5];
       harmonizedNumberFormatterSymbols = self->_harmonizedNumberFormatterSymbols;
-      self->_harmonizedNumberFormatterSymbols = v5;
+      self->_harmonizedNumberFormatterSymbols = v6;
 
       if (!self->_harmonizedNumberFormatterSymbols)
       {
-        v7 = +[OITSULocaleStructuredDictionary numberFormatterSymbolsFallbackDictionary];
-        v8 = self->_harmonizedNumberFormatterSymbols;
-        self->_harmonizedNumberFormatterSymbols = v7;
+        v8 = +[OITSULocaleStructuredDictionary numberFormatterSymbolsFallbackDictionary];
+        v9 = self->_harmonizedNumberFormatterSymbols;
+        self->_harmonizedNumberFormatterSymbols = v8;
       }
     }
 

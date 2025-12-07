@@ -60,7 +60,7 @@
       allObjects = [recordCopy allObjects];
       [v7 setObject:allObjects forKeyedSubscript:@"DeletedOwnerIdentifiers"];
 
-      v11 = [recordCopy copy];
+      v11 = objc_msgSend_copy(recordCopy);
       v12 = v11;
       if (!v11)
       {
@@ -85,7 +85,7 @@
 - (void)setDisabledOwnerIdentifiers:(id)identifiers
 {
   identifiersCopy = identifiers;
-  v5 = [identifiersCopy copy];
+  v5 = objc_msgSend_copy(identifiersCopy);
   disabledOwnerIdentifiers = self->_disabledOwnerIdentifiers;
   self->_disabledOwnerIdentifiers = v5;
 
@@ -97,26 +97,24 @@
 
 + (id)fieldsForUnprotectedSerialization
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = &OBJC_METACLASS___HDCloudSyncMasterRecord;
-  v2 = objc_msgSendSuper2(&v9, sel_fieldsForUnprotectedSerialization);
-  v10[0] = objc_opt_class();
-  v10[1] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v10[1] = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = &OBJC_METACLASS___HDCloudSyncMasterRecord;
+  v2 = objc_msgSendSuper2(&v8, sel_fieldsForUnprotectedSerialization);
+  v9[0] = objc_opt_class();
+  v9[1] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   v4 = [HDCloudSyncSerializedField fieldForKey:@"DeletedOwnerIdentifiers" classes:v3 encrypted:0];
-  v11[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v6 = [v2 arrayByAddingObjectsFromArray:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (HDCloudSyncMasterRecord)recordWithCKRecord:(id)record error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   recordType = [recordCopy recordType];
   v8 = [recordType isEqualToString:@"CloudSyncMasterRecord"];
@@ -130,26 +128,26 @@
       v11 = v10;
       if (v10)
       {
-        v30 = recordCopy;
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
+        v29 = recordCopy;
         v32 = 0u;
-        v12 = [v10 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
+        v12 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v32;
+          v14 = *v31;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v32 != v14)
+              if (*v31 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v31 + 1) + 8 * i);
+              v16 = *(*(&v30 + 1) + 8 * i);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -171,7 +169,7 @@
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
           }
 
           while (v13);
@@ -179,8 +177,8 @@
 
         v20 = [HDCloudSyncMasterRecord alloc];
         v21 = [MEMORY[0x277CBEB98] setWithArray:v11];
-        recordCopy = v30;
-        v22 = -[HDCloudSyncMasterRecord initWithCKRecord:disabledOwnerIdentifiers:schemaVersion:](v20, v30, v21, [v9 integerValue]);
+        recordCopy = v29;
+        v22 = -[HDCloudSyncMasterRecord initWithCKRecord:disabledOwnerIdentifiers:schemaVersion:](v20, v29, v21, [v9 integerValue]);
       }
 
       else
@@ -217,8 +215,6 @@
 
     v22 = 0;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

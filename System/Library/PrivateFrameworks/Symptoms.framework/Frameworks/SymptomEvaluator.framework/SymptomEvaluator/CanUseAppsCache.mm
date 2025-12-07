@@ -5,6 +5,7 @@
 - (id)description;
 - (void)disable;
 - (void)enable;
+- (void)insertEntryFor:(id)for state:(int64_t)state rationaleCode:(int)code;
 @end
 
 @implementation CanUseAppsCache
@@ -37,7 +38,7 @@
 
 - (BOOL)hasEntryFor:(id)for state:(int64_t)state rationaleCode:(int *)code
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   forCopy = for;
   v9 = forCopy;
   if (self->disabled)
@@ -65,8 +66,8 @@ LABEL_12:
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
-      v28 = v9;
-      v29 = 2048;
+      v27 = v9;
+      v28 = 2048;
       stateCopy2 = code;
       v11 = "CFSM canUse cache: wants non-nil args (appName/code): %p/%p";
       v12 = v23;
@@ -102,11 +103,11 @@ LABEL_13:
       }
 
       *buf = 138412802;
-      v28 = v9;
-      v29 = 2048;
+      v27 = v9;
+      v28 = 2048;
       stateCopy2 = state;
-      v31 = 2112;
-      v32 = v22;
+      v30 = 2112;
+      v31 = v22;
       _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEBUG, "CFSM canUse cache: hit for (appName/state/code): %@/%ld/%@", buf, 0x20u);
     }
   }
@@ -117,16 +118,75 @@ LABEL_13:
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v28 = v9;
-      v29 = 2048;
+      v27 = v9;
+      v28 = 2048;
       stateCopy2 = state;
       _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, "CFSM canUse cache: miss for (appName/state): %@/%ld", buf, 0x16u);
     }
   }
 
 LABEL_20:
-  v25 = *MEMORY[0x277D85DE8];
   return v19;
+}
+
+- (void)insertEntryFor:(id)for state:(int64_t)state rationaleCode:(int)code
+{
+  v5 = *&code;
+  v20 = *MEMORY[0x277D85DE8];
+  forCopy = for;
+  if (self->disabled)
+  {
+    v9 = rnfLogHandle;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      if ((v5 - 1) >= 7)
+      {
+        v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"(unknown: %i)", v5];
+      }
+
+      else
+      {
+        v10 = off_27898D430[(v5 - 1)];
+      }
+
+      *buf = 138412802;
+      v15 = forCopy;
+      v16 = 2048;
+      stateCopy2 = state;
+      v18 = 2112;
+      v19 = v10;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "CFSM canUse cache: ignoring because disabled (appName/state/code): %@/%ld/%@", buf, 0x20u);
+    }
+  }
+
+  else
+  {
+    v9 = [(CanUseAppsCache *)self _makeKeyFrom:forCopy state:state];
+    v11 = [MEMORY[0x277CCABB0] numberWithInt:v5];
+    [(NSMutableDictionary *)self->cache setObject:v11 forKeyedSubscript:v9];
+
+    v12 = rnfLogHandle;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    {
+      if ((v5 - 1) >= 7)
+      {
+        v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"(unknown: %i)", v5];
+      }
+
+      else
+      {
+        v13 = off_27898D430[(v5 - 1)];
+      }
+
+      *buf = 138412802;
+      v15 = forCopy;
+      v16 = 2048;
+      stateCopy2 = state;
+      v18 = 2112;
+      v19 = v13;
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "CFSM canUse cache: inserted (appName/state/code): %@/%ld/%@", buf, 0x20u);
+    }
+  }
 }
 
 - (void)disable
@@ -144,12 +204,12 @@ LABEL_20:
 
 - (void)enable
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "CFSM canUse cache: enable", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "CFSM canUse cache: enable", &v8, 2u);
   }
 
   self->disabled = 0;
@@ -161,28 +221,26 @@ LABEL_20:
       cache = self->cache;
       v6 = v4;
       v7 = [(NSMutableDictionary *)cache count];
-      v9 = 134217984;
-      v10 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "CFSM canUse cache: enable and drop %ld entries", &v9, 0xCu);
+      v8 = 134217984;
+      v9 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "CFSM canUse cache: enable and drop %ld entries", &v8, 0xCu);
     }
 
     [(NSMutableDictionary *)self->cache removeAllObjects];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)makeVerdictFromRationaleCode:(int)code
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ((code - 1) >= 7)
   {
     v5 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v8[0] = 67109120;
-      v8[1] = code;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "CFSM canUse cache, unexpected code: %d", v8, 8u);
+      v7[0] = 67109120;
+      v7[1] = code;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "CFSM canUse cache, unexpected code: %d", v7, 8u);
     }
 
     LOBYTE(v3) = 0;
@@ -193,7 +251,6 @@ LABEL_20:
     v3 = 0x61u >> (code - 1);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3 & 1;
 }
 

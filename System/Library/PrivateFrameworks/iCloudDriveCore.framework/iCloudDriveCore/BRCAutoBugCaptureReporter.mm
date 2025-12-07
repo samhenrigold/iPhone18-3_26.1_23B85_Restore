@@ -3,6 +3,7 @@
 - (BOOL)_shouldIgnoreReportForOperationType:(id)type ofSubtype:(id)subtype forError:(id)error;
 - (id)_init;
 - (void)_captureLogsForOperationType:(id)type ofSubtype:(id)subtype withContext:(id)context timeout:(double)timeout;
+- (void)captureLogsForOperationType:(id)type ofSubtype:(id)subtype forError:(id)error underlyingError:(id)underlyingError waitForCompletion:(BOOL)completion;
 - (void)captureLogsForOperationType:(id)type ofSubtype:(id)subtype withContext:(id)context waitForCompletion:(BOOL)completion;
 @end
 
@@ -51,7 +52,7 @@ uint64_t __46__BRCAutoBugCaptureReporter_sharedABCReporter__block_invoke()
 
 - (void)_captureLogsForOperationType:(id)type ofSubtype:(id)subtype withContext:(id)context timeout:(double)timeout
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   subtypeCopy = subtype;
   contextCopy = context;
@@ -63,24 +64,23 @@ uint64_t __46__BRCAutoBugCaptureReporter_sharedABCReporter__block_invoke()
   {
     v16 = brc_current_date_nsec();
     longLongValue = [v15 longLongValue];
-    reporterOperationRejectedThrottlePeriod = self->_reporterOperationRejectedThrottlePeriod;
     if (v16 - longLongValue < brc_interval_to_nsec())
     {
-      v19 = brc_bread_crumbs();
-      v20 = brc_default_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v18 = brc_bread_crumbs();
+      v19 = brc_default_log();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138413314;
-        v35 = typeCopy;
+        v33 = typeCopy;
+        v34 = 2112;
+        v35 = subtypeCopy;
         v36 = 2112;
-        v37 = subtypeCopy;
+        v37 = contextCopy;
         v38 = 2112;
-        v39 = contextCopy;
+        v39 = v15;
         v40 = 2112;
-        v41 = v15;
-        v42 = 2112;
-        v43 = v19;
-        _os_log_debug_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEBUG, "[DEBUG] Not sending recently rejected ABC report with signature: type = %@, subtype = %@, subtype context = %@, rejected time = %@%@", buf, 0x34u);
+        v41 = v18;
+        _os_log_debug_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEBUG, "[DEBUG] Not sending recently rejected ABC report with signature: type = %@, subtype = %@, subtype context = %@, rejected time = %@%@", buf, 0x34u);
       }
 
       objc_sync_exit(v14);
@@ -91,55 +91,54 @@ uint64_t __46__BRCAutoBugCaptureReporter_sharedABCReporter__block_invoke()
   }
 
   objc_sync_exit(v14);
-  v21 = brc_bread_crumbs();
-  v22 = brc_default_log();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v20 = brc_bread_crumbs();
+  v21 = brc_default_log();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413058;
-    v35 = typeCopy;
+    v33 = typeCopy;
+    v34 = 2112;
+    v35 = subtypeCopy;
     v36 = 2112;
-    v37 = subtypeCopy;
+    v37 = contextCopy;
     v38 = 2112;
-    v39 = contextCopy;
-    v40 = 2112;
-    v41 = v21;
-    _os_log_debug_impl(&dword_223E7A000, v22, OS_LOG_TYPE_DEBUG, "[DEBUG] Sending ABC report with signature: type = %@, subtype = %@, subtype context = %@%@", buf, 0x2Au);
+    v39 = v20;
+    _os_log_debug_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEBUG, "[DEBUG] Sending ABC report with signature: type = %@, subtype = %@, subtype context = %@%@", buf, 0x2Au);
   }
 
   v14 = objc_opt_new();
-  v23 = [(BRCLRUDictionary *)v14 signatureWithDomain:@"iCloudDrive" type:typeCopy subType:subtypeCopy subtypeContext:contextCopy detectedProcess:@"bird" triggerThresholdValues:0];
-  v24 = dispatch_group_create();
-  dispatch_group_enter(v24);
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __88__BRCAutoBugCaptureReporter__captureLogsForOperationType_ofSubtype_withContext_timeout___block_invoke;
-  v30[3] = &unk_278500DF0;
-  v31 = subtypeCopy;
+  v22 = [(BRCLRUDictionary *)v14 signatureWithDomain:@"iCloudDrive" type:typeCopy subType:subtypeCopy subtypeContext:contextCopy detectedProcess:@"bird" triggerThresholdValues:0];
+  v23 = dispatch_group_create();
+  dispatch_group_enter(v23);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __88__BRCAutoBugCaptureReporter__captureLogsForOperationType_ofSubtype_withContext_timeout___block_invoke;
+  v28[3] = &unk_278500DF0;
+  v29 = subtypeCopy;
   selfCopy = self;
-  v25 = v24;
-  v33 = v25;
-  [(BRCLRUDictionary *)v14 snapshotWithSignature:v23 delay:0 events:0 payload:0 actions:v30 reply:0.0];
+  v24 = v23;
+  v31 = v24;
+  [(BRCLRUDictionary *)v14 snapshotWithSignature:v22 delay:0 events:0 payload:0 actions:v28 reply:0.0];
   if (timeout > 0.0)
   {
-    v26 = dispatch_time(0, (timeout * 1000000000.0));
-    if (dispatch_group_wait(v25, v26))
+    v25 = dispatch_time(0, (timeout * 1000000000.0));
+    if (dispatch_group_wait(v24, v25))
     {
-      v27 = brc_bread_crumbs();
-      v28 = brc_default_log();
-      if (os_log_type_enabled(v28, 0x90u))
+      v26 = brc_bread_crumbs();
+      v27 = brc_default_log();
+      if (os_log_type_enabled(v27, 0x90u))
       {
-        [BRCAutoBugCaptureReporter _captureLogsForOperationType:v27 ofSubtype:v28 withContext:? timeout:?];
+        [BRCAutoBugCaptureReporter _captureLogsForOperationType:v26 ofSubtype:v27 withContext:? timeout:?];
       }
     }
   }
 
 LABEL_15:
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __88__BRCAutoBugCaptureReporter__captureLogsForOperationType_ofSubtype_withContext_timeout___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:*MEMORY[0x277D6B198]];
   v5 = [v4 BOOLValue];
@@ -161,20 +160,20 @@ void __88__BRCAutoBugCaptureReporter__captureLogsForOperationType_ofSubtype_with
     v9 = brc_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v11 = [v3 objectForKeyedSubscript:*MEMORY[0x277D6B168]];
-      v12 = [v3 objectForKeyedSubscript:*MEMORY[0x277D6B180]];
-      v13 = *(a1 + 32);
-      v14 = 138413314;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
-      v23 = v8;
-      _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ABC report got rejected - error code = %@, description = %@ adding throttle (%@, %@)%@", &v14, 0x34u);
+      v10 = [v3 objectForKeyedSubscript:*MEMORY[0x277D6B168]];
+      v11 = [v3 objectForKeyedSubscript:*MEMORY[0x277D6B180]];
+      v12 = *(a1 + 32);
+      v13 = 138413314;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2112;
+      v22 = v8;
+      _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ABC report got rejected - error code = %@, description = %@ adding throttle (%@, %@)%@", &v13, 0x34u);
     }
 
     v7 = *(*(a1 + 40) + 8);
@@ -184,7 +183,6 @@ void __88__BRCAutoBugCaptureReporter__captureLogsForOperationType_ofSubtype_with
   }
 
   dispatch_group_leave(*(a1 + 48));
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)captureLogsForOperationType:(id)type ofSubtype:(id)subtype withContext:(id)context waitForCompletion:(BOOL)completion
@@ -196,6 +194,31 @@ void __88__BRCAutoBugCaptureReporter__captureLogsForOperationType_ofSubtype_with
   }
 
   [(BRCAutoBugCaptureReporter *)self _captureLogsForOperationType:type ofSubtype:subtype withContext:context timeout:v6];
+}
+
+- (void)captureLogsForOperationType:(id)type ofSubtype:(id)subtype forError:(id)error underlyingError:(id)underlyingError waitForCompletion:(BOOL)completion
+{
+  completionCopy = completion;
+  typeCopy = type;
+  subtypeCopy = subtype;
+  underlyingErrorCopy = underlyingError;
+  v14 = [error brc_telemetryReportableErrorWithRecordName:0];
+  if (![(BRCAutoBugCaptureReporter *)self _shouldIgnoreReportForOperationType:typeCopy ofSubtype:subtypeCopy forError:v14])
+  {
+    v15 = MEMORY[0x277CCACA8];
+    domain = [v14 domain];
+    v17 = [v15 stringWithFormat:@"%@.%ld", domain, objc_msgSend(v14, "code")];
+
+    if (underlyingErrorCopy)
+    {
+      domain2 = [underlyingErrorCopy domain];
+      v19 = [v17 stringByAppendingFormat:@".%@.%ld", domain2, objc_msgSend(underlyingErrorCopy, "code")];
+
+      v17 = v19;
+    }
+
+    [(BRCAutoBugCaptureReporter *)self captureLogsForOperationType:typeCopy ofSubtype:subtypeCopy withContext:v17 waitForCompletion:completionCopy];
+  }
 }
 
 - (BOOL)_shouldIgnoreReportForOperationType:(id)type ofSubtype:(id)subtype forError:(id)error
@@ -270,47 +293,39 @@ LABEL_25:
 
 - (void)_captureLogsForOperationType:(uint64_t)a1 ofSubtype:(NSObject *)a2 withContext:timeout:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_223E7A000, a2, 0x90u, "[ERROR] Waiting for snapshotWithSignature timed out%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_223E7A000, a2, 0x90u, "[ERROR] Waiting for snapshotWithSignature timed out%@", &v2, 0xCu);
 }
 
 void __88__BRCAutoBugCaptureReporter__captureLogsForOperationType_ofSubtype_withContext_timeout___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Sent ABC report successfully%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Sent ABC report successfully%@", &v2, 0xCu);
 }
 
 - (void)_shouldIgnoreReportForOperationType:(void *)a1 ofSubtype:forError:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Ignoring CloudKit open error (Operation not permitted) protected class error %ld%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Ignoring CloudKit open error (Operation not permitted) protected class error %ld%@", v3, v4, v5, v6);
 }
 
 - (void)_shouldIgnoreReportForOperationType:(void *)a1 ofSubtype:forError:.cold.2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Ignoring expected CK 'cross-zone migration already done' error %ld%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Ignoring expected CK 'cross-zone migration already done' error %ld%@", v3, v4, v5, v6);
 }
 
 - (void)_shouldIgnoreReportForOperationType:(void *)a1 ofSubtype:forError:.cold.3(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Ignoring expected CK error %ld%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v1, v2, "[DEBUG] Ignoring expected CK error %ld%@", v3, v4, v5, v6);
 }
 
 @end

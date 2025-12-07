@@ -25,49 +25,49 @@
 
 + (void)updateDefaultsValues
 {
-  v3 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], a2, v2);
-  v5 = objc_msgSend_valueForKey_(v3, v4, @"EnableFPSLogging");
-  byte_280A3C038 = objc_msgSend_BOOLValue(v5, v6, v7);
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v3 = [standardUserDefaults valueForKey:@"EnableFPSLogging"];
+  byte_280A3C038 = [v3 BOOLValue];
 
-  v10 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v8, v9);
-  v12 = objc_msgSend_valueForKey_(v10, v11, @"BadgeMetalRendering");
-  byte_280A3C039 = objc_msgSend_BOOLValue(v12, v13, v14);
+  standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v5 = [standardUserDefaults2 valueForKey:@"BadgeMetalRendering"];
+  byte_280A3C039 = [v5 BOOLValue];
 
-  v17 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v15, v16);
-  v19 = objc_msgSend_valueForKey_(v17, v18, @"EnableLocalRendering");
-  byte_280A3C03A = objc_msgSend_BOOLValue(v19, v20, v21);
+  standardUserDefaults3 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v7 = [standardUserDefaults3 valueForKey:@"EnableLocalRendering"];
+  byte_280A3C03A = [v7 BOOLValue];
 
-  v24 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v22, v23);
-  v26 = objc_msgSend_valueForKey_(v24, v25, @"DisableDiscreteGPUAquisition");
-  byte_280A3C03B = objc_msgSend_BOOLValue(v26, v27, v28);
+  standardUserDefaults4 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v9 = [standardUserDefaults4 valueForKey:@"DisableDiscreteGPUAquisition"];
+  byte_280A3C03B = [v9 BOOLValue];
 
-  v31 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v29, v30);
-  v33 = objc_msgSend_valueForKey_(v31, v32, @"DisableViewScaling");
-  byte_280A3C03C = objc_msgSend_BOOLValue(v33, v34, v35);
+  standardUserDefaults5 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v11 = [standardUserDefaults5 valueForKey:@"DisableViewScaling"];
+  byte_280A3C03C = [v11 BOOLValue];
 
-  v38 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v36, v37);
-  v40 = objc_msgSend_valueForKey_(v38, v39, @"EnableAnimationPluginDevelopment");
-  byte_280A3C03D = objc_msgSend_BOOLValue(v40, v41, v42);
+  standardUserDefaults6 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v13 = [standardUserDefaults6 valueForKey:@"EnableAnimationPluginDevelopment"];
+  byte_280A3C03D = [v13 BOOLValue];
 
-  v45 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v43, v44);
-  v47 = objc_msgSend_valueForKey_(v45, v46, @"DisableTexturePrecaching");
-  byte_280A3C03E = objc_msgSend_BOOLValue(v47, v48, v49);
+  standardUserDefaults7 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v15 = [standardUserDefaults7 valueForKey:@"DisableTexturePrecaching"];
+  byte_280A3C03E = [v15 BOOLValue];
 
-  v52 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v50, v51);
-  v54 = objc_msgSend_valueForKey_(v52, v53, @"KNAnimationMotionBlurEnabled");
-  byte_280A3C03F = objc_msgSend_BOOLValue(v54, v55, v56);
+  standardUserDefaults8 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v17 = [standardUserDefaults8 valueForKey:@"KNAnimationMotionBlurEnabled"];
+  byte_280A3C03F = [v17 BOOLValue];
 
-  v59 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v57, v58);
-  v61 = objc_msgSend_valueForKey_(v59, v60, @"ForceMotionBlurOn");
-  byte_280A3C040 = objc_msgSend_BOOLValue(v61, v62, v63);
+  standardUserDefaults9 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v19 = [standardUserDefaults9 valueForKey:@"ForceMotionBlurOn"];
+  byte_280A3C040 = [v19 BOOLValue];
 
-  v66 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v64, v65);
-  v68 = objc_msgSend_valueForKey_(v66, v67, @"ForceMotionBlurOff");
-  byte_280A3C041 = objc_msgSend_BOOLValue(v68, v69, v70);
+  standardUserDefaults10 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v21 = [standardUserDefaults10 valueForKey:@"ForceMotionBlurOff"];
+  byte_280A3C041 = [v21 BOOLValue];
 
-  v73 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v71, v72);
-  v75 = objc_msgSend_valueForKey_(v73, v74, @"EnableMotionBlurLogging");
-  byte_280A3C042 = objc_msgSend_BOOLValue(v75, v76, v77);
+  standardUserDefaults11 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v23 = [standardUserDefaults11 valueForKey:@"EnableMotionBlurLogging"];
+  byte_280A3C042 = [v23 BOOLValue];
 
   if (byte_280A3C040 != byte_280A3C043)
   {
@@ -76,15 +76,15 @@
     {
       if (byte_280A3C040)
       {
-        v80 = @"ENABLED";
+        v24 = @"ENABLED";
       }
 
       else
       {
-        v80 = @"DISABLED";
+        v24 = @"DISABLED";
       }
 
-      NSLog(&cfstr_Is.isa, @"ForceMotionBlurOn", v80);
+      NSLog(&cfstr_Is.isa, @"ForceMotionBlurOn", v24);
     }
   }
 
@@ -95,15 +95,15 @@
     {
       if (byte_280A3C041)
       {
-        v81 = @"ENABLED";
+        v25 = @"ENABLED";
       }
 
       else
       {
-        v81 = @"DISABLED";
+        v25 = @"DISABLED";
       }
 
-      NSLog(&cfstr_Is.isa, @"ForceMotionBlurOff", v81);
+      NSLog(&cfstr_Is.isa, @"ForceMotionBlurOff", v25);
     }
   }
 
@@ -112,23 +112,23 @@
     sub_275E5B4A8();
   }
 
-  v82 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v78, v79);
-  byte_280A3C045 = objc_msgSend_BOOLForKey_(v82, v83, @"RandomNumberSeedAlwaysRandom");
+  standardUserDefaults12 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  byte_280A3C045 = [standardUserDefaults12 BOOLForKey:@"RandomNumberSeedAlwaysRandom"];
 
-  v86 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v84, v85);
-  byte_280A3C046 = objc_msgSend_BOOLForKey_(v86, v87, @"RandomNumberSeedAlwaysZero");
+  standardUserDefaults13 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  byte_280A3C046 = [standardUserDefaults13 BOOLForKey:@"RandomNumberSeedAlwaysZero"];
 
-  v90 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v88, v89);
-  v92 = objc_msgSend_valueForKey_(v90, v91, @"EnableResponsivenessLogging");
-  byte_280A3C047 = objc_msgSend_BOOLValue(v92, v93, v94);
+  standardUserDefaults14 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v29 = [standardUserDefaults14 valueForKey:@"EnableResponsivenessLogging"];
+  byte_280A3C047 = [v29 BOOLValue];
 
-  v97 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v95, v96);
-  v99 = objc_msgSend_valueForKey_(v97, v98, @"EnableFullSpeedDynamicBackgrounds");
-  byte_280A3C048 = objc_msgSend_BOOLValue(v99, v100, v101);
+  standardUserDefaults15 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v31 = [standardUserDefaults15 valueForKey:@"EnableFullSpeedDynamicBackgrounds"];
+  byte_280A3C048 = [v31 BOOLValue];
 
-  v108 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v102, v103);
-  v105 = objc_msgSend_valueForKey_(v108, v104, @"EnableDynamicBackgroundMultisampling");
-  byte_280A3C049 = objc_msgSend_BOOLValue(v105, v106, v107);
+  standardUserDefaults16 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v32 = [standardUserDefaults16 valueForKey:@"EnableDynamicBackgroundMultisampling"];
+  byte_280A3C049 = [v32 BOOLValue];
 }
 
 + (void)initialize
@@ -146,39 +146,39 @@
 
 + (id)timingsArrayWithDirection:(unint64_t)direction duration:(double)duration count:(unint64_t)count chunkDuration:(double)chunkDuration randomness:(double)randomness randomGenerator:(id)generator
 {
-  v138 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   generatorCopy = generator;
   if (direction - 111 >= 5)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "+[KNAnimationUtils timingsArrayWithDirection:duration:count:chunkDuration:randomness:randomGenerator:]");
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v19, v16, v18, 244, 0, "Wrong direction! Expected Character direction, not %tu", direction);
+    v14 = MEMORY[0x277D81150];
+    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNAnimationUtils timingsArrayWithDirection:duration:count:chunkDuration:randomness:randomGenerator:]"];
+    v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m"];
+    [v14 handleFailureInFunction:v15 file:v16 lineNumber:244 isFatal:0 description:{"Wrong direction! Expected Character direction, not %tu", direction}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   if (chunkDuration < 0.0 || chunkDuration > 1.0)
   {
-    v23 = MEMORY[0x277D81150];
-    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "+[KNAnimationUtils timingsArrayWithDirection:duration:count:chunkDuration:randomness:randomGenerator:]");
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v27, v24, v26, 246, 0, "Chunk duration must be between [0,1]!");
+    v18 = MEMORY[0x277D81150];
+    v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNAnimationUtils timingsArrayWithDirection:duration:count:chunkDuration:randomness:randomGenerator:]"];
+    v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m"];
+    [v18 handleFailureInFunction:v19 file:v20 lineNumber:246 isFatal:0 description:{"Chunk duration must be between [0, 1]!"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   if (!generatorCopy)
   {
-    v30 = MEMORY[0x277D81150];
-    v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "+[KNAnimationUtils timingsArrayWithDirection:duration:count:chunkDuration:randomness:randomGenerator:]");
-    v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v30, v34, v31, v33, 247, 0, "invalid nil value for '%{public}s'", "randGen");
+    v21 = MEMORY[0x277D81150];
+    v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNAnimationUtils timingsArrayWithDirection:duration:count:chunkDuration:randomness:randomGenerator:]"];
+    v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m"];
+    [v21 handleFailureInFunction:v22 file:v23 lineNumber:247 isFatal:0 description:{"invalid nil value for '%{public}s'", "randGen"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v35, v36);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v37 = count - 1;
+  v24 = count - 1;
   if (count == 1)
   {
     durationCopy = duration;
@@ -189,66 +189,67 @@
     durationCopy = duration * chunkDuration;
   }
 
-  v41 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v13, count);
+  v26 = [MEMORY[0x277CBEB18] arrayWithCapacity:count];
   if (direction - 111 < 2)
   {
     if (count)
     {
-      v58 = 0;
-      v59 = (duration - durationCopy) / count;
+      v40 = 0;
+      v41 = (duration - durationCopy) / count;
       countCopy = count;
       do
       {
-        v61 = v59 * v58;
+        v43 = v41 * v40;
         if (randomness == 0.0)
         {
-          objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v39, v40, v61, durationCopy);
+          durationCopy2 = durationCopy;
         }
 
         else
         {
-          if (v58 && countCopy != 1)
+          if (v40 && countCopy != 1)
           {
-            objc_msgSend_doubleBetween::(generatorCopy, v39, v40, -0.5, 0.5);
-            v61 = v61 + v59 * randomness * v62;
+            [generatorCopy doubleBetween:-0.5 :0.5];
+            v43 = v43 + v41 * randomness * v44;
           }
 
-          objc_msgSend_doubleBetween::(generatorCopy, v39, v40, -0.5, 0.5);
-          v66 = durationCopy + durationCopy * randomness * v65;
-          if (v66 >= duration)
+          [generatorCopy doubleBetween:-0.5 :0.5];
+          v46 = durationCopy + durationCopy * randomness * v45;
+          if (v46 >= duration)
           {
             durationCopy2 = duration;
           }
 
           else
           {
-            durationCopy2 = v66;
+            durationCopy2 = v46;
           }
 
-          if (v61 >= 0.0)
+          if (v43 >= 0.0)
           {
-            v68 = v61;
-          }
-
-          else
-          {
-            v68 = 0.0;
-          }
-
-          if (v68 >= duration - durationCopy2)
-          {
-            objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v63, v64, duration - durationCopy2, durationCopy2);
+            v48 = v43;
           }
 
           else
           {
-            objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v63, v64, v68, durationCopy2);
+            v48 = 0.0;
+          }
+
+          if (v48 >= duration - durationCopy2)
+          {
+            v43 = duration - durationCopy2;
+          }
+
+          else
+          {
+            v43 = v48;
           }
         }
-        v69 = ;
-        objc_msgSend_addObject_(v41, v70, v69);
 
-        ++v58;
+        v49 = [MEMORY[0x277CCAE60] valueWithCGPoint:{v43, durationCopy2}];
+        [v26 addObject:v49];
+
+        ++v40;
         --countCopy;
       }
 
@@ -260,100 +261,100 @@
   {
     if (direction != 113)
     {
-      v88 = MEMORY[0x277D81150];
-      v89 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "+[KNAnimationUtils timingsArrayWithDirection:duration:count:chunkDuration:randomness:randomGenerator:]");
-      v91 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v90, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v88, v92, v89, v91, 342, 0, "KNAnimationUtils: We should never have gotten here! Direction: %tu", direction);
+      v56 = MEMORY[0x277D81150];
+      v57 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNAnimationUtils timingsArrayWithDirection:duration:count:chunkDuration:randomness:randomGenerator:]"];
+      v58 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m"];
+      [v56 handleFailureInFunction:v57 file:v58 lineNumber:342 isFatal:0 description:{"KNAnimationUtils: We should never have gotten here! Direction: %tu", direction}];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v93, v94);
-      v95 = MEMORY[0x277CBEBF8];
+      [MEMORY[0x277D81150] logBacktraceThrottled];
+      v59 = MEMORY[0x277CBEBF8];
       goto LABEL_93;
     }
 
-    v72 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v39, count);
+    v50 = [MEMORY[0x277CBEB18] arrayWithCapacity:count];
     if (count)
     {
-      v73 = 0;
+      v51 = 0;
       do
       {
-        v74 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v71, v73);
-        objc_msgSend_addObject_(v72, v75, v74);
+        v52 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v51];
+        [v50 addObject:v52];
 
-        ++v73;
+        ++v51;
       }
 
-      while (count != v73);
+      while (count != v51);
     }
 
-    v78 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v71, count);
-    while (objc_msgSend_count(v72, v76, v77))
+    v53 = [MEMORY[0x277CBEB18] arrayWithCapacity:count];
+    while ([v50 count])
     {
-      v81 = objc_msgSend_count(v72, v79, v80);
-      v83 = objc_msgSend_intBetween::(generatorCopy, v82, 0, v81 - 1);
-      v85 = objc_msgSend_objectAtIndex_(v72, v84, v83);
-      objc_msgSend_addObject_(v78, v86, v85);
+      v54 = [generatorCopy intBetween:0 :{objc_msgSend(v50, "count") - 1}];
+      v55 = [v50 objectAtIndex:v54];
+      [v53 addObject:v55];
 
-      objc_msgSend_removeObjectAtIndex_(v72, v87, v83);
+      [v50 removeObjectAtIndex:v54];
     }
 
     if (count)
     {
-      v96 = 0;
-      v97 = (duration - durationCopy) / count;
+      v60 = 0;
+      v61 = (duration - durationCopy) / count;
       do
       {
-        v98 = objc_msgSend_objectAtIndex_(v78, v79, v96);
-        v101 = objc_msgSend_intValue(v98, v99, v100);
+        v62 = [v53 objectAtIndex:v60];
+        intValue = [v62 intValue];
 
-        v104 = v97 * v101;
+        v64 = v61 * intValue;
         if (randomness == 0.0)
         {
-          objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v102, v103, v104, durationCopy);
+          durationCopy3 = durationCopy;
         }
 
         else
         {
-          objc_msgSend_doubleBetween::(generatorCopy, v102, v103, -0.5, 0.5);
-          v106 = v104 + v97 * randomness * v105;
-          objc_msgSend_doubleBetween::(generatorCopy, v107, v108, -0.5, 0.5);
-          v112 = durationCopy + durationCopy * randomness * v111;
-          if (v112 >= duration)
+          [generatorCopy doubleBetween:-0.5 :0.5];
+          v66 = v64 + v61 * randomness * v65;
+          [generatorCopy doubleBetween:-0.5 :0.5];
+          v68 = durationCopy + durationCopy * randomness * v67;
+          if (v68 >= duration)
           {
             durationCopy3 = duration;
           }
 
           else
           {
-            durationCopy3 = v112;
+            durationCopy3 = v68;
           }
 
-          if (v106 >= 0.0)
+          if (v66 >= 0.0)
           {
-            v114 = v106;
-          }
-
-          else
-          {
-            v114 = 0.0;
-          }
-
-          if (v114 >= duration - durationCopy3)
-          {
-            objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v109, v110, duration - durationCopy3, durationCopy3);
+            v70 = v66;
           }
 
           else
           {
-            objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v109, v110, v114, durationCopy3);
+            v70 = 0.0;
+          }
+
+          if (v70 >= duration - durationCopy3)
+          {
+            v64 = duration - durationCopy3;
+          }
+
+          else
+          {
+            v64 = v70;
           }
         }
-        v115 = ;
-        objc_msgSend_addObject_(v41, v116, v115);
 
-        ++v96;
+        v71 = [MEMORY[0x277CCAE60] valueWithCGPoint:{v64, durationCopy3}];
+        [v26 addObject:v71];
+
+        ++v60;
       }
 
-      while (count != v96);
+      while (count != v60);
     }
   }
 
@@ -361,432 +362,443 @@
   {
     if (count >> 1 <= 1)
     {
-      v42 = 1;
+      v27 = 1;
     }
 
     else
     {
-      v42 = count >> 1;
+      v27 = count >> 1;
     }
 
     if (count)
     {
-      v43 = 0;
-      v44 = (duration - durationCopy) / v42;
-      v45 = vcvtd_n_f64_u64(count, 1uLL);
+      v28 = 0;
+      v29 = (duration - durationCopy) / v27;
+      v30 = vcvtd_n_f64_u64(count, 1uLL);
       do
       {
-        if (v45 <= v43)
+        if (v30 <= v28)
         {
-          v46 = v37;
+          v31 = v24;
         }
 
         else
         {
-          v46 = v43;
+          v31 = v28;
         }
 
-        v47 = v44 * v46;
+        v32 = v29 * v31;
         if (randomness == 0.0)
         {
-          objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v39, v40, v47, durationCopy);
+          durationCopy4 = durationCopy;
         }
 
         else
         {
-          if (v46)
+          if (v31)
           {
-            v48 = v46 == count >> 1;
+            v33 = v31 == count >> 1;
           }
 
           else
           {
-            v48 = 1;
+            v33 = 1;
           }
 
-          if (!v48)
+          if (!v33)
           {
-            objc_msgSend_doubleBetween::(generatorCopy, v39, v40, -0.5, 0.5);
-            v47 = v47 + v44 * randomness * v49;
+            [generatorCopy doubleBetween:-0.5 :0.5];
+            v32 = v32 + v29 * randomness * v34;
           }
 
-          objc_msgSend_doubleBetween::(generatorCopy, v39, v40, -0.5, 0.5);
-          v53 = durationCopy + durationCopy * randomness * v52;
-          if (v53 >= duration)
+          [generatorCopy doubleBetween:-0.5 :0.5];
+          v36 = durationCopy + durationCopy * randomness * v35;
+          if (v36 >= duration)
           {
             durationCopy4 = duration;
           }
 
           else
           {
-            durationCopy4 = v53;
+            durationCopy4 = v36;
           }
 
-          v55 = 0.0;
-          if (v47 >= 0.0)
+          v38 = 0.0;
+          if (v32 >= 0.0)
           {
-            v55 = v47;
+            v38 = v32;
           }
 
-          if (v55 >= duration - durationCopy4)
+          if (v38 >= duration - durationCopy4)
           {
-            objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v50, v51, duration - durationCopy4, durationCopy4);
+            v32 = duration - durationCopy4;
           }
 
           else
           {
-            objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v50, v51, v55, durationCopy4);
+            v32 = v38;
           }
         }
-        v56 = ;
-        objc_msgSend_addObject_(v41, v57, v56);
 
-        ++v43;
-        --v37;
+        v39 = [MEMORY[0x277CCAE60] valueWithCGPoint:{v32, durationCopy4}];
+        [v26 addObject:v39];
+
+        ++v28;
+        --v24;
       }
 
-      while (v37 != -1);
+      while (v24 != -1);
     }
   }
 
   if ((direction & 0xFFFFFFFFFFFFFFFDLL) == 0x70)
   {
-    v117 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v39, count);
-    v133 = 0u;
-    v134 = 0u;
-    v135 = 0u;
-    v136 = 0u;
-    v118 = v41;
-    v120 = objc_msgSend_countByEnumeratingWithState_objects_count_(v118, v119, &v133, v137, 16);
-    if (v120)
+    v72 = [MEMORY[0x277CBEB18] arrayWithCapacity:count];
+    v82 = 0u;
+    v83 = 0u;
+    v84 = 0u;
+    v85 = 0u;
+    v73 = v26;
+    v74 = [v73 countByEnumeratingWithState:&v82 objects:v86 count:16];
+    if (v74)
     {
-      v123 = v120;
-      v124 = *v134;
+      v75 = v74;
+      v76 = *v83;
       do
       {
-        for (i = 0; i != v123; ++i)
+        for (i = 0; i != v75; ++i)
         {
-          if (*v134 != v124)
+          if (*v83 != v76)
           {
-            objc_enumerationMutation(v118);
+            objc_enumerationMutation(v73);
           }
 
-          objc_msgSend_CGPointValue(*(*(&v133 + 1) + 8 * i), v121, v122);
-          v130 = objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v128, v129, duration - v126 - v127);
-          objc_msgSend_addObject_(v117, v131, v130);
+          [*(*(&v82 + 1) + 8 * i) CGPointValue];
+          v80 = [MEMORY[0x277CCAE60] valueWithCGPoint:duration - v78 - v79];
+          [v72 addObject:v80];
         }
 
-        v123 = objc_msgSend_countByEnumeratingWithState_objects_count_(v118, v121, &v133, v137, 16);
+        v75 = [v73 countByEnumeratingWithState:&v82 objects:v86 count:16];
       }
 
-      while (v123);
+      while (v75);
     }
   }
 
   else
   {
-    v117 = v41;
+    v72 = v26;
   }
 
-  v41 = v117;
-  v95 = v41;
+  v26 = v72;
+  v59 = v26;
 LABEL_93:
 
-  return v95;
+  return v59;
 }
 
 + (id)customAttributesArrayWithTextDeliveryOptions:(id)options
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
-  v4 = MEMORY[0x277CBEB38];
-  v7 = objc_msgSend_count(optionsCopy, v5, v6);
-  v9 = objc_msgSend_dictionaryWithCapacity_(v4, v8, v7);
-  v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v10 = optionsCopy;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v45, v52, 16);
-  if (v12)
+  v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(optionsCopy, "count")}];
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v5 = optionsCopy;
+  v6 = [v5 countByEnumeratingWithState:&v25 objects:v32 count:16];
+  if (v6)
   {
-    v15 = v12;
-    v16 = *v46;
+    v7 = v6;
+    v8 = *v26;
     do
     {
-      v17 = 0;
+      v9 = 0;
       do
       {
-        if (*v46 != v16)
+        if (*v26 != v8)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v5);
         }
 
-        v18 = objc_msgSend_integerValue(*(*(&v45 + 1) + 8 * v17), v13, v14, v45);
-        if (v18 > 1)
+        integerValue = [*(*(&v25 + 1) + 8 * v9) integerValue];
+        if (integerValue > 1)
         {
-          switch(v18)
+          switch(integerValue)
           {
             case 2:
-              v19 = sub_275DC204C();
-              v21 = objc_msgSend_localizedStringForKey_value_table_(v19, v25, @"By Word *Text Delivery*", @"By Word", @"Keynote");
-              objc_msgSend_setObject_forKey_(v9, v26, &unk_2884F3768, v21);
+              v11 = sub_275DC204C(2);
+              v12 = [v11 localizedStringForKey:@"By Word *Text Delivery*" value:@"By Word" table:@"Keynote"];
+              v13 = v4;
+              v14 = &unk_2884F3768;
               break;
             case 3:
-              v19 = sub_275DC204C();
-              v21 = objc_msgSend_localizedStringForKey_value_table_(v19, v27, @"By Character *Text Delivery*", @"By Character", @"Keynote");
-              objc_msgSend_setObject_forKey_(v9, v28, &unk_2884F3780, v21);
+              v11 = sub_275DC204C(3);
+              v12 = [v11 localizedStringForKey:@"By Character *Text Delivery*" value:@"By Character" table:@"Keynote"];
+              v13 = v4;
+              v14 = &unk_2884F3780;
               break;
             case 4:
-              v19 = sub_275DC204C();
-              v21 = objc_msgSend_localizedStringForKey_value_table_(v19, v20, @"By Line *Text Delivery*", @"By Line", @"Keynote");
-              objc_msgSend_setObject_forKey_(v9, v22, &unk_2884F3798, v21);
+              v11 = sub_275DC204C(4);
+              v12 = [v11 localizedStringForKey:@"By Line *Text Delivery*" value:@"By Line" table:@"Keynote"];
+              v13 = v4;
+              v14 = &unk_2884F3798;
               break;
             default:
               goto LABEL_17;
           }
 
 LABEL_16:
+          [v13 setObject:v14 forKey:v12];
 
           goto LABEL_17;
         }
 
-        if (v18)
+        if (integerValue)
         {
-          if (v18 != 1)
+          if (integerValue != 1)
           {
             goto LABEL_17;
           }
 
-          v19 = sub_275DC204C();
-          v21 = objc_msgSend_localizedStringForKey_value_table_(v19, v23, @"By Object *Text Delivery*", @"By Object", @"Keynote");
-          objc_msgSend_setObject_forKey_(v9, v24, &unk_2884F3750, v21);
+          v11 = sub_275DC204C(1);
+          v12 = [v11 localizedStringForKey:@"By Object *Text Delivery*" value:@"By Object" table:@"Keynote"];
+          v13 = v4;
+          v14 = &unk_2884F3750;
           goto LABEL_16;
         }
 
-        v29 = MEMORY[0x277D81150];
-        v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "+[KNAnimationUtils customAttributesArrayWithTextDeliveryOptions:]");
-        v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v29, v33, v30, v32, 391, 0, "Unknown text delivery option!");
+        v15 = MEMORY[0x277D81150];
+        v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNAnimationUtils customAttributesArrayWithTextDeliveryOptions:]"];
+        v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m"];
+        [v15 handleFailureInFunction:v16 file:v17 lineNumber:391 isFatal:0 description:"Unknown text delivery option!"];
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35);
+        [MEMORY[0x277D81150] logBacktraceThrottled];
 LABEL_17:
-        ++v17;
+        ++v9;
       }
 
-      while (v15 != v17);
-      v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v45, v52, 16);
-      v15 = v36;
+      while (v7 != v9);
+      v18 = [v5 countByEnumeratingWithState:&v25 objects:v32 count:16];
+      v7 = v18;
     }
 
-    while (v36);
+    while (v18);
   }
 
-  v51[0] = @"KNBuildCustomAttributesTextDelivery";
-  v50[0] = &unk_2884F3750;
-  v50[1] = &unk_2884F3768;
-  v37 = sub_275DC204C();
-  v39 = objc_msgSend_localizedStringForKey_value_table_(v37, v38, @"Text Animation *Build", @"Text Animation", @"Keynote");
-  v51[1] = v39;
-  v51[2] = &unk_2884F37B0;
-  v50[2] = &unk_2884F3780;
-  v50[3] = &unk_2884F37C8;
-  v51[3] = v9;
-  v41 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v40, v51, v50, 4);
+  v31[0] = @"KNBuildCustomAttributesTextDelivery";
+  v30[0] = &unk_2884F3750;
+  v30[1] = &unk_2884F3768;
+  v20 = sub_275DC204C(v19);
+  v21 = [v20 localizedStringForKey:@"Text Animation *Build" value:@"Text Animation" table:@"Keynote"];
+  v31[1] = v21;
+  v31[2] = &unk_2884F37B0;
+  v30[2] = &unk_2884F3780;
+  v30[3] = &unk_2884F37C8;
+  v31[3] = v4;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
 
-  v49 = v41;
-  v43 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v42, &v49, 1);
+  v29 = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
 
-  return v43;
+  return v23;
 }
 
 + (id)customAttributesArrayWithDeliveryOptions:(id)options
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
-  v4 = MEMORY[0x277CBEB38];
-  v7 = objc_msgSend_count(optionsCopy, v5, v6);
-  v9 = objc_msgSend_dictionaryWithCapacity_(v4, v8, v7);
-  v48 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v10 = optionsCopy;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v48, v55, 16);
-  if (v12)
+  v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(optionsCopy, "count")}];
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v5 = optionsCopy;
+  v6 = [v5 countByEnumeratingWithState:&v25 objects:v32 count:16];
+  if (v6)
   {
-    v15 = v12;
-    v16 = *v49;
+    v7 = v6;
+    v8 = *v26;
     do
     {
-      v17 = 0;
+      v9 = 0;
       do
       {
-        if (*v49 != v16)
+        if (*v26 != v8)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v5);
         }
 
-        v18 = objc_msgSend_integerValue(*(*(&v48 + 1) + 8 * v17), v13, v14, v48);
-        if (v18 <= 2)
+        integerValue = [*(*(&v25 + 1) + 8 * v9) integerValue];
+        if (integerValue <= 2)
         {
-          if (v18 == 1)
+          if (integerValue == 1)
           {
-            v20 = sub_275DC204C();
-            v22 = objc_msgSend_localizedStringForKey_value_table_(v20, v30, @"Forward *Delivery Option*", @"Forward", @"Keynote");
-            objc_msgSend_setObject_forKey_(v9, v31, &unk_2884F37E0, v22);
+            v11 = sub_275DC204C(1);
+            v12 = [v11 localizedStringForKey:@"Forward *Delivery Option*" value:@"Forward" table:@"Keynote"];
+            v13 = v4;
+            v14 = &unk_2884F37E0;
             goto LABEL_17;
           }
 
-          if (v18 == 2)
+          if (integerValue == 2)
           {
-            v20 = sub_275DC204C();
-            v22 = objc_msgSend_localizedStringForKey_value_table_(v20, v24, @"Backward *Delivery Option*", @"Backward", @"Keynote");
-            objc_msgSend_setObject_forKey_(v9, v25, &unk_2884F37F8, v22);
+            v11 = sub_275DC204C(2);
+            v12 = [v11 localizedStringForKey:@"Backward *Delivery Option*" value:@"Backward" table:@"Keynote"];
+            v13 = v4;
+            v14 = &unk_2884F37F8;
             goto LABEL_17;
           }
         }
 
         else
         {
-          switch(v18)
+          switch(integerValue)
           {
             case 3:
-              v20 = sub_275DC204C();
-              v22 = objc_msgSend_localizedStringForKey_value_table_(v20, v26, @"From Center *Delivery Option*", @"From Center", @"Keynote");
-              objc_msgSend_setObject_forKey_(v9, v27, &unk_2884F3810, v22);
+              v11 = sub_275DC204C(3);
+              v12 = [v11 localizedStringForKey:@"From Center *Delivery Option*" value:@"From Center" table:@"Keynote"];
+              v13 = v4;
+              v14 = &unk_2884F3810;
               goto LABEL_17;
             case 4:
-              v20 = sub_275DC204C();
-              v22 = objc_msgSend_localizedStringForKey_value_table_(v20, v28, @"From Edges *Delivery Option*", @"From Edges", @"Keynote");
-              objc_msgSend_setObject_forKey_(v9, v29, &unk_2884F3828, v22);
+              v11 = sub_275DC204C(4);
+              v12 = [v11 localizedStringForKey:@"From Edges *Delivery Option*" value:@"From Edges" table:@"Keynote"];
+              v13 = v4;
+              v14 = &unk_2884F3828;
               goto LABEL_17;
             case 5:
-              v20 = sub_275DC204C();
-              v22 = objc_msgSend_localizedStringForKey_value_table_(v20, v21, @"Random *Delivery Option*", @"Random", @"Keynote");
-              objc_msgSend_setObject_forKey_(v9, v23, &unk_2884F3840, v22);
+              v11 = sub_275DC204C(5);
+              v12 = [v11 localizedStringForKey:@"Random *Delivery Option*" value:@"Random" table:@"Keynote"];
+              v13 = v4;
+              v14 = &unk_2884F3840;
 LABEL_17:
+              [v13 setObject:v14 forKey:v12];
 
               goto LABEL_18;
           }
         }
 
-        v32 = MEMORY[0x277D81150];
-        v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "+[KNAnimationUtils customAttributesArrayWithDeliveryOptions:]");
-        v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v32, v36, v33, v35, 434, 0, "Unknown delivery option!");
+        v15 = MEMORY[0x277D81150];
+        v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNAnimationUtils customAttributesArrayWithDeliveryOptions:]"];
+        v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m"];
+        [v15 handleFailureInFunction:v16 file:v17 lineNumber:434 isFatal:0 description:"Unknown delivery option!"];
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38);
+        [MEMORY[0x277D81150] logBacktraceThrottled];
 LABEL_18:
-        ++v17;
+        ++v9;
       }
 
-      while (v15 != v17);
-      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v48, v55, 16);
-      v15 = v39;
+      while (v7 != v9);
+      v18 = [v5 countByEnumeratingWithState:&v25 objects:v32 count:16];
+      v7 = v18;
     }
 
-    while (v39);
+    while (v18);
   }
 
-  v54[0] = @"KNBuildCustomAttributesDeliveryOption";
-  v53[0] = &unk_2884F3750;
-  v53[1] = &unk_2884F3768;
-  v40 = sub_275DC204C();
-  v42 = objc_msgSend_localizedStringForKey_value_table_(v40, v41, @"Delivery Option *Build", @"Delivery Option", @"Keynote");
-  v54[1] = v42;
-  v54[2] = &unk_2884F37B0;
-  v53[2] = &unk_2884F3780;
-  v53[3] = &unk_2884F37C8;
-  v54[3] = v9;
-  v44 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v43, v54, v53, 4);
+  v31[0] = @"KNBuildCustomAttributesDeliveryOption";
+  v30[0] = &unk_2884F3750;
+  v30[1] = &unk_2884F3768;
+  v20 = sub_275DC204C(v19);
+  v21 = [v20 localizedStringForKey:@"Delivery Option *Build" value:@"Delivery Option" table:@"Keynote"];
+  v31[1] = v21;
+  v31[2] = &unk_2884F37B0;
+  v30[2] = &unk_2884F3780;
+  v30[3] = &unk_2884F37C8;
+  v31[3] = v4;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
 
-  v52 = v44;
-  v46 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v45, &v52, 1);
+  v29 = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
 
-  return v46;
+  return v23;
 }
 
 + (id)customAttributesArrayWithJiggleIntensityOptions:(id)options
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
-  v4 = MEMORY[0x277CBEB38];
-  v7 = objc_msgSend_count(optionsCopy, v5, v6);
-  v9 = objc_msgSend_dictionaryWithCapacity_(v4, v8, v7);
-  v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v10 = optionsCopy;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v38, v45, 16);
-  if (v12)
+  v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(optionsCopy, "count")}];
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v5 = optionsCopy;
+  v6 = [v5 countByEnumeratingWithState:&v23 objects:v30 count:16];
+  if (v6)
   {
-    v15 = v12;
-    v16 = *v39;
+    v7 = v6;
+    v8 = *v24;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v39 != v16)
+        if (*v24 != v8)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v5);
         }
 
-        v18 = objc_msgSend_integerValue(*(*(&v38 + 1) + 8 * i), v13, v14, v38);
-        if (v18 == 2)
+        integerValue = [*(*(&v23 + 1) + 8 * i) integerValue];
+        if (integerValue == 2)
         {
-          v19 = sub_275DC204C();
-          v21 = objc_msgSend_localizedStringForKey_value_table_(v19, v25, @"Large *Jiggle Intensity", @"Large", @"Keynote");
-          objc_msgSend_setObject_forKey_(v9, v26, &unk_2884F37F8, v21);
+          v11 = sub_275DC204C(2);
+          v12 = [v11 localizedStringForKey:@"Large *Jiggle Intensity" value:@"Large" table:@"Keynote"];
+          v13 = v4;
+          v14 = &unk_2884F37F8;
         }
 
-        else if (v18 == 1)
+        else if (integerValue == 1)
         {
-          v19 = sub_275DC204C();
-          v21 = objc_msgSend_localizedStringForKey_value_table_(v19, v23, @"Medium *Jiggle Intensity", @"Medium", @"Keynote");
-          objc_msgSend_setObject_forKey_(v9, v24, &unk_2884F37E0, v21);
+          v11 = sub_275DC204C(1);
+          v12 = [v11 localizedStringForKey:@"Medium *Jiggle Intensity" value:@"Medium" table:@"Keynote"];
+          v13 = v4;
+          v14 = &unk_2884F37E0;
         }
 
         else
         {
-          if (v18)
+          if (integerValue)
           {
             continue;
           }
 
-          v19 = sub_275DC204C();
-          v21 = objc_msgSend_localizedStringForKey_value_table_(v19, v20, @"Small *Jiggle Intensity", @"Small", @"Keynote");
-          objc_msgSend_setObject_forKey_(v9, v22, &unk_2884F3858, v21);
+          v11 = sub_275DC204C(0);
+          v12 = [v11 localizedStringForKey:@"Small *Jiggle Intensity" value:@"Small" table:@"Keynote"];
+          v13 = v4;
+          v14 = &unk_2884F3858;
         }
+
+        [v13 setObject:v14 forKey:v12];
       }
 
-      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v38, v45, 16);
+      v7 = [v5 countByEnumeratingWithState:&v23 objects:v30 count:16];
     }
 
-    while (v15);
+    while (v7);
   }
 
-  v44[0] = @"KNActionBuildCustomAttributesJiggleIntensity";
-  v43[0] = &unk_2884F3750;
-  v43[1] = &unk_2884F3768;
-  v27 = sub_275DC204C();
-  v29 = objc_msgSend_localizedStringForKey_value_table_(v27, v28, @"Jiggle Intensity *Action Build", @"Intensity", @"Keynote");
-  v44[1] = v29;
-  v44[2] = &unk_2884F37B0;
-  v43[2] = &unk_2884F3780;
-  v43[3] = &unk_2884F37C8;
-  v44[3] = v9;
-  v43[4] = &unk_2884F3798;
-  v30 = sub_275DC204C();
-  v32 = objc_msgSend_localizedStringForKey_value_table_(v30, v31, @"Adjust the intensity of the jiggle on the object.", &stru_2884D8E20, @"Keynote");
-  v44[4] = v32;
-  v34 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v33, v44, v43, 5);
+  v29[0] = @"KNActionBuildCustomAttributesJiggleIntensity";
+  v28[0] = &unk_2884F3750;
+  v28[1] = &unk_2884F3768;
+  v16 = sub_275DC204C(v15);
+  v17 = [v16 localizedStringForKey:@"Jiggle Intensity *Action Build" value:@"Intensity" table:@"Keynote"];
+  v29[1] = v17;
+  v29[2] = &unk_2884F37B0;
+  v28[2] = &unk_2884F3780;
+  v28[3] = &unk_2884F37C8;
+  v29[3] = v4;
+  v28[4] = &unk_2884F3798;
+  v18 = sub_275DC204C(v17);
+  v19 = [v18 localizedStringForKey:@"Adjust the intensity of the jiggle on the object." value:&stru_2884D8E20 table:@"Keynote"];
+  v29[4] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:5];
 
-  v42 = v34;
-  v36 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v35, &v42, 1);
+  v27 = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
 
-  return v36;
+  return v21;
 }
 
 + (unint64_t)directionFromCustomAttributesDeliveryOption:(unint64_t)option
@@ -805,86 +817,86 @@ LABEL_18:
 + (unint64_t)randomDirection
 {
   TSURandomBetween();
-  if (v3 < 9)
+  if (v2 < 9)
   {
-    return qword_275E71078[v3];
+    return qword_275E71078[v2];
   }
 
-  v5 = MEMORY[0x277D81150];
-  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v2, "+[KNAnimationUtils randomDirection]");
-  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 521, 0, "Invalid random number between 0 and 8!");
+  v4 = MEMORY[0x277D81150];
+  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNAnimationUtils randomDirection]"];
+  v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m"];
+  [v4 handleFailureInFunction:v5 file:v6 lineNumber:521 isFatal:0 description:"Invalid random number between 0 and 8!"];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+  [MEMORY[0x277D81150] logBacktraceThrottled];
   return 0;
 }
 
 + (unint64_t)randomBasicDirection
 {
   TSURandomBetween();
-  if (v3 < 5)
+  if (v2 < 5)
   {
-    return qword_275E710C0[v3];
+    return qword_275E710C0[v2];
   }
 
-  v5 = MEMORY[0x277D81150];
-  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v2, "+[KNAnimationUtils randomBasicDirection]");
-  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 539, 0, "Invalid random number between 0 and 4!");
+  v4 = MEMORY[0x277D81150];
+  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNAnimationUtils randomBasicDirection]"];
+  v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationUtils.m"];
+  [v4 handleFailureInFunction:v5 file:v6 lineNumber:539 isFatal:0 description:"Invalid random number between 0 and 4!"];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+  [MEMORY[0x277D81150] logBacktraceThrottled];
   return 0;
 }
 
 + (BOOL)isDisplayLoggingEnabled
 {
-  v3 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], a2, v2);
-  v5 = objc_msgSend_BOOLForKey_(v3, v4, @"EnableDisplayLogging");
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v3 = [standardUserDefaults BOOLForKey:@"EnableDisplayLogging"];
 
-  return v5;
+  return v3;
 }
 
 + (BOOL)isRandomNumberSeedInspectionEnabled
 {
-  v3 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], a2, v2);
-  v5 = objc_msgSend_BOOLForKey_(v3, v4, @"InspectRandomNumberSeed");
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v3 = [standardUserDefaults BOOLForKey:@"InspectRandomNumberSeed"];
 
-  return v5;
+  return v3;
 }
 
 + (BOOL)shouldForceDisplayPreferredMode
 {
-  v3 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], a2, v2);
-  v5 = objc_msgSend_BOOLForKey_(v3, v4, @"ForceDisplayPreferredMode");
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v3 = [standardUserDefaults BOOLForKey:@"ForceDisplayPreferredMode"];
 
-  return v5;
+  return v3;
 }
 
 + (BOOL)isCustomEffectTimingCurveEditingEnabled
 {
-  v3 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], a2, v2);
-  v5 = objc_msgSend_BOOLForKey_(v3, v4, @"EnableCustomAccelerationCurves");
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v3 = [standardUserDefaults BOOLForKey:@"EnableCustomAccelerationCurves"];
 
-  return v5;
+  return v3;
 }
 
 + (BOOL)allowBlendingMotionBackgroundsDefaultValue
 {
-  v3 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], a2, v2);
-  v5 = objc_msgSend_BOOLForKey_(v3, v4, @"DebugEnableMotionBackgroundAttributeBlending");
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v3 = [standardUserDefaults BOOLForKey:@"DebugEnableMotionBackgroundAttributeBlending"];
 
-  return v5;
+  return v3;
 }
 
 + (BOOL)willPluginClassAllowBlendingMotionBackgrounds:(Class)backgrounds
 {
-  v4 = objc_msgSend_allowBlendingMotionBackgroundsDefaultValue(KNAnimationUtils, a2, backgrounds);
-  if (!objc_msgSend_conformsToProtocol_(backgrounds, v5, &unk_288546310))
+  v4 = +[KNAnimationUtils allowBlendingMotionBackgroundsDefaultValue];
+  if (![(objc_class *)backgrounds conformsToProtocol:&unk_288546310])
   {
     return v4;
   }
 
-  return MEMORY[0x2821F9670](backgrounds, sel_allowsMotionBackgroundBlending, v6);
+  return MEMORY[0x2821F9670](backgrounds, sel_allowsMotionBackgroundBlending);
 }
 
 + (id)videoControllerSignpostLog
@@ -902,24 +914,25 @@ LABEL_18:
 + (BOOL)isMotionBlurCapableWithAnimationContext:(id)context
 {
   contextCopy = context;
-  v6 = contextCopy;
+  v4 = contextCopy;
   if (byte_280A3C041)
   {
-    v7 = 0;
+    v5 = 0;
   }
 
   else if (byte_280A3C040)
   {
-    v7 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v8 = objc_msgSend_capabilities(contextCopy, v4, v5);
-    v7 = (objc_msgSend_platform(v8, v9, v10) == 2) & byte_280A3C03F;
+    capabilities = [contextCopy capabilities];
+    v7 = [capabilities platform] == 2;
+    v5 = v7 & byte_280A3C03F;
   }
 
-  return v7;
+  return v5;
 }
 
 + (id)CAAccelerationFromSFXActionAcceleration:(unint64_t)acceleration
@@ -978,92 +991,92 @@ LABEL_13:
   TSUScaleSizeWithinSize();
   TSURectWithSize();
   TSURoundedRectForScale();
-  v8 = objc_msgSend_currentCapabilities(MEMORY[0x277D801F0], v6, v7);
-  objc_msgSend_isRendererH4OrBelow(v8, v9, v10);
+  currentCapabilities = [MEMORY[0x277D801F0] currentCapabilities];
+  [currentCapabilities isRendererH4OrBelow];
   TSURectWithSize();
+  v8 = v7;
+  v10 = v9;
   v12 = v11;
   v14 = v13;
-  v16 = v15;
-  v18 = v17;
 
-  v19 = v12;
-  v20 = v14;
-  v21 = v16;
-  v22 = v18;
-  result.size.height = v22;
-  result.size.width = v21;
-  result.origin.y = v20;
-  result.origin.x = v19;
+  v15 = v8;
+  v16 = v10;
+  v17 = v12;
+  v18 = v14;
+  result.size.height = v18;
+  result.size.width = v17;
+  result.origin.y = v16;
+  result.origin.x = v15;
   return result;
 }
 
 + (void)getRecommendedPosition:(CGPoint *)position andTransform:(CATransform3D *)transform toFitLayer:(id)layer inContainerWithBounds:(CGRect)bounds contentsScale:(double)scale
 {
   layerCopy = layer;
-  objc_msgSend_bounds(layerCopy, v10, v11);
-  v44 = v13;
-  v45 = v12;
+  [layerCopy bounds];
+  v40 = v11;
+  v41 = v10;
   TSUScaleSizeWithinSize();
   TSURectWithSize();
+  v13 = v12;
   v15 = v14;
   v17 = v16;
   v19 = v18;
-  v21 = v20;
   TSURoundedRectForScale();
+  v21 = v20;
   v23 = v22;
-  v25 = v24;
-  v47.origin.x = v15;
-  v47.origin.y = v17;
-  v47.size.width = v19;
-  v47.size.height = v21;
-  CGRectIntegral(v47);
+  v43.origin.x = v13;
+  v43.origin.y = v15;
+  v43.size.width = v17;
+  v43.size.height = v19;
+  CGRectIntegral(v43);
   TSURectWithCenterAndSize();
-  v49 = CGRectIntegral(v48);
-  x = v49.origin.x;
-  y = v49.origin.y;
-  width = v49.size.width;
-  height = v49.size.height;
-  objc_msgSend_anchorPoint(layerCopy, v30, v31);
-  v33 = v32;
-  v35 = v34;
+  v45 = CGRectIntegral(v44);
+  x = v45.origin.x;
+  y = v45.origin.y;
+  width = v45.size.width;
+  height = v45.size.height;
+  [layerCopy anchorPoint];
+  v29 = v28;
+  v31 = v30;
 
-  v36 = *(MEMORY[0x277CD9DE8] + 80);
-  *&v46.m31 = *(MEMORY[0x277CD9DE8] + 64);
-  *&v46.m33 = v36;
-  v37 = *(MEMORY[0x277CD9DE8] + 112);
-  *&v46.m41 = *(MEMORY[0x277CD9DE8] + 96);
-  *&v46.m43 = v37;
-  v38 = *(MEMORY[0x277CD9DE8] + 16);
-  *&v46.m11 = *MEMORY[0x277CD9DE8];
-  *&v46.m13 = v38;
-  v39 = *(MEMORY[0x277CD9DE8] + 48);
-  *&v46.m21 = *(MEMORY[0x277CD9DE8] + 32);
-  *&v46.m23 = v39;
-  if (v45 != v23 || v44 != v25)
+  v32 = *(MEMORY[0x277CD9DE8] + 80);
+  *&v42.m31 = *(MEMORY[0x277CD9DE8] + 64);
+  *&v42.m33 = v32;
+  v33 = *(MEMORY[0x277CD9DE8] + 112);
+  *&v42.m41 = *(MEMORY[0x277CD9DE8] + 96);
+  *&v42.m43 = v33;
+  v34 = *(MEMORY[0x277CD9DE8] + 16);
+  *&v42.m11 = *MEMORY[0x277CD9DE8];
+  *&v42.m13 = v34;
+  v35 = *(MEMORY[0x277CD9DE8] + 48);
+  *&v42.m21 = *(MEMORY[0x277CD9DE8] + 32);
+  *&v42.m23 = v35;
+  if (v41 != v21 || v40 != v23)
   {
-    CATransform3DMakeScale(&v46, width / v45, height / v44, 1.0);
+    CATransform3DMakeScale(&v42, width / v41, height / v40, 1.0);
   }
 
   if (position)
   {
-    position->x = x + width * v33;
-    position->y = y + height * v35;
+    position->x = x + width * v29;
+    position->y = y + height * v31;
   }
 
   if (transform)
   {
-    v40 = *&v46.m33;
-    *&transform->m31 = *&v46.m31;
-    *&transform->m33 = v40;
-    v41 = *&v46.m43;
-    *&transform->m41 = *&v46.m41;
-    *&transform->m43 = v41;
-    v42 = *&v46.m13;
-    *&transform->m11 = *&v46.m11;
-    *&transform->m13 = v42;
-    v43 = *&v46.m23;
-    *&transform->m21 = *&v46.m21;
-    *&transform->m23 = v43;
+    v36 = *&v42.m33;
+    *&transform->m31 = *&v42.m31;
+    *&transform->m33 = v36;
+    v37 = *&v42.m43;
+    *&transform->m41 = *&v42.m41;
+    *&transform->m43 = v37;
+    v38 = *&v42.m13;
+    *&transform->m11 = *&v42.m11;
+    *&transform->m13 = v38;
+    v39 = *&v42.m23;
+    *&transform->m21 = *&v42.m21;
+    *&transform->m23 = v39;
   }
 }
 

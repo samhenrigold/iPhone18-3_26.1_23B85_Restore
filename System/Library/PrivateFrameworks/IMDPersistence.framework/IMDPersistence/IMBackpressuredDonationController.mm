@@ -58,368 +58,360 @@
 - (id)_popDonationsUpToCount:(int64_t)count
 {
   countCopy = count;
-  v5 = objc_msgSend_queue(self, a2, count);
-  dispatch_assert_queue_V2(v5);
+  v6 = objc_msgSend_queue(self, a2, count, v3);
+  dispatch_assert_queue_V2(v6);
 
-  v8 = objc_msgSend_pendingDonations(self, v6, v7);
-  if (objc_msgSend_count(v8, v9, v10) <= countCopy)
+  v10 = objc_msgSend_pendingDonations(self, v7, v8, v9);
+  if (objc_msgSend_count(v10, v11, v12, v13) <= countCopy)
   {
-    v13 = objc_msgSend_pendingDonations(self, v11, v12);
-    countCopy = objc_msgSend_count(v13, v14, v15);
+    v17 = objc_msgSend_pendingDonations(self, v14, v15, v16);
+    countCopy = objc_msgSend_count(v17, v18, v19, v20);
   }
 
-  v18 = objc_msgSend_pendingDonations(self, v16, v17);
-  v21 = objc_msgSend_array(v18, v19, v20);
-  v23 = objc_msgSend_subarrayWithRange_(v21, v22, 0, countCopy);
+  v24 = objc_msgSend_pendingDonations(self, v21, v22, v23);
+  v28 = objc_msgSend_array(v24, v25, v26, v27);
+  v30 = objc_msgSend_subarrayWithRange_(v28, v29, 0, countCopy);
 
-  v25 = objc_msgSend_indexSetWithIndexesInRange_(MEMORY[0x1E696AC90], v24, 0, countCopy);
-  v28 = objc_msgSend_pendingDonations(self, v26, v27);
-  objc_msgSend_removeObjectsAtIndexes_(v28, v29, v25);
+  v32 = objc_msgSend_indexSetWithIndexesInRange_(MEMORY[0x1E696AC90], v31, 0, countCopy);
+  v36 = objc_msgSend_pendingDonations(self, v33, v34, v35);
+  objc_msgSend_removeObjectsAtIndexes_(v36, v37, v32, v38);
 
-  return v23;
+  return v30;
 }
 
 - (void)_finishedDonatingItems:(id)items
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
-  v7 = objc_msgSend_queue(self, v5, v6);
-  dispatch_assert_queue_V2(v7);
+  v8 = objc_msgSend_queue(self, v5, v6, v7);
+  dispatch_assert_queue_V2(v8);
 
-  v8 = IMCoreDuetLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = IMCoreDuetLogHandle();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v36 = 134217984;
-    v37 = objc_msgSend_count(itemsCopy, v9, v10);
-    _os_log_impl(&dword_1B7AD5000, v8, OS_LOG_TYPE_DEFAULT, "Finished donating %llu interactions", &v36, 0xCu);
+    v46 = 134217984;
+    v47 = objc_msgSend_count(itemsCopy, v10, v11, v12);
+    _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_DEFAULT, "Finished donating %llu interactions", &v46, 0xCu);
   }
 
-  objc_msgSend_setDonationInProgress_(self, v11, 0);
-  objc_msgSend__leaveGroupsForItems_(self, v12, itemsCopy);
-  v15 = objc_msgSend_pendingDonations(self, v13, v14);
-  v18 = objc_msgSend_count(v15, v16, v17);
+  objc_msgSend_setDonationInProgress_(self, v13, 0, v14);
+  objc_msgSend__leaveGroupsForItems_(self, v15, itemsCopy, v16);
+  v20 = objc_msgSend_pendingDonations(self, v17, v18, v19);
+  v24 = objc_msgSend_count(v20, v21, v22, v23);
 
-  if (v18)
+  if (v24)
   {
-    v21 = objc_msgSend_pendingDonations(self, v19, v20);
-    v24 = objc_msgSend_count(v21, v22, v23);
+    v28 = objc_msgSend_pendingDonations(self, v25, v26, v27);
+    v32 = objc_msgSend_count(v28, v29, v30, v31);
 
-    v27 = objc_msgSend_donationCount(self, v25, v26);
-    v29 = objc_msgSend__popDonationsUpToCount_(self, v28, v27);
-    v30 = IMCoreDuetLogHandle();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v36 = objc_msgSend_donationCount(self, v33, v34, v35);
+    v39 = objc_msgSend__popDonationsUpToCount_(self, v37, v36, v38);
+    v40 = IMCoreDuetLogHandle();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = objc_msgSend_count(v29, v31, v32);
-      v36 = 134218240;
-      v37 = v24;
-      v38 = 2048;
-      v39 = v33;
-      _os_log_impl(&dword_1B7AD5000, v30, OS_LOG_TYPE_DEFAULT, "There are %llu interactions waiting to be donated, going to donate %llu more", &v36, 0x16u);
+      v44 = objc_msgSend_count(v39, v41, v42, v43);
+      v46 = 134218240;
+      v47 = v32;
+      v48 = 2048;
+      v49 = v44;
+      _os_log_impl(&dword_1B7AD5000, v40, OS_LOG_TYPE_DEFAULT, "There are %llu interactions waiting to be donated, going to donate %llu more", &v46, 0x16u);
     }
 
-    objc_msgSend__donateItems_completionBlock_(self, v34, v29, 0);
+    objc_msgSend__donateItems_completionBlock_(self, v45, v39, 0);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deferItems:(id)items
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
-  v7 = objc_msgSend_queue(self, v5, v6);
-  dispatch_assert_queue_V2(v7);
+  v8 = objc_msgSend_queue(self, v5, v6, v7);
+  dispatch_assert_queue_V2(v8);
 
-  v72[0] = MEMORY[0x1E69E9820];
-  v72[1] = 3221225472;
-  v72[2] = sub_1B7B82708;
-  v72[3] = &unk_1E7CBB260;
-  v72[4] = self;
-  v9 = objc_msgSend_predicateWithBlock_(MEMORY[0x1E696AE18], v8, v72);
-  v11 = objc_msgSend_filteredArrayUsingPredicate_(itemsCopy, v10, v9);
+  v94[0] = MEMORY[0x1E69E9820];
+  v94[1] = 3221225472;
+  v94[2] = sub_1B7B82708;
+  v94[3] = &unk_1E7CBB260;
+  v94[4] = self;
+  v11 = objc_msgSend_predicateWithBlock_(MEMORY[0x1E696AE18], v9, v94, v10);
+  v14 = objc_msgSend_filteredArrayUsingPredicate_(itemsCopy, v12, v11, v13);
 
-  if (objc_msgSend_count(v11, v12, v13))
+  if (objc_msgSend_count(v14, v15, v16, v17))
   {
-    v16 = objc_msgSend_count(v11, v14, v15);
-    if (v16 > objc_msgSend_maxBackpressureSize(self, v17, v18))
+    v21 = objc_msgSend_count(v14, v18, v19, v20);
+    if (v21 > objc_msgSend_maxBackpressureSize(self, v22, v23, v24))
     {
-      v21 = objc_msgSend_count(v11, v19, v20);
-      v24 = objc_msgSend_maxBackpressureSize(self, v22, v23);
-      v26 = objc_msgSend_subarrayWithRange_(v11, v25, 0, v21 - v24);
-      objc_msgSend__leaveGroupsForItems_(self, v27, v26);
-      v30 = objc_msgSend_count(v11, v28, v29);
-      v33 = v30 - objc_msgSend_maxBackpressureSize(self, v31, v32);
-      v36 = objc_msgSend_maxBackpressureSize(self, v34, v35);
-      v38 = objc_msgSend_subarrayWithRange_(v11, v37, v33, v36);
+      v28 = objc_msgSend_count(v14, v25, v26, v27);
+      v32 = objc_msgSend_maxBackpressureSize(self, v29, v30, v31);
+      v34 = objc_msgSend_subarrayWithRange_(v14, v33, 0, v28 - v32);
+      objc_msgSend__leaveGroupsForItems_(self, v35, v34, v36);
+      v40 = objc_msgSend_count(v14, v37, v38, v39);
+      v44 = v40 - objc_msgSend_maxBackpressureSize(self, v41, v42, v43);
+      v48 = objc_msgSend_maxBackpressureSize(self, v45, v46, v47);
+      v50 = objc_msgSend_subarrayWithRange_(v14, v49, v44, v48);
 
-      v11 = v38;
+      v14 = v50;
     }
 
-    v39 = objc_msgSend_pendingDonations(self, v19, v20);
-    v42 = objc_msgSend_count(v39, v40, v41);
-    v45 = objc_msgSend_count(v11, v43, v44) + v42;
+    v51 = objc_msgSend_pendingDonations(self, v25, v26, v27);
+    v55 = objc_msgSend_count(v51, v52, v53, v54);
+    v59 = objc_msgSend_count(v14, v56, v57, v58) + v55;
 
-    v49 = v45 - objc_msgSend_maxBackpressureSize(self, v46, v47);
-    if (v49 >= 1)
+    v65 = v59 - objc_msgSend_maxBackpressureSize(self, v60, v61, v62);
+    if (v65 >= 1)
     {
-      v50 = IMCoreDuetLogHandle();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      v66 = IMCoreDuetLogHandle();
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v74 = v49;
-        _os_log_impl(&dword_1B7AD5000, v50, OS_LOG_TYPE_DEFAULT, "Too many items queued for donation, purging first %llu to make room", buf, 0xCu);
+        v96 = v65;
+        _os_log_impl(&dword_1B7AD5000, v66, OS_LOG_TYPE_DEFAULT, "Too many items queued for donation, purging first %llu to make room", buf, 0xCu);
       }
 
-      v53 = objc_msgSend_pendingDonations(self, v51, v52);
-      v56 = objc_msgSend_array(v53, v54, v55);
-      v58 = objc_msgSend_subarrayWithRange_(v56, v57, 0, v49);
+      v70 = objc_msgSend_pendingDonations(self, v67, v68, v69);
+      v74 = objc_msgSend_array(v70, v71, v72, v73);
+      v76 = objc_msgSend_subarrayWithRange_(v74, v75, 0, v65);
 
-      objc_msgSend__leaveGroupsForItems_(self, v59, v58);
-      v61 = objc_msgSend_indexSetWithIndexesInRange_(MEMORY[0x1E696AC90], v60, 0, v49);
-      v64 = objc_msgSend_pendingDonations(self, v62, v63);
-      objc_msgSend_removeObjectsAtIndexes_(v64, v65, v61);
+      objc_msgSend__leaveGroupsForItems_(self, v77, v76, v78);
+      v80 = objc_msgSend_indexSetWithIndexesInRange_(MEMORY[0x1E696AC90], v79, 0, v65);
+      v84 = objc_msgSend_pendingDonations(self, v81, v82, v83);
+      objc_msgSend_removeObjectsAtIndexes_(v84, v85, v80, v86);
     }
 
-    v66 = objc_msgSend_orderedSetWithArray_(MEMORY[0x1E695DFB8], v48, v11);
-    v69 = objc_msgSend_pendingDonations(self, v67, v68);
-    objc_msgSend_unionOrderedSet_(v69, v70, v66);
+    v87 = objc_msgSend_orderedSetWithArray_(MEMORY[0x1E695DFB8], v63, v14, v64);
+    v91 = objc_msgSend_pendingDonations(self, v88, v89, v90);
+    objc_msgSend_unionOrderedSet_(v91, v92, v87, v93);
   }
-
-  v71 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_donateItems:(id)items completionBlock:(id)block
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v96 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   blockCopy = block;
   if (blockCopy)
   {
-    v10 = dispatch_group_create();
-    v69 = 0u;
-    v70 = 0u;
-    v71 = 0u;
-    v72 = 0u;
-    v11 = itemsCopy;
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v69, v79, 16);
-    if (v13)
+    v11 = dispatch_group_create();
+    v85 = 0u;
+    v86 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v12 = itemsCopy;
+    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v85, v95, 16);
+    if (v14)
     {
-      v15 = v13;
-      v16 = *v70;
+      v16 = v14;
+      v17 = *v86;
       do
       {
-        v17 = 0;
+        v18 = 0;
         do
         {
-          if (*v70 != v16)
+          if (*v86 != v17)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          objc_msgSend__registerGroup_forItem_(self, v14, v10, *(*(&v69 + 1) + 8 * v17++));
+          objc_msgSend__registerGroup_forItem_(self, v15, v11, *(*(&v85 + 1) + 8 * v18++));
         }
 
-        while (v15 != v17);
-        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v69, v79, 16);
+        while (v16 != v18);
+        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v85, v95, 16);
       }
 
-      while (v15);
+      while (v16);
     }
 
-    v18 = IMDIndexingClientRequestQueue();
-    dispatch_group_notify(v10, v18, blockCopy);
+    v20 = IMDIndexingClientRequestQueue(v19);
+    dispatch_group_notify(v11, v20, blockCopy);
   }
 
-  if (objc_msgSend_count(itemsCopy, v7, v8))
+  if (objc_msgSend_count(itemsCopy, v7, v8, v9))
   {
-    if (objc_msgSend_donationInProgress(self, v19, v20))
+    if (objc_msgSend_donationInProgress(self, v21, v22, v23))
     {
-      v23 = IMCoreDuetLogHandle();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v27 = IMCoreDuetLogHandle();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = objc_msgSend_count(itemsCopy, v24, v25);
+        v31 = objc_msgSend_count(itemsCopy, v28, v29, v30);
         *buf = 134217984;
-        v74 = v26;
-        _os_log_impl(&dword_1B7AD5000, v23, OS_LOG_TYPE_DEFAULT, "Donation is in progress, deferring donation of %llu interactions", buf, 0xCu);
+        v90 = v31;
+        _os_log_impl(&dword_1B7AD5000, v27, OS_LOG_TYPE_DEFAULT, "Donation is in progress, deferring donation of %llu interactions", buf, 0xCu);
       }
 
-      objc_msgSend__deferItems_(self, v27, itemsCopy);
+      objc_msgSend__deferItems_(self, v32, itemsCopy, v33);
     }
 
     else
     {
-      v28 = objc_msgSend_count(itemsCopy, v21, v22);
-      if (v28 > objc_msgSend_donationCount(self, v29, v30))
+      v34 = objc_msgSend_count(itemsCopy, v24, v25, v26);
+      if (v34 > objc_msgSend_donationCount(self, v35, v36, v37))
       {
-        v33 = objc_msgSend_donationCount(self, v31, v32);
-        v36 = objc_msgSend_count(itemsCopy, v34, v35);
-        v39 = objc_msgSend_donationCount(self, v37, v38);
-        v41 = objc_msgSend_subarrayWithRange_(itemsCopy, v40, v33, v36 - v39);
-        v42 = IMCoreDuetLogHandle();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+        v41 = objc_msgSend_donationCount(self, v38, v39, v40);
+        v45 = objc_msgSend_count(itemsCopy, v42, v43, v44);
+        v49 = objc_msgSend_donationCount(self, v46, v47, v48);
+        v51 = objc_msgSend_subarrayWithRange_(itemsCopy, v50, v41, v45 - v49);
+        v52 = IMCoreDuetLogHandle();
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
         {
-          v45 = objc_msgSend_count(itemsCopy, v43, v44);
-          v48 = objc_msgSend_donationCount(self, v46, v47);
-          v51 = objc_msgSend_count(v41, v49, v50);
+          v56 = objc_msgSend_count(itemsCopy, v53, v54, v55);
+          v60 = objc_msgSend_donationCount(self, v57, v58, v59);
+          v64 = objc_msgSend_count(v51, v61, v62, v63);
           *buf = 134218496;
-          v74 = v45;
-          v75 = 2048;
-          v76 = v48;
-          v77 = 2048;
-          v78 = v51;
-          _os_log_impl(&dword_1B7AD5000, v42, OS_LOG_TYPE_DEFAULT, "Received a request to index too many items (%llu > %llu), deferring %llu", buf, 0x20u);
+          v90 = v56;
+          v91 = 2048;
+          v92 = v60;
+          v93 = 2048;
+          v94 = v64;
+          _os_log_impl(&dword_1B7AD5000, v52, OS_LOG_TYPE_DEFAULT, "Received a request to index too many items (%llu > %llu), deferring %llu", buf, 0x20u);
         }
 
-        objc_msgSend__deferItems_(self, v52, v41);
-        v55 = objc_msgSend_donationCount(self, v53, v54);
-        v57 = objc_msgSend_subarrayWithRange_(itemsCopy, v56, 0, v55);
+        objc_msgSend__deferItems_(self, v65, v51, v66);
+        v70 = objc_msgSend_donationCount(self, v67, v68, v69);
+        v72 = objc_msgSend_subarrayWithRange_(itemsCopy, v71, 0, v70);
 
-        itemsCopy = v57;
+        itemsCopy = v72;
       }
 
-      objc_msgSend__beganDonatingItems(self, v31, v32);
-      v58 = IMCoreDuetLogHandle();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+      objc_msgSend__beganDonatingItems(self, v38, v39, v40);
+      v73 = IMCoreDuetLogHandle();
+      if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
       {
-        v61 = objc_msgSend_count(itemsCopy, v59, v60);
+        v77 = objc_msgSend_count(itemsCopy, v74, v75, v76);
         *buf = 134217984;
-        v74 = v61;
-        _os_log_impl(&dword_1B7AD5000, v58, OS_LOG_TYPE_DEFAULT, "Going to donate %llu interactions", buf, 0xCu);
+        v90 = v77;
+        _os_log_impl(&dword_1B7AD5000, v73, OS_LOG_TYPE_DEFAULT, "Going to donate %llu interactions", buf, 0xCu);
       }
 
-      v64 = objc_msgSend_donationBlock(self, v62, v63);
-      v66[0] = MEMORY[0x1E69E9820];
-      v66[1] = 3221225472;
-      v66[2] = sub_1B7B82B24;
-      v66[3] = &unk_1E7CBB288;
+      v81 = objc_msgSend_donationBlock(self, v78, v79, v80);
+      v82[0] = MEMORY[0x1E69E9820];
+      v82[1] = 3221225472;
+      v82[2] = sub_1B7B82B24;
+      v82[3] = &unk_1E7CBB288;
       itemsCopy = itemsCopy;
-      v67 = itemsCopy;
+      v83 = itemsCopy;
       selfCopy = self;
-      (v64)[2](v64, itemsCopy, v66);
+      (v81)[2](v81, itemsCopy, v82);
     }
   }
-
-  v65 = *MEMORY[0x1E69E9840];
 }
 
 - (void)donateItems:(id)items completionBlock:(id)block
 {
   itemsCopy = items;
   blockCopy = block;
-  v10 = objc_msgSend_queue(self, v8, v9);
+  v11 = objc_msgSend_queue(self, v8, v9, v10);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_1B7B82D7C;
   block[3] = &unk_1E7CB71C0;
   block[4] = self;
-  v14 = itemsCopy;
-  v15 = blockCopy;
-  v11 = blockCopy;
-  v12 = itemsCopy;
-  dispatch_async(v10, block);
+  v15 = itemsCopy;
+  v16 = blockCopy;
+  v12 = blockCopy;
+  v13 = itemsCopy;
+  dispatch_async(v11, block);
 }
 
 - (void)_registerGroup:(id)group forItem:(id)item
 {
   itemCopy = item;
   groupCopy = group;
-  v9 = objc_msgSend_queue(self, v7, v8);
-  dispatch_assert_queue_V2(v9);
+  v10 = objc_msgSend_queue(self, v7, v8, v9);
+  dispatch_assert_queue_V2(v10);
 
-  v12 = objc_msgSend_pendingGroups(self, v10, v11);
-  v14 = objc_msgSend_objectForKey_(v12, v13, itemCopy);
+  v14 = objc_msgSend_pendingGroups(self, v11, v12, v13);
+  v17 = objc_msgSend_objectForKey_(v14, v15, itemCopy, v16);
 
-  if (!v14)
+  if (!v17)
   {
-    v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v17 = objc_msgSend_pendingGroups(self, v15, v16);
-    objc_msgSend_setObject_forKey_(v17, v18, v14, itemCopy);
+    v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v21 = objc_msgSend_pendingGroups(self, v18, v19, v20);
+    objc_msgSend_setObject_forKey_(v21, v22, v17, itemCopy);
   }
 
   dispatch_group_enter(groupCopy);
-  objc_msgSend_addObject_(v14, v19, groupCopy);
+  objc_msgSend_addObject_(v17, v23, groupCopy, v24);
 }
 
 - (void)_leaveGroupsForItems:(id)items
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
-  v7 = objc_msgSend_queue(self, v5, v6);
-  dispatch_assert_queue_V2(v7);
+  v8 = objc_msgSend_queue(self, v5, v6, v7);
+  dispatch_assert_queue_V2(v8);
 
-  v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v38 = 0u;
+  v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v10 = itemsCopy;
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v43, v48, 16);
+  if (v12)
+  {
+    v16 = v12;
+    v17 = *v44;
+    do
+    {
+      v18 = 0;
+      do
+      {
+        if (*v44 != v17)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        v19 = *(*(&v43 + 1) + 8 * v18);
+        v20 = objc_msgSend_pendingGroups(self, v13, v14, v15);
+        v23 = objc_msgSend_objectForKey_(v20, v21, v19, v22);
+
+        if (v23)
+        {
+          objc_msgSend_addObjectsFromArray_(v9, v24, v23, v25);
+          v29 = objc_msgSend_pendingGroups(self, v26, v27, v28);
+          objc_msgSend_removeObjectForKey_(v29, v30, v19, v31);
+        }
+
+        ++v18;
+      }
+
+      while (v16 != v18);
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v43, v48, 16);
+    }
+
+    while (v16);
+  }
+
+  v41 = 0u;
+  v42 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v9 = itemsCopy;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v38, v43, 16);
-  if (v11)
+  v32 = v9;
+  v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v33, &v39, v47, 16);
+  if (v34)
   {
-    v14 = v11;
-    v15 = *v39;
+    v35 = v34;
+    v36 = *v40;
     do
     {
-      v16 = 0;
+      v37 = 0;
       do
       {
-        if (*v39 != v15)
+        if (*v40 != v36)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v32);
         }
 
-        v17 = *(*(&v38 + 1) + 8 * v16);
-        v18 = objc_msgSend_pendingGroups(self, v12, v13);
-        v20 = objc_msgSend_objectForKey_(v18, v19, v17);
-
-        if (v20)
-        {
-          objc_msgSend_addObjectsFromArray_(v8, v21, v20);
-          v24 = objc_msgSend_pendingGroups(self, v22, v23);
-          objc_msgSend_removeObjectForKey_(v24, v25, v17);
-        }
-
-        ++v16;
+        dispatch_group_leave(*(*(&v39 + 1) + 8 * v37++));
       }
 
-      while (v14 != v16);
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v38, v43, 16);
+      while (v35 != v37);
+      v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v38, &v39, v47, 16);
     }
 
-    while (v14);
+    while (v35);
   }
-
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v26 = v8;
-  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v34, v42, 16);
-  if (v28)
-  {
-    v29 = v28;
-    v30 = *v35;
-    do
-    {
-      v31 = 0;
-      do
-      {
-        if (*v35 != v30)
-        {
-          objc_enumerationMutation(v26);
-        }
-
-        dispatch_group_leave(*(*(&v34 + 1) + 8 * v31++));
-      }
-
-      while (v29 != v31);
-      v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v32, &v34, v42, 16);
-    }
-
-    while (v29);
-  }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 @end

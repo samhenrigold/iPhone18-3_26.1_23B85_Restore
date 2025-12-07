@@ -2031,7 +2031,7 @@ LABEL_21:
       memset(buf, 0, 32);
       if (v6)
       {
-        [v6 auditToken];
+        objc_msgSend_auditToken(v6);
       }
 
       v8 = +[InAppDownloadManager manager];
@@ -2180,7 +2180,7 @@ LABEL_21:
       memset(buf, 0, 32);
       if (v6)
       {
-        [v6 auditToken];
+        objc_msgSend_auditToken(v6);
       }
 
       v8 = +[InAppDownloadManager manager];

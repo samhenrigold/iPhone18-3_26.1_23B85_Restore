@@ -9,6 +9,8 @@
 - (void)FPDocumentURLFromBookmarkableString:(id)string completionHandler:(id)handler;
 - (void)FPEvictItemAtURL:(id)l completionHandler:(id)handler;
 - (void)FPExtendBookmarkForDocumentURL:(id)l forBundleID:(id)d completionHandler:(id)handler;
+- (void)FPFileProviderServiceEndpointCreatingForItemAtURL:(id)l synchronously:(BOOL)synchronously completionHandler:(id)handler;
+- (void)FPFileProviderServiceEndpointCreatingWithName:(id)name itemAtURL:(id)l synchronously:(BOOL)synchronously completionHandler:(id)handler;
 - (void)FPStateForDomainWithID:(id)d completionHandler:(id)handler;
 - (void)FPValuesForAttributes:(id)attributes forItemAtURL:(id)l completionHandler:(id)handler;
 @end
@@ -129,19 +131,20 @@
 - (id)_originalDocumentURLForURL:(id)l
 {
   lCopy = l;
-  v9 = 0;
-  objc_msgSend_getResourceValue_forKey_error_(lCopy, v4, &v9, *MEMORY[0x277CC62C8], 0);
-  v5 = v9;
+  v10 = 0;
+  objc_msgSend_getResourceValue_forKey_error_(lCopy, v4, &v10, *MEMORY[0x277CC62C8], 0);
+  v5 = v10;
+  v6 = v5;
   if (v5)
   {
-    v6 = fp_current_or_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = fp_current_or_default_log(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      sub_23834F004(v5, lCopy, v6);
+      sub_23834F004(v6, lCopy, v7);
     }
 
-    v7 = v5;
-    lCopy = v7;
+    v8 = v6;
+    lCopy = v8;
   }
 
   return lCopy;
@@ -162,6 +165,51 @@
   else if (handlerCopy)
   {
     (*(handlerCopy + 2))(handlerCopy, 0, 0);
+  }
+}
+
+- (void)FPFileProviderServiceEndpointCreatingForItemAtURL:(id)l synchronously:(BOOL)synchronously completionHandler:(id)handler
+{
+  synchronouslyCopy = synchronously;
+  lCopy = l;
+  handlerCopy = handler;
+  if (FPURLMightBeInFileProvider())
+  {
+    v13 = objc_msgSend_defaultManager(MEMORY[0x277CC6408], v9, v10, v11, v12);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = sub_23834D580;
+    v15[3] = &unk_278A50888;
+    v16 = handlerCopy;
+    objc_msgSend_fetchServicesWithName_itemAtURL_synchronously_handler_(v13, v14, 0, lCopy, synchronouslyCopy, v15);
+  }
+
+  else
+  {
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, 0, 0);
+  }
+}
+
+- (void)FPFileProviderServiceEndpointCreatingWithName:(id)name itemAtURL:(id)l synchronously:(BOOL)synchronously completionHandler:(id)handler
+{
+  synchronouslyCopy = synchronously;
+  nameCopy = name;
+  lCopy = l;
+  handlerCopy = handler;
+  if (FPURLMightBeInFileProvider())
+  {
+    v16 = objc_msgSend_defaultManager(MEMORY[0x277CC6408], v12, v13, v14, v15);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = sub_23834D810;
+    v18[3] = &unk_278A50888;
+    v19 = handlerCopy;
+    objc_msgSend_fetchServicesWithName_itemAtURL_synchronously_handler_(v16, v17, nameCopy, lCopy, synchronouslyCopy, v18);
+  }
+
+  else
+  {
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, 0);
   }
 }
 

@@ -128,104 +128,104 @@
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"challenge"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"clientDataHash"];
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"clientDataJSON"];
-  v8 = v7;
+  v9 = v7;
   if (v5)
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v9 = v6 == 0;
+    v10 = v6 == 0;
   }
 
-  if (v9 && v7 == 0)
+  if (v10 && v7 == 0)
   {
-    v35 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v36 = WBS_LOG_CHANNEL_PREFIXAuthorization(v7, v8);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      [ASCPublicKeyCredentialCreationOptions initWithCoder:v35];
+      [ASCPublicKeyCredentialCreationOptions initWithCoder:v36];
     }
 
-    v12 = 0;
+    v13 = 0;
     goto LABEL_16;
   }
 
-  v44.receiver = self;
-  v44.super_class = ASCPublicKeyCredentialCreationOptions;
-  v11 = [(ASCPublicKeyCredentialCreationOptions *)&v44 init];
-  v12 = v11;
-  if (v11)
+  v45.receiver = self;
+  v45.super_class = ASCPublicKeyCredentialCreationOptions;
+  v12 = [(ASCPublicKeyCredentialCreationOptions *)&v45 init];
+  v13 = v12;
+  if (v12)
   {
-    objc_storeStrong(&v11->_challenge, v5);
-    objc_storeStrong(&v12->_clientDataHash, v6);
-    objc_storeStrong(&v12->_clientDataJSON, v8);
-    v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"relyingPartyIdentifier"];
-    relyingPartyIdentifier = v12->_relyingPartyIdentifier;
-    v12->_relyingPartyIdentifier = v13;
+    objc_storeStrong(&v12->_challenge, v5);
+    objc_storeStrong(&v13->_clientDataHash, v6);
+    objc_storeStrong(&v13->_clientDataJSON, v9);
+    v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"relyingPartyIdentifier"];
+    relyingPartyIdentifier = v13->_relyingPartyIdentifier;
+    v13->_relyingPartyIdentifier = v14;
 
-    v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"userName"];
-    userName = v12->_userName;
-    v12->_userName = v15;
+    v16 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"userName"];
+    userName = v13->_userName;
+    v13->_userName = v16;
 
-    v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"userIdentifier"];
-    userIdentifier = v12->_userIdentifier;
-    v12->_userIdentifier = v17;
+    v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"userIdentifier"];
+    userIdentifier = v13->_userIdentifier;
+    v13->_userIdentifier = v18;
 
-    v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"userDisplayName"];
-    userDisplayName = v12->_userDisplayName;
-    v12->_userDisplayName = v19;
+    v20 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"userDisplayName"];
+    userDisplayName = v13->_userDisplayName;
+    v13->_userDisplayName = v20;
 
-    v21 = MEMORY[0x1E695DFD8];
-    v22 = objc_opt_class();
-    v23 = [v21 setWithObjects:{v22, objc_opt_class(), 0}];
-    v24 = [coderCopy decodeObjectOfClasses:v23 forKey:@"supportedAlgorithmIdentifiers"];
-    supportedAlgorithmIdentifiers = v12->_supportedAlgorithmIdentifiers;
-    v12->_supportedAlgorithmIdentifiers = v24;
+    v22 = MEMORY[0x1E695DFD8];
+    v23 = objc_opt_class();
+    v24 = [v22 setWithObjects:{v23, objc_opt_class(), 0}];
+    v25 = [coderCopy decodeObjectOfClasses:v24 forKey:@"supportedAlgorithmIdentifiers"];
+    supportedAlgorithmIdentifiers = v13->_supportedAlgorithmIdentifiers;
+    v13->_supportedAlgorithmIdentifiers = v25;
 
-    v26 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"userVerificationPreference"];
-    userVerificationPreference = v12->_userVerificationPreference;
-    v12->_userVerificationPreference = v26;
+    v27 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"userVerificationPreference"];
+    userVerificationPreference = v13->_userVerificationPreference;
+    v13->_userVerificationPreference = v27;
 
-    v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"attestationPreference"];
-    attestationPreference = v12->_attestationPreference;
-    v12->_attestationPreference = v28;
+    v29 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"attestationPreference"];
+    attestationPreference = v13->_attestationPreference;
+    v13->_attestationPreference = v29;
 
-    v30 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"timeout"];
-    timeout = v12->_timeout;
-    v12->_timeout = v30;
+    v31 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"timeout"];
+    timeout = v13->_timeout;
+    v13->_timeout = v31;
 
-    v32 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"extensions"];
-    v33 = v32;
-    if (v32)
+    v33 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"extensions"];
+    v34 = v33;
+    if (v33)
     {
-      v34 = v32;
+      v35 = v33;
     }
 
     else
     {
-      v34 = objc_alloc_init(_TtC26AuthenticationServicesCore49ASCPublicKeyCredentialRegistrationExtensionInputs);
+      v35 = objc_alloc_init(_TtC26AuthenticationServicesCore49ASCPublicKeyCredentialRegistrationExtensionInputs);
     }
 
-    extensions = v12->_extensions;
-    v12->_extensions = v34;
+    extensions = v13->_extensions;
+    v13->_extensions = v35;
 
-    v12->_residentKeyPreference = [coderCopy decodeIntegerForKey:@"residentKeyPreference"];
-    v37 = MEMORY[0x1E695DFD8];
-    v38 = objc_opt_class();
-    v39 = [v37 setWithObjects:{v38, objc_opt_class(), 0}];
-    v40 = [coderCopy decodeObjectOfClasses:v39 forKey:@"excludedCredentials"];
-    excludedCredentials = v12->_excludedCredentials;
-    v12->_excludedCredentials = v40;
+    v13->_residentKeyPreference = [coderCopy decodeIntegerForKey:@"residentKeyPreference"];
+    v38 = MEMORY[0x1E695DFD8];
+    v39 = objc_opt_class();
+    v40 = [v38 setWithObjects:{v39, objc_opt_class(), 0}];
+    v41 = [coderCopy decodeObjectOfClasses:v40 forKey:@"excludedCredentials"];
+    excludedCredentials = v13->_excludedCredentials;
+    v13->_excludedCredentials = v41;
 
-    v12->_shouldHideHybrid = [coderCopy decodeBoolForKey:@"shouldHideHybrid"];
-    v42 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"origin"];
-    self = v12->_origin;
-    v12->_origin = v42;
+    v13->_shouldHideHybrid = [coderCopy decodeBoolForKey:@"shouldHideHybrid"];
+    v43 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"origin"];
+    self = v13->_origin;
+    v13->_origin = v43;
 LABEL_16:
   }
 
-  return v12;
+  return v13;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -307,8 +307,8 @@ LABEL_16:
 
 - (void)logRequest
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v3 = WBS_LOG_CHANNEL_PREFIXAuthorization();
+  v43 = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXAuthorization(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     relyingPartyIdentifier = self->_relyingPartyIdentifier;
@@ -334,35 +334,33 @@ LABEL_16:
     v14 = [(NSArray *)excludedCredentials count];
     v15 = [(ASCPublicKeyCredentialRegistrationExtensionInputs *)self->_extensions descriptionForLoggingWithIndentationCount:2];
     *buf = 141561091;
-    v19 = 1752392040;
-    v20 = 2113;
-    v21 = relyingPartyIdentifier;
-    v22 = 2160;
-    v23 = 1752392040;
-    v24 = 2113;
-    v25 = userName;
-    v26 = 2114;
-    v27 = userIdentifier;
-    v28 = 2160;
-    v29 = 1752392040;
-    v30 = 2113;
-    v31 = userDisplayName;
-    v32 = 2114;
-    v33 = supportedAlgorithmIdentifiers;
-    v34 = 2114;
-    v35 = userVerificationPreference;
-    v36 = 2114;
-    v37 = attestationPreference;
-    v38 = 2114;
-    v39 = v11;
-    v40 = 2050;
-    v41 = v14;
-    v42 = 2114;
-    v43 = v15;
+    v18 = 1752392040;
+    v19 = 2113;
+    v20 = relyingPartyIdentifier;
+    v21 = 2160;
+    v22 = 1752392040;
+    v23 = 2113;
+    v24 = userName;
+    v25 = 2114;
+    v26 = userIdentifier;
+    v27 = 2160;
+    v28 = 1752392040;
+    v29 = 2113;
+    v30 = userDisplayName;
+    v31 = 2114;
+    v32 = supportedAlgorithmIdentifiers;
+    v33 = 2114;
+    v34 = userVerificationPreference;
+    v35 = 2114;
+    v36 = attestationPreference;
+    v37 = 2114;
+    v38 = v11;
+    v39 = 2050;
+    v40 = v14;
+    v41 = 2114;
+    v42 = v15;
     _os_log_impl(&dword_1C20AD000, v13, OS_LOG_TYPE_INFO, "\tRP: %{private, mask.hash}@\n\tname: %{private, mask.hash}@\n\tuserHandle: %{public}@\n\tdisplayName: %{private, mask.hash}@\n\talgorithms: %{public}@\n\tuv: %{public}@\n\tattestation: %{public}@\n\trk: %{public}@\n\texcludeCredentialsCount: %{public}lu\n\textensions:\n%{public}@", buf, 0x84u);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

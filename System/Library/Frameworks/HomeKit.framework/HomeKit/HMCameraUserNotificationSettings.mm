@@ -14,29 +14,27 @@
 
 - (NSArray)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMCameraUserNotificationSettings *)self isAccessModeChangeNotificationEnabled];
   v4 = HMFBooleanToString();
   v5 = [v3 initWithName:@"Access Mode Change" value:v4];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMCameraUserNotificationSettings *)self isReachabilityEventNotificationEnabled];
   v7 = HMFBooleanToString();
   v8 = [v6 initWithName:@"Reachability Event" value:v7];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMCameraUserNotificationSettings *)self isSmartBulletinBoardNotificationEnabled];
   v10 = HMFBooleanToString();
   v11 = [v9 initWithName:@"Smart Bulletin" value:v10];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   smartBulletinBoardNotificationCondition = [(HMCameraUserNotificationSettings *)self smartBulletinBoardNotificationCondition];
   v14 = [v12 initWithName:@"Smart Bulletin Condition" value:smartBulletinBoardNotificationCondition];
-  v18[3] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v17[3] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:4];
 
   return v15;
 }
@@ -50,7 +48,7 @@
 
 - (HMCameraUserNotificationSettings)initWithCoder:(id)coder
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(HMCameraUserNotificationSettings *)self init];
   -[HMCameraUserNotificationSettings setVersion:](v5, "setVersion:", [coderCopy decodeIntegerForKey:@"HMCPNS.ck.version"]);
@@ -58,14 +56,13 @@
   -[HMCameraUserNotificationSettings setReachabilityEventNotificationEnabled:](v5, "setReachabilityEventNotificationEnabled:", [coderCopy decodeBoolForKey:@"HMCPNS.ck.rene"]);
   -[HMCameraUserNotificationSettings setSmartBulletinBoardNotificationEnabled:](v5, "setSmartBulletinBoardNotificationEnabled:", [coderCopy decodeBoolForKey:@"HMCPNS.ck.sbbne"]);
   v6 = MEMORY[0x1E695DFD8];
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"HMCPNS.ck.sbbnc"];
 
   [(HMCameraUserNotificationSettings *)v5 setSmartBulletinBoardNotificationCondition:v9];
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

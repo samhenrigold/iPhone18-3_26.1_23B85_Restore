@@ -2,6 +2,7 @@
 + (id)migratorForNewUserAccountWithVersion:(id)version;
 + (id)migratorFromSchemaVersion:(unint64_t)version;
 + (id)migratorFromVersion:(id)version toVersion:(id)toVersion;
++ (id)migratorFromVersion:(id)version toVersion:(id)toVersion platform:(unint64_t)platform newUserAccount:(BOOL)account;
 - (BOOL)previousVersionIsOlderThanMacOS:(id)s iOS:(id)oS watchOS:(id)watchOS tvOS:(id)tvOS;
 @end
 
@@ -22,6 +23,21 @@
   v5 = [self migratorFromVersion:&stru_28419F558 toVersion:versionCopy platform:objc_msgSend(objc_opt_class() newUserAccount:{"currentPlatform"), 1}];
 
   return v5;
+}
+
++ (id)migratorFromVersion:(id)version toVersion:(id)toVersion platform:(unint64_t)platform newUserAccount:(BOOL)account
+{
+  accountCopy = account;
+  toVersionCopy = toVersion;
+  versionCopy = version;
+  v11 = objc_opt_new();
+  [v11 setPlatform:platform];
+  [v11 setPreviousVersion:versionCopy];
+
+  [v11 setCurrentVersion:toVersionCopy];
+  [v11 setNewUserAccount:accountCopy];
+
+  return v11;
 }
 
 + (id)migratorFromSchemaVersion:(unint64_t)version

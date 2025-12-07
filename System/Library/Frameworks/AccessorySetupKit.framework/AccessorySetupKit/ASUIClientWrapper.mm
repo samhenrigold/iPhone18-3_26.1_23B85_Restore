@@ -73,16 +73,15 @@
   v2 = *(&self->super.isa + OBJC_IVAR____TtC17AccessorySetupKit17ASUIClientWrapper_clientManager);
   if (v2)
   {
-    v3 = *&v2[OBJC_IVAR____TtC17AccessorySetupKit17ASUIClientManager_displayItems];
     selfCopy = self;
-    v5 = v2;
+    v4 = v2;
 
-    sub_2369DC338(v6);
+    sub_2369DC338(v5);
   }
 
-  v7 = sub_2369E19D8();
+  v6 = sub_2369E19D8();
 
-  return v7;
+  return v6;
 }
 
 - (void)pickerReportedEvents:(id)events

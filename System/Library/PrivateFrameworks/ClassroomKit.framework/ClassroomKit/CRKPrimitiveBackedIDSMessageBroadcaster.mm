@@ -44,12 +44,13 @@
 void __72__CRKPrimitiveBackedIDSMessageBroadcaster_broadcasterWithIDSPrimitives___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _CRKLogASM_15();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _CRKLogASM_15(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __72__CRKPrimitiveBackedIDSMessageBroadcaster_broadcasterWithIDSPrimitives___block_invoke_cold_1(a1, v3);
+      __72__CRKPrimitiveBackedIDSMessageBroadcaster_broadcasterWithIDSPrimitives___block_invoke_cold_1(a1, v4);
     }
   }
 }
@@ -58,7 +59,7 @@ void __72__CRKPrimitiveBackedIDSMessageBroadcaster_broadcasterWithIDSPrimitives_
 {
   v15 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = _CRKLogASM_15();
+  v5 = _CRKLogASM_15(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -111,49 +112,50 @@ void __83__CRKPrimitiveBackedIDSMessageBroadcaster_beginListeningForMessagesWith
 
 void __83__CRKPrimitiveBackedIDSMessageBroadcaster_beginListeningForMessagesWithCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
-    v8 = _CRKLogASM_15();
-    v9 = v8;
+    v9 = _CRKLogASM_15(WeakRetained);
+    v10 = v9;
     if (v6)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __83__CRKPrimitiveBackedIDSMessageBroadcaster_beginListeningForMessagesWithCompletion___block_invoke_2_cold_1(WeakRetained, v6);
+        __83__CRKPrimitiveBackedIDSMessageBroadcaster_beginListeningForMessagesWithCompletion___block_invoke_2_cold_1(v8, v6);
       }
 
-      v10 = *(*(a1 + 32) + 16);
+      v11 = *(*(a1 + 32) + 16);
     }
 
     else
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
-        v15 = 138543618;
-        v16 = v14;
-        v17 = 2048;
-        v18 = WeakRetained;
-        _os_log_impl(&dword_243550000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Established IDS message listener", &v15, 0x16u);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = 138543618;
+        v17 = v15;
+        v18 = 2048;
+        v19 = v8;
+        _os_log_impl(&dword_243550000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Established IDS message listener", &v16, 0x16u);
       }
 
-      [WeakRetained setMessageSubscription:v5];
-      v10 = *(*(a1 + 32) + 16);
+      [v8 setMessageSubscription:v5];
+      v11 = *(*(a1 + 32) + 16);
     }
 
-    v10();
+    v11();
   }
 
   else
   {
-    v11 = *(a1 + 32);
-    v12 = CRKErrorWithCodeAndUserInfo(2, &unk_2856724C8);
-    (*(v11 + 16))(v11, v12);
+    v12 = *(a1 + 32);
+    v13 = CRKErrorWithCodeAndUserInfo(2, &unk_2856724C8);
+    (*(v12 + 16))(v12, v13);
   }
 }
 
@@ -163,7 +165,7 @@ void __83__CRKPrimitiveBackedIDSMessageBroadcaster_beginListeningForMessagesWith
   messageCopy = message;
   dCopy = d;
   addressCopy = address;
-  v11 = _CRKLogASM_15();
+  v11 = _CRKLogASM_15(addressCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = objc_opt_class();
@@ -216,7 +218,7 @@ void __72__CRKPrimitiveBackedIDSMessageBroadcaster_broadcasterWithIDSPrimitives_
   v4 = NSStringFromClass(v3);
   v5 = [a2 verboseDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_243550000, v6, v7, "%{public}@ - %p: Failed to create message broadcaster. Error: %{public}@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1(&dword_243550000, v6, v7, "%{public}@ - %p: Failed to create message broadcaster. Error: %{public}@", v8, v9, v10, v11);
 }
 
 void __83__CRKPrimitiveBackedIDSMessageBroadcaster_beginListeningForMessagesWithCompletion___block_invoke_2_cold_1(uint64_t a1, void *a2)
@@ -225,7 +227,7 @@ void __83__CRKPrimitiveBackedIDSMessageBroadcaster_beginListeningForMessagesWith
   v4 = NSStringFromClass(v3);
   v5 = [a2 verboseDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_243550000, v6, v7, "%{public}@ - %p: Failed to begin listening for IDS messages. Error = %{public}@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1(&dword_243550000, v6, v7, "%{public}@ - %p: Failed to begin listening for IDS messages. Error = %{public}@", v8, v9, v10, v11);
 }
 
 @end

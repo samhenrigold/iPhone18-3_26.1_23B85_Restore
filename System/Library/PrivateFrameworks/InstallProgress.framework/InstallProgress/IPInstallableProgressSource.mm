@@ -58,7 +58,7 @@
   v8 = *MEMORY[0x277D85DE8];
   if (self->_resumed)
   {
-    v3 = _IPDefaultLog();
+    v3 = _IPDefaultLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [(IPInstallableStateSource *)self resume];
@@ -71,7 +71,7 @@
     associatedRegistry = [(IPInstallableStateSource *)self->_installableStateSource associatedRegistry];
     [associatedRegistry registerProgressSource:self];
 
-    v3 = _IPClientLog();
+    v3 = _IPClientLog(v5);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 138412290;
@@ -79,8 +79,6 @@
       _os_log_impl(&dword_254C69000, v3, OS_LOG_TYPE_DEFAULT, "Progress source resumed: %@", &v6, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyOfUpdate:(id)update

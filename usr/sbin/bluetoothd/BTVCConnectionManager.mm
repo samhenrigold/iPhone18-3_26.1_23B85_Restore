@@ -68,9 +68,11 @@
 
 - (id)description
 {
-  NSAppendPrintF();
+  v4 = 0;
+  NSAppendPrintF(&v4, "-- BTVCConnectionManager --\n");
+  v2 = v4;
 
-  return 0;
+  return v2;
 }
 
 - (void)activate

@@ -1,4 +1,5 @@
 @interface MDMManagedAssetManager
++ (void)_promptUserForiTunesAccount:(id)account accountNameEditable:(BOOL)editable canCreateNewAccount:(BOOL)newAccount assertion:(id)assertion completionBlock:(id)block;
 + (void)promptUserToLoginToiTunesIfNeededTitle:(id)title message:(id)message assertion:(id)assertion completionBlock:(id)block;
 @end
 
@@ -63,16 +64,17 @@ LABEL_10:
   }
 }
 
-void __99__MDMManagedAssetManager_promptUserToLoginToiTunesIfNeededTitle_message_assertion_completionBlock___block_invoke_3(uint64_t a1, int a2)
+void __99__MDMManagedAssetManager_promptUserToLoginToiTunesIfNeededTitle_message_assertion_completionBlock___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (a2)
   {
+    v3 = a2;
     v4 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 67240192;
-      v13 = a2;
+      v12 = v3;
       _os_log_impl(&dword_2561F5000, v4, OS_LOG_TYPE_ERROR, "User rejected app installation with response: %{public}u", buf, 8u);
     }
 
@@ -86,22 +88,20 @@ void __99__MDMManagedAssetManager_promptUserToLoginToiTunesIfNeededTitle_message
   else
   {
     v6 = *(a1 + 32);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __99__MDMManagedAssetManager_promptUserToLoginToiTunesIfNeededTitle_message_assertion_completionBlock___block_invoke_4;
-    v9[3] = &unk_27982BEB0;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __99__MDMManagedAssetManager_promptUserToLoginToiTunesIfNeededTitle_message_assertion_completionBlock___block_invoke_4;
+    v8[3] = &unk_27982BEB0;
     v7 = *(a1 + 48);
-    v11 = *(a1 + 40);
-    v10 = *(a1 + 32);
-    [v7 _promptUserForiTunesAccount:0 accountNameEditable:1 canCreateNewAccount:1 assertion:v6 completionBlock:v9];
+    v10 = *(a1 + 40);
+    v9 = *(a1 + 32);
+    [v7 _promptUserForiTunesAccount:0 accountNameEditable:1 canCreateNewAccount:1 assertion:v6 completionBlock:v8];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __99__MDMManagedAssetManager_promptUserToLoginToiTunesIfNeededTitle_message_assertion_completionBlock___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(DMCLogObjects() + 8);
@@ -109,9 +109,9 @@ void __99__MDMManagedAssetManager_promptUserToLoginToiTunesIfNeededTitle_message
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138543362;
-      v13 = v5;
-      _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_ERROR, "Login failed. Error: %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v5;
+      _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_ERROR, "Login failed. Error: %{public}@", &v11, 0xCu);
     }
 
     v8 = *(a1 + 40);
@@ -127,8 +127,8 @@ LABEL_10:
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_DEFAULT, "Login successful.", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_DEFAULT, "Login successful.", &v11, 2u);
     }
 
     v10 = *(a1 + 40);
@@ -138,13 +138,54 @@ LABEL_10:
       goto LABEL_10;
     }
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
++ (void)_promptUserForiTunesAccount:(id)account accountNameEditable:(BOOL)editable canCreateNewAccount:(BOOL)newAccount assertion:(id)assertion completionBlock:(id)block
+{
+  newAccountCopy = newAccount;
+  editableCopy = editable;
+  v25 = *MEMORY[0x277D85DE8];
+  accountCopy = account;
+  blockCopy = block;
+  v12 = *(DMCLogObjects() + 8);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = v12;
+    v14 = DMCStringForBool();
+    *buf = 138543618;
+    v22 = accountCopy;
+    v23 = 2114;
+    v24 = v14;
+    _os_log_impl(&dword_2561F5000, v13, OS_LOG_TYPE_DEFAULT, "Prompting user to log in to iTunes store using account: %{public}@. Can create new account: %{public}@.", buf, 0x16u);
+  }
+
+  if (accountCopy)
+  {
+    contextForSignIn = [objc_alloc(MEMORY[0x277D69BC8]) initWithAccount:accountCopy];
+  }
+
+  else
+  {
+    contextForSignIn = [MEMORY[0x277D69BC8] contextForSignIn];
+  }
+
+  v16 = contextForSignIn;
+  [contextForSignIn setPromptStyle:0];
+  [v16 setAccountNameEditable:editableCopy];
+  [v16 setCanCreateNewAccount:newAccountCopy];
+  v17 = [MDMSSAuthenticationRequestDelegate instanceWithAuthenticationContext:v16];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __120__MDMManagedAssetManager__promptUserForiTunesAccount_accountNameEditable_canCreateNewAccount_assertion_completionBlock___block_invoke;
+  v19[3] = &unk_27982BF00;
+  v20 = blockCopy;
+  v18 = blockCopy;
+  [v17 startWithCompletionBlock:v19];
 }
 
 void __120__MDMManagedAssetManager__promptUserForiTunesAccount_accountNameEditable_canCreateNewAccount_assertion_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(DMCLogObjects() + 8);
@@ -154,9 +195,9 @@ void __120__MDMManagedAssetManager__promptUserForiTunesAccount_accountNameEditab
     {
       v8 = v7;
       v9 = [v5 DMCVerboseDescription];
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_2561F5000, v8, OS_LOG_TYPE_ERROR, "Log in request failed. Error: %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_2561F5000, v8, OS_LOG_TYPE_ERROR, "Log in request failed. Error: %{public}@", &v11, 0xCu);
     }
 
     v10 = *(*(a1 + 32) + 16);
@@ -166,17 +207,15 @@ void __120__MDMManagedAssetManager__promptUserForiTunesAccount_accountNameEditab
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
-      v13 = v6;
-      _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_DEFAULT, "Log in successful. Account: %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v6;
+      _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_DEFAULT, "Log in successful. Account: %{public}@", &v11, 0xCu);
     }
 
     v10 = *(*(a1 + 32) + 16);
   }
 
   v10();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

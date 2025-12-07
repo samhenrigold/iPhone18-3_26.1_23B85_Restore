@@ -1,17 +1,12 @@
 void sub_16F8(uint64_t a1, uint64_t a2)
 {
-  v9 = [*(a1 + 32) defaultLayoutRuleForState:a2];
-  [v9 setVerticalLayout:3];
-  [v9 setHorizontalLayout:1];
-  [*(a1 + 32) setDefaultLayoutRule:v9 forState:a2];
-  [v9 referenceFrame];
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 56);
-  v7 = *(a1 + 64);
-  v8 = *(a1 + 72);
+  v4 = [*(a1 + 32) defaultLayoutRuleForState:a2];
+  [v4 setVerticalLayout:3];
+  [v4 setHorizontalLayout:1];
+  [*(a1 + 32) setDefaultLayoutRule:v4 forState:a2];
+  [v4 referenceFrame];
   CLKRectCenteredXInRectForDevice();
-  [v9 setReferenceFrame:?];
+  [v4 setReferenceFrame:?];
 }
 
 uint64_t sub_22BC(uint64_t a1, void *a2)
@@ -161,16 +156,16 @@ void sub_31FC(uint64_t a1)
   }
 }
 
-id sub_4820()
+id sub_4820(uint64_t a1)
 {
   if (qword_1A2B8 != -1)
   {
     sub_9AD8();
   }
 
-  v1 = qword_1A2B0;
+  v2 = qword_1A2B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_4944(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)

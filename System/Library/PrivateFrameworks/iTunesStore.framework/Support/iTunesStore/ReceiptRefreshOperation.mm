@@ -81,7 +81,7 @@
     [v4 setDataProvider:v5];
     v6 = objc_alloc_init(SSMutableURLRequestProperties);
     [v6 setAllowedRetryCount:0];
-    v36 = _postBodyData;
+    v35 = _postBodyData;
     [v6 setHTTPBody:_postBodyData];
     [v6 setHTTPMethod:@"POST"];
     [v6 setValue:@"application/x-apple-plist" forHTTPHeaderField:@"Content-Type"];
@@ -100,7 +100,7 @@
       [v6 setURLBagType:1];
     }
 
-    v35 = v10;
+    v34 = v10;
     [v4 setAuthenticationContext:v10];
     [v4 setRequestProperties:v6];
     v11 = +[SSLogConfig sharedDaemonConfig];
@@ -135,26 +135,24 @@
     {
       v16 = objc_opt_class();
       client = self->_client;
-      v34 = v8;
+      v33 = v8;
       v18 = v5;
       v19 = v4;
       v20 = v16;
       bundleIdentifier = [(SKPaymentQueueClient *)client bundleIdentifier];
-      v38 = 138543618;
-      v39 = v16;
-      v40 = 2114;
-      v41 = bundleIdentifier;
-      LODWORD(v33) = 22;
-      v32 = &v38;
-      v22 = _os_log_send_and_compose_impl();
+      v37 = 138543618;
+      v38 = v16;
+      v39 = 2114;
+      v40 = bundleIdentifier;
+      v22 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@]: Updating receipt for: %{public}@", &v37, 22);
 
       v4 = v19;
       v5 = v18;
-      v8 = v34;
+      v8 = v33;
 
       if (v22)
       {
-        v23 = [NSString stringWithCString:v22 encoding:4, &v38, v33];
+        v23 = [NSString stringWithCString:v22 encoding:4];
         free(v22);
         v32 = v23;
         SSFileLog();
@@ -165,9 +163,9 @@
     {
     }
 
-    v37 = 0;
-    v26 = [(ReceiptRefreshOperation *)self runSubOperation:v4 returningError:&v37];
-    v24 = v37;
+    v36 = 0;
+    v26 = [(ReceiptRefreshOperation *)self runSubOperation:v4 returningError:&v36];
+    v24 = v36;
     if (v26)
     {
       output = [v5 output];
@@ -185,13 +183,13 @@
         v25 = 0;
       }
 
-      _postBodyData = v36;
+      _postBodyData = v35;
     }
 
     else
     {
       v25 = 0;
-      _postBodyData = v36;
+      _postBodyData = v35;
     }
   }
 

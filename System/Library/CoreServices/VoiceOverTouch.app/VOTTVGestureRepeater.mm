@@ -83,7 +83,7 @@ LABEL_7:
 
   if (!v8)
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Gesture repeater got an unexpected event: %@");
     goto LABEL_7;
   }
 

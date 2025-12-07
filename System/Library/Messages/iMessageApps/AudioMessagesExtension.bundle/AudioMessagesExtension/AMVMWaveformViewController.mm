@@ -36,44 +36,44 @@
 - (void)updatePowerLevels:(id)levels startTime:(double)time endTime:(double)endTime
 {
   levelsCopy = levels;
-  v8 = +[NSMutableData dataWithLength:](NSMutableData, "dataWithLength:", 4 * [levelsCopy count]);
-  mutableBytes = [v8 mutableBytes];
-  v10 = [levelsCopy count];
-  if (v10 >= 1)
+  v6 = +[NSMutableData dataWithLength:](NSMutableData, "dataWithLength:", 4 * [levelsCopy count]);
+  mutableBytes = [v6 mutableBytes];
+  v8 = [levelsCopy count];
+  if (v8 >= 1)
   {
-    v11 = v10;
-    for (i = 0; i != v11; i = i + 1)
+    v9 = v8;
+    for (i = 0; i != v9; i = i + 1)
     {
-      v13 = [levelsCopy objectAtIndexedSubscript:i];
-      [v13 floatValue];
-      mutableBytes[i] = v14;
+      v11 = [levelsCopy objectAtIndexedSubscript:i];
+      [v11 floatValue];
+      mutableBytes[i] = v12;
     }
   }
 
-  v15 = RCTimeRangeMake(time, endTime);
-  v17 = [[RCWaveformSegment alloc] initWithTimeRange:v8 averagePowerLevelData:v15, v16];
+  RCTimeRangeMake();
+  v15 = [[RCWaveformSegment alloc] initWithTimeRange:v6 averagePowerLevelData:v13, v14];
   waveformDataSource = [(AMVMWaveformViewController *)self waveformDataSource];
-  [waveformDataSource appendAveragePowerLevelsByDigestingWaveformSegment:v17];
+  [waveformDataSource appendAveragePowerLevelsByDigestingWaveformSegment:v15];
 
   [(AMVMWaveformViewController *)self setCurrentTime:0.0];
 }
 
 - (void)updatePowerLevel:(float)level startTime:(double)time endTime:(double)endTime
 {
-  v14 = level + 3.0;
-  v8 = +[NSMutableData data];
-  v9 = 8;
+  v13 = level + 3.0;
+  v7 = +[NSMutableData data];
+  v8 = 8;
   do
   {
-    [v8 appendBytes:&v14 length:4];
-    --v9;
+    [v7 appendBytes:&v13 length:4];
+    --v8;
   }
 
-  while (v9);
-  v10 = RCTimeRangeMake(time, endTime);
-  v12 = [[RCWaveformSegment alloc] initWithTimeRange:v8 averagePowerLevelData:v10, v11];
+  while (v8);
+  RCTimeRangeMake();
+  v11 = [[RCWaveformSegment alloc] initWithTimeRange:v7 averagePowerLevelData:v9, v10];
   waveformDataSource = [(AMVMWaveformViewController *)self waveformDataSource];
-  [waveformDataSource appendAveragePowerLevelsByDigestingWaveformSegment:v12];
+  [waveformDataSource appendAveragePowerLevelsByDigestingWaveformSegment:v11];
 
   [(AMVMWaveformViewController *)self setCurrentTime:endTime];
 }

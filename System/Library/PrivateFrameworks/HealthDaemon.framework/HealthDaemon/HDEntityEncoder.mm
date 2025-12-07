@@ -108,7 +108,7 @@ LABEL_4:
     objc_storeStrong(&v27->_transaction, transaction);
     objc_storeStrong(&v27->_database, protectedDatabase);
     v27->_purpose = purpose;
-    v28 = [optionsCopy copy];
+    v28 = objc_msgSend_copy(optionsCopy);
     v29 = v28;
     if (v28)
     {

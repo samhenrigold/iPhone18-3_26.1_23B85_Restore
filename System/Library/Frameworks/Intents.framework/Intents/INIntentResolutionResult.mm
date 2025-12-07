@@ -30,11 +30,11 @@
 
 - (id)dictionaryRepresentation
 {
-  v15[5] = *MEMORY[0x1E69E9840];
-  v14[0] = @"resolutionResultCode";
+  v14[5] = *MEMORY[0x1E69E9840];
+  v13[0] = @"resolutionResultCode";
   v3 = [(INIntentResolutionResult *)self _stringForResultCode:[(INIntentResolutionResult *)self resolutionResultCode]];
-  v15[0] = v3;
-  v14[1] = @"disambiguationItems";
+  v14[0] = v3;
+  v13[1] = @"disambiguationItems";
   disambiguationItems = self->_disambiguationItems;
   null = disambiguationItems;
   if (!disambiguationItems)
@@ -42,8 +42,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null;
-  v14[2] = @"resolvedValue";
+  v14[1] = null;
+  v13[2] = @"resolvedValue";
   resolvedValue = self->_resolvedValue;
   null2 = resolvedValue;
   if (!resolvedValue)
@@ -51,8 +51,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[2] = null2;
-  v14[3] = @"itemToConfirm";
+  v14[2] = null2;
+  v13[3] = @"itemToConfirm";
   itemToConfirm = self->_itemToConfirm;
   null3 = itemToConfirm;
   if (!itemToConfirm)
@@ -60,11 +60,11 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[3] = null3;
-  v14[4] = @"unsupportedReason";
+  v14[3] = null3;
+  v13[4] = @"unsupportedReason";
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_unsupportedReason];
-  v15[4] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
+  v14[4] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:5];
 
   if (itemToConfirm)
   {
@@ -97,7 +97,6 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -113,7 +112,7 @@ LABEL_10:
 
 - (id)_objectForIntentSlotValue:(id)value slotDescription:(id)description
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   descriptionCopy = description;
   valueStyle = [descriptionCopy valueStyle];
@@ -131,8 +130,8 @@ LABEL_10:
       INIntentSlotValueTransformFromStringValue(payloadStringValues);
     }
 
-    v48 = LABEL_564:;
-    v13 = v48;
+    v47 = LABEL_564:;
+    v12 = v47;
     goto LABEL_67;
   }
 
@@ -397,7 +396,7 @@ LABEL_10:
     dataStrings = [(INStartCallRequestMetadata *)payloadStringValues dataStrings];
     v10 = INIntentSlotValueTransformFromStrings(dataStrings);
 LABEL_91:
-    v13 = v10;
+    v12 = v10;
 
 LABEL_67:
     goto LABEL_68;
@@ -485,35 +484,35 @@ LABEL_67:
 
   if ([valueCopy payloadPrimitiveBoolsCount])
   {
-    v14 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(valueCopy, "payloadPrimitiveBoolAtIndex:", 0)}];
+    v13 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(valueCopy, "payloadPrimitiveBoolAtIndex:", 0)}];
 LABEL_102:
-    v13 = v14;
+    v12 = v13;
     goto LABEL_68;
   }
 
   if ([valueCopy payloadPrimitiveIntsCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadPrimitiveIntAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadPrimitiveIntAtIndex:0];
 LABEL_96:
-    v14 = [v15 numberWithInt:v16];
+    v13 = [v14 numberWithInt:v15];
     goto LABEL_102;
   }
 
   if ([valueCopy payloadPrimitiveLongsCount])
   {
-    v17 = MEMORY[0x1E696AD98];
-    v18 = [valueCopy payloadPrimitiveLongAtIndex:0];
+    v16 = MEMORY[0x1E696AD98];
+    v17 = [valueCopy payloadPrimitiveLongAtIndex:0];
 LABEL_99:
-    v14 = [v17 numberWithLongLong:v18];
+    v13 = [v16 numberWithLongLong:v17];
     goto LABEL_102;
   }
 
   if ([valueCopy payloadPrimitiveDoublesCount])
   {
-    v19 = MEMORY[0x1E696AD98];
+    v18 = MEMORY[0x1E696AD98];
     [valueCopy payloadPrimitiveDoubleAtIndex:0];
-    v14 = [v19 numberWithDouble:?];
+    v13 = [v18 numberWithDouble:?];
     goto LABEL_102;
   }
 
@@ -529,7 +528,7 @@ LABEL_99:
       [valueCopy payloadPrimitiveStringAtIndex:0];
     }
 
-    v14 = LABEL_106:;
+    v13 = LABEL_106:;
     goto LABEL_102;
   }
 
@@ -620,15 +619,15 @@ LABEL_99:
 
   if ([valueCopy payloadEventAttributesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadEventAttributeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadEventAttributeAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadEnumerationsCount])
   {
-    v17 = MEMORY[0x1E696AD98];
-    v18 = [valueCopy payloadEnumerationAtIndex:0];
+    v16 = MEMORY[0x1E696AD98];
+    v17 = [valueCopy payloadEnumerationAtIndex:0];
     goto LABEL_99;
   }
 
@@ -651,8 +650,8 @@ LABEL_99:
 
   if ([valueCopy payloadAlarmPeriodsCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadAlarmPeriodAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadAlarmPeriodAtIndex:0];
     goto LABEL_96;
   }
 
@@ -660,25 +659,25 @@ LABEL_99:
   {
     if (valueStyle != 3)
     {
-      v15 = MEMORY[0x1E696AD98];
-      v16 = [valueCopy payloadAlarmRepeatScheduleAtIndex:0];
+      v14 = MEMORY[0x1E696AD98];
+      v15 = [valueCopy payloadAlarmRepeatScheduleAtIndex:0];
       goto LABEL_96;
     }
 
-    v58 = 0;
+    v57 = 0;
     if ([valueCopy payloadAlarmRepeatSchedulesCount])
     {
-      v20 = 0;
+      v19 = 0;
       do
       {
-        INAlarmRepeatScheduleOptionsAddBackingType(&v58, [valueCopy payloadAlarmRepeatScheduleAtIndex:v20++]);
+        INAlarmRepeatScheduleOptionsAddBackingType(&v57, [valueCopy payloadAlarmRepeatScheduleAtIndex:v19++]);
       }
 
-      while (v20 < [valueCopy payloadAlarmRepeatSchedulesCount]);
+      while (v19 < [valueCopy payloadAlarmRepeatSchedulesCount]);
 LABEL_557:
-      v34 = v58;
+      v33 = v57;
 LABEL_559:
-      v33 = MEMORY[0x1E696AD98];
+      v32 = MEMORY[0x1E696AD98];
       goto LABEL_560;
     }
 
@@ -704,15 +703,15 @@ LABEL_559:
 
   if ([valueCopy payloadAlarmSearchTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadAlarmSearchTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadAlarmSearchTypeAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadChangeAlarmStatusOperationsCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadChangeAlarmStatusOperationAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadChangeAlarmStatusOperationAtIndex:0];
     goto LABEL_96;
   }
 
@@ -735,15 +734,15 @@ LABEL_559:
 
   if ([valueCopy payloadUpdateAlarmOperationsCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadUpdateAlarmOperationAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadUpdateAlarmOperationAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadCallAudioRoutesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadCallAudioRouteAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadCallAudioRouteAtIndex:0];
     goto LABEL_96;
   }
 
@@ -751,38 +750,38 @@ LABEL_559:
   {
     if (valueStyle != 3)
     {
-      v15 = MEMORY[0x1E696AD98];
-      v16 = [valueCopy payloadCallCapabilityAtIndex:0];
+      v14 = MEMORY[0x1E696AD98];
+      v15 = [valueCopy payloadCallCapabilityAtIndex:0];
       goto LABEL_96;
     }
 
-    v21 = 0;
+    v20 = 0;
     if ([valueCopy payloadCallCapabilitiesCount])
     {
-      v22 = 0;
+      v21 = 0;
       do
       {
-        v23 = [valueCopy payloadCallCapabilityAtIndex:v22];
-        v24 = v21 | 1;
-        if (v23 != 1)
+        v22 = [valueCopy payloadCallCapabilityAtIndex:v21];
+        v23 = v20 | 1;
+        if (v22 != 1)
         {
-          v24 = v21;
+          v23 = v20;
         }
 
-        if (v23 == 2)
+        if (v22 == 2)
         {
-          v21 |= 2uLL;
+          v20 |= 2uLL;
         }
 
         else
         {
-          v21 = v24;
+          v20 = v23;
         }
 
-        ++v22;
+        ++v21;
       }
 
-      while (v22 < [valueCopy payloadCallCapabilitiesCount]);
+      while (v21 < [valueCopy payloadCallCapabilitiesCount]);
     }
 
     goto LABEL_369;
@@ -790,8 +789,8 @@ LABEL_559:
 
   if ([valueCopy payloadCallDestinationTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadCallDestinationTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadCallDestinationTypeAtIndex:0];
     goto LABEL_96;
   }
 
@@ -850,26 +849,26 @@ LABEL_559:
   {
     if (valueStyle != 3)
     {
-      v15 = MEMORY[0x1E696AD98];
-      v16 = [valueCopy payloadCallRecordTypeAtIndex:0];
+      v14 = MEMORY[0x1E696AD98];
+      v15 = [valueCopy payloadCallRecordTypeAtIndex:0];
       goto LABEL_96;
     }
 
-    v58 = 0;
+    v57 = 0;
     if ([valueCopy payloadCallRecordTypesCount])
     {
-      v25 = 0;
+      v24 = 0;
       do
       {
-        INCallRecordTypeOptionsAddBackingType(&v58, [valueCopy payloadCallRecordTypeAtIndex:v25++]);
+        INCallRecordTypeOptionsAddBackingType(&v57, [valueCopy payloadCallRecordTypeAtIndex:v24++]);
       }
 
-      while (v25 < [valueCopy payloadCallRecordTypesCount]);
+      while (v24 < [valueCopy payloadCallRecordTypesCount]);
       goto LABEL_557;
     }
 
 LABEL_558:
-    v34 = 0;
+    v33 = 0;
     goto LABEL_559;
   }
 
@@ -909,8 +908,8 @@ LABEL_558:
 
   if ([valueCopy payloadPreferredCallProvidersCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadPreferredCallProviderAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadPreferredCallProviderAtIndex:0];
     goto LABEL_96;
   }
 
@@ -933,29 +932,29 @@ LABEL_558:
 
   if ([valueCopy payloadCarAirCirculationModesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadCarAirCirculationModeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadCarAirCirculationModeAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadCarAudioSourcesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadCarAudioSourceAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadCarAudioSourceAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadCarDefrostersCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadCarDefrosterAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadCarDefrosterAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadCarSeatsCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadCarSeatAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadCarSeatAtIndex:0];
     goto LABEL_96;
   }
 
@@ -963,38 +962,38 @@ LABEL_558:
   {
     if (valueStyle != 3)
     {
-      v15 = MEMORY[0x1E696AD98];
-      v16 = [valueCopy payloadCarSignalIdentifierAtIndex:0];
+      v14 = MEMORY[0x1E696AD98];
+      v15 = [valueCopy payloadCarSignalIdentifierAtIndex:0];
       goto LABEL_96;
     }
 
-    v21 = 0;
+    v20 = 0;
     if ([valueCopy payloadCarSignalIdentifiersCount])
     {
-      v26 = 0;
+      v25 = 0;
       do
       {
-        v27 = [valueCopy payloadCarSignalIdentifierAtIndex:v26];
-        v28 = v21 | 1;
-        if (v27 != 1)
+        v26 = [valueCopy payloadCarSignalIdentifierAtIndex:v25];
+        v27 = v20 | 1;
+        if (v26 != 1)
         {
-          v28 = v21;
+          v27 = v20;
         }
 
-        if (v27 == 2)
+        if (v26 == 2)
         {
-          v21 |= 2uLL;
+          v20 |= 2uLL;
         }
 
         else
         {
-          v21 = v28;
+          v20 = v27;
         }
 
-        ++v26;
+        ++v25;
       }
 
-      while (v26 < [valueCopy payloadCarSignalIdentifiersCount]);
+      while (v25 < [valueCopy payloadCarSignalIdentifiersCount]);
     }
 
     goto LABEL_369;
@@ -1017,15 +1016,15 @@ LABEL_558:
 
   if ([valueCopy payloadRelativeReferencesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadRelativeReferenceAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadRelativeReferenceAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadRelativeSettingsCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadRelativeSettingAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadRelativeSettingAtIndex:0];
     goto LABEL_96;
   }
 
@@ -1082,22 +1081,22 @@ LABEL_558:
 
   if ([valueCopy payloadHomeAttributeTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadHomeAttributeTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadHomeAttributeTypeAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadHomeAttributeValueTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadHomeAttributeValueTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadHomeAttributeValueTypeAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadHomeDeviceTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadHomeDeviceTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadHomeDeviceTypeAtIndex:0];
     goto LABEL_96;
   }
 
@@ -1120,8 +1119,8 @@ LABEL_558:
 
   if ([valueCopy payloadHomeEntityTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadHomeEntityTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadHomeEntityTypeAtIndex:0];
     goto LABEL_96;
   }
 
@@ -1178,22 +1177,22 @@ LABEL_558:
 
   if ([valueCopy payloadReadActionTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadReadActionTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadReadActionTypeAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadUserNotificationTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadUserNotificationTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadUserNotificationTypeAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadMediaAffinityTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadMediaAffinityTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadMediaAffinityTypeAtIndex:0];
     goto LABEL_96;
   }
 
@@ -1267,22 +1266,22 @@ LABEL_558:
 
   if ([valueCopy payloadParsecCategoriesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadParsecCategoryAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadParsecCategoryAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadPlaybackQueueLocationsCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadPlaybackQueueLocationAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadPlaybackQueueLocationAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadPlaybackRepeatModesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadPlaybackRepeatModeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadPlaybackRepeatModeAtIndex:0];
     goto LABEL_96;
   }
 
@@ -1356,8 +1355,8 @@ LABEL_558:
 
   if ([valueCopy payloadRadioTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadRadioTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadRadioTypeAtIndex:0];
     goto LABEL_96;
   }
 
@@ -1380,15 +1379,15 @@ LABEL_558:
 
   if ([valueCopy payloadDateSearchTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadDateSearchTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadDateSearchTypeAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadLocationSearchTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadLocationSearchTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadLocationSearchTypeAtIndex:0];
     goto LABEL_96;
   }
 
@@ -1428,8 +1427,8 @@ LABEL_558:
 
   if ([valueCopy payloadNotebookItemTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadNotebookItemTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadNotebookItemTypeAtIndex:0];
     goto LABEL_96;
   }
 
@@ -1486,22 +1485,22 @@ LABEL_558:
 
   if ([valueCopy payloadTaskPrioritiesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadTaskPriorityAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadTaskPriorityAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadTaskReferencesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadTaskReferenceAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadTaskReferenceAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadTaskStatusCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadTaskStatusAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadTaskStatusAtIndex:0];
     goto LABEL_96;
   }
 
@@ -1526,65 +1525,65 @@ LABEL_558:
   {
     if (valueStyle != 3)
     {
-      v15 = MEMORY[0x1E696AD98];
-      v16 = [valueCopy payloadTemporalEventTriggerTypeAtIndex:0];
+      v14 = MEMORY[0x1E696AD98];
+      v15 = [valueCopy payloadTemporalEventTriggerTypeAtIndex:0];
       goto LABEL_96;
     }
 
-    v21 = 0;
+    v20 = 0;
     if ([valueCopy payloadTemporalEventTriggerTypesCount])
     {
-      v29 = 0;
+      v28 = 0;
       do
       {
-        v30 = [valueCopy payloadTemporalEventTriggerTypeAtIndex:v29];
-        v31 = v21 | 2;
-        v32 = v21 | 1;
-        if (v30 != 1)
+        v29 = [valueCopy payloadTemporalEventTriggerTypeAtIndex:v28];
+        v30 = v20 | 2;
+        v31 = v20 | 1;
+        if (v29 != 1)
         {
-          v32 = v21;
+          v31 = v20;
         }
 
-        if (v30 != 2)
+        if (v29 != 2)
         {
-          v31 = v32;
+          v30 = v31;
         }
 
-        if (v30 == 3)
+        if (v29 == 3)
         {
-          v21 |= 4uLL;
+          v20 |= 4uLL;
         }
 
         else
         {
-          v21 = v31;
+          v20 = v30;
         }
 
-        ++v29;
+        ++v28;
       }
 
-      while (v29 < [valueCopy payloadTemporalEventTriggerTypesCount]);
+      while (v28 < [valueCopy payloadTemporalEventTriggerTypesCount]);
     }
 
 LABEL_369:
-    v33 = MEMORY[0x1E696AD98];
-    v34 = v21;
+    v32 = MEMORY[0x1E696AD98];
+    v33 = v20;
 LABEL_560:
-    v14 = [v33 numberWithUnsignedInteger:v34];
+    v13 = [v32 numberWithUnsignedInteger:v33];
     goto LABEL_102;
   }
 
   if ([valueCopy payloadAccountTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadAccountTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadAccountTypeAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadBalanceTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadBalanceTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadBalanceTypeAtIndex:0];
     goto LABEL_96;
   }
 
@@ -1624,8 +1623,8 @@ LABEL_560:
 
   if ([valueCopy payloadBillTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadBillTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadBillTypeAtIndex:0];
     goto LABEL_96;
   }
 
@@ -1682,22 +1681,22 @@ LABEL_560:
 
   if ([valueCopy payloadPaymentStatusCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadPaymentStatusAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadPaymentStatusAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadBinarySettingValuesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadBinarySettingValueAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadBinarySettingValueAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadBoundedSettingValuesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadBoundedSettingValueAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadBoundedSettingValueAtIndex:0];
     goto LABEL_96;
   }
 
@@ -1737,8 +1736,8 @@ LABEL_560:
 
   if ([valueCopy payloadNumericSettingUnitsCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadNumericSettingUnitAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadNumericSettingUnitAtIndex:0];
     goto LABEL_96;
   }
 
@@ -1761,8 +1760,8 @@ LABEL_560:
 
   if ([valueCopy payloadSettingActionsCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadSettingActionAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadSettingActionAtIndex:0];
     goto LABEL_96;
   }
 
@@ -1802,22 +1801,22 @@ LABEL_560:
 
   if ([valueCopy payloadTimerStatesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadTimerStateAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadTimerStateAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadTimerTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadTimerTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadTimerTypeAtIndex:0];
     goto LABEL_96;
   }
 
   if ([valueCopy payloadVisualCodeTypesCount])
   {
-    v15 = MEMORY[0x1E696AD98];
-    v16 = [valueCopy payloadVisualCodeTypeAtIndex:0];
+    v14 = MEMORY[0x1E696AD98];
+    v15 = [valueCopy payloadVisualCodeTypeAtIndex:0];
     goto LABEL_96;
   }
 
@@ -1863,69 +1862,69 @@ LABEL_560:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v36 = codableAttribute;
+        v35 = codableAttribute;
       }
 
       else
       {
-        v36 = 0;
+        v35 = 0;
       }
     }
 
     else
     {
-      v36 = 0;
+      v35 = 0;
     }
 
-    v37 = v36;
+    v36 = v35;
 
-    codableDescription = [v37 codableDescription];
-    v55[0] = MEMORY[0x1E69E9820];
-    v55[1] = 3221225472;
-    v55[2] = __81__INIntentResolutionResult_Transform___objectForIntentSlotValue_slotDescription___block_invoke;
-    v55[3] = &unk_1E7280AE8;
-    v50 = codableDescription;
-    v56 = v50;
-    v49 = v37;
-    v57 = v49;
-    v39 = MEMORY[0x193AD7780](v55);
+    codableDescription = [v36 codableDescription];
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = __81__INIntentResolutionResult_Transform___objectForIntentSlotValue_slotDescription___block_invoke;
+    v54[3] = &unk_1E7280AE8;
+    v49 = codableDescription;
+    v55 = v49;
+    v48 = v36;
+    v56 = v48;
+    v38 = MEMORY[0x193AD7780](v54);
     if (valueStyle == 3)
     {
-      v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(valueCopy, "payloadArchivedObjectsCount")}];
+      v12 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(valueCopy, "payloadArchivedObjectsCount")}];
+      v50 = 0u;
       v51 = 0u;
       v52 = 0u;
       v53 = 0u;
-      v54 = 0u;
       payloadArchivedObjects = [valueCopy payloadArchivedObjects];
-      v41 = [payloadArchivedObjects countByEnumeratingWithState:&v51 objects:v59 count:16];
-      if (v41)
+      v40 = [payloadArchivedObjects countByEnumeratingWithState:&v50 objects:v58 count:16];
+      if (v40)
       {
-        v42 = v41;
-        v43 = *v52;
+        v41 = v40;
+        v42 = *v51;
         do
         {
-          for (i = 0; i != v42; ++i)
+          for (i = 0; i != v41; ++i)
           {
-            if (*v52 != v43)
+            if (*v51 != v42)
             {
               objc_enumerationMutation(payloadArchivedObjects);
             }
 
-            v45 = v39[2](v39, *(*(&v51 + 1) + 8 * i));
-            [v13 addObject:v45];
+            v44 = v38[2](v38, *(*(&v50 + 1) + 8 * i));
+            [v12 addObject:v44];
           }
 
-          v42 = [payloadArchivedObjects countByEnumeratingWithState:&v51 objects:v59 count:16];
+          v41 = [payloadArchivedObjects countByEnumeratingWithState:&v50 objects:v58 count:16];
         }
 
-        while (v42);
+        while (v41);
       }
     }
 
     else
     {
       payloadArchivedObjects = [valueCopy payloadArchivedObjectAtIndex:0];
-      v13 = (v39)[2](v39, payloadArchivedObjects);
+      v12 = (v38)[2](v38, payloadArchivedObjects);
     }
   }
 
@@ -2052,22 +2051,22 @@ LABEL_560:
 
     if ([valueCopy payloadWellnessObjectTypesCount])
     {
-      v15 = MEMORY[0x1E696AD98];
-      v16 = [valueCopy payloadWellnessObjectTypeAtIndex:0];
+      v14 = MEMORY[0x1E696AD98];
+      v15 = [valueCopy payloadWellnessObjectTypeAtIndex:0];
       goto LABEL_96;
     }
 
     if ([valueCopy payloadWellnessQueryResultTypesCount])
     {
-      v15 = MEMORY[0x1E696AD98];
-      v16 = [valueCopy payloadWellnessQueryResultTypeAtIndex:0];
+      v14 = MEMORY[0x1E696AD98];
+      v15 = [valueCopy payloadWellnessQueryResultTypeAtIndex:0];
       goto LABEL_96;
     }
 
     if ([valueCopy payloadWellnessQuestionTypesCount])
     {
-      v15 = MEMORY[0x1E696AD98];
-      v16 = [valueCopy payloadWellnessQuestionTypeAtIndex:0];
+      v14 = MEMORY[0x1E696AD98];
+      v15 = [valueCopy payloadWellnessQuestionTypeAtIndex:0];
       goto LABEL_96;
     }
 
@@ -2141,22 +2140,22 @@ LABEL_560:
 
     if ([valueCopy payloadWorkoutGoalUnitTypesCount])
     {
-      v15 = MEMORY[0x1E696AD98];
-      v16 = [valueCopy payloadWorkoutGoalUnitTypeAtIndex:0];
+      v14 = MEMORY[0x1E696AD98];
+      v15 = [valueCopy payloadWorkoutGoalUnitTypeAtIndex:0];
       goto LABEL_96;
     }
 
     if ([valueCopy payloadWorkoutLocationTypesCount])
     {
-      v15 = MEMORY[0x1E696AD98];
-      v16 = [valueCopy payloadWorkoutLocationTypeAtIndex:0];
+      v14 = MEMORY[0x1E696AD98];
+      v15 = [valueCopy payloadWorkoutLocationTypeAtIndex:0];
       goto LABEL_96;
     }
 
     if ([valueCopy payloadWorkoutSequenceLabelsCount])
     {
-      v15 = MEMORY[0x1E696AD98];
-      v16 = [valueCopy payloadWorkoutSequenceLabelAtIndex:0];
+      v14 = MEMORY[0x1E696AD98];
+      v15 = [valueCopy payloadWorkoutSequenceLabelAtIndex:0];
       goto LABEL_96;
     }
 
@@ -2164,21 +2163,21 @@ LABEL_560:
     {
       if (valueStyle != 3)
       {
-        v15 = MEMORY[0x1E696AD98];
-        v16 = [valueCopy payloadMessageAttributeAtIndex:0];
+        v14 = MEMORY[0x1E696AD98];
+        v15 = [valueCopy payloadMessageAttributeAtIndex:0];
         goto LABEL_96;
       }
 
-      v58 = 0;
+      v57 = 0;
       if ([valueCopy payloadMessageAttributesCount])
       {
-        v46 = 0;
+        v45 = 0;
         do
         {
-          INMessageAttributeOptionsAddBackingType(&v58, [valueCopy payloadMessageAttributeAtIndex:v46++]);
+          INMessageAttributeOptionsAddBackingType(&v57, [valueCopy payloadMessageAttributeAtIndex:v45++]);
         }
 
-        while (v46 < [valueCopy payloadMessageAttributesCount]);
+        while (v45 < [valueCopy payloadMessageAttributesCount]);
         goto LABEL_557;
       }
 
@@ -2187,22 +2186,22 @@ LABEL_560:
 
     if ([valueCopy payloadMessageEffectsCount])
     {
-      v15 = MEMORY[0x1E696AD98];
-      v16 = [valueCopy payloadMessageEffectAtIndex:0];
+      v14 = MEMORY[0x1E696AD98];
+      v15 = [valueCopy payloadMessageEffectAtIndex:0];
       goto LABEL_96;
     }
 
     if ([valueCopy payloadMessageTypesCount])
     {
-      v15 = MEMORY[0x1E696AD98];
-      v16 = [valueCopy payloadMessageTypeAtIndex:0];
+      v14 = MEMORY[0x1E696AD98];
+      v15 = [valueCopy payloadMessageTypeAtIndex:0];
       goto LABEL_96;
     }
 
     if ([valueCopy payloadOutgoingMessageTypesCount])
     {
-      v15 = MEMORY[0x1E696AD98];
-      v16 = [valueCopy payloadOutgoingMessageTypeAtIndex:0];
+      v14 = MEMORY[0x1E696AD98];
+      v15 = [valueCopy payloadOutgoingMessageTypeAtIndex:0];
       goto LABEL_96;
     }
 
@@ -2300,8 +2299,8 @@ LABEL_560:
 
     if ([valueCopy payloadPersonalPlaceTypesCount])
     {
-      v15 = MEMORY[0x1E696AD98];
-      v16 = [valueCopy payloadPersonalPlaceTypeAtIndex:0];
+      v14 = MEMORY[0x1E696AD98];
+      v15 = [valueCopy payloadPersonalPlaceTypeAtIndex:0];
       goto LABEL_96;
     }
 
@@ -2309,21 +2308,21 @@ LABEL_560:
     {
       if (valueStyle != 3)
       {
-        v15 = MEMORY[0x1E696AD98];
-        v16 = [valueCopy payloadPhotoAttributeAtIndex:0];
+        v14 = MEMORY[0x1E696AD98];
+        v15 = [valueCopy payloadPhotoAttributeAtIndex:0];
         goto LABEL_96;
       }
 
-      v58 = 0;
+      v57 = 0;
       if ([valueCopy payloadPhotoAttributesCount])
       {
-        v47 = 0;
+        v46 = 0;
         do
         {
-          INPhotoAttributeOptionsAddBackingType(&v58, [valueCopy payloadPhotoAttributeAtIndex:v47++]);
+          INPhotoAttributeOptionsAddBackingType(&v57, [valueCopy payloadPhotoAttributeAtIndex:v46++]);
         }
 
-        while (v47 < [valueCopy payloadPhotoAttributesCount]);
+        while (v46 < [valueCopy payloadPhotoAttributesCount]);
         goto LABEL_557;
       }
 
@@ -2355,14 +2354,12 @@ LABEL_560:
       goto LABEL_91;
     }
 
-    v13 = 0;
+    v12 = 0;
   }
 
 LABEL_68:
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v12;
 }
 
 id __81__INIntentResolutionResult_Transform___objectForIntentSlotValue_slotDescription___block_invoke(uint64_t a1, void *a2)
@@ -2415,7 +2412,7 @@ id __81__INIntentResolutionResult_Transform___objectForIntentSlotValue_slotDescr
 
 - (id)_JSONDictionaryRepresentationForIntent:(id)intent parameterName:(id)name
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   nameCopy = name;
   v8 = [INJSONEncoder alloc];
@@ -2423,12 +2420,12 @@ id __81__INIntentResolutionResult_Transform___objectForIntentSlotValue_slotDescr
   v10 = +[INPreferences siriLanguageCode];
   [(INJSONEncoderConfiguration *)v9 setLanguageCode:v10];
 
-  v43 = [(INJSONEncoder *)v8 initWithConfiguration:v9];
+  v42 = [(INJSONEncoder *)v8 initWithConfiguration:v9];
   _codableDescription = [intentCopy _codableDescription];
   v12 = [_codableDescription attributeByName:nameCopy];
 
   _intentInstanceDescription = [intentCopy _intentInstanceDescription];
-  v42 = [_intentInstanceDescription slotByName:nameCopy];
+  v41 = [_intentInstanceDescription slotByName:nameCopy];
 
   resolutionResultCode = [(INIntentResolutionResult *)self resolutionResultCode];
   v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -2445,7 +2442,7 @@ id __81__INIntentResolutionResult_Transform___objectForIntentSlotValue_slotDescr
     [(INIntentResolutionResult *)self resolvedValue];
   }
   v17 = ;
-  v18 = [(INJSONEncoder *)v43 encodeObject:v17 withCodableAttribute:v12];
+  v18 = [(INJSONEncoder *)v42 encodeObject:v17 withCodableAttribute:v12];
   [v15 if_setObjectIfNonNil:v18 forKey:@"value"];
 
   if ([(INIntentResolutionResult *)self unsupportedReason])
@@ -2464,79 +2461,77 @@ id __81__INIntentResolutionResult_Transform___objectForIntentSlotValue_slotDescr
 
   if (disambiguationItems)
   {
-    v38 = v15;
-    v39 = nameCopy;
-    v40 = intentCopy;
+    v37 = v15;
+    v38 = nameCopy;
+    v39 = intentCopy;
     v22 = objc_alloc(MEMORY[0x1E695DF70]);
     disambiguationItems2 = [(INIntentResolutionResult *)self disambiguationItems];
     v24 = [v22 initWithCapacity:{objc_msgSend(disambiguationItems2, "count")}];
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     obj = [(INIntentResolutionResult *)self disambiguationItems];
-    v25 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v25 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v45;
+      v27 = *v44;
       do
       {
         for (i = 0; i != v26; ++i)
         {
           selfCopy = self;
-          if (*v45 != v27)
+          if (*v44 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = *(*(&v44 + 1) + 8 * i);
+          v30 = *(*(&v43 + 1) + 8 * i);
           v31 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:3];
           uUID = [MEMORY[0x1E696AFB0] UUID];
           uUIDString = [uUID UUIDString];
           [v31 if_setObjectIfNonNil:uUIDString forKey:@"uuid"];
 
-          v34 = [(INJSONEncoder *)v43 encodeObject:v30 withCodableAttribute:v12];
+          v34 = [(INJSONEncoder *)v42 encodeObject:v30 withCodableAttribute:v12];
           [v31 if_setObjectIfNonNil:v34 forKey:@"value"];
 
           self = selfCopy;
-          v35 = [(INIntentResolutionResult *)selfCopy _vocabularyValueForObject:v30 slotDescription:v42];
+          v35 = [(INIntentResolutionResult *)selfCopy _vocabularyValueForObject:v30 slotDescription:v41];
           [v31 if_setObjectIfNonNil:v35 forKey:@"vocabularyValue"];
 
           [v24 addObject:v31];
         }
 
-        v26 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v26 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
       }
 
       while (v26);
     }
 
-    v15 = v38;
-    [v38 setObject:v24 forKey:@"selectionItems"];
+    v15 = v37;
+    [v37 setObject:v24 forKey:@"selectionItems"];
 
-    nameCopy = v39;
-    intentCopy = v40;
+    nameCopy = v38;
+    intentCopy = v39;
   }
 
-  [v15 if_setObjectIfNonNil:nameCopy forKey:{@"keyPath", v38}];
-
-  v36 = *MEMORY[0x1E69E9840];
+  [v15 if_setObjectIfNonNil:nameCopy forKey:{@"keyPath", v37}];
 
   return v15;
 }
 
 - (INIntentResolutionResult)initWithJSONDictionary:(id)dictionary forIntent:(id)intent
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   intentCopy = intent;
   v8 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v57 = "[INIntentResolutionResult initWithJSONDictionary:forIntent:]";
+    v56 = "[INIntentResolutionResult initWithJSONDictionary:forIntent:]";
     _os_log_debug_impl(&dword_18E991000, v8, OS_LOG_TYPE_DEBUG, "%s _initWithJSONDictionary called", buf, 0xCu);
   }
 
@@ -2592,7 +2587,7 @@ id __81__INIntentResolutionResult_Transform___objectForIntentSlotValue_slotDescr
     v13 = [(INIntentResolutionResult *)self _initWithResultCode:v11];
     if (v13)
     {
-      v48 = objc_alloc_init(INJSONDecoder);
+      v47 = objc_alloc_init(INJSONDecoder);
       v14 = [dictionaryCopy objectForKey:@"keyPath"];
       if (v14)
       {
@@ -2616,7 +2611,7 @@ id __81__INIntentResolutionResult_Transform___objectForIntentSlotValue_slotDescr
       v16 = v15;
 
       _codableDescription = [intentCopy _codableDescription];
-      v47 = v16;
+      v46 = v16;
       v18 = [_codableDescription attributeByName:v16];
 
       resolutionResultClass = [v18 resolutionResultClass];
@@ -2628,7 +2623,7 @@ id __81__INIntentResolutionResult_Transform___objectForIntentSlotValue_slotDescr
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v21 = [(INJSONDecoder *)v48 decodeWithCodableAttribute:v18 from:v20];
+            v21 = [(INJSONDecoder *)v47 decodeWithCodableAttribute:v18 from:v20];
             v22 = 4;
             if (v13[1] == 3)
             {
@@ -2645,21 +2640,21 @@ id __81__INIntentResolutionResult_Transform___objectForIntentSlotValue_slotDescr
       if (v24 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
         unsupportedReasons = [v18 unsupportedReasons];
-        v53[0] = MEMORY[0x1E69E9820];
-        v53[1] = 3221225472;
-        v53[2] = __61__INIntentResolutionResult_initWithJSONDictionary_forIntent___block_invoke;
-        v53[3] = &unk_1E7284060;
-        v46 = v24;
-        v54 = v46;
-        v26 = [unsupportedReasons if_firstObjectPassingTest:v53];
+        v52[0] = MEMORY[0x1E69E9820];
+        v52[1] = 3221225472;
+        v52[2] = __61__INIntentResolutionResult_initWithJSONDictionary_forIntent___block_invoke;
+        v52[3] = &unk_1E7284060;
+        v45 = v24;
+        v53 = v45;
+        v26 = [unsupportedReasons if_firstObjectPassingTest:v52];
 
         v13[6] = [v18 indexForUnsupportedReason:v26];
-        v24 = v54;
+        v24 = v53;
       }
 
       else
       {
-        v46 = 0;
+        v45 = 0;
       }
 
       v27 = [dictionaryCopy objectForKey:@"selectionItems"];
@@ -2682,54 +2677,54 @@ id __81__INIntentResolutionResult_Transform___objectForIntentSlotValue_slotDescr
 
         if (resolutionResultClass && (isKindOfClass & 1) != 0)
         {
-          v43 = v13;
-          v44 = intentCopy;
-          v45 = dictionaryCopy;
+          v42 = v13;
+          v43 = intentCopy;
+          v44 = dictionaryCopy;
           v32 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v31, "count")}];
+          v48 = 0u;
           v49 = 0u;
           v50 = 0u;
           v51 = 0u;
-          v52 = 0u;
           v31 = v31;
-          v33 = [v31 countByEnumeratingWithState:&v49 objects:v55 count:16];
+          v33 = [v31 countByEnumeratingWithState:&v48 objects:v54 count:16];
           if (v33)
           {
             v34 = v33;
-            v35 = *v50;
+            v35 = *v49;
             do
             {
               for (i = 0; i != v34; ++i)
               {
-                if (*v50 != v35)
+                if (*v49 != v35)
                 {
                   objc_enumerationMutation(v31);
                 }
 
-                v37 = [*(*(&v49 + 1) + 8 * i) objectForKey:@"value"];
+                v37 = [*(*(&v48 + 1) + 8 * i) objectForKey:@"value"];
                 if (v37)
                 {
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v38 = [(INJSONDecoder *)v48 decodeWithCodableAttribute:v18 from:v37];
+                    v38 = [(INJSONDecoder *)v47 decodeWithCodableAttribute:v18 from:v37];
                     [v32 addObject:v38];
                   }
                 }
               }
 
-              v34 = [v31 countByEnumeratingWithState:&v49 objects:v55 count:16];
+              v34 = [v31 countByEnumeratingWithState:&v48 objects:v54 count:16];
             }
 
             while (v34);
           }
 
           v39 = [v32 copy];
-          v13 = v43;
-          v40 = v43[2];
-          v43[2] = v39;
+          v13 = v42;
+          v40 = v42[2];
+          v42[2] = v39;
 
-          intentCopy = v44;
-          dictionaryCopy = v45;
+          intentCopy = v43;
+          dictionaryCopy = v44;
         }
       }
 
@@ -2748,7 +2743,6 @@ id __81__INIntentResolutionResult_Transform___objectForIntentSlotValue_slotDescr
     selfCopy = 0;
   }
 
-  v41 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -2762,12 +2756,12 @@ uint64_t __61__INIntentResolutionResult_initWithJSONDictionary_forIntent___block
 
 - (id)_initWithIntentSlotResolutionResult:(id)result slotDescription:(id)description
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   descriptionCopy = description;
-  v55.receiver = self;
-  v55.super_class = INIntentResolutionResult;
-  v8 = [(INIntentResolutionResult *)&v55 init];
+  v54.receiver = self;
+  v54.super_class = INIntentResolutionResult;
+  v8 = [(INIntentResolutionResult *)&v54 init];
   if (!v8)
   {
     goto LABEL_36;
@@ -2877,30 +2871,30 @@ LABEL_35:
 
     if ([confirmationItem count])
     {
-      v46 = payloadConfirmation;
+      v45 = payloadConfirmation;
       v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v50 = 0u;
       v51 = 0u;
       v52 = 0u;
       v53 = 0u;
-      v54 = 0u;
-      v45 = confirmationItem;
+      v44 = confirmationItem;
       v23 = confirmationItem;
-      v24 = [v23 countByEnumeratingWithState:&v51 objects:v57 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v50 objects:v56 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v52;
+        v26 = *v51;
         do
         {
           v27 = 0;
           do
           {
-            if (*v52 != v26)
+            if (*v51 != v26)
             {
               objc_enumerationMutation(v23);
             }
 
-            value2 = [*(*(&v51 + 1) + 8 * v27) value];
+            value2 = [*(*(&v50 + 1) + 8 * v27) value];
             v29 = [(INIntentResolutionResult *)v8 _objectForIntentSlotValue:value2 slotDescription:descriptionCopy];
             [v22 addObject:v29];
 
@@ -2908,15 +2902,15 @@ LABEL_35:
           }
 
           while (v25 != v27);
-          v25 = [v23 countByEnumeratingWithState:&v51 objects:v57 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v50 objects:v56 count:16];
         }
 
         while (v25);
       }
 
       [(INIntentResolutionResult *)v8 setAlternatives:v22];
-      confirmationItem = v45;
-      payloadConfirmation = v46;
+      confirmationItem = v44;
+      payloadConfirmation = v45;
     }
 
     goto LABEL_30;
@@ -2929,29 +2923,29 @@ LABEL_36:
   if (disambiguationItemsCount)
   {
     v34 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:disambiguationItemsCount];
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     payloadNeedsDisambiguation2 = [resultCopy payloadNeedsDisambiguation];
     disambiguationItems = [payloadNeedsDisambiguation2 disambiguationItems];
 
-    v37 = [disambiguationItems countByEnumeratingWithState:&v47 objects:v56 count:16];
+    v37 = [disambiguationItems countByEnumeratingWithState:&v46 objects:v55 count:16];
     if (v37)
     {
       v38 = v37;
-      v39 = *v48;
+      v39 = *v47;
       do
       {
         v40 = 0;
         do
         {
-          if (*v48 != v39)
+          if (*v47 != v39)
           {
             objc_enumerationMutation(disambiguationItems);
           }
 
-          value3 = [*(*(&v47 + 1) + 8 * v40) value];
+          value3 = [*(*(&v46 + 1) + 8 * v40) value];
           v42 = [(INIntentResolutionResult *)v8 _objectForIntentSlotValue:value3 slotDescription:descriptionCopy];
           [v34 addObject:v42];
 
@@ -2959,7 +2953,7 @@ LABEL_36:
         }
 
         while (v38 != v40);
-        v38 = [disambiguationItems countByEnumeratingWithState:&v47 objects:v56 count:16];
+        v38 = [disambiguationItems countByEnumeratingWithState:&v46 objects:v55 count:16];
       }
 
       while (v38);
@@ -2971,7 +2965,6 @@ LABEL_36:
   v14 = v8;
 LABEL_46:
 
-  v43 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -3005,7 +2998,7 @@ LABEL_46:
 
 - (id)_buildIntentSlotResolutionResultWithIntentSlotDescription:(id)description
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   v4 = objc_alloc_init(_INPBIntentSlotResolutionResult);
   resolutionResultCode = [(INIntentResolutionResult *)self resolutionResultCode];
@@ -3062,29 +3055,29 @@ LABEL_46:
         alternatives = [(INIntentResolutionResult *)self alternatives];
         if ([alternatives count])
         {
-          v71 = v4;
+          v70 = v4;
           v45 = objc_alloc_init(_INPBConflictingParameter);
+          v81 = 0u;
           v82 = 0u;
           v83 = 0u;
           v84 = 0u;
-          v85 = 0u;
-          v70 = alternatives;
+          v69 = alternatives;
           obj = alternatives;
-          v46 = [obj countByEnumeratingWithState:&v82 objects:v87 count:16];
+          v46 = [obj countByEnumeratingWithState:&v81 objects:v86 count:16];
           if (v46)
           {
             v47 = v46;
-            v48 = *v83;
+            v48 = *v82;
             do
             {
               for (i = 0; i != v47; ++i)
               {
-                if (*v83 != v48)
+                if (*v82 != v48)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v50 = *(*(&v82 + 1) + 8 * i);
+                v50 = *(*(&v81 + 1) + 8 * i);
                 v51 = objc_alloc_init(_INPBSelectionItem);
                 uUID2 = [MEMORY[0x1E696AFB0] UUID];
                 uUIDString2 = [uUID2 UUIDString];
@@ -3099,16 +3092,16 @@ LABEL_46:
                 [(_INPBConflictingParameter *)v45 addAlternateItems:v51];
               }
 
-              v47 = [obj countByEnumeratingWithState:&v82 objects:v87 count:16];
+              v47 = [obj countByEnumeratingWithState:&v81 objects:v86 count:16];
             }
 
             while (v47);
           }
 
           [(_INPBPayloadUnsupported *)v7 addConflictingParameters:v45];
-          v4 = v71;
+          v4 = v70;
           self = selfCopy;
-          alternatives = v70;
+          alternatives = v69;
         }
 
         [(_INPBIntentSlotResolutionResult *)v4 setPayloadUnsupported:v7];
@@ -3196,9 +3189,9 @@ LABEL_14:
     {
       intentToExecute5 = [(INIntentResolutionResult *)self intentToExecute];
       launchId2 = [intentToExecute5 launchId];
-      v81 = 0;
-      INExtractAppInfoFromSiriLaunchId(launchId2, &v81, 0);
-      extensionBundleId = v81;
+      v80 = 0;
+      INExtractAppInfoFromSiriLaunchId(launchId2, &v80, 0);
+      extensionBundleId = v80;
     }
 
     className = [_codableDescription className];
@@ -3222,28 +3215,28 @@ LABEL_36:
   disambiguationItems = [(INIntentResolutionResult *)self disambiguationItems];
   if (disambiguationItems)
   {
-    v72 = v4;
+    v71 = v4;
     v57 = objc_alloc_init(_INPBPayloadNeedsDisambiguation);
+    v76 = 0u;
     v77 = 0u;
     v78 = 0u;
     v79 = 0u;
-    v80 = 0u;
     obja = disambiguationItems;
-    v58 = [obja countByEnumeratingWithState:&v77 objects:v86 count:16];
+    v58 = [obja countByEnumeratingWithState:&v76 objects:v85 count:16];
     if (v58)
     {
       v59 = v58;
-      v60 = *v78;
+      v60 = *v77;
       do
       {
         for (j = 0; j != v59; ++j)
         {
-          if (*v78 != v60)
+          if (*v77 != v60)
           {
             objc_enumerationMutation(obja);
           }
 
-          v62 = *(*(&v77 + 1) + 8 * j);
+          v62 = *(*(&v76 + 1) + 8 * j);
           v63 = objc_alloc_init(_INPBSelectionItem);
           uUID3 = [MEMORY[0x1E696AFB0] UUID];
           uUIDString3 = [uUID3 UUIDString];
@@ -3257,21 +3250,19 @@ LABEL_36:
           [(_INPBPayloadNeedsDisambiguation *)v57 addDisambiguationItems:v63];
         }
 
-        v59 = [obja countByEnumeratingWithState:&v77 objects:v86 count:16];
+        v59 = [obja countByEnumeratingWithState:&v76 objects:v85 count:16];
       }
 
       while (v59);
     }
 
-    v4 = v72;
-    [(_INPBIntentSlotResolutionResult *)v72 setPayloadNeedsDisambiguation:v57];
+    v4 = v71;
+    [(_INPBIntentSlotResolutionResult *)v71 setPayloadNeedsDisambiguation:v57];
 
     v6 = v6;
   }
 
   [(_INPBIntentSlotResolutionResult *)v4 setType:v6];
-
-  v68 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -3355,33 +3346,32 @@ void __116__INIntentResolutionResult_transformResolutionResultForIntent_intentSl
 {
   if (a2 && ([*(a1 + 32) codableAttribute], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "supportsSearch"), v3, !v4))
   {
-    v7 = *(a1 + 48);
-    v8 = [*(a1 + 32) name];
-    v10 = *(a1 + 56);
-    v9 = *(a1 + 64);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __116__INIntentResolutionResult_transformResolutionResultForIntent_intentSlotDescription_withOptionsProvider_completion___block_invoke_2;
-    v12[3] = &unk_1E7284010;
-    v11 = *(a1 + 40);
-    v14 = *(a1 + 72);
-    v12[4] = v11;
-    v13 = v9;
-    [v7 getParameterOptionsForParameterNamed:v8 intent:v10 searchTerm:0 completionBlock:v12];
+    v6 = *(a1 + 48);
+    v7 = [*(a1 + 32) name];
+    v9 = *(a1 + 56);
+    v8 = *(a1 + 64);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __116__INIntentResolutionResult_transformResolutionResultForIntent_intentSlotDescription_withOptionsProvider_completion___block_invoke_2;
+    v11[3] = &unk_1E7284010;
+    v10 = *(a1 + 40);
+    v13 = *(a1 + 72);
+    v11[4] = v10;
+    v12 = v8;
+    [v6 getParameterOptionsForParameterNamed:v7 intent:v9 searchTerm:0 completionBlock:v11];
   }
 
   else
   {
-    v5 = *(a1 + 40);
-    v6 = *(*(a1 + 64) + 16);
+    v5 = *(*(a1 + 64) + 16);
 
-    v6();
+    v5();
   }
 }
 
 void __116__INIntentResolutionResult_transformResolutionResultForIntent_intentSlotDescription_withOptionsProvider_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [a2 allItems];
   if ([v6 count])
@@ -3399,18 +3389,15 @@ void __116__INIntentResolutionResult_transformResolutionResultForIntent_intentSl
     v7 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[INIntentResolutionResult transformResolutionResultForIntent:intentSlotDescription:withOptionsProvider:completion:]_block_invoke_2";
-      v12 = 2114;
-      v13 = v5;
-      _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s Failed updating needsValue to needsDisambiguate for custom object: %{public}@", &v10, 0x16u);
+      v8 = 136315394;
+      v9 = "[INIntentResolutionResult transformResolutionResultForIntent:intentSlotDescription:withOptionsProvider:completion:]_block_invoke_2";
+      v10 = 2114;
+      v11 = v5;
+      _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s Failed updating needsValue to needsDisambiguate for custom object: %{public}@", &v8, 0x16u);
     }
   }
 
-  v8 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)resolutionResultDataForIntent:(id)intent intentSlotDescription:(id)description error:(id *)error
@@ -3439,38 +3426,38 @@ void __116__INIntentResolutionResult_transformResolutionResultForIntent_intentSl
 
 + (id)_resolutionResultWithData:(id)data slotDescription:(id)description
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   descriptionCopy = description;
   v7 = [[_INPBIntentSlotResolutionMulticardinalResult alloc] initWithData:dataCopy];
   if ([(_INPBIntentSlotResolutionMulticardinalResult *)v7 resolutionResultsCount])
   {
     v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[_INPBIntentSlotResolutionMulticardinalResult resolutionResultsCount](v7, "resolutionResultsCount")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     resolutionResults = [(_INPBIntentSlotResolutionMulticardinalResult *)v7 resolutionResults];
-    v10 = [resolutionResults countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [resolutionResults countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(resolutionResults);
           }
 
-          v14 = [objc_alloc(objc_opt_class()) _initWithIntentSlotResolutionResult:*(*(&v18 + 1) + 8 * i) slotDescription:descriptionCopy];
+          v14 = [objc_alloc(objc_opt_class()) _initWithIntentSlotResolutionResult:*(*(&v17 + 1) + 8 * i) slotDescription:descriptionCopy];
           __70__INIntentResolutionResult__resolutionResultWithData_slotDescription___block_invoke(v14);
           [(_INPBIntentSlotResolutionResult *)v8 addObject:v14];
         }
 
-        v11 = [resolutionResults countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [resolutionResults countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -3486,14 +3473,12 @@ void __116__INIntentResolutionResult_transformResolutionResultForIntent_intentSl
     __70__INIntentResolutionResult__resolutionResultWithData_slotDescription___block_invoke(v15);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 void __70__INIntentResolutionResult__resolutionResultWithData_slotDescription___block_invoke(void *a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 resolvedValue];
   v3 = [v1 itemToConfirm];
@@ -3523,32 +3508,32 @@ void __70__INIntentResolutionResult__resolutionResultWithData_slotDescription___
     [v1 setItemToConfirm:v3];
   }
 
-  v25 = v5;
-  v26 = v4;
+  v24 = v5;
+  v25 = v4;
   if (v4)
   {
     v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v9 = v4;
-    v10 = [v9 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v32;
+      v12 = *v31;
       do
       {
         v13 = 0;
         do
         {
-          if (*v32 != v12)
+          if (*v31 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v31 + 1) + 8 * v13);
+          v14 = *(*(&v30 + 1) + 8 * v13);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -3565,41 +3550,41 @@ void __70__INIntentResolutionResult__resolutionResultWithData_slotDescription___
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v11);
     }
 
     [v1 setDisambiguationItems:v8];
-    v5 = v25;
-    v4 = v26;
+    v5 = v24;
+    v4 = v25;
   }
 
   if (v5)
   {
     v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v17 = v5;
-    v18 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v28;
+      v20 = *v27;
       do
       {
         v21 = 0;
         do
         {
-          if (*v28 != v20)
+          if (*v27 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v27 + 1) + 8 * v21);
+          v22 = *(*(&v26 + 1) + 8 * v21);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -3616,18 +3601,16 @@ void __70__INIntentResolutionResult__resolutionResultWithData_slotDescription___
         }
 
         while (v19 != v21);
-        v19 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
       while (v19);
     }
 
     [v1 setAlternatives:v16];
-    v5 = v25;
-    v4 = v26;
+    v5 = v24;
+    v4 = v25;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 + (id)requiresExecutionOfIntent:(id)intent
@@ -3640,7 +3623,7 @@ void __70__INIntentResolutionResult__resolutionResultWithData_slotDescription___
   v9 = processInfo;
   if (processInfo)
   {
-    [processInfo if_auditToken];
+    objc_msgSend_if_auditToken(processInfo);
   }
 
   else

@@ -8,51 +8,49 @@
 
 - (id)actionsUnavailableError
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = WFLocalizedString(@"Writing Tools Unavailable");
   v3 = WFLocalizedString(@"Writing Tools are not currently available.");
   v4 = MEMORY[0x1E696ABC0];
   v5 = *MEMORY[0x1E696A588];
-  v10[0] = *MEMORY[0x1E696A578];
-  v10[1] = v5;
-  v11[0] = v2;
-  v11[1] = v3;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[0] = *MEMORY[0x1E696A578];
+  v9[1] = v5;
+  v10[0] = v2;
+  v10[1] = v3;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v7 = [v4 errorWithDomain:@"WFActionErrorDomain" code:1 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (void)refreshAvailability
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2050000000;
+  v16 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2050000000;
   v3 = getWTWritingToolsControllerClass_softClass;
-  v12 = getWTWritingToolsControllerClass_softClass;
+  v11 = getWTWritingToolsControllerClass_softClass;
   if (!getWTWritingToolsControllerClass_softClass)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v14 = __getWTWritingToolsControllerClass_block_invoke;
-    v15 = &unk_1E837FAC0;
-    v16 = &v9;
+    v13 = __getWTWritingToolsControllerClass_block_invoke;
+    v14 = &unk_1E837FAC0;
+    v15 = &v8;
     __getWTWritingToolsControllerClass_block_invoke(&buf);
-    v3 = v10[3];
+    v3 = v9[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v8, 8);
   objc_opt_class();
   if (objc_opt_respondsToSelector())
   {
     if ([objc_opt_class() isAvailable])
     {
       [(WFResource *)self updateAvailability:1 withError:0];
-      goto LABEL_12;
+      return;
     }
   }
 
@@ -77,9 +75,6 @@
 
   actionsUnavailableError = [(WFWritingToolsAvailabilityResource *)self actionsUnavailableError];
   [(WFResource *)self updateAvailability:0 withError:actionsUnavailableError];
-
-LABEL_12:
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (WFWritingToolsAvailabilityResource)initWithDefinition:(id)definition

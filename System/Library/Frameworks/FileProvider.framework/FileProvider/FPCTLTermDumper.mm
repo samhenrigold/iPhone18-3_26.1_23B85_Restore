@@ -4,6 +4,7 @@
 - (FPCTLTermDumper)initWithCoder:(id)coder;
 - (FPCTLTermDumper)initWithFd:(int)fd forceColor:(BOOL)color;
 - (id)annotateString:(id)string markedIdentifiers:(id)identifiers;
+- (id)startStringForFgColor:(int)color bgColor:(int)bgColor attr:(int)attr;
 - (unint64_t)_startInCString:(char)string[256] fgColor:(int)color bgColor:(int)bgColor attr:(int)attr;
 - (unint64_t)remainingSpace;
 - (void)_putsAndCrop:(const char *)crop len:(unint64_t)len;
@@ -27,6 +28,7 @@
 - (void)put:(id)put;
 - (void)puts:(const char *)puts;
 - (void)puts:(const char *)puts len:(unint64_t)len;
+- (void)startFgColor:(int)color bgColor:(int)bgColor attr:(int)attr;
 - (void)startNewLine;
 - (void)startPager;
 - (void)write:(id)write;
@@ -140,12 +142,12 @@
 
 - (void)startPager
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (self->_isatty)
   {
     [objc_opt_class() setupPagerForFd:self->_fd];
-    *v7 = 0;
-    if ((pipe(v7) & 0x80000000) == 0)
+    *v6 = 0;
+    if ((pipe(v6) & 0x80000000) == 0)
     {
       signal(13, 1);
       v2 = fork();
@@ -154,22 +156,22 @@
         v3 = v2;
         if (v2)
         {
-          dup2(v7[1], 1);
-          close(v7[1]);
-          close(v7[0]);
-          v5[0] = MEMORY[0x1E69E9820];
-          v5[1] = 3221225472;
-          v5[2] = __29__FPCTLTermDumper_startPager__block_invoke;
-          v5[3] = &__block_descriptor_36_e5_v8__0l;
-          v6 = v3;
-          atexit_b(v5);
+          dup2(v6[1], 1);
+          close(v6[1]);
+          close(v6[0]);
+          v4[0] = MEMORY[0x1E69E9820];
+          v4[1] = 3221225472;
+          v4[2] = __29__FPCTLTermDumper_startPager__block_invoke;
+          v4[3] = &__block_descriptor_36_e5_v8__0l;
+          v5 = v3;
+          atexit_b(v4);
         }
 
         else
         {
-          dup2(v7[0], 0);
-          close(v7[0]);
-          close(v7[1]);
+          dup2(v6[0], 0);
+          close(v6[0]);
+          close(v6[1]);
           if (execlp("less", "less", "-", 0) < 0)
           {
             [FPCTLTermDumper startPager];
@@ -178,8 +180,6 @@
       }
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __29__FPCTLTermDumper_startPager__block_invoke(uint64_t a1)
@@ -258,6 +258,30 @@ void __29__FPCTLTermDumper_startPager__block_invoke(uint64_t a1)
 
   string[v12 - 1] = 109;
   return v12;
+}
+
+- (id)startStringForFgColor:(int)color bgColor:(int)bgColor attr:(int)attr
+{
+  v9 = *MEMORY[0x1E69E9840];
+  memset(v8, 0, sizeof(v8));
+  v5 = [(FPCTLTermDumper *)self _startInCString:v8 fgColor:*&color bgColor:*&bgColor attr:*&attr];
+  v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v8 length:v5 encoding:4];
+
+  return v6;
+}
+
+- (void)startFgColor:(int)color bgColor:(int)bgColor attr:(int)attr
+{
+  v8 = *MEMORY[0x1E69E9840];
+  if (self->_useColor)
+  {
+    memset(v7, 0, sizeof(v7));
+    v6 = [(FPCTLTermDumper *)self _startInCString:v7 fgColor:*&color bgColor:*&bgColor attr:*&attr];
+    if (v6)
+    {
+      write(self->_fd, v7, v6);
+    }
+  }
 }
 
 - (void)eraseEndOfLine

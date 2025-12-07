@@ -51,9 +51,11 @@
 
 uint64_t __50__MLMediaLibraryService_sharedMediaLibraryService__block_invoke()
 {
-  sharedMediaLibraryService___service = objc_alloc_init(MLMediaLibraryService);
+  v0 = objc_alloc_init(MLMediaLibraryService);
+  v1 = sharedMediaLibraryService___service;
+  sharedMediaLibraryService___service = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (MLMediaLibraryService)init

@@ -552,29 +552,28 @@ LABEL_16:
   dateCopy = date;
   transactionCopy = transaction;
   v8 = objc_alloc_init(NSMutableDictionary);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = [objc_opt_class() _recordAnalyticsDescriptions];
-  v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     while (2)
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * i);
-        v18 = dateCopy;
-        v19 = transactionCopy;
-        v20 = v8;
+        v17 = dateCopy;
+        v18 = transactionCopy;
+        v19 = v8;
         v13 = HKWithAutoreleasePool();
 
         if (!v13)
@@ -585,7 +584,7 @@ LABEL_16:
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v10)
       {
         continue;
@@ -607,30 +606,29 @@ LABEL_11:
   dateCopy = date;
   transactionCopy = transaction;
   v10 = objc_alloc_init(NSMutableDictionary);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = [descriptionCopy timeScopes];
-  v11 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v11 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v26;
+    v13 = *v25;
     while (2)
     {
-      for (i = 0; i != v12; i = i + 1)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v26 != v13)
+        if (*v25 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v25 + 1) + 8 * i);
-        v21 = descriptionCopy;
-        v22 = dateCopy;
-        v23 = transactionCopy;
-        v24 = v10;
+        v20 = descriptionCopy;
+        v21 = dateCopy;
+        v22 = transactionCopy;
+        v23 = v10;
         v15 = HKWithAutoreleasePool();
 
         if (!v15)
@@ -641,7 +639,7 @@ LABEL_11:
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v12 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v12)
       {
         continue;
@@ -858,7 +856,7 @@ LABEL_15:
     v10 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
     {
-      sub_A9B50(v10);
+      sub_A9B50(v10, self);
     }
 
     (*(completionCopy + 2))(completionCopy, 0, 2, v8);

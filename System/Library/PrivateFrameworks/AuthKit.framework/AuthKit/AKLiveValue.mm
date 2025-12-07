@@ -258,8 +258,6 @@ void __25__AKLiveValue_newTrigger__block_invoke(id *a1)
 
     objc_storeStrong(&oslog, 0);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __35__AKLiveValue__onqueue_updateValue__block_invoke(id *a1, void *a2)

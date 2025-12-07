@@ -128,41 +128,41 @@ uint64_t __51__AXUIServiceContext__indexOfClientWithIdentifier___block_invoke(ui
 
 - (void)enumerateClientsUsingBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   [(AXUIServiceContext *)self clientMessengers];
-  v18 = 0;
+  v17 = 0;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v15 != v8)
+      if (*v14 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v14 + 1) + 8 * v9);
+      v10 = *(*(&v13 + 1) + 8 * v9);
       clientIdentifier = [v10 clientIdentifier];
       connection = [v10 connection];
-      blockCopy[2](blockCopy, clientIdentifier, connection, &v18);
+      blockCopy[2](blockCopy, clientIdentifier, connection, &v17);
 
-      if (v18)
+      if (v17)
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -172,8 +172,6 @@ LABEL_3:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (int)pidForClientWithIdentifier:(id)identifier

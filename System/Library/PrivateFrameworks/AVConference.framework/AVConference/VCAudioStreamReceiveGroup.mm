@@ -96,7 +96,7 @@ LABEL_7:
   return v5;
 }
 
-uint64_t __57__VCAudioStreamReceiveGroup_setDeviceRole_operatingMode___block_invoke(uint64_t a1)
+void *__57__VCAudioStreamReceiveGroup_setDeviceRole_operatingMode___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 480) setDeviceRole:*(a1 + 48) operatingMode:*(a1 + 52)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -136,7 +136,7 @@ uint64_t __57__VCAudioStreamReceiveGroup_setDeviceRole_operatingMode___block_inv
   return v3;
 }
 
-uint64_t __46__VCAudioStreamReceiveGroup_audioChannelIndex__block_invoke(uint64_t a1)
+void *__46__VCAudioStreamReceiveGroup_audioChannelIndex__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 480) audioChannelIndex];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -176,7 +176,7 @@ uint64_t __46__VCAudioStreamReceiveGroup_audioChannelIndex__block_invoke(uint64_
   return v3;
 }
 
-uint64_t __49__VCAudioStreamReceiveGroup_spatialAudioSourceID__block_invoke(uint64_t a1)
+void *__49__VCAudioStreamReceiveGroup_spatialAudioSourceID__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 480) spatialAudioSourceID];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -282,7 +282,7 @@ uint64_t __47__VCAudioStreamReceiveGroup_setReportingAgent___block_invoke(uint64
   dispatch_sync(stateQueue, block);
 }
 
-uint64_t __48__VCAudioStreamReceiveGroup_setActiveStreamIDs___block_invoke(uint64_t a1)
+void *__48__VCAudioStreamReceiveGroup_setActiveStreamIDs___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -312,7 +312,7 @@ uint64_t __48__VCAudioStreamReceiveGroup_setActiveStreamIDs___block_invoke(uint6
           [*(a1 + 40) setOptedInStreamID:v7];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -566,7 +566,7 @@ LABEL_12:
   }
 
 LABEL_13:
-  *(*(*(a1 + 48) + 8) + 24) = [*(*(a1 + 40) + 480) addSyncDestination:*(a1 + 32) shouldSchedule:{objc_msgSend(*(a1 + 40), "state", *v19, *&v19[16], v20, v21, *v22, *&v22[16], v23) != 0}];
+  *(*(*(a1 + 48) + 8) + 24) = [*(*(a1 + 40) + 480) addSyncDestination:*(a1 + 32) shouldSchedule:{objc_msgSend(*(a1 + 40), "state", *v19, *&v19[8], v20, v21, *v22, *&v22[8], v23) != 0}];
   if (*(*(*(a1 + 48) + 8) + 24))
   {
     v17 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*v2, "streamToken")}];
@@ -696,7 +696,7 @@ LABEL_12:
   }
 
 LABEL_13:
-  *(*(*(a1 + 48) + 8) + 24) = [*(*(a1 + 40) + 480) removeSyncDestination:*(a1 + 32) shouldSchedule:{objc_msgSend(*(a1 + 40), "state", *v17, *&v17[16], v18, v19, *v20, *&v20[16], v21) != 0}];
+  *(*(*(a1 + 48) + 8) + 24) = [*(*(a1 + 40) + 480) removeSyncDestination:*(a1 + 32) shouldSchedule:{objc_msgSend(*(a1 + 40), "state", *v17, *&v17[8], v18, v19, *v20, *&v20[8], v21) != 0}];
   if (*(*(*(a1 + 48) + 8) + 24))
   {
     [*(*v3 + 70) setObject:0 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", objc_msgSend(*v2, "streamGroupID"))}];
@@ -814,7 +814,7 @@ LABEL_10:
   return unsignedIntValue;
 }
 
-uint64_t __50__VCAudioStreamReceiveGroup_preferredOverlayToken__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__50__VCAudioStreamReceiveGroup_preferredOverlayToken__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 unsignedIntValue];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -836,11 +836,11 @@ uint64_t __50__VCAudioStreamReceiveGroup_preferredOverlayToken__block_invoke(uin
   dispatch_async(stateQueue, v6);
 }
 
-uint64_t __71__VCAudioStreamReceiveGroup_vcMediaStream_remoteMediaStalled_duration___block_invoke(uint64_t a1)
+_BYTE *__71__VCAudioStreamReceiveGroup_vcMediaStream_remoteMediaStalled_duration___block_invoke(uint64_t a1)
 {
   v32 = *MEMORY[0x1E69E9840];
   result = *(a1 + 32);
-  if (*(result + 536) == 1)
+  if (result[536] == 1)
   {
     if (*(a1 + 48) == 1)
     {
@@ -933,7 +933,7 @@ uint64_t __71__VCAudioStreamReceiveGroup_vcMediaStream_remoteMediaStalled_durati
   dispatch_async(stateQueue, block);
 }
 
-uint64_t __72__VCAudioStreamReceiveGroup_vcMediaStream_didSwitchToAudioStreamWithID___block_invoke(uint64_t a1)
+void *__72__VCAudioStreamReceiveGroup_vcMediaStream_didSwitchToAudioStreamWithID___block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:*(a1 + 40)];
@@ -967,7 +967,7 @@ uint64_t __72__VCAudioStreamReceiveGroup_vcMediaStream_didSwitchToAudioStreamWit
 - (void)vcMediaStream:(id)stream didReceiveFirstFrameWithTime:(id *)time
 {
   block[6] = *MEMORY[0x1E69E9840];
-  v5 = micro();
+  v5 = micro(self, a2);
   stateQueue = self->super.super._stateQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;

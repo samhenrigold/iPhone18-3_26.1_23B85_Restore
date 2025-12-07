@@ -7,13 +7,13 @@
 
 + (id)dataFromUUID:(id)d
 {
-  v7[3] = *MEMORY[0x1E69E9840];
+  v6[3] = *MEMORY[0x1E69E9840];
   if (d)
   {
-    v7[0] = 0;
-    v7[1] = 0;
-    [d getUUIDBytes:v7];
-    v3 = [MEMORY[0x1E695DEF0] dataWithBytes:v7 length:16];
+    v6[0] = 0;
+    v6[1] = 0;
+    [d getUUIDBytes:v6];
+    v3 = [MEMORY[0x1E695DEF0] dataWithBytes:v6 length:16];
   }
 
   else
@@ -21,21 +21,19 @@
     v4 = _plc_log_get_normal_handle(PCLogCategoryGeneral);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v7[0]) = 0;
-      _os_log_impl(&dword_1CEE74000, v4, OS_LOG_TYPE_ERROR, "Provided NSUUID is nil.", v7, 2u);
+      LOWORD(v6[0]) = 0;
+      _os_log_impl(&dword_1CEE74000, v4, OS_LOG_TYPE_ERROR, "Provided NSUUID is nil.", v6, 2u);
     }
 
     v3 = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 + (id)uuidStringFromData:(id)data
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v4 = dataCopy;
   if (dataCopy && [dataCopy length] == 16)
@@ -54,8 +52,8 @@
       v9 = _plc_log_get_normal_handle(PCLogCategoryGeneral);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_1CEE74000, v9, OS_LOG_TYPE_ERROR, "Failed to create NSUUID from provided data.", v12, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_1CEE74000, v9, OS_LOG_TYPE_ERROR, "Failed to create NSUUID from provided data.", v11, 2u);
       }
 
       uUIDString = 0;
@@ -74,8 +72,6 @@
 
     uUIDString = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return uUIDString;
 }

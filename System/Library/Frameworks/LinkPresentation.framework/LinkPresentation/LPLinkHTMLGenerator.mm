@@ -44,18 +44,18 @@
 {
   lCopy = l;
   documentCopy = document;
-  v15.receiver = self;
-  v15.super_class = LPLinkHTMLGenerator;
-  v9 = [(LPLinkHTMLGenerator *)&v15 init];
+  v13.receiver = self;
+  v13.super_class = LPLinkHTMLGenerator;
+  v9 = [(LPLinkHTMLGenerator *)&v13 init];
   v10 = v9;
   if (v9)
   {
     objc_storeStrong(&v9->_URL, l);
     v10->_usesComputedPresentationProperties = 1;
     v10->_applyCornerRadiusToLink = 1;
-    LPWebLock(v11, v12);
+    LPWebLock();
     objc_storeStrong(&v10->_parentDocument, document);
-    v13 = v10;
+    v11 = v10;
   }
 
   return v10;
@@ -78,18 +78,18 @@
   propertiesCopy = properties;
   lCopy = l;
   documentCopy = document;
-  v17.receiver = self;
-  v17.super_class = LPLinkHTMLGenerator;
-  v11 = [(LPLinkHTMLGenerator *)&v17 init];
+  v15.receiver = self;
+  v15.super_class = LPLinkHTMLGenerator;
+  v11 = [(LPLinkHTMLGenerator *)&v15 init];
   v12 = v11;
   if (v11)
   {
     objc_storeStrong(&v11->_URL, l);
     v12->_applyCornerRadiusToLink = 1;
-    LPWebLock(v13, v14);
+    LPWebLock();
     objc_storeStrong(&v12->_parentDocument, document);
     [(LPLinkHTMLGenerator *)v12 _setPresentationProperties:propertiesCopy];
-    v15 = v12;
+    v13 = v12;
   }
 
   return v12;
@@ -137,7 +137,7 @@ void __37__LPLinkHTMLGenerator__fetchMetadata__block_invoke_2(uint64_t a1)
 
 - (DOMDocumentFragment)documentFragment
 {
-  LPWebLock(self, a2);
+  LPWebLock();
   if (!self->_everBuiltView)
   {
     [(LPLinkHTMLGenerator *)self _rebuildView];
@@ -213,7 +213,7 @@ void __37__LPLinkHTMLGenerator__fetchMetadata__block_invoke_2(uint64_t a1)
 
 - (void)clearCurrentLayout
 {
-  LPWebLock(self, a2);
+  LPWebLock();
   while ([(DOMElement *)self->_rootElement childElementCount])
   {
     rootElement = self->_rootElement;
@@ -622,7 +622,7 @@ LABEL_27:
 
 - (void)_rebuildView
 {
-  LPWebLock(self, a2);
+  LPWebLock();
   if (!self->_rootElement)
   {
     _createRootElement = [(LPLinkHTMLGenerator *)self _createRootElement];

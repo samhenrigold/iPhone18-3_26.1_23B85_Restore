@@ -108,11 +108,9 @@
   return v5;
 }
 
-uint64_t __37__WFWeatherConditions_initWithCoder___block_invoke()
+uint64_t __37__WFWeatherConditions_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
+  v2 = MEMORY[0x277CBEB98];
   v3 = objc_opt_class();
   v4 = objc_opt_class();
   v5 = objc_opt_class();
@@ -120,9 +118,13 @@ uint64_t __37__WFWeatherConditions_initWithCoder___block_invoke()
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  initWithCoder__classes_0 = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
+  v10 = objc_opt_class();
+  v11 = objc_opt_class();
+  v12 = [v2 setWithObjects:{v3, v4, v5, v6, v7, v8, v9, v10, v11, objc_opt_class(), 0}];
+  v13 = initWithCoder__classes_0;
+  initWithCoder__classes_0 = v12;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v12, v13);
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -196,9 +198,11 @@ void __34__WFWeatherConditions_description__block_invoke(uint64_t a1, void *a2, 
 
 - (void)setLocation:(id)location
 {
-  self->_location = [location copy];
+  v4 = [location copy];
+  location = self->_location;
+  self->_location = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, location);
 }
 
 - (NSMutableDictionary)components
@@ -376,7 +380,7 @@ LABEL_14:
   return v9;
 }
 
-uint64_t __41__WFWeatherConditions_valueForComponent___block_invoke()
+void *__41__WFWeatherConditions_valueForComponent___block_invoke()
 {
   valueForComponent__forecastTimeComponentHash = [@"WFWeatherForecastTimeComponent" hash];
   valueForComponent__forecastExpirationTimeComponentHash = [@"WFWeatherForecastExpirationTimeComponent" hash];

@@ -80,43 +80,7 @@
     v10 = objc_msgSend_cipherSuite(v6, v8, v9);
     LODWORD(cipherSuite) = objc_msgSend_isEqualToArray_(cipherSuite, v11, v10);
 
-    if (!cipherSuite)
-    {
-      goto LABEL_15;
-    }
-
-    dhInfo = self->_dhInfo;
-    v15 = objc_msgSend_dhInfo(v6, v12, v13);
-    LODWORD(dhInfo) = objc_msgSend_isEqualToArray_(dhInfo, v16, v15);
-
-    if (!dhInfo)
-    {
-      goto LABEL_15;
-    }
-
-    v19 = objc_msgSend_length(self->_passphrase, v17, v18);
-    v22 = objc_msgSend_passphrase(v6, v20, v21);
-    v25 = objc_msgSend_length(v22, v23, v24);
-
-    if (v19 != v25)
-    {
-      goto LABEL_15;
-    }
-
-    passphrase = self->_passphrase;
-    if (passphrase)
-    {
-      v29 = objc_msgSend_passphrase(v6, v26, v27);
-      isEqualToString = objc_msgSend_isEqualToString_(passphrase, v30, v29);
-
-      if (!isEqualToString)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    datapathPmk = self->_datapathPmk;
-    if (!datapathPmk || (objc_msgSend_datapathPmk(v6, v26, v27), v33 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend_isEqualToData_(datapathPmk, v34, v33), v33, v35))
+    if (cipherSuite && (dhInfo = self->_dhInfo, objc_msgSend_dhInfo(v6, v12, v13), v15 = objc_claimAutoreleasedReturnValue(), LODWORD(dhInfo) = objc_msgSend_isEqualToArray_(dhInfo, v16, v15), v15, dhInfo) && (v19 = objc_msgSend_length(self->_passphrase, v17, v18), objc_msgSend_passphrase(v6, v20, v21), v22 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend_length(v22, v23, v24), v22, v19 == v25) && ((passphrase = self->_passphrase) == 0 || (objc_msgSend_passphrase(v6, v26, v27), v29 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(passphrase, v30, v29), v29, isEqualToString)) && ((datapathPmk = self->_datapathPmk) == 0 || (objc_msgSend_datapathPmk(v6, v26, v27), v33 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend_isEqualToData_(datapathPmk, v34, v33), v33, v35)))
     {
       datapathPmkID = self->_datapathPmkID;
       if (datapathPmkID)
@@ -133,7 +97,6 @@
 
     else
     {
-LABEL_15:
       isEqualToData = 0;
     }
   }
@@ -223,67 +186,67 @@ LABEL_15:
 
 - (id)asData
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_data(MEMORY[0x277CBEB28], a2, v2);
   if (objc_msgSend_count(self->_cipherSuite, v5, v6))
   {
-    v50 = objc_msgSend_count(self->_cipherSuite, v7, v8) + 1;
-    objc_msgSend_appendBytes_length_(v4, v9, &v50, 1);
+    v49 = objc_msgSend_count(self->_cipherSuite, v7, v8) + 1;
+    objc_msgSend_appendBytes_length_(v4, v9, &v49, 1);
     objc_msgSend_appendBytes_length_(v4, v10, &unk_264507599, 1);
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     v11 = self->_cipherSuite;
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v46, v52, 16);
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v45, v51, 16);
     if (v13)
     {
       v16 = v13;
-      v17 = *v47;
+      v17 = *v46;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v47 != v17)
+          if (*v46 != v17)
           {
             objc_enumerationMutation(v11);
           }
 
-          v50 = objc_msgSend_unsignedCharValue(*(*(&v46 + 1) + 8 * i), v14, v15);
-          objc_msgSend_appendBytes_length_(v4, v19, &v50, 1);
+          v49 = objc_msgSend_unsignedCharValue(*(*(&v45 + 1) + 8 * i), v14, v15);
+          objc_msgSend_appendBytes_length_(v4, v19, &v49, 1);
         }
 
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v46, v52, 16);
+        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v45, v51, 16);
       }
 
       while (v16);
     }
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v20 = self->_dhInfo;
-  v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v42, v51, 16);
+  v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v41, v50, 16);
   if (v22)
   {
     v25 = v22;
-    v26 = *v43;
+    v26 = *v42;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v43 != v26)
+        if (*v42 != v26)
         {
           objc_enumerationMutation(v20);
         }
 
-        v28 = objc_msgSend_asData(*(*(&v42 + 1) + 8 * j), v23, v24, v42);
+        v28 = objc_msgSend_asData(*(*(&v41 + 1) + 8 * j), v23, v24, v41);
         objc_msgSend_appendData_(v4, v29, v28);
       }
 
-      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v23, &v42, v51, 16);
+      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v23, &v41, v50, 16);
     }
 
     while (v25);
@@ -292,14 +255,12 @@ LABEL_15:
   passphrase = self->_passphrase;
   if (passphrase && objc_msgSend_length(passphrase, v30, v31))
   {
-    v50 = objc_msgSend_length(self->_passphrase, v33, v34) + 1;
-    objc_msgSend_appendBytes_length_(v4, v35, &v50, 1);
+    v49 = objc_msgSend_length(self->_passphrase, v33, v34) + 1;
+    objc_msgSend_appendBytes_length_(v4, v35, &v49, 1);
     objc_msgSend_appendBytes_length_(v4, v36, &unk_26450759A, 1);
     v38 = objc_msgSend_dataUsingEncoding_(self->_passphrase, v37, 4);
     objc_msgSend_appendData_(v4, v39, v38);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

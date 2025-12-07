@@ -47,9 +47,17 @@
 - (BOOL)_prepareWithContext:(LSContext *)context error:(id *)error
 {
   self->_units.__end_ = self->_units.__begin_;
-  if (_LSDatabaseGetStringForCFString(context->db, self->_parentBundleID, 0))
+  StringForCFString = _LSDatabaseGetStringForCFString(context->db, self->_parentBundleID, 0);
+  if (StringForCFString)
   {
-    _LSDatabaseEnumeratingBindingMap(context->db);
+    v7 = StringForCFString;
+    db = context->db;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __71___LSLinkedChildApplicationRecordEnumerator__prepareWithContext_error___block_invoke;
+    v10[3] = &unk_1E6A18FC8;
+    v10[4] = self;
+    _LSDatabaseEnumeratingBindingMap(db, 13, v7, v10);
   }
 
   return 1;
@@ -62,30 +70,31 @@
   if (v7 > index)
   {
     v11 = begin[index];
-    v12 = _LSBundleGet(context->db, begin[index]);
+    v12 = _LSBundleGet(context->db, v11);
     if (v12 && (v14 = v12, LaunchServices::AppRecordEnumeration::evaluateBundleNoIOCommon(v11, v12, self->_options, v13)))
     {
-      v21 = 0;
-      v15 = [[LSApplicationRecord alloc] _initWithContext:context bundleID:v11 bundleData:v14 error:&v21];
-      v16 = v21;
+      v22 = 0;
+      v15 = [[LSApplicationRecord alloc] _initWithContext:context bundleID:v11 bundleData:v14 error:&v22];
+      v16 = v22;
+      v17 = v16;
       if (!v15)
       {
-        v17 = _LSDefaultLog();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v18 = _LSDefaultLog(v16);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           [_LSLinkedChildApplicationRecordEnumerator _getObject:atIndex:context:];
         }
 
-        _LSEnumeratorFireErrorHandler(self, v16);
+        _LSEnumeratorFireErrorHandler(self, v17);
       }
 
-      v18 = *object;
+      v19 = *object;
       *object = v15;
     }
 
     else
     {
-      v19 = *object;
+      v20 = *object;
       *object = 0;
     }
   }
@@ -99,14 +108,6 @@
   *(self + 13) = 0;
   *(self + 11) = 0;
   return self;
-}
-
-- (void)_getObject:atIndex:context:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_18162D000, v0, v1, "could not create child record for unit %llx: %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

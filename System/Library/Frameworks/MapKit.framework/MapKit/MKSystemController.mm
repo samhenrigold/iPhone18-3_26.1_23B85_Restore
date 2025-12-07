@@ -332,35 +332,35 @@ void __65__MKSystemController_openURL_bundleIdentifier_completionHandler___block
   handlerCopy = handler;
   if ([requestCopy isValid])
   {
-    v14 = 0;
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
+    v15 = 0;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
     v7 = getSBSGetScreenLockStatusSymbolLoc_ptr;
-    v23 = getSBSGetScreenLockStatusSymbolLoc_ptr;
+    v24 = getSBSGetScreenLockStatusSymbolLoc_ptr;
     if (!getSBSGetScreenLockStatusSymbolLoc_ptr)
     {
-      v15 = MEMORY[0x1E69E9820];
-      v16 = 3221225472;
-      v17 = __getSBSGetScreenLockStatusSymbolLoc_block_invoke;
-      v18 = &unk_1E76CD7B0;
-      v19 = &v20;
+      v16 = MEMORY[0x1E69E9820];
+      v17 = 3221225472;
+      v18 = __getSBSGetScreenLockStatusSymbolLoc_block_invoke;
+      v19 = &unk_1E76CD7B0;
+      v20 = &v21;
       v8 = SpringBoardServicesLibrary();
-      v21[3] = dlsym(v8, "SBSGetScreenLockStatus");
-      getSBSGetScreenLockStatusSymbolLoc_ptr = *(v19[1] + 24);
-      v7 = v21[3];
+      v22[3] = dlsym(v8, "SBSGetScreenLockStatus");
+      getSBSGetScreenLockStatusSymbolLoc_ptr = *(v20[1] + 24);
+      v7 = v22[3];
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v21, 8);
     if (!v7)
     {
-      dlerror();
-      v10 = abort_report_np();
-      _Block_object_dispose(&v20, 8);
-      _Unwind_Resume(v10);
+      v10 = dlerror();
+      v11 = abort_report_np("%s", v10);
+      _Block_object_dispose(&v21, 8);
+      _Unwind_Resume(v11);
     }
 
-    if (v7(&v14) && v14)
+    if (v7(&v15) && v15)
     {
       [requestCopy setShowUIPrompt:0];
     }
@@ -370,8 +370,8 @@ void __65__MKSystemController_openURL_bundleIdentifier_completionHandler___block
     block[1] = 3221225472;
     block[2] = __57__MKSystemController_placeDialRequest_completionHandler___block_invoke;
     block[3] = &unk_1E76CDA20;
-    v12 = requestCopy;
-    v13 = handlerCopy;
+    v13 = requestCopy;
+    v14 = handlerCopy;
     dispatch_async(v9, block);
   }
 }
@@ -831,7 +831,7 @@ LABEL_12:
   return _isGlassAvailable_available;
 }
 
-uint64_t __49__MKSystemController_Internal___isGlassAvailable__block_invoke(uint64_t a1)
+void *__49__MKSystemController_Internal___isGlassAvailable__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _loadSwiftBridgeIfNeeded];
   _isGlassAvailable_available = result;

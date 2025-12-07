@@ -6,59 +6,61 @@
 
 - (id)normalizedValueForManagedHandle:(id)handle
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   normalizedValue = [handleCopy normalizedValue];
   if (![normalizedValue length])
   {
-    v5 = ch_framework_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = ch_framework_log(0, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 138412290;
-      v26 = handleCopy;
-      _os_log_impl(&dword_1C3E90000, v5, OS_LOG_TYPE_DEFAULT, "Performing normalization migration policy for managed handle %@", &v25, 0xCu);
+      v35 = 138412290;
+      v36 = handleCopy;
+      _os_log_impl(&dword_1C3E90000, v6, OS_LOG_TYPE_DEFAULT, "Performing normalization migration policy for managed handle %@", &v35, 0xCu);
     }
 
-    v6 = NSStringFromSelector(sel_type);
-    v7 = [handleCopy valueForKey:v6];
+    v7 = NSStringFromSelector(sel_type);
+    v8 = [handleCopy valueForKey:v7];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      integerValue = [v7 integerValue];
+      integerValue = [v8 integerValue];
+      v13 = integerValue;
     }
 
     else
     {
-      v9 = ch_framework_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v14 = ch_framework_log(isKindOfClass, v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(CHManagedHandleMigrationPolicy *)v7 normalizedValueForManagedHandle:v6, v9];
+        [(CHManagedHandleMigrationPolicy *)v8 normalizedValueForManagedHandle:v7, v14];
       }
 
-      integerValue = 0;
+      v13 = 0;
     }
 
-    v10 = ch_framework_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v15 = ch_framework_log(integerValue, v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 134217984;
-      v26 = integerValue;
-      _os_log_impl(&dword_1C3E90000, v10, OS_LOG_TYPE_DEFAULT, "Comparing CHHandleType to managed handle type %ld", &v25, 0xCu);
+      v35 = 134217984;
+      v36 = v13;
+      _os_log_impl(&dword_1C3E90000, v15, OS_LOG_TYPE_DEFAULT, "Comparing CHHandleType to managed handle type %ld", &v35, 0xCu);
     }
 
-    switch(integerValue)
+    switch(v13)
     {
       case 1:
         value = [handleCopy value];
-        v22 = [CHHandle normalizedGenericHandleForValue:value];
-        normalizedValue2 = [v22 normalizedValue];
+        v31 = [CHHandle normalizedGenericHandleForValue:value];
+        normalizedValue2 = [v31 normalizedValue];
 
-        iso_country_code = ch_framework_log();
+        iso_country_code = ch_framework_log(v32, v33);
         if (os_log_type_enabled(iso_country_code, OS_LOG_TYPE_DEFAULT))
         {
-          v25 = 138412290;
-          v26 = normalizedValue2;
-          v15 = "Normalized user name to %@";
+          v35 = 138412290;
+          v36 = normalizedValue2;
+          v22 = "Normalized user name to %@";
           goto LABEL_21;
         }
 
@@ -69,31 +71,31 @@
         iso_country_code = [anyObject iso_country_code];
 
         value2 = [handleCopy value];
-        v19 = [CHHandle normalizedPhoneNumberHandleForValue:value2 isoCountryCode:iso_country_code];
-        normalizedValue2 = [v19 normalizedValue];
+        v26 = [CHHandle normalizedPhoneNumberHandleForValue:value2 isoCountryCode:iso_country_code];
+        normalizedValue2 = [v26 normalizedValue];
 
-        v20 = ch_framework_log();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v29 = ch_framework_log(v27, v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v25 = 138412290;
-          v26 = normalizedValue2;
-          _os_log_impl(&dword_1C3E90000, v20, OS_LOG_TYPE_DEFAULT, "Normalized telephone number to %@", &v25, 0xCu);
+          v35 = 138412290;
+          v36 = normalizedValue2;
+          _os_log_impl(&dword_1C3E90000, v29, OS_LOG_TYPE_DEFAULT, "Normalized telephone number to %@", &v35, 0xCu);
         }
 
         break;
       case 3:
         value3 = [handleCopy value];
-        v12 = [CHHandle normalizedEmailAddressHandleForValue:value3];
-        normalizedValue2 = [v12 normalizedValue];
+        v17 = [CHHandle normalizedEmailAddressHandleForValue:value3];
+        normalizedValue2 = [v17 normalizedValue];
 
-        iso_country_code = ch_framework_log();
+        iso_country_code = ch_framework_log(v19, v20);
         if (os_log_type_enabled(iso_country_code, OS_LOG_TYPE_DEFAULT))
         {
-          v25 = 138412290;
-          v26 = normalizedValue2;
-          v15 = "Normalized email address to %@";
+          v35 = 138412290;
+          v36 = normalizedValue2;
+          v22 = "Normalized email address to %@";
 LABEL_21:
-          _os_log_impl(&dword_1C3E90000, iso_country_code, OS_LOG_TYPE_DEFAULT, v15, &v25, 0xCu);
+          _os_log_impl(&dword_1C3E90000, iso_country_code, OS_LOG_TYPE_DEFAULT, v22, &v35, 0xCu);
         }
 
         break;
@@ -109,20 +111,17 @@ LABEL_23:
 
 LABEL_24:
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return normalizedValue;
 }
 
 - (void)normalizedValueForManagedHandle:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1C3E90000, log, OS_LOG_TYPE_ERROR, "Unexpected data type found in value %@ for key %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1C3E90000, log, OS_LOG_TYPE_ERROR, "Unexpected data type found in value %@ for key %@", &v3, 0x16u);
 }
 
 @end

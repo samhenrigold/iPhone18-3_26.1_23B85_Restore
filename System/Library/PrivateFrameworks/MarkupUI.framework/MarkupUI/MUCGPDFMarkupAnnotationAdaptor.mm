@@ -135,7 +135,7 @@ LABEL_16:
         v14 = *(*(&v26 + 1) + 8 * i);
         if (v14)
         {
-          [v14 quadrilateralValue];
+          objc_msgSend_quadrilateralValue(v14);
         }
 
         v15 = [MEMORY[0x277CCABB0] numberWithDouble:{0.0, 0}];

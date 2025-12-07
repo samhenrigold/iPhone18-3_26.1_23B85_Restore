@@ -63,9 +63,9 @@
     {
       v33 = portsCopy;
       v34 = [portsCopy objectForKeyedSubscript:*MEMORY[0x1E69C0410]];
-      v35 = [v34 isEqualToString:*MEMORY[0x1E69C0480]];
+      isEqualToString = objc_msgSend_isEqualToString_(v34);
 
-      if (v35)
+      if (isEqualToString)
       {
         v36 = PLGatekeeperXPCGetLog();
         if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))

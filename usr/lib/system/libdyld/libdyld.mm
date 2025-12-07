@@ -1,17 +1,11 @@
 __n128 _tlv_get_addr(unsigned int *a1, __n128 result)
 {
   v2 = a1[2];
-  v3 = *((_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) & 0xFFFFFFFFFFFFFFF8) + 8 * v2);
-  if (v3)
+  if (!*((_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) & 0xFFFFFFFFFFFFFFF8) + 8 * v2))
   {
-    v4 = v3 + a1[3];
-  }
-
-  else
-  {
-    v6 = result;
-    v5 = dyld::ThreadLocalVariables::instantiateVariable(a1) + a1[3];
-    return v6;
+    v3 = result;
+    dyld::ThreadLocalVariables::instantiateVariable(a1);
+    return v3;
   }
 
   return result;
@@ -113,8 +107,8 @@ void mach_o::Header::forEachSection(mach_o::Error *a1, uint64_t a2)
   v2[3] = &unk_1EEE9C980;
   v2[4] = a2;
   v2[5] = v3;
-  mach_o::Header::forEachLoadCommand(a1, v2, v5);
-  mach_o::Error::~Error(v5);
+  mach_o::Header::forEachLoadCommand(a1, v2, &v5);
+  mach_o::Error::~Error(&v5);
   _Block_object_dispose(v3, 8);
 }
 
@@ -142,71 +136,60 @@ mach_o::Error *mach_o::Header::forEachLoadCommand@<X0>(mach_o::Error *result@<X0
   {
     if (v6 != -17958194)
     {
-      if ((v6 & 0xFEFFFFFF) == 0xCEFAEDFE)
+      if ((v6 & 0xFEFFFFFF) != 0xCEFAEDFE)
       {
-
-        return mach_o::Error::Error(a3, "big endian mach-o file");
-      }
-
-      else
-      {
-        v16 = *result;
-        v17 = *(result + 1);
         return mach_o::Error::Error(a3, "file does not start with MH_MAGIC[_64]: 0x%08X 0x%08X");
       }
+
+      return mach_o::Error::Error(a3, "big endian mach-o file");
     }
 
     v7 = 28;
   }
 
-  if (*(result + 3) < 0xDu)
+  if (*(result + 3) >= 0xDu)
   {
-    if (*(result + 4))
+    return mach_o::Error::Error(a3, "unknown mach-o filetype (%u)");
+  }
+
+  if (*(result + 4))
+  {
+    v8 = result + v7;
+    v9 = result + v7 + *(result + 5);
+    v10 = 1;
+    for (i = result + v7; ; i = v13)
     {
-      v8 = result + v7;
-      v9 = result + v7 + *(result + 5);
-      v10 = 1;
-      for (i = result + v7; ; i = v13)
+      if (i >= v9)
       {
-        if (i >= v9)
-        {
-          return mach_o::Error::Error(a3, "malformed load command (%d of %d) at %p with mh=%p, off end of load commands");
-        }
-
-        v12 = *(i + 1);
-        if (v12 <= 7)
-        {
-          break;
-        }
-
-        v13 = &i[v12];
-        if (&i[v12] > v9 || v13 < v8)
-        {
-          v18 = *(i + 1);
-          return mach_o::Error::Error(a3, "malformed load command (%d of %d) at %p with mh=%p, size (0x%X) is too large, load commands end at %p");
-        }
-
-        result = (*(a2 + 16))(a2);
-        if (++v10 > *(v4 + 4))
-        {
-          goto LABEL_18;
-        }
+        return mach_o::Error::Error(a3, "malformed load command (%d of %d) at %p with mh=%p, off end of load commands");
       }
 
-      return mach_o::Error::Error(a3, "malformed load command (%d of %d) at %p with mh=%p, size (0x%X) too small");
+      v12 = *(i + 1);
+      if (v12 <= 7)
+      {
+        break;
+      }
+
+      v13 = &i[v12];
+      if (&i[v12] > v9 || v13 < v8)
+      {
+        return mach_o::Error::Error(a3, "malformed load command (%d of %d) at %p with mh=%p, size (0x%X) is too large, load commands end at %p");
+      }
+
+      result = (*(a2 + 16))(a2);
+      if (++v10 > *(v4 + 4))
+      {
+        goto LABEL_18;
+      }
     }
 
-    else
-    {
-LABEL_18:
-      *a3 = 0;
-    }
+    return mach_o::Error::Error(a3, "malformed load command (%d of %d) at %p with mh=%p, size (0x%X) too small");
   }
 
   else
   {
-    v15 = *(result + 3);
-    return mach_o::Error::Error(a3, "unknown mach-o filetype (%u)");
+LABEL_18:
+    *a3 = 0;
   }
 
   return result;
@@ -267,7 +250,7 @@ uint64_t mach_o::Header::preferredLoadAddress(mach_o::Header *this)
   return v1;
 }
 
-void dyld::ThreadLocalVariables::initializeThunksInDyldCache(const DyldSharedCache *a1@<X1>, const mach_o::Header *a2@<X2>, mach_o::Error *a3@<X8>)
+void dyld::ThreadLocalVariables::initializeThunksInDyldCache(const DyldSharedCache *a2@<X1>, const mach_o::Header *a3@<X2>, mach_o::Error *a4@<X8>)
 {
   v9 = 0;
   v10 = &v9;
@@ -278,49 +261,49 @@ void dyld::ThreadLocalVariables::initializeThunksInDyldCache(const DyldSharedCac
   v7[2] = ___ZN4dyld20ThreadLocalVariables27initializeThunksInDyldCacheEPK15DyldSharedCachePKN6mach_o6HeaderE_block_invoke;
   v7[3] = &unk_1EEE9BB60;
   v7[4] = &v9;
-  v7[5] = a1;
-  v7[6] = a2;
-  dyld::ThreadLocalVariables::forEachThunkSpan(a2, v7, &v8);
+  v7[5] = a2;
+  v7[6] = a3;
+  dyld::ThreadLocalVariables::forEachThunkSpan(a3, v7, &v8);
   if (*(v10 + 24) == 1)
   {
-    dyld::ThreadLocalVariables::initializeThunksFromDisk(a2, a3);
+    dyld::ThreadLocalVariables::initializeThunksFromDisk(a3, a4);
   }
 
   else if (v8)
   {
-    mach_o::Error::Error(a3, &v8);
+    mach_o::Error::Error(a4, &v8);
   }
 
-  else if ((*(a1 + 221) & 0x10) != 0)
+  else if ((*(a2 + 221) & 0x10) != 0)
   {
-    *a3 = 0;
+    *a4 = 0;
   }
 
   else
   {
-    mach_o::Error::Error(a3, "dyld cache thread-local format too old");
+    mach_o::Error::Error(a4, "dyld cache thread-local format too old");
   }
 
   mach_o::Error::~Error(&v8);
   _Block_object_dispose(&v9, 8);
 }
 
-void dyld::ThreadLocalVariables::setUpImage(const DyldSharedCache *a1@<X1>, const mach_o::Header *a2@<X2>, mach_o::Error *a3@<X8>)
+void dyld::ThreadLocalVariables::setUpImage(const DyldSharedCache *a2@<X1>, const mach_o::Header *a3@<X2>, mach_o::Error *a4@<X8>)
 {
-  if (mach_o::Header::inDyldCache(a2))
+  if (mach_o::Header::inDyldCache(a3))
   {
-    dyld::ThreadLocalVariables::initializeThunksInDyldCache(a1, a2, a3);
+    dyld::ThreadLocalVariables::initializeThunksInDyldCache(a2, a3, a4);
   }
 
   else
   {
-    dyld::ThreadLocalVariables::initializeThunksFromDisk(a2, a3);
+    dyld::ThreadLocalVariables::initializeThunksFromDisk(a3, a4);
   }
 
-  if (!*a3)
+  if (!*a4)
   {
-    mach_o::Error::~Error(a3);
-    *a3 = 0;
+    mach_o::Error::~Error(a4);
+    *a4 = 0;
   }
 }
 
@@ -524,29 +507,26 @@ size_t ___ZNK6mach_o6Header14forEachSectionEU13block_pointerFvRKNS0_11SectionInf
   return result;
 }
 
-void ___ZN4dyld20ThreadLocalVariables16forEachThunkSpanEPKN6mach_o6HeaderEU13block_pointerFNS1_5ErrorENSt3__14spanINS0_5ThunkELm18446744073709551615EEEE_block_invoke(void *a1, uint64_t a2, _BYTE *a3)
+void ___ZN4dyld20ThreadLocalVariables16forEachThunkSpanEPKN6mach_o6HeaderEU13block_pointerFNS1_5ErrorENSt3__14spanINS0_5ThunkELm18446744073709551615EEEE_block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   if (*(a2 + 44) == 19)
   {
-    v11[3] = v3;
-    v11[4] = v4;
+    v8[3] = v3;
+    v8[4] = v4;
     v7 = *(a2 + 64);
     if (v7 % 0x18)
     {
-      mach_o::Error::Error(v11, "size (%llu) of thread-locals section %.*s is not a multiple of %lu", v7, *(a2 + 8), *a2, 24);
-      mach_o::Error::operator=((*(a1[5] + 8) + 40), v11);
-      mach_o::Error::~Error(v11);
+      mach_o::Error::Error(v8, "size (%llu) of thread-locals section %.*s is not a multiple of %lu", v7, *(a2 + 8), *a2, 24);
+      mach_o::Error::operator=((*(*(a1 + 40) + 8) + 40), v8);
+      mach_o::Error::~Error(v8);
       *a3 = 1;
     }
 
     else if (v7 >= 0x18)
     {
-      v8 = a1[6];
-      v9 = a1[4];
-      v10 = v8 + *(a2 + 56);
-      (*(a1[4] + 16))(v11);
-      mach_o::Error::operator=((*(a1[5] + 8) + 40), v11);
-      mach_o::Error::~Error(v11);
+      (*(*(a1 + 32) + 16))(v8);
+      mach_o::Error::operator=((*(*(a1 + 40) + 8) + 40), v8);
+      mach_o::Error::~Error(v8);
     }
   }
 }
@@ -554,13 +534,12 @@ void ___ZN4dyld20ThreadLocalVariables16forEachThunkSpanEPKN6mach_o6HeaderEU13blo
 uint64_t ___ZN4dyld20ThreadLocalVariables27initializeThunksInDyldCacheEPK15DyldSharedCachePKN6mach_o6HeaderE_block_invoke@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
   v5 = a2;
-  v7 = *(*(result + 40) + 221);
   if (*(a2 + 8))
   {
     result = pthread_key_init_np();
     if (a3)
     {
-      v8 = 24 * a3;
+      v7 = 24 * a3;
       do
       {
         if (*v5 != _tlv_get_addr)
@@ -569,10 +548,10 @@ uint64_t ___ZN4dyld20ThreadLocalVariables27initializeThunksInDyldCacheEPK15DyldS
         }
 
         v5 += 3;
-        v8 -= 24;
+        v7 -= 24;
       }
 
-      while (v8);
+      while (v7);
     }
   }
 
@@ -604,34 +583,19 @@ uint64_t _dyld_objc_register_callbacks(void *a1)
 {
   if (*a1 == 4)
   {
-    v5[0] = 4;
-    if (a1[1])
-    {
-      v1 = a1[1];
-    }
-
-    v5[1] = a1[1];
-    if (a1[2])
-    {
-      v2 = a1[2];
-    }
-
-    v5[2] = a1[2];
-    if (a1[3])
-    {
-      v3 = a1[3];
-    }
-
-    v5[3] = a1[3];
-    v5[4] = a1[4];
+    v2[0] = 4;
+    v2[1] = a1[1];
+    v2[2] = a1[2];
+    v2[3] = a1[3];
+    v2[4] = a1[4];
   }
 
   else
   {
-    v5[0] = *a1;
+    v2[0] = *a1;
   }
 
-  return (*(*dyld4::gAPIs + 856))(dyld4::gAPIs, v5);
+  return (*(*dyld4::gAPIs + 856))(dyld4::gAPIs, v2);
 }
 
 uint64_t macho_dylib_install_name(mach_o::Header *a1)
@@ -729,7 +693,7 @@ void dyld::ThreadLocalVariables::addTermFunc(pthread_key_t *this, void (*a2)(voi
   v10[3] = a3;
 }
 
-uint64_t *dyld::ThreadLocalVariables::exit(pthread_key_t *this)
+uint64_t **dyld::ThreadLocalVariables::exit(pthread_key_t *this)
 {
   result = pthread_getspecific(*this);
   if (result)
@@ -743,7 +707,7 @@ uint64_t *dyld::ThreadLocalVariables::exit(pthread_key_t *this)
   return result;
 }
 
-uint64_t dyldFrameworkIntrospectionVtable(void)
+uint64_t dyldFrameworkIntrospectionVtable(uint64_t a1, uint64_t a2)
 {
   if (dyldFrameworkIntrospectionVtable(void)::onceToken != -1)
   {
@@ -755,7 +719,7 @@ uint64_t dyldFrameworkIntrospectionVtable(void)
 
 uint64_t _dyld_process_info_create(RemoteBuffer *a1, uint64_t a2, unsigned int *a3)
 {
-  v6 = dyldFrameworkIntrospectionVtable();
+  v6 = dyldFrameworkIntrospectionVtable(a1, a2);
   if (!v6)
   {
     v24 = 0;
@@ -832,7 +796,7 @@ LABEL_17:
 
 __n128 _dyld_process_info_get_state(uint64_t a1, __n128 *a2)
 {
-  v4 = dyldFrameworkIntrospectionVtable();
+  v4 = dyldFrameworkIntrospectionVtable(a1, a2);
   if (v4)
   {
     v5 = *(v4 + 256);
@@ -853,7 +817,7 @@ __n128 _dyld_process_info_get_state(uint64_t a1, __n128 *a2)
 
 __n128 _dyld_process_info_get_cache(uint64_t a1, _OWORD *a2)
 {
-  v4 = dyldFrameworkIntrospectionVtable();
+  v4 = dyldFrameworkIntrospectionVtable(a1, a2);
   if (v4)
   {
     v5 = *(v4 + 264);
@@ -875,7 +839,7 @@ __n128 _dyld_process_info_get_cache(uint64_t a1, _OWORD *a2)
 
 __n128 _dyld_process_info_get_aot_cache(uint64_t a1, __n128 *a2)
 {
-  v4 = dyldFrameworkIntrospectionVtable();
+  v4 = dyldFrameworkIntrospectionVtable(a1, a2);
   if (v4)
   {
     v5 = *(v4 + 272);
@@ -896,7 +860,7 @@ __n128 _dyld_process_info_get_aot_cache(uint64_t a1, __n128 *a2)
 
 uint64_t _dyld_process_info_for_each_image(uint64_t a1, uint64_t a2)
 {
-  v4 = dyldFrameworkIntrospectionVtable();
+  v4 = dyldFrameworkIntrospectionVtable(a1, a2);
   if (v4)
   {
     v5 = *(v4 + 304);
@@ -911,14 +875,14 @@ uint64_t _dyld_process_info_for_each_image(uint64_t a1, uint64_t a2)
   }
 }
 
-void _dyld_process_info_release(void *a1)
+void _dyld_process_info_release(void *a1, uint64_t a2)
 {
-  v2 = dyldFrameworkIntrospectionVtable();
-  if (v2)
+  v3 = dyldFrameworkIntrospectionVtable(a1, a2);
+  if (v3)
   {
-    v3 = *(v2 + 296);
+    v4 = *(v3 + 296);
 
-    v3(a1);
+    v4(a1);
   }
 
   else if (atomic_fetch_add(a1, 0xFFFFFFFF) == 1)
@@ -928,20 +892,20 @@ void _dyld_process_info_release(void *a1)
   }
 }
 
-uint64_t _dyld_process_info_get_platform(uint64_t a1)
+uint64_t _dyld_process_info_get_platform(uint64_t a1, uint64_t a2)
 {
-  v2 = dyldFrameworkIntrospectionVtable();
-  if (!v2)
+  v3 = dyldFrameworkIntrospectionVtable(a1, a2);
+  if (!v3)
   {
     return *(a1 + 40);
   }
 
-  v3 = *(v2 + 288);
+  v4 = *(v3 + 288);
 
-  return v3(a1);
+  return v4(a1);
 }
 
-uint64_t dyld_process_create_for_task(lsl::MemoryManager *this, int *a2)
+dyld4::Atlas::Process *dyld_process_create_for_task(lsl::MemoryManager *this, int *a2)
 {
   if (dyldFrameworkIntrospectionVtable(void)::onceToken != -1)
   {
@@ -989,7 +953,7 @@ void *dyld_process_snapshot_create_for_process(dyld4::Atlas::Process *this, int 
 
   else
   {
-    dyld4::Atlas::Process::getSnapshot(this, a2, &v8);
+    dyld4::Atlas::Process::getSnapshot(&v8, this, a2);
     v6 = v8;
     v8 = 0;
     lsl::UniquePtr<dyld4::Atlas::ProcessSnapshot>::~UniquePtr(&v8, v7);
@@ -997,7 +961,7 @@ void *dyld_process_snapshot_create_for_process(dyld4::Atlas::Process *this, int 
   }
 }
 
-uint64_t dyld_process_snapshot_get_shared_cache(dyld4::Atlas::ProcessSnapshot *this)
+uint64_t dyld_process_snapshot_get_shared_cache(dyld4::Atlas::ProcessSnapshot *this, uint64_t a2)
 {
   if (dyldFrameworkIntrospectionVtable(void)::onceToken != -1)
   {
@@ -1006,9 +970,9 @@ uint64_t dyld_process_snapshot_get_shared_cache(dyld4::Atlas::ProcessSnapshot *t
 
   if (dyldFrameworkIntrospectionVtable(void)::vtable)
   {
-    v2 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 96);
+    v3 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 96);
 
-    return v2(this);
+    return v3(this);
   }
 
   else if (dyld4::Atlas::ProcessSnapshot::valid(this))
@@ -1022,7 +986,7 @@ uint64_t dyld_process_snapshot_get_shared_cache(dyld4::Atlas::ProcessSnapshot *t
   }
 }
 
-uint64_t dyld_shared_cache_get_base_address(dyld4::Atlas::SharedCache *this)
+uint64_t dyld_shared_cache_get_base_address(dyld4::Atlas::SharedCache *this, uint64_t a2)
 {
   if (dyldFrameworkIntrospectionVtable(void)::onceToken != -1)
   {
@@ -1031,9 +995,9 @@ uint64_t dyld_shared_cache_get_base_address(dyld4::Atlas::SharedCache *this)
 
   if (dyldFrameworkIntrospectionVtable(void)::vtable)
   {
-    v2 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 80);
+    v3 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 80);
 
-    return v2(this);
+    return v3(this);
   }
 
   else
@@ -1043,7 +1007,7 @@ uint64_t dyld_shared_cache_get_base_address(dyld4::Atlas::SharedCache *this)
   }
 }
 
-uint64_t dyld_shared_cache_get_mapped_size(dyld4::Atlas::SharedCache *this)
+uint64_t dyld_shared_cache_get_mapped_size(dyld4::Atlas::SharedCache *this, uint64_t a2)
 {
   if (dyldFrameworkIntrospectionVtable(void)::onceToken != -1)
   {
@@ -1052,9 +1016,9 @@ uint64_t dyld_shared_cache_get_mapped_size(dyld4::Atlas::SharedCache *this)
 
   if (dyldFrameworkIntrospectionVtable(void)::vtable)
   {
-    v2 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 88);
+    v3 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 88);
 
-    return v2(this);
+    return v3(this);
   }
 
   else
@@ -1088,7 +1052,7 @@ __n128 dyld_shared_cache_copy_uuid(dyld4::Atlas::SharedCache *this, __n128 *a2)
   return result;
 }
 
-void **dyld_process_snapshot_dispose(dyld4::Atlas::ProcessSnapshot *this)
+void **dyld_process_snapshot_dispose(dyld4::Atlas::ProcessSnapshot *this, uint64_t a2)
 {
   if (dyldFrameworkIntrospectionVtable(void)::onceToken != -1)
   {
@@ -1097,9 +1061,9 @@ void **dyld_process_snapshot_dispose(dyld4::Atlas::ProcessSnapshot *this)
 
   if (dyldFrameworkIntrospectionVtable(void)::vtable)
   {
-    v2 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 48);
+    v3 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 48);
 
-    return v2(this);
+    return v3(this);
   }
 
   else
@@ -1107,15 +1071,15 @@ void **dyld_process_snapshot_dispose(dyld4::Atlas::ProcessSnapshot *this)
     result = dyld4::Atlas::ProcessSnapshot::valid(this);
     if (result)
     {
-      v5 = this;
-      return lsl::UniquePtr<dyld4::Atlas::ProcessSnapshot>::~UniquePtr(&v5, v4);
+      v6 = this;
+      return lsl::UniquePtr<dyld4::Atlas::ProcessSnapshot>::~UniquePtr(&v6, v5);
     }
   }
 
   return result;
 }
 
-void dyld_process_dispose(dyld4::Atlas::Process *this)
+void dyld_process_dispose(dyld4::Atlas::Process *this, uint64_t a2)
 {
   if (dyldFrameworkIntrospectionVtable(void)::onceToken != -1)
   {
@@ -1124,16 +1088,16 @@ void dyld_process_dispose(dyld4::Atlas::Process *this)
 
   if (dyldFrameworkIntrospectionVtable(void)::vtable)
   {
-    v2 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 24);
+    v3 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 24);
 
-    v2(this);
+    v3(this);
   }
 
   else if (this)
   {
     dyld4::Atlas::Process::~Process(this);
 
-    lsl::Allocator::freeObject(v3, v4);
+    lsl::Allocator::freeObject(v4, v5);
   }
 }
 
@@ -1386,26 +1350,26 @@ uint64_t ___ZN4dyld20ThreadLocalVariables18findInitialContentEPKN6mach_o6HeaderE
 
 void dyld::ThreadLocalVariables::initializeThunksFromDisk(const mach_o::Header *a1@<X1>, mach_o::Error *a2@<X8>)
 {
-  v12 = 0;
-  if (pthread_key_create(&v12, &_free))
+  v11 = 0;
+  if (pthread_key_create(&v11, &_free))
   {
     mach_o::Error::Error(a2, "pthread_key_create() failed");
   }
 
   else
   {
-    v11 = 0uLL;
-    v10 = 0;
-    dyld::ThreadLocalVariables::findInitialContent(a1, &v11, &v10);
-    v5[0] = _NSConcreteStackBlock;
-    v5[1] = 0x40000000;
-    v5[2] = ___ZN4dyld20ThreadLocalVariables24initializeThunksFromDiskEPKN6mach_o6HeaderE_block_invoke;
-    v5[3] = &__block_descriptor_tmp_8;
+    v10 = 0uLL;
+    v9 = 0;
+    dyld::ThreadLocalVariables::findInitialContent(a1, &v10, &v9);
+    v4[0] = _NSConcreteStackBlock;
+    v4[1] = 0x40000000;
+    v4[2] = ___ZN4dyld20ThreadLocalVariables24initializeThunksFromDiskEPKN6mach_o6HeaderE_block_invoke;
+    v4[3] = &__block_descriptor_tmp_8;
+    v5 = v10;
+    v8 = v9;
     v6 = v11;
-    v9 = v10;
-    v7 = v12;
-    v8 = a1;
-    dyld::ThreadLocalVariables::forEachThunkSpan(a1, v5, a2);
+    v7 = a1;
+    dyld::ThreadLocalVariables::forEachThunkSpan(a1, v4, a2);
   }
 }
 
@@ -1422,7 +1386,6 @@ mach_o::Error *___ZN4dyld20ThreadLocalVariables24initializeThunksFromDiskEPKN6ma
       v8 = *(v6 - 1);
       if (v8 > v4)
       {
-        v10 = *(v6 - 1);
         return mach_o::Error::Error(a4, "malformed thread-local, offset=0x%lX is larger than total size=0x%lX");
       }
 
@@ -1434,7 +1397,6 @@ mach_o::Error *___ZN4dyld20ThreadLocalVariables24initializeThunksFromDiskEPKN6ma
       v9 = *(result + 6);
       if (HIDWORD(v9))
       {
-        v11 = *(result + 6);
         return mach_o::Error::Error(a4, "thread_key_t %lu, larger than uint32_t");
       }
 
@@ -1565,13 +1527,6 @@ LABEL_26:
   return this;
 }
 
-uint64_t ___ZNK15DyldSharedCache12forEachRangeEU13block_pointerFvPKcyyjyjjRbEU13block_pointerFvPKS_jE_block_invoke_2(uint64_t a1, int a2, int a3, int a4, int a5, DyldSharedCache *this, char a7, int a8, uint64_t a9)
-{
-  DyldSharedCache::mappingName(this, a7);
-  v10 = *(*(*(a1 + 40) + 8) + 24);
-  return (*(*(a1 + 32) + 16))(*(a1 + 32));
-}
-
 uint64_t DyldSharedCache::forEachCache(char *a1, uint64_t a2)
 {
   v10 = 0;
@@ -1629,34 +1584,34 @@ const char *dyld_process_info_base::copySegmentName(dyld_process_info_base *this
   return dyld_process_info_base::addString(this, __s1, 0x10uLL);
 }
 
-uint64_t DyldSharedCache::inCache(DyldSharedCache *this, DyldSharedCache *a2, uint64_t a3, BOOL *a4)
+uint64_t DyldSharedCache::inCache(DyldSharedCache *this, DyldSharedCache *a2, uint64_t a3, BOOL *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a2 >= this)
   {
-    v5 = a2 - this + *(this + *(this + 4));
-    v8 = 0;
-    v9 = &v8;
-    v10 = 0x2000000000;
-    v11 = 0;
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 0x40000000;
-    v7[2] = ___ZNK15DyldSharedCache7inCacheEPKvmRb_block_invoke;
-    v7[3] = &unk_1EEE9C148;
-    v7[4] = &v8;
-    v7[5] = v5;
-    v7[6] = a3;
-    v7[7] = a4;
-    DyldSharedCache::forEachRange(this, v7, 0);
-    v4 = *(v9 + 24);
-    _Block_object_dispose(&v8, 8);
+    v9 = a2 - this + *(this + *(this + 4));
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x2000000000;
+    v15 = 0;
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 0x40000000;
+    v11[2] = ___ZNK15DyldSharedCache7inCacheEPKvmRb_block_invoke;
+    v11[3] = &unk_1EEE9C148;
+    v11[4] = &v12;
+    v11[5] = v9;
+    v11[6] = a3;
+    v11[7] = a4;
+    DyldSharedCache::forEachRange(this, v11, 0);
+    v8 = *(v13 + 24);
+    _Block_object_dispose(&v12, 8);
   }
 
   else
   {
-    v4 = 0;
+    v8 = 0;
   }
 
-  return v4 & 1;
+  return v8 & 1;
 }
 
 uint64_t ___ZNK15DyldSharedCache7inCacheEPKvmRb_block_invoke(uint64_t result, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, char a8, _BYTE *a9)
@@ -1726,12 +1681,12 @@ uint64_t dyld4::FileRecord::getPath(dyld4::FileRecord *this)
     v2 = *(this + 2);
     if (v2)
     {
-      dyld4::FileManager::getPath(*this, v2, *(this + 1), &v6);
+      dyld4::FileManager::getPath(&v6, *this, v2, *(this + 1));
     }
 
     else
     {
-      dyld4::FileManager::getPath(*this, (this + 24), *(this + 1), &v6);
+      dyld4::FileManager::getPath(&v6, *this, (this + 24), *(this + 1));
     }
 
     v4 = *(this + 5);
@@ -1817,10 +1772,10 @@ LABEL_8:
   }
 }
 
-uint64_t dyld_process_info_base::addImage(dyld_process_info_base *this, RemoteBuffer *a2, int a3, DyldSharedCache *a4, unint64_t a5, mach_header *a6, DyldSharedCache *a7, const char *__s1, unsigned int a9)
+uint64_t dyld_process_info_base::addImage(dyld_process_info_base *this, RemoteBuffer *a2, int a3, DyldSharedCache *a4, uint64_t a5, mach_header *a6, DyldSharedCache *a7, const char *__s1, unsigned int a9)
 {
   v14 = this;
-  v22 = 0;
+  v26 = 0;
   v15 = *(this + 7);
   *(v15 + 16) = a6;
   *(v15 + 32) = *(this + 24);
@@ -1838,10 +1793,10 @@ LABEL_4:
   {
     if (a3)
     {
-      if (DyldSharedCache::inCache(a4, a7, 1, &v22))
+      if (DyldSharedCache::inCache(a4, a7, 1, &v26, a5, a6, a7, 0))
       {
         v17 = a7;
-        if (v22)
+        if (v26)
         {
           goto LABEL_4;
         }
@@ -1856,25 +1811,25 @@ LABEL_4:
     goto LABEL_3;
   }
 
-  v21 = 0;
-  v17 = dyld_process_info_base::copyPath(v14, a2, &v21, a7);
+  v25 = 0;
+  v17 = dyld_process_info_base::copyPath(v14, a2, &v25, a7);
   *(*(v14 + 7) + 24) = v17;
-  Commands = v21;
-  if (v21)
+  Commands = v25;
+  if (v25)
   {
     return Commands;
   }
 
 LABEL_5:
   checkPath(v17, a7, a9);
-  if (a4 && a3 && DyldSharedCache::inCache(a4, a6, 0x8000, &v22))
+  if (a4 && a3 && DyldSharedCache::inCache(a4, a6, 0x8000, &v26, v18, v19, v20, v21))
   {
     dyld_process_info_base::addInfoFromLoadCommands(v14, a6);
 LABEL_10:
     Commands = 0;
-    v19 = *(v14 + 7);
-    *(v19 + 36) = *(v14 + 24) - *(v19 + 32);
-    *(v14 + 7) = v19 + 40;
+    v23 = *(v14 + 7);
+    *(v23 + 36) = *(v14 + 24) - *(v23 + 32);
+    *(v14 + 7) = v23 + 40;
     return Commands;
   }
 
@@ -1986,47 +1941,47 @@ const char *DyldSharedCache::mappingName(DyldSharedCache *this, char a2)
   }
 }
 
-void dyld4::Atlas::Mapper::mapperForSharedCache()
+void dyld4::Atlas::Mapper::mapperForSharedCache(uint64_t a1)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v2 = v1;
-  v3 = v0;
-  v5 = v4;
+  v1 = MEMORY[0x1EEE9AC00](a1);
+  v3 = v2;
+  v4 = v1;
+  v6 = v5;
   *&v119[1] = 0;
-  v113 = v6;
-  Path = dyld4::FileRecord::getPath(v6);
+  v113 = v7;
+  Path = dyld4::FileRecord::getPath(v7);
   v119[0] = open(Path, 0);
   if (v119[0] == -1)
   {
-    *v5 = 0;
+    *v6 = 0;
     return;
   }
 
   v141 = 0;
-  v142 = v3;
+  v142 = v4;
   v143 = 0;
   v144 = 0;
   lsl::OrderedSet<int,std::less<int>>::insert(&v141, v119, v140);
-  if (!v9)
+  if (!v10)
   {
     *__dst = &v141;
     memset(&__dst[8], 0, 32);
     v131 = 0u;
     memset(v132, 0, 25);
-    v17 = lsl::BTree<int,std::less<int>,false>::const_iterator::operator++(__dst);
-    v18 = *v17;
-    v19 = *(v17 + 7);
-    v20 = *(v17 + 5);
-    v21 = *(v17 + 3);
-    v134 = *(v17 + 1);
-    v135 = v21;
-    v136 = v20;
-    v137 = v19;
-    v22 = v17[9];
-    v23 = *(v17 + 80);
-    v133 = v18;
-    v138 = v22;
-    v139 = v23;
+    v18 = lsl::BTree<int,std::less<int>,false>::const_iterator::operator++(__dst);
+    v19 = *v18;
+    v20 = *(v18 + 7);
+    v21 = *(v18 + 5);
+    v22 = *(v18 + 3);
+    v134 = *(v18 + 1);
+    v135 = v22;
+    v136 = v21;
+    v137 = v20;
+    v23 = v18[9];
+    v24 = *(v18 + 80);
+    v133 = v19;
+    v138 = v23;
+    v139 = v24;
     v131 = 0u;
     memset(v132, 0, 25);
     memset(&__dst[8], 0, 32);
@@ -2037,72 +1992,72 @@ void dyld4::Atlas::Mapper::mapperForSharedCache()
       lsl::BTree<int,std::less<int>,false>::const_iterator::operator++(&v133);
     }
 
-    *v5 = 0;
+    *v6 = 0;
     goto LABEL_77;
   }
 
-  v10 = v9;
-  v145 = *(v9 + 88);
+  v11 = v10;
+  v145 = *(v10 + 88);
   shared_cache_range = _dyld_get_shared_cache_range(&v119[1]);
-  v110 = v5;
+  v110 = v6;
   v114 = shared_cache_range;
   if (shared_cache_range)
   {
-    v12 = 0;
+    v13 = 0;
     *__dst = *(shared_cache_range + 88);
     do
     {
-      v13 = __dst[v12];
-      v14 = *(&v145 + v12);
-      v15 = v13 == v14;
+      v14 = __dst[v13];
+      v15 = *(&v145 + v13);
+      v16 = v14 == v15;
     }
 
-    while (v13 == v14 && v12++ != 15);
+    while (v14 == v15 && v13++ != 15);
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  if (v2)
+  if (v3)
   {
-    v24 = v2 - *(v10 + 28);
-  }
-
-  else
-  {
-    v24 = 0;
-  }
-
-  v25 = *(v10 + 4);
-  if (v25 <= 0x18B)
-  {
-    v26 = *(v10 + 6) + 32 * *(v10 + 7);
+    v25 = v3 - *(v11 + 28);
   }
 
   else
   {
-    if (!*(v10 + 113))
+    v25 = 0;
+  }
+
+  v26 = *(v11 + 4);
+  if (v26 <= 0x18B)
+  {
+    v27 = *(v11 + 6) + 32 * *(v11 + 7);
+  }
+
+  else
+  {
+    if (!*(v11 + 113))
     {
       *__dst = &v141;
       memset(&__dst[8], 0, 32);
       v131 = 0u;
       memset(v132, 0, 25);
-      v94 = lsl::BTree<int,std::less<int>,false>::const_iterator::operator++(__dst);
-      v95 = *v94;
-      v96 = *(v94 + 7);
-      v97 = *(v94 + 5);
-      v98 = *(v94 + 3);
-      v134 = *(v94 + 1);
-      v135 = v98;
-      v136 = v97;
-      v137 = v96;
-      v99 = v94[9];
-      v100 = *(v94 + 80);
-      v133 = v95;
-      v138 = v99;
-      v139 = v100;
+      v95 = lsl::BTree<int,std::less<int>,false>::const_iterator::operator++(__dst);
+      v96 = *v95;
+      v97 = *(v95 + 7);
+      v98 = *(v95 + 5);
+      v99 = *(v95 + 3);
+      v134 = *(v95 + 1);
+      v135 = v99;
+      v136 = v98;
+      v137 = v97;
+      v100 = v95[9];
+      v101 = *(v95 + 80);
+      v133 = v96;
+      v138 = v100;
+      v139 = v101;
       v131 = 0u;
       memset(v132, 0, 25);
       memset(&__dst[8], 0, 32);
@@ -2116,31 +2071,31 @@ void dyld4::Atlas::Mapper::mapperForSharedCache()
       goto LABEL_76;
     }
 
-    v26 = *(v10 + 98) + 56 * *(v10 + 99);
+    v27 = *(v11 + 98) + 56 * *(v11 + 99);
   }
 
-  v27 = mmap(0, v26, 1, 2, v119[0], 0);
-  v112 = v27;
-  if (v27 == -1)
+  v28 = mmap(0, v27, 1, 2, v119[0], 0);
+  v112 = v28;
+  if (v28 == -1)
   {
     *__dst = &v141;
     memset(&__dst[8], 0, 32);
     v131 = 0u;
     memset(v132, 0, 25);
-    v87 = lsl::BTree<int,std::less<int>,false>::const_iterator::operator++(__dst);
-    v88 = *v87;
-    v89 = *(v87 + 7);
-    v90 = *(v87 + 5);
-    v91 = *(v87 + 3);
-    v134 = *(v87 + 1);
-    v135 = v91;
-    v136 = v90;
-    v137 = v89;
-    v92 = v87[9];
-    v93 = *(v87 + 80);
-    v133 = v88;
-    v138 = v92;
-    v139 = v93;
+    v88 = lsl::BTree<int,std::less<int>,false>::const_iterator::operator++(__dst);
+    v89 = *v88;
+    v90 = *(v88 + 7);
+    v91 = *(v88 + 5);
+    v92 = *(v88 + 3);
+    v134 = *(v88 + 1);
+    v135 = v92;
+    v136 = v91;
+    v137 = v90;
+    v93 = v88[9];
+    v94 = *(v88 + 80);
+    v133 = v89;
+    v138 = v93;
+    v139 = v94;
     v131 = 0u;
     memset(v132, 0, 25);
     memset(&__dst[8], 0, 32);
@@ -2156,89 +2111,89 @@ LABEL_76:
     goto LABEL_77;
   }
 
-  v108 = v26;
-  v28 = *(v10 + 78);
-  v29 = lsl::MemoryManager::memoryManager(v27);
-  v115 = lsl::MemoryManager::defaultAllocator(v29);
+  v109 = v27;
+  v29 = *(v11 + 78);
+  v30 = lsl::MemoryManager::memoryManager(v28);
+  v115 = lsl::MemoryManager::defaultAllocator(v30);
   v116 = 0;
   v117 = 0;
   v118 = 0;
-  if (*(v10 + 79))
+  if (*(v11 + 79))
   {
-    v30 = 0;
     v31 = 0;
-    v32 = v112 + v28;
+    v32 = 0;
+    v33 = v112 + v29;
     do
     {
-      if (!v15 || (v32[48] & 2) != 0)
+      if (!v16 || (v33[48] & 2) != 0)
       {
-        v35 = v119[0];
-        v34 = *(v32 + 2);
-        v33 = *v32;
+        v36 = v119[0];
+        v35 = *(v33 + 2);
+        v34 = *v33;
       }
 
       else
       {
-        v33 = *v32;
-        v34 = *v32 + v114 - *(v10 + 28);
-        v35 = -1;
+        v34 = *v33;
+        v35 = *v33 + v114 - *(v11 + 28);
+        v36 = -1;
       }
 
-      v36 = *(v32 + 1);
-      v37 = v33 + v24;
-      lsl::Vector<dyld4::Atlas::Mapper::Mapping>::reserve(&v115, v30 + 1);
-      v38 = &v116[2 * v117];
-      *v38 = v34;
-      *(v38 + 1) = v36;
-      *(v38 + 2) = v37;
-      *(v38 + 6) = v35;
-      v30 = ++v117;
-      ++v31;
-      v32 += 56;
+      v37 = *(v33 + 1);
+      v38 = v34 + v25;
+      lsl::Vector<dyld4::Atlas::Mapper::Mapping>::reserve(&v115, v31 + 1);
+      v39 = &v116[2 * v117];
+      *v39 = v35;
+      *(v39 + 1) = v37;
+      *(v39 + 2) = v38;
+      *(v39 + 6) = v36;
+      v31 = ++v117;
+      ++v32;
+      v33 += 56;
     }
 
-    while (v31 < *(v10 + 79));
+    while (v32 < *(v11 + 79));
   }
 
-  if (v25 <= 0x18B || !*(v10 + 99))
+  if (v26 <= 0x18B || !*(v11 + 99))
   {
 LABEL_63:
     if (v117)
     {
-      v71 = v116;
-      v72 = 32 * v117;
+      v72 = v116;
+      v73 = 32 * v117;
       do
       {
-        v73 = *v71;
-        v74 = v71[1];
-        v71 += 2;
-        *__dst = v73;
-        *&__dst[16] = v74;
+        v74 = *v72;
+        v75 = v72[1];
+        v72 += 2;
+        *__dst = v74;
+        *&__dst[16] = v75;
         lsl::BTree<int,std::less<int>,false>::erase(&v141, &__dst[24]);
-        v72 -= 32;
+        v73 -= 32;
       }
 
-      while (v72);
+      while (v73);
     }
 
     *__dst = &v141;
     memset(&__dst[8], 0, 32);
     v131 = 0u;
     memset(v132, 0, 25);
-    v75 = lsl::BTree<int,std::less<int>,false>::const_iterator::operator++(__dst);
-    v76 = *v75;
-    v77 = *(v75 + 7);
-    v78 = *(v75 + 5);
-    v79 = *(v75 + 3);
-    v134 = *(v75 + 1);
-    v135 = v79;
-    v136 = v78;
-    v137 = v77;
-    v80 = v75[9];
-    v81 = *(v75 + 80);
-    v133 = v76;
-    v138 = v80;
-    v139 = v81;
+    v76 = lsl::BTree<int,std::less<int>,false>::const_iterator::operator++(__dst);
+    v77 = *v76;
+    v78 = *(v76 + 7);
+    v79 = *(v76 + 5);
+    v80 = *(v76 + 3);
+    v134 = *(v76 + 1);
+    v135 = v80;
+    v136 = v79;
+    v137 = v78;
+    v81 = v76[9];
+    v82 = *(v76 + 80);
+    v133 = v77;
+    v138 = v81;
+    v139 = v82;
     v131 = 0u;
     memset(v132, 0, 25);
     memset(&__dst[8], 0, 32);
@@ -2249,33 +2204,32 @@ LABEL_63:
       lsl::BTree<int,std::less<int>,false>::const_iterator::operator++(&v133);
     }
 
-    v82 = munmap(v112, v108);
-    v83 = lsl::MemoryManager::memoryManager(v82);
-    v84 = lsl::MemoryManager::defaultAllocator(v83);
-    v85 = lsl::MemoryManager::memoryManager(v84);
-    v86 = lsl::MemoryManager::defaultAllocator(v85);
-    lsl::Allocator::makeShared<dyld4::Atlas::Mapper,lsl::Allocator&,lsl::Vector<dyld4::Atlas::Mapper::Mapping> &>(v84, v86, &v115, v110);
+    v83 = munmap(v112, v109);
+    v84 = lsl::MemoryManager::memoryManager(v83);
+    v85 = lsl::MemoryManager::defaultAllocator(v84);
+    v86 = lsl::MemoryManager::memoryManager(v85);
+    v87 = lsl::MemoryManager::defaultAllocator(v86);
+    lsl::Allocator::makeShared<dyld4::Atlas::Mapper,lsl::Allocator&,lsl::Vector<dyld4::Atlas::Mapper::Mapping> &>(v85, v87, &v115, v110);
     goto LABEL_69;
   }
 
-  v39 = 0;
-  v109 = v112 + *(v10 + 98);
+  v40 = 0;
   while (1)
   {
-    if (*(v10 + 4) > 0x1C8u)
+    if (*(v11 + 4) > 0x1C8u)
     {
-      v40 = dyld4::FileRecord::getPath(v113);
-      v42 = dyld4::Utils::strrstr(v40, ".development", v41);
-      if (v42)
+      v41 = dyld4::FileRecord::getPath(v113);
+      v43 = dyld4::Utils::strrstr(v41, ".development", v42);
+      if (v43)
       {
-        v43 = v42 - v40;
-        strncpy(__dst, v40, v42 - v40);
-        __dst[v43] = 0;
+        v44 = v43 - v41;
+        strncpy(__dst, v41, v43 - v41);
+        __dst[v44] = 0;
       }
 
       else
       {
-        strcpy(__dst, v40);
+        strcpy(__dst, v41);
       }
 
       snprintf(&v133, 0x400uLL, "%s%s");
@@ -2294,27 +2248,27 @@ LABEL_63:
       goto LABEL_63;
     }
 
-    if (!v45)
+    if (!v46)
     {
       v146 = &v141;
       v147 = 0u;
       v148 = 0u;
       v149 = 0u;
       memset(v150, 0, sizeof(v150));
-      v64 = lsl::BTree<int,std::less<int>,false>::const_iterator::operator++(&v146);
-      v65 = *v64;
-      v66 = *(v64 + 7);
-      v67 = *(v64 + 5);
-      v68 = *(v64 + 3);
-      v124 = *(v64 + 1);
-      v125 = v68;
-      v126 = v67;
-      v127 = v66;
-      v69 = v64[9];
-      v70 = *(v64 + 80);
-      v123 = v65;
-      v128 = v69;
-      v129 = v70;
+      v65 = lsl::BTree<int,std::less<int>,false>::const_iterator::operator++(&v146);
+      v66 = *v65;
+      v67 = *(v65 + 7);
+      v68 = *(v65 + 5);
+      v69 = *(v65 + 3);
+      v124 = *(v65 + 1);
+      v125 = v69;
+      v126 = v68;
+      v127 = v67;
+      v70 = v65[9];
+      v71 = *(v65 + 80);
+      v123 = v66;
+      v128 = v70;
+      v129 = v71;
       memset(v150, 0, sizeof(v150));
       v149 = 0u;
       v148 = 0u;
@@ -2329,78 +2283,78 @@ LABEL_63:
       goto LABEL_62;
     }
 
-    v46 = v45;
-    v47 = 0;
-    v48 = &v45[*(v45 + 78)];
-    v49 = *(v45 + 88);
-    v50 = v112 + *(v10 + 98);
-    v51 = &v50[56 * v39];
-    v52 = &v50[24 * v39];
-    if (*(v10 + 4) < 0x1C9u)
+    v47 = v46;
+    v48 = 0;
+    v49 = &v46[*(v46 + 78)];
+    v50 = *(v46 + 88);
+    v51 = v112 + *(v11 + 98);
+    v52 = &v51[56 * v40];
+    v53 = &v51[24 * v40];
+    if (*(v11 + 4) < 0x1C9u)
     {
-      v51 = v52;
+      v52 = v53;
     }
 
-    v121 = *v51;
-    v122 = v49;
+    v121 = *v52;
+    v122 = v50;
     v120 = v121;
     do
     {
-      v53 = *(&v122 + v47);
-      v54 = *(&v120 + v47);
+      v54 = *(&v122 + v48);
+      v55 = *(&v120 + v48);
     }
 
-    while (v53 == v54 && v47++ != 15);
-    if (v53 != v54)
+    while (v54 == v55 && v48++ != 15);
+    if (v54 != v55)
     {
       break;
     }
 
-    v111 = v39;
-    if (*(v45 + 79))
+    v111 = v40;
+    if (*(v46 + 79))
     {
-      v56 = 0;
-      while (v15)
+      v57 = 0;
+      while (v16)
       {
-        v57 = v117;
-        if ((v48[48] & 2) != 0)
+        v58 = v117;
+        if ((v49[48] & 2) != 0)
         {
           goto LABEL_57;
         }
 
-        v58 = *v48;
-        v59 = *v48 + v114 - *(v10 + 28);
-        v60 = -1;
+        v59 = *v49;
+        v60 = *v49 + v114 - *(v11 + 28);
+        v61 = -1;
 LABEL_58:
-        v61 = *(v48 + 1);
-        v62 = v58 + v24;
-        lsl::Vector<dyld4::Atlas::Mapper::Mapping>::reserve(&v115, v57 + 1);
-        v63 = &v116[2 * v117];
-        *v63 = v59;
-        *(v63 + 1) = v61;
-        *(v63 + 2) = v62;
-        *(v63 + 6) = v60;
+        v62 = *(v49 + 1);
+        v63 = v59 + v25;
+        lsl::Vector<dyld4::Atlas::Mapper::Mapping>::reserve(&v115, v58 + 1);
+        v64 = &v116[2 * v117];
+        *v64 = v60;
+        *(v64 + 1) = v62;
+        *(v64 + 2) = v63;
+        *(v64 + 6) = v61;
         ++v117;
-        ++v56;
-        v48 += 56;
-        if (v56 >= *(v46 + 79))
+        ++v57;
+        v49 += 56;
+        if (v57 >= *(v47 + 79))
         {
           goto LABEL_59;
         }
       }
 
-      v57 = v117;
+      v58 = v117;
 LABEL_57:
-      v60 = v119[0];
-      v59 = *(v48 + 2);
-      v58 = *v48;
+      v61 = v119[0];
+      v60 = *(v49 + 2);
+      v59 = *v49;
       goto LABEL_58;
     }
 
 LABEL_59:
-    v39 = v111;
+    v40 = v111;
 LABEL_62:
-    if (++v39 >= *(v10 + 99))
+    if (++v40 >= *(v11 + 99))
     {
       goto LABEL_63;
     }
@@ -2411,20 +2365,20 @@ LABEL_62:
   v148 = 0u;
   v149 = 0u;
   memset(v150, 0, sizeof(v150));
-  v101 = lsl::BTree<int,std::less<int>,false>::const_iterator::operator++(&v146);
-  v102 = *v101;
-  v103 = *(v101 + 7);
-  v104 = *(v101 + 5);
-  v105 = *(v101 + 3);
-  v124 = *(v101 + 1);
-  v125 = v105;
-  v126 = v104;
-  v127 = v103;
-  v106 = v101[9];
-  v107 = *(v101 + 80);
-  v123 = v102;
-  v128 = v106;
-  v129 = v107;
+  v102 = lsl::BTree<int,std::less<int>,false>::const_iterator::operator++(&v146);
+  v103 = *v102;
+  v104 = *(v102 + 7);
+  v105 = *(v102 + 5);
+  v106 = *(v102 + 3);
+  v124 = *(v102 + 1);
+  v125 = v106;
+  v126 = v105;
+  v127 = v104;
+  v107 = v102[9];
+  v108 = *(v102 + 80);
+  v123 = v103;
+  v128 = v107;
+  v129 = v108;
   v149 = 0u;
   memset(v150, 0, sizeof(v150));
   v147 = 0u;
@@ -2471,9 +2425,9 @@ const char *dyld4::Utils::strrstr(dyld4::Utils *this, const char *__s, const cha
   return i;
 }
 
-void lsl::Vector<dyld4::Atlas::Mapper::Mapping>::reserve(uint64_t a1, unint64_t a2)
+void lsl::Vector<dyld4::Atlas::Mapper::Mapping>::reserve(uint64_t result, unint64_t a2)
 {
-  if (*(a1 + 24) < a2)
+  if (*(result + 24) < a2)
   {
     if (a2 >= 0x10)
     {
@@ -2487,7 +2441,7 @@ void lsl::Vector<dyld4::Atlas::Mapper::Mapping>::reserve(uint64_t a1, unint64_t 
       v2 = 16;
     }
 
-    lsl::Vector<dyld4::Atlas::Mapper::Mapping>::reserveExact(a1, v2);
+    lsl::Vector<dyld4::Atlas::Mapper::Mapping>::reserveExact(result, v2);
   }
 }
 
@@ -2729,7 +2683,7 @@ unsigned __int8 *lsl::BTree<int,std::less<int>,false>::const_iterator::prepareFo
     v6 = 0;
     do
     {
-      if (*(v3[v5] + 248) >= 0)
+      if (*(*&v3[8 * v5] + 248) >= 0)
       {
         v7 = 20;
       }
@@ -2739,7 +2693,7 @@ unsigned __int8 *lsl::BTree<int,std::less<int>,false>::const_iterator::prepareFo
         v7 = 62;
       }
 
-      if ((*(v3[v5] + 248) & 0x7F) != v7)
+      if ((*(*&v3[8 * v5] + 248) & 0x7F) != v7)
       {
         v6 = v5;
       }
@@ -2775,7 +2729,7 @@ LABEL_15:
         **v2 = result;
         if (v2[80] && (result = memmove(v2 + 73, v2 + 72, v2[80]), v2[80]))
         {
-          result = memmove(v3 + 1, v3, 8 * v2[80]);
+          result = memmove(v3 + 8, v3, 8 * v2[80]);
           LOBYTE(v1) = v2[80] + 1;
         }
 
@@ -2805,8 +2759,8 @@ LABEL_15:
       do
       {
         v13 = v12;
-        result = lsl::BTree<int,std::less<int>,false>::NodeCore<62u,20u>::splitChild(v3[v12], v11[v12], *(*v2 + 8));
-        v14 = v3[v12];
+        result = lsl::BTree<int,std::less<int>,false>::NodeCore<62u,20u>::splitChild(*&v3[8 * v12], v11[v12], *(*v2 + 8));
+        v14 = *&v3[8 * v12];
         if (*(v14 + 248) < 0)
         {
           lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
@@ -2820,7 +2774,7 @@ LABEL_15:
           v18 = v15 + 1;
           v11[v12] = v18;
           v2[v12 + 73] = v17 + (~*(v16 + 248) | 0x80);
-          v19 = v3[v12];
+          v19 = *&v3[8 * v12];
           if (*(v19 + 248) < 0)
           {
             lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
@@ -2998,35 +2952,35 @@ char *lsl::BTree<int,std::less<int>,false>::NodeCore<62u,20u>::insert(char *resu
   return result;
 }
 
-void lsl::Vector<dyld4::Atlas::Mapper::Mapping>::reserveExact(uint64_t a1, unint64_t a2)
+void lsl::Vector<dyld4::Atlas::Mapper::Mapping>::reserveExact(uint64_t result, unint64_t a2)
 {
-  if (*(a1 + 24) < a2)
+  if (*(result + 24) < a2)
   {
-    if ((lsl::Allocator::realloc(*a1, *(a1 + 8)) & 1) == 0)
+    if ((lsl::Allocator::realloc(*result, *(result + 8)) & 1) == 0)
     {
-      v4 = lsl::Allocator::aligned_alloc(*a1, 0x10uLL, 32 * a2);
+      v4 = lsl::Allocator::aligned_alloc(*result, 0x10uLL, 32 * a2);
       v5 = v4;
-      v6 = *(a1 + 16);
+      v6 = *(result + 16);
       if (v6)
       {
         v7 = 0;
         for (i = 0; i < v6; ++i)
         {
           v9 = &v4[v7];
-          v10 = (*(a1 + 8) + v7);
+          v10 = (*(result + 8) + v7);
           v11 = v10[1];
           *v9 = *v10;
           *(v9 + 1) = v11;
-          v6 = *(a1 + 16);
+          v6 = *(result + 16);
           v7 += 32;
         }
       }
 
-      v12 = *(a1 + 8);
+      v12 = *(result + 8);
       if (v12)
       {
-        lsl::Allocator::free(*a1, v12);
-        v6 = *(a1 + 16);
+        lsl::Allocator::free(*result, v12);
+        v6 = *(result + 16);
       }
 
       if (v6 >= a2)
@@ -3034,15 +2988,15 @@ void lsl::Vector<dyld4::Atlas::Mapper::Mapping>::reserveExact(uint64_t a1, unint
         v6 = a2;
       }
 
-      *(a1 + 8) = v5;
-      *(a1 + 16) = v6;
+      *(result + 8) = v5;
+      *(result + 16) = v6;
     }
 
-    *(a1 + 24) = a2;
+    *(result + 24) = a2;
   }
 }
 
-void *lsl::Allocator::aligned_alloc(lsl::Allocator *this, unint64_t a2, unint64_t a3)
+void *lsl::Allocator::aligned_alloc(lsl::Allocator *this, size_t a2, unint64_t a3)
 {
   if ((a2 ^ (a2 - 1)) <= a2 - 1)
   {
@@ -3248,75 +3202,75 @@ uint64_t ___ZNK15DyldSharedCache12forEachRangeEU13block_pointerFvPKcyyjyjjRbEU13
 void ___ZN22dyld_process_info_base4makeI23dyld_all_image_infos_6418dyld_image_info_64EENSt3__110unique_ptrIS_25dyld_process_info_deleterEEjRKT_yPi_block_invoke(uint64_t a1, uint64_t a2)
 {
   ProcessDyldInfo = getProcessDyldInfo();
-  if (!ProcessDyldInfo || (v5 = *(a1 + 40), !*(v5 + 176)) || !*(ProcessDyldInfo + 176) || (*(v5 + 24) & 1) != 0 || (*(ProcessDyldInfo + 24) & 1) != 0 || (*(ProcessDyldInfo + 160) == *(v5 + 160) ? (v6 = *(ProcessDyldInfo + 168) == *(v5 + 168)) : (v6 = 0), !v6))
+  if (!ProcessDyldInfo || (v9 = *(a1 + 40), !*(v9 + 176)) || !*(ProcessDyldInfo + 176) || (*(v9 + 24) & 1) != 0 || (*(ProcessDyldInfo + 24) & 1) != 0 || (*(ProcessDyldInfo + 160) == *(v9 + 160) ? (v10 = *(ProcessDyldInfo + 168) == *(v9 + 168)) : (v10 = 0), !v10))
   {
-    v7 = 0;
+    v11 = 0;
 LABEL_11:
-    v8 = *(a1 + 80) + 1;
-    v9 = v8;
+    v12 = *(a1 + 80) + 1;
+    v13 = v12;
     goto LABEL_12;
   }
 
-  v41 = *(ProcessDyldInfo + 152);
-  v42 = *(v5 + 152);
-  v7 = v41 == v42;
-  v43 = *(a1 + 48);
-  if (v41 != v42 || v43 == 0)
+  v45 = *(ProcessDyldInfo + 152);
+  v46 = *(v9 + 152);
+  v11 = v45 == v46;
+  v47 = *(a1 + 48);
+  if (v45 != v46 || v47 == 0)
   {
     goto LABEL_11;
   }
 
-  v49 = 0;
+  v53 = 0;
   if (*(a1 + 80))
   {
-    v45 = 0;
-    v9 = 0;
-    v46 = (a2 + 8);
+    v49 = 0;
+    v13 = 0;
+    v50 = (a2 + 8);
     do
     {
-      v47 = *v46;
-      v46 += 3;
-      if (!DyldSharedCache::inCache(v43, v47, 1, &v49) || !v49)
+      v51 = *v50;
+      v50 += 3;
+      if (!DyldSharedCache::inCache(v47, v51, 1, &v53, v5, v6, v7, v8) || !v53)
       {
-        ++v9;
+        ++v13;
       }
 
-      ++v45;
-      v48 = *(a1 + 80);
+      ++v49;
+      v52 = *(a1 + 80);
     }
 
-    while (v45 < v48);
-    v8 = v48 + 1;
+    while (v49 < v52);
+    v12 = v52 + 1;
   }
 
   else
   {
-    v9 = 0;
-    v8 = 1;
+    v13 = 0;
+    v12 = 1;
   }
 
-  v7 = 1;
+  v11 = 1;
 LABEL_12:
-  v10 = *(*(a1 + 40) + 324);
-  if (v10 >= 0x2000)
+  v14 = *(*(a1 + 40) + 324);
+  if (v14 >= 0x2000)
   {
-    v11 = 458752;
+    v15 = 458752;
   }
 
   else
   {
-    v11 = 56 * v10;
+    v15 = 56 * v14;
   }
 
-  v12 = ((v9 << 10) | 0xC0) + 40 * v8 + 240 * v8;
-  v13 = malloc_type_malloc(v12 + v11, 0xD86E44E9uLL);
-  if (!v13)
+  v16 = ((v13 << 10) | 0xC0) + 40 * v12 + 240 * v12;
+  v17 = malloc_type_malloc(v16 + v15, 0xD86E44E9uLL);
+  if (!v17)
   {
     **(a1 + 56) = 3;
-    v38 = *(*(a1 + 32) + 8);
-    v14 = *(v38 + 40);
-    *(v38 + 40) = 0;
-    if (!v14)
+    v42 = *(*(a1 + 32) + 8);
+    v18 = *(v42 + 40);
+    *(v42 + 40) = 0;
+    if (!v18)
     {
       return;
     }
@@ -3324,102 +3278,102 @@ LABEL_12:
     goto LABEL_51;
   }
 
-  v14 = v13;
-  v15 = 40 * v8;
-  dyld_process_info_base::dyld_process_info_base(v13, *(*(a1 + 40) + 320), v8, *(*(a1 + 40) + 324), v12 + v11);
-  v18 = *(v17 + 32);
-  if (v18 <= 0xBF)
+  v18 = v17;
+  v19 = 40 * v12;
+  dyld_process_info_base::dyld_process_info_base(v17, *(*(a1 + 40) + 320), v12, *(*(a1 + 40) + 324), v16 + v15);
+  v22 = *(v21 + 32);
+  if (v22 <= 0xBF)
   {
-    v19 = v18 >= v15;
+    v23 = v22 >= v19;
   }
 
   else
   {
-    v18 -= 192;
-    v19 = 1;
+    v22 -= 192;
+    v23 = 1;
   }
 
-  if (v19)
+  if (v23)
   {
-    if (v18 < v15)
+    if (v22 < v19)
     {
-      v20 = 0;
+      v24 = 0;
     }
 
     else
     {
-      v20 = 40 * v8;
+      v24 = 40 * v12;
     }
 
-    *(v14 + 4) = v18 - v20;
+    *(v18 + 4) = v22 - v24;
   }
 
-  v21 = 0;
-  v22 = v14 + *(v14 + 1);
-  *v22 = *(*(a1 + 40) + 160);
-  v23 = *(a1 + 40);
-  *(v22 + 2) = *(v23 + 176);
-  v22[25] = *(v23 + 24);
-  v22[24] = 1;
+  v25 = 0;
+  v26 = v18 + *(v18 + 1);
+  *v26 = *(*(a1 + 40) + 160);
+  v27 = *(a1 + 40);
+  *(v26 + 2) = *(v27 + 176);
+  v26[25] = *(v27 + 24);
+  v26[24] = 1;
   do
   {
-    if (v22[v21])
+    if (v26[v25])
     {
-      v22[24] = 0;
+      v26[24] = 0;
     }
 
-    ++v21;
+    ++v25;
   }
 
-  while (v21 != 16);
-  v24 = v14 + *(v14 + 2);
-  *v24 = *(v23 + 352);
-  v25 = *(a1 + 40);
-  *(v24 + 2) = *(v25 + 344);
-  v26 = v14 + *(v14 + 3);
-  *v26 = *(a1 + 64);
-  v27 = *(v25 + 112);
-  *(v26 + 2) = v8;
-  *(v26 + 3) = v27 + 1;
-  v26[16] = 16;
-  if (*(v25 + 25))
+  while (v25 != 16);
+  v28 = v18 + *(v18 + 2);
+  *v28 = *(v27 + 352);
+  v29 = *(a1 + 40);
+  *(v28 + 2) = *(v29 + 344);
+  v30 = v18 + *(v18 + 3);
+  *v30 = *(a1 + 64);
+  v31 = *(v29 + 112);
+  *(v30 + 2) = v12;
+  *(v30 + 3) = v31 + 1;
+  v30[16] = 16;
+  if (*(v29 + 25))
   {
-    if (v27 == *(a1 + 80))
+    if (v31 == *(a1 + 80))
     {
-      v28 = 48;
+      v32 = 48;
     }
 
     else
     {
-      v28 = 80;
+      v32 = 80;
     }
 
-    v26[16] = v28;
-    v25 = *(a1 + 40);
+    v30[16] = v32;
+    v29 = *(a1 + 40);
   }
 
-  if (*(v25 + 56))
+  if (*(v29 + 56))
   {
-    if (*(v25 + 64))
+    if (*(v29 + 64))
     {
-      v29 = 32;
+      v33 = 32;
     }
 
     else
     {
-      v29 = 96;
+      v33 = 96;
     }
 
-    v26[16] = v29;
+    v30[16] = v33;
   }
 
-  v30 = *(v25 + 192);
-  if (v30)
+  v34 = *(v29 + 192);
+  if (v34)
   {
-    v31 = dyld_process_info_base::addDyldImage(v14, *(a1 + 84), *(v25 + 32), v30, 0);
-    v32 = *(a1 + 56);
-    *v32 = v31;
-    if (v31)
+    v35 = dyld_process_info_base::addDyldImage(v18, *(a1 + 84), *(v29 + 32), v34, 0);
+    v36 = *(a1 + 56);
+    *v36 = v35;
+    if (v35)
     {
       goto LABEL_47;
     }
@@ -3427,48 +3381,48 @@ LABEL_12:
 
   if (*(a1 + 80))
   {
-    v33 = 0;
-    v34 = (a2 + 8);
+    v37 = 0;
+    v38 = (a2 + 8);
     do
     {
-      v35 = dyld_process_info_base::addImage(v14, *(a1 + 84), v7, *(a1 + 48), v16, *(v34 - 1), *v34, 0, v33);
-      **(a1 + 56) = v35;
-      if (v35)
+      v39 = dyld_process_info_base::addImage(v18, *(a1 + 84), v11, *(a1 + 48), v20, *(v38 - 1), *v38, 0, v37);
+      **(a1 + 56) = v39;
+      if (v39)
       {
         goto LABEL_48;
       }
 
-      v34 += 3;
+      v38 += 3;
     }
 
-    while (++v33 < *(a1 + 80));
+    while (++v37 < *(a1 + 80));
   }
 
-  if (*(v14 + 13) < *(v14 + 11))
+  if (*(v18 + 13) < *(v18 + 11))
   {
-    v32 = *(a1 + 56);
+    v36 = *(a1 + 56);
 LABEL_47:
-    *v32 = 5;
+    *v36 = 5;
 LABEL_48:
-    v36 = *(*(a1 + 32) + 8);
-    v37 = *(v36 + 40);
-    *(v36 + 40) = 0;
-    if (v37)
+    v40 = *(*(a1 + 32) + 8);
+    v41 = *(v40 + 40);
+    *(v40 + 40) = 0;
+    if (v41)
     {
-      free(v37);
+      free(v41);
     }
 
     goto LABEL_51;
   }
 
-  v39 = *(*(a1 + 32) + 8);
-  v40 = *(v39 + 40);
-  *(v39 + 40) = v14;
-  v14 = v40;
-  if (v40)
+  v43 = *(*(a1 + 32) + 8);
+  v44 = *(v43 + 40);
+  *(v43 + 40) = v18;
+  v18 = v44;
+  if (v44)
   {
 LABEL_51:
-    free(v14);
+    free(v18);
   }
 }
 
@@ -3524,7 +3478,7 @@ uint64_t dyld_process_info_base::copyPath(dyld_process_info_base *this, RemoteBu
   v6[3] = &unk_1EEE9BBC8;
   v6[4] = &v7;
   v6[5] = this;
-  withRemoteBuffer(a2, a4, 0x400uLL, 1, a3, v6);
+  withRemoteBuffer(a2, a4, 0x400uLL, 1uLL, a3, v6);
   v4 = v8[3];
   _Block_object_dispose(&v7, 8);
   return v4;
@@ -3549,7 +3503,7 @@ uint64_t dyld_process_info_base::addInfoFromRemoteLoadCommands(dyld_process_info
   v10[7] = a3;
   v10[4] = &v15;
   v10[5] = &v11;
-  withRemoteBuffer(a2, a3, 0x1000uLL, 1, &v19, v10);
+  withRemoteBuffer(a2, a3, 0x1000uLL, 1uLL, &v19, v10);
   if (v12[3])
   {
     goto LABEL_4;
@@ -3610,9 +3564,9 @@ uint64_t dyld_process_info_base::addDyldImage(dyld_process_info_base *this, Remo
   return result;
 }
 
-void withRemoteBuffer(RemoteBuffer *a1, uint64_t a2, mach_vm_size_t a3, int a4, _DWORD *a5, uint64_t a6)
+void withRemoteBuffer(RemoteBuffer *a1, uint64_t a2, mach_vm_size_t a3, unint64_t a4, _DWORD *a5, uint64_t a6)
 {
-  RemoteBuffer::create(a1, a2, a3, a4, v10);
+  RemoteBuffer::create(v10, a1, a2, a3, a4);
   v8 = v11;
   if (a5)
   {
@@ -3667,28 +3621,29 @@ const char *___ZN22dyld_process_info_base29addInfoFromRemoteLoadCommandsEjy_bloc
 void *RemoteBuffer::map(vm_map_read_t src_task, uint64_t a2, mach_vm_size_t a3)
 {
   cur_protection = 0;
-  v13 = 1;
+  v17 = 1;
   if (!a3)
   {
     return 0;
   }
 
   target_address = 0;
-  if (mach_vm_remap_new(mach_task_self_, &target_address, a3, 0, 97, src_task, a2 & 0xFFFFFFFFFFFFFFLL, 1, &cur_protection, &v13, 2u))
+  if (mach_vm_remap_new(mach_task_self_, &target_address, a3, 0, 97, src_task, a2 & 0xFFFFFFFFFFFFFFLL, 1, &cur_protection, &v17, 2u))
   {
     return 0;
   }
 
-  v4 = malloc_type_malloc(a3 + 1, 0x92509850uLL);
-  if (v4)
+  v5 = malloc_type_malloc(a3 + 1, 0x92509850uLL);
+  v4 = v5;
+  if (v5)
   {
-    if (deviceSupportsMTE())
+    if (deviceSupportsMTE(v5, v6))
     {
       __asm { MSR             TCO, #1 }
     }
 
-    memcpy(v4, target_address, a3);
-    if (deviceSupportsMTE())
+    v12 = memcpy(v4, target_address, a3);
+    if (deviceSupportsMTE(v12, v13))
     {
       __asm { MSR             TCO, #0 }
     }
@@ -3705,31 +3660,31 @@ void *RemoteBuffer::map(vm_map_read_t src_task, uint64_t a2, mach_vm_size_t a3)
   return v4;
 }
 
-void *RemoteBuffer::create@<X0>(RemoteBuffer *this@<X0>, uint64_t a2@<X1>, mach_vm_size_t a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+uint64_t *RemoteBuffer::create@<X0>(uint64_t *__return_ptr a1@<X8>, RemoteBuffer *this@<X0>, uint64_t a3@<X1>, mach_vm_size_t a4@<X2>, int a5@<W3>)
 {
   v8 = this;
-  result = RemoteBuffer::map(this, a2, a3);
+  result = RemoteBuffer::map(this, a3, a4);
   if (v11)
   {
-    if (!a4 || (result = RemoteBuffer::map(v8, a2, 4096 - (a2 & 0xFFF)), v11))
+    if (!a5 || (result = RemoteBuffer::map(v8, a3, 4096 - (a3 & 0xFFF)), v11))
     {
-      *a5 = 0;
-      *(a5 + 8) = 0;
-      *(a5 + 16) = v11;
+      *a1 = 0;
+      a1[1] = 0;
+      *(a1 + 4) = v11;
       return result;
     }
 
-    *a5 = result;
-    *(a5 + 8) = 4096 - (a2 & 0xFFF);
+    *a1 = result;
+    a1[1] = 4096 - (a3 & 0xFFF);
   }
 
   else
   {
-    *a5 = result;
-    *(a5 + 8) = a3;
+    *a1 = result;
+    a1[1] = a4;
   }
 
-  *(a5 + 16) = 0;
+  *(a1 + 4) = 0;
   return result;
 }
 
@@ -4383,7 +4338,7 @@ uint64_t **lsl::BTree<int,std::less<int>,false>::const_iterator::operator++(uint
   return result;
 }
 
-uint64_t dyld_shared_cache_is_mapped_private(dyld4::Atlas::SharedCache *this)
+uint64_t dyld_shared_cache_is_mapped_private(dyld4::Atlas::SharedCache *this, uint64_t a2)
 {
   if (dyldFrameworkIntrospectionVtable(void)::onceToken != -1)
   {
@@ -4392,9 +4347,9 @@ uint64_t dyld_shared_cache_is_mapped_private(dyld4::Atlas::SharedCache *this)
 
   if (dyldFrameworkIntrospectionVtable(void)::vtable)
   {
-    v2 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 104);
+    v3 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 104);
 
-    return v2(this);
+    return v3(this);
   }
 
   else
@@ -4505,7 +4460,7 @@ void lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dyl
   lsl::Allocator::free(a2, a1);
 }
 
-void **lsl::UniquePtr<lsl::Bitmap>::~UniquePtr(void **a1, void *a2)
+lsl::Bitmap **lsl::UniquePtr<lsl::Bitmap>::~UniquePtr(lsl::Bitmap **a1, void *a2)
 {
   v3 = *a1;
   if (v3)
@@ -4772,11 +4727,11 @@ void dyld4::Atlas::Process::~Process(dyld4::Atlas::Process *this)
   *(this + 80) = 0;
 }
 
-void dyld4::Atlas::Process::getSnapshot(dyld4::Atlas::Process *this@<X0>, int *a2@<X1>, void **a3@<X8>)
+void dyld4::Atlas::Process::getSnapshot(dyld4::Atlas::ProcessSnapshot **__return_ptr a1@<X8>, dyld4::Atlas::Process *this@<X0>, int *a3@<X1>)
 {
-  if (a2)
+  if (a3)
   {
-    v5 = a2;
+    v5 = a3;
   }
 
   else
@@ -4793,7 +4748,7 @@ void dyld4::Atlas::Process::getSnapshot(dyld4::Atlas::Process *this@<X0>, int *a
     v7 = v6 & 0xFFFFFF | 0xEF000000;
 LABEL_6:
     *v5 = v7;
-    *a3 = 0;
+    *a1 = 0;
     return;
   }
 
@@ -4810,7 +4765,7 @@ LABEL_6:
     if (*v5)
     {
       *v5 = *v5 & 0xFFFFFF | 0xED000000;
-      *a3 = 0;
+      *a1 = 0;
       goto LABEL_28;
     }
 
@@ -4836,7 +4791,7 @@ LABEL_14:
       if (v12 == v8)
       {
         v14 = 0;
-        *a3 = 0;
+        *a1 = 0;
       }
 
       else
@@ -4859,10 +4814,10 @@ LABEL_14:
       v25 = v23;
       if (*(v23 + 105))
       {
-        *a3 = 0;
-        if (&v25 != a3)
+        *a1 = 0;
+        if (&v25 != a1)
         {
-          *a3 = v23;
+          *a1 = v23;
           v25 = 0;
         }
       }
@@ -4870,7 +4825,7 @@ LABEL_14:
       else
       {
         *v5 = -352321531;
-        *a3 = 0;
+        *a1 = 0;
       }
 
       lsl::UniquePtr<dyld4::Atlas::ProcessSnapshot>::~UniquePtr(&v25, v24);
@@ -4893,7 +4848,7 @@ LABEL_14:
   }
 
 LABEL_27:
-  dyld4::Atlas::Process::synthesizeSnapshot(this, v5, a3);
+  dyld4::Atlas::Process::synthesizeSnapshot(this, v5, a1);
 LABEL_28:
   SafeRemoteBuffer::~SafeRemoteBuffer(v27);
 }
@@ -4935,7 +4890,7 @@ void lsl::Vector<char>::resize(uint64_t a1, unint64_t a2)
   }
 }
 
-__int128 *dyld4::Atlas::ProcessSnapshot::ProcessSnapshot(__int128 *a1, uint64_t a2, uint64_t a3, char a4, const void *a5, unint64_t a6)
+__int128 *dyld4::Atlas::ProcessSnapshot::ProcessSnapshot(__int128 *a1, uint64_t a2, uint64_t a3, char a4, int *a5, unint64_t a6)
 {
   *a1 = a2;
   *(a1 + 1) = a3;
@@ -5196,7 +5151,7 @@ uint64_t lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr
   return result;
 }
 
-uint64_t lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dyld4::Atlas::Image>>,false>::const_iterator::const_iterator(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dyld4::Atlas::Image>>,false>::const_iterator::const_iterator(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = a2;
   *(a1 + 8) = 0u;
@@ -5266,7 +5221,7 @@ void dyld4::Atlas::Image::~Image(dyld4::Atlas::Image *this)
   dyld4::FileRecord::~FileRecord((this + 8));
 }
 
-uint64_t dyld4::Atlas::ProcessSnapshot::Serializer::deserialize(void *a1, uint64_t a2, unint64_t a3)
+uint64_t dyld4::Atlas::ProcessSnapshot::Serializer::deserialize(void *a1, int *a2, unint64_t a3)
 {
   v3 = a3 - 36;
   if (a3 < 0x24)
@@ -5277,34 +5232,29 @@ uint64_t dyld4::Atlas::ProcessSnapshot::Serializer::deserialize(void *a1, uint64
   v4 = 0;
   v8 = *a2;
   *(a1 + 44) = *a2;
-  v9 = *(a2 + 4);
+  v9 = a2[1];
   *(a1 + 45) = v9;
-  a1[23] = *(a2 + 8);
-  *(a1 + 48) = *(a2 + 16);
-  *(a1 + 52) = *(a2 + 20);
-  a1[25] = *(a2 + 24);
-  v10 = *(a2 + 32);
-  v11 = a2 + 36;
-  __src = (a2 + 36);
-  v69 = a3 - 36;
+  a1[23] = *(a2 + 1);
+  *(a1 + 48) = a2[4];
+  *(a1 + 52) = a2[5];
+  a1[25] = *(a2 + 3);
+  v10 = a2[8];
+  v11 = a2 + 9;
+  __src = a2 + 9;
+  v70 = a3 - 36;
   *(a1 + 53) = v10;
-  if (v8 != -1491447450)
+  if (__PAIR64__(v9, v8) != 2803519846)
   {
     return v4;
   }
 
-  if (v9)
-  {
-    return v4;
-  }
-
-  lsl::CRC32c::CRC32c(v67);
-  lsl::CRC32c::operator()(v67, a2, 32);
-  lsl::CRC32c::operator()(v67, 0);
-  lsl::CRC32c::operator()(v67, v11, v3);
+  lsl::CRC32c::CRC32c(v68);
+  lsl::CRC32c::operator()(v68, a2, 32);
+  lsl::CRC32c::operator()(v68, 0);
+  lsl::CRC32c::operator()(v68, v11, v3);
   v12 = *(a1 + 53);
   v4 = 0;
-  if (v12 != lsl::CRC32c::operator unsigned int(v67))
+  if (v12 != lsl::CRC32c::operator unsigned int(v68))
   {
     return v4;
   }
@@ -5335,9 +5285,9 @@ uint64_t dyld4::Atlas::ProcessSnapshot::Serializer::deserialize(void *a1, uint64
     return 0;
   }
 
-  v13 = v69;
+  v13 = v70;
   v14 = __dst;
-  if (v69 < 16 * __dst)
+  if (v70 < 16 * __dst)
   {
     return 0;
   }
@@ -5347,46 +5297,46 @@ uint64_t dyld4::Atlas::ProcessSnapshot::Serializer::deserialize(void *a1, uint64
     v15 = 0;
     for (i = 0; i < __dst; ++i)
     {
-      v70[0] = *(__src + v15);
+      v71[0] = *(__src + v15);
       lsl::Vector<lsl::UUID>::reserve((a1 + 6), a1[8] + 1);
       v17 = a1[7];
       v18 = a1[8];
       a1[8] = v18 + 1;
-      *(v17 + 16 * v18) = v70[0];
+      *(v17 + 16 * v18) = v71[0];
       v15 += 16;
     }
 
-    v13 = v69;
+    v13 = v70;
     v14 = 16 * __dst;
   }
 
   v19 = v13 - v14;
   __src = __src + v13 - v19;
-  v69 = v19;
-  v65 = 0;
-  if ((lsl::readPVLEUInt64(&__src, &v65) & 1) == 0 || v69 < v65)
+  v70 = v19;
+  v66 = 0;
+  if ((lsl::readPVLEUInt64(&__src, &v66) & 1) == 0 || v70 < v66)
   {
     return 0;
   }
 
-  lsl::Vector<char>::reserve((a1 + 14), v65);
-  std::__copy_impl::operator()[abi:nn200100]<unsigned char *,unsigned char *,std::back_insert_iterator<lsl::Vector<char>>>(v70, __src, __src + v65, (a1 + 14));
-  __src = __src + v65;
-  v69 -= v65;
+  lsl::Vector<char>::reserve((a1 + 14), v66);
+  std::__copy_impl::operator()[abi:nn200100]<unsigned char *,unsigned char *,std::back_insert_iterator<lsl::Vector<char>>>(v71, __src, __src + v66, (a1 + 14));
+  __src = __src + v66;
+  v70 -= v66;
   if ((a1[27] & 1) == 0)
   {
-    goto LABEL_20;
+    goto LABEL_19;
   }
 
-  v85[0] = 0;
-  memset(v70, 0, sizeof(v70));
-  v71 = 0x1FFFFFFFFLL;
-  v72 = 0;
-  v73 = 1;
-  MappedFileInfo = dyld4::Atlas::ProcessSnapshot::Serializer::readMappedFileInfo(a1, &__src, v85, v89, v70);
+  v86[0] = 0;
+  memset(v71, 0, sizeof(v71));
+  v72 = 0x1FFFFFFFFLL;
+  v73 = 0;
+  v74 = 1;
+  MappedFileInfo = dyld4::Atlas::ProcessSnapshot::Serializer::readMappedFileInfo(a1, &__src, v86, v90, v71);
   if (!MappedFileInfo)
   {
-    goto LABEL_56;
+    goto LABEL_55;
   }
 
   v35 = 14;
@@ -5395,132 +5345,132 @@ uint64_t dyld4::Atlas::ProcessSnapshot::Serializer::deserialize(void *a1, uint64
     v35 = 12;
   }
 
-  v85[0] <<= v35;
-  *&v88 = 0;
+  v86[0] <<= v35;
+  *&v89 = 0;
   if (*(*a1 + 104) != 1)
   {
     v39 = lsl::MemoryManager::memoryManager(MappedFileInfo);
-    lsl::MemoryManager::defaultAllocator(v39);
-    dyld4::Atlas::Mapper::mapperForSharedCache();
-    v38 = v88;
-    *&v88 = v64;
-    v64 = v38;
+    v40 = lsl::MemoryManager::defaultAllocator(v39);
+    dyld4::Atlas::Mapper::mapperForSharedCache(v40);
+    v38 = v89;
+    *&v89 = v65;
+    v65 = v38;
     if (!v38)
     {
-      goto LABEL_46;
+      goto LABEL_45;
     }
 
-    goto LABEL_45;
+    goto LABEL_44;
   }
 
   v36 = *(*a1 + 72);
   if (!v36)
   {
-    goto LABEL_56;
+    goto LABEL_55;
   }
 
   atomic_fetch_add_explicit(v36, 1u, memory_order_relaxed);
-  v37 = v88;
-  *&v88 = v36;
+  v37 = v89;
+  *&v89 = v36;
   if (v37)
   {
     v38 = v37;
-LABEL_45:
+LABEL_44:
     lsl::SharedPtr<dyld4::Atlas::Mapper>::Ctrl::decrementRefCount(v38, v34);
-LABEL_46:
-    v36 = v88;
-    if (!v88)
+LABEL_45:
+    v36 = v89;
+    if (!v89)
     {
-      goto LABEL_56;
+      goto LABEL_55;
     }
   }
 
   if (!*(v36 + 8))
   {
-LABEL_55:
+LABEL_54:
     lsl::SharedPtr<dyld4::Atlas::Mapper>::Ctrl::decrementRefCount(v36, v34);
+    goto LABEL_55;
+  }
+
+  v41 = lsl::MemoryManager::memoryManager(v36);
+  v42 = lsl::MemoryManager::defaultAllocator(v41);
+  v43 = lsl::MemoryManager::memoryManager(v42);
+  v44 = lsl::MemoryManager::defaultAllocator(v43);
+  v64 = a1[27] & 2;
+  lsl::Allocator::makeUnique<dyld4::Atlas::SharedCache,lsl::Allocator&,dyld4::FileRecord,lsl::SharedPtr<dyld4::Atlas::Mapper> &,unsigned long long &,unsigned long long>(v42, v44, v71, &v89, v86, &v64, &v65);
+  v46 = a1[4];
+  if (&v65 != v46)
+  {
+    v47 = *v46;
+    *v46 = v65;
+    v65 = v47;
+  }
+
+  lsl::UniquePtr<dyld4::Atlas::SharedCache>::~UniquePtr(&v65, v45);
+  v65 = 0;
+  PVLEUInt64 = lsl::readPVLEUInt64(&__src, &v65);
+  if (!PVLEUInt64)
+  {
+    v36 = v89;
+    if (v89)
+    {
+      goto LABEL_54;
+    }
+
+LABEL_55:
+    v58 = v71;
     goto LABEL_56;
   }
 
-  v40 = lsl::MemoryManager::memoryManager(v36);
-  v41 = lsl::MemoryManager::defaultAllocator(v40);
-  v42 = lsl::MemoryManager::memoryManager(v41);
-  v43 = lsl::MemoryManager::defaultAllocator(v42);
-  v63 = a1[27] & 2;
-  lsl::Allocator::makeUnique<dyld4::Atlas::SharedCache,lsl::Allocator&,dyld4::FileRecord,lsl::SharedPtr<dyld4::Atlas::Mapper> &,unsigned long long &,unsigned long long>(v41, v43, v70, &v88, v85, &v63, &v64);
-  v45 = a1[4];
-  if (&v64 != v45)
+  v49 = lsl::MemoryManager::memoryManager(PVLEUInt64);
+  v50 = lsl::MemoryManager::defaultAllocator(v49);
+  v51 = lsl::MemoryManager::memoryManager(v50);
+  v52 = lsl::MemoryManager::defaultAllocator(v51);
+  v53 = v65;
+  v54 = lsl::Allocator::aligned_alloc(v50, 8uLL, 0x20uLL);
+  v56 = *(lsl::Bitmap::Bitmap(v54, v52, v53) + 3);
+  if (v56)
   {
-    v46 = *v45;
-    *v45 = v64;
-    v64 = v46;
-  }
-
-  lsl::UniquePtr<dyld4::Atlas::SharedCache>::~UniquePtr(&v64, v44);
-  v64 = 0;
-  PVLEUInt64 = lsl::readPVLEUInt64(&__src, &v64);
-  if (!PVLEUInt64)
-  {
-    v36 = v88;
-    if (v88)
-    {
-      goto LABEL_55;
-    }
-
-LABEL_56:
-    v57 = v70;
-    goto LABEL_57;
-  }
-
-  v48 = lsl::MemoryManager::memoryManager(PVLEUInt64);
-  v49 = lsl::MemoryManager::defaultAllocator(v48);
-  v50 = lsl::MemoryManager::memoryManager(v49);
-  v51 = lsl::MemoryManager::defaultAllocator(v50);
-  v52 = v64;
-  v53 = lsl::Allocator::aligned_alloc(v49, 8uLL, 0x20uLL);
-  v55 = *(lsl::Bitmap::Bitmap(v53, v51, v52) + 3);
-  if (v55)
-  {
-    memmove(v53[1], __src, v55);
-    v56 = v53[3];
+    memmove(v54[1], __src, v56);
+    v57 = v54[3];
   }
 
   else
   {
-    v56 = 0;
+    v57 = 0;
   }
 
-  v58 = v69 - v56;
-  __src = __src + v69 - v58;
-  v69 = v58;
-  v63 = v53;
-  v59 = a1[5];
-  if (&v63 != v59)
+  v59 = v70 - v57;
+  __src = __src + v70 - v59;
+  v70 = v59;
+  v64 = v54;
+  v60 = a1[5];
+  if (&v64 != v60)
   {
-    v60 = *v59;
-    *v59 = v53;
-    v63 = v60;
+    v61 = *v60;
+    *v60 = v54;
+    v64 = v61;
   }
 
-  lsl::UniquePtr<lsl::Bitmap>::~UniquePtr(&v63, v54);
+  lsl::UniquePtr<lsl::Bitmap>::~UniquePtr(&v64, v55);
   v4 = *(*a1[5] + 16);
-  if (v88)
+  if (v89)
   {
-    lsl::SharedPtr<dyld4::Atlas::Mapper>::Ctrl::decrementRefCount(v88, v61);
+    lsl::SharedPtr<dyld4::Atlas::Mapper>::Ctrl::decrementRefCount(v89, v62);
   }
 
-  dyld4::FileRecord::~FileRecord(v70);
+  dyld4::FileRecord::~FileRecord(v71);
   if (v4)
   {
-LABEL_20:
-    v64 = 0;
-    if (!lsl::readPVLEUInt64(&__src, &v64))
+LABEL_19:
+    v65 = 0;
+    if (!lsl::readPVLEUInt64(&__src, &v65))
     {
       return 0;
     }
 
     v4 = 1;
-    if (!v64)
+    if (!v65)
     {
       return v4;
     }
@@ -5529,13 +5479,13 @@ LABEL_20:
     v21 = 0;
     while (1)
     {
-      v63 = 0;
-      v88 = 0uLL;
-      memset(v85, 0, 64);
-      v85[8] = 0x1FFFFFFFFLL;
-      v86 = 0;
-      v87 = 1;
-      v22 = dyld4::Atlas::ProcessSnapshot::Serializer::readMappedFileInfo(a1, &__src, &v63, &v88, v85);
+      v64 = 0;
+      v89 = 0uLL;
+      memset(v86, 0, 64);
+      v86[8] = 0x1FFFFFFFFLL;
+      v87 = 0;
+      v88 = 1;
+      v22 = dyld4::Atlas::ProcessSnapshot::Serializer::readMappedFileInfo(a1, &__src, &v64, &v89, v86);
       if (!v22)
       {
         break;
@@ -5551,8 +5501,8 @@ LABEL_20:
         v23 = 12;
       }
 
-      v21 += v63 << v23;
-      v63 = v21;
+      v21 = (v21 + (v64 << v23));
+      v64 = v21;
       if (*(*a1 + 104) == 1)
       {
         v24 = *(*a1 + 72);
@@ -5569,48 +5519,48 @@ LABEL_20:
 
       v25 = lsl::MemoryManager::memoryManager(v22);
       v26 = lsl::MemoryManager::defaultAllocator(v25);
-      v27 = v63;
-      *&v70[0] = v26;
-      v28 = dyld4::FileRecord::FileRecord(v70 + 8, v85);
-      v74 = v24;
+      v27 = v64;
+      *&v71[0] = v26;
+      v28 = dyld4::FileRecord::FileRecord(v71 + 8, v86);
+      v75 = v24;
       if (v24)
       {
         atomic_fetch_add_explicit(v24, 1u, memory_order_relaxed);
       }
 
-      v75 = v88;
-      v77 = 0;
+      v76 = v89;
       v78 = 0;
-      v76 = 0;
       v79 = 0;
+      v77 = 0;
       v80 = 0;
       v81 = 0;
-      v82 = v27;
-      v83 = 0;
-      v84[0] = 0;
-      *(v84 + 7) = 0;
+      v82 = 0;
+      v83 = v27;
+      v84 = 0;
+      v85[0] = 0;
+      *(v85 + 7) = 0;
       v29 = a1[3];
       v30 = lsl::MemoryManager::memoryManager(v28);
       v31 = lsl::MemoryManager::defaultAllocator(v30);
-      lsl::Allocator::makeUnique<dyld4::Atlas::Image,dyld4::Atlas::Image>(v31, v70, &v62);
-      lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dyld4::Atlas::Image>>,false>::insert(v29, &v62, v89);
-      lsl::UniquePtr<dyld4::Atlas::Image>::~UniquePtr(&v62);
-      dyld4::Atlas::Image::~Image(v70);
+      lsl::Allocator::makeUnique<dyld4::Atlas::Image,dyld4::Atlas::Image>(v31, v71, &v63);
+      lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dyld4::Atlas::Image>>,false>::insert(v29, &v63, v90);
+      lsl::UniquePtr<dyld4::Atlas::Image>::~UniquePtr(&v63);
+      dyld4::Atlas::Image::~Image(v71);
       if (v24)
       {
         lsl::SharedPtr<dyld4::Atlas::Mapper>::Ctrl::decrementRefCount(v24, v32);
       }
 
-      dyld4::FileRecord::~FileRecord(v85);
-      if (v64 <= ++v20)
+      dyld4::FileRecord::~FileRecord(v86);
+      if (v65 <= ++v20)
       {
         return 1;
       }
     }
 
-    v57 = v85;
-LABEL_57:
-    dyld4::FileRecord::~FileRecord(v57);
+    v58 = v86;
+LABEL_56:
+    dyld4::FileRecord::~FileRecord(v58);
     return 0;
   }
 
@@ -5714,7 +5664,7 @@ uint64_t dyld4::Atlas::ProcessSnapshot::Serializer::readMappedFileInfo(uint64_t 
       v14 = 0;
       if (lsl::readPVLEUInt64(a2, &v14) && lsl::readPVLEUInt64(a2, &v13) && v14 < *(a1 + 64))
       {
-        dyld4::FileManager::fileRecordForVolumeUUIDAndObjID(*(a1 + 16), (*(a1 + 56) + 16 * v14), v13, v16);
+        dyld4::FileManager::fileRecordForVolumeUUIDAndObjID(v16, *(a1 + 16), (*(a1 + 56) + 16 * v14), v13);
         dyld4::FileRecord::operator=(a5, v16);
         dyld4::FileRecord::~FileRecord(v16);
         if ((__dst & 2) == 0)
@@ -5726,7 +5676,7 @@ LABEL_13:
         v14 = 0;
         if (lsl::readPVLEUInt64(a2, &v14) && v14 < *(a1 + 128))
         {
-          dyld4::FileManager::fileRecordForPath(*(a1 + 16), *(a1 + 8), (*(a1 + 120) + v14), v16);
+          dyld4::FileManager::fileRecordForPath(v16, *(a1 + 16), *(a1 + 8), (*(a1 + 120) + v14));
           dyld4::FileRecord::operator=(a5, v16);
           dyld4::FileRecord::~FileRecord(v16);
           return 1;
@@ -5791,7 +5741,7 @@ uint64_t lsl::readPVLEUInt64(uint64_t *a1, uint64_t *__dst)
     }
 
     *__dst = (v12 << v10) | v11;
-    v13 = &v2[-v7];
+    v13 = v2 - v7;
     v14 = &v4[v7];
   }
 
@@ -6068,13 +6018,13 @@ uint64_t lsl::Allocator::makeUnique<dyld4::Atlas::SharedCache,lsl::Allocator&,dy
   return result;
 }
 
-void lsl::BTree<int,std::less<int>,false>::NodeCore<62u,20u>::deallocate(char *a1, lsl::Allocator *a2)
+void lsl::BTree<int,std::less<int>,false>::NodeCore<62u,20u>::deallocate(char **a1, lsl::Allocator *a2)
 {
-  v4 = a1[248];
+  v4 = *(a1 + 248);
   if ((v4 & 0x80000000) == 0)
   {
     v5 = 8 * (v4 + 1);
-    v6 = (a1 + 80);
+    v6 = a1 + 10;
     do
     {
       v7 = *v6++;
@@ -6156,11 +6106,11 @@ void *lsl::Allocator::makeShared<dyld4::Atlas::Mapper,lsl::Allocator&,lsl::Vecto
   return result;
 }
 
-double dyld4::FileManager::fileRecordForPath@<D0>(dyld4::FileManager *this@<X0>, lsl::Allocator *a2@<X1>, const char *__s@<X2>, uint64_t a4@<X8>)
+double dyld4::FileManager::fileRecordForPath@<D0>(uint64_t *__return_ptr a1@<X8>, dyld4::FileManager *this@<X0>, lsl::Allocator *a3@<X1>, const char *__s@<X2>)
 {
   if (__s)
   {
-    v6 = lsl::Allocator::strdup(a2, __s);
+    v6 = lsl::Allocator::strdup(a3, __s);
   }
 
   else
@@ -6168,16 +6118,16 @@ double dyld4::FileManager::fileRecordForPath@<D0>(dyld4::FileManager *this@<X0>,
     v6 = 0;
   }
 
-  *a4 = this;
-  *(a4 + 8) = 0u;
-  *(a4 + 24) = 0u;
-  *(a4 + 48) = 0;
-  *(a4 + 56) = 0;
-  *(a4 + 40) = v6;
+  *a1 = this;
+  *(a1 + 1) = 0u;
+  *(a1 + 3) = 0u;
+  a1[6] = 0;
+  a1[7] = 0;
+  a1[5] = v6;
   *&result = 0x1FFFFFFFFLL;
-  *(a4 + 64) = 0x1FFFFFFFFLL;
-  *(a4 + 72) = 0;
-  *(a4 + 74) = 1;
+  a1[8] = 0x1FFFFFFFFLL;
+  *(a1 + 36) = 0;
+  *(a1 + 74) = 1;
   return result;
 }
 
@@ -6212,7 +6162,7 @@ unsigned __int8 *lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::U
     v6 = 0;
     do
     {
-      if (*(v3[v5] + 248) >= 0)
+      if (*(*&v3[8 * v5] + 248) >= 0)
       {
         v7 = 15;
       }
@@ -6222,7 +6172,7 @@ unsigned __int8 *lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::U
         v7 = 31;
       }
 
-      if ((*(v3[v5] + 248) & 0x7F) != v7)
+      if ((*(*&v3[8 * v5] + 248) & 0x7F) != v7)
       {
         v6 = v5;
       }
@@ -6251,7 +6201,7 @@ LABEL_15:
         **v2 = result;
         if (v2[98] && (result = memmove(v2 + 89, v2 + 88, v2[98]), v2[98]))
         {
-          result = memmove(v3 + 1, v3, 8 * v2[98]);
+          result = memmove(v3 + 8, v3, 8 * v2[98]);
           LOBYTE(v1) = v2[98] + 1;
         }
 
@@ -6281,8 +6231,8 @@ LABEL_15:
       do
       {
         v13 = v12;
-        result = lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dyld4::Atlas::Image>>,false>::NodeCore<31u,15u>::splitChild(v3[v12], v11[v12], *(*v2 + 8));
-        v14 = v3[v12];
+        result = lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr<dyld4::Atlas::Image>>,false>::NodeCore<31u,15u>::splitChild(*&v3[8 * v12], v11[v12], *(*v2 + 8));
+        v14 = *&v3[8 * v12];
         if (*(v14 + 248) < 0)
         {
           lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
@@ -6296,7 +6246,7 @@ LABEL_15:
           v18 = v15 + 1;
           v11[v12] = v18;
           v2[v12 + 89] = v17 + (~*(v16 + 248) | 0x80);
-          v19 = v3[v12];
+          v19 = *&v3[8 * v12];
           if (*(v19 + 248) < 0)
           {
             lsl::BTree<int,std::less<int>,false>::const_iterator::operator--();
@@ -6396,7 +6346,7 @@ uint64_t lsl::BTree<lsl::UniquePtr<dyld4::Atlas::Image>,std::less<lsl::UniquePtr
     do
     {
       v4 = v2 >> 1;
-      v5 = &v3[v2 >> 1];
+      v5 = (v3 + 8 * (v2 >> 1));
       v7 = *v5;
       v6 = v5 + 1;
       v2 += ~(v2 >> 1);
@@ -6850,7 +6800,7 @@ uint64_t _dyld_pseudodylib_register_callbacks(uint64_t a1)
   return (*(*dyld4::gAPIs + 896))(dyld4::gAPIs, &v7);
 }
 
-uint64_t dyld::ThreadLocalVariables::finalizeList(dyld::ThreadLocalVariables *this, uint64_t *a2)
+uint64_t dyld::ThreadLocalVariables::finalizeList(dyld::ThreadLocalVariables *this, uint64_t **a2)
 {
   v4[0] = _NSConcreteStackBlock;
   v4[1] = 0x40000000;
@@ -6861,7 +6811,7 @@ uint64_t dyld::ThreadLocalVariables::finalizeList(dyld::ThreadLocalVariables *th
   return dyld::ThreadLocalVariables::TerminatorList::reverseWalkChain(a2, &__block_literal_global);
 }
 
-uint64_t dyld::ThreadLocalVariables::TerminatorList::reverseWalkChain(uint64_t *a1, uint64_t a2)
+uint64_t dyld::ThreadLocalVariables::TerminatorList::reverseWalkChain(uint64_t **a1, uint64_t a2)
 {
   v4 = *a1;
   if (v4)
@@ -6879,7 +6829,7 @@ void *___ZN4dyld20ThreadLocalVariables12finalizeListEPv_block_invoke(void *resul
   v2 = *(a2 + 8);
   if (v2)
   {
-    v3 = *(result + 4);
+    v3 = result[4];
     v4 = (a2 + 16 * v2 + 8);
     do
     {
@@ -7126,14 +7076,14 @@ LABEL_30:
   }
 }
 
-uint64_t _dyld_process_info_retain(atomic_uint *a1)
+uint64_t _dyld_process_info_retain(atomic_uint *a1, uint64_t a2)
 {
-  result = dyldFrameworkIntrospectionVtable();
+  result = dyldFrameworkIntrospectionVtable(a1, a2);
   if (result)
   {
-    v3 = *(result + 280);
+    v4 = *(result + 280);
 
-    return v3(a1);
+    return v4(a1);
   }
 
   else
@@ -7146,7 +7096,7 @@ uint64_t _dyld_process_info_retain(atomic_uint *a1)
 
 void *_dyld_process_info_for_each_segment(void *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = dyldFrameworkIntrospectionVtable();
+  v6 = dyldFrameworkIntrospectionVtable(a1, a2);
   if (v6)
   {
     v7 = *(v6 + 312);
@@ -7946,10 +7896,10 @@ void dyld_process_info_notify_base::handleEvent(dyld_process_info_notify_base *t
       {
         if (msg.msgh_size == 24)
         {
-          v10 = *(v3 + 56);
-          if (v10)
+          v9 = *(v3 + 56);
+          if (v9)
           {
-            (*(v10 + 16))();
+            (*(v9 + 16))();
           }
 
           goto LABEL_32;
@@ -7968,8 +7918,8 @@ void dyld_process_info_notify_base::handleEvent(dyld_process_info_notify_base *t
     {
       if (msg.msgh_id == 70)
       {
-        v9 = (&msg.msgh_bits + ((msg.msgh_size + 3) & 0x1FFFFFFFCLL));
-        if (*v9 || v9[1] < 0x34u || v9[10])
+        v8 = (&msg.msgh_bits + ((msg.msgh_size + 3) & 0x1FFFFFFFCLL));
+        if (*v8 || v8[1] < 0x34u || v8[10])
         {
           goto LABEL_5;
         }
@@ -7994,9 +7944,9 @@ LABEL_5:
       }
     }
 
-    if (msg.msgh_size >= 0x30 && msg.msgh_size >= v13 && v14 <= msg.msgh_size && msg.msgh_size - v13 >= 32 * v12)
+    if (msg.msgh_size >= 0x30 && msg.msgh_size >= v12 && v13 <= msg.msgh_size && msg.msgh_size - v12 >= 32 * v11)
     {
-      if (!v12)
+      if (!v11)
       {
 LABEL_32:
         dyld_process_info_notify_base::replyToMonitoredProcess(v3, &msg);
@@ -8004,14 +7954,13 @@ LABEL_32:
       }
 
       v6 = 0;
-      v7 = &msg + v13;
-      while (*(v7 + 6) <= msg.msgh_size - v14)
+      v7 = &msg + v12;
+      while (*(v7 + 6) <= msg.msgh_size - v13)
       {
-        v8 = *(v7 + 2);
         (*(*(v3 + 40) + 16))();
         ++v6;
         v7 += 32;
-        if (v6 >= v12)
+        if (v6 >= v11)
         {
           goto LABEL_32;
         }
@@ -8121,7 +8070,7 @@ void dyld_process_info_notify_base::replyToMonitoredProcess(dyld_process_info_no
 
 unsigned __int8 *_dyld_process_info_notify(uint64_t a1, uint64_t a2, const void *a3, const void *a4, kern_return_t *a5)
 {
-  v10 = dyldFrameworkIntrospectionVtable();
+  v10 = dyldFrameworkIntrospectionVtable(a1, a2);
   if (v10)
   {
     v11 = *(v10 + 320);
@@ -8154,7 +8103,7 @@ unsigned __int8 *_dyld_process_info_notify(uint64_t a1, uint64_t a2, const void 
 
 void *_dyld_process_info_notify_main(uint64_t a1, const void *a2)
 {
-  v4 = dyldFrameworkIntrospectionVtable();
+  v4 = dyldFrameworkIntrospectionVtable(a1, a2);
   if (v4)
   {
     v5 = *(v4 + 328);
@@ -8182,14 +8131,14 @@ void *dyld_process_info_notify_base::setNotifyMain(uint64_t a1, const void *a2)
   return result;
 }
 
-uint64_t _dyld_process_info_notify_retain(uint64_t a1)
+uint64_t _dyld_process_info_notify_retain(uint64_t a1, uint64_t a2)
 {
-  result = dyldFrameworkIntrospectionVtable();
+  result = dyldFrameworkIntrospectionVtable(a1, a2);
   if (result)
   {
-    v3 = *(result + 336);
+    v4 = *(result + 336);
 
-    return v3(a1);
+    return v4(a1);
   }
 
   else
@@ -8200,14 +8149,14 @@ uint64_t _dyld_process_info_notify_retain(uint64_t a1)
   return result;
 }
 
-void _dyld_process_info_notify_release(atomic_uint *a1)
+void _dyld_process_info_notify_release(atomic_uint *a1, uint64_t a2)
 {
-  v2 = dyldFrameworkIntrospectionVtable();
-  if (v2)
+  v3 = dyldFrameworkIntrospectionVtable(a1, a2);
+  if (v3)
   {
-    v3 = *(v2 + 344);
+    v4 = *(v3 + 344);
 
-    v3(a1);
+    v4(a1);
   }
 
   else
@@ -8220,7 +8169,7 @@ void _dyld_process_info_notify_release(atomic_uint *a1)
 BOOL macho_cpu_type_for_arch_name(const char *archName, cpu_type_t *type, cpu_subtype_t *subtype)
 {
   v6 = strlen(archName);
-  mach_o::Architecture::byName(archName, v6, &v10);
+  mach_o::Architecture::byName(&v10, archName, v6);
   v7 = mach_o::Architecture::operator==(&v10, mach_o::Architecture::invalid);
   if (!v7)
   {
@@ -8303,7 +8252,7 @@ LABEL_16:
   }
 
   v8 = v7;
-  mach_o::Universal::valid(v7, st_size, &v13);
+  mach_o::Universal::valid(&v13, v7, st_size);
   if (!v13)
   {
     v12[0] = _NSConcreteStackBlock;
@@ -8357,8 +8306,9 @@ int macho_best_slice_in_fd(int fd, void *bestSlice)
   return macho_best_slice_fd_internal(fd, &v8, v5, v6, 0, bestSlice);
 }
 
-uint64_t macho_best_slice_fd_internal(int a1, int8x8_t *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
+uint64_t macho_best_slice_fd_internal(int a1, int8x8_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v7 = a5;
   if (fstat(a1, &v31) == -1)
   {
     return *__error();
@@ -8379,7 +8329,7 @@ uint64_t macho_best_slice_fd_internal(int a1, int8x8_t *a2, uint64_t a3, uint64_
     if (v17)
     {
       v18 = v17;
-      if (dyld3::MachOFile::isMainExecutable(v17) && (mach_o::Header::arch(v18, &v27), mach_o::GradedArchitectures::isCompatible(a3, &v27, a5)) && (mach_o::Platform::current(&v27), mach_o::Header::builtForPlatform(v18, &v27, 0)) || (mach_o::Header::arch(v18, &v27), mach_o::GradedArchitectures::isCompatible(a4, &v27, a5)) && (v27 = *a2, LODWORD(v28) = a2[1].i32[0], mach_o::Header::loadableIntoProcess(v18, &v27, &unk_1801109D5, 0)))
+      if (dyld3::MachOFile::isMainExecutable(v17) && (mach_o::Header::arch(&v27, v18), mach_o::GradedArchitectures::isCompatible(a3, &v27, v7)) && (mach_o::Platform::current(&v27), mach_o::Header::builtForPlatform(v18, &v27, 0)) || (mach_o::Header::arch(&v27, v18), mach_o::GradedArchitectures::isCompatible(a4, &v27, v7)) && (v27 = *a2, LODWORD(v28) = a2[1].i32[0], mach_o::Header::loadableIntoProcess(v18, &v27, &unk_1801109D5, 0)))
       {
         if (a6)
         {
@@ -8403,7 +8353,7 @@ uint64_t macho_best_slice_fd_internal(int a1, int8x8_t *a2, uint64_t a3, uint64_
   }
 
   v16 = v15;
-  mach_o::Universal::valid(v15, st_size, &v30);
+  mach_o::Universal::valid(&v30, v15, st_size);
   if (!v30)
   {
     v27 = 0;
@@ -8412,8 +8362,8 @@ uint64_t macho_best_slice_fd_internal(int a1, int8x8_t *a2, uint64_t a3, uint64_
     v24 = 0;
     v25 = 0;
     v26 = 0;
-    mach_o::Universal::bestSlice(v16, a3, a5, &v27);
-    mach_o::Universal::bestSlice(v16, a4, a5, &v24);
+    mach_o::Universal::bestSlice(v16, a3, v7, &v27);
+    mach_o::Universal::bestSlice(v16, a4, v7, &v24);
     v19 = mach_o::Header::isMachO(v28, v29);
     v20 = mach_o::Header::isMachO(v25, v26);
     if (v19 && dyld3::MachOFile::isMainExecutable(v19))
@@ -8453,7 +8403,7 @@ LABEL_28:
   return 88;
 }
 
-uint64_t macho_for_each_dependent_dylib(mach_header *a1, uint64_t a2, uint64_t a3)
+uint64_t macho_for_each_dependent_dylib(mach_header *a1, unint64_t a2, uint64_t a3)
 {
   if (a2)
   {
@@ -8463,7 +8413,7 @@ uint64_t macho_for_each_dependent_dylib(mach_header *a1, uint64_t a2, uint64_t a
       return 79;
     }
 
-    mach_o::Image::validate(v12, &v7);
+    mach_o::Image::validate(&v7, v12);
     v4 = v7;
     mach_o::Error::~Error(&v7);
     if (v4)
@@ -8491,14 +8441,14 @@ uint64_t macho_for_each_dependent_dylib(mach_header *a1, uint64_t a2, uint64_t a
   return 0;
 }
 
-uint64_t macho_for_each_imported_symbol(mach_header *this, uint64_t a2, uint64_t a3)
+uint64_t macho_for_each_imported_symbol(mach_header *this, unint64_t a2, uint64_t a3)
 {
   if (a2)
   {
     mach_o::Image::Image(v8, this, a2, 0);
     if (mach_o::Header::hasMachOMagic(v8[0]))
     {
-      mach_o::Image::validate(v8, &v7);
+      mach_o::Image::validate(&v7, v8);
       v5 = v7;
       mach_o::Error::~Error(&v7);
       if (v5)
@@ -8563,14 +8513,14 @@ void iterateImportedSymbols(void *a1, uint64_t a2)
   }
 }
 
-uint64_t macho_for_each_exported_symbol(mach_header *this, uint64_t a2, uint64_t a3)
+uint64_t macho_for_each_exported_symbol(mach_header *this, unint64_t a2, uint64_t a3)
 {
   if (a2)
   {
     mach_o::Image::Image(v8, this, a2, 0);
     if (mach_o::Header::hasMachOMagic(v8[0]))
     {
-      mach_o::Image::validate(v8, &v7);
+      mach_o::Image::validate(&v7, v8);
       v5 = v7;
       mach_o::Error::~Error(&v7);
       if (v5)
@@ -8621,7 +8571,7 @@ void iterateExportedSymbols(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t macho_for_each_defined_rpath(mach_header *a1, uint64_t a2, uint64_t a3)
+uint64_t macho_for_each_defined_rpath(mach_header *a1, unint64_t a2, uint64_t a3)
 {
   if (a2)
   {
@@ -8631,7 +8581,7 @@ uint64_t macho_for_each_defined_rpath(mach_header *a1, uint64_t a2, uint64_t a3)
       return 79;
     }
 
-    mach_o::Image::validate(v11, &v9);
+    mach_o::Image::validate(&v9, v11);
     v4 = v9;
     mach_o::Error::~Error(&v9);
     if (v4)
@@ -8842,7 +8792,7 @@ uint64_t ___Z32dyldFrameworkIntrospectionVtablev_block_invoke()
   return result;
 }
 
-uint64_t dyld_process_create_for_current_task()
+dyld4::Atlas::Process *dyld_process_create_for_current_task(uint64_t a1, uint64_t a2)
 {
   if (dyldFrameworkIntrospectionVtable(void)::onceToken != -1)
   {
@@ -8851,16 +8801,16 @@ uint64_t dyld_process_create_for_current_task()
 
   if (dyldFrameworkIntrospectionVtable(void)::vtable)
   {
-    v0 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 16);
+    v2 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 16);
 
-    return v0();
+    return v2();
   }
 
   else
   {
-    v2 = mach_task_self_;
+    v4 = mach_task_self_;
 
-    return dyld_process_create_for_task(v2, 0);
+    return dyld_process_create_for_task(v4, 0);
   }
 }
 
@@ -8947,7 +8897,7 @@ void dyld_process_unregister_for_notification(dyld4::Atlas::Process *this, uint6
   }
 }
 
-void *dyld_process_snapshot_create_from_data(lsl::MemoryManager *this, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t dyld_process_snapshot_create_from_data(lsl::MemoryManager *this, void *a2, uint64_t a3, uint64_t a4)
 {
   if (dyldFrameworkIntrospectionVtable(void)::onceToken != -1)
   {
@@ -9015,7 +8965,7 @@ void dyld_process_snapshot_for_each_image(dyld4::Atlas::ProcessSnapshot *this, u
   }
 }
 
-uint64_t dyld_shared_cache_pin_mapping(dyld4::Atlas::SharedCache *this)
+uint64_t dyld_shared_cache_pin_mapping(dyld4::Atlas::SharedCache *this, uint64_t a2)
 {
   if (dyldFrameworkIntrospectionVtable(void)::onceToken != -1)
   {
@@ -9024,9 +8974,9 @@ uint64_t dyld_shared_cache_pin_mapping(dyld4::Atlas::SharedCache *this)
 
   if (dyldFrameworkIntrospectionVtable(void)::vtable)
   {
-    v2 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 64);
+    v3 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 64);
 
-    return v2(this);
+    return v3(this);
   }
 
   else
@@ -9036,7 +8986,7 @@ uint64_t dyld_shared_cache_pin_mapping(dyld4::Atlas::SharedCache *this)
   }
 }
 
-uint64_t dyld_shared_cache_unpin_mapping(dyld4::Atlas::SharedCache *this)
+uint64_t dyld_shared_cache_unpin_mapping(dyld4::Atlas::SharedCache *this, uint64_t a2)
 {
   if (dyldFrameworkIntrospectionVtable(void)::onceToken != -1)
   {
@@ -9045,9 +8995,9 @@ uint64_t dyld_shared_cache_unpin_mapping(dyld4::Atlas::SharedCache *this)
 
   if (dyldFrameworkIntrospectionVtable(void)::vtable)
   {
-    v2 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 72);
+    v3 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 72);
 
-    return v2(this);
+    return v3(this);
   }
 
   else
@@ -9129,7 +9079,7 @@ void dyld_for_each_installed_shared_cache_with_system_path(lsl::MemoryManager *t
   }
 }
 
-void dyld_for_each_installed_shared_cache(lsl::MemoryManager *this)
+void dyld_for_each_installed_shared_cache(lsl::MemoryManager *this, uint64_t a2)
 {
   if (dyldFrameworkIntrospectionVtable(void)::onceToken != -1)
   {
@@ -9138,20 +9088,20 @@ void dyld_for_each_installed_shared_cache(lsl::MemoryManager *this)
 
   if (dyldFrameworkIntrospectionVtable(void)::vtable)
   {
-    v2 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 144);
+    v3 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 144);
 
-    v2(this);
+    v3(this);
   }
 
   else
   {
-    v3 = lsl::MemoryManager::defaultAllocator(this);
+    v4 = lsl::MemoryManager::defaultAllocator(this);
     if (defaultFileManager(void)::onceToken != -1)
     {
       dyld_process_create_for_task_cold_2();
     }
 
-    dyld4::Atlas::SharedCache::forEachInstalledCacheWithSystemPath(v3);
+    dyld4::Atlas::SharedCache::forEachInstalledCacheWithSystemPath(v4);
   }
 }
 
@@ -9177,7 +9127,7 @@ uint64_t dyld_shared_cache_for_file(lsl::MemoryManager *this, uint64_t a2)
       dyld_process_create_for_task_cold_2();
     }
 
-    dyld4::FileManager::fileRecordForPath(defaultFileManager(void)::sFileManager, v6, this, v10);
+    dyld4::FileManager::fileRecordForPath(v10, defaultFileManager(void)::sFileManager, v6, this);
     dyld4::Atlas::SharedCache::createForFileRecord(v6, v10, &v9);
     v8 = v9;
     if (v9)
@@ -9250,8 +9200,8 @@ uint64_t dyld_image_copy_uuid(dyld4::Atlas::Image *this, __int128 *a2)
   else
   {
     v6 = dyld4::Atlas::Image::uuid(this);
-    v10 = *v6;
-    if (v10)
+    v9 = *v6;
+    if (v9)
     {
       goto LABEL_13;
     }
@@ -9265,10 +9215,10 @@ uint64_t dyld_image_copy_uuid(dyld4::Atlas::Image *this, __int128 *a2)
         break;
       }
 
-      v9 = *(&v10 + ++v7);
+      ++v7;
     }
 
-    while (!*(&v10 + v8 + 1));
+    while (!*(&v9 + v8 + 1));
     if (v8 <= 0xE)
     {
 LABEL_13:
@@ -9325,7 +9275,7 @@ uint64_t dyld_image_for_each_section_info(dyld4::Atlas::Image *a1, uint64_t a2)
   }
 }
 
-uint64_t dyld_image_get_installname(dyld4::Atlas::Image *this)
+uint64_t dyld_image_get_installname(dyld4::Atlas::Image *this, uint64_t a2)
 {
   if (dyldFrameworkIntrospectionVtable(void)::onceToken != -1)
   {
@@ -9334,9 +9284,9 @@ uint64_t dyld_image_get_installname(dyld4::Atlas::Image *this)
 
   if (dyldFrameworkIntrospectionVtable(void)::vtable)
   {
-    v2 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 200);
+    v3 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 200);
 
-    return v2(this);
+    return v3(this);
   }
 
   else
@@ -9346,7 +9296,7 @@ uint64_t dyld_image_get_installname(dyld4::Atlas::Image *this)
   }
 }
 
-uint64_t dyld_image_get_file_path(dyld4::Atlas::Image *this)
+uint64_t dyld_image_get_file_path(dyld4::Atlas::Image *this, uint64_t a2)
 {
   if (dyldFrameworkIntrospectionVtable(void)::onceToken != -1)
   {
@@ -9355,9 +9305,9 @@ uint64_t dyld_image_get_file_path(dyld4::Atlas::Image *this)
 
   if (dyldFrameworkIntrospectionVtable(void)::vtable)
   {
-    v2 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 208);
+    v3 = *(dyldFrameworkIntrospectionVtable(void)::vtable + 208);
 
-    return v2(this);
+    return v3(this);
   }
 
   else
@@ -9390,7 +9340,7 @@ uint64_t dyld_image_local_nlist_content_4Symbolication(dyld4::Atlas::Image *this
       v26 = &v25;
       v27 = 0x2000000000;
       v28 = 1;
-      dyld4::Atlas::SharedCache::localSymbols(v6, &v24);
+      dyld4::Atlas::SharedCache::localSymbols(&v24, v6);
       if (v24)
       {
         v7 = dyld4::Atlas::Image::sharedCacheVMOffset(this);
@@ -9474,33 +9424,21 @@ uint64_t dyld_image_local_nlist_content_4Symbolication(dyld4::Atlas::Image *this
   }
 }
 
-char *__dyld_image_local_nlist_content_4Symbolication_block_invoke(char *result, uint64_t a2, int a3, uint64_t a4, _BYTE *a5)
+char *__dyld_image_local_nlist_content_4Symbolication_block_invoke(char *result, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   if (*(result + 6) == a2)
   {
-    v7 = result;
-    if (dyld4::Atlas::Image::pointerSize(*(result + 7)) == 8)
+    v6 = result;
+    if (dyld4::Atlas::Image::pointerSize(*(result + 7)) == 8 || (result = dyld4::Atlas::Image::pointerSize(*(v6 + 56)), result == 4))
     {
-      v8 = *(v7 + 8);
-      v9 = &v8[4 * a3] + *v8;
+      result = (*(*(v6 + 32) + 16))();
     }
 
     else
     {
-      result = dyld4::Atlas::Image::pointerSize(*(v7 + 7));
-      if (result != 4)
-      {
-        *(*(*(v7 + 5) + 8) + 24) = 0;
-        goto LABEL_8;
-      }
-
-      v8 = *(v7 + 8);
-      v10 = &v8[3 * a3] + *v8;
+      *(*(*(v6 + 40) + 8) + 24) = 0;
     }
 
-    v11 = v8 + v8[2];
-    result = (*(*(v7 + 4) + 16))();
-LABEL_8:
     *a5 = 1;
   }
 
@@ -9606,59 +9544,48 @@ uint64_t Diagnostics::error(uint64_t a1, const char *a2, va_list a3)
 uint64_t Diagnostics::appendError(Diagnostics *this, const char *__format, ...)
 {
   va_start(va, __format);
-  if (*this && (v4 = *this, *(this + 3)) && *(this + 2))
+  if (*this && *(this + 3) && *(this + 2))
   {
+    va_copy(v15, va);
     va_copy(v16, va);
-    va_copy(v17, va);
     __str = 0;
-    v5 = vsnprintf(&__str, 1uLL, __format, va);
-    if (v5 <= -2)
+    v4 = vsnprintf(&__str, 1uLL, __format, va);
+    if (v4 <= -2)
     {
       Diagnostics::appendError();
     }
 
-    v6 = v5;
-    v7 = *(this + 3);
-    v8 = *(this + 2) - v7;
-    if (v8 >= v5 + 1)
+    v5 = v4;
+    v6 = *(this + 3);
+    v7 = *(this + 2) - v6;
+    if (v7 >= v4 + 1)
     {
-      v12 = *this;
+      v11 = *this;
     }
 
     else
     {
-      v9 = (v7 + v5 + vm_page_size) & -vm_page_size;
+      v8 = (v6 + v4 + vm_page_size) & -vm_page_size;
       __dst = 0;
-      if (vm_allocate(mach_task_self_, &__dst, v9, 1006632961))
+      if (vm_allocate(mach_task_self_, &__dst, v8, 1006632961))
       {
         Diagnostics::appendError();
       }
 
       if (*this)
       {
-        v10 = *this;
+        v9 = *this;
       }
 
       else
       {
-        v10 = 0;
+        v9 = 0;
       }
 
-      memcpy(__dst, v10, *(this + 2));
+      memcpy(__dst, v9, *(this + 2));
       if (*this)
       {
-        v13 = *this;
-      }
-
-      else
-      {
-        v13 = 0;
-      }
-
-      MEMORY[0x1865C8D90](mach_task_self_, v13, *(this + 2));
-      if (__dst)
-      {
-        v12 = __dst;
+        v12 = *this;
       }
 
       else
@@ -9666,29 +9593,40 @@ uint64_t Diagnostics::appendError(Diagnostics *this, const char *__format, ...)
         v12 = 0;
       }
 
-      *this = v12;
-      *(this + 2) = v9;
-      LODWORD(v7) = *(this + 3);
-      v8 = v9 - v7;
+      MEMORY[0x1865C8D90](mach_task_self_, v12, *(this + 2));
+      if (__dst)
+      {
+        v11 = __dst;
+      }
+
+      else
+      {
+        v11 = 0;
+      }
+
+      *this = v11;
+      *(this + 2) = v8;
+      LODWORD(v6) = *(this + 3);
+      v7 = v8 - v6;
     }
 
-    result = vsnprintf(&v12[(v7 - 1)], v8, __format, v16);
+    result = vsnprintf(&v11[(v6 - 1)], v7, __format, v15);
     if ((result & 0x80000000) != 0)
     {
       Diagnostics::appendError();
     }
 
-    if (result != v6)
+    if (result != v5)
     {
       Diagnostics::appendError();
     }
 
-    *(this + 3) += v6;
+    *(this + 3) += v5;
   }
 
   else
   {
-    va_copy(v17, va);
+    va_copy(v16, va);
     return Diagnostics::error(this, __format, va);
   }
 
@@ -9724,7 +9662,7 @@ size_t dyld4::Utils::concatenatePaths(dyld4::Utils *this, char *a2, const char *
   return strlcat(v7, v6, a3);
 }
 
-void *dyld3::OverflowSafeArray<char,4294967295ull>::resize(void *result, unint64_t a2)
+void *dyld3::OverflowSafeArray<char,4294967295ull>::resize(void *result, const void *a2)
 {
   v2 = result[2];
   if (v2 != a2)
@@ -9821,4 +9759,85 @@ uint64_t DyldSharedCache::forEachRegion(uint64_t a1, uint64_t a2)
   }
 
   return result;
+}
+
+uint64_t dyld3::open(dyld3 *this, const char *a2, uint64_t a3)
+{
+  v4 = a2;
+  for (result = open(this, a2, a3); result == -1; result = open(this, v4, a3))
+  {
+    if (*__error() != 35 && *__error() != 4)
+    {
+      return 0xFFFFFFFFLL;
+    }
+  }
+
+  return result;
+}
+
+_DWORD *dyld3::FatFile::isFatFile(_DWORD *this, const void *a2)
+{
+  if ((*this | 0x1000000) != 0xBFBAFECA)
+  {
+    return 0;
+  }
+
+  return this;
+}
+
+BOOL dyld3::FatFile::isValidSlice(dyld3::FatFile *this, Diagnostics *a2, unint64_t a3, unsigned int a4, int a5, int a6, unint64_t a7, unint64_t a8)
+{
+  if (a3 < a7 || a3 - a7 < a8)
+  {
+    Diagnostics::error(a2, "slice %d extends beyond end of file");
+  }
+
+  else
+  {
+    v12 = this + a7;
+    result = dyld3::MachOFile::isMachO((this + a7), a2, a8);
+    if (!result)
+    {
+      return result;
+    }
+
+    if (*(v12 + 1) == a5)
+    {
+      v14 = *(v12 + 2);
+      if (((v14 ^ a6) & 0xFFFFFF) != 0)
+      {
+        Diagnostics::error(a2, "cpu subtype in slice (0x%08X) does not match fat header (0x%08X)");
+      }
+
+      else
+      {
+        if (a5 == 33554444 || a5 == 16777228 || (v15 = 4095, a5 == 12) && v14 == 12 && *(v12 + 3) != 11)
+        {
+          v15 = 0x3FFFLL;
+        }
+
+        if ((v15 & a7) == 0)
+        {
+          return 1;
+        }
+
+        if (!strncmp(v12, "!<arch>", 7uLL))
+        {
+          Diagnostics::error(a2, "file is static library");
+        }
+
+        else
+        {
+          Diagnostics::error(a2, "slice is not page aligned");
+        }
+      }
+    }
+
+    else
+    {
+      Diagnostics::error(a2, "cpu type in slice (0x%08X) does not match fat header (0x%08X)");
+    }
+  }
+
+  return 0;
 }

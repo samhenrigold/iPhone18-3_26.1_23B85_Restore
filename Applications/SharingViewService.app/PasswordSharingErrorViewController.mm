@@ -10,19 +10,21 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10008E0C8();
+  sub_10008E0C8(selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_10008E7F8(appear);
+  sub_10008E7F8(appearCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_10008E980(disappear);
+  sub_10008E980(disappearCopy);
 }
 
 - (_TtC18SharingViewService34PasswordSharingErrorViewController)initWithContentView:(id)view

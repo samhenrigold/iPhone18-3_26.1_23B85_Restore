@@ -1,4 +1,5 @@
 @interface TPSAnalyticsEventTipSaved
++ (id)eventWithTipID:(id)d saved:(BOOL)saved correlationID:(id)iD collectionID:(id)collectionID;
 - (TPSAnalyticsEventTipSaved)initWithCoder:(id)coder;
 - (id)_initWithTipID:(id)d saved:(BOOL)saved correlationID:(id)iD collectionID:(id)collectionID;
 - (id)mutableAnalyticsEventRepresentation;
@@ -64,6 +65,17 @@
   }
 
   return v15;
+}
+
++ (id)eventWithTipID:(id)d saved:(BOOL)saved correlationID:(id)iD collectionID:(id)collectionID
+{
+  savedCopy = saved;
+  collectionIDCopy = collectionID;
+  iDCopy = iD;
+  dCopy = d;
+  v13 = [[self alloc] _initWithTipID:dCopy saved:savedCopy correlationID:iDCopy collectionID:collectionIDCopy];
+
+  return v13;
 }
 
 - (id)mutableAnalyticsEventRepresentation

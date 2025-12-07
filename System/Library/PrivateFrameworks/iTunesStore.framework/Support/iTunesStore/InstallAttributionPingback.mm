@@ -14,9 +14,9 @@
   signatureCopy = signature;
   urlCopy = url;
   timestampCopy = timestamp;
-  v52.receiver = self;
-  v52.super_class = InstallAttributionPingback;
-  v22 = [(InstallAttributionPingback *)&v52 init];
+  v51.receiver = self;
+  v51.super_class = InstallAttributionPingback;
+  v22 = [(InstallAttributionPingback *)&v51 init];
   if (v22)
   {
     v23 = [idCopy copy];
@@ -50,64 +50,68 @@
 
     if (!v22->_appAdamId || !v22->_transactionId || !v22->_campaignId || !v22->_adNetworkId || !v22->_attributionSignature || !timestampCopy || !v22->_pingbackUrl)
     {
-      v50 = idCopy;
+      v49 = idCopy;
       v37 = +[SSLogConfig sharedDaemonConfig];
       if (!v37)
       {
         v37 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog = [v37 shouldLog];
+      LODWORD(v38) = [v37 shouldLog];
       if ([v37 shouldLogToDisk])
       {
-        shouldLog |= 2u;
+        LODWORD(v38) = v38 | 2;
       }
 
       oSLogObject = [v37 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
       {
-        shouldLog &= 2u;
+        v38 = v38;
       }
 
-      if (shouldLog)
+      else
+      {
+        v38 &= 2u;
+      }
+
+      if (v38)
       {
         v40 = urlCopy;
         v41 = signatureCopy;
         v42 = transactionIdCopy;
         v43 = objc_opt_class();
-        v48 = v43;
+        v47 = v43;
         [(InstallAttributionPingback *)v22 description];
-        v44 = v49 = networkIdCopy;
-        v53 = 138543618;
-        v54 = v43;
+        v44 = v48 = networkIdCopy;
+        v52 = 138543618;
+        v53 = v43;
         transactionIdCopy = v42;
         signatureCopy = v41;
         urlCopy = v40;
-        v55 = 2112;
-        v56 = v44;
-        LODWORD(v47) = 22;
-        v45 = _os_log_send_and_compose_impl();
+        v54 = 2112;
+        v55 = v44;
+        v45 = _os_log_send_and_compose_impl(v38, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: One or more initializer arguments was nil: %@", &v52, 22);
 
-        networkIdCopy = v49;
+        networkIdCopy = v48;
         if (!v45)
         {
-LABEL_19:
+LABEL_20:
 
           v22 = 0;
-          idCopy = v50;
-          goto LABEL_20;
+          idCopy = v49;
+          goto LABEL_21;
         }
 
-        oSLogObject = [NSString stringWithCString:v45 encoding:4, &v53, v47];
+        oSLogObject = [NSString stringWithCString:v45 encoding:4];
         free(v45);
         SSFileLog();
       }
 
-      goto LABEL_19;
+      goto LABEL_20;
     }
   }
 
-LABEL_20:
+LABEL_21:
 
   return v22;
 }

@@ -7,9 +7,9 @@
 - (uint64_t)af_activationEvent
 {
   inputOrigin = [self inputOrigin];
-  v2 = [inputOrigin isEqualToString:*MEMORY[0x1E69C7F48]];
+  isEqualToString = objc_msgSend_isEqualToString_(inputOrigin);
 
-  if (v2)
+  if (isEqualToString)
   {
     return 12;
   }

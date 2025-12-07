@@ -14,19 +14,19 @@ uint64_t __RUIJSObjectModel_setFieldValue_block_invoke()
 
 void __RUIJSObjectModel_loadURL_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *(a1 + 32);
   v7 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-  v16[0] = v7;
+  v19[0] = v7;
   v8 = v5;
   if (!v5)
   {
     v8 = [MEMORY[0x277CD4658] valueWithUndefinedInContext:*(a1 + 40)];
   }
 
-  v16[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v19[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   v10 = [v6 callWithArguments:v9];
 
   if (!v5)
@@ -35,15 +35,19 @@ void __RUIJSObjectModel_loadURL_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 
   v11 = [*(a1 + 40) exception];
 
-  if (v11 && _isInternalInstall())
+  if (v11)
   {
-    v12 = _RUILoggingFacility();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    isInternalInstall = _isInternalInstall(v12, v13);
+    if (isInternalInstall)
     {
-      v13 = [*(a1 + 40) exception];
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_impl(&dword_21B93D000, v12, OS_LOG_TYPE_DEFAULT, "xmlui.loadURL: %@", &v14, 0xCu);
+      v15 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        v16 = [*(a1 + 40) exception];
+        v17 = 138412290;
+        v18 = v16;
+        _os_log_impl(&dword_21B93D000, v15, OS_LOG_TYPE_DEFAULT, "xmlui.loadURL: %@", &v17, 0xCu);
+      }
     }
   }
 }
@@ -94,7 +98,7 @@ void __RUIJSObjectModel_loadURL_block_invoke_2(uint64_t a1, uint64_t a2, void *a
 
 void __RUIJSObjectModel_showWebView_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CD4658] valueWithObject:a2 inContext:*(a1 + 32)];
   v4 = [MEMORY[0x277CBEB18] array];
   v5 = v4;
@@ -109,15 +113,19 @@ void __RUIJSObjectModel_showWebView_block_invoke(uint64_t a1, uint64_t a2)
 
   v9 = [*(a1 + 32) exception];
 
-  if (v9 && _isInternalInstall())
+  if (v9)
   {
-    v10 = _RUILoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    isInternalInstall = _isInternalInstall(v10, v11);
+    if (isInternalInstall)
     {
-      v11 = [*(a1 + 32) exception];
-      v12 = 138412290;
-      v13 = v11;
-      _os_log_impl(&dword_21B93D000, v10, OS_LOG_TYPE_DEFAULT, "xmlui.showWebView: %@", &v12, 0xCu);
+      v13 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      {
+        v14 = [*(a1 + 32) exception];
+        v15 = 138412290;
+        v16 = v14;
+        _os_log_impl(&dword_21B93D000, v13, OS_LOG_TYPE_DEFAULT, "xmlui.showWebView: %@", &v15, 0xCu);
+      }
     }
   }
 }

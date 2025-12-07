@@ -1990,9 +1990,9 @@ LABEL_20:
   [(_UIButtonBar *)v3 setAllowsViewWrappers:1];
   traitCollection = [(UIView *)self->_contentView traitCollection];
   v5 = +[_UIButtonBarButtonVisualProvider visualProviderForIdiom:](_UIButtonBarButtonVisualProvider, "visualProviderForIdiom:", [traitCollection userInterfaceIdiom]);
-  objc_opt_class();
-  v6 = _UIButtonBarButtonMakerForVisualProvider();
-  [(_UIButtonBar *)v3 setViewUpdater:v6];
+  v6 = objc_opt_class();
+  v7 = _UIButtonBarButtonMakerForVisualProvider(v6);
+  [(_UIButtonBar *)v3 setViewUpdater:v7];
 
   [(_UINavigationBarContentView *)self->_contentView buttonBarMinimumInterItemSpace];
   [(_UIButtonBar *)v3 setMinimumInterItemSpace:?];
@@ -3880,10 +3880,10 @@ LABEL_25:
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
   v8 = v11;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v9 = [(NSString *)v8 copy];

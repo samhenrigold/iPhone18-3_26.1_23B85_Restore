@@ -17,67 +17,68 @@
 {
   completionCopy = completion;
   v5 = +[MSPMapsInstallState isMapsAppInstalled];
+  v6 = v5;
   self->_mapsIsInstalled = v5;
-  v6 = sub_47FC();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
-  if (v5)
+  v7 = sub_47FC(v5);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "Will fetch shared resources...", buf, 2u);
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "Will fetch shared resources...", buf, 2u);
     }
 
-    v8 = dispatch_group_create();
-    v9 = objc_alloc_init(NSMutableArray);
-    v10 = [[NSMutableArray alloc] initWithCapacity:2];
-    dispatch_group_enter(v8);
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_4840;
-    v27[3] = &unk_CDD0;
-    v11 = v9;
-    v28 = v11;
+    v9 = dispatch_group_create();
+    v10 = objc_alloc_init(NSMutableArray);
+    v11 = [[NSMutableArray alloc] initWithCapacity:2];
+    dispatch_group_enter(v9);
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_4840;
+    v28[3] = &unk_CDD0;
     v12 = v10;
     v29 = v12;
-    v13 = v8;
+    v13 = v11;
     v30 = v13;
-    [(MapsDigitalSeparationSource *)self _fetchActiveSharedTripWithCompletion:v27];
-    dispatch_group_enter(v13);
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_4948;
-    v23[3] = &unk_CDF8;
-    v14 = v11;
-    v24 = v14;
+    v14 = v9;
+    v31 = v14;
+    [(MapsDigitalSeparationSource *)self _fetchActiveSharedTripWithCompletion:v28];
+    dispatch_group_enter(v14);
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_4948;
+    v24[3] = &unk_CDF8;
     v15 = v12;
     v25 = v15;
-    v26 = v13;
     v16 = v13;
-    [(MapsDigitalSeparationSource *)self _fetchFavoritesWithCompletion:v23];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_4A3C;
-    v19[3] = &unk_CE20;
-    v19[4] = self;
-    v20 = v14;
+    v26 = v16;
+    v27 = v14;
+    v17 = v14;
+    [(MapsDigitalSeparationSource *)self _fetchFavoritesWithCompletion:v24];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_4A3C;
+    v20[3] = &unk_CE20;
+    v20[4] = self;
     v21 = v15;
-    v22 = completionCopy;
-    v17 = v15;
-    v18 = v14;
-    dispatch_group_notify(v16, &_dispatch_main_q, v19);
+    v22 = v16;
+    v23 = completionCopy;
+    v18 = v16;
+    v19 = v15;
+    dispatch_group_notify(v17, &_dispatch_main_q, v20);
   }
 
   else
   {
-    if (v7)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "Will not fetch shared resources, Maps not installed", buf, 2u);
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "Will not fetch shared resources, Maps not installed", buf, 2u);
     }
 
-    v16 = [NSError errorWithDomain:DSSourceNameMaps code:0 userInfo:0];
-    (*(completionCopy + 2))(completionCopy, &__NSArray0__struct, v16);
+    v17 = [NSError errorWithDomain:DSSourceNameMaps code:0 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, &__NSArray0__struct, v17);
   }
 }
 
@@ -87,7 +88,7 @@
   errorsCopy = errors;
   completionCopy = completion;
   v10 = [errorsCopy count];
-  v11 = sub_47FC();
+  v11 = sub_47FC(v10);
   v12 = v11;
   if (v10)
   {
@@ -125,83 +126,86 @@ LABEL_6:
 {
   sharingCopy = sharing;
   completionCopy = completion;
+  v8 = completionCopy;
   if (!self->_mapsIsInstalled)
   {
-    v9 = sub_47FC();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sub_47FC(completionCopy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138477827;
-      v19 = sharingCopy;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "Cannot stop sharing resource %{private}@, Maps is not installed", buf, 0xCu);
+      v22 = sharingCopy;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "Cannot stop sharing resource %{private}@, Maps is not installed", buf, 0xCu);
     }
 
     goto LABEL_8;
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v8 = sub_47FC();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = sub_47FC(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "Will stop active trip sharing...", buf, 2u);
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "Will stop active trip sharing...", buf, 2u);
     }
 
-    [(__CFString *)sharingCopy _ds_stopSharingWithCompletion:completionCopy];
+    [(__CFString *)sharingCopy _ds_stopSharingWithCompletion:v8];
     goto LABEL_9;
   }
 
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v11 = sub_47FC();
-  v9 = v11;
-  if ((isKindOfClass & 1) == 0)
+  v12 = objc_opt_isKindOfClass();
+  v13 = v12;
+  v14 = sub_47FC(v12);
+  v11 = v14;
+  if ((v13 & 1) == 0)
   {
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
 LABEL_8:
 
       goto LABEL_9;
     }
 
-    v12 = sharingCopy;
-    if (!v12)
+    v15 = sharingCopy;
+    if (!v15)
     {
-      v17 = @"<nil>";
+      v20 = @"<nil>";
       goto LABEL_23;
     }
 
-    v13 = objc_opt_class();
-    v14 = NSStringFromClass(v13);
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
     if (objc_opt_respondsToSelector())
     {
-      v15 = [(__CFString *)v12 performSelector:"accessibilityIdentifier"];
-      v16 = v15;
-      if (v15 && ![v15 isEqualToString:v14])
+      v18 = [(__CFString *)v15 performSelector:"accessibilityIdentifier"];
+      v19 = v18;
+      if (v18 && ![v18 isEqualToString:v17])
       {
-        v17 = [NSString stringWithFormat:@"%@<%p, %@>", v14, v12, v16];
+        v20 = [NSString stringWithFormat:@"%@<%p, %@>", v17, v15, v19];
 
         goto LABEL_21;
       }
     }
 
-    v17 = [NSString stringWithFormat:@"%@<%p>", v14, v12];
+    v20 = [NSString stringWithFormat:@"%@<%p>", v17, v15];
 LABEL_21:
 
 LABEL_23:
     *buf = 138412290;
-    v19 = v17;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "Asked to stop sharing with resource we don't recognise: %@", buf, 0xCu);
+    v22 = v20;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "Asked to stop sharing with resource we don't recognise: %@", buf, 0xCu);
 
     goto LABEL_8;
   }
 
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138477827;
-    v19 = sharingCopy;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "Will stop sharing in Favorite %{private}@...", buf, 0xCu);
+    v22 = sharingCopy;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "Will stop sharing in Favorite %{private}@...", buf, 0xCu);
   }
 
   [(__CFString *)sharingCopy _ds_stopSharing];
@@ -213,7 +217,7 @@ LABEL_9:
   participantCopy = participant;
   completionCopy = completion;
   mapsIsInstalled = self->_mapsIsInstalled;
-  v9 = sub_47FC();
+  v9 = sub_47FC(completionCopy);
   v10 = v9;
   if (mapsIsInstalled)
   {
@@ -262,7 +266,7 @@ LABEL_9:
 {
   completionCopy = completion;
   mapsIsInstalled = self->_mapsIsInstalled;
-  v6 = sub_47FC();
+  v6 = sub_47FC(completionCopy);
   v7 = v6;
   if (mapsIsInstalled)
   {
@@ -298,7 +302,7 @@ LABEL_9:
 {
   completionCopy = completion;
   store = self->_store;
-  v6 = sub_47FC();
+  v6 = sub_47FC(completionCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
   if (store)
   {
@@ -332,7 +336,7 @@ LABEL_9:
 - (void)_fetchActiveSharedTripWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_47FC();
+  v5 = sub_47FC(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;

@@ -28,6 +28,7 @@
 - (void)handleSetSettingsMsg:(id)msg replyBlock:(id)block;
 - (void)libraryDidChange;
 - (void)playbackStateDidChange:(int64_t)change;
+- (void)playerDidChange:(int)change;
 - (void)sendMsg:(id)msg args:(id)args;
 - (void)sendReplyToMsg:(id)msg status:(unsigned __int8)status args:(id)args;
 - (void)settingsDidChange:(id)change;
@@ -771,6 +772,15 @@ LABEL_13:
   }
 
   [(BTXpcSession *)self sendMsg:v7];
+}
+
+- (void)playerDidChange:(int)change
+{
+  v6 = @"kPlayerId";
+  v4 = [NSNumber numberWithInt:*&change];
+  v7 = v4;
+  v5 = [NSDictionary dictionaryWithObjects:&v7 forKeys:&v6 count:1];
+  [(BTAVRCP_XpcSession *)self sendMsg:@"PlayerDidChange" args:v5];
 }
 
 - (void)playbackStateDidChange:(int64_t)change

@@ -94,40 +94,40 @@ LABEL_6:
 
 + (id)percentEncodedStringToDictionary:()IMAdditions
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = a3;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v5 = [v3 length];
-  v24 = v3;
+  v23 = v3;
   if (v5)
   {
     v5 = [v3 componentsSeparatedByString:@"&"];
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     v9 = @"=";
     v10 = 0x1E695D000uLL;
     do
     {
       v11 = 0;
-      v25 = v7;
+      v24 = v7;
       do
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = [*(*(&v27 + 1) + 8 * v11) componentsSeparatedByString:v9];
+        v12 = [*(*(&v26 + 1) + 8 * v11) componentsSeparatedByString:v9];
         v13 = [v12 objectAtIndexedSubscript:0];
         stringByRemovingPercentEncoding = [v13 stringByRemovingPercentEncoding];
 
@@ -145,7 +145,7 @@ LABEL_6:
           v10 = v18;
           dictionary = v17;
           v8 = v16;
-          v7 = v25;
+          v7 = v24;
           null = stringByRemovingPercentEncoding2;
         }
 
@@ -155,42 +155,40 @@ LABEL_6:
       }
 
       while (v7 != v11);
-      v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v7);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
 
 + (id)pf_dictionaryToEscapedQueryString:()IMAdditions
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a3;
   string = [MEMORY[0x1E696AD60] string];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   keyEnumerator = [v3 keyEnumerator];
-  v6 = [keyEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [keyEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         if ([string length])
         {
           [string appendString:@"&"];
@@ -210,13 +208,11 @@ LABEL_6:
         }
       }
 
-      v7 = [keyEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [keyEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return string;
 }

@@ -59,7 +59,7 @@
 
 - (void)scrollViewDidScroll:(id)scroll
 {
-  v5 = type metadata accessor for FMItemDetailViewModel();
+  v5 = type metadata accessor for FMItemDetailViewModel(0);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   scrollCopy = scroll;
@@ -137,13 +137,13 @@
 - (void)handleOldShareAttentionTap
 {
   selfCopy = self;
-  sub_1003AE090();
+  sub_1003AE090(0xD000000000000020, 0x8000000100594380);
 }
 
 - (void)handleNotificationsOffAttentionTap
 {
   selfCopy = self;
-  sub_1003AE090();
+  sub_1003AE090(0xD000000000000031, 0x800000010057BF90);
 }
 
 - (void)handleInnaccurateLocationAttentionTap
@@ -155,7 +155,7 @@
 - (void)handleLocationServicesOffTap
 {
   selfCopy = self;
-  sub_1003AE090();
+  sub_1003AE090(0xD000000000000020, 0x8000000100594350);
 }
 
 @end

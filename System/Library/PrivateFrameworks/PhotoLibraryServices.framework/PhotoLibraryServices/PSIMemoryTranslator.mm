@@ -66,7 +66,7 @@
   {
     calendar = [contextCopy calendar];
     curatedAssets = [memoryCopy curatedAssets];
-    v12 = [curatedAssets count];
+    v12 = objc_msgSend_count(curatedAssets);
 
     if (v12)
     {

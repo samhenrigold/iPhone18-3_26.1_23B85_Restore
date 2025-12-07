@@ -85,18 +85,18 @@
 
 - (id)jsonDict
 {
-  v17[10] = *MEMORY[0x1E69E9840];
-  v16[0] = @"absoluteTimestamp";
+  v16[10] = *MEMORY[0x1E69E9840];
+  v15[0] = @"absoluteTimestamp";
   v3 = [MEMORY[0x1E696AD98] numberWithDouble:self->_absoluteTimestamp];
-  v17[0] = v3;
-  v16[1] = @"userActivityDataLength";
+  v16[0] = v3;
+  v15[1] = @"userActivityDataLength";
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSData length](self->_userActivityData, "length")}];
   title = self->_title;
   activityType = self->_activityType;
-  v17[1] = v4;
-  v17[2] = title;
-  v16[2] = @"title";
-  v16[3] = @"activityType";
+  v16[1] = v4;
+  v16[2] = title;
+  v15[2] = @"title";
+  v15[3] = @"activityType";
   v7 = @"nil";
   modeIdentifier = self->_modeIdentifier;
   topics = self->_topics;
@@ -105,39 +105,37 @@
     modeIdentifier = @"nil";
   }
 
-  v17[3] = activityType;
-  v17[4] = modeIdentifier;
-  v16[4] = @"modeIdentifier";
-  v16[5] = @"associatedBundleId";
+  v16[3] = activityType;
+  v16[4] = modeIdentifier;
+  v15[4] = @"modeIdentifier";
+  v15[5] = @"associatedBundleId";
   associatedURLString = self->_associatedURLString;
   if (!associatedURLString)
   {
     associatedURLString = @"nil";
   }
 
-  v17[5] = self->_associatedBundleId;
-  v17[6] = associatedURLString;
-  v16[6] = @"associatedURLString";
-  v16[7] = @"topicIdentifiers";
+  v16[5] = self->_associatedBundleId;
+  v16[6] = associatedURLString;
+  v15[6] = @"associatedURLString";
+  v15[7] = @"topicIdentifiers";
   if (topics)
   {
     v7 = [(NSArray *)topics _pas_mappedArrayWithTransform:&__block_literal_global_0];
   }
 
-  v17[7] = v7;
-  v16[8] = @"hasAssociatedImageRepresentation";
+  v16[7] = v7;
+  v15[8] = @"hasAssociatedImageRepresentation";
   v11 = [MEMORY[0x1E696AD98] numberWithBool:self->_hasAssociatedImageRepresentation];
-  v16[9] = @"uuid";
+  v15[9] = @"uuid";
   uuid = self->_uuid;
-  v17[8] = v11;
-  v17[9] = uuid;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:10];
+  v16[8] = v11;
+  v16[9] = uuid;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:10];
 
   if (topics)
   {
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

@@ -8,6 +8,7 @@
 - (CAFUInt8Range)gearPositionRange;
 - (unsigned)gearPosition;
 - (unsigned)transmissionMode;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -139,6 +140,56 @@
   isInvalid = [gearPositionCharacteristic isInvalid];
 
   return isInvalid;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000041000011"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    transmissionModeCharacteristic = [(CAFTransmissionStatus *)self transmissionModeCharacteristic];
+    uniqueIdentifier2 = [transmissionModeCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers transmissionStatusService:self didUpdateTransmissionMode:{-[CAFTransmissionStatus transmissionMode](self, "transmissionMode")}];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000041000012"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  gearPositionCharacteristic = [(CAFTransmissionStatus *)self gearPositionCharacteristic];
+  uniqueIdentifier4 = [gearPositionCharacteristic uniqueIdentifier];
+  v16 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v16)
+  {
+    observers = [(CAFService *)self observers];
+    [observers transmissionStatusService:self didUpdateGearPosition:{-[CAFTransmissionStatus gearPosition](self, "gearPosition")}];
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v17.receiver = self;
+  v17.super_class = CAFTransmissionStatus;
+  [(CAFService *)&v17 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForTransmissionMode

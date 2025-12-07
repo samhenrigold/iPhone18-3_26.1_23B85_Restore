@@ -10,13 +10,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_220F8E12C();
+  sub_220F8E12C(selfCopy);
 }
 
 - (void)viewIsAppearing:(BOOL)appearing
 {
+  appearingCopy = appearing;
   selfCopy = self;
-  sub_220F8E1C0(appearing);
+  sub_220F8E1C0(appearingCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear

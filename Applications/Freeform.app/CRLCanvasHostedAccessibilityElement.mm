@@ -8,10 +8,11 @@
 
 - (CRLCanvasAccessibility)parentCanvas
 {
-  if (CRLAccessibilityShouldPerformValidationChecks())
+  ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(self, a2);
+  if (ShouldPerformValidationChecks)
   {
-    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Abstract method", v3, v4, v5, v6, v7, vars0))
+    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Abstract method", v4, v5, v6, v7, v8, vars0))
     {
       abort();
     }
@@ -22,10 +23,11 @@
 
 - (CGRect)frameInUnscaledCanvas
 {
-  if (CRLAccessibilityShouldPerformValidationChecks())
+  ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(self, a2);
+  if (ShouldPerformValidationChecks)
   {
-    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Abstract method", v3, v4, v5, v6, v7, vars0))
+    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Abstract method", v4, v5, v6, v7, v8, vars0))
     {
       abort();
     }

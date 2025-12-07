@@ -10,15 +10,15 @@
   if (init)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280A0F2E0, &unk_2759C46B0);
-    v3 = sub_2759BA3E8();
+    v4 = sub_2759BA3E8();
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return SettingsFooter.init(_:)(v3);
+  return SettingsFooter.init(_:)(v4, v3);
 }
 
 - (_TtC14iCloudSettings14SettingsFooter)init

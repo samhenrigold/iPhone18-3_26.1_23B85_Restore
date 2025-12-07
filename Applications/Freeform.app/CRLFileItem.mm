@@ -15,7 +15,7 @@
 
 - (NSURL)url
 {
-  v3 = sub_1005B981C(&unk_1019F33C0);
+  v3 = sub_1005B981C(&unk_1019F33C0, &unk_101468A60);
   __chkstk_darwin(v3 - 8);
   v5 = &v14 - v4;
   selfCopy = self;
@@ -39,9 +39,9 @@
 - (_TtC8Freeform8CRLAsset)metadataPayload
 {
   selfCopy = self;
-  v3 = sub_100BEBD9C();
+  v4 = sub_100BEBD9C(v3);
 
-  return v3;
+  return v4;
 }
 
 - (NSString)previewTooltip
@@ -69,7 +69,7 @@
 
 - (Class)repClass
 {
-  type metadata accessor for CRLFileRep();
+  type metadata accessor for CRLFileRep(0);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -126,13 +126,13 @@
 - (BOOL)placeHolderDataNeedsDownload
 {
   selfCopy = self;
-  v3 = sub_100BEBD9C();
-  v4 = *&v3[OBJC_IVAR____TtC8Freeform8CRLAsset_storage + 24];
-  v5 = *&v3[OBJC_IVAR____TtC8Freeform8CRLAsset_storage + 32];
-  sub_100020E58(&v3[OBJC_IVAR____TtC8Freeform8CRLAsset_storage], v4);
-  v6 = (*(v5 + 64))(v4, v5);
+  v4 = sub_100BEBD9C(v3);
+  v5 = *&v4[OBJC_IVAR____TtC8Freeform8CRLAsset_storage + 24];
+  v6 = *&v4[OBJC_IVAR____TtC8Freeform8CRLAsset_storage + 32];
+  sub_100020E58(&v4[OBJC_IVAR____TtC8Freeform8CRLAsset_storage], v5);
+  v7 = (*(v6 + 64))(v5, v6);
 
-  return v6 & 1;
+  return v7 & 1;
 }
 
 @end

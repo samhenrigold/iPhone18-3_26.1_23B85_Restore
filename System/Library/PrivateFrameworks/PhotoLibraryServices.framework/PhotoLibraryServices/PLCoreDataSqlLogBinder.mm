@@ -14,14 +14,14 @@
   v3 = objc_autoreleasePoolPush();
   if (self)
   {
-    v4 = [(NSMutableArray *)self->_bindValues count];
+    v4 = objc_msgSend_count(self->_bindValues);
     selectString = self->_selectString;
     if (v4)
     {
       v6 = [(NSString *)selectString componentsSeparatedByString:@"?"];
       v7 = [v6 mutableCopy];
 
-      if ([v7 count] == v4 + 1)
+      if (objc_msgSend_count(v7) == v4 + 1)
       {
         string = [MEMORY[0x1E696AD60] string];
         for (i = 0; i != v4; ++i)

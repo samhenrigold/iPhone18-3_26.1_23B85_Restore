@@ -315,16 +315,16 @@ LABEL_10:
   v12 = xpc_dictionary_create(0, 0, 0);
   eventCopy = event;
   xpc_dictionary_set_uint64(v12, "CRYPTEX_EVENT_TYPE", event);
-  v37 = cryptexCopy;
+  v38 = cryptexCopy;
   xdict = v12;
   xpc_dictionary_set_string(v12, "CRYPTEX_EVENT_CRYPTEX_NAME", [cryptexCopy UTF8String]);
-  v33 = infoCopy;
+  v34 = infoCopy;
   if (infoCopy)
   {
-    v43 = 0;
-    v35 = [NSPropertyListSerialization dataWithPropertyList:infoCopy format:100 options:0 error:&v43];
-    v13 = v43;
-    if (!v35)
+    v44 = 0;
+    v36 = [NSPropertyListSerialization dataWithPropertyList:infoCopy format:100 options:0 error:&v44];
+    v13 = v44;
+    if (!v36)
     {
       v26 = v13;
       code = [v13 code];
@@ -333,63 +333,72 @@ LABEL_10:
       if (v28)
       {
         v29 = [(EventServer *)self log];
-        os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        {
+          v30 = 3;
+        }
+
+        else
+        {
+          v30 = 2;
+        }
+
         *buf = 0;
-        v30 = _os_log_send_and_compose_impl();
+        v31 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, v29, 16, "Failed to serialize info", buf, 2);
       }
 
       else
       {
         *buf = 0;
-        v30 = _os_log_send_and_compose_impl();
+        v31 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "Failed to serialize info", buf, 2);
       }
 
-      Error = createError("[EventServer broadcastEvent:forCryptex:withInfo:toClients:]", "event_server.m", 220, "com.apple.security.cryptex", code, v26, v30);
-      free(v30);
-      goto LABEL_19;
+      Error = createError("[EventServer broadcastEvent:forCryptex:withInfo:toClients:]", "event_server.m", 220, "com.apple.security.cryptex", code, v26, v31);
+      free(v31);
+      goto LABEL_22;
     }
 
-    v32 = v13;
-    v14 = v35;
-    xpc_dictionary_set_data(v12, "CRYPTEX_EVENT_INFO", [v35 bytes], objc_msgSend(v35, "length"));
+    v33 = v13;
+    v14 = v36;
+    xpc_dictionary_set_data(v12, "CRYPTEX_EVENT_INFO", [v36 bytes], objc_msgSend(v36, "length"));
   }
 
   else
   {
-    v35 = 0;
-    v32 = 0;
+    v36 = 0;
+    v33 = 0;
   }
 
-  v41 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
+  v41 = 0u;
   v15 = clientsCopy;
-  v16 = [v15 countByEnumeratingWithState:&v39 objects:v50 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v40 objects:v51 count:16];
   if (v16)
   {
-    v17 = *v40;
+    v17 = *v41;
     do
     {
       for (i = 0; i != v16; i = i + 1)
       {
-        if (*v40 != v17)
+        if (*v41 != v17)
         {
           objc_enumerationMutation(v15);
         }
 
-        v19 = *(*(&v39 + 1) + 8 * i);
+        v19 = *(*(&v40 + 1) + 8 * i);
         v20 = *__error();
         v21 = [(EventServer *)self log];
         if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
           clientName = [v19 clientName];
           *buf = 134218498;
-          v45 = eventCopy;
-          v46 = 2112;
-          v47 = v37;
-          v48 = 2112;
-          v49 = clientName;
+          v46 = eventCopy;
+          v47 = 2112;
+          v48 = v38;
+          v49 = 2112;
+          v50 = clientName;
           _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "event 0x%llx for cryptex '%@' sent to '%@'", buf, 0x20u);
         }
 
@@ -400,15 +409,15 @@ LABEL_10:
         xpc_event_publisher_fire();
       }
 
-      v16 = [v15 countByEnumeratingWithState:&v39 objects:v50 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v40 objects:v51 count:16];
     }
 
     while (v16);
   }
 
   Error = 0;
-  v26 = v35;
-LABEL_19:
+  v26 = v36;
+LABEL_22:
 
   return Error;
 }

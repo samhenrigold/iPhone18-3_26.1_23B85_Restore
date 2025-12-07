@@ -304,34 +304,34 @@ LABEL_27:
 
 - (BOOL)hasOpenElement:(id)element
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   elementCopy = element;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_openElements;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) isEqualToString:{elementCopy, v11}])
+        if ([*(*(&v10 + 1) + 8 * i) isEqualToString:{elementCopy, v10}])
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -343,7 +343,6 @@ LABEL_27:
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -505,41 +504,39 @@ LABEL_3:
 
 - (void)startElement:(id)element attributes:(id)attributes
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   attributesCopy = attributes;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v8 = [attributesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [attributesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(attributesCopy);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
+        v12 = *(*(&v14 + 1) + 8 * i);
         v13 = [attributesCopy objectForKey:v12];
         [(KSXMLWriter *)self pushAttribute:v12 value:v13];
       }
 
-      v9 = [attributesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [attributesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
 
   [(KSXMLWriter *)self startElement:elementCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startElement:(id)element writeInline:(BOOL)inline

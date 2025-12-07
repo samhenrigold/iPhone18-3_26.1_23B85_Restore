@@ -217,7 +217,7 @@
   sensorCopy = sensor;
   techniqueCopy = technique;
   v10 = objc_opt_new();
-  v11 = ARDeviceString();
+  v11 = ARDeviceString(v10);
   [v10 setObject:v11 forKeyedSubscript:@"device"];
 
   v12 = [objc_opt_class() description];
@@ -526,71 +526,70 @@ void __66__ARQAHelper_generateTagsForConfiguration_replaySensor_technique___bloc
 {
   configurationCopy = configuration;
   techniqueCopy = technique;
-  v28 = objc_opt_new();
-  v6 = ARFrameworkVersions();
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __59__ARQAHelper_headerInformationWithConfiguration_technique___block_invoke;
-  v30[3] = &unk_1E817D978;
-  v7 = v28;
-  v31 = v7;
-  [v6 enumerateKeysAndObjectsUsingBlock:v30];
-  v8 = ARDeviceString();
+  v29 = objc_opt_new();
+  v6 = ARFrameworkVersions(v29);
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __59__ARQAHelper_headerInformationWithConfiguration_technique___block_invoke;
+  v31[3] = &unk_1E817D978;
+  v7 = v29;
+  v32 = v7;
+  v8 = ARDeviceString([v6 enumerateKeysAndObjectsUsingBlock:v31]);
   [v7 setObject:v8 forKeyedSubscript:@"device"];
 
-  v9 = AROSVersionString();
-  [v7 setObject:v9 forKeyedSubscript:@"deviceOSVersion"];
+  v10 = AROSVersionString(v9);
+  [v7 setObject:v10 forKeyedSubscript:@"deviceOSVersion"];
 
   if ([configurationCopy frameSemantics])
   {
     [v7 setObject:@"segmentation.mov" forKeyedSubscript:@"segmentationFilename"];
   }
 
-  v10 = objc_opt_new();
+  v11 = objc_opt_new();
   replaySensor = [configurationCopy replaySensor];
-  v12 = configurationCopy;
+  v13 = configurationCopy;
   objc_opt_class();
-  v13 = v12;
+  v14 = v13;
   if (objc_opt_isKindOfClass())
   {
-    templateConfiguration = [v12 templateConfiguration];
-    v15 = templateConfiguration;
-    v13 = v12;
+    templateConfiguration = [v13 templateConfiguration];
+    v16 = templateConfiguration;
+    v14 = v13;
     if (templateConfiguration)
     {
-      v13 = templateConfiguration;
+      v14 = templateConfiguration;
     }
   }
 
-  v16 = [objc_opt_class() description];
-  [v7 setObject:v16 forKeyedSubscript:@"configuration"];
+  v17 = [objc_opt_class() description];
+  [v7 setObject:v17 forKeyedSubscript:@"configuration"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v17 = v13;
-    if ([v17 planeDetection])
+    v18 = v14;
+    if ([v18 planeDetection])
     {
-      v18 = [objc_opt_class() description];
-      [v10 addObject:v18];
+      v19 = [objc_opt_class() description];
+      [v11 addObject:v19];
     }
 
-    detectionImages = [v17 detectionImages];
-    v20 = [detectionImages count];
+    detectionImages = [v18 detectionImages];
+    v21 = [detectionImages count];
 
-    if (v20)
+    if (v21)
     {
-      v21 = [objc_opt_class() description];
-      [v10 addObject:v21];
+      v22 = [objc_opt_class() description];
+      [v11 addObject:v22];
     }
 
-    detectionObjects = [v17 detectionObjects];
-    v23 = [detectionObjects count];
+    detectionObjects = [v18 detectionObjects];
+    v24 = [detectionObjects count];
 
-    if (v23)
+    if (v24)
     {
-      v24 = [objc_opt_class() description];
-      [v10 addObject:v24];
+      v25 = [objc_opt_class() description];
+      [v11 addObject:v25];
     }
 
     goto LABEL_17;
@@ -599,14 +598,14 @@ void __66__ARQAHelper_generateTagsForConfiguration_replaySensor_technique___bloc
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
-    v17 = [objc_opt_class() description];
-    [v10 addObject:v17];
+    v18 = [objc_opt_class() description];
+    [v11 addObject:v18];
 LABEL_17:
   }
 
-  [v7 setObject:v10 forKeyedSubscript:@"expectedAnchors"];
-  v25 = [ARQAHelper generateTagsForConfiguration:v13 replaySensor:replaySensor technique:techniqueCopy];
-  [v7 setObject:v25 forKeyedSubscript:@"tags"];
+  [v7 setObject:v11 forKeyedSubscript:@"expectedAnchors"];
+  v26 = [ARQAHelper generateTagsForConfiguration:v14 replaySensor:replaySensor technique:techniqueCopy];
+  [v7 setObject:v26 forKeyedSubscript:@"tags"];
 
   appleGlobalDomainARKitDefaults = [MEMORY[0x1E695E000] appleGlobalDomainARKitDefaults];
   [v7 setObject:appleGlobalDomainARKitDefaults forKeyedSubscript:@"userDefaults"];
@@ -753,7 +752,7 @@ void __59__ARQAHelper_headerInformationWithConfiguration_technique___block_invok
         v9 = [objc_opt_class() description];
         [v8 setObject:v9 forKeyedSubscript:@"type"];
 
-        [v7 transform];
+        objc_msgSend_transform(v7);
         v10 = [ARQAHelper arrayWithMatrix4x4:?];
         [v8 setObject:v10 forKeyedSubscript:@"transform"];
 
@@ -1119,53 +1118,53 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
 + (id)traceFrameData:(id)data withFrameIndex:(unint64_t)index writeOBJ:(BOOL)j
 {
   jCopy = j;
-  v297[2] = *MEMORY[0x1E69E9840];
+  v302[2] = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v275 = objc_opt_new();
+  v280 = objc_opt_new();
   indexCopy = index;
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-  [v275 setObject:v6 forKeyedSubscript:@"frame"];
+  [v280 setObject:v6 forKeyedSubscript:@"frame"];
 
   v7 = MEMORY[0x1E696AD98];
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   v8 = [v7 numberWithDouble:?];
-  [v275 setObject:v8 forKeyedSubscript:@"timestamp"];
+  [v280 setObject:v8 forKeyedSubscript:@"timestamp"];
 
   camera = [dataCopy camera];
-  [camera transform];
+  objc_msgSend_transform(camera);
   v10 = [ARQAHelper arrayWithMatrix4x4:?];
-  [v275 setObject:v10 forKeyedSubscript:@"cameraTransform"];
+  [v280 setObject:v10 forKeyedSubscript:@"cameraTransform"];
 
   [dataCopy referenceOriginTransform];
   v11 = [ARQAHelper arrayWithMatrix4x4:?];
-  [v275 setObject:v11 forKeyedSubscript:@"referenceOriginTransform"];
+  [v280 setObject:v11 forKeyedSubscript:@"referenceOriginTransform"];
 
   v12 = MEMORY[0x1E696AD98];
   camera2 = [dataCopy camera];
   v14 = [v12 numberWithInteger:{objc_msgSend(camera2, "trackingState")}];
-  [v275 setObject:v14 forKeyedSubscript:@"trackingState"];
+  [v280 setObject:v14 forKeyedSubscript:@"trackingState"];
 
   v15 = MEMORY[0x1E696AD98];
   camera3 = [dataCopy camera];
   v17 = [v15 numberWithInteger:{objc_msgSend(camera3, "trackingStateReason")}];
-  [v275 setObject:v17 forKeyedSubscript:@"trackingStateReason"];
+  [v280 setObject:v17 forKeyedSubscript:@"trackingStateReason"];
 
   v18 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(dataCopy, "worldMappingStatus")}];
-  [v275 setObject:v18 forKeyedSubscript:@"worldMappingStatus"];
+  [v280 setObject:v18 forKeyedSubscript:@"worldMappingStatus"];
 
   v19 = MEMORY[0x1E696AD98];
   [dataCopy cameraGrainIntensity];
   v20 = [v19 numberWithFloat:?];
-  [v275 setObject:v20 forKeyedSubscript:@"cameraGrainIntensity"];
+  [v280 setObject:v20 forKeyedSubscript:@"cameraGrainIntensity"];
 
   v21 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(dataCopy, "deviceOrientation")}];
-  [v275 setObject:v21 forKeyedSubscript:@"deviceOrientation"];
+  [v280 setObject:v21 forKeyedSubscript:@"deviceOrientation"];
 
   resultDatas = [dataCopy resultDatas];
   v23 = [MEMORY[0x1E696AE18] predicateWithFormat:@"class == %@", objc_opt_class()];
   v24 = [resultDatas filteredArrayUsingPredicate:v23];
 
-  v268 = v24;
+  v273 = v24;
   firstObject = [v24 firstObject];
 
   if (firstObject)
@@ -1173,7 +1172,7 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
     firstObject2 = [v24 firstObject];
     [firstObject2 visionCameraTransform];
     v27 = [ARQAHelper arrayWithMatrix4x4:?];
-    [v275 setObject:v27 forKeyedSubscript:@"visionCameraTransform"];
+    [v280 setObject:v27 forKeyedSubscript:@"visionCameraTransform"];
   }
 
   worldTrackingState = [dataCopy worldTrackingState];
@@ -1182,7 +1181,7 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
   if (majorRelocalization)
   {
     v30 = [MEMORY[0x1E696AD98] numberWithBool:1];
-    [v275 setObject:v30 forKeyedSubscript:@"majorRelocalization"];
+    [v280 setObject:v30 forKeyedSubscript:@"majorRelocalization"];
   }
 
   worldTrackingState2 = [dataCopy worldTrackingState];
@@ -1191,7 +1190,7 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
   if (minorRelocalization)
   {
     v33 = [MEMORY[0x1E696AD98] numberWithBool:1];
-    [v275 setObject:v33 forKeyedSubscript:@"minorRelocalization"];
+    [v280 setObject:v33 forKeyedSubscript:@"minorRelocalization"];
   }
 
   worldTrackingState3 = [dataCopy worldTrackingState];
@@ -1200,41 +1199,41 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
   if (poseGraphUpdated)
   {
     v36 = [MEMORY[0x1E696AD98] numberWithBool:1];
-    [v275 setObject:v36 forKeyedSubscript:@"poseGraphUpdated"];
+    [v280 setObject:v36 forKeyedSubscript:@"poseGraphUpdated"];
   }
 
   v37 = MEMORY[0x1E696AD98];
   worldTrackingState4 = [dataCopy worldTrackingState];
   v39 = [v37 numberWithUnsignedInteger:{objc_msgSend(worldTrackingState4, "currentVIOMapSize")}];
-  [v275 setObject:v39 forKeyedSubscript:@"currentVIOMapSize"];
+  [v280 setObject:v39 forKeyedSubscript:@"currentVIOMapSize"];
 
   v40 = MEMORY[0x1E696AD98];
   worldTrackingState5 = [dataCopy worldTrackingState];
   v42 = [v40 numberWithUnsignedInteger:{objc_msgSend(worldTrackingState5, "reinitializationAttempts")}];
-  [v275 setObject:v42 forKeyedSubscript:@"reinitializationAttempts"];
+  [v280 setObject:v42 forKeyedSubscript:@"reinitializationAttempts"];
 
   v43 = MEMORY[0x1E696AD98];
   worldTrackingState6 = [dataCopy worldTrackingState];
   v45 = [v43 numberWithInteger:{objc_msgSend(worldTrackingState6, "vioTrackingState")}];
-  [v275 setObject:v45 forKeyedSubscript:@"vioTrackingState"];
+  [v280 setObject:v45 forKeyedSubscript:@"vioTrackingState"];
 
   worldTrackingErrorData = [dataCopy worldTrackingErrorData];
 
   if (worldTrackingErrorData)
   {
-    v296[0] = @"Timestamp";
+    v301[0] = @"Timestamp";
     v47 = MEMORY[0x1E696AD98];
     worldTrackingErrorData2 = [dataCopy worldTrackingErrorData];
-    [worldTrackingErrorData2 timestamp];
+    objc_msgSend_timestamp(worldTrackingErrorData2);
     v49 = [v47 numberWithDouble:?];
-    v296[1] = @"ErrorCode";
-    v297[0] = v49;
+    v301[1] = @"ErrorCode";
+    v302[0] = v49;
     v50 = MEMORY[0x1E696AD98];
     worldTrackingErrorData3 = [dataCopy worldTrackingErrorData];
     v52 = [v50 numberWithInteger:{objc_msgSend(worldTrackingErrorData3, "errorCode")}];
-    v297[1] = v52;
-    v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v297 forKeys:v296 count:2];
-    [v275 setObject:v53 forKeyedSubscript:@"worldTrackingError"];
+    v302[1] = v52;
+    v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v302 forKeys:v301 count:2];
+    [v280 setObject:v53 forKeyedSubscript:@"worldTrackingError"];
   }
 
   if ([dataCopy segmentationBuffer])
@@ -1277,40 +1276,40 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
     v65 = 100.0 - v64 / (Height * Width);
     *&v65 = v65;
     v66 = [MEMORY[0x1E696AD98] numberWithFloat:v65];
-    [v275 setObject:v66 forKeyedSubscript:@"segmentationPixelsPercentage"];
+    [v280 setObject:v66 forKeyedSubscript:@"segmentationPixelsPercentage"];
   }
 
-  v269 = [MEMORY[0x1E696AE18] predicateWithFormat:@"class == %@", objc_opt_class()];
+  v274 = [MEMORY[0x1E696AE18] predicateWithFormat:@"class == %@", objc_opt_class()];
   resultDatas2 = [dataCopy resultDatas];
-  v271 = [resultDatas2 filteredArrayUsingPredicate:v269];
+  v276 = [resultDatas2 filteredArrayUsingPredicate:v274];
 
-  firstObject3 = [v271 firstObject];
+  firstObject3 = [v276 firstObject];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
-    firstObject4 = [v271 firstObject];
+    firstObject4 = [v276 firstObject];
     v71 = objc_opt_new();
-    v291 = 0u;
-    v292 = 0u;
-    v289 = 0u;
-    v290 = 0u;
+    v296 = 0u;
+    v297 = 0u;
+    v294 = 0u;
+    v295 = 0u;
     detectedObjects = [firstObject4 detectedObjects];
-    v73 = [detectedObjects countByEnumeratingWithState:&v289 objects:v295 count:16];
+    v73 = [detectedObjects countByEnumeratingWithState:&v294 objects:v300 count:16];
     if (v73)
     {
-      v74 = *v290;
+      v74 = *v295;
       do
       {
         for (j = 0; j != v73; ++j)
         {
-          if (*v290 != v74)
+          if (*v295 != v74)
           {
             objc_enumerationMutation(detectedObjects);
           }
 
-          v76 = *(*(&v289 + 1) + 8 * j);
+          v76 = *(*(&v294 + 1) + 8 * j);
           v77 = MEMORY[0x1E696AEC0];
           [v76 boundingBox];
           v79 = v78;
@@ -1323,20 +1322,20 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
           [v71 addObject:v85];
         }
 
-        v73 = [detectedObjects countByEnumeratingWithState:&v289 objects:v295 count:16];
+        v73 = [detectedObjects countByEnumeratingWithState:&v294 objects:v300 count:16];
       }
 
       while (v73);
     }
 
-    [v275 setObject:v71 forKeyedSubscript:@"personDetectionBoundingBoxes"];
+    [v280 setObject:v71 forKeyedSubscript:@"personDetectionBoundingBoxes"];
   }
 
   if ([dataCopy segmentationBuffer] && objc_msgSend(dataCopy, "estimatedDepthData"))
   {
     [objc_opt_class() _meanDepthValueOfDepthBuffer:objc_msgSend(dataCopy consideringSegmentation:"estimatedDepthData") ofSegmentationBuffer:{1, objc_msgSend(dataCopy, "segmentationBuffer")}];
     v87 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%.4f", v86];
-    [v275 setObject:v87 forKeyedSubscript:@"averageDepth"];
+    [v280 setObject:v87 forKeyedSubscript:@"averageDepth"];
   }
 
   capturedDepthData = [dataCopy capturedDepthData];
@@ -1351,7 +1350,7 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
     v94 = v93;
 
     v95 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%.4f", v94];
-    [v275 setObject:v95 forKeyedSubscript:@"averageCapturedDepth"];
+    [v280 setObject:v95 forKeyedSubscript:@"averageCapturedDepth"];
   }
 
   featurePoints = [dataCopy featurePoints];
@@ -1363,17 +1362,17 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
     points = [featurePoints2 points];
     featurePoints3 = [dataCopy featurePoints];
     v101 = +[ARQAHelper arrayOf3dPoints:count:](ARQAHelper, "arrayOf3dPoints:count:", points, [featurePoints3 count]);
-    [v275 setObject:v101 forKeyedSubscript:@"featurePoints"];
+    [v280 setObject:v101 forKeyedSubscript:@"featurePoints"];
   }
 
-  location = [dataCopy location];
-  v103 = location == 0;
+  v102 = objc_msgSend_location(dataCopy);
+  v103 = v102 == 0;
 
   if (!v103)
   {
-    location2 = [dataCopy location];
-    v105 = [ARQAHelper dictionaryFromCLLocation:location2];
-    [v275 setObject:v105 forKeyedSubscript:@"location"];
+    v104 = objc_msgSend_location(dataCopy);
+    v105 = [ARQAHelper dictionaryFromCLLocation:v104];
+    [v280 setObject:v105 forKeyedSubscript:@"location"];
   }
 
   rawLocation = [dataCopy rawLocation];
@@ -1383,41 +1382,41 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
   {
     rawLocation2 = [dataCopy rawLocation];
     v109 = [ARQAHelper dictionaryFromRawCLLocation:rawLocation2];
-    [v275 setObject:v109 forKeyedSubscript:@"rawLocation"];
+    [v280 setObject:v109 forKeyedSubscript:@"rawLocation"];
   }
 
   v110 = MEMORY[0x1E696AD98];
   [dataCopy heading];
   v111 = [v110 numberWithDouble:?];
-  [v275 setObject:v111 forKeyedSubscript:@"heading"];
+  [v280 setObject:v111 forKeyedSubscript:@"heading"];
 
   v112 = MEMORY[0x1E696AD98];
   [dataCopy rawHeading];
   v113 = [v112 numberWithDouble:?];
-  [v275 setObject:v113 forKeyedSubscript:@"rawHeading"];
+  [v280 setObject:v113 forKeyedSubscript:@"rawHeading"];
 
   v114 = MEMORY[0x1E696AD98];
   vlState = [dataCopy vlState];
   [vlState fusedReplayHeading];
   v116 = [v114 numberWithDouble:?];
-  [v275 setObject:v116 forKeyedSubscript:@"fusedHeading"];
+  [v280 setObject:v116 forKeyedSubscript:@"fusedHeading"];
 
   v117 = MEMORY[0x1E696AD98];
   vlState2 = [dataCopy vlState];
   [vlState2 fusedReplayHeadingTimestamp];
   v119 = [v117 numberWithDouble:?];
-  [v275 setObject:v119 forKeyedSubscript:@"fusedHeadingTimestamp"];
+  [v280 setObject:v119 forKeyedSubscript:@"fusedHeadingTimestamp"];
 
   v120 = MEMORY[0x1E696AD98];
   [dataCopy rawLocationTimestamp];
   v121 = [v120 numberWithDouble:?];
-  [v275 setObject:v121 forKeyedSubscript:@"rawLocationTimestamp"];
+  [v280 setObject:v121 forKeyedSubscript:@"rawLocationTimestamp"];
 
   [dataCopy undulation];
   v122 = MEMORY[0x1E696AD98];
   [dataCopy undulation];
   v123 = [v122 numberWithDouble:?];
-  [v275 setObject:v123 forKeyedSubscript:@"undulation"];
+  [v280 setObject:v123 forKeyedSubscript:@"undulation"];
 
   resultDatas3 = [dataCopy resultDatas];
   v125 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_382];
@@ -1427,7 +1426,7 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
   if (firstObject5)
   {
     v127 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(firstObject5, "errorCode")}];
-    [v275 setObject:v127 forKeyedSubscript:@"vlErrorCode"];
+    [v280 setObject:v127 forKeyedSubscript:@"vlErrorCode"];
 
     localizationResult = [firstObject5 localizationResult];
     LOBYTE(v127) = localizationResult == 0;
@@ -1438,13 +1437,13 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
       localizationResult2 = [firstObject5 localizationResult];
       [localizationResult2 inputTimestamp];
       v131 = [v129 numberWithDouble:?];
-      [v275 setObject:v131 forKeyedSubscript:@"vlInputTimestamp"];
+      [v280 setObject:v131 forKeyedSubscript:@"vlInputTimestamp"];
 
       localizationResult3 = [firstObject5 localizationResult];
       v133 = localizationResult3;
       if (localizationResult3)
       {
-        [localizationResult3 transform];
+        objc_msgSend_transform(localizationResult3);
       }
 
       else
@@ -1453,28 +1452,28 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
       }
 
       v134 = [ARQAHelper arrayWithMatrix4x4:ARMatrix4x4DoubleToFloat(buf)];
-      [v275 setObject:v134 forKeyedSubscript:@"vlTransform"];
+      [v280 setObject:v134 forKeyedSubscript:@"vlTransform"];
 
-      location3 = [firstObject5 location];
-      v136 = [ARQAHelper dictionaryFromCLLocation:location3];
-      [v275 setObject:v136 forKeyedSubscript:@"vlLocation"];
+      v135 = objc_msgSend_location(firstObject5);
+      v136 = [ARQAHelper dictionaryFromCLLocation:v135];
+      [v280 setObject:v136 forKeyedSubscript:@"vlLocation"];
 
       v137 = MEMORY[0x1E696AD98];
       [firstObject5 heading];
       v138 = [v137 numberWithDouble:?];
-      [v275 setObject:v138 forKeyedSubscript:@"vlHeading"];
+      [v280 setObject:v138 forKeyedSubscript:@"vlHeading"];
     }
 
     debugInfo = [firstObject5 debugInfo];
     inputParameters = [debugInfo inputParameters];
-    [v275 setObject:inputParameters forKeyedSubscript:@"vlDebugInputParameters"];
+    [v280 setObject:inputParameters forKeyedSubscript:@"vlDebugInputParameters"];
 
     debugInfo2 = [firstObject5 debugInfo];
     results = [debugInfo2 results];
-    [v275 setObject:results forKeyedSubscript:@"vlDebugResults"];
+    [v280 setObject:results forKeyedSubscript:@"vlDebugResults"];
 
     v143 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(firstObject5, "algorithmVersion")}];
-    [v275 setObject:v143 forKeyedSubscript:@"vlAlgorithmVersion"];
+    [v280 setObject:v143 forKeyedSubscript:@"vlAlgorithmVersion"];
   }
 
   geoTrackingStatus = [dataCopy geoTrackingStatus];
@@ -1484,36 +1483,36 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
   {
     geoTrackingStatus2 = [dataCopy geoTrackingStatus];
     v147 = NSStringFromARGeoTrackingState([geoTrackingStatus2 state]);
-    [v275 setObject:v147 forKeyedSubscript:@"geoTrackingStatus.state"];
+    [v280 setObject:v147 forKeyedSubscript:@"geoTrackingStatus.state"];
 
     geoTrackingStatus3 = [dataCopy geoTrackingStatus];
     v149 = NSStringFromARGeoTrackingAccuracy([geoTrackingStatus3 accuracy]);
-    [v275 setObject:v149 forKeyedSubscript:@"geoTrackingStatus.accuracy"];
+    [v280 setObject:v149 forKeyedSubscript:@"geoTrackingStatus.accuracy"];
 
     geoTrackingStatus4 = [dataCopy geoTrackingStatus];
     v151 = NSStringFromARGeoTrackingStateReason([geoTrackingStatus4 stateReason]);
-    [v275 setObject:v151 forKeyedSubscript:@"geoTrackingStatus.stateReason"];
+    [v280 setObject:v151 forKeyedSubscript:@"geoTrackingStatus.stateReason"];
 
     v152 = MEMORY[0x1E696AD98];
     geoTrackingStatus5 = [dataCopy geoTrackingStatus];
     v154 = [v152 numberWithInteger:{objc_msgSend(geoTrackingStatus5, "failureReasons")}];
-    [v275 setObject:v154 forKeyedSubscript:@"geoTrackingStatus.failureReasons"];
+    [v280 setObject:v154 forKeyedSubscript:@"geoTrackingStatus.failureReasons"];
   }
 
-  v267 = [ARQAHelper extractAnchorDataForFrame:dataCopy];
-  if ([v267 count])
+  v272 = [ARQAHelper extractAnchorDataForFrame:dataCopy];
+  if ([v272 count])
   {
-    [v275 setObject:v267 forKeyedSubscript:@"anchors"];
+    [v280 setObject:v272 forKeyedSubscript:@"anchors"];
   }
 
-  v270 = [ARQAHelper extractDetectedBodiesForFrame:dataCopy];
-  if ([v270 count])
+  v275 = [ARQAHelper extractDetectedBodiesForFrame:dataCopy];
+  if ([v275 count])
   {
-    v155 = [v270 objectForKeyedSubscript:@"bodies"];
-    [v275 setObject:v155 forKeyedSubscript:@"detectedBodies"];
+    v155 = [v275 objectForKeyedSubscript:@"bodies"];
+    [v280 setObject:v155 forKeyedSubscript:@"detectedBodies"];
 
-    v156 = [v270 objectForKeyedSubscript:@"trackingStates"];
-    [v275 setObject:v156 forKeyedSubscript:@"detectedBodiesTrackingStates"];
+    v156 = [v275 objectForKeyedSubscript:@"trackingStates"];
+    [v280 setObject:v156 forKeyedSubscript:@"detectedBodiesTrackingStates"];
   }
 
   currentlyActiveVideoFormat = [dataCopy currentlyActiveVideoFormat];
@@ -1523,7 +1522,7 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
   {
     currentlyActiveVideoFormat2 = [dataCopy currentlyActiveVideoFormat];
     captureDeviceType = [currentlyActiveVideoFormat2 captureDeviceType];
-    [v275 setObject:captureDeviceType forKeyedSubscript:@"currentlyActiveCameraForVIO"];
+    [v280 setObject:captureDeviceType forKeyedSubscript:@"currentlyActiveCameraForVIO"];
   }
 
   if (jCopy)
@@ -1534,9 +1533,9 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
 
     if ([v163 count])
     {
-      v288 = 0;
-      v164 = ARCreateOBJStringForMeshAnchors(v163, &v288, 1.0);
-      v165 = v288;
+      v293 = 0;
+      v164 = ARCreateOBJStringForMeshAnchors(v163, &v293, 1.0);
+      v165 = v293;
       if (v165)
       {
         v166 = v165;
@@ -1546,7 +1545,7 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
         }
 
         v167 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v168 = _ARLogGeneral();
+        v168 = _ARLogGeneral(v165);
         v169 = v168;
         if (v167 == 1)
         {
@@ -1566,10 +1565,10 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
 
         else if (os_log_type_enabled(v168, OS_LOG_TYPE_INFO))
         {
-          v179 = objc_opt_class();
-          v180 = NSStringFromClass(v179);
+          v180 = objc_opt_class();
+          v181 = NSStringFromClass(v180);
           LODWORD(buf[0].f64[0]) = 138543874;
-          *(buf[0].f64 + 4) = v180;
+          *(buf[0].f64 + 4) = v181;
           WORD2(buf[0].f64[1]) = 2048;
           *(&buf[0].f64[1] + 6) = self;
           HIWORD(buf[1].f64[0]) = 2112;
@@ -1584,307 +1583,310 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
         indexCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"meshAnchors_%lu.obj", indexCopy];
         v169 = [v172 stringByAppendingPathComponent:indexCopy];
 
-        v287 = 0;
-        [v164 writeToFile:v169 atomically:1 encoding:4 error:&v287];
-        v166 = v287;
-        if (v166)
+        v292 = 0;
+        [v164 writeToFile:v169 atomically:1 encoding:4 error:&v292];
+        v174 = v292;
+        v166 = v174;
+        if (v174)
         {
           if (ARShouldUseLogTypeError(void)::onceToken != -1)
           {
             +[ARQAHelper traceFrameData:withFrameIndex:writeOBJ:];
           }
 
-          v174 = ARShouldUseLogTypeError(void)::internalOSVersion;
-          v175 = _ARLogGeneral();
-          v176 = v175;
-          if (v174 == 1)
+          v175 = ARShouldUseLogTypeError(void)::internalOSVersion;
+          v176 = _ARLogGeneral(v174);
+          v177 = v176;
+          if (v175 == 1)
           {
-            if (os_log_type_enabled(v175, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v176, OS_LOG_TYPE_ERROR))
             {
-              v177 = objc_opt_class();
-              v178 = NSStringFromClass(v177);
+              v178 = objc_opt_class();
+              v179 = NSStringFromClass(v178);
               LODWORD(buf[0].f64[0]) = 138543874;
-              *(buf[0].f64 + 4) = v178;
+              *(buf[0].f64 + 4) = v179;
               WORD2(buf[0].f64[1]) = 2048;
               *(&buf[0].f64[1] + 6) = self;
               HIWORD(buf[1].f64[0]) = 2112;
               *&buf[1].f64[1] = v166;
-              _os_log_impl(&dword_1C241C000, v176, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not save obj for mesh anchors due to error: %@", buf, 0x20u);
+              _os_log_impl(&dword_1C241C000, v177, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not save obj for mesh anchors due to error: %@", buf, 0x20u);
             }
           }
 
-          else if (os_log_type_enabled(v175, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v176, OS_LOG_TYPE_INFO))
           {
-            v181 = objc_opt_class();
-            v182 = NSStringFromClass(v181);
+            v182 = objc_opt_class();
+            v183 = NSStringFromClass(v182);
             LODWORD(buf[0].f64[0]) = 138543874;
-            *(buf[0].f64 + 4) = v182;
+            *(buf[0].f64 + 4) = v183;
             WORD2(buf[0].f64[1]) = 2048;
             *(&buf[0].f64[1] + 6) = self;
             HIWORD(buf[1].f64[0]) = 2112;
             *&buf[1].f64[1] = v166;
-            _os_log_impl(&dword_1C241C000, v176, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not save obj for mesh anchors due to error: %@", buf, 0x20u);
+            _os_log_impl(&dword_1C241C000, v177, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not save obj for mesh anchors due to error: %@", buf, 0x20u);
           }
 
-          [v275 setObject:v166 forKeyedSubscript:@"meshAnchorsObjFileError"];
+          [v280 setObject:v166 forKeyedSubscript:@"meshAnchorsObjFileError"];
         }
 
         else
         {
-          [v275 setObject:v169 forKeyedSubscript:@"meshAnchorsObjFile"];
+          [v280 setObject:v169 forKeyedSubscript:@"meshAnchorsObjFile"];
         }
       }
     }
 
     anchors2 = [dataCopy anchors];
-    v184 = [MEMORY[0x1E696AE18] predicateWithFormat:@"class == %@", objc_opt_class()];
-    v185 = [anchors2 filteredArrayUsingPredicate:v184];
+    v185 = [MEMORY[0x1E696AE18] predicateWithFormat:@"class == %@", objc_opt_class()];
+    v186 = [anchors2 filteredArrayUsingPredicate:v185];
 
-    if ([v185 count])
+    if ([v186 count])
     {
-      v286 = 0;
-      v186 = ARCreateOBJStringForPlaneAnchors(v185, &v286, 1.0);
-      v187 = v286;
-      if (v187)
+      v291 = 0;
+      v187 = ARCreateOBJStringForPlaneAnchors(v186, &v291, 1.0);
+      v188 = v291;
+      if (v188)
       {
-        v188 = v187;
+        v189 = v188;
         if (ARShouldUseLogTypeError(void)::onceToken != -1)
         {
           +[ARQAHelper traceFrameData:withFrameIndex:writeOBJ:];
         }
 
-        v189 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v190 = _ARLogGeneral();
-        v191 = v190;
-        if (v189 == 1)
+        v190 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v191 = _ARLogGeneral(v188);
+        v192 = v191;
+        if (v190 == 1)
         {
-          if (os_log_type_enabled(v190, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v191, OS_LOG_TYPE_ERROR))
           {
-            v192 = objc_opt_class();
-            v193 = NSStringFromClass(v192);
+            v193 = objc_opt_class();
+            v194 = NSStringFromClass(v193);
             LODWORD(buf[0].f64[0]) = 138543874;
-            *(buf[0].f64 + 4) = v193;
+            *(buf[0].f64 + 4) = v194;
             WORD2(buf[0].f64[1]) = 2048;
             *(&buf[0].f64[1] + 6) = self;
             HIWORD(buf[1].f64[0]) = 2112;
-            *&buf[1].f64[1] = v188;
-            _os_log_impl(&dword_1C241C000, v191, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not create obj for mesh anchors due to error: %@", buf, 0x20u);
+            *&buf[1].f64[1] = v189;
+            _os_log_impl(&dword_1C241C000, v192, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not create obj for mesh anchors due to error: %@", buf, 0x20u);
           }
         }
 
-        else if (os_log_type_enabled(v190, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v191, OS_LOG_TYPE_INFO))
         {
-          v201 = objc_opt_class();
-          v202 = NSStringFromClass(v201);
+          v203 = objc_opt_class();
+          v204 = NSStringFromClass(v203);
           LODWORD(buf[0].f64[0]) = 138543874;
-          *(buf[0].f64 + 4) = v202;
+          *(buf[0].f64 + 4) = v204;
           WORD2(buf[0].f64[1]) = 2048;
           *(&buf[0].f64[1] + 6) = self;
           HIWORD(buf[1].f64[0]) = 2112;
-          *&buf[1].f64[1] = v188;
-          _os_log_impl(&dword_1C241C000, v191, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not create obj for mesh anchors due to error: %@", buf, 0x20u);
+          *&buf[1].f64[1] = v189;
+          _os_log_impl(&dword_1C241C000, v192, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not create obj for mesh anchors due to error: %@", buf, 0x20u);
         }
       }
 
       else
       {
-        v194 = +[ARQATracer traceOutputDirectory];
+        v195 = +[ARQATracer traceOutputDirectory];
         indexCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"planeAnchors_%lu.obj", indexCopy];
-        v191 = [v194 stringByAppendingPathComponent:indexCopy2];
+        v192 = [v195 stringByAppendingPathComponent:indexCopy2];
 
-        v285 = 0;
-        [v186 writeToFile:v191 atomically:1 encoding:4 error:&v285];
-        v188 = v285;
-        if (v188)
+        v290 = 0;
+        [v187 writeToFile:v192 atomically:1 encoding:4 error:&v290];
+        v197 = v290;
+        v189 = v197;
+        if (v197)
         {
           if (ARShouldUseLogTypeError(void)::onceToken != -1)
           {
             +[ARQAHelper traceFrameData:withFrameIndex:writeOBJ:];
           }
 
-          v196 = ARShouldUseLogTypeError(void)::internalOSVersion;
-          v197 = _ARLogGeneral();
-          v198 = v197;
-          if (v196 == 1)
+          v198 = ARShouldUseLogTypeError(void)::internalOSVersion;
+          v199 = _ARLogGeneral(v197);
+          v200 = v199;
+          if (v198 == 1)
           {
-            if (os_log_type_enabled(v197, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v199, OS_LOG_TYPE_ERROR))
             {
-              v199 = objc_opt_class();
-              v200 = NSStringFromClass(v199);
+              v201 = objc_opt_class();
+              v202 = NSStringFromClass(v201);
               LODWORD(buf[0].f64[0]) = 138543874;
-              *(buf[0].f64 + 4) = v200;
+              *(buf[0].f64 + 4) = v202;
               WORD2(buf[0].f64[1]) = 2048;
               *(&buf[0].f64[1] + 6) = self;
               HIWORD(buf[1].f64[0]) = 2112;
-              *&buf[1].f64[1] = v188;
-              _os_log_impl(&dword_1C241C000, v198, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not save obj for mesh anchors due to error: %@", buf, 0x20u);
+              *&buf[1].f64[1] = v189;
+              _os_log_impl(&dword_1C241C000, v200, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not save obj for mesh anchors due to error: %@", buf, 0x20u);
             }
           }
 
-          else if (os_log_type_enabled(v197, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v199, OS_LOG_TYPE_INFO))
           {
-            v203 = objc_opt_class();
-            v204 = NSStringFromClass(v203);
+            v205 = objc_opt_class();
+            v206 = NSStringFromClass(v205);
             LODWORD(buf[0].f64[0]) = 138543874;
-            *(buf[0].f64 + 4) = v204;
+            *(buf[0].f64 + 4) = v206;
             WORD2(buf[0].f64[1]) = 2048;
             *(&buf[0].f64[1] + 6) = self;
             HIWORD(buf[1].f64[0]) = 2112;
-            *&buf[1].f64[1] = v188;
-            _os_log_impl(&dword_1C241C000, v198, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not save obj for mesh anchors due to error: %@", buf, 0x20u);
+            *&buf[1].f64[1] = v189;
+            _os_log_impl(&dword_1C241C000, v200, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not save obj for mesh anchors due to error: %@", buf, 0x20u);
           }
 
-          [v275 setObject:v188 forKeyedSubscript:@"planeAnchorsObjFileError"];
+          [v280 setObject:v189 forKeyedSubscript:@"planeAnchorsObjFileError"];
         }
 
         else
         {
-          [v275 setObject:v191 forKeyedSubscript:@"planeAnchorsObjFile"];
+          [v280 setObject:v192 forKeyedSubscript:@"planeAnchorsObjFile"];
         }
       }
     }
   }
 
   resultDatas4 = [dataCopy resultDatas];
-  v206 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_453];
-  v207 = [resultDatas4 filteredArrayUsingPredicate:v206];
-  firstObject6 = [v207 firstObject];
+  v208 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_453];
+  v209 = [resultDatas4 filteredArrayUsingPredicate:v208];
+  firstObject6 = [v209 firstObject];
 
-  v208 = [firstObject6 resultDataOfClass:objc_opt_class()];
-  firstObject7 = [v208 firstObject];
+  v210 = [firstObject6 resultDataOfClass:objc_opt_class()];
+  firstObject7 = [v210 firstObject];
 
-  v209 = [firstObject6 resultDataOfClass:objc_opt_class()];
-  firstObject8 = [v209 firstObject];
+  v211 = [firstObject6 resultDataOfClass:objc_opt_class()];
+  firstObject8 = [v211 firstObject];
 
-  v210 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.session.qatracing.dumpSemanticSegmantationData"];
+  v212 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.session.qatracing.dumpSemanticSegmantationData"];
   if (firstObject7)
   {
-    v211 = v210;
+    v213 = v212;
   }
 
   else
   {
-    v211 = 0;
+    v213 = 0;
   }
 
-  if (v211 && [firstObject7 source] == 2)
+  if (v213 && [firstObject7 source] == 2)
   {
     sourceImageData = [firstObject7 sourceImageData];
     isBackUltraWide = [sourceImageData isBackUltraWide];
 
     if (isBackUltraWide)
     {
-      v214 = +[ARQATracer traceOutputDirectory];
+      v216 = +[ARQATracer traceOutputDirectory];
       indexCopy3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ultraWideImage_%lu.png", indexCopy];
-      v216 = [v214 stringByAppendingPathComponent:indexCopy3];
+      v218 = [v216 stringByAppendingPathComponent:indexCopy3];
 
       sourceImageData2 = [firstObject7 sourceImageData];
-      v218 = ARSavePixelBufferPNG([sourceImageData2 pixelBuffer], v216) == 0;
+      v220 = ARSavePixelBufferPNG([sourceImageData2 pixelBuffer], v218) == 0;
 
-      if (!v218)
+      if (!v220)
       {
         if (ARShouldUseLogTypeError(void)::onceToken != -1)
         {
           +[ARQAHelper traceFrameData:withFrameIndex:writeOBJ:];
         }
 
-        v219 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v220 = _ARLogGeneral();
-        v221 = v220;
-        if (v219 == 1)
+        v222 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v223 = _ARLogGeneral(v221);
+        v224 = v223;
+        if (v222 == 1)
         {
-          if (os_log_type_enabled(v220, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v223, OS_LOG_TYPE_ERROR))
           {
-            v222 = objc_opt_class();
-            v223 = NSStringFromClass(v222);
+            v225 = objc_opt_class();
+            v226 = NSStringFromClass(v225);
             LODWORD(buf[0].f64[0]) = 138543618;
-            *(buf[0].f64 + 4) = v223;
+            *(buf[0].f64 + 4) = v226;
             WORD2(buf[0].f64[1]) = 2048;
             *(&buf[0].f64[1] + 6) = self;
-            _os_log_impl(&dword_1C241C000, v221, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not save ultrawide image to file", buf, 0x16u);
+            _os_log_impl(&dword_1C241C000, v224, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not save ultrawide image to file", buf, 0x16u);
           }
         }
 
-        else if (os_log_type_enabled(v220, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v223, OS_LOG_TYPE_INFO))
         {
-          v224 = objc_opt_class();
-          v225 = NSStringFromClass(v224);
+          v227 = objc_opt_class();
+          v228 = NSStringFromClass(v227);
           LODWORD(buf[0].f64[0]) = 138543618;
-          *(buf[0].f64 + 4) = v225;
+          *(buf[0].f64 + 4) = v228;
           WORD2(buf[0].f64[1]) = 2048;
           *(&buf[0].f64[1] + 6) = self;
-          _os_log_impl(&dword_1C241C000, v221, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not save ultrawide image to file", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v224, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not save ultrawide image to file", buf, 0x16u);
         }
       }
 
-      [v275 setObject:v216 forKeyedSubscript:@"semanticSegmentationUndistoredUltraWideImage"];
+      [v280 setObject:v218 forKeyedSubscript:@"semanticSegmentationUndistoredUltraWideImage"];
     }
 
     if (firstObject8)
     {
-      v283 = 0u;
-      v284 = 0u;
-      v281 = 0u;
-      v282 = 0u;
+      v288 = 0u;
+      v289 = 0u;
+      v286 = 0u;
+      v287 = 0u;
       downScalingResults = [firstObject8 downScalingResults];
-      v227 = [downScalingResults countByEnumeratingWithState:&v281 objects:v293 count:16];
-      if (v227)
+      v230 = [downScalingResults countByEnumeratingWithState:&v286 objects:v298 count:16];
+      if (v230)
       {
-        v228 = *v282;
+        v231 = *v287;
         do
         {
-          v229 = 0;
+          v232 = 0;
           do
           {
-            if (*v282 != v228)
+            if (*v287 != v231)
             {
               objc_enumerationMutation(downScalingResults);
             }
 
-            v230 = *(*(&v281 + 1) + 8 * v229);
-            if ([v230 pixelBuffer])
+            v233 = *(*(&v286 + 1) + 8 * v232);
+            if ([v233 pixelBuffer])
             {
-              v231 = MEMORY[0x1E696AEC0];
-              [v230 imageResolution];
-              v233 = v232;
-              [v230 imageResolution];
-              indexCopy4 = [v231 stringWithFormat:@"mlImage%dx%d_%lu.png", v233, v234, indexCopy];
-              v236 = +[ARQATracer traceOutputDirectory];
-              v237 = [v236 stringByAppendingPathComponent:indexCopy4];
+              v234 = MEMORY[0x1E696AEC0];
+              [v233 imageResolution];
+              v236 = v235;
+              [v233 imageResolution];
+              indexCopy4 = [v234 stringWithFormat:@"mlImage%dx%d_%lu.png", v236, v237, indexCopy];
+              v239 = +[ARQATracer traceOutputDirectory];
+              v240 = [v239 stringByAppendingPathComponent:indexCopy4];
 
-              if (ARSavePixelBufferPNG([v230 pixelBuffer], v237))
+              v241 = ARSavePixelBufferPNG([v233 pixelBuffer], v240);
+              if (v241)
               {
                 if (ARShouldUseLogTypeError(void)::onceToken != -1)
                 {
                   +[ARQAHelper traceFrameData:withFrameIndex:writeOBJ:];
                 }
 
-                v238 = ARShouldUseLogTypeError(void)::internalOSVersion;
-                v239 = _ARLogGeneral();
-                v240 = v239;
-                if (v238 == 1)
+                v242 = ARShouldUseLogTypeError(void)::internalOSVersion;
+                v243 = _ARLogGeneral(v241);
+                v244 = v243;
+                if (v242 == 1)
                 {
-                  if (os_log_type_enabled(v239, OS_LOG_TYPE_ERROR))
+                  if (os_log_type_enabled(v243, OS_LOG_TYPE_ERROR))
                   {
-                    v241 = objc_opt_class();
-                    v242 = NSStringFromClass(v241);
+                    v245 = objc_opt_class();
+                    v246 = NSStringFromClass(v245);
                     LODWORD(buf[0].f64[0]) = 138543618;
-                    *(buf[0].f64 + 4) = v242;
+                    *(buf[0].f64 + 4) = v246;
                     WORD2(buf[0].f64[1]) = 2048;
                     *(&buf[0].f64[1] + 6) = self;
-                    _os_log_impl(&dword_1C241C000, v240, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not save ml image to file", buf, 0x16u);
+                    _os_log_impl(&dword_1C241C000, v244, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not save ml image to file", buf, 0x16u);
                   }
                 }
 
-                else if (os_log_type_enabled(v239, OS_LOG_TYPE_INFO))
+                else if (os_log_type_enabled(v243, OS_LOG_TYPE_INFO))
                 {
-                  v243 = objc_opt_class();
-                  v244 = NSStringFromClass(v243);
+                  v247 = objc_opt_class();
+                  v248 = NSStringFromClass(v247);
                   LODWORD(buf[0].f64[0]) = 138543618;
-                  *(buf[0].f64 + 4) = v244;
+                  *(buf[0].f64 + 4) = v248;
                   WORD2(buf[0].f64[1]) = 2048;
                   *(&buf[0].f64[1] + 6) = self;
-                  _os_log_impl(&dword_1C241C000, v240, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not save ml image to file", buf, 0x16u);
+                  _os_log_impl(&dword_1C241C000, v244, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not save ml image to file", buf, 0x16u);
                 }
               }
             }
@@ -1895,81 +1897,82 @@ uint64_t __40__ARQAHelper_extractAnchorDataForFrame___block_invoke(uint64_t a1, 
 
             if ([firstObject9 undistortedPixelBuffer])
             {
-              v248 = MEMORY[0x1E696AEC0];
-              v249 = CVPixelBufferGetWidth([firstObject9 undistortedPixelBuffer]);
-              indexCopy5 = [v248 stringWithFormat:@"undistortedPixelBuffer%dx%d_%lu.png", v249, CVPixelBufferGetHeight(objc_msgSend(firstObject9, "undistortedPixelBuffer")), indexCopy];
-              v251 = +[ARQATracer traceOutputDirectory];
-              v252 = [v251 stringByAppendingPathComponent:indexCopy5];
+              v252 = MEMORY[0x1E696AEC0];
+              v253 = CVPixelBufferGetWidth([firstObject9 undistortedPixelBuffer]);
+              indexCopy5 = [v252 stringWithFormat:@"undistortedPixelBuffer%dx%d_%lu.png", v253, CVPixelBufferGetHeight(objc_msgSend(firstObject9, "undistortedPixelBuffer")), indexCopy];
+              v255 = +[ARQATracer traceOutputDirectory];
+              v256 = [v255 stringByAppendingPathComponent:indexCopy5];
 
-              if (ARSavePixelBufferPNG([firstObject9 undistortedPixelBuffer], v252))
+              v257 = ARSavePixelBufferPNG([firstObject9 undistortedPixelBuffer], v256);
+              if (v257)
               {
                 if (ARShouldUseLogTypeError(void)::onceToken != -1)
                 {
                   +[ARQAHelper traceFrameData:withFrameIndex:writeOBJ:];
                 }
 
-                v253 = ARShouldUseLogTypeError(void)::internalOSVersion;
-                v254 = _ARLogGeneral();
-                v255 = v254;
-                if (v253 == 1)
+                v258 = ARShouldUseLogTypeError(void)::internalOSVersion;
+                v259 = _ARLogGeneral(v257);
+                v260 = v259;
+                if (v258 == 1)
                 {
-                  if (os_log_type_enabled(v254, OS_LOG_TYPE_ERROR))
+                  if (os_log_type_enabled(v259, OS_LOG_TYPE_ERROR))
                   {
-                    v256 = objc_opt_class();
-                    v257 = NSStringFromClass(v256);
+                    v261 = objc_opt_class();
+                    v262 = NSStringFromClass(v261);
                     LODWORD(buf[0].f64[0]) = 138543618;
-                    *(buf[0].f64 + 4) = v257;
+                    *(buf[0].f64 + 4) = v262;
                     WORD2(buf[0].f64[1]) = 2048;
                     *(&buf[0].f64[1] + 6) = self;
-                    _os_log_impl(&dword_1C241C000, v255, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not save undistored image to file", buf, 0x16u);
+                    _os_log_impl(&dword_1C241C000, v260, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not save undistored image to file", buf, 0x16u);
                   }
                 }
 
-                else if (os_log_type_enabled(v254, OS_LOG_TYPE_INFO))
+                else if (os_log_type_enabled(v259, OS_LOG_TYPE_INFO))
                 {
-                  v258 = objc_opt_class();
-                  v259 = NSStringFromClass(v258);
+                  v263 = objc_opt_class();
+                  v264 = NSStringFromClass(v263);
                   LODWORD(buf[0].f64[0]) = 138543618;
-                  *(buf[0].f64 + 4) = v259;
+                  *(buf[0].f64 + 4) = v264;
                   WORD2(buf[0].f64[1]) = 2048;
                   *(&buf[0].f64[1] + 6) = self;
-                  _os_log_impl(&dword_1C241C000, v255, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not save undistored image to file", buf, 0x16u);
+                  _os_log_impl(&dword_1C241C000, v260, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not save undistored image to file", buf, 0x16u);
                 }
               }
             }
 
-            ++v229;
+            ++v232;
           }
 
-          while (v227 != v229);
-          v227 = [downScalingResults countByEnumeratingWithState:&v281 objects:v293 count:16];
+          while (v230 != v232);
+          v230 = [downScalingResults countByEnumeratingWithState:&v286 objects:v298 count:16];
         }
 
-        while (v227);
+        while (v230);
       }
     }
 
     CVPixelBufferLockBaseAddress([firstObject7 segmentationBuffer], 0);
-    v260 = +[ARQATracer traceOutputDirectory];
+    v265 = +[ARQATracer traceOutputDirectory];
     indexCopy6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"semanticSegmentation_%lu.png", indexCopy];
-    v262 = [v260 stringByAppendingPathComponent:indexCopy6];
+    v267 = [v265 stringByAppendingPathComponent:indexCopy6];
 
-    LODWORD(v260) = CVPixelBufferGetWidth([firstObject7 segmentationBuffer]);
+    LODWORD(v265) = CVPixelBufferGetWidth([firstObject7 segmentationBuffer]);
     LODWORD(indexCopy6) = CVPixelBufferGetHeight([firstObject7 segmentationBuffer]);
-    v263 = CVPixelBufferGetBytesPerRow([firstObject7 segmentationBuffer]);
-    v264 = CVPixelBufferGetBaseAddress([firstObject7 segmentationBuffer]);
+    v268 = CVPixelBufferGetBytesPerRow([firstObject7 segmentationBuffer]);
+    v269 = CVPixelBufferGetBaseAddress([firstObject7 segmentationBuffer]);
     buf[0].f64[0] = 0.0;
-    *&buf[0].f64[1] = v260 | (indexCopy6 << 32);
-    *&buf[1].f64[0] = (v263 << 32) | 1;
-    *&buf[1].f64[1] = v264;
-    v265 = v262;
-    [v262 UTF8String];
+    *&buf[0].f64[1] = v265 | (indexCopy6 << 32);
+    *&buf[1].f64[0] = (v268 << 32) | 1;
+    *&buf[1].f64[1] = v269;
+    v270 = v267;
+    [v267 UTF8String];
     cva::imwrite<unsigned char>();
-    [v275 setObject:v262 forKeyedSubscript:@"semanticSegmentationLabelsFile"];
+    [v280 setObject:v267 forKeyedSubscript:@"semanticSegmentationLabelsFile"];
     CVPixelBufferUnlockBaseAddress([firstObject7 segmentationBuffer], 0);
   }
 
-  return v275;
+  return v280;
 }
 
 uint64_t __53__ARQAHelper_traceFrameData_withFrameIndex_writeOBJ___block_invoke(uint64_t a1, void *a2)
@@ -2321,7 +2324,7 @@ uint64_t __53__ARQAHelper_traceFrameData_withFrameIndex_writeOBJ___block_invoke_
   uUIDString = [identifier UUIDString];
   [v4 setObject:uUIDString forKeyedSubscript:@"identifier"];
 
-  [anchorCopy transform];
+  objc_msgSend_transform(anchorCopy);
   v7 = [ARQAHelper arrayWithMatrix4x4:?];
   [v4 setObject:v7 forKeyedSubscript:@"transform"];
 

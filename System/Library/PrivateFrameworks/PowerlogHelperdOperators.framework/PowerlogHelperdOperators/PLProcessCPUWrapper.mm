@@ -18,9 +18,10 @@
 
 uint64_t __28__PLProcessCPUWrapper_start__block_invoke()
 {
-  +[PLProcessCPUWrapper start]::sharedPLProcessCpuWrapper = objc_alloc_init(PLProcessCPUWrapper);
+  v0 = objc_alloc_init(PLProcessCPUWrapper);
+  +[PLProcessCPUWrapper start]::sharedPLProcessCpuWrapper = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 @end

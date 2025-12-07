@@ -36,7 +36,7 @@
 
 - (void)performBlockForFontsInBundle:(id)bundle
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   selfCopy = self;
@@ -45,26 +45,26 @@
   localDraftPath = [headline localDraftPath];
   v9 = [defaultManager contentsOfDirectoryAtPath:localDraftPath error:0];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = v9;
-  v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v26;
+    v12 = *v25;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v25 + 1) + 8 * i);
+        v14 = *(*(&v24 + 1) + 8 * i);
         pathExtension = [v14 pathExtension];
         if (([pathExtension isEqualToString:@"ttf"] & 1) != 0 || objc_msgSend(pathExtension, "isEqualToString:", @"otf"))
         {
@@ -79,13 +79,11 @@
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v11 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v11);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadContextWithCompletionBlock:(id)block
@@ -256,7 +254,7 @@ void __74__NUBundledArticleDataProvider_loadImagesForImageRequest_completionBloc
 
 void __74__NUBundledArticleDataProvider_loadImagesForImageRequest_completionBlock___block_invoke_2(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) loadingBlock];
 
   if (v2)
@@ -268,12 +266,10 @@ void __74__NUBundledArticleDataProvider_loadImagesForImageRequest_completionBloc
   v4 = *(a1 + 48);
   if (v4)
   {
-    v7[0] = *(a1 + 40);
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+    v6[0] = *(a1 + 40);
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
     (*(v4 + 16))(v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fileURLForURL:(id)l onCompletion:(id)completion onError:(id)error

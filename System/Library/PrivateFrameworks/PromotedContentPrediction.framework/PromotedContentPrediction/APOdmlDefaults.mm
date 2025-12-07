@@ -7,6 +7,7 @@
 + (id)stringForKey:(id)key;
 + (int64_t)integerForKey:(id)key;
 + (void)_setDefaultValue:(id)value forKey:(id)key;
++ (void)setBool:(BOOL)bool forKey:(id)key;
 + (void)setDouble:(double)double forKey:(id)key;
 + (void)setInteger:(int64_t)integer forKey:(id)key;
 - (APOdmlDefaults)init;
@@ -33,9 +34,9 @@
 
 - (APOdmlDefaults)init
 {
-  v13.receiver = self;
-  v13.super_class = APOdmlDefaults;
-  v2 = [(APOdmlDefaults *)&v13 init];
+  v8.receiver = self;
+  v8.super_class = APOdmlDefaults;
+  v2 = [(APOdmlDefaults *)&v8 init];
   if (v2)
   {
     v3 = CPCopySharedResourcesPreferencesDomainForDomain();
@@ -51,12 +52,12 @@
 
     if (MGGetBoolAnswer())
     {
-      objc_msgSend_setObject_forKeyedSubscript_(v2->_factoryDefaults, v6, &stru_2873677E0, @"ODMLpTTROverride");
-      objc_msgSend_setObject_forKeyedSubscript_(v2->_factoryDefaults, v7, &stru_2873677E0, @"ODMLAppVectorVersionOverride");
-      objc_msgSend_setObject_forKeyedSubscript_(v2->_factoryDefaults, v8, &stru_2873677E0, @"ODMLAppVectorVectorOverride");
-      v9 = MEMORY[0x277CBEC28];
-      objc_msgSend_setObject_forKeyedSubscript_(v2->_factoryDefaults, v10, MEMORY[0x277CBEC28], @"ODMLEnableOverrides");
-      objc_msgSend_setObject_forKeyedSubscript_(v2->_factoryDefaults, v11, v9, @"VerboseLogging");
+      [(NSMutableDictionary *)v2->_factoryDefaults setObject:&stru_2873677E0 forKeyedSubscript:@"ODMLpTTROverride"];
+      [(NSMutableDictionary *)v2->_factoryDefaults setObject:&stru_2873677E0 forKeyedSubscript:@"ODMLAppVectorVersionOverride"];
+      [(NSMutableDictionary *)v2->_factoryDefaults setObject:&stru_2873677E0 forKeyedSubscript:@"ODMLAppVectorVectorOverride"];
+      v6 = MEMORY[0x277CBEC28];
+      [(NSMutableDictionary *)v2->_factoryDefaults setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"ODMLEnableOverrides"];
+      [(NSMutableDictionary *)v2->_factoryDefaults setObject:v6 forKeyedSubscript:@"VerboseLogging"];
     }
   }
 
@@ -66,99 +67,103 @@
 + (id)_defaultValueForKey:(id)key valueClass:(Class)class
 {
   keyCopy = key;
-  v7 = objc_msgSend_sharedInstance(APOdmlDefaults, v5, v6);
-  v8 = CFPreferencesCopyAppValue(keyCopy, v7[2]);
+  v5 = +[APOdmlDefaults sharedInstance];
+  v6 = CFPreferencesCopyAppValue(keyCopy, v5[2]);
 
-  if (!v8)
+  if (!v6)
   {
-    v11 = objc_msgSend_sharedInstance(APOdmlDefaults, v9, v10);
-    v8 = objc_msgSend_objectForKeyedSubscript_(v11[1], v12, keyCopy);
+    v7 = +[APOdmlDefaults sharedInstance];
+    v6 = [v7[1] objectForKeyedSubscript:keyCopy];
   }
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v8 = 0;
+    v6 = 0;
   }
 
-  return v8;
+  return v6;
 }
 
 + (void)_setDefaultValue:(id)value forKey:(id)key
 {
   keyCopy = key;
   valueCopy = value;
-  v9 = objc_msgSend_sharedInstance(APOdmlDefaults, v7, v8);
-  CFPreferencesSetAppValue(keyCopy, valueCopy, v9[2]);
+  v7 = +[APOdmlDefaults sharedInstance];
+  CFPreferencesSetAppValue(keyCopy, valueCopy, v7[2]);
 
-  v12 = objc_msgSend_sharedInstance(APOdmlDefaults, v10, v11);
-  CFPreferencesAppSynchronize(v12[2]);
+  v8 = +[APOdmlDefaults sharedInstance];
+  CFPreferencesAppSynchronize(v8[2]);
 }
 
 + (BOOL)BOOLForKey:(id)key
 {
   keyCopy = key;
-  v5 = objc_opt_class();
-  v7 = objc_msgSend__defaultValueForKey_valueClass_(self, v6, keyCopy, v5);
+  v5 = [self _defaultValueForKey:keyCopy valueClass:objc_opt_class()];
 
-  v10 = objc_msgSend_BOOLValue(v7, v8, v9);
-  return v10;
+  bOOLValue = [v5 BOOLValue];
+  return bOOLValue;
+}
+
++ (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v6 = MEMORY[0x277CCABB0];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:boolCopy];
+  [self _setDefaultValue:v8 forKey:keyCopy];
 }
 
 + (int64_t)integerForKey:(id)key
 {
   keyCopy = key;
-  v5 = objc_opt_class();
-  v7 = objc_msgSend__defaultValueForKey_valueClass_(self, v6, keyCopy, v5);
+  v5 = [self _defaultValueForKey:keyCopy valueClass:objc_opt_class()];
 
-  v10 = objc_msgSend_integerValue(v7, v8, v9);
-  return v10;
+  integerValue = [v5 integerValue];
+  return integerValue;
 }
 
 + (void)setInteger:(int64_t)integer forKey:(id)key
 {
   v6 = MEMORY[0x277CCABB0];
   keyCopy = key;
-  v10 = objc_msgSend_numberWithInteger_(v6, v8, integer);
-  objc_msgSend__setDefaultValue_forKey_(self, v9, v10, keyCopy);
+  v8 = [v6 numberWithInteger:integer];
+  [self _setDefaultValue:v8 forKey:keyCopy];
 }
 
 + (double)doubleForKey:(id)key
 {
   keyCopy = key;
-  v5 = objc_opt_class();
-  v7 = objc_msgSend__defaultValueForKey_valueClass_(self, v6, keyCopy, v5);
+  v5 = [self _defaultValueForKey:keyCopy valueClass:objc_opt_class()];
 
-  objc_msgSend_doubleValue(v7, v8, v9);
-  v11 = v10;
+  [v5 doubleValue];
+  v7 = v6;
 
-  return v11;
+  return v7;
 }
 
 + (void)setDouble:(double)double forKey:(id)key
 {
   v6 = MEMORY[0x277CCABB0];
   keyCopy = key;
-  v11 = objc_msgSend_numberWithDouble_(v6, v8, v9, double);
-  objc_msgSend__setDefaultValue_forKey_(self, v10, v11, keyCopy);
+  v8 = [v6 numberWithDouble:double];
+  [self _setDefaultValue:v8 forKey:keyCopy];
 }
 
 + (id)stringForKey:(id)key
 {
   keyCopy = key;
-  v5 = objc_opt_class();
-  v7 = objc_msgSend__defaultValueForKey_valueClass_(self, v6, keyCopy, v5);
+  v5 = [self _defaultValueForKey:keyCopy valueClass:objc_opt_class()];
 
-  return v7;
+  return v5;
 }
 
 + (id)arrayForKey:(id)key
 {
   keyCopy = key;
-  v5 = objc_opt_class();
-  v7 = objc_msgSend__defaultValueForKey_valueClass_(self, v6, keyCopy, v5);
+  v5 = [self _defaultValueForKey:keyCopy valueClass:objc_opt_class()];
 
-  return v7;
+  return v5;
 }
 
 @end

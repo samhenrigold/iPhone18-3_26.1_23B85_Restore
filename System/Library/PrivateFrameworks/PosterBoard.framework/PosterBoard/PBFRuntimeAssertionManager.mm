@@ -97,7 +97,7 @@ id __34__PBFRuntimeAssertionManager_init__block_invoke(uint64_t a1)
 
 - (id)acquireAssertion:(id)assertion reason:(id)reason target:(id)target invalidationHandler:(id)handler
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   reasonCopy = reason;
   targetCopy = target;
@@ -138,44 +138,45 @@ id __34__PBFRuntimeAssertionManager_init__block_invoke(uint64_t a1)
     [PBFRuntimeAssertionManager acquireAssertion:a2 reason:? target:? invalidationHandler:?];
   }
 
-  if (([(BSAtomicFlag *)self->_invalidationFlag getFlag]& 1) != 0)
+  getFlag = [(BSAtomicFlag *)self->_invalidationFlag getFlag];
+  if (getFlag)
   {
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v19 = PBFLogRuntime();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = PBFLogRuntime(getFlag);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v35 = v15;
-      v36 = 2114;
-      v37 = v16;
-      v38 = 2114;
-      v39 = v17;
-      _os_log_impl(&dword_21B526000, v19, OS_LOG_TYPE_DEFAULT, "acquireAssertion:'%{public}@' reason:'%{public}@' target:'%{public}@'", buf, 0x20u);
+      v36 = v15;
+      v37 = 2114;
+      v38 = v16;
+      v39 = 2114;
+      v40 = v17;
+      _os_log_impl(&dword_21B526000, v20, OS_LOG_TYPE_DEFAULT, "acquireAssertion:'%{public}@' reason:'%{public}@' target:'%{public}@'", buf, 0x20u);
     }
 
-    v20 = [(PBFRuntimeAssertionManager *)self _buildRBSAssertionForTarget:v17 assertionIdentifier:v15 explanation:v16 invalidationHandler:handlerCopy];
-    v33 = 0;
-    v21 = [v20 acquireWithError:&v33];
-    v22 = v33;
-    v23 = PBFLogRuntime();
-    v24 = v23;
-    if (v21)
+    v21 = [(PBFRuntimeAssertionManager *)self _buildRBSAssertionForTarget:v17 assertionIdentifier:v15 explanation:v16 invalidationHandler:handlerCopy];
+    v34 = 0;
+    v22 = [v21 acquireWithError:&v34];
+    v23 = v34;
+    v24 = PBFLogRuntime(v23);
+    v25 = v24;
+    if (v22)
     {
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138544130;
-        v35 = v15;
-        v36 = 2114;
-        v37 = v16;
-        v38 = 2114;
-        v39 = v17;
-        v40 = 2114;
-        v41 = v22;
-        _os_log_impl(&dword_21B526000, v24, OS_LOG_TYPE_DEFAULT, "SUCCESS acquireAssertion:'%{public}@' reason:'%{public}@' target:'%{public}@': %{public}@", buf, 0x2Au);
+        v36 = v15;
+        v37 = 2114;
+        v38 = v16;
+        v39 = 2114;
+        v40 = v17;
+        v41 = 2114;
+        v42 = v23;
+        _os_log_impl(&dword_21B526000, v25, OS_LOG_TYPE_DEFAULT, "SUCCESS acquireAssertion:'%{public}@' reason:'%{public}@' target:'%{public}@': %{public}@", buf, 0x2Au);
       }
 
       stateQueue = self->_stateQueue;
@@ -184,43 +185,43 @@ id __34__PBFRuntimeAssertionManager_init__block_invoke(uint64_t a1)
       block[2] = __81__PBFRuntimeAssertionManager_acquireAssertion_reason_target_invalidationHandler___block_invoke;
       block[3] = &unk_2782C58B0;
       block[4] = self;
-      v18 = v20;
-      v32 = v18;
+      v19 = v21;
+      v33 = v19;
       dispatch_async(stateQueue, block);
     }
 
     else
     {
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 138544130;
-        v35 = v15;
-        v36 = 2114;
-        v37 = v16;
-        v38 = 2114;
-        v39 = v17;
-        v40 = 2114;
-        v41 = v22;
-        _os_log_error_impl(&dword_21B526000, v24, OS_LOG_TYPE_ERROR, "FAILED acquireAssertion:'%{public}@' reason:'%{public}@' target:'%{public}@': %{public}@", buf, 0x2Au);
+        v36 = v15;
+        v37 = 2114;
+        v38 = v16;
+        v39 = 2114;
+        v40 = v17;
+        v41 = 2114;
+        v42 = v23;
+        _os_log_error_impl(&dword_21B526000, v25, OS_LOG_TYPE_ERROR, "FAILED acquireAssertion:'%{public}@' reason:'%{public}@' target:'%{public}@': %{public}@", buf, 0x2Au);
       }
 
       if (handlerCopy)
       {
-        v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PBFRuntimeAssertionManager acquireAssertion:reason:target:invalidationHandler:]"];
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __81__PBFRuntimeAssertionManager_acquireAssertion_reason_target_invalidationHandler___block_invoke_33;
-        v28[3] = &unk_2782C6310;
-        v30 = handlerCopy;
-        v29 = v22;
-        PBFDispatchAsyncWithString(v26, QOS_CLASS_USER_INTERACTIVE, v28);
+        v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PBFRuntimeAssertionManager acquireAssertion:reason:target:invalidationHandler:]"];
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __81__PBFRuntimeAssertionManager_acquireAssertion_reason_target_invalidationHandler___block_invoke_33;
+        v29[3] = &unk_2782C6310;
+        v31 = handlerCopy;
+        v30 = v23;
+        PBFDispatchAsyncWithString(v27, QOS_CLASS_USER_INTERACTIVE, v29);
       }
 
-      v18 = 0;
+      v19 = 0;
     }
   }
 
-  return v18;
+  return v19;
 }
 
 void __81__PBFRuntimeAssertionManager_acquireAssertion_reason_target_invalidationHandler___block_invoke(uint64_t a1)
@@ -357,7 +358,7 @@ void __110__PBFRuntimeAssertionManager__buildRBSAssertionForTarget_assertionIden
   updateCopy = update;
   identifierCopy = identifier;
   errorCopy = error;
-  v11 = PBFLogRuntime();
+  v11 = PBFLogRuntime(errorCopy);
   v12 = v11;
   if (errorCopy)
   {
@@ -696,7 +697,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
 
 - (void)acquireAssertion:(char *)a1 reason:target:invalidationHandler:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -704,7 +705,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -714,7 +715,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
 
 - (void)acquireAssertion:(char *)a1 reason:target:invalidationHandler:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -722,7 +723,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -732,7 +733,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
 
 - (void)acquireAssertion:(char *)a1 reason:target:invalidationHandler:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:RBSTargetClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -740,7 +741,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:RBSTargetClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -750,7 +751,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
 
 - (void)acquireAssertion:(char *)a1 reason:target:invalidationHandler:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -758,7 +759,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -768,7 +769,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
 
 - (void)acquireAssertion:(char *)a1 reason:target:invalidationHandler:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -776,7 +777,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -786,7 +787,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
 
 - (void)acquireAssertion:(char *)a1 reason:target:invalidationHandler:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -794,7 +795,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -804,7 +805,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
 
 - (void)_buildRBSAssertionForTarget:(char *)a1 assertionIdentifier:explanation:invalidationHandler:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:RBSTargetClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -812,7 +813,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:RBSTargetClass]", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -823,7 +824,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
 
 - (void)_buildRBSAssertionForTarget:(char *)a1 assertionIdentifier:explanation:invalidationHandler:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -831,7 +832,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -842,7 +843,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
 
 - (void)_buildRBSAssertionForTarget:(char *)a1 assertionIdentifier:explanation:invalidationHandler:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -850,7 +851,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -861,7 +862,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
 
 - (void)_buildRBSAssertionForTarget:(char *)a1 assertionIdentifier:explanation:invalidationHandler:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -869,7 +870,7 @@ void __46__PBFRuntimeAssertionManager_debugDescription__block_invoke(uint64_t a1
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;

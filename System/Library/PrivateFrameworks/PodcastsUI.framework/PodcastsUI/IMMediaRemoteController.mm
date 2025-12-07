@@ -509,7 +509,7 @@ LABEL_20:
   v5 = v4;
   player = [(IMMediaRemoteController *)self player];
   player2 = [(IMMediaRemoteController *)self player];
-  [player2 currentTime];
+  objc_msgSend_currentTime(player2);
   [player setCurrentTimeRemote:v8 - v5];
 
   return 0;
@@ -520,7 +520,7 @@ LABEL_20:
   forwardCopy = forward;
   player = [(IMMediaRemoteController *)self player];
   player2 = [(IMMediaRemoteController *)self player];
-  [player2 currentTime];
+  objc_msgSend_currentTime(player2);
   v8 = v7;
   [forwardCopy interval];
   v10 = v9;
@@ -538,7 +538,7 @@ LABEL_20:
   [playheadCopy positionTime];
   v8 = v7;
 
-  [currentItem duration];
+  objc_msgSend_duration(currentItem);
   if (v9 >= v8)
   {
     v9 = v8;

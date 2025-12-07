@@ -14,7 +14,7 @@
 
   if (isSensitiveLoggingAllowed && gLogCategory_ENQueryFilter <= 50 && (gLogCategory_ENQueryFilter != -1 || _LogCategory_Initialize()))
   {
-    [ENQueryFilter initWithBufferSize:hashCount:];
+    [(ENQueryFilter *)self initWithBufferSize:size hashCount:count];
   }
 
   v16.receiver = self;
@@ -130,11 +130,11 @@ LABEL_20:
   return v9 < hashCount;
 }
 
-- (void)initWithBufferSize:hashCount:.cold.1()
+- (void)initWithBufferSize:(uint64_t)a3 hashCount:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  LogPrintF_safe();
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  LogPrintF_safe(&gLogCategory_ENQueryFilter, "[ENQueryFilter initWithBufferSize:hashCount:]", 50, "Initializing %@ bufferSize:%d hashCount:%d", v6, a2, a3);
 }
 
 @end

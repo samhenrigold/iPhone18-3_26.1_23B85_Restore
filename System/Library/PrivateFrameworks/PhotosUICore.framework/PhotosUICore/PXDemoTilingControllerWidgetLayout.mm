@@ -43,7 +43,7 @@
   v15 = objc_opt_class();
   if (v15)
   {
-    [v15 backgroundTileIdentifier];
+    objc_msgSend_backgroundTileIdentifier(v15);
   }
 
   else

@@ -45,43 +45,43 @@
 
 - (id)pruneSourceData:(id)data
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = +[MXUtilities getServicesAllowlist];
   v5 = [&unk_286A1CAE8 objectAtIndexedSubscript:{-[MXService sourceID](self, "sourceID")}];
-  v26 = [v4 objectForKeyedSubscript:v5];
+  v25 = [v4 objectForKeyedSubscript:v5];
 
   outCount = 0;
   v6 = objc_opt_class();
-  v28 = class_copyPropertyList(v6, &outCount);
+  v27 = class_copyPropertyList(v6, &outCount);
   if (outCount)
   {
     v8 = 0;
     *&v7 = 138412546;
-    v25 = v7;
+    v24 = v7;
     do
     {
-      Name = property_getName(v28[v8]);
+      Name = property_getName(v27[v8]);
       if (Name)
       {
-        v10 = [MEMORY[0x277CCACA8] stringWithCString:Name encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding", v25)}];
-        allKeys = [v26 allKeys];
+        v10 = [MEMORY[0x277CCACA8] stringWithCString:Name encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding", v24)}];
+        allKeys = [v25 allKeys];
         v12 = [allKeys containsObject:v10];
 
         if (v12)
         {
           v13 = [dataCopy valueForKey:v10];
-          v14 = [v26 objectForKeyedSubscript:v10];
+          v14 = [v25 objectForKeyedSubscript:v10];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             v15 = v14;
-            v29 = 0;
+            v28 = 0;
             v16 = objc_opt_class();
-            v17 = class_copyPropertyList(v16, &v29);
-            if (v29)
+            v17 = class_copyPropertyList(v16, &v28);
+            if (v28)
             {
-              for (i = 0; i < v29; ++i)
+              for (i = 0; i < v28; ++i)
               {
                 v19 = property_getName(v17[i]);
                 if (v19)
@@ -116,9 +116,7 @@
     while (v8 < outCount);
   }
 
-  free(v28);
-
-  v23 = *MEMORY[0x277D85DE8];
+  free(v27);
 
   return dataCopy;
 }

@@ -97,7 +97,7 @@ LABEL_7:
   v5 = v4;
   if (!v3 && v4)
   {
-    v6 = _CRKLogGeneral_19();
+    v6 = _CRKLogGeneral_19(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(CRKSecureCodedUserDefaultsObject *)self value];
@@ -109,37 +109,39 @@ LABEL_7:
 
 - (void)setValue:(id)value
 {
-  v7 = 0;
-  v4 = [(CRKSecureCodedUserDefaultsObject *)self setValue:value error:&v7];
-  v5 = v7;
+  v8 = 0;
+  v4 = [(CRKSecureCodedUserDefaultsObject *)self setValue:value error:&v8];
+  v5 = v8;
+  v6 = v5;
   if (!v4)
   {
-    v6 = _CRKLogGeneral_19();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _CRKLogGeneral_19(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(CRKSecureCodedUserDefaultsObject *)self setValue:v5];
+      [(CRKSecureCodedUserDefaultsObject *)self setValue:v6];
     }
   }
 }
 
 - (void)registerDefaultValue:(id)value
 {
-  v8 = 0;
-  v4 = [MEMORY[0x277CCAAB0] cat_archivedDataWithRootObject:value error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [MEMORY[0x277CCAAB0] cat_archivedDataWithRootObject:value error:&v9];
+  v5 = v9;
+  v6 = v5;
   if (v4)
   {
-    v7.receiver = self;
-    v7.super_class = CRKSecureCodedUserDefaultsObject;
-    [(CRKUserDefaultsObject *)&v7 registerDefaultValue:v4];
+    v8.receiver = self;
+    v8.super_class = CRKSecureCodedUserDefaultsObject;
+    [(CRKUserDefaultsObject *)&v8 registerDefaultValue:v4];
   }
 
   else
   {
-    v6 = _CRKLogGeneral_19();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _CRKLogGeneral_19(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(CRKSecureCodedUserDefaultsObject *)self setValue:v5];
+      [(CRKSecureCodedUserDefaultsObject *)self setValue:v6];
     }
   }
 }
@@ -149,7 +151,7 @@ LABEL_7:
   v3 = [self key];
   verboseDescription = [a2 verboseDescription];
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_2(&dword_243550000, v5, v6, "Failed to deserialize value for key %{public}@: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_2(&dword_243550000, v5, v6, "Failed to deserialize value for key %{public}@: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)setValue:(void *)a1 .cold.1(void *a1, void *a2)
@@ -157,7 +159,7 @@ LABEL_7:
   v3 = [a1 key];
   v4 = [a2 verboseDescription];
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_2(&dword_243550000, v5, v6, "Failed to serialize value for key %{public}@: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_2(&dword_243550000, v5, v6, "Failed to serialize value for key %{public}@: %{public}@", v7, v8, v9, v10);
 }
 
 @end

@@ -13,7 +13,7 @@
   selfCopy = self;
   sub_20D0E36A0();
 
-  sub_20CECF940(0, &qword_28111FFE0);
+  sub_20CECF940(0, &qword_28111FFE0, 0x277D14758);
   v6 = sub_20D567A58();
 
   return v6;
@@ -21,21 +21,21 @@
 
 - (id)_buildSectionsWithDisplayedItems:(id)items
 {
-  sub_20CECF940(0, &qword_281120AC0);
+  sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
   sub_20CEF99B4();
-  sub_20D567D08();
+  v4 = sub_20D567D08();
   selfCopy = self;
-  sub_20D0E2D54();
+  sub_20D0E2D54(v4);
 
-  sub_20CECF940(0, &unk_28111FFD0);
-  v5 = sub_20D567A58();
+  sub_20CECF940(0, &unk_28111FFD0, 0x277D14778);
+  v6 = sub_20D567A58();
 
-  return v5;
+  return v6;
 }
 
 - (id)_itemsToHideInSet:(id)set
 {
-  sub_20CECF940(0, &qword_281120AC0);
+  sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
   sub_20CEF99B4();
   v4 = sub_20D567D08();
   selfCopy = self;

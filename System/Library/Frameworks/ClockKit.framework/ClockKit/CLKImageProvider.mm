@@ -114,10 +114,10 @@
 
   if (!self->_onePieceImage)
   {
-    v4 = CLKLoggingObjectForDomain(10);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = CLKLoggingObjectForDomain(10);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [CLKImageProvider validate];
+      [(CLKImageProvider *)self validate];
     }
 
     goto LABEL_13;
@@ -128,10 +128,10 @@
   {
     if (!twoPieceImageForeground)
     {
-      v4 = CLKLoggingObjectForDomain(10);
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+      v5 = CLKLoggingObjectForDomain(10);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        [CLKImageProvider validate];
+        [(CLKImageProvider *)self validate];
       }
 
 LABEL_13:
@@ -142,10 +142,10 @@ LABEL_13:
 
   else if (twoPieceImageForeground)
   {
-    v4 = CLKLoggingObjectForDomain(10);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = CLKLoggingObjectForDomain(10);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [CLKImageProvider validate];
+      [(CLKImageProvider *)self validate];
     }
 
     goto LABEL_13;
@@ -423,16 +423,16 @@ LABEL_9:
   return v12;
 }
 
-void __69__CLKImageProvider_imageProviderWithJSONObjectRepresentation_bundle___block_invoke()
+void __69__CLKImageProvider_imageProviderWithJSONObjectRepresentation_bundle___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v4[0] = objc_opt_class();
-  v4[1] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
-  v2 = [v0 setWithArray:v1];
-  v3 = imageProviderWithJSONObjectRepresentation_bundle__allowedClasses;
-  imageProviderWithJSONObjectRepresentation_bundle__allowedClasses = v2;
+  v6[2] = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v4 = [v2 setWithArray:v3];
+  v5 = imageProviderWithJSONObjectRepresentation_bundle__allowedClasses;
+  imageProviderWithJSONObjectRepresentation_bundle__allowedClasses = v4;
 }
 
 - (CLKImageProvider)initWithJSONObjectRepresentation:(id)representation bundle:(id)bundle
@@ -648,12 +648,12 @@ void __69__CLKImageProvider_imageProviderWithJSONObjectRepresentation_bundle___b
 
 - (void)validate
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
   objc_opt_class();
   OUTLINED_FUNCTION_0_2();
-  v2 = v1;
+  v4 = v3;
   OUTLINED_FUNCTION_1_0();
-  _os_log_fault_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_fault_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
 @end

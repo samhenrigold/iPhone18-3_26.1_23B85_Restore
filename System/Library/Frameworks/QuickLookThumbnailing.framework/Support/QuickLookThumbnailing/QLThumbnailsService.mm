@@ -1,4 +1,5 @@
 @interface QLThumbnailsService
+- (QLThumbnailsService)initWithClientProcessIdentifier:(int)identifier auditToken:(id *)token;
 - (id)makeQueueWithBackgroundPriority:(BOOL)priority;
 - (void)askThumbnailAdditionIndex:(id)index;
 - (void)canGenerateThumbnailsForContentType:(id)type atSize:(CGSize)size completionHandler:(id)handler;
@@ -9,6 +10,7 @@
 - (void)getAllThumbnailsForIno:(id)ino fsid:(id)fsid completionHandler:(id)handler;
 - (void)getAllThumbnailsInfoForCacheAtURL:(id)l completionHandler:(id)handler;
 - (void)getInfoForCacheAtURL:(id)l completionHandler:(id)handler;
+- (void)hasThumbnailForURLWrapper:(id)wrapper updateLastHitDate:(BOOL)date andSize:(unint64_t)size completion:(id)completion;
 - (void)removeCachedThumbnailsFromUninstalledFileProvidersWithIdentifiers:(id)identifiers completionHandler:(id)handler;
 - (void)removeCachedThumbnailsFromUninstalledFileProvidersWithRemainingFileProviderIdentifiers:(id)identifiers completionHandler:(id)handler;
 - (void)removeThumbnailAdditionsOnURL:(id)l completionBlock:(id)block;
@@ -18,6 +20,50 @@
 @end
 
 @implementation QLThumbnailsService
+
+- (QLThumbnailsService)initWithClientProcessIdentifier:(int)identifier auditToken:(id *)token
+{
+  v5 = *&identifier;
+  v16.receiver = self;
+  v16.super_class = QLThumbnailsService;
+  v6 = [(QLThumbnailsService *)&v16 init];
+  v7 = v6;
+  if (v6)
+  {
+    [(QLThumbnailsService *)v6 setPid:v5];
+    v8 = *&token->var0[4];
+    *v15.val = *token->var0;
+    *&v15.val[4] = v8;
+    [(QLThumbnailsService *)v7 setAuditToken:&v15];
+    v9 = *&token->var0[4];
+    *v15.val = *token->var0;
+    *&v15.val[4] = v9;
+    v10 = SecTaskCreateWithAuditToken(0, &v15);
+    if (v10)
+    {
+      v11 = v10;
+      *v15.val = 0;
+      v12 = SecTaskCopySigningIdentifier(v10, &v15);
+      if (v12)
+      {
+        [(QLThumbnailsService *)v7 setClientApplicationIdentifier:v12];
+      }
+
+      else
+      {
+        v13 = sub_1000013F4();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        {
+          sub_100002558(&v15, v5, v13);
+        }
+      }
+
+      CFRelease(v11);
+    }
+  }
+
+  return v7;
+}
 
 - (void)thumbnailsStoreURLForURL:(id)l completionBlock:(id)block
 {
@@ -72,6 +118,15 @@
   [QLThumbnailAddition removeAdditionsOnURL:l error:&v7];
   v6 = v7;
   blockCopy[2](blockCopy, v6);
+}
+
+- (void)hasThumbnailForURLWrapper:(id)wrapper updateLastHitDate:(BOOL)date andSize:(unint64_t)size completion:(id)completion
+{
+  dateCopy = date;
+  completionCopy = completion;
+  wrapperCopy = wrapper;
+  v11 = +[QLThumbnailAdditionIndex sharedInstance];
+  [v11 hasThumbnailForURLWrapper:wrapperCopy updateLastHitDate:dateCopy andSize:size completion:completionCopy];
 }
 
 - (void)askThumbnailAdditionIndex:(id)index

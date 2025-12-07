@@ -211,7 +211,7 @@ LABEL_8:
     [array addObject:v19];
   }
 
-  [_contentKeySession issueContentKeyRequests:array forInitializationData:{data, v26}];
+  [_contentKeySession issueContentKeyRequests:array forInitializationData:data];
   if (v18)
   {
     goto LABEL_12;
@@ -245,7 +245,7 @@ LABEL_14:
 
   else
   {
-    v11 = -12782;
+    v11 = 4294954514;
   }
 
   CFRelease(v8);
@@ -263,6 +263,7 @@ LABEL_6:
 
 - (BOOL)associateContentKeyRequest:(id)request
 {
+  v7 = *MEMORY[0x1E69E9840];
   if (dword_1EAEFCEB0)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -306,7 +307,7 @@ LABEL_6:
 
   else
   {
-    v9 = -12782;
+    v9 = 4294954514;
   }
 
   CFRelease(v6);
@@ -343,14 +344,14 @@ LABEL_6:
   dispatch_sync(serialQueue, block);
 }
 
-uint64_t __33__AVContentKeyReportGroup_expire__block_invoke(uint64_t result)
+void *__33__AVContentKeyReportGroup_expire__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 64) & 1) == 0)
   {
     v2 = result;
     *(v1 + 64) = 1;
-    v3 = *(result + 32);
+    v3 = result[4];
     if (*(v3 + 80) == 1)
     {
 
@@ -369,7 +370,7 @@ uint64_t __33__AVContentKeyReportGroup_expire__block_invoke(uint64_t result)
         }
       }
 
-      v6 = *(*(v2 + 32) + 32);
+      v6 = *(v2[4] + 32);
 
       return [v6 removeAllObjects];
     }
@@ -654,7 +655,7 @@ uint64_t __111__AVContentKeyReportGroup_AVContentKeyReportGroupPrivateUtilities_
   if (error && v7)
   {
     *error = AVLocalizedErrorWithUnderlyingOSStatus(v7, 0);
-    v7 = *(v12 + 6);
+    LODWORD(v7) = *(v12 + 6);
   }
 
   v8 = v7 == 0;
@@ -722,21 +723,21 @@ uint64_t __111__AVContentKeyReportGroup_AVContentKeyReportGroupPrivateUtilities_
 
 - (OpaqueFigCPECryptor)copyCryptorForCryptKeyAttributes:(id)attributes
 {
-  v7 = 0;
+  v13 = 0;
   figContentKeySession = self->_figContentKeySession;
   if (figContentKeySession)
   {
-    v5 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-    if (v5)
+    v10 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+    if (v10)
     {
-      v5(figContentKeySession, *MEMORY[0x1E695E480], attributes, 0, &v7);
-      return v7;
+      v10(figContentKeySession, *MEMORY[0x1E695E480], attributes, 0, &v13);
+      return v13;
     }
   }
 
   else
   {
-    [AVContentKeyReportGroup(AVContentKeyReportGroupPrivateUtilities) copyCryptorForCryptKeyAttributes:];
+    [(AVContentKeyReportGroup(AVContentKeyReportGroupPrivateUtilities) *)self copyCryptorForCryptKeyAttributes:a2, attributes, v3, v4, v5, v6, v7, v12, v13, SHIDWORD(v13), v14];
   }
 
   return 0;
@@ -744,21 +745,21 @@ uint64_t __111__AVContentKeyReportGroup_AVContentKeyReportGroupPrivateUtilities_
 
 - (int)externalProtectionStatusForCryptor:(OpaqueFigCPECryptor *)cryptor withDisplays:(id)displays
 {
-  v9 = 1;
+  v15[0] = 1;
   figContentKeySession = self->_figContentKeySession;
   if (figContentKeySession)
   {
-    v7 = *(*(CMBaseObjectGetVTable() + 16) + 88);
-    if (v7)
+    v11 = *(*(CMBaseObjectGetVTable() + 16) + 88);
+    if (v11)
     {
-      v7(figContentKeySession, cryptor, displays, &v9);
-      return v9;
+      v11(figContentKeySession, cryptor, displays, v15);
+      return v15[0];
     }
   }
 
   else
   {
-    [AVContentKeyReportGroup(AVContentKeyReportGroupPrivateUtilities) externalProtectionStatusForCryptor:withDisplays:];
+    [(AVContentKeyReportGroup(AVContentKeyReportGroupPrivateUtilities) *)self externalProtectionStatusForCryptor:a2 withDisplays:cryptor, displays, v4, v5, v6, v7, v13, v14, v15[0], v15[1]];
   }
 
   return 1;

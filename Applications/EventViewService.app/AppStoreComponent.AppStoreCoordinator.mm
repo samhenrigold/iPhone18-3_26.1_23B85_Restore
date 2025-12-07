@@ -25,7 +25,7 @@
 
 - (void)lockupViewDidFinishRequest:(id)request
 {
-  v5 = sub_1000024C4(&qword_100227360);
+  v5 = sub_1000024C4(&qword_100227360, &qword_1001B5D80);
   __chkstk_darwin(v5 - 8);
   v7 = &v15 - v6;
   v8 = *&self->subtitle[OBJC_IVAR____TtCV16EventViewService17AppStoreComponent19AppStoreCoordinator_subtitle];

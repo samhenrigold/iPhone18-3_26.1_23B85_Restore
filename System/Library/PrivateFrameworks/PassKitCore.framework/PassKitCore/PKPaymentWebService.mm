@@ -2599,7 +2599,7 @@ void __76__PKPaymentWebService_handleResponse_withError_data_task_completionHand
   v2 = +[PKPassLibrary sharedInstanceWithRemoteLibrary];
   if ([v2 _hasRemoteLibrary])
   {
-    v3 = objc_alloc_init(getNPKCompanionAgentConnectionClass_3[0]());
+    v3 = objc_alloc_init(getNPKCompanionAgentConnectionClass_3());
     watchPaymentWebService = [v3 watchPaymentWebService];
   }
 
@@ -3598,9 +3598,9 @@ void __64__PKPaymentWebService__canRegisterForPeerPaymentWithCompletion___block_
           {
             v17 = [v15 uppercaseString];
             v18 = [v7 uppercaseString];
-            v19 = [v17 isEqualToString:v18];
+            isEqualToString = objc_msgSend_isEqualToString_(v17);
 
-            v12 |= v19;
+            v12 |= isEqualToString;
           }
         }
 
@@ -4125,19 +4125,19 @@ LABEL_75:
     goto LABEL_76;
   }
 
-  v14 = [(__CFString *)deviceClass isEqualToString:@"iPhone"];
+  isEqualToString = objc_msgSend_isEqualToString_(deviceClass);
 
-  if ((v14 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v26 = v13;
-    if (v26 == @"iPad" || (v27 = v26, v28 = [(__CFString *)v26 isEqualToString:@"iPad"], v27, (v28 & 1) != 0))
+    if (v26 == @"iPad" || (v27 = v26, v28 = objc_msgSend_isEqualToString_(v26), v27, (v28 & 1) != 0))
     {
       v15 = @"OS_VERSION_UPDATE_REQUIRED_ERROR_MESSAGE_IPAD";
       goto LABEL_48;
     }
 
     v29 = v27;
-    if (v29 == @"Watch" || (v30 = v29, v31 = [(__CFString *)v29 isEqualToString:@"Watch"], v30, v31))
+    if (v29 == @"Watch" || (v30 = v29, v31 = objc_msgSend_isEqualToString_(v29), v30, v31))
     {
       v15 = @"OS_VERSION_UPDATE_REQUIRED_ERROR_MESSAGE_WATCH";
       goto LABEL_48;
@@ -5595,7 +5595,7 @@ LABEL_27:
 
   environmentName = [responseCopy environmentName];
   v42 = PKStockholmEnvironmentDisplayName();
-  if (([environmentName isEqualToString:?] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(environmentName) & 1) == 0)
   {
     if ([environmentName length])
     {
@@ -9136,7 +9136,7 @@ LABEL_24:
         if (objc_opt_isKindOfClass())
         {
           v12 = [v11 pushTopic];
-          if ([v12 isEqualToString:*(a1 + 48)])
+          if (objc_msgSend_isEqualToString_(v12))
           {
             v13 = v5;
             v14 = MEMORY[0x1E695AC60];
@@ -9511,9 +9511,9 @@ LABEL_29:
       v17 = [v16 hexEncoding];
 
       v18 = [v8 sha1Hex];
-      v19 = [v18 isEqualToString:v17];
+      isEqualToString = objc_msgSend_isEqualToString_(v18);
 
-      if (v19)
+      if (isEqualToString)
       {
         v20 = PKLogFacilityTypeGetObject(7uLL);
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
@@ -14745,7 +14745,7 @@ void __60__PKPaymentWebService_URLSession_task_didCompleteWithError___block_invo
   }
 }
 
-uint64_t __102__PKPaymentWebService__startBackgroundURLSessionWithIdentifier_context_backgroundDelegate_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void *__102__PKPaymentWebService__startBackgroundURLSessionWithIdentifier_context_backgroundDelegate_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   result = [a4 count];
   if (!result)
@@ -16109,7 +16109,7 @@ void __47__PKPaymentWebService__downloadPassesWithURLs___block_invoke_2(uint64_t
     }
 
     domain = [errorCopy domain];
-    if ([domain isEqualToString:*MEMORY[0x1E696A978]])
+    if (objc_msgSend_isEqualToString_(domain))
     {
 LABEL_8:
 
@@ -16117,16 +16117,16 @@ LABEL_8:
     }
 
     domain2 = [errorCopy domain];
-    if ([domain2 isEqualToString:@"PKWebServiceErrorDomain"])
+    if (objc_msgSend_isEqualToString_(domain2))
     {
 
       goto LABEL_8;
     }
 
     domain3 = [errorCopy domain];
-    v19 = [domain3 isEqualToString:@"PKPaymentWebServiceErrorDomain"];
+    isEqualToString = objc_msgSend_isEqualToString_(domain3);
 
-    if ((v19 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
 LABEL_7:
       [(PKPaymentWebService *)self _errorWithResult:v15 data:v14];
@@ -16219,9 +16219,9 @@ LABEL_12:
   }
 
   deviceName = [(PKPaymentWebServiceTargetDeviceProtocol *)self->_targetDevice deviceName];
-  v12 = [deviceName isEqualToString:@"Apple Watch"];
+  isEqualToString = objc_msgSend_isEqualToString_(deviceName);
 
-  if (v12 && (PKRunningInPassd() & 1) == 0)
+  if (isEqualToString && (PKRunningInPassd() & 1) == 0)
   {
     v14 = +[PKPaymentService paymentService];
     v18[0] = MEMORY[0x1E69E9820];

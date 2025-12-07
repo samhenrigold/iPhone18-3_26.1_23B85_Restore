@@ -111,17 +111,18 @@
 
   v7 = (self + OBJC_IVAR____TtC15MapsSuggestions25MapsSuggestionsDOoMEngine__routineHandler);
   v8 = *(self + OBJC_IVAR____TtC15MapsSuggestions25MapsSuggestionsDOoMEngine__routineHandler);
+  v9 = *(self + OBJC_IVAR____TtC15MapsSuggestions25MapsSuggestionsDOoMEngine__routineHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1C513EDF0(v8);
+  sub_1C513EDF0(v8, v9);
 }
 
 - (NSArray)_conditions
 {
   swift_beginAccess();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1563D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1563D0, &unk_1C52A9AA0);
   v2 = sub_1C529D7CC();
 
   return v2;
@@ -129,7 +130,7 @@
 
 - (void)set_conditions:(id)set_conditions
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1563D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1563D0, &unk_1C52A9AA0);
   v4 = sub_1C529D7DC();
   v5 = OBJC_IVAR____TtC15MapsSuggestions25MapsSuggestionsDOoMEngine__conditions;
   swift_beginAccess();
@@ -159,12 +160,12 @@
 
 - (NSDate)_lastPLCUpdateProcessedAt
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156760);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156760, &unk_1C52A91E0);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC15MapsSuggestions25MapsSuggestionsDOoMEngine__lastPLCUpdateProcessedAt;
   swift_beginAccess();
-  sub_1C525F29C(self + v6, v5, &unk_1EC156760);
+  sub_1C525F29C(self + v6, v5, &unk_1EC156760, &unk_1C52A91E0);
   v7 = sub_1C529D3AC();
   v8 = *(v7 - 8);
   v9 = (*(v8 + 48))(v5, 1, v7);
@@ -181,7 +182,7 @@
 
 - (void)set_lastPLCUpdateProcessedAt:(id)at
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156760);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC156760, &unk_1C52A91E0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v12 - v6;
   if (at)
@@ -220,7 +221,7 @@
 
 - (_TtC15MapsSuggestions25MapsSuggestionsDOoMEngine)initWithResourceDepot:(id)depot conditions:(id)conditions
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1563D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1563D0, &unk_1C52A9AA0);
   v4 = sub_1C529D7DC();
   v5 = swift_unknownObjectRetain();
   return MapsSuggestionsDOoMEngine.init(resourceDepot:conditions:)(v5, v4);
@@ -283,7 +284,7 @@
   _Block_release(v4);
 
   v7.receiver = selfCopy;
-  v7.super_class = type metadata accessor for MapsSuggestionsDOoMEngine();
+  v7.super_class = type metadata accessor for MapsSuggestionsDOoMEngine(0);
   [(MapsSuggestionsDOoMEngine *)&v7 dealloc];
 }
 

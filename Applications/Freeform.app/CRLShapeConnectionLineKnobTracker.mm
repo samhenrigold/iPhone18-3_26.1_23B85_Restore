@@ -58,7 +58,7 @@
 
   sub_100A61504();
 
-  sub_10000CAAC(v6, &unk_1019F4D00);
+  sub_10000CAAC(v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)endMovingKnob

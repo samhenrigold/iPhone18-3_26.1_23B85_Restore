@@ -165,15 +165,15 @@
       JreThrowClassCastException();
     }
 
-    JreStrongAssign(&JavaLangLong_TYPE_, v2);
-    v3 = [IOSObjectArray newArrayWithLength:256 type:JavaLangLong_class_()];
-    JreStrongAssignAndConsume(&qword_100554FE0, v3);
+    v3 = JreStrongAssign(&JavaLangLong_TYPE_, v2);
+    v5 = [IOSObjectArray newArrayWithLength:256 type:JavaLangLong_class_(v3, v4)];
+    JreStrongAssignAndConsume(&qword_100554FE0, v5);
     for (i = -128; i != 128; ++i)
     {
-      v5 = qword_100554FE0;
-      v6 = [JavaLangLong alloc];
-      v6->value_ = i;
-      IOSObjectArray_SetAndConsume(v5, i + 128, v6);
+      v7 = qword_100554FE0;
+      v8 = [JavaLangLong alloc];
+      v8->value_ = i;
+      IOSObjectArray_SetAndConsume(v7, i + 128, v8);
     }
 
     atomic_store(1u, JavaLangLong__initialized);

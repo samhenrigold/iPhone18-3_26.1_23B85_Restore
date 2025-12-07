@@ -29,18 +29,18 @@
 
 - (HGRef<HGNode>)internalHGNodeForTime:(id *)time trackInputs:(const void *)inputs renderer:(const void *)renderer igContext:(HGRef<PVInstructionGraphContext>)context
 {
-  v11 = v6;
-  HGTraceGuard::HGTraceGuard(v111, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphEffectOrientationNode hgNodeForTime:...]");
-  v110 = *context.m_Obj;
-  if (v110)
+  v10 = v6;
+  HGTraceGuard::HGTraceGuard(v105, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphEffectOrientationNode hgNodeForTime:...]");
+  v104 = *context.m_Obj;
+  if (v104)
   {
-    (*(*v110 + 16))(v110);
+    (*(*v104 + 16))(v104);
   }
 
-  [(PVInstructionGraphEffectNode *)self addDotTreeLinks:&v110];
-  if (v110)
+  [(PVInstructionGraphEffectNode *)self addDotTreeLinks:&v104];
+  if (v104)
   {
-    (*(*v110 + 24))(v110);
+    (*(*v104 + 24))(v104);
   }
 
   if (self->_bypassOutOfRangeEffects)
@@ -48,7 +48,7 @@
     effect = self->_effect;
     if (effect)
     {
-      [(PVEffect *)effect effectRange];
+      objc_msgSend_effectRange(effect);
     }
 
     else
@@ -58,75 +58,75 @@
 
     *&time.start.value = *&time->var0;
     time.start.epoch = time->var3;
-    v16 = CMTimeRangeContainsTime(&range, &time.start) == 0;
+    v15 = CMTimeRangeContainsTime(&range, &time.start) == 0;
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  v17 = self->_effect;
-  if (!v17 || v16)
+  v16 = self->_effect;
+  if (!v16 || v15)
   {
-    if (v17)
+    if (v16)
     {
-      [(PVEffect *)v17 effectRange];
-      v24 = *(MEMORY[0x277CC08C8] + 16);
+      objc_msgSend_effectRange(v16);
+      v23 = *(MEMORY[0x277CC08C8] + 16);
       *&time.start.value = *MEMORY[0x277CC08C8];
-      *&time.start.epoch = v24;
+      *&time.start.epoch = v23;
       *&time.duration.timescale = *(MEMORY[0x277CC08C8] + 32);
       if (CMTimeRangeEqual(&range, &time))
       {
-        v27 = self->_effect;
-        debugDisplayName = [(PVEffect *)v27 debugDisplayName];
-        NSLog(&cfstr_WarningHgnodef.isa, v27, debugDisplayName);
+        v26 = self->_effect;
+        debugDisplayName = [(PVEffect *)v26 debugDisplayName];
+        NSLog(&cfstr_WarningHgnodef.isa, v26, debugDisplayName);
       }
 
-      v29 = atomic_load(HGLogger::_enabled);
-      if (v29)
+      v28 = atomic_load(HGLogger::_enabled);
+      if (v28)
       {
-        HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Current Time is out of Effect Range. Returning HGNode of first input, assuming input0 is set...\n", v25, v26);
+        HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Current Time is out of Effect Range. Returning HGNode of first input, assuming input0 is set...\n", v24, v25);
       }
 
-      v30 = PVInstructionGraphContext::DotGraph(*context.m_Obj);
-      HGDotGraph::filled(v30, self, "#FFA500");
+      v29 = PVInstructionGraphContext::DotGraph(*context.m_Obj);
+      HGDotGraph::filled(v29, self, "#FFA500");
       if (+[PVEnvironment PV_DEBUG_COLOR_OUT_OF_RANGE_EFFECTS])
       {
-        v31 = HGObject::operator new(0x1A0uLL);
-        HGSolidColor::HGSolidColor(v31);
+        v30 = HGObject::operator new(0x1A0uLL);
+        HGSolidColor::HGSolidColor(v30);
       }
     }
 
     else
     {
-      v32 = atomic_load(HGLogger::_enabled);
-      if (v32)
+      v31 = atomic_load(HGLogger::_enabled);
+      if (v31)
       {
-        HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "effect is Nil. Returning HGNode of first input, assuming input0 is set...\n", v13, v14);
+        HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "effect is Nil. Returning HGNode of first input, assuming input0 is set...\n", v12, v13);
       }
 
-      v33 = PVInstructionGraphContext::DotGraph(*context.m_Obj);
-      HGDotGraph::filled(v33, self, "#822222");
+      v32 = PVInstructionGraphContext::DotGraph(*context.m_Obj);
+      HGDotGraph::filled(v32, self, "#822222");
     }
 
     LODWORD(time.start.value) = 0;
     range.start.value = &time;
-    v34 = std::__tree<std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVImageBuffer * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&self->super._inputMap, &time)[5];
+    v33 = std::__tree<std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVImageBuffer * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&self->super._inputMap, &time, &std::piecewise_construct, &range)[5];
     *&range.start.value = *&time->var0;
     range.start.epoch = time->var3;
-    v35 = *context.m_Obj;
-    v81 = v35;
-    if (v35)
+    v34 = *context.m_Obj;
+    v76 = *context.m_Obj;
+    if (*context.m_Obj)
     {
-      (*(*v35 + 16))(v35);
+      (*(*v34 + 16))(v34);
     }
 
-    if (v34)
+    if (v33)
     {
-      [v34 hgNodeForTime:&range trackInputs:inputs renderer:renderer igContext:&v81];
-      v35 = v81;
-      if (!v81)
+      objc_msgSend_hgNodeForTime_trackInputs_renderer_igContext_(v33);
+      v34 = v76;
+      if (!v76)
       {
         goto LABEL_100;
       }
@@ -134,31 +134,32 @@
 
     else
     {
-      *v11 = 0;
-      if (!v35)
+      *v10 = 0;
+      if (!v34)
       {
         goto LABEL_100;
       }
     }
 
-    (*(*v35 + 24))(v35);
+LABEL_34:
+    (*(*v34 + 24))(v34);
     goto LABEL_100;
   }
 
-  v18 = atomic_load(HGLogger::_enabled);
-  if (v18)
+  v17 = atomic_load(HGLogger::_enabled);
+  if (v17)
   {
     debugDisplayName2 = [(PVEffect *)self->_effect debugDisplayName];
     uTF8String = [debugDisplayName2 UTF8String];
-    HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Will Build render graph for effect (%s)\n", v21, v22, uTF8String);
+    HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Will Build render graph for effect (%s)\n", v20, v21, uTF8String);
   }
 
-  if (HGLogger::getLevel("kPVInstructionGraphToHeliumGraphLogContext", v12) >= 1)
+  if (HGLogger::getLevel("kPVInstructionGraphToHeliumGraphLogContext", v11) >= 1)
   {
-    v23 = self->_effect;
-    if (v23)
+    v22 = self->_effect;
+    if (v22)
     {
-      [(PVEffect *)v23 effectRange];
+      objc_msgSend_effectRange(v22);
     }
 
     else
@@ -166,16 +167,16 @@
       memset(&range, 0, sizeof(range));
     }
 
-    v36 = CMTimeRangeCopyDescription(0, &range);
-    v37 = v36;
-    v38 = atomic_load(HGLogger::_enabled);
-    if (v38)
+    v35 = CMTimeRangeCopyDescription(0, &range);
+    v36 = v35;
+    v37 = atomic_load(HGLogger::_enabled);
+    if (v37)
     {
-      uTF8String2 = [v36 UTF8String];
-      HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Effect Time Range: %s\n", v40, v41, uTF8String2);
+      uTF8String2 = [v35 UTF8String];
+      HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Effect Time Range: %s\n", v39, v40, uTF8String2);
     }
 
-    CFRelease(v37);
+    CFRelease(v36);
   }
 
   objc_opt_class();
@@ -183,21 +184,21 @@
   {
     LODWORD(time.start.value) = 0;
     range.start.value = &time;
-    v50 = std::__tree<std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVImageBuffer * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&self->super._inputMap, &time)[5];
+    v49 = std::__tree<std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVImageBuffer * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&self->super._inputMap, &time, &std::piecewise_construct, &range)[5];
     *&range.start.value = *&time->var0;
     range.start.epoch = time->var3;
-    v109 = *context.m_Obj;
-    v51 = v109;
-    if (v109)
+    v103 = *context.m_Obj;
+    v34 = v103;
+    if (v103)
     {
-      (*(*v109 + 16))(v109);
+      (*(*v103 + 16))(v103);
     }
 
-    if (v50)
+    if (v49)
     {
-      [v50 hgNodeForTime:&range trackInputs:inputs renderer:renderer igContext:&v109];
-      v51 = v109;
-      if (!v109)
+      objc_msgSend_hgNodeForTime_trackInputs_renderer_igContext_(v49);
+      v34 = v103;
+      if (!v103)
       {
         goto LABEL_100;
       }
@@ -205,96 +206,95 @@
 
     else
     {
-      *v11 = 0;
-      if (!v51)
+      *v10 = 0;
+      if (!v34)
       {
         goto LABEL_100;
       }
     }
 
-    (*(*v51 + 24))(v51);
-    goto LABEL_100;
+    goto LABEL_34;
   }
 
-  v108 = *context.m_Obj;
-  if (v108)
+  v102 = *context.m_Obj;
+  if (v102)
   {
-    (*(*v108 + 16))(v108);
+    (*(*v102 + 16))(v102);
   }
 
-  [(PVInstructionGraphNode *)self loadIGNode:&v108];
-  if (v108)
+  [(PVInstructionGraphNode *)self loadIGNode:&v102];
+  if (v102)
   {
-    (*(*v108 + 24))(v108);
+    (*(*v102 + 24))(v102);
   }
 
-  v42 = self->_effect;
+  v41 = self->_effect;
   *&range.start.value = *&time->var0;
   range.start.epoch = time->var3;
-  v79 = v42;
-  v43 = [(PVEffect *)v42 inputsForTime:&range];
-  firstObject = [v43 firstObject];
+  v75 = v41;
+  v42 = [(PVEffect *)v41 inputsForTime:&range];
+  firstObject = [v42 firstObject];
   intValue = [firstObject intValue];
 
-  v107 = intValue;
-  range.start.value = &v107;
-  v48 = std::__tree<std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVImageBuffer * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&self->super._inputMap, &v107)[5];
-  v49 = atomic_load(HGLogger::_enabled);
-  if (v49)
-  {
-    HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Getting HGNode for effect inputID: %d\n", v46, v47, v107);
-  }
-
-  v104 = *&time->var0;
-  var3 = time->var3;
-  v103 = *context.m_Obj;
-  if (v103)
-  {
-    (*(*v103 + 16))(v103);
-  }
-
+  v101 = intValue;
+  range.start.value = &v101;
+  v47 = std::__tree<std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVImageBuffer * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVImageBuffer * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&self->super._inputMap, &v101, &std::piecewise_construct, &range)[5];
+  v48 = atomic_load(HGLogger::_enabled);
   if (v48)
   {
-    [v48 hgNodeForTime:&v104 trackInputs:inputs renderer:renderer igContext:&v103];
+    HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Getting HGNode for effect inputID: %d\n", v45, v46, v101);
+  }
+
+  v98 = *&time->var0;
+  var3 = time->var3;
+  v97 = *context.m_Obj;
+  if (v97)
+  {
+    (*(*v97 + 16))(v97);
+  }
+
+  if (v47)
+  {
+    objc_msgSend_hgNodeForTime_trackInputs_renderer_igContext_(v47);
   }
 
   else
   {
-    v106 = 0;
+    v100 = 0;
   }
 
-  if (v103)
+  if (v97)
   {
-    (*(*v103 + 24))(v103);
+    (*(*v97 + 24))(v97);
   }
 
   if (![(PVEffect *)self->_effect supportsExtendedRangeInputs]&& +[PVEnvironment PV_CLAMP_XR_INPUTS_TO_FILTERS])
   {
     PVInstructionGraphContext::WorkingColorSpace(*context.m_Obj);
-    v78 = v77 = v11;
-    v52 = +[PVColorSpace extendedSRGBColorSpace];
-    if ([v78 isEqual:v52])
+    v74 = v73 = v10;
+    v50 = +[PVColorSpace extendedSRGBColorSpace];
+    if ([v74 isEqual:v50])
     {
 
       goto LABEL_65;
     }
 
-    v55 = PVInstructionGraphContext::WorkingColorSpace(*context.m_Obj);
-    v56 = +[PVColorSpace extendedLinearSRGBColorSpace];
-    v57 = [v55 isEqual:v56];
+    v53 = PVInstructionGraphContext::WorkingColorSpace(*context.m_Obj);
+    v54 = +[PVColorSpace extendedLinearSRGBColorSpace];
+    v55 = [v53 isEqual:v54];
 
-    v11 = v77;
-    if (v57)
+    v10 = v73;
+    if (v55)
     {
 LABEL_65:
-      v58 = atomic_load(HGLogger::_enabled);
-      if (v58)
+      v56 = atomic_load(HGLogger::_enabled);
+      if (v56)
       {
-        HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Clamping input (%d). XR working space and effect doesn't support it.\n", v53, v54, v107);
+        HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Clamping input (%d). XR working space and effect doesn't support it.\n", v51, v52, v101);
       }
 
-      v59 = HGObject::operator new(0x1C0uLL);
-      HGColorClamp::HGColorClamp(v59);
+      v57 = HGObject::operator new(0x1C0uLL);
+      HGColorClamp::HGColorClamp(v57);
     }
   }
 
@@ -304,123 +304,119 @@ LABEL_65:
   range.duration.epoch = 0;
   range.start.epoch = 0;
   range.duration.value = &range.duration.timescale;
-  v97 = v98;
-  v98[0] = 0;
-  v99[0] = 0;
-  v99[1] = 0;
-  v98[1] = 0;
-  v98[2] = v99;
-  v100 = v101;
-  v101[0] = 0;
-  v102[0] = 0;
-  v102[1] = 0;
-  v101[1] = 0;
-  v101[2] = v102;
-  v60 = v107;
-  v95 = v106;
-  if (v106)
+  v91 = v92;
+  v92[0] = 0;
+  v93[0] = 0;
+  v93[1] = 0;
+  v92[1] = 0;
+  v92[2] = v93;
+  v94 = v95;
+  v95[0] = 0;
+  v96[0] = 0;
+  v96[1] = 0;
+  v95[1] = 0;
+  v95[2] = v96;
+  v58 = v101;
+  v89 = v100;
+  if (v100)
   {
-    (*(*v106 + 16))(v106);
+    (*(*v100 + 16))(v100);
   }
 
-  PVInputHGNodeMap<unsigned int>::SetNode(&range, v60, &v95);
-  if (v95)
+  PVInputHGNodeMap<unsigned int>::SetNode(&range, v58, &v89);
+  if (v89)
   {
-    (*(*v95 + 24))(v95);
+    (*(*v89 + 24))(v89);
   }
 
-  v61 = self->_effect;
+  v59 = *context.m_Obj;
+  v86 = v59;
+  if (v59)
+  {
+    (*(*v59 + 16))(v59);
+  }
+
+  if (v47)
+  {
+    objc_msgSend_inputSizeForPVEffect_igContext_(v47);
+  }
+
+  else
+  {
+    v87 = 0u;
+    v88 = 0u;
+  }
+
+  if (v86)
+  {
+    (*(*v86 + 24))(v86);
+  }
+
+  LODWORD(v77) = v101;
+  time.start.value = &v77;
+  v60 = std::__tree<std::__value_type<unsigned int,PCRect<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCRect<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCRect<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&range.duration, &v77, &std::piecewise_construct, &time);
+  v61 = v88;
+  *(v60 + 5) = v87;
+  *(v60 + 7) = v61;
   v62 = *context.m_Obj;
-  v92 = v62;
+  v79 = v62;
   if (v62)
   {
     (*(*v62 + 16))(v62);
   }
 
-  if (v48)
+  if (v47)
   {
-    [v48 inputSizeForPVEffect:v61 igContext:&v92];
+    objc_msgSend_pixelTransformForPVEffect_igContext_(v47);
   }
 
   else
   {
-    v93 = 0u;
-    v94 = 0u;
-  }
-
-  if (v92)
-  {
-    (*(*v92 + 24))(v92);
-  }
-
-  LODWORD(v83) = v107;
-  time.start.value = &v83;
-  v63 = std::__tree<std::__value_type<unsigned int,PCRect<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCRect<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCRect<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&range.duration, &v83);
-  v64 = v94;
-  *(v63 + 5) = v93;
-  *(v63 + 7) = v64;
-  v65 = self->_effect;
-  v66 = *context.m_Obj;
-  v85 = v66;
-  if (v66)
-  {
-    (*(*v66 + 16))(v66);
-  }
-
-  if (v48)
-  {
-    [v48 pixelTransformForPVEffect:v65 igContext:&v85];
-  }
-
-  else
-  {
-    v90 = 0u;
-    v91 = 0u;
-    v88 = 0u;
-    v89 = 0u;
-    v87 = 0u;
+    v84 = 0u;
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
+    v81 = 0u;
     memset(&time, 0, sizeof(time));
   }
 
-  if (v85)
+  if (v79)
   {
-    (*(*v85 + 24))(v85);
+    (*(*v79 + 24))(v79);
   }
 
-  PVInputHGNodeMap<unsigned int>::SetPixelTransform(&range, v107, &time.start.value);
+  PVInputHGNodeMap<unsigned int>::SetPixelTransform(&range, v101, &time.start.value);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v67 = v48;
-    isPortrait = [v67 isPortrait];
-    v112 = v107;
-    *&v83 = &v112;
-    *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&v100, &v112) + 8) = isPortrait ^ 1;
+    v63 = v47;
+    isPortrait = [v63 isPortrait];
+    v106 = v101;
+    *&v77 = &v106;
+    *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&v94, &v106, &std::piecewise_construct, &v77) + 8) = isPortrait ^ 1;
   }
 
-  v69 = atomic_load(HGLogger::_enabled);
-  if (v69)
+  v65 = atomic_load(HGLogger::_enabled);
+  if (v65)
   {
     debugDisplayName3 = [(PVEffect *)self->_effect debugDisplayName];
     uTF8String3 = [debugDisplayName3 UTF8String];
-    HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Building Graph for PVEffect (%s).\n", v72, v73, uTF8String3);
+    HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Building Graph for PVEffect (%s).\n", v68, v69, uTF8String3);
   }
 
-  v74 = self->_effect;
-  v83 = *&time->var0;
-  v84 = time->var3;
-  v75 = *context.m_Obj;
-  v82 = v75;
-  if (v75)
+  v70 = self->_effect;
+  v77 = *&time->var0;
+  v78 = time->var3;
+  v71 = *context.m_Obj;
+  if (v71)
   {
-    (*(*v75 + 16))(v75);
+    (*(*v71 + 16))(v71);
   }
 
-  if (v74)
+  if (v70)
   {
-    [(PVEffect *)v74 hgNodeForTime:&v83 inputs:&range renderer:renderer igContext:&v82];
-    v75 = v82;
-    if (!v82)
+    objc_msgSend_hgNodeForTime_inputs_renderer_igContext_(v70);
+    if (!v71)
     {
       goto LABEL_97;
     }
@@ -428,24 +424,24 @@ LABEL_65:
     goto LABEL_96;
   }
 
-  *v11 = 0;
-  if (v75)
+  *v10 = 0;
+  if (v71)
   {
 LABEL_96:
-    (*(*v75 + 24))(v75);
+    (*(*v71 + 24))(v71);
   }
 
 LABEL_97:
   [(PVInstructionGraphEffectNode *)self unloadIGNode];
   PVInputHGNodeMap<unsigned int>::~PVInputHGNodeMap(&range);
-  if (v106)
+  if (v100)
   {
-    (*(*v106 + 24))(v106);
+    (*(*v100 + 24))(v100);
   }
 
 LABEL_100:
-  HGTraceGuard::~HGTraceGuard(v111);
-  return v76;
+  HGTraceGuard::~HGTraceGuard(v105);
+  return v72;
 }
 
 - (PCRect<double>)inputSizeForPVEffect:(id)effect igContext:(HGRef<PVInstructionGraphContext>)context
@@ -491,7 +487,7 @@ LABEL_100:
     effect = self->_effect;
     if (effect)
     {
-      [(PVEffect *)effect effectRange];
+      objc_msgSend_effectRange(effect);
       v14 = *&v23[0];
       v15 = DWORD2(v23[0]);
     }
@@ -511,7 +507,7 @@ LABEL_100:
     v18 = self->_effect;
     if (v18)
     {
-      [(PVEffect *)v18 effectRange];
+      objc_msgSend_effectRange(v18);
     }
 
     else

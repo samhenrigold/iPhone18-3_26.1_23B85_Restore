@@ -1802,9 +1802,9 @@ LABEL_12:
 - (BOOL)startPageCollectionViewControllerShouldInstallCustomBackdrops:(id)backdrops
 {
   backdropsCopy = backdrops;
-  v5 = (_SFDeviceIsPad() & 1) == 0 && self->_rootCollectionViewController == backdropsCopy;
+  v6 = (_SFDeviceIsPad(backdropsCopy, v5) & 1) == 0 && self->_rootCollectionViewController == backdropsCopy;
 
-  return v5;
+  return v6;
 }
 
 - (void)startPageCollectionViewControllerDidChangeBackgroundStyle:(id)style
@@ -2010,29 +2010,30 @@ void __68__SFStartPageViewController_previewViewControllerForItemIdentifier___bl
 
 id __68__SFStartPageViewController_previewViewControllerForItemIdentifier___block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXStartPage();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v5 = WBS_LOG_CHANNEL_PREFIXStartPage(WeakRetained, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v4 = *(a1 + 32);
-      v8 = 138739971;
-      v9 = v4;
-      _os_log_impl(&dword_18B7AC000, v3, OS_LOG_TYPE_INFO, "Creating single data source section with identifier %{sensitive}@", &v8, 0xCu);
+      v6 = *(a1 + 32);
+      v10 = 138739971;
+      v11 = v6;
+      _os_log_impl(&dword_18B7AC000, v5, OS_LOG_TYPE_INFO, "Creating single data source section with identifier %{sensitive}@", &v10, 0xCu);
     }
 
-    v5 = objc_loadWeakRetained(WeakRetained + 148);
-    v6 = [v5 startPageViewController:WeakRetained detailSectionForItemIdentifier:*(a1 + 32)];
+    v7 = objc_loadWeakRetained(v4 + 148);
+    v8 = [v7 startPageViewController:v4 detailSectionForItemIdentifier:*(a1 + 32)];
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  return v6;
+  return v8;
 }
 
 void __68__SFStartPageViewController_previewViewControllerForItemIdentifier___block_invoke_114(uint64_t a1, void *a2, void *a3)

@@ -42,42 +42,42 @@
 - (CPLPrequeliteDownloadResource)initWithResource:(id)resource
 {
   resourceCopy = resource;
-  v18.receiver = self;
-  v18.super_class = CPLPrequeliteDownloadResource;
-  v5 = [(CPLPrequeliteDownloadResource *)&v18 init];
-  if (v5)
+  v19.receiver = self;
+  v19.super_class = CPLPrequeliteDownloadResource;
+  v6 = [(CPLPrequeliteDownloadResource *)&v19 init];
+  if (v6)
   {
     itemScopedIdentifier = [resourceCopy itemScopedIdentifier];
     scopeIndex = [itemScopedIdentifier scopeIndex];
-    v5->_scopeIndex = scopeIndex;
+    v6->_scopeIndex = scopeIndex;
     if (scopeIndex == 0x7FFFFFFFFFFFFFFFLL)
     {
-      sub_1001BFDA0();
+      sub_1001BFDA0(a2);
     }
 
     identifier = [itemScopedIdentifier identifier];
-    itemIdentifier = v5->_itemIdentifier;
-    v5->_itemIdentifier = identifier;
+    itemIdentifier = v6->_itemIdentifier;
+    v6->_itemIdentifier = identifier;
 
-    v5->_resourceType = [resourceCopy resourceType];
+    v6->_resourceType = [resourceCopy resourceType];
     identity = [resourceCopy identity];
     fingerPrint = [identity fingerPrint];
-    fingerPrint = v5->_fingerPrint;
-    v5->_fingerPrint = fingerPrint;
+    fingerPrint = v6->_fingerPrint;
+    v6->_fingerPrint = fingerPrint;
 
     identity2 = [resourceCopy identity];
     fileUTI = [identity2 fileUTI];
-    fileUTI = v5->_fileUTI;
-    v5->_fileUTI = fileUTI;
+    fileUTI = v6->_fileUTI;
+    v6->_fileUTI = fileUTI;
 
     identity3 = [resourceCopy identity];
-    v5->_fileSize = [identity3 fileSize];
+    v6->_fileSize = [identity3 fileSize];
 
-    v5->_taskIdentifier = [resourceCopy _backgroundDownloadTaskIdentifier];
-    v5->_intent = 1;
+    v6->_taskIdentifier = [resourceCopy _backgroundDownloadTaskIdentifier];
+    v6->_intent = 1;
   }
 
-  return v5;
+  return v6;
 }
 
 - (CPLPrequeliteDownloadResource)resourceWithDownloadQueue:(id)queue

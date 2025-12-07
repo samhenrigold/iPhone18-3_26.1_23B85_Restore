@@ -78,37 +78,35 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_iconData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_originalDigest)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_bundleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    originIdentifier = self->_originIdentifier;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -194,7 +192,6 @@
     }
   }
 
-  v6 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -206,7 +203,7 @@
   else if (*(equalCopy + 48))
   {
 LABEL_17:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_18;
   }
 
@@ -225,7 +222,7 @@ LABEL_17:
     }
   }
 
-  v9 = (*(equalCopy + 48) & 2) == 0;
+  v8 = (*(equalCopy + 48) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 48) & 2) == 0 || self->_originIdentifier != *(equalCopy + 8))
@@ -233,12 +230,12 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_18:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

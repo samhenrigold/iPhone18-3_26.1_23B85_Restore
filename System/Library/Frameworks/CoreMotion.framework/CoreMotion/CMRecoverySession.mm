@@ -17,13 +17,13 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v31[4] = *MEMORY[0x1E69E9840];
-  v30[0] = @"startTime";
+  v30[4] = *MEMORY[0x1E69E9840];
+  v29[0] = @"startTime";
   v4 = MEMORY[0x1E696AD98];
   started = objc_msgSend_startDate(self, a2, v2);
   objc_msgSend_timeIntervalSinceReferenceDate(started, v6, v7);
-  v31[0] = objc_msgSend_numberWithDouble_(v4, v8, v9);
-  v30[1] = @"workoutSessionId";
+  v30[0] = objc_msgSend_numberWithDouble_(v4, v8, v9);
+  v29[1] = @"workoutSessionId";
   v12 = objc_msgSend_workoutSessionId(self, v10, v11);
   v15 = objc_msgSend_UUIDString(v12, v13, v14);
   v18 = &stru_1F0E3D7A0;
@@ -32,18 +32,16 @@
     v18 = v15;
   }
 
-  v31[1] = v18;
-  v30[2] = @"activityEndTime";
+  v30[1] = v18;
+  v29[2] = @"activityEndTime";
   v19 = MEMORY[0x1E696AD98];
   objc_msgSend_activityEndTime(self, v16, v17);
-  v31[2] = objc_msgSend_numberWithDouble_(v19, v20, v21);
-  v30[3] = @"hrRecovery";
+  v30[2] = objc_msgSend_numberWithDouble_(v19, v20, v21);
+  v29[3] = @"hrRecovery";
   v22 = MEMORY[0x1E696AD98];
   objc_msgSend_hrRecovery(self, v23, v24);
-  v31[3] = objc_msgSend_numberWithDouble_(v22, v25, v26);
-  result = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v27, v31, v30, 4);
-  v29 = *MEMORY[0x1E69E9840];
-  return result;
+  v30[3] = objc_msgSend_numberWithDouble_(v22, v25, v26);
+  return objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v27, v30, v29, 4);
 }
 
 - (CMRecoverySession)initWithRecordId:(unint64_t)id startDate:(id)date activityEndTime:(double)time workoutSessionId:(id)sessionId workoutType:(int64_t)type hrRecovery:(double)recovery lambda:(double)lambda hrMax:(double)self0 hrMinAdjusted:(double)self1 recoveryOnsetTime:(double)self2 steadyStateHR:(double)self3 status:(int64_t)self4 sessionHrRecovery:(double)self5 peakHR:(double)self6 hrRecoveryReference:(double)self7
@@ -153,43 +151,41 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   fRecordId = self->fRecordId;
   fStartDate = self->fStartDate;
-  *&v19 = fRecordId;
+  *&v18 = fRecordId;
   objc_msgSend_timeIntervalSinceReferenceDate(fStartDate, a2, zone);
   fActivityEndTime = self->fActivityEndTime;
-  *(&v19 + 1) = v8;
-  v20 = fActivityEndTime;
+  *(&v18 + 1) = v8;
+  v19 = fActivityEndTime;
   v9 = *&self->fHrMax;
-  *&v23[8] = *&self->fHrRecovery;
+  *&v22[8] = *&self->fHrRecovery;
   fWorkoutSessionId = self->fWorkoutSessionId;
-  *v23 = self->fWorkoutType;
-  *&v23[56] = self->fStatus;
-  v21 = 0;
-  v22 = 0uLL;
-  *&v23[24] = v9;
-  *&v23[40] = *&self->fRecoveryOnsetTime;
-  v24 = *&self->fSessionHrRecovery;
-  v25 = *&self->fHrRecoveryReference;
-  *&v26 = 0;
-  WORD4(v26) = 0;
-  objc_msgSend_getUUIDBytes_(fWorkoutSessionId, v11, &v22);
+  *v22 = self->fWorkoutType;
+  *&v22[56] = self->fStatus;
+  v20 = 0;
+  v21 = 0uLL;
+  *&v22[24] = v9;
+  *&v22[40] = *&self->fRecoveryOnsetTime;
+  v23 = *&self->fSessionHrRecovery;
+  v24 = *&self->fHrRecoveryReference;
+  *&v25 = 0;
+  WORD4(v25) = 0;
+  objc_msgSend_getUUIDBytes_(fWorkoutSessionId, v11, &v21);
   v12 = objc_opt_class();
   v14 = objc_msgSend_allocWithZone_(v12, v13, zone);
-  v18[6] = *&v23[48];
-  v18[7] = v24;
-  v18[8] = v25;
-  v18[9] = v26;
-  v18[2] = v22;
-  v18[3] = *v23;
-  v18[4] = *&v23[16];
-  v18[5] = *&v23[32];
-  v18[0] = v19;
-  v18[1] = *&v20;
-  result = objc_msgSend_initWithSample_(v14, v15, v18);
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  v17[6] = *&v22[48];
+  v17[7] = v23;
+  v17[8] = v24;
+  v17[9] = v25;
+  v17[2] = v21;
+  v17[3] = *v22;
+  v17[4] = *&v22[16];
+  v17[5] = *&v22[32];
+  v17[0] = v18;
+  v17[1] = *&v19;
+  return objc_msgSend_initWithSample_(v14, v15, v17);
 }
 
 - (void)encodeWithCoder:(id)coder

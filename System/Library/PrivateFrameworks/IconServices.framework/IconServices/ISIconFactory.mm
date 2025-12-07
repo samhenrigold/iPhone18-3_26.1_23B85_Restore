@@ -25,87 +25,87 @@
 + (id)_iconForURL:(id)l options:(unint64_t)options
 {
   optionsCopy = options;
-  v110[2] = *MEMORY[0x1E69E9840];
+  v129[2] = *MEMORY[0x1E69E9840];
   lCopy = l;
   v5 = +[ISURLResourcePropertySpecification sharedInstance];
   iconInitWithURLProperties = [v5 iconInitWithURLProperties];
-  v101 = 0;
-  v7 = [lCopy __is_resourceValuesForKeys:iconInitWithURLProperties error:&v101];
-  v8 = v101;
+  v120 = 0;
+  v7 = [lCopy __is_resourceValuesForKeys:iconInitWithURLProperties error:&v120];
+  v8 = v120;
 
-  v9 = MEMORY[0x1E695DC40];
+  v10 = MEMORY[0x1E695DC40];
   if (v7)
   {
-    v10 = *MEMORY[0x1E695DC40];
+    v11 = *MEMORY[0x1E695DC40];
   }
 
   else
   {
-    v11 = _ISDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _ISDefaultLog(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v103 = lCopy;
-      v104 = 2112;
-      v105 = v8;
-      _os_log_impl(&dword_1A77B8000, v11, OS_LOG_TYPE_DEFAULT, "Could not get resource properties for URL: %@ with error: %@", buf, 0x16u);
+      v122 = lCopy;
+      v123 = 2112;
+      v124 = v8;
+      _os_log_impl(&dword_1A77B8000, v12, OS_LOG_TYPE_DEFAULT, "Could not get resource properties for URL: %@ with error: %@", buf, 0x16u);
     }
 
-    v12 = _ISURLCacheLog();
-    v13 = os_signpost_id_make_with_pointer(v12, lCopy);
+    v14 = _ISURLCacheLog(v13);
+    v15 = os_signpost_id_make_with_pointer(v14, lCopy);
 
-    if (v13)
+    if (v15)
     {
-      v14 = _ISURLCacheLog();
-      v15 = os_signpost_enabled(v14);
+      v17 = _ISURLCacheLog(v16);
+      v18 = os_signpost_enabled(v17);
 
-      if (v15)
+      if (v18)
       {
-        v16 = _ISURLCacheLog();
-        v17 = v16;
-        if (v13 != -1 && os_signpost_enabled(v16))
+        v20 = _ISURLCacheLog(v19);
+        v21 = v20;
+        if (v15 != -1 && os_signpost_enabled(v20))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1A77B8000, v17, OS_SIGNPOST_EVENT, v13, "path", "resource property values are nil", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1A77B8000, v21, OS_SIGNPOST_EVENT, v15, "path", "resource property values are nil", buf, 2u);
         }
       }
     }
 
-    v10 = *v9;
-    v109[0] = *v9;
+    v11 = *v10;
+    v128[0] = *v10;
     path = [lCopy path];
-    v19 = path;
-    v20 = &stru_1F1A4DB80;
+    v23 = path;
+    v24 = &stru_1F1A4DB80;
     if (path)
     {
-      v20 = path;
+      v24 = path;
     }
 
-    v109[1] = *MEMORY[0x1E695DBB8];
-    v110[0] = v20;
-    v110[1] = MEMORY[0x1E695E118];
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v110 forKeys:v109 count:2];
+    v128[1] = *MEMORY[0x1E695DBB8];
+    v129[0] = v24;
+    v129[1] = MEMORY[0x1E695E118];
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v129 forKeys:v128 count:2];
   }
 
-  path2 = [v7 _IF_objectOfClass:objc_opt_class() forKey:v10];
+  path2 = [v7 _IF_objectOfClass:objc_opt_class() forKey:v11];
   if (!path2)
   {
-    v22 = _ISURLCacheLog();
-    v23 = os_signpost_id_make_with_pointer(v22, lCopy);
+    v26 = _ISURLCacheLog(0);
+    v27 = os_signpost_id_make_with_pointer(v26, lCopy);
 
-    if (v23)
+    if (v27)
     {
-      v24 = _ISURLCacheLog();
-      v25 = os_signpost_enabled(v24);
+      v29 = _ISURLCacheLog(v28);
+      v30 = os_signpost_enabled(v29);
 
-      if (v25)
+      if (v30)
       {
-        v26 = _ISURLCacheLog();
-        v27 = v26;
-        if (v23 != -1 && os_signpost_enabled(v26))
+        v32 = _ISURLCacheLog(v31);
+        v33 = v32;
+        if (v27 != -1 && os_signpost_enabled(v32))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1A77B8000, v27, OS_SIGNPOST_EVENT, v23, "path", "NSURLPathKey is nil", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1A77B8000, v33, OS_SIGNPOST_EVENT, v27, "path", "NSURLPathKey is nil", buf, 2u);
         }
       }
     }
@@ -113,99 +113,101 @@
     path2 = [lCopy path];
   }
 
-  v100 = v8;
-  v28 = [v7 _IF_BOOLForKey:*MEMORY[0x1E695DB78]];
-  v29 = [v7 _IF_BOOLForKey:*MEMORY[0x1E695DBA0]];
+  v119 = v8;
+  v34 = [v7 _IF_BOOLForKey:*MEMORY[0x1E695DB78]];
+  v35 = [v7 _IF_BOOLForKey:*MEMORY[0x1E695DBA0]];
   pathExtension = [path2 pathExtension];
-  if (([v7 _IF_BOOLForKey:*MEMORY[0x1E695DB68]] & 1) != 0 || objc_msgSend(v7, "_IF_BOOLForKey:", *MEMORY[0x1E695DBC8]))
+  v37 = [v7 _IF_BOOLForKey:*MEMORY[0x1E695DB68]];
+  if ((v37 & 1) != 0 || (v37 = [v7 _IF_BOOLForKey:*MEMORY[0x1E695DBC8]], v37))
   {
-    v31 = _ISDefaultLog();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    v38 = _ISDefaultLog(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
       +[ISIconFactory _iconForURL:options:];
     }
 
-    v32 = [[ISAliasIcon alloc] initWithAliasURL:lCopy];
+    v39 = [[ISAliasIcon alloc] initWithAliasURL:lCopy];
     goto LABEL_27;
   }
 
   if ([v7 _IF_BOOLForKey:*MEMORY[0x1E695DB70]])
   {
 LABEL_33:
-    v37 = _ISGenerateInProcess(lCopy);
-    v38 = _ISDefaultLog();
-    v39 = os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG);
-    if (v37)
+    v44 = _ISGenerateInProcess(lCopy);
+    v45 = v44;
+    v46 = _ISDefaultLog(v44);
+    v47 = os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG);
+    if (v45)
     {
-      if (v39)
+      if (v47)
       {
         +[ISIconFactory _iconForURL:options:];
       }
 
-      v40 = [objc_alloc(MEMORY[0x1E69A8960]) initWithURL:lCopy];
-      iconDictionary = [v40 iconDictionary];
-      v42 = [iconDictionary _IF_arrayForKey:@"CFBundleIconFiles"];
+      v48 = [objc_alloc(MEMORY[0x1E69A8960]) initWithURL:lCopy];
+      iconDictionary = [v48 iconDictionary];
+      v50 = [iconDictionary _IF_arrayForKey:@"CFBundleIconFiles"];
 
-      if (![v42 count])
+      if (![v50 count])
       {
-        iconDictionary2 = [v40 iconDictionary];
-        v44 = [iconDictionary2 _IF_stringForKey:@"CFBundleIconFile"];
+        iconDictionary2 = [v48 iconDictionary];
+        v52 = [iconDictionary2 _IF_stringForKey:@"CFBundleIconFile"];
 
-        if (v44)
+        if (v52)
         {
-          v108 = v44;
-          v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v108 count:1];
+          v127 = v52;
+          v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v127 count:1];
 
-          v42 = v45;
+          v50 = v53;
         }
       }
 
-      defaultAppIconAssetsBag = [MEMORY[0x1E69A8990] imageBagWithResourcesNames:v42 fromBundle:v40];
+      defaultAppIconAssetsBag = [MEMORY[0x1E69A8990] imageBagWithResourcesNames:v50 fromBundle:v48];
       if (!defaultAppIconAssetsBag)
       {
         defaultAppIconAssetsBag = [MEMORY[0x1E69A8990] defaultAppIconAssetsBag];
       }
 
-      v33 = [[ISImageBagIcon alloc] initWithImageBag:defaultAppIconAssetsBag];
+      v40 = [[ISImageBagIcon alloc] initWithImageBag:defaultAppIconAssetsBag];
     }
 
     else
     {
-      if (v39)
+      if (v47)
       {
         +[ISIconFactory _iconForURL:options:];
       }
 
-      v33 = [[ISBundleIcon alloc] initWithBundleURL:lCopy];
-      v58 = [objc_alloc(MEMORY[0x1E69635F8]) initWithURL:lCopy allowPlaceholder:0 error:0];
-      v40 = v58;
-      if (!v58 || [v58 developerType] != 1)
+      v40 = [[ISBundleIcon alloc] initWithBundleURL:lCopy];
+      v68 = [objc_alloc(MEMORY[0x1E69635F8]) initWithURL:lCopy allowPlaceholder:0 error:0];
+      v48 = v68;
+      if (!v68 || [v68 developerType] != 1)
       {
         goto LABEL_75;
       }
 
-      bundleIdentifier = [v40 bundleIdentifier];
-      v42 = _aliasedIcon(bundleIdentifier, v33);
+      bundleIdentifier = [v48 bundleIdentifier];
+      v50 = _aliasedIcon(bundleIdentifier, v40);
 
-      if (v42)
+      if (v50)
       {
-        v60 = _ISDefaultLog();
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+        v71 = _ISDefaultLog(v70);
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
         {
-          [v40 bundleIdentifier];
-          v96 = log = v60;
+          [v48 bundleIdentifier];
+          v115 = log = v71;
           *buf = 138412802;
-          v103 = v96;
-          v104 = 2112;
-          v105 = lCopy;
-          v106 = 2112;
-          v107 = v33;
+          v122 = v115;
+          v123 = 2112;
+          v124 = lCopy;
+          v125 = 2112;
+          v126 = v40;
 
-          v60 = log;
+          v71 = log;
         }
 
-        v61 = v42;
-        v33 = v61;
+        v72 = v50;
+        v40 = v72;
       }
     }
 
@@ -213,178 +215,192 @@ LABEL_75:
     goto LABEL_28;
   }
 
-  if (v29)
+  if (v35)
   {
-    if ([v7 _IF_BOOLForKey:*MEMORY[0x1E695DB88]] && objc_msgSend(lCopy, "__is_hasFileExtension:", @"appex"))
+    v64 = [v7 _IF_BOOLForKey:*MEMORY[0x1E695DB88]];
+    if (v64)
     {
-      goto LABEL_33;
-    }
-
-    v55 = _ISDefaultLog();
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
-    {
-      +[ISIconFactory _iconForURL:options:];
-    }
-
-    v56 = [ISTagIcon alloc];
-    v57 = MEMORY[0x1E6963868];
-LABEL_86:
-    v32 = [(ISTagIcon *)v56 initWithFileExtension:pathExtension baseType:*v57];
-LABEL_27:
-    v33 = v32;
-    goto LABEL_28;
-  }
-
-  v62 = [pathExtension length];
-  v63 = *MEMORY[0x1E695DBB8];
-  if (!v62 && [v7 _IF_BOOLForKey:*MEMORY[0x1E695DBB8]] && objc_msgSend(v7, "_IF_BOOLForKey:", *MEMORY[0x1E695DB88]))
-  {
-    v64 = _ISDefaultLog();
-    if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
-    {
-      +[ISIconFactory _iconForURL:options:];
-    }
-
-    v65 = [ISTypeIcon alloc];
-    v32 = [(ISTypeIcon *)v65 initWithType:*MEMORY[0x1E69638D0]];
-    goto LABEL_27;
-  }
-
-  if ([v7 _IF_BOOLForKey:v63])
-  {
-    v66 = _ISDefaultLog();
-    if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
-    {
-      +[ISIconFactory _iconForURL:options:];
-    }
-
-    v56 = [ISTagIcon alloc];
-    v57 = MEMORY[0x1E6963800];
-    goto LABEL_86;
-  }
-
-  if (!v28)
-  {
-    v33 = 0;
-    goto LABEL_28;
-  }
-
-  v67 = _ISURLCacheLog();
-  v68 = os_signpost_id_make_with_pointer(v67, lCopy);
-
-  if (v68)
-  {
-    v69 = _ISURLCacheLog();
-    v70 = os_signpost_enabled(v69);
-
-    if (v70)
-    {
-      v71 = _ISURLCacheLog();
-      v72 = v71;
-      if (v68 != -1 && os_signpost_enabled(v71))
+      v64 = [lCopy __is_hasFileExtension:@"appex"];
+      if (v64)
       {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1A77B8000, v72, OS_SIGNPOST_EVENT, v68, "isFileReferenceURL", "checking for file ref url", buf, 2u);
+        goto LABEL_33;
+      }
+    }
+
+    v65 = _ISDefaultLog(v64);
+    if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+    {
+      +[ISIconFactory _iconForURL:options:];
+    }
+
+    v66 = [ISTagIcon alloc];
+    v67 = MEMORY[0x1E6963868];
+LABEL_86:
+    v39 = [(ISTagIcon *)v66 initWithFileExtension:pathExtension baseType:*v67];
+LABEL_27:
+    v40 = v39;
+    goto LABEL_28;
+  }
+
+  v73 = [pathExtension length];
+  v74 = *MEMORY[0x1E695DBB8];
+  if (!v73)
+  {
+    if ([v7 _IF_BOOLForKey:*MEMORY[0x1E695DBB8]])
+    {
+      v75 = [v7 _IF_BOOLForKey:*MEMORY[0x1E695DB88]];
+      if (v75)
+      {
+        v76 = _ISDefaultLog(v75);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
+        {
+          +[ISIconFactory _iconForURL:options:];
+        }
+
+        v77 = [ISTypeIcon alloc];
+        v39 = [(ISTypeIcon *)v77 initWithType:*MEMORY[0x1E69638D0]];
+        goto LABEL_27;
       }
     }
   }
 
-  if ([lCopy isFileReferenceURL])
+  v78 = [v7 _IF_BOOLForKey:v74];
+  if (v78)
   {
-    v73 = _ISURLCacheLog();
-    v74 = os_signpost_id_make_with_pointer(v73, lCopy);
-
-    if (v74)
+    v79 = _ISDefaultLog(v78);
+    if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
     {
-      v75 = _ISURLCacheLog();
-      v76 = os_signpost_enabled(v75);
+      +[ISIconFactory _iconForURL:options:];
+    }
 
-      if (v76)
+    v66 = [ISTagIcon alloc];
+    v67 = MEMORY[0x1E6963800];
+    goto LABEL_86;
+  }
+
+  if (!v34)
+  {
+    v40 = 0;
+    goto LABEL_28;
+  }
+
+  v80 = _ISURLCacheLog(v78);
+  v81 = os_signpost_id_make_with_pointer(v80, lCopy);
+
+  if (v81)
+  {
+    v83 = _ISURLCacheLog(v82);
+    v84 = os_signpost_enabled(v83);
+
+    if (v84)
+    {
+      v86 = _ISURLCacheLog(v85);
+      v87 = v86;
+      if (v81 != -1 && os_signpost_enabled(v86))
       {
-        v77 = _ISURLCacheLog();
-        v78 = v77;
-        if (v74 != -1 && os_signpost_enabled(v77))
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_1A77B8000, v87, OS_SIGNPOST_EVENT, v81, "isFileReferenceURL", "checking for file ref url", buf, 2u);
+      }
+    }
+  }
+
+  isFileReferenceURL = [lCopy isFileReferenceURL];
+  if (isFileReferenceURL)
+  {
+    v89 = _ISURLCacheLog(isFileReferenceURL);
+    v90 = os_signpost_id_make_with_pointer(v89, lCopy);
+
+    if (v90)
+    {
+      v92 = _ISURLCacheLog(v91);
+      v93 = os_signpost_enabled(v92);
+
+      if (v93)
+      {
+        v94 = _ISURLCacheLog(v91);
+        v95 = v94;
+        if (v90 != -1 && os_signpost_enabled(v94))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1A77B8000, v78, OS_SIGNPOST_EVENT, v74, "filePathURL", "getting file path URL for debug level logging", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1A77B8000, v95, OS_SIGNPOST_EVENT, v90, "filePathURL", "getting file path URL for debug level logging", buf, 2u);
         }
       }
     }
 
-    v79 = _ISDefaultLog();
-    if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
+    v96 = _ISDefaultLog(v91);
+    if (os_log_type_enabled(v96, OS_LOG_TYPE_DEBUG))
     {
-      [ISIconFactory _iconForURL:lCopy options:v79];
+      [ISIconFactory _iconForURL:lCopy options:v96];
     }
   }
 
   else
   {
-    v79 = _ISDefaultLog();
-    if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
+    v96 = _ISDefaultLog(isFileReferenceURL);
+    if (os_log_type_enabled(v96, OS_LOG_TYPE_DEBUG))
     {
       +[ISIconFactory _iconForURL:options:];
     }
   }
 
-  v80 = +[ISCustomIconManager sharedInstance];
-  v81 = [v80 specialFolderTypeForURL:lCopy];
+  v97 = +[ISCustomIconManager sharedInstance];
+  v98 = [v97 specialFolderTypeForURL:lCopy];
 
-  if (v81)
+  if (v98)
   {
-    v82 = _ISDefaultLog();
-    if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
+    v100 = _ISDefaultLog(v99);
+    if (os_log_type_enabled(v100, OS_LOG_TYPE_DEBUG))
     {
       +[ISIconFactory _iconForURL:options:];
     }
 
-    v33 = [[ISTypeIcon alloc] initWithType:v81];
+    v40 = [[ISTypeIcon alloc] initWithType:v98];
     goto LABEL_117;
   }
 
-  v83 = +[ISDefaults sharedInstance];
-  forceSymbolEmbossment = [v83 forceSymbolEmbossment];
+  v101 = +[ISDefaults sharedInstance];
+  forceSymbolEmbossment = [v101 forceSymbolEmbossment];
   if (forceSymbolEmbossment)
   {
 
 LABEL_113:
-    v87 = [ISFolderIconConfiguration alloc];
-    v97 = +[ISDefaults sharedInstance];
-    forceSymbolEmbossment2 = [v97 forceSymbolEmbossment];
-    v89 = +[ISDefaults sharedInstance];
-    tintColor = [v89 tintColor];
-    v91 = [(ISFolderIconConfiguration *)v87 initWithSymbolName:forceSymbolEmbossment2 tintColor:tintColor];
+    v105 = [ISFolderIconConfiguration alloc];
+    v116 = +[ISDefaults sharedInstance];
+    forceSymbolEmbossment2 = [v116 forceSymbolEmbossment];
+    v107 = +[ISDefaults sharedInstance];
+    tintColor = [v107 tintColor];
+    v109 = [(ISFolderIconConfiguration *)v105 initWithSymbolName:forceSymbolEmbossment2 tintColor:tintColor];
 
-    v92 = v91;
-    v93 = _ISDefaultLog();
-    if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
+    v110 = v109;
+    v112 = _ISDefaultLog(v111);
+    if (os_log_type_enabled(v112, OS_LOG_TYPE_DEBUG))
     {
       +[ISIconFactory _iconForURL:options:];
     }
 
-    v94 = [ISTypeIcon alloc];
+    v113 = [ISTypeIcon alloc];
     identifier = [*MEMORY[0x1E6982DC8] identifier];
-    v33 = [(ISTypeIcon *)v94 initWithType:identifier iconConfiguration:v91];
+    v40 = [(ISTypeIcon *)v113 initWithType:identifier iconConfiguration:v109];
 
     goto LABEL_116;
   }
 
-  v85 = +[ISDefaults sharedInstance];
-  tintColor2 = [v85 tintColor];
+  v103 = +[ISDefaults sharedInstance];
+  tintColor2 = [v103 tintColor];
 
   if (tintColor2)
   {
     goto LABEL_113;
   }
 
-  v33 = +[ISGenericFolderIcon sharedInstance];
+  v40 = +[ISGenericFolderIcon sharedInstance];
 LABEL_116:
-  v81 = 0;
+  v98 = 0;
 LABEL_117:
 
 LABEL_28:
-  v34 = objc_opt_new();
-  if (v29 & 1 | ((v28 & 1) == 0))
+  v41 = objc_opt_new();
+  if (v35 & 1 | ((v34 & 1) == 0))
   {
     goto LABEL_46;
   }
@@ -397,30 +413,31 @@ LABEL_28:
       goto LABEL_46;
     }
 
-    v36 = kISIconDecorationDropFolderBadgeType;
+    v43 = kISIconDecorationDropFolderBadgeType;
   }
 
   else
   {
-    v36 = kISIconDecorationPrivateFolderBadgeType;
+    v43 = kISIconDecorationPrivateFolderBadgeType;
   }
 
-  v47 = [[ISIconDecoration alloc] initWithType:*v36];
-  [v34 addObject:v47];
+  v55 = [[ISIconDecoration alloc] initWithType:*v43];
+  [v41 addObject:v55];
 
 LABEL_46:
   if ([lCopy __is_locked])
   {
-    v48 = [[ISIconDecoration alloc] initWithType:@"com.apple.icon-decoration.badge.locked"];
-    [v34 addObject:v48];
+    v56 = [[ISIconDecoration alloc] initWithType:@"com.apple.icon-decoration.badge.locked"];
+    [v41 addObject:v56];
   }
 
-  if ([v34 count])
+  v57 = [v41 count];
+  if (v57)
   {
     if ((optionsCopy & 2) != 0)
     {
-      v50 = _ISDefaultLog();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+      v59 = _ISDefaultLog(v57);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
       {
         +[ISIconFactory _iconForURL:options:];
       }
@@ -428,28 +445,26 @@ LABEL_46:
 
     else
     {
-      decorations = [(ISImageBagIcon *)v33 decorations];
-      v50 = [decorations arrayByAddingObjectsFromArray:v34];
+      decorations = [(ISImageBagIcon *)v40 decorations];
+      v59 = [decorations arrayByAddingObjectsFromArray:v41];
 
-      v51 = [[ISDecoratedIcon alloc] initWithIcon:v33 decorations:v50];
-      v33 = v51;
+      v60 = [[ISDecoratedIcon alloc] initWithIcon:v40 decorations:v59];
+      v40 = v60;
     }
   }
 
-  if (!v33)
+  if (!v40)
   {
-    v52 = _ISDefaultLog();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+    v62 = _ISDefaultLog(v61);
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
     {
       +[ISIconFactory _iconForURL:options:];
     }
 
-    v33 = +[ISUnknownIcon sharedInstance];
+    v40 = +[ISUnknownIcon sharedInstance];
   }
 
-  v53 = *MEMORY[0x1E69E9840];
-
-  return v33;
+  return v40;
 }
 
 - (id)_init
@@ -463,89 +478,89 @@ LABEL_46:
 - (ISIconFactory)initWithURL:(id)l options:(unint64_t)options
 {
   lCopy = l;
-  v7 = _ISURLCacheLog();
+  v7 = _ISURLCacheLog(lCopy);
   v8 = os_signpost_id_make_with_pointer(v7, lCopy);
 
   if (v8)
   {
-    v9 = _ISURLCacheLog();
-    v10 = v9;
-    if (v8 != -1 && os_signpost_enabled(v9))
+    v10 = _ISURLCacheLog(v9);
+    v11 = v10;
+    if (v8 != -1 && os_signpost_enabled(v10))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1A77B8000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "accessing URL", "[ISIcon initWithURL:options:]", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1A77B8000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "accessing URL", "[ISIcon initWithURL:options:]", buf, 2u);
     }
   }
 
-  v11 = [ISIconFactory _iconForURL:lCopy options:options];
-  v12 = _ISURLCacheLog();
-  v13 = os_signpost_id_make_with_pointer(v12, lCopy);
+  v12 = [ISIconFactory _iconForURL:lCopy options:options];
+  v13 = _ISURLCacheLog(v12);
+  v14 = os_signpost_id_make_with_pointer(v13, lCopy);
 
-  if (v13)
+  if (v14)
   {
-    v14 = _ISURLCacheLog();
-    v15 = os_signpost_enabled(v14);
+    v16 = _ISURLCacheLog(v15);
+    v17 = os_signpost_enabled(v16);
 
-    if (v15)
+    if (v17)
     {
-      v16 = _ISURLCacheLog();
-      v17 = v16;
-      if (v13 != -1 && os_signpost_enabled(v16))
+      v19 = _ISURLCacheLog(v18);
+      v20 = v19;
+      if (v14 != -1 && os_signpost_enabled(v19))
       {
-        *v21 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1A77B8000, v17, OS_SIGNPOST_INTERVAL_END, v13, "accessing URL", "[ISIcon initWithURL:options:]", v21, 2u);
+        *v24 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1A77B8000, v20, OS_SIGNPOST_INTERVAL_END, v14, "accessing URL", "[ISIcon initWithURL:options:]", v24, 2u);
       }
     }
   }
 
-  v18 = +[ISIconManager sharedInstance];
-  v19 = [v18 findOrRegisterIcon:v11];
+  v21 = +[ISIconManager sharedInstance];
+  v22 = [v21 findOrRegisterIcon:v12];
 
-  return v19;
+  return v22;
 }
 
 - (ISIconFactory)initWithURL:(id)l
 {
   lCopy = l;
-  v5 = _ISURLCacheLog();
+  v5 = _ISURLCacheLog(lCopy);
   v6 = os_signpost_id_make_with_pointer(v5, lCopy);
 
   if (v6)
   {
-    v7 = _ISURLCacheLog();
-    v8 = v7;
-    if (v6 != -1 && os_signpost_enabled(v7))
+    v8 = _ISURLCacheLog(v7);
+    v9 = v8;
+    if (v6 != -1 && os_signpost_enabled(v8))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1A77B8000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "accessing URL", "[ISIcon initWithURL:]", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1A77B8000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "accessing URL", "[ISIcon initWithURL:]", buf, 2u);
     }
   }
 
-  v9 = [ISIconFactory _iconForURL:lCopy options:0];
-  v10 = _ISURLCacheLog();
-  v11 = os_signpost_id_make_with_pointer(v10, lCopy);
+  v10 = [ISIconFactory _iconForURL:lCopy options:0];
+  v11 = _ISURLCacheLog(v10);
+  v12 = os_signpost_id_make_with_pointer(v11, lCopy);
 
-  if (v11)
+  if (v12)
   {
-    v12 = _ISURLCacheLog();
-    v13 = os_signpost_enabled(v12);
+    v14 = _ISURLCacheLog(v13);
+    v15 = os_signpost_enabled(v14);
 
-    if (v13)
+    if (v15)
     {
-      v14 = _ISURLCacheLog();
-      v15 = v14;
-      if (v11 != -1 && os_signpost_enabled(v14))
+      v17 = _ISURLCacheLog(v16);
+      v18 = v17;
+      if (v12 != -1 && os_signpost_enabled(v17))
       {
-        *v19 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1A77B8000, v15, OS_SIGNPOST_INTERVAL_END, v11, "accessing URL", "[ISIcon initWithURL:]", v19, 2u);
+        *v22 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1A77B8000, v18, OS_SIGNPOST_INTERVAL_END, v12, "accessing URL", "[ISIcon initWithURL:]", v22, 2u);
       }
     }
   }
 
-  v16 = +[ISIconManager sharedInstance];
-  v17 = [v16 findOrRegisterIcon:v9];
+  v19 = +[ISIconManager sharedInstance];
+  v20 = [v19 findOrRegisterIcon:v10];
 
-  return v17;
+  return v20;
 }
 
 - (ISIconFactory)initWithApplicationIdentity:(id)identity
@@ -564,22 +579,23 @@ LABEL_46:
   identifierCopy = identifier;
   v5 = [[ISBundleIdentifierIcon alloc] initWithBundleIdentifier:identifierCopy];
   v6 = _aliasedIcon(identifierCopy, v5);
+  v7 = v6;
   if (v6)
   {
-    v7 = _ISDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _ISDefaultLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [ISIconFactory initWithBundleIdentifier:];
     }
 
-    v8 = v6;
-    v5 = v8;
+    v9 = v7;
+    v5 = v9;
   }
 
-  v9 = +[ISIconManager sharedInstance];
-  v10 = [v9 findOrRegisterIcon:v5];
+  v10 = +[ISIconManager sharedInstance];
+  v11 = [v10 findOrRegisterIcon:v5];
 
-  return v10;
+  return v11;
 }
 
 - (ISIconFactory)initWithApplicationBundleIdentifier:(id)identifier
@@ -854,115 +870,35 @@ LABEL_15:
   return v10;
 }
 
-+ (void)_iconForURL:options:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1A77B8000, v0, v1, "Creating Folder icon for URL: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 + (void)_iconForURL:(void *)a1 options:(NSObject *)a2 .cold.2(void *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = [a1 filePathURL];
-  v6 = 138412546;
-  v7 = a1;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Creating Folder icon for URL: %@ (%@)", &v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412546;
+  v6 = a1;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Creating Folder icon for URL: %@ (%@)", &v5, 0x16u);
 }
 
 + (void)_iconForURL:options:.cold.3()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_2_0(&dword_1A77B8000, v0, v1, "Identified custom folder type %@ for URL: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_iconForURL:options:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1A77B8000, v0, v1, "Overriding tint/embossing with config content: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_iconForURL:options:.cold.5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1A77B8000, v0, v1, "Creating File Extension icon for file URL: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_iconForURL:options:.cold.6()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1A77B8000, v0, v1, "Creating executable icon for file URL: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_iconForURL:options:.cold.7()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1A77B8000, v0, v1, "Creating File Extension icon for package URL: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_iconForURL:options:.cold.8()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1A77B8000, v0, v1, "Creating Bundle icon for URL: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_iconForURL:options:.cold.9()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1A77B8000, v0, v1, "Creating icon for placeholder bundle at URL: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_iconForURL:options:.cold.10()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1A77B8000, v0, v1, "Creating Bundle Alias icon for Bookmark icon for URL: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_iconForURL:options:.cold.11()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_2_0(&dword_1A77B8000, v0, v1, "Ignoring decorations %@ for URL: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_iconForURL:options:.cold.12()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1A77B8000, v0, v1, "Creating kUnknownFSObjectIcon icon for URL: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithBundleIdentifier:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_0();
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

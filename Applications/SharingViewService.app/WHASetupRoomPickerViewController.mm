@@ -44,7 +44,7 @@
   buttonCopy = button;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupRoomPickerViewController handleDismissButton:]", 30, "RoomPicker Dismiss button\n");
   }
 
   [self->super._mainController dismiss:5];
@@ -55,7 +55,7 @@
   buttonCopy = button;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupRoomPickerViewController handleChooseButton:]", 30, "RoomPicker Choose button\n");
   }
 
   if ((BYTE1(self->_chooseButton) & 1) == 0)
@@ -100,7 +100,7 @@
   disappearCopy = disappear;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupRoomPickerViewController viewDidDisappear:]", 30, "RoomPicker ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -113,7 +113,7 @@
   appearCopy = appear;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupRoomPickerViewController viewWillAppear:]", 30, "RoomPicker ViewWillAppear\n");
   }
 
   v5.receiver = self;

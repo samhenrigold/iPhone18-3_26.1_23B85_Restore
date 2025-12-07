@@ -209,7 +209,7 @@ void __61__HUCameraRecordingExportPreviewViewController_playVideoFile__block_inv
   v4 = v3;
   if (v3)
   {
-    [v3 currentTime];
+    objc_msgSend_currentTime(v3);
   }
 
   else
@@ -223,7 +223,7 @@ void __61__HUCameraRecordingExportPreviewViewController_playVideoFile__block_inv
   v8 = v7;
   if (v7)
   {
-    [v7 duration];
+    objc_msgSend_duration(v7);
   }
 
   else

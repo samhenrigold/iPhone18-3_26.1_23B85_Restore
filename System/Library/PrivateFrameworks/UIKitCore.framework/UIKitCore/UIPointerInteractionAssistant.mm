@@ -52,7 +52,7 @@ void __52___UIPointerInteractionAssistant__assistantForView___block_invoke(uint6
   }
 }
 
-void __84___UIPointerInteractionAssistant_pointerInteraction_regionForRequest_defaultRegion___block_invoke(uint64_t *a1, void *a2, void *a3, _BYTE *a4)
+void __84___UIPointerInteractionAssistant_pointerInteraction_regionForRequest_defaultRegion___block_invoke(void *a1, void *a2, void *a3, _BYTE *a4)
 {
   v12 = a2;
   v8 = a3;

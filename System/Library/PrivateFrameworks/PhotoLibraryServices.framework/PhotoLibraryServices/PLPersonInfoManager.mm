@@ -59,7 +59,7 @@
       if (infoCopy)
       {
 LABEL_6:
-        v14 = [infoCopy count];
+        v14 = objc_msgSend_count(infoCopy);
         personDictsForPersonID = selfCopy->_personDictsForPersonID;
         if (v14)
         {
@@ -360,7 +360,7 @@ LABEL_13:
   emailsCopy = emails;
   phonesCopy = phones;
   dCopy = d;
-  if (dCopy && ([phonesCopy count] || objc_msgSend(emailsCopy, "count")))
+  if (dCopy && (objc_msgSend_count(phonesCopy) || objc_msgSend_count(emailsCopy)))
   {
     v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
     v11 = v10;

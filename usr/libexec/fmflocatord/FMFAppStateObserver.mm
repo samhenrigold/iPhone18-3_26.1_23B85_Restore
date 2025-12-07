@@ -59,12 +59,12 @@
     v9 = +[SystemConfig sharedInstance];
     isFMFAppRemoved = [v9 isFMFAppRemoved];
 
-    v11 = sub_100002830();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100002830(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12[0] = 67109120;
-      v12[1] = isFMFAppRemoved ^ 1;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "FMFAppStateObserver: Detected install state change event for Find My app - installed: %d.", v12, 8u);
+      v13[0] = 67109120;
+      v13[1] = isFMFAppRemoved ^ 1;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FMFAppStateObserver: Detected install state change event for Find My app - installed: %d.", v13, 8u);
     }
   }
 }

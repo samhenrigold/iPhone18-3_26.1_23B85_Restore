@@ -52,9 +52,11 @@
 uint64_t __27__DOCFeature_protectedApps__block_invoke()
 {
   v0 = [DOCFeatureStateFFSetting alloc];
-  protectedApps_cachedValue = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"AppProtection" featureID:@"protected_apps" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v1 = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"AppProtection" featureID:@"protected_apps" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v2 = protectedApps_cachedValue;
+  protectedApps_cachedValue = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (DOCFeatureState)tabSidebar
@@ -84,9 +86,11 @@ uint64_t __27__DOCFeature_protectedApps__block_invoke()
 uint64_t __24__DOCFeature_tabSidebar__block_invoke()
 {
   v0 = [DOCFeatureStateFFSetting alloc];
-  tabSidebar_cachedValue = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"TabSidebar2" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v1 = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"TabSidebar2" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v2 = tabSidebar_cachedValue;
+  tabSidebar_cachedValue = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (BOOL)protectedAppsEnabled
@@ -128,9 +132,11 @@ uint64_t __24__DOCFeature_tabSidebar__block_invoke()
 uint64_t __27__DOCFeature_modernToolbar__block_invoke()
 {
   v0 = [DOCFeatureStateFFSetting alloc];
-  modernToolbar_cachedValue = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"modernToolbar" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v1 = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"modernToolbar" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v2 = modernToolbar_cachedValue;
+  modernToolbar_cachedValue = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (DOCFeatureState)outlineView
@@ -148,9 +154,11 @@ uint64_t __27__DOCFeature_modernToolbar__block_invoke()
 uint64_t __25__DOCFeature_outlineView__block_invoke()
 {
   v0 = [DOCFeatureStateFFSetting alloc];
-  outlineView_cachedValue = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"OutlineView" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v1 = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"OutlineView" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v2 = outlineView_cachedValue;
+  outlineView_cachedValue = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (DOCFeatureState)enableOldListToo
@@ -168,9 +176,11 @@ uint64_t __25__DOCFeature_outlineView__block_invoke()
 uint64_t __30__DOCFeature_enableOldListToo__block_invoke()
 {
   v0 = [DOCFeatureStateFFSetting alloc];
-  enableOldListToo_cachedValue = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"EnableOldListToo" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v1 = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"EnableOldListToo" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v2 = enableOldListToo_cachedValue;
+  enableOldListToo_cachedValue = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (DOCFeatureState)showTips
@@ -188,9 +198,11 @@ uint64_t __30__DOCFeature_enableOldListToo__block_invoke()
 uint64_t __22__DOCFeature_showTips__block_invoke()
 {
   v0 = [DOCFeatureStateFFSetting alloc];
-  showTips_cachedValue = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"ShowTips" overrideKey:0 valueMode:1 requirements:MEMORY[0x277CBEBF8]];
+  v1 = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"ShowTips" overrideKey:0 valueMode:1 requirements:MEMORY[0x277CBEBF8]];
+  v2 = showTips_cachedValue;
+  showTips_cachedValue = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (DOCFeatureState)viewOptionsSizeSetting
@@ -208,9 +220,11 @@ uint64_t __22__DOCFeature_showTips__block_invoke()
 uint64_t __36__DOCFeature_viewOptionsSizeSetting__block_invoke()
 {
   v0 = [DOCFeatureStateFFSetting alloc];
-  viewOptionsSizeSetting_cachedValue = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"ViewOptionsSizeSetting" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v1 = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"ViewOptionsSizeSetting" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v2 = viewOptionsSizeSetting_cachedValue;
+  viewOptionsSizeSetting_cachedValue = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (DOCFeatureState)viewOptionsResizableIcon
@@ -228,9 +242,11 @@ uint64_t __36__DOCFeature_viewOptionsSizeSetting__block_invoke()
 uint64_t __38__DOCFeature_viewOptionsResizableIcon__block_invoke()
 {
   v0 = [DOCFeatureStateFFSetting alloc];
-  viewOptionsResizableIcon_cachedValue = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"ViewOptionsResizableIcon" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v1 = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"ViewOptionsResizableIcon" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v2 = viewOptionsResizableIcon_cachedValue;
+  viewOptionsResizableIcon_cachedValue = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (DOCFeatureState)viewOptionsResizableList
@@ -248,9 +264,11 @@ uint64_t __38__DOCFeature_viewOptionsResizableIcon__block_invoke()
 uint64_t __38__DOCFeature_viewOptionsResizableList__block_invoke()
 {
   v0 = [DOCFeatureStateFFSetting alloc];
-  viewOptionsResizableList_cachedValue = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"ViewOptionsResizableList" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v1 = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"ViewOptionsResizableList" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v2 = viewOptionsResizableList_cachedValue;
+  viewOptionsResizableList_cachedValue = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (DOCFeatureState)typeToFocus
@@ -268,9 +286,11 @@ uint64_t __38__DOCFeature_viewOptionsResizableList__block_invoke()
 uint64_t __25__DOCFeature_typeToFocus__block_invoke()
 {
   v0 = [DOCFeatureStateFFSetting alloc];
-  typeToFocus_cachedValue = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"typeToFocus" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v1 = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"typeToFocus" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v2 = typeToFocus_cachedValue;
+  typeToFocus_cachedValue = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (DOCFeatureState)returnToSender
@@ -288,9 +308,11 @@ uint64_t __25__DOCFeature_typeToFocus__block_invoke()
 uint64_t __28__DOCFeature_returnToSender__block_invoke()
 {
   v0 = [DOCFeatureStateFFSetting alloc];
-  returnToSender_cachedValue = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"Synapse" featureID:@"ReturnToSender" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v1 = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"Synapse" featureID:@"ReturnToSender" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v2 = returnToSender_cachedValue;
+  returnToSender_cachedValue = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (DOCFeatureState)useBlastDoorThumbnails
@@ -308,9 +330,11 @@ uint64_t __28__DOCFeature_returnToSender__block_invoke()
 uint64_t __36__DOCFeature_useBlastDoorThumbnails__block_invoke()
 {
   v0 = [DOCFeatureStateFFSetting alloc];
-  useBlastDoorThumbnails_cachedValue = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"UseBlastDoorThumbnails" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v1 = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"UseBlastDoorThumbnails" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v2 = useBlastDoorThumbnails_cachedValue;
+  useBlastDoorThumbnails_cachedValue = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (DOCFeatureState)dsEnumerationLocal
@@ -328,9 +352,11 @@ uint64_t __36__DOCFeature_useBlastDoorThumbnails__block_invoke()
 uint64_t __32__DOCFeature_dsEnumerationLocal__block_invoke()
 {
   v0 = [DOCFeatureStateFFSetting alloc];
-  dsEnumerationLocal_cachedValue = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"DSEnumeration_Local" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v1 = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"DocumentManager" featureID:@"DSEnumeration_Local" overrideKey:0 valueMode:0 requirements:MEMORY[0x277CBEBF8]];
+  v2 = dsEnumerationLocal_cachedValue;
+  dsEnumerationLocal_cachedValue = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (DOCFeatureState)outlineDisclosure
@@ -809,16 +835,14 @@ uint64_t __22__DOCFeature_driveRSA__block_invoke()
 
 void __33__DOCFeature_folderCustomization__block_invoke()
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v0 = [DOCFeatureStateFFSetting alloc];
   v1 = +[DOCFeature featureRequirementFolderCustomization];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [(DOCFeatureStateFFSetting *)v0 initWithDomainID:@"SwiftUI" featureID:@"Solarium" overrideKey:0 valueMode:1 requirements:v2];
   v4 = folderCustomization_cachedValue;
   folderCustomization_cachedValue = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_docImplementation_uip_isUIPDocumentLandingEnabled
@@ -942,7 +966,7 @@ void __60__DOCFeature__docImplementation_uip_isFloatingTabBarEnabled__block_invo
 
 + (BOOL)useFIOperations
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Disable_%@", @"FIOperations"];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v4 = [standardUserDefaults valueForKey:v2];
@@ -955,21 +979,21 @@ void __60__DOCFeature__docImplementation_uip_isFloatingTabBarEnabled__block_invo
     if (v4)
     {
       standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-      v23 = v2;
-      v24[0] = v4;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+      v22 = v2;
+      v23[0] = v4;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
       [standardUserDefaults2 registerDefaults:v7];
     }
   }
 
   objc_sync_enter(@"FIOperations");
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   bOOLValue = [useFIOperations_previousEnabledState BOOLValue];
   if ([v4 BOOLValue])
   {
-    *(v20 + 24) = 0;
+    *(v19 + 24) = 0;
   }
 
   else
@@ -978,14 +1002,14 @@ void __60__DOCFeature__docImplementation_uip_isFloatingTabBarEnabled__block_invo
     block[1] = 3221225472;
     block[2] = __29__DOCFeature_useFIOperations__block_invoke;
     block[3] = &unk_278F9B7D8;
-    block[4] = &v19;
+    block[4] = &v18;
     if (useFIOperations_onceToken != -1)
     {
       dispatch_once(&useFIOperations_onceToken, block);
     }
   }
 
-  if (!useFIOperations_previousEnabledState || (v8 = [useFIOperations_previousEnabledState BOOLValue], v9 = *(v20 + 24), v9 != v8))
+  if (!useFIOperations_previousEnabledState || (v8 = [useFIOperations_previousEnabledState BOOLValue], v9 = *(v19 + 24), v9 != v8))
   {
     bOOLValue2 = [v4 BOOLValue];
     v11 = &stru_285C6EEF8;
@@ -995,20 +1019,19 @@ void __60__DOCFeature__docImplementation_uip_isFloatingTabBarEnabled__block_invo
     }
 
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"'%@ / %@'%@", @"DocumentManager", @"FIOperations", v11];
-    _FFInitLog(v12, *(v20 + 24));
+    _FFInitLog(v12, *(v19 + 24));
 
-    LOBYTE(v9) = *(v20 + 24);
+    LOBYTE(v9) = *(v19 + 24);
   }
 
   v13 = [MEMORY[0x277CCABB0] numberWithBool:v9 & 1];
   v14 = useFIOperations_previousEnabledState;
   useFIOperations_previousEnabledState = v13;
 
-  v15 = *(v20 + 24);
-  _Block_object_dispose(&v19, 8);
+  v15 = *(v19 + 24);
+  _Block_object_dispose(&v18, 8);
   objc_sync_exit(@"FIOperations");
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 

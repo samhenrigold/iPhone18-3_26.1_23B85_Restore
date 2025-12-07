@@ -97,11 +97,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:257 commandID:37 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v18)
   {
     sub_2393C5AAC(v17);
-    sub_2393C5ADC(v17, *(v18 + 1), *(v18 + 3));
+    sub_2393C5ADC(v17, *(v18 + 8), *(v18 + 24));
     v8 = sub_2393C6FD0(v17, 256);
     if (!v8)
     {
@@ -208,18 +208,18 @@ LABEL_6:
     [(MTRDoorLockClusterGetCredentialStatusResponseParams *)self setNextCredentialIndex:0];
   }
 
-  v11 = *(struct + 16);
-  v10 = struct + 16;
-  if (v11 == 1 && (sub_238DE36B8(v10)[16] & 1) != 0)
+  v12 = *(struct + 16);
+  v11 = struct + 16;
+  if (v12 == 1 && (sub_238DE36B8(v11, v10)[16] & 1) != 0)
   {
-    v12 = sub_238DE36B8(v10);
-    if ((v12[16] & 1) == 0)
+    v14 = sub_238DE36B8(v11, v13);
+    if ((v14[16] & 1) == 0)
     {
       sub_238EA195C();
     }
 
-    v13 = [MEMORY[0x277CBEA90] dataWithBytes:*v12 length:*(v12 + 1)];
-    [(MTRDoorLockClusterGetCredentialStatusResponseParams *)self setCredentialData:v13];
+    v15 = [MEMORY[0x277CBEA90] dataWithBytes:*v14 length:*(v14 + 1)];
+    [(MTRDoorLockClusterGetCredentialStatusResponseParams *)self setCredentialData:v15];
   }
 
   else
@@ -227,11 +227,11 @@ LABEL_6:
     [(MTRDoorLockClusterGetCredentialStatusResponseParams *)self setCredentialData:0];
   }
 
-  v14 = 0;
-  v15 = 0;
-  result.mFile = v15;
-  result.mError = v14;
-  result.mLine = HIDWORD(v14);
+  v16 = 0;
+  v17 = 0;
+  result.mFile = v17;
+  result.mError = v16;
+  result.mLine = HIDWORD(v16);
   return result;
 }
 

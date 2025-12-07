@@ -12,9 +12,9 @@
 
 - (uint64_t)assistantLanguageIsRTL
 {
-  v0 = MEMORY[0x277CBEAF8];
-  v1 = SRUIFGetLanguageCode();
-  if ([v0 characterDirectionForLanguage:v1] == 2)
+  v2 = MEMORY[0x277CBEAF8];
+  v3 = SRUIFGetLanguageCode();
+  if ([v2 characterDirectionForLanguage:v3] == 2)
   {
     assistantLanguageForceRTL = 1;
   }

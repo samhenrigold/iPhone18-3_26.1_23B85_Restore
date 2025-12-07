@@ -148,7 +148,7 @@ void __60__SBUIHostProxyHostComponent_scene_didUpdateClientSettings___block_invo
 {
   v7 = a3;
   (*(*(a1 + 40) + 16))();
-  v4 = [*(a1 + 32) transitionContext];
+  v4 = objc_msgSend_transitionContext(*(a1 + 32));
   v5 = [v4 animationSettings];
   if (v5)
   {

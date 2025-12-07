@@ -69,24 +69,24 @@
 
 - (id)serialize
 {
-  v27[4] = *MEMORY[0x277D85DE8];
-  v26[0] = @"name";
+  v26[4] = *MEMORY[0x277D85DE8];
+  v25[0] = @"name";
   name = [(DEDExtension *)self name];
   v4 = stringIfNil(name);
-  v27[0] = v4;
-  v26[1] = @"identifier";
+  v26[0] = v4;
+  v25[1] = @"identifier";
   identifier = [(DEDExtension *)self identifier];
   v6 = stringIfNil(identifier);
-  v27[1] = v6;
-  v26[2] = @"dedExtensionIdentifier";
+  v26[1] = v6;
+  v25[2] = @"dedExtensionIdentifier";
   dedExtensionIdentifier = [(DEDExtension *)self dedExtensionIdentifier];
   stringValue = [dedExtensionIdentifier stringValue];
   v9 = stringIfNil(stringValue);
-  v27[2] = v9;
-  v26[3] = @"requiresDataClassBAccessToRun";
+  v26[2] = v9;
+  v25[3] = @"requiresDataClassBAccessToRun";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{-[DEDExtension requiresDataClassBAccessToRun](self, "requiresDataClassBAccessToRun")}];
-  v27[3] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
+  v26[3] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
 
   localizedConsentText = [(DEDExtension *)self localizedConsentText];
   if (localizedConsentText || ([(DEDExtension *)self localizedCustomerConsentText], (localizedConsentText = objc_claimAutoreleasedReturnValue()) != 0) || ([(DEDExtension *)self localizedDataCollectedSummary], (localizedConsentText = objc_claimAutoreleasedReturnValue()) != 0))
@@ -124,8 +124,6 @@ LABEL_5:
 
   v22 = v11;
 LABEL_6:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

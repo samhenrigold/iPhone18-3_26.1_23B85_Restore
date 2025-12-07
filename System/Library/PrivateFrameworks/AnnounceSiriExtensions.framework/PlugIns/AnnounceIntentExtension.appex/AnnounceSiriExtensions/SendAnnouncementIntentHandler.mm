@@ -15,7 +15,7 @@
   v4 = sub_100016394();
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   v6.receiver = self;
-  v6.super_class = type metadata accessor for SendAnnouncementIntentHandler();
+  v6.super_class = type metadata accessor for SendAnnouncementIntentHandler(0);
   return [(SendAnnouncementIntentHandler *)&v6 init];
 }
 
@@ -38,92 +38,89 @@
   *(&self->super.super.isa + v3) = 0;
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for SendAnnouncementIntentHandler();
+  v7.super_class = type metadata accessor for SendAnnouncementIntentHandler(0);
   [(SendAnnouncementIntentHandler *)&v7 dealloc];
 }
 
 - (void)resolveAnnouncementForSendAnnouncement:(INSendAnnouncementIntent *)announcement withCompletion:(id)completion
 {
   v7 = sub_1000029F0(&unk_100021660, &qword_1000176F0);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v18 - v9;
-  v11 = _Block_copy(completion);
-  v12 = swift_allocObject();
-  v12[2] = announcement;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1000164C4();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(completion);
+  v11 = swift_allocObject();
+  v11[2] = announcement;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1000164C4();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_100017740;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_100017740;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_100017748;
-  v15[5] = v14;
+  v14[4] = &unk_100017748;
+  v14[5] = v13;
   announcementCopy = announcement;
   selfCopy = self;
-  sub_100014D80(0, 0, v10, &unk_100017750, v15);
+  sub_100014D80(0, 0, v9, &unk_100017750, v14);
 }
 
 - (void)resolveRecipientsForSendAnnouncement:(INSendAnnouncementIntent *)announcement withCompletion:(id)completion
 {
   v7 = sub_1000029F0(&unk_100021660, &qword_1000176F0);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v18 - v9;
-  v11 = _Block_copy(completion);
-  v12 = swift_allocObject();
-  v12[2] = announcement;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1000164C4();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(completion);
+  v11 = swift_allocObject();
+  v11[2] = announcement;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1000164C4();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_100017720;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_100017720;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_100017728;
-  v15[5] = v14;
+  v14[4] = &unk_100017728;
+  v14[5] = v13;
   announcementCopy = announcement;
   selfCopy = self;
-  sub_100014D80(0, 0, v10, &unk_100017730, v15);
+  sub_100014D80(0, 0, v9, &unk_100017730, v14);
 }
 
 - (void)handleSendAnnouncement:(INSendAnnouncementIntent *)announcement completion:(id)completion
 {
   v7 = sub_1000029F0(&unk_100021660, &qword_1000176F0);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v18 - v9;
-  v11 = _Block_copy(completion);
-  v12 = swift_allocObject();
-  v12[2] = announcement;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1000164C4();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(completion);
+  v11 = swift_allocObject();
+  v11[2] = announcement;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1000164C4();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_100017700;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_100017700;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1000175C0;
-  v15[5] = v14;
+  v14[4] = &unk_1000175C0;
+  v14[5] = v13;
   announcementCopy = announcement;
   selfCopy = self;
-  sub_100014D80(0, 0, v10, &unk_100017710, v15);
+  sub_100014D80(0, 0, v9, &unk_100017710, v14);
 }
 
 @end

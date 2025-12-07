@@ -191,8 +191,8 @@
 - (id)_imageForSampleBuffer:(opaqueCMSampleBuffer *)buffer gainMapMetadata:(id)metadata
 {
   ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
-  v6 = [metadata objectForKeyedSubscript:*MEMORY[0x1E6990DB0]];
-  v7 = [metadata objectForKeyedSubscript:*MEMORY[0x1E6990E10]];
+  v6 = objc_msgSend_objectForKeyedSubscript_(metadata);
+  v7 = objc_msgSend_objectForKeyedSubscript_(metadata);
   v8 = 0;
   if (metadata)
   {

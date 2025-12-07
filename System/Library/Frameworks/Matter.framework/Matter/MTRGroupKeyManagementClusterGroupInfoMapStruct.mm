@@ -43,8 +43,8 @@
   groupName = [(MTRGroupKeyManagementClusterGroupInfoMapStruct *)self groupName];
   [(MTRGroupKeyManagementClusterGroupInfoMapStruct *)v4 setGroupName:groupName];
 
-  fabricIndex = [(MTRGroupKeyManagementClusterGroupInfoMapStruct *)self fabricIndex];
-  [(MTRGroupKeyManagementClusterGroupInfoMapStruct *)v4 setFabricIndex:fabricIndex];
+  v8 = objc_msgSend_fabricIndex(self);
+  [(MTRGroupKeyManagementClusterGroupInfoMapStruct *)v4 setFabricIndex:v8];
 
   return v4;
 }

@@ -76,10 +76,10 @@ uint64_t __43__CRSInCallAssertionService_sharedInstance__block_invoke()
 
 - (id)_init
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = CRSInCallAssertionService;
-  v2 = [(CRSInCallAssertionService *)&v22 init];
+  v24 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = CRSInCallAssertionService;
+  v2 = [(CRSInCallAssertionService *)&v21 init];
   if (v2)
   {
     serial = [MEMORY[0x277CF0C18] serial];
@@ -100,13 +100,13 @@ uint64_t __43__CRSInCallAssertionService_sharedInstance__block_invoke()
     v2->_bannersAllowedConnections = v10;
 
     v12 = MEMORY[0x277CF32A0];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __34__CRSInCallAssertionService__init__block_invoke;
-    v20[3] = &unk_278D8E008;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __34__CRSInCallAssertionService__init__block_invoke;
+    v19[3] = &unk_278D8E008;
     v13 = v2;
-    v21 = v13;
-    v14 = [v12 listenerWithConfigurator:v20];
+    v20 = v13;
+    v14 = [v12 listenerWithConfigurator:v19];
     v15 = v13[2];
     v13[2] = v14;
 
@@ -115,14 +115,13 @@ uint64_t __43__CRSInCallAssertionService_sharedInstance__block_invoke()
     {
       v17 = v13[2];
       *buf = 138412290;
-      v24 = v17;
+      v23 = v17;
       _os_log_impl(&dword_242FB5000, v16, OS_LOG_TYPE_INFO, "Activating listener! %@", buf, 0xCu);
     }
 
     [v13[2] activate];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -184,30 +183,30 @@ void __34__CRSInCallAssertionService__init__block_invoke(uint64_t a1, void *a2)
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v7 = CRSLogForCategory(2uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     instance = [connectionCopy instance];
     *buf = 138412546;
-    v17 = connectionCopy;
-    v18 = 2112;
-    v19 = instance;
+    v16 = connectionCopy;
+    v17 = 2112;
+    v18 = instance;
     _os_log_impl(&dword_242FB5000, v7, OS_LOG_TYPE_INFO, "Received connection! %@, reason: %@", buf, 0x16u);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __71__CRSInCallAssertionService_listener_didReceiveConnection_withContext___block_invoke;
-  v15[3] = &unk_278D8E1A8;
-  v15[4] = self;
-  [connectionCopy configureConnection:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __71__CRSInCallAssertionService_listener_didReceiveConnection_withContext___block_invoke;
+  v14[3] = &unk_278D8E1A8;
+  v14[4] = self;
+  [connectionCopy configureConnection:v14];
   v9 = CRSLogForCategory(2uLL);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v17 = connectionCopy;
+    v16 = connectionCopy;
     _os_log_impl(&dword_242FB5000, v9, OS_LOG_TYPE_INFO, "Activating connection... %@", buf, 0xCu);
   }
 
@@ -217,12 +216,11 @@ void __34__CRSInCallAssertionService__init__block_invoke(uint64_t a1, void *a2)
   block[2] = __71__CRSInCallAssertionService_listener_didReceiveConnection_withContext___block_invoke_83;
   block[3] = &unk_278D8E3D0;
   block[4] = self;
-  v14 = connectionCopy;
+  v13 = connectionCopy;
   v11 = connectionCopy;
   dispatch_async(connectionQueue, block);
 
   [v11 activate];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CRSInCallAssertionService_listener_didReceiveConnection_withContext___block_invoke(uint64_t a1, void *a2)
@@ -247,23 +245,22 @@ void __71__CRSInCallAssertionService_listener_didReceiveConnection_withContext__
 
 void __71__CRSInCallAssertionService_listener_didReceiveConnection_withContext___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = CRSLogForCategory(2uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_242FB5000, v4, OS_LOG_TYPE_INFO, "Connection invalidated! %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_242FB5000, v4, OS_LOG_TYPE_INFO, "Connection invalidated! %@", &v5, 0xCu);
   }
 
   [*(a1 + 32) _connectionQueue_removeConnection:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAllowsBanners:(id)banners
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   bannersCopy = banners;
   connectionQueue = [(CRSInCallAssertionService *)self connectionQueue];
   BSDispatchQueueAssert();
@@ -298,7 +295,7 @@ void __71__CRSInCallAssertionService_listener_didReceiveConnection_withContext__
     v18 = [connections3 count];
     bannersAllowedConnections3 = [(CRSInCallAssertionService *)self bannersAllowedConnections];
     *buf = 134217984;
-    v28 = v18 - [bannersAllowedConnections3 count];
+    v27 = v18 - [bannersAllowedConnections3 count];
     _os_log_impl(&dword_242FB5000, v16, OS_LOG_TYPE_DEFAULT, "Number of assertions preventing banners: %ld", buf, 0xCu);
   }
 
@@ -309,16 +306,14 @@ void __71__CRSInCallAssertionService_listener_didReceiveConnection_withContext__
 
   if ((v7 != v9) == (v21 == v23))
   {
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __46__CRSInCallAssertionService_setAllowsBanners___block_invoke;
-    v25[3] = &unk_278D8DFB8;
-    v25[4] = self;
-    v26 = v21 == v23;
-    dispatch_async(MEMORY[0x277D85CD0], v25);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __46__CRSInCallAssertionService_setAllowsBanners___block_invoke;
+    v24[3] = &unk_278D8DFB8;
+    v24[4] = self;
+    v25 = v21 == v23;
+    dispatch_async(MEMORY[0x277D85CD0], v24);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __46__CRSInCallAssertionService_setAllowsBanners___block_invoke(uint64_t a1)
@@ -329,7 +324,7 @@ void __46__CRSInCallAssertionService_setAllowsBanners___block_invoke(uint64_t a1
 
 - (void)_connectionQueue_addConnection:(id)connection
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   connectionQueue = [(CRSInCallAssertionService *)self connectionQueue];
   BSDispatchQueueAssert();
@@ -342,17 +337,15 @@ void __46__CRSInCallAssertionService_setAllowsBanners___block_invoke(uint64_t a1
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     connections2 = [(CRSInCallAssertionService *)self connections];
-    v11 = 134217984;
-    v12 = [connections2 count];
-    _os_log_impl(&dword_242FB5000, v8, OS_LOG_TYPE_INFO, "Connection count: %ld", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = [connections2 count];
+    _os_log_impl(&dword_242FB5000, v8, OS_LOG_TYPE_INFO, "Connection count: %ld", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectionQueue_removeConnection:(id)connection
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   connectionQueue = [(CRSInCallAssertionService *)self connectionQueue];
   BSDispatchQueueAssert();
@@ -384,7 +377,7 @@ void __46__CRSInCallAssertionService_setAllowsBanners___block_invoke(uint64_t a1
   {
     connections2 = [(CRSInCallAssertionService *)self connections];
     *buf = 134217984;
-    v22 = [connections2 count];
+    v21 = [connections2 count];
     _os_log_impl(&dword_242FB5000, v14, OS_LOG_TYPE_INFO, "Connection count: %ld", buf, 0xCu);
   }
 
@@ -407,8 +400,6 @@ void __46__CRSInCallAssertionService_setAllowsBanners___block_invoke(uint64_t a1
     block[4] = self;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __63__CRSInCallAssertionService__connectionQueue_removeConnection___block_invoke(uint64_t a1)

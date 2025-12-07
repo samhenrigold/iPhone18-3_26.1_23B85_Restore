@@ -66,21 +66,19 @@
 
 - (void)dealloc
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (*(self + 33))
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
     v3 = gLogObj;
     *buf = 136446210;
-    v27 = "[NWConcrete_nw_listener dealloc]";
-    v22 = 12;
-    v21 = buf;
-    v4 = _os_log_send_and_compose_impl();
+    v26 = "[NWConcrete_nw_listener dealloc]";
+    v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s over-release of nw_listener_t! Object should not be internally retained and deallocating", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v24 = 0;
-    if (!__nwlog_fault(v4, &type, &v24))
+    v23 = 0;
+    if (!__nwlog_fault(v4, &type, &v23))
     {
       goto LABEL_7;
     }
@@ -94,7 +92,7 @@
       if (os_log_type_enabled(v5, type))
       {
         *buf = 136446210;
-        v27 = "[NWConcrete_nw_listener dealloc]";
+        v26 = "[NWConcrete_nw_listener dealloc]";
         _os_log_impl(&dword_181A37000, v5, v6, "%{public}s over-release of nw_listener_t! Object should not be internally retained and deallocating", buf, 0xCu);
       }
 
@@ -109,7 +107,7 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    if (v24 != 1)
+    if (v23 != 1)
     {
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
@@ -118,7 +116,7 @@ LABEL_7:
       if (os_log_type_enabled(v5, type))
       {
         *buf = 136446210;
-        v27 = "[NWConcrete_nw_listener dealloc]";
+        v26 = "[NWConcrete_nw_listener dealloc]";
         _os_log_impl(&dword_181A37000, v5, v19, "%{public}s over-release of nw_listener_t! Object should not be internally retained and deallocating, backtrace limit exceeded", buf, 0xCu);
       }
 
@@ -136,7 +134,7 @@ LABEL_7:
       if (v15)
       {
         *buf = 136446210;
-        v27 = "[NWConcrete_nw_listener dealloc]";
+        v26 = "[NWConcrete_nw_listener dealloc]";
         _os_log_impl(&dword_181A37000, v5, v14, "%{public}s over-release of nw_listener_t! Object should not be internally retained and deallocating, no backtrace", buf, 0xCu);
       }
 
@@ -146,9 +144,9 @@ LABEL_7:
     if (v15)
     {
       *buf = 136446466;
-      v27 = "[NWConcrete_nw_listener dealloc]";
-      v28 = 2082;
-      v29 = backtrace_string;
+      v26 = "[NWConcrete_nw_listener dealloc]";
+      v27 = 2082;
+      v28 = backtrace_string;
       _os_log_impl(&dword_181A37000, v5, v14, "%{public}s over-release of nw_listener_t! Object should not be internally retained and deallocating, dumping backtrace:%{public}s", buf, 0x16u);
     }
 
@@ -170,14 +168,13 @@ LABEL_9:
   networkd_settings_init();
   v7 = gLogObj;
   *buf = 136446210;
-  v27 = "[NWConcrete_nw_listener dealloc]";
-  v22 = 12;
-  v21 = buf;
-  v8 = _os_log_send_and_compose_impl();
+  v26 = "[NWConcrete_nw_listener dealloc]";
+  LODWORD(v21) = 12;
+  v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s listener advertisers were not cleaned up prior to dealloc", buf, v21);
 
   type = OS_LOG_TYPE_ERROR;
-  v24 = 0;
-  if (!__nwlog_fault(v8, &type, &v24))
+  v23 = 0;
+  if (!__nwlog_fault(v8, &type, &v23))
   {
 LABEL_15:
     if (!v8)
@@ -197,7 +194,7 @@ LABEL_15:
     if (os_log_type_enabled(v9, type))
     {
       *buf = 136446210;
-      v27 = "[NWConcrete_nw_listener dealloc]";
+      v26 = "[NWConcrete_nw_listener dealloc]";
       _os_log_impl(&dword_181A37000, v9, v10, "%{public}s listener advertisers were not cleaned up prior to dealloc", buf, 0xCu);
     }
 
@@ -206,7 +203,7 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  if (v24 != 1)
+  if (v23 != 1)
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
@@ -215,7 +212,7 @@ LABEL_14:
     if (os_log_type_enabled(v9, type))
     {
       *buf = 136446210;
-      v27 = "[NWConcrete_nw_listener dealloc]";
+      v26 = "[NWConcrete_nw_listener dealloc]";
       _os_log_impl(&dword_181A37000, v9, v20, "%{public}s listener advertisers were not cleaned up prior to dealloc, backtrace limit exceeded", buf, 0xCu);
     }
 
@@ -233,7 +230,7 @@ LABEL_14:
     if (v18)
     {
       *buf = 136446210;
-      v27 = "[NWConcrete_nw_listener dealloc]";
+      v26 = "[NWConcrete_nw_listener dealloc]";
       _os_log_impl(&dword_181A37000, v9, v17, "%{public}s listener advertisers were not cleaned up prior to dealloc, no backtrace", buf, 0xCu);
     }
 
@@ -243,9 +240,9 @@ LABEL_14:
   if (v18)
   {
     *buf = 136446466;
-    v27 = "[NWConcrete_nw_listener dealloc]";
-    v28 = 2082;
-    v29 = v16;
+    v26 = "[NWConcrete_nw_listener dealloc]";
+    v27 = 2082;
+    v28 = v16;
     _os_log_impl(&dword_181A37000, v9, v17, "%{public}s listener advertisers were not cleaned up prior to dealloc, dumping backtrace:%{public}s", buf, 0x16u);
   }
 
@@ -271,9 +268,9 @@ LABEL_17:
     *(self + 7) = 0;
   }
 
-  v23.receiver = self;
-  v23.super_class = NWConcrete_nw_listener;
-  [(NWConcrete_nw_listener *)&v23 dealloc:v21];
+  v22.receiver = self;
+  v22.super_class = NWConcrete_nw_listener;
+  [(NWConcrete_nw_listener *)&v22 dealloc];
 }
 
 - (NSString)description
@@ -460,7 +457,7 @@ LABEL_17:
   v30 = selfCopy2 + 42;
   v31 = 2114;
   v32 = completeCopy;
-  v15 = _os_log_send_and_compose_impl();
+  v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s [%{public}s] Removing deferral for %{public}@ results in invalid defer count", buf, 32);
 
   type = OS_LOG_TYPE_ERROR;
   v25 = 0;
@@ -664,7 +661,7 @@ LABEL_36:
     v34 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[NWConcrete_nw_listener handleInboundPacket:length:from:to:interface:socket:]";
-    v35 = _os_log_send_and_compose_impl();
+    v35 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v34, 16, "%{public}s called with null buffer", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v82[0] = 0;
@@ -744,7 +741,7 @@ LABEL_127:
     v38 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[NWConcrete_nw_listener handleInboundPacket:length:from:to:interface:socket:]";
-    v35 = _os_log_send_and_compose_impl();
+    v35 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v38, 16, "%{public}s called with null length", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v82[0] = 0;
@@ -814,7 +811,7 @@ LABEL_127:
     v40 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[NWConcrete_nw_listener handleInboundPacket:length:from:to:interface:socket:]";
-    v35 = _os_log_send_and_compose_impl();
+    v35 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v40, 16, "%{public}s called with null source", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v82[0] = 0;
@@ -884,7 +881,7 @@ LABEL_127:
     v42 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[NWConcrete_nw_listener handleInboundPacket:length:from:to:interface:socket:]";
-    v35 = _os_log_send_and_compose_impl();
+    v35 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v42, 16, "%{public}s called with null destination", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v82[0] = 0;
@@ -954,7 +951,7 @@ LABEL_127:
     v44 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[NWConcrete_nw_listener handleInboundPacket:length:from:to:interface:socket:]";
-    v35 = _os_log_send_and_compose_impl();
+    v35 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v44, 16, "%{public}s called with null interface", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v82[0] = 0;
@@ -1024,7 +1021,7 @@ LABEL_127:
     v46 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[NWConcrete_nw_listener handleInboundPacket:length:from:to:interface:socket:]";
-    v35 = _os_log_send_and_compose_impl();
+    v35 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v46, 16, "%{public}s called with null socket", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v82[0] = 0;
@@ -1611,7 +1608,7 @@ LABEL_93:
     v38 = __nwlog_obj();
     *buf = 136446210;
     v58 = "[NWConcrete_nw_listener initWithParameters:multicastDescriptor:]";
-    v39 = _os_log_send_and_compose_impl();
+    v39 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v38, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v54 = 0;
@@ -1685,7 +1682,7 @@ LABEL_85:
     v42 = __nwlog_obj();
     *buf = 136446210;
     v58 = "[NWConcrete_nw_listener initWithParameters:multicastDescriptor:]";
-    v43 = _os_log_send_and_compose_impl();
+    v43 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v42, 16, "%{public}s called with null _parameters", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v54 = 0;
@@ -1759,12 +1756,12 @@ LABEL_90:
   {
 LABEL_7:
     objc_storeStrong(v8 + 2, a2);
-    v11 = _nw_parameters_copy_context(v6);
+    v11 = _nw_parameters_copy_context();
     v12 = *(v8 + 3);
     *(v8 + 3) = v11;
 
     objc_storeStrong(v8 + 4, parameters);
-    nw_parameters_set_server_mode(*(v8 + 2));
+    nw_parameters_set_server_mode(*(v8 + 2), 1);
     add = atomic_fetch_add(nw_listener_get_next_id(void)::s_last_listener_id, 1u);
     v14 = add + 1;
     v15 = (add + 1);
@@ -1887,7 +1884,7 @@ LABEL_31:
   v28 = gLogObj;
   *buf = 136446210;
   v58 = "[NWConcrete_nw_listener initWithParameters:multicastDescriptor:]";
-  v29 = _os_log_send_and_compose_impl();
+  v29 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v28, 16, "%{public}s nw_endpoint_create_host failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v54 = 0;

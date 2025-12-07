@@ -1,10 +1,10 @@
 @interface _NSParagraphBidiLevelsProducer
-+ (uint64_t)resolvedBaseWritingDirectionForTextContentManager:(uint64_t)manager AttributedString:(uint64_t)string paragraphRange:(size_t)range baseWritingDirection:(uint64_t)direction fallbackBaseWritingDirection:(int)writingDirection bidiLevels:;
++ (uint64_t)resolvedBaseWritingDirectionForTextContentManager:(uint64_t)manager AttributedString:(uint64_t)string paragraphRange:(size_t)range baseWritingDirection:(uint64_t)direction fallbackBaseWritingDirection:(int)writingDirection bidiLevels:(uint64_t)levels;
 @end
 
 @implementation _NSParagraphBidiLevelsProducer
 
-+ (uint64_t)resolvedBaseWritingDirectionForTextContentManager:(uint64_t)manager AttributedString:(uint64_t)string paragraphRange:(size_t)range baseWritingDirection:(uint64_t)direction fallbackBaseWritingDirection:(int)writingDirection bidiLevels:
++ (uint64_t)resolvedBaseWritingDirectionForTextContentManager:(uint64_t)manager AttributedString:(uint64_t)string paragraphRange:(size_t)range baseWritingDirection:(uint64_t)direction fallbackBaseWritingDirection:(int)writingDirection bidiLevels:(uint64_t)levels
 {
   objc_opt_self();
   if (range)
@@ -19,16 +19,16 @@
       baseWritingDirectionResolutionStrategy = +[NSTextContentManager defaultBaseWritingDirectionResolutionStrategy];
     }
 
-    v12 = baseWritingDirectionResolutionStrategy == 2 && direction == -1;
+    v13 = baseWritingDirectionResolutionStrategy == 2 && direction == -1;
     if (direction == -1)
     {
-      v13 = malloc_type_calloc(range, 1uLL, 0x100004077774924uLL);
-      memset(v13, writingDirection, range);
-      if (v12)
+      v14 = malloc_type_calloc(range, 1uLL, 0x100004077774924uLL);
+      memset(v14, writingDirection, range);
+      if (v13)
       {
 LABEL_10:
         CFAttributedStringGetStatisticalWritingDirections();
-        if (!v13)
+        if (!v14)
         {
           goto LABEL_15;
         }
@@ -39,23 +39,23 @@ LABEL_10:
 
     else
     {
-      v13 = 0;
-      if (v12)
+      v14 = 0;
+      if (v13)
       {
         goto LABEL_10;
       }
     }
 
     CFAttributedStringGetBidiLevelsAndResolvedDirections();
-    if (!v13)
+    if (!v14)
     {
 LABEL_15:
-      free(v13);
+      free(v14);
       return direction;
     }
 
 LABEL_14:
-    direction = *v13;
+    direction = *v14;
     goto LABEL_15;
   }
 

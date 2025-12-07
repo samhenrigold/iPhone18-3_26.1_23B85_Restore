@@ -197,7 +197,7 @@ id __42__UIPointerEffect_tintColorMatrixProvider__block_invoke(uint64_t a1, uint
     v20 = 0u;
     if (v4)
     {
-      [v4 CAColorMatrixValue];
+      objc_msgSend_CAColorMatrixValue(v4);
       v6 = 0uLL;
     }
 
@@ -271,8 +271,8 @@ id __42__UIPointerEffect_tintColorMatrixProvider__block_invoke(uint64_t a1, uint
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
-  preview = [(UIPointerEffect *)self preview];
-  [v4 setPreview:preview];
+  v5 = objc_msgSend_preview(self);
+  [v4 setPreview:v5];
 
   return v4;
 }
@@ -282,7 +282,7 @@ id __42__UIPointerEffect_tintColorMatrixProvider__block_invoke(uint64_t a1, uint
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v11 = 1;
+    isEqual = 1;
   }
 
   else
@@ -291,39 +291,39 @@ id __42__UIPointerEffect_tintColorMatrixProvider__block_invoke(uint64_t a1, uint
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      preview = [(UIPointerEffect *)self preview];
-      preview2 = [(UIPointerEffect *)v5 preview];
-      v8 = preview;
-      v9 = preview2;
+      v6 = objc_msgSend_preview(self);
+      v7 = objc_msgSend_preview(v5);
+      v8 = v6;
+      v9 = v7;
       v10 = v9;
       if (v8 == v9)
       {
-        v11 = 1;
+        isEqual = 1;
       }
 
       else
       {
-        v11 = 0;
+        isEqual = 0;
         if (v8 && v9)
         {
-          v11 = [v8 isEqual:v9];
+          isEqual = objc_msgSend_isEqual_(v8);
         }
       }
     }
 
     else
     {
-      v11 = 0;
+      isEqual = 0;
     }
   }
 
-  return v11;
+  return isEqual;
 }
 
 - (unint64_t)hash
 {
-  preview = [(UIPointerEffect *)self preview];
-  v3 = [preview hash];
+  v2 = objc_msgSend_preview(self, a2);
+  v3 = [v2 hash];
 
   return v3;
 }

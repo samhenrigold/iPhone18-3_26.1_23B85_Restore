@@ -1,9 +1,43 @@
 @interface IMPlayedReceiptPipelineParameter
+- (IMPlayedReceiptPipelineParameter)initWithDefusedMessage:(id)message idsTrustedData:(id)data isFromDefaultPairedDevice:(BOOL)device;
 - (IMPlayedReceiptPipelineParameter)initWithIdsTrustedData:(id)data GUID:(id)d timestamp:(id)timestamp isFromStorage:(BOOL)storage isLastFromStorage:(BOOL)fromStorage isFromDefaultPairedDevice:(BOOL)device;
 - (id)description;
 @end
 
 @implementation IMPlayedReceiptPipelineParameter
+
+- (IMPlayedReceiptPipelineParameter)initWithDefusedMessage:(id)message idsTrustedData:(id)data isFromDefaultPairedDevice:(BOOL)device
+{
+  deviceCopy = device;
+  dataCopy = data;
+  metadata = [message metadata];
+  messageGUID = [metadata messageGUID];
+  uUIDString = [messageGUID UUIDString];
+  v12 = [uUIDString copy];
+
+  has_timestamp = [metadata has_timestamp];
+  v14 = MEMORY[0x277CCABB0];
+  if (has_timestamp)
+  {
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(metadata, "timestamp")}];
+  }
+
+  else
+  {
+    date = [MEMORY[0x277CBEAA8] date];
+    [date timeIntervalSince1970];
+    v15 = [v14 numberWithDouble:?];
+  }
+
+  storageContext = [metadata storageContext];
+  isFromStorage = [storageContext isFromStorage];
+
+  storageContext2 = [metadata storageContext];
+  isLastFromStorage = [storageContext2 isLastFromStorage];
+
+  v21 = [(IMPlayedReceiptPipelineParameter *)self initWithIdsTrustedData:dataCopy GUID:v12 timestamp:v15 isFromStorage:isFromStorage isLastFromStorage:isLastFromStorage isFromDefaultPairedDevice:deviceCopy];
+  return v21;
+}
 
 - (IMPlayedReceiptPipelineParameter)initWithIdsTrustedData:(id)data GUID:(id)d timestamp:(id)timestamp isFromStorage:(BOOL)storage isLastFromStorage:(BOOL)fromStorage isFromDefaultPairedDevice:(BOOL)device
 {

@@ -65,9 +65,9 @@
 - (BCBookReadingTimeTracker)initWithPersistenStoreDirectory:(id)directory
 {
   directoryCopy = directory;
-  v50.receiver = self;
-  v50.super_class = BCBookReadingTimeTracker;
-  v5 = [(BCBookReadingTimeTracker *)&v50 init];
+  v56.receiver = self;
+  v56.super_class = BCBookReadingTimeTracker;
+  v5 = [(BCBookReadingTimeTracker *)&v56 init];
   if (v5)
   {
     v6 = [NSBundle bundleForClass:objc_opt_class()];
@@ -75,8 +75,8 @@
 
     if (!v7)
     {
-      v12 = BCBookPromotionLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = BCBookPromotionLog(v8);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_1EC070();
       }
@@ -86,92 +86,94 @@
       goto LABEL_27;
     }
 
-    v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v9 = dispatch_queue_create("com.apple.iBooks.BCBookReadingTimeTracker.seedRecentQueue", v8);
+    v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v10 = dispatch_queue_create("com.apple.iBooks.BCBookReadingTimeTracker.seedRecentQueue", v9);
     seedRecentQueue = v5->_seedRecentQueue;
-    v5->_seedRecentQueue = v9;
+    v5->_seedRecentQueue = v10;
 
-    v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v12 = dispatch_queue_attr_make_with_qos_class(v11, QOS_CLASS_USER_INITIATED, 0);
+    v12 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v13 = dispatch_queue_attr_make_with_qos_class(v12, QOS_CLASS_USER_INITIATED, 0);
 
-    v13 = dispatch_queue_create("com.apple.iBooks.BCBookReadingTimeTracker.accessQueue", v12);
+    v14 = dispatch_queue_create("com.apple.iBooks.BCBookReadingTimeTracker.accessQueue", v13);
     accessQueue = v5->_accessQueue;
-    v5->_accessQueue = v13;
+    v5->_accessQueue = v14;
 
-    v15 = +[NSHashTable weakObjectsHashTable];
+    v16 = +[NSHashTable weakObjectsHashTable];
     promotionObservers = v5->_promotionObservers;
-    v5->_promotionObservers = v15;
+    v5->_promotionObservers = v16;
 
-    v17 = +[NSHashTable weakObjectsHashTable];
+    v18 = +[NSHashTable weakObjectsHashTable];
     sessionObservers = v5->_sessionObservers;
-    v5->_sessionObservers = v17;
+    v5->_sessionObservers = v18;
 
-    v19 = +[NSDistributedNotificationCenter defaultCenter];
-    [v19 addObserver:v5 selector:"_BDSCloudGlobalMetadataManagerFetchedRecordsChanged:" name:BDSCloudGlobalMetadataManagerFetchedRecordsChanged object:0];
+    v20 = +[NSDistributedNotificationCenter defaultCenter];
+    [v20 addObserver:v5 selector:"_BDSCloudGlobalMetadataManagerFetchedRecordsChanged:" name:BDSCloudGlobalMetadataManagerFetchedRecordsChanged object:0];
 
-    v20 = [directoryCopy copy];
+    v21 = [directoryCopy copy];
     overridePersistentDirectory = v5->_overridePersistentDirectory;
-    v5->_overridePersistentDirectory = v20;
+    v5->_overridePersistentDirectory = v21;
 
-    v22 = [[NSManagedObjectModel alloc] initWithContentsOfURL:v7];
+    v23 = [[NSManagedObjectModel alloc] initWithContentsOfURL:v7];
     model = v5->_model;
-    v5->_model = v22;
+    v5->_model = v23;
 
     if (!v5->_model)
     {
-      sub_1EBE74(v7, v24, v25, v26, v27, v28, v29, v30);
+      sub_1EBE74(v7, v25, v26, v27, v28, v29, v30, v31);
     }
 
     [(BCBookReadingTimeTracker *)v5 _createPersistentDirectoryIfNeeded];
-    v51[0] = NSMigratePersistentStoresAutomaticallyOption;
-    v51[1] = NSInferMappingModelAutomaticallyOption;
-    v52[0] = &__kCFBooleanTrue;
-    v52[1] = &__kCFBooleanTrue;
-    v51[2] = NSPersistentStoreFileProtectionKey;
-    v52[2] = NSFileProtectionNone;
-    v31 = [NSDictionary dictionaryWithObjects:v52 forKeys:v51 count:3];
-    v32 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:v5->_model];
+    v57[0] = NSMigratePersistentStoresAutomaticallyOption;
+    v57[1] = NSInferMappingModelAutomaticallyOption;
+    v58[0] = &__kCFBooleanTrue;
+    v58[1] = &__kCFBooleanTrue;
+    v57[2] = NSPersistentStoreFileProtectionKey;
+    v58[2] = NSFileProtectionNone;
+    v32 = [NSDictionary dictionaryWithObjects:v58 forKeys:v57 count:3];
+    v33 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:v5->_model];
     psc = v5->_psc;
-    v5->_psc = v32;
+    v5->_psc = v33;
 
     _persistentStoreURL = [(BCBookReadingTimeTracker *)v5 _persistentStoreURL];
-    v35 = v5->_psc;
-    v49 = 0;
-    v36 = [(NSPersistentStoreCoordinator *)v35 addPersistentStoreWithType:NSSQLiteStoreType configuration:0 URL:_persistentStoreURL options:v31 error:&v49];
-    v37 = v49;
-    if (v36)
+    v36 = v5->_psc;
+    v55 = 0;
+    v37 = [(NSPersistentStoreCoordinator *)v36 addPersistentStoreWithType:NSSQLiteStoreType configuration:0 URL:_persistentStoreURL options:v32 error:&v55];
+    v38 = v55;
+    v39 = v38;
+    if (v37)
     {
       goto LABEL_6;
     }
 
-    v41 = BCBookPromotionLog();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v44 = BCBookPromotionLog(v38);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       sub_1EBEC0();
     }
 
-    v42 = +[NSFileManager defaultManager];
+    v45 = +[NSFileManager defaultManager];
     _persistentStoreDirectory = [(BCBookReadingTimeTracker *)v5 _persistentStoreDirectory];
-    [v42 removeItemAtURL:_persistentStoreDirectory error:0];
+    [v45 removeItemAtURL:_persistentStoreDirectory error:0];
 
-    if ([(BCBookReadingTimeTracker *)v5 _createPersistentDirectoryIfNeeded])
+    _createPersistentDirectoryIfNeeded = [(BCBookReadingTimeTracker *)v5 _createPersistentDirectoryIfNeeded];
+    if (_createPersistentDirectoryIfNeeded)
     {
-      v44 = v5->_psc;
-      v48 = v37;
-      v36 = [(NSPersistentStoreCoordinator *)v44 addPersistentStoreWithType:NSSQLiteStoreType configuration:0 URL:_persistentStoreURL options:v31 error:&v48];
-      v45 = v48;
+      v48 = v5->_psc;
+      v54 = v39;
+      v37 = [(NSPersistentStoreCoordinator *)v48 addPersistentStoreWithType:NSSQLiteStoreType configuration:0 URL:_persistentStoreURL options:v32 error:&v54];
+      v49 = v54;
 
-      if (v36)
+      if (v37)
       {
-        v37 = v45;
+        v39 = v49;
 LABEL_6:
-        v38 = [[NSManagedObjectContext alloc] initWithConcurrencyType:1];
+        v40 = [[NSManagedObjectContext alloc] initWithConcurrencyType:1];
         moc = v5->_moc;
-        v5->_moc = v38;
+        v5->_moc = v40;
 
         [(NSManagedObjectContext *)v5->_moc setPersistentStoreCoordinator:v5->_psc];
         [(NSManagedObjectContext *)v5->_moc setUndoManager:0];
-        [(NSManagedObjectContext *)v5->_moc setMergePolicy:NSMergeByPropertyStoreTrumpMergePolicy];
+        v42 = [(NSManagedObjectContext *)v5->_moc setMergePolicy:NSMergeByPropertyStoreTrumpMergePolicy];
         if (v5->_moc)
         {
 LABEL_26:
@@ -180,8 +182,8 @@ LABEL_27:
           goto LABEL_28;
         }
 
-        v40 = BCBookPromotionLog();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v43 = BCBookPromotionLog(v42);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
           sub_1EBF64();
         }
@@ -192,8 +194,8 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      v46 = BCBookPromotionLog();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v51 = BCBookPromotionLog(v50);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
         sub_1EBFCC();
       }
@@ -201,23 +203,23 @@ LABEL_25:
 
     else
     {
-      v46 = BCBookPromotionLog();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v51 = BCBookPromotionLog(_createPersistentDirectoryIfNeeded);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
         sub_1EBF28();
       }
 
-      v45 = v37;
+      v49 = v39;
     }
 
-    v40 = BCBookPromotionLog();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v43 = BCBookPromotionLog(v52);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       sub_1EC034();
     }
 
-    v36 = 0;
-    v37 = v45;
+    v37 = 0;
+    v39 = v49;
     goto LABEL_25;
   }
 
@@ -232,21 +234,21 @@ LABEL_28:
   purge = [NSPredicate predicateWithFormat:@"%K >= %lu", @"launches", purge];
   [v9 setPredicate:purge];
 
-  v21 = @"assetID";
-  v11 = [NSArray arrayWithObjects:&v21 count:1];
+  v22 = @"assetID";
+  v11 = [NSArray arrayWithObjects:&v22 count:1];
   [v9 setPropertiesToFetch:v11];
 
   v12 = [(BCBookReadingTimeTracker *)self moc];
-  v20 = 0;
-  v13 = [v12 executeFetchRequest:v9 error:&v20];
-  v14 = v20;
+  v21 = 0;
+  v13 = [v12 executeFetchRequest:v9 error:&v21];
+  v14 = v21;
 
   if (v14)
   {
-    v15 = BCBookPromotionLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = BCBookPromotionLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_1EC0AC(v14, purge, v15);
+      sub_1EC0AC(v14, purge, v16);
     }
 
     bu_arrayByRemovingNSNulls = 0;
@@ -254,19 +256,19 @@ LABEL_28:
 
   else
   {
-    v15 = [v13 valueForKey:@"assetID"];
-    bu_arrayByRemovingNSNulls = [v15 bu_arrayByRemovingNSNulls];
+    v16 = [v13 valueForKey:@"assetID"];
+    bu_arrayByRemovingNSNulls = [v16 bu_arrayByRemovingNSNulls];
   }
 
   if (request)
   {
-    v17 = v9;
+    v18 = v9;
     *request = v9;
   }
 
   if (error)
   {
-    v18 = v14;
+    v19 = v14;
     *error = v14;
   }
 
@@ -289,13 +291,13 @@ LABEL_28:
 
 - (void)scrubRecents
 {
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = sub_159274;
-  v26 = sub_159284;
-  v27 = +[NSUserDefaults standardUserDefaults];
-  v3 = [v23[5] objectForKey:@"BCLastScrubRecentsDate"];
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_159274;
+  v28 = sub_159284;
+  v29 = +[NSUserDefaults standardUserDefaults];
+  v3 = [v25[5] objectForKey:@"BCLastScrubRecentsDate"];
   if (v3)
   {
     v4 = +[NSCalendar currentCalendar];
@@ -313,53 +315,53 @@ LABEL_28:
 
   if ((v8 & 1) == 0)
   {
-    v9 = BCBookPromotionLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = BCBookPromotionLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Purge Tracking: scrubRecents", buf, 2u);
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Purge Tracking: scrubRecents", buf, 2u);
     }
 
-    v10 = +[BCJSConfiguration sharedInstance];
-    oldestDateToKeepFinished = [v10 oldestDateToKeepFinished];
+    v11 = +[BCJSConfiguration sharedInstance];
+    oldestDateToKeepFinished = [v11 oldestDateToKeepFinished];
 
     libraryDelegate2 = [(BCBookReadingTimeTracker *)self libraryDelegate];
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_15928C;
-    v20[3] = &unk_2CE650;
-    v20[4] = self;
-    [libraryDelegate2 readingTimeTracker:self cleanupBooksFinishedBefore:oldestDateToKeepFinished completion:v20];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_15928C;
+    v22[3] = &unk_2CE650;
+    v22[4] = self;
+    [libraryDelegate2 readingTimeTracker:self cleanupBooksFinishedBefore:oldestDateToKeepFinished completion:v22];
 
-    v13 = +[BCJSConfiguration sharedInstance];
-    oldestDateToAvoidPurgeOfSamples = [v13 oldestDateToAvoidPurgeOfSamples];
+    v14 = +[BCJSConfiguration sharedInstance];
+    oldestDateToAvoidPurgeOfSamples = [v14 oldestDateToAvoidPurgeOfSamples];
 
-    v15 = +[BCJSConfiguration sharedInstance];
-    oldestDateToAvoidPurgeOfBooks = [v15 oldestDateToAvoidPurgeOfBooks];
+    v16 = +[BCJSConfiguration sharedInstance];
+    oldestDateToAvoidPurgeOfBooks = [v16 oldestDateToAvoidPurgeOfBooks];
 
     if (oldestDateToAvoidPurgeOfSamples && oldestDateToAvoidPurgeOfBooks)
     {
       libraryDelegate3 = [(BCBookReadingTimeTracker *)self libraryDelegate];
-      v19[0] = _NSConcreteStackBlock;
-      v19[1] = 3221225472;
-      v19[2] = sub_15931C;
-      v19[3] = &unk_2CE678;
-      v19[4] = self;
-      v19[5] = &v22;
-      [libraryDelegate3 recentsNotEngagedSinceDateForSamples:oldestDateToAvoidPurgeOfSamples dateForNonSamples:oldestDateToAvoidPurgeOfBooks completion:v19];
+      v21[0] = _NSConcreteStackBlock;
+      v21[1] = 3221225472;
+      v21[2] = sub_15931C;
+      v21[3] = &unk_2CE678;
+      v21[4] = self;
+      v21[5] = &v24;
+      [libraryDelegate3 recentsNotEngagedSinceDateForSamples:oldestDateToAvoidPurgeOfSamples dateForNonSamples:oldestDateToAvoidPurgeOfBooks completion:v21];
     }
 
     else
     {
-      v18 = BCBookPromotionLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = BCBookPromotionLog(v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_1EC1F4();
       }
     }
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v24, 8);
 }
 
 - (void)dealloc
@@ -378,13 +380,14 @@ LABEL_28:
   v4 = [(BCBookReadingTimeTracker *)self moc];
   if ([v4 hasChanges])
   {
-    v9 = 0;
-    v5 = [v4 save:&v9];
-    v6 = v9;
+    v10 = 0;
+    v5 = [v4 save:&v10];
+    v6 = v10;
+    v7 = v6;
     if ((v5 & 1) == 0)
     {
-      v7 = BCBookPromotionLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = BCBookPromotionLog(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_1EC2C4();
       }
@@ -393,10 +396,10 @@ LABEL_28:
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)_handleReadingWithAssetID:(id)d sessionID:(id)iD sessionEvent:(int64_t)event trackerEventType:(unint64_t)type readingFeatureFlags:(int64_t)flags successCompletion:(id)completion failureCompletion:(id)failureCompletion
@@ -491,150 +494,151 @@ LABEL_28:
       v24 = iDCopy;
       if (!event)
       {
-        v53 = failureCompletionCopy;
-        v54 = completionCopy;
-        v69 = 0u;
+        v56 = failureCompletionCopy;
+        v57 = completionCopy;
+        v72 = 0u;
+        v73 = 0u;
         v70 = 0u;
-        v67 = 0u;
-        v68 = 0u;
+        v71 = 0u;
         sessionObservers = [(BCBookReadingTimeTracker *)self sessionObservers];
         allObjects = [sessionObservers allObjects];
 
-        v27 = [allObjects countByEnumeratingWithState:&v67 objects:v75 count:16];
+        v27 = [allObjects countByEnumeratingWithState:&v70 objects:v78 count:16];
         if (v27)
         {
           v28 = v27;
-          v29 = *v68;
+          v29 = *v71;
           do
           {
             for (i = 0; i != v28; i = i + 1)
             {
-              if (*v68 != v29)
+              if (*v71 != v29)
               {
                 objc_enumerationMutation(allObjects);
               }
 
-              [*(*(&v67 + 1) + 8 * i) timeTracker:self didBeginTrackingSession:dCopy trackerEventType:type asset:assetCopy readingFeatureFlags:flags];
+              [*(*(&v70 + 1) + 8 * i) timeTracker:self didBeginTrackingSession:dCopy trackerEventType:type asset:assetCopy readingFeatureFlags:flags];
             }
 
-            v28 = [allObjects countByEnumeratingWithState:&v67 objects:v75 count:16];
+            v28 = [allObjects countByEnumeratingWithState:&v70 objects:v78 count:16];
           }
 
           while (v28);
         }
 
-        v31 = BCBookPromotionLog();
+        v32 = BCBookPromotionLog(v31);
         v24 = iDCopy;
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v72 = dCopy;
-          v73 = 2112;
-          v74 = iDCopy;
-          _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "Beginning tracking session %{public}@ for asset %@.", buf, 0x16u);
+          v75 = dCopy;
+          v76 = 2112;
+          v77 = iDCopy;
+          _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, "Beginning tracking session %{public}@ for asset %@.", buf, 0x16u);
         }
 
-        v66 = 0;
-        [(BCBookReadingTimeTracker *)self _mocq_trackSessionBegin:dCopy assetID:iDCopy error:&v66];
-        v52 = v66;
+        v69 = 0;
+        [(BCBookReadingTimeTracker *)self _mocq_trackSessionBegin:dCopy assetID:iDCopy error:&v69];
+        v33 = v69;
+        v55 = v33;
         if (recentCopy)
         {
-          v23 = v53;
+          v23 = v56;
           if (type != 4)
           {
-            v32 = BCBookPromotionLog();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+            v34 = BCBookPromotionLog(v33);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v72 = iDCopy;
-              _os_log_impl(&dword_0, v32, OS_LOG_TYPE_INFO, "Updating asset %@ right away since it's already promoted", buf, 0xCu);
+              v75 = iDCopy;
+              _os_log_impl(&dword_0, v34, OS_LOG_TYPE_INFO, "Updating asset %@ right away since it's already promoted", buf, 0xCu);
             }
 
             [(BCBookReadingTimeTracker *)self promoteTrackedAsset:iDCopy promoteIfNotTracked:1];
           }
 
-          v33 = v54;
-          v34 = objc_retainBlock(v54);
-          v35 = v34;
-          if (v34)
+          v35 = v57;
+          v36 = objc_retainBlock(v57);
+          v37 = v36;
+          if (v36)
           {
-            (*(v34 + 2))(v34, 1, assetCopy);
+            (*(v36 + 2))(v36, 1, assetCopy);
           }
         }
 
         else
         {
-          v59[0] = _NSConcreteStackBlock;
-          v59[1] = 3221225472;
-          v59[2] = sub_15A4D0;
-          v59[3] = &unk_2CBE60;
-          v60 = iDCopy;
+          v62[0] = _NSConcreteStackBlock;
+          v62[1] = 3221225472;
+          v62[2] = sub_15A4D0;
+          v62[3] = &unk_2CBE60;
+          v63 = iDCopy;
           selfCopy = self;
           sampleCopy = sample;
-          v62 = dCopy;
+          v65 = dCopy;
           typeCopy = type;
           flagsCopy = flags;
-          v45 = objc_retainBlock(v59);
-          (v45[2])();
-          v33 = v54;
-          v46 = objc_retainBlock(v54);
-          v47 = v46;
-          v23 = v53;
-          if (v46)
+          v48 = objc_retainBlock(v62);
+          (v48[2])();
+          v35 = v57;
+          v49 = objc_retainBlock(v57);
+          v50 = v49;
+          v23 = v56;
+          if (v49)
           {
-            (*(v46 + 2))(v46, 0, assetCopy);
+            (*(v49 + 2))(v49, 0, assetCopy);
           }
 
-          v35 = v60;
+          v37 = v63;
         }
 
-        completionCopy = v33;
+        completionCopy = v35;
       }
 
       goto LABEL_50;
     }
 
-    v55 = completionCopy;
+    v58 = completionCopy;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_15A5CC;
     block[3] = &unk_2C7D40;
     block[4] = self;
     dispatch_async(&_dispatch_main_q, block);
-    v36 = BCBookPromotionLog();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v39 = BCBookPromotionLog(v38);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v72 = dCopy;
-      v73 = 2112;
-      v74 = iDCopy;
-      _os_log_impl(&dword_0, v36, OS_LOG_TYPE_DEFAULT, "Ending tracking session %{public}@ for asset %@.", buf, 0x16u);
+      v75 = dCopy;
+      v76 = 2112;
+      v77 = iDCopy;
+      _os_log_impl(&dword_0, v39, OS_LOG_TYPE_DEFAULT, "Ending tracking session %{public}@ for asset %@.", buf, 0x16u);
     }
 
-    v57 = 0;
-    [(BCBookReadingTimeTracker *)self _mocq_trackSessionEnd:dCopy assetID:iDCopy error:&v57];
-    v37 = v57;
-    v38 = v37;
+    v60 = 0;
+    [(BCBookReadingTimeTracker *)self _mocq_trackSessionEnd:dCopy assetID:iDCopy error:&v60];
+    v40 = v60;
+    v41 = v40;
     if (recentCopy)
     {
       if (type - 4 <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v39 = BCBookPromotionLog();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+        v42 = BCBookPromotionLog(v40);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v72 = iDCopy;
-          _os_log_impl(&dword_0, v39, OS_LOG_TYPE_INFO, "Updating asset %@ right away since it's already promoted", buf, 0xCu);
+          v75 = iDCopy;
+          _os_log_impl(&dword_0, v42, OS_LOG_TYPE_INFO, "Updating asset %@ right away since it's already promoted", buf, 0xCu);
         }
 
         [(BCBookReadingTimeTracker *)self promoteTrackedAsset:iDCopy promoteIfNotTracked:1];
       }
 
-      v40 = objc_retainBlock(v55);
-      v41 = v40;
-      if (v40)
+      v43 = objc_retainBlock(v58);
+      v44 = v43;
+      if (v43)
       {
-        (*(v40 + 2))(v40, promoted, assetCopy);
+        (*(v43 + 2))(v43, promoted, assetCopy);
       }
 
       v24 = iDCopy;
@@ -643,64 +647,64 @@ LABEL_28:
 
     if (promoted)
     {
-      v44 = BCBookPromotionLog();
+      v47 = BCBookPromotionLog(v40);
       v24 = iDCopy;
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
       {
         sub_1EC3F4();
       }
 
-      completionCopy = v55;
-      [(BCBookReadingTimeTracker *)self _mocq_runBookPromotionAlgorithmForAssetID:iDCopy libraryAsset:assetCopy isSample:sample successCompletion:v55 failureCompletion:v23];
+      completionCopy = v58;
+      [(BCBookReadingTimeTracker *)self _mocq_runBookPromotionAlgorithmForAssetID:iDCopy libraryAsset:assetCopy isSample:sample successCompletion:v58 failureCompletion:v23];
       goto LABEL_49;
     }
 
     v24 = iDCopy;
-    if (v37)
+    if (v40)
     {
-      v48 = objc_retainBlock(v23);
-      v49 = v48;
-      if (v48)
+      v51 = objc_retainBlock(v23);
+      v52 = v51;
+      if (v51)
       {
-        v50 = v48[2];
+        v53 = v51[2];
 LABEL_46:
-        v50();
+        v53();
       }
     }
 
     else
     {
-      v51 = objc_retainBlock(v55);
-      v49 = v51;
-      if (v51)
+      v54 = objc_retainBlock(v58);
+      v52 = v54;
+      if (v54)
       {
-        v50 = v51[2];
+        v53 = v54[2];
         goto LABEL_46;
       }
     }
 
 LABEL_48:
-    completionCopy = v55;
+    completionCopy = v58;
 LABEL_49:
 
     goto LABEL_50;
   }
 
-  v42 = completionCopy;
-  v43 = BCBookPromotionLog();
+  v45 = completionCopy;
+  v46 = BCBookPromotionLog(failureCompletionCopy);
   v24 = iDCopy;
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    v72 = dCopy;
-    v73 = 2112;
-    v74 = iDCopy;
-    _os_log_impl(&dword_0, v43, OS_LOG_TYPE_INFO, "Updating session %{public}@ for untracked asset %@.", buf, 0x16u);
+    v75 = dCopy;
+    v76 = 2112;
+    v77 = iDCopy;
+    _os_log_impl(&dword_0, v46, OS_LOG_TYPE_INFO, "Updating session %{public}@ for untracked asset %@.", buf, 0x16u);
   }
 
   [(BCBookReadingTimeTracker *)self _mocq_trackSessionUpdate:dCopy assetID:iDCopy error:0];
-  completionCopy = v42;
-  [(BCBookReadingTimeTracker *)self _mocq_runBookPromotionAlgorithmForAssetID:iDCopy libraryAsset:assetCopy isSample:sample successCompletion:v42 failureCompletion:v23];
+  completionCopy = v45;
+  [(BCBookReadingTimeTracker *)self _mocq_runBookPromotionAlgorithmForAssetID:iDCopy libraryAsset:assetCopy isSample:sample successCompletion:v45 failureCompletion:v23];
 LABEL_50:
 }
 
@@ -853,19 +857,19 @@ LABEL_50:
   {
     libraryDelegate = [(BCBookReadingTimeTracker *)self libraryDelegate];
     +[BDSCloudGlobalMetadataManager sharedManager];
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_15BDFC;
-    v8 = v7[3] = &unk_2CE838;
-    v9 = libraryDelegate;
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_15BDFC;
+    v9 = v8[3] = &unk_2CE838;
+    v10 = libraryDelegate;
     selfCopy = self;
     v4 = libraryDelegate;
-    v5 = v8;
-    [v5 metadataValueForKey:@"BCDeviceWasSeededWithARecentsList" completion:v7];
+    v5 = v9;
+    v6 = [v5 metadataValueForKey:@"BCDeviceWasSeededWithARecentsList" completion:v8];
     if (!v5)
     {
-      v6 = BCBookPromotionLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = BCBookPromotionLog(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_1EC950();
       }
@@ -978,14 +982,14 @@ LABEL_50:
 {
   _persistentStoreDirectory = [(BCBookReadingTimeTracker *)self _persistentStoreDirectory];
   v3 = +[NSFileManager defaultManager];
-  v8 = 0;
-  v4 = [v3 createDirectoryAtURL:_persistentStoreDirectory withIntermediateDirectories:1 attributes:0 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [v3 createDirectoryAtURL:_persistentStoreDirectory withIntermediateDirectories:1 attributes:0 error:&v9];
+  v5 = v9;
 
   if ((v4 & 1) == 0)
   {
-    v6 = BCBookPromotionLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = BCBookPromotionLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1EC98C();
     }
@@ -1060,14 +1064,14 @@ LABEL_50:
 
   [v8 setPredicate:v10];
   v11 = [(BCBookReadingTimeTracker *)self moc];
-  v17 = 0;
-  v12 = [v11 executeFetchRequest:v8 error:&v17];
-  v13 = v17;
+  v18 = 0;
+  v12 = [v11 executeFetchRequest:v8 error:&v18];
+  v13 = v18;
 
   if (!v12 && v13)
   {
-    v14 = BCBookPromotionLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = BCBookPromotionLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_1ECB30();
     }
@@ -1081,7 +1085,7 @@ LABEL_50:
 - (void)_mocq_promoteAssetID:(id)d
 {
   dCopy = d;
-  v5 = BCBookPromotionLog();
+  v5 = BCBookPromotionLog(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -1136,14 +1140,14 @@ LABEL_50:
 
   [v5 setPredicate:dCopy];
   v7 = [(BCBookReadingTimeTracker *)self moc];
-  v13 = 0;
-  v8 = [v7 executeFetchRequest:v5 error:&v13];
-  v9 = v13;
+  v14 = 0;
+  v8 = [v7 executeFetchRequest:v5 error:&v14];
+  v9 = v14;
 
   if (!v8 && v9)
   {
-    v10 = BCBookPromotionLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BCBookPromotionLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1ECC68();
     }
@@ -1162,7 +1166,7 @@ LABEL_50:
   if (v10)
   {
     v11 = v10;
-    v12 = BCBookPromotionLog();
+    v12 = BCBookPromotionLog(v10);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1ECCD0();
@@ -1194,8 +1198,8 @@ LABEL_50:
 
   if ((v19 & 1) == 0)
   {
-    v20 = BCBookPromotionLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = BCBookPromotionLog(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       sub_1ECD38();
     }
@@ -1216,7 +1220,7 @@ LABEL_50:
 
   else
   {
-    v10 = BCBookPromotionLog();
+    v10 = BCBookPromotionLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1ECDA0();
@@ -1228,8 +1232,8 @@ LABEL_50:
 
   if ((v12 & 1) == 0)
   {
-    v13 = BCBookPromotionLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = BCBookPromotionLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_1ECDDC();
     }
@@ -1250,7 +1254,7 @@ LABEL_50:
 
   else
   {
-    v10 = BCBookPromotionLog();
+    v10 = BCBookPromotionLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1ECDA0();
@@ -1262,8 +1266,8 @@ LABEL_50:
 
   if ((v12 & 1) == 0)
   {
-    v13 = BCBookPromotionLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = BCBookPromotionLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_1ECDDC();
     }
@@ -1348,29 +1352,29 @@ LABEL_50:
   v10 = [[NSBatchDeleteRequest alloc] initWithFetchRequest:v8];
   [v10 setResultType:2];
   v11 = [(BCBookReadingTimeTracker *)self moc];
-  v20 = 0;
-  v12 = [v11 executeRequest:v10 error:&v20];
-  v13 = v20;
+  v22 = 0;
+  v12 = [v11 executeRequest:v10 error:&v22];
+  v13 = v22;
 
   objc_opt_class();
   result = [v12 result];
   v15 = BUDynamicCast();
   integerValue = [v15 integerValue];
 
-  v17 = BCBookPromotionLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  v18 = BCBookPromotionLog(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     *buf = 134349314;
-    v22 = integerValue;
-    v23 = 2112;
-    v24 = assetCopy;
-    _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "Deleted %{public}ld rows for asset: %@", buf, 0x16u);
+    v24 = integerValue;
+    v25 = 2112;
+    v26 = assetCopy;
+    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "Deleted %{public}ld rows for asset: %@", buf, 0x16u);
   }
 
   if (v13)
   {
-    v18 = BCBookPromotionLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = BCBookPromotionLog(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_1ECE90();
     }
@@ -1389,14 +1393,14 @@ LABEL_50:
 
   [v5 setPredicate:dCopy];
   v7 = [(BCBookReadingTimeTracker *)self moc];
-  v13 = 0;
-  v8 = [v7 executeFetchRequest:v5 error:&v13];
-  v9 = v13;
+  v14 = 0;
+  v8 = [v7 executeFetchRequest:v5 error:&v14];
+  v9 = v14;
 
   if (v9)
   {
-    v10 = BCBookPromotionLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BCBookPromotionLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1ECEF8();
     }
@@ -1410,11 +1414,11 @@ LABEL_50:
 - (void)_mocq_deleteAssetToPurgeForAssetID:(id)d
 {
   dCopy = d;
-  v5 = BCBookPromotionLog();
+  v5 = BCBookPromotionLog(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = dCopy;
+    v17 = dCopy;
     _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Purge Tracking: delete asset=%@", buf, 0xCu);
   }
 
@@ -1425,14 +1429,14 @@ LABEL_50:
   v8 = [[NSBatchDeleteRequest alloc] initWithFetchRequest:v6];
   v9 = [(BCBookReadingTimeTracker *)self psc];
   v10 = [(BCBookReadingTimeTracker *)self moc];
-  v14 = 0;
-  v11 = [v9 executeRequest:v8 withContext:v10 error:&v14];
-  v12 = v14;
+  v15 = 0;
+  v11 = [v9 executeRequest:v8 withContext:v10 error:&v15];
+  v12 = v15;
 
   if (v12)
   {
-    v13 = BCBookPromotionLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = BCBookPromotionLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_1ECF60();
     }
@@ -1442,25 +1446,25 @@ LABEL_50:
 - (BOOL)_mocq_updateLaunchTrackingForAssets:(id)assets error:(id *)error
 {
   assetsCopy = assets;
-  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v6 = [assetsCopy countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v31 = 0u;
+  v6 = [assetsCopy countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v29;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v28 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(assetsCopy);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v28 + 1) + 8 * i);
         v11 = [(BCBookReadingTimeTracker *)self _mocq_assetToPurgeForAssetID:v10];
         if (v11)
         {
@@ -1479,35 +1483,34 @@ LABEL_50:
           v13 = 1;
         }
 
-        [v14 setLaunches:v13];
-        v16 = BCBookPromotionLog();
+        v16 = BCBookPromotionLog([v14 setLaunches:v13]);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           assetID = [v12 assetID];
           v18 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v12 launches]);
           *buf = 138412546;
-          v32 = assetID;
-          v33 = 2112;
-          v34 = v18;
+          v33 = assetID;
+          v34 = 2112;
+          v35 = v18;
           _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Purge Tracking: asset=%@ launches=%@", buf, 0x16u);
         }
       }
 
-      v7 = [assetsCopy countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v7 = [assetsCopy countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v7);
   }
 
   v19 = [(BCBookReadingTimeTracker *)self moc];
-  v26 = 0;
-  v20 = [v19 save:&v26];
-  v21 = v26;
+  v27 = 0;
+  v20 = [v19 save:&v27];
+  v21 = v27;
 
   if ((v20 & 1) == 0)
   {
-    v22 = BCBookPromotionLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = BCBookPromotionLog(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       sub_1ECFC8();
     }
@@ -1515,7 +1518,7 @@ LABEL_50:
 
   if (error)
   {
-    v23 = v21;
+    v24 = v21;
     *error = v21;
   }
 

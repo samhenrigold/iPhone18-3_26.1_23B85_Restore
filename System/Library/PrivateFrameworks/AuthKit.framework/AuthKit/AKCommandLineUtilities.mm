@@ -199,7 +199,6 @@ void __34__AKCommandLineUtilities__hostURL__block_invoke()
   v4 = MEMORY[0x1E69E5928](v5);
   objc_storeStrong(&v5, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -296,7 +295,6 @@ void __34__AKCommandLineUtilities__hostURL__block_invoke()
   objc_storeStrong(&v28, 0);
   objc_storeStrong(&v29, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -417,14 +415,11 @@ void __69__AKCommandLineUtilities_beginDataTaskWithRequest_completionHandler___b
   objc_storeStrong(location, 0);
 }
 
-void *__69__AKCommandLineUtilities_beginDataTaskWithRequest_completionHandler___block_invoke_2(void *result)
+uint64_t __69__AKCommandLineUtilities_beginDataTaskWithRequest_completionHandler___block_invoke_2(uint64_t result)
 {
-  if (result[7])
+  if (*(result + 56))
   {
-    v1 = result[4];
-    v2 = result[5];
-    v3 = result[6];
-    return (*(result[7] + 16))();
+    return (*(*(result + 56) + 16))();
   }
 
   return result;
@@ -526,7 +521,6 @@ void *__69__AKCommandLineUtilities_beginDataTaskWithRequest_completionHandler___
   objc_storeStrong(&v31, 0);
   objc_storeStrong(&v32, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)signXMLRequest:(id)request withPostbackDictionary:(id)dictionary

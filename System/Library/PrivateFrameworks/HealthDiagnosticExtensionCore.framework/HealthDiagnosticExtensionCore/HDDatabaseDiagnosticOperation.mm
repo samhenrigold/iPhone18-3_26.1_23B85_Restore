@@ -38,39 +38,39 @@
 
 - (BOOL)_captureUnprotectedDatabaseAtURL:(id)l protectedDatabaseAtURL:(id)rL reason:(id)reason
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
   reasonCopy = reason;
   if ([(HDDatabaseDiagnosticOperation *)self allowsSensitiveAttachments])
   {
     [(HDDiagnosticOperation *)self log:@"Capturing Health database for reason: %@", reasonCopy];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
-    v32[0] = lCopy;
-    v32[1] = rLCopy;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
-    v12 = [v11 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v31[0] = lCopy;
+    v31[1] = rLCopy;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+    v12 = [v11 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v12)
     {
       v13 = v12;
-      v25 = reasonCopy;
-      v26 = rLCopy;
-      v27 = lCopy;
+      v24 = reasonCopy;
+      v25 = rLCopy;
+      v26 = lCopy;
       v14 = 0;
-      v15 = *v29;
+      v15 = *v28;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v29 != v15)
+          if (*v28 != v15)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v28 + 1) + 8 * i);
+          v17 = *(*(&v27 + 1) + 8 * i);
           attachmentDirectoryURL = [(HDDiagnosticOperation *)self attachmentDirectoryURL];
           lastPathComponent = [v17 lastPathComponent];
           v20 = [attachmentDirectoryURL URLByAppendingPathComponent:lastPathComponent isDirectory:0];
@@ -87,14 +87,14 @@
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v13);
       v22 = v14 > 0;
-      rLCopy = v26;
-      lCopy = v27;
-      reasonCopy = v25;
+      rLCopy = v25;
+      lCopy = v26;
+      reasonCopy = v24;
     }
 
     else
@@ -109,7 +109,6 @@
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -137,7 +136,7 @@
 
 - (BOOL)_reportStatisticsForUnprotectedDatabaseAtURL:(id)l protectedDatabaseAtURL:(id)rL
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   rLCopy = rL;
   lCopy = l;
   [(HDDiagnosticOperation *)self appendNewline];
@@ -153,11 +152,11 @@
     [(HDDiagnosticOperation *)self log:@"Analyzing unprotected database..."];
     [(HDDiagnosticOperation *)self reportIntegrityForDatabase:v9];
     [(HDDiagnosticOperation *)self checkSchemaVersionForDatabase:v9 currentSchema:19102 futureSchema:100003];
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v19[2] = objc_opt_class();
-    v19[3] = objc_opt_class();
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v18[2] = objc_opt_class();
+    v18[3] = objc_opt_class();
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
     [(HDDiagnosticOperation *)self reportCountsForDatabase:v9 entityClasses:v10];
   }
 
@@ -177,16 +176,16 @@
     [(HDDiagnosticOperation *)self log:@"Skip integrity check for %@", path3];
 
     [(HDDiagnosticOperation *)self checkSchemaVersionForDatabase:v12 currentSchema:19102 futureSchema:100030];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v18[2] = objc_opt_class();
-    v18[3] = objc_opt_class();
-    v18[4] = objc_opt_class();
-    v18[5] = objc_opt_class();
-    v18[6] = objc_opt_class();
-    v18[7] = objc_opt_class();
-    v18[8] = objc_opt_class();
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:9];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v17[2] = objc_opt_class();
+    v17[3] = objc_opt_class();
+    v17[4] = objc_opt_class();
+    v17[5] = objc_opt_class();
+    v17[6] = objc_opt_class();
+    v17[7] = objc_opt_class();
+    v17[8] = objc_opt_class();
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:9];
     [(HDDiagnosticOperation *)self reportCountsForDatabase:v12 entityClasses:v15];
 
     if (v9)
@@ -198,7 +197,6 @@
   [v12 close];
   [v9 close];
 
-  v16 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

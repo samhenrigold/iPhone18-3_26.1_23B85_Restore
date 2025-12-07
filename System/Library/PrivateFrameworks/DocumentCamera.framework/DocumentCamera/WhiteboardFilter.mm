@@ -20,16 +20,16 @@
   return whiteboardFilterKernel_kernel;
 }
 
-void __42__WhiteboardFilter_whiteboardFilterKernel__block_invoke()
+void __42__WhiteboardFilter_whiteboardFilterKernel__block_invoke(uint64_t a1)
 {
-  v0 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v1 = [v0 pathForResource:@"WhiteboardFilter" ofType:@"cikernel"];
-  v6 = 0;
-  v2 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v1 encoding:4 error:&v6];
-  v3 = v6;
-  v4 = [MEMORY[0x277CBF760] kernelWithString:v2];
-  v5 = whiteboardFilterKernel_kernel;
-  whiteboardFilterKernel_kernel = v4;
+  v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v2 = [v1 pathForResource:@"WhiteboardFilter" ofType:@"cikernel"];
+  v7 = 0;
+  v3 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v2 encoding:4 error:&v7];
+  v4 = v7;
+  v5 = [MEMORY[0x277CBF760] kernelWithString:v3];
+  v6 = whiteboardFilterKernel_kernel;
+  whiteboardFilterKernel_kernel = v5;
 }
 
 - (id)outputImage

@@ -34,39 +34,36 @@
 
 void __47__EKPersistentLocation_defaultPropertiesToLoad__block_invoke()
 {
-  v6[7] = *MEMORY[0x1E69E9840];
+  v5[7] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992A30];
-  v6[0] = *MEMORY[0x1E6992A88];
-  v6[1] = v0;
+  v5[0] = *MEMORY[0x1E6992A88];
+  v5[1] = v0;
   v1 = *MEMORY[0x1E6992A60];
-  v6[2] = *MEMORY[0x1E6992A58];
-  v6[3] = v1;
+  v5[2] = *MEMORY[0x1E6992A58];
+  v5[3] = v1;
   v2 = *MEMORY[0x1E6992A68];
-  v6[4] = *MEMORY[0x1E6992A48];
-  v6[5] = v2;
-  v6[6] = *MEMORY[0x1E6992A80];
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:7];
+  v5[4] = *MEMORY[0x1E6992A48];
+  v5[5] = v2;
+  v5[6] = *MEMORY[0x1E6992A80];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:7];
   v4 = defaultPropertiesToLoad_defaultPropertiesToLoad_3;
   defaultPropertiesToLoad_defaultPropertiesToLoad_3 = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __33__EKPersistentLocation_relations__block_invoke()
 {
   v0 = *MEMORY[0x1E69926D8];
-  v1 = *MEMORY[0x1E6992580];
-  v2 = [MEMORY[0x1E695DFD8] setWithObjects:{*MEMORY[0x1E69926D8], *MEMORY[0x1E6992580], *MEMORY[0x1E69926F8], *MEMORY[0x1E69925A8], 0}];
-  v9 = [EKRelation relationWithEntityName:@"CalendarItem" toMany:0 inversePropertyNames:v2 ownsRelated:0];
+  v1 = [MEMORY[0x1E695DFD8] setWithObjects:{*MEMORY[0x1E69926D8], *MEMORY[0x1E6992580], *MEMORY[0x1E69926F8], *MEMORY[0x1E69925A8], 0}];
+  v8 = [EKRelation relationWithEntityName:@"CalendarItem" toMany:0 inversePropertyNames:v1 ownsRelated:0];
 
-  [v9 setInversePropertyIsApplicable:&__block_literal_global_11];
-  v3 = objc_alloc(MEMORY[0x1E695DF20]);
-  v4 = *MEMORY[0x1E6992A40];
-  v5 = [MEMORY[0x1E695DFD8] setWithObject:v0];
-  v6 = [EKRelation relationWithEntityName:@"Alarm" toMany:0 inversePropertyNames:v5 ownsRelated:0];
-  v7 = [v3 initWithObjectsAndKeys:{v9, v4, v6, *MEMORY[0x1E6992A38], 0}];
-  v8 = relations_relations_6;
-  relations_relations_6 = v7;
+  [v8 setInversePropertyIsApplicable:&__block_literal_global_11];
+  v2 = objc_alloc(MEMORY[0x1E695DF20]);
+  v3 = *MEMORY[0x1E6992A40];
+  v4 = [MEMORY[0x1E695DFD8] setWithObject:v0];
+  v5 = [EKRelation relationWithEntityName:@"Alarm" toMany:0 inversePropertyNames:v4 ownsRelated:0];
+  v6 = [v2 initWithObjectsAndKeys:{v8, v3, v5, *MEMORY[0x1E6992A38], 0}];
+  v7 = relations_relations_6;
+  relations_relations_6 = v6;
 }
 
 BOOL __33__EKPersistentLocation_relations__block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)

@@ -549,7 +549,7 @@ void __37__PKPaletteController_installInView___block_invoke(uint64_t a1)
 
 - (void)_presentMoreOptionsPopoverFromButton:(id)button
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   buttonCopy = button;
   v5 = objc_alloc_init(PKPaletteMoreOptionsViewController);
   [(PKPaletteMoreOptionsViewController *)v5 setShouldShowFingerDrawsOption:0];
@@ -585,30 +585,30 @@ void __37__PKPaletteController_installInView___block_invoke(uint64_t a1)
   [popoverPresentationController4 setSourceView:buttonCopy];
 
   [buttonCopy bounds];
-  v19 = v18;
-  v21 = v20;
-  v23 = v22;
-  v25 = v24;
+  v20 = v19;
+  v22 = v21;
+  v24 = v23;
+  v26 = v25;
 
-  v42.origin.x = v19;
-  v42.origin.y = v21;
-  v42.size.width = v23;
-  v42.size.height = v25;
-  v43 = CGRectInset(v42, -5.0, -5.0);
-  x = v43.origin.x;
-  y = v43.origin.y;
-  width = v43.size.width;
-  height = v43.size.height;
+  v43.origin.x = v20;
+  v43.origin.y = v22;
+  v43.size.width = v24;
+  v43.size.height = v26;
+  v44 = CGRectInset(v43, -5.0, -5.0);
+  x = v44.origin.x;
+  y = v44.origin.y;
+  width = v44.size.width;
+  height = v44.size.height;
   popoverPresentationController5 = [(PKPaletteMoreOptionsViewController *)v5 popoverPresentationController];
   [popoverPresentationController5 setSourceRect:{x, y, width, height}];
 
   _paletteView2 = [(PKPaletteController *)self _paletteView];
   paletteViewHosting = [_paletteView2 paletteViewHosting];
   hostingView = [paletteViewHosting hostingView];
-  v41[0] = hostingView;
-  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:1];
+  v42[0] = hostingView;
+  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
   popoverPresentationController6 = [(PKPaletteMoreOptionsViewController *)v5 popoverPresentationController];
-  [popoverPresentationController6 setPassthroughViews:v34];
+  [popoverPresentationController6 setPassthroughViews:v35];
 
   _paletteView3 = [(PKPaletteController *)self _paletteView];
   palettePopoverPermittedArrowDirections = [_paletteView3 palettePopoverPermittedArrowDirections];
@@ -639,18 +639,18 @@ void __37__PKPaletteController_installInView___block_invoke(uint64_t a1)
   _paletteView = [(PKPaletteController *)self _paletteView];
   [_paletteView setAutoHideEnabled:isAutoHideOn];
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __66__PKPaletteController_moreOptionsViewControllerDidToggleAutoHide___block_invoke;
-  v11[3] = &unk_1E82D7148;
-  v11[4] = self;
-  [hideCopy dismissViewControllerAnimated:1 completion:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __66__PKPaletteController_moreOptionsViewControllerDidToggleAutoHide___block_invoke;
+  v10[3] = &unk_1E82D7148;
+  v10[4] = self;
+  [hideCopy dismissViewControllerAnimated:1 completion:v10];
 
   v7 = +[PKStatisticsManager sharedStatisticsManager];
   _paletteView2 = [(PKPaletteController *)self _paletteView];
-  isAutoHideEnabled = [_paletteView2 isAutoHideEnabled];
+  LOBYTE(_paletteView) = [_paletteView2 isAutoHideEnabled];
   _paletteView3 = [(PKPaletteController *)self _paletteView];
-  -[PKStatisticsManager recordAutoMinimizeEnabledDidChange:type:](v7, isAutoHideEnabled, [_paletteView3 paletteViewType]);
+  -[PKStatisticsManager recordAutoMinimizeEnabledDidChange:type:](v7, _paletteView, [_paletteView3 paletteViewType]);
 }
 
 void __66__PKPaletteController_moreOptionsViewControllerDidToggleAutoHide___block_invoke(uint64_t a1)

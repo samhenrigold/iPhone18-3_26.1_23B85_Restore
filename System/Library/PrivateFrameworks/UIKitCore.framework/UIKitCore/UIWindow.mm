@@ -13,8 +13,8 @@
 + (id)allWindowsIncludingInternalWindows:(BOOL)windows onlyVisibleWindows:(BOOL)visibleWindows forScreen:(id)screen;
 + (int)_preferredStatusBarVisibilityForWindow:(id)window targetOrientation:(int64_t)orientation animationProvider:(id *)provider;
 + (int64_t)_preferredStatusBarStyleInWindow:(id)window resolvedStyle:(int64_t *)style withPartStyles:(id *)styles animationProvider:(id *)provider;
-+ (uint64_t)_checkPreCommitHandlersAfterCAFlush;
 + (unsigned)_synchronizeDrawingAcrossProcesses;
++ (void)_checkPreCommitHandlersAfterCAFlush;
 + (void)_executeDeferredOrientationUpdates;
 + (void)_noteStatusBarHeightChanged:(double)changed oldHeight:(double)height;
 + (void)_setAllWindowsKeepContextInBackground:(BOOL)background;
@@ -120,6 +120,8 @@
 - (UIWindow)initWithContentRect:(CGRect)rect;
 - (UIWindow)initWithWindowScene:(UIWindowScene *)windowScene;
 - (UIWindowScene)windowScene;
+- (_BYTE)_cancelEnqueuedDeferredOrientationUpdateIfNeeded;
+- (_BYTE)_invalidateDeferredOrientationUpdate;
 - (_UIContextBinder)_contextBinder;
 - (_UICornerInsets)_normalizedCornerSafeAreaInsets;
 - (_UICornerInsets)_safeAreaCornerInsets;
@@ -200,7 +202,6 @@
 - (int64_t)_subclassPreferredFocusedViewPrioritizationType;
 - (int64_t)_windowInterfaceOrientation;
 - (int64_t)interfaceOrientation;
-- (uint64_t)_cancelEnqueuedDeferredOrientationUpdateIfNeeded;
 - (unint64_t)_edgeForTouch:(id)touch;
 - (unint64_t)_edgesForSystemGesturesTouchDelay;
 - (unint64_t)_expectedWindowInternalConstraintsCount;
@@ -245,7 +246,6 @@
 - (void)_installFocusEventRecognizer;
 - (void)_installFocusIfNeededForFocusSystemSceneComponent:(id)component;
 - (void)_internal_setRotatableViewOrientation:(uint64_t)orientation updateStatusBar:(uint64_t)bar duration:(double)duration force:;
-- (void)_invalidateDeferredOrientationUpdate;
 - (void)_invalidateWindowInternalConstraints;
 - (void)_keyboardDismissalGestureRecognized:(id)recognized;
 - (void)_legacySetRotatableViewOrientation:(int64_t)orientation updateStatusBar:(BOOL)bar duration:(double)duration force:(BOOL)force;
@@ -1127,9 +1127,9 @@ LABEL_26:
 
   v3 = [MEMORY[0x1E696AAE8] bundleForClass:v2];
   v4 = _UIKitBundle();
-  v5 = [v3 isEqual:v4];
+  isEqual = objc_msgSend_isEqual_(v3);
 
-  return v5;
+  return isEqual;
 }
 
 - (_UIForcedOrientationTransactionToken)_orientationTransactionToken
@@ -1476,15 +1476,16 @@ LABEL_26:
   return self;
 }
 
-+ (uint64_t)_checkPreCommitHandlersAfterCAFlush
++ (void)_checkPreCommitHandlersAfterCAFlush
 {
+  v9 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   if ((byte_1EA968DCE & 1) == 0)
   {
     result = [qword_1EA968EA0 count];
     if (result)
     {
-      goto LABEL_7;
+      goto LABEL_10;
     }
 
     if ((byte_1EA968DCE & 1) == 0)
@@ -1496,13 +1497,27 @@ LABEL_26:
   result = [MEMORY[0x1E6979518] currentState];
   if ((result & 3) == 0)
   {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    [qword_1EA968EA0 count];
-    [MEMORY[0x1E6979518] currentState];
-    _os_log_send_and_compose_impl();
+    v4 = 0;
+    memset(v8, 0, sizeof(v8));
+    v2 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v3 = 3;
+    }
+
+    else
+    {
+      v3 = 2;
+    }
+
+    v5[0] = 67109376;
+    v5[1] = [qword_1EA968EA0 count];
+    v6 = 1024;
+    currentState = [MEMORY[0x1E6979518] currentState];
+    _os_log_send_and_compose_impl(v3, &v4, v8, 80, &dword_188A29000, v2, 16, "Pre-fence handler registered, but not invoked: handlersCount=%u, transactionState=0x%x", v5, 14);
     _os_crash_msg();
     __break(1u);
-LABEL_7:
+LABEL_10:
     _os_crash();
     __break(1u);
   }
@@ -1560,7 +1575,7 @@ void __39__UIWindow__noteOverlayInsetsDidChange__block_invoke_2(uint64_t a1, voi
     {
       if (v6)
       {
-        [(UIViewController *)v6 _cumulativeOverlayInsetsInView:self];
+        objc_msgSend__cumulativeOverlayInsetsInView_(v6);
         v23 = 0uLL;
         v24 = 0uLL;
         v7 = 0uLL;
@@ -1603,7 +1618,7 @@ void __39__UIWindow__noteOverlayInsetsDidChange__block_invoke_2(uint64_t a1, voi
           v16 = 0uLL;
           if (v10)
           {
-            [(UIViewController *)v10 _cumulativeOverlayInsetsInView:self];
+            objc_msgSend__cumulativeOverlayInsetsInView_(v10);
             v18 = 0u;
             v17 = 0u;
             v16 = 0u;
@@ -1686,35 +1701,35 @@ void __22__UIWindow_initialize__block_invoke(uint64_t a1)
 
 + (void)_executeDeferredOrientationUpdates
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v0 = [objc_opt_self() allWindowsIncludingInternalWindows:0 onlyVisibleWindows:1];
-  v5 = 0u;
+  v11 = *MEMORY[0x1E69E9840];
+  v1 = [objc_opt_self() allWindowsIncludingInternalWindows:0 onlyVisibleWindows:1];
   v6 = 0u;
   v7 = 0u;
   v8 = 0u;
-  v1 = [v0 countByEnumeratingWithState:&v5 objects:v9 count:16];
-  if (v1)
+  v9 = 0u;
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+  if (v2)
   {
-    v2 = v1;
-    v3 = *v6;
+    v3 = v2;
+    v4 = *v7;
     do
     {
-      v4 = 0;
+      v5 = 0;
       do
       {
-        if (*v6 != v3)
+        if (*v7 != v4)
         {
-          objc_enumerationMutation(v0);
+          objc_enumerationMutation(v1);
         }
 
-        [*(*(&v5 + 1) + 8 * v4++) _executeDeferredOrientationUpdate];
+        [*(*(&v6 + 1) + 8 * v5++) _executeDeferredOrientationUpdate];
       }
 
-      while (v2 != v4);
-      v2 = [v0 countByEnumeratingWithState:&v5 objects:v9 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
-    while (v2);
+    while (v3);
   }
 }
 
@@ -1772,7 +1787,7 @@ void __22__UIWindow_initialize__block_invoke(uint64_t a1)
   }
 }
 
-- (void)_invalidateDeferredOrientationUpdate
+- (_BYTE)_invalidateDeferredOrientationUpdate
 {
   if (result)
   {
@@ -1788,15 +1803,15 @@ void __22__UIWindow_initialize__block_invoke(uint64_t a1)
   return result;
 }
 
-- (uint64_t)_cancelEnqueuedDeferredOrientationUpdateIfNeeded
+- (_BYTE)_cancelEnqueuedDeferredOrientationUpdateIfNeeded
 {
   if (result)
   {
     v1 = result;
-    if ((*(result + 580) & 0x20) != 0)
+    if ((result[580] & 0x20) != 0)
     {
       result = [MEMORY[0x1E69E58C0] cancelPreviousPerformRequestsWithTarget:result selector:sel__executeDeferredOrientationUpdate object:0];
-      *(v1 + 576) &= ~0x2000000000uLL;
+      *(v1 + 72) &= ~0x2000000000uLL;
     }
   }
 
@@ -1921,7 +1936,7 @@ void __22__UIWindow_initialize__block_invoke(uint64_t a1)
 
       else
       {
-        v5 = [(UIWindow *)self isEqual:v8]^ 1;
+        v5 = objc_msgSend_isEqual_(self) ^ 1;
       }
     }
 
@@ -2136,7 +2151,7 @@ LABEL_14:
 
   else
   {
-    [(UIView *)self transform3D];
+    objc_msgSend_transform3D(self, a2);
     v3 = CATransform3DIsIdentity(&v11);
     v10.receiver = self;
     v10.super_class = UIWindow;
@@ -2493,12 +2508,12 @@ LABEL_6:
 - (id)_appearanceContainer
 {
   screen = [(UIWindow *)self screen];
-  [screen _userInterfaceIdiom];
-  v3 = _UIAppearanceContainerForUserInterfaceIdiom();
+  _UIAppearanceContainerForUserInterfaceIdiom([screen _userInterfaceIdiom]);
+  v4 = v3;
 
-  v4 = objc_alloc_init(v3);
+  v5 = objc_alloc_init(v4);
 
-  return v4;
+  return v5;
 }
 
 - (double)_rotationDuration
@@ -4164,7 +4179,7 @@ LABEL_23:
     [(NSMutableArray *)self->_currentKeyboardTrackingLayoutGuides removeObject:neededCopy];
   }
 
-  if ([neededCopy isEqual:self->_primaryKeyboardTrackingGuide] && !-[NSMutableArray count](self->_currentKeyboardTrackingLayoutGuides, "count"))
+  if (objc_msgSend_isEqual_(neededCopy) && ![(NSMutableArray *)self->_currentKeyboardTrackingLayoutGuides count])
   {
     [(UITrackingLayoutGuide *)self->_primaryKeyboardTrackingGuide removeAllTrackedConstraints];
     v8 = MEMORY[0x1E69977A0];
@@ -4295,9 +4310,9 @@ LABEL_23:
 + (void)adjustForAccessibilityIfNeeded:(id)needed
 {
   name = [needed name];
-  v5 = [name isEqualToString:@"UIAccessibilityInvertColorsChanged"];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = 12;
   }
@@ -4341,7 +4356,7 @@ LABEL_12:
   }
 }
 
-void __43__UIWindow_adjustForAccessibilityIfNeeded___block_invoke(uint64_t a1, void *a2)
+void __43__UIWindow_adjustForAccessibilityIfNeeded___block_invoke(uint64_t result, void *a2)
 {
   if (a2)
   {
@@ -5390,7 +5405,7 @@ LABEL_59:
   }
 
   memset(&v69, 0, sizeof(v69));
-  [(UIWindow *)self _viewTransformForInterfaceOrientation:_orientationForSceneTransform];
+  objc_msgSend__viewTransformForInterfaceOrientation_(self);
   v68 = v69;
   [transformLayerCopy setAffineTransform:&v68];
   [transformLayerCopy setBounds:{_UIWindowConvertRectFromOrientationToOrientation(1, _orientationForSceneTransform, v22, v24, v26, v28, v26, v28)}];
@@ -6247,7 +6262,7 @@ void __68__UIWindow__removeAllViewControllersFromWindowHierarchyFromDealloc___bl
   v31 = 0;
   v28 = 0;
   v29 = 0;
-  [(UIWindow *)self _sceneSafeAreaCornerInsets];
+  objc_msgSend__sceneSafeAreaCornerInsets(self, a3);
   [(UIWindow *)self _sceneReferenceBounds];
   v6 = v5;
   v8 = v7;
@@ -6312,7 +6327,7 @@ void __68__UIWindow__removeAllViewControllersFromWindowHierarchyFromDealloc___bl
   if ((*(&self->_windowFlags + 4) & 4) == 0 && [(UIWindow *)self _updatesSafeAreaInsetsOnRead])
   {
     *&self->_windowFlags |= 0x400000000uLL;
-    [(UIWindow *)self _normalizedCornerSafeAreaInsets];
+    objc_msgSend__normalizedCornerSafeAreaInsets(self);
     [(UIView *)self _setSafeAreaCornerInsets:v6];
     *&self->_windowFlags &= ~0x400000000uLL;
   }
@@ -6433,7 +6448,7 @@ LABEL_11:
 
 - (void)_sceneSettingsSafeAreaCornerInsetsDidChange
 {
-  [(UIWindow *)self _normalizedCornerSafeAreaInsets];
+  objc_msgSend__normalizedCornerSafeAreaInsets(self, a2);
   [(UIView *)self _setSafeAreaCornerInsets:&v4 updateSubviewsDuringNextLayoutPass:_UIFloatingBarEnabled()];
   [(UIView *)self _recursiveEagerlyUpdateSafeAreaInsetsUntilViewController];
   rootViewController = [(UIWindow *)self rootViewController];
@@ -8482,7 +8497,7 @@ LABEL_12:
 
   if (viewCopy)
   {
-    [viewCopy transform];
+    objc_msgSend_transform(viewCopy);
   }
 
   else
@@ -9843,7 +9858,7 @@ void __59__UIWindow__rotateToBounds_withAnimator_transitionContext___block_invok
   }
 }
 
-uint64_t __53__UIWindow__adjustSizeClassesAndResizeWindowToFrame___block_invoke(uint64_t a1)
+double __53__UIWindow__adjustSizeClassesAndResizeWindowToFrame___block_invoke(uint64_t a1)
 {
   kdebug_trace();
   v2 = *(a1 + 32);
@@ -9868,7 +9883,8 @@ uint64_t __53__UIWindow__adjustSizeClassesAndResizeWindowToFrame___block_invoke(
     [v7 _window:v8 viewWillTransitionToSize:v9 withTransitionCoordinator:{*(a1 + 72), *(a1 + 80)}];
   }
 
-  return kdebug_trace();
+  kdebug_trace();
+  return result;
 }
 
 - (void)_handleDeviceOrientationChange:(id)change
@@ -10088,7 +10104,7 @@ LABEL_30:
   objc_destroyWeak(location);
 }
 
-void __57__UIWindow__updateToInterfaceOrientation_duration_force___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __57__UIWindow__updateToInterfaceOrientation_duration_force___block_invoke(uint64_t a1, id a2, void *a3)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = WeakRetained;
@@ -10152,16 +10168,16 @@ void __57__UIWindow__updateToInterfaceOrientation_duration_force___block_invoke(
   }
 }
 
-uint64_t __57__UIWindow__updateToInterfaceOrientation_duration_force___block_invoke_2(uint64_t result, int a2)
+id *__57__UIWindow__updateToInterfaceOrientation_duration_force___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    *(*(result + 32) + 496) = *(result + 40);
-    result = [*(result + 32) _isHostedInAnotherProcess];
+    *(result[4] + 62) = result[5];
+    result = [result[4] _isHostedInAnotherProcess];
     if ((result & 1) == 0)
     {
-      v3 = *(v2 + 32);
+      v3 = v2[4];
 
       return [v3 _updateTransformLayer];
     }
@@ -11764,7 +11780,7 @@ void __56__UIWindow__finishedFirstHalfRotation_finished_context___block_invoke_2
 
 + (void)_synchronizeDrawingWithCAFence:(id)fence preCommitHandler:(id)handler
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   fenceCopy = fence;
   handlerCopy = handler;
   if (pthread_main_np() != 1)
@@ -11795,12 +11811,12 @@ void __56__UIWindow__finishedFirstHalfRotation_finished_context___block_invoke_2
     }
 
     [UIApp _beginFenceTaskIfNecessary];
-    v29 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
+    v31 = 0u;
     v11 = __windowsWithContexts();
-    v12 = [v11 countByEnumeratingWithState:&v27 objects:v38 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v30 objects:v40 count:16];
     if (!v12)
     {
 LABEL_22:
@@ -11810,23 +11826,23 @@ LABEL_22:
 
     v13 = v12;
     v14 = 0;
-    v15 = *v28;
+    v15 = *v31;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v28 != v15)
+        if (*v31 != v15)
         {
           objc_enumerationMutation(v11);
         }
 
-        WeakRetained = objc_loadWeakRetained((*(*(&v27 + 1) + 8 * i) + 464));
+        WeakRetained = objc_loadWeakRetained((*(*(&v30 + 1) + 8 * i) + 464));
         v18 = [WeakRetained addFence:fenceCopy];
 
         v14 |= v18;
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v27 objects:v38 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v30 objects:v40 count:16];
     }
 
     while (v13);
@@ -11883,16 +11899,27 @@ LABEL_28:
     byte_1EA968DCE = [MEMORY[0x1E6979518] addCommitHandler:&__block_literal_global_550_0 forPhase:3];
     if ((byte_1EA968DCE & 1) == 0)
     {
+      v29 = 0;
+      v38 = 0u;
+      v39 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v34 = 0u;
-      v35 = 0u;
       *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v26 = MEMORY[0x1E69E9C10];
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        v27 = 3;
+      }
+
+      else
+      {
+        v27 = 2;
+      }
+
       currentPhase2 = [MEMORY[0x1E6979518] currentPhase];
-      v31 = 67109120;
-      v32 = currentPhase2;
-      _os_log_send_and_compose_impl();
+      v34[0] = 67109120;
+      v34[1] = currentPhase2;
+      _os_log_send_and_compose_impl(v27, &v29, buf, 80, &dword_188A29000, v26, 16, "Failed to register pre-fence handler: transactionPhase=%u", v34);
       _os_crash_msg();
       __break(1u);
     }
@@ -12191,7 +12218,7 @@ LABEL_31:
   screen = [(UIWindow *)self screen];
   _FBSScene = [(_UISceneUIWindowHosting *)self->_windowHostingScene _FBSScene];
   v8 = _FBSScene;
-  if (screen != v5 || ([_FBSScene settings], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "displayIdentity"), v10 = objc_claimAutoreleasedReturnValue(), -[UIScreen displayIdentity](v5, "displayIdentity"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqual:", v11), v11, v10, v9, (v12 & 1) == 0))
+  if (screen != v5 || ([_FBSScene settings], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "displayIdentity"), v10 = objc_claimAutoreleasedReturnValue(), -[UIScreen displayIdentity](v5, "displayIdentity"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend_isEqual_(v10), v11, v10, v9, (v12 & 1) == 0))
   {
     if (v5)
     {
@@ -12242,7 +12269,7 @@ LABEL_23:
       goto LABEL_22;
     }
 
-    if (v8 && ([v8 settings], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "displayConfiguration"), v19 = objc_claimAutoreleasedReturnValue(), -[UIScreen displayConfiguration](v14, "displayConfiguration"), v20 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v19, "isEqual:", v20), v20, v19, v18, (v27 & 1) == 0))
+    if (v8 && ([v8 settings], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "displayConfiguration"), v19 = objc_claimAutoreleasedReturnValue(), -[UIScreen displayConfiguration](v14, "displayConfiguration"), v20 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v19), v20, v19, v18, (isEqual & 1) == 0))
     {
       v21 = UIApp;
       displayIdentity = [(UIScreen *)v15 displayConfiguration];
@@ -12271,7 +12298,7 @@ LABEL_24:
   screenCopy = screen;
   toScreenCopy = toScreen;
   _FBSScene = [(_UISceneUIWindowHosting *)self->_windowHostingScene _FBSScene];
-  if (screenCopy != toScreenCopy || ([_FBSScene settings], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "displayIdentity"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(toScreenCopy, "displayIdentity"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqual:", v10), v10, v9, v8, (v11 & 1) == 0))
+  if (screenCopy != toScreenCopy || ([_FBSScene settings], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "displayIdentity"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(toScreenCopy, "displayIdentity"), v10 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v9), v10, v9, v8, (isEqual & 1) == 0))
   {
     if (toScreenCopy)
     {
@@ -12298,9 +12325,9 @@ LABEL_24:
     _isHostedInAnotherProcess = [(UIWindow *)self _isHostedInAnotherProcess];
     session = [(_UISceneUIWindowHosting *)self->_windowHostingScene session];
     role = [session role];
-    v20 = [role isEqualToString:@"UIWindowSceneSessionRoleExternalDisplayNonInteractive"];
+    isEqualToString = objc_msgSend_isEqualToString_(role);
 
-    if (!_isHostedInAnotherProcess && v20)
+    if (!_isHostedInAnotherProcess && isEqualToString)
     {
       [v13 bounds];
       [(UIWindow *)self setFrame:?];
@@ -12833,17 +12860,17 @@ void __77__UIWindow__traitCollectionForSize_parentCollection_traitOverrideApplic
   traitCollection = [(UIWindow *)self traitCollection];
   if (traitCollection == collectionCopy)
   {
-    v9 = 1;
+    isEqual = 1;
   }
 
   else
   {
     traitCollection2 = [(UIWindow *)self traitCollection];
-    v9 = [traitCollection2 isEqual:collectionCopy];
+    isEqual = objc_msgSend_isEqual_(traitCollection2);
   }
 
   destinationTraitCollection = self->_destinationTraitCollection;
-  if (destinationTraitCollection != collectionCopy && ((v9 | [(UITraitCollection *)destinationTraitCollection isEqual:collectionCopy]) & 1) == 0)
+  if (destinationTraitCollection != collectionCopy && ((isEqual | objc_msgSend_isEqual_(destinationTraitCollection, collectionCopy, collectionCopy)) & 1) == 0)
   {
     if (!coordinatorCopy)
     {
@@ -13124,7 +13151,7 @@ void __77__UIWindow__traitCollectionForSize_parentCollection_traitOverrideApplic
   }
 
   v6 = self[103];
-  if (!v6 || ([v6 session], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "role"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isEqualToString:", @"UIWindowSceneSessionRoleCarPlay"), v8, v7, !v9))
+  if (!v6 || ([v6 session], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "role"), v8 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v8), v8, v7, !isEqualToString))
   {
     v11 = 0;
     if (window)
@@ -13212,7 +13239,7 @@ LABEL_11:
 
     _windowHostingScene = [v25 _windowHostingScene];
     _windowHostingScene2 = [window _windowHostingScene];
-    LODWORD(focusSystem) = [_windowHostingScene isEqual:_windowHostingScene2];
+    LODWORD(focusSystem) = objc_msgSend_isEqual_(_windowHostingScene);
 
     if (focusSystem)
     {
@@ -15294,7 +15321,7 @@ void __94__UIWindow_UIKitOrientationDebugging___orientationDebugDescriptionBuild
   v13 = *(*(a1 + 40) + 544);
   if (v13)
   {
-    [v13 affineTransform];
+    objc_msgSend_affineTransform(v13);
   }
 
   else
@@ -15310,7 +15337,7 @@ void __94__UIWindow_UIKitOrientationDebugging___orientationDebugDescriptionBuild
   v17 = *(*(a1 + 40) + 536);
   if (v17)
   {
-    [v17 affineTransform];
+    objc_msgSend_affineTransform(v17);
   }
 
   else
@@ -15532,7 +15559,7 @@ LABEL_28:
   transformLayer = self->_transformLayer;
   if (transformLayer)
   {
-    [(CALayer *)transformLayer affineTransform];
+    objc_msgSend_affineTransform(transformLayer);
     transformLayer = self->_transformLayer;
   }
 

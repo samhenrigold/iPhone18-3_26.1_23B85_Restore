@@ -18,23 +18,21 @@
 
 - (id)text
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___RTTLiveCaptionObjC_rootObject);
   selfCopy = self;
   sub_26177D4B0();
 
-  v4 = sub_26177D530();
+  v3 = sub_26177D530();
 
-  return v4;
+  return v3;
 }
 
 - (int64_t)resultType
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___RTTLiveCaptionObjC_rootObject);
   selfCopy = self;
   sub_26177D4A0();
-  v4 = sub_26177D500();
+  v3 = sub_26177D500();
 
-  return v4;
+  return v3;
 }
 
 - (RTTLiveCaptionObjC)init

@@ -20,35 +20,36 @@
 
 - (ATXActionCacheClientReader)initWithChunks:(id)chunks
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   chunksCopy = chunks;
-  v13.receiver = self;
-  v13.super_class = ATXActionCacheClientReader;
-  v5 = [(ATXActionCacheClientReader *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = ATXActionCacheClientReader;
+  v5 = [(ATXActionCacheClientReader *)&v14 init];
   if (v5)
   {
     v6 = [chunksCopy count];
-    if (v6 == [(ATXActionCacheClientReader *)v5 chunkCount])
+    chunkCount = [(ATXActionCacheClientReader *)v5 chunkCount];
+    if (v6 == chunkCount)
     {
-      v7 = [chunksCopy objectAtIndexedSubscript:0];
+      v8 = [chunksCopy objectAtIndexedSubscript:0];
       scoredActionsChunk = v5->_scoredActionsChunk;
-      v5->_scoredActionsChunk = v7;
+      v5->_scoredActionsChunk = v8;
 
-      v9 = [(ATXActionCacheClientReader *)v5 _getLockScreenPredictionIndices:chunksCopy];
+      v10 = [(ATXActionCacheClientReader *)v5 _getLockScreenPredictionIndices:chunksCopy];
       p_super = &v5->_lockscreenPredictionIndices->super;
-      v5->_lockscreenPredictionIndices = v9;
+      v5->_lockscreenPredictionIndices = v10;
     }
 
     else
     {
-      p_super = __atxlog_handle_default();
+      p_super = __atxlog_handle_default(chunkCount);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = [chunksCopy count];
+        v12 = [chunksCopy count];
         *buf = 134218240;
-        v15 = v11;
-        v16 = 1024;
-        v17 = 4;
+        v16 = v12;
+        v17 = 1024;
+        v18 = 4;
         _os_log_impl(&dword_1BF549000, p_super, OS_LOG_TYPE_DEFAULT, "Wrong number of chunks returned from cache. Cache had %lu chunks, expected %i (this may be due to a cache change)", buf, 0x12u);
       }
     }
@@ -68,41 +69,42 @@
       {
         v6 = -[ATXActionCacheClientReader actionsWithLimit:shouldFilterRestrictedAppsAndRecentEngagements:](self, "actionsWithLimit:shouldFilterRestrictedAppsAndRecentEngagements:", [v5 lastIndex] + 1, 0);
         lastIndex = [v5 lastIndex];
-        if (lastIndex >= [v6 count])
+        v8 = [v6 count];
+        if (lastIndex >= v8)
         {
-          v9 = __atxlog_handle_default();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v10 = __atxlog_handle_default(v8);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
-            [(ATXActionCacheClientReader *)v5 actionsWithConsumerSubType:v6 limit:v9];
+            [(ATXActionCacheClientReader *)v5 actionsWithConsumerSubType:v6 limit:v10];
           }
 
-          v8 = MEMORY[0x1E695E0F0];
+          v9 = MEMORY[0x1E695E0F0];
         }
 
         else
         {
-          v8 = [v6 objectsAtIndexes:v5];
+          v9 = [v6 objectsAtIndexes:v5];
         }
       }
 
       else
       {
-        v8 = MEMORY[0x1E695E0F0];
+        v9 = MEMORY[0x1E695E0F0];
       }
     }
 
     else
     {
-      v8 = [(ATXActionCacheClientReader *)self actionsWithLimit:limit shouldFilterRestrictedAppsAndRecentEngagements:1];
+      v9 = [(ATXActionCacheClientReader *)self actionsWithLimit:limit shouldFilterRestrictedAppsAndRecentEngagements:1];
     }
   }
 
   else
   {
-    v8 = MEMORY[0x1E695E0F0];
+    v9 = MEMORY[0x1E695E0F0];
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)lockscreenPredictionIndicesUpToLimit:(int64_t)limit
@@ -128,7 +130,7 @@
   return v5;
 }
 
-unint64_t __67__ATXActionCacheClientReader_lockscreenPredictionIndicesUpToLimit___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__67__ATXActionCacheClientReader_lockscreenPredictionIndicesUpToLimit___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) count];
   if (result >= *(a1 + 40))
@@ -164,7 +166,7 @@ unint64_t __67__ATXActionCacheClientReader_lockscreenPredictionIndicesUpToLimit_
 BOOL __77__ATXActionCacheClientReader__predicateForInstalledAndNonEngagedPredictions___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 predictedItem];
-  if ([*(a1 + 32) containsObject:v3])
+  if (objc_msgSend_containsObject_(*(a1 + 32)))
   {
     v4 = 0;
   }

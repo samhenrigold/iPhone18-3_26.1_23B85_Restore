@@ -23,7 +23,7 @@
   v6 = [(AVMetadataBodyObject *)&v9 initWithFigEmbeddedCaptureDeviceObjectDictionary:dictionary input:input timeStamp:stamp type:@"humanBody"];
   if (v6)
   {
-    v7 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6990FA0]];
+    v7 = objc_msgSend_objectForKeyedSubscript_(dictionary);
     if (v7)
     {
       v6->_hasConfidence = 1;
@@ -68,7 +68,7 @@
 
   if (self)
   {
-    [(AVMetadataObject *)self time];
+    objc_msgSend_time(self);
     v15 = v17;
   }
 

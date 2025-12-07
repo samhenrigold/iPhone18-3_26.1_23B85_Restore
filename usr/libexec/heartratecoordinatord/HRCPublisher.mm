@@ -13,48 +13,48 @@
 - (HRCPublisher)initWithAnalyticsReporter:(id)reporter isInternalVariant:(BOOL)variant
 {
   reporterCopy = reporter;
-  v20.receiver = self;
-  v20.super_class = HRCPublisher;
-  v8 = [(HRCPublisher *)&v20 init];
+  v22.receiver = self;
+  v22.super_class = HRCPublisher;
+  v8 = [(HRCPublisher *)&v22 init];
   objc_storeStrong(&v8->_analyticsReporter, reporter);
   v9 = dispatch_queue_create("com.apple.heartratecoordinator.healthkit.publisher", 0);
   publisherQueue = v8->_publisherQueue;
   v8->_publisherQueue = v9;
 
-  v11 = v8->_publisherQueue;
-  if (v11)
+  v12 = v8->_publisherQueue;
+  if (v12)
   {
     v8->_isInternalVariant = variant;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100017540;
     block[3] = &unk_1000406C0;
-    v12 = v8;
-    v19 = v12;
-    dispatch_async(v11, block);
-    v13 = sub_10000132C();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v13 = v8;
+    v21 = v13;
+    dispatch_async(v12, block);
+    v15 = sub_10000132C(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "HRCPublisher init", v17, 2u);
+      *v19 = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "HRCPublisher init", v19, 2u);
     }
 
-    v14 = v12;
-    p_super = &v19->super;
+    v16 = v13;
+    p_super = &v21->super;
   }
 
   else
   {
-    p_super = sub_10000132C();
+    p_super = sub_10000132C(v11);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_FAULT))
     {
       sub_1000190B4();
     }
 
-    v14 = 0;
+    v16 = 0;
   }
 
-  return v14;
+  return v16;
 }
 
 - (void)handleSourceUpdate:(const HRCSourceUpdate *)update
@@ -115,8 +115,8 @@
 
   else
   {
-    v5 = sub_10000132C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = sub_10000132C(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       sub_1000190E8();
     }
@@ -184,11 +184,11 @@
 
       if (btleSourceCollector)
       {
-        v12 = sub_10000132C();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v15 = sub_10000132C(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          *v14 = 0;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "tearing down hk data collector for btle source", v14, 2u);
+          *v17 = 0;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "tearing down hk data collector for btle source", v17, 2u);
         }
 
         btleSourceCollector2 = [(HRCPublisher *)self btleSourceCollector];
@@ -203,11 +203,11 @@
 
       if (watchSourceCollector)
       {
-        v9 = sub_10000132C();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        v11 = sub_10000132C(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
-          *v15 = 0;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "tearing down hk data collector for watch source", v15, 2u);
+          *v18 = 0;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "tearing down hk data collector for watch source", v18, 2u);
         }
 
         watchSourceCollector2 = [(HRCPublisher *)self watchSourceCollector];
@@ -222,11 +222,11 @@
 
       if (aacpSourceCollector)
       {
-        v6 = sub_10000132C();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+        v7 = sub_10000132C(v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "tearing down hk data collector for aacp source", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "tearing down hk data collector for aacp source", buf, 2u);
         }
 
         aacpSourceCollector2 = [(HRCPublisher *)self aacpSourceCollector];
@@ -243,31 +243,32 @@
 {
   rateCopy = rate;
   dispatch_assert_queue_V2(self->_publisherQueue);
-  if ([rateCopy sourceType])
+  sourceType = [rateCopy sourceType];
+  if (sourceType)
   {
-    v47 = _HKPrivateMetadataKeyHeartRateContext;
-    v66 = _HKPrivateMetadataKeyHeartRateContext;
-    v3 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [rateCopy context]);
-    v67 = v3;
-    v56 = [NSDictionary dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+    v52 = _HKPrivateMetadataKeyHeartRateContext;
+    v71 = _HKPrivateMetadataKeyHeartRateContext;
+    v4 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [rateCopy context]);
+    v72 = v4;
+    v61 = [NSDictionary dictionaryWithObjects:&v72 forKeys:&v71 count:1];
 
-    v4 = sub_10000132C();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v6 = sub_10000132C(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       uuid = [rateCopy uuid];
       [rateCopy heartRate];
       *buf = 138544131;
       *&buf[4] = uuid;
-      v60 = 2053;
-      v61 = v6;
-      v62 = 2053;
+      v65 = 2053;
+      v66 = v8;
+      v67 = 2053;
       hrContext = [rateCopy hrContext];
-      v64 = 1026;
+      v69 = 1026;
       streamingThrottleStatus = [rateCopy streamingThrottleStatus];
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "publishing HR sample to HK with UUID : %{public}@ , bpm : %{sensitive}f , context : %{sensitive}ld , streamingThrottleStatus : %{public}d", buf, 0x26u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "publishing HR sample to HK with UUID : %{public}@ , bpm : %{sensitive}f , context : %{sensitive}ld , streamingThrottleStatus : %{public}d", buf, 0x26u);
     }
 
-    v7 = [HKDevice alloc];
+    v9 = [HKDevice alloc];
     device = [rateCopy device];
     name = [device name];
     device2 = [rateCopy device];
@@ -284,121 +285,121 @@
     localIdentifier = [device7 localIdentifier];
     device8 = [rateCopy device];
     uDIDeviceIdentifier = [device8 UDIDeviceIdentifier];
-    v55 = [v7 initWithName:name manufacturer:manufacturer model:model hardwareVersion:hardwareVersion firmwareVersion:firmwareVersion softwareVersion:softwareVersion localIdentifier:localIdentifier UDIDeviceIdentifier:uDIDeviceIdentifier];
+    v60 = [v9 initWithName:name manufacturer:manufacturer model:model hardwareVersion:hardwareVersion firmwareVersion:firmwareVersion softwareVersion:softwareVersion localIdentifier:localIdentifier UDIDeviceIdentifier:uDIDeviceIdentifier];
 
     device9 = [rateCopy device];
     bluetoothIdentifier = [device9 bluetoothIdentifier];
-    [v55 _setBluetoothIdentifier:bluetoothIdentifier];
+    [v60 _setBluetoothIdentifier:bluetoothIdentifier];
 
-    sourceType = [rateCopy sourceType];
-    if (sourceType > 1)
+    sourceType2 = [rateCopy sourceType];
+    if (sourceType2 > 1)
     {
-      if (sourceType == 2)
+      if (sourceType2 == 2)
       {
         if ([rateCopy hrContext] == 2)
         {
           watchSourceCollector = [(HRCPublisher *)self watchSourceCollector];
-          v33 = watchSourceCollector == 0;
+          v37 = watchSourceCollector == 0;
 
-          if (v33)
+          if (v37)
           {
-            v34 = sub_10000132C();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+            v39 = sub_10000132C(v38);
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
             {
               sub_100019190();
             }
 
             hkStore = [(HRCPublisher *)self hkStore];
-            v36 = sub_100017B04(2, hkStore);
-            [(HRCPublisher *)self setWatchSourceCollector:v36];
+            v41 = sub_100017B04(2, hkStore);
+            [(HRCPublisher *)self setWatchSourceCollector:v41];
           }
 
           watchSourceCollector2 = [(HRCPublisher *)self watchSourceCollector];
-          v26 = +[HKDevice localDevice];
-          v37 = sub_100018CC4(rateCopy);
-          sub_100018B60(watchSourceCollector2, v26, v56, v37);
+          v29 = +[HKDevice localDevice];
+          v42 = sub_100018CC4(rateCopy);
+          sub_100018B60(watchSourceCollector2, v29, v61, v42);
         }
 
         else
         {
           watchSourceCollector2 = [(HRCPublisher *)self hkStore];
-          v38 = rateCopy;
-          v39 = [HKUnit unitFromString:@"count/min"];
-          [v38 heartRate];
-          v40 = [HKQuantity quantityWithUnit:v39 doubleValue:?];
+          v43 = rateCopy;
+          v44 = [HKUnit unitFromString:@"count/min"];
+          [v43 heartRate];
+          v45 = [HKQuantity quantityWithUnit:v44 doubleValue:?];
 
-          v41 = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate];
-          v68 = v47;
-          v42 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", +[HRCUtilities translateToHealthKitContextType:](HRCUtilities, "translateToHealthKitContextType:", [v38 hrContext]));
-          *buf = v42;
-          v43 = [NSDictionary dictionaryWithObjects:buf forKeys:&v68 count:1];
+          v46 = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate];
+          v73 = v52;
+          v47 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", +[HRCUtilities translateToHealthKitContextType:](HRCUtilities, "translateToHealthKitContextType:", [v43 hrContext]));
+          *buf = v47;
+          v48 = [NSDictionary dictionaryWithObjects:buf forKeys:&v73 count:1];
 
-          timestamp = [v38 timestamp];
-          timestamp2 = [v38 timestamp];
-          v46 = +[HKDevice localDevice];
-          v26 = [HKQuantitySample quantitySampleWithType:v41 quantity:v40 startDate:timestamp endDate:timestamp2 device:v46 metadata:v43];
+          timestamp = [v43 timestamp];
+          timestamp2 = [v43 timestamp];
+          v51 = +[HKDevice localDevice];
+          v29 = [HKQuantitySample quantitySampleWithType:v46 quantity:v45 startDate:timestamp endDate:timestamp2 device:v51 metadata:v48];
 
-          [watchSourceCollector2 saveObject:v26 withCompletion:&stru_100040E28];
+          [watchSourceCollector2 saveObject:v29 withCompletion:&stru_100040E28];
         }
 
         goto LABEL_28;
       }
 
-      if (sourceType == 3)
+      if (sourceType2 == 3)
       {
         btleSourceCollector = [(HRCPublisher *)self btleSourceCollector];
-        v28 = btleSourceCollector == 0;
+        v31 = btleSourceCollector == 0;
 
-        if (v28)
+        if (v31)
         {
-          v29 = sub_10000132C();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+          v33 = sub_10000132C(v32);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
           {
             sub_10001915C();
           }
 
           hkStore2 = [(HRCPublisher *)self hkStore];
-          v31 = sub_100017B04(3, hkStore2);
-          [(HRCPublisher *)self setBtleSourceCollector:v31];
+          v35 = sub_100017B04(3, hkStore2);
+          [(HRCPublisher *)self setBtleSourceCollector:v35];
         }
 
         watchSourceCollector2 = [(HRCPublisher *)self btleSourceCollector];
-        v26 = sub_100018CC4(rateCopy);
-        sub_100018B60(watchSourceCollector2, v55, v56, v26);
+        v29 = sub_100018CC4(rateCopy);
+        sub_100018B60(watchSourceCollector2, v60, v61, v29);
         goto LABEL_28;
       }
     }
 
     else
     {
-      if (!sourceType)
+      if (!sourceType2)
       {
 LABEL_30:
 
         goto LABEL_31;
       }
 
-      if (sourceType == 1)
+      if (sourceType2 == 1)
       {
         aacpSourceCollector = [(HRCPublisher *)self aacpSourceCollector];
-        v21 = aacpSourceCollector == 0;
+        v23 = aacpSourceCollector == 0;
 
-        if (v21)
+        if (v23)
         {
-          v22 = sub_10000132C();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+          v25 = sub_10000132C(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
           {
             sub_1000191C4();
           }
 
           hkStore3 = [(HRCPublisher *)self hkStore];
-          v24 = sub_100017B04(1, hkStore3);
-          [(HRCPublisher *)self setAacpSourceCollector:v24];
+          v27 = sub_100017B04(1, hkStore3);
+          [(HRCPublisher *)self setAacpSourceCollector:v27];
         }
 
         watchSourceCollector2 = [(HRCPublisher *)self aacpSourceCollector];
-        v26 = sub_100018CC4(rateCopy);
-        sub_100018B60(watchSourceCollector2, v55, v56, v26);
+        v29 = sub_100018CC4(rateCopy);
+        sub_100018B60(watchSourceCollector2, v60, v61, v29);
 LABEL_28:
       }
     }
@@ -407,8 +408,8 @@ LABEL_28:
     goto LABEL_30;
   }
 
-  v56 = sub_10000132C();
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
+  v61 = sub_10000132C(sourceType);
+  if (os_log_type_enabled(v61, OS_LOG_TYPE_FAULT))
   {
     sub_1000191F8();
   }

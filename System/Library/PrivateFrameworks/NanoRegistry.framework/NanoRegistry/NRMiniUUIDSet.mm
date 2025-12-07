@@ -39,40 +39,40 @@
 
 - (NRMiniUUIDSet)initWithUUIDSet:(id)set
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   setCopy = set;
-  v44.receiver = self;
-  v44.super_class = NRMiniUUIDSet;
-  v5 = [(NRMiniUUIDSet *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = NRMiniUUIDSet;
+  v5 = [(NRMiniUUIDSet *)&v43 init];
   if (v5)
   {
     v6 = [setCopy count];
     if (v6)
     {
       std::vector<unsigned int>::reserve((v5 + 8), v6);
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       obj = setCopy;
-      v7 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v7 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
       if (v7)
       {
-        v8 = *v41;
+        v8 = *v40;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v41 != v8)
+            if (*v40 != v8)
             {
               objc_enumerationMutation(obj);
             }
 
-            v10 = *(*(&v40 + 1) + 8 * i);
-            v45[0] = 0;
-            v45[1] = 0;
-            [v10 getUUIDBytes:v45];
-            v39 = v45[0];
+            v10 = *(*(&v39 + 1) + 8 * i);
+            v44[0] = 0;
+            v44[1] = 0;
+            [v10 getUUIDBytes:v44];
+            v38 = v44[0];
             v12 = *(v5 + 1);
             v11 = *(v5 + 2);
             v13 = v11 - v12;
@@ -92,7 +92,7 @@
                 v19 = *v17;
                 v18 = v17 + 4;
                 v14 += ~(v14 >> 1);
-                if (LODWORD(v45[0]) < v19)
+                if (LODWORD(v44[0]) < v19)
                 {
                   v14 = v16;
                 }
@@ -159,7 +159,7 @@
                 v26 = (v26 - (((v24 >> 1) + 2) & 0xFFFFFFFFFFFFFFFCLL));
               }
 
-              *v26 = v39;
+              *v26 = v38;
               memcpy(v26 + 1, v15, *(v5 + 2) - v15);
               v31 = *(v5 + 1);
               v32 = v26 + *(v5 + 2) - v15 + 4;
@@ -179,7 +179,7 @@
 
             else if (v15 == v11)
             {
-              *v11 = v45[0];
+              *v11 = v44[0];
               *(v5 + 2) = v11 + 4;
             }
 
@@ -203,18 +203,18 @@
                 v21 = *(v5 + 2);
               }
 
-              v27 = v21 <= &v39 || v15 > &v39;
+              v27 = v21 <= &v38 || v15 > &v38;
               v28 = 4;
               if (v27)
               {
                 v28 = 0;
               }
 
-              *v15 = *(&v39 + v28);
+              *v15 = *(&v38 + v28);
             }
           }
 
-          v7 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+          v7 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
         }
 
         while (v7);
@@ -222,7 +222,6 @@
     }
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -402,11 +401,11 @@ LABEL_16:
 
 - (BOOL)hasUUID:(id)d
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v15[0] = 0;
-  v15[1] = 0;
-  [dCopy getUUIDBytes:v15];
+  v14[0] = 0;
+  v14[1] = 0;
+  [dCopy getUUIDBytes:v14];
   begin = self->_miniUUIDs.__begin_;
   end = self->_miniUUIDs.__end_;
   if (end == begin)
@@ -422,7 +421,7 @@ LABEL_16:
     v11 = *v9;
     v10 = v9 + 1;
     v7 += ~(v7 >> 1);
-    if (v11 < LODWORD(v15[0]))
+    if (v11 < LODWORD(v14[0]))
     {
       begin = v10;
     }
@@ -442,10 +441,9 @@ LABEL_9:
 
   else
   {
-    v12 = LODWORD(v15[0]) >= *begin;
+    v12 = LODWORD(v14[0]) >= *begin;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

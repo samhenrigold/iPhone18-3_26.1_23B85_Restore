@@ -7,24 +7,24 @@
 - (NTKCompanionWidgetHostController)init
 {
   ObjectType = swift_getObjectType();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DA2D440);
-  MEMORY[0x28223BE20]();
-  v5 = &v11 - v4;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DA2D440, &qword_22DCEA540);
+  MEMORY[0x28223BE20](v4 - 8, v5, v6);
+  v8 = &v14 - v7;
   swift_defaultActor_initialize();
   sub_22DCB5FCC();
-  v11.receiver = self;
-  v11.super_class = ObjectType;
-  v6 = [(NTKCompanionWidgetHostController *)&v11 init];
-  v7 = sub_22DCB62BC();
-  (*(*(v7 - 8) + 56))(v5, 1, 1, v7);
-  v8 = swift_allocObject();
-  v8[2] = 0;
-  v8[3] = 0;
-  v8[4] = v6;
-  v9 = v6;
-  sub_22DC95460(0, 0, v5, &unk_22DCEC978, v8);
+  v14.receiver = self;
+  v14.super_class = ObjectType;
+  v9 = [(NTKCompanionWidgetHostController *)&v14 init];
+  v10 = sub_22DCB62BC();
+  (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = v9;
+  v12 = v9;
+  sub_22DC95460(0, 0, v8, &unk_22DCEC978, v11);
 
-  return v9;
+  return v12;
 }
 
 @end

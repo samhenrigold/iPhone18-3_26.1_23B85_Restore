@@ -60,32 +60,33 @@
 
 void __51__SBMiscellaneousDefaults__bindAndRegisterDefaults__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) _store];
-  if ([v1 bs_defaultExists:@"SBSensitiveUIEpoch"] && objc_msgSend(v1, "integerForKey:", @"SBSensitiveUIEpoch") > 1)
+  v2 = [v1 bs_defaultExists:@"SBSensitiveUIEpoch"];
+  if (v2 && (v2 = [v1 integerForKey:@"SBSensitiveUIEpoch"], v2 > 1))
   {
-    v5 = SBLogSensitiveUI();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogSensitiveUI(v2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v6) = 0;
-      _os_log_impl(&dword_1BEA11000, v5, OS_LOG_TYPE_DEFAULT, "No sensitive UI epoch migration required", &v6, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_1BEA11000, v6, OS_LOG_TYPE_DEFAULT, "No sensitive UI epoch migration required", &v7, 2u);
     }
   }
 
   else
   {
-    v2 = SBLogSensitiveUI();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = SBLogSensitiveUI(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [v1 objectForKey:@"SBSensitiveUIEpoch"];
-      v4 = [v1 objectForKey:@"SBSensitiveUIEnabled"];
-      v6 = 138412802;
-      v7 = v3;
-      v8 = 1024;
-      v9 = 2;
-      v10 = 2112;
-      v11 = v4;
-      _os_log_impl(&dword_1BEA11000, v2, OS_LOG_TYPE_DEFAULT, "Migrating sensitive UI epoch from %@ to %d. SBSensitiveUIEnabled was %@", &v6, 0x1Cu);
+      v4 = [v1 objectForKey:@"SBSensitiveUIEpoch"];
+      v5 = [v1 objectForKey:@"SBSensitiveUIEnabled"];
+      v7 = 138412802;
+      v8 = v4;
+      v9 = 1024;
+      v10 = 2;
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&dword_1BEA11000, v3, OS_LOG_TYPE_DEFAULT, "Migrating sensitive UI epoch from %@ to %d. SBSensitiveUIEnabled was %@", &v7, 0x1Cu);
     }
 
     [v1 removeObjectForKey:@"SBSensitiveUIEnabled"];

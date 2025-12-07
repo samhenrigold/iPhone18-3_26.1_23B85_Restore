@@ -50,7 +50,7 @@
     v15 = currentLayout;
     if (currentLayout)
     {
-      [currentLayout anchor];
+      objc_msgSend_anchor(currentLayout);
     }
 
     else

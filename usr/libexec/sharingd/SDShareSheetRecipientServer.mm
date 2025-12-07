@@ -27,33 +27,34 @@
   connectionCopy = connection;
   v4 = [connectionCopy valueForEntitlement:@"com.apple.sharesheet.recipients"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && ([v4 BOOLValue])
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass & 1) != 0 && (isKindOfClass = [v4 BOOLValue], (isKindOfClass))
   {
-    v5 = share_sheet_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = share_sheet_log(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 67109120;
+      v9 = 67109120;
       processIdentifier = [connectionCopy processIdentifier];
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Allowing connection from pid %d to sharingd recipient server", &v8, 8u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Allowing connection from pid %d to sharingd recipient server", &v9, 8u);
     }
 
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = share_sheet_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = share_sheet_log(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 67109120;
+      v9 = 67109120;
       processIdentifier = [connectionCopy processIdentifier];
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "process %d tried to connect to the sharingd recipient server, but it was not entitled!", &v8, 8u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "process %d tried to connect to the sharingd recipient server, but it was not entitled!", &v9, 8u);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)requestMessagesRecipientInfoForSessionID:(id)d completionHandler:(id)handler

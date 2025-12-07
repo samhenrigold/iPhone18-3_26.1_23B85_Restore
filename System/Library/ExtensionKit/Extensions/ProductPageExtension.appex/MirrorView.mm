@@ -72,7 +72,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000F8028();
+  sub_1000F8028(selfCopy, v2);
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context

@@ -82,13 +82,13 @@
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   asset = [(_PXStoryExport_VideoHighlightInfo *)self asset];
-  [(_PXStoryExport_VideoHighlightInfo *)self loadingVideoTimeRange];
+  objc_msgSend_loadingVideoTimeRange(self);
   v7 = PXStoryTimeRangeDescription(v13);
-  [(_PXStoryExport_VideoHighlightInfo *)self loadedVideoPlaybackStartTime];
+  objc_msgSend_loadedVideoPlaybackStartTime(self);
   v8 = PXStoryTimeDescription(v13);
-  [(_PXStoryExport_VideoHighlightInfo *)self storyPlaybackRange];
+  objc_msgSend_storyPlaybackRange(self);
   v9 = PXStoryTimeRangeDescription(v13);
-  [(_PXStoryExport_VideoHighlightInfo *)self audioInfo];
+  objc_msgSend_audioInfo(self);
   v10 = PXStoryClipAudioInfoDescription(v13);
   v11 = [v3 initWithFormat:@"<%@ %p; asset: %@; loadingVideoTimeRange: %@; loadedVideoPlaybackStartTime: %@; storyPlaybackRange: %@ audio:%@>", v5, self, asset, v7, v8, v9, v10];
 

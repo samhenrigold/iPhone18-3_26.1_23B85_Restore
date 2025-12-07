@@ -32,41 +32,43 @@
   v10 = BoxRect.size.height;
   v11 = width * factor;
   v12 = height * factor;
-  if ([(CUIRenditionKey *)[(CUINamedLookup *)self renditionKey:BoxRect.origin.x] themeDisplayGamut]&& CGPDFPageContainsWideGamutContent())
+  themeDisplayGamut = [(CUIRenditionKey *)[(CUINamedLookup *)self renditionKey:BoxRect.origin.x] themeDisplayGamut];
+  if (themeDisplayGamut && (themeDisplayGamut = CGPDFPageContainsWideGamutContent(), themeDisplayGamut))
   {
-    v13 = 4097;
-    v14 = 8;
-    v15 = 16;
-    DisplayP3 = _CUIColorSpaceGetDisplayP3();
+    v15 = 4097;
+    v16 = 8;
+    v17 = 16;
+    DisplayP3 = _CUIColorSpaceGetDisplayP3(themeDisplayGamut, v14);
   }
 
   else
   {
-    v13 = 8193;
-    v14 = 4;
-    v15 = 8;
-    DisplayP3 = _CUIColorSpaceGetSRGB();
+    v15 = 8193;
+    v16 = 4;
+    v17 = 8;
+    DisplayP3 = _CUIColorSpaceGetSRGB(themeDisplayGamut, v14);
   }
 
-  v19 = CUICGBitmapContextCreate(v11, v12, v15, (v11 * v14), DisplayP3, v13, v17, v18);
-  if (v19)
+  v19 = DisplayP3;
+  v20 = CUICGBitmapContextCreate(v11, v12, v17, (v11 * v16), DisplayP3, v15);
+  if (v20)
   {
-    v26 = v19;
-    v31.origin.x = 0.0;
-    v31.origin.y = 0.0;
-    v31.size.width = v9;
-    v31.size.height = v10;
-    CGPDFPageGetDrawingTransform(&transform, Page, kCGPDFCropBox, v31, 0, 1);
-    CGContextConcatCTM(v26, &transform);
-    CGContextScaleCTM(v26, v11 / v9, v12 / v10);
-    CGContextDrawPDFPage(v26, Page);
-    Image = CGBitmapContextCreateImage(v26);
-    CFRelease(v26);
+    v21 = v20;
+    v26.origin.x = 0.0;
+    v26.origin.y = 0.0;
+    v26.size.width = v9;
+    v26.size.height = v10;
+    CGPDFPageGetDrawingTransform(&transform, Page, kCGPDFCropBox, v26, 0, 1);
+    CGContextConcatCTM(v21, &transform);
+    CGContextScaleCTM(v21, v11 / v9, v12 / v10);
+    CGContextDrawPDFPage(v21, Page);
+    Image = CGBitmapContextCreateImage(v21);
+    CFRelease(v21);
   }
 
   else
   {
-    _CUILog(4, "CoreUI: %s couldn't create bitmapContext for (%fx%f) colorSpace:'%@' [pdfsize:%fx%f scale:%f bpc:%zd bpp:%zd bitmapInfo:%d]", v20, v21, v22, v23, v24, v25, "[CUINamedVectorPDFImage rasterizeImageUsingScaleFactor:forTargetSize:]");
+    _CUILog(4, "CoreUI: %s couldn't create bitmapContext for (%fx%f) colorSpace:'%@' [pdfsize:%fx%f scale:%f bpc:%zd bpp:%zd bitmapInfo:%d]", "[CUINamedVectorPDFImage rasterizeImageUsingScaleFactor:forTargetSize:]", *&v11, *&v12, v19, *&v9, *&v10, *&factor, v17, v16, v15);
     return 0;
   }
 

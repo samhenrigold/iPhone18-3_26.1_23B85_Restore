@@ -230,34 +230,34 @@ void __37__QLPreviewConverter_convertibleUTIs__block_invoke(uint64_t a1)
 
 void __38__QLPreviewConverter_convertibleTypes__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CBEB58]);
   v3 = [*(a1 + 32) convertibleUTIs];
   v4 = [v2 initWithCapacity:{objc_msgSend(v3, "count")}];
   v5 = convertibleTypes_allTypes;
   convertibleTypes_allTypes = v4;
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = [*(a1 + 32) convertibleUTIs];
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [MEMORY[0x277CE1CB8] typeWithIdentifier:*(*(&v13 + 1) + 8 * v10)];
+        v11 = [MEMORY[0x277CE1CB8] typeWithIdentifier:*(*(&v12 + 1) + 8 * v10)];
         if (v11)
         {
           [convertibleTypes_allTypes addObject:v11];
@@ -267,13 +267,11 @@ void __38__QLPreviewConverter_convertibleTypes__block_invoke(uint64_t a1)
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_officeUTIs
@@ -624,19 +622,18 @@ void __38__QLPreviewConverter_convertibleTypes__block_invoke(uint64_t a1)
 
 - (void)appendData:(id)data
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = MEMORY[0x277CBEA60];
   dataCopy2 = data;
   v6 = [v4 arrayWithObjects:&dataCopy count:1];
 
-  [(QLPreviewConverter *)self appendDataArray:v6, dataCopy, v9];
-  v7 = *MEMORY[0x277D85DE8];
+  [(QLPreviewConverter *)self appendDataArray:v6, dataCopy, v8];
 }
 
 - (void)appendDataArray:(id)array
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v5 = arrayCopy;
   if (!self->_dataPhaseFinished)
@@ -648,29 +645,29 @@ void __38__QLPreviewConverter_convertibleTypes__block_invoke(uint64_t a1)
 
     else
     {
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
-      v6 = [arrayCopy countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      v6 = [arrayCopy countByEnumeratingWithState:&v30 objects:v38 count:16];
       if (v6)
       {
         v7 = v6;
         v8 = 0;
-        v9 = *v32;
+        v9 = *v31;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v32 != v9)
+            if (*v31 != v9)
             {
               objc_enumerationMutation(v5);
             }
 
-            v8 += [*(*(&v31 + 1) + 8 * i) length];
+            v8 += [*(*(&v30 + 1) + 8 * i) length];
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v31 objects:v39 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v30 objects:v38 count:16];
         }
 
         while (v7);
@@ -688,32 +685,32 @@ void __38__QLPreviewConverter_convertibleTypes__block_invoke(uint64_t a1)
       {
         v18 = v12;
         [data increaseLengthBy:v8];
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
         v28 = 0u;
+        v29 = 0u;
+        v26 = 0u;
+        v27 = 0u;
         v19 = v5;
-        v20 = [v19 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v28;
+          v22 = *v27;
           do
           {
             for (j = 0; j != v21; ++j)
             {
-              if (*v28 != v22)
+              if (*v27 != v22)
               {
                 objc_enumerationMutation(v19);
               }
 
-              v24 = *(*(&v27 + 1) + 8 * j);
+              v24 = *(*(&v26 + 1) + 8 * j);
               v25 = [v24 length];
               [data replaceBytesInRange:v18 withBytes:{v25, objc_msgSend(v24, "bytes")}];
               v18 += v25;
             }
 
-            v21 = [v19 countByEnumeratingWithState:&v27 objects:v35 count:16];
+            v21 = [v19 countByEnumeratingWithState:&v26 objects:v34 count:16];
           }
 
           while (v21);
@@ -733,14 +730,14 @@ void __38__QLPreviewConverter_convertibleTypes__block_invoke(uint64_t a1)
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v38 = v13;
+          v37 = v13;
           _os_log_impl(&dword_261653000, v15, OS_LOG_TYPE_DEFAULT, "Receiving data size bigger than what we can keep in memory (%lu) #Conversion", buf, 0xCu);
         }
 
         [(QLPreviewConverter *)self _createDispatchIOChannel];
         data2 = [(QLPreviewConverterParts *)self->_previewParts data];
-        v36 = data2;
-        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+        v35 = data2;
+        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
         [(QLPreviewConverter *)self _writeDataArrayIntoStream:v17];
 
         [(QLPreviewConverterParts *)self->_previewParts setData:0];
@@ -748,13 +745,11 @@ void __38__QLPreviewConverter_convertibleTypes__block_invoke(uint64_t a1)
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createDispatchIOChannel
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (!self->_io_write && !self->_tmpFileURL)
   {
     preferredFilenameExtension = [(QLPreviewConverterParts *)self->_previewParts uti];
@@ -803,17 +798,15 @@ void __38__QLPreviewConverter_convertibleTypes__block_invoke(uint64_t a1)
     {
       v21 = self->_tmpFileURL;
       *buf = 138412290;
-      v25 = v21;
+      v24 = v21;
       _os_log_impl(&dword_261653000, v20, OS_LOG_TYPE_DEFAULT, "Creating tmp file to write the preview converter data (%@) #Conversion", buf, 0xCu);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__QLPreviewConverter__createDispatchIOChannel__block_invoke(uint64_t a1, int a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (a2 || (v13 = *(a1 + 32), (*(v13 + 49) & 1) == 0))
   {
     v4 = MEMORY[0x277D43EF8];
@@ -827,7 +820,7 @@ uint64_t __46__QLPreviewConverter__createDispatchIOChannel__block_invoke(uint64_
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v18) = a2;
+      LODWORD(v17) = a2;
       _os_log_impl(&dword_261653000, v5, OS_LOG_TYPE_DEFAULT, "Cannot write data into disk. error:%d. #Conversion", buf, 8u);
     }
 
@@ -843,14 +836,14 @@ uint64_t __46__QLPreviewConverter__createDispatchIOChannel__block_invoke(uint64_
     {
       v8 = *(*(a1 + 32) + 32);
       *buf = 138412290;
-      v18 = v8;
+      v17 = v8;
       _os_log_impl(&dword_261653000, v7, OS_LOG_TYPE_DEFAULT, "Deleting temporary file created for the conversion %@ due to an error while writing the incoming data into disk. #Conversion", buf, 0xCu);
     }
 
     v9 = *(*(a1 + 32) + 32);
-    v16 = 0;
-    v10 = [v6 removeItemAtURL:v9 error:&v16];
-    v11 = v16;
+    v15 = 0;
+    v10 = [v6 removeItemAtURL:v9 error:&v15];
+    v11 = v15;
     if ((v10 & 1) == 0)
     {
       v12 = *v4;
@@ -863,7 +856,7 @@ uint64_t __46__QLPreviewConverter__createDispatchIOChannel__block_invoke(uint64_
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = v11;
+        v17 = v11;
         _os_log_impl(&dword_261653000, v12, OS_LOG_TYPE_DEFAULT, "Problem deleting the temporary file for the preview converter (%@) #Conversion", buf, 0xCu);
       }
     }
@@ -875,9 +868,7 @@ uint64_t __46__QLPreviewConverter__createDispatchIOChannel__block_invoke(uint64_
     [*(*(a1 + 32) + 8) setShouldRemoveURLAfterGeneration:1];
   }
 
-  result = [*(*(a1 + 32) + 8) startComputingPreview];
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 32) + 8) startComputingPreview];
 }
 
 - (void)_closeIOCahnnel
@@ -893,28 +884,28 @@ uint64_t __46__QLPreviewConverter__createDispatchIOChannel__block_invoke(uint64_
 
 - (void)_writeDataArrayIntoStream:(id)stream
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = stream;
-  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     v7 = MEMORY[0x277D85CD0];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         self->_totalWrittenBytes += [v9 length];
         bytes = [v9 bytes];
         v11 = [v9 length];
@@ -934,18 +925,16 @@ uint64_t __46__QLPreviewConverter__createDispatchIOChannel__block_invoke(uint64_
         dispatch_io_write(io_write, totalWrittenBytes, v12, v7, io_handler);
       }
 
-      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __48__QLPreviewConverter__writeDataArrayIntoStream___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, int a4)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a3;
   if (a4)
   {
@@ -959,16 +948,14 @@ void __48__QLPreviewConverter__writeDataArrayIntoStream___block_invoke_2(uint64_
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10[0] = 67109120;
-      v10[1] = a4;
-      _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_DEFAULT, "Cannot write data into disk. error:%d. #Conversion", v10, 8u);
+      v9[0] = 67109120;
+      v9[1] = a4;
+      _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_DEFAULT, "Cannot write data into disk. error:%d. #Conversion", v9, 8u);
     }
 
     *(*(a1 + 32) + 49) = 0;
     [*(a1 + 32) finishedAppendingData];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishedAppendingData

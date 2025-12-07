@@ -11,7 +11,7 @@
   {
   }
 
-  return result;
+  return v3;
 }
 
 - (void)Any

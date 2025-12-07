@@ -81,7 +81,7 @@
 - (CRKDeviceDisplay)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = CRKFoundationClasses();
+  v5 = CRKFoundationClasses(coderCopy);
   v6 = [coderCopy decodeObjectOfClasses:v5 forKey:@"dictionaryValue"];
 
   v7 = [(CRKDeviceDisplay *)self initWithDictionary:v6];
@@ -103,7 +103,7 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [CRKDeviceDisplay isEqual:];
+      [CRKDeviceDisplay isEqual:v6];
     }
 
     [(CRKDeviceDisplay *)self frame];
@@ -167,15 +167,15 @@
   return result;
 }
 
-- (void)isEqual:.cold.1()
+- (void)isEqual:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v5 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKDeviceDisplay isEqual:]"];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  [v5 handleFailureInFunction:v0 file:@"CRKDeviceDisplay.m" lineNumber:98 description:{@"expected %@, got %@", v2, v4}];
+  v6 = [MEMORY[0x277CCA890] currentHandler];
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKDeviceDisplay isEqual:]"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [v6 handleFailureInFunction:v1 file:@"CRKDeviceDisplay.m" lineNumber:98 description:{@"expected %@, got %@", v3, v5}];
 }
 
 @end

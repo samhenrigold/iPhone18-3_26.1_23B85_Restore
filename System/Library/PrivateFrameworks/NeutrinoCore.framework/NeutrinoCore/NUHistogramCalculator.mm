@@ -48,11 +48,11 @@
   v44 = *MEMORY[0x1E69E9840];
   matteCopy = matte;
   v5 = matteCopy;
-  if (matteCopy && ([matteCopy extent], !CGRectIsEmpty(v46)))
+  if (matteCopy && (objc_msgSend_extent(matteCopy), !CGRectIsEmpty(v46)))
   {
     areaHistogramFilter = [MEMORY[0x1E695F648] areaHistogramFilter];
     [areaHistogramFilter setInputImage:v5];
-    [v5 extent];
+    objc_msgSend_extent(v5);
     [areaHistogramFilter setExtent:?];
     [areaHistogramFilter setCount:{-[NUHistogramCalculator binCount](self, "binCount")}];
     LODWORD(v9) = 1.0;
@@ -106,10 +106,10 @@
     context = [MEMORY[0x1E695F620] context];
     mutableBytes = [v12 mutableBytes];
     v15 = [v12 length];
-    [v11 extent];
+    objc_msgSend_extent(v11);
     [context render:v11 toBitmap:mutableBytes rowBytes:v15 bounds:*MEMORY[0x1E695F928] format:0 colorSpace:?];
     bytes = [v12 bytes];
-    [v5 extent];
+    objc_msgSend_extent(v5);
     v19 = v17 * v18;
     binCount = [(NUHistogramCalculator *)self binCount];
     v7 = [(NUHistogram *)[NUMutableHistogram alloc] initWithBinCount:binCount range:0.0, 1.0];

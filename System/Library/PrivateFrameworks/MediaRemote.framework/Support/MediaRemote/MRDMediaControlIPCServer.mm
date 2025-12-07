@@ -10,13 +10,12 @@
 {
   v2 = type metadata accessor for Features.MediaRemote();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v3 + 104))(v6, enum case for Features.MediaRemote.cayenne(_:), v2);
-  v7 = Features.MediaRemote.isEnabled.getter();
-  (*(v3 + 8))(v6, v2);
-  if (v7)
+  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v3 + 104))(v5, enum case for Features.MediaRemote.cayenne(_:), v2);
+  v6 = Features.MediaRemote.isEnabled.getter();
+  (*(v3 + 8))(v5, v2);
+  if (v6)
   {
     if (qword_100534C70 != -1)
     {
@@ -24,9 +23,9 @@
     }
 
     swift_beginAccess();
-    v8 = *(*qword_1005385A0 + 256);
+    v7 = *(*qword_1005385A0 + 256);
 
-    v8(v9);
+    v7(v8);
   }
 }
 

@@ -420,20 +420,20 @@ LABEL_18:
 
 - (id)_createSexEntryItem
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   v3 = WDBundle();
   v4 = [v3 localizedStringForKey:@"BIOLOGICAL_SEX_NOT_SET" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable"];
-  v20[0] = v4;
+  v19[0] = v4;
   v5 = WDBundle();
   v6 = [v5 localizedStringForKey:@"FEMALE" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable"];
-  v20[1] = v6;
+  v19[1] = v6;
   v7 = WDBundle();
   v8 = [v7 localizedStringForKey:@"MALE" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable"];
-  v20[2] = v8;
+  v19[2] = v8;
   v9 = WDBundle();
   v10 = [v9 localizedStringForKey:@"OTHER" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable"];
-  v20[3] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
+  v19[3] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
 
   v12 = [(WDBuddyFlowUserInfo *)self sex];
   if ([v12 isEqualToNumber:&unk_28642DDB0])
@@ -452,7 +452,6 @@ LABEL_18:
   v17 = [v14 initWithTitle:v16 registrantModelKey:@"sex" choices:&unk_28642E008 choiceDisplayNames:v11 defaultChoice:v13];
 
   [v17 setDelegate:self];
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -468,27 +467,27 @@ LABEL_18:
 
 - (void)dataEntryItemDidUpdateValue:(id)value
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   formattedKeyAndValue = [value formattedKeyAndValue];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [formattedKeyAndValue countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [formattedKeyAndValue countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(formattedKeyAndValue);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         v10 = [formattedKeyAndValue objectForKeyedSubscript:v9];
         v11 = [(WDBuddyFlowUserInfo *)self valueForKey:v9];
         if (([v10 isEqual:v11] & 1) == 0)
@@ -497,13 +496,11 @@ LABEL_18:
         }
       }
 
-      v6 = [formattedKeyAndValue countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [formattedKeyAndValue countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (WDBuddyFlowUserInfoDelegate)delegate
@@ -511,38 +508,6 @@ LABEL_18:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-void __91__WDBuddyFlowUserInfo_saveChangesToHealthStore_andSaveNameCompletion_andOverallCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Failed to save first/last name in buddy: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __91__WDBuddyFlowUserInfo_saveChangesToHealthStore_andSaveNameCompletion_andOverallCompletion___block_invoke_319_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Failed to save date of birth in buddy: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __91__WDBuddyFlowUserInfo_saveChangesToHealthStore_andSaveNameCompletion_andOverallCompletion___block_invoke_319_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Failed to save biological sex in buddy: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __91__WDBuddyFlowUserInfo_saveChangesToHealthStore_andSaveNameCompletion_andOverallCompletion___block_invoke_323_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_1(&dword_251E85000, v0, v1, "Failed to save height and weight samples in buddy: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

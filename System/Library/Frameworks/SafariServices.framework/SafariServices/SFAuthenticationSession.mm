@@ -78,19 +78,19 @@
     {
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
-      v14 = WBS_LOG_CHANNEL_PREFIXAuthenticationSession();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = WBS_LOG_CHANNEL_PREFIXAuthenticationSession(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [SFAuthenticationSession _startRequestingFromWebAuthenticationSession:v13 inWindow:v14 dryRun:?];
+        [SFAuthenticationSession _startRequestingFromWebAuthenticationSession:v13 inWindow:v15 dryRun:?];
       }
     }
 
     v8 = 1;
     if (!run)
     {
-      v15 = [[SFAuthenticationViewController alloc] initWithURL:self->_initialURL callback:self->_callback storageMode:self->_storageMode jitEnabled:self->_jitEnabled presentationContextWindow:windowCopy additionalHeaderFields:self->_additionalHeaderFields proxiedAssociatedDomains:self->_proxiedAssociatedDomains networkAttributionApplicationBundleIdentifier:self->_networkAttributionApplicationBundleIdentifier];
+      v16 = [[SFAuthenticationViewController alloc] initWithURL:self->_initialURL callback:self->_callback storageMode:self->_storageMode jitEnabled:self->_jitEnabled presentationContextWindow:windowCopy additionalHeaderFields:self->_additionalHeaderFields proxiedAssociatedDomains:self->_proxiedAssociatedDomains networkAttributionApplicationBundleIdentifier:self->_networkAttributionApplicationBundleIdentifier];
       authViewController = self->_authViewController;
-      self->_authViewController = v15;
+      self->_authViewController = v16;
 
       [(SFSafariViewController *)self->_authViewController setDelegate:self];
       [(SFAuthenticationViewController *)self->_authViewController setPresentationDelegate:self];
@@ -193,29 +193,30 @@ void __71__SFAuthenticationSession_safariViewController_hostApplicationOpenURL__
   controllerCopy = controller;
   lCopy = l;
   errorCopy = error;
+  v14 = errorCopy;
   if (self->_authViewController)
   {
     if (cancelCopy)
     {
-      v13 = WBS_LOG_CHANNEL_PREFIXSVCPrivacy();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = WBS_LOG_CHANNEL_PREFIXSVCPrivacy(errorCopy, v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v17[0] = 0;
-        _os_log_impl(&dword_1D4644000, v13, OS_LOG_TYPE_DEFAULT, "SFAuthenticationSession was cancelled by user.", v17, 2u);
+        v19[0] = 0;
+        _os_log_impl(&dword_1D4644000, v15, OS_LOG_TYPE_DEFAULT, "SFAuthenticationSession was cancelled by user.", v19, 2u);
       }
 
       completionHandler = self->_completionHandler;
       if (completionHandler)
       {
-        if (errorCopy)
+        if (v14)
         {
-          completionHandler[2](self->_completionHandler, 0, errorCopy);
+          completionHandler[2](self->_completionHandler, 0, v14);
         }
 
         else
         {
-          v16 = [(SFAuthenticationSession *)self _authenticationSessionErrorWithCode:1];
-          completionHandler[2](completionHandler, 0, v16);
+          v18 = [(SFAuthenticationSession *)self _authenticationSessionErrorWithCode:1];
+          completionHandler[2](completionHandler, 0, v18);
         }
       }
     }
@@ -223,10 +224,10 @@ void __71__SFAuthenticationSession_safariViewController_hostApplicationOpenURL__
 
   else
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXSVCPrivacy();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = WBS_LOG_CHANNEL_PREFIXSVCPrivacy(errorCopy, v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [SFAuthenticationSession safariViewController:v15 didDecideCookieSharingForURL:? shouldCancel:? withError:?];
+      [SFAuthenticationSession safariViewController:v17 didDecideCookieSharingForURL:? shouldCancel:? withError:?];
     }
   }
 }

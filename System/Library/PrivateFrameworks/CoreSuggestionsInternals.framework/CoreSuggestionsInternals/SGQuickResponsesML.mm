@@ -10,7 +10,7 @@
 
 - (void)trainQuickResponsesForMessage:(id)message withConversationHistory:(id)history
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   historyCopy = history;
   likelyLanguage = [historyCopy likelyLanguage];
@@ -49,7 +49,7 @@ LABEL_13:
   if ([SGDetectedAttributeDissector isTwoPersonConversation:messageCopy])
   {
     messages = [historyCopy messages];
-    v13 = [messages objectAtIndexedSubscript:[messages count]- 1];
+    v13 = [messages objectAtIndexedSubscript:objc_msgSend_count(messages) - 1];
     message = [v13 message];
     textContent = [message textContent];
 
@@ -68,7 +68,7 @@ LABEL_17:
       goto LABEL_32;
     }
 
-    if ([messages count]<= 1)
+    if (objc_msgSend_count(messages) <= 1)
     {
       v16 = sgLogHandle();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
@@ -94,41 +94,41 @@ LABEL_32:
       {
         likelyLanguage3 = [historyCopy likelyLanguage];
         *buf = 138412290;
-        *v91 = likelyLanguage3;
+        *v90 = likelyLanguage3;
         _os_log_debug_impl(&dword_231E60000, v16, OS_LOG_TYPE_DEBUG, "Quick responses: No model available for language: %@", buf, 0xCu);
       }
 
       goto LABEL_32;
     }
 
-    v88 = textContent;
-    v16 = [messages objectAtIndexedSubscript:[messages count]- 2];
+    v87 = textContent;
+    v16 = [messages objectAtIndexedSubscript:objc_msgSend_count(messages) - 2];
     message2 = [v16 message];
     sender = [message2 sender];
     handles = [sender handles];
-    v89 = v13;
-    if ([handles count] == 1)
+    v88 = v13;
+    if (objc_msgSend_count(handles) == 1)
     {
       message3 = [v13 message];
       [message3 sender];
-      v24 = v87 = v16;
+      v24 = v86 = v16;
       handles2 = [v24 handles];
-      v84 = [handles2 count];
+      v83 = objc_msgSend_count(handles2);
 
-      v16 = v87;
-      if (v84 == 1)
+      v16 = v86;
+      if (v83 == 1)
       {
-        message4 = [v87 message];
+        message4 = [v86 message];
         sender2 = [message4 sender];
         handles3 = [sender2 handles];
         firstObject = [handles3 firstObject];
-        message5 = [v89 message];
+        message5 = [v88 message];
         sender3 = [message5 sender];
         handles4 = [sender3 handles];
         firstObject2 = [handles4 firstObject];
-        v75 = [firstObject isEqualToString:firstObject2];
+        v74 = [firstObject isEqualToString:firstObject2];
 
-        if (v75)
+        if (v74)
         {
           v31 = sgLogHandle();
           if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
@@ -137,65 +137,65 @@ LABEL_32:
             _os_log_debug_impl(&dword_231E60000, v31, OS_LOG_TYPE_DEBUG, "Quick responses: processing requires the reply to be to a different person's prompt", buf, 2u);
           }
 
-          v13 = v89;
-          v16 = v87;
+          v13 = v88;
+          v16 = v86;
           goto LABEL_31;
         }
 
-        v34 = MEMORY[0x277D02580];
+        v33 = MEMORY[0x277D02580];
         likelyLanguage4 = [historyCopy likelyLanguage];
-        v31 = [v34 transformerInstanceForLanguage:likelyLanguage4 mode:0];
+        v31 = [v33 transformerInstanceForLanguage:likelyLanguage4 mode:0];
 
         config = [v31 config];
         classificationParams = [config classificationParams];
 
-        v38 = [SGTextMessageConversationTracker getMergedPrompt:historyCopy withParams:classificationParams];
-        v86 = v38;
-        if (![v38 length] || !objc_msgSend(v88, "length"))
+        v37 = [SGTextMessageConversationTracker getMergedPrompt:historyCopy withParams:classificationParams];
+        v85 = v37;
+        if (![v37 length] || !objc_msgSend(v87, "length"))
         {
-          v41 = sgLogHandle();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+          v40 = sgLogHandle();
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            v42 = "Quick responses: processing requires the prompt and the reply to have text content";
-            v43 = v41;
-            v44 = 2;
+            v41 = "Quick responses: processing requires the prompt and the reply to have text content";
+            v42 = v40;
+            v43 = 2;
             goto LABEL_74;
           }
 
 LABEL_43:
-          v13 = v89;
-          v16 = v87;
+          v13 = v88;
+          v16 = v86;
 LABEL_44:
 
 LABEL_31:
-          textContent = v88;
+          textContent = v87;
           goto LABEL_32;
         }
 
         maxPromptLength = [classificationParams maxPromptLength];
         if (maxPromptLength >= 0x400)
         {
-          v40 = 1024;
+          v39 = 1024;
         }
 
         else
         {
-          v40 = maxPromptLength;
+          v39 = maxPromptLength;
         }
 
-        if ([v38 length] > v40)
+        if ([v37 length] > v39)
         {
-          v41 = sgLogHandle();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+          v40 = sgLogHandle();
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
           {
             *buf = 134217984;
-            *v91 = v40;
-            v42 = "Quick responses: processing requires the prompt to be no more than %lu characters in length";
-            v43 = v41;
-            v44 = 12;
+            *v90 = v39;
+            v41 = "Quick responses: processing requires the prompt to be no more than %lu characters in length";
+            v42 = v40;
+            v43 = 12;
 LABEL_74:
-            _os_log_debug_impl(&dword_231E60000, v43, OS_LOG_TYPE_DEBUG, v42, buf, v44);
+            _os_log_debug_impl(&dword_231E60000, v42, OS_LOG_TYPE_DEBUG, v41, buf, v43);
             goto LABEL_43;
           }
 
@@ -203,106 +203,106 @@ LABEL_74:
         }
 
         likelyLanguage5 = [historyCopy likelyLanguage];
-        v46 = [(SGQuickResponsesML *)self _dynamicLabelContentForReply:v89 prompt:v38 language:likelyLanguage5];
+        v45 = [(SGQuickResponsesML *)self _dynamicLabelContentForReply:v88 prompt:v37 language:likelyLanguage5];
 
-        v82 = v46;
-        if (v46)
+        v81 = v45;
+        if (v45)
         {
-          v79 = classificationParams;
-          v47 = sgLogHandle();
-          v48 = 0x277D02000;
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+          v78 = classificationParams;
+          v46 = sgLogHandle();
+          v47 = 0x277D02000;
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            *v91 = v82;
-            _os_log_debug_impl(&dword_231E60000, v47, OS_LOG_TYPE_DEBUG, "Quick responses: using dynamic label with unique identifier %@", buf, 0xCu);
+            *v90 = v81;
+            _os_log_debug_impl(&dword_231E60000, v46, OS_LOG_TYPE_DEBUG, "Quick responses: using dynamic label with unique identifier %@", buf, 0xCu);
           }
 
-          v41 = v82;
+          v40 = v81;
         }
 
         else
         {
-          v41 = v88;
+          v40 = v87;
           maxReplyLength = [classificationParams maxReplyLength];
           if (maxReplyLength >= 0x400)
           {
-            v50 = 1024;
+            v49 = 1024;
           }
 
           else
           {
-            v50 = maxReplyLength;
+            v49 = maxReplyLength;
           }
 
-          if ([v41 length]> v50)
+          if ([v40 length]> v49)
           {
-            v51 = sgLogHandle();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+            v50 = sgLogHandle();
+            if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
             {
               *buf = 134217984;
-              *v91 = v50;
-              _os_log_debug_impl(&dword_231E60000, v51, OS_LOG_TYPE_DEBUG, "Quick responses: not keeping response message because it is greater than %lu characters in length", buf, 0xCu);
+              *v90 = v49;
+              _os_log_debug_impl(&dword_231E60000, v50, OS_LOG_TYPE_DEBUG, "Quick responses: not keeping response message because it is greater than %lu characters in length", buf, 0xCu);
             }
 
-            v13 = v89;
-            v16 = v87;
+            v13 = v88;
+            v16 = v86;
             goto LABEL_81;
           }
 
-          v79 = classificationParams;
-          v48 = 0x277D02000uLL;
+          v78 = classificationParams;
+          v47 = 0x277D02000uLL;
         }
 
-        v52 = *(v48 + 1408);
+        v51 = *(v47 + 1408);
         likelyLanguage6 = [historyCopy likelyLanguage];
-        v54 = [v52 labelOf:v41 inLanguage:likelyLanguage6];
+        v53 = [v51 labelOf:v40 inLanguage:likelyLanguage6];
 
-        if (v54)
+        if (v53)
         {
-          v76 = v82 != 0;
-          v55 = *(v48 + 1408);
+          v75 = v81 != 0;
+          v54 = *(v47 + 1408);
           likelyLanguage7 = [historyCopy likelyLanguage];
-          v83 = v54;
-          v57 = [v55 shouldSampleForLabel:v54 inLanguage:likelyLanguage7 isDynamicLabel:v76];
+          v82 = v53;
+          v56 = [v54 shouldSampleForLabel:v53 inLanguage:likelyLanguage7 isDynamicLabel:v75];
 
-          v58 = sgLogHandle();
-          v59 = os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG);
-          if ((v57 & 1) == 0)
+          v57 = sgLogHandle();
+          v58 = os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG);
+          if ((v56 & 1) == 0)
           {
-            v68 = v58;
-            v16 = v87;
-            classificationParams = v79;
-            if (v59)
+            v67 = v57;
+            v16 = v86;
+            classificationParams = v78;
+            if (v58)
             {
               *buf = 138412290;
-              v51 = v83;
-              *v91 = v83;
-              _os_log_debug_impl(&dword_231E60000, v68, OS_LOG_TYPE_DEBUG, "Quick responses: dropping sample with label %@", buf, 0xCu);
-              v13 = v89;
+              v50 = v82;
+              *v90 = v82;
+              _os_log_debug_impl(&dword_231E60000, v67, OS_LOG_TYPE_DEBUG, "Quick responses: dropping sample with label %@", buf, 0xCu);
+              v13 = v88;
             }
 
             else
             {
-              v13 = v89;
-              v51 = v83;
+              v13 = v88;
+              v50 = v82;
             }
 
             goto LABEL_80;
           }
 
-          if (v59)
+          if (v58)
           {
             *buf = 138412290;
-            *v91 = v83;
-            _os_log_debug_impl(&dword_231E60000, v58, OS_LOG_TYPE_DEBUG, "Quick responses: keeping sample with label %@", buf, 0xCu);
+            *v90 = v82;
+            _os_log_debug_impl(&dword_231E60000, v57, OS_LOG_TYPE_DEBUG, "Quick responses: keeping sample with label %@", buf, 0xCu);
           }
 
           source = [v31 source];
           sessionDescriptor = [source sessionDescriptor];
 
           featurizer = [v31 featurizer];
-          v63 = [featurizer transform:v86];
+          v62 = [featurizer transform:v85];
 
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -311,65 +311,65 @@ LABEL_74:
             [currentHandler handleFailureInMethod:a2 object:self file:@"SGQuickResponsesML.m" lineNumber:303 description:{@"Invalid parameter not satisfying: %@", @"[vector isKindOfClass:PMLSparseVector.class]"}];
           }
 
-          v77 = v63;
-          if (self->_localTraining && ([messageCopy spotlightReference], v64 = objc_claimAutoreleasedReturnValue(), v64, v64) && v63 && sessionDescriptor)
+          v76 = v62;
+          if (self->_localTraining && ([messageCopy spotlightReference], v63 = objc_claimAutoreleasedReturnValue(), v63, v63) && v62 && sessionDescriptor)
           {
             localTraining = self->_localTraining;
-            v51 = v83;
-            unsignedIntegerValue = [v83 unsignedIntegerValue];
+            v50 = v82;
+            unsignedIntegerValue = [v82 unsignedIntegerValue];
             spotlightReference = [messageCopy spotlightReference];
-            v67 = unsignedIntegerValue;
-            v68 = sessionDescriptor;
-            [(PMLTrainingProtocol *)localTraining addSessionWithCovariates:v63 label:v67 sessionDescriptor:sessionDescriptor spotlightReference:spotlightReference isInternal:0];
-            v16 = v87;
+            v66 = unsignedIntegerValue;
+            v67 = sessionDescriptor;
+            [(PMLTrainingProtocol *)localTraining addSessionWithCovariates:v62 label:v66 sessionDescriptor:sessionDescriptor spotlightReference:spotlightReference isInternal:0];
+            v16 = v86;
           }
 
           else
           {
-            v68 = sessionDescriptor;
+            v67 = sessionDescriptor;
             spotlightReference = sgLogHandle();
             if (os_log_type_enabled(spotlightReference, OS_LOG_TYPE_DEBUG))
             {
-              v72 = self->_localTraining != 0;
+              v71 = self->_localTraining != 0;
               spotlightReference2 = [messageCopy spotlightReference];
               version = [sessionDescriptor version];
               *buf = 67110146;
-              *v91 = v72;
-              *&v91[4] = 1024;
-              *&v91[6] = spotlightReference2 != 0;
-              v92 = 1024;
-              v93 = v77 != 0;
-              v94 = 1024;
-              v95 = sessionDescriptor != 0;
-              v96 = 2112;
-              v97 = version;
+              *v90 = v71;
+              *&v90[4] = 1024;
+              *&v90[6] = spotlightReference2 != 0;
+              v91 = 1024;
+              v92 = v76 != 0;
+              v93 = 1024;
+              v94 = sessionDescriptor != 0;
+              v95 = 2112;
+              v96 = version;
               _os_log_debug_impl(&dword_231E60000, spotlightReference, OS_LOG_TYPE_DEBUG, "Quick responses: not adding session for training - localTraining %d, spotlightReference %d, vector %d, sessionDescriptor %d, version: %@", buf, 0x24u);
             }
 
-            v16 = v87;
-            v51 = v83;
+            v16 = v86;
+            v50 = v82;
           }
 
-          v13 = v89;
+          v13 = v88;
         }
 
         else
         {
-          v51 = 0;
-          v68 = sgLogHandle();
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+          v50 = 0;
+          v67 = sgLogHandle();
+          if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
           {
             likelyLanguage8 = [historyCopy likelyLanguage];
             *buf = 138412290;
-            *v91 = likelyLanguage8;
-            _os_log_error_impl(&dword_231E60000, v68, OS_LOG_TYPE_ERROR, "Quick responses: labeler failed to offer positive or negative label in language %@", buf, 0xCu);
+            *v90 = likelyLanguage8;
+            _os_log_error_impl(&dword_231E60000, v67, OS_LOG_TYPE_ERROR, "Quick responses: labeler failed to offer positive or negative label in language %@", buf, 0xCu);
           }
 
-          v13 = v89;
-          v16 = v87;
+          v13 = v88;
+          v16 = v86;
         }
 
-        classificationParams = v79;
+        classificationParams = v78;
 LABEL_80:
 
 LABEL_81:
@@ -388,7 +388,7 @@ LABEL_81:
       _os_log_debug_impl(&dword_231E60000, v31, OS_LOG_TYPE_DEBUG, "Quick responses: processing requires the prompt and reply to have a single sender handle", buf, 2u);
     }
 
-    v13 = v89;
+    v13 = v88;
     goto LABEL_31;
   }
 
@@ -401,13 +401,11 @@ LABEL_81:
   }
 
 LABEL_33:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dynamicLabelContentForReply:(id)reply prompt:(id)prompt language:(id)language
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   promptCopy = prompt;
   languageCopy = language;
@@ -439,19 +437,19 @@ LABEL_33:
     goto LABEL_56;
   }
 
-  v75 = languageCopy;
-  v76 = displayName;
-  v74 = attachmentFilename;
+  v74 = languageCopy;
+  v75 = displayName;
+  v73 = attachmentFilename;
   detectedData = [replyCopy detectedData];
-  if (![detectedData count])
+  if (!objc_msgSend_count(detectedData))
   {
     v17 = 0;
     v15 = 0;
     goto LABEL_55;
   }
 
-  v72 = promptCopy;
-  v73 = replyCopy;
+  v71 = promptCopy;
+  v72 = replyCopy;
   v17 = 0;
   v18 = 0;
   v19 = -1;
@@ -491,7 +489,7 @@ LABEL_16:
         goto LABEL_16;
     }
 
-    if ([detectedData count] <= v20)
+    if (objc_msgSend_count(detectedData) <= v20)
     {
       break;
     }
@@ -503,13 +501,13 @@ LABEL_16:
   if (v18 == 1)
   {
     valueString2 = [v17 valueString];
-    promptCopy = v72;
-    replyCopy = v73;
+    promptCopy = v71;
+    replyCopy = v72;
     if (!valueString2)
     {
       range = [v17 range];
       v32 = v31;
-      message3 = [v73 message];
+      message3 = [v72 message];
       valueString2 = [message3 textContent];
 
       if (range + v32 > [valueString2 length])
@@ -518,16 +516,16 @@ LABEL_16:
         if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218496;
-          v83 = range;
-          v84 = 2048;
-          v85 = v32;
-          v86 = 2048;
-          v87 = [valueString2 length];
+          v82 = range;
+          v83 = 2048;
+          v84 = v32;
+          v85 = 2048;
+          v86 = [valueString2 length];
           _os_log_error_impl(&dword_231E60000, v34, OS_LOG_TYPE_ERROR, "Range {%tu, %tu} out of bounds; string length: %tu", buf, 0x20u);
         }
 
         v15 = 0;
-        replyCopy = v73;
+        replyCopy = v72;
         goto LABEL_54;
       }
 
@@ -536,59 +534,59 @@ LABEL_16:
       objc_autoreleasePoolPop(v35);
 
       valueString2 = v36;
-      replyCopy = v73;
+      replyCopy = v72;
     }
 
     v37 = [SGContactPipelineHelper findContactsForDetailType:v19 andValue:valueString2];
     v34 = v37;
-    if (!v37 || ![v37 count])
+    if (!v37 || !objc_msgSend_count(v37))
     {
 LABEL_36:
       v15 = 0;
       goto LABEL_54;
     }
 
-    v68 = v19;
+    v67 = v19;
     message4 = [replyCopy message];
     sender2 = [message4 sender];
     handles = [sender2 handles];
     firstObject = [handles firstObject];
-    v71 = v34;
-    v41 = [SGContactPipelineHelper personExistsInContacts:v34 name:v76 handle:firstObject];
+    v70 = v34;
+    v41 = [SGContactPipelineHelper personExistsInContacts:v34 name:v75 handle:firstObject];
 
     if (v41)
     {
-      if (v68 < 3)
+      if (v67 < 3)
       {
-        v15 = off_27894D3B0[v68];
+        v15 = off_27894D3B0[v67];
         goto LABEL_54;
       }
 
       goto LABEL_36;
     }
 
-    v70 = valueString2;
+    v69 = valueString2;
     v42 = objc_opt_new();
+    v76 = 0u;
     v77 = 0u;
     v78 = 0u;
     v79 = 0u;
-    v80 = 0u;
     v43 = v34;
-    v44 = [v43 countByEnumeratingWithState:&v77 objects:v81 count:16];
+    v44 = [v43 countByEnumeratingWithState:&v76 objects:v80 count:16];
     if (v44)
     {
       v45 = v44;
-      v46 = *v78;
+      v46 = *v77;
       do
       {
         for (i = 0; i != v45; ++i)
         {
-          if (*v78 != v46)
+          if (*v77 != v46)
           {
             objc_enumerationMutation(v43);
           }
 
-          v48 = *(*(&v77 + 1) + 8 * i);
+          v48 = *(*(&v76 + 1) + 8 * i);
           givenName = [v48 givenName];
           v50 = [givenName length];
 
@@ -610,70 +608,49 @@ LABEL_36:
           }
         }
 
-        v45 = [v43 countByEnumeratingWithState:&v77 objects:v81 count:16];
+        v45 = [v43 countByEnumeratingWithState:&v76 objects:v80 count:16];
       }
 
       while (v45);
     }
 
     v57 = objc_autoreleasePoolPush();
-    v58 = [[SGNameDetector alloc] initWithLanguage:v75];
-    promptCopy = v72;
-    v59 = [(SGNameDetector *)v58 detectNames:v72 withNameSet:v42];
+    v58 = [[SGNameDetector alloc] initWithLanguage:v74];
+    promptCopy = v71;
+    v59 = [(SGNameDetector *)v58 detectNames:v71 withNameSet:v42];
 
     objc_autoreleasePoolPop(v57);
-    if ([v59 count] != 1)
+    if (objc_msgSend_count(v59) == 1 && (v60 = objc_autoreleasePoolPush(), [v59 firstObject], v61 = objc_claimAutoreleasedReturnValue(), v62 = objc_msgSend(v61, "range"), objc_msgSend(v71, "substringWithRange:", v62, v63), v64 = objc_claimAutoreleasedReturnValue(), v61, promptCopy = v71, objc_autoreleasePoolPop(v60), v65 = +[SGContactPipelineHelper personExistsInContacts:name:handle:](SGContactPipelineHelper, "personExistsInContacts:name:handle:", v43, v64, 0), v64, v65) && v67 < 3)
     {
-      goto LABEL_52;
-    }
-
-    v60 = objc_autoreleasePoolPush();
-    firstObject2 = [v59 firstObject];
-    range2 = [firstObject2 range];
-    v64 = [v72 substringWithRange:{range2, v63}];
-
-    promptCopy = v72;
-    objc_autoreleasePoolPop(v60);
-    v65 = [SGContactPipelineHelper personExistsInContacts:v43 name:v64 handle:0];
-
-    if (!v65)
-    {
-      goto LABEL_52;
-    }
-
-    if (v68 < 3)
-    {
-      v15 = off_27894D3C8[v68];
+      v15 = off_27894D3C8[v67];
     }
 
     else
     {
-LABEL_52:
 
       v15 = 0;
     }
 
-    replyCopy = v73;
-    valueString2 = v70;
-    v34 = v71;
+    replyCopy = v72;
+    valueString2 = v69;
+    v34 = v70;
 LABEL_54:
   }
 
   else
   {
     v15 = 0;
-    promptCopy = v72;
-    replyCopy = v73;
+    promptCopy = v71;
+    replyCopy = v72;
   }
 
 LABEL_55:
 
-  attachmentFilename = v74;
-  languageCopy = v75;
-  displayName = v76;
+  attachmentFilename = v73;
+  languageCopy = v74;
+  displayName = v75;
 LABEL_56:
 
-  v66 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

@@ -14,7 +14,7 @@
 
 + (id)allMimeCharsets:(BOOL)charsets
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   _MFLockGlobalLock();
   v4 = allMimeCharsets__cachedResult;
   _MFUnlockGlobalLock();
@@ -26,12 +26,12 @@
 
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-  v42 = v4;
+  v41 = v4;
   v7 = [standardUserDefaults stringArrayForKey:@"AppleKeyboards"];
 
-  v39 = v7;
-  v43 = _convertKeyboardsArrayToLanguages(v7);
-  if (![v43 count])
+  v38 = v7;
+  v42 = _convertKeyboardsArrayToLanguages(v7);
+  if (![v42 count])
   {
     array = [MEMORY[0x1E695DF70] array];
     preferredLanguages = [MEMORY[0x1E695DF58] preferredLanguages];
@@ -51,19 +51,19 @@
 
     v13 = _convertKeyboardsArrayToLanguages(array);
 
-    v43 = v13;
+    v42 = v13;
   }
 
-  v40 = [objc_allocWithZone(self) initWithEncoding:1536];
+  v39 = [objc_allocWithZone(self) initWithEncoding:1536];
+  CFArrayAppendValue(Mutable, v39);
+  v40 = [objc_allocWithZone(self) initWithEncoding:134217984];
   CFArrayAppendValue(Mutable, v40);
-  v41 = [objc_allocWithZone(self) initWithEncoding:134217984];
-  CFArrayAppendValue(Mutable, v41);
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
-  obj = v43;
-  v14 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  obj = v42;
+  v14 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
   if (!v14)
   {
     v15 = 0;
@@ -71,21 +71,21 @@
   }
 
   v15 = 0;
-  v48 = *v53;
-  v49 = v14;
-  v47 = *MEMORY[0x1E695D9E8];
-  v46 = *MEMORY[0x1E695D9B0];
+  v47 = *v52;
+  v48 = v14;
+  v46 = *MEMORY[0x1E695D9E8];
+  v45 = *MEMORY[0x1E695D9B0];
   do
   {
-    v50 = 0;
+    v49 = 0;
     do
     {
-      if (*v53 != v48)
+      if (*v52 != v47)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v52 + 1) + 8 * v50);
+      v16 = *(*(&v51 + 1) + 8 * v49);
       if (_copyEncodingsForLocaleIdentifier_onceToken != -1)
       {
         +[MFMimeCharset allMimeCharsets:];
@@ -94,7 +94,7 @@
       v17 = [_copyEncodingsForLocaleIdentifier_regionEncodingMapping objectForKeyedSubscript:v16];
 
       v18 = [MEMORY[0x1E695DF58] componentsFromLocaleIdentifier:v16];
-      v19 = [v18 objectForKeyedSubscript:v47];
+      v19 = [v18 objectForKeyedSubscript:v46];
 
       if (v19)
       {
@@ -110,14 +110,14 @@
 
         v17 = MutableCopy;
         v21 = _copyEncodingsForLocaleIdentifier_regionEncodingMapping;
-        v22 = [v18 objectForKeyedSubscript:v46];
+        v22 = [v18 objectForKeyedSubscript:v45];
         v23 = [v21 objectForKeyedSubscript:v22];
 
         if (v23)
         {
-          v59.length = CFArrayGetCount(v23);
-          v59.location = 0;
-          CFArrayAppendArray(v17, v23, v59);
+          v58.length = CFArrayGetCount(v23);
+          v58.location = 0;
+          CFArrayAppendArray(v17, v23, v58);
         }
 
         if (!v17)
@@ -187,18 +187,18 @@ LABEL_31:
       v15 = v31;
       CFRelease(v17);
 LABEL_37:
-      ++v50;
+      ++v49;
     }
 
-    while (v50 != v49);
-    v32 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
-    v49 = v32;
+    while (v49 != v48);
+    v32 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+    v48 = v32;
   }
 
   while (v32);
 LABEL_43:
 
-  v33 = v42;
+  v33 = v41;
   if (!charsetsCopy)
   {
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -211,7 +211,7 @@ LABEL_43:
   {
     allMimeCharsets__cachedResult = Mutable;
 
-    v33 = v42;
+    v33 = v41;
   }
 
   else
@@ -224,7 +224,6 @@ LABEL_43:
   v4 = v36;
   _MFUnlockGlobalLock();
 LABEL_50:
-  v37 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

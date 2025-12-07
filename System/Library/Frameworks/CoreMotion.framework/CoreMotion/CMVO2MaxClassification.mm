@@ -50,15 +50,14 @@
 
 - (void)queryClassificationForBiologicalSex:(int64_t)sex age:(int64_t)age handler:(id)handler
 {
-  ageCopy = age;
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   if ((age - 20) >= 0xB5)
   {
     v18 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"Age parameter is outside of supported range for VO2 Max classification");
     v20 = objc_msgSend_bundleWithIdentifier_(MEMORY[0x1E696AAE8], v19, @"com.apple.coremotion");
-    v30 = *MEMORY[0x1E696A578];
-    v31[0] = objc_msgSend_localizedStringForKey_value_table_(v20, v21, v18, &stru_1F0E3D7A0, 0);
-    v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v22, v31, &v30, 1);
+    v29 = *MEMORY[0x1E696A578];
+    v30[0] = objc_msgSend_localizedStringForKey_value_table_(v20, v21, v18, &stru_1F0E3D7A0, 0);
+    v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v22, v30, &v29, 1);
     v25 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v24, @"CMErrorDomain", 107, v23);
     (*(handler + 2))(handler, 0, v25);
   }
@@ -66,17 +65,17 @@
   else
   {
     v8 = objc_msgSend_CLHKBiologicalSexFromBiologicalSex_(CMVO2MaxClassification, a2, sex);
-    sub_19B688328(self->fVO2MaxClassifier.__ptr_, v8, ageCopy, &__p);
+    sub_19B688328(self->fVO2MaxClassifier.__ptr_, v8, age, &__p);
     v9 = objc_alloc(MEMORY[0x1E695DF70]);
-    v12 = objc_msgSend_initWithCapacity_(v9, v10, (v29 - __p) >> 5);
+    v12 = objc_msgSend_initWithCapacity_(v9, v10, (v28 - __p) >> 5);
     v13 = __p;
-    v14 = v29;
+    v14 = v28;
     while (v13 != v14)
     {
       v15 = v13[1];
-      v27[0] = *v13;
-      v27[1] = v15;
-      v16 = objc_msgSend_classificationDataFromStruct_(self, v11, v27);
+      v26[0] = *v13;
+      v26[1] = v15;
+      v16 = objc_msgSend_classificationDataFromStruct_(self, v11, v26);
       objc_msgSend_addObject_(v12, v17, v16);
       v13 += 2;
     }
@@ -85,25 +84,23 @@
 
     if (__p)
     {
-      v29 = __p;
+      v28 = __p;
       operator delete(__p);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryClassificationForBiologicalSex:(int64_t)sex age:(int64_t)age vo2Max:(double)max handler:(id)handler
 {
   ageCopy = age;
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   if ((age - 20) >= 0xB5)
   {
     v20 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"Age parameter is outside of supported range for VO2 Max classification", max);
     v22 = objc_msgSend_bundleWithIdentifier_(MEMORY[0x1E696AAE8], v21, @"com.apple.coremotion");
-    v32 = *MEMORY[0x1E696A578];
-    v33[0] = objc_msgSend_localizedStringForKey_value_table_(v22, v23, v20, &stru_1F0E3D7A0, 0);
-    v25 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v24, v33, &v32, 1);
+    v31 = *MEMORY[0x1E696A578];
+    v32[0] = objc_msgSend_localizedStringForKey_value_table_(v22, v23, v20, &stru_1F0E3D7A0, 0);
+    v25 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v24, v32, &v31, 1);
     v27 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v26, @"CMErrorDomain", 107, v25);
     (*(handler + 2))(handler, 0, v27);
   }
@@ -113,15 +110,15 @@
     v10 = objc_msgSend_CLHKBiologicalSexFromBiologicalSex_(CMVO2MaxClassification, a2, sex);
     sub_19B6886B4(self->fVO2MaxClassifier.__ptr_, v10, ageCopy, &__p, max);
     v11 = objc_alloc(MEMORY[0x1E695DF70]);
-    v14 = objc_msgSend_initWithCapacity_(v11, v12, (v31 - __p) >> 5);
+    v14 = objc_msgSend_initWithCapacity_(v11, v12, (v30 - __p) >> 5);
     v15 = __p;
-    v16 = v31;
+    v16 = v30;
     while (v15 != v16)
     {
       v17 = v15[1];
-      v29[0] = *v15;
-      v29[1] = v17;
-      v18 = objc_msgSend_classificationDataFromStruct_(self, v13, v29);
+      v28[0] = *v15;
+      v28[1] = v17;
+      v18 = objc_msgSend_classificationDataFromStruct_(self, v13, v28);
       objc_msgSend_addObject_(v14, v19, v18);
       v15 += 2;
     }
@@ -130,17 +127,15 @@
 
     if (__p)
     {
-      v31 = __p;
+      v30 = __p;
       operator delete(__p);
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (id)classificationDataFromStruct:(CLVO2MaxClassificationData *)struct
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_biologicalSexFromCLHKBiologicalSex_(CMVO2MaxClassification, a2, struct->var0);
   var1 = struct->var1;
   var2 = struct->var2;
@@ -157,7 +152,7 @@
     {
       v9 = struct->var3;
       *buf = 67174657;
-      v18 = v9;
+      v19 = v9;
       _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_FAULT, "[CMVO2MaxClassification] Unexpected classificationType: %{private}d", buf, 8u);
     }
 
@@ -170,12 +165,15 @@
         dispatch_once(&qword_1EAFE29F8, &unk_1F0E29C60);
       }
 
-      v16 = struct->var3;
-      v11 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMVO2MaxClassification classificationDataFromStruct:]", "CoreLocation: %s\n", v11);
-      if (v11 != buf)
+      v11 = struct->var3;
+      v17[0] = 67174657;
+      v17[1] = v11;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A00, 17, "[CMVO2MaxClassification] Unexpected classificationType: %{private}d", v17, 8);
+      v13 = v12;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMVO2MaxClassification classificationDataFromStruct:]", "CoreLocation: %s\n", v12);
+      if (v13 != buf)
       {
-        free(v11);
+        free(v13);
       }
     }
 
@@ -187,10 +185,8 @@
     var2 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v12 = [CMVO2MaxClassificationData alloc];
-  result = objc_msgSend_initWithBiologicalSex_ageLowerBound_ageUpperBound_classificationType_vo2MaxLowerBound_vo2MaxUpperBound_(v12, v13, v4, var1, var2, var3, struct->var4, struct->var5);
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  v14 = [CMVO2MaxClassificationData alloc];
+  return objc_msgSend_initWithBiologicalSex_ageLowerBound_ageUpperBound_classificationType_vo2MaxLowerBound_vo2MaxUpperBound_(v14, v15, v4, var1, var2, var3, struct->var4, struct->var5);
 }
 
 + (int64_t)biologicalSexFromCLHKBiologicalSex:(int)sex

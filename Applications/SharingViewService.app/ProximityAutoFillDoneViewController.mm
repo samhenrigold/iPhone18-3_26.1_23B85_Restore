@@ -11,7 +11,7 @@
   buttonCopy = button;
   if (dword_1001BEC30 <= 30 && (dword_1001BEC30 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEC30, "[ProximityAutoFillDoneViewController handleReportButton:]", 30, "File radar button tapped in done view controller");
   }
 
   [self->super.super._mainController fileRadar:*(&self->_titleLabel + 1)];
@@ -22,7 +22,7 @@
   pressedCopy = pressed;
   if (dword_1001BEC30 <= 30 && (dword_1001BEC30 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEC30, "[ProximityAutoFillDoneViewController handleDoneButtonPressed:]", 30, "Done button pressed\n");
   }
 
   [self->super.super._mainController ensureStoppedWithDismiss:1 reason:5];

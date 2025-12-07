@@ -66,22 +66,22 @@
 - (int)StringAsType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"UNKNOWN"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"PAYMENT"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"REQUEST"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"RECURRING_PAYMENT"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 3;
   }
@@ -155,17 +155,17 @@
 - (int)StringAsMessagesContext:(id)context
 {
   contextCopy = context;
-  if ([contextCopy isEqualToString:@"UNKNOWN"])
+  if (objc_msgSend_isEqualToString_(contextCopy))
   {
     v4 = 0;
   }
 
-  else if ([contextCopy isEqualToString:@"INDIVIDUAL"])
+  else if (objc_msgSend_isEqualToString_(contextCopy))
   {
     v4 = 1;
   }
 
-  else if ([contextCopy isEqualToString:@"GROUP"])
+  else if (objc_msgSend_isEqualToString_(contextCopy))
   {
     v4 = 2;
   }

@@ -8,26 +8,26 @@
 {
   valuesCopy = values;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  if (objc_msgSend_featuresCount(valuesCopy, v5, v6))
+  if ([valuesCopy featuresCount])
   {
-    v9 = 0;
+    v5 = 0;
     do
     {
-      v10 = objc_msgSend_featuresAtIndex_(valuesCopy, v7, v9);
-      v12 = objc_msgSend_multiarrayFromFeature_(MEMORY[0x277CBFF48], v11, v10);
-      v14 = objc_msgSend_featureValueWithMultiArray_(MEMORY[0x277CBFEF8], v13, v12);
-      v17 = objc_msgSend_name(v10, v15, v16);
-      objc_msgSend_setValue_forKey_(v4, v18, v14, v17);
+      v6 = [valuesCopy featuresAtIndex:v5];
+      v7 = [MEMORY[0x277CBFF48] multiarrayFromFeature:v6];
+      v8 = [MEMORY[0x277CBFEF8] featureValueWithMultiArray:v7];
+      name = [v6 name];
+      [v4 setValue:v8 forKey:name];
 
-      ++v9;
+      ++v5;
     }
 
-    while (v9 < objc_msgSend_featuresCount(valuesCopy, v19, v20));
+    while (v5 < [valuesCopy featuresCount]);
   }
 
-  v21 = objc_msgSend_copy(v4, v7, v8);
+  v10 = [v4 copy];
 
-  return v21;
+  return v10;
 }
 
 @end

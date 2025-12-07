@@ -41,15 +41,17 @@
 - (void)carKeyInvitationViewController:(id)controller didEnterActivationCode:(id)code
 {
   v5 = sub_1BE052434();
-  v7 = v6;
-  v8 = *(&self->super.isa + OBJC_IVAR____TtC9PassKitUI36ProvisioningCarKeyInvitationFlowItem_coordinator);
-  if (v8)
+  v13 = v6;
+  v14 = *(&self->super.isa + OBJC_IVAR____TtC9PassKitUI36ProvisioningCarKeyInvitationFlowItem_coordinator);
+  if (v14)
   {
-    v9 = v5;
+    v15 = v5;
     selfCopy = self;
-    v11 = v8;
-    sub_1BD318C1C(v9, v7);
+    v17 = v14;
+    sub_1BD318C1C(v15, v13);
   }
+
+  v13, v6, v7, v8, v9, v10, v11, v12;
 }
 
 @end

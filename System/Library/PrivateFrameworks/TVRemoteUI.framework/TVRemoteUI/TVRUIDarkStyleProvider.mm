@@ -892,19 +892,19 @@ LABEL_9:
 
 - (BOOL)isSmallDevice
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen bounds];
   v4 = v3;
 
   if (v4 <= 667.0)
   {
-    v5 = _TVRUIViewControllerLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _TVRUIViewControllerLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[TVRUIDarkStyleProvider isSmallDevice]";
-      _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "%s returned YES", &v7, 0xCu);
+      v8 = 136315138;
+      v9 = "[TVRUIDarkStyleProvider isSmallDevice]";
+      _os_log_impl(&dword_26CFEB000, v6, OS_LOG_TYPE_DEFAULT, "%s returned YES", &v8, 0xCu);
     }
   }
 

@@ -27,8 +27,7 @@
       v5 = *(impl + 12);
     }
 
-    v12 = *v5;
-    std::vector<char>::vector[abi:ne200100](&__p);
+    std::vector<char>::vector[abi:ne200100](&__p, (16 * *v5) | 8);
   }
 
   if (*(impl + 56) == 1)
@@ -59,17 +58,12 @@
     v10 = *(impl + 10);
     if (v10 - v8 < v9)
     {
-      if (2 * (v10 - v7) <= v6)
-      {
-        v11 = (16 * *v4) | 8;
-      }
-
       operator new();
     }
 
-    v13 = &v7[v6];
+    v11 = &v7[v6];
     bzero(*(impl + 9), v9);
-    *(impl + 9) = v13;
+    *(impl + 9) = v11;
     v8 += v9;
     v7 = *(impl + 8);
   }
@@ -99,86 +93,83 @@
   {
 
     v4 = self->_impl;
-    if (*(v4 + 56) == 1)
+    if (v4[56] == 1)
     {
-      v5 = v4[6];
       ExtendedAudioBufferList_Destroy();
-      *(v4 + 56) = 0;
+      v4[56] = 0;
     }
 
     else if (self->_deallocator)
     {
-      v6 = *v4[12];
-      std::vector<char>::vector[abi:ne200100](&__p);
+      std::vector<char>::vector[abi:ne200100](&__p, (16 * **(v4 + 12)) | 8);
     }
 
     free(*(self->_impl + 1));
     free(*(self->_impl + 16));
-    v7 = self->_impl;
-    if (*(v7 + 88) == 1)
+    v5 = self->_impl;
+    if (*(v5 + 88) == 1)
     {
-      v8 = *(v7 + 8);
-      v9 = self->_impl;
-      if (v8)
+      v6 = *(v5 + 8);
+      v7 = self->_impl;
+      if (v6)
       {
-        *(v7 + 9) = v8;
-        operator delete(v8);
-        v9 = self->_impl;
+        *(v5 + 9) = v6;
+        operator delete(v6);
+        v7 = self->_impl;
       }
 
-      *(v7 + 88) = 0;
-      v7 = v9;
+      *(v5 + 88) = 0;
+      v5 = v7;
     }
 
-    if (*(v7 + 144) == 1)
+    if (*(v5 + 144) == 1)
     {
-      unilaterally_billed_shared_memory::~unilaterally_billed_shared_memory(v7 + 17);
-      *(v7 + 144) = 0;
-      v7 = self->_impl;
-      if (!v7)
+      unilaterally_billed_shared_memory::~unilaterally_billed_shared_memory(v5 + 17);
+      *(v5 + 144) = 0;
+      v5 = self->_impl;
+      if (!v5)
       {
         goto LABEL_23;
       }
 
-      if (*(v7 + 144))
+      if (*(v5 + 144))
       {
-        unilaterally_billed_shared_memory::~unilaterally_billed_shared_memory(v7 + 17);
+        unilaterally_billed_shared_memory::~unilaterally_billed_shared_memory(v5 + 17);
       }
     }
 
-    if (*(v7 + 120) == 1)
+    if (*(v5 + 120) == 1)
     {
-      v10 = *(v7 + 12);
-      if (v10)
+      v8 = *(v5 + 12);
+      if (v8)
       {
-        *(v7 + 13) = v10;
-        operator delete(v10);
+        *(v5 + 13) = v8;
+        operator delete(v8);
       }
     }
 
-    if (*(v7 + 88) == 1)
+    if (*(v5 + 88) == 1)
     {
-      v11 = *(v7 + 8);
-      if (v11)
+      v9 = *(v5 + 8);
+      if (v9)
       {
-        *(v7 + 9) = v11;
-        operator delete(v11);
+        *(v5 + 9) = v9;
+        operator delete(v9);
       }
     }
 
-    if (*(v7 + 56) == 1)
+    if (*(v5 + 56) == 1)
     {
-      v12 = *(v7 + 6);
       ExtendedAudioBufferList_Destroy();
     }
 
-    MEMORY[0x1BFAF5800](v7, 0x10B2C40D4A92739);
+    MEMORY[0x1BFAF5800](v5, 0x10B2C40D4A92739);
   }
 
 LABEL_23:
-  v13.receiver = self;
-  v13.super_class = AVAudioBuffer;
-  [(AVAudioBuffer *)&v13 dealloc];
+  v10.receiver = self;
+  v10.super_class = AVAudioBuffer;
+  [(AVAudioBuffer *)&v10 dealloc];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -239,7 +230,7 @@ LABEL_23:
 
 - (void)setByteLength:(unsigned int)length
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   impl = self->_impl;
   if (impl[10] < length)
   {
@@ -252,17 +243,17 @@ LABEL_23:
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v18 = "AVAEInternal.h";
-      v19 = 1024;
-      v20 = 71;
-      v21 = 2080;
-      v22 = "AVAudioBuffer.mm";
-      v23 = 1024;
-      v24 = 203;
-      v25 = 2080;
-      v26 = "[AVAudioBuffer setByteLength:]";
-      v27 = 2080;
-      v28 = "length <= _imp->_byteCapacity";
+      v17 = "AVAEInternal.h";
+      v18 = 1024;
+      v19 = 71;
+      v20 = 2080;
+      v21 = "AVAudioBuffer.mm";
+      v22 = 1024;
+      v23 = 203;
+      v24 = 2080;
+      v25 = "[AVAudioBuffer setByteLength:]";
+      v26 = 2080;
+      v27 = "length <= _imp->_byteCapacity";
       _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -316,8 +307,6 @@ LABEL_23:
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (unsigned)byteLength
@@ -338,16 +327,16 @@ LABEL_23:
 
 - (AVAudioBuffer)initWithPCMFormat:(id)format byteCapacity:(unsigned int)capacity bufferListNoCopy:(const AudioBufferList *)copy deallocator:(id)deallocator
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = AVAudioBuffer;
-  if ([(AVAudioBuffer *)&v19 init])
+  v30 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = AVAudioBuffer;
+  if ([(AVAudioBuffer *)&v18 init])
   {
     streamDescription = [format streamDescription];
     v9 = *(streamDescription + 16);
-    v16 = *streamDescription;
-    v17 = v9;
-    v18 = *(streamDescription + 32);
+    v15 = *streamDescription;
+    v16 = v9;
+    v17 = *(streamDescription + 32);
     {
       if (AVAudioEngineLogCategory(void)::once != -1)
       {
@@ -359,25 +348,25 @@ LABEL_23:
       {
         buf[0] = 136316418;
         *&buf[1] = "AVAEInternal.h";
-        v21 = 1024;
-        v22 = 71;
-        v23 = 2080;
-        v24 = "AVAudioBuffer.mm";
-        v25 = 1024;
-        v26 = 157;
-        v27 = 2080;
-        v28 = "[AVAudioBuffer initWithPCMFormat:byteCapacity:bufferListNoCopy:deallocator:]";
-        v29 = 2080;
-        v30 = "isPCMFormat(fmt)";
+        v20 = 1024;
+        v21 = 71;
+        v22 = 2080;
+        v23 = "AVAudioBuffer.mm";
+        v24 = 1024;
+        v25 = 157;
+        v26 = 2080;
+        v27 = "[AVAudioBuffer initWithPCMFormat:byteCapacity:bufferListNoCopy:deallocator:]";
+        v28 = 2080;
+        v29 = "isPCMFormat(fmt)";
         _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
       }
 
       [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"required condition is false: %s", "isPCMFormat(fmt)"}];
     }
 
-    if ((BYTE12(v16) & 0x20) != 0)
+    if ((BYTE12(v15) & 0x20) != 0)
     {
-      v11 = HIDWORD(v17);
+      v11 = HIDWORD(v16);
     }
 
     else
@@ -397,16 +386,16 @@ LABEL_23:
       {
         buf[0] = 136316418;
         *&buf[1] = "AVAEInternal.h";
-        v21 = 1024;
-        v22 = 71;
-        v23 = 2080;
-        v24 = "AVAudioBuffer.mm";
-        v25 = 1024;
-        v26 = 159;
-        v27 = 2080;
-        v28 = "[AVAudioBuffer initWithPCMFormat:byteCapacity:bufferListNoCopy:deallocator:]";
-        v29 = 2080;
-        v30 = "bufferList != nullptr";
+        v20 = 1024;
+        v21 = 71;
+        v22 = 2080;
+        v23 = "AVAudioBuffer.mm";
+        v24 = 1024;
+        v25 = 159;
+        v26 = 2080;
+        v27 = "[AVAudioBuffer initWithPCMFormat:byteCapacity:bufferListNoCopy:deallocator:]";
+        v28 = 2080;
+        v29 = "bufferList != nullptr";
         _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
       }
 
@@ -425,16 +414,16 @@ LABEL_23:
       {
         buf[0] = 136316418;
         *&buf[1] = "AVAEInternal.h";
-        v21 = 1024;
-        v22 = 71;
-        v23 = 2080;
-        v24 = "AVAudioBuffer.mm";
-        v25 = 1024;
-        v26 = 160;
-        v27 = 2080;
-        v28 = "[AVAudioBuffer initWithPCMFormat:byteCapacity:bufferListNoCopy:deallocator:]";
-        v29 = 2080;
-        v30 = "bufferList->mNumberBuffers == numBuffers";
+        v20 = 1024;
+        v21 = 71;
+        v22 = 2080;
+        v23 = "AVAudioBuffer.mm";
+        v24 = 1024;
+        v25 = 160;
+        v26 = 2080;
+        v27 = "[AVAudioBuffer initWithPCMFormat:byteCapacity:bufferListNoCopy:deallocator:]";
+        v28 = 2080;
+        v29 = "bufferList->mNumberBuffers == numBuffers";
         _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
       }
 
@@ -444,23 +433,16 @@ LABEL_23:
     operator new();
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (AVAudioBuffer)initWithFormat:(id)format byteCapacity:(unsigned int)capacity
 {
-  v9.receiver = self;
-  v9.super_class = AVAudioBuffer;
-  if ([(AVAudioBuffer *)&v9 init])
+  v6.receiver = self;
+  v6.super_class = AVAudioBuffer;
+  if ([(AVAudioBuffer *)&v6 init])
   {
-    streamDescription = [format streamDescription];
-    v6 = streamDescription[2];
-    if ((streamDescription[3] & 0x20) != 0)
-    {
-      v7 = streamDescription[7];
-    }
-
+    [format streamDescription];
     operator new();
   }
 

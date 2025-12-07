@@ -89,7 +89,7 @@
   if (v14)
   {
     uUIDString = [v11 UUIDString];
-    v16 = [uUIDString copy];
+    v16 = objc_msgSend_copy(uUIDString);
     [(HDCloudSyncCodableSharedSummaryParticipantRecord *)v14->_underlyingSummaryParticipantRecord setUuid:v16];
 
     invitationUUID = [entryCopy invitationUUID];
@@ -158,10 +158,10 @@
 
 - (HDCloudSyncSharedSummaryParticipantRecord)initWithCKRecord:(id)record schemaVersion:(int64_t)version
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = HDCloudSyncSharedSummaryParticipantRecord;
-  v4 = [(HDCloudSyncRecord *)&v15 initWithCKRecord:record schemaVersion:version];
+  v17 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = HDCloudSyncSharedSummaryParticipantRecord;
+  v4 = [(HDCloudSyncRecord *)&v14 initWithCKRecord:record schemaVersion:version];
   v5 = v4;
   if (!v4)
   {
@@ -196,14 +196,13 @@ LABEL_9:
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
   {
     *buf = 138543362;
-    v17 = v5;
+    v16 = v5;
     _os_log_fault_impl(&dword_228986000, v9, OS_LOG_TYPE_FAULT, "[summary-sharing] %{public}@: Failed to decode underlying record.", buf, 0xCu);
   }
 
   v10 = 0;
 LABEL_10:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -363,7 +362,7 @@ LABEL_40:
 
 - (int64_t)mergeWithLocalEntry:(id)entry error:(id *)error
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   uuid = [(HDCloudSyncCodableSharedSummaryParticipantRecord *)entryCopy uuid];
   uuid2 = [(HDCloudSyncCodableSharedSummaryParticipantRecord *)self->_underlyingSummaryParticipantRecord uuid];
@@ -876,9 +875,9 @@ LABEL_37:
         v36 = *MEMORY[0x277CCC328];
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
         {
-          v103 = 134217984;
-          v104 = v34;
-          _os_log_fault_impl(&dword_228986000, v36, OS_LOG_TYPE_FAULT, "Unexpected direction %ld", &v103, 0xCu);
+          v102 = 134217984;
+          v103 = v34;
+          _os_log_fault_impl(&dword_228986000, v36, OS_LOG_TYPE_FAULT, "Unexpected direction %ld", &v102, 0xCu);
         }
       }
 
@@ -901,9 +900,9 @@ LABEL_24:
       v29 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
       {
-        v103 = 134217984;
-        v104 = v27;
-        _os_log_fault_impl(&dword_228986000, v29, OS_LOG_TYPE_FAULT, "Unexpected type %ld", &v103, 0xCu);
+        v102 = 134217984;
+        v103 = v27;
+        _os_log_fault_impl(&dword_228986000, v29, OS_LOG_TYPE_FAULT, "Unexpected type %ld", &v102, 0xCu);
       }
     }
 
@@ -919,7 +918,6 @@ LABEL_7:
   v21 = 5;
 LABEL_132:
 
-  v101 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -936,7 +934,7 @@ LABEL_132:
 {
   uUID = [record UUID];
   uUIDString = [uUID UUIDString];
-  v5 = [uUIDString copy];
+  v5 = objc_msgSend_copy(uUIDString);
   [(HDCloudSyncCodableSharedSummaryParticipantRecord *)self->_underlyingSummaryParticipantRecord setAuthorizationRecordIdentifier:v5];
 }
 
@@ -981,26 +979,26 @@ LABEL_132:
 
 - (void)setCloudKitIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
+  v4 = objc_msgSend_copy(identifier, a2);
   [(HDCloudSyncCodableSharedSummaryParticipantRecord *)self->_underlyingSummaryParticipantRecord setCloudKitIdentifier:v4];
 }
 
 - (void)setFirstName:(id)name
 {
-  v4 = [name copy];
+  v4 = objc_msgSend_copy(name, a2);
   [(HDCloudSyncCodableSharedSummaryParticipantRecord *)self->_underlyingSummaryParticipantRecord setFirstName:v4];
 }
 
 - (void)setLastName:(id)name
 {
-  v4 = [name copy];
+  v4 = objc_msgSend_copy(name, a2);
   [(HDCloudSyncCodableSharedSummaryParticipantRecord *)self->_underlyingSummaryParticipantRecord setLastName:v4];
 }
 
 - (NSArray)allContactIdentifiers
 {
   allContactIdentifiers = [(HDCloudSyncCodableSharedSummaryParticipantRecord *)self->_underlyingSummaryParticipantRecord allContactIdentifiers];
-  v3 = [allContactIdentifiers copy];
+  v3 = objc_msgSend_copy(allContactIdentifiers);
   v4 = v3;
   if (v3)
   {
@@ -1320,7 +1318,7 @@ LABEL_132:
 
 - (CKShareParticipant)ownerParticipant
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   ownerParticipant = [(HDCloudSyncCodableSharedSummaryParticipantRecord *)self->_underlyingSummaryParticipantRecord ownerParticipant];
 
   if (ownerParticipant)
@@ -1328,9 +1326,9 @@ LABEL_132:
     v4 = MEMORY[0x277CCAAC8];
     v5 = objc_opt_class();
     ownerParticipant2 = [(HDCloudSyncCodableSharedSummaryParticipantRecord *)self->_underlyingSummaryParticipantRecord ownerParticipant];
-    v14 = 0;
-    ownerParticipant = [v4 unarchivedObjectOfClass:v5 fromData:ownerParticipant2 error:&v14];
-    v7 = v14;
+    v13 = 0;
+    ownerParticipant = [v4 unarchivedObjectOfClass:v5 fromData:ownerParticipant2 error:&v13];
+    v7 = v13;
 
     if (!ownerParticipant)
     {
@@ -1339,31 +1337,29 @@ LABEL_132:
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
         underlyingSummaryParticipantRecord = self->_underlyingSummaryParticipantRecord;
-        v12 = v8;
+        v11 = v8;
         ownerParticipant3 = [(HDCloudSyncCodableSharedSummaryParticipantRecord *)underlyingSummaryParticipantRecord ownerParticipant];
         *buf = 138543618;
-        v16 = ownerParticipant3;
-        v17 = 2114;
-        v18 = v7;
-        _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "Failed to unarchive share participant %{public}@: %{public}@", buf, 0x16u);
+        v15 = ownerParticipant3;
+        v16 = 2114;
+        v17 = v7;
+        _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "Failed to unarchive share participant %{public}@: %{public}@", buf, 0x16u);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return ownerParticipant;
 }
 
 - (void)setOwnerParticipant:(id)participant
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   participantCopy = participant;
   if (participantCopy)
   {
-    v10 = 0;
-    v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:participantCopy requiringSecureCoding:1 error:&v10];
-    v6 = v10;
+    v9 = 0;
+    v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:participantCopy requiringSecureCoding:1 error:&v9];
+    v6 = v9;
     [(HDCloudSyncCodableSharedSummaryParticipantRecord *)self->_underlyingSummaryParticipantRecord setOwnerParticipant:v5];
 
     ownerParticipant = [(HDCloudSyncCodableSharedSummaryParticipantRecord *)self->_underlyingSummaryParticipantRecord ownerParticipant];
@@ -1376,10 +1372,10 @@ LABEL_132:
       {
         *buf = 138543874;
         selfCopy = self;
-        v13 = 2114;
-        v14 = participantCopy;
-        v15 = 2114;
-        v16 = v6;
+        v12 = 2114;
+        v13 = participantCopy;
+        v14 = 2114;
+        v15 = v6;
         _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to archive owner participant %{public}@: %{public}@", buf, 0x20u);
       }
     }
@@ -1389,13 +1385,11 @@ LABEL_132:
   {
     [(HDCloudSyncCodableSharedSummaryParticipantRecord *)self->_underlyingSummaryParticipantRecord setOwnerParticipant:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)codableRecordFromRecord:(id)record
 {
-  v3 = [*(record + 3) copy];
+  v3 = objc_msgSend_copy(*(record + 3), a2);
 
   return v3;
 }
@@ -1451,18 +1445,16 @@ LABEL_12:
 
 + (id)fieldsForUnprotectedSerialization
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = &OBJC_METACLASS___HDCloudSyncSharedSummaryParticipantRecord;
-  v2 = objc_msgSendSuper2(&v9, sel_fieldsForUnprotectedSerialization);
-  v10 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v10[1] = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = &OBJC_METACLASS___HDCloudSyncSharedSummaryParticipantRecord;
+  v2 = objc_msgSendSuper2(&v8, sel_fieldsForUnprotectedSerialization);
+  v9 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
   v4 = [HDCloudSyncSerializedField fieldForKey:@"RelationshipRecord" classes:v3 encrypted:0];
-  v11[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v6 = [v2 arrayByAddingObjectsFromArray:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

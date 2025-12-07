@@ -1,4 +1,5 @@
 @interface _RERuleMLElementComparator
++ (id)comparatorWithFilteringRules:(id)rules rankingRules:(id)rankingRules model:(id)model elementsHiddenByDefault:(BOOL)default;
 - (BOOL)shouldHideElement:(id)element;
 - (_RERuleMLElementComparator)initWithFilteringRules:(id)rules rankingRules:(id)rankingRules model:(id)model elementsHiddenByDefault:(BOOL)default;
 - (float)_relevanceForElement:(id)element;
@@ -8,52 +9,63 @@
 
 @implementation _RERuleMLElementComparator
 
++ (id)comparatorWithFilteringRules:(id)rules rankingRules:(id)rankingRules model:(id)model elementsHiddenByDefault:(BOOL)default
+{
+  defaultCopy = default;
+  modelCopy = model;
+  rankingRulesCopy = rankingRules;
+  rulesCopy = rules;
+  v12 = [[_RERuleMLElementComparator alloc] initWithFilteringRules:rulesCopy rankingRules:rankingRulesCopy model:modelCopy elementsHiddenByDefault:defaultCopy];
+
+  return v12;
+}
+
 - (_RERuleMLElementComparator)initWithFilteringRules:(id)rules rankingRules:(id)rankingRules model:(id)model elementsHiddenByDefault:(BOOL)default
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   rulesCopy = rules;
   rankingRulesCopy = rankingRules;
-  v58.receiver = self;
-  v58.super_class = _RERuleMLElementComparator;
-  v12 = [(REMLElementComparator *)&v58 initWithModel:model];
+  v57.receiver = self;
+  v57.super_class = _RERuleMLElementComparator;
+  v12 = [(REMLElementComparator *)&v57 initWithModel:model];
   if (v12)
   {
     defaultCopy = default;
-    v49 = rulesCopy;
+    v48 = rulesCopy;
     v13 = [rulesCopy sortedArrayWithOptions:16 usingComparator:&__block_literal_global_69];
     filteringRules = v12->_filteringRules;
     v12->_filteringRules = v13;
 
-    v48 = rankingRulesCopy;
+    v47 = rankingRulesCopy;
     v15 = [rankingRulesCopy sortedArrayWithOptions:16 usingComparator:&__block_literal_global_3];
     rankingRules = v12->_rankingRules;
     v12->_rankingRules = v15;
 
     v17 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](v12->_filteringRules, "count")}];
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
     v18 = v12->_filteringRules;
-    v19 = [(NSArray *)v18 countByEnumeratingWithState:&v54 objects:v60 count:16];
+    v19 = [(NSArray *)v18 countByEnumeratingWithState:&v53 objects:v59 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v55;
+      v21 = *v54;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v55 != v21)
+          if (*v54 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          conditionEvaluator = [*(*(&v54 + 1) + 8 * i) conditionEvaluator];
+          conditionEvaluator = [*(*(&v53 + 1) + 8 * i) conditionEvaluator];
           [v17 addObject:conditionEvaluator];
         }
 
-        v20 = [(NSArray *)v18 countByEnumeratingWithState:&v54 objects:v60 count:16];
+        v20 = [(NSArray *)v18 countByEnumeratingWithState:&v53 objects:v59 count:16];
       }
 
       while (v20);
@@ -66,27 +78,27 @@
     v26 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](v12->_rankingRules, "count")}];
     v27 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](v12->_rankingRules, "count")}];
     v28 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](v12->_rankingRules, "count")}];
+    v49 = 0u;
     v50 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
-    v46 = v12;
+    v45 = v12;
     v29 = v12->_rankingRules;
-    v30 = [(NSArray *)v29 countByEnumeratingWithState:&v50 objects:v59 count:16];
+    v30 = [(NSArray *)v29 countByEnumeratingWithState:&v49 objects:v58 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v51;
+      v32 = *v50;
       do
       {
         for (j = 0; j != v31; ++j)
         {
-          if (*v51 != v32)
+          if (*v50 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          v34 = *(*(&v50 + 1) + 8 * j);
+          v34 = *(*(&v49 + 1) + 8 * j);
           leftConditionEvaluator = [v34 leftConditionEvaluator];
           [v26 addObject:leftConditionEvaluator];
 
@@ -97,31 +109,30 @@
           [v28 addObject:comparisonConditionEvaluator];
         }
 
-        v31 = [(NSArray *)v29 countByEnumeratingWithState:&v50 objects:v59 count:16];
+        v31 = [(NSArray *)v29 countByEnumeratingWithState:&v49 objects:v58 count:16];
       }
 
       while (v31);
     }
 
     v38 = [v26 copy];
-    v12 = v46;
-    leftRankingEvaluators = v46->_leftRankingEvaluators;
-    v46->_leftRankingEvaluators = v38;
+    v12 = v45;
+    leftRankingEvaluators = v45->_leftRankingEvaluators;
+    v45->_leftRankingEvaluators = v38;
 
     v40 = [v27 copy];
-    rightRankingEvaluators = v46->_rightRankingEvaluators;
-    v46->_rightRankingEvaluators = v40;
+    rightRankingEvaluators = v45->_rightRankingEvaluators;
+    v45->_rightRankingEvaluators = v40;
 
     v42 = [v28 copy];
-    comparisonRankingEvaluators = v46->_comparisonRankingEvaluators;
-    v46->_comparisonRankingEvaluators = v42;
+    comparisonRankingEvaluators = v45->_comparisonRankingEvaluators;
+    v45->_comparisonRankingEvaluators = v42;
 
-    v46->_elementsHiddenByDefault = defaultCopy;
-    rankingRulesCopy = v48;
-    rulesCopy = v49;
+    v45->_elementsHiddenByDefault = defaultCopy;
+    rankingRulesCopy = v47;
+    rulesCopy = v48;
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -223,7 +234,7 @@
 
 - (BOOL)shouldHideElement:(id)element
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   v5 = RELogForDomain(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -231,7 +242,7 @@
     [(_RERuleMLElementComparator *)elementCopy shouldHideElement:v5];
   }
 
-  v64 = elementCopy;
+  v63 = elementCopy;
   if (![(NSArray *)self->_filteringRules count])
   {
 LABEL_26:
@@ -245,8 +256,8 @@ LABEL_26:
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = ____RE_Cached_Get__ShowAllElements_block_invoke_0;
-      v73 = &unk_2785F9AB8;
-      v74 = 0;
+      v72 = &unk_2785F9AB8;
+      v73 = 0;
       if (__RE_Cached_Get__ShowAllElements_onceToken_0 != -1)
       {
         dispatch_once(&__RE_Cached_Get__ShowAllElements_onceToken_0, buf);
@@ -255,8 +266,8 @@ LABEL_26:
       os_unfair_lock_lock(&__RE_Cached_lock__ShowAllElements_0);
       if ((__RE_Cached_hasValue__ShowAllElements_0 & 1) == 0)
       {
-        v67[0] = 0;
-        if (RelevanceEngineLibraryCore_2())
+        v66[0] = 0;
+        if (RelevanceEngineLibraryCore_2(0))
         {
           globalDefaults = [soft__REEngineDefaults_1() globalDefaults];
         }
@@ -266,25 +277,25 @@ LABEL_26:
           globalDefaults = 0;
         }
 
-        v26 = [globalDefaults _BOOLValueForKey:@"ShowAllElements" set:v67];
-        v27 = v67[0] & v26;
+        v26 = [globalDefaults _BOOLValueForKey:@"ShowAllElements" set:v66];
+        v27 = v66[0] & v26;
         v28 = RELogForDomain(0);
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           v29 = [MEMORY[0x277CCABB0] numberWithBool:v27 & 1];
-          *v70 = 138412290;
-          v71 = v29;
-          _os_log_impl(&dword_22859F000, v28, OS_LOG_TYPE_DEFAULT, "Prefs reading value for key ShowAllElements: %@", v70, 0xCu);
+          *v69 = 138412290;
+          v70 = v29;
+          _os_log_impl(&dword_22859F000, v28, OS_LOG_TYPE_DEFAULT, "Prefs reading value for key ShowAllElements: %@", v69, 0xCu);
         }
 
-        __RE_Cached__ShowAllElements_0 = v67[0] & v27 & 1;
+        __RE_Cached__ShowAllElements_0 = v66[0] & v27 & 1;
         __RE_Cached_hasValue__ShowAllElements_0 = 1;
       }
 
       os_unfair_lock_unlock(&__RE_Cached_lock__ShowAllElements_0);
       v30 = __RE_Cached__ShowAllElements_0;
 
-      elementCopy = v64;
+      elementCopy = v63;
       if (v30)
       {
         goto LABEL_42;
@@ -309,18 +320,18 @@ LABEL_42:
       {
         v35 = 0;
         *&v34 = 138412802;
-        v54 = v34;
-        v63 = v33;
+        v53 = v34;
+        v62 = v33;
         do
         {
-          v36 = [(NSArray *)self->_filteringEvaluators objectAtIndexedSubscript:v35, v54];
+          v36 = [(NSArray *)self->_filteringEvaluators objectAtIndexedSubscript:v35, v53];
           v37 = [(NSArray *)self->_filteringRules objectAtIndexedSubscript:v35];
           if ([v36 needsPredictionSet])
           {
-            featureMap2 = [v64 featureMap];
-            v65 = 0;
-            v39 = [v36 acceptsFeatureMap:featureMap2 predictionSet:v33 explanation:&v65];
-            v40 = v65;
+            featureMap2 = [v63 featureMap];
+            v64 = 0;
+            v39 = [v36 acceptsFeatureMap:featureMap2 predictionSet:v33 explanation:&v64];
+            v40 = v64;
 
             v41 = RELogForDomain(4);
             v42 = os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG);
@@ -328,16 +339,16 @@ LABEL_42:
             {
               if (v42)
               {
-                [(_RERuleMLElementComparator *)v70 shouldHideElement:v36];
+                [(_RERuleMLElementComparator *)v69 shouldHideElement:v36];
               }
 
-              identifier = [v64 identifier];
+              identifier = [v63 identifier];
               v44 = v37;
               v45 = identifier;
               v46 = v40;
               if (v46 && REMLExplanationsEnabled())
               {
-                v60 = objc_alloc_init(REMLExplanationFormatter);
+                v59 = objc_alloc_init(REMLExplanationFormatter);
                 type = [v44 type];
                 v48 = RELogForDomain(4);
                 if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
@@ -353,15 +364,15 @@ LABEL_42:
                     v49 = @"Filtering";
                   }
 
-                  v55 = v49;
-                  v56 = [MEMORY[0x277CBEB98] setWithObject:v46];
-                  v50 = [(REMLExplanationFormatter *)v60 descriptionFromExplanations:v56];
-                  *buf = v54;
-                  *&buf[4] = v55;
+                  v54 = v49;
+                  v55 = [MEMORY[0x277CBEB98] setWithObject:v46];
+                  v50 = [(REMLExplanationFormatter *)v59 descriptionFromExplanations:v55];
+                  *buf = v53;
+                  *&buf[4] = v54;
                   *&buf[12] = 2112;
                   *&buf[14] = v45;
                   *&buf[22] = 2112;
-                  v73 = v50;
+                  v72 = v50;
                   _os_log_impl(&dword_22859F000, v48, OS_LOG_TYPE_DEFAULT, "%@ %@ because %@", buf, 0x20u);
                 }
               }
@@ -370,12 +381,12 @@ LABEL_42:
               if (type2 == 1)
               {
                 elementsHiddenByDefault = 0;
-                v33 = v63;
+                v33 = v62;
               }
 
               else
               {
-                v33 = v63;
+                v33 = v62;
                 if (!type2)
                 {
                   elementsHiddenByDefault = 1;
@@ -387,7 +398,7 @@ LABEL_42:
             {
               if (v42)
               {
-                [(_RERuleMLElementComparator *)v67 shouldHideElement:v36];
+                [(_RERuleMLElementComparator *)v66 shouldHideElement:v36];
               }
             }
           }
@@ -399,7 +410,7 @@ LABEL_42:
       }
 
       objc_autoreleasePoolPop(context);
-      elementCopy = v64;
+      elementCopy = v63;
       v25 = elementsHiddenByDefault;
     }
 
@@ -425,9 +436,9 @@ LABEL_25:
   }
 
   featureMap3 = [elementCopy featureMap];
-  v66 = 0;
-  v10 = [v7 acceptsFeatureMap:featureMap3 predictionSet:0 explanation:&v66];
-  v11 = v66;
+  v65 = 0;
+  v10 = [v7 acceptsFeatureMap:featureMap3 predictionSet:0 explanation:&v65];
+  v11 = v65;
 
   v12 = RELogForDomain(4);
   v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
@@ -436,7 +447,7 @@ LABEL_25:
     v14 = elementCopy;
     if (v13)
     {
-      [(_RERuleMLElementComparator *)v68 shouldHideElement:v7];
+      [(_RERuleMLElementComparator *)v67 shouldHideElement:v7];
     }
 
 LABEL_24:
@@ -446,7 +457,7 @@ LABEL_24:
 
   if (v13)
   {
-    [(_RERuleMLElementComparator *)v69 shouldHideElement:v7];
+    [(_RERuleMLElementComparator *)v68 shouldHideElement:v7];
   }
 
   v14 = elementCopy;
@@ -456,7 +467,7 @@ LABEL_24:
   v18 = v11;
   if (v18 && REMLExplanationsEnabled())
   {
-    v62 = objc_alloc_init(REMLExplanationFormatter);
+    v61 = objc_alloc_init(REMLExplanationFormatter);
     type3 = [v16 type];
     v20 = RELogForDomain(4);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
@@ -473,18 +484,18 @@ LABEL_24:
       }
 
       contexta = v21;
-      v59 = [MEMORY[0x277CBEB98] setWithObject:v18];
-      v22 = [(REMLExplanationFormatter *)v62 descriptionFromExplanations:v59];
+      v58 = [MEMORY[0x277CBEB98] setWithObject:v18];
+      v22 = [(REMLExplanationFormatter *)v61 descriptionFromExplanations:v58];
       *buf = 138412802;
       *&buf[4] = contexta;
       *&buf[12] = 2112;
       *&buf[14] = v17;
       *&buf[22] = 2112;
-      v73 = v22;
+      v72 = v22;
       _os_log_impl(&dword_22859F000, v20, OS_LOG_TYPE_DEFAULT, "%@ %@ because %@", buf, 0x20u);
     }
 
-    v14 = v64;
+    v14 = v63;
   }
 
   type4 = [v16 type];
@@ -505,7 +516,6 @@ LABEL_35:
   elementCopy = v14;
 LABEL_68:
 
-  v52 = *MEMORY[0x277D85DE8];
   return v25 & 1;
 }
 
@@ -691,69 +701,54 @@ LABEL_45:
 
 - (void)_relevanceForElement:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_6();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_relevanceForElement:(void *)a1 .cold.4(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_6();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_relevanceForElement:(void *)a1 .cold.5(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v3 = [a1 identifier];
   [a2 bias];
   OUTLINED_FUNCTION_0_6();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_relevanceForElement:(void *)a1 .cold.6(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 explanationDescription];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_6();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_relevanceForElement:(void *)a1 .cold.7(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_6();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shouldHideElement:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v6 = [a1 identifier];
   v7 = [*(a2 + 32) count];
   v8 = [a1 featureMap];
   v9 = [v8 populatedFeatureCount];
   v10 = *(a2 + 80);
-  v13 = 138413058;
-  v14 = v6;
+  v12 = 138413058;
+  v13 = v6;
   if (v10)
   {
     v11 = "YES";
@@ -764,15 +759,13 @@ LABEL_45:
     v11 = "NO";
   }
 
-  v15 = 2048;
-  v16 = v7;
-  v17 = 2048;
-  v18 = v9;
-  v19 = 2080;
-  v20 = v11;
-  _os_log_debug_impl(&dword_22859F000, a3, OS_LOG_TYPE_DEBUG, "Evaluating ShouldHideElement for %@ with %lu rules with %lu populated features, hiding elements by default: %s", &v13, 0x2Au);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14 = 2048;
+  v15 = v7;
+  v16 = 2048;
+  v17 = v9;
+  v18 = 2080;
+  v19 = v11;
+  _os_log_debug_impl(&dword_22859F000, a3, OS_LOG_TYPE_DEBUG, "Evaluating ShouldHideElement for %@ with %lu rules with %lu populated features, hiding elements by default: %s", &v12, 0x2Au);
 }
 
 - (void)shouldHideElement:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)

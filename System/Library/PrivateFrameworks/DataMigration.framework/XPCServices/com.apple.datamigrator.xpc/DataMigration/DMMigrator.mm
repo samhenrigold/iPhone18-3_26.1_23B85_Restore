@@ -3,6 +3,7 @@
 + (id)_userDataDispositionDictionaryWithBuildVersion:(id)version lastBuildVersion:(id)buildVersion;
 - (BOOL)_canDisplayStatus_progressLocked;
 - (BOOL)_performMigrationWithPreliminaryTasks:(id)tasks pluginsProvider:(id)provider pluginCategories:(unsigned int)categories userCategory:(unsigned int)category buildVersion:(id)version lastBuildVersion:(id)buildVersion;
+- (BOOL)isMigrationNeeded:(int)needed;
 - (DMMigrator)init;
 - (NSDictionary)migrationPluginResults;
 - (NSString)migrationPhaseDescription;
@@ -22,6 +23,7 @@
 - (void)_waitForExecutePluginsSignal_engineerCurrentlyDebuggingMigrationPlugins;
 - (void)currentProgressInfo:(id)info;
 - (void)forceMigrationOnNextRebootWithUserDataDisposition:(unsigned int)disposition context:(id)context;
+- (void)migrateCheckingNecessity:(BOOL)necessity lastRelevantPlugin:(id)plugin testMigrationInfrastructureOnly:(BOOL)only connection:(id)connection migrationResultHandler:(id)handler;
 - (void)progressHostIsReady;
 - (void)reportMigrationFailure;
 - (void)testMigrationUIWithProgress:(BOOL)progress forceInvert:(BOOL)invert completion:(id)completion;
@@ -265,9 +267,9 @@ LABEL_23:
     sub_100012C84();
   }
 
-  _DMLogFunc();
-  v2 = _executePluginsSemaphore();
-  dispatch_semaphore_wait(v2, 0xFFFFFFFFFFFFFFFFLL);
+  v2 = _DMLogFunc();
+  v3 = _executePluginsSemaphore(v2);
+  dispatch_semaphore_wait(v3, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 - (BOOL)_performMigrationWithPreliminaryTasks:(id)tasks pluginsProvider:(id)provider pluginCategories:(unsigned int)categories userCategory:(unsigned int)category buildVersion:(id)version lastBuildVersion:(id)buildVersion
@@ -693,6 +695,33 @@ LABEL_23:
   return v2;
 }
 
+- (BOOL)isMigrationNeeded:(int)needed
+{
+  v3 = *&needed;
+  v4 = +[DMEnvironment sharedInstance];
+  isDeviceUsingEphemeralStorage = [v4 isDeviceUsingEphemeralStorage];
+
+  if (isDeviceUsingEphemeralStorage)
+  {
+    _DMLogFunc();
+    return 0;
+  }
+
+  else
+  {
+    v7 = +[DMEnvironment sharedInstance];
+    buildVersion = [v7 buildVersion];
+
+    v9 = +[DMEnvironment sharedInstance];
+    lastBuildVersionPref = [v9 lastBuildVersionPref];
+
+    v11 = +[DMMigrationState sharedInstance];
+    v12 = [v11 isMigrationNeededWithBuildVersion:buildVersion lastBuildVersion:lastBuildVersionPref clientPID:v3];
+
+    return v12;
+  }
+}
+
 + (id)_dispositionDictFromContext:(id)context buildVersion:(id)version lastBuildVersion:(id)buildVersion environment:(id)environment
 {
   contextCopy = context;
@@ -822,6 +851,47 @@ LABEL_23:
   {
     v3 = +[DMMigrationState sharedInstance];
     [v3 setNeedsMigrationFailureReport];
+  }
+}
+
+- (void)migrateCheckingNecessity:(BOOL)necessity lastRelevantPlugin:(id)plugin testMigrationInfrastructureOnly:(BOOL)only connection:(id)connection migrationResultHandler:(id)handler
+{
+  necessityCopy = necessity;
+  pluginCopy = plugin;
+  connectionCopy = connection;
+  handlerCopy = handler;
+  v15 = +[DMEnvironment sharedInstance];
+  isDeviceUsingEphemeralStorage = [v15 isDeviceUsingEphemeralStorage];
+
+  if (isDeviceUsingEphemeralStorage)
+  {
+    _DMLogFunc();
+    handlerCopy[2](handlerCopy, 2);
+  }
+
+  else
+  {
+    v17 = objc_alloc_init(DMClientInvocation);
+    [(DMClientInvocation *)v17 setConnection:connectionCopy];
+    [(DMClientInvocation *)v17 setCheckNecessity:necessityCopy];
+    [(DMClientInvocation *)v17 setEarlyResultsPluginIdentifier:pluginCopy];
+    [(DMClientInvocation *)v17 setResultsHandler:handlerCopy];
+
+    v18 = +[DMEnvironment sharedInstance];
+    buildVersion = [v18 buildVersion];
+
+    v20 = +[DMMigrationState sharedInstance];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_10000EAD0;
+    v22[3] = &unk_100024C30;
+    onlyCopy = only;
+    v22[4] = self;
+    v23 = buildVersion;
+    v21 = buildVersion;
+    [v20 startMigrationAndOrBlockIfNecessaryWithClientInvocation:v17 buildVersion:v21 migrationStarterBlock:v22];
+
+    handlerCopy = v17;
   }
 }
 

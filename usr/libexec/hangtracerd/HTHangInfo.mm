@@ -63,8 +63,7 @@
   }
 
   v10 = [qword_1000679B0 indexOfObject:hangCopy inSortedRange:0 options:objc_msgSend(qword_1000679B0 usingComparator:{"count"), 1024, &stru_1000551C8}];
-  [qword_1000679B0 insertObject:hangCopy atIndex:v10];
-  v11 = sub_100003824();
+  v11 = sub_100003824([qword_1000679B0 insertObject:hangCopy atIndex:v10]);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     hangDescription = [hangCopy hangDescription];
@@ -360,7 +359,7 @@ LABEL_11:
 
   if (v6)
   {
-    v7 = sub_100003824();
+    v7 = sub_100003824(v3);
     v8 = 0.0;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
@@ -371,120 +370,121 @@ LABEL_11:
   else
   {
     v9 = v3;
+    v10 = v2 - v5;
     if (v2 >= v5)
     {
       if (v2 >= qword_1000679C8)
       {
-        if (v2 >= v3)
+        if (v2 >= v9)
         {
-          v10 = sub_1000024F8(v2 - v5);
-          v11 = sub_1000024F8(v2 - qword_1000679C8);
-          v12 = +[HTPrefs sharedPrefs];
-          hangWaitTimeoutDurationMSec = [v12 hangWaitTimeoutDurationMSec];
+          v11 = sub_1000024F8(v10);
+          v12 = sub_1000024F8(v2 - qword_1000679C8);
+          v13 = +[HTPrefs sharedPrefs];
+          hangWaitTimeoutDurationMSec = [v13 hangWaitTimeoutDurationMSec];
 
-          v14 = 0.0;
           v15 = 0.0;
-          if (v10 < hangWaitTimeoutDurationMSec)
+          v16 = 0.0;
+          if (v11 < hangWaitTimeoutDurationMSec)
           {
-            v16 = +[HTPrefs sharedPrefs];
-            v15 = [v16 hangWaitTimeoutDurationMSec] - v10;
+            v17 = +[HTPrefs sharedPrefs];
+            v16 = [v17 hangWaitTimeoutDurationMSec] - v11;
           }
 
-          v17 = 0.0;
+          v18 = 0.0;
           if (v9)
           {
-            v17 = sub_1000024F8(v2 - v9);
-            if (v15 + v17 >= 500.0)
+            v18 = sub_1000024F8(v2 - v9);
+            if (v16 + v18 >= 500.0)
             {
-              v14 = v15;
+              v15 = v16;
             }
 
             else
             {
-              v14 = 0.0;
+              v15 = 0.0;
             }
           }
 
-          v18 = 0.0;
           v19 = 0.0;
+          v20 = 0.0;
           if (qword_1000679A0 > v2)
           {
-            v19 = sub_1000024F8(qword_1000679A0 - v2);
+            v20 = sub_1000024F8(qword_1000679A0 - v2);
           }
 
-          v20 = +[HTPrefs sharedPrefs];
-          consecutiveHangWaitTimeoutDurationMSec = [v20 consecutiveHangWaitTimeoutDurationMSec];
+          v21 = +[HTPrefs sharedPrefs];
+          consecutiveHangWaitTimeoutDurationMSec = [v21 consecutiveHangWaitTimeoutDurationMSec];
 
-          if (v11 < consecutiveHangWaitTimeoutDurationMSec)
+          if (v12 < consecutiveHangWaitTimeoutDurationMSec)
           {
-            v22 = +[HTPrefs sharedPrefs];
-            consecutiveHangWaitTimeoutDurationMSec2 = [v22 consecutiveHangWaitTimeoutDurationMSec];
+            v24 = +[HTPrefs sharedPrefs];
+            consecutiveHangWaitTimeoutDurationMSec2 = [v24 consecutiveHangWaitTimeoutDurationMSec];
 
-            if (v15 >= 250.0)
+            if (v16 >= 250.0)
             {
-              if (consecutiveHangWaitTimeoutDurationMSec2 - v11 <= v15 + -250.0)
+              if (consecutiveHangWaitTimeoutDurationMSec2 - v12 <= v16 + -250.0)
               {
-                v18 = consecutiveHangWaitTimeoutDurationMSec2 - v11;
+                v19 = consecutiveHangWaitTimeoutDurationMSec2 - v12;
               }
 
               else
               {
-                v18 = v15 + -250.0;
+                v19 = v16 + -250.0;
               }
             }
           }
 
-          if (v14 >= v19)
+          if (v15 >= v20)
           {
-            v24 = v14;
+            v26 = v15;
           }
 
           else
           {
-            v24 = v19;
+            v26 = v20;
           }
 
-          if (v24 < v18)
+          if (v26 < v19)
           {
-            v24 = v18;
+            v26 = v19;
           }
 
-          if (v24 <= v15)
+          if (v26 <= v16)
           {
-            v8 = v24;
+            v8 = v26;
           }
 
           else
           {
-            v8 = v15;
+            v8 = v16;
           }
 
-          v7 = sub_100003824();
+          v7 = sub_100003824(v23);
           if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
           {
-            v26 = 134219776;
-            v27 = v8;
-            v28 = 2048;
-            v29 = v10;
+            v28 = 134219776;
+            v29 = v8;
             v30 = 2048;
-            v31 = v17;
+            v31 = v11;
             v32 = 2048;
-            v33 = v11;
+            v33 = v18;
             v34 = 2048;
-            v35 = v15;
+            v35 = v12;
             v36 = 2048;
-            v37 = v14;
+            v37 = v16;
             v38 = 2048;
-            v39 = v19;
+            v39 = v15;
             v40 = 2048;
-            v41 = v18;
-            _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "getHangWaitTimeout: waitTimeMS=%.0fms, timeSinceEarliestHangStartMS=%.0fms, timeSinceEarliestPendingHangStartMS=%.0fms, timeSinceLastHangReportedMS=%.0fms, maxRemainingWaitTimeMS=%.0fms, timeToWaitForPendingHangsMs=%.0fms, timeToWaitForHangsThatEndsInTheFutureMS=%.0fms, timeToWaitForConsecutiveHangsMS=%.0fms", &v26, 0x52u);
+            v41 = v20;
+            v42 = 2048;
+            v43 = v19;
+            _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "getHangWaitTimeout: waitTimeMS=%.0fms, timeSinceEarliestHangStartMS=%.0fms, timeSinceEarliestPendingHangStartMS=%.0fms, timeSinceLastHangReportedMS=%.0fms, maxRemainingWaitTimeMS=%.0fms, timeToWaitForPendingHangsMs=%.0fms, timeToWaitForHangsThatEndsInTheFutureMS=%.0fms, timeToWaitForConsecutiveHangsMS=%.0fms", &v28, 0x52u);
           }
         }
 
         else
         {
-          v7 = sub_100003824();
+          v7 = sub_100003824(v10);
           v8 = 0.0;
           if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
           {
@@ -495,7 +495,7 @@ LABEL_11:
 
       else
       {
-        v7 = sub_100003824();
+        v7 = sub_100003824(v10);
         v8 = 0.0;
         if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
         {
@@ -506,7 +506,7 @@ LABEL_11:
 
     else
     {
-      v7 = sub_100003824();
+      v7 = sub_100003824(v10);
       v8 = 0.0;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {

@@ -16,10 +16,10 @@
   v8.receiver = self;
   v8.super_class = MOVStreamSampleTimeRangeList;
   v4 = [(MOVStreamSampleTimeRangeList *)&v8 init];
-  p_ranges = &v4->_ranges;
+  p_begin = &v4->_ranges.__begin_;
   if (v4)
   {
-    v6 = p_ranges == ranges;
+    v6 = p_begin == ranges;
   }
 
   else
@@ -29,7 +29,7 @@
 
   if (!v6)
   {
-    std::vector<CMTimeRange>::__assign_with_size[abi:ne200100]<CMTimeRange*,CMTimeRange*>(p_ranges, *ranges, *(ranges + 1), 0xAAAAAAAAAAAAAAABLL * ((*(ranges + 1) - *ranges) >> 4));
+    std::vector<CMTimeRange>::__assign_with_size[abi:ne200100]<CMTimeRange*,CMTimeRange*>(p_begin, *ranges, *(ranges + 1), 0xAAAAAAAAAAAAAAABLL * ((*(ranges + 1) - *ranges) >> 4));
   }
 
   return v4;
@@ -37,7 +37,7 @@
 
 - (MOVStreamSampleTimeRangeList)initWithTimeRange:(id *)range
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  *(&v11 + 1) = *MEMORY[0x277D85DE8];
   v4 = *&range->var0.var3;
   v10[0] = *&range->var0.var0;
   v10[1] = v4;
@@ -45,7 +45,7 @@
   v8 = 0;
   v9 = 0;
   __p = 0;
-  std::vector<CMTimeRange>::__init_with_size[abi:ne200100]<CMTimeRange const*,CMTimeRange const*>(&__p, v10, v11, 1uLL);
+  std::vector<CMTimeRange>::__init_with_size[abi:ne200100]<CMTimeRange const*,CMTimeRange const*>(&__p, v10, &v11, 1uLL);
   v5 = [(MOVStreamSampleTimeRangeList *)self initWithTimeRanges:&__p];
   if (__p)
   {

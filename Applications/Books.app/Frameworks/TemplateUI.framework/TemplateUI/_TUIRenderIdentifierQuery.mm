@@ -33,7 +33,7 @@
       v8 = 1;
       if (uid && uid != uidCopy)
       {
-        v8 = [(NSString *)uid isEqualToString:uidCopy];
+        v8 = objc_msgSend_isEqualToString_(uid);
       }
     }
 

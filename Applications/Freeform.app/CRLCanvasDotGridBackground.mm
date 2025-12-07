@@ -55,11 +55,11 @@
     v1 = objc_opt_self();
     _atomicIncrementAssertCount = [v1 _atomicIncrementAssertCount];
     v24 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v24);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v24, "viewScale must be greater than 0", 32, 2u);
+    StaticString.description.getter("snapDistance(forViewScale:)", 27, 2);
     v3 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasDotGridBackground.swift", 96, 2);
     v4 = String._bridgeToObjectiveC()();
 
     lastPathComponent = [v4 lastPathComponent];
@@ -73,7 +73,7 @@
     }
 
     v9 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
@@ -101,7 +101,7 @@
     v17 = static os_log_type_t.error.getter();
     sub_100005404(v9, &_mh_execute_header, v17, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v18 = static os_log_type_t.error.getter();
     sub_100005404(v9, &_mh_execute_header, v18, "viewScale must be greater than 0", 32, 2, _swiftEmptyArrayStorage);
@@ -113,13 +113,13 @@
     v19[4] = 0;
     v19[5] = 0;
     v20 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("snapDistance(forViewScale:)", 27, 2);
     v21 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasDotGridBackground.swift", 96, 2);
     v22 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("viewScale must be greater than 0", 32, 2);
     v23 = String._bridgeToObjectiveC()();
 
     [v1 handleFailureInFunction:v21 file:v22 lineNumber:39 isFatal:0 format:v23 args:v20];

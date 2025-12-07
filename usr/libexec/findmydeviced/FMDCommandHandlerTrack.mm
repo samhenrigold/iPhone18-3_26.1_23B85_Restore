@@ -102,30 +102,31 @@
   v6 = [commandParams objectForKeyedSubscript:@"ackURL"];
 
   provider = [(FMDCommandHandler *)self provider];
+  v8 = provider;
   if (v6)
   {
-    v8 = [NSURL URLWithString:v6];
-    v9 = [FMDRequestAckTrack alloc];
-    account = [provider account];
+    v9 = [NSURL URLWithString:v6];
+    v10 = [FMDRequestAckTrack alloc];
+    account = [v8 account];
     commandParams2 = [(FMDCommandHandler *)self commandParams];
-    v12 = [(FMDRequestAckTrack *)v9 initWithAccount:account trackCommand:commandParams2 ackURL:v8];
+    v13 = [(FMDRequestAckTrack *)v10 initWithAccount:account trackCommand:commandParams2 ackURL:v9];
 
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100129774;
-    v14[3] = &unk_1002CD1D0;
-    v15 = completionCopy;
-    [(FMDRequest *)v12 setCompletionHandler:v14];
-    [provider enqueueRequest:v12];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100129774;
+    v15[3] = &unk_1002CD1D0;
+    v16 = completionCopy;
+    [(FMDRequest *)v13 setCompletionHandler:v15];
+    [v8 enqueueRequest:v13];
   }
 
   else
   {
-    v8 = sub_100002880();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100002880(provider);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Not acking the track command because there is no ack URL", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not acking the track command because there is no ack URL", v14, 2u);
     }
   }
 }

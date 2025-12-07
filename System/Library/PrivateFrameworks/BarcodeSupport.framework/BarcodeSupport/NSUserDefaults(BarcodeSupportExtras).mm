@@ -12,14 +12,14 @@
     +[NSUserDefaults(BarcodeSupportExtras) bcs_barcodeSupportDefaults];
   }
 
-  v1 = bcs_barcodeSupportDefaults_barcodeSupportDefaults;
+  v2 = bcs_barcodeSupportDefaults_barcodeSupportDefaults;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)bcs_BOOLForKey:()BarcodeSupportExtras defaultValue:
 {
-  v5 = [self objectForKey:?];
+  v5 = [self objectForKey:a3];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {

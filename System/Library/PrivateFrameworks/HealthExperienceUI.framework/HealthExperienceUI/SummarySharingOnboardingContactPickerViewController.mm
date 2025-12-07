@@ -40,7 +40,7 @@
   swift_unknownObjectRelease();
   sub_1BA1FC5C4();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (_TtC18HealthExperienceUI51SummarySharingOnboardingContactPickerViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -52,7 +52,7 @@
 
 - (void)summarySharingEntryStore:(id)store didUpdateReachabilityStatus:(id)status error:(id)error
 {
-  sub_1B9F0ADF8(0, &qword_1EDC6E360);
+  sub_1B9F0ADF8(0, &qword_1EDC6E360, 0x1E696AD98);
   v8 = sub_1BA4A6628();
   storeCopy = store;
   selfCopy = self;

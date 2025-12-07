@@ -7,6 +7,7 @@
 - (NSString)description;
 - (void)encodeWithCoder:(id)coder;
 - (void)handlePrimaryAction;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setImage:(UIImage *)image;
 - (void)setTitle:(NSString *)title;
 @end
@@ -121,6 +122,17 @@
   return v7;
 }
 
+- (void)setEnabled:(BOOL)enabled
+{
+  if (self->_enabled != enabled)
+  {
+    v4 = enabled;
+    self->_enabled = enabled;
+    delegate = [(CPBarButton *)self delegate];
+    [delegate control:self setEnabled:v4];
+  }
+}
+
 - (void)setImage:(UIImage *)image
 {
   if (self->_image != image)
@@ -156,11 +168,11 @@
   v9 = *MEMORY[0x277D85DE8];
   handler = [(CPBarButton *)self handler];
 
-  v4 = CarPlayFrameworkGeneralLogging();
-  handler2 = v4;
+  v5 = CarPlayFrameworkGeneralLogging(v4);
+  handler2 = v5;
   if (handler)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;
       selfCopy = self;
@@ -171,12 +183,10 @@
     (*(handler2 + 16))(handler2, self);
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(CPMapButton *)self handlePrimaryAction];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (CPBarButton)initWithType:(CPBarButtonType)type handler:(CPBarButtonHandler)handler

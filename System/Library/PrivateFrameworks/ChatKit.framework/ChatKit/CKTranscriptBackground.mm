@@ -11,7 +11,7 @@
 
 - (NSURL)filePathURL
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD55F20);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD55F20, &unk_190DD75D0);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v12 - v4;
   sub_190844DA8(self + OBJC_IVAR____TtC7ChatKit22CKTranscriptBackground_filePathURL, &v12 - v4);
@@ -131,7 +131,7 @@
   v46[1] = v39;
   *(self + OBJC_IVAR____TtC7ChatKit22CKTranscriptBackground_extensionIsPlayground) = playground;
   v51.receiver = self;
-  v51.super_class = type metadata accessor for CKTranscriptBackground();
+  v51.super_class = type metadata accessor for CKTranscriptBackground(0);
   return [(CKTranscriptBackground *)&v51 init];
 }
 

@@ -7,7 +7,7 @@
 
 - (BOOL)shouldShowPassbookLearnMore
 {
-  v3 = SUUIPassKitCoreFramework();
+  v3 = SUUIPassKitCoreFramework(self, a2);
   v4 = SUUIWeakLinkedClassForString(&cfstr_Pkpasslibrary.isa, v3);
   configuration = [(SUUIRedeemStepViewController *)self configuration];
   iTunesPassConfiguration = [configuration ITunesPassConfiguration];

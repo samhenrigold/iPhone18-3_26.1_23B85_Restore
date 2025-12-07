@@ -18,47 +18,11 @@
   }
 
   v4 = [propertiesCopy objectForKeyedSubscript:@"kBTDeviceTypeMDCDevSpecKey"];
-  unsignedIntValue = [v4 unsignedIntValue];
+  [v4 unsignedIntValue];
 
-  if (unsignedIntValue > 4110)
-  {
-    if (unsignedIntValue != 4111)
-    {
-      if (unsignedIntValue == 4113)
-      {
-        v6 = off_1000BC868;
-        goto LABEL_13;
-      }
+  v5 = [objc_alloc(objc_opt_class()) initWithProperties:propertiesCopy healthStore:qword_1000DDBB0];
 
-      goto LABEL_10;
-    }
-
-    v6 = off_1000BC888;
-  }
-
-  else
-  {
-    if (unsignedIntValue != 4103)
-    {
-      if (unsignedIntValue == 4104)
-      {
-        v6 = off_1000BC880;
-        goto LABEL_13;
-      }
-
-LABEL_10:
-      v6 = off_1000BC878;
-      goto LABEL_13;
-    }
-
-    v6 = off_1000BC870;
-  }
-
-LABEL_13:
-  v7 = *v6;
-  v8 = [objc_alloc(objc_opt_class()) initWithProperties:propertiesCopy healthStore:qword_1000DDBB0];
-
-  return v8;
+  return v5;
 }
 
 - (BOOL)handleLiveHealthObservationsData:(id)data observationClassType:(unsigned __int8)type observationType:(unsigned int)observationType userID:(unsigned __int8)d observationID:(unsigned int)iD timestamp:(id)timestamp

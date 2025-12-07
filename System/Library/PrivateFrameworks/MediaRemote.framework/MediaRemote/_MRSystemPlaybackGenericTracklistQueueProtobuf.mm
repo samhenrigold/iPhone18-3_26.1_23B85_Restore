@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)repeatModeAsString:(int)string;
+- (id)shuffleModeAsString:(int)string;
 - (int)StringAsRepeatMode:(id)mode;
 - (int)StringAsShuffleMode:(id)mode;
 - (int)repeatMode;
@@ -44,25 +46,40 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)shuffleModeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769ECD0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsShuffleMode:(id)mode
 {
   modeCopy = mode;
-  if ([modeCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 0;
   }
 
-  else if ([modeCopy isEqualToString:@"Off"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 1;
   }
 
-  else if ([modeCopy isEqualToString:@"Albums"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 2;
   }
 
-  else if ([modeCopy isEqualToString:@"Songs"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 3;
   }
@@ -88,25 +105,40 @@
   }
 }
 
+- (id)repeatModeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769ECF0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsRepeatMode:(id)mode
 {
   modeCopy = mode;
-  if ([modeCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 0;
   }
 
-  else if ([modeCopy isEqualToString:@"None"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 1;
   }
 
-  else if ([modeCopy isEqualToString:@"One"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 2;
   }
 
-  else if ([modeCopy isEqualToString:@"All"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 3;
   }
@@ -194,39 +226,37 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_firstTrackIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_trackIdentifiers)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_collectionIdentifierSet)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    shuffleMode = self->_shuffleMode;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    repeatMode = self->_repeatMode;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

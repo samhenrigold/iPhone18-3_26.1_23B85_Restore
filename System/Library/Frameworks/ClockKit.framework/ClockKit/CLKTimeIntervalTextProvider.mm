@@ -147,7 +147,7 @@ LABEL_13:
         v7 = CLKLoggingObjectForDomain(10);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
         {
-          [CLKTimeIntervalTextProvider _validate];
+          [(CLKTimeIntervalTextProvider *)self _validate];
         }
       }
 
@@ -156,7 +156,7 @@ LABEL_13:
         v7 = CLKLoggingObjectForDomain(10);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
         {
-          [CLKTimeIntervalTextProvider _validate];
+          [(CLKTimeIntervalTextProvider *)self _validate];
         }
       }
     }
@@ -166,7 +166,7 @@ LABEL_13:
       v7 = CLKLoggingObjectForDomain(10);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
-        [CLKTimeIntervalTextProvider _validate];
+        [(CLKTimeIntervalTextProvider *)self _validate];
       }
     }
 
@@ -354,7 +354,7 @@ LABEL_15:
 {
   dateCopy = date;
   minutesCopy = minutes;
-  v102[1] = *MEMORY[0x277D85DE8];
+  v106[1] = *MEMORY[0x277D85DE8];
   styleCopy = style;
   font = [styleCopy font];
   cLKFontWithAlternativePunctuation = [font CLKFontWithAlternativePunctuation];
@@ -384,8 +384,8 @@ LABEL_15:
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
   v18 = [v14 dateFormatFromTemplate:v16 options:0 locale:currentLocale];
 
-  v88 = 0;
-  v19 = [(CLKTextProvider *)self _timeFormatByRemovingWhitespaceAroundDesignatorOfTimeFormat:v18 designatorExists:&v88];
+  v92 = 0;
+  v19 = [(CLKTextProvider *)self _timeFormatByRemovingWhitespaceAroundDesignatorOfTimeFormat:v18 designatorExists:&v92];
 
   [(NSDateFormatter *)self->_dateFormatter setDateFormat:v19];
   v20 = [(NSDateFormatter *)self->_dateFormatter _attributedStringWithFieldsFromDate:self->_startDate];
@@ -395,7 +395,7 @@ LABEL_15:
   {
     v23 = [(CLKTimeIntervalTextProvider *)self _rangeOfDesignatorInAnnotatedTime:v20];
     v24 = v22;
-    v85 = v19;
+    v89 = v19;
     if (v23 == 0x7FFFFFFFFFFFFFFFLL)
     {
       string2 = 0;
@@ -407,14 +407,14 @@ LABEL_15:
       string2 = [v26 string];
     }
 
-    v83 = v24;
+    v87 = v24;
     if (dateCopy)
     {
-      v81 = v23;
+      v85 = v23;
       v27 = 0;
       string4 = 0;
       v29 = 0;
-      v80 = 0x7FFFFFFFFFFFFFFFLL;
+      v84 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
     else
@@ -428,7 +428,7 @@ LABEL_15:
         if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           v25 = 0;
-          v19 = v85;
+          v19 = v89;
           v34 = v33;
 LABEL_49:
 
@@ -439,16 +439,16 @@ LABEL_49:
         [CLKTimeIntervalTextProvider _timeIntervalAttributedTextWithStyle:v33 dropMinutes:? onlyStartDate:?];
         v25 = 0;
 LABEL_48:
-        v19 = v85;
+        v19 = v89;
         goto LABEL_49;
       }
 
-      v81 = v23;
+      v85 = v23;
       v31 = [(CLKTimeIntervalTextProvider *)self _rangeOfDesignatorInAnnotatedTime:v29];
       v27 = v32;
       if (v31 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v80 = 0x7FFFFFFFFFFFFFFFLL;
+        v84 = 0x7FFFFFFFFFFFFFFFLL;
         string4 = 0;
       }
 
@@ -460,12 +460,12 @@ LABEL_48:
         string4 = [v37 string];
 
         styleCopy = v36;
-        v80 = v35;
+        v84 = v35;
       }
     }
 
-    v86 = CLKLocalizedString(@"INTERVAL_HYPHEN_NARROW");
-    v84 = string4;
+    v90 = CLKLocalizedString(@"INTERVAL_HYPHEN_NARROW");
+    v88 = string4;
     if (!(string2 | string4))
     {
       if (dateCopy)
@@ -475,26 +475,26 @@ LABEL_48:
 
       else
       {
-        v50 = MEMORY[0x277CCACA8];
+        v52 = MEMORY[0x277CCACA8];
         string6 = [v20 string];
         string7 = [v29 string];
-        string5 = [v50 stringWithFormat:@"%@%@%@", string6, v86, string7];
+        string5 = [v52 stringWithFormat:@"%@%@%@", string6, v90, string7];
       }
 
-      v53 = objc_alloc(MEMORY[0x277CCA898]);
-      v101 = *MEMORY[0x277D740A8];
-      v102[0] = cLKFontWithAlternativePunctuation;
-      v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v102 forKeys:&v101 count:1];
-      v25 = [v53 initWithString:string5 attributes:v54];
-      v34 = v84;
+      v55 = objc_alloc(MEMORY[0x277CCA898]);
+      v105 = *MEMORY[0x277D740A8];
+      v106[0] = cLKFontWithAlternativePunctuation;
+      v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v106 forKeys:&v105 count:1];
+      v25 = [v55 initWithString:string5 attributes:v56];
+      v34 = v88;
       goto LABEL_47;
     }
 
-    v79 = v29;
+    v83 = v29;
     v39 = *MEMORY[0x277D740A8];
-    v99 = *MEMORY[0x277D740A8];
-    v100 = cLKFontWithAlternativePunctuation;
-    v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
+    v103 = *MEMORY[0x277D740A8];
+    v104 = cLKFontWithAlternativePunctuation;
+    v86 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
     smallCapsBaseFont = [styleCopy smallCapsBaseFont];
     fontFeatures3 = [(CLKTextProvider *)self fontFeatures];
 
@@ -502,140 +502,140 @@ LABEL_48:
     {
       fontFeatures4 = [(CLKTextProvider *)self fontFeatures];
       [smallCapsBaseFont CLKFontByApplyingFeatureSettings:fontFeatures4];
-      v44 = v43 = styleCopy;
+      v46 = v45 = styleCopy;
 
-      smallCapsBaseFont = v44;
-      styleCopy = v43;
+      smallCapsBaseFont = v46;
+      styleCopy = v45;
     }
 
-    v77 = smallCapsBaseFont;
-    v78 = styleCopy;
-    if (CLKUsesFauxSmallCaps())
+    v81 = smallCapsBaseFont;
+    v82 = styleCopy;
+    if (CLKUsesFauxSmallCaps(v42, v43))
     {
       smallCapsBaseFont2 = [styleCopy smallCapsBaseFont];
       font2 = [styleCopy font];
-      v47 = [smallCapsBaseFont2 isEqual:font2];
+      v49 = [smallCapsBaseFont2 isEqual:font2];
 
-      if (v47)
+      if (v49)
       {
         [cLKFontWithAlternativePunctuation pointSize];
-        v49 = [cLKFontWithAlternativePunctuation fontWithSize:v48 + -2.5];
+        v51 = [cLKFontWithAlternativePunctuation fontWithSize:v50 + -2.5];
       }
 
       else
       {
-        v49 = smallCapsBaseFont;
+        v51 = smallCapsBaseFont;
       }
 
-      cLKFontWithLocalizedSmallCaps = v49;
-      v98[0] = v49;
-      v56 = *MEMORY[0x277CC4830];
-      v97[0] = v39;
-      v97[1] = v56;
-      v95 = *MEMORY[0x277CC4828];
-      v96 = v49;
-      v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
-      v98[1] = v57;
-      v58 = MEMORY[0x277CBEAC0];
-      v59 = v98;
-      v60 = v97;
+      cLKFontWithLocalizedSmallCaps = v51;
+      v102[0] = v51;
+      v58 = *MEMORY[0x277CC4830];
+      v101[0] = v39;
+      v101[1] = v58;
+      v99 = *MEMORY[0x277CC4828];
+      v100 = v51;
+      v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
+      v102[1] = v59;
+      v60 = MEMORY[0x277CBEAC0];
+      v61 = v102;
+      v62 = v101;
     }
 
     else
     {
       if ((CTFontGetSymbolicTraits(cLKFontWithAlternativePunctuation) & 1) == 0)
       {
-        v89 = v39;
+        v93 = v39;
         cLKFontWithLocalizedSmallCaps = [smallCapsBaseFont CLKFontWithLocalizedSmallCaps];
-        v90 = cLKFontWithLocalizedSmallCaps;
-        v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
+        v94 = cLKFontWithLocalizedSmallCaps;
+        v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
         goto LABEL_37;
       }
 
       [cLKFontWithAlternativePunctuation pointSize];
-      cLKFontWithLocalizedSmallCaps = [cLKFontWithAlternativePunctuation fontWithSize:v61 * 0.75];
-      v94[0] = cLKFontWithLocalizedSmallCaps;
-      v62 = *MEMORY[0x277CC4830];
-      v93[0] = v39;
-      v93[1] = v62;
-      v91 = *MEMORY[0x277CC4828];
-      v92 = cLKFontWithLocalizedSmallCaps;
-      v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
-      v94[1] = v57;
-      v58 = MEMORY[0x277CBEAC0];
-      v59 = v94;
-      v60 = v93;
+      cLKFontWithLocalizedSmallCaps = [cLKFontWithAlternativePunctuation fontWithSize:v63 * 0.75];
+      v98[0] = cLKFontWithLocalizedSmallCaps;
+      v64 = *MEMORY[0x277CC4830];
+      v97[0] = v39;
+      v97[1] = v64;
+      v95 = *MEMORY[0x277CC4828];
+      v96 = cLKFontWithLocalizedSmallCaps;
+      v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
+      v98[1] = v59;
+      v60 = MEMORY[0x277CBEAC0];
+      v61 = v98;
+      v62 = v97;
     }
 
-    v54 = [v58 dictionaryWithObjects:v59 forKeys:v60 count:2];
+    v56 = [v60 dictionaryWithObjects:v61 forKeys:v62 count:2];
 
 LABEL_37:
-    v63 = objc_alloc(MEMORY[0x277CCAB48]);
+    v65 = objc_alloc(MEMORY[0x277CCAB48]);
     string8 = [v20 string];
-    v65 = [v63 initWithString:string8 attributes:v82];
+    v67 = [v65 initWithString:string8 attributes:v86];
 
-    [v65 addAttributes:v54 range:{v81, v83}];
+    [v67 addAttributes:v56 range:{v85, v87}];
     if (dateCopy)
     {
-      v25 = v65;
-      v65 = v25;
-      v29 = v79;
-      v34 = v84;
+      v25 = v67;
+      v67 = v25;
+      v29 = v83;
+      v34 = v88;
 LABEL_46:
 
-      styleCopy = v78;
-      string5 = v82;
+      styleCopy = v82;
+      string5 = v86;
 LABEL_47:
 
       goto LABEL_48;
     }
 
-    v66 = objc_alloc(MEMORY[0x277CCAB48]);
-    string9 = [v79 string];
-    v68 = [v66 initWithString:string9 attributes:v82];
+    v68 = objc_alloc(MEMORY[0x277CCAB48]);
+    string9 = [v83 string];
+    v70 = [v68 initWithString:string9 attributes:v86];
 
-    [v68 addAttributes:v54 range:{v80, v27}];
-    v76 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v86 attributes:v82];
-    v34 = v84;
-    if (v84 && [string2 isEqualToString:v84])
+    [v70 addAttributes:v56 range:{v84, v27}];
+    v80 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v90 attributes:v86];
+    v34 = v88;
+    if (v88 && (v71 = [string2 isEqualToString:v88], v71))
     {
-      v29 = v79;
-      if (CLKDropLeftRedundantDesignator())
+      v29 = v83;
+      if (CLKDropLeftRedundantDesignator(v71, v72))
       {
-        if (v81 != 0x7FFFFFFFFFFFFFFFLL)
+        if (v85 != 0x7FFFFFFFFFFFFFFFLL)
         {
           string10 = [v20 string];
-          v70 = [(CLKTimeIntervalTextProvider *)self _stringByRemovingDesignatorRange:v81 fromString:v83, string10];
+          v74 = [(CLKTimeIntervalTextProvider *)self _stringByRemovingDesignatorRange:v85 fromString:v87, string10];
 
-          v71 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v70 attributes:v82];
-          v72 = v65;
-          v65 = v71;
+          v75 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v74 attributes:v86];
+          v76 = v67;
+          v67 = v75;
 LABEL_55:
 
-          v34 = v84;
+          v34 = v88;
         }
       }
 
-      else if (v80 != 0x7FFFFFFFFFFFFFFFLL)
+      else if (v84 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        string11 = [v79 string];
-        v70 = [(CLKTimeIntervalTextProvider *)self _stringByRemovingDesignatorRange:v80 fromString:v27, string11];
+        string11 = [v83 string];
+        v74 = [(CLKTimeIntervalTextProvider *)self _stringByRemovingDesignatorRange:v84 fromString:v27, string11];
 
-        v75 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v70 attributes:v82];
-        v72 = v68;
-        v68 = v75;
+        v79 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v74 attributes:v86];
+        v76 = v70;
+        v70 = v79;
         goto LABEL_55;
       }
     }
 
     else
     {
-      v29 = v79;
+      v29 = v83;
     }
 
-    v25 = [objc_alloc(MEMORY[0x277CCAB48]) initWithAttributedString:v65];
-    [v25 appendAttributedString:v76];
-    [v25 appendAttributedString:v68];
+    v25 = [objc_alloc(MEMORY[0x277CCAB48]) initWithAttributedString:v67];
+    [v25 appendAttributedString:v80];
+    [v25 appendAttributedString:v70];
 
     goto LABEL_46;
   }
@@ -832,11 +832,11 @@ LABEL_50:
 
 - (void)_validate
 {
-  v0 = objc_opt_class();
-  v1 = objc_opt_class();
-  v2 = OUTLINED_FUNCTION_0_1(v1);
+  v2 = objc_opt_class();
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_0_1(v3);
   OUTLINED_FUNCTION_1_0();
-  _os_log_fault_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_fault_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
 - (void)_timeIntervalAttributedTextWithStyle:(uint64_t *)a1 dropMinutes:(NSObject *)a2 onlyStartDate:.cold.1(uint64_t *a1, NSObject *a2)

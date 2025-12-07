@@ -12,32 +12,32 @@ uint64_t __38___LTLanguageStatusMulticaster_shared__block_invoke()
 
 void __51___LTLanguageStatusMulticaster__removeAllObservers__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v3 = [WeakRetained[2] keyEnumerator];
-    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v11;
+      v6 = *v10;
       do
       {
         v7 = 0;
         do
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = [v2[2] objectForKey:*(*(&v10 + 1) + 8 * v7)];
+          v8 = [v2[2] objectForKey:*(*(&v9 + 1) + 8 * v7)];
           if (v8)
           {
             [v2 _removeObserver:v8 forceCloseConnection:1];
@@ -47,14 +47,12 @@ void __51___LTLanguageStatusMulticaster__removeAllObservers__block_invoke(uint64
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v5);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __44___LTLanguageStatusMulticaster_addObserver___block_invoke(uint64_t a1)
@@ -125,278 +123,273 @@ uint64_t __99___LTLanguageStatusMulticaster__closeConnectionForced_forIdentifier
 
 void __52___LTLanguageStatusMulticaster__didEnterForeground___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = _LTOSLogAssetObservation();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v4 = _LTOSLogAssetObservation(WeakRetained, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_23AAF5000, v2, OS_LOG_TYPE_INFO, "Resuming language status observations for this process since it came into the foreground", buf, 2u);
+      _os_log_impl(&dword_23AAF5000, v4, OS_LOG_TYPE_INFO, "Resuming language status observations for this process since it came into the foreground", buf, 2u);
     }
 
-    v12 = 0u;
     v13 = 0u;
-    v10 = 0u;
+    v14 = 0u;
     v11 = 0u;
-    v3 = [WeakRetained[2] keyEnumerator];
-    v4 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
-    if (v4)
+    v12 = 0u;
+    v5 = [v3[2] keyEnumerator];
+    v6 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+    if (v6)
     {
-      v5 = v4;
-      v6 = *v11;
+      v7 = v6;
+      v8 = *v12;
       do
       {
-        v7 = 0;
+        v9 = 0;
         do
         {
-          if (*v11 != v6)
+          if (*v12 != v8)
           {
-            objc_enumerationMutation(v3);
+            objc_enumerationMutation(v5);
           }
 
-          v8 = [WeakRetained[2] objectForKey:*(*(&v10 + 1) + 8 * v7)];
-          [WeakRetained _connectObserverIfNeeded:v8];
+          v10 = [v3[2] objectForKey:*(*(&v11 + 1) + 8 * v9)];
+          [v3 _connectObserverIfNeeded:v10];
 
-          ++v7;
+          ++v9;
         }
 
-        while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
+        while (v7 != v9);
+        v7 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
       }
 
-      while (v5);
+      while (v7);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __52___LTLanguageStatusMulticaster__didEnterBackground___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = _LTOSLogAssetObservation();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v4 = _LTOSLogAssetObservation(WeakRetained, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_23AAF5000, v2, OS_LOG_TYPE_INFO, "Pausing language status observations for this process since the app is backgrounding", buf, 2u);
+      _os_log_impl(&dword_23AAF5000, v4, OS_LOG_TYPE_INFO, "Pausing language status observations for this process since the app is backgrounding", buf, 2u);
     }
 
-    v12 = 0u;
     v13 = 0u;
-    v10 = 0u;
+    v14 = 0u;
     v11 = 0u;
-    v3 = [WeakRetained[2] keyEnumerator];
-    v4 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
-    if (v4)
+    v12 = 0u;
+    v5 = [v3[2] keyEnumerator];
+    v6 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
+    if (v6)
     {
-      v5 = v4;
-      v6 = *v11;
+      v7 = v6;
+      v8 = *v12;
       do
       {
-        v7 = 0;
+        v9 = 0;
         do
         {
-          if (*v11 != v6)
+          if (*v12 != v8)
           {
-            objc_enumerationMutation(v3);
+            objc_enumerationMutation(v5);
           }
 
-          v8 = [WeakRetained[2] objectForKey:*(*(&v10 + 1) + 8 * v7)];
-          [WeakRetained _closeConnectionForObserver:v8];
+          v10 = [v3[2] objectForKey:*(*(&v11 + 1) + 8 * v9)];
+          [v3 _closeConnectionForObserver:v10];
 
-          ++v7;
+          ++v9;
         }
 
-        while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
+        while (v7 != v9);
+        v7 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
       }
 
-      while (v5);
+      while (v7);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __73___LTLanguageStatusMulticaster__multicastObservations_taskHint_progress___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = _LTOSLogAssetObservation();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = _LTOSLogAssetObservation(WeakRetained, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v5 = v3;
-      v6 = [_LTLanguageStatusObservation describeObservations:v4];
+      v6 = *(a1 + 32);
+      v7 = v5;
+      v8 = [_LTLanguageStatusObservation describeObservations:v6];
       *buf = 138412290;
-      v24 = v6;
-      _os_log_impl(&dword_23AAF5000, v5, OS_LOG_TYPE_DEFAULT, "Obsv mlcast [%@]", buf, 0xCu);
+      v25 = v8;
+      _os_log_impl(&dword_23AAF5000, v7, OS_LOG_TYPE_DEFAULT, "Obsv mlcast [%@]", buf, 0xCu);
     }
 
-    v7 = _keyForTaskHint(*(a1 + 48), *(a1 + 56));
-    [WeakRetained[3] setObject:*(a1 + 32) forKeyedSubscript:v7];
-    v20 = 0u;
+    v9 = _keyForTaskHint(*(a1 + 48), *(a1 + 56));
+    [v4[3] setObject:*(a1 + 32) forKeyedSubscript:v9];
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
-    v8 = [WeakRetained[2] keyEnumerator];
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v9)
+    v20 = 0u;
+    v10 = [v4[2] keyEnumerator];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v11)
     {
-      v10 = v9;
-      v11 = *v19;
+      v12 = v11;
+      v13 = *v20;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v19 != v11)
+          if (*v20 != v13)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v10);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
-          v14 = [WeakRetained[2] objectForKey:v13];
-          v15 = v14;
-          if (v14)
+          v15 = *(*(&v19 + 1) + 8 * i);
+          v16 = [v4[2] objectForKey:v15];
+          v17 = v16;
+          if (v16)
           {
-            if ([v14 taskHint] == *(a1 + 48) && *(a1 + 56) != objc_msgSend(v15, "useDedicatedMachPort"))
+            if ([v16 taskHint] == *(a1 + 48) && *(a1 + 56) != objc_msgSend(v17, "useDedicatedMachPort"))
             {
-              v16 = [v15 observations];
-              v16[2](v16, *(a1 + 32));
+              v18 = [v17 observations];
+              v18[2](v18, *(a1 + 32));
             }
           }
 
           else
           {
-            [WeakRetained[2] removeObjectForKey:v13];
+            [v4[2] removeObjectForKey:v15];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
-      while (v10);
+      while (v12);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-void __67___LTLanguageStatusMulticaster__replayLastObservationsOnHeartbeat___block_invoke(uint64_t a1)
+void __67___LTLanguageStatusMulticaster__replayLastObservationsOnHeartbeat___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v2 = _LTOSLogAssetObservation();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v42 = *MEMORY[0x277D85DE8];
+  v3 = _LTOSLogAssetObservation(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23AAF5000, v2, OS_LOG_TYPE_DEFAULT, "Replaying last language status observations", buf, 2u);
+    _os_log_impl(&dword_23AAF5000, v3, OS_LOG_TYPE_DEFAULT, "Replaying last language status observations", buf, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v24 = a1;
-    v35 = 0u;
+    v25 = a1;
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
+    v35 = 0u;
     obj = WeakRetained[3];
-    v27 = [obj countByEnumeratingWithState:&v33 objects:v40 count:16];
-    if (v27)
+    v28 = [obj countByEnumeratingWithState:&v34 objects:v41 count:16];
+    if (v28)
     {
-      v26 = *v34;
+      v27 = *v35;
       do
       {
-        v5 = 0;
+        v6 = 0;
         do
         {
-          if (*v34 != v26)
+          if (*v35 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = v5;
-          v6 = *(*(&v33 + 1) + 8 * v5);
-          v7 = [v4[3] objectForKeyedSubscript:v6];
-          v8 = _LTOSLogAssetObservation();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+          v29 = v6;
+          v7 = *(*(&v34 + 1) + 8 * v6);
+          v8 = [v5[3] objectForKeyedSubscript:v7];
+          v10 = _LTOSLogAssetObservation(v8, v9);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
-            v9 = v8;
-            v10 = [_LTLanguageStatusObservation describeObservations:v7];
+            v11 = v10;
+            v12 = [_LTLanguageStatusObservation describeObservations:v8];
             *buf = 138412290;
-            v39 = v10;
-            _os_log_impl(&dword_23AAF5000, v9, OS_LOG_TYPE_DEFAULT, "Obsv replay [%@]", buf, 0xCu);
+            v40 = v12;
+            _os_log_impl(&dword_23AAF5000, v11, OS_LOG_TYPE_DEFAULT, "Obsv replay [%@]", buf, 0xCu);
           }
 
-          v31 = 0u;
           v32 = 0u;
-          v29 = 0u;
+          v33 = 0u;
           v30 = 0u;
-          v11 = v4[2];
-          v12 = [v11 countByEnumeratingWithState:&v29 objects:v37 count:16];
-          if (v12)
+          v31 = 0u;
+          v13 = v5[2];
+          v14 = [v13 countByEnumeratingWithState:&v30 objects:v38 count:16];
+          if (v14)
           {
-            v13 = v12;
-            v14 = *v30;
+            v15 = v14;
+            v16 = *v31;
             do
             {
-              for (i = 0; i != v13; ++i)
+              for (i = 0; i != v15; ++i)
               {
-                if (*v30 != v14)
+                if (*v31 != v16)
                 {
-                  objc_enumerationMutation(v11);
+                  objc_enumerationMutation(v13);
                 }
 
-                v16 = *(*(&v29 + 1) + 8 * i);
-                v17 = [v4[2] objectForKey:v16];
-                v18 = v17;
-                if (v17)
+                v18 = *(*(&v30 + 1) + 8 * i);
+                v19 = [v5[2] objectForKey:v18];
+                v20 = v19;
+                if (v19)
                 {
-                  v19 = _keyForObserver(v17);
-                  v20 = [v19 isEqualToString:v6];
+                  v21 = _keyForObserver(v19);
+                  v22 = [v21 isEqualToString:v7];
 
-                  if (v20)
+                  if (v22)
                   {
-                    v21 = [v18 observations];
-                    (v21)[2](v21, v7);
+                    v23 = [v20 observations];
+                    (v23)[2](v23, v8);
                   }
                 }
 
                 else
                 {
-                  [v4[2] removeObjectForKey:v16];
+                  [v5[2] removeObjectForKey:v18];
                 }
               }
 
-              v13 = [v11 countByEnumeratingWithState:&v29 objects:v37 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v30 objects:v38 count:16];
             }
 
-            while (v13);
+            while (v15);
           }
 
-          v5 = v28 + 1;
+          v6 = v29 + 1;
         }
 
-        while (v28 + 1 != v27);
-        v27 = [obj countByEnumeratingWithState:&v33 objects:v40 count:16];
+        while (v29 + 1 != v28);
+        v28 = [obj countByEnumeratingWithState:&v34 objects:v41 count:16];
       }
 
-      while (v27);
+      while (v28);
     }
 
-    v22 = objc_loadWeakRetained((v24 + 32));
-    [v22 _replayLastObservationsOnHeartbeat:*(v24 + 40)];
+    v24 = objc_loadWeakRetained((v25 + 32));
+    [v24 _replayLastObservationsOnHeartbeat:*(v25 + 40)];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __108___LTLanguageStatusMulticaster__reconnectIfStreamingWithConnectionIdentifier_taskHint_useDedicatedMachPort___block_invoke(uint64_t a1)
@@ -414,18 +407,19 @@ void __93___LTLanguageStatusMulticaster__startWithConnectionIdentifier_taskHint_
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     if (v3)
     {
-      v5 = _LTOSLogAssetObservation();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = _LTOSLogAssetObservation(WeakRetained, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __93___LTLanguageStatusMulticaster__startWithConnectionIdentifier_taskHint_useDedicatedMachPort___block_invoke_cold_1();
       }
     }
 
-    [WeakRetained _reconnectIfStreamingWithConnectionIdentifier:*(a1 + 32) taskHint:*(a1 + 48) useDedicatedMachPort:*(a1 + 56)];
+    [v6 _reconnectIfStreamingWithConnectionIdentifier:*(a1 + 32) taskHint:*(a1 + 48) useDedicatedMachPort:*(a1 + 56)];
   }
 }
 
@@ -481,19 +475,20 @@ void __93___LTLanguageStatusMulticaster__startWithConnectionIdentifier_taskHint_
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     if (v3)
     {
-      v5 = _LTOSLogAssetObservation();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = _LTOSLogAssetObservation(WeakRetained, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __93___LTLanguageStatusMulticaster__startWithConnectionIdentifier_taskHint_useDedicatedMachPort___block_invoke_3_cold_1();
       }
     }
 
     (*(*(a1 + 40) + 16))();
-    [WeakRetained _reconnectIfStreamingWithConnectionIdentifier:*(a1 + 32) taskHint:*(a1 + 56) useDedicatedMachPort:*(a1 + 64)];
+    [v6 _reconnectIfStreamingWithConnectionIdentifier:*(a1 + 32) taskHint:*(a1 + 56) useDedicatedMachPort:*(a1 + 64)];
   }
 }
 
@@ -507,15 +502,15 @@ void __94___LTLanguageStatusMulticaster__cancelWithConnectionIdentifier_taskHint
     v5 = v4;
     if (v4 == *MEMORY[0x277CCA050])
     {
-      v6 = [v3 code];
+      v8 = [v3 code];
 
-      if (v6 == 4099)
+      if (v8 == 4099)
       {
-        v7 = _LTOSLogAssetObservation();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        v9 = _LTOSLogAssetObservation(v6, v7);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          *v9 = 0;
-          _os_log_impl(&dword_23AAF5000, v7, OS_LOG_TYPE_INFO, "Language status observation closed was expected so ignoring hangup error", v9, 2u);
+          *v11 = 0;
+          _os_log_impl(&dword_23AAF5000, v9, OS_LOG_TYPE_INFO, "Language status observation closed was expected so ignoring hangup error", v11, 2u);
         }
 
         goto LABEL_9;
@@ -526,8 +521,8 @@ void __94___LTLanguageStatusMulticaster__cancelWithConnectionIdentifier_taskHint
     {
     }
 
-    v8 = _LTOSLogAssetObservation();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = _LTOSLogAssetObservation(v6, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __94___LTLanguageStatusMulticaster__cancelWithConnectionIdentifier_taskHint_useDedicatedMachPort___block_invoke_cold_1();
     }
@@ -562,30 +557,6 @@ uint64_t __94___LTLanguageStatusMulticaster__cancelWithConnectionIdentifier_task
   v2 = *(*(a1 + 48) + 16);
 
   return v2();
-}
-
-void __93___LTLanguageStatusMulticaster__startWithConnectionIdentifier_taskHint_useDedicatedMachPort___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_23AAF5000, v0, v1, "Language status observation connection closed due to error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __93___LTLanguageStatusMulticaster__startWithConnectionIdentifier_taskHint_useDedicatedMachPort___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_23AAF5000, v0, v1, "Language status observation closed due to error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __94___LTLanguageStatusMulticaster__cancelWithConnectionIdentifier_taskHint_useDedicatedMachPort___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_23AAF5000, v0, v1, "Failed to cancel language status observations: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -129,9 +129,11 @@ LABEL_10:
 
 uint64_t __41__ICTelephonyController_sharedController__block_invoke()
 {
-  sharedController_sSharedController = [[ICTelephonyController alloc] _init];
+  v0 = [[ICTelephonyController alloc] _init];
+  v1 = sharedController_sSharedController;
+  sharedController_sSharedController = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)_telephonySubscriptionContext

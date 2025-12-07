@@ -42,20 +42,20 @@
   sharedInstance = [objc_opt_self() sharedInstance];
   items = [sharedInstance items];
 
-  sub_10004D424();
-  v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  sub_10004D424(0, v6);
+  v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  sub_100076C04(v6);
+  sub_100076C04(v7);
 
-  v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v7.super.isa;
+  return v8.super.isa;
 }
 
 - (_TtC18Feedback_Assistant23FBAEnhancedLoggingInbox)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FBAEnhancedLoggingInbox();
+  v3.super_class = type metadata accessor for FBAEnhancedLoggingInbox(self, a2);
   return [(FBAEnhancedLoggingInbox *)&v3 init];
 }
 

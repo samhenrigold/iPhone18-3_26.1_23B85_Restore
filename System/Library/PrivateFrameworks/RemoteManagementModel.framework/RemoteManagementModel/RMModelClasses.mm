@@ -229,16 +229,16 @@ void __42__RMModelClasses_classForDeclarationType___block_invoke()
 
 + (void)ensureClassForDeclarations:(id)declarations
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   declarationsCopy = declarations;
   [self classForDeclarationType:&stru_287451740];
   v5 = [declarationClassByDeclarationType mutableCopy];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v6 = declarationsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
   v9 = v6;
   if (!v7)
   {
@@ -247,20 +247,20 @@ void __42__RMModelClasses_classForDeclarationType___block_invoke()
 
   v10 = v7;
   v11 = 0;
-  v12 = *v22;
+  v12 = *v21;
   v13 = MEMORY[0x277D86220];
   *&v8 = 138543362;
-  v20 = v8;
+  v19 = v8;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v22 != v12)
+      if (*v21 != v12)
       {
         objc_enumerationMutation(v6);
       }
 
-      v15 = *(*(&v21 + 1) + 8 * i);
+      v15 = *(*(&v20 + 1) + 8 * i);
       if ([v15 isSubclassOfClass:objc_opt_class()])
       {
         registeredIdentifier = [v15 registeredIdentifier];
@@ -269,18 +269,18 @@ void __42__RMModelClasses_classForDeclarationType___block_invoke()
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             v17 = NSStringFromClass(v15);
-            *buf = v20;
-            v26 = v17;
+            *buf = v19;
+            v25 = v17;
             _os_log_impl(&dword_261DAE000, v13, OS_LOG_TYPE_DEFAULT, "Registering declaration model class: %{public}@", buf, 0xCu);
           }
 
-          [v5 setObject:v15 forKeyedSubscript:{registeredIdentifier, v20, v21}];
+          [v5 setObject:v15 forKeyedSubscript:{registeredIdentifier, v19, v20}];
           v11 = 1;
         }
       }
     }
 
-    v10 = [v6 countByEnumeratingWithState:&v21 objects:v27 count:16];
+    v10 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
   }
 
   while (v10);
@@ -292,8 +292,6 @@ void __42__RMModelClasses_classForDeclarationType___block_invoke()
     declarationClassByDeclarationType = v18;
 LABEL_16:
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (void)addClass:(Class)class declarationType:(id)type
@@ -310,35 +308,35 @@ LABEL_16:
 
 + (void)hideDeclarationsWithTypes:(id)types
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   [self classForDeclarationType:&stru_287451740];
   v5 = [declarationClassByDeclarationType mutableCopy];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = typesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v5 setObject:0 forKeyedSubscript:{*(*(&v14 + 1) + 8 * v10++), v14}];
+        [v5 setObject:0 forKeyedSubscript:{*(*(&v13 + 1) + 8 * v10++), v13}];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -347,8 +345,6 @@ LABEL_16:
   v11 = [v5 copy];
   v12 = declarationClassByDeclarationType;
   declarationClassByDeclarationType = v11;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (Class)classForStatusItemType:(id)type
@@ -551,16 +547,16 @@ void __41__RMModelClasses_classForStatusItemType___block_invoke()
 
 + (void)ensureClassForStatusItems:(id)items
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   [self classForStatusItemType:&stru_287451740];
   v5 = [statusItemClassByStatusItemType mutableCopy];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v6 = itemsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
   v9 = v6;
   if (!v7)
   {
@@ -569,20 +565,20 @@ void __41__RMModelClasses_classForStatusItemType___block_invoke()
 
   v10 = v7;
   v11 = 0;
-  v12 = *v22;
+  v12 = *v21;
   v13 = MEMORY[0x277D86220];
   *&v8 = 138543362;
-  v20 = v8;
+  v19 = v8;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v22 != v12)
+      if (*v21 != v12)
       {
         objc_enumerationMutation(v6);
       }
 
-      v15 = *(*(&v21 + 1) + 8 * i);
+      v15 = *(*(&v20 + 1) + 8 * i);
       if ([v15 isSubclassOfClass:objc_opt_class()])
       {
         statusItemType = [v15 statusItemType];
@@ -591,18 +587,18 @@ void __41__RMModelClasses_classForStatusItemType___block_invoke()
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             v17 = NSStringFromClass(v15);
-            *buf = v20;
-            v26 = v17;
+            *buf = v19;
+            v25 = v17;
             _os_log_impl(&dword_261DAE000, v13, OS_LOG_TYPE_DEFAULT, "Registering status item model class: %{public}@", buf, 0xCu);
           }
 
-          [v5 setObject:v15 forKeyedSubscript:{statusItemType, v20, v21}];
+          [v5 setObject:v15 forKeyedSubscript:{statusItemType, v19, v20}];
           v11 = 1;
         }
       }
     }
 
-    v10 = [v6 countByEnumeratingWithState:&v21 objects:v27 count:16];
+    v10 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
   }
 
   while (v10);
@@ -614,8 +610,6 @@ void __41__RMModelClasses_classForStatusItemType___block_invoke()
     statusItemClassByStatusItemType = v18;
 LABEL_16:
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (id)allActivationClasses

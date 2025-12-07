@@ -18,7 +18,7 @@
   {
     v4 = objc_opt_class();
     NSStringFromClass(v4);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNScale.mm", 0xC1, @"Internal error: [%@ initWithDevice:] unavailable", v5, v6, v7, v8);
   }
 
   return 0;
@@ -127,9 +127,9 @@
 
 - (MPSNNScale)initWithCoder:(id)coder device:(id)device
 {
-  v66.receiver = self;
-  v66.super_class = MPSNNScale;
-  v5 = [(MPSCNNKernel *)&v66 initWithCoder:coder device:device];
+  v70.receiver = self;
+  v70.super_class = MPSNNScale;
+  v5 = [(MPSCNNKernel *)&v70 initWithCoder:coder device:device];
   v6 = v5;
   if (!v5)
   {
@@ -189,7 +189,7 @@
   {
     v65 = objc_opt_class();
     NSStringFromClass(v65);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNScale.mm", 0x132, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v66, v67, v68, v69);
   }
 
   return 0;
@@ -256,16 +256,16 @@
     if (self->_destSize.depth != 1 && MTLReportFailureTypeEnabled())
     {
       v38 = objc_opt_class();
-      v41 = NSStringFromClass(v38);
-      MTLReportFailure();
+      v53 = NSStringFromClass(v38);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNScale.mm", 0x18B, @"%@ error: Filter does not support result depth != 1", v39, v40, v41, v42);
     }
 
     if (*(v12 + *MEMORY[0x277CD72F8]) >= 5uLL && MTLReportFailureTypeEnabled())
     {
-      v39 = objc_opt_class();
-      v41 = NSStringFromClass(v39);
+      v43 = objc_opt_class();
+      v53 = NSStringFromClass(v43);
       selfCopy = self;
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNScale.mm", 0x18C, @"%@ %p error: the resampling filter does not support featureChannels > 4.", v44, v45, v46, v47);
     }
 
     if (self->_transformProvider)
@@ -275,32 +275,32 @@
       {
         if (MTLReportFailureTypeEnabled())
         {
-          v40 = objc_opt_class();
-          v41 = NSStringFromClass(v40);
-          MTLReportFailure();
+          v48 = objc_opt_class();
+          v53 = NSStringFromClass(v48);
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNScale.mm", 0x191, @"Error: class %@ does not conform to <MPSImageTransformProvider>", v49, v50, v51, v52);
         }
       }
     }
   }
 
-  v47.receiver = self;
-  v47.super_class = MPSNNScale;
-  selfCopy = [(MPSCNNKernel *)&v47 destinationImageDescriptorForSourceImages:images sourceStates:states paddingMethod:method sourceOffset:0, v41, selfCopy];
+  v59.receiver = self;
+  v59.super_class = MPSNNScale;
+  selfCopy = [(MPSCNNKernel *)&v59 destinationImageDescriptorForSourceImages:images sourceStates:states paddingMethod:method sourceOffset:0, v53, selfCopy];
   *&selfCopy[*MEMORY[0x277CD7340]] = self->_destSize.width;
   *&selfCopy[*MEMORY[0x277CD7338]] = self->_destSize.height;
-  v43 = 0;
-  v44 = 0;
-  v45 = 0;
-  objc_msgSend_setOffset_(self, v14, &v43, v15, v16, v17, v18, v19);
+  v55 = 0;
+  v56 = 0;
+  v57 = 0;
+  objc_msgSend_setOffset_(self, v14, &v55, v15, v16, v17, v18, v19);
   transformProvider = self->_transformProvider;
   if (transformProvider)
   {
     objc_msgSend_transformForSourceImage_handle_(transformProvider, v20, v12, self->_handle, v22, v23, v24, v25);
-    v43 = v27;
-    v44 = v28;
-    v45 = v29;
-    v46 = v30;
-    objc_msgSend_setScaleTransform_(self->_filter, v31, &v43, v32, v33, v34, v35, v36);
+    v55 = v27;
+    v56 = v28;
+    v57 = v29;
+    v58 = v30;
+    objc_msgSend_setScaleTransform_(self->_filter, v31, &v55, v32, v33, v34, v35, v36);
   }
 
   else

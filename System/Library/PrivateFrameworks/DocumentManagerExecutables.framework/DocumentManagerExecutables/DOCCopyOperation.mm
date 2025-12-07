@@ -23,7 +23,7 @@
 
   if (v3)
   {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem, 0x277CC63E8);
     v4.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
@@ -44,8 +44,8 @@
   if (targetFilenamesByItem)
   {
     v4 = targetFilenamesByItem;
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem);
-    lazy protocol witness table accessor for type UICollectionViewCell and conformance NSObject(&lazy protocol witness table cache variable for type FPItem and conformance NSObject, &lazy cache variable for type metadata for FPItem);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem, 0x277CC63E8);
+    lazy protocol witness table accessor for type UICollectionViewCell and conformance NSObject(&lazy protocol witness table cache variable for type FPItem and conformance NSObject, &lazy cache variable for type metadata for FPItem, 0x277CC63E8);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
     v5.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
@@ -65,8 +65,8 @@
   isa = item;
   if (item)
   {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem);
-    lazy protocol witness table accessor for type UICollectionViewCell and conformance NSObject(&lazy protocol witness table cache variable for type FPItem and conformance NSObject, &lazy cache variable for type metadata for FPItem);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem, 0x277CC63E8);
+    lazy protocol witness table accessor for type UICollectionViewCell and conformance NSObject(&lazy protocol witness table cache variable for type FPItem and conformance NSObject, &lazy cache variable for type metadata for FPItem, 0x277CC63E8);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
     selfCopy = self;
     isa = Dictionary._bridgeToObjectiveC()().super.isa;

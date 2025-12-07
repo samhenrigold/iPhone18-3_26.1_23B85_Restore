@@ -872,8 +872,7 @@
   v4 = objc_alloc_init(MEMORY[0x277D7B958]);
   if ([v4 powered])
   {
-    [v4 setUserAutoJoinState:1];
-    v5 = _TVRUIViewControllerLog();
+    v5 = _TVRUIViewControllerLog([v4 setUserAutoJoinState:1]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -885,8 +884,7 @@ LABEL_6:
 
   else
   {
-    [v4 setPowered:1];
-    v5 = _TVRUIViewControllerLog();
+    v5 = _TVRUIViewControllerLog([v4 setPowered:1]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -924,7 +922,7 @@ void __34__TVRMessageView__turnOnWireless___block_invoke(uint64_t a1)
 {
   y = inside.y;
   x = inside.x;
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   turnOnWiFiButton = [(TVRMessageView *)self turnOnWiFiButton];
 
   if (!turnOnWiFiButton)
@@ -939,19 +937,19 @@ void __34__TVRMessageView__turnOnWireless___block_invoke(uint64_t a1)
 
   turnOnWiFiButton3 = [(TVRMessageView *)self turnOnWiFiButton];
   [turnOnWiFiButton3 bounds];
-  v24.x = v10;
-  v24.y = v12;
-  v14 = CGRectContainsPoint(v25, v24);
+  v25.x = v10;
+  v25.y = v12;
+  v14 = CGRectContainsPoint(v26, v25);
 
-  v15 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = _TVRUIViewControllerLog(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     turnOnWiFiButton4 = [(TVRMessageView *)self turnOnWiFiButton];
     LODWORD(buf) = 67109376;
     HIDWORD(buf) = v14;
-    v21 = 1024;
+    v22 = 1024;
     isEnabled = [turnOnWiFiButton4 isEnabled];
-    _os_log_impl(&dword_26CFEB000, v15, OS_LOG_TYPE_DEFAULT, "#debug pointinsidebutton %d %d", &buf, 0xEu);
+    _os_log_impl(&dword_26CFEB000, v16, OS_LOG_TYPE_DEFAULT, "#debug pointinsidebutton %d %d", &buf, 0xEu);
   }
 
   if (!v14)
@@ -964,9 +962,9 @@ void __34__TVRMessageView__turnOnWireless___block_invoke(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __40__TVRMessageView_pointInside_withEvent___block_invoke;
   block[3] = &unk_279D87F18;
-  objc_copyWeak(&v19, &buf);
+  objc_copyWeak(&v20, &buf);
   dispatch_async(MEMORY[0x277D85CD0], block);
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&buf);
   return 1;
 }

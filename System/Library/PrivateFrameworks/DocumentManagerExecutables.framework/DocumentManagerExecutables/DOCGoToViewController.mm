@@ -40,7 +40,7 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for DOCGoToViewController();
+  v5.super_class = type metadata accessor for DOCGoToViewController(0);
   v4 = v5.receiver;
   [(DOCViewController *)&v5 viewDidDisappear:disappearCopy];
   v4[OBJC_IVAR____TtC26DocumentManagerExecutables21DOCGoToViewController_initialSuggestionsToken] = 1;
@@ -49,7 +49,7 @@
 - (void)traitCollectionDidChange:(id)change
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for DOCGoToViewController();
+  v6.super_class = type metadata accessor for DOCGoToViewController(0);
   changeCopy = change;
   v5 = v6.receiver;
   [(DOCGoToViewController *)&v6 traitCollectionDidChange:changeCopy];
@@ -61,7 +61,7 @@
   height = size.height;
   width = size.width;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for DOCGoToViewController();
+  v8.super_class = type metadata accessor for DOCGoToViewController(0);
   swift_unknownObjectRetain();
   v7 = v8.receiver;
   [(DOCGoToViewController *)&v8 viewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];
@@ -97,7 +97,7 @@
   else
   {
 
-    outlined destroy of CharacterSet?(&v3, &_s26DocumentManagerExecutables22DOCGoToFolderCandidate_pSgMd);
+    outlined destroy of CharacterSet?(&v3, &_s26DocumentManagerExecutables22DOCGoToFolderCandidate_pSgMd, "vN\t");
   }
 }
 

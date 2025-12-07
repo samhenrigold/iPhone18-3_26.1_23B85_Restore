@@ -74,7 +74,7 @@
   dispatch_sync(cancelQueue, block);
 }
 
-uint64_t __40__VCPMADVIVisualSearchGatingTask_cancel__block_invoke(uint64_t a1)
+void *__40__VCPMADVIVisualSearchGatingTask_cancel__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 56) cancel];
   atomic_store(1u, (*(a1 + 32) + 48));
@@ -310,14 +310,15 @@ uint64_t __40__VCPMADVIVisualSearchGatingTask_cancel__block_invoke(uint64_t a1)
 
 - (int)run
 {
-  v60[1] = *MEMORY[0x1E69E9840];
+  v62[1] = *MEMORY[0x1E69E9840];
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     LOWORD(buf) = 0;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPMADVIVisualSearchGatingTask running...", &buf, 2u);
   }
 
-  if ([(VCPMADServiceImageAsset *)self->_imageAsset fromGenerativePlayground])
+  fromGenerativePlayground = [(VCPMADServiceImageAsset *)self->_imageAsset fromGenerativePlayground];
+  if (fromGenerativePlayground)
   {
     if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
@@ -326,18 +327,18 @@ uint64_t __40__VCPMADVIVisualSearchGatingTask_cancel__block_invoke(uint64_t a1)
     }
 
     request = self->_request;
-    v4 = objc_alloc(MEMORY[0x1E69AE488]);
-    cachedParseData = [v4 initWithResultItems:MEMORY[0x1E695E0F0] andPayload:0];
-    v60[0] = cachedParseData;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:1];
-    [(MADVIVisualSearchGatingRequest *)request setResults:v6];
+    v6 = objc_alloc(MEMORY[0x1E69AE488]);
+    cachedParseData = [v6 initWithResultItems:MEMORY[0x1E695E0F0] andPayload:0];
+    v62[0] = cachedParseData;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:1];
+    [(MADVIVisualSearchGatingRequest *)request setResults:v8];
 
 LABEL_9:
-    v7 = 0;
+    v9 = 0;
     goto LABEL_30;
   }
 
-  if (VCPPhotosParseCachingEnabled() && [(VCPMADServiceImageAsset *)self->_imageAsset hasCachedParseData])
+  if (VCPPhotosParseCachingEnabled(fromGenerativePlayground, v4) && [(VCPMADServiceImageAsset *)self->_imageAsset hasCachedParseData])
   {
     cachedParseData = [(VCPMADServiceImageAsset *)self->_imageAsset cachedParseData];
     if (!cachedParseData)
@@ -348,12 +349,12 @@ LABEL_9:
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[VS] Cached parse result empty; returning empty result", &buf, 2u);
       }
 
-      v8 = self->_request;
-      v9 = objc_alloc(MEMORY[0x1E69AE488]);
-      cachedParseData = [v9 initWithResultItems:MEMORY[0x1E695E0F0] andPayload:0];
-      v59 = cachedParseData;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
-      [(MADVIVisualSearchGatingRequest *)v8 setResults:v10];
+      v10 = self->_request;
+      v11 = objc_alloc(MEMORY[0x1E69AE488]);
+      cachedParseData = [v11 initWithResultItems:MEMORY[0x1E695E0F0] andPayload:0];
+      v61 = cachedParseData;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v61 count:1];
+      [(MADVIVisualSearchGatingRequest *)v10 setResults:v12];
 
       goto LABEL_9;
     }
@@ -364,77 +365,77 @@ LABEL_9:
     cachedParseData = 0;
   }
 
-  v51 = 0;
-  v11 = [(VCPMADVIVisualSearchGatingTask *)self createQueryContextWithError:&v51];
-  if (v11)
+  v53 = 0;
+  v13 = [(VCPMADVIVisualSearchGatingTask *)self createQueryContextWithError:&v53];
+  if (v13)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v55 = 0x2020000000;
-    v56 = 0;
+    v57 = 0x2020000000;
+    v58 = 0;
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __37__VCPMADVIVisualSearchGatingTask_run__block_invoke;
     aBlock[3] = &unk_1E834BE08;
     aBlock[4] = self;
     aBlock[5] = &buf;
-    v36 = _Block_copy(aBlock);
-    v12 = objc_alloc(MEMORY[0x1E69E0460]);
+    v38 = _Block_copy(aBlock);
+    v14 = objc_alloc(MEMORY[0x1E69E0460]);
     [(VCPMADServiceImageAsset *)self->_imageAsset resolution];
-    v37 = [v12 initWithImageLoader:v36 imageSize:?];
-    v38 = [(VCPMADServiceImageAsset *)self->_imageAsset vcp_annotationWithTypes:7];
-    v13 = VIAllVisualSearchDomains();
+    v39 = [v14 initWithImageLoader:v38 imageSize:?];
+    v40 = [(VCPMADServiceImageAsset *)self->_imageAsset vcp_annotationWithTypes:7];
+    v15 = VIAllVisualSearchDomains();
     domains = [(MADVIVisualSearchGatingRequest *)self->_request domains];
-    v15 = [domains count] == 0;
+    v17 = [domains count] == 0;
 
-    if (!v15)
+    if (!v17)
     {
-      v16 = MEMORY[0x1E695DFD8];
+      v18 = MEMORY[0x1E695DFD8];
       domains2 = [(MADVIVisualSearchGatingRequest *)self->_request domains];
-      v18 = [v16 setWithArray:domains2];
+      v20 = [v18 setWithArray:domains2];
 
-      v13 = v18;
+      v15 = v20;
     }
 
-    v19 = [objc_alloc(MEMORY[0x1E69E04C8]) initWithImage:v37 annotation:v38 normalizedRegionOfInterest:v13 domainsOfInterest:v11 queryContext:{0.0, 0.0, 1.0, 1.0}];
-    v20 = +[VCPMADVIVisualSearchResource sharedResource];
-    v21 = +[VCPMADResourceManager sharedManager];
-    v22 = [v21 activateResource:v20];
+    v21 = [objc_alloc(MEMORY[0x1E69E04C8]) initWithImage:v39 annotation:v40 normalizedRegionOfInterest:v15 domainsOfInterest:v13 queryContext:{0.0, 0.0, 1.0, 1.0}];
+    v22 = +[VCPMADVIVisualSearchResource sharedResource];
+    v23 = +[VCPMADResourceManager sharedManager];
+    v24 = [v23 activateResource:v22];
 
-    v46 = 0;
-    v47 = &v46;
-    v48 = 0x2020000000;
-    v49 = 0;
-    v23 = dispatch_group_create();
+    v48 = 0;
+    v49 = &v48;
+    v50 = 0x2020000000;
+    v51 = 0;
+    v25 = dispatch_group_create();
     cancelQueue = self->_cancelQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __37__VCPMADVIVisualSearchGatingTask_run__block_invoke_363;
     block[3] = &unk_1E83500C8;
     block[4] = self;
-    v44 = &v46;
-    v25 = v23;
-    v40 = v25;
-    v26 = v20;
-    v41 = v26;
-    v27 = v19;
+    v46 = &v48;
+    v27 = v25;
     v42 = v27;
-    v43 = cachedParseData;
+    v28 = v22;
+    v43 = v28;
+    v29 = v21;
+    v44 = v29;
+    v45 = cachedParseData;
     p_buf = &buf;
     dispatch_sync(cancelQueue, block);
-    dispatch_group_wait(v25, 0xFFFFFFFFFFFFFFFFLL);
-    [v22 reset];
+    dispatch_group_wait(v27, 0xFFFFFFFFFFFFFFFFLL);
+    [v24 reset];
     if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
-      v28 = *(v47 + 6);
-      *v52 = 67109120;
-      v53 = v28;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPMADVIVisualSearchGatingTask complete (%d)", v52, 8u);
+      v30 = *(v49 + 6);
+      *v54 = 67109120;
+      v55 = v30;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPMADVIVisualSearchGatingTask complete (%d)", v54, 8u);
     }
 
-    v7 = *(v47 + 6);
+    v9 = *(v49 + 6);
 
-    _Block_object_dispose(&v46, 8);
+    _Block_object_dispose(&v48, 8);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -442,26 +443,26 @@ LABEL_9:
   {
     if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v29 = [v51 description];
+      v31 = [v53 description];
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v29;
+      *(&buf + 4) = v31;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "VCPMADVIVisualSearchGatingTask failed to create visual search query context (%@)", &buf, 0xCu);
     }
 
-    v30 = self->_request;
-    v31 = MEMORY[0x1E696ABC0];
-    v57 = *MEMORY[0x1E696A578];
-    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create visual search query context"];
-    v58 = v32;
-    v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
-    v34 = [v31 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v33];
-    [(MADVIVisualSearchGatingRequest *)v30 setError:v34];
+    v32 = self->_request;
+    v33 = MEMORY[0x1E696ABC0];
+    v59 = *MEMORY[0x1E696A578];
+    v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create visual search query context"];
+    v60 = v34;
+    v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+    v36 = [v33 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v35];
+    [(MADVIVisualSearchGatingRequest *)v32 setError:v36];
 
-    v7 = 0;
+    v9 = 0;
   }
 
 LABEL_30:
-  return v7;
+  return v9;
 }
 
 id __37__VCPMADVIVisualSearchGatingTask_run__block_invoke(uint64_t a1)
@@ -492,7 +493,7 @@ id __37__VCPMADVIVisualSearchGatingTask_run__block_invoke(uint64_t a1)
 
 void __37__VCPMADVIVisualSearchGatingTask_run__block_invoke_363(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = atomic_load((*(a1 + 32) + 48));
   if (v2)
   {
@@ -502,78 +503,78 @@ void __37__VCPMADVIVisualSearchGatingTask_run__block_invoke_363(uint64_t a1)
   else
   {
     dispatch_group_enter(*(a1 + 40));
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__41;
-    v25 = __Block_byref_object_dispose__41;
-    v26 = objc_alloc_init(VCPTimeMeasurement);
-    [v22[5] start];
-    v3 = VCPSignPostLog();
-    v4 = os_signpost_id_generate(v3);
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x3032000000;
+    v26 = __Block_byref_object_copy__41;
+    v27 = __Block_byref_object_dispose__41;
+    v28 = objc_alloc_init(VCPTimeMeasurement);
+    v3 = objc_msgSend_start(v24[5]);
+    v4 = VCPSignPostLog(v3);
+    v5 = os_signpost_id_generate(v4);
 
-    v5 = VCPSignPostLog();
-    v6 = v5;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+    v7 = VCPSignPostLog(v6);
+    v8 = v7;
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
     {
-      v7 = *(*(a1 + 32) + 24);
+      v9 = *(*(a1 + 32) + 24);
       *buf = 138412290;
-      v28 = v7;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "VIService_VisualSearchGating", "%@", buf, 0xCu);
+      v30 = v9;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VIService_VisualSearchGating", "%@", buf, 0xCu);
     }
 
-    v8 = [*(a1 + 48) service];
-    v9 = *(a1 + 56);
-    v10 = *(a1 + 64);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __37__VCPMADVIVisualSearchGatingTask_run__block_invoke_365;
-    v15[3] = &unk_1E834BE58;
-    v19 = v4;
-    v20 = 0;
-    v11 = *(a1 + 40);
-    v15[4] = *(a1 + 32);
-    v17 = &v21;
-    v18 = vextq_s8(*(a1 + 72), *(a1 + 72), 8uLL);
-    v16 = v11;
-    v12 = [v8 parseWithVisualQuery:v9 cachedResults:v10 completion:v15];
-    v13 = *(a1 + 32);
-    v14 = *(v13 + 56);
-    *(v13 + 56) = v12;
+    v10 = [*(a1 + 48) service];
+    v11 = *(a1 + 56);
+    v12 = *(a1 + 64);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __37__VCPMADVIVisualSearchGatingTask_run__block_invoke_365;
+    v17[3] = &unk_1E834BE58;
+    v21 = v5;
+    v22 = 0;
+    v13 = *(a1 + 40);
+    v17[4] = *(a1 + 32);
+    v19 = &v23;
+    v20 = vextq_s8(*(a1 + 72), *(a1 + 72), 8uLL);
+    v18 = v13;
+    v14 = [v10 parseWithVisualQuery:v11 cachedResults:v12 completion:v17];
+    v15 = *(a1 + 32);
+    v16 = *(v15 + 56);
+    *(v15 + 56) = v14;
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v23, 8);
   }
 }
 
 void __37__VCPMADVIVisualSearchGatingTask_run__block_invoke_365(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = VCPSignPostLog();
+  v10 = VCPSignPostLog(v9);
   v11 = v10;
   v12 = *(a1 + 72);
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     v13 = *(*(a1 + 32) + 24);
-    v20 = 138412290;
-    v21 = v13;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_END, v12, "VIService_VisualSearchGating", "%@", &v20, 0xCu);
+    v23 = 138412290;
+    v24 = v13;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_END, v12, "VIService_VisualSearchGating", "%@", &v23, 0xCu);
   }
 
   if (*(a1 + 80))
   {
-    mach_absolute_time();
-    VCPPerformance_LogMeasurement();
+    v14 = mach_absolute_time();
+    VCPPerformance_LogMeasurement("VIService_VisualSearchGating", v14 - *(a1 + 80));
   }
 
   [*(*(*(a1 + 48) + 8) + 40) stop];
-  v14 = *(a1 + 32);
+  v15 = *(a1 + 32);
   if (v9)
   {
-    v15 = atomic_load(v14 + 48);
-    if (v15)
+    v16 = atomic_load(v15 + 48);
+    if (v16)
     {
       *(*(*(a1 + 64) + 8) + 24) = -128;
     }
@@ -586,25 +587,26 @@ void __37__VCPMADVIVisualSearchGatingTask_run__block_invoke_365(uint64_t a1, voi
 
   else
   {
-    [v14 storeResults:v7];
-    v16 = [*(*(a1 + 32) + 8) results];
-    v17 = [v16 firstObject];
+    [v15 storeResults:v7];
+    v17 = [*(*(a1 + 32) + 8) results];
+    v18 = [v17 firstObject];
     [*(*(*(a1 + 48) + 8) + 40) elapsedTimeSeconds];
-    [v17 setExecutionNanoseconds:(v18 * 1000000000.0)];
+    [v18 setExecutionNanoseconds:(v19 * 1000000000.0)];
 
     if (*(*(*(a1 + 56) + 8) + 24) == 1)
     {
-      v19 = [*(*(a1 + 32) + 16) hasValidSceneProcessing];
+      v20 = [*(*(a1 + 32) + 16) hasValidSceneProcessing];
+      v22 = v20;
     }
 
     else
     {
-      v19 = 0;
+      v22 = 0;
     }
 
-    if (VCPPhotosParseCachingEnabled() && v19 & 1 | (([*(*(a1 + 32) + 16) hasCachedParseData] & 1) == 0))
+    if (VCPPhotosParseCachingEnabled(v20, v21) && v22 & 1 | (([*(*(a1 + 32) + 16) hasCachedParseData] & 1) == 0))
     {
-      [*(*(a1 + 32) + 16) setCachedParseData:v8 overwriteExisting:v19];
+      [*(*(a1 + 32) + 16) setCachedParseData:v8 overwriteExisting:v22];
     }
   }
 

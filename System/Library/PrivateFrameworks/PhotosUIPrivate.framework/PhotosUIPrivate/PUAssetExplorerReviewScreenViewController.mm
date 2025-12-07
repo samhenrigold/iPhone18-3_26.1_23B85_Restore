@@ -605,36 +605,36 @@ void __103__PUAssetExplorerReviewScreenViewController_assetExplorerReviewScreenA
   selectionManager = [_actionManager selectionManager];
   selectionCountLimit = [(PUAssetExplorerReviewScreenViewController *)self selectionCountLimit];
   v10 = [selectionManager isSelectedUUID:uuid];
-  v39 = selectionCountLimit;
+  v45 = selectionCountLimit;
   if ((v10 & 1) == 0 && selectionCountLimit && ([selectionManager selectedUUIDs], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "count"), v13 = objc_msgSend(selectionCountLimit, "unsignedIntValue"), v11, v12 >= v13))
   {
     v26 = PXLocalizedString();
     v27 = PXLocalizedString();
     unsignedIntValue = [selectionCountLimit unsignedIntValue];
-    v28 = PULocalizedStringWithValidatedFormat(v27, @"%lu");
+    v35 = PULocalizedStringWithValidatedFormat(v27, @"%lu", v29, v30, v31, v32, v33, v34, unsignedIntValue);
 
-    v29 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v26 message:v28 preferredStyle:{1, unsignedIntValue}];
-    v30 = MEMORY[0x1E69DC648];
-    v31 = PXLocalizedString();
-    v32 = [v30 actionWithTitle:v31 style:1 handler:0];
-    [v29 addAction:v32];
+    v36 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v26 message:v35 preferredStyle:1];
+    v37 = MEMORY[0x1E69DC648];
+    v38 = PXLocalizedString();
+    v39 = [v37 actionWithTitle:v38 style:1 handler:0];
+    [v36 addAction:v39];
 
-    [(PUAssetExplorerReviewScreenViewController *)self presentViewController:v29 animated:1 completion:0];
+    [(PUAssetExplorerReviewScreenViewController *)self presentViewController:v36 animated:1 completion:0];
   }
 
   else
   {
-    v37 = _actionManager;
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __107__PUAssetExplorerReviewScreenViewController_assetExplorerReviewScreenActionManager_didPressSelectForAsset___block_invoke;
-    v40[3] = &unk_1E7B75728;
-    v42 = v10 ^ 1;
-    v38 = uuid;
+    v43 = _actionManager;
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __107__PUAssetExplorerReviewScreenViewController_assetExplorerReviewScreenActionManager_didPressSelectForAsset___block_invoke;
+    v46[3] = &unk_1E7B75728;
+    v48 = v10 ^ 1;
+    v44 = uuid;
     v14 = uuid;
-    v41 = v14;
-    v36 = selectionManager;
-    [selectionManager performChanges:v40];
+    v47 = v14;
+    v42 = selectionManager;
+    [selectionManager performChanges:v46];
     v15 = @"PUAssetExplorerAnalyticsEventReselectPhoto";
     if (v10)
     {
@@ -663,18 +663,18 @@ void __103__PUAssetExplorerReviewScreenViewController_assetExplorerReviewScreenA
 
       else if (([initialSelectedAssetUUIDs containsObject:v14] & 1) == 0)
       {
-        v33 = [(PUAssetExplorerReviewScreenViewController *)self _substituteAssetForUUID:v14];
-        v34 = [(PUAssetExplorerReviewScreenViewController *)self _reviewAssetRequestForAssetUUID:v14];
-        if (!(v33 | v34))
+        v40 = [(PUAssetExplorerReviewScreenViewController *)self _substituteAssetForUUID:v14];
+        v41 = [(PUAssetExplorerReviewScreenViewController *)self _reviewAssetRequestForAssetUUID:v14];
+        if (!(v40 | v41))
         {
           [(PUAssetExplorerReviewScreenViewController *)self _requestReviewAssetForAsset:v20];
         }
       }
     }
 
-    _actionManager = v37;
-    uuid = v38;
-    selectionManager = v36;
+    _actionManager = v43;
+    uuid = v44;
+    selectionManager = v42;
   }
 }
 

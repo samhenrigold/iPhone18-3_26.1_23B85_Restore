@@ -18,22 +18,22 @@
 
 - (void)setTraceMode:(int)mode
 {
-  v8.receiver = self;
-  v8.super_class = DYGLGuestAppClient;
-  [(DYGLGuestAppClient *)&v8 setTraceMode:?];
-  v5 = choose_dispatch_table();
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = __35__DYGLGuestAppClient_setTraceMode___block_invoke;
-  v6[3] = &unk_20CF78;
-  v7 = ((mode & 0xFFFFFFFE) == 4) & gCheckGLErrors;
-  v6[4] = self;
-  v6[5] = v5;
-  iter_contexts(v6);
+  v9.receiver = self;
+  v9.super_class = DYGLGuestAppClient;
+  v5 = [(DYGLGuestAppClient *)&v9 setTraceMode:?];
+  v6 = choose_dispatch_table(v5);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = __35__DYGLGuestAppClient_setTraceMode___block_invoke;
+  v7[3] = &unk_20CF78;
+  v8 = ((mode & 0xFFFFFFFE) == 4) & gCheckGLErrors;
+  v7[4] = self;
+  v7[5] = v6;
+  iter_contexts(v7);
   handle_trace_mode_transition_platform();
 }
 
-void __35__DYGLGuestAppClient_setTraceMode___block_invoke(uint64_t a1, uint64_t a2)
+void __35__DYGLGuestAppClient_setTraceMode___block_invoke(uint64_t a1, void **a2, __n128 a3)
 {
   if (*(a1 + 48) == 1)
   {
@@ -47,9 +47,9 @@ void __35__DYGLGuestAppClient_setTraceMode___block_invoke(uint64_t a1, uint64_t 
 
   install_dispatch_table(*a2, *(a1 + 40));
   *(a2 + 4837) = [*(a1 + 32) traceMode] == 5;
-  std::__hash_table<std::__hash_value_type<void const*,std::string>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::string>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::string>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::string>>>::clear(a2 + 3480);
+  std::__hash_table<std::__hash_value_type<void const*,std::string>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::string>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::string>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::string>>>::clear((a2 + 435));
 
-  std::__hash_table<std::__hash_value_type<void const*,std::string>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::string>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::string>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::string>>>::clear(a2 + 3520);
+  std::__hash_table<std::__hash_value_type<void const*,std::string>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::string>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::string>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::string>>>::clear((a2 + 440));
 }
 
 - (id)_copyContextsInfo
@@ -92,7 +92,7 @@ void __35__DYGLGuestAppClient_setTraceMode___block_invoke(uint64_t a1, uint64_t 
     {
       switch(kind)
       {
-        case 1794:
+        case 0x702:
           [(DYGLGuestAppClient *)self lockGraphicsAndWaitForThreads:1];
           v19 = OBJC_IVAR___DYGuestAppClient__overrideFlags;
           v20 = *&self->DYGuestAppClient_opaque[OBJC_IVAR___DYGuestAppClient__overrideFlags] & 0x100;
@@ -132,12 +132,12 @@ void __35__DYGLGuestAppClient_setTraceMode___block_invoke(uint64_t a1, uint64_t 
           *&self->DYGuestAppClient_opaque[v19] = v38;
           [(DYGLGuestAppClient *)self unlockGraphics];
           break;
-        case 1793:
+        case 0x701:
           [(DYGLGuestAppClient *)self lockGraphicsAndWaitForThreads:1];
           v23 = [objc_msgSend(message attributeForKey:{kDYTraceModeKey), "unsignedIntValue"}];
           if (v23 == 5)
           {
-            v30 = dy_abort();
+            v30 = dy_abort("capture trace mode cannot be set directly; create and start a capture session");
             [(DYGLGuestAppClient *)v30 sendContextInfoUpdate];
           }
 
@@ -182,7 +182,7 @@ void __35__DYGLGuestAppClient_setTraceMode___block_invoke(uint64_t a1, uint64_t 
           }
 
           break;
-        case 1542:
+        case 0x606:
           _copyContextsInfo = [(DYGLGuestAppClient *)self _copyContextsInfo];
           [(DYGLGuestAppClient *)self sendMessage:[DYTransportMessage messageWithKind:1542 objectPayload:?], message];
 
@@ -207,7 +207,7 @@ void __35__DYGLGuestAppClient_setTraceMode___block_invoke(uint64_t a1, uint64_t 
       {
         attributes = [message attributes];
 
-        HarvestResourceObject(attributes);
+        HarvestResourceObject(attributes, message);
       }
 
       else
@@ -224,7 +224,7 @@ void __35__DYGLGuestAppClient_setTraceMode___block_invoke(uint64_t a1, uint64_t 
       if (kind == 513)
       {
 
-        breakpoint_continue();
+        breakpoint_continue(kind);
         return;
       }
 

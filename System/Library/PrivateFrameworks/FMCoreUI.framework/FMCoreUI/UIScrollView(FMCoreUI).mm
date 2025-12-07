@@ -1,8 +1,8 @@
 @interface UIScrollView(FMCoreUI)
 - (BOOL)isContentLargerThanBounds;
-- (uint64_t)centerContentIfNecessary;
 - (uint64_t)centerContentWithOffset:()FMCoreUI animated:;
 - (uint64_t)scrollSubviewToVisible:()FMCoreUI animated:;
+- (void)centerContentIfNecessary;
 @end
 
 @implementation UIScrollView(FMCoreUI)
@@ -17,7 +17,7 @@
   return v7 > v5 || v6 > v3;
 }
 
-- (uint64_t)centerContentIfNecessary
+- (void)centerContentIfNecessary
 {
   result = [self isContentLargerThanBounds];
   if ((result & 1) == 0)

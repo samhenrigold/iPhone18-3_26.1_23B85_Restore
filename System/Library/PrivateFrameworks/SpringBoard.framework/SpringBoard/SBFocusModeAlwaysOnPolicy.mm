@@ -97,20 +97,21 @@
 - (void)_setDisableAlwaysOn:(BOOL)on dndState:(id)state
 {
   onCopy = on;
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   stateCopy = state;
+  v7 = stateCopy;
   if (self->_disableAlwaysOn != onCopy)
   {
     self->_disableAlwaysOn = onCopy;
-    v7 = SBLogBacklight();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = SBLogBacklight(stateCopy);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (onCopy)
     {
-      if (v8)
+      if (v9)
       {
-        v9 = 138412290;
-        v10 = stateCopy;
-        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Acquiring focus-mode always-on-disable assertion for state %@", &v9, 0xCu);
+        v10 = 138412290;
+        v11 = v7;
+        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Acquiring focus-mode always-on-disable assertion for state %@", &v10, 0xCu);
       }
 
       [(BLSAssertion *)self->_alwaysOnDisabledAssertion acquireWithObserver:0];
@@ -118,11 +119,11 @@
 
     else
     {
-      if (v8)
+      if (v9)
       {
-        v9 = 138412290;
-        v10 = stateCopy;
-        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Releasing focus-mode always-on-disable assertion for state %@", &v9, 0xCu);
+        v10 = 138412290;
+        v11 = v7;
+        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Releasing focus-mode always-on-disable assertion for state %@", &v10, 0xCu);
       }
 
       [(BLSAssertion *)self->_alwaysOnDisabledAssertion cancel];
@@ -155,7 +156,7 @@
 
     alwaysOnDisablingFocusSemanticTypes = [(SBAlwaysOnPolicySettings *)self->_policySettings alwaysOnDisablingFocusSemanticTypes];
     v10 = [MEMORY[0x277CCABB0] numberWithInteger:semanticType];
-    v11 = [alwaysOnDisablingFocusSemanticTypes containsObject:v10];
+    v11 = objc_msgSend_containsObject_(alwaysOnDisablingFocusSemanticTypes);
   }
 
   return v11;

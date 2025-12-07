@@ -127,169 +127,160 @@
 
 - (uint64_t)sourceFeedID
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the %s property", "sourceFeedID"];
+    v1 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the %s property", "sourceFeedID"];
     *buf = 136315906;
-    v4 = "[NTPBFeedPersonalizingItem(FCAdditions) sourceFeedID]";
-    v5 = 2080;
-    v6 = "NTPBFeedPersonalizingItem+FCAdditions.m";
-    v7 = 1024;
-    v8 = 85;
-    v9 = 2114;
-    v10 = v2;
+    v3 = "[NTPBFeedPersonalizingItem(FCAdditions) sourceFeedID]";
+    v4 = 2080;
+    v5 = "NTPBFeedPersonalizingItem+FCAdditions.m";
+    v6 = 1024;
+    v7 = 85;
+    v8 = 2114;
+    v9 = v1;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v0 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (double)globalUserFeedback
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the %s property", "globalUserFeedback"];
+    v1 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the %s property", "globalUserFeedback"];
     *buf = 136315906;
-    v4 = "[NTPBFeedPersonalizingItem(FCAdditions) globalUserFeedback]";
-    v5 = 2080;
-    v6 = "NTPBFeedPersonalizingItem+FCAdditions.m";
-    v7 = 1024;
-    v8 = 86;
-    v9 = 2114;
-    v10 = v2;
+    v3 = "[NTPBFeedPersonalizingItem(FCAdditions) globalUserFeedback]";
+    v4 = 2080;
+    v5 = "NTPBFeedPersonalizingItem+FCAdditions.m";
+    v6 = 1024;
+    v7 = 86;
+    v8 = 2114;
+    v9 = v1;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v0 = *MEMORY[0x1E69E9840];
   return 0.0;
 }
 
 - (uint64_t)hasGlobalUserFeedback
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the %s property", "hasGlobalUserFeedback"];
+    v1 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the %s property", "hasGlobalUserFeedback"];
     *buf = 136315906;
-    v4 = "[NTPBFeedPersonalizingItem(FCAdditions) hasGlobalUserFeedback]";
-    v5 = 2080;
-    v6 = "NTPBFeedPersonalizingItem+FCAdditions.m";
-    v7 = 1024;
-    v8 = 87;
-    v9 = 2114;
-    v10 = v2;
+    v3 = "[NTPBFeedPersonalizingItem(FCAdditions) hasGlobalUserFeedback]";
+    v4 = 2080;
+    v5 = "NTPBFeedPersonalizingItem+FCAdditions.m";
+    v6 = 1024;
+    v7 = 87;
+    v8 = 2114;
+    v9 = v1;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v0 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (uint64_t)hasThumbnail
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the %s property", "hasThumbnail"];
+    v1 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the %s property", "hasThumbnail"];
     *buf = 136315906;
-    v4 = "[NTPBFeedPersonalizingItem(FCAdditions) hasThumbnail]";
-    v5 = 2080;
-    v6 = "NTPBFeedPersonalizingItem+FCAdditions.m";
-    v7 = 1024;
-    v8 = 88;
-    v9 = 2114;
-    v10 = v2;
+    v3 = "[NTPBFeedPersonalizingItem(FCAdditions) hasThumbnail]";
+    v4 = 2080;
+    v5 = "NTPBFeedPersonalizingItem+FCAdditions.m";
+    v6 = 1024;
+    v7 = 88;
+    v8 = 2114;
+    v9 = v1;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v0 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (uint64_t)isHiddenFromAutoFavorites
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the %s property", "isHiddenFromAutoFavorites"];
+    v1 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the %s property", "isHiddenFromAutoFavorites"];
     *buf = 136315906;
-    v4 = "[NTPBFeedPersonalizingItem(FCAdditions) isHiddenFromAutoFavorites]";
-    v5 = 2080;
-    v6 = "NTPBFeedPersonalizingItem+FCAdditions.m";
-    v7 = 1024;
-    v8 = 89;
-    v9 = 2114;
-    v10 = v2;
+    v3 = "[NTPBFeedPersonalizingItem(FCAdditions) isHiddenFromAutoFavorites]";
+    v4 = 2080;
+    v5 = "NTPBFeedPersonalizingItem+FCAdditions.m";
+    v6 = 1024;
+    v7 = 89;
+    v8 = 2114;
+    v9 = v1;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v0 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (uint64_t)halfLife
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the %s property", "halfLife"];
+    v1 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the %s property", "halfLife"];
     *buf = 136315906;
-    v4 = "[NTPBFeedPersonalizingItem(FCAdditions) halfLife]";
-    v5 = 2080;
-    v6 = "NTPBFeedPersonalizingItem+FCAdditions.m";
-    v7 = 1024;
-    v8 = 90;
-    v9 = 2114;
-    v10 = v2;
+    v3 = "[NTPBFeedPersonalizingItem(FCAdditions) halfLife]";
+    v4 = 2080;
+    v5 = "NTPBFeedPersonalizingItem+FCAdditions.m";
+    v6 = 1024;
+    v7 = 90;
+    v8 = 2114;
+    v9 = v1;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v0 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (uint64_t)scoreProfile
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the %s property", "scoreProfile"];
+    v1 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the %s property", "scoreProfile"];
     *buf = 136315906;
-    v4 = "[NTPBFeedPersonalizingItem(FCAdditions) scoreProfile]";
-    v5 = 2080;
-    v6 = "NTPBFeedPersonalizingItem+FCAdditions.m";
-    v7 = 1024;
-    v8 = 92;
-    v9 = 2114;
-    v10 = v2;
+    v3 = "[NTPBFeedPersonalizingItem(FCAdditions) scoreProfile]";
+    v4 = 2080;
+    v5 = "NTPBFeedPersonalizingItem+FCAdditions.m";
+    v6 = 1024;
+    v7 = 92;
+    v8 = 2114;
+    v9 = v1;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v0 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (void)setScoreProfile:()FCAdditions
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v1 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the scoreProfile property"];
-    v2 = 136315906;
-    v3 = "[NTPBFeedPersonalizingItem(FCAdditions) setScoreProfile:]";
-    v4 = 2080;
-    v5 = "NTPBFeedPersonalizingItem+FCAdditions.m";
-    v6 = 1024;
-    v7 = 95;
-    v8 = 2114;
-    v9 = v1;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v2, 0x26u);
+    v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NTPBFeedPersonalizingItem does not support the scoreProfile property"];
+    v1 = 136315906;
+    v2 = "[NTPBFeedPersonalizingItem(FCAdditions) setScoreProfile:]";
+    v3 = 2080;
+    v4 = "NTPBFeedPersonalizingItem+FCAdditions.m";
+    v5 = 1024;
+    v6 = 95;
+    v7 = 2114;
+    v8 = v0;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v1, 0x26u);
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 @end

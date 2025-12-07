@@ -9,30 +9,26 @@
 
 - (NSString)eventName
 {
-  v2 = *(self + OBJC_IVAR___BMBasePropertyConfiguration_eventName);
-  v3 = *(self + OBJC_IVAR___BMBasePropertyConfiguration_eventName + 8);
 
-  v4 = sub_31300();
+  v2 = sub_31300();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)identifier
 {
   if (*(self + OBJC_IVAR___BMBasePropertyConfiguration_identifier + 8))
   {
-    v2 = *(self + OBJC_IVAR___BMBasePropertyConfiguration_identifier);
-    v3 = *(self + OBJC_IVAR___BMBasePropertyConfiguration_identifier + 8);
 
-    v4 = sub_31300();
+    v2 = sub_31300();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (BOOL)isEqual:(id)equal
